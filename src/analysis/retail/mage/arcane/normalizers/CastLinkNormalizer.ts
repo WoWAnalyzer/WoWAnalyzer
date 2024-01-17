@@ -13,11 +13,13 @@ import {
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 
-const CAST_BUFFER_MS = 500;
+const CAST_BUFFER_MS = 75;
 
 export const SPELL_CAST = 'SpellCast';
 export const SPELL_DAMAGE = 'SpellDamage';
 export const DEBUFF_APPLY = 'DebuffApply';
+export const DEBUFF_REMOVE = 'DebuffRemove';
+export const SPARK_REMOVED = 'SparkRemoved';
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -75,6 +77,30 @@ const EVENT_LINKS: EventLink[] = [
     maximumLinks: 1,
     anyTarget: true,
     forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    reverseLinkRelation: SPELL_CAST,
+    linkingEventId: TALENTS.TOUCH_OF_THE_MAGI_TALENT.id,
+    linkingEventType: EventType.Cast,
+    linkRelation: DEBUFF_REMOVE,
+    referencedEventId: SPELLS.TOUCH_OF_THE_MAGI_DEBUFF.id,
+    referencedEventType: EventType.RemoveDebuff,
+    maximumLinks: 1,
+    anyTarget: true,
+    forwardBufferMs: 14000,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    reverseLinkRelation: SPELL_CAST,
+    linkingEventId: TALENTS.TOUCH_OF_THE_MAGI_TALENT.id,
+    linkingEventType: EventType.Cast,
+    linkRelation: SPARK_REMOVED,
+    referencedEventId: TALENTS.RADIANT_SPARK_TALENT.id,
+    referencedEventType: EventType.RemoveDebuff,
+    maximumLinks: 1,
+    anyTarget: true,
+    forwardBufferMs: 15000,
     backwardBufferMs: CAST_BUFFER_MS,
   },
 ];

@@ -1,13 +1,20 @@
-import { formatPercentage } from 'common/format';
+import { formatPercentage, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import TALENTS from 'common/TALENTS/mage';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, ApplyDebuffEvent, GetRelatedEvent } from 'parser/core/Events';
+import Events, {
+  CastEvent,
+  ApplyDebuffEvent,
+  RemoveDebuffEvent,
+  GetRelatedEvent,
+} from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import ArcaneChargeTracker from '../core/ArcaneChargeTracker';
 import Enemies from 'parser/shared/modules/Enemies';
 import { highlightInefficientCast } from 'interface/report/Results/Timeline/Casts';
+
+const TOUCH_OF_THE_MAGI_DURATION_SEC = 12;
 
 class TouchOfTheMagi extends Analyzer {
   static dependencies = {
@@ -23,8 +30,10 @@ class TouchOfTheMagi extends Analyzer {
   touch: {
     cast: CastEvent;
     charges: number;
-    debuff: ApplyDebuffEvent | undefined;
+    debuffApply: ApplyDebuffEvent | undefined;
+    debuffRemove: RemoveDebuffEvent | undefined;
     duringSpark: boolean;
+    sparkRemoved: number | undefined;
   }[] = [];
 
   constructor(options: Options) {
@@ -37,13 +46,18 @@ class TouchOfTheMagi extends Analyzer {
   }
 
   onTouch(event: CastEvent) {
-    const debuff: ApplyDebuffEvent | undefined = GetRelatedEvent(event, 'DebuffApply');
-    const enemy = debuff && this.enemies.getEntity(debuff);
+    const debuffApply: ApplyDebuffEvent | undefined = GetRelatedEvent(event, 'DebuffApply');
+    const debuffRemove: RemoveDebuffEvent | undefined = GetRelatedEvent(event, 'DebuffRemove');
+    const enemy = debuffApply && this.enemies.getEntity(debuffApply);
+    const sparkRemoved: RemoveDebuffEvent | undefined = GetRelatedEvent(event, 'SparkRemoved');
+
     this.touch.push({
       cast: event,
       charges: this.chargeTracker.charges,
-      debuff: debuff,
+      debuffApply: debuffApply,
+      debuffRemove: debuffRemove,
       duringSpark: enemy && enemy.hasBuff(TALENTS.RADIANT_SPARK_TALENT.id) ? true : false,
+      sparkRemoved: sparkRemoved?.timestamp || undefined,
     });
   }
 
@@ -71,6 +85,19 @@ class TouchOfTheMagi extends Analyzer {
     return badCasts;
   };
 
+  sparkOverlapMS = () => {
+    let activeTime = 0;
+    this.touch.forEach((t) => {
+      if (!t.debuffRemove || !t.sparkRemoved) {
+        return;
+      }
+      const start = t.cast.timestamp;
+      const end = Math.min(t.debuffRemove.timestamp, t.sparkRemoved);
+      activeTime += end - start;
+    });
+    return activeTime;
+  };
+
   get hasCharges() {
     return this.touch.filter((t) => t.charges !== 0);
   }
@@ -83,6 +110,14 @@ class TouchOfTheMagi extends Analyzer {
     return 1 - this.badCasts() / this.touch.length;
   }
 
+  get averageOverlapSeconds() {
+    return this.sparkOverlapMS() / this.touch.length / 1000;
+  }
+
+  get averageOverlapPercent() {
+    return this.averageOverlapSeconds / TOUCH_OF_THE_MAGI_DURATION_SEC;
+  }
+
   get touchOfTheMagiUtilization() {
     return {
       actual: this.utilizationPercent,
@@ -90,6 +125,18 @@ class TouchOfTheMagi extends Analyzer {
         minor: 0.95,
         average: 0.9,
         major: 0.8,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
+
+  get touchOfTheMagiOverlap() {
+    return {
+      actual: this.averageOverlapPercent,
+      isLessThan: {
+        minor: 0.9,
+        average: 0.8,
+        major: 0.7,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
@@ -112,6 +159,30 @@ class TouchOfTheMagi extends Analyzer {
       )
         .icon(TALENTS.TOUCH_OF_THE_MAGI_TALENT.icon)
         .actual(`${formatPercentage(actual, 0)}% utilization`)
+        .recommended(`${formatPercentage(recommended)}% is recommended`),
+    );
+    when(this.touchOfTheMagiOverlap).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          On average, your <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} /> debuff overlapped
+          with <SpellLink spell={TALENTS.RADIANT_SPARK_TALENT} />{' '}
+          {formatNumber(this.averageOverlapSeconds)}s ({formatPercentage(actual)}%) per cast of{' '}
+          <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} />. Because{' '}
+          <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} /> deals a percentage of the damage
+          done throughout it's duration, you want to stack it with{' '}
+          <SpellLink spell={TALENTS.RADIANT_SPARK_TALENT} /> so your spells deal more damage and
+          thus make <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} /> deal more damage as well.
+          Typically you will do this by casting <SpellLink spell={TALENTS.RADIANT_SPARK_TALENT} />{' '}
+          {'>'} <SpellLink spell={TALENTS.ARCANE_SURGE_TALENT} /> {'>'}{' '}
+          <SpellLink spell={SPELLS.ARCANE_BARRAGE} /> {'>'}{' '}
+          <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} /> during your major burn phase, or{' '}
+          <SpellLink spell={TALENTS.RADIANT_SPARK_TALENT} /> {'>'}{' '}
+          <SpellLink spell={SPELLS.ARCANE_BARRAGE} /> {'>'}{' '}
+          <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} /> for your mini burn.
+        </>,
+      )
+        .icon(TALENTS.TOUCH_OF_THE_MAGI_TALENT.icon)
+        .actual(`${formatPercentage(actual, 0)}% overlap`)
         .recommended(`${formatPercentage(recommended)}% is recommended`),
     );
   }

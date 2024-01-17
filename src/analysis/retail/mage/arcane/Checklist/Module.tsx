@@ -81,6 +81,7 @@ class Checklist extends BaseChecklist {
           arcaneSurgeManaUtilization: this.arcaneSurgeMana.arcaneSurgeManaUtilization,
           ruleOfThreesUsage: this.ruleOfThrees.ruleOfThreesUtilizationThresholds,
           touchMagiBadUses: this.touchOfTheMagi.touchOfTheMagiUtilization,
+          touchMagiOverlap: this.touchOfTheMagi.touchOfTheMagiOverlap,
           timeAnomalyManaUtilization: this.timeAnomaly.timeAnomalyManaThresholds,
           arcaneMissilesUtilization: this.arcaneMissiles.arcaneMissileUsageThresholds,
           manaOnKill: this.manaValues.suggestionThresholds,

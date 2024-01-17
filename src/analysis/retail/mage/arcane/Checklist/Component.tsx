@@ -159,6 +159,14 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
               thresholds={thresholds.touchMagiBadUses}
             />
           )}
+        {combatant.hasTalent(TALENTS.TOUCH_OF_THE_MAGI_TALENT) &&
+          combatant.hasTalent(TALENTS.RADIANT_SPARK_TALENT) && (
+            <Requirement
+              name="Touch of the Magi Spark Overlap"
+              tooltip="Because Touch of the Magi deals a percentage of your damage done during the debuff's duration, you want Touch of the Magi to overlap with Radiant Spark as much as possible since Radiant Spark will cause your spells to do more damage, which will therefore make Touch of the Magi deal more damage as well."
+              thresholds={thresholds.touchMagiOverlap}
+            />
+          )}
         {combatant.hasTalent(TALENTS.RULE_OF_THREES_TALENT) && (
           <Requirement
             name="Rule of Threes Buff Usage"
