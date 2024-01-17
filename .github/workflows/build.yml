@@ -112,7 +112,7 @@ jobs:
 
   test-interface:
     needs: [prepare]
-    # This should actually include anything but parser and integration tests
+    # This should actually include anything but parser tests
     name: 'Interface tests'
     runs-on: ubuntu-latest
     steps:
@@ -146,24 +146,6 @@ jobs:
           key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
           required: true
       - run: yarn test:parser --runInBand
-
-  test-integration:
-    needs: [prepare]
-    name: 'Integration tests'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20.x'
-      - name: Restore "node_modules" from cache
-        uses: martijnhols/actions-cache/restore@v3
-        with:
-          path: |
-            node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
-          required: true
-      - run: yarn test:integration --runInBand
 
   build:
     needs: [prepare]
@@ -308,7 +290,7 @@ jobs:
         run: yarn lingui compile
 
   docker-image:
-    needs: [typecheck, linting, prettier, test-interface, test-parser, test-integration, build]
+    needs: [typecheck, linting, prettier, test-interface, test-parser, build]
     name: 'Publish Docker image'
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.repository == 'wowanalyzer/wowanalyzer'
