@@ -62,7 +62,8 @@ class Tier30 extends Analyzer {
       event.ability.guid === SPELLS.MELEE.id
         ? SPELLS.MELEE
         : this.abilities.getAbility(event.ability.guid);
-    if (!ability) {
+    if (!ability || event.ability.guid === SPELLS.PRIMORDIAL_WAVE_DAMAGE.id) {
+      // primordial wave is elemental damage but not increased by the tier set
       return;
     }
     if (this.selectedCombatant.hasBuff(SPELLS.VOLCANIC_STRENGTH_TIER_BUFF.id)) {
