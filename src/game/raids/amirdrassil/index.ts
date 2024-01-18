@@ -8,6 +8,7 @@ import Nymue from 'game/raids/amirdrassil/Nymue';
 import Smolderon from 'game/raids/amirdrassil/Smolderon';
 import Tindral from 'game/raids/amirdrassil/Tindral';
 import Fyrakk from 'game/raids/amirdrassil/Fyrakk';
+import type { Raid } from 'game/raids';
 
 export default {
   name: "Amirdrassil, the Dream's Hope",
@@ -23,4 +24,4 @@ export default {
     Tindral,
     Fyrakk,
   },
-};
+} satisfies Raid;

@@ -1,9 +1,9 @@
-import { Dungeon } from 'game/raids';
+import type { Boss } from 'game/raids';
 
 import Background from './backgrounds/BlackRookHold.jpg';
 import Headshot from './headshots/BlackRookHold.jpg';
 
-const BlackRookHold: Dungeon = {
+const BlackRookHold: Boss = {
   id: 61501,
   name: 'Black Rook Hold',
   background: Background,

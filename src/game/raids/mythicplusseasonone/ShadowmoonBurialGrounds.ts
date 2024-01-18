@@ -1,9 +1,9 @@
-import { Dungeon } from 'game/raids';
+import type { Boss } from 'game/raids';
 
 import Background from './backgrounds/ShadowmoonBurialGrounds.jpg';
 import Headshot from './headshots/ShadowmoonBurialGrounds.jpg';
 
-const ShadowmoonBurialGrounds: Dungeon = {
+const ShadowmoonBurialGrounds: Boss = {
   id: 61176,
   name: 'Shadowmoon Burial Grounds',
   background: Background,
