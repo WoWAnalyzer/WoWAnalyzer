@@ -1,49 +1,46 @@
-import { Trans } from '@lingui/macro';
-import { ARCANE_CHARGE_MAX_STACKS, ARCANE_HARMONY_MAX_STACKS } from 'analysis/retail/mage/shared';
+import { ARCANE_CHARGE_MAX_STACKS } from 'analysis/retail/mage/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
-import { TooltipElement } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
-import Events, { CastEvent } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent, GetRelatedEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import EventHistory from 'parser/shared/modules/EventHistory';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import ArcaneChargeTracker from './ArcaneChargeTracker';
-
-const debug = false;
+import Enemies from 'parser/shared/modules/Enemies';
 
 class ArcaneSurgePreReqs extends Analyzer {
   static dependencies = {
-    eventHistory: EventHistory,
     abilityTracker: AbilityTracker,
     arcaneChargeTracker: ArcaneChargeTracker,
+    enemies: Enemies,
   };
-  protected eventHistory!: EventHistory;
   protected abilityTracker!: AbilityTracker;
   protected arcaneChargeTracker!: ArcaneChargeTracker;
+  protected enemies!: Enemies;
 
-  hasArcaneHarmony: boolean;
-  isKyrian: boolean;
+  hasSiphonStorm: boolean = this.selectedCombatant.hasTalent(TALENTS.SIPHON_STORM_TALENT);
+  hasTouchOfMagi: boolean = this.selectedCombatant.hasTalent(TALENTS.TOUCH_OF_THE_MAGI_TALENT);
+  hasRadiantSpark: boolean = this.selectedCombatant.hasTalent(TALENTS.RADIANT_SPARK_TALENT);
 
-  lowArcaneCharges = 0;
-  lowMana = 0;
-  missingTouchOfTheMagi = 0;
-  lowArcaneHarmonyStacks = 0;
-  noRadiantSpark = 0;
-  badCooldownUses = 0;
-  failedChecks = 0;
+  arcaneSurges: {
+    cast: CastEvent;
+    radiantSparkActive: boolean | undefined;
+    siphonStormActive: boolean | undefined;
+    manaPercent: number;
+    maxCharges: boolean;
+  }[] = [];
 
   constructor(options: Options) {
     super(options);
-    this.hasArcaneHarmony = false;
-    this.isKyrian = false;
+    this.active = this.selectedCombatant.hasTalent(TALENTS.ARCANE_SURGE_TALENT);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.ARCANE_SURGE_TALENT),
       this.onArcaneSurge,
@@ -51,64 +48,66 @@ class ArcaneSurgePreReqs extends Analyzer {
   }
 
   onArcaneSurge(event: CastEvent) {
-    const touchOfTheMagiCast = this.eventHistory.last(
-      1,
-      1000,
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.TOUCH_OF_THE_MAGI_TALENT),
-    );
-    const arcaneHarmonyBuff = this.selectedCombatant.getBuff(SPELLS.ARCANE_HARMONY_BUFF.id);
-    let badCooldownUse = false;
+    const damageEvent: DamageEvent | undefined = GetRelatedEvent(event, 'SpellDamage');
+    const enemy = damageEvent && this.enemies.getEntity(damageEvent);
+    const radiantSparkActive: boolean | undefined =
+      this.selectedCombatant.hasBuff(TALENTS.RADIANT_SPARK_TALENT.id) &&
+      ((enemy && !enemy.hasBuff(SPELLS.RADIANT_SPARK_INACTIVE_DEBUFF.id)) || undefined);
+    const manaResource: any =
+      event.classResources &&
+      event.classResources.find((classResource) => classResource.type === RESOURCE_TYPES.MANA.id);
 
-    //Checks if the player was capped on Arcane Charges
-    if (this.arcaneChargeTracker.charges < ARCANE_CHARGE_MAX_STACKS) {
-      debug && this.log('Arcane Surge Cast with Low Charges');
-      badCooldownUse = true;
-      this.failedChecks += 1;
-      this.lowArcaneCharges += 1;
-    }
-
-    //Checks if Touch of the Magi was cast immediately before Arcane Surge
-    if (touchOfTheMagiCast.length === 0) {
-      debug && this.log('Arcane Surge cast without Touch of the Magi');
-      badCooldownUse = true;
-      this.failedChecks += 1;
-      this.missingTouchOfTheMagi += 1;
-    }
-
-    //Checks if the player has 20 stacks of Arcane Harmony (If using the Arcane Harmony Legendary)
-    if (
-      this.hasArcaneHarmony &&
-      (!arcaneHarmonyBuff || arcaneHarmonyBuff.stacks < ARCANE_HARMONY_MAX_STACKS)
-    ) {
-      debug && this.log('Arcane Surge cast without 20 stacks of Arcane Harmony');
-      badCooldownUse = true;
-      this.failedChecks += 1;
-      this.lowArcaneHarmonyStacks += 1;
-    }
-
-    //Checks if Radiant Spark is active (if the player is Kyrian)
-    if (this.isKyrian && !this.selectedCombatant.hasBuff(TALENTS.RADIANT_SPARK_TALENT.id)) {
-      debug && this.log('Radiant Spark is not active');
-      badCooldownUse = true;
-      this.failedChecks += 1;
-      this.noRadiantSpark += 1;
-    }
-
-    //If any of the above checks were failed, mark the AP Cast as a bad cast
-    if (badCooldownUse === true) {
-      this.badCooldownUses += 1;
-    }
+    this.arcaneSurges.push({
+      cast: event,
+      radiantSparkActive: this.hasRadiantSpark && radiantSparkActive,
+      siphonStormActive:
+        this.hasSiphonStorm && this.selectedCombatant.hasBuff(TALENTS.SIPHON_STORM_TALENT.id),
+      manaPercent: manaResource && manaResource.amount / manaResource.max,
+      maxCharges: this.arcaneChargeTracker.charges >= ARCANE_CHARGE_MAX_STACKS,
+    });
   }
 
-  get totalASCasts() {
-    return this.abilityTracker.getAbility(TALENTS.ARCANE_SURGE_TALENT.id).casts || 0;
+  badArcaneSurges = () => {
+    let badCasts = 0;
+    this.arcaneSurges.forEach((c) => {
+      if (
+        (this.hasRadiantSpark && !c.radiantSparkActive) ||
+        (this.hasSiphonStorm && !c.siphonStormActive) ||
+        !c.maxCharges
+      ) {
+        badCasts += 1;
+      }
+    });
+    return badCasts;
+  };
+
+  get totalSurgeCasts() {
+    return this.abilityTracker.getAbility(TALENTS.ARCANE_SURGE_TALENT.id).casts;
+  }
+
+  get averageManaPercent() {
+    let mana = 0;
+    this.arcaneSurges.forEach((c) => (mana += c.manaPercent));
+    return mana / this.totalSurgeCasts;
+  }
+
+  get missingRadiantSpark() {
+    return this.arcaneSurges.filter((c) => !c.radiantSparkActive).length;
+  }
+
+  get missingSiphonStorm() {
+    return this.arcaneSurges.filter((c) => !c.siphonStormActive).length;
+  }
+
+  get notMaxCharges() {
+    return this.arcaneSurges.filter((c) => !c.maxCharges).length;
   }
 
   get cooldownUtilization() {
-    return 1 - this.badCooldownUses / this.totalASCasts;
+    return 1 - this.badArcaneSurges() / this.totalSurgeCasts;
   }
 
-  get arcaneSurgePreReqThresholds() {
+  get arcaneSurgeThresholds() {
     return {
       actual: this.cooldownUtilization,
       isLessThan: {
@@ -120,9 +119,9 @@ class ArcaneSurgePreReqs extends Analyzer {
     };
   }
 
-  get arcaneHarmonyPreReqThresholds() {
+  get radiantSparkThresholds() {
     return {
-      actual: this.lowArcaneHarmonyStacks,
+      actual: this.missingRadiantSpark,
       isGreaterThan: {
         average: 0,
         major: 1,
@@ -131,9 +130,9 @@ class ArcaneSurgePreReqs extends Analyzer {
     };
   }
 
-  get radiantSparkPreReqThresholds() {
+  get siphonStormThresholds() {
     return {
-      actual: this.noRadiantSpark,
+      actual: this.missingSiphonStorm,
       isGreaterThan: {
         average: 0,
         major: 1,
@@ -143,48 +142,22 @@ class ArcaneSurgePreReqs extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.arcaneSurgePreReqThresholds).addSuggestion((suggest, actual, recommended) =>
+    when(this.arcaneSurgeThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
           You cast <SpellLink spell={TALENTS.ARCANE_SURGE_TALENT} /> without proper setup{' '}
-          {this.badCooldownUses} times. Arcane Surge has a short duration so you should get the most
-          out of it by meeting all requirements before casting it.
+          {this.badArcaneSurges()} times. Arcane Surge has a short duration so you should get the
+          most out of it by meeting all requirements before casting it.
           <ul>
             <li>
               You have {ARCANE_CHARGE_MAX_STACKS} <SpellLink spell={SPELLS.ARCANE_CHARGE} /> - You
-              failed this {this.lowArcaneCharges} times.
+              failed this {this.notMaxCharges} times.
             </li>
-            <li>
-              <>
-                You cast <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} />
-                <TooltipElement content="Arcane Surge should be cast right on the end of the Rune of Power cast. There should not be any casts or any delay in between Rune of Power and Arcane Surge to ensure that Rune of Power is up for the entire duration of Arcane Surge.">
-                  immediately
-                </TooltipElement>
-                before Arcane Surge - You failed this {this.missingTouchOfTheMagi} times.
-              </>
-            </li>
-            {this.hasArcaneHarmony && (
-              <li>
-                You have {ARCANE_HARMONY_MAX_STACKS} stacks of{' '}
-                <SpellLink spell={SPELLS.ARCANE_HARMONY_BUFF} /> - You failed this{' '}
-                {this.lowArcaneHarmonyStacks} times.
-              </li>
-            )}
-            {this.isKyrian && (
-              <li>
-                <SpellLink spell={TALENTS.RADIANT_SPARK_TALENT} /> is active. - You failed this{' '}
-                {this.noRadiantSpark} times.
-              </li>
-            )}
           </ul>
         </>,
       )
         .icon(TALENTS.ARCANE_SURGE_TALENT.icon)
-        .actual(
-          <Trans id="mage.arcane.suggestions.arcanePower.badCasts">
-            {this.badCooldownUses} Bad Cooldown Uses
-          </Trans>,
-        )
+        .actual(`{this.badArcaneSurges()} Bad Cooldown Uses`)
         .recommended(`0 is recommended`),
     );
   }
@@ -202,23 +175,19 @@ class ArcaneSurgePreReqs extends Analyzer {
             before Arcane Surge comes off cooldown
             <ul>
               <li>
-                You have {ARCANE_CHARGE_MAX_STACKS} Arcane Charges - Missed {this.lowArcaneCharges}{' '}
+                You have {ARCANE_CHARGE_MAX_STACKS} Arcane Charges - Missed {this.notMaxCharges}{' '}
                 times
               </li>
-              <li>
-                You cast Touch of the Magi immediately before AP - Missed{' '}
-                {this.missingTouchOfTheMagi} times
-              </li>
-              {this.hasArcaneHarmony && (
-                <li>
-                  You have {ARCANE_HARMONY_MAX_STACKS} stacks of Arcane Harmony - Missed{' '}
-                  {this.lowArcaneHarmonyStacks} times
-                </li>
-              )}
-              {this.hasArcaneHarmony && (
+              {this.hasRadiantSpark && (
                 <li>
                   <SpellLink spell={TALENTS.RADIANT_SPARK_TALENT} /> is active - Missed{' '}
-                  {this.noRadiantSpark} times
+                  {this.missingRadiantSpark} times
+                </li>
+              )}
+              {this.hasSiphonStorm && (
+                <li>
+                  <SpellLink spell={TALENTS.SIPHON_STORM_TALENT} /> is active - Missed{' '}
+                  {this.missingSiphonStorm} times
                 </li>
               )}
             </ul>
@@ -228,10 +197,10 @@ class ArcaneSurgePreReqs extends Analyzer {
         <BoringSpellValueText spell={TALENTS.ARCANE_SURGE_TALENT}>
           <>
             {formatPercentage(this.cooldownUtilization, 0)}% <small> Cooldown utilization</small>
-            {this.badCooldownUses > 0 && (
+            {this.badArcaneSurges() > 0 && (
               <>
                 <br />
-                {this.badCooldownUses} <small>Bad Cooldown Uses</small>
+                {this.badArcaneSurges()} <small>Bad Cooldown Uses</small>
               </>
             )}
           </>

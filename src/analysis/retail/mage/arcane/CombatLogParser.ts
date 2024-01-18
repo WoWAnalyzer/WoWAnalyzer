@@ -21,8 +21,6 @@ import Buffs from './core/Buffs';
 import CooldownThroughputTracker from './core/CooldownThroughputTracker';
 import ArcaneChargeTracker from './core/ArcaneChargeTracker';
 import ArcaneMissiles from './core/ArcaneMissiles';
-import ArcaneSurgeActiveTime from './core/ArcaneSurgeActiveTime';
-import ArcaneSurgeCasts from './core/ArcaneSurgeCasts';
 import ArcaneSurgeMana from './core/ArcaneSurgeMana';
 import ArcaneSurgePreReqs from './core/ArcaneSurgePreReqs';
 
@@ -40,6 +38,7 @@ import ArcaneHarmony from './talents/ArcaneHarmony';
 import ArcaneOrb from './talents/ArcaneOrb';
 import RadiantSpark from './talents/RadiantSpark';
 import RuleOfThrees from './talents/RuleOfThrees';
+import TouchOfTheMagi from './talents/TouchOfTheMagi';
 
 //Normalizers
 import ArcaneChargesNormalizer from './normalizers/ArcaneCharges';
@@ -66,8 +65,6 @@ class CombatLogParser extends CoreCombatLogParser {
     arcaneChargeTracker: ArcaneChargeTracker,
     arcaneSurgePreReqs: ArcaneSurgePreReqs,
     arcaneSurgeMana: ArcaneSurgeMana,
-    arcaneSurgeCasts: ArcaneSurgeCasts,
-    arcaneSurgeActiveTime: ArcaneSurgeActiveTime,
     arcaneMissiles: ArcaneMissiles,
 
     // Talents - Arcane
@@ -79,6 +76,7 @@ class CombatLogParser extends CoreCombatLogParser {
     arcaneBombardment: ArcaneBombardment,
     shiftingPower: ShiftingPower,
     radiantSpark: RadiantSpark,
+    touchOfTheMagi: TouchOfTheMagi,
 
     //Talents - Shared
     divertedEnergy: DivertedEnergy,

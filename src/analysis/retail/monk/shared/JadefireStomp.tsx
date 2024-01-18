@@ -16,7 +16,7 @@ import { SpellLink, TooltipElement } from 'interface';
 import { formatNumber, formatPercentage } from 'common/format';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
-class FaelineStomp extends Analyzer {
+class JadefireStomp extends Analyzer {
   static dependencies = {
     abilities: Abilities,
     spellUsable: SpellUsable,
@@ -44,14 +44,14 @@ class FaelineStomp extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.FAELINE_STOMP_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.JADEFIRE_STOMP_TALENT);
     this.specIsMW = this.selectedCombatant.specId === SPECS.MISTWEAVER_MONK.id;
     if (!this.active) {
       return;
     }
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.FAELINE_STOMP_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.JADEFIRE_STOMP_TALENT),
       this.casts,
     );
     this.addEventListener(
@@ -61,7 +61,7 @@ class FaelineStomp extends Analyzer {
     this.addEventListener(
       Events.damage
         .by(SELECTED_PLAYER)
-        .spell([SPELLS.FAELINE_STOMP_HEAL, TALENTS_MONK.FAELINE_STOMP_TALENT]),
+        .spell([SPELLS.FAELINE_STOMP_HEAL, TALENTS_MONK.JADEFIRE_STOMP_TALENT]),
       this.damage,
     );
     this.addEventListener(
@@ -101,8 +101,8 @@ class FaelineStomp extends Analyzer {
   }
 
   reset() {
-    if (this.spellUsable.isOnCooldown(TALENTS_MONK.FAELINE_STOMP_TALENT.id)) {
-      this.spellUsable.endCooldown(TALENTS_MONK.FAELINE_STOMP_TALENT.id);
+    if (this.spellUsable.isOnCooldown(TALENTS_MONK.JADEFIRE_STOMP_TALENT.id)) {
+      this.spellUsable.endCooldown(TALENTS_MONK.JADEFIRE_STOMP_TALENT.id);
       this.resets += 1;
     }
   }
@@ -139,7 +139,7 @@ class FaelineStomp extends Analyzer {
   talentHealingStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink spell={TALENTS_MONK.FAELINE_STOMP_TALENT} />}
+        title={<SpellLink spell={TALENTS_MONK.JADEFIRE_STOMP_TALENT} />}
         value={`${formatPercentage(
           this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
         )} %`}
@@ -157,8 +157,9 @@ class FaelineStomp extends Analyzer {
           <>
             {this.specIsMW && (
               <>
-                {formatNumber(this.healing)} <SpellLink spell={TALENTS_MONK.FAELINE_STOMP_TALENT} />{' '}
-                healing ({formatNumber(this.overhealing)} overheal) <br />
+                {formatNumber(this.healing)}{' '}
+                <SpellLink spell={TALENTS_MONK.JADEFIRE_STOMP_TALENT} /> healing (
+                {formatNumber(this.overhealing)} overheal) <br />
                 {formatNumber(this.essenceFontHealing)}{' '}
                 <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> healing (
                 {formatNumber(this.essenceFontOverhealing)} overheal) <br />
@@ -175,7 +176,7 @@ class FaelineStomp extends Analyzer {
           </>
         }
       >
-        <TalentSpellText talent={TALENTS_MONK.FAELINE_STOMP_TALENT}>
+        <TalentSpellText talent={TALENTS_MONK.JADEFIRE_STOMP_TALENT}>
           {this.specIsMW ? (
             <>
               <ItemHealingDone amount={this.totalHealing} />
@@ -204,4 +205,4 @@ class FaelineStomp extends Analyzer {
   }
 }
 
-export default FaelineStomp;
+export default JadefireStomp;

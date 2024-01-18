@@ -1,6 +1,6 @@
 import {
   DampenHarm,
-  FaelineStomp,
+  JadefireStomp,
   InvokersDelight,
   MysticTouch,
   TouchOfDeath,
@@ -99,7 +99,7 @@ class CombatLogParser extends CoreCombatLogParser {
     comboStrikes: ComboStrikes,
     blackoutKick: BlackoutKick,
     dampenHarm: DampenHarm,
-    faelineStomp: FaelineStomp,
+    jadefireStomp: JadefireStomp,
     risingSunKick: RisingSunKick,
     invokeXuen: InvokeXuen,
 
