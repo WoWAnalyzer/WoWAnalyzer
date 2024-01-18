@@ -5,6 +5,7 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  change(date(2024, 1, 17), <>Fixed some issues causing "average mastery stacks" statistic to undercount.</>, Sref),
   change(date(2024, 1, 2), <>Fixed a bug where the 2nd stack of Clearcasting wasn't being properly counted.</>, Sref),
   change(date(2023, 11, 7), <>Added statistic for the ToL version of <SpellLink spell={TALENTS_DRUID.CENARIUS_GUIDANCE_TALENT}/>, and split healing from Grove Guardians due to this talent into the next statistic (and out of the existing Grove Guardians statistic).</>, Sref),
   change(date(2023, 11, 7), <>Updated all talent and spell values for 10.2, and updated guide text to be more appropriate for 10.2 playstyles.</>, Sref),
