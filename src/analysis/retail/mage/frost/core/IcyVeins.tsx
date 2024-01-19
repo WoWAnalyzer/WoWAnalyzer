@@ -1,4 +1,4 @@
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import { TALENTS_MAGE } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
@@ -107,6 +107,11 @@ class IcyVeins extends Analyzer {
   }
 
   private generateCastEntryBetween(buffApplyTimestamp: number, buffEndTimestamp: number) {
+    const durationMs = buffEndTimestamp - buffApplyTimestamp;
+    if (durationMs < 24000) {
+      return;
+    }
+
     const icyVeinsActiveRatio = this.alwaysBeCasting.getActiveTimePercentageInWindow(
       buffApplyTimestamp,
       buffEndTimestamp,
@@ -124,7 +129,18 @@ class IcyVeins extends Analyzer {
       performance = QualitativePerformance.Ok;
       message = `Ok: more than 75% Active Time (${percentage}%)`;
     }
-    const tooltip = <>{message}</>;
+    const tooltip = (
+      <>
+        <b>
+          @ {this.owner.formatTimestamp(buffApplyTimestamp)} -{' '}
+          {this.owner.formatTimestamp(buffEndTimestamp)}
+        </b>
+        <br />
+        Duration: {formatDuration(durationMs, 1)}
+        <br />
+        {message}
+      </>
+    );
     this.castEntries.push({ value: performance, tooltip });
   }
 
