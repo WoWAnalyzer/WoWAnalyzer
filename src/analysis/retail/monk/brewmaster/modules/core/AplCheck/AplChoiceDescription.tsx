@@ -1,12 +1,9 @@
-import styled from '@emotion/styled';
 import SPELLS from 'common/SPELLS';
-import Spell from 'common/SPELLS/Spell';
 import talents from 'common/TALENTS/monk';
 import { AlertWarning, SpellIcon, SpellLink } from 'interface';
 import { useInfo } from 'interface/guide';
-import { ChevronIcon } from 'interface/icons';
-import { Fragment } from 'react';
 import { BrewmasterApl } from '../AplCheck';
+import { SpellSeq } from 'parser/ui/SpellSeq';
 
 const aplTitle = (choice: BrewmasterApl) => {
   switch (choice) {
@@ -23,34 +20,6 @@ const aplTitle = (choice: BrewmasterApl) => {
       return <em>Fallback</em>;
   }
 };
-
-const SequenceContainer = styled.div`
-  display: inline-flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  height: 24px;
-
-  & svg {
-    transform: rotate(-90deg);
-    height: 18px;
-    margin-top: calc(24px / 2 - 18px / 2);
-  }
-
-  & img.icon {
-    height: 24px;
-  }
-`;
-
-const SpellSeq = ({ spells }: { spells: Spell[] }) => (
-  <SequenceContainer>
-    {spells.map((spell, index, array) => (
-      <Fragment key={index}>
-        <SpellIcon spell={spell} key={index} />
-        {index < array.length - 1 && <ChevronIcon />}
-      </Fragment>
-    ))}
-  </SequenceContainer>
-);
 
 const cooldown = {
   id: -1,

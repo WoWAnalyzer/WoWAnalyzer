@@ -2,7 +2,7 @@ import { SHATTER_DEBUFFS } from 'analysis/retail/mage/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MAGE } from 'common/TALENTS/mage';
-import { SpellIcon, SpellLink } from 'interface';
+import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events, { CastEvent, DamageEvent, GetRelatedEvents } from 'parser/core/Events';
@@ -15,38 +15,7 @@ import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/mage/frost/Guide
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import Spell from 'common/SPELLS/Spell';
-import { Fragment } from 'react';
-import { ChevronIcon } from 'interface/icons';
-import styled from '@emotion/styled';
-
-const SequenceContainer = styled.div`
-  display: inline-flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  height: 24px;
-
-  & svg {
-    transform: rotate(-90deg);
-    height: 18px;
-    margin-top: calc(24px / 2 - 18px / 2);
-  }
-
-  & img.icon {
-    height: 24px;
-  }
-`;
-
-const SpellSeq = ({ spells }: { spells: Spell[] }) => (
-  <SequenceContainer>
-    {spells.map((spell, index, array) => (
-      <Fragment key={index}>
-        <SpellIcon spell={spell} key={index} />
-        {index < array.length - 1 && <ChevronIcon />}
-      </Fragment>
-    ))}
-  </SequenceContainer>
-);
+import { SpellSeq } from 'parser/ui/SpellSeq';
 
 class RayOfFrost extends Analyzer {
   static dependencies = {
