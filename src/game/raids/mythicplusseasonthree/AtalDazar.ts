@@ -1,9 +1,9 @@
-import { Dungeon } from 'game/raids';
+import type { Boss } from 'game/raids';
 
 import Background from './backgrounds/AtalDazar.jpg';
 import Headshot from './headshots/AtalDazar.jpg';
 
-const AtalDazar: Dungeon = {
+const AtalDazar: Boss = {
   id: 61763,
   name: "Atal'Dazar",
   background: Background,

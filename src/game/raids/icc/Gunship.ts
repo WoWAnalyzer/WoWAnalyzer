@@ -1,4 +1,4 @@
-import { Boss } from 'game/raids';
+import type { Boss } from 'game/raids';
 
 import Headshot from './images/GunshipHeadshot.jpg';
 import Background from './images/Gunship.jpg';

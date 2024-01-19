@@ -33,6 +33,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 1, 17), 'Simplify raid types and fix M+ S3 icons not showing on fight selection.',ToppleTheNun),
   change(date(2024, 1, 16), 'Add Ruby Sanctum raid and images for Classic WotLK.', jazminite),
   change(date(2024, 1, 16), 'Add patch 10.2.5.', ToppleTheNun),
   change(date(2024, 1, 11), <>Add <ItemLink id={ITEMS.POTION_OF_WITHERING_DREAMS_R3.id} /> to healing potion list.</>, ToppleTheNun),
