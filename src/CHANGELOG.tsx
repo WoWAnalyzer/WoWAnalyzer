@@ -33,6 +33,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 1, 19), 'Fix Dreaming Devotion showing as a cheap enchant.', emallson),
   change(date(2024, 1, 17), 'Simplify raid types and fix M+ S3 icons not showing on fight selection.',ToppleTheNun),
   change(date(2024, 1, 16), 'Add Ruby Sanctum raid and images for Classic WotLK.', jazminite),
   change(date(2024, 1, 16), 'Add patch 10.2.5.', ToppleTheNun),
