@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import Ulduar from './images/Ulduar.jpg';
+import type { Raid } from 'game/raids';
 
 export default {
   name: 'Ulduar', // T8
@@ -20,4 +21,4 @@ export default {
     YoggSaron: require('./YoggSaron').default, // 13
     Algalon: require('./Algalon').default, // 14
   },
-};
+} satisfies Raid;

@@ -33,7 +33,7 @@ const aplTitle = (choice: MistweaverApl) => {
     case MistweaverApl.AwakenedFaeline:
       return (
         <>
-          <SpellLink spell={talents.AWAKENED_FAELINE_TALENT} />
+          <SpellLink spell={talents.AWAKENED_JADEFIRE_TALENT} />
         </>
       );
     case MistweaverApl.TearOfMorning:
@@ -131,9 +131,9 @@ const RisingMistAncientTeachingsUpwelFlsDescription = () => {
         <SpellLink spell={talents.RENEWING_MIST_TALENT} /> and{' '}
         <SpellLink spell={talents.RISING_SUN_KICK_TALENT} /> as often as possible, and cast{' '}
         <SpellLink spell={talents.ESSENCE_FONT_TALENT} />{' '}
-        {info?.combatant.hasTalent(talents.FAELINE_STOMP_TALENT) ? (
+        {info?.combatant.hasTalent(talents.JADEFIRE_STOMP_TALENT) ? (
           <>
-            or <SpellLink spell={talents.FAELINE_STOMP_TALENT} /> if{' '}
+            or <SpellLink spell={talents.JADEFIRE_STOMP_TALENT} /> if{' '}
             <SpellLink spell={talents.ESSENCE_FONT_TALENT} /> is on cooldown
           </>
         ) : (
@@ -174,7 +174,7 @@ const CleaveBuildNotYetSupportedDescription = () => {
     <>
       <p>
         <strong>
-          The <SpellLink spell={talents.AWAKENED_FAELINE_TALENT} /> rotation is not currently
+          The <SpellLink spell={talents.AWAKENED_JADEFIRE_TALENT} /> rotation is not currently
           supported.
         </strong>
       </p>

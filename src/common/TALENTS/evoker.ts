@@ -161,7 +161,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [115602],
     definitionIds: [{ id: 120614, specId: 1467 }],
-    manaCost: 3250,
+    manaCost: 3500,
   },
   CHARGED_BLAST_TALENT: {
     id: 370455,
@@ -258,7 +258,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [115542],
     definitionIds: [{ id: 120554, specId: 1468 }],
-    manaCost: 11250,
+    manaCost: 12250,
   },
   DREAM_FLIGHT_TALENT: {
     id: 359816,
@@ -302,7 +302,7 @@ const talents = {
     entryIds: [115653],
     definitionIds: [{ id: 120665, specId: 1468 }],
     essenceCost: 2,
-    manaCost: 4250,
+    manaCost: 4750,
   },
   EMERALD_COMMUNION_TALENT: {
     id: 370960,
@@ -1068,7 +1068,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [115652],
     definitionIds: [{ id: 120664, specId: 1468 }],
-    manaCost: 6250,
+    manaCost: 7000,
   },
   REWIND_TALENT: {
     id: 363534,
@@ -1077,7 +1077,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [115651],
     definitionIds: [{ id: 120663, specId: 1468 }],
-    manaCost: 12500,
+    manaCost: 13750,
   },
   RICOCHETING_PYROCLAST_TALENT: {
     id: 406659,
@@ -1199,7 +1199,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [115546],
     definitionIds: [{ id: 120558, specId: 1468 }],
-    manaCost: 9500,
+    manaCost: 10500,
   },
   SPIRITUAL_CLARITY_TALENT: {
     id: 376150,
@@ -1306,7 +1306,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [115650],
     definitionIds: [{ id: 120662, specId: 1468 }],
-    manaCost: 5000,
+    manaCost: 5500,
   },
   TIME_LORD_TALENT: {
     id: 372527,
@@ -1412,7 +1412,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [115655],
     definitionIds: [{ id: 120667, specId: 1467 }],
-    manaCost: 7500,
+    manaCost: 8250,
   },
   VOLATILITY_TALENT: {
     id: 369089,

@@ -219,7 +219,7 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
       //we only care about accounting casts of essence font or fls, other than that it should be the gcd during chiji
       if (
         event.ability.guid === TALENTS_MONK.ESSENCE_FONT_TALENT.id ||
-        event.ability.guid === TALENTS_MONK.FAELINE_STOMP_TALENT.id
+        event.ability.guid === TALENTS_MONK.JADEFIRE_STOMP_TALENT.id
       ) {
         this.efGcd = event.duration;
       } else if (event.timestamp - this.lastGlobal > event.duration) {

@@ -25,6 +25,7 @@ interface Props {
   title: ReactNode;
   children: ReactNode;
   onContinueAnyway: () => void;
+  testId?: string;
 }
 
 const SupportCheckerIssue = ({
@@ -35,6 +36,7 @@ const SupportCheckerIssue = ({
   title,
   children,
   onContinueAnyway,
+  testId,
 }: Props) => {
   const { i18n } = useLingui();
   const location = useLocation();
@@ -64,7 +66,7 @@ const SupportCheckerIssue = ({
     );
 
   return (
-    <Modal id="partial-support" onClose={onContinueAnyway}>
+    <Modal id="partial-support" onClose={onContinueAnyway} testId={testId}>
       <Panel title={title}>
         <div className="flex wrapable">
           <div className="flex-main" style={{ minWidth: 400 }}>

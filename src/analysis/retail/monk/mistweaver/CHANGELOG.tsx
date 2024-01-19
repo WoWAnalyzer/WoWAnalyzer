@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2024, 1, 17), <>Bump support to 10.2.5</>, Trevor),
   change(date(2023, 12, 26), <>Fix crash in <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT}/> module</>, Trevor),
   change(date(2023, 12, 20), <>Update APL to mark ToM as unsupported and update <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT}/> for ToM</>, Trevor),
   change(date(2023, 12, 5), <>Fix <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT}/> coefficient</>, Trevor),
@@ -22,7 +23,7 @@ export default [
   change(date(2023, 11, 7), <>Remove some stale code in t30 module</>, Trevor),
   change(date(2023, 11, 6), <>Updated Tier 30 Module to be accurate for the reworked 2pc</>, Vohrr),
   change(date(2023, 10, 30), <>Updated healing efficiency tracker to properly attribute <SpellLink spell={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT}/> to the source spell that activated it.</>, Vohrr),
-  change(date(2023, 10, 30), <>Updated <SpellLink spell={TALENTS_MONK.FAELINE_STOMP_TALENT}/> module to have additional breakdown for Mistweaver. Added <SpellLink spell={TALENTS_MONK.FAELINE_STOMP_TALENT}/> to Talent Summary.</>, Vohrr),
+  change(date(2023, 10, 30), <>Updated <SpellLink spell={TALENTS_MONK.JADEFIRE_STOMP_TALENT}/> module to have additional breakdown for Mistweaver. Added <SpellLink spell={TALENTS_MONK.JADEFIRE_STOMP_TALENT}/> to Talent Summary.</>, Vohrr),
   change(date(2023, 10, 28), <>Added Amalgam's Seventh Spine and Updated Call to Dominance values to reflect nerfs.</>, Vohrr),
   change(date(2023, 10, 18), <>Update <SpellLink spell={TALENTS_MONK.CLOUDED_FOCUS_TALENT}/> module and stack tracking based on patch notes.</>, Vohrr),
   change(date(2023, 10, 17), <>Added uptime metric to <SpellLink spell={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT}/> and added  <SpellLink spell={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT}/> to Talent Summary.</>, Vohrr),
@@ -67,7 +68,7 @@ export default [
   change(date(2023, 4, 27), <>Conditionally load <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT}/> guide metrics based on talent selection.</>, Vohrr),
   change(date(2023, 4, 27), <>Fixed <SpellLink spell={TALENTS_MONK.CLOUDED_FOCUS_TALENT}/> MP5 tally</>, Vohrr),
   change(date(2023, 4, 22), <>Add <SpellLink spell={TALENTS_MONK.LEGACY_OF_WISDOM_TALENT}/> to talent summary.</>, Trevor),
-  change(date(2023, 4, 20), <>Updated apl logic buckets to fix the wrong builds being recommended. Added a not supported warning for <SpellLink spell={TALENTS_MONK.AWAKENED_FAELINE_TALENT}/> talent builds</>, Vohrr),
+  change(date(2023, 4, 20), <>Updated apl logic buckets to fix the wrong builds being recommended. Added a not supported warning for <SpellLink spell={TALENTS_MONK.AWAKENED_JADEFIRE_TALENT}/> talent builds</>, Vohrr),
   change(date(2023, 4, 5), <>Update suggestions for <SpellLink spell={TALENTS_MONK.REVIVAL_TALENT}/> based on 10.0.7 changes</>, Trevor),
   change(date(2023, 3, 29), <>Improve accuracy of <SpellLink spell={TALENTS_MONK.VEIL_OF_PRIDE_TALENT}/> module</>, Trevor),
   change(date(2023, 3, 27), <>Add Tier 30 Set Bonus Module.</>, Vohrr),
@@ -137,7 +138,7 @@ export default [
   change(date(2022, 12, 20), <>Fix suggestion for <SpellLink spell={TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT}/></>, Vohrr),
   change(date(2022, 12, 18), <>Fix suggestion for <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT}/> usage based on talent selection</>, Trevor),
   change(date(2022, 12, 18), <>Add suggestion for <SpellLink spell={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT}/> buff uptime</>, Trevor),
-  change(date(2022, 12, 14), <>Remove <SpellLink spell={TALENTS_MONK.FAELINE_STOMP_TALENT}/> cast efficiency suggestion for Mistweaver</>, Trevor),
+  change(date(2022, 12, 14), <>Remove <SpellLink spell={TALENTS_MONK.JADEFIRE_STOMP_TALENT}/> cast efficiency suggestion for Mistweaver</>, Trevor),
   change(date(2022, 12, 14), <>Update <SpellLink spell={TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT}/> module suggestion thresholds</>, Trevor),
   change(date(2022, 12, 3), <>Update <SpellLink spell={TALENTS_MONK.JADE_BOND_TALENT}/> module to show average CDR</>, Trevor),
   change(date(2022, 12, 3), <>Update <SpellLink spell={TALENTS_MONK.YULONS_WHISPER_TALENT}/> suggestions for Mistweaver</>, Trevor),
@@ -154,7 +155,7 @@ export default [
   change(date(2022, 11, 13), <>Updates to Hot Tracker to better handle <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT}/> tracking. Added <SpellLink spell={TALENTS_MONK.RAPID_DIFFUSION_TALENT}/> module.</>, Vohrr),
   change(date(2022, 11, 13), <>Add <SpellLink spell={TALENTS_MONK.MISTS_OF_LIFE_TALENT}/> module</>, Trevor),
   change(date(2022, 11, 14), <>Add T29 tier set module for Mistweaver</>, Trevor),
-  change(date(2022, 11, 14), <>Fix broken <SpellLink spell={TALENTS_MONK.FAELINE_STOMP_TALENT}/> references and reordered the talent modules based on importance</>, Vohrr),
+  change(date(2022, 11, 14), <>Fix broken <SpellLink spell={TALENTS_MONK.JADEFIRE_STOMP_TALENT}/> references and reordered the talent modules based on importance</>, Vohrr),
   change(date(2022, 11, 13), <>Fix load conditions for some Mistweaver talents</>, Trevor),
   change(date(2022, 11, 12), <>Updated the spell icon for <SpellLink spell={SPELLS.ENVELOPING_BREATH_HEAL}/></>, Vohrr),
   change(date(2022, 11, 12), <>Cleanup covenant files for Mistweaver</>, Trevor),

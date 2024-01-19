@@ -1,4 +1,4 @@
-import { Boss } from 'game/raids';
+import type { Boss } from 'game/raids';
 
 import Headshot from './images/DeathwhisperHeadshot.jpg';
 import Background from './images/Deathwhisper.jpg';

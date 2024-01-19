@@ -53,9 +53,9 @@ const talents = {
       { id: 106486, specId: 269 },
     ],
   },
-  AWAKENED_FAELINE_TALENT: {
+  AWAKENED_JADEFIRE_TALENT: {
     id: 388779,
-    name: 'Awakened Faeline',
+    name: 'Awakened Jadefire',
     icon: 'spell_animaardenweald_buff',
     maxRanks: 1,
     entryIds: [101383],
@@ -277,8 +277,12 @@ const talents = {
     name: 'Dampen Harm',
     icon: 'ability_monk_dampenharm',
     maxRanks: 1,
-    entryIds: [101522],
-    definitionIds: [{ id: 106524, specId: 269 }],
+    entryIds: [117802, 101522, 117804],
+    definitionIds: [
+      { id: 122814, specId: 270 },
+      { id: 106524, specId: 268 },
+      { id: 122816, specId: 269 },
+    ],
   },
   DANCE_OF_CHI_JI_TALENT: {
     id: 325201,
@@ -288,13 +292,24 @@ const talents = {
     entryIds: [101437],
     definitionIds: [{ id: 106439, specId: 269 }],
   },
-  DANCE_OF_THE_WIND_TALENT: {
+  DANCE_OF_THE_WIND_BREWMASTER_TALENT: {
     id: 414132,
     name: 'Dance of the Wind',
     icon: 'ability_monk_dematerialize',
     maxRanks: 1,
     entryIds: [115760],
-    definitionIds: [{ id: 120772, specId: 269 }],
+    definitionIds: [{ id: 120772, specId: 268 }],
+  },
+  DANCE_OF_THE_WIND_SHARED_TALENT: {
+    id: 432181,
+    name: 'Dance of the Wind',
+    icon: 'ability_monk_dematerialize',
+    maxRanks: 1,
+    entryIds: [117803, 117805],
+    definitionIds: [
+      { id: 122815, specId: 270 },
+      { id: 122817, specId: 269 },
+    ],
   },
   DANCING_MISTS_TALENT: {
     id: 388701,
@@ -454,26 +469,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [101441],
     definitionIds: [{ id: 106443, specId: 268 }],
-  },
-  FAELINE_HARMONY_TALENT: {
-    id: 391412,
-    name: 'Faeline Harmony',
-    icon: 'ability_ardenweald_monk',
-    maxRanks: 1,
-    entryIds: [101487],
-    definitionIds: [{ id: 106489, specId: 269 }],
-  },
-  FAELINE_STOMP_TALENT: {
-    id: 388193,
-    name: 'Faeline Stomp',
-    icon: 'ability_ardenweald_monk',
-    maxRanks: 1,
-    entryIds: [101359, 101488],
-    definitionIds: [
-      { id: 106361, specId: 270 },
-      { id: 106490, specId: 269 },
-    ],
-    manaCost: 10000,
   },
   FAST_FEET_TALENT: {
     id: 388809,
@@ -841,6 +836,26 @@ const talents = {
     entryIds: [101498],
     definitionIds: [{ id: 106500, specId: 269 }],
   },
+  JADEFIRE_HARMONY_TALENT: {
+    id: 391412,
+    name: 'Jadefire Harmony',
+    icon: 'ability_ardenweald_monk',
+    maxRanks: 1,
+    entryIds: [101487],
+    definitionIds: [{ id: 106489, specId: 269 }],
+  },
+  JADEFIRE_STOMP_TALENT: {
+    id: 388193,
+    name: 'Jadefire Stomp',
+    icon: 'ability_ardenweald_monk',
+    maxRanks: 1,
+    entryIds: [101359, 101488],
+    definitionIds: [
+      { id: 106361, specId: 270 },
+      { id: 106490, specId: 269 },
+    ],
+    manaCost: 10000,
+  },
   JADE_BOND_TALENT: {
     id: 388031,
     name: 'Jade Bond',
@@ -996,6 +1011,14 @@ const talents = {
     entryIds: [101506],
     definitionIds: [{ id: 106508, specId: 269 }],
     energyCost: 20,
+  },
+  PATH_OF_JADE_TALENT: {
+    id: 392994,
+    name: 'Path of Jade',
+    icon: 'spell_animaardenweald_beam',
+    maxRanks: 1,
+    entryIds: [101415],
+    definitionIds: [{ id: 106417, specId: 269 }],
   },
   PEACEFUL_MENDING_TALENT: {
     id: 388593,
@@ -1541,14 +1564,6 @@ const talents = {
     maxRanks: 2,
     entryIds: [101543],
     definitionIds: [{ id: 106545, specId: 268 }],
-  },
-  WAY_OF_THE_FAE_TALENT: {
-    id: 392994,
-    name: 'Way of the Fae',
-    icon: 'spell_animaardenweald_beam',
-    maxRanks: 1,
-    entryIds: [101415],
-    definitionIds: [{ id: 106417, specId: 269 }],
   },
   WEAPONS_OF_ORDER_TALENT: {
     id: 387184,

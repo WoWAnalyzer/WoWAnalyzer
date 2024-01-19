@@ -1,4 +1,4 @@
-import { Boss } from 'game/raids';
+import type { Boss } from 'game/raids';
 
 import Headshot from './images/MarrowgarHeadshot.jpg';
 import Background from './images/Marrowgar.jpg';
