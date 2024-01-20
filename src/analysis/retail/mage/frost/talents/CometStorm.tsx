@@ -2,7 +2,7 @@ import { COMET_STORM_AOE_MIN_TARGETS, SHATTER_DEBUFFS } from 'analysis/retail/ma
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS, { TALENTS_MAGE } from 'common/TALENTS/mage';
-import { SpellIcon, SpellLink } from 'interface';
+import { SpellLink } from 'interface';
 import { highlightInefficientCast } from 'interface/report/Results/Timeline/Casts';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
@@ -16,24 +16,8 @@ import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/mage/frost/Guide
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
-import styled from '@emotion/styled';
-
-const SequenceContainer = styled.div`
-  display: inline-flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  height: 24px;
-
-  & svg {
-    transform: rotate(-90deg);
-    height: 18px;
-    margin-top: calc(24px / 2 - 18px / 2);
-  }
-
-  & img.icon {
-    height: 24px;
-  }
-`;
+import { PerformanceMark } from 'interface/guide';
+import { SpellSeq } from 'parser/ui/SpellSeq';
 
 const MIN_SHATTERED_PROJECTILES_PER_CAST = 4;
 
@@ -78,25 +62,26 @@ class CometStorm extends Analyzer {
 
     let performance = QualitativePerformance.Fail;
     const count = `${cometStormDetails.shatteredHits} shattered hits / ${cometStormDetails.enemiesHit.length} enemies hitted`;
-    let message = `Fail ${count}`;
     if (enemies.length === 1) {
       if (cometStormDetails.shatteredHits >= 7) {
         performance = QualitativePerformance.Perfect;
-        message = `Perfect: ${count}`;
       } else if (cometStormDetails.shatteredHits >= 6) {
         performance = QualitativePerformance.Good;
-        message = `Good: ${count}`;
       } else if (cometStormDetails.shatteredHits >= 4) {
         performance = QualitativePerformance.Ok;
-        message = `Ok: ${count}`;
       }
     }
     if (enemies.length >= COMET_STORM_AOE_MIN_TARGETS) {
       performance = QualitativePerformance.Perfect;
-      message = `Perfect: ${count}`;
     }
 
-    const tooltip = <>{message}</>;
+    const tooltip = (
+      <>
+        <b>@ {this.owner.formatTimestamp(event.timestamp)}</b>
+        <br />
+        <PerformanceMark perf={performance} /> {performance}: {count}
+      </>
+    );
     this.castEntries.push({ value: performance, tooltip });
   }
 
@@ -157,21 +142,44 @@ class CometStorm extends Analyzer {
   }
 
   get guideSubsection(): JSX.Element {
+    const coldestSnapKnown = this.selectedCombatant.hasTalent(TALENTS_MAGE.COLDEST_SNAP_TALENT);
+
     const cometStorm = <SpellLink spell={TALENTS_MAGE.COMET_STORM_TALENT} />;
-    const coldestSnap = <SpellLink spell={TALENTS_MAGE.COLDEST_SNAP_TALENT} />;
     const wintersChill = <SpellLink spell={SPELLS.WINTERS_CHILL} />;
-    const flurry = <SpellLink spell={TALENTS.FLURRY_TALENT} />;
     const glacialSpike = <SpellLink spell={TALENTS_MAGE.GLACIAL_SPIKE_TALENT} />;
     const rayOfFrost = <SpellLink spell={TALENTS_MAGE.RAY_OF_FROST_TALENT} />;
     const coneOfCold = <SpellLink spell={SPELLS.CONE_OF_COLD} />;
 
-    const flurryIcon = <SpellIcon spell={TALENTS.FLURRY_TALENT} />;
-    const cometStormIcon = <SpellIcon spell={TALENTS_MAGE.COMET_STORM_TALENT} />;
-    const iceLanceIcon = <SpellIcon spell={SPELLS.ICE_LANCE_DAMAGE} />;
-    const rayOfFrostIcon = <SpellIcon spell={TALENTS_MAGE.RAY_OF_FROST_TALENT} />;
-    const glacialSpikeIcon = <SpellIcon spell={TALENTS_MAGE.GLACIAL_SPIKE_TALENT} />;
-    const wintersChillIcon = <SpellIcon spell={SPELLS.WINTERS_CHILL} />;
-    const coneOfColdIcon = <SpellIcon spell={SPELLS.CONE_OF_COLD} />;
+    const multitargetExplanation = (
+      <>
+        {!coldestSnapKnown && (
+          <>
+            <li>
+              <b>Multitarget</b>
+            </li>
+            Should be casted as soon as possible.
+          </>
+        )}
+        {coldestSnapKnown && (
+          <>
+            <li>
+              <b>Multitarget (3+)</b>
+            </li>
+            If {coneOfCold} is available, you should do {coneOfCold} combo: <br />
+            <SpellSeq
+              spells={[
+                TALENTS_MAGE.COMET_STORM_TALENT,
+                SPELLS.CONE_OF_COLD,
+                TALENTS_MAGE.COMET_STORM_TALENT,
+              ]}
+            />{' '}
+            <br />
+            If {coneOfCold} is less than 10 seconds CD, you should wait for the combo. Otherwise
+            just cast it.
+          </>
+        )}
+      </>
+    );
 
     const explanation = (
       <>
@@ -179,47 +187,25 @@ class CometStorm extends Analyzer {
           <b>{cometStorm}</b> is another important spell. You want to keep it on cd as much as you
           can.
           <p>This spell has different modes of use for single and multitarget.</p>
-          <p>
-            <b>Single Target</b>
+          <ul>
+            <li>
+              <b>Single Target</b>
+            </li>
+            Most of the tiemes on 2 stacks of {wintersChill}, to shatter all 7 comets. <br />
+            <SpellSeq spells={[TALENTS_MAGE.FLURRY_TALENT, TALENTS_MAGE.COMET_STORM_TALENT]} />{' '}
             <br />
-            You should ensure that all the comets benefit from {wintersChill}.<br />
-            The easiest way to acomplish this is to cast {cometStorm} just after {flurry}, while the
-            enemy has 2 stacks of {wintersChill}.<br />
-            <SequenceContainer>
-              &emsp; {flurryIcon} &#129106; {cometStormIcon}
-            </SequenceContainer>
+            On 1 stack of {wintersChill}, before long cast ({rayOfFrost} of {glacialSpike})<br />
+            <SpellSeq
+              spells={[
+                TALENTS_MAGE.FLURRY_TALENT,
+                SPELLS.ICE_LANCE_DAMAGE,
+                TALENTS_MAGE.COMET_STORM_TALENT,
+                TALENTS_MAGE.GLACIAL_SPIKE_TALENT,
+              ]}
+            />{' '}
             <br />
-            <small>
-              If you know that the second {wintersChill}'s stack will be used on a long cast (
-              {rayOfFrost} or {glacialSpike}), you can use {cometStorm} before the long cast too.
-              <br />
-              <SequenceContainer>
-                &emsp; {flurryIcon} &#129106; [2{wintersChillIcon}] &#129106; {iceLanceIcon}
-                &#129106; [1{wintersChillIcon}] &#129106; {cometStormIcon} &#129106; (
-                {rayOfFrostIcon}
-                or {glacialSpikeIcon})
-              </SequenceContainer>
-              <br />
-            </small>
-          </p>
-          <p>
-            <b>2 targets</b> or <b>3+ targets without {coldestSnap}</b>
-            <br />
-            Should be casted as soon as possible.
-          </p>
-          <p>
-            <b>3+ targets with {coldestSnap}</b>
-            <br />
-            If {coneOfCold} is available, you should cast it before and after {coneOfCold}. Te
-            comets of the first cast will land after {coneOfCold}, and therefore both
-            {cometStorm} casts will benefit from {wintersChill}.<br />
-            <SequenceContainer>
-              &emsp; {cometStormIcon} &#129106; {coneOfColdIcon} &#129106; {cometStormIcon}
-            </SequenceContainer>
-            <br />
-            If {coneOfCold} is less than 10 seconds CD, you should wait for the combo. Otherwise
-            just cast it.
-          </p>
+            {multitargetExplanation}
+          </ul>
         </p>
       </>
     );

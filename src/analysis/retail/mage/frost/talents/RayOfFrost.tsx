@@ -47,6 +47,7 @@ class RayOfFrost extends Analyzer {
     });
 
     const rayOfFrostDetails = {
+      timestamp: event.timestamp,
       hits: damage.length,
       shatteredHits: shattered,
     };
@@ -55,7 +56,11 @@ class RayOfFrost extends Analyzer {
     this.analyzeCastEntry(rayOfFrostDetails);
   }
 
-  private analyzeCastEntry(rayOfFrostDetails: { hits: number; shatteredHits: number }) {
+  private analyzeCastEntry(rayOfFrostDetails: {
+    timestamp: number;
+    hits: number;
+    shatteredHits: number;
+  }) {
     let performance = QualitativePerformance.Fail;
     const count = `${rayOfFrostDetails.hits}/5 hits & ${rayOfFrostDetails.shatteredHits}/5 shattered hits`;
     if (rayOfFrostDetails.hits === 5 && rayOfFrostDetails.shatteredHits === 5) {
@@ -67,6 +72,8 @@ class RayOfFrost extends Analyzer {
     }
     const tooltip = (
       <>
+        <b>@ {this.owner.formatTimestamp(rayOfFrostDetails.timestamp)}</b>
+        <br />
         <PerformanceMark perf={performance} /> {performance}: {count}
       </>
     );
@@ -137,6 +144,7 @@ class RayOfFrost extends Analyzer {
     const glacialAssaultKnown = this.selectedCombatant.hasTalent(
       TALENTS_MAGE.GLACIAL_ASSAULT_TALENT,
     );
+
     const explanation = (
       <>
         <p>
@@ -151,7 +159,7 @@ class RayOfFrost extends Analyzer {
             </li>
           )}
           <li>
-            Use it in 2nd {wintersChill}'s stack <small>This is to optimaze {wintersChill}</small>
+            Use it in 2nd {wintersChill}'s stack <small>(to optimize {wintersChill})</small>
           </li>
         </ol>
         <p>
@@ -167,8 +175,8 @@ class RayOfFrost extends Analyzer {
           />
         </p>
         <small>
-          (note that {frostbolt} and {icelance} could be replaced with {glacialSpike} if you have
-          enough {icicles}).
+          {frostbolt} and {icelance} could be replaced with {glacialSpike} if you have enough{' '}
+          {icicles}.
         </small>
       </>
     );
