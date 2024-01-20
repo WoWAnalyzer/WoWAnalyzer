@@ -64,13 +64,13 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: talents.SPEAR_OF_BASTION_TALENT.id,
+        spell: talents.CHAMPIONS_SPEAR_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: 90,
         gcd: {
           base: 1500,
         },
-        enabled: false,
+        enabled: combatant.hasTalent(talents.CHAMPIONS_SPEAR_TALENT),
       },
       // Others
       {

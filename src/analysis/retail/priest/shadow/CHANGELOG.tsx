@@ -5,6 +5,7 @@ import { DoxAshe, Havoc, Sref, ToppleTheNun } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2024, 1, 16), <>Update spec for 10.2.5, and fix error in <SpellLink spell={TALENTS.INESCAPABLE_TORMENT_TALENT}/> extension with Tier 31 two piece </>,DoxAshe),
   change(date(2023, 12, 1), <>Fix <SpellLink spell={TALENTS.SHADOW_WORD_DEATH_TALENT}/> maximum number of casts</>,DoxAshe),
   change(date(2023, 11, 28), <>Update guide for <SpellLink spell={TALENTS.SHADOW_WORD_DEATH_TALENT}/> with Tier 31 four piece equppied</>,DoxAshe),
   change(date(2023, 11, 8), <>Add statistics for Tier 31 four piece</>,DoxAshe),

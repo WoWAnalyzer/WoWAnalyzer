@@ -40,7 +40,7 @@ const andNotSerenity = (cond: Condition<any>) => {
 };
 
 const needsFaelineHarmony = and(
-  hasTalent(TALENTS.FAELINE_HARMONY_TALENT),
+  hasTalent(TALENTS.JADEFIRE_HARMONY_TALENT),
   buffMissing(SPELLS.FAELINE_HARMONY_BUFF),
 );
 
@@ -50,7 +50,7 @@ const hasChi = (min: number) => hasResource(RESOURCE_TYPES.CHI, { atLeast: min }
 export const serenityApl = build(
   [
     {
-      spell: TALENTS.FAELINE_STOMP_TALENT,
+      spell: TALENTS.JADEFIRE_STOMP_TALENT,
       condition: needsFaelineHarmony,
     },
     TALENTS.STRIKE_OF_THE_WINDLORD_TALENT,
@@ -76,7 +76,7 @@ export const serenityApl = build(
 export const nonSerenityApl = build(
   [
     {
-      spell: TALENTS.FAELINE_STOMP_TALENT,
+      spell: TALENTS.JADEFIRE_STOMP_TALENT,
       condition: needsFaelineHarmony,
     },
     {
@@ -113,7 +113,7 @@ export const nonSerenityApl = build(
       condition: hasChi(1),
     },
     TALENTS.CHI_WAVE_TALENT,
-    TALENTS.FAELINE_STOMP_TALENT,
+    TALENTS.JADEFIRE_STOMP_TALENT,
     {
       spell: TALENTS.CHI_BURST_TALENT,
       condition: and(

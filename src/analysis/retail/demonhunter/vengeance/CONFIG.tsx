@@ -68,8 +68,7 @@ const config: Config = {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport:
-    '/report/RFwbnM4JcfvjNtmg/40-Mythic+Rashok,+the+Elder+-+Kill+(6:25)/Toppledh/standard',
+  exampleReport: '/report/dFzCLcjyqMbX43KP/20-Mythic+Volcoross+-+Kill+(3:11)/Toppledh/standard',
   // Default to using the Guide
   guideDefault: true,
   // Only use the Guide

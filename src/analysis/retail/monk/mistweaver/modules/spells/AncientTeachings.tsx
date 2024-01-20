@@ -119,7 +119,7 @@ class AncientTeachings extends Analyzer {
     if (isATFromEssenceFont(event)) {
       this.atSourceSpell = TALENTS_MONK.ESSENCE_FONT_TALENT.id;
     } else if (isATFromFaelineStomp(event)) {
-      this.atSourceSpell = TALENTS_MONK.FAELINE_STOMP_TALENT.id;
+      this.atSourceSpell = TALENTS_MONK.JADEFIRE_STOMP_TALENT.id;
     }
   }
 
@@ -127,7 +127,7 @@ class AncientTeachings extends Analyzer {
     if (this.atSourceSpell === TALENTS_MONK.ESSENCE_FONT_TALENT.id) {
       this.healingFromEF += (event.amount || 0) + (event.absorbed || 0);
       this.overhealingFromEF += event.overheal || 0;
-    } else if (this.atSourceSpell === TALENTS_MONK.FAELINE_STOMP_TALENT.id) {
+    } else if (this.atSourceSpell === TALENTS_MONK.JADEFIRE_STOMP_TALENT.id) {
       this.healingFromFLS += (event.amount || 0) + (event.absorbed || 0);
       this.overhealingFromFLS += event.overheal || 0;
     }
@@ -142,7 +142,7 @@ class AncientTeachings extends Analyzer {
         is a powerful buff that enables you to do consistent healing while doing damage, a core
         identity of Mistweaver Monk. Try to maintain your buff at all times by casting{' '}
         <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> or{' '}
-        <SpellLink spell={TALENTS_MONK.FAELINE_STOMP_TALENT} /> between usages of{' '}
+        <SpellLink spell={TALENTS_MONK.JADEFIRE_STOMP_TALENT} /> between usages of{' '}
         <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> when talented into{' '}
         <SpellLink spell={TALENTS_MONK.UPWELLING_TALENT} />.
       </>
@@ -283,7 +283,7 @@ class AncientTeachings extends Analyzer {
       suggest(
         <>
           You had suboptimal <SpellLink spell={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT} /> buff
-          uptime, try using <SpellLink spell={TALENTS_MONK.FAELINE_STOMP_TALENT} /> and{' '}
+          uptime, try using <SpellLink spell={TALENTS_MONK.JADEFIRE_STOMP_TALENT} /> and{' '}
           <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> more frequently in order to
           maintain the buff
         </>,
@@ -316,7 +316,7 @@ class AncientTeachings extends Analyzer {
             {formatNumber(this.healingFromEF)} healing while activated from{' '}
             <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> <br />
             {formatNumber(this.healingFromFLS)} healing while activated from{' '}
-            <SpellLink spell={TALENTS_MONK.FAELINE_STOMP_TALENT} /> <br />
+            <SpellLink spell={TALENTS_MONK.JADEFIRE_STOMP_TALENT} /> <br />
           </>
         }
         footer={

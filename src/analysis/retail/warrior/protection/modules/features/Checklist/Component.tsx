@@ -109,7 +109,7 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: C
           />
         )}
         <TalentCastEfficiencyRequirement talent={TALENTS.SHIELD_CHARGE_TALENT} />
-        <TalentCastEfficiencyRequirement talent={TALENTS.SPEAR_OF_BASTION_TALENT} />
+        <TalentCastEfficiencyRequirement talent={TALENTS.CHAMPIONS_SPEAR_TALENT} />
         {combatant.hasTalent(TALENTS.SONIC_BOOM_TALENT) && (
           <AbilityRequirement spell={TALENTS.SHOCKWAVE_TALENT.id} />
         )}

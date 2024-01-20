@@ -28,7 +28,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id,
     SPELLS.EXPEL_HARM.id,
     TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id,
-    TALENTS_MONK.FAELINE_STOMP_TALENT.id,
+    TALENTS_MONK.JADEFIRE_STOMP_TALENT.id,
     TALENTS_MONK.ZEN_PULSE_TALENT.id,
   ];
   isSooming = false;
@@ -51,7 +51,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
       this.HEALING_ABILITIES_ON_GCD.push(SPELLS.RISING_SUN_KICK_DAMAGE.id);
       this.HEALING_ABILITIES_ON_GCD.push(SPELLS.BLACKOUT_KICK.id);
     }
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.AWAKENED_FAELINE_TALENT)) {
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.AWAKENED_JADEFIRE_TALENT)) {
       this.HEALING_ABILITIES_ON_GCD.push(SPELLS.SPINNING_CRANE_KICK.id);
       this.HEALING_ABILITIES_ON_GCD.push(SPELLS.SPINNING_CRANE_KICK_DAMAGE.id);
     }

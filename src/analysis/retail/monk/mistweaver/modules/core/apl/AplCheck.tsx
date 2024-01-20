@@ -18,7 +18,7 @@ const AOE_SCK = {
         targetSpell: SPELLS.SPINNING_CRANE_KICK_DAMAGE,
       },
     ),
-    cnd.hasTalent(talents.AWAKENED_FAELINE_TALENT),
+    cnd.hasTalent(talents.AWAKENED_JADEFIRE_TALENT),
   ),
 };
 
@@ -151,10 +151,10 @@ const rotation_rm_at_upw = build([
   ...commonTop,
   ...RM_AT_CORE,
   {
-    spell: talents.FAELINE_STOMP_TALENT,
+    spell: talents.JADEFIRE_STOMP_TALENT,
     condition: cnd.describe(
       cnd.and(
-        cnd.hasTalent(talents.FAELINE_STOMP_TALENT),
+        cnd.hasTalent(talents.JADEFIRE_STOMP_TALENT),
         cnd.hasTalent(talents.UPWELLING_TALENT),
         cnd.spellCooldownRemaining(talents.ESSENCE_FONT_TALENT, { atLeast: 0.00001 }),
         atMissingCondition,
@@ -231,7 +231,7 @@ export const chooseApl = (info: PlayerInfo): MistweaverApl => {
   ) {
     return MistweaverApl.RisingMistCloudedFocusShaohaos;
   } else if (
-    info.combatant.hasTalent(talents.AWAKENED_FAELINE_TALENT) &&
+    info.combatant.hasTalent(talents.AWAKENED_JADEFIRE_TALENT) &&
     info.combatant.hasTalent(talents.ANCIENT_TEACHINGS_TALENT)
   ) {
     return MistweaverApl.AwakenedFaeline;

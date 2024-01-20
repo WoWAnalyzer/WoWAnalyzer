@@ -6,6 +6,7 @@ import GalakrondsFall from 'game/raids/mythicplusseasonthree/GalakrondsFall';
 import MurozondsRise from 'game/raids/mythicplusseasonthree/MurozondsRise';
 import ThroneOfTheTides from 'game/raids/mythicplusseasonthree/ThroneOfTheTides';
 import WaycrestManor from 'game/raids/mythicplusseasonthree/WaycrestManor';
+import type { Raid } from 'game/raids';
 
 export default {
   name: 'Mythic+ Season 3',
@@ -20,4 +21,4 @@ export default {
     ThroneOfTheTides,
     WaycrestManor,
   },
-};
+} satisfies Raid;

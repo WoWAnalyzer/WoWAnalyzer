@@ -13,46 +13,95 @@ import {
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 
-const FORWARD_BUFFER_MS = 25;
-const CAST_BUFFER_MS = 500;
+const CAST_BUFFER_MS = 75;
 
-export const FROM_HARDCAST = 'FromHardcast';
-export const FROM_PRIMAL_WRATH = 'FromPrimalWrath';
-export const HIT_TARGET = 'HitTarget';
+export const SPELL_CAST = 'SpellCast';
+export const SPELL_DAMAGE = 'SpellDamage';
+export const DEBUFF_APPLY = 'DebuffApply';
+export const DEBUFF_REMOVE = 'DebuffRemove';
+export const SPARK_REMOVED = 'SparkRemoved';
 
 const EVENT_LINKS: EventLink[] = [
   {
-    linkRelation: FROM_HARDCAST,
+    reverseLinkRelation: SPELL_CAST,
     linkingEventId: SPELLS.ARCANE_EXPLOSION.id,
-    linkingEventType: EventType.Damage,
+    linkingEventType: EventType.Cast,
+    linkRelation: SPELL_DAMAGE,
     referencedEventId: SPELLS.ARCANE_EXPLOSION.id,
-    referencedEventType: EventType.Cast,
-    forwardBufferMs: FORWARD_BUFFER_MS,
+    referencedEventType: EventType.Damage,
+    anyTarget: true,
+    forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
-    anyTarget: true,
-    reverseLinkRelation: HIT_TARGET,
   },
   {
-    linkRelation: FROM_HARDCAST,
+    reverseLinkRelation: SPELL_CAST,
     linkingEventId: SPELLS.ARCANE_BARRAGE.id,
-    linkingEventType: EventType.Damage,
+    linkingEventType: EventType.Cast,
+    linkRelation: SPELL_DAMAGE,
     referencedEventId: SPELLS.ARCANE_BARRAGE.id,
-    referencedEventType: EventType.Cast,
-    forwardBufferMs: FORWARD_BUFFER_MS,
-    backwardBufferMs: 1500,
+    referencedEventType: EventType.Damage,
     anyTarget: true,
-    reverseLinkRelation: HIT_TARGET,
+    forwardBufferMs: 1500,
+    backwardBufferMs: CAST_BUFFER_MS,
   },
   {
-    linkRelation: FROM_HARDCAST,
-    linkingEventId: SPELLS.ARCANE_ORB_DAMAGE.id,
-    linkingEventType: EventType.Damage,
-    referencedEventId: TALENTS.ARCANE_ORB_TALENT.id,
-    referencedEventType: EventType.Cast,
-    forwardBufferMs: FORWARD_BUFFER_MS,
-    backwardBufferMs: 1500,
+    reverseLinkRelation: SPELL_CAST,
+    linkingEventId: TALENTS.ARCANE_ORB_TALENT.id,
+    linkingEventType: EventType.Cast,
+    linkRelation: SPELL_DAMAGE,
+    referencedEventId: SPELLS.ARCANE_ORB_DAMAGE.id,
+    referencedEventType: EventType.Damage,
     anyTarget: true,
-    reverseLinkRelation: HIT_TARGET,
+    forwardBufferMs: 1500,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    reverseLinkRelation: SPELL_CAST,
+    linkingEventId: TALENTS.ARCANE_SURGE_TALENT.id,
+    linkingEventType: EventType.Cast,
+    linkRelation: SPELL_DAMAGE,
+    referencedEventId: TALENTS.ARCANE_SURGE_TALENT.id,
+    referencedEventType: EventType.Damage,
+    maximumLinks: 1,
+    anyTarget: true,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    reverseLinkRelation: SPELL_CAST,
+    linkingEventId: TALENTS.TOUCH_OF_THE_MAGI_TALENT.id,
+    linkingEventType: EventType.Cast,
+    linkRelation: DEBUFF_APPLY,
+    referencedEventId: SPELLS.TOUCH_OF_THE_MAGI_DEBUFF.id,
+    referencedEventType: EventType.ApplyDebuff,
+    maximumLinks: 1,
+    anyTarget: true,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    reverseLinkRelation: SPELL_CAST,
+    linkingEventId: TALENTS.TOUCH_OF_THE_MAGI_TALENT.id,
+    linkingEventType: EventType.Cast,
+    linkRelation: DEBUFF_REMOVE,
+    referencedEventId: SPELLS.TOUCH_OF_THE_MAGI_DEBUFF.id,
+    referencedEventType: EventType.RemoveDebuff,
+    maximumLinks: 1,
+    anyTarget: true,
+    forwardBufferMs: 14000,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    reverseLinkRelation: SPELL_CAST,
+    linkingEventId: TALENTS.TOUCH_OF_THE_MAGI_TALENT.id,
+    linkingEventType: EventType.Cast,
+    linkRelation: SPARK_REMOVED,
+    referencedEventId: TALENTS.RADIANT_SPARK_TALENT.id,
+    referencedEventType: EventType.RemoveDebuff,
+    maximumLinks: 1,
+    anyTarget: true,
+    forwardBufferMs: 15000,
+    backwardBufferMs: CAST_BUFFER_MS,
   },
 ];
 
@@ -68,17 +117,17 @@ class CastLinkNormalizer extends EventLinkNormalizer {
 export function isFromHardcast(
   event: ApplyDebuffEvent | RefreshDebuffEvent | DamageEvent,
 ): boolean {
-  return HasRelatedEvent(event, FROM_HARDCAST);
+  return HasRelatedEvent(event, SPELL_CAST);
 }
 
 export function getHardcast(
   event: ApplyDebuffEvent | RefreshDebuffEvent | DamageEvent,
 ): CastEvent | undefined {
-  return GetRelatedEvent(event, FROM_HARDCAST);
+  return GetRelatedEvent(event, SPELL_CAST);
 }
 
 export function getHitCount(aoeCastEvent: CastEvent): number {
-  return GetRelatedEvents(aoeCastEvent, HIT_TARGET).length;
+  return GetRelatedEvents(aoeCastEvent, SPELL_DAMAGE).length;
 }
 
 export default CastLinkNormalizer;
