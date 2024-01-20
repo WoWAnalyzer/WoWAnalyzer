@@ -2,10 +2,11 @@ import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
-import { Raistlinn, Sharrq, ToppleTheNun } from 'CONTRIBUTORS';
+import { Raistlinn, Sharrq, Sref, ToppleTheNun } from 'CONTRIBUTORS';
 
 // prettier-ignore
 export default [
+  change(date(2024, 1, 20), <>Fixed an issue where guide sections for Ray of Frost and Comet Storm would be active even when player doesn't have those talents.</>, Sref),
   change(date(2024, 1, 17), <>Added Icy Veins, Ray of Frost and Comet Storm to Guide View</>, Raistlinn),
   change(date(2024, 1, 17), 'Bump to 10.2.5 support.', ToppleTheNun),
   change(date(2024, 1, 12), <>Added Guide view and Always be Casting graph.</>, Raistlinn),

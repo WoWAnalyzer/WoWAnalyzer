@@ -50,8 +50,9 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       <Section title="Core">
         {alwaysBeCastingSubsection}
         {modules.icyVeins.guideSubsection}
-        {modules.rayOfFrost.guideSubsection}
-        {modules.cometStorm.guideSubsection}
+        {info.combatant.hasTalent(TALENTS.RAY_OF_FROST_TALENT) &&
+          modules.rayOfFrost.guideSubsection}
+        {info.combatant.hasTalent(TALENTS.COMET_STORM_TALENT) && modules.cometStorm.guideSubsection}
       </Section>
     </>
   );
