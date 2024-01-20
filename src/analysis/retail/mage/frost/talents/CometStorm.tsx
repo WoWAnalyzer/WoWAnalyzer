@@ -165,7 +165,7 @@ class CometStorm extends Analyzer {
             <li>
               <b>Multitarget (3+)</b>
             </li>
-            If {coneOfCold} is available, you should do {coneOfCold} combo: <br />
+            If {coneOfCold} is available, you should do the combo: <br />
             <SpellSeq
               spells={[
                 TALENTS_MAGE.COMET_STORM_TALENT,
@@ -174,8 +174,8 @@ class CometStorm extends Analyzer {
               ]}
             />{' '}
             <br />
-            If {coneOfCold} is less than 10 seconds CD, you should wait for the combo. Otherwise
-            just cast it.
+            If {coneOfCold} is less than 10 seconds cooldown, you should wait for the combo.
+            Otherwise, just cast it.
           </>
         )}
       </>
@@ -184,17 +184,17 @@ class CometStorm extends Analyzer {
     const explanation = (
       <>
         <p>
-          <b>{cometStorm}</b> is another important spell. You want to keep it on cd as much as you
-          can.
+          <b>{cometStorm}</b> is another important spell. You want to keep it on cooldown as much as
+          you can.
           <p>This spell has different modes of use for single and multitarget.</p>
           <ul>
             <li>
               <b>Single Target</b>
             </li>
-            Most of the tiemes on 2 stacks of {wintersChill}, to shatter all 7 comets. <br />
+            Most of the time on 2 stacks of {wintersChill}, to shatter all 7 comets. <br />
             <SpellSeq spells={[TALENTS_MAGE.FLURRY_TALENT, TALENTS_MAGE.COMET_STORM_TALENT]} />{' '}
             <br />
-            On 1 stack of {wintersChill}, before long cast ({rayOfFrost} of {glacialSpike})<br />
+            On 1 stack of {wintersChill}, before a long cast ({rayOfFrost} of {glacialSpike})<br />
             <SpellSeq
               spells={[
                 TALENTS_MAGE.FLURRY_TALENT,

@@ -148,7 +148,7 @@ class RayOfFrost extends Analyzer {
     const explanation = (
       <>
         <p>
-          <b>{rayOfFrost}</b> is one of the higher damage per cast spell. You want to cast it as
+          <b>{rayOfFrost}</b> is one of the higher damage per cast spells. You want to cast it as
           soon as possible, but there are some rules to follow in order to get the most out of it.
         </p>
         <ol>
@@ -163,7 +163,7 @@ class RayOfFrost extends Analyzer {
           </li>
         </ol>
         <p>
-          To met <b>all the conditions</b> your {rayOfFrost} rotation should look like this:
+          To meet <b>all the conditions</b>, your {rayOfFrost} rotation should look like this:
           <SpellSeq
             spells={[
               SPELLS.FROSTBOLT,

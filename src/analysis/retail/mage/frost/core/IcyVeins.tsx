@@ -175,13 +175,13 @@ class IcyVeins extends Analyzer {
     const explanation = (
       <>
         <p>
-          <b>{icyVeins}</b> is one of he main sources of damage. You shouldn't hold on it, except in
-          cases when you're waiting for a boss increased damage mechanic.
+          <b>{icyVeins}</b> is one of the main sources of damage. You shouldn't hold onto it, except
+          in cases when you're waiting for a boss's increased damage mechanic.
         </p>
         <p>
           Active Time is crucial during {icyVeins}; you should aim for more than 90%. Try to plan
-          ahead to avoid overlapping boss mechanics that render it untargetable or inactive with
-          {icyVeins}, as this can significantly impact your DPS output.
+          ahead to avoid overlapping boss mechanics that render it untargetable or inactive while
+          {icyVeins} is active, as this can significantly impact your DPS output.
         </p>
       </>
     );
