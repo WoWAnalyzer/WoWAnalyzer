@@ -6,6 +6,7 @@ import { Sharrq, ToppleTheNun } from 'CONTRIBUTORS';
 
 // prettier-ignore
 export default [
+  change(date(2024, 1, 20), <>Fixed an issue with <SpellLink spell={TALENTS.METEOR_TALENT} /> that was counting <SpellLink spell={TALENTS.FIREFALL_TALENT} /> Meteors as mistakes for not landing in <SpellLink spell={TALENTS.COMBUSTION_TALENT} />.</>, Sharrq),
   change(date(2024, 1, 17), 'Bump to 10.2.5 support.', ToppleTheNun),
   change(date(2024, 1, 3), <>Updated <SpellLink spell={SPELLS.FIREBALL} /> during <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> to disregard casts where the player had a <SpellLink spell={TALENTS.FLAME_ACCELERANT_TALENT} /> proc. Reworded the suggestion to include Double Lust and Flame Accelerant.</>, Sharrq),
   change(date(2023, 12, 31), <><SpellLink spell={TALENTS.COMBUSTION_TALENT} /> Active Time had one job, and it now does it properly. And counts in seconds instead of milliseconds.</>, Sharrq),
