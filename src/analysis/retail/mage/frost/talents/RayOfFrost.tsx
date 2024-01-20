@@ -16,6 +16,7 @@ import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { SpellSeq } from 'parser/ui/SpellSeq';
+import { PerformanceMark } from 'interface/guide';
 
 class RayOfFrost extends Analyzer {
   static dependencies = {
@@ -57,18 +58,18 @@ class RayOfFrost extends Analyzer {
   private analyzeCastEntry(rayOfFrostDetails: { hits: number; shatteredHits: number }) {
     let performance = QualitativePerformance.Fail;
     const count = `${rayOfFrostDetails.hits}/5 hits & ${rayOfFrostDetails.shatteredHits}/5 shattered hits`;
-    let message = `Fail ${count}`;
     if (rayOfFrostDetails.hits === 5 && rayOfFrostDetails.shatteredHits === 5) {
       performance = QualitativePerformance.Perfect;
-      message = `Perfect: ${count}`;
     } else if (rayOfFrostDetails.hits >= 4 && rayOfFrostDetails.shatteredHits >= 4) {
       performance = QualitativePerformance.Good;
-      message = `Good: ${count}`;
     } else if (rayOfFrostDetails.hits >= 4 && rayOfFrostDetails.shatteredHits >= 2) {
       performance = QualitativePerformance.Ok;
-      message = `Ok: ${count}`;
     }
-    const tooltip = <>{message}</>;
+    const tooltip = (
+      <>
+        <PerformanceMark perf={performance} /> {performance}: {count}
+      </>
+    );
     this.castEntries.push({ value: performance, tooltip });
   }
 
@@ -121,8 +122,6 @@ class RayOfFrost extends Analyzer {
 
   get guideSubsection(): JSX.Element {
     const rayOfFrost = <SpellLink spell={TALENTS_MAGE.RAY_OF_FROST_TALENT} />;
-    const shimmer = <SpellLink spell={TALENTS_MAGE.SHIMMER_TALENT} />;
-    const iceFloes = <SpellLink spell={TALENTS_MAGE.ICE_FLOES_TALENT} />;
 
     const wintersChill = <SpellLink spell={SPELLS.WINTERS_CHILL} />;
 
@@ -135,40 +134,28 @@ class RayOfFrost extends Analyzer {
 
     const icicles = <SpellLink spell={SPELLS.MASTERY_ICICLES} />;
 
+    const glacialAssaultKnown = this.selectedCombatant.hasTalent(
+      TALENTS_MAGE.GLACIAL_ASSAULT_TALENT,
+    );
     const explanation = (
       <>
         <p>
           <b>{rayOfFrost}</b> is one of the higher damage per cast spell. You want to cast it as
           soon as possible, but there are some rules to follow in order to get the most out of it.
         </p>
+        <ol>
+          <li>Don't miss ticks</li>
+          {glacialAssaultKnown && (
+            <li>
+              Use it after {cometStorm} (to benefit from {glacialAssault})
+            </li>
+          )}
+          <li>
+            Use it in 2nd {wintersChill}'s stack <small>This is to optimaze {wintersChill}</small>
+          </li>
+        </ol>
         <p>
-          <b>1. Don't miss ticks</b>
-        </p>
-        <p>
-          Do the best you can to channel {rayOfFrost} to its full duration (5 ticks). If you need to
-          move because of a mechanic be sure to have {shimmer} or {iceFloes} available beforehand.
-        </p>
-        <p>
-          <b>2. Use it in 2nd {wintersChill}'s stack</b>
-        </p>
-        <p>
-          {rayOfFrost} won't consume {wintersChill}'s stacks and {wintersChill} lasts nearly the
-          same as {rayOfFrost} channeling. Thats why you should use {rayOfFrost} in the 2nd stack of
-          {wintersChill} to shatter as much ticks as possible and, at the same time, optimaze{' '}
-          {wintersChill} usage.
-        </p>
-        <p>
-          <b>3. Use it during {glacialAssault}</b>
-        </p>
-        <p>
-          If you're talented on {glacialAssault}, then you should try to use {rayOfFrost} after
-          {cometStorm} while {glacialAssault} is still active to get the 6% extra damage.
-        </p>
-        <p>
-          <b>All at once</b>
-        </p>
-        <p>
-          To met all these conditions your {rayOfFrost} rotation should look like this:
+          To met <b>all the conditions</b> your {rayOfFrost} rotation should look like this:
           <SpellSeq
             spells={[
               SPELLS.FROSTBOLT,
