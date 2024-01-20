@@ -6,6 +6,7 @@ import { Raistlinn, Sharrq, ToppleTheNun } from 'CONTRIBUTORS';
 
 // prettier-ignore
 export default [
+  change(date(2024, 1, 17), <>Added Icy Veins, Ray of Frost and Comet Storm to Guide View</>, Raistlinn),
   change(date(2024, 1, 17), 'Bump to 10.2.5 support.', ToppleTheNun),
   change(date(2024, 1, 12), <>Added Guide view and Always be Casting graph.</>, Raistlinn),
   change(date(2024, 1, 6), <>Fixed a crash in <SpellLink spell={SPELLS.WINTERS_CHILL} />.</>, Sharrq),

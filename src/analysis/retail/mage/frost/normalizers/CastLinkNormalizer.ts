@@ -199,6 +199,20 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
   },
+  /**
+   * Relation: Icy Veins Remove Buff <=> Icy Veins Spell Cast (60s before remove)
+   */
+  {
+    linkRelation: BUFF_REMOVE,
+    linkingEventId: TALENTS.ICY_VEINS_TALENT.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: TALENTS.ICY_VEINS_TALENT.id,
+    referencedEventType: EventType.RemoveBuff,
+    reverseLinkRelation: SPELL_CAST,
+    anyTarget: true,
+    forwardBufferMs: 60_000,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
   {
     reverseLinkRelation: BUFF_APPLY,
     linkingEventId: TALENTS.ICY_VEINS_TALENT.id,
