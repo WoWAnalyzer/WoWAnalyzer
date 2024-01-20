@@ -1,7 +1,7 @@
 import { COMET_STORM_AOE_MIN_TARGETS, SHATTER_DEBUFFS } from 'analysis/retail/mage/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import TALENTS, { TALENTS_MAGE } from 'common/TALENTS/mage';
+import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
 import { highlightInefficientCast } from 'interface/report/Results/Timeline/Casts';
 import Analyzer, { Options } from 'parser/core/Analyzer';
@@ -142,12 +142,12 @@ class CometStorm extends Analyzer {
   }
 
   get guideSubsection(): JSX.Element {
-    const coldestSnapKnown = this.selectedCombatant.hasTalent(TALENTS_MAGE.COLDEST_SNAP_TALENT);
+    const coldestSnapKnown = this.selectedCombatant.hasTalent(TALENTS.COLDEST_SNAP_TALENT);
 
-    const cometStorm = <SpellLink spell={TALENTS_MAGE.COMET_STORM_TALENT} />;
+    const cometStorm = <SpellLink spell={TALENTS.COMET_STORM_TALENT} />;
     const wintersChill = <SpellLink spell={SPELLS.WINTERS_CHILL} />;
-    const glacialSpike = <SpellLink spell={TALENTS_MAGE.GLACIAL_SPIKE_TALENT} />;
-    const rayOfFrost = <SpellLink spell={TALENTS_MAGE.RAY_OF_FROST_TALENT} />;
+    const glacialSpike = <SpellLink spell={TALENTS.GLACIAL_SPIKE_TALENT} />;
+    const rayOfFrost = <SpellLink spell={TALENTS.RAY_OF_FROST_TALENT} />;
     const coneOfCold = <SpellLink spell={SPELLS.CONE_OF_COLD} />;
 
     const multitargetExplanation = (
@@ -167,11 +167,7 @@ class CometStorm extends Analyzer {
             </li>
             If {coneOfCold} is available, you should do the combo: <br />
             <SpellSeq
-              spells={[
-                TALENTS_MAGE.COMET_STORM_TALENT,
-                SPELLS.CONE_OF_COLD,
-                TALENTS_MAGE.COMET_STORM_TALENT,
-              ]}
+              spells={[TALENTS.COMET_STORM_TALENT, SPELLS.CONE_OF_COLD, TALENTS.COMET_STORM_TALENT]}
             />{' '}
             <br />
             If {coneOfCold} is less than 10 seconds cooldown, you should wait for the combo.
@@ -192,15 +188,14 @@ class CometStorm extends Analyzer {
               <b>Single Target</b>
             </li>
             Most of the time on 2 stacks of {wintersChill}, to shatter all 7 comets. <br />
-            <SpellSeq spells={[TALENTS_MAGE.FLURRY_TALENT, TALENTS_MAGE.COMET_STORM_TALENT]} />{' '}
-            <br />
+            <SpellSeq spells={[TALENTS.FLURRY_TALENT, TALENTS.COMET_STORM_TALENT]} /> <br />
             On 1 stack of {wintersChill}, before a long cast ({rayOfFrost} of {glacialSpike})<br />
             <SpellSeq
               spells={[
-                TALENTS_MAGE.FLURRY_TALENT,
+                TALENTS.FLURRY_TALENT,
                 SPELLS.ICE_LANCE_DAMAGE,
-                TALENTS_MAGE.COMET_STORM_TALENT,
-                TALENTS_MAGE.GLACIAL_SPIKE_TALENT,
+                TALENTS.COMET_STORM_TALENT,
+                TALENTS.GLACIAL_SPIKE_TALENT,
               ]}
             />{' '}
             <br />
@@ -239,7 +234,7 @@ class CometStorm extends Analyzer {
   subStatistic() {
     return (
       <CastEfficiencyBar
-        spellId={TALENTS_MAGE.COMET_STORM_TALENT.id}
+        spellId={TALENTS.COMET_STORM_TALENT.id}
         gapHighlightMode={GapHighlight.FullCooldown}
         minimizeIcons
         slimLines

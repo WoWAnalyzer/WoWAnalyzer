@@ -1,5 +1,5 @@
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
-import { TALENTS_MAGE } from 'common/TALENTS';
+import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
@@ -41,17 +41,17 @@ class IcyVeins extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS_MAGE.ICY_VEINS_TALENT),
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.ICY_VEINS_TALENT),
       this.onIcyVeinsStart,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS_MAGE.ICY_VEINS_TALENT),
+      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.ICY_VEINS_TALENT),
       this.onIcyVeinsEnd,
     );
     this.addEventListener(Events.fightend, this.onFightEnd);
     // Guide
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS_MAGE.ICY_VEINS_TALENT),
+      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.ICY_VEINS_TALENT),
       this.generateCastEntryOnBuffEnd,
     );
     this.addEventListener(Events.fightend, this.generateCastEntryOnFightEnd);
@@ -74,10 +74,10 @@ class IcyVeins extends Analyzer {
 
   onFightEnd(event: FightEndEvent) {
     const buffApply = this.eventHistory.getEvents(EventType.ApplyBuff, {
-      spell: TALENTS_MAGE.ICY_VEINS_TALENT,
+      spell: TALENTS.ICY_VEINS_TALENT,
       count: 1,
     })[0];
-    if (!this.selectedCombatant.hasBuff(TALENTS_MAGE.ICY_VEINS_TALENT.id) || !buffApply) {
+    if (!this.selectedCombatant.hasBuff(TALENTS.ICY_VEINS_TALENT.id) || !buffApply) {
       return;
     }
     const icyVeinsDuration = event.timestamp - buffApply.timestamp;
@@ -88,10 +88,10 @@ class IcyVeins extends Analyzer {
 
   generateCastEntryOnFightEnd(event: FightEndEvent) {
     const buffCast = this.eventHistory.getEvents(EventType.ApplyBuff, {
-      spell: TALENTS_MAGE.ICY_VEINS_TALENT,
+      spell: TALENTS.ICY_VEINS_TALENT,
       count: 1,
     })[0];
-    if (!this.selectedCombatant.hasBuff(TALENTS_MAGE.ICY_VEINS_TALENT.id) || !buffCast) {
+    if (!this.selectedCombatant.hasBuff(TALENTS.ICY_VEINS_TALENT.id) || !buffCast) {
       return;
     }
 
@@ -150,7 +150,7 @@ class IcyVeins extends Analyzer {
   };
 
   get buffUptime() {
-    return this.selectedCombatant.getBuffUptime(TALENTS_MAGE.ICY_VEINS_TALENT.id) / 1000;
+    return this.selectedCombatant.getBuffUptime(TALENTS.ICY_VEINS_TALENT.id) / 1000;
   }
 
   get percentActiveTime() {
@@ -170,7 +170,7 @@ class IcyVeins extends Analyzer {
   }
 
   get guideSubsection(): JSX.Element {
-    const icyVeins = <SpellLink spell={TALENTS_MAGE.ICY_VEINS_TALENT} />;
+    const icyVeins = <SpellLink spell={TALENTS.ICY_VEINS_TALENT} />;
 
     const explanation = (
       <>
@@ -215,7 +215,7 @@ class IcyVeins extends Analyzer {
   subStatistic() {
     return (
       <CastEfficiencyBar
-        spellId={TALENTS_MAGE.ICY_VEINS_TALENT.id}
+        spellId={TALENTS.ICY_VEINS_TALENT.id}
         gapHighlightMode={GapHighlight.FullCooldown}
         minimizeIcons
         slimLines
@@ -230,15 +230,15 @@ class IcyVeins extends Analyzer {
         <>
           You spent {formatNumber(this.icyVeinsDowntime())} seconds (
           {formatNumber(this.icyVeinsDowntime() / this.buffApplies)}s per cast) not casting anything
-          while <SpellLink spell={TALENTS_MAGE.ICY_VEINS_TALENT} /> was active. Because a large
-          portion of your damage comes from Icy Veins, you should ensure that you are getting the
-          most out of it every time it is cast. While sometimes this is out of your control (you got
-          targeted by a mechanic at the worst possible time), you should try to minimize that risk
-          by casting <SpellLink spell={TALENTS_MAGE.ICY_VEINS_TALENT} /> when you are at a low risk
-          of being interrupted or when the target is vulnerable.
+          while <SpellLink spell={TALENTS.ICY_VEINS_TALENT} /> was active. Because a large portion
+          of your damage comes from Icy Veins, you should ensure that you are getting the most out
+          of it every time it is cast. While sometimes this is out of your control (you got targeted
+          by a mechanic at the worst possible time), you should try to minimize that risk by casting{' '}
+          <SpellLink spell={TALENTS.ICY_VEINS_TALENT} /> when you are at a low risk of being
+          interrupted or when the target is vulnerable.
         </>,
       )
-        .icon(TALENTS_MAGE.ICY_VEINS_TALENT.icon)
+        .icon(TALENTS.ICY_VEINS_TALENT.icon)
         .actual(`${formatPercentage(this.percentActiveTime)}% Active Time during Icy Veins`)
         .recommended(`${formatPercentage(recommended)}% is recommended`),
     );
@@ -259,7 +259,7 @@ class IcyVeins extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={TALENTS_MAGE.ICY_VEINS_TALENT}>
+        <BoringSpellValueText spell={TALENTS.ICY_VEINS_TALENT}>
           {formatPercentage(this.percentActiveTime)}% <small>Icy Veins Active Time</small>
         </BoringSpellValueText>
       </Statistic>

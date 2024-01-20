@@ -1,7 +1,7 @@
 import { SHATTER_DEBUFFS } from 'analysis/retail/mage/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { TALENTS_MAGE } from 'common/TALENTS/mage';
+import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
@@ -29,9 +29,9 @@ class RayOfFrost extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_MAGE.RAY_OF_FROST_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.RAY_OF_FROST_TALENT);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MAGE.RAY_OF_FROST_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.RAY_OF_FROST_TALENT),
       this.onRayCast,
     );
   }
@@ -108,42 +108,39 @@ class RayOfFrost extends Analyzer {
     when(this.rayOfFrostUtilizationThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You failed to get the most out of your{' '}
-          <SpellLink spell={TALENTS_MAGE.RAY_OF_FROST_TALENT} /> casts {this.badCasts} times.
-          Because the ticks from <SpellLink spell={TALENTS_MAGE.RAY_OF_FROST_TALENT} /> do not
-          remove your stacks of <SpellLink spell={SPELLS.WINTERS_CHILL} />, you should always cast{' '}
-          <SpellLink spell={TALENTS_MAGE.RAY_OF_FROST_TALENT} /> during{' '}
+          You failed to get the most out of your <SpellLink spell={TALENTS.RAY_OF_FROST_TALENT} />{' '}
+          casts {this.badCasts} times. Because the ticks from{' '}
+          <SpellLink spell={TALENTS.RAY_OF_FROST_TALENT} /> do not remove your stacks of{' '}
+          <SpellLink spell={SPELLS.WINTERS_CHILL} />, you should always cast{' '}
+          <SpellLink spell={TALENTS.RAY_OF_FROST_TALENT} /> during{' '}
           <SpellLink spell={SPELLS.WINTERS_CHILL} />. However, because{' '}
           <SpellLink spell={SPELLS.WINTERS_CHILL} /> has such a short duration and therefore will
-          likely naturally end before <SpellLink spell={TALENTS_MAGE.RAY_OF_FROST_TALENT} />{' '}
-          finishes, you should spend your first stack of <SpellLink spell={SPELLS.WINTERS_CHILL} />{' '}
-          and then cast <SpellLink spell={TALENTS_MAGE.RAY_OF_FROST_TALENT} /> instead of spending
-          the 2nd stack.
+          likely naturally end before <SpellLink spell={TALENTS.RAY_OF_FROST_TALENT} /> finishes,
+          you should spend your first stack of <SpellLink spell={SPELLS.WINTERS_CHILL} /> and then
+          cast <SpellLink spell={TALENTS.RAY_OF_FROST_TALENT} /> instead of spending the 2nd stack.
         </>,
       )
-        .icon(TALENTS_MAGE.RAY_OF_FROST_TALENT.icon)
+        .icon(TALENTS.RAY_OF_FROST_TALENT.icon)
         .actual(`${formatPercentage(actual)}% Utilization`)
         .recommended(`${formatPercentage(recommended)}% is recommended`),
     );
   }
 
   get guideSubsection(): JSX.Element {
-    const rayOfFrost = <SpellLink spell={TALENTS_MAGE.RAY_OF_FROST_TALENT} />;
+    const rayOfFrost = <SpellLink spell={TALENTS.RAY_OF_FROST_TALENT} />;
 
     const wintersChill = <SpellLink spell={SPELLS.WINTERS_CHILL} />;
 
-    const cometStorm = <SpellLink spell={TALENTS_MAGE.COMET_STORM_TALENT} />;
-    const glacialAssault = <SpellLink spell={TALENTS_MAGE.GLACIAL_ASSAULT_TALENT} />;
+    const cometStorm = <SpellLink spell={TALENTS.COMET_STORM_TALENT} />;
+    const glacialAssault = <SpellLink spell={TALENTS.GLACIAL_ASSAULT_TALENT} />;
 
     const frostbolt = <SpellLink spell={SPELLS.FROSTBOLT} />;
     const icelance = <SpellLink spell={SPELLS.ICE_LANCE_DAMAGE} />;
-    const glacialSpike = <SpellLink spell={TALENTS_MAGE.GLACIAL_SPIKE_TALENT} />;
+    const glacialSpike = <SpellLink spell={TALENTS.GLACIAL_SPIKE_TALENT} />;
 
     const icicles = <SpellLink spell={SPELLS.MASTERY_ICICLES} />;
 
-    const glacialAssaultKnown = this.selectedCombatant.hasTalent(
-      TALENTS_MAGE.GLACIAL_ASSAULT_TALENT,
-    );
+    const glacialAssaultKnown = this.selectedCombatant.hasTalent(TALENTS.GLACIAL_ASSAULT_TALENT);
 
     const explanation = (
       <>
@@ -167,10 +164,10 @@ class RayOfFrost extends Analyzer {
           <SpellSeq
             spells={[
               SPELLS.FROSTBOLT,
-              TALENTS_MAGE.FLURRY_TALENT,
-              TALENTS_MAGE.COMET_STORM_TALENT,
+              TALENTS.FLURRY_TALENT,
+              TALENTS.COMET_STORM_TALENT,
               SPELLS.ICE_LANCE_DAMAGE,
-              TALENTS_MAGE.RAY_OF_FROST_TALENT,
+              TALENTS.RAY_OF_FROST_TALENT,
             ]}
           />
         </p>
@@ -209,7 +206,7 @@ class RayOfFrost extends Analyzer {
   subStatistic() {
     return (
       <CastEfficiencyBar
-        spellId={TALENTS_MAGE.RAY_OF_FROST_TALENT.id}
+        spellId={TALENTS.RAY_OF_FROST_TALENT.id}
         gapHighlightMode={GapHighlight.FullCooldown}
         minimizeIcons
         slimLines
