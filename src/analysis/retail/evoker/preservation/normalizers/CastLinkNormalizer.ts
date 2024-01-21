@@ -56,6 +56,7 @@ export const STASIS = 'Stasis';
 export const STASIS_FOR_RAMP = 'ForRamp';
 export const ESSENCE_RUSH = 'EssenceRush';
 export const T31_2PC = 'T31LFProc';
+export const EB_REVERSION = 'EssenceBurstReversion';
 
 export enum ECHO_TYPE {
   NONE,
@@ -737,6 +738,16 @@ const EVENT_LINKS: EventLink[] = [
     },
   },
   {
+    linkRelation: EB_REVERSION,
+    reverseLinkRelation: EB_REVERSION,
+    linkingEventId: TALENTS_EVOKER.REVERSION_TALENT.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.ESSENCE_BURST_BUFF.id,
+    referencedEventType: [EventType.RefreshBuff, EventType.ApplyBuff, EventType.ApplyBuffStack],
+    forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+  },
+  {
     linkRelation: STASIS_FOR_RAMP,
     linkingEventId: SPELLS.STASIS_BUFF.id,
     linkingEventType: EventType.RemoveBuff,
@@ -922,7 +933,12 @@ export function getStasisSpell(event: RemoveBuffStackEvent | RemoveBuffEvent): n
 }
 
 export function didSparkProcEssenceBurst(
-  event: ApplyBuffEvent | RemoveBuffEvent | RefreshBuffEvent | ApplyBuffStackEvent,
+  event:
+    | ApplyBuffEvent
+    | RemoveBuffEvent
+    | RemoveBuffStackEvent
+    | RefreshBuffEvent
+    | ApplyBuffStackEvent,
 ) {
   return HasRelatedEvent(event, SPARK_OF_INSIGHT);
 }
@@ -989,6 +1005,20 @@ export function getAncientFlameSource(event: ApplyBuffEvent | RefreshBuffEvent |
     event,
     event.type === EventType.RemoveBuff ? ANCIENT_FLAME_CONSUME : ANCIENT_FLAME,
   )!;
+}
+
+export function isEbFromReversion(
+  event:
+    | ApplyBuffEvent
+    | RefreshBuffEvent
+    | ApplyBuffStackEvent
+    | RemoveBuffEvent
+    | RemoveBuffStackEvent,
+) {
+  if (event.type === EventType.RemoveBuff || event.type === EventType.RemoveBuffStack) {
+    event = GetRelatedEvent(event, ESSENCE_BURST_LINK)!;
+  }
+  return HasRelatedEvent(event, EB_REVERSION);
 }
 
 export default CastLinkNormalizer;
