@@ -332,10 +332,7 @@ class WintersChill extends Analyzer {
         <RoundedPanel>
           <strong>Cast details</strong>
           <PerformanceBoxRow values={this.castEntries} />
-          <small>
-            blue (perfect) / green (good) / yellow (ok) / red (fail) mouseover the rectangles to see
-            more details
-          </small>
+          <small>green (good) / red (fail) mouseover the rectangles to see more details</small>
         </RoundedPanel>
       </div>
     );
