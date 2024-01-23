@@ -6,6 +6,7 @@ import { Raistlinn, Sharrq, Sref, ToppleTheNun } from 'CONTRIBUTORS';
 
 // prettier-ignore
 export default [
+  change(date(2024, 1, 23), 'Fix Ray of Frost Channeling.', Raistlinn),
   change(date(2024, 1, 20), <>Fixed an issue where guide sections for Ray of Frost and Comet Storm would be active even when player doesn't have those talents.</>, Sref),
   change(date(2024, 1, 17), <>Added Icy Veins, Ray of Frost and Comet Storm to Guide View</>, Raistlinn),
   change(date(2024, 1, 17), 'Bump to 10.2.5 support.', ToppleTheNun),
