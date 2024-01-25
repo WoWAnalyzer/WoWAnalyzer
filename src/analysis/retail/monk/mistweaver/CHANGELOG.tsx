@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2024, 1, 17), <>Fix icon spelling</>, Trevor),
   change(date(2024, 1, 24), <>Fix crash when talented into <SpellLink spell={TALENTS_MONK.JADEFIRE_STOMP_TALENT}/></>, Trevor),
   change(date(2024, 1, 17), <>Bump support to 10.2.5</>, Trevor),
   change(date(2023, 12, 26), <>Fix crash in <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT}/> module</>, Trevor),
