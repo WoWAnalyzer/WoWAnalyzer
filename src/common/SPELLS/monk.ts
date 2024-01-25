@@ -458,7 +458,7 @@ const spells = {
   CHI_HARMONY_HEAL: {
     id: 423458,
     name: 'Chi Harmony',
-    icon: 'ability_monk_counteractmagicc',
+    icon: 'ability_monk_counteractmagic',
   },
   //Invigorating Mist Heal
   INVIGORATING_MISTS_HEAL: {
