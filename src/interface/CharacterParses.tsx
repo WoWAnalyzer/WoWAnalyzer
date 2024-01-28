@@ -245,7 +245,9 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
       character_name: elem.characterName,
       talents: elem.talents,
       gear: elem.gear,
-      advanced: Object.values(elem.talents).filter((talent) => talent.id === null).length === 0,
+      advanced: elem.talents
+        ? Object.values(elem.talents).filter((talent) => talent.id === null).length === 0
+        : false,
     }));
 
     return parses;
@@ -319,15 +321,16 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
       });
       return;
     }
-    const image = data.thumbnail.replace('-avatar.jpg', '');
-    const imageUrl = `https://render-${this.props.region}.worldofwarcraft.com/character/${image}-main.jpg`;
-    const avatarImage = `https://render-${this.props.region}.worldofwarcraft.com/character/${image}-avatar.jpg`;
+    const avatarUrl = data.thumbnail.startsWith('https')
+      ? data.thumbnail
+      : `https://render-${this.props.region}.worldofwarcraft.com/character/${data.thumbnail}`;
+    const imageUrl = avatarUrl.replace('avatar.jpg', 'main.jpg');
     const role = data.role;
     const metric = role === 'HEALING' ? 'hps' : 'dps';
     this.setState(
       {
         image: imageUrl,
-        avatarImage: avatarImage,
+        avatarImage: avatarUrl,
         metric: metric,
       },
       () => {

@@ -97,6 +97,10 @@ export function makeThumbnailUrl(characterInfo: CharacterProfile, classic: boole
   if (!characterInfo) {
     return '/img/fallback-character.jpg';
   }
+  if (characterInfo.thumbnail.startsWith('https')) {
+    return characterInfo.thumbnail;
+  }
+
   return classic
     ? `https://render.worldofwarcraft.com/classic-${characterInfo.region}/character/${characterInfo.thumbnail}`
     : `https://render-${characterInfo.region}.worldofwarcraft.com/character/${characterInfo.thumbnail}`.replace(

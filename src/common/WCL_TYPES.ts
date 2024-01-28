@@ -27,11 +27,10 @@ export interface WCLRankingsResponse {
   rankings: WCLRanking[];
 }
 
-export interface WCLRanking {
+export type WCLRanking = {
   name: string;
   class: number;
   spec: number;
-  total: number;
   duration: number;
   startTime: number;
   fightID: number;
@@ -40,10 +39,15 @@ export interface WCLRanking {
   serverName: string;
   regionName: string;
   hidden: boolean;
-  itemLevel: number;
   talents: WCLRankingTalent[];
   gear: WCLRankingGear[];
-}
+} & (
+  | {
+      total: number;
+      itemLevel: number;
+    }
+  | { amount: number; bracketData: number }
+);
 
 export interface WCLRankingTalent {
   name: string;
