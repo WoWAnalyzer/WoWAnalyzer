@@ -9,7 +9,6 @@ import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
-import fingersOfFrost from 'analysis/retail/mage/frost/core/FingersOfFrost';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/mage/frost/Guide';
 
 const REDUCTION_MS = 300;
@@ -37,14 +36,14 @@ class FrozenOrb extends Analyzer {
 
   get guideSubsection(): JSX.Element {
     const frozenOrb = <SpellLink spell={TALENTS.FROZEN_ORB_TALENT} />;
-    const fongersOfFrost = <SpellLink spell={TALENTS.FINGERS_OF_FROST_TALENT} />;
+    const fingersOfFrost = <SpellLink spell={TALENTS.FINGERS_OF_FROST_TALENT} />;
 
     const explanation = (
       <>
         Try to mantain {frozenOrb} on CD as much as you can. <br />
         {this.selectedCombatant.hasTalent(TALENTS.FREEZING_WINDS_TALENT) && (
           <>
-            As it will generate {fongersOfFrost} procs, don't cast it when you have 2{' '}
+            As it will generate {fingersOfFrost} procs, don't cast it when you have 2{' '}
             {fingersOfFrost} procs.
           </>
         )}
