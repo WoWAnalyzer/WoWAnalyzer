@@ -48,19 +48,19 @@ class ShiftingPowerFrost extends ShiftingPower {
       this.spellUsable.cooldownRemaining(TALENTS.ICY_VEINS_TALENT.id, event.timestamp) < 20000;
 
     let performance = QualitativePerformance.Fail;
-    let exp = 'Cooldowns available';
+    let explanation = 'Cooldowns available';
     if (rayOfFrostLongCd && cometStormLongCd && frozenOrbLongCd) {
       performance = QualitativePerformance.Good;
-      exp = 'All spells on CD';
+      explanation = 'All spells on CD';
     } else if (icyVeinsLowCd) {
       performance = QualitativePerformance.Good;
-      exp = 'Icy Veins less than 20s';
+      explanation = 'Icy Veins less than 20s';
     }
     const tooltip = (
       <>
         <b>@ {this.owner.formatTimestamp(event.timestamp)}</b>
         <br />
-        <PerformanceMark perf={performance} /> {performance}: {exp}
+        <PerformanceMark perf={performance} /> {performance}: {explanation}
       </>
     );
     this.castEntries.push({
