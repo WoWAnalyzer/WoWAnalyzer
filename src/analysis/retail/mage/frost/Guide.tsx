@@ -53,6 +53,9 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {info.combatant.hasTalent(TALENTS.RAY_OF_FROST_TALENT) &&
           modules.rayOfFrost.guideSubsection}
         {info.combatant.hasTalent(TALENTS.COMET_STORM_TALENT) && modules.cometStorm.guideSubsection}
+        {info.combatant.hasTalent(TALENTS.FROZEN_ORB_TALENT) && modules.frozenOrb.guideSubsection}
+        {info.combatant.hasTalent(TALENTS.SHIFTING_POWER_TALENT) &&
+          modules.shiftingPowerFrost.guideSubsection}
       </Section>
     </>
   );
