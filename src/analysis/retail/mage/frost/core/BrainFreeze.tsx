@@ -21,6 +21,7 @@ import DonutChart from 'parser/ui/DonutChart';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { SpellSeq } from 'parser/ui/SpellSeq';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/mage/frost/Guide';
+import FlurryEvent from 'analysis/retail/mage/frost/talents/FlurryEvent';
 
 class BrainFreeze extends Analyzer {
   static dependencies = {
@@ -30,13 +31,7 @@ class BrainFreeze extends Analyzer {
   protected enemies!: Enemies;
 
   brainFreezeRefreshes = 0;
-  flurry: {
-    timestamp: number;
-    damage: DamageEvent | undefined;
-    overlapped: boolean;
-    icicles: number;
-    brainFreeze: boolean;
-  }[] = [];
+  flurry: FlurryEvent[] = [];
   brainFreeze: { apply: ApplyBuffEvent; remove: RemoveBuffEvent | undefined; expired: boolean }[] =
     [];
 
@@ -61,28 +56,28 @@ class BrainFreeze extends Analyzer {
 
   analyzeFlurry(): { label: string; color: string; value: number }[] {
     const withBrainFreeze = this.flurry.filter((flurry) => flurry.brainFreeze).length;
-    const withoutBrainFreezeGood = this.flurry.filter(
-      (flurry) => !flurry.brainFreeze && flurry.icicles >= 2,
-    ).length;
-    const withoutBrainFreezeBad = this.flurry.filter(
-      (flurry) => !flurry.brainFreeze && flurry.icicles < 2,
-    ).length;
+    const withoutBrainFreezeGood = this.flurry.filter((flurry) => flurry.noBfGoodCast()).length;
+    const withoutBrainFreezeBad = this.flurry.filter((flurry) => flurry.noBfBadCast()).length;
 
-    const algo: { label: string; color: string; value: number }[] = [];
+    const flurryCasts: { label: string; color: string; value: number }[] = [];
 
-    algo.push({ label: 'with Brain Freeze (BF)', color: this.colors[0], value: withBrainFreeze });
-    algo.push({
+    flurryCasts.push({
+      label: 'with Brain Freeze (BF)',
+      color: this.colors[0],
+      value: withBrainFreeze,
+    });
+    flurryCasts.push({
       label: 'without BF, 2 or more icicles',
       color: this.colors[1],
       value: withoutBrainFreezeGood,
     });
-    algo.push({
+    flurryCasts.push({
       label: 'without BF, 0/1 icicles',
       color: this.colors[2],
       value: withoutBrainFreezeBad,
     });
 
-    return algo;
+    return flurryCasts;
   }
 
   onFlurryCast(event: CastEvent) {
@@ -91,13 +86,8 @@ class BrainFreeze extends Analyzer {
     const icicles =
       this.selectedCombatant.getBuff(SPELLS.ICICLES_BUFF.id, event.timestamp)?.stacks || 0;
     const buffRemove = GetRelatedEvent(event, 'BuffRemove');
-    this.flurry.push({
-      timestamp: event.timestamp,
-      damage: damage,
-      overlapped: enemy?.hasBuff(SPELLS.WINTERS_CHILL.id, event.timestamp - 10) || false,
-      icicles: icicles,
-      brainFreeze: buffRemove !== undefined,
-    });
+    const flurryEvent = new FlurryEvent(event, damage, enemy, icicles, buffRemove !== undefined);
+    this.flurry.push(flurryEvent);
   }
 
   onBrainFreeze(event: ApplyBuffEvent) {
@@ -255,11 +245,8 @@ class BrainFreeze extends Analyzer {
   get guideSubsection(): JSX.Element {
     const flurry = <SpellLink spell={TALENTS.FLURRY_TALENT} />;
     const glacialSpike = <SpellLink spell={TALENTS.GLACIAL_SPIKE_TALENT} />;
-
     const frostbolt = <SpellLink spell={SPELLS.FROSTBOLT} />;
-
     const brainFreeze = <SpellLink spell={TALENTS.BRAIN_FREEZE_TALENT} />;
-
     const icicles = <SpellLink spell={SPELLS.MASTERY_ICICLES} />;
 
     const explanation = (

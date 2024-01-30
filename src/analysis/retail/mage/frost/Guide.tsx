@@ -49,6 +49,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
   return (
     <>
       <Section title="Core">
+        {modules.brainFreeze.guideSubsection}
         {alwaysBeCastingSubsection}
         {modules.icyVeins.guideSubsection}
         {info.combatant.hasTalent(TALENTS.RAY_OF_FROST_TALENT) &&
