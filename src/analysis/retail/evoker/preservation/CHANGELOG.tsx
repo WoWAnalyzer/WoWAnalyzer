@@ -6,6 +6,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { ResourceLink, SpellLink } from 'interface';
 
 export default [
+  change(date(2024, 1, 26), <>Fix bug in <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT}/> source breakdown module and adjust mana costs</>, Trevor),
   change(date(2024, 1, 20), <>Add module for <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT}/> source breakdown</>, Trevor),
   change(date(2024, 1, 20), <>Add <SpellLink spell={TALENTS_EVOKER.LIFEBIND_TALENT}/> attribution to <SpellLink spell={TALENTS_EVOKER.GRACE_PERIOD_TALENT}/> module</>, Trevor),
   change(date(2024, 1, 16), <>Bump support to 10.2.5</>, Trevor),
