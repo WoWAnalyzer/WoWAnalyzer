@@ -133,21 +133,27 @@ class WintersChill extends Analyzer {
   analyzeCasts(event: FightEndEvent) {
     // this module is only analizyng flurry winter's chill applications
     this.wintersChill
-      .filter((wintersChillEvent) => wintersChillEvent.flurry)
+      .filter((wintersChillEvent) => wintersChillEvent.applier)
       .forEach((winterChill) => {
         const tooltip = (
-          <>
-            <b>
-              @ {this.owner.formatTimestamp(winterChill.apply.timestamp)} -{' '}
-              {winterChill.remove && this.owner.formatTimestamp(winterChill.remove.timestamp)}
-              <br />
-              <PerformanceMark perf={winterChill.getPerformance()} /> {winterChill.getPerformance()}
-            </b>
-            <br />
-            <b>Perf. Details</b>
-            <br />
-            {winterChill.getPerformanceDetails()}
-          </>
+          <div>
+            <div>
+              <b>
+                @ {this.owner.formatTimestamp(winterChill.apply.timestamp)} -{' '}
+                {winterChill.remove && this.owner.formatTimestamp(winterChill.remove.timestamp)}
+              </b>
+            </div>
+            <div>
+              <b>
+                <PerformanceMark perf={winterChill.getPerformance()} />{' '}
+                {winterChill.getPerformance()}
+              </b>
+            </div>
+            <div>
+              <b>Perf. Details</b>
+              <div>{winterChill.getPerformanceDetails()}</div>
+            </div>
+          </div>
         );
         this.castEntries.push({
           value: winterChill.getPerformance(),
@@ -281,50 +287,68 @@ class WintersChill extends Analyzer {
 
     const explanation = (
       <>
-        <b>{wintersChill}</b> is an extremely important part of playing Frost effectively.
-        <br />
-        There are 2 main rules to follow:
-        <ul>
-          <li>
-            <b>Precast</b>
-          </li>
-          You should cast {this.hasGlacialSpike ? <>{glacialSpike} or </> : ''}
-          {frostbolt} before {flurry}.<br />
-          {this.hasGlacialSpike && (
-            <>
-              At 4 <SpellLink spell={SPELLS.MASTERY_ICICLES} /> you can cast {flurry} without
-              precast.
-              <br />
-              <small>
-                Precast priority order: {glacialSpike} {frostbolt}{' '}
-              </small>
-            </>
-          )}
-          <li>
-            <b>{wintersChill} stacks</b>
-          </li>
-          Consume both {wintersChill} stacks with {this.hasGlacialSpike && <>{glacialSpike} or </>}
-          {iceLance}.<br />
-          {this.hasRayOfFrost && (
-            <>
-              If {rayOfFrost} is available, use it at 1 stack of {wintersChill}.<br />
-            </>
-          )}
-          <small>
-            Priority order: {this.hasRayOfFrost && <>{rayOfFrost} </>}
-            {this.hasGlacialSpike && <>{glacialSpike} </>}
-            {iceLance}
-          </small>
-        </ul>
-        Your rotations should look like this: <br />
-        <SpellSeq spells={[SPELLS.FROSTBOLT, TALENTS.FLURRY_TALENT, cooldown, cooldown]} /> <br />
-        <SpellSeq
-          spells={[TALENTS.GLACIAL_SPIKE_TALENT, TALENTS.FLURRY_TALENT, cooldown, cooldown]}
-        />{' '}
-        <br />
-        filling the {cooldownIcon}s with {this.hasGlacialSpike && <>{glacialSpikeIcon} </>},{' '}
-        {iceLanceIcon} or
-        {this.hasRayOfFrost && <>{rayOfFrostIcon} </>} following the rules and priorities above.
+        <div>
+          <b>{wintersChill}</b> is an extremely important part of playing Frost effectively.
+        </div>
+        <div>
+          There are 2 main rules to follow:
+          <ul>
+            <li>
+              <b>Precast</b>
+              <div>
+                You should cast {this.hasGlacialSpike ? <>{glacialSpike} or </> : ''}
+                {frostbolt} before {flurry}.
+              </div>
+              {this.hasGlacialSpike && (
+                <div>
+                  At 4 <SpellLink spell={SPELLS.MASTERY_ICICLES} /> you can cast {flurry} without
+                  precast.
+                  <div>
+                    <small>
+                      Precast priority order: {glacialSpike} {frostbolt}{' '}
+                    </small>
+                  </div>
+                </div>
+              )}
+            </li>
+            <li>
+              <b>{wintersChill} stacks</b>
+              <div>
+                Consume both {wintersChill} stacks with{' '}
+                {this.hasGlacialSpike && <>{glacialSpike} or </>}
+                {iceLance}.
+              </div>
+              {this.hasRayOfFrost && (
+                <div>
+                  If {rayOfFrost} is available, use it at 1 stack of {wintersChill}.
+                </div>
+              )}
+              <div>
+                <small>
+                  Priority order: {this.hasRayOfFrost && <>{rayOfFrost} </>}
+                  {this.hasGlacialSpike && <>{glacialSpike} </>}
+                  {iceLance}
+                </small>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div>Your rotations should look like this:</div>
+          <div>
+            <SpellSeq spells={[SPELLS.FROSTBOLT, TALENTS.FLURRY_TALENT, cooldown, cooldown]} />
+          </div>
+          <div>
+            <SpellSeq
+              spells={[TALENTS.GLACIAL_SPIKE_TALENT, TALENTS.FLURRY_TALENT, cooldown, cooldown]}
+            />
+          </div>
+          <div>
+            filling the {cooldownIcon}s with {this.hasGlacialSpike && <>{glacialSpikeIcon}, </>}
+            {iceLanceIcon} or
+            {this.hasRayOfFrost && <>{rayOfFrostIcon} </>} following the rules and priorities above.
+          </div>
+        </div>
       </>
     );
     const data = (

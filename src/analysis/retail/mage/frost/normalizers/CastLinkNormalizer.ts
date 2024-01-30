@@ -36,8 +36,6 @@ const EVENT_LINKS: EventLink[] = [
     linkRelation: SPELL_DAMAGE,
     referencedEventId: SPELLS.FROSTBOLT_DAMAGE.id,
     referencedEventType: EventType.Damage,
-    anyTarget: true,
-    maximumLinks: 1,
     forwardBufferMs: 3000,
     backwardBufferMs: CAST_BUFFER_MS,
   },

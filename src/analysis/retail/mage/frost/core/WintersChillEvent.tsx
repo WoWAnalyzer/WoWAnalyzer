@@ -5,7 +5,7 @@ import {
   GetRelatedEvent,
   RemoveDebuffEvent,
 } from 'parser/core/Events';
-import SPELLS from 'common/SPELLS';
+import SPELLS, { maybeGetSpell } from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { PerformanceMark } from 'interface/guide';
@@ -20,21 +20,21 @@ class WintersChillEvent {
   precast: CastEvent | undefined;
   precastIcicles: number;
   damageEvents: DamageEvent[];
-  flurry: CastEvent | undefined;
+  applier: CastEvent | undefined;
 
   constructor(
     apply: ApplyDebuffEvent,
     remove: RemoveDebuffEvent | undefined,
     precast: CastEvent | undefined,
     precastIcicles: number,
-    flurry: CastEvent | undefined,
+    applier: CastEvent | undefined,
   ) {
     this.apply = apply;
     this.remove = remove;
     this.precast = precast;
     this.precastIcicles = precastIcicles;
     this.damageEvents = [];
-    this.flurry = flurry;
+    this.applier = applier;
   }
 
   hasTwoShatteredSpells(): boolean {
@@ -119,34 +119,32 @@ class WintersChillEvent {
   }
 
   getPerformanceDetails(): JSX.Element {
-    const spellsArray: Spell[] = Object.values(SPELLS);
-    const precast: Spell | undefined = spellsArray.find(
-      (spell) => spell.id === this.precast?.ability.guid,
-    );
-    const flurry: Spell | undefined = spellsArray.find(
-      (spell) => spell.id === this.flurry?.ability.guid,
-    );
+    const precast: Spell | undefined = maybeGetSpell(this.precast?.ability.guid);
+    const applier: Spell | undefined = maybeGetSpell(this.applier?.ability.guid);
+
     const spells: Spell[] = [];
     if (precast) {
       spells.push(precast);
     }
-    if (flurry) {
-      spells.push(flurry);
+    if (applier) {
+      spells.push(applier);
     }
     this.damageEvents.forEach((damage) => {
-      const spell: Spell | undefined = spellsArray.find(
-        (spell) => spell.id === damage.ability.guid,
-      );
+      const spell: Spell = SPELLS[damage.ability.guid];
       if (spell) {
         spells.push(spell);
       }
     });
     const tooltip = (
       <>
-        <PerformanceMark perf={this.getPrecastPerformance()} />
-        {this.getPrecastPerformanceMessage()} <br />
-        <PerformanceMark perf={this.getShatterPerformance()} />
-        {this.getShatterPerformanceMessage()} <br />
+        <div>
+          <PerformanceMark perf={this.getPrecastPerformance()} />{' '}
+          {this.getPrecastPerformanceMessage()}
+        </div>
+        <div>
+          <PerformanceMark perf={this.getShatterPerformance()} />{' '}
+          {this.getShatterPerformanceMessage()}
+        </div>
         <SpellSeq spells={spells} />
       </>
     );
