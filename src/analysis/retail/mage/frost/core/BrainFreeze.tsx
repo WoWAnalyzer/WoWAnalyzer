@@ -30,8 +30,6 @@ class BrainFreeze extends Analyzer {
   brainFreeze: { apply: ApplyBuffEvent; remove: RemoveBuffEvent | undefined; expired: boolean }[] =
     [];
 
-  colors = ['#3a91c2', '#5fc047', '#a51c37'];
-
   constructor(options: Options) {
     super(options);
     this.addEventListener(
