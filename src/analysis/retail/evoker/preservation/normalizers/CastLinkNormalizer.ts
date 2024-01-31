@@ -5,6 +5,7 @@ import { Options } from 'parser/core/Module';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import {
   AbilityEvent,
+  AnyEvent,
   ApplyBuffEvent,
   ApplyBuffStackEvent,
   CastEvent,
@@ -734,7 +735,10 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: 10, // ordering
     anyTarget: true,
     additionalCondition(linkingEvent, referencedEvent) {
-      return !HasRelatedEvent(linkingEvent, ESSENCE_RUSH);
+      return (
+        !HasRelatedEvent(linkingEvent, ESSENCE_RUSH) &&
+        !HasRelatedEvent(linkingEvent, SPARK_OF_INSIGHT)
+      );
     },
   },
   {
@@ -746,6 +750,13 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: [EventType.RefreshBuff, EventType.ApplyBuff, EventType.ApplyBuffStack],
     forwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
+    additionalCondition(linkingEvent, referencedEvent) {
+      return (
+        !HasRelatedEvent(linkingEvent, ESSENCE_RUSH) &&
+        !HasRelatedEvent(linkingEvent, SPARK_OF_INSIGHT) &&
+        !HasRelatedEvent(linkingEvent, FROM_HARDCAST)
+      );
+    },
   },
   {
     linkRelation: STASIS_FOR_RAMP,
@@ -940,7 +951,14 @@ export function didSparkProcEssenceBurst(
     | RefreshBuffEvent
     | ApplyBuffStackEvent,
 ) {
-  return HasRelatedEvent(event, SPARK_OF_INSIGHT);
+  let applyEvent: AnyEvent | undefined = event;
+  if (applyEvent.type === EventType.RemoveBuff || applyEvent.type === EventType.RemoveBuffStack) {
+    applyEvent = GetRelatedEvent(event, ESSENCE_BURST_LINK);
+  }
+  if (applyEvent === undefined) {
+    return;
+  }
+  return HasRelatedEvent(applyEvent, SPARK_OF_INSIGHT);
 }
 
 export function didEbConsumeSparkProc(event: RemoveBuffEvent | RemoveBuffStackEvent) {
