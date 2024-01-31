@@ -811,8 +811,8 @@ const EVENT_LINKS: EventLink[] = [
       SPELLS.LIVING_FLAME_CAST.id,
     ],
     referencedEventType: [EventType.Cast, EventType.Damage, EventType.Heal],
-    backwardBufferMs: 1500, // very large delay between application and lf event sometimes
-    forwardBufferMs: 1500, // ordering
+    backwardBufferMs: EB_BUFFER_MS, // very large delay between application and lf event sometimes
+    forwardBufferMs: EB_BUFFER_MS,
     anyTarget: true,
     maximumLinks: 1,
     additionalCondition(linkingEvent, referencedEvent) {
