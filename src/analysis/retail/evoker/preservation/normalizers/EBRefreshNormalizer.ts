@@ -4,6 +4,10 @@ import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 const MAX_DELAY = 25;
 
+/**
+ * When an EB stack is removed, a refresh buff event is generated.
+ * This normalizer removes the refresh event because it messes up analysis.
+ */
 class EBRefreshNormalizer extends EventsNormalizer {
   isEbEvent(event: AnyEvent) {
     return (
