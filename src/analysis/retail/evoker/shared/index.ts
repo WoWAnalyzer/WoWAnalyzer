@@ -1,5 +1,6 @@
 export {
   default as LeapingFlamesNormalizer,
+  default as LivingFlameNormalizer,
   getLeapingDamageEvents,
   getLeapingHealEvents,
   generatedEssenceBurst,

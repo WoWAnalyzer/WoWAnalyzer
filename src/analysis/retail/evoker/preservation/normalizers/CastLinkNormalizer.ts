@@ -721,40 +721,18 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: 5000,
   },
   {
-    linkRelation: FROM_HARDCAST,
-    reverseLinkRelation: FROM_HARDCAST,
-    linkingEventId: SPELLS.ESSENCE_BURST_BUFF.id,
-    linkingEventType: [EventType.ApplyBuff, EventType.ApplyBuffStack, EventType.RefreshBuff],
-    referencedEventId: [
-      SPELLS.LIVING_FLAME_HEAL.id,
-      SPELLS.LIVING_FLAME_DAMAGE.id,
-      SPELLS.LIVING_FLAME_CAST.id,
-    ],
-    referencedEventType: [EventType.Cast, EventType.Damage, EventType.Heal],
-    backwardBufferMs: 1500, // very large delay between application and lf event sometimes
-    forwardBufferMs: 10, // ordering
+    linkRelation: EB_REVERSION,
+    reverseLinkRelation: EB_REVERSION,
+    linkingEventId: [TALENTS_EVOKER.REVERSION_TALENT.id, SPELLS.REVERSION_ECHO.id],
+    linkingEventType: EventType.ApplyBuff,
+    referencedEventId: SPELLS.ESSENCE_BURST_BUFF.id,
+    referencedEventType: [EventType.RefreshBuff, EventType.ApplyBuff, EventType.ApplyBuffStack],
+    forwardBufferMs: 1500,
     anyTarget: true,
     additionalCondition(linkingEvent, referencedEvent) {
       return (
         !HasRelatedEvent(linkingEvent, ESSENCE_RUSH) &&
         !HasRelatedEvent(linkingEvent, SPARK_OF_INSIGHT)
-      );
-    },
-  },
-  {
-    linkRelation: EB_REVERSION,
-    reverseLinkRelation: EB_REVERSION,
-    linkingEventId: TALENTS_EVOKER.REVERSION_TALENT.id,
-    linkingEventType: EventType.Cast,
-    referencedEventId: SPELLS.ESSENCE_BURST_BUFF.id,
-    referencedEventType: [EventType.RefreshBuff, EventType.ApplyBuff, EventType.ApplyBuffStack],
-    forwardBufferMs: CAST_BUFFER_MS,
-    anyTarget: true,
-    additionalCondition(linkingEvent, referencedEvent) {
-      return (
-        !HasRelatedEvent(linkingEvent, ESSENCE_RUSH) &&
-        !HasRelatedEvent(linkingEvent, SPARK_OF_INSIGHT) &&
-        !HasRelatedEvent(linkingEvent, FROM_HARDCAST)
       );
     },
   },
@@ -820,6 +798,29 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true,
     additionalCondition(linkingEvent, referencedEvent) {
       return !HasRelatedEvent(referencedEvent, LEAPING_FLAMES_HITS);
+    },
+  },
+  {
+    linkRelation: FROM_HARDCAST,
+    reverseLinkRelation: FROM_HARDCAST,
+    linkingEventId: SPELLS.ESSENCE_BURST_BUFF.id,
+    linkingEventType: [EventType.ApplyBuff, EventType.ApplyBuffStack, EventType.RefreshBuff],
+    referencedEventId: [
+      SPELLS.LIVING_FLAME_HEAL.id,
+      SPELLS.LIVING_FLAME_DAMAGE.id,
+      SPELLS.LIVING_FLAME_CAST.id,
+    ],
+    referencedEventType: [EventType.Cast, EventType.Damage, EventType.Heal],
+    backwardBufferMs: 1500, // very large delay between application and lf event sometimes
+    forwardBufferMs: 1500, // ordering
+    anyTarget: true,
+    maximumLinks: 1,
+    additionalCondition(linkingEvent, referencedEvent) {
+      return (
+        !HasRelatedEvent(linkingEvent, ESSENCE_RUSH) &&
+        !HasRelatedEvent(linkingEvent, SPARK_OF_INSIGHT) &&
+        !HasRelatedEvent(linkingEvent, EB_REVERSION)
+      );
     },
   },
 ];
@@ -961,6 +962,28 @@ export function didSparkProcEssenceBurst(
   return HasRelatedEvent(applyEvent, SPARK_OF_INSIGHT);
 }
 
+export function isEbFromHardcast(
+  event:
+    | ApplyBuffEvent
+    | RemoveBuffEvent
+    | RemoveBuffStackEvent
+    | RefreshBuffEvent
+    | ApplyBuffStackEvent,
+) {
+  let applyEvent: AnyEvent | undefined = event;
+  if (applyEvent.type === EventType.RemoveBuff || applyEvent.type === EventType.RemoveBuffStack) {
+    applyEvent = GetRelatedEvent(event, ESSENCE_BURST_LINK);
+  }
+  if (applyEvent === undefined) {
+    return;
+  }
+  const lfEvent = GetRelatedEvent(applyEvent, FROM_HARDCAST);
+  if (!lfEvent) {
+    return false;
+  }
+  return lfEvent.type === EventType.Cast;
+}
+
 export function didEbConsumeSparkProc(event: RemoveBuffEvent | RemoveBuffStackEvent) {
   const applyEvent = GetRelatedEvent(event, ESSENCE_BURST_LINK)!;
   return HasRelatedEvent(applyEvent, SPARK_OF_INSIGHT);
@@ -1000,18 +1023,18 @@ export function isEbFromT31Tier(
     | ApplyBuffStackEvent,
 ) {
   // get lf event -> check if lf is from 2 set
-  const applyEvent =
-    event.type === EventType.ApplyBuff || event.type === EventType.ApplyBuffStack
-      ? event
-      : GetRelatedEvent(event, ESSENCE_BURST_LINK);
-  if (!applyEvent) {
-    return false;
+  let applyEvent: AnyEvent | undefined = event;
+  if (applyEvent.type === EventType.RemoveBuff || applyEvent.type === EventType.RemoveBuffStack) {
+    applyEvent = GetRelatedEvent(event, ESSENCE_BURST_LINK);
+  }
+  if (applyEvent === undefined) {
+    return;
   }
   const lfEvent = GetRelatedEvent(applyEvent, FROM_HARDCAST);
   if (!lfEvent) {
     return false;
   }
-  return HasRelatedEvent(lfEvent, T31_2PC);
+  return lfEvent.type !== EventType.Cast;
 }
 
 export function isLfFromT31Tier(event: DamageEvent | HealEvent) {
