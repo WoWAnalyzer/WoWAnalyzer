@@ -5,7 +5,6 @@ import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   CastEvent,
-  DamageEvent,
   ApplyBuffEvent,
   RemoveBuffEvent,
   RefreshBuffEvent,
@@ -16,22 +15,18 @@ import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { RoundedPanel } from 'interface/guide/components/GuideDivs';
-import DonutChart from 'parser/ui/DonutChart';
-import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
-import { SpellSeq } from 'parser/ui/SpellSeq';
-import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/mage/frost/Guide';
-import FlurryEvent from 'analysis/retail/mage/frost/talents/FlurryEvent';
+import Flurry from 'analysis/retail/mage/frost/talents/Flurry';
 
 class BrainFreeze extends Analyzer {
   static dependencies = {
     enemies: Enemies,
+    flurry: Flurry,
   };
 
+  protected flurry!: Flurry;
   protected enemies!: Enemies;
 
   brainFreezeRefreshes = 0;
-  flurry: FlurryEvent[] = [];
   brainFreeze: { apply: ApplyBuffEvent; remove: RemoveBuffEvent | undefined; expired: boolean }[] =
     [];
 
@@ -40,10 +35,6 @@ class BrainFreeze extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.FLURRY_TALENT),
-      this.onFlurryCast,
-    );
-    this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BRAIN_FREEZE_BUFF),
       this.onBrainFreeze,
     );
@@ -51,43 +42,6 @@ class BrainFreeze extends Analyzer {
       Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.BRAIN_FREEZE_BUFF),
       this.onBrainFreezeRefresh,
     );
-    this.addEventListener(Events.fightend, this.analyzeFlurry);
-  }
-
-  analyzeFlurry(): { label: string; color: string; value: number }[] {
-    const withBrainFreeze = this.flurry.filter((flurry) => flurry.brainFreeze).length;
-    const withoutBrainFreezeGood = this.flurry.filter((flurry) => flurry.noBfGoodCast()).length;
-    const withoutBrainFreezeBad = this.flurry.filter((flurry) => flurry.noBfBadCast()).length;
-
-    const flurryCasts: { label: string; color: string; value: number }[] = [];
-
-    flurryCasts.push({
-      label: 'with Brain Freeze (BF)',
-      color: this.colors[0],
-      value: withBrainFreeze,
-    });
-    flurryCasts.push({
-      label: 'without BF, 2 or more icicles',
-      color: this.colors[1],
-      value: withoutBrainFreezeGood,
-    });
-    flurryCasts.push({
-      label: 'without BF, 0/1 icicles',
-      color: this.colors[2],
-      value: withoutBrainFreezeBad,
-    });
-
-    return flurryCasts;
-  }
-
-  onFlurryCast(event: CastEvent) {
-    const damage: DamageEvent | undefined = GetRelatedEvent(event, 'SpellDamage');
-    const enemy = damage && this.enemies.getEntity(damage);
-    const icicles =
-      this.selectedCombatant.getBuff(SPELLS.ICICLES_BUFF.id, event.timestamp)?.stacks || 0;
-    const buffRemove = GetRelatedEvent(event, 'BuffRemove');
-    const flurryEvent = new FlurryEvent(event, damage, enemy, icicles, buffRemove !== undefined);
-    this.flurry.push(flurryEvent);
   }
 
   onBrainFreeze(event: ApplyBuffEvent) {
@@ -105,7 +59,7 @@ class BrainFreeze extends Analyzer {
   }
 
   get overlappedFlurries() {
-    return this.flurry.filter((f) => f.overlapped).length;
+    return this.flurry.flurryEvents.filter((f) => f.overlapped).length;
   }
 
   get expiredProcs() {
@@ -239,49 +193,6 @@ class BrainFreeze extends Analyzer {
           {formatPercentage(this.utilPercent, 0)}% <small>Proc utilization</small>
         </BoringSpellValueText>
       </Statistic>
-    );
-  }
-
-  get guideSubsection(): JSX.Element {
-    const flurry = <SpellLink spell={TALENTS.FLURRY_TALENT} />;
-    const glacialSpike = <SpellLink spell={TALENTS.GLACIAL_SPIKE_TALENT} />;
-    const frostbolt = <SpellLink spell={SPELLS.FROSTBOLT} />;
-    const brainFreeze = <SpellLink spell={TALENTS.BRAIN_FREEZE_TALENT} />;
-    const icicles = <SpellLink spell={SPELLS.MASTERY_ICICLES} />;
-
-    const explanation = (
-      <>
-        {flurry} usage is important to make sure you can shatter as much {glacialSpike} as you can.
-        You should only hold it after a {frostbolt} hardcast if you don't have {brainFreeze} and you
-        have 0 or 1 {icicles}. <br />
-        <small>
-          At 2 or more {icicles} you are allways able to shatter {glacialSpike}: <br />
-        </small>
-        <SpellSeq
-          spells={[
-            SPELLS.FROSTBOLT,
-            TALENTS.FLURRY_TALENT,
-            TALENTS.ICE_LANCE_TALENT,
-            TALENTS.GLACIAL_SPIKE_TALENT,
-          ]}
-        />
-      </>
-    );
-
-    const data = (
-      <>
-        <RoundedPanel>
-          <b>{flurry} cast efficiency</b>
-          <DonutChart items={this.analyzeFlurry()} />
-        </RoundedPanel>
-      </>
-    );
-
-    return explanationAndDataSubsection(
-      explanation,
-      data,
-      GUIDE_CORE_EXPLANATION_PERCENT,
-      'Flurry',
     );
   }
 }
