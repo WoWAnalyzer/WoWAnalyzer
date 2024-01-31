@@ -2341,7 +2341,15 @@ export const dub: Contributor = {
   discord: 'its_me_dub',
 };
 
-export const Raistlinn: Contributor = {
-  nickname: 'Raistlinn',
+export const Earosselot: Contributor = {
+  nickname: 'earosselot',
   github: 'earosselot',
+  avatar: avatar('raistlinn-avatar.png'),
+  mains: [
+    {
+      name: 'Raistlinn',
+      spec: SPECS.FROST_MAGE,
+      link: 'https://www.warcraftlogs.com/character/id/77062152',
+    },
+  ],
 };
