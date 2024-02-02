@@ -2,10 +2,11 @@ import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
-import { Raistlinn, Sharrq, Sref, ToppleTheNun } from 'CONTRIBUTORS';
+import { Earosselot, Raistlinn, Sharrq, Sref, ToppleTheNun } from 'CONTRIBUTORS';
 
 // prettier-ignore
 export default [
+  change(date(2024, 2, 2), <>Added <SpellLink spell={TALENTS.GLACIAL_SPIKE_TALENT} />, <SpellLink spell={TALENTS.BRAIN_FREEZE_TALENT} /> and <SpellLink spell={TALENTS.FINGERS_OF_FROST_TALENT} /> to Guide view</>, Earosselot),
   change(date(2024, 1, 23), <>Added Winter's Chill to Guide View</>, Raistlinn),
   change(date(2024, 1, 23), 'Fix Ray of Frost Channeling.', Raistlinn),
   change(date(2024, 1, 20), <>Fixed an issue where guide sections for Ray of Frost and Comet Storm would be active even when player doesn't have those talents.</>, Sref),
