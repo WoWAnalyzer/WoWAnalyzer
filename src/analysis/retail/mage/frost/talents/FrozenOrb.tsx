@@ -40,12 +40,12 @@ class FrozenOrb extends Analyzer {
 
     const explanation = (
       <>
-        Try to mantain {frozenOrb} on CD as much as you can. <br />
+        <p>Try to mantain {frozenOrb} on CD as much as you can.</p>
         {this.selectedCombatant.hasTalent(TALENTS.FREEZING_WINDS_TALENT) && (
-          <>
+          <p>
             As it will generate {fingersOfFrost} procs, don't cast it when you have 2{' '}
             {fingersOfFrost} procs.
-          </>
+          </p>
         )}
       </>
     );

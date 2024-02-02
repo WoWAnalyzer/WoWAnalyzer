@@ -92,12 +92,16 @@ class Flurry extends Analyzer {
 
     const explanation = (
       <>
-        {flurry} usage is important to make sure you can shatter as much {glacialSpike} as you can.
-        You should only hold it after a {frostbolt} hardcast if you don't have {brainFreeze} and you
-        have 0 or 1 {icicles}. <br />
-        <small>
-          At 2 or more {icicles} you are allways able to shatter {glacialSpike}: <br />
-        </small>
+        <p>
+          {flurry} usage is important to make sure you can shatter as much {glacialSpike} as you
+          can. You should only hold it after a {frostbolt} hardcast if you don't have {brainFreeze}{' '}
+          and you have 0 or 1 {icicles}.
+        </p>
+        <p>
+          <small>
+            At 2 or more {icicles} you are always able to shatter {glacialSpike}:
+          </small>
+        </p>
         <SpellSeq
           spells={[
             SPELLS.FROSTBOLT,
