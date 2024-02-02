@@ -10,7 +10,7 @@ import { explanationAndDataSubsection } from 'interface/guide/components/Explana
 import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/mage/frost/Guide';
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { BadColor, GoodColor, OkColor, PerformanceMark } from 'interface/guide';
+import { PerformanceMark, qualitativePerformanceToColor } from 'interface/guide';
 import { formatNumber, formatPercentage } from 'common/format';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { SpellIcon, SpellLink, TooltipElement } from 'interface';
@@ -94,15 +94,6 @@ class GlacialSpike extends Analyzer {
     });
   }
 
-  private textColor() {
-    if (this.performance === QualitativePerformance.Fail) {
-      return BadColor;
-    } else if (this.performance === QualitativePerformance.Ok) {
-      return OkColor;
-    }
-    return GoodColor;
-  }
-
   get performance() {
     let performance = QualitativePerformance.Fail;
     if (this.shatterPercentage > 0.8) {
@@ -161,15 +152,14 @@ class GlacialSpike extends Analyzer {
       </div>
     );
     const tooltip = (
-      <small>
-        {' '}
+      <>
         {this.shatteredCasts}/{this.totalCasts} casts
-      </small>
+      </>
     );
     const data = (
       <div>
         <RoundedPanel>
-          <div style={{ color: this.textColor(), fontSize: '20px' }}>
+          <div style={{ color: qualitativePerformanceToColor(this.performance), fontSize: '20px' }}>
             {glacialSpikeIcon}{' '}
             <TooltipElement content={tooltip}>
               {formatPercentage(this.shatterPercentage, 0)} % <small>shattered</small>

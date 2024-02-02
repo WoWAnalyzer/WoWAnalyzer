@@ -1,21 +1,26 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
-import { SpellLink } from 'interface';
+import { SpellIcon, SpellLink, TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
+  ApplyBuffEvent,
   CastEvent,
   DamageEvent,
-  ApplyBuffEvent,
-  RemoveBuffEvent,
-  RefreshBuffEvent,
   GetRelatedEvent,
+  RefreshBuffEvent,
+  RemoveBuffEvent,
 } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/mage/frost/Guide';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import { qualitativePerformanceToColor } from 'interface/guide';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 class BrainFreeze extends Analyzer {
   static dependencies = {
@@ -81,8 +86,12 @@ class BrainFreeze extends Analyzer {
     return this.brainFreeze.length;
   }
 
+  get wastedProcs() {
+    return this.brainFreezeRefreshes + this.expiredProcs;
+  }
+
   get wastedPercent() {
-    return (this.brainFreezeRefreshes + this.expiredProcs) / this.totalProcs || 0;
+    return this.wastedProcs / this.totalProcs || 0;
   }
 
   get utilPercent() {
@@ -101,10 +110,27 @@ class BrainFreeze extends Analyzer {
     };
   }
 
+  get utilizationPerformance() {
+    const thresholds = this.brainFreezeUtilizationThresholds;
+    let performance = QualitativePerformance.Perfect;
+    if (thresholds.actual < thresholds.isLessThan.major) {
+      performance = QualitativePerformance.Fail;
+    } else if (thresholds.actual < thresholds.isLessThan.average) {
+      performance = QualitativePerformance.Ok;
+    } else if (thresholds.actual < thresholds.isLessThan.minor) {
+      performance = QualitativePerformance.Good;
+    }
+    return performance;
+  }
+
+  get overwrittenPercentage() {
+    return this.brainFreezeRefreshes / this.totalProcs || 0;
+  }
+
   // Percentages lowered from .00, .08, .16; with the addition of the forgiveness window it is almost as bad as letting BF expire when you waste a proc
-  get brainFreezeOverwritenThresholds() {
+  get brainFreezeOverwrittenThresholds() {
     return {
-      actual: this.brainFreezeRefreshes / this.totalProcs || 0,
+      actual: this.overwrittenPercentage,
       isGreaterThan: {
         minor: 0.0,
         average: 0.05,
@@ -114,10 +140,19 @@ class BrainFreeze extends Analyzer {
     };
   }
 
+  get overwrittenPerformance() {
+    const thresholds = this.brainFreezeOverwrittenThresholds;
+    return this.thresholdsGreaterThanToQualitativePerformance(thresholds);
+  }
+
+  get expiredPercentage() {
+    return this.expiredProcs / this.totalProcs || 0;
+  }
+
   // there's almost never an excuse to let BF expire
   get brainFreezeExpiredThresholds() {
     return {
-      actual: this.expiredProcs / this.totalProcs || 0,
+      actual: this.expiredPercentage,
       isGreaterThan: {
         minor: 0.0,
         average: 0.03,
@@ -125,6 +160,27 @@ class BrainFreeze extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
+  }
+
+  get expiredPerformance() {
+    const thresholds = this.brainFreezeExpiredThresholds;
+    return this.thresholdsGreaterThanToQualitativePerformance(thresholds);
+  }
+
+  private thresholdsGreaterThanToQualitativePerformance(thresholds: {
+    actual: number;
+    isGreaterThan: { average: number; minor: number; major: number };
+    style: ThresholdStyle;
+  }) {
+    let performance = QualitativePerformance.Perfect;
+    if (thresholds.actual > thresholds.isGreaterThan.major) {
+      performance = QualitativePerformance.Fail;
+    } else if (thresholds.actual > thresholds.isGreaterThan.average) {
+      performance = QualitativePerformance.Ok;
+    } else if (thresholds.actual > thresholds.isGreaterThan.minor) {
+      performance = QualitativePerformance.Good;
+    }
+    return performance;
   }
 
   get overlappedFlurryThresholds() {
@@ -139,7 +195,7 @@ class BrainFreeze extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.brainFreezeOverwritenThresholds).addSuggestion((suggest, actual, recommended) =>
+    when(this.brainFreezeOverwrittenThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
           You overwrote {formatPercentage(actual)}% of your{' '}
@@ -204,6 +260,77 @@ class BrainFreeze extends Analyzer {
           {formatPercentage(this.utilPercent, 0)}% <small>Proc utilization</small>
         </BoringSpellValueText>
       </Statistic>
+    );
+  }
+
+  get guideSubsection() {
+    const brainFreeze = <SpellLink spell={TALENTS.BRAIN_FREEZE_TALENT} />;
+    const brainFreezeIcon = <SpellIcon spell={TALENTS.BRAIN_FREEZE_TALENT} />;
+
+    const explanation = (
+      <>
+        You should use your {brainFreeze} procs as soon as possible and avoid letting them expire or
+        be overwritten whenever possible. There are not any situations where it would be
+        advantageous to hold your {brainFreeze}.
+      </>
+    );
+
+    const utilizationTooltip = (
+      <>
+        {this.totalProcs - this.wastedProcs}/{this.totalProcs} procs utilized
+      </>
+    );
+    const overwrittenTooltip = <>{this.brainFreezeRefreshes} procs</>;
+
+    const expiredTooltip = <>{this.expiredProcs} procs</>;
+
+    const data = (
+      <div>
+        <RoundedPanel>
+          <div
+            style={{
+              color: qualitativePerformanceToColor(this.utilizationPerformance),
+              fontSize: '20px',
+            }}
+          >
+            {brainFreezeIcon}{' '}
+            <TooltipElement content={utilizationTooltip}>
+              {formatPercentage(this.utilPercent, 0)} % <small>utilization</small>
+            </TooltipElement>
+          </div>
+
+          <div
+            style={{
+              color: qualitativePerformanceToColor(this.overwrittenPerformance),
+              fontSize: '20px',
+            }}
+          >
+            {brainFreezeIcon}{' '}
+            <TooltipElement content={overwrittenTooltip}>
+              {formatPercentage(this.overwrittenPercentage, 0)} % <small>overwritten</small>
+            </TooltipElement>
+          </div>
+
+          <div
+            style={{
+              color: qualitativePerformanceToColor(this.expiredPerformance),
+              fontSize: '20px',
+            }}
+          >
+            {brainFreezeIcon}{' '}
+            <TooltipElement content={expiredTooltip}>
+              {formatPercentage(this.expiredPercentage, 0)} % <small>expired</small>
+            </TooltipElement>
+          </div>
+        </RoundedPanel>
+      </div>
+    );
+
+    return explanationAndDataSubsection(
+      explanation,
+      data,
+      GUIDE_CORE_EXPLANATION_PERCENT,
+      'Brain Freeze',
     );
   }
 }
