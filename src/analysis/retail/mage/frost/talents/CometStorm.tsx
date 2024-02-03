@@ -189,7 +189,7 @@ class CometStorm extends Analyzer {
             </li>
             Most of the time on 2 stacks of {wintersChill}, to shatter all 7 comets. <br />
             <SpellSeq spells={[TALENTS.FLURRY_TALENT, TALENTS.COMET_STORM_TALENT]} /> <br />
-            On 1 stack of {wintersChill}, before a long cast ({rayOfFrost} of {glacialSpike})<br />
+            On 1 stack of {wintersChill}, before a long cast ({rayOfFrost} or {glacialSpike})<br />
             <SpellSeq
               spells={[
                 TALENTS.FLURRY_TALENT,
