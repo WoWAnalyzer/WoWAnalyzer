@@ -41,6 +41,8 @@ import {
   SpellEssenceCost,
   EssenceTracker,
   EssenceGraph,
+  SourceOfMagic,
+  PotentMana,
 } from 'analysis/retail/evoker/shared';
 
 class CombatLogParser extends MainCombatLogParser {
@@ -51,6 +53,8 @@ class CombatLogParser extends MainCombatLogParser {
     spellEssenceCost: SpellEssenceCost,
     essenceTracker: EssenceTracker,
     essenceGraph: EssenceGraph,
+    sourceOfMagic: SourceOfMagic,
+    potentMana: PotentMana,
 
     // Normalizers
     castLinkNormalizer: CastLinkNormalizer,

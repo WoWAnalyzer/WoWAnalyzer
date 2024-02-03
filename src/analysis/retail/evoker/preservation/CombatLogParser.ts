@@ -53,6 +53,8 @@ import {
   LeapingFlames,
   SpellEssenceCost,
   EssenceTracker,
+  SourceOfMagic,
+  PotentMana,
 } from '../shared';
 import EBRefreshNormalizer from './normalizers/EBRefreshNormalizer';
 
@@ -90,6 +92,8 @@ class CombatLogParser extends CoreCombatLogParser {
     // Shared talents
     leapingFlamesNormalizer: LeapingFlamesNormalizer,
     leapingFlames: LeapingFlames,
+    sourceOfMagic: SourceOfMagic,
+    potentMana: PotentMana,
 
     //talents
     ancientFlame: AncientFlame,
