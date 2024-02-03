@@ -212,13 +212,18 @@ class FingersOfFrost extends Analyzer {
     const fingersOfFrostIcon = <SpellIcon spell={TALENTS.FINGERS_OF_FROST_TALENT} />;
 
     const explanation = (
-      <>
-        Try to utilize {fingersOfFrost} procs before {brainFreeze} if you have both of them.
-        "Munching" a proc refers to a situation where you have a {fingersOfFrost} proc at the same
-        time that {wintersChill} is on the target. This essentially leads to a wasted
-        {fingersOfFrost} proc since {fingersOfFrost} and {wintersChill} both do the same thing.
-        Because of the way {fingersOfFrost} works, this is sometimes unavoidable.
-      </>
+      <div>
+        <p>
+          Try to utilize {fingersOfFrost} procs before {brainFreeze} if you have both of them. By
+          doing this you will avoid "munching" {fingersOfFrost} procs.
+        </p>
+        <p>
+          "Munching" a proc refers to a situation where you have a {fingersOfFrost} proc at the same
+          time that {wintersChill} is on the target. This essentially leads to a wasted
+          {fingersOfFrost} proc since {fingersOfFrost} and {wintersChill} both do the same thing.
+          Because of the way {fingersOfFrost} works, this is sometimes unavoidable.
+        </p>
+      </div>
     );
 
     const utilizationTooltip = (

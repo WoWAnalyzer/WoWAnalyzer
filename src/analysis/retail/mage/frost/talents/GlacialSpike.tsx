@@ -15,6 +15,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { SpellIcon, SpellLink, TooltipElement } from 'interface';
 import WintersChill from 'analysis/retail/mage/frost/core/WintersChill';
+import SPELLS from 'common/SPELLS';
 
 class GlacialSpike extends Analyzer {
   static dependencies = {
@@ -140,16 +141,18 @@ class GlacialSpike extends Analyzer {
   get guideSubsection(): JSX.Element {
     const glacialSpike = <SpellLink spell={TALENTS.GLACIAL_SPIKE_TALENT} />;
     const flurry = <SpellLink spell={TALENTS.FLURRY_TALENT} />;
+    const wintersChill = <SpellLink spell={SPELLS.WINTERS_CHILL} />;
 
     const glacialSpikeIcon = (
       <SpellIcon spell={TALENTS.GLACIAL_SPIKE_TALENT} style={{ height: '28px' }} />
     );
 
     const explanation = (
-      <div>
-        You want to shatter {glacialSpike} as much as you can. Try to use {flurry} as indicated to
-        increase the chances of having shatter available for {glacialSpike}.
-      </div>
+      <p>
+        You want to shatter {glacialSpike} as much as you can. Try to use {flurry} as indicated
+        above to increase your chances of having a {wintersChill} charge available for{' '}
+        {glacialSpike}.
+      </p>
     );
     const tooltip = (
       <>
