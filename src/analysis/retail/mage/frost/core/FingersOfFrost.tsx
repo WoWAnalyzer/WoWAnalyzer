@@ -105,8 +105,15 @@ class FingersOfFrost extends Analyzer {
   }
 
   get munchedPerformance() {
-    const thresholds = this.munchedProcsThresholds;
-    return this.thresholdsGreaterThanToQualitativePerformance(thresholds);
+    let performance = QualitativePerformance.Perfect;
+    if (this.munchedPercent > 0.3) {
+      performance = QualitativePerformance.Fail;
+    } else if (this.munchedPercent > 0.2) {
+      performance = QualitativePerformance.Ok;
+    } else if (this.munchedPercent > 0.1) {
+      performance = QualitativePerformance.Good;
+    }
+    return performance;
   }
 
   get utilizationPercentage() {
@@ -126,29 +133,12 @@ class FingersOfFrost extends Analyzer {
   }
 
   get utilizationPerformance() {
-    const thresholds = this.fingersProcUtilizationThresholds;
     let performance = QualitativePerformance.Perfect;
-    if (thresholds.actual < thresholds.isLessThan.major) {
+    if (this.utilizationPercentage < 0.7) {
       performance = QualitativePerformance.Fail;
-    } else if (thresholds.actual < thresholds.isLessThan.average) {
+    } else if (this.utilizationPercentage < 0.85) {
       performance = QualitativePerformance.Ok;
-    } else if (thresholds.actual < thresholds.isLessThan.minor) {
-      performance = QualitativePerformance.Good;
-    }
-    return performance;
-  }
-
-  private thresholdsGreaterThanToQualitativePerformance(thresholds: {
-    actual: number;
-    isGreaterThan: { average: number; minor: number; major: number };
-    style: ThresholdStyle;
-  }) {
-    let performance = QualitativePerformance.Perfect;
-    if (thresholds.actual > thresholds.isGreaterThan.major) {
-      performance = QualitativePerformance.Fail;
-    } else if (thresholds.actual > thresholds.isGreaterThan.average) {
-      performance = QualitativePerformance.Ok;
-    } else if (thresholds.actual > thresholds.isGreaterThan.minor) {
+    } else if (this.utilizationPercentage < 0.95) {
       performance = QualitativePerformance.Good;
     }
     return performance;

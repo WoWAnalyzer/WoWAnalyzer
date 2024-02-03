@@ -94,13 +94,12 @@ class BrainFreeze extends Analyzer {
   }
 
   get utilizationPerformance() {
-    const thresholds = this.brainFreezeUtilizationThresholds;
     let performance = QualitativePerformance.Perfect;
-    if (thresholds.actual < thresholds.isLessThan.major) {
+    if (this.utilPercent < 0.8) {
       performance = QualitativePerformance.Fail;
-    } else if (thresholds.actual < thresholds.isLessThan.average) {
+    } else if (this.utilPercent < 0.9) {
       performance = QualitativePerformance.Ok;
-    } else if (thresholds.actual < thresholds.isLessThan.minor) {
+    } else if (this.utilPercent < 0.95) {
       performance = QualitativePerformance.Good;
     }
     return performance;
@@ -124,8 +123,15 @@ class BrainFreeze extends Analyzer {
   }
 
   get overwrittenPerformance() {
-    const thresholds = this.brainFreezeOverwrittenThresholds;
-    return this.thresholdsGreaterThanToQualitativePerformance(thresholds);
+    let performance = QualitativePerformance.Perfect;
+    if (this.overwrittenPercentage > 0.1) {
+      performance = QualitativePerformance.Fail;
+    } else if (this.overwrittenPercentage > 0.05) {
+      performance = QualitativePerformance.Ok;
+    } else if (this.overwrittenPercentage > 0.0) {
+      performance = QualitativePerformance.Good;
+    }
+    return performance;
   }
 
   get expiredPercentage() {
@@ -146,21 +152,12 @@ class BrainFreeze extends Analyzer {
   }
 
   get expiredPerformance() {
-    const thresholds = this.brainFreezeExpiredThresholds;
-    return this.thresholdsGreaterThanToQualitativePerformance(thresholds);
-  }
-
-  private thresholdsGreaterThanToQualitativePerformance(thresholds: {
-    actual: number;
-    isGreaterThan: { average: number; minor: number; major: number };
-    style: ThresholdStyle;
-  }) {
     let performance = QualitativePerformance.Perfect;
-    if (thresholds.actual > thresholds.isGreaterThan.major) {
+    if (this.expiredPercentage > 0.06) {
       performance = QualitativePerformance.Fail;
-    } else if (thresholds.actual > thresholds.isGreaterThan.average) {
+    } else if (this.expiredPercentage > 0.03) {
       performance = QualitativePerformance.Ok;
-    } else if (thresholds.actual > thresholds.isGreaterThan.minor) {
+    } else if (this.expiredPercentage > 0.0) {
       performance = QualitativePerformance.Good;
     }
     return performance;
