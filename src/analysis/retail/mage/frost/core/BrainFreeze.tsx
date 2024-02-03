@@ -1,4 +1,4 @@
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellIcon, SpellLink, TooltipElement } from 'interface';
@@ -59,10 +59,6 @@ class BrainFreeze extends Analyzer {
 
   onBrainFreezeRefresh(event: RefreshBuffEvent) {
     this.brainFreezeRefreshes += 1;
-  }
-
-  get overlappedFlurries() {
-    return this.flurry.flurryEvents.filter((f) => f.overlapped).length;
   }
 
   get expiredProcs() {
@@ -170,17 +166,6 @@ class BrainFreeze extends Analyzer {
     return performance;
   }
 
-  get overlappedFlurryThresholds() {
-    return {
-      actual: this.overlappedFlurries,
-      isGreaterThan: {
-        average: 0,
-        major: 3,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
-  }
-
   suggestions(when: When) {
     when(this.brainFreezeOverwrittenThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
@@ -208,22 +193,6 @@ class BrainFreeze extends Analyzer {
         .icon(TALENTS.BRAIN_FREEZE_TALENT.icon)
         .actual(`${formatPercentage(actual)}% expired`)
         .recommended(`Letting none expire is recommended`),
-    );
-    when(this.overlappedFlurryThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You cast <SpellLink spell={TALENTS.FLURRY_TALENT} /> and applied{' '}
-          <SpellLink spell={SPELLS.WINTERS_CHILL} /> while the target still had the{' '}
-          <SpellLink spell={SPELLS.WINTERS_CHILL} /> debuff on them {this.overlappedFlurries} times.
-          Casting <SpellLink spell={TALENTS.FLURRY_TALENT} /> applies 2 stacks of{' '}
-          <SpellLink spell={SPELLS.WINTERS_CHILL} /> to the target so you should always ensure you
-          are spending both stacks before you cast <SpellLink spell={TALENTS.FLURRY_TALENT} /> and
-          apply <SpellLink spell={SPELLS.WINTERS_CHILL} /> again.
-        </>,
-      )
-        .icon(TALENTS.FLURRY_TALENT.icon)
-        .actual(`${formatNumber(actual)} casts`)
-        .recommended(`Casting none is recommended`),
     );
   }
 
