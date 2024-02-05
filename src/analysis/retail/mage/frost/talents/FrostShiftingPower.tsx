@@ -59,8 +59,9 @@ class ShiftingPowerFrost extends ShiftingPower {
     const tooltip = (
       <>
         <b>@ {this.owner.formatTimestamp(event.timestamp)}</b>
-        <br />
-        <PerformanceMark perf={performance} /> {performance}: {explanation}
+        <p>
+          <PerformanceMark perf={performance} /> {performance}: {explanation}
+        </p>
       </>
     );
     this.castEntries.push({

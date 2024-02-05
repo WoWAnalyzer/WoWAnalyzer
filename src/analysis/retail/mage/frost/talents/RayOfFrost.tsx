@@ -73,8 +73,9 @@ class RayOfFrost extends Analyzer {
     const tooltip = (
       <>
         <b>@ {this.owner.formatTimestamp(rayOfFrostDetails.timestamp)}</b>
-        <br />
-        <PerformanceMark perf={performance} /> {performance}: {count}
+        <p>
+          <PerformanceMark perf={performance} /> {performance}: {count}
+        </p>
       </>
     );
     this.castEntries.push({ value: performance, tooltip });
@@ -161,16 +162,16 @@ class RayOfFrost extends Analyzer {
         </ol>
         <p>
           To meet <b>all the conditions</b>, your {rayOfFrost} rotation should look like this:
-          <SpellSeq
-            spells={[
-              SPELLS.FROSTBOLT,
-              TALENTS.FLURRY_TALENT,
-              TALENTS.COMET_STORM_TALENT,
-              SPELLS.ICE_LANCE_DAMAGE,
-              TALENTS.RAY_OF_FROST_TALENT,
-            ]}
-          />
         </p>
+        <SpellSeq
+          spells={[
+            SPELLS.FROSTBOLT,
+            TALENTS.FLURRY_TALENT,
+            TALENTS.COMET_STORM_TALENT,
+            SPELLS.ICE_LANCE_DAMAGE,
+            TALENTS.RAY_OF_FROST_TALENT,
+          ]}
+        />
         <small>
           {frostbolt} and {icelance} could be replaced with {glacialSpike} if you have enough{' '}
           {icicles}.
