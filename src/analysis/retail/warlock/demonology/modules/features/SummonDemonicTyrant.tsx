@@ -1,14 +1,15 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
-import { SpellLink } from 'interface';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Events, { ApplyBuffEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import StatisticBox from 'parser/ui/StatisticBox';
+import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import DemoPets from '../pets/DemoPets';
-import { isWildImp } from '../pets/helpers';
+import './SummonTyrant.scss';
+
+const debug = false;
 
 class SummonDemonicTyrant extends Analyzer {
   static dependencies = {
@@ -16,128 +17,133 @@ class SummonDemonicTyrant extends Analyzer {
   };
 
   demoPets!: DemoPets;
-  demonicTyrantPower!: number[];
+  _reignOfTyrannyPower!: number[];
   _hasReignOfTyranny!: boolean;
   _petsPerCast!: Record<number, number>[];
 
+  _summsWithDemonicPower!: { [id: string]: any }[];
+  _tyrantCast!: number;
+
   constructor(options: Options) {
     super(options);
-    this.demonicTyrantPower = [];
+    this._tyrantCast = 0;
+    this._summsWithDemonicPower = [];
+    this._summsWithDemonicPower[0] = {};
     this._hasReignOfTyranny = this.selectedCombatant.hasTalent(TALENTS.REIGN_OF_TYRANNY_TALENT);
-    this._petsPerCast = [];
+
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SUMMON_DEMONIC_TYRANT),
       this.summonDemonicTyrantCast,
     );
-    this._hasReignOfTyranny = this.selectedCombatant.hasTalent(TALENTS.REIGN_OF_TYRANNY_TALENT);
+    this.addEventListener(
+      Events.applybuff.to(SELECTED_PLAYER_PET).spell(SPELLS.DEMONIC_POWER),
+      this.demonicPowerAppliedToPet,
+    );
   }
 
   summonDemonicTyrantCast() {
-    const pets = this.demoPets.currentPets;
-    const countsPerCast = pets.reduce<Record<number, number>>((countsObj, currPet) => {
-      const { summonedBy } = currPet;
-      return { ...countsObj, [summonedBy]: (countsObj[summonedBy] || 0) + 1 };
-    }, {});
-    const demonicServitudeStacks = pets.reduce((total, currPet) => {
-      if (isWildImp(currPet.guid)) {
-        return total + 1;
-      } else {
-        return total + 2;
-      }
-    }, 0);
-    // pets.forEach((pet) => {
-    //   if (isWildImp(pet.guid)) {
-    //     demonicServitudeStacks += 1;
-    //   } else {
-    //     demonicServitudeStacks += 2;
-    //   }
-    //   countsPerCast[pet.summonedBy] = (countsPerCast[pet.summonedBy] || 0) + 1;
-    // });
-
-    this.demonicTyrantPower.push(demonicServitudeStacks);
-    this._petsPerCast.push(countsPerCast);
+    this._tyrantCast += 1;
+    this._summsWithDemonicPower[this._tyrantCast] = {};
   }
 
-  myList = [
-    { 1: 2, 3: 5, 6: 22 },
-    { 1: 1, 3: 5 },
-  ];
+  demonicPowerAppliedToPet(event: ApplyBuffEvent) {
+    if (!event.targetID) {
+      debug && this.error('Pet applyBuff event with no targetID', event);
+      return;
+    }
+    const petInfo = this.demoPets._getPetInfo(event.targetID);
+    if (!petInfo) {
+      debug && this.error(`Pet applyBuff event with nonexistant pet id ${event.sourceID}`);
+      return;
+    }
+
+    // TODO fix main pet getting two applications of this buff in the same tyrant
+    this._summsWithDemonicPower[this._tyrantCast][petInfo.name] =
+      this._summsWithDemonicPower[this._tyrantCast][petInfo.name] + 1 || 1;
+  }
 
   statistic() {
-    const avgPets =
-      this._petsPerCast.reduce(
-        (total, cast) =>
-          total +
-          Object.values(cast).reduce((totalPerSource, source) => totalPerSource + source, 0),
-        0,
-      ) / this._petsPerCast.length || 0;
+    const numTyrCasts = this._summsWithDemonicPower.length - 1;
 
-    const mergedPets = this._petsPerCast.reduce((acc, curr) => {
-      for (const [petIdString, numCasts] of Object.entries(curr)) {
-        const petId = Number(petIdString);
-        acc[petId] = (acc[petId] || 0) + numCasts;
+    // add averages
+    for (let tyrCast = 0; tyrCast <= numTyrCasts; tyrCast += 1) {
+      // this should start at 1 but everything dies if it doesn't start at 0
+      this._summsWithDemonicPower[tyrCast]['Total'] = Object.values(
+        this._summsWithDemonicPower[tyrCast],
+      ).reduce((a, c) => a + c, 0);
+
+      for (const [key, value] of Object.entries(this._summsWithDemonicPower[tyrCast])) {
+        if (!this._summsWithDemonicPower[0][key]) {
+          this._summsWithDemonicPower[0][key] = 0;
+        }
+        this._summsWithDemonicPower[0][key] += value;
       }
-      return acc;
-    }, {});
+    }
 
-    // convert array of
-    // const mergedPets = {};
+    for (const key of Object.keys(this._summsWithDemonicPower[0])) {
+      this._summsWithDemonicPower[0][key] /= numTyrCasts;
+    }
 
-    // const mergedPets = (Object.keys(cast) as Array<keyof typeof v>).reduce((acc, curr) => {
+    let RoTAvgBuff = 0;
+    if (this._hasReignOfTyranny) {
+      this._summsWithDemonicPower.forEach((_, index) => {
+        this._summsWithDemonicPower[index]['RoT Buff'] =
+          this._summsWithDemonicPower[index]['Total'] * 10 + '%';
+      });
+      RoTAvgBuff = this._summsWithDemonicPower[0]['RoT Buff'];
+    }
 
-    // }, {})
-    // this._petsPerCast.forEach((cast) => {
-
-    //   Object.keys(cast).forEach((demonSource) => {
-    //     mergedPets[demonSource] = (mergedPets[demonSource] || 0) + cast[demonSource];
-    //   });
-    // });
-
-    const petTableRows = Object.keys(mergedPets).map((demonSource) => {
+    let row = 0;
+    const petTableRows = Object.keys(this._summsWithDemonicPower[0]).map((demonSource) => {
+      row += 1;
       return (
-        <tr key={demonSource}>
-          <td align="left">
-            <SpellLink spell={Number(demonSource)} />
-          </td>
-          <td align="center">
-            {(mergedPets[Number(demonSource)] / this._petsPerCast.length).toFixed(2)}
-          </td>
+        <tr key={'row' + demonSource}>
+          <td className="tyr-align-left">{demonSource}</td>
+          {Object.entries(this._summsWithDemonicPower).map(([key, tyrCastSumms]) => (
+            <td className={row % 2 ? 'tyr-odd-row' : ''} key={demonSource + key}>
+              {tyrCastSumms[demonSource]}
+            </td>
+          ))}
         </tr>
       );
     });
 
-    const avgTyrantPower =
-      this.demonicTyrantPower.reduce((acc, val) => acc + val, 0) /
-      Math.max(this.demonicTyrantPower.length, 1);
-    const tyrantFooter = this._hasReignOfTyranny
-      ? `Average Reign of Tyranny Bonus Damage: ${avgTyrantPower.toFixed(2)}%`
-      : null;
+    const petTable = (
+      <table className="tyr-table">
+        <thead>
+          <tr>
+            <th className="tyr-align-left">Tyrant Cast</th>
+            {Object.keys(this._summsWithDemonicPower).map((key) => (
+              <th className="tyr-align-center" key={'tyrcast' + key}>
+                {Number(key) !== 0 ? Number(key) : 'Average'}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>{petTableRows}</tbody>
+      </table>
+    );
 
-    const petTable =
-      this._petsPerCast.length > 0 ? (
-        <>
-          <thead>
-            <tr>
-              <th>Pet Source</th>
-              <th>Avg Pets per Cast</th>
-            </tr>
-          </thead>
-          <tbody>{petTableRows}</tbody>
-        </>
-      ) : null;
+    const avgDemonsEmpowered = Number(this._summsWithDemonicPower[0]['Total']);
+    const avgWildImpsEmpowered = Number(this._summsWithDemonicPower[0]['Wild Imp']);
+
     return (
-      <StatisticBox
+      <Statistic
         position={STATISTIC_ORDER.CORE(6)}
         size="flexible"
         tooltip="Number of pets empowered by each Demonic Tyrant summon."
-        value={avgPets.toFixed(2)}
         dropdown={petTable}
-        footer={tyrantFooter}
       >
         <BoringSpellValueText spell={SPELLS.SUMMON_DEMONIC_TYRANT}>
-          {`${avgPets.toFixed(2)}`} <small>Avg. demons empowered</small>
+          {avgDemonsEmpowered.toFixed(1)} <small>Avg. demons buffed</small>
+          <br />
+          {this._hasReignOfTyranny && <small>{RoTAvgBuff} Avg. RoT bonus dmg</small>}
+          {this._hasReignOfTyranny && <br />}
+          <small>
+            {avgWildImpsEmpowered.toFixed(1)}/{this._hasReignOfTyranny ? 15 : 10} Avg. imps buffed
+          </small>
         </BoringSpellValueText>
-      </StatisticBox>
+      </Statistic>
     );
   }
 }
