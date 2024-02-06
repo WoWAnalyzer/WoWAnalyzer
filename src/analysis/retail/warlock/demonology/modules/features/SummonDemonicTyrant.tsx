@@ -82,6 +82,9 @@ class SummonDemonicTyrant extends Analyzer {
 
     for (const key of Object.keys(this._summsWithDemonicPower[0])) {
       this._summsWithDemonicPower[0][key] /= numTyrCasts;
+      if (this._summsWithDemonicPower[0][key].toString().length > 3) {
+        this._summsWithDemonicPower[0][key] = this._summsWithDemonicPower[0][key].toFixed(1);
+      }
     }
 
     let RoTAvgBuff = 0;
@@ -97,12 +100,10 @@ class SummonDemonicTyrant extends Analyzer {
     const petTableRows = Object.keys(this._summsWithDemonicPower[0]).map((demonSource) => {
       row += 1;
       return (
-        <tr key={'row' + demonSource}>
+        <tr key={'row' + demonSource} className={row % 2 ? 'tyr-odd-row' : ''}>
           <td className="tyr-align-left">{demonSource}</td>
           {Object.entries(this._summsWithDemonicPower).map(([key, tyrCastSumms]) => (
-            <td className={row % 2 ? 'tyr-odd-row' : ''} key={demonSource + key}>
-              {tyrCastSumms[demonSource]}
-            </td>
+            <td key={demonSource + key}>{tyrCastSumms[demonSource]}</td>
           ))}
         </tr>
       );
@@ -112,7 +113,7 @@ class SummonDemonicTyrant extends Analyzer {
       <table className="tyr-table">
         <thead>
           <tr>
-            <th className="tyr-align-left">Tyrant Cast</th>
+            <th style={{ textAlign: 'left' }}>Tyrant Cast</th>
             {Object.keys(this._summsWithDemonicPower).map((key) => (
               <th className="tyr-align-center" key={'tyrcast' + key}>
                 {Number(key) !== 0 ? Number(key) : 'Average'}
