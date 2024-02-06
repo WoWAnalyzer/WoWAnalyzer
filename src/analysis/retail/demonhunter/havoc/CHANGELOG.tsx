@@ -1,5 +1,5 @@
 import { change, date } from 'common/changelog';
-import { ToppleTheNun } from 'CONTRIBUTORS';
+import { emallson, ToppleTheNun } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 import SPELLS from 'common/SPELLS/demonhunter';
 import TALENTS from 'common/TALENTS/demonhunter';
@@ -7,6 +7,7 @@ import SHARED_CHANGELOG from 'analysis/retail/demonhunter/shared/CHANGELOG';
 
 // prettier-ignore
 export default [
+  change(date(2024, 2, 6), <>Hide multiple <SpellLink spell={SPELLS.THROW_GLAIVE_HAVOC} /> and <SpellLink spell={SPELLS.IMMOLATION_AURA} /> procs on the timeline.</>, emallson),
   change(date(2024, 1, 4), <>Update explanation for <SpellLink spell={TALENTS.ACCELERATED_BLADE_TALENT} /> to match 10.2 logic.</>, ToppleTheNun),
   change(date(2023, 7, 13), 'Disable checklist.', ToppleTheNun),
   change(date(2023, 7, 11), 'Update for 10.1.5.', ToppleTheNun),
