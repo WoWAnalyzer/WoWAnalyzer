@@ -1,11 +1,12 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
-import { emallson, Trevor, ToppleTheNun, Vetyst, Vohrr, Tialyss } from 'CONTRIBUTORS';
+import { emallson, Trevor, ToppleTheNun, Vetyst, Vohrr, Tialyss, Sref } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2024, 2, 6), <><SpellLink spell={SPELLS.MANA_TEA_CAST}/> channeling should now show properly as active time.</>, Sref),
   change(date(2024, 1, 17), <>Bump support to 10.2.5</>, Trevor),
   change(date(2023, 12, 26), <>Fix crash in <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT}/> module</>, Trevor),
   change(date(2023, 12, 20), <>Update APL to mark ToM as unsupported and update <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT}/> for ToM</>, Trevor),
