@@ -74,7 +74,6 @@ const spells: number[] = [
   SPELLS.COLLECTIVE_ANGUISH_EYE_BEAM.id, // Vengeance Collective Anguish Eye Beam
   SPELLS.THROW_GLAIVE_PROC_BLADE_DANCE.id, // extra throw from Amirdrassil 2pc
   SPELLS.THROW_GLAIVE_PROC_FURIOUS_THROWS.id, // extra throw from Furious Throws talent
-  SPELLS.IMMOLATION_AURA_PROC.id, // extra immo aura procs
   //endregion
 
   //region druid
