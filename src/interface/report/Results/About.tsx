@@ -39,7 +39,12 @@ const About = ({ config }: Props) => {
 
       <div className="row" style={{ marginTop: '1em' }}>
         <div className="col-lg-4" style={{ fontWeight: 'bold', paddingRight: 0 }}>
-          <Plural value={contributors.length} one="Contributor" other="Contributors" />
+          <Plural
+            id="common.about.contributor"
+            value={contributors.length}
+            one="Contributor"
+            other="Contributors"
+          />
         </div>
         <div className="col-lg-8">
           <ReadableListing>{contributorinfo}</ReadableListing>

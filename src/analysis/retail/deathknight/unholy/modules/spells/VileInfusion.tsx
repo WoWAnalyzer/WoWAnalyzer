@@ -47,7 +47,7 @@ class VileInfusion extends Analyzer {
           .icon(SPELLS.PLAGUEBRINGER_BUFF.icon)
           .actual(
             defineMessage({
-              id: 'deathknight.unholy.suggestions.plaguebringer.uptime',
+              id: 'deathknight.unholy.suggestions.vileinfusion.uptime',
               message: `Vile Infusion was up ${formatPercentage(
                 this.averageBuffUptime,
               )}% of the time`,

@@ -2,10 +2,25 @@ import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
-import { Sharrq, ToppleTheNun } from 'CONTRIBUTORS';
+import { Earosselot, Sharrq, Sref, ToppleTheNun } from 'CONTRIBUTORS';
 
 // prettier-ignore
 export default [
+  change(date(2024, 1, 31), <>Added <SpellLink spell={TALENTS.FROZEN_ORB_TALENT} />, <SpellLink spell={TALENTS.SHIFTING_POWER_TALENT} />, <SpellLink spell={TALENTS.FLURRY_TALENT} /> and Preparation Section to Guide view</>, Earosselot),
+  change(date(2024, 1, 23), <>Added <SpellLink spell={SPELLS.WINTERS_CHILL} /> to Guide View</>, Earosselot),
+  change(date(2024, 1, 23), <>Fix <SpellLink spell={TALENTS.RAY_OF_FROST_TALENT} /> Channeling.</>, Earosselot),
+  change(date(2024, 1, 20), <>Fixed an issue where guide sections for Ray of Frost and Comet Storm would be active even when player doesn't have those talents.</>, Sref),
+  change(date(2024, 1, 17), <>Added <SpellLink spell={TALENTS.ICY_VEINS_TALENT} />, <SpellLink spell={TALENTS.RAY_OF_FROST_TALENT} /> and <SpellLink spell={TALENTS.COMET_STORM_TALENT} /> to Guide View</>, Earosselot),
+  change(date(2024, 1, 17), 'Bump to 10.2.5 support.', ToppleTheNun),
+  change(date(2024, 1, 12), <>Added Guide view and Always be Casting graph.</>, Earosselot),
+  change(date(2024, 1, 6), <>Fixed a crash in <SpellLink spell={SPELLS.WINTERS_CHILL} />.</>, Sharrq),
+  change(date(2024, 1, 5), 'Updated spec support to full 10.2 support.', Sharrq),
+  change(date(2024, 1, 5), <>Fixed the cooldowns for <SpellLink spell={TALENTS.RAY_OF_FROST_TALENT} /> and <SpellLink spell={TALENTS.ICY_VEINS_TALENT} />.</>, Sharrq),
+  change(date(2024, 1, 5), <>Added a statistic for the average delay to use <SpellLink spell={TALENTS.FINGERS_OF_FROST_TALENT} />. This is just informational.</>, Sharrq),
+  change(date(2024, 1, 5), <>Added tracking for <SpellLink spell={TALENTS.RAY_OF_FROST_TALENT} />.</>, Sharrq),
+  change(date(2024, 1, 5), <>Adjusted <SpellLink spell={SPELLS.WINTERS_CHILL} /> to change the spells that can be used to spend <SpellLink spell={SPELLS.WINTERS_CHILL} />.</>, Sharrq),
+  change(date(2024, 1, 5), <>Updated <SpellLink spell={SPELLS.WINTERS_CHILL} /> to ignore pre-casts at 4 <SpellLink spell={SPELLS.ICICLES_BUFF} />.</>, Sharrq),
+  change(date(2024, 1, 5), 'Rewrote most core frost functionality to use event links instead.', Sharrq),
   change(date(2023, 7, 10), 'Remove references to 10.1.5 removed talents.', Sharrq),
   change(date(2023, 7, 3), 'Update SpellLink usage.', ToppleTheNun),
 	change(date(2023, 6, 27), <>Added <SpellLink spell={TALENTS.TEMPORAL_WARP_TALENT} /> to list of Bloodlust Buffs.</>, Sharrq),

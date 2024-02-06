@@ -28,7 +28,7 @@ class ArcaneEcho extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.ARCANE_ECHO_TALENT);
+    this.active = false; //Disabling this for now, at the very least this needs to be completely redone, but might not be needed at all
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.ARCANE_MISSILES_TALENT),
       this.onMissilesCast,

@@ -1,4 +1,4 @@
-import EssenceTracker from 'analysis/retail/evoker/preservation/modules/features/EssenceTracker';
+import EssenceTracker from 'analysis/retail/evoker/shared/modules/core/essence/EssenceTracker';
 import ResourceGraph from 'parser/shared/modules/ResourceGraph';
 
 class EssenceGraph extends ResourceGraph {

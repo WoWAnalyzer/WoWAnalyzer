@@ -4,7 +4,7 @@ import Analyzer from 'parser/core/Analyzer';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import StatisticsListBox, { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 
-import { FaelineStomp, SaveThemAll } from 'analysis/retail/monk/shared';
+import { JadefireStomp, SaveThemAll } from 'analysis/retail/monk/shared';
 import CloudedFocus from '../spells/CloudedFocus';
 import DancingMists from '../spells/DancingMists';
 import MistyPeaks from '../spells/MistyPeaks';
@@ -42,7 +42,7 @@ class TalentHealingStatistic extends Analyzer {
     veilOfPride: VeilOfPride,
     legacyOfWisdom: LegacyOfWisdom,
     ancientTeachings: AncientTeachings,
-    faelineStomp: FaelineStomp,
+    jadefireStomp: JadefireStomp,
   };
   protected risingMist!: RisingMist;
   protected upwelling!: Upwelling;
@@ -61,7 +61,7 @@ class TalentHealingStatistic extends Analyzer {
   protected veilOfPride!: VeilOfPride;
   protected legacyOfWisdom!: LegacyOfWisdom;
   protected ancientTeachings!: AncientTeachings;
-  protected faelineStomp!: FaelineStomp;
+  protected jadefireStomp!: JadefireStomp;
 
   buildTalentList() {
     const talentList = [];
@@ -116,8 +116,8 @@ class TalentHealingStatistic extends Analyzer {
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.ANCIENT_TEACHINGS_TALENT)) {
       talentList.push(this.ancientTeachings.talentHealingStatistic());
     }
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.FAELINE_STOMP_TALENT)) {
-      talentList.push(this.faelineStomp.talentHealingStatistic());
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.JADEFIRE_STOMP_TALENT)) {
+      talentList.push(this.jadefireStomp.talentHealingStatistic());
     }
     const sortedTalentList = talentList.sort(
       (a, b) => parseFloat(b.props.value) - parseFloat(a.props.value),

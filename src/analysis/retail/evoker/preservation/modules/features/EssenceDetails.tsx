@@ -6,10 +6,10 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import { Panel } from 'interface';
 
-import EssenceTracker from './EssenceTracker';
 import { defineMessage } from '@lingui/macro';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { TALENTS_EVOKER } from 'common/TALENTS';
+import { EssenceTracker } from 'analysis/retail/evoker/shared';
 
 class EssenceDetails extends Analyzer {
   static dependencies = {

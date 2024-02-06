@@ -5,12 +5,14 @@ import { Taum, Vetyst, Vohrr, xunni, Seriousnes, ToppleTheNun, Putro } from 'CON
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2024, 1, 17), <>Mark as updated for 10.2.5, updating relevant statistics now that <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT} /> does elemental damage.</>, Seriousnes),
+  change(date(2024, 1, 7), <><SpellLink spell={SPELLS.LIGHTNING_BOLT} /> with <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT} /> should require 8 <SpellLink spell={SPELLS.MAELSTROM_WEAPON} /> rather than 5</>, Seriousnes),
   change(date(2023, 12, 3), <>Fix for normalizer priority, update Ascendance analyzer to include cast timeline.</>, Seriousnes),
   change(date(2023, 12, 2), <>Marked as updated for 10.2</>, Seriousnes),
   change(date(2023, 11, 29), <>Defensives added to guide, <SpellLink spell={TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT} /> usage analysis, <SpellLink spell={TALENTS.ELEMENTAL_ASSAULT_TALENT} /> statistics</>, Seriousnes),
   change(date(2023, 11, 26), 'Resolve errors for unhandled abilities in the MealstromWeaponSpenders module.', Vetyst),
   change(date(2023, 11, 25), <>Updating APL to support 10.2, <SpellLink spell={TALENTS.HOT_HAND_TALENT} /> analysis, tier bonus statistics</>, Seriousnes),
-  change(date(2023, 11, 22), <>Added detailed statistics for <SpellLink spell={TALENTS.MAELSTROM_WEAPON_TALENT} /> source</>, Seriousnes),
+  change(date(2023, 11, 22), <>Added detailed statistics for <SpellLink spell={SPELLS.MAELSTROM_WEAPON} /> source</>, Seriousnes),
   change(date(2023, 9, 22), <>Minor ajustment to APL for <SpellLink spell={TALENTS.ICE_STRIKE_TALENT} />, added <SpellLink spell={SPELLS.MAELSTROM_WEAPON} /> usage and efficiency tables</>, Seriousnes),
   change(date(2023, 9, 7), <>Updated to 10.1.7 compatibility</>, Seriousnes),
   change(date(2023, 9, 6), <>Reworked maelstrom tracker, added spender link and analyzer. Added maelstrom efficiency details</>, Seriousnes),

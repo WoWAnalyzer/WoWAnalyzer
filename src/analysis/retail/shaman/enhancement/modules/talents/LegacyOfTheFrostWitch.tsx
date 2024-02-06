@@ -84,7 +84,8 @@ class LegacyOfTheFrostWitch extends Analyzer {
       event.ability.guid === SPELLS.MELEE.id
         ? SPELLS.MELEE
         : this.abilities.getAbility(event.ability.guid);
-    if (!ability) {
+    if (!ability || event.ability.guid === SPELLS.PRIMORDIAL_WAVE_DAMAGE.id) {
+      // primordial wave is elemental damage but not increased by LotFW
       return;
     }
     if (

@@ -150,7 +150,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.BLADESTORM.id,
       },
       {
-        spell: TALENTS.SPEAR_OF_BASTION_TALENT.id,
+        spell: TALENTS.CHAMPIONS_SPEAR_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: 90,
         gcd: {
@@ -160,7 +160,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.7,
         },
-        enabled: combatant.hasTalent(TALENTS.SPEAR_OF_BASTION_TALENT),
+        enabled: combatant.hasTalent(TALENTS.CHAMPIONS_SPEAR_TALENT),
       },
       {
         spell: SPELLS.THUNDER_CLAP.id,

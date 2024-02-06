@@ -1,4 +1,4 @@
-import { Boss } from 'game/raids';
+import type { Boss } from 'game/raids';
 
 import Headshot from './images/DreamwalkerHeadshot.jpg';
 import Background from './images/Dreamwalker.jpg';

@@ -7,6 +7,7 @@ import Zskarn from 'game/raids/aberrus/Zskarn';
 import Magmorax from 'game/raids/aberrus/Magmorax';
 import EchoOfNeltharion from 'game/raids/aberrus/EchoOfNeltharion';
 import Sarkareth from 'game/raids/aberrus/Sarkareth';
+import type { Raid } from 'game/raids';
 
 import Background from './backgrounds/overview.jpg';
 
@@ -24,4 +25,4 @@ export default {
     EchoOfNeltharion,
     Sarkareth,
   },
-};
+} satisfies Raid;

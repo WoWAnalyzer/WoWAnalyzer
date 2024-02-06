@@ -87,6 +87,16 @@ const spells = {
     name: 'Arcane Harmony',
     icon: 'ability_creature_cursed_04',
   },
+  RADIANT_SPARK_INACTIVE_DEBUFF: {
+    id: 376105,
+    name: 'Radiant Spark',
+    icon: 'ability_skyreach_flash_bang',
+  },
+  SIPHON_STORM_BUFF: {
+    id: 384267,
+    name: 'Siphon Storm',
+    icon: 'ability_monk_forcesphere_arcane',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;

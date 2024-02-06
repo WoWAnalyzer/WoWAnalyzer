@@ -128,7 +128,7 @@ class EssenceFont extends Analyzer {
       event.sourceID,
     );
     //Essence font and FLS Essence font only ever proc one addtional mastery event, so we only need to check for FLS EF whenever EF is not present
-    if (!targetHasEFHot && this.selectedCombatant.hasTalent(TALENTS_MONK.FAELINE_STOMP_TALENT)) {
+    if (!targetHasEFHot && this.selectedCombatant.hasTalent(TALENTS_MONK.JADEFIRE_STOMP_TALENT)) {
       targetHasEFHot = combatant.hasBuff(
         SPELLS.FAELINE_STOMP_ESSENCE_FONT.id,
         event.timestamp,
@@ -375,7 +375,7 @@ class EssenceFont extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.THEORYCRAFT}
         tooltip={
-          <Trans>
+          <Trans id="monk.mistweaver.spells.essenceFont.statistic.tooltip">
             Mastery:
             <ul>
               <li>{this.gomEFHits} additional hits</li>

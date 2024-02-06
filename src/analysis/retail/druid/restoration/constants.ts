@@ -16,8 +16,7 @@ export function lifebloomSpell(c: Combatant): Spell {
     : SPELLS.LIFEBLOOM_HOT_HEAL;
 }
 
-// TODO double check the entries on this list for Dragonflight
-
+/** This is also the list of spell IDs that are boosted by Druid's mastery */
 export const ABILITIES_AFFECTED_BY_HEALING_INCREASES: number[] = [
   SPELLS.REJUVENATION.id,
   SPELLS.REJUVENATION_GERMINATION.id,
@@ -39,6 +38,9 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES: number[] = [
   SPELLS.GROVE_GUARDIANS_SWIFTMEND.id,
   SPELLS.GROVE_GUARDIANS_NOURISH.id,
   SPELLS.GROVE_GUARDIANS_WILD_GROWTH.id,
+  SPELLS.NOURISH.id,
+  SPELLS.T31_TREANT_CLEAVE_NOURISH.id,
+  SPELLS.T31_CAST_CLEAVE_NOURISH.id,
 ];
 
 // procs Nature's Vigil
@@ -64,7 +66,7 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES_SPELL_OBJECTS =
 
 /** IDs of heals that get triple benefit from mastery */
 export const TRIPLE_MASTERY_BENEFIT_IDS: number[] = [
-  TALENTS_DRUID.NOURISH_TALENT.id,
+  SPELLS.NOURISH.id,
   SPELLS.GROVE_GUARDIANS_NOURISH.id,
   SPELLS.T31_TREANT_CLEAVE_NOURISH.id,
   SPELLS.T31_CAST_CLEAVE_NOURISH.id,

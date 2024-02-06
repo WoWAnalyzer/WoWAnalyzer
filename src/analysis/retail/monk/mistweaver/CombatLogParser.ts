@@ -1,5 +1,5 @@
 import {
-  FaelineStomp,
+  JadefireStomp,
   InvokersDelight,
   MysticTouch,
   TouchOfDeath,
@@ -159,7 +159,7 @@ class CombatLogParser extends CoreCombatLogParser {
     essenceFontUniqueTargets: EssenceFontUniqueTargets,
     essenceFontTargetsHit: EssenceFontTargetsHit,
     expelHarm: ExpelHarm,
-    faelineStomp: FaelineStomp,
+    jadefireStomp: JadefireStomp,
     faelineStompHealing: FaelineStompHealing,
     invokersDelight: InvokersDelight,
     invokeChiJi: InvokeChiJi,

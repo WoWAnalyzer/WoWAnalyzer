@@ -32,10 +32,16 @@ class Buffs extends CoreAuras {
       {
         spellId: SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.id,
         enabled: combatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT),
+        triggeredBySpellId: TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id,
+      },
+      {
+        spellId: SPELLS.INVOKE_YULON_BUFF.id,
+        enabled: combatant.hasTalent(TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT),
+        triggeredBySpellId: TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id,
       },
       // Throughput Cooldown
       {
-        spellId: TALENTS_MONK.MANA_TEA_TALENT.id,
+        spellId: SPELLS.MANA_TEA_BUFF.id,
         enabled: combatant.hasTalent(TALENTS_MONK.MANA_TEA_TALENT),
         timelineHighlight: true,
       },

@@ -1,4 +1,4 @@
-import { Boss } from 'game/raids';
+import type { Boss } from 'game/raids';
 
 import Background from './backgrounds/AmalgamationChamber.jpg';
 import Headshot from './headshots/AmalgamationChamber.jpg';

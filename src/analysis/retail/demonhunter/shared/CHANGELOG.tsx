@@ -8,6 +8,9 @@ import { ResourceLink } from 'interface';
 
 // prettier-ignore
 export default [
+  change(date(2024, 1, 17), 'Update example logs for 10.2.5.', ToppleTheNun),
+  change(date(2024, 1, 16), 'Mark as updated for 10.2.5.', ToppleTheNun),
+  change(date(2024, 1, 4), 'Add uptime graph.', ToppleTheNun),
   change(date(2023, 11, 6), 'Mark as updated for 10.2.', ToppleTheNun),
   change(date(2023, 10, 9), 'Update ability cooldowns and scaling in spellbooks.', ToppleTheNun),
   change(date(2023, 10, 9), 'Start updating for 10.2.', ToppleTheNun),

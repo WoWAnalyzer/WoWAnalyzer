@@ -60,7 +60,7 @@ const EK_SCK: Rule = {
       Use <SpellLink spell={SPELLS.SPINNING_CRANE_KICK_BRM} /> to trigger the bonus damage from{' '}
       <SpellLink spell={talents.EXPLODING_KEG_TALENT} /> while the debuff is active.
     </>,
-    false,
+    true,
   ),
 };
 

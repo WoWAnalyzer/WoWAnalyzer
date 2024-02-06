@@ -70,7 +70,7 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
         <Requirement
           name="Fireball casts during Combustion"
           thresholds={thresholds.fireballSpellUsageDuringCombustion}
-          tooltip="Due to Combustion's short duration, you should never cast Fireball during Combustion, unless your haste is over 100%. Instead, you should use your instant cast abilities like Fireblast and Phoenix Flames. If you run out of instant abilities, cast Scorch instead since it's cast time is shorter."
+          tooltip="Due to Combustion's short duration, you should only cast Fireball during Combustion if your haste is over 100% or you have a Flame Accelerant proc (if talented). Instead, you should use your instant cast abilities like Fireblast and Phoenix Flames. If you run out of instant abilities, cast Scorch instead since it's cast time is shorter."
         />
         <Requirement
           name="Combustion Active time"

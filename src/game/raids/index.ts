@@ -16,6 +16,7 @@ interface EncounterConfig {
   disableDowntimeSuggestion?: boolean;
   disableDowntimeStatistic?: boolean;
 }
+
 export interface Boss {
   id: number;
   name: string;
@@ -25,27 +26,23 @@ export interface Boss {
   icon?: string;
   fight: EncounterConfig;
 }
-interface Raid {
-  bosses: Boss[];
+
+export interface Raid {
+  name: string;
+  background?: string;
+  bosses: Record<string, Boss>;
 }
+
 export interface Phase extends PhaseConfig {
   start: number[];
   end: number[];
-}
-export interface Dungeon {
-  id: number;
-  name: string;
-  background?: string;
-  backgroundPosition?: string;
-  headshot?: string;
-  icon?: string;
-  fight: unknown;
 }
 
 const raids = {
   // Dragonflight
   MythicPlusSeasonOne: require('./mythicplusseasonone').default,
   MythicPlusSeasonTwo: require('./mythicplusseasontwo').default,
+  MythicPlusSeasonThree: require('./mythicplusseasonthree').default,
   VaultOfTheIncarnates: require('./vaultoftheincarnates').default, // tier 29
   Aberrus: require('./aberrus').default, // tier 30
   Amirdrassil: require('./amirdrassil').default, // tier 31
@@ -53,7 +50,9 @@ const raids = {
   Ulduar: require('./ulduar').default, // tier 8
   TrialOfTheGrandCrusader: require('./trialofthegrandcrusader').default, // tier 9
   IcecrownCitadel: require('./icc').default, // tier 10
+  RubySanctum: require('./rubysanctum').default, // tier 11
 };
+
 export default raids;
 
 export function findByBossId(id: number): Boss | null {

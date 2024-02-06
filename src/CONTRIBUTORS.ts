@@ -2334,3 +2334,22 @@ export const Pants: Contributor = {
   github: 'Smetz42',
   discord: 'pants_of_silver',
 };
+
+export const dub: Contributor = {
+  nickname: 'wes/dub',
+  github: 'wtodom',
+  discord: 'its_me_dub',
+};
+
+export const Earosselot: Contributor = {
+  nickname: 'earosselot',
+  github: 'earosselot',
+  avatar: avatar('raistlinn-avatar.png'),
+  mains: [
+    {
+      name: 'Raistlinn',
+      spec: SPECS.FROST_MAGE,
+      link: 'https://www.warcraftlogs.com/character/id/77062152',
+    },
+  ],
+};

@@ -387,7 +387,7 @@ class RisingMist extends Analyzer {
           <li>HoT Extension Healing: {formatNumber(this.hotHealing)}</li>
           <li>Average HoT Extension Seconds per cast: {this.averageExtension.toFixed(2)}</li>
           <li>Essence Font HoTs Extended: {this.efCount}</li>
-          {this.selectedCombatant.hasTalent(TALENTS_MONK.FAELINE_STOMP_TALENT) && (
+          {this.selectedCombatant.hasTalent(TALENTS_MONK.JADEFIRE_STOMP_TALENT) && (
             <li>FLS Essence Font HoTs extended: {this.flsEfCount}</li>
           )}
           <li>Renewing Mist HoTs Extended: {this.remCount}</li>

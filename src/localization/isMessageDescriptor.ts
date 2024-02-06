@@ -1,21 +1,32 @@
 import { MessageDescriptor } from '@lingui/core';
-import { isValidElement } from 'react';
 
 // This is kind of ugly but I generated it, so I'm keeping it for now.
 export const isMessageDescriptor = (obj: unknown): obj is MessageDescriptor => {
-  const typedObj = obj as MessageDescriptor;
-  return (
-    ((typedObj !== null && typeof typedObj === 'object') || typeof typedObj === 'function') &&
-    (typeof typedObj['id'] === 'undefined' || typeof typedObj['id'] === 'string') &&
-    (typeof typedObj['comment'] === 'undefined' || typeof typedObj['comment'] === 'string') &&
-    (typeof typedObj['message'] === 'undefined' || typeof typedObj['message'] === 'string') &&
-    (typeof typedObj['context'] === 'undefined' || typeof typedObj['context'] === 'string') &&
-    (typeof typedObj['values'] === 'undefined' ||
-      (((typedObj['values'] !== null && typeof typedObj['values'] === 'object') ||
-        typeof typedObj['values'] === 'function') &&
-        Object.entries<any>(typedObj['values']).every(
-          ([key, _value]) => typeof key === 'string',
-        ))) &&
-    !isValidElement(typedObj)
-  );
+  if (typeof obj !== 'object' || obj === null) {
+    return false;
+  }
+
+  const requiredProperties = ['id'];
+  const optionalProperties = ['comment', 'message', 'values'];
+
+  for (const prop of requiredProperties) {
+    if (!(prop in obj) || typeof (obj as Record<string, unknown>)[prop] !== 'string') {
+      return false;
+    }
+  }
+
+  for (const prop of optionalProperties) {
+    if (prop in obj) {
+      if (prop === 'values') {
+        const value = (obj as Record<string, unknown>)[prop];
+        if (!(value instanceof Object || Array.isArray((obj as Record<string, unknown>)[prop]))) {
+          return false;
+        }
+      } else if (typeof (obj as Record<string, unknown>)[prop] !== 'string') {
+        return false;
+      }
+    }
+  }
+
+  return true;
 };

@@ -368,6 +368,11 @@ const spells = {
     name: 'Spring Blossoms',
     icon: 'inv_misc_trailofflowers',
   },
+  NOURISH: {
+    id: 50464,
+    name: 'Nourish',
+    icon: 'ability_druid_nourish',
+  },
   SOUL_OF_THE_FOREST_BUFF: {
     id: 114108,
     name: 'Soul of the Forest',

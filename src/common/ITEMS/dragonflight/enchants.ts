@@ -272,6 +272,24 @@ const enchants = {
     icon: 'inv_10_engineering_scope_color2',
     effectId: 6522,
   },
+  ENCHANT_WEAPON_DREAMING_DEVOTION_R1: {
+    id: 207085,
+    name: 'Dreaming Devotion',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 7001,
+  },
+  ENCHANT_WEAPON_DREAMING_DEVOTION_R2: {
+    id: 207086,
+    name: 'Dreaming Devotion',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 7002,
+  },
+  ENCHANT_WEAPON_DREAMING_DEVOTION_R3: {
+    id: 207087,
+    name: 'Dreaming Devotion',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 7003,
+  },
 
   // Boots
   ENCHANT_BOOTS_PLAINSRUNNERS_BREEZE_R1: {
