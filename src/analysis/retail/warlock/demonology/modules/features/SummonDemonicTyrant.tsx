@@ -136,13 +136,18 @@ class SummonDemonicTyrant extends Analyzer {
         dropdown={petTable}
       >
         <BoringSpellValueText spell={SPELLS.SUMMON_DEMONIC_TYRANT}>
-          {avgDemonsEmpowered.toFixed(1)} <small>Avg. demons buffed</small>
-          <br />
-          {this._hasReignOfTyranny && <small>{RoTAvgBuff} Avg. RoT bonus dmg</small>}
-          {this._hasReignOfTyranny && <br />}
-          <small>
-            {avgWildImpsEmpowered.toFixed(1)}/{this._hasReignOfTyranny ? 15 : 10} Avg. imps buffed
-          </small>
+          <p>
+            {avgDemonsEmpowered.toFixed(1)} <small>Avg. demons buffed</small>
+          </p>
+          {this._hasReignOfTyranny && (
+            <p>
+              {RoTAvgBuff} <small>Avg. RoT bonus dmg</small>
+            </p>
+          )}
+          <p>
+            {avgWildImpsEmpowered.toFixed(1)}/{this._hasReignOfTyranny ? 15 : 10}{' '}
+            <small>Avg. imps buffed</small>
+          </p>
         </BoringSpellValueText>
       </Statistic>
     );
