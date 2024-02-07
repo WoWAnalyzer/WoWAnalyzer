@@ -31,6 +31,16 @@ export const CLEAVE_DAMAGE = 'CleaveDamage';
 const EVENT_LINKS: EventLink[] = [
   {
     reverseLinkRelation: SPELL_CAST,
+    linkingEventId: SPELLS.FROSTBOLT.id,
+    linkingEventType: EventType.Cast,
+    linkRelation: SPELL_DAMAGE,
+    referencedEventId: SPELLS.FROSTBOLT_DAMAGE.id,
+    referencedEventType: EventType.Damage,
+    forwardBufferMs: 3000,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    reverseLinkRelation: SPELL_CAST,
     linkingEventId: TALENTS.GLACIAL_SPIKE_TALENT.id,
     linkingEventType: EventType.Cast,
     linkRelation: SPELL_DAMAGE,

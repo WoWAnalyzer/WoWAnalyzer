@@ -50,6 +50,7 @@ class Channeling extends EventsNormalizer {
     // Mage
     buffChannelSpec(TALENTS_MAGE.EVOCATION_TALENT.id),
     buffChannelSpec(TALENTS_MAGE.SHIFTING_POWER_TALENT.id),
+    buffChannelSpec(TALENTS_MAGE.RAY_OF_FROST_TALENT.id),
     nextCastChannelSpec(TALENTS_MAGE.ARCANE_MISSILES_TALENT.id),
     // Priest
     buffChannelSpec(TALENTS_PRIEST.DIVINE_HYMN_TALENT.id),

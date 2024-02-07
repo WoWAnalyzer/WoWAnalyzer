@@ -42,7 +42,7 @@ class TalentHealingStatistic extends Analyzer {
     veilOfPride: VeilOfPride,
     legacyOfWisdom: LegacyOfWisdom,
     ancientTeachings: AncientTeachings,
-    faelineStomp: JadefireStomp,
+    jadefireStomp: JadefireStomp,
   };
   protected risingMist!: RisingMist;
   protected upwelling!: Upwelling;

@@ -5,7 +5,6 @@ import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   CastEvent,
-  DamageEvent,
   ApplyBuffEvent,
   RemoveBuffEvent,
   RefreshBuffEvent,
@@ -16,25 +15,23 @@ import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import Flurry from 'analysis/retail/mage/frost/talents/Flurry';
 
 class BrainFreeze extends Analyzer {
   static dependencies = {
     enemies: Enemies,
+    flurry: Flurry,
   };
 
+  protected flurry!: Flurry;
   protected enemies!: Enemies;
 
   brainFreezeRefreshes = 0;
-  flurry: { timestamp: number; damage: DamageEvent | undefined; overlapped: boolean }[] = [];
   brainFreeze: { apply: ApplyBuffEvent; remove: RemoveBuffEvent | undefined; expired: boolean }[] =
     [];
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.FLURRY_TALENT),
-      this.onFlurryCast,
-    );
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BRAIN_FREEZE_BUFF),
       this.onBrainFreeze,
@@ -43,16 +40,6 @@ class BrainFreeze extends Analyzer {
       Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.BRAIN_FREEZE_BUFF),
       this.onBrainFreezeRefresh,
     );
-  }
-
-  onFlurryCast(event: CastEvent) {
-    const damage: DamageEvent | undefined = GetRelatedEvent(event, 'SpellDamage');
-    const enemy = damage && this.enemies.getEntity(damage);
-    this.flurry.push({
-      timestamp: event.timestamp,
-      damage: damage,
-      overlapped: enemy?.hasBuff(SPELLS.WINTERS_CHILL.id, event.timestamp - 10) || false,
-    });
   }
 
   onBrainFreeze(event: ApplyBuffEvent) {
@@ -70,7 +57,7 @@ class BrainFreeze extends Analyzer {
   }
 
   get overlappedFlurries() {
-    return this.flurry.filter((f) => f.overlapped).length;
+    return this.flurry.flurryEvents.filter((f) => f.overlapped).length;
   }
 
   get expiredProcs() {

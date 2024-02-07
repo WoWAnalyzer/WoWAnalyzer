@@ -452,13 +452,13 @@ const spells = {
   CHI_HARMONY_HEAL_BONUS: {
     id: 423439,
     name: 'Chi Harmony',
-    icon: 'ability-monk-counteractmagic',
+    icon: 'ability_monk_counteractmagic',
   },
   //Tier 31 2pc Buff
   CHI_HARMONY_HEAL: {
     id: 423458,
     name: 'Chi Harmony',
-    icon: 'ability-monk-counteractmagic',
+    icon: 'ability_monk_counteractmagic',
   },
   //Invigorating Mist Heal
   INVIGORATING_MISTS_HEAL: {

@@ -20,7 +20,7 @@ import EssenceDetails from './modules/features/EssenceDetails';
 import GracePeriod from './modules/talents/GracePeriod';
 import Reversion from './modules/talents/Reversion';
 import CallOfYsera from './modules/talents/CallOfYsera';
-import EssenceBurst from './modules/talents/EssenceBurst';
+import EssenceBurst, { EssenceBurstSources } from './modules/talents/EssenceBurst';
 import EmeraldBlossom from './modules/talents/EmeraldBlossom';
 import Echo from './modules/talents/Echo';
 import ResonatingSphere from './modules/talents/ResonatingSphere';
@@ -49,10 +49,12 @@ import T31PrevokerSet from './modules/dragonflight/tier/T31TierSet';
 import EchoTypeBreakdown from './modules/talents/EchoTypeBreakdown';
 import {
   LeapingFlamesNormalizer,
+  LivingFlameNormalizer,
   LeapingFlames,
   SpellEssenceCost,
   EssenceTracker,
 } from '../shared';
+import EBRefreshNormalizer from './normalizers/EBRefreshNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -61,6 +63,8 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldowns: CooldownThroughputTracker,
 
     // Normalizer
+    ebRefreshNormalizer: EBRefreshNormalizer,
+    livingFlameNormalizer: LivingFlameNormalizer,
     castLinkNormalizer: CastLinkNormalizer,
     hotApplicationNormalizer: HotApplicationNormalizer,
     hotRemovalNormalizer: HotRemovalNormalizer,
@@ -117,6 +121,7 @@ class CombatLogParser extends CoreCombatLogParser {
     nozTeachings: NozTeachings,
     regenerativeMagic: RegenerativeMagic,
     echoTypeBreakdown: EchoTypeBreakdown,
+    essenceBurstSources: EssenceBurstSources,
 
     // tier
     t30PrevokerTier: T30PrevokerSet,

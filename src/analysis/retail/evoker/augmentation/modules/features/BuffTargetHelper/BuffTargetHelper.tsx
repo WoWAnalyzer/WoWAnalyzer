@@ -257,9 +257,10 @@ class BuffTargetHelper extends Analyzer {
 
     const topPumpersData = this.getTopPumpersData();
     const top4PumpersData = this.getTop4Pumpers(topPumpersData);
-    const defaultTargets = this.getDefaultTargets(top4PumpersData);
-    const tableContent = this.renderTableContent(topPumpersData, defaultTargets, top4PumpersData);
-    this.generateMRTNoteHenryG(top4PumpersData, defaultTargets);
+    const default2Targets = this.getDefaultTargets(top4PumpersData);
+    const default4Targets = this.getDefaultTargets(top4PumpersData, 4);
+    const tableContent = this.renderTableContent(topPumpersData, default2Targets, top4PumpersData);
+    this.generateMRTNoteHenryG(top4PumpersData, default4Targets);
 
     return tableContent;
   }
@@ -282,7 +283,7 @@ class BuffTargetHelper extends Analyzer {
     return top4PumpersData;
   }
 
-  getDefaultTargets(top4PumpersData: [string, number[]][][]): string[] {
+  getDefaultTargets(top4PumpersData: [string, number[]][][], amount: number = 2): string[] {
     const nameSums = new Map();
 
     top4PumpersData.flat().forEach(([name, values]) => {
@@ -294,7 +295,7 @@ class BuffTargetHelper extends Analyzer {
 
     const sortedNames = [...nameSums.entries()].sort((a, b) => b[1] - a[1]);
 
-    return sortedNames.slice(0, 2).map((entry) => entry[0]);
+    return sortedNames.slice(0, amount).map((entry) => entry[0]);
   }
 
   renderTableContent(
@@ -416,15 +417,10 @@ class BuffTargetHelper extends Analyzer {
    */
   generateMRTNoteHenryG(top4Pumpers: [string, number[]][][], defaultTargets: string[]) {
     // Initialize the note with the default targets
-    let newNote =
-      'prescGlowsStart \n' +
-      'defaultTargets - ' +
-      mrtColorMap.get(this.playerWhitelist.get(defaultTargets[0]) ?? '') +
-      defaultTargets[0] +
-      '|r ' +
-      mrtColorMap.get(this.playerWhitelist.get(defaultTargets[1]) ?? '') +
-      defaultTargets[1] +
-      '|r \n';
+    const defaultTargetsNote = defaultTargets
+      .map((player) => mrtColorMap.get(this.playerWhitelist.get(player) ?? '') + player + '|r')
+      .join(' ');
+    let newNote = 'prescGlowsStart \ndefaultTargets - ' + defaultTargetsNote + '\n';
 
     const prescienceCooldown =
       12_000 * (this.selectedCombatant.hasTalent(TALENTS.INTERWOVEN_THREADS_TALENT) ? 0.9 : 1);

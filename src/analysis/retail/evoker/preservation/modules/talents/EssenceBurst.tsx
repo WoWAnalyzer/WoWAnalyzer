@@ -10,7 +10,13 @@ import Events, {
   RemoveBuffEvent,
   RemoveBuffStackEvent,
 } from 'parser/core/Events';
-import { getEssenceBurstConsumeAbility } from '../../normalizers/CastLinkNormalizer';
+import {
+  didSparkProcEssenceBurst,
+  getEssenceBurstConsumeAbility,
+  isEbFromHardcast,
+  isEbFromReversion,
+  isEbFromT31Tier,
+} from '../../normalizers/CastLinkNormalizer';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { SPELL_COLORS } from 'analysis/retail/evoker/preservation/constants';
 import DonutChart from 'parser/ui/DonutChart';
@@ -31,6 +37,14 @@ export const ESSENCE_COSTS: { [name: string]: number } = {
   Disintegrate: 3,
 };
 
+enum EB_SOURCE {
+  REVERSION,
+  SPARK,
+  LF_HARDCAST,
+  T31_LF,
+  NONE,
+}
+
 export const MANA_COSTS: { [name: string]: number } = {
   'Emerald Blossom': SPELLS.EMERALD_BLOSSOM_CAST.manaCost,
   Echo: TALENTS_EVOKER.ECHO_TALENT.manaCost!,
@@ -42,6 +56,7 @@ interface CastInfo {
   expired: boolean;
   refreshed: boolean;
   timestamp: number;
+  source: EB_SOURCE;
 }
 
 class EssenceBurst extends Analyzer {
@@ -73,6 +88,20 @@ class EssenceBurst extends Analyzer {
     }
   }
 
+  getEbSource(event: RemoveBuffEvent | RemoveBuffStackEvent | RefreshBuffEvent): EB_SOURCE {
+    let source = EB_SOURCE.NONE;
+    if (didSparkProcEssenceBurst(event)) {
+      source = EB_SOURCE.SPARK;
+    } else if (isEbFromT31Tier(event)) {
+      source = EB_SOURCE.T31_LF;
+    } else if (isEbFromReversion(event)) {
+      source = EB_SOURCE.REVERSION;
+    } else if (isEbFromHardcast(event)) {
+      source = EB_SOURCE.LF_HARDCAST;
+    }
+    return source;
+  }
+
   onBuffRemove(event: RemoveBuffEvent | RemoveBuffStackEvent) {
     const consumeAbility = getEssenceBurstConsumeAbility(event);
     const info: CastInfo = {
@@ -80,6 +109,7 @@ class EssenceBurst extends Analyzer {
       expired: false,
       refreshed: false,
       spell: 0,
+      source: this.getEbSource(event),
     };
     if (consumeAbility) {
       const spellName = consumeAbility.ability.name;
@@ -99,7 +129,13 @@ class EssenceBurst extends Analyzer {
   }
 
   onBuffRefresh(event: RefreshBuffEvent) {
-    this.casts.push({ timestamp: event.timestamp, expired: false, refreshed: true, spell: 0 });
+    this.casts.push({
+      timestamp: event.timestamp,
+      expired: false,
+      refreshed: true,
+      spell: 0,
+      source: this.getEbSource(event),
+    });
   }
 
   get averageManaSavedForHealingSpells() {
@@ -128,6 +164,46 @@ class EssenceBurst extends Analyzer {
         spellId: TALENTS_EVOKER.ECHO_TALENT.id,
         value: this.consumptionCount['Echo'],
         valueTooltip: this.consumptionCount['Echo'],
+      },
+    ].filter((item) => {
+      return item.value > 0;
+    });
+    return items.length > 0 ? <DonutChart items={items} /> : null;
+  }
+
+  renderSourceChart() {
+    const sourceCount = new Map<EB_SOURCE, number>();
+    this.casts.forEach((cast) => {
+      sourceCount.set(cast.source, (sourceCount.get(cast.source) ?? 0) + 1);
+    });
+    const items = [
+      {
+        color: SPELL_COLORS.REVERSION,
+        label: 'Reversion',
+        spellId: TALENTS_EVOKER.REVERSION_TALENT.id,
+        value: sourceCount.get(EB_SOURCE.REVERSION) ?? 0,
+        valueTooltip: sourceCount.get(EB_SOURCE.REVERSION),
+      },
+      {
+        color: SPELL_COLORS.LIVING_FLAME,
+        label: 'Living Flame Hardcast',
+        spellId: SPELLS.LIVING_FLAME_CAST.id,
+        value: sourceCount.get(EB_SOURCE.LF_HARDCAST) ?? 0,
+        valueTooltip: sourceCount.get(EB_SOURCE.LF_HARDCAST),
+      },
+      {
+        color: SPELL_COLORS.DISINTEGRATE,
+        label: 'T31 4PC',
+        spellId: SPELLS.LIVING_FLAME_CAST.id,
+        value: sourceCount.get(EB_SOURCE.T31_LF) ?? 0,
+        valueTooltip: sourceCount.get(EB_SOURCE.T31_LF),
+      },
+      {
+        color: SPELL_COLORS.ECHO,
+        label: 'Spark of Insight',
+        spellId: TALENTS_EVOKER.SPARK_OF_INSIGHT_TALENT.id,
+        value: sourceCount.get(EB_SOURCE.SPARK) ?? 0,
+        valueTooltip: sourceCount.get(EB_SOURCE.SPARK),
       },
     ].filter((item) => {
       return item.value > 0;
@@ -271,6 +347,37 @@ class EssenceBurst extends Analyzer {
             </small>
           )}
           <ItemManaGained amount={this.manaSaved} useAbbrev />
+        </div>
+      </Statistic>
+    );
+  }
+}
+
+export class EssenceBurstSources extends Analyzer {
+  protected eb!: EssenceBurst;
+  static dependencies = {
+    eb: EssenceBurst,
+  };
+  statistic() {
+    const donutChart = this.eb.renderSourceChart();
+    return (
+      <Statistic
+        position={STATISTIC_ORDER.CORE(4)}
+        size="flexible"
+        category={STATISTIC_CATEGORY.TALENTS}
+      >
+        <div className="pad">
+          <label>
+            <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT} /> source breakdown
+          </label>
+          {donutChart ? (
+            donutChart
+          ) : (
+            <small>
+              You gained no <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT} />{' '}
+              buffs during the encounter
+            </small>
+          )}
         </div>
       </Statistic>
     );

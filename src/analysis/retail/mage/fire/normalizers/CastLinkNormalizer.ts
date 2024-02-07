@@ -292,6 +292,17 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
   },
+  {
+    reverseLinkRelation: SPELL_CAST,
+    linkingEventId: TALENTS.METEOR_TALENT.id,
+    linkingEventType: EventType.Cast,
+    linkRelation: SPELL_DAMAGE,
+    referencedEventId: SPELLS.METEOR_DAMAGE.id,
+    referencedEventType: EventType.Damage,
+    anyTarget: true,
+    forwardBufferMs: 2000,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
 ];
 
 /**
