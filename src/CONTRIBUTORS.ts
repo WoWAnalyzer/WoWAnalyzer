@@ -2353,3 +2353,16 @@ export const Earosselot: Contributor = {
     },
   ],
 };
+
+export const Zyer: Contributor = {
+  nickname: 'Zyer',
+  github: 'ZyerTCoder',
+  discord: 'zyer',
+  mains: [
+    {
+      name: 'Yumiblood',
+      spec: SPECS.DEMONOLOGY_WARLOCK,
+      link: 'https://www.warcraftlogs.com/character/id/42737929',
+    },
+  ],
+};
