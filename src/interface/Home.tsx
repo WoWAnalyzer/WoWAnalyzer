@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro';
-import Ad, { Location } from 'interface/Ad';
+import Ad, { AdErrorBoundary, Location } from 'interface/Ad';
 import ErrorBoundary from 'interface/ErrorBoundary';
 import FingerprintFilledIcon from 'interface/icons/FingerprintFilled';
 import HelpWantedIcon from 'interface/icons/Information';
@@ -57,7 +57,11 @@ const Home = () => {
 
       <ReportSelectionHeader />
 
-      {premium === false && <Ad location={Location.Top} style={{ marginTop: '-20px' }} />}
+      {premium === false && (
+        <AdErrorBoundary>
+          <Ad location={Location.Top} style={{ marginTop: '-20px' }} />
+        </AdErrorBoundary>
+      )}
 
       <main className="container">
         <nav>
