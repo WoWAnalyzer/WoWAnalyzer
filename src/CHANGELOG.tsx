@@ -33,6 +33,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 2, 7), 'Mark 10.2.0 as an old patch.', ToppleTheNun),
   change(date(2024, 2, 7), 'Fix a crash caused by bad ads.', ToppleTheNun),
   change(date(2024, 1, 19), 'Fix Dreaming Devotion showing as a cheap enchant.', emallson),
   change(date(2024, 1, 17), 'Simplify raid types and fix M+ S3 icons not showing on fight selection.', ToppleTheNun),
