@@ -493,6 +493,11 @@ const spells = {
     name: 'Crusading Strikes',
     icon: 'inv_sword_2h_artifactashbringer_d_01',
   },
+  CRUSADING_STRIKES_CAST: {
+    id: 408385,
+    name: 'Crusading Strikes',
+    icon: 'inv_sword_2h_artifactashbringer_d_01',
+  },
   VANGUARDS_MOMENTUM: {
     id: 403081,
     name: "Vanguard's Momentum",
@@ -665,6 +670,34 @@ const spells = {
     name: 'Glorious Purpose',
     icon: 'spell_holy_holyprotection',
   },
+
+  // region Retribution
+  EXPURGATION: {
+    id: 383346,
+    name: 'Expurgation',
+    icon: 'ability_paladin_bladeofjustice',
+  },
+  WRATHFUL_SANCTION: {
+    id: 424590,
+    name: 'Wrathful Sanction',
+    icon: 'spell_holy_excorcism_02',
+  },
+  ECHOES_OF_WRATH: {
+    id: 423590,
+    name: 'Echoes of Wrath',
+    icon: 'spell_paladin_inquisition',
+  },
+  T31_RET_2P: {
+    id: 424513,
+    name: 'Paladin Retribution 10.2 Class Set 2pc',
+    icon: 'trade_engineering',
+  },
+  T31_RET_4P: {
+    id: 424572,
+    name: 'Paladin Retribution 10.2 Class Set 4pc',
+    icon: 'trade_engineering',
+  },
+  // endregion
 } satisfies Record<string, Spell>;
 
 export default spells;

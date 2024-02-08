@@ -1,0 +1,1 @@
+export const ECHOES_OF_WRATH_DURATION = 12000; // 12s
