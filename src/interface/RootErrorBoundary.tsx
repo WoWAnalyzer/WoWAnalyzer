@@ -41,6 +41,14 @@ const isTriggeredByExternalScript = (error: HandledError) => {
   if (firstPath[1] !== window.location.origin) {
     return true;
   }
+  // Sometimes the second line can cause it (relevant for ads).
+  const secondPath = paths[1];
+  if (!secondPath) {
+    return true;
+  }
+  if (secondPath[1] !== window.location.origin) {
+    return true;
+  }
 
   return false;
 };
