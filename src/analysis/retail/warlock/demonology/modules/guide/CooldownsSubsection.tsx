@@ -1,4 +1,3 @@
-import { Section } from 'interface/guide';
 import TALENTS from 'common/TALENTS/warlock';
 import CoreCooldownGraphSubsection, {
   Cooldown,
@@ -8,10 +7,6 @@ const cooldowns: Cooldown[] = [
   {
     spell: TALENTS.NETHER_PORTAL_TALENT,
     isActive: (c) => c.hasTalent(TALENTS.NETHER_PORTAL_TALENT),
-  },
-  {
-    spell: TALENTS.GRIMOIRE_FELGUARD_TALENT,
-    isActive: (c) => c.hasTalent(TALENTS.GRIMOIRE_FELGUARD_TALENT),
   },
   {
     spell: TALENTS.SUMMON_VILEFIEND_TALENT,
@@ -33,14 +28,14 @@ const cooldowns: Cooldown[] = [
     spell: TALENTS.GUILLOTINE_TALENT,
     isActive: (c) => c.hasTalent(TALENTS.GUILLOTINE_TALENT),
   },
+  {
+    spell: TALENTS.GRIMOIRE_FELGUARD_TALENT,
+    isActive: (c) => c.hasTalent(TALENTS.GRIMOIRE_FELGUARD_TALENT),
+  },
 ];
 
-function Cooldowns() {
-  return (
-    <Section title="Cooldowns">
-      <CoreCooldownGraphSubsection cooldowns={cooldowns} />
-    </Section>
-  );
+function CooldownSubsection() {
+  return <CoreCooldownGraphSubsection cooldowns={cooldowns} />;
 }
 
-export default Cooldowns;
+export default CooldownSubsection;
