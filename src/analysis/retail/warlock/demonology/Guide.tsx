@@ -8,9 +8,9 @@ import ResourceUsage from './modules/guide/ResourceUsage';
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
+      <Cooldowns />
       <ResourceUsage modules={modules} events={events} info={info} />
       {/* <Rotation modules={modules} events={events} info={info} /> */}
-      <Cooldowns />
       <PreparationSection />
     </>
   );
