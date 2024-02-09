@@ -5,6 +5,7 @@ import Events, { ApplyBuffEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 
 import DemoPets from '../pets/DemoPets';
 import './SummonTyrant.scss';
@@ -62,47 +63,55 @@ class SummonDemonicTyrant extends Analyzer {
       this._summsWithDemonicPower[this._tyrantCast][petInfo.name] + 1 || 1;
   }
 
-  statistic() {
-    const numTyrCasts = this._summsWithDemonicPower.length - 1;
+  get numTyrCasts(): number {
+    return this._summsWithDemonicPower.length - 1;
+  }
+
+  get populatedEmpoweredDemonsTable() {
+    const populatedSumms = structuredClone(this._summsWithDemonicPower);
 
     // add averages
-    for (let tyrCast = 0; tyrCast <= numTyrCasts; tyrCast += 1) {
+    for (let tyrCast = 0; tyrCast <= this.numTyrCasts; tyrCast += 1) {
       // this should start at 1 but everything dies if it doesn't start at 0
-      this._summsWithDemonicPower[tyrCast]['Total'] = Object.values(
-        this._summsWithDemonicPower[tyrCast],
-      ).reduce((a, c) => a + c, 0);
+      populatedSumms[tyrCast]['Total'] = Object.values(populatedSumms[tyrCast]).reduce(
+        (a, c) => a + c,
+        0,
+      );
 
-      for (const [key, value] of Object.entries(this._summsWithDemonicPower[tyrCast])) {
-        if (!this._summsWithDemonicPower[0][key]) {
-          this._summsWithDemonicPower[0][key] = 0;
+      for (const [key, value] of Object.entries(populatedSumms[tyrCast])) {
+        if (!populatedSumms[0][key]) {
+          populatedSumms[0][key] = 0;
         }
-        this._summsWithDemonicPower[0][key] += value;
+        populatedSumms[0][key] += value;
       }
     }
 
-    for (const key of Object.keys(this._summsWithDemonicPower[0])) {
-      this._summsWithDemonicPower[0][key] /= numTyrCasts;
-      if (this._summsWithDemonicPower[0][key].toString().length > 3) {
-        this._summsWithDemonicPower[0][key] = this._summsWithDemonicPower[0][key].toFixed(1);
+    for (const key of Object.keys(populatedSumms[0])) {
+      populatedSumms[0][key] /= this.numTyrCasts;
+      if (populatedSumms[0][key].toString().length > 3) {
+        populatedSumms[0][key] = populatedSumms[0][key].toFixed(1);
       }
     }
 
-    let RoTAvgBuff = 0;
     if (this._hasReignOfTyranny) {
-      this._summsWithDemonicPower.forEach((_, index) => {
-        this._summsWithDemonicPower[index]['RoT Buff'] =
-          this._summsWithDemonicPower[index]['Total'] * 10 + '%';
+      populatedSumms.forEach((_, index) => {
+        populatedSumms[index]['RoT Buff'] = populatedSumms[index]['Total'] * 10 + '%';
       });
-      RoTAvgBuff = this._summsWithDemonicPower[0]['RoT Buff'];
     }
+
+    return populatedSumms;
+  }
+
+  get empoweredDemonsTable(): JSX.Element {
+    const empoweredDemons = this.populatedEmpoweredDemonsTable;
 
     let row = 0;
-    const petTableRows = Object.keys(this._summsWithDemonicPower[0]).map((demonSource) => {
+    const petTableRows = Object.keys(empoweredDemons[0]).map((demonSource) => {
       row += 1;
       return (
         <tr key={'row' + demonSource} className={row % 2 ? 'tyr-odd-row' : ''}>
           <td className="tyr-align-left">{demonSource}</td>
-          {Object.entries(this._summsWithDemonicPower).map(([key, tyrCastSumms]) => (
+          {Object.entries(empoweredDemons).map(([key, tyrCastSumms]) => (
             <td key={demonSource + key}>{tyrCastSumms[demonSource]}</td>
           ))}
         </tr>
@@ -114,7 +123,7 @@ class SummonDemonicTyrant extends Analyzer {
         <thead>
           <tr>
             <th style={{ textAlign: 'left' }}>Tyrant Cast</th>
-            {Object.keys(this._summsWithDemonicPower).map((key) => (
+            {Object.keys(empoweredDemons).map((key) => (
               <th className="tyr-align-center" key={'tyrcast' + key}>
                 {Number(key) !== 0 ? Number(key) : 'Average'}
               </th>
@@ -125,15 +134,34 @@ class SummonDemonicTyrant extends Analyzer {
       </table>
     );
 
-    const avgDemonsEmpowered = Number(this._summsWithDemonicPower[0]['Total']);
-    const avgWildImpsEmpowered = Number(this._summsWithDemonicPower[0]['Wild Imp']);
+    return petTable;
+  }
+
+  get guideSubsection(): JSX.Element {
+    const explanation = <p>Test</p>;
+
+    const data = (
+      <div>
+        <strong>Summon Demonic Tyrant casts</strong>
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data);
+  }
+
+  statistic() {
+    const empoweredDemons = this.populatedEmpoweredDemonsTable;
+
+    const avgDemonsEmpowered = Number(empoweredDemons[0]['Total']);
+    const avgWildImpsEmpowered = Number(empoweredDemons[0]['Wild Imp']);
+    const avgRoTBuff = empoweredDemons[0]['RoT Buff'];
 
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(6)}
         size="flexible"
         tooltip="Number of pets empowered by each Demonic Tyrant summon."
-        dropdown={petTable}
+        dropdown={this.empoweredDemonsTable}
       >
         <BoringSpellValueText spell={SPELLS.SUMMON_DEMONIC_TYRANT}>
           <p>
@@ -141,7 +169,7 @@ class SummonDemonicTyrant extends Analyzer {
           </p>
           {this._hasReignOfTyranny && (
             <p>
-              {RoTAvgBuff} <small>Avg. RoT bonus dmg</small>
+              {avgRoTBuff} <small>Avg. RoT bonus dmg</small>
             </p>
           )}
           <p>
