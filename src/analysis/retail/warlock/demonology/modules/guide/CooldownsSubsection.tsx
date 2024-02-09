@@ -5,12 +5,8 @@ import CoreCooldownGraphSubsection, {
 
 const cooldowns: Cooldown[] = [
   {
-    spell: TALENTS.NETHER_PORTAL_TALENT,
-    isActive: (c) => c.hasTalent(TALENTS.NETHER_PORTAL_TALENT),
-  },
-  {
-    spell: TALENTS.SUMMON_VILEFIEND_TALENT,
-    isActive: (c) => c.hasTalent(TALENTS.SUMMON_VILEFIEND_TALENT),
+    spell: TALENTS.CALL_DREADSTALKERS_TALENT,
+    isActive: (c) => c.hasTalent(TALENTS.CALL_DREADSTALKERS_TALENT),
   },
   {
     spell: TALENTS.SUMMON_DEMONIC_TYRANT_TALENT,
@@ -25,12 +21,24 @@ const cooldowns: Cooldown[] = [
     isActive: (c) => c.hasTalent(TALENTS.POWER_SIPHON_TALENT),
   },
   {
+    spell: TALENTS.BILESCOURGE_BOMBERS_TALENT,
+    isActive: (c) => c.hasTalent(TALENTS.BILESCOURGE_BOMBERS_TALENT),
+  },
+  {
     spell: TALENTS.GUILLOTINE_TALENT,
     isActive: (c) => c.hasTalent(TALENTS.GUILLOTINE_TALENT),
   },
   {
     spell: TALENTS.GRIMOIRE_FELGUARD_TALENT,
     isActive: (c) => c.hasTalent(TALENTS.GRIMOIRE_FELGUARD_TALENT),
+  },
+  {
+    spell: TALENTS.SUMMON_VILEFIEND_TALENT,
+    isActive: (c) => c.hasTalent(TALENTS.SUMMON_VILEFIEND_TALENT),
+  },
+  {
+    spell: TALENTS.NETHER_PORTAL_TALENT,
+    isActive: (c) => c.hasTalent(TALENTS.NETHER_PORTAL_TALENT),
   },
 ];
 
