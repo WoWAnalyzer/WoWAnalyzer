@@ -72,6 +72,8 @@ const spells: number[] = [
   SPELLS.SOUL_CARVER_OFF_HAND.id, // Soul Carver off hand damage ability
   SPELLS.THROW_GLAIVE_VENGEANCE_DAMAGE.id, // Vengeance Throw Glaive damage ability
   SPELLS.COLLECTIVE_ANGUISH_EYE_BEAM.id, // Vengeance Collective Anguish Eye Beam
+  SPELLS.THROW_GLAIVE_PROC_BLADE_DANCE.id, // extra throw from Amirdrassil 2pc
+  SPELLS.THROW_GLAIVE_PROC_FURIOUS_THROWS.id, // extra throw from Furious Throws talent
   //endregion
 
   //region druid

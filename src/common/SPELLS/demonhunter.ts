@@ -100,6 +100,11 @@ const spells = {
     name: 'Immolation Aura Second Strike',
     icon: 'ability_demonhunter_immolation',
   },
+  IMMOLATION_AURA_PROC: {
+    id: 427917,
+    name: 'Immolation Aura',
+    icon: 'ability_demonhunter_immolation',
+  },
   INFERNAL_ARMOR: {
     id: 320344,
     name: 'Infernal Armor',
@@ -424,6 +429,16 @@ const spells = {
   },
   THROW_GLAIVE_HAVOC: {
     id: 185123,
+    name: 'Throw Glaive',
+    icon: 'ability_demonhunter_throwglaive',
+  },
+  THROW_GLAIVE_PROC_BLADE_DANCE: {
+    id: 337819,
+    name: 'Throw Glaive',
+    icon: 'ability_demonhunter_throwglaive',
+  },
+  THROW_GLAIVE_PROC_FURIOUS_THROWS: {
+    id: 393035,
     name: 'Throw Glaive',
     icon: 'ability_demonhunter_throwglaive',
   },

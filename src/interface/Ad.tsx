@@ -1,5 +1,6 @@
-import React, { useEffect, useCallback, useState } from 'react';
+import React, { useEffect, useCallback, useState, Component, ReactNode, ErrorInfo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { captureException } from 'common/errorLogger';
 
 import styles from './Ad.module.scss';
 import usePremium from './usePremium';
@@ -113,5 +114,35 @@ export function destroyAds() {
 
   if (destroy) {
     destroy('all');
+  }
+}
+
+interface AdErrorBoundaryProps {
+  children: ReactNode;
+}
+interface AdErrorBoundaryState {
+  hasError: boolean;
+}
+// Error Boundaries must be written as class components
+// eslint-disable-next-line react/prefer-stateless-function
+export class AdErrorBoundary extends Component<AdErrorBoundaryProps, AdErrorBoundaryState> {
+  public state: AdErrorBoundaryState = {
+    hasError: false,
+  };
+
+  public static getDerivedStateFromError(_: Error): AdErrorBoundaryState {
+    // Update state so the next render will show the fallback UI.
+    return { hasError: true };
+  }
+
+  public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    captureException(error);
+  }
+
+  public render() {
+    if (this.state.hasError) {
+      return null;
+    }
+    return this.props.children;
   }
 }
