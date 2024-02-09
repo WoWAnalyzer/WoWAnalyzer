@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  change(date(2024, 2, 6), <>Fixed an issue where <SpellLink spell={SPELLS.MAUL} /> would show as not having a GCD when player is talented for <SpellLink spell={TALENTS_DRUID.RAZE_TALENT} /></>, Sref),
   change(date(2024, 1, 19), <>Marked up to date for 10.2.5</>, Sref),
   change(date(2023, 11, 11), <>Added active time graph to Guide.</>, Sref),
   change(date(2023, 11, 9), <>Added simple spell usage stats for <SpellLink spell={SPELLS.MANGLE_BEAR} />, <SpellLink spell={SPELLS.THRASH_BEAR} />, and <SpellLink spell={SPELLS.MOONFIRE_CAST} />. Marked as updated for 10.2.</>, Sref),
