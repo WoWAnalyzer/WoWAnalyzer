@@ -56,6 +56,9 @@ class SourceOfMagic extends Analyzer {
   sourceOfMagicWindows: SourceOfMagicWindow[] = [];
 
   onResourceChange(event: ResourceChangeEvent) {
+    if (!this.combatants.players[event.targetID]) {
+      return;
+    }
     // Just incase the applybuff didn't get fabricated properly
     if (!this.sourceOfMagicActive) {
       this.addSourceOfMagicWindow(event);
@@ -67,11 +70,17 @@ class SourceOfMagic extends Analyzer {
   }
 
   onApplyBuff(event: ApplyBuffEvent) {
+    if (!this.combatants.players[event.targetID]) {
+      return;
+    }
     this.addSourceOfMagicWindow(event);
     this.sourceOfMagicActive = true;
   }
 
   onRemoveBuff(event: RemoveBuffEvent) {
+    if (!this.combatants.players[event.targetID]) {
+      return;
+    }
     // Just incase the applybuff didn't get fabricated properly
     if (!this.sourceOfMagicWindows.length) {
       this.addSourceOfMagicWindow(event, true);
@@ -114,9 +123,6 @@ class SourceOfMagic extends Analyzer {
   }
 
   getPlayerName(event: ApplyBuffEvent | ResourceChangeEvent | RemoveBuffEvent): string {
-    if (!this.combatants.players[event.targetID]) {
-      return '';
-    }
     return this.combatants.players[event.targetID].name;
   }
 
