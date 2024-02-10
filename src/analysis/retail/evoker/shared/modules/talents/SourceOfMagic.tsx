@@ -114,6 +114,9 @@ class SourceOfMagic extends Analyzer {
   }
 
   getPlayerName(event: ApplyBuffEvent | ResourceChangeEvent | RemoveBuffEvent): string {
+    if (!this.combatants.players[event.targetID]) {
+      return '';
+    }
     return this.combatants.players[event.targetID].name;
   }
 
