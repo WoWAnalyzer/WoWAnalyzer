@@ -53,6 +53,11 @@ class CelestialBrew extends MajorDefensiveBuff {
     this.active = this.selectedCombatant.hasTalent(talents.CELESTIAL_BREW_TALENT);
 
     this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(talents.CELESTIAL_BREW_TALENT),
+      this.updateMaxAbsorb,
+    );
+
+    this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(talents.CELESTIAL_BREW_TALENT),
       this._resetAbsorb,
     );
@@ -182,6 +187,17 @@ class CelestialBrew extends MajorDefensiveBuff {
         </BoringValue>
       </Statistic>
     );
+  }
+
+  maxMitigationDescription(): ReactNode {
+    return <>Shield Size</>;
+  }
+
+  private updateMaxAbsorb(event: ApplyBuffEvent) {
+    if (!event.absorb) {
+      return;
+    }
+    this.setMaxMitigation(event, event.absorb);
   }
 
   private _expirePurifiedChi(event: RemoveBuffEvent) {
