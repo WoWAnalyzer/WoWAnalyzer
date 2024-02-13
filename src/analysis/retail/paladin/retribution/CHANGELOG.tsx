@@ -1,9 +1,10 @@
 import { change, date } from 'common/changelog';
-import { emallson, Klamuz, ToppleTheNun, xizbow } from 'CONTRIBUTORS';
+import { emallson, Humperella, Klamuz, ToppleTheNun, xizbow } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import ITEMS from 'common/ITEMS';
 
 export default [
+  change(date(2024, 2, 13), 'Improve dragonflight 10.2.5 support', Humperella),
   change(date(2024, 1, 7), <>Add <ItemLink id={ITEMS.FYRALATH.id} /> to cooldown graph.</>, ToppleTheNun),
   change(date(2023, 7, 19), 'Make CooldownGraphSubsection generic enough that it can be used by other specs.', ToppleTheNun),
   change(date(2023, 7, 18), 'Show percentage wasted Holy Power instead of percentage at Holy Power cap.', ToppleTheNun),

@@ -73,6 +73,7 @@ const HASTE_BUFFS: HasteBuffMap = {
   [SPELLS.RELENTLESS_INQUISITOR_TALENT_BUFF.id]: {
     hastePerStack: 0.01,
   },
+  [SPELLS.RUSH_OF_LIGHT.id]: 0.05,
 
   //region Priest
   [TALENTS_PRIEST.POWER_INFUSION_TALENT.id]: 0.2,

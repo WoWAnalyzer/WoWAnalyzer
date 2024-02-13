@@ -16,7 +16,7 @@ const spells = {
     id: 20271,
     name: 'Judgment',
     icon: 'spell_holy_righteousfury',
-    manaCost: 300,
+    manaCost: 1500,
   },
   JUDGMENT_CAST_HOLY: {
     id: 275773,
@@ -467,14 +467,12 @@ const spells = {
     icon: 'ability_paladin_artofwar',
   },
   FINAL_VERDICT_RESET: {
-    // TODO: Make this actually correct, I could not find any logs with the ability
-    id: 337228,
+    id: 383329,
     name: 'Final Verdict',
     icon: 'spell_paladin_hammerofwrath',
   },
   FINAL_VERDICT_FINISHER: {
-    // TODO: Make this actually correct, I could not find any logs with the ability
-    id: 336872,
+    id: 383328,
     name: 'Final Verdict',
     icon: 'spell_paladin_templarsverdict',
   },
@@ -507,6 +505,11 @@ const spells = {
     id: 408386,
     name: 'Divine Auxiliary',
     icon: 'spell_holy_righteousfury',
+  },
+  RUSH_OF_LIGHT: {
+    id: 407065,
+    name: 'Rush of Light',
+    icon: 'spell_holy_borrowedtime',
   },
 
   // Protection
