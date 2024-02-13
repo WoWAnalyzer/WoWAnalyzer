@@ -648,6 +648,11 @@ const spells = {
     name: 'Consecration',
     icon: 'spell_holy_innerfire',
   },
+  CONSECRATED_BLADE_BUFF: {
+    id: 407475,
+    name: 'Consecrated Blade',
+    icon: 'ability_mage_firestarter',
+  },
   DIVINE_SHIELD: {
     id: 642,
     name: 'Divine Shield',
