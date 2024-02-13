@@ -462,7 +462,7 @@ const spells = {
     icon: 'spell_holy_layonhands',
   },
   ART_OF_WAR: {
-    id: 267344,
+    id: 406086,
     name: 'Art of War',
     icon: 'ability_paladin_artofwar',
   },
