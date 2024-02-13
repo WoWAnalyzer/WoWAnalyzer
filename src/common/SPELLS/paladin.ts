@@ -488,10 +488,15 @@ const spells = {
     name: 'Templar Slash',
     icon: 'inv_sword_2h_artifactashbringerpurified_d_03',
   },
-  CRUSADING_STRIKES: {
+  CRUSADING_STRIKES_ENERGIZE: {
     id: 406834,
     name: 'Crusading Strikes',
     icon: 'inv_sword_2h_artifactashbringer_d_01',
+  },
+  CRUSADING_STRIKES: {
+    id: 408385,
+    name: 'Crusading Strikes',
+    icon: 'spell_holy_crusaderstrike.jpg',
   },
   VANGUARDS_MOMENTUM: {
     id: 403081,
