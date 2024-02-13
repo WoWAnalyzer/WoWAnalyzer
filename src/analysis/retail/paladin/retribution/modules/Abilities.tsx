@@ -125,6 +125,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste: number) => 7.5 / (1 + haste),
         enabled: combatant.hasTalent(TALENTS.HAMMER_OF_WRATH_TALENT),
+        charges: 1 + combatant.getTalentRank(TALENTS.VANGUARDS_MOMENTUM_RETRIBUTION_TALENT),
         gcd: {
           base: 1500,
         },
