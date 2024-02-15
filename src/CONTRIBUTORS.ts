@@ -2366,3 +2366,16 @@ export const Zyer: Contributor = {
     },
   ],
 };
+
+export const Humperella: Contributor = {
+  nickname: 'Humperella',
+  github: 'kevindqc',
+  discord: '.darkvirus.',
+  mains: [
+    {
+      name: 'Humperella',
+      spec: SPECS.RETRIBUTION_PALADIN,
+      link: 'https://worldofwarcraft.com/en-us/character/zuljin/Humperella',
+    },
+  ],
+};
