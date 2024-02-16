@@ -1,11 +1,12 @@
 import { change, date } from 'common/changelog';
-import { ToppleTheNun, Tyndi, Vireve, Vollmer } from 'CONTRIBUTORS';
+import { ToppleTheNun, Trevor, Tyndi, Vireve, Vollmer } from 'CONTRIBUTORS';
 import { ResourceLink, SpellLink } from 'interface';
 import TALENTS from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS/evoker';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 export default [
+  change(date(2024, 2, 10), <>Fix crash in <SpellLink spell={TALENTS.SOURCE_OF_MAGIC_TALENT} /> module.</>, Trevor),
   change(date(2024, 2, 3), <>Implement <SpellLink spell={TALENTS.SOURCE_OF_MAGIC_TALENT} /> and <SpellLink spell={TALENTS.POTENT_MANA_TALENT} /> modules.</>, Vollmer),
   change(date(2024, 1, 17), <>Mark as updated for 10.2.5.</>, Vollmer),
   change(date(2023, 12, 31), <>Improved tracking of <ResourceLink id={RESOURCE_TYPES.ESSENCE.id}/> for a more precise representation on the <ResourceLink id={RESOURCE_TYPES.ESSENCE.id}/> Graph.</>, Vollmer),
