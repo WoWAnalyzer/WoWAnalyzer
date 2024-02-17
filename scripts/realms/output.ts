@@ -954,6 +954,7 @@ export const REALMS: Record<Region, Realm[]> = {
 
 export const CLASSIC_REALMS: Record<ClassicRegion, Realm[]> = {
   EU: [
+    { name: 'Earthshaker', slug: 'earthshaker' },
     { name: 'Amnennar', slug: 'amnennar' },
     { name: 'Auberdine', slug: 'auberdine' },
     { name: 'Everlook', slug: 'everlook' },
