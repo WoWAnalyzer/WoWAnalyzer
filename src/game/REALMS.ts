@@ -956,6 +956,7 @@ export const CLASSIC_REALMS: Record<ClassicRegion, Realm[]> = {
   EU: [
     { name: 'Amnennar', slug: 'amnennar' },
     { name: 'Auberdine', slug: 'auberdine' },
+    { name: 'Earthshaker', slug: 'earthshaker' },
     { name: 'Everlook', slug: 'everlook' },
     { name: 'Firemaw', slug: 'firemaw' },
     { name: 'Gehennas', slug: 'gehennas' },
@@ -973,7 +974,6 @@ export const CLASSIC_REALMS: Record<ClassicRegion, Realm[]> = {
     { name: 'Sulfuron', slug: 'sulfuron' },
     { name: 'Thekal', slug: 'thekal' },
     { name: 'Venoxis', slug: 'venoxis' },
-    { name: 'Землекрушитель', slug: 'earthshaker' },
     { name: 'Испепелитель', slug: 'ashbringer' },
     { name: 'Пламегор', slug: 'flamegor' },
     { name: 'Превосходство', slug: 'transcendence' },
