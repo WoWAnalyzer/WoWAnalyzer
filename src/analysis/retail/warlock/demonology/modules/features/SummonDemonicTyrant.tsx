@@ -17,6 +17,8 @@ import { combineQualitativePerformances } from 'common/combineQualitativePerform
 
 const debug = false;
 
+const WILD_IMP_SPELL = 104317;
+
 interface TyrantCast {
   event: CastEvent;
   castNumber: number;
@@ -156,15 +158,7 @@ class SummonDemonicTyrant extends Analyzer {
     return petTable;
   }
 
-  getQualitativePerformanceForTyrant(
-    gfg: boolean,
-    dogs: boolean,
-    imps: number,
-  ): QualitativePerformance {
-    if (!gfg || !dogs) {
-      return QualitativePerformance.Fail;
-    }
-
+  getImpsPerformance(imps: number): QualitativePerformance {
     if ((this._hasReignOfTyranny && imps === 15) || imps === 10) {
       return QualitativePerformance.Perfect;
     }
@@ -211,8 +205,65 @@ class SummonDemonicTyrant extends Analyzer {
 
   calcTyrantUsage(tyrantCastNum: number): SpellUse {
     const castEvent = this._tyrantCasts[tyrantCastNum];
+    const checklistItems: ChecklistUsageInfo[] = [];
 
-    // performance
+    // ------------------------------ Dogs -------------------------------------
+    const goodDogs = this._summsWithDemonicPower[tyrantCastNum]['Dreadstalker'] > 1;
+    const dogsPerformance = goodDogs ? QualitativePerformance.Perfect : QualitativePerformance.Fail;
+
+    const dogsSummary = (
+      <>
+        {this._summsWithDemonicPower[tyrantCastNum]['Dreadstalker'] || 0}/2{' '}
+        <SpellLink spell={TALENTS.CALL_DREADSTALKERS_TALENT} />
+      </>
+    );
+
+    const dogsDetails = (
+      <div>
+        {this._summsWithDemonicPower[tyrantCastNum]['Dreadstalker'] || 0}/2{' '}
+        <SpellLink spell={TALENTS.CALL_DREADSTALKERS_TALENT} /> these should always be extended
+      </div>
+    );
+
+    checklistItems.push({
+      check: 'dogs',
+      timestamp: castEvent.event.timestamp,
+      performance: dogsPerformance,
+      summary: dogsSummary,
+      details: dogsDetails,
+    });
+
+    // ------------------------------ Imps -------------------------------------
+
+    const imps = this._summsWithDemonicPower[tyrantCastNum]['Wild Imp'];
+
+    const impsSummary = (
+      <>
+        {this._summsWithDemonicPower[tyrantCastNum]['Wild Imp'] || 0}/
+        {this._hasReignOfTyranny ? '15' : '10'} <SpellLink spell={WILD_IMP_SPELL} />
+      </>
+    );
+
+    const impsDetails = (
+      <div>
+        {this._summsWithDemonicPower[tyrantCastNum]['Wild Imp'] || 0}/
+        {this._hasReignOfTyranny ? '15' : '10'} <SpellLink spell={WILD_IMP_SPELL} /> you should
+        extend as many <SpellLink spell={WILD_IMP_SPELL} /> as possible, always save{' '}
+        <SpellLink spell={SPELLS.DEMONIC_CORE_BUFF} /> to spend during this set up
+      </div>
+    );
+
+    checklistItems.push({
+      check: 'imps',
+      timestamp: castEvent.event.timestamp,
+      performance: this.getImpsPerformance(this._summsWithDemonicPower[tyrantCastNum]['Wild Imp']),
+      summary: impsSummary,
+      details: impsDetails,
+    });
+
+    // ------------------------------ GFG --------------------------------------
+
+    // TODO test with a report without this talented
     let goodGFG = true;
     if (this._hasGFG) {
       if (tyrantCastNum === 1 && this._summsWithDemonicPower[tyrantCastNum]['Felguard'] !== 1) {
@@ -223,35 +274,40 @@ class SummonDemonicTyrant extends Analyzer {
         goodGFG = false;
         // TODO add check for can consider as perfect cast if tyrant cast before GFG is up
       }
+
+      const gfgPerformance = goodGFG ? QualitativePerformance.Perfect : QualitativePerformance.Fail;
+
+      const gfgSummary = (
+        <div>
+          {this._summsWithDemonicPower[tyrantCastNum]['Felguard'] || 0}/1{' '}
+          <SpellLink spell={TALENTS.GRIMOIRE_FELGUARD_TALENT} />
+        </div>
+      );
+
+      const gfgDetails = (
+        <div>
+          {this._summsWithDemonicPower[tyrantCastNum]['Felguard'] || 0}/1{' '}
+          <SpellLink spell={TALENTS.GRIMOIRE_FELGUARD_TALENT} /> this must always be extended though
+          in some encounters you will want to prioritize{' '}
+          <SpellLink spell={TALENTS.SUMMON_DEMONIC_TYRANT_TALENT} /> usage
+        </div>
+      );
+
+      checklistItems.push({
+        check: 'gfg',
+        timestamp: castEvent.event.timestamp,
+        performance: gfgPerformance,
+        summary: gfgSummary,
+        details: gfgDetails,
+      });
     }
 
-    const goodDogs = this._summsWithDemonicPower[tyrantCastNum]['Dreadstalker'] > 1;
-
-    const performance = this.getQualitativePerformanceForTyrant(
-      goodGFG,
-      goodDogs,
-      this._summsWithDemonicPower[tyrantCastNum]['Wild Imp'],
-    );
-
-    const summary = <div>summary asd</div>;
-
-    const details = <div>details</div>;
-
-    const checklistItems: ChecklistUsageInfo[] = [
-      {
-        check: 'idk-what-this-is',
-        timestamp: castEvent.event.timestamp,
-        performance,
-        summary,
-        details,
-      },
-    ];
+    // ------------------------------ Join -------------------------------------
 
     const actualPerformance = combineQualitativePerformances(
       checklistItems.map((item) => item.performance),
     );
 
-    const imps = this._summsWithDemonicPower[tyrantCastNum]['Wild Imp'];
     const performanceExplanation = this.getPerformanceExplanation(
       actualPerformance,
       goodDogs,
@@ -262,7 +318,7 @@ class SummonDemonicTyrant extends Analyzer {
     return {
       event: castEvent.event,
       checklistItems,
-      performance,
+      performance: actualPerformance,
       performanceExplanation,
     };
   }
@@ -309,6 +365,13 @@ class SummonDemonicTyrant extends Analyzer {
         title="Demonic Tyrant"
         explanation={explanation}
         uses={this.calculateTyrantUses()}
+        castBreakdownSmallText={
+          <>
+            {' '}
+            - Blue and Green are great casts, Yellow means you missed a lot of imps and Red means
+            you missed major summons
+          </>
+        }
       />
     );
   }
