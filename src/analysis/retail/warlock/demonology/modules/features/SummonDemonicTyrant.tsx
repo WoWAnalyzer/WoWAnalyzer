@@ -5,12 +5,23 @@ import Events, { ApplyBuffEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
-
 import DemoPets from '../pets/DemoPets';
 import './SummonTyrant.scss';
+import SpellLink from 'interface/SpellLink';
+// import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import ContextualSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
+import { ChecklistUsageInfo, SpellUse } from 'parser/core/SpellUsage/core';
+import { CastEvent } from 'parser/core/Events';
+import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 
 const debug = false;
+
+interface TyrantCast {
+  event: CastEvent;
+  castNumber: number;
+  demonsEmpowered: { [id: string]: any };
+}
 
 class SummonDemonicTyrant extends Analyzer {
   static dependencies = {
@@ -20,17 +31,20 @@ class SummonDemonicTyrant extends Analyzer {
   demoPets!: DemoPets;
   _reignOfTyrannyPower!: number[];
   _hasReignOfTyranny!: boolean;
-  _petsPerCast!: Record<number, number>[];
+  _hasGFG!: boolean;
 
-  _summsWithDemonicPower!: { [id: string]: any }[];
-  _tyrantCast!: number;
+  _summsWithDemonicPower!: { [id: string]: any }[]; // TODO remove in favour of tyrantCasts
+  _tyrantsCast!: number;
+  _tyrantCasts!: TyrantCast[];
 
   constructor(options: Options) {
     super(options);
-    this._tyrantCast = 0;
+    this._tyrantsCast = 0;
     this._summsWithDemonicPower = [];
     this._summsWithDemonicPower[0] = {};
     this._hasReignOfTyranny = this.selectedCombatant.hasTalent(TALENTS.REIGN_OF_TYRANNY_TALENT);
+    this._hasGFG = this.selectedCombatant.hasTalent(TALENTS.GRIMOIRE_FELGUARD_TALENT);
+    this._tyrantCasts = [];
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SUMMON_DEMONIC_TYRANT),
@@ -42,9 +56,14 @@ class SummonDemonicTyrant extends Analyzer {
     );
   }
 
-  summonDemonicTyrantCast() {
-    this._tyrantCast += 1;
-    this._summsWithDemonicPower[this._tyrantCast] = {};
+  summonDemonicTyrantCast(event: CastEvent) {
+    this._tyrantsCast += 1;
+    this._summsWithDemonicPower[this._tyrantsCast] = {};
+    this._tyrantCasts[this._tyrantsCast] = {
+      event: event,
+      castNumber: this._tyrantsCast,
+      demonsEmpowered: {},
+    };
   }
 
   demonicPowerAppliedToPet(event: ApplyBuffEvent) {
@@ -59,8 +78,8 @@ class SummonDemonicTyrant extends Analyzer {
     }
 
     // TODO fix main pet getting two applications of this buff in the same tyrant
-    this._summsWithDemonicPower[this._tyrantCast][petInfo.name] =
-      this._summsWithDemonicPower[this._tyrantCast][petInfo.name] + 1 || 1;
+    this._summsWithDemonicPower[this._tyrantsCast][petInfo.name] =
+      this._summsWithDemonicPower[this._tyrantsCast][petInfo.name] + 1 || 1;
   }
 
   get numTyrCasts(): number {
@@ -137,16 +156,161 @@ class SummonDemonicTyrant extends Analyzer {
     return petTable;
   }
 
-  get guideSubsection(): JSX.Element {
-    const explanation = <p>Test</p>;
+  getQualitativePerformanceForTyrant(
+    gfg: boolean,
+    dogs: boolean,
+    imps: number,
+  ): QualitativePerformance {
+    if (!gfg || !dogs) {
+      return QualitativePerformance.Fail;
+    }
 
-    const data = (
-      <div>
-        <strong>Summon Demonic Tyrant casts</strong>
-      </div>
+    if ((this._hasReignOfTyranny && imps === 15) || imps === 10) {
+      return QualitativePerformance.Perfect;
+    }
+
+    if (imps >= 7) {
+      return QualitativePerformance.Good;
+    }
+
+    if (imps >= 3) {
+      return QualitativePerformance.Ok;
+    }
+
+    return QualitativePerformance.Fail;
+  }
+
+  getPerformanceExplanation(
+    actualPerformance: QualitativePerformance,
+    dogs: boolean,
+    gfg: boolean,
+    imps: number,
+  ): JSX.Element {
+    const impsExtended = `${imps}/${this._hasReignOfTyranny ? '15' : '10'} imps`;
+    switch (actualPerformance) {
+      case QualitativePerformance.Perfect:
+        return <>Perfect usage, you extended the most demons possible</>;
+      case QualitativePerformance.Good:
+        return <>Good usage, you extended {impsExtended}</>;
+      case QualitativePerformance.Ok:
+        return <>Bad usage, you extended {impsExtended}</>;
+      default: // QualitativePerformance.Fail
+        return dogs && gfg ? (
+          <>Terrible usage, you only extended ${impsExtended}</>
+        ) : dogs ? (
+          <>
+            Terrible usage, you missed <SpellLink spell={TALENTS.GRIMOIRE_FELGUARD_TALENT} />
+          </>
+        ) : (
+          <>
+            Terrible usage, you missed <SpellLink spell={TALENTS.CALL_DREADSTALKERS_TALENT} />
+          </>
+        );
+    }
+  }
+
+  calcTyrantUsage(tyrantCastNum: number): SpellUse {
+    const castEvent = this._tyrantCasts[tyrantCastNum];
+
+    // performance
+    let goodGFG = true;
+    if (this._hasGFG) {
+      if (tyrantCastNum === 1 && this._summsWithDemonicPower[tyrantCastNum]['Felguard'] !== 1) {
+        goodGFG = false;
+      }
+      // can consider as perfect cast if tyrant cast before GFG is up
+      if (this._summsWithDemonicPower[tyrantCastNum]['Felguard'] !== 1) {
+        goodGFG = false;
+        // TODO add check for can consider as perfect cast if tyrant cast before GFG is up
+      }
+    }
+
+    const goodDogs = this._summsWithDemonicPower[tyrantCastNum]['Dreadstalker'] > 1;
+
+    const performance = this.getQualitativePerformanceForTyrant(
+      goodGFG,
+      goodDogs,
+      this._summsWithDemonicPower[tyrantCastNum]['Wild Imp'],
     );
 
-    return explanationAndDataSubsection(explanation, data);
+    const summary = <div>summary asd</div>;
+
+    const details = <div>details</div>;
+
+    const checklistItems: ChecklistUsageInfo[] = [
+      {
+        check: 'idk-what-this-is',
+        timestamp: castEvent.event.timestamp,
+        performance,
+        summary,
+        details,
+      },
+    ];
+
+    const actualPerformance = combineQualitativePerformances(
+      checklistItems.map((item) => item.performance),
+    );
+
+    const imps = this._summsWithDemonicPower[tyrantCastNum]['Wild Imp'];
+    const performanceExplanation = this.getPerformanceExplanation(
+      actualPerformance,
+      goodDogs,
+      goodGFG,
+      imps,
+    );
+
+    return {
+      event: castEvent.event,
+      checklistItems,
+      performance,
+      performanceExplanation,
+    };
+  }
+
+  calculateTyrantUses(): SpellUse[] {
+    const uses: SpellUse[] = [];
+
+    for (let tyrCast = 1; tyrCast <= this.numTyrCasts; tyrCast += 1) {
+      uses.push(this.calcTyrantUsage(tyrCast));
+    }
+
+    return uses;
+  }
+
+  get guideSubsection(): JSX.Element {
+    const explanation = (
+      <p>
+        <strong>
+          <SpellLink spell={SPELLS.SUMMON_DEMONIC_TYRANT} />
+        </strong>{' '}
+        is your main offensive cooldown lorem ipsum dolor sit amet consectetur adipisicing elit.
+        Sapiente fuga ipsum sit nisi quam magnam vitae dignissimos, asperiores cum alias animi
+        commodi labore vel autem ratione inventore pariatur quisquam ut cupiditate veniam nostrum
+        fugit! Officiis, dolore. Dolores alias natus laborum nemo aliquam ducimus numquam aut vel
+        aliquid eaque, debitis at!
+      </p>
+    );
+
+    // const empoweredDemons = this.populatedEmpoweredDemonsTable;
+    // const castEntries: BoxRowEntry[] = [];
+    // for (let tyrCast = 1; tyrCast <= this.numTyrCasts; tyrCast += 1) {
+    //   const value = QualitativePerformance.Good
+    //   const tooltip = (
+    //     <div>{Object.entries(empoweredDemons[tyrCast]).map(([demon, num]) => (
+    //       <p key={"guideTyrTooltip"+tyrCast+demon+num}>{demon} : {num}</p>
+    //     ))}
+    //     </div>
+    //   )
+    //   castEntries.push({value, tooltip})
+    // }
+
+    return (
+      <ContextualSpellUsageSubSection
+        title="Demonic Tyrant"
+        explanation={explanation}
+        uses={this.calculateTyrantUses()}
+      />
+    );
   }
 
   statistic() {
