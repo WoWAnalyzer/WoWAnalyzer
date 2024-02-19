@@ -23,10 +23,10 @@ export const enum QualitativePerformance {
  * @returns average QualitativePerformance in array
  */
 export function getAveragePerf(perfs: QualitativePerformance[]) {
-  let total = 0;
   if (perfs.length === 0) {
     return QualitativePerformance.Fail;
   }
+  let total = 0;
   const order = [
     QualitativePerformance.Fail,
     QualitativePerformance.Ok,
