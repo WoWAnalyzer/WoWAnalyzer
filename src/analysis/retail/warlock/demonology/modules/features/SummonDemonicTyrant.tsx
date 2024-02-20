@@ -8,12 +8,15 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import DemoPets from '../pets/DemoPets';
 import './SummonTyrant.scss';
 import SpellLink from 'interface/SpellLink';
-// import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import ContextualSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
 import { ChecklistUsageInfo, SpellUse } from 'parser/core/SpellUsage/core';
 import { CastEvent } from 'parser/core/Events';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
+import Casts from 'interface/report/Results/Timeline/Casts';
+import EmbeddedTimelineContainer, {
+  SpellTimeline,
+} from 'interface/report/Results/Timeline/EmbeddedTimeline';
 
 const debug = false;
 
@@ -22,7 +25,6 @@ const WILD_IMP_SPELL = 104317;
 interface TyrantCast {
   event: CastEvent;
   castNumber: number;
-  demonsEmpowered: { [id: string]: any };
 }
 
 class SummonDemonicTyrant extends Analyzer {
@@ -35,18 +37,19 @@ class SummonDemonicTyrant extends Analyzer {
   _hasReignOfTyranny!: boolean;
   _hasGFG!: boolean;
 
-  _summsWithDemonicPower!: { [id: string]: any }[]; // TODO remove in favour of tyrantCasts
+  _summsWithDemonicPower!: { [id: string]: any }[];
   _tyrantsCast!: number;
   _tyrantCasts!: TyrantCast[];
+  _castTimeline!: CastEvent[];
 
   constructor(options: Options) {
     super(options);
     this._tyrantsCast = 0;
-    this._summsWithDemonicPower = [];
-    this._summsWithDemonicPower[0] = {};
+    this._summsWithDemonicPower = [{}];
     this._hasReignOfTyranny = this.selectedCombatant.hasTalent(TALENTS.REIGN_OF_TYRANNY_TALENT);
     this._hasGFG = this.selectedCombatant.hasTalent(TALENTS.GRIMOIRE_FELGUARD_TALENT);
     this._tyrantCasts = [];
+    this._castTimeline = [];
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SUMMON_DEMONIC_TYRANT),
@@ -56,6 +59,7 @@ class SummonDemonicTyrant extends Analyzer {
       Events.applybuff.to(SELECTED_PLAYER_PET).spell(SPELLS.DEMONIC_POWER),
       this.demonicPowerAppliedToPet,
     );
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
   }
 
   summonDemonicTyrantCast(event: CastEvent) {
@@ -64,7 +68,6 @@ class SummonDemonicTyrant extends Analyzer {
     this._tyrantCasts[this._tyrantsCast] = {
       event: event,
       castNumber: this._tyrantsCast,
-      demonsEmpowered: {},
     };
   }
 
@@ -82,6 +85,10 @@ class SummonDemonicTyrant extends Analyzer {
     // TODO fix main pet getting two applications of this buff in the same tyrant
     this._summsWithDemonicPower[this._tyrantsCast][petInfo.name] =
       this._summsWithDemonicPower[this._tyrantsCast][petInfo.name] + 1 || 1;
+  }
+
+  onCast(event: CastEvent) {
+    this._castTimeline.push(event);
   }
 
   get numTyrCasts(): number {
@@ -315,11 +322,31 @@ class SummonDemonicTyrant extends Analyzer {
       imps,
     );
 
+    const end = castEvent.event.timestamp + 1000 > 0 ? castEvent.event.timestamp + 1000 : 0;
+    const start = castEvent.event.timestamp - 16000;
+    const tyrantSetup: CastEvent[] = this._castTimeline.filter(
+      (cast) => cast.timestamp > start && cast.timestamp < end,
+    );
+    // this._castTimeline.forEach((cast) => {if (cast.timestamp > start && cast.timestamp < end) {tyrantSetup.push(cast)}})
+
     return {
       event: castEvent.event,
       checklistItems,
       performance: actualPerformance,
       performanceExplanation,
+      extraDetails: (
+        <div
+          style={{
+            overflowX: 'auto',
+          }}
+        >
+          <EmbeddedTimelineContainer secondWidth={40} secondsShown={(end! - start) / 1000}>
+            <SpellTimeline>
+              <Casts start={start} movement={undefined} secondWidth={40} events={tyrantSetup} />
+            </SpellTimeline>
+          </EmbeddedTimelineContainer>
+        </div>
+      ),
     };
   }
 
@@ -346,19 +373,6 @@ class SummonDemonicTyrant extends Analyzer {
         aliquid eaque, debitis at!
       </p>
     );
-
-    // const empoweredDemons = this.populatedEmpoweredDemonsTable;
-    // const castEntries: BoxRowEntry[] = [];
-    // for (let tyrCast = 1; tyrCast <= this.numTyrCasts; tyrCast += 1) {
-    //   const value = QualitativePerformance.Good
-    //   const tooltip = (
-    //     <div>{Object.entries(empoweredDemons[tyrCast]).map(([demon, num]) => (
-    //       <p key={"guideTyrTooltip"+tyrCast+demon+num}>{demon} : {num}</p>
-    //     ))}
-    //     </div>
-    //   )
-    //   castEntries.push({value, tooltip})
-    // }
 
     return (
       <ContextualSpellUsageSubSection
