@@ -1,7 +1,14 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent } from 'parser/core/Events';
+import Events, {
+  AnyEvent,
+  ApplyBuffEvent,
+  BeginCastEvent,
+  BeginChannelEvent,
+  EndChannelEvent,
+  GlobalCooldownEvent,
+} from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -17,6 +24,7 @@ import Casts from 'interface/report/Results/Timeline/Casts';
 import EmbeddedTimelineContainer, {
   SpellTimeline,
 } from 'interface/report/Results/Timeline/EmbeddedTimeline';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 const debug = false;
 
@@ -25,14 +33,17 @@ const WILD_IMP_SPELL = 104317;
 interface TyrantCast {
   event: CastEvent;
   castNumber: number;
+  gfgOnCd: boolean;
 }
 
 class SummonDemonicTyrant extends Analyzer {
   static dependencies = {
     demoPets: DemoPets,
+    spellUsable: SpellUsable,
   };
 
   demoPets!: DemoPets;
+  spellUsable!: SpellUsable;
   _reignOfTyrannyPower!: number[];
   _hasReignOfTyranny!: boolean;
   _hasGFG!: boolean;
@@ -40,7 +51,7 @@ class SummonDemonicTyrant extends Analyzer {
   _summsWithDemonicPower!: { [id: string]: any }[];
   _tyrantsCast!: number;
   _tyrantCasts!: TyrantCast[];
-  _castTimeline!: CastEvent[];
+  _castTimeline!: AnyEvent[];
 
   constructor(options: Options) {
     super(options);
@@ -60,6 +71,10 @@ class SummonDemonicTyrant extends Analyzer {
       this.demonicPowerAppliedToPet,
     );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+    this.addEventListener(Events.begincast.by(SELECTED_PLAYER), this.toTimeline);
+    this.addEventListener(Events.EndChannel.by(SELECTED_PLAYER), this.toTimeline);
+    this.addEventListener(Events.BeginChannel.by(SELECTED_PLAYER), this.toTimeline);
+    this.addEventListener(Events.GlobalCooldown.by(SELECTED_PLAYER), this.toTimeline);
   }
 
   summonDemonicTyrantCast(event: CastEvent) {
@@ -68,6 +83,9 @@ class SummonDemonicTyrant extends Analyzer {
     this._tyrantCasts[this._tyrantsCast] = {
       event: event,
       castNumber: this._tyrantsCast,
+      gfgOnCd: this._hasGFG
+        ? this.spellUsable.isOnCooldown(TALENTS.GRIMOIRE_FELGUARD_TALENT.id)
+        : false,
     };
   }
 
@@ -82,12 +100,30 @@ class SummonDemonicTyrant extends Analyzer {
       return;
     }
 
-    // TODO fix main pet getting two applications of this buff in the same tyrant
+    // TODO low prio: fix main pet getting two applications of this buff in the same tyrant
     this._summsWithDemonicPower[this._tyrantsCast][petInfo.name] =
       this._summsWithDemonicPower[this._tyrantsCast][petInfo.name] + 1 || 1;
   }
 
+  CASTS_TO_REMOVE_FROM_TIMELINE = [
+    TALENTS.CALL_DREADSTALKERS_TALENT.id,
+    TALENTS.SUMMON_DEMONIC_TYRANT_TALENT.id,
+    SPELLS.HAND_OF_GULDAN_CAST.id,
+    SPELLS.DEMONBOLT.id,
+    SPELLS.SHADOW_BOLT_DEMO.id,
+    TALENTS.DEMONIC_GATEWAY_TALENT.id,
+    400185, // Inquisitor's Gaze / Fel Barrage cast id
+  ];
+
   onCast(event: CastEvent) {
+    // removes arrow displays for these
+    if (this.CASTS_TO_REMOVE_FROM_TIMELINE.includes(event.ability?.guid)) {
+      return;
+    }
+    this._castTimeline.push(event);
+  }
+
+  toTimeline(event: BeginCastEvent | BeginChannelEvent | EndChannelEvent | GlobalCooldownEvent) {
     this._castTimeline.push(event);
   }
 
@@ -228,7 +264,7 @@ class SummonDemonicTyrant extends Analyzer {
     const dogsDetails = (
       <div>
         {this._summsWithDemonicPower[tyrantCastNum]['Dreadstalker'] || 0}/2{' '}
-        <SpellLink spell={TALENTS.CALL_DREADSTALKERS_TALENT} /> these should always be extended
+        <SpellLink spell={TALENTS.CALL_DREADSTALKERS_TALENT} /> - these should always be extended
       </div>
     );
 
@@ -254,9 +290,9 @@ class SummonDemonicTyrant extends Analyzer {
     const impsDetails = (
       <div>
         {this._summsWithDemonicPower[tyrantCastNum]['Wild Imp'] || 0}/
-        {this._hasReignOfTyranny ? '15' : '10'} <SpellLink spell={WILD_IMP_SPELL} /> you should
-        extend as many <SpellLink spell={WILD_IMP_SPELL} /> as possible, always save{' '}
-        <SpellLink spell={SPELLS.DEMONIC_CORE_BUFF} /> to spend during this set up
+        {this._hasReignOfTyranny ? '15' : '10'} <SpellLink spell={WILD_IMP_SPELL} /> - you should
+        extend as many <SpellLink spell={WILD_IMP_SPELL} />s as possible, always save{' '}
+        <SpellLink spell={SPELLS.DEMONIC_CORE_BUFF} />s to spend during this set up
       </div>
     );
 
@@ -277,9 +313,11 @@ class SummonDemonicTyrant extends Analyzer {
         goodGFG = false;
       }
       // can consider as perfect cast if tyrant cast before GFG is up
-      if (this._summsWithDemonicPower[tyrantCastNum]['Felguard'] !== 1) {
+      if (
+        this._summsWithDemonicPower[tyrantCastNum]['Felguard'] !== 1 &&
+        !this._tyrantCasts[tyrantCastNum].gfgOnCd
+      ) {
         goodGFG = false;
-        // TODO add check for can consider as perfect cast if tyrant cast before GFG is up
       }
 
       const gfgPerformance = goodGFG ? QualitativePerformance.Perfect : QualitativePerformance.Fail;
@@ -294,8 +332,8 @@ class SummonDemonicTyrant extends Analyzer {
       const gfgDetails = (
         <div>
           {this._summsWithDemonicPower[tyrantCastNum]['Felguard'] || 0}/1{' '}
-          <SpellLink spell={TALENTS.GRIMOIRE_FELGUARD_TALENT} /> this must always be extended though
-          in some encounters you will want to prioritize{' '}
+          <SpellLink spell={TALENTS.GRIMOIRE_FELGUARD_TALENT} /> - this must always be extended
+          though in some encounters you will want to prioritize{' '}
           <SpellLink spell={TALENTS.SUMMON_DEMONIC_TYRANT_TALENT} /> usage
         </div>
       );
@@ -324,11 +362,12 @@ class SummonDemonicTyrant extends Analyzer {
 
     const end = castEvent.event.timestamp + 1000 > 0 ? castEvent.event.timestamp + 1000 : 0;
     const start = castEvent.event.timestamp - 16000;
-    const tyrantSetup: CastEvent[] = this._castTimeline.filter(
+    const tyrantSetup: AnyEvent[] = this._castTimeline.filter(
       (cast) => cast.timestamp > start && cast.timestamp < end,
     );
-    // this._castTimeline.forEach((cast) => {if (cast.timestamp > start && cast.timestamp < end) {tyrantSetup.push(cast)}})
 
+    // TODO: add movement overlay and timestamps (like in main timeline view)
+    // use "during serenity" example http://localhost:3000/report/myndpGBw3k7rjVDf/4-Mythic+Smolderon+-+Kill+(7:01)/Chonkychan/standard/overview
     return {
       event: castEvent.event,
       checklistItems,
@@ -340,9 +379,9 @@ class SummonDemonicTyrant extends Analyzer {
             overflowX: 'auto',
           }}
         >
-          <EmbeddedTimelineContainer secondWidth={40} secondsShown={(end! - start) / 1000}>
+          <EmbeddedTimelineContainer secondWidth={43} secondsShown={(end! - start) / 1000}>
             <SpellTimeline>
-              <Casts start={start} movement={undefined} secondWidth={40} events={tyrantSetup} />
+              <Casts start={start} movement={undefined} secondWidth={43} events={tyrantSetup} />
             </SpellTimeline>
           </EmbeddedTimelineContainer>
         </div>
@@ -362,7 +401,7 @@ class SummonDemonicTyrant extends Analyzer {
 
   get guideSubsection(): JSX.Element {
     const explanation = (
-      <p>
+      <>
         <SpellLink spell={SPELLS.SUMMON_DEMONIC_TYRANT} /> is our main offensive cooldown together
         with <SpellLink spell={TALENTS.GRIMOIRE_FELGUARD_TALENT} />. It's value comes from extending
         most of our active demons for 15 seconds, including up to 10{' '}
@@ -377,7 +416,7 @@ class SummonDemonicTyrant extends Analyzer {
         . Most of the time you will be prioritising{' '}
         <SpellLink spell={TALENTS.GRIMOIRE_FELGUARD_TALENT} /> usage and delaying the Tyrant to
         extend it.
-      </p>
+      </>
     );
 
     return (
