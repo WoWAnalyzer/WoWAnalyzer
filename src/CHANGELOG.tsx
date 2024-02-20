@@ -33,6 +33,8 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 2, 18), <>Fix crash in QualitativePerformance</>, Trevor),
+  change(date(2024, 2, 17), 'Add a missed realm for Classic.', Putro),
   change(date(2024, 2, 7), 'Inspect more stack trace lines for external script sources.', ToppleTheNun),
   change(date(2024, 2, 7), 'Mark 10.2.0 as an old patch.', ToppleTheNun),
   change(date(2024, 2, 7), 'Fix a crash caused by bad ads.', ToppleTheNun),

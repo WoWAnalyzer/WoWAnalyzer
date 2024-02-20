@@ -24,14 +24,14 @@ import { ReactNode, useState } from 'react';
 interface StasisInfo {
   castTime: number; // when stasis is originally cast
   consumeTime: number; // when stasis is consumed
-  spells: number[]; // spells that player cast with stasis
+  spells: [number, number][]; // spells that player cast with stasis
   forRamp: boolean;
 }
 
 interface Props {
   header: ReactNode;
   perf?: QualitativePerformance;
-  spells: number[];
+  spells: [number, number][];
   forRamp: boolean;
 }
 
@@ -72,13 +72,13 @@ class Stasis extends Analyzer {
       this.curInfo = {
         castTime: this.owner.fight.start_time,
         consumeTime: 0,
-        spells: Array(2 - numStacks).fill(0),
+        spells: Array(2 - numStacks).fill([0, 0]),
         forRamp: false,
       };
     }
     const spell = getStasisSpell(event);
     if (spell) {
-      this.curInfo!.spells.push(spell);
+      this.curInfo!.spells.push([spell, event.timestamp]);
     }
   }
 
@@ -91,8 +91,8 @@ class Stasis extends Analyzer {
     }
   }
 
-  getSpellLink(key: number, spellid: number) {
-    if (spellid === 0) {
+  getSpellLink(key: number, spellPair: [number, number]) {
+    if (spellPair[0] === 0) {
       return (
         <>
           Unknown spell cast before pull <br />
@@ -101,7 +101,7 @@ class Stasis extends Analyzer {
     }
     return (
       <>
-        <SpellLink key={key} spell={spellid} />
+        <SpellLink key={key} spell={spellPair[0]} /> @ {this.owner.formatTimestamp(spellPair[1])}
         <br />
       </>
     );
@@ -152,11 +152,13 @@ class Stasis extends Analyzer {
     return QualitativePerformance.Good;
   }
 
-  getAnalysisForSpell(spell: number, forRamp: boolean) {
+  getAnalysisForSpell(spellPair: [number, number], forRamp: boolean) {
+    const [spell, timestamp] = spellPair;
     if (spell === TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT.id) {
       return (
         <>
-          <SpellLink spell={TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT} />
+          <SpellLink spell={TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT} /> @{' '}
+          {this.owner.formatTimestamp(timestamp)}
           {'  '}
           <Tooltip
             hoverable
@@ -177,7 +179,8 @@ class Stasis extends Analyzer {
       if (this.selectedCombatant.hasTalent(TALENTS_EVOKER.FIELD_OF_DREAMS_TALENT)) {
         return (
           <>
-            <SpellLink spell={SPELLS.EMERALD_BLOSSOM_CAST} />
+            <SpellLink spell={SPELLS.EMERALD_BLOSSOM_CAST} /> @{' '}
+            {this.owner.formatTimestamp(timestamp)}
             {'  '}
             <Tooltip
               hoverable
@@ -197,7 +200,8 @@ class Stasis extends Analyzer {
       } else if (!forRamp) {
         return (
           <>
-            <SpellLink spell={SPELLS.EMERALD_BLOSSOM_CAST} />
+            <SpellLink spell={SPELLS.EMERALD_BLOSSOM_CAST} /> @{' '}
+            {this.owner.formatTimestamp(timestamp)}
             {'  '}
             <Tooltip
               hoverable
@@ -217,7 +221,8 @@ class Stasis extends Analyzer {
       } else {
         return (
           <>
-            <SpellLink spell={SPELLS.EMERALD_BLOSSOM_CAST} />
+            <SpellLink spell={SPELLS.EMERALD_BLOSSOM_CAST} /> @{' '}
+            {this.owner.formatTimestamp(timestamp)}
             {'  '}
             <Tooltip
               hoverable
@@ -239,7 +244,8 @@ class Stasis extends Analyzer {
       if (forRamp) {
         return (
           <>
-            <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} />
+            <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} /> @{' '}
+            {this.owner.formatTimestamp(timestamp)}
             {'  '}
             <Tooltip
               hoverable
@@ -260,7 +266,8 @@ class Stasis extends Analyzer {
       } else {
         return (
           <>
-            <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} />
+            <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} /> @{' '}
+            {this.owner.formatTimestamp(timestamp)}
             {'  '}
             <Tooltip
               hoverable
@@ -282,7 +289,8 @@ class Stasis extends Analyzer {
     } else if (spell === TALENTS_EVOKER.CAUTERIZING_FLAME_TALENT.id) {
       return (
         <>
-          <SpellLink spell={TALENTS_EVOKER.CAUTERIZING_FLAME_TALENT} />
+          <SpellLink spell={TALENTS_EVOKER.CAUTERIZING_FLAME_TALENT} /> @{' '}
+          {this.owner.formatTimestamp(timestamp)}
           {'  '}
           <Tooltip
             hoverable
@@ -302,7 +310,7 @@ class Stasis extends Analyzer {
     } else if (spell === SPELLS.NATURALIZE.id) {
       return (
         <>
-          <SpellLink spell={SPELLS.NATURALIZE} />
+          <SpellLink spell={SPELLS.NATURALIZE} /> @ {this.owner.formatTimestamp(timestamp)}
           {'  '}
           <Tooltip
             hoverable
@@ -322,7 +330,8 @@ class Stasis extends Analyzer {
     } else if (spell === TALENTS_EVOKER.REVERSION_TALENT.id) {
       return (
         <>
-          <SpellLink spell={TALENTS_EVOKER.REVERSION_TALENT} />
+          <SpellLink spell={TALENTS_EVOKER.REVERSION_TALENT} /> @{' '}
+          {this.owner.formatTimestamp(timestamp)}
           {'  '}
           <Tooltip
             hoverable
@@ -346,7 +355,8 @@ class Stasis extends Analyzer {
       if (forRamp) {
         return (
           <>
-            <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} />
+            <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> @{' '}
+            {this.owner.formatTimestamp(timestamp)}
             {'  '}
             <Tooltip
               hoverable
@@ -368,7 +378,8 @@ class Stasis extends Analyzer {
       } else {
         return (
           <>
-            <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} />
+            <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> @{' '}
+            {this.owner.formatTimestamp(timestamp)}
             {'  '}
             <Tooltip
               hoverable
@@ -389,7 +400,8 @@ class Stasis extends Analyzer {
     } else if (spell === TALENTS_EVOKER.VERDANT_EMBRACE_TALENT.id) {
       return (
         <>
-          <SpellLink spell={TALENTS_EVOKER.VERDANT_EMBRACE_TALENT} />
+          <SpellLink spell={TALENTS_EVOKER.VERDANT_EMBRACE_TALENT} /> @{' '}
+          {this.owner.formatTimestamp(timestamp)}
           {'  '}
           <Tooltip
             hoverable
@@ -417,7 +429,8 @@ class Stasis extends Analyzer {
       if (forRamp) {
         return (
           <>
-            <SpellLink spell={TALENTS_EVOKER.SPIRITBLOOM_TALENT} />
+            <SpellLink spell={TALENTS_EVOKER.SPIRITBLOOM_TALENT} /> @{' '}
+            {this.owner.formatTimestamp(timestamp)}
             {'  '}
             <Tooltip
               hoverable
@@ -439,7 +452,8 @@ class Stasis extends Analyzer {
       } else {
         return (
           <>
-            <SpellLink spell={TALENTS_EVOKER.SPIRITBLOOM_TALENT} />
+            <SpellLink spell={TALENTS_EVOKER.SPIRITBLOOM_TALENT} /> @{' '}
+            {this.owner.formatTimestamp(timestamp)}
             {'  '}
             <Tooltip
               hoverable
@@ -473,7 +487,7 @@ class Stasis extends Analyzer {
         header
       );
     while (spells.length < 3) {
-      spells.push(0);
+      spells.push([0, 0]);
     }
     const spellSequence = spells.map((cast, index) => {
       return <div key={index}>{this.getAnalysisForSpell(cast, forRamp)}</div>;
@@ -533,8 +547,8 @@ class Stasis extends Analyzer {
                 {this.owner.formatTimestamp(info.castTime)}
               </>
             );
-            const perfs = info.spells.map((spell, idx2) => {
-              return this.getPerfForSpell(spell, info.forRamp);
+            const perfs = info.spells.map((spellPair, idx2) => {
+              return this.getPerfForSpell(spellPair[0], info.forRamp);
             });
             return (
               <this.StasisTable
@@ -590,7 +604,7 @@ class Stasis extends Analyzer {
                 <th scope="row">{index + 1}</th>
                 <td>{this.owner.formatTimestamp(info.castTime)}</td>
                 <td>{this.owner.formatTimestamp(info.consumeTime)}</td>
-                <td>{info.spells.map((spellid, idx2) => this.getSpellLink(idx2, spellid))}</td>
+                <td>{info.spells.map((spellPair, idx2) => this.getSpellLink(idx2, spellPair))}</td>
               </tr>
             ))}
           </tbody>
