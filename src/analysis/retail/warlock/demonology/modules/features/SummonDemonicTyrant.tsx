@@ -363,14 +363,20 @@ class SummonDemonicTyrant extends Analyzer {
   get guideSubsection(): JSX.Element {
     const explanation = (
       <p>
-        <strong>
-          <SpellLink spell={SPELLS.SUMMON_DEMONIC_TYRANT} />
-        </strong>{' '}
-        is your main offensive cooldown lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Sapiente fuga ipsum sit nisi quam magnam vitae dignissimos, asperiores cum alias animi
-        commodi labore vel autem ratione inventore pariatur quisquam ut cupiditate veniam nostrum
-        fugit! Officiis, dolore. Dolores alias natus laborum nemo aliquam ducimus numquam aut vel
-        aliquid eaque, debitis at!
+        <SpellLink spell={SPELLS.SUMMON_DEMONIC_TYRANT} /> is our main offensive cooldown together
+        with <SpellLink spell={TALENTS.GRIMOIRE_FELGUARD_TALENT} />. It's value comes from extending
+        most of our active demons for 15 seconds, including up to 10{' '}
+        <SpellLink spell={WILD_IMP_SPELL} />s{' '}
+        {this._hasReignOfTyranny ? (
+          <>
+            {' ('}15 with <SpellLink spell={TALENTS.REIGN_OF_TYRANNY_TALENT} />)
+          </>
+        ) : (
+          ''
+        )}
+        . Most of the time you will be prioritising{' '}
+        <SpellLink spell={TALENTS.GRIMOIRE_FELGUARD_TALENT} /> usage and delaying the Tyrant to
+        extend it.
       </p>
     );
 
