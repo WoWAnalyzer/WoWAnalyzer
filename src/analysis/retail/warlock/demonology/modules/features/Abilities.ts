@@ -117,7 +117,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SUMMON_DEMONIC_TYRANT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 90,
+        cooldown: combatant.hasTalent(TALENTS.GRAND_WARLOCKS_DESIGN_TALENT) ? 60 : 90,
         gcd: {
           base: 1500,
         },
