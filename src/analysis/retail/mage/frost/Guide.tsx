@@ -51,7 +51,15 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       <Section title="Core">
         {modules.wintersChill.guideSubsection}
         {modules.flurry.guideSubsection}
+        {info.combatant.hasTalent(TALENTS.GLACIAL_SPIKE_TALENT) &&
+          modules.glacialSpike.guideSubsection}
         {alwaysBeCastingSubsection}
+      </Section>
+      <Section title="Procs">
+        {info.combatant.hasTalent(TALENTS.BRAIN_FREEZE_TALENT) &&
+          modules.brainFreeze.guideSubsection}
+        {info.combatant.hasTalent(TALENTS.FINGERS_OF_FROST_TALENT) &&
+          modules.fingersOfFrost.guideSubsection}
       </Section>
       <Section title="Cooldowns">
         {modules.icyVeins.guideSubsection}
