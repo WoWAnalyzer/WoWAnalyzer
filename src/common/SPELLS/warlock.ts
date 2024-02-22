@@ -688,6 +688,16 @@ const spells = {
     name: 'Blazing Meteor',
     icon: 'ability_warlock_handofguldan',
   },
+  DOOM_BRAND_DAMAGE: {
+    id: 423584,
+    name: 'Doom Brand',
+    icon: 'spell_warlock_demonwrath',
+  },
+  DOOM_BRAND_DEBUFF: {
+    id: 423583,
+    name: 'Doom Brand',
+    icon: 'spell_warlock_demonwrath',
+  },
 
   // -----------
   // DESTRUCTION
