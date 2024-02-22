@@ -28,9 +28,18 @@ const MitigationSegmentContainer = styled.div<{ rounded?: boolean }>`
 `;
 
 // we use content-box sizing with a border because that makes the hitbox bigger, so it is easier to read the tooltips.
-export const MitigationTooltipSegment = styled.div<{ color: string; width: number }>`
+export const MitigationTooltipSegment = styled.div<{
+  color: string;
+  width: number;
+  maxWidth?: number;
+}>`
   background-color: ${(props) => props.color};
-  width: calc(${(props) => Math.max(2, props.width * 100)}% - 1px);
+  width: calc(
+    ${(props) =>
+        props.maxWidth
+          ? `${Math.max(0.02, props.width)} * ${props.maxWidth}px`
+          : `${Math.max(2, props.width * 100)}%`} - 1px
+  );
   height: 100%;
   display: inline-block;
   box-sizing: content-box;
