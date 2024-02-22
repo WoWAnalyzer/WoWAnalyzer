@@ -154,7 +154,7 @@ const CooldownDetails = ({
     damageTakenRows.map(([, events]) => events.reduce((a, b) => a + b.mitigatedAmount, 0)),
   );
 
-  const maxValue = Math.max(analyzer.firstSeenMaxHp, mit.amount);
+  const maxValue = Math.max(analyzer.firstSeenMaxHp, mit.amount, mit.maxAmount ?? 0);
 
   return (
     <CooldownDetailsContainer>
@@ -171,6 +171,19 @@ const CooldownDetails = ({
               />
             </td>
           </tr>
+          {mit.maxAmount && (
+            <tr>
+              <td>{analyzer.maxMitigationDescription()}</td>
+              <NumericColumn>{formatNumber(mit.maxAmount)}</NumericColumn>
+              <TableSegmentContainer>
+                <MitigationTooltipSegment
+                  color="rgba(255, 255, 255, 0.25)"
+                  maxWidth={100}
+                  width={mit.maxAmount / maxValue}
+                />
+              </TableSegmentContainer>
+            </tr>
+          )}
           <tr>
             <td colSpan={3}>
               <strong>Mitigation by Talent</strong>
@@ -184,13 +197,19 @@ const CooldownDetails = ({
                 {ix > 0 && (
                   <MitigationTooltipSegment
                     color="rgba(255, 255, 255, 0.05)"
+                    maxWidth={100}
                     width={segments.slice(0, ix).reduce((a, b) => a + b.amount, 0) / maxValue}
                   />
                 )}
-                <MitigationTooltipSegment color={seg.color} width={seg.amount / maxValue} />
+                <MitigationTooltipSegment
+                  color={seg.color}
+                  width={seg.amount / maxValue}
+                  maxWidth={100}
+                />
                 {ix < segments.length - 1 && (
                   <MitigationTooltipSegment
                     color="rgba(255, 255, 255, 0.05)"
+                    maxWidth={100}
                     width={segments.slice(ix + 1).reduce((a, b) => a + b.amount, 0) / maxValue}
                   />
                 )}

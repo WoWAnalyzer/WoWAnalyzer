@@ -955,7 +955,9 @@ export const REALMS: Record<Region, Realm[]> = {
 export const CLASSIC_REALMS: Record<ClassicRegion, Realm[]> = {
   EU: [
     { name: 'Amnennar', slug: 'amnennar' },
+    { name: 'Ashbringer', slug: 'ashbringer' },
     { name: 'Auberdine', slug: 'auberdine' },
+    { name: 'Earthshaker', slug: 'earthshaker' },
     { name: 'Everlook', slug: 'everlook' },
     { name: 'Firemaw', slug: 'firemaw' },
     { name: 'Gehennas', slug: 'gehennas' },
@@ -963,6 +965,7 @@ export const CLASSIC_REALMS: Record<ClassicRegion, Realm[]> = {
     { name: 'Golemagg', slug: 'golemagg' },
     { name: 'Hydraxian Waterlords', slug: 'hydraxian-waterlords' },
     { name: "Jin'do", slug: 'jindo' },
+    { name: 'Lakeshire', slug: 'lakeshire' },
     { name: 'Mandokir', slug: 'mandokir' },
     { name: 'Mirage Raceway', slug: 'mirage-raceway' },
     { name: 'Mograine', slug: 'mograine' },
@@ -972,12 +975,9 @@ export const CLASSIC_REALMS: Record<ClassicRegion, Realm[]> = {
     { name: 'Razorfen', slug: 'razorfen' },
     { name: 'Sulfuron', slug: 'sulfuron' },
     { name: 'Thekal', slug: 'thekal' },
+    { name: 'Transcendence', slug: 'transcendence' },
     { name: 'Venoxis', slug: 'venoxis' },
-    { name: 'Землекрушитель', slug: 'earthshaker' },
-    { name: 'Испепелитель', slug: 'ashbringer' },
     { name: 'Пламегор', slug: 'flamegor' },
-    { name: 'Превосходство', slug: 'transcendence' },
-    { name: 'Приозерье', slug: 'lakeshire' },
     { name: 'Хроми', slug: 'chromie' },
   ],
   KR: [
