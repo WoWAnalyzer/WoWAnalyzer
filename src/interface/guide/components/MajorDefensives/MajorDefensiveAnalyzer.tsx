@@ -89,11 +89,15 @@ export type Mitigation<Apply extends EventType = any, Remove extends EventType =
   end: AnyEvent<Remove> | FightEndEvent;
   mitigated: MitigatedEvent[];
   amount: number;
+  /**
+   * For effects that have a maximum mitigation amount (like absorbs), this represents the total possible amount mitigated. If there is no max (like most DR effects), this should be omitted.
+   */
+  maxAmount?: number;
 };
 
 type InProgressMitigation<Apply extends EventType, Remove extends EventType> = Pick<
   Mitigation<Apply, Remove>,
-  'start' | 'mitigated'
+  'start' | 'mitigated' | 'maxAmount'
 >;
 
 /**
@@ -242,6 +246,17 @@ export default class MajorDefensive<
     key && this.currentMitigations.get(key)?.mitigated.push(mitigation);
   }
 
+  /**
+   * Set the maximum amount that could be mitigated by a cast.
+   */
+  protected setMaxMitigation(event: AnyEvent, amount: number): void {
+    const key = this.getKeyForMitigation(event);
+    const current = key && this.currentMitigations.get(key);
+    if (current) {
+      current.maxAmount = amount;
+    }
+  }
+
   protected defensiveActive(event: AnyEvent): boolean {
     const key = this.getKeyForMitigation(event);
 
@@ -360,6 +375,10 @@ export default class MajorDefensive<
    */
   description(): ReactNode {
     return <>TODO</>;
+  }
+
+  maxMitigationDescription(): ReactNode {
+    return <>Max Mitigation</>;
   }
 
   /**
