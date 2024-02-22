@@ -28,7 +28,15 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 const debug = false;
 
-const WILD_IMP_SPELL = 104317;
+const CASTS_TO_REMOVE_FROM_TIMELINE = [
+  TALENTS.CALL_DREADSTALKERS_TALENT.id,
+  TALENTS.SUMMON_DEMONIC_TYRANT_TALENT.id,
+  SPELLS.HAND_OF_GULDAN_CAST.id,
+  SPELLS.DEMONBOLT.id,
+  SPELLS.SHADOW_BOLT_DEMO.id,
+  TALENTS.DEMONIC_GATEWAY_TALENT.id,
+  SPELLS.INQUISITORS_GAZE_CAST.id,
+];
 
 interface TyrantCast {
   event: CastEvent;
@@ -55,6 +63,10 @@ class SummonDemonicTyrant extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SUMMON_DEMONIC_TYRANT_TALENT);
+    if (!this.active) {
+      return;
+    }
     this._tyrantsCast = 0;
     this._summsWithDemonicPower = [{}];
     this._hasReignOfTyranny = this.selectedCombatant.hasTalent(TALENTS.REIGN_OF_TYRANNY_TALENT);
@@ -105,19 +117,9 @@ class SummonDemonicTyrant extends Analyzer {
       this._summsWithDemonicPower[this._tyrantsCast][petInfo.name] + 1 || 1;
   }
 
-  CASTS_TO_REMOVE_FROM_TIMELINE = [
-    TALENTS.CALL_DREADSTALKERS_TALENT.id,
-    TALENTS.SUMMON_DEMONIC_TYRANT_TALENT.id,
-    SPELLS.HAND_OF_GULDAN_CAST.id,
-    SPELLS.DEMONBOLT.id,
-    SPELLS.SHADOW_BOLT_DEMO.id,
-    TALENTS.DEMONIC_GATEWAY_TALENT.id,
-    400185, // Inquisitor's Gaze / Fel Barrage cast id
-  ];
-
   onCast(event: CastEvent) {
     // removes arrow displays for these
-    if (this.CASTS_TO_REMOVE_FROM_TIMELINE.includes(event.ability?.guid)) {
+    if (CASTS_TO_REMOVE_FROM_TIMELINE.includes(event.ability?.guid)) {
       return;
     }
     this._castTimeline.push(event);
@@ -201,22 +203,6 @@ class SummonDemonicTyrant extends Analyzer {
     return petTable;
   }
 
-  getImpsPerformance(imps: number): QualitativePerformance {
-    if ((this._hasReignOfTyranny && imps === 15) || imps === 10) {
-      return QualitativePerformance.Perfect;
-    }
-
-    if (imps >= 7) {
-      return QualitativePerformance.Good;
-    }
-
-    if (imps >= 3) {
-      return QualitativePerformance.Ok;
-    }
-
-    return QualitativePerformance.Fail;
-  }
-
   getPerformanceExplanation(
     actualPerformance: QualitativePerformance,
     dogs: boolean,
@@ -246,13 +232,12 @@ class SummonDemonicTyrant extends Analyzer {
     }
   }
 
-  calcTyrantUsage(tyrantCastNum: number): SpellUse {
+  getDogsChecklistItem(tyrantCastNum: number) {
     const castEvent = this._tyrantCasts[tyrantCastNum];
-    const checklistItems: ChecklistUsageInfo[] = [];
-
-    // ------------------------------ Dogs -------------------------------------
-    const goodDogs = this._summsWithDemonicPower[tyrantCastNum]['Dreadstalker'] > 1;
-    const dogsPerformance = goodDogs ? QualitativePerformance.Perfect : QualitativePerformance.Fail;
+    const dogsPerformance =
+      this._summsWithDemonicPower[tyrantCastNum]['Dreadstalker'] > 1
+        ? QualitativePerformance.Perfect
+        : QualitativePerformance.Fail;
 
     const dogsSummary = (
       <>
@@ -268,86 +253,116 @@ class SummonDemonicTyrant extends Analyzer {
       </div>
     );
 
-    checklistItems.push({
+    return {
       check: 'dogs',
       timestamp: castEvent.event.timestamp,
       performance: dogsPerformance,
       summary: dogsSummary,
       details: dogsDetails,
-    });
+    };
+  }
 
-    // ------------------------------ Imps -------------------------------------
+  getImpsPerformance(imps: number): QualitativePerformance {
+    if ((this._hasReignOfTyranny && imps === 15) || imps === 10) {
+      return QualitativePerformance.Perfect;
+    }
 
-    const imps = this._summsWithDemonicPower[tyrantCastNum]['Wild Imp'];
+    if (imps >= 7) {
+      return QualitativePerformance.Good;
+    }
 
+    if (imps >= 3) {
+      return QualitativePerformance.Ok;
+    }
+
+    return QualitativePerformance.Fail;
+  }
+
+  getImpsChecklistItem(tyrantCastNum: number) {
+    const castEvent = this._tyrantCasts[tyrantCastNum];
     const impsSummary = (
       <>
         {this._summsWithDemonicPower[tyrantCastNum]['Wild Imp'] || 0}/
-        {this._hasReignOfTyranny ? '15' : '10'} <SpellLink spell={WILD_IMP_SPELL} />
+        {this._hasReignOfTyranny ? '15' : '10'} <SpellLink spell={SPELLS.WILD_IMP_HOG_SUMMON} />
       </>
     );
 
     const impsDetails = (
       <div>
         {this._summsWithDemonicPower[tyrantCastNum]['Wild Imp'] || 0}/
-        {this._hasReignOfTyranny ? '15' : '10'} <SpellLink spell={WILD_IMP_SPELL} /> - you should
-        extend as many <SpellLink spell={WILD_IMP_SPELL} />s as possible, always save{' '}
-        <SpellLink spell={SPELLS.DEMONIC_CORE_BUFF} />s to spend during this set up
+        {this._hasReignOfTyranny ? '15' : '10'} <SpellLink spell={SPELLS.WILD_IMP_HOG_SUMMON} /> -
+        you should extend as many <SpellLink spell={SPELLS.WILD_IMP_HOG_SUMMON} />s as possible,
+        always save <SpellLink spell={SPELLS.DEMONIC_CORE_BUFF} />s to spend during this set up
       </div>
     );
 
-    checklistItems.push({
+    return {
       check: 'imps',
       timestamp: castEvent.event.timestamp,
       performance: this.getImpsPerformance(this._summsWithDemonicPower[tyrantCastNum]['Wild Imp']),
       summary: impsSummary,
       details: impsDetails,
-    });
+    };
+  }
 
-    // ------------------------------ GFG --------------------------------------
+  getGFGChecklistItem(tyrantCastNum: number) {
+    const castEvent = this._tyrantCasts[tyrantCastNum];
 
-    // TODO test with a report without this talented
     let goodGFG = true;
-    if (this._hasGFG) {
-      if (tyrantCastNum === 1 && this._summsWithDemonicPower[tyrantCastNum]['Felguard'] !== 1) {
-        goodGFG = false;
-      }
-      // can consider as perfect cast if tyrant cast before GFG is up
-      if (
-        this._summsWithDemonicPower[tyrantCastNum]['Felguard'] !== 1 &&
-        !this._tyrantCasts[tyrantCastNum].gfgOnCd
-      ) {
-        goodGFG = false;
-      }
-
-      const gfgPerformance = goodGFG ? QualitativePerformance.Perfect : QualitativePerformance.Fail;
-
-      const gfgSummary = (
-        <div>
-          {this._summsWithDemonicPower[tyrantCastNum]['Felguard'] || 0}/1{' '}
-          <SpellLink spell={TALENTS.GRIMOIRE_FELGUARD_TALENT} />
-        </div>
-      );
-
-      const gfgDetails = (
-        <div>
-          {this._summsWithDemonicPower[tyrantCastNum]['Felguard'] || 0}/1{' '}
-          <SpellLink spell={TALENTS.GRIMOIRE_FELGUARD_TALENT} /> - this must always be extended
-          though in some encounters you will want to prioritize{' '}
-          <SpellLink spell={TALENTS.SUMMON_DEMONIC_TYRANT_TALENT} /> usage
-        </div>
-      );
-
-      checklistItems.push({
-        check: 'gfg',
-        timestamp: castEvent.event.timestamp,
-        performance: gfgPerformance,
-        summary: gfgSummary,
-        details: gfgDetails,
-      });
+    if (tyrantCastNum === 1 && this._summsWithDemonicPower[tyrantCastNum]['Felguard'] !== 1) {
+      goodGFG = false;
+    }
+    // can consider as perfect cast if tyrant cast before GFG is up
+    if (
+      this._summsWithDemonicPower[tyrantCastNum]['Felguard'] !== 1 &&
+      !this._tyrantCasts[tyrantCastNum].gfgOnCd
+    ) {
+      goodGFG = false;
     }
 
-    // ------------------------------ Join -------------------------------------
+    const gfgPerformance = goodGFG ? QualitativePerformance.Perfect : QualitativePerformance.Fail;
+
+    const gfgSummary = (
+      <div>
+        {this._summsWithDemonicPower[tyrantCastNum]['Felguard'] || 0}/1{' '}
+        <SpellLink spell={TALENTS.GRIMOIRE_FELGUARD_TALENT} />
+      </div>
+    );
+
+    const gfgDetails = (
+      <div>
+        {this._summsWithDemonicPower[tyrantCastNum]['Felguard'] || 0}/1{' '}
+        <SpellLink spell={TALENTS.GRIMOIRE_FELGUARD_TALENT} /> - this must always be extended though
+        in some encounters you will want to prioritize{' '}
+        <SpellLink spell={TALENTS.SUMMON_DEMONIC_TYRANT_TALENT} /> usage
+      </div>
+    );
+
+    return {
+      check: 'gfg',
+      timestamp: castEvent.event.timestamp,
+      performance: gfgPerformance,
+      summary: gfgSummary,
+      details: gfgDetails,
+    };
+  }
+
+  calcTyrantUsage(tyrantCastNum: number): SpellUse {
+    const castEvent = this._tyrantCasts[tyrantCastNum];
+    const checklistItems: ChecklistUsageInfo[] = [];
+
+    const goodDogs = this._summsWithDemonicPower[tyrantCastNum]['Dreadstalker'] > 1;
+    checklistItems.push(this.getDogsChecklistItem(tyrantCastNum));
+
+    const imps = this._summsWithDemonicPower[tyrantCastNum]['Wild Imp'];
+    checklistItems.push(this.getImpsChecklistItem(tyrantCastNum));
+
+    let goodGFG = true;
+    if (this._hasGFG) {
+      checklistItems.push(this.getGFGChecklistItem(tyrantCastNum));
+      goodGFG =
+        checklistItems[checklistItems.length - 1].performance === QualitativePerformance.Perfect;
+    }
 
     const actualPerformance = combineQualitativePerformances(
       checklistItems.map((item) => item.performance),
@@ -405,7 +420,7 @@ class SummonDemonicTyrant extends Analyzer {
         <SpellLink spell={SPELLS.SUMMON_DEMONIC_TYRANT} /> is our main offensive cooldown together
         with <SpellLink spell={TALENTS.GRIMOIRE_FELGUARD_TALENT} />. It's value comes from extending
         most of our active demons for 15 seconds, including up to 10{' '}
-        <SpellLink spell={WILD_IMP_SPELL} />s{' '}
+        <SpellLink spell={SPELLS.WILD_IMP_HOG_SUMMON} />s{' '}
         {this._hasReignOfTyranny ? (
           <>
             {' ('}15 with <SpellLink spell={TALENTS.REIGN_OF_TYRANNY_TALENT} />)
@@ -444,7 +459,7 @@ class SummonDemonicTyrant extends Analyzer {
 
     return (
       <Statistic
-        position={STATISTIC_ORDER.CORE(6)}
+        position={STATISTIC_ORDER.CORE(4)}
         size="flexible"
         tooltip="Number of pets empowered by each Demonic Tyrant summon."
         dropdown={this.empoweredDemonsTable}
