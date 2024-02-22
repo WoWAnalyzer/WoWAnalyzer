@@ -1,5 +1,6 @@
 import {
   DivinePurpose,
+  DuskAndDawn,
   HolyPowerDetails,
   HolyPowerPerMinute,
   HolyPowerTracker,
@@ -24,6 +25,7 @@ import Crusade from './modules/talents/Crusade';
 import EmpyreanPower from './modules/talents/EmpyreanPower';
 import BuilderUse from './modules/core/BuilderUse';
 import Guide from './Guide';
+import SealOfAlacrity from '../shared/SealOfAlacrity';
 
 class CombatLogParser extends CoreCombatLogParser {
   static guide = Guide;
@@ -52,6 +54,8 @@ class CombatLogParser extends CoreCombatLogParser {
     consecration: Consecration,
     hammerofWrathRetribution: HammerofWrathRetribution,
     empyreanPower: EmpyreanPower,
+    sealOfAlacrity: SealOfAlacrity,
+    duskAndDawn: DuskAndDawn,
 
     // HolyPower
     holyPowerTracker: HolyPowerTracker,

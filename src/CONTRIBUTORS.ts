@@ -2353,3 +2353,29 @@ export const Earosselot: Contributor = {
     },
   ],
 };
+
+export const Zyer: Contributor = {
+  nickname: 'Zyer',
+  github: 'ZyerTCoder',
+  discord: 'zyer',
+  mains: [
+    {
+      name: 'Yumiblood',
+      spec: SPECS.DEMONOLOGY_WARLOCK,
+      link: 'https://www.warcraftlogs.com/character/id/42737929',
+    },
+  ],
+};
+
+export const Humperella: Contributor = {
+  nickname: 'Humperella',
+  github: 'kevindqc',
+  discord: '.darkvirus.',
+  mains: [
+    {
+      name: 'Humperella',
+      spec: SPECS.RETRIBUTION_PALADIN,
+      link: 'https://worldofwarcraft.com/en-us/character/zuljin/Humperella',
+    },
+  ],
+};
