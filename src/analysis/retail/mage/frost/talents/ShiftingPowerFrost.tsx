@@ -1,4 +1,3 @@
-import { ShiftingPower } from 'analysis/retail/mage/shared';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import TALENTS from 'common/TALENTS/mage';
 import { GapHighlight } from 'parser/ui/CooldownBar';
@@ -6,13 +5,19 @@ import { explanationAndDataSubsection } from 'interface/guide/components/Explana
 import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/mage/frost/Guide';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { SpellLink } from 'interface';
-import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { PerformanceMark } from 'interface/guide';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
-class ShiftingPowerFrost extends ShiftingPower {
+class ShiftingPowerFrost extends Analyzer {
+  static dependencies = {
+    spellUsable: SpellUsable,
+  };
+  protected spellUsable!: SpellUsable;
+
   castEntries: BoxRowEntry[] = [];
   rayOfFrostActive: boolean = false;
   cometStormActive: boolean = false;
