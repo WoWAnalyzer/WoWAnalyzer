@@ -58,6 +58,15 @@ class WintersChill extends Analyzer {
     this.addEventListener(Events.fightend, this.analyzeCasts);
   }
 
+  wasShattered(event: DamageEvent | undefined): boolean {
+    if (event === undefined) {
+      return false;
+    }
+    return this.wintersChill.some((wintersChillEvent) =>
+      wintersChillEvent.damageEvents.includes(event),
+    );
+  }
+
   onWintersChill(event: ApplyDebuffEvent) {
     const remove: RemoveDebuffEvent | undefined = GetRelatedEvent(event, 'DebuffRemove');
     const flurry: CastEvent | undefined = GetRelatedEvent(event, 'SpellCast');

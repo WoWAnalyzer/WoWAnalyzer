@@ -57,7 +57,7 @@ class Checklist extends BaseChecklist {
           icyVeinsActiveTime: this.icyVeins.icyVeinsActiveTimeThresholds,
           munchedProcs: this.fingersOfFrost.munchedProcsThresholds,
           brainFreezeUtilization: this.brainFreeze.brainFreezeUtilizationThresholds,
-          brainFreezeOverwrites: this.brainFreeze.brainFreezeOverwritenThresholds,
+          brainFreezeOverwrites: this.brainFreeze.brainFreezeOverwrittenThresholds,
           brainFreezeExpired: this.brainFreeze.brainFreezeExpiredThresholds,
           fingersOfFrostUtilization: this.fingersOfFrost.fingersProcUtilizationThresholds,
           iceLanceNotShattered: this.iceLance.nonShatteredIceLanceThresholds,
