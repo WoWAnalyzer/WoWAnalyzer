@@ -1,4 +1,3 @@
-import { DemonicCirclesCreated } from 'analysis/retail/warlock/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import DemonologyWarlockVaultOfTheIncarnates4Set from './modules/dragonflight/tier/VaultOfTheIncarnates4Set';
@@ -42,7 +41,8 @@ import SoulStrike from './modules/talents/SoulStrike';
 import SummonVilefiend from './modules/talents/SummonVilefiend';
 import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
 import Guide from './Guide';
-import T31AmirdrassilDemonology from './modules/features/T31AmirdrassilDemonology';
+import T31AmirdrassilDemonology from './modules/dragonflight/tier/T31AmirdrassilDemonology';
+import { DemonicCircle } from '../shared';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -59,7 +59,7 @@ class CombatLogParser extends CoreCombatLogParser {
     soulShardTracker: SoulShardTracker,
     soulShardDetails: SoulShardDetails,
     soulshardGraph: SoulShardGraph,
-    demonicCirclesCreated: DemonicCirclesCreated,
+    demonicCircle: DemonicCircle,
 
     // Pets
     demoPets: DemoPets,

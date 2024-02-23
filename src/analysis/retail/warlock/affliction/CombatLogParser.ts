@@ -2,7 +2,7 @@ import {
   GrimoireOfSacrificeNormalizer,
   WarlockMissingDotApplyDebuffPrePull,
   GrimoireOfSacrifice,
-  DemonicCirclesCreated,
+  DemonicCircle,
 } from 'analysis/retail/warlock/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
@@ -53,7 +53,7 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
     darkglare: Darkglare,
     shadowEmbrace: ShadowEmbrace,
-    demonicCirclesCreated: DemonicCirclesCreated,
+    demonicCirlce: DemonicCircle,
 
     // DoTs
     agonyUptime: AgonyUptime,
