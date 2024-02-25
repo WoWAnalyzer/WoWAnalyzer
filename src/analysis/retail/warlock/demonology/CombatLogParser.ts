@@ -42,6 +42,7 @@ import SoulStrike from './modules/talents/SoulStrike';
 import SummonVilefiend from './modules/talents/SummonVilefiend';
 import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
 import Guide from './Guide';
+import T31AmirdrassilDemonology from './modules/features/T31AmirdrassilDemonology';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -96,6 +97,9 @@ class CombatLogParser extends CoreCombatLogParser {
     vaultOfTheIncarnates4Set: DemonologyWarlockVaultOfTheIncarnates4Set,
     callToDominance: CallToDominance,
     aberrus2Set: DemonologyWarlockAberrus2Set,
+
+    // Tier
+    t31AmirdrassilDemonology: T31AmirdrassilDemonology,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
