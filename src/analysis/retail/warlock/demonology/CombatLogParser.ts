@@ -42,7 +42,7 @@ import SummonVilefiend from './modules/talents/SummonVilefiend';
 import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
 import Guide from './Guide';
 import T31AmirdrassilDemonology from './modules/dragonflight/tier/T31AmirdrassilDemonology';
-import { DemonicCircle } from '../shared';
+import { DarkPact, DemonicCircle } from '../shared';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -92,6 +92,7 @@ class CombatLogParser extends CoreCombatLogParser {
     netherPortal: NetherPortal,
     shadowsBite: ShadowsBite,
     dreadCalling: DreadCalling,
+    darkPact: DarkPact,
 
     // Items
     vaultOfTheIncarnates4Set: DemonologyWarlockVaultOfTheIncarnates4Set,
