@@ -165,7 +165,9 @@ class T31AmirdrassilDemonology extends Analyzer {
                 still explodes for damage on other targets and can proc a Doomfiend
               </p>
               <p>Doom Brand hits: {this.doomBrand.hits}</p>
+              <p>Avg. damage per Brand: {formatNumber(this.doomBrandDamagePerExpire)}</p>
               <p>Volleys per summon: {this.doomfiendCastsPerSummon.toFixed(1)}</p>
+              <p>Avg. damage per Doomfiend: {formatNumber(this.doomfiendDamagePerSummon)} </p>
             </>
           }
         >
@@ -178,9 +180,6 @@ class T31AmirdrassilDemonology extends Analyzer {
                 {this.doomBrandHitsPerExpire.toFixed(1)} <small>targets hit per brand</small>
               </p>
             )}
-            <p>
-              {formatNumber(this.doomBrandDamagePerExpire)} <small> avg. damage per brand</small>
-            </p>
           </BoringSpellValueText>
           <BoringSpellValueText spell={SPELLS.DOOMFIEND_SUMMON}>
             <div>
@@ -196,10 +195,6 @@ class T31AmirdrassilDemonology extends Analyzer {
                   </small>{' '}
                 </p>
               )}
-              <p>
-                {formatNumber(this.doomfiendDamagePerSummon)}{' '}
-                <small> avg. damage per doomfiend</small>
-              </p>
             </div>
           </BoringSpellValueText>
         </Statistic>
