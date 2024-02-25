@@ -72,8 +72,7 @@ const config: Config = {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport:
-    '/report/fQLVhqzPZyGAta3n/1-Mythic+Kazzara,+the+Hellforged+-+Kill+(3:54)/Robinwltwo/standard/overview',
+  exampleReport: '/report/myndpGBw3k7rjVDf/4-Mythic+Smolderon+-+Kill+(7:01)/Yumiblood/standard',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
