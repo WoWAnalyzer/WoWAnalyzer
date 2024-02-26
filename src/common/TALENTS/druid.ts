@@ -840,7 +840,7 @@ const talents = {
   MAIM_TALENT: {
     id: 22570,
     name: 'Maim',
-    icon: 'ability_druid_mangle.tga',
+    icon: 'ability_druid_mangle',
     maxRanks: 1,
     entryIds: [103299],
     definitionIds: [{ id: 108304, specId: 102 }],

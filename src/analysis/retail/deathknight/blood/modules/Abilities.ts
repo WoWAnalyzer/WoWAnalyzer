@@ -203,7 +203,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 9,
       },
       {
-        spell: TALENTS.EMPOWER_RUNE_WEAPON_SHARED_TALENT.id,
+        spell: SPELLS.EMPOWER_RUNE_WEAPON.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         //buff spell id later?
         enabled: combatant.hasTalent(TALENTS.EMPOWER_RUNE_WEAPON_SHARED_TALENT),
