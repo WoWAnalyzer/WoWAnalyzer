@@ -18,6 +18,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import DonutChart from 'parser/ui/DonutChart';
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/mage/frost/Guide';
@@ -36,6 +37,12 @@ class WintersChill extends Analyzer {
   hasRayOfFrost: boolean = this.selectedCombatant.hasTalent(TALENTS.RAY_OF_FROST_TALENT);
   hasGlacialSpike: boolean = this.selectedCombatant.hasTalent(TALENTS.GLACIAL_SPIKE_TALENT);
   wintersChill: WintersChillEvent[] = [];
+  wintersChillHits: {
+    glacialSpike: number;
+    iceLance: number;
+    cometStorm: number;
+    rayOfFrost: number;
+  }[] = [];
   castEntries: BoxRowEntry[] = [];
 
   constructor(options: Options) {
@@ -52,6 +59,7 @@ class WintersChill extends Analyzer {
           SPELLS.GLACIAL_SPIKE_DAMAGE,
           SPELLS.ICE_LANCE_DAMAGE,
           TALENTS.RAY_OF_FROST_TALENT,
+          SPELLS.COMET_STORM_DAMAGE,
         ]),
       this.onDamage,
     );
@@ -171,6 +179,69 @@ class WintersChill extends Analyzer {
       });
   }
 
+  renderHitCount() {
+    this.wintersChill.forEach((wc) => {
+      this.wintersChillHits.push({
+        glacialSpike:
+          wc.damageEvents.filter((c) => c.ability.guid === SPELLS.GLACIAL_SPIKE_DAMAGE.id).length ||
+          0,
+        iceLance:
+          wc.damageEvents.filter((c) => c.ability.guid === SPELLS.ICE_LANCE_DAMAGE.id).length || 0,
+        cometStorm:
+          wc.damageEvents.filter((c) => c.ability.guid === SPELLS.COMET_STORM_DAMAGE.id).length ||
+          0,
+        rayOfFrost:
+          wc.damageEvents.filter((c) => c.ability.guid === TALENTS.RAY_OF_FROST_TALENT.id).length ||
+          0,
+      });
+    });
+
+    let glacialSpikeHits = 0;
+    this.wintersChillHits.forEach((wc) => (glacialSpikeHits += wc.glacialSpike));
+
+    let iceLanceHits = 0;
+    this.wintersChillHits.forEach((wc) => (iceLanceHits += wc.iceLance));
+
+    let cometStormHits = 0;
+    this.wintersChillHits.forEach((wc) => (cometStormHits += wc.cometStorm));
+
+    let rayOfFrostHits = 0;
+    this.wintersChillHits.forEach((wc) => (rayOfFrostHits += wc.rayOfFrost));
+
+    const items = [
+      {
+        color: '#2C0DB8',
+        label: 'Glacial Spike',
+        spellId: TALENTS.GLACIAL_SPIKE_TALENT.id,
+        value: glacialSpikeHits,
+        valueTooltip: glacialSpikeHits,
+      },
+      {
+        color: '#BBC2F6',
+        label: 'Ice Lance',
+        spellId: TALENTS.ICE_LANCE_TALENT.id,
+        value: iceLanceHits,
+        valueTooltip: iceLanceHits,
+      },
+      {
+        color: '#5692CB',
+        label: 'Comet Storm',
+        spellId: TALENTS.COMET_STORM_TALENT.id,
+        value: cometStormHits,
+        valueTooltip: cometStormHits,
+      },
+      {
+        color: '#90E2F6',
+        label: 'Ray of Frost',
+        spellId: TALENTS.RAY_OF_FROST_TALENT.id,
+        value: rayOfFrostHits,
+        valueTooltip: rayOfFrostHits,
+      },
+    ];
+
+    return <DonutChart items={items} />;
+  }
+
   // less strict than the ice lance suggestion both because it's less important,
   // and also because using a Brain Freeze after being forced to move is a good excuse for missing the hardcast.
   get wintersChillPreCastThresholds() {
@@ -276,87 +347,118 @@ class WintersChill extends Analyzer {
   }
 
   get guideSubsection(): JSX.Element {
-    const cooldown = {
-      id: -1,
-      name: 'Cooldown',
-      icon: 'inv_misc_questionmark',
-    };
-
     const wintersChill = <SpellLink spell={SPELLS.WINTERS_CHILL} />;
     const flurry = <SpellLink spell={TALENTS.FLURRY_TALENT} />;
-    const frostbolt = <SpellLink spell={SPELLS.FROSTBOLT} />;
+    const brainFreeze = <SpellLink spell={TALENTS.BRAIN_FREEZE_TALENT} />;
     const glacialSpike = <SpellLink spell={TALENTS.GLACIAL_SPIKE_TALENT} />;
+    const frostbolt = <SpellLink spell={SPELLS.FROSTBOLT} />;
+    const icicles = <SpellLink spell={SPELLS.ICICLES_BUFF} />;
     const iceLance = <SpellLink spell={TALENTS.ICE_LANCE_TALENT} />;
+    const cometStorm = <SpellLink spell={TALENTS.COMET_STORM_TALENT} />;
     const rayOfFrost = <SpellLink spell={TALENTS.RAY_OF_FROST_TALENT} />;
-
-    const cooldownIcon = <SpellIcon spell={cooldown} />;
-    const glacialSpikeIcon = <SpellIcon spell={TALENTS.GLACIAL_SPIKE_TALENT} />;
-    const iceLanceIcon = <SpellIcon spell={TALENTS.ICE_LANCE_TALENT} />;
-    const rayOfFrostIcon = <SpellIcon spell={TALENTS.RAY_OF_FROST_TALENT} />;
 
     const explanation = (
       <>
         <div>
-          <b>{wintersChill}</b> is an extremely important part of playing Frost effectively.
+          <b>Maximize {wintersChill}'s Benefit</b>
+          <p>
+            Properly utilizing the {wintersChill} debuff can primarily be broken down into two
+            rules:
+          </p>
         </div>
+        <br />
         <div>
-          There are 2 main rules to follow:
-          <ul>
-            <li>
-              <b>Precast</b>
-              <div>
-                You should cast {this.hasGlacialSpike ? <>{glacialSpike} or </> : ''}
-                {frostbolt} before {flurry}.
-              </div>
-              {this.hasGlacialSpike && (
-                <div>
-                  At 4 <SpellLink spell={SPELLS.MASTERY_ICICLES} /> you can cast {flurry} without
-                  precast.
-                  <div>
-                    <small>
-                      Precast priority order: {glacialSpike} {frostbolt}{' '}
-                    </small>
-                  </div>
-                </div>
-              )}
-            </li>
-            <li>
-              <b>{wintersChill} stacks</b>
-              <div>
-                Consume both {wintersChill} stacks with{' '}
-                {this.hasGlacialSpike && <>{glacialSpike} or </>}
-                {iceLance}.
-              </div>
-              {this.hasRayOfFrost && (
-                <div>
-                  If {rayOfFrost} is available, use it at 1 stack of {wintersChill}.
-                </div>
-              )}
-              <div>
-                <small>
-                  Priority order: {this.hasRayOfFrost && <>{rayOfFrost} </>}
-                  {this.hasGlacialSpike && <>{glacialSpike} </>}
-                  {iceLance}
-                </small>
-              </div>
-            </li>
-          </ul>
+          <b>
+            Rule 1: Pre-Cast Before {flurry} / {brainFreeze}
+          </b>
+          <p>
+            {flurry} travels faster, so using it at the very end of a {glacialSpike} or {frostbolt}{' '}
+            cast will allow the pre-cast to benefit from {wintersChill} without losing a stack of
+            the debuff.
+          </p>
+          {this.hasGlacialSpike && (
+            <small>
+              If you are at 4 {icicles}, you can cast {flurry} without a pre-cast.
+            </small>
+          )}
         </div>
+        <br />
         <div>
-          <div>Your rotations should look like this:</div>
-          <div>
-            <SpellSeq spells={[SPELLS.FROSTBOLT, TALENTS.FLURRY_TALENT, cooldown, cooldown]} />
-          </div>
-          <div>
+          <b>Rule 2: Use both stacks of {wintersChill} to Shatter Spells</b>
+          <p>
+            Typically you should use {glacialSpike} and/or {iceLance} to consume {wintersChill}, but{' '}
+            {cometStorm} and {rayOfFrost} also benefit from the debuff without consuming it.
+          </p>
+          {this.hasRayOfFrost && (
+            <small>
+              Due to the channel time of {rayOfFrost}, the {wintersChill} debuff might expire mid
+              channel. So always use {rayOfFrost} with one stack of the debuff to avoid losing both
+              stacks.
+            </small>
+          )}
+        </div>
+        <br />
+        <div>
+          <b>Example Cast Sequences</b>
+          <p>The below cast sequences, as well as other similar sequences, are all valid.</p>
+          <p>
             <SpellSeq
-              spells={[TALENTS.GLACIAL_SPIKE_TALENT, TALENTS.FLURRY_TALENT, cooldown, cooldown]}
+              spells={[
+                TALENTS.GLACIAL_SPIKE_TALENT,
+                TALENTS.FLURRY_TALENT,
+                TALENTS.COMET_STORM_TALENT,
+                TALENTS.ICE_LANCE_TALENT,
+                TALENTS.RAY_OF_FROST_TALENT,
+              ]}
+            />{' '}
+            &emsp;&emsp;
+            <SpellSeq
+              spells={[
+                TALENTS.GLACIAL_SPIKE_TALENT,
+                TALENTS.FLURRY_TALENT,
+                TALENTS.ICE_LANCE_TALENT,
+                TALENTS.ICE_LANCE_TALENT,
+              ]}
+            />{' '}
+            &emsp;&emsp;
+            <SpellSeq
+              spells={[
+                SPELLS.FROSTBOLT,
+                TALENTS.FLURRY_TALENT,
+                TALENTS.GLACIAL_SPIKE_TALENT,
+                TALENTS.ICE_LANCE_TALENT,
+              ]}
             />
-          </div>
-          <div>
-            filling the {cooldownIcon}s with {this.hasGlacialSpike && <>{glacialSpikeIcon}, </>}
-            {iceLanceIcon} or
-            {this.hasRayOfFrost && <>{rayOfFrostIcon} </>} following the rules and priorities above.
-          </div>
+          </p>
+          <p>
+            <SpellSeq
+              spells={[
+                SPELLS.FROSTBOLT,
+                TALENTS.FLURRY_TALENT,
+                TALENTS.COMET_STORM_TALENT,
+                TALENTS.ICE_LANCE_TALENT,
+                TALENTS.ICE_LANCE_TALENT,
+              ]}
+            />{' '}
+            &emsp; &emsp;
+            <SpellSeq
+              spells={[
+                SPELLS.FROSTBOLT,
+                TALENTS.FLURRY_TALENT,
+                TALENTS.ICE_LANCE_TALENT,
+                TALENTS.ICE_LANCE_TALENT,
+              ]}
+            />{' '}
+            &emsp;&emsp;
+            <SpellSeq
+              spells={[
+                SPELLS.FROSTBOLT,
+                TALENTS.FLURRY_TALENT,
+                TALENTS.ICE_LANCE_TALENT,
+                TALENTS.RAY_OF_FROST_TALENT,
+              ]}
+            />
+          </p>
         </div>
       </>
     );
@@ -366,6 +468,11 @@ class WintersChill extends Analyzer {
           <strong>Cast details</strong>
           <PerformanceBoxRow values={this.castEntries} />
           <small>green (good) / red (fail) mouseover the rectangles to see more details</small>
+        </RoundedPanel>
+        <RoundedPanel>
+          <b>{wintersChill} shattered spells</b>
+          {this.renderHitCount()}
+          <small>Total number of spell hits during {wintersChill}</small>
         </RoundedPanel>
       </div>
     );
