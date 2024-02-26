@@ -64,14 +64,14 @@ const FrostMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklist
         }
       >
         <Requirement
-          name="Ice Lance into Winter's Chill"
+          name="Shatter Spells into Winter's Chill"
           thresholds={thresholds.wintersChillShatter}
-          tooltip="Casting Flurry will apply the Winter's Chill debuff to the target which causes your spells to act as if the target is frozen. Therefore, you should always cast Ice Lance twice after every Flurry cast so that the Ice Lance hits the target while Winter's Chill is up."
+          tooltip="Casting Flurry will apply the Winter's Chill debuff to the target which causes your spells to act as if the target is frozen. Typically you will be using Ice Lance for this, but spells like Comet Storm and Ray of Frost do not expend your charges of Winter's Chill so they should be used in Winter's Chill as well. Additionally, Glacial Spike can be used as a pre-cast or as one of your Winter's Chill spells."
         />
         <Requirement
           name="Hardcast into Winter's Chill"
           thresholds={thresholds.wintersChillHardCasts}
-          tooltip="Flurry travels faster than your other spells, so you can pre-cast Frostbolt, Ebonbolt, or Glacial Spike before casting Flurry. This will result in the pre-cast spell landing in the Winter's Chill debuff and dealing bonus shatter damage."
+          tooltip="Flurry travels faster than your other spells, so you can pre-cast Frostbolt, Ebonbolt, or Glacial Spike before casting Flurry. This will result in the pre-cast spell landing in the Winter's Chill debuff and dealing bonus shatter damage. If you are talented into Glacial Spike and are at 4 Icicles, you can cast Flurry without a pre-cast and then use Glacial Spike in Winter's Chill."
         />
       </Rule>
       <Rule
