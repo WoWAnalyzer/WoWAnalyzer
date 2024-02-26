@@ -33,6 +33,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 2, 26), 'Switch icon source to the WCL CDN.', emallson),
   change(date(2024, 2, 18), <>Fix crash in QualitativePerformance</>, Trevor),
   change(date(2024, 2, 17), 'Add a missed realm for Classic.', Putro),
   change(date(2024, 2, 7), 'Inspect more stack trace lines for external script sources.', ToppleTheNun),
