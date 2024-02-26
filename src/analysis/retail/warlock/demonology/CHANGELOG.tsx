@@ -5,6 +5,7 @@ import { Sharrq, Zeboot, Meldris, ToppleTheNun, Jonfanz, Mae, dodse, Arlie, Putr
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2024, 2, 22), "Updated for patch 10.2.5, added statistic for T31 Amirdrassil", Zyer),
   change(date(2024, 2, 20), <>Added <SpellLink spell={TALENTS_WARLOCK.SUMMON_DEMONIC_TYRANT_TALENT}/> breakdown to main guide</>, Zyer),
   change(date(2024, 2, 6), <>Fixed Tyrant Statistic</>, Zyer),
   change(date(2024, 1, 6), <>Fix a crash related to <SpellLink spell={TALENTS_WARLOCK.GRIMOIRE_FELGUARD_TALENT} />.</>, Putro),

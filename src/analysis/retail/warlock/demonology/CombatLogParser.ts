@@ -1,4 +1,3 @@
-import { DemonicCirclesCreated } from 'analysis/retail/warlock/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import DemonologyWarlockVaultOfTheIncarnates4Set from './modules/dragonflight/tier/VaultOfTheIncarnates4Set';
@@ -42,7 +41,8 @@ import SoulStrike from './modules/talents/SoulStrike';
 import SummonVilefiend from './modules/talents/SummonVilefiend';
 import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
 import Guide from './Guide';
-import T31AmirdrassilDemonology from './modules/features/T31AmirdrassilDemonology';
+import T31AmirdrassilDemonology from './modules/dragonflight/tier/T31AmirdrassilDemonology';
+import { DarkPact, DemonicCircle } from '../shared';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -52,14 +52,12 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     felstorm: Felstorm,
     checklist: Checklist,
-    summonDemonicTyrant: SummonDemonicTyrant,
     legionStrike: LegionStrike,
 
     // Core
     soulShardTracker: SoulShardTracker,
     soulShardDetails: SoulShardDetails,
     soulshardGraph: SoulShardGraph,
-    demonicCirclesCreated: DemonicCirclesCreated,
 
     // Pets
     demoPets: DemoPets,
@@ -76,6 +74,7 @@ class CombatLogParser extends CoreCombatLogParser {
     powerSiphonNormalizer: PowerSiphonNormalizer,
 
     // Talents
+    summonDemonicTyrant: SummonDemonicTyrant,
     dreadlash: Dreadlash,
     demonicStrength: DemonicStrength,
     bilescourgeBombers: BilescourgeBombers,
@@ -92,6 +91,10 @@ class CombatLogParser extends CoreCombatLogParser {
     netherPortal: NetherPortal,
     shadowsBite: ShadowsBite,
     dreadCalling: DreadCalling,
+
+    // Shared Talents
+    darkPact: DarkPact,
+    demonicCircle: DemonicCircle,
 
     // Items
     vaultOfTheIncarnates4Set: DemonologyWarlockVaultOfTheIncarnates4Set,

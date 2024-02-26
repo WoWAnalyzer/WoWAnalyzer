@@ -50,16 +50,15 @@ class SummonDemonicTyrant extends Analyzer {
     spellUsable: SpellUsable,
   };
 
-  demoPets!: DemoPets;
-  spellUsable!: SpellUsable;
-  _reignOfTyrannyPower!: number[];
-  _hasReignOfTyranny!: boolean;
-  _hasGFG!: boolean;
+  private demoPets!: DemoPets;
+  private spellUsable!: SpellUsable;
+  private hasReignOfTyranny = false;
+  private hasGFG = false;
 
-  _summsWithDemonicPower!: { [id: string]: any }[];
-  _tyrantsCast!: number;
-  _tyrantCasts!: TyrantCast[];
-  _castTimeline!: AnyEvent[];
+  private summsWithDemonicPower: { [id: string]: any }[] = [{}];
+  private tyrantsCast = 0;
+  private tyrantCasts: TyrantCast[] = [];
+  private castTimeline: AnyEvent[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -67,12 +66,8 @@ class SummonDemonicTyrant extends Analyzer {
     if (!this.active) {
       return;
     }
-    this._tyrantsCast = 0;
-    this._summsWithDemonicPower = [{}];
-    this._hasReignOfTyranny = this.selectedCombatant.hasTalent(TALENTS.REIGN_OF_TYRANNY_TALENT);
-    this._hasGFG = this.selectedCombatant.hasTalent(TALENTS.GRIMOIRE_FELGUARD_TALENT);
-    this._tyrantCasts = [];
-    this._castTimeline = [];
+    this.hasReignOfTyranny = this.selectedCombatant.hasTalent(TALENTS.REIGN_OF_TYRANNY_TALENT);
+    this.hasGFG = this.selectedCombatant.hasTalent(TALENTS.GRIMOIRE_FELGUARD_TALENT);
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SUMMON_DEMONIC_TYRANT),
@@ -89,19 +84,19 @@ class SummonDemonicTyrant extends Analyzer {
     this.addEventListener(Events.GlobalCooldown.by(SELECTED_PLAYER), this.toTimeline);
   }
 
-  summonDemonicTyrantCast(event: CastEvent) {
-    this._tyrantsCast += 1;
-    this._summsWithDemonicPower[this._tyrantsCast] = {};
-    this._tyrantCasts[this._tyrantsCast] = {
+  private summonDemonicTyrantCast(event: CastEvent) {
+    this.tyrantsCast += 1;
+    this.summsWithDemonicPower[this.tyrantsCast] = {};
+    this.tyrantCasts[this.tyrantsCast] = {
       event: event,
-      castNumber: this._tyrantsCast,
-      gfgOnCd: this._hasGFG
+      castNumber: this.tyrantsCast,
+      gfgOnCd: this.hasGFG
         ? this.spellUsable.isOnCooldown(TALENTS.GRIMOIRE_FELGUARD_TALENT.id)
         : false,
     };
   }
 
-  demonicPowerAppliedToPet(event: ApplyBuffEvent) {
+  private demonicPowerAppliedToPet(event: ApplyBuffEvent) {
     if (!event.targetID) {
       debug && this.error('Pet applyBuff event with no targetID', event);
       return;
@@ -113,28 +108,30 @@ class SummonDemonicTyrant extends Analyzer {
     }
 
     // TODO low prio: fix main pet getting two applications of this buff in the same tyrant
-    this._summsWithDemonicPower[this._tyrantsCast][petInfo.name] =
-      this._summsWithDemonicPower[this._tyrantsCast][petInfo.name] + 1 || 1;
+    this.summsWithDemonicPower[this.tyrantsCast][petInfo.name] =
+      this.summsWithDemonicPower[this.tyrantsCast][petInfo.name] + 1 || 1;
   }
 
-  onCast(event: CastEvent) {
+  private onCast(event: CastEvent) {
     // removes arrow displays for these
     if (CASTS_TO_REMOVE_FROM_TIMELINE.includes(event.ability?.guid)) {
       return;
     }
-    this._castTimeline.push(event);
+    this.castTimeline.push(event);
   }
 
-  toTimeline(event: BeginCastEvent | BeginChannelEvent | EndChannelEvent | GlobalCooldownEvent) {
-    this._castTimeline.push(event);
+  private toTimeline(
+    event: BeginCastEvent | BeginChannelEvent | EndChannelEvent | GlobalCooldownEvent,
+  ) {
+    this.castTimeline.push(event);
   }
 
-  get numTyrCasts(): number {
-    return this._summsWithDemonicPower.length - 1;
+  private get numTyrCasts(): number {
+    return this.summsWithDemonicPower.length - 1;
   }
 
-  get populatedEmpoweredDemonsTable() {
-    const populatedSumms = structuredClone(this._summsWithDemonicPower);
+  private get populatedEmpoweredDemonsTable() {
+    const populatedSumms = structuredClone(this.summsWithDemonicPower);
 
     // add averages
     for (let tyrCast = 0; tyrCast <= this.numTyrCasts; tyrCast += 1) {
@@ -159,7 +156,7 @@ class SummonDemonicTyrant extends Analyzer {
       }
     }
 
-    if (this._hasReignOfTyranny) {
+    if (this.hasReignOfTyranny) {
       populatedSumms.forEach((_, index) => {
         populatedSumms[index]['RoT Buff'] = populatedSumms[index]['Total'] * 10 + '%';
       });
@@ -168,7 +165,7 @@ class SummonDemonicTyrant extends Analyzer {
     return populatedSumms;
   }
 
-  get empoweredDemonsTable(): JSX.Element {
+  private get empoweredDemonsTable(): JSX.Element {
     const empoweredDemons = this.populatedEmpoweredDemonsTable;
 
     let row = 0;
@@ -191,7 +188,7 @@ class SummonDemonicTyrant extends Analyzer {
             <th style={{ textAlign: 'left' }}>Tyrant Cast</th>
             {Object.keys(empoweredDemons).map((key) => (
               <th className="tyr-align-center" key={'tyrcast' + key}>
-                {Number(key) !== 0 ? Number(key) : 'Average'}
+                {Number(key) !== 0 ? Number(key) : 'Avg.'}
               </th>
             ))}
           </tr>
@@ -203,13 +200,13 @@ class SummonDemonicTyrant extends Analyzer {
     return petTable;
   }
 
-  getPerformanceExplanation(
+  private getPerformanceExplanation(
     actualPerformance: QualitativePerformance,
     dogs: boolean,
     gfg: boolean,
     imps: number,
   ): JSX.Element {
-    const impsExtended = `${imps}/${this._hasReignOfTyranny ? '15' : '10'} imps`;
+    const impsExtended = `${imps}/${this.hasReignOfTyranny ? '15' : '10'} imps`;
     switch (actualPerformance) {
       case QualitativePerformance.Perfect:
         return <>Perfect usage, you extended the most demons possible</>;
@@ -232,23 +229,23 @@ class SummonDemonicTyrant extends Analyzer {
     }
   }
 
-  getDogsChecklistItem(tyrantCastNum: number) {
-    const castEvent = this._tyrantCasts[tyrantCastNum];
+  private getDogsChecklistItem(tyrantCastNum: number) {
+    const castEvent = this.tyrantCasts[tyrantCastNum];
     const dogsPerformance =
-      this._summsWithDemonicPower[tyrantCastNum]['Dreadstalker'] > 1
+      this.summsWithDemonicPower[tyrantCastNum]['Dreadstalker'] > 1
         ? QualitativePerformance.Perfect
         : QualitativePerformance.Fail;
 
     const dogsSummary = (
       <>
-        {this._summsWithDemonicPower[tyrantCastNum]['Dreadstalker'] || 0}/2{' '}
+        {this.summsWithDemonicPower[tyrantCastNum]['Dreadstalker'] || 0}/2{' '}
         <SpellLink spell={TALENTS.CALL_DREADSTALKERS_TALENT} />
       </>
     );
 
     const dogsDetails = (
       <div>
-        {this._summsWithDemonicPower[tyrantCastNum]['Dreadstalker'] || 0}/2{' '}
+        {this.summsWithDemonicPower[tyrantCastNum]['Dreadstalker'] || 0}/2{' '}
         <SpellLink spell={TALENTS.CALL_DREADSTALKERS_TALENT} /> - these should always be extended
       </div>
     );
@@ -262,8 +259,8 @@ class SummonDemonicTyrant extends Analyzer {
     };
   }
 
-  getImpsPerformance(imps: number): QualitativePerformance {
-    if ((this._hasReignOfTyranny && imps === 15) || imps === 10) {
+  private getImpsPerformance(imps: number): QualitativePerformance {
+    if ((this.hasReignOfTyranny && imps === 15) || imps === 10) {
       return QualitativePerformance.Perfect;
     }
 
@@ -278,19 +275,19 @@ class SummonDemonicTyrant extends Analyzer {
     return QualitativePerformance.Fail;
   }
 
-  getImpsChecklistItem(tyrantCastNum: number) {
-    const castEvent = this._tyrantCasts[tyrantCastNum];
+  private getImpsChecklistItem(tyrantCastNum: number) {
+    const castEvent = this.tyrantCasts[tyrantCastNum];
     const impsSummary = (
       <>
-        {this._summsWithDemonicPower[tyrantCastNum]['Wild Imp'] || 0}/
-        {this._hasReignOfTyranny ? '15' : '10'} <SpellLink spell={SPELLS.WILD_IMP_HOG_SUMMON} />
+        {this.summsWithDemonicPower[tyrantCastNum]['Wild Imp'] || 0}/
+        {this.hasReignOfTyranny ? '15' : '10'} <SpellLink spell={SPELLS.WILD_IMP_HOG_SUMMON} />
       </>
     );
 
     const impsDetails = (
       <div>
-        {this._summsWithDemonicPower[tyrantCastNum]['Wild Imp'] || 0}/
-        {this._hasReignOfTyranny ? '15' : '10'} <SpellLink spell={SPELLS.WILD_IMP_HOG_SUMMON} /> -
+        {this.summsWithDemonicPower[tyrantCastNum]['Wild Imp'] || 0}/
+        {this.hasReignOfTyranny ? '15' : '10'} <SpellLink spell={SPELLS.WILD_IMP_HOG_SUMMON} /> -
         you should extend as many <SpellLink spell={SPELLS.WILD_IMP_HOG_SUMMON} />s as possible,
         always save <SpellLink spell={SPELLS.DEMONIC_CORE_BUFF} />s to spend during this set up
       </div>
@@ -299,23 +296,23 @@ class SummonDemonicTyrant extends Analyzer {
     return {
       check: 'imps',
       timestamp: castEvent.event.timestamp,
-      performance: this.getImpsPerformance(this._summsWithDemonicPower[tyrantCastNum]['Wild Imp']),
+      performance: this.getImpsPerformance(this.summsWithDemonicPower[tyrantCastNum]['Wild Imp']),
       summary: impsSummary,
       details: impsDetails,
     };
   }
 
-  getGFGChecklistItem(tyrantCastNum: number) {
-    const castEvent = this._tyrantCasts[tyrantCastNum];
+  private getGFGChecklistItem(tyrantCastNum: number) {
+    const castEvent = this.tyrantCasts[tyrantCastNum];
 
     let goodGFG = true;
-    if (tyrantCastNum === 1 && this._summsWithDemonicPower[tyrantCastNum]['Felguard'] !== 1) {
+    if (tyrantCastNum === 1 && this.summsWithDemonicPower[tyrantCastNum]['Felguard'] !== 1) {
       goodGFG = false;
     }
     // can consider as perfect cast if tyrant cast before GFG is up
     if (
-      this._summsWithDemonicPower[tyrantCastNum]['Felguard'] !== 1 &&
-      !this._tyrantCasts[tyrantCastNum].gfgOnCd
+      this.summsWithDemonicPower[tyrantCastNum]['Felguard'] !== 1 &&
+      !this.tyrantCasts[tyrantCastNum].gfgOnCd
     ) {
       goodGFG = false;
     }
@@ -324,14 +321,14 @@ class SummonDemonicTyrant extends Analyzer {
 
     const gfgSummary = (
       <div>
-        {this._summsWithDemonicPower[tyrantCastNum]['Felguard'] || 0}/1{' '}
+        {this.summsWithDemonicPower[tyrantCastNum]['Felguard'] || 0}/1{' '}
         <SpellLink spell={TALENTS.GRIMOIRE_FELGUARD_TALENT} />
       </div>
     );
 
     const gfgDetails = (
       <div>
-        {this._summsWithDemonicPower[tyrantCastNum]['Felguard'] || 0}/1{' '}
+        {this.summsWithDemonicPower[tyrantCastNum]['Felguard'] || 0}/1{' '}
         <SpellLink spell={TALENTS.GRIMOIRE_FELGUARD_TALENT} /> - this must always be extended though
         in some encounters you will want to prioritize{' '}
         <SpellLink spell={TALENTS.SUMMON_DEMONIC_TYRANT_TALENT} /> usage
@@ -347,18 +344,18 @@ class SummonDemonicTyrant extends Analyzer {
     };
   }
 
-  calcTyrantUsage(tyrantCastNum: number): SpellUse {
-    const castEvent = this._tyrantCasts[tyrantCastNum];
+  private calcTyrantUsage(tyrantCastNum: number): SpellUse {
+    const castEvent = this.tyrantCasts[tyrantCastNum];
     const checklistItems: ChecklistUsageInfo[] = [];
 
-    const goodDogs = this._summsWithDemonicPower[tyrantCastNum]['Dreadstalker'] > 1;
+    const goodDogs = this.summsWithDemonicPower[tyrantCastNum]['Dreadstalker'] > 1;
     checklistItems.push(this.getDogsChecklistItem(tyrantCastNum));
 
-    const imps = this._summsWithDemonicPower[tyrantCastNum]['Wild Imp'];
+    const imps = this.summsWithDemonicPower[tyrantCastNum]['Wild Imp'];
     checklistItems.push(this.getImpsChecklistItem(tyrantCastNum));
 
     let goodGFG = true;
-    if (this._hasGFG) {
+    if (this.hasGFG) {
       checklistItems.push(this.getGFGChecklistItem(tyrantCastNum));
       goodGFG =
         checklistItems[checklistItems.length - 1].performance === QualitativePerformance.Perfect;
@@ -377,7 +374,7 @@ class SummonDemonicTyrant extends Analyzer {
 
     const end = castEvent.event.timestamp + 1000 > 0 ? castEvent.event.timestamp + 1000 : 0;
     const start = castEvent.event.timestamp - 16000;
-    const tyrantSetup: AnyEvent[] = this._castTimeline.filter(
+    const tyrantSetup: AnyEvent[] = this.castTimeline.filter(
       (cast) => cast.timestamp > start && cast.timestamp < end,
     );
 
@@ -404,7 +401,7 @@ class SummonDemonicTyrant extends Analyzer {
     };
   }
 
-  calculateTyrantUses(): SpellUse[] {
+  private calculateTyrantUses(): SpellUse[] {
     const uses: SpellUse[] = [];
 
     for (let tyrCast = 1; tyrCast <= this.numTyrCasts; tyrCast += 1) {
@@ -421,7 +418,7 @@ class SummonDemonicTyrant extends Analyzer {
         with <SpellLink spell={TALENTS.GRIMOIRE_FELGUARD_TALENT} />. It's value comes from extending
         most of our active demons for 15 seconds, including up to 10{' '}
         <SpellLink spell={SPELLS.WILD_IMP_HOG_SUMMON} />s{' '}
-        {this._hasReignOfTyranny ? (
+        {this.hasReignOfTyranny ? (
           <>
             {' ('}15 with <SpellLink spell={TALENTS.REIGN_OF_TYRANNY_TALENT} />)
           </>
@@ -468,13 +465,13 @@ class SummonDemonicTyrant extends Analyzer {
           <p>
             {avgDemonsEmpowered.toFixed(1)} <small>Avg. demons buffed</small>
           </p>
-          {this._hasReignOfTyranny && (
+          {this.hasReignOfTyranny && (
             <p>
               {avgRoTBuff} <small>Avg. RoT bonus dmg</small>
             </p>
           )}
           <p>
-            {avgWildImpsEmpowered.toFixed(1)}/{this._hasReignOfTyranny ? 15 : 10}{' '}
+            {avgWildImpsEmpowered.toFixed(1)}/{this.hasReignOfTyranny ? 15 : 10}{' '}
             <small>Avg. imps buffed</small>
           </p>
         </BoringSpellValueText>
