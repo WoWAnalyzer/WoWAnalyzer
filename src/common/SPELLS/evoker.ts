@@ -171,6 +171,11 @@ const spells = {
     name: 'Blessing of the Bronze',
     icon: 'ability_evoker_blessingofthebronze',
   },
+  SOURCE_OF_MAGIC_MANA_GAIN: {
+    id: 372571,
+    name: 'Source of Magic',
+    icon: 'ability_evoker_blue_01',
+  },
   LIVING_FLAME_DAMAGE: {
     id: 361500,
     name: 'Living Flame',

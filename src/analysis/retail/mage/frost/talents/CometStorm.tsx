@@ -78,8 +78,9 @@ class CometStorm extends Analyzer {
     const tooltip = (
       <>
         <b>@ {this.owner.formatTimestamp(event.timestamp)}</b>
-        <br />
-        <PerformanceMark perf={performance} /> {performance}: {count}
+        <p>
+          <PerformanceMark perf={performance} /> {performance}: {count}
+        </p>
       </>
     );
     this.castEntries.push({ value: performance, tooltip });
@@ -165,13 +166,14 @@ class CometStorm extends Analyzer {
             <li>
               <b>Multitarget (3+)</b>
             </li>
-            If {coneOfCold} is available, you should do the combo: <br />
+            <p>If {coneOfCold} is available, you should do the combo: </p>
             <SpellSeq
               spells={[TALENTS.COMET_STORM_TALENT, SPELLS.CONE_OF_COLD, TALENTS.COMET_STORM_TALENT]}
-            />{' '}
-            <br />
-            If {coneOfCold} is less than 10 seconds cooldown, you should wait for the combo.
-            Otherwise, just cast it.
+            />
+            <p>
+              If {coneOfCold} is less than 10 seconds cooldown, you should wait for the combo.
+              Otherwise, just cast it.
+            </p>
           </>
         )}
       </>
@@ -182,26 +184,27 @@ class CometStorm extends Analyzer {
         <p>
           <b>{cometStorm}</b> is another important spell. You want to keep it on cooldown as much as
           you can.
-          <p>This spell has different modes of use for single and multitarget.</p>
-          <ul>
-            <li>
-              <b>Single Target</b>
-            </li>
-            Most of the time on 2 stacks of {wintersChill}, to shatter all 7 comets. <br />
-            <SpellSeq spells={[TALENTS.FLURRY_TALENT, TALENTS.COMET_STORM_TALENT]} /> <br />
-            On 1 stack of {wintersChill}, before a long cast ({rayOfFrost} of {glacialSpike})<br />
-            <SpellSeq
-              spells={[
-                TALENTS.FLURRY_TALENT,
-                SPELLS.ICE_LANCE_DAMAGE,
-                TALENTS.COMET_STORM_TALENT,
-                TALENTS.GLACIAL_SPIKE_TALENT,
-              ]}
-            />{' '}
-            <br />
-            {multitargetExplanation}
-          </ul>
         </p>
+        <p>This spell has different modes of use for single and multitarget.</p>
+        <ul>
+          <li>
+            <b>Single Target</b>
+          </li>
+          <p>Most of the time on 2 stacks of {wintersChill}, to shatter all 7 comets. </p>
+          <SpellSeq spells={[TALENTS.FLURRY_TALENT, TALENTS.COMET_STORM_TALENT]} />
+          <p>
+            On 1 stack of {wintersChill}, before a long cast ({rayOfFrost} or {glacialSpike})
+          </p>
+          <SpellSeq
+            spells={[
+              TALENTS.FLURRY_TALENT,
+              SPELLS.ICE_LANCE_DAMAGE,
+              TALENTS.COMET_STORM_TALENT,
+              TALENTS.GLACIAL_SPIKE_TALENT,
+            ]}
+          />
+          {multitargetExplanation}
+        </ul>
       </>
     );
 

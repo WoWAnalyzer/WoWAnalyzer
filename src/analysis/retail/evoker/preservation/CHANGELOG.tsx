@@ -6,6 +6,10 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { ResourceLink, SpellLink } from 'interface';
 
 export default [
+  change(date(2024, 2, 18), <>Add spell cast time to <SpellLink spell={TALENTS_EVOKER.STASIS_TALENT}/> module</>, Trevor),
+  change(date(2024, 2, 10), <>Fix crash in <SpellLink spell={TALENTS_EVOKER.SOURCE_OF_MAGIC_TALENT} /> module.</>, Trevor),
+  change(date(2024, 2, 3), <>Implement <SpellLink spell={TALENTS_EVOKER.SOURCE_OF_MAGIC_TALENT} /> and <SpellLink spell={TALENTS_EVOKER.POTENT_MANA_TALENT} /> modules.</>, Vollmer),
+  change(date(2024, 1, 30), <>Fix more bugs in <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT}/> source breakdown module</>, Trevor),
   change(date(2024, 1, 26), <>Fix bug in <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT}/> source breakdown module and adjust mana costs</>, Trevor),
   change(date(2024, 1, 20), <>Add module for <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT}/> source breakdown</>, Trevor),
   change(date(2024, 1, 20), <>Add <SpellLink spell={TALENTS_EVOKER.LIFEBIND_TALENT}/> attribution to <SpellLink spell={TALENTS_EVOKER.GRACE_PERIOD_TALENT}/> module</>, Trevor),

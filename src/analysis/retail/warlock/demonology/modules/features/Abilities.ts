@@ -1,11 +1,12 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
-import CoreAbilities from 'parser/core/modules/Abilities';
+import SharedAbilities from 'analysis/retail/warlock/shared/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
+import { SpellbookAbility } from 'parser/core/modules/Ability';
 
-class Abilities extends CoreAbilities {
-  spellbook() {
+class Abilities extends SharedAbilities {
+  spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
     return [
       // Rotational spells
@@ -117,7 +118,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SUMMON_DEMONIC_TYRANT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 90,
+        cooldown: combatant.hasTalent(TALENTS.GRAND_WARLOCKS_DESIGN_TALENT) ? 60 : 90,
         gcd: {
           base: 1500,
         },
@@ -181,6 +182,21 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.9,
         },
       },
+      {
+        spell: TALENTS.GUILLOTINE_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 45,
+        enabled: combatant.hasTalent(TALENTS.GUILLOTINE_TALENT),
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+          averageIssueEfficiency: 0.8,
+          majorIssueEfficiency: 0.7,
+        },
+      },
 
       // Defensive
       {
@@ -196,21 +212,6 @@ class Abilities extends CoreAbilities {
           averageIssueEfficiency: 0.2,
           majorIssueEfficiency: 0.1,
         },
-      },
-      {
-        spell: TALENTS.DARK_PACT_TALENT.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: combatant.hasTalent(TALENTS.FREQUENT_DONOR_TALENT) ? 45 : 60,
-        enabled: combatant.hasTalent(TALENTS.DARK_PACT_TALENT),
-        gcd: null,
-        castEfficiency: {
-          suggestion: true,
-          importance: ISSUE_IMPORTANCE.MINOR,
-          recommendedEfficiency: 0.33,
-          averageIssueEfficiency: 0.2,
-          majorIssueEfficiency: 0.1,
-        },
-        buffSpellId: TALENTS.DARK_PACT_TALENT.id,
       },
 
       // Utility
@@ -237,28 +238,6 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.MORTAL_COIL_TALENT),
         gcd: {
           base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.DEMONIC_CIRCLE_SUMMON.id,
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: {
-          base: 1500,
-        },
-        cooldown: 10,
-        castEfficiency: {
-          suggestion: false,
-        },
-      },
-      {
-        spell: SPELLS.DEMONIC_CIRCLE_TELEPORT.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 30,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: false,
         },
       },
       {
@@ -392,6 +371,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
+      ...super.spellbook(),
     ];
   }
 }

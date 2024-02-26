@@ -13,6 +13,7 @@ import Events, {
 import {
   didSparkProcEssenceBurst,
   getEssenceBurstConsumeAbility,
+  isEbFromHardcast,
   isEbFromReversion,
   isEbFromT31Tier,
 } from '../../normalizers/CastLinkNormalizer';
@@ -95,7 +96,7 @@ class EssenceBurst extends Analyzer {
       source = EB_SOURCE.T31_LF;
     } else if (isEbFromReversion(event)) {
       source = EB_SOURCE.REVERSION;
-    } else {
+    } else if (isEbFromHardcast(event)) {
       source = EB_SOURCE.LF_HARDCAST;
     }
     return source;

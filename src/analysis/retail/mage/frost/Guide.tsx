@@ -6,6 +6,7 @@ import { formatPercentage } from 'common/format';
 import ActiveTimeGraph from 'parser/ui/ActiveTimeGraph';
 import { SpellLink } from 'interface';
 import TALENTS from 'common/TALENTS/mage';
+import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 
 export const GUIDE_CORE_EXPLANATION_PERCENT = 50;
 
@@ -48,12 +49,28 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
   return (
     <>
       <Section title="Core">
+        {modules.wintersChill.guideSubsection}
+        {modules.flurry.guideSubsection}
+        {info.combatant.hasTalent(TALENTS.GLACIAL_SPIKE_TALENT) &&
+          modules.glacialSpike.guideSubsection}
         {alwaysBeCastingSubsection}
+      </Section>
+      <Section title="Procs">
+        {info.combatant.hasTalent(TALENTS.BRAIN_FREEZE_TALENT) &&
+          modules.brainFreeze.guideSubsection}
+        {info.combatant.hasTalent(TALENTS.FINGERS_OF_FROST_TALENT) &&
+          modules.fingersOfFrost.guideSubsection}
+      </Section>
+      <Section title="Cooldowns">
         {modules.icyVeins.guideSubsection}
         {info.combatant.hasTalent(TALENTS.RAY_OF_FROST_TALENT) &&
           modules.rayOfFrost.guideSubsection}
         {info.combatant.hasTalent(TALENTS.COMET_STORM_TALENT) && modules.cometStorm.guideSubsection}
+        {info.combatant.hasTalent(TALENTS.FROZEN_ORB_TALENT) && modules.frozenOrb.guideSubsection}
+        {info.combatant.hasTalent(TALENTS.SHIFTING_POWER_TALENT) &&
+          modules.shiftingPowerFrost.guideSubsection}
       </Section>
+      <PreparationSection />
     </>
   );
 }

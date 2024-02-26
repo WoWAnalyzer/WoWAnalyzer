@@ -33,8 +33,14 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 2, 26), 'Switch icon source to the WCL CDN.', emallson),
+  change(date(2024, 2, 18), <>Fix crash in QualitativePerformance</>, Trevor),
+  change(date(2024, 2, 17), 'Add a missed realm for Classic.', Putro),
+  change(date(2024, 2, 7), 'Inspect more stack trace lines for external script sources.', ToppleTheNun),
+  change(date(2024, 2, 7), 'Mark 10.2.0 as an old patch.', ToppleTheNun),
+  change(date(2024, 2, 7), 'Fix a crash caused by bad ads.', ToppleTheNun),
   change(date(2024, 1, 19), 'Fix Dreaming Devotion showing as a cheap enchant.', emallson),
-  change(date(2024, 1, 17), 'Simplify raid types and fix M+ S3 icons not showing on fight selection.',ToppleTheNun),
+  change(date(2024, 1, 17), 'Simplify raid types and fix M+ S3 icons not showing on fight selection.', ToppleTheNun),
   change(date(2024, 1, 16), 'Add Ruby Sanctum raid and images for Classic WotLK.', jazminite),
   change(date(2024, 1, 16), 'Add patch 10.2.5.', ToppleTheNun),
   change(date(2024, 1, 11), <>Add <ItemLink id={ITEMS.POTION_OF_WITHERING_DREAMS_R3.id} /> to healing potion list.</>, ToppleTheNun),

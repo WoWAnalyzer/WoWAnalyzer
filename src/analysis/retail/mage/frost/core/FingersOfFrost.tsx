@@ -1,7 +1,7 @@
 import { formatPercentage, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
-import { SpellLink } from 'interface';
+import { SpellIcon, SpellLink, TooltipElement } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, {
   DamageEvent,
@@ -17,6 +17,11 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { SHATTER_DEBUFFS } from '../../shared';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import { qualitativePerformanceToColor } from 'interface/guide';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/mage/frost/Guide';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 class FingersOfFrost extends Analyzer {
   static dependencies = {
@@ -99,9 +104,25 @@ class FingersOfFrost extends Analyzer {
     };
   }
 
+  get munchedPerformance() {
+    let performance = QualitativePerformance.Perfect;
+    if (this.munchedPercent > 0.3) {
+      performance = QualitativePerformance.Fail;
+    } else if (this.munchedPercent > 0.2) {
+      performance = QualitativePerformance.Ok;
+    } else if (this.munchedPercent > 0.1) {
+      performance = QualitativePerformance.Good;
+    }
+    return performance;
+  }
+
+  get utilizationPercentage() {
+    return 1 - this.expiredProcs / this.totalProcs || 0;
+  }
+
   get fingersProcUtilizationThresholds() {
     return {
-      actual: 1 - this.expiredProcs / this.totalProcs || 0,
+      actual: this.utilizationPercentage,
       isLessThan: {
         minor: 0.95,
         average: 0.85,
@@ -109,6 +130,18 @@ class FingersOfFrost extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
+  }
+
+  get utilizationPerformance() {
+    let performance = QualitativePerformance.Perfect;
+    if (this.utilizationPercentage < 0.7) {
+      performance = QualitativePerformance.Fail;
+    } else if (this.utilizationPercentage < 0.85) {
+      performance = QualitativePerformance.Ok;
+    } else if (this.utilizationPercentage < 0.95) {
+      performance = QualitativePerformance.Good;
+    }
+    return performance;
   }
 
   suggestions(when: When) {
@@ -158,6 +191,73 @@ class FingersOfFrost extends Analyzer {
           {formatNumber(this.averageSpendDelaySeconds)}s <small>Avg. delay to spend procs</small>
         </BoringSpellValueText>
       </Statistic>
+    );
+  }
+
+  get guideSubsection() {
+    const fingersOfFrost = <SpellLink spell={TALENTS.FINGERS_OF_FROST_TALENT} />;
+    const brainFreeze = <SpellLink spell={TALENTS.BRAIN_FREEZE_TALENT} />;
+    const wintersChill = <SpellLink spell={SPELLS.WINTERS_CHILL} />;
+
+    const fingersOfFrostIcon = <SpellIcon spell={TALENTS.FINGERS_OF_FROST_TALENT} />;
+
+    const explanation = (
+      <div>
+        <p>
+          Try to utilize {fingersOfFrost} procs before {brainFreeze} if you have both of them. By
+          doing this you will avoid "munching" {fingersOfFrost} procs.
+        </p>
+        <p>
+          "Munching" a proc refers to a situation where you have a {fingersOfFrost} proc at the same
+          time that {wintersChill} is on the target. This essentially leads to a wasted
+          {fingersOfFrost} proc since {fingersOfFrost} and {wintersChill} both do the same thing.
+          Because of the way {fingersOfFrost} works, this is sometimes unavoidable.
+        </p>
+      </div>
+    );
+
+    const utilizationTooltip = (
+      <>
+        {this.totalProcs - this.expiredProcs} / {this.totalProcs} procs
+      </>
+    );
+
+    const munchedTooltip = <>{this.munchedProcs} procs</>;
+
+    const data = (
+      <div>
+        <RoundedPanel>
+          <div
+            style={{
+              color: qualitativePerformanceToColor(this.utilizationPerformance),
+              fontSize: '20px',
+            }}
+          >
+            {fingersOfFrostIcon}{' '}
+            <TooltipElement content={utilizationTooltip}>
+              {formatPercentage(this.utilizationPercentage, 0)} % <small>utilization</small>
+            </TooltipElement>
+          </div>
+          <div
+            style={{
+              color: qualitativePerformanceToColor(this.munchedPerformance),
+              fontSize: '20px',
+            }}
+          >
+            {fingersOfFrostIcon}{' '}
+            <TooltipElement content={munchedTooltip}>
+              {formatPercentage(this.munchedPercent, 0)} % <small>munched</small>
+            </TooltipElement>
+          </div>
+        </RoundedPanel>
+      </div>
+    );
+
+    return explanationAndDataSubsection(
+      explanation,
+      data,
+      GUIDE_CORE_EXPLANATION_PERCENT,
+      'Fingers of Frost',
     );
   }
 }

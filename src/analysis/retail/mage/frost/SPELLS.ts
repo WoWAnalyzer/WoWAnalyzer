@@ -65,7 +65,7 @@ const spells = {
   GLACIAL_SPIKE_BUFF: {
     id: 199844,
     name: 'Glacial Spike!',
-    icon: 'spell_frost_frostbolt',
+    icon: 'ability_mage_glacialspike',
   },
   BLIZZARD_DAMAGE: {
     id: 190357,
@@ -95,7 +95,7 @@ const spells = {
   GLACIAL_SPIKE_DAMAGE: {
     id: 228600,
     name: 'Glacial Spike',
-    icon: 'spell_frost_frostbolt',
+    icon: 'ability_mage_glacialspike',
   },
   RING_OF_FROST_DAMAGE: {
     id: 82691,
