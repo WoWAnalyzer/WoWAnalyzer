@@ -446,7 +446,7 @@ const talents = {
     definitionIds: [{ id: 101231, specId: 251 }],
   },
   EMPOWER_RUNE_WEAPON_SHARED_TALENT: {
-    id: 47568,
+    id: 392962,
     name: 'Empower Rune Weapon',
     icon: 'inv_sword_62',
     maxRanks: 1,

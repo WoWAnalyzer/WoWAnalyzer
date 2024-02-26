@@ -107,7 +107,7 @@ const entryToSpell = (
 ): GenericTalentInterface => ({
   id: entry.spellId!,
   name: entry.name!,
-  icon: entry.icon,
+  icon: entry.icon.replace(/\.(tga|jpg)$/, ''),
   //additional DF tree information
   maxRanks: entry.maxRanks,
   //reqPoints: classTalent.reqPoints ?? 0,

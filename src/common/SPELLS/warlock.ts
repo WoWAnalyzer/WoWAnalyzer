@@ -22,7 +22,7 @@ const spells = {
   CREATE_HEALTHSTONE: {
     id: 6201,
     name: 'Create Healthstone',
-    icon: 'warlock_healthstone',
+    icon: 'warlock_-healthstone',
   },
   CREATE_SOULWELL: {
     id: 29893,
