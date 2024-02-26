@@ -202,6 +202,12 @@ const spells = {
     name: 'Demonic Power',
     icon: 'warlock_grimoireofsacrifice',
   },
+  // this shows up on logs as a player cast but is fully automatic
+  INQUISITORS_GAZE_CAST: {
+    id: 400185,
+    name: 'Fel Barrage',
+    icon: 'ability_felarakkoa_feldetonation_green',
+  },
 
   // ----------
   // AFFLICTION
@@ -687,6 +693,27 @@ const spells = {
     id: 394776,
     name: 'Blazing Meteor',
     icon: 'ability_warlock_handofguldan',
+  },
+  // T31 Amirdrassil
+  DOOM_BRAND_DAMAGE: {
+    id: 423584,
+    name: 'Doom Brand',
+    icon: 'spell_warlock_demonwrath',
+  },
+  DOOM_BRAND_DEBUFF: {
+    id: 423583,
+    name: 'Doom Brand',
+    icon: 'spell_warlock_demonwrath',
+  },
+  DOOMFIEND_SUMMON: {
+    id: 423585,
+    name: 'Doomfiend',
+    icon: 'warlock_summon_doomguard',
+  },
+  DOOMFIEND_DOOM_BOLT_VOLLEY: {
+    id: 423734,
+    name: 'Doom Bolt Volley',
+    icon: 'spell_shadow_shadowbolt',
   },
 
   // -----------

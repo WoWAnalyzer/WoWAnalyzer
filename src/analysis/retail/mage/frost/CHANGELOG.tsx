@@ -6,6 +6,7 @@ import { Earosselot, Sharrq, Sref, ToppleTheNun } from 'CONTRIBUTORS';
 
 // prettier-ignore
 export default [
+  change(date(2024, 2, 22), <>Html fixes and <SpellLink spell={TALENTS.SHIFTING_POWER_TALENT} /> cd reduction correction </>, Earosselot),
   change(date(2024, 2, 2), <>Added <SpellLink spell={TALENTS.GLACIAL_SPIKE_TALENT} />, <SpellLink spell={TALENTS.BRAIN_FREEZE_TALENT} /> and <SpellLink spell={TALENTS.FINGERS_OF_FROST_TALENT} /> to Guide view</>, Earosselot),
   change(date(2024, 1, 31), <>Added <SpellLink spell={TALENTS.FROZEN_ORB_TALENT} />, <SpellLink spell={TALENTS.SHIFTING_POWER_TALENT} />, <SpellLink spell={TALENTS.FLURRY_TALENT} /> and Preparation Section to Guide view</>, Earosselot),
   change(date(2024, 1, 23), <>Added <SpellLink spell={SPELLS.WINTERS_CHILL} /> to Guide View</>, Earosselot),
