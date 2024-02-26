@@ -1,0 +1,67 @@
+import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/warlock';
+import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
+import CoreAbilities from 'parser/core/modules/Abilities';
+import { SpellbookAbility } from 'parser/core/modules/Ability';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
+
+class Abilities extends CoreAbilities {
+  spellbook(): SpellbookAbility[] {
+    const combatant = this.selectedCombatant;
+
+    // moving class abilities here as theyre updated
+    return [
+      // Offensive
+      {
+        spell: SPELLS.INQUISITORS_GAZE_CAST.id,
+        category: SPELL_CATEGORY.OTHERS,
+        enabled: combatant.hasTalent(TALENTS.INQUISITORS_GAZE_TALENT),
+      },
+
+      // Defensive
+      {
+        spell: TALENTS.DARK_PACT_TALENT.id,
+        category: SPELL_CATEGORY.DEFENSIVE,
+        cooldown: combatant.hasTalent(TALENTS.FREQUENT_DONOR_TALENT) ? 45 : 60,
+        enabled: combatant.hasTalent(TALENTS.DARK_PACT_TALENT),
+        gcd: null,
+        castEfficiency: {
+          suggestion: true,
+          importance: ISSUE_IMPORTANCE.REGULAR,
+          recommendedEfficiency: 0.6,
+          averageIssueEfficiency: 0.4,
+          majorIssueEfficiency: 0.2,
+        },
+        buffSpellId: TALENTS.DARK_PACT_TALENT.id,
+      },
+
+      // Utility
+      {
+        spell: SPELLS.DEMONIC_CIRCLE_SUMMON.id,
+        category: SPELL_CATEGORY.UTILITY,
+        enabled: combatant.hasTalent(TALENTS.DEMONIC_CIRCLE_TALENT),
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 10,
+      },
+      {
+        spell: SPELLS.DEMONIC_CIRCLE_TELEPORT.id,
+        category: SPELL_CATEGORY.UTILITY,
+        enabled: combatant.hasTalent(TALENTS.DEMONIC_CIRCLE_TALENT),
+        cooldown: 30,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: TALENTS.SOULBURN_TALENT.id,
+        category: SPELL_CATEGORY.UTILITY,
+        enabled: combatant.hasTalent(TALENTS.SOULBURN_TALENT),
+        cooldown: 6,
+      },
+    ];
+  }
+}
+
+export default Abilities;

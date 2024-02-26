@@ -52,14 +52,12 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     felstorm: Felstorm,
     checklist: Checklist,
-    summonDemonicTyrant: SummonDemonicTyrant,
     legionStrike: LegionStrike,
 
     // Core
     soulShardTracker: SoulShardTracker,
     soulShardDetails: SoulShardDetails,
     soulshardGraph: SoulShardGraph,
-    demonicCircle: DemonicCircle,
 
     // Pets
     demoPets: DemoPets,
@@ -76,6 +74,7 @@ class CombatLogParser extends CoreCombatLogParser {
     powerSiphonNormalizer: PowerSiphonNormalizer,
 
     // Talents
+    summonDemonicTyrant: SummonDemonicTyrant,
     dreadlash: Dreadlash,
     demonicStrength: DemonicStrength,
     bilescourgeBombers: BilescourgeBombers,
@@ -92,7 +91,10 @@ class CombatLogParser extends CoreCombatLogParser {
     netherPortal: NetherPortal,
     shadowsBite: ShadowsBite,
     dreadCalling: DreadCalling,
+
+    // Shared Talents
     darkPact: DarkPact,
+    demonicCircle: DemonicCircle,
 
     // Items
     vaultOfTheIncarnates4Set: DemonologyWarlockVaultOfTheIncarnates4Set,
