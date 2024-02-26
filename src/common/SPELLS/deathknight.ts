@@ -95,6 +95,13 @@ const spells = {
     icon: 'ability_deathknight_roilingblood',
   },
 
+  // Other
+  HEARTBREAKER_ENERGIZE: {
+    id: 210738,
+    name: 'Heartbreaker',
+    icon: 'spell_deathknight_deathstrike',
+  },
+
   // Frost:
 
   // Damage Dealing
