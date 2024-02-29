@@ -214,7 +214,7 @@ class StatTracker extends Analyzer {
     { base: 0.1, scaled: 0.1, penaltyAboveThis: 0.2 },
     { base: 0.15, scaled: 0.14, penaltyAboveThis: 0.4 },
     { base: 0.2, scaled: 0.17, penaltyAboveThis: 0.6 },
-    { base: 0.25, scaled: 0.19, penaltyAboveThis: 0.8 },
+    { base: 0.25, scaled: 0.19, penaltyAboveThis: 0.6 },
     { base: 1, scaled: 0.49, penaltyAboveThis: 1 },
   ];
 
