@@ -108,6 +108,10 @@ import AmalgamsSeventhSpine from 'parser/retail/modules/items/dragonflight/Amalg
 import ElementalLariat from 'parser/retail/modules/items/dragonflight/ElementalLariat';
 import EchoingTyrstone from 'parser/retail/modules/items/dragonflight/EchoingTyrstone';
 import Fyralath from 'parser/retail/modules/items/dragonflight/Fyralath';
+import Dreambinder from 'parser/retail/modules/items/dragonflight/Dreambinder';
+import Iridal from 'parser/retail/modules/items/dragonflight/Iridal';
+import BelorrelosTheSuncaller from 'parser/retail/modules/items/dragonflight/BelorrelosTheSuncaller';
+import NymuesUnravelingSpindle from 'parser/retail/modules/items/dragonflight/NymuesUnravelingSpindle';
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
@@ -229,6 +233,10 @@ class CombatLogParser {
     elementalLariat: ElementalLariat,
     echoingTyrstone: EchoingTyrstone,
     fyralath: Fyralath,
+    dreambinder: Dreambinder,
+    iridal: Iridal,
+    belorrelosTheSuncaller: BelorrelosTheSuncaller,
+    nymuesUnravelingSpindle: NymuesUnravelingSpindle,
 
     // Enchants
     burningDevotion: BurningDevotion,
