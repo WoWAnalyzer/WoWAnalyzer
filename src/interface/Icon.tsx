@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import BAD_ICONS from './BAD_ICONS';
+import BAD_ICONS, { ICON_RENAME } from './BAD_ICONS';
 
 export interface IconProps extends React.HTMLAttributes<HTMLImageElement> {
   icon?: string;
@@ -18,6 +18,10 @@ const Icon = ({ icon, className, alt = '', ...others }: IconProps) => {
     return null;
   }
   icon = icon.replace('.jpg', '');
+
+  if (ICON_RENAME[icon]) {
+    icon = ICON_RENAME[icon];
+  }
 
   let baseURL = `https://assets.rpglogs.com/img/warcraft/abilities`;
   if (BAD_ICONS.includes(icon)) {
