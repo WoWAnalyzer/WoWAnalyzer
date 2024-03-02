@@ -26,14 +26,16 @@ import {
   Seriousnes,
   Arlie,
   LucasLevyOB,
-  dub
+  dub,
+  Zyer,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
-  change(date(2024, 2, 29), 'Correct incorrect tertiary stat scaling above 25% raw and 19% character sheet rating', Putro),
+  change(date(2024, 3, 2), 'Correct incorrect tertiary stat scaling above 25% raw and 19% character sheet rating', Putro),
+  change(date(2024, 2, 26), <>Added checklist support for <ItemLink id={ITEMS.IRIDAL_THE_EARTHS_MASTER.id}/>, <ItemLink id={ITEMS.DREAMBINDER_LOOM_OF_THE_GREAT_CYCLE.id}/>, <ItemLink id={ITEMS.BELORRELOS_THE_SUNCALLER.id}/>, <ItemLink id={ITEMS.NYMUES_UNRAVELING_SPINDLE.id}/></>, Zyer),
   change(date(2024, 2, 26), 'Switch icon source to the WCL CDN.', emallson),
   change(date(2024, 2, 18), <>Fix crash in QualitativePerformance</>, Trevor),
   change(date(2024, 2, 17), 'Add a missed realm for Classic.', Putro),
