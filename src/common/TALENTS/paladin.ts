@@ -1406,7 +1406,7 @@ const talents = {
   SEAL_OF_CHARITY_TALENT: {
     id: 384815,
     name: 'Seal of Charity',
-    icon: 'spell_priest_power_word',
+    icon: 'spell_priest_power-word',
     maxRanks: 1,
     entryIds: [102600],
     definitionIds: [{ id: 107605, specId: 66 }],

@@ -744,7 +744,7 @@ const talents = {
   LIGHTS_PROMISE_TALENT: {
     id: 322115,
     name: "Light's Promise",
-    icon: 'spell_priest_power_word',
+    icon: 'spell_priest_power-word',
     maxRanks: 1,
     entryIds: [103721],
     definitionIds: [{ id: 108726, specId: 256 }],
@@ -1064,7 +1064,7 @@ const talents = {
   POWER_WORD_RADIANCE_TALENT: {
     id: 194509,
     name: 'Power Word: Radiance',
-    icon: 'spell_priest_power_word',
+    icon: 'spell_priest_power-word',
     maxRanks: 1,
     entryIds: [103722],
     definitionIds: [{ id: 108727, specId: 256 }],
