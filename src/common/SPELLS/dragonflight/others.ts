@@ -42,6 +42,16 @@ const others = {
     name: "Rage of Fyr'alath",
     icon: 'inv_axe_2h_fyrakk_d_01_shadowflame',
   },
+  IRIDAL_EXTINCTION_BLAST_DAMAGE: {
+    id: 419278,
+    name: 'Extinction Blast',
+    icon: 'inv_staff_2h_blackdragonoutdoor_d_01',
+  },
+  DREAMBINDER_WEB_OF_DREAMS_DAMAGE: {
+    id: 427113,
+    name: 'Web of Dreams',
+    icon: 'inv_staff_2h_dreamweaver_d_01',
+  },
 } satisfies Record<string, Spell>;
 
 export default others;

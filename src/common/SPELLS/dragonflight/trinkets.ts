@@ -86,6 +86,16 @@ const spells = {
     name: 'Echoing Tyrstone',
     icon: 'achievement_dungeon_ulduarraid_titan_01',
   },
+  NYMUES_UNRAVELING_SPINDLE: {
+    id: 422956,
+    name: "Nymue's Unraveling Spindle",
+    icon: 'inv_cloth_outdooremeralddream_d_01_buckle',
+  },
+  BELORRELOS_SOLAR_MAELSTROM: {
+    id: 422146,
+    name: 'Solar Maelstrom',
+    icon: 'inv_10_jewelcrafting_gem3primal_titan_cut_bronze',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;

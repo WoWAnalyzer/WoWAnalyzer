@@ -81,6 +81,16 @@ const others = {
     name: "Fyr'alath the Dreamrender",
     icon: 'inv_axe_2h_fyrakk_d_01_shadowflame',
   },
+  IRIDAL_THE_EARTHS_MASTER: {
+    id: 208321,
+    name: "Iridal, the Earth's Master",
+    icon: 'inv_staff_2h_dracthyr_c_01',
+  },
+  DREAMBINDER_LOOM_OF_THE_GREAT_CYCLE: {
+    id: 208616,
+    name: 'Dreambinder, Loom of the Great Cycle',
+    icon: 'inv_staff_2h_dreamweaver_d_01',
+  },
 } satisfies Record<string, Item>;
 
 export default others;
