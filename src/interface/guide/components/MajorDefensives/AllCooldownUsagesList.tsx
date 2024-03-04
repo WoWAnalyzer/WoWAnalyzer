@@ -25,7 +25,7 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { useCallback, useState } from 'react';
 import { useMaxMitigationValue } from './Timeline';
 
-const MissingCastBoxEntry = {
+export const MissingCastBoxEntry = {
   value: QualitativePerformance.Fail,
   tooltip: (
     <PerformanceUsageRow>
@@ -34,7 +34,7 @@ const MissingCastBoxEntry = {
   ),
 };
 
-const PossibleMissingCastBoxEntry = {
+export const PossibleMissingCastBoxEntry = {
   value: QualitativePerformance.Ok,
   tooltip: (
     <PerformanceUsageRow>
@@ -44,11 +44,11 @@ const PossibleMissingCastBoxEntry = {
   ),
 };
 
-const NoData = styled.div`
+export const NoData = styled.div`
   color: #999;
 `;
 
-const CooldownUsageDetailsContainer = styled.div`
+export const CooldownUsageDetailsContainer = styled.div`
   display: grid;
   grid-template-rows: max-content max-content 1fr;
 
@@ -57,7 +57,7 @@ const CooldownUsageDetailsContainer = styled.div`
   }
 `;
 
-const TableSegmentContainer = styled.td`
+export const TableSegmentContainer = styled.td`
   line-height: 1em;
   height: 1em;
   min-width: 100px;
@@ -67,16 +67,16 @@ const TableSegmentContainer = styled.td`
   }
 `;
 
-const SmallPassFailBar = styled(PassFailBar)`
+export const SmallPassFailBar = styled(PassFailBar)`
   width: 100px;
   min-width: 100px;
 `;
 
-const NumericColumn = styled.td`
+export const NumericColumn = styled.td`
   text-align: right;
 `;
 
-const CooldownDetailsContainer = styled.div`
+export const CooldownDetailsContainer = styled.div`
   display: grid;
   margin-top: 1rem;
   grid-template-areas: 'talent source';
