@@ -308,7 +308,7 @@ const CooldownUsage = ({
   );
 
   return (
-    <SubSection>
+    <SubSection title={analyzer.spell.name}>
       <ExplanationRow>
         <Explanation>{analyzer.description()}</Explanation>
         <CooldownUsageDetailsContainer>
