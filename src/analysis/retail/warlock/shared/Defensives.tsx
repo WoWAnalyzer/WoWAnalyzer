@@ -19,7 +19,10 @@ function DefensivesGuide({ modules }: GuideProps<CombatLogParserType>) {
   return (
     <Section title="Defensives">
       <HideExplanationsToggle id="hide-explanations-major-defensives" />
-      <Explanation>TODO explanation</Explanation>
+      <Explanation>
+        Using our defensives effectively not only improves our own survivability but also allows our
+        healers to better focus on other members of the group.
+      </Explanation>
       <SubSection title="Damage Taken">
         <Timeline analyzers={useAnalyzers(defensiveAnalyzers)} />
       </SubSection>
