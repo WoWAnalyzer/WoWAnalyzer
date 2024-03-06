@@ -5,8 +5,9 @@ import CombatLogParserAff from '../affliction/CombatLogParser';
 import CombatLogParserDemo from '../demonology/CombatLogParser';
 import CombatLogParserDestro from '../destruction/CombatLogParser';
 import Timeline from 'interface/guide/components/MajorDefensives/Timeline';
-import DarkPact from './talents/DarkPact';
-// import AllCooldownUsageList from "interface/guide/components/MajorDefensives/AllCooldownUsagesList";
+import DarkPact from './spells/DarkPact';
+import UnendingResolve from './spells/UnendingResolve';
+import AllCooldownUsageList from 'interface/guide/components/MajorDefensives/AllCooldownUsagesList';
 
 type CombatLogParserType =
   | typeof CombatLogParserAff
@@ -14,7 +15,7 @@ type CombatLogParserType =
   | typeof CombatLogParserDestro;
 
 function DefensivesGuide({ modules }: GuideProps<CombatLogParserType>) {
-  const defensiveAnalyzers = [DarkPact];
+  const defensiveAnalyzers = [DarkPact, UnendingResolve];
   return (
     <Section title="Defensives">
       <HideExplanationsToggle id="hide-explanations-major-defensives" />
@@ -23,7 +24,7 @@ function DefensivesGuide({ modules }: GuideProps<CombatLogParserType>) {
         <Timeline analyzers={useAnalyzers(defensiveAnalyzers)} />
       </SubSection>
       {modules.darkPact.guideSubsection}
-      {/* <AllCooldownUsageList analyzers={useAnalyzers(defensiveAnalyzers)} /> */}
+      <AllCooldownUsageList analyzers={useAnalyzers([UnendingResolve])} />
     </Section>
   );
 }
