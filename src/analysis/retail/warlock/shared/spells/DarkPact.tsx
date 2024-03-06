@@ -258,7 +258,7 @@ class DarkPact extends MajorDefensiveBuff {
     );
 
     return (
-      <SubSection>
+      <SubSection title="Dark Pact">
         <ExplanationRow>
           <Explanation>{this.description()}</Explanation>
           <CooldownUsageDetailsContainer>
@@ -365,7 +365,7 @@ const CooldownDetails = ({
             </td>
           </tr>
           <tr>
-            <td>Health %</td>
+            <td>HP %</td>
             <NumericColumn>{formatPercentage(dpCast.hpPercentPreCast, 0)}%</NumericColumn>
             <TableSegmentContainer>
               <MitigationTooltipSegment
@@ -381,7 +381,7 @@ const CooldownDetails = ({
             </TableSegmentContainer>
           </tr>
           <tr>
-            <td>Shield Amount</td>
+            <td>Shield</td>
             <NumericColumn>{formatNumber(mit.amount)}</NumericColumn>
             <TableSegmentContainer>
               <MitigationTooltipSegment

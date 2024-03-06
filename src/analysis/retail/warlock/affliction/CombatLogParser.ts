@@ -34,7 +34,7 @@ import UnstableAfflictionUptime from './modules/spells/UnstableAffliction';
 import VileTaint from './modules/spells/VileTaint';
 import WrathOfConsumption from './modules/spells/WrathOfConsumption';
 import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
-import { DarkPact, DemonicCircle } from '../shared';
+import { UnendingResolve, DarkPact, DemonicCircle } from '../shared';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -80,7 +80,8 @@ class CombatLogParser extends CoreCombatLogParser {
     vileTaint: VileTaint,
     wrathOfConsumption: WrathOfConsumption,
 
-    // Shared Talents
+    // Shared Spells
+    unendingResolve: UnendingResolve,
     darkPact: DarkPact,
     demonicCircle: DemonicCircle,
 
