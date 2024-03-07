@@ -51,6 +51,10 @@ class PotentMana extends SourceOfMagic {
   }
 
   async load() {
+    if (!this.sourceOfMagicWindows.length) {
+      return;
+    }
+
     const fetchPromises = {
       healingTable: await fetchWcl<WCLHealingTableResponse>(
         `report/tables/healing/${this.owner.report.code}`,
