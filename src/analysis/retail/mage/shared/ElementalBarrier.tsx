@@ -31,8 +31,8 @@ class ElementalBarrier extends Analyzer {
       spec === SPECS.FROST_MAGE.id
         ? TALENTS.ICE_BARRIER_TALENT
         : spec === SPECS.FIRE_MAGE.id
-        ? TALENTS.BLAZING_BARRIER_TALENT
-        : TALENTS.PRISMATIC_BARRIER_TALENT;
+          ? TALENTS.BLAZING_BARRIER_TALENT
+          : TALENTS.PRISMATIC_BARRIER_TALENT;
     this.addEventListener(
       Events.absorbed.by(SELECTED_PLAYER).spell(this.barrierSpell),
       this.onDamageAbsorbed,
