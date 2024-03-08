@@ -64,6 +64,7 @@ const TableSegmentContainer = styled.td`
 
   ${MitigationTooltipSegment} {
     margin-top: 0.1em;
+    height: 1em;
   }
 `;
 
