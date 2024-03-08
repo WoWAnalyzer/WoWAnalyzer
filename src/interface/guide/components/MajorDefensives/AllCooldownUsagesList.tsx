@@ -25,7 +25,7 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { useCallback, useState } from 'react';
 import { useMaxMitigationValue } from './Timeline';
 
-export const MissingCastBoxEntry = {
+const MissingCastBoxEntry = {
   value: QualitativePerformance.Fail,
   tooltip: (
     <PerformanceUsageRow>
@@ -34,7 +34,7 @@ export const MissingCastBoxEntry = {
   ),
 };
 
-export const PossibleMissingCastBoxEntry = {
+const PossibleMissingCastBoxEntry = {
   value: QualitativePerformance.Ok,
   tooltip: (
     <PerformanceUsageRow>
@@ -48,7 +48,7 @@ export const NoData = styled.div`
   color: #999;
 `;
 
-export const CooldownUsageDetailsContainer = styled.div`
+const CooldownUsageDetailsContainer = styled.div`
   display: grid;
   grid-template-rows: max-content max-content 1fr;
 
@@ -108,7 +108,7 @@ export const CooldownDetailsContainer = styled.div`
   }
 `;
 
-type CooldownDetailsProps = {
+export type CooldownDetailsProps = {
   analyzer: MajorDefensive<any, any>;
   mit?: Mitigation;
 };
@@ -276,10 +276,12 @@ const CooldownUsage = ({
   analyzer,
   maxValue,
   cooldownDetails: Details,
+  showTitles = false,
 }: {
   analyzer: MajorDefensive<any, any>;
   maxValue: number;
   cooldownDetails: (props: CooldownDetailsProps) => JSX.Element | null;
+  showTitles?: boolean;
 }) => {
   const [selectedMit, setSelectedMit] = useState<number | undefined>();
   const castEfficiency = useAnalyzer(CastEfficiency)?.getCastEfficiencyForSpell(analyzer.spell);
@@ -320,7 +322,7 @@ const CooldownUsage = ({
   );
 
   return (
-    <SubSection title={analyzer.spell.name}>
+    <SubSection title={showTitles ? analyzer.spell.name : undefined}>
       <ExplanationRow>
         <Explanation>{analyzer.description()}</Explanation>
         <CooldownUsageDetailsContainer>
@@ -361,10 +363,10 @@ const CooldownUsage = ({
 
 type Props = {
   analyzers: readonly MajorDefensive<any, any>[];
-  cooldownDetails?: (props: CooldownDetailsProps) => JSX.Element | null;
+  showTitles?: boolean;
 };
 
-const AllCooldownUsageList = ({ analyzers, cooldownDetails = CooldownDetails }: Props) => {
+const AllCooldownUsageList = ({ analyzers, showTitles }: Props) => {
   const maxValue = useMaxMitigationValue(analyzers);
   return (
     <div>
@@ -373,9 +375,10 @@ const AllCooldownUsageList = ({ analyzers, cooldownDetails = CooldownDetails }: 
         .map((analyzer) => (
           <CooldownUsage
             key={analyzer.constructor.name}
+            showTitles={showTitles}
             analyzer={analyzer}
             maxValue={maxValue}
-            cooldownDetails={cooldownDetails}
+            cooldownDetails={analyzer.cooldownDetailsComponent ?? CooldownDetails}
           />
         ))}
     </div>

@@ -22,22 +22,14 @@ import MajorDefensive, {
   Mitigation,
   buff,
 } from 'interface/guide/components/MajorDefensives/MajorDefensiveAnalyzer';
-import Explanation from 'interface/guide/components/Explanation';
-import { ReactNode, useCallback, useState } from 'react';
+import { ReactNode } from 'react';
 import { color } from 'game/MAGIC_SCHOOLS';
 import { MitigationTooltipSegment } from 'interface/guide/components/MajorDefensives/MitigationSegments';
-import { BadColor, OkColor, SubSection } from 'interface/guide';
-import ExplanationRow from 'interface/guide/components/ExplanationRow';
-import { TooltipElement } from 'interface';
-import { Highlight } from 'interface/Highlight';
-import { PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import {
   CooldownDetailsContainer,
-  CooldownUsageDetailsContainer,
-  MissingCastBoxEntry,
+  CooldownDetailsProps,
   NoData,
   NumericColumn,
-  PossibleMissingCastBoxEntry,
   TableSegmentContainer,
 } from 'interface/guide/components/MajorDefensives/AllCooldownUsagesList';
 import {
@@ -215,88 +207,21 @@ class DarkPact extends MajorDefensiveBuff {
     );
   }
 
-  get guideSubsection(): JSX.Element {
-    return this.cooldownUsage();
+  get cooldownDetailsComponent() {
+    return ({ analyzer, mit }: CooldownDetailsProps) => {
+      return (
+        <CooldownDetails
+          analyzer={analyzer}
+          mit={mit}
+          dpCast={
+            mit
+              ? this.casts.find((cast) => cast.applyEvent.timestamp === mit.start.timestamp)
+              : undefined
+          }
+        />
+      );
+    };
   }
-
-  cooldownUsage = () => {
-    const [selectedMit, setSelectedMit] = useState<number | undefined>();
-    const possibleUses = this.possibleCasts;
-    const performance = super.mitigationPerformance(1000000); // TODO FIX PARAMETER
-    const actualCasts = performance.length;
-
-    if (actualCasts === 0 && possibleUses > 1) {
-      // if they didn't cast it and could have multiple times, we call all possible uses bad
-      //
-      // the possibleUses > 1 check excludes this from happening on very short fights (such as early wipes)
-      for (let i = 0; i < possibleUses; i += 1) {
-        performance.push(MissingCastBoxEntry);
-      }
-    } else {
-      // if they cast it at least once, have some forgiveness. up to half (rounded up)
-      // of possible casts get a yellow color. any beyond that are red.
-      for (let i = possibleUses; i > actualCasts; i -= 1) {
-        if (i > possibleUses / 2) {
-          performance.push(PossibleMissingCastBoxEntry);
-        } else {
-          performance.push(MissingCastBoxEntry);
-        }
-      }
-    }
-
-    const mitigations = this.mitigations;
-
-    const onClickBox = useCallback(
-      (index) => {
-        if (index >= mitigations.length) {
-          setSelectedMit(undefined);
-        } else {
-          setSelectedMit(index);
-        }
-      },
-      [mitigations.length],
-    );
-
-    return (
-      <SubSection title="Dark Pact">
-        <ExplanationRow>
-          <Explanation>{this.description()}</Explanation>
-          <CooldownUsageDetailsContainer>
-            <div>
-              <strong>Cast Breakdown</strong>{' '}
-              <small>
-                - These boxes each cast, colored by how much damage was mitigated. Missed casts are
-                also shown in{' '}
-                <TooltipElement content="Used for casts that may have been skipped in order to cover major damage events.">
-                  <Highlight color={OkColor} textColor="black">
-                    yellow
-                  </Highlight>
-                </TooltipElement>{' '}
-                or{' '}
-                <TooltipElement content="Used for casts that could have been used without impacting your other usage.">
-                  <Highlight color={BadColor} textColor="white">
-                    red
-                  </Highlight>
-                </TooltipElement>
-                .
-              </small>
-            </div>
-            <PerformanceBoxRow
-              values={performance.map((p, ix) =>
-                ix === selectedMit ? { ...p, className: 'selected' } : p,
-              )}
-              onClickBox={onClickBox}
-            />
-            <CooldownDetails
-              mit={selectedMit !== undefined ? mitigations[selectedMit] : undefined}
-              dpCast={selectedMit !== undefined ? this.casts[selectedMit] : undefined}
-              analyzer={this}
-            />
-          </CooldownUsageDetailsContainer>
-        </ExplanationRow>
-      </SubSection>
-    );
-  };
 }
 
 const CooldownDetails = ({
