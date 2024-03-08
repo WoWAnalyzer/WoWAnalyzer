@@ -3,8 +3,6 @@ import TALENTS from 'common/TALENTS/priest';
 import Combatants from 'parser/shared/modules/Combatants';
 import BaseHealerStatValues from 'parser/shared/modules/features/BaseHealerStatValues';
 import STAT from 'parser/shared/modules/features/STAT';
-import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
-import StatTracker from 'parser/shared/modules/StatTracker';
 
 import Mastery from '../core/EchoOfLightMastery';
 import PRIEST_HEAL_INFO from './StatValuesSpellInfo';
@@ -13,13 +11,10 @@ class StatWeights extends BaseHealerStatValues {
   static dependencies = {
     ...BaseHealerStatValues.dependencies,
     combatants: Combatants,
-    critEffectBonus: CritEffectBonus,
-    statTracker: StatTracker,
     mastery: Mastery,
   };
   spellInfo = PRIEST_HEAL_INFO;
   qeLive = false;
-  protected statTracker!: StatTracker;
 
   _hasteHpm(event: any, healVal: any) {
     if (event.ability.guid === TALENTS.RENEW_TALENT.id && !event.tick) {
