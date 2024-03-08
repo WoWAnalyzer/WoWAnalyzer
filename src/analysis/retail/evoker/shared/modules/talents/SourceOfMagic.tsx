@@ -121,7 +121,7 @@ class SourceOfMagic extends Analyzer {
   }
 
   statistic() {
-    if (!this.active || !this.sourceOfMagicWindows.length) {
+    if (!this.active) {
       return null;
     }
 
