@@ -9,7 +9,6 @@ import Events from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import EarlyDotRefreshesAnalyzer from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshes';
 import badRefreshSuggestion from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshesSuggestionByCount';
-import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
@@ -18,13 +17,6 @@ import { TALENTS_SHAMAN } from 'common/TALENTS';
 export const FLAMESHOCK_BASE_DURATION = 18000;
 
 class FlameShock extends EarlyDotRefreshesAnalyzer {
-  static dependencies = {
-    ...EarlyDotRefreshesAnalyzer.dependencies,
-    enemies: Enemies,
-  };
-
-  protected enemies!: Enemies;
-
   static dots = [
     {
       name: 'Flame Shock',
