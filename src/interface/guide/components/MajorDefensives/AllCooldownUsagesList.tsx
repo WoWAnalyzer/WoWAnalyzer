@@ -81,11 +81,12 @@ const CooldownDetailsContainer = styled.div`
   display: grid;
   margin-top: 1rem;
   grid-template-areas: 'talent source';
-  grid-template-columns: 40% 1fr;
+  grid-template-columns: max-content 1fr;
 
   gap: 1rem;
   height: 100%;
   align-items: start;
+  justify-content: space-between;
 
   ${NoData} {
     justify-self: center;
@@ -107,13 +108,12 @@ const CooldownDetailsContainer = styled.div`
   }
 `;
 
-const CooldownDetails = ({
-  analyzer,
-  mit,
-}: {
+type CooldownDetailsProps = {
   analyzer: MajorDefensive<any, any>;
   mit?: Mitigation;
-}) => {
+};
+
+const CooldownDetails = ({ analyzer, mit }: CooldownDetailsProps) => {
   if (!mit) {
     return (
       <CooldownDetailsContainer>
@@ -122,8 +122,84 @@ const CooldownDetails = ({
     );
   }
 
+  return (
+    <CooldownDetailsContainer>
+      <BreakdownByTalent analyzer={analyzer} mit={mit} />
+      <BreakdownByDamageSource mit={mit} />
+    </CooldownDetailsContainer>
+  );
+};
+
+const BreakdownByTalent = ({ analyzer, mit }: Required<CooldownDetailsProps>) => {
   const segments = analyzer.mitigationSegments(mit);
 
+  const maxValue = Math.max(analyzer.firstSeenMaxHp, mit.amount, mit.maxAmount ?? 0);
+
+  return (
+    <table>
+      <tbody>
+        <tr>
+          <td>Total Mitigated</td>
+          <NumericColumn>{formatNumber(mit.amount)}</NumericColumn>
+          <td>
+            <SmallPassFailBar
+              pass={mit.amount}
+              total={analyzer.firstSeenMaxHp}
+              passTooltip="Amount of damage mitigated, relative to your maximum health"
+            />
+          </td>
+        </tr>
+        {mit.maxAmount && (
+          <tr>
+            <td>{analyzer.maxMitigationDescription()}</td>
+            <NumericColumn>{formatNumber(mit.maxAmount)}</NumericColumn>
+            <TableSegmentContainer>
+              <MitigationTooltipSegment
+                color="rgba(255, 255, 255, 0.25)"
+                maxWidth={100}
+                width={mit.maxAmount / maxValue}
+              />
+            </TableSegmentContainer>
+          </tr>
+        )}
+        <tr>
+          <td colSpan={3}>
+            <strong>Mitigation by Talent</strong>
+          </td>
+        </tr>
+        {segments.map((seg, ix) => (
+          <tr key={ix}>
+            <td>{seg.description}</td>
+            <NumericColumn>{formatNumber(seg.amount)}</NumericColumn>
+            <TableSegmentContainer>
+              {ix > 0 && (
+                <MitigationTooltipSegment
+                  color="rgba(255, 255, 255, 0.05)"
+                  maxWidth={100}
+                  width={segments.slice(0, ix).reduce((a, b) => a + b.amount, 0) / maxValue}
+                />
+              )}
+              <MitigationTooltipSegment
+                color={seg.color}
+                width={seg.amount / maxValue}
+                maxWidth={100}
+              />
+              {ix < segments.length - 1 && (
+                <MitigationTooltipSegment
+                  color="rgba(255, 255, 255, 0.05)"
+                  maxWidth={100}
+                  width={segments.slice(ix + 1).reduce((a, b) => a + b.amount, 0) / maxValue}
+                />
+              )}
+            </TableSegmentContainer>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+};
+
+const BreakdownByDamageSource = ({ mit }: Pick<Required<CooldownDetailsProps>, 'mit'>) => {
   const damageTakenBreakdown = damageBreakdown(
     mit.mitigated,
     (event) => (HasAbility(event.event) ? event.event.ability.guid : 0),
@@ -155,111 +231,44 @@ const CooldownDetails = ({
     damageTakenRows.map(([, events]) => events.reduce((a, b) => a + b.mitigatedAmount, 0)),
   );
 
-  const maxValue = Math.max(analyzer.firstSeenMaxHp, mit.amount, mit.maxAmount ?? 0);
-
   return (
-    <CooldownDetailsContainer>
-      <table>
-        <tbody>
-          <tr>
-            <td>Total Mitigated</td>
-            <NumericColumn>{formatNumber(mit.amount)}</NumericColumn>
-            <td>
-              <SmallPassFailBar
-                pass={mit.amount}
-                total={analyzer.firstSeenMaxHp}
-                passTooltip="Amount of damage mitigated, relative to your maximum health"
-              />
-            </td>
-          </tr>
-          {mit.maxAmount && (
-            <tr>
-              <td>{analyzer.maxMitigationDescription()}</td>
-              <NumericColumn>{formatNumber(mit.maxAmount)}</NumericColumn>
-              <TableSegmentContainer>
-                <MitigationTooltipSegment
-                  color="rgba(255, 255, 255, 0.25)"
-                  maxWidth={100}
-                  width={mit.maxAmount / maxValue}
-                />
-              </TableSegmentContainer>
-            </tr>
-          )}
-          <tr>
-            <td colSpan={3}>
-              <strong>Mitigation by Talent</strong>
-            </td>
-          </tr>
-          {segments.map((seg, ix) => (
+    <table>
+      <tbody>
+        <tr>
+          <td colSpan={3}>
+            <strong>Mitigation by Damage Source</strong>
+          </td>
+        </tr>
+        {damageTakenRows.map(([spellId, events], ix) => {
+          const keyEvent = events.find(({ event }) => HasAbility(event))?.event as
+            | AbilityEvent<any>
+            | undefined;
+
+          if (!keyEvent) {
+            return null;
+          }
+
+          const rowColor = color(keyEvent.ability.type);
+
+          const mitigatedAmount = events.reduce((a, b) => a + b.mitigatedAmount, 0);
+
+          return (
             <tr key={ix}>
-              <td>{seg.description}</td>
-              <NumericColumn>{formatNumber(seg.amount)}</NumericColumn>
+              <td style={{ width: '1%' }}>
+                <DamageSourceLink showSourceName={spellId === 1 && splitMelees} event={keyEvent} />
+              </td>
+              <NumericColumn>{formatNumber(mitigatedAmount)}</NumericColumn>
               <TableSegmentContainer>
-                {ix > 0 && (
-                  <MitigationTooltipSegment
-                    color="rgba(255, 255, 255, 0.05)"
-                    maxWidth={100}
-                    width={segments.slice(0, ix).reduce((a, b) => a + b.amount, 0) / maxValue}
-                  />
-                )}
                 <MitigationTooltipSegment
-                  color={seg.color}
-                  width={seg.amount / maxValue}
-                  maxWidth={100}
+                  color={rowColor}
+                  width={mitigatedAmount / maxDamageTaken}
                 />
-                {ix < segments.length - 1 && (
-                  <MitigationTooltipSegment
-                    color="rgba(255, 255, 255, 0.05)"
-                    maxWidth={100}
-                    width={segments.slice(ix + 1).reduce((a, b) => a + b.amount, 0) / maxValue}
-                  />
-                )}
               </TableSegmentContainer>
             </tr>
-          ))}
-        </tbody>
-      </table>
-      <table>
-        <tbody>
-          <tr>
-            <td colSpan={3}>
-              <strong>Mitigation by Damage Source</strong>
-            </td>
-          </tr>
-          {damageTakenRows.map(([spellId, events], ix) => {
-            const keyEvent = events.find(({ event }) => HasAbility(event))?.event as
-              | AbilityEvent<any>
-              | undefined;
-
-            if (!keyEvent) {
-              return null;
-            }
-
-            const rowColor = color(keyEvent.ability.type);
-
-            const mitigatedAmount = events.reduce((a, b) => a + b.mitigatedAmount, 0);
-
-            return (
-              <tr key={ix}>
-                <td style={{ width: '1%' }}>
-                  <DamageSourceLink
-                    showSourceName={spellId === 1 && splitMelees}
-                    event={keyEvent}
-                  />
-                </td>
-                <NumericColumn>{formatNumber(mitigatedAmount)}</NumericColumn>
-                <TableSegmentContainer>
-                  <MitigationTooltipSegment
-                    color={rowColor}
-                    width={mitigatedAmount / maxDamageTaken}
-                  />
-                </TableSegmentContainer>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </CooldownDetailsContainer>
+          );
+        })}
+      </tbody>
+    </table>
   );
 };
 
