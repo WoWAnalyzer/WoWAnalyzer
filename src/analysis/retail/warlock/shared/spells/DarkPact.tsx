@@ -3,13 +3,10 @@ import { formatNumber, formatPercentage } from 'common/format';
 import SpellLink from 'interface/SpellLink';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
-  AbilityEvent,
   AbsorbedEvent,
   ApplyBuffEvent,
   CastEvent,
   FightEndEvent,
-  HasAbility,
-  HasSource,
   RemoveBuffEvent,
 } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -18,25 +15,19 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import MajorDefensive, {
   MajorDefensiveBuff,
-  MitigatedEvent,
   Mitigation,
   buff,
 } from 'interface/guide/components/MajorDefensives/MajorDefensiveAnalyzer';
 import { ReactNode } from 'react';
-import { color } from 'game/MAGIC_SCHOOLS';
 import { MitigationTooltipSegment } from 'interface/guide/components/MajorDefensives/MitigationSegments';
 import {
+  BreakdownByDamageSource,
   CooldownDetailsContainer,
   CooldownDetailsProps,
   NoData,
   NumericColumn,
   TableSegmentContainer,
 } from 'interface/guide/components/MajorDefensives/AllCooldownUsagesList';
-import {
-  DamageSourceLink,
-  damageBreakdown,
-} from 'interface/guide/components/DamageTakenPointChart';
-import { encodeTargetString } from 'parser/shared/modules/Enemies';
 
 const debug = false;
 
@@ -247,37 +238,6 @@ const CooldownDetails = ({
     );
   }
 
-  const damageTakenBreakdown = damageBreakdown(
-    mit.mitigated,
-    (event) => (HasAbility(event.event) ? event.event.ability.guid : 0),
-    (event) => (HasSource(event.event) ? encodeTargetString(event.event.sourceID) : '0'),
-  );
-
-  const splitMelees = (damageTakenBreakdown.get(1)?.size ?? 0) > 1;
-  const damageTakenRows = Array.from(damageTakenBreakdown.entries())
-    .flatMap(([id, bySource]): [number, MitigatedEvent[]][] => {
-      if (id === 1 && splitMelees) {
-        // make each melee source its own row
-        return Array.from(bySource.values()).map((events) => [id, events]);
-      } else {
-        // put all the events into a single list.
-        return [[id, Array.from(bySource.values()).flat()]];
-      }
-    })
-    .sort(([, eventsA], [, eventsB]) => {
-      const totalA = eventsA.reduce((a, b) => a + b.mitigatedAmount, 0);
-      const totalB = eventsB.reduce((a, b) => a + b.mitigatedAmount, 0);
-
-      return totalB - totalA;
-    })
-    // limit to top 5 damage sources
-    .slice(0, 5);
-
-  const maxDamageTaken = Math.max.apply(
-    null,
-    damageTakenRows.map(([, events]) => events.reduce((a, b) => a + b.mitigatedAmount, 0)),
-  );
-
   const maxValue = Math.max(analyzer.firstSeenMaxHp, mit.amount, mit.maxAmount ?? 0);
 
   return (
@@ -331,46 +291,7 @@ const CooldownDetails = ({
           )}
         </tbody>
       </table>
-      <table>
-        <tbody>
-          <tr>
-            <td colSpan={3}>
-              <strong>Mitigation by Damage Source</strong>
-            </td>
-          </tr>
-          {damageTakenRows.map(([spellId, events], ix) => {
-            const keyEvent = events.find(({ event }) => HasAbility(event))?.event as
-              | AbilityEvent<any>
-              | undefined;
-
-            if (!keyEvent) {
-              return null;
-            }
-
-            const rowColor = color(keyEvent.ability.type);
-
-            const mitigatedAmount = events.reduce((a, b) => a + b.mitigatedAmount, 0);
-
-            return (
-              <tr key={ix}>
-                <td style={{ width: '1%' }}>
-                  <DamageSourceLink
-                    showSourceName={spellId === 1 && splitMelees}
-                    event={keyEvent}
-                  />
-                </td>
-                <NumericColumn>{formatNumber(mitigatedAmount)}</NumericColumn>
-                <TableSegmentContainer>
-                  <MitigationTooltipSegment
-                    color={rowColor}
-                    width={mitigatedAmount / maxDamageTaken}
-                  />
-                </TableSegmentContainer>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      <BreakdownByDamageSource mit={mit} />
     </CooldownDetailsContainer>
   );
 };
