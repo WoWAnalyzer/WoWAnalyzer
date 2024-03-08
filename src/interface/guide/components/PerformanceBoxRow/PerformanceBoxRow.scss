@@ -1,7 +1,33 @@
+@use 'sass:color';
+
 @import 'interface/guide/Guide';
 @import 'interface/Theme.scss';
 
-$shadow: 0 0 0px 1px hsla(45, 100%, 60%, 0.7);
+@mixin highlight-block($class-name, $base-color, $deselectedArgs...) {
+  $desaturated: color.scale($base-color, $lightness: -50%, $saturation: -30%, $deselectedArgs...);
+  #{$class-name} {
+    background-color: $base-color;
+    &.selected {
+      background-color: $base-color !important;
+    }
+    &:hover {
+      background-color: color.scale($base-color, $lightness: 10%, $saturation: 10%) !important;
+    }
+
+    /* desaturate this block if it is followed by a selected or hovered block */
+    &:has(~ .selected),
+    &:has(~ :hover) {
+      background-color: $desaturated;
+    }
+  }
+
+  /* desaturate this block if it is preceded by a selected or hovered block, or if the container is hovered (so it doesn't flicker) */
+  &:hover #{$class-name},
+  :hover ~ #{$class-name},
+  .selected ~ #{$class-name} {
+    background-color: $desaturated;
+  }
+}
 
 .performance-block-row {
   display: grid;
@@ -12,28 +38,13 @@ $shadow: 0 0 0px 1px hsla(45, 100%, 60%, 0.7);
   .performance-block {
     height: 0.8em;
     display: inline-block;
-
-    &:hover {
-      box-shadow: $shadow;
-    }
-    &.selected {
-      box-shadow: 0 0 0 2px $primaryColor;
-    }
   }
 
-  .perfect-block {
-    background-color: $perfect-perf-color;
-  }
+  @include highlight-block('.perfect-block', $perfect-perf-color);
 
-  .good-block {
-    background-color: $good-perf-color;
-  }
+  @include highlight-block('.good-block', $good-perf-color);
 
-  .ok-block {
-    background-color: $ok-perf-color;
-  }
+  @include highlight-block('.ok-block', $ok-perf-color);
 
-  .bad-block {
-    background-color: $bad-perf-color;
-  }
+  @include highlight-block('.bad-block', $bad-perf-color);
 }
