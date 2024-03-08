@@ -42,8 +42,8 @@ const ResultsLoadingIndicator = () => {
               bossPhaseEventsLoadingState === BOSS_PHASES_STATE.LOADING
                 ? 'loading'
                 : bossPhaseEventsLoadingState === BOSS_PHASES_STATE.SKIPPED
-                ? 'skipped'
-                : 'ok'
+                  ? 'skipped'
+                  : 'ok'
             }`}
           >
             {bossPhaseEventsLoadingState === BOSS_PHASES_STATE.SKIPPED && 'Skipped'}
@@ -76,8 +76,8 @@ const ResultsLoadingIndicator = () => {
               parsingState === EVENT_PARSING_STATE.WAITING
                 ? 'waiting'
                 : parsingState === EVENT_PARSING_STATE.PARSING
-                ? 'loading'
-                : 'ok'
+                  ? 'loading'
+                  : 'ok'
             }`}
           >
             {parsingState === EVENT_PARSING_STATE.WAITING && 'Waiting'}
