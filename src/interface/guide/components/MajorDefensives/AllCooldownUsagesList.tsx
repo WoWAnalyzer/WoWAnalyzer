@@ -113,7 +113,7 @@ type CooldownDetailsProps = {
   mit?: Mitigation;
 };
 
-const CooldownDetails = ({ analyzer, mit }: CooldownDetailsProps) => {
+export const CooldownDetails = ({ analyzer, mit }: CooldownDetailsProps) => {
   if (!mit) {
     return (
       <CooldownDetailsContainer>
@@ -130,7 +130,7 @@ const CooldownDetails = ({ analyzer, mit }: CooldownDetailsProps) => {
   );
 };
 
-const BreakdownByTalent = ({ analyzer, mit }: Required<CooldownDetailsProps>) => {
+export const BreakdownByTalent = ({ analyzer, mit }: Required<CooldownDetailsProps>) => {
   const segments = analyzer.mitigationSegments(mit);
 
   const maxValue = Math.max(analyzer.firstSeenMaxHp, mit.amount, mit.maxAmount ?? 0);
@@ -199,7 +199,7 @@ const BreakdownByTalent = ({ analyzer, mit }: Required<CooldownDetailsProps>) =>
   );
 };
 
-const BreakdownByDamageSource = ({ mit }: Pick<Required<CooldownDetailsProps>, 'mit'>) => {
+export const BreakdownByDamageSource = ({ mit }: Pick<Required<CooldownDetailsProps>, 'mit'>) => {
   const damageTakenBreakdown = damageBreakdown(
     mit.mitigated,
     (event) => (HasAbility(event.event) ? event.event.ability.guid : 0),
@@ -275,9 +275,11 @@ const BreakdownByDamageSource = ({ mit }: Pick<Required<CooldownDetailsProps>, '
 const CooldownUsage = ({
   analyzer,
   maxValue,
+  cooldownDetails: Details,
 }: {
   analyzer: MajorDefensive<any, any>;
   maxValue: number;
+  cooldownDetails: (props: CooldownDetailsProps) => JSX.Element | null;
 }) => {
   const [selectedMit, setSelectedMit] = useState<number | undefined>();
   const castEfficiency = useAnalyzer(CastEfficiency)?.getCastEfficiencyForSpell(analyzer.spell);
@@ -347,7 +349,7 @@ const CooldownUsage = ({
             )}
             onClickBox={onClickBox}
           />
-          <CooldownDetails
+          <Details
             mit={selectedMit !== undefined ? mitigations[selectedMit] : undefined}
             analyzer={analyzer}
           />
@@ -359,16 +361,22 @@ const CooldownUsage = ({
 
 type Props = {
   analyzers: readonly MajorDefensive<any, any>[];
+  cooldownDetails?: (props: CooldownDetailsProps) => JSX.Element | null;
 };
 
-const AllCooldownUsageList = ({ analyzers }: Props) => {
+const AllCooldownUsageList = ({ analyzers, cooldownDetails = CooldownDetails }: Props) => {
   const maxValue = useMaxMitigationValue(analyzers);
   return (
     <div>
       {analyzers
         .filter((analyzer) => analyzer.active)
         .map((analyzer) => (
-          <CooldownUsage key={analyzer.constructor.name} analyzer={analyzer} maxValue={maxValue} />
+          <CooldownUsage
+            key={analyzer.constructor.name}
+            analyzer={analyzer}
+            maxValue={maxValue}
+            cooldownDetails={cooldownDetails}
+          />
         ))}
     </div>
   );
