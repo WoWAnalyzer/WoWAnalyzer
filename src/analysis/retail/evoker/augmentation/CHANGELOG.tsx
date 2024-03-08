@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS/evoker';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 export default [
+    change(date(2024, 3, 7), <>Fix an issue with <SpellLink spell={TALENTS.POTENT_MANA_TALENT} /> module when no <SpellLink spell={TALENTS.SOURCE_OF_MAGIC_TALENT} /> was active during the fight.</>, Vollmer),
     change(date(2024, 2, 10), <>Fix crash in <SpellLink spell={TALENTS.SOURCE_OF_MAGIC_TALENT} /> module.</>, Trevor),
     change(date(2024, 2, 3), <>Implement <SpellLink spell={TALENTS.SOURCE_OF_MAGIC_TALENT} /> and <SpellLink spell={TALENTS.POTENT_MANA_TALENT} /> modules.</>, Vollmer),
     change(date(2024, 1, 26), <>Show 4 default targets instead of 2 for Buff Helper MRT note.</>, Vollmer),
