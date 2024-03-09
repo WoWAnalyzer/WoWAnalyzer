@@ -8,6 +8,7 @@ export const OBSIDIAN_SCALES_CAST_BUFF_LINK = 'obsidianScalesCastBuffLink';
 export const RENEWING_BLAZE_CAST_BUFF_LINK = 'renewingBlazeCastBuffLink';
 export const RENEWING_BLAZE_ACC_HEAL_BUFF_LINK = 'renewingBlazeAccHealBuffLink';
 export const RENEWING_BLAZE_HEAL_BUFF_LINK = 'renewingBlazeHealBuffLink';
+export const TWIN_GUARDIAN_PARTNER_BUFF_LINK = 'twinGuardianPartnerBuffLink';
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -52,6 +53,16 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: EventType.Heal,
     anyTarget: true,
     forwardBufferMs: 30000,
+  },
+  {
+    linkRelation: TWIN_GUARDIAN_PARTNER_BUFF_LINK,
+    reverseLinkRelation: TWIN_GUARDIAN_PARTNER_BUFF_LINK,
+    linkingEventId: SPELLS.TWIN_GUARDIAN_SHIELD.id,
+    linkingEventType: EventType.ApplyBuff,
+    referencedEventId: SPELLS.TWIN_GUARDIAN_SHIELD.id,
+    referencedEventType: EventType.ApplyBuff,
+    anyTarget: true,
+    forwardBufferMs: 1000,
   },
 ];
 
