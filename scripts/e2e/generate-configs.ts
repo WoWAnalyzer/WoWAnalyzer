@@ -99,16 +99,22 @@ export const generateConfigs = async () => {
       const [expansion, className, specName] = analyzerPath.split('/').slice(1);
       const isClassic = expansion === 'classic';
 
+      const isLatest =
+        cfg.patchCompatibility &&
+        isLatestPatch({
+          patchCompatibility: cfg.patchCompatibility,
+          expansion: isClassic ? CLASSIC_EXPANSION : RETAIL_EXPANSION,
+        });
+
+      if (!isLatest || !cfg.exampleReport) {
+        return null;
+      }
+
       return {
         name: `${specName} ${className}`,
         fullName: cfg.spec,
         exampleReport: cfg.exampleReport,
-        isLatestPatch:
-          cfg.patchCompatibility &&
-          isLatestPatch({
-            patchCompatibility: cfg.patchCompatibility,
-            expansion: isClassic ? CLASSIC_EXPANSION : RETAIL_EXPANSION,
-          }),
+        isLatestPatch: isLatest,
         isClassic,
       };
     })
