@@ -437,12 +437,12 @@ class EbonMight extends Analyzer {
           rolePerformance = QualitativePerformance.Fail;
         }
         buffedPlayers.push(
-          <div>
+          <div key={currentPlayer.id}>
             Buffed {currentPlayerRole}: <span className={className}>{currentPlayer.name}</span>
           </div>,
         );
       } else {
-        buffedPlayers.push(<div>Buffed {currentPlayer.name}</div>);
+        buffedPlayers.push(<div key={currentPlayer.id}>Buffed {currentPlayer.name}</div>);
       }
     });
 
