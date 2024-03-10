@@ -96,8 +96,6 @@ class TwinGuardian extends MajorDefensiveBuff {
 
       this.maxValueAbsorb = Math.max(this.maxValueAbsorb, pMit.amount);
     });
-
-    // (mit.maxAmount ?? maxValue) + (eMit?.maxAmount ?? 0)
   }
 
   // Use original mitigationData until we have made our own.
