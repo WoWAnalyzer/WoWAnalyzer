@@ -7,9 +7,10 @@ import AllCooldownUsageList from 'interface/guide/components/MajorDefensives/All
 import { SpellLink, TooltipElement } from 'interface';
 import { Highlight } from 'interface/Highlight';
 import TALENTS from 'common/TALENTS/evoker';
+import RenewingBlaze from './RenewingBlaze';
 
 const MajorDefensives = () => {
-  const defensiveAnalyzers = [ObsidianScales];
+  const defensiveAnalyzers = [ObsidianScales, RenewingBlaze];
 
   return (
     <Section title="Defensives">
@@ -51,7 +52,7 @@ const MajorDefensives = () => {
             </small>
           </li>
           <li>
-            You should <em>use</em> your cooldowns. This may seem silly&mdash;but not using major
+            You should <em>use</em> your cooldowns. This may seem silly&mdash;but not using
             defensives is a common problem! For <span className="Evoker">Evokers</span>, it is also
             likely to be fatal, since most of your mitigation lies in your active cooldowns.
             <br />

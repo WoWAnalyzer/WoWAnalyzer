@@ -17,4 +17,6 @@ export { default as PotentMana } from './modules/talents/PotentMana';
 export { default as ObsidianScales } from './modules/MajorDefensives/ObsidianScales';
 export { default as DefensiveNormalizer } from './modules/normalizers/DefensiveNormalizer';
 export { default as DefensiveCastLinkNormalizer } from './modules/normalizers/DefensiveCastLinkNormalizer';
+export { default as TwinGuardian } from './modules/MajorDefensives/TwinGuardian';
+export { default as RenewingBlaze } from './modules/MajorDefensives/RenewingBlaze';
 export * from './constants';
