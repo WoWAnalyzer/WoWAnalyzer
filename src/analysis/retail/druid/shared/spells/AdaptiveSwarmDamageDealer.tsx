@@ -1,7 +1,6 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { ThresholdStyle } from 'parser/core/ParseResults';
-import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentDamageDone from 'parser/ui/ItemPercentDamageDone';
 import Statistic from 'parser/ui/Statistic';
@@ -14,13 +13,6 @@ import AdaptiveSwarm from './AdaptiveSwarm';
  * A damage dealing focused extension display module for Adaptive Swarm - for Feral and Balance
  */
 class AdaptiveSwarmDamageDealer extends AdaptiveSwarm {
-  static dependencies = {
-    ...AdaptiveSwarm.dependencies,
-    enemies: Enemies,
-  };
-
-  enemies!: Enemies;
-
   get damageUptimeHistory() {
     return this.enemies.getDebuffHistory(SPELLS.ADAPTIVE_SWARM_DAMAGE.id);
   }

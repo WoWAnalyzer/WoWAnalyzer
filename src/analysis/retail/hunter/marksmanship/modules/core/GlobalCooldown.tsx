@@ -3,16 +3,8 @@ import { TALENTS_HUNTER } from 'common/TALENTS';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { BeginCastEvent, CastEvent } from 'parser/core/Events';
 import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
-import Haste from 'parser/shared/modules/Haste';
 
 class GlobalCooldown extends CoreGlobalCooldown {
-  static dependencies = {
-    ...CoreGlobalCooldown.dependencies,
-    haste: Haste,
-  };
-
-  protected haste!: Haste;
-
   aimedShotTimestamp: number | null = null;
 
   /**

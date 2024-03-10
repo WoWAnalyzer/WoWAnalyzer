@@ -368,9 +368,8 @@ class GuildReports extends Component<Props, State> {
 
     // Name slug for battle.net armory, standard name for WCL & wipefest
     const nameSlug = this.props.name.replace(/\s/g, '-').toLowerCase();
-    let battleNetUrl:
-      | string
-      | undefined = `https://worldofwarcraft.com/en-${this.props.region}/guild/${this.props.region}/${this.state.realmSlug}/${nameSlug}`;
+    let battleNetUrl: string | undefined =
+      `https://worldofwarcraft.com/en-${this.props.region}/guild/${this.props.region}/${this.state.realmSlug}/${nameSlug}`;
     if (this.isClassic) {
       battleNetUrl = undefined;
     } else if (this.props.region === 'CN') {

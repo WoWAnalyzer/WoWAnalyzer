@@ -218,24 +218,23 @@ export default function ViolationProblemList<T = unknown>({
   const info = useInfo();
 
   const renderer = useMemo(
-    () => (props: ProblemRendererProps<Violation>) =>
-      (
-        <ViolationProblemContainer>
-          {DescribeViolation && (
-            <div>
-              <DescribeViolation violation={props.problem.data} result={result} apl={apl} />
-            </div>
-          )}
+    () => (props: ProblemRendererProps<Violation>) => (
+      <ViolationProblemContainer>
+        {DescribeViolation && (
           <div>
-            <ViolationTimeline
-              violation={props.problem.data}
-              events={props.events}
-              results={result}
-              apl={apl}
-            />
+            <DescribeViolation violation={props.problem.data} result={result} apl={apl} />
           </div>
-        </ViolationProblemContainer>
-      ),
+        )}
+        <div>
+          <ViolationTimeline
+            violation={props.problem.data}
+            events={props.events}
+            results={result}
+            apl={apl}
+          />
+        </div>
+      </ViolationProblemContainer>
+    ),
     [DescribeViolation, result, apl],
   );
 

@@ -146,12 +146,12 @@ type MatchedLifetimeEvent<
 > = T extends ApplyBuffEvent
   ? RemoveBuffEvent
   : T extends RemoveBuffEvent
-  ? ApplyBuffEvent
-  : T extends ApplyDebuffEvent
-  ? RemoveDebuffEvent
-  : T extends RemoveDebuffEvent
-  ? ApplyDebuffEvent
-  : never;
+    ? ApplyBuffEvent
+    : T extends ApplyDebuffEvent
+      ? RemoveDebuffEvent
+      : T extends RemoveDebuffEvent
+        ? ApplyDebuffEvent
+        : never;
 /** Returns either the starting or ending event for the buff related to the given event. ie If given application event it will return removal and vice versa*/
 export function getAuraLifetimeEvent<
   T extends ApplyBuffEvent | RemoveBuffEvent | ApplyDebuffEvent | RemoveDebuffEvent,

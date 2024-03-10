@@ -108,11 +108,15 @@ import AmalgamsSeventhSpine from 'parser/retail/modules/items/dragonflight/Amalg
 import ElementalLariat from 'parser/retail/modules/items/dragonflight/ElementalLariat';
 import EchoingTyrstone from 'parser/retail/modules/items/dragonflight/EchoingTyrstone';
 import Fyralath from 'parser/retail/modules/items/dragonflight/Fyralath';
+import Dreambinder from 'parser/retail/modules/items/dragonflight/Dreambinder';
+import Iridal from 'parser/retail/modules/items/dragonflight/Iridal';
+import BelorrelosTheSuncaller from 'parser/retail/modules/items/dragonflight/BelorrelosTheSuncaller';
+import NymuesUnravelingSpindle from 'parser/retail/modules/items/dragonflight/NymuesUnravelingSpindle';
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
 const MAX_DI_ITERATIONS = 100;
-const isMinified = process.env.NODE_ENV === 'production';
+const isMinified = import.meta.env.PROD;
 
 type DependencyDefinition = typeof Module | readonly [typeof Module, { [option: string]: any }];
 export type DependenciesDefinition = { [desiredName: string]: DependencyDefinition };
@@ -229,6 +233,10 @@ class CombatLogParser {
     elementalLariat: ElementalLariat,
     echoingTyrstone: EchoingTyrstone,
     fyralath: Fyralath,
+    dreambinder: Dreambinder,
+    iridal: Iridal,
+    belorrelosTheSuncaller: BelorrelosTheSuncaller,
+    nymuesUnravelingSpindle: NymuesUnravelingSpindle,
 
     // Enchants
     burningDevotion: BurningDevotion,
@@ -453,7 +461,7 @@ class CombatLogParser {
             desiredModuleName,
           );
         } catch (e) {
-          if (process.env.NODE_ENV !== 'production') {
+          if (!import.meta.env.PROD) {
             throw e;
           }
           this.disabledModules[ModuleError.INITIALIZATION].push({
@@ -754,7 +762,7 @@ class CombatLogParser {
             }
           } catch (e) {
             //error occurred during results generation of module, disable module and all modules depending on it
-            if (process.env.NODE_ENV !== 'production') {
+            if (!import.meta.env.PROD) {
               throw e;
             }
             this.deepDisable(module, ModuleError.RESULTS, e as Error);

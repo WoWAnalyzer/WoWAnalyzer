@@ -11,13 +11,13 @@ build has hit live.
 To run it once
 
 ```shell script
-$ npx ts-node-dev .\scripts\talents\generate-talents.ts
+$ npx tsx .\scripts\talents\generate-talents.ts
 ```
 
 To watch the file continously:
 
 ```shell script
-$ npx ts-node-dev --respawn .\scripts\talents\generate-talents.ts
+$ npx tsx watch .\scripts\talents\generate-talents.ts
 ```
 
 ### Updating SpellPower
@@ -34,13 +34,13 @@ Sometimes, the PTR used for an upcoming version won't be on the `ptr`, it will b
 To run it once
 
 ```shell script
-$ npx ts-node-dev .\scripts\talents\generate-talents.ts --ptr
+$ npx tsx .\scripts\talents\generate-talents.ts --ptr
 ```
 
 To watch the file continously:
 
 ```shell script
-$ npx ts-node-dev --respawn .\scripts\talents\generate-talents.ts --ptr
+$ npx tsx watch .\scripts\talents\generate-talents.ts --ptr
 ```
 
 ### Updating SpellPower

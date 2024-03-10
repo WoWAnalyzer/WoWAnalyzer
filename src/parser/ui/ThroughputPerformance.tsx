@@ -67,7 +67,7 @@ const ThroughputPerformance = ({ children, metric, throughput }: Props) => {
 
   const load = useCallback(async () => {
     try {
-      if (process.env.NODE_ENV === 'test') {
+      if (import.meta.env.MODE === 'test') {
         // Skip during tests since we can't do WCL calls
         return;
       }

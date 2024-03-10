@@ -127,7 +127,7 @@ jobs:
             node_modules
           key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
           required: true
-      - run: yarn test:interface --runInBand
+      - run: yarn test:interface
 
   test-parser:
     needs: [prepare]
@@ -145,7 +145,7 @@ jobs:
             node_modules
           key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
           required: true
-      - run: yarn test:parser --runInBand
+      - run: yarn test:parser
 
   build:
     needs: [prepare]
@@ -178,16 +178,14 @@ jobs:
         run: yarn build
         env:
           DISABLE_AUTOMATIC_ESLINT: true
-          REACT_APP_ENABLE_GA: true
-          REACT_APP_ENVIRONMENT_NAME: ${{ steps.environment-name.outputs.environment_name }}
-          REACT_APP_VERSION: ${{ github.sha }}
-      - name: Inject debug info into sourcemaps
-        run: yarn sourcemaps
-      - run: tar -czf build.tar.gz build
+          VITE_ENABLE_GA: true
+          VITE_ENVIRONMENT_NAME: ${{ steps.environment-name.outputs.environment_name }}
+          VITE_VERSION: ${{ github.sha }}
+      - run: tar -czf dist.tar.gz dist
       - uses: actions/upload-artifact@v3
         with:
-          name: build
-          path: build.tar.gz
+          name: dist
+          path: dist.tar.gz
 
   e2e-build:
     needs: [prepare]
@@ -220,15 +218,15 @@ jobs:
         run: yarn build
         env:
           DISABLE_AUTOMATIC_ESLINT: true
-          REACT_APP_ENABLE_GA: false
-          REACT_APP_ENVIRONMENT_NAME: ${{ steps.environment-name.outputs.environment_name }}
-          REACT_APP_VERSION: ${{ github.sha }}
-          REACT_APP_FORCE_PREMIUM: true
-      - run: tar -czf build.tar.gz build
+          VITE_ENABLE_GA: false
+          VITE_ENVIRONMENT_NAME: ${{ steps.environment-name.outputs.environment_name }}
+          VITE_VERSION: ${{ github.sha }}
+          VITE_FORCE_PREMIUM: true
+      - run: tar -czf dist.tar.gz dist
       - uses: actions/upload-artifact@v3
         with:
           name: e2e-build
-          path: build.tar.gz
+          path: dist.tar.gz
 
   e2e-test:
     needs: [e2e-build]
@@ -252,7 +250,7 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: e2e-build
-      - run: tar -xzf build.tar.gz
+      - run: tar -xzf dist.tar.gz
       - name: Install Playwright deps
         run: yarn playwright install --with-deps
       - name: Run Playwright tests
@@ -298,11 +296,11 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v1
         with:
-          name: build
+          name: dist
           path: .
-      - run: tar -xzf build.tar.gz
+      - run: tar -xzf dist.tar.gz
       # Remove files we no longer need to speed up sending context to Docker
-      - run: rm build.tar.gz
+      - run: rm dist.tar.gz
       - name: Docker meta
         id: docker_meta
         uses: crazy-max/ghaction-docker-meta@v1
@@ -349,4 +347,4 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-      - run: node scripts/require-changelog-entry.js
+      - run: node scripts/require-changelog-entry.cjs

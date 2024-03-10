@@ -588,9 +588,8 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
       );
     }
 
-    let battleNetUrl:
-      | string
-      | undefined = `https://worldofwarcraft.com/en-${this.props.region}/character/${this.state.realmSlug}/${this.props.name}`;
+    let battleNetUrl: string | undefined =
+      `https://worldofwarcraft.com/en-${this.props.region}/character/${this.state.realmSlug}/${this.props.name}`;
     if (this.isClassic) {
       battleNetUrl = undefined;
     } else if (this.props.region === 'CN') {

@@ -204,28 +204,31 @@ class UsurpedFromBeyond extends Analyzer.withDependencies(deps) {
     }
 
     const uptimeEntries = this.thefts
-      .reduce((acc, instance) => {
-        const instanceUptime =
-          (instance.end ?? this.owner.fight.end_time) -
-          (instance.start ?? this.owner.fight.start_time);
-        const instanceUptimePercentage = instanceUptime / this.owner.fightDuration;
-        const instanceAverageBenefit = instance.amount * instanceUptimePercentage;
+      .reduce(
+        (acc, instance) => {
+          const instanceUptime =
+            (instance.end ?? this.owner.fight.end_time) -
+            (instance.start ?? this.owner.fight.start_time);
+          const instanceUptimePercentage = instanceUptime / this.owner.fightDuration;
+          const instanceAverageBenefit = instance.amount * instanceUptimePercentage;
 
-        const existingEntry = acc.find((entry) => entry.stat === instance.stat);
+          const existingEntry = acc.find((entry) => entry.stat === instance.stat);
 
-        if (existingEntry) {
-          existingEntry.totalUptime += instanceUptime;
-          existingEntry.averageBenefit += instanceAverageBenefit;
-        } else {
-          acc.push({
-            stat: instance.stat,
-            totalUptime: instanceUptime,
-            averageBenefit: instanceAverageBenefit,
-          });
-        }
+          if (existingEntry) {
+            existingEntry.totalUptime += instanceUptime;
+            existingEntry.averageBenefit += instanceAverageBenefit;
+          } else {
+            acc.push({
+              stat: instance.stat,
+              totalUptime: instanceUptime,
+              averageBenefit: instanceAverageBenefit,
+            });
+          }
 
-        return acc;
-      }, [] as { stat: SECONDARY_STAT; totalUptime: number; averageBenefit: number }[])
+          return acc;
+        },
+        [] as { stat: SECONDARY_STAT; totalUptime: number; averageBenefit: number }[],
+      )
       .sort((a, b) => b.averageBenefit - a.averageBenefit);
 
     const procCount = this.thefts.length;

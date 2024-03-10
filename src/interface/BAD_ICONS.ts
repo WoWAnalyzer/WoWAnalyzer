@@ -7,3 +7,7 @@
 
 const BAD_ICONS: string[] = [];
 export default BAD_ICONS;
+
+export const ICON_RENAME: Record<string, string> = {
+  spell_priest_power_word: 'spell_priest_power-word',
+};
