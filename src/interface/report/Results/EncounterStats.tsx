@@ -251,8 +251,8 @@ class EncounterStats extends PureComponent<Props, State> {
                 {'itemLevel' in log
                   ? log.itemLevel
                   : this.props.difficulty !== DIFFICULTIES.MYTHIC_PLUS_DUNGEON
-                  ? log.bracketData
-                  : undefined}
+                    ? log.bracketData
+                    : undefined}
                 )
               </div>
             </a>
