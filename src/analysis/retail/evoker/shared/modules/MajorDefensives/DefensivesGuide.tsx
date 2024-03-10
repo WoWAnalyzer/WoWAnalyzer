@@ -7,10 +7,11 @@ import AllCooldownUsageList from 'interface/guide/components/MajorDefensives/All
 import { SpellLink, TooltipElement } from 'interface';
 import { Highlight } from 'interface/Highlight';
 import TALENTS from 'common/TALENTS/evoker';
+import TwinGuardian from './TwinGuardian';
 import RenewingBlaze from './RenewingBlaze';
 
 const MajorDefensives = () => {
-  const defensiveAnalyzers = [ObsidianScales, RenewingBlaze];
+  const defensiveAnalyzers = [ObsidianScales, TwinGuardian, RenewingBlaze];
 
   return (
     <Section title="Defensives">
