@@ -6,7 +6,7 @@ import { ReactNode, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 
 const loadCatalog = async (locale: string) => {
-  const { default: messages } = await import(`./${locale}/messages.json?lingui`);
+  const { messages } = await import(`./${locale}/messages.json?lingui`);
 
   i18n.load(locale, messages);
   i18n.activate(locale);

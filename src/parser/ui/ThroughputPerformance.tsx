@@ -57,6 +57,8 @@ const ThroughputPerformance = ({ children, metric, throughput }: Props) => {
       fetchWcl<WCLRankingsResponse>(`rankings/encounter/${parser.fight.boss}`, {
         class: parser.config.spec.ranking.class,
         spec: parser.config.spec.ranking.spec,
+        className: parser.config.spec.wclClassName,
+        specName: parser.config.spec.wclSpecName,
         difficulty: parser.fight.difficulty,
         metric: metric,
         // hehe jk this is actually the opposite of a cache key since without this it would be cached indefinitely. This is more like a "cache bust key" in that this changes weekly so that it auto-refreshes weekly. Super clever.
