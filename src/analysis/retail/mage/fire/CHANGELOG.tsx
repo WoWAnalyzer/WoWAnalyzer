@@ -6,6 +6,7 @@ import { Sharrq, ToppleTheNun } from 'CONTRIBUTORS';
 
 // prettier-ignore
 export default [
+  change(date(2024, 3, 10), <>Added a check to filter out <SpellLink spell={TALENTS.FIRE_BLAST_TALENT} /> without <SpellLink spell={SPELLS.HEATING_UP} /> if it is within a second of <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> starting.</>, Sharrq),
   change(date(2024, 1, 20), <>Fixed an issue with <SpellLink spell={TALENTS.METEOR_TALENT} /> that was counting <SpellLink spell={TALENTS.FIREFALL_TALENT} /> Meteors as mistakes for not landing in <SpellLink spell={TALENTS.COMBUSTION_TALENT} />.</>, Sharrq),
   change(date(2024, 1, 17), 'Bump to 10.2.5 support.', ToppleTheNun),
   change(date(2024, 1, 3), <>Updated <SpellLink spell={SPELLS.FIREBALL} /> during <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> to disregard casts where the player had a <SpellLink spell={TALENTS.FLAME_ACCELERANT_TALENT} /> proc. Reworded the suggestion to include Double Lust and Flame Accelerant.</>, Sharrq),
