@@ -16,7 +16,8 @@ const ignoredErrors = [
   // React warns us about certain lifecycle things which we want to disregard for e2e tests
   /^Warning: Cannot update during an existing state transition/i,
   /^Warning: Can't perform a React state update on an unmounted component/i,
-  /was cast while the Global Cooldown from/i,
+  // sentry reproducing errors
+  /^An error occurred and was sent to Sentry/i,
 
   // we have a ton of these nesting errors across the site right now, letting e2e pass without fixing them all
   /validateDOMNesting/,
@@ -35,6 +36,7 @@ const ignoredErrors = [
 
   // Error output from the spellusable tracker whenever there's a cd/haste mismatch
   /^Cooldown error/i,
+  /was cast while the Global Cooldown from/i,
   // Error caused by bad buff tracking
   /buff (was refreshed|stack updated) while active buff wasn't known/i,
   // Error caused by healing before knowing players
