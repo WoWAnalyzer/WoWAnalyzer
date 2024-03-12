@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 3, 12), <>Update spec compatibility with 10.2.5 patch.</>, Hana),
   change(date(2023, 12, 17), <>Re enabled <SpellLink spell={TALENTS_PRIEST.TRANSLUCENT_IMAGE_TALENT}/>.</>, Hana),
   change(date(2023, 12, 17), <>Updated <SpellLink spell={TALENTS_PRIEST.HARSH_DISCIPLINE_TALENT}/>. No longer shows mana, and damage is now displayed. </>, Hana),
   change(date(2023, 12, 11), <>Fixed <SpellLink spell={TALENTS_PRIEST.SCHISM_TALENT}/>.</>, Hana),
