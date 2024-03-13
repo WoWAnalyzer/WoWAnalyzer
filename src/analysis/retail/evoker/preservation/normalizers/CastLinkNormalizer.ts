@@ -19,6 +19,7 @@ import {
   RefreshBuffEvent,
   RemoveBuffEvent,
   RemoveBuffStackEvent,
+  SummonEvent,
 } from 'parser/core/Events';
 import { DUPLICATION_SPELLS, STASIS_CAST_IDS } from '../constants';
 import { TIERS } from 'game/TIERS';
@@ -58,6 +59,7 @@ export const STASIS_FOR_RAMP = 'ForRamp';
 export const ESSENCE_RUSH = 'EssenceRush';
 export const T31_2PC = 'T31LFProc';
 export const EB_REVERSION = 'EssenceBurstReversion';
+export const TIME_OF_NEED_HEALING = 'TimeOfNeedHealing';
 
 export enum ECHO_TYPE {
   NONE,
@@ -823,6 +825,16 @@ const EVENT_LINKS: EventLink[] = [
       );
     },
   },
+  {
+    linkRelation: TIME_OF_NEED_HEALING,
+    linkingEventId: TALENTS_EVOKER.TIME_OF_NEED_SUMMON.id,
+    linkingEventType: EventType.Summon,
+    referencedEventId: [SPELLS.VERDANT_EMBRACE_HEAL.id, SPELLS.TIME_OF_NEED_LIVING_FLAME.id],
+    referencedEventType: EventType.Heal,
+    forwardBufferMs: 8000, //8 seconds, the duration of Time of Need
+    anySource: true,
+    anyTarget: true,
+  },
 ];
 
 /**
@@ -1060,6 +1072,21 @@ export function isEbFromReversion(
     event = GetRelatedEvent(event, ESSENCE_BURST_LINK)!;
   }
   return HasRelatedEvent(event, EB_REVERSION);
+}
+
+export function getTimeOfNeedHealing(event: SummonEvent) {
+  const allHealing = GetRelatedEvents<HealEvent>(event, TIME_OF_NEED_HEALING) ?? null;
+  const tonHealing: HealEvent[] = [];
+  if (allHealing) {
+    allHealing.forEach((heal) => {
+      //Only grab heals that come from the spawned entity.
+      //This is to prevent Player VE's from getting pulled cause they have the same id
+      if (heal.sourceID === event.targetID) {
+        tonHealing.push(heal);
+      }
+    });
+  }
+  return tonHealing;
 }
 
 export default CastLinkNormalizer;
