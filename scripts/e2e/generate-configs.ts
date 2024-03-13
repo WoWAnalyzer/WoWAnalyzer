@@ -1,62 +1,132 @@
-import { i18n } from '@lingui/core';
+import { parse } from '@babel/parser';
+import { join } from 'node:path';
 import { format } from 'prettier';
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
-import { join } from 'path';
-import CONFIGS from 'parser';
-import { CLASSIC_EXPANSION, isCurrentExpansion } from 'game/Expansion';
-import isLatestPatch from 'game/isLatestPatch';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import traverse from '@babel/traverse';
+import * as t from '@babel/types';
+// these can be safely imported because they don't include any big / complicated stuff
+import isLatestPatch from '../../src/game/isLatestPatch';
+import { CLASSIC_EXPANSION, RETAIL_EXPANSION } from '../../src/game/Expansion';
 
-export const generateConfigs = () => {
-  const pathToMessages = join(__dirname, '..', '..', 'src', 'localization', 'en', 'messages.json');
-  const messagesRaw = readFileSync(pathToMessages, { encoding: 'utf-8' });
-  const messages = JSON.parse(messagesRaw);
+const parseFile = (path: string): t.Node | t.Node[] =>
+  parse(readFileSync(path, { encoding: 'utf8' }), {
+    plugins: ['typescript', 'jsx'],
+    sourceType: 'module',
+  }) as unknown as t.Node | t.Node[];
 
-  i18n.load('en', messages);
-  i18n.activate('en');
+// because of issues running this outside of the react/vite context, we're just going to use babel to parse out the bits that we need as if we're writing a macro rather than try to make the e2e build environment cooperate
+export const generateConfigs = async () => {
+  const srcPath = join(__dirname, '..', '..', 'src');
 
-  const supportedConfigs = CONFIGS.filter(
-    (it) => it.exampleReport && isLatestPatch(it) && isCurrentExpansion(it.expansion),
-  );
+  const parserAst = parseFile(join(srcPath, 'parser/index.ts'));
 
-  const specs = supportedConfigs.map((config) => {
-    const nameParts: string[] = [];
-    const namePrefixParts: string[] = [];
-    if (config.expansion === CLASSIC_EXPANSION) {
-      namePrefixParts.push('Classic');
-    }
-    if (config.spec.specName) {
-      nameParts.push(i18n._(config.spec.specName));
-    }
-    nameParts.push(i18n._(config.spec.className));
-    return {
-      name: nameParts.join(' '),
-      fullName: namePrefixParts.concat(nameParts).join(' '),
-      exampleReport: config.exampleReport,
-      isLatestPatch: isLatestPatch(config),
-      isClassic: config.expansion === CLASSIC_EXPANSION,
-    };
+  const importedConfigs: string[] = [];
+
+  traverse(parserAst, {
+    ImportDeclaration: (path) => {
+      if (path.node.source.value.startsWith('analysis')) {
+        importedConfigs.push(path.node.source.value);
+      }
+    },
   });
 
-  const screamingSnakeCase = (str: string) => {
-    return str
-      .replace(/\d+/g, ' ')
-      .split(/ |\B(?=[A-Z])/)
-      .map((word) => word.toUpperCase())
-      .join('_');
-  };
+  const specs = importedConfigs
+    .map((analyzerPath) => {
+      const configAst = parseFile(join(srcPath, analyzerPath, 'CONFIG.tsx'));
 
+      const vars: Record<string, t.ObjectExpression> = {};
+      let config: t.ObjectExpression | undefined = undefined;
+
+      traverse(configAst, {
+        VariableDeclaration: (path) => {
+          for (const decl of path.node.declarations) {
+            if (decl.id.type === 'Identifier' && decl.init?.type === 'ObjectExpression') {
+              vars[decl.id.name] = decl.init!;
+            }
+          }
+        },
+        ExportDefaultDeclaration: (path) => {
+          if (path.node.declaration.type === 'Identifier') {
+            config = vars[path.node.declaration.name];
+          } else if (path.node.declaration.type === 'ObjectExpression') {
+            config = path.node.declaration;
+          }
+        },
+      });
+
+      if (!config) {
+        console.warn('unable to locate config', analyzerPath);
+        return null;
+      }
+
+      // stupid hack to fix config being narrowed to `never` at this point
+      config = config as unknown as t.ObjectExpression;
+
+      const cfg: {
+        exampleReport?: string;
+        patchCompatibility?: string;
+        spec?: string;
+        isPartial?: boolean;
+      } = {};
+      for (const property of config.properties) {
+        if (property.type !== 'ObjectProperty' || property.key.type !== 'Identifier') {
+          // we are only examining plain object properties
+          continue;
+        }
+
+        switch (property.key.name) {
+          case 'exampleReport':
+          case 'patchCompatibility':
+            if (property.value.type === 'StringLiteral') {
+              cfg[property.key.name] = property.value.value;
+            }
+            break;
+          case 'spec':
+            if (
+              property.value.type === 'MemberExpression' &&
+              property.value.property.type === 'Identifier'
+            ) {
+              cfg[property.key.name] = property.value.property.name;
+            }
+            break;
+          case 'isPartial':
+            if (property.value.type === 'BooleanLiteral') {
+              cfg[property.key.name] = property.value.value;
+            }
+        }
+      }
+
+      const [expansion, className, specName] = analyzerPath.split('/').slice(1);
+      const isClassic = expansion === 'classic';
+
+      const isLatest =
+        cfg.patchCompatibility &&
+        isLatestPatch({
+          patchCompatibility: cfg.patchCompatibility,
+          expansion: isClassic ? CLASSIC_EXPANSION : RETAIL_EXPANSION,
+        });
+
+      if (!isLatest || !cfg.exampleReport) {
+        return null;
+      }
+
+      return {
+        name: `${specName} ${className}`,
+        fullName: cfg.spec,
+        exampleReport: cfg.exampleReport,
+        isLatestPatch: isLatest,
+        isClassic,
+      };
+    })
+    .filter((x) => x !== null);
   const rawTsFile = `
   // Generated file, changes will eventually be overwritten!
 
-  ${specs
-    .map((spec) => `export const ${screamingSnakeCase(spec.fullName)} = ${JSON.stringify(spec)};`)
-    .join('\n')}
+  ${specs.map((spec) => `export const ${spec!.fullName} = ${JSON.stringify(spec)};`).join('\n')}
 
-  export const SUPPORTED_SPECS = [${specs
-    .map((spec) => screamingSnakeCase(spec.fullName))
-    .join(', ')}];
+  export const SUPPORTED_SPECS = [${specs.map((spec) => spec!.fullName).join(', ')}];
 `;
-  const formattedTsFile = format(rawTsFile, { parser: 'typescript' });
+  const formattedTsFile = await format(rawTsFile, { parser: 'typescript' });
 
   const configDirectory = join(__dirname, '..', '..', 'e2e', 'generated');
   if (!existsSync(configDirectory)) {

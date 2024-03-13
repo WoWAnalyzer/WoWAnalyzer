@@ -6,7 +6,6 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 import { defineConfig } from 'vite';
 import { lingui } from '@lingui/vite-plugin';
 import svgr from 'vite-plugin-svgr';
-import { manualChunksPlugin } from 'vite-plugin-webpackchunkname';
 
 const GOOGLE_ANALYTICS_SCRIPT = `
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-MW95W6NHVC"></script>
@@ -61,7 +60,6 @@ export default defineConfig((env) => ({
     },
     env.mode === 'test' ? null : lingui(),
     svgr(),
-    manualChunksPlugin(),
     env.mode !== 'production'
       ? null
       : sentryVitePlugin({

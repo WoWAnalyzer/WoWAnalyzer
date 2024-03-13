@@ -51,14 +51,14 @@ const UptimeBar = ({
         const color = buff.customColor ? buff.customColor : barColor;
         return timeTooltip ? (
           <Tooltip
-            key={`${start}-${end}`}
+            key={`${color}-${start}-${end}`}
             content={formatDuration(start - fightStart) + `-` + formatDuration(end - fightStart)}
           >
             <div style={getSegmentStyle(start, end, fightStart, fightDuration, color)} />
           </Tooltip>
         ) : (
           <div
-            key={`${start}-${end}`}
+            key={`${color}-${start}-${end}`}
             style={getSegmentStyle(start, end, fightStart, fightDuration, color)}
           />
         );
