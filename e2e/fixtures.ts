@@ -28,6 +28,8 @@ const ignoredErrors = [
   /^Failed to load resource: the server responded with a status of (404|403)/i,
   // When running on CI, we don't have access to the internet, so we can't load images
   /^Failed to load resource: net::ERR_NAME_NOT_RESOLVED/i,
+  // errors from (lack of) encounter rankings after a partition
+  /^Failed to load encounter rankings. Not logging since this will happen as expected when WCL partitions the data./,
 
   // Error from emotion.js when using nth-child|first-child in CSS selectors
   /The pseudo class "(:nth-child|:first-child)" is potentially unsafe when doing server-side rendering/i,
