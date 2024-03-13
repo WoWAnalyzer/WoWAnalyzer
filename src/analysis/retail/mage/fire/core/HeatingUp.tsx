@@ -73,6 +73,11 @@ class HeatingUp extends Analyzer {
       (c) => !this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id, c.cast.timestamp),
     );
 
+    //If the cast was within a 1.5 seconds of Combustion starrting, filter it out
+    casts = casts.filter(
+      (c) => !this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id, c.cast.timestamp + 1000),
+    );
+
     //If Firestarter or Searing Touch was active, filter it out
     casts = casts.filter((c) => {
       const targetHealth = this.sharedCode.getTargetHealth(c.cast);
