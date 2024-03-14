@@ -26,7 +26,7 @@ function DefensivesGuide({ modules }: GuideProps<CombatLogParserType>) {
       <SubSection title="Damage Taken">
         <Timeline analyzers={useAnalyzers(defensiveAnalyzers)} />
       </SubSection>
-      <AllCooldownUsageList analyzers={useAnalyzers([DarkPact, UnendingResolve])} showTitles />
+      <AllCooldownUsageList analyzers={useAnalyzers(defensiveAnalyzers)} showTitles />
     </Section>
   );
 }
