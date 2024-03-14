@@ -115,9 +115,31 @@ class Entity {
     minimalActiveTime = 0,
     sourceID: number | null = null,
   ) {
-    return (
-      this.getBuff(spellId, forTimestamp, bufferTime, minimalActiveTime, sourceID)?.stacks || 0
+    const buff: TrackedBuffEvent | undefined = this.getBuff(
+      spellId,
+      forTimestamp,
+      bufferTime,
+      minimalActiveTime,
+      sourceID,
     );
+    const stacks = buff === undefined ? 0 : this._stacksAt(buff, forTimestamp);
+    return stacks;
+  }
+
+  /**
+   * Looks in the buff's stack history for the update with the largest timestamp possible
+   */
+  _stacksAt(buff: TrackedBuffEvent, forTimestamp: number | null) {
+    const currentTimestamp = forTimestamp !== null ? forTimestamp : this.owner.currentTimestamp;
+    let stacks = 0;
+    let stacksTimestamp = 0;
+    buff.stackHistory.forEach((stack) => {
+      if (stacksTimestamp < stack.timestamp && stack.timestamp < currentTimestamp) {
+        stacks = stack.stacks;
+        stacksTimestamp = stack.timestamp;
+      }
+    });
+    return stacks;
   }
 
   /**
