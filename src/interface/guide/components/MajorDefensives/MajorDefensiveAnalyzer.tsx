@@ -22,6 +22,7 @@ import { BoxRowEntry } from '../PerformanceBoxRow';
 import { MitigationSegment, MitigationSegments } from './MitigationSegments';
 import { PerformanceMark } from 'interface/guide';
 import { encodeTargetString } from 'parser/shared/modules/Enemies';
+import { CooldownDetailsProps } from './AllCooldownUsagesList';
 
 /**
  * Trigger settings for a `MajorDefensive`. You probably want to use `buff` or `debuff`
@@ -306,6 +307,12 @@ export default class MajorDefensive<
     }
 
     this.currentMitigations.clear();
+  }
+
+  get cooldownDetailsComponent():
+    | ((props: CooldownDetailsProps) => JSX.Element | null)
+    | undefined {
+    return undefined;
   }
 
   get mitigations() {

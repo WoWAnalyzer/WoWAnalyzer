@@ -42,7 +42,7 @@ import SummonVilefiend from './modules/talents/SummonVilefiend';
 import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
 import Guide from './Guide';
 import T31AmirdrassilDemonology from './modules/dragonflight/tier/T31AmirdrassilDemonology';
-import { DarkPact, DemonicCircle } from '../shared';
+import { UnendingResolve, DarkPact, DemonicCircle } from '../shared';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -92,7 +92,8 @@ class CombatLogParser extends CoreCombatLogParser {
     shadowsBite: ShadowsBite,
     dreadCalling: DreadCalling,
 
-    // Shared Talents
+    // Shared Spells
+    unendingResolve: UnendingResolve,
     darkPact: DarkPact,
     demonicCircle: DemonicCircle,
 

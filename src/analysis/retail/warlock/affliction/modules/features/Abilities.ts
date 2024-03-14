@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
-import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import SharedAbilities from 'analysis/retail/warlock/shared/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
@@ -145,21 +144,7 @@ class Abilities extends SharedAbilities {
         },
         enabled: combatant.hasTalent(TALENTS.SUMMON_DARKGLARE_TALENT),
       },
-      // Defensive
-      {
-        spell: SPELLS.UNENDING_RESOLVE.id,
-        buffSpellId: SPELLS.UNENDING_RESOLVE.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 180 - (combatant.hasTalent(TALENTS.DARK_ACCORD_TALENT) ? 45 : 0),
-        gcd: null,
-        castEfficiency: {
-          suggestion: true,
-          importance: ISSUE_IMPORTANCE.MINOR,
-          recommendedEfficiency: 0.33,
-          averageIssueEfficiency: 0.2,
-          majorIssueEfficiency: 0.1,
-        },
-      },
+
       // Utility
       {
         spell: TALENTS.BURNING_RUSH_TALENT.id,
