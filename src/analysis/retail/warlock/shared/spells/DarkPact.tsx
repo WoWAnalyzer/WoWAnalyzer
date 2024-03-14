@@ -3,13 +3,10 @@ import { formatNumber, formatPercentage } from 'common/format';
 import SpellLink from 'interface/SpellLink';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
-  AbilityEvent,
   AbsorbedEvent,
   ApplyBuffEvent,
   CastEvent,
   FightEndEvent,
-  HasAbility,
-  HasSource,
   RemoveBuffEvent,
 } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -18,33 +15,19 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import MajorDefensive, {
   MajorDefensiveBuff,
-  MitigatedEvent,
   Mitigation,
   buff,
 } from 'interface/guide/components/MajorDefensives/MajorDefensiveAnalyzer';
-import Explanation from 'interface/guide/components/Explanation';
-import { ReactNode, useCallback, useState } from 'react';
-import { color } from 'game/MAGIC_SCHOOLS';
+import { ReactNode } from 'react';
 import { MitigationTooltipSegment } from 'interface/guide/components/MajorDefensives/MitigationSegments';
-import { BadColor, OkColor, SubSection } from 'interface/guide';
-import ExplanationRow from 'interface/guide/components/ExplanationRow';
-import { TooltipElement } from 'interface';
-import { Highlight } from 'interface/Highlight';
-import { PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import {
+  BreakdownByDamageSource,
   CooldownDetailsContainer,
-  CooldownUsageDetailsContainer,
-  MissingCastBoxEntry,
+  CooldownDetailsProps,
   NoData,
   NumericColumn,
-  PossibleMissingCastBoxEntry,
   TableSegmentContainer,
 } from 'interface/guide/components/MajorDefensives/AllCooldownUsagesList';
-import {
-  DamageSourceLink,
-  damageBreakdown,
-} from 'interface/guide/components/DamageTakenPointChart';
-import { encodeTargetString } from 'parser/shared/modules/Enemies';
 
 const debug = false;
 
@@ -215,88 +198,21 @@ class DarkPact extends MajorDefensiveBuff {
     );
   }
 
-  get guideSubsection(): JSX.Element {
-    return this.cooldownUsage();
+  get cooldownDetailsComponent() {
+    return ({ analyzer, mit }: CooldownDetailsProps) => {
+      return (
+        <CooldownDetails
+          analyzer={analyzer}
+          mit={mit}
+          dpCast={
+            mit
+              ? this.casts.find((cast) => cast.applyEvent.timestamp === mit.start.timestamp)
+              : undefined
+          }
+        />
+      );
+    };
   }
-
-  cooldownUsage = () => {
-    const [selectedMit, setSelectedMit] = useState<number | undefined>();
-    const possibleUses = this.possibleCasts;
-    const performance = super.mitigationPerformance(1000000); // TODO FIX PARAMETER
-    const actualCasts = performance.length;
-
-    if (actualCasts === 0 && possibleUses > 1) {
-      // if they didn't cast it and could have multiple times, we call all possible uses bad
-      //
-      // the possibleUses > 1 check excludes this from happening on very short fights (such as early wipes)
-      for (let i = 0; i < possibleUses; i += 1) {
-        performance.push(MissingCastBoxEntry);
-      }
-    } else {
-      // if they cast it at least once, have some forgiveness. up to half (rounded up)
-      // of possible casts get a yellow color. any beyond that are red.
-      for (let i = possibleUses; i > actualCasts; i -= 1) {
-        if (i > possibleUses / 2) {
-          performance.push(PossibleMissingCastBoxEntry);
-        } else {
-          performance.push(MissingCastBoxEntry);
-        }
-      }
-    }
-
-    const mitigations = this.mitigations;
-
-    const onClickBox = useCallback(
-      (index) => {
-        if (index >= mitigations.length) {
-          setSelectedMit(undefined);
-        } else {
-          setSelectedMit(index);
-        }
-      },
-      [mitigations.length],
-    );
-
-    return (
-      <SubSection title="Dark Pact">
-        <ExplanationRow>
-          <Explanation>{this.description()}</Explanation>
-          <CooldownUsageDetailsContainer>
-            <div>
-              <strong>Cast Breakdown</strong>{' '}
-              <small>
-                - These boxes each cast, colored by how much damage was mitigated. Missed casts are
-                also shown in{' '}
-                <TooltipElement content="Used for casts that may have been skipped in order to cover major damage events.">
-                  <Highlight color={OkColor} textColor="black">
-                    yellow
-                  </Highlight>
-                </TooltipElement>{' '}
-                or{' '}
-                <TooltipElement content="Used for casts that could have been used without impacting your other usage.">
-                  <Highlight color={BadColor} textColor="white">
-                    red
-                  </Highlight>
-                </TooltipElement>
-                .
-              </small>
-            </div>
-            <PerformanceBoxRow
-              values={performance.map((p, ix) =>
-                ix === selectedMit ? { ...p, className: 'selected' } : p,
-              )}
-              onClickBox={onClickBox}
-            />
-            <CooldownDetails
-              mit={selectedMit !== undefined ? mitigations[selectedMit] : undefined}
-              dpCast={selectedMit !== undefined ? this.casts[selectedMit] : undefined}
-              analyzer={this}
-            />
-          </CooldownUsageDetailsContainer>
-        </ExplanationRow>
-      </SubSection>
-    );
-  };
 }
 
 const CooldownDetails = ({
@@ -321,37 +237,6 @@ const CooldownDetails = ({
       </CooldownDetailsContainer>
     );
   }
-
-  const damageTakenBreakdown = damageBreakdown(
-    mit.mitigated,
-    (event) => (HasAbility(event.event) ? event.event.ability.guid : 0),
-    (event) => (HasSource(event.event) ? encodeTargetString(event.event.sourceID) : '0'),
-  );
-
-  const splitMelees = (damageTakenBreakdown.get(1)?.size ?? 0) > 1;
-  const damageTakenRows = Array.from(damageTakenBreakdown.entries())
-    .flatMap(([id, bySource]): [number, MitigatedEvent[]][] => {
-      if (id === 1 && splitMelees) {
-        // make each melee source its own row
-        return Array.from(bySource.values()).map((events) => [id, events]);
-      } else {
-        // put all the events into a single list.
-        return [[id, Array.from(bySource.values()).flat()]];
-      }
-    })
-    .sort(([, eventsA], [, eventsB]) => {
-      const totalA = eventsA.reduce((a, b) => a + b.mitigatedAmount, 0);
-      const totalB = eventsB.reduce((a, b) => a + b.mitigatedAmount, 0);
-
-      return totalB - totalA;
-    })
-    // limit to top 5 damage sources
-    .slice(0, 5);
-
-  const maxDamageTaken = Math.max.apply(
-    null,
-    damageTakenRows.map(([, events]) => events.reduce((a, b) => a + b.mitigatedAmount, 0)),
-  );
 
   const maxValue = Math.max(analyzer.firstSeenMaxHp, mit.amount, mit.maxAmount ?? 0);
 
@@ -406,46 +291,7 @@ const CooldownDetails = ({
           )}
         </tbody>
       </table>
-      <table>
-        <tbody>
-          <tr>
-            <td colSpan={3}>
-              <strong>Mitigation by Damage Source</strong>
-            </td>
-          </tr>
-          {damageTakenRows.map(([spellId, events], ix) => {
-            const keyEvent = events.find(({ event }) => HasAbility(event))?.event as
-              | AbilityEvent<any>
-              | undefined;
-
-            if (!keyEvent) {
-              return null;
-            }
-
-            const rowColor = color(keyEvent.ability.type);
-
-            const mitigatedAmount = events.reduce((a, b) => a + b.mitigatedAmount, 0);
-
-            return (
-              <tr key={ix}>
-                <td style={{ width: '1%' }}>
-                  <DamageSourceLink
-                    showSourceName={spellId === 1 && splitMelees}
-                    event={keyEvent}
-                  />
-                </td>
-                <NumericColumn>{formatNumber(mitigatedAmount)}</NumericColumn>
-                <TableSegmentContainer>
-                  <MitigationTooltipSegment
-                    color={rowColor}
-                    width={mitigatedAmount / maxDamageTaken}
-                  />
-                </TableSegmentContainer>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      <BreakdownByDamageSource mit={mit} />
     </CooldownDetailsContainer>
   );
 };
