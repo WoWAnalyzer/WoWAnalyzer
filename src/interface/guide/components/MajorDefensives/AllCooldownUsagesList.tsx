@@ -315,8 +315,8 @@ const CooldownUsage = ({
           <div>
             <strong>Cast Breakdown</strong>{' '}
             <small>
-              - These boxes each cast, colored by how much damage was mitigated. Missed casts are
-              also shown in{' '}
+              - These boxes represent each cast, colored by how much damage was mitigated. Missed
+              casts are also shown in{' '}
               <TooltipElement content="Used for casts that may have been skipped in order to cover major damage events.">
                 <Highlight color={OkColor} textColor="black">
                   yellow

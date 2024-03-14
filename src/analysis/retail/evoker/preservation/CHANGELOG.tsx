@@ -6,6 +6,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { ResourceLink, SpellLink } from 'interface';
 
 export default [
+  change(date(2024, 3, 7), <>Fix an issue with <SpellLink spell={TALENTS_EVOKER.POTENT_MANA_TALENT} /> module when no <SpellLink spell={TALENTS_EVOKER.SOURCE_OF_MAGIC_TALENT} /> was active during the fight.</>, Vollmer),
   change(date(2024, 2, 18), <>Add spell cast time to <SpellLink spell={TALENTS_EVOKER.STASIS_TALENT}/> module</>, Trevor),
   change(date(2024, 2, 10), <>Fix crash in <SpellLink spell={TALENTS_EVOKER.SOURCE_OF_MAGIC_TALENT} /> module.</>, Trevor),
   change(date(2024, 2, 3), <>Implement <SpellLink spell={TALENTS_EVOKER.SOURCE_OF_MAGIC_TALENT} /> and <SpellLink spell={TALENTS_EVOKER.POTENT_MANA_TALENT} /> modules.</>, Vollmer),
