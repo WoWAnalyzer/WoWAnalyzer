@@ -834,6 +834,9 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: 8000, //8 seconds, the duration of Time of Need
     anySource: true,
     anyTarget: true,
+    additionalCondition(linkingEvent, referencedEvent) {
+      return (linkingEvent as SummonEvent).targetID === (referencedEvent as HealEvent).sourceID;
+    },
   },
 ];
 
@@ -1075,18 +1078,7 @@ export function isEbFromReversion(
 }
 
 export function getTimeOfNeedHealing(event: SummonEvent) {
-  const allHealing = GetRelatedEvents<HealEvent>(event, TIME_OF_NEED_HEALING) ?? null;
-  const tonHealing: HealEvent[] = [];
-  if (allHealing) {
-    allHealing.forEach((heal) => {
-      //Only grab heals that come from the spawned entity.
-      //This is to prevent Player VE's from getting pulled cause they have the same id
-      if (heal.sourceID === event.targetID) {
-        tonHealing.push(heal);
-      }
-    });
-  }
-  return tonHealing;
+  return GetRelatedEvents<HealEvent>(event, TIME_OF_NEED_HEALING) ?? null;
 }
 
 export default CastLinkNormalizer;

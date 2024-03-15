@@ -11,6 +11,7 @@ import { formatNumber } from 'common/format';
 import fetchWcl from 'common/fetchWclApi';
 import { WCLEventsResponse } from 'common/WCL_TYPES';
 import { Trans } from '@lingui/macro';
+import Combatants from 'parser/shared/modules/Combatants';
 
 //All possible results from a Time of Need proc
 enum Result {
@@ -19,6 +20,7 @@ enum Result {
   Not = 'Was not in danger of death',
   Dead = 'Died anyway',
   Bug = 'Time of Need fizzled out',
+  Unparsed = "This event wasn't reviewed",
 }
 
 interface tonEvent {
@@ -32,6 +34,11 @@ interface tonEvent {
 }
 
 class TimeOfNeed extends Analyzer {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
+  protected combatants!: Combatants;
   spawns: tonEvent[] = [];
 
   constructor(options: Options) {
@@ -76,77 +83,63 @@ class TimeOfNeed extends Analyzer {
     this.spawns.push(currentEvent);
   }
 
-  parseDamageTaken(tonSummon: SummonEvent, eventList: WCLEventsResponse) {
-    //Iterate through all Time of Need spawns to find the one that matches
-    this.spawns.forEach((spawn, index) => {
-      if (spawn.summon.timestamp === tonSummon.timestamp) {
-        //Check that ToN actually did any healing
-        if (spawn.verdantEmbrace !== null || spawn.livingFlames.length > 0) {
-          //If there is no damage events, then Time of Need didn't save the player from anything. Otherwise, parse them
-          if (eventList.events.length !== 0) {
-            //Iterate all the damage taken events during the time window
-            eventList.events.forEach((hit) => {
-              hit = hit as DamageEvent;
-              //Check if the hit landed on the same player that the Time of Need targeted
-              if (hit.targetID === spawn.target) {
-                //If the hitpoints after the hit are equal or less than 0, the player died anyway
-                if (hit.hitPoints !== undefined && hit.hitPoints === 0) {
-                  this.spawns[index].result = Result.Dead;
-                } else {
-                  //Initialize the healing from Time of Need with the VE
-                  let tonHealingAtThisPoint = spawn.verdantEmbrace?.amount || 0;
-                  //If there is no living flames casted, or this hit was before the first living flame landed
-                  if (
-                    spawn.livingFlames.length === 0 ||
-                    hit.timestamp < spawn.livingFlames[0].timestamp
-                  ) {
-                    //Check if the player would've died from this hit without the Verdant Embrace healing
-                    if (
-                      hit.hitPoints &&
-                      hit.hitPoints > 0 &&
-                      hit.hitPoints - tonHealingAtThisPoint <= 0
-                    ) {
-                      this.spawns[index].result = Result.Proc; //Person was saved by the VE
-                    }
-                  } else {
-                    //Add up all the healing done by the living flames that happened before this hit
-                    spawn.livingFlames.forEach((livingFlame) => {
-                      if (livingFlame.timestamp < hit.timestamp) {
-                        tonHealingAtThisPoint += livingFlame.amount;
-                      }
-                    });
-                    //If the hit points after this hit minus the total ToN healing done to this point is equal or less than 0, then he was saved
-                    if (
-                      hit.hitPoints &&
-                      hit.hitPoints > 0 &&
-                      hit.hitPoints - tonHealingAtThisPoint <= 0
-                    ) {
-                      //Mark as long save
-                      this.spawns[index].result = Result.Long;
-                    }
-                  }
-                }
-              }
-            });
+  parseDamageTaken(tonSpawn: tonEvent, eventList: WCLEventsResponse) {
+    //Check that ToN actually did any healing or if it bugged out
+    if (tonSpawn.verdantEmbrace === null && tonSpawn.livingFlames.length === 0) {
+      return Result.Bug;
+    }
+    //If there is no damage events, then Time of Need didn't save the player from anything
+    if (eventList.events.length === 0) {
+      return Result.Not;
+    }
+    const hits = eventList.events as DamageEvent[];
+    //Iterate all the damage taken events during the time window
+    for (const hit of hits) {
+      //Check that the info from the damage event is valid
+      if (hit.hitPoints !== undefined && hit.targetID === tonSpawn.target) {
+        //If the hitpoints after the hit are equal to 0, the player died anyway
+        if (hit.hitPoints === 0) {
+          return Result.Dead;
+        }
+        //Initialize the healing from Time of Need with the VE
+        let tonHealingAtThisPoint = tonSpawn.verdantEmbrace?.amount || 0;
+        //If there is no living flames casted, or this hit was before the first living flame landed
+        if (
+          tonSpawn.livingFlames.length === 0 ||
+          hit.timestamp < tonSpawn.livingFlames[0].timestamp
+        ) {
+          //Check if the player would've died from this hit without the Verdant Embrace healing
+          if (hit.hitPoints - tonHealingAtThisPoint <= 0) {
+            return Result.Proc; //Person was saved by the VE
           }
         } else {
-          //If ToN did no healing, it bugged out
-          this.spawns[index].result = Result.Bug;
+          //Add up all the healing done by the living flames that happened before this hit
+          tonSpawn.livingFlames.forEach((livingFlame) => {
+            if (livingFlame.timestamp < hit.timestamp) {
+              tonHealingAtThisPoint += livingFlame.amount;
+            }
+          });
+          //If the hit points after this hit minus the total ToN healing done to this point is equal or less than 0, then he was saved
+          if (hit.hitPoints > 0 && hit.hitPoints - tonHealingAtThisPoint <= 0) {
+            return Result.Long; //Mark as long save
+          }
         }
       }
-    });
+    }
+    return Result.Not;
   }
 
   async load() {
     //Run every ToN spawn through parseDamageTaken()
     for (const spawn of this.spawns) {
-      await fetchWcl(`report/events/damage-taken/${this.owner.report.code}`, {
-        start: spawn.summon.timestamp,
-        end: spawn.summon.timestamp + 8000,
-      }).then((json) => {
-        json = json as WCLEventsResponse;
-        this.parseDamageTaken(spawn.summon, json);
-      });
+      const damageTakenEvents = await fetchWcl<WCLEventsResponse>(
+        `report/events/damage-taken/${this.owner.report.code}`,
+        {
+          start: spawn.summon.timestamp,
+          end: spawn.summon.timestamp + 8000,
+        },
+      );
+      spawn.result = this.parseDamageTaken(spawn, damageTakenEvents);
     }
   }
 
