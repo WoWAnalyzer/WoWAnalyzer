@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2024, 3, 14), <>Bump sample log</>, Vohrr),
   change(date(2024, 2, 6), <><SpellLink spell={SPELLS.MANA_TEA_CAST}/> channeling should now show properly as active time.</>, Sref),
   change(date(2024, 1, 24), <>Fix crash when talented into <SpellLink spell={TALENTS_MONK.JADEFIRE_STOMP_TALENT}/></>, Trevor),
   change(date(2024, 1, 17), <>Fix icon spelling</>, Trevor),
