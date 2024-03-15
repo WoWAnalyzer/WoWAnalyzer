@@ -29,7 +29,7 @@ const config: Config = {
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport:
-    'report/t7W1f4w6CynqzDbd/29-Mythic+Scalecommander+Sarkareth+-+Kill+(6:47)/Sweggles/standard/overview',
+    'report/kQdTF2wmrhxHGLjX/22-Mythic+Fyrakk+the+Blazing+-+Kill+(9:27)/247-Vohrr/standard/overview',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
