@@ -36,6 +36,7 @@ import FillerFlashOfLight from './modules/spells/FillerFlashOfLight';
 import FillerLightOfTheMartyrs from './modules/spells/FillerLightOfTheMartyrs';
 import InefficientLightOfTheMartyrs from './modules/spells/InefficientLightOfTheMartyrs';
 import LightOfDawn from './modules/spells/LightOfDawn';
+import HolyShock from './modules/spells/HolyShock';
 import AvengingCrusader from './modules/talents/AvengingCrusader';
 import CrusadersMight from './modules/talents/CrusadersMight';
 import GlimmerOfLight from './modules/talents/GlimmerOfLight/GlimmerOfLight';
@@ -62,6 +63,7 @@ import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart'
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
 import SpellManaCost from 'parser/shared/modules/SpellManaCost';
 import HolyPaladinHealingEfficiencyTracker from './modules/features/HolyPaladinHealingEfficiencyTracker';
+import Guide from './Guide';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -90,6 +92,7 @@ class CombatLogParser extends CoreCombatLogParser {
     fillerFlashOfLight: FillerFlashOfLight,
     lightOfDawn: LightOfDawn,
     hammerOfWrath: HammerOfWrath,
+    holyShock: HolyShock,
 
     // Features
     checklist: Checklist,
@@ -143,6 +146,8 @@ class CombatLogParser extends CoreCombatLogParser {
     // Tier Sets
     t30TierSet: T30HpalTierSet,
   };
+
+  static guide = Guide;
 }
 
 export default CombatLogParser;
