@@ -1,4 +1,4 @@
-import { TalentInfo } from './index';
+import { TalentInfo } from './AplCheck';
 import SPELLS from 'common/SPELLS/evoker';
 import TALENTS from 'common/TALENTS/evoker';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';

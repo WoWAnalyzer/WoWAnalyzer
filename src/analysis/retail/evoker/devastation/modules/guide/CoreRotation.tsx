@@ -1,6 +1,6 @@
 import { GuideProps, Section } from 'interface/guide';
 import { AplSectionData } from 'interface/guide/components/Apl';
-import * as AplCheck from '../AplCheck';
+import * as AplCheck from '../AplCheck/AplCheck';
 import { ResourceLink, SpellLink } from 'interface';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
