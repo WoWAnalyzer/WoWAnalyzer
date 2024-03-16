@@ -1,406 +1,97 @@
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/evoker';
 import { suggestion } from 'parser/core/Analyzer';
-import aplCheck, { Apl, build, CheckResult, PlayerInfo, Rule } from 'parser/shared/metrics/apl';
+import aplCheck, { Apl, build, CheckResult, PlayerInfo } from 'parser/shared/metrics/apl';
 import annotateTimeline from 'parser/shared/metrics/apl/annotate';
 import TALENTS from 'common/TALENTS/evoker';
-import * as cnd from 'parser/shared/metrics/apl/conditions';
+import { AnyEvent } from 'parser/core/Events';
+import Spell from 'common/SPELLS/Spell';
+import { getSpells, SpellRules } from './spells';
 
-import { AnyEvent, EventType } from 'parser/core/Events';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { SpellLink } from 'interface';
-
-const avoidIfDragonRageSoon = (time: number) => {
-  return cnd.spellCooldownRemaining(TALENTS.DRAGONRAGE_TALENT, { atLeast: time });
+export type TalentInfo = {
+  maxEssenceBurst: number;
+  maxEssence: number;
+  eternitySurgeSpell: Spell[];
+  fireBreathSpell: Spell[];
+  hasEventHorizon: boolean;
+  hasIridescence: boolean;
 };
 
-const hasEssenceRequirement = (resources: number) => {
-  return cnd.or(
-    cnd.hasResource(RESOURCE_TYPES.ESSENCE, { atLeast: resources }),
-    cnd.buffPresent(SPELLS.ESSENCE_BURST_DEV_BUFF),
-  );
+const default_rotation = (spells: SpellRules) => {
+  return [
+    /** Top priority spells */
+    spells.snapFireFirestorm,
+    spells.ehEternitySurge,
+    spells.fireBreath,
+    spells.aoeEternitySurge,
+    spells.shatteringStar,
+    spells.stEternitySurge,
+    spells.aoeFirestorm,
+    spells.aoeLivingFlame,
+    spells.stBurnoutLivingFlame,
+
+    /** Spenders */
+    spells.aoePyre,
+    spells.threeTargetPyre,
+    spells.disintegrate,
+
+    /** Fillers */
+    spells.stFirestorm,
+    spells.aoeAzureStrike,
+    spells.greenSpells,
+    spells.fillerLivingFlame,
+    SPELLS.AZURE_STRIKE,
+  ];
 };
 
-const COMMON_TOP: Rule[] = [
-  // Spend Snapfire procs ASAP
-  {
-    spell: TALENTS.FIRESTORM_TALENT,
-    condition: cnd.buffPresent(SPELLS.SNAPFIRE_BUFF),
-  },
+const talentCheck = (info: PlayerInfo) => {
+  const talentInfo = {
+    maxEssenceBurst: 1,
+    maxEssence: 5,
+    eternitySurgeSpell: [SPELLS.ETERNITY_SURGE],
+    fireBreathSpell: [SPELLS.FIRE_BREATH],
+    hasEventHorizon: false,
+    hasIridescence: false,
+  };
+  if (!info || !info?.combatant) {
+    /** If we don't know whether the player has font talented or not
+     * we need to make sure we have both included */
+    talentInfo.fireBreathSpell = [SPELLS.FIRE_BREATH, SPELLS.FIRE_BREATH_FONT];
+    talentInfo.eternitySurgeSpell = [SPELLS.ETERNITY_SURGE, SPELLS.ETERNITY_SURGE_FONT];
+    return talentInfo;
+  }
 
-  // With Event Horizon talented, use Eternity Surge before Fire Breath during DR
-  {
-    spell: SPELLS.ETERNITY_SURGE,
-    condition: cnd.and(
-      cnd.hasTalent(TALENTS.EVENT_HORIZON_TALENT),
-      cnd.buffPresent(TALENTS.DRAGONRAGE_TALENT),
-    ),
-  },
-  {
-    spell: SPELLS.ETERNITY_SURGE_FONT,
-    condition: cnd.and(
-      cnd.hasTalent(TALENTS.EVENT_HORIZON_TALENT),
-      cnd.buffPresent(TALENTS.DRAGONRAGE_TALENT),
-    ),
-  },
+  const combatant = info.combatant;
 
-  // Use empower inside DR
-  // Make sure not to overlap T30 4pc buff
-  // Make sure to not use empower too close to dragonrage
-  {
-    spell: SPELLS.FIRE_BREATH,
-    condition: cnd.or(
-      cnd.buffPresent(TALENTS.DRAGONRAGE_TALENT),
-      cnd.and(cnd.buffMissing(SPELLS.POWER_SWELL_BUFF), avoidIfDragonRageSoon(13000)),
-    ),
-  },
-  {
-    spell: SPELLS.FIRE_BREATH_FONT,
-    condition: cnd.or(
-      cnd.buffPresent(TALENTS.DRAGONRAGE_TALENT),
-      cnd.and(cnd.buffMissing(SPELLS.POWER_SWELL_BUFF), avoidIfDragonRageSoon(13000)),
-    ),
-  },
-  // Use ES over star in AoE
-  {
-    spell: SPELLS.ETERNITY_SURGE,
-    condition: cnd.and(
-      cnd.targetsHit(
-        { atLeast: 3 },
-        { lookahead: 3000, targetType: EventType.Damage, targetSpell: SPELLS.ETERNITY_SURGE_DAM },
-      ),
-      cnd.or(
-        cnd.buffPresent(TALENTS.DRAGONRAGE_TALENT),
-        cnd.and(cnd.buffMissing(SPELLS.POWER_SWELL_BUFF), avoidIfDragonRageSoon(13000)),
-      ),
-    ),
-  },
-  {
-    spell: SPELLS.ETERNITY_SURGE_FONT,
-    condition: cnd.and(
-      cnd.targetsHit(
-        { atLeast: 3 },
-        { lookahead: 3000, targetType: EventType.Damage, targetSpell: SPELLS.ETERNITY_SURGE_DAM },
-      ),
-      cnd.or(
-        cnd.buffPresent(TALENTS.DRAGONRAGE_TALENT),
-        cnd.and(cnd.buffMissing(SPELLS.POWER_SWELL_BUFF), avoidIfDragonRageSoon(13000)),
-      ),
-    ),
-  },
-  {
-    spell: SPELLS.DEEP_BREATH,
-    condition: cnd.describe(
-      cnd.optionalRule(
-        cnd.and(
-          cnd.buffMissing(TALENTS.DRAGONRAGE_TALENT),
-          cnd.targetsHit(
-            { atLeast: 3 },
-            { lookahead: 3000, targetType: EventType.Damage, targetSpell: SPELLS.DEEP_BREATH_DAM },
-          ),
-        ),
-      ),
-      () => (
-        <>
-          <SpellLink spell={TALENTS.DRAGONRAGE_TALENT} /> isn't present <strong>(AoE)</strong>
-        </>
-      ),
-    ),
-  },
-  // Only use star if it doesn't overcap EB or you don't play vigor
-  {
-    spell: TALENTS.SHATTERING_STAR_TALENT,
-    condition: cnd.describe(
-      cnd.or(
-        cnd.and(
-          cnd.hasTalent(TALENTS.ARCANE_VIGOR_TALENT),
-          cnd.or(
-            cnd.and(
-              cnd.hasTalent(TALENTS.ESSENCE_ATTUNEMENT_TALENT),
-              cnd.buffStacks(SPELLS.ESSENCE_BURST_DEV_BUFF, { atMost: 1 }),
-            ),
-            cnd.and(
-              cnd.not(cnd.hasTalent(TALENTS.ESSENCE_ATTUNEMENT_TALENT)),
-              cnd.buffStacks(SPELLS.ESSENCE_BURST_DEV_BUFF, { atMost: 0 }),
-            ),
-          ),
-        ),
-        cnd.not(cnd.hasTalent(TALENTS.ARCANE_VIGOR_TALENT)),
-      ),
-      () => (
-        <>
-          you won't overcap on <SpellLink spell={SPELLS.ESSENCE_BURST_DEV_BUFF} /> or if you don't
-          play <SpellLink spell={TALENTS.ARCANE_VIGOR_TALENT} />
-        </>
-      ),
-    ),
-  },
-  // Use empower inside DR
-  // Make sure not to overlap T30 4pc buff
-  // Make sure to not use empower too close to dragonrage
-  {
-    spell: SPELLS.ETERNITY_SURGE,
-    condition: cnd.or(
-      cnd.buffPresent(TALENTS.DRAGONRAGE_TALENT),
-      cnd.and(cnd.buffMissing(SPELLS.POWER_SWELL_BUFF), avoidIfDragonRageSoon(13000)),
-    ),
-  },
-  {
-    spell: SPELLS.ETERNITY_SURGE_FONT,
-    condition: cnd.or(
-      cnd.buffPresent(TALENTS.DRAGONRAGE_TALENT),
-      cnd.and(cnd.buffMissing(SPELLS.POWER_SWELL_BUFF), avoidIfDragonRageSoon(13000)),
-    ),
-  },
-  // Hard cast only Firestorm in AoE
-  {
-    spell: TALENTS.FIRESTORM_TALENT,
-    condition: cnd.targetsHit(
-      { atLeast: 3 },
-      { lookahead: 2000, targetType: EventType.Damage, targetSpell: SPELLS.FIRESTORM_DAMAGE },
-    ),
-  },
-];
+  if (combatant.hasTalent(TALENTS.ESSENCE_ATTUNEMENT_TALENT)) {
+    talentInfo.maxEssenceBurst = 2;
+  }
+  if (combatant.hasTalent(TALENTS.POWER_NEXUS_TALENT)) {
+    talentInfo.maxEssence = 6;
+  }
+  if (combatant.hasTalent(TALENTS.FONT_OF_MAGIC_DEVASTATION_TALENT)) {
+    talentInfo.fireBreathSpell = [SPELLS.FIRE_BREATH_FONT];
+    talentInfo.eternitySurgeSpell = [SPELLS.ETERNITY_SURGE_FONT];
+  }
+  if (combatant.hasTalent(TALENTS.EVENT_HORIZON_TALENT)) {
+    talentInfo.hasEventHorizon = true;
+  }
+  if (combatant.hasTalent(TALENTS.IRIDESCENCE_TALENT)) {
+    talentInfo.hasIridescence = true;
+  }
 
-export const COMMON_BOTTOM: Rule[] = [
-  // Hard cast only Firestorm outside of SS and DR windows
-  {
-    spell: TALENTS.FIRESTORM_TALENT,
-    condition: cnd.and(
-      cnd.buffMissing(TALENTS.DRAGONRAGE_TALENT),
-      cnd.debuffMissing(SPELLS.SHATTERING_STAR),
-    ),
-  },
-  {
-    spell: SPELLS.EMERALD_BLOSSOM_CAST,
-    condition: cnd.describe(
-      cnd.and(
-        cnd.buffMissing(TALENTS.DRAGONRAGE_TALENT),
-        cnd.hasTalent(TALENTS.ANCIENT_FLAME_TALENT),
-        cnd.buffMissing(SPELLS.ANCIENT_FLAME_BUFF),
-        cnd.hasTalent(TALENTS.SCARLET_ADAPTATION_TALENT),
-      ),
-      () => (
-        <>
-          {' '}
-          you are talented into <SpellLink spell={TALENTS.ANCIENT_FLAME_TALENT} /> and{' '}
-          <SpellLink spell={TALENTS.SCARLET_ADAPTATION_TALENT} />, and you don't have either{' '}
-          <SpellLink spell={SPELLS.ANCIENT_FLAME_BUFF} /> or{' '}
-          <SpellLink spell={TALENTS.SCARLET_ADAPTATION_TALENT} /> buffs currently up
-        </>
-      ),
-    ),
-  },
+  return talentInfo;
+};
 
-  {
-    spell: SPELLS.VERDANT_EMBRACE_HEAL,
-    condition: cnd.describe(
-      cnd.and(
-        cnd.buffMissing(TALENTS.DRAGONRAGE_TALENT),
-        cnd.hasTalent(TALENTS.ANCIENT_FLAME_TALENT),
-        cnd.buffMissing(SPELLS.ANCIENT_FLAME_BUFF),
-        cnd.hasTalent(TALENTS.SCARLET_ADAPTATION_TALENT),
-      ),
-      () => (
-        <>
-          {' '}
-          you are talented into <SpellLink spell={TALENTS.ANCIENT_FLAME_TALENT} /> and{' '}
-          <SpellLink spell={TALENTS.SCARLET_ADAPTATION_TALENT} />, and you don't have either{' '}
-          <SpellLink spell={SPELLS.ANCIENT_FLAME_BUFF} /> or{' '}
-          <SpellLink spell={TALENTS.SCARLET_ADAPTATION_TALENT} /> buffs currently up
-        </>
-      ),
-    ),
-  },
+export const apl = (info: PlayerInfo): Apl => {
+  const talentInfo = talentCheck(info);
 
-  {
-    spell: SPELLS.AZURE_STRIKE,
-    condition: cnd.targetsHit(
-      { atLeast: 2 },
-      { lookahead: 1000, targetType: EventType.Damage, targetSpell: SPELLS.AZURE_STRIKE },
-    ),
-  },
+  const spells: SpellRules = getSpells(talentInfo);
 
-  {
-    spell: SPELLS.LIVING_FLAME_CAST,
-    condition: cnd.describe(
-      cnd.and(
-        cnd.buffPresent(TALENTS.DRAGONRAGE_TALENT),
-        cnd.or(cnd.buffPresent(SPELLS.IRIDESCENCE_RED), cnd.buffPresent(SPELLS.IRIDESCENCE_BLUE)),
-      ),
-      () => (
-        <>
-          <SpellLink spell={TALENTS.DRAGONRAGE_TALENT} /> is present and{' '}
-          <SpellLink spell={SPELLS.IRIDESCENCE_BLUE} /> or{' '}
-          <SpellLink spell={SPELLS.IRIDESCENCE_RED} /> is present.
-        </>
-      ),
-    ),
-  },
-  {
-    spell: SPELLS.LIVING_FLAME_CAST,
-    condition: cnd.buffMissing(TALENTS.DRAGONRAGE_TALENT),
-  },
-
-  SPELLS.AZURE_STRIKE,
-];
-
-const default_rotation = build([
-  ...COMMON_TOP,
-
-  // Chained disintegrate - Chaining takes prio over clipping
-  {
-    spell: SPELLS.DISINTEGRATE,
-    condition: cnd.and(
-      cnd.always(hasEssenceRequirement(3)),
-      cnd.lastSpellCast(SPELLS.DISINTEGRATE),
-    ),
-  },
-
-  // Leaping Flames with burnout
-  {
-    spell: SPELLS.LIVING_FLAME_CAST,
-    condition: cnd.and(
-      cnd.buffPresent(SPELLS.LEAPING_FLAMES_BUFF),
-      cnd.hasResource(RESOURCE_TYPES.ESSENCE, { atMost: 4 }),
-      cnd.buffMissing(SPELLS.ESSENCE_BURST_DEV_BUFF),
-      cnd.or(
-        cnd.targetsHit(
-          { atLeast: 4 },
-          {
-            lookahead: 2000,
-            targetType: EventType.Damage,
-            targetSpell: SPELLS.LIVING_FLAME_DAMAGE,
-          },
-        ),
-        cnd.buffPresent(SPELLS.BURNOUT_BUFF),
-        cnd.and(
-          cnd.buffPresent(TALENTS.SCARLET_ADAPTATION_TALENT),
-          cnd.targetsHit(
-            { atLeast: 3 },
-            {
-              lookahead: 2000,
-              targetType: EventType.Damage,
-              targetSpell: SPELLS.LIVING_FLAME_DAMAGE,
-            },
-          ),
-        ),
-      ),
-    ),
-  },
-  // Leaping flames no burnout
-  {
-    spell: SPELLS.LIVING_FLAME_CAST,
-    condition: cnd.and(
-      cnd.buffPresent(SPELLS.LEAPING_FLAMES_BUFF),
-      cnd.hasResource(RESOURCE_TYPES.ESSENCE, { atMost: 4 }),
-      cnd.buffMissing(SPELLS.ESSENCE_BURST_DEV_BUFF),
-      cnd.hasTalent(TALENTS.BURNOUT_TALENT),
-      cnd.targetsHit(
-        { atLeast: 3 },
-        {
-          lookahead: 2000,
-          targetType: EventType.Damage,
-          targetSpell: SPELLS.LIVING_FLAME_DAMAGE,
-        },
-      ),
-    ),
-  },
-
-  // Burnout no leaping flames
-  {
-    spell: SPELLS.LIVING_FLAME_CAST,
-    condition: cnd.and(
-      cnd.buffPresent(SPELLS.BURNOUT_BUFF),
-      cnd.buffMissing(SPELLS.LEAPING_FLAMES_BUFF),
-      cnd.hasResource(RESOURCE_TYPES.ESSENCE, { atMost: 4 }),
-      cnd.buffStacks(SPELLS.ESSENCE_BURST_DEV_BUFF, { atMost: 1 }),
-    ),
-  },
-
-  // Pyre when atleast 4 targets are hit
-  {
-    spell: TALENTS.PYRE_TALENT,
-    condition: cnd.targetsHit(
-      { atLeast: 4 },
-      { lookahead: 2000, targetType: EventType.Damage, targetSpell: SPELLS.PYRE },
-    ),
-  },
-  // Pyre when atleast 3 targets are hit with 15 stacks of CB
-  {
-    spell: TALENTS.PYRE_TALENT,
-    condition: cnd.and(
-      cnd.targetsHit(
-        { atLeast: 3 },
-        { lookahead: 2000, targetType: EventType.Damage, targetSpell: SPELLS.PYRE },
-      ),
-      cnd.buffStacks(SPELLS.CHARGED_BLAST, { atLeast: 15 }),
-    ),
-  },
-  // Pyre when atleast 3 targets are hit and if talented into CB and neither EB or blue buff is up
-  {
-    spell: TALENTS.PYRE_TALENT,
-    condition: cnd.describe(
-      cnd.and(
-        cnd.targetsHit(
-          { atLeast: 3 },
-          { lookahead: 2000, targetType: EventType.Damage, targetSpell: SPELLS.PYRE },
-        ),
-        cnd.hasTalent(TALENTS.CHARGED_BLAST_TALENT),
-        cnd.or(
-          cnd.not(cnd.buffPresent(SPELLS.ESSENCE_BURST_DEV_BUFF)),
-          cnd.not(cnd.buffPresent(SPELLS.IRIDESCENCE_BLUE)),
-        ),
-      ),
-      () => (
-        <>
-          it would hit at least 3 targets and <SpellLink spell={SPELLS.CHARGED_BLAST} /> is talented
-          and neither <SpellLink spell={SPELLS.ESSENCE_BURST_DEV_BUFF} /> nor{' '}
-          <SpellLink spell={SPELLS.IRIDESCENCE_BLUE} /> is up
-        </>
-      ),
-    ),
-  },
-  // Pyre when atleast 3 targets are hit if not playing CB aslong as both EB and blue buff isn't up at the same time.
-  {
-    spell: TALENTS.PYRE_TALENT,
-    condition: cnd.describe(
-      cnd.and(
-        cnd.targetsHit(
-          { atLeast: 3 },
-          { lookahead: 2000, targetType: EventType.Damage, targetSpell: SPELLS.PYRE },
-        ),
-        cnd.not(cnd.hasTalent(TALENTS.CHARGED_BLAST_TALENT)),
-        cnd.not(
-          cnd.and(
-            cnd.buffPresent(SPELLS.ESSENCE_BURST_DEV_BUFF),
-            cnd.buffPresent(SPELLS.IRIDESCENCE_BLUE),
-          ),
-        ),
-      ),
-      () => (
-        <>
-          it would hit at least 3 targets and both{' '}
-          <SpellLink spell={SPELLS.ESSENCE_BURST_DEV_BUFF} /> and{' '}
-          <SpellLink spell={SPELLS.IRIDESCENCE_BLUE} /> isn't up
-        </>
-      ),
-    ),
-  },
-
-  {
-    spell: SPELLS.DISINTEGRATE,
-    condition: cnd.always(hasEssenceRequirement(3)),
-  },
-
-  ...COMMON_BOTTOM,
-]);
-
-export const apl = (): Apl => {
-  return default_rotation;
+  return build(default_rotation(spells));
 };
 
 export const check = (events: AnyEvent[], info: PlayerInfo): CheckResult => {
-  const check = aplCheck(apl());
+  const check = aplCheck(apl(info));
   return check(events, info);
 };
 

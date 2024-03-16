@@ -20,10 +20,10 @@ export function CoreRotation({ modules, info }: GuideProps<typeof CombatLogParse
       </p>
 
       <p>
-        This Action Prioriy List (APL) is based off the Devastation APL found at{' '}
+        This Action Priority List (APL) is based off the Devastation APL found at{' '}
         <a href="https://github.com/WyrmrestTemple/df-devastation">WyrmrestTemple.</a>
       </p>
-      <AplSectionData checker={AplCheck.check} apl={AplCheck.apl()} />
+      <AplSectionData checker={AplCheck.check} apl={AplCheck.apl(info)} />
       <hr />
       <div>
         As mentioned before use the accuracy here as a reference point to compare to other logs.
