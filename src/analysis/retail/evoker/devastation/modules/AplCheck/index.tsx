@@ -48,8 +48,13 @@ const talentCheck = (info: PlayerInfo) => {
   const talentInfo = {
     maxEssenceBurst: 1,
     maxEssence: 5,
+    /** The reason for defining only one version of our empower spell
+     * is that if we include both font and non font version it will show up as
+     * "Cast Fire Breath or Fire Breath...", since it then assumes we have both available.
+     * This looks a bit weird so we try to define the version that is actively talented. */
     eternitySurgeSpell: [SPELLS.ETERNITY_SURGE],
     fireBreathSpell: [SPELLS.FIRE_BREATH],
+    /** Below talents have rotational changes */
     hasEventHorizon: false,
     hasIridescence: false,
   };
@@ -63,22 +68,16 @@ const talentCheck = (info: PlayerInfo) => {
 
   const combatant = info.combatant;
 
-  if (combatant.hasTalent(TALENTS.ESSENCE_ATTUNEMENT_TALENT)) {
-    talentInfo.maxEssenceBurst = 2;
-  }
-  if (combatant.hasTalent(TALENTS.POWER_NEXUS_TALENT)) {
-    talentInfo.maxEssence = 6;
-  }
+  talentInfo.maxEssenceBurst = combatant.hasTalent(TALENTS.ESSENCE_ATTUNEMENT_TALENT) ? 2 : 1;
+  talentInfo.maxEssence = combatant.hasTalent(TALENTS.POWER_NEXUS_TALENT) ? 6 : 5;
+
   if (combatant.hasTalent(TALENTS.FONT_OF_MAGIC_DEVASTATION_TALENT)) {
     talentInfo.fireBreathSpell = [SPELLS.FIRE_BREATH_FONT];
     talentInfo.eternitySurgeSpell = [SPELLS.ETERNITY_SURGE_FONT];
   }
-  if (combatant.hasTalent(TALENTS.EVENT_HORIZON_TALENT)) {
-    talentInfo.hasEventHorizon = true;
-  }
-  if (combatant.hasTalent(TALENTS.IRIDESCENCE_TALENT)) {
-    talentInfo.hasIridescence = true;
-  }
+
+  talentInfo.hasEventHorizon = combatant.hasTalent(TALENTS.EVENT_HORIZON_TALENT);
+  talentInfo.hasIridescence = combatant.hasTalent(TALENTS.IRIDESCENCE_TALENT);
 
   return talentInfo;
 };
