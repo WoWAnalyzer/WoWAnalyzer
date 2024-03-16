@@ -25,6 +25,7 @@ export const getSpells = (info: TalentInfo) => {
     aoeEternitySurge: aoeEternitySurge(info),
     aoeLivingFlame: aoeLivingFlame(info),
     stBurnoutLivingFlame: stBurnoutLivingFlame(info),
+    dragonRageFillerLivingFlame,
     fillerLivingFlame,
     greenSpells,
     aoePyre,
@@ -198,22 +199,21 @@ const stBurnoutLivingFlame = (info: TalentInfo) => {
     ),
   };
 };
-const fillerLivingFlame = {
+const dragonRageFillerLivingFlame = {
   spell: SPELLS.LIVING_FLAME_CAST,
   condition: cnd.describe(
-    cnd.or(
-      cnd.buffMissing(TALENTS.DRAGONRAGE_TALENT),
-      cnd.buffPresent(SPELLS.IRIDESCENCE_RED),
-      cnd.buffPresent(SPELLS.IRIDESCENCE_BLUE),
-    ),
+    cnd.or(cnd.buffPresent(SPELLS.IRIDESCENCE_RED), cnd.buffPresent(SPELLS.IRIDESCENCE_BLUE)),
     (tense) => (
       <>
-        <SpellLink spell={TALENTS.DRAGONRAGE_TALENT} /> {tenseAlt(tense, <>is</>, <>was</>)} missing
-        or {tenseAlt(tense, <>when</>, <></>)} either <SpellLink spell={SPELLS.IRIDESCENCE_BLUE} />{' '}
-        or <SpellLink spell={SPELLS.IRIDESCENCE_RED} /> {tenseAlt(tense, <>is</>, <>was</>)} present
+        either <SpellLink spell={SPELLS.IRIDESCENCE_BLUE} /> or{' '}
+        <SpellLink spell={SPELLS.IRIDESCENCE_RED} /> {tenseAlt(tense, <>is</>, <>was</>)} present
       </>
     ),
   ),
+};
+const fillerLivingFlame = {
+  spell: SPELLS.LIVING_FLAME_CAST,
+  condition: cnd.buffMissing(TALENTS.DRAGONRAGE_TALENT),
 };
 const greenSpells = {
   spell: [SPELLS.EMERALD_BLOSSOM_CAST, SPELLS.VERDANT_EMBRACE_HEAL],

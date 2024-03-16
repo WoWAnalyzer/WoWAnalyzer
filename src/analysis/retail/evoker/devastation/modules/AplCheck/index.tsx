@@ -38,6 +38,7 @@ const default_rotation = (spells: SpellRules) => {
     spells.stFirestorm,
     spells.aoeAzureStrike,
     spells.greenSpells,
+    spells.dragonRageFillerLivingFlame,
     spells.fillerLivingFlame,
     SPELLS.AZURE_STRIKE,
   ];
