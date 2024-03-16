@@ -19,6 +19,7 @@ import { Options } from 'parser/core/Module';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import { playerInfo } from '../metrics/apl/conditions/test-tools';
+import TRINKETS from 'common/ITEMS/dragonflight/trinkets';
 
 /**
  * Channels and casts are handled differently in events, and some information is also missing and must be inferred.
@@ -47,6 +48,7 @@ class Channeling extends EventsNormalizer {
     // General
     // Shadowlands Encounter
     buffChannelSpec(SPELLS.SOUL_INFUSION.id), // fight channel from Sun King's Salvation - see in this log: https://wowanalyzer.com/report/g4Pja6pLHnmQtbvk/32-Normal+Sun+King's+Salvation+-+Kill+(10:14)/Pjurbo/standard/events
+    buffChannelSpec(TRINKETS.NYMUES_UNRAVELING_SPINDLE_CHANNEL.id),
     // Mage
     buffChannelSpec(TALENTS_MAGE.EVOCATION_TALENT.id),
     buffChannelSpec(TALENTS_MAGE.SHIFTING_POWER_TALENT.id),
