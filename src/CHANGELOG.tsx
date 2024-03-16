@@ -34,6 +34,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 3, 16), <>Add <ItemLink id={ITEMS.NYMUES_UNRAVELING_SPINDLE.id}/> to channel list.</>, Vollmer),
   change(date(2024, 3, 14), 'Fix overflow on cooldown bars while using the phase selector.', ToppleTheNun),
   change(date(2024, 3, 14), 'Bump opacity on phase selector to 75% from 40%.', ToppleTheNun),
   change(date(2024, 3, 13), 'Bump opacity on muted text to 75% from 47%.', ToppleTheNun),
