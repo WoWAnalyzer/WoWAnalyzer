@@ -5,12 +5,12 @@ import TALENTS from 'common/TALENTS/evoker';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { ResourceLink, SpellLink } from 'interface';
 import { EventType } from 'parser/core/Events';
-import { ConditionalRule, Rule, tenseAlt } from 'parser/shared/metrics/apl';
+import { Rule, tenseAlt } from 'parser/shared/metrics/apl';
 import * as cnd from 'parser/shared/metrics/apl/conditions';
 import { avoidIfDragonRageSoon, hasEssenceRequirement } from './conditions';
 
 export type SpellRules = {
-  [K in keyof ReturnType<typeof getSpells>]: ConditionalRule;
+  [K in keyof ReturnType<typeof getSpells>]: Rule;
 };
 
 export const getSpells = (info: TalentInfo) => {
@@ -35,7 +35,7 @@ export const getSpells = (info: TalentInfo) => {
   };
 };
 
-const shatteringStar = (info: TalentInfo) => {
+const shatteringStar = (info: TalentInfo): Rule => {
   const baseCondition = cnd.describe(
     cnd.or(
       cnd.and(
@@ -63,11 +63,11 @@ const shatteringStar = (info: TalentInfo) => {
   };
   return ssRule;
 };
-const snapFireFirestorm = {
+const snapFireFirestorm: Rule = {
   spell: TALENTS.FIRESTORM_TALENT,
   condition: cnd.buffPresent(SPELLS.SNAPFIRE_BUFF),
 };
-const aoeFirestorm = {
+const aoeFirestorm: Rule = {
   spell: TALENTS.FIRESTORM_TALENT,
   condition: cnd.targetsHit(
     { atLeast: 3 },
@@ -78,20 +78,20 @@ const aoeFirestorm = {
     },
   ),
 };
-const stFirestorm = {
+const stFirestorm: Rule = {
   spell: TALENTS.FIRESTORM_TALENT,
   condition: cnd.and(
     cnd.buffMissing(TALENTS.DRAGONRAGE_TALENT),
     cnd.debuffMissing(SPELLS.SHATTERING_STAR),
   ),
 };
-const fireBreath = (info: TalentInfo) => {
+const fireBreath = (info: TalentInfo): Rule => {
   return {
     spell: info.fireBreathSpell,
     condition: cnd.or(cnd.buffPresent(TALENTS.DRAGONRAGE_TALENT), avoidIfDragonRageSoon(13000)),
   };
 };
-const stEternitySurge = (info: TalentInfo) => {
+const stEternitySurge = (info: TalentInfo): Rule => {
   return {
     spell: info.eternitySurgeSpell,
     condition: info.hasEventHorizon
@@ -99,7 +99,7 @@ const stEternitySurge = (info: TalentInfo) => {
       : cnd.or(cnd.buffPresent(TALENTS.DRAGONRAGE_TALENT), avoidIfDragonRageSoon(13000)),
   };
 };
-const ehEternitySurge = (info: TalentInfo) => {
+const ehEternitySurge = (info: TalentInfo): Rule => {
   return {
     spell: info.eternitySurgeSpell,
     condition: cnd.and(
@@ -110,7 +110,7 @@ const ehEternitySurge = (info: TalentInfo) => {
 };
 /** There are some specific rules for downranking which would only hit
  *  1/2 targets, but this will work just fine for the average Deva */
-const aoeEternitySurge = (info: TalentInfo) => {
+const aoeEternitySurge = (info: TalentInfo): Rule => {
   return {
     spell: info.eternitySurgeSpell,
     condition: cnd.and(
@@ -122,7 +122,7 @@ const aoeEternitySurge = (info: TalentInfo) => {
     ),
   };
 };
-const aoeLivingFlame = (info: TalentInfo) => {
+const aoeLivingFlame = (info: TalentInfo): Rule => {
   return {
     spell: SPELLS.LIVING_FLAME_CAST,
     condition: cnd.describe(
@@ -168,7 +168,7 @@ const aoeLivingFlame = (info: TalentInfo) => {
     ),
   };
 };
-const stBurnoutLivingFlame = (info: TalentInfo) => {
+const stBurnoutLivingFlame = (info: TalentInfo): Rule => {
   return {
     spell: SPELLS.LIVING_FLAME_CAST,
     condition: cnd.describe(
@@ -199,7 +199,7 @@ const stBurnoutLivingFlame = (info: TalentInfo) => {
     ),
   };
 };
-const dragonRageFillerLivingFlame = {
+const dragonRageFillerLivingFlame: Rule = {
   spell: SPELLS.LIVING_FLAME_CAST,
   condition: cnd.describe(
     cnd.or(cnd.buffPresent(SPELLS.IRIDESCENCE_RED), cnd.buffPresent(SPELLS.IRIDESCENCE_BLUE)),
@@ -211,11 +211,11 @@ const dragonRageFillerLivingFlame = {
     ),
   ),
 };
-const fillerLivingFlame = {
+const fillerLivingFlame: Rule = {
   spell: SPELLS.LIVING_FLAME_CAST,
   condition: cnd.buffMissing(TALENTS.DRAGONRAGE_TALENT),
 };
-const greenSpells = {
+const greenSpells: Rule = {
   spell: [SPELLS.EMERALD_BLOSSOM_CAST, SPELLS.VERDANT_EMBRACE_HEAL],
   condition: cnd.describe(
     cnd.and(
@@ -232,7 +232,7 @@ const greenSpells = {
     ),
   ),
 };
-const aoePyre = {
+const aoePyre: Rule = {
   spell: TALENTS.PYRE_TALENT,
   condition: cnd.and(
     cnd.targetsHit(
@@ -242,7 +242,7 @@ const aoePyre = {
     hasEssenceRequirement(2),
   ),
 };
-const threeTargetPyre = {
+const threeTargetPyre: Rule = {
   spell: TALENTS.PYRE_TALENT,
   condition: cnd.and(
     cnd.targetsHit(
@@ -256,11 +256,11 @@ const threeTargetPyre = {
     hasEssenceRequirement(2),
   ),
 };
-const disintegrate = {
+const disintegrate: Rule = {
   spell: SPELLS.DISINTEGRATE,
   condition: hasEssenceRequirement(3),
 };
-const aoeAzureStrike = {
+const aoeAzureStrike: Rule = {
   spell: SPELLS.AZURE_STRIKE,
   condition: cnd.targetsHit(
     { atLeast: 2 },
