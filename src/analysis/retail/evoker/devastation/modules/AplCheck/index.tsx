@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS/evoker';
 import { suggestion } from 'parser/core/Analyzer';
-import aplCheck, { Apl, build, CheckResult, PlayerInfo } from 'parser/shared/metrics/apl';
+import aplCheck, { Apl, build, CheckResult, PlayerInfo, Rule } from 'parser/shared/metrics/apl';
 import annotateTimeline from 'parser/shared/metrics/apl/annotate';
 import TALENTS from 'common/TALENTS/evoker';
 import { AnyEvent } from 'parser/core/Events';
@@ -16,7 +16,7 @@ export type TalentInfo = {
   hasIridescence: boolean;
 };
 
-const default_rotation = (spells: SpellRules) => {
+const default_rotation = (spells: SpellRules): Rule[] => {
   return [
     /** Top priority spells */
     spells.snapFireFirestorm,
@@ -44,7 +44,7 @@ const default_rotation = (spells: SpellRules) => {
   ];
 };
 
-const talentCheck = (info: PlayerInfo) => {
+const talentCheck = (info: PlayerInfo): TalentInfo => {
   const talentInfo = {
     maxEssenceBurst: 1,
     maxEssence: 5,
