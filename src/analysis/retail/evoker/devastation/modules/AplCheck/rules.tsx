@@ -1,5 +1,4 @@
 import { TalentInfo } from './index';
-
 import SPELLS from 'common/SPELLS/evoker';
 import TALENTS from 'common/TALENTS/evoker';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
@@ -9,11 +8,11 @@ import { Rule, tenseAlt } from 'parser/shared/metrics/apl';
 import * as cnd from 'parser/shared/metrics/apl/conditions';
 import { avoidIfDragonRageSoon, hasEssenceRequirement } from './conditions';
 
-export type SpellRules = {
-  [K in keyof ReturnType<typeof getSpells>]: Rule;
+export type Rules = {
+  [K in keyof ReturnType<typeof getRules>]: Rule;
 };
 
-export const getSpells = (info: TalentInfo) => {
+export const getRules = (info: TalentInfo) => {
   return {
     shatteringStar: shatteringStar(info),
     snapFireFirestorm,

@@ -5,7 +5,7 @@ import annotateTimeline from 'parser/shared/metrics/apl/annotate';
 import TALENTS from 'common/TALENTS/evoker';
 import { AnyEvent } from 'parser/core/Events';
 import Spell from 'common/SPELLS/Spell';
-import { getSpells, SpellRules } from './spells';
+import { getRules, Rules } from './rules';
 
 export type TalentInfo = {
   maxEssenceBurst: number;
@@ -16,30 +16,30 @@ export type TalentInfo = {
   hasIridescence: boolean;
 };
 
-const default_rotation = (spells: SpellRules): Rule[] => {
+const default_rotation = (rules: Rules): Rule[] => {
   return [
     /** Top priority spells */
-    spells.snapFireFirestorm,
-    spells.ehEternitySurge,
-    spells.fireBreath,
-    spells.aoeEternitySurge,
-    spells.shatteringStar,
-    spells.stEternitySurge,
-    spells.aoeFirestorm,
-    spells.aoeLivingFlame,
-    spells.stBurnoutLivingFlame,
+    rules.snapFireFirestorm,
+    rules.ehEternitySurge,
+    rules.fireBreath,
+    rules.aoeEternitySurge,
+    rules.shatteringStar,
+    rules.stEternitySurge,
+    rules.aoeFirestorm,
+    rules.aoeLivingFlame,
+    rules.stBurnoutLivingFlame,
 
     /** Spenders */
-    spells.aoePyre,
-    spells.threeTargetPyre,
-    spells.disintegrate,
+    rules.aoePyre,
+    rules.threeTargetPyre,
+    rules.disintegrate,
 
     /** Fillers */
-    spells.stFirestorm,
-    spells.aoeAzureStrike,
-    spells.greenSpells,
-    spells.dragonRageFillerLivingFlame,
-    spells.fillerLivingFlame,
+    rules.stFirestorm,
+    rules.aoeAzureStrike,
+    rules.greenSpells,
+    rules.dragonRageFillerLivingFlame,
+    rules.fillerLivingFlame,
     SPELLS.AZURE_STRIKE,
   ];
 };
@@ -85,9 +85,9 @@ const talentCheck = (info: PlayerInfo): TalentInfo => {
 export const apl = (info: PlayerInfo): Apl => {
   const talentInfo = talentCheck(info);
 
-  const spells: SpellRules = getSpells(talentInfo);
+  const rules: Rules = getRules(talentInfo);
 
-  return build(default_rotation(spells));
+  return build(default_rotation(rules));
 };
 
 export const check = (events: AnyEvent[], info: PlayerInfo): CheckResult => {
