@@ -48,6 +48,7 @@ class Channeling extends EventsNormalizer {
     // General
     // Shadowlands Encounter
     buffChannelSpec(SPELLS.SOUL_INFUSION.id), // fight channel from Sun King's Salvation - see in this log: https://wowanalyzer.com/report/g4Pja6pLHnmQtbvk/32-Normal+Sun+King's+Salvation+-+Kill+(10:14)/Pjurbo/standard/events
+    // Trinkets
     buffChannelSpec(TRINKETS.NYMUES_UNRAVELING_SPINDLE_CHANNEL.id),
     // Mage
     buffChannelSpec(TALENTS_MAGE.EVOCATION_TALENT.id),
