@@ -20,7 +20,7 @@ export function buffSoonPresent(
   source: SourceOptions = 'player',
 ): Condition<BuffInformation> {
   return {
-    key: `buffSoonPresent-${spell.id}`,
+    key: `buffSoonPresent-${spell.id}-${range.atLeast}-${range.atMost}-${source}`,
     init: ({ combatant }) => {
       const buffs = combatant?.buffs
         ? combatant.buffs.filter(
