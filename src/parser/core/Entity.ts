@@ -126,7 +126,7 @@ class Entity {
 
     let maxStackForTimestamp: StackHistoryElement = { timestamp: 0, stacks: 0 };
     buff?.stackHistory.forEach((stack) => {
-      if (maxStackForTimestamp.stacks < stack.timestamp && stack.timestamp < currentTimestamp) {
+      if (maxStackForTimestamp.timestamp < stack.timestamp && stack.timestamp < currentTimestamp) {
         maxStackForTimestamp = stack;
       }
     });
