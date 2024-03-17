@@ -97,7 +97,7 @@ const fireBreath = (info: TalentInfo): Rule => {
 const stEternitySurge = (info: TalentInfo): Rule => {
   return {
     spell: info.eternitySurgeSpell,
-    condition: info.hasEventHorizon ? avoidIfDragonRageSoon(13000) : standardEmpowerConditional,
+    condition: info.hasEventHorizon ? avoidIfDragonRageSoon() : standardEmpowerConditional,
   };
 };
 const ehEternitySurge = (info: TalentInfo): Rule => {
@@ -227,7 +227,7 @@ const fillerLivingFlame: Rule = {
   condition: cnd.buffMissing(TALENTS.DRAGONRAGE_TALENT),
 };
 const greenSpells: Rule = {
-  spell: [SPELLS.EMERALD_BLOSSOM_CAST, SPELLS.VERDANT_EMBRACE_HEAL],
+  spell: [SPELLS.EMERALD_BLOSSOM_CAST, TALENTS.VERDANT_EMBRACE_TALENT],
   condition: cnd.describe(
     cnd.and(
       cnd.buffMissing(TALENTS.DRAGONRAGE_TALENT),
