@@ -5,11 +5,10 @@ import SPELLS from 'common/SPELLS/evoker';
 import { SpellLink } from 'interface';
 import { tenseAlt } from 'parser/shared/metrics/apl';
 import { OPTIMAL_EMPOWER_DRAGONRAGE_GAP_ST_MS } from '../../constants';
-import { buffSoonPresent } from 'parser/shared/metrics/apl/conditions/buffSoonPresent';
 
 export const avoidIfDragonRageSoon = (time: number = OPTIMAL_EMPOWER_DRAGONRAGE_GAP_ST_MS) => {
   return cnd.describe(
-    buffSoonPresent(TALENTS.DRAGONRAGE_TALENT, {
+    cnd.buffSoonPresent(TALENTS.DRAGONRAGE_TALENT, {
       atLeast: time,
     }),
     (tense) => (
