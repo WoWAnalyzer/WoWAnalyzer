@@ -36,11 +36,6 @@ const trinkets = {
     name: "Nymue's Unraveling Spindle",
     icon: 'inv_cloth_outdooremeralddream_d_01_buckle',
   },
-  NYMUES_UNRAVELING_SPINDLE_CHANNEL: {
-    id: 422956,
-    name: "Nymue's Unraveling Spindle",
-    icon: 'inv_cloth_outdooremeralddream_d_01_buckle',
-  },
   BELORRELOS_THE_SUNCALLER: {
     id: 207172,
     name: "Belor'relos, the Suncaller",
