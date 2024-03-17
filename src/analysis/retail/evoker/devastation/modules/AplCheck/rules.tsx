@@ -6,7 +6,11 @@ import { ResourceLink, SpellLink } from 'interface';
 import { EventType } from 'parser/core/Events';
 import { Rule, tenseAlt } from 'parser/shared/metrics/apl';
 import * as cnd from 'parser/shared/metrics/apl/conditions';
-import { avoidIfDragonRageSoon, hasEssenceRequirement } from './conditions';
+import {
+  avoidIfDragonRageSoon,
+  hasEssenceRequirement,
+  standardEmpowerConditional,
+} from './conditions';
 
 export type Rules = {
   [K in keyof ReturnType<typeof getRules>]: Rule;
@@ -33,17 +37,6 @@ export const getRules = (info: TalentInfo) => {
     aoeAzureStrike,
   };
 };
-
-const standardEmpowerConditional = cnd.describe(
-  cnd.or(cnd.buffPresent(TALENTS.DRAGONRAGE_TALENT), avoidIfDragonRageSoon(13000)),
-  (tense) => (
-    <>
-      {tenseAlt(tense, <>in</>, <>you were in</>)} <SpellLink spell={TALENTS.DRAGONRAGE_TALENT} />{' '}
-      or <SpellLink spell={TALENTS.DRAGONRAGE_TALENT} /> {tenseAlt(tense, <>has</>, <>had</>)} at
-      least 13 seconds remaining on cooldown
-    </>
-  ),
-);
 
 const shatteringStar = (info: TalentInfo): Rule => {
   const baseCondition = cnd.describe(
