@@ -27,12 +27,23 @@ export const getRules = (info: TalentInfo) => {
     dragonRageFillerLivingFlame,
     fillerLivingFlame,
     greenSpells,
-    aoePyre,
-    threeTargetPyre,
-    disintegrate,
+    aoePyre: aoePyre(info),
+    threeTargetPyre: threeTargetPyre(info),
+    disintegrate: disintegrate(info),
     aoeAzureStrike,
   };
 };
+
+const standardEmpowerConditional = cnd.describe(
+  cnd.or(cnd.buffPresent(TALENTS.DRAGONRAGE_TALENT), avoidIfDragonRageSoon(13000)),
+  (tense) => (
+    <>
+      {tenseAlt(tense, <>in</>, <>you were in</>)} <SpellLink spell={TALENTS.DRAGONRAGE_TALENT} />{' '}
+      or <SpellLink spell={TALENTS.DRAGONRAGE_TALENT} /> {tenseAlt(tense, <>has</>, <>had</>)} at
+      least 13 seconds remaining on cooldown
+    </>
+  ),
+);
 
 const shatteringStar = (info: TalentInfo): Rule => {
   const baseCondition = cnd.describe(
@@ -87,23 +98,31 @@ const stFirestorm: Rule = {
 const fireBreath = (info: TalentInfo): Rule => {
   return {
     spell: info.fireBreathSpell,
-    condition: cnd.or(cnd.buffPresent(TALENTS.DRAGONRAGE_TALENT), avoidIfDragonRageSoon(13000)),
+    condition: standardEmpowerConditional,
   };
 };
 const stEternitySurge = (info: TalentInfo): Rule => {
   return {
     spell: info.eternitySurgeSpell,
-    condition: info.hasEventHorizon
-      ? avoidIfDragonRageSoon(13000)
-      : cnd.or(cnd.buffPresent(TALENTS.DRAGONRAGE_TALENT), avoidIfDragonRageSoon(13000)),
+    condition: info.hasEventHorizon ? avoidIfDragonRageSoon(13000) : standardEmpowerConditional,
   };
 };
 const ehEternitySurge = (info: TalentInfo): Rule => {
   return {
     spell: info.eternitySurgeSpell,
-    condition: cnd.and(
-      cnd.buffPresent(TALENTS.DRAGONRAGE_TALENT),
-      cnd.hasTalent(TALENTS.EVENT_HORIZON_TALENT),
+    condition: cnd.describe(
+      cnd.and(
+        cnd.buffPresent(TALENTS.DRAGONRAGE_TALENT),
+        cnd.hasTalent(TALENTS.EVENT_HORIZON_TALENT),
+      ),
+      (tense) => (
+        <>
+          {tenseAlt(tense, <>in</>, <>you were in</>)}{' '}
+          <SpellLink spell={TALENTS.DRAGONRAGE_TALENT} /> and you{' '}
+          {tenseAlt(tense, <>have</>, <>had</>)} <SpellLink spell={TALENTS.EVENT_HORIZON_TALENT} />{' '}
+          talented
+        </>
+      ),
     ),
   };
 };
@@ -117,7 +136,7 @@ const aoeEternitySurge = (info: TalentInfo): Rule => {
         { atLeast: 3 },
         { lookahead: 3000, targetType: EventType.Damage, targetSpell: SPELLS.ETERNITY_SURGE_DAM },
       ),
-      cnd.or(cnd.buffPresent(TALENTS.DRAGONRAGE_TALENT), avoidIfDragonRageSoon(13000)),
+      standardEmpowerConditional,
     ),
   };
 };
@@ -222,7 +241,8 @@ const greenSpells: Rule = {
       cnd.hasTalent(TALENTS.ANCIENT_FLAME_TALENT),
       cnd.buffMissing(SPELLS.ANCIENT_FLAME_BUFF),
       cnd.hasTalent(TALENTS.SCARLET_ADAPTATION_TALENT),
-      cnd.debuffMissing(SPELLS.SHATTERING_STAR),
+      /** debuffMissing has some weird interactions with shattering star debuff */
+      cnd.not(cnd.debuffPresent(TALENTS.SHATTERING_STAR_TALENT)),
     ),
     (tense) => (
       <>
@@ -231,33 +251,67 @@ const greenSpells: Rule = {
     ),
   ),
 };
-const aoePyre: Rule = {
-  spell: TALENTS.PYRE_TALENT,
-  condition: cnd.and(
-    cnd.targetsHit(
-      { atLeast: 4 },
-      { lookahead: 2000, targetType: EventType.Damage, targetSpell: SPELLS.PYRE },
+const aoePyre = (info: TalentInfo): Rule => {
+  return {
+    spell: TALENTS.PYRE_TALENT,
+    condition: cnd.describe(
+      cnd.and(
+        cnd.targetsHit(
+          { atLeast: 4 },
+          { lookahead: 2000, targetType: EventType.Damage, targetSpell: SPELLS.PYRE },
+        ),
+        hasEssenceRequirement(2, info.maxEssence),
+      ),
+      () => <>it would hit at least 4 targets</>,
     ),
-    hasEssenceRequirement(2),
-  ),
+  };
 };
-const threeTargetPyre: Rule = {
-  spell: TALENTS.PYRE_TALENT,
-  condition: cnd.and(
-    cnd.targetsHit(
-      { atLeast: 3 },
-      { lookahead: 2000, targetType: EventType.Damage, targetSpell: SPELLS.PYRE },
+const threeTargetPyre = (info: TalentInfo): Rule => {
+  return {
+    spell: TALENTS.PYRE_TALENT,
+
+    condition: cnd.describe(
+      cnd.and(
+        cnd.targetsHit(
+          { atLeast: 3 },
+          { lookahead: 2000, targetType: EventType.Damage, targetSpell: SPELLS.PYRE },
+        ),
+        cnd.or(
+          cnd.buffStacks(SPELLS.CHARGED_BLAST, { atLeast: 15 }),
+          cnd.hasTalent(TALENTS.VOLATILITY_TALENT),
+        ),
+        hasEssenceRequirement(2, info.maxEssence),
+      ),
+      () => (
+        <>
+          it would hit at least 3 targets and you have at least 15 stacks of{' '}
+          <SpellLink spell={SPELLS.CHARGED_BLAST} /> or have{' '}
+          <SpellLink spell={TALENTS.VOLATILITY_TALENT} /> talented
+        </>
+      ),
     ),
-    cnd.or(
-      cnd.buffStacks(SPELLS.CHARGED_BLAST, { atLeast: 15 }),
-      cnd.hasTalent(TALENTS.VOLATILITY_TALENT),
-    ),
-    hasEssenceRequirement(2),
-  ),
+  };
 };
-const disintegrate: Rule = {
-  spell: SPELLS.DISINTEGRATE,
-  condition: hasEssenceRequirement(3),
+const disintegrate = (info: TalentInfo): Rule => {
+  return {
+    spell: SPELLS.DISINTEGRATE,
+    condition: cnd.describe(
+      hasEssenceRequirement(3, info.maxEssence),
+      (tense) => (
+        <>
+          {tenseAlt(
+            tense,
+            <></>,
+            <>
+              because you had at least 3 <ResourceLink id={RESOURCE_TYPES.ESSENCE.id} icon /> or{' '}
+              <SpellLink spell={SPELLS.ESSENCE_BURST_DEV_BUFF} /> was present
+            </>,
+          )}
+        </>
+      ),
+      '',
+    ),
+  };
 };
 const aoeAzureStrike: Rule = {
   spell: SPELLS.AZURE_STRIKE,

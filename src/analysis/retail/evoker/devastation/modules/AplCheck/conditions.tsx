@@ -7,10 +7,10 @@ export const avoidIfDragonRageSoon = (time: number) => {
   return cnd.spellCooldownRemaining(TALENTS.DRAGONRAGE_TALENT, { atLeast: time });
 };
 
-export const hasEssenceRequirement = (resources: number) => {
+export const hasEssenceRequirement = (resources: number, initial: number) => {
   return cnd.always(
     cnd.or(
-      cnd.hasResource(RESOURCE_TYPES.ESSENCE, { atLeast: resources }),
+      cnd.hasResource(RESOURCE_TYPES.ESSENCE, { atLeast: resources }, initial),
       cnd.buffPresent(SPELLS.ESSENCE_BURST_DEV_BUFF),
     ),
   );
