@@ -1,11 +1,11 @@
 import CombatLogParser from 'parser/core/CombatLogParser';
 import { BuffEvent, HasSource } from 'parser/core/Events';
 
-type StackHistory = Array<{ stacks: number; timestamp: number }>;
+type StackHistoryElement = { stacks: number; timestamp: number };
 export interface TrackedBuffEvent extends BuffEvent<any> {
   start: number;
   end: number | null;
-  stackHistory: StackHistory;
+  stackHistory: Array<StackHistoryElement>;
   refreshHistory: number[];
   stacks: number;
 }
@@ -111,10 +111,10 @@ class Entity {
   getBuffStacks(
     spellId: number,
     forTimestamp: number | null = null,
-    bufferTime = 0,
-    minimalActiveTime = 0,
+    bufferTime: number = 0,
+    minimalActiveTime: number = 0,
     sourceID: number | null = null,
-  ) {
+  ): number {
     const buff: TrackedBuffEvent | undefined = this.getBuff(
       spellId,
       forTimestamp,
@@ -122,24 +122,16 @@ class Entity {
       minimalActiveTime,
       sourceID,
     );
-    const stacks = buff === undefined ? 0 : this._stacksAt(buff, forTimestamp);
-    return stacks;
-  }
-
-  /**
-   * Looks in the buff's stack history for the update with the largest timestamp possible
-   */
-  _stacksAt(buff: TrackedBuffEvent, forTimestamp: number | null) {
     const currentTimestamp = forTimestamp !== null ? forTimestamp : this.owner.currentTimestamp;
-    let stacks = 0;
-    let stacksTimestamp = 0;
-    buff.stackHistory.forEach((stack) => {
-      if (stacksTimestamp < stack.timestamp && stack.timestamp < currentTimestamp) {
-        stacks = stack.stacks;
-        stacksTimestamp = stack.timestamp;
+
+    let maxStackForTimestamp: StackHistoryElement = { timestamp: 0, stacks: 0 };
+    buff?.stackHistory.forEach((stack) => {
+      if (maxStackForTimestamp.stacks < stack.timestamp && stack.timestamp < currentTimestamp) {
+        maxStackForTimestamp = stack;
       }
     });
-    return stacks;
+
+    return maxStackForTimestamp.stacks;
   }
 
   /**
