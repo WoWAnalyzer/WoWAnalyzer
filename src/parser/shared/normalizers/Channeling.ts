@@ -19,6 +19,7 @@ import { Options } from 'parser/core/Module';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import { playerInfo } from '../metrics/apl/conditions/test-tools';
+import PrePullCooldowns from './PrePullCooldowns';
 
 /**
  * Channels and casts are handled differently in events, and some information is also missing and must be inferred.
@@ -40,6 +41,11 @@ import { playerInfo } from '../metrics/apl/conditions/test-tools';
  * in events, and this normalizer allows special case handling to be registered for each.
  */
 class Channeling extends EventsNormalizer {
+  static dependencies = {
+    ...EventsNormalizer.dependencies,
+    /** We add dependency to PrePullCooldowns to ensure we also normalize fabricated pre-pull events */
+    prePullCooldowns: PrePullCooldowns,
+  };
   /**
    * Listing of all special case handlers for channels
    */
