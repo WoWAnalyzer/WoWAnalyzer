@@ -92,7 +92,7 @@ const stFirestorm: Rule = {
   spell: TALENTS.FIRESTORM_TALENT,
   condition: cnd.and(
     cnd.buffMissing(TALENTS.DRAGONRAGE_TALENT),
-    cnd.debuffMissing(SPELLS.SHATTERING_STAR),
+    cnd.debuffMissing(TALENTS.SHATTERING_STAR_TALENT, undefined, undefined, true),
   ),
 };
 const fireBreath = (info: TalentInfo): Rule => {
@@ -241,8 +241,7 @@ const greenSpells: Rule = {
       cnd.hasTalent(TALENTS.ANCIENT_FLAME_TALENT),
       cnd.buffMissing(SPELLS.ANCIENT_FLAME_BUFF),
       cnd.hasTalent(TALENTS.SCARLET_ADAPTATION_TALENT),
-      /** debuffMissing has some weird interactions with shattering star debuff */
-      cnd.not(cnd.debuffPresent(TALENTS.SHATTERING_STAR_TALENT)),
+      cnd.debuffMissing(TALENTS.SHATTERING_STAR_TALENT, undefined, undefined, true),
     ),
     (tense) => (
       <>
