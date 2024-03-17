@@ -31,6 +31,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        range: 25,
         enabled: combatant.spec !== SPECS.AUGMENTATION_EVOKER,
       },
       {
@@ -41,6 +42,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        range: 25,
         damageSpellIds: [SPELLS.EMERALD_BLOSSOM_CAST.id],
         isDefensive: true,
       },
@@ -62,6 +64,7 @@ class Abilities extends CoreAbilities {
             recommendedEfficiency: 0.95,
           },
         }),
+        range: 25,
       },
       {
         spell: SPELLS.LIVING_FLAME_CAST.id,
@@ -69,6 +72,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        range: 25,
         damageSpellIds: [SPELLS.LIVING_FLAME_DAMAGE.id],
       },
       {
@@ -78,6 +82,7 @@ class Abilities extends CoreAbilities {
             ? SPELL_CATEGORY.HEALER_DAMAGING_SPELL
             : SPELL_CATEGORY.ROTATIONAL,
         cooldown: 0,
+        range: 25,
         gcd: {
           base: 1500,
         },
@@ -181,6 +186,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        range: 25,
       },
       {
         spell: TALENTS.OPPRESSING_ROAR_TALENT.id,

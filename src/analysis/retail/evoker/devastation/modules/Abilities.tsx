@@ -15,6 +15,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        range: 25,
         enabled: combatant.hasTalent(TALENTS.PYRE_TALENT),
       },
       {
@@ -28,6 +29,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
+        range: 25,
         enabled: combatant.hasTalent(TALENTS.FIRESTORM_TALENT),
       },
       {
@@ -43,6 +45,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.95,
         },
+        range: 25,
         enabled: combatant.hasTalent(TALENTS.ETERNITY_SURGE_TALENT),
       },
       {
@@ -57,6 +60,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.9,
           extraSuggestion: 'You should aim to use this off CD.',
         },
+        range: 25,
         enabled: combatant.hasTalent(TALENTS.SHATTERING_STAR_TALENT),
       },
       //endregion
