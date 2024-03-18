@@ -1,8 +1,8 @@
-import CoreHaste from 'parser/shared/modules/Haste';
+import CoreHaste, { DEFAULT_HASTE_BUFFS } from 'parser/shared/modules/Haste';
 
 class Haste extends CoreHaste {
   hasteBuffs = {
-    ...super.hasteBuffs,
+    ...DEFAULT_HASTE_BUFFS,
   };
 }
 
