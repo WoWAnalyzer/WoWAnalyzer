@@ -51,7 +51,7 @@ export const getRules = (info: TalentInfo) => {
     aoePyre: aoePyre(info),
     threeTargetPyre: threeTargetPyre(info),
     disintegrate: disintegrate(info),
-    aoeAzureStrike,
+    aoeAzureStrike: aoeAzureStrike(info),
   };
 };
 
@@ -145,6 +145,9 @@ const aoeEternitySurge = (info: TalentInfo): Rule => {
     ),
   };
 };
+/** This looks a bit advanced, but basically it's just a check for whether or not you overcap resources
+ * it could be split up to 3/4 target rules, but for general play the difference is minor enough
+ * that this generic rule covers the AoE usage just fine */
 const aoeLivingFlame = (info: TalentInfo): Rule => {
   return {
     spell: SPELLS.LIVING_FLAME_CAST,
@@ -189,6 +192,7 @@ const aoeLivingFlame = (info: TalentInfo): Rule => {
     ),
   };
 };
+/** This is also just a resource overcap check */
 const stBurnoutLivingFlame = (info: TalentInfo): Rule => {
   return {
     spell: SPELLS.LIVING_FLAME_CAST,
@@ -218,6 +222,7 @@ const stBurnoutLivingFlame = (info: TalentInfo): Rule => {
     ),
   };
 };
+/** Living Flame filler inside of Dragonrage */
 const dragonRageFillerLivingFlame: Rule = {
   spell: SPELLS.LIVING_FLAME_CAST,
   condition: cnd.describe(
@@ -230,10 +235,12 @@ const dragonRageFillerLivingFlame: Rule = {
     ),
   ),
 };
+/** Living Flame filler outside of Dragonrage */
 const fillerLivingFlame: Rule = {
   spell: SPELLS.LIVING_FLAME_CAST,
   condition: cnd.buffMissing(TALENTS.DRAGONRAGE_TALENT),
 };
+/** Emerald Blossom & Verdant Embrace can be rotational buttons for Devastation */
 const greenSpells: Rule = {
   spell: [SPELLS.EMERALD_BLOSSOM_CAST, TALENTS.VERDANT_EMBRACE_TALENT],
   condition: cnd.describe(
@@ -251,6 +258,12 @@ const greenSpells: Rule = {
     ),
   ),
 };
+/** General spender info:
+ * We check for whether the player has resources available to cast the spenders,
+ * but it's bloat to show the resource req for the checklist rule, so we'll only
+ * show it when looking at violations.
+ * It should be very obvious that you need resources to use spenders :) */
+/** We split up Pyre since there are big gains in managing your spenders properly */
 const aoePyre = (info: TalentInfo): Rule => {
   return {
     spell: TALENTS.PYRE_TALENT,
@@ -313,10 +326,16 @@ const disintegrate = (info: TalentInfo): Rule => {
     ),
   };
 };
-const aoeAzureStrike: Rule = {
-  spell: SPELLS.AZURE_STRIKE,
-  condition: cnd.targetsHit(
-    { atLeast: 2 },
-    { lookahead: 1000, targetType: EventType.Damage, targetSpell: SPELLS.AZURE_STRIKE },
-  ),
+/** Ideally you only ever use this in true AoE (3T+) but we can only really
+ * make that check when we have Protracted Talons talented (Azure Strike hits 3 targets instead of only 2)
+ * So just fallback to 2 targets and assume AoE
+ * The difference is also kinda w/e at 2T - atleast until we get the filler Juicer Hero Talents monkaS */
+const aoeAzureStrike = (info: TalentInfo): Rule => {
+  return {
+    spell: SPELLS.AZURE_STRIKE,
+    condition: cnd.targetsHit(
+      { atLeast: info.hasProtractedTalons ? 3 : 2 },
+      { lookahead: 1000, targetType: EventType.Damage, targetSpell: SPELLS.AZURE_STRIKE },
+    ),
+  };
 };

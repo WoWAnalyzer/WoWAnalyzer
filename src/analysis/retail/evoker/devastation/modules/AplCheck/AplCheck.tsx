@@ -14,6 +14,7 @@ export type TalentInfo = {
   fireBreathSpell: Spell[];
   hasEventHorizon: boolean;
   hasIridescence: boolean;
+  hasProtractedTalons: boolean;
 };
 
 const default_rotation = (rules: Rules): Rule[] => {
@@ -45,7 +46,7 @@ const default_rotation = (rules: Rules): Rule[] => {
 };
 
 const talentCheck = (info: PlayerInfo): TalentInfo => {
-  const talentInfo = {
+  const talentInfo: TalentInfo = {
     maxEssenceBurst: 1,
     maxEssence: 5,
     /** The reason for defining only one version of our empower spell
@@ -57,6 +58,7 @@ const talentCheck = (info: PlayerInfo): TalentInfo => {
     /** Below talents have rotational changes */
     hasEventHorizon: false,
     hasIridescence: false,
+    hasProtractedTalons: false,
   };
   if (!info || !info?.combatant) {
     /** If we don't know whether the player has font talented or not
@@ -78,6 +80,7 @@ const talentCheck = (info: PlayerInfo): TalentInfo => {
 
   talentInfo.hasEventHorizon = combatant.hasTalent(TALENTS.EVENT_HORIZON_TALENT);
   talentInfo.hasIridescence = combatant.hasTalent(TALENTS.IRIDESCENCE_TALENT);
+  talentInfo.hasProtractedTalons = combatant.hasTalent(TALENTS.PROTRACTED_TALONS_TALENT);
 
   return talentInfo;
 };
