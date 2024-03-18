@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS/evoker';
-import { AnyEvent, BeginCastEvent, EventType, HasRelatedEvent } from 'parser/core/Events';
+import { AnyEvent, BeginCastEvent, EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
-import { BURNOUT_CONSUME } from './CastLinkNormalizer';
+import { isFromBurnout } from './CastLinkNormalizer';
 import Haste from 'parser/shared/modules/Haste';
 
 /**
@@ -34,7 +34,7 @@ class LivingFlamePrePullNormalizer extends EventsNormalizer {
         if (
           event.type === EventType.Cast &&
           event.ability.guid === SPELLS.LIVING_FLAME_CAST.id &&
-          !HasRelatedEvent(event, BURNOUT_CONSUME)
+          !isFromBurnout(event)
         ) {
           fixedEvents.push({
             ...event,
