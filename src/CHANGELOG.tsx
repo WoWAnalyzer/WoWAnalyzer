@@ -34,6 +34,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 3, 18), 'Bump TypeScript to 5.4.', ToppleTheNun),
   change(date(2024, 3, 8), 'Swap to Vite instead of create-react-app.', ToppleTheNun),
   change(date(2024, 3, 2), 'Correct an issue with the Power Word: Radiance icon.', emallson),
   change(date(2024, 3, 2), 'Correct incorrect tertiary stat scaling above 25% raw and 19% character sheet rating', Putro),

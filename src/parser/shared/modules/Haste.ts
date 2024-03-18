@@ -32,7 +32,7 @@ interface HasteBuff {
 
 type HasteBuffMap = { [spellId: number]: number | HasteBuff };
 
-const HASTE_BUFFS: HasteBuffMap = {
+export const DEFAULT_HASTE_BUFFS: HasteBuffMap = {
   // HASTE RATING BUFFS ARE HANDLED BY THE STATTRACKER MODULE
 
   ...BLOODLUST_BUFFS,
@@ -120,7 +120,7 @@ class Haste extends Analyzer {
   protected eventEmitter!: EventEmitter;
 
   protected hasteBuffs: HasteBuffMap = {
-    ...HASTE_BUFFS,
+    ...DEFAULT_HASTE_BUFFS,
   };
 
   get changehaste() {
