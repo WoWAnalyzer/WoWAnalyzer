@@ -271,6 +271,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.8, //reduced because of proc resets
         },
+        charges: combatant.hasTalent(TALENTS.DEATHS_ECHO_TALENT) ? 2 : 1,
         timelineSortIndex: 5,
       },
       //do not use cast efficiency for DnD without Rapid Decomposition.
@@ -280,6 +281,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        enabled: !combatant.hasTalent(TALENTS.RAPID_DECOMPOSITION_TALENT),
         cooldown: 15,
         charges: combatant.hasTalent(TALENTS.DEATHS_ECHO_TALENT) ? 2 : 1,
         timelineSortIndex: 5,
