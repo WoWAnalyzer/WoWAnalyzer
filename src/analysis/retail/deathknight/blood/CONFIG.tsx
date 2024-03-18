@@ -12,7 +12,7 @@ const config: Config = {
   contributors: [Yajinni, joshinator],
   expansion: Expansion.Dragonflight,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '10.0.7',
+  patchCompatibility: '10.2.5',
   isPartial: true,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
@@ -42,14 +42,16 @@ const config: Config = {
       <a href="https://discord.gg/AxphPxU">Discord</a> or DM us on Discord.
       <br />
       <br />
-      Make sure to check out the <a href="https://goo.gl/qjTtNY">Death Knight Class Discord</a> if
-      you need more specific advice or a more detailed guide than the ones available on{' '}
+      Make sure to check out the <a href="https://discord.gg/acherus">
+        Death Knight Class Discord
+      </a>{' '}
+      if you need more specific advice or a more detailed guide than the ones available on{' '}
       <a href="https://www.icy-veins.com/wow/blood-death-knight-pve-tank-guide">Icy-Veins</a> and{' '}
       <a href="https://www.wowhead.com/blood-death-knight-guide">wowhead</a>.
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: "/report/mx1BaMV7PyL4FnKz/10-Mythic+Artificer+Xy'mox+-+Kill+(5:53)/Tombo/standard",
+  exampleReport: '/report/y3D2KWrZtCd1AkVY/29-Heroic+Volcoross+-+Kill+(2:47)/Arlie/standard',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
@@ -63,6 +65,7 @@ const config: Config = {
     ),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: __dirname,
+  guideOnly: true,
 };
 
 export default config;
