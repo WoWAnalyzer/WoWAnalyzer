@@ -1,18 +1,35 @@
-import { formatNumber, formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/warlock';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { formatNumber, formatPercentage } from 'common/format';
+import SpellLink from 'interface/SpellLink';
+import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   AbsorbedEvent,
   ApplyBuffEvent,
   CastEvent,
+  FightEndEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import MajorDefensive, {
+  MajorDefensiveBuff,
+  Mitigation,
+  buff,
+} from 'interface/guide/components/MajorDefensives/MajorDefensiveAnalyzer';
+import { ReactNode } from 'react';
+import { MitigationTooltipSegment } from 'interface/guide/components/MajorDefensives/MitigationSegments';
+import {
+  BreakdownByDamageSource,
+  CooldownDetailsContainer,
+  CooldownDetailsProps,
+  NoData,
+  NumericColumn,
+  TableSegmentContainer,
+} from 'interface/guide/components/MajorDefensives/AllCooldownUsagesList';
 
-const debug = true;
+const debug = false;
 
 interface DarkPactCast {
   applyEvent: ApplyBuffEvent;
@@ -28,15 +45,18 @@ interface DarkPactCast {
 
 // TODO: needs guide, defensives section, this can and should be used as often as possible to help healers out
 // Expected event order is ApplyBuff > CastEvent > Absorbs > RemoveBuff
-class DarkPact extends Analyzer {
+class DarkPact extends MajorDefensiveBuff {
   casts: DarkPactCast[] = [];
   darkPactActive = false;
   hasIchor: boolean;
+  hasFrequentDonor: boolean;
+  possibleCasts = 0;
 
   constructor(options: Options) {
-    super(options);
+    super(TALENTS.DARK_PACT_TALENT, buff(TALENTS.DARK_PACT_TALENT), options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.DARK_PACT_TALENT);
     this.hasIchor = this.selectedCombatant.hasTalent(TALENTS.ICHOR_OF_DEVILS_TALENT);
+    this.hasFrequentDonor = this.selectedCombatant.hasTalent(TALENTS.FREQUENT_DONOR_TALENT);
 
     if (!this.active) {
       return;
@@ -58,9 +78,10 @@ class DarkPact extends Analyzer {
       Events.absorbed.by(SELECTED_PLAYER).spell(TALENTS.DARK_PACT_TALENT),
       this.onAbsorb,
     );
+    this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
-  onCast(event: CastEvent) {
+  private onCast(event: CastEvent) {
     if (!this.darkPactActive) {
       this.warn('Unexpected Dark Pact CastEvent, no ApplyBuffEvent before?');
       return;
@@ -77,7 +98,7 @@ class DarkPact extends Analyzer {
   }
 
   // this is still sent by wowa at 00 if the buff is active on pull
-  onApplyShield(event: ApplyBuffEvent) {
+  private onApplyShield(event: ApplyBuffEvent) {
     this.darkPactActive = true;
     this.casts.push({
       applyEvent: event,
@@ -90,7 +111,7 @@ class DarkPact extends Analyzer {
       this.debug("Dark Pact ApplyBuffEvent doesn't have shield value", event);
   }
 
-  onRemoveShield(event: RemoveBuffEvent) {
+  private onRemoveShield(event: RemoveBuffEvent) {
     if (!this.darkPactActive) {
       this.warn('Unexpected Dark Pact RemoveBuffEvent, no ApplyBuffEvent before?');
       return;
@@ -101,12 +122,20 @@ class DarkPact extends Analyzer {
     debug && this.debug('shield down, last cast: ', this.casts[this.casts.length - 1]);
   }
 
-  onAbsorb(event: AbsorbedEvent) {
+  private onAbsorb(event: AbsorbedEvent) {
     if (!this.darkPactActive) {
       this.warn('Unexpected Dark Pact AbsorbedEvent, no ApplyBuffEvent before?');
       return;
     }
     this.casts[this.casts.length - 1].amountAbsorbed += event.amount;
+
+    // recordMitigation expects a damage event but we can hack it
+    event.ability = event.extraAbility;
+    this.recordMitigation({ event, mitigatedAmount: event.amount });
+  }
+
+  private onFightEnd(event: FightEndEvent) {
+    this.possibleCasts = this.owner.fightDuration / (this.hasFrequentDonor ? 45000 : 60000);
   }
 
   get darkPactNumCasts() {
@@ -158,6 +187,113 @@ class DarkPact extends Analyzer {
       </Statistic>
     );
   }
+
+  description(): ReactNode {
+    return (
+      <>
+        <SpellLink spell={TALENTS.DARK_PACT_TALENT} /> shields you for 40% of your current hp while
+        sacrificing half of that amount. This is increased by versatiliy and should be at used as
+        often as possible before you start taking damage.
+      </>
+    );
+  }
+
+  get cooldownDetailsComponent() {
+    return ({ analyzer, mit }: CooldownDetailsProps) => {
+      return (
+        <CooldownDetails
+          analyzer={analyzer}
+          mit={mit}
+          dpCast={
+            mit
+              ? this.casts.find((cast) => cast.applyEvent.timestamp === mit.start.timestamp)
+              : undefined
+          }
+        />
+      );
+    };
+  }
 }
+
+const CooldownDetails = ({
+  analyzer,
+  mit,
+  dpCast,
+}: {
+  analyzer: MajorDefensive<any, any>;
+  mit?: Mitigation;
+  dpCast?: DarkPactCast;
+}) => {
+  if (
+    !mit ||
+    !dpCast ||
+    !dpCast.totalAbsorb ||
+    !dpCast.hpPercentPreCast ||
+    dpCast.unusedAbsorb === undefined
+  ) {
+    return (
+      <CooldownDetailsContainer>
+        <NoData>Click on a box in the cast breakdown to view details.</NoData>
+      </CooldownDetailsContainer>
+    );
+  }
+
+  const maxValue = Math.max(analyzer.firstSeenMaxHp, mit.amount, mit.maxAmount ?? 0);
+
+  return (
+    <CooldownDetailsContainer>
+      <table>
+        <tbody>
+          <tr>
+            <td colSpan={3}>
+              <strong>Usage info</strong>
+            </td>
+          </tr>
+          <tr>
+            <td>HP %</td>
+            <NumericColumn>{formatPercentage(dpCast.hpPercentPreCast, 0)}%</NumericColumn>
+            <TableSegmentContainer>
+              <MitigationTooltipSegment
+                color="rgb(80,196,76)"
+                maxWidth={100}
+                width={dpCast.hpPercentPreCast}
+              />
+              <MitigationTooltipSegment
+                color="rgb(176,28,60)"
+                maxWidth={100}
+                width={1 - dpCast.hpPercentPreCast}
+              />
+            </TableSegmentContainer>
+          </tr>
+          <tr>
+            <td>Shield</td>
+            <NumericColumn>{formatNumber(mit.amount)}</NumericColumn>
+            <TableSegmentContainer>
+              <MitigationTooltipSegment
+                color="rgba(255, 255, 255, 0.25)"
+                maxWidth={100}
+                width={mit.amount / maxValue}
+              />
+            </TableSegmentContainer>
+          </tr>
+          {dpCast.unusedAbsorb > 0 && (
+            <tr>
+              <td>Unused</td>
+              <NumericColumn>{formatNumber(dpCast.unusedAbsorb)}</NumericColumn>
+              <TableSegmentContainer>
+                <MitigationTooltipSegment
+                  color="rgb(176,28,60)"
+                  maxWidth={100}
+                  width={dpCast.unusedAbsorb / dpCast.totalAbsorb}
+                />
+              </TableSegmentContainer>
+            </tr>
+          )}
+        </tbody>
+      </table>
+      <BreakdownByDamageSource mit={mit} />
+    </CooldownDetailsContainer>
+  );
+};
 
 export default DarkPact;

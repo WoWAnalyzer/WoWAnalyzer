@@ -35,6 +35,8 @@ import SpellLink from 'interface/SpellLink';
 // prettier-ignore
 export default [
   change(date(2024, 3, 14), 'Correct getBuffStacks method to return the stacks at the given timestamp', Earosselot),
+  change(date(2024, 3, 14), 'Fix overflow on cooldown bars while using the phase selector.', ToppleTheNun),
+  change(date(2024, 3, 14), 'Bump opacity on phase selector to 75% from 40%.', ToppleTheNun),
   change(date(2024, 3, 13), 'Bump opacity on muted text to 75% from 47%.', ToppleTheNun),
   change(date(2024, 3, 2), 'Correct an issue with the Power Word: Radiance icon.', emallson),
   change(date(2024, 3, 2), 'Correct incorrect tertiary stat scaling above 25% raw and 19% character sheet rating', Putro),
