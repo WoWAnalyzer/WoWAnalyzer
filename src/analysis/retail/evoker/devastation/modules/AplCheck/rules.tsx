@@ -4,7 +4,7 @@ import TALENTS from 'common/TALENTS/evoker';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { ResourceLink, SpellLink } from 'interface';
 import { EventType } from 'parser/core/Events';
-import { Rule, tenseAlt } from 'parser/shared/metrics/apl';
+import { Rule, Tense, tenseAlt } from 'parser/shared/metrics/apl';
 import * as cnd from 'parser/shared/metrics/apl/conditions';
 import {
   avoidIfDragonRageSoon,
@@ -14,6 +14,23 @@ import {
 
 export type Rules = {
   [K in keyof ReturnType<typeof getRules>]: Rule;
+};
+
+const noOvercapDescription = (
+  tense: Tense | undefined,
+  includeEssence: boolean = true,
+): JSX.Element => {
+  return (
+    <>
+      you {tenseAlt(tense, <>won't</>, <>wouldn't</>)} overcap{' '}
+      {includeEssence && (
+        <>
+          <ResourceLink id={RESOURCE_TYPES.ESSENCE.id} icon /> or
+        </>
+      )}
+      <SpellLink spell={SPELLS.ESSENCE_BURST_DEV_BUFF} />
+    </>
+  );
 };
 
 export const getRules = (info: TalentInfo) => {
@@ -49,12 +66,7 @@ const shatteringStar = (info: TalentInfo): Rule => {
       ),
       cnd.not(cnd.hasTalent(TALENTS.ARCANE_VIGOR_TALENT)),
     ),
-    (tense) => (
-      <>
-        you {tenseAlt(tense, <>won't</>, <>wouldn't</>)} overcap on{' '}
-        <SpellLink spell={SPELLS.ESSENCE_BURST_DEV_BUFF} />
-      </>
-    ),
+    (tense) => <>{noOvercapDescription(tense, false)}</>,
   );
 
   const ssRule: Rule = {
@@ -170,10 +182,8 @@ const aoeLivingFlame = (info: TalentInfo): Rule => {
       (tense) => (
         <>
           you {tenseAlt(tense, <>have</>, <>had</>)}{' '}
-          <SpellLink spell={SPELLS.LEAPING_FLAMES_BUFF} /> and{' '}
-          {tenseAlt(tense, <>won't</>, <>wouldn't</>)} overcap{' '}
-          <ResourceLink id={RESOURCE_TYPES.ESSENCE.id} icon /> or{' '}
-          <SpellLink spell={SPELLS.ESSENCE_BURST_DEV_BUFF} /> <strong>(AoE)</strong>
+          <SpellLink spell={SPELLS.LEAPING_FLAMES_BUFF} /> and {noOvercapDescription(tense)}{' '}
+          <strong>(AoE)</strong>
         </>
       ),
     ),
@@ -202,9 +212,7 @@ const stBurnoutLivingFlame = (info: TalentInfo): Rule => {
       (tense) => (
         <>
           you {tenseAlt(tense, <>have</>, <>had</>)} <SpellLink spell={SPELLS.BURNOUT_BUFF} /> and{' '}
-          {tenseAlt(tense, <>won't</>, <>wouldn't</>)} overcap{' '}
-          <ResourceLink id={RESOURCE_TYPES.ESSENCE.id} icon /> or{' '}
-          <SpellLink spell={SPELLS.ESSENCE_BURST_DEV_BUFF} />
+          {noOvercapDescription(tense)}
         </>
       ),
     ),
