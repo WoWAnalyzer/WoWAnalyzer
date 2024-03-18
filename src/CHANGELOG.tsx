@@ -27,13 +27,14 @@ import {
   Arlie,
   LucasLevyOB,
   dub,
-  Zyer,
+  Zyer, Earosselot,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 3, 14), 'Correct getBuffStacks method to return the stacks at the given timestamp', Earosselot),
   change(date(2024, 3, 14), 'Fix overflow on cooldown bars while using the phase selector.', ToppleTheNun),
   change(date(2024, 3, 14), 'Bump opacity on phase selector to 75% from 40%.', ToppleTheNun),
   change(date(2024, 3, 13), 'Bump opacity on muted text to 75% from 47%.', ToppleTheNun),

@@ -71,10 +71,11 @@ class WintersChill extends Analyzer {
     const remove: RemoveDebuffEvent | undefined = GetRelatedEvent(event, 'DebuffRemove');
     const flurry: CastEvent | undefined = GetRelatedEvent(event, 'SpellCast');
     const precast: CastEvent | undefined = GetRelatedEvent(event, 'PreCast');
-    const precastIcicles =
-      (flurry &&
-        this.selectedCombatant.getBuff(SPELLS.ICICLES_BUFF.id, flurry.timestamp)?.stacks) ||
-      0;
+    const currentTimestamp = flurry !== undefined ? flurry.timestamp : this.owner.currentTimestamp;
+    const precastIcicles = this.selectedCombatant.getBuffStacks(
+      SPELLS.ICICLES_BUFF.id,
+      currentTimestamp - 100,
+    );
     const wintersChillEvent = new WintersChillEvent(event, remove, precast, precastIcicles, flurry);
     this.wintersChill.push(wintersChillEvent);
   }
