@@ -3,6 +3,7 @@ import CombatLogParser from '../../CombatLogParser';
 import { DeathStrikeSection } from '../spells/DeathStrike/DeathStrikeSection';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 import { TALENTS_DEATH_KNIGHT } from 'common/TALENTS';
+import SPELLS from 'common/SPELLS';
 import CooldownGraphSubsection, {
   Cooldown,
 } from 'interface/guide/components/CooldownGraphSubSection';
@@ -16,7 +17,7 @@ export default function BloodGuide(props: GuideProps<typeof CombatLogParser>): J
       isActive: (c) => c.hasTalent(TALENTS_DEATH_KNIGHT.DANCING_RUNE_WEAPON_TALENT),
     },
     {
-      spell: TALENTS_DEATH_KNIGHT.EMPOWER_RUNE_WEAPON_SHARED_TALENT,
+      spell: SPELLS.EMPOWER_RUNE_WEAPON,
       isActive: (c) => c.hasTalent(TALENTS_DEATH_KNIGHT.EMPOWER_RUNE_WEAPON_SHARED_TALENT),
     },
     {
