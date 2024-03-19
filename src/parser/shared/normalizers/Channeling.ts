@@ -19,7 +19,6 @@ import { Options } from 'parser/core/Module';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import { playerInfo } from '../metrics/apl/conditions/test-tools';
-import PrePullCooldowns from './PrePullCooldowns';
 
 /**
  * Channels and casts are handled differently in events, and some information is also missing and must be inferred.
@@ -41,11 +40,6 @@ import PrePullCooldowns from './PrePullCooldowns';
  * in events, and this normalizer allows special case handling to be registered for each.
  */
 class Channeling extends EventsNormalizer {
-  static dependencies = {
-    ...EventsNormalizer.dependencies,
-    /** We add dependency to PrePullCooldowns to ensure we also normalize fabricated pre-pull events */
-    prePullCooldowns: PrePullCooldowns,
-  };
   /**
    * Listing of all special case handlers for channels
    */
@@ -53,8 +47,6 @@ class Channeling extends EventsNormalizer {
     // General
     // Shadowlands Encounter
     buffChannelSpec(SPELLS.SOUL_INFUSION.id), // fight channel from Sun King's Salvation - see in this log: https://wowanalyzer.com/report/g4Pja6pLHnmQtbvk/32-Normal+Sun+King's+Salvation+-+Kill+(10:14)/Pjurbo/standard/events
-    // Trinkets
-    buffChannelSpec(SPELLS.NYMUES_UNRAVELING_SPINDLE.id),
     // Mage
     buffChannelSpec(TALENTS_MAGE.EVOCATION_TALENT.id),
     buffChannelSpec(TALENTS_MAGE.SHIFTING_POWER_TALENT.id),

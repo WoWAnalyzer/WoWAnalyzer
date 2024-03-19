@@ -29,7 +29,6 @@ import EngulfingBlaze from './modules/talents/EngulfingBlaze';
 import LayWaste from './modules/talents/LayWaste';
 import Iridescence from './modules/talents/Iridescence';
 import T31DevaTier from './modules/dragonflight/tier/T31DevaTier';
-import LivingFlamePrePullNormalizer from './modules/normalizers/LivingFlamePrePullNormalizer';
 
 // Shared
 import {
@@ -60,7 +59,6 @@ class CombatLogParser extends MainCombatLogParser {
     // Normalizer
     castLinkNormalizer: CastLinkNormalizer,
     essenceBurstNormalizer: EssenceBurstNormalizer,
-    livingFlamePrePullNormalizer: LivingFlamePrePullNormalizer,
 
     // features
     apls: AplCheck,

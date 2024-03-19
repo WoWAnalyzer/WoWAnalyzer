@@ -25,7 +25,7 @@ export default class NymuesUnravelingSpindle extends Analyzer.withDependencies(d
         suggestion: true,
         recommendedEfficiency: 0.9,
       },
-      damageSpellIds: [SPELLS.NYMUES_UNRAVELING_SPINDLE_DAMAGE.id],
+      damageSpellIds: [SPELLS.NYMUES_UNRAVELING_SPINDLE.id],
     });
   }
 }
