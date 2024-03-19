@@ -1808,6 +1808,13 @@ export const Trevor: Contributor = {
   avatar: avatar('Trevor-avatar.png'),
 };
 
+export const Harrek: Contributor = {
+  nickname: 'Harrek',
+  discord: 'harrek',
+  github: 'Harreks',
+  avatar: avatar('Harrek-avatar.png'),
+};
+
 export const Jeff: Contributor = {
   nickname: 'Jeff',
   discord: 'muhnameizjeff#8143',
