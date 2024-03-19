@@ -135,7 +135,6 @@ class TimeOfNeed extends Analyzer {
         {
           start: spawn.summon.timestamp,
           end: spawn.summon.timestamp + 8000,
-          undefined,
           filter,
         },
       );
