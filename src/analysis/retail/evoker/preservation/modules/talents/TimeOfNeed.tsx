@@ -10,27 +10,30 @@ import { SpellIcon, SpellLink } from 'interface';
 import { formatNumber } from 'common/format';
 import fetchWcl from 'common/fetchWclApi';
 import { WCLEventsResponse } from 'common/WCL_TYPES';
-import { Trans } from '@lingui/macro';
 import Combatants from 'parser/shared/modules/Combatants';
 
 //All possible results from a Time of Need proc
-enum Result {
-  Proc = 'Saved by Verdant Embrace',
-  Long = 'Saved by all the healing',
-  Not = 'Was not in danger of death',
-  Dead = 'Died anyway',
-  Bug = 'Time of Need fizzled out',
-  Unparsed = "This event wasn't reviewed",
-}
+const Result = {
+  Proc: (
+    <>
+      Saved by <SpellLink spell={TALENTS_EVOKER.VERDANT_EMBRACE_TALENT} />
+    </>
+  ),
+  Long: 'Saved by all the healing',
+  Not: 'Was not in danger of death',
+  Dead: 'Died anyway',
+  Bug: 'Time of Need fizzled out',
+} as const;
+type Results = typeof Result[keyof typeof Result];
 
-interface tonEvent {
+interface TonEvent {
   summon: SummonEvent;
   verdantEmbrace: HealEvent | null;
   livingFlames: HealEvent[];
   livingFlameTotalHeal: number;
   livingFlameTotalOverheal: number;
   target: number;
-  result: Result;
+  result: Results;
 }
 
 class TimeOfNeed extends Analyzer {
@@ -39,27 +42,23 @@ class TimeOfNeed extends Analyzer {
   };
 
   protected combatants!: Combatants;
-  spawns: tonEvent[] = [];
+  spawns: TonEvent[] = [];
 
   constructor(options: Options) {
     super(options);
 
     this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.TIME_OF_NEED_TALENT);
 
-    if (!this.active) {
-      return;
-    }
-
     this.addEventListener(
-      Events.summon.by(SELECTED_PLAYER).spell(TALENTS_EVOKER.TIME_OF_NEED_SUMMON),
+      Events.summon.by(SELECTED_PLAYER).spell(SPELLS.TIME_OF_NEED_SUMMON),
       this.onSpawn,
     );
   }
 
   onSpawn(event: SummonEvent) {
-    const HealEvents = getTimeOfNeedHealing(event);
+    const healEvents = getTimeOfNeedHealing(event);
 
-    const currentEvent: tonEvent = {
+    const currentEvent: TonEvent = {
       summon: event,
       verdantEmbrace: null,
       livingFlames: [],
@@ -69,7 +68,7 @@ class TimeOfNeed extends Analyzer {
       result: Result.Not,
     };
 
-    HealEvents.forEach((heal) => {
+    healEvents.forEach((heal) => {
       if (heal.ability.guid === SPELLS.VERDANT_EMBRACE_HEAL.id) {
         currentEvent.verdantEmbrace = heal;
         currentEvent.target = heal.targetID;
@@ -83,13 +82,13 @@ class TimeOfNeed extends Analyzer {
     this.spawns.push(currentEvent);
   }
 
-  parseDamageTaken(tonSpawn: tonEvent, eventList: WCLEventsResponse) {
+  parseDamageTaken(tonSpawn: TonEvent, eventList: WCLEventsResponse) {
     //Check that ToN actually did any healing or if it bugged out
-    if (tonSpawn.verdantEmbrace === null && tonSpawn.livingFlames.length === 0) {
+    if (tonSpawn.verdantEmbrace === null && !tonSpawn.livingFlames.length) {
       return Result.Bug;
     }
     //If there is no damage events, then Time of Need didn't save the player from anything
-    if (eventList.events.length === 0) {
+    if (!eventList.events.length) {
       return Result.Not;
     }
     const hits = eventList.events as DamageEvent[];
@@ -98,16 +97,13 @@ class TimeOfNeed extends Analyzer {
       //Check that the info from the damage event is valid
       if (hit.hitPoints !== undefined && hit.targetID === tonSpawn.target) {
         //If the hitpoints after the hit are equal to 0, the player died anyway
-        if (hit.hitPoints === 0) {
+        if (!hit.hitPoints) {
           return Result.Dead;
         }
         //Initialize the healing from Time of Need with the VE
         let tonHealingAtThisPoint = tonSpawn.verdantEmbrace?.amount || 0;
         //If there is no living flames casted, or this hit was before the first living flame landed
-        if (
-          tonSpawn.livingFlames.length === 0 ||
-          hit.timestamp < tonSpawn.livingFlames[0].timestamp
-        ) {
+        if (!tonSpawn.livingFlames.length || hit.timestamp < tonSpawn.livingFlames[0].timestamp) {
           //Check if the player would've died from this hit without the Verdant Embrace healing
           if (hit.hitPoints - tonHealingAtThisPoint <= 0) {
             return Result.Proc; //Person was saved by the VE
@@ -150,9 +146,9 @@ class TimeOfNeed extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(60)}
         loader={this.load.bind(this)}
         label={
-          <Trans>
+          <>
             <SpellLink spell={TALENTS_EVOKER.TIME_OF_NEED_TALENT} /> events
-          </Trans>
+          </>
         }
         tooltip={
           <div>
@@ -164,7 +160,10 @@ class TimeOfNeed extends Analyzer {
             classified as one of the following:
             <ul>
               <li>
-                <b>Saved by Verdant Embrace:</b> If the player would've died from damage after the{' '}
+                <b>
+                  Saved by <SpellLink spell={TALENTS_EVOKER.VERDANT_EMBRACE_TALENT} />:
+                </b>{' '}
+                If the player would've died from damage after the{' '}
                 <SpellLink spell={TALENTS_EVOKER.VERDANT_EMBRACE_TALENT} /> but before any{' '}
                 <SpellLink spell={SPELLS.LIVING_FLAME_HEAL} />
                 s.
@@ -192,7 +191,7 @@ class TimeOfNeed extends Analyzer {
             </ul>
           </div>
         }
-        value={<Trans>Total of {this.spawns.length} events</Trans>}
+        value={<>Total of {this.spawns.length} events</>}
       >
         <table className="table table-condensed">
           <thead>

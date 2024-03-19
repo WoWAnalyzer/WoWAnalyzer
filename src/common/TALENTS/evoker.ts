@@ -1324,14 +1324,6 @@ const talents = {
     entryIds: [115564],
     definitionIds: [{ id: 120576, specId: 1468 }],
   },
-  TIME_OF_NEED_SUMMON: {
-    id: 368415,
-    name: 'Time of Need',
-    icon: 'ability_evoker_masterylifebinder_bronze',
-    maxRanks: 1,
-    entryIds: [115564],
-    definitionIds: [{ id: 120576, specId: 1468 }],
-  },
   TIME_SKIP_TALENT: {
     id: 404977,
     name: 'Time Skip',
