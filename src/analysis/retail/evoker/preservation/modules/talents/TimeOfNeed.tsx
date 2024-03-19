@@ -95,7 +95,7 @@ class TimeOfNeed extends Analyzer {
     //Iterate all the damage taken events during the time window
     for (const hit of hits) {
       //Check that the info from the damage event is valid
-      if (hit.hitPoints !== undefined && hit.targetID === tonSpawn.target) {
+      if (hit.hitPoints !== undefined) {
         //If the hitpoints after the hit are equal to 0, the player died anyway
         if (!hit.hitPoints) {
           return Result.Dead;
@@ -128,11 +128,15 @@ class TimeOfNeed extends Analyzer {
   async load() {
     //Run every ToN spawn through parseDamageTaken()
     for (const spawn of this.spawns) {
+      const target = this.combatants?.players[spawn.target];
+      const filter = target && target?.name ? `target.name = "${target.name}"` : '';
       const damageTakenEvents = await fetchWcl<WCLEventsResponse>(
         `report/events/damage-taken/${this.owner.report.code}`,
         {
           start: spawn.summon.timestamp,
           end: spawn.summon.timestamp + 8000,
+          undefined,
+          filter,
         },
       );
       spawn.result = this.parseDamageTaken(spawn, damageTakenEvents);
