@@ -34,7 +34,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
-  change(date(2024, 3, 17), <>Add <ItemLink id={ITEMS.NYMUES_UNRAVELING_SPINDLE.id}/> to channel list and implement buffSoonPresent APL condition.</>, Vollmer),
+  change(date(2024, 3, 17), <>Implement buffSoonPresent APL condition and fix chain cast issues with APL check.</>, Vollmer),
   change(date(2024, 3, 14), 'Correct getBuffStacks method to return the stacks at the given timestamp', Earosselot),
   change(date(2024, 3, 14), 'Fix overflow on cooldown bars while using the phase selector.', ToppleTheNun),
   change(date(2024, 3, 14), 'Bump opacity on phase selector to 75% from 40%.', ToppleTheNun),
