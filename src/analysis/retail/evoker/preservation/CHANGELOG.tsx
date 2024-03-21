@@ -1,11 +1,12 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
-import { ToppleTheNun, Trevor, Tyndi, Vohrr, Vollmer } from 'CONTRIBUTORS';
+import { ToppleTheNun, Trevor, Tyndi, Vohrr, Vollmer, Harrek } from 'CONTRIBUTORS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { ResourceLink, SpellLink } from 'interface';
 
 export default [
+  change(date(2024, 3, 12), <>Implement <SpellLink spell={TALENTS_EVOKER.TIME_OF_NEED_TALENT} /> module.</>, Harrek),
   change(date(2024, 3, 7), <>Fix an issue with <SpellLink spell={TALENTS_EVOKER.POTENT_MANA_TALENT} /> module when no <SpellLink spell={TALENTS_EVOKER.SOURCE_OF_MAGIC_TALENT} /> was active during the fight.</>, Vollmer),
   change(date(2024, 2, 18), <>Add spell cast time to <SpellLink spell={TALENTS_EVOKER.STASIS_TALENT}/> module</>, Trevor),
   change(date(2024, 2, 10), <>Fix crash in <SpellLink spell={TALENTS_EVOKER.SOURCE_OF_MAGIC_TALENT} /> module.</>, Trevor),

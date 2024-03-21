@@ -31,6 +31,7 @@ import FieldOfDreams from './modules/talents/FieldOfDreams';
 import DreamFlight from './modules/talents/DreamFlight';
 import ExhilBurst from './modules/talents/ExhilBurst';
 import Stasis from './modules/talents/Stasis';
+import TimeOfNeed from './modules/talents/TimeOfNeed';
 import Lifebind from './modules/talents/Lifebind';
 import EnergyLoop from './modules/talents/EnergyLoop';
 import AlwaysBeCasting from './modules/core/AlwaysBeCasting';
@@ -116,6 +117,7 @@ class CombatLogParser extends CoreCombatLogParser {
     fieldOfDreams: FieldOfDreams,
     exhilBurst: ExhilBurst,
     stasis: Stasis,
+    timeOfNeed: TimeOfNeed,
     lifebind: Lifebind,
     energyLoop: EnergyLoop,
     fontOfMagic: FontOfMagic,

@@ -19,6 +19,7 @@ import {
   RefreshBuffEvent,
   RemoveBuffEvent,
   RemoveBuffStackEvent,
+  SummonEvent,
 } from 'parser/core/Events';
 import { DUPLICATION_SPELLS, STASIS_CAST_IDS } from '../constants';
 import { TIERS } from 'game/TIERS';
@@ -58,6 +59,7 @@ export const STASIS_FOR_RAMP = 'ForRamp';
 export const ESSENCE_RUSH = 'EssenceRush';
 export const T31_2PC = 'T31LFProc';
 export const EB_REVERSION = 'EssenceBurstReversion';
+export const TIME_OF_NEED_HEALING = 'TimeOfNeedHealing';
 
 export enum ECHO_TYPE {
   NONE,
@@ -76,6 +78,7 @@ const MAX_ESSENCE_BURST_DURATION = 32000; // 15s duration can refresh to 30s wit
 const TA_BUFFER_MS = 6000 + CAST_BUFFER_MS; //TA pulses over 6s at 0% haste
 const STASIS_BUFFER = 1000;
 const T31_LF_AMOUNT = 3;
+const TIME_OF_NEED_DURATION = 8000;
 
 /*
   This file is for attributing echo applications to hard casts or to temporal anomaly.
@@ -823,6 +826,19 @@ const EVENT_LINKS: EventLink[] = [
       );
     },
   },
+  {
+    linkRelation: TIME_OF_NEED_HEALING,
+    linkingEventId: SPELLS.TIME_OF_NEED_SUMMON.id,
+    linkingEventType: EventType.Summon,
+    referencedEventId: [SPELLS.VERDANT_EMBRACE_HEAL.id, SPELLS.TIME_OF_NEED_LIVING_FLAME.id],
+    referencedEventType: EventType.Heal,
+    forwardBufferMs: TIME_OF_NEED_DURATION,
+    anySource: true,
+    anyTarget: true,
+    additionalCondition(linkingEvent, referencedEvent) {
+      return (linkingEvent as SummonEvent).targetID === (referencedEvent as HealEvent).sourceID;
+    },
+  },
 ];
 
 /**
@@ -1060,6 +1076,10 @@ export function isEbFromReversion(
     event = GetRelatedEvent(event, ESSENCE_BURST_LINK)!;
   }
   return HasRelatedEvent(event, EB_REVERSION);
+}
+
+export function getTimeOfNeedHealing(event: SummonEvent) {
+  return GetRelatedEvents<HealEvent>(event, TIME_OF_NEED_HEALING) ?? null;
 }
 
 export default CastLinkNormalizer;
