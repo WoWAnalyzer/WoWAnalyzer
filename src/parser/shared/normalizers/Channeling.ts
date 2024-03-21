@@ -261,7 +261,7 @@ export function endCurrentChannel(event: AnyEvent, channelState: ChannelState) {
 /**
  * Attempts to attach the endChannel event to the associated cast event
  *
- * This is needed to allow the Cast module to properly render channels on the timeline without
+ * This is needed to allow the Casts module to properly render channels on the timeline without
  * inserting the cast on top of the the fabricated channel
  */
 function attachChannelToCast(endChannelEvent: EndChannelEvent): void {
