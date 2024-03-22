@@ -212,7 +212,7 @@ class RenewingBlaze extends MajorDefensiveBuff {
       // High overhealing
       if (ratio < goodRatioCutoff) {
         return {
-          perf: QualitativePerformance.Fail,
+          perf: QualitativePerformance.Ok,
           explanation:
             'Usage accumulated more than 50% of your HP but had high amounts of overhealing',
         };
@@ -228,7 +228,7 @@ class RenewingBlaze extends MajorDefensiveBuff {
       // Very low accumulation
       if (mit.amount <= this.firstSeenMaxHp * 0.3) {
         return {
-          perf: QualitativePerformance.Fail,
+          perf: QualitativePerformance.Ok,
           explanation: 'Usage accumulated less than 30% of your HP',
         };
       }
@@ -242,7 +242,7 @@ class RenewingBlaze extends MajorDefensiveBuff {
       }
       // High overhealing
       return {
-        perf: QualitativePerformance.Fail,
+        perf: QualitativePerformance.Ok,
         explanation:
           'Usage accumulated less than 50% of your HP and had high amounts of overhealing',
       };
