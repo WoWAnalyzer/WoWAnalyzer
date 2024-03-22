@@ -27,14 +27,13 @@ import { getTwinGuardianPartner } from '../normalizers/DefensiveCastLinkNormaliz
  * Twin Guardian is a talent that is tied to Rescue.
  * When you use Rescue it will apply an absorb shield to both players for 30% of the Evokers current HP.
  *
- * Due to how MajorDefensive work, to make it function properly with Twin Guardian, there are
- * some slightly hacky implementations below.
- *
+ * Due to how MajorDefensive work, to make it function properly with Twin Guardian we make a few
+ * custom overrides.
  * In essence the crux of the problem is that we are given both a personal and an external buff.
- * Since it is expected to get just the one buff per cast.
+ * Whilst MajorDef module expects just one buff, and will count both buffs as their own usage.
  *
  * The solution implemented is to split up the buffs, giving all the relevant data to the "main" one.
- * Afterwards we can always refer to our external buff based on our personal buff.
+ * Afterwards we can always refer to our external buff to do some of the necessary analysis.
  */
 class TwinGuardian extends MajorDefensiveBuff {
   personalMitigationsData: Mitigation[] = [];
@@ -57,6 +56,7 @@ class TwinGuardian extends MajorDefensiveBuff {
   }
 
   private recordDamage(event: AbsorbedEvent) {
+    // We could potentially have a TG shield from another player, ignore those
     if (event.sourceID !== this.selectedCombatant.id) {
       return;
     }
@@ -68,6 +68,7 @@ class TwinGuardian extends MajorDefensiveBuff {
     });
   }
 
+  // Max absorb could only ever be the size of the shield
   private updateMaxAbsorb(event: ApplyBuffEvent) {
     if (!event.absorb || event.sourceID !== this.selectedCombatant.id) {
       return;
@@ -75,6 +76,11 @@ class TwinGuardian extends MajorDefensiveBuff {
     this.setMaxMitigation(event, event.absorb);
   }
 
+  /** Create our own data
+   *
+   * Splits personal and external buffs up, to their own individual mitigations.
+   * Merges the external information into the personal mitigation.
+   */
   private onFightEnd() {
     this.personalMitigationsData = this.mitigations.filter(
       (mit) => mit.start.targetID === this.selectedCombatant.id,
@@ -85,7 +91,7 @@ class TwinGuardian extends MajorDefensiveBuff {
 
     // Merge the relevant external data into the personal data
     this.personalMitigationsData.forEach((pMit) => {
-      const eMit = this.externalMitigation(pMit);
+      const eMit = this.getExternalMitigation(pMit);
 
       if (!eMit) {
         return;
@@ -98,8 +104,8 @@ class TwinGuardian extends MajorDefensiveBuff {
     });
   }
 
-  // Use original mitigationData until we have made our own.
-  // Overridden such that AllCoolDownUsageList/Timeline will use our data.
+  /** Returns original mitigationData until we have made our own.
+   * Overridden such that AllCoolDownUsageList/Timeline will use our data (personalMitigationsData). */
   get mitigations(): Mitigation[] {
     if (this.personalMitigationsData.length && this.externalMitigationsData.length) {
       return this.personalMitigationsData;
@@ -108,15 +114,19 @@ class TwinGuardian extends MajorDefensiveBuff {
     }
   }
 
-  /** Returns Partners Absorb data. */
-  private externalMitigation(mit: Mitigation): Mitigation | undefined {
+  /** Returns Partners Absorb data.*/
+  private getExternalMitigation(mit: Mitigation): Mitigation | undefined {
+    /** We could use externalMitigationsData[idx] to find it,
+     * but potentially it could be missing and leave us with a "gap" in the array,
+     * so we should ensure that we actually grab the relevant mitigation, such
+     * that we don't accidentally analyze two different usages */
     return this.externalMitigationsData.find(
       (buff) => getTwinGuardianPartner(buff.start) === mit.start,
     );
   }
 
   mitigationSegments(mit: Mitigation): MitigationSegment[] {
-    const eMit = this.externalMitigation(mit);
+    const eMit = this.getExternalMitigation(mit);
 
     return [
       {
@@ -143,7 +153,7 @@ class TwinGuardian extends MajorDefensiveBuff {
     perf: QualitativePerformance;
     explanation?: ReactNode;
   } {
-    const eMit = this.externalMitigation(mit);
+    const eMit = this.getExternalMitigation(mit);
 
     if ((mit.maxAmount ?? this.firstSeenMaxHp) + (eMit?.maxAmount ?? 0) === mit.amount) {
       return {
@@ -161,12 +171,14 @@ class TwinGuardian extends MajorDefensiveBuff {
 
     return { perf: QualitativePerformance.Good };
   }
+  /**
+   * We override this to override the maxValue
+   * Due to maxValue being based on the highest mitigation
+   * Seen between *all* analyzers.
+   * Since TG has a decently low cap, this doesn't really make sense
+   * So we'll base the maxValue on the biggest absorb shield seen for TG only.
+   */
 
-  // We override this to override the maxValue
-  // Due to maxValue being based on the highest mitigation
-  // Seen between *all* analyzers.
-  // Since TG has a decently low cap, this doesn't really make sense
-  // So we'll base the maxValue on the biggest absorb shield seen for TG only.
   mitigationPerformance(maxValue: number): BoxRowEntry[] {
     return this.mitigations.map((mit) => {
       const { perf, explanation } = this.explainPerformance(mit);
@@ -217,8 +229,7 @@ class TwinGuardian extends MajorDefensiveBuff {
     const mitigationsData = this.mitigations;
     const tooltip = (
       <div>
-        Shows how much of each absorb shield was used. <br />
-        Partner absorb is shown in green.
+        External absorb is shown in green.
         <MitigationRowContainer>
           <strong>Time</strong>
           <strong>Mit.</strong>
