@@ -34,6 +34,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 3, 22), 'Update Channeling normalizer to attach fabricated channel events to their associated cast events.', Vollmer),
   change(date(2024, 3, 14), 'Correct getBuffStacks method to return the stacks at the given timestamp', Earosselot),
   change(date(2024, 3, 14), 'Fix overflow on cooldown bars while using the phase selector.', ToppleTheNun),
   change(date(2024, 3, 14), 'Bump opacity on phase selector to 75% from 40%.', ToppleTheNun),
