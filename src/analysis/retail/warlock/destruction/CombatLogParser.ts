@@ -29,7 +29,7 @@ import SoulFire from './modules/talents/SoulFire';
 import FlashPoint from './modules/talents/FlashPoint';
 import BurnToAshes from './modules/talents/BurnToAshes';
 import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
-import { DarkPact, DemonicCircle } from '../shared';
+import { UnendingResolve, DarkPact, DemonicCircle } from '../shared';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -71,7 +71,8 @@ class CombatLogParser extends CoreCombatLogParser {
     burnToAshes: BurnToAshes,
     callToDominance: CallToDominance,
 
-    // Shared Talents
+    // Shared Spells
+    unendingResolve: UnendingResolve,
     darkPact: DarkPact,
     demonicCircle: DemonicCircle,
 

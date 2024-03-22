@@ -498,6 +498,16 @@ const spells = {
     name: 'Trembling Earth',
     icon: 'ability_evoker_eruption',
   },
+  TIME_OF_NEED_LIVING_FLAME: {
+    id: 401382,
+    name: 'Living Flame (Past Self)',
+    icon: 'ability_evoker_livingflame',
+  },
+  TIME_OF_NEED_SUMMON: {
+    id: 368415,
+    name: 'Time of Need',
+    icon: 'ability_evoker_masterylifebinder_bronze',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;
