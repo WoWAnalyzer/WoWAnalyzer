@@ -1,10 +1,7 @@
 import { AnyEvent, EventType, HasRelatedEvent, RemoveBuffEvent } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import TALENTS from 'common/TALENTS/evoker';
-import {
-  OBSIDIAN_SCALES_CAST_BUFF_LINK,
-  RENEWING_BLAZE_CAST_BUFF_LINK,
-} from './DefensiveCastLinkNormalizer';
+import { OBSIDIAN_SCALES, RENEWING_BLAZE } from './DefensiveCastLinkNormalizer';
 
 /**
  * This Normalizer fixes an issue that happen with Obsidian Scales buff events in logs.
@@ -35,7 +32,7 @@ class DefensiveNormalizer extends EventsNormalizer {
         event.type === EventType.ApplyBuff &&
         event.ability.guid === TALENTS.OBSIDIAN_SCALES_TALENT.id
       ) {
-        if (!HasRelatedEvent(event, OBSIDIAN_SCALES_CAST_BUFF_LINK)) {
+        if (!HasRelatedEvent(event, OBSIDIAN_SCALES)) {
           continue;
         }
 
@@ -57,7 +54,7 @@ class DefensiveNormalizer extends EventsNormalizer {
         event.type === EventType.ApplyBuff &&
         event.ability.guid === TALENTS.RENEWING_BLAZE_TALENT.id
       ) {
-        if (!HasRelatedEvent(event, RENEWING_BLAZE_CAST_BUFF_LINK)) {
+        if (!HasRelatedEvent(event, RENEWING_BLAZE)) {
           continue;
         }
 

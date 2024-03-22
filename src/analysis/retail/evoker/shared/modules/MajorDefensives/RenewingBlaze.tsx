@@ -36,8 +36,8 @@ import MAGIC_SCHOOLS, { color } from 'game/MAGIC_SCHOOLS';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { ReactNode } from 'react';
 import {
-  RENEWING_BLAZE_ACC_HEAL_BUFF_LINK,
-  RENEWING_BLAZE_HEAL_BUFF_LINK,
+  RENEWING_BLAZE_BUFFS,
+  RENEWING_BLAZE_HEAL,
 } from '../normalizers/DefensiveCastLinkNormalizer';
 
 type RenewingBlazeHealBuff = {
@@ -80,7 +80,7 @@ class RenewingBlaze extends MajorDefensiveBuff {
 
   private recordHeal(event: HealEvent) {
     const heal = this.renewingBlazeHealBuffs.find(
-      (buff) => GetRelatedEvent(event, RENEWING_BLAZE_HEAL_BUFF_LINK) === buff.start,
+      (buff) => GetRelatedEvent(event, RENEWING_BLAZE_HEAL) === buff.start,
     );
     if (!heal) {
       console.warn('Unable to find parent buff for Major Defensive analyzer', this.spell, event);
@@ -99,7 +99,7 @@ class RenewingBlaze extends MajorDefensiveBuff {
   /** Returns the related Renewing Healing buff, for our Acc buff. */
   private healBuff(mit: Mitigation): RenewingBlazeHealBuff | undefined {
     return this.renewingBlazeHealBuffs.find(
-      (buff) => GetRelatedEvent(buff.start, RENEWING_BLAZE_ACC_HEAL_BUFF_LINK) === mit.start,
+      (buff) => GetRelatedEvent(buff.start, RENEWING_BLAZE_BUFFS) === mit.start,
     );
   }
 
@@ -120,7 +120,7 @@ class RenewingBlaze extends MajorDefensiveBuff {
 
   mitigationSegments(mit: Mitigation): MitigationSegment[] {
     const heal = this.renewingBlazeHealBuffs.find(
-      (buff) => GetRelatedEvent(buff.start, RENEWING_BLAZE_ACC_HEAL_BUFF_LINK) === mit.start,
+      (buff) => GetRelatedEvent(buff.start, RENEWING_BLAZE_BUFFS) === mit.start,
     );
 
     return [
@@ -316,7 +316,7 @@ class RenewingBlaze extends MajorDefensiveBuff {
   get cooldownDetailsComponent() {
     return ({ analyzer, mit }: CooldownDetailsProps) => {
       const heal = this.renewingBlazeHealBuffs.find(
-        (buff) => GetRelatedEvent(buff.start, RENEWING_BLAZE_ACC_HEAL_BUFF_LINK) === mit?.start,
+        (buff) => GetRelatedEvent(buff.start, RENEWING_BLAZE_BUFFS) === mit?.start,
       );
       return <CooldownDetails analyzer={analyzer} mit={mit} heal={heal} />;
     };

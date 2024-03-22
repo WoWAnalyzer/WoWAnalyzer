@@ -8,7 +8,7 @@ import {
 import { Options } from 'parser/core/Analyzer';
 import TALENTS from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS/evoker';
-import Events, { AbsorbedEvent, ApplyBuffEvent, GetRelatedEvent } from 'parser/core/Events';
+import Events, { AbsorbedEvent, ApplyBuffEvent } from 'parser/core/Events';
 import { SpellLink } from 'interface';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { PerformanceUsageRow } from 'parser/core/SpellUsage/core';
@@ -21,7 +21,7 @@ import { ReactNode } from 'react';
 import Statistic from 'parser/ui/Statistic';
 import BoringValue from 'parser/ui/BoringValueText';
 import { formatNumber } from 'common/format';
-import { TWIN_GUARDIAN_PARTNER_BUFF_LINK } from '../normalizers/DefensiveCastLinkNormalizer';
+import { getTwinGuardianPartner } from '../normalizers/DefensiveCastLinkNormalizer';
 
 /**
  * Twin Guardian is a talent that is tied to Rescue.
@@ -111,7 +111,7 @@ class TwinGuardian extends MajorDefensiveBuff {
   /** Returns Partners Absorb data. */
   private externalMitigation(mit: Mitigation): Mitigation | undefined {
     return this.externalMitigationsData.find(
-      (buff) => GetRelatedEvent(buff.start, TWIN_GUARDIAN_PARTNER_BUFF_LINK) === mit.start,
+      (buff) => getTwinGuardianPartner(buff.start) === mit.start,
     );
   }
 
