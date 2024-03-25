@@ -36,6 +36,8 @@ import {
   LivingFlamePrePullNormalizer,
   LeapingFlamesNormalizer,
   LeapingFlames,
+  EmpowerNormalizer,
+  EmpowerSpellUsable,
   SpellEssenceCost,
   EssenceTracker,
   EssenceGraph,
@@ -50,6 +52,10 @@ import {
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
+    // Empower Normalizer
+    empowerNormalizer: EmpowerNormalizer,
+    empowerSpellUsable: EmpowerSpellUsable,
+
     // Shared
     livingFlameNormalizer: LivingFlameNormalizer,
     livingFlamePrePullNormalizer: LivingFlamePrePullNormalizer,
