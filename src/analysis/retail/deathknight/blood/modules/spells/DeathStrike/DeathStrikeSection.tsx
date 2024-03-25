@@ -14,7 +14,7 @@ import talents from 'common/TALENTS/deathknight';
 import MAGIC_SCHOOLS, { color } from 'game/MAGIC_SCHOOLS';
 import RESOURCE_TYPES, { getResource } from 'game/RESOURCE_TYPES';
 import { ResourceLink, SpellLink, TooltipElement } from 'interface';
-import { BadColor, GoodColor, Section, useAnalyzers, useEvents, useInfo } from 'interface/guide';
+import { BadColor, GoodColor, SubSection, useAnalyzers, useEvents, useInfo } from 'interface/guide';
 import { ActualCastDescription } from 'interface/guide/components/Apl/violations/claims';
 import CastReasonBreakdownTableContents from 'interface/guide/components/CastReasonBreakdownTableContents';
 import Explanation from 'interface/guide/components/Explanation';
@@ -368,7 +368,7 @@ export function DeathStrikeSection(): JSX.Element | null {
   const healingTarget = totalDamage / 2;
 
   return (
-    <Section title="Death Strike Usage">
+    <SubSection title="Death Strike Usage">
       <Explanation>
         <p>
           As a Blood Death Knight, <SpellLink spell={talents.DEATH_STRIKE_TALENT} /> is both your
@@ -543,6 +543,6 @@ export function DeathStrikeSection(): JSX.Element | null {
           renderer={DeathStrikeProblemRenderer}
         />
       </ContentRow>
-    </Section>
+    </SubSection>
   );
 }

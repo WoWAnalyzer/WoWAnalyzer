@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2024, 3, 18), <>Updated spec to 10.2.5 and added new guide items</>,Arlie),
   change(date(2023, 12, 15), <>Fix spell link suggestions for<SpellLink spell={talents.DANCING_RUNE_WEAPON_TALENT} /></>,Arlie),
   change(date(2023, 8, 12), 'Large update to the abilities file to include many missing spells and talents.',Yajinni),
   change(date(2023, 8, 11), <><SpellLink spell={talents.RUNE_TAP_TALENT} /> Updated it to show cast efficiency only if the talent was taken.</>,Yajinni),
