@@ -25,7 +25,6 @@ export const FAILED_EXTENSION_LINK = 'failedExtensionLink';
 
 export const PRESCIENCE_BUFF_CAST_LINK = 'prescienceBuffCastLink';
 export const PRESCIENCE_APPLY_REMOVE_LINK = 'prescienceApplyRemoveLink';
-export const TIP_THE_SCALES_CONSUME = 'tipTheScalesConsume';
 export const BREATH_EBON_APPLY_LINK = 'breathEbonApplyLink';
 export const EBON_MIGHT_BUFF_LINKS = 'ebonMightBuffLinks';
 export const EBON_MIGHT_APPLY_REMOVE_LINK = 'ebonMightApplyRemoveLink';
@@ -76,22 +75,6 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true,
     forwardBufferMs: 5000,
     backwardBufferMs: 5000,
-  },
-  {
-    linkRelation: TIP_THE_SCALES_CONSUME,
-    reverseLinkRelation: TIP_THE_SCALES_CONSUME,
-    linkingEventId: TALENTS.TIP_THE_SCALES_TALENT.id,
-    linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
-    referencedEventId: [
-      SPELLS.FIRE_BREATH.id,
-      SPELLS.FIRE_BREATH_FONT.id,
-      SPELLS.UPHEAVAL.id,
-      SPELLS.UPHEAVAL_FONT.id,
-    ],
-    referencedEventType: EventType.Cast,
-    anyTarget: true,
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
   },
   {
     linkRelation: BREATH_EBON_APPLY_LINK,
@@ -196,6 +179,7 @@ const EVENT_LINKS: EventLink[] = [
       SPELLS.UPHEAVAL.id,
       SPELLS.UPHEAVAL_FONT.id,
     ],
+    // TODO: check for TTS usage on cast event
     linkingEventType: EventType.EmpowerEnd,
     referencedEventId: SPELLS.EBON_MIGHT_BUFF_PERSONAL.id,
     referencedEventType: EventType.RemoveBuff,
@@ -307,10 +291,6 @@ export function getPupilDamageEvents(event: CastEvent): DamageEvent[] {
 
 export function chitinBuffStackGained(event: CastEvent) {
   return HasRelatedEvent(event, ERUPTION_CHITIN_LINK);
-}
-
-export function isFromTipTheScales(event: CastEvent) {
-  return HasRelatedEvent(event, TIP_THE_SCALES_CONSUME);
 }
 
 export function ebonIsFromBreath(event: ApplyBuffEvent | CastEvent) {
