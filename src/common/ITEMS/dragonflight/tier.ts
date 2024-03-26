@@ -1,50 +1,6 @@
 import { CLASSES } from 'game/CLASSES';
 import { TIERS } from 'game/TIERS';
 
-// region SL3
-export const DEATH_KNIGHT_TIER_SL3_ID = 1500;
-export const DEMON_HUNTER_TIER_SL3_ID = 1501;
-export const DRUID_TIER_SL3_ID = 1502;
-export const HUNTER_TIER_SL3_ID = 1497;
-export const MAGE_TIER_SL3_ID = 1503;
-export const MONK_TIER_SL3_ID = 1504;
-export const PALADIN_TIER_SL3_ID = 1498;
-export const PRIEST_TIER_SL3_ID = 1505;
-export const ROGUE_TIER_SL3_ID = 1496;
-export const SHAMAN_TIER_SL3_ID = 1499;
-export const WARLOCK_TIER_SL3_ID = 1507;
-export const WARRIOR_TIER_SL3_ID = 1506;
-
-export type SL3_TIER_GEAR_IDS =
-  | typeof DEATH_KNIGHT_TIER_SL3_ID
-  | typeof DEMON_HUNTER_TIER_SL3_ID
-  | typeof DRUID_TIER_SL3_ID
-  | typeof HUNTER_TIER_SL3_ID
-  | typeof MAGE_TIER_SL3_ID
-  | typeof MONK_TIER_SL3_ID
-  | typeof PALADIN_TIER_SL3_ID
-  | typeof PRIEST_TIER_SL3_ID
-  | typeof ROGUE_TIER_SL3_ID
-  | typeof SHAMAN_TIER_SL3_ID
-  | typeof WARLOCK_TIER_SL3_ID
-  | typeof WARRIOR_TIER_SL3_ID;
-
-export const SL3_TIER_BY_CLASSES: Record<number, SL3_TIER_GEAR_IDS> = {
-  [CLASSES.DEATH_KNIGHT]: DEATH_KNIGHT_TIER_SL3_ID,
-  [CLASSES.DEMON_HUNTER]: DEMON_HUNTER_TIER_SL3_ID,
-  [CLASSES.DRUID]: DRUID_TIER_SL3_ID,
-  [CLASSES.HUNTER]: HUNTER_TIER_SL3_ID,
-  [CLASSES.MAGE]: MAGE_TIER_SL3_ID,
-  [CLASSES.MONK]: MONK_TIER_SL3_ID,
-  [CLASSES.PALADIN]: PALADIN_TIER_SL3_ID,
-  [CLASSES.PRIEST]: PRIEST_TIER_SL3_ID,
-  [CLASSES.ROGUE]: ROGUE_TIER_SL3_ID,
-  [CLASSES.SHAMAN]: SHAMAN_TIER_SL3_ID,
-  [CLASSES.WARLOCK]: WARLOCK_TIER_SL3_ID,
-  [CLASSES.WARRIOR]: WARRIOR_TIER_SL3_ID,
-};
-// endregion
-
 // region SL1
 export const DEATH_KNIGHT_DF1_ID = 1526;
 export const DEMON_HUNTER_DF1_ID = 1527;
@@ -235,7 +191,6 @@ export const DF4_TIER_BY_CLASSES: Record<number, DF4_TIER_GEAR_IDS> = {
 
 // region Common
 export const TIER_BY_CLASSES: Record<number, Record<number, number>> = {
-  [TIERS.SL3]: SL3_TIER_BY_CLASSES,
   [TIERS.DF1]: DF1_TIER_BY_CLASSES,
   [TIERS.DF2]: DF2_TIER_BY_CLASSES,
   [TIERS.DF3]: DF3_TIER_BY_CLASSES,
@@ -243,7 +198,6 @@ export const TIER_BY_CLASSES: Record<number, Record<number, number>> = {
 };
 
 export type TIER_GEAR_IDS =
-  | SL3_TIER_GEAR_IDS
   | DF1_TIER_GEAR_IDS
   | DF2_TIER_GEAR_IDS
   | DF3_TIER_GEAR_IDS

@@ -3,11 +3,6 @@
  * This follows the format of "<short expansion name><season number>".
  */
 export enum TIERS {
-  // Sepulcher of the First Ones
-  /**
-   * @deprecated
-   */
-  SL3,
   // Vault of the Incarnates
   DF1,
   // Aberrus
