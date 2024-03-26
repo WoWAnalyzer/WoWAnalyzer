@@ -18,7 +18,7 @@ class TouchTheCosmos extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.has4PieceByTier(TIERS.T29);
+    this.active = this.selectedCombatant.has4PieceByTier(TIERS.DF1);
 
     Object.values(AFFECTED_CAST).forEach((spell) => {
       this.totcBuffedAbilities[spell.id] = 0;

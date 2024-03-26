@@ -18,7 +18,7 @@ class VileInfusion extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.has2PieceByTier(TIERS.T29);
+    this.active = this.selectedCombatant.has2PieceByTier(TIERS.DF1);
     if (!this.active) {
       return;
     }

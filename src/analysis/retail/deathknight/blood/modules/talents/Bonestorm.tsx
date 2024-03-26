@@ -68,7 +68,7 @@ class Bonestorm extends Analyzer {
   }
 
   get goodBonestormCasts() {
-    if (this.selectedCombatant.has2PieceByTier(TIERS.T28)) {
+    if (this.selectedCombatant.has2PieceByTier(TIERS.SL3)) {
       return this.bsCasts.filter((cast) => cast.cost / 10 === SUGGESTED_RUNIC_POWER_SPENT).length;
     } else {
       return this.bsCasts.filter(
@@ -94,7 +94,7 @@ class Bonestorm extends Analyzer {
   }
 
   suggestions(when: When) {
-    if (this.selectedCombatant.has2PieceByTier(TIERS.T28)) {
+    if (this.selectedCombatant.has2PieceByTier(TIERS.SL3)) {
       when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
         suggest(
           <Trans id="deathknight.blood.bonestorm.suggestion.2p.suggestion">

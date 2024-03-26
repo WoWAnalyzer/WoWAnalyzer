@@ -9,7 +9,7 @@ class Tier28FourSet extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.has4PieceByTier(TIERS.T28);
+    this.active = this.selectedCombatant.has4PieceByTier(TIERS.SL3);
   }
 
   get threshold() {

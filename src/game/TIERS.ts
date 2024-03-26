@@ -1,13 +1,19 @@
+/**
+ * Enumeration of each of the tiers that have an associated tier set bonus.
+ * This follows the format of "<short expansion name><season number>".
+ */
 export enum TIERS {
   // Sepulcher of the First Ones
   /**
    * @deprecated
    */
-  T28,
+  SL3,
   // Vault of the Incarnates
-  T29,
+  DF1,
   // Aberrus
-  T30,
+  DF2,
   // Amirdrassil
-  T31,
+  DF3,
+  // Dragonflight Fated
+  DF4,
 }
