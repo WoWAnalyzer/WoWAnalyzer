@@ -19,7 +19,7 @@ class DANCE_OF_CHI_JI extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.DANCE_OF_CHI_JI_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.DANCE_OF_CHI_JI_WINDWALKER_TALENT);
     this.addEventListener(
       Events.damage
         .by(SELECTED_PLAYER | SELECTED_PLAYER_PET)
@@ -79,7 +79,7 @@ class DANCE_OF_CHI_JI extends Analyzer {
         size="flexible"
         tooltip={<>Total damage increase: {formatNumber(this.damageGain)}</>}
       >
-        <BoringSpellValueText spell={TALENTS_MONK.DANCE_OF_CHI_JI_TALENT}>
+        <BoringSpellValueText spell={TALENTS_MONK.DANCE_OF_CHI_JI_WINDWALKER_TALENT}>
           <img src="/img/sword.png" alt="Damage" className="icon" /> {formatNumber(this.dps)} DPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damageGain))} % of

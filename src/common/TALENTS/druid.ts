@@ -341,7 +341,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [103111],
     definitionIds: [{ id: 108116, specId: 105 }],
-    manaCost: 8500,
+    manaCost: 7500,
   },
   ELUNES_FAVORED_TALENT: {
     id: 370586,
@@ -512,7 +512,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [117104],
     definitionIds: [{ id: 122116, specId: 105 }],
-    manaCost: 3000,
+    manaCost: 2500,
   },
   GROVE_TENDING_TALENT: {
     id: 383192,
@@ -1597,7 +1597,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [103294],
     definitionIds: [{ id: 108299, specId: 102 }],
-    manaCost: 4000,
+    manaCost: 3500,
   },
   TASTE_FOR_BLOOD_TALENT: {
     id: 384665,
@@ -1922,7 +1922,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [103320],
     definitionIds: [{ id: 108325, specId: 102 }],
-    manaCost: 10000,
+    manaCost: 9500,
   },
   WILD_MUSHROOM_TALENT: {
     id: 88747,

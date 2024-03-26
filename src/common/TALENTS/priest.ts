@@ -331,8 +331,8 @@ const talents = {
     name: 'Divine Image',
     icon: 'inv_staff_2h_artifactheartofkure_d_04',
     maxRanks: 1,
-    entryIds: [103736],
-    definitionIds: [{ id: 108741, specId: 257 }],
+    entryIds: [103675],
+    definitionIds: [{ id: 108680, specId: 257 }],
   },
   DIVINE_SERVICE_TALENT: {
     id: 391233,
@@ -365,8 +365,8 @@ const talents = {
     name: 'Divine Word',
     icon: 'spell_priest_chakra',
     maxRanks: 1,
-    entryIds: [103675],
-    definitionIds: [{ id: 108680, specId: 257 }],
+    entryIds: [103676],
+    definitionIds: [{ id: 108681, specId: 257 }],
   },
   DOMINATE_MIND_TALENT: {
     id: 205364,
@@ -377,14 +377,6 @@ const talents = {
     definitionIds: [{ id: 108683, specId: 256 }],
     manaCost: 5000,
   },
-  EMPOWERED_RENEW_TALENT: {
-    id: 391339,
-    name: 'Empowered Renew',
-    icon: 'ability_paladin_infusionoflight',
-    maxRanks: 1,
-    entryIds: [103746],
-    definitionIds: [{ id: 108751, specId: 257 }],
-  },
   EMPYREAL_BLAZE_TALENT: {
     id: 372616,
     name: 'Empyreal Blaze',
@@ -392,7 +384,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [103777],
     definitionIds: [{ id: 108782, specId: 257 }],
-    manaCost: 500,
   },
   ENDURING_LUMINESCENCE_TALENT: {
     id: 390685,
@@ -478,7 +469,7 @@ const talents = {
     id: 372370,
     name: 'Gales of Song',
     icon: 'inv_misc_volatileair',
-    maxRanks: 2,
+    maxRanks: 1,
     entryIds: [103747],
     definitionIds: [{ id: 108752, specId: 257 }],
   },
@@ -523,14 +514,6 @@ const talents = {
     entryIds: [103830],
     definitionIds: [{ id: 108835, specId: 256 }],
     manaCost: 6750,
-  },
-  HARMONIOUS_APPARATUS_TALENT: {
-    id: 390994,
-    name: 'Harmonious Apparatus',
-    icon: 'spell_holy_serendipity',
-    maxRanks: 2,
-    entryIds: [103744],
-    definitionIds: [{ id: 108749, specId: 257 }],
   },
   HARSH_DISCIPLINE_TALENT: {
     id: 373180,
@@ -580,7 +563,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [103776],
     definitionIds: [{ id: 108781, specId: 257 }],
-    manaCost: 5000,
   },
   HOLY_WORD_SALVATION_TALENT: {
     id: 265202,
@@ -927,8 +909,8 @@ const talents = {
     name: 'Miracle Worker',
     icon: 'spell_holy_persuitofjustice',
     maxRanks: 1,
-    entryIds: [103737],
-    definitionIds: [{ id: 108742, specId: 257 }],
+    entryIds: [103745],
+    definitionIds: [{ id: 108750, specId: 257 }],
   },
   MISERY_TALENT: {
     id: 238558,
@@ -1178,14 +1160,6 @@ const talents = {
     definitionIds: [{ id: 108859, specId: 258 }],
     manaCost: 25000,
   },
-  RAPID_RECOVERY_TALENT: {
-    id: 391368,
-    name: 'Rapid Recovery',
-    icon: 'spell_holy_renew',
-    maxRanks: 1,
-    entryIds: [103745],
-    definitionIds: [{ id: 108750, specId: 257 }],
-  },
   RAPTURE_TALENT: {
     id: 47536,
     name: 'Rapture',
@@ -1225,8 +1199,8 @@ const talents = {
     name: 'Restitution',
     icon: 'inv_staff_2h_artifactheartofkure_d_03',
     maxRanks: 1,
-    entryIds: [103676],
-    definitionIds: [{ id: 108681, specId: 257 }],
+    entryIds: [103737],
+    definitionIds: [{ id: 108742, specId: 257 }],
   },
   REVEL_IN_PURITY_TALENT: {
     id: 373003,
@@ -1548,6 +1522,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [103841],
     definitionIds: [{ id: 119742, specId: 256 }],
+  },
+  VOICE_OF_HARMONY_TALENT: {
+    id: 390994,
+    name: 'Voice of Harmony',
+    icon: 'ability_priest_heavanlyvoice',
+    maxRanks: 2,
+    entryIds: [103744],
+    definitionIds: [{ id: 108749, specId: 257 }],
   },
   VOIDTOUCHED_TALENT: {
     id: 407430,

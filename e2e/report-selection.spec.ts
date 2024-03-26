@@ -3,48 +3,48 @@ import { expect, test } from './fixtures';
 test('report selection', async ({ page, homePage, fightSelectionPage }) => {
   await homePage.goto();
 
-  await homePage.fillInReportInputWithCode('dFzCLcjyqMbX43KP');
+  await homePage.fillInReportInputWithCode('bjqrZRnNdvKPXt13');
 
   await fightSelectionPage.expectFightSelectionHeaderToBeVisible();
-  await fightSelectionPage.expectUrlToHaveReportCode('dFzCLcjyqMbX43KP');
-  await expect(page).toHaveTitle('raid day');
+  await fightSelectionPage.expectUrlToHaveReportCode('bjqrZRnNdvKPXt13');
+  await expect(page).toHaveTitle('owl time');
 });
 
 test('fight selection', async ({ page, fightSelectionPage, playerSelectionPage }) => {
-  await fightSelectionPage.goto('dFzCLcjyqMbX43KP');
+  await fightSelectionPage.goto('bjqrZRnNdvKPXt13');
 
-  await page.getByRole('link', { name: 'Kill 3:11' }).click();
+  await page.getByRole('link', { name: 'Kill 8:47' }).click();
 
   await playerSelectionPage.expectPlayerSelectionHeaderToBeVisible();
   await playerSelectionPage.expectUrlToHaveReportCodeAndFight(
-    'dFzCLcjyqMbX43KP',
-    '20-Mythic+Volcoross+-+Kill+(3:11)',
+    'bjqrZRnNdvKPXt13',
+    '34-Mythic+Fyrakk+the+Blazing+-+Kill+(8:47)',
   );
-  await expect(page).toHaveTitle('Mythic Volcoross - Kill (3:11) in raid day');
+  await expect(page).toHaveTitle('Mythic Fyrakk the Blazing - Kill (8:47) in owl time');
 });
 
 test('player selection', async ({ page, playerSelectionPage, reportPage }) => {
-  await playerSelectionPage.goto('dFzCLcjyqMbX43KP', '20-Mythic+Volcoross+-+Kill+(3:11)');
+  await playerSelectionPage.goto('bjqrZRnNdvKPXt13', '34-Mythic+Fyrakk+the+Blazing+-+Kill+(8:47)');
 
   await page
-    .getByRole('link', { name: 'Toppledh Vengeance Demon Hunter Vengeance Demon Hunter 485' })
+    .getByRole('link', { name: 'Toppledh Vengeance Demon Hunter Vengeance Demon Hunter 488' })
     .click();
 
   await reportPage.expectBossDifficultyAndNameHeaderToBeVisible();
-  await reportPage.expectBossDifficultyAndNameHeaderToHaveText('MythicVolcoross');
+  await reportPage.expectBossDifficultyAndNameHeaderToHaveText('MythicFyrakk, the Blazing');
   await reportPage.expectUrlToHave(
-    'dFzCLcjyqMbX43KP',
-    '20-Mythic+Volcoross+-+Kill+(3:11)',
+    'bjqrZRnNdvKPXt13',
+    '34-Mythic+Fyrakk+the+Blazing+-+Kill+(8:47)',
     'Toppledh',
   );
-  await expect(page).toHaveTitle('Mythic Volcoross - Kill (3:11) by Toppledh in raid day');
+  await expect(page).toHaveTitle('Mythic Fyrakk the Blazing - Kill (8:47) by Toppledh in owl time');
 });
 
 test.describe('tab selection', () => {
   test.beforeEach(async ({ reportPage }) => {
     await reportPage.goto({
-      reportCode: 'dFzCLcjyqMbX43KP',
-      fightCode: '20-Mythic+Volcoross+-+Kill+(3:11)',
+      reportCode: 'bjqrZRnNdvKPXt13',
+      fightCode: '34-Mythic+Fyrakk+the+Blazing+-+Kill+(8:47)',
       playerName: 'Toppledh',
     });
   });
@@ -53,7 +53,7 @@ test.describe('tab selection', () => {
     await reportPage.clickOnStatisticsTab();
 
     await expect(page).toHaveURL(
-      '/report/dFzCLcjyqMbX43KP/20-Mythic+Volcoross+-+Kill+(3:11)/Toppledh/standard/statistics',
+      '/report/bjqrZRnNdvKPXt13/34-Mythic+Fyrakk+the+Blazing+-+Kill+(8:47)/Toppledh/standard/statistics',
     );
   });
 
@@ -61,7 +61,7 @@ test.describe('tab selection', () => {
     await reportPage.clickOnTimelineTab();
 
     await expect(page).toHaveURL(
-      '/report/dFzCLcjyqMbX43KP/20-Mythic+Volcoross+-+Kill+(3:11)/Toppledh/standard/timeline',
+      '/report/bjqrZRnNdvKPXt13/34-Mythic+Fyrakk+the+Blazing+-+Kill+(8:47)/Toppledh/standard/timeline',
     );
   });
 
@@ -69,7 +69,7 @@ test.describe('tab selection', () => {
     await reportPage.clickOnCooldownsTab();
 
     await expect(page).toHaveURL(
-      '/report/dFzCLcjyqMbX43KP/20-Mythic+Volcoross+-+Kill+(3:11)/Toppledh/standard/cooldowns',
+      '/report/bjqrZRnNdvKPXt13/34-Mythic+Fyrakk+the+Blazing+-+Kill+(8:47)/Toppledh/standard/cooldowns',
     );
   });
 
@@ -77,7 +77,7 @@ test.describe('tab selection', () => {
     await reportPage.clickOnCharacterTab();
 
     await expect(page).toHaveURL(
-      '/report/dFzCLcjyqMbX43KP/20-Mythic+Volcoross+-+Kill+(3:11)/Toppledh/standard/character',
+      '/report/bjqrZRnNdvKPXt13/34-Mythic+Fyrakk+the+Blazing+-+Kill+(8:47)/Toppledh/standard/character',
     );
   });
 
@@ -85,7 +85,7 @@ test.describe('tab selection', () => {
     await reportPage.clickOnAboutTab('Vengeance Demon Hunter');
 
     await expect(page).toHaveURL(
-      '/report/dFzCLcjyqMbX43KP/20-Mythic+Volcoross+-+Kill+(3:11)/Toppledh/standard/about',
+      '/report/bjqrZRnNdvKPXt13/34-Mythic+Fyrakk+the+Blazing+-+Kill+(8:47)/Toppledh/standard/about',
     );
   });
 });
@@ -96,16 +96,16 @@ test('perform analysis', async ({ page }) => {
   await page.getByPlaceholder('https://www.warcraftlogs.com/reports/<report code>').click();
   await page
     .getByPlaceholder('https://www.warcraftlogs.com/reports/<report code>')
-    .fill('https://www.warcraftlogs.com/reports/dFzCLcjyqMbX43KP');
+    .fill('https://www.warcraftlogs.com/reports/bjqrZRnNdvKPXt13');
   await page.getByRole('heading', { name: 'Fight selection' }).waitFor();
-  await page.getByRole('link', { name: 'Kill 3:11' }).click();
+  await page.getByRole('link', { name: 'Kill 8:47' }).click();
   await page.getByRole('heading', { name: 'Player selection' }).waitFor();
   await page
-    .getByRole('link', { name: 'Toppledh Vengeance Demon Hunter Vengeance Demon Hunter 485' })
+    .getByRole('link', { name: 'Toppledh Vengeance Demon Hunter Vengeance Demon Hunter 488' })
     .click();
-  await page.getByText('MythicVolcoross').waitFor();
+  await page.getByText('MythicFyrakk, the Blazing').waitFor();
 
   await expect(page).toHaveURL(
-    '/report/dFzCLcjyqMbX43KP/20-Mythic+Volcoross+-+Kill+(3:11)/Toppledh/standard',
+    '/report/bjqrZRnNdvKPXt13/34-Mythic+Fyrakk+the+Blazing+-+Kill+(8:47)/Toppledh/standard',
   );
 });
