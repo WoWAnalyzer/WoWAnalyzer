@@ -22,7 +22,7 @@ class Tier28TwoSet extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.has2PieceByTier(TIERS.T28);
+    this.active = this.selectedCombatant.has2PieceByTier(TIERS.SL3);
     if (!this.active) {
       return;
     }

@@ -45,7 +45,7 @@ class GatheringStarstuff extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.has2PieceByTier(TIERS.T29);
+    this.active = this.selectedCombatant.has2PieceByTier(TIERS.DF1);
     this.stacksWhenCast = Array.from({ length: GATHERING_STARSTUFF.MAX_STACKS + 1 }, (x) => [0]);
 
     this.castWraths = [];

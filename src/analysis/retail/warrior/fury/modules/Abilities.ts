@@ -34,7 +34,7 @@ class Abilities extends CoreAbilities {
           }
           return 9 / (1 + haste);
         },
-        charges: combatant.has2PieceByTier(TIERS.T28) ? 3 : 2,
+        charges: combatant.has2PieceByTier(TIERS.SL3) ? 3 : 2,
         gcd: {
           base: 1500,
         },

@@ -50,8 +50,8 @@ class T29TierSet extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.has2Piece = this.selectedCombatant.has2PieceByTier(TIERS.T29);
-    this.has4Piece = this.selectedCombatant.has4PieceByTier(TIERS.T29) && this.has2Piece;
+    this.has2Piece = this.selectedCombatant.has2PieceByTier(TIERS.DF1);
+    this.has4Piece = this.selectedCombatant.has4PieceByTier(TIERS.DF1) && this.has2Piece;
     this.active = this.has2Piece;
     if (!this.active) {
       return;

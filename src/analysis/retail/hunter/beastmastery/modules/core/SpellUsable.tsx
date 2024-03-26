@@ -39,7 +39,7 @@ class SpellUsable extends CoreSpellUsable {
       Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.KILL_COMMAND_SHARED_DAMAGE),
       this.onKillCommandDamage,
     );
-    this._has2pc = this.selectedCombatant.has2PieceByTier(TIERS.T29);
+    this._has2pc = this.selectedCombatant.has2PieceByTier(TIERS.DF1);
   }
 
   onAutoShotDamage(event: DamageEvent) {

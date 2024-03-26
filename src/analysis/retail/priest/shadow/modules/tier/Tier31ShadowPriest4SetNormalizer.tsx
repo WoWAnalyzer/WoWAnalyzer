@@ -30,7 +30,7 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: BUFFER_MS,
     anyTarget: true,
     isActive(c) {
-      return c.has4PieceByTier(TIERS.T31);
+      return c.has4PieceByTier(TIERS.DF3);
     },
   },
   {
@@ -44,7 +44,7 @@ const EVENT_LINKS: EventLink[] = [
     additionalCondition: (linkingEvent, referencedEvent) =>
       referencedEvent.type === EventType.Damage && !referencedEvent.tick,
     isActive(c) {
-      return c.has4PieceByTier(TIERS.T31);
+      return c.has4PieceByTier(TIERS.DF3);
     },
   },
   {
@@ -57,7 +57,7 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: BUFFER_MS,
     anyTarget: true,
     isActive(c) {
-      return c.has4PieceByTier(TIERS.T31);
+      return c.has4PieceByTier(TIERS.DF3);
     },
   },
 ];

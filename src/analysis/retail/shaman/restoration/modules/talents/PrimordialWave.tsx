@@ -29,7 +29,7 @@ import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import ITEMS from 'common/ITEMS';
 import ItemSetLink from 'interface/ItemSetLink';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import { SHAMAN_T31_ID } from 'common/ITEMS/dragonflight';
+import { SHAMAN_DF3_ID } from 'common/ITEMS/dragonflight';
 
 class PrimordialWave extends Analyzer {
   static dependencies = {
@@ -280,17 +280,17 @@ class PrimordialWave extends Analyzer {
         <SpellLink spell={TALENTS.RIPTIDE_TALENT} /> HoT. This cleave effect can be combined with{' '}
         spells that increase the healing of <SpellLink spell={TALENTS.HEALING_WAVE_TALENT} /> such
         as <SpellLink spell={TALENTS.UNLEASH_LIFE_TALENT} />{' '}
-        {this.selectedCombatant.has4PieceByTier(TIERS.T30) && (
+        {this.selectedCombatant.has4PieceByTier(TIERS.DF2) && (
           <>
             and <SpellLink spell={ITEMS.T30_SWELLING_RAIN_BUFF} />, and turn that single target
             bonus into an extremely potent group heal
           </>
         )}
-        {this.selectedCombatant.has4PieceByTier(TIERS.T31) && (
+        {this.selectedCombatant.has4PieceByTier(TIERS.DF3) && (
           <>
             .<br />
             It synergizes well with our{' '}
-            <ItemSetLink id={SHAMAN_T31_ID}>
+            <ItemSetLink id={SHAMAN_DF3_ID}>
               <>Tier 31 Set Bonus</>
             </ItemSetLink>
             , which both helps us spread <SpellLink spell={TALENTS.RIPTIDE_TALENT} />s on players
