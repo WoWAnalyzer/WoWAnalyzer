@@ -25,7 +25,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       <Section title="Cooldowns">
         <Section title="Core Spells">
           <CooldownGraphSubsection.CoreCooldownsGraph />
-          {info.combatant.has4PieceByTier(TIERS.T31) && modules.tier31FourSet.guideSubsection}
+          {info.combatant.has4PieceByTier(TIERS.DF3) && modules.tier31FourSet.guideSubsection}
         </Section>
         <Section title="Short Cooldowns">
           <CooldownGraphSubsection.ShortCooldownsGraph />

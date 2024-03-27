@@ -21,7 +21,7 @@ class AegisOfWrath extends Analyzer {
     // The math with the Vault of the Incarnates 4p bonus makes the calculation of this module innacurate.
     this.active =
       this.selectedCombatant.hasTalent(TALENTS_PRIEST.AEGIS_OF_WRATH_TALENT) &&
-      !this.selectedCombatant.has4PieceByTier(TIERS.T29);
+      !this.selectedCombatant.has4PieceByTier(TIERS.DF1);
 
     if (!this.active) {
       return;

@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { RuneForgeChecker } from 'analysis/retail/deathknight/shared';
 import SPELLS from 'common/SPELLS';
+import { isMythicPlus } from 'common/isMythicPlus';
 import SpellLink from 'interface/SpellLink';
 import { Options } from 'parser/core/Analyzer';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
@@ -36,12 +37,12 @@ class BloodRuneForgeChecker extends RuneForgeChecker {
       {
         forge: SPELLS.RUNE_OF_SANGUINATION,
         importance: SUGGESTION_IMPORTANCE.MAJOR,
-        suggestion: (
+        suggestion: isMythicPlus(options.owner.fight) ? (
           <Trans id="deathknight.blood.runeforgeSuggestion.sanguination">
-            Don't use <SpellLink spell={SPELLS.RUNE_OF_SANGUINATION} /> as Blood Death Knight, use{' '}
-            <SpellLink spell={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER} /> instead.
+            Only use <SpellLink spell={SPELLS.RUNE_OF_SANGUINATION} /> as Blood Death Knight in
+            raids, use <SpellLink spell={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER} /> instead.
           </Trans>
-        ),
+        ) : undefined,
       },
       {
         forge: SPELLS.RUNE_OF_APOCALYPSE,

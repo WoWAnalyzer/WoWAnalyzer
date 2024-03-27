@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import { Panel } from 'interface';
 import { SpellLink } from 'interface';
+import { SubSection } from 'interface/guide';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
@@ -19,6 +20,7 @@ class SelfHealTimingGraph extends Analyzer {
   selfHealSpell = SPELLS.HEALTHSTONE;
   tabTitle = 'Selheal Timing';
   tabURL = 'selfheal-timings';
+  tabEnabled = true;
 
   constructor(options) {
     super(options);
@@ -188,27 +190,45 @@ class SelfHealTimingGraph extends Analyzer {
   }
 
   tab() {
-    return {
-      title: this.tabTitle,
-      url: this.tabURL,
-      render: () => (
-        <Panel
-          title={this.tabTitle}
-          explanation={
-            <>
-              This plot shows you your <SpellLink spell={this.selfHealSpell.id} /> casts relative to
-              your Health Points to help you improve your{' '}
-              <SpellLink spell={this.selfHealSpell.id} /> timings.
-              <br />
-              Improving those timings by selfhealing at low health and the correct time will remove
-              a lot of pressure from your healers.
-            </>
-          }
-        >
-          {this.plot}
-        </Panel>
-      ),
-    };
+    if (this.tabEnabled) {
+      return {
+        title: this.tabTitle,
+        url: this.tabURL,
+        render: () => (
+          <Panel
+            title={this.tabTitle}
+            explanation={
+              <>
+                This plot shows you your <SpellLink spell={this.selfHealSpell.id} /> casts relative
+                to your Health Points to help you improve your{' '}
+                <SpellLink spell={this.selfHealSpell.id} /> timings.
+                <br />
+                Improving those timings by selfhealing at low health and the correct time will
+                remove a lot of pressure from your healers.
+              </>
+            }
+          >
+            {this.plot}
+          </Panel>
+        ),
+      };
+    }
+  }
+
+  get guideSubsection() {
+    return (
+      <SubSection title={this.tabTitle}>
+        <>
+          This plot shows you your <SpellLink spell={this.selfHealSpell.id} /> casts relative to
+          your Health Points to help you improve your <SpellLink spell={this.selfHealSpell.id} />{' '}
+          timings.
+          <br />
+          Improving those timings by selfhealing at low health and the correct time will remove a
+          lot of pressure from your healers.
+        </>
+        {this.plot}
+      </SubSection>
+    );
   }
 }
 

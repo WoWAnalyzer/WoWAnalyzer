@@ -48,7 +48,7 @@ class PowerWordShield extends Analyzer {
     this.hasWeal = this.selectedCombatant.hasTalent(TALENTS_PRIEST.WEAL_AND_WOE_TALENT);
 
     // This math does not work with the Vault 4p bonus
-    this.hasVault4p = this.selectedCombatant.has4PieceByTier(TIERS.T29);
+    this.hasVault4p = this.selectedCombatant.has4PieceByTier(TIERS.DF1);
 
     this.active = !this.hasVault4p;
 
