@@ -243,7 +243,7 @@ function ShatteringStarSubsection({ modules, info }: GuideProps<typeof CombatLog
 }
 
 function BlazeShardsSubsection({ modules, info }: GuideProps<typeof CombatLogParser>) {
-  if (!info.combatant.has4PieceByTier(TIERS.T30)) {
+  if (!info.combatant.has4PieceByTier(TIERS.DF2)) {
     return null;
   }
 

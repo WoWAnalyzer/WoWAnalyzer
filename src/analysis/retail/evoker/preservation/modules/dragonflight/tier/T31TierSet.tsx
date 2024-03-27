@@ -28,7 +28,7 @@ import { TIERS } from 'game/TIERS';
 import Echo from '../../talents/Echo';
 import { ECHO_HEALS, SPELL_COLORS } from '../../../constants';
 import ItemSetLink from 'interface/ItemSetLink';
-import { EVOKER_T31_ID } from 'common/ITEMS/dragonflight';
+import { EVOKER_DF3_ID } from 'common/ITEMS/dragonflight';
 import DonutChart from 'parser/ui/DonutChart';
 import HotTrackerPrevoker from '../../core/HotTrackerPrevoker';
 
@@ -50,8 +50,8 @@ class T31PrevokerSet extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.has2PieceByTier(TIERS.T31);
-    this.has4Piece = this.selectedCombatant.has4PieceByTier(TIERS.T31);
+    this.active = this.selectedCombatant.has2PieceByTier(TIERS.DF3);
+    this.has4Piece = this.selectedCombatant.has4PieceByTier(TIERS.DF3);
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_BURST_BUFF),
       this.onEbProc,
@@ -241,7 +241,7 @@ class T31PrevokerSet extends Analyzer {
         <BoringValueText
           label={
             <>
-              <ItemSetLink id={EVOKER_T31_ID} /> (T31 tier set){' '}
+              <ItemSetLink id={EVOKER_DF3_ID} /> (T31 tier set){' '}
             </>
           }
         >

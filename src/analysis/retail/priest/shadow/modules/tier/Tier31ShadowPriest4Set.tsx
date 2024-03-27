@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import ItemSetLink from 'interface/ItemSetLink';
-import { PRIEST_T31_ID } from 'common/ITEMS/dragonflight';
+import { PRIEST_DF3_ID } from 'common/ITEMS/dragonflight';
 import { TIERS } from 'game/TIERS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffStackEvent, CastEvent } from 'parser/core/Events';
@@ -48,7 +48,7 @@ class Tier31ShadowPriest4Set extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.has4Piece = this.selectedCombatant.has4PieceByTier(TIERS.T31);
+    this.has4Piece = this.selectedCombatant.has4PieceByTier(TIERS.DF3);
     this.active = this.has4Piece;
 
     this.addEventListener(
@@ -167,7 +167,7 @@ class Tier31ShadowPriest4Set extends Analyzer {
       <>
         <p>
           <b>
-            <ItemSetLink id={PRIEST_T31_ID}> Amirdrassil 4 Piece</ItemSetLink>
+            <ItemSetLink id={PRIEST_DF3_ID}> Amirdrassil 4 Piece</ItemSetLink>
           </b>{' '}
           <br />
           <SpellLink spell={SPELLS.SHADOW_PRIEST_TIER_31_4_SET_BUFF} /> adds damage to the next{' '}

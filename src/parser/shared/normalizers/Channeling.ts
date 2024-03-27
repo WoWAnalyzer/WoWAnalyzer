@@ -254,7 +254,53 @@ export function endCurrentChannel(event: AnyEvent, channelState: ChannelState) {
     trigger: event,
   };
   channelState.eventsInserter.addAfterEvent(endChannel, event);
+
+  attachChannelToCast(endChannel);
+
   channelState.unresolvedChannel = null;
+}
+
+/**
+ * Attempts to attach the endChannel event to the associated cast event
+ *
+ * This is needed to allow the Casts module to properly render channels on the timeline without
+ * inserting the cast on top of the the fabricated channel
+ */
+function attachChannelToCast(endChannelEvent: EndChannelEvent): void {
+  const beginChannelTrigger = endChannelEvent.beginChannel.trigger;
+  const endChannelTrigger = endChannelEvent.trigger;
+
+  // Due to how Empowers are currently implemented this won't work for them so no reason to try
+  if (
+    endChannelTrigger?.type === EventType.EmpowerEnd ||
+    beginChannelTrigger?.type === EventType.EmpowerStart
+  ) {
+    return;
+  }
+
+  // If we for some reason don't have a cast event
+  // Currently only observed happening with Empowers, which makes sense with their current implementation but they are (for now) being ignored anyways
+  if (endChannelTrigger?.type !== EventType.Cast && beginChannelTrigger?.type !== EventType.Cast) {
+    console.warn(
+      'Tried to attach endChannelEvent to cast event for ability',
+      endChannelEvent.ability.name + '(' + endChannelEvent.ability.guid + ')',
+      '@',
+      endChannelEvent.timestamp,
+      'but was unable to find it',
+      endChannelEvent,
+    );
+    return;
+  }
+
+  // If the beginChannelTrigger was a cast attach to that
+  // The trigger could also be a beginCast, in which case the endChannelTrigger should be the cast
+  if (beginChannelTrigger?.type === EventType.Cast) {
+    beginChannelTrigger.channel = endChannelEvent;
+    return;
+  } else if (endChannelTrigger?.type === EventType.Cast) {
+    endChannelTrigger.channel = endChannelEvent;
+    return;
+  }
 }
 
 /**

@@ -30,7 +30,7 @@ class ResonatingSphere extends Analyzer {
     super(options);
     this.active =
       this.selectedCombatant.hasTalent(TALENTS_EVOKER.RESONATING_SPHERE_TALENT) ||
-      this.selectedCombatant.has4PieceByTier(TIERS.T31);
+      this.selectedCombatant.has4PieceByTier(TIERS.DF3);
   }
 
   get guideSubsection(): JSX.Element {
@@ -92,7 +92,7 @@ class ResonatingSphere extends Analyzer {
         valueTooltip: formatNumber(this.echo.totalTaEchoHealing),
       });
     }
-    if (this.selectedCombatant.has4PieceByTier(TIERS.T31)) {
+    if (this.selectedCombatant.has4PieceByTier(TIERS.DF3)) {
       items.push({
         color: SPELL_COLORS.VERDANT_EMBRACE,
         label: 'Echo from T31 4PC',

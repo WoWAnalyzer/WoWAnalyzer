@@ -33,7 +33,7 @@ class ChainLightning extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.has4pcT30 = this.selectedCombatant.has4PieceByTier(TIERS.T30);
+    this.has4pcT30 = this.selectedCombatant.has4PieceByTier(TIERS.DF2);
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.CHAIN_LIGHTNING_TALENT),
