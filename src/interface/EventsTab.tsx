@@ -8,7 +8,7 @@ import Tooltip, { TooltipElement } from 'interface/Tooltip';
 import { Ability, EventType, HasAbility, HasSource, HasTarget } from 'parser/core/Events';
 import { useReducer } from 'react';
 import Toggle from 'react-toggle';
-import { AutoSizer } from 'react-virtualized';
+import AutoSizer from 'react-virtualized-auto-sizer';
 import Table, {
   Column,
   defaultRowRenderer as defaultTableRowRenderer,

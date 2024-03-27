@@ -3,7 +3,7 @@ import HIT_TYPES from 'game/HIT_TYPES';
 import { DamageEvent, EventType, RemoveStaggerEvent } from 'parser/core/Events';
 import BaseChart, { defaultConfig } from 'parser/ui/BaseChart';
 import { VisualizationSpec } from 'react-vega';
-import { AutoSizer } from 'react-virtualized';
+import AutoSizer from 'react-virtualized-auto-sizer';
 import { Field } from 'vega-lite/build/src/channeldef';
 import { UnitSpec } from 'vega-lite/build/src/spec';
 

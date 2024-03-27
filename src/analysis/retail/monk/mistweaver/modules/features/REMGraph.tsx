@@ -6,7 +6,7 @@ import Events, { ApplyBuffEvent, CastEvent, RemoveBuffEvent } from 'parser/core/
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 import Panel from 'parser/ui/Panel';
 import { VisualizationSpec } from 'react-vega';
-import { AutoSizer } from 'react-virtualized';
+import AutoSizer from 'react-virtualized-auto-sizer';
 import { SPELL_COLORS } from '../../constants';
 
 type SpellTracker = {

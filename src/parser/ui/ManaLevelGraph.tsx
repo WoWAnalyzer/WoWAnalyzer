@@ -1,6 +1,6 @@
 import { PureComponent } from 'react';
 import { VisualizationSpec } from 'react-vega';
-import { AutoSizer } from 'react-virtualized';
+import AutoSizer from 'react-virtualized-auto-sizer';
 import { CompositeEncoding } from 'vega-lite/build/src/compositemark';
 
 import BaseChart, { formatTime } from './BaseChart';

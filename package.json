@@ -31,6 +31,7 @@
     "react-transition-group": "^4.4.5",
     "react-vega": "^7.4.4",
     "react-virtualized": "^9.22.5",
+    "react-virtualized-auto-sizer": "^1.0.24",
     "redux": "^4.2.1",
     "redux-thunk": "^2.4.2",
     "sass-text-stroke": "1.2.0",
