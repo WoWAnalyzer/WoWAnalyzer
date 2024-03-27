@@ -23,6 +23,8 @@ export const SERENITY_CAST = 'HolyWordSerenityCast';
 export const SANCTIFY_CAST = 'HolyWordSanctifyCast';
 export const SALVATION_CAST = 'HolyWordSalvationCast';
 export const CHASTISE_CAST = 'HolyWordChastiseCast';
+export const LIGHTWELL_RENEW_HEALS = 'LightwellRenewHeal';
+export const SALVATION_RENEW_HEALS = 'SalvationRenewHeal';
 
 const EVENT_LINKS: EventLink[] = [
   // Link single target heal casts to their heal events.
@@ -120,6 +122,26 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: EventType.Damage,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    linkRelation: LIGHTWELL_RENEW_HEALS,
+    reverseLinkRelation: LIGHTWELL_RENEW_HEALS,
+    linkingEventId: SPELLS.LIGHTWELL_TALENT_HEAL.id,
+    linkingEventType: EventType.Heal,
+    referencedEventId: TALENTS_PRIEST.RENEW_TALENT.id,
+    referencedEventType: EventType.Heal,
+    forwardBufferMs: 6010,
+    anyTarget: false,
+  },
+  {
+    linkRelation: SALVATION_RENEW_HEALS,
+    reverseLinkRelation: SALVATION_RENEW_HEALS,
+    linkingEventId: TALENTS_PRIEST.HOLY_WORD_SALVATION_TALENT.id,
+    linkingEventType: EventType.Heal,
+    referencedEventId: TALENTS_PRIEST.RENEW_TALENT.id,
+    referencedEventType: EventType.Heal,
+    forwardBufferMs: 15010,
+    anyTarget: false,
   },
 ];
 
