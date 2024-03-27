@@ -9,7 +9,7 @@ import { EventType } from 'parser/core/Events';
 import PropTypes from 'prop-types';
 import { Component } from 'react';
 import Toggle from 'react-toggle';
-import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
+import AutoSizer from 'react-virtualized-auto-sizer';
 import Table, {
   defaultRowRenderer as defaultTableRowRenderer,
   Column,

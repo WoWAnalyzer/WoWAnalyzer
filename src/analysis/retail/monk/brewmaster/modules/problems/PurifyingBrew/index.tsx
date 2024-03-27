@@ -14,7 +14,7 @@ import { AbilityCastEfficiency } from 'parser/shared/modules/CastEfficiency';
 import BaseChart from 'parser/ui/BaseChart';
 import { useEffect, useState } from 'react';
 import { VisualizationSpec } from 'react-vega';
-import { AutoSizer } from 'react-virtualized';
+import AutoSizer from 'react-virtualized-auto-sizer';
 
 import { staggerChart, line, point, color, normalizeTimestampTransform } from '../../charts';
 import PurifyingBrewProblems, {
