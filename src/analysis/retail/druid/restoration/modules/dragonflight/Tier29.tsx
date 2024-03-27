@@ -9,7 +9,7 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import HIT_TYPES from 'game/HIT_TYPES';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import ItemSetLink from 'interface/ItemSetLink';
-import { DRUID_T29_ID } from 'common/ITEMS/dragonflight';
+import { DRUID_DF1_ID } from 'common/ITEMS/dragonflight';
 import HotTrackerRestoDruid from 'analysis/retail/druid/restoration/modules/core/hottracking/HotTrackerRestoDruid';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SpellLink from 'interface/SpellLink';
@@ -62,8 +62,8 @@ class Tier29 extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.has2PieceByTier(TIERS.T29);
-    this.has4pc = this.selectedCombatant.has4PieceByTier(TIERS.T29);
+    this.active = this.selectedCombatant.has2PieceByTier(TIERS.DF1);
+    this.has4pc = this.selectedCombatant.has4PieceByTier(TIERS.DF1);
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(TWO_PIECE_SPELLS), this.on2pcHeal);
 
@@ -160,7 +160,7 @@ class Tier29 extends Analyzer {
       >
         <div className="pad boring-text">
           <label>
-            <ItemSetLink id={DRUID_T29_ID}>
+            <ItemSetLink id={DRUID_DF1_ID}>
               <>
                 Lost Landcaller's Vesture
                 <br />

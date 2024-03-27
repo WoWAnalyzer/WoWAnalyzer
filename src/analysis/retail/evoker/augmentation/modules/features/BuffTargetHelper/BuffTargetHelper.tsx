@@ -100,7 +100,7 @@ class BuffTargetHelper extends Analyzer {
   prescienceHelperMrtNote: string = '';
   mrtFourTargetPrescienceHelperNote: string = '';
   // If we have 4pc we need to account for long prescience
-  has4Pc = this.selectedCombatant.has4PieceByTier(TIERS.T31);
+  has4Pc = this.selectedCombatant.has4PieceByTier(TIERS.DF3);
 
   filterBossDamage: boolean = false;
   nameFilter: string = '';
@@ -138,11 +138,11 @@ class BuffTargetHelper extends Analyzer {
   /** Generate filter based on black list and whitelist */
   getFilter(noEbonScaling: boolean) {
     if (this.filterBossDamage) {
-      return `(${noEbonScaling ? '' : 'not'} ability.id in(${this.abilityFilter})) 
-      AND (source.name in (${this.nameFilter}) OR source.owner.name in (${this.nameFilter})) 
+      return `(${noEbonScaling ? '' : 'not'} ability.id in(${this.abilityFilter}))
+      AND (source.name in (${this.nameFilter}) OR source.owner.name in (${this.nameFilter}))
       AND (target.id in(${this.bossFilter}))`;
     } else {
-      return `(${noEbonScaling ? '' : 'not'} ability.id in(${this.abilityFilter})) 
+      return `(${noEbonScaling ? '' : 'not'} ability.id in(${this.abilityFilter}))
       AND (source.name in (${this.nameFilter}) OR source.owner.name in (${this.nameFilter}))`;
     }
   }
