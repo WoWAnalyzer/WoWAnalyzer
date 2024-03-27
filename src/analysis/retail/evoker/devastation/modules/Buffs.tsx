@@ -45,7 +45,7 @@ class Buffs extends CoreAuras {
       {
         spellId: SPELLS.EMERALD_TRANCE_T31_4PC_BUFF.id,
         timelineHighlight: true,
-        enabled: combatant.has4PieceByTier(TIERS.T31),
+        enabled: combatant.has4PieceByTier(TIERS.DF3),
       },
       // Defensive
       {
