@@ -1,26 +1,29 @@
 import PrayerOfMending from 'analysis/retail/priest/holy/modules/spells/PrayerOfMending';
-import Renew from 'analysis/retail/priest/holy/modules/spells/Renew';
 import { formatThousands } from 'common/format';
 import TALENTS from 'common/TALENTS/priest';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { HealEvent } from 'parser/core/Events';
+import Events, { HasRelatedEvent, HealEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { SALVATION_RENEW_HEALS } from '../../../normalizers/CastLinkNormalizer';
 
 // Example Log: /report/PNYB4zgrnR86h7Lc/6-Normal+Zek'voz,+Herald+of+N'zoth/Khadaj
 class HolyWordSalvation extends Analyzer {
   static dependencies = {
-    renew: Renew,
     prayerOfMending: PrayerOfMending,
   };
   salvTicks = 0;
   healingFromSalv = 0;
   overhealingFromSalv = 0;
   absorptionFromSalv = 0;
-  protected renew!: Renew;
+
+  healingFromRenew = 0;
+  absorptionFromRenew = 0;
+  overhealingFromRenew = 0;
+
   protected prayerOfMending!: PrayerOfMending;
 
   constructor(options: Options) {
@@ -30,22 +33,11 @@ class HolyWordSalvation extends Analyzer {
       Events.heal.by(SELECTED_PLAYER).spell(TALENTS.HOLY_WORD_SALVATION_TALENT),
       this.onHeal,
     );
-  }
 
-  get renewCount() {
-    return this.renew.renewsFromSalvation;
-  }
-
-  get healingFromRenew() {
-    return this.renew.healingFromRenew(this.renewCount);
-  }
-
-  get overHealingFromRenew() {
-    return this.renew.overhealingFromRenew(this.renewCount);
-  }
-
-  get absorptionFromRenew() {
-    return this.renew.absorptionFromRenew(this.renewCount);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(TALENTS.RENEW_TALENT),
+      this.onRenewHeal,
+    );
   }
 
   get pomCount() {
@@ -69,7 +61,7 @@ class HolyWordSalvation extends Analyzer {
   }
 
   get totalOverHealing() {
-    return this.overhealingFromSalv + this.overHealingFromRenew + this.overHealingFromPom;
+    return this.overhealingFromSalv + this.overhealingFromRenew + this.overHealingFromPom;
   }
 
   get totalAbsorbed() {
@@ -81,6 +73,14 @@ class HolyWordSalvation extends Analyzer {
     this.overhealingFromSalv += event.overheal || 0;
     this.absorptionFromSalv += event.absorbed || 0;
     this.salvTicks += 1;
+  }
+
+  onRenewHeal(event: HealEvent) {
+    if (HasRelatedEvent(event, SALVATION_RENEW_HEALS)) {
+      this.healingFromRenew += event.amount || 0;
+      this.overhealingFromRenew += event.overheal || 0;
+      this.absorptionFromRenew += event.absorbed || 0;
+    }
   }
 
   statistic() {
