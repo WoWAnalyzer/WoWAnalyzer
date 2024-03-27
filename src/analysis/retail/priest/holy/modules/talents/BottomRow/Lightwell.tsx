@@ -1,4 +1,3 @@
-import Renew from 'analysis/retail/priest/holy/modules/spells/Renew';
 import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
@@ -13,9 +12,6 @@ import { LIGHTWELL_RENEW_HEALS } from '../../../normalizers/CastLinkNormalizer';
 
 // Example Log: /report/PNYB4zgrnR86h7Lc/6-Normal+Zek'voz,+Herald+of+N'zoth/Khadaj
 class Lightwell extends Analyzer {
-  static dependencies = {
-    renew: Renew,
-  };
   Lightwell = 0;
   healingFromLightwell = 0;
   overhealingFromLightwell = 0;
@@ -24,8 +20,6 @@ class Lightwell extends Analyzer {
   healingFromRenew = 0;
   absorptionFromRenew = 0;
   overhealingFromRenew = 0;
-
-  protected renew!: Renew;
 
   constructor(options: Options) {
     super(options);
