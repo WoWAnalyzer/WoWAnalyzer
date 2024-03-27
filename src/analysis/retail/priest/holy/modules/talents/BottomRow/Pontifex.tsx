@@ -7,11 +7,23 @@ import Events, { HealEvent } from 'parser/core/Events';
 import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import { formatNumber, formatPercentage } from 'common/format';
-import HIT_TYPES from 'game/HIT_TYPES';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
-const PONTIFEX_HEALING_INCREASE = 0.2;
-const PONTIFEX_MAX_STACKS = 2;
+const PONTIFEX_HEALING_INCREASE = 0.06;
+//const PONTIFEX_MAX_STACKS = 5;
+
+const HOLY_WORD_LIST = [
+  TALENTS.HOLY_WORD_SALVATION_TALENT,
+  TALENTS.HOLY_WORD_SANCTIFY_TALENT,
+  TALENTS.HOLY_WORD_SERENITY_TALENT,
+];
+
+const PONTIFEX_TRIGGER_LIST = [
+  SPELLS.FLASH_HEAL,
+  SPELLS.GREATER_HEAL,
+  TALENTS.PRAYER_OF_HEALING_TALENT,
+  TALENTS.CIRCLE_OF_HEALING_TALENT,
+];
 
 /**
  * Critical heals from Flash Heal and Heal increase your healing done by
@@ -19,31 +31,27 @@ const PONTIFEX_MAX_STACKS = 2;
  */
 
 class Pontifex extends Analyzer {
+  totalPontifexStacks = 0;
+  usedPontifexStacks = 0;
   effectiveAdditionalHealing: number = 0;
   overhealing: number = 0;
-  wastedStacks = 0;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.PONTIFEX_TALENT);
 
-    // Healing spells that give stacks of Pontifex buff
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell([SPELLS.FLASH_HEAL, SPELLS.GREATER_HEAL]),
+      Events.cast.by(SELECTED_PLAYER).spell(PONTIFEX_TRIGGER_LIST),
       this.onPontifexHealCast,
     );
 
-    // Healing spells buffed by Pontifex
-    this.addEventListener(
-      Events.heal
-        .by(SELECTED_PLAYER)
-        .spell([
-          TALENTS.HOLY_WORD_SERENITY_TALENT,
-          TALENTS.HOLY_WORD_SANCTIFY_TALENT,
-          TALENTS.HOLY_WORD_SALVATION_TALENT,
-        ]),
-      this.onBuffedCast,
-    );
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(HOLY_WORD_LIST), this.onBuffedCast);
+
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(HOLY_WORD_LIST), this.onBuffedHeal);
+  }
+
+  get wastedPontifexStacks() {
+    return this.totalPontifexStacks - this.usedPontifexStacks;
   }
 
   get percentOverhealing() {
@@ -54,18 +62,19 @@ class Pontifex extends Analyzer {
     return this.overhealing / rawHealing;
   }
 
-  onPontifexHealCast(event: HealEvent) {
-    const pontifexBuffStacks = this.selectedCombatant.getBuffStacks(SPELLS.PONTIFEX_TALENT_BUFF.id);
+  onPontifexHealCast() {
+    this.totalPontifexStacks += 1;
+  }
 
-    // Casted a FH or Heal with 2 stacks of Pontifex, and that cast crit.
-    if (event.hitType === HIT_TYPES.CRIT && pontifexBuffStacks === PONTIFEX_MAX_STACKS) {
-      this.wastedStacks += 1;
+  onBuffedCast() {
+    const pontifexBuffStacks = this.selectedCombatant.getBuffStacks(SPELLS.PONTIFEX_TALENT_BUFF.id);
+    if (pontifexBuffStacks > 0) {
+      this.usedPontifexStacks += pontifexBuffStacks;
     }
   }
 
-  onBuffedCast(event: HealEvent) {
+  onBuffedHeal(event: HealEvent) {
     const pontifexBuffStacks = this.selectedCombatant.getBuffStacks(SPELLS.PONTIFEX_TALENT_BUFF.id);
-
     // Casted a Holy word with at least one stack of Pontifex
     if (pontifexBuffStacks > 0) {
       const healingIncrease = PONTIFEX_HEALING_INCREASE * pontifexBuffStacks;
@@ -84,7 +93,7 @@ class Pontifex extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            {this.wastedStacks} stacks of Pontifex wasted.
+            {this.wastedPontifexStacks} stacks of Pontifex wasted.
             <br />
             Total Healing: {formatNumber(this.effectiveAdditionalHealing + this.overhealing)} (
             {formatPercentage(this.percentOverhealing)}% OH)

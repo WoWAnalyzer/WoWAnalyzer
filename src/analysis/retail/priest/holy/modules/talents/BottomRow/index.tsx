@@ -10,6 +10,7 @@ import Lightweaver from './Lightweaver';
 import ResonantWords from './ResonantWords';
 import Pontifex from './Pontifex';
 import MiracleWorker from './MiracleWorker';
+import Lightwell from './Lightwell';
 
 export {
   AnsweredPrayers,
@@ -24,4 +25,5 @@ export {
   ResonantWords,
   Pontifex,
   MiracleWorker,
+  Lightwell,
 };
