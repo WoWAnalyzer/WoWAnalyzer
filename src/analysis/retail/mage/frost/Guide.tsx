@@ -6,6 +6,7 @@ import { formatPercentage } from 'common/format';
 import ActiveTimeGraph from 'parser/ui/ActiveTimeGraph';
 import { SpellLink } from 'interface';
 import TALENTS from 'common/TALENTS/mage';
+import SPELLS from 'common/SPELLS';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 
 export const GUIDE_CORE_EXPLANATION_PERCENT = 50;
@@ -14,18 +15,26 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
   const alwaysBeCastingSubsection = (
     <SubSection title="Active Time">
       <Explanation>
-        <b>
-          Continuously casting throughout an encounter is the single most important thing for
-          achieving good DPS as a caster.
-        </b>
+        <b>The First Rule of SpellCasters: Always Be Casting.</b>
         <p>
-          As mages we have <SpellLink spell={TALENTS.ICE_FLOES_TALENT} /> or{' '}
-          <SpellLink spell={TALENTS.SHIMMER_TALENT} />
-          to continue casting while dealing with mechanics that require movement.
+          Minimizing downtime is one of the best ways to increase your DPS. As a mage, using
+          abilities like <SpellLink spell={TALENTS.ICE_FLOES_TALENT} /> and{' '}
+          <SpellLink spell={TALENTS.SHIMMER_TALENT} /> can minimize downtime caused by movement.
+          Additionally, instant spells such as <SpellLink spell={TALENTS.FLURRY_TALENT} />,{' '}
+          <SpellLink spell={TALENTS.ICE_LANCE_TALENT} /> (With{' '}
+          <SpellLink spell={TALENTS.FINGERS_OF_FROST_TALENT} /> or{' '}
+          <SpellLink spell={SPELLS.WINTERS_CHILL} />
+          ), and <SpellLink spell={TALENTS.COMET_STORM_TALENT} /> are good ways to reposition or
+          inch towards somewhere you need to be without losing any uptime. If nothing else is
+          available, casting <SpellLink spell={TALENTS.ICE_LANCE_TALENT} /> without any procs is
+          better than casting nothing at all.
         </p>
         <p>
-          Some fights have unavoidable downtime due to phase transitions and the like, so in these
-          cases 0% downtime will not be possible - do the best you can.
+          Downtime from forced downtime such as phase transitions and immune phases are unavoidable,
+          but you can sometimes use reduced damage phases to fish for procs to spend after the phase
+          ends. We recommend comparing your Active Time against a top parse for the same
+          boss/difficulty with a similar kill time since the max possible Active Time will vary
+          wildly based on spec, boss, difficulty, etc.
         </p>
       </Explanation>
       <p>
