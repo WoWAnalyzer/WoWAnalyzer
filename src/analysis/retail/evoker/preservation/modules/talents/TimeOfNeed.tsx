@@ -24,7 +24,7 @@ const Result = {
   Dead: 'Died anyway',
   Bug: 'Time of Need fizzled out',
 } as const;
-type Results = typeof Result[keyof typeof Result];
+type Results = (typeof Result)[keyof typeof Result];
 
 interface TonEvent {
   summon: SummonEvent;
