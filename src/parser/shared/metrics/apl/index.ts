@@ -408,11 +408,32 @@ export function aplProcessesEvent(
   applicableSpells: Set<number>,
   playerId: number,
 ): event is BeginChannelEvent | CastEvent {
+  /** Checks if a spell is a chain cast/channel
+   * Without this check most(if not all) back-to-back cast of channeled/non-instant casts of the same ability
+   * would be treated as the same cast, and therefore would skip rule check on those casts
+   *
+   * The reason for two checks is essentially just to make sure that we always use the same event type
+   * for our rule checks, should help avoid unwanted interactions */
+  const isChainCast =
+    event.type === EventType.Cast &&
+    event !== result.mostRecentBeginCast?.trigger &&
+    result.mostRecentBeginCast?.trigger?.type !== EventType.BeginCast &&
+    result.mostRecentBeginCast?.ability.guid === event.ability.guid &&
+    /** Ignore these until Empowers are properly normalized */
+    result.mostRecentBeginCast?.trigger?.type !== EventType.EmpowerStart;
+
+  const isChainChannel =
+    event.type === EventType.BeginChannel &&
+    event.trigger !== result.mostRecentCast &&
+    result?.mostRecentCast?.ability.guid === event.ability.guid;
+
   return (
     ((event.type === EventType.BeginChannel &&
       event.ability.guid !== result.mostRecentCast?.ability.guid) ||
       (event.type === EventType.Cast &&
-        event.ability.guid !== result.mostRecentBeginCast?.ability.guid)) &&
+        event.ability.guid !== result.mostRecentBeginCast?.ability.guid) ||
+      isChainCast ||
+      isChainChannel) &&
     applicableSpells.has(event.ability.guid) &&
     event.sourceID === playerId
   );

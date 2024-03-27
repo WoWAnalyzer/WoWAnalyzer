@@ -33,11 +33,14 @@ export function getTargets(event: AplTriggerEvent, targetLink?: string): string[
    The rule applies when the debuff `spell` is missing. The `optPandemic`
    parameter gives the ability to allow early refreshes to prevent a debuff
    dropping, but this will not *require* early refreshes.
+
+   fallback defines the output when there is no target/the debuff hasn't been seen yet
  **/
 export function debuffMissing(
   spell: Spell,
   optPandemic?: PandemicData,
   targetOptions?: TargetOptions,
+  fallback: boolean = false,
 ): Condition<{ [key: string]: DurationData }> {
   return {
     key: `debuffMissing-${spell.id}`,
@@ -73,7 +76,7 @@ export function debuffMissing(
       const targets = getTargets(event, targetOptions?.targetLinkRelation);
       if (targets.length === 0) {
         //No target so we can't check for a debuff
-        return false;
+        return fallback;
       }
 
       return targets.some((encodedTargetString) =>

@@ -5,3 +5,5 @@ export const INNATE_MAGIC_REGEN = 0.05;
 export const BASE_MAX_ESSENCE = 5;
 
 export const POTENT_MANA_MULTIPLIER = 0.03;
+
+export const BASE_EVOKER_RANGE = 25;

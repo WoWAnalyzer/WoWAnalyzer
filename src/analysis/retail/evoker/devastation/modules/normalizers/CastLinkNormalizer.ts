@@ -46,6 +46,7 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
+    maximumLinks: 1,
     isActive(c) {
       return c.hasTalent(TALENTS_EVOKER.BURNOUT_TALENT);
     },
