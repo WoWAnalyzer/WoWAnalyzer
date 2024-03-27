@@ -10,7 +10,7 @@ import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/Eve
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import { formatNumber, formatPercentage } from 'common/format';
 
-const PRAYERFUL_LITANY_MULTIPLIER = 0.3;
+const PRAYERFUL_LITANY_MULTIPLIER = 1;
 
 /*
   Prayer of Healing heals for 30% more to the most injured ally it affects.
