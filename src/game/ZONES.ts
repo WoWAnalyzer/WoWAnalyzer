@@ -3,6 +3,7 @@
 import mythicPlusSeasonOne from 'game/raids/mythicplusseasonone';
 import mythicPlusSeasonTwo from 'game/raids/mythicplusseasontwo';
 import mythicplusseasonthree from './raids/mythicplusseasonthree';
+import mythicplusseasonfour from 'game/raids/mythicplusseasonfour';
 import vaultOfTheIncarnates from 'game/raids/vaultoftheincarnates';
 import aberrus from 'game/raids/aberrus';
 import amirdrassil from 'game/raids/amirdrassil';
@@ -41,7 +42,7 @@ const ZONES: Zone[] = [
   {
     id: 32,
     name: 'Mythic+ Season 1',
-    frozen: false,
+    frozen: true,
     encounters: [
       mythicPlusSeasonOne.bosses.AlgetharAcademy,
       mythicPlusSeasonOne.bosses.AzureVault,
@@ -73,7 +74,7 @@ const ZONES: Zone[] = [
   {
     id: 34,
     name: 'Mythic+ Season 2',
-    frozen: false,
+    frozen: true,
     encounters: [
       mythicPlusSeasonTwo.bosses.BrackenhideHollow,
       mythicPlusSeasonTwo.bosses.Freehold,
@@ -118,6 +119,22 @@ const ZONES: Zone[] = [
       mythicplusseasonthree.bosses.WaycrestManor,
     ],
     usePtrTooltips: false,
+  },
+  {
+    id: 37,
+    name: 'Mythic+ Season 4',
+    frozen: false,
+    encounters: [
+      mythicplusseasonfour.bosses.AlgetharAcademy,
+      mythicplusseasonfour.bosses.AzureVault,
+      mythicplusseasonfour.bosses.BrackenhideHollow,
+      mythicplusseasonfour.bosses.HallsOfInfusion,
+      mythicplusseasonfour.bosses.Neltharus,
+      mythicplusseasonfour.bosses.NokhudOffensive,
+      mythicplusseasonfour.bosses.RubyLifePools,
+      mythicplusseasonfour.bosses.Uldaman,
+    ],
+    usePtrTooltips: true,
   },
 ];
 

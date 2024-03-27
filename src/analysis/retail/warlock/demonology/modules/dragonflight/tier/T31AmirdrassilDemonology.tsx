@@ -41,9 +41,9 @@ class T31AmirdrassilDemonology extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.has2PieceByTier(TIERS.T31);
+    this.active = this.selectedCombatant.has2PieceByTier(TIERS.DF3);
     this.has2Piece = this.active;
-    this.has4Piece = this.selectedCombatant.has4PieceByTier(TIERS.T31);
+    this.has4Piece = this.selectedCombatant.has4PieceByTier(TIERS.DF3);
 
     this.addEventListener(
       Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.DOOM_BRAND_DEBUFF),

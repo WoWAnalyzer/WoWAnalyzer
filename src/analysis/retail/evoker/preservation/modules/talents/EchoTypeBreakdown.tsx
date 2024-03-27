@@ -20,7 +20,7 @@ class EchoTypeBreakdown extends Analyzer {
     super(options);
     this.active =
       this.selectedCombatant.hasTalent(TALENTS_EVOKER.RESONATING_SPHERE_TALENT) ||
-      this.selectedCombatant.has4PieceByTier(TIERS.T31);
+      this.selectedCombatant.has4PieceByTier(TIERS.DF3);
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS_EVOKER.ECHO_TALENT),
       this.onEchoApply,
@@ -57,7 +57,7 @@ class EchoTypeBreakdown extends Analyzer {
         valueTooltip: this.rsCount,
       });
     }
-    if (this.selectedCombatant.has4PieceByTier(TIERS.T31)) {
+    if (this.selectedCombatant.has4PieceByTier(TIERS.DF3)) {
       items.push({
         color: SPELL_COLORS.VERDANT_EMBRACE,
         label: 'Echo from T31 4PC',

@@ -32,7 +32,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
       this.HEALING_ABILITIES_ON_GCD.push(SPELLS.DISINTEGRATE.id);
     }
     if (
-      this.selectedCombatant.has2PieceByTier(TIERS.T29) ||
+      this.selectedCombatant.has2PieceByTier(TIERS.DF1) ||
       this.selectedCombatant.hasTalent(TALENTS_EVOKER.LIFE_GIVERS_FLAME_TALENT)
     ) {
       this.HEALING_ABILITIES_ON_GCD.push(SPELLS.FIRE_BREATH.id);

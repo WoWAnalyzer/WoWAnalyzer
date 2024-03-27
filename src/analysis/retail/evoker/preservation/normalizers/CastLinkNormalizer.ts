@@ -176,7 +176,7 @@ const EVENT_LINKS: EventLink[] = [
       );
     },
     isActive(c) {
-      return c.has4PieceByTier(TIERS.T31);
+      return c.has4PieceByTier(TIERS.DF3);
     },
   },
   /* ECHO APPLY TO ECHO REMOVAL LINKING */
@@ -277,7 +277,7 @@ const EVENT_LINKS: EventLink[] = [
       );
     },
     isActive(c) {
-      return c.has4PieceByTier(TIERS.T31);
+      return c.has4PieceByTier(TIERS.DF3);
     },
   },
   /* ECHO REMOVAL TO HEAL */
@@ -394,7 +394,7 @@ const EVENT_LINKS: EventLink[] = [
       );
     },
     isActive(c) {
-      return c.has4PieceByTier(TIERS.T31);
+      return c.has4PieceByTier(TIERS.DF3);
     },
   },
   // special handling for TA Echo EB because it heals 3-5 targets and happens after 2s

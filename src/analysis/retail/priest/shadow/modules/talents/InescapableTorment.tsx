@@ -28,7 +28,7 @@ class InescapableTorment extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.INESCAPABLE_TORMENT_TALENT);
-    this.has2Piece = this.selectedCombatant.has2PieceByTier(TIERS.T31);
+    this.has2Piece = this.selectedCombatant.has2PieceByTier(TIERS.DF3);
     //Shadow's Tier 31 2 piece causes Inescapable torment to proc at 15% effectiveness 2-3 times after a cast of SW:D
     //It occurs quickly, so it is not possible to have a cast between any of these damage events.
     //The damage is calculated correctly automatically, but the extension time on mindbender is not.

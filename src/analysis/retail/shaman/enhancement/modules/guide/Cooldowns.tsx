@@ -18,7 +18,7 @@ interface TalentWithCondition extends Talent {
 
 const COOLDOWNS: TalentWithCondition[] = [
   TALENTS.FERAL_SPIRIT_TALENT,
-  { ...TALENTS.SUNDERING_TALENT, condition: (c) => c.has4PieceByTier(TIERS.T30) }, // sundering only considered a cooldown when using 4pc T30. Remove entirely further into 10.2
+  { ...TALENTS.SUNDERING_TALENT, condition: (c) => c.has4PieceByTier(TIERS.DF2) }, // sundering only considered a cooldown when using 4pc T30. Remove entirely further into 10.2
   TALENTS.DOOM_WINDS_TALENT,
   TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT,
   TALENTS.ASCENDANCE_ENHANCEMENT_TALENT,
