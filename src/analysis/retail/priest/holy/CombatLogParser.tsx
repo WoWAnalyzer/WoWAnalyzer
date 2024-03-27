@@ -135,6 +135,7 @@ class CombatLogParser extends CoreCombatLogParser {
     resonantWords: Talents.BottomRow.ResonantWords,
     TranslucentImage: TranslucentImage,
     miracleWorker: Talents.BottomRow.MiracleWorker,
+    Lightwell: Talents.BottomRow.Lightwell,
 
     BurningVehemence: Talents.TopRow.BurningVehemence,
 
