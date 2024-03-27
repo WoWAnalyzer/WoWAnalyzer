@@ -34,6 +34,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 3, 26), 'Add patch 10.2.6.', ToppleTheNun),
   change(date(2024, 3, 26), 'Add Dragonflight season 4 M+ dungeons and zone.', ToppleTheNun),
   change(date(2024, 3, 26), 'Remove support for Shadowlands tier sets.', ToppleTheNun),
   change(date(2024, 3, 26), 'Add tier set IDs for Dragonflight season 4.', ToppleTheNun),

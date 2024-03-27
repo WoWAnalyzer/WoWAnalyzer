@@ -14,7 +14,7 @@ class HolyWordBase extends Analyzer {
   baseCooldown = 60000;
   apparatusReduction =
     HARMONIOUS_APPARATUS_REDUCTION_PER_RANK *
-    this.selectedCombatant.getTalentRank(TALENTS.HARMONIOUS_APPARATUS_TALENT);
+    this.selectedCombatant.getTalentRank(TALENTS.VOICE_OF_HARMONY_TALENT);
   remainingCooldown = 0;
   serendipityProccers: {
     [spellID: string]: {
@@ -60,7 +60,7 @@ class HolyWordBase extends Analyzer {
         1;
     }
 
-    if (this.selectedCombatant.hasTalent(TALENTS.HARMONIOUS_APPARATUS_TALENT)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.VOICE_OF_HARMONY_TALENT)) {
       this.harmoniousApparatusActive = true;
     }
 
