@@ -21,7 +21,7 @@ export default class T29BMTier4P extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.has4PieceByTier(TIERS.T29);
+    this.active = this.selectedCombatant.has4PieceByTier(TIERS.DF1);
 
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(TALENTS_HUNTER.BARBED_SHOT_TALENT),

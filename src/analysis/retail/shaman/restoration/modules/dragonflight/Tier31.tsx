@@ -4,7 +4,7 @@ import { TIERS } from 'game/TIERS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
 import { isFrom4pcT31 } from '../../normalizers/CastLinkNormalizer';
-import { SHAMAN_T31_ID } from 'common/ITEMS/dragonflight';
+import { SHAMAN_DF3_ID } from 'common/ITEMS/dragonflight';
 import { SpellLink } from 'interface';
 import ItemSetLink from 'interface/ItemSetLink';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -42,8 +42,8 @@ export default class Tier31 extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.has2PieceByTier(TIERS.T31);
-    this.has4pc = this.selectedCombatant.has4PieceByTier(TIERS.T31);
+    this.active = this.selectedCombatant.has2PieceByTier(TIERS.DF3);
+    this.has4pc = this.selectedCombatant.has4PieceByTier(TIERS.DF3);
 
     if (this.has4pc) {
       this.addEventListener(
@@ -121,7 +121,7 @@ export default class Tier31 extends Analyzer {
       >
         <div className="pad boring-text">
           <label>
-            <ItemSetLink id={SHAMAN_T31_ID}>
+            <ItemSetLink id={SHAMAN_DF3_ID}>
               <>
                 Vision of the Greatwolf Outcast
                 <br />

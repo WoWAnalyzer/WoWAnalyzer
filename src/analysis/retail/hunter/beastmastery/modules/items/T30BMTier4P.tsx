@@ -25,7 +25,7 @@ export default class T30BMTier4P extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.has4PieceByTier(TIERS.T30);
+    this.active = this.selectedCombatant.has4PieceByTier(TIERS.DF2);
 
     this.addEventListener(
       Events.cast

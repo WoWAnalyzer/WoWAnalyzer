@@ -9,7 +9,7 @@ import { InformationIcon } from 'interface/icons';
 import SPELLS from 'common/SPELLS/evoker';
 
 export function EssenceGraphSection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
-  const hasT31 = info.combatant.has4PieceByTier(TIERS.T31);
+  const hasT31 = info.combatant.has4PieceByTier(TIERS.DF3);
   const percentAtCap = modules.essenceTracker.percentAtCap;
   const essenceWasted = modules.essenceTracker.wasted;
 

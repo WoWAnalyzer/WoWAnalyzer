@@ -15,7 +15,7 @@ import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink, TooltipElement } from 'interface';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import ItemSetLink from 'interface/ItemSetLink';
-import { MONK_T31_ID } from 'common/ITEMS/dragonflight/tier';
+import { MONK_DF3_ID } from 'common/ITEMS/dragonflight/tier';
 
 const TWO_PIECE_BONUS = 0.5;
 
@@ -93,8 +93,8 @@ class T31TierSet extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.has2Piece = this.selectedCombatant.has2PieceByTier(TIERS.T31);
-    this.has4Piece = this.selectedCombatant.has4PieceByTier(TIERS.T31) && this.has2Piece;
+    this.has2Piece = this.selectedCombatant.has2PieceByTier(TIERS.DF3);
+    this.has4Piece = this.selectedCombatant.has4PieceByTier(TIERS.DF3) && this.has2Piece;
     this.active = this.has2Piece;
     if (!this.active) {
       return;
@@ -319,7 +319,7 @@ class T31TierSet extends Analyzer {
       >
         <BoringValueText
           label={
-            <ItemSetLink id={MONK_T31_ID}>
+            <ItemSetLink id={MONK_DF3_ID}>
               <>
                 Mystic Heron's Discipline
                 <br />

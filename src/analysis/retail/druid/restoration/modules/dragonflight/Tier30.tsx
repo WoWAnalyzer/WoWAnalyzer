@@ -11,7 +11,7 @@ import { FLOURISH_INCREASED_RATE } from 'analysis/retail/druid/restoration/const
 import ItemSetLink from 'interface/ItemSetLink';
 import { SpellLink } from 'interface';
 import { TALENTS_DRUID } from 'common/TALENTS';
-import { DRUID_T30_ID } from 'common/ITEMS/dragonflight';
+import { DRUID_DF2_ID } from 'common/ITEMS/dragonflight';
 import { TIERS } from 'game/TIERS';
 
 const TIER_2PC_REJUV_BOOST = 0.1;
@@ -39,8 +39,8 @@ export default class Tier30 extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.has2PieceByTier(TIERS.T30);
-    this.has4pc = this.selectedCombatant.has4PieceByTier(TIERS.T30);
+    this.active = this.selectedCombatant.has2PieceByTier(TIERS.DF2);
+    this.has4pc = this.selectedCombatant.has4PieceByTier(TIERS.DF2);
 
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell([SPELLS.REJUVENATION, SPELLS.REJUVENATION_GERMINATION]),
@@ -131,7 +131,7 @@ export default class Tier30 extends Analyzer {
       >
         <div className="pad boring-text">
           <label>
-            <ItemSetLink id={DRUID_T30_ID}>
+            <ItemSetLink id={DRUID_DF2_ID}>
               <>
                 Strands of the Autumn Blaze
                 <br />

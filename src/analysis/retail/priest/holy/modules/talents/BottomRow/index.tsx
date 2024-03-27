@@ -9,9 +9,7 @@ import LightOfTheNaaru from './LightOfTheNaaru';
 import Lightweaver from './Lightweaver';
 import ResonantWords from './ResonantWords';
 import Pontifex from './Pontifex';
-import RapidRecovery from './RapidRecovery';
 import MiracleWorker from './MiracleWorker';
-import EmpoweredRenew from './EmpoweredRenew';
 
 export {
   AnsweredPrayers,
@@ -25,7 +23,5 @@ export {
   Lightweaver,
   ResonantWords,
   Pontifex,
-  RapidRecovery,
   MiracleWorker,
-  EmpoweredRenew,
 };

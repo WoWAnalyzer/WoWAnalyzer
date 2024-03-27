@@ -10,7 +10,7 @@ const config: Config = {
   contributors: [Trevor],
   expansion: Expansion.Dragonflight,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '10.2.5',
+  patchCompatibility: '10.2.6',
   isPartial: false,
   guideDefault: true,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
