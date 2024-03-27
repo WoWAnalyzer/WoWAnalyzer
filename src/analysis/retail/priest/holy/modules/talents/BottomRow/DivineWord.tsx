@@ -39,8 +39,6 @@ class DivineWord extends Analyzer {
   sanctifyOverhealing = 0;
 
   chastiseDamage = 0;
-  holyFireApplications = 0;
-  holyFireCasts = 0;
 
   serenityHealing = 0;
   serenityOverhealing = 0;
