@@ -1,3 +1,4 @@
+import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import { CastEvent } from 'parser/core/Events';
 import CoreSpellManaCost from 'parser/shared/modules/SpellManaCost';
@@ -29,6 +30,14 @@ class SpellManaCost extends CoreSpellManaCost {
         cost = 0;
       }
     }
+
+    if (
+      spellId === SPELLS.FLASH_HEAL.id &&
+      this.selectedCombatant.hasBuff(SPELLS.SURGE_OF_LIGHT_BUFF.id, event.timestamp)
+    ) {
+      return 0;
+    }
+
     return cost;
   }
 }

@@ -17,12 +17,14 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import { formatPercentage } from 'common/format';
 import { ABILITIES_THAT_WORK_WITH_DIVINE_FAVOR_CHASTISE } from 'analysis/retail/priest/holy/constants';
 import { SpellIcon } from 'interface';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import ItemManaGained from 'parser/ui/ItemManaGained';
 
-const DAMAGE_INCREASE_FROM_CHASTISE = 0.3;
-const HOLY_FIRE_APPLICATION_DURATION = 7;
+const DAMAGE_INCREASE_FROM_CHASTISE = 0.2;
+const CHASTISE_REFUNDED_COOLDOWN = 15;
 const HEALING_INCREASE_FROM_SERENITY = 0.3;
-const CRIT_INCREASE_FROM_SERENITY = 0.2;
-const ACTIVATOR_SPELL_INCREASE = 0.5;
+const MANA_REDUCTION_FROM_SERENITY = 0.2;
+const ACTIVATOR_SPELL_INCREASE = 0.3;
 
 // Example Logs: /report/VXr2kgALF3Rj6Q4M/11-Mythic+Anduin+Wrynn+-+Kill+(5:12)/Litena/standard/statistics
 // /report/xq2FvfVCJh6YLjzZ/2-Mythic+Vigilant+Guardian+-+Kill+(4:40)/Ashelya/standard/statistics
@@ -42,6 +44,7 @@ class DivineWord extends Analyzer {
 
   serenityHealing = 0;
   serenityOverhealing = 0;
+  serenityManaSaved = 0;
 
   divineWordCasts = 0;
   serenityWordUse = 0;
@@ -67,6 +70,15 @@ class DivineWord extends Analyzer {
         ]),
       this.onHeal,
     );
+    // Mana cost reduction from serenity buff
+
+    this.addEventListener(
+      Events.cast
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.FLASH_HEAL, TALENTS.RENEW_TALENT, SPELLS.GREATER_HEAL]),
+      this.onCastHeal,
+    );
+
     // The heal from casting sanctify
     this.addEventListener(
       Events.heal
@@ -85,19 +97,6 @@ class DivineWord extends Analyzer {
         ]),
       this.onActivatorCast,
     );
-    //Tracking Holy fire casts and debuff applications
-    this.addEventListener(
-      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.HOLY_FIRE),
-      this.onHolyFireDebuff,
-    );
-    this.addEventListener(
-      Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.HOLY_FIRE),
-      this.onHolyFireDebuff,
-    );
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HOLY_FIRE),
-      this.onHolyFireCast,
-    );
     //Tracking damage events for divine favor chastise
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
     //Tracking different uses of the buff
@@ -106,15 +105,13 @@ class DivineWord extends Analyzer {
       this.onDivineWord,
     );
   }
-  onHolyFireDebuff() {
-    if (this.selectedCombatant.hasBuff(SPELLS.DIVINE_WORD_CHASTISE_TALENT_BUFF.id)) {
-      this.holyFireApplications += 1;
-    }
-  }
 
-  onHolyFireCast() {
-    if (this.selectedCombatant.hasBuff(SPELLS.DIVINE_WORD_CHASTISE_TALENT_BUFF.id)) {
-      this.holyFireCasts += 1;
+  onCastHeal(event: CastEvent) {
+    if (this.selectedCombatant.hasBuff(SPELLS.DIVINE_WORD_SERENITY_TALENT_BUFF.id)) {
+      if (event.resourceCost && event.resourceCost[RESOURCE_TYPES.MANA.id] !== undefined) {
+        this.serenityManaSaved +=
+          event.resourceCost[RESOURCE_TYPES.MANA.id] * MANA_REDUCTION_FROM_SERENITY;
+      }
     }
   }
 
@@ -130,13 +127,9 @@ class DivineWord extends Analyzer {
         spellId === SPELLS.FLASH_HEAL.id ||
         spellId === TALENTS.RENEW_TALENT.id)
     ) {
-      const currentCritChance = this.statTracker.currentCritPercentage;
-      const percentIncreaseFromIncreasedCrit =
-        CRIT_INCREASE_FROM_SERENITY / (currentCritChance + 1);
       //Average healing gain from the increased crit
       //This does not into account how many spells actually crit and will only be accurate on average
-      const healingIncreaseTotal =
-        (1 + percentIncreaseFromIncreasedCrit) * (1 + HEALING_INCREASE_FROM_SERENITY) - 1;
+      const healingIncreaseTotal = HEALING_INCREASE_FROM_SERENITY;
       this.serenityHealing += calculateEffectiveHealing(event, healingIncreaseTotal);
       this.serenityOverhealing += calculateOverhealing(event, healingIncreaseTotal);
     } else if (
@@ -191,8 +184,6 @@ class DivineWord extends Analyzer {
   }
 
   statistic() {
-    const holyFireFromSmiteDuration =
-      (this.holyFireApplications - this.holyFireCasts) * HOLY_FIRE_APPLICATION_DURATION;
     const castsString = this.divineWordCasts > 1 ? 'casts' : 'cast';
     return (
       <Statistic
@@ -209,12 +200,6 @@ class DivineWord extends Analyzer {
               this.serenityOverhealing / (this.serenityHealing + this.serenityOverhealing),
             )}
             % OH
-            <br />
-            The serenity healing increase from the increased crit chance is calculated as an
-            average, so the <strong> Serenity</strong> healing is an estimate.
-            <br />
-            The <strong> Holy fire's </strong> damage from the dot that is applied by smite is not
-            included in the damage.
             <br />
             The extra effectiveness from the activating <strong>Holy Word</strong> is included.
           </>
@@ -238,11 +223,13 @@ class DivineWord extends Analyzer {
         </BoringSpellValueText>
         <BoringSpellValueText spell={SPELLS.DIVINE_WORD_SERENITY_TALENT_BUFF}>
           <ItemHealingDone amount={this.serenityHealing} />
+          <br />
+          <ItemManaGained amount={this.serenityManaSaved} />
         </BoringSpellValueText>
         <BoringSpellValueText spell={SPELLS.DIVINE_WORD_CHASTISE_TALENT_BUFF}>
           <ItemDamageDone amount={this.chastiseDamage} />
           <br />
-          {holyFireFromSmiteDuration} seconds of holy fire applied.
+          {this.chastiseWordUse * CHASTISE_REFUNDED_COOLDOWN}s CDR for Chastise.
         </BoringSpellValueText>
       </Statistic>
     );
