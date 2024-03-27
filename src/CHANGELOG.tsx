@@ -38,6 +38,7 @@ export default [
   change(date(2024, 3, 26), 'Add Dragonflight season 4 M+ dungeons and zone.', ToppleTheNun),
   change(date(2024, 3, 26), 'Remove support for Shadowlands tier sets.', ToppleTheNun),
   change(date(2024, 3, 26), 'Add tier set IDs for Dragonflight season 4.', ToppleTheNun),
+  change(date(2024, 3, 22), 'Update Channeling normalizer to attach fabricated channel events to their associated cast events.', Vollmer),
   change(date(2024, 3, 14), 'Correct getBuffStacks method to return the stacks at the given timestamp', Earosselot),
   change(date(2024, 3, 14), 'Fix overflow on cooldown bars while using the phase selector.', ToppleTheNun),
   change(date(2024, 3, 14), 'Bump opacity on phase selector to 75% from 40%.', ToppleTheNun),
