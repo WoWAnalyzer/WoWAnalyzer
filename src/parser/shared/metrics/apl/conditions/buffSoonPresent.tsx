@@ -13,6 +13,12 @@ type BuffInformation = {
 
 type SourceOptions = 'player' | 'external' | 'any';
 
+/**
+ * Check if a buff will be present soon after the present time.
+ *
+ * This should ONLY be used for buffs that the player has complete control over, such as buffs tied to cooldown use.
+ * DO NOT use this to "look ahead" for random procs to implement impossibly optimal APLs.
+ */
 export function buffSoonPresent(
   spell: Spell,
   range: Range,
