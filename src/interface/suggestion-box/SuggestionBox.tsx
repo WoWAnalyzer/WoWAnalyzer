@@ -13,13 +13,21 @@ const Header = styled.div`
   gap: 0 1em;
 `;
 
-const Footer = styled.div`
+const Footer = styled.button`
+  appearance: none;
+  background: none;
+  border: none;
+  width: 100%;
   border-radius: 0 0 4px 4px;
   border-top: 2px solid hsla(0, 0%, 0%, 20%);
   display: flex;
   flex-direction: row;
   justify-content: end;
   padding: 0.25em 0.75em;
+
+  &:focus {
+    outline: none;
+  }
 
   color: #fab700;
 `;
@@ -34,7 +42,7 @@ const Container = styled.div<{ important?: boolean }>`
     background-color: hsl(0, 0%, ${(props) => (props.important ? '18%' : '13%')});
   }
 
-  &:has(> ${Header}:hover, > ${Footer}:hover) {
+  &:has(> ${Header}:hover, > ${Footer}:hover, > ${Footer}:focus) {
     box-shadow: 0px 0px 2px 2px rgba(250, 183, 0, 0.9);
     cursor: pointer;
   }
