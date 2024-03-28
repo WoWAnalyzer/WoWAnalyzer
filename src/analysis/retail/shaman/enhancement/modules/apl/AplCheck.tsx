@@ -28,7 +28,7 @@ import {
 export const apl = (info: PlayerInfo): Apl => {
   const combatant = info.combatant;
 
-  if (combatant.has4PieceByTier(TIERS.T31)) {
+  if (combatant.has4PieceByTier(TIERS.DF3)) {
     return build(
       combatant.hasTalent(TALENTS.HOT_HAND_TALENT)
         ? getTier31ElementalistApl()

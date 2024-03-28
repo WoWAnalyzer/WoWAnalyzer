@@ -41,11 +41,11 @@ class T30PrevokerSet extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.has2PieceByTier(TIERS.T30);
+    this.active = this.selectedCombatant.has2PieceByTier(TIERS.DF2);
     if (!this.active) {
       return;
     }
-    this.has4Piece = this.selectedCombatant.has4PieceByTier(TIERS.T30);
+    this.has4Piece = this.selectedCombatant.has4PieceByTier(TIERS.DF2);
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell([SPELLS.DREAM_BREATH, SPELLS.DREAM_BREATH_ECHO]),
       this.onDbHeal,

@@ -11,7 +11,7 @@ import Voidbolt from '../spells/Voidbolt';
 import ShadowWordDeath from '../spells/ShadowWordDeath';
 import ItemSetLink from 'interface/ItemSetLink';
 import { TIERS } from 'game/TIERS';
-import { PRIEST_T31_ID } from 'common/ITEMS/dragonflight';
+import { PRIEST_DF3_ID } from 'common/ITEMS/dragonflight';
 
 type Cooldown = {
   talent: Talent;
@@ -70,13 +70,13 @@ const CoreCooldownsGraph = () => {
       <strong>
         <SpellLink spell={TALENTS.SHADOW_WORD_DEATH_TALENT} />
       </strong>{' '}
-      {info!.combatant.has4PieceByTier(TIERS.T31) && (
+      {info!.combatant.has4PieceByTier(TIERS.DF3) && (
         <>
           should always be used on cooldown with{' '}
-          <ItemSetLink id={PRIEST_T31_ID}> Amirdrassil 4 Piece</ItemSetLink> equppied.
+          <ItemSetLink id={PRIEST_DF3_ID}> Amirdrassil 4 Piece</ItemSetLink> equppied.
         </>
       )}
-      {!info!.combatant.has4PieceByTier(TIERS.T31) && (
+      {!info!.combatant.has4PieceByTier(TIERS.DF3) && (
         <>
           should be used during execute,{' '}
           {info!.combatant.hasTalent(TALENTS.DEATHSPEAKER_TALENT) && (
@@ -182,12 +182,12 @@ const ShortCooldownsGraph = () => {
           is used to apply and refresh <SpellLink spell={SPELLS.VAMPIRIC_TOUCH} />. This can be held
           if it would allow you to apply your dots to more targets.
           <br />
-          {info!.combatant.has4PieceByTier(TIERS.T31) && (
+          {info!.combatant.has4PieceByTier(TIERS.DF3) && (
             <>
               &nbsp;&nbsp;&nbsp;&nbsp;
               <SpellLink spell={TALENTS.SHADOW_CRASH_TALENT} /> should also be used to spend stacks
               of <SpellLink spell={SPELLS.SHADOW_PRIEST_TIER_31_4_SET_BUFF} /> from{' '}
-              <ItemSetLink id={PRIEST_T31_ID}> Amirdrassil 4 Piece </ItemSetLink>{' '}
+              <ItemSetLink id={PRIEST_DF3_ID}> Amirdrassil 4 Piece </ItemSetLink>{' '}
             </>
           )}
         </>

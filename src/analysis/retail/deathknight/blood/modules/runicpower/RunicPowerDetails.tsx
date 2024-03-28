@@ -1,7 +1,7 @@
 import { defineMessage, t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { Panel } from 'interface';
+// import { Panel } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
@@ -10,6 +10,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import RunicPowerTracker from './RunicPowerTracker';
+import { SubSection } from 'interface/guide';
 
 class RunicPowerDetails extends Analyzer {
   static dependencies = {
@@ -96,16 +97,12 @@ class RunicPowerDetails extends Analyzer {
     );
   }
 
-  tab() {
-    return {
-      title: 'Runic Power usage',
-      url: 'runic-power-usage',
-      render: () => (
-        <Panel>
-          <ResourceBreakdown tracker={this.runicPowerTracker} showSpenders />
-        </Panel>
-      ),
-    };
+  get guideSubsection() {
+    return (
+      <SubSection title="Runic Power Usage">
+        <ResourceBreakdown tracker={this.runicPowerTracker} showSpenders />
+      </SubSection>
+    );
   }
 }
 

@@ -19,7 +19,6 @@ import NaturesGuardian from './modules/talents/NaturesGuardian';
 import Sundering from './modules/talents/Sundering';
 import ElementalSpirits from './modules/talents/ElementalSpirits';
 import ElementalAssault from './modules/talents/ElementalAssault';
-import Tier28TwoSet from './modules/shadowlands/tier/Tier28TwoSet';
 import Stormbringer from './modules/spells/Stormbringer';
 import FeralSpirit from './modules/talents/FeralSpirit';
 import ChainLightning from './modules/talents/ChainLightning';
@@ -112,7 +111,6 @@ class CombatLogParser extends CoreCombatLogParser {
     swirlingMaelstrom: SwirlingMaelstrom,
 
     // Tier
-    tier28TwoSet: Tier28TwoSet,
     tier30: Tiers.T30,
     tier31: Tiers.T31,
 

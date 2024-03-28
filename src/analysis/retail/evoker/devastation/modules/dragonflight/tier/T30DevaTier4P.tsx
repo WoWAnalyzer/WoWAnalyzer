@@ -54,7 +54,7 @@ class T30DevaTier4P extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.has2PieceByTier(TIERS.T30);
+    this.active = this.selectedCombatant.has2PieceByTier(TIERS.DF2);
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(OBSIDIAN_SHARDS), (event) => {
       this.onObsidianShardsDamage(event);
@@ -287,7 +287,7 @@ class T30DevaTier4P extends Analyzer {
   statistic() {
     const damageFrom4Set =
       this.obsidianShardsDamDuringBlazing - this.obsidianShardsDamDuringBlazing / 3;
-    const has4Piece = this.selectedCombatant.has4PieceByTier(TIERS.T30);
+    const has4Piece = this.selectedCombatant.has4PieceByTier(TIERS.DF2);
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(5)}

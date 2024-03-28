@@ -43,6 +43,7 @@ const raids = {
   MythicPlusSeasonOne: require('./mythicplusseasonone').default,
   MythicPlusSeasonTwo: require('./mythicplusseasontwo').default,
   MythicPlusSeasonThree: require('./mythicplusseasonthree').default,
+  MythicPlusSeasonFour: require('./mythicplusseasonfour').default,
   VaultOfTheIncarnates: require('./vaultoftheincarnates').default, // tier 29
   Aberrus: require('./aberrus').default, // tier 30
   Amirdrassil: require('./amirdrassil').default, // tier 31

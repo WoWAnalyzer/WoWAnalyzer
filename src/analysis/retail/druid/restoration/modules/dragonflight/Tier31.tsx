@@ -5,7 +5,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import ItemSetLink from 'interface/ItemSetLink';
-import { DRUID_T31_ID } from 'common/ITEMS/dragonflight';
+import { DRUID_DF3_ID } from 'common/ITEMS/dragonflight';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SPELLS from 'common/SPELLS';
@@ -25,9 +25,9 @@ export default class Tier31 extends Analyzer.withDependencies(deps) {
     // Nourish should never be picked in current state (choice w/ GG), so we'll just disable when Nourish picked
     // instead of wasting the time trying to handle the case
     this.active =
-      this.selectedCombatant.has2PieceByTier(TIERS.T31) &&
+      this.selectedCombatant.has2PieceByTier(TIERS.DF3) &&
       !this.selectedCombatant.hasTalent(TALENTS_DRUID.NOURISH_TALENT);
-    this.has4pc = this.selectedCombatant.has4PieceByTier(TIERS.T31);
+    this.has4pc = this.selectedCombatant.has4PieceByTier(TIERS.DF3);
   }
 
   get total2pcHealing() {
@@ -61,7 +61,7 @@ export default class Tier31 extends Analyzer.withDependencies(deps) {
       >
         <div className="pad boring-text">
           <label>
-            <ItemSetLink id={DRUID_T31_ID}>
+            <ItemSetLink id={DRUID_DF3_ID}>
               <>
                 Benevolent Embersage's Guidance
                 <br />

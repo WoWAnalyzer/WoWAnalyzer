@@ -43,7 +43,7 @@ class CharringEmbers extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.has4PieceByTier(TIERS.T30);
+    this.active = this.selectedCombatant.has4PieceByTier(TIERS.DF2);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.PHOENIX_FLAMES_DAMAGE),
       this.onPhoenixDamage,

@@ -259,28 +259,18 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 7,
       },
       {
-        //should this be used without procs?
-        spell: SPELLS.DEATH_AND_DECAY.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS.RAPID_DECOMPOSITION_TALENT),
-        cooldown: 15,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.8, //reduced because of proc resets
-        },
-        timelineSortIndex: 5,
-      },
-      //do not use cast efficiency for DnD without Rapid Decomposition.
-      {
         spell: SPELLS.DEATH_AND_DECAY.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
         cooldown: 15,
+        castEfficiency: combatant.hasTalent(TALENTS.RAPID_DECOMPOSITION_TALENT)
+          ? {
+              suggestion: true,
+              recommendedEfficiency: 0.8, //reduced because of proc resets
+            }
+          : undefined,
         charges: combatant.hasTalent(TALENTS.DEATHS_ECHO_TALENT) ? 2 : 1,
         timelineSortIndex: 5,
       },

@@ -32,7 +32,7 @@ class HolyPriestTier4Set extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    if (!this.selectedCombatant.has4PieceByTier(TIERS.T29)) {
+    if (!this.selectedCombatant.has4PieceByTier(TIERS.DF1)) {
       this.active = false;
       return;
     }

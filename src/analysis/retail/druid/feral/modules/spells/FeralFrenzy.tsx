@@ -12,7 +12,7 @@ import CooldownExpandable, {
 } from 'interface/guide/components/CooldownExpandable';
 import { PassFailCheckmark, PerformanceMark } from 'interface/guide';
 import { TIERS } from 'game/TIERS';
-import { DRUID_T31_ID } from 'common/ITEMS/dragonflight';
+import { DRUID_DF3_ID } from 'common/ITEMS/dragonflight';
 import ItemSetLink from 'interface/ItemSetLink';
 import EnergyTracker from 'analysis/retail/druid/feral/modules/core/energy/EnergyTracker';
 
@@ -45,7 +45,7 @@ export default class FeralFrenzy extends Analyzer {
 
     this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.FERAL_FRENZY_TALENT);
     this.hasSwarm = this.selectedCombatant.hasTalent(TALENTS_DRUID.ADAPTIVE_SWARM_TALENT);
-    this.hasT31 = this.selectedCombatant.has2PieceByTier(TIERS.T31);
+    this.hasT31 = this.selectedCombatant.has2PieceByTier(TIERS.DF3);
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DRUID.FERAL_FRENZY_TALENT),
@@ -96,7 +96,7 @@ export default class FeralFrenzy extends Analyzer {
         </p>
         {this.hasT31 && (
           <p>
-            Because you have the <ItemSetLink id={DRUID_T31_ID}>Amirdrassil Tier Set</ItemSetLink>,
+            Because you have the <ItemSetLink id={DRUID_DF3_ID}>Amirdrassil Tier Set</ItemSetLink>,
             it's also important to pool energy before using Feral Frezy in order to maximize your
             abilities used during <SpellLink spell={SPELLS.SMOLDERING_FRENZY} />.
           </p>

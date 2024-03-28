@@ -726,7 +726,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [115614],
     definitionIds: [{ id: 120626, specId: 1467 }],
-    manaCost: 7000,
+    manaCost: 3500,
   },
   LAY_WASTE_TALENT: {
     id: 371034,
@@ -1150,7 +1150,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [115601],
     definitionIds: [{ id: 120613, specId: 1467 }],
-    manaCost: 6000,
+    manaCost: 2500,
   },
   SNAPFIRE_TALENT: {
     id: 370783,
