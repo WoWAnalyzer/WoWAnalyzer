@@ -294,14 +294,6 @@ class Abilities extends SharedAbilities {
         },
       },
       {
-        spell: SPELLS.FEL_DOMINATION.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: () => 180 - combatant.getTalentRank(TALENTS.FEL_PACT_TALENT) * 30,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
         spell: TALENTS.HOWL_OF_TERROR_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         enabled: combatant.hasTalent(TALENTS.HOWL_OF_TERROR_TALENT),
