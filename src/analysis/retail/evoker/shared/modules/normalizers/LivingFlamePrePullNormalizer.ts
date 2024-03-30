@@ -42,7 +42,7 @@ class LivingFlamePrePullNormalizer extends EventsNormalizer {
           return true;
         }
 
-        // Start the pre-pull normalizing
+        // Fabricate the pre-pull event
         const startTime = Math.floor(event.timestamp - 1500 / (1 + this.haste.current));
 
         const beginCastEvent: BeginCastEvent = {
