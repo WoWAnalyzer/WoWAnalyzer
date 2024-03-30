@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import SPELLS from 'common/SPELLS/evoker';
 import { AnyEvent, BeginCastEvent, EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
@@ -7,8 +8,8 @@ import { isRealCast } from 'parser/shared/normalizers/Channeling';
 /**
  * Living flame is a very common pre-pull cast
  * however it often occurs that you'll start channeling it pre-pull and only
- * the cast success event (PrePullNormalizer doesn't account for this since we don't have a way to define instant cast spells)
- * will trigger, this messes with how we handle GCDs and makes for a messy timeline.
+ * the cast success event will trigger, this messes with how we handle GCDs and makes for a messy timeline
+ * (PrePullNormalizer doesn't account for this since we don't have a way to define instant cast spells)
  *
  * This normalizer aims to correct those situation */
 class LivingFlamePrePullNormalizer extends EventsNormalizer {
@@ -18,31 +19,32 @@ class LivingFlamePrePullNormalizer extends EventsNormalizer {
   };
   protected haste!: Haste;
   normalize(events: AnyEvent[]) {
-    const fixedEvents: AnyEvent[] = [];
-    let foundBegin = false;
+    const fixedEvents: AnyEvent[] = events;
 
-    events.forEach((event) => {
-      if (foundBegin) {
-        fixedEvents.push(event);
-        return;
-      }
-
+    fixedEvents.some((event, eventIdx) => {
+      // The first seen cast is not the proper type
       if (
         (event.type === EventType.BeginCast ||
           event.type === EventType.EmpowerStart ||
-          event.type === EventType.EmpowerEnd ||
-          (event.type === EventType.Cast && isRealCast(event))) &&
+          event.type === EventType.EmpowerEnd) &&
         event.sourceID === this.owner.selectedCombatant.id
       ) {
-        // First cast found is not living flame or it was a beginCast living flame
-        if (event.type !== EventType.Cast || event.ability.guid !== SPELLS.LIVING_FLAME_CAST.id) {
-          foundBegin = true;
-          fixedEvents.push(event);
-          return;
+        return true;
+      }
+
+      // Check the first seen cast
+      if (
+        event.type === EventType.Cast &&
+        isRealCast(event) &&
+        event.sourceID === this.owner.selectedCombatant.id
+      ) {
+        // First cast found is not living flame
+        if (event.ability.guid !== SPELLS.LIVING_FLAME_CAST.id) {
+          return true;
         }
 
         // Start the pre-pull normalizing
-        const startTime = event.timestamp - 1500 / (1 + this.haste.current);
+        const startTime = Math.floor(event.timestamp - 1500 / (1 + this.haste.current));
 
         const beginCastEvent: BeginCastEvent = {
           ability: event.ability,
@@ -70,13 +72,14 @@ class LivingFlamePrePullNormalizer extends EventsNormalizer {
           __fabricated: true,
           prepull: true,
         };
-        fixedEvents.push(beginCastEvent);
-        fixedEvents.push(event);
-        return;
+
+        fixedEvents.splice(eventIdx, 0, beginCastEvent);
+        return true;
       }
 
-      fixedEvents.push(event);
+      return false;
     });
+
     return fixedEvents;
   }
 }
