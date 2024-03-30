@@ -50,6 +50,7 @@ import T31PrevokerSet from './modules/dragonflight/tier/T31TierSet';
 import EchoTypeBreakdown from './modules/talents/EchoTypeBreakdown';
 import {
   LeapingFlamesNormalizer,
+  LivingFlamePrePullNormalizer,
   LivingFlameNormalizer,
   LeapingFlames,
   SpellEssenceCost,
@@ -93,6 +94,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Shared talents
     leapingFlamesNormalizer: LeapingFlamesNormalizer,
     leapingFlames: LeapingFlames,
+    livingFlamePrePullNormalizer: LivingFlamePrePullNormalizer,
     sourceOfMagic: SourceOfMagic,
     potentMana: PotentMana,
 
