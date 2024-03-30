@@ -37,6 +37,7 @@ import T31Augmentation4P from './modules/dragonflight/T31Augmentation4P';
 //Shared
 import {
   LeapingFlamesNormalizer,
+  LivingFlameNormalizer,
   LivingFlamePrePullNormalizer,
   LeapingFlames,
   SpellEssenceCost,
@@ -51,6 +52,7 @@ class CombatLogParser extends MainCombatLogParser {
     // Shared
     leapingFlamesNormalizer: LeapingFlamesNormalizer,
     leapingFlames: LeapingFlames,
+    livingFlameNormalizer: LivingFlameNormalizer,
     livingFlamePrePullNormalizer: LivingFlamePrePullNormalizer,
     spellEssenceCost: SpellEssenceCost,
     essenceTracker: EssenceTracker,
