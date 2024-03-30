@@ -1,3 +1,4 @@
+import { isFromBurnout } from 'analysis/retail/evoker/devastation/modules/normalizers/CastLinkNormalizer';
 import SPELLS from 'common/SPELLS/evoker';
 import { AnyEvent, BeginCastEvent, EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
@@ -37,8 +38,8 @@ class LivingFlamePrePullNormalizer extends EventsNormalizer {
         isRealCast(event) &&
         event.sourceID === this.owner.selectedCombatant.id
       ) {
-        // First cast found is not living flame
-        if (event.ability.guid !== SPELLS.LIVING_FLAME_CAST.id) {
+        // First cast found is not living flame or was instant
+        if (event.ability.guid !== SPELLS.LIVING_FLAME_CAST.id || isFromBurnout(event)) {
           return true;
         }
 
