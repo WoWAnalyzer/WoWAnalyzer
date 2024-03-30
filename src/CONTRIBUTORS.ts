@@ -1976,7 +1976,7 @@ export const ToppleTheNun: Contributor = {
   nickname: 'ToppleTheNun',
   github: 'ToppleTheNun',
   avatar: avatar('ToppleTheNun-avatar.jpg'),
-  discord: 'ToppleTheNun#6969',
+  discord: 'ToppleTheNun',
   mains: [
     {
       name: 'Toppledh',

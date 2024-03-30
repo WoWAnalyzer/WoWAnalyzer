@@ -23,3 +23,4 @@ export { lastSpellCast } from './lastSpellCast';
 export { default as describe } from './describe';
 export * from './util';
 export { has2PieceByTier, has4PieceByTier } from './hasTier';
+export { buffSoonPresent } from './buffSoonPresent';
