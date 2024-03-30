@@ -34,6 +34,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 3, 30), 'Update Nymue spellids and make Channeling normalizer normalize fabricated Prepull events.', Vollmer),
   change(date(2024, 3, 27), 'Rewrite events tab in TypeScript.', ToppleTheNun),
   change(date(2024, 3, 26), 'Add patch 10.2.6.', ToppleTheNun),
   change(date(2024, 3, 26), 'Add Dragonflight season 4 M+ dungeons and zone.', ToppleTheNun),
