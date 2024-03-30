@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS/evoker';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 export default [
+  change(date(2024, 3, 17), 'Update APL Check and timeline cleanup.', Vollmer),
   change(date(2024, 3, 7), <>Fix an issue with <SpellLink spell={TALENTS.POTENT_MANA_TALENT} /> module when no <SpellLink spell={TALENTS.SOURCE_OF_MAGIC_TALENT} /> was active during the fight.</>, Vollmer),
   change(date(2024, 3, 6), <>Make it more apparent that you can mouseover points in the <SpellLink spell={SPELLS.DISINTEGRATE} /> graph.</>, Vollmer),
   change(date(2024, 2, 10), <>Fix crash in <SpellLink spell={TALENTS.SOURCE_OF_MAGIC_TALENT} /> module.</>, Trevor),
