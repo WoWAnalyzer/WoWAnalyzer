@@ -81,7 +81,11 @@ class DefensiveCastLinkNormalizer extends EventLinkNormalizer {
 }
 
 export function getTwinGuardianPartner(event: ApplyBuffEvent): ApplyBuffEvent | undefined {
-  return GetRelatedEvent<ApplyBuffEvent>(event, TWIN_GUARDIAN_PARTNER);
+  return GetRelatedEvent(
+    event,
+    TWIN_GUARDIAN_PARTNER,
+    (e): e is ApplyBuffEvent => e.type === EventType.ApplyBuff,
+  );
 }
 
 export default DefensiveCastLinkNormalizer;
