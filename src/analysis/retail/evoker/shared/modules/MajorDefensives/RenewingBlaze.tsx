@@ -204,7 +204,7 @@ class RenewingBlaze extends MajorDefensiveBuff {
       // High eff healing
       if (ratio >= perfectRatioCutoff) {
         return {
-          perf: QualitativePerformance.Good,
+          perf: QualitativePerformance.Perfect,
           explanation:
             'Usage accumulated more than 50% of your HP and had high amounts of effective healing',
         };
@@ -218,7 +218,7 @@ class RenewingBlaze extends MajorDefensiveBuff {
         };
       }
       return {
-        perf: QualitativePerformance.Ok,
+        perf: QualitativePerformance.Good,
         explanation: 'Usage Accumulated more than 50% of your HP',
       };
     }
@@ -268,7 +268,7 @@ class RenewingBlaze extends MajorDefensiveBuff {
       <div>
         <MitigationRowContainer>
           <strong>Time</strong>
-          <strong>Heal</strong>
+          <strong>Mit.</strong>
         </MitigationRowContainer>
         {this.mitigations.map((mit) => {
           return (
