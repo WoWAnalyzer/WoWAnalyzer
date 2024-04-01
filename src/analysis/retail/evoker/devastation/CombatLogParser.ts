@@ -5,7 +5,7 @@ import Abilities from './modules/Abilities';
 import ShatteringStar from './modules/abilities/ShatteringStar';
 import Buffs from './modules/Buffs';
 import Guide from './Guide';
-import AplCheck from './modules/AplCheck';
+import AplCheck from './modules/AplCheck/AplCheck';
 import Disintegrate from './modules/abilities/Disintegrate';
 import EssenceBurst from './modules/abilities/EssenceBurst';
 import Burnout from './modules/abilities/Burnout';
