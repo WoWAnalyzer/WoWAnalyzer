@@ -25,7 +25,7 @@ import { getTwinGuardianPartner } from '../normalizers/DefensiveCastLinkNormaliz
 
 /**
  * Twin Guardian is a talent that is tied to Rescue.
- * When you use Rescue it will apply an absorb shield to both players for 30% of the Evokers current HP.
+ * When you use Rescue it will apply an absorb shield to both players for 30% of the Evokers current max HP.
  *
  * Due to how MajorDefensive work, to make it function properly with Twin Guardian we make a few
  * custom overrides.
