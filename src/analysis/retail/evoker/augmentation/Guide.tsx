@@ -8,7 +8,7 @@ import { Helpers } from './modules/guide/Helpers';
 import MajorDefensives from '../shared/modules/MajorDefensives/DefensivesGuide';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
-  const isXeph = info.combatant?.name === 'Xephyris';
+  const isXeph = info?.combatant?.name === 'Xephyris';
   return (
     <>
       {isXeph && <MajorDefensives />}
