@@ -254,8 +254,14 @@ class RenewingBlaze extends MajorDefensiveBuff {
   description() {
     return (
       <p>
-        <SpellLink spell={TALENTS.RENEWING_BLAZE_TALENT} /> heals you for the damage you take over 8
-        seconds.
+        <SpellLink spell={TALENTS.RENEWING_BLAZE_TALENT} /> heals you for the damage you take over{' '}
+        {this.selectedCombatant.hasTalent(TALENTS.FOCI_OF_LIFE_TALENT) ? (
+          <>
+            4 seconds with <SpellLink spell={TALENTS.FOCI_OF_LIFE_TALENT} /> talented.
+          </>
+        ) : (
+          <>8 seconds.</>
+        )}
         <br />
         High amounts of overhealing for <SpellLink spell={TALENTS.RENEWING_BLAZE_TALENT} /> uses,
         will usually indicate it was used too late.
