@@ -10,17 +10,15 @@ import { IntroSection } from './modules/guide/IntroSection';
 import MajorDefensives from '../shared/modules/MajorDefensives/DefensivesGuide';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
-  const isXeph = info?.combatant?.name === 'Xephyris';
   return (
     <>
-      {isXeph && <MajorDefensives />}
       <IntroSection />
       <EssenceGraphSection modules={modules} info={info} events={events} />
       <CooldownSection modules={modules} info={info} events={events} />
       <DragonRageSection modules={modules} info={info} events={events} />
       <DamageEfficiency modules={modules} info={info} events={events} />
       <CoreRotation modules={modules} info={info} events={events} />
-      {!isXeph && <MajorDefensives />}
+      <MajorDefensives />
       <PreparationSection />
     </>
   );
