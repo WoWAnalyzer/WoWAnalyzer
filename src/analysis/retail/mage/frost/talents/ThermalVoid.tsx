@@ -7,11 +7,12 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
-const BASE_DURATION = 20_000;
+const BASE_DURATION = 30_000;
 
 /*
- * Icy Veins' duration is increased by 10 sec.
- * Your Ice Lances against frozen targets extend your Icy Veins by an additional 1 sec.
+ * Icy Veins' duration is increased by 5 sec.
+ * Your Ice Lances against frozen targets extend your Icy Veins by an additional 0.5 sec.
+ * Your Glacial Spike against frozen targets extend your Icy Veins by an additional 1 sec.
  */
 class ThermalVoid extends Analyzer {
   constructor(options: Options) {
@@ -48,7 +49,7 @@ class ThermalVoid extends Analyzer {
       <Statistic
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip="Extension times include the base 10 second increase from the talent."
+        tooltip="Extension times include the base 5 second increase from the talent."
         dropdown={
           <>
             <table className="table table-condensed">
