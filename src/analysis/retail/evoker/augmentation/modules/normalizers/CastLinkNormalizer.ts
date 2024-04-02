@@ -2,23 +2,27 @@ import SPELLS from 'common/SPELLS/evoker';
 import TALENTS from 'common/TALENTS/evoker';
 import {
   ApplyBuffEvent,
+  ApplyBuffStackEvent,
   ApplyDebuffEvent,
   CastEvent,
   DamageEvent,
   EmpowerEndEvent,
   EventType,
+  GetRelatedEvent,
   GetRelatedEvents,
   HasRelatedEvent,
+  HasTarget,
   RefreshBuffEvent,
   RemoveDebuffEvent,
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
+import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
 
 /** So sometimes when Ebon Might should be extended
  * it just kinda doesn't? This messes with our analysis so
  * let's check if it failed to extend where it should
- * See example of this here (upheavel should have extended but didnt):
+ * See example of this here (upheaval should have extended but didn't):
  * https://www.warcraftlogs.com/reports/1JqKrX2vLxb6Zyp9/#fight=8&source=3&pins=2%24Off%24%23244F4B%24expression%24type%20%3D%20%22empowerend%22%20or%20type%3D%22removebuff%22&view=events&start=1402475&end=1408776
  */
 export const FAILED_EXTENSION_LINK = 'failedExtensionLink';
@@ -30,7 +34,7 @@ export const BREATH_EBON_APPLY_LINK = 'breathEbonApplyLink';
 export const EBON_MIGHT_BUFF_LINKS = 'ebonMightBuffLinks';
 export const EBON_MIGHT_APPLY_REMOVE_LINK = 'ebonMightApplyRemoveLink';
 
-export const ESSENCE_BURST_GENERATED = 'EssenceBurstGenerated';
+export const EB_FROM_PRESCIENCE = 'ebFromPrescience';
 
 export const BREATH_OF_EONS_CAST_DEBUFF_APPLY_LINK = 'breathOfEonsCastDebuffApplyLink';
 export const BREATH_OF_EONS_CAST_BUFF_LINK = 'breathOfEonsCastBuffLink';
@@ -163,8 +167,15 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: SPELLS.LIVING_FLAME_DAMAGE.id,
     referencedEventType: EventType.Damage,
     anyTarget: true,
-    maximumLinks: 2,
+    maximumLinks: 1,
     forwardBufferMs: PUPIL_OF_ALEXSTRASZA_BUFFER,
+    additionalCondition(linkingEvent, referencedEvent) {
+      // No targets so we can't be sure which hit is the correct one, so we just claim it
+      if (!HasTarget(linkingEvent) && !HasTarget(referencedEvent)) {
+        return true;
+      }
+      return encodeEventTargetString(linkingEvent) !== encodeEventTargetString(referencedEvent);
+    },
   },
   {
     linkRelation: ERUPTION_CAST_DAM_LINK,
@@ -177,15 +188,16 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: CAST_BUFFER_MS,
   },
   {
-    linkRelation: ESSENCE_BURST_GENERATED,
-    reverseLinkRelation: ESSENCE_BURST_GENERATED,
+    linkRelation: EB_FROM_PRESCIENCE,
+    reverseLinkRelation: EB_FROM_PRESCIENCE,
     linkingEventId: TALENTS.PRESCIENCE_TALENT.id,
     linkingEventType: EventType.Cast,
     referencedEventId: SPELLS.ESSENCE_BURST_AUGMENTATION_BUFF.id,
-    referencedEventType: [EventType.ApplyBuff, EventType.ApplyBuffStack],
+    referencedEventType: [EventType.ApplyBuff, EventType.ApplyBuffStack, EventType.RefreshBuff],
     anyTarget: true,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
+    maximumLinks: 1,
   },
   {
     linkRelation: FAILED_EXTENSION_LINK,
@@ -239,9 +251,9 @@ const EVENT_LINKS: EventLink[] = [
 
 class CastLinkNormalizer extends EventLinkNormalizer {
   // This is set to lower priority than default since
-  // to create proper links on events fabcricated using PrePullCooldownsNormalizer
+  // to create proper links on events fabricated using PrePullCooldownsNormalizer
   // We need to ensure this runs after the PrePullCooldownsNormalizer
-  // This is neccessary if we want BreathOfEons module to function properly
+  // This is necessary if we want BreathOfEons module to function properly
   // With pre-pull casts of Breath of Eons
   priority = 100;
   constructor(options: Options) {
@@ -297,8 +309,8 @@ export function getEruptionDamageEvents(event: CastEvent): DamageEvent[] {
   );
 }
 
-export function getPupilDamageEvents(event: CastEvent): DamageEvent[] {
-  return GetRelatedEvents(
+export function getPupilDamageEvent(event: CastEvent): DamageEvent | undefined {
+  return GetRelatedEvent(
     event,
     PUPIL_OF_ALEXSTRASZA_LINK,
     (e): e is DamageEvent => e.type === EventType.Damage,
@@ -318,7 +330,13 @@ export function ebonIsFromBreath(event: ApplyBuffEvent | CastEvent) {
 }
 
 export function generatedEssenceBurst(event: CastEvent) {
-  return HasRelatedEvent(event, ESSENCE_BURST_GENERATED);
+  const maybeGenerate = GetRelatedEvent(
+    event,
+    EB_FROM_PRESCIENCE,
+    (e): e is ApplyBuffEvent | ApplyBuffStackEvent =>
+      e.type === EventType.ApplyBuff || e.type === EventType.ApplyBuffStack,
+  );
+  return Boolean(maybeGenerate);
 }
 
 export function failedEbonMightExtension(event: CastEvent | EmpowerEndEvent) {
