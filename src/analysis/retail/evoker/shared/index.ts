@@ -1,11 +1,9 @@
 export {
   default as LeapingFlamesNormalizer,
-  getLeapingDamageEvents,
-  getLeapingHealEvents,
-  generatedEssenceBurst,
-  getCastedGeneratedEssenceBurst,
+  eventGeneratedEB,
+  getGeneratedEBEvents,
   isFromLeapingFlames,
-  getWastedEssenceBurst,
+  getWastedEBEvents,
 } from './modules/normalizers/LeapingFlamesNormalizer';
 export { default as LivingFlameNormalizer } from './modules/normalizers/LivingFlameNormalizer';
 export { default as LeapingFlames } from './modules/talents/LeapingFlames';
