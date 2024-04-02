@@ -34,7 +34,6 @@ class LeapingFlames extends Analyzer {
 
   leapingFlamesBuffs = 0;
   leapingFlamesConsumptions = 0;
-  leapingFlamesWasted = 0;
 
   leapingFlamesExtraHits = 0;
 
@@ -47,6 +46,8 @@ class LeapingFlames extends Analyzer {
   maxEB = this.hasAttunement ? 2 : 1;
   hasDragonrage = this.selectedCombatant.hasTalent(TALENTS.DRAGONRAGE_TALENT);
 
+  applicationOrRefreshEvents = [Events.applybuff, Events.applybuffstack, Events.removebuffstack];
+
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.LEAPING_FLAMES_TALENT);
@@ -55,13 +56,12 @@ class LeapingFlames extends Analyzer {
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.LEAPING_FLAMES_BUFF),
       this.onRemoveBuff,
     );
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.LEAPING_FLAMES_BUFF),
-      this.onApplyBuff,
-    );
-    this.addEventListener(
-      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.LEAPING_FLAMES_BUFF),
-      this.onApplyBuff,
+
+    this.applicationOrRefreshEvents.forEach((e) =>
+      this.addEventListener(
+        e.by(SELECTED_PLAYER).spell(SPELLS.LEAPING_FLAMES_BUFF),
+        this.onApplyBuff,
+      ),
     );
   }
 
@@ -80,7 +80,6 @@ class LeapingFlames extends Analyzer {
     );
     const lfCast = getLeapingCast(leapingBuff);
     if (!lfCast) {
-      this.leapingFlamesWasted += 1;
       console.log('buff wasted');
       console.groupEnd();
       return;
@@ -313,6 +312,8 @@ class LeapingFlames extends Analyzer {
     console.log('Total potential:');
     console.log('gen:', this.maybeEssenceBurstGenerated);
     console.log('waste:', this.maybeEssenceBurstWasted);
+
+    const wastedBuffs = this.leapingFlamesBuffs - this.leapingFlamesConsumptions;
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
@@ -324,7 +325,7 @@ class LeapingFlames extends Analyzer {
             <li>Healing: {formatNumber(this.leapingFlamesHealing)}</li>
             <li>Overhealing: {formatNumber(this.leapingFlamesOverHealing)}</li>
             <li>Consumed: {formatNumber(this.leapingFlamesConsumptions)} buffs</li>
-            <li>Wasted: {formatNumber(this.leapingFlamesWasted)} buffs</li>
+            <li>Wasted: {formatNumber(wastedBuffs)} buffs</li>
             Wasted <SpellLink spell={SPELLS.ESSENCE_BURST_BUFF} /> represent the amount you lost out
             on due to overcapping.
           </>
