@@ -91,6 +91,16 @@ const spells = {
     name: "Nymue's Unraveling Spindle",
     icon: 'inv_cloth_outdooremeralddream_d_01_buckle',
   },
+  NYMUES_UNRAVELING_SPINDLE_DAMAGE: {
+    id: 427161,
+    name: "Nymue's Unraveling Spindle",
+    icon: 'inv_cloth_outdooremeralddream_d_01_buckle',
+  },
+  NYMUES_UNRAVELING_SPINDLE_BUFF: {
+    id: 427072,
+    name: "Nymue's Unraveling Spindle",
+    icon: 'inv_cloth_outdooremeralddream_d_01_buckle',
+  },
   BELORRELOS_SOLAR_MAELSTROM: {
     id: 422146,
     name: 'Solar Maelstrom',

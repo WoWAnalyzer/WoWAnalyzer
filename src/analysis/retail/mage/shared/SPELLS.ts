@@ -179,6 +179,11 @@ const spells = {
     name: 'Temporal Warp',
     icon: 'ability_bossmagistrix_timewarp2',
   },
+  ICE_COLD: {
+    id: 414658,
+    name: 'Ice Cold',
+    icon: 'spell_fire_bluefire',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;
