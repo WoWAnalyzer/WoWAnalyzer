@@ -122,6 +122,11 @@ const spells = {
     name: 'Cold Snap',
     icon: 'spell_frost_wizardmark',
   },
+  CHAIN_REACTION_BUFF: {
+    id: 278310,
+    name: 'Chain Reaction',
+    icon: 'spell_frost_frostblast',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;
