@@ -6,6 +6,7 @@ import { Earosselot, Sharrq, Sref, ToppleTheNun } from 'CONTRIBUTORS';
 
 // prettier-ignore
 export default [
+  change(date(2024, 4, 4), <>Fixed <SpellLink spell={TALENTS.ALTER_TIME_TALENT} /> GCD, added <SpellLink spell={TALENTS.ICE_COLD_TALENT} /> to spellbook </>, Earosselot),
   change(date(2024, 3, 14), <>Fixed <SpellLink spell={SPELLS.WINTERS_CHILL} /> module, to account correctly when flurry is casted at 4 <SpellLink spell={SPELLS.ICICLES_BUFF} /> </>, Earosselot),
   change(date(2024, 2, 22), <>Html fixes and <SpellLink spell={TALENTS.SHIFTING_POWER_TALENT} /> cd reduction correction </>, Earosselot),
   change(date(2024, 2, 2), <>Added <SpellLink spell={TALENTS.GLACIAL_SPIKE_TALENT} />, <SpellLink spell={TALENTS.BRAIN_FREEZE_TALENT} /> and <SpellLink spell={TALENTS.FINGERS_OF_FROST_TALENT} /> to Guide view</>, Earosselot),
