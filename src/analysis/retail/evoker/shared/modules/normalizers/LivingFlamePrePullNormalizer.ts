@@ -21,7 +21,8 @@ class LivingFlamePrePullNormalizer extends EventsNormalizer {
   normalize(events: AnyEvent[]) {
     const fixedEvents: AnyEvent[] = events;
 
-    fixedEvents.some((event, eventIdx) => {
+    for (let eventIdx = 0; eventIdx < fixedEvents.length; eventIdx += 1) {
+      const event = fixedEvents[eventIdx];
       // The first seen cast is not the proper type
       if (
         (event.type === EventType.BeginCast ||
@@ -29,7 +30,7 @@ class LivingFlamePrePullNormalizer extends EventsNormalizer {
           event.type === EventType.EmpowerEnd) &&
         event.sourceID === this.owner.selectedCombatant.id
       ) {
-        return true;
+        break;
       }
 
       // Check the first seen cast
@@ -40,7 +41,7 @@ class LivingFlamePrePullNormalizer extends EventsNormalizer {
       ) {
         // First cast found is not living flame or was instant
         if (event.ability.guid !== SPELLS.LIVING_FLAME_CAST.id || isFromBurnout(event)) {
-          return true;
+          break;
         }
 
         // Fabricate the pre-pull event
@@ -74,11 +75,9 @@ class LivingFlamePrePullNormalizer extends EventsNormalizer {
         };
 
         fixedEvents.splice(eventIdx, 0, beginCastEvent);
-        return true;
+        break;
       }
-
-      return false;
-    });
+    }
 
     return fixedEvents;
   }
