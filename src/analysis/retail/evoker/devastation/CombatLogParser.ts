@@ -39,6 +39,11 @@ import {
   EssenceGraph,
   SourceOfMagic,
   PotentMana,
+  ObsidianScales,
+  DefensiveNormalizer,
+  DefensiveCastLinkNormalizer,
+  TwinGuardian,
+  RenewingBlaze,
 } from 'analysis/retail/evoker/shared';
 
 class CombatLogParser extends MainCombatLogParser {
@@ -51,6 +56,12 @@ class CombatLogParser extends MainCombatLogParser {
     essenceGraph: EssenceGraph,
     sourceOfMagic: SourceOfMagic,
     potentMana: PotentMana,
+
+    obsidianScales: ObsidianScales,
+    defensiveCastLinkNormalizer: DefensiveCastLinkNormalizer,
+    defensiveNormalizer: DefensiveNormalizer,
+    twinGuardian: TwinGuardian,
+    renewingBlaze: RenewingBlaze,
 
     // Core
     abilities: Abilities,
