@@ -32,6 +32,8 @@ import T31DevaTier from './modules/dragonflight/tier/T31DevaTier';
 
 // Shared
 import {
+  LivingFlameNormalizer,
+  LivingFlamePrePullNormalizer,
   LeapingFlamesNormalizer,
   LeapingFlames,
   SpellEssenceCost,
@@ -49,6 +51,8 @@ import {
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     // Shared
+    livingFlameNormalizer: LivingFlameNormalizer,
+    livingFlamePrePullNormalizer: LivingFlamePrePullNormalizer,
     leapingFlamesNormalizer: LeapingFlamesNormalizer,
     leapingFlames: LeapingFlames,
     spellEssenceCost: SpellEssenceCost,

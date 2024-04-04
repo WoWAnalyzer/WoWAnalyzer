@@ -49,8 +49,9 @@ import AncientFlame from './modules/talents/AncientFlame';
 import T31PrevokerSet from './modules/dragonflight/tier/T31TierSet';
 import EchoTypeBreakdown from './modules/talents/EchoTypeBreakdown';
 import {
-  LeapingFlamesNormalizer,
   LivingFlameNormalizer,
+  LivingFlamePrePullNormalizer,
+  LeapingFlamesNormalizer,
   LeapingFlames,
   SpellEssenceCost,
   EssenceTracker,
@@ -91,6 +92,7 @@ class CombatLogParser extends CoreCombatLogParser {
     hotAttributor: HotAttributor,
 
     // Shared talents
+    livingFlamePrePullNormalizer: LivingFlamePrePullNormalizer,
     leapingFlamesNormalizer: LeapingFlamesNormalizer,
     leapingFlames: LeapingFlames,
     sourceOfMagic: SourceOfMagic,
