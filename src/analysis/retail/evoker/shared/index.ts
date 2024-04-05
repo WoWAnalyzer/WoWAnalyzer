@@ -8,7 +8,7 @@ export {
   getWastedEssenceBurst,
 } from './modules/normalizers/LeapingFlamesNormalizer';
 export { default as EmpowerNormalizer } from './modules/normalizers/EmpowerNormalizer';
-export { default as EmpowerSpellUsable } from './modules/features/EmpowerSpellUsable';
+export { default as SpellUsable } from './modules/features/SpellUsable';
 export { default as LivingFlameNormalizer } from './modules/normalizers/LivingFlameNormalizer';
 export { default as LeapingFlames } from './modules/talents/LeapingFlames';
 export { default as LivingFlamePrePullNormalizer } from './modules/normalizers/LivingFlamePrePullNormalizer';
