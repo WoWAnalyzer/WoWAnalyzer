@@ -1,11 +1,21 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
-import { ToppleTheNun, Trevor, Tyndi, Vohrr, Vollmer } from 'CONTRIBUTORS';
+import { ToppleTheNun, Trevor, Tyndi, Vohrr, Vollmer, Harrek } from 'CONTRIBUTORS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { ResourceLink, SpellLink } from 'interface';
 
 export default [
+  change(date(2024, 3, 30), <>Fix prepull <SpellLink spell={SPELLS.LIVING_FLAME_CAST} /> casts to properly display channel time.</>, Vollmer),
+  change(date(2024, 3, 12), <>Implement <SpellLink spell={TALENTS_EVOKER.TIME_OF_NEED_TALENT} /> module.</>, Harrek),
+  change(date(2024, 3, 7), <>Fix an issue with <SpellLink spell={TALENTS_EVOKER.POTENT_MANA_TALENT} /> module when no <SpellLink spell={TALENTS_EVOKER.SOURCE_OF_MAGIC_TALENT} /> was active during the fight.</>, Vollmer),
+  change(date(2024, 2, 18), <>Add spell cast time to <SpellLink spell={TALENTS_EVOKER.STASIS_TALENT}/> module</>, Trevor),
+  change(date(2024, 2, 10), <>Fix crash in <SpellLink spell={TALENTS_EVOKER.SOURCE_OF_MAGIC_TALENT} /> module.</>, Trevor),
+  change(date(2024, 2, 3), <>Implement <SpellLink spell={TALENTS_EVOKER.SOURCE_OF_MAGIC_TALENT} /> and <SpellLink spell={TALENTS_EVOKER.POTENT_MANA_TALENT} /> modules.</>, Vollmer),
+  change(date(2024, 1, 30), <>Fix more bugs in <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT}/> source breakdown module</>, Trevor),
+  change(date(2024, 1, 26), <>Fix bug in <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT}/> source breakdown module and adjust mana costs</>, Trevor),
+  change(date(2024, 1, 20), <>Add module for <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT}/> source breakdown</>, Trevor),
+  change(date(2024, 1, 20), <>Add <SpellLink spell={TALENTS_EVOKER.LIFEBIND_TALENT}/> attribution to <SpellLink spell={TALENTS_EVOKER.GRACE_PERIOD_TALENT}/> module</>, Trevor),
   change(date(2024, 1, 16), <>Bump support to 10.2.5</>, Trevor),
   change(date(2023, 12, 31), <>Improved tracking of <ResourceLink id={RESOURCE_TYPES.ESSENCE.id}/> for a more precise representation of overcapped <ResourceLink id={RESOURCE_TYPES.ESSENCE.id}/>.</>, Vollmer),
   change(date(2023, 11, 25), <>Fixed bug in <SpellLink spell={TALENTS_EVOKER.LEAPING_FLAMES_TALENT}/> module</>, Trevor),

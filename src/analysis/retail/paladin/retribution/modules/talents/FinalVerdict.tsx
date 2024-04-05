@@ -1,8 +1,8 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_PALADIN } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
-import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 class FinalVerdict extends Analyzer {
@@ -20,7 +20,7 @@ class FinalVerdict extends Analyzer {
     },
   ) {
     super(options);
-    this.active = false;
+    this.active = this.selectedCombatant.hasTalent(TALENTS_PALADIN.FINAL_VERDICT_TALENT);
     if (!this.active) {
       return;
     }
@@ -28,13 +28,6 @@ class FinalVerdict extends Analyzer {
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FINAL_VERDICT_RESET),
       this.onHammerOfWrathReset,
     );
-    options.abilities.add({
-      spell: SPELLS.FINAL_VERDICT_FINISHER.id,
-      category: SPELL_CATEGORY.ROTATIONAL,
-      gcd: {
-        base: 1500,
-      },
-    });
   }
 
   onHammerOfWrathReset() {

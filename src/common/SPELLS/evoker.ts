@@ -171,23 +171,28 @@ const spells = {
     name: 'Blessing of the Bronze',
     icon: 'ability_evoker_blessingofthebronze',
   },
+  SOURCE_OF_MAGIC_MANA_GAIN: {
+    id: 372571,
+    name: 'Source of Magic',
+    icon: 'ability_evoker_blue_01',
+  },
   LIVING_FLAME_DAMAGE: {
     id: 361500,
     name: 'Living Flame',
     icon: 'ability_evoker_livingflame',
-    manaCost: 5000,
+    manaCost: 5500,
   },
   LIVING_FLAME_HEAL: {
     id: 361509,
     name: 'Living Flame',
     icon: 'ability_evoker_livingflame',
-    manaCost: 5000,
+    manaCost: 5500,
   },
   LIVING_FLAME_CAST: {
     id: 361469,
     name: 'Living Flame',
     icon: 'ability_evoker_livingflame',
-    manaCost: 5000,
+    manaCost: 5500,
   },
   AZURE_STRIKE: {
     id: 362969,
@@ -199,7 +204,7 @@ const spells = {
     name: 'Emerald Blossom',
     icon: 'ability_evoker_emeraldblossom',
     essenceCost: 3,
-    manaCost: 12000,
+    manaCost: 13000,
   },
   EMERALD_BLOSSOM_ECHO: {
     id: 376832,
@@ -247,6 +252,7 @@ const spells = {
     id: 357208,
     name: 'Fire Breath',
     icon: 'ability_evoker_firebreath',
+    manaCost: 6500,
   },
   FIRE_BREATH_DOT: {
     id: 357209,
@@ -257,6 +263,7 @@ const spells = {
     id: 382266,
     name: 'Fire Breath',
     icon: 'ability_evoker_firebreath',
+    manaCost: 6500,
   },
   DISINTEGRATE: {
     id: 356995,
@@ -490,6 +497,16 @@ const spells = {
     id: 424428,
     name: 'Trembling Earth',
     icon: 'ability_evoker_eruption',
+  },
+  TIME_OF_NEED_LIVING_FLAME: {
+    id: 401382,
+    name: 'Living Flame (Past Self)',
+    icon: 'ability_evoker_livingflame',
+  },
+  TIME_OF_NEED_SUMMON: {
+    id: 368415,
+    name: 'Time of Need',
+    icon: 'ability_evoker_masterylifebinder_bronze',
   },
 } satisfies Record<string, Spell>;
 

@@ -31,6 +31,16 @@ export const CLEAVE_DAMAGE = 'CleaveDamage';
 const EVENT_LINKS: EventLink[] = [
   {
     reverseLinkRelation: SPELL_CAST,
+    linkingEventId: SPELLS.FROSTBOLT.id,
+    linkingEventType: EventType.Cast,
+    linkRelation: SPELL_DAMAGE,
+    referencedEventId: SPELLS.FROSTBOLT_DAMAGE.id,
+    referencedEventType: EventType.Damage,
+    forwardBufferMs: 3000,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    reverseLinkRelation: SPELL_CAST,
     linkingEventId: TALENTS.GLACIAL_SPIKE_TALENT.id,
     linkingEventType: EventType.Cast,
     linkRelation: SPELL_DAMAGE,
@@ -197,6 +207,20 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true,
     maximumLinks: 1,
     forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  /**
+   * Relation: Icy Veins Remove Buff <=> Icy Veins Spell Cast (60s before remove)
+   */
+  {
+    linkRelation: BUFF_REMOVE,
+    linkingEventId: TALENTS.ICY_VEINS_TALENT.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: TALENTS.ICY_VEINS_TALENT.id,
+    referencedEventType: EventType.RemoveBuff,
+    reverseLinkRelation: SPELL_CAST,
+    anyTarget: true,
+    forwardBufferMs: 60_000,
     backwardBufferMs: CAST_BUFFER_MS,
   },
   {

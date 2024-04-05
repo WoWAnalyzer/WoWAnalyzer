@@ -26,13 +26,38 @@ import {
   Seriousnes,
   Arlie,
   LucasLevyOB,
-  dub
+  dub,
+  Zyer, Earosselot,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 4, 5), 'Fix events tab omitting some events.', ToppleTheNun),
+  change(date(2024, 3, 30), 'Update Nymue spellids and make Channeling normalizer normalize fabricated Prepull events.', Vollmer),
+  change(date(2024, 3, 27), 'Rewrite events tab in TypeScript.', ToppleTheNun),
+  change(date(2024, 3, 26), 'Add patch 10.2.6.', ToppleTheNun),
+  change(date(2024, 3, 26), 'Add Dragonflight season 4 M+ dungeons and zone.', ToppleTheNun),
+  change(date(2024, 3, 26), 'Remove support for Shadowlands tier sets.', ToppleTheNun),
+  change(date(2024, 3, 26), 'Add tier set IDs for Dragonflight season 4.', ToppleTheNun),
+  change(date(2024, 3, 22), 'Update Channeling normalizer to attach fabricated channel events to their associated cast events.', Vollmer),
+  change(date(2024, 3, 17), <>Implement buffSoonPresent APL condition and fix chain cast issues with APL check.</>, Vollmer),
+  change(date(2024, 3, 14), 'Correct getBuffStacks method to return the stacks at the given timestamp', Earosselot),
+  change(date(2024, 3, 14), 'Fix overflow on cooldown bars while using the phase selector.', ToppleTheNun),
+  change(date(2024, 3, 14), 'Bump opacity on phase selector to 75% from 40%.', ToppleTheNun),
+  change(date(2024, 3, 13), 'Bump opacity on muted text to 75% from 47%.', ToppleTheNun),
+  change(date(2024, 3, 2), 'Correct an issue with the Power Word: Radiance icon.', emallson),
+  change(date(2024, 3, 2), 'Correct incorrect tertiary stat scaling above 25% raw and 19% character sheet rating', Putro),
+  change(date(2024, 2, 26), <>Added checklist support for <ItemLink id={ITEMS.IRIDAL_THE_EARTHS_MASTER.id}/>, <ItemLink id={ITEMS.DREAMBINDER_LOOM_OF_THE_GREAT_CYCLE.id}/>, <ItemLink id={ITEMS.BELORRELOS_THE_SUNCALLER.id}/>, <ItemLink id={ITEMS.NYMUES_UNRAVELING_SPINDLE.id}/></>, Zyer),
+  change(date(2024, 2, 26), 'Switch icon source to the WCL CDN.', emallson),
+  change(date(2024, 2, 18), <>Fix crash in QualitativePerformance</>, Trevor),
+  change(date(2024, 2, 17), 'Add a missed realm for Classic.', Putro),
+  change(date(2024, 2, 7), 'Inspect more stack trace lines for external script sources.', ToppleTheNun),
+  change(date(2024, 2, 7), 'Mark 10.2.0 as an old patch.', ToppleTheNun),
+  change(date(2024, 2, 7), 'Fix a crash caused by bad ads.', ToppleTheNun),
+  change(date(2024, 1, 19), 'Fix Dreaming Devotion showing as a cheap enchant.', emallson),
+  change(date(2024, 1, 17), 'Simplify raid types and fix M+ S3 icons not showing on fight selection.', ToppleTheNun),
   change(date(2024, 1, 16), 'Add Ruby Sanctum raid and images for Classic WotLK.', jazminite),
   change(date(2024, 1, 16), 'Add patch 10.2.5.', ToppleTheNun),
   change(date(2024, 1, 11), <>Add <ItemLink id={ITEMS.POTION_OF_WITHERING_DREAMS_R3.id} /> to healing potion list.</>, ToppleTheNun),

@@ -139,11 +139,20 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.ICE_BLOCK_TALENT.id,
         buffSpellId: TALENTS.ICE_BLOCK_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        enabled: combatant.hasTalent(TALENTS.ICE_BLOCK_TALENT),
+        enabled:
+          combatant.hasTalent(TALENTS.ICE_BLOCK_TALENT) &&
+          !combatant.hasTalent(TALENTS.ICE_COLD_TALENT),
         cooldown: 240 - combatant.getTalentRank(TALENTS.WINTERS_PROTECTION_TALENT) * 30,
         gcd: {
           base: 1500,
         },
+      },
+      {
+        spell: SPELLS.ICE_COLD.id,
+        category: SPELL_CATEGORY.DEFENSIVE,
+        enabled: combatant.hasTalent(TALENTS.ICE_COLD_TALENT),
+        cooldown: 240 - combatant.getTalentRank(TALENTS.WINTERS_PROTECTION_TALENT) * 30,
+        gcd: null,
       },
       {
         spell: TALENTS.MIRROR_IMAGE_TALENT.id,
@@ -254,9 +263,14 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         enabled: combatant.hasTalent(TALENTS.ALTER_TIME_TALENT),
         cooldown: 60 - combatant.getTalentRank(TALENTS.ALTER_TIME_TALENT) * 10,
-        gcd: {
-          base: 1500,
-        },
+        gcd: null,
+      },
+      {
+        spell: SPELLS.ALTER_TIME_RETURN.id,
+        category: SPELL_CATEGORY.UTILITY,
+        enabled: combatant.hasTalent(TALENTS.ALTER_TIME_TALENT),
+        cooldown: 0,
+        gcd: null,
       },
       {
         spell: SPELLS.INVISIBILITY.id,

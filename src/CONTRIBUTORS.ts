@@ -1808,6 +1808,13 @@ export const Trevor: Contributor = {
   avatar: avatar('Trevor-avatar.png'),
 };
 
+export const Harrek: Contributor = {
+  nickname: 'Harrek',
+  discord: 'harrek',
+  github: 'Harreks',
+  avatar: avatar('Harrek-avatar.png'),
+};
+
 export const Jeff: Contributor = {
   nickname: 'Jeff',
   discord: 'muhnameizjeff#8143',
@@ -1969,7 +1976,7 @@ export const ToppleTheNun: Contributor = {
   nickname: 'ToppleTheNun',
   github: 'ToppleTheNun',
   avatar: avatar('ToppleTheNun-avatar.jpg'),
-  discord: 'ToppleTheNun#6969',
+  discord: 'ToppleTheNun',
   mains: [
     {
       name: 'Toppledh',
@@ -2341,7 +2348,41 @@ export const dub: Contributor = {
   discord: 'its_me_dub',
 };
 
-export const Raistlinn: Contributor = {
-  nickname: 'Raistlinn',
+export const Earosselot: Contributor = {
+  nickname: 'earosselot',
   github: 'earosselot',
+  avatar: avatar('raistlinn-avatar.png'),
+  mains: [
+    {
+      name: 'Raistlinn',
+      spec: SPECS.FROST_MAGE,
+      link: 'https://www.warcraftlogs.com/character/id/77062152',
+    },
+  ],
+};
+
+export const Zyer: Contributor = {
+  nickname: 'Zyer',
+  github: 'ZyerTCoder',
+  discord: 'zyer',
+  mains: [
+    {
+      name: 'Yumiblood',
+      spec: SPECS.DEMONOLOGY_WARLOCK,
+      link: 'https://www.warcraftlogs.com/character/id/42737929',
+    },
+  ],
+};
+
+export const Humperella: Contributor = {
+  nickname: 'Humperella',
+  github: 'kevindqc',
+  discord: '.darkvirus.',
+  mains: [
+    {
+      name: 'Humperella',
+      spec: SPECS.RETRIBUTION_PALADIN,
+      link: 'https://worldofwarcraft.com/en-us/character/zuljin/Humperella',
+    },
+  ],
 };

@@ -19,6 +19,7 @@ import { Options } from 'parser/core/Module';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import { playerInfo } from '../metrics/apl/conditions/test-tools';
+import PrePullCooldowns from './PrePullCooldowns';
 
 /**
  * Channels and casts are handled differently in events, and some information is also missing and must be inferred.
@@ -40,6 +41,11 @@ import { playerInfo } from '../metrics/apl/conditions/test-tools';
  * in events, and this normalizer allows special case handling to be registered for each.
  */
 class Channeling extends EventsNormalizer {
+  static dependencies = {
+    ...EventsNormalizer.dependencies,
+    /** We add dependency to PrePullCooldowns to ensure we also normalize fabricated pre-pull events */
+    prePullCooldowns: PrePullCooldowns,
+  };
   /**
    * Listing of all special case handlers for channels
    */
@@ -47,9 +53,12 @@ class Channeling extends EventsNormalizer {
     // General
     // Shadowlands Encounter
     buffChannelSpec(SPELLS.SOUL_INFUSION.id), // fight channel from Sun King's Salvation - see in this log: https://wowanalyzer.com/report/g4Pja6pLHnmQtbvk/32-Normal+Sun+King's+Salvation+-+Kill+(10:14)/Pjurbo/standard/events
+    // Trinkets
+    buffChannelSpec(SPELLS.NYMUES_UNRAVELING_SPINDLE.id),
     // Mage
     buffChannelSpec(TALENTS_MAGE.EVOCATION_TALENT.id),
     buffChannelSpec(TALENTS_MAGE.SHIFTING_POWER_TALENT.id),
+    buffChannelSpec(TALENTS_MAGE.RAY_OF_FROST_TALENT.id),
     nextCastChannelSpec(TALENTS_MAGE.ARCANE_MISSILES_TALENT.id),
     // Priest
     buffChannelSpec(TALENTS_PRIEST.DIVINE_HYMN_TALENT.id),
@@ -79,6 +88,7 @@ class Channeling extends EventsNormalizer {
     buffChannelSpec(TALENTS_MONK.SOOTHING_MIST_TALENT.id),
     buffChannelSpec(SPELLS.CRACKLING_JADE_LIGHTNING.id),
     buffChannelSpec(SPELLS.FISTS_OF_FURY_CAST.id),
+    buffChannelSpec(SPELLS.MANA_TEA_CAST.id),
     // Demon Hunter
     buffChannelSpec(TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT.id), // TODO special handling because of the two buffs?
     // Shaman
@@ -250,7 +260,53 @@ export function endCurrentChannel(event: AnyEvent, channelState: ChannelState) {
     trigger: event,
   };
   channelState.eventsInserter.addAfterEvent(endChannel, event);
+
+  attachChannelToCast(endChannel);
+
   channelState.unresolvedChannel = null;
+}
+
+/**
+ * Attempts to attach the endChannel event to the associated cast event
+ *
+ * This is needed to allow the Casts module to properly render channels on the timeline without
+ * inserting the cast on top of the the fabricated channel
+ */
+function attachChannelToCast(endChannelEvent: EndChannelEvent): void {
+  const beginChannelTrigger = endChannelEvent.beginChannel.trigger;
+  const endChannelTrigger = endChannelEvent.trigger;
+
+  // Due to how Empowers are currently implemented this won't work for them so no reason to try
+  if (
+    endChannelTrigger?.type === EventType.EmpowerEnd ||
+    beginChannelTrigger?.type === EventType.EmpowerStart
+  ) {
+    return;
+  }
+
+  // If we for some reason don't have a cast event
+  // Currently only observed happening with Empowers, which makes sense with their current implementation but they are (for now) being ignored anyways
+  if (endChannelTrigger?.type !== EventType.Cast && beginChannelTrigger?.type !== EventType.Cast) {
+    console.warn(
+      'Tried to attach endChannelEvent to cast event for ability',
+      endChannelEvent.ability.name + '(' + endChannelEvent.ability.guid + ')',
+      '@',
+      endChannelEvent.timestamp,
+      'but was unable to find it',
+      endChannelEvent,
+    );
+    return;
+  }
+
+  // If the beginChannelTrigger was a cast attach to that
+  // The trigger could also be a beginCast, in which case the endChannelTrigger should be the cast
+  if (beginChannelTrigger?.type === EventType.Cast) {
+    beginChannelTrigger.channel = endChannelEvent;
+    return;
+  } else if (endChannelTrigger?.type === EventType.Cast) {
+    endChannelTrigger.channel = endChannelEvent;
+    return;
+  }
 }
 
 /**

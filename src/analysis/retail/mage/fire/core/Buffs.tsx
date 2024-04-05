@@ -56,7 +56,7 @@ class Buffs extends CoreAuras {
       },
       {
         spellId: SPELLS.FLAMES_FURY.id,
-        enabled: combatant.has4PieceByTier(TIERS.T30),
+        enabled: combatant.has4PieceByTier(TIERS.DF2),
         timelineHighlight: true,
       },
       {

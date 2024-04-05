@@ -2,7 +2,6 @@ import {
   GrimoireOfSacrificeNormalizer,
   WarlockMissingDotApplyDebuffPrePull,
   GrimoireOfSacrifice,
-  DemonicCirclesCreated,
 } from 'analysis/retail/warlock/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
@@ -35,6 +34,7 @@ import UnstableAfflictionUptime from './modules/spells/UnstableAffliction';
 import VileTaint from './modules/spells/VileTaint';
 import WrathOfConsumption from './modules/spells/WrathOfConsumption';
 import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
+import { UnendingResolve, DarkPact, DemonicCircle } from '../shared';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -53,7 +53,6 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
     darkglare: Darkglare,
     shadowEmbrace: ShadowEmbrace,
-    demonicCirclesCreated: DemonicCirclesCreated,
 
     // DoTs
     agonyUptime: AgonyUptime,
@@ -80,6 +79,11 @@ class CombatLogParser extends CoreCombatLogParser {
     tormentedCrescendo: TormentedCrescendo,
     vileTaint: VileTaint,
     wrathOfConsumption: WrathOfConsumption,
+
+    // Shared Spells
+    unendingResolve: UnendingResolve,
+    darkPact: DarkPact,
+    demonicCircle: DemonicCircle,
 
     // Items
     callToDominance: CallToDominance,

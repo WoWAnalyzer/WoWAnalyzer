@@ -10,12 +10,20 @@ import Events, {
   CastEvent,
   DamageEvent,
   GetRelatedEvent,
+  FightEndEvent,
 } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/mage/frost/Guide';
+import WintersChillEvent from 'analysis/retail/mage/frost/core/WintersChillEvent';
+import { PerformanceMark } from 'interface/guide';
+import { SpellSeq } from 'parser/ui/SpellSeq';
 
 const WINTERS_CHILL_SPENDERS = [SPELLS.ICE_LANCE_DAMAGE.id, SPELLS.GLACIAL_SPIKE_DAMAGE.id];
 
@@ -25,14 +33,10 @@ class WintersChill extends Analyzer {
   };
   protected enemies!: Enemies;
 
+  hasRayOfFrost: boolean = this.selectedCombatant.hasTalent(TALENTS.RAY_OF_FROST_TALENT);
   hasGlacialSpike: boolean = this.selectedCombatant.hasTalent(TALENTS.GLACIAL_SPIKE_TALENT);
-  wintersChill: {
-    apply: ApplyDebuffEvent;
-    remove: RemoveDebuffEvent | undefined;
-    precast: CastEvent | undefined;
-    precastIcicles: number;
-    damageEvents: DamageEvent[];
-  }[] = [];
+  wintersChill: WintersChillEvent[] = [];
+  castEntries: BoxRowEntry[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -51,22 +55,29 @@ class WintersChill extends Analyzer {
         ]),
       this.onDamage,
     );
+    this.addEventListener(Events.fightend, this.analyzeCasts);
+  }
+
+  wasShattered(event: DamageEvent | undefined): boolean {
+    if (event === undefined) {
+      return false;
+    }
+    return this.wintersChill.some((wintersChillEvent) =>
+      wintersChillEvent.damageEvents.includes(event),
+    );
   }
 
   onWintersChill(event: ApplyDebuffEvent) {
     const remove: RemoveDebuffEvent | undefined = GetRelatedEvent(event, 'DebuffRemove');
     const flurry: CastEvent | undefined = GetRelatedEvent(event, 'SpellCast');
     const precast: CastEvent | undefined = GetRelatedEvent(event, 'PreCast');
-    this.wintersChill.push({
-      apply: event,
-      remove: remove,
-      precast: precast,
-      precastIcicles:
-        (flurry &&
-          this.selectedCombatant.getBuff(SPELLS.ICICLES_BUFF.id, flurry.timestamp)?.stacks) ||
-        0,
-      damageEvents: [],
-    });
+    const currentTimestamp = flurry !== undefined ? flurry.timestamp : this.owner.currentTimestamp;
+    const precastIcicles = this.selectedCombatant.getBuffStacks(
+      SPELLS.ICICLES_BUFF.id,
+      currentTimestamp - 100,
+    );
+    const wintersChillEvent = new WintersChillEvent(event, remove, precast, precastIcicles, flurry);
+    this.wintersChill.push(wintersChillEvent);
   }
 
   onDamage(event: DamageEvent) {
@@ -86,11 +97,7 @@ class WintersChill extends Analyzer {
 
   missedPreCasts = () => {
     //If there is no Pre Cast, or if there is a Precast but it didnt land in Winter's Chlll
-    let missingPreCast = this.wintersChill.filter(
-      (w) =>
-        !w.precast ||
-        w.damageEvents.filter((d) => w.precast?.ability.guid === d.ability.guid).length > 0,
-    );
+    let missingPreCast = this.wintersChill.filter((w) => !w.precast || !w.precastInDamageEvents());
 
     //If the player had exactly 4 Icicles, disregard it
     missingPreCast = missingPreCast.filter((w) => w.precastIcicles !== 4);
@@ -131,6 +138,38 @@ class WintersChill extends Analyzer {
 
   get preCastPercent() {
     return 1 - this.missedPreCasts() / this.totalProcs;
+  }
+
+  analyzeCasts(event: FightEndEvent) {
+    // this module is only analizyng flurry winter's chill applications
+    this.wintersChill
+      .filter((wintersChillEvent) => wintersChillEvent.applier)
+      .forEach((winterChill) => {
+        const tooltip = (
+          <div>
+            <div>
+              <b>
+                @ {this.owner.formatTimestamp(winterChill.apply.timestamp)} -{' '}
+                {winterChill.remove && this.owner.formatTimestamp(winterChill.remove.timestamp)}
+              </b>
+            </div>
+            <div>
+              <b>
+                <PerformanceMark perf={winterChill.getPerformance()} />{' '}
+                {winterChill.getPerformance()}
+              </b>
+            </div>
+            <div>
+              <b>Perf. Details</b>
+              <div>{winterChill.getPerformanceDetails()}</div>
+            </div>
+          </div>
+        );
+        this.castEntries.push({
+          value: winterChill.getPerformance(),
+          tooltip,
+        });
+      });
   }
 
   // less strict than the ice lance suggestion both because it's less important,
@@ -234,6 +273,109 @@ class WintersChill extends Analyzer {
           <small>Pre-casts shattered</small>
         </BoringSpellValueText>
       </Statistic>
+    );
+  }
+
+  get guideSubsection(): JSX.Element {
+    const cooldown = {
+      id: -1,
+      name: 'Cooldown',
+      icon: 'inv_misc_questionmark',
+    };
+
+    const wintersChill = <SpellLink spell={SPELLS.WINTERS_CHILL} />;
+    const flurry = <SpellLink spell={TALENTS.FLURRY_TALENT} />;
+    const frostbolt = <SpellLink spell={SPELLS.FROSTBOLT} />;
+    const glacialSpike = <SpellLink spell={TALENTS.GLACIAL_SPIKE_TALENT} />;
+    const iceLance = <SpellLink spell={TALENTS.ICE_LANCE_TALENT} />;
+    const rayOfFrost = <SpellLink spell={TALENTS.RAY_OF_FROST_TALENT} />;
+
+    const cooldownIcon = <SpellIcon spell={cooldown} />;
+    const glacialSpikeIcon = <SpellIcon spell={TALENTS.GLACIAL_SPIKE_TALENT} />;
+    const iceLanceIcon = <SpellIcon spell={TALENTS.ICE_LANCE_TALENT} />;
+    const rayOfFrostIcon = <SpellIcon spell={TALENTS.RAY_OF_FROST_TALENT} />;
+
+    const explanation = (
+      <>
+        <div>
+          <b>{wintersChill}</b> is an extremely important part of playing Frost effectively.
+        </div>
+        <div>
+          There are 2 main rules to follow:
+          <ul>
+            <li>
+              <b>Precast</b>
+              <div>
+                You should cast {this.hasGlacialSpike ? <>{glacialSpike} or </> : ''}
+                {frostbolt} before {flurry}.
+              </div>
+              {this.hasGlacialSpike && (
+                <div>
+                  At 4 <SpellLink spell={SPELLS.MASTERY_ICICLES} /> you can cast {flurry} without
+                  precast.
+                  <div>
+                    <small>
+                      Precast priority order: {glacialSpike} {frostbolt}{' '}
+                    </small>
+                  </div>
+                </div>
+              )}
+            </li>
+            <li>
+              <b>{wintersChill} stacks</b>
+              <div>
+                Consume both {wintersChill} stacks with{' '}
+                {this.hasGlacialSpike && <>{glacialSpike} or </>}
+                {iceLance}.
+              </div>
+              {this.hasRayOfFrost && (
+                <div>
+                  If {rayOfFrost} is available, use it at 1 stack of {wintersChill}.
+                </div>
+              )}
+              <div>
+                <small>
+                  Priority order: {this.hasRayOfFrost && <>{rayOfFrost} </>}
+                  {this.hasGlacialSpike && <>{glacialSpike} </>}
+                  {iceLance}
+                </small>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div>Your rotations should look like this:</div>
+          <div>
+            <SpellSeq spells={[SPELLS.FROSTBOLT, TALENTS.FLURRY_TALENT, cooldown, cooldown]} />
+          </div>
+          <div>
+            <SpellSeq
+              spells={[TALENTS.GLACIAL_SPIKE_TALENT, TALENTS.FLURRY_TALENT, cooldown, cooldown]}
+            />
+          </div>
+          <div>
+            filling the {cooldownIcon}s with {this.hasGlacialSpike && <>{glacialSpikeIcon}, </>}
+            {iceLanceIcon} or
+            {this.hasRayOfFrost && <>{rayOfFrostIcon} </>} following the rules and priorities above.
+          </div>
+        </div>
+      </>
+    );
+    const data = (
+      <div>
+        <RoundedPanel>
+          <strong>Cast details</strong>
+          <PerformanceBoxRow values={this.castEntries} />
+          <small>green (good) / red (fail) mouseover the rectangles to see more details</small>
+        </RoundedPanel>
+      </div>
+    );
+
+    return explanationAndDataSubsection(
+      explanation,
+      data,
+      GUIDE_CORE_EXPLANATION_PERCENT,
+      "Winter's Chill",
     );
   }
 }

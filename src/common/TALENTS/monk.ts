@@ -284,7 +284,15 @@ const talents = {
       { id: 122816, specId: 269 },
     ],
   },
-  DANCE_OF_CHI_JI_TALENT: {
+  DANCE_OF_CHI_JI_MISTWEAVER_TALENT: {
+    id: 438439,
+    name: 'Dance of Chi-Ji',
+    icon: 'ability_monk_cranekick_new',
+    maxRanks: 1,
+    entryIds: [118841],
+    definitionIds: [{ id: 123741, specId: 270 }],
+  },
+  DANCE_OF_CHI_JI_WINDWALKER_TALENT: {
     id: 325201,
     name: 'Dance of Chi-Ji',
     icon: 'ability_monk_cranekick_new',
@@ -1024,9 +1032,17 @@ const talents = {
     id: 388593,
     name: 'Peaceful Mending',
     icon: 'pandarenracial_innerpeace',
-    maxRanks: 2,
+    maxRanks: 1,
     entryIds: [101399],
     definitionIds: [{ id: 106401, specId: 270 }],
+  },
+  PEER_INTO_PEACE_TALENT: {
+    id: 440008,
+    name: 'Peer Into Peace',
+    icon: 'inv_staff_2h_monk_c_01',
+    maxRanks: 1,
+    entryIds: [119111],
+    definitionIds: [{ id: 124011, specId: 270 }],
   },
   POWER_STRIKES_TALENT: {
     id: 121817,

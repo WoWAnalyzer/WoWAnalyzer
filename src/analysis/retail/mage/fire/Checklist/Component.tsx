@@ -139,7 +139,7 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
           tooltip="Since Fire Blast is always guaranteed to crit, you should only be using it to convert Heating Up into Hot Streak or if you have a buff like Firestarter, Combustion, or Searing Touch where you know that the other spells you are casting will crit and give you the Hot Streak."
         />
       </Rule>
-      {combatant.has2PieceByTier(TIERS.T30) && (
+      {combatant.has2PieceByTier(TIERS.DF2) && (
         <Rule
           name="Charring Embers (Tier Bonus)"
           description={
@@ -169,14 +169,14 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
             thresholds={thresholds.charringEmbersUptime}
             tooltip="The Charring Embers debuff causes the target to take additional damage and also influences how quickly you get Flame's Fury procs, so you should ensure that you have Charring Embers up on your target for as much of the fight as possible to get the most out of it."
           />
-          {combatant.has4PieceByTier(TIERS.T30) && (
+          {combatant.has4PieceByTier(TIERS.DF2) && (
             <Requirement
               name="Flame's Fury Procs w/o Phoenix Flames"
               thresholds={thresholds.flamesFuryNoPhoenix}
               tooltip="While Flame's Fury does give you two free casts of Phoenix Flames, there is a somewhat weird interraction where it immediately refunds a charge after you use a charge. Because of this, you must have an available Phoenix Flames charge to be able to use the first charge, otherwise you will need to wait until one comes off cooldown before you can use the procs."
             />
           )}
-          {combatant.has4PieceByTier(TIERS.T30) && (
+          {combatant.has4PieceByTier(TIERS.DF2) && (
             <Requirement
               name="Wasted Flame's Fury Procs"
               thresholds={thresholds.flamesFuryWastedProcs}

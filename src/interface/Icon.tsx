@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import BAD_ICONS from './BAD_ICONS';
+import BAD_ICONS, { ICON_RENAME } from './BAD_ICONS';
 
 export interface IconProps extends React.HTMLAttributes<HTMLImageElement> {
   icon?: string;
@@ -17,17 +17,13 @@ const Icon = ({ icon, className, alt = '', ...others }: IconProps) => {
   if (!icon) {
     return null;
   }
-  icon = icon.replace('.jpg', '').replace(/-/g, '');
-  if (icon === 'petbattle_healthdown') {
-    // Blizzard seems to have forgotten to remove the dash for this one... or something
-    icon = 'petbattle_health-down';
-  }
-  if (icon === 'class_demonhunter') {
-    // Blizzard seems to have forgotten to remove the dash for this one too
-    icon = 'class_demon-hunter';
+  icon = icon.replace('.jpg', '');
+
+  if (ICON_RENAME[icon]) {
+    icon = ICON_RENAME[icon];
   }
 
-  let baseURL = `//render-us.worldofwarcraft.com/icons/56`;
+  let baseURL = `https://assets.rpglogs.com/img/warcraft/abilities`;
   if (BAD_ICONS.includes(icon)) {
     baseURL = `/img/Icons`;
   }

@@ -2,12 +2,23 @@ import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
-import { Raistlinn, Sharrq, ToppleTheNun } from 'CONTRIBUTORS';
+import { Earosselot, Sharrq, Sref, ToppleTheNun } from 'CONTRIBUTORS';
 
 // prettier-ignore
 export default [
+  change(date(2024, 4, 4), <>Fixed <SpellLink spell={TALENTS.ALTER_TIME_TALENT} /> GCD, added <SpellLink spell={TALENTS.ICE_COLD_TALENT} /> to spellbook </>, Earosselot),
+  change(date(2024, 4, 4), <>Added <SpellLink spell={TALENTS.CHAIN_REACTION_TALENT} /> statistics </>, Earosselot),
+  change(date(2024, 4, 2), <>Update <SpellLink spell={TALENTS.THERMAL_VOID_TALENT} /> statistic from 10.0.0 to 10.1.5 (current)</>, Earosselot),
+  change(date(2024, 3, 14), <>Fixed <SpellLink spell={SPELLS.WINTERS_CHILL} /> module, to account correctly when flurry is casted at 4 <SpellLink spell={SPELLS.ICICLES_BUFF} /> </>, Earosselot),
+  change(date(2024, 2, 22), <>Html fixes and <SpellLink spell={TALENTS.SHIFTING_POWER_TALENT} /> cd reduction correction </>, Earosselot),
+  change(date(2024, 2, 2), <>Added <SpellLink spell={TALENTS.GLACIAL_SPIKE_TALENT} />, <SpellLink spell={TALENTS.BRAIN_FREEZE_TALENT} /> and <SpellLink spell={TALENTS.FINGERS_OF_FROST_TALENT} /> to Guide view</>, Earosselot),
+  change(date(2024, 1, 31), <>Added <SpellLink spell={TALENTS.FROZEN_ORB_TALENT} />, <SpellLink spell={TALENTS.SHIFTING_POWER_TALENT} />, <SpellLink spell={TALENTS.FLURRY_TALENT} /> and Preparation Section to Guide view</>, Earosselot),
+  change(date(2024, 1, 23), <>Added <SpellLink spell={SPELLS.WINTERS_CHILL} /> to Guide View</>, Earosselot),
+  change(date(2024, 1, 23), <>Fix <SpellLink spell={TALENTS.RAY_OF_FROST_TALENT} /> Channeling.</>, Earosselot),
+  change(date(2024, 1, 20), <>Fixed an issue where guide sections for Ray of Frost and Comet Storm would be active even when player doesn't have those talents.</>, Sref),
+  change(date(2024, 1, 17), <>Added <SpellLink spell={TALENTS.ICY_VEINS_TALENT} />, <SpellLink spell={TALENTS.RAY_OF_FROST_TALENT} /> and <SpellLink spell={TALENTS.COMET_STORM_TALENT} /> to Guide View</>, Earosselot),
   change(date(2024, 1, 17), 'Bump to 10.2.5 support.', ToppleTheNun),
-  change(date(2024, 1, 12), <>Added Guide view and Always be Casting graph.</>, Raistlinn),
+  change(date(2024, 1, 12), <>Added Guide view and Always be Casting graph.</>, Earosselot),
   change(date(2024, 1, 6), <>Fixed a crash in <SpellLink spell={SPELLS.WINTERS_CHILL} />.</>, Sharrq),
   change(date(2024, 1, 5), 'Updated spec support to full 10.2 support.', Sharrq),
   change(date(2024, 1, 5), <>Fixed the cooldowns for <SpellLink spell={TALENTS.RAY_OF_FROST_TALENT} /> and <SpellLink spell={TALENTS.ICY_VEINS_TALENT} />.</>, Sharrq),

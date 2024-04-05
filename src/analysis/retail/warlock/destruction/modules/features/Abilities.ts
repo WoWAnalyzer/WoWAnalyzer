@@ -1,10 +1,10 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
-import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
-import CoreAbilities from 'parser/core/modules/Abilities';
+import SharedAbilities from 'analysis/retail/warlock/shared/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
-class Abilities extends CoreAbilities {
+
+class Abilities extends SharedAbilities {
   spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
     return [
@@ -129,37 +129,6 @@ class Abilities extends CoreAbilities {
         },
       },
 
-      // Defensive
-      {
-        spell: SPELLS.UNENDING_RESOLVE.id,
-        buffSpellId: SPELLS.UNENDING_RESOLVE.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 180 - (combatant.hasTalent(TALENTS.DARK_ACCORD_TALENT) ? 45 : 0),
-        gcd: null,
-        castEfficiency: {
-          suggestion: true,
-          importance: ISSUE_IMPORTANCE.MINOR,
-          recommendedEfficiency: 0.33,
-          averageIssueEfficiency: 0.2,
-          majorIssueEfficiency: 0.1,
-        },
-      },
-      {
-        spell: TALENTS.DARK_PACT_TALENT.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: combatant.hasTalent(TALENTS.FREQUENT_DONOR_TALENT) ? 45 : 60,
-        gcd: null,
-        enabled: combatant.hasTalent(TALENTS.DARK_PACT_TALENT),
-        castEfficiency: {
-          suggestion: true,
-          importance: ISSUE_IMPORTANCE.MINOR,
-          recommendedEfficiency: 0.33,
-          averageIssueEfficiency: 0.2,
-          majorIssueEfficiency: 0.1,
-        },
-        buffSpellId: TALENTS.DARK_PACT_TALENT.id,
-      },
-
       // Utility
       {
         spell: TALENTS.BURNING_RUSH_TALENT.id,
@@ -184,28 +153,6 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.MORTAL_COIL_TALENT),
         gcd: {
           base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.DEMONIC_CIRCLE_SUMMON.id,
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: {
-          base: 1500,
-        },
-        cooldown: 10,
-        castEfficiency: {
-          suggestion: false,
-        },
-      },
-      {
-        spell: SPELLS.DEMONIC_CIRCLE_TELEPORT.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 30,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: false,
         },
       },
       {
@@ -347,6 +294,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
+      ...super.spellbook(),
     ];
   }
 }

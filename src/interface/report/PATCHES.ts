@@ -149,13 +149,21 @@ const PATCHES: Patch[] = [
     name: '10.2.0',
     timestamp: 1699387200000, // GMT: Tuesday, 7 November 2023 22:00:00
     urlPrefix: '',
-    isCurrent: true,
+    isCurrent: false,
     gameVersion: 1, // retail
     expansion: Expansion.Dragonflight,
   },
   {
     name: '10.2.5',
     timestamp: 1705438800000, // GMT: Tuesday, 16 January 2024 21:00:00
+    urlPrefix: '',
+    isCurrent: false,
+    gameVersion: 1, // retail
+    expansion: Expansion.Dragonflight,
+  },
+  {
+    name: '10.2.6',
+    timestamp: 1710882000000, // GMT: Tuesday, 19 March 2024 21:00:00
     urlPrefix: '',
     isCurrent: true,
     gameVersion: 1, // retail

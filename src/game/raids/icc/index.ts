@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+import type { Raid } from 'game/raids';
 
 export default {
   name: 'Icecrown Citadel',
@@ -16,4 +17,4 @@ export default {
     Sindragosa: require('./Sindragosa').default,
     LichKing: require('./LichKing').default,
   },
-};
+} satisfies Raid;

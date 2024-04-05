@@ -16,7 +16,7 @@ import ComboPointTracker from 'analysis/retail/druid/feral/modules/core/combopoi
 import { PassFailCheckmark, PerformanceMark } from 'interface/guide';
 import { TIERS } from 'game/TIERS';
 import ItemSetLink from 'interface/ItemSetLink';
-import { DRUID_T31_ID } from 'common/ITEMS/dragonflight';
+import { DRUID_DF3_ID } from 'common/ITEMS/dragonflight';
 
 class ConvokeSpiritsFeral extends ConvokeSpirits {
   static dependencies = {
@@ -77,7 +77,7 @@ class ConvokeSpiritsFeral extends ConvokeSpirits {
 
   /** Guide fragment showing a breakdown of each Convoke cast */
   get guideCastBreakdown() {
-    const hasT31 = this.selectedCombatant.has2PieceByTier(TIERS.T31);
+    const hasT31 = this.selectedCombatant.has2PieceByTier(TIERS.DF3);
     const explanation = (
       <>
         <p>
@@ -91,7 +91,7 @@ class ConvokeSpiritsFeral extends ConvokeSpirits {
         </p>
         {hasT31 && (
           <p>
-            Because you have the <ItemSetLink id={DRUID_T31_ID}>Amirdrassil Tier Set</ItemSetLink>,
+            Because you have the <ItemSetLink id={DRUID_DF3_ID}>Amirdrassil Tier Set</ItemSetLink>,
             you should also make sure to have <SpellLink spell={SPELLS.SMOLDERING_FRENZY} /> active
             during Convoke.
           </p>

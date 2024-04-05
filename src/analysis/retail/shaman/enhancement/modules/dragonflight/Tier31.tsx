@@ -8,7 +8,7 @@ import { TALENTS_SHAMAN } from 'common/TALENTS';
 import Events, { CastEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import ItemSetLink from 'interface/ItemSetLink';
-import { SHAMAN_T31_ID } from 'common/ITEMS/dragonflight';
+import { SHAMAN_DF3_ID } from 'common/ITEMS/dragonflight';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { UptimeIcon } from 'interface/icons';
 import { formatNumber, formatPercentage } from 'common/format';
@@ -31,7 +31,7 @@ class Tier31 extends Analyzer {
     super(options);
 
     this.active =
-      this.selectedCombatant.has4PieceByTier(TIERS.T31) &&
+      this.selectedCombatant.has4PieceByTier(TIERS.DF3) &&
       this.selectedCombatant.hasTalent(TALENTS_SHAMAN.PRIMORDIAL_WAVE_SPEC_TALENT);
     if (!this.active) {
       return;
@@ -95,7 +95,7 @@ class Tier31 extends Analyzer {
       >
         <div className="pad boring-text">
           <label>
-            <ItemSetLink id={SHAMAN_T31_ID}>
+            <ItemSetLink id={SHAMAN_DF3_ID}>
               <>
                 Vision of the Greatwolf Outcast
                 <br />

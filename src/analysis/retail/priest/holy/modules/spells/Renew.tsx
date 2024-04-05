@@ -71,11 +71,11 @@ class Renew extends Analyzer {
     if (this.selectedCombatant.hasTalent(TALENTS.REVITALIZING_PRAYERS_TALENT)) {
       this.revitalizingPrayersActive = true;
     }
-    if (this.selectedCombatant.hasTalent(TALENTS.RAPID_RECOVERY_TALENT)) {
-      this.rapidRecoveryActive = true;
-      // if rapid recovery is active, renews from revitilizing prayers are 5 seconds
-      this.revitalizingPrayersRenewFraction = 5 / 12;
-    }
+    // if (this.selectedCombatant.hasTalent(TALENTS.RAPID_RECOVERY_TALENT)) {
+    //   this.rapidRecoveryActive = true;
+    //   // if rapid recovery is active, renews from revitilizing prayers are 5 seconds
+    //   this.revitalizingPrayersRenewFraction = 5 / 12;
+    // }
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(TALENTS.RENEW_TALENT), this.onHeal);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
     this.addEventListener(

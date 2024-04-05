@@ -65,10 +65,13 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.EXECUTION_SENTENCE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 60,
+        cooldown: 30,
         enabled: combatant.hasTalent(TALENTS.EXECUTION_SENTENCE_TALENT),
         castEfficiency: {
           recommendedEfficiency: 0.9,
+        },
+        gcd: {
+          base: 750,
         },
       },
       {
@@ -125,6 +128,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste: number) => 7.5 / (1 + haste),
         enabled: combatant.hasTalent(TALENTS.HAMMER_OF_WRATH_TALENT),
+        charges: 1 + combatant.getTalentRank(TALENTS.VANGUARDS_MOMENTUM_RETRIBUTION_TALENT),
         gcd: {
           base: 1500,
         },
@@ -135,7 +139,11 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.JUDGMENT_CAST.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste: number) => 12 / (1 + haste),
+        cooldown: (haste: number) =>
+          (12 -
+            combatant.getTalentRank(TALENTS.SEAL_OF_ALACRITY_TALENT) * 0.5 -
+            combatant.getTalentRank(TALENTS.SWIFT_JUSTICE_TALENT) * 2.0) /
+          (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -198,6 +206,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        enabled: !combatant.hasTalent(TALENTS.CONSECRATED_BLADE_TALENT),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.25,
@@ -212,7 +221,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: combatant.hasTalent(TALENTS.UNBREAKABLE_SPIRIT_TALENT) ? 60 : 90,
         gcd: {
-          base: 1500,
+          base: 750,
         },
         castEfficiency: {
           suggestion: true,
@@ -250,9 +259,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         charges: combatant.hasTalent(TALENTS.CAVALIER_TALENT) ? 2 : 1,
         cooldown: 45,
-        gcd: {
-          base: 1500,
-        },
+        gcd: null,
       },
       {
         spell: SPELLS.LAY_ON_HANDS.id,

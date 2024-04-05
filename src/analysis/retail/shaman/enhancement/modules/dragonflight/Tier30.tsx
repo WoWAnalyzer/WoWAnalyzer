@@ -1,4 +1,4 @@
-import { SHAMAN_T30_ID } from 'common/ITEMS/dragonflight';
+import { SHAMAN_DF2_ID } from 'common/ITEMS/dragonflight';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
 import { formatNumber, formatPercentage } from 'common/format';
@@ -33,7 +33,7 @@ class Tier30 extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.has4PieceByTier(TIERS.T30);
+    this.active = this.selectedCombatant.has4PieceByTier(TIERS.DF2);
     if (!this.active) {
       return;
     }
@@ -135,7 +135,7 @@ class Tier30 extends Analyzer {
       >
         <div className="pad boring-text">
           <label>
-            <ItemSetLink id={SHAMAN_T30_ID}>
+            <ItemSetLink id={SHAMAN_DF2_ID}>
               <>
                 Runes of the Cinderwolf
                 <br />

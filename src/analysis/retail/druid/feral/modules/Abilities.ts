@@ -193,7 +193,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_DRUID.FERAL_FRENZY_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         enabled: combatant.hasTalent(TALENTS_DRUID.FERAL_FRENZY_TALENT),
-        cooldown: combatant.has4PieceByTier(TIERS.T31) ? 30 : 45,
+        cooldown: combatant.has4PieceByTier(TIERS.DF3) ? 30 : 45,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,

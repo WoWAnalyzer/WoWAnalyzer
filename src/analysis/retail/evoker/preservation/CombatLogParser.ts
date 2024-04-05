@@ -20,7 +20,7 @@ import EssenceDetails from './modules/features/EssenceDetails';
 import GracePeriod from './modules/talents/GracePeriod';
 import Reversion from './modules/talents/Reversion';
 import CallOfYsera from './modules/talents/CallOfYsera';
-import EssenceBurst from './modules/talents/EssenceBurst';
+import EssenceBurst, { EssenceBurstSources } from './modules/talents/EssenceBurst';
 import EmeraldBlossom from './modules/talents/EmeraldBlossom';
 import Echo from './modules/talents/Echo';
 import ResonatingSphere from './modules/talents/ResonatingSphere';
@@ -31,6 +31,7 @@ import FieldOfDreams from './modules/talents/FieldOfDreams';
 import DreamFlight from './modules/talents/DreamFlight';
 import ExhilBurst from './modules/talents/ExhilBurst';
 import Stasis from './modules/talents/Stasis';
+import TimeOfNeed from './modules/talents/TimeOfNeed';
 import Lifebind from './modules/talents/Lifebind';
 import EnergyLoop from './modules/talents/EnergyLoop';
 import AlwaysBeCasting from './modules/core/AlwaysBeCasting';
@@ -48,11 +49,16 @@ import AncientFlame from './modules/talents/AncientFlame';
 import T31PrevokerSet from './modules/dragonflight/tier/T31TierSet';
 import EchoTypeBreakdown from './modules/talents/EchoTypeBreakdown';
 import {
+  LivingFlameNormalizer,
+  LivingFlamePrePullNormalizer,
   LeapingFlamesNormalizer,
   LeapingFlames,
   SpellEssenceCost,
   EssenceTracker,
+  SourceOfMagic,
+  PotentMana,
 } from '../shared';
+import EBRefreshNormalizer from './normalizers/EBRefreshNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -61,6 +67,8 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldowns: CooldownThroughputTracker,
 
     // Normalizer
+    ebRefreshNormalizer: EBRefreshNormalizer,
+    livingFlameNormalizer: LivingFlameNormalizer,
     castLinkNormalizer: CastLinkNormalizer,
     hotApplicationNormalizer: HotApplicationNormalizer,
     hotRemovalNormalizer: HotRemovalNormalizer,
@@ -84,8 +92,11 @@ class CombatLogParser extends CoreCombatLogParser {
     hotAttributor: HotAttributor,
 
     // Shared talents
+    livingFlamePrePullNormalizer: LivingFlamePrePullNormalizer,
     leapingFlamesNormalizer: LeapingFlamesNormalizer,
     leapingFlames: LeapingFlames,
+    sourceOfMagic: SourceOfMagic,
+    potentMana: PotentMana,
 
     //talents
     ancientFlame: AncientFlame,
@@ -108,6 +119,7 @@ class CombatLogParser extends CoreCombatLogParser {
     fieldOfDreams: FieldOfDreams,
     exhilBurst: ExhilBurst,
     stasis: Stasis,
+    timeOfNeed: TimeOfNeed,
     lifebind: Lifebind,
     energyLoop: EnergyLoop,
     fontOfMagic: FontOfMagic,
@@ -117,6 +129,7 @@ class CombatLogParser extends CoreCombatLogParser {
     nozTeachings: NozTeachings,
     regenerativeMagic: RegenerativeMagic,
     echoTypeBreakdown: EchoTypeBreakdown,
+    essenceBurstSources: EssenceBurstSources,
 
     // tier
     t30PrevokerTier: T30PrevokerSet,

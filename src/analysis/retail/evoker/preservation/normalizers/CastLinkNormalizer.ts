@@ -5,6 +5,7 @@ import { Options } from 'parser/core/Module';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import {
   AbilityEvent,
+  AnyEvent,
   ApplyBuffEvent,
   ApplyBuffStackEvent,
   CastEvent,
@@ -18,6 +19,7 @@ import {
   RefreshBuffEvent,
   RemoveBuffEvent,
   RemoveBuffStackEvent,
+  SummonEvent,
 } from 'parser/core/Events';
 import { DUPLICATION_SPELLS, STASIS_CAST_IDS } from '../constants';
 import { TIERS } from 'game/TIERS';
@@ -56,6 +58,8 @@ export const STASIS = 'Stasis';
 export const STASIS_FOR_RAMP = 'ForRamp';
 export const ESSENCE_RUSH = 'EssenceRush';
 export const T31_2PC = 'T31LFProc';
+export const EB_REVERSION = 'EssenceBurstReversion';
+export const TIME_OF_NEED_HEALING = 'TimeOfNeedHealing';
 
 export enum ECHO_TYPE {
   NONE,
@@ -74,6 +78,7 @@ const MAX_ESSENCE_BURST_DURATION = 32000; // 15s duration can refresh to 30s wit
 const TA_BUFFER_MS = 6000 + CAST_BUFFER_MS; //TA pulses over 6s at 0% haste
 const STASIS_BUFFER = 1000;
 const T31_LF_AMOUNT = 3;
+const TIME_OF_NEED_DURATION = 8000;
 
 /*
   This file is for attributing echo applications to hard casts or to temporal anomaly.
@@ -171,7 +176,7 @@ const EVENT_LINKS: EventLink[] = [
       );
     },
     isActive(c) {
-      return c.has4PieceByTier(TIERS.T31);
+      return c.has4PieceByTier(TIERS.DF3);
     },
   },
   /* ECHO APPLY TO ECHO REMOVAL LINKING */
@@ -272,7 +277,7 @@ const EVENT_LINKS: EventLink[] = [
       );
     },
     isActive(c) {
-      return c.has4PieceByTier(TIERS.T31);
+      return c.has4PieceByTier(TIERS.DF3);
     },
   },
   /* ECHO REMOVAL TO HEAL */
@@ -389,7 +394,7 @@ const EVENT_LINKS: EventLink[] = [
       );
     },
     isActive(c) {
-      return c.has4PieceByTier(TIERS.T31);
+      return c.has4PieceByTier(TIERS.DF3);
     },
   },
   // special handling for TA Echo EB because it heals 3-5 targets and happens after 2s
@@ -719,21 +724,19 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: 5000,
   },
   {
-    linkRelation: FROM_HARDCAST,
-    reverseLinkRelation: FROM_HARDCAST,
-    linkingEventId: SPELLS.ESSENCE_BURST_BUFF.id,
-    linkingEventType: [EventType.ApplyBuff, EventType.ApplyBuffStack, EventType.RefreshBuff],
-    referencedEventId: [
-      SPELLS.LIVING_FLAME_HEAL.id,
-      SPELLS.LIVING_FLAME_DAMAGE.id,
-      SPELLS.LIVING_FLAME_CAST.id,
-    ],
-    referencedEventType: [EventType.Cast, EventType.Damage, EventType.Heal],
-    backwardBufferMs: 1500, // very large delay between application and lf event sometimes
-    forwardBufferMs: 10, // ordering
+    linkRelation: EB_REVERSION,
+    reverseLinkRelation: EB_REVERSION,
+    linkingEventId: [TALENTS_EVOKER.REVERSION_TALENT.id, SPELLS.REVERSION_ECHO.id],
+    linkingEventType: EventType.ApplyBuff,
+    referencedEventId: SPELLS.ESSENCE_BURST_BUFF.id,
+    referencedEventType: [EventType.RefreshBuff, EventType.ApplyBuff, EventType.ApplyBuffStack],
+    forwardBufferMs: 1500,
     anyTarget: true,
     additionalCondition(linkingEvent, referencedEvent) {
-      return !HasRelatedEvent(linkingEvent, ESSENCE_RUSH);
+      return (
+        !HasRelatedEvent(linkingEvent, ESSENCE_RUSH) &&
+        !HasRelatedEvent(linkingEvent, SPARK_OF_INSIGHT)
+      );
     },
   },
   {
@@ -798,6 +801,42 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true,
     additionalCondition(linkingEvent, referencedEvent) {
       return !HasRelatedEvent(referencedEvent, LEAPING_FLAMES_HITS);
+    },
+  },
+  {
+    linkRelation: FROM_HARDCAST,
+    reverseLinkRelation: FROM_HARDCAST,
+    linkingEventId: SPELLS.ESSENCE_BURST_BUFF.id,
+    linkingEventType: [EventType.ApplyBuff, EventType.ApplyBuffStack, EventType.RefreshBuff],
+    referencedEventId: [
+      SPELLS.LIVING_FLAME_HEAL.id,
+      SPELLS.LIVING_FLAME_DAMAGE.id,
+      SPELLS.LIVING_FLAME_CAST.id,
+    ],
+    referencedEventType: [EventType.Cast, EventType.Damage, EventType.Heal],
+    backwardBufferMs: EB_BUFFER_MS, // very large delay between application and lf event sometimes
+    forwardBufferMs: EB_BUFFER_MS,
+    anyTarget: true,
+    maximumLinks: 1,
+    additionalCondition(linkingEvent, referencedEvent) {
+      return (
+        !HasRelatedEvent(linkingEvent, ESSENCE_RUSH) &&
+        !HasRelatedEvent(linkingEvent, SPARK_OF_INSIGHT) &&
+        !HasRelatedEvent(linkingEvent, EB_REVERSION)
+      );
+    },
+  },
+  {
+    linkRelation: TIME_OF_NEED_HEALING,
+    linkingEventId: SPELLS.TIME_OF_NEED_SUMMON.id,
+    linkingEventType: EventType.Summon,
+    referencedEventId: [SPELLS.VERDANT_EMBRACE_HEAL.id, SPELLS.TIME_OF_NEED_LIVING_FLAME.id],
+    referencedEventType: EventType.Heal,
+    forwardBufferMs: TIME_OF_NEED_DURATION,
+    anySource: true,
+    anyTarget: true,
+    additionalCondition(linkingEvent, referencedEvent) {
+      return (linkingEvent as SummonEvent).targetID === (referencedEvent as HealEvent).sourceID;
     },
   },
 ];
@@ -922,9 +961,43 @@ export function getStasisSpell(event: RemoveBuffStackEvent | RemoveBuffEvent): n
 }
 
 export function didSparkProcEssenceBurst(
-  event: ApplyBuffEvent | RemoveBuffEvent | RefreshBuffEvent | ApplyBuffStackEvent,
+  event:
+    | ApplyBuffEvent
+    | RemoveBuffEvent
+    | RemoveBuffStackEvent
+    | RefreshBuffEvent
+    | ApplyBuffStackEvent,
 ) {
-  return HasRelatedEvent(event, SPARK_OF_INSIGHT);
+  let applyEvent: AnyEvent | undefined = event;
+  if (applyEvent.type === EventType.RemoveBuff || applyEvent.type === EventType.RemoveBuffStack) {
+    applyEvent = GetRelatedEvent(event, ESSENCE_BURST_LINK);
+  }
+  if (applyEvent === undefined) {
+    return;
+  }
+  return HasRelatedEvent(applyEvent, SPARK_OF_INSIGHT);
+}
+
+export function isEbFromHardcast(
+  event:
+    | ApplyBuffEvent
+    | RemoveBuffEvent
+    | RemoveBuffStackEvent
+    | RefreshBuffEvent
+    | ApplyBuffStackEvent,
+) {
+  let applyEvent: AnyEvent | undefined = event;
+  if (applyEvent.type === EventType.RemoveBuff || applyEvent.type === EventType.RemoveBuffStack) {
+    applyEvent = GetRelatedEvent(event, ESSENCE_BURST_LINK);
+  }
+  if (applyEvent === undefined) {
+    return;
+  }
+  const lfEvent = GetRelatedEvent(applyEvent, FROM_HARDCAST);
+  if (!lfEvent) {
+    return false;
+  }
+  return lfEvent.type === EventType.Cast;
 }
 
 export function didEbConsumeSparkProc(event: RemoveBuffEvent | RemoveBuffStackEvent) {
@@ -966,18 +1039,18 @@ export function isEbFromT31Tier(
     | ApplyBuffStackEvent,
 ) {
   // get lf event -> check if lf is from 2 set
-  const applyEvent =
-    event.type === EventType.ApplyBuff || event.type === EventType.ApplyBuffStack
-      ? event
-      : GetRelatedEvent(event, ESSENCE_BURST_LINK);
-  if (!applyEvent) {
-    return false;
+  let applyEvent: AnyEvent | undefined = event;
+  if (applyEvent.type === EventType.RemoveBuff || applyEvent.type === EventType.RemoveBuffStack) {
+    applyEvent = GetRelatedEvent(event, ESSENCE_BURST_LINK);
+  }
+  if (applyEvent === undefined) {
+    return;
   }
   const lfEvent = GetRelatedEvent(applyEvent, FROM_HARDCAST);
   if (!lfEvent) {
     return false;
   }
-  return HasRelatedEvent(lfEvent, T31_2PC);
+  return lfEvent.type !== EventType.Cast;
 }
 
 export function isLfFromT31Tier(event: DamageEvent | HealEvent) {
@@ -989,6 +1062,24 @@ export function getAncientFlameSource(event: ApplyBuffEvent | RefreshBuffEvent |
     event,
     event.type === EventType.RemoveBuff ? ANCIENT_FLAME_CONSUME : ANCIENT_FLAME,
   )!;
+}
+
+export function isEbFromReversion(
+  event:
+    | ApplyBuffEvent
+    | RefreshBuffEvent
+    | ApplyBuffStackEvent
+    | RemoveBuffEvent
+    | RemoveBuffStackEvent,
+) {
+  if (event.type === EventType.RemoveBuff || event.type === EventType.RemoveBuffStack) {
+    event = GetRelatedEvent(event, ESSENCE_BURST_LINK)!;
+  }
+  return HasRelatedEvent(event, EB_REVERSION);
+}
+
+export function getTimeOfNeedHealing(event: SummonEvent) {
+  return GetRelatedEvents<HealEvent>(event, TIME_OF_NEED_HEALING) ?? null;
 }
 
 export default CastLinkNormalizer;

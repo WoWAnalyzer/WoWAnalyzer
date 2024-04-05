@@ -1,11 +1,17 @@
 import { change, date } from 'common/changelog';
-import { Pants, Vollmer } from 'CONTRIBUTORS';
+import { Pants, Trevor, Vollmer } from 'CONTRIBUTORS';
 import { ResourceLink, SpellLink } from 'interface';
 import TALENTS from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS/evoker';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 export default [
+    change(date(2024, 4, 1), <>Added analysis for <SpellLink spell={TALENTS.RENEWING_BLAZE_TALENT} />, <SpellLink spell={TALENTS.OBSIDIAN_SCALES_TALENT} /> and <SpellLink spell={TALENTS.TWIN_GUARDIAN_TALENT} />.</>, Vollmer),
+    change(date(2024, 3, 30), <>Fix prepull <SpellLink spell={SPELLS.LIVING_FLAME_CAST} /> casts to properly display channel time.</>, Vollmer),
+    change(date(2024, 3, 7), <>Fix an issue with <SpellLink spell={TALENTS.POTENT_MANA_TALENT} /> module when no <SpellLink spell={TALENTS.SOURCE_OF_MAGIC_TALENT} /> was active during the fight.</>, Vollmer),
+    change(date(2024, 2, 10), <>Fix crash in <SpellLink spell={TALENTS.SOURCE_OF_MAGIC_TALENT} /> module.</>, Trevor),
+    change(date(2024, 2, 3), <>Implement <SpellLink spell={TALENTS.SOURCE_OF_MAGIC_TALENT} /> and <SpellLink spell={TALENTS.POTENT_MANA_TALENT} /> modules.</>, Vollmer),
+    change(date(2024, 1, 26), <>Show 4 default targets instead of 2 for Buff Helper MRT note.</>, Vollmer),
     change(date(2024, 1, 17), <>Mark as updated for 10.2.5.</>, Vollmer),
     change(date(2024, 1, 9), <>Update Buff Helper module Prescience Helper MRT note to support the new logic of the WA.</>, Vollmer),
     change(date(2023, 12, 31), <>Implemented <ResourceLink id={RESOURCE_TYPES.ESSENCE.id}/> Graph.</>, Vollmer),

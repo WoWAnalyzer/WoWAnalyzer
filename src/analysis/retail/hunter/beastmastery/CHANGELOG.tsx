@@ -5,6 +5,7 @@ import TALENTS from 'common/TALENTS/hunter';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 export default [
+  change(date(2024, 2, 15), <>Try to workaround weird buff events on bosses like Volcoross for <SpellLink spell={SPELLS.BARBED_SHOT_PET_BUFF} /> </>, Putro),
   change(date(2023, 11, 21), <>Update when <SpellLink spell={TALENTS.BARBED_SHOT_TALENT}  /> are marked as good or bad casts. </>, Putro),
   change(date(2023, 11, 21), <>Add <SpellLink spell={TALENTS.CALL_OF_THE_WILD_TALENT} /> to the spellbook specifying cooldown and global cooldown. </>, Putro),
   change(date(2023, 10, 18), <>Enable spec with 10.2 changes</>,Arlie),

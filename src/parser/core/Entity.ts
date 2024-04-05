@@ -1,11 +1,11 @@
 import CombatLogParser from 'parser/core/CombatLogParser';
 import { BuffEvent, HasSource } from 'parser/core/Events';
 
-type StackHistory = Array<{ stacks: number; timestamp: number }>;
+type StackHistoryElement = { stacks: number; timestamp: number };
 export interface TrackedBuffEvent extends BuffEvent<any> {
   start: number;
   end: number | null;
-  stackHistory: StackHistory;
+  stackHistory: Array<StackHistoryElement>;
   refreshHistory: number[];
   stacks: number;
 }
@@ -111,13 +111,27 @@ class Entity {
   getBuffStacks(
     spellId: number,
     forTimestamp: number | null = null,
-    bufferTime = 0,
-    minimalActiveTime = 0,
+    bufferTime: number = 0,
+    minimalActiveTime: number = 0,
     sourceID: number | null = null,
-  ) {
-    return (
-      this.getBuff(spellId, forTimestamp, bufferTime, minimalActiveTime, sourceID)?.stacks || 0
+  ): number {
+    const buff: TrackedBuffEvent | undefined = this.getBuff(
+      spellId,
+      forTimestamp,
+      bufferTime,
+      minimalActiveTime,
+      sourceID,
     );
+    const currentTimestamp = forTimestamp !== null ? forTimestamp : this.owner.currentTimestamp;
+
+    let maxStackForTimestamp: StackHistoryElement = { timestamp: 0, stacks: 0 };
+    buff?.stackHistory.forEach((stack) => {
+      if (maxStackForTimestamp.timestamp < stack.timestamp && stack.timestamp < currentTimestamp) {
+        maxStackForTimestamp = stack;
+      }
+    });
+
+    return maxStackForTimestamp.stacks;
   }
 
   /**

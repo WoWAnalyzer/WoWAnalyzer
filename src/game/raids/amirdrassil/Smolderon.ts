@@ -1,4 +1,4 @@
-import { Boss } from 'game/raids';
+import type { Boss } from 'game/raids';
 
 import Background from './backgrounds/Smolderon.png';
 import Headshot from './headshots/Smolderon.jpg';

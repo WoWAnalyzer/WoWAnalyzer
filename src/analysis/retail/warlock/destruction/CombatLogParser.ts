@@ -1,8 +1,4 @@
-import {
-  DemonicCirclesCreated,
-  GrimoireOfSacrificeNormalizer,
-  GrimoireOfSacrifice,
-} from 'analysis/retail/warlock/shared';
+import { GrimoireOfSacrificeNormalizer, GrimoireOfSacrifice } from 'analysis/retail/warlock/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
@@ -33,6 +29,7 @@ import SoulFire from './modules/talents/SoulFire';
 import FlashPoint from './modules/talents/FlashPoint';
 import BurnToAshes from './modules/talents/BurnToAshes';
 import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
+import { UnendingResolve, DarkPact, DemonicCircle } from '../shared';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -52,7 +49,6 @@ class CombatLogParser extends CoreCombatLogParser {
     soulShardTracker: SoulShardTracker,
     soulShardDetails: SoulShardDetails,
     spellUsable: SpellUsable,
-    demonicCirclesCreated: DemonicCirclesCreated,
 
     grimoireOfSacrificeNormalizer: GrimoireOfSacrificeNormalizer,
 
@@ -74,6 +70,11 @@ class CombatLogParser extends CoreCombatLogParser {
     flashPoint: FlashPoint,
     burnToAshes: BurnToAshes,
     callToDominance: CallToDominance,
+
+    // Shared Spells
+    unendingResolve: UnendingResolve,
+    darkPact: DarkPact,
+    demonicCircle: DemonicCircle,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

@@ -8,7 +8,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import ItemPercentDamageDone from 'parser/ui/ItemPercentDamageDone';
 import ItemSetLink from 'interface/ItemSetLink';
-import { DRUID_T29_ID } from 'common/ITEMS/dragonflight';
+import { DRUID_DF1_ID } from 'common/ITEMS/dragonflight';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { CONVOKE_FB_CPS, FINISHERS, MAX_CPS } from 'analysis/retail/druid/feral/constants';
 import getResourceSpent from 'parser/core/getResourceSpent';
@@ -70,8 +70,8 @@ export default class Tier29 extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.has2PieceByTier(TIERS.T29);
-    this.has4pc = this.selectedCombatant.has4PieceByTier(TIERS.T29);
+    this.active = this.selectedCombatant.has2PieceByTier(TIERS.DF1);
+    this.has4pc = this.selectedCombatant.has4PieceByTier(TIERS.DF1);
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(BOOSTED_2PC), this.on2pcDamage);
     if (this.has4pc) {
@@ -161,7 +161,7 @@ export default class Tier29 extends Analyzer {
       >
         <div className="pad boring-text">
           <label>
-            <ItemSetLink id={DRUID_T29_ID}>Lost Landcaller's Vesture (VotI Tier)</ItemSetLink>
+            <ItemSetLink id={DRUID_DF1_ID}>Lost Landcaller's Vesture (VotI Tier)</ItemSetLink>
           </label>
           <div className="value">
             2pc: <ItemPercentDamageDone amount={this.total2pcDamage} />

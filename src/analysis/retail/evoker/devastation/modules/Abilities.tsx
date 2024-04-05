@@ -3,6 +3,7 @@ import CoreAbilities from 'analysis/retail/evoker/shared/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import SPELLS from 'common/SPELLS';
+import { BASE_EVOKER_RANGE } from '../../shared';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -15,6 +16,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        range: BASE_EVOKER_RANGE,
         enabled: combatant.hasTalent(TALENTS.PYRE_TALENT),
       },
       {
@@ -28,6 +30,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
+        range: BASE_EVOKER_RANGE,
         enabled: combatant.hasTalent(TALENTS.FIRESTORM_TALENT),
       },
       {
@@ -43,6 +46,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.95,
         },
+        range: BASE_EVOKER_RANGE,
         enabled: combatant.hasTalent(TALENTS.ETERNITY_SURGE_TALENT),
       },
       {
@@ -57,6 +61,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.9,
           extraSuggestion: 'You should aim to use this off CD.',
         },
+        range: BASE_EVOKER_RANGE,
         enabled: combatant.hasTalent(TALENTS.SHATTERING_STAR_TALENT),
       },
       //endregion

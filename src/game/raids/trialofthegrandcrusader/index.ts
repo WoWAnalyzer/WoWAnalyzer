@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+import type { Raid } from 'game/raids';
 
 export default {
   name: 'Trial of the Grand Crusader', // T9
@@ -9,4 +10,4 @@ export default {
     ValkyrTwins: require('./ValkyrTwins').default, // 4
     Anubarak: require('./Anubarak').default, // 5
   },
-};
+} satisfies Raid;

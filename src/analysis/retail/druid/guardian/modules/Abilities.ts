@@ -72,7 +72,6 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.MAUL.id,
-        enabled: !combatant.hasTalent(TALENTS_DRUID.RAZE_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,

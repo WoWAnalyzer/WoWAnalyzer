@@ -1,9 +1,9 @@
-import { Dungeon } from 'game/raids';
+import type { Boss } from 'game/raids';
 
 import Background from './backgrounds/AlgetharAcademy.jpg';
 import Headshot from './headshots/AlgetharAcademy.jpg';
 
-const AlgetharAcademy: Dungeon = {
+const AlgetharAcademy: Boss = {
   id: 12526,
   name: "Algeth'ar Academy",
   background: Background,

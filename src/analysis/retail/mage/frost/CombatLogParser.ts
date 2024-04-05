@@ -45,6 +45,8 @@ import ThermalVoid from './talents/ThermalVoid';
 //Normalizers
 import CometStormLinkNormalizer from './normalizers/CometStormLinkNormalizer';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
+import ShiftingPowerFrost from 'analysis/retail/mage/frost/talents/ShiftingPowerFrost';
+import ChainReaction from 'analysis/retail/mage/frost/talents/ChainReaction';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -83,6 +85,8 @@ class CombatLogParser extends CoreCombatLogParser {
     flurry: Flurry,
     frozenOrb: FrozenOrb,
     coldSnap: ColdSnap,
+    shiftingPowerFrost: ShiftingPowerFrost,
+    chainReaction: ChainReaction,
 
     //Talents - Shared
     elementalBarrier: ElementalBarrier,

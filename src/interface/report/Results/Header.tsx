@@ -2,7 +2,7 @@
 import getBossName from 'common/getBossName';
 import { getLabel as getDifficultyLabel } from 'game/DIFFICULTIES';
 import { Boss, Phase } from 'game/raids';
-import Ad, { Location } from 'interface/Ad';
+import Ad, { AdErrorBoundary, Location } from 'interface/Ad';
 import Config from 'parser/Config';
 import { ParseResultsTab } from 'parser/core/Analyzer';
 import CharacterProfile from 'parser/core/CharacterProfile';
@@ -71,7 +71,9 @@ const Header = ({
     <header>
       <HeaderBackground boss={boss} expansion={expansion} />
 
-      <Ad location={Location.Top} />
+      <AdErrorBoundary>
+        <Ad location={Location.Top} />
+      </AdErrorBoundary>
 
       <div className="subnavigation container">
         {phases && Object.keys(phases).length > 0 && (
