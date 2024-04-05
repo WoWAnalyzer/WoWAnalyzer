@@ -12,6 +12,7 @@ import TALENTS from 'common/TALENTS/mage';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { SpellLink } from 'interface';
 import { highlightInefficientCast } from 'interface/report/Results/Timeline/Casts';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   EventType,
@@ -29,6 +30,7 @@ import EventHistory from 'parser/shared/modules/EventHistory';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { ReactNode } from 'react';
 
 class HotStreak extends Analyzer {
   static dependencies = {
@@ -48,6 +50,10 @@ class HotStreak extends Analyzer {
     remove: RemoveBuffEvent;
     spender: CastEvent | undefined;
     precast: CastEvent | undefined;
+    preCastMissing?: {
+      performance: QualitativePerformance;
+      tooltip: ReactNode;
+    };
   }[] = [];
   wasted: { event: DamageEvent; timestamp: number }[] = [];
 
@@ -67,6 +73,7 @@ class HotStreak extends Analyzer {
     const buffApply: ApplyBuffEvent | undefined = GetRelatedEvent(event, 'BuffApply');
     const spender: CastEvent | undefined = GetRelatedEvent(event, 'SpellCast');
     const precast: CastEvent | undefined = GetRelatedEvent(event, 'PreCast');
+
     this.hotStreaks.push({
       apply: buffApply,
       remove: event,
@@ -84,20 +91,41 @@ class HotStreak extends Analyzer {
 
   // prettier-ignore
   missingHotStreakPreCast = () => {
-    //If there is a precast then filter it out. 
-    let missedCasts = this.hotStreaks.filter(hs => !hs.precast)
+    let performance = QualitativePerformance.Good
 
-    //If Combustion or Hyperthermia was active, filter it out
+    //If there is a precast then filter it out. 
+    let missedCasts = this.hotStreaks.filter(hs => {
+      if (hs.precast) {
+        hs.preCastMissing = { performance: performance, tooltip: `Precast ${hs.precast?.ability.name} Found` }  
+      }
+      return !hs.preCastMissing;
+    })
+
+    //If Ccombustion was active, filter it out
     missedCasts = missedCasts.filter(hs => {
       const combustionActive = this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id, hs.remove.timestamp);
-      const hyperthermiaActive = this.selectedCombatant.hasBuff(SPELLS.HYPERTHERMIA_BUFF.id, hs.remove.timestamp);
-      return (!this.hasHyperthermia || !hyperthermiaActive) && (!combustionActive)
+      if (combustionActive) {
+        hs.preCastMissing = { performance: performance, tooltip: `Combustion Active`}
+      }
+      return !hs.preCastMissing
     });
+
+    //If Hyperthermia was active, filter it out
+    missedCasts = missedCasts.filter(hs => {
+      const hyperthermiaActive = this.selectedCombatant.hasBuff(SPELLS.HYPERTHERMIA_BUFF.id, hs.remove.timestamp);
+      if (this.hasHyperthermia && hyperthermiaActive) {
+        hs.preCastMissing = { performance: performance, tooltip: `Hyperthermia Active` }
+      }
+      return !hs.preCastMissing
+    })
 
     //If Combustion ended less than 3 seconds ago, filter it out
     missedCasts = missedCasts.filter(hs => {
       const combustionEnded = this.eventHistory.getEvents(EventType.RemoveBuff, { spell: TALENTS.COMBUSTION_TALENT, count: 1, startTimestamp: hs.remove.timestamp })[0];
-      return !combustionEnded || hs.remove.timestamp - combustionEnded.timestamp > COMBUSTION_END_BUFFER;
+      if (combustionEnded && hs.remove.timestamp - combustionEnded.timestamp < COMBUSTION_END_BUFFER) {
+        hs.preCastMissing = { performance: performance, tooltip: `Combustion Ended Recently` }
+      }
+      return !hs.preCastMissing
     })
 
     //If Firestarter or Searing Touch was active, filter it out
@@ -107,19 +135,22 @@ class HotStreak extends Analyzer {
         return true;
       }
       const targetHealth = this.sharedCode.getTargetHealth(spenderDamage);
-      if (this.hasFirestarter) {
-        return targetHealth && targetHealth < FIRESTARTER_THRESHOLD;
-      } else if (this.hasSearingTouch) {
-        return targetHealth && targetHealth > SEARING_TOUCH_THRESHOLD;
-      } else {
-        return true;
+      if (this.hasFirestarter && targetHealth && targetHealth > FIRESTARTER_THRESHOLD) {
+        hs.preCastMissing = { performance: performance, tooltip: `Firestarter Active` }
       }
+      
+      if (this.hasSearingTouch && targetHealth && targetHealth < SEARING_TOUCH_THRESHOLD) {
+        hs.preCastMissing = { performance: performance, tooltip: `Searing Touch Active` }
+      }
+      return !hs.preCastMissing
     });
 
     //Highlight bad casts on timeline
-    const tooltip = `This Pyroblast was cast using Hot Streak, but did not have a Fireball pre-cast in front of it.`
+    const timelineTooltip = `This Pyroblast was cast using Hot Streak, but did not have a Fireball pre-cast in front of it.`
     missedCasts.forEach(hs => {
-      hs.spender && highlightInefficientCast(hs.spender, tooltip)
+      performance = QualitativePerformance.Fail
+      hs.preCastMissing = { performance: performance, tooltip: `No Precast Found` }
+      hs.spender && highlightInefficientCast(hs.spender, timelineTooltip)
     })
 
     return missedCasts.length
@@ -164,6 +195,7 @@ class HotStreak extends Analyzer {
   };
 
   expiredProcs = () => {
+    this.log(this.hotStreaks);
     const expired = this.hotStreaks.filter((hs) => !hs.spender);
     return expired.length;
   };
