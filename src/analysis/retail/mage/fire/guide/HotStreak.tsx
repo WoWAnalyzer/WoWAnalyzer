@@ -39,10 +39,10 @@ class HotStreakGuide extends Analyzer {
   }
 
   get procUtilization() {
-    const utilPercent = this.hotStreak.hotStreakUtilizationThresholds.actual;
-    const minorThreshold = this.hotStreak.hotStreakUtilizationThresholds.isLessThan.minor;
-    const averageThreshold = this.hotStreak.hotStreakUtilizationThresholds.isLessThan.average;
-    const majorThreshold = this.hotStreak.hotStreakUtilizationThresholds.isLessThan.major;
+    const utilPercent = this.hotStreak.badUsePercent;
+    const minorThreshold = this.hotStreak.castBeforeHotStreakThresholds.isLessThan.minor;
+    const averageThreshold = this.hotStreak.castBeforeHotStreakThresholds.isLessThan.average;
+    const majorThreshold = this.hotStreak.castBeforeHotStreakThresholds.isLessThan.major;
     let performance = QualitativePerformance.Fail;
     if (utilPercent > minorThreshold) {
       performance = QualitativePerformance.Perfect;
@@ -125,7 +125,13 @@ class HotStreakGuide extends Analyzer {
         </div>
       </>
     );
-    const expiredProcTooltip = <>{this.hotStreak.expiredProcs()} Expired Procs.</>;
+    const utilizationTooltip = (
+      <>
+        {this.hotStreak.expiredProcs()} Expired Procs.
+        <br />
+        {this.hotStreak.missingHotStreakPreCast()} Missing Pre Cast
+      </>
+    );
     const wastedCritTooltip = <>{this.hotStreak.wastedCrits()} Wasted Crits</>;
     const data = (
       <div>
@@ -134,8 +140,8 @@ class HotStreakGuide extends Analyzer {
             style={{ color: qualitativePerformanceToColor(this.procUtilization), fontSize: '20px' }}
           >
             {hotStreakIcon}{' '}
-            <TooltipElement content={expiredProcTooltip}>
-              {formatPercentage(this.hotStreak.hotStreakUtilizationThresholds.actual, 0)} %{' '}
+            <TooltipElement content={utilizationTooltip}>
+              {formatPercentage(this.hotStreak.castBeforeHotStreakThresholds.actual, 0)} %{' '}
               <small>utilization</small>
             </TooltipElement>
           </div>

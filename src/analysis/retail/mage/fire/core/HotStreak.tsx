@@ -91,69 +91,80 @@ class HotStreak extends Analyzer {
 
   // prettier-ignore
   missingHotStreakPreCast = () => {
-    let performance = QualitativePerformance.Good
 
+    this.log(this.hotStreaks.length)
     //If there is a precast then filter it out. 
-    let missedCasts = this.hotStreaks.filter(hs => {
+    let procs = this.hotStreaks.filter(hs => {
       if (hs.precast) {
-        hs.preCastMissing = { performance: performance, tooltip: `Precast ${hs.precast?.ability.name} Found` }  
+        hs.preCastMissing = { performance: QualitativePerformance.Good, tooltip: `Precast ${hs.precast?.ability.name} Found` }  
       }
       return !hs.preCastMissing;
     })
 
+    this.log(procs.length)
     //If Ccombustion was active, filter it out
-    missedCasts = missedCasts.filter(hs => {
+    procs = procs.filter(hs => {
       const combustionActive = this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id, hs.remove.timestamp);
       if (combustionActive) {
-        hs.preCastMissing = { performance: performance, tooltip: `Combustion Active`}
+        hs.preCastMissing = { performance: QualitativePerformance.Good, tooltip: `Combustion Active`}
       }
       return !hs.preCastMissing
     });
 
+    this.log(procs.length)
     //If Hyperthermia was active, filter it out
-    missedCasts = missedCasts.filter(hs => {
+    procs = procs.filter(hs => {
       const hyperthermiaActive = this.selectedCombatant.hasBuff(SPELLS.HYPERTHERMIA_BUFF.id, hs.remove.timestamp);
       if (this.hasHyperthermia && hyperthermiaActive) {
-        hs.preCastMissing = { performance: performance, tooltip: `Hyperthermia Active` }
+        hs.preCastMissing = { performance: QualitativePerformance.Good, tooltip: `Hyperthermia Active` }
       }
       return !hs.preCastMissing
     })
 
+    this.log(procs.length)
     //If Combustion ended less than 3 seconds ago, filter it out
-    missedCasts = missedCasts.filter(hs => {
+    procs = procs.filter(hs => {
       const combustionEnded = this.eventHistory.getEvents(EventType.RemoveBuff, { spell: TALENTS.COMBUSTION_TALENT, count: 1, startTimestamp: hs.remove.timestamp })[0];
       if (combustionEnded && hs.remove.timestamp - combustionEnded.timestamp < COMBUSTION_END_BUFFER) {
-        hs.preCastMissing = { performance: performance, tooltip: `Combustion Ended Recently` }
+        hs.preCastMissing = { performance: QualitativePerformance.Good, tooltip: `Combustion Ended Recently` }
       }
       return !hs.preCastMissing
     })
 
+    this.log(procs.length)
     //If Firestarter or Searing Touch was active, filter it out
-    missedCasts = missedCasts.filter(hs => {
+    procs = procs.filter(hs => {
       const spenderDamage = hs.spender && GetRelatedEvent(hs.spender, 'SpellDamage');
       if (!spenderDamage) {
         return true;
       }
       const targetHealth = this.sharedCode.getTargetHealth(spenderDamage);
       if (this.hasFirestarter && targetHealth && targetHealth > FIRESTARTER_THRESHOLD) {
-        hs.preCastMissing = { performance: performance, tooltip: `Firestarter Active` }
+        hs.preCastMissing = { performance: QualitativePerformance.Good, tooltip: `Firestarter Active` }
       }
       
       if (this.hasSearingTouch && targetHealth && targetHealth < SEARING_TOUCH_THRESHOLD) {
-        hs.preCastMissing = { performance: performance, tooltip: `Searing Touch Active` }
+        hs.preCastMissing = { performance: QualitativePerformance.Good, tooltip: `Searing Touch Active` }
       }
       return !hs.preCastMissing
     });
 
+    //If the proc expired, mark it failed on the guide but dont filter it out
+    procs.forEach(hs => {
+      if (!hs.spender) {
+        hs.preCastMissing = { performance: QualitativePerformance.Fail, tooltip: `Proc Expired` }
+      }
+      return !hs.preCastMissing
+    })
+
     //Highlight bad casts on timeline
     const timelineTooltip = `This Pyroblast was cast using Hot Streak, but did not have a Fireball pre-cast in front of it.`
-    missedCasts.forEach(hs => {
-      performance = QualitativePerformance.Fail
-      hs.preCastMissing = { performance: performance, tooltip: `No Precast Found` }
+    procs.forEach(hs => {
+      hs.preCastMissing = { performance: QualitativePerformance.Fail, tooltip: `No Precast Found` }
       hs.spender && highlightInefficientCast(hs.spender, timelineTooltip)
     })
 
-    return missedCasts.length
+    return procs.length
   }
 
   // prettier-ignore
@@ -195,18 +206,25 @@ class HotStreak extends Analyzer {
   };
 
   expiredProcs = () => {
-    this.log(this.hotStreaks);
     const expired = this.hotStreaks.filter((hs) => !hs.spender);
-    return expired.length;
+    return expired.length || 0;
   };
 
-  totalHotStreaks = () => {
+  get badUses() {
+    return this.expiredProcs() + this.missingHotStreakPreCast();
+  }
+
+  get badUsePercent() {
+    return 1 - this.badUses / this.totalHotStreaks;
+  }
+
+  get totalHotStreaks() {
     return this.hotStreaks.length;
-  };
+  }
 
   get hotStreakUtilizationThresholds() {
     return {
-      actual: 1 - this.expiredProcs() / this.totalHotStreaks() || 0,
+      actual: 1 - this.expiredProcs() / this.totalHotStreaks || 0,
       isLessThan: {
         minor: 0.95,
         average: 0.9,
@@ -218,7 +236,7 @@ class HotStreak extends Analyzer {
 
   get castBeforeHotStreakThresholds() {
     return {
-      actual: 1 - this.missingHotStreakPreCast() / this.totalHotStreaks(),
+      actual: 1 - this.missingHotStreakPreCast() / this.totalHotStreaks,
       isLessThan: {
         minor: 0.85,
         average: 0.75,
@@ -244,7 +262,7 @@ class HotStreak extends Analyzer {
     when(this.hotStreakUtilizationThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You allowed {formatPercentage(this.expiredProcs() / this.totalHotStreaks())}% of your{' '}
+          You allowed {formatPercentage(this.expiredProcs() / this.totalHotStreaks)}% of your{' '}
           <SpellLink spell={SPELLS.HOT_STREAK} /> procs to expire. Try to use your procs as soon as
           possible to avoid this.
         </>,
@@ -319,7 +337,7 @@ class HotStreak extends Analyzer {
             <br />
             <ul>
               <li>Total procs - {this.totalHotStreaks}</li>
-              <li>Used procs - {this.totalHotStreaks() - this.expiredProcs()}</li>
+              <li>Used procs - {this.totalHotStreaks - this.expiredProcs()}</li>
               <li>Expired procs - {this.expiredProcs()}</li>
               <li>Procs used without a Fireball - {this.missingHotStreakPreCast()}</li>
             </ul>

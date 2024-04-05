@@ -66,9 +66,6 @@ class CombatLogParser extends CoreCombatLogParser {
     //Checklist
     checklist: Checklist,
 
-    //Guide
-    hotStreakGuide: HotStreakGuide,
-
     //Core
     buffs: Buffs,
     sharedCode: SharedCode,
@@ -112,6 +109,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
+
+    //Guide
+    hotStreakGuide: HotStreakGuide,
   };
   static guide = Guide;
 }
