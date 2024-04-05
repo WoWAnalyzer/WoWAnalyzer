@@ -7,7 +7,6 @@ import {
   BeginCastEvent,
   BeginChannelEvent,
   CastEvent,
-  EmpowerStartEvent,
   EndChannelEvent,
   EventType,
   HasAbility,
@@ -18,7 +17,10 @@ import InsertableEventsWrapper from 'parser/core/InsertableEventsWrapper';
 import { Options } from 'parser/core/Module';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
 import { TALENTS_PRIEST } from 'common/TALENTS';
-import { playerInfo } from '../metrics/apl/conditions/test-tools';
+import {
+  getEmpowerEndEvent,
+  isFromTipTheScales,
+} from 'analysis/retail/evoker/shared/modules/normalizers/EmpowerNormalizer';
 import PrePullCooldowns from './PrePullCooldowns';
 
 /**
@@ -217,23 +219,6 @@ export function beginCurrentChannel(event: BeginCastEvent | CastEvent, channelSt
   channelState.unresolvedChannel = beginChannel;
 }
 
-/** Updates the ChannelState with a BeginChannelEvent */
-export function beginEmpowerCurrentChannel(event: EmpowerStartEvent, channelState: ChannelState) {
-  const beginChannel: BeginChannelEvent = {
-    type: EventType.BeginChannel,
-    ability: event.ability,
-    timestamp: event.timestamp,
-    sourceID: event.sourceID,
-    isCancelled: false,
-    trigger: event,
-    targetIsFriendly: event.targetIsFriendly,
-    sourceIsFriendly: event.sourceIsFriendly,
-    targetID: event.target?.id,
-  };
-  channelState.eventsInserter.addAfterEvent(beginChannel, event);
-  channelState.unresolvedChannel = beginChannel;
-}
-
 function copyTargetData(target: ChannelState['unresolvedChannel'], source: AnyEvent) {
   if (source.type === EventType.Cast && target?.ability.guid === source.ability.guid) {
     target.targetID = source.targetID;
@@ -369,16 +354,11 @@ export function buffChannelSpec(spellId: number): ChannelSpec {
 }
 
 /**
- * Helper to create a channel spec handler for Evokers empowered spells.
+ * This handler works by handling cast events with the given guid, and then either finding the
+ * matched empowerend event through event links, or scanning forward for the matched empowerend event,
+ * and then making the pair of beginchannel and endchannel events based on them.
  *
- * This handler works by handling EmpowerStart events with the given guid, and then scanning forward for the
- * matched EmpowerEnd, and then making the pair of beginchannel and endchannel events based on them.
- * Sometimes Empowers don't produce EmpowerEnd, mainly when cancelling the spell. To account for this
- * we will also cancel the channel on next cast, begincast or if buff is removed(fire breath).
- *
- * Tipped Empowers don't produce a EmpowerStart event so we use this event to filter those out.
- *
- * @param spellId the guid for the tracked Cast and EmpowerStart/EmpowerEnd events.
+ * @param spellId the guid for the tracked Cast and RemoveBuff/RemoveDebuff events.
  */
 export function empowerChannelSpec(spellId: number): ChannelSpec {
   const guids = [spellId];
@@ -388,20 +368,29 @@ export function empowerChannelSpec(spellId: number): ChannelSpec {
     eventIndex: number,
     state: ChannelState,
   ) => {
-    if (
-      event.type === EventType.EmpowerStart ||
-      event.type === EventType.Cast ||
-      event.type === EventType.RemoveBuff
-    ) {
+    // Tipped cast is instant cast so don't start a channel
+    if (event.type === EventType.Cast && !isFromTipTheScales(event)) {
       // do standard start channel stuff
       cancelCurrentChannel(event, state);
-      if (event.type === EventType.EmpowerStart) {
-        beginEmpowerCurrentChannel(event, state);
+      beginCurrentChannel(event, state);
+
+      // If we know the end event use that
+      const potentiallyEmpowerEnd = getEmpowerEndEvent(event);
+      if (potentiallyEmpowerEnd) {
+        endCurrentChannel(potentiallyEmpowerEnd, state);
+        return {
+          handler,
+          guids,
+        };
       }
-      // now scan ahead for the matched empowerend, cast or begincast and end the channel at it
+
+      // now scan ahead for the matched empowerend, cancel channel on all other casts
+      // This is mainly used as fallback incase our normalizer failed to find the empowerEnd event
+      // or to confirm the empower was cancelled
       for (let idx = eventIndex + 1; idx < events.length; idx += 1) {
         const laterEvent = events[idx];
         if (
+          // Empower finished
           HasAbility(laterEvent) &&
           laterEvent.ability.guid === spellId &&
           laterEvent.type === EventType.EmpowerEnd
@@ -409,21 +398,13 @@ export function empowerChannelSpec(spellId: number): ChannelSpec {
           endCurrentChannel(laterEvent, state);
           break;
         } else if (
-          laterEvent.type === EventType.BeginCast ||
-          (laterEvent.type === EventType.Cast &&
-            isRealCast(laterEvent) &&
-            laterEvent.timestamp > event.timestamp &&
-            event.sourceID === playerInfo.playerId)
+          // Empower never finished
+          (laterEvent.type === EventType.BeginCast ||
+            laterEvent.type === EventType.EmpowerStart ||
+            (laterEvent.type === EventType.Cast && isRealCast(laterEvent))) &&
+          event.sourceID === laterEvent.sourceID
         ) {
-          endCurrentChannel(laterEvent, state);
-          break;
-        } else if (
-          HasAbility(laterEvent) &&
-          laterEvent.ability.guid === spellId &&
-          laterEvent.type === EventType.RemoveBuff &&
-          laterEvent.timestamp > event.timestamp
-        ) {
-          endCurrentChannel(laterEvent, state);
+          cancelCurrentChannel(laterEvent, state);
           break;
         }
       }
