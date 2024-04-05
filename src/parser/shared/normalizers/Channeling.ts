@@ -261,14 +261,6 @@ function attachChannelToCast(endChannelEvent: EndChannelEvent): void {
   const beginChannelTrigger = endChannelEvent.beginChannel.trigger;
   const endChannelTrigger = endChannelEvent.trigger;
 
-  // Due to how Empowers are currently implemented this won't work for them so no reason to try
-  if (
-    endChannelTrigger?.type === EventType.EmpowerEnd ||
-    beginChannelTrigger?.type === EventType.EmpowerStart
-  ) {
-    return;
-  }
-
   // If we for some reason don't have a cast event
   // Currently only observed happening with Empowers, which makes sense with their current implementation but they are (for now) being ignored anyways
   if (endChannelTrigger?.type !== EventType.Cast && beginChannelTrigger?.type !== EventType.Cast) {
