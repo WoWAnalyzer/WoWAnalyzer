@@ -179,7 +179,6 @@ const EVENT_LINKS: EventLink[] = [
       SPELLS.UPHEAVAL.id,
       SPELLS.UPHEAVAL_FONT.id,
     ],
-    // TODO: check for TTS usage on cast event
     linkingEventType: EventType.EmpowerEnd,
     referencedEventId: SPELLS.EBON_MIGHT_BUFF_PERSONAL.id,
     referencedEventType: EventType.RemoveBuff,
