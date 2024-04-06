@@ -73,7 +73,7 @@ class EmpowerNormalizer extends EventLinkNormalizer {
     // Create initial EventLinks that we can then reference later
     const events = super.normalize(rawEvents);
 
-    const fixedEvents: any[] = [];
+    const fixedEvents: AnyEvent[] = [];
     const hasFont =
       this.owner.selectedCombatant.hasTalent(TALENTS.FONT_OF_MAGIC_AUGMENTATION_TALENT) ||
       this.owner.selectedCombatant.hasTalent(TALENTS.FONT_OF_MAGIC_DEVASTATION_TALENT) ||
