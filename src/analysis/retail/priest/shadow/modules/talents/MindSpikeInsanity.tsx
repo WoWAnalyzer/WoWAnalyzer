@@ -29,6 +29,7 @@ class MindFlayInsanity extends Analyzer {
   damage = 0;
   insanityGained = 0;
   casts = 0;
+  secondCast = false; //This is for finding the overcaped procs, as it is only every other DP cast that causes the buff
 
   procsGained: number = 0; //Total gained Procs(including refreshed) (Should be equal to number of cast DP)
   procsExpired: number = 0; //procs lost to time
@@ -37,8 +38,6 @@ class MindFlayInsanity extends Analyzer {
   lastProcTime: number = 0;
   lastCastTime: number = 0;
   currentStacks: number = 0;
-
-  //TODO: Test if these spells (_DAMAGE and _BUFF) are still the correct ids.
 
   constructor(options: Options) {
     super(options);
@@ -97,13 +96,19 @@ class MindFlayInsanity extends Analyzer {
 
   onCastDP(event: CastEvent) {
     //DP cast occurs after the Buff is Applied but at the same timestamp
-    //If at 2 stacks and this DP isn't at the same time we reach 2 stacks, then its an overwritten proc
+    //If at 2 stacks and this DP isn't at the same time we reach 2 stacks, then it might be an overwritten proc
+    //Since it is ever other DP that gives a stack of the buff, we check if this is the second time DP is cast while we have been at 2 stacks.
     //This is only necesary because this buff does not have a refresh event.
     const compare: number = event.timestamp - this.lastCastTime; //Somtimes the DP timestamp is slightly delayed.
     if (this.currentStacks === 2 && compare >= 50) {
-      this.procsGained += 1;
-      this.procsOver += 1;
-      this.lastProcTime = event.timestamp; //since the proc duration is refreshed when overwritten
+      if (this.secondCast) {
+        this.procsGained += 1;
+        this.procsOver += 1;
+        this.lastProcTime = event.timestamp; //since the proc duration is refreshed when overwritten
+        this.secondCast = false; //this way a third cast will not give an additional proc
+      } else {
+        this.secondCast = true; //The first time a DP is cast while at 2 stacks (and not the cause of getting to 2 stacks), this will be set to true.
+      }
     }
   }
 
@@ -123,6 +128,7 @@ class MindFlayInsanity extends Analyzer {
   }
 
   onRemove(event: RemoveBuffEvent) {
+    this.secondCast = false;
     this.currentStacks = 0;
     const durationHeld = event.timestamp - this.lastProcTime;
     if (durationHeld > BUFF_DURATION_MS - 20) {
@@ -131,6 +137,7 @@ class MindFlayInsanity extends Analyzer {
   }
 
   onRemoveStack(event: RemoveBuffStackEvent) {
+    this.secondCast = false;
     this.currentStacks = event.stack;
   }
 

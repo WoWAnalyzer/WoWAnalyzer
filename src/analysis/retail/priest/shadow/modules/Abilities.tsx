@@ -118,6 +118,15 @@ class Abilities extends CoreAbilities {
         },
         enabled: combatant.hasTalent(TALENTS.HALO_SHADOW_TALENT),
       },
+      {
+        spell: TALENTS.DIVINE_STAR_SHADOW_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: 15,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(TALENTS.DIVINE_STAR_SHADOW_TALENT),
+      },
 
       // Cooldowns
       {
