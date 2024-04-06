@@ -350,9 +350,8 @@ export function buffChannelSpec(spellId: number): ChannelSpec {
 }
 
 /**
- * This handler works by handling cast events with the given guid, and then either finding the
- * matched empowerend event through event links, or scanning forward for the matched empowerend event,
- * and then making the pair of beginchannel and endchannel events based on them.
+ * This handler works by handling empower cast events with the given guid, and then finding the matched empowerend
+ * event through event links, and then making the pair of beginchannel and endchannel events based on them.
  *
  * @param spellId the guid for the tracked Empower Cast event.
  */
@@ -360,8 +359,8 @@ export function empowerChannelSpec(spellId: number): ChannelSpec {
   const guids = [spellId];
   const handler: ChannelHandler = (
     event: AnyEvent,
-    events: AnyEvent[],
-    eventIndex: number,
+    _events: AnyEvent[],
+    _eventIndex: number,
     state: ChannelState,
   ) => {
     // Tipped cast is instant cast so don't start a channel
@@ -370,39 +369,14 @@ export function empowerChannelSpec(spellId: number): ChannelSpec {
       cancelCurrentChannel(event, state);
       beginCurrentChannel(event, state);
 
-      // If we know the end event use that
       const potentiallyEmpowerEnd = getEmpowerEndEvent(event);
       if (potentiallyEmpowerEnd) {
+        // Empower finished channeling so we end the channel
         endCurrentChannel(potentiallyEmpowerEnd, state);
-        return {
-          handler,
-          guids,
-        };
-      }
-
-      // now scan ahead for the matched empowerend, cancel channel on all other casts
-      // This is mainly used as fallback incase our normalizer failed to find the empowerEnd event
-      // or to confirm the empower was cancelled
-      for (let idx = eventIndex + 1; idx < events.length; idx += 1) {
-        const laterEvent = events[idx];
-        if (
-          // Empower finished
-          HasAbility(laterEvent) &&
-          laterEvent.ability.guid === spellId &&
-          laterEvent.type === EventType.EmpowerEnd
-        ) {
-          endCurrentChannel(laterEvent, state);
-          break;
-        } else if (
-          // Empower never finished
-          (laterEvent.type === EventType.BeginCast ||
-            laterEvent.type === EventType.EmpowerStart ||
-            (laterEvent.type === EventType.Cast && isRealCast(laterEvent))) &&
-          event.sourceID === laterEvent.sourceID
-        ) {
-          cancelCurrentChannel(laterEvent, state);
-          break;
-        }
+      } else {
+        // Empower didn't finish channeling so we cancel the channel
+        // NOTE: if cancelCurrentChannel gets reworked to push a cancel channel event, this potentially needs to change
+        cancelCurrentChannel(event, state);
       }
     }
   };
