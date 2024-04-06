@@ -1,7 +1,10 @@
 import { EMPOWERS, EMPOWER_CANCELED_GCD, EMPOWER_MINIMUM_GCD } from '../..';
 import { BeginChannelEvent, CastEvent } from 'parser/core/Events';
 import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
-import { empowerFinishedCasting, isFromTipTheScales } from '../normalizers/EmpowerNormalizer';
+import EmpowerNormalizer, {
+  empowerFinishedCasting,
+  isFromTipTheScales,
+} from '../normalizers/EmpowerNormalizer';
 
 /**
  * Empowers GCD functions slightly different than normal GCDs.
@@ -10,6 +13,12 @@ import { empowerFinishedCasting, isFromTipTheScales } from '../normalizers/Empow
  * If the empower is instant cast with Tip The Scales, the GCD is reduced to 500ms.
  */
 class GlobalCooldown extends CoreGlobalCooldown {
+  static dependencies = {
+    ...CoreGlobalCooldown.dependencies,
+    // We need EMPOWERED_CAST castLink - so make sure the castLinks are made first
+    empowerNormalizer: EmpowerNormalizer,
+  };
+
   currentEmpower: CastEvent | undefined = undefined;
 
   onCast(event: CastEvent) {
