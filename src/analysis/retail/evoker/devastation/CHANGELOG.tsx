@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS/evoker';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 export default [
+  change(date(2024, 4, 6), 'Normalize Empower behavior to make analysis more consistent.', Vollmer),
   change(date(2024, 4, 1), <>Added analysis for <SpellLink spell={TALENTS.RENEWING_BLAZE_TALENT} />, <SpellLink spell={TALENTS.OBSIDIAN_SCALES_TALENT} /> and <SpellLink spell={TALENTS.TWIN_GUARDIAN_TALENT} />.</>, Vollmer),
   change(date(2024, 3, 30), <>Fix prepull <SpellLink spell={SPELLS.LIVING_FLAME_CAST} /> casts to properly display channel time.</>, Vollmer),
   change(date(2024, 3, 17), 'Update APL Check and timeline cleanup.', Vollmer),
