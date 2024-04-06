@@ -55,6 +55,7 @@ import {
   LeapingFlames,
   EmpowerNormalizer,
   SpellUsable,
+  GlobalCooldown,
   SpellEssenceCost,
   EssenceTracker,
   SourceOfMagic,
@@ -102,6 +103,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Empower Normalizer
     empowerNormalizer: EmpowerNormalizer,
     spellUsable: SpellUsable,
+    globalCooldown: GlobalCooldown,
 
     //talents
     ancientFlame: AncientFlame,

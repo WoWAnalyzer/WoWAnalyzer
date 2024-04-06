@@ -3,6 +3,7 @@ import CoreAbilities from 'analysis/retail/evoker/shared/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELLS from 'common/SPELLS/evoker';
+import { EMPOWER_BASE_GCD, EMPOWER_MINIMUM_GCD } from 'analysis/retail/evoker/shared';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -30,7 +31,8 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: 30,
         gcd: {
-          base: 500,
+          base: EMPOWER_BASE_GCD,
+          minimum: EMPOWER_MINIMUM_GCD,
         },
         castEfficiency: {
           suggestion: true,
@@ -61,7 +63,8 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: combatant.hasTalent(TALENTS.SPIRITUAL_CLARITY_TALENT) ? 20 : 30,
         gcd: {
-          base: 500,
+          base: EMPOWER_BASE_GCD,
+          minimum: EMPOWER_MINIMUM_GCD,
         },
         enabled: combatant.hasTalent(TALENTS.SPIRITBLOOM_TALENT),
         castEfficiency: {
