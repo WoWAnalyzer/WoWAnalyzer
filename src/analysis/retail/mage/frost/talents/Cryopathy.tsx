@@ -32,7 +32,10 @@ export default class Cryopathy extends Analyzer {
           ray.timestamp,
         );
         const cryopathyAmount =
-          ray.damage.reduce((totalAmount, damage) => (totalAmount += damage.amount), 0) *
+          ray.damage.reduce(
+            (totalAmount, damage) => totalAmount + damage.amount + (damage.absorbed || 0),
+            0,
+          ) *
           STACK_DMG_INCREASE *
           cryopathyStacks;
         cryopathyTotalDamage += cryopathyAmount;
