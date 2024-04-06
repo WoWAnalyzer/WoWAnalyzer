@@ -67,7 +67,6 @@ class GlacialSpike extends Analyzer {
   amendShatters() {
     this.glacialSpike.forEach((glacialSpike) => {
       if (glacialSpike.shattered !== this.wintersChill.wasShattered(glacialSpike.damage)) {
-        console.log('not consistent');
         glacialSpike.shattered = this.wintersChill.wasShattered(glacialSpike.damage);
       }
     });
