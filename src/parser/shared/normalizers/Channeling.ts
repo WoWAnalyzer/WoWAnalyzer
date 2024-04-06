@@ -354,7 +354,7 @@ export function buffChannelSpec(spellId: number): ChannelSpec {
  * matched empowerend event through event links, or scanning forward for the matched empowerend event,
  * and then making the pair of beginchannel and endchannel events based on them.
  *
- * @param spellId the guid for the tracked Cast and RemoveBuff/RemoveDebuff events.
+ * @param spellId the guid for the tracked Empower Cast event.
  */
 export function empowerChannelSpec(spellId: number): ChannelSpec {
   const guids = [spellId];
