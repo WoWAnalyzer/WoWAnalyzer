@@ -63,13 +63,16 @@ const EVENT_LINKS: EventLink[] = [
 class EmpowerNormalizer extends EventLinkNormalizer {
   constructor(options: Options) {
     super(options, EVENT_LINKS);
+    // Set to high priority so it runs before other normalizers
     this.priority -= 100;
   }
 
   /** Create EmpowerEnd events for Empowers cast with Tip the Scales
    * Also creates EMPOWERED_CAST link between the Cast and EmpowerEnd event */
   normalize(rawEvents: AnyEvent[]): AnyEvent[] {
+    // Create initial EventLinks that we can then reference later
     const events = super.normalize(rawEvents);
+
     const fixedEvents: any[] = [];
     const hasFont =
       this.owner.selectedCombatant.hasTalent(TALENTS.FONT_OF_MAGIC_AUGMENTATION_TALENT) ||
