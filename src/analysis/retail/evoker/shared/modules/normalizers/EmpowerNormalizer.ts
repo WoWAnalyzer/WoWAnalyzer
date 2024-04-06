@@ -1,5 +1,6 @@
 import TALENTS from 'common/TALENTS/evoker';
 import {
+  AddRelatedEvent,
   AnyEvent,
   CastEvent,
   EmpowerEndEvent,
@@ -81,16 +82,14 @@ class EmpowerNormalizer extends EventLinkNormalizer {
         return;
       }
 
-      const currentLinks = event._linkedEvents ?? [];
       const fabricatedEvent: EmpowerEndEvent = {
         ...event,
         type: EventType.EmpowerEnd,
         empowermentLevel: hasFont ? 4 : 3,
         __fabricated: true,
-        _linkedEvents: [{ relation: EMPOWERED_CAST, event: event }],
       };
 
-      event._linkedEvents = [...currentLinks, { relation: EMPOWERED_CAST, event: fabricatedEvent }];
+      AddRelatedEvent(event, EMPOWERED_CAST, fabricatedEvent);
 
       fixedEvents.push(event);
       fixedEvents.push(fabricatedEvent);
