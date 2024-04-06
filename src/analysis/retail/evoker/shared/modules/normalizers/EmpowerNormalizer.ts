@@ -115,7 +115,7 @@ export function empowerFinishedCasting(event: CastEvent): boolean {
 
 /** Get the associated empowerEnd event for an Empower cast */
 export function getEmpowerEndEvent(event: CastEvent): EmpowerEndEvent | undefined {
-  return GetRelatedEvent<EmpowerEndEvent>(event, EMPOWERED_CAST);
+  return GetRelatedEvent(event, EMPOWERED_CAST, (e) => e.type === EventType.EmpowerEnd);
 }
 
 export default EmpowerNormalizer;
