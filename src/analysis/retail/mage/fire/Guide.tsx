@@ -60,15 +60,13 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       </>
       {modules.heatingUpGuide.guideSubsection}
       {modules.hotStreakGuide.guideSubsection}
-      <Section title="Combustion"></Section>
+      <Section title="Cooldowns"></Section>
       <>
-        <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> is one of the largest contributors to your
-        overall damage and has a short duration. Therefore it is critical that you pool your
-        resources beforehand and get as much as possible into that short window. Additionally,
-        because <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> is a big burst of damage, you should
-        ensure any damage buffs are getting stacked and properly managed during{' '}
-        <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> as well.
+        As is the case with most damage specs, properly utilizing your damage cooldowns will go a
+        long way towards improving your overall damage, especially{' '}
+        <SpellLink spell={TALENTS.COMBUSTION_TALENT} />.
       </>
+      {modules.combustionGuide.guideSubsection}
       <PreparationSection />
     </>
   );

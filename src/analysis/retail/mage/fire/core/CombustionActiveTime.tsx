@@ -9,8 +9,10 @@ import Events, {
   GetRelatedEvent,
   RemoveBuffEvent,
   FightEndEvent,
+  HasRelatedEvent,
 } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -19,6 +21,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import CombustionPreCastDelay from './Combustion';
 import AlwaysBeCasting from './AlwaysBeCasting';
 import EventHistory from 'parser/shared/modules/EventHistory';
+import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 
 class CombustionActiveTime extends Analyzer {
   static dependencies = {
@@ -32,7 +35,13 @@ class CombustionActiveTime extends Analyzer {
   protected alwaysBeCasting!: AlwaysBeCasting;
   protected combustionPreCastDelay!: CombustionPreCastDelay;
 
-  activeTime: number[] = [];
+  activeTime: {
+    buffStart: number;
+    duration: number;
+    downtime: number;
+    activePercent: number;
+    analysis: BoxRowEntry;
+  }[] = [];
   buffApplies: number = 0;
 
   constructor(options: Options) {
@@ -57,10 +66,7 @@ class CombustionActiveTime extends Analyzer {
     if (!buffApply) {
       return;
     }
-    const combustDuration = event.timestamp - buffApply.timestamp;
-    this.activeTime[buffApply.timestamp] =
-      combustDuration -
-      this.alwaysBeCasting.getActiveTimeMillisecondsInWindow(buffApply.timestamp, event.timestamp);
+    this.analyzeActiveTime(buffApply, event.timestamp);
   }
 
   onFightEnd(event: FightEndEvent) {
@@ -71,17 +77,64 @@ class CombustionActiveTime extends Analyzer {
     if (!this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id) || !buffApply) {
       return;
     }
-    const combustDuration = event.timestamp - buffApply.timestamp;
-    this.activeTime[buffApply.timestamp] =
-      combustDuration -
-      this.alwaysBeCasting.getActiveTimeMillisecondsInWindow(buffApply.timestamp, event.timestamp);
+    this.analyzeActiveTime(buffApply, event.timestamp);
+    this.log(this.activeTime);
   }
 
   combustionDowntime = () => {
-    let activeTime = 0;
-    this.activeTime.forEach((c) => (activeTime += c));
-    return activeTime / 1000;
+    let active = 0;
+    this.activeTime.forEach((c) => (active += c.downtime));
+    return active / 1000;
   };
+
+  analyzeActiveTime(buffApply: ApplyBuffEvent, buffEnd: number) {
+    const cast = HasRelatedEvent(buffApply, 'SpellCast') && GetRelatedEvent(buffApply, 'SpellCast');
+    if (!cast) {
+      return;
+    }
+
+    const duration = buffEnd - buffApply.timestamp;
+    const activeTime = this.alwaysBeCasting.getActiveTimeMillisecondsInWindow(
+      buffApply.timestamp,
+      buffEnd,
+    );
+    const activePercent = activeTime / duration;
+    const downtime = duration - activeTime;
+    const tooltip = (
+      <>
+        {formatPercentage(activePercent, 0)}% Active Time
+        <br />
+        {(downtime / 1000).toFixed(2)}s Downtime
+      </>
+    );
+    this.activeTime[cast.timestamp] = {
+      buffStart: buffApply.timestamp,
+      duration,
+      downtime,
+      activePercent,
+      analysis: {
+        value: this.checkPerformance(activeTime, duration),
+        tooltip,
+      },
+    };
+  }
+
+  checkPerformance(activeTime: number, buffDuration: number) {
+    const activePercent = activeTime / buffDuration;
+
+    let performance;
+    if (activePercent > this.combustionActiveTimeThresholds.isLessThan.minor) {
+      performance = QualitativePerformance.Perfect;
+    } else if (activePercent > this.combustionActiveTimeThresholds.isLessThan.average) {
+      performance = QualitativePerformance.Good;
+    } else if (activePercent > this.combustionActiveTimeThresholds.isLessThan.major) {
+      performance = QualitativePerformance.Ok;
+    } else {
+      performance = QualitativePerformance.Fail;
+    }
+
+    return performance;
+  }
 
   get buffUptime() {
     return this.selectedCombatant.getBuffUptime(TALENTS.COMBUSTION_TALENT.id) / 1000;
@@ -170,7 +223,7 @@ class CombustionActiveTime extends Analyzer {
                       {formatDuration(Number(cast) - this.owner.fight.start_time)}
                     </th>
                     <th style={{ textAlign: 'left' }}>
-                      {formatPercentage(this.activeTime[Number(cast)])}%
+                      {formatPercentage(this.activeTime[Number(cast)].activePercent)}%
                     </th>
                     <td style={{ textAlign: 'left' }}>
                       {(
