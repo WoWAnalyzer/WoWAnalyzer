@@ -55,7 +55,7 @@ import Guide from './Guide';
 import HotStreakGuide from './guide/HotStreak';
 import HeatingUpGuide from './guide/HeatingUp';
 import CombustionGuide from './guide/Combustion';
-import SunKingsBlessingGuide from './guide/SubKingsBlessing';
+import SunKingsBlessingGuide from './guide/SunKingsBlessing';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
