@@ -21,6 +21,7 @@ import Events, {
   DamageEvent,
   ApplyBuffEvent,
   RemoveBuffEvent,
+  FightEndEvent,
   GetRelatedEvent,
   HasRelatedEvent,
 } from 'parser/core/Events';
@@ -67,6 +68,7 @@ class HotStreak extends Analyzer {
       Events.damage.by(SELECTED_PLAYER).spell(FIRE_DIRECT_DAMAGE_SPELLS),
       this.damageEvents,
     );
+    this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
   onHotStreakApply(event: RemoveBuffEvent) {
@@ -89,10 +91,13 @@ class HotStreak extends Analyzer {
     this.wasted.push({ event: event, timestamp: event.timestamp });
   }
 
-  // prettier-ignore
-  missingHotStreakPreCast = () => {
+  onFightEnd(event: FightEndEvent) {
+    this.analyzeHotStreaks();
+  }
 
-    this.log(this.hotStreaks.length)
+  // prettier-ignore
+  analyzeHotStreaks = () => {
+
     //If there is a precast then filter it out. 
     let procs = this.hotStreaks.filter(hs => {
       if (hs.precast) {
@@ -101,37 +106,33 @@ class HotStreak extends Analyzer {
       return !hs.preCastMissing;
     })
 
-    this.log(procs.length)
     //If Ccombustion was active, filter it out
     procs = procs.filter(hs => {
       const combustionActive = this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id, hs.remove.timestamp);
       if (combustionActive) {
         hs.preCastMissing = { performance: QualitativePerformance.Good, tooltip: `Combustion Active`}
       }
-      return !hs.preCastMissing
+      return !hs.preCastMissing;
     });
 
-    this.log(procs.length)
     //If Hyperthermia was active, filter it out
     procs = procs.filter(hs => {
       const hyperthermiaActive = this.selectedCombatant.hasBuff(SPELLS.HYPERTHERMIA_BUFF.id, hs.remove.timestamp);
       if (this.hasHyperthermia && hyperthermiaActive) {
         hs.preCastMissing = { performance: QualitativePerformance.Good, tooltip: `Hyperthermia Active` }
       }
-      return !hs.preCastMissing
+      return !hs.preCastMissing;
     })
 
-    this.log(procs.length)
     //If Combustion ended less than 3 seconds ago, filter it out
     procs = procs.filter(hs => {
       const combustionEnded = this.eventHistory.getEvents(EventType.RemoveBuff, { spell: TALENTS.COMBUSTION_TALENT, count: 1, startTimestamp: hs.remove.timestamp })[0];
       if (combustionEnded && hs.remove.timestamp - combustionEnded.timestamp < COMBUSTION_END_BUFFER) {
         hs.preCastMissing = { performance: QualitativePerformance.Good, tooltip: `Combustion Ended Recently` }
       }
-      return !hs.preCastMissing
+      return !hs.preCastMissing;
     })
 
-    this.log(procs.length)
     //If Firestarter or Searing Touch was active, filter it out
     procs = procs.filter(hs => {
       const spenderDamage = hs.spender && GetRelatedEvent(hs.spender, 'SpellDamage');
@@ -146,7 +147,7 @@ class HotStreak extends Analyzer {
       if (this.hasSearingTouch && targetHealth && targetHealth < SEARING_TOUCH_THRESHOLD) {
         hs.preCastMissing = { performance: QualitativePerformance.Good, tooltip: `Searing Touch Active` }
       }
-      return !hs.preCastMissing
+      return !hs.preCastMissing;
     });
 
     //If the proc expired, mark it failed on the guide but dont filter it out
@@ -210,8 +211,15 @@ class HotStreak extends Analyzer {
     return expired.length || 0;
   };
 
+  get missingPreCasts() {
+    const missingPreCasts = this.hotStreaks.filter(
+      (hs) => hs.preCastMissing?.performance === QualitativePerformance.Fail,
+    );
+    return missingPreCasts.length;
+  }
+
   get badUses() {
-    return this.expiredProcs() + this.missingHotStreakPreCast();
+    return this.expiredProcs() + this.missingPreCasts;
   }
 
   get badUsePercent() {
@@ -236,7 +244,7 @@ class HotStreak extends Analyzer {
 
   get castBeforeHotStreakThresholds() {
     return {
-      actual: 1 - this.missingHotStreakPreCast() / this.totalHotStreaks,
+      actual: 1 - this.missingPreCasts / this.totalHotStreaks,
       isLessThan: {
         minor: 0.85,
         average: 0.75,
@@ -285,10 +293,10 @@ class HotStreak extends Analyzer {
           <SpellLink spell={SPELLS.FIREBALL} /> . This way, if one of the two abilities crit you
           will gain a new <SpellLink spell={SPELLS.HEATING_UP} /> proc, and if both crit you will
           get a new <SpellLink spell={SPELLS.HOT_STREAK} /> proc. You failed to do this{' '}
-          {this.missingHotStreakPreCast()} times. If you have a{' '}
-          <SpellLink spell={SPELLS.HOT_STREAK} /> proc and need to move, you can hold the proc and
-          cast <SpellLink spell={SPELLS.SCORCH} /> once or twice until you are able to stop and cast{' '}
-          <SpellLink spell={SPELLS.FIREBALL} /> or you can use your procs while you move.
+          {this.missingPreCasts} times. If you have a <SpellLink spell={SPELLS.HOT_STREAK} /> proc
+          and need to move, you can hold the proc and cast <SpellLink spell={SPELLS.SCORCH} /> once
+          or twice until you are able to stop and cast <SpellLink spell={SPELLS.FIREBALL} /> or you
+          can use your procs while you move.
         </>,
       )
         .icon(SPELLS.HOT_STREAK.icon)
@@ -339,7 +347,7 @@ class HotStreak extends Analyzer {
               <li>Total procs - {this.totalHotStreaks}</li>
               <li>Used procs - {this.totalHotStreaks - this.expiredProcs()}</li>
               <li>Expired procs - {this.expiredProcs()}</li>
-              <li>Procs used without a Fireball - {this.missingHotStreakPreCast()}</li>
+              <li>Procs used without a Fireball - {this.missingPreCasts}</li>
             </ul>
           </>
         }

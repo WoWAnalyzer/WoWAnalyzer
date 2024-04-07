@@ -129,7 +129,7 @@ class HotStreakGuide extends Analyzer {
       <>
         {this.hotStreak.expiredProcs()} Expired Procs.
         <br />
-        {this.hotStreak.missingHotStreakPreCast()} Missing Pre Cast
+        {this.hotStreak.missingPreCasts} Missing Pre Cast
       </>
     );
     const wastedCritTooltip = <>{this.hotStreak.wastedCrits()} Wasted Crits</>;
@@ -141,8 +141,7 @@ class HotStreakGuide extends Analyzer {
           >
             {hotStreakIcon}{' '}
             <TooltipElement content={utilizationTooltip}>
-              {formatPercentage(this.hotStreak.castBeforeHotStreakThresholds.actual, 0)} %{' '}
-              <small>utilization</small>
+              {formatPercentage(this.hotStreak.badUsePercent, 0)} % <small>utilization</small>
             </TooltipElement>
           </div>
           <div
