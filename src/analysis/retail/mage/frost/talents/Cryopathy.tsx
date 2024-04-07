@@ -7,6 +7,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { formatNumber } from 'common/format';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 
 const STACK_DMG_INCREASE = 0.05;
 
