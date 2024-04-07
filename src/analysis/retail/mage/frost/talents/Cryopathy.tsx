@@ -48,7 +48,7 @@ export default class Cryopathy extends Analyzer {
             <p>
               {formatNumber(cryopathyTotalDamage)} <small>Damage contribution</small>
             </p>
-            <p>{this.owner.formatItemDamageDone(cryopathyTotalDamage)}</p>
+            <ItemDamageDone amount={cryopathyTotalDamage} />
           </>
         </BoringSpellValueText>
       </Statistic>
