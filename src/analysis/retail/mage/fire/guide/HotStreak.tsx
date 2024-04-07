@@ -10,7 +10,7 @@ import { explanationAndDataSubsection } from 'interface/guide/components/Explana
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { qualitativePerformanceToColor } from 'interface/guide';
 import { PerformanceMark } from 'interface/guide';
-import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/mage/frost/Guide';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/mage/fire/Guide';
 import HotStreak from '../core/HotStreak';
 
 class HotStreakGuide extends Analyzer {

@@ -58,6 +58,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           utilize your procs will go a long way towards increasing your damage.
         </>
         {modules.hotStreakGuide.guideSubsection}
+        {modules.heatingUpGuide.guideSubsection}
         {alwaysBeCastingSubsection}
       </Section>
       <Section title="Procs"></Section>

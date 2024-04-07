@@ -53,6 +53,7 @@ import SunKingsBlessingNormalizer from './normalizers/SunKingsBlessingBuffs';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import Guide from './Guide';
 import HotStreakGuide from './guide/HotStreak';
+import HeatingUpGuide from './guide/HeatingUp';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -68,6 +69,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Guide
     hotStreakGuide: HotStreakGuide,
+    heatingUpGuide: HeatingUpGuide,
 
     //Core
     buffs: Buffs,
