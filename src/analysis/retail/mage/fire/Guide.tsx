@@ -49,6 +49,27 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
 
   return (
     <>
+      <Section title="Preface & Disclaimers">
+        <>
+          The analysis in this guide is provided in collaboration with the staff of the{' '}
+          <a href="https://discord.gg/makGfZA">Altered Time</a> Mage Discord. When reviewing this
+          information, keep in mind that WoWAnalyzer is limited to the information that is present
+          in your combat log. As a result, we have no way of knowing if you were intentionally doing
+          something suboptimal because the fight or strat required it (such as Forced Downtime or
+          holding cooldowns for a burn phase). Because of this, we recommend comparing your analysis
+          against a top 100 log for the same boss.
+          <br />
+          <br />
+          For additional assistance in improving your gameplay, or to have someone look more in
+          depth at your combat logs, please visit the{' '}
+          <a href="https://discord.gg/makGfZA">Altered Time</a> discord.
+          <br />
+          <br />
+          If you notice any issues or errors in this analysis ... or if there is additional analysis
+          you would like added, please ping <code>@Sharrq</code> in the{' '}
+          <a href="https://discord.gg/makGfZA">Altered Time</a> discord.
+        </>
+      </Section>
       <Section title="Core">{alwaysBeCastingSubsection}</Section>
       <Section title="Heating Up & Hot Streak"></Section>
       <>
