@@ -3,7 +3,6 @@ import TALENTS from 'common/TALENTS/evoker';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-import { generatedEssenceBurst } from '../normalizers/CastLinkNormalizer';
 import { ANACHRONISM_ESSCENCE_CHANCE } from '../../constants';
 
 import Statistic from 'parser/ui/Statistic';
@@ -12,6 +11,10 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { SpellLink } from 'interface';
 import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
+import {
+  EBSource,
+  eventGeneratedEB,
+} from '../../../shared/modules/normalizers/EssenceBurstCastLinkNormalizer';
 
 /**
  * Prescience has a 35% chance to grant Essence Burst.
@@ -32,7 +35,7 @@ class Anachronism extends Analyzer {
 
   onCast(event: CastEvent) {
     this.prescienceCasts += 1;
-    if (generatedEssenceBurst(event)) {
+    if (eventGeneratedEB(event, EBSource.Prescience)) {
       this.essenceBurstGenerated += 1;
     }
   }

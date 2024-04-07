@@ -2,7 +2,6 @@ import SPELLS from 'common/SPELLS/evoker';
 import TALENTS from 'common/TALENTS/evoker';
 import {
   ApplyBuffEvent,
-  ApplyBuffStackEvent,
   ApplyDebuffEvent,
   CastEvent,
   DamageEvent,
@@ -18,6 +17,8 @@ import {
 import { Options } from 'parser/core/Module';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
+import PrePullCooldowns from 'parser/shared/normalizers/PrePullCooldowns';
+import { LEAPING_FLAMES_HITS } from 'analysis/retail/evoker/shared/modules/normalizers/LeapingFlamesNormalizer';
 
 /** So sometimes when Ebon Might should be extended
  * it just kinda doesn't? This messes with our analysis so
@@ -33,8 +34,6 @@ export const TIP_THE_SCALES_CONSUME = 'tipTheScalesConsume';
 export const BREATH_EBON_APPLY_LINK = 'breathEbonApplyLink';
 export const EBON_MIGHT_BUFF_LINKS = 'ebonMightBuffLinks';
 export const EBON_MIGHT_APPLY_REMOVE_LINK = 'ebonMightApplyRemoveLink';
-
-export const EB_FROM_PRESCIENCE = 'ebFromPrescience';
 
 export const BREATH_OF_EONS_CAST_DEBUFF_APPLY_LINK = 'breathOfEonsCastDebuffApplyLink';
 export const BREATH_OF_EONS_CAST_BUFF_LINK = 'breathOfEonsCastBuffLink';
@@ -169,12 +168,18 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true,
     maximumLinks: 1,
     forwardBufferMs: PUPIL_OF_ALEXSTRASZA_BUFFER,
+    isActive(c) {
+      return c.hasTalent(TALENTS.PUPIL_OF_ALEXSTRASZA_TALENT);
+    },
     additionalCondition(linkingEvent, referencedEvent) {
       // No targets so we can't be sure which hit is the correct one, so we just claim it
       if (!HasTarget(linkingEvent) && !HasTarget(referencedEvent)) {
         return true;
       }
-      return encodeEventTargetString(linkingEvent) !== encodeEventTargetString(referencedEvent);
+      return (
+        encodeEventTargetString(linkingEvent) !== encodeEventTargetString(referencedEvent) &&
+        !HasRelatedEvent(referencedEvent, LEAPING_FLAMES_HITS)
+      );
     },
   },
   {
@@ -186,18 +191,6 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: EventType.Damage,
     anyTarget: true,
     forwardBufferMs: CAST_BUFFER_MS,
-  },
-  {
-    linkRelation: EB_FROM_PRESCIENCE,
-    reverseLinkRelation: EB_FROM_PRESCIENCE,
-    linkingEventId: TALENTS.PRESCIENCE_TALENT.id,
-    linkingEventType: EventType.Cast,
-    referencedEventId: SPELLS.ESSENCE_BURST_AUGMENTATION_BUFF.id,
-    referencedEventType: [EventType.ApplyBuff, EventType.ApplyBuffStack, EventType.RefreshBuff],
-    anyTarget: true,
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
-    maximumLinks: 1,
   },
   {
     linkRelation: FAILED_EXTENSION_LINK,
@@ -250,12 +243,12 @@ const EVENT_LINKS: EventLink[] = [
 ];
 
 class CastLinkNormalizer extends EventLinkNormalizer {
-  // This is set to lower priority than default since
+  // We depend on prePullCooldowns since
   // to create proper links on events fabricated using PrePullCooldownsNormalizer
-  // We need to ensure this runs after the PrePullCooldownsNormalizer
+  // We need to ensure this normalizer runs after the PrePullCooldownsNormalizer
   // This is necessary if we want BreathOfEons module to function properly
   // With pre-pull casts of Breath of Eons
-  priority = 100;
+  static dependencies = { ...EventLinkNormalizer.dependencies, prePullCooldowns: PrePullCooldowns };
   constructor(options: Options) {
     super(options, EVENT_LINKS);
   }
@@ -327,16 +320,6 @@ export function isFromTipTheScales(event: CastEvent) {
 
 export function ebonIsFromBreath(event: ApplyBuffEvent | CastEvent) {
   return HasRelatedEvent(event, BREATH_EBON_APPLY_LINK);
-}
-
-export function generatedEssenceBurst(event: CastEvent) {
-  const maybeGenerate = GetRelatedEvent(
-    event,
-    EB_FROM_PRESCIENCE,
-    (e): e is ApplyBuffEvent | ApplyBuffStackEvent =>
-      e.type === EventType.ApplyBuff || e.type === EventType.ApplyBuffStack,
-  );
-  return Boolean(maybeGenerate);
 }
 
 export function failedEbonMightExtension(event: CastEvent | EmpowerEndEvent) {

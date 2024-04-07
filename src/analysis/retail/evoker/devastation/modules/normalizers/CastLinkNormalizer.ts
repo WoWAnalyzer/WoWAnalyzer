@@ -10,7 +10,6 @@ export const SNAPFIRE_CONSUME = 'SnapfireConsumption';
 export const IRIDESCENCE_RED_CONSUME = 'IridescentRedConsumption';
 export const IRIDESCENCE_BLUE_CONSUME = 'IridescentBlueConsumption';
 export const DISINTEGRATE_REMOVE_APPLY = 'DisintegrateRemoveApply';
-export const EB_FROM_ARCANE_VIGOR = 'ebFromArcaneVigor';
 
 const CAST_BUFFER_MS = 100;
 const EVENT_LINKS: EventLink[] = [
@@ -114,24 +113,6 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: SPELLS.DISINTEGRATE.id,
     referencedEventType: EventType.ApplyDebuff,
     anyTarget: true,
-  },
-  {
-    linkRelation: EB_FROM_ARCANE_VIGOR,
-    reverseLinkRelation: EB_FROM_ARCANE_VIGOR,
-    linkingEventId: [SPELLS.SHATTERING_STAR.id],
-    linkingEventType: EventType.Cast,
-    referencedEventId: [
-      TALENTS_EVOKER.RUBY_ESSENCE_BURST_TALENT.id,
-      SPELLS.ESSENCE_BURST_DEV_BUFF.id,
-    ],
-    referencedEventType: [EventType.ApplyBuff, EventType.ApplyBuffStack, EventType.RefreshBuff],
-    anyTarget: true,
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
-    maximumLinks: 1,
-    isActive(c) {
-      return c.hasTalent(TALENTS_EVOKER.ARCANE_VIGOR_TALENT);
-    },
   },
 ];
 

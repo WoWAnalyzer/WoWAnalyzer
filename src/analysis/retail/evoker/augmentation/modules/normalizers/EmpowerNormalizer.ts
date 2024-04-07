@@ -1,6 +1,6 @@
 import { AnyEvent, EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
-import { isFromTipTheScales } from './CastLinkNormalizer';
+import CastLinkNormalizer, { isFromTipTheScales } from './CastLinkNormalizer';
 
 /**
  * Empowers cast with Tip the Scales doesn't produce an EmpowerEnd event, only Cast event
@@ -10,8 +10,10 @@ import { isFromTipTheScales } from './CastLinkNormalizer';
  */
 
 class EmpowerNormalizer extends EventsNormalizer {
-  // Set lower priority to ensure this runs after our CastLinkNormalizer
-  priority = 101;
+  static dependencies = {
+    ...EventsNormalizer.dependencies,
+    castLinkNormalizer: CastLinkNormalizer,
+  };
   normalize(events: AnyEvent[]): AnyEvent[] {
     const fixedEvents: any[] = [];
     events.forEach((event) => {

@@ -6,12 +6,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Events, { EventType, RemoveBuffEvent } from 'parser/core/Events';
 import {
-  eventGeneratedEB,
-  getGeneratedEBEvents,
-  getWastedEBEvents,
   getLeapingEvents,
-  eventWastedEB,
-  getEBSource,
   getLivingFlameCastHit,
   getLeapingCast,
 } from '../normalizers/LeapingFlamesNormalizer';
@@ -23,6 +18,14 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Soup from 'interface/icons/Soup';
 import { SpellLink } from 'interface';
 import { InformationIcon, WarningIcon } from 'interface/icons';
+import {
+  EBSource,
+  eventGeneratedEB,
+  eventWastedEB,
+  getGeneratedEBEvents,
+  getWastedEBEvents,
+  isEBFrom,
+} from '../normalizers/EssenceBurstCastLinkNormalizer';
 
 /**
  * Fire Breath causes your next Living Flame to strike 1 additional target per empower level.
@@ -110,48 +113,41 @@ class LeapingFlames extends Analyzer {
       { damageHits: 0, healHits: 0 },
     );
 
-    const generatedEB = getGeneratedEBEvents(lfCast);
-    const wastedEB = getWastedEBEvents(lfCast);
+    const generatedEB = getGeneratedEBEvents(lfCast, EBSource.LivingFlameCast);
+    const wastedEB = getWastedEBEvents(lfCast, EBSource.LivingFlameCast);
     if (!generatedEB.length && !wastedEB.length) {
       // potentially you don't bail here if you want to show expected vs actual procs
       console.log('no EBs');
+      console.log('damageHits', damageHits);
+      console.log('healHits', healHits);
       console.groupEnd();
       return;
     }
 
     const allEBEvents = [...generatedEB, ...wastedEB];
 
-    const { unknownGen, unknownWaste, healGen, healWaste } = allEBEvents.reduce(
+    const { healGen, healWaste } = allEBEvents.reduce(
       (acc, event) => {
-        const ebSource = getEBSource(event);
+        /* const ebSource = getEBSource(event); */
         const isWaste = event.type === EventType.RefreshBuff;
 
-        switch (ebSource) {
-          case 'Heal':
-            if (isWaste) {
-              acc.healWaste += 1;
-            } else {
-              acc.healGen += 1;
-            }
-            break;
-          case 'Unknown':
-            if (isWaste) {
-              acc.unknownWaste += 1;
-            } else {
-              acc.unknownGen += 1;
-            }
-            break;
+        const isFromHeal = isEBFrom(event, EBSource.LivingFlameHeal);
+
+        if (isFromHeal) {
+          if (isWaste) {
+            acc.healWaste += 1;
+          } else {
+            acc.healGen += 1;
+          }
         }
 
         return acc;
       },
-      { unknownGen: 0, unknownWaste: 0, healGen: 0, healWaste: 0 },
+      { healGen: 0, healWaste: 0 },
     );
 
     console.log('damageHits', damageHits);
     console.log('healHits', healHits);
-    console.log('unknownGen', unknownGen);
-    console.log('unknownWaste', unknownWaste);
     console.log('healGen', healGen);
     console.log('healWaste', healWaste);
 

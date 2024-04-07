@@ -1,6 +1,6 @@
-import SPELLS from 'common/SPELLS';
 import { AnyEvent, EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
+import { EB_BUFF_IDS } from '../../constants';
 
 const MAX_DELAY = 25;
 
@@ -8,11 +8,11 @@ const MAX_DELAY = 25;
  * When an EB stack is removed, a refresh buff event is generated.
  * This normalizer removes the refresh event because it messes up analysis.
  */
-class EBRefreshNormalizer extends EventsNormalizer {
+class EssenceBurstRefreshNormalizer extends EventsNormalizer {
   isEbEvent(event: AnyEvent) {
     return (
       (event.type === EventType.RemoveBuffStack || event.type === EventType.RefreshBuff) &&
-      event.ability.guid === SPELLS.ESSENCE_BURST_BUFF.id
+      EB_BUFF_IDS.includes(event.ability.guid)
     );
   }
   normalize(events: AnyEvent[]) {
@@ -49,4 +49,4 @@ class EBRefreshNormalizer extends EventsNormalizer {
     return fixedEvents;
   }
 }
-export default EBRefreshNormalizer;
+export default EssenceBurstRefreshNormalizer;
