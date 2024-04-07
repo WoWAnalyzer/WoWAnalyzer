@@ -55,6 +55,7 @@ import Guide from './Guide';
 import HotStreakGuide from './guide/HotStreak';
 import HeatingUpGuide from './guide/HeatingUp';
 import CombustionGuide from './guide/Combustion';
+import SunKingsBlessingGuide from './guide/SubKingsBlessing';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -72,6 +73,7 @@ class CombatLogParser extends CoreCombatLogParser {
     hotStreakGuide: HotStreakGuide,
     heatingUpGuide: HeatingUpGuide,
     combustionGuide: CombustionGuide,
+    sunKingsBlessingGuide: SunKingsBlessingGuide,
 
     //Core
     buffs: Buffs,

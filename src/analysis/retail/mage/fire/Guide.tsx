@@ -60,13 +60,19 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       </>
       {modules.heatingUpGuide.guideSubsection}
       {modules.hotStreakGuide.guideSubsection}
+
       <Section title="Cooldowns"></Section>
       <>
         As is the case with most damage specs, properly utilizing your damage cooldowns will go a
         long way towards improving your overall damage, especially{' '}
         <SpellLink spell={TALENTS.COMBUSTION_TALENT} />.
       </>
-      {modules.combustionGuide.guideSubsection}
+      {info.combatant.hasTalent(TALENTS.COMBUSTION_TALENT) &&
+        modules.combustionGuide.guideSubsection}
+      {info.combatant.hasTalent(TALENTS.SUN_KINGS_BLESSING_TALENT) &&
+        modules.sunKingsBlessingGuide.guideSubsection}
+
+      <Section title="Talents"></Section>
       <PreparationSection />
     </>
   );

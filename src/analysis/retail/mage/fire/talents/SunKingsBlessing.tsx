@@ -106,9 +106,9 @@ class SunKingsBlessing extends Analyzer {
     return {
       actual: this.percentSunKingBuffExpired,
       isGreaterThan: {
-        minor: 0.1,
-        average: 0.2,
-        major: 0.3,
+        minor: 0,
+        average: 0.1,
+        major: 0.2,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
