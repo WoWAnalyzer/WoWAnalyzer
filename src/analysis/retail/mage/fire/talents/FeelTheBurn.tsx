@@ -73,6 +73,7 @@ class FeelTheBurn extends Analyzer {
 
   onFightEnd(event: FightEndEvent) {
     this.analyzeStackDurations();
+    this.stackUptime.sort((a, b) => a.buffStart - b.buffStart);
   }
 
   totalCombustionDuration = () => {

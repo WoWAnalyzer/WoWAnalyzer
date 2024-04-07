@@ -128,6 +128,7 @@ class CombustionGuide extends Analyzer {
     const scorch = <SpellLink spell={SPELLS.SCORCH} />;
     const fireball = <SpellLink spell={SPELLS.FIREBALL} />;
     const pyroblast = <SpellLink spell={TALENTS.PYROBLAST_TALENT} />;
+    const flamestrike = <SpellLink spell={SPELLS.FLAMESTRIKE} />;
     const sunKingsBlessing = <SpellLink spell={TALENTS.SUN_KINGS_BLESSING_TALENT} />;
     const flameAccelerant = <SpellLink spell={TALENTS.FLAME_ACCELERANT_TALENT} />;
     const feelTheBurn = <SpellLink spell={TALENTS.FEEL_THE_BURN_TALENT} />;
@@ -163,13 +164,13 @@ class CombustionGuide extends Analyzer {
             </li>
             <li>
               Eliminate as much downtime as possible while {combustion} is active to ensure you get
-              as many {hotStreak}s and {pyroblast}s as possible.
+              as many {hotStreak}s and {pyroblast}s/{flamestrike}s as possible.
             </li>
             <li>
               Do not hardcast longer abilities like {fireball} (unless you have {flameAccelerant} or{' '}
-              {'>'} 100% Haste) or {pyroblast} (Unless you have {sunKingsBlessing}). If you are in
-              danger of running out of {fireBlast} and {phoenixFlames} charges, weave in some{' '}
-              {scorch} casts.
+              {'>'} 100% Haste) or {pyroblast}/{flamestrike} (Unless you have {sunKingsBlessing}).
+              If you are in danger of running out of {fireBlast} and {phoenixFlames} charges, weave
+              in some {scorch} casts.
             </li>
             {this.selectedCombatant.hasTalent(TALENTS.FEEL_THE_BURN_TALENT) && (
               <li>
