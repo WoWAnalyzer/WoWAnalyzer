@@ -1,33 +1,30 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/evoker';
 import TALENTS from 'common/TALENTS/evoker';
-import Events, {
-  ApplyDebuffEvent,
-  CastEvent,
-  DamageEvent,
-  HasRelatedEvent,
-  RemoveDebuffEvent,
-} from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent, HasRelatedEvent } from 'parser/core/Events';
 import Spell from 'common/SPELLS/Spell';
 import { ChecklistUsageInfo, SpellUse, UsageInfo } from 'parser/core/SpellUsage/core';
 import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
-import { formatDuration } from 'common/format';
+import { formatNumber } from 'common/format';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
-import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { SpellLink } from 'interface';
 import ContextualSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
+import { IRIDESCENCE_BLUE_CONSUME } from '../normalizers/CastLinkNormalizer';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import DonutChart from 'parser/ui/DonutChart';
+import { isMythicPlus } from 'common/isMythicPlus';
 
 const WHITELISTED_SPELLS: Spell[] = [
   SPELLS.DISINTEGRATE,
   SPELLS.AZURE_STRIKE,
   SPELLS.LIVING_FLAME_DAMAGE,
   SPELLS.PYRE,
-  SPELLS.FIRE_BREATH,
-  SPELLS.FIRE_BREATH_FONT,
-  SPELLS.ETERNITY_SURGE,
-  SPELLS.ETERNITY_SURGE_FONT,
+  SPELLS.FIRE_BREATH_DOT,
+  SPELLS.ETERNITY_SURGE_DAM,
   TALENTS.UNRAVEL_TALENT,
   SPELLS.FIRESTORM_DAMAGE,
   SPELLS.DEEP_BREATH_DAM,
@@ -85,6 +82,9 @@ class NewShatteringStar extends Analyzer {
   private uses: SpellUse[] = [];
   private shatteringStarWindows: ShatteringStarWindow[] = [];
 
+  totalAmpedDamageRecord: DamageRecord = {};
+  totalShatteringStarDamage = 0;
+
   activeTargets = new Set<string>();
   constructor(options: Options) {
     super(options);
@@ -136,19 +136,23 @@ class NewShatteringStar extends Analyzer {
   }
 
   private onDamage(event: DamageEvent) {
-    // TODO: improve disintegrate logic because you get all your ticks buffed if you sneak it in at the end
     if (!this.currentWindow || !this.targetHasDebuff(event)) {
       return;
     }
 
     if (event.ability.guid === TALENTS.SHATTERING_STAR_TALENT.id) {
-      this.currentWindow.damage += event.amount + (event.absorbed ?? 0);
-      // whaaaat no return? nope, Shattering amps itself :D
+      const amount = event.amount + (event.absorbed ?? 0);
+      this.currentWindow.damage += amount;
+      this.totalShatteringStarDamage += amount;
+      return;
     }
 
     const shatteringAmpStarDamage = calculateEffectiveDamage(event, SHATTERING_STAR_AMP_MULTIPLIER);
-    const curDamage = this.currentWindow.ampedDamage[event.ability.guid];
-    this.currentWindow.ampedDamage[event.ability.guid] = (curDamage ?? 0) + shatteringAmpStarDamage;
+    this.currentWindow.ampedDamage[event.ability.guid] =
+      (this.currentWindow.ampedDamage[event.ability.guid] ?? 0) + shatteringAmpStarDamage;
+
+    this.totalAmpedDamageRecord[event.ability.guid] =
+      (this.totalAmpedDamageRecord[event.ability.guid] ?? 0) + shatteringAmpStarDamage;
   }
 
   get currentWindow(): ShatteringStarWindow | undefined {
@@ -190,6 +194,12 @@ class NewShatteringStar extends Analyzer {
       });
     }
 
+    const iridescencePerformance = this.getIridescencePerformance(window.event);
+    if (iridescencePerformance) {
+      checklistItems.push(iridescencePerformance);
+    }
+
+    // Not bonking for weak casts, but maybe should idk
     const actualPerformance = castPerformance.strongCast.performance;
 
     return {
@@ -201,6 +211,29 @@ class NewShatteringStar extends Analyzer {
           ? `${actualPerformance} Usage`
           : 'Bad Usage',
     };
+  }
+
+  // Skip check in keys, maybe track if AoE in raid and skip it there also.
+  private getIridescencePerformance(event: CastEvent): ChecklistUsageInfo | undefined {
+    if (isMythicPlus(this.owner.fight)) {
+      return undefined;
+    }
+    if (HasRelatedEvent(event, IRIDESCENCE_BLUE_CONSUME)) {
+      return {
+        check: 'iridescence-blue-consume',
+        timestamp: event.timestamp,
+        performance: QualitativePerformance.Fail,
+        summary: <>Consumed Iridescence</>,
+        details: (
+          <div key="iridescence-blue-consume">
+            Cast consumed <SpellLink spell={SPELLS.IRIDESCENCE_BLUE} />. You should try to spend it
+            on <SpellLink spell={SPELLS.DISINTEGRATE} /> instead.
+          </div>
+        ),
+      };
+    }
+
+    return undefined;
   }
 
   /** Get the performance of each cast in the window
@@ -382,6 +415,99 @@ class NewShatteringStar extends Analyzer {
         }
         abovePerformanceDetails={<div style={{ marginBottom: 10 }}></div>}
       />
+    );
+  }
+
+  statistic(): JSX.Element | null {
+    if (!this.active) {
+      return null;
+    }
+
+    const colors = [
+      'rgb(41,134,204)',
+      'rgb(123,188,93)',
+      'rgb(216,59,59)',
+      'rgb(153, 102, 255)',
+      'rgb(255, 159, 64)',
+      'rgb(255, 206, 86)',
+      'rgb(86, 205, 247)',
+      'rgb(255, 221, 102)',
+      'rgb(154, 205, 50)',
+    ];
+
+    const allAmpedSources = Object.entries(this.totalAmpedDamageRecord).sort((a, b) => b[1] - a[1]);
+    const top4AmpedSources = allAmpedSources.splice(0, 3);
+
+    let totalAmpedDamage = 0;
+    const topAmpedSources = top4AmpedSources.map(([spellId, amount], idx) => {
+      totalAmpedDamage += amount;
+      return {
+        color: colors[idx],
+        label: <SpellLink spell={parseInt(spellId)} />,
+        valueTooltip: `${formatNumber(amount)} damage amped`,
+        value: amount,
+      };
+    });
+    if (allAmpedSources.length) {
+      const otherAmpedDamage = allAmpedSources.reduce((a, b) => a + b[1], 0);
+      totalAmpedDamage += otherAmpedDamage;
+      topAmpedSources.push({
+        color: colors[topAmpedSources.length],
+        label: <>Other</>,
+        valueTooltip: `${formatNumber(otherAmpedDamage)} damage amped`,
+        value: otherAmpedDamage,
+      });
+    }
+
+    const ampedSources = Object.entries(this.totalAmpedDamageRecord)
+      .sort((a, b) => b[1] - a[1])
+      .map(([spellId, amount], idx) => {
+        // Some day, some person (most likely me) will add a spell to the whitelist without adding a new color
+        // And that same day, some other guy will amp 11 different spells and brick the whole module
+        // So lets just default to a random color
+        // Maybe we just smash entries past 4 together instead? I dunno
+        const color =
+          colors.at(idx) ??
+          `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(
+            Math.random() * 256,
+          )})`;
+
+        return {
+          color: color,
+          label: <SpellLink spell={parseInt(spellId)} />,
+          valueTooltip: `${formatNumber(amount)} damage amped`,
+          value: amount,
+        };
+      });
+
+    const totalDamage = this.totalShatteringStarDamage + totalAmpedDamage;
+    return (
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(13)}
+        size="flexible"
+        category={STATISTIC_CATEGORY.TALENTS}
+        tooltip={
+          <>
+            <li>Total damage: {formatNumber(totalDamage)}</li>
+            <li>Shattering Star damage: {formatNumber(this.totalShatteringStarDamage)}</li>
+            <li>Amped damage: {formatNumber(totalAmpedDamage)}</li>
+          </>
+        }
+      >
+        <div className="pad">
+          <label>
+            <SpellLink spell={TALENTS.SHATTERING_STAR_TALENT} />
+          </label>
+          <div className="value">
+            <ItemDamageDone amount={this.totalShatteringStarDamage} />
+          </div>
+          <strong>Amped damage:</strong>
+          <div className="value">
+            <ItemDamageDone amount={totalAmpedDamage} />
+          </div>
+          <DonutChart items={ampedSources} />
+        </div>
+      </Statistic>
     );
   }
 }
