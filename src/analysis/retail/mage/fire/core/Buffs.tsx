@@ -13,7 +13,7 @@ class Buffs extends CoreAuras {
     return [
       {
         spellId: SPELLS.HEATING_UP.id,
-        timelineHighlight: true,
+        timelineHighlight: false,
       },
       {
         spellId: SPELLS.HOT_STREAK.id,
