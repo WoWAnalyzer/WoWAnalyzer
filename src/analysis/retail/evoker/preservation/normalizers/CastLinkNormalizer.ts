@@ -23,7 +23,10 @@ import {
 } from 'parser/core/Events';
 import { DUPLICATION_SPELLS, STASIS_CAST_IDS } from '../constants';
 import { TIERS } from 'game/TIERS';
-import { LEAPING_FLAMES_HITS } from '../../shared/modules/normalizers/LeapingFlamesNormalizer';
+import LeapingFlamesNormalizer, {
+  LEAPING_FLAMES_HITS,
+} from '../../shared/modules/normalizers/LeapingFlamesNormalizer';
+import { EssenceBurstRefreshNormalizer } from '../../shared';
 
 export const ANCIENT_FLAME = 'AncientFlame'; // links cast to buff apply
 export const ANCIENT_FLAME_CONSUME = 'AncientFlameConnsume'; // links buff remove to buff apply
@@ -851,6 +854,11 @@ const EVENT_LINKS: EventLink[] = [
  * This normalizer adds links for Echo and Temporal Anomaly
  */
 class CastLinkNormalizer extends EventLinkNormalizer {
+  static dependencies = {
+    ...EventLinkNormalizer.dependencies,
+    essenceBurstRefreshNormalizer: EssenceBurstRefreshNormalizer,
+    leapingFlamesNormalizer: LeapingFlamesNormalizer,
+  };
   constructor(options: Options) {
     super(options, EVENT_LINKS);
   }
