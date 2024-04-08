@@ -19,15 +19,13 @@ class HeatingUpGuide extends Analyzer {
 
   get fireBlastUtil() {
     const util = this.heatingUp.fireBlastUtilSuggestionThresholds.actual;
-    const minorThreshold = this.heatingUp.fireBlastUtilSuggestionThresholds.isLessThan.minor;
-    const averageThreshold = this.heatingUp.fireBlastUtilSuggestionThresholds.isLessThan.average;
-    const majorThreshold = this.heatingUp.fireBlastUtilSuggestionThresholds.isLessThan.major;
+    const thresholds = this.heatingUp.fireBlastUtilSuggestionThresholds.isLessThan;
     let performance = QualitativePerformance.Fail;
-    if (util > minorThreshold) {
+    if (util > thresholds.minor) {
       performance = QualitativePerformance.Perfect;
-    } else if (util > averageThreshold) {
+    } else if (util > thresholds.average) {
       performance = QualitativePerformance.Good;
-    } else if (util > majorThreshold) {
+    } else if (util > thresholds.major) {
       performance = QualitativePerformance.Ok;
     }
     return performance;
@@ -35,16 +33,13 @@ class HeatingUpGuide extends Analyzer {
 
   get phoenixFlamesUtil() {
     const util = this.heatingUp.phoenixFlamesUtilSuggestionThresholds.actual;
-    const minorThreshold = this.heatingUp.phoenixFlamesUtilSuggestionThresholds.isLessThan.minor;
-    const averageThreshold =
-      this.heatingUp.phoenixFlamesUtilSuggestionThresholds.isLessThan.average;
-    const majorThreshold = this.heatingUp.phoenixFlamesUtilSuggestionThresholds.isLessThan.major;
+    const thresholds = this.heatingUp.phoenixFlamesUtilSuggestionThresholds.isLessThan;
     let performance = QualitativePerformance.Fail;
-    if (util > minorThreshold) {
+    if (util > thresholds.minor) {
       performance = QualitativePerformance.Perfect;
-    } else if (util > averageThreshold) {
+    } else if (util > thresholds.average) {
       performance = QualitativePerformance.Good;
-    } else if (util > majorThreshold) {
+    } else if (util > thresholds.major) {
       performance = QualitativePerformance.Ok;
     }
     return performance;

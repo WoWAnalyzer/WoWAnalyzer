@@ -40,15 +40,13 @@ class HotStreakGuide extends Analyzer {
 
   get procUtilization() {
     const utilPercent = this.hotStreak.badUsePercent;
-    const minorThreshold = this.hotStreak.castBeforeHotStreakThresholds.isLessThan.minor;
-    const averageThreshold = this.hotStreak.castBeforeHotStreakThresholds.isLessThan.average;
-    const majorThreshold = this.hotStreak.castBeforeHotStreakThresholds.isLessThan.major;
+    const thresholds = this.hotStreak.castBeforeHotStreakThresholds.isLessThan;
     let performance = QualitativePerformance.Fail;
-    if (utilPercent > minorThreshold) {
+    if (utilPercent > thresholds.minor) {
       performance = QualitativePerformance.Perfect;
-    } else if (utilPercent > averageThreshold) {
+    } else if (utilPercent > thresholds.average) {
       performance = QualitativePerformance.Good;
-    } else if (utilPercent > majorThreshold) {
+    } else if (utilPercent > thresholds.major) {
       performance = QualitativePerformance.Ok;
     }
     return performance;
@@ -56,15 +54,13 @@ class HotStreakGuide extends Analyzer {
 
   get wastedCritsPerMinute() {
     const wastedPerMin = this.hotStreak.wastedCritsThresholds.actual;
-    const minorThreshold = this.hotStreak.wastedCritsThresholds.isGreaterThan.minor;
-    const averageThreshold = this.hotStreak.wastedCritsThresholds.isGreaterThan.average;
-    const majorThreshold = this.hotStreak.wastedCritsThresholds.isGreaterThan.major;
+    const thresholds = this.hotStreak.wastedCritsThresholds.isGreaterThan;
     let performance = QualitativePerformance.Fail;
-    if (wastedPerMin < minorThreshold) {
+    if (wastedPerMin < thresholds.minor) {
       performance = QualitativePerformance.Perfect;
-    } else if (wastedPerMin < averageThreshold) {
+    } else if (wastedPerMin < thresholds.average) {
       performance = QualitativePerformance.Good;
-    } else if (wastedPerMin < majorThreshold) {
+    } else if (wastedPerMin < thresholds.major) {
       performance = QualitativePerformance.Ok;
     }
     return performance;

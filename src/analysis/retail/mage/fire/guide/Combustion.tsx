@@ -47,15 +47,13 @@ class CombustionGuide extends Analyzer {
 
   get castDelay() {
     const castDelay = this.combustion.combustionCastDelayThresholds.actual;
-    const minorThreshold = this.combustion.combustionCastDelayThresholds.isGreaterThan.minor;
-    const averageThreshold = this.combustion.combustionCastDelayThresholds.isGreaterThan.average;
-    const majorThreshold = this.combustion.combustionCastDelayThresholds.isGreaterThan.major;
+    const thresholds = this.combustion.combustionCastDelayThresholds.isGreaterThan;
     let performance = QualitativePerformance.Fail;
-    if (castDelay < minorThreshold) {
+    if (castDelay < thresholds.minor) {
       performance = QualitativePerformance.Perfect;
-    } else if (castDelay < averageThreshold) {
+    } else if (castDelay < thresholds.average) {
       performance = QualitativePerformance.Good;
-    } else if (castDelay < majorThreshold) {
+    } else if (castDelay < thresholds.major) {
       performance = QualitativePerformance.Ok;
     }
     return performance;
@@ -63,16 +61,13 @@ class CombustionGuide extends Analyzer {
 
   get fireballCasts() {
     const fireballs = this.combustion.fireballCastsDuringCombustion();
-    const minorThreshold = this.combustion.fireballDuringCombustionThresholds.isGreaterThan.minor;
-    const averageThreshold =
-      this.combustion.fireballDuringCombustionThresholds.isGreaterThan.average;
-    const majorThreshold = this.combustion.fireballDuringCombustionThresholds.isGreaterThan.major;
+    const thresholds = this.combustion.fireballDuringCombustionThresholds.isGreaterThan;
     let performance = QualitativePerformance.Fail;
-    if (fireballs <= minorThreshold) {
+    if (fireballs <= thresholds.minor) {
       performance = QualitativePerformance.Perfect;
-    } else if (fireballs <= averageThreshold) {
+    } else if (fireballs <= thresholds.average) {
       performance = QualitativePerformance.Good;
-    } else if (fireballs <= majorThreshold) {
+    } else if (fireballs <= thresholds.major) {
       performance = QualitativePerformance.Ok;
     }
     return performance;

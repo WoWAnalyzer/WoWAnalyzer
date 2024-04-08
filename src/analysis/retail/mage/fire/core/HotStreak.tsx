@@ -103,7 +103,7 @@ class HotStreak extends Analyzer {
       return !hs.preCastMissing;
     })
 
-    //If Ccombustion was active, filter it out
+    //If Combustion was active, filter it out
     procs = procs.filter(hs => {
       const combustionActive = this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id, hs.remove.timestamp);
       if (combustionActive) {

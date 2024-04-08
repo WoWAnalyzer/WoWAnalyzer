@@ -97,8 +97,8 @@ class CombustionActiveTime extends Analyzer {
       buffApply.timestamp,
       buffEnd,
     );
-    const activePercent = activeTime / duration;
-    const downtime = duration - activeTime;
+    const activePercent = Math.min(activeTime / duration, 1);
+    const downtime = Math.max(duration - activeTime, 0);
     const tooltip = (
       <>
         {formatPercentage(activePercent, 0)}% Active Time

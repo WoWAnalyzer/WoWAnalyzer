@@ -19,15 +19,13 @@ class SunKingsBlessingGuide extends Analyzer {
 
   get expiredProcs() {
     const expired = this.sunKingsBlessing.sunKingExpireThresholds.actual;
-    const minorThreshold = this.sunKingsBlessing.sunKingExpireThresholds.isGreaterThan.minor;
-    const averageThreshold = this.sunKingsBlessing.sunKingExpireThresholds.isGreaterThan.average;
-    const majorThreshold = this.sunKingsBlessing.sunKingExpireThresholds.isGreaterThan.major;
+    const thresholds = this.sunKingsBlessing.sunKingExpireThresholds.isGreaterThan;
     let performance = QualitativePerformance.Fail;
-    if (expired <= minorThreshold) {
+    if (expired <= thresholds.minor) {
       performance = QualitativePerformance.Perfect;
-    } else if (expired <= averageThreshold) {
+    } else if (expired <= thresholds.average) {
       performance = QualitativePerformance.Good;
-    } else if (expired <= majorThreshold) {
+    } else if (expired <= thresholds.major) {
       performance = QualitativePerformance.Ok;
     }
     return performance;
@@ -35,16 +33,13 @@ class SunKingsBlessingGuide extends Analyzer {
 
   get wastedHotStreaks() {
     const wasted = this.sunKingsBlessing.hotStreaksWithSKBThresholds.actual;
-    const minorThreshold = this.sunKingsBlessing.hotStreaksWithSKBThresholds.isGreaterThan.minor;
-    const averageThreshold =
-      this.sunKingsBlessing.hotStreaksWithSKBThresholds.isGreaterThan.average;
-    const majorThreshold = this.sunKingsBlessing.hotStreaksWithSKBThresholds.isGreaterThan.major;
+    const thresholds = this.sunKingsBlessing.hotStreaksWithSKBThresholds.isGreaterThan;
     let performance = QualitativePerformance.Fail;
-    if (wasted < minorThreshold) {
+    if (wasted < thresholds.minor) {
       performance = QualitativePerformance.Perfect;
-    } else if (wasted < averageThreshold) {
+    } else if (wasted < thresholds.average) {
       performance = QualitativePerformance.Good;
-    } else if (wasted < majorThreshold) {
+    } else if (wasted < thresholds.major) {
       performance = QualitativePerformance.Ok;
     }
     return performance;
@@ -52,16 +47,13 @@ class SunKingsBlessingGuide extends Analyzer {
 
   get resetCombustion() {
     const resets = this.sunKingsBlessing.combustionDuringCombustionThresholds.actual;
-    const minorThreshold = this.sunKingsBlessing.hotStreaksWithSKBThresholds.isGreaterThan.minor;
-    const averageThreshold =
-      this.sunKingsBlessing.hotStreaksWithSKBThresholds.isGreaterThan.average;
-    const majorThreshold = this.sunKingsBlessing.hotStreaksWithSKBThresholds.isGreaterThan.major;
+    const thresholds = this.sunKingsBlessing.combustionDuringCombustionThresholds.isGreaterThan;
     let performance = QualitativePerformance.Fail;
-    if (resets <= minorThreshold) {
+    if (resets <= thresholds.minor) {
       performance = QualitativePerformance.Perfect;
-    } else if (resets <= averageThreshold) {
+    } else if (resets <= thresholds.average) {
       performance = QualitativePerformance.Good;
-    } else if (resets <= majorThreshold) {
+    } else if (resets <= thresholds.major) {
       performance = QualitativePerformance.Ok;
     }
     return performance;
@@ -113,7 +105,7 @@ class SunKingsBlessingGuide extends Analyzer {
       <>{this.sunKingsBlessing.sunKingExpireThresholds.actual} Expired Procs.</>
     );
     const wastedHotStreakTooltip = (
-      <>{this.sunKingsBlessing.hotStreaksWithSKBThresholds.actual} Wasted Hot Streaks</>
+      <>{this.sunKingsBlessing.hotStreaksWithSKBThresholds.actual.toFixed(2)} Wasted Hot Streaks</>
     );
     const combustResetTooltip = (
       <>{this.sunKingsBlessing.combustionDuringCombustionThresholds.actual} Reset Combustions</>

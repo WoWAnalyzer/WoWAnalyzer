@@ -115,6 +115,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           spellId={TALENTS.PHOENIX_FLAMES_TALENT.id}
           gapHighlightMode={GapHighlight.FullCooldown}
           useThresholds
+          minimizeIcons
         />
       )}
       {info.combatant.hasTalent(TALENTS.METEOR_TALENT) && (
