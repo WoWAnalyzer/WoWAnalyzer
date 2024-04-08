@@ -41,12 +41,13 @@ import GlacialSpike from './talents/GlacialSpike';
 import LonelyWinter from './talents/LonelyWinter';
 import SplittingIce from './talents/SplittingIce';
 import ThermalVoid from './talents/ThermalVoid';
+import ChainReaction from 'analysis/retail/mage/frost/talents/ChainReaction';
+import Cryopathy from 'analysis/retail/mage/frost/talents/Cryopathy';
 
 //Normalizers
 import CometStormLinkNormalizer from './normalizers/CometStormLinkNormalizer';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import ShiftingPowerFrost from 'analysis/retail/mage/frost/talents/ShiftingPowerFrost';
-import ChainReaction from 'analysis/retail/mage/frost/talents/ChainReaction';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -87,6 +88,7 @@ class CombatLogParser extends CoreCombatLogParser {
     coldSnap: ColdSnap,
     shiftingPowerFrost: ShiftingPowerFrost,
     chainReaction: ChainReaction,
+    cryopathy: Cryopathy,
 
     //Talents - Shared
     elementalBarrier: ElementalBarrier,
