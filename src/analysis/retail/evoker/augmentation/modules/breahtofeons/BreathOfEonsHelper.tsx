@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { BreathOfEonsWindows } from './BreathOfEonsRotational';
 import { SubSection } from 'interface/guide';
 import { SpellLink, TooltipElement } from 'interface';
@@ -17,7 +17,8 @@ import ExplanationGraph, {
 import DonutChart from 'parser/ui/DonutChart';
 import { PlayerInfo } from 'parser/core/Player';
 import { DamageEvent } from 'parser/core/Events';
-import { BREATH_OF_EONS_MULTIPLIER, ABILITY_BLACKLIST } from '../../constants';
+import { BREATH_OF_EONS_MULTIPLIER } from '../../constants';
+import { ABILITY_BLACKLIST, ABILITY_NO_BOE_SCALING } from '../util/abilityFilter';
 
 type Props = {
   windows: BreathOfEonsWindows[];
@@ -50,11 +51,10 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
     end: number;
   }[] = [];
 
-  /** Generate filter based on black list and whitelist
-   * For now we only look at the players who were buffed
-   * during breath */
-  function getFilter() {
-    const abilityFilter = ABILITY_BLACKLIST.map((id) => `${id}`).join(', ');
+  /** Generate filter so we only get class abilities
+   * that can accumulate into BoE */
+  const getFilter = useMemo(() => {
+    const abilityFilter = [...ABILITY_NO_BOE_SCALING, ...ABILITY_BLACKLIST].join(',');
 
     const filter = `type = "damage" 
     AND not ability.id in (${abilityFilter}) 
@@ -71,7 +71,7 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
       console.log(filter);
     }
     return filter;
-  }
+  }, []);
 
   const buffer = 4000;
 
@@ -86,7 +86,7 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
         startTime,
         endTime,
         undefined,
-        getFilter(),
+        getFilter,
         40,
       )) as DamageEvent[];
       damageTables.push({
