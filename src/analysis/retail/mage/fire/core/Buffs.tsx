@@ -70,6 +70,11 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
+        spellId: SPELLS.FLAME_ACCELERANT_BUFF.id,
+        enabled: combatant.hasTalent(TALENTS.FLAME_ACCELERANT_TALENT),
+        timelineHighlight: true,
+      },
+      {
         spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),
         timelineHighlight: true,
       },

@@ -49,7 +49,7 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true,
     maximumLinks: 1,
     forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: 7_000, //Needed for an edge case where SKB Combust was active and was refreshed by a Combust cast
   },
   {
     reverseLinkRelation: BUFF_APPLY,
