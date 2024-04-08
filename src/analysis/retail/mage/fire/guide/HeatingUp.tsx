@@ -67,8 +67,8 @@ class HeatingUpGuide extends Analyzer {
       <>
         <div>
           While <b>{heatingUp}</b> is not as impactful as {hotStreak}, it is important to properly
-          manage your {heatingUp} procs to ensure you can get as many {hotStreak} procs as possible
-          throughout the fight.
+          manage your {heatingUp} procs to get as many {hotStreak} procs as possible throughout the
+          fight.
         </div>
         <div>
           To accomplish this, you should refer to the below rules and guidelines:
@@ -79,8 +79,7 @@ class HeatingUpGuide extends Analyzer {
             </li>
             <li>
               Unless you are guaranteed to crit ({combustion}, {firestarter}, {searingTouch}), or
-              you are capped on charges, you should not use your guaranteed crit abilities without{' '}
-              {heatingUp}.
+              are capped on charges, do'nt use your guaranteed crit abilities without {heatingUp}.
             </li>
           </ul>
         </div>
