@@ -44,6 +44,12 @@ type DamageSources = {
   lostDamage: number;
 };
 
+type WindowResponse = {
+  events: DamageEvent[];
+  start: number;
+  end: number;
+};
+
 const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEndTime, owner }) => {
   const damageTables: {
     table: DamageEvent[];
@@ -53,11 +59,11 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
 
   /** Generate filter so we only get class abilities
    * that can accumulate into BoE */
-  const getFilter = useMemo(() => {
+  const filter = useMemo(() => {
     const abilityFilter = [...ABILITY_NO_BOE_SCALING, ...ABILITY_BLACKLIST].join(',');
 
     const filter = `type = "damage" 
-    AND not ability.id in (${abilityFilter}) 
+    AND not ability.id in (${abilityFilter},409632) 
     AND (target.id != source.id)
     AND target.id not in(169428, 169430, 169429, 169426, 169421, 169425, 168932)
     AND not (target.id = source.owner.id)
@@ -76,25 +82,48 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
   const buffer = 4000;
 
   async function loadData() {
-    /** High maxPage allowances needed otherwise it breaks */
+    const fetchPromises: Promise<WindowResponse>[] = [];
+
     for (const window of windows) {
-      const startTime =
-        window.start - buffer > fightStartTime ? window.start - buffer : fightStartTime;
-      const endTime = window.end + buffer < fightEndTime ? window.end + buffer : fightEndTime;
-      const windowEvents = (await fetchEvents(
-        owner.report.code,
-        startTime,
-        endTime,
-        undefined,
-        getFilter,
-        40,
-      )) as DamageEvent[];
+      const start = Math.max(window.start - buffer, fightStartTime);
+      const end = Math.min(window.end + buffer, fightEndTime);
+
+      fetchPromises.push(getEvents(start, end, filter, owner.report.code));
+    }
+
+    const result = await Promise.all(fetchPromises);
+
+    result.forEach((window) => {
+      console.log(window);
       damageTables.push({
-        table: windowEvents,
+        table: window.events,
         start: window.start,
         end: window.end,
       });
-    }
+    });
+  }
+
+  async function getEvents(
+    start: number,
+    end: number,
+    filter: string,
+    code: string,
+  ): Promise<WindowResponse> {
+    const response = (await fetchEvents(
+      code,
+      start,
+      end,
+      undefined,
+      filter,
+      // High maxPage allowances needed otherwise it breaks
+      40,
+    )) as DamageEvent[];
+
+    return {
+      events: response as DamageEvent[],
+      start,
+      end,
+    };
   }
 
   /** We want to attribute pet damage to it's owner
