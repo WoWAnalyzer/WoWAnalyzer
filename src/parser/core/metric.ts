@@ -2,6 +2,11 @@ import Combatant from './Combatant';
 import { AnyEvent } from './Events';
 import Ability from './modules/Ability';
 import { PetInfo } from './Pet';
+import { WCLFight } from 'parser/core/Fight';
+
+export interface WCLFightWithDuration extends WCLFight {
+  duration: number;
+}
 
 export interface Info {
   playerId: number;
@@ -9,9 +14,22 @@ export interface Info {
   // TODO: this piece of plucking props from the Abilities module is not ideal
   abilities: Ability[];
   defaultRange: number;
+  fight: WCLFightWithDuration;
+  /**
+   * @deprecated use {@link fight} instead
+   */
   fightStart: number;
+  /**
+   * @deprecated use {@link fight} instead
+   */
   fightEnd: number;
+  /**
+   * @deprecated use {@link fight} instead
+   */
   fightDuration: number;
+  /**
+   * @deprecated use {@link fight} instead
+   */
   fightId: number;
   reportCode: string;
   combatant: Combatant;
