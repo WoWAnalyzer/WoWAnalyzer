@@ -4,6 +4,8 @@ import Explanation from 'interface/guide/components/Explanation';
 import PerformanceStrong from 'interface/PerformanceStrong';
 import { formatPercentage } from 'common/format';
 import ActiveTimeGraph from 'parser/ui/ActiveTimeGraph';
+import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
+import { GapHighlight } from 'parser/ui/CooldownBar';
 import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
@@ -92,6 +94,36 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         modules.combustionGuide.guideSubsection}
       {info.combatant.hasTalent(TALENTS.SUN_KINGS_BLESSING_TALENT) &&
         modules.sunKingsBlessingGuide.guideSubsection}
+
+      <SubSection title="Cast Efficiency"></SubSection>
+      {info.combatant.hasTalent(TALENTS.COMBUSTION_TALENT) && (
+        <CastEfficiencyBar
+          spellId={TALENTS.COMBUSTION_TALENT.id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+          useThresholds
+        />
+      )}
+      {info.combatant.hasTalent(TALENTS.SHIFTING_POWER_TALENT) && (
+        <CastEfficiencyBar
+          spellId={TALENTS.SHIFTING_POWER_TALENT.id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+          useThresholds
+        />
+      )}
+      {info.combatant.hasTalent(TALENTS.PHOENIX_FLAMES_TALENT) && (
+        <CastEfficiencyBar
+          spellId={TALENTS.PHOENIX_FLAMES_TALENT.id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+          useThresholds
+        />
+      )}
+      {info.combatant.hasTalent(TALENTS.METEOR_TALENT) && (
+        <CastEfficiencyBar
+          spellId={TALENTS.METEOR_TALENT.id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+          useThresholds
+        />
+      )}
 
       <Section title="Talents"></Section>
       <PreparationSection />
