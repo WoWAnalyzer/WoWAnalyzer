@@ -140,42 +140,40 @@ class CombustionGuide extends Analyzer {
       <>
         <div>
           <b>{combustion}</b> is one of the largest contributors to your overall damage and has a
-          short duration. Therefore it is critical that you pool your resources beforehand and get
-          as much as possible into that short window. Additionally, because {combustion} is a big
-          burst of damage, you should ensure any damage buffs are getting stacked and properly
-          managed during {combustion} as well.
+          short duration. When you combine that with the number of instant casts that Fire Mage has
+          access to, your {combustion}s will typically involve stuffing as many instant casts into
+          that window as possible to get as many {pyroblast} or {flamestrike} casts as possible
+          before the buff ends.
         </div>
         <div>
           To get the most out of this cooldown, you should refer to the below rules and guidelines:
           <ul>
             <li>
-              Do not leave {combustion} off cooldown for too long, unless the fight or raid strat
-              requires it.
+              Don't leave {combustion} off cooldown for too long, unless the fight or strat requires
+              it.
             </li>
             <li>
-              Since Combustion can be cast while casting, you should activate it as close to the end
-              of your hardcast as possible to prevent wasting any of the buff duration (This guide
-              refers to this as Cast Delay)
+              Combustion can be cast while casting, so you should activate it as close to the end of
+              your hardcast as possible to avoid wasting any of the buff duration (We call this Cast
+              Delay).
             </li>
             <li>
-              If {combustion} is close to coming off cooldown, start pooling your {fireBlast} and{' '}
-              {phoenixFlames} charges to ensure you have enough to get to the end of the{' '}
-              {combustion} buff.
+              If {combustion} is close to being available, start pooling your {fireBlast} and{' '}
+              {phoenixFlames} charges so you have enough to last {combustion}s duration.
             </li>
             <li>
-              Eliminate as much downtime as possible while {combustion} is active to ensure you get
-              as many {hotStreak}s and {pyroblast}s/{flamestrike}s as possible.
+              Eliminate as much downtime as possible while {combustion} is active to get as many{' '}
+              {hotStreak}s and {pyroblast}s/{flamestrike}s as possible.
             </li>
             <li>
-              Do not hardcast longer abilities like {fireball} (unless you have {flameAccelerant} or{' '}
+              Don't hardcast longer abilities like {fireball} (unless you have {flameAccelerant} or{' '}
               {'>'} 100% Haste) or {pyroblast}/{flamestrike} (Unless you have {sunKingsBlessing}).
-              If you are in danger of running out of {fireBlast} and {phoenixFlames} charges, weave
-              in some {scorch} casts.
+              You can weave some {scorch} casts in to make your instant casts last longer.
             </li>
             {this.selectedCombatant.hasTalent(TALENTS.FEEL_THE_BURN_TALENT) && (
               <li>
-                Quickly stack {feelTheBurn} to max stacks and keep the buff up for the entire{' '}
-                {combustion} duration
+                Quickly stack {feelTheBurn} to max stacks and keep the buff up for {combustion}s
+                entire duration.
               </li>
             )}
           </ul>
