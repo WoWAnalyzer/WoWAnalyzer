@@ -194,10 +194,6 @@ class CombustionGuide extends Analyzer {
     const data = (
       <div>
         <RoundedPanel>
-          <strong>Combustion Cast Efficiency</strong>
-          <div className="flex-main chart" style={{ padding: 15 }}>
-            {this.combustionEfficiency()}
-          </div>
           <div>
             <strong>Combustion Active Time</strong>
             <PerformanceBoxRow values={this.activeTimeData} />

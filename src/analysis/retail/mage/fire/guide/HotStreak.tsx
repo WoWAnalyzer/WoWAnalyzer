@@ -153,9 +153,11 @@ class HotStreakGuide extends Analyzer {
               <small>Wasted Crits Per Minute</small>
             </TooltipElement>
           </div>
-          <strong>Cast details</strong>
-          <small>green (good) / red (fail) mouseover the rectangles to see more details</small>
-          <PerformanceBoxRow values={this.preCastData} />
+          <div>
+            <strong>Hot Streak Details</strong>
+            <PerformanceBoxRow values={this.preCastData} />
+            <small>green (good) / red (fail) mouseover the rectangles to see more details</small>
+          </div>
         </RoundedPanel>
       </div>
     );
