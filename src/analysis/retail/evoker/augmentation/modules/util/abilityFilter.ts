@@ -26,6 +26,7 @@ export const ABILITY_NO_SCALING: number[] = [
  * and no Allow Class Ability Procs flag
  * ids sourced from simc */
 export const ABILITY_NO_BOE_SCALING = new Set<number>([
+  409632, // Breath of Eons
   213785, // Nightfall
   214168, // Brutal Haymaker
   214169, // Brutal Haymaker
