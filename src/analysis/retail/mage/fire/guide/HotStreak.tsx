@@ -75,11 +75,11 @@ class HotStreakGuide extends Analyzer {
     this.hotStreak.hotStreaks.forEach((hs) => {
       if (hs.preCastMissing && hs.preCastMissing.tooltip) {
         const tooltip = this.generateGuideTooltip(
-          hs.preCastMissing.performance,
+          hs.preCastMissing.value,
           hs.preCastMissing.tooltip,
           hs.remove.timestamp,
         );
-        data.push({ value: hs.preCastMissing.performance, tooltip });
+        data.push({ value: hs.preCastMissing.value, tooltip });
       }
     });
     return data;
