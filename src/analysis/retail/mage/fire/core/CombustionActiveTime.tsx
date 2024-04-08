@@ -78,7 +78,6 @@ class CombustionActiveTime extends Analyzer {
       return;
     }
     this.analyzeActiveTime(buffApply, event.timestamp);
-    this.log(this.activeTime);
   }
 
   combustionDowntime = () => {
