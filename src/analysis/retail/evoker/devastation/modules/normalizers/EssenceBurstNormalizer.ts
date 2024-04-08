@@ -2,7 +2,10 @@ import SPELLS from 'common/SPELLS/evoker';
 import EventOrderNormalizer, { EventOrder } from 'parser/core/EventOrderNormalizer';
 import { EventType } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
-import { EB_GENERATION_EVENT_TYPES } from '../../../shared/modules/normalizers/EssenceBurstCastLinkNormalizer';
+import EssenceBurstCastLinkNormalizer, {
+  EB_GENERATION_EVENT_TYPES,
+} from '../../../shared/modules/normalizers/EssenceBurstCastLinkNormalizer';
+import { EssenceBurstRefreshNormalizer } from 'analysis/retail/evoker/shared';
 
 const EVENT_ORDERS: EventOrder[] = [
   {
@@ -27,6 +30,12 @@ const EVENT_ORDERS: EventOrder[] = [
  * an array with all the different types to make sure we get them all normalized.
  **/
 class EssenceBurstNormalizer extends EventOrderNormalizer {
+  static dependencies = {
+    ...EventOrderNormalizer.dependencies,
+    // We need these dependency to ensure we don't mess up our other normalizers
+    essenceBurstRefreshNormalizer: EssenceBurstRefreshNormalizer,
+    essenceBurstCastLinkNormalizer: EssenceBurstCastLinkNormalizer,
+  };
   constructor(options: Options) {
     super(options, EVENT_ORDERS);
 
