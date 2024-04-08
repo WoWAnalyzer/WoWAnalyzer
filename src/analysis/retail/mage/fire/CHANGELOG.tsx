@@ -6,6 +6,9 @@ import { Sharrq, ToppleTheNun } from 'CONTRIBUTORS';
 
 // prettier-ignore
 export default [
+  change(date(2024, 4, 8), <>Added the <SpellLink spell={TALENTS.FLAME_ACCELERANT_TALENT} /> buff to the timeline.</>, Sharrq),
+  change(date(2024, 4, 8), <>Fixed a crash in <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> Active Time if a <SpellLink spell={TALENTS.SUN_KINGS_BLESSING_TALENT} /> <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> buff was refreshed by a <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> cast.</>, Sharrq),
+  change(date(2024, 4, 8), <>Fixed a bug that was checking for the <SpellLink spell={TALENTS.FLAME_ACCELERANT_TALENT} /> buff at the end of the fight instead of on <SpellLink spell={SPELLS.FIREBALL} /> casts.</>, Sharrq),
   change(date(2024, 4, 7), <>Added the new Guide View for Fire Mage.</>, Sharrq),
   change(date(2024, 3, 10), <>Added a check to filter out <SpellLink spell={TALENTS.FIRE_BLAST_TALENT} /> without <SpellLink spell={SPELLS.HEATING_UP} /> if it is within a second of <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> starting.</>, Sharrq),
   change(date(2024, 1, 20), <>Fixed an issue with <SpellLink spell={TALENTS.METEOR_TALENT} /> that was counting <SpellLink spell={TALENTS.FIREFALL_TALENT} /> Meteors as mistakes for not landing in <SpellLink spell={TALENTS.COMBUSTION_TALENT} />.</>, Sharrq),

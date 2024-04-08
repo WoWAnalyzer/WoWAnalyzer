@@ -74,7 +74,7 @@ class HeatingUpGuide extends Analyzer {
             </li>
             <li>
               Unless you are guaranteed to crit ({combustion}, {firestarter}, {searingTouch}), or
-              are capped on charges, do'nt use your guaranteed crit abilities without {heatingUp}.
+              are capped on charges, don't use your guaranteed crit abilities without {heatingUp}.
             </li>
           </ul>
         </div>
