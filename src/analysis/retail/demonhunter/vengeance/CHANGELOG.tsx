@@ -6,9 +6,12 @@ import SPELLS from 'common/SPELLS/demonhunter';
 import TALENTS from 'common/TALENTS/demonhunter';
 import SHARED_CHANGELOG from 'analysis/retail/demonhunter/shared/CHANGELOG';
 import { DEMON_HUNTER_DF3_ID } from 'common/ITEMS/dragonflight';
+import ResourceLink from 'interface/ResourceLink';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 // prettier-ignore
 export default [
+  change(date(2023, 4, 8), <>Improve <ResourceLink id={RESOURCE_TYPES.FURY.id} /> waste advice in M+ content.</>, ToppleTheNun),
   change(date(2023, 12, 14), <>Detect if no targets were hit by <SpellLink spell={TALENTS.FEL_DEVASTATION_TALENT} />.</>, ToppleTheNun),
   change(date(2023, 12, 10), <>Add CDR calculations for <ItemSetLink id={DEMON_HUNTER_DF3_ID}>Screaming Torchfiend&apos;s Brutality.</ItemSetLink>.</>, ToppleTheNun),
   change(date(2023, 11, 19), <>Revise <SpellLink spell={TALENTS.SPIRIT_BOMB_TALENT} /> guidance in single target and fix bug with <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} /> consumption.</>, ToppleTheNun),
