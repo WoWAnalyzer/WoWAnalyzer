@@ -39,8 +39,8 @@ export default [
     date(2022, 11, 28),
     <>
       Added support for <SpellLink spell={TALENTS_PRIEST.PONTIFEX_TALENT} />,{' '}
-      <SpellLink spell={TALENTS_PRIEST.RAPID_RECOVERY_TALENT} />,{' '}
-      <SpellLink spell={TALENTS_PRIEST.EMPOWERED_RENEW_TALENT} />, and{' '}
+      Rapid Recovery,{' '}
+      Empowered Renew, and{' '}
       <SpellLink spell={TALENTS_PRIEST.MIRACLE_WORKER_TALENT} />.
     </>,
     Squided,
