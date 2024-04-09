@@ -22,7 +22,6 @@ import {
 import { PerformanceStrong } from 'analysis/retail/priest/shadow/modules/guide/ExtraComponents';
 import { formatPercentage } from 'common/format';
 import ActiveTimeGraph from 'parser/ui/ActiveTimeGraph';
-import { isMythicPlus } from 'common/isMythicPlus';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -49,15 +48,6 @@ function CoreSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
           avoid capping <ResourceLink id={RESOURCE_TYPES.FURY.id} /> - lost{' '}
           <ResourceLink id={RESOURCE_TYPES.FURY.id} /> generation is lost DPS.
         </p>
-        {isMythicPlus(info.fight) &&
-        info.combatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT) ? (
-          <p>
-            <ResourceLink id={RESOURCE_TYPES.FURY.id} /> waste when taking{' '}
-            <SpellLink spell={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> in Mythic+ content is not
-            an issue, as Vengeance's goal in AoE is to spend as many{' '}
-            <SpellLink spell={SPELLS.SOUL_FRAGMENT} />s as possible.
-          </p>
-        ) : null}
         <FuryCapWaste
           percentAtCap={percentAtFuryCap}
           percentAtCapPerformance={percentAtFuryCapPerformance}
@@ -99,8 +89,8 @@ function CoreSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
         </p>
         <ActiveTimeGraph
           activeTimeSegments={modules.alwaysBeCasting.activeTimeSegments}
-          fightStart={info.fight.start_time}
-          fightEnd={info.fight.end_time}
+          fightStart={info.fightStart}
+          fightEnd={info.fightEnd}
         />
       </SubSection>
     </Section>
