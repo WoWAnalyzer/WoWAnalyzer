@@ -418,7 +418,7 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
           // SPECS is indexed both by name and id. only take the id-keyed entries
           .filter(([k]) => Number.isFinite(Number(k)))
           .map(([, v]) => v)
-          .filter(isRetailSpec) //Classic doesn't support look up by characters at the moment
+          .filter((e) => isRetailSpec(e) === !this.isClassic) // only take retail specs on retail, classic specs on classic
           .filter((e) => e.wclClassName === charClass);
 
         const parses = this.changeParseStructure(rawParses);
