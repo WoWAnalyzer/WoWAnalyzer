@@ -93,18 +93,24 @@ class FeelTheBurn extends Analyzer {
           const uptime = Math.min(c.end, s.end) - c.start;
           const duration = c.end - c.start
           const uptimePercent = uptime / duration;
-          this.stackUptime.push({
-            buffStart: c.start,
-            uptime,
-            uptimePercent,
-            analysis: {
-              value: this.checkPerformance(uptimePercent),
-              tooltip: 
-              <>
-                Max Stack Uptime {formatPercentage(uptimePercent, 0)}% ({(uptime / 1000).toFixed(2)}s / {formatNumber(duration / 1000)}s)
-              </>
-            }
-          })
+          if (duration < 7000) {
+            //If it is an SKB Combustion by itself, then the duration is too short to reasonably be able to stack FTB.
+            //So ignore any combustion buffs that are less than 7 seconds (an extra second is added incase the buff is slightly off)
+            return;
+          } else {
+            this.stackUptime.push({
+              buffStart: c.start,
+              uptime,
+              uptimePercent,
+              analysis: {
+                value: this.checkPerformance(uptimePercent),
+                tooltip: 
+                <>
+                  Max Stack Uptime {formatPercentage(uptimePercent, 0)}% ({(uptime / 1000).toFixed(2)}s / {formatNumber(duration / 1000)}s)
+                </>
+              }
+            })
+          }
           this.totalDuration += uptime;
         })
       }
@@ -117,18 +123,24 @@ class FeelTheBurn extends Analyzer {
           const uptime = Math.min(c.end, s.end) - s.start;
           const duration = c.end - c.start;
           const uptimePercent = uptime / duration;
-          this.stackUptime.push({
-            buffStart: c.start,
-            uptime,
-            uptimePercent,
-            analysis: {
-              value: this.checkPerformance(uptimePercent),
-              tooltip: 
-              <>
-                Max Stack Uptime {formatPercentage(uptimePercent, 0)}% ({(uptime / 1000).toFixed(2)}s / {formatNumber(duration / 1000)}s)
-              </>
-            }
-          })
+          if (duration < 7000) {
+            //If it is an SKB Combustion by itself, then the duration is too short to reasonably be able to stack FTB.
+            //So ignore any combustion buffs that are less than 7 seconds (an extra second is added incase the buff is slightly off)
+            return;
+          } else {
+            this.stackUptime.push({
+              buffStart: c.start,
+              uptime,
+              uptimePercent,
+              analysis: {
+                value: this.checkPerformance(uptimePercent),
+                tooltip: 
+                <>
+                  Max Stack Uptime {formatPercentage(uptimePercent, 0)}% ({(uptime / 1000).toFixed(2)}s / {formatNumber(duration / 1000)}s)
+                </>
+              }
+            })
+          }
           this.totalDuration += Math.min(c.end, s.end) - s.start;
         })
       }
@@ -137,11 +149,12 @@ class FeelTheBurn extends Analyzer {
 
   checkPerformance(uptimePercent: number) {
     let performance;
-    if (uptimePercent > this.maxStackUptimeThresholds.isLessThan.minor) {
+    const thresholds = this.maxStackUptimeThresholds.isLessThan;
+    if (uptimePercent > thresholds.minor) {
       performance = QualitativePerformance.Perfect;
-    } else if (uptimePercent > this.maxStackUptimeThresholds.isLessThan.average) {
+    } else if (uptimePercent > thresholds.average) {
       performance = QualitativePerformance.Good;
-    } else if (uptimePercent > this.maxStackUptimeThresholds.isLessThan.major) {
+    } else if (uptimePercent > thresholds.major) {
       performance = QualitativePerformance.Ok;
     } else {
       performance = QualitativePerformance.Fail;

@@ -6,6 +6,7 @@ import { Sharrq, ToppleTheNun } from 'CONTRIBUTORS';
 
 // prettier-ignore
 export default [
+  change(date(2024, 4, 8), <>Adjusted <SpellLink spell={TALENTS.FEEL_THE_BURN_TALENT} /> to not show in the guide if the associated <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> buff is short (6s or less).</>, Sharrq),
   change(date(2024, 4, 8), <>Added the <SpellLink spell={TALENTS.FLAME_ACCELERANT_TALENT} /> buff to the timeline.</>, Sharrq),
   change(date(2024, 4, 8), <>Fixed a crash in <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> Active Time if a <SpellLink spell={TALENTS.SUN_KINGS_BLESSING_TALENT} /> <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> buff was refreshed by a <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> cast.</>, Sharrq),
   change(date(2024, 4, 8), <>Fixed a bug that was checking for the <SpellLink spell={TALENTS.FLAME_ACCELERANT_TALENT} /> buff at the end of the fight instead of on <SpellLink spell={SPELLS.FIREBALL} /> casts.</>, Sharrq),
