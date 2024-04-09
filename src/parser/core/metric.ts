@@ -14,22 +14,9 @@ export interface Info {
   // TODO: this piece of plucking props from the Abilities module is not ideal
   abilities: Ability[];
   defaultRange: number;
-  fight: WCLFightWithDuration;
-  /**
-   * @deprecated use {@link fight} instead
-   */
   fightStart: number;
-  /**
-   * @deprecated use {@link fight} instead
-   */
   fightEnd: number;
-  /**
-   * @deprecated use {@link fight} instead
-   */
   fightDuration: number;
-  /**
-   * @deprecated use {@link fight} instead
-   */
   fightId: number;
   reportCode: string;
   combatant: Combatant;

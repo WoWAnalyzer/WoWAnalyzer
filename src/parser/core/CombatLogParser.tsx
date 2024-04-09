@@ -826,10 +826,6 @@ class CombatLogParser {
       defaultRange: this.getModule(Abilities).defaultRange,
       playerId: this.selectedCombatant.id,
       pets: this.playerPets.filter((pet) => pet.fights.some((fight) => fight.id === this.fight.id)),
-      fight: {
-        ...this.fight,
-        duration: this.fight.end_time - this.fight.start_time,
-      },
       fightStart: this.fight.start_time,
       fightEnd: this.fight.end_time,
       fightDuration: this.fight.end_time - this.fight.start_time,
