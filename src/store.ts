@@ -11,7 +11,6 @@ import openModalsReducer from 'interface/reducers/openModals';
 import charactersByIdReducer from 'interface/reducers/charactersById';
 import reportCodesIgnoredPreviousPatchWarningReducer from 'interface/reducers/reportCodesIgnoredPreviousPatchWarning';
 import tooltipsReducer from 'interface/reducers/tooltips';
-import { isPresent } from 'common/typeGuards';
 
 const rootReducer = combineReducers({
   // System
@@ -34,9 +33,13 @@ const rootReducer = combineReducers({
 
 export const store = configureStore({
   reducer: rootReducer,
-  enhancers: [import.meta.env.VITE_SENTRY_DSN ? sentryCreateReduxEnhancer({}) : null].filter(
-    isPresent,
-  ),
+  enhancers: (getDefaultEnhancers) => {
+    const enhancers = getDefaultEnhancers();
+    if (import.meta.env.VITE_SENTRY_DSN) {
+      return enhancers.concat(sentryCreateReduxEnhancer({}));
+    }
+    return enhancers;
+  },
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

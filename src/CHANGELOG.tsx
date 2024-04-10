@@ -35,6 +35,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 6, 4), 'Update to React 18 and all of the things that come along with that.', ToppleTheNun),
   change(date(2024, 6, 3), 'Replace react-helmet with react-helmet-async.', ToppleTheNun),
   // Above is next changes, below is dragonflight changes
   change(date(2024, 6, 3), 'Update event meta usage.', ToppleTheNun),
