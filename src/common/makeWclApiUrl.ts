@@ -3,8 +3,8 @@ import makeApiUrl from 'common/makeApiUrl';
 
 const WCL_API_KEY = import.meta.env.VITE_WCL_API_KEY || undefined;
 if (!WCL_API_KEY && import.meta.env.MODE === 'development') {
-  throw new Error(
-    'Invalid API key. You need to enter your own API key by creating a new file in the root repo called `.env.local` with the contents: `VITE_WCL_API_KEY=INSERT_YOUR_API_KEY_HERE`. After saving this file, you need to restart `yarn start`.',
+  console.warn(
+    'Invalid WCL API key. While currently unused, in the future you may need to enter your own API key by creating a new file in the root repo called `.env.local` with the contents: `VITE_WCL_API_KEY=INSERT_YOUR_API_KEY_HERE`. After saving this file, you need to restart `yarn start`.',
   );
 }
 
