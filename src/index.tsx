@@ -26,20 +26,18 @@ if (import.meta.env.VITE_SENTRY_DSN) {
   Sentry.init({
     dsn: import.meta.env.VITE_SENTRY_DSN,
     integrations: [
-      new Sentry.BrowserTracing({
-        routingInstrumentation: Sentry.reactRouterV6Instrumentation(
-          useEffect,
-          useLocation,
-          useNavigationType,
-          createRoutesFromChildren,
-          matchRoutes,
-        ),
+      Sentry.reactRouterV6BrowserTracingIntegration({
+        useEffect,
+        useLocation,
+        useNavigationType,
+        createRoutesFromChildren,
+        matchRoutes,
       }),
     ],
 
     release: import.meta.env.VITE_VERSION,
     environment: import.meta.env.VITE_ENVIRONMENT_NAME,
-    allowUrls: ['wowanalyzer.com/static/js/'],
+    allowUrls: ['wowanalyzer.com/assets/'],
 
     // Set tracesSampleRate to 1.0 to capture 100%
     // of transactions for performance monitoring.
