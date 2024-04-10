@@ -83,9 +83,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.8,
         },
-        gcd: {
-          base: combatant.hasTalent(TALENTS_DRUID.ORBITAL_STRIKE_TALENT) ? 1500 : 0,
-        },
+        gcd: combatant.hasTalent(TALENTS_DRUID.ORBITAL_STRIKE_TALENT) ? { base: 1500 } : null,
         timelineSortIndex: 9,
       },
       {
@@ -100,9 +98,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.8,
         },
-        gcd: {
-          base: combatant.hasTalent(TALENTS_DRUID.ORBITAL_STRIKE_TALENT) ? 1500 : 0,
-        },
+        gcd: combatant.hasTalent(TALENTS_DRUID.ORBITAL_STRIKE_TALENT) ? { base: 1500 } : null,
         timelineSortIndex: 9,
       },
       {
