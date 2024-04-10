@@ -5,7 +5,7 @@ type ConditionMap = { [k: string]: Condition<any> };
 
 export default function and(...conditions: Array<Condition<any>>): Condition<any> {
   const key = `and-${conditions.map((cnd) => cnd.key).join('-')}`;
-  if (process.env.NODE_ENV !== 'production' && conditions.some(containsOptionalCondition)) {
+  if (!import.meta.env.PROD && conditions.some(containsOptionalCondition)) {
     console.warn(
       `APL rule ${key} contains optional rules. Nesting optionalRule inside of and can produce confusing behavior and is discouraged.`,
       conditions,

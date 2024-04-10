@@ -3,7 +3,7 @@ import HIT_TYPES from 'game/HIT_TYPES';
 import { DamageEvent, EventType, RemoveStaggerEvent } from 'parser/core/Events';
 import BaseChart, { defaultConfig } from 'parser/ui/BaseChart';
 import { VisualizationSpec } from 'react-vega';
-import { AutoSizer } from 'react-virtualized';
+import AutoSizer from 'react-virtualized-auto-sizer';
 import { Field } from 'vega-lite/build/src/channeldef';
 import { UnitSpec } from 'vega-lite/build/src/spec';
 
@@ -39,16 +39,19 @@ export function InvokeNiuzaoSummaryChart({
   );
 
   const davePool = cast.stomps.flatMap(({ purifies, event }, index) => [
-    ...purifies.reduce((result, { timestamp, amount }) => {
-      const prevAmount = result.length > 0 ? result[result.length - 1].amount : 0;
-      const next = {
-        timestamp,
-        amount: prevAmount + amount / 4,
-        stomp: index,
-      };
-      result.push(next);
-      return result;
-    }, [] as Array<{ timestamp: number; amount: number; stomp: number }>),
+    ...purifies.reduce(
+      (result, { timestamp, amount }) => {
+        const prevAmount = result.length > 0 ? result[result.length - 1].amount : 0;
+        const next = {
+          timestamp,
+          amount: prevAmount + amount / 4,
+          stomp: index,
+        };
+        result.push(next);
+        return result;
+      },
+      [] as Array<{ timestamp: number; amount: number; stomp: number }>,
+    ),
     {
       timestamp: event.timestamp,
       amount: 0,

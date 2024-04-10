@@ -2,11 +2,6 @@ import SPELLS from 'common/SPELLS';
 import HealingEfficiencyTracker, {
   SpellInfoDetails,
 } from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
-import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import CastEfficiency from 'parser/shared/modules/CastEfficiency';
-import DamageDone from 'parser/shared/modules/throughput/DamageDone';
-import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 
 import HotAttributor from '../../modules/core/hottracking/HotAttributor';
 import Abilities from '../Abilities';
@@ -18,11 +13,6 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 class RestoDruidHealingEfficiencyTracker extends HealingEfficiencyTracker {
   static dependencies = {
     ...HealingEfficiencyTracker.dependencies,
-    manaTracker: ManaTracker,
-    abilityTracker: AbilityTracker,
-    healingDone: HealingDone,
-    damageDone: DamageDone,
-    castEfficiency: CastEfficiency,
 
     // Custom dependencies
     abilities: Abilities,
@@ -31,7 +21,6 @@ class RestoDruidHealingEfficiencyTracker extends HealingEfficiencyTracker {
     hotAttributor: HotAttributor,
   };
 
-  protected healingDone!: HealingDone;
   protected swiftmend!: Swiftmend;
   protected hotAttributor!: HotAttributor;
 

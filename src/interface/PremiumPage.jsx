@@ -32,7 +32,7 @@ export class PremiumPage extends PureComponent {
   };
   static defaultProps = {
     // We need to override this in tests to avoid different results in different environments.
-    dateToLocaleString: (date) => date.toLocaleString(process.env.LOCALE),
+    dateToLocaleString: (date) => date.toLocaleString(import.meta.env.LOCALE),
   };
 
   render() {

@@ -114,11 +114,11 @@ const appRoutes = createRoutesFromElements(
   </Route>,
 );
 
-const sentryCreateBrowserRouter = process.env.SENTRY_DSN
+const sentryCreateBrowserRouter = import.meta.env.SENTRY_DSN
   ? wrapCreateBrowserRouter(createBrowserRouter)
   : createBrowserRouter;
 const router =
-  process.env.NODE_ENV === 'test'
+  import.meta.env.MODE === 'test'
     ? createMemoryRouter(appRoutes)
     : sentryCreateBrowserRouter(appRoutes);
 

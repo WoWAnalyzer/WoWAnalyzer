@@ -1,13 +1,13 @@
 // All regions for WoW
 export const ALL_REGIONS = ['EU', 'US', 'TW', 'KR', 'CN'] as const;
-export type Region = typeof ALL_REGIONS[number];
+export type Region = (typeof ALL_REGIONS)[number];
 
 export const CLASSIC_REGIONS = ['EU', 'US', 'TW', 'KR'] as const;
-export type ClassicRegion = typeof CLASSIC_REGIONS[number];
+export type ClassicRegion = (typeof CLASSIC_REGIONS)[number];
 
 // WoWAnalyzer/Blizzard API supported regions
 export const SUPPORTED_REGIONS = ['EU', 'US', 'TW', 'KR'] as const;
-export type SupportedRegion = typeof SUPPORTED_REGIONS[number];
+export type SupportedRegion = (typeof SUPPORTED_REGIONS)[number];
 
 export function isRegion(region: string | undefined): region is Region {
   // the 'as' below is just to allow the use of .includes

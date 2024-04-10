@@ -156,24 +156,22 @@ class MaelstromWeaponSpenders extends Analyzer {
               return (
                 spender &&
                 spell && (
-                  <>
-                    <tr key={spellId}>
-                      <td>
-                        <SpellLink spell={spell} />
-                        {spellId === TALENTS_SHAMAN.PRIMORDIAL_WAVE_SPEC_TALENT.id && (
-                          <>
-                            {' '}
-                            buffed <SpellLink spell={SPELLS.LIGHTNING_BOLT} />
-                            's
-                          </>
-                        )}
-                      </td>
-                      <td className="text-right">{spender.casts}</td>
-                      <td className="text-right">{formatThousands(amount / spender.spent)}</td>
-                      <td className="text-right">{formatNumber(spender.spent / spender.casts)}</td>
-                      <td className="text-right">{formatThousands(amount / spender.casts)}</td>
-                    </tr>
-                  </>
+                  <tr key={spellId}>
+                    <td>
+                      <SpellLink spell={spell} />
+                      {spellId === TALENTS_SHAMAN.PRIMORDIAL_WAVE_SPEC_TALENT.id && (
+                        <>
+                          {' '}
+                          buffed <SpellLink spell={SPELLS.LIGHTNING_BOLT} />
+                          's
+                        </>
+                      )}
+                    </td>
+                    <td className="text-right">{spender.casts}</td>
+                    <td className="text-right">{formatThousands(amount / spender.spent)}</td>
+                    <td className="text-right">{formatNumber(spender.spent / spender.casts)}</td>
+                    <td className="text-right">{formatThousands(amount / spender.casts)}</td>
+                  </tr>
                 )
               );
             })}

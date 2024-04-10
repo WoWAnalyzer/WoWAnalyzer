@@ -27,13 +27,15 @@ import {
   Arlie,
   LucasLevyOB,
   dub,
-  Zyer, Earosselot,
+  Zyer,
+  Earosselot,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 4, 9), 'Swap to Vite instead of create-react-app.', ToppleTheNun),
   change(date(2024, 4, 8), 'Fix handling of character parse lookup for Classic', emallson),
   change(date(2024, 4, 6), 'Update Channel normalizer to properly handle Empowers.', Vollmer),
   change(date(2024, 4, 5), 'Fix events tab omitting some events.', ToppleTheNun),

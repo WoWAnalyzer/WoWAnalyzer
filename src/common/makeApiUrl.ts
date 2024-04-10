@@ -9,7 +9,7 @@ export interface QueryParams {
 
 export default function makeApiUrl(endpoint: string, queryParams: QueryParams = {}) {
   return makeUrl(
-    `${process.env.REACT_APP_SERVER_BASE}${process.env.REACT_APP_API_BASE}${endpoint}`,
+    `${import.meta.env.VITE_SERVER_BASE}${import.meta.env.VITE_API_BASE}${endpoint}`,
     queryParams,
   );
 }
