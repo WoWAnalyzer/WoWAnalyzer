@@ -21,9 +21,15 @@ export const WHITELIST_ABILITIES = [
 
 /** Returns the Balance Druid's primary cooldown spell, which changes based on talent */
 export function cdSpell(c: Combatant): Spell {
-  return c.hasTalent(TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT)
-    ? SPELLS.INCARNATION_CHOSEN_OF_ELUNE
-    : SPELLS.CELESTIAL_ALIGNMENT;
+  const hasIncarn = c.hasTalent(TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT);
+  const hasOs = c.hasTalent(TALENTS_DRUID.ORBITAL_STRIKE_TALENT);
+  return hasIncarn
+    ? hasOs
+      ? SPELLS.INCARNATION_ORBITAL_STRIKE
+      : SPELLS.INCARNATION_CHOSEN_OF_ELUNE
+    : hasOs
+      ? SPELLS.CELESTIAL_ALIGNMENT_ORBITAL_STRIKE
+      : SPELLS.CELESTIAL_ALIGNMENT;
 }
 
 export const CA_DURATION = 20_000;
