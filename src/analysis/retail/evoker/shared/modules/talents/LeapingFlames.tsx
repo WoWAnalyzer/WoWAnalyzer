@@ -165,13 +165,13 @@ class LeapingFlames extends Analyzer {
     const inDragonRage =
       this.hasDragonrage && this.selectedCombatant.hasBuff(TALENTS.DRAGONRAGE_TALENT.id);
     if (inDragonRage) {
-      const maxEB = this.maxEB - 1;
+      const maxPossibleEBGen = this.maxEB - 1;
 
       /** Player isn't running attunement and as such leaping can't ever provide value.
        * You *could* show the wasted EB from here, but it doesn't make sense to bonk players
        * for this, since realistically it isn't actually a waste.
        * We will for now just warn about it in the stats module. */
-      if (maxEB === 0) {
+      if (maxPossibleEBGen === 0) {
         return;
       }
 
@@ -191,7 +191,7 @@ class LeapingFlames extends Analyzer {
        * /report/rXkDfLBavt1mWpKx/4-Mythic++Darkheart+Thicket+-+Kill+(26:32)/Griwyvoker */
       this.essenceBurstGenerated += totalGeneratedEB;
 
-      const wastedEBToAccountFor = Math.min(totalWastedEB, maxEB);
+      const wastedEBToAccountFor = Math.min(totalWastedEB, maxPossibleEBGen);
       const actualWastedEB = Math.max(wastedEBToAccountFor - totalGeneratedEB, 0);
       this.essenceBurstWasted += actualWastedEB;
       return;
