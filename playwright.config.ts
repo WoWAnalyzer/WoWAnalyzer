@@ -103,8 +103,8 @@ const config: PlaywrightTestConfig = {
   webServer: process.env.CI
     ? {
         command: 'npx vite preview --outDir dist --port 3000',
-        port: 3000,
         timeout: 60000,
+        url: 'http://localhost:3000/',
       }
     : undefined,
 };
