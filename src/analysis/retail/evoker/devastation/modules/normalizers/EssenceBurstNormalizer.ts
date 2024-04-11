@@ -28,6 +28,7 @@ const EVENT_ORDERS: EventOrder[] = [
  * which means that abilities that can generate multiple EB at once, eg. Living Flame cast with
  * Leaping Flames, will only have one event normalized, which can be non ideal. Therefore we will build
  * an array with all the different types to make sure we get them all normalized.
+ * Specifically this messes with the APLCheck due to resources not being applied in the right order.
  **/
 class EssenceBurstNormalizer extends EventOrderNormalizer {
   static dependencies = {
