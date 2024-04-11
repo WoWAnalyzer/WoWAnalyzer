@@ -1,4 +1,5 @@
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/evoker';
+import TALENTS from 'common/TALENTS/evoker';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import { Options } from 'parser/core/Module';
 import {
@@ -38,6 +39,9 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true,
     forwardBufferMs: LEAPING_FLAMES_CONSUME_BUFFER,
     backwardBufferMs: LEAPING_FLAMES_CONSUME_BUFFER,
+    isActive(c) {
+      return c.hasTalent(TALENTS.LEAPING_FLAMES_TALENT);
+    },
   },
   {
     linkRelation: LIVING_FLAME_CAST_HIT,
@@ -81,6 +85,9 @@ const EVENT_LINKS: EventLink[] = [
       );
 
       return !HasRelatedEvent(referencedEvent, LIVING_FLAME_CAST_HIT) && !targetHitBefore;
+    },
+    isActive(c) {
+      return c.hasTalent(TALENTS.LEAPING_FLAMES_TALENT);
     },
   },
 ];
