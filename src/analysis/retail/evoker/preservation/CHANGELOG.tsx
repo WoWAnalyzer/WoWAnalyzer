@@ -6,6 +6,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { ResourceLink, SpellLink } from 'interface';
 
 export default [
+  change(date(2024, 4, 11), <>Rework <SpellLink spell={SPELLS.LEAPING_FLAMES_BUFF} /> module to increase accuracy.</>, Vollmer),
   change(date(2024, 4, 6), 'Normalize Empower behavior to make analysis more consistent.', Vollmer),
   change(date(2024, 3, 30), <>Fix prepull <SpellLink spell={SPELLS.LIVING_FLAME_CAST} /> casts to properly display channel time.</>, Vollmer),
   change(date(2024, 3, 12), <>Implement <SpellLink spell={TALENTS_EVOKER.TIME_OF_NEED_TALENT} /> module.</>, Harrek),
