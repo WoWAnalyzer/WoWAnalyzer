@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS/evoker';
 import TALENTS from 'common/TALENTS/evoker';
-import { formatDuration, formatNumber } from 'common/format';
+import { formatNumber } from 'common/format';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
@@ -29,6 +29,32 @@ import {
 
 /**
  * Fire Breath causes your next Living Flame to strike 1 additional target per empower level.
+ *
+ * This analyzers main goal is to attempt to determine the amount of Essence Burst Leaping Flames
+ * hits generated.
+ * We rely on already having attributed as many EB as possible to other, more deterministic sources.
+ * So the more accurately those are tracked across the board, the better.
+ * This is done in the EssenceBurstCastLinkNormalizer.
+ *
+ * We are able to make the following assumptions on the behavior of EB generation:
+ * 1. Living Flame damage hits will ALWAYS generate EB on cast.
+ * 2. Living Flame heal hits will, for the most part, generate EB on hit.
+ *    Sometimes these are generated on cast as well. But we focus on the former.
+ * 3. Only effective heals will generate EB.
+ *
+ * Living Flame EB generation is determined by linking the Living Flame casts to their hits (leaping included).
+ * Along with The EB generated/wasted from the Living Flame casts.
+ *
+ * We can then apply the following rules to determine the probability of an EB being generated from
+ * Leaping Flames:
+ *
+ * 1. If we are in Dragonrage then we can attribute everything past the first one.
+ * 2. If there are more than 1 EB procs then we can attribute 1 EB.
+ * 3. If there is an EB proc with the same/close timestamp as a (later) heal hit then we can attribute 1 EB.
+ *    Note: If this was the cast hit, then we don't attribute and remove 1 EB from the equation.
+ * 4. Beyond this we need to determine the actual probability of an EB being generated and attribute a fraction.
+ *
+ * The same process applies to the wasted amount.
  */
 class LeapingFlames extends Analyzer {
   leapingFlamesDamage = 0;
@@ -49,6 +75,8 @@ class LeapingFlames extends Analyzer {
   maxEB = this.hasAttunement ? 2 : 1;
   hasDragonrage = this.selectedCombatant.hasTalent(TALENTS.DRAGONRAGE_TALENT);
 
+  /** If the buff is refreshed/overridden it will gain/lose stacks instead of refreshing
+   * It can be observed in this log @24:53.644 & @27:58.515 /reports/rXkDfLBavt1mWpKx#fight=5&type=damage-done&source=1 */
   applicationOrRefreshEvents = [Events.applybuff, Events.applybuffstack, Events.removebuffstack];
 
   constructor(options: Options) {
@@ -72,27 +100,15 @@ class LeapingFlames extends Analyzer {
     this.leapingFlamesBuffs += 1;
   }
 
-  /**
-   *
-   */
   onRemoveBuff(leapingBuff: RemoveBuffEvent) {
-    console.group(
-      formatDuration(leapingBuff.timestamp - this.owner.fight.start_time),
-      '- inDragonRage',
-      this.selectedCombatant.hasBuff(TALENTS.DRAGONRAGE_TALENT.id),
-    );
     const lfCast = getLeapingCast(leapingBuff);
     if (!lfCast) {
-      console.log('buff wasted');
-      console.groupEnd();
       return;
     }
     this.leapingFlamesConsumptions += 1;
 
     const leapingEvents = getLeapingEvents(lfCast);
     if (!leapingEvents.length) {
-      console.log('no leaping hits');
-      console.groupEnd();
       return;
     }
 
@@ -117,10 +133,6 @@ class LeapingFlames extends Analyzer {
     const wastedEB = getWastedEBEvents(lfCast, EBSource.LivingFlameCast);
     if (!generatedEB.length && !wastedEB.length) {
       // potentially you don't bail here if you want to show expected vs actual procs
-      console.log('no EBs');
-      console.log('damageHits', damageHits);
-      console.log('healHits', healHits);
-      console.groupEnd();
       return;
     }
 
@@ -128,7 +140,6 @@ class LeapingFlames extends Analyzer {
 
     const { healGen, healWaste } = allEBEvents.reduce(
       (acc, event) => {
-        /* const ebSource = getEBSource(event); */
         const isWaste = event.type === EventType.RefreshBuff;
 
         const isFromHeal = isEBFrom(event, EBSource.LivingFlameHeal);
@@ -145,14 +156,6 @@ class LeapingFlames extends Analyzer {
       },
       { healGen: 0, healWaste: 0 },
     );
-
-    console.log('damageHits', damageHits);
-    console.log('healHits', healHits);
-    console.log('healGen', healGen);
-    console.log('healWaste', healWaste);
-
-    console.log('generatedEB', generatedEB);
-    console.log('wastedEB', wastedEB);
 
     let totalGeneratedEB = generatedEB.length;
     let totalWastedEB = wastedEB.length;
@@ -191,11 +194,6 @@ class LeapingFlames extends Analyzer {
       const wastedEBToAccountFor = Math.min(totalWastedEB, maxEB);
       const actualWastedEB = Math.max(wastedEBToAccountFor - totalGeneratedEB, 0);
       this.essenceBurstWasted += actualWastedEB;
-
-      console.info('Attributed', totalGeneratedEB, 'EB gen');
-      console.info('Attributed', actualWastedEB, 'EB waste');
-      console.groupEnd();
-
       return;
     }
 
@@ -214,12 +212,6 @@ class LeapingFlames extends Analyzer {
       );
       this.essenceBurstGenerated += ebFromLeaping.guaranteedFromLeaping;
       this.maybeEssenceBurstGenerated += ebFromLeaping.maybeFromLeaping;
-      console.info(
-        'Gen Attributed guaranteedFromLeaping:',
-        ebFromLeaping.guaranteedFromLeaping,
-        'potential',
-        ebFromLeaping.maybeFromLeaping,
-      );
     }
 
     /** Whilst we could show every single overcapped EB, it doesn't make sense to do so
@@ -227,7 +219,6 @@ class LeapingFlames extends Analyzer {
      * avoid overcapping those ones, so we ignore the unrealistic excess. */
     const maxPossibleWastedEB = Math.max(this.maxEB - totalGeneratedEB, 0);
     const wastedEBToAccountFor = Math.min(maxPossibleWastedEB, totalWastedEB);
-    console.log('wastedEBToAccountFor', wastedEBToAccountFor);
 
     if (wastedEBToAccountFor > 0) {
       const wastedEBFromLeaping = this.getLeapingEBShare(
@@ -240,15 +231,7 @@ class LeapingFlames extends Analyzer {
 
       this.essenceBurstWasted += wastedEBFromLeaping.guaranteedFromLeaping;
       this.maybeEssenceBurstWasted += wastedEBFromLeaping.maybeFromLeaping;
-      console.info(
-        'Waste Attributed guaranteedFromLeaping:',
-        wastedEBFromLeaping.guaranteedFromLeaping,
-        'potential',
-        wastedEBFromLeaping.maybeFromLeaping,
-      );
     }
-
-    console.groupEnd();
   }
 
   /** Get the estimated share of leaping flames gen/waste
@@ -270,20 +253,17 @@ class LeapingFlames extends Analyzer {
     if (procsToAccountFor > 1) {
       guaranteedFromLeaping = 1;
       procsToAccountFor -= procsToAccountFor - 1;
-      console.info('attributed 1 of 2 procs - procsToAccountFor', procsToAccountFor);
     }
 
     // We know for certain that 1 EB came from the initial cast
     if (castHitProc) {
       procsToAccountFor -= 1;
-      console.info('removed 1 procsToAccountFor', procsToAccountFor);
     }
 
     // Heal proc sources are deterministic so we can directly distribute them
     if (healProcs > 0) {
       guaranteedFromLeaping += Math.min(healProcs, procsToAccountFor);
       procsToAccountFor -= Math.min(healProcs, procsToAccountFor);
-      console.info('attributed', healProcs, 'healProcs - procsToAccountFor', procsToAccountFor);
     }
 
     if (procsToAccountFor === 0) {
@@ -302,13 +282,6 @@ class LeapingFlames extends Analyzer {
   }
 
   statistic() {
-    console.log('Total guaranteed:');
-    console.log('gen:', this.essenceBurstGenerated);
-    console.log('waste:', this.essenceBurstWasted);
-    console.log('Total potential:');
-    console.log('gen:', this.maybeEssenceBurstGenerated);
-    console.log('waste:', this.maybeEssenceBurstWasted);
-
     const wastedBuffs = this.leapingFlamesBuffs - this.leapingFlamesConsumptions;
     return (
       <Statistic
