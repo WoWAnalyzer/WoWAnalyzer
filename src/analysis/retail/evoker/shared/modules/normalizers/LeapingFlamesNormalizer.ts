@@ -43,9 +43,7 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true,
     forwardBufferMs: LEAPING_FLAMES_CONSUME_BUFFER,
     backwardBufferMs: LEAPING_FLAMES_CONSUME_BUFFER,
-    isActive(c) {
-      return c.hasTalent(TALENTS.LEAPING_FLAMES_TALENT);
-    },
+    isActive: (c) => c.hasTalent(TALENTS.LEAPING_FLAMES_TALENT),
   },
   {
     linkRelation: LEAPING_FLAMES_BUFF,
@@ -59,14 +57,12 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: LEAPING_FLAMES_BUFF_BUFFER,
     anyTarget: true,
     maximumLinks: 1,
+    isActive: (c) => c.hasTalent(TALENTS.LEAPING_FLAMES_TALENT),
     additionalCondition(_linkingEvent, referencedEvent) {
       /** Condition to ensure that we only ever link unique hits to cast
        * LF has travel time so you can technically cast back-to-back before
        * the first LF hits */
       return !HasRelatedEvent(referencedEvent, LEAPING_FLAMES_BUFF);
-    },
-    isActive(c) {
-      return c.hasTalent(TALENTS.LEAPING_FLAMES_TALENT);
     },
   },
   {
@@ -82,9 +78,7 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: LEAPING_FLAMES_CONSUME_BUFFER,
     anyTarget: true,
     maximumLinks: 1,
-    isActive(c) {
-      return c.hasTalent(TALENTS.LEAPING_FLAMES_TALENT);
-    },
+    isActive: (c) => c.hasTalent(TALENTS.LEAPING_FLAMES_TALENT),
   },
   {
     linkRelation: LIVING_FLAME_CAST_HIT,
@@ -116,12 +110,14 @@ const EVENT_LINKS: EventLink[] = [
     // can be seen here at 0:30
     // /report/vDVJKnwGmAM9tCQN/48-Mythic+Volcoross+-+Kill+(2:49)/Vollmer/standard/events
     backwardBufferMs: BACKWARDS_BUFFER,
-    maximumLinks: (c) =>
-      c.hasTalent(TALENTS.FONT_OF_MAGIC_AUGMENTATION_TALENT) ||
-      c.hasTalent(TALENTS.FONT_OF_MAGIC_DEVASTATION_TALENT) ||
-      c.hasTalent(TALENTS.FONT_OF_MAGIC_PRESERVATION_TALENT)
+    maximumLinks: (c) => {
+      return c.hasTalent(TALENTS.FONT_OF_MAGIC_AUGMENTATION_TALENT) ||
+        c.hasTalent(TALENTS.FONT_OF_MAGIC_DEVASTATION_TALENT) ||
+        c.hasTalent(TALENTS.FONT_OF_MAGIC_PRESERVATION_TALENT)
         ? 4
-        : 3,
+        : 3;
+    },
+    isActive: (c) => c.hasTalent(TALENTS.LEAPING_FLAMES_TALENT),
     additionalCondition(linkingEvent, referencedEvent) {
       if (!HasRelatedEvent(linkingEvent, LEAPING_FLAMES_CONSUME)) {
         return false;
@@ -144,9 +140,6 @@ const EVENT_LINKS: EventLink[] = [
       );
 
       return !HasRelatedEvent(referencedEvent, LIVING_FLAME_CAST_HIT) && !targetHitBefore;
-    },
-    isActive(c) {
-      return c.hasTalent(TALENTS.LEAPING_FLAMES_TALENT);
     },
   },
 ];
