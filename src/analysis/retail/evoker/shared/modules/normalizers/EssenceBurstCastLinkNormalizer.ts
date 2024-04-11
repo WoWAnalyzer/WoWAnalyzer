@@ -38,8 +38,8 @@ export const EB_FROM_ARCANE_VIGOR = 'ebFromArcaneVigor';
 export const EB_FROM_LF_CAST = 'ebFromLFCast';
 export const EB_FROM_LF_HEAL = 'ebFromLFHeal'; // Specifically used for Leaping Flames analysis
 const ESSENCE_BURST_BUFFER = 40; // Sometimes the EB comes a bit early/late
-const EB_LF_CAST_BUFFER = 1000;
-const EMERALD_TRANCE_BUFFER = 5000;
+const EB_LF_CAST_BUFFER = 1_000;
+const EMERALD_TRANCE_BUFFER = 5_000;
 
 /** More deterministic links should be placed above less deterministic links
  * eg.
@@ -100,8 +100,8 @@ const EVENT_LINKS: EventLink[] = [
       return c.has4PieceByTier(TIERS.DF3);
     },
     additionalCondition(linkingEvent, referencedEvent) {
-      // applies one EB each 5000 ms for the duration of the buff (25000ms)
-      // so check if the timestamp difference is divisible by 5000 allowing the remainder to be withing the ESSENCE_BURST_BUFFER range
+      // applies one EB each 5_000 ms for the duration of the buff (25_000ms)
+      // so check if the timestamp difference is divisible by 5_000 allowing the remainder to be withing the ESSENCE_BURST_BUFFER range
       const timeDiff = Math.abs(
         (linkingEvent.timestamp - referencedEvent.timestamp) % EMERALD_TRANCE_BUFFER,
       );
@@ -126,12 +126,9 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: ESSENCE_BURST_BUFFER,
     backwardBufferMs: ESSENCE_BURST_BUFFER,
     maximumLinks: 1,
-    isActive: (c) => {
-      return (
-        c.hasTalent(TALENTS.AZURE_ESSENCE_BURST_TALENT) ||
-        c.hasTalent(TALENTS.ESSENCE_BURST_AUGMENTATION_TALENT)
-      );
-    },
+    isActive: (c) =>
+      c.hasTalent(TALENTS.AZURE_ESSENCE_BURST_TALENT) ||
+      c.hasTalent(TALENTS.ESSENCE_BURST_AUGMENTATION_TALENT),
     additionalCondition(_linkingEvent, referencedEvent) {
       return hasNoGenerationLink(referencedEvent as AnyBuffEvent);
     },

@@ -24,7 +24,7 @@ const LEAPING_FLAMES_CONSUME_BUFFER = 35;
 const LEAPING_FLAMES_BUFF_BUFFER = 30_000;
 
 export const LIVING_FLAME_CAST_HIT = 'livingFlameCastHit';
-const LIVING_FLAME_HIT_BUFFER = 1000; // LF has travel time
+const LIVING_FLAME_HIT_BUFFER = 1_000; // LF has travel time
 
 export const EB_FROM_LF_CAST = 'ebFromLFCast';
 export const EB_FROM_LF_HEAL = 'ebFromLFHeal';
