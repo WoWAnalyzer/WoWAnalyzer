@@ -17,6 +17,7 @@ import {
 import { Options } from 'parser/core/Module';
 import { EB_BUFF_IDS } from '../../constants';
 import { TIERS } from 'game/TIERS';
+import EssenceBurstRefreshNormalizer from './EssenceBurstRefreshNormalizer';
 
 export const EB_GENERATION_EVENT_TYPES = [
   EventType.RefreshBuff,
@@ -185,6 +186,10 @@ const EVENT_LINKS: EventLink[] = [
 ];
 
 class EssenceBurstCastLinkNormalizer extends EventLinkNormalizer {
+  static dependencies = {
+    ...EventLinkNormalizer.dependencies,
+    essenceBurstRefreshNormalizer: EssenceBurstRefreshNormalizer,
+  };
   constructor(options: Options) {
     super(options, EVENT_LINKS);
   }
