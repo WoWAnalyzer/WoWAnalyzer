@@ -199,7 +199,7 @@ export const EBSource = {
   LivingFlameCast: EB_FROM_LF_CAST,
   LivingFlameHeal: EB_FROM_LF_HEAL,
 } as const;
-export type EBSourceType = typeof EBSource[keyof typeof EBSource];
+export type EBSourceType = (typeof EBSource)[keyof typeof EBSource];
 
 const ebSourcesValues = Object.values(EBSource);
 /** Get the source type for EB event */
