@@ -12,14 +12,14 @@ import {
   HealEvent,
   RemoveBuffEvent,
   AnyEvent,
-  ApplyBuffStackEvent,
+  EmpowerEndEvent,
 } from 'parser/core/Events';
 import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
-import LeapingFlamesBuffNormalizer from './LeapingFlamesBuffNormalizer';
 
 export const LEAPING_FLAMES_HITS = 'leapingFlamesHits';
 export const LEAPING_FLAMES_CONSUME = 'leapingFlamesConsume';
 export const LEAPING_FLAMES_BUFF = 'leapingFlamesBuff';
+export const LEAPING_FLAMES_APPLICATION = 'leapingFlamesApplication';
 const LEAPING_FLAMES_CONSUME_BUFFER = 35;
 const LEAPING_FLAMES_BUFF_BUFFER = 30_000;
 
@@ -51,7 +51,9 @@ const EVENT_LINKS: EventLink[] = [
     linkRelation: LEAPING_FLAMES_BUFF,
     reverseLinkRelation: LEAPING_FLAMES_BUFF,
     linkingEventId: SPELLS.LEAPING_FLAMES_BUFF.id,
-    linkingEventType: [EventType.ApplyBuff, EventType.ApplyBuffStack],
+    /** If the buff is refreshed/overridden it will gain/lose stacks instead of refreshing
+     * It can be observed in this log @24:53.644 & @27:58.515 /reports/rXkDfLBavt1mWpKx#fight=5&type=damage-done&source=1 */
+    linkingEventType: [EventType.ApplyBuff, EventType.ApplyBuffStack, EventType.RemoveBuffStack],
     referencedEventId: SPELLS.LEAPING_FLAMES_BUFF.id,
     referencedEventType: EventType.RemoveBuff,
     forwardBufferMs: LEAPING_FLAMES_BUFF_BUFFER,
@@ -63,6 +65,23 @@ const EVENT_LINKS: EventLink[] = [
        * the first LF hits */
       return !HasRelatedEvent(referencedEvent, LEAPING_FLAMES_BUFF);
     },
+    isActive(c) {
+      return c.hasTalent(TALENTS.LEAPING_FLAMES_TALENT);
+    },
+  },
+  {
+    linkRelation: LEAPING_FLAMES_APPLICATION,
+    reverseLinkRelation: LEAPING_FLAMES_APPLICATION,
+    linkingEventId: SPELLS.LEAPING_FLAMES_BUFF.id,
+    /** If the buff is refreshed/overridden it will gain/lose stacks instead of refreshing
+     * See examples above */
+    linkingEventType: [EventType.ApplyBuff, EventType.ApplyBuffStack, EventType.RemoveBuffStack],
+    referencedEventId: [SPELLS.FIRE_BREATH.id, SPELLS.FIRE_BREATH_FONT.id],
+    referencedEventType: EventType.EmpowerEnd,
+    forwardBufferMs: LEAPING_FLAMES_CONSUME_BUFFER,
+    backwardBufferMs: LEAPING_FLAMES_CONSUME_BUFFER,
+    anyTarget: true,
+    maximumLinks: 1,
     isActive(c) {
       return c.hasTalent(TALENTS.LEAPING_FLAMES_TALENT);
     },
@@ -111,7 +130,7 @@ const EVENT_LINKS: EventLink[] = [
       /** To ensure we don't over attribute hits to Leaping Flames
        * we need to check for amount of targets hit, and max possible */
       const previousLeapingHits = getLeapingEvents(linkingEvent as CastEvent);
-      const maxPossibleHits = leapingFlamesStackCount(linkingEvent);
+      const maxPossibleHits = getLeapingFlamesStacks(linkingEvent);
       if (previousLeapingHits.length >= maxPossibleHits) {
         return false;
       }
@@ -133,11 +152,6 @@ const EVENT_LINKS: EventLink[] = [
 ];
 
 class LeapingFlamesNormalizer extends EventLinkNormalizer {
-  static dependencies = {
-    ...EventLinkNormalizer.dependencies,
-    leapingFlamesBuffNormalizer: LeapingFlamesBuffNormalizer,
-  };
-
   constructor(options: Options) {
     super(options, EVENT_LINKS);
   }
@@ -176,18 +190,40 @@ export function getLeapingCast(event: RemoveBuffEvent): CastEvent | undefined {
   );
 }
 
-function leapingFlamesStackCount(event: AnyEvent): number {
-  const leapingRemove = GetRelatedEvent(event, LEAPING_FLAMES_CONSUME);
-  if (!leapingRemove) {
-    return 1;
-  }
-  const applyEvent = GetRelatedEvent<ApplyBuffStackEvent>(leapingRemove, LEAPING_FLAMES_BUFF);
+function getLeapingFlamesStacks(event: AnyEvent): number {
+  const leapingEvent =
+    event.type === EventType.Cast ? GetRelatedEvent(event, LEAPING_FLAMES_CONSUME) : event;
 
-  if (!applyEvent || applyEvent.type !== EventType.ApplyBuffStack) {
+  if (!leapingEvent) {
     return 1;
   }
 
-  return applyEvent.stack;
+  if (
+    leapingEvent.type === EventType.ApplyBuffStack ||
+    leapingEvent.type === EventType.RemoveBuffStack
+  ) {
+    return leapingEvent.stack;
+  }
+
+  const applyEvent =
+    leapingEvent.type === EventType.RemoveBuff
+      ? GetRelatedEvent(leapingEvent, LEAPING_FLAMES_BUFF)
+      : leapingEvent;
+
+  if (!applyEvent) {
+    return 1;
+  }
+
+  if (
+    applyEvent.type === EventType.ApplyBuffStack ||
+    applyEvent.type === EventType.RemoveBuffStack
+  ) {
+    return applyEvent.stack;
+  }
+
+  const empowerEvent = GetRelatedEvent<EmpowerEndEvent>(applyEvent, LEAPING_FLAMES_APPLICATION);
+
+  return empowerEvent?.empowermentLevel || 1;
 }
 
 export default LeapingFlamesNormalizer;
