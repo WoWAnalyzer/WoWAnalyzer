@@ -2,6 +2,7 @@ export {
   default as LeapingFlamesNormalizer,
   isFromLeapingFlames,
 } from './modules/normalizers/LeapingFlamesNormalizer';
+export { default as LeapingFlamesBuffNormalizer } from './modules/normalizers/LeapingFlamesBuffNormalizer';
 export { default as EmpowerNormalizer } from './modules/normalizers/EmpowerNormalizer';
 export { default as SpellUsable } from './modules/features/SpellUsable';
 export { default as GlobalCooldown } from './modules/features/GlobalCooldown';
