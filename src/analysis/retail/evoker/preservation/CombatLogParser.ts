@@ -51,6 +51,7 @@ import EchoTypeBreakdown from './modules/talents/EchoTypeBreakdown';
 import {
   LivingFlameNormalizer,
   LivingFlamePrePullNormalizer,
+  LeapingFlamesBuffNormalizer,
   LeapingFlamesNormalizer,
   EssenceBurstRefreshNormalizer,
   EssenceBurstCastLinkNormalizer,
@@ -98,6 +99,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Shared talents
     livingFlamePrePullNormalizer: LivingFlamePrePullNormalizer,
+    leapingFlamesBuffNormalizer: LeapingFlamesBuffNormalizer,
     leapingFlamesNormalizer: LeapingFlamesNormalizer,
     leapingFlames: LeapingFlames,
     sourceOfMagic: SourceOfMagic,
