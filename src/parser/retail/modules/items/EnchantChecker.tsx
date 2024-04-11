@@ -244,8 +244,8 @@ class EnchantChecker extends BaseEnchantChecker {
     return AGI_SPECS.includes(this.selectedCombatant.specId)
       ? AGI_ENCHANTABLE_SLOTS
       : STR_SPECS.includes(this.selectedCombatant.specId)
-      ? STR_ENCHANTABLE_SLOTS
-      : INT_ENCHANTABLE_SLOTS;
+        ? STR_ENCHANTABLE_SLOTS
+        : INT_ENCHANTABLE_SLOTS;
   }
 
   get MinEnchantIds(): number[] {

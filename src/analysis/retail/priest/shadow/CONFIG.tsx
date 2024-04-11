@@ -39,7 +39,7 @@ const config: Config = {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: 'report/7a9jhrxD1fQdXFRv/4-Heroic+Volcoross+-+Kill+(2:41)/Doxashe/standard',
+  exampleReport: 'report/rbM3z4h7F2Wy9JD6/5-Heroic+Volcoross+-+Kill+(2:52)/Doxashe/standard',
   guideDefault: true,
 
   // Don't change anything below this line;
@@ -53,7 +53,7 @@ const config: Config = {
       (exports) => exports.default,
     ),
   //The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
-  path: __dirname,
+  path: import.meta.url,
 };
 
 export default config;

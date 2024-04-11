@@ -3,7 +3,6 @@ import fetchWcl from 'common/fetchWclApi';
 import { formatDuration, formatPercentage, formatThousands } from 'common/format';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-import { isRetailExpansion } from 'game/Expansion';
 import ROLES from 'game/ROLES';
 import { ItemLink } from 'interface';
 import ActivityIndicator from 'interface/ActivityIndicator';
@@ -13,7 +12,7 @@ import { PureComponent, ReactNode } from 'react';
 import Config from 'parser/Config';
 import { WCLRanking, WCLRankingGear, WCLRankingsResponse } from 'common/WCL_TYPES';
 import getItemQualityFromLabel from 'common/getItemQualityFromLabel';
-import AlertWarning from 'interface/AlertWarning';
+import DIFFICULTIES from 'game/DIFFICULTIES';
 
 interface WCLRankingGearWithAmount extends WCLRankingGear {
   amount: number;
@@ -114,8 +113,11 @@ class EncounterStats extends PureComponent<Props, State> {
     ); // current calendar-week
 
     return fetchWcl<WCLRankingsResponse>(`rankings/encounter/${this.props.currentBoss}`, {
+      // TODO once we have completed migrating to v2, remove the class/spec params
       class: this.props.config.spec.ranking.class,
       spec: this.props.config.spec.ranking.spec,
+      className: this.props.config.spec.wclClassName,
+      specName: this.props.config.spec.wclSpecName,
       difficulty: this.props.difficulty,
       limit: this.LIMIT, //Currently does nothing but if Kihra reimplements it'd be nice to have
       metric: this.metric,
@@ -132,13 +134,6 @@ class EncounterStats extends PureComponent<Props, State> {
         const combatantName = this.props.combatant._combatantInfo.name;
 
         stats.rankings.forEach((rank) => {
-          // TODO: Figure out new talents
-          // rank.talents.forEach((talent, index) => {
-          //   if (talent.id !== null && talent.id !== 0) {
-          //     talentCounter[index].push(talent.id);
-          //   }
-          // });
-
           rank.gear.forEach((item, itemSlot) => {
             if (itemSlot === 12 || itemSlot === 13) {
               trinkets = this.addItem(trinkets, item);
@@ -184,8 +179,6 @@ class EncounterStats extends PureComponent<Props, State> {
         closestKillTimes.sort((a, b) => a.variance - b.variance);
 
         this.setState({
-          // TODO: Figure out new talents
-          // mostUsedTalents: talents,
           mostUsedTrinkets: trinkets.slice(0, this.SHOW_TOP_ENTRYS),
           similiarKillTimes: similiarKillTimes.slice(0, this.SHOW_CLOSEST_KILL_TIME_LOGS),
           closestKillTimes: closestKillTimes.slice(0, this.SHOW_CLOSEST_KILL_TIME_LOGS),
@@ -254,7 +247,13 @@ class EncounterStats extends PureComponent<Props, State> {
               rel="noopener noreferrer"
             >
               <div>
-                {log.name} ({log.itemLevel})
+                {log.name} (
+                {'itemLevel' in log
+                  ? log.itemLevel
+                  : this.props.difficulty !== DIFFICULTIES.MYTHIC_PLUS_DUNGEON
+                    ? log.bracketData
+                    : undefined}
+                )
               </div>
             </a>
             <div>
@@ -266,7 +265,7 @@ class EncounterStats extends PureComponent<Props, State> {
             </div>
           </div>
           <div className="col-md-6">
-            {formatThousands(log.total)} {this.metric}
+            {formatThousands('total' in log ? log.total : log.amount)} {this.metric}
           </div>
         </div>
       </div>
@@ -324,8 +323,6 @@ class EncounterStats extends PureComponent<Props, State> {
     // This also enables us to work around certain logs being anonymised - as this will then ignore those, and cause us to divide by 99, making our percentages accurate again.
     this.amountOfParses = this.state.rankingsCount;
 
-    // HACK: don't want to convert to ts, so this flags retail as Shadowlands or later.
-    const isRetail = isRetailExpansion(this.props.config.expansion);
     return (
       <>
         <h1>
@@ -345,54 +342,6 @@ class EncounterStats extends PureComponent<Props, State> {
                 <div className="row" style={{ marginBottom: '2em' }}>
                   {this.state.mostUsedTrinkets.map((trinket) => this.singleItem(trinket))}
                 </div>
-                {isRetail && (
-                  <>
-                    <div className="row" style={{ marginBottom: '1em' }}>
-                      <div className="col-md-12">
-                        <h2>Most used Talents</h2>
-                      </div>
-                    </div>
-                    <AlertWarning>
-                      Due to the talent rework and continuing work as part of the Dragonflight
-                      launch, this section is still under construction.
-                    </AlertWarning>
-                    {/* TODO: Figure out new talents */}
-                    {/*{this.state.mostUsedTalents.map((row, index) => (*/}
-                    {/*  <div*/}
-                    {/*    key={index}*/}
-                    {/*    className="row"*/}
-                    {/*    style={{ marginBottom: 15, paddingLeft: 20 }}*/}
-                    {/*   >*/}
-                    {/*     <div*/}
-                    {/*       className="col-lg-1 col-xs-2"*/}
-                    {/*      style={{ lineHeight: '3em', textAlign: 'right' }}*/}
-                    {/*    >*/}
-                    {/*      {rows[index]}*/}
-                    {/*    </div>*/}
-                    {/*    {(Object.keys(row) as Array<keyof typeof row>)*/}
-                    {/*      .sort((a, b) => row[b] - row[a])*/}
-                    {/*      .map((talent, talentIndex) => (*/}
-                    {/*         <div*/}
-                    {/*           key={talentIndex}*/}
-                    {/*          className="col-lg-3 col-xs-4"*/}
-                    {/*           style={{ textAlign: 'center' }}*/}
-                    {/*         >*/}
-                    {/*           <SpellLink spell={Number(talent)} icon={false}>*/}
-                    {/*            <SpellIcon*/}
-                    {/*              style={{ width: '3em', height: '3em' }}*/}
-                    {/*              id={Number(talent)}*/}
-                    {/*              noLink*/}
-                    {/*             />*/}
-                    {/*           </SpellLink>*/}
-                    {/*           <span style={{ textAlign: 'center', display: 'block' }}>*/}
-                    {/*             {formatPercentage(row[talent] / this.amountOfParses, 0)}%*/}
-                    {/*           </span>*/}
-                    {/*         </div>*/}
-                    {/*       ))}*/}
-                    {/*   </div>*/}
-                    {/* ))}*/}
-                  </>
-                )}
               </div>
               <div className="col-md-4">
                 <div className="row" style={{ marginBottom: '1em' }}>

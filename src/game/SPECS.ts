@@ -14,11 +14,6 @@ interface BaseSpec {
   role: number;
   primaryStat: PRIMARY_STAT;
   ranking: { class: number; spec: number };
-}
-
-export interface RetailSpec extends BaseSpec {
-  masterySpellId: number;
-  masteryCoefficient: number;
   /**
    * String key used by WCL to identify the class.
    */
@@ -27,6 +22,11 @@ export interface RetailSpec extends BaseSpec {
    * String key used by WCL to identify the spec.
    */
   wclSpecName: string;
+}
+
+export interface RetailSpec extends BaseSpec {
+  masterySpellId: number;
+  masteryCoefficient: number;
 }
 
 export interface ClassicSpec extends BaseSpec {
@@ -934,6 +934,8 @@ const SPECS = {
       spec: 1,
     },
     icon: 'Warrior-Arms',
+    wclClassName: 'Warrior',
+    wclSpecName: 'Arms',
     treeIndex: 0,
   },
   CLASSIC_WARRIOR_FURY: {
@@ -955,6 +957,8 @@ const SPECS = {
       spec: 2,
     },
     icon: 'Warrior-Fury',
+    wclClassName: 'Warrior',
+    wclSpecName: 'Fury',
     treeIndex: 1,
   },
   CLASSIC_WARRIOR_PROTECTION: {
@@ -976,6 +980,8 @@ const SPECS = {
       spec: 3,
     },
     icon: 'Warrior-Protection',
+    wclClassName: 'Warrior',
+    wclSpecName: 'Protection',
     treeIndex: 2,
   },
   CLASSIC_PALADIN_HOLY: {
@@ -997,6 +1003,8 @@ const SPECS = {
       spec: 1,
     },
     icon: 'Paladin-Holy',
+    wclClassName: 'Paladin',
+    wclSpecName: 'Holy',
     treeIndex: 0,
   },
   CLASSIC_PALADIN_PROTECTION: {
@@ -1018,6 +1026,8 @@ const SPECS = {
       spec: 2,
     },
     icon: 'Paladin-Protection',
+    wclClassName: 'Paladin',
+    wclSpecName: 'Protection',
     treeIndex: 1,
   },
   CLASSIC_PALADIN_RETRIBUTION: {
@@ -1039,6 +1049,8 @@ const SPECS = {
       spec: 3,
     },
     icon: 'Paladin-Retribution',
+    wclClassName: 'Paladin',
+    wclSpecName: 'Retribution',
     treeIndex: 2,
   },
   CLASSIC_HUNTER_BEAST_MASTERY: {
@@ -1060,6 +1072,8 @@ const SPECS = {
       spec: 1,
     },
     icon: 'Hunter-BeastMastery',
+    wclClassName: 'Hunter',
+    wclSpecName: 'BeastMastery',
     treeIndex: 0,
   },
   CLASSIC_HUNTER_MARKSMANSHIP: {
@@ -1081,6 +1095,8 @@ const SPECS = {
       spec: 2,
     },
     icon: 'Hunter-Marksmanship',
+    wclClassName: 'Hunter',
+    wclSpecName: 'Marksmanship',
     treeIndex: 1,
   },
   CLASSIC_HUNTER_SURVIVAL: {
@@ -1102,6 +1118,8 @@ const SPECS = {
       spec: 3,
     },
     icon: 'Hunter-Survival',
+    wclClassName: 'Hunter',
+    wclSpecName: 'Survival',
     treeIndex: 2,
   },
   CLASSIC_ROGUE_ASSASSINATION: {
@@ -1123,6 +1141,8 @@ const SPECS = {
       spec: 1,
     },
     icon: 'Rogue-Assassination',
+    wclClassName: 'Rogue',
+    wclSpecName: 'Assassination',
     treeIndex: 0,
   },
   CLASSIC_ROGUE_COMBAT: {
@@ -1144,6 +1164,8 @@ const SPECS = {
       spec: 2,
     },
     icon: 'Rogue-Combat',
+    wclClassName: 'Rogue',
+    wclSpecName: 'Combat',
     treeIndex: 1,
   },
   CLASSIC_ROGUE_SUBTLETY: {
@@ -1165,6 +1187,8 @@ const SPECS = {
       spec: 3,
     },
     icon: 'Rogue-Subtlety',
+    wclClassName: 'Rogue',
+    wclSpecName: 'Subtlety',
     treeIndex: 2,
   },
   CLASSIC_PRIEST_DISCIPLINE: {
@@ -1186,6 +1210,8 @@ const SPECS = {
       spec: 1,
     },
     icon: 'Priest-Discipline',
+    wclClassName: 'Priest',
+    wclSpecName: 'Discipline',
     treeIndex: 0,
   },
   CLASSIC_PRIEST_HOLY: {
@@ -1207,6 +1233,8 @@ const SPECS = {
       spec: 2,
     },
     icon: 'Priest-Holy',
+    wclClassName: 'Priest',
+    wclSpecName: 'Holy',
     treeIndex: 1,
   },
   CLASSIC_PRIEST_SHADOW: {
@@ -1228,6 +1256,8 @@ const SPECS = {
       spec: 3,
     },
     icon: 'Priest-Shadow',
+    wclClassName: 'Priest',
+    wclSpecName: 'Shadow',
     treeIndex: 2,
   },
   CLASSIC_DEATH_KNIGHT_BLOOD: {
@@ -1249,6 +1279,8 @@ const SPECS = {
       spec: 1,
     },
     icon: 'DeathKnight-Blood',
+    wclClassName: 'DeathKnight',
+    wclSpecName: 'Blood',
     treeIndex: 0,
   },
   CLASSIC_DEATH_KNIGHT_FROST: {
@@ -1270,6 +1302,8 @@ const SPECS = {
       spec: 2,
     },
     icon: 'DeathKnight-Frost',
+    wclClassName: 'DeathKnight',
+    wclSpecName: 'Frost',
     treeIndex: 1,
   },
   CLASSIC_DEATH_KNIGHT_UNHOLY: {
@@ -1291,6 +1325,8 @@ const SPECS = {
       spec: 3,
     },
     icon: 'DeathKnight-Unholy',
+    wclClassName: 'DeathKnight',
+    wclSpecName: 'Unholy',
     treeIndex: 2,
   },
   CLASSIC_SHAMAN_ELEMENTAL: {
@@ -1313,6 +1349,8 @@ const SPECS = {
       spec: 1,
     },
     icon: 'Shaman-Elemental',
+    wclClassName: 'Shaman',
+    wclSpecName: 'Elemental',
     treeIndex: 0,
   },
   CLASSIC_SHAMAN_ENHANCEMENT: {
@@ -1335,6 +1373,8 @@ const SPECS = {
       spec: 2,
     },
     icon: 'Shaman-Enhancement',
+    wclClassName: 'Shaman',
+    wclSpecName: 'Enhancement',
     treeIndex: 1,
   },
   CLASSIC_SHAMAN_RESTORATION: {
@@ -1357,6 +1397,8 @@ const SPECS = {
       spec: 3,
     },
     icon: 'Shaman-Restoration',
+    wclClassName: 'Shaman',
+    wclSpecName: 'Restoration',
     treeIndex: 2,
   },
   CLASSIC_MAGE_ARCANE: {
@@ -1378,6 +1420,8 @@ const SPECS = {
       spec: 1,
     },
     icon: 'Mage-Arcane',
+    wclClassName: 'Mage',
+    wclSpecName: 'Arcane',
     treeIndex: 0,
   },
   CLASSIC_MAGE_FIRE: {
@@ -1399,6 +1443,8 @@ const SPECS = {
       spec: 2,
     },
     icon: 'Mage-Fire',
+    wclClassName: 'Mage',
+    wclSpecName: 'Fire',
     treeIndex: 1,
   },
   CLASSIC_MAGE_FROST: {
@@ -1420,6 +1466,8 @@ const SPECS = {
       spec: 3,
     },
     icon: 'Mage-Frost',
+    wclClassName: 'Mage',
+    wclSpecName: 'Frost',
     treeIndex: 2,
   },
   CLASSIC_WARLOCK_AFFLICTION: {
@@ -1441,6 +1489,8 @@ const SPECS = {
       spec: 1,
     },
     icon: 'Warlock-Affliction',
+    wclClassName: 'Warlock',
+    wclSpecName: 'Affliction',
     treeIndex: 0,
   },
   CLASSIC_WARLOCK_DEMONOLOGY: {
@@ -1462,6 +1512,8 @@ const SPECS = {
       spec: 2,
     },
     icon: 'Warlock-Demonology',
+    wclClassName: 'Warlock',
+    wclSpecName: 'Demonology',
     treeIndex: 1,
   },
   CLASSIC_WARLOCK_DESTRUCTION: {
@@ -1483,6 +1535,8 @@ const SPECS = {
       spec: 3,
     },
     icon: 'Warlock-Destruction',
+    wclClassName: 'Warlock',
+    wclSpecName: 'Destruction',
     treeIndex: 2,
   },
   CLASSIC_DRUID_BALANCE: {
@@ -1504,6 +1558,8 @@ const SPECS = {
       spec: 1,
     },
     icon: 'Druid-Balance',
+    wclClassName: 'Druid',
+    wclSpecName: 'Balance',
     treeIndex: 0,
   },
   CLASSIC_DRUID_FERAL_COMBAT: {
@@ -1525,6 +1581,8 @@ const SPECS = {
       spec: 2,
     },
     icon: 'Druid-Feral',
+    wclClassName: 'Druid',
+    wclSpecName: 'Feral',
     treeIndex: 1,
   },
   CLASSIC_DRUID_RESTORATION: {
@@ -1546,6 +1604,8 @@ const SPECS = {
       spec: 4,
     },
     icon: 'Druid-Restoration',
+    wclClassName: 'Druid',
+    wclSpecName: 'Restoration',
     treeIndex: 2,
   },
   CLASSIC_DRUID_GUARDIAN: {
@@ -1567,6 +1627,8 @@ const SPECS = {
       spec: 3,
     },
     icon: 'Druid-Guardian',
+    wclClassName: 'Druid',
+    wclSpecName: 'Guardian',
   },
 } satisfies Record<string, Spec>;
 

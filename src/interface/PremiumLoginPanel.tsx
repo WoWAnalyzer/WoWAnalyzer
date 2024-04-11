@@ -137,7 +137,7 @@ const PremiumLoginPanel = () => {
           <div className="loginBubble">Already unlocked Premium? Login here!</div>
           <div className="col-lg-6" style={{ padding: 0 }}>
             <a
-              href={`${process.env.REACT_APP_SERVER_BASE}login/patreon`}
+              href={`${import.meta.env.VITE_SERVER_BASE}login/patreon`}
               className="btn btn-block patreon-login"
             >
               <PatreonIcon /> Patreon
@@ -145,7 +145,7 @@ const PremiumLoginPanel = () => {
           </div>
           <div className="col-lg-6" style={{ padding: 0 }}>
             <a
-              href={`${process.env.REACT_APP_SERVER_BASE}login/github`}
+              href={`${import.meta.env.VITE_SERVER_BASE}login/github`}
               className="btn btn-block github-login"
             >
               <GitHubMarkIcon /> GitHub

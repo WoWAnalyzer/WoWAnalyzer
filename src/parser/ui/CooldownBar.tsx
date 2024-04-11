@@ -251,8 +251,8 @@ function CooldownBarSegment({
     type === 'onCooldown'
       ? 'cooldown-unavailable'
       : redHighlight
-      ? 'cooldown-available-bad'
-      : 'cooldown-available';
+        ? 'cooldown-available-bad'
+        : 'cooldown-available';
   const tooltipContent =
     type === 'onCooldown' ? (
       hasCharges ? (

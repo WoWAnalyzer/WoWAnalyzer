@@ -51,7 +51,7 @@ class Graph extends PureComponent {
 
   load() {
     const { reportCode, start, end } = this.props;
-    fetchWcl(`report/tables/resources/${reportCode}`, {
+    fetchWcl(`report/graph/resources/${reportCode}`, {
       start,
       end,
       abilityid: 1000,

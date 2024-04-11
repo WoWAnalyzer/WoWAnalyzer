@@ -18,7 +18,11 @@ import { formatNumber, formatThousands } from 'common/format';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 import SPELLS, { maybeGetSpell } from 'common/SPELLS';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import { LIGHTNING_BOLT_LINK, MAELSTROM_SPENDER_LINK } from '../normalizers/EventLinkNormalizer';
+import {
+  CHAIN_LIGHTNING_LINK,
+  LIGHTNING_BOLT_LINK,
+  MAELSTROM_SPENDER_LINK,
+} from '../normalizers/EventLinkNormalizer';
 import { PRIMORDIAL_WAVE_LINK } from 'analysis/retail/shaman/shared/constants';
 
 class MaelstromWeaponSpenders extends Analyzer {
@@ -54,6 +58,18 @@ class MaelstromWeaponSpenders extends Analyzer {
   onCast(event: CastEvent) {
     this.recordNextSpenderAmount = HasRelatedEvent(event, MAELSTROM_SPENDER_LINK);
 
+    if (event.ability.guid === TALENTS_SHAMAN.CHAIN_LIGHTNING_TALENT.id) {
+      const damageEvents = GetRelatedEvents<DamageEvent>(
+        event,
+        CHAIN_LIGHTNING_LINK,
+        (e) => e.type === EventType.Damage,
+      );
+      this.spenderValues[event.ability.guid] =
+        (this.spenderValues[event.ability.guid] ?? 0) +
+        damageEvents.reduce((total: number, de: DamageEvent) => (total += de.amount), 0);
+      this.recordNextSpenderAmount = false;
+      return;
+    }
     if (event.ability.guid === SPELLS.LIGHTNING_BOLT.id) {
       // lightning bolts linked to a primoridal wave should be included as part of primoridal wave's damage
       const primordialWave = GetRelatedEvent<CastEvent>(
@@ -85,6 +101,7 @@ class MaelstromWeaponSpenders extends Analyzer {
             this.maelstromWeaponTracker.lastSpenderInfo?.amount ?? 0;
         }
       }
+      return;
     }
   }
 
@@ -139,29 +156,35 @@ class MaelstromWeaponSpenders extends Analyzer {
               return (
                 spender &&
                 spell && (
-                  <>
-                    <tr key={spellId}>
-                      <td>
-                        <SpellLink spell={spell} />
-                        {spellId === TALENTS_SHAMAN.PRIMORDIAL_WAVE_SPEC_TALENT.id && (
-                          <>
-                            {' '}
-                            buffed <SpellLink spell={SPELLS.LIGHTNING_BOLT} />
-                            's
-                          </>
-                        )}
-                      </td>
-                      <td className="text-right">{spender.casts}</td>
-                      <td className="text-right">{formatThousands(amount / spender.spent)}</td>
-                      <td className="text-right">{formatNumber(spender.spent / spender.casts)}</td>
-                      <td className="text-right">{formatThousands(amount / spender.casts)}</td>
-                    </tr>
-                  </>
+                  <tr key={spellId}>
+                    <td>
+                      <SpellLink spell={spell} />
+                      {spellId === TALENTS_SHAMAN.PRIMORDIAL_WAVE_SPEC_TALENT.id && (
+                        <>
+                          {' '}
+                          buffed <SpellLink spell={SPELLS.LIGHTNING_BOLT} />
+                          's
+                        </>
+                      )}
+                    </td>
+                    <td className="text-right">{spender.casts}</td>
+                    <td className="text-right">{formatThousands(amount / spender.spent)}</td>
+                    <td className="text-right">{formatNumber(spender.spent / spender.casts)}</td>
+                    <td className="text-right">{formatThousands(amount / spender.casts)}</td>
+                  </tr>
                 )
               );
             })}
           </tbody>
         </table>
+        <div className="panel-footer">
+          <p>
+            <small>
+              Note: Damage/Healing values include increases from Augmentation Evokers. Click the{' '}
+              <i>Augmented Damage</i>/<i>Augmented Healing</i> tabs in WCL if the values don't align
+            </small>
+          </p>
+        </div>
       </Panel>,
     ];
   }

@@ -19,6 +19,7 @@ Dragonflight:
 core:
   - changed-files:
       - any-glob-to-any-file: '.github/**/*'
+      - any-glob-to-any-file: 'package.json'
       - any-glob-to-any-file: 'src/common/*'
       - any-glob-to-any-file: 'src/game/*'
       - any-glob-to-any-file: 'src/interface/**/*'

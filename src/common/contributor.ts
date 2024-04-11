@@ -23,7 +23,7 @@ const indexContributorsByNickname = (
   accumulator: Record<string, Contributor>,
   contributor: Contributor,
 ) => {
-  if (process.env.NODE_ENV === 'development') {
+  if (import.meta.env.DEV) {
     if (accumulator[contributor.nickname]) {
       throw new Error(`A contributor with this nickname already exists: ${contributor.nickname}`);
     }

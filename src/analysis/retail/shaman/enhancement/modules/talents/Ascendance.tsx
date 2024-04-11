@@ -304,8 +304,8 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
         castsAsPercentageOfMax >= 0.8
           ? QualitativePerformance.Good
           : castsAsPercentageOfMax >= 0.6
-          ? QualitativePerformance.Ok
-          : QualitativePerformance.Fail,
+            ? QualitativePerformance.Ok
+            : QualitativePerformance.Fail,
       summary: windstrikeSummary,
       details: (
         <div>

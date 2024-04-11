@@ -14,7 +14,7 @@ import { AbilityCastEfficiency } from 'parser/shared/modules/CastEfficiency';
 import BaseChart from 'parser/ui/BaseChart';
 import { useEffect, useState } from 'react';
 import { VisualizationSpec } from 'react-vega';
-import { AutoSizer } from 'react-virtualized';
+import AutoSizer from 'react-virtualized-auto-sizer';
 
 import { staggerChart, line, point, color, normalizeTimestampTransform } from '../../charts';
 import PurifyingBrewProblems, {
@@ -134,6 +134,7 @@ export function PurifyProblem({
 
   const spec: VisualizationSpec = {
     ...staggerChart,
+    // @ts-expect-error This is a valid typing but Vega types are being weird with TS 5.4
     layer: [
       {
         ...line('stagger', color.stagger),

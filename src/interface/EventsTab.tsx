@@ -8,7 +8,7 @@ import Tooltip, { TooltipElement } from 'interface/Tooltip';
 import { Ability, EventType, HasAbility, HasSource, HasTarget } from 'parser/core/Events';
 import { useReducer } from 'react';
 import Toggle from 'react-toggle';
-import { AutoSizer } from 'react-virtualized';
+import AutoSizer from 'react-virtualized-auto-sizer';
 import Table, {
   Column,
   defaultRowRenderer as defaultTableRowRenderer,
@@ -163,11 +163,17 @@ const findEntity = (parser: CombatLogParser, id: number) => {
   return null;
 };
 
-const getEventTypeName = (name: keyof typeof FILTERABLE_TYPES, isRawNames: boolean) => {
+const getEventTypeName = (name: string, isRawNames: boolean) => {
+  if (!isFilterableEventType(name)) {
+    return name;
+  }
   return isRawNames ? name : FILTERABLE_TYPES[name].name;
 };
 
-const getEventTypeExplanation = (name: keyof typeof FILTERABLE_TYPES) => {
+const getEventTypeExplanation = (name: string) => {
+  if (!isFilterableEventType(name)) {
+    return undefined;
+  }
   const eventType = FILTERABLE_TYPES[name];
   return 'explanation' in eventType ? eventType.explanation : undefined;
 };
@@ -284,7 +290,7 @@ export default function EventsTabFn({ parser }: EventsTabFnProps) {
   const searchTerms = (search.match(regex) || []).map((m) => m.replace(regex, '$1$2'));
 
   const events = parser.eventHistory.filter((event) => {
-    if (!isFilterableEventType(event.type) || types[event.type] === false) {
+    if (isFilterableEventType(event.type) && !types[event.type]) {
       return false;
     }
     if (!showFabricated && event.__fabricated === true) {

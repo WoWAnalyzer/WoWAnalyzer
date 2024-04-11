@@ -1,11 +1,18 @@
 import { Trans } from '@lingui/macro';
-import { formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
+import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, ApplyBuffStackEvent, GetRelatedEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  ApplyBuffStackEvent,
+  FightEndEvent,
+  GetRelatedEvent,
+} from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -21,6 +28,13 @@ class FeelTheBurn extends Analyzer {
 
   combustionDurations: { start: number; end: number }[] = [];
   maxStackDurations: { start: number; end: number }[] = [];
+  stackUptime: {
+    buffStart: number;
+    uptime: number;
+    uptimePercent: number;
+    analysis: BoxRowEntry;
+  }[] = [];
+  totalDuration = 0;
 
   constructor(options: Options) {
     super(options);
@@ -33,6 +47,7 @@ class FeelTheBurn extends Analyzer {
       Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.COMBUSTION_TALENT),
       this.onCombustion,
     );
+    this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
   onBuffStack(event: ApplyBuffStackEvent) {
@@ -56,6 +71,11 @@ class FeelTheBurn extends Analyzer {
     });
   }
 
+  onFightEnd(event: FightEndEvent) {
+    this.analyzeStackDurations();
+    this.stackUptime.sort((a, b) => a.buffStart - b.buffStart);
+  }
+
   totalCombustionDuration = () => {
     let totalDuration = 0;
     this.combustionDurations.forEach((c) => (totalDuration += c.end - c.start));
@@ -63,49 +83,107 @@ class FeelTheBurn extends Analyzer {
   };
 
   //prettier-ignore
-  maxStacksDuration = () => {
-    let duration = 0;
+  analyzeStackDurations = () => {
     this.maxStackDurations.forEach((s) => {
       //If Combustion started while Feel the Burn was at max stacks
       //Count duration from Combustion Start until Combustion End or Feel the Burn End, whichever is sooner.
       if (this.combustionDurations.filter(c => c.start >= s.start && c.start <= s.end)) {
         const combustions = this.combustionDurations.filter(c => c.start >= s.start && c.start <= s.end) || { start: 0, end: 0};
-        combustions.forEach(c => duration += Math.min(c.end, s.end) - c.start);
+        combustions.forEach(c => {
+          const uptime = Math.min(c.end, s.end) - c.start;
+          const duration = c.end - c.start
+          const uptimePercent = uptime / duration;
+          if (duration < 7000) {
+            //If it is an SKB Combustion by itself, then the duration is too short to reasonably be able to stack FTB.
+            //So ignore any combustion buffs that are less than 7 seconds (an extra second is added incase the buff is slightly off)
+            return;
+          } else {
+            this.stackUptime.push({
+              buffStart: c.start,
+              uptime,
+              uptimePercent,
+              analysis: {
+                value: this.checkPerformance(uptimePercent),
+                tooltip: 
+                <>
+                  Max Stack Uptime {formatPercentage(uptimePercent, 0)}% ({(uptime / 1000).toFixed(2)}s / {formatNumber(duration / 1000)}s)
+                </>
+              }
+            })
+          }
+          this.totalDuration += uptime;
+        })
       }
 
       //If Combustion was already running when Feel the Burn reached max stacks
       //Count duration from Feel the Burn Start until Combustion End or Feel the Burn End, whichever is sooner
       if (this.combustionDurations.filter(c => s.start >= c.start && s.start <= c.end)) {
         const combustions = this.combustionDurations.filter(c => s.start >= c.start && s.start <= c.end) || { start: 0, end: 0};
-        combustions.forEach(c => duration += Math.min(c.end, s.end) - s.start);
+        combustions.forEach(c => {
+          const uptime = Math.min(c.end, s.end) - s.start;
+          const duration = c.end - c.start;
+          const uptimePercent = uptime / duration;
+          if (duration < 7000) {
+            //If it is an SKB Combustion by itself, then the duration is too short to reasonably be able to stack FTB.
+            //So ignore any combustion buffs that are less than 7 seconds (an extra second is added incase the buff is slightly off)
+            return;
+          } else {
+            this.stackUptime.push({
+              buffStart: c.start,
+              uptime,
+              uptimePercent,
+              analysis: {
+                value: this.checkPerformance(uptimePercent),
+                tooltip: 
+                <>
+                  Max Stack Uptime {formatPercentage(uptimePercent, 0)}% ({(uptime / 1000).toFixed(2)}s / {formatNumber(duration / 1000)}s)
+                </>
+              }
+            })
+          }
+          this.totalDuration += Math.min(c.end, s.end) - s.start;
+        })
       }
     })
-    return duration;
+  }
+
+  checkPerformance(uptimePercent: number) {
+    let performance;
+    const thresholds = this.maxStackUptimeThresholds.isLessThan;
+    if (uptimePercent > thresholds.minor) {
+      performance = QualitativePerformance.Perfect;
+    } else if (uptimePercent > thresholds.average) {
+      performance = QualitativePerformance.Good;
+    } else if (uptimePercent > thresholds.major) {
+      performance = QualitativePerformance.Ok;
+    } else {
+      performance = QualitativePerformance.Fail;
+    }
+
+    return performance;
   }
 
   get averageDuration() {
     return (
-      this.maxStacksDuration() /
-      1000 /
-      this.abilityTracker.getAbility(TALENTS.COMBUSTION_TALENT.id).casts
+      this.totalDuration / 1000 / this.abilityTracker.getAbility(TALENTS.COMBUSTION_TALENT.id).casts
     );
   }
 
   get maxStackPercent() {
-    return this.maxStacksDuration() / this.totalCombustionDuration();
+    return this.totalDuration / this.totalCombustionDuration();
   }
 
   get downtimeSeconds() {
-    return this.totalCombustionDuration() - this.maxStacksDuration() / 1000;
+    return this.totalCombustionDuration() - this.totalDuration / 1000;
   }
 
   get maxStackUptimeThresholds() {
     return {
       actual: this.maxStackPercent,
       isLessThan: {
-        minor: 0.8,
-        average: 0.7,
-        major: 0.6,
+        minor: 0.9,
+        average: 0.8,
+        major: 0.7,
       },
       style: ThresholdStyle.PERCENTAGE,
     };

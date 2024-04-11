@@ -245,7 +245,9 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
       character_name: elem.characterName,
       talents: elem.talents,
       gear: elem.gear,
-      advanced: Object.values(elem.talents).filter((talent) => talent.id === null).length === 0,
+      advanced: elem.talents
+        ? Object.values(elem.talents).filter((talent) => talent.id === null).length === 0
+        : false,
     }));
 
     return parses;
@@ -319,15 +321,16 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
       });
       return;
     }
-    const image = data.thumbnail.replace('-avatar.jpg', '');
-    const imageUrl = `https://render-${this.props.region}.worldofwarcraft.com/character/${image}-main.jpg`;
-    const avatarImage = `https://render-${this.props.region}.worldofwarcraft.com/character/${image}-avatar.jpg`;
+    const avatarUrl = data.thumbnail.startsWith('https')
+      ? data.thumbnail
+      : `https://render-${this.props.region}.worldofwarcraft.com/character/${data.thumbnail}`;
+    const imageUrl = avatarUrl.replace('avatar.jpg', 'main.jpg');
     const role = data.role;
     const metric = role === 'HEALING' ? 'hps' : 'dps';
     this.setState(
       {
         image: imageUrl,
-        avatarImage: avatarImage,
+        avatarImage: avatarUrl,
         metric: metric,
       },
       () => {
@@ -418,7 +421,7 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
           // SPECS is indexed both by name and id. only take the id-keyed entries
           .filter(([k]) => Number.isFinite(Number(k)))
           .map(([, v]) => v)
-          .filter(isRetailSpec) //Classic doesn't support look up by characters at the moment
+          .filter((e) => isRetailSpec(e) === !this.isClassic) // only take retail specs on retail, classic specs on classic
           .filter((e) => e.wclClassName === charClass);
 
         const parses = this.changeParseStructure(rawParses);
@@ -585,9 +588,8 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
       );
     }
 
-    let battleNetUrl:
-      | string
-      | undefined = `https://worldofwarcraft.com/en-${this.props.region}/character/${this.state.realmSlug}/${this.props.name}`;
+    let battleNetUrl: string | undefined =
+      `https://worldofwarcraft.com/en-${this.props.region}/character/${this.state.realmSlug}/${this.props.name}`;
     if (this.isClassic) {
       battleNetUrl = undefined;
     } else if (this.props.region === 'CN') {

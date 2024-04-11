@@ -1,18 +1,10 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warrior';
-import { EventType } from 'parser/core/Events';
-import Abilities from 'parser/core/modules/Abilities';
+import { AnyEvent, EventType } from 'parser/core/Events';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 
 class SpellUsable extends CoreSpellUsable {
-  static dependencies = {
-    ...CoreSpellUsable.dependencies,
-    abilities: Abilities,
-  };
-
-  protected abilities!: Abilities;
-
-  onEvent(event: any) {
+  onEvent(event: AnyEvent) {
     super.onEvent(event);
     // Tactician passive: You have a 1.40% chance per Rage spent on damaging abilities to reset the remaining cooldown on Overpower.
     // normally charges dont count down simultaneously. these do

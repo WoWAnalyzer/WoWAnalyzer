@@ -137,20 +137,20 @@ class ElementalBlast extends BaseElementalBlast {
     return cast.elementalSpiritsActive >= 3
       ? QualitativePerformance.Perfect
       : cast.elementalSpiritsActive >= 2
-      ? QualitativePerformance.Good
-      : cast.elementalSpiritsActive >= 1
-      ? QualitativePerformance.Ok
-      : QualitativePerformance.Fail;
+        ? QualitativePerformance.Good
+        : cast.elementalSpiritsActive >= 1
+          ? QualitativePerformance.Ok
+          : QualitativePerformance.Fail;
   }
 
   getMaelstromUsagePerformance(cast: ElementalBlastCastDetails) {
     return cast.maelstromUsed === 10
       ? QualitativePerformance.Perfect
       : cast.maelstromUsed >= 8
-      ? QualitativePerformance.Good
-      : cast.maelstromUsed >= 5
-      ? QualitativePerformance.Ok
-      : QualitativePerformance.Fail;
+        ? QualitativePerformance.Good
+        : cast.maelstromUsed >= 5
+          ? QualitativePerformance.Ok
+          : QualitativePerformance.Fail;
   }
 
   getElementaBlastChargesPerformance(cast: ElementalBlastCastDetails) {
@@ -164,8 +164,8 @@ class ElementalBlast extends BaseElementalBlast {
       return cast.elementalSpiritsActive >= 2
         ? QualitativePerformance.Perfect
         : cast.elementalSpiritsActive >= 1
-        ? QualitativePerformance.Good
-        : QualitativePerformance.Ok;
+          ? QualitativePerformance.Good
+          : QualitativePerformance.Ok;
     }
     return QualitativePerformance.Fail;
   }
@@ -179,8 +179,8 @@ class ElementalBlast extends BaseElementalBlast {
           ? QualitativePerformance.Perfect
           : QualitativePerformance.Good
         : cast.maelstromUsed >= 5
-        ? QualitativePerformance.Ok
-        : QualitativePerformance.Fail;
+          ? QualitativePerformance.Ok
+          : QualitativePerformance.Fail;
     }
     return QualitativePerformance.Fail;
   }
@@ -285,10 +285,10 @@ class ElementalBlast extends BaseElementalBlast {
           ? QualitativePerformance.Perfect
           : QualitativePerformance.Good
         : cast.maelstromUsed >= 5
-        ? cast.elementalSpiritsActive > 1
-          ? QualitativePerformance.Good
-          : QualitativePerformance.Ok
-        : QualitativePerformance.Fail;
+          ? cast.elementalSpiritsActive > 1
+            ? QualitativePerformance.Good
+            : QualitativePerformance.Ok
+          : QualitativePerformance.Fail;
     }
 
     return cast.maelstromUsed >= 5 ? QualitativePerformance.Ok : QualitativePerformance.Fail;

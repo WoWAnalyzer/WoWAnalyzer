@@ -165,7 +165,7 @@ const PlayerLoader = ({ children }: Props) => {
         let ilvl = 0;
 
         combatants.forEach((combatant) => {
-          if (process.env.NODE_ENV === 'development' && FAKE_PLAYER_IF_DEV_ENV) {
+          if (import.meta.env.DEV && FAKE_PLAYER_IF_DEV_ENV) {
             console.error(
               `This player (sourceID: ${combatant.sourceID!}) has an error. Because you're in development environment, we have faked the missing information, see CombatantInfoFaker.ts for more information.`,
             );
