@@ -5,7 +5,7 @@ import { AlertKind } from 'interface/Alert';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import { ReactNode } from 'react';
 
-import { Stats } from './shared/modules/StatTracker';
+import type { Stats } from './shared/modules/StatTracker';
 import GameBranch from 'game/GameBranch';
 
 export type Build = {
