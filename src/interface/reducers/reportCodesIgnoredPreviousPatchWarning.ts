@@ -18,6 +18,5 @@ const reportCodesIgnoredPreviousPatchWarningSlice = createSlice({
   },
 });
 
-export const { resetSlice, ignorePreviousPatchWarning } =
-  reportCodesIgnoredPreviousPatchWarningSlice.actions;
+export const { ignorePreviousPatchWarning } = reportCodesIgnoredPreviousPatchWarningSlice.actions;
 export default reportCodesIgnoredPreviousPatchWarningSlice.reducer;

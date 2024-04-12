@@ -13,13 +13,13 @@ import {
 } from 'parser/core/Events';
 
 export const PTA_TRIGGER_BUFF = 'pta-trigger-buff';
-export const PTA_TRIGGER_CAST = 'pta-trigger-cast';
-export const PTA_BONUS_CAST = 'pta-bonus-cast';
-export const PTA_BUFF = 'pta-buff';
+const PTA_TRIGGER_CAST = 'pta-trigger-cast';
+const PTA_BONUS_CAST = 'pta-bonus-cast';
+const PTA_BUFF = 'pta-buff';
 export const KS_DAMAGE = 'ks-damage';
-export const KS_CAST = 'ks-cast';
-export const RSK_CAST = 'rsk-cast';
-export const RSK_DAMAGE = 'rsk-damage';
+const KS_CAST = 'ks-cast';
+const RSK_CAST = 'rsk-cast';
+const RSK_DAMAGE = 'rsk-damage';
 
 const LINKS: EventLink[] = [
   {
@@ -72,7 +72,7 @@ const LINKS: EventLink[] = [
   },
 ];
 
-export function isPtaBonusCast(event: CastEvent): boolean {
+function isPtaBonusCast(event: CastEvent): boolean {
   return GetRelatedEvents(event, PTA_BUFF).length > 0;
 }
 

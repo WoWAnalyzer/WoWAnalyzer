@@ -26,15 +26,3 @@ export default function classColor(input: string | Combatant | Spec): string {
     return classColor(base);
   }
 }
-
-/**
- * Takes name of a player class, {@link Spec}, or {@link Combatant} and
- * returns a `className` that can be used to color the background in the
- * appropiate class color.
- *
- * > The css classes themselves are defined in
- * > [src\interface\Game.scss](../interface/Game.scss#L41-L79)
- */
-export function classBgColor(input: string | Combatant | Spec): string {
-  return `${classColor(input)}-bg`;
-}

@@ -3,8 +3,8 @@ import { Options } from 'parser/core/Analyzer';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import { AbsorbedEvent, DamageEvent, EventType } from 'parser/core/Events';
 
-export const StaggerDamageSource = 'StaggerDamageSource';
-export const StaggerAbsorb = 'StaggerAbsorb';
+const StaggerDamageSource = 'StaggerDamageSource';
+const StaggerAbsorb = 'StaggerAbsorb';
 const staggerLinks: EventLink[] = [
   {
     linkRelation: StaggerDamageSource,

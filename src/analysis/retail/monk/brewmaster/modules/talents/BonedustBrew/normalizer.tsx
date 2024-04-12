@@ -3,7 +3,7 @@ import { Options } from 'parser/core/Analyzer';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import { EventType } from 'parser/core/Events';
 
-export const debuffApplicationRelation = 'bdb-applyrefreshdebuff';
+const debuffApplicationRelation = 'bdb-applyrefreshdebuff';
 const links: EventLink[] = [
   {
     linkRelation: debuffApplicationRelation,

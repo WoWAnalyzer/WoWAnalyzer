@@ -8,7 +8,7 @@ import Gauge from 'parser/ui/Gauge';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-export const instantCastSpells = [SPELLS.STARFALL, SPELLS.MOONFIRE, SPELLS.INSECT_SWARM];
+const instantCastSpells = [SPELLS.STARFALL, SPELLS.MOONFIRE, SPELLS.INSECT_SWARM];
 
 export const displayInstantCastSpells = () =>
   instantCastSpells.map((s, i) => (

@@ -29,7 +29,7 @@ export function encodeFriendlyEventTargetString(event: AnyEvent) {
   return encodeTargetString(event.targetID, event.targetInstance, event.timestamp);
 }
 
-export function encodeTargetString(id: number, instance = 0, time: number) {
+function encodeTargetString(id: number, instance = 0, time: number) {
   return `${id}.${instance}.${time}`;
 }
 

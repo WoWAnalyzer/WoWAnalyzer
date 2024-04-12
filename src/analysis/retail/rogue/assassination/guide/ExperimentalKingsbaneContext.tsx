@@ -13,7 +13,7 @@ const ExperimentalKingsbaneCtx = createContext<ExperimentalKingsbaneContext>({
   },
 });
 
-export const useExperimentalKingsbane = () => useContext(ExperimentalKingsbaneCtx);
+const useExperimentalKingsbane = () => useContext(ExperimentalKingsbaneCtx);
 
 export const ExperimentalKingsbaneToggle = () => {
   const { isExplanationEnabled, setExplanationEnabled } = useExperimentalKingsbane();

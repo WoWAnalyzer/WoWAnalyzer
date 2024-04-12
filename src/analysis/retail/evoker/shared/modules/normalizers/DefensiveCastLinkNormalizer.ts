@@ -8,7 +8,7 @@ export const OBSIDIAN_SCALES = 'obsidianScales'; // links cast to buff apply
 export const RENEWING_BLAZE = 'renewingBlaze'; // links cast to buff apply
 export const RENEWING_BLAZE_BUFFS = 'renewingBlazeBuffs'; // links acc & heal buffs
 export const RENEWING_BLAZE_HEAL = 'renewingBlazeHeal'; // links heal buff and healing
-export const TWIN_GUARDIAN_PARTNER = 'twinGuardianPartner'; // links external and personal buffs
+const TWIN_GUARDIAN_PARTNER = 'twinGuardianPartner'; // links external and personal buffs
 
 const CAST_BUFFER = 25;
 /** Heal buff gets applied once you first take damage, so there is a non-zero chance it won't apply

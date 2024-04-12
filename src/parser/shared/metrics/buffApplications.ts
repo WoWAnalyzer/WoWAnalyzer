@@ -10,7 +10,7 @@ import metric from 'parser/core/metric';
  * order, until it finds one where predicate returns true. If such an element is found,
  * findLast immediately returns that element. Otherwise, findLast returns undefined.
  */
-export function findLast<T>(
+function findLast<T>(
   array: T[],
   predicate: (value: T, index: number, obj: T[]) => boolean,
 ): T | undefined {

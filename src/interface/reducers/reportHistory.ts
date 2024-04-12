@@ -48,5 +48,5 @@ const reportHistorySlice = createSlice({
   },
 });
 
-export const { resetSlice, appendReportHistory } = reportHistorySlice.actions;
+export const { appendReportHistory } = reportHistorySlice.actions;
 export default reportHistorySlice.reducer;

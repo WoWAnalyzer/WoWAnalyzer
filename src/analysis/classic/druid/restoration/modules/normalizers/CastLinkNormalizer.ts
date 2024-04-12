@@ -8,7 +8,6 @@ import {
   GetRelatedEvents,
   HasRelatedEvent,
   HealEvent,
-  RefreshBuffEvent,
   RemoveBuffEvent,
   ResourceChangeEvent,
 } from 'parser/core/Events';
@@ -17,14 +16,14 @@ import { Options } from 'parser/core/Module';
 const CAST_BUFFER_MS = 65;
 const TRANQ_CHANNEL_BUFFER_MS = 10_000;
 
-export const APPLIED_HEAL = 'AppliedHeal';
-export const FROM_HARDCAST = 'FromHardcast';
-export const FROM_EXPIRING_LIFEBLOOM = 'FromExpiringLifebloom';
-export const CAUSED_BLOOM = 'CausedBloom';
-export const CAUSED_TICK = 'CausedTick';
-export const REGEN_FROM_LIFEBLOOM = 'RegenFromLifebloom';
-export const CAUSED_REGEN = 'CausedRegen';
-export const FROM_CLEARCAST = 'FromClearcast';
+const APPLIED_HEAL = 'AppliedHeal';
+const FROM_HARDCAST = 'FromHardcast';
+const FROM_EXPIRING_LIFEBLOOM = 'FromExpiringLifebloom';
+const CAUSED_BLOOM = 'CausedBloom';
+const CAUSED_TICK = 'CausedTick';
+const REGEN_FROM_LIFEBLOOM = 'RegenFromLifebloom';
+const CAUSED_REGEN = 'CausedRegen';
+const FROM_CLEARCAST = 'FromClearcast';
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -149,15 +148,6 @@ export function isFromHardcast(event: AbilityEvent<any>): boolean {
   return HasRelatedEvent(event, FROM_HARDCAST);
 }
 
-/** Returns the hardcast event that caused this buff or heal, if there is one */
-export function getHardcast(event: AbilityEvent<any>): CastEvent | undefined {
-  return GetRelatedEvents<CastEvent>(
-    event,
-    FROM_HARDCAST,
-    (e): e is CastEvent => e.type === EventType.Cast,
-  ).pop();
-}
-
 /** Returns the buff application and direct heal events caused by the given hardcast */
 export function getHeals(event: CastEvent): AnyEvent[] {
   return GetRelatedEvents(event, APPLIED_HEAL);
@@ -168,23 +158,6 @@ export function getDirectHeal(event: CastEvent): HealEvent | undefined {
   return getHeals(event)
     .filter((e): e is HealEvent => e.type === EventType.Heal)
     .pop();
-}
-
-/** Returns true iff the given bloom heal can be linked to the refresh or removal of a lifebloom
- *  buff - used to differentiate from a Photosynthesis proc */
-export function isFromExpiringLifebloom(event: HealEvent): boolean {
-  return HasRelatedEvent(event, FROM_EXPIRING_LIFEBLOOM);
-}
-
-/** Returns true iff the bloom expiration caused a bloom to proc */
-export function causedBloom(event: RemoveBuffEvent | RefreshBuffEvent): boolean {
-  return HasRelatedEvent(event, CAUSED_BLOOM);
-}
-
-/** Gets the tranquility "tick cast" events caused by channeling the given Tranquility w/
- *  cast ID `TRANQUILITY_CAST`. */
-export function getTranquilityTicks(event: CastEvent): AnyEvent[] {
-  return GetRelatedEvents(event, CAUSED_TICK);
 }
 
 export function getBloomCausingRegen(event: ResourceChangeEvent): RemoveBuffEvent | undefined {
