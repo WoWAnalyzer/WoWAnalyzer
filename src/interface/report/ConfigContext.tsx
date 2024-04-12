@@ -15,7 +15,7 @@ export const useMaybeConfig = (): Config | undefined => {
     /* do nothing */
   }
   let player = undefined;
-    let combatant = undefined;
+  let combatant = undefined;
 
   try {
     const playerData = usePlayer();
