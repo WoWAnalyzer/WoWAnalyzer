@@ -38,7 +38,7 @@ export type BreathOfEonsWindows = {
   end: number;
 };
 
-export type BreathWindowPerformance = {
+type BreathWindowPerformance = {
   temporalWoundsCounter: SpellTracker[];
   ebonMightDroppedDuringBreath: boolean;
   ebonMightDroppedDuration: number;

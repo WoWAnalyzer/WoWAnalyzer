@@ -901,7 +901,7 @@ abstract class HotTracker extends Analyzer {
 }
 
 /** A mapping from player ID and then spell ID to that player/spell's Tracker */
-export type TrackersByPlayerAndSpell = { [key: number]: TrackersBySpell };
+type TrackersByPlayerAndSpell = { [key: number]: TrackersBySpell };
 
 /** A mapping from spell ID to that spell's Tracker */
 export type TrackersBySpell = { [key: number]: Tracker };
@@ -935,14 +935,6 @@ export interface Tracker {
   lastBounce?: number;
 }
 
-/** a record of a HoT's tick */
-export interface Tick {
-  /** the tick's effective healing */
-  healing: number;
-  /** the tick's timestamp */
-  timestamp: number;
-}
-
 /** a record of healing attributable to an effect */
 export interface Attribution {
   /** the name of the attribution -
@@ -965,7 +957,7 @@ export interface Extension {
 }
 
 /** a record of a boost to a HoT (for its full duration) */
-export interface Boost {
+interface Boost {
   /** the amount of the healing increase - ex. 0.15 means a 15% increase */
   increase: number;
   /** the attribution of this boost */
@@ -973,7 +965,7 @@ export interface Boost {
 }
 
 /** A mapping from spell ID to that spell's HotInfo */
-export type HotInfoMap = { [key: number]: HotInfo };
+type HotInfoMap = { [key: number]: HotInfo };
 
 /** Information about a Heal over Time spell specific to tracking */
 export interface HotInfo {
@@ -998,10 +990,7 @@ export interface HotInfo {
 }
 
 /** A callback to be triggered when a HoT is refreshed */
-export type RefreshCallback = (
-  event: RefreshBuffEvent | ApplyBuffStackEvent,
-  info: RefreshInfo,
-) => void;
+type RefreshCallback = (event: RefreshBuffEvent | ApplyBuffStackEvent, info: RefreshInfo) => void;
 
 /** Info about the refreshed HoT to be passed to the callback */
 export interface RefreshInfo {

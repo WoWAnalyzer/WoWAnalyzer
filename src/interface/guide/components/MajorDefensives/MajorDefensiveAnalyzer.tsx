@@ -29,7 +29,7 @@ import { CooldownDetailsProps } from './AllCooldownUsagesList';
  * instead of using this yourself, but if you have a weirdo defensive that doesn't use
  * buffs/debuffs then you may need this.
  */
-export type DefensiveTrigger<Apply extends EventType, Remove extends EventType> = {
+type DefensiveTrigger<Apply extends EventType, Remove extends EventType> = {
   applyTrigger: EventFilter<Apply>;
   removeTrigger: EventFilter<Remove>;
   trackOn: ResourceActor;

@@ -28,7 +28,7 @@ const { BLAZING_SHARDS, OBSIDIAN_SHARDS } = SPELLS;
 
 const { DRAGONRAGE_TALENT } = TALENTS_EVOKER;
 
-export type BlazeShardCounters = {
+type BlazeShardCounters = {
   castTimeStamp: number;
   extraDamageProvided: number;
 };

@@ -4,7 +4,7 @@ import { DamageEvent } from 'parser/core/Events';
 
 export const maximumArmorMitigation = 0.85;
 
-export enum ArmorCoefficientKey {
+enum ArmorCoefficientKey {
   BASE = 'base',
   MYTHIC_PLUS = 'm+',
   RAID_LFR = 'raid_lfr',

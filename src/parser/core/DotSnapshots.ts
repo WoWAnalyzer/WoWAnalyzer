@@ -263,7 +263,7 @@ export type SnapshotSpec = {
 };
 
 /** Data object recording a period of time that a DoT was active, and which snapshots it benfitted from */
-export type DotUptime = {
+type DotUptime = {
   /** Timestamp when this debuff was applied or refreshed */
   start: number;
   /** Timestamp when we expect the debuff to expire */

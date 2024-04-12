@@ -2,7 +2,7 @@ import Analyzer from 'parser/core/Analyzer';
 import { Uptime } from 'parser/ui/UptimeBar';
 import { DamageEvent } from 'parser/core/Events';
 
-export type TrackedHit = {
+type TrackedHit = {
   mitigated: boolean;
   event: DamageEvent;
 };

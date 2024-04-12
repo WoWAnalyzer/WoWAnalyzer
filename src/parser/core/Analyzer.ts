@@ -123,11 +123,11 @@ export function withDependencies<TBase extends AnalyzerConstructor, D extends De
 
 type ConstructedDependency<T> = T extends new (options: Options) => infer R ? R : never;
 
-export type InjectedDependencies<Deps extends Dependencies> = {
+type InjectedDependencies<Deps extends Dependencies> = {
   [Key in keyof Deps]: ConstructedDependency<Deps[Key]>;
 };
 
-export enum FunctionType {
+enum FunctionType {
   Statistic,
   Suggestion,
 }

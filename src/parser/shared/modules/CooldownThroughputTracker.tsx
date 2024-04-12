@@ -55,7 +55,7 @@ export type CooldownSpell = {
   durationTooltip?: ReactNode;
 };
 
-export type BuffCooldownSpell = CooldownSpell & {
+type BuffCooldownSpell = CooldownSpell & {
   expansion: number;
 };
 

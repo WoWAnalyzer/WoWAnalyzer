@@ -3,7 +3,7 @@ import { EventType, GetRelatedEvents, CastEvent } from 'parser/core/Events';
 import { Condition, tenseAlt } from 'parser/shared/metrics/apl';
 import { Range, formatRange } from 'parser/shared/metrics/apl/conditions';
 
-export interface Options {
+interface Options {
   targetType: EventType;
   targetSpell: Spell;
 }

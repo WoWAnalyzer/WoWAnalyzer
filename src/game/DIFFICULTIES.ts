@@ -8,14 +8,12 @@ const DIFFICULTIES = {
   MYTHIC_RAID: 5,
   MYTHIC_PLUS_DUNGEON: 10,
 } as const;
-export type Difficulty = keyof typeof DIFFICULTIES;
 export default DIFFICULTIES;
 
 export const CLASSIC_DIFFICULTIES = {
   NORMAL_RAID: 3,
   HEROIC_RAID: 4,
 } as const;
-export type ClassicDifficulty = keyof typeof CLASSIC_DIFFICULTIES;
 
 export function getLabel(difficulty?: number, hardModeLevel?: number) {
   const isHardMode = hardModeLevel ?? 0;

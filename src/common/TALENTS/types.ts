@@ -11,7 +11,7 @@ enum EntryType {
   Passive = 'passive',
 }
 
-export interface TalentDefinitionId {
+interface TalentDefinitionId {
   id: number;
   specId: number;
 }
