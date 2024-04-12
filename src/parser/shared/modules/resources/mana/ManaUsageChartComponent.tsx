@@ -1,6 +1,6 @@
 import { PureComponent } from 'react';
 
-import ManaUsageGraph from './ManaUsageGraph';
+import { ManaUsageGraph } from './ManaUsageGraph';
 
 interface Props {
   start: number;
