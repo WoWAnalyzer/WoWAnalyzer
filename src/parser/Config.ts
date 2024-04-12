@@ -6,7 +6,7 @@ import { AlertKind } from 'interface/Alert';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import { ReactNode } from 'react';
 
-import { Stats } from './shared/modules/StatTracker';
+import type { Stats } from './shared/modules/StatTracker';
 
 export type Build = {
   url: string;

@@ -32,7 +32,7 @@ import CastReasonBreakdownTableContents from 'interface/guide/components/CastRea
 
 export { default } from './analyzer';
 
-export function useThreatTable({
+function useThreatTable({
   reportCode,
   fightStart,
   fightEnd,
