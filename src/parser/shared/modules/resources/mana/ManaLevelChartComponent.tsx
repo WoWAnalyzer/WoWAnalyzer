@@ -43,11 +43,11 @@ class ManaLevelChartComponent extends PureComponent<Props, State> {
 
   load() {
     const { reportCode, start, end } = this.props;
-    fetchWcl(`report/tables/resources/${reportCode}`, {
+    fetchWcl(`report/graph/resources/${reportCode}`, {
       start,
       end,
       sourceclass: 'Boss',
-      hostility: 1,
+      hostility: 'Enemies',
       abilityid: 1000,
     }).then((json) => {
       this.setState({
