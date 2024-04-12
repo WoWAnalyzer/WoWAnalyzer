@@ -35,6 +35,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 4, 12), 'Fix mana level chart', emallson),
   change(date(2024, 4, 10), 'Update paths used by Sentry.', ToppleTheNun),
   change(date(2024, 4, 10), 'Update dependencies.', ToppleTheNun),
   change(date(2024, 4, 9), 'Swap to Vite instead of create-react-app and use the WCL V2 API.', [ToppleTheNun, emallson]),
