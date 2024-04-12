@@ -70,7 +70,7 @@ export default function BloodGuide(props: GuideProps<typeof CombatLogParser>): J
 
 function DeathStrikeSection() {
   return (
-    <Section title={<SpellLink spell={talents.DEATH_STRIKE_TALENT} />}>
+    <>
       <p>
         Blood DK is built around <SpellLink spell={talents.DEATH_STRIKE_TALENT} />. It is the core
         of your toolkit, and many of your abilities exist only to fuel it. Blood's core loop is
@@ -104,26 +104,29 @@ function DeathStrikeSection() {
           </>
         }
       >
-        <p>
-          The obvious place to start looking at <SpellLink spell={talents.DEATH_STRIKE_TALENT} />{' '}
-          would be with <SpellLink spell={talents.DEATH_STRIKE_TALENT} /> itself, but that isn't
-          quite correct. We need to start <em>earlier</em>&mdash;with generating the{' '}
-          <ResourceLink id={RESOURCE_TYPES.RUNIC_POWER.id}>RP</ResourceLink> needed to use it.
-        </p>
-        <p>
-          Every rune you spend generates 10 <Highlight color={RuneColor}>Base</Highlight> RP .{' '}
-          <SpellLink spell={talents.HEART_STRIKE_TALENT} /> generates 5+{' '}
-          <Highlight textColor="#111" color={RunicPowerColor}>
-            Bonus
-          </Highlight>{' '}
-          RP beyond that, which should make it your main{' '}
-          <ResourceLink id={RESOURCE_TYPES.RUNIC_POWER.id}>RP</ResourceLink> generator. You can only
-          store 125 RP at once; generating more than that is called <em>overcapping</em> and results
-          in <Highlight color={WastedRPColor}>Wasted</Highlight> RP. You should have very little{' '}
-          <Highlight color={WastedRPColor}>Wasted</Highlight> RP.
-        </p>
-        <div style={{ display: 'grid', gridTemplateColumns: '45% 1fr', gap: '1em' }}>
-          <RunicPowerTable />
+        <div style={{ display: 'grid', gridTemplateColumns: '45% 1fr', gap: '2em' }}>
+          <div>
+            <p>
+              The obvious place to start looking at{' '}
+              <SpellLink spell={talents.DEATH_STRIKE_TALENT} /> would be with{' '}
+              <SpellLink spell={talents.DEATH_STRIKE_TALENT} /> itself, but that isn't quite
+              correct. We need to start <em>earlier</em>&mdash;with generating the{' '}
+              <ResourceLink id={RESOURCE_TYPES.RUNIC_POWER.id}>RP</ResourceLink> needed to use it.
+            </p>
+            <RunicPowerTable />
+            <p style={{ marginTop: '1em' }}>
+              Every rune you spend generates 10 <Highlight color={RuneColor}>Base</Highlight> RP .{' '}
+              <SpellLink spell={talents.HEART_STRIKE_TALENT} /> generates 5+{' '}
+              <Highlight textColor="#111" color={RunicPowerColor}>
+                Bonus
+              </Highlight>{' '}
+              RP beyond that, which should make it your main{' '}
+              <ResourceLink id={RESOURCE_TYPES.RUNIC_POWER.id}>RP</ResourceLink> generator. You can
+              only store 125 RP at once; generating more than that is called <em>overcapping</em>{' '}
+              and results in <Highlight color={WastedRPColor}>Wasted</Highlight> RP. You should have
+              very little <Highlight color={WastedRPColor}>Wasted</Highlight> RP.
+            </p>
+          </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1em' }}>
             <SuggestionBox
               performance={QualitativePerformance.Good}
@@ -204,7 +207,7 @@ function DeathStrikeSection() {
           worth making sure to avoid <em>bad</em> uses.
         </p>
       </SubSection>
-    </Section>
+    </>
   );
 }
 
@@ -223,7 +226,7 @@ function RunicPowerTable() {
     return null;
   }
   const abilities = [
-    [talents.HEART_STRIKE_TALENT, SPELLS.HEARTBREAKER_ENERGIZE],
+    [talents.HEART_STRIKE_TALENT, SPELLS.HEARTBREAKER_ENERGIZE, SPELLS.BLOOD_STRIKE],
     [talents.MARROWREND_TALENT],
     [SPELLS.DEATH_AND_DECAY],
     [talents.DEATHS_CARESS_TALENT],
