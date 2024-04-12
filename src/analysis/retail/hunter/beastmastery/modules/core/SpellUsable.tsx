@@ -2,8 +2,7 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/hunter';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { TIERS } from 'game/TIERS';
-import { Options } from 'parser/core/Analyzer';
-import { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/EventFilter';
+import { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, {
   AbilityEvent,
   AnyEvent,
