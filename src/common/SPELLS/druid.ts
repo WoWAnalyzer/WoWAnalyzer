@@ -785,6 +785,18 @@ const spells = {
     name: 'Celestial Alignment',
     icon: 'spell_nature_natureguardian',
   },
+  CELESTIAL_ALIGNMENT_ORBITAL_STRIKE: {
+    // CA has different cast ID when Orbital Strike is talented
+    id: 383410,
+    name: 'Celestial Alignment',
+    icon: 'spell_nature_natureguardian',
+  },
+  INCARNATION_ORBITAL_STRIKE: {
+    // Incarn has different cast ID when Orbital Strike is talented
+    id: 390414, // TODO double check this
+    name: 'Incarnation: Chosen of Elune',
+    icon: 'spell_druid_incarnation',
+  },
   NATURES_GRACE: {
     id: 393959,
     name: "Nature's Grace",
