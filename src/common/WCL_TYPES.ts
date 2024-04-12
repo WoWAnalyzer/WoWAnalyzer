@@ -105,7 +105,7 @@ export interface WCLDamageTaken {
   overheal?: number;
 }
 
-export interface HeroismEvent {
+interface HeroismEvent {
   startTime: number;
   endTime: number;
   startEvent: CastEvent;
