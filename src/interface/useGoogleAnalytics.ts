@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react';
-import ConfigContext from './report/ConfigContext';
+import { useMaybeConfig } from './report/ConfigContext';
 import FightCtx from './report/context/FightContext';
 
 interface PageViewProperties {
@@ -27,7 +27,7 @@ declare global {
  * to add extra tags to the page view event.
  */
 export function usePageView(componentName: string, key?: unknown) {
-  const config = useContext(ConfigContext);
+  const config = useMaybeConfig();
   const fight = useContext(FightCtx);
   useEffect(() => {
     const props = {

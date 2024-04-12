@@ -4,7 +4,7 @@ import NavigationBar from 'interface/NavigationBar';
 import { useCallback, useState } from 'react';
 
 import BOSS_PHASES_STATE from './BOSS_PHASES_STATE';
-import { ReportPlayerConfigProvider, useConfig } from './ConfigContext';
+import { useConfig } from './ConfigContext';
 import EVENT_PARSING_STATE from './EVENT_PARSING_STATE';
 import { ReportExpansionContextProvider } from './ExpansionContext';
 import FightSelection from './FightSelection';
@@ -214,11 +214,9 @@ const ReportLayout = () => (
           <PatchChecker>
             <FightSelection>
               <PlayerLoader>
-                <ReportPlayerConfigProvider>
-                  <SupportChecker>
-                    <ResultsLoader />
-                  </SupportChecker>
-                </ReportPlayerConfigProvider>
+                <SupportChecker>
+                  <ResultsLoader />
+                </SupportChecker>
               </PlayerLoader>
             </FightSelection>
           </PatchChecker>
