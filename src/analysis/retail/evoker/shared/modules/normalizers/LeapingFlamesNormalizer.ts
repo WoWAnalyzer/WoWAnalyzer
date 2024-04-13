@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS/evoker';
 import TALENTS from 'common/TALENTS/evoker';
+import { Options } from 'parser/core/Analyzer';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
-import { Options } from 'parser/core/Module';
 import {
   CastEvent,
   DamageEvent,

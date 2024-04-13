@@ -14,10 +14,10 @@ import {
   RemoveBuffEvent,
   RemoveBuffStackEvent,
 } from 'parser/core/Events';
-import { Options } from 'parser/core/Module';
 import { EB_BUFF_IDS } from '../../constants';
 import { TIERS } from 'game/TIERS';
 import EssenceBurstRefreshNormalizer from './EssenceBurstRefreshNormalizer';
+import { Options } from 'parser/core/Analyzer';
 
 export const EB_GENERATION_EVENT_TYPES = [
   EventType.RefreshBuff,
