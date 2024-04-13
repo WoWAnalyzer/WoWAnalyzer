@@ -81,6 +81,7 @@ export default defineConfig((env) => ({
     },
   },
   server: {
+    open: true,
     port: 3000,
     watch: {
       ignored: ['**/.direnv/**'],

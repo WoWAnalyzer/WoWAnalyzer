@@ -94,10 +94,10 @@ export function makeArmoryUrl(player: Combatant) {
 }
 
 export function makeThumbnailUrl(characterInfo: CharacterProfile, classic: boolean) {
-  if (!characterInfo) {
+  if (!characterInfo?.thumbnail) {
     return '/img/fallback-character.jpg';
   }
-  if (characterInfo.thumbnail.startsWith('https')) {
+  if (characterInfo.thumbnail?.startsWith('https')) {
     return characterInfo.thumbnail;
   }
 
