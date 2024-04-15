@@ -43,11 +43,22 @@ const applyRjw = {
 
 const refreshChp: Rule = {
   spell: talents.BREATH_OF_FIRE_TALENT,
-  condition: cnd.buffMissing(SPELLS.CHARRED_PASSIONS_BUFF, {
-    timeRemaining: 2000,
-    duration: 8000,
-    pandemicCap: 1,
-  }),
+  condition: cnd.describe(
+    cnd.and(
+      cnd.hasTalent(talents.CHARRED_PASSIONS_TALENT),
+      cnd.buffMissing(SPELLS.CHARRED_PASSIONS_BUFF, {
+        timeRemaining: 2000,
+        duration: 8000,
+        pandemicCap: 1,
+      }),
+    ),
+    (tense) => (
+      <>
+        when <SpellLink spell={SPELLS.CHARRED_PASSIONS_BUFF} /> {tenseAlt(tense, 'is', 'was')}{' '}
+        missing or about to expire
+      </>
+    ),
+  ),
 };
 
 const EK_SCK: Rule = {
