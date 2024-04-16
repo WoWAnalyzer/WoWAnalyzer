@@ -296,7 +296,12 @@ class EbonMight extends Analyzer {
     let summary;
     let details;
     let prescienceBuffsActive = 0;
-    const PERFECT_PRESCIENCE_BUFFS = hasT31 ? 3 : 2;
+
+    /** We can only ever start the fight with 2 Prescience with current design, so don't bonk that on pull */
+    const isPullPrescience =
+      ebonMightCooldownCast.event.timestamp >= this.owner.fight.start_time + 10_000;
+
+    const PERFECT_PRESCIENCE_BUFFS = hasT31 && isPullPrescience ? 3 : 2;
     const GOOD_PRESCIENCE_BUFFS = 2;
     const OK_PRESCIENCE_BUFFS = 1;
 
