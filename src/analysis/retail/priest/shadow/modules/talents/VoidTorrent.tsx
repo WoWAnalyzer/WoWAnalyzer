@@ -1,4 +1,3 @@
-import { defineMessage } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
@@ -11,7 +10,7 @@ import Events, {
   RemoveBuffEvent,
   ResourceChangeEvent,
 } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
@@ -142,26 +141,6 @@ class VoidTorrent extends Analyzer {
     //console.log("Energize", event.timestamp);
     this.insanityCurrent = this.insanityCurrent + event.resourceChange;
     this.insanityGained += event.resourceChange;
-  }
-
-  suggestions(when: When) {
-    when(this.interruptThreshold).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You interrupted <SpellLink spell={TALENTS.VOID_TORRENT_TALENT} /> early, wasting{' '}
-          {formatSeconds(this.timeWasted)} channeling seconds! Try to position yourself & time it so
-          you don't get interrupted due to mechanics.
-        </>,
-      )
-        .icon(TALENTS.VOID_TORRENT_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'priest.shadow.suggestions.voidTorrent.secondsLost',
-            message: `Lost ${formatSeconds(this.timeWasted)} seconds of Void Torrent.`,
-          }),
-        )
-        .recommended('No time wasted is recommended.'),
-    );
   }
 
   statistic() {

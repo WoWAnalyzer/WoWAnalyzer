@@ -12,7 +12,6 @@ import CancelledCasts from './modules/features/CancelledCasts';
 import Guide from 'analysis/retail/priest/shadow/Guide';
 
 import Abilities from './modules/Abilities';
-import Checklist from './modules/checklist/Module';
 import AbilityTracker from './modules/core/AbilityTracker';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -73,7 +72,6 @@ class CombatLogParser extends MainCombatLogParser {
     abilities: Abilities,
     buffs: Buffs,
     alwaysBeCasting: AlwaysBeCasting,
-    checklist: Checklist,
     dotUptimes: DotUptimes,
     shadowyInsight: ShadowyInsight,
     voidform: Voidform,

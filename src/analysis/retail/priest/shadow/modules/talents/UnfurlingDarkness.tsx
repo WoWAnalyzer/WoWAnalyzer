@@ -1,10 +1,8 @@
-import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import EventHistory from 'parser/shared/modules/EventHistory';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -53,37 +51,6 @@ class UnfurlingDarkness extends Analyzer {
 
   getProcsUsed() {
     return this.procsGained - this.procsWasted;
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.procsWasted,
-      isGreaterThan: {
-        minor: 0,
-        average: 0.5,
-        major: 1.1,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest) =>
-      suggest(
-        <>
-          You wasted {this.procsWasted} out of {this.procsGained}{' '}
-          <SpellLink spell={TALENTS.UNFURLING_DARKNESS_TALENT} /> procs.{' '}
-        </>,
-      )
-        .icon(SPELLS.UNFURLING_DARKNESS_BUFF.icon)
-        .actual(
-          defineMessage({
-            id: 'priest.shadow.suggestions.unfurlingDarkness.efficiency',
-            message: `You wasted ${this.procsWasted} out of ${this.procsGained} Unfurling Darkness procs.`,
-          }),
-        )
-        .recommended(`0 is recommended.`),
-    );
   }
 
   statistic() {

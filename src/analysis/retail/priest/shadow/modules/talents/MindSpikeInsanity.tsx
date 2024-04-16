@@ -1,4 +1,3 @@
-import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
@@ -13,7 +12,6 @@ import Events, {
   DamageEvent,
   ResourceChangeEvent,
 } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
@@ -82,18 +80,6 @@ class MindFlayInsanity extends Analyzer {
     return this.procsExpired + this.procsOver;
   }
 
-  get suggestionThresholds() {
-    return {
-      actual: this.procsWasted,
-      isGreaterThan: {
-        minor: 0.0,
-        average: 0.5,
-        major: 1.1,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
-  }
-
   onCastDP(event: CastEvent) {
     //DP cast occurs after the Buff is Applied but at the same timestamp
     //If at 2 stacks and this DP isn't at the same time we reach 2 stacks, then it might be an overwritten proc
@@ -152,25 +138,6 @@ class MindFlayInsanity extends Analyzer {
   onEnergize(event: ResourceChangeEvent) {
     //TODO: Reduce this by what an unimpowered spell would give?
     this.insanityGained += event.resourceChange;
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest) =>
-      suggest(
-        <>
-          You lost {this.procsWasted} casts of{' '}
-          <SpellLink spell={SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE} />
-        </>,
-      )
-        .icon(TALENTS.SURGE_OF_INSANITY_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'priest.shadow.suggestions.mindSpikeInsanity.castLost',
-            message: `Lost ${this.procsWasted} casts of Mind Spike: Insanity.`,
-          }),
-        )
-        .recommended('No lost casts is recommended.'),
-    );
   }
 
   statistic() {
