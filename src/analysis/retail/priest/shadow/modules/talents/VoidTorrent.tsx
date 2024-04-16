@@ -2,7 +2,7 @@ import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
-import Insanity from 'interface/icons/Insanity';
+import ItemInsanityGained from 'analysis/retail/priest/shadow/interface/ItemInsanityGained';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   CastEvent,
@@ -163,7 +163,7 @@ class VoidTorrent extends Analyzer {
         <BoringSpellValueText spell={TALENTS.VOID_TORRENT_TALENT}>
           <>
             <ItemDamageDone amount={this.damage} /> <br />
-            <Insanity /> {this.insanityGained} <small>Insanity generated</small>
+            <ItemInsanityGained amount={this.insanityGained} />
           </>
         </BoringSpellValueText>
       </Statistic>

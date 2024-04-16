@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
-import Insanity from 'interface/icons/Insanity';
+import ItemInsanityGained from 'analysis/retail/priest/shadow/interface/ItemInsanityGained';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
@@ -165,7 +165,7 @@ class MindFlayInsanity extends Analyzer {
               <ItemDamageDone amount={this.damage} />{' '}
             </div>
             <div>
-              <Insanity /> {this.insanityGained} <small>Insanity generated</small>
+              <ItemInsanityGained amount={this.insanityGained} />
             </div>
           </>
         </BoringSpellValueText>
