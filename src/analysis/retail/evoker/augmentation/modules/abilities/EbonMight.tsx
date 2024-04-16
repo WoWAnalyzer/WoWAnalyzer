@@ -24,7 +24,6 @@ import { SpellLink } from 'interface';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 import ContextualSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
-import { logSpellUseEvent } from 'parser/core/SpellUsage/SpellUsageSubSection';
 import { ebonIsFromBreath, getEbonMightBuffEvents } from '../normalizers/CastLinkNormalizer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Combatants from 'parser/shared/modules/Combatants';
@@ -505,7 +504,6 @@ class EbonMight extends Analyzer {
         castBreakdownSmallText={
           <> - These boxes represent each cast, colored by how good the usage was.</>
         }
-        onPerformanceBoxClick={logSpellUseEvent}
         abovePerformanceDetails={<div style={{ marginBottom: 10 }}></div>}
       />
     );
