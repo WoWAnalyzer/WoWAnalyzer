@@ -10,4 +10,7 @@ export default BAD_ICONS;
 
 export const ICON_RENAME: Record<string, string> = {
   spell_priest_power_word: 'spell_priest_power-word',
+  spell_priest_void_flay: 'spell_priest_void-flay',
+  spell_priest_shadow_mend: 'spell_priest_shadow-mend',
+  spell_priest_void_blast: 'spell_priest_void-blast',
 };
