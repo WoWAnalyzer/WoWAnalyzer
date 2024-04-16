@@ -10,7 +10,7 @@ interface Props extends Omit<React.ComponentProps<typeof Icon>, 'id' | 'icon'> {
 }
 
 const ResourceIcon = ({ id, noLink, ...others }: Props) => {
-  if (process.env.NODE_ENV === 'development' && !RESOURCE_TYPES[id]) {
+  if (import.meta.env.DEV && !RESOURCE_TYPES[id]) {
     throw new Error(`Unknown spell: ${id}`);
   }
 

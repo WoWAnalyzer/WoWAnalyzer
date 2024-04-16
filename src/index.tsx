@@ -22,24 +22,22 @@ if (Array.prototype.at === undefined) {
   Array.prototype.at = at;
 }
 
-if (process.env.REACT_APP_SENTRY_DSN) {
+if (import.meta.env.VITE_SENTRY_DSN) {
   Sentry.init({
-    dsn: process.env.REACT_APP_SENTRY_DSN,
+    dsn: import.meta.env.VITE_SENTRY_DSN,
     integrations: [
-      new Sentry.BrowserTracing({
-        routingInstrumentation: Sentry.reactRouterV6Instrumentation(
-          useEffect,
-          useLocation,
-          useNavigationType,
-          createRoutesFromChildren,
-          matchRoutes,
-        ),
+      Sentry.reactRouterV6BrowserTracingIntegration({
+        useEffect,
+        useLocation,
+        useNavigationType,
+        createRoutesFromChildren,
+        matchRoutes,
       }),
     ],
 
-    release: process.env.REACT_APP_VERSION,
-    environment: process.env.REACT_APP_ENVIRONMENT_NAME,
-    allowUrls: ['wowanalyzer.com/static/js/'],
+    release: import.meta.env.VITE_VERSION,
+    environment: import.meta.env.VITE_ENVIRONMENT_NAME,
+    allowUrls: ['wowanalyzer.com/assets/'],
 
     // Set tracesSampleRate to 1.0 to capture 100%
     // of transactions for performance monitoring.

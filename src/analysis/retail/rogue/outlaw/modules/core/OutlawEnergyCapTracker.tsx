@@ -1,4 +1,4 @@
-import { EnergyCapTracker, EnergyTracker } from 'analysis/retail/rogue/shared';
+import { EnergyCapTracker } from 'analysis/retail/rogue/shared';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/rogue';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -10,12 +10,6 @@ const ADRENALINE_RUSH_REGEN_MULTIPLIER = 1.6;
 class OutlawEnergyCapTracker extends EnergyCapTracker {
   static buffsChangeMax = [TALENTS.ADRENALINE_RUSH_TALENT.id];
   static buffsChangeRegen = [TALENTS.ADRENALINE_RUSH_TALENT, SPELLS.BURIED_TREASURE];
-
-  static dependencies = {
-    ...EnergyCapTracker.dependencies,
-  };
-
-  protected energyTracker!: EnergyTracker;
 
   constructor(options: Options) {
     super(options);

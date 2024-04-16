@@ -5,7 +5,6 @@ import CoreCooldownThroughputTracker, {
   TrackedCooldown,
 } from 'parser/shared/modules/CooldownThroughputTracker';
 import { TALENTS_PRIEST } from 'common/TALENTS';
-import EventHistory from 'parser/shared/modules/EventHistory';
 
 import isAtonement from '../core/isAtonement';
 import Atonement from '../spells/Atonement';
@@ -17,7 +16,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static dependencies = {
     ...CoreCooldownThroughputTracker.dependencies,
     atonementModule: Atonement,
-    eventHistory: EventHistory,
   };
   static cooldownSpells = [
     ...CoreCooldownThroughputTracker.cooldownSpells,
@@ -33,7 +31,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   ];
   lastEvangelism: TrackedCooldown | null = null;
   protected atonementModule!: Atonement;
-  protected eventHistory!: EventHistory;
 
   onCast(event: CastEvent) {
     const spellId = event.ability.guid;

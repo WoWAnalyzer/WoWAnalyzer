@@ -6,7 +6,7 @@
 
 # Set envvars
 export CI=true
-export GITHUB_BASE_REF=shadowlands
+export GITHUB_BASE_REF=dragonflight
 
 # Check for changelog
 if ! node scripts/require-changelog-entry.js;

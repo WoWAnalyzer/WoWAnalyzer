@@ -3,7 +3,7 @@ import getFightName from 'common/getFightName';
 import DiscordIcon from 'interface/icons/DiscordTiny';
 import GitHubIcon from 'interface/icons/GitHubMarkSmall';
 import PremiumIcon from 'interface/icons/Premium';
-import { ReactComponent as Logo } from 'interface/images/logo.svg';
+import Logo from 'interface/images/logo.svg?react';
 import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
 import { getFightById } from 'interface/selectors/fight';
 import { getReport } from 'interface/selectors/report';

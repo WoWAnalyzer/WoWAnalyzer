@@ -21,10 +21,10 @@ export function EssenceGraphSection({ modules, events, info }: GuideProps<typeof
     percentAtCap <= perfectTimeAtEssenceCap
       ? QualitativePerformance.Perfect
       : percentAtCap <= goodTimeAtEssenceCap
-      ? QualitativePerformance.Good
-      : percentAtCap <= okTimeAtEssenceCap
-      ? QualitativePerformance.Ok
-      : QualitativePerformance.Fail;
+        ? QualitativePerformance.Good
+        : percentAtCap <= okTimeAtEssenceCap
+          ? QualitativePerformance.Ok
+          : QualitativePerformance.Fail;
 
   return (
     <Section title="Essence Graph">

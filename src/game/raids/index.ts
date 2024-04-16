@@ -1,7 +1,17 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 import { Spec } from 'game/SPECS';
 import { Race } from 'parser/core/Combatant';
 import PhaseConfig from 'parser/core/PhaseConfig';
+import MythicPlusSeasonOne from 'game/raids/mythicplusseasonone';
+import MythicPlusSeasonTwo from 'game/raids/mythicplusseasontwo';
+import MythicPlusSeasonThree from 'game/raids/mythicplusseasonthree';
+import MythicPlusSeasonFour from 'game/raids/mythicplusseasonfour';
+import VaultOfTheIncarnates from 'game/raids/vaultoftheincarnates';
+import Aberrus from 'game/raids/aberrus';
+import Amirdrassil from 'game/raids/amirdrassil';
+import Ulduar from 'game/raids/ulduar';
+import TrialOfTheGrandCrusader from 'game/raids/trialofthegrandcrusader';
+import IcecrownCitadel from 'game/raids/icc';
+import RubySanctum from 'game/raids/rubysanctum';
 
 interface EncounterConfig {
   vantusRuneBuffId?: number;
@@ -17,13 +27,16 @@ interface EncounterConfig {
   disableDowntimeStatistic?: boolean;
 }
 
-export interface Boss {
+interface Encounter {
   id: number;
   name: string;
   background?: string;
   backgroundPosition?: string;
   headshot?: string;
   icon?: string;
+}
+
+export interface Boss extends Encounter {
   fight: EncounterConfig;
 }
 
@@ -32,39 +45,43 @@ export interface Raid {
   background?: string;
   bosses: Record<string, Boss>;
 }
-
 export interface Phase extends PhaseConfig {
   start: number[];
   end: number[];
 }
 
-const raids = {
+export const dungeons = {
   // Dragonflight
-  MythicPlusSeasonOne: require('./mythicplusseasonone').default,
-  MythicPlusSeasonTwo: require('./mythicplusseasontwo').default,
-  MythicPlusSeasonThree: require('./mythicplusseasonthree').default,
-  MythicPlusSeasonFour: require('./mythicplusseasonfour').default,
-  VaultOfTheIncarnates: require('./vaultoftheincarnates').default, // tier 29
-  Aberrus: require('./aberrus').default, // tier 30
-  Amirdrassil: require('./amirdrassil').default, // tier 31
-  // Wrath of the Lich King (Classic)
-  Ulduar: require('./ulduar').default, // tier 8
-  TrialOfTheGrandCrusader: require('./trialofthegrandcrusader').default, // tier 9
-  IcecrownCitadel: require('./icc').default, // tier 10
-  RubySanctum: require('./rubysanctum').default, // tier 11
+  MythicPlusSeasonOne,
+  MythicPlusSeasonTwo,
+  MythicPlusSeasonThree,
+  MythicPlusSeasonFour,
 };
 
+const raids = {
+  VaultOfTheIncarnates, // tier 29
+  Aberrus, // tier 30
+  Amirdrassil, // tier 31
+  // Wrath of the Lich King (Classic)
+  Ulduar, // tier 8
+  TrialOfTheGrandCrusader, // tier 9
+  IcecrownCitadel, // tier 10
+  RubySanctum, // tier 11
+};
 export default raids;
 
-export function findByBossId(id: number): Boss | null {
-  let boss: Boss | null = null;
-  Object.values(raids).some((raid: Raid) => {
-    const match = Object.values(raid.bosses).find((boss) => boss.id === id);
-    if (match) {
-      boss = match;
-      return true;
-    }
-    return false;
-  });
-  return boss;
+export function findByDungeonBossId(id: number) {
+  return Object.values(dungeons)
+    .flatMap((dungeon) => Object.values(dungeon.bosses))
+    .find((boss) => boss.id === id);
+}
+
+export function findByRaidBossId(id: number) {
+  return Object.values(raids)
+    .flatMap((raid) => Object.values(raid.bosses))
+    .find((boss) => boss.id === id);
+}
+
+export function findByBossId(id: number) {
+  return findByRaidBossId(id) ?? findByDungeonBossId(id) ?? null;
 }

@@ -31,7 +31,7 @@ const SupportChecker = ({ children }: Props) => {
 
   const isIgnored =
     // Avoid the support-warning modal while developing to ease testing.
-    process.env.NODE_ENV === 'development' || ignored.includes(config.spec.id);
+    import.meta.env.DEV || ignored.includes(config.spec.id);
 
   return (
     <>

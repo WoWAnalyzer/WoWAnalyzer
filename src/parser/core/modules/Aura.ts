@@ -65,7 +65,7 @@ class Aura {
   }
 
   _setProps(props: SpellbookAura) {
-    if (process.env.NODE_ENV === 'development') {
+    if (import.meta.env.DEV) {
       /**
        * We verify the sanity of the abilities props to avoid mistakes. First
        * we check the types by reusing React's PropTypes which prints to your

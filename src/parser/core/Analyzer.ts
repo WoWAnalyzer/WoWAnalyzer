@@ -18,7 +18,7 @@ export interface ParseResultsTab {
   render: () => React.ReactNode;
 }
 
-type Dependencies = typeof Module['dependencies'];
+type Dependencies = (typeof Module)['dependencies'];
 
 class Analyzer extends EventSubscriber {
   /**

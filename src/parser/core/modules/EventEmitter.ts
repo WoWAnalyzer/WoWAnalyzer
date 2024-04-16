@@ -36,7 +36,7 @@ class EventEmitter extends Module {
       this.addEventListener(Events.fightend, this.reportModuleTimes.bind(this), this);
     }
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (!import.meta.env.PROD) {
       this.eventTypes = new Set<string>(Object.values(EventType));
     }
   }
@@ -200,7 +200,7 @@ class EventEmitter extends Module {
   numListenersCalled = 0;
   _isHandlingEvent = false;
   triggerEvent<ET extends EventType, E extends AnyEvent<ET>>(event: E) {
-    if (process.env.NODE_ENV !== 'production') {
+    if (!import.meta.env.PROD) {
       this._validateEvent(event);
     }
 
@@ -334,7 +334,7 @@ class EventEmitter extends Module {
     }
   }
   _handleError(err: Error, module: Module) {
-    if (process.env.NODE_ENV !== 'production') {
+    if (!import.meta.env.PROD) {
       throw err;
     }
     const name = module.key;

@@ -287,10 +287,10 @@ class HotHand extends MajorCooldown<HotHandProc> {
         estimatedMissedCasts === 0
           ? QualitativePerformance.Perfect
           : estimatedMissedCasts === 1
-          ? QualitativePerformance.Good
-          : estimatedMissedCasts === 2
-          ? QualitativePerformance.Ok
-          : QualitativePerformance.Fail,
+            ? QualitativePerformance.Good
+            : estimatedMissedCasts === 2
+              ? QualitativePerformance.Ok
+              : QualitativePerformance.Fail,
       summary: (
         <span>
           {lavaLashCasts} <SpellLink spell={TALENTS_SHAMAN.LAVA_LASH_TALENT} /> cast(s)
@@ -329,10 +329,10 @@ class HotHand extends MajorCooldown<HotHandProc> {
         gcdPerfCalc < 5
           ? QualitativePerformance.Perfect
           : unsedGlobalCooldowns < 10
-          ? QualitativePerformance.Good
-          : unsedGlobalCooldowns < 20
-          ? QualitativePerformance.Ok
-          : QualitativePerformance.Fail,
+            ? QualitativePerformance.Good
+            : unsedGlobalCooldowns < 20
+              ? QualitativePerformance.Ok
+              : QualitativePerformance.Fail,
       details: (
         <>
           {unsedGlobalCooldowns === 0 ? (

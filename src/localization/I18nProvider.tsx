@@ -6,13 +6,7 @@ import { ReactNode, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 
 const loadCatalog = async (locale: string) => {
-  const { messages } = await (process.env.NODE_ENV !== 'production'
-    ? import(
-        /* webpackMode: "lazy", webpackChunkName: "i18n-[request]" */ `@lingui/loader!./${locale}/messages.json?as-js`
-      )
-    : import(
-        /* webpackMode: "lazy", webpackChunkName: "i18n-[request]" */ `./${locale}/messages.js`
-      ));
+  const { messages } = await import(`./${locale}/messages.json?lingui`);
 
   i18n.load(locale, messages);
   i18n.activate(locale);
@@ -40,7 +34,7 @@ const I18nProvider = ({ children }: Props) => {
       });
   }, [locale, activeLocale, setActiveLocale]);
 
-  if (!activeLocale && process.env.NODE_ENV !== 'test') {
+  if (!activeLocale && import.meta.env.MODE !== 'test') {
     // Wait with rendering the app until we have the locale loaded. This reduces
     // the amount of significant screen updates, providing a better user
     // experience.
