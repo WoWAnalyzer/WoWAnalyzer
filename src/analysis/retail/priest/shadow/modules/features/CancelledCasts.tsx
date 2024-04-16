@@ -11,7 +11,7 @@ class CancelledCasts extends CoreCancelledCasts {
     if (cancel <= 0.01) {
       return QualitativePerformance.Perfect;
     }
-    if (cancel <= 0.075) {
+    if (cancel <= 0.05) {
       return QualitativePerformance.Good;
     }
     if (cancel <= 0.1) {

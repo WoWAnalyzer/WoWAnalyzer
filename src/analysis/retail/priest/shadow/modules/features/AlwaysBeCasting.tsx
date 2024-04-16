@@ -7,10 +7,10 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
   get DowntimePerformance(): QualitativePerformance {
     const downtime = this.downtimePercentage;
-    if (downtime <= 0.1) {
+    if (downtime <= 0.05) {
       return QualitativePerformance.Perfect;
     }
-    if (downtime <= 0.15) {
+    if (downtime <= 0.1) {
       return QualitativePerformance.Good;
     }
     if (downtime <= 0.2) {
