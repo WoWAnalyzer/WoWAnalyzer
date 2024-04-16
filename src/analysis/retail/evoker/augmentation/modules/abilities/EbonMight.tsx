@@ -165,7 +165,7 @@ class EbonMight extends Analyzer {
   }
 
   private onCast(event: CastEvent | EmpowerEndEvent) {
-    this.extendEbongMight(event);
+    this.extendEbonMight(event);
   }
 
   /* Here we figure out how long the duration should be based on current mastery
@@ -188,7 +188,7 @@ class EbonMight extends Analyzer {
   /* Here we figure out how much to extend the current buffs, we average
    * out the crit chance of the +50% effect, gives accurate enough results
    * for what we need.*/
-  private extendEbongMight(event: CastEvent | EmpowerEndEvent) {
+  private extendEbonMight(event: CastEvent | EmpowerEndEvent) {
     if (
       !this.ebonMightActive ||
       (event.ability.guid === SPELLS.EMERALD_BLOSSOM_CAST.id &&
@@ -395,56 +395,71 @@ class EbonMight extends Analyzer {
   /** Do role/spec Performance check for players
    * getting buffed are DPS (excluding Aug this one is a crime!) */
   private getRolePerformance(ebonMightCooldownCast: EbonMightCooldownCast) {
+    if (!ebonMightCooldownCast.buffedTargets) {
+      return;
+    }
+
     // Only run the check if there is actually 4 dps players amongus
     const players = Object.values(this.combatants.players);
-
     const enoughDPSFound =
       players.reduce((dpsCount, player) => {
-        const targetID = player._combatantInfo.sourceID;
+        const playerSpec = player.spec;
+        if (!playerSpec) {
+          return dpsCount;
+        }
 
-        const isRangedDPS = this.combatants.players[targetID]?.spec?.role === ROLES.DPS.RANGED;
-        const isMeleeDPS = this.combatants.players[targetID]?.spec?.role === ROLES.DPS.MELEE;
-        const isAugmentation =
-          this.combatants.players[targetID]?.spec === SPECS.AUGMENTATION_EVOKER;
+        const isRangedDPS = playerSpec.role === ROLES.DPS.RANGED;
+        const isMeleeDPS = playerSpec.role === ROLES.DPS.MELEE;
+        const isAugmentation = playerSpec === SPECS.AUGMENTATION_EVOKER;
 
         return (isRangedDPS || isMeleeDPS) && !isAugmentation ? dpsCount + 1 : dpsCount;
       }, 0) >= 4;
 
-    if (!enoughDPSFound || !ebonMightCooldownCast.buffedTargets) {
+    if (!enoughDPSFound) {
       return;
     }
 
     let rolePerformance = QualitativePerformance.Perfect;
-    const buffedPlayers: JSX.Element[] = [];
 
-    ebonMightCooldownCast.buffedTargets.forEach((player) => {
-      const currentPlayer = this.combatants.players[player.targetID];
-      if (currentPlayer.spec) {
-        const className = classColor(currentPlayer);
-        let currentPlayerRole = 'DPS';
-        if (
-          currentPlayer.spec.role === ROLES.HEALER ||
-          currentPlayer.spec.role === ROLES.TANK ||
-          currentPlayer.spec === SPECS.AUGMENTATION_EVOKER
-        ) {
-          if (currentPlayer.spec.role === ROLES.HEALER) {
-            currentPlayerRole = 'Healer';
-          } else if (currentPlayer.spec.role === ROLES.TANK) {
-            currentPlayerRole = 'Tank';
-          } else {
-            currentPlayerRole = 'Augmentation';
-          }
-          rolePerformance = QualitativePerformance.Fail;
+    /** Figure out the specs of the buffed players */
+    const buffedPlayers = ebonMightCooldownCast.buffedTargets.reduce<JSX.Element[]>(
+      (acc, ebonMightApplication) => {
+        const player = this.combatants.players[ebonMightApplication.targetID];
+
+        /** No spec so we can't really judge or add styling */
+        if (!player?.spec) {
+          acc.push(<div key={player.id}>Buffed {player.name}</div>);
+          return acc;
         }
-        buffedPlayers.push(
-          <div key={currentPlayer.id}>
-            Buffed {currentPlayerRole}: <span className={className}>{currentPlayer.name}</span>
+
+        let playerRole = 'DPS';
+        switch (player.spec.role) {
+          case ROLES.HEALER:
+            playerRole = 'Healer';
+            rolePerformance = QualitativePerformance.Fail;
+            break;
+          case ROLES.TANK:
+            playerRole = 'Tank';
+            rolePerformance = QualitativePerformance.Fail;
+            break;
+          default:
+            if (player.spec === SPECS.AUGMENTATION_EVOKER) {
+              playerRole = 'Augmentation';
+              rolePerformance = QualitativePerformance.Fail;
+            }
+            break;
+        }
+
+        acc.push(
+          <div key={player.id}>
+            Buffed {playerRole}: <span className={classColor(player)}>{player.name}</span>
           </div>,
         );
-      } else {
-        buffedPlayers.push(<div key={currentPlayer.id}>Buffed {currentPlayer.name}</div>);
-      }
-    });
+
+        return acc;
+      },
+      [],
+    );
 
     const performanceCheck = {
       performance: rolePerformance,
