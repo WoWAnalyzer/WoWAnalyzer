@@ -18,7 +18,7 @@ import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer'
 /** So sometimes when Ebon Might should be extended
  * it just kinda doesn't? This messes with our analysis so
  * let's check if it failed to extend where it should
- * See example of this here (upheavel should have extended but didnt):
+ * See example of this here (upheaval should have extended but didnt):
  * https://www.warcraftlogs.com/reports/1JqKrX2vLxb6Zyp9/#fight=8&source=3&pins=2%24Off%24%23244F4B%24expression%24type%20%3D%20%22empowerend%22%20or%20type%3D%22removebuff%22&view=events&start=1402475&end=1408776
  */
 export const FAILED_EXTENSION_LINK = 'failedExtensionLink';
@@ -223,9 +223,9 @@ const EVENT_LINKS: EventLink[] = [
 
 class CastLinkNormalizer extends EventLinkNormalizer {
   // This is set to lower priority than default since
-  // to create proper links on events fabcricated using PrePullCooldownsNormalizer
+  // to create proper links on events fabricated using PrePullCooldownsNormalizer
   // We need to ensure this runs after the PrePullCooldownsNormalizer
-  // This is neccessary if we want BreathOfEons module to function properly
+  // This is necessary if we want BreathOfEons module to function properly
   // With pre-pull casts of Breath of Eons
   priority = 100;
   constructor(options: Options) {
