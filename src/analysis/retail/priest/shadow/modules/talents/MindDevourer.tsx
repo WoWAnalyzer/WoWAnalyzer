@@ -1,10 +1,8 @@
-import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, RemoveBuffEvent, RefreshBuffEvent } from 'parser/core/Events';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import EventHistory from 'parser/shared/modules/EventHistory';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -70,37 +68,6 @@ class MindDevourer extends Analyzer {
 
   getProcsUsed() {
     return this.procsGained - this.procsWasted;
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.procsWasted,
-      isGreaterThan: {
-        minor: 0,
-        average: 0.5,
-        major: 1.1,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest) =>
-      suggest(
-        <>
-          You wasted {this.procsWasted} out of {this.procsGained}{' '}
-          <SpellLink spell={TALENTS.MIND_DEVOURER_TALENT} /> procs.{' '}
-        </>,
-      )
-        .icon(TALENTS.MIND_DEVOURER_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'priest.shadow.suggestions.mindDevourer.efficiency',
-            message: `You wasted ${this.procsWasted} out of ${this.procsGained} of Mind Devourer procs.`,
-          }),
-        )
-        .recommended(`0 is recommended.`),
-    );
   }
 
   statistic() {

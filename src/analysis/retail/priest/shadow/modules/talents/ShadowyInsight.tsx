@@ -1,11 +1,9 @@
-import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, RemoveBuffEvent, RefreshBuffEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import EventHistory from 'parser/shared/modules/EventHistory';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -30,6 +28,7 @@ class ShadowyInsight extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SHADOWY_INSIGHT_TALENT);
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SHADOWY_INSIGHT_BUFF),
@@ -82,37 +81,6 @@ class ShadowyInsight extends Analyzer {
 
   get procsWasted() {
     return this.procsGained - this.procsUsed;
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.procsWasted,
-      isGreaterThan: {
-        minor: 0,
-        average: 0.5,
-        major: 1.1,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest) =>
-      suggest(
-        <>
-          You wasted {this.procsWasted} out of {this.procsGained}{' '}
-          <SpellLink spell={TALENTS.SHADOWY_INSIGHT_TALENT} /> procs.
-        </>,
-      )
-        .icon(TALENTS.SHADOWY_INSIGHT_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'priest.shadow.suggestions.shadowyInsight.efficiency',
-            message: `You wasted ${this.procsWasted} out of ${this.procsGained} Shadowy Insight procs.`,
-          }),
-        )
-        .recommended(`0 is recommended.`),
-    );
   }
 
   statistic() {
