@@ -35,6 +35,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 4, 17), 'Add 10.2.7 patch.', ToppleTheNun),
   change(date(2024, 4, 12), 'Fix mana level chart', emallson),
   change(date(2024, 4, 10), 'Update paths used by Sentry.', ToppleTheNun),
   change(date(2024, 4, 10), 'Update dependencies.', ToppleTheNun),
