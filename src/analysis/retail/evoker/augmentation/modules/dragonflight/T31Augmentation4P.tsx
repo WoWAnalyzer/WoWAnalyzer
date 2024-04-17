@@ -21,7 +21,7 @@ import { InformationIcon } from 'interface/icons';
 import {
   SANDS_OF_TIME_CRIT_MOD,
   TREMBLING_EARTH_EXTENSION_MS,
-  TREMBLING_EART_STACK_LIMIT,
+  TREMBLING_EARTH_STACK_LIMIT,
 } from '../../constants';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { formatNumber } from 'common/format';
@@ -115,12 +115,15 @@ class T31Augmentation4P extends Analyzer {
 
     this.currentTremblingStacks += prescienceActive;
 
-    const overcappedStacks = Math.max(0, this.currentTremblingStacks - TREMBLING_EART_STACK_LIMIT);
+    const overcappedStacks = Math.max(0, this.currentTremblingStacks - TREMBLING_EARTH_STACK_LIMIT);
 
     this.overcappedBuffStacks += overcappedStacks;
     this.wastedExtension += this.calculateExtionsion(overcappedStacks);
 
-    this.currentTremblingStacks = Math.min(this.currentTremblingStacks, TREMBLING_EART_STACK_LIMIT);
+    this.currentTremblingStacks = Math.min(
+      this.currentTremblingStacks,
+      TREMBLING_EARTH_STACK_LIMIT,
+    );
   }
 
   onRemoveBuff(event: RemoveBuffEvent) {

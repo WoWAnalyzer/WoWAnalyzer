@@ -15,7 +15,7 @@ export const DREAM_OF_SPRINGS_EXTENSION_MS = 1000;
 export const SANDS_OF_TIME_CRIT_MOD = 0.5;
 
 // Prescience
-export const PRESICENCE_BASE_DURATION_MS = 18000;
+export const PRESCIENCE_BASE_DURATION_MS = 18000;
 
 // Talent multipliers
 export const REACTIVE_HIDE_MULTIPLIER = 0.1;
@@ -23,7 +23,7 @@ export const RICOCHETING_PYROCLAST_MULTIPLIER = 0.3;
 export const RICOCHETING_PYROCLAST_MAX_MULTIPLIER = 1.5;
 export const TECTONIC_LOCUS_MULTIPLIER = 0.5;
 export const VOLCANISM_ESSENCE_REDUCTION = 1;
-export const ANACHRONISM_ESSCENCE_CHANCE = 0.35;
+export const ANACHRONISM_ESSENCE_CHANCE = 0.35;
 export const SYMBIOTIC_HEALING_INCREASE = 0.03;
 
 // Breath of Eons multiplier
@@ -31,4 +31,4 @@ export const BREATH_OF_EONS_MULTIPLIER = 0.1;
 
 // Tier
 export const TREMBLING_EARTH_EXTENSION_MS = 200;
-export const TREMBLING_EART_STACK_LIMIT = 5;
+export const TREMBLING_EARTH_STACK_LIMIT = 5;
