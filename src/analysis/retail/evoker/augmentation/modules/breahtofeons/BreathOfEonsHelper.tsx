@@ -63,7 +63,7 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
     const abilityFilter = [...ABILITY_NO_BOE_SCALING, ...ABILITY_BLACKLIST].join(',');
 
     const filter = `type = "damage" 
-    AND not ability.id in (${abilityFilter},409632) 
+    AND not ability.id in (${abilityFilter}) 
     AND (target.id != source.id)
     AND target.id not in(169428, 169430, 169429, 169426, 169421, 169425, 168932)
     AND not (target.id = source.owner.id)
