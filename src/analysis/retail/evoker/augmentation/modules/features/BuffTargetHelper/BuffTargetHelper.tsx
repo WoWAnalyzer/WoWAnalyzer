@@ -605,7 +605,7 @@ class BuffTargetHelper extends Analyzer {
               by <b>Zephy</b> based on which Weak Aura you use.
             </p>
 
-            <BuffTargetHelperInfoLabel has4Pc={this.has4Pc} />
+            {this.has4Pc && <BuffTargetHelperInfoLabel />}
           </div>
           <div>
             <BuffTargetHelperWarningLabel />
