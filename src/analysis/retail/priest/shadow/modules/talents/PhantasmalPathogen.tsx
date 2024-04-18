@@ -11,10 +11,6 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 
 import { PHANTASMAL_PATHOGEN_DAMAGE_PER_RANK } from '../../constants';
 
-//This handles Shadowy Apparitions, and the talents that adjust its behavior
-//These talents are: Auspicious Spirits, Tormented Spirits and Phantasmal Pathogen
-//This is done all together to keep all apparition statistics in the same box
-
 class PhantasmalPathogen extends Analyzer {
   static dependencies = {
     enemies: Enemies,

@@ -4,10 +4,6 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
-//This handles Shadowy Apparitions, and the talents that adjust its behavior
-//These talents are: Auspicious Spirits, Tormented Spirits and Phantasmal Pathogen
-//This is done all together to keep all apparition statistics in the same box
-
 class TormentedSpirits extends Analyzer {
   castVB = 0;
   castMB = 0;
