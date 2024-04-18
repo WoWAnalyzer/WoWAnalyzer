@@ -16,45 +16,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-      - name: Restore "node_modules" from cache
-        uses: martijnhols/actions-cache/restore@v3
-        id: cache
-        with:
-          path: |
-            node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
-          restore-keys: ${{ runner.os }}-node_modules-
-      - name: Get yarn cache directory path
-        if: steps.cache.outputs.cache-hit != 'true'
-        id: yarn-cache-dir-path
-        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
-      # Use week number for automatically purging the cache every week. This is
-      # useful because caching yarn-cache would otherwise lead it to grow
-      # indefinitely since old dependencies are never purged.
-      - name: Get week number
-        if: steps.cache.outputs.cache-hit != 'true'
-        id: week-number
-        run: echo "value=$(date +%W)" >> $GITHUB_OUTPUT
-      - name: Cache "yarn-cache"
-        uses: martijnhols/actions-cache@v3
-        if: steps.cache.outputs.cache-hit != 'true'
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-${{ steps.week-number.outputs.value }}-yarn-cache-${{ hashFiles('yarn.lock') }}
-          restore-keys: ${{ runner.os }}-${{ steps.week-number.outputs.value }}-yarn-cache-
-      - run: yarn --frozen-lockfile --prefer-offline
-        if: steps.cache.outputs.cache-hit != 'true'
-      - name: Save "node_modules" in cache
-        if: steps.cache.outputs.cache-hit != 'true'
-        uses: martijnhols/actions-cache/save@v3
-        with:
-          path: |
-            node_modules
-          key: ${{ steps.cache.outputs.primary-key }}
-
-  # TODO: Update this when possible to include the node_modules folder. GH is updating artifact action soon to make this
-  #  easier (https://github.com/actions/upload-artifact/issues/7#issuecomment-566114993), and cache action multiple path
-  #  support is popular (https://github.com/actions/cache/issues/16)
+          cache: 'yarn'
+      - run: yarn install --frozen-lockfile --prefer-offline
 
   typecheck:
     needs: [prepare]
@@ -65,13 +28,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-      - name: Restore "node_modules" from cache
-        uses: martijnhols/actions-cache/restore@v3
-        with:
-          path: |
-            node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
-          required: true
+          cache: 'yarn'
+      - run: yarn install --frozen-lockfile --prefer-offline
       - run: yarn typecheck
 
   linting:
@@ -83,13 +41,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-      - name: Restore "node_modules" from cache
-        uses: martijnhols/actions-cache/restore@v3
-        with:
-          path: |
-            node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
-          required: true
+          cache: 'yarn'
+      - run: yarn install --frozen-lockfile --prefer-offline
       - run: yarn lint --max-warnings=0
 
   prettier:
@@ -101,13 +54,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-      - name: Restore "node_modules" from cache
-        uses: martijnhols/actions-cache/restore@v3
-        with:
-          path: |
-            node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
-          required: true
+          cache: 'yarn'
+      - run: yarn install --frozen-lockfile --prefer-offline
       - run: yarn prettier . --check
 
   test-interface:
@@ -120,13 +68,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-      - name: Restore "node_modules" from cache
-        uses: martijnhols/actions-cache/restore@v3
-        with:
-          path: |
-            node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
-          required: true
+          cache: 'yarn'
+      - run: yarn install --frozen-lockfile --prefer-offline
       - run: yarn test:interface
 
   test-parser:
@@ -138,13 +81,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-      - name: Restore "node_modules" from cache
-        uses: martijnhols/actions-cache/restore@v3
-        with:
-          path: |
-            node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
-          required: true
+          cache: 'yarn'
+      - run: yarn install --frozen-lockfile --prefer-offline
       - run: yarn test:parser
 
   build:
@@ -159,13 +97,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-      - name: Restore "node_modules" from cache
-        uses: martijnhols/actions-cache/restore@v3
-        with:
-          path: |
-            node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
-          required: true
+          cache: 'yarn'
+      - run: yarn install --frozen-lockfile --prefer-offline
       - name: Extract messages
         if: github.event_name != 'pull_request' && github.repository == 'wowanalyzer/wowanalyzer'
         run: |
@@ -196,13 +129,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-      - name: Restore "node_modules" from cache
-        uses: martijnhols/actions-cache/restore@v3
-        with:
-          path: |
-            node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
-          required: true
+          cache: 'yarn'
+      - run: yarn install --frozen-lockfile --prefer-offline
       - name: Extract messages
         run: |
           yarn extract
@@ -240,13 +168,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-      - name: Restore "node_modules" from cache
-        uses: martijnhols/actions-cache/restore@v3
-        with:
-          path: |
-            node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
-          required: true
+          cache: 'yarn'
+      - run: yarn install --frozen-lockfile --prefer-offline
       - uses: actions/download-artifact@v3
         with:
           name: e2e-build
@@ -275,13 +198,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-      - name: Restore "node_modules" from cache
-        uses: martijnhols/actions-cache/restore@v3
-        with:
-          path: |
-            node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
-          required: true
+          cache: 'yarn'
+      - run: yarn install --frozen-lockfile --prefer-offline
       - name: Extract messages
         run: yarn extract
       - name: Compile messages
