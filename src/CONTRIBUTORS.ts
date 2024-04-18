@@ -2386,3 +2386,9 @@ export const Humperella: Contributor = {
     },
   ],
 };
+
+export const Saeldur: Contributor = {
+  nickname: 'Saeldur',
+  github: 'Saeldur',
+  discord: 'saeldur',
+};
