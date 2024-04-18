@@ -49,23 +49,17 @@ class ShadowyApparitions extends Analyzer {
           </div>
         </BoringSpellValueText>
 
-        {this.selectedCombatant.hasTalent(TALENTS.AUSPICIOUS_SPIRITS_TALENT) ? (
-          this.auspiciousSpirits.subStatistic()
-        ) : (
-          <div />
-        )}
+        {this.selectedCombatant.hasTalent(TALENTS.AUSPICIOUS_SPIRITS_TALENT)
+          ? this.auspiciousSpirits.subStatistic()
+          : null}
 
-        {this.selectedCombatant.hasTalent(TALENTS.TORMENTED_SPIRITS_TALENT) ? (
-          this.tormentedSpirits.subStatistic()
-        ) : (
-          <div />
-        )}
+        {this.selectedCombatant.hasTalent(TALENTS.TORMENTED_SPIRITS_TALENT)
+          ? this.tormentedSpirits.subStatistic()
+          : null}
 
-        {this.selectedCombatant.hasTalent(TALENTS.PHANTASMAL_PATHOGEN_TALENT) ? (
-          this.phantasmalPathogen.subStatistic()
-        ) : (
-          <div />
-        )}
+        {this.selectedCombatant.hasTalent(TALENTS.PHANTASMAL_PATHOGEN_TALENT)
+          ? this.phantasmalPathogen.subStatistic()
+          : null}
       </Statistic>
     );
   }
