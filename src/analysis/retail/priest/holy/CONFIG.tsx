@@ -2,7 +2,7 @@ import { Litena, Squided } from 'CONTRIBUTORS';
 import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';
 import Config from 'parser/Config';
-// import CHANGELOG from './CHANGELOG';
+import CHANGELOG from './CHANGELOG';
 
 //Description not accurate as of Dragonflight update
 const config: Config = {
@@ -10,7 +10,7 @@ const config: Config = {
   contributors: [Litena, Squided],
   expansion: Expansion.Dragonflight,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '10.2.5',
+  patchCompatibility: '10.2.6',
   isPartial: false,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
@@ -40,7 +40,7 @@ const config: Config = {
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
   spec: SPECS.HOLY_PRIEST,
   // The contents of your changelog.
-  changelog: [], // CHANGELOG,
+  changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
   parser: () =>
     import('./CombatLogParser' /* webpackChunkName: "HolyPriest" */).then(
