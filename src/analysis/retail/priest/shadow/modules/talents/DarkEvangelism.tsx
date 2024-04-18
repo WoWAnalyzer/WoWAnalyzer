@@ -1,10 +1,6 @@
-import { defineMessage } from '@lingui/macro';
-import { formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/priest';
-import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
 import { TrackedBuffEvent } from 'parser/core/Entity';
@@ -25,37 +21,6 @@ class DarkEvangelism extends Analyzer {
     return (
       this.selectedCombatant.getBuffUptime(SPELLS.DARK_EVANGELISM_TALENT_BUFF.id) /
       this.owner.fightDuration
-    );
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.uptime,
-      isLessThan: {
-        minor: 0.95,
-        average: 0.9,
-        major: 0.8,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <span>
-          Your <SpellLink spell={TALENTS.DARK_EVANGELISM_TALENT} /> uptime can be improved. Try to
-          pay more attention to your <SpellLink spell={TALENTS.DARK_EVANGELISM_TALENT} /> buff.
-        </span>,
-      )
-        .icon(TALENTS.DARK_EVANGELISM_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'priest.shadow.suggestions.darkEvangilism.uptime',
-            message: `${formatPercentage(actual)}% Dark Evangilism uptime`,
-          }),
-        )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
     );
   }
 

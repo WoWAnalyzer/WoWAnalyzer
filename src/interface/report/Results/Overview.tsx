@@ -29,8 +29,8 @@ const PrototypeSwitcher = ({
         ? 'View Old Version'
         : 'Return to Guide View'
       : guideMode
-      ? 'Return to Normal View'
-      : 'View Prototype'}
+        ? 'Return to Normal View'
+        : 'View Prototype'}
   </a>
 );
 

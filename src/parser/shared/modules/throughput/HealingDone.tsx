@@ -8,7 +8,7 @@ import FlushLineChart from 'parser/ui/FlushLineChart';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import StatisticBar from 'parser/ui/StatisticBar';
 import ThroughputPerformance, { UNAVAILABLE } from 'parser/ui/ThroughputPerformance';
-import { AutoSizer } from 'react-virtualized';
+import AutoSizer from 'react-virtualized-auto-sizer';
 
 import HealingValue from '../HealingValue';
 import { i18n } from '@lingui/core';

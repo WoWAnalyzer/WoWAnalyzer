@@ -18,7 +18,14 @@ class IceLance extends Analyzer {
   };
   protected enemies!: Enemies;
 
-  icelance: { cast: CastEvent; shattered: boolean; hadFingers: boolean; cleaved: boolean }[] = [];
+  icelance: {
+    cast: CastEvent;
+    shattered: boolean;
+    hadFingers: boolean;
+    cleaved: boolean;
+    damage: DamageEvent | undefined;
+    cleaveDamage: DamageEvent | undefined;
+  }[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -41,6 +48,8 @@ class IceLance extends Analyzer {
         event.timestamp - 10,
       ),
       cleaved: cleave ? true : false,
+      damage: damage,
+      cleaveDamage: cleave,
     });
   }
 

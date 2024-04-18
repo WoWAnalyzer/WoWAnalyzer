@@ -3,6 +3,7 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import { TALENTS_DRUID } from 'common/TALENTS';
+import { cdSpell } from 'analysis/retail/druid/balance/constants';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -73,7 +74,7 @@ class Abilities extends CoreAbilities {
 
       // Cooldowns
       {
-        spell: SPELLS.INCARNATION_CHOSEN_OF_ELUNE.id,
+        spell: cdSpell(combatant).id,
         buffSpellId: SPELLS.INCARNATION_CHOSEN_OF_ELUNE.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: combatant.hasTalent(TALENTS_DRUID.ORBITAL_STRIKE_TALENT) ? 120 : 180,
@@ -82,10 +83,11 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.8,
         },
+        gcd: combatant.hasTalent(TALENTS_DRUID.ORBITAL_STRIKE_TALENT) ? { base: 1500 } : null,
         timelineSortIndex: 9,
       },
       {
-        spell: SPELLS.CELESTIAL_ALIGNMENT.id,
+        spell: cdSpell(combatant).id,
         buffSpellId: SPELLS.CELESTIAL_ALIGNMENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: combatant.hasTalent(TALENTS_DRUID.ORBITAL_STRIKE_TALENT) ? 120 : 180,
@@ -96,6 +98,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.8,
         },
+        gcd: combatant.hasTalent(TALENTS_DRUID.ORBITAL_STRIKE_TALENT) ? { base: 1500 } : null,
         timelineSortIndex: 9,
       },
       {

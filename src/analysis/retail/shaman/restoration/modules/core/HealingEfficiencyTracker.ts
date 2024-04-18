@@ -4,10 +4,6 @@ import TALENTS from 'common/TALENTS/shaman';
 import CoreHealingEfficiencyTracker, {
   SpellInfoDetails,
 } from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
-import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
-import Abilities from 'parser/core/modules/Abilities';
-import CastEfficiency from 'parser/shared/modules/CastEfficiency';
-import DamageDone from 'parser/shared/modules/throughput/DamageDone';
 
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
 import PrimordialWave from '../talents/PrimordialWave';
@@ -19,12 +15,8 @@ import RestorationAbilityTracker from './RestorationAbilityTracker';
 class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
   static dependencies = {
     ...CoreHealingEfficiencyTracker.dependencies,
-    manaTracker: ManaTracker,
     abilityTracker: RestorationAbilityTracker,
     healingDone: HealingDone,
-    damageDone: DamageDone,
-    castEfficiency: CastEfficiency,
-    abilities: Abilities,
     resurgence: Resurgence,
     cooldownThroughputTracker: CooldownThroughputTracker,
     unleashLife: UnleashLife,
@@ -32,12 +24,8 @@ class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
     primordialWave: PrimordialWave,
   };
 
-  protected manaTracker!: ManaTracker;
-  protected abilityTracker!: RestorationAbilityTracker;
-  protected healingDone!: HealingDone;
-  protected damageDone!: DamageDone;
-  protected castEfficiency!: CastEfficiency;
-  protected abilities!: Abilities;
+  protected declare abilityTracker: RestorationAbilityTracker;
+  protected declare healingDone: HealingDone;
   protected resurgence!: Resurgence;
   protected cooldownThroughputTracker!: CooldownThroughputTracker;
   protected unleashLife!: UnleashLife;

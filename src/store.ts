@@ -34,7 +34,7 @@ const rootReducer = combineReducers({
 
 export const store = configureStore({
   reducer: rootReducer,
-  enhancers: [process.env.REACT_APP_SENTRY_DSN ? sentryCreateReduxEnhancer({}) : null].filter(
+  enhancers: [import.meta.env.VITE_SENTRY_DSN ? sentryCreateReduxEnhancer({}) : null].filter(
     isPresent,
   ),
 });

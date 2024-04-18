@@ -7,6 +7,7 @@ import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import spells from 'common/SPELLS/dragonflight/trinkets';
 import trinkets from 'common/ITEMS/dragonflight/trinkets';
+import { BASE_EVOKER_RANGE, EMPOWER_BASE_GCD, EMPOWER_MINIMUM_GCD } from '../constants';
 
 const hasFont = (combatant: Combatant) =>
   combatant.hasTalent(TALENTS.FONT_OF_MAGIC_PRESERVATION_TALENT) ||
@@ -31,6 +32,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        range: BASE_EVOKER_RANGE,
         enabled: combatant.spec !== SPECS.AUGMENTATION_EVOKER,
       },
       {
@@ -41,6 +43,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        range: BASE_EVOKER_RANGE,
         damageSpellIds: [SPELLS.EMERALD_BLOSSOM_CAST.id],
         isDefensive: true,
       },
@@ -54,7 +57,8 @@ class Abilities extends CoreAbilities {
             : SPELL_CATEGORY.ROTATIONAL,
         cooldown: 30 * intervowenThreadsMultiplier,
         gcd: {
-          base: 500,
+          base: EMPOWER_BASE_GCD,
+          minimum: EMPOWER_MINIMUM_GCD,
         },
         ...(combatant.spec === (SPECS.DEVASTATION_EVOKER || SPECS.AUGMENTATION_EVOKER) && {
           castEfficiency: {
@@ -62,6 +66,7 @@ class Abilities extends CoreAbilities {
             recommendedEfficiency: 0.95,
           },
         }),
+        range: BASE_EVOKER_RANGE,
       },
       {
         spell: SPELLS.LIVING_FLAME_CAST.id,
@@ -69,6 +74,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        range: BASE_EVOKER_RANGE,
         damageSpellIds: [SPELLS.LIVING_FLAME_DAMAGE.id],
       },
       {
@@ -78,6 +84,7 @@ class Abilities extends CoreAbilities {
             ? SPELL_CATEGORY.HEALER_DAMAGING_SPELL
             : SPELL_CATEGORY.ROTATIONAL,
         cooldown: 0,
+        range: BASE_EVOKER_RANGE,
         gcd: {
           base: 1500,
         },
@@ -181,6 +188,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        range: BASE_EVOKER_RANGE,
       },
       {
         spell: TALENTS.OPPRESSING_ROAR_TALENT.id,

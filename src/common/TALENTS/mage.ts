@@ -1238,7 +1238,7 @@ const talents = {
   SPLITTING_ICE_TALENT: {
     id: 56377,
     name: 'Splitting Ice',
-    icon: 'spell_frost_ice_shards',
+    icon: 'spell_frost_ice-shards',
     maxRanks: 1,
     entryIds: [80224],
     definitionIds: [{ id: 85227, specId: 64 }],

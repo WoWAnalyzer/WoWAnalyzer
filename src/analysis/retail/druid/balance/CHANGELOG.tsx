@@ -5,6 +5,7 @@ import { Hartra344, Sref, ToppleTheNun, ap2355, attluh, Jundarer } from 'CONTRIB
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2024, 4, 10), <>Fixed an issue where <SpellLink spell={TALENTS_DRUID.CELESTIAL_ALIGNMENT_TALENT} /> and <SpellLink spell={TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT} /> weren't tracked properly when <SpellLink spell={TALENTS_DRUID.ORBITAL_STRIKE_TALENT} /> is talented.</>, Sref),
   change(date(2024, 1, 19), <>Marked up to date for 10.2.5</>, Sref),
   change(date(2023, 11, 13), <>Added Active Time breakdown to Incarnation casts. Added <SpellLink spell={TALENTS_DRUID.WILD_MUSHROOM_TALENT} /> usage section. Tweaked spell efficiency thresholds.</>, Sref),
   change(date(2023, 11, 12), <>Added Active Time Graph to Guide.</>, Sref),

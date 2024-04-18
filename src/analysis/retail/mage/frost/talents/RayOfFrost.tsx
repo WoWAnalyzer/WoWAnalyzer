@@ -24,7 +24,8 @@ class RayOfFrost extends Analyzer {
   };
   protected enemies!: Enemies;
 
-  rayOfFrost: { hits: number; shatteredHits: number }[] = [];
+  rayOfFrost: { timestamp: number; hits: number; shatteredHits: number; damage: DamageEvent[] }[] =
+    [];
   castEntries: BoxRowEntry[] = [];
 
   constructor(options: Options) {
@@ -50,6 +51,7 @@ class RayOfFrost extends Analyzer {
       timestamp: event.timestamp,
       hits: damage.length,
       shatteredHits: shattered,
+      damage: damage,
     };
     this.rayOfFrost.push(rayOfFrostDetails);
 

@@ -160,9 +160,9 @@ export class ReportPage {
     await expect(this.characterTabHeading).toBeVisible();
   }
 
-  async clickOnAboutTab(specName: string) {
+  async clickOnAboutTab() {
     await this.aboutTab.click();
-    const aboutTabHeading = this.page.getByRole('heading', { name: `About ${specName}` });
+    const aboutTabHeading = this.page.getByRole('heading', { name: /^About / });
     await expect(aboutTabHeading).toBeVisible();
   }
 }

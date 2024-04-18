@@ -61,7 +61,9 @@ const Header = ({
   const { i18n } = useLingui();
 
   let playerThumbnail;
-  if (characterProfile?.thumbnail) {
+  if (characterProfile?.thumbnail?.startsWith('https')) {
+    playerThumbnail = characterProfile.thumbnail;
+  } else if (characterProfile?.thumbnail) {
     playerThumbnail = `https://render-${characterProfile.region}.worldofwarcraft.com/character/${characterProfile.thumbnail}`;
   } else {
     playerThumbnail = `/specs/${icon}.jpg`.replace(/ /, '');

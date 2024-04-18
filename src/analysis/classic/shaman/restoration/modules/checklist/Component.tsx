@@ -129,16 +129,17 @@ const HealerChecklist = ({
           </Trans>
         }
       >
-        {thresholds.chainHealTargetThresholds.actual > 0 && (
-          <Requirement
-            name={
-              <Trans id="classic.shaman.restoration.checklist.aoeSpell.targets">
-                Average <SpellLink spell={SPELLS.CHAIN_HEAL} /> targets
-              </Trans>
-            }
-            thresholds={thresholds.chainHealTargetThresholds}
-          />
-        )}
+        {typeof thresholds.chainHealTargetThresholds.actual === 'number' &&
+          thresholds.chainHealTargetThresholds.actual > 0 && (
+            <Requirement
+              name={
+                <Trans id="classic.shaman.restoration.checklist.aoeSpell.targets">
+                  Average <SpellLink spell={SPELLS.CHAIN_HEAL} /> targets
+                </Trans>
+              }
+              thresholds={thresholds.chainHealTargetThresholds}
+            />
+          )}
       </Rule>
       {/* Downtime */}
       <Rule

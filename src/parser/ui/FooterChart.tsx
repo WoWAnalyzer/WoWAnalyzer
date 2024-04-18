@@ -1,5 +1,5 @@
 import { VisualizationSpec } from 'react-vega';
-import { AutoSizer } from 'react-virtualized';
+import AutoSizer from 'react-virtualized-auto-sizer';
 import { TopLevelSpec, Config } from 'vega-lite';
 
 import BaseChart, { defaultConfig, formatTime } from './BaseChart';

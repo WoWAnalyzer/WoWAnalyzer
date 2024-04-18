@@ -140,10 +140,10 @@ class BreathOfEonsRotational extends Analyzer {
   foundTrinket = this.selectedCombatant.hasTrinket(trinkets.IRIDEUS_FRAGMENT.id)
     ? spells.IRIDEUS_FRAGMENT.id
     : this.selectedCombatant.hasTrinket(trinkets.SPOILS_OF_NELTHARUS.id)
-    ? spells.SPOILS_OF_NELTHARUS_CRIT.id
-    : this.selectedCombatant.hasTrinket(trinkets.MIRROR_OF_FRACTURED_TOMORROWS.id)
-    ? spells.MIRROR_OF_FRACTURED_TOMORROWS.id
-    : undefined;
+      ? spells.SPOILS_OF_NELTHARUS_CRIT.id
+      : this.selectedCombatant.hasTrinket(trinkets.MIRROR_OF_FRACTURED_TOMORROWS.id)
+        ? spells.MIRROR_OF_FRACTURED_TOMORROWS.id
+        : undefined;
 
   constructor(options: Options) {
     super(options);

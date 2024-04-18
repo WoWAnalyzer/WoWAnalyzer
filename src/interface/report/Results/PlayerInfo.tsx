@@ -18,20 +18,28 @@ interface Props {
   combatant: Combatant;
 }
 
+const backgroundImage = (thumbnail?: string, region?: string): string => {
+  if (thumbnail?.startsWith('https')) {
+    return thumbnail.replace('avatar.jpg', 'main.jpg');
+  } else if (thumbnail && region) {
+    return `https://render-${region}.worldofwarcraft.com/character/${thumbnail.replace(
+      'avatar',
+      'main',
+    )}`;
+  } else {
+    return '/img/fallback-character.jpg';
+  }
+};
+
 const PlayerInfo = ({ combatant }: Props) => {
   const isRetail = combatant.owner.config.expansion === RETAIL_EXPANSION;
   const gear: Item[] = _parseGear(combatant._combatantInfo.gear);
   const talents = combatant._combatantInfo.talentTree;
   const averageIlvl = getAverageItemLevel(gear);
-  const background =
-    combatant.characterProfile && combatant.characterProfile.thumbnail
-      ? `https://render-${
-          combatant.characterProfile.region
-        }.worldofwarcraft.com/character/${combatant.characterProfile.thumbnail.replace(
-          'avatar',
-          'main',
-        )}`
-      : '/img/fallback-character.jpg';
+  const background = backgroundImage(
+    combatant.characterProfile?.thumbnail,
+    combatant.characterProfile?.region,
+  );
 
   return (
     <div className="player-info">

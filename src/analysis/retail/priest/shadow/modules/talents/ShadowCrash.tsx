@@ -1,8 +1,7 @@
 import AbilityTracker from 'analysis/retail/priest/shadow/modules/core/AbilityTracker';
-import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
-import Insanity from 'interface/icons/Insanity';
+import ItemInsanityGained from 'analysis/retail/priest/shadow/interface/ItemInsanityGained';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, ResourceChangeEvent, CastEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -108,7 +107,7 @@ class ShadowCrash extends Analyzer {
               <ItemDamageDone amount={this.damage} />
             </div>
             <div>
-              <Insanity /> {formatNumber(this.insanityGained)} <small>Insanity generated</small>
+              <ItemInsanityGained amount={this.insanityGained} />
             </div>
           </>
         </BoringSpellValueText>

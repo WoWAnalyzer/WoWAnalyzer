@@ -1,7 +1,7 @@
 import Analyzer from 'parser/core/Analyzer';
 import { VisualizationSpec } from 'react-vega';
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
-import { AutoSizer } from 'react-virtualized';
+import AutoSizer from 'react-virtualized-auto-sizer';
 import BuffStackTracker from 'parser/shared/modules/BuffStackTracker';
 
 /** The type used to compile the data for graphing. */

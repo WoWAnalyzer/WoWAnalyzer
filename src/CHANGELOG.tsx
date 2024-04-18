@@ -27,18 +27,30 @@ import {
   Arlie,
   LucasLevyOB,
   dub,
-  Zyer, Earosselot,
+  Zyer,
+  Earosselot,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 4, 17), 'Add 10.2.7 patch.', ToppleTheNun),
+  change(date(2024, 4, 12), 'Fix mana level chart', emallson),
+  change(date(2024, 4, 10), 'Update paths used by Sentry.', ToppleTheNun),
+  change(date(2024, 4, 10), 'Update dependencies.', ToppleTheNun),
+  change(date(2024, 4, 9), 'Swap to Vite instead of create-react-app and use the WCL V2 API.', [ToppleTheNun, emallson]),
+  change(date(2024, 4, 8), 'Fix handling of character parse lookup for Classic', emallson),
+  change(date(2024, 4, 6), 'Update Channel normalizer to properly handle Empowers.', Vollmer),
+  change(date(2024, 4, 5), 'Fix events tab omitting some events.', ToppleTheNun),
+  change(date(2024, 3, 30), 'Update Nymue spellids and make Channeling normalizer normalize fabricated Prepull events.', Vollmer),
+  change(date(2024, 3, 27), 'Rewrite events tab in TypeScript.', ToppleTheNun),
   change(date(2024, 3, 26), 'Add patch 10.2.6.', ToppleTheNun),
   change(date(2024, 3, 26), 'Add Dragonflight season 4 M+ dungeons and zone.', ToppleTheNun),
   change(date(2024, 3, 26), 'Remove support for Shadowlands tier sets.', ToppleTheNun),
   change(date(2024, 3, 26), 'Add tier set IDs for Dragonflight season 4.', ToppleTheNun),
   change(date(2024, 3, 22), 'Update Channeling normalizer to attach fabricated channel events to their associated cast events.', Vollmer),
+  change(date(2024, 3, 17), <>Implement buffSoonPresent APL condition and fix chain cast issues with APL check.</>, Vollmer),
   change(date(2024, 3, 14), 'Correct getBuffStacks method to return the stacks at the given timestamp', Earosselot),
   change(date(2024, 3, 14), 'Fix overflow on cooldown bars while using the phase selector.', ToppleTheNun),
   change(date(2024, 3, 14), 'Bump opacity on phase selector to 75% from 40%.', ToppleTheNun),

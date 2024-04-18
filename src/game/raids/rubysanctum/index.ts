@@ -1,11 +1,11 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 import RubySanctum from './images/RubySanctum.jpg';
-import { Raid } from 'game/raids';
+import Halion from './Halion';
+import type { Raid } from 'game/raids';
 
 export default {
   name: 'Ruby Sanctum',
   background: RubySanctum,
   bosses: {
-    Halion: require('./Halion').default,
+    Halion,
   },
 } satisfies Raid;

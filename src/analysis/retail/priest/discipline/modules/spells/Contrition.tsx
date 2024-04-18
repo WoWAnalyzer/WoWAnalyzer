@@ -85,8 +85,8 @@ class Contrition extends Analyzer {
               You lost roughly ${formatNumber(
                 (this.damagePenalty / this.owner.fightDuration) * 1000,
               )} DPS, or ${formatPercentage(
-          this.owner.getPercentageOfTotalDamageDone(this.damagePenalty),
-        )}% more damage.`}
+                this.owner.getPercentageOfTotalDamageDone(this.damagePenalty),
+              )}% more damage.`}
       >
         <BoringSpellValueText spell={TALENTS_PRIEST.CONTRITION_TALENT}>
           <ItemHealingDone amount={healing} />

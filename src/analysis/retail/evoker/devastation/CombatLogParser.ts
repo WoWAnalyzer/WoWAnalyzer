@@ -5,7 +5,7 @@ import Abilities from './modules/Abilities';
 import ShatteringStar from './modules/abilities/ShatteringStar';
 import Buffs from './modules/Buffs';
 import Guide from './Guide';
-import AplCheck from './modules/AplCheck';
+import AplCheck from './modules/AplCheck/AplCheck';
 import Disintegrate from './modules/abilities/Disintegrate';
 import EssenceBurst from './modules/abilities/EssenceBurst';
 import Burnout from './modules/abilities/Burnout';
@@ -32,18 +32,35 @@ import T31DevaTier from './modules/dragonflight/tier/T31DevaTier';
 
 // Shared
 import {
+  LivingFlameNormalizer,
+  LivingFlamePrePullNormalizer,
   LeapingFlamesNormalizer,
   LeapingFlames,
+  EmpowerNormalizer,
+  SpellUsable,
+  GlobalCooldown,
   SpellEssenceCost,
   EssenceTracker,
   EssenceGraph,
   SourceOfMagic,
   PotentMana,
+  ObsidianScales,
+  DefensiveNormalizer,
+  DefensiveCastLinkNormalizer,
+  TwinGuardian,
+  RenewingBlaze,
 } from 'analysis/retail/evoker/shared';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
+    // Empower Normalizer
+    empowerNormalizer: EmpowerNormalizer,
+    spellUsable: SpellUsable,
+    globalCooldown: GlobalCooldown,
+
     // Shared
+    livingFlameNormalizer: LivingFlameNormalizer,
+    livingFlamePrePullNormalizer: LivingFlamePrePullNormalizer,
     leapingFlamesNormalizer: LeapingFlamesNormalizer,
     leapingFlames: LeapingFlames,
     spellEssenceCost: SpellEssenceCost,
@@ -51,6 +68,12 @@ class CombatLogParser extends MainCombatLogParser {
     essenceGraph: EssenceGraph,
     sourceOfMagic: SourceOfMagic,
     potentMana: PotentMana,
+
+    obsidianScales: ObsidianScales,
+    defensiveCastLinkNormalizer: DefensiveCastLinkNormalizer,
+    defensiveNormalizer: DefensiveNormalizer,
+    twinGuardian: TwinGuardian,
+    renewingBlaze: RenewingBlaze,
 
     // Core
     abilities: Abilities,
