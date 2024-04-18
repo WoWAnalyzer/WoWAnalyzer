@@ -31,7 +31,6 @@ import ShadowWordDeath from './modules/spells/ShadowWordDeath';
 import ShadowWordPain from './modules/spells/ShadowWordPain';
 import VampiricEmbrace from './modules/talents/VampiricEmbrace';
 import VampiricTouch from './modules/spells/VampiricTouch';
-import AuspiciousSpirits from './modules/talents/AuspiciousSpirits';
 import DeathAndMadness from './modules/talents/DeathAndMadness';
 import ShadowCrash from './modules/talents/ShadowCrash';
 import InsidiousIre from './modules/talents/InsidiousIre';
@@ -49,6 +48,10 @@ import IdolOfNzoth from './modules/talents/IdolOfNzoth';
 import IdolOfYshaarj from './modules/talents/IdolOfYshaarj';
 import Manipulation from './modules/talents/Manipulation';
 import InsanityGraph from './modules/guide/InsanityGraph';
+import ShadowyApparitions from './modules/spells/ShadowyApparitions';
+import AuspiciousSpirits from './modules/talents/AuspiciousSpirits';
+import PhantasmalPathogen from './modules/talents/PhantasmalPathogen';
+import TormentedSpirits from './modules/talents/TormentedSpirits';
 
 import Tier29FourSet from './modules/tier/Tier29ShadowPriest4Set';
 import Tier31FourSet from './modules/tier/Tier31ShadowPriest4Set';
@@ -78,6 +81,7 @@ class CombatLogParser extends MainCombatLogParser {
     shadowfiend: Shadowfiend,
     shadowWordDeath: ShadowWordDeath,
     shadowWordPain: ShadowWordPain,
+    shadowyApparitions: ShadowyApparitions,
     vampiricTouch: VampiricTouch,
     voidbolt: Voidbolt,
     voidform: Voidform,
@@ -97,8 +101,10 @@ class CombatLogParser extends MainCombatLogParser {
     mindDevourer: MindDevourer,
     mindFlayInsanity: MindFlayInsanity,
     mindSpikeInsanity: MindSpikeInsanity,
+    phantasmalPathogen: PhantasmalPathogen,
     shadowCrash: ShadowCrash,
     shadowyInsight: ShadowyInsight,
+    tormentedSpirits: TormentedSpirits,
     unfurlingDarkness: UnfurlingDarkness,
     voidTorrent: VoidTorrent,
 
