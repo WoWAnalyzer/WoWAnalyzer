@@ -65,7 +65,7 @@ class PhantasmalPathogen extends Analyzer {
   }
 
   //this is used in ShadowyApparitions to show all Apparition Talents together
-  statisticSubsection() {
+  subStatistic() {
     return (
       <BoringSpellValueText spell={TALENTS.PHANTASMAL_PATHOGEN_TALENT}>
         <div>

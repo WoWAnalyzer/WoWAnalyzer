@@ -44,7 +44,7 @@ class TormentedSpirits extends Analyzer {
   }
 
   //this is used in ShadowyApparitions to show all Apparition Talents together
-  statisticSubsection() {
+  subStatistic() {
     return (
       <BoringSpellValueText spell={TALENTS.TORMENTED_SPIRITS_TALENT}>
         <div>
