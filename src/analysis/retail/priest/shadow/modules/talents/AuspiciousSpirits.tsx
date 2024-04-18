@@ -1,7 +1,6 @@
-import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
-import Insanity from 'interface/icons/Insanity';
+import ItemInsanityGained from 'analysis/retail/priest/shadow/interface/ItemInsanityGained';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -49,7 +48,7 @@ class AuspiciousSpirits extends Analyzer {
               <ItemDamageDone amount={this.damage - this.damage / SPIRIT_DAMAGE_MULTIPLIER} />
             </div>
             <div>
-              <Insanity /> {formatNumber(this.insanity)} <small>Insanity generated</small>
+              <ItemInsanityGained amount={this.insanity} />
             </div>
           </>
         </BoringSpellValueText>
