@@ -135,8 +135,8 @@ function NoWastedProcsSubsection({ modules, info }: GuideProps<typeof CombatLogP
         explanationPercent={EXPLANATION_PERCENTAGE}
         explanation={
           <p>
-            <SpellLink spell={TALENTS_EVOKER.RUBY_ESSENCE_BURST_TALENT} /> procs are essential
-            because they help you cast your primary damaging spells,
+            <SpellLink spell={SPELLS.ESSENCE_BURST_BUFF} /> procs are essential because they help
+            you cast your primary damaging spells,
             <SpellLink spell={SPELLS.DISINTEGRATE} /> and{' '}
             <SpellLink spell={TALENTS_EVOKER.PYRE_TALENT} />, for free. None should go to waste.
           </p>
