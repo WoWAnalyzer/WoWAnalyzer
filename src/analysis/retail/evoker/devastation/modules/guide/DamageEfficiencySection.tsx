@@ -243,7 +243,7 @@ function ShatteringStarSubsection({ modules, info }: GuideProps<typeof CombatLog
 }
 
 function BlazeShardsSubsection({ modules, info }: GuideProps<typeof CombatLogParser>) {
-  if (!info.combatant.has4PieceByTier(TIERS.DF2)) {
+  if (!info.combatant.has4PieceByTier(TIERS.DF2) && !info.combatant.has4PieceByTier(TIERS.DF4)) {
     return null;
   }
 
@@ -260,7 +260,7 @@ function BlazeShardsSubsection({ modules, info }: GuideProps<typeof CombatLogPar
         to maximize uptime of <SpellLink spell={SPELLS.BLAZING_SHARDS} />.
       </p>
       <p>
-        Total uptime lost is: <strong>{modules.T30devaTier4P.lostUptime.toFixed(2)}s</strong>.
+        Total uptime lost is: <strong>{modules.T30devaTier.lostUptime.toFixed(2)}s</strong>.
       </p>
       <ExplanationAndDataSubSection
         explanationPercent={EXPLANATION_PERCENTAGE}
@@ -269,13 +269,13 @@ function BlazeShardsSubsection({ modules, info }: GuideProps<typeof CombatLogPar
             <strong>Buff breakdown</strong>
             <small> Try not to override Blazing Shards!</small>
 
-            <PerformanceBoxRow values={modules.T30devaTier4P.windowEntries} />
+            <PerformanceBoxRow values={modules.T30devaTier.windowEntries} />
           </RoundedPanel>
         }
         data={
           <div>
             <strong>Summary</strong>
-            <DonutChart items={modules.T30devaTier4P.donutItems} />
+            <DonutChart items={modules.T30devaTier.donutItems} />
           </div>
         }
       />
