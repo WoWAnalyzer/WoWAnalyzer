@@ -69,7 +69,9 @@ class T31Augmentation4P extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.has4PieceByTier(TIERS.DF3);
+    this.active =
+      this.selectedCombatant.has4PieceByTier(TIERS.DF3) ||
+      this.selectedCombatant.has4PieceByTier(TIERS.DF4);
 
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.TREMBLING_EARTH_BUFF),

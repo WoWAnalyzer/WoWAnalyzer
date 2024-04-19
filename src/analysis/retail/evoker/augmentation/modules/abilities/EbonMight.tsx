@@ -289,7 +289,9 @@ class EbonMight extends Analyzer {
       EBON_MIGHT_BASE_DURATION_MS *
       (1 + TIMEWALKER_BASE_EXTENSION + ebonMightCooldownCast.currentMastery) *
       PANDEMIC_WINDOW;
-    const hasT31 = this.selectedCombatant.has2PieceByTier(TIERS.DF3);
+    const hasT31 =
+      this.selectedCombatant.has2PieceByTier(TIERS.DF3) ||
+      this.selectedCombatant.has2PieceByTier(TIERS.DF4);
 
     let performance;
     let summary;

@@ -101,7 +101,9 @@ class BuffTargetHelper extends Analyzer {
   prescienceHelperMrtNote: string = '';
   mrtFourTargetPrescienceHelperNote: string = '';
   // If we have 4pc we need to account for long prescience
-  has4Pc = this.selectedCombatant.has4PieceByTier(TIERS.DF3);
+  has4Pc =
+    this.selectedCombatant.has4PieceByTier(TIERS.DF3) ||
+    this.selectedCombatant.has4PieceByTier(TIERS.DF4);
 
   filterBossDamage: boolean = false;
   nameFilter: string = '';
