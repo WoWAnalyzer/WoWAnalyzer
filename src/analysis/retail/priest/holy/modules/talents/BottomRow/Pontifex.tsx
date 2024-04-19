@@ -26,8 +26,9 @@ const PONTIFEX_TRIGGER_LIST = [
 ];
 
 /**
- * Critical heals from Flash Heal and Heal increase your healing done by
- * your next Holy Word spell by 20%, stacking up to 2 times.
+ * Flash Heal, Heal, Prayer of Healing, and Circle of Healing
+ * increase the healing done by your next Holy Word spell by 6%,
+ * stacking up to 5 times. (30 sec)
  */
 
 class Pontifex extends Analyzer {
