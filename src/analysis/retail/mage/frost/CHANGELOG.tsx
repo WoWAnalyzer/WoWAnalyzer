@@ -6,6 +6,7 @@ import { Earosselot, Sharrq, Sref, ToppleTheNun } from 'CONTRIBUTORS';
 
 // prettier-ignore
 export default [
+  change(date(2024, 20, 4), <>Improved <SpellLink spell={SPELLS.WINTERS_CHILL} /> analysis on guide. Setting guide as default view. </>, Earosselot),
   change(date(2024, 4, 4), <>Fixed <SpellLink spell={TALENTS.ALTER_TIME_TALENT} /> GCD, added <SpellLink spell={TALENTS.ICE_COLD_TALENT} /> to spellbook </>, Earosselot),
   change(date(2024, 4, 4), <>Added <SpellLink spell={TALENTS.CHAIN_REACTION_TALENT} /> statistics </>, Earosselot),
   change(date(2024, 4, 2), <>Update <SpellLink spell={TALENTS.THERMAL_VOID_TALENT} /> statistic from 10.0.0 to 10.1.5 (current)</>, Earosselot),
