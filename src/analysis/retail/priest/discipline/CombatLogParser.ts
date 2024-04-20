@@ -56,7 +56,6 @@ import ProtectiveLight from '../shared/ProtectiveLight';
 import TwilightEquilibrium from './modules/spells/TwilightEquilibrium/TwilightEquilibrium';
 import RaptureAnalysis from './modules/guide/RaptureAnalysis';
 import AtonementNormalizer from './normalizers/AtonementTracker';
-import ShadowCovenant from './modules/spells/ShadowCovenant/ShadowCovenant';
 import AbyssalReverie from './modules/spells/AbyssalReverie';
 import TwilightEquilibriumNormalizer from './normalizers/TwilightEquilibriumNormalizer';
 import DamageCastLink from './normalizers/DamageCastLink';
@@ -123,7 +122,6 @@ class CombatLogParser extends CoreCombatLogParser {
     grace: Grace,
     sinsOfTheMany: SinsOfTheMany,
     schism: Schism,
-    shadowCovenant: ShadowCovenant,
     mindgames: Mindgames,
     harshDiscipline: HarshDiscipline,
     indemnity: Indemnity,
