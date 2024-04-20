@@ -340,12 +340,12 @@ export type ValidThresholds = number | boolean | BoolThreshold | NumberThreshold
 type GenericSuggestionType<T extends ValidThresholds> = T extends number
   ? NumberSuggestionAssertion
   : T extends boolean
-  ? BoolSuggestionAssertion
-  : T extends NumberThreshold
-  ? NumberSuggestionAssertion
-  : T extends BoolThreshold
-  ? BoolSuggestionAssertion
-  : never;
+    ? BoolSuggestionAssertion
+    : T extends NumberThreshold
+      ? NumberSuggestionAssertion
+      : T extends BoolThreshold
+        ? BoolSuggestionAssertion
+        : never;
 
 export type When = <T extends ValidThresholds>(threshold: T) => GenericSuggestionType<T>;
 

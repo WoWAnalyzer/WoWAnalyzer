@@ -37,7 +37,7 @@ import DamageTaken from 'parser/shared/modules/throughput/DamageTaken';
 import BaseChart, { defaultConfig } from 'parser/ui/BaseChart';
 import { useMemo } from 'react';
 import { VisualizationSpec } from 'react-vega';
-import { AutoSizer } from 'react-virtualized';
+import AutoSizer from 'react-virtualized-auto-sizer';
 import { StringFieldDefWithCondition } from 'vega-lite/build/src/channeldef';
 import RunicPowerTracker from '../../runicpower/RunicPowerTracker';
 import BloodShield from '../BloodShield/BloodShield';

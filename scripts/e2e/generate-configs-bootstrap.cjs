@@ -11,7 +11,10 @@ require('tsconfig-paths').register({
 
 // use babel to transpile required files
 require('@babel/register')({
-  presets: [['react-app', { flow: false, typescript: true, useESModules: false }]],
+  presets: [
+    '@babel/preset-env',
+    ['react-app', { flow: false, typescript: true, useESModules: false }],
+  ],
   extensions: ['.es6', '.es', '.jsx', '.mjs', '.js', '.ts', '.tsx'],
 });
 

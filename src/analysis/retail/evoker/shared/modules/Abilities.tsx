@@ -7,7 +7,7 @@ import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import spells from 'common/SPELLS/dragonflight/trinkets';
 import trinkets from 'common/ITEMS/dragonflight/trinkets';
-import { BASE_EVOKER_RANGE } from '../constants';
+import { BASE_EVOKER_RANGE, EMPOWER_BASE_GCD, EMPOWER_MINIMUM_GCD } from '../constants';
 
 const hasFont = (combatant: Combatant) =>
   combatant.hasTalent(TALENTS.FONT_OF_MAGIC_PRESERVATION_TALENT) ||
@@ -57,7 +57,8 @@ class Abilities extends CoreAbilities {
             : SPELL_CATEGORY.ROTATIONAL,
         cooldown: 30 * intervowenThreadsMultiplier,
         gcd: {
-          base: 500,
+          base: EMPOWER_BASE_GCD,
+          minimum: EMPOWER_MINIMUM_GCD,
         },
         ...(combatant.spec === (SPECS.DEVASTATION_EVOKER || SPECS.AUGMENTATION_EVOKER) && {
           castEfficiency: {

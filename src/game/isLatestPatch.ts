@@ -1,9 +1,9 @@
 import parseVersionString from 'common/parseVersionString';
-import Config from 'parser/Config';
+import type Config from 'parser/Config';
 
 import VERSIONS from './VERSIONS';
 
-export default function isLatestPatch(config: Config) {
+export default function isLatestPatch(config: Pick<Config, 'patchCompatibility' | 'expansion'>) {
   if (!config.patchCompatibility) {
     return false;
   }

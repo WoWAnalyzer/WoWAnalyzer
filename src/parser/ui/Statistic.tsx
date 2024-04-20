@@ -120,8 +120,8 @@ class Statistic extends React.PureComponent<Props, { expanded?: boolean }> {
           ultrawide
             ? 'col-md-12'
             : wide
-            ? 'col-md-6 col-sm-12 col-xs-12'
-            : 'col-lg-3 col-md-4 col-sm-6 col-xs-12'
+              ? 'col-md-6 col-sm-12 col-xs-12'
+              : 'col-lg-3 col-md-4 col-sm-6 col-xs-12'
         }
       >
         <div

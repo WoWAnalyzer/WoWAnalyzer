@@ -79,8 +79,8 @@ class Echo extends Analyzer {
     const mapRef = this.isFromTaEcho(event)
       ? this.taEchoHealingBySpell
       : this.isFromHardcast(event)
-      ? this.echoHealingBySpell
-      : this.tierEchoHealingBySpell;
+        ? this.echoHealingBySpell
+        : this.tierEchoHealingBySpell;
     mapRef.set(spellID, mapRef.get(spellID)! + (event.amount || 0) + (event.absorbed || 0));
   }
 

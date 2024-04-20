@@ -5,7 +5,7 @@ import FingerprintFilledIcon from 'interface/icons/FingerprintFilled';
 import HelpWantedIcon from 'interface/icons/Information';
 import NewsIcon from 'interface/icons/Megaphone';
 import PremiumIcon from 'interface/icons/Premium';
-import { ReactComponent as Logo } from 'interface/images/logo.svg';
+import Logo from 'interface/images/logo.svg?react';
 import NavigationBar from 'interface/NavigationBar';
 import { hasPremium } from 'interface/selectors/user';
 import { Link, Outlet, useLocation } from 'react-router-dom';

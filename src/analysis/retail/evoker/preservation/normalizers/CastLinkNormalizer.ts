@@ -24,10 +24,10 @@ import {
 import { DUPLICATION_SPELLS, STASIS_CAST_IDS } from '../constants';
 import { TIERS } from 'game/TIERS';
 import { LEAPING_FLAMES_HITS } from '../../shared/modules/normalizers/LeapingFlamesNormalizer';
+import { EMPOWERED_CAST } from '../../shared/modules/normalizers/EmpowerNormalizer';
 
 export const ANCIENT_FLAME = 'AncientFlame'; // links cast to buff apply
 export const ANCIENT_FLAME_CONSUME = 'AncientFlameConnsume'; // links buff remove to buff apply
-export const EMPOWERED_CAST = 'EmpoweredCast'; // link empowerend to cast
 // BEGIN ECHO constants
 export const FROM_HARDCAST = 'FromHardcast'; // for linking a buffapply or heal to its cast
 export const FROM_TEMPORAL_ANOMALY = 'FromTemporalAnomaly'; // for linking TA echo apply to TA shield apply
@@ -99,32 +99,6 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true,
     isActive(c) {
       return c.hasTalent(TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT);
-    },
-  },
-  {
-    linkRelation: EMPOWERED_CAST,
-    linkingEventId: [
-      TALENTS_EVOKER.SPIRITBLOOM_TALENT.id,
-      TALENTS_EVOKER.DREAM_BREATH_TALENT.id,
-      SPELLS.SPIRITBLOOM_FONT.id,
-      SPELLS.DREAM_BREATH_FONT.id,
-    ],
-    linkingEventType: EventType.Cast,
-    referencedEventId: [
-      TALENTS_EVOKER.SPIRITBLOOM_TALENT.id,
-      TALENTS_EVOKER.DREAM_BREATH_TALENT.id,
-      SPELLS.SPIRITBLOOM_FONT.id,
-      SPELLS.DREAM_BREATH_FONT.id,
-    ],
-    referencedEventType: EventType.EmpowerEnd,
-    reverseLinkRelation: EMPOWERED_CAST,
-    forwardBufferMs: 5000,
-    anyTarget: true,
-    additionalCondition(linkingEvent, referencedEvent) {
-      return (
-        (linkingEvent as CastEvent).ability.guid ===
-        (referencedEvent as EmpowerEndEvent).ability.guid
-      );
     },
   },
   // link Echo apply to its CastEvent

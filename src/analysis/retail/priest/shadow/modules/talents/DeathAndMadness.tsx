@@ -1,7 +1,7 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
-import Insanity from 'interface/icons/Insanity';
+import ItemInsanityGained from 'analysis/retail/priest/shadow/interface/ItemInsanityGained';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { ResourceChangeEvent, DamageEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -95,7 +95,7 @@ class DeathAndMadness extends Analyzer {
             <div>{formatNumber(this.resets)} Resets</div>
             <div>{formatNumber(this.kills)} Kills</div>
             <div>
-              <Insanity /> {formatNumber(this.insanityGained)} <small>Insanity generated</small>
+              <ItemInsanityGained amount={this.insanityGained} />
             </div>
           </>
         </BoringSpellValueText>

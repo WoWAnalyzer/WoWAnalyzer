@@ -19,7 +19,7 @@
   - TW: https://tw.api.blizzard.com/data/wow/realm/index?namespace=dynamic-classic-tw&locale=zh_TW&access_token=
   - US: https://us.api.blizzard.com/data/wow/realm/index?namespace=dynamic-classic-us&locale=en_US&access_token=
 
-3. Run `node reformatRealms.js`
+3. Run `node reformatRealms.cjs`
 4. A file `output.ts` is generated with the data. **Note**: `output.ts` will be a jumbled mess but the prettier commit hook formats it properly.
 5. Paste the content of `output.ts` into `/src/game/REALMS.ts`
 

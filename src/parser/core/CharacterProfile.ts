@@ -8,7 +8,7 @@ interface CharacterProfile {
   race: number;
   gender: number;
   achievementPoints: number;
-  thumbnail: string;
+  thumbnail?: string;
   spec: string;
   role: string;
   talents: string;

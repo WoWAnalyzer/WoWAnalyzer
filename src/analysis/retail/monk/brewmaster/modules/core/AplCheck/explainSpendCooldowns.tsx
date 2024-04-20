@@ -12,16 +12,19 @@ import { dump_cd_rule } from '../AplCheck';
 type Data = null;
 
 const joinSpellLinks = (spells: Spell[]) =>
-  spells.slice(1).reduce((prev, spell, index, arr) => {
-    const joiner = index === arr.length - 1 ? ' or ' : ', ';
-    return (
-      <>
-        {prev}
-        {joiner}
-        <SpellLink spell={spell} />
-      </>
-    );
-  }, <SpellLink spell={spells[0]} />);
+  spells.slice(1).reduce(
+    (prev, spell, index, arr) => {
+      const joiner = index === arr.length - 1 ? ' or ' : ', ';
+      return (
+        <>
+          {prev}
+          {joiner}
+          <SpellLink spell={spell} />
+        </>
+      );
+    },
+    <SpellLink spell={spells[0]} />,
+  );
 
 export const tigerPalmSpamExplanation: ViolationExplainer<Data> = {
   render() {

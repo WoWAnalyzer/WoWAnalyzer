@@ -68,7 +68,7 @@ class InescapableTorment extends Analyzer {
       if (this.extension <= 6) {
         value = QualitativePerformance.Ok;
       }
-      if (this.extension <= 3) {
+      if (this.extension <= 4) {
         value = QualitativePerformance.Fail;
       }
 

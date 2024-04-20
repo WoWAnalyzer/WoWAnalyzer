@@ -3,7 +3,7 @@ import { Panel } from 'interface';
 import Analyzer, { ParseResultsTab } from 'parser/core/Analyzer';
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 import { VisualizationSpec } from 'react-vega';
-import { AutoSizer } from 'react-virtualized';
+import AutoSizer from 'react-virtualized-auto-sizer';
 import { i18n } from '@lingui/core';
 
 import RuneBreakdown from './RuneBreakdown';

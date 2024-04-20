@@ -2,10 +2,10 @@ import { RootState } from 'store';
 
 export const getUser = (state: RootState) => state.user;
 export const hasPremium = (state: RootState) => {
-  if (process.env.REACT_APP_FORCE_PREMIUM === 'true') {
+  if (import.meta.env.VITE_FORCE_PREMIUM === 'true') {
     // Development environments force premium since they can't always implement the OAuth + for development pleasure.
     return true;
-  } else if (process.env.REACT_APP_FORCE_PREMIUM === 'false') {
+  } else if (import.meta.env.VITE_FORCE_PREMIUM === 'false') {
     // Force disable it allows testing how things look without Premium.
     return false;
   }

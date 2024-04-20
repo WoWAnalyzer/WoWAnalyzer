@@ -27,7 +27,7 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: typedKeys(BLOODLUST_BUFFS).map((item) => item),
+        spellId: typedKeys(BLOODLUST_BUFFS).map((item) => Number(item)),
         timelineHighlight: true,
       },
       {

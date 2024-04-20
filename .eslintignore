@@ -1,9 +1,10 @@
 node_modules
 /build
+/dist
 /src/localization/_build/
 /src/localization/*/*.js
 /scripts/localization/*.js
-!/.eslintrc.js
+!/.eslintrc.cjs
 !/.eslintplugin.js
 /playwright-report
 /test-results

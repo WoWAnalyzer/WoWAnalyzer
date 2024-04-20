@@ -127,6 +127,11 @@ const spells = {
     name: 'Chain Reaction',
     icon: 'spell_frost_frostblast',
   },
+  CRYOPATHY_BUFF: {
+    id: 417492,
+    name: 'Cryopathy',
+    icon: 'ability_hunter_pointofnoescape',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;

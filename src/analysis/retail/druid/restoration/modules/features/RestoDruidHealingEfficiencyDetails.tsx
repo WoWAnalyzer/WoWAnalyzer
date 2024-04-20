@@ -3,19 +3,11 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import HealingEfficiencyBreakdown from 'parser/core/healingEfficiency/HealingEfficiencyBreakdown';
 import HealingEfficiencyDetails from 'parser/core/healingEfficiency/HealingEfficiencyDetails';
-import HealingEfficiencyTracker from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
 import Panel from 'parser/ui/Panel';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
 /** Display module for healing efficiency data */
 class RestoDruidHealingEfficiencyDetails extends HealingEfficiencyDetails {
-  static dependencies = {
-    ...HealingEfficiencyDetails.dependencies,
-    healingEfficiencyTracker: HealingEfficiencyTracker,
-  };
-
-  protected healingEfficiencyTracker!: HealingEfficiencyTracker;
-
   statistic() {
     return (
       <Panel
