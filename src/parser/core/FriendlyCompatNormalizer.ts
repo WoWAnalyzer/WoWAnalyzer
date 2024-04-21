@@ -27,7 +27,7 @@ export default class FriendlyCompatNormalizer extends EventsNormalizer {
         event.attackerID &&
         event.attackerIsFriendly === undefined
       ) {
-        event.attackerIsFriendly = this.isFriendly(event.attackerID);
+        event.attackerIsFriendly = this.isFriendly(event.attackerID, event.attackerInstance);
       }
     }
     return events;
