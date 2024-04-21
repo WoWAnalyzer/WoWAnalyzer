@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 export default [
   change(date(2024, 4, 20), <>Fix cooldown of <SpellLink spell={SPELLS.DESPERATE_PRAYER} /> when using <SpellLink spell={TALENTS.ANGELS_MERCY_TALENT} />.</>,Arlie),
+  change(date(2024, 4, 18), <>Add statistics for <SpellLink spell={TALENTS.PHANTASMAL_PATHOGEN_TALENT}/> and <SpellLink spell={TALENTS.TORMENTED_SPIRITS_TALENT}/> </>,DoxAshe),
   change(date(2024, 4, 16), <>Fix broken icons, update sugestion thresholds and remove outdated checklist view</>,DoxAshe),
   change(date(2024, 3, 21), <>Fix error in <SpellLink spell={TALENTS.SURGE_OF_INSANITY_TALENT}/> </>,DoxAshe),
   change(date(2024, 1, 16), <>Update spec for 10.2.5, and fix error in <SpellLink spell={TALENTS.INESCAPABLE_TORMENT_TALENT}/> extension with Tier 31 two piece </>,DoxAshe),
