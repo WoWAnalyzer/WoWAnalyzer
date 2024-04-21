@@ -19,7 +19,6 @@ import EnemiesHealth from 'parser/shared/modules/EnemiesHealth';
 import Haste from 'parser/shared/modules/Haste';
 import ManaValues from 'parser/shared/modules/ManaValues';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import EnergizeCompat from 'parser/shared/normalizers/EnergizeCompat';
 import * as React from 'react';
 import { ExplanationContextProvider } from 'interface/guide/components/Explanation';
 
@@ -156,7 +155,6 @@ class CombatLogParser {
     deathDowntime: DeathDowntime,
     totalDowntime: TotalDowntime,
     spellInfo: SpellInfo,
-    energizeCompat: EnergizeCompat,
     friendlyCompat: FriendlyCompatNormalizer,
   };
   static defaultModules: DependenciesDefinition = {
