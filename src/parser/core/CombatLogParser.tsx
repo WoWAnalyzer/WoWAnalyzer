@@ -155,6 +155,7 @@ class CombatLogParser {
     deathDowntime: DeathDowntime,
     totalDowntime: TotalDowntime,
     spellInfo: SpellInfo,
+    enemies: Enemies,
     friendlyCompat: FriendlyCompatNormalizer,
   };
   static defaultModules: DependenciesDefinition = {
@@ -176,7 +177,6 @@ class CombatLogParser {
     throughputStatisticGroup: ThroughputStatisticGroup,
     deathTracker: DeathTracker,
 
-    enemies: Enemies,
     enemiesHealth: EnemiesHealth,
     pets: Pets,
     spellManaCost: SpellManaCost,
