@@ -14,13 +14,13 @@ export default class FriendlyCompatNormalizer extends EventsNormalizer {
   normalize(events: AnyEvent[]): AnyEvent[] {
     for (const event of events) {
       if (HasSource(event) && event.sourceIsFriendly === undefined) {
-        event.sourceIsFriendly = this.isFriendly(event.sourceID);
+        event.sourceIsFriendly = this.isFriendly(event.sourceID, event.sourceInstance);
       }
       if (
         HasTarget(event) &&
         (event as unknown as Record<string, unknown>).targetIsFriendly === undefined
       ) {
-        event.targetIsFriendly = this.isFriendly(event.targetID);
+        event.targetIsFriendly = this.isFriendly(event.targetID, event.targetInstance);
       }
       if (
         event.type === EventType.Absorbed &&
