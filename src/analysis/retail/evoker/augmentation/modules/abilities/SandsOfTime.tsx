@@ -9,7 +9,6 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { SpellLink } from 'interface';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 import ContextualSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
-import { logSpellUseEvent } from 'parser/core/SpellUsage/SpellUsageSubSection';
 import { failedEbonMightExtension } from '../normalizers/CastLinkNormalizer';
 import '../Styling.scss';
 
@@ -152,7 +151,6 @@ class SandsOfTime extends Analyzer {
             <span className="badCast">red</span> is a bad cast where you didn't extend.
           </>
         }
-        onPerformanceBoxClick={logSpellUseEvent}
         abovePerformanceDetails={<div style={{ marginBottom: 10 }}></div>}
       />
     );

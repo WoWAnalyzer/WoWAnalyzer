@@ -4,7 +4,7 @@ import TALENTS from 'common/TALENTS/evoker';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import { generatedEssenceBurst } from '../normalizers/CastLinkNormalizer';
-import { ANACHRONISM_ESSCENCE_CHANCE } from '../../constants';
+import { ANACHRONISM_ESSENCE_CHANCE } from '../../constants';
 
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -46,9 +46,7 @@ class Anachronism extends Analyzer {
         tooltip={
           <>
             <li>Procs: {Math.floor(this.essenceBurstGenerated)}</li>
-            <li>
-              Expected procs: {Math.floor(this.prescienceCasts * ANACHRONISM_ESSCENCE_CHANCE)}
-            </li>
+            <li>Expected procs: {Math.floor(this.prescienceCasts * ANACHRONISM_ESSENCE_CHANCE)}</li>
           </>
         }
       >
@@ -61,7 +59,7 @@ class Anachronism extends Analyzer {
         {plotOneVariableBinomChart(
           this.essenceBurstGenerated,
           this.prescienceCasts,
-          ANACHRONISM_ESSCENCE_CHANCE,
+          ANACHRONISM_ESSENCE_CHANCE,
         )}
       </Statistic>
     );
