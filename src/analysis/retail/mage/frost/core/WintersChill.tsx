@@ -1,18 +1,17 @@
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
-import { SpellIcon } from 'interface';
-import { SpellLink } from 'interface';
+import { SpellIcon, SpellLink, TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyDebuffEvent,
-  RemoveDebuffEvent,
   CastEvent,
   DamageEvent,
-  GetRelatedEvent,
   FightEndEvent,
+  GetRelatedEvent,
+  RemoveDebuffEvent,
 } from 'parser/core/Events';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -22,10 +21,9 @@ import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/Perfo
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/mage/frost/Guide';
 import WintersChillEvent from 'analysis/retail/mage/frost/core/WintersChillEvent';
-import { PerformanceMark } from 'interface/guide';
+import { PerformanceMark, qualitativePerformanceToColor } from 'interface/guide';
 import { SpellSeq } from 'parser/ui/SpellSeq';
-
-const WINTERS_CHILL_SPENDERS = [SPELLS.ICE_LANCE_DAMAGE.id, SPELLS.GLACIAL_SPIKE_DAMAGE.id];
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 class WintersChill extends Analyzer {
   static dependencies = {
@@ -95,49 +93,32 @@ class WintersChill extends Analyzer {
     this.wintersChill[wintersChillDebuff].damageEvents?.push(event);
   }
 
+  wintersChillFromFlurry = () => {
+    return this.wintersChill.filter((wc) => wc.comesFromFlurry());
+  };
+
   missedPreCasts = () => {
-    //If there is no Pre Cast, or if there is a Precast but it didnt land in Winter's Chlll
-    let missingPreCast = this.wintersChill.filter((w) => !w.precast || !w.precastInDamageEvents());
-
-    //If the player had exactly 4 Icicles, disregard it
-    missingPreCast = missingPreCast.filter((w) => w.precastIcicles !== 4);
-
-    return missingPreCast.length;
+    return this.wintersChillFromFlurry().filter(
+      (wc) => wc.getPrecastPerformance() === QualitativePerformance.Fail,
+    ).length;
   };
 
   missedShatters = () => {
-    //Winter's Chill Debuffs where there are at least 2 damage hits of Glacial Spike and/or Ice Lance
-    let badDebuffs = this.wintersChill.filter((w) => {
-      const shatteredSpenders = w.damageEvents.filter((d) =>
-        WINTERS_CHILL_SPENDERS.includes(d.ability.guid),
-      );
-      return shatteredSpenders.length < 2;
-    });
-
-    //If they shattered one spell but also they used Ray Of Frost, then disregard it.
-    badDebuffs = badDebuffs.filter((w) => {
-      const shatteredSpenders = w.damageEvents.filter((d) =>
-        WINTERS_CHILL_SPENDERS.includes(d.ability.guid),
-      );
-      const rayHits = w.damageEvents.filter(
-        (d) => d.ability.guid === TALENTS.RAY_OF_FROST_TALENT.id,
-      );
-      return shatteredSpenders.length !== 1 || rayHits.length < 2;
-    });
-
-    return badDebuffs.length;
+    return this.wintersChillFromFlurry().filter(
+      (wc) => wc.getShatterPerformance() === QualitativePerformance.Fail,
+    ).length;
   };
 
-  get totalProcs() {
-    return this.wintersChill.length;
+  get totalProcsFromFlurry() {
+    return this.wintersChillFromFlurry().length;
   }
 
   get shatterPercent() {
-    return 1 - this.missedShatters() / this.totalProcs;
+    return 1 - this.missedShatters() / this.totalProcsFromFlurry;
   }
 
   get preCastPercent() {
-    return 1 - this.missedPreCasts() / this.totalProcs;
+    return 1 - this.missedPreCasts() / this.totalProcsFromFlurry;
   }
 
   analyzeCasts(event: FightEndEvent) {
@@ -276,6 +257,28 @@ class WintersChill extends Analyzer {
     );
   }
 
+  get wintersChillPrecastPerformance(): QualitativePerformance {
+    let performance = QualitativePerformance.Good;
+    if (this.preCastPercent < this.wintersChillPreCastThresholds.isLessThan.major) {
+      performance = QualitativePerformance.Fail;
+    } else if (this.preCastPercent < this.wintersChillPreCastThresholds.isLessThan.minor) {
+      performance = QualitativePerformance.Ok;
+    }
+
+    return performance;
+  }
+
+  get wintersChillShatterPerformance(): QualitativePerformance {
+    let performance = QualitativePerformance.Good;
+    if (this.shatterPercent < this.wintersChillShatterThresholds.isLessThan.major) {
+      performance = QualitativePerformance.Fail;
+    } else if (this.shatterPercent < this.wintersChillShatterThresholds.isLessThan.minor) {
+      performance = QualitativePerformance.Ok;
+    }
+
+    return performance;
+  }
+
   get guideSubsection(): JSX.Element {
     const cooldown = {
       id: -1,
@@ -294,6 +297,7 @@ class WintersChill extends Analyzer {
     const glacialSpikeIcon = <SpellIcon spell={TALENTS.GLACIAL_SPIKE_TALENT} />;
     const iceLanceIcon = <SpellIcon spell={TALENTS.ICE_LANCE_TALENT} />;
     const rayOfFrostIcon = <SpellIcon spell={TALENTS.RAY_OF_FROST_TALENT} />;
+    const wintersChillIcon = <SpellIcon spell={SPELLS.WINTERS_CHILL} />;
 
     const explanation = (
       <>
@@ -364,6 +368,30 @@ class WintersChill extends Analyzer {
     const data = (
       <div>
         <RoundedPanel>
+          <strong>Overall Performance</strong>
+          <div
+            style={{
+              color: qualitativePerformanceToColor(this.wintersChillPrecastPerformance),
+              fontSize: '20px',
+            }}
+          >
+            {wintersChillIcon}{' '}
+            <TooltipElement content="Precast shattered or Flurry on 4 icicles">
+              {formatPercentage(this.preCastPercent, 0)} % <small>Precast utilization</small>
+            </TooltipElement>
+          </div>
+          <div
+            style={{
+              color: qualitativePerformanceToColor(this.wintersChillShatterPerformance),
+              fontSize: '20px',
+            }}
+          >
+            {wintersChillIcon}{' '}
+            <TooltipElement content="2 Winter's Chill stacks used or 1 stack and Ray of Frost">
+              {formatPercentage(this.shatterPercent, 0)} % <small>Winter's Chill utilization</small>
+            </TooltipElement>
+          </div>
+
           <strong>Cast details</strong>
           <PerformanceBoxRow values={this.castEntries} />
           <small>green (good) / red (fail) mouseover the rectangles to see more details</small>
