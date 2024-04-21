@@ -112,6 +112,7 @@ import Dreambinder from 'parser/retail/modules/items/dragonflight/Dreambinder';
 import Iridal from 'parser/retail/modules/items/dragonflight/Iridal';
 import BelorrelosTheSuncaller from 'parser/retail/modules/items/dragonflight/BelorrelosTheSuncaller';
 import NymuesUnravelingSpindle from 'parser/retail/modules/items/dragonflight/NymuesUnravelingSpindle';
+import FriendlyCompatNormalizer from './FriendlyCompatNormalizer';
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
@@ -156,6 +157,7 @@ class CombatLogParser {
     totalDowntime: TotalDowntime,
     spellInfo: SpellInfo,
     energizeCompat: EnergizeCompat,
+    friendlyCompat: FriendlyCompatNormalizer,
   };
   static defaultModules: DependenciesDefinition = {
     // Normalizers
