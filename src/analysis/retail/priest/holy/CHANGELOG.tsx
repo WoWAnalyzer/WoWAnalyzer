@@ -1,9 +1,11 @@
 import { change, date } from 'common/changelog';
+import SPELLS from 'common/SPELLS';
 import TALENTS, { TALENTS_PRIEST } from 'common/TALENTS/priest';
-import { Hana, Litena, Squided, ToppleTheNun, Trevor, Saeldur } from 'CONTRIBUTORS';
+import { Arlie, Hana, Litena, Squided, ToppleTheNun, Trevor, Saeldur } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2024, 4, 20), <>Fix cooldown of <SpellLink spell={SPELLS.DESPERATE_PRAYER} /> when using <SpellLink spell={TALENTS_PRIEST.ANGELS_MERCY_TALENT} />.</>, Arlie),
   change(
     date(2024, 4, 18),
     <>

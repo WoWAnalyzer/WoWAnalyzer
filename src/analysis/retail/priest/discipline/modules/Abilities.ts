@@ -171,8 +171,8 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DESPERATE_PRAYER.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 90,
+        category: SPELL_CATEGORY.DEFENSIVE,
+        cooldown: 90 - (combatant.hasTalent(TALENTS_PRIEST.ANGELS_MERCY_TALENT) ? 20 : 0),
       },
       {
         spell: [SPELLS.POWER_WORD_BARRIER_CAST.id, TALENTS_PRIEST.LUMINOUS_BARRIER_TALENT.id],

@@ -258,7 +258,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DESPERATE_PRAYER.id, //TODO have angles mercy reduce CD
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 90,
+        cooldown: 90 - (combatant.hasTalent(TALENTS.ANGELS_MERCY_TALENT) ? 20 : 0),
         gcd: null,
       },
       {
