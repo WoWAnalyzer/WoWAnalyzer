@@ -47,6 +47,11 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
         enabled: combatant.has4PieceByTier(TIERS.DF3),
       },
+      {
+        spellId: SPELLS.BLAZING_SHARDS.id,
+        timelineHighlight: true,
+        enabled: combatant.has4PieceByTier(TIERS.DF2) || combatant.has4PieceByTier(TIERS.DF4),
+      },
       // Defensive
       {
         spellId: TALENTS.OBSIDIAN_SCALES_TALENT.id,

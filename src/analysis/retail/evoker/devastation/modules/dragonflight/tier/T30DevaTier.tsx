@@ -33,7 +33,7 @@ export type BlazeShardCounters = {
   extraDamageProvided: number;
 };
 
-class T30DevaTier4P extends Analyzer {
+class T30DevaTier extends Analyzer {
   inDragonRageWindow: boolean = false;
   totalLostUptime: number = 0;
   totalCasts: number = 0;
@@ -51,10 +51,13 @@ class T30DevaTier4P extends Analyzer {
   };
 
   windowEntries: BoxRowEntry[] = [];
+  has4Piece = this.selectedCombatant.has4PieceByTier(TIERS.DF4);
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.has2PieceByTier(TIERS.DF2);
+    this.active =
+      this.selectedCombatant.has2PieceByTier(TIERS.DF2) ||
+      this.selectedCombatant.has2PieceByTier(TIERS.DF4);
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(OBSIDIAN_SHARDS), (event) => {
       this.onObsidianShardsDamage(event);
@@ -267,13 +270,13 @@ class T30DevaTier4P extends Analyzer {
         color: qualitativePerformanceToColor(QualitativePerformance.Good),
       },
       {
-        label: 'Buff overriden with <0.5s left',
+        label: 'Buff overridden with <0.5s left',
         value: ok,
         valueTooltip: ok + ' empower casts',
         color: qualitativePerformanceToColor(QualitativePerformance.Ok),
       },
       {
-        label: 'Buff overriden with >0.5s left',
+        label: 'Buff overridden with >0.5s left',
         value: fail,
         valueTooltip: fail + ' empower casts',
         color: qualitativePerformanceToColor(QualitativePerformance.Fail),
@@ -287,7 +290,7 @@ class T30DevaTier4P extends Analyzer {
   statistic() {
     const damageFrom4Set =
       this.obsidianShardsDamDuringBlazing - this.obsidianShardsDamDuringBlazing / 3;
-    const has4Piece = this.selectedCombatant.has4PieceByTier(TIERS.DF2);
+
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(5)}
@@ -299,7 +302,7 @@ class T30DevaTier4P extends Analyzer {
               <SpellLink spell={OBSIDIAN_SHARDS} /> damage:{' '}
               {formatNumber(this.obsidianShardsDam - damageFrom4Set)}
             </li>
-            {has4Piece && (
+            {this.has4Piece && (
               <>
                 <li>
                   Wasted <SpellLink spell={BLAZING_SHARDS} /> uptime:{' '}
@@ -318,7 +321,7 @@ class T30DevaTier4P extends Analyzer {
         <BoringValueText label="Obsidian Secrets (T30 Set Bonus)">
           <h4>2 Piece</h4>
           <ItemDamageDone amount={this.obsidianShardsDam - damageFrom4Set} />
-          {has4Piece && (
+          {this.has4Piece && (
             <>
               <h4>4 Piece</h4>
               <ItemDamageDone amount={damageFrom4Set} />
@@ -330,4 +333,4 @@ class T30DevaTier4P extends Analyzer {
   }
 }
 
-export default T30DevaTier4P;
+export default T30DevaTier;
