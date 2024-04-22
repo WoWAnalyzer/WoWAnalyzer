@@ -13,7 +13,7 @@ import SPELLS from 'common/SPELLS/classic/shaman';
 import { TotemElements } from 'analysis/classic/shaman/shared/totems/totemConstants';
 import { TotemTracker } from 'analysis/classic/shaman/shared';
 
-export interface ChecklistProps extends BaseChecklistProps {
+interface ChecklistProps extends BaseChecklistProps {
   totemTracker: TotemTracker;
 }
 

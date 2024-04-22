@@ -3,11 +3,11 @@ import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import SPELLS from 'common/SPELLS/demonhunter';
 import { ResourceLink, SpellLink } from 'interface';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
-import HideExplanationsToggle from 'interface/guide/components/HideExplanationsToggle';
+import { HideExplanationsToggle } from 'interface/guide/components/HideExplanationsToggle';
 import FuryCapWaste from 'analysis/retail/demonhunter/shared/guide/FuryCapWaste';
 import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import HideGoodCastsToggle from 'interface/guide/components/HideGoodCastsToggle';
+import { HideGoodCastsToggle } from 'interface/guide/components/HideGoodCastsToggle';
 import CooldownGraphSubsection, {
   Cooldown,
 } from 'interface/guide/components/CooldownGraphSubSection';

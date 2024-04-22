@@ -27,7 +27,7 @@ export enum SECONDARY_STAT {
   VERSATILITY = 'versatility',
 }
 
-export enum OTHER_STAT {
+enum OTHER_STAT {
   HEALTH = 'health',
   STAMINA = 'stamina',
   MANA = 'mana',

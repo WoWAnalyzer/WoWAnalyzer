@@ -12,13 +12,12 @@ import CancelledCasts from './modules/features/CancelledCasts';
 import Guide from 'analysis/retail/priest/shadow/Guide';
 
 import Abilities from './modules/Abilities';
-import Checklist from './modules/checklist/Module';
 import AbilityTracker from './modules/core/AbilityTracker';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Buffs from './modules/features/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import ShadowyInsight from './modules/spells/ShadowyInsight';
+import ShadowyInsight from './modules/talents/ShadowyInsight';
 import DotUptimes from './modules/features/DotUptimes';
 import Voidform from './modules/spells/Voidform';
 import Voidbolt from './modules/spells/Voidbolt';
@@ -32,7 +31,6 @@ import ShadowWordDeath from './modules/spells/ShadowWordDeath';
 import ShadowWordPain from './modules/spells/ShadowWordPain';
 import VampiricEmbrace from './modules/talents/VampiricEmbrace';
 import VampiricTouch from './modules/spells/VampiricTouch';
-import AuspiciousSpirits from './modules/talents/AuspiciousSpirits';
 import DeathAndMadness from './modules/talents/DeathAndMadness';
 import ShadowCrash from './modules/talents/ShadowCrash';
 import InsidiousIre from './modules/talents/InsidiousIre';
@@ -50,6 +48,10 @@ import IdolOfNzoth from './modules/talents/IdolOfNzoth';
 import IdolOfYshaarj from './modules/talents/IdolOfYshaarj';
 import Manipulation from './modules/talents/Manipulation';
 import InsanityGraph from './modules/guide/InsanityGraph';
+import ShadowyApparitions from './modules/spells/ShadowyApparitions';
+import AuspiciousSpirits from './modules/talents/AuspiciousSpirits';
+import PhantasmalPathogen from './modules/talents/PhantasmalPathogen';
+import TormentedSpirits from './modules/talents/TormentedSpirits';
 
 import Tier29FourSet from './modules/tier/Tier29ShadowPriest4Set';
 import Tier31FourSet from './modules/tier/Tier31ShadowPriest4Set';
@@ -58,68 +60,70 @@ import Tier31FourSetNormalizer from './modules/tier/Tier31ShadowPriest4SetNormal
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     // core
+    abilities: Abilities,
     abilityTracker: AbilityTracker,
-    cooldownThroughputTracker: CooldownThroughputTracker,
-    channeling: Channeling,
     globalCooldown: GlobalCooldown,
+
+    // features:
+    alwaysBeCasting: AlwaysBeCasting,
+    buffs: Buffs,
     cancelledCasts: CancelledCasts,
+    cooldownThroughputTracker: CooldownThroughputTracker,
+    dotUptimes: DotUptimes,
 
     // resources:
     insanityTracker: InsanityTracker,
     insanityUsage: InsanityUsage,
     insanityGraph: InsanityGraph,
 
-    // features:
-    abilities: Abilities,
-    buffs: Buffs,
-    alwaysBeCasting: AlwaysBeCasting,
-    checklist: Checklist,
-    dotUptimes: DotUptimes,
-    shadowyInsight: ShadowyInsight,
-    voidform: Voidform,
-    voidbolt: Voidbolt,
-    twinsOfTheSunPriestess: TwinsOfTheSunPriestess,
-
     // spells:
+    devouringPlague: DevouringPlague,
     shadowfiend: Shadowfiend,
-    vampiricTouch: VampiricTouch,
     shadowWordDeath: ShadowWordDeath,
     shadowWordPain: ShadowWordPain,
-    devouringPlague: DevouringPlague,
-    dispersion: Dispersion,
-    vampiricEmbrace: VampiricEmbrace,
-    darkEvangelism: DarkEvangelism,
+    shadowyApparitions: ShadowyApparitions,
+    vampiricTouch: VampiricTouch,
+    voidbolt: Voidbolt,
+    voidform: Voidform,
 
-    // talents:
+    // Spec talents:
     ancientMadness: AncientMadness,
-    deathAndMadness: DeathAndMadness,
-    unfurlingDarkness: UnfurlingDarkness,
-    twistOfFate: TwistOfFate,
-    voidTorrent: VoidTorrent,
-    mindFlayInsanity: MindFlayInsanity,
-    shadowCrash: ShadowCrash,
-    inescapableTorment: InescapableTorment,
     auspiciousSpirits: AuspiciousSpirits,
-    mindDevourer: MindDevourer,
-    mindSpikeInsanity: MindSpikeInsanity,
+    darkEvangelism: DarkEvangelism,
     deathspeaker: Deathspeaker,
+    dispersion: Dispersion,
     idolOfCthun: IdolOfCthun,
-    idolOfYoggSaron: IdolOfYoggSaron,
     idolOfNzoth: IdolOfNzoth,
+    idolOfYoggSaron: IdolOfYoggSaron,
     idolOfYshaarj: IdolOfYshaarj,
+    inescapableTorment: InescapableTorment,
     insidiousIre: InsidiousIre,
+    mindDevourer: MindDevourer,
+    mindFlayInsanity: MindFlayInsanity,
+    mindSpikeInsanity: MindSpikeInsanity,
+    phantasmalPathogen: PhantasmalPathogen,
+    shadowCrash: ShadowCrash,
+    shadowyInsight: ShadowyInsight,
+    tormentedSpirits: TormentedSpirits,
+    unfurlingDarkness: UnfurlingDarkness,
+    voidTorrent: VoidTorrent,
+
+    // Class Talents:
+    deathAndMadness: DeathAndMadness,
     manipulation: Manipulation,
+    mindgames: Mindgames,
+    twinsOfTheSunPriestess: TwinsOfTheSunPriestess,
+    twistOfFate: TwistOfFate,
+    vampiricEmbrace: VampiricEmbrace,
 
     // normalizers:
+    channeling: Channeling,
     shadowfiendNormalizer: ShadowfiendNormalizer,
-
-    // covenants:
-    mindgames: Mindgames,
+    tier31FourSetNormalizer: Tier31FourSetNormalizer,
 
     //Tier
     tier29FourSet: Tier29FourSet,
     tier31FourSet: Tier31FourSet,
-    tier31FourSetNormalizer: Tier31FourSetNormalizer,
 
     arcaneTorrent: [ArcaneTorrent, { active: false }] as const,
   };

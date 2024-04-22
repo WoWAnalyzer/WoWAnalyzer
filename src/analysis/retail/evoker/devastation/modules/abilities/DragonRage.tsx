@@ -4,6 +4,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
   CastEvent,
+  EmpowerEndEvent,
   FightEndEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
@@ -17,7 +18,7 @@ const {
   ESSENCE_BURST_DEV_BUFF,
 } = SPELLS;
 
-const { DRAGONRAGE_TALENT, RUBY_ESSENCE_BURST_TALENT, PYRE_TALENT } = TALENTS_EVOKER;
+const { DRAGONRAGE_TALENT, PYRE_TALENT } = TALENTS_EVOKER;
 
 export type RageWindowCounter = {
   start: number;
@@ -60,9 +61,7 @@ class DragonRage extends Analyzer {
     });
 
     this.addEventListener(
-      Events.applybuff
-        .by(SELECTED_PLAYER)
-        .spell([ESSENCE_BURST_DEV_BUFF, RUBY_ESSENCE_BURST_TALENT]),
+      Events.applybuff.by(SELECTED_PLAYER).spell(ESSENCE_BURST_DEV_BUFF),
       () => {
         if (!this.inDragonRageWindow) {
           return;
@@ -80,10 +79,18 @@ class DragonRage extends Analyzer {
       this.currentRageWindow.disintegrateTicks += 1;
     });
 
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(PYRE_TALENT), () => {
+      if (!this.inDragonRageWindow) {
+        return;
+      }
+
+      this.currentRageWindow.pyres += 1;
+    });
+
     this.addEventListener(
-      Events.cast
+      Events.empowerEnd
         .by(SELECTED_PLAYER)
-        .spell([FIRE_BREATH, FIRE_BREATH_FONT, ETERNITY_SURGE, ETERNITY_SURGE_FONT, PYRE_TALENT]),
+        .spell([FIRE_BREATH, FIRE_BREATH_FONT, ETERNITY_SURGE, ETERNITY_SURGE_FONT]),
       (event) => {
         this.onEmpowerCast(event);
       },
@@ -111,20 +118,9 @@ class DragonRage extends Analyzer {
       return;
     }
     this.rageWindowCounters[this.totalCasts].end = event.timestamp;
-    // Janky solution to fix statistics window outputting more empower cast than actually occoured inside of DR window
-    // Still shows the spell in windowed timeline
-    // TODO: Proper solution would be to change empower logic all together so this doesn't happen in the first place
-    if ((this.currentRageWindow.end - this.currentRageWindow.start) / 1000 < 35) {
-      if (this.currentRageWindow.fireBreaths > 2) {
-        this.currentRageWindow.fireBreaths = 2;
-      }
-      if (this.currentRageWindow.eternitySurges > 2) {
-        this.currentRageWindow.eternitySurges = 2;
-      }
-    }
   }
 
-  onEmpowerCast(event: CastEvent) {
+  onEmpowerCast(event: CastEvent | EmpowerEndEvent) {
     if (!this.inDragonRageWindow) {
       return;
     }
@@ -135,9 +131,6 @@ class DragonRage extends Analyzer {
         break;
       case ETERNITY_SURGE.name:
         this.currentRageWindow.eternitySurges += 1;
-        break;
-      case PYRE_TALENT.name:
-        this.currentRageWindow.pyres += 1;
         break;
     }
   }

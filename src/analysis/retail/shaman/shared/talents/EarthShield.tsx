@@ -18,7 +18,7 @@ import { Uptime } from 'parser/ui/UptimeBar';
 import { RESTORATION_COLORS } from '../../restoration/constants';
 import EarthenHarmony from '../../restoration/modules/talents/EarthenHarmony';
 
-export const EARTHSHIELD_HEALING_INCREASE = 0.2;
+const EARTHSHIELD_HEALING_INCREASE = 0.2;
 
 class EarthShield extends Analyzer {
   static dependencies = {

@@ -8,7 +8,3 @@ const lowRankSpells = Object.entries(SPELLS).reduce((result, [str, obj]) => {
 }, {});
 
 export default lowRankSpells;
-
-export interface LowRankSpells {
-  [primarySpellId: number]: number[];
-}

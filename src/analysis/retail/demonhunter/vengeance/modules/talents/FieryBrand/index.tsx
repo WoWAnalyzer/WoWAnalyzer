@@ -10,7 +10,7 @@ import { shouldIgnore } from 'parser/shared/modules/hit-tracking/utilities';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import HitBasedAnalyzer from 'analysis/retail/demonhunter/vengeance/guide/HitBasedAnalyzer';
 
-export type TrackedHit = {
+type TrackedHit = {
   mitigated: boolean;
   event: DamageEvent;
 };

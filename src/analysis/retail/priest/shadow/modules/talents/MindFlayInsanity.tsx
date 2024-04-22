@@ -1,9 +1,7 @@
-import { defineMessage } from '@lingui/macro';
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
-import Insanity from 'interface/icons/Insanity';
+import ItemInsanityGained from 'analysis/retail/priest/shadow/interface/ItemInsanityGained';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
@@ -14,7 +12,6 @@ import Events, {
   DamageEvent,
   ResourceChangeEvent,
 } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
@@ -92,18 +89,6 @@ class MindFlayInsanity extends Analyzer {
     return this.procsExpired + this.procsOver;
   }
 
-  get suggestionThresholds() {
-    return {
-      actual: this.ticksWastedPercentage,
-      isGreaterThan: {
-        minor: 0.1,
-        average: 0.2,
-        major: 0.3,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
   onCastDP(event: CastEvent) {
     //DP cast occurs after the Buff is Applied but at the same timestamp
     //If at 2 stacks and this DP isn't at the same time we reach 2 stacks, then it might be an overwritten proc
@@ -164,26 +149,6 @@ class MindFlayInsanity extends Analyzer {
     this.insanityGained += event.resourceChange;
   }
 
-  suggestions(when: When) {
-    //TODO:Add second Suggestion for proc usage
-    when(this.suggestionThresholds).addSuggestion((suggest) =>
-      suggest(
-        <>
-          You interrupted <SpellLink spell={SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE} /> early,
-          wasting {formatPercentage(this.ticksWastedPercentage)}% the channel!
-        </>,
-      )
-        .icon(TALENTS.SURGE_OF_INSANITY_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'priest.shadow.suggestions.mindFlayInsanity.ticksLost',
-            message: `Lost ${this.ticksWasted} ticks of Mind Flay: Insanity.`,
-          }),
-        )
-        .recommended('No ticks lost is recommended.'),
-    );
-  }
-
   statistic() {
     return (
       <Statistic
@@ -200,7 +165,7 @@ class MindFlayInsanity extends Analyzer {
               <ItemDamageDone amount={this.damage} />{' '}
             </div>
             <div>
-              <Insanity /> {this.insanityGained} <small>Insanity generated</small>
+              <ItemInsanityGained amount={this.insanityGained} />
             </div>
           </>
         </BoringSpellValueText>

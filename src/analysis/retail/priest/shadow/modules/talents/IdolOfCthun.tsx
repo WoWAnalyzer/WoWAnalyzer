@@ -1,14 +1,12 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
-import { formatNumber } from 'common/format';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Insanity from 'interface/icons/Insanity';
-import { SELECTED_PLAYER_PET } from 'parser/core/EventFilter';
+import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import ItemInsanityGained from '../../interface/ItemInsanityGained';
 
 class IdolOfCthun extends Analyzer {
   damage = 0;
@@ -47,7 +45,7 @@ class IdolOfCthun extends Analyzer {
             <ItemDamageDone amount={this.damage} />
           </div>
           <div>
-            <Insanity /> {formatNumber(this.insanity)} <small>Insanity generated</small>
+            <ItemInsanityGained amount={this.insanity} />
           </div>
         </BoringSpellValueText>
       </Statistic>

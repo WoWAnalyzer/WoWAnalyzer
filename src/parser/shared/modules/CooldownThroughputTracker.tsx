@@ -4,9 +4,9 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import { Panel } from 'interface';
 import CooldownIcon from 'interface/icons/Cooldown';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
-import EventFilter, { SELECTED_PLAYER_PET } from 'parser/core/EventFilter';
+import EventFilter from 'parser/core/EventFilter';
 import Events, {
   AnyEvent,
   AbsorbedEvent,
@@ -55,7 +55,7 @@ export type CooldownSpell = {
   durationTooltip?: ReactNode;
 };
 
-export type BuffCooldownSpell = CooldownSpell & {
+type BuffCooldownSpell = CooldownSpell & {
   expansion: number;
 };
 

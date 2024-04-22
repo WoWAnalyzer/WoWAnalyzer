@@ -6,7 +6,7 @@ interface HideGoodCastsToggleProps {
   label?: string;
   tooltipContent?: string;
 }
-export const HideGoodCasts = ({ id, label, tooltipContent }: HideGoodCastsToggleProps) => {
+export const HideGoodCastsToggle = ({ id, label, tooltipContent }: HideGoodCastsToggleProps) => {
   const { hideGoodCasts, setHideGoodCasts } = useSpellUsageContext();
   return (
     <div className="flex">
@@ -26,5 +26,3 @@ export const HideGoodCasts = ({ id, label, tooltipContent }: HideGoodCastsToggle
     </div>
   );
 };
-
-export default HideGoodCasts;

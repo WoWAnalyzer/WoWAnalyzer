@@ -4,8 +4,8 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import CombatLogParser from 'analysis/retail/paladin/protection/CombatLogParser';
 import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/GuideDivs';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
-import HideExplanationsToggle from 'interface/guide/components/HideExplanationsToggle';
-import HideGoodCastsToggle from 'interface/guide/components/HideGoodCastsToggle';
+import { HideExplanationsToggle } from 'interface/guide/components/HideExplanationsToggle';
+import { HideGoodCastsToggle } from 'interface/guide/components/HideGoodCastsToggle';
 import CooldownGraphSubsection, {
   Cooldown,
 } from 'interface/guide/components/CooldownGraphSubSection';

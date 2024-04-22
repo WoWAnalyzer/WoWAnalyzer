@@ -15,7 +15,7 @@ export interface LoadingStatus {
   parsingState?: EVENT_PARSING_STATE;
 }
 
-export interface ResultsContextValue {
+interface ResultsContextValue {
   adjustForDowntime: boolean;
   setAdjustForDowntime: (p: boolean) => void;
   generateResults: () => void;

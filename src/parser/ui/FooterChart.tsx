@@ -8,7 +8,7 @@ export { formatTime };
 
 export type Spec = Omit<TopLevelSpec, 'data'>;
 
-export interface Props {
+interface Props {
   spec: Spec;
   data: any;
   config?: Config;

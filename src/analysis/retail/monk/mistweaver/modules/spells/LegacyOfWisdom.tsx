@@ -1,6 +1,5 @@
 import { TALENTS_MONK } from 'common/TALENTS/monk';
-import Analyzer, { Options } from 'parser/core/Analyzer';
-import { SELECTED_PLAYER } from 'parser/core/EventFilter';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';

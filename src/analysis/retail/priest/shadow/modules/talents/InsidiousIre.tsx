@@ -1,5 +1,3 @@
-import { defineMessage } from '@lingui/macro';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import EventHistory from 'parser/shared/modules/EventHistory';
@@ -46,69 +44,6 @@ class InsidiousIre extends Analyzer {
     this.insidiousIrePct =
       this.selectedCombatant.getTalentRank(TALENTS.INSIDIOUS_IRE_TALENT) *
       INSIDIOUS_IRE_DAMAGE_PER_RANK;
-  }
-
-  get mindBlastSuggestionThresholds() {
-    return {
-      actual: this.mindBlastEfficiency,
-      isLessThan: {
-        minor: 0.85,
-        average: 0.75,
-        major: 0.65,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
-  get voidTorrentSuggestionThresholds() {
-    return {
-      actual: this.voidTorrentEfficiency,
-      isLessThan: {
-        minor: 0.9,
-        average: 0.8,
-        major: 0.7,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
-  suggestions(when: When) {
-    when(this.mindBlastSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <span>
-          Your <SpellLink spell={TALENTS.INSIDIOUS_IRE_TALENT} /> efficiency can be improved. Try to
-          ensure you have all three dots active on the target when you cast{' '}
-          <SpellLink spell={SPELLS.MIND_BLAST} />.
-        </span>,
-      )
-        .icon(TALENTS.INSIDIOUS_IRE_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'priest.shadow.suggestions.insidiousIre.efficiency',
-            message: `${formatPercentage(actual)}% Insidious Ire efficiency`,
-          }),
-        )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
-    );
-    if (this.selectedCombatant.hasTalent(TALENTS.VOID_TORRENT_TALENT)) {
-      when(this.voidTorrentSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-        suggest(
-          <span>
-            Your <SpellLink spell={TALENTS.INSIDIOUS_IRE_TALENT} /> efficiency can be improved. Try
-            to ensure you have all three dots active on the target when you cast{' '}
-            <SpellLink spell={TALENTS.VOID_TORRENT_TALENT} />.
-          </span>,
-        )
-          .icon(TALENTS.INSIDIOUS_IRE_TALENT.icon)
-          .actual(
-            defineMessage({
-              id: 'priest.shadow.suggestions.insidiousIre.efficiency',
-              message: `${formatPercentage(actual)}% Insidious Ire efficiency`,
-            }),
-          )
-          .recommended(`>${formatPercentage(recommended)}% is recommended`),
-      );
-    }
   }
 
   ireDataForSpell(spell: SpellInfo) {

@@ -15,11 +15,6 @@ export interface AbilityRequirementProps {
   name?: string | JSX.Element;
 }
 
-export interface TalentRequirementProps {
-  talent: Spell;
-  name?: string | JSX.Element;
-}
-
 export interface DotUptimeProps {
   spell: Spell;
   thresholds: RequirementThresholds;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { BreathOfEonsWindows } from './BreathOfEonsRotational';
 import { SubSection } from 'interface/guide';
 import { SpellLink, TooltipElement } from 'interface';
@@ -17,7 +17,8 @@ import ExplanationGraph, {
 import DonutChart from 'parser/ui/DonutChart';
 import { PlayerInfo } from 'parser/core/Player';
 import { DamageEvent } from 'parser/core/Events';
-import { BREATH_OF_EONS_MULTIPLIER, ABILITY_BLACKLIST } from '../../constants';
+import { BREATH_OF_EONS_MULTIPLIER } from '../../constants';
+import { ABILITY_BLACKLIST, ABILITY_NO_BOE_SCALING } from '../util/abilityFilter';
 
 type Props = {
   windows: BreathOfEonsWindows[];
@@ -43,6 +44,12 @@ type DamageSources = {
   lostDamage: number;
 };
 
+type WindowResponse = {
+  events: DamageEvent[];
+  start: number;
+  end: number;
+};
+
 const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEndTime, owner }) => {
   const damageTables: {
     table: DamageEvent[];
@@ -50,11 +57,10 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
     end: number;
   }[] = [];
 
-  /** Generate filter based on black list and whitelist
-   * For now we only look at the players who were buffed
-   * during breath */
-  function getFilter() {
-    const abilityFilter = ABILITY_BLACKLIST.map((id) => `${id}`).join(', ');
+  /** Generate filter so we only get class abilities
+   * that can accumulate into BoE */
+  const filter = useMemo(() => {
+    const abilityFilter = [...ABILITY_NO_BOE_SCALING, ...ABILITY_BLACKLIST].join(',');
 
     const filter = `type = "damage" 
     AND not ability.id in (${abilityFilter}) 
@@ -71,30 +77,53 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
       console.log(filter);
     }
     return filter;
-  }
+  }, []);
 
   const buffer = 4000;
 
   async function loadData() {
-    /** High maxPage allowances needed otherwise it breaks */
+    const fetchPromises: Promise<WindowResponse>[] = [];
+
     for (const window of windows) {
-      const startTime =
-        window.start - buffer > fightStartTime ? window.start - buffer : fightStartTime;
-      const endTime = window.end + buffer < fightEndTime ? window.end + buffer : fightEndTime;
-      const windowEvents = (await fetchEvents(
-        owner.report.code,
-        startTime,
-        endTime,
-        undefined,
-        getFilter(),
-        40,
-      )) as DamageEvent[];
+      const start = Math.max(window.start - buffer, fightStartTime);
+      const end = Math.min(window.end + buffer, fightEndTime);
+
+      fetchPromises.push(getEvents(start, end, filter, owner.report.code));
+    }
+
+    const result = await Promise.all(fetchPromises);
+
+    result.forEach((window) => {
+      console.log(window);
       damageTables.push({
-        table: windowEvents,
+        table: window.events,
         start: window.start,
         end: window.end,
       });
-    }
+    });
+  }
+
+  async function getEvents(
+    start: number,
+    end: number,
+    filter: string,
+    code: string,
+  ): Promise<WindowResponse> {
+    const response = (await fetchEvents(
+      code,
+      start,
+      end,
+      undefined,
+      filter,
+      // High maxPage allowances needed otherwise it breaks
+      40,
+    )) as DamageEvent[];
+
+    return {
+      events: response as DamageEvent[],
+      start,
+      end,
+    };
   }
 
   /** We want to attribute pet damage to it's owner

@@ -1,6 +1,7 @@
+import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import Events from 'parser/core/Events';
-import EventSubscriber, { SELECTED_PLAYER } from 'parser/core/EventSubscriber';
+import EventSubscriber from 'parser/core/EventSubscriber';
 import Abilities from 'parser/core/modules/Abilities';
 
 /**

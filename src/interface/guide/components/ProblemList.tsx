@@ -93,7 +93,7 @@ export type ProblemRendererProps<T> = {
    };
    ```
  */
-export type ProblemRenderer<T> = (props: ProblemRendererProps<T>) => JSX.Element;
+type ProblemRenderer<T> = (props: ProblemRendererProps<T>) => JSX.Element;
 
 export function NoProblem({ children }: React.PropsWithChildren<object>) {
   return (

@@ -6,7 +6,7 @@ import './StatisticBox.css';
 
 export { default as STATISTIC_ORDER } from './STATISTIC_ORDER';
 
-export interface Props {
+interface Props {
   icon?: ReactNode;
   value: ReactNode;
   tooltip?: ReactNode;

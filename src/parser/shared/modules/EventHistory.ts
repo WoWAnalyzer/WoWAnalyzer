@@ -1,9 +1,6 @@
+import { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
-import EventFilter, {
-  SELECTED_PLAYER,
-  SELECTED_PLAYER_PET,
-  SpellInfo,
-} from 'parser/core/EventFilter';
+import EventFilter, { SpellInfo } from 'parser/core/EventFilter';
 import { HasAbility, AnyEvent, EventType } from 'parser/core/Events';
 import Module from 'parser/core/Module';
 import EventEmitter from 'parser/core/modules/EventEmitter';

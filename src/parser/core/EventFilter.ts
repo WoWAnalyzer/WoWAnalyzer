@@ -1,7 +1,6 @@
 import { EventType } from 'parser/core/Events';
+import { SELECTED_PLAYER, SELECTED_PLAYER_PET } from './Analyzer';
 
-export const SELECTED_PLAYER = 1;
-export const SELECTED_PLAYER_PET = 2;
 const VALID_BY_FLAGS = SELECTED_PLAYER | SELECTED_PLAYER_PET;
 
 export type SpellInfo = {

@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 // prettier-ignore
 export default [
+  change(date(2024, 4, 15), <>Fix issue where <SpellLink spell={talents.CHARRED_PASSIONS_TALENT} /> was showing in the rotation when playing <SpellLink spell={talents.DRAGONFIRE_BREW_TALENT} /></>, emallson),
   change(date(2024, 2, 11), <>Add shield size to <SpellLink spell={talents.CELESTIAL_BREW_TALENT} /> mitigation breakdown.</>, emallson),
   change(date(2024, 1, 17), 'Update Brewmaster compatibility to 10.2.5', emallson),
   change(date(2023, 11, 13), <>Add <strong>Always Be Casting</strong> section to the guide and improve handling of the <strong>Spend Cooldowns</strong> block of the <SpellLink spell={talents.BLACKOUT_COMBO_TALENT}>BoC</SpellLink> rotation.</>, emallson),

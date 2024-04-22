@@ -320,7 +320,7 @@ class Mastery extends Analyzer {
 /**
  * A mapping from spell guid to the MasteryAttribution for that spell
  */
-export type MasteryAttributionsBySpell = { [key: number]: MasterySpellAttribution };
+type MasteryAttributionsBySpell = { [key: number]: MasterySpellAttribution };
 
 /**
  * A HoT's mastery attribution.
@@ -346,7 +346,7 @@ export class MasterySpellAttribution {
 /**
  * A mapping from buff guid to the attribution amount for that buff
  */
-export type MasteryAttributionsByBuff = { [key: number]: MasteryBuffAttribution };
+type MasteryAttributionsByBuff = { [key: number]: MasteryBuffAttribution };
 
 /**
  * A Buff's mastery attribution.
@@ -364,7 +364,7 @@ export class MasteryBuffAttribution {
 /**
  * A instance of healing that has been decomposed into parts based on Mastery attribution
  */
-export interface DecomposedHeal {
+interface DecomposedHeal {
   /** The amount of effective healing that would have been done before being boosted by mastery */
   noMastery: number;
   /** The amount of effective heal added per stack of mastery */
