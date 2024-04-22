@@ -8,10 +8,10 @@
   #{$class-name} {
     background-color: $base-color;
     &.selected {
-      background-color: $base-color !important;
+      background-color: color.scale($base-color, $lightness: 10%) !important;
     }
     &:hover {
-      background-color: color.scale($base-color, $lightness: 10%, $saturation: 10%) !important;
+      background-color: color.scale($base-color, $lightness: 20%) !important;
     }
 
     /* desaturate this block if it is followed by a selected or hovered block */
