@@ -376,14 +376,14 @@ export interface Event<T extends string> {
 }
 
 // TODO way to specify specific expected event type?
-export interface LinkedEvent {
+interface LinkedEvent {
   /** A string specifying the relationship of the linked event. Will be used as a key during lookup */
   relation: string;
   /** The linked event */
   event: AnyEvent;
 }
 
-export interface CastTarget {
+interface CastTarget {
   name: string;
   id: number;
   guid: number;
@@ -939,7 +939,7 @@ export interface MaxChargesDecreasedEvent extends Event<EventType.MaxChargesDecr
   __fabricated: true;
 }
 
-export interface Stats {
+interface Stats {
   agility: number;
   armor: number;
   avoidance: number;
@@ -980,7 +980,7 @@ export interface DispelEvent extends Event<EventType.Dispel> {
   targetIsFriendly: boolean;
 }
 
-export interface BasePhaseEvent<T extends string> extends Event<T> {
+interface BasePhaseEvent<T extends string> extends Event<T> {
   phase: PhaseConfig;
   __fabricated: true;
 }
@@ -1049,7 +1049,7 @@ export interface Item {
   setItemIDs?: number[];
 }
 
-export interface Gem {
+interface Gem {
   id: number;
   itemLevel: number;
   icon: string;
@@ -1077,21 +1077,6 @@ export interface Soulbind {
   covenantID: number;
   garrisonTalentTreeId: number;
   capstoneTraitID: number;
-}
-
-export interface SoulbindTrait {
-  traitID: number;
-  rank: number;
-  spellID: number;
-  icon: string;
-}
-
-export interface Conduit {
-  traitID: number;
-  rank: number;
-  itemLevel?: number;
-  spellID: number;
-  icon: string;
 }
 
 /**

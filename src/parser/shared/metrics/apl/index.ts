@@ -53,7 +53,6 @@ export interface Condition<T> {
   tooltip?: () => ReactChild | undefined;
   prefix?: string;
 }
-export type StateFor<T> = T extends (...args: any[]) => Condition<infer R> ? R : never;
 
 /**
  * What kind of thing is being "targeted" by this APL rule. Usually, this is Spell, which means that you want them to cast a particular spell.
@@ -80,7 +79,7 @@ type SpellListTarget = {
   target: Spell[];
 };
 
-export type AplTarget = SpellTarget | SpellListTarget;
+type AplTarget = SpellTarget | SpellListTarget;
 
 export type InternalRule = {
   spell: AplTarget;
@@ -88,7 +87,7 @@ export type InternalRule = {
   description?: React.ReactNode;
 };
 
-export interface ConditionalRule {
+interface ConditionalRule {
   spell: Spell | Spell[];
   condition: Condition<any>;
   /**
@@ -97,7 +96,7 @@ export interface ConditionalRule {
   description?: React.ReactNode;
 }
 
-export interface LabelRule {
+interface LabelRule {
   spell: Spell | Spell[];
   /**
    * Completely overrides the description of the rule. This will prevent the automatic display of conditions!
@@ -228,13 +227,13 @@ export interface Violation {
 type ConditionState = { [key: string]: any };
 type AbilityState = { [spellId: number]: UpdateSpellUsableEvent };
 
-export interface Success {
+interface Success {
   kind: ResultKind.Success;
   rule: InternalRule;
   actualCast: AplTriggerEvent;
 }
 
-export interface CheckState {
+interface CheckState {
   successes: Success[];
   violations: Violation[];
   conditionState: ConditionState;

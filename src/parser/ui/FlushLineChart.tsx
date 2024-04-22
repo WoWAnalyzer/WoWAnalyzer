@@ -2,7 +2,7 @@ import { Config } from 'vega-lite';
 
 import FooterChart from './FooterChart';
 
-export interface Props {
+interface Props {
   data: any[];
   config?: Config;
   x?: string;

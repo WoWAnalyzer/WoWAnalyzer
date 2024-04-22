@@ -1,52 +1,52 @@
 import { EventType } from 'parser/core/Events';
 
-export interface BasePhaseFilter {
+interface BasePhaseFilter {
   type: EventType;
   eventInstance?: number;
 }
 
-export interface HealthPhaseFilter extends BasePhaseFilter {
+interface HealthPhaseFilter extends BasePhaseFilter {
   type: EventType.Health;
   guid: number;
   health: number;
 }
 
-export interface ApplyBuffPhaseFilter extends BasePhaseFilter {
+interface ApplyBuffPhaseFilter extends BasePhaseFilter {
   type: EventType.ApplyBuff;
   ability: {
     id: number;
   };
 }
 
-export interface RemoveBuffPhaseFilter extends BasePhaseFilter {
+interface RemoveBuffPhaseFilter extends BasePhaseFilter {
   type: EventType.RemoveBuff;
   ability: {
     id: number;
   };
 }
 
-export interface ApplyDebuffPhaseFilter extends BasePhaseFilter {
+interface ApplyDebuffPhaseFilter extends BasePhaseFilter {
   type: EventType.ApplyDebuff;
   ability: {
     id: number;
   };
 }
 
-export interface CastPhaseFilter extends BasePhaseFilter {
+interface CastPhaseFilter extends BasePhaseFilter {
   type: EventType.Cast;
   ability: {
     id: number;
   };
 }
 
-export interface BeginCastPhaseFilter extends BasePhaseFilter {
+interface BeginCastPhaseFilter extends BasePhaseFilter {
   type: EventType.BeginCast;
   ability: {
     id: number;
   };
 }
 
-export type PhaseFilter =
+type PhaseFilter =
   | HealthPhaseFilter
   | ApplyBuffPhaseFilter
   | RemoveBuffPhaseFilter

@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events, {
   ApplyBuffEvent,
   ApplyBuffStackEvent,
@@ -15,6 +14,7 @@ import {
   YULON_REDUCTION,
 } from '../../constants';
 import SpellManaCost from 'parser/shared/modules/SpellManaCost';
+import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 const CF_SPELLS: Set<number> = new Set([SPELLS.VIVIFY.id, TALENTS_MONK.ENVELOPING_MIST_TALENT.id]);
 

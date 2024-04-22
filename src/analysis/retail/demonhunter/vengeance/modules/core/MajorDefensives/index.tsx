@@ -4,7 +4,7 @@ import { TooltipElement } from 'interface';
 import SpellLink from 'interface/SpellLink';
 import TALENTS from 'common/TALENTS/demonhunter';
 import SPELLS from 'common/SPELLS/demonhunter';
-import HideExplanationsToggle from 'interface/guide/components/HideExplanationsToggle';
+import { HideExplanationsToggle } from 'interface/guide/components/HideExplanationsToggle';
 import { Highlight } from 'interface/Highlight';
 import Timeline from 'interface/guide/components/MajorDefensives/Timeline';
 import AllCooldownUsagesList from 'interface/guide/components/MajorDefensives/AllCooldownUsagesList';

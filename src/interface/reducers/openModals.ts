@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export type ModalState = string[];
+type ModalState = string[];
 const initialState = [] as ModalState;
 
 const openModalsSlice = createSlice({

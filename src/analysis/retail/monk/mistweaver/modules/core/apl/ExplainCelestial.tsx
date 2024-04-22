@@ -26,5 +26,3 @@ export const filterCelestial = (
       return claims;
     }),
 });
-
-export default filterCelestial;

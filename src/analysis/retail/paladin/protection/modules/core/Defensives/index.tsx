@@ -1,7 +1,7 @@
 import { GoodColor, SubSection, useAnalyzers } from 'interface/guide';
 import Explanation from 'interface/guide/components/Explanation';
 import { TooltipElement } from 'interface';
-import HideExplanationsToggle from 'interface/guide/components/HideExplanationsToggle';
+import { HideExplanationsToggle } from 'interface/guide/components/HideExplanationsToggle';
 import { Highlight } from 'interface/Highlight';
 import Timeline from 'interface/guide/components/MajorDefensives/Timeline';
 import AllCooldownUsagesList from 'interface/guide/components/MajorDefensives/AllCooldownUsagesList';

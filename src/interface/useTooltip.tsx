@@ -56,7 +56,7 @@ export const spellRelative = (id: number, details: any): string => {
   }
 };
 
-export interface TooltipHelpers {
+interface TooltipHelpers {
   item: (...args: [number, any]) => string;
   itemSet: (id: number) => string;
   npc: (id: number) => string;

@@ -675,7 +675,7 @@ export default BaseHealerStatValues;
 
 export type HealerStatWeightEvents = HealEvent | AbsorbedEvent | RemoveBuffEvent;
 
-export interface HealerSpellInfo {
+interface HealerSpellInfo {
   int?: boolean;
   crit?: boolean;
   hasteHpm?: boolean;
@@ -687,11 +687,11 @@ export interface HealerSpellInfo {
   masteryStack?: boolean;
 }
 
-export interface ListOfHealerSpellInfo {
+interface ListOfHealerSpellInfo {
   [key: number]: HealerSpellInfo;
 }
 
-export interface StatMessage {
+interface StatMessage {
   stat: STAT;
   tooltip: JSX.Element;
 }

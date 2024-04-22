@@ -451,7 +451,7 @@ export function isConvoking(c: Combatant): boolean {
 export default ConvokeSpirits;
 
 /** A tracker for things that happen in a single Convoke cast */
-export interface ConvokeCast {
+interface ConvokeCast {
   timestamp: number;
   /** A mapping from spellId to the number of times that spell was cast during the Convoke */
   spellIdToCasts: number[];

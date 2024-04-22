@@ -62,10 +62,6 @@ export interface Enchant extends Spell {
   effectId: number;
 }
 
-export interface SpellList<T extends Spell = Spell> {
-  [key: string | number]: T;
-}
-
 export const isSpell = (x: unknown): x is Spell => {
   const typedObj = x as Spell;
   return (

@@ -5,7 +5,7 @@ import { Uptime } from 'parser/ui/UptimeBar';
 import * as React from 'react';
 import { TrackedBuffEvent } from 'parser/core/Entity';
 
-export type StackUptime = {
+type StackUptime = {
   /** Timestamp in milliseconds of the uptime start */
   start: number;
   /** Timestamp in milliseconds of the uptime end */

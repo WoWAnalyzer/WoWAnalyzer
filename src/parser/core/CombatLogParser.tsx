@@ -135,18 +135,6 @@ export interface Suggestion {
   recommended?: React.ReactNode;
 }
 
-interface Talent {
-  id: number;
-}
-export interface Player {
-  id: number;
-  name: string;
-  talents: Talent[];
-  artifact: unknown;
-  gear: unknown;
-  auras: unknown;
-}
-
 class CombatLogParser {
   static internalModules: DependenciesDefinition = {
     fightEndNormalizer: FightEndNormalizer,

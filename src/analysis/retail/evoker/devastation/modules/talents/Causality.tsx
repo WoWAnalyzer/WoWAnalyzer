@@ -1,7 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/evoker';
-import Analyzer, { Options } from 'parser/core/Analyzer';
-import { SELECTED_PLAYER } from 'parser/core/EventFilter';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 

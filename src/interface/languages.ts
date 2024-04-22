@@ -1,4 +1,4 @@
-export type Language = {
+type Language = {
   englishName: string;
   localName: string;
   region: string | null;

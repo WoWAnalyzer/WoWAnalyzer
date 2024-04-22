@@ -2,7 +2,7 @@ import CombatLogParser from './CombatLogParser';
 import Entity from './Entity';
 import Unit from './Unit';
 
-export interface PetFight {
+interface PetFight {
   id: number;
   instances: number;
 }
