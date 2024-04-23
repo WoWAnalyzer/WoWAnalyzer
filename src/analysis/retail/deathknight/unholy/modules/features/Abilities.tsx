@@ -290,7 +290,10 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DEATH_GRIP.id,
         category: SPELL_CATEGORY.UTILITY,
-        gcd: null,
+        gcd: {
+          static: 500,
+        },
+        charges: combatant.hasTalent(talents.DEATHS_ECHO_TALENT) ? 2 : 1,
       },
       {
         spell: talents.MIND_FREEZE_TALENT.id,
