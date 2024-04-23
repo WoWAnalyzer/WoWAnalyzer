@@ -31,7 +31,7 @@ function spellName(spellId: number) {
  * When a spell finishes coolding down, the CooldownInfo about it is deleted.
  * Spells without charges are considered to effectively have one charge.
  */
-export type CooldownInfo = {
+type CooldownInfo = {
   /** Timestamp this cooldown started overall (not the most recent charge) */
   overallStart: number;
   /** Timestamp the most recent charge started cooling down */

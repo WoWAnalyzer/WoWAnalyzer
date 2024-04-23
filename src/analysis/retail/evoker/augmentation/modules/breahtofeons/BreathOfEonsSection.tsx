@@ -175,13 +175,13 @@ const BreathOfEonsSection: React.FC<Props> = ({
                   <SpellLink spell={SPELLS.UPHEAVAL} /> casts{' '}
                 </td>
                 <td>
-                  {window.breathPerformance.upheavels} /{' '}
-                  {window.breathPerformance.possibleUpheavels}
+                  {window.breathPerformance.upheavals} /{' '}
+                  {window.breathPerformance.possibleUpheavals}
                 </td>
                 <td>
                   <PassFailBar
-                    pass={window.breathPerformance.upheavels}
-                    total={window.breathPerformance.possibleUpheavels}
+                    pass={window.breathPerformance.upheavals}
+                    total={window.breathPerformance.possibleUpheavals}
                   />
                 </td>
               </tr>

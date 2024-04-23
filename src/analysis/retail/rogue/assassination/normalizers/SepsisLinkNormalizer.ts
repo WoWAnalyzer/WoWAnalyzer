@@ -16,8 +16,7 @@ import { CAST_BUFFER_MS, FROM_HARDCAST } from './CastLinkNormalizer';
 import { BUFF_DROP_BUFFER } from 'parser/core/DotSnapshots';
 
 const CONSUME_ON_CAST_BUFFER_MS = 200;
-export const SEPSIS_DEBUFF_DURATION = 10 * 1000;
-export const SEPSIS_BUFF_DURATION = SEPSIS_DEBUFF_DURATION;
+export const SEPSIS_DURATION = 10 * 1000;
 
 const STEALTH_ABILITY_IDS: number[] = [
   SPELLS.PICK_POCKET.id,
@@ -73,7 +72,7 @@ const EVENT_LINKS: EventLink[] = [
     reverseLinkRelation: DELAYED_APPLICATION,
     referencedEventType: EventType.Cast,
     referencedEventId: TALENTS.SEPSIS_TALENT.id,
-    backwardBufferMs: SEPSIS_DEBUFF_DURATION + BUFF_DROP_BUFFER,
+    backwardBufferMs: SEPSIS_DURATION + BUFF_DROP_BUFFER,
     maximumLinks: 1,
     anyTarget: true,
     additionalCondition: isFutureEvent,
@@ -88,7 +87,7 @@ const EVENT_LINKS: EventLink[] = [
     reverseLinkRelation: AURA_LIFETIME_EVENT,
     linkingEventId: SPELLS.SEPSIS_BUFF.id,
     // Sepsis Buffs/Debuffs both last 10s
-    backwardBufferMs: SEPSIS_DEBUFF_DURATION + BUFF_DROP_BUFFER,
+    backwardBufferMs: SEPSIS_DURATION + BUFF_DROP_BUFFER,
     maximumLinks: 1,
   },
 ];

@@ -1,9 +1,9 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import HIT_TYPES from 'game/HIT_TYPES';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
-import { Options, SELECTED_PLAYER } from 'parser/core/EventSubscriber';
+import { Options } from 'parser/core/EventSubscriber';
 
 import Haste from 'parser/shared/modules/Haste';
 import HotTrackerPrevoker from '../core/HotTrackerPrevoker';

@@ -301,7 +301,7 @@ export interface Threshold<T extends number | boolean> {
   actual: T;
 }
 
-export type ThresholdRange = {
+type ThresholdRange = {
   minor?: number;
   average?: number;
   major?: number;
@@ -336,7 +336,7 @@ type RequireExactlyOne<T, Keys extends keyof T = keyof T> = Pick<T, Exclude<keyo
     [K in Keys]-?: Required<Pick<T, K>> & Partial<Record<Exclude<Keys, K>, undefined>>;
   }[Keys];
 
-export type ValidThresholds = number | boolean | BoolThreshold | NumberThreshold;
+type ValidThresholds = number | boolean | BoolThreshold | NumberThreshold;
 type GenericSuggestionType<T extends ValidThresholds> = T extends number
   ? NumberSuggestionAssertion
   : T extends boolean

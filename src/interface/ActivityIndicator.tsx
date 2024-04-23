@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import * as React from 'react';
 
-export interface Props {
+interface Props {
   text: React.ReactNode;
 }
 

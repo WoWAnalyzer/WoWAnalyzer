@@ -5,6 +5,7 @@ import Events, {
   ApplyBuffEvent,
   CastEvent,
   GlobalCooldownEvent,
+  HasRelatedEvent,
   HealEvent,
   RefreshBuffEvent,
 } from 'parser/core/Events';
@@ -12,11 +13,16 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import DistanceMoved from 'parser/shared/modules/DistanceMoved';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Haste from 'parser/shared/modules/Haste';
+import {
+  BENEDICTION_RENEW,
+  BENEDICTION_RENEW_HEALS,
+  LIGHTWELL_RENEW,
+  LIGHTWELL_RENEW_HEALS,
+  SALVATION_RENEW,
+  SALVATION_RENEW_HEALS,
+} from '../../normalizers/CastLinkNormalizer';
 
 const MS_BUFFER = 100;
-const RENEW_TICK_INTERVAL = 3;
-const RAPID_RECOVERY_FULL_DURATION_DECREASE = 3;
-const RAPID_RECOVERY_PARTIAL_DURATION_DECREASE = 1;
 
 class Renew extends Analyzer {
   static dependencies = {
@@ -37,11 +43,8 @@ class Renew extends Analyzer {
     stationary: 0,
   };
   totalRenewApplications = 0;
-  salvationActive = false;
-  lastSalvationCast = 0;
-  renewsFromSalvation = 0;
-  benedictionActive = false;
-  renewsFromBenedictionAndRenew = 0;
+  otherSourcesAndCastRenews = 0;
+
   lastGCD: GlobalCooldownEvent | null = null;
   lastCast: CastEvent | null = null;
   protected distanceMoved!: DistanceMoved;
@@ -55,27 +58,15 @@ class Renew extends Analyzer {
   timestampOfLastRenewApplication = -1;
   revitalizingPrayersRenewDurations = 0; //Amount of renews normalized to normal renew duration
 
-  rapidRecoveryActive = false;
-  hasteOnFullDurationApplication: number[] = [];
-  hasteOnShortDurationApplication: number[] = [];
+  renewsFromBenediction = 0;
 
   constructor(options: Options) {
     super(options);
 
-    if (this.selectedCombatant.hasTalent(TALENTS.HOLY_WORD_SALVATION_TALENT)) {
-      this.salvationActive = true;
-    }
-    if (this.selectedCombatant.hasTalent(TALENTS.BENEDICTION_TALENT)) {
-      this.benedictionActive = true;
-    }
     if (this.selectedCombatant.hasTalent(TALENTS.REVITALIZING_PRAYERS_TALENT)) {
       this.revitalizingPrayersActive = true;
     }
-    // if (this.selectedCombatant.hasTalent(TALENTS.RAPID_RECOVERY_TALENT)) {
-    //   this.rapidRecoveryActive = true;
-    //   // if rapid recovery is active, renews from revitilizing prayers are 5 seconds
-    //   this.revitalizingPrayersRenewFraction = 5 / 12;
-    // }
+
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(TALENTS.RENEW_TALENT), this.onHeal);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
     this.addEventListener(
@@ -96,10 +87,6 @@ class Renew extends Analyzer {
     }
   }
 
-  get renewsFromBenediction() {
-    return this.renewsFromBenedictionAndRenew - this.renewsCast;
-  }
-
   get badRenews() {
     return this.renewsCast - this.goodRenews;
   }
@@ -114,29 +101,6 @@ class Renew extends Analyzer {
       },
       style: ThresholdStyle.NUMBER,
     };
-  }
-
-  // estimate number of ticks lost from Rapid Recovery duration decrease
-  // just using player haste, does not reflect haste buffs
-  get rapidRecoveryTicksLost() {
-    if (!this.rapidRecoveryActive) {
-      return 0;
-    }
-
-    // for every regular renew application, calculate 3 seconds of ticks with haste at time of application
-    let fullDurationTicksLost = 0;
-    for (const hastePercent of this.hasteOnFullDurationApplication) {
-      fullDurationTicksLost +=
-        RAPID_RECOVERY_FULL_DURATION_DECREASE / (RENEW_TICK_INTERVAL * (1 - hastePercent));
-    }
-    // for every short duration renew, count 1 second of ticks with haste at time of application
-    let shortDurationTicksLost = 0;
-    for (const hastePercent of this.hasteOnShortDurationApplication) {
-      shortDurationTicksLost +=
-        RAPID_RECOVERY_PARTIAL_DURATION_DECREASE / (RENEW_TICK_INTERVAL * (1 - hastePercent));
-    }
-
-    return fullDurationTicksLost + shortDurationTicksLost;
   }
 
   healingFromRenew(applicationCount: number) {
@@ -157,6 +121,14 @@ class Renew extends Analyzer {
   }
 
   onHeal(event: HealEvent) {
+    if (
+      HasRelatedEvent(event, LIGHTWELL_RENEW_HEALS) ||
+      HasRelatedEvent(event, SALVATION_RENEW_HEALS) ||
+      HasRelatedEvent(event, BENEDICTION_RENEW_HEALS)
+    ) {
+      return;
+    }
+
     this.totalRenewHealing += event.amount || 0;
     this.totalRenewOverhealing += event.overheal || 0;
     this.totalRenewAbsorbs += event.absorbed || 0;
@@ -173,8 +145,6 @@ class Renew extends Analyzer {
     if (spellId === TALENTS.RENEW_TALENT.id) {
       this.renewsCast += 1;
       this.lastCast = event;
-    } else if (spellId === TALENTS.HOLY_WORD_SALVATION_TALENT.id) {
-      this.lastSalvationCast = event.timestamp;
     }
   }
 
@@ -190,22 +160,25 @@ class Renew extends Analyzer {
   }
 
   handleRenewApplication(event: ApplyBuffEvent | RefreshBuffEvent) {
+    if (HasRelatedEvent(event, LIGHTWELL_RENEW) || HasRelatedEvent(event, SALVATION_RENEW)) {
+      return;
+    }
+
+    if (HasRelatedEvent(event, BENEDICTION_RENEW)) {
+      this.renewsFromBenediction += 1;
+      return;
+    }
+
     this.timestampOfLastRenewApplication = event.timestamp;
     if (this.timestampOfLastRenewApplication - this.timestampOfLastPrayerCast < MS_BUFFER) {
       this.revitalizingPrayersRenewDurations += this.revitalizingPrayersRenewFraction;
       this.totalRenewApplications += this.revitalizingPrayersRenewFraction;
       this.renewsFromRevitalizingPrayers += 1;
-      this.hasteOnShortDurationApplication.push(this.haste.current);
       return;
     }
-    this.totalRenewApplications += 1;
-    this.hasteOnFullDurationApplication.push(this.haste.current);
 
-    if (this.salvationActive && event.timestamp - this.lastSalvationCast < MS_BUFFER) {
-      this.renewsFromSalvation += 1;
-    } else {
-      this.renewsFromBenedictionAndRenew += 1;
-    }
+    this.totalRenewApplications += 1;
+    this.otherSourcesAndCastRenews += 1;
   }
 
   onGCD(event: GlobalCooldownEvent) {

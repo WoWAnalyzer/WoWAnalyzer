@@ -16,7 +16,7 @@ export const SHAMAN_DF1_ID = 1536;
 export const WARLOCK_DF1_ID = 1537;
 export const WARRIOR_DF1_ID = 1538;
 
-export type DF1_TIER_GEAR_IDS =
+type DF1_TIER_GEAR_IDS =
   | typeof DEATH_KNIGHT_DF1_ID
   | typeof DEMON_HUNTER_DF1_ID
   | typeof DRUID_DF1_ID
@@ -63,7 +63,7 @@ export const SHAMAN_DF2_ID = 1550;
 export const WARLOCK_DF2_ID = 1551;
 export const WARRIOR_DF2_ID = 1552;
 
-export type DF2_TIER_GEAR_IDS =
+type DF2_TIER_GEAR_IDS =
   | typeof DEATH_KNIGHT_DF2_ID
   | typeof DEMON_HUNTER_DF2_ID
   | typeof DRUID_DF2_ID
@@ -110,7 +110,7 @@ export const SHAMAN_DF3_ID = 1567;
 export const WARLOCK_DF3_ID = 1568;
 export const WARRIOR_DF3_ID = 1569;
 
-export type DF3_TIER_GEAR_IDS =
+type DF3_TIER_GEAR_IDS =
   | typeof DEATH_KNIGHT_DF3_ID
   | typeof DEMON_HUNTER_DF3_ID
   | typeof DRUID_DF3_ID
@@ -157,7 +157,7 @@ export const SHAMAN_DF4_ID = 1606;
 export const WARLOCK_DF4_ID = 1601;
 export const WARRIOR_DF4_ID = 1602;
 
-export type DF4_TIER_GEAR_IDS =
+type DF4_TIER_GEAR_IDS =
   | typeof DEATH_KNIGHT_DF4_ID
   | typeof DEMON_HUNTER_DF4_ID
   | typeof DRUID_DF4_ID

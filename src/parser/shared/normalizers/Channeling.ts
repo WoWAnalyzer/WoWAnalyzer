@@ -437,7 +437,7 @@ export function nextCastChannelSpec(spellId: number): ChannelSpec {
 }
 
 /** Specification of special handling for a spell */
-export type ChannelSpec = {
+type ChannelSpec = {
   /** The handling function for this spell */
   handler: ChannelHandler;
   /** The guid or guids of the spells to handle */
@@ -448,7 +448,7 @@ export type ChannelSpec = {
  * A handling function for a channel. Given an applicable event, this function should appropriately
  * handle the event by updating the channel state as required. Keep in mind that this function will
  * be called *instead of* the default handling code for any events that trigger it. */
-export type ChannelHandler = (
+type ChannelHandler = (
   /** The event to handle */
   event: AnyEvent,
   /** All events in the encounter */
@@ -460,7 +460,7 @@ export type ChannelHandler = (
 ) => void;
 
 /** A state holder during channel handling, to be updated */
-export type ChannelState = {
+type ChannelState = {
   /** The current 'unresolved' channel. This represents a spell that has been started but isn't yet finished
    * and we're not sure when or if it will be finished. Depending on follow on events, it could be finished or cancelled.
    */

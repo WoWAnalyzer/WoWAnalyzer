@@ -24,12 +24,12 @@ interface BaseSpec {
   wclSpecName: string;
 }
 
-export interface RetailSpec extends BaseSpec {
+interface RetailSpec extends BaseSpec {
   masterySpellId: number;
   masteryCoefficient: number;
 }
 
-export interface ClassicSpec extends BaseSpec {
+interface ClassicSpec extends BaseSpec {
   icon: string;
   treeIndex?: number; // which tree (0,1,2) is for this spec. used as a fallback to try to do SOMETHING
 }

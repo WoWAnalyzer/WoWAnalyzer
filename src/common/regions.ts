@@ -7,7 +7,7 @@ export type ClassicRegion = (typeof CLASSIC_REGIONS)[number];
 
 // WoWAnalyzer/Blizzard API supported regions
 export const SUPPORTED_REGIONS = ['EU', 'US', 'TW', 'KR'] as const;
-export type SupportedRegion = (typeof SUPPORTED_REGIONS)[number];
+type SupportedRegion = (typeof SUPPORTED_REGIONS)[number];
 
 export function isRegion(region: string | undefined): region is Region {
   // the 'as' below is just to allow the use of .includes

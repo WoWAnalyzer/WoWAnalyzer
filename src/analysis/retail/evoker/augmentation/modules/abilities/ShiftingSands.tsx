@@ -7,7 +7,6 @@ import { ChecklistUsageInfo, SpellUse } from 'parser/core/SpellUsage/core';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { SpellLink } from 'interface';
 import ContextualSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
-import { logSpellUseEvent } from 'parser/core/SpellUsage/SpellUsageSubSection';
 import Combatants from 'parser/shared/modules/Combatants';
 import classColor from 'game/classColor';
 import ROLES from 'game/ROLES';
@@ -255,7 +254,6 @@ class ShiftingSands extends Analyzer {
         castBreakdownSmallText={
           <> - These boxes represent each cast, colored by how good the usage was.</>
         }
-        onPerformanceBoxClick={logSpellUseEvent}
         abovePerformanceDetails={<div style={{ marginBottom: 10 }}></div>}
       />
     );

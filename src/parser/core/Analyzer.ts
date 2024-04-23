@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import type { Suggestion } from './CombatLogParser';
-import EventFilter, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from './EventFilter';
+import EventFilter from './EventFilter';
 import Events, { AnyEvent, EventType } from './Events';
 import EventSubscriber, { EventListener, Options as _Options } from './EventSubscriber';
 import { Info, Metric } from './metric';
@@ -9,7 +9,8 @@ import Module from './Module';
 import { When } from './ParseResults';
 import { MessageDescriptor } from '@lingui/core';
 
-export { SELECTED_PLAYER, SELECTED_PLAYER_PET };
+export const SELECTED_PLAYER = 1;
+export const SELECTED_PLAYER_PET = 2;
 export type Options = _Options;
 
 export interface ParseResultsTab {
@@ -122,11 +123,11 @@ export function withDependencies<TBase extends AnalyzerConstructor, D extends De
 
 type ConstructedDependency<T> = T extends new (options: Options) => infer R ? R : never;
 
-export type InjectedDependencies<Deps extends Dependencies> = {
+type InjectedDependencies<Deps extends Dependencies> = {
   [Key in keyof Deps]: ConstructedDependency<Deps[Key]>;
 };
 
-export enum FunctionType {
+enum FunctionType {
   Statistic,
   Suggestion,
 }

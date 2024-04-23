@@ -19,11 +19,8 @@ export const GORE = 35298; // r9
 export const SCORPID_POISON = 27060; // r5
 // Serpent
 export const POISON_SPIT = 35392; // r3
-// Turtle
-export const SHELL_SHIELD = 26064; // r1
 // Warp Stalker
 export const CLAW = 27049; // r9
-export const WARP = 35346; // r1
 // Wind Serpent
 export const LIGHTNING_BREATH = 25012; // r6
 // Wolf

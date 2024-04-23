@@ -59,7 +59,7 @@ const TWO_PIECE_SPELLS = [
   SPELLS.GUST_OF_MISTS_CHIJI,
 ];
 
-export interface ChiHarmonySourceMap {
+interface ChiHarmonySourceMap {
   raw: number;
   amount: number;
   effective: number;

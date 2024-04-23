@@ -120,13 +120,13 @@ class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
       this.prayerOfMending.pomHealTicks - this.prayerOfMending.pomTicksFromSalv;
     spellInfo.healingDone =
       pomTicksWithoutSalv * this.prayerOfMending.averagePomTickHeal +
-      this.benediction.healingFromBenedictionRenews;
+      this.benediction.healingFromRenew;
     spellInfo.overhealingDone =
       pomTicksWithoutSalv * this.prayerOfMending.averagePomTickOverheal +
-      this.benediction.overhealingFromBenedictionRenews;
+      this.benediction.overhealingFromRenew;
     spellInfo.healingAbsorbed =
       pomTicksWithoutSalv * this.prayerOfMending.averagePomTickHeal +
-      this.benediction.absorbedHealingFromBenedictionRenews;
+      this.benediction.absorptionFromRenew;
     return spellInfo;
   }
 

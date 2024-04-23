@@ -18,8 +18,7 @@ import {
   getDebuffApplicationFromHardcast,
   getRelatedBuffApplicationFromHardcast,
   getSepsisConsumptionCastForBuffEvent,
-  SEPSIS_BUFF_DURATION,
-  SEPSIS_DEBUFF_DURATION,
+  SEPSIS_DURATION,
 } from '../../normalizers/SepsisLinkNormalizer';
 import { Expandable } from 'interface';
 import { SectionHeader } from 'interface/guide';
@@ -144,10 +143,10 @@ export default class Sepsis extends MajorCooldown<SepsisCast> {
                 <SpellLink spell={TALENTS.SEPSIS_TALENT} />. Aim to get the full{' '}
                 {formatSeconds(SHIV_DURATION)} seconds of the{' '}
                 <SpellLink spell={TALENTS.IMPROVED_SHIV_TALENT} /> inside of the{' '}
-                {formatSeconds(SEPSIS_DEBUFF_DURATION)} second{' '}
-                <SpellLink spell={TALENTS.SEPSIS_TALENT} /> debuff window. With a 1s GCD this means
-                you should be looking to cast <SpellLink spell={SPELLS.SHIV} /> 1-2 globals after
-                applying <SpellLink spell={TALENTS.SEPSIS_TALENT} />.
+                {formatSeconds(SEPSIS_DURATION)} second <SpellLink spell={TALENTS.SEPSIS_TALENT} />{' '}
+                debuff window. With a 1s GCD this means you should be looking to cast{' '}
+                <SpellLink spell={SPELLS.SHIV} /> 1-2 globals after applying{' '}
+                <SpellLink spell={TALENTS.SEPSIS_TALENT} />.
               </div>
             </Expandable>
           )}
@@ -278,7 +277,7 @@ export default class Sepsis extends MajorCooldown<SepsisCast> {
       }
     }
     // Edge case: if fight ends before 2nd buff is gained or before buff is used.
-    if (cast.event.timestamp + SEPSIS_BUFF_DURATION > this.owner.fight.end_time) {
+    if (cast.event.timestamp + SEPSIS_DURATION > this.owner.fight.end_time) {
       buffPerformance = QualitativePerformance.Perfect;
       if (!buff) {
         usageDetails[buffId] = (
@@ -331,7 +330,7 @@ export default class Sepsis extends MajorCooldown<SepsisCast> {
         performance = QualitativePerformance.Ok;
       }
       const sepsisRemainingonFightEnd =
-        cast.debuff.start + SEPSIS_DEBUFF_DURATION - this.owner.fight.end_time;
+        cast.debuff.start + SEPSIS_DURATION - this.owner.fight.end_time;
       castDetails = (
         <>
           You cast {shivCasts} <SpellLink spell={SPELLS.SHIV} />
@@ -343,7 +342,7 @@ export default class Sepsis extends MajorCooldown<SepsisCast> {
         let additionalDetails = (
           <>
             Aim to have all {formatSeconds(SHIV_DURATION)} seconds of the Shiv debuff line up with
-            the {formatSeconds(SEPSIS_DEBUFF_DURATION)}s Sepsis DoT.
+            the {formatSeconds(SEPSIS_DURATION)}s Sepsis DoT.
           </>
         );
         // Edge case for last sepsis cast
@@ -358,9 +357,8 @@ export default class Sepsis extends MajorCooldown<SepsisCast> {
             : QualitativePerformance.Good;
           additionalDetails = (
             <>
-              The fight ended after{' '}
-              {formatSeconds(SEPSIS_DEBUFF_DURATION - sepsisRemainingonFightEnd)} seconds of{' '}
-              <SpellLink spell={TALENTS.SEPSIS_TALENT} />
+              The fight ended after {formatSeconds(SEPSIS_DURATION - sepsisRemainingonFightEnd)}{' '}
+              seconds of <SpellLink spell={TALENTS.SEPSIS_TALENT} />
               {withinGracePeriod ? '.' : ', but Shiv could have still been used earlier.'}{' '}
             </>
           );
@@ -394,7 +392,7 @@ export default class Sepsis extends MajorCooldown<SepsisCast> {
       const enemy = this.enemies.getEntity(cast.event);
       const shivs = enemy?.getBuffHistory(SPELLS.SHIV_DEBUFF.id, applyEvent.sourceID);
       let startTimePtr = applyEvent.timestamp;
-      const sepsisEnd = cast.debuff?.end || applyEvent.timestamp + SEPSIS_DEBUFF_DURATION;
+      const sepsisEnd = cast.debuff?.end || applyEvent.timestamp + SEPSIS_DURATION;
       const isLastSepsis = sepsisEnd >= this.owner.fight.end_time;
       shivs?.forEach((shivDebuff) => {
         startTimePtr = Math.max(startTimePtr, shivDebuff.timestamp);
@@ -410,8 +408,8 @@ export default class Sepsis extends MajorCooldown<SepsisCast> {
       // check if sepsis debuff is set to expire after the fight ends so we don't expect all 8s of shiv to be used.
       if (isLastSepsis) {
         const remainingDurationAtFightEnd =
-          cast.debuff.start + SEPSIS_DEBUFF_DURATION - this.owner.fight.end_time;
-        expectedOverlap = SEPSIS_DEBUFF_DURATION - remainingDurationAtFightEnd;
+          cast.debuff.start + SEPSIS_DURATION - this.owner.fight.end_time;
+        expectedOverlap = SEPSIS_DURATION - remainingDurationAtFightEnd;
       }
     }
     overlapMs = Math.min(overlapMs + BUFF_DROP_BUFFER, expectedOverlap);
@@ -450,7 +448,7 @@ export default class Sepsis extends MajorCooldown<SepsisCast> {
       .forEach((application) => {
         const isBuff = application.type === EventType.ApplyBuff;
         const start = application.timestamp;
-        const expectedDuration = isBuff ? SEPSIS_BUFF_DURATION : SEPSIS_DEBUFF_DURATION;
+        const expectedDuration = isBuff ? SEPSIS_DURATION : SEPSIS_DURATION;
         const removal = getAuraLifetimeEvent(application);
         const end = removal ? removal.timestamp : start + expectedDuration; // default to full duration
         const activeDuration = end - start;

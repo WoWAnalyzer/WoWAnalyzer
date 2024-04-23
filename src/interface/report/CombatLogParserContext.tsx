@@ -1,7 +1,7 @@
 import CombatLogParser from 'parser/core/CombatLogParser';
 import { createContext, ReactNode, useContext } from 'react';
 
-export interface CombatLogParserContext {
+interface CombatLogParserContext {
   combatLogParser: CombatLogParser;
 }
 

@@ -9,7 +9,7 @@ export function IntroSection() {
         <a href="https://discord.com/invite/evoker">Evoker Discord</a>.
       </p>
       <p>
-        For more indepth information about the spec, you should check out these guides:{' '}
+        For more in-depth information about the spec, you should check out these guides:{' '}
         <a href="https://www.wowhead.com/guide/classes/evoker/augmentation/dragonflight-season-2">
           Wowhead
         </a>

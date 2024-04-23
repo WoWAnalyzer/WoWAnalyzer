@@ -16,7 +16,7 @@ export const SECONDARY_STAT_WRIT_VALUES = {
   3: 1394.51,
 } as const;
 
-export interface StatProcEnchantRank extends EnchantRank {
+interface StatProcEnchantRank extends EnchantRank {
   amount: number;
 }
 
