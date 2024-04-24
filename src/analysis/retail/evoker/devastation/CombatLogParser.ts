@@ -29,6 +29,7 @@ import EngulfingBlaze from './modules/talents/EngulfingBlaze';
 import LayWaste from './modules/talents/LayWaste';
 import Iridescence from './modules/talents/Iridescence';
 import T31DevaTier from './modules/dragonflight/tier/T31DevaTier';
+import Pyre from './modules/abilities/Pyre';
 
 // Shared
 import {
@@ -109,6 +110,7 @@ class CombatLogParser extends MainCombatLogParser {
     essenceBurst: EssenceBurst,
     burnout: Burnout,
     dragonRage: DragonRage,
+    pyre: Pyre,
 
     // tier
     T30devaTier: T30DevaTier,
