@@ -228,7 +228,7 @@ abstract class ResourceGraph extends Analyzer {
 }
 
 /** The type used to compile the data for graphing. */
-export type GraphData = {
+type GraphData = {
   /** Timestamp of the data point */
   timestamp: number;
 

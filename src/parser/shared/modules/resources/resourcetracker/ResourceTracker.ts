@@ -41,7 +41,7 @@ const MULTI_UPDATE_BUFFER_MS = 150;
 const REFUND_HIT_TYPES = [HIT_TYPES.MISS, HIT_TYPES.DODGE, HIT_TYPES.PARRY];
 
 /** Data for a builder ability (one that generates resource) */
-export type BuilderObj = {
+type BuilderObj = {
   /** The total amount of resource generated */
   generated: number;
   /** The total amount of resource wasted (overcapped) */
@@ -51,7 +51,7 @@ export type BuilderObj = {
 };
 
 /** Data for a spender ability (one that uses resource) */
-export type SpenderObj = {
+type SpenderObj = {
   /** The total cost of resource spent */
   spent: number;
   /** A list of the amount spent by each use of this ability */
@@ -61,7 +61,7 @@ export type SpenderObj = {
 };
 
 /** An update on the resource state */
-export type ResourceUpdate = {
+type ResourceUpdate = {
   /** What triggered this update (see {@link ResourceUpdateType} */
   type: ResourceUpdateType;
   /** This update's timestamp */
@@ -90,7 +90,7 @@ export type ResourceUpdate = {
   atCap: boolean;
 };
 
-export type ResourceUpdateType =
+type ResourceUpdateType =
   /** Player spent resource, as shown in a cast's classResources */
   | 'spend'
   /** Player drained resource, as shown in a DrainEvent */

@@ -3,7 +3,7 @@ import { AnyEvent, CastEvent, DamageEvent, HealEvent } from 'parser/core/Events'
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
 import { ReactNode } from 'react';
 
-export type FilteredDamageObserver = (event: CastEvent) => void;
+type FilteredDamageObserver = (event: CastEvent) => void;
 
 class FilteredDamageTracker extends DamageTracker {
   castObservers: FilteredDamageObserver[] = [];

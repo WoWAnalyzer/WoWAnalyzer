@@ -8,10 +8,10 @@ import Toggle from 'react-toggle';
 
 import HealingEfficiencyTracker, { SpellInfoDetails } from './HealingEfficiencyTracker';
 
-export interface Props<T extends HealingEfficiencyTracker = HealingEfficiencyTracker> {
+interface Props<T extends HealingEfficiencyTracker = HealingEfficiencyTracker> {
   tracker: T;
 }
-export interface State {
+interface State {
   showHealing: boolean;
   detailedView: boolean;
   showCooldowns: boolean;

@@ -60,7 +60,7 @@ export function damageBreakdown<T>(
   return bySpell;
 }
 
-export type DamageTakenPointChartProps = {
+type DamageTakenPointChartProps = {
   hits: TrackedHit[];
   tooltip: React.FC<{ hit: TrackedHit }>;
 };

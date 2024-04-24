@@ -2,11 +2,6 @@ import Combatant from './Combatant';
 import { AnyEvent } from './Events';
 import Ability from './modules/Ability';
 import { PetInfo } from './Pet';
-import { WCLFight } from 'parser/core/Fight';
-
-export interface WCLFightWithDuration extends WCLFight {
-  duration: number;
-}
 
 export interface Info {
   playerId: number;

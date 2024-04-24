@@ -2,8 +2,7 @@ import Events, { EventType } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 
-import Analyzer from './Analyzer';
-import { SELECTED_PLAYER, SELECTED_PLAYER_PET } from './EventFilter';
+import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from './Analyzer';
 
 describe('Core/Analyzer', () => {
   let parser;

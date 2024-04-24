@@ -21,7 +21,7 @@ import { InformationIcon } from 'interface/icons';
 import {
   SANDS_OF_TIME_CRIT_MOD,
   TREMBLING_EARTH_EXTENSION_MS,
-  TREMBLING_EART_STACK_LIMIT,
+  TREMBLING_EARTH_STACK_LIMIT,
 } from '../../constants';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { formatNumber } from 'common/format';
@@ -32,7 +32,7 @@ import DonutChart from 'parser/ui/DonutChart';
  * Eruption with smaller fissures for each Prescience you have
  * active, each dealing (110% of Spell power) damage and extending Ebon Might by 0.2 sec.
  *
- * So basicly, whenever you cast Prescience, you can a stacking buff for each Prescience you have active.
+ * So basically, whenever you cast Prescience, you can a stacking buff for each Prescience you have active.
  * Currently this maxes out at 5 stacks.
  *
  * The way it functions is that if you imagine you have 0 Prescience active:
@@ -41,7 +41,7 @@ import DonutChart from 'parser/ui/DonutChart';
  * Now you cast Prescience again, you gain 3 more stacks of Trembling Earth, but since it caps at 5, you
  * waste one of the stacks.
  *
- * The stack behaviour is not reflected properly in logs due to when you gain the inital buff, it will count as
+ * The stack behaviour is not reflected properly in logs due to when you gain the initial buff, it will count as
  * 1 stack regardless of the amount of stacks you actually gained. Therefor relying on the proper count from events
  * is not viable.
  * This could be solved with a normalizer, but since we want to count the overflow as well we would already
@@ -69,7 +69,9 @@ class T31Augmentation4P extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.has4PieceByTier(TIERS.DF3);
+    this.active =
+      this.selectedCombatant.has4PieceByTier(TIERS.DF3) ||
+      this.selectedCombatant.has4PieceByTier(TIERS.DF4);
 
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.TREMBLING_EARTH_BUFF),
@@ -115,16 +117,19 @@ class T31Augmentation4P extends Analyzer {
 
     this.currentTremblingStacks += prescienceActive;
 
-    const overcappedStacks = Math.max(0, this.currentTremblingStacks - TREMBLING_EART_STACK_LIMIT);
+    const overcappedStacks = Math.max(0, this.currentTremblingStacks - TREMBLING_EARTH_STACK_LIMIT);
 
     this.overcappedBuffStacks += overcappedStacks;
-    this.wastedExtension += this.calculateExtionsion(overcappedStacks);
+    this.wastedExtension += this.calculateExtension(overcappedStacks);
 
-    this.currentTremblingStacks = Math.min(this.currentTremblingStacks, TREMBLING_EART_STACK_LIMIT);
+    this.currentTremblingStacks = Math.min(
+      this.currentTremblingStacks,
+      TREMBLING_EARTH_STACK_LIMIT,
+    );
   }
 
   onRemoveBuff(event: RemoveBuffEvent) {
-    const extendValue = this.calculateExtionsion(this.currentTremblingStacks);
+    const extendValue = this.calculateExtension(this.currentTremblingStacks);
     if (!HasRelatedEvent(event, TREMBLING_EARTH_DAM_LINK)) {
       this.wastedExtension += extendValue;
       this.wastedBuffStacks += this.currentTremblingStacks;
@@ -141,7 +146,7 @@ class T31Augmentation4P extends Analyzer {
     this.currentTremblingStacks = 0;
   }
 
-  calculateExtionsion(buffStacks: number): number {
+  calculateExtension(buffStacks: number): number {
     const critChance = this.stats.currentCritPercentage;
     const critMod = 1 + SANDS_OF_TIME_CRIT_MOD * critChance;
 

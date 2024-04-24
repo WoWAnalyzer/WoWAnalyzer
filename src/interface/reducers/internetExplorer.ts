@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export type InternetExplorerState = boolean;
+type InternetExplorerState = boolean;
 
 const initialState: InternetExplorerState = false;
 

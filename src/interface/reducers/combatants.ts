@@ -1,7 +1,7 @@
 import { CombatantInfoEvent } from 'parser/core/Events';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export type CombatantsState = CombatantInfoEvent[] | null;
+type CombatantsState = CombatantInfoEvent[] | null;
 
 const initialState: CombatantsState = null as CombatantsState;
 

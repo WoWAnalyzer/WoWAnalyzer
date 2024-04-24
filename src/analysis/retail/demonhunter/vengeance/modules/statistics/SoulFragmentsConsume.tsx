@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS/demonhunter';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, ChangeBuffStackEvent, Event, EventType } from 'parser/core/Events';
+import Events, { CastEvent, ChangeBuffStackEvent, EventType } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -10,11 +10,6 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import SoulFragmentsTracker, { MAX_SOUL_FRAGMENTS } from '../features/SoulFragmentsTracker';
 
 const REMOVE_STACK_BUFFER = 100;
-
-export interface ConsumeSoulFragmentsEvent extends Event<EventType.ConsumeSoulFragments> {
-  spellId: number;
-  numberofSoulFragmentsConsumed: number;
-}
 
 class SoulFragmentsConsume extends Analyzer {
   static dependencies = {

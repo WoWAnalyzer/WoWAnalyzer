@@ -66,5 +66,3 @@ export const ManaUsageGraph = ({ mana, healing, manaUsed }: Props) => {
     </AutoSizer>
   );
 };
-
-export default ManaUsageGraph;

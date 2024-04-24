@@ -1,8 +1,7 @@
 import TALENTS from 'common/TALENTS/priest';
 import SPELLS from 'common/SPELLS';
-import Analyzer, { Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import { TIERS } from 'game/TIERS';
-import { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/EventFilter';
 import Events, { CastEvent, DamageEvent, FightEndEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
@@ -68,7 +67,7 @@ class InescapableTorment extends Analyzer {
       if (this.extension <= 6) {
         value = QualitativePerformance.Ok;
       }
-      if (this.extension <= 3) {
+      if (this.extension <= 4) {
         value = QualitativePerformance.Fail;
       }
 

@@ -19,7 +19,6 @@ import EnemiesHealth from 'parser/shared/modules/EnemiesHealth';
 import Haste from 'parser/shared/modules/Haste';
 import ManaValues from 'parser/shared/modules/ManaValues';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import EnergizeCompat from 'parser/shared/normalizers/EnergizeCompat';
 import * as React from 'react';
 import { ExplanationContextProvider } from 'interface/guide/components/Explanation';
 
@@ -112,6 +111,7 @@ import Dreambinder from 'parser/retail/modules/items/dragonflight/Dreambinder';
 import Iridal from 'parser/retail/modules/items/dragonflight/Iridal';
 import BelorrelosTheSuncaller from 'parser/retail/modules/items/dragonflight/BelorrelosTheSuncaller';
 import NymuesUnravelingSpindle from 'parser/retail/modules/items/dragonflight/NymuesUnravelingSpindle';
+import FriendlyCompatNormalizer from './FriendlyCompatNormalizer';
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
@@ -135,18 +135,6 @@ export interface Suggestion {
   recommended?: React.ReactNode;
 }
 
-interface Talent {
-  id: number;
-}
-export interface Player {
-  id: number;
-  name: string;
-  talents: Talent[];
-  artifact: unknown;
-  gear: unknown;
-  auras: unknown;
-}
-
 class CombatLogParser {
   static internalModules: DependenciesDefinition = {
     fightEndNormalizer: FightEndNormalizer,
@@ -155,7 +143,8 @@ class CombatLogParser {
     deathDowntime: DeathDowntime,
     totalDowntime: TotalDowntime,
     spellInfo: SpellInfo,
-    energizeCompat: EnergizeCompat,
+    enemies: Enemies,
+    friendlyCompat: FriendlyCompatNormalizer,
   };
   static defaultModules: DependenciesDefinition = {
     // Normalizers
@@ -176,7 +165,6 @@ class CombatLogParser {
     throughputStatisticGroup: ThroughputStatisticGroup,
     deathTracker: DeathTracker,
 
-    enemies: Enemies,
     enemiesHealth: EnemiesHealth,
     pets: Pets,
     spellManaCost: SpellManaCost,

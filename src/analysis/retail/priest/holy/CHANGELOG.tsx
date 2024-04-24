@@ -1,9 +1,26 @@
 import { change, date } from 'common/changelog';
+import SPELLS from 'common/SPELLS';
 import TALENTS, { TALENTS_PRIEST } from 'common/TALENTS/priest';
-import { Hana, Litena, Squided, ToppleTheNun, Trevor } from 'CONTRIBUTORS';
+import { Arlie, Hana, Litena, Squided, ToppleTheNun, Trevor, Saeldur } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2024, 4, 20), <>Fix cooldown of <SpellLink spell={SPELLS.DESPERATE_PRAYER} /> when using <SpellLink spell={TALENTS_PRIEST.ANGELS_MERCY_TALENT} />.</>, Arlie),
+  change(
+    date(2024, 4, 18),
+    <>
+      Partially updated for patch 10.2.6. Implementation still may be lacking. {' '}
+      Update <SpellLink spell={TALENTS_PRIEST.PONTIFEX_TALENT} />, {' '}
+      Implement <SpellLink spell={TALENTS_PRIEST.LIGHTWELL_TALENT} />, {' '}
+      Update <SpellLink spell={TALENTS_PRIEST.HOLY_WORD_SALVATION_TALENT} /> to better claim Renew healing, {' '}
+      Update <SpellLink spell={TALENTS_PRIEST.BENEVOLENCE_TALENT} /> to better claim Renew healing, {' '}
+      Update <SpellLink spell={TALENTS_PRIEST.RESONANT_WORDS_TALENT} />, {' '}
+      Update <SpellLink spell={TALENTS_PRIEST.DIVINE_WORD_TALENT} />, {' '}
+      Update <SpellLink spell={TALENTS_PRIEST.HEALING_CHORUS_TALENT} />, and{' '}
+      Update <SpellLink spell={TALENTS_PRIEST.PRAYERFUL_LITANY_TALENT} />
+    </>,
+    Saeldur,
+  ),
   change(date(2023, 8, 1), <>Add <SpellLink spell={TALENTS_PRIEST.BENEVOLENCE_TALENT}/></>, Hana),
   change(date(2023, 7, 3), 'Update SpellLink usage.', ToppleTheNun),
   change(date(2023, 5, 11), <>Fix crash in Holy Priest T30 module</>, Trevor),

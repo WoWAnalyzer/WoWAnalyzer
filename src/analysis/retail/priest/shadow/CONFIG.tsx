@@ -41,6 +41,7 @@ const config: Config = {
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport: 'report/rbM3z4h7F2Wy9JD6/5-Heroic+Volcoross+-+Kill+(2:52)/Doxashe/standard',
   guideDefault: true,
+  guideOnly: true,
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

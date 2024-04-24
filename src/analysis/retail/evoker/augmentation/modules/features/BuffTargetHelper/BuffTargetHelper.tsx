@@ -13,12 +13,13 @@ import '../../Styling.scss';
 import { SubSection } from 'interface/guide';
 import { SpellLink } from 'interface';
 import LazyLoadGuideSection from 'analysis/retail/evoker/shared/modules/components/LazyLoadGuideSection';
-import { ABILITY_BLACKLIST, TIMEWALKER_BASE_EXTENSION } from '../../../constants';
+import { TIMEWALKER_BASE_EXTENSION } from '../../../constants';
 import BuffTargetHelperWarningLabel from './BuffTargetHelperWarningLabel';
 import Toggle from 'react-toggle';
 import { TIERS } from 'game/TIERS';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BuffTargetHelperInfoLabel from './BuffTargetHelperInfoLabel';
+import { ABILITY_BLACKLIST, ABILITY_NO_BOE_SCALING } from '../../util/abilityFilter';
 
 /**
  * @key ClassName
@@ -100,7 +101,9 @@ class BuffTargetHelper extends Analyzer {
   prescienceHelperMrtNote: string = '';
   mrtFourTargetPrescienceHelperNote: string = '';
   // If we have 4pc we need to account for long prescience
-  has4Pc = this.selectedCombatant.has4PieceByTier(TIERS.DF3);
+  has4Pc =
+    this.selectedCombatant.has4PieceByTier(TIERS.DF3) ||
+    this.selectedCombatant.has4PieceByTier(TIERS.DF4);
 
   filterBossDamage: boolean = false;
   nameFilter: string = '';
@@ -108,7 +111,8 @@ class BuffTargetHelper extends Analyzer {
     .filter((enemy) => enemy.type === 'Boss')
     .map((enemy) => `${enemy.guid}`)
     .join(',');
-  abilityFilter: string = ABILITY_BLACKLIST.join(', ');
+  abilityBlacklist: string = [...ABILITY_BLACKLIST].join(', ');
+  abilityFilter = [...ABILITY_NO_BOE_SCALING].join(', ');
 
   constructor(options: Options) {
     super(options);
@@ -134,17 +138,16 @@ class BuffTargetHelper extends Analyzer {
       });
     });
   }
-
-  /** Generate filter based on black list and whitelist */
+  /** Generate filter based on our ability filters */
   getFilter(noEbonScaling: boolean) {
+    let filter = `(not ability.id in(${this.abilityBlacklist})) 
+    AND (${noEbonScaling ? '' : 'not'} ability.id in(${this.abilityFilter}))
+    AND (source.name in (${this.nameFilter}) OR source.owner.name in (${this.nameFilter}))`;
+
     if (this.filterBossDamage) {
-      return `(${noEbonScaling ? '' : 'not'} ability.id in(${this.abilityFilter}))
-      AND (source.name in (${this.nameFilter}) OR source.owner.name in (${this.nameFilter}))
-      AND (target.id in(${this.bossFilter}))`;
-    } else {
-      return `(${noEbonScaling ? '' : 'not'} ability.id in(${this.abilityFilter}))
-      AND (source.name in (${this.nameFilter}) OR source.owner.name in (${this.nameFilter}))`;
+      filter += ` AND (target.id in(${this.bossFilter}))`;
     }
+    return filter;
   }
 
   /**
@@ -604,7 +607,7 @@ class BuffTargetHelper extends Analyzer {
               by <b>Zephy</b> based on which Weak Aura you use.
             </p>
 
-            <BuffTargetHelperInfoLabel has4Pc={this.has4Pc} />
+            {this.has4Pc && <BuffTargetHelperInfoLabel />}
           </div>
           <div>
             <BuffTargetHelperWarningLabel />

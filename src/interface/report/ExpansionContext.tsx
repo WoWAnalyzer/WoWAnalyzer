@@ -3,7 +3,7 @@ import Expansion from 'game/Expansion';
 import { wclGameVersionToExpansion } from 'game/VERSIONS';
 import { useReport } from 'interface/report/context/ReportContext';
 
-export interface ExpansionContext {
+interface ExpansionContext {
   expansion: Expansion;
   gameVersion: number;
 }

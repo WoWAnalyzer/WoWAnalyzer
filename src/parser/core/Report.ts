@@ -3,7 +3,7 @@ import { WCLFight } from './Fight';
 import { PetInfo } from './Pet';
 import { PlayerInfo } from './Player';
 
-export interface ExportedCharacter {
+interface ExportedCharacter {
   id: number;
   name: string;
   server: string;
@@ -28,7 +28,7 @@ export interface WCLReport {
   exportedCharacters: ExportedCharacter[];
 }
 
-export interface WCLReportPhases {
+interface WCLReportPhases {
   boss: number;
   /**
    * This is present for all games, but only used for FFXIV as far as I know. We can safely ignore it (for now).

@@ -1,6 +1,6 @@
 import { SubSection, useAnalyzers } from 'interface/guide';
 import Explanation from 'interface/guide/components/Explanation';
-import HideExplanationsToggle from 'interface/guide/components/HideExplanationsToggle';
+import { HideExplanationsToggle } from 'interface/guide/components/HideExplanationsToggle';
 import Timeline from 'interface/guide/components/MajorDefensives/Timeline';
 import { TIMELINE_ANALYZERS } from './config';
 

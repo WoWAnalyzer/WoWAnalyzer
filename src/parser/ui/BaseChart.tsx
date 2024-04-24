@@ -19,7 +19,7 @@ export const defaultConfig = {
   },
 };
 
-export interface Props {
+interface Props {
   spec: VisualizationSpec;
   data: any;
   config?: Config;

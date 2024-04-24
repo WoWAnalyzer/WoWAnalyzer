@@ -1,11 +1,9 @@
-import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent, ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import EventHistory from 'parser/shared/modules/EventHistory';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -149,37 +147,6 @@ class Deathspeaker extends Analyzer {
 
   getProcsUsed() {
     return this.procsGained - this.procsWasted;
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.procsWasted,
-      isGreaterThan: {
-        minor: 0,
-        average: 0.5,
-        major: 1.1,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest) =>
-      suggest(
-        <>
-          You wasted {this.procsWasted} out of {this.procsGained}{' '}
-          <SpellLink spell={TALENTS.DEATHSPEAKER_TALENT} /> procs.{' '}
-        </>,
-      )
-        .icon(TALENTS.DEATHSPEAKER_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'priest.shadow.suggestions.deathspeaker.efficiency',
-            message: `You wasted ${this.procsWasted} out of ${this.procsGained} DeathSpeaker procs.`,
-          }),
-        )
-        .recommended(`<0 is recommended.`),
-    );
   }
 
   statistic() {
