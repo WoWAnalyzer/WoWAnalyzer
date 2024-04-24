@@ -49,8 +49,7 @@ const CONFIG: Config = {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport:
-    '/report/dFzCLcjyqMbX43KP/7-Heroic+Fyrakk+the+Blazing+-+Kill+(5:14)/Femboygodx/standard',
+  exampleReport: '/report/akZLCTYbN2XpQFmg/63-Mythic+Smolderon+-+Kill+(5:44)/Femboygodx/standard',
   guideDefault: true,
   guideOnly: true,
 

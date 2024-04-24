@@ -68,8 +68,7 @@ const config: Config = {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport:
-    '/report/bjqrZRnNdvKPXt13/34-Mythic+Fyrakk+the+Blazing+-+Kill+(8:47)/Toppledh/standard',
+  exampleReport: '/report/akZLCTYbN2XpQFmg/63-Mythic+Smolderon+-+Kill+(5:44)/Toppledh/standard',
   // Default to using the Guide
   guideDefault: true,
   // Only use the Guide
