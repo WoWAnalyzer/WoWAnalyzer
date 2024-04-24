@@ -1,51 +1,52 @@
 import { expect, test } from './fixtures';
 
+const reportCode = 'akZLCTYbN2XpQFmg';
+const reportTitle = 'SHATED';
+const fightLinkName = 'Kill 5:44';
+const fightUrlPart = '63-Mythic+Smolderon+-+Kill+(5:44)';
+const fightPageTitle = `Mythic Smolderon - Kill (5:44) in ${reportTitle}`;
+const playerLinkName = 'Toppledh Vengeance Demon Hunter Vengeance Demon Hunter 490';
+const playerName = 'Toppledh';
+const bossDifficultyAndName = 'MythicSmolderon';
+const resultsPageTitle = `Mythic Smolderon - Kill (5:44) by ${playerName} in ${reportTitle}`;
+
 test('report selection', async ({ page, homePage, fightSelectionPage }) => {
   await homePage.goto();
 
-  await homePage.fillInReportInputWithCode('akZLCTYbN2XpQFmg');
+  await homePage.fillInReportInputWithCode(reportCode);
 
   await fightSelectionPage.expectFightSelectionHeaderToBeVisible();
-  await fightSelectionPage.expectUrlToHaveReportCode('akZLCTYbN2XpQFmg');
-  await expect(page).toHaveTitle('SHATED');
+  await fightSelectionPage.expectUrlToHaveReportCode(reportCode);
+  await expect(page).toHaveTitle(reportTitle);
 });
 
 test('fight selection', async ({ page, fightSelectionPage, playerSelectionPage }) => {
-  await fightSelectionPage.goto('akZLCTYbN2XpQFmg');
+  await fightSelectionPage.goto(reportCode);
 
-  await page.getByRole('link', { name: 'Kill 5:44' }).click();
+  await page.getByRole('link', { name: fightLinkName }).click();
 
   await playerSelectionPage.expectPlayerSelectionHeaderToBeVisible();
-  await playerSelectionPage.expectUrlToHaveReportCodeAndFight(
-    'akZLCTYbN2XpQFmg',
-    '63-Mythic+Smolderon+-+Kill+(5:44)',
-  );
-  await expect(page).toHaveTitle('Mythic Fyrakk the Blazing - Kill (8:47) in SHATED');
+  await playerSelectionPage.expectUrlToHaveReportCodeAndFight(reportCode, fightUrlPart);
+  await expect(page).toHaveTitle(fightPageTitle);
 });
 
 test('player selection', async ({ page, playerSelectionPage, reportPage }) => {
-  await playerSelectionPage.goto('akZLCTYbN2XpQFmg', '63-Mythic+Smolderon+-+Kill+(5:44)');
+  await playerSelectionPage.goto(reportCode, fightUrlPart);
 
-  await page
-    .getByRole('link', { name: 'Toppledh Vengeance Demon Hunter Vengeance Demon Hunter 490' })
-    .click();
+  await page.getByRole('link', { name: playerLinkName }).click();
 
   await reportPage.expectBossDifficultyAndNameHeaderToBeVisible();
-  await reportPage.expectBossDifficultyAndNameHeaderToHaveText('MythicFyrakk, the Blazing');
-  await reportPage.expectUrlToHave(
-    'akZLCTYbN2XpQFmg',
-    '63-Mythic+Smolderon+-+Kill+(5:44)',
-    'Toppledh',
-  );
-  await expect(page).toHaveTitle('Mythic Fyrakk the Blazing - Kill (8:47) by Toppledh in SHATED');
+  await reportPage.expectBossDifficultyAndNameHeaderToHaveText(bossDifficultyAndName);
+  await reportPage.expectUrlToHave(reportCode, fightUrlPart, playerName);
+  await expect(page).toHaveTitle(resultsPageTitle);
 });
 
 test.describe('tab selection', () => {
   test.beforeEach(async ({ reportPage }) => {
     await reportPage.goto({
-      reportCode: 'akZLCTYbN2XpQFmg',
-      fightCode: '63-Mythic+Smolderon+-+Kill+(5:44)',
-      playerName: 'Toppledh',
+      reportCode: reportCode,
+      fightCode: fightUrlPart,
+      playerName,
     });
   });
 
@@ -53,7 +54,7 @@ test.describe('tab selection', () => {
     await reportPage.clickOnStatisticsTab();
 
     await expect(page).toHaveURL(
-      '/report/akZLCTYbN2XpQFmg/63-Mythic+Smolderon+-+Kill+(5:44)/Toppledh/standard/statistics',
+      `/report/${reportCode}/${fightUrlPart}/${playerName}/standard/statistics`,
     );
   });
 
@@ -61,7 +62,7 @@ test.describe('tab selection', () => {
     await reportPage.clickOnTimelineTab();
 
     await expect(page).toHaveURL(
-      '/report/akZLCTYbN2XpQFmg/63-Mythic+Smolderon+-+Kill+(5:44)/Toppledh/standard/timeline',
+      `/report/${reportCode}/${fightUrlPart}/${playerName}/standard/timeline`,
     );
   });
 
@@ -69,7 +70,7 @@ test.describe('tab selection', () => {
     await reportPage.clickOnCooldownsTab();
 
     await expect(page).toHaveURL(
-      '/report/akZLCTYbN2XpQFmg/63-Mythic+Smolderon+-+Kill+(5:44)/Toppledh/standard/cooldowns',
+      `/report/${reportCode}/${fightUrlPart}/${playerName}/standard/cooldowns`,
     );
   });
 
@@ -77,7 +78,7 @@ test.describe('tab selection', () => {
     await reportPage.clickOnCharacterTab();
 
     await expect(page).toHaveURL(
-      '/report/akZLCTYbN2XpQFmg/63-Mythic+Smolderon+-+Kill+(5:44)/Toppledh/standard/character',
+      `/report/${reportCode}/${fightUrlPart}/${playerName}/standard/character`,
     );
   });
 
@@ -85,7 +86,7 @@ test.describe('tab selection', () => {
     await reportPage.clickOnAboutTab();
 
     await expect(page).toHaveURL(
-      '/report/akZLCTYbN2XpQFmg/63-Mythic+Smolderon+-+Kill+(5:44)/Toppledh/standard/about',
+      `/report/${reportCode}/${fightUrlPart}/${playerName}/standard/about`,
     );
   });
 });
@@ -96,16 +97,12 @@ test('perform analysis', async ({ page }) => {
   await page.getByPlaceholder('https://www.warcraftlogs.com/reports/<report code>').click();
   await page
     .getByPlaceholder('https://www.warcraftlogs.com/reports/<report code>')
-    .fill('https://www.warcraftlogs.com/reports/akZLCTYbN2XpQFmg');
+    .fill(`https://www.warcraftlogs.com/reports/${reportCode}`);
   await page.getByRole('heading', { name: 'Fight selection' }).waitFor();
-  await page.getByRole('link', { name: 'Kill 5:44' }).click();
+  await page.getByRole('link', { name: fightLinkName }).click();
   await page.getByRole('heading', { name: 'Player selection' }).waitFor();
-  await page
-    .getByRole('link', { name: 'Toppledh Vengeance Demon Hunter Vengeance Demon Hunter 490' })
-    .click();
-  await page.getByText('MythicSmolderon').waitFor();
+  await page.getByRole('link', { name: playerLinkName }).click();
+  await page.getByText(bossDifficultyAndName).waitFor();
 
-  await expect(page).toHaveURL(
-    '/report/akZLCTYbN2XpQFmg/63-Mythic+Smolderon+-+Kill+(5:44)/Toppledh/standard',
-  );
+  await expect(page).toHaveURL(`/report/${reportCode}/${fightUrlPart}/${playerName}/standard`);
 });
