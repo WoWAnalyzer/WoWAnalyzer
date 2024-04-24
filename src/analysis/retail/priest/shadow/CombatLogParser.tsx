@@ -54,6 +54,7 @@ import PhantasmalPathogen from './modules/talents/PhantasmalPathogen';
 import TormentedSpirits from './modules/talents/TormentedSpirits';
 
 import Tier29FourSet from './modules/tier/Tier29ShadowPriest4Set';
+import Tier30 from './modules/tier/Tier30ShadowPriest';
 import Tier31FourSet from './modules/tier/Tier31ShadowPriest4Set';
 import Tier31FourSetNormalizer from './modules/tier/Tier31ShadowPriest4SetNormalizer';
 
@@ -123,6 +124,7 @@ class CombatLogParser extends MainCombatLogParser {
 
     //Tier
     tier29FourSet: Tier29FourSet,
+    tier30: Tier30,
     tier31FourSet: Tier31FourSet,
 
     arcaneTorrent: [ArcaneTorrent, { active: false }] as const,
