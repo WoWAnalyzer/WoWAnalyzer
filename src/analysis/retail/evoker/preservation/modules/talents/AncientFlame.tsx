@@ -91,7 +91,7 @@ class AncientFlame extends Analyzer {
     const value = QualitativePerformance.Good;
     this.consumptions.push({ value, tooltip });
     const startTime =
-      applyEvent.timestamp === null || applyEvent.timestamp === undefined
+      applyEvent === null || applyEvent === undefined
         ? this.owner.fight.start_time
         : event.timestamp - applyEvent.timestamp;
     this.consumeTimes.push(startTime);
