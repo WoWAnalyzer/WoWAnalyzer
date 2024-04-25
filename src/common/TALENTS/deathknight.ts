@@ -245,7 +245,7 @@ const talents = {
   CHILL_STREAK_TALENT: {
     id: 305392,
     name: 'Chill Streak',
-    icon: 'spell_frost_piercing_chill',
+    icon: 'spell_frost_piercing-chill',
     maxRanks: 1,
     entryIds: [96228],
     definitionIds: [{ id: 101230, specId: 251 }],
