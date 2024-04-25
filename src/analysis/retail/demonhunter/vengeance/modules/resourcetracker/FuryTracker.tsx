@@ -2,6 +2,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Options } from 'parser/core/Analyzer';
 import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { isMythicPlus } from 'common/isMythicPlus';
 
 export const PERFECT_TIME_AT_FURY_CAP = 0;
 export const GOOD_TIME_AT_FURY_CAP = 0.05;
@@ -14,6 +15,10 @@ class FuryTracker extends ResourceTracker {
   }
 
   get percentAtCapPerformance(): QualitativePerformance {
+    if (isMythicPlus(this.owner.fight)) {
+      return QualitativePerformance.Ok;
+    }
+
     const percentAtCap = this.percentAtCap;
     if (percentAtCap === PERFECT_TIME_AT_FURY_CAP) {
       return QualitativePerformance.Perfect;

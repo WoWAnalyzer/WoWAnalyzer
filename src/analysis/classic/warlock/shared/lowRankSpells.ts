@@ -12,7 +12,3 @@ export default lowRankSpells;
 export const whitelist = {
   [SPELLS.LIFE_TAP.id]: [1454],
 };
-
-export interface LowRankSpells {
-  [primarySpellId: number]: number[];
-}

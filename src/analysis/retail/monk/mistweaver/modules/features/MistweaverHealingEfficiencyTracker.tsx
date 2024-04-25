@@ -3,12 +3,6 @@ import { TALENTS_MONK } from 'common/TALENTS';
 import HealingEfficiencyTracker, {
   SpellInfoDetails,
 } from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
-import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
-import Abilities from 'parser/core/modules/Abilities';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import CastEfficiency from 'parser/shared/modules/CastEfficiency';
-import DamageDone from 'parser/shared/modules/throughput/DamageDone';
-import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 
 import FaelineStompHealing from '../spells/FaelineStompHealing';
 import EnvelopingMists from '../spells/EnvelopingMists';
@@ -28,14 +22,8 @@ import ShaohaosLessons from '../spells/ShaohaosLessons';
 class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   static dependencies = {
     ...HealingEfficiencyTracker.dependencies,
-    manaTracker: ManaTracker,
-    abilityTracker: AbilityTracker,
-    healingDone: HealingDone,
-    damageDone: DamageDone,
-    castEfficiency: CastEfficiency,
 
     // Custom dependencies
-    abilities: Abilities,
     essenceFont: EssenceFont,
     envelopingMists: EnvelopingMists,
     soothingMist: SoothingMist,
@@ -52,12 +40,6 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
     shaohaosLessons: ShaohaosLessons,
   };
 
-  protected manaTracker!: ManaTracker;
-  protected abilityTracker!: AbilityTracker;
-  protected healingDone!: HealingDone;
-  protected damageDone!: DamageDone;
-  protected castEfficiency!: CastEfficiency;
-  protected abilities!: Abilities;
   protected essenceFont!: EssenceFont;
   protected envelopingMists!: EnvelopingMists;
   protected soothingMist!: SoothingMist;

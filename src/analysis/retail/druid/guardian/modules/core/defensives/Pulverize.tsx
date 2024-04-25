@@ -7,11 +7,11 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 import { Options } from 'parser/core/Module';
 import SPELLS from 'common/SPELLS';
 import Events, { DamageEvent } from 'parser/core/Events';
-import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import { ReactNode } from 'react';
 import MajorDefensiveStatistic from 'interface/MajorDefensiveStatistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { SpellLink } from 'interface';
+import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 const MITIGATION = 0.35;
 

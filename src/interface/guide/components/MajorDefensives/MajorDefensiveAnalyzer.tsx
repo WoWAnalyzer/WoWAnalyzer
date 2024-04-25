@@ -3,8 +3,8 @@ import { formatDuration, formatNumber } from 'common/format';
 import Spell from 'common/SPELLS/Spell';
 import MAGIC_SCHOOLS, { color } from 'game/MAGIC_SCHOOLS';
 import SpellLink from 'interface/SpellLink';
-import Analyzer, { Options } from 'parser/core/Analyzer';
-import EventFilter, { SELECTED_PLAYER } from 'parser/core/EventFilter';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import EventFilter from 'parser/core/EventFilter';
 import Events, {
   AbilityEvent,
   HasSource,
@@ -29,7 +29,7 @@ import { CooldownDetailsProps } from './AllCooldownUsagesList';
  * instead of using this yourself, but if you have a weirdo defensive that doesn't use
  * buffs/debuffs then you may need this.
  */
-export type DefensiveTrigger<Apply extends EventType, Remove extends EventType> = {
+type DefensiveTrigger<Apply extends EventType, Remove extends EventType> = {
   applyTrigger: EventFilter<Apply>;
   removeTrigger: EventFilter<Remove>;
   trackOn: ResourceActor;

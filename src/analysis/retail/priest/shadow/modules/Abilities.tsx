@@ -118,6 +118,15 @@ class Abilities extends CoreAbilities {
         },
         enabled: combatant.hasTalent(TALENTS.HALO_SHADOW_TALENT),
       },
+      {
+        spell: TALENTS.DIVINE_STAR_SHADOW_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: 15,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(TALENTS.DIVINE_STAR_SHADOW_TALENT),
+      },
 
       // Cooldowns
       {
@@ -249,7 +258,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DESPERATE_PRAYER.id, //TODO have angles mercy reduce CD
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 90,
+        cooldown: 90 - (combatant.hasTalent(TALENTS.ANGELS_MERCY_TALENT) ? 20 : 0),
         gcd: null,
       },
       {

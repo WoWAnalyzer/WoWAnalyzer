@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" prefix="og: http://ogp.me/ns#">
   <head>
     <title>WoWAnalyzer</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="shortcut icon" href="/favicon.ico" />
     <link
       href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&family=Poppins:wght@400;600;700;800&display=swap"
       rel="stylesheet"
@@ -21,7 +21,7 @@
       name="keywords"
       content="World of Warcraft, WoW, Raiding, Analysis, Gameplay, Performance, MMO, MMORPG, Games, Combatlog, Improving, DPS, Battle for Azeroth, Bosses"
     />
-    <!-- Google translate doesn't play well with React (leading to crashes) -->
+    <!-- Google Translate doesn't play well with React (leading to crashes) -->
     <meta name="google" content="notranslate" />
     <link
       rel="search"
@@ -88,38 +88,6 @@
         color: #e45a5a;
       }
     </style>
-    <% if (process.env.REACT_APP_ENABLE_GA === 'true') { %>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MW95W6NHVC"></script>
-    <script>
-      var ramp = {
-        passiveMode: true,
-        que: [],
-        onReady: function () {
-          window.refreshAds();
-        },
-      };
-    </script>
-    <script
-      async
-      src="//cdn.intergient.com/1024476/73270/ramp.js"
-      onerror="window.adScriptFailed=true;"
-    ></script>
-    <script>
-      window._pwGA4PageviewId = ''.concat(Date.now());
-      window.dataLayer = window.dataLayer || [];
-      window.gtag =
-        window.gtag ||
-        function () {
-          dataLayer.push(arguments);
-        };
-      gtag('js', new Date());
-      gtag('config', 'G-MW95W6NHVC', { send_page_view: false });
-      gtag('config', 'G-E0TKKBEXVD', { send_page_view: false });
-      gtag('event', 'ramp_js', { send_to: 'G-E0TKKBEXVD', pageview_id: window._pwGA4PageviewId });
-    </script>
-    <% } else { %>
-    <!-- GA and ad code is not included in development mode. Check the HTML template if you need to test either. -->
-    <% } %>
   </head>
 
   <body>
@@ -138,6 +106,7 @@
         </div>
       </div>
     </div>
+    <script type="module" src="/src/index.tsx"></script>
 
     <script
       crossorigin="anonymous"

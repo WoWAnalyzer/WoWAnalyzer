@@ -12,6 +12,6 @@ export function IsPenanceHealEvent(event: HealEvent): event is PenanceHealEvent 
   return (event as PenanceHealEvent).penanceBoltNumber !== undefined;
 }
 
-export interface PenanceHealEvent extends HealEvent {
+interface PenanceHealEvent extends HealEvent {
   penanceBoltNumber: number;
 }

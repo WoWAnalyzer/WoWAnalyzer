@@ -3,8 +3,7 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
-import Analyzer, { Options } from 'parser/core/Analyzer';
-import { SELECTED_PLAYER } from 'parser/core/EventFilter';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, GetRelatedEvents } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
@@ -24,7 +23,8 @@ class RayOfFrost extends Analyzer {
   };
   protected enemies!: Enemies;
 
-  rayOfFrost: { hits: number; shatteredHits: number }[] = [];
+  rayOfFrost: { timestamp: number; hits: number; shatteredHits: number; damage: DamageEvent[] }[] =
+    [];
   castEntries: BoxRowEntry[] = [];
 
   constructor(options: Options) {
@@ -50,6 +50,7 @@ class RayOfFrost extends Analyzer {
       timestamp: event.timestamp,
       hits: damage.length,
       shatteredHits: shattered,
+      damage: damage,
     };
     this.rayOfFrost.push(rayOfFrostDetails);
 

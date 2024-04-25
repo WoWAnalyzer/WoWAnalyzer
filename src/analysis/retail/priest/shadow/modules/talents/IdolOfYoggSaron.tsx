@@ -1,7 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
-import Analyzer, { Options } from 'parser/core/Analyzer';
-import { SELECTED_PLAYER_PET } from 'parser/core/EventFilter';
+import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';

@@ -3,7 +3,7 @@ import CoreAbilities from 'analysis/retail/evoker/shared/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import SPELLS from 'common/SPELLS';
-import { BASE_EVOKER_RANGE } from '../../shared';
+import { BASE_EVOKER_RANGE, EMPOWER_BASE_GCD, EMPOWER_MINIMUM_GCD } from '../../shared';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -40,7 +40,8 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: combatant.hasTalent(TALENTS.EVENT_HORIZON_TALENT) ? 27 : 30,
         gcd: {
-          base: 1500,
+          base: EMPOWER_BASE_GCD,
+          minimum: EMPOWER_MINIMUM_GCD,
         },
         castEfficiency: {
           suggestion: true,

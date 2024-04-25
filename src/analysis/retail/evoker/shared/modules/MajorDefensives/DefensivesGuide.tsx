@@ -1,6 +1,6 @@
 import { GoodColor, Section, SubSection, useAnalyzers } from 'interface/guide';
 import ObsidianScales from './ObsidianScales';
-import HideExplanationsToggle from 'interface/guide/components/HideExplanationsToggle';
+import { HideExplanationsToggle } from 'interface/guide/components/HideExplanationsToggle';
 import Explanation from 'interface/guide/components/Explanation';
 import Timeline from 'interface/guide/components/MajorDefensives/Timeline';
 import AllCooldownUsageList from 'interface/guide/components/MajorDefensives/AllCooldownUsagesList';

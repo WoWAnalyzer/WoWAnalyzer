@@ -2,7 +2,7 @@ import { defineMessage } from '@lingui/macro';
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 import PropTypes from 'prop-types';
 import { Component } from 'react';
-import { AutoSizer } from 'react-virtualized';
+import AutoSizer from 'react-virtualized-auto-sizer';
 
 const DEATH_COLOR = 'rgba(255, 0, 0, 0.8)';
 

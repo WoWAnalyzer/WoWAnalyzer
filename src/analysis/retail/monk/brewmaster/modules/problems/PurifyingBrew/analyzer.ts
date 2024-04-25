@@ -1,8 +1,8 @@
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
 import type { Problem } from 'interface/guide/components/ProblemList';
-import Analyzer, { Options } from 'parser/core/Analyzer';
-import EventFilter, { SELECTED_PLAYER } from 'parser/core/EventFilter';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import EventFilter from 'parser/core/EventFilter';
 import Events, {
   AddStaggerEvent,
   DamageEvent,

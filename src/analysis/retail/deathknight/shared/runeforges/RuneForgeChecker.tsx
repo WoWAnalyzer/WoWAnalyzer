@@ -5,7 +5,7 @@ import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { BoolThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import * as React from 'react';
 
-export interface RuneForgeCheckItem {
+interface RuneForgeCheckItem {
   forge: Enchant;
   importance: SUGGESTION_IMPORTANCE;
   suggestion: React.ReactNode;

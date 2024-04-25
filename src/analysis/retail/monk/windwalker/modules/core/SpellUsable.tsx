@@ -1,8 +1,7 @@
 import SPELLS from 'common/SPELLS/monk';
 import TALENTS from 'common/TALENTS/monk';
 import { SpellLink } from 'interface';
-import { Options } from 'parser/core/Analyzer';
-import { SELECTED_PLAYER } from 'parser/core/EventFilter';
+import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { AbilityEvent, CastEvent, EventType } from 'parser/core/Events';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 

@@ -3,8 +3,8 @@ import { TALENTS_EVOKER } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS';
 import CombatLogParser from '../../CombatLogParser';
 import { ResourceLink, SpellLink } from 'interface';
-import HideExplanationsToggle from 'interface/guide/components/HideExplanationsToggle';
-import HideGoodCastsToggle from 'interface/guide/components/HideGoodCastsToggle';
+import { HideExplanationsToggle } from 'interface/guide/components/HideExplanationsToggle';
+import { HideGoodCastsToggle } from 'interface/guide/components/HideGoodCastsToggle';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import ExplanationRow from 'interface/guide/components/ExplanationRow';
 import Explanation from 'interface/guide/components/Explanation';
@@ -101,10 +101,10 @@ function EssenceGraphSection({ modules, events, info }: GuideProps<typeof Combat
     percentAtCap <= perfectTimeAtEssenceCap
       ? QualitativePerformance.Perfect
       : percentAtCap <= goodTimeAtEssenceCap
-      ? QualitativePerformance.Good
-      : percentAtCap <= okTimeAtEssenceCap
-      ? QualitativePerformance.Ok
-      : QualitativePerformance.Fail;
+        ? QualitativePerformance.Good
+        : percentAtCap <= okTimeAtEssenceCap
+          ? QualitativePerformance.Ok
+          : QualitativePerformance.Fail;
 
   return (
     <SubSection title="Essence Graph">

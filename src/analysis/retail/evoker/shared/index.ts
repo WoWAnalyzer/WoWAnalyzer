@@ -1,13 +1,10 @@
-export {
-  default as LeapingFlamesNormalizer,
-  getLeapingDamageEvents,
-  getLeapingHealEvents,
-  generatedEssenceBurst,
-  getCastedGeneratedEssenceBurst,
-  isFromLeapingFlames,
-  getWastedEssenceBurst,
-} from './modules/normalizers/LeapingFlamesNormalizer';
+export { default as LeapingFlamesNormalizer } from './modules/normalizers/LeapingFlamesNormalizer';
+export { default as EmpowerNormalizer } from './modules/normalizers/EmpowerNormalizer';
+export { default as SpellUsable } from './modules/features/SpellUsable';
+export { default as GlobalCooldown } from './modules/features/GlobalCooldown';
 export { default as LivingFlameNormalizer } from './modules/normalizers/LivingFlameNormalizer';
+export { default as EssenceBurstCastLinkNormalizer } from './modules/normalizers/EssenceBurstCastLinkNormalizer';
+export { default as EssenceBurstRefreshNormalizer } from './modules/normalizers/EssenceBurstRefreshNormalizer';
 export { default as LeapingFlames } from './modules/talents/LeapingFlames';
 export { default as LivingFlamePrePullNormalizer } from './modules/normalizers/LivingFlamePrePullNormalizer';
 export { default as SpellEssenceCost } from './modules/core/essence/SpellEssenceCost';

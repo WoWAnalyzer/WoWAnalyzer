@@ -6,6 +6,7 @@
 
 # production
 /build
+/dist
 
 # scripts
 /scripts/talents/*.json
@@ -63,3 +64,9 @@ coverage/*
 /test-results/
 /playwright-report/
 /playwright/.cache/
+
+# pnpm when running in Docker
+.pnpm-store
+
+# #vitest/ui
+html/

@@ -1,11 +1,13 @@
 import type { Boss } from 'game/raids';
 
-import Background from './images/raszageth.jpg';
+import Background from './backgrounds/raszageth.jpg';
+import Headshot from './headshots/Raszageth.jpg';
 
 const Raszageth: Boss = {
   id: 2607,
   name: 'Raszageth the Storm-Eater',
   background: Background,
+  headshot: Headshot,
   icon: 'achievement_raidprimalist_raszageth',
   fight: {
     resultsWarning:

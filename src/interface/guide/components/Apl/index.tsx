@@ -113,7 +113,7 @@ const AplLayout = styled.div`
   }
 `;
 
-export type AplSectionProps = {
+type AplSectionProps = {
   checker: ReturnType<typeof aplCheck>;
   apl: Apl;
   summary?: typeof AplSummary;

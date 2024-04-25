@@ -1,6 +1,9 @@
 import { AnyEvent, EventType, HasRelatedEvent } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
-import { EBON_MIGHT_APPLY_REMOVE_LINK, EBON_MIGHT_BUFF_LINKS } from './CastLinkNormalizer';
+import CastLinkNormalizer, {
+  EBON_MIGHT_APPLY_REMOVE_LINK,
+  EBON_MIGHT_BUFF_LINKS,
+} from './CastLinkNormalizer';
 import SPELLS from 'common/SPELLS/evoker';
 
 /** This Normalizer fixes an issue that happens very rarely, where external Ebon Might
@@ -23,10 +26,9 @@ import SPELLS from 'common/SPELLS/evoker';
  * */
 
 class EbonMightNormalizer extends EventsNormalizer {
-  // Set lower priority to ensure this runs after our CastLinkNormalizer
-  priority = 101;
   static dependencies = {
     ...EventsNormalizer.dependencies,
+    castLinkNormalizer: CastLinkNormalizer,
   };
   normalize(events: any[]): any[] {
     const fixedEvents: any[] = [];

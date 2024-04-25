@@ -6,7 +6,7 @@ import { AlertKind } from 'interface/Alert';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import { ReactNode } from 'react';
 
-import { Stats } from './shared/modules/StatTracker';
+import type { Stats } from './shared/modules/StatTracker';
 
 export type Build = {
   url: string;
@@ -25,12 +25,9 @@ export type Builds = { [name: string]: Build };
 
 type VaultPatchCycle = `0.${0 | 2 | 5 | 7}`;
 type AberrusPatchCycle = `1.${0 | 5 | 7}`;
-type AmirdrassilPatchCycle = `2.${0 | 5 | 6}`;
-export type DragonflightPatchVersion = `10.${
-  | VaultPatchCycle
-  | AberrusPatchCycle
-  | AmirdrassilPatchCycle}`;
-export type WrathPatchVersion = `3.4.0`;
+type AmirdrassilPatchCycle = `2.${0 | 5 | 6 | 7}`;
+type DragonflightPatchVersion = `10.${VaultPatchCycle | AberrusPatchCycle | AmirdrassilPatchCycle}`;
+type WrathPatchVersion = `3.4.0`;
 
 interface Config {
   /**

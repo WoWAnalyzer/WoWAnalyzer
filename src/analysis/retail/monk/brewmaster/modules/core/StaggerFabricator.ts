@@ -33,7 +33,7 @@ type PurifyBreakdown = {
   [key: number]: number;
 };
 
-export type MaxHPEvent = AnyEvent & { maxHitPoints?: number };
+type MaxHPEvent = AnyEvent & { maxHitPoints?: number };
 
 /**
  * Fabricate events corresponding to stagger pool updates. Each stagger

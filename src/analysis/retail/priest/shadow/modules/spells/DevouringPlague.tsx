@@ -1,10 +1,7 @@
-import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/priest';
-import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import UptimeBar, { Uptime } from 'parser/ui/UptimeBar';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { SpellIcon } from 'interface';
@@ -21,38 +18,6 @@ class DevouringPlague extends Analyzer {
   get uptime() {
     return (
       this.enemies.getBuffUptime(TALENTS.DEVOURING_PLAGUE_TALENT.id) / this.owner.fightDuration
-    );
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.uptime,
-      isLessThan: {
-        minor: 0.85,
-        average: 0.75,
-        major: 0.65,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <span>
-          Your <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} /> uptime can be improved. Try to
-          pay more attention to your <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} /> on the
-          boss.
-        </span>,
-      )
-        .icon(TALENTS.DEVOURING_PLAGUE_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'priest.shadow.suggestions.devouringPlague.uptime',
-            message: `${formatPercentage(actual)}% Devouring Plauge uptime`,
-          }),
-        )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
     );
   }
 

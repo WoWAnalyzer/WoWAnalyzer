@@ -25,7 +25,7 @@ const ItemLink = (props: Props) => {
   delete others.icon;
   delete others.quality;
 
-  if (process.env.NODE_ENV === 'development' && !children && !ITEMS[id]) {
+  if (import.meta.env.DEV && !children && !ITEMS[id]) {
     throw new Error(`Unknown item: ${id}`);
   }
 

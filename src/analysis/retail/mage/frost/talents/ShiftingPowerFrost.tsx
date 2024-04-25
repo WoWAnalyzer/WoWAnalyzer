@@ -90,7 +90,7 @@ class ShiftingPowerFrost extends Analyzer {
         {icyVeins}. You should cast it when:
         <ul>
           <li>
-            {rayOfFrost}, {cometStorm} and {frozenOrb} are more than 10 seconds of CD
+            {rayOfFrost}, {cometStorm} and {frozenOrb} are on CD for at least 10 seconds.
           </li>
           <li>
             <b>OR</b>

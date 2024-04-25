@@ -100,8 +100,8 @@ class PhaseSelector extends React.PureComponent<Props, State> {
           fight.filtered && !fight.phase
             ? SELECTION_CUSTOM_PHASE
             : selectedPhase === SELECTION_ALL_PHASES
-            ? SELECTION_ALL_PHASES
-            : selectedPhase + INSTANCE_SEPARATOR + selectedInstance
+              ? SELECTION_ALL_PHASES
+              : selectedPhase + INSTANCE_SEPARATOR + selectedInstance
         }
         onChange={this.handleChange}
         ref={this.phaseRef}

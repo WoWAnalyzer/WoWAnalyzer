@@ -10,8 +10,8 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import { formatPercentage } from 'common/format';
 import { SpellLink } from 'interface';
 
-const HEALING_BONUS_PER_STACK = 0.01;
-const MAX_STACKS = 50;
+const HEALING_BONUS_PER_STACK = 0.05;
+const MAX_STACKS = 20;
 
 //Example log: /reports/w9BXrzFApPbj6LnG#fight=14&type=healing&source=19
 class HealingChorus extends Analyzer {

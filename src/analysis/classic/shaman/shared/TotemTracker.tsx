@@ -12,14 +12,14 @@ import {
   TOTEMS_BY_ELEMENT,
 } from './totems/totemConstants';
 
-export interface TotemEventTracker {
+interface TotemEventTracker {
   [TotemElements.Fire]: TotemEvent[];
   [TotemElements.Water]: TotemEvent[];
   [TotemElements.Earth]: TotemEvent[];
   [TotemElements.Air]: TotemEvent[];
 }
 
-export interface TotemEvent {
+interface TotemEvent {
   totemSpellId: number;
   totemName: string; // This is just to make debugging easier
   summonedAt: number;

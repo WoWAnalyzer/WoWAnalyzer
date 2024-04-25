@@ -72,7 +72,7 @@ class Combatant extends Entity {
     }
 
     let race = Object.values(RACES).find((race) => race.id === raceId);
-    if (race === undefined) {
+    if (!race) {
       throw new Error(`Unknown race id ${raceId}`);
     }
     if (!this.owner.boss) {

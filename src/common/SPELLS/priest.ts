@@ -873,6 +873,12 @@ const spells = {
     icon: 'inv_mace_1h_artifactheartofkure_d_05',
   },
 
+  SHADOW_PRIEST_TIER_30_4_SET_BUFF: {
+    id: 409502,
+    name: 'Darkflame Embers',
+    icon: 'spell_nzinsanity_panicattack',
+  },
+
   SHADOW_PRIEST_TIER_31_4_SET_BUFF: {
     id: 423726,
     name: 'Deaths Torment',

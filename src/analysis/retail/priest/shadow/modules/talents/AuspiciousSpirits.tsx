@@ -1,15 +1,12 @@
-import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
-import Insanity from 'interface/icons/Insanity';
+import ItemInsanityGained from 'analysis/retail/priest/shadow/interface/ItemInsanityGained';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
-import { SPIRIT_DAMAGE_MULTIPLIER } from '../../constants';
+import { AUSPICIOUS_SPIRITS_DAMAGE_MULTIPLIER } from '../../constants';
 
 class AuspiciousSpirits extends Analyzer {
   damage = 0;
@@ -36,24 +33,19 @@ class AuspiciousSpirits extends Analyzer {
     this.insanity += event.resourceChange;
   }
 
-  statistic() {
+  //this is used in ShadowyApparitions to show all Apparition Talents together
+  subStatistic() {
     return (
-      <Statistic
-        category={STATISTIC_CATEGORY.TALENTS}
-        size="flexible"
-        tooltip="The damage displayed is the additional damage you gained from taking this talent."
-      >
-        <BoringSpellValueText spell={TALENTS.AUSPICIOUS_SPIRITS_TALENT}>
-          <>
-            <div>
-              <ItemDamageDone amount={this.damage - this.damage / SPIRIT_DAMAGE_MULTIPLIER} />
-            </div>
-            <div>
-              <Insanity /> {formatNumber(this.insanity)} <small>Insanity generated</small>
-            </div>
-          </>
-        </BoringSpellValueText>
-      </Statistic>
+      <BoringSpellValueText spell={TALENTS.AUSPICIOUS_SPIRITS_TALENT}>
+        <div>
+          <ItemDamageDone
+            amount={this.damage - this.damage / AUSPICIOUS_SPIRITS_DAMAGE_MULTIPLIER}
+          />
+        </div>
+        <div>
+          <ItemInsanityGained amount={this.insanity} />
+        </div>
+      </BoringSpellValueText>
     );
   }
 }

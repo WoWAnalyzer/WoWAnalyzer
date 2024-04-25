@@ -999,7 +999,7 @@ class StatTracker extends Analyzer {
 /**
  * TODO better docs for this object once I understand how it works
  */
-export interface PenaltyThreshold {
+interface PenaltyThreshold {
   base: number;
   scaled: number;
   penaltyAboveThis: number;
@@ -1026,39 +1026,39 @@ export interface Stats {
 /**
  * A player's total stat ratings
  */
-export type PlayerStats = Stats;
+type PlayerStats = Stats;
 
 /**
  * A player's total stat multipliers
  */
-export type PlayerMultipliers = Stats;
+type PlayerMultipliers = Stats;
 
 /**
  * StatBuff values can be represented as a static value
  * or as a dynamically generated value using the combatant and item
  * (typically an item buff will have power based on its ilvl)
  */
-export type BuffVal = number | ((s: Combatant, t: Item | null) => number);
+type BuffVal = number | ((s: Combatant, t: Item | null) => number);
 
 /**
  * A buff that boosts player stats.
  * 'itemId' need only be filled in for an item based buff, when we will need the ID for the BuffVal callback.
  */
-export type StatBuff = Partial<Record<keyof Stats, BuffVal>> & { itemId?: number };
+type StatBuff = Partial<Record<keyof Stats, BuffVal>> & { itemId?: number };
 
 /**
  * StatBuffs mapped by their guid
  */
-export type StatBuffsByGuid = { [key: string]: StatBuff };
+type StatBuffsByGuid = { [key: string]: StatBuff };
 
 /**
  * A buff or effect that multiplies stats (as opposed to adding)
  */
-export type StatMultiplier = Partial<Stats>;
+type StatMultiplier = Partial<Stats>;
 
 /**
  * StatMultipliers mapped by their guid
  */
-export type StatMultipliersByGuid = { [key: string]: StatMultiplier };
+type StatMultipliersByGuid = { [key: string]: StatMultiplier };
 
 export default StatTracker;

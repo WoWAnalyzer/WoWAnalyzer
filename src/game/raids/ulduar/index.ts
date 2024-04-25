@@ -1,24 +1,38 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-import Ulduar from './images/Ulduar.jpg';
 import type { Raid } from 'game/raids';
+
+import Ulduar from './images/Ulduar.jpg';
+import FlameLeviathan from './FlameLeviathan';
+import Ignis from './Ignis';
+import Razorscale from './Razorscale';
+import XT002 from './XT002';
+import IronCouncil from './IronCouncil';
+import Kologarn from './Kologarn';
+import Auriaya from './Auriaya';
+import Hodir from './Hodir';
+import Thorim from './Thorim';
+import Freya from './Freya';
+import Mimiron from './Mimiron';
+import GeneralVezax from './GeneralVezax';
+import YoggSaron from './YoggSaron';
+import Algalon from './Algalon';
 
 export default {
   name: 'Ulduar', // T8
   background: Ulduar,
   bosses: {
-    FlameLeviathan: require('./FlameLeviathan').default, // 1
-    Ignis: require('./Ignis').default, // 2
-    Razorscale: require('./Razorscale').default, // 3
-    XT002: require('./XT002').default, // 4
-    IronCouncil: require('./IronCouncil').default, // 5
-    Kologarn: require('./Kologarn').default, // 6
-    Auriaya: require('./Auriaya').default, // 7
-    Hodir: require('./Hodir').default, // 8
-    Thorim: require('./Thorim').default, // 9
-    Freya: require('./Freya').default, // 10
-    Mimiron: require('./Mimiron').default, // 11
-    GeneralVezax: require('./GeneralVezax').default, // 12
-    YoggSaron: require('./YoggSaron').default, // 13
-    Algalon: require('./Algalon').default, // 14
+    FlameLeviathan,
+    Ignis,
+    Razorscale,
+    XT002,
+    IronCouncil,
+    Kologarn,
+    Auriaya,
+    Hodir,
+    Thorim,
+    Freya,
+    Mimiron,
+    GeneralVezax,
+    YoggSaron,
+    Algalon,
   },
 } satisfies Raid;

@@ -13,7 +13,7 @@ import DragonRage from './modules/abilities/DragonRage';
 import CastLinkNormalizer from './modules/normalizers/CastLinkNormalizer';
 import EssenceBurstNormalizer from './modules/normalizers/EssenceBurstNormalizer';
 import Snapfire from './modules/abilities/Snapfire';
-import T30DevaTier4P from './modules/dragonflight/tier/T30DevaTier4P';
+import T30DevaTier from './modules/dragonflight/tier/T30DevaTier';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import Catalyze from './modules/talents/Catalyze';
 import Scintillation from './modules/talents/Scintillation';
@@ -34,8 +34,13 @@ import T31DevaTier from './modules/dragonflight/tier/T31DevaTier';
 import {
   LivingFlameNormalizer,
   LivingFlamePrePullNormalizer,
+  EssenceBurstCastLinkNormalizer,
+  EssenceBurstRefreshNormalizer,
   LeapingFlamesNormalizer,
   LeapingFlames,
+  EmpowerNormalizer,
+  SpellUsable,
+  GlobalCooldown,
   SpellEssenceCost,
   EssenceTracker,
   EssenceGraph,
@@ -51,9 +56,16 @@ import NewShatteringStar from './modules/abilities/NewShatteringStar';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
+    // Empower Normalizer
+    empowerNormalizer: EmpowerNormalizer,
+    spellUsable: SpellUsable,
+    globalCooldown: GlobalCooldown,
+
     // Shared
     livingFlameNormalizer: LivingFlameNormalizer,
     livingFlamePrePullNormalizer: LivingFlamePrePullNormalizer,
+    essenceBurstRefreshNormalizer: EssenceBurstRefreshNormalizer,
+    essenceBurstCastLinkNormalizer: EssenceBurstCastLinkNormalizer,
     leapingFlamesNormalizer: LeapingFlamesNormalizer,
     leapingFlames: LeapingFlames,
     spellEssenceCost: SpellEssenceCost,
@@ -105,7 +117,7 @@ class CombatLogParser extends MainCombatLogParser {
     dragonRage: DragonRage,
 
     // tier
-    T30devaTier4P: T30DevaTier4P,
+    T30devaTier: T30DevaTier,
     T31devaTier: T31DevaTier,
   };
 

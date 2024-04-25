@@ -37,6 +37,10 @@ class WintersChillEvent {
     this.applier = applier;
   }
 
+  comesFromFlurry(): boolean {
+    return this.applier?.ability.guid === TALENTS.FLURRY_TALENT.id || false;
+  }
+
   hasTwoShatteredSpells(): boolean {
     const shatteredSpenders = this.damageEvents.filter((damage) =>
       WINTERS_CHILL_SPENDERS.includes(damage.ability.guid),
@@ -64,7 +68,7 @@ class WintersChillEvent {
   getShatterPerformanceMessage(): string {
     let message = '';
     if (!this.hasTwoShatteredSpells() && !this.hasOneSpellAndRayOfFrost()) {
-      message = 'Stacks not used';
+      message = 'Stacks not used or miss used';
     } else if (this.hasTwoShatteredSpells()) {
       message = '2 spells shattered';
     } else if (this.hasOneSpellAndRayOfFrost()) {
@@ -129,12 +133,22 @@ class WintersChillEvent {
     if (applier) {
       spells.push(applier);
     }
-    this.damageEvents.forEach((damage) => {
-      const spell: Spell = SPELLS[damage.ability.guid];
-      if (spell) {
-        spells.push(spell);
-      }
-    });
+
+    const damageSpells = this.damageEvents
+      .map((damage) => SPELLS[damage.ability.guid])
+      .filter((spell) => spell); // filters undefined
+
+    // Delete the precast from the damage side
+    if (damageSpells.length > 0 && precast && damageSpells[0].icon === precast.icon) {
+      damageSpells.shift();
+    }
+
+    damageSpells
+      .filter((spell, pos, arr) => {
+        return this._isNotRayOfFrostTick(pos, spell, arr);
+      })
+      .forEach((spell) => spells.push(spell));
+
     const tooltip = (
       <>
         <div>
@@ -149,6 +163,14 @@ class WintersChillEvent {
       </>
     );
     return tooltip;
+  }
+
+  private _isNotRayOfFrostTick(pos: number, spell: Spell, arr: Spell[]) {
+    return (
+      pos === 0 ||
+      spell !== SPELLS[TALENTS.RAY_OF_FROST_TALENT.id] ||
+      (spell === SPELLS[TALENTS.RAY_OF_FROST_TALENT.id] && spell !== arr[pos - 1])
+    );
   }
 }
 

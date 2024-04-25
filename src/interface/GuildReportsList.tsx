@@ -35,7 +35,7 @@ const GuildReportsList = ({ reports, classic }: Props) => (
           <Link to={url}>
             <div className="row">
               <div className="col-sm-2">
-                {new Date(report.start).toLocaleString(process.env.LOCALE)}
+                {new Date(report.start).toLocaleString(import.meta.env.LOCALE)}
               </div>
               <div className="col-sm-5">{report.title}</div>
               <div className="col-sm-2">{zoneNameById(report.zone, classic)}</div>

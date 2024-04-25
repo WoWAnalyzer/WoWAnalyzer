@@ -28,7 +28,6 @@ import BlisteringScalesStackTracker from './modules/talents/BlisteringScalesStac
 
 import PrescienceNormalizer from './modules/normalizers/PrescienceNormalizer';
 import CastLinkNormalizer from './modules/normalizers/CastLinkNormalizer';
-import EmpowerNormalizer from './modules/normalizers/EmpowerNormalizer';
 import EbonMightNormalizer from './modules/normalizers/EbonMightNormalizer';
 
 // Tier
@@ -38,8 +37,13 @@ import T31Augmentation4P from './modules/dragonflight/T31Augmentation4P';
 import {
   LivingFlameNormalizer,
   LivingFlamePrePullNormalizer,
+  EssenceBurstCastLinkNormalizer,
+  EssenceBurstRefreshNormalizer,
   LeapingFlamesNormalizer,
   LeapingFlames,
+  EmpowerNormalizer,
+  SpellUsable,
+  GlobalCooldown,
   SpellEssenceCost,
   EssenceTracker,
   EssenceGraph,
@@ -54,9 +58,16 @@ import {
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
+    // Empower Normalizer
+    empowerNormalizer: EmpowerNormalizer,
+    spellUsable: SpellUsable,
+    globalCooldown: GlobalCooldown,
+
     // Shared
     livingFlameNormalizer: LivingFlameNormalizer,
     livingFlamePrePullNormalizer: LivingFlamePrePullNormalizer,
+    essenceBurstRefreshNormalizer: EssenceBurstRefreshNormalizer,
+    essenceBurstCastLinkNormalizer: EssenceBurstCastLinkNormalizer,
     leapingFlamesNormalizer: LeapingFlamesNormalizer,
     leapingFlames: LeapingFlames,
     spellEssenceCost: SpellEssenceCost,
@@ -74,7 +85,6 @@ class CombatLogParser extends MainCombatLogParser {
     // Normalizers
     castLinkNormalizer: CastLinkNormalizer,
     prescienceNormalizer: PrescienceNormalizer,
-    empowerNormalizer: EmpowerNormalizer,
     ebonMightNormalizer: EbonMightNormalizer,
 
     // Core

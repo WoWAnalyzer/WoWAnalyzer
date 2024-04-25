@@ -2,8 +2,8 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
 import HIT_TYPES from 'game/HIT_TYPES';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { Options } from 'parser/core/Analyzer';
-import EventFilter, { SELECTED_PLAYER } from 'parser/core/EventFilter';
+import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import EventFilter from 'parser/core/EventFilter';
 import Events, {
   DamageEvent,
   EventType,

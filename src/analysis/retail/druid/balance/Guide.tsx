@@ -17,6 +17,7 @@ import {
 } from 'analysis/retail/druid/balance/modules/core/astralpower/AstralPowerTracker';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 import ActiveTimeGraph from 'parser/ui/ActiveTimeGraph';
+import { cdSpell } from 'analysis/retail/druid/balance/constants';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -140,17 +141,9 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
       you waited to use them again. Grey segments show when the spell was available, yellow segments
       show when the spell was cooling down. Red segments highlight times when you could have fit a
       whole extra use of the cooldown.
-      {info.combatant.hasTalent(TALENTS_DRUID.CELESTIAL_ALIGNMENT_TALENT) &&
-        !info.combatant.hasTalent(TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT) && (
-          <CastEfficiencyBar
-            spellId={SPELLS.CELESTIAL_ALIGNMENT.id}
-            gapHighlightMode={GapHighlight.FullCooldown}
-            useThresholds
-          />
-        )}
-      {info.combatant.hasTalent(TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT) && (
+      {info.combatant.hasTalent(TALENTS_DRUID.CELESTIAL_ALIGNMENT_TALENT) && (
         <CastEfficiencyBar
-          spellId={SPELLS.INCARNATION_CHOSEN_OF_ELUNE.id}
+          spellId={cdSpell(info.combatant).id}
           gapHighlightMode={GapHighlight.FullCooldown}
           useThresholds
         />

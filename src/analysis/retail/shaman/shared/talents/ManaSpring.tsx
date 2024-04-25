@@ -79,12 +79,10 @@ class ManaSpring extends Analyzer {
             <ul>
               {Object.values(this.regenPerTarget).map((p) => {
                 return (
-                  <>
-                    <li>
-                      <SpecIcon icon={p.target.player.icon} /> {p.target.name}:{' '}
-                      {formatNumber(p.amount)}
-                    </li>
-                  </>
+                  <li key={p.target.player.id}>
+                    <SpecIcon icon={p.target.player.icon} /> {p.target.name}:{' '}
+                    {formatNumber(p.amount)}
+                  </li>
                 );
               })}
             </ul>

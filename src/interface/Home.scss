@@ -22,7 +22,9 @@ section header h1 {
   nav {
     position: relative;
     flex: 0 0 auto;
-    text-shadow: 1px -1px 3px #150a0a, -1px 1px 3px #150a0a;
+    text-shadow:
+      1px -1px 3px #150a0a,
+      -1px 1px 3px #150a0a;
     text-align: center;
     margin: 30px 0;
     border-radius: 3px;

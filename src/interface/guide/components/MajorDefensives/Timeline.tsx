@@ -6,7 +6,7 @@ import { HasAbility, AbilityEvent, EventType } from 'parser/core/Events';
 import { useMemo } from 'react';
 import { useCallback, useState } from 'react';
 import { SignalListener } from 'react-vega';
-import { AutoSizer } from 'react-virtualized';
+import AutoSizer from 'react-virtualized-auto-sizer';
 import EmbeddedTimelineContainer, {
   SpellTimeline,
 } from 'interface/report/Results/Timeline/EmbeddedTimeline';
