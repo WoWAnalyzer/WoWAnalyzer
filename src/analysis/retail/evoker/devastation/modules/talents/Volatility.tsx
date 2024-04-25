@@ -89,14 +89,16 @@ class Volatility extends Analyzer {
       this.latestTimestamp = event.timestamp;
 
       this.volatilityProcs += 1;
-      /** Volatility can infinitely chain procs.
-       * Technically we should be tracking the amount of hits to determine
-       * whether or not this has a chance to re-proc, but if it procced, it
-       * should be safe to assume it can proc again. */
-      this.volatilityProcAttempts += 1;
     }
 
     this.currentTargets.add(target);
+
+    /** Volatility can infinitely chain procs.
+     * It still needs to be able to bounce, so we
+     * track the amount of hits to determine whether or not it can */
+    if (this.currentTargets.size === 2) {
+      this.volatilityProcAttempts += 1;
+    }
 
     this.volatilityDamage += event.amount + (event.absorbed ?? 0);
   }
