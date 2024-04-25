@@ -17,9 +17,9 @@ import SPELLS from 'common/SPELLS';
 import { AtLeastFiveMSW, MaxStacksMSW } from './Conditions';
 import { TIERS } from 'game/TIERS';
 import {
-  getTier31ElementalistApl,
-  getTier31StormApl,
-} from 'analysis/retail/shaman/enhancement/modules/apl/Tier31';
+  getSeason3or4ElementalistApl,
+  getSeason3or4StormApl,
+} from 'analysis/retail/shaman/enhancement/modules/apl/DragonflightS3AndS4';
 
 /**
  * Based on https://www.icy-veins.com/wow/enhancement-shaman-pve-dps-guide
@@ -28,11 +28,11 @@ import {
 export const apl = (info: PlayerInfo): Apl => {
   const combatant = info.combatant;
 
-  if (combatant.has4PieceByTier(TIERS.DF3)) {
+  if (combatant.has4PieceByTier(TIERS.DF3) || combatant.has4PieceByTier(TIERS.DF4)) {
     return build(
       combatant.hasTalent(TALENTS.HOT_HAND_TALENT)
-        ? getTier31ElementalistApl()
-        : getTier31StormApl(),
+        ? getSeason3or4ElementalistApl()
+        : getSeason3or4StormApl(),
     );
   }
   const rules: Rule[] = [];
