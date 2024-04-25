@@ -10,13 +10,11 @@ import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { SpellLink } from 'interface';
 import ContextualSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
-import { IRIDESCENCE_BLUE_CONSUME } from '../normalizers/CastLinkNormalizer';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import DonutChart from 'parser/ui/DonutChart';
-import { isMythicPlus } from 'common/isMythicPlus';
 
 const WHITELISTED_SPELLS: Spell[] = [
   SPELLS.DISINTEGRATE,
@@ -194,11 +192,6 @@ class NewShatteringStar extends Analyzer {
       });
     }
 
-    const iridescencePerformance = this.getIridescencePerformance(window.event);
-    if (iridescencePerformance) {
-      checklistItems.push(iridescencePerformance);
-    }
-
     // Not bonking for weak casts, but maybe should idk
     const actualPerformance = castPerformance.strongCast.performance;
 
@@ -211,29 +204,6 @@ class NewShatteringStar extends Analyzer {
           ? `${actualPerformance} Usage`
           : 'Bad Usage',
     };
-  }
-
-  // Skip check in keys, maybe track if AoE in raid and skip it there also.
-  private getIridescencePerformance(event: CastEvent): ChecklistUsageInfo | undefined {
-    if (isMythicPlus(this.owner.fight)) {
-      return undefined;
-    }
-    if (HasRelatedEvent(event, IRIDESCENCE_BLUE_CONSUME)) {
-      return {
-        check: 'iridescence-blue-consume',
-        timestamp: event.timestamp,
-        performance: QualitativePerformance.Fail,
-        summary: <>Consumed Iridescence</>,
-        details: (
-          <div key="iridescence-blue-consume">
-            Cast consumed <SpellLink spell={SPELLS.IRIDESCENCE_BLUE} />. You should try to spend it
-            on <SpellLink spell={SPELLS.DISINTEGRATE} /> instead.
-          </div>
-        ),
-      };
-    }
-
-    return undefined;
   }
 
   /** Get the performance of each cast in the window
