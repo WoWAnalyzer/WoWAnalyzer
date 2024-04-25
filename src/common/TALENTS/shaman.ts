@@ -349,7 +349,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [102004],
     definitionIds: [{ id: 106968, specId: 262 }],
-    manaCost: 5000,
+    manaCost: 12500,
   },
   EARTH_SHOCK_TALENT: {
     id: 8042,

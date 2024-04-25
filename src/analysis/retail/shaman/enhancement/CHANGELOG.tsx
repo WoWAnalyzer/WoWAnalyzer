@@ -5,6 +5,8 @@ import { Taum, Vetyst, Vohrr, xunni, Seriousnes, ToppleTheNun, Putro } from 'CON
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2024, 4, 24), <>Updating mana cost for <SpellLink spell={TALENTS.EARTH_SHIELD_TALENT} />.</>, Seriousnes),
+  change(date(2024, 4, 24), <>Updated to 10.2.6 compatibility </>, Seriousnes),
   change(date(2024, 4, 10), <><SpellLink spell={TALENTS.CHAIN_LIGHTNING_TALENT} /> damage calculations didn't include chains</>, Seriousnes),
   change(date(2024, 3, 26), 'Remove support for Shadowlands tier set.', ToppleTheNun),
   change(date(2024, 1, 17), <>Mark as updated for 10.2.5, updating relevant statistics now that <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT} /> does elemental damage.</>, Seriousnes),
