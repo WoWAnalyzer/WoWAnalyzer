@@ -52,6 +52,8 @@ import {
   LivingFlameNormalizer,
   LivingFlamePrePullNormalizer,
   LeapingFlamesNormalizer,
+  EssenceBurstRefreshNormalizer,
+  EssenceBurstCastLinkNormalizer,
   LeapingFlames,
   EmpowerNormalizer,
   SpellUsable,
@@ -61,7 +63,6 @@ import {
   SourceOfMagic,
   PotentMana,
 } from '../shared';
-import EBRefreshNormalizer from './normalizers/EBRefreshNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -70,7 +71,8 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldowns: CooldownThroughputTracker,
 
     // Normalizer
-    ebRefreshNormalizer: EBRefreshNormalizer,
+    essenceBurstCastLinkNormalizer: EssenceBurstCastLinkNormalizer,
+    essenceBurstRefreshNormalizer: EssenceBurstRefreshNormalizer,
     livingFlameNormalizer: LivingFlameNormalizer,
     castLinkNormalizer: CastLinkNormalizer,
     hotApplicationNormalizer: HotApplicationNormalizer,

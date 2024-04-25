@@ -35,6 +35,8 @@ import Pyre from './modules/abilities/Pyre';
 import {
   LivingFlameNormalizer,
   LivingFlamePrePullNormalizer,
+  EssenceBurstCastLinkNormalizer,
+  EssenceBurstRefreshNormalizer,
   LeapingFlamesNormalizer,
   LeapingFlames,
   EmpowerNormalizer,
@@ -62,6 +64,8 @@ class CombatLogParser extends MainCombatLogParser {
     // Shared
     livingFlameNormalizer: LivingFlameNormalizer,
     livingFlamePrePullNormalizer: LivingFlamePrePullNormalizer,
+    essenceBurstRefreshNormalizer: EssenceBurstRefreshNormalizer,
+    essenceBurstCastLinkNormalizer: EssenceBurstCastLinkNormalizer,
     leapingFlamesNormalizer: LeapingFlamesNormalizer,
     leapingFlames: LeapingFlames,
     spellEssenceCost: SpellEssenceCost,
