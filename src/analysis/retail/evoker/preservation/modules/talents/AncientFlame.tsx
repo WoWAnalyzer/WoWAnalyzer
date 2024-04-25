@@ -90,7 +90,11 @@ class AncientFlame extends Analyzer {
     );
     const value = QualitativePerformance.Good;
     this.consumptions.push({ value, tooltip });
-    this.consumeTimes.push(event.timestamp - applyEvent.timestamp ?? this.owner.fight.start_time);
+    const startTime =
+      applyEvent === null || applyEvent === undefined
+        ? this.owner.fight.start_time
+        : event.timestamp - applyEvent.timestamp;
+    this.consumeTimes.push(startTime);
   }
 
   get averageTimeToConsume() {
