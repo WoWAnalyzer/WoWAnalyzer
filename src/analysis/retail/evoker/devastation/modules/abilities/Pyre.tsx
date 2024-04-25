@@ -21,7 +21,9 @@ class Pyre extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.PYRE_TALENT);
+    this.active =
+      this.selectedCombatant.hasTalent(TALENTS.PYRE_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS.DRAGONRAGE_TALENT);
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.PYRE), this.onDamage);
   }
