@@ -25,7 +25,8 @@ export default class FriendlyCompatNormalizer extends EventsNormalizer {
       }
       if (
         event.type === EventType.Absorbed &&
-        (event.attackerID ?? 0) > 0 &&
+        event.attackerID &&
+        event.attackerID > 0 &&
         event.attackerIsFriendly === undefined
       ) {
         event.attackerIsFriendly = !this.enemies.isEnemy(event.attackerID, event.attackerInstance);
