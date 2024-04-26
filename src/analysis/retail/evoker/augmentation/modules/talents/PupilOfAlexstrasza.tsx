@@ -5,7 +5,7 @@ import { formatNumber } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Events, { CastEvent } from 'parser/core/Events';
-import { getPupilDamageEvents } from '../normalizers/CastLinkNormalizer';
+import { getPupilDamageEvent } from '../normalizers/CastLinkNormalizer';
 
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -29,12 +29,12 @@ class PupilOfAlexstrasza extends Analyzer {
   }
 
   onCast(event: CastEvent) {
-    const damageEvents = getPupilDamageEvents(event);
-    if (damageEvents.length > 1) {
-      damageEvents.forEach((damEvent) => {
-        this.PupilOfAlexstraszaDamage += damEvent.amount + (damEvent.absorbed ?? 0);
-      });
+    const damageEvent = getPupilDamageEvent(event);
+    if (!damageEvent) {
+      return;
     }
+
+    this.PupilOfAlexstraszaDamage += damageEvent.amount + (damageEvent.absorbed ?? 0);
   }
 
   statistic() {
@@ -45,12 +45,12 @@ class PupilOfAlexstrasza extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            <li>Damage: {formatNumber(this.PupilOfAlexstraszaDamage / 2)}</li>
+            <li>Damage: {formatNumber(this.PupilOfAlexstraszaDamage)}</li>
           </>
         }
       >
         <TalentSpellText talent={TALENTS.PUPIL_OF_ALEXSTRASZA_TALENT}>
-          <ItemDamageDone amount={this.PupilOfAlexstraszaDamage / 2} />
+          <ItemDamageDone amount={this.PupilOfAlexstraszaDamage} />
         </TalentSpellText>
       </Statistic>
     );

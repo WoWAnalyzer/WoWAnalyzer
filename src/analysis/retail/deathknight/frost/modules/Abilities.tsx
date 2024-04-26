@@ -98,7 +98,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(talents.FROSTWYRMS_FURY_TALENT),
       },
       {
-        spell: SPELLS.RAISE_DEAD_BLOOD_FROST.id,
+        spell: talents.RAISE_DEAD_SHARED_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: null,
         cooldown: 120,
@@ -131,12 +131,6 @@ class Abilities extends CoreAbilities {
         },
         cooldown: 120,
         enabled: combatant.hasTalent(talents.ABOMINATION_LIMB_TALENT),
-      },
-      {
-        spell: SPELLS.RAISE_DEAD_BLOOD_FROST.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        gcd: null,
-        cooldown: 120,
       },
       // ROTATIONAL
       {
@@ -225,14 +219,6 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         isDefensive: true,
-      },
-      {
-        spell: talents.DEATH_STRIKE_TALENT.id,
-        buffSpellId: talents.DEATH_STRIKE_TALENT.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        gcd: null,
-        cooldown: 120,
-        isDefensive: true,
         enabled: combatant.hasTalent(talents.DEATH_STRIKE_TALENT),
       },
       {
@@ -258,7 +244,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 500,
         },
-        cooldown: 25,
+        charges: combatant.hasTalent(talents.DEATHS_ECHO_TALENT) ? 2 : 1,
       },
       {
         spell: talents.CHAINS_OF_ICE_TALENT.id,
@@ -280,7 +266,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DARK_COMMAND.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: null,
-        cooldown: 8,
       },
       {
         spell: SPELLS.RAISE_ALLY.id,
@@ -309,7 +294,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 45,
+        enabled: combatant.hasTalent(talents.ASPHYXIATE_TALENT),
       },
       {
         spell: talents.CONTROL_UNDEAD_TALENT.id,

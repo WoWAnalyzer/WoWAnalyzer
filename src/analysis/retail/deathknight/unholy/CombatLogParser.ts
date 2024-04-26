@@ -23,7 +23,7 @@ import FesteringStrikeEfficiency from './modules/spells/FesteringStrikeEfficienc
 import ScourgeStrikeEfficiency from './modules/spells/ScourgeStrikeEfficiency';
 import VirulentPlagueEfficiency from './modules/spells/VirulentPlagueEfficiency';
 import ArmyOfTheDamned from './modules/talents/ArmyOfTheDamned';
-import SoulReaper from './modules/talents/SoulReaper';
+import SoulReaper from '../shared/talents/SoulReaper';
 import CommanderOfTheDead from './modules/talents/CommanderOfTheDead';
 import SummonGargoyleBuffs from './modules/talents/SummonGargoyleBuffs';
 import PlagueBringer from './modules/talents/PlagueBringer';

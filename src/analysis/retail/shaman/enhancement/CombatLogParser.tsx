@@ -112,7 +112,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Tier
     tier30: Tiers.T30,
-    tier31: Tiers.T31,
+    tier31: Tiers.Season3And4Tier,
 
     // Items
     callToDominance: CallToDominance,
