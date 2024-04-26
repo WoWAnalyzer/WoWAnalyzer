@@ -53,7 +53,6 @@ import AuspiciousSpirits from './modules/talents/AuspiciousSpirits';
 import PhantasmalPathogen from './modules/talents/PhantasmalPathogen';
 import TormentedSpirits from './modules/talents/TormentedSpirits';
 import PsychicLink from './modules/talents/PsychicLink';
-import PsychicLinkNormalizer from './modules/talents/PsychicLinkNormalizer';
 
 import Tier29FourSet from './modules/tier/Tier29ShadowPriest4Set';
 import Tier30 from './modules/tier/Tier30ShadowPriest';
@@ -122,7 +121,6 @@ class CombatLogParser extends MainCombatLogParser {
 
     // normalizers:
     channeling: Channeling,
-    psychicLinkNormalizer: PsychicLinkNormalizer,
     shadowfiendNormalizer: ShadowfiendNormalizer,
     tier31FourSetNormalizer: Tier31FourSetNormalizer,
 
