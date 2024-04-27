@@ -35,6 +35,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 4, 26), 'Actually fix friendly/enemy determination', emallson),
   change(date(2024, 4, 22), 'Improve display of dense performance boxes', emallson),
   change(date(2024, 4, 24), 'Bump for season 4 start.', ToppleTheNun),
   change(date(2024, 4, 22), 'Clean up dead code using knip', Putro),
