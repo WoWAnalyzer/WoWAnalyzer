@@ -11,7 +11,7 @@ import {
 import { minimumMaelstromWeaponStacks } from 'analysis/retail/shaman/enhancement/modules/apl/Conditions';
 import SpellLink from 'interface/SpellLink';
 
-export function getTier31ElementalistApl(): Rule[] {
+export function getSeason3or4ElementalistApl(): Rule[] {
   return [
     {
       spell: SPELLS.FLAME_SHOCK,
@@ -64,7 +64,7 @@ export function getTier31ElementalistApl(): Rule[] {
   ];
 }
 
-export function getTier31StormApl(): Rule[] {
+export function getSeason3or4StormApl(): Rule[] {
   return [
     {
       spell: SPELLS.WINDSTRIKE_CAST,
