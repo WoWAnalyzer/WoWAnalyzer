@@ -866,6 +866,12 @@ const spells = {
     icon: 'spell_priest_void-flay',
   },
 
+  PSYCHIC_LINK_TALENT_DAMAGE: {
+    id: 199486,
+    name: 'Psychich Link',
+    icon: 'ability_priest_psychiclink',
+  },
+
   //Shadow Tier
   SHADOW_PRIEST_TIER_29_4_SET_BUFF: {
     id: 394963,

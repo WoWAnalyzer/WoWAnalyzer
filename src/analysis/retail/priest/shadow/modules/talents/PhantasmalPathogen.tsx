@@ -26,6 +26,7 @@ class PhantasmalPathogen extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.PHANTASMAL_PATHOGEN_TALENT);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHADOWY_APPARITION_CAST),
       this.onCastSA,
