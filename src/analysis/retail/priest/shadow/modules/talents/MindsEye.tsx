@@ -1,10 +1,12 @@
 import TALENTS from 'common/TALENTS/priest';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
+import { CastEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import ItemInsanityGained from 'analysis/retail/priest/shadow/interface/ItemInsanityGained';
+import { formatNumber } from 'common/format';
+import InsanityIcon from 'interface/icons/Insanity';
 
 class MindsEye extends Analyzer {
   insanitySaved = 0;
@@ -18,8 +20,12 @@ class MindsEye extends Analyzer {
     );
   }
 
-  onDevouringPlague() {
-    this.insanitySaved += 5;
+  onDevouringPlague(event: CastEvent) {
+    const resource = event.classResources?.at(0)?.cost; //Some buffs grant free Devouring Plagues
+    if (resource != null) {
+      //If devouring Plague is free, then we have not saved the extra insanity
+      this.insanitySaved += 5;
+    }
   }
 
   statistic() {
@@ -27,11 +33,11 @@ class MindsEye extends Analyzer {
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
-        tooltip="Amount of Insanity Saved"
+        tooltip="Amount of Insanity saved due to cost reduction"
       >
         <BoringSpellValueText spell={TALENTS.MINDS_EYE_TALENT}>
           <div>
-            <ItemInsanityGained amount={this.insanitySaved} />
+            <InsanityIcon /> {formatNumber(this.insanitySaved)} <small> Insanity Saved</small>
           </div>
         </BoringSpellValueText>
       </Statistic>

@@ -1,17 +1,18 @@
 import TALENTS from 'common/TALENTS/priest';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { DamageEvent } from 'parser/core/Events';
+import { CastEvent, DamageEvent } from 'parser/core/Events';
 import Events from 'parser/core/Events';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import ItemInsanityGained from 'analysis/retail/priest/shadow/interface/ItemInsanityGained';
+import { formatNumber } from 'common/format';
+import InsanityIcon from 'interface/icons/Insanity';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 class DistortedReality extends Analyzer {
   damage = 0;
-  insanity = 0; // extra insanity requred to cast spell
+  insanitySpent = 0; // extra insanity requred to cast spell
   multiplierDistortedReality = 0.2; //20%
 
   constructor(options: Options) {
@@ -31,8 +32,12 @@ class DistortedReality extends Analyzer {
     this.damage += calculateEffectiveDamage(event, this.multiplierDistortedReality);
   }
 
-  onDevouringPlagueCast() {
-    this.insanity += 5;
+  onDevouringPlagueCast(event: CastEvent) {
+    const resource = event.classResources?.at(0)?.cost; //Some buffs grant free Devouring Plagues
+    if (resource != null) {
+      //If devouring Plague is free, then we have not spent the extra insanity
+      this.insanitySpent += 5;
+    }
   }
 
   statistic() {
@@ -40,12 +45,14 @@ class DistortedReality extends Analyzer {
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
-        tooltip="Amount of Insanity Lost due to higher cost"
+        tooltip="Amount of extra Insanity used due to the increased cost"
       >
         <BoringSpellValueText spell={TALENTS.DISTORTED_REALITY_TALENT}>
           <div>
             <ItemDamageDone amount={this.damage} />
-            <ItemInsanityGained amount={this.insanity} />
+          </div>
+          <div>
+            <InsanityIcon /> {formatNumber(this.insanitySpent)} <small> Extra Insanity Cost</small>
           </div>
         </BoringSpellValueText>
       </Statistic>
