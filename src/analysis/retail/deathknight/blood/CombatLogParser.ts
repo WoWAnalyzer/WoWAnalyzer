@@ -1,5 +1,4 @@
 import {
-  RuneTracker,
   RuneDetails,
   RuneOfTheFallenCrusader,
   RuneOfHysteria,
@@ -45,6 +44,7 @@ import RelishInBlood from './modules/talents/RelishInBlood';
 import Tombstone from './modules/talents/Tombstone';
 import Voracious from './modules/talents/Voracious';
 import WillOfTheNecropolis from './modules/talents/WillOfTheNecropolis';
+import RuneTracker from './modules/core/RuneTracker';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {

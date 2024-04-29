@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { BadMark, GoodMark, OkMark, PerfectMark } from 'interface/guide';
+import { BadMark, GoodMark, PerfectMark } from 'interface/guide';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { ReactNode, useState } from 'react';
 const Header = styled.div`
@@ -97,6 +97,15 @@ const Description = styled.div`
   font-size: 100%;
   color: hsl(44, 6%, 78%);
 `;
+
+const FakeGlyphicon = styled.i`
+  width: 42px;
+  font-style: normal;
+  text-align: center;
+  font-weight: 900;
+`;
+
+const OkMark = () => <FakeGlyphicon className="ok-mark">!</FakeGlyphicon>;
 
 const PerfIcon = {
   [QualitativePerformance.Ok]: <OkMark />,

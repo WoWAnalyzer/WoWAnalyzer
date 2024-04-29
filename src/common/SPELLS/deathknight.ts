@@ -459,6 +459,8 @@ const spells = {
     id: 43265,
     name: 'Death and Decay',
     icon: 'spell_shadow_deathanddecay',
+    runesCost: 1,
+    runicPowerCost: -10,
   },
 
   DEATH_AND_DECAY_BUFF: {
