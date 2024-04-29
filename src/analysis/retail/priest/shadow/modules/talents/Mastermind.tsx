@@ -90,7 +90,7 @@ class Mastermind extends Analyzer {
         size="flexible"
         tooltip="This is the damage gained from the critical chance and damage increase"
       >
-        <BoringSpellValueText spell={TALENTS.MIND_MELT_TALENT}>
+        <BoringSpellValueText spell={TALENTS.MASTERMIND_TALENT}>
           <div>
             <ItemDamageDone amount={this.damage} />
           </div>
