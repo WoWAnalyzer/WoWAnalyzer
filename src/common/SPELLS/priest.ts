@@ -767,6 +767,12 @@ const spells = {
     icon: 'spell_mage_presenceofmind',
   },
 
+  MIND_MELT_TALENT_BUFF: {
+    id: 391092,
+    name: 'Mind Melt',
+    icon: 'spell_shadow_skull',
+  },
+
   // Shadow items:
 
   SHADOW_CRASH_TALENT_DAMAGE: {

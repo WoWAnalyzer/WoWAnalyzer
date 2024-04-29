@@ -66,8 +66,8 @@ class DarkEvangelism extends Analyzer {
   onBuffApplied() {
     this.buffStacks = 1;
   }
-  onBuffStack(Event: ApplyBuffStackEvent) {
-    this.buffStacks = Event.stack;
+  onBuffStack(event: ApplyBuffStackEvent) {
+    this.buffStacks = event.stack;
   }
   onBuffRemoved() {
     this.buffStacks = 0;

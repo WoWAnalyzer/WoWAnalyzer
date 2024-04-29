@@ -57,6 +57,7 @@ import VoidTouched from './modules/talents/VoidTouched';
 import MindsEye from './modules/talents/MindsEye';
 import DistortedReality from './modules/talents/DistortedReality';
 import MaddeningTouch from './modules/talents/Maddening Touch';
+import MindMelt from './modules/talents/MindMelt';
 
 import Tier29FourSet from './modules/tier/Tier29ShadowPriest4Set';
 import Tier30 from './modules/tier/Tier30ShadowPriest';
@@ -108,6 +109,7 @@ class CombatLogParser extends MainCombatLogParser {
     maddeningTouch: MaddeningTouch,
     mindDevourer: MindDevourer,
     mindFlayInsanity: MindFlayInsanity,
+    mindMelt: MindMelt,
     mindsEye: MindsEye,
     mindSpikeInsanity: MindSpikeInsanity,
     phantasmalPathogen: PhantasmalPathogen,
