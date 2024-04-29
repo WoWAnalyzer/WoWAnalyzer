@@ -611,6 +611,11 @@ const spells = {
     name: 'Vampiric Touch',
     icon: 'spell_holy_stoicism',
   },
+  MADDENING_TOUCH_RESOURCE: {
+    id: 391232,
+    name: 'Maddening Touch',
+    icon: 'spell_holy_stoicism',
+  },
 
   MASTERY_SHADOW_WEAVING: {
     id: 343690,
