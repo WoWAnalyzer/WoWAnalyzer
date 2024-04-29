@@ -54,6 +54,7 @@ import PhantasmalPathogen from './modules/talents/PhantasmalPathogen';
 import TormentedSpirits from './modules/talents/TormentedSpirits';
 import PsychicLink from './modules/talents/PsychicLink';
 import VoidTouched from './modules/talents/VoidTouched';
+import MindsEye from './modules/talents/MindsEye';
 
 import Tier29FourSet from './modules/tier/Tier29ShadowPriest4Set';
 import Tier30 from './modules/tier/Tier30ShadowPriest';
@@ -103,6 +104,7 @@ class CombatLogParser extends MainCombatLogParser {
     insidiousIre: InsidiousIre,
     mindDevourer: MindDevourer,
     mindFlayInsanity: MindFlayInsanity,
+    mindsEye: MindsEye,
     mindSpikeInsanity: MindSpikeInsanity,
     phantasmalPathogen: PhantasmalPathogen,
     psychicLink: PsychicLink,
