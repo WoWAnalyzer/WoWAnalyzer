@@ -16,6 +16,7 @@ const fakeConfig = {};
 const fakeReport = {
   friendlies: [],
   friendlyPets: [],
+  enemies: [],
 };
 const fakePlayer = {
   id: 1,
