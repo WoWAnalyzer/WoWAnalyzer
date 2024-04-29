@@ -55,6 +55,7 @@ import TormentedSpirits from './modules/talents/TormentedSpirits';
 import PsychicLink from './modules/talents/PsychicLink';
 import VoidTouched from './modules/talents/VoidTouched';
 import MindsEye from './modules/talents/MindsEye';
+import DistortedReality from './modules/talents/DistortedReality';
 
 import Tier29FourSet from './modules/tier/Tier29ShadowPriest4Set';
 import Tier30 from './modules/tier/Tier30ShadowPriest';
@@ -96,6 +97,7 @@ class CombatLogParser extends MainCombatLogParser {
     darkEvangelism: DarkEvangelism,
     deathspeaker: Deathspeaker,
     dispersion: Dispersion,
+    distortedReality: DistortedReality,
     idolOfCthun: IdolOfCthun,
     idolOfNzoth: IdolOfNzoth,
     idolOfYoggSaron: IdolOfYoggSaron,
