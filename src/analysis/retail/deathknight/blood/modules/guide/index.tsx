@@ -38,19 +38,8 @@ export default function BloodGuide(props: GuideProps<typeof CombatLogParser>): J
       spell: TALENTS_DEATH_KNIGHT.ABOMINATION_LIMB_TALENT,
       isActive: (c) => c.hasTalent(TALENTS_DEATH_KNIGHT.ABOMINATION_LIMB_TALENT),
     },
-    {
-      spell: TALENTS_DEATH_KNIGHT.ICEBOUND_FORTITUDE_TALENT,
-      isActive: (c) => c.hasTalent(TALENTS_DEATH_KNIGHT.ICEBOUND_FORTITUDE_TALENT),
-    },
-    {
-      spell: TALENTS_DEATH_KNIGHT.VAMPIRIC_BLOOD_TALENT,
-      isActive: (c) => c.hasTalent(TALENTS_DEATH_KNIGHT.VAMPIRIC_BLOOD_TALENT),
-    },
-    {
-      spell: TALENTS_DEATH_KNIGHT.ANTI_MAGIC_SHELL_TALENT,
-      isActive: (c) => c.hasTalent(TALENTS_DEATH_KNIGHT.ANTI_MAGIC_SHELL_TALENT),
-    },
   ];
+
   return (
     <>
       <Section title="Death Strike">
