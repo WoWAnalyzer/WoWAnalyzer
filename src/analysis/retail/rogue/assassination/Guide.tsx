@@ -2,7 +2,7 @@ import { GuideProps, Section, SubSection } from 'interface/guide';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 import EnergyCapWaste from 'analysis/retail/rogue/shared/guide/EnergyCapWaste';
 import TALENTS from 'common/TALENTS/rogue';
-import HideExplanationsToggle from 'interface/guide/components/HideExplanationsToggle';
+import { HideExplanationsToggle } from 'interface/guide/components/HideExplanationsToggle';
 import { ResourceLink, SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
 import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/GuideDivs';
@@ -11,7 +11,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 import CombatLogParser from './CombatLogParser';
 import CooldownGraphSubsection from './guide/CooldownGraphSubsection';
-import HideGoodCastsToggle from 'interface/guide/components/HideGoodCastsToggle';
+import { HideGoodCastsToggle } from 'interface/guide/components/HideGoodCastsToggle';
 import { getTargetComboPoints } from 'analysis/retail/rogue/assassination/constants';
 import {
   ExperimentalKingsbaneContextProvider,

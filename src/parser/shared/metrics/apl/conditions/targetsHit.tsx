@@ -5,7 +5,7 @@ import { encodeFriendlyEventTargetString } from 'parser/shared/modules/Entities'
 import { tenseAlt, Condition } from '../index';
 import { Range, formatRange } from './index';
 
-export interface Options {
+interface Options {
   lookahead: number;
   targetType: EventType;
   targetSpell: Spell;

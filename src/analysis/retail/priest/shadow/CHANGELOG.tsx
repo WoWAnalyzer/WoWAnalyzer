@@ -1,10 +1,16 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
-import { DoxAshe, Havoc, Sref, ToppleTheNun } from 'CONTRIBUTORS';
+import { Arlie, DoxAshe, Havoc, Sref, ToppleTheNun } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2024, 4, 26), <>Add statistics for <SpellLink spell={TALENTS.PSYCHIC_LINK_TALENT}/> talent</>,DoxAshe),
+  change(date(2024, 4, 22), <>Add statistics for the two and four piece Season 4 tier set</>,DoxAshe),
+  change(date(2024, 4, 20), <>Fix cooldown of <SpellLink spell={SPELLS.DESPERATE_PRAYER} /> when using <SpellLink spell={TALENTS.ANGELS_MERCY_TALENT} />.</>,Arlie),
+  change(date(2024, 4, 18), <>Add statistics for <SpellLink spell={TALENTS.PHANTASMAL_PATHOGEN_TALENT}/> and <SpellLink spell={TALENTS.TORMENTED_SPIRITS_TALENT}/> </>,DoxAshe),
+  change(date(2024, 4, 16), <>Fix broken icons, update sugestion thresholds and remove outdated checklist view</>,DoxAshe),
+  change(date(2024, 3, 21), <>Fix error in <SpellLink spell={TALENTS.SURGE_OF_INSANITY_TALENT}/> </>,DoxAshe),
   change(date(2024, 1, 16), <>Update spec for 10.2.5, and fix error in <SpellLink spell={TALENTS.INESCAPABLE_TORMENT_TALENT}/> extension with Tier 31 two piece </>,DoxAshe),
   change(date(2023, 12, 1), <>Fix <SpellLink spell={TALENTS.SHADOW_WORD_DEATH_TALENT}/> maximum number of casts</>,DoxAshe),
   change(date(2023, 11, 28), <>Update guide for <SpellLink spell={TALENTS.SHADOW_WORD_DEATH_TALENT}/> with Tier 31 four piece equppied</>,DoxAshe),

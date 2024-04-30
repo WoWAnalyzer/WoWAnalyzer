@@ -231,7 +231,7 @@ const COMMON_FINISHER: Rule[] = [
   },
 ];
 
-export const COMMON_BUILDER: Rule[] = [
+const COMMON_BUILDER: Rule[] = [
   // Commented for now as GS doesn't have an associated applyDebuff and removeDebuff event
   // {
   //   spell: TALENTS.GHOSTLY_STRIKE_TALENT,

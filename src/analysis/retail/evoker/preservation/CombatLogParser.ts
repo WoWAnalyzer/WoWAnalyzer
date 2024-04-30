@@ -49,15 +49,20 @@ import AncientFlame from './modules/talents/AncientFlame';
 import T31PrevokerSet from './modules/dragonflight/tier/T31TierSet';
 import EchoTypeBreakdown from './modules/talents/EchoTypeBreakdown';
 import {
-  LeapingFlamesNormalizer,
   LivingFlameNormalizer,
+  LivingFlamePrePullNormalizer,
+  LeapingFlamesNormalizer,
+  EssenceBurstRefreshNormalizer,
+  EssenceBurstCastLinkNormalizer,
   LeapingFlames,
+  EmpowerNormalizer,
+  SpellUsable,
+  GlobalCooldown,
   SpellEssenceCost,
   EssenceTracker,
   SourceOfMagic,
   PotentMana,
 } from '../shared';
-import EBRefreshNormalizer from './normalizers/EBRefreshNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -66,7 +71,8 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldowns: CooldownThroughputTracker,
 
     // Normalizer
-    ebRefreshNormalizer: EBRefreshNormalizer,
+    essenceBurstCastLinkNormalizer: EssenceBurstCastLinkNormalizer,
+    essenceBurstRefreshNormalizer: EssenceBurstRefreshNormalizer,
     livingFlameNormalizer: LivingFlameNormalizer,
     castLinkNormalizer: CastLinkNormalizer,
     hotApplicationNormalizer: HotApplicationNormalizer,
@@ -91,10 +97,15 @@ class CombatLogParser extends CoreCombatLogParser {
     hotAttributor: HotAttributor,
 
     // Shared talents
+    livingFlamePrePullNormalizer: LivingFlamePrePullNormalizer,
     leapingFlamesNormalizer: LeapingFlamesNormalizer,
     leapingFlames: LeapingFlames,
     sourceOfMagic: SourceOfMagic,
     potentMana: PotentMana,
+    // Empower Normalizer
+    empowerNormalizer: EmpowerNormalizer,
+    spellUsable: SpellUsable,
+    globalCooldown: GlobalCooldown,
 
     //talents
     ancientFlame: AncientFlame,

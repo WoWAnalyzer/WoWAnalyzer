@@ -866,11 +866,23 @@ const spells = {
     icon: 'spell_priest_void-flay',
   },
 
+  PSYCHIC_LINK_TALENT_DAMAGE: {
+    id: 199486,
+    name: 'Psychich Link',
+    icon: 'ability_priest_psychiclink',
+  },
+
   //Shadow Tier
   SHADOW_PRIEST_TIER_29_4_SET_BUFF: {
     id: 394963,
     name: 'Dark Reveries',
     icon: 'inv_mace_1h_artifactheartofkure_d_05',
+  },
+
+  SHADOW_PRIEST_TIER_30_4_SET_BUFF: {
+    id: 409502,
+    name: 'Darkflame Embers',
+    icon: 'spell_nzinsanity_panicattack',
   },
 
   SHADOW_PRIEST_TIER_31_4_SET_BUFF: {

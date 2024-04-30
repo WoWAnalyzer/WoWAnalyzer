@@ -51,6 +51,11 @@ import FlamestrikeNormalizer from './normalizers/Flamestrike';
 import ScorchNormalizer from './normalizers/Scorch';
 import SunKingsBlessingNormalizer from './normalizers/SunKingsBlessingBuffs';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
+import Guide from './Guide';
+import HotStreakGuide from './guide/HotStreak';
+import HeatingUpGuide from './guide/HeatingUp';
+import CombustionGuide from './guide/Combustion';
+import SunKingsBlessingGuide from './guide/SunKingsBlessing';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -63,6 +68,12 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Checklist
     checklist: Checklist,
+
+    //Guide
+    hotStreakGuide: HotStreakGuide,
+    heatingUpGuide: HeatingUpGuide,
+    combustionGuide: CombustionGuide,
+    sunKingsBlessingGuide: SunKingsBlessingGuide,
 
     //Core
     buffs: Buffs,
@@ -108,6 +119,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
   };
+  static guide = Guide;
 }
 
 export default CombatLogParser;

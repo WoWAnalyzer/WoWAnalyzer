@@ -1,11 +1,11 @@
 import { AnyEvent, EventType, HasRelatedEvent } from 'parser/core/Events';
 import TALENTS from 'common/TALENTS/evoker';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
-import { PRESCIENCE_APPLY_REMOVE_LINK } from './CastLinkNormalizer';
+import CastLinkNormalizer, { PRESCIENCE_APPLY_REMOVE_LINK } from './CastLinkNormalizer';
 import Combatants from 'parser/shared/modules/Combatants';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import {
-  PRESICENCE_BASE_DURATION_MS,
+  PRESCIENCE_BASE_DURATION_MS,
   TIMEWALKER_BASE_EXTENSION,
 } from 'analysis/retail/evoker/augmentation/constants';
 
@@ -20,10 +20,9 @@ import {
  * like to include these in our analysis, so we need to create pre-pull events for it */
 
 class PrescienceNormalizer extends EventsNormalizer {
-  // Set lower priority to ensure this runs after our CastLinkNormalizer
-  priority = 101;
   static dependencies = {
     ...EventsNormalizer.dependencies,
+    castLinkNormalizer: CastLinkNormalizer,
     combatants: Combatants,
     stats: StatTracker,
   };
@@ -54,7 +53,7 @@ class PrescienceNormalizer extends EventsNormalizer {
              * If it was create a pre-pull cast event
              * We need this event for more accurate analysis */
             const prescienceBuffDuration =
-              PRESICENCE_BASE_DURATION_MS *
+              PRESCIENCE_BASE_DURATION_MS *
               (1 + TIMEWALKER_BASE_EXTENSION + this.stats.currentMasteryPercentage);
             if (event.timestamp < this.owner.fight.start_time + prescienceBuffDuration) {
               const fabricatedCastEvent = {

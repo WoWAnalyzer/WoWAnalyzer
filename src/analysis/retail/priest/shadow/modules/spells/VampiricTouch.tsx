@@ -1,11 +1,7 @@
-import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
-
-import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import UptimeBar, { Uptime } from 'parser/ui/UptimeBar';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
@@ -21,37 +17,6 @@ class VampiricTouch extends Analyzer {
 
   get uptime() {
     return this.enemies.getBuffUptime(SPELLS.VAMPIRIC_TOUCH.id) / this.owner.fightDuration;
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.uptime,
-      isLessThan: {
-        minor: 0.95,
-        average: 0.9,
-        major: 0.8,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <span>
-          Your <SpellLink spell={SPELLS.VAMPIRIC_TOUCH} /> uptime can be improved. Try to pay more
-          attention to your <SpellLink spell={SPELLS.VAMPIRIC_TOUCH} /> on the boss.
-        </span>,
-      )
-        .icon(SPELLS.VAMPIRIC_TOUCH.icon)
-        .actual(
-          defineMessage({
-            id: 'priest.shadow.suggestions.vampiricTouch.uptime',
-            message: `${formatPercentage(actual)}% Vampiric Touch uptime`,
-          }),
-        )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
-    );
   }
 
   get uptimeHistory() {

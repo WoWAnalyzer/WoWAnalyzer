@@ -221,7 +221,6 @@ const DebugText = () => {
 };
 
 class FoodChecker extends BaseFoodChecker {
-  foodBuffId?: number;
   recommendedHigherTierFoods?: number[];
 
   constructor(options: Options) {

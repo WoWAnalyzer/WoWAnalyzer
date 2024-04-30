@@ -1,5 +1,5 @@
 import Contributor from 'interface/ContributorButton';
-import { ReactComponent as Logo } from 'interface/images/logo.svg';
+import Logo from 'interface/images/logo.svg?react';
 import ReadableListing from 'interface/ReadableListing';
 import SpecIcon from 'interface/SpecIcon';
 import mergeAllChangelogs, { ChangeLogItem } from 'mergeAllChangelogs';

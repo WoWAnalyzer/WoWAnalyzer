@@ -6,12 +6,12 @@ import {
 import SPELLS from 'common/SPELLS';
 import { Options } from 'parser/core/Module';
 import Events, { DamageEvent } from 'parser/core/Events';
-import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { ReactNode } from 'react';
 import MajorDefensiveStatistic from 'interface/MajorDefensiveStatistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { SpellLink } from 'interface';
+import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 const BASE_MITIGATION = 0.2;
 const REINFORCED_FUR_ADDITIONAL_MITIGATION = 0.1;

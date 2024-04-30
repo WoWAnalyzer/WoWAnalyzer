@@ -1,46 +1,46 @@
-import Config from 'parser/Config';
-import { createContext, useContext, ReactNode } from 'react';
+import type Config from 'parser/Config';
 import { usePlayer } from 'interface/report/context/PlayerContext';
 import { useReport } from 'interface/report/context/ReportContext';
 import getConfig from 'parser/getConfig';
 import { wclGameVersionToExpansion } from 'game/VERSIONS';
 
-const ConfigContext = createContext<Config | undefined>(undefined);
-
-export default ConfigContext;
-
-export const useConfig = () => {
-  const ctx = useContext(ConfigContext);
-  if (ctx === undefined) {
-    throw new Error('Unable to get Config for selected report/player combination');
+export const useMaybeConfig = (): Config | undefined => {
+  // this mess of try/catch papers over some historical choices to throw for these contexts instead of allowing them to return undefined.
+  // that refactor is...big enough that i'm not doing it today
+  let report = undefined;
+  try {
+    const data = useReport();
+    report = data.report;
+  } catch {
+    /* do nothing */
   }
-  return ctx;
+  let player = undefined;
+  let combatant = undefined;
+
+  try {
+    const playerData = usePlayer();
+    player = playerData.player;
+    combatant = playerData.combatant;
+  } catch {
+    /* do nothing */
+  }
+
+  if (!report || !player || !combatant) {
+    return undefined;
+  }
+  return getConfig(
+    wclGameVersionToExpansion(report.gameVersion),
+    combatant.specID,
+    player,
+    combatant,
+  );
 };
 
-interface ConfigProviderProps {
-  children: ReactNode;
-  config: Config | undefined;
-}
-export const ConfigProvider = ({ children, config }: ConfigProviderProps) => (
-  <ConfigContext.Provider value={config}>{children}</ConfigContext.Provider>
-);
+export const useConfig = (): Config => {
+  const config = useMaybeConfig();
+  if (!config) {
+    throw new Error('Unable to get Config for selected report/player combination');
+  }
 
-interface ReportPlayerConfigProviderProps {
-  children: ReactNode;
-}
-export const ReportPlayerConfigProvider = ({ children }: ReportPlayerConfigProviderProps) => {
-  const { combatant, player } = usePlayer();
-  const { report } = useReport();
-  return (
-    <ConfigProvider
-      config={getConfig(
-        wclGameVersionToExpansion(report.gameVersion),
-        combatant.specID,
-        player,
-        combatant,
-      )}
-    >
-      {children}
-    </ConfigProvider>
-  );
+  return config;
 };

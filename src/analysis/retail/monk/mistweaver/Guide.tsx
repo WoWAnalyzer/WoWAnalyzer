@@ -12,7 +12,7 @@ import * as AplCheck from './modules/core/apl/AplCheck';
 import AplChoiceDescription from './modules/core/apl/AplChoiceDescription';
 import { AplSectionData } from 'interface/guide/components/Apl';
 import { defaultExplainers } from 'interface/guide/components/Apl/violations/claims';
-import filterCelestial from './modules/core/apl/ExplainCelestial';
+import { filterCelestial } from './modules/core/apl/ExplainCelestial';
 
 const explainers = {
   overcast: filterCelestial(defaultExplainers.overcastFillers),

@@ -5,12 +5,12 @@ import {
 } from 'interface/guide/components/MajorDefensives/MajorDefensiveAnalyzer';
 import { Options } from 'parser/core/Module';
 import Events, { DamageEvent } from 'parser/core/Events';
-import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import { ReactNode } from 'react';
 import MajorDefensiveStatistic from 'interface/MajorDefensiveStatistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
+import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 const MITIGATION = 0.5;
 

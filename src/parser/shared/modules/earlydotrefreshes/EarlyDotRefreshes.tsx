@@ -13,7 +13,7 @@ import { encodeTargetString } from 'parser/shared/modules/Enemies';
 const BUFFER_MS = 100;
 export const PANDEMIC_WINDOW = 0.3;
 
-export interface Dot {
+interface Dot {
   debuffId: number;
   castId: number;
   name: string;
@@ -239,7 +239,7 @@ class EarlyDotRefreshes extends Analyzer {
   }
 }
 
-export type DotsById = { [key: number]: DotsByTarget };
-export type DotsByTarget = { [key: string]: number };
+type DotsById = { [key: number]: DotsByTarget };
+type DotsByTarget = { [key: string]: number };
 
 export default EarlyDotRefreshes;

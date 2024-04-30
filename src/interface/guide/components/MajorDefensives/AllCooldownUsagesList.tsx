@@ -51,10 +51,6 @@ export const NoData = styled.div`
 const CooldownUsageDetailsContainer = styled.div`
   display: grid;
   grid-template-rows: max-content max-content 1fr;
-
-  & .performance-block.selected {
-    height: 1em;
-  }
 `;
 
 export const TableSegmentContainer = styled.td`

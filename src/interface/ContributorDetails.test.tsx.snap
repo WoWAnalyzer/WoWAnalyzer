@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`ContributorDetails matches snapshot 1`] = `
+exports[`ContributorDetails > matches snapshot 1`] = `
 <div
   className="contributor-detail"
 >
@@ -21,7 +21,7 @@ exports[`ContributorDetails matches snapshot 1`] = `
           >
             <h1
               style={
-                Object {
+                {
                   "position": "relative",
                 }
               }
@@ -39,16 +39,16 @@ exports[`ContributorDetails matches snapshot 1`] = `
           >
             <div
               style={
-                Object {
+                {
                   "textAlign": "center",
                 }
               }
             >
               <img
                 alt="Avatar"
-                src="zerotorescue-avatar.jpg"
+                src="/src/interface/images/avatars/zerotorescue-avatar.jpg"
                 style={
-                  Object {
+                  {
                     "borderRadius": "50%",
                     "marginTop": 20,
                     "maxHeight": 200,
@@ -96,7 +96,7 @@ exports[`ContributorDetails matches snapshot 1`] = `
           >
             <h1
               style={
-                Object {
+                {
                   "position": "relative",
                 }
               }

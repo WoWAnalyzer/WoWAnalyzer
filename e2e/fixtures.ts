@@ -16,12 +16,20 @@ const ignoredErrors = [
   // React warns us about certain lifecycle things which we want to disregard for e2e tests
   /^Warning: Cannot update during an existing state transition/i,
   /^Warning: Can't perform a React state update on an unmounted component/i,
-  /was cast while the Global Cooldown from/i,
+  // sentry reproducing errors
+  /^An error occurred and was sent to Sentry/i,
+
+  // we have a ton of these nesting errors across the site right now, letting e2e pass without fixing them all
+  /validateDOMNesting/,
+  // react-transition-group triggers this
+  /^Warning: React does not recognize the `[^`]+` prop on a DOM element./i,
 
   // Error when images fail to load (which happens a lot for characters etc.)
   /^Failed to load resource: the server responded with a status of (404|403)/i,
   // When running on CI, we don't have access to the internet, so we can't load images
   /^Failed to load resource: net::ERR_NAME_NOT_RESOLVED/i,
+  // errors from (lack of) encounter rankings after a partition
+  /^Failed to load encounter rankings. Not logging since this will happen as expected when WCL partitions the data./,
 
   // Error from emotion.js when using nth-child|first-child in CSS selectors
   /The pseudo class "(:nth-child|:first-child)" is potentially unsafe when doing server-side rendering/i,
@@ -30,6 +38,7 @@ const ignoredErrors = [
 
   // Error output from the spellusable tracker whenever there's a cd/haste mismatch
   /^Cooldown error/i,
+  /was cast while the Global Cooldown from/i,
   // Error caused by bad buff tracking
   /buff (was refreshed|stack updated) while active buff wasn't known/i,
   // Error caused by healing before knowing players

@@ -1,7 +1,7 @@
 import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 import Analyzer from 'parser/core/Analyzer';
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
-import { AutoSizer } from 'react-virtualized';
+import AutoSizer from 'react-virtualized-auto-sizer';
 import { VisualizationSpec } from 'react-vega';
 import { Color } from 'vega';
 
@@ -228,7 +228,7 @@ abstract class ResourceGraph extends Analyzer {
 }
 
 /** The type used to compile the data for graphing. */
-export type GraphData = {
+type GraphData = {
   /** Timestamp of the data point */
   timestamp: number;
 

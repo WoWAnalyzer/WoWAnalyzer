@@ -135,6 +135,7 @@ const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
         }
       >
         {combatant.hasTalent(TALENTS.CHAIN_HEAL_TALENT) &&
+          typeof thresholds.chainHealTargetThresholds.actual === 'number' &&
           thresholds.chainHealTargetThresholds.actual > 0 && (
             <Requirement
               name={
@@ -146,6 +147,7 @@ const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
             />
           )}
         {combatant.hasTalent(TALENTS.HEALING_RAIN_TALENT) &&
+          typeof thresholds.healingRainTargetThreshold.actual === 'number' &&
           thresholds.healingRainTargetThreshold.actual > 0 && (
             <Requirement
               name={

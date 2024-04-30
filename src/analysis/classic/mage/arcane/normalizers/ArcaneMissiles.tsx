@@ -18,12 +18,7 @@ import SPELLS from 'common/SPELLS/classic/mage';
 const NEW_ARCANE_MISSILES_TIMEOUT = 5000;
 const ARCANE_MISSILES_BOLT_COUNT = 5;
 
-export interface ArcaneMissilesLog {
-  arcaneMissilesCastEvents: CastEvent[];
-  arcaneMissilesDamageEvents: DamageEvent[];
-}
-
-export interface ArcaneMissilesBeginChannelEvent extends BeginChannelEvent {
+interface ArcaneMissilesBeginChannelEvent extends BeginChannelEvent {
   arcaneMissilesCastEvents: CastEvent[];
   arcaneMissilesDamageEvents: DamageEvent[];
 }

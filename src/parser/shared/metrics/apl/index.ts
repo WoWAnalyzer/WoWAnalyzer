@@ -53,7 +53,6 @@ export interface Condition<T> {
   tooltip?: () => ReactChild | undefined;
   prefix?: string;
 }
-export type StateFor<T> = T extends (...args: any[]) => Condition<infer R> ? R : never;
 
 /**
  * What kind of thing is being "targeted" by this APL rule. Usually, this is Spell, which means that you want them to cast a particular spell.
@@ -80,7 +79,7 @@ type SpellListTarget = {
   target: Spell[];
 };
 
-export type AplTarget = SpellTarget | SpellListTarget;
+type AplTarget = SpellTarget | SpellListTarget;
 
 export type InternalRule = {
   spell: AplTarget;
@@ -88,7 +87,7 @@ export type InternalRule = {
   description?: React.ReactNode;
 };
 
-export interface ConditionalRule {
+interface ConditionalRule {
   spell: Spell | Spell[];
   condition: Condition<any>;
   /**
@@ -97,7 +96,7 @@ export interface ConditionalRule {
   description?: React.ReactNode;
 }
 
-export interface LabelRule {
+interface LabelRule {
   spell: Spell | Spell[];
   /**
    * Completely overrides the description of the rule. This will prevent the automatic display of conditions!
@@ -228,13 +227,13 @@ export interface Violation {
 type ConditionState = { [key: string]: any };
 type AbilityState = { [spellId: number]: UpdateSpellUsableEvent };
 
-export interface Success {
+interface Success {
   kind: ResultKind.Success;
   rule: InternalRule;
   actualCast: AplTriggerEvent;
 }
 
-export interface CheckState {
+interface CheckState {
   successes: Success[];
   violations: Violation[];
   conditionState: ConditionState;
@@ -408,11 +407,32 @@ export function aplProcessesEvent(
   applicableSpells: Set<number>,
   playerId: number,
 ): event is BeginChannelEvent | CastEvent {
+  /** Checks if a spell is a chain cast/channel
+   * Without this check most(if not all) back-to-back cast of channeled/non-instant casts of the same ability
+   * would be treated as the same cast, and therefore would skip rule check on those casts
+   *
+   * The reason for two checks is essentially just to make sure that we always use the same event type
+   * for our rule checks, should help avoid unwanted interactions */
+  const isChainCast =
+    event.type === EventType.Cast &&
+    event !== result.mostRecentBeginCast?.trigger &&
+    result.mostRecentBeginCast?.trigger?.type !== EventType.BeginCast &&
+    result.mostRecentBeginCast?.ability.guid === event.ability.guid &&
+    /** Ignore these until Empowers are properly normalized */
+    result.mostRecentBeginCast?.trigger?.type !== EventType.EmpowerStart;
+
+  const isChainChannel =
+    event.type === EventType.BeginChannel &&
+    event.trigger !== result.mostRecentCast &&
+    result?.mostRecentCast?.ability.guid === event.ability.guid;
+
   return (
     ((event.type === EventType.BeginChannel &&
       event.ability.guid !== result.mostRecentCast?.ability.guid) ||
       (event.type === EventType.Cast &&
-        event.ability.guid !== result.mostRecentBeginCast?.ability.guid)) &&
+        event.ability.guid !== result.mostRecentBeginCast?.ability.guid) ||
+      isChainCast ||
+      isChainChannel) &&
     applicableSpells.has(event.ability.guid) &&
     event.sourceID === playerId
   );
@@ -495,7 +515,7 @@ const aplCheck = (apl: Apl) =>
                   result.abilityState[spell.id] !== undefined &&
                   !result.abilityState[spell.id].isAvailable,
               ) &&
-              process.env.NODE_ENV === 'development'
+              import.meta.env.DEV
             ) {
               console.warn(
                 'inconsistent ability state in APL checker:',

@@ -1,6 +1,6 @@
 import { GuideProps, Section, SubSection, useAnalyzers } from 'interface/guide';
 import Explanation from 'interface/guide/components/Explanation';
-import HideExplanationsToggle from 'interface/guide/components/HideExplanationsToggle';
+import { HideExplanationsToggle } from 'interface/guide/components/HideExplanationsToggle';
 import CombatLogParserAff from '../affliction/CombatLogParser';
 import CombatLogParserDemo from '../demonology/CombatLogParser';
 import CombatLogParserDestro from '../destruction/CombatLogParser';

@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
 import PassFailBar from './PassFailBar';
 
-export type CastData<Reason> = {
+type CastData<Reason> = {
   reason: Reason;
 };
 
-export type Props<Reason, Data extends CastData<Reason>> = {
+type Props<Reason, Data extends CastData<Reason>> = {
   casts: Data[];
   label: (reason: Reason) => React.ReactNode;
   containerType?: React.ElementType<any>;

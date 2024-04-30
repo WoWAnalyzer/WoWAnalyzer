@@ -6,11 +6,6 @@ import { useEffect, useState } from 'react';
 
 const CHINESE_REGION = 'cn';
 
-export type CharacterProfileStatus = {
-  characterProfile: CharacterProfile | null;
-  isLoading?: boolean;
-};
-
 const useCharacterProfile = ({ report, player }: { report: Report; player: PlayerInfo }) => {
   const [characterProfile, setCharacterProfile] = useState<CharacterProfile | null>(null);
   const [isLoading, setIsLoading] = useState(true);

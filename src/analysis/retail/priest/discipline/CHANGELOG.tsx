@@ -6,6 +6,8 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2024, 4, 20), <>Fix cooldown of <SpellLink spell={SPELLS.DESPERATE_PRAYER} /> when using <SpellLink spell={TALENTS_PRIEST.ANGELS_MERCY_TALENT} />.</>,Arlie),
+  change(date(2023, 4, 20), <>Hide <SpellLink spell={TALENTS_PRIEST.SHADOW_COVENANT_TALENT} /> analyzer for now.</>, Arlie),
   change(date(2023, 3, 12), <>Update spec compatibility with 10.2.5 patch.</>, Hana),
   change(date(2023, 12, 17), <>Re enabled <SpellLink spell={TALENTS_PRIEST.TRANSLUCENT_IMAGE_TALENT}/>.</>, Hana),
   change(date(2023, 12, 17), <>Updated <SpellLink spell={TALENTS_PRIEST.HARSH_DISCIPLINE_TALENT}/>. No longer shows mana, and damage is now displayed. </>, Hana),

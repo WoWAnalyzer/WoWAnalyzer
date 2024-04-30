@@ -13,7 +13,7 @@ class Buffs extends CoreAuras {
     return [
       {
         spellId: SPELLS.HEATING_UP.id,
-        timelineHighlight: true,
+        timelineHighlight: false,
       },
       {
         spellId: SPELLS.HOT_STREAK.id,
@@ -67,6 +67,11 @@ class Buffs extends CoreAuras {
       {
         spellId: SPELLS.IMPROVED_SCORCH_BUFF.id,
         enabled: combatant.hasTalent(TALENTS.IMPROVED_SCORCH_TALENT),
+        timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.FLAME_ACCELERANT_BUFF.id,
+        enabled: combatant.hasTalent(TALENTS.FLAME_ACCELERANT_TALENT),
         timelineHighlight: true,
       },
       {

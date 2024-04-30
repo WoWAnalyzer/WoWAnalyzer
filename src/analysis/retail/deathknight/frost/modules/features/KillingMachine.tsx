@@ -20,6 +20,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { Fragment } from 'react';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
+import RuneTracker from './RuneTracker';
 
 const LAG_BUFFER_MS = 100;
 const BUFF_DURATION_MS = 10000;
@@ -27,9 +28,11 @@ const BUFF_DURATION_MS = 10000;
 class KillingMachineEfficiency extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
+    runeTracker: RuneTracker,
   };
 
   protected abilityTracker!: AbilityTracker;
+  protected runeTracker!: RuneTracker;
 
   kmProcs: number = 0;
   lastGCDTime: number = 0;
@@ -38,7 +41,7 @@ class KillingMachineEfficiency extends Analyzer {
   refreshedKMProcs = 0;
   expiredKMProcs = 0;
   currentStacks = 0;
-  procsWithinGcd = 0;
+  procsWastedToResources = 0;
 
   readonly fatalFixation = this.selectedCombatant.hasTalent(talents.FATAL_FIXATION_TALENT);
 
@@ -83,7 +86,6 @@ class KillingMachineEfficiency extends Analyzer {
   }
 
   onRefreshBuff(event: RefreshBuffEvent) {
-    const timeSinceGCD = event.timestamp - this.lastGCDTime;
     const timeSinceStackRemoved = event.timestamp - this.lastProcTime;
 
     // 4/5/23 Going from 2 -> 1 KM stacks refreshes the proc, this shouldn't be counted
@@ -92,14 +94,13 @@ class KillingMachineEfficiency extends Analyzer {
       this.lastProcTime = event.timestamp;
       return;
     }
-
     this.kmProcs += 1;
     // 3/24/23, trying out disabling lag tolerance for km refreshes if the player has fatal fixation talented, may need more work
     if (
       (!this.fatalFixation || (this.fatalFixation && this.currentStacks === 2)) &&
-      timeSinceGCD < this.lastGCDDuration + LAG_BUFFER_MS
+      this.runeTracker.runesAvailable < 2
     ) {
-      this.procsWithinGcd += 1;
+      this.procsWastedToResources += 1;
       return;
     }
     this.refreshedKMProcs += 1;
@@ -130,7 +131,7 @@ class KillingMachineEfficiency extends Analyzer {
   }
 
   get totalProcs() {
-    return this.kmProcs + this.refreshedKMProcs + this.procsWithinGcd;
+    return this.kmProcs + this.refreshedKMProcs + this.procsWastedToResources;
   }
 
   get efficiency() {
@@ -200,18 +201,19 @@ class KillingMachineEfficiency extends Analyzer {
 
   get guideSubsection(): JSX.Element {
     const goodKms = {
-      count: this.kmProcs - this.expiredKMProcs - this.refreshedKMProcs - this.procsWithinGcd,
+      count:
+        this.kmProcs - this.expiredKMProcs - this.refreshedKMProcs - this.procsWastedToResources,
       label: 'Killing Machines cosumed',
     };
 
-    const procsWithinGcd = {
-      count: this.procsWithinGcd,
-      label: 'Killing Machines refreshed while waiting for a GCD',
+    const procsWastedToResources = {
+      count: this.procsWastedToResources,
+      label: 'Killing Machines lost while you did not have enough Runes to spend it',
     };
 
     const refreshedKms = {
       count: this.refreshedKMProcs + this.expiredKMProcs,
-      label: 'Killing Machines refreshed during an available GCD or expired naturally',
+      label: 'Killing Machines lost',
     };
 
     const explanation = (
@@ -229,7 +231,7 @@ class KillingMachineEfficiency extends Analyzer {
     const data = (
       <div>
         <strong>Killing Machine breakdown</strong>
-        <GradiatedPerformanceBar good={goodKms} ok={procsWithinGcd} bad={refreshedKms} />
+        <GradiatedPerformanceBar good={goodKms} ok={procsWastedToResources} bad={refreshedKms} />
       </div>
     );
     return explanationAndDataSubsection(explanation, data, 50);

@@ -27,11 +27,10 @@ export interface WCLRankingsResponse {
   rankings: WCLRanking[];
 }
 
-export interface WCLRanking {
+export type WCLRanking = {
   name: string;
   class: number;
   spec: number;
-  total: number;
   duration: number;
   startTime: number;
   fightID: number;
@@ -40,12 +39,17 @@ export interface WCLRanking {
   serverName: string;
   regionName: string;
   hidden: boolean;
-  itemLevel: number;
   talents: WCLRankingTalent[];
   gear: WCLRankingGear[];
-}
+} & (
+  | {
+      total: number;
+      itemLevel: number;
+    }
+  | { amount: number; bracketData: number }
+);
 
-export interface WCLRankingTalent {
+interface WCLRankingTalent {
   name: string;
   id: number;
   talentID: number;
@@ -85,7 +89,7 @@ export interface WCLDamageDoneTableResponse {
 // These should be the same data. Im just making it so things are logical
 // Worst comes to worse we unextend it and just define it. But from my testing
 // It works perfectly fine
-export type WCLDamageDone = WCLDamageTaken;
+type WCLDamageDone = WCLDamageTaken;
 
 export interface WCLDamageTaken {
   abilities: Array<{ name: string; total: number; totalReduced: number; type: number }>;
@@ -101,13 +105,13 @@ export interface WCLDamageTaken {
   overheal?: number;
 }
 
-export interface HeroismEvent {
+interface HeroismEvent {
   startTime: number;
   endTime: number;
   startEvent: CastEvent;
 }
 
-export interface BossSeries {
+interface BossSeries {
   name: string;
   id: number;
   guid: number;
@@ -131,7 +135,7 @@ export interface WCLThreatBand {
   endEvent: AnyEvent;
 }
 
-export interface WCLThreatTarget {
+interface WCLThreatTarget {
   name: string;
   id: number;
   guid: number;
@@ -141,7 +145,7 @@ export interface WCLThreatTarget {
   bands: WCLThreatBand[];
 }
 
-export interface WCLThreatEntry {
+interface WCLThreatEntry {
   name: string;
   id: number;
   guid: number;

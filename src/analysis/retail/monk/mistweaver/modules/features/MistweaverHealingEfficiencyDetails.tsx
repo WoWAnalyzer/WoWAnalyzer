@@ -3,17 +3,9 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import HealingEfficiencyBreakdown from 'parser/core/healingEfficiency/HealingEfficiencyBreakdown';
 import HealingEfficiencyDetails from 'parser/core/healingEfficiency/HealingEfficiencyDetails';
-import HealingEfficiencyTracker from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
 import Panel from 'parser/ui/Panel';
 
 class MistweaverHealingEfficiencyDetails extends HealingEfficiencyDetails {
-  static dependencies = {
-    ...HealingEfficiencyDetails.dependencies,
-    healingEfficiencyTracker: HealingEfficiencyTracker,
-  };
-
-  protected healingEfficiencyTracker!: HealingEfficiencyTracker;
-
   statistic() {
     return (
       <Panel

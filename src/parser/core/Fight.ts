@@ -1,5 +1,5 @@
 // WCL properties
-export interface WCLDungeonPull {
+interface WCLDungeonPull {
   id: number;
   boss: number;
   start_time: number;
@@ -30,7 +30,7 @@ export interface WCLFight {
   phases?: WCLPhaseTransition[];
 }
 
-export interface WCLPhaseTransition {
+interface WCLPhaseTransition {
   /**
    * The id of the phase. 1-indexed, names are stored in `WCLReport.phases`.
    */

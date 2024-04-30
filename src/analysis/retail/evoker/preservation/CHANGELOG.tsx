@@ -6,6 +6,10 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { ResourceLink, SpellLink } from 'interface';
 
 export default [
+  change(date(2024, 4, 24), <>Fix bug in <SpellLink spell={TALENTS_EVOKER.ANCIENT_FLAME_TALENT}/> module</>, Trevor),
+  change(date(2024, 4, 11), <>Rework <SpellLink spell={SPELLS.LEAPING_FLAMES_BUFF} /> module to increase accuracy.</>, Vollmer),
+  change(date(2024, 4, 6), 'Normalize Empower behavior to make analysis more consistent.', Vollmer),
+  change(date(2024, 3, 30), <>Fix prepull <SpellLink spell={SPELLS.LIVING_FLAME_CAST} /> casts to properly display channel time.</>, Vollmer),
   change(date(2024, 3, 12), <>Implement <SpellLink spell={TALENTS_EVOKER.TIME_OF_NEED_TALENT} /> module.</>, Harrek),
   change(date(2024, 3, 7), <>Fix an issue with <SpellLink spell={TALENTS_EVOKER.POTENT_MANA_TALENT} /> module when no <SpellLink spell={TALENTS_EVOKER.SOURCE_OF_MAGIC_TALENT} /> was active during the fight.</>, Vollmer),
   change(date(2024, 2, 18), <>Add spell cast time to <SpellLink spell={TALENTS_EVOKER.STASIS_TALENT}/> module</>, Trevor),

@@ -40,6 +40,18 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: CAST_BUFFER_MS,
   },
   {
+    reverseLinkRelation: SPELL_CAST,
+    linkingEventId: TALENTS.COMBUSTION_TALENT.id,
+    linkingEventType: EventType.Cast,
+    linkRelation: BUFF_APPLY,
+    referencedEventId: TALENTS.COMBUSTION_TALENT.id,
+    referencedEventType: EventType.ApplyBuff,
+    anyTarget: true,
+    maximumLinks: 1,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: 7_000, //Needed for an edge case where SKB Combust was active and was refreshed by a Combust cast
+  },
+  {
     reverseLinkRelation: BUFF_APPLY,
     linkingEventId: SPELLS.HOT_STREAK.id,
     linkingEventType: EventType.ApplyBuff,

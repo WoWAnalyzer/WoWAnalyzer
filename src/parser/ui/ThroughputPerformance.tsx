@@ -57,6 +57,8 @@ const ThroughputPerformance = ({ children, metric, throughput }: Props) => {
       fetchWcl<WCLRankingsResponse>(`rankings/encounter/${parser.fight.boss}`, {
         class: parser.config.spec.ranking.class,
         spec: parser.config.spec.ranking.spec,
+        className: parser.config.spec.wclClassName,
+        specName: parser.config.spec.wclSpecName,
         difficulty: parser.fight.difficulty,
         metric: metric,
         // hehe jk this is actually the opposite of a cache key since without this it would be cached indefinitely. This is more like a "cache bust key" in that this changes weekly so that it auto-refreshes weekly. Super clever.
@@ -67,7 +69,7 @@ const ThroughputPerformance = ({ children, metric, throughput }: Props) => {
 
   const load = useCallback(async () => {
     try {
-      if (process.env.NODE_ENV === 'test') {
+      if (import.meta.env.MODE === 'test') {
         // Skip during tests since we can't do WCL calls
         return;
       }
@@ -82,7 +84,7 @@ const ThroughputPerformance = ({ children, metric, throughput }: Props) => {
         });
         return;
       }
-      const topThroughput = topRank.total;
+      const topThroughput = 'total' in topRank ? topRank.total : topRank.amount;
       const durations = rankings.map((rank) => rank.duration);
       const medianDuration = calculateMedian(durations);
 

@@ -3,9 +3,9 @@ import SPELLS from 'common/SPELLS';
 import CLASSIC_SPELLS from 'common/SPELLS/classic';
 import { TALENTS_DEATH_KNIGHT, TALENTS_MAGE, TALENTS_PRIEST } from 'common/TALENTS';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
-import Analyzer, { Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatant from 'parser/core/Combatant';
-import EventFilter, { SELECTED_PLAYER } from 'parser/core/EventFilter';
+import EventFilter from 'parser/core/EventFilter';
 import Events, {
   Item,
   AnyEvent,
@@ -32,7 +32,7 @@ interface HasteBuff {
 
 type HasteBuffMap = { [spellId: number]: number | HasteBuff };
 
-const HASTE_BUFFS: HasteBuffMap = {
+export const DEFAULT_HASTE_BUFFS: HasteBuffMap = {
   // HASTE RATING BUFFS ARE HANDLED BY THE STATTRACKER MODULE
 
   ...BLOODLUST_BUFFS,
@@ -120,7 +120,7 @@ class Haste extends Analyzer {
   protected eventEmitter!: EventEmitter;
 
   protected hasteBuffs: HasteBuffMap = {
-    ...HASTE_BUFFS,
+    ...DEFAULT_HASTE_BUFFS,
   };
 
   get changehaste() {

@@ -126,7 +126,7 @@ class CombustionCasts extends Analyzer {
 
     //If the player had a Flame Accelerant proc, disregard it.
     if (this.hasFlameAccelerant) {
-      fireballCasts = fireballCasts.filter(f => this.selectedCombatant.hasBuff(SPELLS.FLAME_ACCELERANT_BUFF.id));
+      fireballCasts = fireballCasts.filter(f => this.selectedCombatant.hasBuff(SPELLS.FLAME_ACCELERANT_BUFF.id, f.cast?.timestamp, -10));
     }
 
     const tooltip = `This Fireball was cast during Combustion. Since Combustion has a short duration, you are better off using your instant abilities to get as many instant/free Pyroblasts as possible. If you run out of instant abilities, cast Scorch instead unless you have >100% Haste (Double Lust) or you have a Flame Accelerant proc`;
