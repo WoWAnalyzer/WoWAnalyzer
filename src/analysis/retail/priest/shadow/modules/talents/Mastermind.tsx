@@ -70,8 +70,8 @@ class Mastermind extends Analyzer {
       );
 
       //Extra damage from having extra crit damage increase
-      //The increase in crit damage only increases the crit damage not the total damage
-      //so the increase in damage on the total ammount is half of the crit increase (since a crit deals double damage)
+      //The increase in crit damage increases amount of extra damage critical hits do (in this case, from 100% to 120% or 140%, depending on talent ranks)
+      //so the while it increases the critical damage by 20% or 40%, it only increases the total damage of the event by half that amount
       this.damage += calculateEffectiveDamage(event, this.mastermindCritDamage / 2);
     }
   }
