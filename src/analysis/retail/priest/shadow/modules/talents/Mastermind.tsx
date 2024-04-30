@@ -1,7 +1,7 @@
 import TALENTS from 'common/TALENTS/priest';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { ApplyBuffStackEvent, DamageEvent } from 'parser/core/Events';
+import { DamageEvent } from 'parser/core/Events';
 import Events from 'parser/core/Events';
 import {
   calculateEffectiveDamage,
@@ -58,16 +58,6 @@ class Mastermind extends Analyzer {
     );
   }
 
-  onBuffApplied() {
-    this.buffStacks = 1;
-  }
-  onBuffStack(event: ApplyBuffStackEvent) {
-    this.buffStacks = event.stack;
-  }
-  onBuffRemoved() {
-    this.buffStacks = 0;
-  }
-
   onSpell(event: DamageEvent) {
     if (event.hitType === HIT_TYPES.CRIT) {
       //only crit events should be sent to effectiveDamageFromCritIncrease,
@@ -79,7 +69,10 @@ class Mastermind extends Analyzer {
         this.mastermindCritChance,
       );
 
-      this.damage += calculateEffectiveDamage(event, this.mastermindCritDamage); //Extra damage from having extra crit damage
+      //Extra damage from having extra crit damage increase
+      //The increase in crit damage only increases the crit damage not the total damage
+      //so the increase in damage on the total ammount is half of the crit increase (since a crit deals double damage)
+      this.damage += calculateEffectiveDamage(event, this.mastermindCritDamage / 2);
     }
   }
 
