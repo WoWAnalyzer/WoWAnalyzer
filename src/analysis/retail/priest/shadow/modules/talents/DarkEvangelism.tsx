@@ -20,7 +20,7 @@ class DarkEvangelism extends Analyzer {
   buffStacks = 0;
 
   multiplierDarkEvangelism =
-    this.selectedCombatant.getTalentRank(TALENTS.INSIDIOUS_IRE_TALENT) *
+    this.selectedCombatant.getTalentRank(TALENTS.DARK_EVANGELISM_TALENT) *
     DARK_EVANGELISM_DAMAGE_PER_RANK;
 
   constructor(options: Options) {

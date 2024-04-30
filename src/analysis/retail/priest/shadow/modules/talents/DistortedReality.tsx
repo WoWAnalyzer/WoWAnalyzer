@@ -33,7 +33,7 @@ class DistortedReality extends Analyzer {
   }
 
   onDevouringPlagueCast(event: CastEvent) {
-    const resource = event.classResources?.at(0)?.cost; //Some buffs grant free Devouring Plagues
+    const resource = event.classResources?.at(0)?.cost; //Some buffs grant free Devouring Plagues, which do not have a resource cost
     if (resource != null) {
       //If devouring Plague is free, then we have not spent the extra insanity
       this.insanitySpent += 5;

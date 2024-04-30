@@ -71,7 +71,7 @@ class MindMelt extends Analyzer {
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
-        tooltip="This is the damage gained from the critical increase"
+        tooltip="This is the damage gained from the critical chance increase"
       >
         <BoringSpellValueText spell={TALENTS.MIND_MELT_TALENT}>
           <div>
