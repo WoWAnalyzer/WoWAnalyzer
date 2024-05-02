@@ -42,7 +42,7 @@ class PsychicLink extends Analyzer {
     );
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(TALENTS.DEVOURING_PLAGUE_TALENT),
-      this.onDP,
+      this.onSpell,
     );
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(TALENTS.MIND_SPIKE_TALENT),
@@ -62,13 +62,6 @@ class PsychicLink extends Analyzer {
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.PSYCHIC_LINK_TALENT_DAMAGE),
       this.onLink,
     );
-  }
-
-  onDP(event: DamageEvent) {
-    if (!event.tick) {
-      //Devouring Plague Ticks cant cause PsychicLink damage (however, Void Torrent does)
-      this.recentSpell = event.ability.name;
-    }
   }
 
   onSpell(event: DamageEvent) {
