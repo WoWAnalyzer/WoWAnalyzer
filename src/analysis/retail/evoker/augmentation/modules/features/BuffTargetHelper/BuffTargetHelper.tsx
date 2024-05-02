@@ -108,7 +108,7 @@ class BuffTargetHelper extends Analyzer {
   filterBossDamage: boolean = false;
   nameFilter: string = '';
   bossFilter: string = this.owner.report.enemies
-    .filter((enemy) => enemy.type === 'Boss')
+    .filter((enemy) => enemy.subType === 'Boss')
     .map((enemy) => `${enemy.guid}`)
     .join(',');
   abilityBlacklist: string = [...ABILITY_BLACKLIST].join(', ');
