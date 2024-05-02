@@ -1,5 +1,4 @@
 import { defineMessage, Trans } from '@lingui/macro';
-import { RETAIL_EXPANSION, CLASSIC_EXPANSION } from 'game/Expansion';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import { Panel } from 'interface';
@@ -23,6 +22,7 @@ import Events, {
 import EventHistory from 'parser/shared/modules/EventHistory';
 import CooldownOverview from 'parser/ui/CooldownOverview';
 import { ReactNode } from 'react';
+import GameBranch from 'game/GameBranch';
 
 const debug = false;
 
@@ -51,12 +51,12 @@ export type CooldownSpell = {
   startBufferEvents?: number;
   petID?: number;
   duration?: number;
-  expansion?: number;
+  branch?: GameBranch;
   durationTooltip?: ReactNode;
 };
 
 type BuffCooldownSpell = CooldownSpell & {
-  expansion: number;
+  branch: GameBranch;
 };
 
 export type TrackedCooldown = CooldownSpell & {
@@ -84,28 +84,28 @@ class CooldownThroughputTracker extends Analyzer {
         BUILT_IN_SUMMARY_TYPES.OVERHEALING,
         BUILT_IN_SUMMARY_TYPES.MANA,
       ],
-      expansion: RETAIL_EXPANSION,
+      branch: GameBranch.Retail,
     },
     {
       spell: TALENTS_PRIEST.POWER_INFUSION_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE, BUILT_IN_SUMMARY_TYPES.HEALING],
-      expansion: RETAIL_EXPANSION,
+      branch: GameBranch.Retail,
     },
     // Classic
     {
       spell: SPELLS.BLOODLUST.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE, BUILT_IN_SUMMARY_TYPES.HEALING],
-      expansion: CLASSIC_EXPANSION,
+      branch: GameBranch.Classic,
     },
     {
       spell: SPELLS.HEROISM.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE, BUILT_IN_SUMMARY_TYPES.HEALING],
-      expansion: CLASSIC_EXPANSION,
+      branch: GameBranch.Classic,
     },
     {
       spell: TALENTS_PRIEST.POWER_INFUSION_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE, BUILT_IN_SUMMARY_TYPES.HEALING],
-      expansion: CLASSIC_EXPANSION,
+      branch: GameBranch.Classic,
     },
   ];
 
@@ -144,7 +144,7 @@ class CooldownThroughputTracker extends Analyzer {
     event: CastEvent | ApplyBuffEvent | ApplyDebuffEvent,
     isCastCooldown: boolean = false,
   ) {
-    const expansion = this.owner.config.expansion;
+    const branch = this.owner.config.branch;
     const spellId = event.ability.guid;
     const ctor = this.constructor as typeof CooldownThroughputTracker;
     let cooldownSpell: CooldownSpell | undefined;
@@ -152,7 +152,7 @@ class CooldownThroughputTracker extends Analyzer {
       cooldownSpell = ctor.castCooldowns.find((cooldownSpell) => cooldownSpell.spell === spellId);
     } else {
       cooldownSpell = ctor.cooldownSpells.find(
-        (cooldownSpell) => cooldownSpell.spell === spellId && expansion === cooldownSpell.expansion,
+        (cooldownSpell) => cooldownSpell.spell === spellId && branch === cooldownSpell.branch,
       );
     }
 

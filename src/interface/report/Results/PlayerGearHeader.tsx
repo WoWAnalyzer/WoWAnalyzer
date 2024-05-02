@@ -1,4 +1,4 @@
-import { RETAIL_EXPANSION } from 'game/Expansion';
+import GameBranch from 'game/GameBranch';
 import { makeCharacterUrl } from 'interface/makeAnalyzerUrl';
 import Combatant from 'parser/core/Combatant';
 import { Link } from 'react-router-dom';
@@ -19,7 +19,7 @@ const PlayerGearHeader = ({ player, averageIlvl }: Props) => (
     </div>
     <div>
       {player.race && player.race.name} {player.player.type}{' '}
-      {player.owner.config.expansion !== RETAIL_EXPANSION && `(${player.talentPoints.join('/')})`}
+      {player.owner.config.branch !== GameBranch.Retail && `(${player.talentPoints.join('/')})`}
     </div>
     <div>
       <b>Average ilvl:</b> {Math.round(averageIlvl)}

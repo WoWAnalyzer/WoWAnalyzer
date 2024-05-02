@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
 import { Abelito75 } from 'CONTRIBUTORS';
-import Expansion from 'game/Expansion';
+import GameBranch from 'game/GameBranch';
 import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
 import Config from 'parser/Config';
@@ -10,7 +10,7 @@ import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
   contributors: [Abelito75],
-  expansion: Expansion.Dragonflight,
+  branch: GameBranch.Retail,
   patchCompatibility: '10.1.7',
   isPartial: false,
   description: (
