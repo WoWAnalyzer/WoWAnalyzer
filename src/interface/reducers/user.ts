@@ -18,7 +18,7 @@ export const fetchUser = createAsyncThunk<User | null>('user/fetchUser', async (
     });
 
     if (response.status !== 200) {
-      if (response.status === 401) {
+      if (response.status === 401 || response.status === 403) {
         // Unauthorized
         // We need to store this explicitely so we know the diff between "unknown" and "logged out"
         return false;
