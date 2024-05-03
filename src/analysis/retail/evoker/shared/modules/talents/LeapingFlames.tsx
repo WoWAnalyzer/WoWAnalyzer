@@ -118,9 +118,12 @@ class LeapingFlames extends Analyzer {
           acc.damageHits += 1;
           this.leapingFlamesDamage += event.amount + (event.absorbed ?? 0);
         } else {
-          this.leapingFlamesHealing += event.amount;
+          const absHealAmount = event.amount + (event.absorbed ?? 0);
+
+          this.leapingFlamesHealing += absHealAmount;
           this.leapingFlamesOverHealing += event.overheal ?? 0;
-          if (event.amount > 0) {
+
+          if (absHealAmount > 0) {
             acc.healHits += 1;
           }
         }
