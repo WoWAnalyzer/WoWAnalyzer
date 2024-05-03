@@ -15,8 +15,12 @@ import { Highlight } from 'interface/Highlight';
 import RuneTracker from '../../core/RuneTracker';
 
 export default function DeathStrikeSection() {
-  const rp = useAnalyzer(RunicPowerTracker)!;
-  const runes = useAnalyzer(RuneTracker)!;
+  const rp = useAnalyzer(RunicPowerTracker);
+  const runes = useAnalyzer(RuneTracker);
+
+  if (!rp || !runes) {
+    return <>Core analyzers missing.</>;
+  }
 
   return (
     <>
@@ -231,6 +235,8 @@ function RunicPowerTable() {
     </RPTableContainer>
   );
 }
+
+// TODO: these color-block bits should be moved out and re-used in the Mitigation analyzer, along with some other bits like the red/green duration bar
 
 /**
  * A basic colored block. The building block of more complex objects. You MUST supply the height/width yourself.
