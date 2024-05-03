@@ -18,7 +18,7 @@ const config: Config = {
     <>
       <p>
         Hello, and welcome to the Devastation Analyzer! This analyzer is currently maintained by{' '}
-        <code>Vollmer</code> , a former priest who's loving the new class!
+        <code>Vollmer</code>!
       </p>
       <p>
         If you have questions about the output or want to help contribute, please hit me up in the{' '}
