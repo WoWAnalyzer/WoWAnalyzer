@@ -4,7 +4,6 @@ import talents from 'common/TALENTS/monk';
 import { SpellIcon } from 'interface';
 import HasteIcon from 'interface/icons/Haste';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Combatant from 'parser/core/Combatant';
 import Events, { ApplyDebuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
 import BoringValue from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -14,21 +13,6 @@ export const HIGH_TOLERANCE_HASTE = {
   [SPELLS.LIGHT_STAGGER_DEBUFF.id]: 0.05,
   [SPELLS.MODERATE_STAGGER_DEBUFF.id]: 0.07,
   [SPELLS.HEAVY_STAGGER_DEBUFF.id]: 0.1,
-};
-
-function hasteFnGenerator(value: number) {
-  return {
-    haste: (combatant: Combatant) =>
-      (combatant.getTalentRank(talents.HIGH_TOLERANCE_TALENT) /
-        talents.HIGH_TOLERANCE_TALENT.maxRanks) *
-      value,
-  };
-}
-
-export const HIGH_TOLERANCE_HASTE_FNS = {
-  [SPELLS.LIGHT_STAGGER_DEBUFF.id]: hasteFnGenerator(0.05),
-  [SPELLS.MODERATE_STAGGER_DEBUFF.id]: hasteFnGenerator(0.07),
-  [SPELLS.HEAVY_STAGGER_DEBUFF.id]: hasteFnGenerator(0.1),
 };
 
 class HighTolerance extends Analyzer {

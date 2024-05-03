@@ -32,7 +32,7 @@ export function ConditionDescription({
   );
 }
 
-export function InefficientCastAnnotation({ violation }: { violation: Violation }) {
+function InefficientCastAnnotation({ violation }: { violation: Violation }) {
   return (
     <>
       {violation.expectedCast.map((spell, index) => (

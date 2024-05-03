@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import { CastEvent, EventType, HasRelatedEvent, RemoveBuffEvent } from 'parser/core/Events';
+import { CastEvent, EventType, HasRelatedEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 
@@ -26,10 +26,6 @@ class ClearcastingNormalizer extends EventLinkNormalizer {
   constructor(options: Options) {
     super(options, EVENT_LINKS);
   }
-}
-
-export function buffedRegrowth(event: RemoveBuffEvent): boolean {
-  return HasRelatedEvent(event, BUFFED_REGROWTH);
 }
 
 export function buffedByClearcast(event: CastEvent): boolean {

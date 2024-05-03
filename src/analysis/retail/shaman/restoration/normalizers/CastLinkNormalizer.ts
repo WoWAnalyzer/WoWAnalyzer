@@ -4,14 +4,11 @@ import {
   ApplyBuffEvent,
   CastEvent,
   EventType,
-  GetRelatedEvent,
   GetRelatedEvents,
-  HasAbility,
   HasRelatedEvent,
   HealEvent,
   RefreshBuffEvent,
   RemoveBuffEvent,
-  RemoveBuffStackEvent,
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import talents from 'common/TALENTS/shaman';
@@ -312,18 +309,6 @@ export function isFromPrimalTideCore(event: ApplyBuffEvent | HealEvent): boolean
   return !HasRelatedEvent(event, HARDCAST) && !HasRelatedEvent(event, RIPTIDE_PWAVE);
 }
 
-//this should only be used for initial hit events if passing in a heal event, not ticks
-export function getRiptideCastEvent(
-  event: ApplyBuffEvent | RefreshBuffEvent | HealEvent,
-): CastEvent | null {
-  if (isFromHardcast(event)) {
-    return GetRelatedEvent<CastEvent>(event, HARDCAST) ?? null;
-  } else if (isRiptideFromPrimordialWave(event)) {
-    return GetRelatedEvent<CastEvent>(event, RIPTIDE_PWAVE) ?? null;
-  }
-  return null;
-}
-
 export function getHealingRainEvents(event: CastEvent) {
   return GetRelatedEvents<HealEvent>(event, HEALING_RAIN);
 }
@@ -344,23 +329,12 @@ export function wasRiptideConsumed(event: CastEvent | RemoveBuffEvent): boolean 
   return HasRelatedEvent(event, FLOW_OF_THE_TIDES);
 }
 
-export function getConsumedRiptide(event: CastEvent): AbilityEvent<any> | undefined {
-  return GetRelatedEvent<AbilityEvent<any>>(event, FLOW_OF_THE_TIDES, HasAbility);
-}
-
 export function getChainHeals(event: CastEvent): HealEvent[] {
   return GetRelatedEvents(event, CHAIN_HEAL) as HealEvent[];
-}
-
-export function getChainHealGrouping(event: HealEvent) {
-  return [event].concat(GetRelatedEvents(event, CHAIN_HEAL_GROUPING));
 }
 
 export function isBuffedByHighTide(event: CastEvent) {
   return HasRelatedEvent(event, HIGH_TIDE);
 }
 
-export function wasHighTideConsumed(event: RemoveBuffEvent | RemoveBuffStackEvent): boolean {
-  return HasRelatedEvent(event, HIGH_TIDE);
-}
 export default CastLinkNormalizer;

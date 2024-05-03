@@ -1,12 +1,5 @@
 import SPELLS from 'common/SPELLS/demonhunter';
-import {
-  ApplyBuffEvent,
-  CastEvent,
-  EventType,
-  GetRelatedEvent,
-  RefreshBuffEvent,
-  RemoveBuffEvent,
-} from 'parser/core/Events';
+import { CastEvent, EventType, GetRelatedEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import TALENTS from 'common/TALENTS/demonhunter';
@@ -45,16 +38,6 @@ export default class UnboundChaosNormalizer extends EventLinkNormalizer {
   constructor(options: Options) {
     super(options, EVENT_LINKS);
   }
-}
-
-export function getUnboundChaosApplication(
-  event: ApplyBuffEvent | RefreshBuffEvent,
-): CastEvent | undefined {
-  return GetRelatedEvent(
-    event,
-    UNBOUND_CHAOS_APPLICATION,
-    (e): e is CastEvent => e.type === EventType.Cast,
-  );
 }
 
 export function getUnboundChaosConsumption(event: RemoveBuffEvent): CastEvent | undefined {

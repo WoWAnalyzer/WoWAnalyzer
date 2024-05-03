@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
 
 // ability guids from 'summon' events - sometimes different from 'cast' ids
-export const PERMANENT_PET_SUMMON_ABILITY_IDS = [
+const PERMANENT_PET_SUMMON_ABILITY_IDS = [
   SPELLS.SUMMON_IMP.id,
   SPELLS.SUMMON_VOIDWALKER.id,
   SPELLS.SUMMON_FELHUNTER.id,
@@ -17,7 +17,7 @@ export const PERMANENT_PET_SUMMON_ABILITY_IDS = [
   SPELLS.WRATHGUARD_PERMANENT_SUMMON.id,
 ];
 
-export const TEMPORARY_PET_SUMMON_ABILITY_IDS = [
+const TEMPORARY_PET_SUMMON_ABILITY_IDS = [
   SPELLS.WILD_IMP_HOG_SUMMON.id,
   SPELLS.DREADSTALKER_SUMMON_1.id,
   SPELLS.DREADSTALKER_SUMMON_2.id,

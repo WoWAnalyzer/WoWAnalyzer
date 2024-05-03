@@ -7,7 +7,7 @@ import type { PlayerInfo } from 'parser/core/Player';
 import type Fight from 'parser/core/Fight';
 import type CharacterProfile from 'parser/core/CharacterProfile';
 
-export const TEST_SPEC: Spec = {
+const TEST_SPEC: Spec = {
   className: {
     id: '',
   },

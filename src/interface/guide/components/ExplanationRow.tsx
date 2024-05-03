@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { SubSection } from 'interface/guide/index';
 import Explanation, { useExplanationContext } from 'interface/guide/components/Explanation';
 
-export const leftPercentDefault = 30;
+const leftPercentDefault = 30;
 
 /**
  * A container for holding two side-by-side panels, an explanation and data. By default, the left

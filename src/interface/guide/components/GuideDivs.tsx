@@ -30,7 +30,7 @@ export const SideBySidePanels = styled.div`
  * Version of {@link RoundedPanel} that aligns content to the start of the
  * box instead of the center.
  */
-export const StartAlignedRoundedPanel = styled(RoundedPanel)`
+const StartAlignedRoundedPanel = styled(RoundedPanel)`
   align-content: start;
 `;
 
@@ -38,7 +38,7 @@ export const StartAlignedRoundedPanel = styled(RoundedPanel)`
  * Version of {@link StartAlignedRoundedPanel} that has an inset box shadow to show
  * color on the left side of the panel.
  */
-export const RoundedPanelWithColorBoxShadow = styled(StartAlignedRoundedPanel)`
+const RoundedPanelWithColorBoxShadow = styled(StartAlignedRoundedPanel)`
   box-shadow: inset 0.5em 0 0 ${(props) => props.color};
 `;
 

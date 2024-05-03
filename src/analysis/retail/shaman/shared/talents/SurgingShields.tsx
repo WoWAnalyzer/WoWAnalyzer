@@ -6,7 +6,7 @@ import { calculateEffectiveDamage, calculateEffectiveHealing } from 'parser/core
 import Events, { DamageEvent, HealEvent, ResourceChangeEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 
-export const EARTHSHIELD_HEALING_BONUS_PER_POINT = 0.125;
+const EARTHSHIELD_HEALING_BONUS_PER_POINT = 0.125;
 const WATERSHIELD_MANA_INCREASE_PER_POINT = 0.25;
 const LIGHTNINGSHIELD_DMG_INCREASE_PER_POINT = 0.5;
 

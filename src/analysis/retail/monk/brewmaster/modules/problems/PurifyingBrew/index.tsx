@@ -87,11 +87,7 @@ const PurifyProblemDescription = ({ data }: { data: ProblemData }) =>
     </p>
   );
 
-export function PurifyProblem({
-  problem,
-  events,
-  info,
-}: ProblemRendererProps<ProblemData>): JSX.Element {
+function PurifyProblem({ problem, events, info }: ProblemRendererProps<ProblemData>): JSX.Element {
   const stagger: Array<AddStaggerEvent | RemoveStaggerEvent> = events.filter(
     ({ type }) => type === EventType.AddStagger || type === EventType.RemoveStagger,
   ) as Array<AddStaggerEvent | RemoveStaggerEvent>;

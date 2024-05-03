@@ -8,12 +8,12 @@ interface ExpansionContext {
   gameVersion: number;
 }
 
-export const ExpansionCtx = createContext<ExpansionContext>({
+const ExpansionCtx = createContext<ExpansionContext>({
   expansion: Expansion.Dragonflight,
   gameVersion: 0,
 });
 
-export const ExpansionContextProvider = ({
+const ExpansionContextProvider = ({
   children,
   gameVersion,
 }: {

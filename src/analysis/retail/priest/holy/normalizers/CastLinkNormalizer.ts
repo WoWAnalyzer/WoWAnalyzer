@@ -14,15 +14,14 @@ import SPELLS from 'common/SPELLS/priest';
 
 const CAST_BUFFER_MS = 200;
 
-export const FROM_HARDCAST = 'FromHardcast'; // for linking a heal to its cast
-export const LIGHTWEAVER_APPLY = 'LightweaverApplication'; // link flash heal cast to applying the lightweaver buff
-export const LIGHTWEAVER_CONSUME = 'LightweaverConsumption'; // link heal cast to removing the lightweaver buff
-export const POH_CAST = 'PrayerOfHealingCast';
-export const COH_CAST = 'CircleOfHealingCast';
-export const SERENITY_CAST = 'HolyWordSerenityCast';
-export const SANCTIFY_CAST = 'HolyWordSanctifyCast';
-export const SALVATION_CAST = 'HolyWordSalvationCast';
-export const CHASTISE_CAST = 'HolyWordChastiseCast';
+const FROM_HARDCAST = 'FromHardcast'; // for linking a heal to its cast
+const LIGHTWEAVER_CONSUME = 'LightweaverConsumption'; // link heal cast to removing the lightweaver buff
+const POH_CAST = 'PrayerOfHealingCast';
+const COH_CAST = 'CircleOfHealingCast';
+const SERENITY_CAST = 'HolyWordSerenityCast';
+const SANCTIFY_CAST = 'HolyWordSanctifyCast';
+const SALVATION_CAST = 'HolyWordSalvationCast';
+const CHASTISE_CAST = 'HolyWordChastiseCast';
 export const LIGHTWELL_RENEW_HEALS = 'LightwellRenewHeal';
 export const SALVATION_RENEW_HEALS = 'SalvationRenewHeal';
 export const LIGHTWELL_RENEW = 'LightwellRenew';

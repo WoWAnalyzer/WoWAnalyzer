@@ -30,7 +30,7 @@ const DEBUG = false;
  */
 
 /** All convokable spells that 'hit' with a buff application */
-export const CONVOKE_BUFF_SPELLS = [
+const CONVOKE_BUFF_SPELLS = [
   SPELLS.REJUVENATION,
   SPELLS.REJUVENATION_GERMINATION,
   SPELLS.REGROWTH,
@@ -42,16 +42,16 @@ export const CONVOKE_BUFF_SPELLS = [
   SPELLS.STARFALL_CAST, // apparently this is also the ID for the buff
 ];
 /** All convokable spells that 'hit' with a debuff application */
-export const CONVOKE_DEBUFF_SPELLS = [
+const CONVOKE_DEBUFF_SPELLS = [
   SPELLS.MOONFIRE_DEBUFF,
   SPELLS.MOONFIRE_FERAL,
   SPELLS.RAKE_BLEED,
   SPELLS.THRASH_BEAR_DOT,
 ];
 /** All convokable spells that 'hit' with direct healing */
-export const CONVOKE_HEAL_SPELLS = [SPELLS.SWIFTMEND];
+const CONVOKE_HEAL_SPELLS = [SPELLS.SWIFTMEND];
 /** All convokable spells that 'hit' with direct damage */
-export const CONVOKE_DAMAGE_SPELLS = [
+const CONVOKE_DAMAGE_SPELLS = [
   SPELLS.WRATH,
   SPELLS.WRATH_MOONKIN,
   SPELLS.STARSURGE_AFFINITY,
@@ -63,7 +63,7 @@ export const CONVOKE_DAMAGE_SPELLS = [
   TALENTS.PULVERIZE_TALENT,
 ];
 /** Convokable spells that do direct damage (and possibly also a DoT portion) - for damage tallying */
-export const CONVOKE_DIRECT_DAMAGE_SPELLS = [
+const CONVOKE_DIRECT_DAMAGE_SPELLS = [
   ...CONVOKE_DAMAGE_SPELLS,
   SPELLS.RAKE,
   SPELLS.THRASH_BEAR,
@@ -73,16 +73,16 @@ export const CONVOKE_DIRECT_DAMAGE_SPELLS = [
   SPELLS.RAMPANT_FEROCITY,
 ];
 /** Convokable spells that have travel time */
-export const SPELLS_WITH_TRAVEL_TIME = [
+const SPELLS_WITH_TRAVEL_TIME = [
   SPELLS.STARSURGE_AFFINITY,
   SPELLS.STARSURGE_MOONKIN,
   SPELLS.FULL_MOON,
   SPELLS.WRATH,
   SPELLS.WRATH_MOONKIN,
 ];
-export const SPELL_IDS_WITH_TRAVEL_TIME = SPELLS_WITH_TRAVEL_TIME.map((s) => s.id);
+const SPELL_IDS_WITH_TRAVEL_TIME = SPELLS_WITH_TRAVEL_TIME.map((s) => s.id);
 /** Convokable spells that can hit multiple targets */
-export const SPELL_IDS_WITH_AOE = [
+const SPELL_IDS_WITH_AOE = [
   SPELLS.MOONFIRE_DEBUFF.id,
   SPELLS.MOONFIRE_FERAL.id,
   SPELLS.FULL_MOON.id,

@@ -19,7 +19,7 @@ export const dummyCast: Spell = {
   icon: 'cast',
 };
 
-export const playerInfo: PlayerInfo = {
+const playerInfo: PlayerInfo = {
   playerId: 1,
   combatant: {} as unknown as Combatant,
   defaultRange: AbilityRange.Melee,

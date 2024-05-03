@@ -71,11 +71,3 @@ export function getPreviousVengefulRetreat(event: CastEvent): CastEvent | undefi
     (e): e is CastEvent => e.type === EventType.Cast,
   ).find(Boolean);
 }
-
-export function getPreviousEyeBeam(event: CastEvent): CastEvent | undefined {
-  return GetRelatedEvents<CastEvent>(
-    event,
-    ESSENCE_BREAK_AFTER_EYE_BEAM,
-    (e): e is CastEvent => e.type === EventType.Cast,
-  ).find(Boolean);
-}

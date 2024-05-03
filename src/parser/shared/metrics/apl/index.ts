@@ -367,7 +367,7 @@ type ApplicableRule = {
 /**
  * Find the first applicable rule. See also: `ruleApplies`
  **/
-export function applicableRule(
+function applicableRule(
   apl: Apl,
   abilities: Set<number>,
   result: CheckState,
@@ -401,7 +401,7 @@ function updateAbilities(state: AbilityState, event: AnyEvent): AbilityState {
  * Whether the APL applies to the given event. APL condition state is updated
  * on every event, this only determines if the rule checking needs to apply.
  */
-export function aplProcessesEvent(
+function aplProcessesEvent(
   event: AnyEvent,
   result: CheckState,
   applicableSpells: Set<number>,
@@ -438,7 +438,7 @@ export function aplProcessesEvent(
   );
 }
 
-export function knownSpells(
+function knownSpells(
   apl: Apl,
   info: PlayerInfo,
 ): { abilities: Set<number>; applicableSpells: Set<number> } {
@@ -454,7 +454,7 @@ export function knownSpells(
   return { abilities, applicableSpells };
 }
 
-export function updateCheckState(result: CheckState, apl: Apl, event: AnyEvent): CheckState {
+function updateCheckState(result: CheckState, apl: Apl, event: AnyEvent): CheckState {
   if (event.type === EventType.Cast) {
     result.mostRecentCast = event;
   }

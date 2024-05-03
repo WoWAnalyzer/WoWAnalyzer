@@ -4,7 +4,7 @@ import Enemies, { encodeEventSourceString } from 'parser/shared/modules/Enemies'
 
 import IgnoredAbilities from './IgnoredAbilities';
 
-export function notableEnemy(enemies: Enemies, event: DamageEvent): boolean {
+function notableEnemy(enemies: Enemies, event: DamageEvent): boolean {
   const enemyId = encodeEventSourceString(event);
   if (!enemyId) {
     return false;

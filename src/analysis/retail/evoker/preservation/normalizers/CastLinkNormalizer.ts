@@ -29,40 +29,40 @@ import LeapingFlamesNormalizer, {
 import { EMPOWERED_CAST } from '../../shared/modules/normalizers/EmpowerNormalizer';
 import { EssenceBurstRefreshNormalizer } from '../../shared';
 
-export const ANCIENT_FLAME = 'AncientFlame'; // links cast to buff apply
-export const ANCIENT_FLAME_CONSUME = 'AncientFlameConnsume'; // links buff remove to buff apply
+const ANCIENT_FLAME = 'AncientFlame'; // links cast to buff apply
+const ANCIENT_FLAME_CONSUME = 'AncientFlameConnsume'; // links buff remove to buff apply
 // BEGIN ECHO constants
-export const FROM_HARDCAST = 'FromHardcast'; // for linking a buffapply or heal to its cast
-export const FROM_TEMPORAL_ANOMALY = 'FromTemporalAnomaly'; // for linking TA echo apply to TA shield apply
-export const FROM_TIER = 'FromTier'; // for linking tier echo apply to tier lf damage/heal
-export const ECHO_REMOVAL = 'EchoRemoval'; // for linking echo removal to echo apply
-export const TA_ECHO_REMOVAL = 'TaEchoTemoval'; // for linking TA echo removal to echo apply
-export const TIER_ECHO_REMOVAL = 'TierEchoRemoval'; // for linking tier echo to echo apply
+const FROM_HARDCAST = 'FromHardcast'; // for linking a buffapply or heal to its cast
+const FROM_TEMPORAL_ANOMALY = 'FromTemporalAnomaly'; // for linking TA echo apply to TA shield apply
+const FROM_TIER = 'FromTier'; // for linking tier echo apply to tier lf damage/heal
+const ECHO_REMOVAL = 'EchoRemoval'; // for linking echo removal to echo apply
+const TA_ECHO_REMOVAL = 'TaEchoTemoval'; // for linking TA echo removal to echo apply
+const TIER_ECHO_REMOVAL = 'TierEchoRemoval'; // for linking tier echo to echo apply
 export const ECHO_TEMPORAL_ANOMALY = 'TemporalAnomaly'; // for linking BuffApply/Heal to echo removal
 export const ECHO = 'Echo'; // for linking BuffApply/Heal to echo removal
-export const ECHO_TIER = 'EchoT31'; // for linking BuffApply/Heal to echo removal
+const ECHO_TIER = 'EchoT31'; // for linking BuffApply/Heal to echo removal
 // END ECHO constants
-export const ESSENCE_BURST_LINK = 'EssenceBurstLink'; // link eb removal to apply
-export const ESSENCE_BURST_CONSUME = 'EssenceBurstConsumption'; // link essence cast to removing the essence burst buff
-export const DREAM_BREATH_CALL_OF_YSERA = 'DreamBreathCallOfYsera'; // link DB hit to buff removal
-export const DREAM_BREATH_CALL_OF_YSERA_HOT = 'DreamBreathCallOfYseraHoT'; // link DB hot to buff removal
-export const FIELD_OF_DREAMS_PROC = 'FromFieldOfDreams'; // link EB heal to fluttering heal
-export const GOLDEN_HOUR = 'GoldenHour'; // link GH heal to reversion application
-export const LIFEBIND = 'Lifebind'; // link lifebind buff apply to lifebind heal event
-export const LIFEBIND_APPLY = 'LifebindApply'; // link lifebind apply to verdant embrace
-export const LIFEBIND_HEAL = 'LifebindHeal'; // link lifebind heal to trigger heal event
-export const LIVING_FLAME_CALL_OF_YSERA = 'LivingFlameCallOfYsera'; // link buffed living flame to buff removal
-export const HEAL_GROUPING = 'HealGrouping'; // link EB healevents and TA pulses together to easily fetch groups of heals/absorbs
-export const ECHO_HEAL_GROUPING = 'HealGrouping'; // link EB healevents and TA pulses together to easily fetch groups of heals/absorbs
-export const BUFF_GROUPING = 'BuffGrouping'; // link ApplyBuff events together
-export const SHIELD_FROM_TA_CAST = 'ShieldFromTACast';
-export const SPARK_OF_INSIGHT = 'SparkOfInsight'; // link TC stack removals to Spark
-export const STASIS = 'Stasis';
-export const STASIS_FOR_RAMP = 'ForRamp';
-export const ESSENCE_RUSH = 'EssenceRush';
-export const T31_2PC = 'T31LFProc';
-export const EB_REVERSION = 'EssenceBurstReversion';
-export const TIME_OF_NEED_HEALING = 'TimeOfNeedHealing';
+const ESSENCE_BURST_LINK = 'EssenceBurstLink'; // link eb removal to apply
+const ESSENCE_BURST_CONSUME = 'EssenceBurstConsumption'; // link essence cast to removing the essence burst buff
+const DREAM_BREATH_CALL_OF_YSERA = 'DreamBreathCallOfYsera'; // link DB hit to buff removal
+const DREAM_BREATH_CALL_OF_YSERA_HOT = 'DreamBreathCallOfYseraHoT'; // link DB hot to buff removal
+const FIELD_OF_DREAMS_PROC = 'FromFieldOfDreams'; // link EB heal to fluttering heal
+const GOLDEN_HOUR = 'GoldenHour'; // link GH heal to reversion application
+const LIFEBIND = 'Lifebind'; // link lifebind buff apply to lifebind heal event
+const LIFEBIND_APPLY = 'LifebindApply'; // link lifebind apply to verdant embrace
+const LIFEBIND_HEAL = 'LifebindHeal'; // link lifebind heal to trigger heal event
+const LIVING_FLAME_CALL_OF_YSERA = 'LivingFlameCallOfYsera'; // link buffed living flame to buff removal
+const HEAL_GROUPING = 'HealGrouping'; // link EB healevents and TA pulses together to easily fetch groups of heals/absorbs
+const ECHO_HEAL_GROUPING = 'HealGrouping'; // link EB healevents and TA pulses together to easily fetch groups of heals/absorbs
+const BUFF_GROUPING = 'BuffGrouping'; // link ApplyBuff events together
+const SHIELD_FROM_TA_CAST = 'ShieldFromTACast';
+const SPARK_OF_INSIGHT = 'SparkOfInsight'; // link TC stack removals to Spark
+const STASIS = 'Stasis';
+const STASIS_FOR_RAMP = 'ForRamp';
+const ESSENCE_RUSH = 'EssenceRush';
+const T31_2PC = 'T31LFProc';
+const EB_REVERSION = 'EssenceBurstReversion';
+const TIME_OF_NEED_HEALING = 'TimeOfNeedHealing';
 
 export enum ECHO_TYPE {
   NONE,
@@ -874,10 +874,6 @@ export function didEchoExpire(event: RemoveBuffEvent) {
   return !HasRelatedEvent(event, ECHO) && !HasRelatedEvent(event, ECHO_TEMPORAL_ANOMALY);
 }
 
-export function isFromHardcast(event: ApplyBuffEvent) {
-  return HasRelatedEvent(event, FROM_HARDCAST);
-}
-
 export function getEssenceBurstConsumeAbility(
   event: RemoveBuffEvent | RemoveBuffStackEvent,
 ): null | CastEvent {
@@ -921,10 +917,6 @@ export function getEchoTypeForGoldenHour(event: HealEvent): ECHO_TYPE {
 
 export function getHealEvents(event: HealEvent) {
   return [event].concat(GetRelatedEvents<HealEvent>(event, HEAL_GROUPING));
-}
-
-export function getEchoHealEvents(event: HealEvent) {
-  return [event].concat(GetRelatedEvents<HealEvent>(event, ECHO_HEAL_GROUPING));
 }
 
 export function getBuffEvents(event: ApplyBuffEvent) {

@@ -3,7 +3,6 @@ import { Options } from 'parser/core/Module';
 import SPELLS from 'common/SPELLS';
 import {
   ApplyDebuffEvent,
-  BuffEvent,
   DamageEvent,
   EventType,
   GetRelatedEvents,
@@ -53,15 +52,6 @@ class SuddenAmbushLinkNormalizer extends EventLinkNormalizer {
 }
 
 export default SuddenAmbushLinkNormalizer;
-
-export function getSuddenAmbushBoostedBleeds(event: RemoveBuffEvent): BuffEvent<any>[] {
-  return GetRelatedEvents(
-    event,
-    BOOSTED_BLEED,
-    (e): e is BuffEvent<any> =>
-      e.type === EventType.ApplyDebuff || e.type === EventType.RefreshDebuff,
-  );
-}
 
 export function getSuddenAmbushBoostedDamage(event: RemoveBuffEvent): DamageEvent[] {
   return GetRelatedEvents(
