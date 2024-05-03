@@ -51,6 +51,12 @@ class Abilities extends CoreAbilities {
 
       // Utility
       {
+        spell: SPELLS.FEL_DOMINATION.id,
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown: 180 - combatant.getTalentRank(TALENTS.FEL_PACT_TALENT) * 30,
+        gcd: null,
+      },
+      {
         spell: SPELLS.DEMONIC_CIRCLE_SUMMON.id,
         category: SPELL_CATEGORY.UTILITY,
         enabled: combatant.hasTalent(TALENTS.DEMONIC_CIRCLE_TALENT),

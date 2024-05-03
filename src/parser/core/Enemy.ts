@@ -17,8 +17,14 @@ class Enemy extends Entity {
     return this._baseInfo.name;
   }
 
+  /** Generally "NPC" */
   get type() {
     return this._baseInfo.type;
+  }
+
+  /** Generally "Boss" or "NPC" */
+  get subType() {
+    return this._baseInfo.subType;
   }
 
   get guid() {

@@ -331,14 +331,6 @@ class Abilities extends SharedAbilities {
         cooldown: combatant.hasTalent(TALENTS.DARKFURY_TALENT) ? 45 : 60,
       },
       {
-        spell: SPELLS.FEL_DOMINATION.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: () => 180 - combatant.getTalentRank(TALENTS.FEL_PACT_TALENT) * 30,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
         spell: SPELLS.UNENDING_BREATH.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: {

@@ -64,6 +64,7 @@ export const DEFAULT_PLAYER_INFO: PlayerInfo = {
   id: 1,
   name: '',
   type: '',
+  subType: '',
 };
 
 export const DEFAULT_FIGHT: Fight = {

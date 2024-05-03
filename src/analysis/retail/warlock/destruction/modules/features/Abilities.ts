@@ -271,14 +271,6 @@ class Abilities extends SharedAbilities {
         },
       },
       {
-        spell: SPELLS.FEL_DOMINATION.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 180,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
         spell: SPELLS.UNENDING_BREATH.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
