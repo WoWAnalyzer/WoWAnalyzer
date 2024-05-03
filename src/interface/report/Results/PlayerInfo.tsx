@@ -1,4 +1,3 @@
-import { RETAIL_EXPANSION } from 'game/Expansion';
 import getAverageItemLevel from 'game/getAverageItemLevel';
 import Combatant from 'parser/core/Combatant';
 import { Item } from 'parser/core/Events';
@@ -9,6 +8,7 @@ import PlayerInfoEnchants from './PlayerInfoEnchants';
 import PlayerInfoGear from './PlayerInfoGear';
 import PlayerInfoGems from './PlayerInfoGems';
 import PlayerInfoTalents from './PlayerInfoTalents';
+import GameBranch from 'game/GameBranch';
 
 function _parseGear(gear: Item[]) {
   return gear.reduce((gearItemsBySlotId: Item[], item: Item) => gearItemsBySlotId.concat(item), []);
@@ -32,7 +32,7 @@ const backgroundImage = (thumbnail?: string, region?: string): string => {
 };
 
 const PlayerInfo = ({ combatant }: Props) => {
-  const isRetail = combatant.owner.config.expansion === RETAIL_EXPANSION;
+  const isRetail = combatant.owner.config.branch === GameBranch.Retail;
   const gear: Item[] = _parseGear(combatant._combatantInfo.gear);
   const talents = combatant._combatantInfo.talentTree;
   const averageIlvl = getAverageItemLevel(gear);

@@ -1,4 +1,4 @@
-import { Spec, isRetailSpec } from 'game/SPECS';
+import { Spec } from 'game/SPECS';
 import Combatant from 'parser/core/Combatant';
 
 /**
@@ -18,7 +18,7 @@ export default function classColor(input: string | Combatant | Spec): string {
     }
     return classColor(input.spec);
   } else {
-    const base = isRetailSpec(input) ? input.wclClassName : input.type;
+    const base = input.wclClassName;
     if (!base) {
       console.error('Spec has nothing to base class color on', input);
       return '';

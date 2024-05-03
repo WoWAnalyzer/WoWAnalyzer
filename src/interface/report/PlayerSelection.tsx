@@ -1,6 +1,6 @@
 import ROLES from 'game/ROLES';
 import SPECS from 'game/SPECS';
-import { wclGameVersionToExpansion } from 'game/VERSIONS';
+import { wclGameVersionToBranch } from 'game/VERSIONS';
 import { CombatantInfoEvent } from 'parser/core/Events';
 import Report from 'parser/core/Report';
 import getConfig from 'parser/getConfig';
@@ -76,7 +76,7 @@ const PlayerSelection = ({ report, combatants, makeUrl }: Props) => {
             player={player}
             makeUrl={makeUrl}
             config={getConfig(
-              wclGameVersionToExpansion(report.gameVersion),
+              wclGameVersionToBranch(report.gameVersion),
               player.combatant.specID,
               player,
               player.combatant,

@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Trans } from '@lingui/macro';
 import classColor from 'game/classColor';
-import { isCurrentExpansion } from 'game/Expansion';
 import Contributor from 'interface/ContributorButton';
 import ReadableListing from 'interface/ReadableListing';
 import Config from 'parser/Config';
@@ -16,7 +15,6 @@ const SpecListItem = ({
   contributors,
   patchCompatibility,
   isPartial,
-  expansion,
 }: Config) => {
   const { i18n } = useLingui();
 
@@ -25,7 +23,7 @@ const SpecListItem = ({
   const displayName = [i18nSpecName, i18nClassName].filter(isDefined).join(' ');
 
   const className = classColor(spec);
-  const Component = exampleReport && isCurrentExpansion(expansion) ? Link : 'div';
+  const Component = patchCompatibility && exampleReport ? Link : 'div';
 
   const maintainers = (
     <ReadableListing>

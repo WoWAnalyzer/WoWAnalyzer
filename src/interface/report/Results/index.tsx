@@ -129,6 +129,9 @@ const Results = (props: PassedProps) => {
     const zone = ZONES.find((zone) => zone.id === props.report.zone);
 
     switch (wclGameVersionToExpansion(props.report.gameVersion)) {
+      case Expansion.Cataclysm:
+        dispatch(setBaseUrl('https://www.wowhead.com/cata/'));
+        break;
       case Expansion.WrathOfTheLichKing:
         dispatch(setBaseUrl('https://www.wowhead.com/wotlk/'));
         break;
