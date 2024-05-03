@@ -77,7 +77,7 @@ class DrainSoul extends Analyzer {
       if (!enemy) {
         return;
       }
-      if (enemy.type.toLowerCase() === 'boss' && !this._lastEnergizeWasted) {
+      if (enemy.subType.toLowerCase() === 'boss' && !this._lastEnergizeWasted) {
         // it's a boss kill and we didn't waste the shard, subtract it
         this._subtractBossShards += 1;
       }
@@ -87,7 +87,7 @@ class DrainSoul extends Analyzer {
   onFinished() {
     const allEnemies = this.enemies.getEntities();
     this.totalNumOfAdds = Object.values(allEnemies)
-      .filter((enemy) => enemy.type === 'NPC')
+      .filter((enemy) => enemy.subType === 'NPC')
       .reduce((count, enemy) => count + enemy._baseInfo.fights[0].instances, 0);
     this._shardsGained =
       this.soulShardTracker.getGeneratedBySpell(SPELLS.DRAIN_SOUL_KILL_SHARD_GEN.id) -

@@ -6,6 +6,8 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2024, 4, 28), <>Fix Ability spell id for <SpellLink spell={TALENTS_MONK.FORTIFYING_BREW_TALENT}/> for Mistweaver</>, Vohrr),
+  change(date(2024, 4, 27), <>Bump sample log to 10.2.6 / Season 4</>, Vohrr),
   change(date(2024, 4, 24), <>Change condition for T31 tier set module activation due to new tier id</>, Trevor),
   change(date(2024, 3, 14), <>Bump sample log</>, Vohrr),
   change(date(2024, 2, 6), <><SpellLink spell={SPELLS.MANA_TEA_CAST}/> channeling should now show properly as active time.</>, Sref),

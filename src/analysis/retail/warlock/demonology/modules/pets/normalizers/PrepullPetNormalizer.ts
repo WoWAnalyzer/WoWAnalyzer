@@ -104,6 +104,7 @@ class PrepullPetNormalizer extends EventsNormalizer {
               petOwner: this.owner.playerId,
               fights: [],
               type: 'faketype',
+              subType: 'faketype',
               icon: spell.icon,
             },
             timestamp: this.owner.fight.start_time,

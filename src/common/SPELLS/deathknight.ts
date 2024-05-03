@@ -502,12 +502,6 @@ const spells = {
     icon: 'spell_shadow_deadofnight',
   },
 
-  RAISE_DEAD_BLOOD_FROST: {
-    id: 46585,
-    name: 'Raise Dead',
-    icon: 'inv_pet_ghoul',
-  },
-
   DEATH_COIL: {
     id: 47541,
     name: 'Death Coil',
