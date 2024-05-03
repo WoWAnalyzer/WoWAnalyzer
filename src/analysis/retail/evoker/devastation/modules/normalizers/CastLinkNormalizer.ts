@@ -148,18 +148,7 @@ const EVENT_LINKS: EventLink[] = [
         return false;
       }
 
-      /** Since Pyre can only hit a target once per cast
-       * we need to check if it's the same target
-       * Dragonrage shoots out 3 pyres so we need to count */
-      const previousEvents = getPyreEvents(linkingEvent as CastEvent);
-      if (previousEvents.length > 0) {
-        const targetHitCount = previousEvents.filter(
-          (e) => encodeEventTargetString(e) === encodeEventTargetString(referencedEvent),
-        );
-        return targetHitCount.length < 3;
-      }
-
-      return true;
+      return pyreHitIsUnique(linkingEvent as CastEvent, referencedEvent as DamageEvent, 3);
     },
   },
   {
@@ -183,17 +172,7 @@ const EVENT_LINKS: EventLink[] = [
         return false;
       }
 
-      /** Since Pyre can only hit a target once per cast
-       * we need to check if it's the same target */
-      const previousEvents = getPyreEvents(linkingEvent as CastEvent);
-      if (previousEvents.length > 0) {
-        const hasSameTarget = previousEvents.some(
-          (e) => encodeEventTargetString(e) === encodeEventTargetString(referencedEvent),
-        );
-        return !hasSameTarget;
-      }
-
-      return true;
+      return pyreHitIsUnique(linkingEvent as CastEvent, referencedEvent as DamageEvent);
     },
   },
 ];
@@ -235,6 +214,25 @@ export function getPyreEvents(event: CastEvent): DamageEvent[] {
   }
 
   return GetRelatedEvents<DamageEvent>(event, PYRE_DRAGONRAGE);
+}
+
+function pyreHitIsUnique(
+  castEvent: CastEvent,
+  damageEvent: DamageEvent,
+  maxHitsAllowed: number = 1,
+) {
+  /** Since Pyre can only hit a target once per cast
+   * we need to check if it's the same target
+   * Dragonrage shoots out 3 pyres so we need to count */
+  const previousEvents = getPyreEvents(castEvent);
+  if (previousEvents.length > 0) {
+    const targetHitCount = previousEvents.filter(
+      (e) => encodeEventTargetString(e) === encodeEventTargetString(damageEvent),
+    );
+    return targetHitCount.length < maxHitsAllowed;
+  }
+
+  return true;
 }
 
 export default CastLinkNormalizer;
