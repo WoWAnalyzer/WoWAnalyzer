@@ -35,6 +35,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 5, 3), 'Improve behavior of "Refresh" button', emallson),
   change(date(2024, 5, 3), 'Second pass at cleaning up dead code using knip', Putro),
   change(date(2024, 5, 2), 'Fix issue with boss detection', emallson),
   change(date(2024, 4, 26), 'Actually fix friendly/enemy determination', emallson),
