@@ -8,7 +8,7 @@ import { SpellLink } from 'interface';
 export default [
   change(date(2024, 5, 3), <>Add <SpellLink spell={SPELLS.SHADOW_SMITE} /> to <SpellLink spell={TALENTS_PRIEST.TRAIN_OF_THOUGHT_TALENT} />, <SpellLink spell={TALENTS_PRIEST.BLAZE_OF_LIGHT_TALENT} />, <SpellLink spell={TALENTS_PRIEST.WORDS_OF_THE_PIOUS_TALENT} /> and <SpellLink spell={TALENTS_PRIEST.TWILIGHT_EQUILIBRIUM_TALENT} /> </>, Saeldur),
   change(date(2024, 5, 3), <>Fix <SpellLink spell={TALENTS_PRIEST.ULTIMATE_PENITENCE_TALENT} /> cooldown and <SpellLink spell={TALENTS_PRIEST.HEAVENS_WRATH_TALENT} /> CDR. </>, Saeldur),
-  change(date(2024, 5, 3), <>Update many ability categorisations and fix cooldowns. </>, Saeldur),
+  change(date(2024, 5, 3), <>Update Many Discipline Priest Ability Categorisations and Fix Cooldowns for <SpellLink spell={SPELLS.FADE} /> and <SpellLink spell={TALENTS_PRIEST.MASS_DISPEL_TALENT} />. </>, Saeldur),
   change(date(2024, 4, 20), <>Fix cooldown of <SpellLink spell={SPELLS.DESPERATE_PRAYER} /> when using <SpellLink spell={TALENTS_PRIEST.ANGELS_MERCY_TALENT} />.</>,Arlie),
   change(date(2023, 4, 20), <>Hide <SpellLink spell={TALENTS_PRIEST.SHADOW_COVENANT_TALENT} /> analyzer for now.</>, Arlie),
   change(date(2023, 3, 12), <>Update spec compatibility with 10.2.5 patch.</>, Hana),
