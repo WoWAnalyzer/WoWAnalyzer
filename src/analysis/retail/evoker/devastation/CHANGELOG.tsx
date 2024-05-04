@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS/evoker';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 export default [
+  change(date(2024, 5, 3), <>Rework <SpellLink spell={TALENTS.VOLATILITY_TALENT} /> module to fix inaccuracy issues.</>, Vollmer),
   change(date(2024, 4, 19), 'Update modules for 10.2.6', Vollmer),
   change(date(2024, 4, 11), <>Rework <SpellLink spell={SPELLS.LEAPING_FLAMES_BUFF} /> module to increase accuracy.</>, Vollmer),
   change(date(2024, 4, 6), 'Normalize Empower behavior to make analysis more consistent.', Vollmer),

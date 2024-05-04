@@ -17,8 +17,8 @@ const config: Config = {
   description: (
     <>
       <p>
-        Hello, and welcome to the Devastation Analyzer! This analyzer is maintained by{' '}
-        <code>Vireve</code> , a former priest who's loving the new class!
+        Hello, and welcome to the Devastation Analyzer! This analyzer is currently maintained by{' '}
+        <code>Vollmer</code>!
       </p>
       <p>
         If you have questions about the output or want to help contribute, please hit me up in the{' '}
@@ -28,7 +28,7 @@ const config: Config = {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/PQcAhw3LzpnrxFGJ/18-Mythic+Volcoross+-+Kill+(3:10)/Gilgvoker/standard',
+  exampleReport: '/report/j8kzLryNhDx9fTGb/37-Mythic+Magmorax+-+Kill+(4:32)/Bensvoker/standard',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
