@@ -26,9 +26,9 @@ import { LEAPING_FLAMES_HITS } from 'analysis/retail/evoker/shared/modules/norma
  * See example of this here (upheaval should have extended but didn't):
  * https://www.warcraftlogs.com/reports/1JqKrX2vLxb6Zyp9/#fight=8&source=3&pins=2%24Off%24%23244F4B%24expression%24type%20%3D%20%22empowerend%22%20or%20type%3D%22removebuff%22&view=events&start=1402475&end=1408776
  */
-export const FAILED_EXTENSION_LINK = 'failedExtensionLink';
+const FAILED_EXTENSION_LINK = 'failedExtensionLink';
 
-export const PRESCIENCE_BUFF_CAST_LINK = 'prescienceBuffCastLink';
+const PRESCIENCE_BUFF_CAST_LINK = 'prescienceBuffCastLink';
 export const PRESCIENCE_APPLY_REMOVE_LINK = 'prescienceApplyRemoveLink';
 export const BREATH_EBON_APPLY_LINK = 'breathEbonApplyLink';
 export const EBON_MIGHT_BUFF_LINKS = 'ebonMightBuffLinks';
@@ -38,24 +38,24 @@ export const BREATH_OF_EONS_CAST_DEBUFF_APPLY_LINK = 'breathOfEonsCastDebuffAppl
 export const BREATH_OF_EONS_CAST_BUFF_LINK = 'breathOfEonsCastBuffLink';
 export const BREATH_OF_EONS_DAMAGE_LINK = 'breathOfEonsDamageLink';
 
-export const ERUPTION_CAST_DAM_LINK = 'eruptionCastDamLink';
-export const ERUPTION_CHITIN_LINK = 'eruptionChitinLink';
-export const PUPIL_OF_ALEXSTRASZA_LINK = 'pupilOfAlexstraszaLink';
+const ERUPTION_CAST_DAM_LINK = 'eruptionCastDamLink';
+const ERUPTION_CHITIN_LINK = 'eruptionChitinLink';
+const PUPIL_OF_ALEXSTRASZA_LINK = 'pupilOfAlexstraszaLink';
 // Tier
 export const TREMBLING_EARTH_DAM_LINK = 'tremblingEarthDamLink';
 
-export const PRESCIENCE_BUFFER = 150;
-export const CAST_BUFFER_MS = 100;
-export const BREATH_EBON_BUFFER = 250;
-export const EBON_MIGHT_BUFFER = 150;
-export const BREATH_OF_EONS_DEBUFF_APPLY_BUFFER = 8000;
-export const BREATH_OF_EONS_BUFF_BUFFER = 8000;
-export const BREATH_OF_EONS_DAMAGE_BUFFER = 100;
-export const PUPIL_OF_ALEXSTRASZA_BUFFER = 1000;
+const PRESCIENCE_BUFFER = 150;
+const CAST_BUFFER_MS = 100;
+const BREATH_EBON_BUFFER = 250;
+const EBON_MIGHT_BUFFER = 150;
+const BREATH_OF_EONS_DEBUFF_APPLY_BUFFER = 8000;
+const BREATH_OF_EONS_BUFF_BUFFER = 8000;
+const BREATH_OF_EONS_DAMAGE_BUFFER = 100;
+const PUPIL_OF_ALEXSTRASZA_BUFFER = 1000;
 
 // Tier
 // No clue why but this gets very weirdly staggered/delayed
-export const TREMBLING_EARTH_BUFFER = 500;
+const TREMBLING_EARTH_BUFFER = 500;
 
 const EVENT_LINKS: EventLink[] = [
   {

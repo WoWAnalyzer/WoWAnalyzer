@@ -5,8 +5,8 @@ import { TALENTS_EVOKER } from 'common/TALENTS';
 import { CastEvent, EventType, HasRelatedEvent } from 'parser/core/Events';
 
 export const ESSENCE_BURST_CONSUME = 'EssenceBurstConsumption';
-export const BURNOUT_CONSUME = 'BurnoutConsumption';
-export const SNAPFIRE_CONSUME = 'SnapfireConsumption';
+const BURNOUT_CONSUME = 'BurnoutConsumption';
+const SNAPFIRE_CONSUME = 'SnapfireConsumption';
 export const IRIDESCENCE_RED_CONSUME = 'IridescentRedConsumption';
 export const IRIDESCENCE_BLUE_CONSUME = 'IridescentBlueConsumption';
 export const DISINTEGRATE_REMOVE_APPLY = 'DisintegrateRemoveApply';

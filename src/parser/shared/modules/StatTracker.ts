@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import CLASSIC_SPELLS from 'common/SPELLS/classic';
 import ITEMS from 'common/ITEMS';
 import RACES from 'game/RACES';
-import SPECS, { isRetailSpec, specMasteryCoefficient } from 'game/SPECS';
+import SPECS, { isRetailSpec } from 'game/SPECS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatant from 'parser/core/Combatant';
 import { SpellInfo } from 'parser/core/EventFilter';
@@ -21,14 +21,14 @@ import Events, {
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import STAT, { PRIMARY_STAT } from 'parser/shared/modules/features/STAT';
 
-import { CLASSIC_EXPANSION } from 'game/Expansion';
 import { calculateSecondaryStatDefault } from 'parser/core/stats';
+import GameBranch from 'game/GameBranch';
 
 /**
  * Generates a {@link StatBuff} that defines a buff that gives the
  * appropiate `PRIMARY_STAT` for the current spec.
  */
-export function primaryStat(value: number): StatBuff {
+function primaryStat(value: number): StatBuff {
   return {
     [PRIMARY_STAT.STRENGTH]: (selectedCombatant) =>
       selectedCombatant.primaryStat === PRIMARY_STAT.STRENGTH ? value : 0,
@@ -219,8 +219,8 @@ class StatTracker extends Analyzer {
   ];
 
   get activeStats(): STAT[] {
-    switch (this.owner.config.expansion) {
-      case CLASSIC_EXPANSION:
+    switch (this.owner.config.branch) {
+      case GameBranch.Classic:
         return [
           STAT.HEALTH,
           STAT.STAMINA,
@@ -232,6 +232,7 @@ class StatTracker extends Analyzer {
           STAT.HASTE,
           STAT.HASTE_HPCT,
           STAT.HASTE_HPM,
+          STAT.MASTERY,
         ];
       default:
         return [
@@ -564,7 +565,7 @@ class StatTracker extends Analyzer {
 
   get baseMasteryPercentage() {
     const spellPoints = 8; // Spellpoint is a unit of mastery, each class has 8 base Spellpoints
-    let mastery = (spellPoints * (specMasteryCoefficient(this.selectedCombatant.spec) || 1)) / 100;
+    let mastery = (spellPoints * (this.selectedCombatant.spec?.masteryCoefficient ?? 1)) / 100;
     if (this.selectedCombatant.race === RACES.Dracthyr) {
       mastery += 0.018;
     }
@@ -707,7 +708,7 @@ class StatTracker extends Analyzer {
         this.statBaselineRatingPerPercent[STAT.MASTERY],
         false,
         true,
-        specMasteryCoefficient(this.selectedCombatant.spec) || 1,
+        this.selectedCombatant.spec?.masteryCoefficient ?? 1,
       )
     );
   }

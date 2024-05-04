@@ -23,5 +23,5 @@ const languageSlice = createSlice({
   },
 });
 
-export const { resetSlice, setLanguage } = languageSlice.actions;
+export const { setLanguage } = languageSlice.actions;
 export default languageSlice.reducer;

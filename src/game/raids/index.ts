@@ -50,7 +50,7 @@ export interface Phase extends PhaseConfig {
   end: number[];
 }
 
-export const dungeons = {
+const dungeons = {
   // Dragonflight
   MythicPlusSeasonOne,
   MythicPlusSeasonTwo,
@@ -68,15 +68,14 @@ const raids = {
   IcecrownCitadel, // tier 10
   RubySanctum, // tier 11
 };
-export default raids;
 
-export function findByDungeonBossId(id: number) {
+function findByDungeonBossId(id: number) {
   return Object.values(dungeons)
     .flatMap((dungeon) => Object.values(dungeon.bosses))
     .find((boss) => boss.id === id);
 }
 
-export function findByRaidBossId(id: number) {
+function findByRaidBossId(id: number) {
   return Object.values(raids)
     .flatMap((raid) => Object.values(raid.bosses))
     .find((boss) => boss.id === id);

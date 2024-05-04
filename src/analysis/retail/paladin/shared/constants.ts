@@ -22,7 +22,7 @@ export const DAMAGE_HOLY_POWER_SPENDERS: readonly Spell[] = [
   TALENTS.EXECUTION_SENTENCE_TALENT,
 ] as const;
 
-export const BUFF_HOLY_POWER_SPENDERS: readonly Spell[] = [] as const;
+const BUFF_HOLY_POWER_SPENDERS: readonly Spell[] = [] as const;
 
 export const ALL_HOLY_POWER_SPENDERS: readonly Spell[] = [
   ...HEALING_HOLY_POWER_SPENDERS,
@@ -30,7 +30,7 @@ export const ALL_HOLY_POWER_SPENDERS: readonly Spell[] = [
   ...BUFF_HOLY_POWER_SPENDERS,
 ] as const;
 
-export const SHARED_HOLY_POWER_GENERATORS = [
+const SHARED_HOLY_POWER_GENERATORS = [
   SPELLS.CRUSADER_STRIKE,
   TALENTS.HAMMER_OF_WRATH_TALENT,
   TALENTS.DIVINE_TOLL_TALENT,

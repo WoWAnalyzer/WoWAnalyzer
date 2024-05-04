@@ -1,8 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import { EventType } from 'parser/core/Events';
 
-export const FIGHT_END = 15000;
-
 const thisPlayer = 1;
 const enemy = 2;
 
@@ -177,7 +175,7 @@ export const buffsRefreshed = [
   },
 ];
 
-export const buffsRemoved = [
+const buffsRemoved = [
   {
     type: EventType.RemoveBuff,
     sourceid: thisPlayer,

@@ -5,12 +5,12 @@ import { makeCharacterUrl, makeArmoryUrl } from 'interface/makeAnalyzerUrl';
 import Combatant from 'parser/core/Combatant';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { Link } from 'react-router-dom';
-import { isRetailExpansion } from 'game/Expansion';
 
 import './CharacterTab.css';
 import CharacterRace from './CharacterRace';
 import CharacterStats from './CharacterStats';
 import PlayerInfo from './PlayerInfo';
+import GameBranch from 'game/GameBranch';
 
 interface Props {
   combatant: Combatant;
@@ -19,7 +19,7 @@ interface Props {
 const CharacterTab = (props: Props) => {
   const { statTracker, combatant } = props;
 
-  const isClassic = !isRetailExpansion(combatant.owner.config.expansion);
+  const isClassic = combatant.owner.config.branch === GameBranch.Classic;
 
   return (
     <div className="character-tab">

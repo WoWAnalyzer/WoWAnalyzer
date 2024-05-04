@@ -15,5 +15,5 @@ const internetExplorerSlice = createSlice({
   },
 });
 
-export const { resetSlice, setInternetExplorer } = internetExplorerSlice.actions;
+export const { setInternetExplorer } = internetExplorerSlice.actions;
 export default internetExplorerSlice.reducer;

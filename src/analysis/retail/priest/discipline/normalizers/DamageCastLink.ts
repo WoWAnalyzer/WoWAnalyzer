@@ -103,10 +103,6 @@ class DamageCastLink extends EventLinkNormalizer {
   }
 }
 
-export function getDamageAbility(event: CastEvent) {
-  return GetRelatedEvent<DamageEvent>(event, DAMAGE);
-}
-
 export function getCastAbility(event: DamageEvent) {
   return GetRelatedEvent<CastEvent>(event, CAST);
 }

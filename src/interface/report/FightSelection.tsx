@@ -1,7 +1,7 @@
 import { t, Trans } from '@lingui/macro';
 import getFightName from 'common/getFightName';
 import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
-import ClassicLogWarning from 'interface/report/ClassicLogWarning';
+import OldExpansionWarning from 'interface/report/OldExpansionWarning';
 import FightSelectionPanel from 'interface/report/FightSelectionPanel';
 import ReportDurationWarning, { MAX_REPORT_DURATION } from 'interface/report/ReportDurationWarning';
 import { getFightFromReport } from 'interface/selectors/fight';
@@ -88,7 +88,7 @@ const FightSelectionList = () => {
         </div>
       </div>
 
-      {isUnsupportedClassicVersion(report.gameVersion) && <ClassicLogWarning />}
+      {isUnsupportedClassicVersion(report.gameVersion) && <OldExpansionWarning />}
 
       {reportDuration > MAX_REPORT_DURATION && <ReportDurationWarning duration={reportDuration} />}
 

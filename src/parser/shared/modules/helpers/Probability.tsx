@@ -100,7 +100,7 @@ function resetProbabilityArray(
   return procProbabilities;
 }
 
-export function setMinMaxProbabilities(
+function setMinMaxProbabilities(
   actualProcs: number,
   procAttempts: number,
   procChance: number | number[],
@@ -155,7 +155,7 @@ function Ekj(k: number, j: number, p: number[], lookup: any[][]): number {
  * @param n {Number} Number of total tries
  * @param p {[Number]} Probability vector
  */
-export function poissonBinomialPMF(k: number, n: number, p: any[]) {
+function poissonBinomialPMF(k: number, n: number, p: any[]) {
   // denoted in the paper as ξk, I'll call it Ek for simplicity
   // using the recursive formula in chapter 2.5
   if (p.length !== n) {
@@ -168,30 +168,6 @@ export function poissonBinomialPMF(k: number, n: number, p: any[]) {
   // intentionally set tu nulls so we know which values are computed or not
   const lookup = [...Array(n + 1)].map((_) => Array(n + 1).fill(null));
   return Ekj(k, n, p, lookup);
-}
-
-/**
- * Calculates the probability that out of n tries with p probabilities, we get less than or equal k positive outcomes
- * @param k {Number} Number of desired positive outcomes
- * @param n {Number} Number of total tries
- * @param p {[Number]} Probability vector
- */
-export function poissonBinomialCDF(k: number, n: number, p: number[]) {
-  // While technically equal to summing Ei from i = 0 to k, since we use recursion, a better solution is a lookup table
-  if (p.length !== n) {
-    throw new Error(
-      'You must supply a probability vector with the same length as the number of total tries into Poisson Binomial CDF',
-    );
-  }
-  // see comments in poissonBinomialPMF
-  const lookup = [...Array(n + 1)].map((_) => Array(n + 1).fill(null));
-  let probability = 0;
-  // since Ekj uses the values from "previous row" (Ekj(k - 1, j - 1, ...)), it's better to iterate from 0
-  // this way, it produces the least necessary amount of calculations with the lookup table (only the Ekj(k, j - 1) parts)
-  for (let i = 0; i <= k; i += 1) {
-    probability += Ekj(i, n, p, lookup);
-  }
-  return probability;
 }
 
 export function plotOneVariableBinomChart(

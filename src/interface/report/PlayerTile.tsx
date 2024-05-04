@@ -10,7 +10,6 @@ import getBuild from 'parser/getBuild';
 import { ReactNode, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { isSupportedRegion } from 'common/regions';
-import { CLASSIC_EXPANSION, CLASSIC_EXPANSION_NAME } from 'game/Expansion';
 import getConfig from 'parser/getConfig';
 import { useWaDispatch } from 'interface/utils/useWaDispatch';
 import { useWaSelector } from 'interface/utils/useWaSelector';
@@ -20,6 +19,9 @@ import { Spec } from 'game/SPECS';
 import { useFight } from 'interface/report/context/FightContext';
 import { isMythicPlus } from 'common/isMythicPlus';
 import { fetchCharacter } from 'interface/reducers/charactersById';
+import { useReport } from './context/ReportContext';
+import { wclGameVersionToBranch } from 'game/VERSIONS';
+import GameBranch from 'game/GameBranch';
 
 interface BlockLoadingProps {
   children: ReactNode;
@@ -102,10 +104,11 @@ function isSpecDisabledInDungeons(spec: Spec): boolean {
 }
 
 const PlayerTile = ({ player, makeUrl, config }: PlayerTileProps) => {
-  const classic = player.combatant.expansion === CLASSIC_EXPANSION_NAME;
   const characterInfo = useWaSelector((state) => getCharacterById(state, player.guid));
   const dispatch = useWaDispatch();
   const { fight } = useFight();
+  const { report } = useReport();
+  const classic = wclGameVersionToBranch(report.gameVersion) === GameBranch.Classic;
 
   useEffect(() => {
     const load = async () => {
@@ -132,8 +135,8 @@ const PlayerTile = ({ player, makeUrl, config }: PlayerTileProps) => {
 
   const avatar = makeThumbnailUrl(characterInfo, classic);
 
-  if (!config && CLASSIC_EXPANSION) {
-    config = getConfig(CLASSIC_EXPANSION, 1, player, player.combatant);
+  if (!config) {
+    config = getConfig(GameBranch.Classic, 1, player, player.combatant);
   }
   const spec = config?.spec;
   const build = getBuild(config, player.combatant);

@@ -19,10 +19,10 @@ import { Options } from 'parser/core/Module';
 const CAST_BUFFER_MS = 200;
 const AFTER_CAST_BUFFER_MS = 300; // parries can be delayed even more...
 
-export const FROM_HARDCAST = 'FromHardcast';
-export const FROM_DOUBLE_CLAWED_RAKE = 'FromDoubleClawedRake';
-export const FROM_PRIMAL_WRATH = 'FromPrimalWrath';
-export const HIT_TARGET = 'HitTarget';
+const FROM_HARDCAST = 'FromHardcast';
+const FROM_DOUBLE_CLAWED_RAKE = 'FromDoubleClawedRake';
+const FROM_PRIMAL_WRATH = 'FromPrimalWrath';
+const HIT_TARGET = 'HitTarget';
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -173,12 +173,6 @@ export function getHardcast(
   event: ApplyDebuffEvent | RefreshDebuffEvent | DamageEvent,
 ): CastEvent | undefined {
   return GetRelatedEvent(event, FROM_HARDCAST);
-}
-
-// TODO get hardcast energy / cp?
-
-export function isFromPrimalWrath(event: ApplyDebuffEvent | RefreshDebuffEvent): boolean {
-  return HasRelatedEvent(event, FROM_PRIMAL_WRATH);
 }
 
 export function getPrimalWrath(

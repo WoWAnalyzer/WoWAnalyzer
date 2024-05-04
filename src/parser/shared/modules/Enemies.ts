@@ -44,11 +44,6 @@ export function encodeTargetString(id: number, instance = 0) {
   return `${id}.${instance}`;
 }
 
-export function decodeTargetString(string: string) {
-  const [id, instance = 0] = string.split('.');
-  return { id, instance };
-}
-
 class Enemies extends Entities<Enemy> {
   enemies: { [enemyId: string]: Enemy } = {};
   /**

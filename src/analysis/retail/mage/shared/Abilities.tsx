@@ -329,4 +329,3 @@ class Abilities extends CoreAbilities {
 }
 
 export default Abilities;
-export { Abilities as MAGE_SHARED_ABILITIES };

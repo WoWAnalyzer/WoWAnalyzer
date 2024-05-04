@@ -203,7 +203,7 @@ export const incomingDamage = [
 ];
 
 // Damage taken: amount: 0, absorbed: 0, overkill: 0
-export const casts = [
+const casts = [
   {
     type: EventType.Cast,
     sourceID: thisPlayer,
@@ -234,7 +234,7 @@ export const casts = [
   },
 ];
 
-export const dpsCasts = [
+const dpsCasts = [
   {
     type: EventType.Cast,
     sourceID: thisPlayer,
@@ -287,10 +287,10 @@ export const dpsCasts = [
 ];
 
 // Damage taken: amount: 0, absorbed: 0, overkill: 0
-export const isbCasts = [];
+const isbCasts = [];
 
 // Damage taken: amount: 0, absorbed: 0, overkill: 0
-export const applybuff = [
+const applybuff = [
   {
     type: EventType.ApplyBuff,
     sourceID: thisPlayer,
@@ -314,7 +314,7 @@ export const applybuff = [
   },
 ];
 
-export const refreshBuff = [
+const refreshBuff = [
   {
     type: EventType.RefreshBuff,
     sourceID: thisPlayer,
@@ -324,7 +324,7 @@ export const refreshBuff = [
   },
 ];
 
-export const removebuff = [
+const removebuff = [
   {
     type: EventType.RemoveBuff,
     sourceID: thisPlayer,

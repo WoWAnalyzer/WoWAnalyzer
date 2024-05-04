@@ -207,7 +207,7 @@ export function isRealCast(event: CastEvent): boolean {
 }
 
 /** Updates the ChannelState with a BeginChannelEvent */
-export function beginCurrentChannel(event: BeginCastEvent | CastEvent, channelState: ChannelState) {
+function beginCurrentChannel(event: BeginCastEvent | CastEvent, channelState: ChannelState) {
   const beginChannel: BeginChannelEvent = {
     type: EventType.BeginChannel,
     ability: event.ability,
@@ -232,7 +232,7 @@ function copyTargetData(target: ChannelState['unresolvedChannel'], source: AnyEv
 }
 
 /** Updates the ChannelState with a EndChannelEvent tied to the current channel */
-export function endCurrentChannel(event: AnyEvent, channelState: ChannelState) {
+function endCurrentChannel(event: AnyEvent, channelState: ChannelState) {
   if (!channelState.unresolvedChannel) {
     // TODO log error?
     return;
@@ -295,7 +295,7 @@ function attachChannelToCast(endChannelEvent: EndChannelEvent): void {
  * @param channelState the current channel state
  * @param currentEvent the current event being handled
  */
-export function cancelCurrentChannel(currentEvent: AnyEvent, channelState: ChannelState) {
+function cancelCurrentChannel(currentEvent: AnyEvent, channelState: ChannelState) {
   if (channelState.unresolvedChannel !== null) {
     channelState.unresolvedChannel.isCancelled = true;
     channelState.unresolvedChannel = null;
@@ -317,7 +317,7 @@ export function cancelCurrentChannel(currentEvent: AnyEvent, channelState: Chann
  *
  * @param spellId the guid for the tracked Cast and RemoveBuff/RemoveDebuff events.
  */
-export function buffChannelSpec(spellId: number): ChannelSpec {
+function buffChannelSpec(spellId: number): ChannelSpec {
   const guids = [spellId];
   const handler: ChannelHandler = (
     event: AnyEvent,
@@ -355,7 +355,7 @@ export function buffChannelSpec(spellId: number): ChannelSpec {
  *
  * @param spellId the guid for the tracked Empower Cast event.
  */
-export function empowerChannelSpec(spellId: number): ChannelSpec {
+function empowerChannelSpec(spellId: number): ChannelSpec {
   const guids = [spellId];
   const handler: ChannelHandler = (
     event: AnyEvent,
@@ -400,7 +400,7 @@ export function empowerChannelSpec(spellId: number): ChannelSpec {
  *
  * @param spellId the guid for the tracked Cast events
  */
-export function nextCastChannelSpec(spellId: number): ChannelSpec {
+function nextCastChannelSpec(spellId: number): ChannelSpec {
   const guids = [spellId];
   const handler: ChannelHandler = (
     event: AnyEvent,

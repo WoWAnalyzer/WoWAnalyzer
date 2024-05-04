@@ -14,7 +14,6 @@ import {
   MASTERY_STACK_BUFF_IDS,
   TRIPLE_MASTERY_BENEFIT_IDS,
 } from 'analysis/retail/druid/restoration/constants';
-import { specMasteryCoefficient } from 'game/SPECS';
 
 const DEBUG = false;
 
@@ -303,7 +302,7 @@ class Mastery extends Analyzer {
         this.statTracker.ratingNeededForNextPercentage(
           this.statTracker.currentMasteryRating,
           this.statTracker.statBaselineRatingPerPercent[STAT.MASTERY],
-          specMasteryCoefficient(this.selectedCombatant.spec),
+          this.selectedCombatant.spec?.masteryCoefficient,
         );
       return buffBonus / healMasteryMult;
     };
@@ -325,7 +324,7 @@ type MasteryAttributionsBySpell = { [key: number]: MasterySpellAttribution };
 /**
  * A HoT's mastery attribution.
  */
-export class MasterySpellAttribution {
+class MasterySpellAttribution {
   direct: number; // the direct healing from the HoT, should be same as entry in WCL. Includes benefit from own stack of Mastery.
   mastery: { [key: number]: number }; // a mapping from spell ID to how much this HoT boosted it via Mastery.
 
@@ -351,7 +350,7 @@ type MasteryAttributionsByBuff = { [key: number]: MasteryBuffAttribution };
 /**
  * A Buff's mastery attribution.
  */
-export class MasteryBuffAttribution {
+class MasteryBuffAttribution {
   attributable: number; // the amount of healing attributable to the buff
   buffAmount: number; // the amount of mastery rating the buff provides
 

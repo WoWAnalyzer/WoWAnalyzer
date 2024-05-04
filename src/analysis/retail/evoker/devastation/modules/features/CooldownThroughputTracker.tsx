@@ -1,5 +1,5 @@
 import TALENTS from 'common/TALENTS/evoker';
-import { RETAIL_EXPANSION } from 'game/Expansion';
+import GameBranch from 'game/GameBranch';
 import CoreCooldownThroughputTracker, {
   BUILT_IN_SUMMARY_TYPES,
 } from 'parser/shared/modules/CooldownThroughputTracker';
@@ -10,7 +10,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     {
       spell: TALENTS.DRAGONRAGE_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
-      expansion: RETAIL_EXPANSION,
+      branch: GameBranch.Retail,
     },
   ];
 }
