@@ -1,10 +1,10 @@
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/evoker';
 import TALENTS from 'common/TALENTS/evoker';
 import { formatNumber } from 'common/format';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import Events, { DamageEvent } from 'parser/core/Events';
+import Events, { DamageEvent, HasRelatedEvent } from 'parser/core/Events';
 
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -13,54 +13,57 @@ import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probabi
 
 import { SCINTILLATION_PROC_CHANCE } from 'analysis/retail/evoker/devastation/constants';
 import TalentSpellText from 'parser/ui/TalentSpellText';
+import { ES_FROM_CAST, MAX_ES_HIT_BUFFER_MS } from '../normalizers/EternitySurgeNormalizer';
 
-const { ETERNITY_SURGE_DAM, ETERNITY_SURGE, ETERNITY_SURGE_FONT, DISINTEGRATE } = SPELLS;
-
+/**
+ * Disintegrate has a 15% chance each time it deals damage to launch a level 1 Eternity Surge at 50% power.
+ */
 class Scintillation extends Analyzer {
-  scintillationProcs: number = 0;
-  scintillationDamage: number = 0;
-  awaitingEternitySurgeHit: boolean = false;
-  allowScintillationDetection: boolean = false;
-  lastEternitySurgeHit: number = 0;
-  scintProcNoted: number = 0;
+  scintillationDamage = 0;
+  scintillationProcs = 0;
+  scintillationProcChances = 0;
 
-  scintillationProcChances: number = 0;
+  lastScintillationProcTimestamp = 0;
+  hasEternitySpan = false;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.SCINTILLATION_TALENT);
+    this.hasEternitySpan = this.selectedCombatant.hasTalent(TALENTS.ETERNITYS_SPAN_TALENT);
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell([ETERNITY_SURGE, ETERNITY_SURGE_FONT]),
-      () => {
-        this.awaitingEternitySurgeHit = true;
-        this.allowScintillationDetection = false;
-      },
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.DISINTEGRATE),
+      this.onDisintegrateDamage,
     );
 
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(DISINTEGRATE), () => {
-      this.allowScintillationDetection = true;
-      this.scintillationProcChances += 1;
-    });
-
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(ETERNITY_SURGE_DAM), this.onHit);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ETERNITY_SURGE_DAM),
+      this.onHit,
+    );
   }
 
-  onHit(event: DamageEvent) {
-    if (this.awaitingEternitySurgeHit) {
-      this.lastEternitySurgeHit = event.timestamp;
-      this.awaitingEternitySurgeHit = false;
-      this.allowScintillationDetection = true;
+  private onDisintegrateDamage() {
+    this.scintillationProcChances += 1;
+  }
+
+  private onHit(event: DamageEvent) {
+    if (HasRelatedEvent(event, ES_FROM_CAST)) {
       return;
     }
-    if (this.allowScintillationDetection && event.timestamp > this.lastEternitySurgeHit) {
-      this.scintProcNoted = event.timestamp;
-      this.scintillationProcs += 1;
-      this.allowScintillationDetection = false;
+
+    this.scintillationDamage += event.amount + (event.absorbed ?? 0);
+
+    // With Eternity Span we'll shoot out two hits per proc
+    if (
+      this.hasEternitySpan &&
+      event.timestamp - this.lastScintillationProcTimestamp < MAX_ES_HIT_BUFFER_MS
+    ) {
+      return;
     }
-    if (event.timestamp === this.scintProcNoted) {
-      this.scintillationDamage += event.amount + (event.absorbed ?? 0);
-    }
+
+    console.log('Scintillation: Proc at ' + this.owner.formatTimestamp(event.timestamp));
+    this.scintillationProcs += 1;
+    this.lastScintillationProcTimestamp = event.timestamp;
   }
 
   statistic() {
