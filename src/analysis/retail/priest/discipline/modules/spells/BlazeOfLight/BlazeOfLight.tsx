@@ -39,7 +39,7 @@ class BlazeOfLight extends Analyzer {
     this.addEventListener(
       Events.damage
         .by(SELECTED_PLAYER)
-        .spell([SPELLS.SMITE, SPELLS.SHADOW_SMITE, SPELLS.PENANCE, SPELLS.DARK_REPRIMAND_DAMAGE]),
+        .spell(BLAZE_OF_LIGHT_SPELLS),
       this.onDamage,
     );
 
