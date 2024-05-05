@@ -102,7 +102,10 @@ class TwilightEquilibrium extends Analyzer {
   checkDamageEvent(event: DamageEvent) {
     // Shadow Smite is buffed by Holy TE's Whitelist and has no associated cast.
     if (event.ability.guid === SPELLS.SHADOW_SMITE.id) {
-      return this.selectedCombatant.hasBuff(SPELLS.TWILIGHT_EQUILIBRIUM_HOLY_BUFF.id, event.timestamp);
+      return this.selectedCombatant.hasBuff(
+        SPELLS.TWILIGHT_EQUILIBRIUM_HOLY_BUFF.id,
+        event.timestamp,
+      );
     }
 
     const castEvent = getCastAbility(event) as DirtyCastEvent;
