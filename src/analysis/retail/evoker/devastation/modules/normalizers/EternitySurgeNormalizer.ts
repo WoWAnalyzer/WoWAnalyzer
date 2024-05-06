@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS/evoker';
 import TALENTS from 'common/TALENTS/evoker';
 import { formatDuration } from 'common/format';
 import HIT_TYPES from 'game/HIT_TYPES';
-import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
+import { calculateEffectiveDamageFromCritDamageIncrease } from 'parser/core/EventCalculateLib';
 import {
   AddRelatedEvent,
   AnyEvent,
@@ -129,7 +129,7 @@ class EternitySurgeNormalizer extends EventsNormalizer {
           const isCrit = initialEvent.hitType === HIT_TYPES.CRIT;
           if (isCrit) {
             if (hasSpellweaversDominance) {
-              rawAmount -= calculateEffectiveDamage(
+              rawAmount -= calculateEffectiveDamageFromCritDamageIncrease(
                 initialEvent,
                 SPELLWEAVERS_DOMINANCE_CRIT_MULTIPLIER,
               );
