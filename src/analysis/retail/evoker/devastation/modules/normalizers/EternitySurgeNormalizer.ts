@@ -16,7 +16,7 @@ import { SPELLWEAVERS_DOMINANCE_CRIT_MULTIPLIER } from '../../constants';
 export const ETERNITY_SURGE_FROM_CAST = 'EternitySurgeFromCast';
 
 const MAX_SEARCH_BUFFER_MS = 1_500;
-export const MAX_ES_HIT_BUFFER_MS = 20;
+export const MAX_ES_HIT_BUFFER_MS = 25;
 
 const ETERNITY_SURGE_IDS = new Set<number>([
   SPELLS.ETERNITY_SURGE.id,
