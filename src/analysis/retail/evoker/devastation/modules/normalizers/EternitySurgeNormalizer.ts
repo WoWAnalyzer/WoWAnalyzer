@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS/evoker';
 import TALENTS from 'common/TALENTS/evoker';
-import { formatDuration } from 'common/format';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { calculateEffectiveDamageFromCritDamageIncrease } from 'parser/core/EventCalculateLib';
 import {
@@ -14,7 +13,7 @@ import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { Options } from 'parser/core/Module';
 import { SPELLWEAVERS_DOMINANCE_CRIT_MULTIPLIER } from '../../constants';
 
-export const ES_FROM_CAST = 'ESFromCast';
+export const ETERNITY_SURGE_FROM_CAST = 'EternitySurgeFromCast';
 
 const MAX_SEARCH_BUFFER_MS = 1_500;
 export const MAX_ES_HIT_BUFFER_MS = 20;
@@ -29,7 +28,7 @@ const ETERNITY_SURGE_IDS = new Set<number>([
  * The purpose of this Normalizer is to link Eternity Surge hits to EmpowerEnd events.
  *
  * The reason this is needed is because of Scintillation which is a talent that makes
- * Disintegrate having a chance to proc Eternity Surge on each tick.
+ * Disintegrate have a chance to proc Eternity Surge on each tick.
  *
  * Due to the nature of Eternity Surge and its varying traveltime depending on the distance
  * to your target, making this with a normal CastLinkNormalizer is not really feasible.
@@ -39,7 +38,7 @@ const ETERNITY_SURGE_IDS = new Set<number>([
  *
  * We can't accurately link Eternity Surge hits from Scintillation procs to Disintegrate ticks
  * due to above mentioned travel time problem, so we will only add Links for Eternity Surge casts,
- * and treat non linked Eternity Surge hits as if they were Scintillation procs.
+ * and treat non linked Eternity Surge hits as Scintillation procs.
  *
  * Effectively this is a perfectly adequate solution for what we currently need for our analysis.
  * There could come a time where having Scintillation procs linked, due to damage calculation
@@ -50,12 +49,13 @@ class EternitySurgeNormalizer extends EventsNormalizer {
   constructor(options: Options) {
     super(options);
     /** NOTE: For now since we only use the links for Scintillation analysis
-     * we will only enable this if we have Scintillation */
+     * we will only enable this if we have Scintillation talented */
     this.active = this.selectedCombatant.hasTalent(TALENTS.SCINTILLATION_TALENT);
   }
 
   normalize(events: AnyEvent[]) {
     const fixedEvents: AnyEvent[] = [];
+
     const hitsPerEmpowerRank = this.selectedCombatant.hasTalent(TALENTS.ETERNITYS_SPAN_TALENT)
       ? 2
       : 1;
@@ -67,31 +67,31 @@ class EternitySurgeNormalizer extends EventsNormalizer {
     let currentEternitySurgeCast: EmpowerEndEvent | undefined;
     let damageWindows: DamageEvent[][] = [];
 
+    // region HELPER FUNCTIONS
     /** Reset our internal state */
     const resetDamageWindows = () => {
-      console.log('cleanup');
       if (currentEternitySurgeCast) {
         fixedEvents.push(currentEternitySurgeCast);
       }
       damageWindows = [];
       currentEternitySurgeCast = undefined;
-      console.groupEnd();
     };
 
     /** Add CastLinks between Eternity Surge cast and associated hits */
     const addLinks = (damageEvent: DamageEvent) => {
       if (!currentEternitySurgeCast) {
-        console.warn(
-          `No Eternity Surge to link to @${formatDuration(damageEvent.timestamp - this.owner.fight.start_time)}`,
-        );
+        // Shouldn't be possible but just in case
         return;
       }
-      AddRelatedEvent(currentEternitySurgeCast, ES_FROM_CAST, damageEvent);
-      AddRelatedEvent(damageEvent, ES_FROM_CAST, currentEternitySurgeCast);
+
+      AddRelatedEvent(currentEternitySurgeCast, ETERNITY_SURGE_FROM_CAST, damageEvent);
+      AddRelatedEvent(damageEvent, ETERNITY_SURGE_FROM_CAST, currentEternitySurgeCast);
     };
 
-    /** Figure out which damage window is from the cast */
+    /** Figure out which damage window is from the cast
+     * @return the index of the window */
     const findCastWindow = () => {
+      // 95% of the time we only have one damage window
       if (damageWindows.length === 1) {
         return 0;
       }
@@ -100,11 +100,11 @@ class EternitySurgeNormalizer extends EventsNormalizer {
        * We need to figure out which one is from the cast
        * we do this by comparing the amount of damage in each window
        * and choosing the one with the most damage, since Scintillation procs are
-       * 50% of base damage - it can also be determined by the amount of hits
-       * since procs can only ever hit a max of 1/2 targets depending on talent
+       * 50% of base damage.
        *
-       * Close to always we will only have one window so we'll only run the compare logic if
-       * there is more than one window */
+       * It can also be determined by the amount of hits
+       * since procs can only ever hit a max of 1/2 targets depending on if
+       * Eternity Span is talented. */
       const { windowIdxToUse } = damageWindows.reduce(
         (acc, window, idx) => {
           // We've already found the correct window, based on hit count
@@ -119,7 +119,15 @@ class EternitySurgeNormalizer extends EventsNormalizer {
             return acc;
           }
 
-          // We'll just compare the first events in the windows
+          /** We'll just compare the first events in the windows.
+           * We could loop through all events in the windows and eg. compare
+           * the average value.
+           * But this works perfectly fine outside of some edge cases where the
+           * first hit might hit an immune / DR'ed target.
+           * But that would most likely be an issue event when looping.
+           *
+           * And for 95% of cases we only have one window to begin with, so this
+           * logic is already rarely used, so we'll just accept this potentiality. */
           const initialEvent = window[0];
           let rawAmount = initialEvent.amount + (initialEvent.absorbed ?? 0);
           let normalizedAmount = 0;
@@ -134,27 +142,11 @@ class EternitySurgeNormalizer extends EventsNormalizer {
                 SPELLWEAVERS_DOMINANCE_CRIT_MULTIPLIER,
               );
             }
-            normalizedAmount = rawAmount / 2;
-          } else {
-            normalizedAmount = rawAmount;
+
+            rawAmount /= 2;
           }
 
-          console.info(
-            'Window',
-            idx,
-            'rawAmount',
-            rawAmount,
-            'amount',
-            normalizedAmount,
-            'isCrit',
-            isCrit,
-            'hasSpellweaver',
-            hasSpellweaversDominance,
-            'hasScint',
-            hasScintillation,
-            'window.length',
-            window.length,
-          );
+          normalizedAmount = rawAmount;
 
           // Initial window to compare against
           if (idx === 0) {
@@ -198,13 +190,6 @@ class EternitySurgeNormalizer extends EventsNormalizer {
 
       // We don't have Scintillation and therefore all hits are from Cast
       if (!hasScintillation) {
-        if (damageWindows.length > 1) {
-          console.warn(
-            `Unexpected amount of Eternity Surge damage windows @${formatDuration(currentEternitySurgeCast.timestamp - this.owner.fight.start_time)}`,
-            damageWindows,
-          );
-        }
-
         damageWindows.forEach((window) => {
           window.forEach((e) => {
             addLinks(e);
@@ -216,7 +201,6 @@ class EternitySurgeNormalizer extends EventsNormalizer {
       }
 
       const castWindowIdx = findCastWindow();
-      console.info('Using window', castWindowIdx, 'for', damageWindows);
 
       damageWindows.forEach((window, windowIdx) => {
         window.forEach((e) => {
@@ -230,6 +214,7 @@ class EternitySurgeNormalizer extends EventsNormalizer {
       resetDamageWindows();
     };
 
+    // region NORMALIZE
     for (const event of events) {
       if (event.type !== EventType.Damage && event.type !== EventType.EmpowerEnd) {
         fixedEvents.push(event);
@@ -241,32 +226,24 @@ class EternitySurgeNormalizer extends EventsNormalizer {
         continue;
       }
 
+      // New cast, resolve old windows
       if (event.type === EventType.EmpowerEnd) {
-        console.group(
-          'Resolving damage events: EmpowerEnd @',
-          formatDuration(event.timestamp - events[0].timestamp),
-          damageWindows,
-          currentEternitySurgeCast,
-        );
         resolveDamageWindows();
 
         currentEternitySurgeCast = event;
         continue;
       }
 
+      // No Eternity Surge cast, so damage events are from Scintillation procs
       if (!currentEternitySurgeCast) {
         fixedEvents.push(event);
         continue;
       }
 
       const diff = event.timestamp - currentEternitySurgeCast.timestamp;
+      /** We have gone past our search buffer, resolve the damage windows
+       * the current event will be from proc */
       if (diff >= MAX_SEARCH_BUFFER_MS) {
-        console.group(
-          'Resolving damage events: too much delay @',
-          formatDuration(event.timestamp - events[0].timestamp),
-          damageWindows,
-          currentEternitySurgeCast,
-        );
         resolveDamageWindows();
         fixedEvents.push(event);
         continue;
@@ -292,7 +269,6 @@ class EternitySurgeNormalizer extends EventsNormalizer {
     }
 
     // cleanup
-    console.group('Fight ended, resolving damage events');
     resolveDamageWindows();
 
     return fixedEvents;
