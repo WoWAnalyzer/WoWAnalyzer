@@ -47,7 +47,8 @@ export function ViolationTimeline({
       <EmbeddedTimelineContainer secondWidth={60} secondsShown={12}>
         <SpellTimeline>
           <Casts
-            start={relevantEvents[0].timestamp}
+            start={info.fightStart}
+            windowStart={relevantEvents[0].timestamp}
             movement={undefined}
             secondWidth={60}
             events={relevantEvents}

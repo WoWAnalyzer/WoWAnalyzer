@@ -315,10 +315,10 @@ export const SubSection = ({
  * Common styling colors and marks
  */
 
-const PerfectMark = () => <i className="glyphicon glyphicon-ok-circle perfect-mark" />;
-const GoodMark = () => <i className="glyphicon glyphicon-ok good-mark" />;
+export const PerfectMark = () => <i className="glyphicon glyphicon-ok-circle perfect-mark" />;
+export const GoodMark = () => <i className="glyphicon glyphicon-ok good-mark" />;
 const OkMark = () => <i className="glyphicon glyphicon-asterisk ok-mark" />;
-const BadMark = () => <i className="glyphicon glyphicon-remove bad-mark" />;
+export const BadMark = () => <i className="glyphicon glyphicon-remove bad-mark" />;
 
 export const PerfectColor = getComputedStyle(document.documentElement).getPropertyValue(
   '--guide-perfect-color',

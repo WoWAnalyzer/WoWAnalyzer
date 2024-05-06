@@ -61,9 +61,9 @@ const Container = styled.div<{ important?: boolean }>`
     padding: 0.5em 1em;
     max-height: 999px;
     transition:
-      max-height 0.15s ease-out,
-      padding-top 0.14s ease-out,
-      padding-bottom 0.14s ease-out;
+      max-height 0.15s ease-in,
+      padding-top 0.14s ease-in,
+      padding-bottom 0.14s ease-in;
   }
 `;
 

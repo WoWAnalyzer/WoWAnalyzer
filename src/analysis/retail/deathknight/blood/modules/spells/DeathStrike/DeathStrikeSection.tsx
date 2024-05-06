@@ -4,7 +4,7 @@ import talents from 'common/TALENTS/deathknight';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import ResourceLink from 'interface/ResourceLink';
 import SpellLink from 'interface/SpellLink';
-import { BadColor, SubSection, useAnalyzer, useInfo } from 'interface/guide';
+import { BadColor, SubSection, useAnalyzer, useEvents, useInfo } from 'interface/guide';
 import SuggestionBox from 'interface/suggestion-box/SuggestionBox';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import RunicPowerTracker from '../../runicpower/RunicPowerTracker';
@@ -13,12 +13,16 @@ import { formatNumber, formatPercentage } from 'common/format';
 import Tooltip from 'interface/Tooltip';
 import { Highlight } from 'interface/Highlight';
 import RuneTracker from '../../core/RuneTracker';
+import ProblemList from 'interface/guide/components/ProblemList';
+import { ResourceWasteProblemRenderer } from '../../../components/ResourceWasteProblemRenderer';
 
 export default function DeathStrikeSection() {
   const rp = useAnalyzer(RunicPowerTracker);
   const runes = useAnalyzer(RuneTracker);
+  const events = useEvents();
+  const info = useInfo();
 
-  if (!rp || !runes) {
+  if (!rp || !runes || !info) {
     return <>Core analyzers missing.</>;
   }
 
@@ -60,11 +64,9 @@ export default function DeathStrikeSection() {
         <div style={{ display: 'grid', gridTemplateColumns: '45% 1fr', gap: '2em' }}>
           <div>
             <p>
-              The obvious place to start looking at{' '}
-              <SpellLink spell={talents.DEATH_STRIKE_TALENT} /> would be with{' '}
-              <SpellLink spell={talents.DEATH_STRIKE_TALENT} /> itself, but that isn't quite
-              correct. We need to start <em>earlier</em>&mdash;with generating the{' '}
-              <ResourceLink id={RESOURCE_TYPES.RUNIC_POWER.id}>RP</ResourceLink> needed to use it.
+              The most important thing about <SpellLink spell={talents.DEATH_STRIKE_TALENT} /> is
+              being able to cast it&mdash;which means generating{' '}
+              <ResourceLink id={RESOURCE_TYPES.RUNIC_POWER.id}>RP</ResourceLink> to spend on it.
             </p>
             <RunicPowerTable />
             <p style={{ marginTop: '1em' }}>
@@ -89,7 +91,14 @@ export default function DeathStrikeSection() {
                 </>
               }
               description="Wasting RP costs you damage and healing. Aim for less than 5% waste."
-            ></SuggestionBox>
+            >
+              <ProblemList
+                renderer={ResourceWasteProblemRenderer}
+                problems={rp.wasteProblems}
+                events={events}
+                info={info}
+              />
+            </SuggestionBox>
             <SuggestionBox
               performance={runes.wastedRunePerformance}
               title={
