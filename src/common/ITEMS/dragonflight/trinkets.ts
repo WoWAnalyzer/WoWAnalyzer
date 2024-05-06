@@ -41,6 +41,11 @@ const trinkets = {
     name: "Belor'relos, the Suncaller",
     icon: 'inv_wand_1h_firelandsraid_d_01',
   },
+  ENDURING_DREADPLATE: {
+    id: 202616,
+    name: 'Enduring Dreadplate',
+    icon: 'inv_10_blacksmithing_craftedbar_bloodyalloy',
+  },
 } satisfies Record<string, Item>;
 
 export default trinkets;
