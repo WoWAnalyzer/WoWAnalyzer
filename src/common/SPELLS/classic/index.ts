@@ -64,15 +64,3 @@ export default CLASSIC_SPELLS;
 
 export const maybeGetSpell = (key: string | number | undefined): Spell | undefined =>
   key ? InternalSpellTable[key as any] : undefined;
-
-export const registerSpell = (id: number, name: string, icon: string) => {
-  if (InternalSpellTable[id]) {
-    return;
-  }
-
-  InternalSpellTable[id] = {
-    id,
-    name,
-    icon,
-  };
-};

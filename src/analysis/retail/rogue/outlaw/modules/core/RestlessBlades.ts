@@ -24,8 +24,8 @@ const AFFECTED_ABILITIES: number[] = [
   SPELLS.BLADE_FLURRY.id,
 ];
 
-export const RESTLESS_BLADES_BASE_CDR = 1000;
-export const TRUE_BEARING_CDR = 500;
+const RESTLESS_BLADES_BASE_CDR = 1000;
+const TRUE_BEARING_CDR = 500;
 
 class RestlessBlades extends Analyzer {
   static dependencies = {

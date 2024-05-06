@@ -6,7 +6,7 @@ import Analyzer, { Options } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 // the buff events all use this spell
-export const RUSHING_JADE_WIND_BUFF = talents.RUSHING_JADE_WIND_TALENT;
+const RUSHING_JADE_WIND_BUFF = talents.RUSHING_JADE_WIND_TALENT;
 
 class RushingJadeWind extends Analyzer {
   get uptimeThreshold() {

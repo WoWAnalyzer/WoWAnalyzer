@@ -1,13 +1,13 @@
 import type Config from 'parser/Config';
-import Expansion from 'game/Expansion';
 import type { Spec } from 'game/SPECS';
 import type Report from 'parser/core/Report';
 import { PRIMARY_STAT } from 'parser/shared/modules/features/STAT';
 import type { PlayerInfo } from 'parser/core/Player';
 import type Fight from 'parser/core/Fight';
 import type CharacterProfile from 'parser/core/CharacterProfile';
+import GameBranch from 'game/GameBranch';
 
-export const TEST_SPEC: Spec = {
+const TEST_SPEC: Spec = {
   className: {
     id: '',
   },
@@ -23,6 +23,7 @@ export const TEST_SPEC: Spec = {
   primaryStat: PRIMARY_STAT.STRENGTH,
   ranking: { class: 0, spec: 0 },
   role: 0,
+  branch: GameBranch.Retail,
 };
 
 export const DEFAULT_CONFIG: Config = {
@@ -30,7 +31,7 @@ export const DEFAULT_CONFIG: Config = {
   contributors: [],
   description: undefined,
   exampleReport: '',
-  expansion: Expansion.Dragonflight,
+  branch: GameBranch.Retail,
   isPartial: false,
   patchCompatibility: null,
   path: '',

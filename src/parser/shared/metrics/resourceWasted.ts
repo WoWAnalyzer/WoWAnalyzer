@@ -26,23 +26,6 @@ const resourceWasted = (events: AnyEvent[]) =>
 
 export default metric(resourceWasted);
 
-export const sumResourceWasted = (
-  resourcesWasted: ResourcesWasted,
-  resourceId: number,
-  playerId: number,
-) =>
-  Object.values(resourcesWasted[playerId]?.[resourceId]).reduce((sum, item) => sum + item, 0) || 0;
-export const sumResourceWastedByPlayerBySpell = (
-  resourcesWasted: ResourcesWasted,
-  resourceId: number,
-  playerId: number,
-  spellId: number,
-) => resourcesWasted[playerId]?.[resourceId]?.[spellId] || 0;
-export const sumResourceWastedByPlayerPerSpell = (
-  resourcesWasted: ResourcesWasted,
-  resourceId: number,
-  playerId: number,
-) => resourcesWasted[playerId]?.[resourceId];
 export const sumResourceWastedBySpell = (
   resourcesWasted: ResourcesWasted,
   resourceId: number,

@@ -313,18 +313,12 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
 
     const data = await response.json();
 
-    if (!data.thumbnail) {
-      this.setState({
-        isLoading: false,
-        error: ERRORS.UNEXPECTED,
-        errorMessage: 'Corrupt Battle.net API response received.',
-      });
-      return;
-    }
-    const avatarUrl = data.thumbnail.startsWith('https')
-      ? data.thumbnail
-      : `https://render-${this.props.region}.worldofwarcraft.com/character/${data.thumbnail}`;
-    const imageUrl = avatarUrl.replace('avatar.jpg', 'main.jpg');
+    const avatarUrl = data.thumbnail
+      ? data.thumbnail.startsWith('https')
+        ? data.thumbnail
+        : `https://render-${this.props.region}.worldofwarcraft.com/character/${data.thumbnail}`
+      : undefined;
+    const imageUrl = avatarUrl?.replace('avatar.jpg', 'main.jpg');
     const role = data.role;
     const metric = role === 'HEALING' ? 'hps' : 'dps';
     this.setState(
@@ -389,10 +383,10 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
         metric: this.state.metric,
         zone: this.state.activeZoneID,
         timeframe: 'historical',
-        _: refresh ? Number(new Date()) : undefined,
-        // Always refresh since requiring a manual refresh is unclear and unfriendly to users and they cache hits are low anyway
-        // _: +new Date(), // disabled due to Uldir raid release hitting cap all the time
+        partition: this.zones.find((z) => z.id === this.state.activeZoneID)?.partition ?? -1,
       },
+      undefined,
+      refresh,
     )
       .then((rawParses) => {
         if (rawParses.length === 0) {

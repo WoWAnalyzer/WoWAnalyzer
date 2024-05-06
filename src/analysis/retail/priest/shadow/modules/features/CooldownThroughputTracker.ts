@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
-import { RETAIL_EXPANSION } from 'game/Expansion';
+import GameBranch from 'game/GameBranch';
 
 import CoreCooldownThroughputTracker, {
   BUILT_IN_SUMMARY_TYPES,
@@ -12,12 +12,12 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     {
       spell: SPELLS.VOIDFORM_BUFF.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
-      expansion: RETAIL_EXPANSION,
+      branch: GameBranch.Retail,
     },
     {
       spell: TALENTS.DARK_ASCENSION_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
-      expansion: RETAIL_EXPANSION,
+      branch: GameBranch.Retail,
     },
   ];
 }

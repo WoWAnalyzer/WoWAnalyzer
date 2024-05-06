@@ -2,7 +2,7 @@ import { WCLFight } from 'parser/core/Fight';
 import DIFFICULTIES from 'game/DIFFICULTIES';
 import { DamageEvent } from 'parser/core/Events';
 
-export const maximumArmorMitigation = 0.85;
+const maximumArmorMitigation = 0.85;
 
 enum ArmorCoefficientKey {
   BASE = 'base',
@@ -14,7 +14,7 @@ enum ArmorCoefficientKey {
 }
 
 // These were pulled from Peak of Serenity theorycrafting channel and need to be updated every tier.
-export const armorCoefficients = {
+const armorCoefficients = {
   [ArmorCoefficientKey.BASE]: 11766.0,
   [ArmorCoefficientKey.MYTHIC_PLUS]: 18672.64,
   [ArmorCoefficientKey.RAID_LFR]: 19155.05,
@@ -26,7 +26,7 @@ export const armorCoefficients = {
 /**
  * Gets the {@link ArmorCoefficientKey} for a given fight.
  */
-export const getArmorCoefficientKey = (fight: WCLFight) => {
+const getArmorCoefficientKey = (fight: WCLFight) => {
   switch (fight.difficulty) {
     case DIFFICULTIES.LFR_RAID:
       return ArmorCoefficientKey.RAID_LFR;
@@ -46,8 +46,7 @@ export const getArmorCoefficientKey = (fight: WCLFight) => {
 /**
  * Gets the armor coefficient for a given fight.
  */
-export const getArmorCoefficient = (fight: WCLFight) =>
-  armorCoefficients[getArmorCoefficientKey(fight)];
+const getArmorCoefficient = (fight: WCLFight) => armorCoefficients[getArmorCoefficientKey(fight)];
 
 const clamp = (actual: number, min: number, max: number) => Math.min(max, Math.max(min, actual));
 
@@ -66,7 +65,7 @@ interface ArmorMitigationResult {
 /**
  * Gets armor mitigation values for a given amount of armor, fight, and unmitigated amount of damage.
  */
-export const getArmorMitigation = ({
+const getArmorMitigation = ({
   armor,
   fight,
   unmitigatedAmount = 0,

@@ -2,11 +2,9 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import {
-  CastEvent,
   EventType,
   DamageEvent,
   GetRelatedEvents,
-  HasRelatedEvent,
   ApplyBuffEvent,
   RefreshBuffEvent,
 } from 'parser/core/Events';
@@ -20,8 +18,6 @@ const GRAND_CRUSADER_HAMMER_OF_THE_RIGHTEOUS_CAST = 'FromHardcast';
 const GRAND_CRUSADER_BLESSED_HAMMER_CAST = 'FromHardCast';
 const GRAND_CRUSADER_JUDGMENT_CRIT = 'FromHardCast';
 const GRAND_CRUSADER_PARRY = 'FromHardCast';
-const FROM_HARDCAST = 'FromHardcast';
-const CONSUMED_PROC = 'ConsumedProc';
 
 const EVENT_LINKS: EventLink[] = [
   // Crusader Strike Cast
@@ -165,18 +161,6 @@ export function gcJudgmentCrit(event: ApplyBuffEvent | RefreshBuffEvent): Damage
     GRAND_CRUSADER_JUDGMENT_CRIT,
     (e): e is DamageEvent => e.type === EventType.Damage,
   ).at(-1);
-}
-
-export function getHardcast(event: DamageEvent): CastEvent | undefined {
-  return GetRelatedEvents<CastEvent>(
-    event,
-    FROM_HARDCAST,
-    (e): e is CastEvent => e.type === EventType.Cast,
-  ).at(-1);
-}
-
-export function consumedProc(event: DamageEvent): boolean {
-  return HasRelatedEvent(event, CONSUMED_PROC);
 }
 
 export default CastLinkNormalizer;

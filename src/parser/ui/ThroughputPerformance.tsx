@@ -38,7 +38,7 @@ const getCacheKey = (specIndex: number, config: Config) => {
       1) /
       DAYS_PER_WEEK,
   );
-  return `${staggeredWeek}-${VERSIONS[config.expansion] || ''}`; // current calendar-week
+  return `${staggeredWeek}-${VERSIONS[config.branch] || ''}`; // current calendar-week
 };
 const getRank = (rankings: WCLRanking[], desiredRank: number) => {
   return rankings[desiredRank - 1];

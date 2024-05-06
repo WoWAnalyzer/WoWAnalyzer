@@ -60,13 +60,7 @@ const MitigationDataRow = styled.div`
   margin-top: 0.4em;
 `;
 
-export const MitigationLabel = ({
-  mitigation,
-  long,
-}: {
-  mitigation: Mitigation;
-  long?: boolean;
-}) => {
+const MitigationLabel = ({ mitigation, long }: { mitigation: Mitigation; long?: boolean }) => {
   const fightStart = useInfo()?.fightStart ?? 0;
   return (
     <>

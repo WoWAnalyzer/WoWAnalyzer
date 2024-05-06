@@ -21,6 +21,7 @@ export interface Zone {
   frozen?: boolean;
   encounters: Encounter[];
   usePtrTooltips?: boolean;
+  partition?: number;
 }
 
 const ZONES: Zone[] = [
@@ -28,6 +29,7 @@ const ZONES: Zone[] = [
     id: 31,
     name: 'Vault of the Incarnates',
     frozen: false,
+    partition: 4,
     encounters: [
       vaultOfTheIncarnates.bosses.Eranog,
       vaultOfTheIncarnates.bosses.Terros,
@@ -58,6 +60,7 @@ const ZONES: Zone[] = [
     id: 33,
     name: 'Aberrus, the Shadowed Crucible',
     frozen: false,
+    partition: 6,
     encounters: [
       aberrus.bosses.Kazzara,
       aberrus.bosses.AmalgamationChamber,
@@ -91,6 +94,7 @@ const ZONES: Zone[] = [
     id: 35,
     name: "Amirdrassil, the Dream's Hope",
     frozen: false,
+    partition: 3,
     encounters: [
       amirdrassil.bosses.Gnarlroot,
       amirdrassil.bosses.Igira,

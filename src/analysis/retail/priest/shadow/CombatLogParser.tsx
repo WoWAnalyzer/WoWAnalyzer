@@ -59,6 +59,8 @@ import DistortedReality from './modules/talents/DistortedReality';
 import MaddeningTouch from './modules/talents/Maddening Touch';
 import MindMelt from './modules/talents/MindMelt';
 import Mastermind from './modules/talents/Mastermind';
+import DarkAscension from './modules/talents/DarkAscension';
+import Shadowform from './modules/spells/Shadowform';
 
 import Tier29FourSet from './modules/tier/Tier29ShadowPriest4Set';
 import Tier30 from './modules/tier/Tier30ShadowPriest';
@@ -87,6 +89,7 @@ class CombatLogParser extends MainCombatLogParser {
     // spells:
     devouringPlague: DevouringPlague,
     shadowfiend: Shadowfiend,
+    shadowform: Shadowform,
     shadowWordDeath: ShadowWordDeath,
     shadowWordPain: ShadowWordPain,
     shadowyApparitions: ShadowyApparitions,
@@ -97,6 +100,7 @@ class CombatLogParser extends MainCombatLogParser {
     // Spec talents:
     ancientMadness: AncientMadness,
     auspiciousSpirits: AuspiciousSpirits,
+    darkAscension: DarkAscension,
     darkEvangelism: DarkEvangelism,
     deathspeaker: Deathspeaker,
     dispersion: Dispersion,

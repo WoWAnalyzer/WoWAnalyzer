@@ -3,7 +3,7 @@ import { Options } from 'parser/core/Analyzer';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import { AbsorbedEvent, DamageEvent, EventType } from 'parser/core/Events';
 
-export const BLOOD_SHIELD_ABSORB = 'blood-shield-absorb';
+const BLOOD_SHIELD_ABSORB = 'blood-shield-absorb';
 export const BLOOD_SHIELD_ABSORBED_HIT = 'blood-shield-absorbed-hit';
 
 const absorbLink: EventLink = {

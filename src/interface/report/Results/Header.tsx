@@ -18,6 +18,7 @@ import DungeonPullSelector from './DungeonPullSelector';
 
 import './Header.scss';
 import { useLingui } from '@lingui/react';
+import { currentExpansion } from 'game/GameBranch';
 
 interface Props {
   config: Config;
@@ -40,7 +41,7 @@ interface Props {
 }
 
 const Header = ({
-  config: { spec, builds, expansion },
+  config: { spec, builds, branch },
   build,
   player: { name, icon },
   fight,
@@ -68,6 +69,8 @@ const Header = ({
   } else {
     playerThumbnail = `/specs/${icon}.jpg`.replace(/ /, '');
   }
+
+  const expansion = currentExpansion(branch);
 
   return (
     <header>

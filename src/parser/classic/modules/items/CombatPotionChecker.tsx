@@ -1,7 +1,7 @@
 import Potion from 'parser/retail/modules/items/Potion';
 import SPELLS from 'common/SPELLS/classic/potions';
 
-export const COMBAT_POTIONS: number[] = [
+const COMBAT_POTIONS: number[] = [
   SPELLS.CRAZY_ALCHEMISTS_POTION.id,
   SPELLS.INDESTRUCTIBLE_POTION.id,
   SPELLS.MIGHTY_ARCANE_PROTECTION_POTION.id,

@@ -6,6 +6,3 @@ export { default as EarthShield } from './talents/EarthShield';
 export * from './talents/EarthShield';
 export { default as SpiritWolf } from './talents/SpiritWolf';
 export { default as StaticCharge } from './talents/StaticCharge';
-export { default as TumblingWaves } from './shadowlands/conduits/TumblingWaves';
-export { default as ElementalConduit } from './shadowlands/legendaries/ElementalConduit';
-export { default as ChainHarvest } from './shadowlands/spells/ChainHarvest';

@@ -15,7 +15,7 @@ import HotTrackerRestoDruid from 'analysis/retail/druid/restoration/modules/core
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
-export const MAX_TRANQ_TICKS = 5;
+const MAX_TRANQ_TICKS = 5;
 
 /**
  * Tracks stats relating to Tranquility

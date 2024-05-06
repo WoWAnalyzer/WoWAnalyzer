@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import CoreCooldownThroughputTracker, {
   BUILT_IN_SUMMARY_TYPES,
 } from 'parser/shared/modules/CooldownThroughputTracker';
-import { RETAIL_EXPANSION } from 'game/Expansion';
+import GameBranch from 'game/GameBranch';
 
 class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
@@ -10,12 +10,12 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     {
       spell: SPELLS.INCARNATION_CHOSEN_OF_ELUNE.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
-      expansion: RETAIL_EXPANSION,
+      branch: GameBranch.Retail,
     },
     {
       spell: SPELLS.CELESTIAL_ALIGNMENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
-      expansion: RETAIL_EXPANSION,
+      branch: GameBranch.Retail,
     },
   ];
 }
