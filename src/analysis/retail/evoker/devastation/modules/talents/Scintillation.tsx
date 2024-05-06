@@ -13,7 +13,10 @@ import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probabi
 
 import { SCINTILLATION_PROC_CHANCE } from 'analysis/retail/evoker/devastation/constants';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import { ES_FROM_CAST, MAX_ES_HIT_BUFFER_MS } from '../normalizers/EternitySurgeNormalizer';
+import {
+  ETERNITY_SURGE_FROM_CAST,
+  MAX_ES_HIT_BUFFER_MS,
+} from '../normalizers/EternitySurgeNormalizer';
 
 /**
  * Disintegrate has a 15% chance each time it deals damage to launch a level 1 Eternity Surge at 50% power.
@@ -47,7 +50,7 @@ class Scintillation extends Analyzer {
   }
 
   private onHit(event: DamageEvent) {
-    if (HasRelatedEvent(event, ES_FROM_CAST)) {
+    if (HasRelatedEvent(event, ETERNITY_SURGE_FROM_CAST)) {
       return;
     }
 
@@ -61,7 +64,6 @@ class Scintillation extends Analyzer {
       return;
     }
 
-    console.log('Scintillation: Proc at ' + this.owner.formatTimestamp(event.timestamp));
     this.scintillationProcs += 1;
     this.lastScintillationProcTimestamp = event.timestamp;
   }
