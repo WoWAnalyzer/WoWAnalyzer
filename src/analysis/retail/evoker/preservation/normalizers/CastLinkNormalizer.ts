@@ -42,27 +42,28 @@ export const ECHO_TEMPORAL_ANOMALY = 'TemporalAnomaly'; // for linking BuffApply
 export const ECHO = 'Echo'; // for linking BuffApply/Heal to echo removal
 const ECHO_TIER = 'EchoT31'; // for linking BuffApply/Heal to echo removal
 // END ECHO constants
-const ESSENCE_BURST_LINK = 'EssenceBurstLink'; // link eb removal to apply
-const ESSENCE_BURST_CONSUME = 'EssenceBurstConsumption'; // link essence cast to removing the essence burst buff
-const DREAM_BREATH_CALL_OF_YSERA = 'DreamBreathCallOfYsera'; // link DB hit to buff removal
-const DREAM_BREATH_CALL_OF_YSERA_HOT = 'DreamBreathCallOfYseraHoT'; // link DB hot to buff removal
-const FIELD_OF_DREAMS_PROC = 'FromFieldOfDreams'; // link EB heal to fluttering heal
-const GOLDEN_HOUR = 'GoldenHour'; // link GH heal to reversion application
-const LIFEBIND = 'Lifebind'; // link lifebind buff apply to lifebind heal event
-const LIFEBIND_APPLY = 'LifebindApply'; // link lifebind apply to verdant embrace
-const LIFEBIND_HEAL = 'LifebindHeal'; // link lifebind heal to trigger heal event
-const LIVING_FLAME_CALL_OF_YSERA = 'LivingFlameCallOfYsera'; // link buffed living flame to buff removal
-const HEAL_GROUPING = 'HealGrouping'; // link EB healevents and TA pulses together to easily fetch groups of heals/absorbs
-const ECHO_HEAL_GROUPING = 'HealGrouping'; // link EB healevents and TA pulses together to easily fetch groups of heals/absorbs
-const BUFF_GROUPING = 'BuffGrouping'; // link ApplyBuff events together
-const SHIELD_FROM_TA_CAST = 'ShieldFromTACast';
-const SPARK_OF_INSIGHT = 'SparkOfInsight'; // link TC stack removals to Spark
-const STASIS = 'Stasis';
-const STASIS_FOR_RAMP = 'ForRamp';
-const ESSENCE_RUSH = 'EssenceRush';
-const T31_2PC = 'T31LFProc';
-const EB_REVERSION = 'EssenceBurstReversion';
-const TIME_OF_NEED_HEALING = 'TimeOfNeedHealing';
+export const ESSENCE_BURST_LINK = 'EssenceBurstLink'; // link eb removal to apply
+export const ESSENCE_BURST_CONSUME = 'EssenceBurstConsumption'; // link essence cast to removing the essence burst buff
+export const DREAM_BREATH_CALL_OF_YSERA = 'DreamBreathCallOfYsera'; // link DB hit to buff removal
+export const DREAM_BREATH_CALL_OF_YSERA_HOT = 'DreamBreathCallOfYseraHoT'; // link DB hot to buff removal
+export const FIELD_OF_DREAMS_PROC = 'FromFieldOfDreams'; // link EB heal to fluttering heal
+export const GOLDEN_HOUR = 'GoldenHour'; // link GH heal to reversion application
+export const LIFEBIND = 'Lifebind'; // link lifebind buff apply to lifebind heal event
+export const LIFEBIND_APPLY = 'LifebindApply'; // link lifebind apply to verdant embrace
+export const LIFEBIND_HEAL = 'LifebindHeal'; // link lifebind heal to trigger heal event
+export const LIVING_FLAME_CALL_OF_YSERA = 'LivingFlameCallOfYsera'; // link buffed living flame to buff removal
+export const HEAL_GROUPING = 'HealGrouping'; // link EB healevents and TA pulses together to easily fetch groups of heals/absorbs
+export const ECHO_HEAL_GROUPING = 'HealGrouping'; // link EB healevents and TA pulses together to easily fetch groups of heals/absorbs
+export const BUFF_GROUPING = 'BuffGrouping'; // link ApplyBuff events together
+export const SHIELD_FROM_TA_CAST = 'ShieldFromTACast';
+export const SPARK_OF_INSIGHT = 'SparkOfInsight'; // link TC stack removals to Spark
+export const STASIS = 'Stasis';
+export const STASIS_FOR_RAMP = 'ForRamp';
+export const ESSENCE_RUSH = 'EssenceRush';
+export const T31_2PC = 'T31LFProc';
+export const EB_REVERSION = 'EssenceBurstReversion';
+export const TIME_OF_NEED_HEALING = 'TimeOfNeedHealing';
+export const LIFESPARK_LIVING_FLAME = 'LifesparkLivingFlame'; //Instant living flame from Lifespark
 
 export enum ECHO_TYPE {
   NONE,
@@ -82,6 +83,7 @@ const TA_BUFFER_MS = 6000 + CAST_BUFFER_MS; //TA pulses over 6s at 0% haste
 const STASIS_BUFFER = 1000;
 const T31_LF_AMOUNT = 3;
 const TIME_OF_NEED_DURATION = 8000;
+const LIVING_FLAME_FLIGHT_TIME = 1000;
 
 /*
   This file is for attributing echo applications to hard casts or to temporal anomaly.
@@ -816,6 +818,15 @@ const EVENT_LINKS: EventLink[] = [
       return (linkingEvent as SummonEvent).targetID === (referencedEvent as HealEvent).sourceID;
     },
   },
+  {
+    linkRelation: LIFESPARK_LIVING_FLAME,
+    linkingEventId: SPELLS.LIFESPARK.id,
+    linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
+    referencedEventId: [SPELLS.LIVING_FLAME_HEAL.id, SPELLS.LIVING_FLAME_DAMAGE.id],
+    referencedEventType: [EventType.Heal, EventType.Damage],
+    forwardBufferMs: LIVING_FLAME_FLIGHT_TIME,
+    anyTarget: true,
+  },
 ];
 
 /**
@@ -1054,6 +1065,10 @@ export function isEbFromReversion(
 
 export function getTimeOfNeedHealing(event: SummonEvent) {
   return GetRelatedEvents<HealEvent>(event, TIME_OF_NEED_HEALING) ?? null;
+}
+
+export function getLifesparkLivingFlame(event: RemoveBuffEvent | RemoveBuffStackEvent) {
+  return GetRelatedEvent(event, LIFESPARK_LIVING_FLAME) ?? null;
 }
 
 export default CastLinkNormalizer;
