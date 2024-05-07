@@ -111,7 +111,7 @@ const ZONES: Zone[] = [
   {
     id: 36,
     name: 'Mythic+ Season 3',
-    frozen: false,
+    frozen: true,
     encounters: [
       mythicplusseasonthree.bosses.AtalDazar,
       mythicplusseasonthree.bosses.BlackRookHold,
@@ -138,7 +138,7 @@ const ZONES: Zone[] = [
       mythicplusseasonfour.bosses.RubyLifePools,
       mythicplusseasonfour.bosses.Uldaman,
     ],
-    usePtrTooltips: true,
+    usePtrTooltips: false,
   },
 ];
 
