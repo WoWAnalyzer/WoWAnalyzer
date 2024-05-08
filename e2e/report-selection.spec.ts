@@ -1,14 +1,15 @@
 import { expect, test } from './fixtures';
 
-const reportCode = 'akZLCTYbN2XpQFmg';
-const reportTitle = 'SHATED';
-const fightLinkName = 'Kill 5:44';
-const fightUrlPart = '63-Mythic+Smolderon+-+Kill+(5:44)';
-const fightPageTitle = `Mythic Smolderon - Kill (5:44) in ${reportTitle}`;
-const playerLinkName = 'Toppledh Vengeance Demon Hunter Vengeance Demon Hunter 490';
+const reportCode = 'Mr2VApnPLycBj9hW';
+const reportTitle = 'LFR princess';
+const fightLinkName = 'Kill 2:30';
+const fightUrlPart = '3-LFR+Council+of+Dreams+-+Kill+(2:30)';
+const bossTitle = `LFR Council of Dreams - Kill (2:30)`;
+const fightPageTitle = `${bossTitle} in ${reportTitle}`;
+const playerLinkName = 'Toppledh Vengeance Demon Hunter Vengeance Demon Hunter 505';
 const playerName = 'Toppledh';
-const bossDifficultyAndName = 'MythicSmolderon';
-const resultsPageTitle = `Mythic Smolderon - Kill (5:44) by ${playerName} in ${reportTitle}`;
+const bossDifficultyAndName = 'LFRCouncil Of Dreams';
+const resultsPageTitle = `${bossTitle} by ${playerName} in ${reportTitle}`;
 
 test('report selection', async ({ page, homePage, fightSelectionPage }) => {
   await homePage.goto();

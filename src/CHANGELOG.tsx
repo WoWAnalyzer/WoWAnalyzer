@@ -35,6 +35,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 5, 6), 'Add patch 10.2.7.', ToppleTheNun),
   change(date(2024, 5, 6), <>Add simple damage mitigated statistic for <ItemLink id={ITEMS.ENDURING_DREADPLATE.id} />.</>, ToppleTheNun),
   change(date(2024, 5, 3), 'Improve behavior of "Refresh" button', emallson),
   change(date(2024, 5, 3), 'Second pass at cleaning up dead code using knip', Putro),
