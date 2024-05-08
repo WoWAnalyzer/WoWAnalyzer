@@ -127,6 +127,28 @@ export function calculateEffectiveDamage(event: DamageEvent, increase: number): 
 }
 
 /**
+ * Calculates the effective damage attributable to a crit damage increase
+ *
+ * For example, consider an effect that boosts crit damage by 30% so crits now deals 230% instead of 200%,
+ * and we want to attribute damage caused by the effect.
+ * We pass a crit event with raw damage of 2760, and we pass the increase which is 0.3.
+ * The function would calculate 2400 as the damage without the boost so 2760 - 2400 = 360 damage attributable.
+ *
+ * @param event a crit damage event that was boosted by an effect
+ * @param increase the boost's added crit multiplier (for +30% pass 0.30)
+ * @return the amount of damage attributable on the given damage event from the given boost
+ */
+export function calculateEffectiveDamageFromCritDamageIncrease(
+  event: DamageEvent,
+  increase: number,
+): number {
+  const raw = (event.amount || 0) + (event.absorbed || 0);
+  const baseCritDmg = raw * (2 / (2 + increase));
+  const effectiveDmgIncrease = raw - baseCritDmg;
+  return effectiveDmgIncrease;
+}
+
+/**
  * Calculate what percent of a crit damage event can be attributed to a percent crit increase
  * @param event a crit damage event
  * @param currentCrit current crit percentage (excluding crit buff)

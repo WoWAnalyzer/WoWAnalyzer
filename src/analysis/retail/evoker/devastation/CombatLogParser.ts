@@ -30,6 +30,7 @@ import LayWaste from './modules/talents/LayWaste';
 import Iridescence from './modules/talents/Iridescence';
 import T31DevaTier from './modules/dragonflight/tier/T31DevaTier';
 import Pyre from './modules/abilities/Pyre';
+import EternitySurgeNormalizer from './modules/normalizers/EternitySurgeNormalizer';
 
 // Shared
 import {
@@ -87,6 +88,7 @@ class CombatLogParser extends MainCombatLogParser {
     // Normalizer
     castLinkNormalizer: CastLinkNormalizer,
     essenceBurstNormalizer: EssenceBurstNormalizer,
+    eternitySurgeNormalizer: EternitySurgeNormalizer,
 
     // features
     apls: AplCheck,
