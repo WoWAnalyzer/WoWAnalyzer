@@ -8,7 +8,7 @@ const bossTitle = `LFR Council of Dreams - Kill (2:30)`;
 const fightPageTitle = `${bossTitle} in ${reportTitle}`;
 const playerLinkName = 'Toppledh Vengeance Demon Hunter Vengeance Demon Hunter 505';
 const playerName = 'Toppledh';
-const bossDifficultyAndName = 'LFRCouncil of Dreams';
+const bossDifficultyAndName = 'LFRCouncil Of Dreams';
 const resultsPageTitle = `${bossTitle} by ${playerName} in ${reportTitle}`;
 
 test('report selection', async ({ page, homePage, fightSelectionPage }) => {
