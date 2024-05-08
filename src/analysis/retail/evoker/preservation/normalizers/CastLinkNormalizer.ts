@@ -63,6 +63,7 @@ const ESSENCE_RUSH = 'EssenceRush';
 const T31_2PC = 'T31LFProc';
 const EB_REVERSION = 'EssenceBurstReversion';
 const TIME_OF_NEED_HEALING = 'TimeOfNeedHealing';
+const LIFESPARK_LIVING_FLAME = 'LifesparkLivingFlame'; //Instant living flame from Lifespark
 
 export enum ECHO_TYPE {
   NONE,
@@ -82,6 +83,7 @@ const TA_BUFFER_MS = 6000 + CAST_BUFFER_MS; //TA pulses over 6s at 0% haste
 const STASIS_BUFFER = 1000;
 const T31_LF_AMOUNT = 3;
 const TIME_OF_NEED_DURATION = 8000;
+const LIVING_FLAME_FLIGHT_TIME = 1000;
 
 /*
   This file is for attributing echo applications to hard casts or to temporal anomaly.
@@ -816,6 +818,15 @@ const EVENT_LINKS: EventLink[] = [
       return (linkingEvent as SummonEvent).targetID === (referencedEvent as HealEvent).sourceID;
     },
   },
+  {
+    linkRelation: LIFESPARK_LIVING_FLAME,
+    linkingEventId: SPELLS.LIFESPARK.id,
+    linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
+    referencedEventId: [SPELLS.LIVING_FLAME_HEAL.id, SPELLS.LIVING_FLAME_DAMAGE.id],
+    referencedEventType: [EventType.Heal, EventType.Damage],
+    forwardBufferMs: LIVING_FLAME_FLIGHT_TIME,
+    anyTarget: true,
+  },
 ];
 
 /**
@@ -1054,6 +1065,10 @@ export function isEbFromReversion(
 
 export function getTimeOfNeedHealing(event: SummonEvent) {
   return GetRelatedEvents<HealEvent>(event, TIME_OF_NEED_HEALING) ?? null;
+}
+
+export function getLifesparkLivingFlame(event: RemoveBuffEvent | RemoveBuffStackEvent) {
+  return GetRelatedEvent(event, LIFESPARK_LIVING_FLAME) ?? null;
 }
 
 export default CastLinkNormalizer;
