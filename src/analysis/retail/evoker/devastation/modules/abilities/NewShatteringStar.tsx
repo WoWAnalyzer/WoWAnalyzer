@@ -550,7 +550,10 @@ class NewShatteringStar extends Analyzer {
         tooltip={
           <>
             <li>Total damage: {formatNumber(totalDamage)}</li>
-            <li>Shattering Star damage: {formatNumber(this.totalShatteringStarDamage)}</li>
+            <li>
+              <SpellLink spell={TALENTS.SHATTERING_STAR_TALENT} /> damage:{' '}
+              {formatNumber(this.totalShatteringStarDamage)}
+            </li>
             <li>Amped damage: {formatNumber(totalAmpedDamage)}</li>
           </>
         }
