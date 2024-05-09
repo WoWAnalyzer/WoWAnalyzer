@@ -43,7 +43,7 @@ const WEAK_CASTS: number[] = [SPELLS.AZURE_STRIKE.id, TALENTS.FIRESTORM_TALENT.i
 const WHITELISTED_CASTS: Spell[] = [
   SPELLS.AZURE_STRIKE,
   TALENTS.FIRESTORM_TALENT,
-  SPELLS.DEEP_BREATH, // maybe weak
+  SPELLS.DEEP_BREATH,
   SPELLS.DISINTEGRATE,
   SPELLS.LIVING_FLAME_CAST,
   TALENTS.PYRE_TALENT,
@@ -95,12 +95,14 @@ class NewShatteringStar extends Analyzer {
   totalShatteringStarDamage = 0;
 
   hasArcaneVigor = false;
+  hasFocusingIris = false;
 
   activeTargets = new Set<string>();
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.SHATTERING_STAR_TALENT);
     this.hasArcaneVigor = this.selectedCombatant.hasTalent(TALENTS.ARCANE_VIGOR_TALENT);
+    this.hasFocusingIris = this.selectedCombatant.hasTalent(TALENTS.FOCUSING_IRIS_TALENT);
 
     // not tracked spells are all situational casts that we most likely shouldn't be bonking
     // eg. verdant embrace as a defensive cast, it's not optimal, but in that situation it is.
@@ -312,13 +314,17 @@ class NewShatteringStar extends Analyzer {
       </>
     );
 
-    const perfectStrongCastAmount = 3;
+    /** Whilst this check might be set highly, it should still be fair
+     * since you should be consistently able to reach these casts amounts
+     * with proper play.
+     * And we only start bonking when the cast amount is very low. */
+    const perfectStrongCastAmount = this.hasFocusingIris ? 4 : 3;
     if (actualStrongCastAmount < perfectStrongCastAmount) {
       strongCastMainExplanation = (
         <>
           You only had {actualStrongCastAmount} strong cast(s) in your{' '}
-          <SpellLink spell={TALENTS.SHATTERING_STAR_TALENT} /> window. You should always try to have
-          at least {perfectStrongCastAmount}.
+          <SpellLink spell={TALENTS.SHATTERING_STAR_TALENT} /> window. You should aim to have{' '}
+          {perfectStrongCastAmount} strong casts in each window.
         </>
       );
       switch (actualStrongCastAmount) {
@@ -333,7 +339,7 @@ class NewShatteringStar extends Analyzer {
           );
           strongCastPerformance = QualitativePerformance.Fail;
           break;
-        case 1:
+        case this.hasFocusingIris ? 2 : 1:
           strongCastPerformance = QualitativePerformance.Ok;
           break;
         default:
