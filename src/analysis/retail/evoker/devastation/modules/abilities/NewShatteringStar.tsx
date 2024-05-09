@@ -1,7 +1,12 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/evoker';
 import TALENTS from 'common/TALENTS/evoker';
-import Events, { CastEvent, DamageEvent, HasRelatedEvent } from 'parser/core/Events';
+import Events, {
+  CastEvent,
+  DamageEvent,
+  EmpowerEndEvent,
+  HasRelatedEvent,
+} from 'parser/core/Events';
 import Spell from 'common/SPELLS/Spell';
 import { ChecklistUsageInfo, SpellUse, UsageInfo } from 'parser/core/SpellUsage/core';
 import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
@@ -41,12 +46,15 @@ const WHITELISTED_CASTS: Spell[] = [
   SPELLS.DISINTEGRATE,
   SPELLS.LIVING_FLAME_CAST,
   TALENTS.PYRE_TALENT,
+  TALENTS.UNRAVEL_TALENT,
+  TALENTS.SHATTERING_STAR_TALENT,
+];
+
+const EMPOWERS: Spell[] = [
   SPELLS.FIRE_BREATH,
   SPELLS.FIRE_BREATH_FONT,
   SPELLS.ETERNITY_SURGE,
   SPELLS.ETERNITY_SURGE_FONT,
-  TALENTS.UNRAVEL_TALENT,
-  TALENTS.SHATTERING_STAR_TALENT,
 ];
 
 const SHATTERING_STAR_AMP_MULTIPLIER = 0.2;
@@ -55,11 +63,11 @@ type DamageRecord = {
   [key: number]: number;
 };
 type CastRecord = {
-  [key: number]: CastEvent[];
+  [key: number]: (CastEvent | EmpowerEndEvent)[];
 };
 
 type ShatteringStarWindow = {
-  event: CastEvent;
+  event: CastEvent | EmpowerEndEvent;
   damage: number;
   casts: CastRecord;
   ampedDamage: DamageRecord;
@@ -96,6 +104,7 @@ class NewShatteringStar extends Analyzer {
     // not tracked spells are all situational casts that we most likely shouldn't be bonking
     // eg. verdant embrace as a defensive cast, it's not optimal, but in that situation it is.
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(WHITELISTED_CASTS), this.onCast);
+    this.addEventListener(Events.empowerEnd.by(SELECTED_PLAYER).spell(EMPOWERS), this.onCast);
 
     this.addEventListener(
       Events.applydebuff.by(SELECTED_PLAYER).spell(TALENTS.SHATTERING_STAR_TALENT),
@@ -113,7 +122,7 @@ class NewShatteringStar extends Analyzer {
     this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
-  private onCast(event: CastEvent) {
+  private onCast(event: CastEvent | EmpowerEndEvent) {
     const spellId = event.ability.guid;
     if (spellId === TALENTS.SHATTERING_STAR_TALENT.id) {
       this.shatteringStarWindows.push({
@@ -215,7 +224,6 @@ class NewShatteringStar extends Analyzer {
       performancesToCombine.push(essenceBurstPerformance.performance);
     }
 
-    // Not bonking for weak casts, but maybe should idk
     const actualPerformance = combineQualitativePerformances(performancesToCombine);
 
     return {
@@ -233,6 +241,8 @@ class NewShatteringStar extends Analyzer {
    * Groups casts together as either strong or weak */
   private getCastPerformance(casts: CastRecord): CastPerformanceCheck {
     const castEntries = Object.entries(casts);
+
+    /** We used Shattering Star without casting any spells afterwards, very bad */
     if (!castEntries.length) {
       return {
         strongCast: {
@@ -343,7 +353,7 @@ class NewShatteringStar extends Analyzer {
    * returns an explanation of the spell usage */
   private getSpellCastExplanation(
     spellId: number,
-    casts: CastEvent[],
+    casts: (CastEvent | EmpowerEndEvent)[],
   ): { powerfulCasts: number; weakCasts: number; explanation: JSX.Element } {
     const getExplanation = (spellId: number, amount: number, explanation?: JSX.Element) => (
       <div key={`${spellId}`}>
@@ -359,7 +369,6 @@ class NewShatteringStar extends Analyzer {
       };
     }
 
-    // TODO: confirm empower channel was finished before debuff ran out (ES)
     if (spellId === SPELLS.FIRE_BREATH.id || spellId === SPELLS.FIRE_BREATH_FONT.id) {
       // Fire breath is only strong when instant cast
       const isInstant = HasRelatedEvent(casts[0], 'isFromTipTheScales');
