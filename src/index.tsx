@@ -45,6 +45,8 @@ if (import.meta.env.VITE_SENTRY_DSN) {
 
     // Set `tracePropagationTargets` to control for which URLs distributed tracing should be enabled
     tracePropagationTargets: ['localhost', /^https:\/\/wowanalyzer\.com\/i/],
+
+    ignoreErrors: [/TypeError: Failed to fetch/, /Failed to fetch/],
   });
 }
 
