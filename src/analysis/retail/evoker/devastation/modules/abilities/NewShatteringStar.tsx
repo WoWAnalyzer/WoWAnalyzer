@@ -5,6 +5,7 @@ import Events, {
   CastEvent,
   DamageEvent,
   EmpowerEndEvent,
+  GetRelatedEvents,
   HasRelatedEvent,
 } from 'parser/core/Events';
 import Spell from 'common/SPELLS/Spell';
@@ -22,6 +23,7 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import DonutChart from 'parser/ui/DonutChart';
 import { eventGeneratedEB } from 'analysis/retail/evoker/shared/modules/normalizers/EssenceBurstCastLinkNormalizer';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
+import { ETERNITY_SURGE_FROM_CAST } from '../normalizers/EternitySurgeNormalizer';
 
 const WHITELISTED_SPELLS: Spell[] = [
   SPELLS.DISINTEGRATE,
@@ -149,6 +151,11 @@ class NewShatteringStar extends Analyzer {
       this.currentWindow.casts[spellId] = [];
     }
     this.currentWindow.casts[spellId].push(event);
+
+    if (spellId === SPELLS.ETERNITY_SURGE.id || spellId === SPELLS.ETERNITY_SURGE_FONT.id) {
+      const damageEvents = GetRelatedEvents<DamageEvent>(event, ETERNITY_SURGE_FROM_CAST);
+      damageEvents.forEach((event) => this.addAmpedDamage(event));
+    }
   }
 
   private onDamage(event: DamageEvent) {
@@ -160,6 +167,24 @@ class NewShatteringStar extends Analyzer {
       const amount = event.amount + (event.absorbed ?? 0);
       this.currentWindow.damage += amount;
       this.totalShatteringStarDamage += amount;
+      return;
+    }
+
+    if (
+      event.ability.guid === SPELLS.ETERNITY_SURGE_DAM.id &&
+      HasRelatedEvent(event, ETERNITY_SURGE_FROM_CAST)
+    ) {
+      /** Since Eternity Surge damage is calculated on cast, we should get
+       * these events on the cast event, Scintillation procs are still FFA
+       * sine we cant source them properly */
+      return;
+    }
+
+    this.addAmpedDamage(event);
+  }
+
+  private addAmpedDamage(event: DamageEvent) {
+    if (!this.currentWindow || !this.targetHasDebuff(event)) {
       return;
     }
 
