@@ -51,10 +51,6 @@ export const NoData = styled.div`
 const CooldownUsageDetailsContainer = styled.div`
   display: grid;
   grid-template-rows: max-content max-content 1fr;
-
-  & .performance-block.selected {
-    height: 1em;
-  }
 `;
 
 export const TableSegmentContainer = styled.td`
@@ -113,7 +109,7 @@ export type CooldownDetailsProps = {
   mit?: Mitigation;
 };
 
-export const CooldownDetails = ({ analyzer, mit }: CooldownDetailsProps) => {
+const CooldownDetails = ({ analyzer, mit }: CooldownDetailsProps) => {
   if (!mit) {
     return (
       <CooldownDetailsContainer>
@@ -130,7 +126,7 @@ export const CooldownDetails = ({ analyzer, mit }: CooldownDetailsProps) => {
   );
 };
 
-export const BreakdownByTalent = ({ analyzer, mit }: Required<CooldownDetailsProps>) => {
+const BreakdownByTalent = ({ analyzer, mit }: Required<CooldownDetailsProps>) => {
   const segments = analyzer.mitigationSegments(mit);
 
   const maxValue = Math.max(analyzer.firstSeenMaxHp, mit.amount, mit.maxAmount ?? 0);

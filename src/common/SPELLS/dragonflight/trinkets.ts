@@ -106,6 +106,11 @@ const spells = {
     name: 'Solar Maelstrom',
     icon: 'inv_10_jewelcrafting_gem3primal_titan_cut_bronze',
   },
+  HELLSTEEL_PLATING: {
+    id: 400986,
+    name: 'Hellsteel Plating',
+    icon: 'inv_10_blacksmithing_craftedoptional_reinforcedmetalplating_color01',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;

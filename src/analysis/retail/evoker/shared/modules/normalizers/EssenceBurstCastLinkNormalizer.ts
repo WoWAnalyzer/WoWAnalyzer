@@ -162,7 +162,7 @@ const EVENT_LINKS: EventLink[] = [
     additionalCondition(linkingEvent, referencedEvent) {
       if (
         !hasNoGenerationLink(referencedEvent as AnyBuffEvent) ||
-        (linkingEvent as HealEvent).amount <= 0
+        (linkingEvent as HealEvent).amount + ((linkingEvent as HealEvent).absorbed ?? 0) <= 0
       ) {
         // Only effective heals can generated EB
         return false;

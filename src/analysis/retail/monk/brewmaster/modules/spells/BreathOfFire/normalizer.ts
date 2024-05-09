@@ -3,7 +3,7 @@ import { Options } from 'parser/core/Analyzer';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import { EventType } from 'parser/core/Events';
 
-export const targetRelation = 'bof-target';
+const targetRelation = 'bof-target';
 const links: EventLink[] = [
   {
     linkRelation: targetRelation,

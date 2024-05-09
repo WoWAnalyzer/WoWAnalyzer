@@ -5,8 +5,8 @@ import { formatPercentage } from 'common/format';
 import Tooltip from 'interface/Tooltip';
 import InformationIcon from 'interface/icons/Information';
 
-export const SCALING_PER_TARGET_HIT = 0.3;
-export const INITIAL_HIT_SCALING = 0.6;
+const SCALING_PER_TARGET_HIT = 0.3;
+const INITIAL_HIT_SCALING = 0.6;
 
 export const AcceleratingBladeExplanation = () => {
   const info = useInfo();

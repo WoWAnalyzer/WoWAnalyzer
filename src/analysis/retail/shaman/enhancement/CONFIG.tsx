@@ -1,5 +1,5 @@
 import { Seriousnes } from 'CONTRIBUTORS';
-import Expansion from 'game/Expansion';
+import GameBranch from 'game/GameBranch';
 import SPECS from 'game/SPECS';
 import { AlertWarning } from 'interface';
 import Config from 'parser/Config';
@@ -8,8 +8,8 @@ import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
   contributors: [Seriousnes],
-  expansion: Expansion.Dragonflight,
-  patchCompatibility: '10.2.6',
+  branch: GameBranch.Retail,
+  patchCompatibility: '10.2.7',
   isPartial: false,
   description: (
     <>

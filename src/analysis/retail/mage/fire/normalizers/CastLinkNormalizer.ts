@@ -2,13 +2,10 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import {
-  AbilityEvent,
   BeginCastEvent,
-  RemoveBuffEvent,
   CastEvent,
   EventType,
   GetRelatedEvents,
-  HasRelatedEvent,
   HasTarget,
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
@@ -17,14 +14,13 @@ import { encodeTargetString } from 'parser/shared/modules/Enemies';
 const CAST_BUFFER_MS = 75;
 const EXTENDED_CAST_BUFFER_MS = 150;
 
-export const BUFF_APPLY = 'BuffApply';
-export const BUFF_REMOVE = 'BuffRemove';
-export const BUFF_REFRESH = 'BuffRefresh';
-export const CAST_BEGIN = 'CastBegin';
-export const SPELL_CAST = 'SpellCast';
-export const PRE_CAST = 'PreCast';
-export const SPELL_DAMAGE = 'SpellDamage';
-export const EXPLODE_DEBUFF = 'ExplosionDebuff';
+const BUFF_APPLY = 'BuffApply';
+const BUFF_REMOVE = 'BuffRemove';
+const CAST_BEGIN = 'CastBegin';
+const SPELL_CAST = 'SpellCast';
+const PRE_CAST = 'PreCast';
+const SPELL_DAMAGE = 'SpellDamage';
+const EXPLODE_DEBUFF = 'ExplosionDebuff';
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -334,32 +330,9 @@ class CastLinkNormalizer extends EventLinkNormalizer {
   }
 }
 
-/** Returns true iff the given buff application or heal can be matched back to a hardcast */
-export function isFromHardcast(event: AbilityEvent<any>): boolean {
-  return HasRelatedEvent(event, SPELL_CAST);
-}
-
-export function isInstantCast(event: CastEvent): boolean {
+function isInstantCast(event: CastEvent): boolean {
   const beginCast = GetRelatedEvents<BeginCastEvent>(event, CAST_BEGIN)[0];
   return !beginCast || event.timestamp - beginCast.timestamp <= CAST_BUFFER_MS;
-}
-
-export function hasPreCast(event: AbilityEvent<any>): boolean {
-  return HasRelatedEvent(event, PRE_CAST);
-}
-
-/** Returns the hardcast event that caused this buff or heal, if there is one */
-export function getHardcast(event: AbilityEvent<any>): CastEvent | undefined {
-  return GetRelatedEvents<CastEvent>(
-    event,
-    SPELL_CAST,
-    (e): e is CastEvent => e.type === EventType.Cast,
-  ).pop();
-}
-
-export function isProcExpired(event: RemoveBuffEvent, spenderId: number): boolean {
-  const cast = GetRelatedEvents<CastEvent>(event, SPELL_CAST)[0];
-  return !cast || cast.ability.guid !== spenderId;
 }
 
 export default CastLinkNormalizer;

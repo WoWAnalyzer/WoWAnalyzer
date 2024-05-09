@@ -1,5 +1,5 @@
 import { Tyndi, Vireve, Vollmer } from 'CONTRIBUTORS';
-import Expansion from 'game/Expansion';
+import GameBranch from 'game/GameBranch';
 import SPECS from 'game/SPECS';
 import Config from 'parser/Config';
 
@@ -8,17 +8,17 @@ import CHANGELOG from './CHANGELOG';
 const config: Config = {
   // The people that have contributed to this spec recently. People don't have to sign up to be long-time maintainers to be included in this list. If someone built a large part of the spec or contributed something recently to that spec, they can be added to the contributors list. If someone goes MIA, they may be removed after major changes or during a new expansion.
   contributors: [Vireve, Tyndi, Vollmer],
-  expansion: Expansion.Dragonflight,
+  branch: GameBranch.Retail,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '10.2.6',
+  patchCompatibility: '10.2.7',
   isPartial: false,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
       <p>
-        Hello, and welcome to the Devastation Analyzer! This analyzer is maintained by{' '}
-        <code>Vireve</code> , a former priest who's loving the new class!
+        Hello, and welcome to the Devastation Analyzer! This analyzer is currently maintained by{' '}
+        <code>Vollmer</code>!
       </p>
       <p>
         If you have questions about the output or want to help contribute, please hit me up in the{' '}
@@ -28,7 +28,7 @@ const config: Config = {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/PQcAhw3LzpnrxFGJ/18-Mythic+Volcoross+-+Kill+(3:10)/Gilgvoker/standard',
+  exampleReport: '/report/j8kzLryNhDx9fTGb/37-Mythic+Magmorax+-+Kill+(4:32)/Bensvoker/standard',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

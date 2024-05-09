@@ -1,12 +1,12 @@
 import { ChangelogEntry } from 'common/changelog';
 import { Contributor } from 'common/contributor';
-import Expansion from 'game/Expansion';
 import { Spec } from 'game/SPECS';
 import { AlertKind } from 'interface/Alert';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import { ReactNode } from 'react';
 
 import type { Stats } from './shared/modules/StatTracker';
+import GameBranch from 'game/GameBranch';
 
 export type Build = {
   url: string;
@@ -26,8 +26,11 @@ export type Builds = { [name: string]: Build };
 type VaultPatchCycle = `0.${0 | 2 | 5 | 7}`;
 type AberrusPatchCycle = `1.${0 | 5 | 7}`;
 type AmirdrassilPatchCycle = `2.${0 | 5 | 6 | 7}`;
-type DragonflightPatchVersion = `10.${VaultPatchCycle | AberrusPatchCycle | AmirdrassilPatchCycle}`;
-type WrathPatchVersion = `3.4.0`;
+export type DragonflightPatchVersion = `10.${
+  | VaultPatchCycle
+  | AberrusPatchCycle
+  | AmirdrassilPatchCycle}`;
+export type CataPatchVersion = `4.4.0`;
 
 interface Config {
   /**
@@ -38,11 +41,11 @@ interface Config {
    * they may be removed after major changes or during a new expansion.
    */
   contributors: Contributor[];
-  expansion: Expansion;
+  branch: GameBranch;
   /**
    * The WoW client patch this spec is compatible with.
    */
-  patchCompatibility: null | DragonflightPatchVersion | WrathPatchVersion;
+  patchCompatibility: null | DragonflightPatchVersion | CataPatchVersion;
   /**
    * Whether support for the spec is only partial and some important elements
    * are still missing. Note: you do not need to support every possible

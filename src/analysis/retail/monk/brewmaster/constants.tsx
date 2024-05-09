@@ -3,14 +3,6 @@ import talents from 'common/TALENTS/monk';
 
 export const MAGIC_STAGGER_EFFECTIVENESS = 0.45;
 
-export const BREWS = [
-  talents.PURIFYING_BREW_TALENT,
-  talents.FORTIFYING_BREW_TALENT,
-  talents.BLACK_OX_BREW_TALENT,
-  talents.CELESTIAL_BREW_TALENT,
-  talents.BONEDUST_BREW_TALENT,
-];
-
 // Yes there are 7... The cake is a lie (8 really)
 export const GIFT_OF_THE_OX_SPELLS = [
   SPELLS.GIFT_OF_THE_OX_1,

@@ -11,12 +11,12 @@ import {
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 
-export const LIGHTS_HAMMER_HEAL = 'LightsHammerHeal';
-export const FROM_DAYBREAK = 'FromDaybreak';
+const LIGHTS_HAMMER_HEAL = 'LightsHammerHeal';
+const FROM_DAYBREAK = 'FromDaybreak';
 export const DAYBREAK_MANA = 'DaybreakMana';
 export const GLIMMER_PROC = 'GlimmerProc';
 export const HOLY_SHOCK_SOURCE = 'HolyShockSource';
-export const RISING_SUNLIGHT = 'RisingSunlight';
+const RISING_SUNLIGHT = 'RisingSunlight';
 
 const SHORT_BUFFER_MS = 100;
 const MED_BUFFER_MS = 350;

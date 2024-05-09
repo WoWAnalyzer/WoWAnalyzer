@@ -176,10 +176,6 @@ export function getClassNameColor(stat: STAT) {
   }
 }
 
-export function getClassNameBackgroundColor(stat: STAT) {
-  return `${getClassNameColor(stat)}-bg`;
-}
-
 export function getIcon(stat: STAT): (props: any) => JSX.Element {
   switch (stat) {
     case STAT.HEALTH:

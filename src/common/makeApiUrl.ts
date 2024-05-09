@@ -52,13 +52,3 @@ export function makeGuildApiUrl(region?: string, realm?: string, name?: string, 
 
   return makeApiUrl(parts.map((part) => encodeURIComponent(part)).join('/'));
 }
-
-export function makeItemApiUrl(itemId: string) {
-  const parts = ['item', itemId];
-  return makeApiUrl(parts.map((part) => encodeURIComponent(part)).join('/'));
-}
-
-export function makeSpellApiUrl(spellId: number) {
-  const parts = ['spell', spellId];
-  return makeApiUrl(parts.map((part) => encodeURIComponent(part)).join('/'));
-}

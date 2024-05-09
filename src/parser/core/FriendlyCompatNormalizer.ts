@@ -1,6 +1,6 @@
 import { HasSource, HasTarget, AnyEvent, EventType } from './Events';
 import EventsNormalizer from './EventsNormalizer';
-import Enemies, { encodeTargetString } from 'parser/shared/modules/Enemies';
+import Enemies from 'parser/shared/modules/Enemies';
 
 export default class FriendlyCompatNormalizer extends EventsNormalizer {
   priority = -1000;
@@ -13,28 +13,25 @@ export default class FriendlyCompatNormalizer extends EventsNormalizer {
 
   normalize(events: AnyEvent[]): AnyEvent[] {
     for (const event of events) {
-      if (HasSource(event) && event.sourceIsFriendly === undefined) {
-        event.sourceIsFriendly = this.isFriendly(event.sourceID, event.sourceInstance);
+      if (HasSource(event) && event.sourceID > 0 && event.sourceIsFriendly === undefined) {
+        event.sourceIsFriendly = !this.enemies.isEnemy(event.sourceID, event.sourceInstance);
       }
       if (
         HasTarget(event) &&
+        event.targetID > 0 &&
         (event as unknown as Record<string, unknown>).targetIsFriendly === undefined
       ) {
-        event.targetIsFriendly = this.isFriendly(event.targetID, event.targetInstance);
+        event.targetIsFriendly = !this.enemies.isEnemy(event.targetID, event.targetInstance);
       }
       if (
         event.type === EventType.Absorbed &&
         event.attackerID &&
+        event.attackerID > 0 &&
         event.attackerIsFriendly === undefined
       ) {
-        event.attackerIsFriendly = this.isFriendly(event.attackerID, event.attackerInstance);
+        event.attackerIsFriendly = !this.enemies.isEnemy(event.attackerID, event.attackerInstance);
       }
     }
     return events;
-  }
-
-  private isFriendly(actorId: number, instance?: number): boolean {
-    const key = encodeTargetString(actorId, instance);
-    return this.enemies.enemies[key] !== undefined;
   }
 }

@@ -12,7 +12,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import * as React from 'react';
 
-export const BASE_REDUCTION_TIME = 1000; // ms, per talent point
+const BASE_REDUCTION_TIME = 1000; // ms, per talent point
 const SECOND = 1000;
 /**
  * Shield of the Righteous reduces the remaining cooldown on Divine Shield and Ardent Defender by 1 seconds.

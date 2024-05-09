@@ -157,7 +157,7 @@ function findRelevantPreFilterEvents(events: AnyEvent[]) {
  * @return {Array}
  *  List of filtered events
  */
-export function filterEvents(events: AnyEvent[], start: number, end: number) {
+function filterEvents(events: AnyEvent[], start: number, end: number) {
   function createFilterBuffInfoEvent(e: BuffEvent | StackEvent): FilterBuffInfoEvent {
     return {
       ...e,

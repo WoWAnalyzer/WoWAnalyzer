@@ -36,13 +36,6 @@ export const BASELINE_AOTE_CD = 90000;
 /** Bird of Prey */
 //Bird of Prey extends Coordinated Assault by 1.5 seconds per trigger
 export const BOP_CA_EXTENSION_PER_CAST = 1500;
-/** Chakrams */
-//Chakrams has a bunch of different spellIDs for damage
-export const SURVIVAL_CHAKRAM_TYPES = [
-  SPELLS.CHAKRAMS_TO_MAINTARGET,
-  SPELLS.CHAKRAMS_BACK_FROM_MAINTARGET,
-  SPELLS.CHAKRAMS_NOT_MAINTARGET,
-];
 /** Flanking Strike */
 //Flanking Strikes regenerates 30 focus
 export const FLANKING_STRIKE_FOCUS_GAIN = 30;

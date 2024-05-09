@@ -13,7 +13,14 @@ import { BLAZE_OF_LIGHT_INCREASE } from '../../../constants';
 import { getDamageEvent } from '../../../normalizers/AtonementTracker';
 import BlazeOfLightSourceDonut from './BlazeOfLightSourceDonut';
 
-const BLAZE_OF_LIGHT_SPELLS = [SPELLS.SMITE.id, SPELLS.PENANCE.id, SPELLS.DARK_REPRIMAND_DAMAGE.id];
+const BLAZE_OF_LIGHT_SPELLS = [
+  SPELLS.SMITE,
+  SPELLS.SHADOW_SMITE,
+  SPELLS.PENANCE,
+  SPELLS.DARK_REPRIMAND_DAMAGE,
+];
+
+const BLAZE_OF_LIGHT_SPELL_IDS = BLAZE_OF_LIGHT_SPELLS.map((spell) => spell.id);
 
 class BlazeOfLight extends Analyzer {
   damage = 0;
@@ -32,9 +39,7 @@ class BlazeOfLight extends Analyzer {
       ];
 
     this.addEventListener(
-      Events.damage
-        .by(SELECTED_PLAYER)
-        .spell([SPELLS.SMITE, SPELLS.PENANCE, SPELLS.DARK_REPRIMAND_DAMAGE]),
+      Events.damage.by(SELECTED_PLAYER).spell(BLAZE_OF_LIGHT_SPELLS),
       this.onDamage,
     );
 
@@ -51,7 +56,7 @@ class BlazeOfLight extends Analyzer {
     if (!damageEvent) {
       return;
     }
-    if (!BLAZE_OF_LIGHT_SPELLS.includes(damageEvent.ability.guid)) {
+    if (!BLAZE_OF_LIGHT_SPELL_IDS.includes(damageEvent.ability.guid)) {
       return;
     }
 

@@ -9,7 +9,7 @@ import Combatants from 'parser/shared/modules/Combatants';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
-export const EARTHSHIELD_HEALING_INCREASE = 0.2;
+const EARTHSHIELD_HEALING_INCREASE = 0.2;
 
 class ElementalOrbit extends Analyzer {
   static dependencies = {

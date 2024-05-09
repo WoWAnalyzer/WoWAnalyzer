@@ -30,7 +30,6 @@ export const FIRE_DIRECT_DAMAGE_SPELLS = [
 
 //Arcane
 export const ARCANE_CHARGE_MAX_STACKS = 4;
-export const AP_MANA_THRESHOLD_PERCENT = 0.4;
 export const ARCANE_BLAST_BASE_MANA_COST = 1375;
 export const ARCANE_EXPLOSION_BASE_MANA_COST = 5000;
 

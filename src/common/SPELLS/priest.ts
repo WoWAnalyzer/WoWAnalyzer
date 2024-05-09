@@ -611,6 +611,11 @@ const spells = {
     name: 'Vampiric Touch',
     icon: 'spell_holy_stoicism',
   },
+  MADDENING_TOUCH_RESOURCE: {
+    id: 391232,
+    name: 'Maddening Touch',
+    icon: 'spell_holy_stoicism',
+  },
 
   MASTERY_SHADOW_WEAVING: {
     id: 343690,
@@ -762,6 +767,12 @@ const spells = {
     icon: 'spell_mage_presenceofmind',
   },
 
+  MIND_MELT_TALENT_BUFF: {
+    id: 391092,
+    name: 'Mind Melt',
+    icon: 'spell_shadow_skull',
+  },
+
   // Shadow items:
 
   SHADOW_CRASH_TALENT_DAMAGE: {
@@ -864,6 +875,12 @@ const spells = {
     id: 341240,
     name: 'Ancient Madness',
     icon: 'spell_priest_void-flay',
+  },
+
+  PSYCHIC_LINK_TALENT_DAMAGE: {
+    id: 199486,
+    name: 'Psychich Link',
+    icon: 'ability_priest_psychiclink',
   },
 
   //Shadow Tier

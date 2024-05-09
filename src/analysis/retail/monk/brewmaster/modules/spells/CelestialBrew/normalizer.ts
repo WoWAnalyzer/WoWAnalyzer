@@ -32,8 +32,3 @@ export default class CelestialBrewNormalizer extends EventLinkNormalizer {
 export function damageEvent(event: AbsorbedEvent): DamageEvent | undefined {
   return event._linkedEvents?.find((rel) => rel.relation === relation)?.event as DamageEvent;
 }
-
-export function cbAbsorb(event: DamageEvent): AbsorbedEvent | undefined {
-  return event._linkedEvents?.find((rel) => rel.relation === reverseRelation)
-    ?.event as AbsorbedEvent;
-}
