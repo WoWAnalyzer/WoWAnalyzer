@@ -54,7 +54,6 @@ import {
   TwinGuardian,
   RenewingBlaze,
 } from 'analysis/retail/evoker/shared';
-import NewShatteringStar from './modules/abilities/NewShatteringStar';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -114,7 +113,6 @@ class CombatLogParser extends MainCombatLogParser {
     // core abilities
     disintegrate: Disintegrate,
     shatteringStar: ShatteringStar,
-    newShatteringStar: NewShatteringStar,
     essenceBurst: EssenceBurst,
     burnout: Burnout,
     dragonRage: DragonRage,
