@@ -16,6 +16,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import DonutChart from 'parser/ui/DonutChart';
 import { eventGeneratedEB } from 'analysis/retail/evoker/shared/modules/normalizers/EssenceBurstCastLinkNormalizer';
+import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 
 const WHITELISTED_SPELLS: Spell[] = [
   SPELLS.DISINTEGRATE,
@@ -201,6 +202,8 @@ class NewShatteringStar extends Analyzer {
       });
     }
 
+    const performancesToCombine = [castPerformance.strongCast.performance];
+
     if (window.essenceBurst) {
       const essenceBurstPerformance = this.getEssenceBurstPerformance(window);
       checklistItems.push({
@@ -208,10 +211,12 @@ class NewShatteringStar extends Analyzer {
         timestamp: window.event.timestamp,
         ...essenceBurstPerformance,
       });
+
+      performancesToCombine.push(essenceBurstPerformance.performance);
     }
 
     // Not bonking for weak casts, but maybe should idk
-    const actualPerformance = castPerformance.strongCast.performance;
+    const actualPerformance = combineQualitativePerformances(performancesToCombine);
 
     return {
       event: window.event,
