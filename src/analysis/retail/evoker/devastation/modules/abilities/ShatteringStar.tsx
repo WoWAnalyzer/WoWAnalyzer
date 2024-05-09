@@ -14,7 +14,7 @@ import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
 import { formatNumber } from 'common/format';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { SpellLink } from 'interface';
+import { ItemLink, SpellLink } from 'interface';
 import ContextualSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -24,6 +24,7 @@ import DonutChart from 'parser/ui/DonutChart';
 import { eventGeneratedEB } from 'analysis/retail/evoker/shared/modules/normalizers/EssenceBurstCastLinkNormalizer';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 import { ETERNITY_SURGE_FROM_CAST } from '../normalizers/EternitySurgeNormalizer';
+import ITEMS from 'common/ITEMS/evoker';
 
 const WHITELISTED_SPELLS: Spell[] = [
   SPELLS.DISINTEGRATE,
@@ -475,6 +476,11 @@ class ShatteringStar extends Analyzer {
           <SpellLink spell={SPELLS.ETERNITY_SURGE} />
           <br />
           Whilst avoiding weak casts such as <SpellLink spell={SPELLS.AZURE_STRIKE} />.
+        </p>
+        <p>
+          <strong>Note:</strong> this damage amp only works for your class abilities, and as such
+          will not amp trinkets and weapon effects, such as{' '}
+          <ItemLink id={ITEMS.KHARNALEX_THE_FIRST_LIGHT.id} />.
         </p>
         {this.hasArcaneVigor && (
           <p>
