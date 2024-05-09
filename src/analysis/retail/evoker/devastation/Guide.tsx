@@ -12,7 +12,6 @@ import MajorDefensives from '../shared/modules/MajorDefensives/DefensivesGuide';
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
-      {modules.shatteringStar.guideSubsection()}
       <IntroSection />
       <EssenceGraphSection modules={modules} info={info} events={events} />
       <CooldownSection modules={modules} info={info} events={events} />
