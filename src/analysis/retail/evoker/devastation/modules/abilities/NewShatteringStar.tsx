@@ -15,6 +15,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import DonutChart from 'parser/ui/DonutChart';
+import { eventGeneratedEB } from 'analysis/retail/evoker/shared/modules/normalizers/EssenceBurstCastLinkNormalizer';
 
 const WHITELISTED_SPELLS: Spell[] = [
   SPELLS.DISINTEGRATE,
@@ -61,7 +62,6 @@ type ShatteringStarWindow = {
   damage: number;
   casts: CastRecord;
   ampedDamage: DamageRecord;
-  // TODO: Arcane Vigor provides an Essence Burst
   essenceBurst?: 'generated' | 'wasted';
 };
 
@@ -84,10 +84,13 @@ class NewShatteringStar extends Analyzer {
   totalAmpedDamageRecord: DamageRecord = {};
   totalShatteringStarDamage = 0;
 
+  hasArcaneVigor = false;
+
   activeTargets = new Set<string>();
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.SHATTERING_STAR_TALENT);
+    this.hasArcaneVigor = this.selectedCombatant.hasTalent(TALENTS.ARCANE_VIGOR_TALENT);
 
     // not tracked spells are all situational casts that we most likely shouldn't be bonking
     // eg. verdant embrace as a defensive cast, it's not optimal, but in that situation it is.
@@ -118,6 +121,11 @@ class NewShatteringStar extends Analyzer {
         casts: {},
         ampedDamage: {},
       });
+
+      if (this.hasArcaneVigor) {
+        this.currentWindow!.essenceBurst = eventGeneratedEB(event) ? 'generated' : 'wasted';
+      }
+
       // Shattering star amps itself so therefore you could *technically*
       // cast another shattering star in the window - but like, 20s CD, 6s max debuff
       // so no, not happening
@@ -190,6 +198,15 @@ class NewShatteringStar extends Analyzer {
         check: 'weak-cast-performance',
         timestamp: window.event.timestamp,
         ...castPerformance.weakCast,
+      });
+    }
+
+    if (window.essenceBurst) {
+      const essenceBurstPerformance = this.getEssenceBurstPerformance(window);
+      checklistItems.push({
+        check: 'essence-burst-performance',
+        timestamp: window.event.timestamp,
+        ...essenceBurstPerformance,
       });
     }
 
@@ -359,6 +376,41 @@ class NewShatteringStar extends Analyzer {
       powerfulCasts: casts.length,
       weakCasts: 0,
       explanation: getExplanation(spellId, casts.length),
+    };
+  }
+
+  private getEssenceBurstPerformance(window: ShatteringStarWindow) {
+    if (window.essenceBurst === 'generated') {
+      return {
+        performance: QualitativePerformance.Perfect,
+        summary: (
+          <>
+            Cast generated <SpellLink spell={SPELLS.ESSENCE_BURST_DEV_BUFF} />
+          </>
+        ),
+        details: (
+          <div key="essence-burst-generated">
+            Cast generated <SpellLink spell={SPELLS.ESSENCE_BURST_DEV_BUFF} />, good job!
+          </div>
+        ),
+      };
+    }
+
+    return {
+      performance: QualitativePerformance.Fail,
+      summary: (
+        <>
+          Cast wasted <SpellLink spell={SPELLS.ESSENCE_BURST_DEV_BUFF} />
+        </>
+      ),
+      details: (
+        <div key="essence-burst-generated">
+          Cast wasted <SpellLink spell={SPELLS.ESSENCE_BURST_DEV_BUFF} />! Since{' '}
+          <SpellLink spell={TALENTS.ARCANE_VIGOR_TALENT} /> is a substantial source of your{' '}
+          <SpellLink spell={SPELLS.ESSENCE_BURST_DEV_BUFF} /> generation, you should always make
+          sure to delay <SpellLink spell={SPELLS.SHATTERING_STAR} /> until it wont overcap you.
+        </div>
+      ),
     };
   }
 
