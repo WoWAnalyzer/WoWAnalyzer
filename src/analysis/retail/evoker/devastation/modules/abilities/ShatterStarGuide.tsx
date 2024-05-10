@@ -10,6 +10,7 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import ITEMS from 'common/ITEMS/evoker';
 import ItemLink from 'interface/ItemLink';
 import ContextualSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
+import Analyzer from 'parser/core/Analyzer';
 
 const WEAK_CASTS_IDS: Set<number> = new Set([SPELLS.AZURE_STRIKE.id, TALENTS.FIRESTORM_TALENT.id]);
 
@@ -25,7 +26,12 @@ type CastPerformanceCheck = {
   weakCast?: UsageInfo;
 };
 
-class ShatteringStarGuide extends ShatteringStar {
+class ShatteringStarGuide extends Analyzer {
+  static dependencies = {
+    shatteringStar: ShatteringStar,
+  };
+  protected shatteringStar!: ShatteringStar;
+
   private uses: SpellUse[] = [];
   constructor(options: Options) {
     super(options);
@@ -36,7 +42,7 @@ class ShatteringStarGuide extends ShatteringStar {
 
   private finalize() {
     // finalize performances
-    this.uses = this.windows.map((window) => this.shatteringStarUsage(window));
+    this.uses = this.shatteringStar.windows.map((window) => this.shatteringStarUsage(window));
   }
 
   /** Rate the performance of the shattering star windows */
@@ -160,7 +166,7 @@ class ShatteringStarGuide extends ShatteringStar {
      * since you should be consistently able to reach these casts amounts
      * with proper play.
      * And we only start bonking when the cast amount is very low. */
-    const perfectStrongCastAmount = this.hasFocusingIris ? 4 : 3;
+    const perfectStrongCastAmount = this.shatteringStar.hasFocusingIris ? 4 : 3;
     if (castInfo.amountOfPowerfulCasts >= perfectStrongCastAmount) {
       return {
         strongCast: {
@@ -200,7 +206,7 @@ class ShatteringStarGuide extends ShatteringStar {
     }
 
     const performance =
-      castInfo.amountOfPowerfulCasts === (this.hasFocusingIris ? 2 : 1)
+      castInfo.amountOfPowerfulCasts === (this.shatteringStar.hasFocusingIris ? 2 : 1)
         ? QualitativePerformance.Ok
         : QualitativePerformance.Good;
 
@@ -326,7 +332,7 @@ class ShatteringStarGuide extends ShatteringStar {
           will not amp trinkets and weapon effects, such as{' '}
           <ItemLink id={ITEMS.KHARNALEX_THE_FIRST_LIGHT.id} />.
         </p>
-        {this.hasArcaneVigor && (
+        {this.shatteringStar.hasArcaneVigor && (
           <p>
             With{' '}
             <strong>
