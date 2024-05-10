@@ -60,8 +60,10 @@ const EMPOWERS: Spell[] = [
   SPELLS.ETERNITY_SURGE_FONT,
 ];
 
+const BASE_AMP_DURATION = 4_000;
+
 export type DamageRecord = {
-  [key: number]: number;
+  [key: number]: { base: number; focusingIris: number };
 };
 export type CastRecord = {
   [key: number]: (CastEvent | EmpowerEndEvent)[];
@@ -83,6 +85,9 @@ export type ShatteringStarWindow = {
  *
  * Arcane Vigor
  * Shattering Star grants Essence Burst.
+ *
+ * Focusing Iris
+ * Shattering Star's damage taken effect lasts 2 sec longer.
  */
 class ShatteringStar extends Analyzer {
   private shatteringStarWindows: ShatteringStarWindow[] = [];
@@ -93,7 +98,7 @@ class ShatteringStar extends Analyzer {
   hasArcaneVigor = false;
   hasFocusingIris = false;
 
-  activeTargets = new Set<string>();
+  activeTargets = new Map<string, number>();
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.SHATTERING_STAR_TALENT);
@@ -111,7 +116,7 @@ class ShatteringStar extends Analyzer {
 
     this.addEventListener(
       Events.applydebuff.by(SELECTED_PLAYER).spell(TALENTS.SHATTERING_STAR_TALENT),
-      (event) => this.activeTargets.add(encodeEventTargetString(event)),
+      (event) => this.activeTargets.set(encodeEventTargetString(event), event.timestamp),
     );
     this.addEventListener(
       Events.removedebuff.by(SELECTED_PLAYER).spell(TALENTS.SHATTERING_STAR_TALENT),
@@ -159,7 +164,7 @@ class ShatteringStar extends Analyzer {
      * will still be amped. */
     if (spellId === SPELLS.ETERNITY_SURGE.id || spellId === SPELLS.ETERNITY_SURGE_FONT.id) {
       const damageEvents = GetRelatedEvents<DamageEvent>(event, ETERNITY_SURGE_FROM_CAST);
-      damageEvents.forEach((event) => this.addAmpedDamage(event));
+      damageEvents.forEach((damageEvent) => this.addAmpedDamage(damageEvent, event.timestamp));
     }
     // The same applies for Living Flame
     if (spellId === SPELLS.LIVING_FLAME_CAST.id && event.type === EventType.Cast) {
@@ -169,13 +174,15 @@ class ShatteringStar extends Analyzer {
       const livingFlameEvents = [castDamageEvent, ...leapingFlamesDamageEvents];
 
       livingFlameEvents.forEach(
-        (event) => event?.type === EventType.Damage && this.addAmpedDamage(event),
+        (damageEvent) =>
+          damageEvent?.type === EventType.Damage &&
+          this.addAmpedDamage(damageEvent, event.timestamp),
       );
     }
   }
 
   private onDamage(event: DamageEvent) {
-    if (!this.currentWindow || !this.targetHasDebuff(event)) {
+    if (!this.currentWindow || this.getTargetDebuffStart(event) === undefined) {
       return;
     }
 
@@ -203,17 +210,39 @@ class ShatteringStar extends Analyzer {
     this.addAmpedDamage(event);
   }
 
-  private addAmpedDamage(event: DamageEvent) {
-    if (!this.currentWindow || !this.targetHasDebuff(event)) {
+  private addAmpedDamage(event: DamageEvent, timestamp?: number) {
+    const targetHitTimestamp = this.getTargetDebuffStart(event);
+    if (!this.currentWindow || targetHitTimestamp === undefined) {
       return;
     }
     const spellId = event.ability.guid;
     const shatteringAmpStarDamage = calculateEffectiveDamage(event, SHATTERING_STAR_AMP_MULTIPLIER);
-    this.currentWindow.ampedDamage[spellId] =
-      (this.currentWindow.ampedDamage[spellId] ?? 0) + shatteringAmpStarDamage;
 
-    this.totalAmpedDamageRecord[spellId] =
-      (this.totalAmpedDamageRecord[spellId] ?? 0) + shatteringAmpStarDamage;
+    if (!this.currentWindow.ampedDamage[spellId]) {
+      this.currentWindow.ampedDamage[spellId] = { base: 0, focusingIris: 0 };
+    }
+
+    if (!this.totalAmpedDamageRecord[spellId]) {
+      this.totalAmpedDamageRecord[spellId] = { base: 0, focusingIris: 0 };
+    }
+
+    if (
+      this.hasFocusingIris &&
+      (timestamp ?? event.timestamp) - targetHitTimestamp > BASE_AMP_DURATION
+    ) {
+      this.currentWindow.ampedDamage[spellId].focusingIris =
+        (this.currentWindow.ampedDamage[spellId].focusingIris ?? 0) + shatteringAmpStarDamage;
+
+      this.totalAmpedDamageRecord[spellId].focusingIris =
+        (this.totalAmpedDamageRecord[spellId].focusingIris ?? 0) + shatteringAmpStarDamage;
+      return;
+    }
+
+    this.currentWindow.ampedDamage[spellId].base =
+      (this.currentWindow.ampedDamage[spellId].base ?? 0) + shatteringAmpStarDamage;
+
+    this.totalAmpedDamageRecord[spellId].base =
+      (this.totalAmpedDamageRecord[spellId].base ?? 0) + shatteringAmpStarDamage;
   }
 
   private get currentWindow(): ShatteringStarWindow | undefined {
@@ -226,9 +255,9 @@ class ShatteringStar extends Analyzer {
     return this.shatteringStarWindows;
   }
 
-  private targetHasDebuff(event: DamageEvent) {
+  private getTargetDebuffStart(event: DamageEvent) {
     const targetString = encodeEventTargetString(event) ?? '';
-    return this.activeTargets.has(targetString);
+    return this.activeTargets.get(targetString);
   }
 
   statistic(): JSX.Element | null {
@@ -245,21 +274,29 @@ class ShatteringStar extends Analyzer {
       'rgb(255, 206, 86)',
     ];
 
-    const { ampedSources, totalAmpedDamage, otherAmount } = Object.entries(
+    const { ampedSources, baseAmpedAmount, otherAmount, focusingIrisAmount } = Object.entries(
       this.totalAmpedDamageRecord,
     )
-      .sort((a, b) => b[1] - a[1])
-      .reduce<{ ampedSources: Item[]; totalAmpedDamage: number; otherAmount: number }>(
+      .sort((a, b) => b[1].base + b[1].focusingIris - (a[1].base + a[1].focusingIris))
+      .reduce<{
+        ampedSources: Item[];
+        baseAmpedAmount: number;
+        otherAmount: number;
+        focusingIrisAmount: number;
+      }>(
         (acc, [spellId, amount], idx) => {
-          acc.totalAmpedDamage += amount;
+          const totAmount = amount.base + amount.focusingIris;
+          acc.baseAmpedAmount += amount.base;
+          acc.focusingIrisAmount += amount.focusingIris;
+
           const color = colors.at(idx);
 
           if (color) {
             acc.ampedSources.push({
               color: color,
               label: <SpellLink spell={parseInt(spellId)} />,
-              valueTooltip: `${formatNumber(amount)} damage amped`,
-              value: amount,
+              valueTooltip: `${formatNumber(totAmount)} damage amped`,
+              value: totAmount,
             });
           } else {
             /** If we go beyond 6 entries, consolidate the rest.
@@ -267,11 +304,11 @@ class ShatteringStar extends Analyzer {
              * this value will pretty much always amount to 0%, maybe
              * a couple %% in edgecases.
              * Kinda w/e to keep printing entries infinitely */
-            acc.otherAmount += amount;
+            acc.otherAmount += totAmount;
           }
           return acc;
         },
-        { ampedSources: [], totalAmpedDamage: 0, otherAmount: 0 },
+        { ampedSources: [], baseAmpedAmount: 0, otherAmount: 0, focusingIrisAmount: 0 },
       );
 
     if (otherAmount > 0) {
@@ -290,12 +327,21 @@ class ShatteringStar extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            <li>Total damage: {formatNumber(this.totalShatteringStarDamage + totalAmpedDamage)}</li>
+            <li>Total damage: {formatNumber(this.totalShatteringStarDamage + baseAmpedAmount)}</li>
             <li>
               <SpellLink spell={TALENTS.SHATTERING_STAR_TALENT} /> damage:{' '}
               {formatNumber(this.totalShatteringStarDamage)}
             </li>
-            <li>Amped damage: {formatNumber(totalAmpedDamage)}</li>
+            <li>
+              {this.hasFocusingIris ? 'Base amped' : 'Amped'} damage:{' '}
+              {formatNumber(baseAmpedAmount)}
+            </li>
+            {this.hasFocusingIris && (
+              <li>
+                <SpellLink spell={TALENTS.FOCUSING_IRIS_TALENT} /> amped damage:{' '}
+                {formatNumber(focusingIrisAmount)}
+              </li>
+            )}
           </>
         }
       >
@@ -306,10 +352,20 @@ class ShatteringStar extends Analyzer {
           <div className="value">
             <ItemDamageDone amount={this.totalShatteringStarDamage} />
           </div>
-          <strong>Amped damage:</strong>
+          <h4>{this.hasFocusingIris ? 'Base amped' : 'Amped'} damage</h4>
           <div className="value">
-            <ItemDamageDone amount={totalAmpedDamage} />
+            <ItemDamageDone amount={baseAmpedAmount} />
           </div>
+          {this.hasFocusingIris && (
+            <div>
+              <h4>
+                <SpellLink spell={TALENTS.FOCUSING_IRIS_TALENT} />
+              </h4>
+              <div className="value">
+                <ItemDamageDone amount={focusingIrisAmount} />
+              </div>
+            </div>
+          )}
           <DonutChart items={ampedSources} />
         </div>
       </Statistic>
