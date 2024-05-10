@@ -32,6 +32,7 @@ import {
   getLivingFlameCastHit,
   isFromLeapingFlames,
 } from 'analysis/retail/evoker/shared/modules/normalizers/LeapingFlamesNormalizer';
+import { SHATTERING_STAR_AMP_MULTIPLIER } from '../../constants';
 
 const WHITELISTED_DAMAGE_SPELLS: Spell[] = [
   SPELLS.DISINTEGRATE,
@@ -65,8 +66,6 @@ const EMPOWERS: Spell[] = [
   SPELLS.ETERNITY_SURGE,
   SPELLS.ETERNITY_SURGE_FONT,
 ];
-
-const SHATTERING_STAR_AMP_MULTIPLIER = 0.2;
 
 type DamageRecord = {
   [key: number]: number;
