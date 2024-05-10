@@ -39,7 +39,7 @@ export function DamageEfficiency(props: GuideProps<typeof CombatLogParser>) {
     <Section title="Damage Efficiency">
       <DisintegrateSubsection {...props} />
       <NoWastedProcsSubsection {...props} />
-      {props.modules.shatteringStar.guideSubsection()}
+      {props.modules.shatteringStarGuide.guideSubsection()}
       <BlazeShardsSubsection {...props} />
     </Section>
   );
