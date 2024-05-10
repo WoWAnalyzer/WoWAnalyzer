@@ -20,7 +20,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import DonutChart from 'parser/ui/DonutChart';
+import DonutChart, { Item } from 'parser/ui/DonutChart';
 import { eventGeneratedEB } from 'analysis/retail/evoker/shared/modules/normalizers/EssenceBurstCastLinkNormalizer';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 import { ETERNITY_SURGE_FROM_CAST } from '../normalizers/EternitySurgeNormalizer';
@@ -77,10 +77,10 @@ type ShatteringStarWindow = {
 };
 
 type CastPerformance = {
-  powerfulCasts: number;
-  weakCasts: number;
-  strongCastExplanations: JSX.Element[];
-  weakCastExplanations: JSX.Element[];
+  amountOfPowerfulCasts: number;
+  amountOfWeakCasts: number;
+  strongCastInfo: JSX.Element[];
+  weakCastInfo: JSX.Element[];
 };
 
 type CastPerformanceCheck = {
@@ -123,7 +123,7 @@ class ShatteringStar extends Analyzer {
       Events.damage.by(SELECTED_PLAYER).spell(WHITELISTED_SPELLS),
       this.onDamage,
     );
-    this.addEventListener(Events.fightend, this.onFightEnd);
+    this.addEventListener(Events.fightend, this.finalize);
   }
 
   private onCast(event: CastEvent | EmpowerEndEvent) {
@@ -155,6 +155,10 @@ class ShatteringStar extends Analyzer {
     }
     this.currentWindow.casts[spellId].push(event);
 
+    /** Since Eternity Surge damage is calculated on cast and not on hit
+     * We need to get the damage events for the cast and add them.
+     * This is needed since debuff can drop before the damage hits, but it
+     * will still be amped. */
     if (spellId === SPELLS.ETERNITY_SURGE.id || spellId === SPELLS.ETERNITY_SURGE_FONT.id) {
       const damageEvents = GetRelatedEvents<DamageEvent>(event, ETERNITY_SURGE_FROM_CAST);
       damageEvents.forEach((event) => this.addAmpedDamage(event));
@@ -199,7 +203,7 @@ class ShatteringStar extends Analyzer {
       (this.totalAmpedDamageRecord[event.ability.guid] ?? 0) + shatteringAmpStarDamage;
   }
 
-  get currentWindow(): ShatteringStarWindow | undefined {
+  private get currentWindow(): ShatteringStarWindow | undefined {
     return this.shatteringStarWindows.length
       ? this.shatteringStarWindows[this.shatteringStarWindows.length - 1]
       : undefined;
@@ -208,10 +212,6 @@ class ShatteringStar extends Analyzer {
   private targetHasDebuff(event: DamageEvent) {
     const targetString = encodeEventTargetString(event) ?? '';
     return this.activeTargets.has(targetString);
-  }
-
-  private onFightEnd() {
-    this.finalize();
   }
 
   private finalize() {
@@ -288,29 +288,33 @@ class ShatteringStar extends Analyzer {
     const castPerformance = Object.entries(casts).reduce<CastPerformance>(
       (acc, [key, spellCasts]) => {
         const spellId = parseInt(key);
-        const { powerfulCasts, weakCasts, explanation } = this.getSpellCastExplanation(
+        const { amountOfPowerfulCasts, amountOfWeakCasts, info } = this.getSpellCastInfo(
           spellId,
           spellCasts,
         );
 
-        if (powerfulCasts > 0) {
-          acc.strongCastExplanations.push(explanation);
+        if (amountOfPowerfulCasts > 0) {
+          acc.strongCastInfo.push(info);
         } else {
-          acc.weakCastExplanations.push(explanation);
+          acc.weakCastInfo.push(info);
         }
 
-        acc.powerfulCasts += powerfulCasts;
-        acc.weakCasts += weakCasts;
+        acc.amountOfPowerfulCasts += amountOfPowerfulCasts;
+        acc.amountOfWeakCasts += amountOfWeakCasts;
         return acc;
       },
-      { powerfulCasts: 0, weakCasts: 0, strongCastExplanations: [], weakCastExplanations: [] },
+      {
+        amountOfPowerfulCasts: 0,
+        amountOfWeakCasts: 0,
+        strongCastInfo: [],
+        weakCastInfo: [],
+      },
     );
 
-    const actualStrongCastAmount = castPerformance.powerfulCasts;
     let strongCastPerformance = QualitativePerformance.Perfect;
     let strongCastMainExplanation: JSX.Element = (
       <>
-        You had {actualStrongCastAmount} strong cast(s) in your{' '}
+        You had {castPerformance.amountOfPowerfulCasts} strong cast(s) in your{' '}
         <SpellLink spell={TALENTS.SHATTERING_STAR_TALENT} /> window, good job!
       </>
     );
@@ -320,15 +324,15 @@ class ShatteringStar extends Analyzer {
      * with proper play.
      * And we only start bonking when the cast amount is very low. */
     const perfectStrongCastAmount = this.hasFocusingIris ? 4 : 3;
-    if (actualStrongCastAmount < perfectStrongCastAmount) {
+    if (castPerformance.amountOfPowerfulCasts < perfectStrongCastAmount) {
       strongCastMainExplanation = (
         <>
-          You only had {actualStrongCastAmount} strong cast(s) in your{' '}
+          You only had {castPerformance.amountOfPowerfulCasts} strong cast(s) in your{' '}
           <SpellLink spell={TALENTS.SHATTERING_STAR_TALENT} /> window. You should aim to have{' '}
           {perfectStrongCastAmount} strong casts in each window.
         </>
       );
-      switch (actualStrongCastAmount) {
+      switch (castPerformance.amountOfPowerfulCasts) {
         case 0:
           strongCastMainExplanation = (
             <>
@@ -349,31 +353,33 @@ class ShatteringStar extends Analyzer {
       }
     }
 
-    castPerformance.strongCastExplanations.unshift(
-      <div key="strong-cast-main-explanation">{strongCastMainExplanation}</div>,
-    );
-
     const performanceCheck: CastPerformanceCheck = {
       strongCast: {
         performance: strongCastPerformance,
-        summary: <div>{castPerformance.powerfulCasts} Strong cast(s)</div>,
-        details: <div>{castPerformance.strongCastExplanations}</div>,
+        summary: <div>{castPerformance.amountOfPowerfulCasts} Strong cast(s)</div>,
+        details: (
+          <div>
+            <div key="strong-cast-main-explanation">{strongCastMainExplanation}</div>
+            {castPerformance.strongCastInfo}
+          </div>
+        ),
       },
     };
 
-    const actualWeakCastAmount = castPerformance.weakCasts;
-    if (actualWeakCastAmount > 0) {
-      castPerformance.weakCastExplanations.unshift(
-        <div key="weak-cast-main-explanation">
-          You had {actualWeakCastAmount} weak cast(s) in your{' '}
-          <SpellLink spell={TALENTS.SHATTERING_STAR_TALENT} /> window. This should always be
-          avoided!
-        </div>,
-      );
+    if (castPerformance.amountOfWeakCasts > 0) {
       performanceCheck.weakCast = {
         performance: QualitativePerformance.Fail,
-        summary: <div>{actualWeakCastAmount} Weak cast(s)</div>,
-        details: <div>{castPerformance.weakCastExplanations}</div>,
+        summary: <div>{castPerformance.amountOfWeakCasts} Weak cast(s)</div>,
+        details: (
+          <div>
+            <div key="weak-cast-main-explanation">
+              You had {castPerformance.amountOfWeakCasts} weak cast(s) in your{' '}
+              <SpellLink spell={TALENTS.SHATTERING_STAR_TALENT} /> window. This should always be
+              avoided!
+            </div>
+            {castPerformance.weakCastInfo}
+          </div>
+        ),
       };
     }
 
@@ -381,22 +387,20 @@ class ShatteringStar extends Analyzer {
   }
 
   /** Determine whether or not a spell had strong or weak casts
-   * returns an explanation of the spell usage */
-  private getSpellCastExplanation(
+   * returns information about the spell usage */
+  private getSpellCastInfo(
     spellId: number,
     casts: (CastEvent | EmpowerEndEvent)[],
-  ): { powerfulCasts: number; weakCasts: number; explanation: JSX.Element } {
-    const getExplanation = (spellId: number, amount: number, explanation?: JSX.Element) => (
-      <div key={`${spellId}`}>
-        <SpellLink spell={spellId} /> cast {explanation ? explanation : <>{amount} time(s)</>}
-      </div>
-    );
-
+  ): { amountOfPowerfulCasts: number; amountOfWeakCasts: number; info: JSX.Element } {
     if (WEAK_CASTS.includes(spellId)) {
       return {
-        powerfulCasts: 0,
-        weakCasts: casts.length,
-        explanation: getExplanation(spellId, casts.length),
+        amountOfPowerfulCasts: 0,
+        amountOfWeakCasts: casts.length,
+        info: (
+          <div key={`${spellId}`}>
+            <SpellLink spell={spellId} /> cast {casts.length} time(s)
+          </div>
+        ),
       };
     }
 
@@ -405,22 +409,25 @@ class ShatteringStar extends Analyzer {
       const isInstant = HasRelatedEvent(casts[0], 'isFromTipTheScales');
 
       return {
-        powerfulCasts: isInstant ? casts.length : 0,
-        weakCasts: isInstant ? 0 : casts.length,
-        explanation: getExplanation(
-          spellId,
-          casts.length,
-          <>
-            {isInstant ? 'with' : 'without'} <SpellLink spell={TALENTS.TIP_THE_SCALES_TALENT} />
-          </>,
+        amountOfPowerfulCasts: isInstant ? 1 : 0,
+        amountOfWeakCasts: isInstant ? 0 : 1,
+        info: (
+          <div key={`${spellId}`}>
+            <SpellLink spell={spellId} /> cast {isInstant ? 'with' : 'without'}{' '}
+            <SpellLink spell={TALENTS.TIP_THE_SCALES_TALENT} />
+          </div>
         ),
       };
     }
 
     return {
-      powerfulCasts: casts.length,
-      weakCasts: 0,
-      explanation: getExplanation(spellId, casts.length),
+      amountOfPowerfulCasts: casts.length,
+      amountOfWeakCasts: 0,
+      info: (
+        <div key={`${spellId}`}>
+          <SpellLink spell={spellId} /> cast {casts.length} time(s)
+        </div>
+      ),
     };
   }
 
@@ -520,57 +527,46 @@ class ShatteringStar extends Analyzer {
       'rgb(153, 102, 255)',
       'rgb(255, 159, 64)',
       'rgb(255, 206, 86)',
-      'rgb(86, 205, 247)',
-      'rgb(255, 221, 102)',
-      'rgb(154, 205, 50)',
     ];
 
-    const allAmpedSources = Object.entries(this.totalAmpedDamageRecord).sort((a, b) => b[1] - a[1]);
-    const top4AmpedSources = allAmpedSources.splice(0, 3);
+    const { ampedSources, totalAmpedDamage, otherAmount } = Object.entries(
+      this.totalAmpedDamageRecord,
+    )
+      .sort((a, b) => b[1] - a[1])
+      .reduce<{ ampedSources: Item[]; totalAmpedDamage: number; otherAmount: number }>(
+        (acc, [spellId, amount], idx) => {
+          acc.totalAmpedDamage += amount;
+          const color = colors.at(idx);
 
-    let totalAmpedDamage = 0;
-    const topAmpedSources = top4AmpedSources.map(([spellId, amount], idx) => {
-      totalAmpedDamage += amount;
-      return {
-        color: colors[idx],
-        label: <SpellLink spell={parseInt(spellId)} />,
-        valueTooltip: `${formatNumber(amount)} damage amped`,
-        value: amount,
-      };
-    });
-    if (allAmpedSources.length) {
-      const otherAmpedDamage = allAmpedSources.reduce((a, b) => a + b[1], 0);
-      totalAmpedDamage += otherAmpedDamage;
-      topAmpedSources.push({
-        color: colors[topAmpedSources.length],
-        label: <>Other</>,
-        valueTooltip: `${formatNumber(otherAmpedDamage)} damage amped`,
-        value: otherAmpedDamage,
+          if (color) {
+            acc.ampedSources.push({
+              color: color,
+              label: <SpellLink spell={parseInt(spellId)} />,
+              valueTooltip: `${formatNumber(amount)} damage amped`,
+              value: amount,
+            });
+          } else {
+            /** If we go beyond 6 entries, consolidate the rest.
+             * Due to how Devastation damage breakdown is structured
+             * this value will pretty much always amount to 0%, maybe
+             * a couple %% in edgecases.
+             * Kinda w/e to keep printing entries infinitely */
+            acc.otherAmount += amount;
+          }
+          return acc;
+        },
+        { ampedSources: [], totalAmpedDamage: 0, otherAmount: 0 },
+      );
+
+    if (otherAmount > 0) {
+      ampedSources.push({
+        color: 'rgb(86, 205, 247)',
+        label: 'Other',
+        valueTooltip: `${formatNumber(otherAmount)} damage amped`,
+        value: otherAmount,
       });
     }
 
-    const ampedSources = Object.entries(this.totalAmpedDamageRecord)
-      .sort((a, b) => b[1] - a[1])
-      .map(([spellId, amount], idx) => {
-        // Some day, some person (most likely me) will add a spell to the whitelist without adding a new color
-        // And that same day, some other guy will amp 11 different spells and brick the whole module
-        // So lets just default to a random color
-        // Maybe we just smash entries past 4 together instead? I dunno
-        const color =
-          colors.at(idx) ??
-          `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(
-            Math.random() * 256,
-          )})`;
-
-        return {
-          color: color,
-          label: <SpellLink spell={parseInt(spellId)} />,
-          valueTooltip: `${formatNumber(amount)} damage amped`,
-          value: amount,
-        };
-      });
-
-    const totalDamage = this.totalShatteringStarDamage + totalAmpedDamage;
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
@@ -578,7 +574,7 @@ class ShatteringStar extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            <li>Total damage: {formatNumber(totalDamage)}</li>
+            <li>Total damage: {formatNumber(this.totalShatteringStarDamage + totalAmpedDamage)}</li>
             <li>
               <SpellLink spell={TALENTS.SHATTERING_STAR_TALENT} /> damage:{' '}
               {formatNumber(this.totalShatteringStarDamage)}
