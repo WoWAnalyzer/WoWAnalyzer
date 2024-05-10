@@ -48,7 +48,7 @@ const WHITELISTED_DAMAGE_SPELLS: Spell[] = [
 
 const WEAK_CASTS_IDS: Set<number> = new Set([SPELLS.AZURE_STRIKE.id, TALENTS.FIRESTORM_TALENT.id]);
 
-const WHITELISTED_SPELLS: Spell[] = [
+const WHITELISTED_SPELL_CASTS: Spell[] = [
   SPELLS.AZURE_STRIKE,
   TALENTS.FIRESTORM_TALENT,
   SPELLS.DEEP_BREATH,
@@ -83,7 +83,7 @@ type ShatteringStarWindow = {
   essenceBurst?: 'generated' | 'wasted';
 };
 
-type CastPerformance = {
+type CastInfo = {
   amountOfPowerfulCasts: number;
   amountOfWeakCasts: number;
   strongCastInfo: JSX.Element[];
@@ -95,6 +95,15 @@ type CastPerformanceCheck = {
   weakCast?: UsageInfo;
 };
 
+/**
+ * Shattering Star
+ * Exhale a bolt of concentrated power from your mouth at 1 enemy
+ * that cracks the  target's defenses, increasing the damage they
+ * take from you by 20% for 4 sec.
+ *
+ * Arcane Vigor
+ * Shattering Star grants Essence Burst.
+ */
 class ShatteringStar extends Analyzer {
   private uses: SpellUse[] = [];
   private shatteringStarWindows: ShatteringStarWindow[] = [];
@@ -115,7 +124,10 @@ class ShatteringStar extends Analyzer {
 
     // Spells that aren't tracked are all situational casts that we most likely shouldn't be bonking
     // eg. verdant embrace as a defensive cast, it's not optimal, but in that situation it is.
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(WHITELISTED_SPELLS), this.onCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(WHITELISTED_SPELL_CASTS),
+      this.onCast,
+    );
     this.addEventListener(Events.empowerEnd.by(SELECTED_PLAYER).spell(EMPOWERS), this.onCast);
 
     this.addEventListener(
@@ -179,7 +191,7 @@ class ShatteringStar extends Analyzer {
       const livingFlameEvents = [castDamageEvent, ...leapingFlamesDamageEvents];
 
       livingFlameEvents.forEach(
-        (event) => event && event.type === EventType.Damage && this.addAmpedDamage(event),
+        (event) => event?.type === EventType.Damage && this.addAmpedDamage(event),
       );
     }
   }
@@ -261,6 +273,9 @@ class ShatteringStar extends Analyzer {
       });
     }
 
+    /** We aren't comparing the weak cast perf since you can still
+     * get very strong windows whilst having globals left over for weaker
+     * casts, so we will simply base it on the amount of strong casts */
     const performancesToCombine = [castPerformance.strongCast.performance];
 
     if (window.essenceBurst) {
@@ -288,11 +303,12 @@ class ShatteringStar extends Analyzer {
   }
 
   /** Get the performance of each cast in the window
-   * Groups casts together as either strong or weak */
+   * Groups casts together as either strong or weak
+   * Returns individual perf checks for Strong and Weak casts(if relevant) */
   private getCastPerformance(casts: CastRecord): CastPerformanceCheck {
     const castEntries = Object.entries(casts);
 
-    /** We used Shattering Star without casting any spells afterwards, very bad */
+    /** We used Shattering Star without casting any spells afterwards, very bad! */
     if (!castEntries.length) {
       return {
         strongCast: {
@@ -308,7 +324,9 @@ class ShatteringStar extends Analyzer {
       };
     }
 
-    const castPerformance = Object.entries(casts).reduce<CastPerformance>(
+    /** Get the amount of strong/weak casts made in the window
+     * and info about the amount of casts of each spells */
+    const castInfo = Object.entries(casts).reduce<CastInfo>(
       (acc, [key, spellCasts]) => {
         const spellId = parseInt(key);
         const { amountOfPowerfulCasts, amountOfWeakCasts, info } = this.getSpellCastInfo(
@@ -334,79 +352,90 @@ class ShatteringStar extends Analyzer {
       },
     );
 
-    let strongCastPerformance = QualitativePerformance.Perfect;
-    let strongCastMainExplanation: JSX.Element = (
-      <>
-        You had {castPerformance.amountOfPowerfulCasts} strong cast(s) in your{' '}
-        <SpellLink spell={TALENTS.SHATTERING_STAR_TALENT} /> window, good job!
-      </>
-    );
+    const weakCastUsageInfo =
+      castInfo.amountOfWeakCasts > 0
+        ? {
+            performance: QualitativePerformance.Fail,
+            summary: <div>{castInfo.amountOfWeakCasts} Weak cast(s)</div>,
+            details: (
+              <div>
+                <div key="weak-cast-main-explanation">
+                  You had {castInfo.amountOfWeakCasts} weak cast(s) in your{' '}
+                  <SpellLink spell={TALENTS.SHATTERING_STAR_TALENT} /> window. This should always be
+                  avoided!
+                </div>
+                {castInfo.weakCastInfo}
+              </div>
+            ),
+          }
+        : undefined;
 
+    const strongCastSummary = <div>{castInfo.amountOfPowerfulCasts} Strong cast(s)</div>;
     /** Whilst this check might be set highly, it should still be fair
      * since you should be consistently able to reach these casts amounts
      * with proper play.
      * And we only start bonking when the cast amount is very low. */
     const perfectStrongCastAmount = this.hasFocusingIris ? 4 : 3;
-    if (castPerformance.amountOfPowerfulCasts < perfectStrongCastAmount) {
-      strongCastMainExplanation = (
-        <>
-          You only had {castPerformance.amountOfPowerfulCasts} strong cast(s) in your{' '}
-          <SpellLink spell={TALENTS.SHATTERING_STAR_TALENT} /> window. You should aim to have{' '}
-          {perfectStrongCastAmount} strong casts in each window.
-        </>
-      );
-      switch (castPerformance.amountOfPowerfulCasts) {
-        case 0:
-          strongCastMainExplanation = (
-            <>
-              You had no strong casts in your <SpellLink spell={TALENTS.SHATTERING_STAR_TALENT} />{' '}
-              window! You should always follow up your{' '}
-              <SpellLink spell={TALENTS.SHATTERING_STAR_TALENT} /> cast with strong casts to take
-              advantage of the damage amp it provides!
-            </>
-          );
-          strongCastPerformance = QualitativePerformance.Fail;
-          break;
-        case this.hasFocusingIris ? 2 : 1:
-          strongCastPerformance = QualitativePerformance.Ok;
-          break;
-        default:
-          strongCastPerformance = QualitativePerformance.Good;
-          break;
-      }
-    }
-
-    const performanceCheck: CastPerformanceCheck = {
-      strongCast: {
-        performance: strongCastPerformance,
-        summary: <div>{castPerformance.amountOfPowerfulCasts} Strong cast(s)</div>,
-        details: (
-          <div>
-            <div key="strong-cast-main-explanation">{strongCastMainExplanation}</div>
-            {castPerformance.strongCastInfo}
-          </div>
-        ),
-      },
-    };
-
-    if (castPerformance.amountOfWeakCasts > 0) {
-      performanceCheck.weakCast = {
-        performance: QualitativePerformance.Fail,
-        summary: <div>{castPerformance.amountOfWeakCasts} Weak cast(s)</div>,
-        details: (
-          <div>
-            <div key="weak-cast-main-explanation">
-              You had {castPerformance.amountOfWeakCasts} weak cast(s) in your{' '}
-              <SpellLink spell={TALENTS.SHATTERING_STAR_TALENT} /> window. This should always be
-              avoided!
+    if (castInfo.amountOfPowerfulCasts >= perfectStrongCastAmount) {
+      return {
+        strongCast: {
+          performance: QualitativePerformance.Perfect,
+          summary: strongCastSummary,
+          details: (
+            <div>
+              <div key="strong-cast-main-explanation">
+                You had {castInfo.amountOfPowerfulCasts} strong cast(s) in your{' '}
+                <SpellLink spell={TALENTS.SHATTERING_STAR_TALENT} /> window, good job!
+              </div>
+              {castInfo.strongCastInfo}
             </div>
-            {castPerformance.weakCastInfo}
-          </div>
-        ),
+          ),
+        },
+        weakCast: weakCastUsageInfo,
+      };
+    } else if (castInfo.amountOfPowerfulCasts === 0) {
+      return {
+        strongCast: {
+          performance: QualitativePerformance.Fail,
+          summary: strongCastSummary,
+          details: (
+            <div>
+              <div key="strong-cast-main-explanation">
+                You had no strong casts in your <SpellLink spell={TALENTS.SHATTERING_STAR_TALENT} />{' '}
+                window! You should always follow up your{' '}
+                <SpellLink spell={TALENTS.SHATTERING_STAR_TALENT} /> cast with strong casts to take
+                advantage of the damage amp it provides!
+              </div>
+              {castInfo.strongCastInfo}
+            </div>
+          ),
+        },
+        weakCast: weakCastUsageInfo,
       };
     }
 
-    return performanceCheck;
+    const performance =
+      castInfo.amountOfPowerfulCasts === (this.hasFocusingIris ? 2 : 1)
+        ? QualitativePerformance.Ok
+        : QualitativePerformance.Good;
+
+    return {
+      strongCast: {
+        performance,
+        summary: strongCastSummary,
+        details: (
+          <div>
+            <div key="strong-cast-main-explanation">
+              You only had {castInfo.amountOfPowerfulCasts} strong cast(s) in your{' '}
+              <SpellLink spell={TALENTS.SHATTERING_STAR_TALENT} /> window. You should aim to have{' '}
+              {perfectStrongCastAmount} strong casts in each window.
+            </div>
+            {castInfo.strongCastInfo}
+          </div>
+        ),
+      },
+      weakCast: weakCastUsageInfo,
+    };
   }
 
   /** Determine whether or not a spell had strong or weak casts
