@@ -46,7 +46,7 @@ const WHITELISTED_DAMAGE_SPELLS: Spell[] = [
   TALENTS.SHATTERING_STAR_TALENT,
 ];
 
-const WEAK_CASTS: number[] = [SPELLS.AZURE_STRIKE.id, TALENTS.FIRESTORM_TALENT.id];
+const WEAK_CASTS_IDS: Set<number> = new Set([SPELLS.AZURE_STRIKE.id, TALENTS.FIRESTORM_TALENT.id]);
 
 const WHITELISTED_SPELLS: Spell[] = [
   SPELLS.AZURE_STRIKE,
@@ -415,7 +415,7 @@ class ShatteringStar extends Analyzer {
     spellId: number,
     casts: (CastEvent | EmpowerEndEvent)[],
   ): { amountOfPowerfulCasts: number; amountOfWeakCasts: number; info: JSX.Element } {
-    if (WEAK_CASTS.includes(spellId)) {
+    if (WEAK_CASTS_IDS.has(spellId)) {
       return {
         amountOfPowerfulCasts: 0,
         amountOfWeakCasts: casts.length,
