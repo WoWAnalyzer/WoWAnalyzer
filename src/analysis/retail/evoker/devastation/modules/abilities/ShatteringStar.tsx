@@ -5,6 +5,7 @@ import Events, {
   CastEvent,
   DamageEvent,
   EmpowerEndEvent,
+  EventType,
   GetRelatedEvents,
   HasRelatedEvent,
 } from 'parser/core/Events';
@@ -25,8 +26,14 @@ import { eventGeneratedEB } from 'analysis/retail/evoker/shared/modules/normaliz
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 import { ETERNITY_SURGE_FROM_CAST } from '../normalizers/EternitySurgeNormalizer';
 import ITEMS from 'common/ITEMS/evoker';
+import {
+  LIVING_FLAME_CAST_HIT,
+  getLeapingEvents,
+  getLivingFlameCastHit,
+  isFromLeapingFlames,
+} from 'analysis/retail/evoker/shared/modules/normalizers/LeapingFlamesNormalizer';
 
-const WHITELISTED_SPELLS: Spell[] = [
+const WHITELISTED_DAMAGE_SPELLS: Spell[] = [
   SPELLS.DISINTEGRATE,
   SPELLS.AZURE_STRIKE,
   SPELLS.LIVING_FLAME_DAMAGE,
@@ -41,7 +48,7 @@ const WHITELISTED_SPELLS: Spell[] = [
 
 const WEAK_CASTS: number[] = [SPELLS.AZURE_STRIKE.id, TALENTS.FIRESTORM_TALENT.id];
 
-const WHITELISTED_CASTS: Spell[] = [
+const WHITELISTED_SPELLS: Spell[] = [
   SPELLS.AZURE_STRIKE,
   TALENTS.FIRESTORM_TALENT,
   SPELLS.DEEP_BREATH,
@@ -102,12 +109,13 @@ class ShatteringStar extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.SHATTERING_STAR_TALENT);
+
     this.hasArcaneVigor = this.selectedCombatant.hasTalent(TALENTS.ARCANE_VIGOR_TALENT);
     this.hasFocusingIris = this.selectedCombatant.hasTalent(TALENTS.FOCUSING_IRIS_TALENT);
 
-    // not tracked spells are all situational casts that we most likely shouldn't be bonking
+    // Spells that aren't tracked are all situational casts that we most likely shouldn't be bonking
     // eg. verdant embrace as a defensive cast, it's not optimal, but in that situation it is.
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(WHITELISTED_CASTS), this.onCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(WHITELISTED_SPELLS), this.onCast);
     this.addEventListener(Events.empowerEnd.by(SELECTED_PLAYER).spell(EMPOWERS), this.onCast);
 
     this.addEventListener(
@@ -120,7 +128,7 @@ class ShatteringStar extends Analyzer {
     );
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(WHITELISTED_SPELLS),
+      Events.damage.by(SELECTED_PLAYER).spell(WHITELISTED_DAMAGE_SPELLS),
       this.onDamage,
     );
     this.addEventListener(Events.fightend, this.finalize);
@@ -163,6 +171,17 @@ class ShatteringStar extends Analyzer {
       const damageEvents = GetRelatedEvents<DamageEvent>(event, ETERNITY_SURGE_FROM_CAST);
       damageEvents.forEach((event) => this.addAmpedDamage(event));
     }
+    // The same applies for Living Flame
+    if (spellId === SPELLS.LIVING_FLAME_CAST.id && event.type === EventType.Cast) {
+      const castDamageEvent = getLivingFlameCastHit(event);
+      const leapingFlamesDamageEvents = getLeapingEvents(event);
+
+      const livingFlameEvents = [castDamageEvent, ...leapingFlamesDamageEvents];
+
+      livingFlameEvents.forEach(
+        (event) => event && event.type === EventType.Damage && this.addAmpedDamage(event),
+      );
+    }
   }
 
   private onDamage(event: DamageEvent) {
@@ -170,7 +189,8 @@ class ShatteringStar extends Analyzer {
       return;
     }
 
-    if (event.ability.guid === TALENTS.SHATTERING_STAR_TALENT.id) {
+    const spellId = event.ability.guid;
+    if (spellId === TALENTS.SHATTERING_STAR_TALENT.id) {
       const amount = event.amount + (event.absorbed ?? 0);
       this.currentWindow.damage += amount;
       this.totalShatteringStarDamage += amount;
@@ -178,12 +198,15 @@ class ShatteringStar extends Analyzer {
     }
 
     if (
-      event.ability.guid === SPELLS.ETERNITY_SURGE_DAM.id &&
-      HasRelatedEvent(event, ETERNITY_SURGE_FROM_CAST)
+      (spellId === SPELLS.ETERNITY_SURGE_DAM.id &&
+        HasRelatedEvent(event, ETERNITY_SURGE_FROM_CAST)) ||
+      (spellId === SPELLS.LIVING_FLAME_DAMAGE.id &&
+        (HasRelatedEvent(event, LIVING_FLAME_CAST_HIT) || isFromLeapingFlames(event)))
     ) {
       /** Since Eternity Surge damage is calculated on cast, we should get
        * these events on the cast event, Scintillation procs are still FFA
-       * sine we cant source them properly */
+       * sine we cant source them properly
+       * The same applies for Living Flame */
       return;
     }
 
@@ -194,13 +217,13 @@ class ShatteringStar extends Analyzer {
     if (!this.currentWindow || !this.targetHasDebuff(event)) {
       return;
     }
-
+    const spellId = event.ability.guid;
     const shatteringAmpStarDamage = calculateEffectiveDamage(event, SHATTERING_STAR_AMP_MULTIPLIER);
-    this.currentWindow.ampedDamage[event.ability.guid] =
-      (this.currentWindow.ampedDamage[event.ability.guid] ?? 0) + shatteringAmpStarDamage;
+    this.currentWindow.ampedDamage[spellId] =
+      (this.currentWindow.ampedDamage[spellId] ?? 0) + shatteringAmpStarDamage;
 
-    this.totalAmpedDamageRecord[event.ability.guid] =
-      (this.totalAmpedDamageRecord[event.ability.guid] ?? 0) + shatteringAmpStarDamage;
+    this.totalAmpedDamageRecord[spellId] =
+      (this.totalAmpedDamageRecord[spellId] ?? 0) + shatteringAmpStarDamage;
   }
 
   private get currentWindow(): ShatteringStarWindow | undefined {
