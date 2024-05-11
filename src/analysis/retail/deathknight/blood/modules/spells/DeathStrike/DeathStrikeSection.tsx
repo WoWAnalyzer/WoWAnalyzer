@@ -6,7 +6,6 @@ import ResourceLink from 'interface/ResourceLink';
 import SpellLink from 'interface/SpellLink';
 import { BadColor, SubSection, useAnalyzer, useEvents, useInfo } from 'interface/guide';
 import SuggestionBox from 'interface/suggestion-box/SuggestionBox';
-import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import RunicPowerTracker from '../../runicpower/RunicPowerTracker';
 import SPELLS from 'common/SPELLS';
 import { formatNumber, formatPercentage } from 'common/format';
@@ -17,6 +16,7 @@ import ProblemList from 'interface/guide/components/ProblemList';
 import { ResourceWasteProblemRenderer } from '../../../components/ResourceWasteProblemRenderer';
 import RuneCooldownBar from '../../../components/RuneCooldownBar';
 import Explanation from 'interface/guide/components/Explanation';
+import { RuneWaste } from '../../features/RuneWaste';
 
 export default function DeathStrikeSection() {
   const rp = useAnalyzer(RunicPowerTracker);
@@ -136,24 +136,7 @@ export default function DeathStrikeSection() {
                 <ResourceLink id={RESOURCE_TYPES.RUNES.id} /> is okay!
               </Explanation>
             </SuggestionBox>
-            <SuggestionBox
-              performance={heartStrikePerformance(rp)}
-              title={
-                <>
-                  <SpellLink spell={talents.HEART_STRIKE_TALENT} /> should be your primary source of
-                  RP.
-                </>
-              }
-              description={
-                <>
-                  Heart Strike generates a lot more{' '}
-                  <Highlight textColor="#111" color={RunicPowerColor}>
-                    Bonus
-                  </Highlight>{' '}
-                  RP than other abilities.
-                </>
-              }
-            ></SuggestionBox>
+            <RuneWaste />
           </div>
         </div>
       </SubSection>
@@ -203,17 +186,6 @@ const abilityGroups = [
   [talents.SOUL_REAPER_TALENT],
   [talents.DEATHS_CARESS_TALENT],
 ];
-
-function heartStrikePerformance(rp: RunicPowerTracker): QualitativePerformance {
-  const hsRp = rp.generatedRp(heartStrikeSpells) / rp.generatedRp(abilityGroups.flat());
-  if (hsRp >= 0.7) {
-    return QualitativePerformance.Good;
-  } else if (hsRp >= 0.5) {
-    return QualitativePerformance.Ok;
-  } else {
-    return QualitativePerformance.Fail;
-  }
-}
 
 function RunicPowerTable() {
   const rp = useAnalyzer(RunicPowerTracker);

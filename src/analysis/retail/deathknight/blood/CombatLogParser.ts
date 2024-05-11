@@ -46,6 +46,7 @@ import Voracious from './modules/talents/Voracious';
 import WillOfTheNecropolis from './modules/talents/WillOfTheNecropolis';
 import RuneTracker from './modules/core/RuneTracker';
 import ResourceOrderNormalizer from './modules/core/ResourceOrderNormalizer';
+import BoneShieldOrderNormalizer from './modules/core/BoneShieldOrderNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -109,6 +110,7 @@ class CombatLogParser extends CoreCombatLogParser {
     deathStrikeNormalizer: DeathStrikeLinkNormalizer,
     bloodShieldNormalizer: BloodShieldNormalizer,
     resourceOrderNormalizer: ResourceOrderNormalizer,
+    boneShieldOrderNormalizer: BoneShieldOrderNormalizer,
   };
 
   static guide = BloodGuide;
