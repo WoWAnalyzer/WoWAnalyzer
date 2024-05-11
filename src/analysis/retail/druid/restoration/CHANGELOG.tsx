@@ -5,6 +5,7 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  change(date(2024, 5, 11), <>Added detection of Season 4 set.</>, Sref),
   change(date(2024, 1, 17), <>Fixed some issues causing "average mastery stacks" statistic to undercount.</>, Sref),
   change(date(2024, 1, 19), <>Marked up to date for 10.2.5</>, Sref),
   change(date(2024, 1, 2), <>Fixed a bug where the 2nd stack of Clearcasting wasn't being properly counted.</>, Sref),

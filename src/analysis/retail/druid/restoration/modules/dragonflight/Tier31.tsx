@@ -21,13 +21,17 @@ export default class Tier31 extends Analyzer.withDependencies(deps) {
   constructor(options: Options) {
     super(options);
 
+    this.active =
+      this.selectedCombatant.has2PieceByTier(TIERS.DF3) ||
+      this.selectedCombatant.has2PieceByTier(TIERS.DF4);
     // the calculations here only work if player doesn't take Nourish
     // Nourish should never be picked in current state (choice w/ GG), so we'll just disable when Nourish picked
     // instead of wasting the time trying to handle the case
-    this.active =
-      this.selectedCombatant.has2PieceByTier(TIERS.DF3) &&
-      !this.selectedCombatant.hasTalent(TALENTS_DRUID.NOURISH_TALENT);
-    this.has4pc = this.selectedCombatant.has4PieceByTier(TIERS.DF3);
+    this.active = this.active && !this.selectedCombatant.hasTalent(TALENTS_DRUID.NOURISH_TALENT);
+
+    this.has4pc =
+      this.selectedCombatant.has4PieceByTier(TIERS.DF3) ||
+      this.selectedCombatant.has4PieceByTier(TIERS.DF4);
   }
 
   get total2pcHealing() {
