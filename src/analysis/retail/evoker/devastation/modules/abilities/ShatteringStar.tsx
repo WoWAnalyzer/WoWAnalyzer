@@ -71,7 +71,6 @@ export type CastRecord = {
 
 export type ShatteringStarWindow = {
   event: CastEvent | EmpowerEndEvent;
-  damage: number;
   casts: CastRecord;
   ampedDamage: DamageRecord;
   essenceBurst?: 'generated' | 'wasted';
@@ -134,7 +133,6 @@ class ShatteringStar extends Analyzer {
     if (spellId === TALENTS.SHATTERING_STAR_TALENT.id) {
       this.shatteringStarWindows.push({
         event,
-        damage: 0,
         casts: {},
         ampedDamage: {},
       });
@@ -189,7 +187,6 @@ class ShatteringStar extends Analyzer {
     const spellId = event.ability.guid;
     if (spellId === TALENTS.SHATTERING_STAR_TALENT.id) {
       const amount = event.amount + (event.absorbed ?? 0);
-      this.currentWindow.damage += amount;
       this.totalShatteringStarDamage += amount;
       return;
     }
