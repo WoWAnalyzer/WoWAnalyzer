@@ -217,7 +217,8 @@ class ShatteringStarGuide extends Analyzer {
         details: (
           <div>
             <div key="strong-cast-main-explanation">
-              You only had {castInfo.amountOfPowerfulCasts} strong cast(s) in your{' '}
+              You {performance === QualitativePerformance.Ok && 'only'} had{' '}
+              {castInfo.amountOfPowerfulCasts} strong cast(s) in your{' '}
               <SpellLink spell={TALENTS.SHATTERING_STAR_TALENT} /> window. You should aim to have{' '}
               {perfectStrongCastAmount} strong casts in each window.
             </div>
