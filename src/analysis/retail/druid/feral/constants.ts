@@ -6,6 +6,7 @@ import { CastEvent, DamageEvent } from 'parser/core/Events';
 import getResourceSpent from 'parser/core/getResourceSpent';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { getHardcast } from 'analysis/retail/druid/feral/normalizers/CastLinkNormalizer';
+import { TIERS } from 'game/TIERS';
 
 /** Feral combo point cap */
 export const MAX_CPS = 5;
@@ -226,4 +227,14 @@ export function getTigersFuryDuration(c: Combatant) {
     TIGERS_FURY_BASE_DURATION +
     (c.hasTalent(TALENTS_DRUID.PREDATOR_TALENT) ? PREDATOR_DURATION_BOOST : 0)
   );
+}
+
+/** If player has the Feral Frenzy 2set (same bonus Season 3 and 4) */
+export function has2pcDF3or4(c: Combatant) {
+  return c.has2PieceByTier(TIERS.DF3) || c.has2PieceByTier(TIERS.DF4);
+}
+
+/** If player has the Feral Frenzy 4set (same bonus Season 3 and 4) */
+export function has4pcDF3or4(c: Combatant) {
+  return c.has4PieceByTier(TIERS.DF3) || c.has4PieceByTier(TIERS.DF4);
 }

@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS/druid';
 
 export default [
+  change(date(2024, 5, 11), <>Added detection of Season 4 set.</>, Sref),
   change(date(2024, 1, 19), <>Marked up to date for 10.2.5</>, Sref),
   change(date(2023, 11, 7), <>Added statistic for <SpellLink spell={TALENTS_DRUID.SABER_JAWS_TALENT}/>, fixed some numbers, and marked as supported for 10.2.</>, Sref),
   change(date(2023, 10, 12), <>Added Guide items for the Amirdrassil tier set</>, Sref),
