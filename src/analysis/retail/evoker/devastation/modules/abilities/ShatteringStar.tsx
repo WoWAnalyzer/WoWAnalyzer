@@ -216,7 +216,7 @@ class ShatteringStar extends Analyzer {
     const shatteringAmpStarDamage = calculateEffectiveDamage(event, SHATTERING_STAR_AMP_MULTIPLIER);
 
     const curSpellWindow = this.currentWindow.ampedDamage[spellId] ?? { base: 0, focusingIris: 0 };
-    const curTotSpellWindow = this.currentWindow.ampedDamage[spellId] ?? {
+    const curTotSpellWindow = this.totalAmpedDamageRecord[spellId] ?? {
       base: 0,
       focusingIris: 0,
     };
