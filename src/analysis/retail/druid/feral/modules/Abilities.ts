@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
-import { TIERS } from 'game/TIERS';
+import { has4pcDF3or4 } from 'analysis/retail/druid/feral/constants';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -193,7 +193,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_DRUID.FERAL_FRENZY_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         enabled: combatant.hasTalent(TALENTS_DRUID.FERAL_FRENZY_TALENT),
-        cooldown: combatant.has4PieceByTier(TIERS.DF3) ? 30 : 45,
+        cooldown: has4pcDF3or4(combatant) ? 30 : 45,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
