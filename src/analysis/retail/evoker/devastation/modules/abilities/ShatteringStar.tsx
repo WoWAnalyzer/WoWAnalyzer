@@ -218,31 +218,26 @@ class ShatteringStar extends Analyzer {
     const spellId = event.ability.guid;
     const shatteringAmpStarDamage = calculateEffectiveDamage(event, SHATTERING_STAR_AMP_MULTIPLIER);
 
-    if (!this.currentWindow.ampedDamage[spellId]) {
-      this.currentWindow.ampedDamage[spellId] = { base: 0, focusingIris: 0 };
-    }
-
-    if (!this.totalAmpedDamageRecord[spellId]) {
-      this.totalAmpedDamageRecord[spellId] = { base: 0, focusingIris: 0 };
-    }
+    const curSpellWindow = this.currentWindow.ampedDamage[spellId] ?? { base: 0, focusingIris: 0 };
+    const totalCurSpellWindow = this.currentWindow.ampedDamage[spellId] ?? {
+      base: 0,
+      focusingIris: 0,
+    };
 
     if (
       this.hasFocusingIris &&
       (timestamp ?? event.timestamp) - targetHitTimestamp > BASE_AMP_DURATION
     ) {
-      this.currentWindow.ampedDamage[spellId].focusingIris =
-        (this.currentWindow.ampedDamage[spellId].focusingIris ?? 0) + shatteringAmpStarDamage;
+      curSpellWindow.focusingIris = curSpellWindow.focusingIris + shatteringAmpStarDamage;
 
-      this.totalAmpedDamageRecord[spellId].focusingIris =
-        (this.totalAmpedDamageRecord[spellId].focusingIris ?? 0) + shatteringAmpStarDamage;
-      return;
+      totalCurSpellWindow.focusingIris = totalCurSpellWindow.focusingIris + shatteringAmpStarDamage;
+    } else {
+      curSpellWindow.base = curSpellWindow.base + shatteringAmpStarDamage;
+      totalCurSpellWindow.base = totalCurSpellWindow.base + shatteringAmpStarDamage;
     }
 
-    this.currentWindow.ampedDamage[spellId].base =
-      (this.currentWindow.ampedDamage[spellId].base ?? 0) + shatteringAmpStarDamage;
-
-    this.totalAmpedDamageRecord[spellId].base =
-      (this.totalAmpedDamageRecord[spellId].base ?? 0) + shatteringAmpStarDamage;
+    this.currentWindow.ampedDamage[spellId] = curSpellWindow;
+    this.totalAmpedDamageRecord[spellId] = totalCurSpellWindow;
   }
 
   private get currentWindow(): ShatteringStarWindow | undefined {
