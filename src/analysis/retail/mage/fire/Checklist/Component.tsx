@@ -139,52 +139,56 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
           tooltip="Since Fire Blast is always guaranteed to crit, you should only be using it to convert Heating Up into Hot Streak or if you have a buff like Firestarter, Combustion, or Searing Touch where you know that the other spells you are casting will crit and give you the Hot Streak."
         />
       </Rule>
-      {combatant.has2PieceByTier(TIERS.DF2) && (
-        <Rule
-          name="Charring Embers (Tier Bonus)"
-          description={
-            <>
-              The tier set bonus from Aberrus gives you an additional interraction with{' '}
-              <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} />. With the 2pc bonus, when you cast{' '}
-              <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} />, you apply the{' '}
-              <SpellLink spell={SPELLS.CHARRING_EMBERS_DEBUFF} /> debuff to the target, increasing
-              their damage taken for the duration. With the 4pc bonus, when you deal damage 20 times
-              to an enemy with the <SpellLink spell={SPELLS.CHARRING_EMBERS_DEBUFF} /> debuff, you
-              gain a proc of <SpellLink spell={SPELLS.FLAMES_FURY} /> that makes your next 2{' '}
-              <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} /> casts deal extra damage and
-              immediately refund themselves after they are used. In order to get the most out of
-              this, you should ensure you keep the{' '}
-              <SpellLink spell={SPELLS.CHARRING_EMBERS_DEBUFF} /> debuff up as much as possible,
-              avoid situations where you run out of{' '}
-              <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} /> charges (if you do not have a
-              charge available when <SpellLink spell={SPELLS.FLAMES_FURY} /> procs, then you cannot
-              use them until <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} /> recharges), and
-              ensure you are using all procs of <SpellLink spell={SPELLS.FLAMES_FURY} /> before they
-              expire or proc again (overwritting the previous procs).
-            </>
-          }
-        >
-          <Requirement
-            name="Debuff Uptime"
-            thresholds={thresholds.charringEmbersUptime}
-            tooltip="The Charring Embers debuff causes the target to take additional damage and also influences how quickly you get Flame's Fury procs, so you should ensure that you have Charring Embers up on your target for as much of the fight as possible to get the most out of it."
-          />
-          {combatant.has4PieceByTier(TIERS.DF2) && (
+      {combatant.has2PieceByTier(TIERS.DF2) ||
+        (combatant.has2PieceByTier(TIERS.DF4) && (
+          <Rule
+            name="Charring Embers (Tier Bonus)"
+            description={
+              <>
+                The tier set bonus from Aberrus gives you an additional interraction with{' '}
+                <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} />. With the 2pc bonus, when you
+                cast <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} />, you apply the{' '}
+                <SpellLink spell={SPELLS.CHARRING_EMBERS_DEBUFF} /> debuff to the target, increasing
+                their damage taken for the duration. With the 4pc bonus, when you deal damage 20
+                times to an enemy with the <SpellLink spell={SPELLS.CHARRING_EMBERS_DEBUFF} />{' '}
+                debuff, you gain a proc of <SpellLink spell={SPELLS.FLAMES_FURY} /> that makes your
+                next 2 <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} /> casts deal extra damage
+                and immediately refund themselves after they are used. In order to get the most out
+                of this, you should ensure you keep the{' '}
+                <SpellLink spell={SPELLS.CHARRING_EMBERS_DEBUFF} /> debuff up as much as possible,
+                avoid situations where you run out of{' '}
+                <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} /> charges (if you do not have a
+                charge available when <SpellLink spell={SPELLS.FLAMES_FURY} /> procs, then you
+                cannot use them until <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} />{' '}
+                recharges), and ensure you are using all procs of{' '}
+                <SpellLink spell={SPELLS.FLAMES_FURY} /> before they expire or proc again
+                (overwritting the previous procs).
+              </>
+            }
+          >
             <Requirement
-              name="Flame's Fury Procs w/o Phoenix Flames"
-              thresholds={thresholds.flamesFuryNoPhoenix}
-              tooltip="While Flame's Fury does give you two free casts of Phoenix Flames, there is a somewhat weird interraction where it immediately refunds a charge after you use a charge. Because of this, you must have an available Phoenix Flames charge to be able to use the first charge, otherwise you will need to wait until one comes off cooldown before you can use the procs."
+              name="Debuff Uptime"
+              thresholds={thresholds.charringEmbersUptime}
+              tooltip="The Charring Embers debuff causes the target to take additional damage and also influences how quickly you get Flame's Fury procs, so you should ensure that you have Charring Embers up on your target for as much of the fight as possible to get the most out of it."
             />
-          )}
-          {combatant.has4PieceByTier(TIERS.DF2) && (
-            <Requirement
-              name="Wasted Flame's Fury Procs"
-              thresholds={thresholds.flamesFuryWastedProcs}
-              tooltip="In order to get the most out of Flame's Fury, you should ensure you are using the procs before they expire, and also ensure you are using your procs before you gain more ... overwritting any you had remaining."
-            />
-          )}
-        </Rule>
-      )}
+            {combatant.has4PieceByTier(TIERS.DF2) ||
+              (combatant.has4PieceByTier(TIERS.DF4) && (
+                <Requirement
+                  name="Flame's Fury Procs w/o Phoenix Flames"
+                  thresholds={thresholds.flamesFuryNoPhoenix}
+                  tooltip="While Flame's Fury does give you two free casts of Phoenix Flames, there is a somewhat weird interraction where it immediately refunds a charge after you use a charge. Because of this, you must have an available Phoenix Flames charge to be able to use the first charge, otherwise you will need to wait until one comes off cooldown before you can use the procs."
+                />
+              ))}
+            {combatant.has4PieceByTier(TIERS.DF2) ||
+              (combatant.has4PieceByTier(TIERS.DF4) && (
+                <Requirement
+                  name="Wasted Flame's Fury Procs"
+                  thresholds={thresholds.flamesFuryWastedProcs}
+                  tooltip="In order to get the most out of Flame's Fury, you should ensure you are using the procs before they expire, and also ensure you are using your procs before you gain more ... overwritting any you had remaining."
+                />
+              ))}
+          </Rule>
+        ))}
       <Rule
         name="Using your supporting spells and talents"
         description={

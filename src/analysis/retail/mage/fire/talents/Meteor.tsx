@@ -82,9 +82,7 @@ class Meteor extends Analyzer {
             <ul>
               <li>{this.totalMeteorCasts} Total Meteor casts</li>
               <li>{this.meteorMaxCasts} Adjusted max casts</li>
-              <li>
-                {this.meteorCombustion.combustionWithoutMeteor} Combustion casts without Meteor
-              </li>
+              <li>{this.meteorCombustion.badCasts()} Meteor casts without Combustion</li>
             </ul>
           </>
         }
