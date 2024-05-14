@@ -46,16 +46,8 @@ class MeteorCombustion extends Analyzer {
     return this.meteorCasts.length;
   }
 
-  get totalCombustionCasts() {
-    return this.abilityTracker.getAbility(TALENTS.COMBUSTION_TALENT.id).casts;
-  }
-
-  get combustionWithoutMeteor() {
-    return this.totalCombustionCasts - this.badCasts();
-  }
-
   get combustionUtilization() {
-    return 1 - this.combustionWithoutMeteor / this.totalCombustionCasts;
+    return 1 - this.badCasts() / this.totalMeteorCasts;
   }
 
   get meteorMaxCasts() {
@@ -72,8 +64,8 @@ class MeteorCombustion extends Analyzer {
       actual: this.combustionUtilization,
       isLessThan: {
         minor: 1,
-        average: 1,
-        major: 1,
+        average: 0.9,
+        major: 0.8,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
@@ -83,11 +75,13 @@ class MeteorCombustion extends Analyzer {
     when(this.meteorCombustionSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You failed to cast <SpellLink spell={TALENTS.METEOR_TALENT} /> during{' '}
+          <SpellLink spell={TALENTS.METEOR_TALENT} /> landed outside of{' '}
           <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> {this.badCasts()} times. In order to make
           the most of Combustion and <SpellLink spell={SPELLS.IGNITE} />, you should always ensure
-          Meteor hits the target during Combustion. If Meteor will not come off cooldown before
-          Combustion is available, then you should hold Meteor for Combustion.
+          Meteor hits the target during Combustion. Keep in mind that{' '}
+          <SpellLink spell={TALENTS.METEOR_TALENT} /> takes time to manifest and hit the target, so
+          make sure you leave enough time after casting it so that it will land before{' '}
+          <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> ends.
         </>,
       )
         .icon(TALENTS.METEOR_TALENT.icon)
