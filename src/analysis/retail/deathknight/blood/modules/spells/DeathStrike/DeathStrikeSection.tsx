@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import isPropValid from '@emotion/is-prop-valid';
 import talents from 'common/TALENTS/deathknight';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import ResourceLink from 'interface/ResourceLink';
 import SpellLink from 'interface/SpellLink';
 import { BadColor, SubSection, useAnalyzer, useEvents, useInfo } from 'interface/guide';
@@ -9,14 +8,16 @@ import SuggestionBox from 'interface/suggestion-box/SuggestionBox';
 import RunicPowerTracker from '../../runicpower/RunicPowerTracker';
 import SPELLS from 'common/SPELLS';
 import { formatNumber, formatPercentage } from 'common/format';
-import Tooltip from 'interface/Tooltip';
 import { Highlight } from 'interface/Highlight';
 import RuneTracker from '../../core/RuneTracker';
-import ProblemList from 'interface/guide/components/ProblemList';
 import { ResourceWasteProblemRenderer } from '../../../components/ResourceWasteProblemRenderer';
-import RuneCooldownBar from '../../../components/RuneCooldownBar';
 import Explanation from 'interface/guide/components/Explanation';
 import { RuneWaste } from '../../features/RuneWaste';
+import DeathStrikeUsageSubSection from './UsageSection';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import ProblemList from 'interface/guide/components/ProblemList';
+import RuneCooldownBar from '../../../components/RuneCooldownBar';
+import Tooltip from 'interface/Tooltip';
 
 export default function DeathStrikeSection() {
   const rp = useAnalyzer(RunicPowerTracker);
@@ -140,27 +141,7 @@ export default function DeathStrikeSection() {
           </div>
         </div>
       </SubSection>
-      <SubSection
-        title={
-          <>
-            <SpellLink spell={talents.DEATH_STRIKE_TALENT} /> Usage
-          </>
-        }
-      >
-        <p>
-          After making sure that you're generating enough resources for{' '}
-          <SpellLink spell={talents.DEATH_STRIKE_TALENT} /> and making sure that you're not starving
-          yourself at key times, you can finally begin to think about how good your{' '}
-          <SpellLink spell={talents.DEATH_STRIKE_TALENT} /> usage actually is.
-        </p>
-        <p>
-          The truth is that you're going to cast <SpellLink spell={talents.DEATH_STRIKE_TALENT} /> a{' '}
-          <em>lot</em>. It will likely be your second most common ability (after{' '}
-          <SpellLink spell={talents.HEART_STRIKE_TALENT} />) when playing well. Don&apos;t fixate on
-          making every <SpellLink spell={talents.DEATH_STRIKE_TALENT} /> perfect&mdash;but it is
-          worth making sure to avoid <em>bad</em> uses.
-        </p>
-      </SubSection>
+      <DeathStrikeUsageSubSection />
     </>
   );
 }
