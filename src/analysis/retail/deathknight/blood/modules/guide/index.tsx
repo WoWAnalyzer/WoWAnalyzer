@@ -36,9 +36,6 @@ export default function BloodGuide(props: GuideProps<typeof CombatLogParser>): J
         <DeathStrikeSection />
         {props.modules.deathStrikeTiming.guideSubsection}
       </Section>
-      <Section title="Runic Power Economy">
-        {props.modules.runicPowerDetails.guideSubsection}
-      </Section>
       <Section title="Cooldowns">
         <CooldownGraphSubsection cooldowns={cooldowns} />
       </Section>
