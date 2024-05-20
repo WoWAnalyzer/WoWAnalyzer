@@ -1,12 +1,11 @@
 import { GuideProps, PassFailCheckmark, Section, SubSection } from 'interface/guide';
-import { ResourceLink, SpellLink } from 'interface';
+import { SpellLink } from 'interface';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import CombatLogParser from '../../CombatLogParser';
 import SPELLS from 'common/SPELLS';
 
 import PassFailBar from 'interface/guide/components/PassFailBar';
 import { ExplanationAndDataSubSection } from 'interface/guide/components/ExplanationRow';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import DonutChart from 'parser/ui/DonutChart';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
@@ -40,7 +39,7 @@ export function DamageEfficiency(props: GuideProps<typeof CombatLogParser>) {
     <Section title="Damage Efficiency">
       <DisintegrateSubsection {...props} />
       <NoWastedProcsSubsection {...props} />
-      <ShatteringStarSubsection {...props} />
+      {props.modules.shatteringStarGuide.guideSubsection()}
       <BlazeShardsSubsection {...props} />
     </Section>
   );
@@ -194,50 +193,6 @@ function NoWastedProcsSubsection({ modules, info }: GuideProps<typeof CombatLogP
           }
         />
       )}
-    </SubSection>
-  );
-}
-
-function ShatteringStarSubsection({ modules, info }: GuideProps<typeof CombatLogParser>) {
-  if (!info.combatant.hasTalent(TALENTS_EVOKER.SHATTERING_STAR_TALENT)) {
-    return null;
-  }
-
-  return (
-    <SubSection title="Shattering Star">
-      <p>
-        <SpellLink spell={TALENTS_EVOKER.SHATTERING_STAR_TALENT} /> provides us with a small window
-        where our damage gets amplified. To maximize this window aim to have at least 1-2 uses of{' '}
-        <SpellLink spell={SPELLS.DISINTEGRATE} /> or <SpellLink spell={SPELLS.PYRE} /> by pooling{' '}
-        <ResourceLink id={RESOURCE_TYPES.ESSENCE.id} /> and/or{' '}
-        <SpellLink spell={SPELLS.ESSENCE_BURST_BUFF} /> when{' '}
-        <SpellLink spell={TALENTS_EVOKER.SHATTERING_STAR_TALENT} /> is almost off CD. Using{' '}
-        <SpellLink spell={SPELLS.ETERNITY_SURGE} /> is also good, but don't hold the CD for this
-        window. With <SpellLink spell={TALENTS_EVOKER.ARCANE_VIGOR_TALENT} /> talented, you should
-        always have atleast one use of <SpellLink spell={SPELLS.DISINTEGRATE} />. For more tips,
-        check out mentions of Shattering Star in the{' '}
-        <a href="https://www.wowhead.com/guide/classes/evoker/devastation/rotation-cooldowns-pve-dps#rotation">
-          Wowhead guide
-        </a>
-        .
-      </p>
-      <ExplanationAndDataSubSection
-        explanationPercent={EXPLANATION_PERCENTAGE}
-        explanation={
-          <RoundedPanel>
-            <strong>Per cast breakdown</strong>
-            <small> Try to get 2+ strong spells as much as possible!</small>
-
-            <PerformanceBoxRow values={modules.shatteringStar.windowEntries} />
-          </RoundedPanel>
-        }
-        data={
-          <div>
-            <strong>Summary</strong>
-            <DonutChart items={modules.shatteringStar.donutItems} />
-          </div>
-        }
-      />
     </SubSection>
   );
 }
