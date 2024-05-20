@@ -4,6 +4,7 @@ import indexById from 'common/indexById';
 import { PRIMARY_STAT } from 'parser/shared/modules/features/STAT';
 import ROLES from './ROLES';
 import { MessageDescriptor } from '@lingui/core';
+import GameBranch from './GameBranch';
 
 interface BaseSpec {
   id: number;
@@ -22,12 +23,12 @@ interface BaseSpec {
    * String key used by WCL to identify the spec.
    */
   wclSpecName: string;
+  branch: GameBranch;
+  masterySpellId?: number;
+  masteryCoefficient?: number;
 }
 
-interface RetailSpec extends BaseSpec {
-  masterySpellId: number;
-  masteryCoefficient: number;
-}
+export interface RetailSpec extends BaseSpec {}
 
 interface ClassicSpec extends BaseSpec {
   icon: string;
@@ -37,19 +38,11 @@ interface ClassicSpec extends BaseSpec {
 export type Spec = RetailSpec | ClassicSpec;
 
 export function isRetailSpec(spec: Spec): spec is RetailSpec {
-  return 'masterySpellId' in spec;
+  return spec.branch === GameBranch.Retail;
 }
 
 export function isClassicSpec(spec: Spec): spec is ClassicSpec {
-  return !isRetailSpec(spec);
-}
-
-export function specMasteryCoefficient(spec: Spec | undefined): number | undefined {
-  if (spec && isRetailSpec(spec)) {
-    return spec.masteryCoefficient;
-  } else {
-    return undefined;
-  }
+  return spec.branch === GameBranch.Classic;
 }
 
 const SPECS = {
@@ -70,6 +63,7 @@ const SPECS = {
     primaryStat: PRIMARY_STAT.INTELLECT,
     masterySpellId: 190740,
     masteryCoefficient: 1.2, //Max mana and mana regen is 1.2. Arcane Charge damage increase on Arcane Blast is 0.6, and on Arcane Barrage it is 0.3. Coefficient of 1 on all other arcane damage.
+    branch: GameBranch.Retail,
     ranking: {
       class: 4,
       spec: 1,
@@ -92,6 +86,7 @@ const SPECS = {
     primaryStat: PRIMARY_STAT.INTELLECT,
     masterySpellId: 12846,
     masteryCoefficient: 0.75,
+    branch: GameBranch.Retail,
     ranking: {
       class: 4,
       spec: 2,
@@ -114,6 +109,7 @@ const SPECS = {
     primaryStat: PRIMARY_STAT.INTELLECT,
     masterySpellId: 76613,
     masteryCoefficient: 1, //This is the value shown on the character sheet. The coefficient for frozen orb is 1.9, and for icicles it is 0.019.
+    branch: GameBranch.Retail,
     ranking: {
       class: 4,
       spec: 3,
@@ -136,6 +132,7 @@ const SPECS = {
     primaryStat: PRIMARY_STAT.INTELLECT,
     masterySpellId: 183997,
     masteryCoefficient: 1.5, // confirmed
+    branch: GameBranch.Retail,
     ranking: {
       class: 6,
       spec: 1,
@@ -158,6 +155,7 @@ const SPECS = {
     primaryStat: PRIMARY_STAT.STRENGTH,
     masterySpellId: 76671,
     masteryCoefficient: 0.35,
+    branch: GameBranch.Retail,
     ranking: {
       class: 6,
       spec: 2,
@@ -180,6 +178,7 @@ const SPECS = {
     primaryStat: PRIMARY_STAT.STRENGTH,
     masterySpellId: 267316,
     masteryCoefficient: 1.6,
+    branch: GameBranch.Retail,
     ranking: {
       class: 6,
       spec: 3,
@@ -202,6 +201,7 @@ const SPECS = {
     primaryStat: PRIMARY_STAT.STRENGTH,
     masterySpellId: 76838,
     masteryCoefficient: 1.1,
+    branch: GameBranch.Retail,
     ranking: {
       class: 11,
       spec: 1,
@@ -224,6 +224,7 @@ const SPECS = {
     primaryStat: PRIMARY_STAT.STRENGTH,
     masterySpellId: 76856,
     masteryCoefficient: 1.4,
+    branch: GameBranch.Retail,
     ranking: {
       class: 11,
       spec: 2,
@@ -246,6 +247,7 @@ const SPECS = {
     primaryStat: PRIMARY_STAT.STRENGTH,
     masterySpellId: 76857,
     masteryCoefficient: 1.5, //0.5 for increase block chance, 1.5 for chance to critically block and 1 for increased attack power.
+    branch: GameBranch.Retail,
     ranking: {
       class: 11,
       spec: 3,
@@ -268,6 +270,7 @@ const SPECS = {
     primaryStat: PRIMARY_STAT.INTELLECT,
     masterySpellId: 326085,
     masteryCoefficient: 1.1,
+    branch: GameBranch.Retail,
     ranking: {
       class: 2,
       spec: 1,
@@ -290,6 +293,7 @@ const SPECS = {
     primaryStat: PRIMARY_STAT.AGILITY,
     masterySpellId: 77493,
     masteryCoefficient: 2,
+    branch: GameBranch.Retail,
     ranking: {
       class: 2,
       spec: 2,
@@ -312,6 +316,7 @@ const SPECS = {
     primaryStat: PRIMARY_STAT.AGILITY,
     masterySpellId: 155783,
     masteryCoefficient: 0.5, //1 is the coef for increased attack power
+    branch: GameBranch.Retail,
     ranking: {
       class: 2,
       spec: 3,
@@ -334,6 +339,7 @@ const SPECS = {
     primaryStat: PRIMARY_STAT.INTELLECT,
     masterySpellId: 77495,
     masteryCoefficient: 0.5,
+    branch: GameBranch.Retail,
     ranking: {
       class: 2,
       spec: 4,
@@ -356,6 +362,7 @@ const SPECS = {
     primaryStat: PRIMARY_STAT.STRENGTH,
     masterySpellId: 77513,
     masteryCoefficient: 2,
+    branch: GameBranch.Retail,
     ranking: {
       class: 1,
       spec: 1,
@@ -378,6 +385,7 @@ const SPECS = {
     primaryStat: PRIMARY_STAT.STRENGTH,
     masterySpellId: 77514,
     masteryCoefficient: 2,
+    branch: GameBranch.Retail,
     ranking: {
       class: 1,
       spec: 2,
@@ -400,6 +408,7 @@ const SPECS = {
     primaryStat: PRIMARY_STAT.STRENGTH,
     masterySpellId: 77515,
     masteryCoefficient: 1.8,
+    branch: GameBranch.Retail,
     ranking: {
       class: 1,
       spec: 3,
@@ -422,6 +431,7 @@ const SPECS = {
     primaryStat: PRIMARY_STAT.AGILITY,
     masterySpellId: 76657,
     masteryCoefficient: 1.9,
+    branch: GameBranch.Retail,
     ranking: {
       class: 3,
       spec: 1,
@@ -444,6 +454,7 @@ const SPECS = {
     primaryStat: PRIMARY_STAT.AGILITY,
     masterySpellId: 193468,
     masteryCoefficient: 0.625, // this is coeff. for the range part of the mastery, the damage part is different (1.4)
+    branch: GameBranch.Retail,
     ranking: {
       class: 3,
       spec: 2,
@@ -466,6 +477,7 @@ const SPECS = {
     primaryStat: PRIMARY_STAT.AGILITY,
     masterySpellId: 191334,
     masteryCoefficient: 1.65, //And a 0.1 coef for % max hp per 5 seconds
+    branch: GameBranch.Retail,
     ranking: {
       class: 3,
       spec: 3,
@@ -488,6 +500,7 @@ const SPECS = {
     primaryStat: PRIMARY_STAT.INTELLECT,
     masterySpellId: 271534,
     masteryCoefficient: 1.35,
+    branch: GameBranch.Retail,
     ranking: {
       class: 7,
       spec: 1,
@@ -510,6 +523,7 @@ const SPECS = {
     primaryStat: PRIMARY_STAT.INTELLECT,
     masterySpellId: 77485,
     masteryCoefficient: 1.25,
+    branch: GameBranch.Retail,
     ranking: {
       class: 7,
       spec: 2,
@@ -532,6 +546,7 @@ const SPECS = {
     primaryStat: PRIMARY_STAT.INTELLECT,
     masterySpellId: 77486,
     masteryCoefficient: 0.5,
+    branch: GameBranch.Retail,
     ranking: {
       class: 7,
       spec: 3,
@@ -554,6 +569,7 @@ const SPECS = {
     primaryStat: PRIMARY_STAT.AGILITY,
     masterySpellId: 76803,
     masteryCoefficient: 1.7,
+    branch: GameBranch.Retail,
     ranking: {
       class: 8,
       spec: 1,
@@ -576,6 +592,7 @@ const SPECS = {
     primaryStat: PRIMARY_STAT.AGILITY,
     masterySpellId: 76806,
     masteryCoefficient: 1.45,
+    branch: GameBranch.Retail,
     ranking: {
       class: 8,
       spec: 4,
@@ -598,6 +615,7 @@ const SPECS = {
     primaryStat: PRIMARY_STAT.AGILITY,
     masterySpellId: 76808,
     masteryCoefficient: 2.45, // the periodic damages are modified by a coeff. of 2.76
+    branch: GameBranch.Retail,
     ranking: {
       class: 8,
       spec: 3,
@@ -620,6 +638,7 @@ const SPECS = {
     primaryStat: PRIMARY_STAT.INTELLECT,
     masterySpellId: 168534,
     masteryCoefficient: 1.875, // confirmed
+    branch: GameBranch.Retail,
     ranking: {
       class: 9,
       spec: 1,
@@ -642,6 +661,7 @@ const SPECS = {
     primaryStat: PRIMARY_STAT.AGILITY,
     masterySpellId: 77223,
     masteryCoefficient: 2, //proc chance coef. is 0.08
+    branch: GameBranch.Retail,
     ranking: {
       class: 9,
       spec: 2,
@@ -664,6 +684,7 @@ const SPECS = {
     primaryStat: PRIMARY_STAT.INTELLECT,
     masterySpellId: 77226,
     masteryCoefficient: 3, // confirmed
+    branch: GameBranch.Retail,
     ranking: {
       class: 9,
       spec: 3,
@@ -686,6 +707,7 @@ const SPECS = {
     primaryStat: PRIMARY_STAT.INTELLECT,
     masterySpellId: 77215,
     masteryCoefficient: 2.5,
+    branch: GameBranch.Retail,
     ranking: {
       class: 10,
       spec: 1,
@@ -708,6 +730,7 @@ const SPECS = {
     primaryStat: PRIMARY_STAT.INTELLECT,
     masterySpellId: 77219,
     masteryCoefficient: 1.45,
+    branch: GameBranch.Retail,
     ranking: {
       class: 10,
       spec: 2,
@@ -730,6 +753,7 @@ const SPECS = {
     primaryStat: PRIMARY_STAT.INTELLECT,
     masterySpellId: 77220,
     masteryCoefficient: 2, // reduced damage part coef. is 0.666
+    branch: GameBranch.Retail,
     ranking: {
       class: 10,
       spec: 3,
@@ -752,6 +776,7 @@ const SPECS = {
     primaryStat: PRIMARY_STAT.AGILITY,
     masterySpellId: 117906,
     masteryCoefficient: 1,
+    branch: GameBranch.Retail,
     ranking: {
       class: 5,
       spec: 1,
@@ -774,6 +799,7 @@ const SPECS = {
     primaryStat: PRIMARY_STAT.AGILITY,
     masterySpellId: 115636,
     masteryCoefficient: 1.25,
+    branch: GameBranch.Retail,
     ranking: {
       class: 5,
       spec: 3,
@@ -796,6 +822,7 @@ const SPECS = {
     primaryStat: PRIMARY_STAT.INTELLECT,
     masterySpellId: 117907,
     masteryCoefficient: 4.2,
+    branch: GameBranch.Retail,
     ranking: {
       class: 5,
       spec: 2,
@@ -818,6 +845,7 @@ const SPECS = {
     primaryStat: PRIMARY_STAT.AGILITY,
     masterySpellId: 185164,
     masteryCoefficient: 1.8, //0.6 coefficient for movement speed
+    branch: GameBranch.Retail,
     ranking: {
       class: 12,
       spec: 1,
@@ -840,6 +868,7 @@ const SPECS = {
     primaryStat: PRIMARY_STAT.AGILITY,
     masterySpellId: 203747,
     masteryCoefficient: 3, //1 for increased atk power
+    branch: GameBranch.Retail,
     ranking: {
       class: 12,
       spec: 2,
@@ -862,6 +891,7 @@ const SPECS = {
     primaryStat: PRIMARY_STAT.INTELLECT,
     masterySpellId: 362980,
     masteryCoefficient: 2.5,
+    branch: GameBranch.Retail,
     ranking: {
       class: 13,
       spec: 1,
@@ -884,6 +914,7 @@ const SPECS = {
     primaryStat: PRIMARY_STAT.INTELLECT,
     masterySpellId: 363510,
     masteryCoefficient: 1.8,
+    branch: GameBranch.Retail,
     ranking: {
       class: 13,
       spec: 2,
@@ -906,6 +937,7 @@ const SPECS = {
     primaryStat: PRIMARY_STAT.INTELLECT,
     masterySpellId: 406380,
     masteryCoefficient: 0.4,
+    branch: GameBranch.Retail,
     ranking: {
       class: 13,
       spec: 3,
@@ -929,6 +961,7 @@ const SPECS = {
     }),
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STAT.STRENGTH,
+    branch: GameBranch.Classic,
     ranking: {
       class: 11,
       spec: 1,
@@ -952,6 +985,7 @@ const SPECS = {
     }),
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STAT.STRENGTH,
+    branch: GameBranch.Classic,
     ranking: {
       class: 11,
       spec: 2,
@@ -975,6 +1009,7 @@ const SPECS = {
     }),
     role: ROLES.TANK,
     primaryStat: PRIMARY_STAT.STRENGTH,
+    branch: GameBranch.Classic,
     ranking: {
       class: 11,
       spec: 3,
@@ -998,6 +1033,7 @@ const SPECS = {
     }),
     role: ROLES.HEALER,
     primaryStat: PRIMARY_STAT.INTELLECT,
+    branch: GameBranch.Classic,
     ranking: {
       class: 6,
       spec: 1,
@@ -1021,6 +1057,7 @@ const SPECS = {
     }),
     role: ROLES.TANK,
     primaryStat: PRIMARY_STAT.STRENGTH,
+    branch: GameBranch.Classic,
     ranking: {
       class: 6,
       spec: 2,
@@ -1044,6 +1081,7 @@ const SPECS = {
     }),
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STAT.STRENGTH,
+    branch: GameBranch.Classic,
     ranking: {
       class: 6,
       spec: 3,
@@ -1067,6 +1105,7 @@ const SPECS = {
     }),
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STAT.AGILITY,
+    branch: GameBranch.Classic,
     ranking: {
       class: 3,
       spec: 1,
@@ -1090,6 +1129,7 @@ const SPECS = {
     }),
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STAT.AGILITY,
+    branch: GameBranch.Classic,
     ranking: {
       class: 3,
       spec: 2,
@@ -1113,6 +1153,7 @@ const SPECS = {
     }),
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STAT.AGILITY,
+    branch: GameBranch.Classic,
     ranking: {
       class: 3,
       spec: 3,
@@ -1136,6 +1177,7 @@ const SPECS = {
     }),
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STAT.AGILITY,
+    branch: GameBranch.Classic,
     ranking: {
       class: 8,
       spec: 1,
@@ -1159,6 +1201,7 @@ const SPECS = {
     }),
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STAT.AGILITY,
+    branch: GameBranch.Classic,
     ranking: {
       class: 8,
       spec: 2,
@@ -1182,6 +1225,7 @@ const SPECS = {
     }),
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STAT.AGILITY,
+    branch: GameBranch.Classic,
     ranking: {
       class: 8,
       spec: 3,
@@ -1205,6 +1249,7 @@ const SPECS = {
     }),
     role: ROLES.HEALER,
     primaryStat: PRIMARY_STAT.INTELLECT,
+    branch: GameBranch.Classic,
     ranking: {
       class: 7,
       spec: 1,
@@ -1228,6 +1273,7 @@ const SPECS = {
     }),
     role: ROLES.HEALER,
     primaryStat: PRIMARY_STAT.INTELLECT,
+    branch: GameBranch.Classic,
     ranking: {
       class: 7,
       spec: 2,
@@ -1251,6 +1297,7 @@ const SPECS = {
     }),
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STAT.INTELLECT,
+    branch: GameBranch.Classic,
     ranking: {
       class: 7,
       spec: 3,
@@ -1274,6 +1321,7 @@ const SPECS = {
     }),
     role: ROLES.TANK,
     primaryStat: PRIMARY_STAT.STRENGTH,
+    branch: GameBranch.Classic,
     ranking: {
       class: 1,
       spec: 1,
@@ -1297,6 +1345,7 @@ const SPECS = {
     }),
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STAT.STRENGTH,
+    branch: GameBranch.Classic,
     ranking: {
       class: 1,
       spec: 2,
@@ -1320,6 +1369,7 @@ const SPECS = {
     }),
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STAT.STRENGTH,
+    branch: GameBranch.Classic,
     ranking: {
       class: 1,
       spec: 3,
@@ -1344,6 +1394,7 @@ const SPECS = {
     }),
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STAT.INTELLECT,
+    branch: GameBranch.Classic,
     ranking: {
       class: 9,
       spec: 1,
@@ -1368,6 +1419,7 @@ const SPECS = {
     }),
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STAT.STRENGTH,
+    branch: GameBranch.Classic,
     ranking: {
       class: 9,
       spec: 2,
@@ -1392,6 +1444,7 @@ const SPECS = {
     }),
     role: ROLES.HEALER,
     primaryStat: PRIMARY_STAT.INTELLECT,
+    branch: GameBranch.Classic,
     ranking: {
       class: 9,
       spec: 3,
@@ -1415,6 +1468,7 @@ const SPECS = {
     }),
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STAT.INTELLECT,
+    branch: GameBranch.Classic,
     ranking: {
       class: 4,
       spec: 1,
@@ -1438,6 +1492,7 @@ const SPECS = {
     }),
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STAT.INTELLECT,
+    branch: GameBranch.Classic,
     ranking: {
       class: 4,
       spec: 2,
@@ -1461,6 +1516,7 @@ const SPECS = {
     }),
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STAT.INTELLECT,
+    branch: GameBranch.Classic,
     ranking: {
       class: 4,
       spec: 3,
@@ -1484,6 +1540,7 @@ const SPECS = {
     }),
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STAT.INTELLECT,
+    branch: GameBranch.Classic,
     ranking: {
       class: 10,
       spec: 1,
@@ -1507,6 +1564,7 @@ const SPECS = {
     }),
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STAT.INTELLECT,
+    branch: GameBranch.Classic,
     ranking: {
       class: 10,
       spec: 2,
@@ -1530,6 +1588,7 @@ const SPECS = {
     }),
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STAT.INTELLECT,
+    branch: GameBranch.Classic,
     ranking: {
       class: 10,
       spec: 3,
@@ -1553,6 +1612,7 @@ const SPECS = {
     }),
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STAT.INTELLECT,
+    branch: GameBranch.Classic,
     ranking: {
       class: 2,
       spec: 1,
@@ -1576,6 +1636,7 @@ const SPECS = {
     }),
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STAT.STRENGTH,
+    branch: GameBranch.Classic,
     ranking: {
       class: 2,
       spec: 2,
@@ -1599,6 +1660,7 @@ const SPECS = {
     }),
     role: ROLES.HEALER,
     primaryStat: PRIMARY_STAT.INTELLECT,
+    branch: GameBranch.Classic,
     ranking: {
       class: 2,
       spec: 4,
@@ -1622,6 +1684,7 @@ const SPECS = {
     }),
     role: ROLES.TANK,
     primaryStat: PRIMARY_STAT.STRENGTH,
+    branch: GameBranch.Classic,
     ranking: {
       class: 2,
       spec: 3,

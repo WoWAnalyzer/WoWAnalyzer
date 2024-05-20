@@ -30,7 +30,13 @@ class VoidSummoner extends Analyzer {
     this.addEventListener(
       Events.cast
         .by(SELECTED_PLAYER)
-        .spell([SPELLS.SMITE, SPELLS.MIND_BLAST, SPELLS.PENANCE_CAST, SPELLS.DARK_REPRIMAND_CAST]),
+        .spell([
+          SPELLS.SMITE,
+          SPELLS.SHADOW_SMITE,
+          SPELLS.MIND_BLAST,
+          SPELLS.PENANCE_CAST,
+          SPELLS.DARK_REPRIMAND_CAST,
+        ]),
       this.onCdrCast,
     );
   }

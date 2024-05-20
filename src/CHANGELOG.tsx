@@ -35,6 +35,14 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 5, 6), 'Add patch 10.2.7.', ToppleTheNun),
+  change(date(2024, 5, 6), <>Add simple damage mitigated statistic for <ItemLink id={ITEMS.ENDURING_DREADPLATE.id} />.</>, ToppleTheNun),
+  change(date(2024, 5, 3), 'Improve behavior of "Refresh" button', emallson),
+  change(date(2024, 5, 3), 'Second pass at cleaning up dead code using knip', Putro),
+  change(date(2024, 5, 2), 'Fix issue with boss detection', emallson),
+  change(date(2024, 4, 26), 'Actually fix friendly/enemy determination', emallson),
+  change(date(2024, 4, 22), 'Improve display of dense performance boxes', emallson),
+  change(date(2024, 4, 24), 'Bump for season 4 start.', ToppleTheNun),
   change(date(2024, 4, 22), 'Clean up dead code using knip', Putro),
   change(date(2024, 4, 20), 'Fix friendly/enemy determination', emallson),
   change(date(2024, 4, 17), 'Add 10.2.7 patch.', ToppleTheNun),

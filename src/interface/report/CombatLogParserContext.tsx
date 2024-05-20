@@ -7,7 +7,7 @@ interface CombatLogParserContext {
 
 // This starts off undefined as we don't have an instance of CombatLogParser to work with
 // until it gets provided by the Provider.
-export const CombatLogParserCtx = createContext<CombatLogParserContext | undefined>(undefined);
+const CombatLogParserCtx = createContext<CombatLogParserContext | undefined>(undefined);
 
 interface Props {
   children: ReactNode;

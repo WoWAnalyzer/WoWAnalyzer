@@ -11,7 +11,7 @@ import SPELLS from 'common/SPELLS';
 import UptimeIcon from 'interface/icons/Uptime';
 import { WHITELIST_ABILITIES } from '../../constants';
 
-export const FOTF_DAMAGE_INCREASE = 0.1;
+const FOTF_DAMAGE_INCREASE = 0.1;
 
 class FriendOfTheFae extends Analyzer {
   totalAddedDamage = 0;

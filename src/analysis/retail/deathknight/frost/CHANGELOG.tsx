@@ -5,6 +5,8 @@ import { Khazak, ToppleTheNun } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2024, 4, 22), <>Rework <SpellLink spell={talents.KILLING_MACHINE_TALENT} /> guide to look at current Runes when determining waste</>, Khazak),
+  change(date(2024, 4, 22), 'Bump compatibility to 10.2.6.', Khazak),
   change(date(2023, 7, 17), 'Bump compatibility to 10.1.5.', Khazak),
   change(date(2023, 6, 19), 'Update SpellLink usage.', ToppleTheNun),
   change(date(2023, 6, 18), <>Fixed some casts of <SpellLink spell={talents.BREATH_OF_SINDRAGOSA_TALENT} /> being improperly counted</>, Khazak),

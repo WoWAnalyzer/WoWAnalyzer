@@ -162,16 +162,24 @@ const PATCHES: Patch[] = [
     expansion: Expansion.Dragonflight,
   },
   {
-    name: '10.2.6',
+    name: '10.2.6 Season 3',
     timestamp: 1710882000000, // GMT: Tuesday, 19 March 2024 21:00:00
     urlPrefix: '',
-    isCurrent: true,
+    isCurrent: false,
+    gameVersion: 1, // retail
+    expansion: Expansion.Dragonflight,
+  },
+  {
+    name: '10.2.6 Season 4',
+    timestamp: 1713906000000, // GMT: Tuesday, 23 April 2024 21:00:00
+    urlPrefix: '',
+    isCurrent: false,
     gameVersion: 1, // retail
     expansion: Expansion.Dragonflight,
   },
   {
     name: '10.2.7',
-    timestamp: 1713906000000, // GMT: Tuesday, 23 April 2024 21:00:00
+    timestamp: 1715115600000, // GMT: Tuesday, 6 May 2024 21:00:00
     urlPrefix: '',
     isCurrent: true,
     gameVersion: 1, // retail

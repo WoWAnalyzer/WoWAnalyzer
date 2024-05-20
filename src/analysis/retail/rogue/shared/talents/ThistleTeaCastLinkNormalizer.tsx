@@ -1,19 +1,12 @@
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
-import {
-  AnyEvent,
-  CastEvent,
-  EventType,
-  GetRelatedEvent,
-  HasRelatedEvent,
-  ResourceChangeEvent,
-} from 'parser/core/Events';
+import { CastEvent, EventType, GetRelatedEvent, ResourceChangeEvent } from 'parser/core/Events';
 import TALENTS from 'common/TALENTS/rogue';
 import { Options } from 'parser/core/Module';
 
 const CAST_BUFFER_MS = 50;
 
-export const FROM_HARDCAST = 'FromHardcast';
-export const RESOURCE_CHANGE = 'ResourceChange';
+const FROM_HARDCAST = 'FromHardcast';
+const RESOURCE_CHANGE = 'ResourceChange';
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -33,14 +26,6 @@ export default class ThistleTeaCastLinkNormalizer extends EventLinkNormalizer {
   constructor(options: Options) {
     super(options, EVENT_LINKS);
   }
-}
-
-export function isFromHardcast(event: AnyEvent): boolean {
-  return HasRelatedEvent(event, FROM_HARDCAST);
-}
-
-export function getHardcast(event: ResourceChangeEvent): CastEvent | undefined {
-  return GetRelatedEvent(event, FROM_HARDCAST);
 }
 
 export function getResourceChange(event: CastEvent): ResourceChangeEvent | undefined {

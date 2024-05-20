@@ -1,4 +1,4 @@
-import Background from './images/overview.jpg';
+import Background from './backgrounds/overview.jpg';
 import Eranog from 'game/raids/vaultoftheincarnates/Eranog';
 import PrimalCouncil from 'game/raids/vaultoftheincarnates/PrimalCouncil';
 import Terros from 'game/raids/vaultoftheincarnates/Terros';

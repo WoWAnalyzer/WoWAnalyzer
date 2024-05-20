@@ -12,7 +12,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import * as React from 'react';
 
-export const BASE_REDUCTION_TIME = 1000; // ms, per talent point, per target hit
+const BASE_REDUCTION_TIME = 1000; // ms, per talent point, per target hit
 const SECOND = 1000;
 /**
  * Avenger's Shield reduces the cooldown of Guardian of Ancient Kings for 0.5seconds per target hit per talent point.

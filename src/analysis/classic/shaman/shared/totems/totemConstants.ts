@@ -45,15 +45,13 @@ export const TOTEMS_BY_ELEMENT = {
   ],
 };
 
-export const All_TOTEMS = [
+const All_TOTEMS = [
   ...TOTEMS_BY_ELEMENT[TotemElements.Fire],
   ...TOTEMS_BY_ELEMENT[TotemElements.Water],
   ...TOTEMS_BY_ELEMENT[TotemElements.Earth],
   ...TOTEMS_BY_ELEMENT[TotemElements.Air],
 ];
 
-export const TotemFilter = (element: TotemElements) =>
-  TOTEMS_BY_ELEMENT[element].map((totemId) => ({ id: totemId }));
 export const AllTotemsFilter = () => All_TOTEMS.map((totemId) => ({ id: totemId }));
 
 export const TotemDurations = {

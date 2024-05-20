@@ -15,6 +15,5 @@ const specsIgnoredNotSupportedWarningSlice = createSlice({
   },
 });
 
-export const { resetSlice, ignoreSpecNotSupportedWarning } =
-  specsIgnoredNotSupportedWarningSlice.actions;
+export const { ignoreSpecNotSupportedWarning } = specsIgnoredNotSupportedWarningSlice.actions;
 export default specsIgnoredNotSupportedWarningSlice.reducer;

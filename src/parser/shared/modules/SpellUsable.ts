@@ -20,7 +20,7 @@ import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
 const DEBUG = false;
 
 /** Margin in milliseconds beyond which we log errors if numbers don't line up */
-export const COOLDOWN_LAG_MARGIN = 150;
+const COOLDOWN_LAG_MARGIN = 150;
 
 function spellName(spellId: number) {
   return maybeGetTalentOrSpell(spellId)?.name ?? '???';

@@ -76,7 +76,7 @@ const DisciplinePriestChecklist = ({
         )}
         <AbilityRequirement spell={TALENTS.POWER_INFUSION_TALENT.id} />
         {combatant.hasTalent(TALENTS.ULTIMATE_PENITENCE_TALENT) && (
-          <AbilityRequirement spell={SPELLS.ULTIMATE_PENITENCE_DAMAGE.id} />
+          <AbilityRequirement spell={TALENTS.ULTIMATE_PENITENCE_TALENT.id} />
         )}
       </Rule>
 

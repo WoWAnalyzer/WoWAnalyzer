@@ -18,13 +18,13 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 const CAST_BUFFER_MS = 65;
 const TRANQ_CHANNEL_BUFFER_MS = 10_000;
 
-export const APPLIED_HEAL = 'AppliedHeal';
-export const FROM_HARDCAST = 'FromHardcast';
-export const FROM_OVERGROWTH = 'FromOvergrowth';
-export const FROM_EXPIRING_LIFEBLOOM = 'FromExpiringLifebloom';
-export const CAUSED_BLOOM = 'CausedBloom';
-export const CAUSED_TICK = 'CausedTick';
-export const CAUSED_SUMMON = 'CausedSummon';
+const APPLIED_HEAL = 'AppliedHeal';
+const FROM_HARDCAST = 'FromHardcast';
+const FROM_OVERGROWTH = 'FromOvergrowth';
+const FROM_EXPIRING_LIFEBLOOM = 'FromExpiringLifebloom';
+const CAUSED_BLOOM = 'CausedBloom';
+const CAUSED_TICK = 'CausedTick';
+const CAUSED_SUMMON = 'CausedSummon';
 
 const EVENT_LINKS: EventLink[] = [
   {

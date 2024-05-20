@@ -6,7 +6,12 @@ import SPELLS from 'common/SPELLS/evoker';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 export default [
+  change(date(2024, 5, 12), <>Rework <SpellLink spell={TALENTS.SHATTERING_STAR_TALENT} /> module to be more informative.</>, Vollmer),
+  change(date(2024, 5, 6), <>Update multiplier and calculation method for <SpellLink spell={TALENTS.SPELLWEAVERS_DOMINANCE_TALENT} /> module.</>, Vollmer),
+  change(date(2024, 5, 6), <>Rework <SpellLink spell={TALENTS.SCINTILLATION_TALENT} /> module to fix inaccuracy issues.</>, Vollmer),
+  change(date(2024, 5, 3), <>Rework <SpellLink spell={TALENTS.VOLATILITY_TALENT} /> module to fix inaccuracy issues.</>, Vollmer),
   change(date(2024, 4, 19), 'Update modules for 10.2.6', Vollmer),
+  change(date(2024, 4, 11), <>Rework <SpellLink spell={SPELLS.LEAPING_FLAMES_BUFF} /> module to increase accuracy.</>, Vollmer),
   change(date(2024, 4, 6), 'Normalize Empower behavior to make analysis more consistent.', Vollmer),
   change(date(2024, 4, 1), <>Added analysis for <SpellLink spell={TALENTS.RENEWING_BLAZE_TALENT} />, <SpellLink spell={TALENTS.OBSIDIAN_SCALES_TALENT} /> and <SpellLink spell={TALENTS.TWIN_GUARDIAN_TALENT} />.</>, Vollmer),
   change(date(2024, 3, 30), <>Fix prepull <SpellLink spell={SPELLS.LIVING_FLAME_CAST} /> casts to properly display channel time.</>, Vollmer),

@@ -47,11 +47,14 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import RegenerativeMagic from '../shared/modules/talents/RegenerativeMagic';
 import AncientFlame from './modules/talents/AncientFlame';
 import T31PrevokerSet from './modules/dragonflight/tier/T31TierSet';
+import AwakenedPrevokerSet from './modules/dragonflight/tier/AwakenedTierSet';
 import EchoTypeBreakdown from './modules/talents/EchoTypeBreakdown';
 import {
   LivingFlameNormalizer,
   LivingFlamePrePullNormalizer,
   LeapingFlamesNormalizer,
+  EssenceBurstRefreshNormalizer,
+  EssenceBurstCastLinkNormalizer,
   LeapingFlames,
   EmpowerNormalizer,
   SpellUsable,
@@ -61,7 +64,6 @@ import {
   SourceOfMagic,
   PotentMana,
 } from '../shared';
-import EBRefreshNormalizer from './normalizers/EBRefreshNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -70,7 +72,8 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldowns: CooldownThroughputTracker,
 
     // Normalizer
-    ebRefreshNormalizer: EBRefreshNormalizer,
+    essenceBurstCastLinkNormalizer: EssenceBurstCastLinkNormalizer,
+    essenceBurstRefreshNormalizer: EssenceBurstRefreshNormalizer,
     livingFlameNormalizer: LivingFlameNormalizer,
     castLinkNormalizer: CastLinkNormalizer,
     hotApplicationNormalizer: HotApplicationNormalizer,
@@ -141,6 +144,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // tier
     t30PrevokerTier: T30PrevokerSet,
     t31PrevokerTIer: T31PrevokerSet,
+    awakenedPrevokerTier: AwakenedPrevokerSet,
   };
   static guide = Guide;
 }

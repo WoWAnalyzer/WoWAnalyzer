@@ -8,7 +8,7 @@ import { TALENTS_PRIEST } from 'common/TALENTS';
 
 import isAtonement from '../core/isAtonement';
 import Atonement from '../spells/Atonement';
-import { RETAIL_EXPANSION } from 'game/Expansion';
+import GameBranch from 'game/GameBranch';
 
 const EVANGELISM_ADDED_DURATION = 6000;
 
@@ -26,7 +26,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
         BUILT_IN_SUMMARY_TYPES.ABSORBED,
         BUILT_IN_SUMMARY_TYPES.MANA,
       ],
-      expansion: RETAIL_EXPANSION,
+      branch: GameBranch.Retail,
     },
   ];
   lastEvangelism: TrackedCooldown | null = null;

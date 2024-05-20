@@ -16,7 +16,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           {modules.dotUptimes.guideSubsectionDP}
         </Section>
         <Section title="DoTs">{modules.dotUptimes.guideSubsection}</Section>
-
+        {modules.shadowform.guideSubsection}
         <Section title="Active Time">
           <CastingSubsection.CastingSubsection modules={modules} events={events} info={info} />
         </Section>

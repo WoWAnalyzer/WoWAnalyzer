@@ -611,6 +611,11 @@ const spells = {
     name: 'Vampiric Touch',
     icon: 'spell_holy_stoicism',
   },
+  MADDENING_TOUCH_RESOURCE: {
+    id: 391232,
+    name: 'Maddening Touch',
+    icon: 'spell_holy_stoicism',
+  },
 
   MASTERY_SHADOW_WEAVING: {
     id: 343690,
@@ -762,6 +767,12 @@ const spells = {
     icon: 'spell_mage_presenceofmind',
   },
 
+  MIND_MELT_TALENT_BUFF: {
+    id: 391092,
+    name: 'Mind Melt',
+    icon: 'spell_shadow_skull',
+  },
+
   // Shadow items:
 
   SHADOW_CRASH_TALENT_DAMAGE: {
@@ -866,11 +877,23 @@ const spells = {
     icon: 'spell_priest_void-flay',
   },
 
+  PSYCHIC_LINK_TALENT_DAMAGE: {
+    id: 199486,
+    name: 'Psychich Link',
+    icon: 'ability_priest_psychiclink',
+  },
+
   //Shadow Tier
   SHADOW_PRIEST_TIER_29_4_SET_BUFF: {
     id: 394963,
     name: 'Dark Reveries',
     icon: 'inv_mace_1h_artifactheartofkure_d_05',
+  },
+
+  SHADOW_PRIEST_TIER_30_4_SET_BUFF: {
+    id: 409502,
+    name: 'Darkflame Embers',
+    icon: 'spell_nzinsanity_panicattack',
   },
 
   SHADOW_PRIEST_TIER_31_4_SET_BUFF: {

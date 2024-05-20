@@ -1,7 +1,6 @@
 // Shared
 import Report from 'parser/core/Report';
-import { wclGameVersionToExpansion } from 'game/VERSIONS';
-import { isRetailExpansion } from 'game/Expansion';
+import { wclGameVersionToBranch } from 'game/VERSIONS';
 import ReportRaidBuffListItem from './ReportRaidBuffListItem';
 import SPECS from 'game/SPECS';
 import getConfig from 'parser/getConfig';
@@ -25,6 +24,7 @@ import CLASSIC_SPELLS from 'common/SPELLS/classic';
 
 import './ReportRaidBuffList.scss';
 import { useLingui } from '@lingui/react';
+import GameBranch from 'game/GameBranch';
 
 // eslint-disable-next-line
 const RETAIL_RAID_BUFFS = new Map<Spell | Talent, Array<Class | object>>([
@@ -134,7 +134,7 @@ interface Props {
 
 const ReportRaidBuffList = ({ report, combatants }: Props) => {
   const { i18n } = useLingui();
-  const isRetail = isRetailExpansion(wclGameVersionToExpansion(report.gameVersion));
+  const isRetail = wclGameVersionToBranch(report.gameVersion) === GameBranch.Retail;
   const getCompositionBreakdown = (combatants: CombatantInfoEvent[]) => {
     const results = new Map<Spell | Talent, number>();
 
@@ -146,7 +146,7 @@ const ReportRaidBuffList = ({ report, combatants }: Props) => {
 
     return combatants.reduce((map, combatant) => {
       const config = getConfig(
-        wclGameVersionToExpansion(report.gameVersion),
+        wclGameVersionToBranch(report.gameVersion),
         combatant.specID,
         combatant.player,
         combatant,

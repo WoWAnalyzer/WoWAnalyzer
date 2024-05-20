@@ -40,7 +40,7 @@ const EVENT_LINKS: EventLink[] = [
   },
 ];
 
-export function checkAtonementTargetsHealed(damageEvent: DamageEvent): number[] {
+function checkAtonementTargetsHealed(damageEvent: DamageEvent): number[] {
   return getHealEvents(damageEvent).map((healEvent) => healEvent.targetID);
 }
 
@@ -58,11 +58,8 @@ export function getDamageEvent(event: HealEvent) {
   return GetRelatedEvents<DamageEvent>(event, ATONEMENT_DAMAGE_EVENT).at(-1);
 }
 
-export function getHealEvents(event: DamageEvent) {
+function getHealEvents(event: DamageEvent) {
   return GetRelatedEvents<HealEvent>(event, ATONEMENT_HEAL_EVENT);
 }
 
-export function getAtonementHealEvents(event: DamageEvent) {
-  return GetRelatedEvents<HealEvent>(event, ATONEMENT_HEAL_EVENT);
-}
 export default AtonementNormalizer;

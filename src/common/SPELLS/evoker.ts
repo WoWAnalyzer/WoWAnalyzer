@@ -508,6 +508,16 @@ const spells = {
     name: 'Time of Need',
     icon: 'ability_evoker_masterylifebinder_bronze',
   },
+  TIME_BENDER: {
+    id: 394544,
+    name: 'Time Bender',
+    icon: 'ability_evoker_masterylifebinder_bronze',
+  },
+  LIFESPARK: {
+    id: 394552,
+    name: 'Lifespark',
+    icon: 'ability_evoker_masterylifebinder_red',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;

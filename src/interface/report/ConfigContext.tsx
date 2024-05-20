@@ -2,7 +2,7 @@ import type Config from 'parser/Config';
 import { usePlayer } from 'interface/report/context/PlayerContext';
 import { useReport } from 'interface/report/context/ReportContext';
 import getConfig from 'parser/getConfig';
-import { wclGameVersionToExpansion } from 'game/VERSIONS';
+import { wclGameVersionToBranch } from 'game/VERSIONS';
 
 export const useMaybeConfig = (): Config | undefined => {
   // this mess of try/catch papers over some historical choices to throw for these contexts instead of allowing them to return undefined.
@@ -28,12 +28,7 @@ export const useMaybeConfig = (): Config | undefined => {
   if (!report || !player || !combatant) {
     return undefined;
   }
-  return getConfig(
-    wclGameVersionToExpansion(report.gameVersion),
-    combatant.specID,
-    player,
-    combatant,
-  );
+  return getConfig(wclGameVersionToBranch(report.gameVersion), combatant.specID, player, combatant);
 };
 
 export const useConfig = (): Config => {

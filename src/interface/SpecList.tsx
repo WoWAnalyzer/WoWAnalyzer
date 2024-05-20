@@ -1,6 +1,5 @@
 import { Trans } from '@lingui/macro';
 import groupByToMap from 'common/groupByToMap';
-import { CLASSIC_EXPANSION, RETAIL_EXPANSION } from 'game/Expansion';
 import DocumentTitle from 'interface/DocumentTitle';
 import AVAILABLE_CONFIGS from 'parser';
 import Config from 'parser/Config';
@@ -10,11 +9,12 @@ import './SpecList.css';
 import { usePageView } from './useGoogleAnalytics';
 import { useLingui } from '@lingui/react';
 import { useMemo } from 'react';
+import GameBranch from 'game/GameBranch';
 
 const isAnySpecSupported = (configs: Config[]) =>
-  configs.some((config) => config.patchCompatibility && config.expansion === RETAIL_EXPANSION);
+  configs.some((config) => config.patchCompatibility);
 
-const retailSpecs = AVAILABLE_CONFIGS.filter((it) => it.expansion > CLASSIC_EXPANSION);
+const retailSpecs = AVAILABLE_CONFIGS.filter((it) => it.branch === GameBranch.Retail);
 
 const SpecListing = () => {
   usePageView('SpecList');
@@ -37,7 +37,7 @@ const SpecListing = () => {
   }, [i18n]);
   const classicSpecs = useMemo(
     () =>
-      AVAILABLE_CONFIGS.filter((it) => it.expansion <= CLASSIC_EXPANSION).sort(
+      AVAILABLE_CONFIGS.filter((it) => it.branch === GameBranch.Classic).sort(
         (a: Config, b: Config) => {
           const aClassName = i18n._(a.spec.className);
           const bClassName = i18n._(b.spec.className);

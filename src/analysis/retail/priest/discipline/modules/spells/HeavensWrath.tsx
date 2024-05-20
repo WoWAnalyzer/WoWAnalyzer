@@ -10,6 +10,7 @@ import { formatPercentage } from 'common/format';
 import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
+import { HEAVENS_WRATH_CDR } from '../../constants';
 
 /** Heaven’s Wrath
  *  Each Penance bolt you fire reduces the cooldown of Ultimate Penitence by 2 seconds.
@@ -18,6 +19,7 @@ import SPELLS from 'common/SPELLS';
 class HeavensWrath extends Analyzer {
   wastedBolts = 0;
   totalBolts = 0;
+  cdrAmount = 0;
   static dependencies = {
     spellUsable: SpellUsable,
   };
@@ -33,6 +35,11 @@ class HeavensWrath extends Analyzer {
     }
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
+
+    this.cdrAmount =
+      HEAVENS_WRATH_CDR[
+        this.selectedCombatant.getTalentRank(TALENTS_PRIEST.HEAVENS_WRATH_TALENT) - 1
+      ];
   }
 
   onDamage(event: DamageEvent) {
@@ -40,7 +47,13 @@ class HeavensWrath extends Analyzer {
       return;
     }
 
-    if (!this.spellUsable.isOnCooldown(SPELLS.ULTIMATE_PENITENCE_DAMAGE.id)) {
+    if (this.spellUsable.isOnCooldown(TALENTS_PRIEST.ULTIMATE_PENITENCE_TALENT.id)) {
+      this.spellUsable.reduceCooldown(
+        TALENTS_PRIEST.ULTIMATE_PENITENCE_TALENT.id,
+        this.cdrAmount,
+        event.timestamp,
+      );
+    } else {
       this.wastedBolts += 1;
     }
     this.totalBolts += 1;
@@ -55,14 +68,15 @@ class HeavensWrath extends Analyzer {
           <>
             Each <SpellLink spell={SPELLS.PENANCE} /> or{' '}
             <SpellLink spell={SPELLS.DARK_REPRIMAND_CAST} /> will reduce the remaining cooldown on{' '}
-            <SpellLink spell={SPELLS.ULTIMATE_PENITENCE_DAMAGE} /> by 2 seconds. <br />
+            <SpellLink spell={TALENTS_PRIEST.ULTIMATE_PENITENCE_TALENT} /> by{' '}
+            {this.cdrAmount / 1000} seconds. <br />
             You wasted {this.wastedBolts} out of {this.totalBolts} bolts. (
             {formatPercentage(this.wastedBolts / this.totalBolts)}%)
           </>
         }
       >
         <BoringSpellValue
-          spell={SPELLS.ULTIMATE_PENITENCE_DAMAGE.id}
+          spell={TALENTS_PRIEST.ULTIMATE_PENITENCE_TALENT.id}
           value={this.wastedBolts}
           label={
             <>

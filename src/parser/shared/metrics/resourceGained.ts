@@ -27,18 +27,6 @@ const resourceGained = (events: AnyEvent[]) =>
 
 export default metric(resourceGained);
 
-export const sumResourceGained = (
-  resourcesGained: ResourcesGained,
-  resourceId: number,
-  playerId: number,
-) =>
-  Object.values(resourcesGained[playerId]?.[resourceId]).reduce((sum, item) => sum + item, 0) || 0;
-export const sumResourceGainedByPlayerBySpell = (
-  resourcesGained: ResourcesGained,
-  resourceId: number,
-  playerId: number,
-  spellId: number,
-) => resourcesGained[playerId]?.[resourceId]?.[spellId] || 0;
 export const sumResourceGainedByPlayerPerSpell = (
   resourcesGained: ResourcesGained,
   resourceId: number,

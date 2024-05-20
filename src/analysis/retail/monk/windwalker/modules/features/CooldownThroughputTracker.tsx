@@ -3,7 +3,7 @@ import CoreCooldownThroughputTracker, {
   BUILT_IN_SUMMARY_TYPES,
 } from 'parser/shared/modules/CooldownThroughputTracker';
 import { TALENTS_MONK } from 'common/TALENTS';
-import { RETAIL_EXPANSION } from 'game/Expansion';
+import GameBranch from 'game/GameBranch';
 
 class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
@@ -11,7 +11,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     {
       spell: TALENTS_MONK.SERENITY_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
-      expansion: RETAIL_EXPANSION,
+      branch: GameBranch.Retail,
     },
   ];
 

@@ -4,158 +4,288 @@ import { formatNumber } from 'common/format';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import Events, { CastEvent, GetRelatedEvent, HasRelatedEvent } from 'parser/core/Events';
+import Events, { EventType, RemoveBuffEvent } from 'parser/core/Events';
 import {
-  getLeapingDamageEvents,
-  getLeapingHealEvents,
-  generatedEssenceBurst,
-  getCastedGeneratedEssenceBurst,
-  isFromLeapingFlames,
-  getWastedEssenceBurst,
-  ESSENCE_BURST_CAST_GENERATED,
-  ESSENCE_BURST_GENERATED,
+  getLeapingEvents,
+  getLivingFlameCastHit,
+  getLeapingCast,
 } from '../normalizers/LeapingFlamesNormalizer';
-
-import { getPupilDamageEvents } from 'analysis/retail/evoker/augmentation/modules/normalizers/CastLinkNormalizer';
 
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Soup from 'interface/icons/Soup';
 import { SpellLink } from 'interface';
-import SPECS from 'game/SPECS';
-import { InformationIcon } from 'interface/icons';
+import { InformationIcon, WarningIcon } from 'interface/icons';
+import {
+  EBSource,
+  eventGeneratedEB,
+  eventWastedEB,
+  getGeneratedEBEvents,
+  getWastedEBEvents,
+  isEBFrom,
+} from '../normalizers/EssenceBurstCastLinkNormalizer';
 
 /**
  * Fire Breath causes your next Living Flame to strike 1 additional target per empower level.
+ *
+ * This analyzers main goal is to attempt to determine the amount of Essence Burst Leaping Flames
+ * hits generated.
+ * We rely on already having attributed as many EB as possible to other, more deterministic sources.
+ * So the more accurately those are tracked across the board, the better.
+ * This is done in the EssenceBurstCastLinkNormalizer.
+ *
+ * We are able to make the following assumptions on the behavior of EB generation:
+ * 1. Living Flame damage hits will ALWAYS generate EB on cast.
+ * 2. Living Flame heal hits will, for the most part, generate EB on hit.
+ *    Sometimes these are generated on cast as well. But we focus on the former.
+ * 3. Only effective heals will generate EB.
+ *
+ * Living Flame EB generation is determined by linking the Living Flame casts to their hits (leaping included).
+ * Along with The EB generated/wasted from the Living Flame casts.
+ *
+ * We can then apply the following rules to determine the probability of an EB being generated from
+ * Leaping Flames:
+ *
+ * 1. If we are in Dragonrage then we can attribute everything past the first one.
+ * 2. If there are more than 1 EB procs then we can attribute 1 EB.
+ * 3. If there is an EB proc with the same/close timestamp as a (later) heal hit then we can attribute 1 EB.
+ *    Note: If this was the cast hit, then we don't attribute and remove 1 EB from the equation.
+ * 4. Beyond this we need to determine the actual probability of an EB being generated and attribute a fraction.
+ *
+ * The same process applies to the wasted amount.
  */
 class LeapingFlames extends Analyzer {
-  leapingFlamesDamage: number = 0;
-  leapingFlamesHealing: number = 0;
-  leapingFlamesOverHealing: number = 0;
-  essenceBurstGenerated: number = 0;
-  essenceBurstWasted: number = 0;
+  leapingFlamesDamage = 0;
+  leapingFlamesHealing = 0;
+  leapingFlamesOverHealing = 0;
+
+  leapingFlamesBuffs = 0;
+  leapingFlamesConsumptions = 0;
+
+  leapingFlamesExtraHits = 0;
+
+  essenceBurstGenerated = 0;
+  maybeEssenceBurstGenerated = 0;
+  essenceBurstWasted = 0;
+  maybeEssenceBurstWasted = 0;
+
+  hasAttunement = this.selectedCombatant.hasTalent(TALENTS.ESSENCE_ATTUNEMENT_TALENT);
+  maxEB = this.hasAttunement ? 2 : 1;
+  hasDragonrage = this.selectedCombatant.hasTalent(TALENTS.DRAGONRAGE_TALENT);
+
+  /** If the buff is refreshed/overridden it will gain/lose stacks instead of refreshing
+   * It can be observed in this log @24:53.644 & @27:58.515 /reports/rXkDfLBavt1mWpKx#fight=5&type=damage-done&source=1 */
+  applicationOrRefreshEvents = [Events.applybuff, Events.applybuffstack, Events.removebuffstack];
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.LEAPING_FLAMES_TALENT);
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.LIVING_FLAME_CAST),
-      this.onCast,
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.LEAPING_FLAMES_BUFF),
+      this.onRemoveBuff,
+    );
+
+    this.applicationOrRefreshEvents.forEach((e) =>
+      this.addEventListener(
+        e.by(SELECTED_PLAYER).spell(SPELLS.LEAPING_FLAMES_BUFF),
+        this.onApplyBuff,
+      ),
     );
   }
 
-  onCast(event: CastEvent) {
-    if (!isFromLeapingFlames(event)) {
+  onApplyBuff() {
+    this.leapingFlamesBuffs += 1;
+  }
+
+  onRemoveBuff(leapingBuff: RemoveBuffEvent) {
+    const lfCast = getLeapingCast(leapingBuff);
+    if (!lfCast) {
+      return;
+    }
+    this.leapingFlamesConsumptions += 1;
+
+    const leapingEvents = getLeapingEvents(lfCast);
+    if (!leapingEvents.length) {
       return;
     }
 
-    const damageEvents = getLeapingDamageEvents(event);
-    const damageHits = damageEvents.length;
+    const { damageHits, healHits } = leapingEvents.reduce(
+      (acc, event) => {
+        if (event.type === EventType.Damage) {
+          acc.damageHits += 1;
+          this.leapingFlamesDamage += event.amount + (event.absorbed ?? 0);
+        } else {
+          const absHealAmount = event.amount + (event.absorbed ?? 0);
 
-    /** With Living Flame Essence Burst is for damage events generated on cast (for the most part)
-     * and for heal events it's generated on hit.
-     *
-     * This obviously is not 100% correct, since you could generate two EB on cast
-     * where neither came from original LF, buuuut it'll be accurate enough. */
-    if (getCastedGeneratedEssenceBurst(event).length > 0) {
-      const dragonrageActive = this.selectedCombatant.hasBuff(TALENTS.DRAGONRAGE_TALENT.id);
-      /**
-       * Dragonrage gives guranteed EB on hit, so we can only ever max generate one extra from Leaping during Dragonrage
-       *
-       * Case 1: We hit 3+ targets, Dragonrage isn't active, and we generated 2 EB on cast (We get 2+ extra chances to generated EB)
-       * Case 2: We generated 2 EB (assumed that we hit 2+ targets since otherwise we couldn't actually generate 2 EB)
-       * Case 3: 1 EB generated and we hit 2+ targets, and Dragonrage not active
-       *
-       * We will give some extra in favor of Leaping depending on target counts, since it does
-       * increase the likelyhood of generating EB.
-       * This is basicly done to account for the fact that we don't know if EB's comes from original LF
-       * or Leaping LFs.
-       */
-      const extraHitFactor = 0.25;
-      if (
-        damageHits > 2 &&
-        !dragonrageActive &&
-        getCastedGeneratedEssenceBurst(event).length === 2
-      ) {
-        this.essenceBurstGenerated += 1 + damageHits * extraHitFactor;
-      } else if (getCastedGeneratedEssenceBurst(event).length === 2) {
-        this.essenceBurstGenerated += 1 + damageHits * extraHitFactor;
-      } else if (damageHits > 1 && !dragonrageActive) {
-        this.essenceBurstGenerated += 0 + damageHits * extraHitFactor;
+          this.leapingFlamesHealing += absHealAmount;
+          this.leapingFlamesOverHealing += event.overheal ?? 0;
+
+          if (absHealAmount > 0) {
+            acc.healHits += 1;
+          }
+        }
+        return acc;
+      },
+      { damageHits: 0, healHits: 0 },
+    );
+
+    const generatedEB = getGeneratedEBEvents(lfCast, EBSource.LivingFlameCast);
+    const wastedEB = getWastedEBEvents(lfCast, EBSource.LivingFlameCast);
+    if (!generatedEB.length && !wastedEB.length) {
+      // potentially you don't bail here if you want to show expected vs actual procs
+      return;
+    }
+
+    const allEBEvents = [...generatedEB, ...wastedEB];
+
+    const { healGen, healWaste } = allEBEvents.reduce(
+      (acc, event) => {
+        const isWaste = event.type === EventType.RefreshBuff;
+
+        const isFromHeal = isEBFrom(event, EBSource.LivingFlameHeal);
+
+        if (isFromHeal) {
+          if (isWaste) {
+            acc.healWaste += 1;
+          } else {
+            acc.healGen += 1;
+          }
+        }
+
+        return acc;
+      },
+      { healGen: 0, healWaste: 0 },
+    );
+
+    let totalGeneratedEB = generatedEB.length;
+    let totalWastedEB = wastedEB.length;
+
+    /** In Dragonrage all generators have 100% chance of generating EB, so leaping
+     * will have provided everything beyond the first one. */
+    const inDragonRage =
+      this.hasDragonrage && this.selectedCombatant.hasBuff(TALENTS.DRAGONRAGE_TALENT.id);
+    if (inDragonRage) {
+      const maxPossibleEBGen = this.maxEB - 1;
+
+      /** Player isn't running attunement and as such leaping can't ever provide value.
+       * You *could* show the wasted EB from here, but it doesn't make sense to bonk players
+       * for this, since realistically it isn't actually a waste.
+       * We will for now just warn about it in the stats module. */
+      if (maxPossibleEBGen === 0) {
+        return;
       }
+
+      // Determine whether Dragonrage generated or wasted and downjust accordingly
+      if (totalGeneratedEB > 0) {
+        totalGeneratedEB -= 1;
+      } else if (totalWastedEB > 0) {
+        totalWastedEB -= -1;
+      }
+
+      /** Technically you can spend some of the gained EB before you gain the next one.
+       * Meaning you can gain more than 1 EB, so we will count all the excess.
+       * But you can't realistically waste more than you can realistically gain.
+       * So we will only ever count the realistic amount of wasted EB.
+       *
+       * It can be observed in this log @26:04.915:
+       * /report/rXkDfLBavt1mWpKx/4-Mythic++Darkheart+Thicket+-+Kill+(26:32)/Griwyvoker */
+      this.essenceBurstGenerated += totalGeneratedEB;
+
+      const wastedEBToAccountFor = Math.min(totalWastedEB, maxPossibleEBGen);
+      const actualWastedEB = Math.max(wastedEBToAccountFor - totalGeneratedEB, 0);
+      this.essenceBurstWasted += actualWastedEB;
+      return;
     }
 
-    /** Much like the logic above, check the cast event and see if we wasted/overcapped EB
-     * We basicly just check for amount of RefreshBuff events there were for EB, each one is an overcap */
-    const hasAttunement = this.selectedCombatant.hasTalent(TALENTS.ESSENCE_ATTUNEMENT_TALENT); // This talent makes EB stack to 2 charges
-    if (getCastedGeneratedEssenceBurst(event).length === 1 && hasAttunement) {
-      this.essenceBurstWasted += Math.min(getWastedEssenceBurst(event).length, 1);
-    } else if (getCastedGeneratedEssenceBurst(event).length === 0) {
-      this.essenceBurstWasted += Math.min(
-        getWastedEssenceBurst(event).length,
-        hasAttunement ? 2 : 1,
+    // Outside of the Dragonrage freebie we actually need to figure out the probabilities ourselves
+    const castHit = getLivingFlameCastHit(lfCast);
+    const castHitGeneratedEB = Boolean(castHit && eventGeneratedEB(castHit));
+    const castHitWastedEB = Boolean(castHit && eventWastedEB(castHit));
+
+    if (totalGeneratedEB > 0) {
+      const ebFromLeaping = this.getLeapingEBShare(
+        healGen,
+        castHitGeneratedEB,
+        damageHits,
+        healHits,
+        totalGeneratedEB,
       );
+      this.essenceBurstGenerated += ebFromLeaping.guaranteedFromLeaping;
+      this.maybeEssenceBurstGenerated += ebFromLeaping.maybeFromLeaping;
     }
 
-    /** Logic needed to account for Pupil of Alexstraza for Augmentation
-     * Pupil also sends out a cleave LF */
-    let pupilDamage = 0;
-    if (
-      this.selectedCombatant.spec === SPECS.AUGMENTATION_EVOKER &&
-      this.selectedCombatant.hasTalent(TALENTS.PUPIL_OF_ALEXSTRASZA_TALENT)
-    ) {
-      const pupilDamageEvents = getPupilDamageEvents(event);
-      pupilDamageEvents.forEach((pupilDamageEvent) => {
-        // Look for non maintarget pupil damage and keep track of it
-        if (pupilDamageEvent.targetID !== event.targetID) {
-          pupilDamage += pupilDamageEvent.amount + (pupilDamageEvent.absorbed ?? 0);
-        }
-      });
-    }
+    /** Whilst we could show every single overcapped EB, it doesn't make sense to do so
+     * If we generate 3 EB we (potentially) overcap 1, but you can't actually (reliably)
+     * avoid overcapping those ones, so we ignore the unrealistic excess. */
+    const maxPossibleWastedEB = Math.max(this.maxEB - totalGeneratedEB, 0);
+    const wastedEBToAccountFor = Math.min(maxPossibleWastedEB, totalWastedEB);
 
-    if (damageHits > 0) {
-      damageEvents.forEach((damEvent) => {
-        // If the target hit wasn't the main target we can safely assume it came from Leaping Flames
-        if (damEvent.targetID !== event.targetID) {
-          this.leapingFlamesDamage += damEvent.amount + (damEvent.absorbed ?? 0);
-          if (generatedEssenceBurst(damEvent)) {
-            this.essenceBurstGenerated += 1;
-          }
-        }
-      });
-      // Remove pupil damage from the total damage
-      this.leapingFlamesDamage -= pupilDamage;
-    }
+    if (wastedEBToAccountFor > 0) {
+      const wastedEBFromLeaping = this.getLeapingEBShare(
+        healWaste,
+        castHitWastedEB,
+        damageHits,
+        healHits,
+        wastedEBToAccountFor,
+      );
 
-    const healEvent = getLeapingHealEvents(event);
-    if (healEvent.length > 0) {
-      healEvent.forEach((healEvent) => {
-        // If the target hit wasn't the main target we can safely assume it came from Leaping Flames
-        if (healEvent.targetID !== event.targetID) {
-          this.leapingFlamesHealing += healEvent.amount;
-          this.leapingFlamesOverHealing += healEvent.overheal ?? 0;
-          if (generatedEssenceBurst(healEvent)) {
-            // This logic makes sure that we don't double count EB's
-            // Events are weird but this solution works
-            if (
-              !HasRelatedEvent(
-                GetRelatedEvent(healEvent, ESSENCE_BURST_GENERATED)!,
-                ESSENCE_BURST_CAST_GENERATED,
-              )
-            ) {
-              this.essenceBurstGenerated += 1;
-            }
-          }
-        }
-      });
+      this.essenceBurstWasted += wastedEBFromLeaping.guaranteedFromLeaping;
+      this.maybeEssenceBurstWasted += wastedEBFromLeaping.maybeFromLeaping;
     }
   }
 
+  /** Get the estimated share of leaping flames gen/waste
+   * Some of it is deterministic, such as heal procs that come along with
+   * later heal hits, whilst the ones that come on cast aren't */
+  getLeapingEBShare(
+    healProcs: number,
+    castHitProc: boolean,
+    damageHits: number,
+    healHits: number,
+    procsToAccountFor: number,
+  ) {
+    let guaranteedFromLeaping = 0;
+    let maybeFromLeaping = 0;
+
+    /** First we deal with all the deterministic sources */
+
+    // We had more than 1 procs so we know leaping provided the excess ones
+    if (procsToAccountFor > 1) {
+      guaranteedFromLeaping = 1;
+      procsToAccountFor -= procsToAccountFor - 1;
+    }
+
+    // We know for certain that 1 EB came from the initial cast
+    if (castHitProc) {
+      procsToAccountFor -= 1;
+    }
+
+    // Heal proc sources are deterministic so we can directly distribute them
+    if (healProcs > 0) {
+      guaranteedFromLeaping += Math.min(healProcs, procsToAccountFor);
+      procsToAccountFor -= Math.min(healProcs, procsToAccountFor);
+    }
+
+    if (procsToAccountFor === 0) {
+      return { guaranteedFromLeaping, maybeFromLeaping };
+    }
+
+    /** Then we deal with the non-deterministic sources */
+
+    // If the proc came from a damage hit we can't be sure about the source
+    // Each hit will have equal chances to generate/waste the initial EB so we calculate a simple
+    // Probability and use it to attribute "fractions" of EBs to leaping, we then round
+    // these fractions in the end to get an estimate of Leapings contribution
+    const probabilityEBIsFromLeaping = 1 - 1 / (1 + damageHits + healHits - guaranteedFromLeaping);
+    maybeFromLeaping += probabilityEBIsFromLeaping;
+    return { guaranteedFromLeaping, maybeFromLeaping };
+  }
+
   statistic() {
+    const wastedBuffs = this.leapingFlamesBuffs - this.leapingFlamesConsumptions;
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
@@ -166,33 +296,49 @@ class LeapingFlames extends Analyzer {
             <li>Damage: {formatNumber(this.leapingFlamesDamage)}</li>
             <li>Healing: {formatNumber(this.leapingFlamesHealing)}</li>
             <li>Overhealing: {formatNumber(this.leapingFlamesOverHealing)}</li>
+            <li>Consumed: {formatNumber(this.leapingFlamesConsumptions)} buffs</li>
+            <li>Wasted: {formatNumber(wastedBuffs)} buffs</li>
             Wasted <SpellLink spell={SPELLS.ESSENCE_BURST_BUFF} /> represent the amount you lost out
             on due to overcapping.
           </>
         }
       >
-        <TalentSpellText talent={TALENTS.LEAPING_FLAMES_TALENT}>
-          <div>
+        <div className="pad">
+          <label>
+            <SpellLink spell={TALENTS.LEAPING_FLAMES_TALENT} />
+          </label>
+          {this.hasDragonrage && !this.hasAttunement && (
+            <div>
+              <WarningIcon />{' '}
+              <small>
+                You don't have <SpellLink spell={TALENTS.ESSENCE_ATTUNEMENT_TALENT} /> talented, so
+                you'll miss out on a significant amount of{/*  */}{' '}
+                <SpellLink spell={SPELLS.ESSENCE_BURST_BUFF} /> during{' '}
+                <SpellLink spell={TALENTS.DRAGONRAGE_TALENT} />!
+              </small>
+            </div>
+          )}
+          <div className="value">
             <ItemDamageDone amount={this.leapingFlamesDamage} />
           </div>
-          <div>
+          <div className="value">
             <ItemHealingDone amount={this.leapingFlamesHealing} />
           </div>
-          <div>
-            <Soup /> {Math.floor(this.essenceBurstGenerated)}
+          <div className="value">
+            <Soup /> {Math.round(this.essenceBurstGenerated + this.maybeEssenceBurstGenerated)}
             <small>
               {' '}
               <SpellLink spell={SPELLS.ESSENCE_BURST_BUFF} /> generated
             </small>
           </div>
-          <div>
-            <InformationIcon /> {Math.floor(this.essenceBurstWasted)}
+          <div className="value">
+            <InformationIcon /> {Math.round(this.essenceBurstWasted + this.maybeEssenceBurstWasted)}
             <small>
               {' '}
               <SpellLink spell={SPELLS.ESSENCE_BURST_BUFF} /> wasted
             </small>
           </div>
-        </TalentSpellText>
+        </div>
       </Statistic>
     );
   }

@@ -1,7 +1,7 @@
 import { AnyEvent, EventType, HasRelatedEvent } from 'parser/core/Events';
 import TALENTS from 'common/TALENTS/evoker';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
-import { PRESCIENCE_APPLY_REMOVE_LINK } from './CastLinkNormalizer';
+import CastLinkNormalizer, { PRESCIENCE_APPLY_REMOVE_LINK } from './CastLinkNormalizer';
 import Combatants from 'parser/shared/modules/Combatants';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import {
@@ -20,10 +20,9 @@ import {
  * like to include these in our analysis, so we need to create pre-pull events for it */
 
 class PrescienceNormalizer extends EventsNormalizer {
-  // Set lower priority to ensure this runs after our CastLinkNormalizer
-  priority = 101;
   static dependencies = {
     ...EventsNormalizer.dependencies,
+    castLinkNormalizer: CastLinkNormalizer,
     combatants: Combatants,
     stats: StatTracker,
   };

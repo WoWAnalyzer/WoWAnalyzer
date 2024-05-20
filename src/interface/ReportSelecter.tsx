@@ -13,17 +13,17 @@ export function getReportCode(input: string) {
   return match && match[2];
 }
 
-export function getFight(input: string) {
+function getFight(input: string) {
   const match = input.trim().match(/fight=([^&]*)/);
   return match && match[1];
 }
 
-export function getPlayer(input: string) {
+function getPlayer(input: string) {
   const match = input.trim().match(/source=([^&]*)/);
   return match && match[1];
 }
 
-export function getCharacterFromWCLUrl(input: string) {
+function getCharacterFromWCLUrl(input: string) {
   const match = input.trim().match(/^(.*character\/)(\S*)\/(\S*)\/(\S*)/);
   return (
     match && {
@@ -34,7 +34,7 @@ export function getCharacterFromWCLUrl(input: string) {
   );
 }
 
-export function getCharacterFromBattleNetUrl(input: string) {
+function getCharacterFromBattleNetUrl(input: string) {
   const match = input.trim().match(/^(.*)\/([A-Za-z]{2}-[A-Za-z]{2})\/(character)\/(\S*)\/(\S*)/);
   return (
     match &&

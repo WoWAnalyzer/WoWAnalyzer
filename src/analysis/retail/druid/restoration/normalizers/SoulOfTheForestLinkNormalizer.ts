@@ -13,8 +13,8 @@ import {
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 
-export const BUFFED_BY_SOTF = 'BuffedBySotf';
-export const SOTF_BUFFS_HEAL = 'BuffsHeal';
+const BUFFED_BY_SOTF = 'BuffedBySotf';
+const SOTF_BUFFS_HEAL = 'BuffsHeal';
 
 const SOTF_BUFFER_MS = 50;
 

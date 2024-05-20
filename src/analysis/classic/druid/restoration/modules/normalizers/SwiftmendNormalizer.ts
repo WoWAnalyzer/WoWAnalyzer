@@ -11,7 +11,7 @@ import { Options } from 'parser/core/Module';
 
 const REMOVE_BUFFER_MS = 50;
 
-export const CONSUMED_HOT = 'ConsumedHot';
+const CONSUMED_HOT = 'ConsumedHot';
 
 const EVENT_LINKS: EventLink[] = [
   {

@@ -1,6 +1,4 @@
-const HIT_TYPES: {
-  [key: string]: number;
-} = {
+const HIT_TYPES: Record<string, number> = {
   MISS: 0,
   NORMAL: 1,
   CRIT: 2,

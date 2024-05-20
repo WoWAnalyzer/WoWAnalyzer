@@ -4,7 +4,7 @@ import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer'
 import { EventType } from 'parser/core/Events';
 
 export const SCK_DAMAGE_LINK = 'sck-damage';
-export const SCK_CAST_LINK = 'sck-cast';
+const SCK_CAST_LINK = 'sck-cast';
 
 // the damage link is the reverse of the cast link.
 //
