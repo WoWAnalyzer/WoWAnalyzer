@@ -9,6 +9,7 @@ const CAST_BUFFER_MS = 75;
 
 const BUFF_APPLY = 'BuffApply';
 const BUFF_REMOVE = 'BuffRemove';
+const BUFF_REFRESH = 'BuffRefresh';
 const DEBUFF_APPLY = 'DebuffApply';
 const DEBUFF_REMOVE = 'DebuffRemove';
 const SPELL_CAST = 'SpellCast';
@@ -168,6 +169,18 @@ const EVENT_LINKS: EventLink[] = [
     },
     maximumLinks: 1,
     forwardBufferMs: 18_000,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    reverseLinkRelation: BUFF_REMOVE,
+    linkingEventId: SPELLS.FINGERS_OF_FROST_BUFF.id,
+    linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
+    linkRelation: BUFF_REFRESH,
+    referencedEventId: SPELLS.FINGERS_OF_FROST_BUFF.id,
+    referencedEventType: EventType.RefreshBuff,
+    anyTarget: true,
+    maximumLinks: 1,
+    forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
   },
   {
