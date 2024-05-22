@@ -19,7 +19,7 @@ const config: Config = {
       Hey Assassination Rogues! <br /> <br />
       If you want to learn more about Assassination, head over to{' '}
       <a href="https://www.ravenholdt.net/" target="_blank" rel="noopener noreferrer">
-        Ravenholt
+        Ravenholdt
       </a>
       , or join its{' '}
       <a href="https://discordapp.com/invite/mnwuJ7e" target="_blank" rel="noopener noreferrer">
