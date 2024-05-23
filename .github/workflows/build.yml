@@ -115,7 +115,7 @@ jobs:
           VITE_ENVIRONMENT_NAME: ${{ steps.environment-name.outputs.environment_name }}
           VITE_VERSION: ${{ github.sha }}
       - run: tar -czf dist.tar.gz dist
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: dist
           path: dist.tar.gz
