@@ -83,10 +83,6 @@ class TimeOfNeed extends Analyzer {
   }
 
   parseDamageTaken(tonSpawn: TonEvent, eventList: WCLEventsResponse) {
-    //Check that ToN actually did any healing or if it bugged out
-    if (tonSpawn.verdantEmbrace === null && !tonSpawn.livingFlames.length) {
-      return Result.Bug;
-    }
     //If there is no damage events, then Time of Need didn't save the player from anything
     if (!eventList.events.length) {
       return Result.Not;
@@ -128,17 +124,22 @@ class TimeOfNeed extends Analyzer {
   async load() {
     //Run every ToN spawn through parseDamageTaken()
     for (const spawn of this.spawns) {
-      const target = this.combatants?.players[spawn.target];
-      const filter = target && target?.name ? `target.name = "${target.name}"` : '';
-      const damageTakenEvents = await fetchWcl<WCLEventsResponse>(
-        `report/events/damage-taken/${this.owner.report.code}`,
-        {
-          start: spawn.summon.timestamp,
-          end: spawn.summon.timestamp + 8000,
-          filter,
-        },
-      );
-      spawn.result = this.parseDamageTaken(spawn, damageTakenEvents);
+      if (spawn.verdantEmbrace !== null) {
+        const target = this.combatants?.players[spawn.target];
+        const filter =
+          target && target?.name ? `target.name = "${target.name}" AND type = "damage"` : '';
+        const damageTakenEvents = await fetchWcl<WCLEventsResponse>(
+          `report/events/damage-taken/${this.owner.report.code}`,
+          {
+            start: spawn.verdantEmbrace.timestamp,
+            end: spawn.summon.timestamp + 8000,
+            filter,
+          },
+        );
+        spawn.result = this.parseDamageTaken(spawn, damageTakenEvents);
+      } else {
+        spawn.result = Result.Bug;
+      }
     }
   }
 
