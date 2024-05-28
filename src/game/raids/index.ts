@@ -8,6 +8,11 @@ import MythicPlusSeasonFour from 'game/raids/mythicplusseasonfour';
 import VaultOfTheIncarnates from 'game/raids/vaultoftheincarnates';
 import Aberrus from 'game/raids/aberrus';
 import Amirdrassil from 'game/raids/amirdrassil';
+import {
+  bot as BastionOfTwilight,
+  bwd as BlackwingDescent,
+  totfw as ThroneOfTheFourWinds,
+} from 'game/raids/cata_bwd_bot_totfw';
 
 interface EncounterConfig {
   vantusRuneBuffId?: number;
@@ -59,6 +64,9 @@ const raids = {
   Aberrus, // tier 30
   Amirdrassil, // tier 31
   // Cataclysm (Classic)
+  BlackwingDescent,
+  BastionOfTwilight,
+  ThroneOfTheFourWinds,
 };
 
 function findByDungeonBossId(id: number) {
