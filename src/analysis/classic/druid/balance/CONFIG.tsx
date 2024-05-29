@@ -25,7 +25,7 @@ const config: Config = {
   pages: {
     overview: {
       hideChecklist: false,
-      text: <>Classic WotLK support is still a Work in Progress.</>,
+      text: <>Classic Cataclysm support is still a Work in Progress.</>,
       type: 'info', // info, warning, or danger
     },
   },

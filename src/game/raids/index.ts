@@ -8,10 +8,11 @@ import MythicPlusSeasonFour from 'game/raids/mythicplusseasonfour';
 import VaultOfTheIncarnates from 'game/raids/vaultoftheincarnates';
 import Aberrus from 'game/raids/aberrus';
 import Amirdrassil from 'game/raids/amirdrassil';
-import Ulduar from 'game/raids/ulduar';
-import TrialOfTheGrandCrusader from 'game/raids/trialofthegrandcrusader';
-import IcecrownCitadel from 'game/raids/icc';
-import RubySanctum from 'game/raids/rubysanctum';
+import {
+  bot as BastionOfTwilight,
+  bwd as BlackwingDescent,
+  totfw as ThroneOfTheFourWinds,
+} from 'game/raids/cata_bwd_bot_totfw';
 
 interface EncounterConfig {
   vantusRuneBuffId?: number;
@@ -62,11 +63,10 @@ const raids = {
   VaultOfTheIncarnates, // tier 29
   Aberrus, // tier 30
   Amirdrassil, // tier 31
-  // Wrath of the Lich King (Classic)
-  Ulduar, // tier 8
-  TrialOfTheGrandCrusader, // tier 9
-  IcecrownCitadel, // tier 10
-  RubySanctum, // tier 11
+  // Cataclysm (Classic)
+  BlackwingDescent,
+  BastionOfTwilight,
+  ThroneOfTheFourWinds,
 };
 
 function findByDungeonBossId(id: number) {

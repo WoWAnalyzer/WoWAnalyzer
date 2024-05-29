@@ -27,7 +27,7 @@ const config: Config = {
       hideChecklist: false,
       text: (
         <>
-          Classic WotLK support is still a Work in Progress. This spec guide is a stub. See the
+          Classic Cataclysm support is still a Work in Progress. This spec guide is a stub. See the
           "About" tab for information on contributing.
         </>
       ),

@@ -42,7 +42,7 @@ const ORDER_BY = {
   PERCENTILE: 2,
 };
 const DEFAULT_RETAIL_ZONE = 35; // Amirdrassil
-const DEFAULT_CLASSIC_ZONE = 1020; // ICC
+const DEFAULT_CLASSIC_ZONE = 1023; // BWD / BoT / TotFW
 const BOSS_DEFAULT_ALL_BOSSES = 0;
 const FALLBACK_PICTURE = '/img/fallback-character.jpg';
 const ERRORS = {
