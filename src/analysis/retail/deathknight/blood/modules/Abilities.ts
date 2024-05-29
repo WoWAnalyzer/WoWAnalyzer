@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
-import CoreAbilities from 'parser/core/modules/Abilities';
+import CoreAbilities, { AbilityRange } from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
@@ -239,6 +239,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         timelineSortIndex: 7,
+        range: AbilityRange.Melee,
       },
       {
         spell: TALENTS.DEATH_STRIKE_TALENT.id,
@@ -247,6 +248,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         timelineSortIndex: 1,
+        range: AbilityRange.Melee,
       },
       {
         //Check if there is a time to ever use this
@@ -257,6 +259,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         timelineSortIndex: 7,
+        range: 30,
       },
       {
         spell: SPELLS.DEATH_AND_DECAY.id,
@@ -282,6 +285,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         timelineSortIndex: 3,
+        range: AbilityRange.Melee,
       },
       {
         spell: TALENTS.MARROWREND_TALENT.id,
@@ -292,6 +296,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         timelineSortIndex: 2,
+        range: AbilityRange.Melee,
       },
       {
         spell: TALENTS.RAISE_DEAD_SHARED_TALENT.id,

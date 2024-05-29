@@ -81,13 +81,15 @@ export const highlightInefficientCast = (
 type MovementInstance = { start: number; end: number; distance: number };
 interface Props extends HTMLAttributes<HTMLDivElement> {
   start: number;
+  windowStart?: number;
   secondWidth: number;
   events: AnyEvent[];
   movement?: MovementInstance[];
 }
 
-const Casts = ({ start, secondWidth, events, movement, ...others }: Props) => {
-  const getOffsetLeft = (timestamp: number) => ((timestamp - start) / 1000) * secondWidth;
+const Casts = ({ start, windowStart, secondWidth, events, movement, ...others }: Props) => {
+  const getOffsetLeft = (timestamp: number) =>
+    ((timestamp - (windowStart ?? start)) / 1000) * secondWidth;
 
   const renderIcon = (
     event: CastEvent | BeginChannelEvent | FreeCastEvent,
