@@ -3,7 +3,7 @@ import CoreCooldownThroughputTracker, {
   BUILT_IN_SUMMARY_TYPES,
 } from 'parser/shared/modules/CooldownThroughputTracker';
 import { TALENTS_DRUID } from 'common/TALENTS';
-import { RETAIL_EXPANSION } from 'game/Expansion';
+import GameBranch from 'game/GameBranch';
 
 class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
@@ -15,7 +15,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
         BUILT_IN_SUMMARY_TYPES.OVERHEALING,
         BUILT_IN_SUMMARY_TYPES.MANA,
       ],
-      expansion: RETAIL_EXPANSION,
+      branch: GameBranch.Retail,
     },
     {
       spell: TALENTS_DRUID.FLOURISH_TALENT.id,
@@ -25,7 +25,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
         BUILT_IN_SUMMARY_TYPES.MANA,
       ],
       startBufferMS: 12_000,
-      expansion: RETAIL_EXPANSION,
+      branch: GameBranch.Retail,
     },
     {
       spell: SPELLS.TRANQUILITY_CAST.id,
@@ -34,7 +34,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
         BUILT_IN_SUMMARY_TYPES.OVERHEALING,
         BUILT_IN_SUMMARY_TYPES.MANA,
       ],
-      expansion: RETAIL_EXPANSION,
+      branch: GameBranch.Retail,
     },
   ];
 }

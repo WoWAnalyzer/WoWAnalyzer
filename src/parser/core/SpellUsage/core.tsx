@@ -106,7 +106,7 @@ interface SpellUsageContextValue {
   setHideGoodCasts: (p: boolean) => void;
 }
 
-export const SpellUsageContext = createContext<SpellUsageContextValue>({
+const SpellUsageContext = createContext<SpellUsageContextValue>({
   hideGoodCasts: false,
   setHideGoodCasts: () => {
     // no-op

@@ -79,6 +79,7 @@ abstract class EventOrderNormalizer extends EventsNormalizer {
       // loop through all events in order
       events.forEach((event: AnyEvent, eventIndex: number) => {
         fixedEvents.push(event);
+        let matches = 0;
         // if we find a match of the 'before' ability
         if (this._isBefore(eo, event)) {
           // loop backwards through the event history for matches of the 'after' ability within the buffer period
@@ -109,7 +110,10 @@ abstract class EventOrderNormalizer extends EventsNormalizer {
                   event,
                   previousEvent,
                 );
-              break;
+              matches += 1;
+              if (matches >= (eo.maxMatches ?? 1)) {
+                break;
+              }
             }
           }
         }
@@ -158,4 +162,8 @@ export type EventOrder = {
    * the 'after' event will have its timestamp pushed forward to match the 'before' event.
    * Defaults to 'false' when omitted. */
   updateTimestamp?: boolean;
+  /**
+   * The maximum number of events to re-order. Defaults to 1.
+   */
+  maxMatches?: number;
 };

@@ -13,10 +13,6 @@ export const STORMSTRIKE_DAMAGE_SPELLS = [
 
 export const MOLTEN_ASSAULT_SCALING = [0, 3, 6];
 
-export const ESSENTIAL_EXTRACTION_EFFECT_BY_RANK = [
-  0, -25, -26, -27, -28, -29, -30, -31, -33, -34, -35, -36, -37, -38, -39, -40,
-];
-
 export const MERGE_SPELLS = [
   {
     SpellIds: [SPELLS.MELEE.id, SPELLS.WINDLASH.id, SPELLS.WINDLASH_OFFHAND.id],

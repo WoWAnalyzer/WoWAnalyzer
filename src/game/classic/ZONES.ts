@@ -1,65 +1,27 @@
-import ulduar from 'game/raids/ulduar';
-import togc from 'game/raids/trialofthegrandcrusader';
-import icc from 'game/raids/icc';
-import rs from 'game/raids/rubysanctum';
 import { Zone } from 'game/ZONES';
+import { bwd, bot, totfw } from 'game/raids/cata_bwd_bot_totfw';
 
 const ZONES: Zone[] = [
   {
-    id: 1017,
-    name: 'Ulduar',
+    id: 1023,
+    // WCL is using a combined zone for these raids
+    name: 'TotFW / BWD / BoT',
     frozen: false,
     encounters: [
-      ulduar.bosses.FlameLeviathan,
-      ulduar.bosses.Ignis,
-      ulduar.bosses.Razorscale,
-      ulduar.bosses.XT002,
-      ulduar.bosses.IronCouncil,
-      ulduar.bosses.Kologarn,
-      ulduar.bosses.Auriaya,
-      ulduar.bosses.Hodir,
-      ulduar.bosses.Thorim,
-      ulduar.bosses.Freya,
-      ulduar.bosses.Mimiron,
-      ulduar.bosses.GeneralVezax,
-      ulduar.bosses.YoggSaron,
-      ulduar.bosses.Algalon,
+      totfw.bosses.ConclaveOfWind,
+      totfw.bosses.AlAkir,
+      bwd.bosses.Omnotron,
+      bwd.bosses.Magmaw,
+      bwd.bosses.Atramedes,
+      bwd.bosses.Chimaeron,
+      bwd.bosses.Maloriak,
+      bwd.bosses.Nefarian,
+      bot.bosses.HalfusWyrmbreaker,
+      bot.bosses.TheralionValiona,
+      bot.bosses.AscendantCouncil,
+      bot.bosses.Chogall,
+      bot.bosses.Sinestra,
     ],
-  },
-  {
-    id: 1018,
-    name: 'Trial of the Grand Crusader',
-    frozen: false,
-    encounters: [
-      togc.bosses.NorthrendBeasts,
-      togc.bosses.LordJaraxxus,
-      togc.bosses.FactionChampions,
-      togc.bosses.ValkyrTwins,
-      togc.bosses.Anubarak,
-    ],
-  },
-  {
-    id: 1020,
-    name: 'Icecrown Citadel',
-    encounters: [
-      icc.bosses.Marrowgar,
-      icc.bosses.Deathwhisper,
-      icc.bosses.Gunship,
-      icc.bosses.Saurfang,
-      icc.bosses.Festergut,
-      icc.bosses.Rotface,
-      icc.bosses.Putricide,
-      icc.bosses.BloodCouncil,
-      icc.bosses.BloodQueen,
-      icc.bosses.Dreamwalker,
-      icc.bosses.Sindragosa,
-      icc.bosses.LichKing,
-    ],
-  },
-  {
-    id: 1021,
-    name: 'Ruby Sanctum',
-    encounters: [rs.bosses.Halion],
   },
 ];
 

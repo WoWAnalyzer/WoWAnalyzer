@@ -6,7 +6,7 @@ interface ExplanationContextValue {
   hideExplanations: boolean;
   setHideExplanations: (p: boolean) => void;
 }
-export const ExplanationContext = createContext<ExplanationContextValue>({
+const ExplanationContext = createContext<ExplanationContextValue>({
   hideExplanations: false,
   setHideExplanations: () => {
     // no-op
@@ -29,7 +29,7 @@ export const useExplanationContext = () => useContext(ExplanationContext);
 
 /** A container for explanatory text.
  *  For now this is just a div, a future update will allow a toggle to hide all Explanations. */
-export const StyledExplanation = styled.div`
+const StyledExplanation = styled.div`
   .text-muted,
   small {
     color: rgba(202, 200, 196, 0.77);

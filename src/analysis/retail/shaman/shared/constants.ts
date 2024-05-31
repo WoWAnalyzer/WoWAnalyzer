@@ -1,7 +1,5 @@
 import SPELLS from 'common/SPELLS';
 
-// TODO: Re-enable when working on resto-shaman for dragonflight
-export const HEALING_ABILITIES_AMPED_BY_EARTH_SHIELD = [];
 // export const HEALING_ABILITIES_AMPED_BY_EARTH_SHIELD = [...ABILITIES_AFFECTED_BY_HEALING_INCREASES];
 
 export const ELEMENTAL_BLAST_BUFFS = [

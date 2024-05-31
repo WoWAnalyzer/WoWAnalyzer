@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
 import spells from 'common/SPELLS/monk';
 import talents, { TALENTS_MONK } from 'common/TALENTS/monk';
-import { Durpn, Hursti, nullDozzer, Tenooki, ToppleTheNun } from 'CONTRIBUTORS';
+import { Durpn, emallson, Hursti, nullDozzer, Tenooki, ToppleTheNun } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2024, 5, 4), <>Fix <SpellLink spell={spells.FISTS_OF_FURY_CAST} /> clipping detection.</>, emallson),
   change(date(2023, 12, 6), <>Add T31 Tier set, and add <SpellLink spell={TALENTS_MONK.STRIKE_OF_THE_WINDLORD_TALENT}/> to now be tracked for mastery.</>, Durpn),
   change(date(2023, 11, 1), <>Add Guide, and set it to default for Windwalker</>, Durpn),
   change(date(2023, 10, 27), <>Add graphs for <SpellLink spell={spells.FISTS_OF_FURY_CAST}/> to show charts of tick distribution</>, Durpn),

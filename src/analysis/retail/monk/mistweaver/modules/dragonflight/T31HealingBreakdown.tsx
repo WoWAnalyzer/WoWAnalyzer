@@ -15,7 +15,7 @@ interface Props {
   owner: CombatLogParser;
 }
 
-export const ChiHarmonyHealingBreakdown = ({
+const ChiHarmonyHealingBreakdown = ({
   analyzer: { fourPieceSourceMap, fourPieceHealing },
   owner: { fightDuration },
 }: Props) => {

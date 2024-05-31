@@ -182,7 +182,7 @@ const EntityCell = ({ entity }: { entity: PlayerInfo | PetInfo | EnemyInfo | nul
   if (!entity) {
     return null;
   }
-  return <span className={entity.type}>{entity.name}</span>;
+  return <span className={entity.subType || entity.type}>{entity.name}</span>;
 };
 
 const AbilityCell = ({ ability }: { ability: Ability | null }) => {

@@ -18,38 +18,38 @@ import {
 } from 'parser/core/Events';
 import ITEMS from 'common/ITEMS';
 
-export const APPLIED_HEAL = 'AppliedHeal';
-export const FORCE_BOUNCE = 'ForceBounce';
-export const OVERHEAL_BOUNCE = 'OverhealBounce';
-export const BOUNCED = 'Bounced';
-export const ESSENCE_FONT = 'EssenceFont';
-export const FROM_DANCING_MISTS = 'FromDM';
-export const SOURCE_APPLY = 'SourceApply';
-export const FROM_HARDCAST = 'FromHardcast';
-export const FROM_MISTY_PEAKS = 'FromMistyPeaks';
-export const FROM_MISTS_OF_LIFE = 'FromMOL';
-export const FROM_RAPID_DIFFUSION = 'FromRD'; // can be linked to env mist or rsk cast
-export const ENVELOPING_MIST_GOM = 'EnvGOM';
-export const RENEWING_MIST_GOM = 'ReMGOM';
-export const VIVIFY_GOM = 'ViVGOM';
-export const REVIVAL_GOM = 'RevivalGOM';
-export const ZEN_PULSE_GOM = 'ZPGOM';
-export const SHEILUNS_GIFT_GOM = 'SGGOM';
-export const SHEILUNS_GIFT = 'SheilunsGift';
-export const EXPEL_HARM_GOM = 'EHGOM';
-export const SOOM_GOM = 'SoomGOM';
-export const VIVIFY = 'Vivify';
-export const CALMING_COALESCENCE = 'Calming Coalescence';
-export const MANA_TEA_CHANNEL = 'MTChannel';
-export const MANA_TEA_CAST_LINK = 'MTLink';
-export const MT_BUFF_REMOVAL = 'MTStack';
-export const LIFECYCLES = 'Lifecycles';
-export const MT_STACK_CHANGE = 'MTStackChange';
-export const ANCIENT_TEACHINGS_FLS = 'ATFaelineStomp';
-export const ANCIENT_TEACHINGS_EF = 'ATEssenceFont';
+const APPLIED_HEAL = 'AppliedHeal';
+const FORCE_BOUNCE = 'ForceBounce';
+const OVERHEAL_BOUNCE = 'OverhealBounce';
+const BOUNCED = 'Bounced';
+const ESSENCE_FONT = 'EssenceFont';
+const FROM_DANCING_MISTS = 'FromDM';
+const SOURCE_APPLY = 'SourceApply';
+const FROM_HARDCAST = 'FromHardcast';
+const FROM_MISTY_PEAKS = 'FromMistyPeaks';
+const FROM_MISTS_OF_LIFE = 'FromMOL';
+const FROM_RAPID_DIFFUSION = 'FromRD'; // can be linked to env mist or rsk cast
+const ENVELOPING_MIST_GOM = 'EnvGOM';
+const RENEWING_MIST_GOM = 'ReMGOM';
+const VIVIFY_GOM = 'ViVGOM';
+const REVIVAL_GOM = 'RevivalGOM';
+const ZEN_PULSE_GOM = 'ZPGOM';
+const SHEILUNS_GIFT_GOM = 'SGGOM';
+const SHEILUNS_GIFT = 'SheilunsGift';
+const EXPEL_HARM_GOM = 'EHGOM';
+const SOOM_GOM = 'SoomGOM';
+const VIVIFY = 'Vivify';
+const CALMING_COALESCENCE = 'Calming Coalescence';
+const MANA_TEA_CHANNEL = 'MTChannel';
+const MANA_TEA_CAST_LINK = 'MTLink';
+const MT_BUFF_REMOVAL = 'MTStack';
+const LIFECYCLES = 'Lifecycles';
+const MT_STACK_CHANGE = 'MTStackChange';
+const ANCIENT_TEACHINGS_FLS = 'ATFaelineStomp';
+const ANCIENT_TEACHINGS_EF = 'ATEssenceFont';
 
 //
-export const FRAGILE_ECHO_SOURCE = 'FragileEchoSource';
+const FRAGILE_ECHO_SOURCE = 'FragileEchoSource';
 
 const RAPID_DIFFUSION_BUFFER_MS = 300;
 const DANCING_MIST_BUFFER_MS = 250;
@@ -541,10 +541,6 @@ export function isFromHardcast(event: AbilityEvent<any>): boolean {
   return false;
 }
 
-export function isForceBounce(event: ApplyBuffEvent | RefreshBuffEvent) {
-  return HasRelatedEvent(event, FORCE_BOUNCE);
-}
-
 export function isBounceTick(event: HealEvent) {
   return HasRelatedEvent(event, OVERHEAL_BOUNCE);
 }
@@ -620,10 +616,6 @@ export function isFromSheilunsGift(event: HealEvent) {
 
 export function isFromRevival(event: HealEvent) {
   return HasRelatedEvent(event, REVIVAL_GOM) && !isFromEssenceFont(event);
-}
-
-export function isFromZenPulse(event: HealEvent) {
-  return HasRelatedEvent(event, ZEN_PULSE_GOM) && !isFromEssenceFont(event);
 }
 
 export function isFromExpelHarm(event: HealEvent) {

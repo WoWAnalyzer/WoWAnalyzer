@@ -124,6 +124,9 @@ class ElementalBlast extends BaseElementalBlast {
 
   onRemoveElementalSpiritBuff(event: RemoveBuffEvent) {
     this.elementalSpritsActive[event.ability.guid] -= 1;
+    if (this.elementalSpritsActive[event.ability.guid] < 0) {
+      this.elementalSpritsActive[event.ability.guid] = 0;
+    }
   }
 
   get activeElementalSpirits(): number {
@@ -173,16 +176,21 @@ class ElementalBlast extends BaseElementalBlast {
   getOverallCastPerformance(cast: ElementalBlastCastDetails) {
     if (cast.chargesBeforeCast === 2 && cast.maelstromUsed >= 5) {
       return QualitativePerformance.Perfect;
-    } else if (cast.elementalSpiritsActive >= 1) {
-      return cast.maelstromUsed >= 8
-        ? cast.elementalSpiritsActive >= 2
-          ? QualitativePerformance.Perfect
-          : QualitativePerformance.Good
-        : cast.maelstromUsed >= 5
-          ? QualitativePerformance.Ok
-          : QualitativePerformance.Fail;
+    } else {
+      switch (cast.elementalSpiritsActive) {
+        case 0:
+          /** elemental blast should not be cast without elemental spirits if uncapped on charges */
+          return QualitativePerformance.Fail;
+        case 1:
+          return cast.maelstromUsed === 10
+            ? QualitativePerformance.Good
+            : QualitativePerformance.Ok;
+        default:
+          return cast.maelstromUsed >= 8
+            ? QualitativePerformance.Perfect
+            : QualitativePerformance.Good;
+      }
     }
-    return QualitativePerformance.Fail;
   }
 
   get guideSubsection() {

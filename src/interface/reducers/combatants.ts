@@ -16,5 +16,5 @@ const combatantsSlice = createSlice({
   },
 });
 
-export const { resetSlice, setCombatants } = combatantsSlice.actions;
+export const { setCombatants } = combatantsSlice.actions;
 export default combatantsSlice.reducer;

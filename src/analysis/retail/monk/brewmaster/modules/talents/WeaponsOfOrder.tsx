@@ -1,5 +1,4 @@
 import talents from 'common/TALENTS/monk';
-import { specMasteryCoefficient } from 'game/SPECS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
@@ -28,7 +27,7 @@ class WeaponsOfOrder extends Analyzer {
   }
 
   get masteryBuffPercentage() {
-    return BASE_MASTERY_PERCENTAGE * (specMasteryCoefficient(this.selectedCombatant.spec) ?? 1);
+    return BASE_MASTERY_PERCENTAGE * (this.selectedCombatant.spec?.masteryCoefficient ?? 1);
   }
 
   protected _resetCooldown(event: CastEvent) {

@@ -9,12 +9,12 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 /** Internally, all rage values are out of 1000, but player facing they are out of 100 */
 export const RAGE_SCALE_FACTOR = 0.1;
 
-export const BERSERK_UA_COST_MULT = 0.5;
-export const BERSERK_PERSISTENCE_COST_MULT = 0.5;
-export const GORY_FUR_COST_MULT = 0.75;
+const BERSERK_UA_COST_MULT = 0.5;
+const BERSERK_PERSISTENCE_COST_MULT = 0.5;
+const GORY_FUR_COST_MULT = 0.75;
 
 // buffer after expiration to make sure reduction is cost
-export const GORY_FUR_BUFFER = 30;
+const GORY_FUR_BUFFER = 30;
 
 export const PERFECT_RAGE_WASTED = 0.05;
 export const GOOD_RAGE_WASTED = 0.1;

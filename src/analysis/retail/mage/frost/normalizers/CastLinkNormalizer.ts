@@ -1,32 +1,21 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
-import {
-  AbilityEvent,
-  BeginCastEvent,
-  RemoveBuffEvent,
-  CastEvent,
-  DamageEvent,
-  EventType,
-  GetRelatedEvents,
-  HasRelatedEvent,
-  HasTarget,
-} from 'parser/core/Events';
+import { CastEvent, DamageEvent, EventType, HasRelatedEvent, HasTarget } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import { encodeTargetString } from 'parser/shared/modules/Enemies';
 
 const CAST_BUFFER_MS = 75;
 
-export const BUFF_APPLY = 'BuffApply';
-export const BUFF_REMOVE = 'BuffRemove';
-export const BUFF_REFRESH = 'BuffRefresh';
-export const DEBUFF_APPLY = 'DebuffApply';
-export const DEBUFF_REMOVE = 'DebuffRemove';
-export const CAST_BEGIN = 'CastBegin';
-export const SPELL_CAST = 'SpellCast';
-export const PRE_CAST = 'PreCast';
-export const SPELL_DAMAGE = 'SpellDamage';
-export const CLEAVE_DAMAGE = 'CleaveDamage';
+const BUFF_APPLY = 'BuffApply';
+const BUFF_REMOVE = 'BuffRemove';
+const BUFF_REFRESH = 'BuffRefresh';
+const DEBUFF_APPLY = 'DebuffApply';
+const DEBUFF_REMOVE = 'DebuffRemove';
+const SPELL_CAST = 'SpellCast';
+const PRE_CAST = 'PreCast';
+const SPELL_DAMAGE = 'SpellDamage';
+const CLEAVE_DAMAGE = 'CleaveDamage';
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -186,6 +175,18 @@ const EVENT_LINKS: EventLink[] = [
     reverseLinkRelation: BUFF_REMOVE,
     linkingEventId: SPELLS.FINGERS_OF_FROST_BUFF.id,
     linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
+    linkRelation: BUFF_REFRESH,
+    referencedEventId: SPELLS.FINGERS_OF_FROST_BUFF.id,
+    referencedEventType: EventType.RefreshBuff,
+    anyTarget: true,
+    maximumLinks: 1,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    reverseLinkRelation: BUFF_REMOVE,
+    linkingEventId: SPELLS.FINGERS_OF_FROST_BUFF.id,
+    linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
     linkRelation: SPELL_CAST,
     referencedEventId: TALENTS.ICE_LANCE_TALENT.id,
     referencedEventType: EventType.Cast,
@@ -288,35 +289,7 @@ class CastLinkNormalizer extends EventLinkNormalizer {
   }
 }
 
-/** Returns true iff the given buff application or heal can be matched back to a hardcast */
-export function isFromHardcast(event: AbilityEvent<any>): boolean {
-  return HasRelatedEvent(event, SPELL_CAST);
-}
-
-export function isInstantCast(event: CastEvent): boolean {
-  const beginCast = GetRelatedEvents<BeginCastEvent>(event, CAST_BEGIN)[0];
-  return !beginCast || event.timestamp - beginCast.timestamp <= CAST_BUFFER_MS;
-}
-
-export function hasPreCast(event: AbilityEvent<any>): boolean {
-  return HasRelatedEvent(event, PRE_CAST);
-}
-
-/** Returns the hardcast event that caused this buff or heal, if there is one */
-export function getHardcast(event: AbilityEvent<any>): CastEvent | undefined {
-  return GetRelatedEvents<CastEvent>(
-    event,
-    SPELL_CAST,
-    (e): e is CastEvent => e.type === EventType.Cast,
-  ).pop();
-}
-
-export function isProcExpired(event: RemoveBuffEvent, spenderId: number): boolean {
-  const cast = GetRelatedEvents<CastEvent>(event, SPELL_CAST)[0];
-  return !cast || cast.ability.guid !== spenderId;
-}
-
-export function isCleaveDamage(castEvent: CastEvent, damageEvent: DamageEvent): boolean {
+function isCleaveDamage(castEvent: CastEvent, damageEvent: DamageEvent): boolean {
   const castTarget =
     HasTarget(castEvent) && encodeTargetString(castEvent.targetID, castEvent.targetInstance);
   const damageTarget =

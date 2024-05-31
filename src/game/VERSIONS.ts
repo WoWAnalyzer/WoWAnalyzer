@@ -1,19 +1,13 @@
 import Expansion from './Expansion';
+import GameBranch from './GameBranch';
 
 // The current version of the game. Used to check spec patch compatibility and as a caching key.
-const VERSIONS: Partial<{ [expansion in Expansion]: string }> = {
-  [Expansion.WrathOfTheLichKing]: '3.4.0',
-  [Expansion.Dragonflight]: '10.2.6',
+const VERSIONS: { [branch in GameBranch]: string } = {
+  [GameBranch.Classic]: '4.4.0',
+  [GameBranch.Retail]: '10.2.7',
 };
 
 export default VERSIONS;
-
-export const WCL_GAME_VERSIONS: Partial<{ [expansion in Expansion]: number }> = {
-  [Expansion.Dragonflight]: 1,
-  [Expansion.Vanilla]: 2,
-  [Expansion.TheBurningCrusade]: 3,
-  [Expansion.WrathOfTheLichKing]: 4,
-};
 
 export const wclGameVersionToExpansion = (gameVersion: number): Expansion => {
   switch (gameVersion) {
@@ -23,11 +17,21 @@ export const wclGameVersionToExpansion = (gameVersion: number): Expansion => {
       return Expansion.TheBurningCrusade;
     case 4:
       return Expansion.WrathOfTheLichKing;
+    case 5:
+      return Expansion.Cataclysm;
     default:
       return Expansion.Dragonflight;
   }
 };
 
+export const wclGameVersionToBranch = (gameVersion: number): GameBranch => {
+  if (gameVersion === 1) {
+    return GameBranch.Retail;
+  } else {
+    return GameBranch.Classic;
+  }
+};
+
 export const isUnsupportedClassicVersion = (gameVersion: number): boolean => {
-  return gameVersion === 2 || gameVersion === 3;
+  return gameVersion > 1 && gameVersion < 5;
 };

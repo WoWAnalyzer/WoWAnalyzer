@@ -1,24 +1,19 @@
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import { Options } from 'parser/core/Module';
 import {
-  AbilityEvent,
-  AnyEvent,
   ApplyDebuffEvent,
   CastEvent,
   DamageEvent,
   EventType,
   GetRelatedEvent,
-  GetRelatedEvents,
-  HasAbility,
-  HasRelatedEvent,
   RefreshDebuffEvent,
 } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS/rogue';
 
 const CAST_BUFFER_MS = 400;
 
-export const FROM_HARDCAST = 'FromHardcast';
-export const HIT_TARGET = 'HitTarget';
+const FROM_HARDCAST = 'FromHardcast';
+const HIT_TARGET = 'HitTarget';
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -58,20 +53,8 @@ export default class CastLinkNormalizer extends EventLinkNormalizer {
   }
 }
 
-export function isFromHardcast(event: AnyEvent): boolean {
-  return HasRelatedEvent(event, FROM_HARDCAST);
-}
-
 export function getHardcast(
   event: ApplyDebuffEvent | RefreshDebuffEvent | DamageEvent,
 ): CastEvent | undefined {
   return GetRelatedEvent(event, FROM_HARDCAST);
-}
-
-export function getHitCount(aoeCastEvent: CastEvent): number {
-  return GetRelatedEvents(aoeCastEvent, HIT_TARGET).length;
-}
-
-export function getHits(castEvent: CastEvent): AbilityEvent<any>[] {
-  return GetRelatedEvents(castEvent, HIT_TARGET, HasAbility);
 }

@@ -611,6 +611,11 @@ const spells = {
     name: 'Vampiric Touch',
     icon: 'spell_holy_stoicism',
   },
+  MADDENING_TOUCH_RESOURCE: {
+    id: 391232,
+    name: 'Maddening Touch',
+    icon: 'spell_holy_stoicism',
+  },
 
   MASTERY_SHADOW_WEAVING: {
     id: 343690,
@@ -760,6 +765,12 @@ const spells = {
     id: 391099,
     name: 'Dark Evangelism',
     icon: 'spell_mage_presenceofmind',
+  },
+
+  MIND_MELT_TALENT_BUFF: {
+    id: 391092,
+    name: 'Mind Melt',
+    icon: 'spell_shadow_skull',
   },
 
   // Shadow items:

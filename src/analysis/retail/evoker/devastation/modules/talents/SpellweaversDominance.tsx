@@ -6,7 +6,7 @@ import HIT_TYPES from 'game/HIT_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Events, { DamageEvent } from 'parser/core/Events';
-import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
+import { calculateEffectiveDamageFromCritDamageIncrease } from 'parser/core/EventCalculateLib';
 
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -39,7 +39,7 @@ class SpellweaversDominance extends Analyzer {
 
   onHit(event: DamageEvent) {
     if (event.hitType === HIT_TYPES.CRIT) {
-      this.SpellweaversDominanceDamage += calculateEffectiveDamage(
+      this.SpellweaversDominanceDamage += calculateEffectiveDamageFromCritDamageIncrease(
         event,
         SPELLWEAVERS_DOMINANCE_CRIT_MULTIPLIER,
       );

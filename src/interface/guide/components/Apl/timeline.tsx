@@ -16,11 +16,13 @@ export function ViolationTimeline({
   events,
   apl,
   results,
+  secondsShown = 12,
 }: {
   events: AnyEvent[];
   violation: Violation;
   results: CheckResult;
   apl: Apl;
+  secondsShown?: number;
 }): JSX.Element | null {
   const info = useInfo();
 
@@ -44,10 +46,11 @@ export function ViolationTimeline({
 
   return (
     <>
-      <EmbeddedTimelineContainer secondWidth={60} secondsShown={12}>
+      <EmbeddedTimelineContainer secondWidth={60} secondsShown={secondsShown}>
         <SpellTimeline>
           <Casts
-            start={relevantEvents[0].timestamp}
+            start={info.fightStart}
+            windowStart={relevantEvents[0].timestamp}
             movement={undefined}
             secondWidth={60}
             events={relevantEvents}

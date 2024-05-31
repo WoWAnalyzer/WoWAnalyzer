@@ -1,5 +1,5 @@
 import TALENTS from 'common/TALENTS/priest';
-import { RETAIL_EXPANSION } from 'game/Expansion';
+import GameBranch from 'game/GameBranch';
 import CoreCooldownThroughputTracker, {
   BUILT_IN_SUMMARY_TYPES,
 } from 'parser/shared/modules/CooldownThroughputTracker';
@@ -16,7 +16,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
         BUILT_IN_SUMMARY_TYPES.OVERHEALING,
         BUILT_IN_SUMMARY_TYPES.MANA,
       ],
-      expansion: RETAIL_EXPANSION,
+      branch: GameBranch.Retail,
     },
     {
       spell: TALENTS.DIVINE_HYMN_TALENT.id,
@@ -25,7 +25,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
         BUILT_IN_SUMMARY_TYPES.OVERHEALING,
         BUILT_IN_SUMMARY_TYPES.MANA,
       ],
-      expansion: RETAIL_EXPANSION,
+      branch: GameBranch.Retail,
     },
   ];
   static castCooldowns = [

@@ -3,7 +3,6 @@ import TALENTS from 'common/TALENTS/shaman';
 
 //event link attribution strings
 export const HARDCAST = 'Hardcast';
-export const RIPTIDE_HIT = 'RiptideHit';
 export const RIPTIDE_PWAVE = 'PrimordialWave';
 export const PWAVE_REMOVAL = 'PrimordialWaveRemoved';
 export const HEALING_WAVE_PWAVE = 'HealingWavePrimordialWave';
@@ -55,10 +54,7 @@ export const RESTORATION_COLORS = {
 
 // Spell Coefficients
 export const CHAIN_HEAL_COEFFICIENT = 2.31;
-export const HEALING_WAVE_COEFFICIENT = 3.498;
-export const HEALING_SURGE_COEFFICIENT = 3.1372;
 export const HIGH_TIDE_COEFFICIENT = 2.541;
-export const HEALING_WAVE_CAST_TIME = 2.5;
 
 // Your normal healing toolkit, default spells and talents
 // TODO: Check all these lists again, maybe restructure to remove repeats
@@ -110,19 +106,6 @@ export const ABILITIES_AFFECTED_BY_MASTERY = [
   SPELLS.CLOUDBURST_TOTEM_HEAL,
   SPELLS.ASCENDANCE_HEAL,
   SPELLS.LEECH,
-];
-
-export const ABILITIES_FEEDING_INTO_CBT = [...SHAMAN_BASE_ABILITIES];
-
-export const ABILITIES_NOT_FEEDING_INTO_ASCENDANCE = [
-  SPELLS.HEALING_TIDE_TOTEM_HEAL,
-  SPELLS.HEALING_STREAM_TOTEM_HEAL,
-  SPELLS.SPIRIT_LINK_TOTEM_REDISTRIBUTE,
-  SPELLS.LEECH,
-  SPELLS.ASCENDANCE_HEAL,
-  SPELLS.CLOUDBURST_TOTEM_HEAL,
-  SPELLS.ASCENDANCE_INITIAL_HEAL,
-  SPELLS.ANCESTRAL_GUIDANCE_HEAL,
 ];
 
 export const FLASH_FLOOD_CAST_SPEED_MODIFIER = 0.1; // per rank

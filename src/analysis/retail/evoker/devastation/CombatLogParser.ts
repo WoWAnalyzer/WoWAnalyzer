@@ -3,6 +3,7 @@ import MainCombatLogParser from 'parser/core/CombatLogParser';
 import Abilities from './modules/Abilities';
 
 import ShatteringStar from './modules/abilities/ShatteringStar';
+import ShatteringStarGuide from './modules/abilities/ShatterStarGuide';
 import Buffs from './modules/Buffs';
 import Guide from './Guide';
 import AplCheck from './modules/AplCheck/AplCheck';
@@ -29,6 +30,8 @@ import EngulfingBlaze from './modules/talents/EngulfingBlaze';
 import LayWaste from './modules/talents/LayWaste';
 import Iridescence from './modules/talents/Iridescence';
 import T31DevaTier from './modules/dragonflight/tier/T31DevaTier';
+import Pyre from './modules/abilities/Pyre';
+import EternitySurgeNormalizer from './modules/normalizers/EternitySurgeNormalizer';
 
 // Shared
 import {
@@ -86,6 +89,7 @@ class CombatLogParser extends MainCombatLogParser {
     // Normalizer
     castLinkNormalizer: CastLinkNormalizer,
     essenceBurstNormalizer: EssenceBurstNormalizer,
+    eternitySurgeNormalizer: EternitySurgeNormalizer,
 
     // features
     apls: AplCheck,
@@ -110,9 +114,11 @@ class CombatLogParser extends MainCombatLogParser {
     // core abilities
     disintegrate: Disintegrate,
     shatteringStar: ShatteringStar,
+    shatteringStarGuide: ShatteringStarGuide,
     essenceBurst: EssenceBurst,
     burnout: Burnout,
     dragonRage: DragonRage,
+    pyre: Pyre,
 
     // tier
     T30devaTier: T30DevaTier,

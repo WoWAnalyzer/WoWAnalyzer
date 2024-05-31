@@ -6,7 +6,7 @@ import traverse from '@babel/traverse';
 import * as t from '@babel/types';
 // these can be safely imported because they don't include any big / complicated stuff
 import isLatestPatch from '../../src/game/isLatestPatch';
-import { CLASSIC_EXPANSION, RETAIL_EXPANSION } from '../../src/game/Expansion';
+import GameBranch from '../../src/game/GameBranch';
 
 const parseFile = (path: string): t.Node | t.Node[] =>
   parse(readFileSync(path, { encoding: 'utf8' }), {
@@ -103,7 +103,7 @@ export const generateConfigs = async () => {
         cfg.patchCompatibility &&
         isLatestPatch({
           patchCompatibility: cfg.patchCompatibility,
-          expansion: isClassic ? CLASSIC_EXPANSION : RETAIL_EXPANSION,
+          branch: isClassic ? GameBranch.Classic : GameBranch.Retail,
         });
 
       if (!isLatest || !cfg.exampleReport) {

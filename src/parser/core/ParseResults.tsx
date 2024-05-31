@@ -56,7 +56,7 @@ abstract class SuggestionAssertion<T extends number | boolean> {
   }
 }
 
-export class NumberSuggestionAssertion extends SuggestionAssertion<number> {
+class NumberSuggestionAssertion extends SuggestionAssertion<number> {
   _threshold?: number | ThresholdRange;
   _mode?: AssertionMode | null;
 
@@ -171,7 +171,7 @@ export class NumberSuggestionAssertion extends SuggestionAssertion<number> {
   }
 }
 
-export class BoolSuggestionAssertion extends SuggestionAssertion<boolean> {
+class BoolSuggestionAssertion extends SuggestionAssertion<boolean> {
   _compareTo?: boolean;
 
   constructor(options: boolean | BoolThreshold, addIssue: (issue: Issue) => void) {
