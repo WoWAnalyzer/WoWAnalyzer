@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS/evoker';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 export default [
+  change(date(2024, 5, 31), <>Update APL Check.</>, Vollmer),
   change(date(2024, 5, 12), <>Rework <SpellLink spell={TALENTS.SHATTERING_STAR_TALENT} /> module to be more informative.</>, Vollmer),
   change(date(2024, 5, 6), <>Update multiplier and calculation method for <SpellLink spell={TALENTS.SPELLWEAVERS_DOMINANCE_TALENT} /> module.</>, Vollmer),
   change(date(2024, 5, 6), <>Rework <SpellLink spell={TALENTS.SCINTILLATION_TALENT} /> module to fix inaccuracy issues.</>, Vollmer),
