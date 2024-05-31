@@ -29,14 +29,14 @@ export const hasEssenceRequirement = (resources: number, initial: number) => {
   );
 };
 
-export const standardEmpowerConditional = (hasDF4Tier4pc: boolean) => {
+export const standardEmpowerConditional = (has4pcDF4: boolean) => {
   return cnd.or(
     cnd.describe(cnd.buffPresent(TALENTS.DRAGONRAGE_TALENT), (tense) => (
       <>
         {tenseAlt(tense, <>in</>, <>you were in</>)} <SpellLink spell={TALENTS.DRAGONRAGE_TALENT} />
       </>
     )),
-    hasDF4Tier4pc
+    has4pcDF4
       ? cnd.and(avoidIfDragonRageSoon(), cnd.buffMissing(SPELLS.BLAZING_SHARDS))
       : avoidIfDragonRageSoon(),
   );

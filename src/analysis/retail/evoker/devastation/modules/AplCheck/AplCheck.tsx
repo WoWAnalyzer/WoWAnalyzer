@@ -16,7 +16,7 @@ export type TalentInfo = {
   hasEventHorizon: boolean;
   hasIridescence: boolean;
   hasProtractedTalons: boolean;
-  hasDF4Tier4pc: boolean;
+  has4pcDF4: boolean;
 };
 
 const default_rotation = (rules: Rules): Rule[] => {
@@ -61,7 +61,7 @@ const talentCheck = (info: PlayerInfo): TalentInfo => {
     hasEventHorizon: false,
     hasIridescence: false,
     hasProtractedTalons: false,
-    hasDF4Tier4pc: false,
+    has4pcDF4: false,
   };
   if (!info || !info?.combatant) {
     /** If we don't know whether the player has font talented or not
@@ -85,7 +85,7 @@ const talentCheck = (info: PlayerInfo): TalentInfo => {
   talentInfo.hasIridescence = combatant.hasTalent(TALENTS.IRIDESCENCE_TALENT);
   talentInfo.hasProtractedTalons = combatant.hasTalent(TALENTS.PROTRACTED_TALONS_TALENT);
 
-  talentInfo.hasDF4Tier4pc = combatant.has4PieceByTier(TIERS.DF4);
+  talentInfo.has4pcDF4 = combatant.has4PieceByTier(TIERS.DF4);
 
   return talentInfo;
 };

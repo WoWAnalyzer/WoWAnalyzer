@@ -97,19 +97,19 @@ const stFirestorm: Rule = {
 const fireBreath = (info: TalentInfo): Rule => {
   return {
     spell: info.fireBreathSpell,
-    condition: standardEmpowerConditional(info.hasDF4Tier4pc),
+    condition: standardEmpowerConditional(info.has4pcDF4),
   };
 };
 const stEternitySurge = (info: TalentInfo): Rule => {
-  const DF4Tier4pcCond = info.hasDF4Tier4pc
+  const eventHorizonConditional = info.has4pcDF4
     ? cnd.and(avoidIfDragonRageSoon(), cnd.buffMissing(SPELLS.BLAZING_SHARDS))
     : avoidIfDragonRageSoon();
 
   return {
     spell: info.eternitySurgeSpell,
     condition: info.hasEventHorizon
-      ? DF4Tier4pcCond
-      : standardEmpowerConditional(info.hasDF4Tier4pc),
+      ? eventHorizonConditional
+      : standardEmpowerConditional(info.has4pcDF4),
   };
 };
 const ehEternitySurge = (info: TalentInfo): Rule => {
@@ -141,7 +141,7 @@ const aoeEternitySurge = (info: TalentInfo): Rule => {
         { atLeast: 3 },
         { lookahead: 3000, targetType: EventType.Damage, targetSpell: SPELLS.ETERNITY_SURGE_DAM },
       ),
-      standardEmpowerConditional(info.hasDF4Tier4pc),
+      standardEmpowerConditional(info.has4pcDF4),
     ),
   };
 };
