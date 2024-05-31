@@ -6,6 +6,7 @@ import TALENTS from 'common/TALENTS/evoker';
 import { AnyEvent } from 'parser/core/Events';
 import Spell from 'common/SPELLS/Spell';
 import { getRules, Rules } from './rules';
+import { TIERS } from 'game/TIERS';
 
 export type TalentInfo = {
   maxEssenceBurst: number;
@@ -15,6 +16,7 @@ export type TalentInfo = {
   hasEventHorizon: boolean;
   hasIridescence: boolean;
   hasProtractedTalons: boolean;
+  hasDF4Tier4pc: boolean;
 };
 
 const default_rotation = (rules: Rules): Rule[] => {
@@ -59,6 +61,7 @@ const talentCheck = (info: PlayerInfo): TalentInfo => {
     hasEventHorizon: false,
     hasIridescence: false,
     hasProtractedTalons: false,
+    hasDF4Tier4pc: false,
   };
   if (!info || !info?.combatant) {
     /** If we don't know whether the player has font talented or not
@@ -81,6 +84,8 @@ const talentCheck = (info: PlayerInfo): TalentInfo => {
   talentInfo.hasEventHorizon = combatant.hasTalent(TALENTS.EVENT_HORIZON_TALENT);
   talentInfo.hasIridescence = combatant.hasTalent(TALENTS.IRIDESCENCE_TALENT);
   talentInfo.hasProtractedTalons = combatant.hasTalent(TALENTS.PROTRACTED_TALONS_TALENT);
+
+  talentInfo.hasDF4Tier4pc = combatant.has4PieceByTier(TIERS.DF4);
 
   return talentInfo;
 };
