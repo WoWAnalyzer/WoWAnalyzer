@@ -9,47 +9,12 @@ import { ChecklistUsageInfo } from 'parser/core/SpellUsage/core';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Fight from 'parser/core/Fight';
 
-// from https://www.wowhead.com/spell=137037/assassination-rogue
-export const ABILITIES_AFFECTED_BY_DAMAGE_INCREASES = [
-  SPELLS.MELEE,
-  // SPELLS.BLINDSIDE_TALENT,
-  // SPELLS.CRIMSON_TEMPEST_TALENT,
-  SPELLS.ENVENOM,
-  SPELLS.FAN_OF_KNIVES,
-  SPELLS.GARROTE,
-  SPELLS.MUTILATE,
-  SPELLS.MUTILATE_MAINHAND,
-  SPELLS.MUTILATE_OFFHAND,
-  SPELLS.POISON_BOMB,
-  SPELLS.POISONED_KNIFE,
-  SPELLS.RUPTURE,
-  // SPELLS.INTERNAL_BLEEDING_TALENT,
-  SPELLS.DEADLY_POISON_DOT,
-  SPELLS.DEADLY_POISON_PROC,
-  SPELLS.WOUND_POISON,
-];
-
-// from https://www.wowhead.com/spell=196864/master-poisoner
-export const ABILITIES_AFFECTED_BY_POISON_DAMAGE_INCREASES = [
-  SPELLS.DEADLY_POISON_DOT,
-  SPELLS.DEADLY_POISON_PROC,
-  SPELLS.WOUND_POISON,
-];
-
-export const NIGHTSTALKER_BLACKLIST = [
-  SPELLS.MELEE,
-  SPELLS.RUPTURE,
-  SPELLS.GARROTE,
-  // SPELLS.CRIMSON_TEMPEST_TALENT,
-  SPELLS.DEADLY_POISON_DOT,
-];
-
 export const GARROTE_BASE_DURATION = 18000;
 export const getGarroteDuration = (): number => GARROTE_BASE_DURATION;
 
-export const animachargedFinisherComboPoints = 7;
+const animachargedFinisherComboPoints = 7;
 
-export const getMaxComboPoints = (c: Combatant) => {
+const getMaxComboPoints = (c: Combatant) => {
   return 5 + c.getTalentRank(TALENTS.DEEPER_STRATAGEM_TALENT);
 };
 
@@ -58,7 +23,7 @@ export const getTargetComboPoints = (c: Combatant) => {
 };
 
 export const RUPTURE_BASE_DURATION = 4000;
-export const RUPTURE_DURATION_PR_CP_SPENT = 4000;
+const RUPTURE_DURATION_PR_CP_SPENT = 4000;
 export const getRuptureDuration = (c: Combatant, cast: CastEvent): number => {
   if (isAnimachargedFinisherCast(c, cast)) {
     return getRuptureFullDuration(c);
@@ -77,7 +42,7 @@ export const getRuptureFullDuration = (c: Combatant) => {
 };
 
 export const CRIMSON_TEMPEST_BASE_DURATION = 2000;
-export const CRIMSON_TEMPEST_DURATION_PR_CP_SPENT = 2000;
+const CRIMSON_TEMPEST_DURATION_PR_CP_SPENT = 2000;
 export const getCrimsonTempestDuration = (cast: CastEvent): number =>
   CRIMSON_TEMPEST_BASE_DURATION +
   CRIMSON_TEMPEST_DURATION_PR_CP_SPENT * getResourceSpent(cast, RESOURCE_TYPES.COMBO_POINTS);
@@ -155,8 +120,8 @@ export const isAnimachargedFinisherCast = (c: Combatant, event: CastEvent): bool
   return false;
 };
 
-export const AnimachargedFinisherSummary = () => <div>Consumed Animacharged CP</div>;
-export const AnimachargedFinisherDetails = () => <div>You consumed an Animacharged CP.</div>;
+const AnimachargedFinisherSummary = () => <div>Consumed Animacharged CP</div>;
+const AnimachargedFinisherDetails = () => <div>You consumed an Animacharged CP.</div>;
 
 export const animachargedCheckedUsageInfo = (
   c: Combatant,
@@ -176,8 +141,6 @@ export const animachargedCheckedUsageInfo = (
     },
   ];
 };
-
-export const pandemicMaxDuration = (duration: number) => duration * 1.3;
 
 export const isInOpener = (event: AnyEvent, fight: Fight) =>
   event.timestamp - fight.start_time <= OPENER_MAX_DURATION_MS;

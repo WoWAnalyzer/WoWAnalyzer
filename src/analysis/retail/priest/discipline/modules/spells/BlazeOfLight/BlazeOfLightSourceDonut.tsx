@@ -18,6 +18,7 @@ interface BlazeOfLightSourceGraphItem {
 
 const COLORS = {
   [SPELLS.SMITE.id]: '#fff',
+  [SPELLS.SHADOW_SMITE.id]: '#8d4499',
   [SPELLS.PENANCE.id]: '#0cd368',
   [SPELLS.DARK_REPRIMAND_DAMAGE.id]: '#3C79F5',
 };

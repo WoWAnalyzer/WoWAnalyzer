@@ -1,25 +1,16 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
-import {
-  ApplyDebuffEvent,
-  CastEvent,
-  DamageEvent,
-  EventType,
-  GetRelatedEvent,
-  GetRelatedEvents,
-  HasRelatedEvent,
-  RefreshDebuffEvent,
-} from 'parser/core/Events';
+import { CastEvent, EventType, GetRelatedEvents } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 
 const CAST_BUFFER_MS = 75;
 
-export const SPELL_CAST = 'SpellCast';
-export const SPELL_DAMAGE = 'SpellDamage';
-export const DEBUFF_APPLY = 'DebuffApply';
-export const DEBUFF_REMOVE = 'DebuffRemove';
-export const SPARK_REMOVED = 'SparkRemoved';
+const SPELL_CAST = 'SpellCast';
+const SPELL_DAMAGE = 'SpellDamage';
+const DEBUFF_APPLY = 'DebuffApply';
+const DEBUFF_REMOVE = 'DebuffRemove';
+const SPARK_REMOVED = 'SparkRemoved';
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -112,18 +103,6 @@ class CastLinkNormalizer extends EventLinkNormalizer {
   constructor(options: Options) {
     super(options, EVENT_LINKS);
   }
-}
-
-export function isFromHardcast(
-  event: ApplyDebuffEvent | RefreshDebuffEvent | DamageEvent,
-): boolean {
-  return HasRelatedEvent(event, SPELL_CAST);
-}
-
-export function getHardcast(
-  event: ApplyDebuffEvent | RefreshDebuffEvent | DamageEvent,
-): CastEvent | undefined {
-  return GetRelatedEvent(event, SPELL_CAST);
 }
 
 export function getHitCount(aoeCastEvent: CastEvent): number {

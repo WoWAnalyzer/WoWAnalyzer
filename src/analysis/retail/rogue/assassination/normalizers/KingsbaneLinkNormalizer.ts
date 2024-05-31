@@ -1,13 +1,7 @@
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import { Options } from 'parser/core/Module';
 import TALENTS from 'common/TALENTS/rogue';
-import {
-  ApplyDebuffEvent,
-  CastEvent,
-  EventType,
-  GetRelatedEvents,
-  RemoveDebuffEvent,
-} from 'parser/core/Events';
+import { CastEvent, EventType, GetRelatedEvents } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS/rogue';
 
 export const SHIV_KINGSBANE_BUFFER_MS = 2000;
@@ -111,20 +105,5 @@ export const getMatchingShivOrKingsbaneCast = (event: CastEvent) =>
 
 export const getMatchingDeathmarkOrKingsbaneCast = (event: CastEvent) =>
   GetRelatedEvents(event, DEATHMARK_KINGSBANE_CAST)
-    .filter((e): e is CastEvent => e.type === EventType.Cast)
-    .at(0);
-
-export const getMatchingDeathmarkOrKingsbaneApplyDebuff = (event: ApplyDebuffEvent) =>
-  GetRelatedEvents(event, DEATHMARK_KINGSBANE_APPLY)
-    .filter((e): e is ApplyDebuffEvent => e.type === EventType.ApplyDebuff)
-    .at(0);
-
-export const getMatchingDeathmarkOrKingsbaneRemoveDebuff = (event: ApplyDebuffEvent) =>
-  GetRelatedEvents(event, DEATHMARK_KINGSBANE_REMOVE)
-    .filter((e): e is RemoveDebuffEvent => e.type === EventType.RemoveDebuff)
-    .at(0);
-
-export const getMatchingShadowDanceOrKingsbaneCast = (event: CastEvent) =>
-  GetRelatedEvents(event, SHADOW_DANCE_DANCE_KINGSBANE_CAST)
     .filter((e): e is CastEvent => e.type === EventType.Cast)
     .at(0);

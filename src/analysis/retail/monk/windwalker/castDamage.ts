@@ -19,14 +19,3 @@ export const castDamageMap: ReadonlyMap<Spell, Spell[]> = new Map([
   [TALENTS_MONK.RISING_SUN_KICK_TALENT, [SPELLS.RISING_SUN_KICK_DAMAGE]],
   [TALENTS_MONK.JADEFIRE_STOMP_TALENT, [SPELLS.FAELINE_STOMP_PULSE_DAMAGE]],
 ]);
-
-const entries = Array.from(castDamageMap);
-
-/** Provide id of cast ability and get damage spell(s) back */
-export const castToDamage = Object.fromEntries<Spell[]>(
-  entries.map(([cast, damage]) => [cast.id, damage] as const),
-);
-/** Provide id of damage ability and get cast ability back */
-export const damageToCast = Object.fromEntries<Spell>(
-  entries.map(([cast, dSpells]) => dSpells.map((d) => [d.id, cast] as const)).flat(),
-);

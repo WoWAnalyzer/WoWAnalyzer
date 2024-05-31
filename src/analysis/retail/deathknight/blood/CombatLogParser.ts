@@ -1,5 +1,4 @@
 import {
-  RuneTracker,
   RuneDetails,
   RuneOfTheFallenCrusader,
   RuneOfHysteria,
@@ -45,6 +44,9 @@ import RelishInBlood from './modules/talents/RelishInBlood';
 import Tombstone from './modules/talents/Tombstone';
 import Voracious from './modules/talents/Voracious';
 import WillOfTheNecropolis from './modules/talents/WillOfTheNecropolis';
+import RuneTracker from './modules/core/RuneTracker';
+import ResourceOrderNormalizer from './modules/core/ResourceOrderNormalizer';
+import BoneShieldOrderNormalizer from './modules/core/BoneShieldOrderNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -107,6 +109,8 @@ class CombatLogParser extends CoreCombatLogParser {
     // normalizers
     deathStrikeNormalizer: DeathStrikeLinkNormalizer,
     bloodShieldNormalizer: BloodShieldNormalizer,
+    resourceOrderNormalizer: ResourceOrderNormalizer,
+    boneShieldOrderNormalizer: BoneShieldOrderNormalizer,
   };
 
   static guide = BloodGuide;

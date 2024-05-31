@@ -7,8 +7,6 @@ interface ReportContext {
 }
 const ReportCtx = createContext<ReportContext | undefined>(undefined);
 
-export default ReportCtx;
-
 export const useReport = () => {
   const ctx = useContext(ReportCtx);
   if (ctx === undefined) {

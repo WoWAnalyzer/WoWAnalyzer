@@ -1,6 +1,6 @@
 import { Options } from 'parser/core/Analyzer';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
-import { ApplyBuffEvent, EventType, GetRelatedEvent, RemoveBuffEvent } from 'parser/core/Events';
+import { EventType } from 'parser/core/Events';
 import { buffId, MAJOR_DEFENSIVES } from './DefensiveBuffs';
 import { isTalent } from 'common/TALENTS/types';
 
@@ -26,12 +26,4 @@ export default class DefensiveBuffLinkNormalizer extends EventLinkNormalizer {
   constructor(options: Options) {
     super(options, links);
   }
-}
-
-export function defensiveApplication(event: RemoveBuffEvent): ApplyBuffEvent | undefined {
-  return GetRelatedEvent(event, reverseRelation);
-}
-
-export function defensiveExpiration(event: ApplyBuffEvent): RemoveBuffEvent | undefined {
-  return GetRelatedEvent(event, relation);
 }

@@ -76,7 +76,6 @@ export const STASIS_CAST_IDS = [
 ];
 
 // hots
-export const ECHO_BASE_DURATION = 15000;
 export const DREAM_BREATH_MIN_DURATION = 4000;
 export const DREAM_BREATH_MAX_DURATION = 16000;
 export const REVERSION_BASE_DURATION = 12000;

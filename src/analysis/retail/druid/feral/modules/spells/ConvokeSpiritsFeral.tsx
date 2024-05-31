@@ -14,8 +14,8 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { ApplyBuffEvent } from 'parser/core/Events';
 import ComboPointTracker from 'analysis/retail/druid/feral/modules/core/combopoints/ComboPointTracker';
 import { PassFailCheckmark, PerformanceMark } from 'interface/guide';
-import { TIERS } from 'game/TIERS';
 import ItemSetLink from 'interface/ItemSetLink';
+import { has2pcDF3or4 } from 'analysis/retail/druid/feral/constants';
 import { DRUID_DF3_ID } from 'common/ITEMS/dragonflight';
 
 class ConvokeSpiritsFeral extends ConvokeSpirits {
@@ -77,7 +77,7 @@ class ConvokeSpiritsFeral extends ConvokeSpirits {
 
   /** Guide fragment showing a breakdown of each Convoke cast */
   get guideCastBreakdown() {
-    const hasT31 = this.selectedCombatant.has2PieceByTier(TIERS.DF3);
+    const hasT31 = has2pcDF3or4(this.selectedCombatant);
     const explanation = (
       <>
         <p>

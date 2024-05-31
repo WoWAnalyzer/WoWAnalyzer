@@ -12,7 +12,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
-export const DAMAGE_MODIFIER = 1.5;
+const DAMAGE_MODIFIER = 1.5;
 
 const debug = false;
 

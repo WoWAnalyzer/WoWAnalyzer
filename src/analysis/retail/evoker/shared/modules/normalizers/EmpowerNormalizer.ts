@@ -12,7 +12,7 @@ import { Options } from 'parser/core/Module';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import { EMPOWERS } from '../../constants';
 
-export const TIP_THE_SCALES_CONSUME = 'TipTheScalesConsume';
+const TIP_THE_SCALES_CONSUME = 'TipTheScalesConsume';
 export const EMPOWERED_CAST = 'EmpoweredCast';
 
 const EMPOWERED_CAST_BUFFER = 6000;

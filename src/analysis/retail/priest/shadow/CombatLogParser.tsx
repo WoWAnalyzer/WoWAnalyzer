@@ -53,6 +53,14 @@ import AuspiciousSpirits from './modules/talents/AuspiciousSpirits';
 import PhantasmalPathogen from './modules/talents/PhantasmalPathogen';
 import TormentedSpirits from './modules/talents/TormentedSpirits';
 import PsychicLink from './modules/talents/PsychicLink';
+import VoidTouched from './modules/talents/VoidTouched';
+import MindsEye from './modules/talents/MindsEye';
+import DistortedReality from './modules/talents/DistortedReality';
+import MaddeningTouch from './modules/talents/Maddening Touch';
+import MindMelt from './modules/talents/MindMelt';
+import Mastermind from './modules/talents/Mastermind';
+import DarkAscension from './modules/talents/DarkAscension';
+import Shadowform from './modules/spells/Shadowform';
 
 import Tier29FourSet from './modules/tier/Tier29ShadowPriest4Set';
 import Tier30 from './modules/tier/Tier30ShadowPriest';
@@ -81,6 +89,7 @@ class CombatLogParser extends MainCombatLogParser {
     // spells:
     devouringPlague: DevouringPlague,
     shadowfiend: Shadowfiend,
+    shadowform: Shadowform,
     shadowWordDeath: ShadowWordDeath,
     shadowWordPain: ShadowWordPain,
     shadowyApparitions: ShadowyApparitions,
@@ -91,17 +100,23 @@ class CombatLogParser extends MainCombatLogParser {
     // Spec talents:
     ancientMadness: AncientMadness,
     auspiciousSpirits: AuspiciousSpirits,
+    darkAscension: DarkAscension,
     darkEvangelism: DarkEvangelism,
     deathspeaker: Deathspeaker,
     dispersion: Dispersion,
+    distortedReality: DistortedReality,
     idolOfCthun: IdolOfCthun,
     idolOfNzoth: IdolOfNzoth,
     idolOfYoggSaron: IdolOfYoggSaron,
     idolOfYshaarj: IdolOfYshaarj,
     inescapableTorment: InescapableTorment,
     insidiousIre: InsidiousIre,
+    maddeningTouch: MaddeningTouch,
+    mastermind: Mastermind,
     mindDevourer: MindDevourer,
     mindFlayInsanity: MindFlayInsanity,
+    mindMelt: MindMelt,
+    mindsEye: MindsEye,
     mindSpikeInsanity: MindSpikeInsanity,
     phantasmalPathogen: PhantasmalPathogen,
     psychicLink: PsychicLink,
@@ -110,6 +125,7 @@ class CombatLogParser extends MainCombatLogParser {
     tormentedSpirits: TormentedSpirits,
     unfurlingDarkness: UnfurlingDarkness,
     voidTorrent: VoidTorrent,
+    voidTouched: VoidTouched,
 
     // Class Talents:
     deathAndMadness: DeathAndMadness,

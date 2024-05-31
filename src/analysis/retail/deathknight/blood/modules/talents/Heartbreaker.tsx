@@ -1,4 +1,5 @@
 import { t, Trans } from '@lingui/macro';
+import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -26,7 +27,7 @@ class Heartbreaker extends Analyzer {
       this.onCast,
     );
     this.addEventListener(
-      Events.resourcechange.spell(TALENTS.HEARTBREAKER_TALENT),
+      Events.resourcechange.spell(SPELLS.HEARTBREAKER_ENERGIZE),
       this.onEnergize,
     );
   }

@@ -4,9 +4,11 @@ import TALENTS from 'common/TALENTS/mage';
 import { SpellIcon, SpellLink, TooltipElement } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, {
+  EventType,
   DamageEvent,
   CastEvent,
   ApplyBuffEvent,
+  RefreshBuffEvent,
   RemoveBuffEvent,
   ApplyBuffStackEvent,
   GetRelatedEvent,
@@ -30,11 +32,12 @@ class FingersOfFrost extends Analyzer {
   protected enemies!: Enemies;
 
   fingers: {
-    apply: ApplyBuffEvent | ApplyBuffStackEvent;
+    apply: ApplyBuffEvent | ApplyBuffStackEvent | RefreshBuffEvent;
     remove: RemoveBuffEvent | undefined;
     spender: CastEvent | undefined;
     expired: boolean;
     munched: boolean;
+    overcapped: boolean;
     spendDelay: number | undefined;
   }[] = [];
 
@@ -48,12 +51,22 @@ class FingersOfFrost extends Analyzer {
       Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.FINGERS_OF_FROST_BUFF),
       this.onFingersProc,
     );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.FINGERS_OF_FROST_BUFF),
+      this.onFingersProc,
+    );
   }
 
-  onFingersProc(event: ApplyBuffEvent | ApplyBuffStackEvent) {
+  onFingersProc(event: ApplyBuffEvent | ApplyBuffStackEvent | RefreshBuffEvent) {
+    if (event.type === EventType.RefreshBuff && GetRelatedEvent(event, 'BuffRemove')) {
+      return;
+    }
     const remove: RemoveBuffEvent | undefined = GetRelatedEvent(event, 'BuffRemove');
     const spender: CastEvent | undefined = remove && GetRelatedEvent(remove, 'SpellCast');
     const damage: DamageEvent | undefined = spender && GetRelatedEvent(spender, 'SpellDamage');
+    const fingersStacks: number =
+      this.selectedCombatant.getBuff(SPELLS.FINGERS_OF_FROST_BUFF.id, event.timestamp - 10)
+        ?.stacks || 0;
     const enemy = damage && this.enemies.getEntity(damage);
     this.fingers.push({
       apply: event,
@@ -62,6 +75,7 @@ class FingersOfFrost extends Analyzer {
       expired: !spender,
       munched:
         SHATTER_DEBUFFS.some((effect) => enemy?.hasBuff(effect.id, damage?.timestamp)) || false,
+      overcapped: event.type === EventType.RefreshBuff && fingersStacks === 2,
       spendDelay: spender && spender.timestamp - event.timestamp,
     });
   }
@@ -84,7 +98,12 @@ class FingersOfFrost extends Analyzer {
     return this.fingers.filter((f) => f.munched).length;
   }
 
+  get overcappedProcs() {
+    return this.fingers.filter((f) => f.overcapped).length;
+  }
+
   get totalProcs() {
+    this.log(this.fingers);
     return this.fingers.length;
   }
 
@@ -92,9 +111,25 @@ class FingersOfFrost extends Analyzer {
     return this.munchedProcs / this.totalProcs;
   }
 
+  get overcappedPercent() {
+    return this.overcappedProcs / this.totalProcs;
+  }
+
   get munchedProcsThresholds() {
     return {
       actual: this.munchedPercent,
+      isGreaterThan: {
+        minor: 0.1,
+        average: 0.2,
+        major: 0.3,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
+
+  get overcappedProcsThresholds() {
+    return {
+      actual: this.overcappedPercent,
       isGreaterThan: {
         minor: 0.1,
         average: 0.2,
@@ -111,6 +146,18 @@ class FingersOfFrost extends Analyzer {
     } else if (this.munchedPercent > 0.2) {
       performance = QualitativePerformance.Ok;
     } else if (this.munchedPercent > 0.1) {
+      performance = QualitativePerformance.Good;
+    }
+    return performance;
+  }
+
+  get overcappedPerformance() {
+    let performance = QualitativePerformance.Perfect;
+    if (this.overcappedPercent > 0.3) {
+      performance = QualitativePerformance.Fail;
+    } else if (this.overcappedPercent > 0.2) {
+      performance = QualitativePerformance.Ok;
+    } else if (this.overcappedPercent > 0.1) {
       performance = QualitativePerformance.Good;
     }
     return performance;
@@ -223,6 +270,7 @@ class FingersOfFrost extends Analyzer {
     );
 
     const munchedTooltip = <>{this.munchedProcs} procs</>;
+    const overcappedTooltip = <>{this.overcappedProcs} procs</>;
 
     const data = (
       <div>
@@ -247,6 +295,17 @@ class FingersOfFrost extends Analyzer {
             {fingersOfFrostIcon}{' '}
             <TooltipElement content={munchedTooltip}>
               {formatPercentage(this.munchedPercent, 0)} % <small>munched</small>
+            </TooltipElement>
+          </div>
+          <div
+            style={{
+              color: qualitativePerformanceToColor(this.overcappedPerformance),
+              fontSize: '20px',
+            }}
+          >
+            {fingersOfFrostIcon}{' '}
+            <TooltipElement content={overcappedTooltip}>
+              {formatPercentage(this.overcappedPercent, 0)} % <small>overcapped</small>
             </TooltipElement>
           </div>
         </RoundedPanel>

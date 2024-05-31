@@ -10,8 +10,6 @@ interface PlayerContext {
 
 const PlayerCtx = createContext<PlayerContext | undefined>(undefined);
 
-export default PlayerCtx;
-
 export const usePlayer = () => {
   const ctx = useContext(PlayerCtx);
   if (ctx === undefined) {

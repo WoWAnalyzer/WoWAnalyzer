@@ -84,7 +84,7 @@ type BreathWindowPerformance = {
  *
  */
 
-export const GRAPH_BUFFER = 3000;
+const GRAPH_BUFFER = 3000;
 
 class BreathOfEonsRotational extends Analyzer {
   static dependencies = {

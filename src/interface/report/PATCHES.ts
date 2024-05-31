@@ -20,8 +20,8 @@ const PATCHES: Patch[] = [
   {
     name: '3.4.0',
     timestamp: 1664229600000, // GMT: Monday, 26 September 2022 22:00:00
-    urlPrefix: '',
-    isCurrent: true,
+    urlPrefix: '', // TODO update this to the correct prefix if desired
+    isCurrent: false,
     gameVersion: 4, // WotLK
     expansion: Expansion.WrathOfTheLichKing,
   },
@@ -173,9 +173,25 @@ const PATCHES: Patch[] = [
     name: '10.2.6 Season 4',
     timestamp: 1713906000000, // GMT: Tuesday, 23 April 2024 21:00:00
     urlPrefix: '',
+    isCurrent: false,
+    gameVersion: 1, // retail
+    expansion: Expansion.Dragonflight,
+  },
+  {
+    name: '10.2.7',
+    timestamp: 1715115600000, // GMT: Tuesday, 6 May 2024 21:00:00
+    urlPrefix: '',
     isCurrent: true,
     gameVersion: 1, // retail
     expansion: Expansion.Dragonflight,
+  },
+  {
+    name: '4.4.0',
+    timestamp: 1716242400, // GMT: Sunday, 20 May 2024 22:00:00
+    urlPrefix: '',
+    isCurrent: true,
+    gameVersion: 5, // Cataclysm
+    expansion: Expansion.Cataclysm,
   },
 ];
 

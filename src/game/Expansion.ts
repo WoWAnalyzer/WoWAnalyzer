@@ -14,13 +14,14 @@ enum Expansion {
 enum ExpansionName {
   // The value of `player.combatant.expansion`
   WrathOfTheLichKing = 'wotlk',
+  Cataclysm = 'cataclysm',
   Dragonflight = 'dragonflight',
 }
 
-export const CLASSIC_EXPANSION = Expansion.WrathOfTheLichKing;
+export const CLASSIC_EXPANSION = Expansion.Cataclysm;
 export const RETAIL_EXPANSION = Expansion.Dragonflight;
 
-export const CLASSIC_EXPANSION_NAME = ExpansionName.WrathOfTheLichKing;
+export const CLASSIC_EXPANSION_NAME = ExpansionName.Cataclysm;
 export const RETAIL_EXPANSION_NAME = ExpansionName.Dragonflight;
 
 export function isCurrentExpansion(expansion: Expansion): boolean {
@@ -32,7 +33,8 @@ export function isRetailExpansion(expansion: Expansion): boolean {
 }
 
 export function isClassicExpansion(expansion: Expansion): boolean {
-  return expansion >= Expansion.Vanilla && expansion <= Expansion.WrathOfTheLichKing;
+  // one day, we're going to have to deal with Classic Legion and things are going to get very messy
+  return expansion >= Expansion.Vanilla && expansion <= Expansion.Cataclysm;
 }
 
 export default Expansion;

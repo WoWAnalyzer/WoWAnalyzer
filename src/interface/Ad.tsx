@@ -85,7 +85,7 @@ declare global {
   }
 }
 
-export function refreshAds() {
+function refreshAds() {
   const tyche = window.tyche;
   try {
     if (tyche && tyche.destroyUnits) {
@@ -108,7 +108,7 @@ export function refreshAds() {
 
 window.refreshAds = refreshAds;
 
-export function destroyAds() {
+function destroyAds() {
   console.log('destroying ads');
   const destroy = window.tyche?.destroyUnits;
 

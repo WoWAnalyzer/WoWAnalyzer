@@ -6,6 +6,8 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { ResourceLink, SpellLink } from 'interface';
 
 export default [
+  change(date(2024, 5, 25), <>Fix bug in <SpellLink spell={TALENTS_EVOKER.TIME_OF_NEED_TALENT}/> module</>, Harrek),
+  change(date(2024, 5, 7), <>Add Awakened tier set module</>, Harrek),
   change(date(2024, 4, 24), <>Fix bug in <SpellLink spell={TALENTS_EVOKER.ANCIENT_FLAME_TALENT}/> module</>, Trevor),
   change(date(2024, 4, 11), <>Rework <SpellLink spell={SPELLS.LEAPING_FLAMES_BUFF} /> module to increase accuracy.</>, Vollmer),
   change(date(2024, 4, 6), 'Normalize Empower behavior to make analysis more consistent.', Vollmer),

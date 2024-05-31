@@ -30,6 +30,7 @@ const EmbeddedTimelineContainer = styled.div<{
   padding: 1rem 2rem;
   border-radius: 0.5rem;
   background: #222;
+  overflow-x: clip;
 
   box-sizing: content-box;
   width: ${(props) => {

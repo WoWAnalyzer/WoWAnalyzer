@@ -3,7 +3,7 @@ import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer'
 import { CastEvent, DrainEvent, EventType, GetRelatedEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 
-export const ADDITIONAL_ENERGY_USED = 'AdditionalEnergyUsed';
+const ADDITIONAL_ENERGY_USED = 'AdditionalEnergyUsed';
 
 const BUFFER_MS = 50;
 

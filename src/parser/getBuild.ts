@@ -1,7 +1,6 @@
-import Expansion from 'game/Expansion';
-
 import Config, { Build } from './Config';
 import { CombatantInfoEvent } from './core/Events';
+import GameBranch from 'game/GameBranch';
 
 function compareBuilds(buildA: number[], buildB: number[]) {
   let total = 0;
@@ -16,12 +15,7 @@ export default function getBuild(
   config: Config | undefined,
   combatant: CombatantInfoEvent,
 ): Build | null {
-  if (
-    !config?.builds ||
-    (config.expansion !== Expansion.Vanilla &&
-      config.expansion !== Expansion.TheBurningCrusade &&
-      config.expansion !== Expansion.WrathOfTheLichKing)
-  ) {
+  if (!config?.builds || config.branch !== GameBranch.Classic) {
     return null;
   }
 

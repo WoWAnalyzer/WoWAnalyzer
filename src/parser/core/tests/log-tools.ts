@@ -1,5 +1,5 @@
 import decompress from 'decompress';
-import { wclGameVersionToExpansion } from 'game/VERSIONS';
+import { wclGameVersionToBranch } from 'game/VERSIONS';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import getConfig from 'parser/getConfig';
 import CombatLogParser from 'parser/core/CombatLogParser';
@@ -79,7 +79,7 @@ export function parseLog(
     offset_time: 0,
   };
   const config = getConfig(
-    wclGameVersionToExpansion(log.report.gameVersion),
+    wclGameVersionToBranch(log.report.gameVersion),
     log.meta.player.specID,
     log.meta.player.type,
   );

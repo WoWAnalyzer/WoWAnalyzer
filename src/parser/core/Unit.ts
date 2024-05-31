@@ -3,6 +3,7 @@ interface Unit {
   id: number;
   guid: number;
   type: string;
+  subType: string;
   icon: string;
 }
 

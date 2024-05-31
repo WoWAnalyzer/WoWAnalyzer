@@ -68,7 +68,7 @@ class DrainSoul extends Analyzer {
   onFinished() {
     const allEnemies = this.enemies.getEntities();
     this.totalNumOfAdds = Object.values(allEnemies)
-      .filter((enemy) => enemy.type === 'NPC')
+      .filter((enemy) => enemy.subType === 'NPC')
       .reduce((count, enemy) => count + enemy._baseInfo.fights[0].instances, 0);
   }
 

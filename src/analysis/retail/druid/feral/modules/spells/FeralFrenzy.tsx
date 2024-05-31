@@ -11,10 +11,10 @@ import CooldownExpandable, {
   CooldownExpandableItem,
 } from 'interface/guide/components/CooldownExpandable';
 import { PassFailCheckmark, PerformanceMark } from 'interface/guide';
-import { TIERS } from 'game/TIERS';
 import { DRUID_DF3_ID } from 'common/ITEMS/dragonflight';
 import ItemSetLink from 'interface/ItemSetLink';
 import EnergyTracker from 'analysis/retail/druid/feral/modules/core/energy/EnergyTracker';
+import { has2pcDF3or4 } from 'analysis/retail/druid/feral/constants';
 
 /**
  * **Feral Frenzy**
@@ -45,7 +45,7 @@ export default class FeralFrenzy extends Analyzer {
 
     this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.FERAL_FRENZY_TALENT);
     this.hasSwarm = this.selectedCombatant.hasTalent(TALENTS_DRUID.ADAPTIVE_SWARM_TALENT);
-    this.hasT31 = this.selectedCombatant.has2PieceByTier(TIERS.DF3);
+    this.hasT31 = has2pcDF3or4(this.selectedCombatant);
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DRUID.FERAL_FRENZY_TALENT),

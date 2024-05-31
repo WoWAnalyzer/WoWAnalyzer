@@ -1,11 +1,5 @@
 import SPELLS from 'common/SPELLS/demonhunter';
-import {
-  CastEvent,
-  DamageEvent,
-  EventType,
-  GetRelatedEvents,
-  RemoveBuffStackEvent,
-} from 'parser/core/Events';
+import { CastEvent, DamageEvent, EventType, GetRelatedEvents } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 
@@ -45,14 +39,6 @@ export default class SoulCleaveEventLinkNormalizer extends EventLinkNormalizer {
   constructor(options: Options) {
     super(options, EVENT_LINKS);
   }
-}
-
-export function getSoulCleaveSoulConsumptions(event: CastEvent): RemoveBuffStackEvent[] {
-  return GetRelatedEvents(
-    event,
-    SOUL_CLEAVE_SOUL_CONSUME,
-    (e): e is RemoveBuffStackEvent => e.type === EventType.RemoveBuffStack,
-  );
 }
 
 export function getSoulCleaveDamages(event: CastEvent): DamageEvent[] {

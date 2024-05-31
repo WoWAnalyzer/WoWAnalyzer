@@ -3,13 +3,13 @@ import type Config from 'parser/Config';
 
 import VERSIONS from './VERSIONS';
 
-export default function isLatestPatch(config: Pick<Config, 'patchCompatibility' | 'expansion'>) {
+export default function isLatestPatch(config: Pick<Config, 'patchCompatibility' | 'branch'>) {
   if (!config.patchCompatibility) {
     return false;
   }
 
   const specPatchCompatibility = parseVersionString(config.patchCompatibility);
-  const gameVersion = VERSIONS[config.expansion];
+  const gameVersion = VERSIONS[config.branch];
   if (!gameVersion) {
     return false;
   }
