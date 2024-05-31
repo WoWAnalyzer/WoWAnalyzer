@@ -35,6 +35,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 5, 31), "Add Cataclysm patch 4.4.0.", Putro),
   change(date(2024, 5, 28), 'Add Cataclysm boss images and raid zones', emallson),
   change(date(2024, 5, 22), 'Update GitHub Actions versions.', ToppleTheNun),
   change(date(2024, 5, 6), 'Add patch 10.2.7.', ToppleTheNun),
