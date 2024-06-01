@@ -113,7 +113,7 @@ export const ActualCastDescription = ({
   <>
     At <EventTimestamp event={event} /> into the fight, you cast{' '}
     <SpellLink spell={event.ability.guid} />
-    {!omitTarget && event.targetID && (
+    {!omitTarget && (event.targetID ?? 0) > 0 && (
       <>
         {' '}
         on <TargetName event={event} />
