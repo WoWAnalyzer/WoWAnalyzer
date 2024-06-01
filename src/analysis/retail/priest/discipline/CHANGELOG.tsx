@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2024, 6, 1), <>Fix <SpellLink spell={SPELLS.PENANCE} /> wasted bolts from <SpellLink spell={TALENTS_PRIEST.HARSH_DISCIPLINE_TALENT} /> stacks. </>, Saeldur),
   change(date(2024, 5, 3), <>Add <SpellLink spell={SPELLS.SHADOW_SMITE} /> to <SpellLink spell={TALENTS_PRIEST.TRAIN_OF_THOUGHT_TALENT} />, <SpellLink spell={TALENTS_PRIEST.BLAZE_OF_LIGHT_TALENT} />, <SpellLink spell={TALENTS_PRIEST.WORDS_OF_THE_PIOUS_TALENT} /> and <SpellLink spell={TALENTS_PRIEST.TWILIGHT_EQUILIBRIUM_TALENT} /> </>, Saeldur),
   change(date(2024, 5, 3), <>Fix <SpellLink spell={TALENTS_PRIEST.ULTIMATE_PENITENCE_TALENT} /> cooldown and <SpellLink spell={TALENTS_PRIEST.HEAVENS_WRATH_TALENT} /> CDR. </>, Saeldur),
   change(date(2024, 5, 3), <>Update Many Discipline Priest Ability Categorisations and Fix Cooldowns for <SpellLink spell={SPELLS.FADE} /> and <SpellLink spell={TALENTS_PRIEST.MASS_DISPEL_TALENT} />. </>, Saeldur),
