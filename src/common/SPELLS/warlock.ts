@@ -414,6 +414,11 @@ const spells = {
     name: 'Fel Covenant',
     icon: 'spell_shadow_detectinvisibility',
   },
+  POWER_SIPHON_BUFF: {
+    id: 334581,
+    name: 'Power Siphon',
+    icon: 'ability_warlock_backdraft',
+  },
 
   // Pet abilities
   // Following 2 abilities are the same for Grimoire: Felguard

@@ -33,6 +33,7 @@ import GrimoireFelguard from './modules/talents/GrimoireFelguard';
 import InnerDemons from './modules/talents/InnerDemons';
 import NetherPortal from './modules/talents/NetherPortal';
 import PowerSiphonNormalizer from './modules/talents/normalizers/PowerSiphonNormalizer';
+import PowerSiphonBuffCastNormalizer from './modules/talents/normalizers/PowerSiphonBuffCastNormalizer';
 import PowerSiphon from './modules/talents/PowerSiphon';
 import SacrificedSouls from './modules/talents/SacrificedSouls';
 import ShadowsBite from './modules/talents/ShadowsBite';
@@ -72,6 +73,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Normalizers
     powerSiphonNormalizer: PowerSiphonNormalizer,
+    PowerSiphonBuffCastNormalizer: PowerSiphonBuffCastNormalizer,
 
     // Talents
     summonDemonicTyrant: SummonDemonicTyrant,

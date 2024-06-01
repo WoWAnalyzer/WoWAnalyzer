@@ -5,6 +5,7 @@ import { Sharrq, Zeboot, Meldris, ToppleTheNun, Jonfanz, Mae, dodse, Arlie, Putr
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2024, 5, 31), <>Fixed <SpellLink spell={TALENTS_WARLOCK.POWER_SIPHON_TALENT}/> statistic</>, Zyer),
   change(date(2024, 4, 30), "Updated for DF S4", Zyer),
   change(date(2024, 3, 6), <>Added <SpellLink spell={TALENTS_WARLOCK.DARK_PACT_TALENT}/> and <SpellLink spell={SPELLS.UNENDING_RESOLVE}/> guide</>, Zyer),
   change(date(2024, 2, 22), "Updated for patch 10.2.5, added statistic for T31 Amirdrassil", Zyer),
