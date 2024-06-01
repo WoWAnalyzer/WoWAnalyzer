@@ -56,27 +56,21 @@ export const getRules = (info: TalentInfo) => {
 };
 
 const shatteringStar = (info: TalentInfo): Rule => {
-  const baseCondition = cnd.describe(
-    cnd.or(
-      cnd.and(
-        cnd.hasTalent(TALENTS.ARCANE_VIGOR_TALENT),
-        cnd.buffStacks(SPELLS.ESSENCE_BURST_DEV_BUFF, {
-          atMost: info.maxEssenceBurst - 1,
-        }),
-      ),
-      cnd.not(cnd.hasTalent(TALENTS.ARCANE_VIGOR_TALENT)),
-    ),
-    (tense) => <>{noOvercapDescription(tense, false)}</>,
-  );
-
-  const ssRule: Rule = {
+  return {
     spell: TALENTS.SHATTERING_STAR_TALENT,
-    condition:
-      !info.hasEventHorizon && info.hasIridescence
-        ? cnd.and(baseCondition, cnd.buffMissing(SPELLS.IRIDESCENCE_BLUE))
-        : baseCondition,
+    condition: cnd.describe(
+      cnd.or(
+        cnd.and(
+          cnd.hasTalent(TALENTS.ARCANE_VIGOR_TALENT),
+          cnd.buffStacks(SPELLS.ESSENCE_BURST_DEV_BUFF, {
+            atMost: info.maxEssenceBurst - 1,
+          }),
+        ),
+        cnd.not(cnd.hasTalent(TALENTS.ARCANE_VIGOR_TALENT)),
+      ),
+      (tense) => <>{noOvercapDescription(tense, false)}</>,
+    ),
   };
-  return ssRule;
 };
 const snapFireFirestorm: Rule = {
   spell: TALENTS.FIRESTORM_TALENT,
@@ -103,13 +97,19 @@ const stFirestorm: Rule = {
 const fireBreath = (info: TalentInfo): Rule => {
   return {
     spell: info.fireBreathSpell,
-    condition: standardEmpowerConditional,
+    condition: standardEmpowerConditional(info.has4pcDF4),
   };
 };
 const stEternitySurge = (info: TalentInfo): Rule => {
+  const eventHorizonConditional = info.has4pcDF4
+    ? cnd.and(avoidIfDragonRageSoon(), cnd.buffMissing(SPELLS.BLAZING_SHARDS))
+    : avoidIfDragonRageSoon();
+
   return {
     spell: info.eternitySurgeSpell,
-    condition: info.hasEventHorizon ? avoidIfDragonRageSoon() : standardEmpowerConditional,
+    condition: info.hasEventHorizon
+      ? eventHorizonConditional
+      : standardEmpowerConditional(info.has4pcDF4),
   };
 };
 const ehEternitySurge = (info: TalentInfo): Rule => {
@@ -141,7 +141,7 @@ const aoeEternitySurge = (info: TalentInfo): Rule => {
         { atLeast: 3 },
         { lookahead: 3000, targetType: EventType.Damage, targetSpell: SPELLS.ETERNITY_SURGE_DAM },
       ),
-      standardEmpowerConditional,
+      standardEmpowerConditional(info.has4pcDF4),
     ),
   };
 };

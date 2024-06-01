@@ -29,11 +29,15 @@ export const hasEssenceRequirement = (resources: number, initial: number) => {
   );
 };
 
-export const standardEmpowerConditional = cnd.or(
-  cnd.describe(cnd.buffPresent(TALENTS.DRAGONRAGE_TALENT), (tense) => (
-    <>
-      {tenseAlt(tense, <>in</>, <>you were in</>)} <SpellLink spell={TALENTS.DRAGONRAGE_TALENT} />
-    </>
-  )),
-  avoidIfDragonRageSoon(),
-);
+export const standardEmpowerConditional = (has4pcDF4: boolean) => {
+  return cnd.or(
+    cnd.describe(cnd.buffPresent(TALENTS.DRAGONRAGE_TALENT), (tense) => (
+      <>
+        {tenseAlt(tense, <>in</>, <>you were in</>)} <SpellLink spell={TALENTS.DRAGONRAGE_TALENT} />
+      </>
+    )),
+    has4pcDF4
+      ? cnd.and(avoidIfDragonRageSoon(), cnd.buffMissing(SPELLS.BLAZING_SHARDS))
+      : avoidIfDragonRageSoon(),
+  );
+};
