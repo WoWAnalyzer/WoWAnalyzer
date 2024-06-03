@@ -10,6 +10,7 @@ import aplCheck, { Condition, build, tenseAlt } from 'parser/shared/metrics/apl'
 import annotateTimeline from 'parser/shared/metrics/apl/annotate';
 import * as cnd from 'parser/shared/metrics/apl/conditions';
 import { DEATH_STRIKE_HEAL } from '../spells/DeathStrike/normalizer';
+import { useInfo } from 'interface/guide';
 
 const boneShieldLow = (maxStacks: number) =>
   cnd.or(
@@ -126,6 +127,22 @@ export const apl = build([
       <>you {tenseAlt(tense, 'need', 'needed')} to defensively</>
     )),
   },
+  {
+    spell: talents.DEATH_STRIKE_TALENT,
+    condition: cnd.optionalRule(
+      cnd.buffMissing(SPELLS.COAGULOPATHY_BUFF, {
+        duration: 8000,
+        pandemicCap: 1,
+        timeRemaining: 2000,
+      }),
+    ),
+    description: (
+      <>
+        Cast <SpellLink spell={talents.DEATH_STRIKE_TALENT} /> to prevent{' '}
+        <SpellLink spell={SPELLS.COAGULOPATHY_BUFF} /> from dropping (optional).
+      </>
+    ),
+  },
   runeRules.drw.marrowrend,
   deathAndDecay,
   runeRules.drw.soulReaper,
@@ -166,109 +183,117 @@ export default suggestion((events, info) => {
   return undefined;
 });
 
-export const AplSummary = () => (
-  <>
-    <p>
-      <strong>
-        During <SpellLink spell={talents.DANCING_RUNE_WEAPON_TALENT} />
-      </strong>
-      <ol>
-        <li>
-          Use <SpellLink spell={talents.MARROWREND_TALENT} /> to refresh{' '}
-          <SpellLink spell={SPELLS.BONE_SHIELD} /> at the end of{' '}
-          <SpellLink spell={talents.DANCING_RUNE_WEAPON_TALENT}>DRW</SpellLink> (
-          <TooltipElement
-            content={
-              <>
-                <p>
-                  With the cooldown reduction from{' '}
-                  <SpellLink spell={talents.INSATIABLE_BLADE_TALENT} />, the math works out that
-                  ending <SpellLink spell={talents.DANCING_RUNE_WEAPON_TALENT}>DRW</SpellLink> with
-                  10 stacks of <SpellLink spell={SPELLS.BONE_SHIELD} /> allows you to cast only a
-                  single <SpellLink spell={talents.MARROWREND_TALENT} /> between uses of{' '}
-                  <SpellLink spell={talents.DANCING_RUNE_WEAPON_TALENT}>DRW</SpellLink>.
-                </p>
-                <p>
-                  <SpellLink spell={talents.MARROWREND_TALENT} /> is less efficient at converting{' '}
-                  <ResourceLink id={RESOURCE_TYPES.RUNES.id} /> to{' '}
-                  <ResourceLink id={RESOURCE_TYPES.RUNIC_POWER.id}>RP</ResourceLink> than other
-                  spells, so this leads to more{' '}
-                  <SpellLink spell={talents.DEATH_STRIKE_TALENT}>Death Strikes</SpellLink>.
-                </p>
-              </>
-            }
-            hoverable
-          >
-            Why?
-          </TooltipElement>
-          )
-        </li>
-        <li>
-          Put down <SpellLink spell={SPELLS.DEATH_AND_DECAY} /> if it has expired or you can't stand
-          in your prevoius one
-        </li>
-        <li>
-          Cast <SpellLink spell={talents.SOUL_REAPER_TALENT} /> if the explosion will happen below
-          35% HP
-        </li>
-        <li>
-          Use <SpellLink spell={talents.MARROWREND_TALENT} /> to apply{' '}
-          <SpellLink spell={SPELLS.BONE_SHIELD} /> if it is missing
-        </li>
-        <li>
-          Try not to let any of your resources cap:
-          <ul>
+export const AplSummary = () => {
+  const info = useInfo();
+  const hasSoulReaper = info?.combatant.hasTalent(talents.SOUL_REAPER_TALENT) ?? false;
+  return (
+    <>
+      <p>
+        <strong>
+          During <SpellLink spell={talents.DANCING_RUNE_WEAPON_TALENT} />
+        </strong>
+        <ol>
+          <li>
+            Use <SpellLink spell={talents.MARROWREND_TALENT} /> to refresh{' '}
+            <SpellLink spell={SPELLS.BONE_SHIELD} /> at the end of{' '}
+            <SpellLink spell={talents.DANCING_RUNE_WEAPON_TALENT}>DRW</SpellLink> (
+            <TooltipElement
+              content={
+                <>
+                  <p>
+                    With the cooldown reduction from{' '}
+                    <SpellLink spell={talents.INSATIABLE_BLADE_TALENT} />, the math works out that
+                    ending <SpellLink spell={talents.DANCING_RUNE_WEAPON_TALENT}>DRW</SpellLink>{' '}
+                    with 10 stacks of <SpellLink spell={SPELLS.BONE_SHIELD} /> allows you to cast
+                    only a single <SpellLink spell={talents.MARROWREND_TALENT} /> between uses of{' '}
+                    <SpellLink spell={talents.DANCING_RUNE_WEAPON_TALENT}>DRW</SpellLink>.
+                  </p>
+                  <p>
+                    <SpellLink spell={talents.MARROWREND_TALENT} /> is less efficient at converting{' '}
+                    <ResourceLink id={RESOURCE_TYPES.RUNES.id} /> to{' '}
+                    <ResourceLink id={RESOURCE_TYPES.RUNIC_POWER.id}>RP</ResourceLink> than other
+                    spells, so this leads to more{' '}
+                    <SpellLink spell={talents.DEATH_STRIKE_TALENT}>Death Strikes</SpellLink>.
+                  </p>
+                </>
+              }
+              hoverable
+            >
+              Why?
+            </TooltipElement>
+            )
+          </li>
+          <li>
+            Put down <SpellLink spell={SPELLS.DEATH_AND_DECAY} /> if it has expired or you can't
+            stand in your prevoius one
+          </li>
+          {hasSoulReaper && (
             <li>
-              <ResourceLink id={RESOURCE_TYPES.RUNIC_POWER.id} />, spent on{' '}
-              <SpellLink spell={talents.DEATH_STRIKE_TALENT} />
+              Cast <SpellLink spell={talents.SOUL_REAPER_TALENT} /> if the explosion will happen
+              below 35% HP
             </li>
-            <li>
-              <ResourceLink id={RESOURCE_TYPES.RUNES.id} />, spent on{' '}
-              <SpellLink spell={talents.HEART_STRIKE_TALENT} />
-            </li>
-            <li>
-              <SpellLink spell={talents.BLOOD_BOIL_TALENT} /> charges
-            </li>
-          </ul>
-        </li>
-      </ol>
-    </p>
-    <p>
-      <strong>
-        Outside of <SpellLink spell={talents.DANCING_RUNE_WEAPON_TALENT} />
-      </strong>
+          )}
+          <li>
+            Use <SpellLink spell={talents.MARROWREND_TALENT} /> to apply{' '}
+            <SpellLink spell={SPELLS.BONE_SHIELD} /> if it is missing
+          </li>
+          <li>
+            Try not to let any of your resources cap:
+            <ul>
+              <li>
+                <ResourceLink id={RESOURCE_TYPES.RUNIC_POWER.id} />, spent on{' '}
+                <SpellLink spell={talents.DEATH_STRIKE_TALENT} />
+              </li>
+              <li>
+                <ResourceLink id={RESOURCE_TYPES.RUNES.id} />, spent on{' '}
+                <SpellLink spell={talents.HEART_STRIKE_TALENT} />
+              </li>
+              <li>
+                <SpellLink spell={talents.BLOOD_BOIL_TALENT} /> charges
+              </li>
+            </ul>
+          </li>
+        </ol>
+      </p>
+      <p>
+        <strong>
+          Outside of <SpellLink spell={talents.DANCING_RUNE_WEAPON_TALENT} />
+        </strong>
 
-      <ol>
-        <li>
-          Put down <SpellLink spell={SPELLS.DEATH_AND_DECAY} /> if it has expired or you can't stand
-          in your prevoius one
-        </li>
-        <li>
-          Cast <SpellLink spell={talents.SOUL_REAPER_TALENT} /> if the explosion will happen below
-          35% HP
-        </li>
-        <li>
-          Use <SpellLink spell={talents.MARROWREND_TALENT} /> to maintain{' '}
-          <SpellLink spell={SPELLS.BONE_SHIELD} /> at 5+ stacks to enable{' '}
-          <SpellLink spell={talents.OSSUARY_TALENT} />
-        </li>
-        <li>
-          Try not to let any of your resources cap:
-          <ul>
+        <ol>
+          <li>
+            Put down <SpellLink spell={SPELLS.DEATH_AND_DECAY} /> if it has expired or you can't
+            stand in your prevoius one
+          </li>
+          {hasSoulReaper && (
             <li>
-              <ResourceLink id={RESOURCE_TYPES.RUNIC_POWER.id} />, spent on{' '}
-              <SpellLink spell={talents.DEATH_STRIKE_TALENT} />
+              Cast <SpellLink spell={talents.SOUL_REAPER_TALENT} /> if the explosion will happen
+              below 35% HP
             </li>
-            <li>
-              <ResourceLink id={RESOURCE_TYPES.RUNES.id} />, spent on{' '}
-              <SpellLink spell={talents.HEART_STRIKE_TALENT} />
-            </li>
-            <li>
-              <SpellLink spell={talents.BLOOD_BOIL_TALENT} /> charges
-            </li>
-          </ul>
-        </li>
-      </ol>
-    </p>
-  </>
-);
+          )}
+          <li>
+            Use <SpellLink spell={talents.MARROWREND_TALENT} /> to maintain{' '}
+            <SpellLink spell={SPELLS.BONE_SHIELD} /> at 5+ stacks to enable{' '}
+            <SpellLink spell={talents.OSSUARY_TALENT} />
+          </li>
+          <li>
+            Try not to let any of your resources cap:
+            <ul>
+              <li>
+                <ResourceLink id={RESOURCE_TYPES.RUNIC_POWER.id} />, spent on{' '}
+                <SpellLink spell={talents.DEATH_STRIKE_TALENT} />
+              </li>
+              <li>
+                <ResourceLink id={RESOURCE_TYPES.RUNES.id} />, spent on{' '}
+                <SpellLink spell={talents.HEART_STRIKE_TALENT} />
+              </li>
+              <li>
+                <SpellLink spell={talents.BLOOD_BOIL_TALENT} /> charges
+              </li>
+            </ul>
+          </li>
+        </ol>
+      </p>
+    </>
+  );
+};
