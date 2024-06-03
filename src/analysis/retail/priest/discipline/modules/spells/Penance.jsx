@@ -7,6 +7,8 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 
+const HARSH_DISCIPLINE_BOLTS_PER_RANK = [0, 1, 2];
+
 class Penance extends Analyzer {
   _boltCount = 0; // which bolt of the cast it is - for other modules
   _casts = 0;
@@ -14,12 +16,19 @@ class Penance extends Analyzer {
   _totalExpectedBolts = 0;
   _totalBoltHits = 0;
   _missedBolts = 0;
+  _harshDisciplineBolts = 0;
 
   constructor(options) {
     super(options);
     this._defaultBolts = this.selectedCombatant.hasTalent(TALENTS_PRIEST.CASTIGATION_TALENT)
       ? 4
       : 3;
+
+    this._harshDisciplineBolts =
+      HARSH_DISCIPLINE_BOLTS_PER_RANK[
+        this.selectedCombatant.getTalentRank(TALENTS_PRIEST.HARSH_DISCIPLINE_TALENT)
+      ];
+
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell([SPELLS.PENANCE_CAST, SPELLS.DARK_REPRIMAND_CAST]),
       this.onCast,
@@ -54,11 +63,14 @@ class Penance extends Analyzer {
     this._totalBoltHits += 1;
   }
 
-  onCast() {
+  onCast(event) {
     this._casts += 1;
     this._totalExpectedBolts += this._defaultBolts;
+
     if (this.selectedCombatant.hasBuff(SPELLS.HARSH_DISCIPLINE_BUFF.id)) {
-      this._totalExpectedBolts += 3;
+      this._totalExpectedBolts +=
+        this._harshDisciplineBolts *
+        this.selectedCombatant.getBuffStacks(SPELLS.HARSH_DISCIPLINE_BUFF.id, event.timestamp);
     }
 
     this._boltCount = 0;
@@ -73,8 +85,13 @@ class Penance extends Analyzer {
         tooltip={
           <>
             Each <SpellLink spell={SPELLS.PENANCE} /> cast has 3 bolts (4 if you're using{' '}
-            <SpellLink spell={TALENTS_PRIEST.CASTIGATION_TALENT} />, and potentially 3 more if you
-            are using <SpellLink spell={TALENTS_PRIEST.HARSH_DISCIPLINE_TALENT} />
+            <SpellLink spell={TALENTS_PRIEST.CASTIGATION_TALENT} />
+            {this._harshDisciplineBolts > 0 && (
+              <>
+                , and potentially {this._harshDisciplineBolts} more per stack of{' '}
+                <SpellLink spell={TALENTS_PRIEST.HARSH_DISCIPLINE_TALENT} />
+              </>
+            )}
             ). You should try to let this channel finish as much as possible. You channeled Penance{' '}
             {this._casts} times.
           </>
