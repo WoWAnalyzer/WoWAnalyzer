@@ -1,3 +1,4 @@
+import { i18n } from '@lingui/core';
 import { defineMessage, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -42,10 +43,12 @@ class Ossuary extends Analyzer {
 
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = defineMessage({
-        id: 'deathknight.blood.ossuary.ineffectiveCast',
-        message: `This Death Strike cast was without Ossuary.`,
-      });
+      event.meta.inefficientCastReason = i18n._(
+        defineMessage({
+          id: 'deathknight.blood.ossuary.ineffectiveCast',
+          message: `This Death Strike cast was without Ossuary.`,
+        }),
+      );
     }
   }
 
