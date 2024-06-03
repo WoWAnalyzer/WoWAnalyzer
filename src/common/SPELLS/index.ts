@@ -13,7 +13,7 @@
  **************************************************************************************************************** */
 
 import indexById, { proxyRestrictedTable } from 'common/indexById';
-import Expansion, { RETAIL_EXPANSION } from 'game/Expansion';
+import { CLASSIC_EXPANSION, RETAIL_EXPANSION } from 'game/Expansion';
 import { maybeGetSpell as maybeGetClassicSpell } from 'common/SPELLS/classic';
 import safeMerge from 'common/safeMerge';
 
@@ -71,7 +71,7 @@ export function maybeGetSpell(
   key: string | number | undefined,
   expansion = RETAIL_EXPANSION,
 ): Spell | undefined {
-  if (expansion === Expansion.WrathOfTheLichKing) {
+  if (expansion === CLASSIC_EXPANSION) {
     return maybeGetClassicSpell(key);
   }
   return key ? InternalSpellTable[key as any] : undefined;
