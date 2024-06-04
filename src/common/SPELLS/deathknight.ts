@@ -94,6 +94,11 @@ const spells = {
     name: 'Relish in Blood',
     icon: 'ability_deathknight_roilingblood',
   },
+  COAGULOPATHY_BUFF: {
+    id: 391477,
+    name: 'Coagulopathy',
+    icon: 'ability_skeer_bloodletting',
+  },
 
   // Other
   HEARTBREAKER_ENERGIZE: {
