@@ -13,6 +13,7 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 class WakeofAshes extends Analyzer {
   static dependencies = {
@@ -61,10 +62,10 @@ class WakeofAshes extends Analyzer {
     }
     this.wakeCast = true;
     if (this.wasteHP) {
-      event.meta = event.meta || {};
-      event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason =
-        '1 Holy Power or more wasted. You should be at 2 Holy Power or less before using Wake.';
+      addInefficientCastReason(
+        event,
+        '1 Holy Power or more wasted. You should be at 2 Holy Power or less before using Wake.',
+      );
       this.wasteHP = false;
     }
   }

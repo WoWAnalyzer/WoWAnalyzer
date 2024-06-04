@@ -37,6 +37,7 @@ module.exports = {
     'wowanalyzer/spell-icon-spell-object': 'error',
     'wowanalyzer/boring-spell-value-text-spell-object': 'error',
     'wowanalyzer/lingui-t-macro-outside-jsx': 'error',
+    'wowanalyzer/event-meta-inefficient-cast': 'error',
 
     // region Syntax
 

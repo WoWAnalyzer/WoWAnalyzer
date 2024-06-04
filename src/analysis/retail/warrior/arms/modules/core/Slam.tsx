@@ -9,6 +9,7 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 import SpellUsable from '../features/SpellUsable';
 import ExecuteRange from './Execute/ExecuteRange';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 class Slam extends Analyzer {
   static dependencies = {
@@ -47,10 +48,7 @@ class Slam extends Analyzer {
       this.spellUsable.isAvailable(SPELLS.MORTAL_STRIKE.id) &&
       !this.executeRange.isTargetInExecuteRange(event.targetID || 0, event.targetInstance || 0)
     ) {
-      event.meta = event.meta || {};
-      event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason =
-        'This Slam was used on a target while Mortal Strike was off cooldown.';
+      addInefficientCastReason(event, 'This Slam was used on a target while Mortal Strike was off cooldown.');
       this.badCast += 1;
     } else if (
       this.executeRange.isTargetInExecuteRange(event.targetID || 0, event.targetInstance || 0)

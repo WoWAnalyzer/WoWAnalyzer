@@ -1,39 +1,60 @@
-import { CastEvent } from './Events';
+/* This eslint-disable is here because this is the blessed way to modify event.meta */
+/* eslint-disable wowanalyzer/event-meta-inefficient-cast */
+import { MessageDescriptor } from '@lingui/core';
+import { useLingui } from '@lingui/react';
+import { ReactNode } from 'react';
+import { isMessageDescriptor } from 'localization/isMessageDescriptor';
 
-export const addInefficientCastReason = (event: CastEvent, reason?: React.ReactNode) => {
-  const meta = (event.meta = event.meta || {});
-  meta.isInefficientCast = true;
-  if (!reason) {
-    return;
-  }
-  meta.inefficientCastReason = (
+import type { BeginChannelEvent, CastEvent } from './Events';
+
+function MetaCastReason({
+  originalReason,
+  reason,
+}: {
+  originalReason: ReactNode;
+  reason: ReactNode | MessageDescriptor;
+}) {
+  const { i18n } = useLingui();
+
+  return (
     <>
-      {meta.inefficientCastReason ? (
+      {originalReason ? (
         <>
-          {meta.inefficientCastReason}
+          {originalReason}
           <br />
         </>
       ) : null}
-      {reason}
+      {isMessageDescriptor(reason) ? i18n._(reason) : reason}
     </>
+  );
+}
+
+export const addInefficientCastReason = (
+  event: BeginChannelEvent | CastEvent,
+  reason?: ReactNode | MessageDescriptor,
+) => {
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing_assignment
+  event.meta ??= {};
+  event.meta.isInefficientCast = true;
+  if (!reason) {
+    return;
+  }
+  event.meta.inefficientCastReason = (
+    <MetaCastReason originalReason={event.meta.inefficientCastReason} reason={reason} />
   );
 };
 
-export const addEnhancedCastReason = (event: CastEvent, reason?: React.ReactNode) => {
-  const meta = (event.meta = event.meta || {});
-  meta.isEnhancedCast = true;
+export const addEnhancedCastReason = (
+  event: BeginChannelEvent | CastEvent,
+  reason?: ReactNode | MessageDescriptor,
+) => {
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing_assignment
+  event.meta ??= {};
+  event.meta.isEnhancedCast = true;
   if (!reason) {
     return;
   }
-  meta.enhancedCastReason = (
-    <>
-      {meta.enhancedCastReason ? (
-        <>
-          {meta.enhancedCastReason}
-          <br />
-        </>
-      ) : null}
-      {reason}
-    </>
+  event.meta.enhancedCastReason = (
+    <MetaCastReason originalReason={event.meta.enhancedCastReason} reason={reason} />
   );
 };

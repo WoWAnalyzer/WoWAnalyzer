@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/hunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 /**
  * A vicious slash dealing (70% of Attack power) Physical damage.
@@ -33,8 +34,7 @@ class RaptorStrike extends Analyzer {
       };
     }
     if (this.selectedCombatant.hasBuff(SPELLS.VIPERS_VENOM_BUFF.id)) {
-      event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = "Viper's Venom buff still active.";
+      addInefficientCastReason(event, "Viper's Venom buff still active.");
     }
   }
 }

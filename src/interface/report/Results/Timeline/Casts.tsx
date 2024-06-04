@@ -17,6 +17,7 @@ import {
 import { Fragment, CSSProperties, HTMLAttributes, ReactNode } from 'react';
 
 import './Casts.scss';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 const ICON_WIDTH = 22;
 
@@ -67,14 +68,13 @@ export const highlightInefficientCast = (
 ) => {
   if (Array.isArray(event)) {
     event.forEach((e) => {
+      addInefficientCastReason(e, tooltip);
       e.meta = e.meta || {};
       e.meta.isInefficientCast = true;
       e.meta.inefficientCastReason = tooltip;
     });
   } else {
-    event.meta = event.meta || {};
-    event.meta.isInefficientCast = true;
-    event.meta.inefficientCastReason = tooltip;
+    addInefficientCastReason(event, tooltip);
   }
 };
 

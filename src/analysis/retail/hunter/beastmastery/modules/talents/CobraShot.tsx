@@ -13,6 +13,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { COBRA_SHOT_CDR_MS, COBRA_SHOT_FOCUS_THRESHOLD_TO_WAIT } from '../../constants';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 /**
  * A quick shot causing Physical damage.
@@ -90,8 +91,7 @@ class CobraShot extends Analyzer {
     if (!this.spellUsable.isOnCooldown(TALENTS.KILL_COMMAND_SHARED_TALENT.id)) {
       this.wastedCasts += 1;
       this.wastedKCReductionMs += this.cobraShotCDR;
-      event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = 'Cobra Shot cast while Kill Command is not on cooldown.';
+      addInefficientCastReason(event, 'Cobra Shot cast while Kill Command is not on cooldown.');
       return;
     }
     const globalCooldown = this.globalCooldown.getGlobalCooldownDuration(
@@ -115,13 +115,14 @@ class CobraShot extends Analyzer {
         return;
       }
       if (resource.amount < COBRA_SHOT_FOCUS_THRESHOLD_TO_WAIT) {
-        event.meta.isInefficientCast = true;
-        event.meta.inefficientCastReason =
+        addInefficientCastReason(
+          event,
           "Cobra Shot cast while Kill Command's cooldown was under " +
-          (globalCooldown + this.cobraShotCDR / 1000).toFixed(1) +
-          's remaining and you were not close to capping focus as you only had ' +
-          resource.amount +
-          ' focus.';
+            (globalCooldown + this.cobraShotCDR / 1000).toFixed(1) +
+            's remaining and you were not close to capping focus as you only had ' +
+            resource.amount +
+            ' focus.',
+        );
       }
     } else {
       this.effectiveKCReductionMs += this.spellUsable.reduceCooldown(

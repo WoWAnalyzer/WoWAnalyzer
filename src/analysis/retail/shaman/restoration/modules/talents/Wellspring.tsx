@@ -19,6 +19,7 @@ import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 class Wellspring extends Analyzer {
   static dependencies = {
@@ -108,12 +109,11 @@ class Wellspring extends Analyzer {
     if (!this.castEvent) {
       return;
     }
-    this.castEvent.meta = this.castEvent.meta || {};
-    this.castEvent.meta.isInefficientCast = true;
-    this.castEvent.meta.inefficientCastReason = (
+    addInefficientCastReason(
+      this.castEvent,
       <Trans id="shaman.restoration.wellspring.inefficientCast.reason">
         This Wellspring cast hit less than 6 targets.
-      </Trans>
+      </Trans>,
     );
   }
 

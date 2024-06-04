@@ -9,6 +9,7 @@ import Abilities from 'parser/core/modules/Abilities';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 import SpellUsable from '../features/SpellUsable';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 /**
  * Example report: /report/YXFby87mzNrLtwj1/12-Normal+King+Rastakhan+-+Wipe+1+(3:32)/30-Korebian/timeline
@@ -57,9 +58,10 @@ class SweepingStrikes extends Analyzer {
       const cdElapsed = spellCd * 1000 - this.spellUsable.cooldownRemaining(spell.id);
       if (cdElapsed < 1000) {
         this.badCasts += 1;
-        event.meta = event.meta || {};
-        event.meta.isInefficientCast = true;
-        event.meta.inefficientCastReason = `This Sweeping Strikes was used on a target during ${spell.name}.`;
+        addInefficientCastReason(
+          event,
+          `This Sweeping Strikes was used on a target during ${spell.name}.`,
+        );
       }
     }
   }
