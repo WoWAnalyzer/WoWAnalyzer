@@ -1,18 +1,18 @@
-import { SpellIcon, TooltipElement } from 'interface';
-import { SpellLink } from 'interface';
+import { SpellIcon, SpellLink } from 'interface';
 import { ReactNode } from 'react';
 import { Talent } from 'common/TALENTS/types';
 import { useCombatLogParser } from 'interface/report/CombatLogParserContext';
+import { TooltipRadix } from 'interface/TooltipRadix';
 
 export const TalentRankTooltip = ({ rank, maxRanks }: { rank: number; maxRanks: number }) => (
   <>
     {' '}
     -{' '}
-    <TooltipElement
+    <TooltipRadix
       content={`Talented into with ${rank} out of ${maxRanks} point${maxRanks > 1 ? 's' : ''}`}
     >
       {rank}/{maxRanks}
-    </TooltipElement>
+    </TooltipRadix>
   </>
 );
 

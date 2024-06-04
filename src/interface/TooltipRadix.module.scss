@@ -1,0 +1,15 @@
+.content {
+  color: #fff;
+  background: rgba(10, 10, 10, 0.9);
+  border-radius: 4px;
+  font-size: 13px;
+  opacity: 1;
+  transition: opacity 0.3s ease-out;
+  max-width: 600px;
+  padding: 8px 15px;
+  z-index: 1000;
+}
+
+.arrow {
+  fill: rgba(10, 10, 10, 0.9);
+}

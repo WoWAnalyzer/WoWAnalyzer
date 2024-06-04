@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import * as Sentry from '@sentry/react';
 import {
   createRoutesFromChildren,
@@ -50,4 +50,4 @@ if (import.meta.env.VITE_SENTRY_DSN) {
   });
 }
 
-render(<Root />, document.getElementById('app-mount'));
+createRoot(document.getElementById('app-mount')!).render(<Root />);

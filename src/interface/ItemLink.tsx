@@ -18,22 +18,18 @@ interface Props extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'id'> {
 }
 export const EPIC_ITEMS_ILVL = 184;
 
-const ItemLink = (props: Props) => {
+const ItemLink = ({ id, children, details, icon = true, quality, ...others }: Props) => {
   const { item: itemTooltip } = useTooltip();
-
-  const { id, children, details, ...others } = props;
-  delete others.icon;
-  delete others.quality;
 
   if (import.meta.env.DEV && !children && !ITEMS[id]) {
     throw new Error(`Unknown item: ${id}`);
   }
 
-  let quality;
-  if (props.quality !== undefined && props.quality !== null) {
-    quality = props.quality;
-  } else if (props.details) {
-    quality = Math.max(props.details.itemLevel >= EPIC_ITEMS_ILVL ? 4 : 3, props.details.quality);
+  let itemQuality;
+  if (quality !== undefined && quality !== null) {
+    itemQuality = quality;
+  } else if (details) {
+    itemQuality = Math.max(details.itemLevel >= EPIC_ITEMS_ILVL ? 4 : 3, details.quality);
   }
 
   return (
@@ -41,10 +37,10 @@ const ItemLink = (props: Props) => {
       href={itemTooltip(id, details)}
       target="_blank"
       rel="noopener noreferrer"
-      className={getItemQualityLabel(quality) + 'item-link-text'}
+      className={getItemQualityLabel(itemQuality) + 'item-link-text'}
       {...others}
     >
-      {props.icon && (
+      {icon && (
         <>
           <ItemIcon id={id} noLink />{' '}
         </>
@@ -53,7 +49,5 @@ const ItemLink = (props: Props) => {
     </a>
   );
 };
-
-ItemLink.defaultProps = { icon: true };
 
 export default ItemLink;
