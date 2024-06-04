@@ -23,6 +23,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import BrewCDR from '../core/BrewCDR';
 import SharedBrews from '../core/SharedBrews';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 const PURIFY_DELAY_THRESHOLD = 1000; // with the removal of ISB, i'm cutting the delay threshold.
 
@@ -40,15 +41,13 @@ function markupPurify(event: CastEvent, delay: number, hasHeavyStagger: boolean)
   if (msgs.length === 0) {
     return;
   }
-  const meta = event.meta || {};
-  meta.isInefficientCast = true;
-  meta.inefficientCastReason = (
+  addInefficientCastReason(
+    event,
     <>
       This Purifying Brew cast was inefficient because:
       <ul>{msgs}</ul>
-    </>
+    </>,
   );
-  event.meta = meta;
 }
 
 class PurifyingBrew extends Analyzer {

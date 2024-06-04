@@ -1,11 +1,9 @@
 import { defineMessage, t, Trans } from '@lingui/macro';
-import { i18n } from '@lingui/core';
 import TALENTS from 'common/TALENTS/paladin';
-import { SpellLink } from 'interface';
-import { TooltipElement } from 'interface';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import { SpellLink, TooltipElement } from 'interface';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 

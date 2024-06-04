@@ -11,12 +11,12 @@ import Casts, { isApplicableEvent } from 'interface/report/Results/Timeline/Cast
 import EmbeddedTimelineContainer, {
   SpellTimeline,
 } from 'interface/report/Results/Timeline/EmbeddedTimeline';
-import { AnyEvent, CastEvent, EventType } from 'parser/core/Events';
+import { AnyEvent, CastEvent, EventMeta, EventType } from 'parser/core/Events';
 import { useMemo } from 'react';
 
-type WastedMeta = Required<CastEvent>['meta'] & {
+interface WastedMeta extends EventMeta {
   _wastedRp: number;
-};
+}
 
 export function ResourceWasteProblemRenderer({
   problem,
@@ -45,6 +45,8 @@ export function ResourceWasteProblemRenderer({
               return <>This cast wasted {this._wastedRp} RP.</>;
             },
           };
+          // TODO: Come up with a better way of handling this so that it doesn't break any existing meta
+          // eslint-disable-next-line wowanalyzer/event-meta-inefficient-cast
           lastCast.meta = meta;
         } else {
           const meta = lastCast.meta as WastedMeta;

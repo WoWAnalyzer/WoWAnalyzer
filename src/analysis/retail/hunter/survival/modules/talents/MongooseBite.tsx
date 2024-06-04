@@ -25,6 +25,7 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { addEnhancedCastReason } from 'parser/core/EventMetaLib';
 
 /**
  * Mongoose Fury increases Mongoose Bite damage by 15% for 14 sec, stacking up to 5 times. Successive attacks do not increase duration.
@@ -165,18 +166,11 @@ class MongooseBite extends Analyzer {
       }
       this.windowCheckedForFocus = true;
     }
-    if (event.meta === undefined) {
-      event.meta = {
-        isEnhancedCast: false,
-        enhancedCastReason: '',
-      };
-    }
     if (
       this.lastMongooseBiteStack === 5 &&
       this.selectedCombatant.hasBuff(SPELLS.MONGOOSE_FURY.id)
     ) {
-      event.meta.isEnhancedCast = true;
-      event.meta.enhancedCastReason = 'Mongoose Bite at 5 stacks of Mongoose Fury';
+      addEnhancedCastReason(event, 'Mongoose Bite at 5 stacks of Mongoose Fury');
     }
   }
 

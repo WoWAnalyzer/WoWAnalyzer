@@ -31,6 +31,7 @@ import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/Perfo
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { BadColor, OkColor } from 'interface/guide';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 class RipUptimeAndSnapshots extends Snapshots {
   static dependencies = {
@@ -186,13 +187,13 @@ class RipUptimeAndSnapshots extends Snapshots {
     if (prevPower >= power && clipped > 0) {
       const cast = getHardcast(application);
       if (cast) {
-        cast.meta = {
-          isInefficientCast: true,
-          inefficientCastReason: `This cast clipped ${(clipped / 1000).toFixed(
+        addInefficientCastReason(
+          cast,
+          `This cast clipped ${(clipped / 1000).toFixed(
             1,
           )} seconds of Rip time without upgrading the snapshot.
           Try to wait until the last 30% of Rip's duration before refreshing`,
-        };
+        );
       }
     }
   }

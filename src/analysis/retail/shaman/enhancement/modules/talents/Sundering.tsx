@@ -10,6 +10,7 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 /**
  * This can be quite a large gap since the cooldown of Sundering is `only` 40 seconds.
@@ -87,9 +88,7 @@ class Sundering extends Analyzer {
    */
   markBadCasts() {
     this.missedCasts.forEach((cast) => {
-      cast.meta = cast.meta || {};
-      cast.meta.isInefficientCast = true;
-      cast.meta.inefficientCastReason = <>Sundering did not hit any targets.</>;
+      addInefficientCastReason(cast, <>Sundering did not hit any targets.</>);
     });
   }
 

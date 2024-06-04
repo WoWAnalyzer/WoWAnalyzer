@@ -4,6 +4,7 @@ import { SpellLink } from 'interface';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { AbilityEvent, CastEvent, EventType } from 'parser/core/Events';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
+import { addEnhancedCastReason } from 'parser/core/EventMetaLib';
 
 // Override spell usable to handle CD resets on RSK from Teachings of the Monastery
 // There is no direct event to observe, so if we detect RSK being used earlier than its CD dictates,
@@ -49,13 +50,12 @@ class SpellUsable extends CoreSpellUsable {
         this.endCooldown(spellId, this.lastPotentialTriggerForRskReset.timestamp + 1);
 
         // flag the reset event in the timeline
-        this.lastPotentialTriggerForRskReset.meta = this.lastPotentialTriggerForRskReset.meta || {};
-        this.lastPotentialTriggerForRskReset.meta.isEnhancedCast = true;
-        this.lastPotentialTriggerForRskReset.meta.enhancedCastReason = (
+        addEnhancedCastReason(
+          this.lastPotentialTriggerForRskReset,
           <>
             This cast reset the cooldown of <SpellLink spell={TALENTS.RISING_SUN_KICK_TALENT} /> due
             to <SpellLink spell={TALENTS.TEACHINGS_OF_THE_MONASTERY_TALENT} />
-          </>
+          </>,
         );
       }
       this.lastPotentialTriggerForRskReset = null;

@@ -27,12 +27,6 @@ class RaptorStrike extends Analyzer {
   }
 
   onCast(event: CastEvent) {
-    if (event.meta === undefined) {
-      event.meta = {
-        isInefficientCast: false,
-        inefficientCastReason: '',
-      };
-    }
     if (this.selectedCombatant.hasBuff(SPELLS.VIPERS_VENOM_BUFF.id)) {
       addInefficientCastReason(event, "Viper's Venom buff still active.");
     }

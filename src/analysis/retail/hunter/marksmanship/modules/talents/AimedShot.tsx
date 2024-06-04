@@ -120,12 +120,6 @@ class AimedShot extends Analyzer {
       this.casts += 1;
     }
 
-    if (event.meta === undefined) {
-      event.meta = {
-        isEnhancedCast: false,
-        isInefficientCast: false,
-      };
-    }
     const hasPreciseShotsBuff = this.selectedCombatant.hasBuff(SPELLS.PRECISE_SHOTS.id);
     const hasTrueshotBuff = this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id);
 

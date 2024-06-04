@@ -81,12 +81,6 @@ class CobraShot extends Analyzer {
   }
 
   onCobraShotCast(event: CastEvent) {
-    if (event.meta === undefined) {
-      event.meta = {
-        isInefficientCast: false,
-        inefficientCastReason: '',
-      };
-    }
     this.casts += 1;
     if (!this.spellUsable.isOnCooldown(TALENTS.KILL_COMMAND_SHARED_TALENT.id)) {
       this.wastedCasts += 1;

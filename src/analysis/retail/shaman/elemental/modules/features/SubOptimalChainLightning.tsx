@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 // https://stormearthandlava.com/guide/general/priority_list.html
 const TARGETS_FOR_GOOD_CAST = 3;
@@ -49,9 +50,10 @@ class SubOptimalChainLightning extends Analyzer {
       return;
     }
     this.badCasts += 1;
-    this.lastCast.meta = this.lastCast.meta || {};
-    this.lastCast.meta.isInefficientCast = true;
-    this.lastCast.meta.inefficientCastReason = `Chain Lightning hit less than ${TARGETS_FOR_GOOD_CAST} targets.`;
+    addInefficientCastReason(
+      this.lastCast,
+      `Chain Lightning hit less than ${TARGETS_FOR_GOOD_CAST} targets.`,
+    );
   }
 
   onCast(event: CastEvent) {

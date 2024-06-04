@@ -1,6 +1,7 @@
 import { SpellLink } from 'interface';
 
 import type { Tense, CheckResult, InternalRule, Violation } from './index';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 export function ConditionDescription({
   tense,
@@ -55,9 +56,9 @@ function InefficientCastAnnotation({ violation }: { violation: Violation }) {
  */
 export default function annotateTimeline(violations: CheckResult['violations']) {
   for (const violation of violations) {
-    violation.actualCast.meta = {
-      isInefficientCast: true,
-      inefficientCastReason: <InefficientCastAnnotation violation={violation} />,
-    };
+    addInefficientCastReason(
+      violation.actualCast,
+      <InefficientCastAnnotation violation={violation} />,
+    );
   }
 }

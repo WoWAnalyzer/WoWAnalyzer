@@ -9,6 +9,7 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import TalentSpellText from 'parser/ui/TalentSpellText';
+import { addEnhancedCastReason } from 'parser/core/EventMetaLib';
 
 const MASTER_OF_THE_ELEMENTS = {
   INCREASE: 0.2,
@@ -90,8 +91,7 @@ class MasterOfTheElements extends Analyzer {
     }
     this.moteConsumptionTimestamp = event.timestamp;
     this.moteActivationTimestamp = null;
-    event.meta = event.meta || {};
-    event.meta.isEnhancedCast = true;
+    addEnhancedCastReason(event);
     this.moteBuffedAbilities[event.ability.guid] += 1;
   }
 

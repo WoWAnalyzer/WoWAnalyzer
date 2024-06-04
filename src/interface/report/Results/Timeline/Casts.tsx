@@ -69,9 +69,6 @@ export const highlightInefficientCast = (
   if (Array.isArray(event)) {
     event.forEach((e) => {
       addInefficientCastReason(e, tooltip);
-      e.meta = e.meta || {};
-      e.meta.isInefficientCast = true;
-      e.meta.inefficientCastReason = tooltip;
     });
   } else {
     addInefficientCastReason(event, tooltip);
