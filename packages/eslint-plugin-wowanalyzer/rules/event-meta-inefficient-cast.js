@@ -4,7 +4,7 @@ module.exports = {
     type: 'problem',
     messages: {
       settingEventMetaDirectly:
-        'Use addInefficientCastReason or addEnhancedCastReason instead of setting event meta directly',
+        'Use addInefficientCastReason, addEnhancedCastReason, or replace instead of setting event meta directly',
     },
   },
   create(context) {

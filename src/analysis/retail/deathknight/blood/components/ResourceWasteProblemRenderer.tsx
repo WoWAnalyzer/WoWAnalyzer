@@ -13,6 +13,7 @@ import EmbeddedTimelineContainer, {
 } from 'interface/report/Results/Timeline/EmbeddedTimeline';
 import { AnyEvent, CastEvent, EventMeta, EventType } from 'parser/core/Events';
 import { useMemo } from 'react';
+import { replace } from 'parser/core/EventMetaLib';
 
 interface WastedMeta extends EventMeta {
   _wastedRp: number;
@@ -45,9 +46,7 @@ export function ResourceWasteProblemRenderer({
               return <>This cast wasted {this._wastedRp} RP.</>;
             },
           };
-          // TODO: Come up with a better way of handling this so that it doesn't break any existing meta
-          // eslint-disable-next-line wowanalyzer/event-meta-inefficient-cast
-          lastCast.meta = meta;
+          replace(lastCast, meta);
         } else {
           const meta = lastCast.meta as WastedMeta;
           meta._wastedRp += event.waste;

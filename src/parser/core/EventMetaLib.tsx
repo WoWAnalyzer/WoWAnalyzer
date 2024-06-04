@@ -5,7 +5,7 @@ import { useLingui } from '@lingui/react';
 import { ReactNode } from 'react';
 import { isMessageDescriptor } from 'localization/isMessageDescriptor';
 
-import type { BeginChannelEvent, CastEvent } from './Events';
+import type { BeginChannelEvent, CastEvent, EventMeta } from './Events';
 
 function MetaCastReason({
   originalReason,
@@ -29,10 +29,10 @@ function MetaCastReason({
   );
 }
 
-export const addInefficientCastReason = (
+export function addInefficientCastReason(
   event: BeginChannelEvent | CastEvent,
   reason?: ReactNode | MessageDescriptor,
-) => {
+) {
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing_assignment
   event.meta ??= {};
   event.meta.isInefficientCast = true;
@@ -42,12 +42,12 @@ export const addInefficientCastReason = (
   event.meta.inefficientCastReason = (
     <MetaCastReason originalReason={event.meta.inefficientCastReason} reason={reason} />
   );
-};
+}
 
-export const addEnhancedCastReason = (
+export function addEnhancedCastReason(
   event: BeginChannelEvent | CastEvent,
   reason?: ReactNode | MessageDescriptor,
-) => {
+) {
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing_assignment
   event.meta ??= {};
   event.meta.isEnhancedCast = true;
@@ -57,4 +57,8 @@ export const addEnhancedCastReason = (
   event.meta.enhancedCastReason = (
     <MetaCastReason originalReason={event.meta.enhancedCastReason} reason={reason} />
   );
-};
+}
+
+export function replace(event: BeginChannelEvent | CastEvent, meta: EventMeta) {
+  event.meta = meta;
+}
