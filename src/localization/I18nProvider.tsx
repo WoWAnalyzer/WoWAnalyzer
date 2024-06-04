@@ -3,7 +3,7 @@ import { I18nProvider as LinguiI18nProvider } from '@lingui/react';
 import { getLanguage } from 'interface/selectors/language';
 import { useWaSelector } from 'interface/utils/useWaSelector';
 import { ReactNode, useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 
 const loadCatalog = async (locale: string) => {
   const { messages } = await import(`./${locale}/messages.json?lingui`);
