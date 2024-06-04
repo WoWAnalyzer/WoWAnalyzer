@@ -16,6 +16,7 @@ import ThrashUptimeAndSnapshot from 'analysis/retail/druid/feral/modules/spells/
 import { PANDEMIC_FRACTION } from 'analysis/retail/druid/feral/constants';
 import Spell from 'common/SPELLS/Spell';
 import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/GuideDivs';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 /**
  * Tracks the number of targets hit by Feral's AoE abilities.
@@ -139,9 +140,7 @@ class HitCountAoE extends Analyzer {
     tracker.hits += hits;
     if (hits === 0) {
       tracker.zeroHitCasts += 1;
-      event.meta = event.meta || {};
-      event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = 'This cast hit nothing!';
+      addInefficientCastReason(event, 'This cast hit nothing!');
     } else if (hits === 1) {
       tracker.oneHitCasts += 1;
     } else {

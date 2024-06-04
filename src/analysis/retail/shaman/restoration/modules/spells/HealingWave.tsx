@@ -7,6 +7,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { BeginCastEvent, CastEvent } from 'parser/core/Events';
 import { When } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 import RestorationAbilityTracker from '../core/RestorationAbilityTracker';
 
@@ -70,14 +71,13 @@ class HealingWave extends Analyzer {
    */
   onHealingWaveCast(event: CastEvent) {
     if (this._isCurrentCastInefficient) {
-      event.meta = event.meta || {};
-      event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = (
+      addInefficientCastReason(
+        event,
         <Trans id="shaman.restoration.healingWave.inefficientCast.reason">
           Riptide was off cooldown when you started casting this unbuffed Healing Wave. Casting
           Riptide into Healing Wave to generate and use a Tidal Wave stack, or using a Flash Flood
           buff (if talented) is a lot more efficient compared to casting a full-length Healing Wave.
-        </Trans>
+        </Trans>,
       );
     }
   }

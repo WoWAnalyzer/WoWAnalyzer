@@ -10,6 +10,7 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 import SpellUsable from '../features/SpellUsable';
 import ExecuteRangeTracker from './Execute/ExecuteRange';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 interface CurrentCast {
   event: CastEvent | null;
@@ -113,10 +114,10 @@ class Bladestorm extends Analyzer {
       this.currentCast.event.classResources.find((e) => e.type === RESOURCE_TYPES.RAGE.id);
     if (rage && rage.amount > RAGE_STARVED_AMOUNT) {
       this.badCasts += 1;
-      this.currentCast.event.meta = this.currentCast.event.meta || {};
-      this.currentCast.event.meta.isInefficientCast = true;
-      this.currentCast.event.meta.inefficientCastReason =
-        'Bladestorm was used while you still had rage to use on higher priority abilities during a single target situation';
+      addInefficientCastReason(
+        this.currentCast.event,
+        'Bladestorm was used while you still had rage to use on higher priority abilities during a single target situation',
+      );
     }
   }
 
@@ -168,9 +169,7 @@ class Bladestorm extends Analyzer {
 
     if (badCast) {
       this.badCasts += 1;
-      this.currentCast.event.meta = this.currentCast.event.meta || {};
-      this.currentCast.event.meta.isInefficientCast = true;
-      this.currentCast.event.meta.inefficientCastReason = this.currentCast.text;
+      addInefficientCastReason(this.currentCast.event, this.currentCast.text);
     }
   }
 

@@ -6,6 +6,7 @@ import { hardcastTargetsHit } from '../../normalizers/CastLinkNormalizer';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { currentEclipse } from 'analysis/retail/druid/balance/constants';
 import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 const MIN_STARFIRE_TARGETS_LUNAR = 3;
 const MIN_STARFIRE_TARGETS_CA = 4;
@@ -39,22 +40,25 @@ export default class FillerUsage extends Analyzer {
     const eclipse = currentEclipse(this.selectedCombatant);
 
     if (eclipse === 'solar') {
-      event.meta = event.meta || {};
-      event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = `Use Wrath instead of Starfire in Solar Eclipse, regardless of target count`;
+      addInefficientCastReason(
+        event,
+        `Use Wrath instead of Starfire in Solar Eclipse, regardless of target count`,
+      );
       this.solarStarfires += 1;
     } else if (eclipse === 'lunar') {
       if (targetsHit < MIN_STARFIRE_TARGETS_LUNAR) {
-        event.meta = event.meta || {};
-        event.meta.isInefficientCast = true;
-        event.meta.inefficientCastReason = `You hit too few targets: ${targetsHit} - use Wrath instead`;
+        addInefficientCastReason(
+          event,
+          `You hit too few targets: ${targetsHit} - use Wrath instead`,
+        );
         this.lowTargetStarfires += 1;
       }
     } else if (eclipse === 'both') {
       if (targetsHit < MIN_STARFIRE_TARGETS_CA) {
-        event.meta = event.meta || {};
-        event.meta.isInefficientCast = true;
-        event.meta.inefficientCastReason = `You hit too few targets: ${targetsHit} - use Wrath instead`;
+        addInefficientCastReason(
+          event,
+          `You hit too few targets: ${targetsHit} - use Wrath instead`,
+        );
         this.lowTargetStarfires += 1;
       }
     }

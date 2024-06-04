@@ -8,6 +8,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { TALENTS_MONK } from 'common/TALENTS';
+import { addEnhancedCastReason } from 'parser/core/EventMetaLib';
 
 const DAMAGE_MODIFIER = 1;
 const STORM_EARTH_AND_FIRE_CAST_BUFFER = 200;
@@ -45,21 +46,11 @@ class DANCE_OF_CHI_JI extends Analyzer {
       )
     ) {
       this.buffedCast = true;
-      event.meta = event.meta || {};
-      event.meta.isEnhancedCast = true;
-      const reason = (
+      addEnhancedCastReason(
+        event,
         <>
           This cast was empowered by <SpellLink spell={SPELLS.DANCE_OF_CHI_JI_BUFF} />
-        </>
-      );
-      event.meta.enhancedCastReason = event.meta.enhancedCastReason ? (
-        <>
-          {event.meta.enhancedCastReason}
-          <br />
-          {reason}
-        </>
-      ) : (
-        reason
+        </>,
       );
     } else {
       // GCD is shorter than the duration SCK deals damage, and new SCK casts override any ongoing SCK cast, so this prevents a directly following from being marked as benefitting

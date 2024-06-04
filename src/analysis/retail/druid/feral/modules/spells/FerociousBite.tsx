@@ -23,6 +23,7 @@ import { explanationAndDataSubsection } from 'interface/guide/components/Explana
 import { BadColor, OkColor } from 'interface/guide';
 import { getHits } from 'analysis/retail/druid/feral/normalizers/CastLinkNormalizer';
 import HIT_TYPES from 'game/HIT_TYPES';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 const MIN_ACCEPTABLE_TIME_LEFT_ON_RIP_MS = 5000;
 
@@ -72,11 +73,12 @@ class FerociousBite extends Analyzer {
     const usedMax = extraEnergyUsed >= maxExtraEnergy;
 
     if (!duringBerserkAndSotf && usedMax) {
-      event.meta = event.meta || {};
-      event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = `Used with low energy, causing only ${extraEnergyUsed}
+      addInefficientCastReason(
+        event,
+        `Used with low energy, causing only ${extraEnergyUsed}
         extra energy to be turned in to bonus damage. You should always cast Ferocious Bite with
-        the full extra energy available in order to maximize damage`;
+        the full extra energy available in order to maximize damage`,
+      );
     }
 
     // fill out cast entry

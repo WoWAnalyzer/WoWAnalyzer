@@ -9,6 +9,7 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 import RageTracker from '../core/RageTracker';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 class Whirlwind extends Analyzer {
   static dependencies = {
@@ -144,8 +145,7 @@ class Whirlwind extends Analyzer {
     }
 
     if (badCast) {
-      this.lastEvent.meta = event.meta || {};
-      this.lastEvent.meta.isInefficientCast = true;
+      addInefficientCastReason(this.lastEvent);
       this.badWWCast += 1;
     }
   }
