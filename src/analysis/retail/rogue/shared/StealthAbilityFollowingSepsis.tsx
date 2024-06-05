@@ -11,6 +11,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import * as React from 'react';
 import { abilityToSpell } from 'common/abilityToSpell';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 const STEALTH_ABILITIES: Spell[] = [
   SPELLS.PICK_POCKET,
@@ -71,9 +72,10 @@ class StealthAbilityFollowingSepsis extends Analyzer {
     if (event.ability.guid !== this.properStealthAbility.id) {
       debug && console.log(`Recorded bad cast with id ${event.ability.guid}`);
       this.badCasts.push(event);
-      event.meta = event.meta || {};
-      event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = `You used the incorrect Stealth ability. You should've used ${this.properStealthAbility.name}.`;
+      addInefficientCastReason(
+        event,
+        `You used the incorrect Stealth ability. You should've used ${this.properStealthAbility.name}.`,
+      );
     } else {
       debug && console.log(`Recorded good cast with id ${event.ability.guid}`);
     }

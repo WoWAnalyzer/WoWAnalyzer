@@ -11,6 +11,7 @@ import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { TALENTS_MONK } from 'common/TALENTS';
 
 import { BLACKOUT_KICK_COOLDOWN_REDUCTION_MS } from '../../constants';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 function oxfordCommaJoin(list: JSX.Element[], joiner = 'and'): JSX.Element {
   switch (list.length) {
@@ -94,16 +95,15 @@ class BlackoutKick extends Analyzer {
      */
     const modRate = this.selectedCombatant.hasBuff(TALENTS_MONK.SERENITY_TALENT.id) ? 2 : 1;
     if (availableImportantCast.length > 0) {
-      event.meta = event.meta || {};
-      event.meta.isInefficientCast = true;
       const linkList = availableImportantCast.map((spellId) => (
         <SpellLink key={spellId} spell={spellId} />
       ));
-      event.meta.inefficientCastReason = (
+      addInefficientCastReason(
+        event,
         <>
           You cast this <SpellLink spell={SPELLS.BLACKOUT_KICK} /> while {oxfordCommaJoin(linkList)}{' '}
           was available.
-        </>
+        </>,
       );
     }
 

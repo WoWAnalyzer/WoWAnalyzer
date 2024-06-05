@@ -8,6 +8,7 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import TALENTS from 'common/TALENTS/warrior';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 const debug = false;
 
@@ -144,9 +145,10 @@ class ShieldBlock extends Analyzer {
     } else {
       this.badCast += 1;
       const event = this.shieldBlocksOffensive[this.shieldBlocksOffensive.length - 1].event;
-      event.meta = event.meta || {};
-      event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = `This Shield Block didn't block enough damage nor did you cast enough Shield Slams.`;
+      addInefficientCastReason(
+        event,
+        `This Shield Block didn't block enough damage nor did you cast enough Shield Slams.`,
+      );
       this.shieldBlocksOffensive[this.shieldBlocksOffensive.length - 1].event = event;
     }
 

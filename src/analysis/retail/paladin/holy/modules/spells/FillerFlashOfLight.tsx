@@ -9,6 +9,7 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 import AbilityTracker from '../core/PaladinAbilityTracker';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 /** @type {number} (ms) When Holy Shock has less than this as cooldown remaining you should wait and still not cast that filler FoL. */
 const HOLY_SHOCK_COOLDOWN_WAIT_TIME = 200;
@@ -75,13 +76,12 @@ class FillerFlashOfLight extends Analyzer {
    */
   onCast(event: CastEvent) {
     if (this._isCurrentCastInefficient) {
-      event.meta = event.meta || {};
-      event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = (
+      addInefficientCastReason(
+        event,
         <Trans id="paladin.holy.modules.fillerFlashOfLight.inefficientCastReason">
           Holy Shock was off cooldown when you started casting this unbuffed Flash of Light. You
           should cast Holy Shock instead.
-        </Trans>
+        </Trans>,
       );
     }
   }

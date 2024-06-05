@@ -14,6 +14,7 @@ import { formatNumber } from 'common/format';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import { DamageIcon, UptimeIcon } from 'interface/icons';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 /** Lightning Bolt and Chain Lightning damage increased by 20%.
  *
@@ -107,22 +108,20 @@ class ThorimsInvocation extends Analyzer {
           this.spellUsable.cooldownRemaining(SPELLS.WINDSTRIKE_CAST.id) +
             this.gcd.getGlobalCooldownDuration(event.ability.guid)
       ) {
-        event.meta = event.meta || {};
-        event.meta.isInefficientCast = true;
-        event.meta.inefficientCastReason = (
+        addInefficientCastReason(
+          event,
           <>
             You should have re-primed <SpellLink spell={TALENTS.THORIMS_INVOCATION_TALENT} /> by
             casting <SpellLink spell={SPELLS.LIGHTNING_BOLT} />
-          </>
+          </>,
         );
       } else if (!cracklingThunder && hits < 2) {
-        event.meta = event.meta || {};
-        event.meta.isInefficientCast = true;
-        event.meta.inefficientCastReason = (
+        addInefficientCastReason(
+          event,
           <>
             <SpellLink spell={TALENTS.THORIMS_INVOCATION_TALENT} /> was not primed with{' '}
             <SpellLink spell={SPELLS.LIGHTNING_BOLT} />
-          </>
+          </>,
         );
       }
     }

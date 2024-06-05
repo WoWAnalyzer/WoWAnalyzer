@@ -11,6 +11,7 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 const DAMAGE_MODIFIER = 1.5;
 
@@ -77,13 +78,14 @@ class SearingTouch extends Analyzer {
     } else if (spellId === SPELLS.FIREBALL.id && this.healthPercent < SEARING_TOUCH_THRESHOLD) {
       this.fireballExecuteCasts += 1;
       if (this.lastCastEvent) {
-        this.lastCastEvent.meta = this.lastCastEvent.meta || {};
-        this.lastCastEvent.meta.isInefficientCast = true;
-        this.lastCastEvent.meta.inefficientCastReason = `This Fireball was cast while the target was under ${formatPercentage(
-          SEARING_TOUCH_THRESHOLD,
-        )}% health. While talented into Searing Touch, ensure that you are casting Scorch instead of Fireball while the target is under 30% health since Scorch does ${formatPercentage(
-          DAMAGE_MODIFIER,
-        )}% additional damage.`;
+        addInefficientCastReason(
+          this.lastCastEvent,
+          `This Fireball was cast while the target was under ${formatPercentage(
+            SEARING_TOUCH_THRESHOLD,
+          )}% health. While talented into Searing Touch, ensure that you are casting Scorch instead of Fireball while the target is under 30% health since Scorch does ${formatPercentage(
+            DAMAGE_MODIFIER,
+          )}% additional damage.`,
+        );
         debug && this.log('Cast Fireball under 30% Health');
       }
     }

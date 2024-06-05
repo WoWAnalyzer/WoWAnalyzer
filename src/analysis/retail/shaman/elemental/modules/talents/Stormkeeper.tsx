@@ -27,6 +27,7 @@ import { formatDuration } from 'common/format';
 import { PerformanceMark } from 'interface/guide';
 import SpellMaelstromCost from '../core/SpellMaelstromCost';
 import MaelstromTracker from '../resources/MaelstromTracker';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 const SK_DAMAGE_AFFECTED_ABILITIES = [
   SPELLS.LIGHTNING_BOLT_OVERLOAD,
@@ -237,10 +238,10 @@ class Stormkeeper extends MajorCooldown<SKCast> {
         // Some rotations cast SK before pull. In this case, the rotation is slightly different.
         !(isPrepull && spenderNotAlreadyCast)
       ) {
-        event.meta = {
-          isInefficientCast: true,
-          inefficientCastReason: <>{this.stSpender.name} cast without Master of the Elements</>,
-        };
+        addInefficientCastReason(
+          event,
+          <>{this.stSpender.name} cast without Master of the Elements</>,
+        );
         this.activeWindow.timeline.performance = getLowestPerf([
           MISSING_MOTE_PERFORMANCE,
           this.activeWindow.timeline.performance,
@@ -262,10 +263,7 @@ class Stormkeeper extends MajorCooldown<SKCast> {
         // Some rotations cast SK before pull. In this case, the rotation is slightly different.
         !(isPrepull && sopSpellNotAlreadyCast)
       ) {
-        event.meta = {
-          isInefficientCast: true,
-          inefficientCastReason: <>{event.ability.name} cast without Surge of Power</>,
-        };
+        addInefficientCastReason(event, <>{event.ability.name} cast without Surge of Power</>);
         this.activeWindow.timeline.performance = getLowestPerf([
           SOP_BUFF_MISSING_PERFORMANCE,
           this.activeWindow.timeline.performance,

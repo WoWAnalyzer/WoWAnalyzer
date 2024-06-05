@@ -9,8 +9,14 @@ import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults'
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 const OSSUARY_RUNICPOWER_REDUCTION = 5;
+
+const ineffectiveCastMessage = defineMessage({
+  id: 'deathknight.blood.ossuary.ineffectiveCast',
+  message: `This Death Strike cast was without Ossuary.`,
+});
 
 class Ossuary extends Analyzer {
   dsWithOS = 0;
@@ -40,12 +46,7 @@ class Ossuary extends Analyzer {
     } else {
       this.dsWithoutOS += 1;
 
-      event.meta = event.meta || {};
-      event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = defineMessage({
-        id: 'deathknight.blood.ossuary.ineffectiveCast',
-        message: `This Death Strike cast was without Ossuary.`,
-      });
+      addInefficientCastReason(event, ineffectiveCastMessage);
     }
   }
 

@@ -10,6 +10,7 @@ import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 const COOLDOWN_REDUCTION_MS_PER_POINT = 1500;
 
@@ -64,13 +65,13 @@ class CrusadersMight extends Analyzer {
       this.holyShocksCastsLost += timeWasted / holyShockCooldown;
 
       // mark the event on the timeline
-      event.meta = event.meta || {};
-      event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = (
-        <Trans id="paladin.holy.modules.talents.crusadersMight.inefficientCast">
-          Holy Shock was off cooldown when you cast Crusader Strike. You should cast Holy Shock
-          before Crusader Strike for maximum healing or damage.
-        </Trans>
+      addInefficientCastReason(
+        event,
+        defineMessage({
+          id: 'paladin.holy.modules.talents.crusadersMight.inefficientCast',
+          message:
+            'Holy Shock was off cooldown when you cast Crusader Strike. You should cast Holy Shock before Crusader Strike for maximum healing or damage.',
+        }),
       );
     }
   }

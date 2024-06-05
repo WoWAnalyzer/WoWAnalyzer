@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, ResourceChangeEvent } from 'parser/core/Events';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 class BladeofJustice extends Analyzer {
   wastedHP = 0;
@@ -25,13 +26,14 @@ class BladeofJustice extends Analyzer {
 
   onBladeOfJusticeCast(event: CastEvent) {
     if (this.wastedHP > 0) {
-      event.meta = event.meta || {};
-      event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = `Blade of Justice was cast while at ${
-        this.wastedHP === 1 ? '4 Holy Power' : 'max Holy Power'
-      }. Make sure to either use a ${
-        this.wastedHP === 1 ? '1 Holy Power Generator or' : ''
-      } Holy Power spender first to avoid overcapping.`;
+      addInefficientCastReason(
+        event,
+        `Blade of Justice was cast while at ${
+          this.wastedHP === 1 ? '4 Holy Power' : 'max Holy Power'
+        }. Make sure to either use a ${
+          this.wastedHP === 1 ? '1 Holy Power Generator or' : ''
+        } Holy Power spender first to avoid overcapping.`,
+      );
       this.wastedHP = 0;
     }
   }

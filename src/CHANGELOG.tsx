@@ -37,6 +37,7 @@ import SpellLink from 'interface/SpellLink';
 export default [
   change(date(2022, 6, 5), 'Update Classic Food Buffs for Cataclysm', jazminite),
   change(date(2022, 6, 3), 'Update Classic Flasks for Cataclysm', jazminite),
+  change(date(2024, 6, 3), 'Update event meta usage.', ToppleTheNun),
   change(date(2024, 5, 31), 'Update Classic Enchants for Cataclysm', jazminite),
   change(date(2024, 5, 31), "Add Cataclysm patch 4.4.0.", Putro),
   change(date(2024, 5, 28), 'Add Cataclysm boss images and raid zones', emallson),

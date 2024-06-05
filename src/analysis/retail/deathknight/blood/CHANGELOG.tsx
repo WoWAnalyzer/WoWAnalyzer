@@ -3,8 +3,9 @@ import talents from 'common/TALENTS/deathknight';
 import { Tialyss, Chizu, emallson, ToppleTheNun, Yajinni, Arlie } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
-
+// prettier-ignore
 export default [
+  change(date(2024, 6, 1), <>Add rotational analysis to the guide.</>, emallson),
   change(date(2024, 5, 22), <>Extend <SpellLink spell={talents.DEATH_STRIKE_TALENT} /> section of the guide.</>, emallson),
   change(date(2024, 3, 26), 'Remove support for Shadowlands tier set.', ToppleTheNun),
   change(date(2024, 3, 18), <>Updated spec to 10.2.5 and added new guide items</>, Arlie),

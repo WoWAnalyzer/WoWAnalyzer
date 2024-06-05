@@ -11,12 +11,13 @@ import Casts, { isApplicableEvent } from 'interface/report/Results/Timeline/Cast
 import EmbeddedTimelineContainer, {
   SpellTimeline,
 } from 'interface/report/Results/Timeline/EmbeddedTimeline';
-import { AnyEvent, CastEvent, EventType } from 'parser/core/Events';
+import { AnyEvent, CastEvent, EventMeta, EventType } from 'parser/core/Events';
 import { useMemo } from 'react';
+import { replace } from 'parser/core/EventMetaLib';
 
-type WastedMeta = Required<CastEvent>['meta'] & {
+interface WastedMeta extends EventMeta {
   _wastedRp: number;
-};
+}
 
 export function ResourceWasteProblemRenderer({
   problem,
@@ -45,7 +46,7 @@ export function ResourceWasteProblemRenderer({
               return <>This cast wasted {this._wastedRp} RP.</>;
             },
           };
-          lastCast.meta = meta;
+          replace(lastCast, meta);
         } else {
           const meta = lastCast.meta as WastedMeta;
           meta._wastedRp += event.waste;

@@ -12,6 +12,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TALENTS from 'common/TALENTS/warrior';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 const BOOMING_VOICE_DAMAGE_INCREASE = 0.2;
 const BOOMING_VOICE_RAGE_GENERATION = 30;
@@ -49,9 +50,7 @@ class BoomingVoice extends Analyzer {
       return;
     }
 
-    event.meta = event.meta || {};
-    event.meta.isInefficientCast = true;
-    event.meta.inefficientCastReason = `This cast wasted ${this.nextCastWasted} Rage.`;
+    addInefficientCastReason(event, `This cast wasted ${this.nextCastWasted} Rage.`);
     this.nextCastWasted = 0;
   }
 

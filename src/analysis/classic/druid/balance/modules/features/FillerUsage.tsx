@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 const MINOR_THRESHOLD = 0;
 const AVERAGE_THRESHOLD = 0.05;
@@ -34,9 +35,10 @@ class FillerUsage extends Analyzer {
     for (const [eclipse, spell] of ECLIPSE_FILLER) {
       if (this.selectedCombatant.hasBuff(eclipse.id) && event.ability.guid !== spell.id) {
         this.badFillerCasts += 1;
-        event.meta = event.meta || {};
-        event.meta.isInefficientCast = true;
-        event.meta.inefficientCastReason = `Wrong usage of ${event.ability.name} during ${eclipse.name}. Use ${spell.name} instead`;
+        addInefficientCastReason(
+          event,
+          `Wrong usage of ${event.ability.name} during ${eclipse.name}. Use ${spell.name} instead`,
+        );
         return;
       }
     }
