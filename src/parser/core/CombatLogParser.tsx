@@ -78,6 +78,7 @@ import { EventListener } from './EventSubscriber';
 import Fight from './Fight';
 import { Info } from './metric';
 import Module, { Options } from './Module';
+import DebugAnnotations from './modules/DebugAnnotations';
 import Abilities from './modules/Abilities';
 import Auras from './modules/Auras';
 import EventEmitter from './modules/EventEmitter';
@@ -148,6 +149,7 @@ class CombatLogParser {
     spellInfo: SpellInfo,
     enemies: Enemies,
     friendlyCompat: FriendlyCompatNormalizer,
+    debugAnnotations: DebugAnnotations,
   };
   static defaultModules: DependenciesDefinition = {
     // Normalizers

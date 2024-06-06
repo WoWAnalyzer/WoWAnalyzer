@@ -8,6 +8,8 @@ import { Info, Metric } from './metric';
 import Module from './Module';
 import { When } from './ParseResults';
 import { MessageDescriptor } from '@lingui/core';
+import type { Annotation } from './modules/DebugAnnotations';
+import DebugAnnotations from './modules/DebugAnnotations';
 
 export const SELECTED_PLAYER = 1;
 export const SELECTED_PLAYER_PET = 2;
@@ -37,6 +39,12 @@ class Analyzer extends EventSubscriber {
     listener: EventListener<ET, E>,
   ) {
     super.addEventListener(eventFilter, listener);
+  }
+  /**
+   * Add an annotation which will be displayed on the /debug view.
+   */
+  addDebugAnnotation(event: AnyEvent, annotation: Annotation): void {
+    this.owner.getModule(DebugAnnotations)?.addAnnotation(this, event, annotation);
   }
 
   // Override these with functions that return info about their rendering in the specific slots

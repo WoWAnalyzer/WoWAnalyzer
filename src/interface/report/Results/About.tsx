@@ -30,9 +30,14 @@ const About = ({ config }: Props) => {
         </Trans>
       }
       actions={
-        <Link to="../events">
-          <Trans id="interface.report.results.about.viewEvents">View all events</Trans>
-        </Link>
+        <>
+          <Link to="../events">
+            <Trans id="interface.report.results.about.viewEvents">View all events</Trans>
+          </Link>
+          <Link to="../debug">
+            <Trans id="interface.report.results.about.viewDebug">View debug info</Trans>
+          </Link>
+        </>
       }
     >
       {description}

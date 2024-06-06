@@ -8,6 +8,7 @@ import Events, {
   EventType,
   FightEndEvent,
   FilterCooldownInfoEvent,
+  HasAbility,
   MaxChargesDecreasedEvent,
   MaxChargesIncreasedEvent,
   UpdateSpellUsableEvent,
@@ -16,8 +17,14 @@ import Events, {
 import Abilities from 'parser/core/modules/Abilities';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
+import { BadColor, GoodColor, OkColor } from 'interface/guide';
+import type { Annotation } from 'parser/core/modules/DebugAnnotations';
+import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
+import SPELLS from 'common/SPELLS';
 
 const DEBUG = false;
+
+const DEBUG_WHITELIST = [SPELLS.RUNE_1.id, SPELLS.RUNE_2.id, SPELLS.RUNE_3.id];
 
 /** Margin in milliseconds beyond which we log errors if numbers don't line up */
 const COOLDOWN_LAG_MARGIN = 150;
@@ -180,6 +187,7 @@ class SpellUsable extends Analyzer {
   ) {
     const cdSpellId = this._getCanonicalId(spellId);
     const cdInfo = this._currentCooldowns[cdSpellId];
+    this.recordCooldownDebugInfo(triggeringEvent, cdSpellId, cdInfo);
     if (!cdInfo) {
       // spell isn't currently on cooldown - start a new cooldown!
       const ability = this.abilities.getAbility(cdSpellId);
@@ -763,6 +771,36 @@ class SpellUsable extends Analyzer {
     }
 
     this.eventEmitter.fabricateEvent(event);
+  }
+
+  private recordCooldownDebugInfo(
+    event: AnyEvent,
+    spellId: number,
+    info: CooldownInfo | undefined,
+  ): void {
+    if (CASTS_THAT_ARENT_CASTS.includes(spellId) && !DEBUG_WHITELIST.includes(spellId)) {
+      return; // don't record any info for this
+    }
+    const ability = this.abilities.getAbility(spellId);
+    let annotation: Annotation;
+    if ((info?.expectedEnd ?? 0) - event.timestamp > COOLDOWN_LAG_MARGIN) {
+      annotation = {
+        color: BadColor,
+        summary: `${spellName(spellId)} (ID=${spellId}) was used while SpellUsable's tracker thought it had no available charges`,
+      };
+    } else if (!ability && HasAbility(event)) {
+      annotation = {
+        color: OkColor,
+        summary: `Ability ${event.ability.name} (ID: ${event.ability.guid}) was used but is not in spellbook or listed as a cast that isn't a cast`,
+      };
+    } else {
+      annotation = {
+        color: GoodColor,
+        summary: 'No cooldown issues found.',
+        priority: -Infinity,
+      };
+    }
+    this.addDebugAnnotation(event, annotation);
   }
 }
 
