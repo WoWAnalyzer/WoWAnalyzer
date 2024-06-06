@@ -10,6 +10,7 @@ import { ComponentType, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { isMessageDescriptor } from 'localization/isMessageDescriptor';
 import { i18n } from '@lingui/core';
+import { InsanityIcon } from 'interface/icons';
 
 interface Props {
   makeTabUrl: (url: string) => string;
@@ -66,6 +67,14 @@ const NavigationBar = ({ makeTabUrl, tabs, selectedTab }: Props) => {
       icon: EventsIcon,
       name: <Trans id="interface.report.results.navigationBar.events">Events</Trans>,
       url: 'events',
+    });
+  }
+
+  if (selectedTab === 'debug') {
+    pages.push({
+      icon: InsanityIcon,
+      name: <Trans id="interface.report.results.navigationBar.debug">Debug</Trans>,
+      url: 'debug',
     });
   }
 
