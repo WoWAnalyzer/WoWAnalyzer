@@ -35,8 +35,9 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
-  change(date(2022, 6, 5), 'Update Classic Food Buffs for Cataclysm', jazminite),
-  change(date(2022, 6, 3), 'Update Classic Flasks for Cataclysm', jazminite),
+  change(date(2024, 6, 6), 'Temporary workaround for talent breakage on the character parses page. Talents have been disabled for the moment.', emallson),
+  change(date(2024, 6, 5), 'Update Classic Food Buffs for Cataclysm', jazminite),
+  change(date(2024, 6, 3), 'Update Classic Flasks for Cataclysm', jazminite),
   change(date(2024, 6, 3), 'Update event meta usage.', ToppleTheNun),
   change(date(2024, 5, 31), 'Update Classic Enchants for Cataclysm', jazminite),
   change(date(2024, 5, 31), "Add Cataclysm patch 4.4.0.", Putro),

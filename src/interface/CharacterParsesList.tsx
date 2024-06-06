@@ -103,6 +103,7 @@ class CharacterParsesList extends PureComponent<CharacterParsesListProps> {
       detailIcons = (elem: Parse) => (
         <div className="col-md-4 flex wrapable">
           {elem.advanced &&
+            Array.isArray(elem.talents) &&
             elem.talents.slice(0, 8).map((talent) => (
               <div key={talent.id} className="flex-sub">
                 <SpellIcon spell={talent} style={styles.icon} />
