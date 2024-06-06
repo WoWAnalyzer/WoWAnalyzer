@@ -40,8 +40,13 @@ class Analyzer extends EventSubscriber {
   ) {
     super.addEventListener(eventFilter, listener);
   }
+
   /**
-   * Add an annotation which will be displayed on the /debug view.
+   * Add an annotation which will be displayed on the /debug view. Multiple annotations
+   * can be added to the same event.
+   *
+   * Annotations are automatically broken down by analyzer. You don't need to split them
+   * up yourself.
    */
   addDebugAnnotation(event: AnyEvent, annotation: Annotation): void {
     this.owner.getModule(DebugAnnotations)?.addAnnotation(this, event, annotation);

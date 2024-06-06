@@ -41,22 +41,42 @@ function ModuleDebugAnnotations({ module, annotations }: ModuleAnnotations) {
         {intoRows(annotations, parser.fight.start_time).map((row, index) => (
           <Row key={index}>
             {row.map((props, index) => (
-              <AnnotationDot {...props} key={index} onClick={() => setSelected(props)} />
+              <AnnotationDot
+                {...props}
+                key={index}
+                onClick={() => setSelected((current) => (current === props ? null : props))}
+                selected={selected === props}
+              />
             ))}
           </Row>
         ))}
       </DotContainer>
-      {selected && <EventDetails {...selected} />}
+      {selected && <EventDetails {...selected} clearSelection={() => setSelected(null)} />}
     </div>
   );
 }
 
-function EventDetails({ event, annotations }: AnnotatedEvent) {
+function EventDetails({
+  event,
+  annotations,
+  clearSelection,
+}: AnnotatedEvent & { clearSelection: () => void }) {
   const { combatLogParser } = useCombatLogParser();
   return (
     <div>
       <hr />
-      <h4>Event Details</h4>
+      <div>
+        <h4>
+          Event Details
+          <button
+            className="btn btn-link"
+            style={{ display: 'inline-block' }}
+            onClick={clearSelection}
+          >
+            <small>(Clear Selection)</small>
+          </button>
+        </h4>{' '}
+      </div>
       <EventDetailsColumns>
         <div>
           <dl>
@@ -135,7 +155,8 @@ const AnnotationDot = ({
   event,
   annotations,
   onClick,
-}: AnnotatedEvent & { onClick: () => void }) => {
+  selected,
+}: AnnotatedEvent & { onClick: () => void; selected?: boolean }) => {
   const annotation = useMemo(() => {
     let result = annotations[0];
     for (const annotation of annotations.slice(1)) {
@@ -152,17 +173,21 @@ const AnnotationDot = ({
     <Tooltip
       content={`${formatDuration(event.timestamp - combatLogParser.fight.start_time)} - ${annotation.summary}`}
     >
-      <Dot color={annotation.color} onClick={onClick} />
+      <Dot color={annotation.color} onClick={onClick} selected={selected} />
     </Tooltip>
   );
 };
 
-const Dot = styled('div')<{ color: string }>`
+const Dot = styled('div')<{ color: string; selected?: boolean }>`
   background-color: ${(props) => props.color};
   height: 1em;
   width: 1em;
   border-radius: 50%;
   cursor: pointer;
+  box-sizing: border-box;
+  border-width: 2px;
+  border-style: solid;
+  border-color: ${(props) => (props.selected ? 'white' : props.color)};
 `;
 
 const DotContainer = styled.div`

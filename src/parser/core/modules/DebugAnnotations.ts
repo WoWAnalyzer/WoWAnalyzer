@@ -4,13 +4,28 @@ import Module from '../Module';
 type AnnotationSet = Map<AnyEvent, Annotation[]>;
 
 export interface Annotation {
+  /**
+   * CSS Color string. This is the color of the dot shown in the UI.
+   */
   color: string;
+  /**
+   * A brief text-only description of the annotation. This is shown in the tooltip.
+   */
   summary: string;
+  /**
+   * (Optional) added details about the event. This can use JSX, but it does NOT
+   * (currently) render inside the guide context (so `useInfo` won't work, but
+   * `useAnalyzer` might).
+   */
   details?: JSX.Element | string;
   /**
-   * Used to determine which color and summary to display for an event when multiple annotations are present in the same module.
+   * Used to determine which color and summary to display for an event when multiple
+   * annotations are present in the same module.
    *
    * Higher number = higher priority.
+   *
+   * If you want an easy way to make a "default" annotation get overridden by any
+   * other annotation, use `priority: -Infinity`.
    */
   priority?: number;
 }
