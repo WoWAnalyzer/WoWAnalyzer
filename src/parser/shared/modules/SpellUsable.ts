@@ -226,34 +226,6 @@ class SpellUsable extends Analyzer {
         cdInfo,
       );
     } else {
-      // Spell shouldn't be available right now... if outside the lag margin, log an error.
-      // In any event, the spell clearly *is* available, so we'll create a simultaneous
-      // end cooldown and begin cooldown to represent what happened
-      const remainingCooldown = cdInfo.expectedEnd - triggeringEvent.timestamp;
-      if (remainingCooldown > COOLDOWN_LAG_MARGIN) {
-        console.error(
-          'Cooldown error - ' +
-            spellName(cdSpellId) +
-            ' ID=' +
-            cdSpellId +
-            " was used while SpellUsable's tracker thought it had no available charges. " +
-            'This could happen due to missing haste buffs, missing CDR, missing reductions/resets, ' +
-            'or incorrect ability config.\n' +
-            'Expected time left on CD: ' +
-            remainingCooldown +
-            '\n' +
-            'Current Time: ' +
-            triggeringEvent.timestamp +
-            ' (' +
-            this.owner.formatTimestamp(triggeringEvent.timestamp, 3) +
-            ')' +
-            '\n' +
-            'CooldownInfo object before update: ' +
-            JSON.stringify(cdInfo) +
-            '\n',
-        );
-      }
-
       // trigger an end cooldown and then immediately a begin cooldown
       // we're treating this as a missed natural CD expiration, so pass true to 'reset cooldown'
       this.endCooldown(cdSpellId, triggeringEvent.timestamp, true);
