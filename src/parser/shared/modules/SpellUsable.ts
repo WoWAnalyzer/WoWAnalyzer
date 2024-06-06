@@ -21,6 +21,7 @@ import { BadColor, GoodColor, OkColor } from 'interface/guide';
 import type { Annotation } from 'parser/core/modules/DebugAnnotations';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import SPELLS from 'common/SPELLS';
+import SpellUsableDebugDescription from './SpellUsable/SpellUsableDebugDescription';
 
 const DEBUG = false;
 
@@ -38,7 +39,7 @@ function spellName(spellId: number) {
  * When a spell finishes coolding down, the CooldownInfo about it is deleted.
  * Spells without charges are considered to effectively have one charge.
  */
-type CooldownInfo = {
+export interface CooldownInfo {
   /** Timestamp this cooldown started overall (not the most recent charge) */
   overallStart: number;
   /** Timestamp the most recent charge started cooling down */
@@ -53,7 +54,7 @@ type CooldownInfo = {
   /** The maximum number of charges this spell can have.
    * (for spells without charges this will always be one) */
   maxCharges: number;
-};
+}
 
 /**
  * Comprehensive tracker for spell cooldown status
@@ -755,10 +756,16 @@ class SpellUsable extends Analyzer {
     }
     const ability = this.abilities.getAbility(spellId);
     let annotation: Annotation;
-    if ((info?.expectedEnd ?? 0) - event.timestamp > COOLDOWN_LAG_MARGIN) {
+    if (
+      info &&
+      info.chargesAvailable === 0 &&
+      info.expectedEnd - event.timestamp > COOLDOWN_LAG_MARGIN
+    ) {
       annotation = {
         color: BadColor,
         summary: `${spellName(spellId)} (ID=${spellId}) was used while SpellUsable's tracker thought it had no available charges`,
+        // note: we are making a copy of `info` so that later display is not muddled by mutation
+        details: SpellUsableDebugDescription({ cdInfo: { ...info }, event, parser: this.owner }),
       };
     } else if (!ability && HasAbility(event)) {
       annotation = {

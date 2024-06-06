@@ -18,7 +18,10 @@ export default function DebugAnnotationsTab({ parser }: { parser: CombatLogParse
       <div className="panel-heading">
         <h1>Debug Annotations</h1>
       </div>
-      <div className="panel-body flex" style={{ padding: '1em 2em' }}>
+      <div
+        className="panel-body flex"
+        style={{ padding: '1em 2em', flexDirection: 'column', gap: '1em' }}
+      >
         {annotations.getAll().map((props) => (
           <ModuleDebugAnnotations {...props} key={props.module.constructor.name} />
         ))}
