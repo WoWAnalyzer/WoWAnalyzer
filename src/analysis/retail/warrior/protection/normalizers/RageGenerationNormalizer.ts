@@ -303,7 +303,7 @@ class RageGenerationNormalizer extends EventsNormalizer {
     this.hasDevestator = this.selectedCombatant.hasTalent(TALENTS.DEVASTATOR_TALENT);
     this.hasInstigate = this.selectedCombatant.hasTalent(TALENTS.INSTIGATE_TALENT);
 
-    // spear of bastion
+    // Champion's Spear
     this.hasPV = this.selectedCombatant.hasTalent(TALENTS.PIERCING_CHALLENGE_TALENT);
 
     // ravager

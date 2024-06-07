@@ -48,10 +48,10 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.ELYSIAN_MIGHT_BUFF.id,
-        enabled: hasTalent(TALENTS.ELYSIAN_MIGHT_TALENT),
+        spellId: SPELLS.CHAMPIONS_MIGHT.id,
+        enabled: hasTalent(TALENTS.CHAMPIONS_MIGHT_TALENT),
         timelineHighlight: true,
-        triggeredBySpellId: SPELLS.SPEAR_OF_BASTION.id,
+        triggeredBySpellId: SPELLS.CHAMPIONS_SPEAR.id,
       },
     ] satisfies SpellbookAura[];
   }

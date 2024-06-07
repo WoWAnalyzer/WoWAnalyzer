@@ -95,13 +95,13 @@ class ChampionsMight extends Analyzer {
     when(this.uptimeSuggestionThreshold()).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          To gain the full benefit of <SpellLink spell={SPELLS.SPEAR_OF_BASTION} /> and{' '}
-          <SpellLink spell={TALENTS.ELYSIAN_MIGHT_TALENT} />, you must stand at the spear for the
+          To gain the full benefit of <SpellLink spell={SPELLS.CHAMPIONS_SPEAR} /> and{' '}
+          <SpellLink spell={TALENTS.CHAMPIONS_MIGHT_TALENT} />, you must stand at the spear for the
           duration. If you cannot stand in the Spear for most of the duration, you might be better
           of with another talent, such as <SpellLink spell={TALENTS.THUNDEROUS_ROAR_TALENT} />.
         </>,
       )
-        .icon(TALENTS.ELYSIAN_MIGHT_TALENT.icon)
+        .icon(TALENTS.CHAMPIONS_MIGHT_TALENT.icon)
         .actual(
           `You stood in the spear for a total of ${formatDurationMillisMinSec(
             this._actualBuffUptime,

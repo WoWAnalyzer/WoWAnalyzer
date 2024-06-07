@@ -20,8 +20,8 @@ export default function attributeRageBonuses(this: RageNormalizer, events: AnyEv
   // auto attacks
   const hasWM = this.selectedCombatant.hasTalent(TALENTS.WAR_MACHINE_FURY_TALENT);
 
-  // spear of bastion
-  const hasPV = this.selectedCombatant.hasTalent(TALENTS.PIERCING_VERDICT_TALENT);
+  // Champion's Spear
+  const hasPC = this.selectedCombatant.hasTalent(TALENTS.PIERCING_CHALLENGE_TALENT);
 
   // ravager
   const hasSoS = this.selectedCombatant.hasTalent(TALENTS.STORM_OF_STEEL_TALENT);
@@ -49,13 +49,13 @@ export default function attributeRageBonuses(this: RageNormalizer, events: AnyEv
       }
     }
 
-    if (hasPV) {
-      // Spear of Bastion Area
-      if (event.ability.guid === SPELLS.SPEAR_OF_BASTION.id) {
+    if (hasPC) {
+      // Champion's Spear Area
+      if (event.ability.guid === SPELLS.CHAMPIONS_SPEAR.id) {
         const newEvent = removeMultiplicitiveIncrease(
           event,
           PIERCING_VERDICT_INCREASE,
-          TALENTS.PIERCING_VERDICT_TALENT,
+          TALENTS.PIERCING_CHALLENGE_TALENT,
         );
         updatedEvents.push(newEvent);
       }
