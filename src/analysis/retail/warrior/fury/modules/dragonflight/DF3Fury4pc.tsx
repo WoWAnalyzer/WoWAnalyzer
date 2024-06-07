@@ -24,7 +24,7 @@ export default class T31Fury4Pc extends Analyzer.withDependencies({
     super(options);
 
     this.active =
-      this.selectedCombatant.has2PieceByTier(TIERS.T31) &&
+      this.selectedCombatant.has2PieceByTier(TIERS.DF3) &&
       this.selectedCombatant.hasTalent(TALENTS.BLOODTHIRST_TALENT) &&
       this.selectedCombatant.hasTalent(TALENTS.ODYNS_FURY_TALENT);
     if (!this.active) {
@@ -103,7 +103,7 @@ export default class T31Fury4Pc extends Analyzer.withDependencies({
         category={STATISTIC_CATEGORY.ITEMS}
         position={STATISTIC_ORDER.CORE(2)}
       >
-        <BoringSpellValueText spell={SPELLS.T31_FURY_4P_BONUS}>
+        <BoringSpellValueText spell={SPELLS.DF3_FURY_4P_BONUS}>
           <div>
             <SpellIcon spell={SPELLS.ODYNS_FURY.id} />{' '}
             <TooltipElement

@@ -645,7 +645,7 @@ const spells = {
     icon: 'ability_warrior_shieldguard',
   },
 
-  T31_FURY_2P_BONUS: {
+  DF3_FURY_2P_BONUS: {
     id: 422925,
     name: 'Warrior Fury 10.2 Class Set 2pc',
     icon: 'trade_engineering',
@@ -655,7 +655,7 @@ const spells = {
     name: 'Furious Bloodthirst',
     icon: 'spell_nature_bloodlust',
   },
-  T31_FURY_4P_BONUS: {
+  DF3_FURY_4P_BONUS: {
     id: 422926,
     name: 'Warrior Fury 10.2 Class Set 4pc',
     icon: 'trade_engineering',

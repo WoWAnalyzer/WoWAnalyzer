@@ -21,7 +21,7 @@ export default class T31Fury2pc extends Analyzer {
     super(options);
 
     this.active =
-      this.selectedCombatant.has2PieceByTier(TIERS.T31) &&
+      this.selectedCombatant.has2PieceByTier(TIERS.DF3) &&
       (this.selectedCombatant.hasTalent(TALENTS.ODYNS_FURY_TALENT) ||
         this.selectedCombatant.hasTalent(TALENTS.TITANS_TORMENT_TALENT));
 
@@ -216,7 +216,7 @@ export default class T31Fury2pc extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.T31_FURY_2P_BONUS}>
+        <BoringSpellValueText spell={SPELLS.DF3_FURY_2P_BONUS}>
           <ItemDamageDone amount={totalDamage} />
           {this.boostedBloodthirstCount > 0 &&
           this.selectedCombatant.hasTalent(TALENTS.RECKLESS_ABANDON_TALENT) ? (
