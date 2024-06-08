@@ -42,6 +42,11 @@ const others = {
     name: "Rage of Fyr'alath",
     icon: 'inv_axe_2h_fyrakk_d_01_shadowflame',
   },
+  RAGE_OF_FYRALATH_BUFF: {
+    id: 417138,
+    name: "Rage of Fyr'alath",
+    icon: 'inv_axe_2h_fyrakk_d_01_shadowflame',
+  },
   IRIDAL_EXTINCTION_BLAST_DAMAGE: {
     id: 419278,
     name: 'Extinction Blast',

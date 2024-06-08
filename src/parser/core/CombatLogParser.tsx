@@ -114,6 +114,7 @@ import NymuesUnravelingSpindle from 'parser/retail/modules/items/dragonflight/Ny
 import EnduringDreadplate, {
   EnduringDreadplateEventLinkNormalizer,
 } from 'parser/retail/modules/items/dragonflight/EnduringDreadplate';
+import { FyralathNormalizer } from 'parser/shared/normalizers/FyralathNormalizer';
 import FriendlyCompatNormalizer from './FriendlyCompatNormalizer';
 
 // This prints to console anything that the DI has to do
@@ -230,6 +231,7 @@ class CombatLogParser {
     nymuesUnravelingSpindle: NymuesUnravelingSpindle,
     enduringDreadplateNormalizer: EnduringDreadplateEventLinkNormalizer,
     enduringDreadplate: EnduringDreadplate,
+    fyralathNormalizer: FyralathNormalizer,
 
     // Enchants
     burningDevotion: BurningDevotion,
