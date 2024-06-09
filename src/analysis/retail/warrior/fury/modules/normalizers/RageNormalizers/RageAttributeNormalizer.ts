@@ -18,13 +18,8 @@ const STORM_OF_STEEL_INCREASE = 10;
  */
 export default class RageAttributeNormalizer extends EventsNormalizer {
   normalize(events: AnyEvent[]): AnyEvent[] {
-    // auto attacks
     const hasWM = this.selectedCombatant.hasTalent(TALENTS.WAR_MACHINE_FURY_TALENT);
-
-    // Champion's Spear
     const hasPC = this.selectedCombatant.hasTalent(TALENTS.PIERCING_CHALLENGE_TALENT);
-
-    // ravager
     const hasSoS = this.selectedCombatant.hasTalent(TALENTS.STORM_OF_STEEL_TALENT);
 
     const updatedEvents: AnyEvent[] = [];
@@ -36,9 +31,7 @@ export default class RageAttributeNormalizer extends EventsNormalizer {
         return;
       }
 
-      // This is the auto attack area
       if (event.ability.guid === SPELLS.MELEE.id) {
-        // lets move onto War Machine
         if (hasWM) {
           const newEvent = removeMultiplicitiveIncrease(
             event,
@@ -51,7 +44,6 @@ export default class RageAttributeNormalizer extends EventsNormalizer {
       }
 
       if (hasPC) {
-        // Champion's Spear Area
         if (event.ability.guid === SPELLS.CHAMPIONS_SPEAR.id) {
           const newEvent = removeMultiplicitiveIncrease(
             event,
