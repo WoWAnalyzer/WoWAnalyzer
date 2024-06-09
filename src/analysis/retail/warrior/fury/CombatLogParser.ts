@@ -18,6 +18,9 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import SpellUsable from './modules/features/SpellUsable';
 import EnrageBeforeBloodthirst from './modules/normalizers/EnrageBeforeBloodthirst';
 import EnrageRefreshNormalizer from './modules/normalizers/EnrageRefresh';
+import GenerateRageEventsNormalizer from './modules/normalizers/RageNormalizers/GenerateRageEventsNormalizer';
+import RageAttributeNormalizer from './modules/normalizers/RageNormalizers/RageAttributeNormalizer';
+import RageGainNormalizer from './modules/normalizers/RageNormalizers/RageGainNormalizer';
 import MissedRampage from './modules/spells/MissedRampage';
 import Recklessness from './modules/spells/Recklessness';
 import WhirlWind from './modules/spells/Whirlwind';
@@ -27,13 +30,16 @@ import Warpaint from './modules/talents/Warpaint';
 import SpellReflection from '../shared/modules/talents/SpellReflection';
 import ImpendingVictory from '../shared/modules/talents/ImpendingVictory';
 import HackAndSlash from './modules/talents/HackAndSlash';
-import RageNormalizer from './modules/normalizers/RageNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Normalizer
     windfuryNormalizer: WindfuryLinkNormalizer,
-    rageNormalizer: RageNormalizer,
+
+    rageGainNormalizer: RageGainNormalizer,
+    generateRageEventsNormalizer: GenerateRageEventsNormalizer,
+    rageAttributeNormalizer: RageAttributeNormalizer,
+
     enrageRefreshNormalizer: EnrageRefreshNormalizer,
     enrageBeforeBloodthirst: EnrageBeforeBloodthirst,
 
