@@ -114,7 +114,7 @@ interface Config {
   /**
    * The contents of your changelog.
    */
-  changelog: ChangelogEntry[];
+  changelog?: ChangelogEntry[];
   /**
    * The CombatLogParser class for your spec.
    */

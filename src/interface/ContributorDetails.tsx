@@ -230,7 +230,7 @@ class ContributorDetails extends React.PureComponent<ContributorProps> {
 
     const initial: { [id: number]: ChangelogEntry[] } = { 0: CoreChangelog };
     const contributions = AVAILABLE_CONFIGS.reduce((obj, elem) => {
-      obj[elem.spec.id] = elem.changelog;
+      obj[elem.spec.id] = elem.changelog ?? [];
       return obj;
     }, initial);
 

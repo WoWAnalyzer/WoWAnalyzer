@@ -90,7 +90,6 @@ class Channeling extends EventsNormalizer {
     buffChannelSpec(SPELLS.CONVOKE_SPIRITS.id),
     // Monk
     buffChannelSpec(TALENTS_MONK.ZEN_MEDITATION_TALENT.id),
-    buffChannelSpec(TALENTS_MONK.ESSENCE_FONT_TALENT.id),
     buffChannelSpec(TALENTS_MONK.SOOTHING_MIST_TALENT.id),
     buffChannelSpec(SPELLS.CRACKLING_JADE_LIGHTNING.id),
     buffChannelSpec(SPELLS.FISTS_OF_FURY_CAST.id),
