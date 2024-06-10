@@ -285,19 +285,7 @@ class ManaTea extends Analyzer {
         <strong>
           <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} />
         </strong>{' '}
-        is a powerful buff that can save a large amount of mana and doubles as a throughput cooldown
-        once you obtain your 4 piece tier set bonus. Aim to maximize effectiveness of{' '}
-        <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} /> by spamming{' '}
-        <SpellLink spell={SPELLS.VIVIFY} /> during damage moments when you have at least 8{' '}
-        <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> HoTs out on the raid.
-        <br />
-        Alternatively, If talented into{' '}
-        <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} /> and{' '}
-        <SpellLink spell={TALENTS_MONK.CLOUDED_FOCUS_TALENT} />, use{' '}
-        <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} /> toward the end of your celestial for a
-        guaranteed proc of <SpellLink spell={SPELLS.SOULFANG_VITALITY} /> and spam
-        <SpellLink spell={SPELLS.VIVIFY} /> while channeling{' '}
-        <SpellLink spell={TALENTS_MONK.SOOTHING_MIST_TALENT} />.
+        Need to update me!
       </p>
     );
 

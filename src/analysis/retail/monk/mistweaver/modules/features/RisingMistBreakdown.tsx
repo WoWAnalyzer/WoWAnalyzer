@@ -62,22 +62,6 @@ class RisingMistBreakdown extends Analyzer {
         color: SPELL_COLORS.VIVIFY,
         tooltip: this.vivifyTooltip(),
       },
-      {
-        //essence font extension healing
-        spell: talents.ESSENCE_FONT_TALENT,
-        amount: this.risingMist.essenceFontExtensionHealing,
-        color: SPELL_COLORS.ESSENCE_FONT,
-        tooltip: this.essenceFontTooltip(),
-        subSpecs: [
-          {
-            //additional mastery hits from extended EF hots
-            spell: SPELLS.GUSTS_OF_MISTS,
-            amount: this.risingMist.extraMasteryhealing,
-            color: SPELL_COLORS.GUSTS_OF_MISTS,
-            tooltip: this.gustsOfMistsTooltip(),
-          },
-        ],
-      },
     ];
     return this.risingMistItems;
   }
@@ -223,36 +207,6 @@ class RisingMistBreakdown extends Analyzer {
         by source:
         <hr />
         <DonutChart items={items} />
-      </>
-    );
-  }
-
-  essenceFontTooltip() {
-    return (
-      <>
-        {formatNumber(this.risingMist.essenceFontExtensionHealing)}{' '}
-        <SpellLink spell={SPELLS.ESSENCE_FONT_BUFF} /> extension healing
-      </>
-    );
-  }
-
-  gustsOfMistsTooltip() {
-    return (
-      <>
-        Additional <SpellLink spell={SPELLS.GUSTS_OF_MISTS} /> healing from extended{' '}
-        <SpellLink spell={talents.ESSENCE_FONT_TALENT} />
-        <ul>
-          {this.selectedCombatant.hasTalent(talents.INVOKE_CHI_JI_THE_RED_CRANE_TALENT) && (
-            <li>
-              {formatNumber(this.risingMist.extraChijiGomHealing)}{' '}
-              <SpellLink spell={SPELLS.GUST_OF_MISTS_CHIJI} /> healing
-            </li>
-          )}
-          <li>
-            {formatNumber(this.risingMist.extraGomHealing)}{' '}
-            <SpellLink spell={SPELLS.GUSTS_OF_MISTS} /> healing
-          </li>
-        </ul>
       </>
     );
   }

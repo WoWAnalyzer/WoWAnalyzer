@@ -9,10 +9,8 @@ const RAPID_DIFFUSION = 3000;
 const MISTY_PEAKS_DURATION = 2000;
 const REM_BASE_DURATION = 20000;
 const ENV_BASE_DURATION = 6000;
-const EF_BASE_DURATION = 8000;
 const RISING_MIST = 2;
 
-const UPWELLING = 4000;
 const MISTWRAP = 1000;
 const TFT_REM_EXTRA_DURATION = 10000;
 
@@ -20,7 +18,6 @@ const HARDCAST = 'Hardcast';
 
 class HotTrackerMW extends HotTracker {
   mistwrapActive: boolean;
-  upwellingActive: boolean;
   rapidDiffusionActive: boolean;
   risingMistActive: boolean;
   rapidDiffusionRank: number;
@@ -28,7 +25,6 @@ class HotTrackerMW extends HotTracker {
   constructor(options: Options) {
     super(options);
     this.mistwrapActive = this.owner.selectedCombatant.hasTalent(TALENTS_MONK.MIST_WRAP_TALENT);
-    this.upwellingActive = this.owner.selectedCombatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT);
     this.rapidDiffusionActive = this.owner.selectedCombatant.hasTalent(
       TALENTS_MONK.RAPID_DIFFUSION_TALENT,
     );
@@ -156,22 +152,6 @@ class HotTrackerMW extends HotTracker {
     );
   }
 
-  _calculateEssenceFontDuration(combatant: Combatant): number {
-    return combatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT)
-      ? EF_BASE_DURATION + UPWELLING
-      : EF_BASE_DURATION;
-  }
-
-  _calculateMaxEssenceFontDuration(combatant: Combatant): number {
-    return (
-      (combatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT)
-        ? EF_BASE_DURATION + UPWELLING
-        : EF_BASE_DURATION) *
-      combatant.getTalentRank(TALENTS_MONK.RISING_MIST_TALENT) *
-      RISING_MIST
-    );
-  }
-
   _getRapidDiffusionMaxDuration(combatant: Combatant): number {
     return (
       (combatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)
@@ -218,18 +198,6 @@ class HotTrackerMW extends HotTracker {
         duration: this._calculateEnvDuration,
         tickPeriod: 1000,
         maxDuration: this._calculateEnvDuration,
-      },
-      {
-        spell: SPELLS.ESSENCE_FONT_BUFF,
-        duration: this._calculateEssenceFontDuration,
-        tickPeriod: 2000,
-        maxDuration: this._calculateMaxEssenceFontDuration,
-      },
-      {
-        spell: SPELLS.FAELINE_STOMP_ESSENCE_FONT,
-        duration: this._calculateEssenceFontDuration,
-        tickPeriod: 2000,
-        maxDuration: this._calculateMaxEssenceFontDuration,
       },
     ];
   }

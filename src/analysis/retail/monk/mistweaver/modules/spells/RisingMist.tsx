@@ -13,7 +13,6 @@ import { ATTRIBUTION_STRINGS, RISING_MIST_EXTENSION, SPELL_COLORS } from '../../
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import HotTrackerMW from '../core/HotTrackerMW';
 import Vivify from './Vivify';
-import T29TierSet from '../dragonflight/tier/T29MWTier';
 import { Section, SubSection } from 'interface/guide';
 import { CSSProperties } from 'react';
 import '../../ui/RisingMist.scss';
@@ -28,14 +27,12 @@ class RisingMist extends Analyzer {
     abilityTracker: AbilityTracker,
     spellUsable: SpellUsable,
     vivify: Vivify,
-    t29TierSet: T29TierSet,
   };
 
   hotTracker!: HotTrackerMW;
   abilityTracker!: AbilityTracker;
   spellUsable!: SpellUsable;
   vivify!: Vivify;
-  t29TierSet!: T29TierSet;
 
   get averageExtension() {
     return this.risingMistCount === 0
@@ -51,17 +48,14 @@ class RisingMist extends Analyzer {
   get hotHealing() {
     return (
       this.renewingMistExtensionHealing +
-      this.essenceFontExtensionHealing +
       this.envHardcastExtensionHealing +
       this.envMistyPeaksExtensionHealing
     );
   }
 
   get renewingMistExtensionHealing() {
-    return (
-      this.getExtensionHealingBySpell(SPELLS.RENEWING_MIST_HEAL.id) -
-      this.t29TierSet.extraRemHealing
-    ); // don't want rem healing from tier set ticks;
+    return this.getExtensionHealingBySpell(SPELLS.RENEWING_MIST_HEAL.id);
+    //- this.t29TierSet.extraRemHealing // don't want rem healing from tier set ticks;
   }
 
   get renewingMistHardcastExtensionHealing() {
@@ -85,13 +79,6 @@ class RisingMist extends Analyzer {
     );
   }
 
-  get essenceFontExtensionHealing() {
-    return (
-      this.getExtensionHealingBySpell(SPELLS.ESSENCE_FONT_BUFF.id) +
-      this.getExtensionHealingBySpell(SPELLS.FAELINE_STOMP_ESSENCE_FONT.id)
-    );
-  }
-
   get envHardcastExtensionHealing() {
     return this.getExtensionHealingBySpell(
       TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
@@ -111,13 +98,7 @@ class RisingMist extends Analyzer {
   }
 
   get totalHealing() {
-    return (
-      this.hotHealing +
-      this.directHealing +
-      this.extraMasteryhealing +
-      this.extraVivHealing +
-      this.extraEnvBonusHealing
-    );
+    return this.hotHealing + this.directHealing + this.extraVivHealing + this.extraEnvBonusHealing;
   }
 
   get averageHealing() {
@@ -134,23 +115,10 @@ class RisingMist extends Analyzer {
     );
   }
 
-  get calculateMasteryOverHealing() {
-    return formatPercentage(
-      this.extraMasteryOverhealing / (this.extraMasteryhealing + this.extraMasteryOverhealing),
-    );
-  }
-
-  get calculateEFOverHealing() {
-    return formatPercentage(
-      this.extraEFOverhealing / (this.extraEFhealing + this.extraEFOverhealing),
-    );
-  }
   hotsBySpell = new Map<number, Tracker[]>();
   risingMistCount: number = 0;
   risingMists: Attribution[] = [];
   remCount: number = 0;
-  efCount: number = 0;
-  flsEfCount: number = 0;
   evmCount: number = 0;
   targetCount: number = 0;
   trackUplift = false;
@@ -165,17 +133,6 @@ class RisingMist extends Analyzer {
   extraEnvBonusHealing: number = 0;
   extraEnvBonusMistyPeaks: number = 0;
   extraEnvBonusHardcast: number = 0;
-  extraMasteryHits: number = 0;
-  extraChijiGomHealing: number = 0;
-  extraGomHealing: number = 0;
-  extraMasteryhealing: number = 0;
-  extraMasteryOverhealing: number = 0;
-  extraMasteryAbsorbed: number = 0;
-  masteryTickTock = false;
-  extraEFhealing: number = 0;
-  extraEFOverhealing: number = 0;
-  extraEFAbsorbed: number = 0;
-  upwellingOffset: number = 0;
   envmHealingIncrease: number = 0;
 
   constructor(options: Options) {
@@ -200,49 +157,10 @@ class RisingMist extends Analyzer {
       this.handleVivify,
     );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.calculateEnv); //gotta just look at all heals tbh
-    this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell([SPELLS.GUST_OF_MISTS_CHIJI, SPELLS.GUSTS_OF_MISTS]),
-      this.handleMastery,
-    );
   }
 
   countRisingMistHits(event: HealEvent) {
     this.targetCount += 1;
-  }
-
-  handleMastery(event: HealEvent) {
-    const targetId = event.targetID;
-    const spellId = event.ability.guid;
-    if (
-      !this.hotTracker.hots[targetId] ||
-      (!this.hotTracker.hots[targetId][SPELLS.ESSENCE_FONT_BUFF.id] &&
-        !this.hotTracker.hots[targetId][SPELLS.FAELINE_STOMP_ESSENCE_FONT.id])
-    ) {
-      return;
-    }
-
-    const efHot = this.hotTracker.hots[targetId][SPELLS.ESSENCE_FONT_BUFF.id];
-    const flsHot = this.hotTracker.hots[targetId][SPELLS.FAELINE_STOMP_ESSENCE_FONT.id];
-
-    if (
-      (efHot && efHot.originalEnd < event.timestamp) ||
-      (flsHot && flsHot.originalEnd < event.timestamp)
-    ) {
-      if (!this.masteryTickTock) {
-        if (spellId === SPELLS.GUST_OF_MISTS_CHIJI.id) {
-          this.extraChijiGomHealing += event.amount + (event.absorbed || 0);
-        }
-        if (spellId === SPELLS.GUSTS_OF_MISTS.id) {
-          this.extraGomHealing += event.amount + (event.absorbed || 0);
-        }
-
-        this.extraMasteryHits += 1;
-        this.extraMasteryhealing += event.amount || 0;
-        this.extraMasteryOverhealing += event.overheal || 0;
-        this.extraMasteryAbsorbed += event.absorbed || 0;
-      }
-      this.masteryTickTock = !this.masteryTickTock;
-    }
   }
 
   calculateEnv(event: HealEvent) {
@@ -328,11 +246,7 @@ class RisingMist extends Analyzer {
           spellId,
           event.timestamp,
         );
-        if (spellId === SPELLS.ESSENCE_FONT_BUFF.id) {
-          this.efCount += 1;
-        } else if (spellId === SPELLS.FAELINE_STOMP_ESSENCE_FONT.id) {
-          this.flsEfCount += 1;
-        } else if (spellId === SPELLS.RENEWING_MIST_HEAL.id) {
+        if (spellId === SPELLS.RENEWING_MIST_HEAL.id) {
           this.remCount += 1;
         } else if (
           spellId === TALENTS_MONK.ENVELOPING_MIST_TALENT.id ||
@@ -386,10 +300,6 @@ class RisingMist extends Analyzer {
         <ul>
           <li>HoT Extension Healing: {formatNumber(this.hotHealing)}</li>
           <li>Average HoT Extension Seconds per cast: {this.averageExtension.toFixed(2)}</li>
-          <li>Essence Font HoTs Extended: {this.efCount}</li>
-          {this.selectedCombatant.hasTalent(TALENTS_MONK.JADEFIRE_STOMP_TALENT) && (
-            <li>FLS Essence Font HoTs extended: {this.flsEfCount}</li>
-          )}
           <li>Renewing Mist HoTs Extended: {this.remCount}</li>
           <li>Enveloping Mist HoTs Extended: {this.evmCount}</li>
         </ul>
@@ -451,9 +361,6 @@ class RisingMist extends Analyzer {
   getSpellColor(hot: Tracker) {
     if (hot.spellId === SPELLS.RENEWING_MIST_HEAL.id) {
       return SPELL_COLORS.RENEWING_MIST;
-    }
-    if (hot.spellId === SPELLS.ESSENCE_FONT_BUFF.id) {
-      return SPELL_COLORS.ESSENCE_FONT;
     }
     if (hot.spellId === TALENTS_MONK.ENVELOPING_MIST_TALENT.id) {
       return SPELL_COLORS.ENVELOPING_MIST;
@@ -585,13 +492,6 @@ class RisingMist extends Analyzer {
       ),
       'Dancing Mist',
     );
-    const efentries = this.hotTable(
-      SPELLS.ESSENCE_FONT_BUFF.id,
-      this.hotTracker.hotHistory.filter(
-        (tracker) => tracker.spellId === SPELLS.ESSENCE_FONT_BUFF.id,
-      ),
-      '',
-    );
     const mistyPeaksentries = this.hotTable(
       TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
       this.hotTracker.hotHistory.filter(
@@ -611,7 +511,7 @@ class RisingMist extends Analyzer {
       'Hardcast',
     );
 
-    return [rementries, rdRemEntries, dmRemEntries, envEntries, mistyPeaksentries, efentries];
+    return [rementries, rdRemEntries, dmRemEntries, envEntries, mistyPeaksentries];
   }
 
   tab() {

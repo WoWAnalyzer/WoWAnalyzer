@@ -63,7 +63,6 @@ class HotAttributor extends Analyzer {
   rdSourceENVAttrib = HotTracker.getNewAttribution(
     ATTRIBUTION_STRINGS.RAPID_DIFFUSION_SOURCES.RD_SOURCE_ENV,
   );
-  EFAttrib = HotTracker.getNewAttribution(ATTRIBUTION_STRINGS.HARDCAST_ESSENCE_FONT);
   YulonAttrib = HotTracker.getNewAttribution(ATTRIBUTION_STRINGS.YULON);
 
   constructor(options: Options) {
@@ -79,14 +78,6 @@ class HotAttributor extends Analyzer {
     this.addEventListener(
       Events.refreshbuff.by(SELECTED_PLAYER).spell(TALENTS_MONK.ENVELOPING_MIST_TALENT),
       this.onApplyEnvm,
-    );
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.ESSENCE_FONT_BUFF]),
-      this.onApplyEF,
-    );
-    this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell([SPELLS.ESSENCE_FONT_BUFF]),
-      this.onApplyEF,
     );
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.RENEWING_MIST_HEAL),
@@ -174,13 +165,6 @@ class HotAttributor extends Analyzer {
           hot,
         );
     }
-  }
-
-  onApplyEF(event: ApplyBuffEvent | RefreshBuffEvent) {
-    if (this._hasAttribution(event)) {
-      return;
-    }
-    this.hotTracker.addAttributionFromApply(this.EFAttrib, event);
   }
 
   _hasAttribution(event: ApplyBuffEvent | HealEvent | RefreshBuffEvent | RemoveBuffEvent) {

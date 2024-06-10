@@ -4,7 +4,6 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   // Spells
   TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
   TALENTS_MONK.ESSENCE_FONT_TALENT.id,
-  SPELLS.ESSENCE_FONT_BUFF.id,
   TALENTS_MONK.RENEWING_MIST_TALENT.id,
   SPELLS.RENEWING_MIST_HEAL.id,
   SPELLS.VIVIFY.id,
@@ -58,7 +57,6 @@ export const ATTRIBUTION_STRINGS = {
   RAPID_DIFFUSION_RENEWING_MIST: 'Renewing Mist Rapid Diffusion',
   DANCING_MIST_RENEWING_MIST: 'Renewing Mist Dancing Mist',
   MISTS_OF_LIFE_RENEWING_MIST: 'Renewing Mist Mists of Life',
-  HARDCAST_ESSENCE_FONT: 'Essence Font Hardcast',
   DANCING_MIST_SOURCES: {
     DM_SOURCE_RD: 'Dancing Mist Source - Rapid Diffusion',
     DM_SOURCE_HC: 'Dancing Mist Source - Hardcast',

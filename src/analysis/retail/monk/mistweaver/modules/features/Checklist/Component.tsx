@@ -70,7 +70,6 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         {combatant.hasTalent(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT) && (
           <AbilityRequirement spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id} />
         )}
-        <AbilityRequirement spell={TALENTS_MONK.ESSENCE_FONT_TALENT.id} />
         {combatant.hasTalent(TALENTS_MONK.MANA_TEA_TALENT) && (
           <AbilityRequirement spell={TALENTS_MONK.MANA_TEA_TALENT.id} />
         )}
@@ -124,21 +123,13 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         name="Position yourself well to maximize your most effective spells"
         description={
           <>
-            Effective use of <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> has a big impact
-            on your healing. Ensure you stay in melee to maximize the number of targets that can be
-            in range of both <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> and other spells
-            such as <SpellLink spell={TALENTS_MONK.REFRESHING_JADE_WIND_TALENT} />.
+            Effective use of <SpellLink spell={TALENTS_MONK.REFRESHING_JADE_WIND_TALENT} /> has a
+            big impact on your healing. Ensure you stay in melee to maximize the number of targets
+            that can be in range of <SpellLink spell={TALENTS_MONK.REFRESHING_JADE_WIND_TALENT} />{' '}
+            and other spells such as <SpellLink spell={TALENTS_MONK.CHI_BURST_TALENT} />.
           </>
         }
       >
-        <Requirement
-          name={
-            <>
-              <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> targets hit
-            </>
-          }
-          thresholds={thresholds.essenceFont}
-        />
         {combatant.hasTalent(TALENTS_MONK.REFRESHING_JADE_WIND_TALENT) && (
           <Requirement
             name={
@@ -227,14 +218,6 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
             </>
           }
           thresholds={thresholds.thunderFocusTea}
-        />
-        <Requirement
-          name={
-            <>
-              <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> cancelled casts
-            </>
-          }
-          thresholds={thresholds.essenceFontCancelled}
         />
         <Requirement
           name={

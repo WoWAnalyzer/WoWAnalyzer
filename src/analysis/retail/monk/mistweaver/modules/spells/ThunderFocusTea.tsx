@@ -35,7 +35,7 @@ class ThunderFocusTea extends Analyzer {
   castsTftViv: number = 0;
   castsTftEnm: number = 0;
   castsTftRem: number = 0;
-  castsTftEF: number = 0;
+  //add EH
 
   castsTft: number = 0;
   castsUnderTft: number = 0;
@@ -104,8 +104,6 @@ class ThunderFocusTea extends Analyzer {
       } else {
         return this.isCorrect(event, false /* isFTCast */, isOk); // same as 1st spell logic
       }
-    } else if (this.selectedCombatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT)) {
-      return spellId === TALENTS_MONK.ESSENCE_FONT_TALENT.id;
     } else if (this.selectedCombatant.hasTalent(TALENTS_MONK.SECRET_INFUSION_TALENT)) {
       return isOk && this.selectedCombatant.hasTalent(TALENTS_MONK.TEAR_OF_MORNING_TALENT)
         ? spellId === TALENTS_MONK.ENVELOPING_MIST_TALENT.id
@@ -160,10 +158,6 @@ class ThunderFocusTea extends Analyzer {
       this.castsUnderTft += 1;
       this.castsTftRem += 1;
       debug && console.log('REM TFT Check ', event.timestamp);
-    } else if (TALENTS_MONK.ESSENCE_FONT_TALENT.id === spellId) {
-      this.castsUnderTft += 1;
-      this.castsTftEF += 1;
-      debug && console.log('REM EF Check ', event.timestamp);
     } else {
       return;
     }
@@ -221,12 +215,6 @@ class ThunderFocusTea extends Analyzer {
         label: 'Rising Sun Kick',
         spellId: TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
         value: this.castsTftRsk,
-      },
-      {
-        color: SPELL_COLORS.ESSENCE_FONT,
-        label: 'Essence Font',
-        spellId: TALENTS_MONK.ESSENCE_FONT_TALENT.id,
-        value: this.castsTftEF,
       },
     ];
 

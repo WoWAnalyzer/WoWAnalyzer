@@ -10,7 +10,6 @@ import Events, {
   ApplyBuffEvent,
   DamageEvent,
   HealEvent,
-  RefreshBuffEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
 import { mergeTimePeriods, OpenTimePeriod } from 'parser/core/mergeTimePeriods';
@@ -21,18 +20,12 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentAggregateBars from 'parser/ui/TalentAggregateStatistic';
 import TalentAggregateStatisticContainer from 'parser/ui/TalentAggregateStatisticContainer';
 import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
-
 import { SPELL_COLORS } from '../../constants';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
-import { isATFromEssenceFont, isATFromFaelineStomp } from '../../normalizers/CastLinkNormalizer';
 
 class AncientTeachings extends Analyzer {
   atSourceSpell: number = 0;
-  healingFromEF: number = 0;
-  overhealingFromEF: number = 0;
-  healingFromFLS: number = 0;
-  overhealingFromFLS: number = 0;
   damageSpellToHealing: Map<number, number> = new Map();
   damageSpellsCount: Map<number, number> = new Map();
   missedDamageSpells: Map<number, number> = new Map();
@@ -42,7 +35,7 @@ class AncientTeachings extends Analyzer {
   overhealing: number = 0;
 
   /**
-   * After you cast Essence Font, Tiger Palm, Blackout Kick, and Rising Sun Kick heal an injured ally within 20 yards for 150% of the damage done. Lasts 15s.
+   * After you cast Jadefire Stomp, Tiger Palm, Blackout Kick, and Rising Sun Kick heal an injured ally within 20 yards for 150% of the damage done. Lasts 15s.
    */
   constructor(options: Options) {
     super(options);
@@ -67,10 +60,6 @@ class AncientTeachings extends Analyzer {
       this.calculateEffectiveHealing,
     );
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.AT_BUFF), this.onApply);
-    this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.AT_BUFF),
-      this.onRefresh,
-    );
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.AT_BUFF),
       this.onRemove,
@@ -97,40 +86,16 @@ class AncientTeachings extends Analyzer {
     const oldHealingTotal = this.damageSpellToHealing.get(this.lastDamageSpellID) || 0;
     this.damageSpellToHealing.set(this.lastDamageSpellID, heal + oldHealingTotal);
     this.overhealing += event.overheal || 0;
-    this.tallySourceHeaing(event);
   }
 
   onApply(event: ApplyBuffEvent) {
     this.uptimeWindows.push({
       start: event.timestamp,
     });
-    this.setSourceSpell(event);
-  }
-
-  onRefresh(event: RefreshBuffEvent) {
-    this.setSourceSpell(event);
   }
 
   onRemove(event: RemoveBuffEvent) {
     this.uptimeWindows.at(-1)!.end = event.timestamp;
-  }
-
-  private setSourceSpell(event: ApplyBuffEvent | RefreshBuffEvent) {
-    if (isATFromEssenceFont(event)) {
-      this.atSourceSpell = TALENTS_MONK.ESSENCE_FONT_TALENT.id;
-    } else if (isATFromFaelineStomp(event)) {
-      this.atSourceSpell = TALENTS_MONK.JADEFIRE_STOMP_TALENT.id;
-    }
-  }
-
-  private tallySourceHeaing(event: HealEvent) {
-    if (this.atSourceSpell === TALENTS_MONK.ESSENCE_FONT_TALENT.id) {
-      this.healingFromEF += (event.amount || 0) + (event.absorbed || 0);
-      this.overhealingFromEF += event.overheal || 0;
-    } else if (this.atSourceSpell === TALENTS_MONK.JADEFIRE_STOMP_TALENT.id) {
-      this.healingFromFLS += (event.amount || 0) + (event.absorbed || 0);
-      this.overhealingFromFLS += event.overheal || 0;
-    }
   }
 
   get guideSubsection(): JSX.Element {
@@ -141,10 +106,7 @@ class AncientTeachings extends Analyzer {
         </strong>{' '}
         is a powerful buff that enables you to do consistent healing while doing damage, a core
         identity of Mistweaver Monk. Try to maintain your buff at all times by casting{' '}
-        <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> or{' '}
-        <SpellLink spell={TALENTS_MONK.JADEFIRE_STOMP_TALENT} /> between usages of{' '}
-        <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> when talented into{' '}
-        <SpellLink spell={TALENTS_MONK.UPWELLING_TALENT} />.
+        <SpellLink spell={TALENTS_MONK.JADEFIRE_STOMP_TALENT} /> to keep it active.
       </>
     );
 
@@ -311,14 +273,6 @@ class AncientTeachings extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.CORE(6)}
         smallFooter
-        tooltip={
-          <>
-            {formatNumber(this.healingFromEF)} healing while activated from{' '}
-            <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> <br />
-            {formatNumber(this.healingFromFLS)} healing while activated from{' '}
-            <SpellLink spell={TALENTS_MONK.JADEFIRE_STOMP_TALENT} /> <br />
-          </>
-        }
         footer={
           <>
             {' '}

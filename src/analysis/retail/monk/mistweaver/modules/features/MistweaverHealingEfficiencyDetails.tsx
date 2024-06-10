@@ -13,15 +13,12 @@ class MistweaverHealingEfficiencyDetails extends HealingEfficiencyDetails {
         explanation={
           <>
             <SpellLink spell={SPELLS.GUSTS_OF_MISTS} /> healing is added to the appropriate spell
-            that caused the gust. <br /> <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> is
-            given the healing from duplicated gusts, since without{' '}
-            <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> the second gust would not have
-            happened. <br />
+            that caused the gust. <br />
             {this.selectedCombatant.hasTalent(TALENTS_MONK.ANCIENT_TEACHINGS_TALENT) && (
               <>
-                <SpellLink spell={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT} /> is given to the spell
-                that applied the buff, either <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} />{' '}
-                or <SpellLink spell={TALENTS_MONK.JADEFIRE_STOMP_TALENT} />. <br />
+                <SpellLink spell={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT} /> is given to{' '}
+                <SpellLink spell={TALENTS_MONK.JADEFIRE_STOMP_TALENT} /> since it is the spell that
+                applied the buff. <br />
               </>
             )}
             <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> healing from{' '}

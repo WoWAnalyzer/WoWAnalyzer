@@ -92,20 +92,10 @@ const spells = {
   },
 
   // Mistweaver Monk Spells
-  CLOUDED_FOCUS_BUFF: {
-    id: 388048,
-    name: 'Clouded Focus',
-    icon: 'ability_monk_surgingmist',
-  },
   ENVELOPING_MIST_TFT: {
     id: 274062,
     name: 'Enveloping Mist',
     icon: 'spell_monk_envelopingmist',
-  },
-  ESSENCE_FONT_BUFF: {
-    id: 191840,
-    name: 'Essence Font',
-    icon: 'ability_monk_essencefont',
   },
   SECRET_INFUSION_CRIT_BUFF: {
     id: 388498,
@@ -396,7 +386,7 @@ const spells = {
     name: 'Zen Pulse',
     icon: 'ability_monk_forcesphere',
   },
-  FAELINE_STOMP_HEAL: {
+  JADEFIRE_STOMP_HEAL: {
     id: 388207,
     name: 'Faeline Stomp',
     icon: 'ability_ardenweald_monk',
@@ -405,11 +395,6 @@ const spells = {
     id: 327264,
     name: 'Faeline Stomp',
     icon: 'ability_ardenweald_monk',
-  },
-  FAELINE_STOMP_ESSENCE_FONT: {
-    id: 344006,
-    name: 'Faeline Stomp',
-    icon: 'ability_monk_essencefont',
   },
   FAELINE_STOMP_RESET: {
     id: 388203,

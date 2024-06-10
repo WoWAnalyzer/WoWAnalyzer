@@ -22,7 +22,6 @@ const APPLIED_HEAL = 'AppliedHeal';
 const FORCE_BOUNCE = 'ForceBounce';
 const OVERHEAL_BOUNCE = 'OverhealBounce';
 const BOUNCED = 'Bounced';
-const ESSENCE_FONT = 'EssenceFont';
 const FROM_DANCING_MISTS = 'FromDM';
 const SOURCE_APPLY = 'SourceApply';
 const FROM_HARDCAST = 'FromHardcast';
@@ -45,16 +44,12 @@ const MANA_TEA_CAST_LINK = 'MTLink';
 const MT_BUFF_REMOVAL = 'MTStack';
 const LIFECYCLES = 'Lifecycles';
 const MT_STACK_CHANGE = 'MTStackChange';
-const ANCIENT_TEACHINGS_FLS = 'ATFaelineStomp';
-const ANCIENT_TEACHINGS_EF = 'ATEssenceFont';
 
-//
 const FRAGILE_ECHO_SOURCE = 'FragileEchoSource';
 
 const RAPID_DIFFUSION_BUFFER_MS = 300;
 const DANCING_MIST_BUFFER_MS = 250;
 const CAST_BUFFER_MS = 100;
-const EF_BUFFER = 7000;
 const MAX_MT_CHANNEL = 25000;
 const MAX_REM_DURATION = 77000;
 const FOUND_REMS: Map<string, number | null> = new Map();
@@ -315,16 +310,6 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true,
   },
   {
-    linkRelation: ESSENCE_FONT,
-    linkingEventId: [TALENTS_MONK.ESSENCE_FONT_TALENT.id],
-    linkingEventType: [EventType.Cast],
-    referencedEventId: [SPELLS.ESSENCE_FONT_BUFF.id],
-    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
-    backwardBufferMs: CAST_BUFFER_MS,
-    forwardBufferMs: EF_BUFFER,
-    anyTarget: true,
-  },
-  {
     linkRelation: SHEILUNS_GIFT,
     linkingEventId: [TALENTS_MONK.SHEILUNS_GIFT_TALENT.id],
     linkingEventType: [EventType.Cast],
@@ -412,39 +397,6 @@ const EVENT_LINKS: EventLink[] = [
     maximumLinks: 1,
     isActive(c) {
       return c.hasTalent(TALENTS_MONK.LIFECYCLES_TALENT);
-    },
-  },
-  {
-    linkRelation: ANCIENT_TEACHINGS_EF,
-    reverseLinkRelation: ANCIENT_TEACHINGS_EF,
-    linkingEventId: SPELLS.AT_BUFF.id,
-    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
-    referencedEventId: TALENTS_MONK.ESSENCE_FONT_TALENT.id,
-    referencedEventType: EventType.EndChannel,
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
-    anyTarget: true,
-    maximumLinks: 1,
-    isActive(c) {
-      return c.hasTalent(TALENTS_MONK.ANCIENT_TEACHINGS_TALENT);
-    },
-  },
-  {
-    linkRelation: ANCIENT_TEACHINGS_FLS,
-    reverseLinkRelation: ANCIENT_TEACHINGS_FLS,
-    linkingEventId: SPELLS.AT_BUFF.id,
-    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
-    referencedEventId: TALENTS_MONK.JADEFIRE_STOMP_TALENT.id,
-    referencedEventType: EventType.Cast,
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
-    maximumLinks: 1,
-    anyTarget: true,
-    isActive(c) {
-      return (
-        c.hasTalent(TALENTS_MONK.ANCIENT_TEACHINGS_TALENT) &&
-        c.hasTalent(TALENTS_MONK.JADEFIRE_STOMP_TALENT)
-      );
     },
   },
 
@@ -599,43 +551,31 @@ export function isFromDancingMists(event: ApplyBuffEvent | RefreshBuffEvent): bo
 }
 
 export function isFromEnvelopingMist(event: HealEvent) {
-  return HasRelatedEvent(event, ENVELOPING_MIST_GOM) && !isFromEssenceFont(event);
+  return HasRelatedEvent(event, ENVELOPING_MIST_GOM);
 }
 
 export function isFromRenewingMist(event: HealEvent) {
-  return HasRelatedEvent(event, RENEWING_MIST_GOM) && !isFromEssenceFont(event);
+  return HasRelatedEvent(event, RENEWING_MIST_GOM);
 }
 
 export function isFromVivify(event: HealEvent) {
-  return HasRelatedEvent(event, VIVIFY_GOM) && !isFromEssenceFont(event);
+  return HasRelatedEvent(event, VIVIFY_GOM);
 }
 
 export function isFromSheilunsGift(event: HealEvent) {
-  return HasRelatedEvent(event, SHEILUNS_GIFT_GOM) && !isFromEssenceFont(event);
+  return HasRelatedEvent(event, SHEILUNS_GIFT_GOM);
 }
 
 export function isFromRevival(event: HealEvent) {
-  return HasRelatedEvent(event, REVIVAL_GOM) && !isFromEssenceFont(event);
+  return HasRelatedEvent(event, REVIVAL_GOM);
 }
 
 export function isFromExpelHarm(event: HealEvent) {
-  return HasRelatedEvent(event, EXPEL_HARM_GOM) && !isFromEssenceFont(event);
+  return HasRelatedEvent(event, EXPEL_HARM_GOM);
 }
 
 export function isFromSoothingMist(event: HealEvent) {
-  return HasRelatedEvent(event, SOOM_GOM) && !isFromEssenceFont(event);
-}
-
-export function isFromEssenceFont(event: HealEvent) {
-  return (
-    !HasRelatedEvent(event, EXPEL_HARM_GOM) &&
-    !HasRelatedEvent(event, ZEN_PULSE_GOM) &&
-    !HasRelatedEvent(event, REVIVAL_GOM) &&
-    !HasRelatedEvent(event, SHEILUNS_GIFT_GOM) &&
-    !HasRelatedEvent(event, VIVIFY_GOM) &&
-    !HasRelatedEvent(event, RENEWING_MIST_GOM) &&
-    !HasRelatedEvent(event, ENVELOPING_MIST_GOM)
-  );
+  return HasRelatedEvent(event, SOOM_GOM);
 }
 
 export function isFromLifeCocoon(event: RemoveBuffEvent) {
@@ -648,10 +588,6 @@ export function getSheilunsGiftHits(event: CastEvent): HealEvent[] {
 
 export function getVivifiesPerCast(event: CastEvent) {
   return GetRelatedEvents(event, VIVIFY);
-}
-
-export function getNumberOfBolts(event: CastEvent) {
-  return GetRelatedEvents(event, ESSENCE_FONT).length;
 }
 
 // we use time to get stacks because it can be cast prepull
@@ -677,14 +613,6 @@ export function isMTStackFromLifeCycles(
 
 export function HasStackChange(event: RefreshBuffEvent): boolean {
   return HasRelatedEvent(event, MT_STACK_CHANGE);
-}
-
-export function isATFromEssenceFont(event: ApplyBuffEvent | RefreshBuffEvent) {
-  return HasRelatedEvent(event, ANCIENT_TEACHINGS_EF);
-}
-
-export function isATFromFaelineStomp(event: ApplyBuffEvent | RefreshBuffEvent) {
-  return HasRelatedEvent(event, ANCIENT_TEACHINGS_FLS);
 }
 
 export function getFragileEchoSourceSpell(event: ApplyBuffEvent | RefreshBuffEvent): number {

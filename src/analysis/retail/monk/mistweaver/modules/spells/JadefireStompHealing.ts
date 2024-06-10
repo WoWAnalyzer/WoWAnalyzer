@@ -5,16 +5,13 @@ import Events, { HealEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
-class FaelineStompHealing extends Analyzer {
+class JadefireStompHealing extends Analyzer {
   protected abilities!: Abilities;
   protected spellUsable!: SpellUsable;
 
-  flsCasts = 0;
-  flsHealing = 0;
-  efHealing = 0;
-
-  flsOverhealing = 0;
-  efOverhealing = 0;
+  jfsCasts = 0;
+  jfsHealing = 0;
+  jfsOverhealing = 0;
 
   constructor(options: Options) {
     super(options);
@@ -31,29 +28,19 @@ class FaelineStompHealing extends Analyzer {
     );
 
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.FAELINE_STOMP_HEAL),
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.JADEFIRE_STOMP_HEAL),
       this.stompHeal,
-    );
-
-    this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.FAELINE_STOMP_ESSENCE_FONT),
-      this.efHeal,
     );
   }
 
   casts() {
-    this.flsCasts += 1;
+    this.jfsCasts += 1;
   }
 
   stompHeal(event: HealEvent) {
-    this.flsHealing += event.amount + (event.absorbed || 0);
-    this.flsOverhealing += event.overheal || 0;
-  }
-
-  efHeal(event: HealEvent) {
-    this.efHealing += event.amount + (event.absorbed || 0);
-    this.efOverhealing += event.overheal || 0;
+    this.jfsHealing += event.amount + (event.absorbed || 0);
+    this.jfsOverhealing += event.overheal || 0;
   }
 }
 
-export default FaelineStompHealing;
+export default JadefireStompHealing;

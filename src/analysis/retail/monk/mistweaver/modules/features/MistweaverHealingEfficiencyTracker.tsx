@@ -4,9 +4,8 @@ import HealingEfficiencyTracker, {
   SpellInfoDetails,
 } from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
 
-import FaelineStompHealing from '../spells/FaelineStompHealing';
+import JadefireStompHealing from '../spells/JadefireStompHealing';
 import EnvelopingMists from '../spells/EnvelopingMists';
-import EssenceFont from '../spells/EssenceFont';
 import ExpelHarm from '../spells/ExpelHarm';
 import RenewingMist from '../spells/RenewingMist';
 import SoothingMist from '../spells/SoothingMist';
@@ -24,14 +23,13 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
     ...HealingEfficiencyTracker.dependencies,
 
     // Custom dependencies
-    essenceFont: EssenceFont,
     envelopingMists: EnvelopingMists,
     soothingMist: SoothingMist,
     renewingMist: RenewingMist,
     vivify: Vivify,
     refreshingJadeWind: RefreshingJadeWind,
     expelHarm: ExpelHarm,
-    faelineStompHealing: FaelineStompHealing,
+    jadefireStompHealing: JadefireStompHealing,
     ancientTeachings: AncientTeachings,
     rapidDiffusion: RapidDiffusion,
     dancingMists: DancingMists,
@@ -40,14 +38,13 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
     shaohaosLessons: ShaohaosLessons,
   };
 
-  protected essenceFont!: EssenceFont;
   protected envelopingMists!: EnvelopingMists;
   protected soothingMist!: SoothingMist;
   protected renewingMist!: RenewingMist;
   protected vivify!: Vivify;
   protected refreshingJadeWind!: RefreshingJadeWind;
   protected expelHarm!: ExpelHarm;
-  protected faelineStompHealing!: FaelineStompHealing;
+  protected jadefireStompHealing!: JadefireStompHealing;
   protected ancientTeachings!: AncientTeachings;
   protected rapidDiffusion!: RapidDiffusion;
   protected dancingMists!: DancingMists;
@@ -56,9 +53,7 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   protected shaohaosLessons!: ShaohaosLessons;
 
   getCustomSpellStats(spellInfo: SpellInfoDetails, spellId: number) {
-    if (spellId === TALENTS_MONK.ESSENCE_FONT_TALENT.id) {
-      spellInfo = this.getEssenceFontDetails(spellInfo);
-    } else if (spellId === TALENTS_MONK.ENVELOPING_MIST_TALENT.id) {
+    if (spellId === TALENTS_MONK.ENVELOPING_MIST_TALENT.id) {
       //maybe consider adding tft buffed version's spell id too
       spellInfo = this.getEnvelopingMistsDetails(spellInfo);
     } else if (spellId === TALENTS_MONK.SOOTHING_MIST_TALENT.id) {
@@ -78,7 +73,7 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
     } else if (spellId === SPELLS.EXPEL_HARM.id) {
       spellInfo = this.getExpelHarmDetails(spellInfo);
     } else if (spellId === TALENTS_MONK.JADEFIRE_STOMP_TALENT.id) {
-      spellInfo = this.getFLSDetails(spellInfo);
+      spellInfo = this.getJFSDetails(spellInfo);
     } else if (spellId === TALENTS_MONK.ZEN_PULSE_TALENT.id) {
       spellInfo = this.getZenPulseDetails(spellInfo);
     } else if (spellId === TALENTS_MONK.SHEILUNS_GIFT_TALENT.id) {
@@ -109,15 +104,6 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
     spellInfo.overhealingDone += this.healingDone.byAbility(
       SPELLS.ENVELOPING_BREATH_HEAL.id,
     ).overheal;
-    return spellInfo;
-  }
-
-  getEssenceFontDetails(spellInfo: SpellInfoDetails) {
-    spellInfo.healingDone = this.essenceFont.totalHealing;
-    spellInfo.overhealingDone = this.essenceFont.totalOverhealing;
-    spellInfo.healingDone += this.ancientTeachings.healingFromEF;
-    spellInfo.overhealingDone += this.ancientTeachings.overhealingFromEF;
-    spellInfo.timeSpentCasting = this.essenceFont.timeSpentCasting;
     return spellInfo;
   }
 
@@ -192,13 +178,11 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
     return spellInfo;
   }
 
-  getFLSDetails(spellInfo: SpellInfoDetails) {
-    spellInfo.healingDone =
-      this.faelineStompHealing.flsHealing + this.faelineStompHealing.efHealing;
-    spellInfo.healingDone += this.ancientTeachings.healingFromFLS;
-    spellInfo.overhealingDone =
-      this.faelineStompHealing.flsOverhealing + this.faelineStompHealing.efOverhealing;
-    spellInfo.overhealingDone += this.ancientTeachings.overhealingFromFLS;
+  getJFSDetails(spellInfo: SpellInfoDetails) {
+    spellInfo.healingDone = this.jadefireStompHealing.jfsHealing;
+    spellInfo.healingDone += this.ancientTeachings.totalHealing;
+    spellInfo.overhealingDone = this.jadefireStompHealing.jfsOverhealing;
+    spellInfo.overhealingDone += this.ancientTeachings.overhealing;
     return spellInfo;
   }
 
