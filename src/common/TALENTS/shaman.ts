@@ -26,6 +26,14 @@ const talents = {
     entryIds: [101835],
     definitionIds: [{ id: 106889, specId: 263 }],
   },
+  AMPLIFICATION_CORE_TALENT: {
+    id: 445029,
+    name: 'Amplification Core',
+    icon: 'ability_evoker_essenceburststacks',
+    maxRanks: 1,
+    entryIds: [117471],
+    definitionIds: [{ id: 122483, specId: 264 }],
+  },
   ANCESTRAL_AWAKENING_TALENT: {
     id: 382309,
     name: 'Ancestral Awakening',
@@ -57,7 +65,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [101930],
     definitionIds: [{ id: 106930, specId: 264 }],
-    manaCost: 5500,
   },
   ANCESTRAL_REACH_TALENT: {
     id: 382732,
@@ -66,6 +73,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [101911],
     definitionIds: [{ id: 106944, specId: 264 }],
+  },
+  ANCESTRAL_SWIFTNESS_TALENT: {
+    id: 443454,
+    name: 'Ancestral Swiftness',
+    icon: 'spell_shaman_spectraltransformation',
+    maxRanks: 1,
+    entryIds: [117491],
+    definitionIds: [{ id: 122503, specId: 262 }],
   },
   ANCESTRAL_VIGOR_TALENT: {
     id: 207401,
@@ -82,6 +97,22 @@ const talents = {
     maxRanks: 1,
     entryIds: [101946],
     definitionIds: [{ id: 106963, specId: 262 }],
+  },
+  ANCIENT_FELLOWSHIP_TALENT: {
+    id: 443423,
+    name: 'Ancient Fellowship',
+    icon: 'spell_shaman_astralshift',
+    maxRanks: 1,
+    entryIds: [123632],
+    definitionIds: [{ id: 128470, specId: 262 }],
+  },
+  ARC_DISCHARGE_TALENT: {
+    id: 455096,
+    name: 'Arc Discharge',
+    icon: 'ability_thunderking_balllightning',
+    maxRanks: 1,
+    entryIds: [125616],
+    definitionIds: [{ id: 130448, specId: 262 }],
   },
   ASCENDANCE_ELEMENTAL_TALENT: {
     id: 114050,
@@ -131,6 +162,14 @@ const talents = {
     entryIds: [101945],
     definitionIds: [{ id: 106950, specId: 262 }],
   },
+  AWAKENING_STORMS_TALENT: {
+    id: 455129,
+    name: 'Awakening Storms',
+    icon: 'spell_nature_stormreach',
+    maxRanks: 1,
+    entryIds: [117464],
+    definitionIds: [{ id: 122476, specId: 262 }],
+  },
   BRIMMING_WITH_LIFE_TALENT: {
     id: 381689,
     name: 'Brimming with Life',
@@ -146,6 +185,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [101888],
     definitionIds: [{ id: 106855, specId: 262 }],
+  },
+  CALL_OF_THE_ANCESTORS_TALENT: {
+    id: 443450,
+    name: 'Call of the Ancestors',
+    icon: 'ability_racial_ancestralcall',
+    maxRanks: 1,
+    entryIds: [117485],
+    definitionIds: [{ id: 122497, specId: 262 }],
   },
   CALL_OF_THE_ELEMENTS_TALENT: {
     id: 383011,
@@ -170,7 +217,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [101961],
     definitionIds: [{ id: 106957, specId: 262 }],
-    manaCost: 5000,
   },
   CHAIN_HEAL_TALENT: {
     id: 1064,
@@ -179,7 +225,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [101951],
     definitionIds: [{ id: 106951, specId: 262 }],
-    manaCost: 14000,
   },
   CHAIN_LIGHTNING_TALENT: {
     id: 188443,
@@ -196,7 +241,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [101966],
     definitionIds: [{ id: 106966, specId: 262 }],
-    manaCost: 25000,
   },
   CLOUDBURST_TOTEM_TALENT: {
     id: 157153,
@@ -205,7 +249,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [101933],
     definitionIds: [{ id: 106926, specId: 264 }],
-    manaCost: 4300,
+  },
+  CONDUCTIVE_ENERGY_NYI_TALENT: {
+    id: 455123,
+    name: 'Conductive Energy (NYI)',
+    icon: 'spell_shaman_thunderstorm',
+    maxRanks: 1,
+    entryIds: [117465],
+    definitionIds: [{ id: 122477, specId: 262 }],
   },
   CONTINUOUS_WAVES_TALENT: {
     id: 382046,
@@ -290,7 +341,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [101842],
     definitionIds: [{ id: 106901, specId: 264 }],
-    manaCost: 7500,
+  },
+  EARTHEN_COMMUNION_TALENT: {
+    id: 443441,
+    name: 'Earthen Communion',
+    icon: 'spell_nature_skinofearth',
+    maxRanks: 1,
+    entryIds: [123631],
+    definitionIds: [{ id: 128469, specId: 262 }],
   },
   EARTHEN_HARMONY_TALENT: {
     id: 382020,
@@ -307,7 +365,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [101931],
     definitionIds: [{ id: 106931, specId: 264 }],
-    manaCost: 5500,
   },
   EARTHGRAB_TOTEM_TALENT: {
     id: 51485,
@@ -332,7 +389,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [101855],
     definitionIds: [{ id: 106814, specId: 262 }],
-    maelstromCost: 60,
+  },
+  EARTHSURGE_TALENT: {
+    id: 455590,
+    name: 'Earthsurge',
+    icon: 'inv_elementalearth2',
+    maxRanks: 1,
+    entryIds: [125822],
+    definitionIds: [{ id: 130653, specId: 264 }],
   },
   EARTH_ELEMENTAL_TALENT: {
     id: 198103,
@@ -349,7 +413,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [102004],
     definitionIds: [{ id: 106968, specId: 262 }],
-    manaCost: 12500,
   },
   EARTH_SHOCK_TALENT: {
     id: 8042,
@@ -358,7 +421,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [101854],
     definitionIds: [{ id: 106811, specId: 262 }],
-    maelstromCost: 60,
   },
   ECHOES_OF_GREAT_SUNDERING_TALENT: {
     id: 384087,
@@ -410,7 +472,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [101866],
     definitionIds: [{ id: 106842, specId: 262 }],
-    maelstromCost: 90,
   },
   ELEMENTAL_BLAST_ENHANCEMENT_TALENT: {
     id: 394150,
@@ -443,6 +504,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [102003],
     definitionIds: [{ id: 106967, specId: 262 }],
+  },
+  ELEMENTAL_REVERB_TALENT: {
+    id: 443418,
+    name: 'Elemental Reverb',
+    icon: 'ability_shaman_echooftheelements',
+    maxRanks: 1,
+    entryIds: [117466],
+    definitionIds: [{ id: 122478, specId: 262 }],
   },
   ELEMENTAL_SPIRITS_TALENT: {
     id: 262624,
@@ -503,6 +572,14 @@ const talents = {
     entryIds: [101838],
     definitionIds: [{ id: 106892, specId: 263 }],
   },
+  FINAL_CALLING_TALENT: {
+    id: 443446,
+    name: 'Final Calling',
+    icon: 'spell_shaman_ancestralawakening',
+    maxRanks: 1,
+    entryIds: [117472],
+    definitionIds: [{ id: 122484, specId: 262 }],
+  },
   FIRE_AND_ICE_TALENT: {
     id: 382886,
     name: 'Fire and Ice',
@@ -518,7 +595,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [101850],
     definitionIds: [{ id: 106837, specId: 262 }],
-    manaCost: 2500,
   },
   FIRE_NOVA_TALENT: {
     id: 333974,
@@ -642,7 +718,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [101967],
     definitionIds: [{ id: 106964, specId: 262 }],
-    manaCost: 6000,
   },
   GUARDIANS_CUDGEL_TALENT: {
     id: 381819,
@@ -675,7 +750,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [101923],
     definitionIds: [{ id: 106911, specId: 264 }],
-    manaCost: 10800,
   },
   HEALING_STREAM_TOTEM_RESTORATION_TALENT: {
     id: 392916,
@@ -700,7 +774,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [101912],
     definitionIds: [{ id: 106942, specId: 264 }],
-    manaCost: 2800,
   },
   HEALING_WAVE_TALENT: {
     id: 77472,
@@ -709,7 +782,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [101904],
     definitionIds: [{ id: 106918, specId: 264 }],
-    manaCost: 7500,
+  },
+  HEED_MY_CALL_TALENT: {
+    id: 443444,
+    name: 'Heed My Call',
+    icon: 'spell_unused2',
+    maxRanks: 1,
+    entryIds: [117481],
+    definitionIds: [{ id: 122493, specId: 262 }],
   },
   HEX_TALENT: {
     id: 51514,
@@ -726,7 +806,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [101925],
     definitionIds: [{ id: 106912, specId: 264 }],
-    manaCost: 2500,
   },
   HOT_HAND_TALENT: {
     id: 201900,
@@ -751,6 +830,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [101821],
     definitionIds: [{ id: 106866, specId: 263 }],
+  },
+  IMBUEMENT_MASTERY_TALENT: {
+    id: 445028,
+    name: 'Imbuement Mastery',
+    icon: 'spell_shaman_unleashweapon_wind',
+    maxRanks: 1,
+    entryIds: [117468],
+    definitionIds: [{ id: 122480, specId: 264 }],
   },
   IMPROVED_EARTHLIVING_WEAPON_TALENT: {
     id: 382315,
@@ -807,6 +894,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [101812],
     definitionIds: [{ id: 106896, specId: 263 }],
+  },
+  LATENT_WISDOM_TALENT: {
+    id: 443449,
+    name: 'Latent Wisdom',
+    icon: 'spell_holy_spiritualguidence',
+    maxRanks: 1,
+    entryIds: [117459],
+    definitionIds: [{ id: 122471, specId: 262 }],
   },
   LAVA_BURST_TALENT: {
     id: 51505,
@@ -867,6 +962,14 @@ const talents = {
     entryIds: [101884],
     definitionIds: [{ id: 106851, specId: 262 }],
   },
+  LIVELY_TOTEMS_TALENT: {
+    id: 445034,
+    name: 'Lively Totems',
+    icon: 'spell_fire_searingtotem',
+    maxRanks: 1,
+    entryIds: [117479],
+    definitionIds: [{ id: 122491, specId: 264 }],
+  },
   LIVING_STREAM_TALENT: {
     id: 382482,
     name: 'Living Stream',
@@ -874,6 +977,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [101934],
     definitionIds: [{ id: 106927, specId: 264 }],
+  },
+  MAELSTROM_SUPREMACY_TALENT: {
+    id: 443447,
+    name: 'Maelstrom Supremacy',
+    icon: 'spell_shadow_soulleech_2',
+    maxRanks: 1,
+    entryIds: [117480],
+    definitionIds: [{ id: 122492, specId: 262 }],
   },
   MAELSTROM_WEAPON_TALENT: {
     id: 187880,
@@ -934,6 +1045,14 @@ const talents = {
     entryIds: [101889],
     definitionIds: [{ id: 106838, specId: 262 }],
   },
+  NATURAL_HARMONY_TALENT: {
+    id: 443442,
+    name: 'Natural Harmony',
+    icon: 'spell_nature_natureguardian',
+    maxRanks: 1,
+    entryIds: [117455],
+    definitionIds: [{ id: 122467, specId: 262 }],
+  },
   NATURES_FURY_TALENT: {
     id: 381655,
     name: "Nature's Fury",
@@ -950,6 +1069,14 @@ const talents = {
     entryIds: [101974],
     definitionIds: [{ id: 106969, specId: 262 }],
   },
+  NATURES_PROTECTION_TALENT: {
+    id: 454027,
+    name: "Nature's Protection",
+    icon: 'spell_nature_lightningshield',
+    maxRanks: 1,
+    entryIds: [117477],
+    definitionIds: [{ id: 122489, specId: 262 }],
+  },
   NATURES_SWIFTNESS_TALENT: {
     id: 378081,
     name: "Nature's Swiftness",
@@ -958,13 +1085,21 @@ const talents = {
     entryIds: [101997],
     definitionIds: [{ id: 106992, specId: 262 }],
   },
-  OATH_OF_THE_FAR_SEER_TALENT: {
+  OATH_OF_THE_FARSEER_TALENT: {
     id: 381785,
-    name: 'Oath of the Far Seer',
+    name: 'Oath of the Farseer',
     icon: 'spell_shaman_elementaloath',
     maxRanks: 2,
     entryIds: [101876],
     definitionIds: [{ id: 106826, specId: 262 }],
+  },
+  OFFERING_FROM_BEYOND_TALENT: {
+    id: 443451,
+    name: 'Offering from Beyond',
+    icon: 'spell_shaman_blessingoftheeternals',
+    maxRanks: 1,
+    entryIds: [117484],
+    definitionIds: [{ id: 122496, specId: 262 }],
   },
   OVERFLOWING_MAELSTROM_TALENT: {
     id: 384149,
@@ -981,6 +1116,22 @@ const talents = {
     maxRanks: 1,
     entryIds: [114813],
     definitionIds: [{ id: 119820, specId: 264 }],
+  },
+  OVERSIZED_TOTEMS_TALENT: {
+    id: 445026,
+    name: 'Oversized Totems',
+    icon: 'ability_shaman_totemrelocation',
+    maxRanks: 1,
+    entryIds: [117456],
+    definitionIds: [{ id: 122468, specId: 264 }],
+  },
+  OVERSURGE_TALENT: {
+    id: 445030,
+    name: 'Oversurge',
+    icon: 'spell_fire_elementaldevastation',
+    maxRanks: 1,
+    entryIds: [125823],
+    definitionIds: [{ id: 130654, specId: 264 }],
   },
   PLANES_TRAVELER_TALENT: {
     id: 381647,
@@ -1038,6 +1189,14 @@ const talents = {
     entryIds: [101847],
     definitionIds: [{ id: 106834, specId: 262 }],
   },
+  PRIMORDIAL_CAPACITY_TALENT: {
+    id: 443448,
+    name: 'Primordial Capacity',
+    icon: 'ability_monk_chiswirl',
+    maxRanks: 1,
+    entryIds: [117457],
+    definitionIds: [{ id: 122469, specId: 262 }],
+  },
   PRIMORDIAL_FURY_TALENT: {
     id: 378193,
     name: 'Primordial Fury',
@@ -1073,6 +1232,14 @@ const talents = {
       { id: 106840, specId: 262 },
     ],
   },
+  PULSE_CAPACITOR_TALENT: {
+    id: 445032,
+    name: 'Pulse Capacitor',
+    icon: 'spell_nature_elementalprecision_1',
+    maxRanks: 1,
+    entryIds: [117463],
+    definitionIds: [{ id: 122475, specId: 264 }],
+  },
   PURGE_TALENT: {
     id: 370,
     name: 'Purge',
@@ -1080,7 +1247,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [101968],
     definitionIds: [{ id: 106965, specId: 262 }],
-    manaCost: 4000,
   },
   RAGING_MAELSTROM_TALENT: {
     id: 384143,
@@ -1089,6 +1255,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [101802],
     definitionIds: [{ id: 106871, specId: 263 }],
+  },
+  REACTIVITY_TALENT: {
+    id: 445035,
+    name: 'Reactivity',
+    icon: 'spell_fire_totemofwrath',
+    maxRanks: 1,
+    entryIds: [117469],
+    definitionIds: [{ id: 122481, specId: 264 }],
   },
   REFRESHING_WATERS_ENHANCEMENT_TALENT: {
     id: 393905,
@@ -1132,7 +1306,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [101905],
     definitionIds: [{ id: 106805, specId: 264 }],
-    manaCost: 4000,
   },
   ROLLING_MAGMA_TALENT: {
     id: 386443,
@@ -1142,6 +1315,22 @@ const talents = {
     entryIds: [101843],
     definitionIds: [{ id: 106858, specId: 262 }],
   },
+  ROLLING_THUNDER_TALENT: {
+    id: 454026,
+    name: 'Rolling Thunder',
+    icon: 'spell_lightning_lightningbolt01',
+    maxRanks: 1,
+    entryIds: [117486],
+    definitionIds: [{ id: 122498, specId: 262 }],
+  },
+  ROUTINE_COMMUNICATION_TALENT: {
+    id: 443445,
+    name: 'Routine Communication',
+    icon: 'spell_nature_undyingstrength',
+    maxRanks: 1,
+    entryIds: [123630],
+    definitionIds: [{ id: 128468, specId: 262 }],
+  },
   SEARING_FLAMES_TALENT: {
     id: 381782,
     name: 'Searing Flames',
@@ -1149,6 +1338,14 @@ const talents = {
     maxRanks: 2,
     entryIds: [101880],
     definitionIds: [{ id: 106847, specId: 262 }],
+  },
+  SHOCKING_GRASP_TALENT: {
+    id: 454022,
+    name: 'Shocking Grasp',
+    icon: 'spell_shaman_crashlightning',
+    maxRanks: 1,
+    entryIds: [117460],
+    definitionIds: [{ id: 122472, specId: 262 }],
   },
   SKYBREAKERS_FIERY_DEMISE_TALENT: {
     id: 378310,
@@ -1173,7 +1370,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [101955],
     definitionIds: [{ id: 106975, specId: 262 }],
-    manaCost: 7050,
+  },
+  SPIRITWALKERS_MOMENTUM_TALENT: {
+    id: 443425,
+    name: "Spiritwalker's Momentum",
+    icon: 'spell_shaman_spiritwalkersgrace',
+    maxRanks: 1,
+    entryIds: [117458],
+    definitionIds: [{ id: 122470, specId: 262 }],
   },
   SPIRITWALKERS_TIDAL_TOTEM_TALENT: {
     id: 404522,
@@ -1190,7 +1394,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [101913],
     definitionIds: [{ id: 106933, specId: 264 }],
-    manaCost: 5500,
   },
   SPIRIT_WALK_TALENT: {
     id: 58875,
@@ -1306,7 +1509,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [101849],
     definitionIds: [{ id: 106836, specId: 262 }],
-    manaCost: 2500,
+  },
+  STORM_SWELL_TALENT: {
+    id: 455088,
+    name: 'Storm Swell',
+    icon: 'spell_nature_unrelentingstorm',
+    maxRanks: 1,
+    entryIds: [117482],
+    definitionIds: [{ id: 122494, specId: 262 }],
   },
   SUNDERING_TALENT: {
     id: 197214,
@@ -1315,7 +1525,22 @@ const talents = {
     maxRanks: 1,
     entryIds: [101841],
     definitionIds: [{ id: 106874, specId: 263 }],
-    manaCost: 3000,
+  },
+  SUPERCHARGE_TALENT: {
+    id: 455110,
+    name: 'Supercharge',
+    icon: 'inv_misc_stormlordsfavor',
+    maxRanks: 1,
+    entryIds: [117470],
+    definitionIds: [{ id: 122482, specId: 262 }],
+  },
+  SUPPORTIVE_IMBUEMENTS_TALENT: {
+    id: 445033,
+    name: 'Supportive Imbuements',
+    icon: 'ability_shaman_fortifyingwaters',
+    maxRanks: 1,
+    entryIds: [125824],
+    definitionIds: [{ id: 130655, specId: 264 }],
   },
   SURGE_OF_POWER_TALENT: {
     id: 262303,
@@ -1325,6 +1550,14 @@ const talents = {
     entryIds: [101873],
     definitionIds: [{ id: 106830, specId: 262 }],
   },
+  SURGING_CURRENTS_TALENT: {
+    id: 454372,
+    name: 'Surging Currents',
+    icon: 'spell_nature_stormreach',
+    maxRanks: 1,
+    entryIds: [125617],
+    definitionIds: [{ id: 130449, specId: 262 }],
+  },
   SURGING_SHIELDS_TALENT: {
     id: 382033,
     name: 'Surging Shields',
@@ -1333,6 +1566,14 @@ const talents = {
     entryIds: [101988],
     definitionIds: [{ id: 106983, specId: 262 }],
   },
+  SURGING_TOTEM_TALENT: {
+    id: 455630,
+    name: 'Surging Totem',
+    icon: 'ability_shaman_totemcooldownrefund',
+    maxRanks: 1,
+    entryIds: [117474],
+    definitionIds: [{ id: 122486, specId: 264 }],
+  },
   SWELLING_MAELSTROM_TALENT: {
     id: 381707,
     name: 'Swelling Maelstrom',
@@ -1340,6 +1581,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [101893],
     definitionIds: [{ id: 106815, specId: 262 }],
+  },
+  SWIFT_RECALL_TALENT: {
+    id: 445027,
+    name: 'Swift Recall',
+    icon: 'spell_nature_brilliance',
+    maxRanks: 1,
+    entryIds: [125825],
+    definitionIds: [{ id: 130656, specId: 264 }],
   },
   SWIRLING_CURRENTS_TALENT: {
     id: 378094,
@@ -1356,6 +1605,22 @@ const talents = {
     maxRanks: 1,
     entryIds: [101820],
     definitionIds: [{ id: 106867, specId: 263 }],
+  },
+  TEMPEST_1_ENHANCEMENT_TALENT: {
+    id: 454009,
+    name: 'Tempest',
+    icon: 'ability_vehicle_electrocharge',
+    maxRanks: 1,
+    entryIds: [117489],
+    definitionIds: [{ id: 122501, specId: 262 }],
+  },
+  TEMPEST_2_ENHANCEMENT_TALENT: {
+    id: 454021,
+    name: 'Tempest',
+    icon: 'ability_vehicle_electrocharge',
+    maxRanks: 1,
+    entryIds: [117490],
+    definitionIds: [{ id: 122502, specId: 262 }],
   },
   TEMPEST_STRIKES_TALENT: {
     id: 428071,
@@ -1429,6 +1694,14 @@ const talents = {
     entryIds: [101932],
     definitionIds: [{ id: 106929, specId: 264 }],
   },
+  TOTEMIC_COORDINATION_TALENT: {
+    id: 445036,
+    name: 'Totemic Coordination',
+    icon: 'ability_shaman_echooftheelements',
+    maxRanks: 1,
+    entryIds: [117478],
+    definitionIds: [{ id: 122490, specId: 264 }],
+  },
   TOTEMIC_FOCUS_TALENT: {
     id: 382201,
     name: 'Totemic Focus',
@@ -1444,6 +1717,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [101973],
     definitionIds: [{ id: 106982, specId: 262 }],
+  },
+  TOTEMIC_REBOUND_TALENT: {
+    id: 445025,
+    name: 'Totemic Rebound',
+    icon: 'ability_vehicle_electrocharge',
+    maxRanks: 1,
+    entryIds: [117487],
+    definitionIds: [{ id: 122499, specId: 264 }],
   },
   TOTEMIC_RECALL_TALENT: {
     id: 108285,
@@ -1517,6 +1798,14 @@ const talents = {
     entryIds: [101918],
     definitionIds: [{ id: 106906, specId: 264 }],
   },
+  UNLIMITED_POWER_TALENT: {
+    id: 454391,
+    name: 'Unlimited Power',
+    icon: 'spell_nature_purge',
+    maxRanks: 1,
+    entryIds: [117483],
+    definitionIds: [{ id: 122495, specId: 262 }],
+  },
   UNRELENTING_CALAMITY_TALENT: {
     id: 382685,
     name: 'Unrelenting Calamity',
@@ -1532,6 +1821,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [101833],
     definitionIds: [{ id: 106887, specId: 263 }],
+  },
+  VOLTAIC_SURGE_TALENT: {
+    id: 454919,
+    name: 'Voltaic Surge',
+    icon: 'spell_nature_callstorm',
+    maxRanks: 1,
+    entryIds: [117467],
+    definitionIds: [{ id: 122479, specId: 262 }],
   },
   VOODOO_MASTERY_TALENT: {
     id: 204268,
@@ -1564,7 +1861,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [101937],
     definitionIds: [{ id: 106936, specId: 264 }],
-    manaCost: 10000,
+  },
+  WHIRLING_ELEMENTS_TALENT: {
+    id: 445024,
+    name: 'Whirling Elements',
+    icon: 'inv_10_enchanting2_elementalswirl_color1',
+    maxRanks: 1,
+    entryIds: [117476],
+    definitionIds: [{ id: 122488, specId: 264 }],
   },
   WINDFURY_TOTEM_TALENT: {
     id: 8512,
@@ -1597,6 +1901,14 @@ const talents = {
     maxRanks: 2,
     entryIds: [101981],
     definitionIds: [{ id: 107004, specId: 262 }],
+  },
+  WIND_BARRIER_TALENT: {
+    id: 445031,
+    name: 'Wind Barrier',
+    icon: 'spell_nature_eyeofthestorm',
+    maxRanks: 1,
+    entryIds: [117488],
+    definitionIds: [{ id: 122500, specId: 264 }],
   },
   WIND_RUSH_TOTEM_TALENT: {
     id: 192077,

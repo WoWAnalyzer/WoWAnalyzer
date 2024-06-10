@@ -22,6 +22,8 @@ import {
   TalentNode,
 } from './talent-tree-types';
 
+import SPECS from '../../src/game/SPECS';
+
 const LIVE_WOW_BUILD_NUMBER = '10.2.6.53913';
 const LIVE_TALENT_DATA_URL = 'https://www.raidbots.com/static/data/live/talents.json';
 const LIVE_SPELLPOWER_DATA_URL = `https://wago.tools/db2/SpellPower/csv?build=${LIVE_WOW_BUILD_NUMBER}`;
@@ -46,6 +48,7 @@ const classes: { [classId: number]: { name: string; baseMaxResource: number } } 
   13: { name: 'Evoker', baseMaxResource: 250000 },
 };
 
+// eslint-disable-next-line
 const withResources = (
   spellpower: ISpellpower[],
   talent: GenericTalentInterface,
@@ -167,13 +170,15 @@ async function generateTalents(isPTR: boolean = false) {
   const spellpowerCsv = await readCsvFromUrl(
     isPTR ? PTR_SPELLPOWER_DATA_URL : LIVE_SPELLPOWER_DATA_URL,
   );
+  // eslint-disable-next-line
   const spellpower: ISpellpower[] = csvToObject(spellpowerCsv);
 
   const talentsByClass = talents.reduce((map: Record<string, ITalentTree[]>, tree) => {
-    if (!map[tree.className]) {
-      map[tree.className] = [];
+    const className = SPECS[tree.specId].wclClassName;
+    if (!map[className]) {
+      map[className] = [];
     }
-    map[tree.className].push(tree);
+    map[className].push(tree);
     return map;
   }, {});
 
@@ -185,7 +190,7 @@ async function generateTalents(isPTR: boolean = false) {
     }[];
   }> = Object.entries(talentsByClass).flatMap(([className, trees]) => {
     const specTalents = trees.flatMap((tree) =>
-      tree.specNodes.flatMap((node) =>
+      tree.specNodes.concat(tree.heroNodes).flatMap((node) =>
         nodeEntries(node)
           .filter((entry) => entry.spellId && entry.name)
           .map((entry) => ({
@@ -336,7 +341,9 @@ async function generateTalents(isPTR: boolean = false) {
       // one final map
       talents: talentObjects.map((talent) => ({
         ...talent,
-        value: withResources(spellpower, talent.value, trees[0].classId),
+        // TEMPORARILY disabled due to issues with raidbots data
+        // value: withResources(spellpower, talent.value, trees[0].classId),
+        value: talent.value,
       })),
     };
   });

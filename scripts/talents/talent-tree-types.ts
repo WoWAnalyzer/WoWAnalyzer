@@ -55,12 +55,14 @@ export interface ITalentObjectByClass {
 }
 
 export interface ITalentTree {
-  className: string;
-  classId: number;
+  // commenting these out to prevent use because they are currently bugged on raidbots
+  // className: string;
+  // classId: number;
   specName: string;
   specId: number;
   classNodes: TalentNode[];
   specNodes: TalentNode[];
+  heroNodes: TalentNode[];
 }
 
 export interface TalentNode {
