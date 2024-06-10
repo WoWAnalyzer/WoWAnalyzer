@@ -9,6 +9,7 @@ enum Expansion {
   BattleForAzeroth = 8,
   Shadowlands = 9,
   Dragonflight = 10,
+  TheWarWithin = 11,
 }
 
 enum ExpansionName {
@@ -16,13 +17,14 @@ enum ExpansionName {
   WrathOfTheLichKing = 'wotlk',
   Cataclysm = 'cataclysm',
   Dragonflight = 'dragonflight',
+  TheWarWithin = 'UNKNOWN',
 }
 
 export const CLASSIC_EXPANSION = Expansion.Cataclysm;
-export const RETAIL_EXPANSION = Expansion.Dragonflight;
+export const RETAIL_EXPANSION = Expansion.TheWarWithin;
 
 export const CLASSIC_EXPANSION_NAME = ExpansionName.Cataclysm;
-export const RETAIL_EXPANSION_NAME = ExpansionName.Dragonflight;
+export const RETAIL_EXPANSION_NAME = ExpansionName.TheWarWithin;
 
 export function isCurrentExpansion(expansion: Expansion): boolean {
   return expansion === CLASSIC_EXPANSION || expansion === RETAIL_EXPANSION;
