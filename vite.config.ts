@@ -78,6 +78,9 @@ export default defineConfig((env) => ({
       interface: join(__dirname, 'src', 'interface'),
       localization: join(__dirname, 'src', 'localization'),
       parser: join(__dirname, 'src', 'parser'),
+      // TEMP this fixes build errors while some retail specs are disabled
+      // vite-tsconfig-paths does not support the `files` option
+      CONTRIBUTORS: join(__dirname, 'src', 'CONTRIBUTORS'),
     },
   },
   server: {
