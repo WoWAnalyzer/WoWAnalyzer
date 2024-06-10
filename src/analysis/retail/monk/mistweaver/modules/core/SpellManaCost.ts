@@ -1,58 +1,18 @@
 import SPELLS from 'common/SPELLS';
-import Events, {
-  ApplyBuffEvent,
-  ApplyBuffStackEvent,
-  CastEvent,
-  RemoveBuffEvent,
-} from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import { TALENTS_MONK } from 'common/TALENTS';
-import {
-  CF_BUFF_PER_STACK,
-  MANA_TEA_REDUCTION,
-  MAX_CHIJI_STACKS,
-  YULON_REDUCTION,
-} from '../../constants';
+import { MANA_TEA_REDUCTION, MAX_CHIJI_STACKS, YULON_REDUCTION } from '../../constants';
 import SpellManaCost from 'parser/shared/modules/SpellManaCost';
-import { SELECTED_PLAYER } from 'parser/core/Analyzer';
-
-const CF_SPELLS: Set<number> = new Set([SPELLS.VIVIFY.id, TALENTS_MONK.ENVELOPING_MIST_TALENT.id]);
+import { CastEvent } from 'parser/core/Events';
 
 class MWSpellManaCost extends SpellManaCost {
   currentBuffs: Set<number> = new Set();
-  hasCF: boolean = false;
   hasChiji: boolean = false;
-  cfStacks: number = 0;
   constructor(options: Options) {
     super(options);
-    this.addEventListener(
-      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.CLOUDED_FOCUS_BUFF),
-      this.onCfApplyStack,
-    );
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.CLOUDED_FOCUS_BUFF),
-      this.onCfApply,
-    );
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.CLOUDED_FOCUS_BUFF),
-      this.onCfRemove,
-    );
     this.hasChiji = this.selectedCombatant.hasTalent(
       TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT,
     );
-    this.hasCF = this.selectedCombatant.hasTalent(TALENTS_MONK.CLOUDED_FOCUS_TALENT);
-  }
-
-  onCfApply(event: ApplyBuffEvent) {
-    this.cfStacks = 1;
-  }
-
-  onCfApplyStack(event: ApplyBuffStackEvent) {
-    this.cfStacks = event.stack;
-  }
-
-  onCfRemove(event: RemoveBuffEvent) {
-    this.cfStacks = 0;
   }
 
   findAdjustedSpellResourceCost(spellID: number, originalCost: number) {
@@ -72,8 +32,6 @@ class MWSpellManaCost extends SpellManaCost {
     ) {
       return 0;
     }
-    const cloudedFocusMultiplier =
-      this.hasCF && CF_SPELLS.has(spellID) ? 1 - this.cfStacks * CF_BUFF_PER_STACK : 1;
     const chijiMultiplier =
       this.hasChiji && spellID === TALENTS_MONK.ENVELOPING_MIST_TALENT.id
         ? 1 -
@@ -89,7 +47,7 @@ class MWSpellManaCost extends SpellManaCost {
     const manaTeaMultiplier = this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_BUFF.id)
       ? 1 - MANA_TEA_REDUCTION
       : 1;
-    return manaTeaMultiplier * cloudedFocusMultiplier * chijiMultiplier * yulonMultiplier;
+    return manaTeaMultiplier * chijiMultiplier * yulonMultiplier;
   }
 }
 

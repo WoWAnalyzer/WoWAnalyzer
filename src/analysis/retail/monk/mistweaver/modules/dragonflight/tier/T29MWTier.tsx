@@ -4,35 +4,22 @@ import { formatDuration, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { TIERS } from 'game/TIERS';
-import Events, { HealEvent, ApplyBuffEvent, RefreshBuffEvent } from 'parser/core/Events';
+import Events, { HealEvent } from 'parser/core/Events';
 import BoringValueText from 'parser/ui/BoringValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import HotTracker from 'parser/shared/modules/HotTracker';
 import HotTrackerMW from '../../core/HotTrackerMW';
 import SpellLink from 'interface/SpellLink';
 
 const TWO_PIECE_BONUS = 0.1;
 const FOUR_PIECE_BONUS = 0.1;
-const FOUR_PIECE_EXTENSION = 1000;
 const ATTRIBUTION_PREFIX = '4 Piece extension';
 
-const TWO_PIECE_SPELLS = [
-  SPELLS.ESSENCE_FONT_BUFF,
-  SPELLS.FAELINE_STOMP_ESSENCE_FONT,
-  TALENTS_MONK.ENVELOPING_MIST_TALENT,
-  SPELLS.VIVIFY,
-];
+const TWO_PIECE_SPELLS = [TALENTS_MONK.ENVELOPING_MIST_TALENT, SPELLS.VIVIFY];
 
-const FOUR_PIECE_SPELLS = [
-  SPELLS.FAELINE_STOMP_ESSENCE_FONT,
-  SPELLS.ESSENCE_FONT_BUFF,
-  SPELLS.VIVIFY,
-];
-
-const EXTENSION_ATTRIB = HotTracker.getNewAttribution(ATTRIBUTION_PREFIX);
+const FOUR_PIECE_SPELLS = [SPELLS.VIVIFY];
 
 class T29TierSet extends Analyzer {
   static dependencies = {
@@ -57,18 +44,6 @@ class T29TierSet extends Analyzer {
       return;
     }
     this.addEventListener(
-      Events.applybuff
-        .by(SELECTED_PLAYER)
-        .spell([SPELLS.ESSENCE_FONT_BUFF, SPELLS.FAELINE_STOMP_ESSENCE_FONT]),
-      this.handleEfBolt,
-    );
-    this.addEventListener(
-      Events.refreshbuff
-        .by(SELECTED_PLAYER)
-        .spell([SPELLS.ESSENCE_FONT_BUFF, SPELLS.FAELINE_STOMP_ESSENCE_FONT]),
-      this.handleEfBolt,
-    );
-    this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(TWO_PIECE_SPELLS),
       this.handle2PcHeal,
     );
@@ -90,29 +65,6 @@ class T29TierSet extends Analyzer {
 
   get total4PieceHealing() {
     return this.fourPieceHealingFromBuff + this.extraRemHealing + this.extraVivHealing;
-  }
-
-  handleEfBolt(event: ApplyBuffEvent | RefreshBuffEvent) {
-    const playerId = event.targetID;
-    if (
-      !this.hotTracker.hots[playerId] ||
-      !this.hotTracker.hots[playerId][SPELLS.RENEWING_MIST_HEAL.id]
-    ) {
-      return;
-    }
-    this.hotTracker.hots[playerId][SPELLS.RENEWING_MIST_HEAL.id].maxDuration! +=
-      FOUR_PIECE_EXTENSION;
-    this.hotTracker.addExtension(
-      EXTENSION_ATTRIB,
-      FOUR_PIECE_EXTENSION,
-      playerId,
-      SPELLS.RENEWING_MIST_HEAL.id,
-      event.timestamp,
-    );
-
-    this.numExtensions += 1;
-    this.totalExtensionDuration +=
-      this.hotTracker.hots[playerId][SPELLS.RENEWING_MIST_HEAL.id].extensions.at(-1)!.amount;
   }
 
   handle2PcHeal(event: HealEvent) {

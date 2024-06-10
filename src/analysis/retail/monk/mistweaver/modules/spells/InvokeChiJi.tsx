@@ -12,7 +12,6 @@ import Events, {
   AbsorbedEvent,
   CastEvent,
   DamageEvent,
-  EndChannelEvent,
   GlobalCooldownEvent,
   HealEvent,
   RefreshBuffEvent,
@@ -26,7 +25,6 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { MAX_CHIJI_STACKS } from '../../constants';
 import BaseCelestialAnalyzer, { BaseCelestialTracker } from './BaseCelestialAnalyzer';
-import EssenceFont from './EssenceFont';
 import InformationIcon from 'interface/icons/Information';
 import EnvelopingBreath from './EnvelopingBreath';
 
@@ -40,14 +38,12 @@ const debug = false;
  */
 
 interface ChijiCastTracker extends BaseCelestialTracker {
-  recastEf: boolean; // true if player recast ef during chiji
   overcappedTotmStacks: number;
   overcappedChijiStacks: number;
 }
 
 class InvokeChiJi extends BaseCelestialAnalyzer {
   protected envb!: EnvelopingBreath;
-  protected ef!: EssenceFont;
   castTrackers: ChijiCastTracker[] = [];
   //healing breakdown vars
   gustHealing: number = 0;
@@ -64,7 +60,6 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
   chijiGlobals: number = 0;
   chijiUses: number = 0;
   lastGlobal: number = 0;
-  efGcd: number = 0;
   checkForSckDamage: number = -1;
   castBokInWindow: boolean = false;
 
@@ -116,10 +111,6 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
     );
     this.addEventListener(Events.GlobalCooldown.by(SELECTED_PLAYER), this.handleGlobal);
     this.addEventListener(
-      Events.EndChannel.by(SELECTED_PLAYER).spell(TALENTS_MONK.ESSENCE_FONT_TALENT),
-      this.handleEssenceFontEnd,
-    );
-    this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.RISING_SUN_KICK_TALENT),
       this.onRSK,
     );
@@ -144,12 +135,10 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
     this.castTrackers.push({
       timestamp: event.timestamp,
       totmStacks: this.selectedCombatant.getBuffStacks(SPELLS.TEACHINGS_OF_THE_MONASTERY.id),
-      numEfHots: this.ef.curBuffs,
       overcappedChijiStacks: 0,
       overcappedTotmStacks: 0,
       lessonsDuration: 0,
       infusionDuration: 0,
-      recastEf: false,
       totalEnvB: 0,
       totalEnvM: 0,
       averageHaste: 0,
@@ -216,26 +205,10 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
     if (this.celestialActive) {
       this.chijiGlobals += 1;
       //if timebetween globals is longer than the gcd add the difference to the missed gcd tally
-      //we only care about accounting casts of essence font or fls, other than that it should be the gcd during chiji
-      if (
-        event.ability.guid === TALENTS_MONK.ESSENCE_FONT_TALENT.id ||
-        event.ability.guid === TALENTS_MONK.JADEFIRE_STOMP_TALENT.id
-      ) {
-        this.efGcd = event.duration;
-      } else if (event.timestamp - this.lastGlobal > event.duration) {
+      if (event.timestamp - this.lastGlobal > event.duration) {
         this.missedGlobals += (event.timestamp - this.lastGlobal - event.duration) / event.duration;
       }
       this.lastGlobal = event.timestamp;
-    }
-  }
-
-  handleEssenceFontEnd(event: EndChannelEvent) {
-    if (this.celestialActive) {
-      if (event.duration > this.efGcd) {
-        this.lastGlobal = event.timestamp - this.efGcd;
-      } else {
-        this.lastGlobal = event.start + this.efGcd;
-      }
     }
   }
 
@@ -315,10 +288,9 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
         </strong>{' '}
         requires some preparation to be used optimally. Press{' '}
         <SpellLink spell={SPELLS.TIGER_PALM} /> to stack{' '}
-        <SpellLink spell={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> to three, get all of
-        your <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> charges on cooldown, and then
-        cast <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> so that your subsequent{' '}
-        <SpellLink spell={SPELLS.GUST_OF_MISTS_CHIJI} /> events will be duplicated. <br />
+        <SpellLink spell={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> to maximum stacks, get
+        all of your <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> charges on cooldown.
+        <br />
         During <SpellLink spell={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT} />, aim to cast{' '}
         <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> when at two stacks of{' '}
         <SpellLink spell={SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF} /> to maximize mana efficiency and
@@ -327,9 +299,7 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
         <SpellLink spell={SPELLS.ENVELOPING_BREATH_HEAL} />, which is where the majority of your
         healing comes from. It is important to avoid overcapping on{' '}
         <SpellLink spell={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> and{' '}
-        <SpellLink spell={SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF} /> stacks, and to recast{' '}
-        <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> if talented into{' '}
-        <SpellLink spell={TALENTS_MONK.JADE_BOND_TALENT} />
+        <SpellLink spell={SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF} /> stacks.
       </p>
     );
 
@@ -403,11 +373,6 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
             result: <PerformanceMark perf={chijiRefreshPerf} />,
             details: <>{cast.overcappedChijiStacks}</>,
           });
-          if (this.selectedCombatant.hasTalent(TALENTS_MONK.JADE_BOND_TALENT)) {
-            const rval = this.getEfRefreshPerfAndItem(cast);
-            allPerfs.push(rval[0]);
-            checklistItems.push(rval[1]);
-          }
           const avgPerf = getAveragePerf(allPerfs);
           return (
             <CooldownExpandable

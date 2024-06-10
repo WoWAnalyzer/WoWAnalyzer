@@ -6,10 +6,8 @@ import Analyzer from 'parser/core/Analyzer';
 import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
-
 import { SPELL_COLORS } from '../../constants';
 import EnvelopingMists from '../spells/EnvelopingMists';
-import EssenceFont from '../spells/EssenceFont';
 import ExpelHarm from '../spells/ExpelHarm';
 import RenewingMist from '../spells/RenewingMist';
 import Revival from '../spells/Revival';
@@ -19,7 +17,6 @@ import Vivify from '../spells/Vivify';
 
 class MasteryStats extends Analyzer {
   static dependencies = {
-    essenceFont: EssenceFont,
     envelopingMists: EnvelopingMists,
     soothingMist: SoothingMist,
     renewingMist: RenewingMist,
@@ -29,7 +26,6 @@ class MasteryStats extends Analyzer {
     sheilunsGift: SheilunsGift,
   };
 
-  protected essenceFont!: EssenceFont;
   protected envelopingMists!: EnvelopingMists;
   protected soothingMist!: SoothingMist;
   protected renewingMist!: RenewingMist;
@@ -44,7 +40,6 @@ class MasteryStats extends Analyzer {
       (this.renewingMist.gustsHealing || 0) +
       (this.envelopingMists.gustsHealing || 0) +
       (this.soothingMist.gustsHealing || 0) +
-      (this.essenceFont.gomHealing || 0) +
       (this.expelHarm.gustsHealing || 0) +
       (this.revival.gustsHealing || 0) +
       (this.sheilunsGift.gomHealing || 0)
@@ -80,13 +75,6 @@ class MasteryStats extends Analyzer {
         spellId: TALENTS_MONK.SOOTHING_MIST_TALENT.id,
         value: this.soothingMist.gustsHealing,
         valueTooltip: formatThousands(this.soothingMist.gustsHealing),
-      },
-      {
-        color: SPELL_COLORS.ESSENCE_FONT,
-        label: 'Essence font',
-        spellId: TALENTS_MONK.ESSENCE_FONT_TALENT.id,
-        value: this.essenceFont.gomHealing,
-        valueTooltip: formatThousands(this.essenceFont.gomHealing),
       },
       {
         color: SPELL_COLORS.EXPEL_HARM,

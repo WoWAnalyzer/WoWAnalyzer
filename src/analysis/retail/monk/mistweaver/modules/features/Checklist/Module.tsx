@@ -4,7 +4,6 @@ import Combatants from 'parser/shared/modules/Combatants';
 import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import ManaValues from 'parser/shared/modules/ManaValues';
 import EnvelopingBreath from '../../spells/EnvelopingBreath';
-import EssenceFontTargetsHit from '../../spells/EssenceFontTargetsHit';
 import SoothingMist from '../../spells/SoothingMist';
 import SpinningCraneKick from '../../spells/SpinningCraneKick';
 import ThunderFocusTea from '../../spells/ThunderFocusTea';
@@ -19,7 +18,6 @@ import Component from './Component';
 import VivaciousVivification from '../../spells/VivaciousVivify';
 import AncientTeachings from '../../spells/AncientTeachings';
 import SheilunsGift from '../../spells/SheilunsGift';
-import EssenceFont from '../../spells/EssenceFont';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -29,7 +27,6 @@ class Checklist extends BaseChecklist {
     manaValues: ManaValues,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
     alwaysBeCasting: AlwaysBeCasting,
-    essenceFontTargetsHit: EssenceFontTargetsHit,
     refreshingJadeWind: RefreshingJadeWind,
     chiBurst: ChiBurst,
     //manaTea: ManaTea,
@@ -40,7 +37,6 @@ class Checklist extends BaseChecklist {
     jadeSerpentStatue: JadeSerpentStatue,
     soothingMist: SoothingMist,
     envelopingBreath: EnvelopingBreath,
-    essenceFont: EssenceFont,
     vivaciousVivification: VivaciousVivification,
     ancientTeachings: AncientTeachings,
     sheiluns: SheilunsGift,
@@ -50,7 +46,6 @@ class Checklist extends BaseChecklist {
   protected manaValues!: ManaValues;
   protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
   protected alwaysBeCasting!: AlwaysBeCasting;
-  protected essenceFontTargetsHit!: EssenceFontTargetsHit;
   protected refreshingJadeWind!: RefreshingJadeWind;
   protected chiBurst!: ChiBurst;
   //protected manaTea!: ManaTea;
@@ -61,7 +56,6 @@ class Checklist extends BaseChecklist {
   protected jadeSerpentStatue!: JadeSerpentStatue;
   protected soothingMist!: SoothingMist;
   protected envelopingBreath!: EnvelopingBreath;
-  protected essenceFont!: EssenceFont;
   protected vivaciousVivification!: VivaciousVivification;
   protected ancientTeachings!: AncientTeachings;
   protected sheiluns!: SheilunsGift;
@@ -77,7 +71,6 @@ class Checklist extends BaseChecklist {
             this.alwaysBeCasting.nonHealingTimeSuggestionThresholds,
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
           manaLeft: this.manaValues.suggestionThresholds,
-          essenceFont: this.essenceFontTargetsHit.suggestionThresholds,
           envelopingBreath: this.envelopingBreath.suggestionThresholds,
           refreshingJadeWind: this.refreshingJadeWind.suggestionThresholds,
           chiBurst: this.chiBurst.suggestionThresholds,
@@ -86,7 +79,6 @@ class Checklist extends BaseChecklist {
           vivify: this.vivify.suggestionThresholds,
           jadeSerpentStatue: this.jadeSerpentStatue.suggestionThresholds,
           soothingMist: this.soothingMist.suggestionThresholdsCasting,
-          essenceFontCancelled: this.essenceFont.suggestionThresholds,
           vivaciousVivification: this.vivaciousVivification.suggestionThresholds,
           ancientTeachings: this.ancientTeachings.suggestionThresholds,
           sheiluns: this.sheiluns.suggestionThresholds,

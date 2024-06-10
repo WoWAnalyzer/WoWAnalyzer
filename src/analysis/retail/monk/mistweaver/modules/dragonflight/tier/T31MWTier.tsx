@@ -31,10 +31,8 @@ const TOOLTIP_SPELLS = [...TARGET_SPELLS, SPELLS.GUSTS_OF_MISTS];
 
 const DROPDOWN_SPELLS = [
   ...TOOLTIP_SPELLS,
-  SPELLS.ESSENCE_FONT_BUFF,
   SPELLS.INVIGORATING_MISTS_HEAL,
-  SPELLS.FAELINE_STOMP_HEAL,
-  SPELLS.FAELINE_STOMP_ESSENCE_FONT,
+  SPELLS.JADEFIRE_STOMP_HEAL,
   SPELLS.AT_HEAL,
   SPELLS.AT_CRIT_HEAL,
   SPELLS.RISING_MIST_HEAL,
@@ -233,8 +231,6 @@ class T31TierSet extends Analyzer {
   private specialNotation(spellId: number): string {
     if (spellId === SPELLS.AT_CRIT_HEAL.id) {
       return '(Crit)';
-    } else if (spellId === SPELLS.FAELINE_STOMP_ESSENCE_FONT.id) {
-      return '(Essence Font)';
     }
     return '';
   }

@@ -5,7 +5,6 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import StatisticsListBox, { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 
 import { JadefireStomp, SaveThemAll } from 'analysis/retail/monk/shared';
-import CloudedFocus from '../spells/CloudedFocus';
 import DancingMists from '../spells/DancingMists';
 import MistyPeaks from '../spells/MistyPeaks';
 import RapidDiffusion from '../spells/RapidDiffusion';
@@ -13,7 +12,6 @@ import RisingMist from '../spells/RisingMist';
 import InvokeChiJi from '../spells/InvokeChiJi';
 import InvokeYulon from '../spells/InvokeYulon';
 import { TALENTS_MONK } from 'common/TALENTS';
-import Upwelling from '../spells/Upwelling';
 import Unison from '../spells/Unison';
 import MistsOfLife from '../spells/MistsOfLife';
 import MistWrap from '../spells/MistWrap';
@@ -26,14 +24,12 @@ import AncientTeachings from '../spells/AncientTeachings';
 class TalentHealingStatistic extends Analyzer {
   static dependencies = {
     risingMist: RisingMist,
-    upwelling: Upwelling,
     mistyPeaks: MistyPeaks,
     invokeChiji: InvokeChiJi,
     invokeYulon: InvokeYulon,
     dancingMists: DancingMists,
     rapidDiffusion: RapidDiffusion,
     saveThemAll: SaveThemAll,
-    cloudedFocus: CloudedFocus,
     unison: Unison,
     mistsOfLife: MistsOfLife,
     mistWrap: MistWrap,
@@ -45,7 +41,6 @@ class TalentHealingStatistic extends Analyzer {
     jadefireStomp: JadefireStomp,
   };
   protected risingMist!: RisingMist;
-  protected upwelling!: Upwelling;
   protected mistyPeaks!: MistyPeaks;
   protected invokeChiji!: InvokeChiJi;
   protected invokeYulon!: InvokeYulon;
@@ -53,7 +48,6 @@ class TalentHealingStatistic extends Analyzer {
   protected rapidDiffusion!: RapidDiffusion;
   protected saveThemAll!: SaveThemAll;
   protected unison!: Unison;
-  protected cloudedFocus!: CloudedFocus;
   protected mistsOfLife!: MistsOfLife;
   protected mistWrap!: MistWrap;
   protected sheiluns!: SheilunsGift;
@@ -74,9 +68,6 @@ class TalentHealingStatistic extends Analyzer {
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)) {
       talentList.push(this.risingMist.subStatistic());
     }
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT)) {
-      talentList.push(this.upwelling.subStatistic());
-    }
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.MISTY_PEAKS_TALENT)) {
       talentList.push(this.mistyPeaks.subStatistic());
     }
@@ -85,9 +76,6 @@ class TalentHealingStatistic extends Analyzer {
     }
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.RAPID_DIFFUSION_TALENT)) {
       talentList.push(this.rapidDiffusion.subStatistic());
-    }
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.CLOUDED_FOCUS_TALENT)) {
-      talentList.push(this.cloudedFocus.subStatistic());
     }
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.SAVE_THEM_ALL_TALENT)) {
       talentList.push(this.saveThemAll.subStatistic());

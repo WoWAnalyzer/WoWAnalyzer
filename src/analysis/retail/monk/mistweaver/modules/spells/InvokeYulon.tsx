@@ -16,7 +16,6 @@ import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import BaseCelestialAnalyzer from './BaseCelestialAnalyzer';
-import EssenceFont from './EssenceFont';
 import EnvelopingBreath from './EnvelopingBreath';
 
 class InvokeYulon extends BaseCelestialAnalyzer {
@@ -24,7 +23,6 @@ class InvokeYulon extends BaseCelestialAnalyzer {
   envelopHealing: number = 0;
   chiCocoonHealing: number = 0;
   protected envb!: EnvelopingBreath;
-  protected ef!: EssenceFont;
 
   get totalHealing() {
     return this.soothHealing + this.envelopHealing + this.chiCocoonHealing;
@@ -65,8 +63,6 @@ class InvokeYulon extends BaseCelestialAnalyzer {
       totalEnvM: 0,
       averageHaste: 0,
       totmStacks: this.selectedCombatant.getBuffStacks(SPELLS.TEACHINGS_OF_THE_MONASTERY.id),
-      numEfHots: this.ef.curBuffs,
-      recastEf: false,
       deathTimestamp: 0,
       castRsk: false,
     });
@@ -168,11 +164,6 @@ class InvokeYulon extends BaseCelestialAnalyzer {
           const superList = super.getCooldownExpandableItems(cast);
           const allPerfs = superList[0];
           const checklistItems: CooldownExpandableItem[] = superList[1];
-          if (this.selectedCombatant.hasTalent(TALENTS_MONK.JADE_BOND_TALENT)) {
-            const rval = this.getEfRefreshPerfAndItem(cast);
-            allPerfs.push(rval[0]);
-            checklistItems.push(rval[1]);
-          }
           if (this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)) {
             const rval = this.getRskCastPerfAndItem(cast);
             allPerfs.push(rval[0]);
