@@ -6,8 +6,6 @@ import { isFromExpelHarm } from '../../normalizers/CastLinkNormalizer';
 class ExpelHarm extends Analyzer {
   selfHealing: number = 0;
   selfOverheal: number = 0;
-  targetHealing: number = 0;
-  targetOverheal: number = 0;
   gustsHealing: number = 0;
 
   constructor(options: Options) {
@@ -15,10 +13,6 @@ class ExpelHarm extends Analyzer {
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.EXPEL_HARM),
       this.handleExpelHarm,
-    );
-    this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.EXPEL_HARM_TARGET_HEAL),
-      this.handleTargetExpelHarm,
     );
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS),
@@ -29,11 +23,6 @@ class ExpelHarm extends Analyzer {
   handleExpelHarm(event: HealEvent) {
     this.selfHealing += (event.amount || 0) + (event.absorbed || 0);
     this.selfOverheal += event.overheal || 0;
-  }
-
-  handleTargetExpelHarm(event: HealEvent) {
-    this.targetHealing += (event.amount || 0) + (event.absorbed || 0);
-    this.targetOverheal += event.overheal || 0;
   }
 
   handleMastery(event: HealEvent) {

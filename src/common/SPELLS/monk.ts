@@ -73,7 +73,7 @@ const spells = {
     id: 322101,
     name: 'Expel Harm',
     icon: 'ability_monk_expelharm',
-    manaCost: 7500,
+    manaCost: 35000,
   },
   SAVE_THEM_ALL_BUFF: {
     id: 390105,
