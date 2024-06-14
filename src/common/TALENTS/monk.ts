@@ -1653,6 +1653,8 @@ const talents = {
     maxRanks: 1,
     entryIds: [124933],
     definitionIds: [{ id: 129771, specId: 270 }],
+    manaCostPerSecond: 10000,
+    energyCostPerSecond: 15,
   },
   SPEAR_HAND_STRIKE_TALENT: {
     id: 116705,
