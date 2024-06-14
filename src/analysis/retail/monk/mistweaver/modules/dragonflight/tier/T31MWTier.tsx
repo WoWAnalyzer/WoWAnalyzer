@@ -10,14 +10,16 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { CHI_HARMONY_COLLECTION } from '../../../constants';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink, TooltipElement } from 'interface';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import ItemSetLink from 'interface/ItemSetLink';
 import { MONK_DF3_ID } from 'common/ITEMS/dragonflight/tier';
 
+//TODO : Move into & refactor into Chi Harmony talent module
+
 const TWO_PIECE_BONUS = 0.5;
+const CHI_HARMONY_COLLECTION = 0.2;
 
 const TARGET_SPELLS = [
   SPELLS.VIVIFY,

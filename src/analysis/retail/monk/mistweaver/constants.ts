@@ -10,6 +10,9 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   SPELLS.GUSTS_OF_MISTS.id,
   SPELLS.GUST_OF_MISTS_CHIJI.id,
   TALENTS_MONK.CELESTIAL_CONDUIT_TALENT.id,
+  SPELLS.FLIGHT_OF_THE_RED_CRANE_HEAL.id,
+  SPELLS.FLIGHT_OF_THE_RED_CRANE_UNITY.id,
+  SPELLS.ZEN_PULSE_HEAL.id,
   // Cooldowns
   TALENTS_MONK.REVIVAL_TALENT.id,
   TALENTS_MONK.RESTORAL_TALENT.id,
@@ -32,15 +35,13 @@ export const LIFE_COCOON_HEALING_BOOST = 0.5;
 // Talent Constants
 export const LEGACY_OF_WISDOM_TARGETS = 2;
 export const SHEILUNS_GIFT_TARGETS = 3;
-export const FONT_OF_LIFE_BOOST = 0.25;
-export const CF_BUFF_PER_STACK = 0.15;
 export const MAX_CHIJI_STACKS = 3;
 export const MANA_TEA_MAX_STACKS = 20;
 export const MANA_TEA_REDUCTION = 0.3;
 export const JADE_BOND_INC = 0.4;
+export const JADE_BOND_SOOB_INC = 3;
 export const NOURISHING_CHI_INC = 0.2;
-export const BASE_EF_BOLTS = 15;
-export const DANCING_MIST_CHANCE = 0.05; // per rank
+export const DANCING_MIST_CHANCE = 0.05;
 export const RAPID_DIFFUSION_DURATION = 3000; // per rank
 export const RISING_MIST_EXTENSION = 4000;
 export const ENVELOPING_MIST_INCREASE = 0.3;
@@ -50,8 +51,6 @@ export const ANCIENT_ARTS_LEG_SWEEP = 5;
 export const ANCIENT_ARTS_PARALYSIS = 8;
 export const LIGHTER_THAN_AIR_ROLL = 2;
 export const PEACE_AND_PROSPERITY_ROP = 5;
-
-export const CHI_HARMONY_COLLECTION = 0.15;
 
 export const ATTRIBUTION_STRINGS = {
   BOUNCED: 'Bounced',
