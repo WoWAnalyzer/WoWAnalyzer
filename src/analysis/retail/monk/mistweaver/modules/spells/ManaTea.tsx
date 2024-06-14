@@ -236,12 +236,9 @@ class ManaTea extends Analyzer {
       suggest(
         <>
           Your mana spent during <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} /> can be improved.
-          Aim to prioritize as many <SpellLink spell={SPELLS.VIVIFY} /> casts until the last second
-          of the buff and then cast <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} />.{' '}
-          <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} />
-          's mana cost is taken at the beginning of the channel, so you gain the benefit of{' '}
-          <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} /> even if the channel continues past the
-          buff.
+          Aim to prioritize more expensive spells like <SpellLink spell={SPELLS.VIVIFY} />
+          or <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> after you finish channeling
+          to take full advantage of the cost reduction.
         </>,
       )
         .icon(TALENTS_MONK.MANA_TEA_TALENT.icon)

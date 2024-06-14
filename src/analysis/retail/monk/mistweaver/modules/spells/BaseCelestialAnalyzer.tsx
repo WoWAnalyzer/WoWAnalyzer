@@ -354,15 +354,8 @@ class BaseCelestialAnalyzer extends Analyzer {
               content={
                 <>
                   Be sure to use <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> with{' '}
-                  <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />{' '}
-                  {this.selectedCombatant.hasTalent(
-                    TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT,
-                  ) && (
-                    <>
-                      or <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} />
-                    </>
-                  )}{' '}
-                  for a multiplicative haste bonus
+                  <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> for a multiplicative haste
+                  bonus
                 </>
               }
             >

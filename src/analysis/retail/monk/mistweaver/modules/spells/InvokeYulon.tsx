@@ -110,6 +110,10 @@ class InvokeYulon extends BaseCelestialAnalyzer {
         <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />
         (s) to prevent overcapping charges Yulon's duration.
         <br />
+        If <SpellLink spell={TALENTS_MONK.SECRET_INFUSION_TALENT} /> talented, use{' '}
+        <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> with{' '}
+        <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> for a multiplicative haste bonus
+        <br />
         {this.selectedCombatant.hasTalent(TALENTS_MONK.SHAOHAOS_LESSONS_TALENT) && (
           <>
             With <SpellLink spell={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT} />, cast{' '}
@@ -127,12 +131,6 @@ class InvokeYulon extends BaseCelestialAnalyzer {
         <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> and{' '}
         <SpellLink spell={TALENTS_MONK.RAPID_DIFFUSION_TALENT} />{' '}
         <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> falls off to extend their duration.
-        {this.selectedCombatant.hasTalent(TALENTS_MONK.JADE_BOND_TALENT) && (
-          <>
-            Recast <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> if talented into{' '}
-            <SpellLink spell={TALENTS_MONK.JADE_BOND_TALENT} />
-          </>
-        )}{' '}
         <br />
         Be sure to follow up your{' '}
         <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} /> with casts of{' '}
@@ -141,14 +139,6 @@ class InvokeYulon extends BaseCelestialAnalyzer {
         s.
       </p>
     );
-    /* Disabled for 10.1 since we will want to use TFT at the end of the ramp to ensure 4pc */
-    /* <ul>
-          <li>
-            If <SpellLink spell={TALENTS_MONK.SECRET_INFUSION_TALENT} /> talented, use{' '}
-            <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> with{' '}
-            <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> for a multiplicative haste bonus
-          </li>
-        </ul> */
 
     const data = (
       <div>

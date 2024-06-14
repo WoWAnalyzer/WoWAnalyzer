@@ -8,7 +8,8 @@ import { formatNumber, formatPercentage } from 'common/format';
 import Toggle from 'react-toggle';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { TIERS } from 'game/TIERS';
-import { CHI_HARMONY_COLLECTION } from '../../constants';
+
+const CHI_HARMONY_COLLECTION = 0.2;
 
 interface Props {
   analyzer: T31TierSet;
