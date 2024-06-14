@@ -3,7 +3,6 @@ import {
   InvokersDelight,
   MysticTouch,
   TouchOfDeath,
-  DampenHarm,
   SaveThemAll,
   TeachingsOfTheMonestary,
 } from 'analysis/retail/monk/shared';
@@ -133,7 +132,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Shared Talents
     chiBurst: ChiBurst,
-    dampenHarm: DampenHarm,
     touchOfDeath: TouchOfDeath,
     risingSunKick: RisingSunKick,
     saveThemAll: SaveThemAll,

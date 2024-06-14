@@ -245,9 +245,8 @@ class AncientTeachings extends Analyzer {
       suggest(
         <>
           You had suboptimal <SpellLink spell={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT} /> buff
-          uptime, try using <SpellLink spell={TALENTS_MONK.JADEFIRE_STOMP_TALENT} /> and{' '}
-          <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> more frequently in order to
-          maintain the buff
+          uptime, make sure to press <SpellLink spell={TALENTS_MONK.JADEFIRE_STOMP_TALENT} /> more
+          frequently in order to maintain the buff
         </>,
       )
         .icon(TALENTS_MONK.ANCIENT_TEACHINGS_TALENT.icon)

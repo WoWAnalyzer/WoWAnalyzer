@@ -234,11 +234,6 @@ class ThunderFocusTea extends Analyzer {
         <ol>
           <li>
             {' '}
-            <SpellLink spell={TALENTS_MONK.UPWELLING_TALENT} /> talented <Arrow /> use on{' '}
-            <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} />
-          </li>
-          <li>
-            {' '}
             <SpellLink spell={TALENTS_MONK.SECRET_INFUSION_TALENT} /> talented <Arrow /> use on{' '}
             <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />
           </li>

@@ -90,6 +90,51 @@ const spells = {
     name: 'Bonedust Brew',
     icon: 'ability_maldraxxus_monk',
   },
+  CELESTIAL_CONDUIT_HEAL: {
+    id: 443029,
+    name: 'Celestial Conduit',
+    icon: 'inv_ability_conduitofthecelestialsmonk_celestialconduit',
+  },
+  COURAGE_OF_THE_WHITE_TIGER_HEAL: {
+    id: 443106,
+    name: 'Courage of the White Tiger',
+    icon: 'ability_monk_summontigerstatue',
+  },
+  COURAGE_OF_THE_WHITE_TIGER_DAMAGE: {
+    id: 457917,
+    name: 'Courage of the White Tiger',
+    icon: 'ability_monk_summontigerstatue',
+  },
+  COURAGE_OF_THE_WHITE_TIGER_BUFF: {
+    id: 460127,
+    name: 'Courage of the White Tiger',
+    icon: 'ability_monk_summontigerstatue',
+  },
+  STRENGTH_OF_THE_BLACK_OX_BUFF: {
+    id: 443112,
+    name: 'Strength of the Black Ox',
+    icon: 'ability_monk_chargingoxwave',
+  },
+  STRENGTH_OF_THE_BLACK_OX_SHIELD: {
+    id: 443113,
+    name: 'Strength of the Black Ox',
+    icon: 'ability_monk_chargingoxwave',
+  },
+  NIUZAOS_PROTECTION_SHIELD: {
+    id: 442749,
+    name: "Niuzao's Protection",
+    icon: 'ability_monk_chargingoxwave',
+  },
+  FLIGHT_OF_THE_RED_CRANE_HEAL: {
+    id: 443272,
+    name: 'Flight of the Red Crane',
+    icon: 'inv_pet_cranegod',
+  },
+  FLIGHT_OF_THE_RED_CRANE_UNITY: {
+    id: 443614,
+    name: 'Flight of the Red Crane',
+    icon: 'inv_pet_cranegod',
+  },
 
   // Mistweaver Monk Spells
   ENVELOPING_MIST_TFT: {
