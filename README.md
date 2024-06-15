@@ -27,7 +27,7 @@ When cloning finishes, open a command window to the source and run the command `
 
 Once all that's done you're ready to fire up the development server! Just run the command `yarn start` in the project root. This should open up your local version of WoWAnalyzer in the browser.
 
-At this point you can poke around and start making changes, or head over to the [wiki](./wiki) for more information.
+At this point you can poke around and start making changes, or head over to the [wiki](https://github.com/WoWAnalyzer/WoWAnalyzer/wiki) for more information.
 
 <table align="center">
   <tr>
