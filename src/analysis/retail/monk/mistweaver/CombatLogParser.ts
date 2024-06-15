@@ -86,6 +86,7 @@ import T31TierSet from './modules/dragonflight/tier/T31MWTier';
 import TearOfMorning from './modules/spells/TearOfMorning';
 import T31HealingBreakdown from './modules/dragonflight/T31HealingBreakdown';
 import AmalgamsSeventhSpineMW from './modules/dragonflight/items/AmalgamsSeventhSpineSources';
+import LotusInfusion from './modules/spells/LotusInfusion';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -178,6 +179,7 @@ class CombatLogParser extends CoreCombatLogParser {
     lifeCocoon: LifeCocoon,
     secretInfusion: SecretInfusion,
     tearOfMorning: TearOfMorning,
+    lotusInfusion: LotusInfusion,
 
     apl: AplCheck,
 

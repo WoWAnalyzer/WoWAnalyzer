@@ -321,7 +321,9 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
-        category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
+        category: combatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)
+          ? SPELL_CATEGORY.ROTATIONAL
+          : SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
         cooldown: (haste: number) => 12 / (1 + haste),
         gcd: {
           base: 1500,

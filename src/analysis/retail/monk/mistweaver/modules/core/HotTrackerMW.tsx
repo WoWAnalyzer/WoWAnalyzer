@@ -3,16 +3,17 @@ import { TALENTS_MONK } from 'common/TALENTS';
 import { Options } from 'parser/core/Analyzer';
 import Combatant from 'parser/core/Combatant';
 import HotTracker, { Tracker, HotInfo, Extension } from 'parser/shared/modules/HotTracker';
-import { ATTRIBUTION_STRINGS } from '../../constants';
-
-const RAPID_DIFFUSION = 3000;
-const MISTY_PEAKS_DURATION = 2000;
-const REM_BASE_DURATION = 20000;
-const ENV_BASE_DURATION = 6000;
-const RISING_MIST = 2;
-
-const MISTWRAP = 1000;
-const TFT_REM_EXTRA_DURATION = 10000;
+import {
+  ATTRIBUTION_STRINGS,
+  ENV_BASE_DURATION,
+  LOTUS_INFUSION_DURATION,
+  MISTWRAP,
+  MISTY_PEAKS_DURATION,
+  RAPID_DIFFUSION,
+  REM_BASE_DURATION,
+  RISING_MIST,
+  TFT_REM_EXTRA_DURATION,
+} from '../../constants';
 
 const HARDCAST = 'Hardcast';
 
@@ -20,15 +21,15 @@ class HotTrackerMW extends HotTracker {
   mistwrapActive: boolean;
   rapidDiffusionActive: boolean;
   risingMistActive: boolean;
-  rapidDiffusionRank: number;
+  lotusInfusionActive: boolean;
 
   constructor(options: Options) {
     super(options);
     this.mistwrapActive = this.owner.selectedCombatant.hasTalent(TALENTS_MONK.MIST_WRAP_TALENT);
-    this.rapidDiffusionActive = this.owner.selectedCombatant.hasTalent(
-      TALENTS_MONK.RAPID_DIFFUSION_TALENT,
+    this.lotusInfusionActive = this.owner.selectedCombatant.hasTalent(
+      TALENTS_MONK.LOTUS_INFUSION_TALENT,
     );
-    this.rapidDiffusionRank = this.owner.selectedCombatant.getTalentRank(
+    this.rapidDiffusionActive = this.owner.selectedCombatant.hasTalent(
       TALENTS_MONK.RAPID_DIFFUSION_TALENT,
     );
     this.risingMistActive = this.owner.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT);
@@ -123,17 +124,22 @@ class HotTrackerMW extends HotTracker {
 
   // Renewing Mist applies with a longer duration if Thunder Focus Tea is active
   _calculateRemDuration(combatant: Combatant): number {
+    const baseDuration =
+      REM_BASE_DURATION +
+      (combatant.hasTalent(TALENTS_MONK.LOTUS_INFUSION_TALENT) ? LOTUS_INFUSION_DURATION : 0);
     return combatant.hasBuff(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id)
-      ? REM_BASE_DURATION + TFT_REM_EXTRA_DURATION
-      : REM_BASE_DURATION;
+      ? baseDuration + TFT_REM_EXTRA_DURATION
+      : baseDuration;
   }
 
   _calculateMaxRemDuration(combatant: Combatant): number {
+    const baseDuration =
+      REM_BASE_DURATION +
+      (combatant.hasTalent(TALENTS_MONK.LOTUS_INFUSION_TALENT) ? LOTUS_INFUSION_DURATION : 0);
     return combatant.hasBuff(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id)
-      ? (REM_BASE_DURATION + TFT_REM_EXTRA_DURATION) *
+      ? (baseDuration + TFT_REM_EXTRA_DURATION) *
           (combatant.getTalentRank(TALENTS_MONK.RISING_MIST_TALENT) * RISING_MIST)
-      : REM_BASE_DURATION *
-          (combatant.getTalentRank(TALENTS_MONK.RISING_MIST_TALENT) * RISING_MIST);
+      : baseDuration * (combatant.getTalentRank(TALENTS_MONK.RISING_MIST_TALENT) * RISING_MIST);
   }
 
   _calculateEnvDuration(combatant: Combatant): number {
