@@ -7,16 +7,6 @@
 import Spell from 'common/SPELLS/Spell';
 
 const spells = {
-  METEOR_DAMAGE: {
-    id: 351140,
-    name: 'Meteor',
-    icon: 'spell_mage_meteor',
-  },
-  METEOR_BURN: {
-    id: 155158,
-    name: 'Meteor',
-    icon: 'spell_mage_meteor',
-  },
   CONE_OF_COLD: {
     id: 120,
     name: 'Cone of Cold',
@@ -173,11 +163,6 @@ const spells = {
     id: 382290,
     name: 'Tempest Barrier',
     icon: 'inv_shield_1h_artifactstormfist_d_04',
-  },
-  TEMPORAL_WARP_BUFF: {
-    id: 386540,
-    name: 'Temporal Warp',
-    icon: 'ability_bossmagistrix_timewarp2',
   },
   ICE_COLD: {
     id: 414658,

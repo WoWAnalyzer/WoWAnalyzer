@@ -18,14 +18,6 @@ class Abilities extends CoreAbilities {
         damageSpellIds: [SPELLS.ARCANE_BLAST.id],
       },
       {
-        spell: SPELLS.FROSTBOLT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-        damageSpellIds: [SPELLS.FROSTBOLT_DAMAGE.id],
-      },
-      {
         spell: TALENTS.ARCANE_MISSILES_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         enabled: combatant.hasTalent(TALENTS.ARCANE_MISSILES_TALENT),
@@ -36,39 +28,6 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ARCANE_BARRAGE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste: any) => 3 / (1 + haste),
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.ARCANE_EXPLOSION.id,
-        category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-      },
-      {
-        spell: TALENTS.SUPERNOVA_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS.SUPERNOVA_TALENT),
-        gcd: {
-          base: 1500,
-        },
-        cooldown: 25,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-      },
-      {
-        spell: TALENTS.NETHER_TEMPEST_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS.NETHER_TEMPEST_TALENT),
         gcd: {
           base: 1500,
         },
@@ -91,21 +50,14 @@ class Abilities extends CoreAbilities {
 
       // Cooldowns
       {
-        spell: TALENTS.ARCANE_FAMILIAR_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        enabled: combatant.hasTalent(TALENTS.ARCANE_FAMILIAR_TALENT),
-        gcd: {
-          base: 1500,
-        },
-        cooldown: 10,
-      },
-      {
         spell: TALENTS.TOUCH_OF_THE_MAGI_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         enabled: combatant.hasTalent(TALENTS.TOUCH_OF_THE_MAGI_TALENT),
         cooldown: 45,
-        gcd: {
-          base: 1500,
+        gcd: null,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
         },
       },
       {
@@ -146,19 +98,6 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: false,
           recommendedEfficiency: 0.6,
-        },
-      },
-      {
-        spell: TALENTS.RADIANT_SPARK_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        enabled: combatant.hasTalent(TALENTS.RADIANT_SPARK_TALENT),
-        gcd: {
-          base: 1500,
-        },
-        cooldown: 30,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
         },
       },
       ...super.spellbook(),

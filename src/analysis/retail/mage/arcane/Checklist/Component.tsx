@@ -110,30 +110,6 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
             spell={TALENTS.SUPERNOVA_TALENT.id}
           />
         )}
-        {combatant.hasTalent(TALENTS.RADIANT_SPARK_TALENT) && (
-          <AbilityRequirement
-            name={
-              <>
-                <SpellLink spell={TALENTS.RADIANT_SPARK_TALENT} /> Cast Efficiency
-              </>
-            }
-            spell={TALENTS.RADIANT_SPARK_TALENT.id}
-          />
-        )}
-        {combatant.hasTalent(TALENTS.RADIANT_SPARK_TALENT) && (
-          <Requirement
-            name="Radiant Spark not active during Surge"
-            tooltip="Since Radiant Spark's primary function is to boost your damage, you want to ensure that you are casting it before every Arcane Surge (Radiant Spark > Arcane Surge). Other abilities such as Nether Tempest might happen in between Radiant Spark and Arcane Surge, but generally Arcane Surge will be the first spell you use inside Radiant Spark."
-            thresholds={thresholds.radiantSparkPreReqs}
-          />
-        )}
-        {combatant.hasTalent(TALENTS.RADIANT_SPARK_TALENT) && (
-          <Requirement
-            name="Radiant Spark Utilization"
-            tooltip="Since Arcane Blast hits very hard when at 4 Arcane Charges, you should use Radiant Spark's damage increase to make Arcane Blast (or Arcane Barrage in AOE) hit even harder. Every time you cast Radiant Spark during a major burn phase, you should cast Arcane Surge and then use the remainder of Radiant Spark on either Arcane Blast or Arcane Barrage."
-            thresholds={thresholds.radiantSparkUtilization}
-          />
-        )}
         {combatant.hasTalent(TALENTS.SIPHON_STORM_TALENT) && (
           <Requirement
             name="Siphon Storm not active during Surge"
@@ -149,29 +125,6 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
               </>
             }
             spell={TALENTS.SHIFTING_POWER_TALENT.id}
-          />
-        )}
-        {combatant.hasTalent(TALENTS.TOUCH_OF_THE_MAGI_TALENT) &&
-          combatant.hasTalent(TALENTS.RADIANT_SPARK_TALENT) && (
-            <Requirement
-              name="Touch of the Magi Usage"
-              tooltip="Because Touch of the Magi will be available for every burn phase (major and minor), you should use Arcane Barrage during Radiant Spark (immediately after Arcane Surge) to clear your Arcane Charges and then use Touch of the Magi to refresh your charges and continue casting into Radiant Spark."
-              thresholds={thresholds.touchMagiBadUses}
-            />
-          )}
-        {combatant.hasTalent(TALENTS.TOUCH_OF_THE_MAGI_TALENT) &&
-          combatant.hasTalent(TALENTS.RADIANT_SPARK_TALENT) && (
-            <Requirement
-              name="Touch of the Magi Spark Overlap"
-              tooltip="Because Touch of the Magi deals a percentage of your damage done during the debuff's duration, you want Touch of the Magi to overlap with Radiant Spark as much as possible since Radiant Spark will cause your spells to do more damage, which will therefore make Touch of the Magi deal more damage as well."
-              thresholds={thresholds.touchMagiOverlap}
-            />
-          )}
-        {combatant.hasTalent(TALENTS.RULE_OF_THREES_TALENT) && (
-          <Requirement
-            name="Rule of Threes Buff Usage"
-            tooltip="Rule of Threes gives you a free cast of Arcane Blast when you hit 3 Arcane Charges so you shoud always ensure you are using that free charge before you clear your Arcane Charges with Barrage since there is no negative mana impact to doing so."
-            thresholds={thresholds.ruleOfThreesUsage}
           />
         )}
         {combatant.hasTalent(TALENTS.ARCANE_ORB_TALENT) && (

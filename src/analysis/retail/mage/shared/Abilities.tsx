@@ -50,7 +50,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 18,
+        cooldown: 45,
       },
       {
         spell: TALENTS.BLAST_WAVE_TALENT.id,
@@ -59,7 +59,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 25,
+        cooldown: 30,
       },
       {
         spell: TALENTS.ICE_NOVA_TALENT.id,
@@ -71,6 +71,19 @@ class Abilities extends CoreAbilities {
         cooldown: 25,
         timelineSortIndex: 9,
         //damageSpellIds: [SPELLS.ICE_NOVA_TALENT.id], // needs verification
+      },
+      {
+        spell: TALENTS.SUPERNOVA_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        enabled: combatant.hasTalent(TALENTS.SUPERNOVA_TALENT),
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 45,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
       },
 
       // Cooldowns
@@ -114,7 +127,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.BLAZING_BARRIER_TALENT),
         cooldown:
           combatant.hasTalent(TALENTS.ACCUMULATIVE_SHIELDING_TALENT) &&
-          combatant.hasBuff(TALENTS.ICE_BARRIER_TALENT.id)
+          combatant.hasBuff(TALENTS.BLAZING_BARRIER_TALENT.id)
             ? 25 / 1.3
             : 25,
         gcd: {
@@ -128,7 +141,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.PRISMATIC_BARRIER_TALENT),
         cooldown:
           combatant.hasTalent(TALENTS.ACCUMULATIVE_SHIELDING_TALENT) &&
-          combatant.hasBuff(TALENTS.ICE_BARRIER_TALENT.id)
+          combatant.hasBuff(TALENTS.PRISMATIC_BARRIER_TALENT.id)
             ? 25 / 1.3
             : 25,
         gcd: {
@@ -158,6 +171,15 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.MIRROR_IMAGE_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         enabled: combatant.hasTalent(TALENTS.MIRROR_IMAGE_TALENT),
+        cooldown: 120,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: TALENTS.MASS_BARRIER_TALENT.id,
+        category: SPELL_CATEGORY.DEFENSIVE,
+        enabled: combatant.hasTalent(TALENTS.MASS_BARRIER_TALENT),
         cooldown: 120,
         gcd: {
           base: 1500,
@@ -287,6 +309,15 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.GREATER_INVISIBILITY_BUFF.id,
         category: SPELL_CATEGORY.UTILITY,
         enabled: combatant.hasTalent(TALENTS.GREATER_INVISIBILITY_TALENT),
+        cooldown: 120,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: TALENTS.MASS_INVISIBILITY_TALENT.id,
+        category: SPELL_CATEGORY.UTILITY,
+        enabled: combatant.hasTalent(TALENTS.MASS_INVISIBILITY_TALENT),
         cooldown: 120,
         gcd: {
           base: 1500,
