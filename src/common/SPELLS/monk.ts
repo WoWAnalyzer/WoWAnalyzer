@@ -90,6 +90,11 @@ const spells = {
     name: 'Bonedust Brew',
     icon: 'ability_maldraxxus_monk',
   },
+  HEALING_WINDS_HEAL: {
+    id: 450559,
+    name: 'Healing Winds',
+    icon: 'ability_monk_pathofmists',
+  },
   CELESTIAL_CONDUIT_HEAL: {
     id: 443029,
     name: 'Celestial Conduit',
