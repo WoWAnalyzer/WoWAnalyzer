@@ -6,7 +6,7 @@ class ManaTracker extends ResourceTracker {
   constructor(options: Options) {
     super(options);
     this.resource = RESOURCE_TYPES.MANA;
-    this.maxResource = 250000;
+    this.maxResource = 2500000;
   }
 
   maxResource: number;
