@@ -35,7 +35,7 @@ function ModuleDebugAnnotations({ module, annotations }: ModuleAnnotations) {
   const [selected, setSelected] = useState<AnnotatedEvent | null>(null);
   return (
     <div>
-      <h3>{module.constructor.name}</h3>
+      <h3>{module.key}</h3>
       <div>Recorded annotations for {annotations.length} events</div>
       <DotContainer>
         {intoRows(annotations, parser.fight.start_time).map((row, index) => (
