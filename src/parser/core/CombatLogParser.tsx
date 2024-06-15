@@ -413,7 +413,6 @@ class CombatLogParser {
     // eslint-disable-next-line new-cap
     const module = new moduleClass(fullOptions);
     Module.applyDependencies(fullOptions, module);
-    // TODO: Remove module naming
     module.key = desiredModuleName;
     this._modules[desiredModuleName] = module;
     return module;
