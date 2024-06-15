@@ -124,8 +124,6 @@ jobs:
     needs: [prepare]
     name: 'e2e-build'
     runs-on: ubuntu-latest
-    # temporarily disable e2e on TWW branches
-    if: github.base_ref != 'refs/heads/the-war-within' && github.ref != 'refs/heads/the-war-within'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

@@ -67,6 +67,7 @@ export const generateConfigs = async () => {
         patchCompatibility?: string;
         spec?: string;
         isPartial?: boolean;
+        hasParser?: boolean;
       } = {};
       for (const property of config.properties) {
         if (property.type !== 'ObjectProperty' || property.key.type !== 'Identifier') {
@@ -93,6 +94,10 @@ export const generateConfigs = async () => {
             if (property.value.type === 'BooleanLiteral') {
               cfg[property.key.name] = property.value.value;
             }
+            break;
+          case 'parser':
+            cfg.hasParser = true;
+            break;
         }
       }
 
@@ -106,7 +111,7 @@ export const generateConfigs = async () => {
           branch: isClassic ? GameBranch.Classic : GameBranch.Retail,
         });
 
-      if (!isLatest || !cfg.exampleReport) {
+      if (!isLatest || !cfg.exampleReport || !cfg.hasParser) {
         return null;
       }
 
