@@ -15,6 +15,7 @@ import KegSmash from '../spells/KegSmash';
 import TigerPalm from '../spells/TigerPalm';
 import AnvilStave from '../talents/AnvilStave';
 import PressTheAdvantage from '../talents/PressTheAdvantage';
+import BonedustBrew from '../talents/BonedustBrew';
 
 const deps = {
   ks: KegSmash,
@@ -23,6 +24,7 @@ const deps = {
   anvilStave: AnvilStave,
   abilities: Abilities,
   pta: PressTheAdvantage,
+  bdb: BonedustBrew,
 };
 
 class BrewCDR extends Analyzer.withDependencies(deps) {
@@ -43,7 +45,7 @@ class BrewCDR extends Analyzer.withDependencies(deps) {
   }
 
   get totalCDR() {
-    const { ks, tp, bob, anvilStave, pta } = this.deps;
+    const { bdb, ks, tp, bob, anvilStave, pta } = this.deps;
     let totalCDR = 0;
     // add in KS CDR...
     totalCDR += ks.cdr;
@@ -54,11 +56,12 @@ class BrewCDR extends Analyzer.withDependencies(deps) {
     totalCDR += bob.cdr[talents.PURIFYING_BREW_TALENT.id];
     totalCDR += anvilStave.cdr;
     totalCDR += pta.brewCDRTotal;
+    totalCDR += bdb.effectiveCdr;
     return totalCDR;
   }
 
   get maxTotalCDR() {
-    const { ks, tp, bob, pta } = this.deps;
+    const { bdb, ks, tp, bob, pta } = this.deps;
     // some passive talents like anvil & stave don't track wasted cdr (yet?)
     return (
       ks.wastedCDR +
@@ -66,6 +69,7 @@ class BrewCDR extends Analyzer.withDependencies(deps) {
       tp.wastedCDR +
       bob.wastedCDR[talents.PURIFYING_BREW_TALENT.id] +
       pta.wastedBrewCDR +
+      bdb.wastedCdr +
       this.totalCDR
     );
   }
@@ -99,7 +103,7 @@ class BrewCDR extends Analyzer.withDependencies(deps) {
   }
 
   statistic() {
-    const { ks, pta, tp, bob, anvilStave } = this.deps;
+    const { ks, pta, tp, bob, anvilStave, bdb } = this.deps;
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
@@ -147,6 +151,13 @@ class BrewCDR extends Analyzer.withDependencies(deps) {
                   {pta.meleeCount} Press the Advantage triggers -{' '}
                   <strong>{(pta.brewCDRTotal / 1000).toFixed(2)}s</strong> (
                   <strong>{(pta.wastedBrewCDR / 1000).toFixed(2)}s</strong> wasted)
+                </li>
+              )}
+              {bdb.active && (
+                <li>
+                  {bdb.triggers} casts with Bonedust Brew's bonus CDR -{' '}
+                  <strong>{(bdb.effectiveCdr / 1000).toFixed(2)}s</strong> (
+                  <strong>{(bdb.wastedCdr / 1000).toFixed(2)}s</strong> wasted) )
                 </li>
               )}
             </ul>

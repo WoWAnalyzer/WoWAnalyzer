@@ -33,6 +33,11 @@ const LazyEventsTab = lazyLoadComponent(() =>
     ),
   ),
 );
+const LazyDebugAnnotationsTab = lazyLoadComponent(() =>
+  retryingPromise(() =>
+    import('interface/DebugAnnotationsTab').then(({ default: Component }) => Component),
+  ),
+);
 
 export const OverviewTab = () => {
   const { combatLogParser: parser } = useCombatLogParser();
@@ -96,6 +101,20 @@ export const EventsTab = () => {
   return (
     <div className="container">
       <LazyEventsTab parser={parser} />
+    </div>
+  );
+};
+
+export const DebugAnnotationsTab = () => {
+  const { combatLogParser } = useCombatLogParser();
+  const { isLoading } = useResults();
+
+  if (isLoading) {
+    return <ResultsLoadingIndicator />;
+  }
+  return (
+    <div className="container">
+      <LazyDebugAnnotationsTab parser={combatLogParser} />
     </div>
   );
 };
