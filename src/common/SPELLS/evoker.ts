@@ -513,7 +513,7 @@ const spells = {
     name: 'Time Bender',
     icon: 'ability_evoker_masterylifebinder_bronze',
   },
-  LIFESPARK: {
+  LIFESPARK_BUFF: {
     id: 394552,
     name: 'Lifespark',
     icon: 'ability_evoker_masterylifebinder_red',
