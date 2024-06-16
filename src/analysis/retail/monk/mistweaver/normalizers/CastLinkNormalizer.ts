@@ -278,7 +278,7 @@ export function getSheilunsGiftHits(event: CastEvent): HealEvent[] {
   return GetRelatedEvents<HealEvent>(event, SHEILUNS_GIFT);
 }
 
-export function getVivifiesPerCast(event: CastEvent) {
+export function getInvigHitsPerCast(event: HealEvent) {
   return GetRelatedEvents(event, VIVIFY);
 }
 
