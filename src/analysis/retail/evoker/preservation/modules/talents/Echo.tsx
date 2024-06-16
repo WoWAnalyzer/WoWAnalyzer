@@ -24,7 +24,7 @@ import {
   getEchoTypeForLifebind,
   isFromHardcastEcho,
   isFromTAEcho,
-} from '../../normalizers/EventLinking/CastLinkNormalizer';
+} from '../../normalizers/EventLinking/helpers';
 import HotTrackerPrevoker from '../core/HotTrackerPrevoker';
 
 class Echo extends Analyzer {

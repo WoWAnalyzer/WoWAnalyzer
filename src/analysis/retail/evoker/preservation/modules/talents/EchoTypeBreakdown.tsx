@@ -6,7 +6,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { SPELL_COLORS } from '../../constants';
-import { isFromTAEcho } from '../../normalizers/EventLinking/CastLinkNormalizer';
+import { isFromTAEcho } from '../../normalizers/EventLinking/helpers';
 import Events, { ApplyBuffEvent } from 'parser/core/Events';
 
 class EchoTypeBreakdown extends Analyzer {
