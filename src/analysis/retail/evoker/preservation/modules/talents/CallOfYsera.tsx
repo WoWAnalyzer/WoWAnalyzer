@@ -21,7 +21,7 @@ import {
 import {
   isFromDreamBreathCallOfYsera,
   isFromLivingFlameCallOfYsera,
-} from '../../normalizers/CastLinkNormalizer';
+} from '../../normalizers/EventLinking/CastLinkNormalizer';
 import HotTrackerPrevoker from '../core/HotTrackerPrevoker';
 import DreamBreath from './DreamBreath';
 

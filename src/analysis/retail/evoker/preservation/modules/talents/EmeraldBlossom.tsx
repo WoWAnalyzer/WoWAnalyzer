@@ -8,7 +8,10 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import { getHealEvents, isFromFieldOfDreams } from '../../normalizers/CastLinkNormalizer';
+import {
+  getHealEvents,
+  isFromFieldOfDreams,
+} from '../../normalizers/EventLinking/CastLinkNormalizer';
 import { SpellLink } from 'interface';
 import { formatNumber, formatPercentage } from 'common/format';
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';

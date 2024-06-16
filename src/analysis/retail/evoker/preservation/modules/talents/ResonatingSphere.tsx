@@ -14,23 +14,17 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { SPELL_COLORS } from '../../constants';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import Echo from './Echo';
-import { TIERS } from 'game/TIERS';
-import T31PrevokerSet from '../dragonflight/tier/T31TierSet';
 
 class ResonatingSphere extends Analyzer {
   static dependencies = {
     echo: Echo,
-    t31: T31PrevokerSet,
   };
   protected echo!: Echo;
-  protected t31!: T31PrevokerSet;
   taEchoEnabled: boolean = false;
 
   constructor(options: Options) {
     super(options);
-    this.active =
-      this.selectedCombatant.hasTalent(TALENTS_EVOKER.RESONATING_SPHERE_TALENT) ||
-      this.selectedCombatant.has4PieceByTier(TIERS.DF3);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.RESONATING_SPHERE_TALENT);
   }
 
   get guideSubsection(): JSX.Element {
@@ -90,15 +84,6 @@ class ResonatingSphere extends Analyzer {
         spellId: TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT.id,
         value: this.echo.totalTaEchoHealing,
         valueTooltip: formatNumber(this.echo.totalTaEchoHealing),
-      });
-    }
-    if (this.selectedCombatant.has4PieceByTier(TIERS.DF3)) {
-      items.push({
-        color: SPELL_COLORS.VERDANT_EMBRACE,
-        label: 'Echo from T31 4PC',
-        spellId: SPELLS.LIVING_FLAME_CAST.id,
-        value: this.t31.echoHealing,
-        valueTooltip: formatNumber(this.t31.echoHealing),
       });
     }
     return <DonutChart items={items} />;
