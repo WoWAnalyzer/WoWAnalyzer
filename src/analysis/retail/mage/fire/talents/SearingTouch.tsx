@@ -32,7 +32,7 @@ class SearingTouch extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = false;
+    this.active = false; // Need to get this shifted towards the other talents that replicate what Searing Touch did.
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell([SPELLS.FIREBALL, SPELLS.SCORCH]),
       this.onCast,
