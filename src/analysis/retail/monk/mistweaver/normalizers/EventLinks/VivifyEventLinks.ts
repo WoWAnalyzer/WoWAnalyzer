@@ -1,11 +1,12 @@
 import SPELLS from 'common/SPELLS';
 import { EventLink } from 'parser/core/EventLinkNormalizer';
-import { EventType } from 'parser/core/Events';
+import { CastEvent, EventType, HasRelatedEvent, RemoveBuffEvent } from 'parser/core/Events';
 import {
   VIVIFY,
   CAST_BUFFER_MS,
   ZEN_PULSE_VIVIFY,
   VIVACIOUS_VIVIFICATION,
+  VIVACIOUS_VIVIFICATION_CAST,
 } from './EventLinkConstants';
 import { TALENTS_MONK } from 'common/TALENTS';
 
@@ -16,7 +17,7 @@ export const VIVIFY_EVENT_LINKS: EventLink[] = [
     linkingEventType: [EventType.Heal],
     referencedEventId: [SPELLS.INVIGORATING_MISTS_HEAL.id],
     referencedEventType: [EventType.Heal],
-    backwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: 50,
     forwardBufferMs: 50,
     anyTarget: true,
   },
@@ -34,14 +35,34 @@ export const VIVIFY_EVENT_LINKS: EventLink[] = [
   },
   {
     linkRelation: VIVACIOUS_VIVIFICATION,
-    linkingEventId: [SPELLS.VIVIFY.id],
-    linkingEventType: [EventType.Heal],
+    linkingEventId: SPELLS.VIVIFY.id,
+    linkingEventType: EventType.Heal,
     referencedEventId: [SPELLS.VIVIFICATION_BUFF.id],
-    referencedEventType: [EventType.RemoveBuff],
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
+    referencedEventType: EventType.RemoveBuff,
+    forwardBufferMs: 50,
+    backwardBufferMs: 50,
     anyTarget: true,
     maximumLinks: 1,
+    additionalCondition(linkingEvent, referencedEvent) {
+      return HasRelatedEvent(referencedEvent, VIVACIOUS_VIVIFICATION_CAST);
+    },
+    isActive(c) {
+      return c.hasTalent(TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT);
+    },
+  },
+  {
+    linkRelation: VIVACIOUS_VIVIFICATION_CAST,
+    linkingEventId: SPELLS.VIVIFICATION_BUFF.id,
+    linkingEventType: [EventType.RemoveBuff],
+    referencedEventId: SPELLS.VIVIFY.id,
+    referencedEventType: [EventType.Cast],
+    forwardBufferMs: 50,
+    backwardBufferMs: 50,
+    maximumLinks: 1,
+    anyTarget: true,
+    additionalCondition(linkingEvent, referencedEvent) {
+      return (linkingEvent as RemoveBuffEvent).sourceID === (referencedEvent as CastEvent).sourceID;
+    },
     isActive(c) {
       return c.hasTalent(TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT);
     },

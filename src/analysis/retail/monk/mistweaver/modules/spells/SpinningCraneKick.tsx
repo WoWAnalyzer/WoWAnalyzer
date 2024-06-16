@@ -1,10 +1,7 @@
-import { defineMessage } from '@lingui/macro';
 import { formatMilliseconds } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, FightEndEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 class SpinningCraneKick extends Analyzer {
   goodSCKcount: number = 0;
@@ -26,19 +23,6 @@ class SpinningCraneKick extends Analyzer {
       this.handleSpinningCraneKick,
     );
     this.addEventListener(Events.fightend, this.fightEnd);
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.badSCKcount,
-      isGreaterThan: {
-        //following the tft logic of one is okay anymore is bad
-        minor: 1,
-        average: 1.5,
-        major: 2,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
   }
 
   castSpinningCraneKick(event: CastEvent) {
@@ -72,28 +56,6 @@ class SpinningCraneKick extends Analyzer {
       this.badSCKcount += 1;
       this.badSCKTimeList.push(formatMilliseconds(this.currentTime));
     }
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You are not utilizing your <SpellLink spell={SPELLS.SPINNING_CRANE_KICK} /> spell as
-          effectively as you should. You should work on both your positioning spell. Always aim for
-          the highest concentration of enemies, which is normally melee.
-        </>,
-      )
-        .icon(SPELLS.SPINNING_CRANE_KICK.icon)
-        .actual(
-          `${this.badSCKcount}${defineMessage({
-            id: 'monk.mistweaver.suggestions.spinningCraneKick.efficiency',
-            message: ` Spinning Crane Kicks that hit fewer than 3 enemies`,
-          })}`,
-        )
-        .recommended(
-          "Aim to hit 3 or more targets with Spinning Crane Kick if there is less than 3 targets then Rising Sunkick, Blackout Kick or Tiger's palm",
-        ),
-    );
   }
 }
 

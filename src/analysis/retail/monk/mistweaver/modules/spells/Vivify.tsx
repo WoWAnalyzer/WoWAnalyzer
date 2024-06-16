@@ -1,5 +1,3 @@
-// Based on Clearcasting Implementation done by @Blazyb
-import { defineMessage } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
@@ -10,7 +8,6 @@ import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Statistic from 'parser/ui/Statistic';
@@ -89,18 +86,6 @@ class Vivify extends Analyzer {
     return this.cleaveHits / this.casts || 0;
   }
 
-  get suggestionThresholds() {
-    return {
-      actual: this.casts > 0 ? this.averageRemPerVivify : 0,
-      isLessThan: {
-        minor: this.casts > 0 ? this.estimatedAverageReMs : 0,
-        average: this.casts > 0 ? this.estimatedAverageReMs - 0.5 : 0,
-        major: this.casts > 0 ? this.estimatedAverageReMs - 1 : 0,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
-  }
-
   get estimatedAverageReMs() {
     if (this.risingMistActive) {
       this.expectedAverageReMs = BASE_AVERAGE_REMS * 2;
@@ -153,6 +138,7 @@ class Vivify extends Analyzer {
 
   vivCast(event: CastEvent) {
     this.casts += 1;
+    console.log(event);
   }
 
   handleInvigoratingMists(event: HealEvent) {
@@ -237,27 +223,6 @@ class Vivify extends Analyzer {
     );
 
     return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You are casting <SpellLink spell={SPELLS.VIVIFY} /> with low counts of{' '}
-          <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> out on the raid. To ensure you are
-          gaining the maximum <SpellLink spell={SPELLS.VIVIFY} /> healing, keep{' '}
-          <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> on cooldown.
-        </>,
-      )
-        .icon(SPELLS.VIVIFY.icon)
-        .actual(
-          `${this.averageRemPerVivify.toFixed(2) + ' '}${defineMessage({
-            id: 'monk.mistweaver.suggestions.vivify.renewingMistsPerVivify',
-            message: ` Renewing Mists per Vivify`,
-          })}`,
-        )
-        .recommended(`${recommended.toFixed(2)} Renewing Mists are recommended per Vivify`),
-    );
   }
 
   statistic() {

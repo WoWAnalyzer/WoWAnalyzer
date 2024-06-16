@@ -32,6 +32,7 @@ export const CRANE_STYLE_SCK = 'CraneStyleSCK';
 //Vivify
 export const VIVIFY = 'Vivify';
 export const VIVACIOUS_VIVIFICATION = 'VivaciousVivification';
+export const VIVACIOUS_VIVIFICATION_CAST = 'VivaciousVivificationCast';
 export const ZEN_PULSE_VIVIFY = 'ZenPulseVivify';
 export const CHI_WAVE_VIVIFY = 'ChiWaveVivify';
 

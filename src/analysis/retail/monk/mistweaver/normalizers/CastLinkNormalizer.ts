@@ -46,6 +46,7 @@ import {
   CRANE_STYLE_RSK,
   CRANE_STYLE_BOK,
   CRANE_STYLE_SCK,
+  VIVACIOUS_VIVIFICATION,
 } from './EventLinks/EventLinkConstants';
 import { RENEWING_MIST_EVENT_LINKS } from './EventLinks/RenewingMistEventLinks';
 import { GUST_OF_MISTS_EVENT_LINKS } from './EventLinks/GustOfMistEventLinks';
@@ -278,8 +279,13 @@ export function getSheilunsGiftHits(event: CastEvent): HealEvent[] {
   return GetRelatedEvents<HealEvent>(event, SHEILUNS_GIFT);
 }
 
+//vivify
 export function getInvigHitsPerCast(event: HealEvent) {
   return GetRelatedEvents(event, VIVIFY);
+}
+
+export function isVivaciousVivification(event: HealEvent) {
+  return GetRelatedEvent(event, VIVACIOUS_VIVIFICATION);
 }
 
 // we use time to get stacks because it can be cast prepull
