@@ -1,5 +1,3 @@
-import { defineMessage } from '@lingui/macro';
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
@@ -7,7 +5,6 @@ import { explanationAndDataSubsection } from 'interface/guide/components/Explana
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Combatants from 'parser/shared/modules/Combatants';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
@@ -61,18 +58,6 @@ class ChiBurst extends Analyzer {
     return this.avgTargetsHitPerCB / this.combatants.playerCount;
   }
 
-  get suggestionThresholds() {
-    return {
-      actual: this.percentOfRaidHitByCB,
-      isLessThan: {
-        minor: 0.3,
-        average: 0.25,
-        major: 0.2,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
   get guideSubsection(): JSX.Element {
     const explanation = (
       <p>
@@ -108,29 +93,6 @@ class ChiBurst extends Analyzer {
         minimizeIcons
         useThresholds
       />
-    );
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You are not utilizing your <SpellLink spell={TALENTS_MONK.CHI_BURST_TALENT} /> talent as
-          effectively as you should. You should work on both your positioning and aiming of the
-          spell. Always aim for the highest concentration of players, which is normally melee.
-        </>,
-      )
-        .icon(TALENTS_MONK.CHI_BURST_TALENT.icon)
-        .actual(
-          `${this.avgTargetsHitPerCB.toFixed(2)} ${defineMessage({
-            id: 'monk.mistweaver.suggestions.chiBurst.targetsHit',
-            message: `targets hit per Chi Burst cast - `,
-          })}${formatPercentage(this.percentOfRaidHitByCB)}${defineMessage({
-            id: 'monk.mistweaver.suggestions.chiBurst.targetsHitPartTwo',
-            message: `% of raid hit`,
-          })}`,
-        )
-        .recommended('30% of the raid hit is recommended'),
     );
   }
 

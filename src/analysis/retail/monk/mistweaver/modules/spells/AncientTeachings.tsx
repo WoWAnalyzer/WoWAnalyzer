@@ -1,4 +1,3 @@
-import { defineMessage } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
@@ -13,7 +12,6 @@ import Events, {
   RemoveBuffEvent,
 } from 'parser/core/Events';
 import { mergeTimePeriods, OpenTimePeriod } from 'parser/core/mergeTimePeriods';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -199,18 +197,6 @@ class AncientTeachings extends Analyzer {
     return items;
   }
 
-  get suggestionThresholds() {
-    return {
-      actual: this.selectedCombatant.getBuffUptime(SPELLS.AT_BUFF.id) / this.owner.fightDuration,
-      isLessThan: {
-        minor: 0.8,
-        average: 0.7,
-        major: 0.6,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
   getTooltip(spellId: number, secondarySourceId?: number) {
     return (
       <>
@@ -237,26 +223,6 @@ class AncientTeachings extends Analyzer {
           </li>
         </ul>
       </>
-    );
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You had suboptimal <SpellLink spell={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT} /> buff
-          uptime, make sure to press <SpellLink spell={TALENTS_MONK.JADEFIRE_STOMP_TALENT} /> more
-          frequently in order to maintain the buff
-        </>,
-      )
-        .icon(TALENTS_MONK.ANCIENT_TEACHINGS_TALENT.icon)
-        .actual(
-          `${formatPercentage(actual)}${defineMessage({
-            id: 'monk.mistweaver.suggestions.ancientTeachings.uptime',
-            message: `% uptime`,
-          })}`,
-        )
-        .recommended(`${formatPercentage(recommended, 0)}% or better is recommended`),
     );
   }
 

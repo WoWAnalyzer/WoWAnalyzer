@@ -19,7 +19,6 @@ import HotAttributor from './modules/core/HotAttributor';
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Buffs from './modules/features/Buffs';
-import Checklist from './modules/features/Checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import EvmVivCastRatio from './modules/features/EvmVivCastRatio';
 import MasteryStats from './modules/features/MasteryStats';
@@ -87,6 +86,7 @@ import TearOfMorning from './modules/spells/TearOfMorning';
 import T31HealingBreakdown from './modules/dragonflight/T31HealingBreakdown';
 import LotusInfusion from './modules/spells/LotusInfusion';
 import CraneStyle from './modules/spells/CraneStyle';
+import ZenPulse from './modules/spells/ZenPulse';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -112,7 +112,6 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    checklist: Checklist,
     evmVivCastRatio: EvmVivCastRatio,
     masteryStats: MasteryStats,
     buffs: Buffs,
@@ -181,6 +180,7 @@ class CombatLogParser extends CoreCombatLogParser {
     tearOfMorning: TearOfMorning,
     lotusInfusion: LotusInfusion,
     craneStyle: CraneStyle,
+    zenPulse: ZenPulse,
 
     apl: AplCheck,
 
