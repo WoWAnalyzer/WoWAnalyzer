@@ -143,9 +143,8 @@ class JadefireStomp extends Analyzer {
                 {formatNumber(this.healing)}{' '}
                 <SpellLink spell={TALENTS_MONK.JADEFIRE_STOMP_TALENT} /> healing (
                 {formatNumber(this.overhealing)} overheal) <br />
-                {formatNumber(this.gomHealing)} additional{' '}
-                <SpellLink spell={SPELLS.GUSTS_OF_MISTS} /> healing (
-                {formatNumber(this.gomOverhealing)} overheal)
+                {formatNumber(this.gomHealing)} <SpellLink spell={SPELLS.GUSTS_OF_MISTS} /> healing
+                ({formatNumber(this.gomOverhealing)} overheal)
                 <br />
                 {this.resets} <small>resets</small> <br />
                 {(this.targetsDamaged / this.jfsCasts).toFixed(2)} <small>Foes Hit per cast</small>{' '}
