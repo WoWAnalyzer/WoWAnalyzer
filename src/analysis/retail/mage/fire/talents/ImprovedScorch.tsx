@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
@@ -90,11 +89,7 @@ class ImprovedScorch extends Analyzer {
         </>,
       )
         .icon(TALENTS.IMPROVED_SCORCH_TALENT.icon)
-        .actual(
-          <Trans id="mage.fire.suggestions.improvedScorch.uptimePercent">
-            {formatPercentage(this.uptimePercent)}% Utilization
-          </Trans>,
-        )
+        .actual(`${formatPercentage(this.uptimePercent)}% Utilization`)
         .recommended(`${formatPercentage(recommended)} is recommended`),
     );
   }

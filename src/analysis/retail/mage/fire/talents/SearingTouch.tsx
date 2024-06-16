@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro';
 import { SEARING_TOUCH_THRESHOLD, COMBUSTION_END_BUFFER } from 'analysis/retail/mage/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -135,11 +134,7 @@ class SearingTouch extends Analyzer {
         </>,
       )
         .icon(TALENTS.SCORCH_TALENT.icon)
-        .actual(
-          <Trans id="mage.fire.suggestions.searingTouch.executeCasts">
-            {formatPercentage(this.executeUtil)}% Utilization
-          </Trans>,
-        )
+        .actual(`${formatPercentage(this.executeUtil)}% Utilization`)
         .recommended(`${formatPercentage(recommended)} is recommended`),
     );
     when(this.nonExecuteSuggestionThreshold).addSuggestion((suggest, actual, recommended) =>
@@ -153,11 +148,7 @@ class SearingTouch extends Analyzer {
         </>,
       )
         .icon(TALENTS.SCORCH_TALENT.icon)
-        .actual(
-          <Trans id="mage.fire.suggestions.searingTouch.nonExecuteScorchCasts">
-            {formatPercentage(this.nonExecuteUtil)}% Utilization
-          </Trans>,
-        )
+        .actual(`${formatPercentage(this.nonExecuteUtil)}% Utilization`)
         .recommended(`${formatPercentage(recommended)} is recommended`),
     );
   }
