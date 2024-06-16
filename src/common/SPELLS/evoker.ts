@@ -514,7 +514,7 @@ const spells = {
     icon: 'ability_evoker_masterylifebinder_bronze',
   },
   LIFESPARK_BUFF: {
-    id: 394552,
+    id: 443176,
     name: 'Lifespark',
     icon: 'ability_evoker_masterylifebinder_red',
   },
