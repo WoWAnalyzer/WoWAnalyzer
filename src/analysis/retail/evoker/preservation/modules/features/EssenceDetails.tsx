@@ -5,10 +5,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import { Panel } from 'interface';
-
-import { defineMessage } from '@lingui/macro';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import { TALENTS_EVOKER } from 'common/TALENTS';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import { EssenceTracker } from 'analysis/retail/evoker/shared';
 
 class EssenceDetails extends Analyzer {
@@ -39,20 +36,6 @@ class EssenceDetails extends Analyzer {
       },
       style: ThresholdStyle.NUMBER,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(<>You are overcapping on Essence</>)
-        .icon(TALENTS_EVOKER.POWER_NEXUS_TALENT.icon)
-        .actual(
-          `${this.wasted.toFixed(2)} ${defineMessage({
-            id: 'evoker.preservation.suggestions.essenceDetails.wasted',
-            message: ` wasted Essence`,
-          })}`,
-        )
-        .recommended(`${recommended} or less recommended`),
-    );
   }
 
   statistic() {

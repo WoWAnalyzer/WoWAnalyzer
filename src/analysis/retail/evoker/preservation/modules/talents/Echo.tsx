@@ -1,4 +1,3 @@
-import { defineMessage } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
@@ -10,7 +9,7 @@ import Events, {
   HealEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -146,24 +145,6 @@ class Echo extends Analyzer {
       },
       style: ThresholdStyle.NUMBER,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Try to avoid letting <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} /> buffs expire.
-        </>,
-      )
-        .icon(TALENTS_EVOKER.ECHO_TALENT.icon)
-        .actual(
-          `${actual} ${defineMessage({
-            id: 'evoker.preservation.suggestions.echo.wastedBuffs',
-            message: ` wasted Echo buff${actual > 1 ? 's' : ''}`,
-          })}`,
-        )
-        .recommended(`${recommended} wasted buffs recommended`),
-    );
   }
 
   get totalTaEchoHealing() {
