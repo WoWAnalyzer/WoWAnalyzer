@@ -52,12 +52,10 @@ class Spiritbloom extends Analyzer {
         <b>
           <SpellLink spell={TALENTS_EVOKER.SPIRITBLOOM_TALENT} />
         </b>{' '}
-        is one of your empowered abilities and a very strong AoE triage heal that applies a powerful
-        HoT with the Abberus (T30) tier set. You should try to use this ability at maximum
-        Empowerment level whenever it is not on cooldown.{' '}
+        is one of your empowered abilities and a very strong AoE triage heal. You should try to use
+        this ability at maximum Empowerment level whenever it is not on cooldown.{' '}
         <SpellLink spell={TALENTS_EVOKER.SPIRITBLOOM_TALENT} /> is a strong candidate to consume{' '}
-        <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} /> with, especially with the T30 tierset, but
-        may vary based on playstyle.
+        <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} />.
       </p>
     );
 

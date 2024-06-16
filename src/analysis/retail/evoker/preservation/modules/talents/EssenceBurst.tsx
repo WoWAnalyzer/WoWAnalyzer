@@ -15,8 +15,7 @@ import {
   getEssenceBurstConsumeAbility,
   isEbFromHardcast,
   isEbFromReversion,
-  isEbFromT31Tier,
-} from '../../normalizers/CastLinkNormalizer';
+} from '../../normalizers/EventLinking/CastLinkNormalizer';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { SPELL_COLORS } from 'analysis/retail/evoker/preservation/constants';
 import DonutChart from 'parser/ui/DonutChart';
@@ -40,13 +39,13 @@ enum EB_SOURCE {
   REVERSION,
   SPARK,
   LF_HARDCAST,
-  T31_LF,
   NONE,
 }
 
 export const MANA_COSTS: { [name: string]: number } = {
   'Emerald Blossom': SPELLS.EMERALD_BLOSSOM_CAST.manaCost,
-  Echo: TALENTS_EVOKER.ECHO_TALENT.manaCost!,
+  Echo: 0,
+  //Echo: TALENTS_EVOKER.ECHO_TALENT.manaCost!,
   Disintegrate: 0,
 };
 
@@ -91,8 +90,6 @@ class EssenceBurst extends Analyzer {
     let source = EB_SOURCE.NONE;
     if (didSparkProcEssenceBurst(event)) {
       source = EB_SOURCE.SPARK;
-    } else if (isEbFromT31Tier(event)) {
-      source = EB_SOURCE.T31_LF;
     } else if (isEbFromReversion(event)) {
       source = EB_SOURCE.REVERSION;
     } else if (isEbFromHardcast(event)) {
@@ -189,13 +186,6 @@ class EssenceBurst extends Analyzer {
         spellId: SPELLS.LIVING_FLAME_CAST.id,
         value: sourceCount.get(EB_SOURCE.LF_HARDCAST) ?? 0,
         valueTooltip: sourceCount.get(EB_SOURCE.LF_HARDCAST),
-      },
-      {
-        color: SPELL_COLORS.DISINTEGRATE,
-        label: 'T31 4PC',
-        spellId: SPELLS.LIVING_FLAME_CAST.id,
-        value: sourceCount.get(EB_SOURCE.T31_LF) ?? 0,
-        valueTooltip: sourceCount.get(EB_SOURCE.T31_LF),
       },
       {
         color: SPELL_COLORS.ECHO,

@@ -19,7 +19,7 @@ import {
   didSparkProcEssenceBurst,
   getEssenceBurstConsumeAbility,
   wasEbConsumed,
-} from '../../normalizers/CastLinkNormalizer';
+} from '../../normalizers/EventLinking/CastLinkNormalizer';
 import { ESSENCE_COSTS, MANA_COSTS } from './EssenceBurst';
 
 class SparkOfInsight extends Analyzer {

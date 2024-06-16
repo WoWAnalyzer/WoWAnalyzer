@@ -32,6 +32,7 @@ import ExhilBurst from './modules/talents/ExhilBurst';
 import Stasis from './modules/talents/Stasis';
 import TimeOfNeed from './modules/talents/TimeOfNeed';
 import Lifebind from './modules/talents/Lifebind';
+import Lifespark from './modules/talents/Lifespark';
 import EnergyLoop from './modules/talents/EnergyLoop';
 import AlwaysBeCasting from './modules/core/AlwaysBeCasting';
 import FontOfMagic from './modules/talents/FontOfMagic';
@@ -39,14 +40,11 @@ import EmeraldCommunion from './modules/talents/EmeraldCommunion';
 import SparkOfInsight from './modules/talents/SparkOfInsight';
 import EchoBreakdown from './modules/talents/EchoBreakdown';
 import Ouroboros from './modules/talents/Ouroboros';
-import T30PrevokerSet from './modules/dragonflight/tier/T30TierSet';
 import Guide from 'analysis/retail/evoker/preservation/Guide';
 import NozTeachings from './modules/talents/NozTeachings';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import RegenerativeMagic from '../shared/modules/talents/RegenerativeMagic';
 import AncientFlame from './modules/talents/AncientFlame';
-import T31PrevokerSet from './modules/dragonflight/tier/T31TierSet';
-import AwakenedPrevokerSet from './modules/dragonflight/tier/AwakenedTierSet';
 import EchoTypeBreakdown from './modules/talents/EchoTypeBreakdown';
 import {
   LivingFlameNormalizer,
@@ -136,11 +134,7 @@ class CombatLogParser extends CoreCombatLogParser {
     regenerativeMagic: RegenerativeMagic,
     echoTypeBreakdown: EchoTypeBreakdown,
     essenceBurstSources: EssenceBurstSources,
-
-    // tier
-    t30PrevokerTier: T30PrevokerSet,
-    t31PrevokerTIer: T31PrevokerSet,
-    awakenedPrevokerTier: AwakenedPrevokerSet,
+    lifespark: Lifespark,
   };
   static guide = Guide;
 }
