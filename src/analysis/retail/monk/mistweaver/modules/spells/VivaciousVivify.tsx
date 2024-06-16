@@ -1,12 +1,15 @@
-import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import Events, {
+  ApplyBuffEvent,
+  HealEvent,
+  RefreshBuffEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
 import { Uptime } from 'parser/ui/UptimeBar';
 import { SPELL_COLORS, VIVACIOUS_VIVIFICATION_BOOST } from '../../constants';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
@@ -15,6 +18,13 @@ import Vivify from './Vivify';
 import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
 import BaseCelestialAnalyzer from './BaseCelestialAnalyzer';
 import { formatPercentage } from 'common/format';
+import { isVivaciousVivification } from '../../normalizers/CastLinkNormalizer';
+import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import Statistic from 'parser/ui/Statistic';
+import TalentSpellText from 'parser/ui/TalentSpellText';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
 
 class VivaciousVivification extends Analyzer {
   static dependencies = {
@@ -53,6 +63,7 @@ class VivaciousVivification extends Analyzer {
       Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.VIVIFICATION_BUFF),
       this.onBuffRemove,
     );
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.onVivifyHeal);
     this.unusableUptimes.push({
       start: this.owner.fight.start_time,
       end: -1,
@@ -110,17 +121,10 @@ class VivaciousVivification extends Analyzer {
     }
   }
 
-  get suggestionThresholds() {
-    return {
-      actual: this.wastedApplications,
-      isGreaterThan: {
-        minor: 3,
-        average: 8,
-        major: 12,
-      },
-      recommended: 0,
-      style: ThresholdStyle.NUMBER,
-    };
+  onVivifyHeal(event: HealEvent) {
+    if (isVivaciousVivification(event)) {
+      this.totalHealed += calculateEffectiveHealing(event, VIVACIOUS_VIVIFICATION_BOOST);
+    }
   }
 
   get guideSubsection(): JSX.Element {
@@ -173,27 +177,20 @@ class VivaciousVivification extends Analyzer {
         </RoundedPanel>
       </div>
     );
-
     return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You are overcapping on <SpellLink spell={TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT} />{' '}
-          when the raid has a high amount of <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />{' '}
-          and wasting instant <SpellLink spell={SPELLS.VIVIFY} /> casts
-        </>,
-      )
-        .icon(TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT.icon)
-        .actual(
-          `${this.wastedApplications + ' '}${defineMessage({
-            id: 'monk.mistweaver.suggestions.vivaciousVivification.wastedApplications',
-            message: `wasted applications`,
-          })}`,
-        )
-        .recommended(`0 wasted applications is recommended`),
+  statistic() {
+    return (
+      <Statistic
+        position={STATISTIC_ORDER.UNIMPORTANT(50)}
+        size="flexible"
+        category={STATISTIC_CATEGORY.TALENTS}
+      >
+        <TalentSpellText talent={TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT}>
+          <ItemHealingDone amount={this.totalHealed} />
+        </TalentSpellText>
+      </Statistic>
     );
   }
 }
