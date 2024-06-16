@@ -85,7 +85,6 @@ import EnergizingBrew from './modules/spells/EnergizingBrew';
 import T31TierSet from './modules/dragonflight/tier/T31MWTier';
 import TearOfMorning from './modules/spells/TearOfMorning';
 import T31HealingBreakdown from './modules/dragonflight/T31HealingBreakdown';
-import AmalgamsSeventhSpineMW from './modules/dragonflight/items/AmalgamsSeventhSpineSources';
 import LotusInfusion from './modules/spells/LotusInfusion';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -188,7 +187,6 @@ class CombatLogParser extends CoreCombatLogParser {
     t31TierSet: T31TierSet,
     t31TierSetBreakdown: T31HealingBreakdown,
     callToDominance: CallToDominance,
-    amalgamsSeventSpineMW: AmalgamsSeventhSpineMW,
 
     // Mana Tab
     manaTracker: ManaTracker,

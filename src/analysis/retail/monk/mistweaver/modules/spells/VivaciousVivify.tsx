@@ -8,12 +8,13 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { Uptime } from 'parser/ui/UptimeBar';
-import { SPELL_COLORS } from '../../constants';
+import { SPELL_COLORS, VIVACIOUS_VIVIFICATION_BOOST } from '../../constants';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import RenewingMist from './RenewingMist';
 import Vivify from './Vivify';
 import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
 import BaseCelestialAnalyzer from './BaseCelestialAnalyzer';
+import { formatPercentage } from 'common/format';
 
 class VivaciousVivification extends Analyzer {
   static dependencies = {
@@ -128,10 +129,10 @@ class VivaciousVivification extends Analyzer {
         <b>
           <SpellLink spell={TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT} />
         </b>{' '}
-        is a buff that enables an instant <SpellLink spell={SPELLS.VIVIFY} /> every 10 seconds. Try
-        to use this buff when you have at least 6{' '}
-        <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> HoTs out as healing and mana
-        warrant. <i>It is not necessary to have good efficiency on this buff usage</i>
+        is a buff that continuously procs every 10s. It increases the healing of your next{' '}
+        <SpellLink spell={SPELLS.VIVIFY} /> by {formatPercentage(VIVACIOUS_VIVIFICATION_BOOST)}%
+        while also making it instant cast. Try to consume this buff without letting it refresh as
+        healing and mana warrant.
       </p>
     );
     this.unusableUptimes.at(-1)!.end = this.owner.fight.end_time;

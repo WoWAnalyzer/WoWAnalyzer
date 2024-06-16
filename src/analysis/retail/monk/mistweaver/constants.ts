@@ -71,6 +71,7 @@ export const ANCIENT_ARTS_LEG_SWEEP = 5;
 export const ANCIENT_ARTS_PARALYSIS = 8;
 export const LIGHTER_THAN_AIR_ROLL = 2;
 export const PEACE_AND_PROSPERITY_ROP = 5;
+export const VIVACIOUS_VIVIFICATION_BOOST = 0.2;
 
 export const ATTRIBUTION_STRINGS = {
   BOUNCED: 'Bounced',

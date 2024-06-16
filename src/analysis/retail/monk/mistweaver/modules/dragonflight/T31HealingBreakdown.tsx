@@ -9,6 +9,7 @@ import Toggle from 'react-toggle';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { TIERS } from 'game/TIERS';
 
+//TODO : Move into & refactor into Chi Harmony talent module
 const CHI_HARMONY_COLLECTION = 0.2;
 
 interface Props {
