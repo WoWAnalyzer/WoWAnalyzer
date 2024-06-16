@@ -3,7 +3,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Events, {
   EventType,
   RefreshBuffEvent,
@@ -21,7 +21,6 @@ import { TALENTS_EVOKER } from 'common/TALENTS';
 import { SPELL_COLORS } from 'analysis/retail/evoker/preservation/constants';
 import DonutChart from 'parser/ui/DonutChart';
 import { SpellLink } from 'interface';
-import { defineMessage } from '@lingui/macro';
 import ItemManaGained from 'parser/ui/ItemManaGained';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
@@ -47,7 +46,8 @@ enum EB_SOURCE {
 
 export const MANA_COSTS: { [name: string]: number } = {
   'Emerald Blossom': SPELLS.EMERALD_BLOSSOM_CAST.manaCost,
-  Echo: TALENTS_EVOKER.ECHO_TALENT.manaCost!,
+  Echo: 0,
+  // Echo: TALENTS_EVOKER.ECHO_TALENT.manaCost?,
   Disintegrate: 0,
 };
 
@@ -303,25 +303,6 @@ class EssenceBurst extends Analyzer {
         slimLines
         useThresholds
       />
-    );
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Try to avoid wasting{' '}
-          <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT} /> stacks.
-        </>,
-      )
-        .icon(TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT.icon)
-        .actual(
-          `${actual} ${defineMessage({
-            id: 'evoker.preservation.suggestions.essenceBurst.wastedStacks',
-            message: ` wasted Essence Burst stacks`,
-          })}`,
-        )
-        .recommended(`${recommended} wasted stacks recommended`),
     );
   }
 

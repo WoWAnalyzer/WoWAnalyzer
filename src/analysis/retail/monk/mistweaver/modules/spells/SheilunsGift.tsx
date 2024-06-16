@@ -4,7 +4,6 @@ import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
@@ -86,29 +85,6 @@ class SheilunsGift extends Analyzer {
 
   get totalHealing() {
     return this.baseHealing + this.gomHealing;
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.cloudsLost,
-      isGreaterThan: {
-        major: 0,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Try to not overcap on <SpellLink spell={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> clouds
-        </>,
-      )
-        .icon(TALENTS_MONK.SHEILUNS_GIFT_TALENT.icon)
-        .actual(`${this.cloudsLost} lost cloud${this.cloudsLost > 1 ? 's' : ''} from overcapping`)
-        .recommended(`0 lost clouds is recommended`),
-    );
   }
 
   subStatistic() {

@@ -1,5 +1,3 @@
-// Based on Clearcasting Implementation done by @Blazyb
-import { defineMessage } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
@@ -10,7 +8,6 @@ import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Statistic from 'parser/ui/Statistic';
@@ -18,7 +15,7 @@ import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { DANCING_MIST_CHANCE, RAPID_DIFFUSION_DURATION } from '../../constants';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
-import { getVivifiesPerCast, isFromVivify } from '../../normalizers/CastLinkNormalizer';
+import { getInvigHitsPerCast, isFromVivify } from '../../normalizers/CastLinkNormalizer';
 import UpliftedSpirits from './UpliftedSpirits';
 
 const RAPID_DIFFUSION_SPELLS = [
@@ -58,6 +55,8 @@ class Vivify extends Analyzer {
   rapidDiffusionActive: boolean;
 
   castEntries: BoxRowEntry[] = [];
+  vivifyGoodCrits: number = 0;
+  vivifyWastedCrits: number = 0;
 
   constructor(options: Options) {
     super(options);
@@ -71,9 +70,11 @@ class Vivify extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(RAPID_DIFFUSION_SPELLS),
       this.rapidDiffusionReMs,
     );
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.handleViv);
+
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell([SPELLS.VIVIFY, SPELLS.INVIGORATING_MISTS_HEAL]),
-      this.handleViv,
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.INVIGORATING_MISTS_HEAL),
+      this.handleInvigoratingMists,
     );
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS),
@@ -85,18 +86,7 @@ class Vivify extends Analyzer {
     return this.cleaveHits / this.casts || 0;
   }
 
-  get suggestionThresholds() {
-    return {
-      actual: this.casts > 0 ? this.averageRemPerVivify : 0,
-      isLessThan: {
-        minor: this.casts > 0 ? this.estimatedAverageReMs : 0,
-        average: this.casts > 0 ? this.estimatedAverageReMs - 0.5 : 0,
-        major: this.casts > 0 ? this.estimatedAverageReMs - 1 : 0,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
-  }
-
+  //TODO: update for pool of mists / heart of the jade serpent
   get estimatedAverageReMs() {
     if (this.risingMistActive) {
       this.expectedAverageReMs = BASE_AVERAGE_REMS * 2;
@@ -149,22 +139,22 @@ class Vivify extends Analyzer {
 
   vivCast(event: CastEvent) {
     this.casts += 1;
-    this._tallyCastEntry(event);
+  }
+
+  handleInvigoratingMists(event: HealEvent) {
+    const effective = event.amount + (event.absorbed || 0);
+    if (!effective) {
+      this.fullOverhealCleaves += 1;
+    }
+    this.cleaveHealing += effective;
+    this.cleaveOverhealing += event.overheal || 0;
+    this.cleaveHits += 1;
   }
 
   handleViv(event: HealEvent) {
-    if (SPELLS.VIVIFY.id === event.ability.guid) {
-      this.mainTargetHealing += event.amount + (event.absorbed || 0);
-      this.mainTargetOverhealing += event.overheal || 0;
-    } else {
-      const effective = event.amount + (event.absorbed || 0);
-      if (effective === 0) {
-        this.fullOverhealCleaves += 1;
-      }
-      this.cleaveHealing += effective;
-      this.cleaveOverhealing += event.overheal || 0;
-      this.cleaveHits += 1;
-    }
+    this._tallyCastEntry(event);
+    this.mainTargetHealing += event.amount + (event.absorbed || 0);
+    this.mainTargetOverhealing += event.overheal || 0;
   }
 
   handleMastery(event: HealEvent) {
@@ -235,27 +225,6 @@ class Vivify extends Analyzer {
     return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You are casting <SpellLink spell={SPELLS.VIVIFY} /> with low counts of{' '}
-          <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> out on the raid. To ensure you are
-          gaining the maximum <SpellLink spell={SPELLS.VIVIFY} /> healing, keep{' '}
-          <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> on cooldown.
-        </>,
-      )
-        .icon(SPELLS.VIVIFY.icon)
-        .actual(
-          `${this.averageRemPerVivify.toFixed(2) + ' '}${defineMessage({
-            id: 'monk.mistweaver.suggestions.vivify.renewingMistsPerVivify',
-            message: ` Renewing Mists per Vivify`,
-          })}`,
-        )
-        .recommended(`${recommended.toFixed(2)} Renewing Mists are recommended per Vivify`),
-    );
-  }
-
   statistic() {
     return (
       <Statistic
@@ -301,36 +270,37 @@ class Vivify extends Analyzer {
     );
   }
 
-  private _tallyCastEntry(event: CastEvent) {
-    const vivifyHits = getVivifiesPerCast(event) as HealEvent[];
-    const invigoratingMistHits = vivifyHits.filter(
-      (invigMists) => invigMists.ability.guid === SPELLS.INVIGORATING_MISTS_HEAL.id,
-    );
-    let vivifyGoodCrits = 0;
-    let vivifyWastedCrits = 0;
+  private _tallyUpliftedSpiritsCDR(event: HealEvent) {
+    if (this.upliftedSpirits.active && event.hitType === HIT_TYPES.CRIT) {
+      if (this.spellUsable.isOnCooldown(this.upliftedSpirits.activeTalent.id)) {
+        this.vivifyGoodCrits += 1;
+      } else {
+        this.vivifyWastedCrits += 1;
+      }
+    }
+  }
+
+  private _tallyCastEntry(vivifyHeal: HealEvent) {
+    const invigoratingMistHits = getInvigHitsPerCast(vivifyHeal) as HealEvent[];
+
+    this.vivifyGoodCrits = 0;
+    this.vivifyWastedCrits = 0;
     let fullOverhealHits = 0;
     let healingPerCast = 0;
     let overhealPerCast = 0;
 
-    vivifyHits.forEach((event) => {
-      const effective = event.amount + (event.absorbed || 0);
+    healingPerCast += vivifyHeal.amount + (vivifyHeal.absorbed || 0);
+    overhealPerCast += vivifyHeal.overheal || 0;
+    this._tallyUpliftedSpiritsCDR(vivifyHeal);
+
+    invigoratingMistHits.forEach((invigHeal) => {
+      const effective = invigHeal.amount + (invigHeal.absorbed || 0);
+      fullOverhealHits += effective ? 1 : 0;
       healingPerCast += effective;
-      overhealPerCast += event.overheal || 0;
-      if (this.upliftedSpirits.active && event.hitType === HIT_TYPES.CRIT) {
-        if (this.spellUsable.isOnCooldown(this.upliftedSpirits.activeTalent.id)) {
-          vivifyGoodCrits += 1;
-        } else {
-          vivifyWastedCrits += 1;
-        }
-      }
+      overhealPerCast += invigHeal.overheal || 0;
+      this._tallyUpliftedSpiritsCDR(invigHeal);
     });
 
-    invigoratingMistHits.forEach((event) => {
-      const effective = event.amount + (event.absorbed || 0);
-      if (effective === 0) {
-        fullOverhealHits += 1;
-      }
-    });
     const percentOverheal = overhealPerCast / (healingPerCast + overhealPerCast);
     const rems = invigoratingMistHits.length;
     let value = QualitativePerformance.Fail;
@@ -349,7 +319,7 @@ class Vivify extends Analyzer {
 
     const tooltip = (
       <>
-        @ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong>, ReMs:{' '}
+        @ <strong>{this.owner.formatTimestamp(vivifyHeal.timestamp)}</strong>, ReMs:{' '}
         <strong>{rems}</strong>
         <br />
         <>
@@ -364,9 +334,9 @@ class Vivify extends Analyzer {
         {this.upliftedSpirits.active && (
           <>
             <SpellLink spell={this.upliftedSpirits.activeTalent} /> Cooldown Reduction:{' '}
-            {vivifyGoodCrits > 0 && <>{vivifyGoodCrits}s </>}
-            {vivifyWastedCrits > 0 && <>{vivifyWastedCrits}s wasted</>}
-            {vivifyGoodCrits + vivifyWastedCrits === 0 && <>0s</>}
+            {this.vivifyGoodCrits > 0 && <>{this.vivifyGoodCrits}s </>}
+            {this.vivifyWastedCrits > 0 && <>{this.vivifyWastedCrits}s wasted</>}
+            {this.vivifyGoodCrits + this.vivifyWastedCrits === 0 && <>0s</>}
           </>
         )}
       </>

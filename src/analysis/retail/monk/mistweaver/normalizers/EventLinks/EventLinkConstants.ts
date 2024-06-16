@@ -33,6 +33,7 @@ export const CRANE_STYLE_SCK = 'CraneStyleSCK';
 export const VIVIFY = 'Vivify';
 export const VIVACIOUS_VIVIFICATION = 'VivaciousVivification';
 export const ZEN_PULSE_VIVIFY = 'ZenPulseVivify';
+export const ZEN_PULSE_CONSUME = 'ZenPulseConsume';
 export const CHI_WAVE_VIVIFY = 'ChiWaveVivify';
 
 //Refreshing Jade Wind

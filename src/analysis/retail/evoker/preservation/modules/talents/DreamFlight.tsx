@@ -2,8 +2,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, HealEvent } from 'parser/core/Events';
 import { formatPercentage } from 'common/format';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import { defineMessage } from '@lingui/macro';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import { SpellLink } from 'interface';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import Combatants from 'parser/shared/modules/Combatants';
@@ -174,25 +173,6 @@ class DreamFlight extends Analyzer {
         slimLines
         useThresholds
       />
-    );
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Your <SpellLink spell={TALENTS_EVOKER.DREAM_FLIGHT_TALENT} /> is not hitting enough
-          targets.
-        </>,
-      )
-        .icon(TALENTS_EVOKER.DREAM_FLIGHT_TALENT.icon)
-        .actual(
-          `${formatPercentage(this.percentOfGroupHit, 2)}${defineMessage({
-            id: 'evoker.preservation.suggestions.dreamFlight.targetsHit',
-            message: `% of group hit with Dream Flight`,
-          })}`,
-        )
-        .recommended(`${recommended * 100}% or more is recommended`),
     );
   }
 }
