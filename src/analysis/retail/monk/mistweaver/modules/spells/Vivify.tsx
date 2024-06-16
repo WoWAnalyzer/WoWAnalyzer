@@ -86,6 +86,7 @@ class Vivify extends Analyzer {
     return this.cleaveHits / this.casts || 0;
   }
 
+  //TODO: update for pool of mists / heart of the jade serpent
   get estimatedAverageReMs() {
     if (this.risingMistActive) {
       this.expectedAverageReMs = BASE_AVERAGE_REMS * 2;
