@@ -276,6 +276,17 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: 2000,
     backwardBufferMs: CAST_BUFFER_MS,
   },
+  {
+    reverseLinkRelation: BUFF_REMOVE,
+    linkingEventId: SPELLS.EXCESS_FROST_BUFF.id,
+    linkingEventType: EventType.RemoveBuff,
+    linkRelation: SPELL_DAMAGE,
+    referencedEventId: TALENTS.PHOENIX_FLAMES_TALENT.id,
+    referencedEventType: EventType.Damage,
+    anyTarget: true,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
 ];
 
 /**

@@ -1,3 +1,4 @@
+import SPECS from 'game/SPECS';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import CoreAbilities from 'parser/core/modules/Abilities';
@@ -22,10 +23,15 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FIRE_BLAST.id,
         category: SPELL_CATEGORY.ROTATIONAL,
+        enabled: !combatant.hasTalent(TALENTS.FIRE_BLAST_TALENT),
         gcd: {
           base: 1500,
         },
-        cooldown: (haste: any) => 12 / (1 + haste),
+        cooldown: (haste: any) =>
+          combatant.spec === SPECS.FROST_MAGE &&
+          combatant.hasTalent(TALENTS.ELEMENTAL_AFFINITY_TALENT)
+            ? 12 / 1.3 / (1 + haste)
+            : 12 / (1 + haste),
       },
       {
         spell: SPELLS.ARCANE_EXPLOSION.id,
@@ -40,7 +46,11 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 12,
+        cooldown:
+          combatant.spec === SPECS.FIRE_MAGE &&
+          combatant.hasTalent(TALENTS.ELEMENTAL_AFFINITY_TALENT)
+            ? 12 / 1.3
+            : 12,
         timelineSortIndex: 8,
         //damageSpellIds: [SPELLS.CONE_OF_COLD.id], // needs verification
       },
@@ -51,7 +61,11 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 45,
+        cooldown:
+          combatant.spec === SPECS.FROST_MAGE &&
+          combatant.hasTalent(TALENTS.ELEMENTAL_AFFINITY_TALENT)
+            ? 45 / 1.3
+            : 45,
       },
       {
         spell: TALENTS.BLAST_WAVE_TALENT.id,
@@ -60,7 +74,11 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 30,
+        cooldown:
+          combatant.spec === SPECS.FROST_MAGE &&
+          combatant.hasTalent(TALENTS.ELEMENTAL_AFFINITY_TALENT)
+            ? 30 / 1.3
+            : 30,
       },
       {
         spell: TALENTS.ICE_NOVA_TALENT.id,
@@ -69,7 +87,11 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 25,
+        cooldown:
+          combatant.spec === SPECS.FIRE_MAGE &&
+          combatant.hasTalent(TALENTS.ELEMENTAL_AFFINITY_TALENT)
+            ? 25 / 1.3
+            : 25,
         timelineSortIndex: 9,
         //damageSpellIds: [SPELLS.ICE_NOVA_TALENT.id], // needs verification
       },
@@ -206,14 +228,22 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FROST_NOVA.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 30,
+        cooldown:
+          combatant.spec === SPECS.FIRE_MAGE &&
+          combatant.hasTalent(TALENTS.ELEMENTAL_AFFINITY_TALENT)
+            ? 30 / 1.3
+            : 30,
         charges: 1 + combatant.getTalentRank(TALENTS.ICE_WARD_TALENT),
       },
       {
         spell: TALENTS.RING_OF_FROST_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         enabled: combatant.hasTalent(TALENTS.RING_OF_FROST_TALENT),
-        cooldown: 45,
+        cooldown:
+          combatant.spec === SPECS.FIRE_MAGE &&
+          combatant.hasTalent(TALENTS.ELEMENTAL_AFFINITY_TALENT)
+            ? 45 / 1.3
+            : 45,
       },
       {
         spell: SPELLS.BLINK.id,

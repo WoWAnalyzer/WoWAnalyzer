@@ -113,6 +113,11 @@ const spells = {
     name: 'Living Bomb',
     icon: 'ability_mage_livingbomb',
   },
+  LIVING_BOMB_EXCESS_FIRE_EXPLODE_DEBUFF: {
+    id: 438672,
+    name: 'Living Bomb',
+    icon: 'ability_mage_livingbomb',
+  },
   METEOR_DAMAGE: {
     id: 351140,
     name: 'Meteor',
@@ -122,6 +127,11 @@ const spells = {
     id: 155158,
     name: 'Meteor',
     icon: 'spell_mage_meteor',
+  },
+  CAUTERIZED_DEBUFF: {
+    id: 87024,
+    name: 'Cauterized',
+    icon: 'spell_fire_rune',
   },
 } satisfies Record<string, Spell>;
 
