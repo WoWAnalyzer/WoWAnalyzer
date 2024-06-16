@@ -11,4 +11,6 @@ export enum TIERS {
   DF3,
   // Dragonflight Fated
   DF4,
+  // Nerubar Palace
+  TWW1,
 }
