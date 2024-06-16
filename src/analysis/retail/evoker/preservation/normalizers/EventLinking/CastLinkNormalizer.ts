@@ -1,12 +1,12 @@
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import { Options } from 'parser/core/Module';
 import { EssenceBurstRefreshNormalizer } from '../../../shared';
-import { GROUPING_EVENT_LINKS } from './GroupingLinkNormalizer';
-import { ESSENCE_BURST_EVENT_LINKS } from './EssenceBurstLinkNormalizer';
-import { ECHO_EVENT_LINKS } from './EchoLinkNormalizer';
-import { BRONZE_EVENT_LINKS } from './BronzeLinkNormalizer';
-import { GREEN_EVENT_LINKS } from './GreenLinkNormalizer';
-import { RED_EVENT_LINKS } from './RedLinkNormalizer';
+import { GROUPING_EVENT_LINKS } from './GroupingEventLinks';
+import { ESSENCE_BURST_EVENT_LINKS } from './EssenceBurstEventLinks';
+import { ECHO_EVENT_LINKS } from './EchoEventLinks';
+import { BRONZE_EVENT_LINKS } from './BronzeEventLinks';
+import { GREEN_EVENT_LINKS } from './GreenEventLinks';
+import { RED_EVENT_LINKS } from './RedEventLinks';
 
 const EVENT_LINKS: EventLink[] = [
   ...ECHO_EVENT_LINKS,
