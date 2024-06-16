@@ -37,7 +37,7 @@ class JadeBond extends Analyzer {
       this.active = false;
       return;
     }
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.YULONS_GRACE_TALENT)) {
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT)) {
       this.boostAmount = JADE_BOND_SOOB_INC;
     }
 
