@@ -6,6 +6,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { ResourceLink, SpellLink } from 'interface';
 
 export default [
+  change(date(2024, 6, 16), <>Fix bug in <SpellLink spell={TALENTS_EVOKER.STASIS_TALENT}/> module</>, Trevor),
   change(date(2024, 6, 16), <>Add <SpellLink spell={TALENTS_EVOKER.PANACEA_TALENT}/> module</>, Trevor),
   change(date(2024, 5, 25), <>Fix bug in <SpellLink spell={TALENTS_EVOKER.TIME_OF_NEED_TALENT}/> module</>, Harrek),
   change(date(2024, 5, 7), <>Add Awakened tier set module</>, Harrek),
