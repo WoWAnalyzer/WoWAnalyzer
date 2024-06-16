@@ -10,7 +10,6 @@ const SPELL_CAST = 'SpellCast';
 const SPELL_DAMAGE = 'SpellDamage';
 const DEBUFF_APPLY = 'DebuffApply';
 const DEBUFF_REMOVE = 'DebuffRemove';
-const SPARK_REMOVED = 'SparkRemoved';
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -80,18 +79,6 @@ const EVENT_LINKS: EventLink[] = [
     maximumLinks: 1,
     anyTarget: true,
     forwardBufferMs: 14000,
-    backwardBufferMs: CAST_BUFFER_MS,
-  },
-  {
-    reverseLinkRelation: SPELL_CAST,
-    linkingEventId: TALENTS.TOUCH_OF_THE_MAGI_TALENT.id,
-    linkingEventType: EventType.Cast,
-    linkRelation: SPARK_REMOVED,
-    referencedEventId: TALENTS.RADIANT_SPARK_TALENT.id,
-    referencedEventType: EventType.RemoveDebuff,
-    maximumLinks: 1,
-    anyTarget: true,
-    forwardBufferMs: 15000,
     backwardBufferMs: CAST_BUFFER_MS,
   },
 ];

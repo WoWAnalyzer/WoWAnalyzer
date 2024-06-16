@@ -33,11 +33,8 @@ import ManaValues from './ManaChart/ManaValues';
 //Talents
 import ArcaneBombardment from './talents/ArcaneBombardment';
 import ArcaneEcho from './talents/ArcaneEcho';
-import ArcaneFamiliar from './talents/ArcaneFamiliar';
 import ArcaneHarmony from './talents/ArcaneHarmony';
 import ArcaneOrb from './talents/ArcaneOrb';
-import RadiantSpark from './talents/RadiantSpark';
-import RuleOfThrees from './talents/RuleOfThrees';
 import TouchOfTheMagi from './talents/TouchOfTheMagi';
 
 //Normalizers
@@ -68,14 +65,11 @@ class CombatLogParser extends CoreCombatLogParser {
     arcaneMissiles: ArcaneMissiles,
 
     // Talents - Arcane
-    arcaneFamiliar: ArcaneFamiliar,
     arcaneOrb: ArcaneOrb,
-    ruleOfThrees: RuleOfThrees,
     arcaneEcho: ArcaneEcho,
     arcaneHarmony: ArcaneHarmony,
     arcaneBombardment: ArcaneBombardment,
     shiftingPower: ShiftingPower,
-    radiantSpark: RadiantSpark,
     touchOfTheMagi: TouchOfTheMagi,
 
     //Talents - Shared
