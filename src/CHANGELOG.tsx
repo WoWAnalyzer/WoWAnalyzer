@@ -36,8 +36,9 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
-  change(date(2024, 6, 14), <>Add T32 tier set ids</>, Trevor),
-  change(date(2024, 6, 14), <>Update max mana in Core ManaTracker </>, Vohrr),
+  change(date(2024, 6, 16), <>Add T32 tier set ids</>, Trevor),
+  change(date(2024, 6, 16), <>Add hero talents statistic category</>, Trevor),
+  change(date(2024, 6, 14), <>Update max mana in Core ManaTracker</>, Vohrr),
   change(date(2024, 6, 8), <>Include the channel of <SpellLink spell={SPELLS.RAGE_OF_FYRALATH_1} /> in timelines and reflect uptime better.</>, nullDozzer),
   change(date(2024, 6, 7), 'Update Classic Potions for Cataclysm', jazminite),
   change(date(2024, 6, 6), 'Temporary workaround for talent breakage on the character parses page. Talents have been disabled for the moment.', emallson),
