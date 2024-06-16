@@ -30,7 +30,11 @@ export const BRONZE_EVENT_LINKS: EventLink[] = [
     additionalCondition(linkingEvent, referencedEvent) {
       const refEvent = referencedEvent as CastEvent;
       // need to ignore living flame casts on enemy
-      if (!refEvent.targetIsFriendly && (!refEvent.target || refEvent.target.guid !== 0)) {
+      if (
+        refEvent.target &&
+        !refEvent.targetIsFriendly &&
+        (!refEvent.target || refEvent.target.guid !== 0)
+      ) {
         return false;
       }
       return (
