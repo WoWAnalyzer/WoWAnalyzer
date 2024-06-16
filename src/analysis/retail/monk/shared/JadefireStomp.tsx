@@ -14,6 +14,7 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import { SpellLink, TooltipElement } from 'interface';
 import { formatNumber, formatPercentage } from 'common/format';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
+import { isFromJadefireStomp } from '../mistweaver/normalizers/CastLinkNormalizer';
 
 class JadefireStomp extends Analyzer {
   static dependencies = {
@@ -111,14 +112,11 @@ class JadefireStomp extends Analyzer {
   }
 
   ///Mistweaver specific functions
-
   onGustOfMistHeal(event: HealEvent) {
-    // if (
-    //   //NEW EVENT LINK HERE 'isFromJadeFireStomp(event)
-    // ) {
-    //   this.gomHealing += event.amount + (event.absorbed || 0);
-    //   this.gomOverhealing += event.overheal || 0;
-    // }
+    if (isFromJadefireStomp(event)) {
+      this.gomHealing += event.amount + (event.absorbed || 0);
+      this.gomOverhealing += event.overheal || 0;
+    }
   }
 
   talentHealingStatistic() {

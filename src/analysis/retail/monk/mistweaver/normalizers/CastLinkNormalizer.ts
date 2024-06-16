@@ -42,6 +42,10 @@ import {
   BOUNCED,
   OVERHEAL_BOUNCE,
   FROM_MISTS_OF_LIFE,
+  JFS_GOM,
+  CRANE_STYLE_RSK,
+  CRANE_STYLE_BOK,
+  CRANE_STYLE_SCK,
 } from './EventLinks/EventLinkConstants';
 import { RENEWING_MIST_EVENT_LINKS } from './EventLinks/RenewingMistEventLinks';
 import { GUST_OF_MISTS_EVENT_LINKS } from './EventLinks/GustOfMistEventLinks';
@@ -221,6 +225,7 @@ export function isFromDancingMists(event: ApplyBuffEvent | RefreshBuffEvent): bo
   return HasRelatedEvent(event, FROM_DANCING_MISTS) && !HasRelatedEvent(event, FROM_MISTS_OF_LIFE);
 }
 
+//mastery
 export function isFromEnvelopingMist(event: HealEvent) {
   return HasRelatedEvent(event, ENVELOPING_MIST_GOM);
 }
@@ -247,6 +252,22 @@ export function isFromExpelHarm(event: HealEvent) {
 
 export function isFromSoothingMist(event: HealEvent) {
   return HasRelatedEvent(event, SOOM_GOM);
+}
+
+export function isFromJadefireStomp(event: HealEvent) {
+  return HasRelatedEvent(event, JFS_GOM);
+}
+
+export function isFromCraneStyleRSK(event: HealEvent) {
+  return HasRelatedEvent(event, CRANE_STYLE_RSK);
+}
+
+export function isFromCraneStyleBok(event: HealEvent) {
+  return HasRelatedEvent(event, CRANE_STYLE_BOK);
+}
+
+export function isFromCraneStyleSCK(event: HealEvent) {
+  return HasRelatedEvent(event, CRANE_STYLE_SCK);
 }
 
 export function isFromLifeCocoon(event: RemoveBuffEvent) {

@@ -25,7 +25,9 @@ export const SHEILUNS_GIFT = 'SheilunsGift';
 export const EXPEL_HARM_GOM = 'EHGOM';
 export const SOOM_GOM = 'SoomGOM';
 export const JFS_GOM = 'JadefireStompGOM';
-export const CRANE_STYLE_GOM = 'CraneStyleGOM';
+export const CRANE_STYLE_RSK = 'CraneStyleRSK';
+export const CRANE_STYLE_BOK = 'CraneStyleBOK';
+export const CRANE_STYLE_SCK = 'CraneStyleSCK';
 
 //Vivify
 export const VIVIFY = 'Vivify';
