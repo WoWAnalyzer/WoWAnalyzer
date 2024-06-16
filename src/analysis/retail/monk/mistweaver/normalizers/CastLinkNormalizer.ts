@@ -15,6 +15,7 @@ import {
   CastEvent,
   ApplyBuffStackEvent,
   GetRelatedEvent,
+  RemoveBuffStackEvent,
 } from 'parser/core/Events';
 import {
   FROM_MISTY_PEAKS,
@@ -47,6 +48,8 @@ import {
   CRANE_STYLE_BOK,
   CRANE_STYLE_SCK,
   VIVACIOUS_VIVIFICATION,
+  ZEN_PULSE_CONSUME,
+  ZEN_PULSE_VIVIFY,
 } from './EventLinks/EventLinkConstants';
 import { RENEWING_MIST_EVENT_LINKS } from './EventLinks/RenewingMistEventLinks';
 import { GUST_OF_MISTS_EVENT_LINKS } from './EventLinks/GustOfMistEventLinks';
@@ -286,6 +289,14 @@ export function getInvigHitsPerCast(event: HealEvent) {
 
 export function isVivaciousVivification(event: HealEvent) {
   return GetRelatedEvent(event, VIVACIOUS_VIVIFICATION);
+}
+
+export function getZenPulseHitsPerCast(event: HealEvent) {
+  return GetRelatedEvents(event, ZEN_PULSE_VIVIFY);
+}
+
+export function isZenPulseConsumed(event: RemoveBuffEvent | RemoveBuffStackEvent) {
+  return GetRelatedEvent(event, ZEN_PULSE_CONSUME);
 }
 
 // we use time to get stacks because it can be cast prepull

@@ -122,7 +122,6 @@ class VivaciousVivification extends Analyzer {
   }
 
   onVivifyHeal(event: HealEvent) {
-    console.log(event);
     if (isVivaciousVivification(event)) {
       this.totalHealed += calculateEffectiveHealing(event, VIVACIOUS_VIVIFICATION_BOOST);
     }

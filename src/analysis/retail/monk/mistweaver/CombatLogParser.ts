@@ -86,6 +86,7 @@ import TearOfMorning from './modules/spells/TearOfMorning';
 import T31HealingBreakdown from './modules/dragonflight/T31HealingBreakdown';
 import LotusInfusion from './modules/spells/LotusInfusion';
 import CraneStyle from './modules/spells/CraneStyle';
+import ZenPulse from './modules/spells/ZenPulse';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -179,6 +180,7 @@ class CombatLogParser extends CoreCombatLogParser {
     tearOfMorning: TearOfMorning,
     lotusInfusion: LotusInfusion,
     craneStyle: CraneStyle,
+    zenPulse: ZenPulse,
 
     apl: AplCheck,
 

@@ -6,6 +6,7 @@ import {
   CAST_BUFFER_MS,
   ZEN_PULSE_VIVIFY,
   VIVACIOUS_VIVIFICATION,
+  ZEN_PULSE_CONSUME,
 } from './EventLinkConstants';
 import { TALENTS_MONK } from 'common/TALENTS';
 
@@ -28,6 +29,20 @@ export const VIVIFY_EVENT_LINKS: EventLink[] = [
     referencedEventType: [EventType.Heal],
     forwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
+    isActive(c) {
+      return c.hasTalent(TALENTS_MONK.ZEN_PULSE_TALENT);
+    },
+  },
+  {
+    linkRelation: ZEN_PULSE_CONSUME,
+    linkingEventId: SPELLS.ZEN_PULSE_BUFF.id,
+    linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
+    referencedEventId: SPELLS.VIVIFY.id,
+    referencedEventType: [EventType.Cast],
+    anyTarget: true,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+    maximumLinks: 1,
     isActive(c) {
       return c.hasTalent(TALENTS_MONK.ZEN_PULSE_TALENT);
     },

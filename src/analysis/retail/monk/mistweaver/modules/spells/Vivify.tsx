@@ -139,7 +139,6 @@ class Vivify extends Analyzer {
 
   vivCast(event: CastEvent) {
     this.casts += 1;
-    console.log(event);
   }
 
   handleInvigoratingMists(event: HealEvent) {
