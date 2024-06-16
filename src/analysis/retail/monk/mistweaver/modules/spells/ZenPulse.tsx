@@ -112,7 +112,7 @@ class ZenPulse extends Analyzer {
 
   private onViv(event: HealEvent) {
     const zenPulseHits = getZenPulseHitsPerCast(event);
-    if (zenPulseHits.length === 0) {
+    if (!zenPulseHits.length) {
       return;
     }
     if (zenPulseHits.length < ZEN_PULSE_MAX_HITS_FOR_BOOST) {
@@ -152,7 +152,7 @@ class ZenPulse extends Analyzer {
           <small>
             Average hits per <SpellLink spell={SPELLS.VIVIFY} />
           </small>
-          <br />
+          <div></div>
           <TooltipElement
             content={
               <>

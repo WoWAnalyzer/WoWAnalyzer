@@ -143,7 +143,7 @@ class Vivify extends Analyzer {
 
   handleInvigoratingMists(event: HealEvent) {
     const effective = event.amount + (event.absorbed || 0);
-    if (effective === 0) {
+    if (!effective) {
       this.fullOverhealCleaves += 1;
     }
     this.cleaveHealing += effective;
@@ -295,7 +295,7 @@ class Vivify extends Analyzer {
 
     invigoratingMistHits.forEach((invigHeal) => {
       const effective = invigHeal.amount + (invigHeal.absorbed || 0);
-      fullOverhealHits += effective === 0 ? 1 : 0;
+      fullOverhealHits += effective ? 1 : 0;
       healingPerCast += effective;
       overhealPerCast += invigHeal.overheal || 0;
       this._tallyUpliftedSpiritsCDR(invigHeal);
