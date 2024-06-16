@@ -1,5 +1,3 @@
-import { defineMessage } from '@lingui/macro';
-import { formatPercentage } from 'common/format';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import CooldownExpandable, {
@@ -14,7 +12,7 @@ import Events, {
   RefreshBuffEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Combatants from 'parser/shared/modules/Combatants';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
@@ -216,26 +214,6 @@ class EmeraldCommunion extends Analyzer {
         slimLines
         useThresholds
       />
-    );
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Try to make sure that you buff as many players as possible with{' '}
-          <SpellLink spell={TALENTS_EVOKER.LIFEBIND_TALENT} /> prior to casting{' '}
-          <SpellLink spell={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT} />.
-        </>,
-      )
-        .icon(TALENTS_EVOKER.EMERALD_COMMUNION_TALENT.icon)
-        .actual(
-          `${formatPercentage(this.percentWithLifebindOnCast, 2)}${defineMessage({
-            id: 'evoker.preservation.suggestions.emeraldCommunion.numLifebinds',
-            message: `% of group with Lifebind when casting Emerald Communion`,
-          })}`,
-        )
-        .recommended(`${recommended * 100}% or more is recommended`),
     );
   }
 }

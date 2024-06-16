@@ -15,7 +15,6 @@ import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
 import HotRemovalNormalizer from './normalizers/HotRemovalNormalizer';
 
-import Checklist from 'analysis/retail/evoker/preservation/modules/features/Checklist/Module';
 import EssenceDetails from './modules/features/EssenceDetails';
 import GracePeriod from './modules/talents/GracePeriod';
 import Reversion from './modules/talents/Reversion';
@@ -88,9 +87,6 @@ class CombatLogParser extends CoreCombatLogParser {
     essenceDetails: EssenceDetails,
     spellEssenceCost: SpellEssenceCost,
     manaTracker: ManaTracker,
-
-    //features
-    checklist: Checklist,
 
     //core
     alwaysBeCasting: AlwaysBeCasting,
