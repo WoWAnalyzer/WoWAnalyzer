@@ -11,7 +11,7 @@ import {
   DREAM_BREATH_CALL_OF_YSERA,
 } from './constants';
 
-export const BRONZE_EVENT_LINKS: EventLink[] = [
+export const GREEN_EVENT_LINKS: EventLink[] = [
   // link eb heal proc to fluttering heal
   {
     linkRelation: FIELD_OF_DREAMS_PROC,
