@@ -11,7 +11,7 @@ import MasteryEffectiveness from './modules/core/MasteryEffectiveness';
 import Spiritbloom from './modules/talents/Spiritbloom';
 import HotAttributor from './modules/core/HotAttributor';
 import HotTrackerPrevoker from './modules/core/HotTrackerPrevoker';
-import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
+import CastLinkNormalizer from './normalizers/EventLinking/CastLinkNormalizer';
 import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
 import HotRemovalNormalizer from './normalizers/HotRemovalNormalizer';
 
