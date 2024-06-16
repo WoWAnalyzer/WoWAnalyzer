@@ -5,7 +5,7 @@ import TALENTS from 'common/TALENTS/mage';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, DamageEvent, GetRelatedEvent } from 'parser/core/Events';
+import Events, { CastEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -27,11 +27,9 @@ class ArcaneSurgePreReqs extends Analyzer {
 
   hasSiphonStorm: boolean = this.selectedCombatant.hasTalent(TALENTS.SIPHON_STORM_TALENT);
   hasTouchOfMagi: boolean = this.selectedCombatant.hasTalent(TALENTS.TOUCH_OF_THE_MAGI_TALENT);
-  hasRadiantSpark: boolean = this.selectedCombatant.hasTalent(TALENTS.RADIANT_SPARK_TALENT);
 
   arcaneSurges: {
     cast: CastEvent;
-    radiantSparkActive: boolean | undefined;
     siphonStormActive: boolean | undefined;
     manaPercent: number;
     maxCharges: boolean;
@@ -47,18 +45,12 @@ class ArcaneSurgePreReqs extends Analyzer {
   }
 
   onArcaneSurge(event: CastEvent) {
-    const damageEvent: DamageEvent | undefined = GetRelatedEvent(event, 'SpellDamage');
-    const enemy = damageEvent && this.enemies.getEntity(damageEvent);
-    const radiantSparkActive: boolean | undefined =
-      this.selectedCombatant.hasBuff(TALENTS.RADIANT_SPARK_TALENT.id) &&
-      ((enemy && !enemy.hasBuff(SPELLS.RADIANT_SPARK_INACTIVE_DEBUFF.id)) || undefined);
     const manaResource: any =
       event.classResources &&
       event.classResources.find((classResource) => classResource.type === RESOURCE_TYPES.MANA.id);
 
     this.arcaneSurges.push({
       cast: event,
-      radiantSparkActive: this.hasRadiantSpark && radiantSparkActive,
       siphonStormActive:
         this.hasSiphonStorm && this.selectedCombatant.hasBuff(TALENTS.SIPHON_STORM_TALENT.id),
       manaPercent: manaResource && manaResource.amount / manaResource.max,
@@ -69,11 +61,7 @@ class ArcaneSurgePreReqs extends Analyzer {
   badArcaneSurges = () => {
     let badCasts = 0;
     this.arcaneSurges.forEach((c) => {
-      if (
-        (this.hasRadiantSpark && !c.radiantSparkActive) ||
-        (this.hasSiphonStorm && !c.siphonStormActive) ||
-        !c.maxCharges
-      ) {
+      if ((this.hasSiphonStorm && !c.siphonStormActive) || !c.maxCharges) {
         badCasts += 1;
       }
     });
@@ -88,10 +76,6 @@ class ArcaneSurgePreReqs extends Analyzer {
     let mana = 0;
     this.arcaneSurges.forEach((c) => (mana += c.manaPercent));
     return mana / this.totalSurgeCasts;
-  }
-
-  get missingRadiantSpark() {
-    return this.arcaneSurges.filter((c) => !c.radiantSparkActive).length;
   }
 
   get missingSiphonStorm() {
@@ -115,17 +99,6 @@ class ArcaneSurgePreReqs extends Analyzer {
         major: 0.6,
       },
       style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
-  get radiantSparkThresholds() {
-    return {
-      actual: this.missingRadiantSpark,
-      isGreaterThan: {
-        average: 0,
-        major: 1,
-      },
-      style: ThresholdStyle.NUMBER,
     };
   }
 
@@ -177,12 +150,6 @@ class ArcaneSurgePreReqs extends Analyzer {
                 You have {ARCANE_CHARGE_MAX_STACKS} Arcane Charges - Missed {this.notMaxCharges}{' '}
                 times
               </li>
-              {this.hasRadiantSpark && (
-                <li>
-                  <SpellLink spell={TALENTS.RADIANT_SPARK_TALENT} /> is active - Missed{' '}
-                  {this.missingRadiantSpark} times
-                </li>
-              )}
               {this.hasSiphonStorm && (
                 <li>
                   <SpellLink spell={TALENTS.SIPHON_STORM_TALENT} /> is active - Missed{' '}

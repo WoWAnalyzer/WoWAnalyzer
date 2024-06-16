@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
@@ -105,12 +104,8 @@ class ArcaneEcho extends Analyzer {
         </>,
       )
         .icon(TALENTS.ARCANE_MISSILES_TALENT.icon)
-        .actual(
-          <Trans id="mage.arcane.suggestions.arcaneEcho.badTouchUses">
-            {formatNumber(this.badTouchUses)} Bad Touch of the Magi Uses`
-          </Trans>,
-        )
-        .recommended(`${formatNumber(recommended)} is recommended`),
+        .actual(<>{formatNumber(this.badTouchUses)} Bad Touch of the Magi Uses</>)
+        .recommended(`<${formatNumber(recommended)} is recommended`),
     );
   }
 
