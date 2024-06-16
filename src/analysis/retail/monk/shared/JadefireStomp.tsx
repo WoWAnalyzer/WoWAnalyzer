@@ -14,6 +14,7 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import { SpellLink, TooltipElement } from 'interface';
 import { formatNumber, formatPercentage } from 'common/format';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
+import { isFromJadefireStomp } from '../mistweaver/normalizers/CastLinkNormalizer';
 
 class JadefireStomp extends Analyzer {
   static dependencies = {
@@ -111,14 +112,11 @@ class JadefireStomp extends Analyzer {
   }
 
   ///Mistweaver specific functions
-
   onGustOfMistHeal(event: HealEvent) {
-    // if (
-    //   //NEW EVENT LINK HERE 'isFromJadeFireStomp(event)
-    // ) {
-    //   this.gomHealing += event.amount + (event.absorbed || 0);
-    //   this.gomOverhealing += event.overheal || 0;
-    // }
+    if (isFromJadefireStomp(event)) {
+      this.gomHealing += event.amount + (event.absorbed || 0);
+      this.gomOverhealing += event.overheal || 0;
+    }
   }
 
   talentHealingStatistic() {
@@ -145,9 +143,8 @@ class JadefireStomp extends Analyzer {
                 {formatNumber(this.healing)}{' '}
                 <SpellLink spell={TALENTS_MONK.JADEFIRE_STOMP_TALENT} /> healing (
                 {formatNumber(this.overhealing)} overheal) <br />
-                {formatNumber(this.gomHealing)} additional{' '}
-                <SpellLink spell={SPELLS.GUSTS_OF_MISTS} /> healing (
-                {formatNumber(this.gomOverhealing)} overheal)
+                {formatNumber(this.gomHealing)} <SpellLink spell={SPELLS.GUSTS_OF_MISTS} /> healing
+                ({formatNumber(this.gomOverhealing)} overheal)
                 <br />
                 {this.resets} <small>resets</small> <br />
                 {(this.targetsDamaged / this.jfsCasts).toFixed(2)} <small>Foes Hit per cast</small>{' '}

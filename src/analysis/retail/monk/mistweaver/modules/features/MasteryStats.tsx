@@ -14,6 +14,8 @@ import Revival from '../spells/Revival';
 import SheilunsGift from '../spells/SheilunsGift';
 import SoothingMist from '../spells/SoothingMist';
 import Vivify from '../spells/Vivify';
+import { JadefireStomp } from 'analysis/retail/monk/shared';
+import CraneStyle from '../spells/CraneStyle';
 
 class MasteryStats extends Analyzer {
   static dependencies = {
@@ -24,6 +26,8 @@ class MasteryStats extends Analyzer {
     expelHarm: ExpelHarm,
     revival: Revival,
     sheilunsGift: SheilunsGift,
+    jadefireStomp: JadefireStomp,
+    craneStyle: CraneStyle,
   };
 
   protected envelopingMists!: EnvelopingMists;
@@ -33,6 +37,8 @@ class MasteryStats extends Analyzer {
   protected expelHarm!: ExpelHarm;
   protected revival!: Revival;
   protected sheilunsGift!: SheilunsGift;
+  protected jadefireStomp!: JadefireStomp;
+  protected craneStyle!: CraneStyle;
 
   get totalMasteryHealing() {
     return (
@@ -42,7 +48,9 @@ class MasteryStats extends Analyzer {
       (this.soothingMist.gustsHealing || 0) +
       (this.expelHarm.gustsHealing || 0) +
       (this.revival.gustsHealing || 0) +
-      (this.sheilunsGift.gomHealing || 0)
+      (this.sheilunsGift.gomHealing || 0) +
+      (this.jadefireStomp.gomHealing || 0) +
+      (this.craneStyle.gomHealing || 0)
     );
   }
 
@@ -70,13 +78,6 @@ class MasteryStats extends Analyzer {
         valueTooltip: formatThousands(this.envelopingMists.gustsHealing),
       },
       {
-        color: SPELL_COLORS.SOOTHING_MIST,
-        label: 'Soothing Mist',
-        spellId: TALENTS_MONK.SOOTHING_MIST_TALENT.id,
-        value: this.soothingMist.gustsHealing,
-        valueTooltip: formatThousands(this.soothingMist.gustsHealing),
-      },
-      {
         color: SPELL_COLORS.EXPEL_HARM,
         label: 'Expel Harm',
         spellId: SPELLS.EXPEL_HARM.id,
@@ -92,6 +93,16 @@ class MasteryStats extends Analyzer {
       },
     ];
 
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.SOOTHING_MIST_TALENT)) {
+      items.push({
+        color: SPELL_COLORS.SOOTHING_MIST,
+        label: 'Soothing Mist',
+        spellId: TALENTS_MONK.SOOTHING_MIST_TALENT.id,
+        value: this.soothingMist.gustsHealing,
+        valueTooltip: formatThousands(this.soothingMist.gustsHealing),
+      });
+    }
+
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT)) {
       items.push({
         color: SPELL_COLORS.ALTERNATE_GUST_OF_MIST,
@@ -99,6 +110,26 @@ class MasteryStats extends Analyzer {
         spellId: TALENTS_MONK.SHEILUNS_GIFT_TALENT.id,
         value: this.sheilunsGift.gomHealing,
         valueTooltip: formatThousands(this.sheilunsGift.gomHealing),
+      });
+    }
+
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.CRANE_STYLE_TALENT)) {
+      items.push({
+        color: SPELL_COLORS.BLACKOUT_KICK,
+        label: 'Crane Style',
+        spellId: TALENTS_MONK.CRANE_STYLE_TALENT.id,
+        value: this.craneStyle.gomHealing,
+        valueTooltip: formatThousands(this.craneStyle.gomHealing),
+      });
+    }
+
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.JADEFIRE_STOMP_TALENT)) {
+      items.push({
+        color: SPELL_COLORS.ESSENCE_FONT,
+        label: 'Jadefire Stomp',
+        spellId: TALENTS_MONK.JADEFIRE_STOMP_TALENT.id,
+        value: this.jadefireStomp.gomHealing,
+        valueTooltip: formatThousands(this.jadefireStomp.gomHealing),
       });
     }
 
