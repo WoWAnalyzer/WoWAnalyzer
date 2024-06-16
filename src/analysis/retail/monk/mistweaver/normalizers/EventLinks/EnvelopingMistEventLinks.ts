@@ -14,7 +14,7 @@ export const ENVELOPING_MIST_EVENT_LINKS: EventLink[] = [
   {
     linkRelation: FROM_MISTY_PEAKS,
     linkingEventId: [TALENTS_MONK.ENVELOPING_MIST_TALENT.id],
-    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    linkingEventType: [EventType.ApplyBuff],
     referencedEventId: SPELLS.RENEWING_MIST_HEAL.id,
     referencedEventType: [EventType.Heal],
     backwardBufferMs: 100,

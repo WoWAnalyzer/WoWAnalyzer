@@ -5,7 +5,6 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import { Panel } from 'interface';
-import { ThresholdStyle } from 'parser/core/ParseResults';
 import { EssenceTracker } from 'analysis/retail/evoker/shared';
 
 class EssenceDetails extends Analyzer {
@@ -24,18 +23,6 @@ class EssenceDetails extends Analyzer {
 
   get wastedPercent() {
     return this.wasted / this.total || 0;
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.wasted,
-      isGreaterThan: {
-        minor: 12,
-        average: 21,
-        major: 30,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
   }
 
   statistic() {

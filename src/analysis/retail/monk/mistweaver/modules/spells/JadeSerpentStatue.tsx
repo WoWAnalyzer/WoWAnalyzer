@@ -1,8 +1,6 @@
-import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import { TALENTS_MONK } from 'common/TALENTS';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
@@ -10,7 +8,6 @@ import Events, {
   RefreshBuffEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -52,18 +49,6 @@ class JadeSerpentStatue extends Analyzer {
 
   get jadeSerpentStatueUptime() {
     return this.soothingMistUptime / this.owner.fightDuration;
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.jadeSerpentStatueUptime,
-      isLessThan: {
-        minor: 0.35,
-        average: 0.3,
-        major: 0.25,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
   }
 
   jssHeal(event: HealEvent) {
@@ -110,27 +95,6 @@ class JadeSerpentStatue extends Analyzer {
     if (this.jssCasting) {
       this.soothingMistUptime += this.owner.fight.end_time - this.lastBuffApplyTimestamp;
     }
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You selected <SpellLink spell={TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT} /> as your
-          talent. To gain the most value out of this talent you should have it casting on someone as
-          often as possible. The priority should be tanks or any raid member taking heavy damage,
-          such as from a specific DOT or boss mechanic.
-        </>,
-      )
-        .icon(TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT.icon)
-        .actual(
-          `${formatPercentage(actual)}${defineMessage({
-            id: 'monk.mistweaver.jadeSerpentStatue.uptime',
-            message: `% uptime`,
-          })}`,
-        )
-        .recommended(`${formatPercentage(recommended)}% uptime is recommended`),
-    );
   }
 
   statistic() {
