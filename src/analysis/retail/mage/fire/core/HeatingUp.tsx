@@ -29,7 +29,7 @@ class HeatingUp extends Analyzer {
   protected abilityTracker!: AbilityTracker;
 
   hasFirestarter: boolean = this.selectedCombatant.hasTalent(TALENTS.FIRESTARTER_TALENT);
-  hasSearingTouch: boolean = this.selectedCombatant.hasTalent(TALENTS.SEARING_TOUCH_TALENT);
+  hasSearingTouch: boolean = this.selectedCombatant.hasTalent(TALENTS.SCORCH_TALENT);
   hasFlameOn: boolean = this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT);
 
   fireBlasts: { cast: CastEvent; hasHeatingUp: boolean; hasHotStreak: boolean }[] = [];

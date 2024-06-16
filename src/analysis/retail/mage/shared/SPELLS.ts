@@ -7,16 +7,6 @@
 import Spell from 'common/SPELLS/Spell';
 
 const spells = {
-  METEOR_DAMAGE: {
-    id: 351140,
-    name: 'Meteor',
-    icon: 'spell_mage_meteor',
-  },
-  METEOR_BURN: {
-    id: 155158,
-    name: 'Meteor',
-    icon: 'spell_mage_meteor',
-  },
   CONE_OF_COLD: {
     id: 120,
     name: 'Cone of Cold',

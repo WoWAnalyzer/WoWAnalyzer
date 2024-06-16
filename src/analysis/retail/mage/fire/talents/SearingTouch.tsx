@@ -33,7 +33,7 @@ class SearingTouch extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.SEARING_TOUCH_TALENT);
+    this.active = false;
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell([SPELLS.FIREBALL, SPELLS.SCORCH]),
       this.onCast,
@@ -129,13 +129,12 @@ class SearingTouch extends Analyzer {
         <>
           You cast <SpellLink spell={SPELLS.FIREBALL} /> instead of{' '}
           <SpellLink spell={SPELLS.SCORCH} /> while the target was under 30% health{' '}
-          {this.fireballExecuteCasts} times. When using{' '}
-          <SpellLink spell={TALENTS.SEARING_TOUCH_TALENT} /> always use Scorch instead of Fireball
-          when the target is under 30% health since Scorch does 150% damage and is guaranteed to
-          crit.
+          {this.fireballExecuteCasts} times. When using Searing Touch always use Scorch instead of
+          Fireball when the target is under 30% health since Scorch does 150% damage and is
+          guaranteed to crit.
         </>,
       )
-        .icon(TALENTS.SEARING_TOUCH_TALENT.icon)
+        .icon(TALENTS.SCORCH_TALENT.icon)
         .actual(
           <Trans id="mage.fire.suggestions.searingTouch.executeCasts">
             {formatPercentage(this.executeUtil)}% Utilization
@@ -153,7 +152,7 @@ class SearingTouch extends Analyzer {
           possible or by using your instant abilities and procs.
         </>,
       )
-        .icon(TALENTS.SEARING_TOUCH_TALENT.icon)
+        .icon(TALENTS.SCORCH_TALENT.icon)
         .actual(
           <Trans id="mage.fire.suggestions.searingTouch.nonExecuteScorchCasts">
             {formatPercentage(this.nonExecuteUtil)}% Utilization
@@ -176,7 +175,7 @@ class SearingTouch extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={TALENTS.SEARING_TOUCH_TALENT}>
+        <BoringSpellValueText spell={TALENTS.SCORCH_TALENT}>
           <>
             {formatPercentage(this.executeUtil, 0)}% <small>Execute Utilization</small>
           </>

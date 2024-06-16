@@ -88,16 +88,6 @@ const spells = {
     name: "Sun King's Blessing",
     icon: 'ability_mage_firestarter',
   },
-  CHARRING_EMBERS_DEBUFF: {
-    id: 408665,
-    name: 'Charring Embers',
-    icon: 'ability_warlock_burningembers',
-  },
-  FLAMES_FURY: {
-    id: 409964,
-    name: "Flame's Fury",
-    icon: 'inv_misc_volatilefire',
-  },
   IMPROVED_SCORCH_BUFF: {
     id: 383608,
     name: 'Improved Scorch',
@@ -122,6 +112,16 @@ const spells = {
     id: 244813,
     name: 'Living Bomb',
     icon: 'ability_mage_livingbomb',
+  },
+  METEOR_DAMAGE: {
+    id: 351140,
+    name: 'Meteor',
+    icon: 'spell_mage_meteor',
+  },
+  METEOR_BURN: {
+    id: 155158,
+    name: 'Meteor',
+    icon: 'spell_mage_meteor',
   },
 } satisfies Record<string, Spell>;
 
