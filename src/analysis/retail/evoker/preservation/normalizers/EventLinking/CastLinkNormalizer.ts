@@ -671,7 +671,7 @@ const EVENT_LINKS: EventLink[] = [
   },
   {
     linkRelation: LIFESPARK_LIVING_FLAME,
-    linkingEventId: SPELLS.LIFESPARK.id,
+    linkingEventId: SPELLS.LIFESPARK_BUFF.id,
     linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
     referencedEventId: [SPELLS.LIVING_FLAME_HEAL.id, SPELLS.LIVING_FLAME_DAMAGE.id],
     referencedEventType: [EventType.Heal, EventType.Damage],
