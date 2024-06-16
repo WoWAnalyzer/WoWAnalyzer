@@ -12,6 +12,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FROSTBOLT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
+        enabled: !combatant.hasTalent(TALENTS.FROSTFIRE_BOLT_TALENT),
         gcd: {
           base: 1500,
         },
@@ -83,6 +84,14 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
+        },
+      },
+      {
+        spell: TALENTS.FROSTFIRE_BOLT_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        enabled: combatant.hasTalent(TALENTS.FROSTFIRE_BOLT_TALENT),
+        gcd: {
+          base: 1500,
         },
       },
 
