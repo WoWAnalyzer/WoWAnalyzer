@@ -1,12 +1,7 @@
-import { defineMessage } from '@lingui/macro';
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, FightEndEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
-import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { isFromSoothingMist } from '../../normalizers/CastLinkNormalizer';
 
@@ -57,28 +52,8 @@ class SoothingMist extends Analyzer {
     return soomTicks >= 1.5;
   }
 
-  get suggestionThresholds() {
-    return {
-      actual: this.soomTicksPerDuration,
-      isEqual: true,
-      style: ThresholdStyle.BOOLEAN,
-    };
-  }
-
   get soomThresholds() {
     return (this.totalSoomCasts - this.badSooms) / this.totalSoomCasts;
-  }
-
-  get suggestionThresholdsCasting() {
-    return {
-      actual: this.soomThresholds,
-      isLessThan: {
-        minor: 1,
-        average: 0.95,
-        major: 0.9,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
   }
 
   handleSoothingMist(event: HealEvent) {
@@ -148,39 +123,6 @@ class SoothingMist extends Analyzer {
       this.endStamp = this.owner.fightDuration;
       this.checkChannelTiming();
     }
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest) =>
-      suggest(
-        <>
-          You are allowing <SpellLink spell={TALENTS_MONK.SOOTHING_MIST_TALENT} /> to channel for an
-          extended period of time. <SpellLink spell={TALENTS_MONK.SOOTHING_MIST_TALENT} /> does
-          little healing, so your time is better spent DPS'ing through the use of{' '}
-          <SpellLink spell={SPELLS.TIGER_PALM} /> and <SpellLink spell={SPELLS.BLACKOUT_KICK} />.
-        </>,
-      )
-        .icon(TALENTS_MONK.SOOTHING_MIST_TALENT.icon)
-        .staticImportance(SUGGESTION_IMPORTANCE.MAJOR),
-    );
-
-    when(this.suggestionThresholdsCasting).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You were channeling <SpellLink spell={TALENTS_MONK.SOOTHING_MIST_TALENT} /> without
-          casting spells during it. Replace this channel time with damage abilities like{' '}
-          <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} />.
-        </>,
-      )
-        .icon(TALENTS_MONK.SOOTHING_MIST_TALENT.icon)
-        .actual(
-          `${formatPercentage(this.badSooms / this.totalSoomCasts)}${defineMessage({
-            id: 'monk.mistweaver.suggestions.soothingMist.channelingWithoutCastingSpells',
-            message: `% of Soothing Mist casts with max spells casted`,
-          })}`,
-        )
-        .recommended(`${recommended} is recommended`),
-    );
   }
 }
 

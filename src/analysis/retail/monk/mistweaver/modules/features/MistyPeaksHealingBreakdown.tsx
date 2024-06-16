@@ -43,34 +43,43 @@ class MistyPeaksHealingBreakdown extends Analyzer {
   renderMistyPeaksChart() {
     const items = [
       {
-        color: SPELL_COLORS.DANCING_MISTS,
-        label: 'Dancing Mists',
-        spellId: TALENTS_MONK.DANCING_MISTS_TALENT.id,
-        value: this.dancingMists.mistyPeaksHealingFromDancingMist,
-        valueTooltip: formatThousands(this.dancingMists.mistyPeaksHealingFromDancingMist),
-      },
-      {
-        color: SPELL_COLORS.RAPID_DIFFUSION,
-        label: 'Rapid Diffusion',
-        spellId: TALENTS_MONK.RAPID_DIFFUSION_TALENT.id,
-        value: this.rapidDiffusion.mistyPeaksHealingFromRapidDiffusion,
-        valueTooltip: formatThousands(this.rapidDiffusion.mistyPeaksHealingFromRapidDiffusion),
-      },
-      {
         color: SPELL_COLORS.RENEWING_MIST,
         label: 'Renewing Mist',
         spellId: SPELLS.RENEWING_MIST_HEAL.id,
         value: this.remainingMistyPeaksHealing,
         valueTooltip: formatThousands(this.remainingMistyPeaksHealing),
       },
-      {
+    ];
+
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.MISTS_OF_LIFE_TALENT)) {
+      items.push({
         color: SPELL_COLORS.GUSTS_OF_MISTS,
         label: 'Mists of Life',
         spellId: TALENTS_MONK.MISTS_OF_LIFE_TALENT.id,
         value: this.mistsOfLife.extraMistyPeaksHealing,
         valueTooltip: formatThousands(this.mistsOfLife.extraMistyPeaksHealing),
-      },
-    ];
+      });
+    }
+
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.DANCING_MISTS_TALENT)) {
+      items.push({
+        color: SPELL_COLORS.DANCING_MISTS,
+        label: 'Dancing Mists',
+        spellId: TALENTS_MONK.DANCING_MISTS_TALENT.id,
+        value: this.dancingMists.mistyPeaksHealingFromDancingMist,
+        valueTooltip: formatThousands(this.dancingMists.mistyPeaksHealingFromDancingMist),
+      });
+    }
+
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.RAPID_DIFFUSION_TALENT)) {
+      items.push({
+        color: SPELL_COLORS.RAPID_DIFFUSION,
+        label: 'Rapid Diffusion',
+        spellId: TALENTS_MONK.RAPID_DIFFUSION_TALENT.id,
+        value: this.rapidDiffusion.mistyPeaksHealingFromRapidDiffusion,
+        valueTooltip: formatThousands(this.rapidDiffusion.mistyPeaksHealingFromRapidDiffusion),
+      });
+    }
 
     return <DonutChart items={items} />;
   }

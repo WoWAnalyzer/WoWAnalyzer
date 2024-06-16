@@ -436,6 +436,11 @@ const spells = {
     name: 'Zen Pulse',
     icon: 'ability_monk_forcesphere',
   },
+  ZEN_PULSE_BUFF: {
+    id: 446334,
+    name: 'Zen Pulse',
+    icon: 'ability_monk_forcesphere',
+  },
   JADEFIRE_STOMP_HEAL: {
     id: 388207,
     name: 'Faeline Stomp',

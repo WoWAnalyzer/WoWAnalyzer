@@ -1,4 +1,3 @@
-import { defineMessage } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
@@ -15,7 +14,6 @@ import Events, {
   RefreshBuffEvent,
   ResourceChangeEvent,
 } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import ItemManaGained from 'parser/ui/ItemManaGained';
 import { getLowestPerf, QualitativePerformance } from 'parser/ui/QualitativePerformance';
@@ -201,73 +199,9 @@ class ManaTea extends Analyzer {
     return totalDuration / totalValid;
   }
 
-  get suggestionThresholds() {
-    return {
-      actual: this.avgMtSaves,
-      isLessThan: {
-        minor: this.manaPerManaTeaGoal,
-        average: this.manaPerManaTeaGoal - 1000,
-        major: this.manaPerManaTeaGoal - 2000,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
-  }
-
   get avgOverhealing() {
     return parseFloat(
       (this.overhealing / (this.overhealing + this.effectiveHealing) || 0).toFixed(4),
-    );
-  }
-
-  get suggestionThresholdsOverhealing() {
-    return {
-      actual: this.avgOverhealing,
-      isGreaterThan: {
-        minor: 0.2,
-        average: 0.3,
-        major: 0.4,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Your mana spent during <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} /> can be improved.
-          Aim to prioritize more expensive spells like <SpellLink spell={SPELLS.VIVIFY} />
-          or <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> after you finish channeling
-          to take full advantage of the cost reduction.
-        </>,
-      )
-        .icon(TALENTS_MONK.MANA_TEA_TALENT.icon)
-        .actual(
-          `${formatNumber(this.avgMtSaves)}${defineMessage({
-            id: 'monk.mistweaver.suggestions.manaTea.avgManaSaved',
-            message: ` average mana saved per Mana Tea cast`,
-          })}`,
-        )
-        .recommended(`${(recommended / 1000).toFixed(0)}k average mana saved is recommended`),
-    );
-    when(this.suggestionThresholdsOverhealing).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Your average overhealing was high during your{' '}
-          <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} /> usage. Consider using{' '}
-          <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} /> during specific boss abilities or
-          general periods of high damage to the raid. Also look to target low health raid members to
-          avoid large amounts of overhealing.
-        </>,
-      )
-        .icon(TALENTS_MONK.MANA_TEA_TALENT.icon)
-        .actual(
-          `${formatPercentage(this.avgOverhealing)}${defineMessage({
-            id: 'monk.mistweaver.suggestions.manaTea.avgOverHealing',
-            message: ` % average overhealing per Mana Tea cast`,
-          })}`,
-        )
-        .recommended(`under ${formatPercentage(recommended)}% over healing is recommended`),
     );
   }
 
@@ -400,7 +334,7 @@ class ManaTea extends Analyzer {
       >
         <TalentSpellText talent={TALENTS_MONK.MANA_TEA_TALENT}>
           <div>
-            <ItemManaGained amount={this.totalManaSaved} useAbbrev />
+            <ItemManaGained amount={this.totalManaSaved} useAbbrev customLabel="mana" />
           </div>
           <div>
             <TooltipElement

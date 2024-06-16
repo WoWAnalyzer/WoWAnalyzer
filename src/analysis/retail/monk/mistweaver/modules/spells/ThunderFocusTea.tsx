@@ -1,10 +1,8 @@
-import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -111,18 +109,6 @@ class ThunderFocusTea extends Analyzer {
     } else {
       return spellMap.includes(spellId);
     }
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.incorrectTftCasts,
-      isGreaterThan: {
-        minor: 0,
-        average: 1,
-        major: 2,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
   }
 
   tftCast(event: CastEvent) {
@@ -317,31 +303,6 @@ class ThunderFocusTea extends Analyzer {
         minimizeIcons
         useThresholds
       />
-    );
-  }
-
-  suggestions(when: When) {
-    const elements = this.correctCapstoneSpells.map((spell) => (
-      <SpellLink spell={spell} key={spell} />
-    ));
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You are currently buffing spells other than{' '}
-          {this.correctCapstoneSpells.length === 1
-            ? elements[0]
-            : [elements[0], ' and ', elements[1]]}{' '}
-          with <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} />
-        </>,
-      )
-        .icon(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.icon)
-        .actual(
-          `${this.incorrectTftCasts} ${defineMessage({
-            id: 'monk.mistweaver.suggestions.thunderFocusTea.incorrectCasts',
-            message: `incorrect casts with Thunder Focus Tea`,
-          })}`,
-        )
-        .recommended(`${recommended} incorrect casts is recommended`),
     );
   }
 
