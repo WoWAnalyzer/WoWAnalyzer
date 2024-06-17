@@ -10,7 +10,7 @@ import Statistic from 'parser/ui/Statistic';
 class T32Prevoker extends Analyzer {
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.has2PieceByTier(TIERS.DF3);
+    this.active = this.selectedCombatant.has2PieceByTier(TIERS.TWW1);
   }
 
   statistic() {
