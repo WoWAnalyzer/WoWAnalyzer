@@ -25,10 +25,9 @@ const MeleeChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProp
         name="Avoid Downtime"
         description={
           <>
-            Avoid unnecessary downtime during the fight. If you have to move, try casting instant
-            spells such as
-            {/* UPDATE THE SPELL BELOW */}
-            <SpellLink spell={SPELLS.DEATH_COIL_DK} />.
+            Avoid unnecessary downtime during the fight. If you have to be out of range, try casting
+            instant spells such as <SpellLink spell={SPELLS.DEATH_COIL_DK} /> or refresh your
+            diseases with <SpellLink spell={SPELLS.ICY_TOUCH} />.
           </>
         }
       >
@@ -38,9 +37,10 @@ const MeleeChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProp
         name="Use Cooldowns Effectively"
         description={<>Use your cooldowns as often as possible to maximize your damage output.</>}
       >
-        {/* SPELLS listed here must be in ../features/Abilities */}
-        {/* UPDATE THE ABILITIES BELOW */}
-        <AbilityRequirement spell={SPELLS.SUMMON_GARGOYLE.id} />
+        <AbilityRequirement spell={SPELLS.DANCING_RUNE_WEAPON.id} />
+        <AbilityRequirement spell={SPELLS.EMPOWER_RUNE_WEAPON.id} />
+        <AbilityRequirement spell={SPELLS.BONE_SHIELD.id} />
+        <AbilityRequirement spell={SPELLS.BLOOD_TAP.id} />
       </Rule>
       {/* Enchants and Consumes */}
       <PreparationRule thresholds={thresholds} />

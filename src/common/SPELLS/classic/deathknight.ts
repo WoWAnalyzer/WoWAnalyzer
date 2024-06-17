@@ -21,10 +21,9 @@ const spells = {
     icon: 'spell_deathknight_armyofthedead',
   },
   BLOOD_BOIL: {
-    id: 49941,
+    id: 48721,
     name: 'Blood Boil',
     icon: 'spell_deathknight_bloodboil',
-    lowRanks: [49940, 49939, 48721],
   },
   BLOOD_PRESENCE: {
     id: 48266,
@@ -64,10 +63,9 @@ const spells = {
     icon: 'spell_nature_shamanrage',
   },
   DEATH_AND_DECAY: {
-    id: 49938,
+    id: 43265,
     name: 'Death and Decay',
     icon: 'spell_shadow_deathanddecay',
-    lowRanks: [49937, 49936, 43265],
   },
   DEATH_COIL_DK: {
     id: 49895,
@@ -86,10 +84,9 @@ const spells = {
     icon: 'spell_shadow_deathpact',
   },
   DEATH_STRIKE: {
-    id: 49924,
+    id: 49998,
     name: 'Death Strike',
     icon: 'spell_deathknight_butcher2',
-    lowRanks: [49923, 45463, 49999, 49998],
   },
   EMPOWER_RUNE_WEAPON: {
     id: 47568,
@@ -107,10 +104,9 @@ const spells = {
     icon: 'spell_deathknight_frozenruneweapon',
   },
   HORN_OF_WINTER: {
-    id: 57623,
+    id: 57330,
     name: 'Horn of Winter',
     icon: 'inv_misc_horn_02',
-    lowRanks: [57330],
   },
   ICEBOUND_FORTITUDE: {
     id: 48792,
@@ -118,10 +114,9 @@ const spells = {
     icon: 'spell_deathknight_iceboundfortitude',
   },
   ICY_TOUCH: {
-    id: 49909,
+    id: 45477,
     name: 'Icy Touch',
     icon: 'spell_deathknight_icetouch',
-    lowRanks: [49904, 49903, 49896, 45477],
   },
   MIND_FREEZE: {
     id: 47528,
@@ -145,10 +140,9 @@ const spells = {
     icon: 'spell_shadow_plaguecloud',
   },
   PLAGUE_STRIKE: {
-    id: 49921,
+    id: 45462,
     name: 'Plague Strike',
     icon: 'spell_deathknight_empowerruneblade',
-    lowRanks: [49920, 49919, 49918, 49917, 45462],
   },
   RAISE_ALLY: {
     id: 61999,
@@ -225,6 +219,11 @@ const spells = {
     name: 'Unholy Presence',
     icon: 'spell_deathknight_unholypresence',
   },
+  OUTBREAK: {
+    id: 77575,
+    name: 'Outbreak',
+    icon: 'spell_deathvortex',
+  },
 
   // ---------
   // TALENTS
@@ -243,10 +242,9 @@ const spells = {
     lowRanks: [50033],
   },
   HEART_STRIKE: {
-    id: 55262,
+    id: 55050,
     name: 'Heart Strike',
     icon: 'inv_weapon_shortblade_40',
-    lowRanks: [55261, 55260, 55259, 55258, 55050],
   },
   MARK_OF_BLOOD: {
     id: 49005,
