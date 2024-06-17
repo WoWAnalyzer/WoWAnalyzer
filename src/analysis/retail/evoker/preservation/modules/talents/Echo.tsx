@@ -17,14 +17,12 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { ECHO_HEALS, SPELL_COLORS } from '../../constants';
 import {
   didEchoExpire,
-  ECHO,
-  ECHO_TEMPORAL_ANOMALY,
-  ECHO_TYPE,
   getEchoTypeForGoldenHour,
   getEchoTypeForLifebind,
   isFromHardcastEcho,
   isFromTAEcho,
-} from '../../normalizers/EventLinking/CastLinkNormalizer';
+} from '../../normalizers/EventLinking/helpers';
+import { ECHO, ECHO_TEMPORAL_ANOMALY, ECHO_TYPE } from '../../normalizers/EventLinking/constants';
 import HotTrackerPrevoker from '../core/HotTrackerPrevoker';
 
 class Echo extends Analyzer {

@@ -1,5 +1,5 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { getLifesparkLivingFlame } from '../../normalizers/EventLinking/CastLinkNormalizer';
+import { getLifesparkLivingFlame } from '../../normalizers/EventLinking/helpers';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import DonutChart from 'parser/ui/DonutChart';

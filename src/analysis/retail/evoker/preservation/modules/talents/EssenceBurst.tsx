@@ -15,7 +15,7 @@ import {
   getEssenceBurstConsumeAbility,
   isEbFromHardcast,
   isEbFromReversion,
-} from '../../normalizers/EventLinking/CastLinkNormalizer';
+} from '../../normalizers/EventLinking/helpers';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { SPELL_COLORS } from 'analysis/retail/evoker/preservation/constants';
 import DonutChart from 'parser/ui/DonutChart';

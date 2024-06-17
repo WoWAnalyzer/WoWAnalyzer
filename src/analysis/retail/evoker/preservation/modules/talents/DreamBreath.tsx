@@ -4,7 +4,7 @@ import Events, { ApplyBuffEvent, EmpowerEndEvent } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import { SpellLink } from 'interface';
 import { TALENTS_EVOKER } from 'common/TALENTS';
-import { getBuffEvents } from '../../normalizers/EventLinking/CastLinkNormalizer';
+import { getBuffEvents } from '../../normalizers/EventLinking/helpers';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { GUIDE_CORE_EXPLANATION_PERCENT, GuideContainer } from '../../Guide';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';

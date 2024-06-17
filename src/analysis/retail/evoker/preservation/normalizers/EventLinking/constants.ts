@@ -1,0 +1,48 @@
+export const ANCIENT_FLAME = 'AncientFlame'; // links cast to buff apply
+export const ANCIENT_FLAME_CONSUME = 'AncientFlameConnsume'; // links buff remove to buff apply
+// BEGIN ECHO constants
+export const FROM_HARDCAST = 'FromHardcast'; // for linking a buffapply or heal to its cast
+export const FROM_TEMPORAL_ANOMALY = 'FromTemporalAnomaly'; // for linking TA echo apply to TA shield apply
+export const ECHO_REMOVAL = 'EchoRemoval'; // for linking echo removal to echo apply
+export const TA_ECHO_REMOVAL = 'TaEchoTemoval'; // for linking TA echo removal to echo apply
+export const ECHO_TEMPORAL_ANOMALY = 'TemporalAnomaly'; // for linking BuffApply/Heal to echo removal
+export const ECHO = 'Echo'; // for linking BuffApply/Heal to echo removal
+// END ECHO constants
+export const ESSENCE_BURST_LINK = 'EssenceBurstLink'; // link eb removal to apply
+export const ESSENCE_BURST_CONSUME = 'EssenceBurstConsumption'; // link essence cast to removing the essence burst buff
+export const DREAM_BREATH_CALL_OF_YSERA = 'DreamBreathCallOfYsera'; // link DB hit to buff removal
+export const DREAM_BREATH_CALL_OF_YSERA_HOT = 'DreamBreathCallOfYseraHoT'; // link DB hot to buff removal
+export const FIELD_OF_DREAMS_PROC = 'FromFieldOfDreams'; // link EB heal to fluttering heal
+export const GOLDEN_HOUR = 'GoldenHour'; // link GH heal to reversion application
+export const LIFEBIND = 'Lifebind'; // link lifebind buff apply to lifebind heal event
+export const LIFEBIND_APPLY = 'LifebindApply'; // link lifebind apply to verdant embrace
+export const LIFEBIND_HEAL = 'LifebindHeal'; // link lifebind heal to trigger heal event
+export const LIVING_FLAME_CALL_OF_YSERA = 'LivingFlameCallOfYsera'; // link buffed living flame to buff removal
+export const HEAL_GROUPING = 'HealGrouping'; // link EB healevents and TA pulses together to easily fetch groups of heals/absorbs
+export const ECHO_HEAL_GROUPING = 'HealGrouping'; // link EB healevents and TA pulses together to easily fetch groups of heals/absorbs
+export const BUFF_GROUPING = 'BuffGrouping'; // link ApplyBuff events together
+export const SHIELD_FROM_TA_CAST = 'ShieldFromTACast';
+export const SPARK_OF_INSIGHT = 'SparkOfInsight'; // link TC stack removals to Spark
+export const STASIS = 'Stasis';
+export const STASIS_FOR_RAMP = 'ForRamp';
+export const EB_REVERSION = 'EssenceBurstReversion';
+export const TIME_OF_NEED_HEALING = 'TimeOfNeedHealing';
+export const LIFESPARK_LIVING_FLAME = 'LifesparkLivingFlame'; //Instant living flame from Lifespark
+
+export enum ECHO_TYPE {
+  NONE,
+  TA,
+  HARDCAST,
+}
+
+export const CAST_BUFFER_MS = 100;
+export const ECHO_BUFFER = 5000;
+export const EB_BUFFER_MS = 1500;
+export const EB_VARIANCE_BUFFER = 150; // servers are bad and EB can take over or under 1.5s to actually trigger
+export const LIFEBIND_BUFFER = 5000 + CAST_BUFFER_MS; // 5s duration
+export const MAX_ECHO_DURATION = 20000; // 15s with 30% inc = 19s
+export const MAX_ESSENCE_BURST_DURATION = 32000; // 15s duration can refresh to 30s with 2s of buffer
+export const TA_BUFFER_MS = 6000 + CAST_BUFFER_MS; //TA pulses over 6s at 0% haste
+export const STASIS_BUFFER = 1000;
+export const TIME_OF_NEED_DURATION = 8000;
+export const LIVING_FLAME_FLIGHT_TIME = 1000;
