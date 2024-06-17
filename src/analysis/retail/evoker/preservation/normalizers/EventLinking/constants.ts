@@ -28,6 +28,9 @@ export const STASIS_FOR_RAMP = 'ForRamp';
 export const EB_REVERSION = 'EssenceBurstReversion';
 export const TIME_OF_NEED_HEALING = 'TimeOfNeedHealing';
 export const LIFESPARK_LIVING_FLAME = 'LifesparkLivingFlame'; //Instant living flame from Lifespark
+export const REVERSION = 'Reversion';
+export const T32_2PC = 'T32TwoPiece'; // link 2 pc heal to rev/blossom
+export const T32_4PC = 'T32FourPiece'; // link 4pc apply to buff removal
 
 export enum ECHO_TYPE {
   NONE,
@@ -42,6 +45,7 @@ export const EB_VARIANCE_BUFFER = 150; // servers are bad and EB can take over o
 export const LIFEBIND_BUFFER = 5000 + CAST_BUFFER_MS; // 5s duration
 export const MAX_ECHO_DURATION = 20000; // 15s with 30% inc = 19s
 export const MAX_ESSENCE_BURST_DURATION = 32000; // 15s duration can refresh to 30s with 2s of buffer
+export const MAX_REVERSION_DURATION = 60000;
 export const TA_BUFFER_MS = 6000 + CAST_BUFFER_MS; //TA pulses over 6s at 0% haste
 export const STASIS_BUFFER = 1000;
 export const TIME_OF_NEED_DURATION = 8000;

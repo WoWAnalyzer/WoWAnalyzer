@@ -7,6 +7,7 @@ import { ECHO_EVENT_LINKS } from './EchoEventLinks';
 import { BRONZE_EVENT_LINKS } from './BronzeEventLinks';
 import { GREEN_EVENT_LINKS } from './GreenEventLinks';
 import { RED_EVENT_LINKS } from './RedEventLinks';
+import { TIER_EVENT_LINKS } from './TierEventLinks';
 
 const EVENT_LINKS: EventLink[] = [
   ...ECHO_EVENT_LINKS,
@@ -15,6 +16,7 @@ const EVENT_LINKS: EventLink[] = [
   ...BRONZE_EVENT_LINKS,
   ...GREEN_EVENT_LINKS,
   ...RED_EVENT_LINKS,
+  ...TIER_EVENT_LINKS,
 ];
 
 /**

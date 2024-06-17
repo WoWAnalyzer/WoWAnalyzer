@@ -2,7 +2,15 @@ import { EMPOWERED_CAST } from 'analysis/retail/evoker/shared/modules/normalizer
 import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { EventLink } from 'parser/core/EventLinkNormalizer';
-import { EventType, CastEvent, HasRelatedEvent, SummonEvent, HealEvent } from 'parser/core/Events';
+import {
+  EventType,
+  CastEvent,
+  HasRelatedEvent,
+  SummonEvent,
+  HealEvent,
+  RefreshBuffEvent,
+  ApplyBuffEvent,
+} from 'parser/core/Events';
 import { STASIS_CAST_IDS } from '../../constants';
 import {
   STASIS,
@@ -13,6 +21,8 @@ import {
   ECHO_BUFFER,
   TIME_OF_NEED_HEALING,
   TIME_OF_NEED_DURATION,
+  REVERSION,
+  MAX_REVERSION_DURATION,
 } from './constants';
 
 export const BRONZE_EVENT_LINKS: EventLink[] = [
@@ -101,6 +111,26 @@ export const BRONZE_EVENT_LINKS: EventLink[] = [
     anyTarget: true,
     additionalCondition(linkingEvent, referencedEvent) {
       return (linkingEvent as SummonEvent).targetID === (referencedEvent as HealEvent).sourceID;
+    },
+  },
+  {
+    linkRelation: REVERSION,
+    linkingEventId: [TALENTS_EVOKER.REVERSION_TALENT.id, SPELLS.REVERSION_ECHO.id],
+    linkingEventType: EventType.Heal,
+    referencedEventId: [TALENTS_EVOKER.REVERSION_TALENT.id, SPELLS.REVERSION_ECHO.id],
+    referencedEventType: [EventType.RefreshBuff, EventType.ApplyBuff],
+    reverseLinkRelation: REVERSION,
+    backwardBufferMs: MAX_REVERSION_DURATION,
+    additionalCondition(linkingEvent, referencedEvent) {
+      const linkHealEvent = linkingEvent as HealEvent;
+      const refBuffEvent =
+        referencedEvent.type === EventType.RefreshBuff
+          ? (referencedEvent as RefreshBuffEvent)
+          : (referencedEvent as ApplyBuffEvent);
+      return (
+        linkHealEvent.ability.guid === refBuffEvent.ability.guid &&
+        !HasRelatedEvent(linkingEvent, REVERSION)
+      );
     },
   },
 ];

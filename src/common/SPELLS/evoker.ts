@@ -518,6 +518,16 @@ const spells = {
     name: 'Lifespark',
     icon: 'ability_evoker_masterylifebinder_red',
   },
+  EPOCH_FRAGMENT: {
+    id: 456083,
+    name: 'Epoch Fragment',
+    icon: 'ability_evoker_bronze_01',
+  },
+  T32_4PC_BUFF: {
+    id: 456058,
+    name: 'Recommencement',
+    icon: 'ability_evoker_bronze_01',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;
