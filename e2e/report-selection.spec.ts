@@ -23,7 +23,7 @@ test.skip('report selection', async ({ page, homePage, fightSelectionPage }) => 
   await expect(page).toHaveTitle(reportTitle);
 });
 
-test.skip('fight selection', async ({ page, fightSelectionPage, playerSelectionPage }) => {
+test('fight selection', async ({ page, fightSelectionPage, playerSelectionPage }) => {
   await fightSelectionPage.goto(reportCode);
 
   await page.getByRole('link', { name: fightLinkName }).click();
@@ -33,7 +33,7 @@ test.skip('fight selection', async ({ page, fightSelectionPage, playerSelectionP
   await expect(page).toHaveTitle(fightPageTitle);
 });
 
-test.skip('player selection', async ({ page, playerSelectionPage, reportPage }) => {
+test('player selection', async ({ page, playerSelectionPage, reportPage }) => {
   await playerSelectionPage.goto(reportCode, fightUrlPart);
 
   await page.getByRole('link', { name: playerLinkName }).click();
@@ -44,7 +44,7 @@ test.skip('player selection', async ({ page, playerSelectionPage, reportPage }) 
   await expect(page).toHaveTitle(resultsPageTitle);
 });
 
-test.describe.skip('tab selection', () => {
+test.describe('tab selection', () => {
   test.beforeEach(async ({ reportPage }) => {
     await reportPage.goto({
       reportCode: reportCode,
@@ -94,7 +94,7 @@ test.describe.skip('tab selection', () => {
   });
 });
 
-test.skip('perform analysis', async ({ page }) => {
+test('perform analysis', async ({ page }) => {
   await page.goto('./');
 
   await page.getByPlaceholder('https://www.warcraftlogs.com/reports/<report code>').click();

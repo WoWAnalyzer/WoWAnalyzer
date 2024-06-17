@@ -10,22 +10,22 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
 /**
- * Elysian Decree
+ * Sigil of Spite
  */
-class ElysianDecree extends Analyzer {
+class SigilOfSpite extends Analyzer {
   damage = 0;
 
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_SPITE_TALENT);
 
     if (!this.active) {
       return;
     }
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell([SPELLS.ELYSIAN_DECREE_DAMAGE]),
+      Events.damage.by(SELECTED_PLAYER).spell([SPELLS.SIGIL_OF_SPITE_DAMAGE]),
       this.onDamage,
     );
   }
@@ -42,7 +42,7 @@ class ElysianDecree extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={<>{formatThousands(this.damage)} Total damage</>}
       >
-        <TalentSpellText talent={TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT}>
+        <TalentSpellText talent={TALENTS_DEMON_HUNTER.SIGIL_OF_SPITE_TALENT}>
           <ItemDamageDone amount={this.damage} />
         </TalentSpellText>
       </Statistic>
@@ -50,4 +50,4 @@ class ElysianDecree extends Analyzer {
   }
 }
 
-export default ElysianDecree;
+export default SigilOfSpite;

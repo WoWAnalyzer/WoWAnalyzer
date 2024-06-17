@@ -32,7 +32,7 @@ import SoulFragmentsConsume from './modules/statistics/SoulFragmentsConsume';
 import SoulsOvercap from './modules/statistics/SoulsOvercap';
 import AgonizingFlames from './modules/talents/AgonizingFlames';
 import BurningAlive from './modules/talents/BurningAlive';
-import ElysianDecree from './modules/talents/ElysianDecree';
+import SigilOfSpite from 'src/analysis/retail/demonhunter/vengeance/modules/talents/SigilOfSpite';
 import FeastOfSouls from './modules/talents/FeastOfSouls';
 import FeedTheDemon from './modules/talents/FeedTheDemon';
 import SoulBarrier from './modules/talents/SoulBarrier';
@@ -115,7 +115,7 @@ class CombatLogParser extends CoreCombatLogParser {
     shearFracture: ShearFracture,
     shatteredRestoration: ShatteredRestoration,
     theHunt: TheHunt,
-    elysianDecree: ElysianDecree,
+    sigilOfSpite: SigilOfSpite,
     felblade: Felblade,
     charredWarblades: CharredWarblades,
     masterOfTheGlaive: MasterOfTheGlaive,
