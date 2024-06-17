@@ -104,7 +104,7 @@ class T32Prevoker extends Analyzer {
       {
         color: SPELL_COLORS.REVERSION,
         label: 'Reversion',
-        spellId: TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT.id,
+        spellId: TALENTS_EVOKER.REVERSION_TALENT.id,
         value: this.reversion2PC,
         valueTooltip: formatNumber(this.reversion2PC),
       },
