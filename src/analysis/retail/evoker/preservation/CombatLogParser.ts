@@ -61,6 +61,7 @@ import {
   SourceOfMagic,
   PotentMana,
 } from '../shared';
+import T32Prevoker from './modules/tier/T32TierSet';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -97,6 +98,7 @@ class CombatLogParser extends CoreCombatLogParser {
     leapingFlames: LeapingFlames,
     sourceOfMagic: SourceOfMagic,
     potentMana: PotentMana,
+
     // Empower Normalizer
     empowerNormalizer: EmpowerNormalizer,
     spellUsable: SpellUsable,
@@ -135,6 +137,9 @@ class CombatLogParser extends CoreCombatLogParser {
     echoTypeBreakdown: EchoTypeBreakdown,
     essenceBurstSources: EssenceBurstSources,
     lifespark: Lifespark,
+
+    // other
+    t32Prevoker: T32Prevoker,
   };
   static guide = Guide;
 }

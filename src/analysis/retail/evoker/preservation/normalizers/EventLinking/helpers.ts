@@ -41,6 +41,9 @@ import {
   EB_REVERSION,
   TIME_OF_NEED_HEALING,
   LIFESPARK_LIVING_FLAME,
+  T32_2PC,
+  REVERSION,
+  T32_4PC,
 } from './constants';
 
 /** Returns true iff the given buff application or heal can be matched back to a hardcast */
@@ -211,4 +214,20 @@ export function getTimeOfNeedHealing(event: SummonEvent) {
 
 export function getLifesparkLivingFlame(event: RemoveBuffEvent | RemoveBuffStackEvent) {
   return GetRelatedEvent(event, LIFESPARK_LIVING_FLAME) ?? null;
+}
+
+export function getT32SourceEvent(event: HealEvent): HealEvent | undefined {
+  return GetRelatedEvent<HealEvent>(event, T32_2PC);
+}
+
+export function isRevBuffedFromT32(event: HealEvent): boolean {
+  const applyEvent = GetRelatedEvent<ApplyBuffEvent | RefreshBuffEvent>(event, REVERSION);
+  if (!applyEvent) {
+    return false;
+  }
+  return HasRelatedEvent(applyEvent, T32_4PC);
+}
+
+export function isT32ProcWasted(event: RemoveBuffEvent | RefreshBuffEvent): boolean {
+  return event.type === EventType.RefreshBuff || !HasRelatedEvent(event, T32_4PC);
 }
