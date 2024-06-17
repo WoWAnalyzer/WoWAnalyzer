@@ -35,7 +35,7 @@ const config: Config = {
     },
   },
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/<UPDATE_THIS>',
+  exampleReport: '/report/whg9yZrGNjzDWLX7/30-Heroic+Magmaw+-+Kill+(3:59)/Nezter/standard/overview',
   // Add spells to display separately on the timeline
   timeline: {
     separateCastBars: [[]],
