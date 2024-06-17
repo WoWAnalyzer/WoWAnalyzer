@@ -140,6 +140,18 @@ const ZONES: Zone[] = [
     ],
     usePtrTooltips: false,
   },
+  {
+    id: 38,
+    name: "Nerub'ar Palace",
+    frozen: false,
+    encounters: [],
+  },
+  {
+    id: 39,
+    name: 'Mythic+ Season 1',
+    frozen: false,
+    encounters: [],
+  },
 ];
 
 export default ZONES;

@@ -36,6 +36,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 6, 17), 'Add some TWW patch data.', ToppleTheNun),
   change(date(2024, 6, 16), <>Add T32 tier set ids</>, Trevor),
   change(date(2024, 6, 16), <>Add hero talents statistic category</>, Trevor),
   change(date(2024, 6, 14), <>Update max mana in Core ManaTracker</>, Vohrr),
