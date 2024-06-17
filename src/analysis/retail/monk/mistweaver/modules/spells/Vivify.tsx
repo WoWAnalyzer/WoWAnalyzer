@@ -25,6 +25,8 @@ const RAPID_DIFFUSION_SPELLS = [
 const BASE_AVERAGE_REMS = 2.22;
 const RM_AVG_REM_DIFF = 3;
 
+type InvigoratingMistHealPerPlayer = { [key: number]: Set<string> };
+
 class Vivify extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
@@ -34,7 +36,7 @@ class Vivify extends Analyzer {
   protected spellUsable!: SpellUsable;
   protected upliftedSpirits!: UpliftedSpirits;
   casts: number = 0;
-
+  healsPerPlayer: InvigoratingMistHealPerPlayer = {};
   mainTargetHealing: number = 0;
   mainTargetOverhealing: number = 0;
 
@@ -199,14 +201,7 @@ class Vivify extends Analyzer {
             <strong>
               <SpellLink spell={SPELLS.VIVIFY} /> casts
             </strong>{' '}
-            <small>
-              {' '}
-              - Blue is a perfect cast with 10 or more{' '}
-              <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> HoTs out, Green is a good cast
-              with 6 or more, Yellow is an ok cast at 5 or below, and Red is a bad cast at low
-              renewing mist count. If any of the casts have more than 50% overheal, then they will
-              be marked as bad. Mouseover to see details about each cast.
-            </small>
+            <small> GUIDANCE COMING SOON. Mouseover to see details about each cast.</small>
             <PerformanceBoxRow values={this.castEntries} />
           </div>
           <div style={styleObj}>
@@ -280,40 +275,68 @@ class Vivify extends Analyzer {
     }
   }
 
+  private _makeID(event: HealEvent): string {
+    return (
+      event.targetID + '_' + event.timestamp + '_' + event.amount + '_' + (event.overheal || 0)
+    );
+  }
+
   private _tallyCastEntry(vivifyHeal: HealEvent) {
     const invigoratingMistHits = getInvigHitsPerCast(vivifyHeal) as HealEvent[];
-
     this.vivifyGoodCrits = 0;
     this.vivifyWastedCrits = 0;
     let fullOverhealHits = 0;
     let healingPerCast = 0;
     let overhealPerCast = 0;
 
+    let rems = 0;
+    const targetsInGrouping: number[] = [];
+
+    /*Vivacious Vivification can proc during a hardcasted vivify and is not consumed until the following vivify cast. This is often
+     * causing two vivify casts and their subsequent invig mist healing to occur simultaneously. Invigorating mists can only hit a target
+     * once per vivify cast, so we can track and filter out the targets that have already been hit to properly allocate each cast.
+     */
+    invigoratingMistHits.forEach((invigHeal) => {
+      const targetId = invigHeal.targetID;
+      const uuid = this._makeID(invigHeal);
+
+      if (
+        (!this.healsPerPlayer[targetId] || !this.healsPerPlayer[targetId].has(uuid)) &&
+        !targetsInGrouping.find((id) => id === targetId)
+      ) {
+        const effective = invigHeal.amount + (invigHeal.absorbed || 0);
+
+        fullOverhealHits += !effective ? 1 : 0;
+        healingPerCast += effective;
+        overhealPerCast += invigHeal.overheal || 0;
+
+        this._tallyUpliftedSpiritsCDR(invigHeal);
+        this.healsPerPlayer[targetId]
+          ? this.healsPerPlayer[targetId].add(uuid)
+          : (this.healsPerPlayer[targetId] = new Set<string>().add(uuid));
+
+        targetsInGrouping.push(targetId);
+        rems += 1;
+      }
+    });
+
     healingPerCast += vivifyHeal.amount + (vivifyHeal.absorbed || 0);
     overhealPerCast += vivifyHeal.overheal || 0;
     this._tallyUpliftedSpiritsCDR(vivifyHeal);
 
-    invigoratingMistHits.forEach((invigHeal) => {
-      const effective = invigHeal.amount + (invigHeal.absorbed || 0);
-      fullOverhealHits += effective ? 1 : 0;
-      healingPerCast += effective;
-      overhealPerCast += invigHeal.overheal || 0;
-      this._tallyUpliftedSpiritsCDR(invigHeal);
-    });
-
     const percentOverheal = overhealPerCast / (healingPerCast + overhealPerCast);
-    const rems = invigoratingMistHits.length;
+
     let value = QualitativePerformance.Fail;
-    // Rising Mist avg rems is roughly 2 higher than ToM
+    //TODO: update this for TWW rem averages (pool of mists / heart of the jade serpent)
     const rmConst =
       this.selectedCombatant.getTalentRank(TALENTS_MONK.RISING_MIST_TALENT) * RM_AVG_REM_DIFF;
-    if (rems >= 8 + rmConst && percentOverheal <= 0.5) {
+    if (rems >= 8 + rmConst && percentOverheal <= 0.6) {
       value = QualitativePerformance.Perfect;
-    } else if (rems >= 6 + rmConst && percentOverheal <= 0.5) {
+    } else if (rems >= 6 + rmConst && percentOverheal <= 0.55) {
       value = QualitativePerformance.Good;
-    } else if (rems >= 4 + rmConst && percentOverheal <= 0.5) {
+    } else if (rems >= 4 + rmConst && percentOverheal <= 0.7) {
       value = QualitativePerformance.Good;
-    } else if (fullOverhealHits <= 3 + rmConst || percentOverheal <= 0.4) {
+    } else if (fullOverhealHits <= 3 + rmConst || percentOverheal <= 0.3) {
       value = QualitativePerformance.Ok;
     }
 
@@ -321,16 +344,11 @@ class Vivify extends Analyzer {
       <>
         @ <strong>{this.owner.formatTimestamp(vivifyHeal.timestamp)}</strong>, ReMs:{' '}
         <strong>{rems}</strong>
-        <br />
+        <div></div>
         <>
-          Full Overheal Hits: {fullOverhealHits} ({fullOverhealHits}/{rems} hits)
+          Healing: {formatNumber(healingPerCast)} ({formatPercentage(percentOverheal)}% overheal)
         </>
-        <br />
-        <>
-          Effective Healing: {formatNumber(healingPerCast)} ({formatPercentage(percentOverheal)}%
-          overheal)
-        </>
-        <br />
+        <div></div>
         {this.upliftedSpirits.active && (
           <>
             <SpellLink spell={this.upliftedSpirits.activeTalent} /> Cooldown Reduction:{' '}
