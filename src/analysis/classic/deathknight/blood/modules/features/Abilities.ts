@@ -115,7 +115,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.OTHERS,
       },
       {
-        spell: SPELLS.DEATH_COIL_DK,
+        spell: SPELLS.DEATH_COIL_DK.id,
         gcd: { base: 1500 },
         category: SPELL_CATEGORY.OTHERS,
       },
