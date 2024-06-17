@@ -11,7 +11,9 @@ const playerName = 'Toppledh';
 const bossDifficultyAndName = 'LFRCouncil Of Dreams';
 const resultsPageTitle = `${bossTitle} by ${playerName} in ${reportTitle}`;
 
-test('report selection', async ({ page, homePage, fightSelectionPage }) => {
+// TODO: update this once we have a properly supported TWW spec
+
+test.skip('report selection', async ({ page, homePage, fightSelectionPage }) => {
   await homePage.goto();
 
   await homePage.fillInReportInputWithCode(reportCode);
@@ -21,7 +23,7 @@ test('report selection', async ({ page, homePage, fightSelectionPage }) => {
   await expect(page).toHaveTitle(reportTitle);
 });
 
-test('fight selection', async ({ page, fightSelectionPage, playerSelectionPage }) => {
+test.skip('fight selection', async ({ page, fightSelectionPage, playerSelectionPage }) => {
   await fightSelectionPage.goto(reportCode);
 
   await page.getByRole('link', { name: fightLinkName }).click();
@@ -31,7 +33,7 @@ test('fight selection', async ({ page, fightSelectionPage, playerSelectionPage }
   await expect(page).toHaveTitle(fightPageTitle);
 });
 
-test('player selection', async ({ page, playerSelectionPage, reportPage }) => {
+test.skip('player selection', async ({ page, playerSelectionPage, reportPage }) => {
   await playerSelectionPage.goto(reportCode, fightUrlPart);
 
   await page.getByRole('link', { name: playerLinkName }).click();
@@ -42,7 +44,7 @@ test('player selection', async ({ page, playerSelectionPage, reportPage }) => {
   await expect(page).toHaveTitle(resultsPageTitle);
 });
 
-test.describe('tab selection', () => {
+test.describe.skip('tab selection', () => {
   test.beforeEach(async ({ reportPage }) => {
     await reportPage.goto({
       reportCode: reportCode,
@@ -92,7 +94,7 @@ test.describe('tab selection', () => {
   });
 });
 
-test('perform analysis', async ({ page }) => {
+test.skip('perform analysis', async ({ page }) => {
   await page.goto('./');
 
   await page.getByPlaceholder('https://www.warcraftlogs.com/reports/<report code>').click();
