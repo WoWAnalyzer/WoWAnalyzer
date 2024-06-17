@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
@@ -210,11 +209,7 @@ class FeelTheBurn extends Analyzer {
         </>,
       )
         .icon(TALENTS.FEEL_THE_BURN_TALENT.icon)
-        .actual(
-          <Trans id="mage.fire.suggestions.feelTheBurn.maxStackPercent">
-            {formatPercentage(actual)}% utilization
-          </Trans>,
-        )
+        .actual(`${formatPercentage(actual)}% utilization`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`),
     );
   }

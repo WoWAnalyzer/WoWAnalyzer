@@ -52,7 +52,7 @@ class HeatingUpGuide extends Analyzer {
     const heatingUp = <SpellLink spell={SPELLS.HEATING_UP} />;
     const hotStreak = <SpellLink spell={SPELLS.HOT_STREAK} />;
     const firestarter = <SpellLink spell={TALENTS.FIRESTARTER_TALENT} />;
-    const searingTouch = <SpellLink spell={TALENTS.SEARING_TOUCH_TALENT} />;
+    const searingTouch = <SpellLink spell={TALENTS.SCORCH_TALENT} />;
     const alexstraszasFury = <SpellLink spell={TALENTS.ALEXSTRASZAS_FURY_TALENT} />;
 
     const fireBlastIcon = <SpellIcon spell={SPELLS.FIRE_BLAST} />;

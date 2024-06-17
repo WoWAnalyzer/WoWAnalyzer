@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro';
 import {
   FIRESTARTER_THRESHOLD,
   SEARING_TOUCH_THRESHOLD,
@@ -29,7 +28,7 @@ class HeatingUp extends Analyzer {
   protected abilityTracker!: AbilityTracker;
 
   hasFirestarter: boolean = this.selectedCombatant.hasTalent(TALENTS.FIRESTARTER_TALENT);
-  hasSearingTouch: boolean = this.selectedCombatant.hasTalent(TALENTS.SEARING_TOUCH_TALENT);
+  hasSearingTouch: boolean = this.selectedCombatant.hasTalent(TALENTS.SCORCH_TALENT);
   hasFlameOn: boolean = this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT);
 
   fireBlasts: { cast: CastEvent; hasHeatingUp: boolean; hasHotStreak: boolean }[] = [];
@@ -181,11 +180,7 @@ class HeatingUp extends Analyzer {
         </>,
       )
         .icon(SPELLS.FIRE_BLAST.icon)
-        .actual(
-          <Trans id="mage.fire.suggestions.heatingUp.fireBlastUtilization">
-            {formatPercentage(this.fireBlastUtilSuggestionThresholds.actual)}% Utilization
-          </Trans>,
-        )
+        .actual(`${formatPercentage(this.fireBlastUtilSuggestionThresholds.actual)}% Utilization`)
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );
     when(this.phoenixFlamesUtilSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
@@ -200,9 +195,7 @@ class HeatingUp extends Analyzer {
       )
         .icon(TALENTS.PHOENIX_FLAMES_TALENT.icon)
         .actual(
-          <Trans id="mage.fire.suggestions.heatingUp.phoenixFlames.utilization">
-            {formatPercentage(this.phoenixFlamesUtilSuggestionThresholds.actual)}% Utilization
-          </Trans>,
+          `${formatPercentage(this.phoenixFlamesUtilSuggestionThresholds.actual)}% Utilization`,
         )
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );
