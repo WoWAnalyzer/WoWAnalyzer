@@ -290,7 +290,9 @@ class Vivify extends Analyzer {
     let overhealPerCast = 0;
 
     let rems = 0;
-    const targetsInGrouping: number[] = [];
+
+    //array to track which targets have already been processed for this event group
+    const targetsInGrouping: Set<number> = new Set<number>();
 
     /*Vivacious Vivification can proc during a hardcasted vivify and is not consumed until the following vivify cast. This is often
      * causing two vivify casts and their subsequent invig mist healing to occur simultaneously. Invigorating mists can only hit a target
@@ -300,9 +302,11 @@ class Vivify extends Analyzer {
       const targetId = invigHeal.targetID;
       const heal_id = this._makeHealId(invigHeal);
 
+      //check healsPerPlayer to see if this heal event has already been processed previously
+      // and check targetsInGrouping to make sure we haven't already processed a heal on this target for this set yet
       if (
         (!this.healsPerPlayer[targetId] || !this.healsPerPlayer[targetId].has(heal_id)) &&
-        !targetsInGrouping.find((id) => id === targetId)
+        !targetsInGrouping.has(targetId)
       ) {
         const effective = invigHeal.amount + (invigHeal.absorbed || 0);
 
@@ -311,11 +315,13 @@ class Vivify extends Analyzer {
         overhealPerCast += invigHeal.overheal || 0;
 
         this._tallyUpliftedSpiritsCDR(invigHeal);
+        //add this heal to the processed heals per player
         this.healsPerPlayer[targetId]
           ? this.healsPerPlayer[targetId].add(heal_id)
           : (this.healsPerPlayer[targetId] = new Set<string>().add(heal_id));
 
-        targetsInGrouping.push(targetId);
+        //add this this target to the processed heals per cast
+        targetsInGrouping.add(targetId);
         rems += 1;
       }
     });
