@@ -101,6 +101,18 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 180,
       },
+      {
+        spell: SPELLS.RUNE_TAP.id,
+        gcd: null,
+        category: SPELL_CATEGORY.DEFENSIVE,
+        cooldown: 0, // 3/3 Improved Rune Tap makes this a 0s cooldown, but it costs a rune still
+      },
+      {
+        spell: SPELLS.DEATH_PACT.id,
+        gcd: null,
+        category: SPELL_CATEGORY.DEFENSIVE,
+        cooldown: 120,
+      },
 
       // Other spells (not apart of the normal rotation)
       {
@@ -119,6 +131,27 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
         category: SPELL_CATEGORY.OTHERS,
       },
+      {
+        spell: SPELLS.DARK_SIMULACRUM.id,
+        gcd: null,
+        category: SPELL_CATEGORY.OTHERS,
+        cooldown: 60,
+      },
+      {
+        spell: SPELLS.FROST_PRESENCE.id,
+        gcd: null,
+        category: SPELL_CATEGORY.OTHERS,
+      },
+      {
+        spell: SPELLS.UNHOLY_PRESENCE.id,
+        gcd: null,
+        category: SPELL_CATEGORY.OTHERS,
+      },
+      {
+        spell: SPELLS.BLOOD_PRESENCE.id,
+        gcd: null,
+        category: SPELL_CATEGORY.OTHERS,
+      },
 
       // Utility
       {
@@ -126,6 +159,12 @@ class Abilities extends CoreAbilities {
         gcd: null,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 25, // 2/2 Unholy Command reduces it to 25s
+      },
+      {
+        spell: SPELLS.MIND_FREEZE.id,
+        gcd: null,
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown: 10,
       },
 
       // Pet Related

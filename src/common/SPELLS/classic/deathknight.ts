@@ -26,7 +26,7 @@ const spells = {
     icon: 'spell_deathknight_bloodboil',
   },
   BLOOD_PRESENCE: {
-    id: 48266,
+    id: 48263,
     name: 'Blood Presence',
     icon: 'spell_deathknight_bloodpresence',
   },
@@ -62,16 +62,20 @@ const spells = {
     name: 'Dark Command',
     icon: 'spell_nature_shamanrage',
   },
+  DARK_SIMULACRUM: {
+    id: 77606,
+    name: 'Dark Simulacrum',
+    icon: 'spell_holy_consumemagic',
+  },
   DEATH_AND_DECAY: {
     id: 43265,
     name: 'Death and Decay',
     icon: 'spell_shadow_deathanddecay',
   },
   DEATH_COIL_DK: {
-    id: 49895,
+    id: 47541,
     name: 'Death Coil',
     icon: 'spell_shadow_deathcoil',
-    lowRanks: [49894, 49893, 49892, 47541],
   },
   DEATH_GRIP: {
     id: 49576,
@@ -94,7 +98,7 @@ const spells = {
     icon: 'inv_sword_62',
   },
   FROST_PRESENCE: {
-    id: 48263,
+    id: 48266,
     name: 'Frost Presence',
     icon: 'spell_deathknight_frostpresence',
   },
