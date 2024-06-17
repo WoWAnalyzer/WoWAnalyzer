@@ -54,6 +54,7 @@ import {
   DefensiveCastLinkNormalizer,
   TwinGuardian,
   RenewingBlaze,
+  Engulf,
 } from 'analysis/retail/evoker/shared';
 
 class CombatLogParser extends MainCombatLogParser {
@@ -110,6 +111,9 @@ class CombatLogParser extends MainCombatLogParser {
     engulfingBlaze: EngulfingBlaze,
     layWaste: LayWaste,
     iridescence: Iridescence,
+
+    // hero talents
+    engulf: Engulf,
 
     // core abilities
     disintegrate: Disintegrate,
