@@ -275,7 +275,7 @@ class Vivify extends Analyzer {
     }
   }
 
-  private _makeID(event: HealEvent): string {
+  private _makeHealId(event: HealEvent): string {
     return (
       event.targetID + '_' + event.timestamp + '_' + event.amount + '_' + (event.overheal || 0)
     );
@@ -298,10 +298,10 @@ class Vivify extends Analyzer {
      */
     invigoratingMistHits.forEach((invigHeal) => {
       const targetId = invigHeal.targetID;
-      const uuid = this._makeID(invigHeal);
+      const heal_id = this._makeHealId(invigHeal);
 
       if (
-        (!this.healsPerPlayer[targetId] || !this.healsPerPlayer[targetId].has(uuid)) &&
+        (!this.healsPerPlayer[targetId] || !this.healsPerPlayer[targetId].has(heal_id)) &&
         !targetsInGrouping.find((id) => id === targetId)
       ) {
         const effective = invigHeal.amount + (invigHeal.absorbed || 0);
@@ -312,8 +312,8 @@ class Vivify extends Analyzer {
 
         this._tallyUpliftedSpiritsCDR(invigHeal);
         this.healsPerPlayer[targetId]
-          ? this.healsPerPlayer[targetId].add(uuid)
-          : (this.healsPerPlayer[targetId] = new Set<string>().add(uuid));
+          ? this.healsPerPlayer[targetId].add(heal_id)
+          : (this.healsPerPlayer[targetId] = new Set<string>().add(heal_id));
 
         targetsInGrouping.push(targetId);
         rems += 1;
