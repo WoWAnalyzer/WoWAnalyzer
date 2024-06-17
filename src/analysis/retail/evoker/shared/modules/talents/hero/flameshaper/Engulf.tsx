@@ -4,12 +4,19 @@ import {
   PERIODIC_HEALING_IDS,
 } from 'analysis/retail/evoker/shared/constants';
 import { TALENTS_EVOKER } from 'common/TALENTS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatant from 'parser/core/Combatant';
 import { calculateEffectiveDamage, calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
-import { ApplyBuffEvent, DamageEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  DamageEvent,
+  HealEvent,
+  RefreshBuffEvent,
+} from 'parser/core/Events';
 import { Options } from 'parser/core/EventSubscriber';
 import Combatants from 'parser/shared/modules/Combatants';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -41,6 +48,14 @@ class Engulf extends Analyzer {
     }
     const type = event.targetIsFriendly ? PeriodicType.HOT : PeriodicType.DOT;
     this.periodicCounts.push(this.getNumPeriodicEffects(combatant, type));
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(TALENTS_EVOKER.ENGULF_TALENT),
+      this.onDamage,
+    );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(TALENTS_EVOKER.ENGULF_TALENT),
+      this.onHeal,
+    );
   }
 
   getNumPeriodicEffects(target: Combatant, type: PeriodicType) {
@@ -81,9 +96,12 @@ class Engulf extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(5)}
         size="flexible"
-        category={STATISTIC_CATEGORY.TALENTS}
+        category={STATISTIC_CATEGORY.HERO_TALENTS}
       >
-        <></>
+        <div>
+          <ItemHealingDone amount={this.totalHealing} />
+          <ItemDamageDone amount={this.totalDamage} />
+        </div>
       </Statistic>
     );
   }
