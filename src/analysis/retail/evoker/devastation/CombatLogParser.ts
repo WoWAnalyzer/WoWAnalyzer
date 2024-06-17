@@ -58,6 +58,7 @@ import {
 } from 'analysis/retail/evoker/shared';
 import ExpandedLungs from '../shared/modules/talents/hero/flameshaper/ExpandedLungs';
 import FanTheFlames from '../shared/modules/talents/hero/flameshaper/FanTheFlames';
+import RedHot from '../shared/modules/talents/hero/flameshaper/RedHot';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -118,6 +119,7 @@ class CombatLogParser extends MainCombatLogParser {
     engulf: Engulf,
     expandedLungs: ExpandedLungs,
     fanTheFlames: FanTheFlames,
+    redHot: RedHot,
 
     // core abilities
     disintegrate: Disintegrate,
