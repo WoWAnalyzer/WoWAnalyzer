@@ -87,6 +87,7 @@ import T31HealingBreakdown from './modules/dragonflight/T31HealingBreakdown';
 import LotusInfusion from './modules/spells/LotusInfusion';
 import CraneStyle from './modules/spells/CraneStyle';
 import ZenPulse from './modules/spells/ZenPulse';
+import T32TierSet from './modules/tier/T32TierSet';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -189,6 +190,7 @@ class CombatLogParser extends CoreCombatLogParser {
     t31TierSet: T31TierSet,
     t31TierSetBreakdown: T31HealingBreakdown,
     callToDominance: CallToDominance,
+    t32TierSet: T32TierSet,
 
     // Mana Tab
     manaTracker: ManaTracker,
