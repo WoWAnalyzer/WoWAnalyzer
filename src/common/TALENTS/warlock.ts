@@ -16,7 +16,7 @@ const talents = {
     icon: '70_inscription_vantus_rune_tomb',
     maxRanks: 1,
     entryIds: [117428],
-    definitionIds: [{ id: 122440, specId: 266 }],
+    definitionIds: [{ id: 122440, specId: 267 }],
   },
   ABYSS_WALKER_TALENT: {
     id: 389609,
@@ -24,7 +24,7 @@ const talents = {
     icon: 'achievement_explore_argus',
     maxRanks: 1,
     entryIds: [91465],
-    definitionIds: [{ id: 96467, specId: 266 }],
+    definitionIds: [{ id: 96467, specId: 267 }],
   },
   ACCRUED_VITALITY_TALENT: {
     id: 386613,
@@ -32,7 +32,7 @@ const talents = {
     icon: 'spell_shadow_lifedrain',
     maxRanks: 2,
     entryIds: [91464],
-    definitionIds: [{ id: 96466, specId: 266 }],
+    definitionIds: [{ id: 96466, specId: 267 }],
   },
   AMPLIFY_CURSE_TALENT: {
     id: 328774,
@@ -40,7 +40,7 @@ const talents = {
     icon: 'spell_shadow_contagion',
     maxRanks: 1,
     entryIds: [91442],
-    definitionIds: [{ id: 96444, specId: 266 }],
+    definitionIds: [{ id: 96444, specId: 267 }],
   },
   ANNIHILANS_BELLOW_TALENT: {
     id: 429072,
@@ -48,7 +48,7 @@ const talents = {
     icon: 'ability_physical_taunt',
     maxRanks: 1,
     entryIds: [118837],
-    definitionIds: [{ id: 123737, specId: 266 }],
+    definitionIds: [{ id: 123737, specId: 267 }],
   },
   ANNIHILAN_TRAINING_TALENT: {
     id: 386174,
@@ -112,7 +112,8 @@ const talents = {
     icon: 'spell_shadow_cripple',
     maxRanks: 1,
     entryIds: [91454],
-    definitionIds: [{ id: 96456, specId: 266 }],
+    definitionIds: [{ id: 96456, specId: 267 }],
+    manaCost: 37500,
   },
   BILESCOURGE_BOMBERS_TALENT: {
     id: 267211,
@@ -125,7 +126,7 @@ const talents = {
   BLACKENED_SOUL_TALENT: {
     id: 440043,
     name: 'Blackened Soul',
-    icon: 'ability_xavius_blackeningsoul',
+    icon: 'spell_nzinsanity_chasedbyshadows',
     maxRanks: 1,
     entryIds: [117434],
     definitionIds: [{ id: 122446, specId: 267 }],
@@ -160,7 +161,7 @@ const talents = {
     icon: 'ability_deathwing_sealarmorbreachtga',
     maxRanks: 1,
     entryIds: [91460],
-    definitionIds: [{ id: 96462, specId: 266 }],
+    definitionIds: [{ id: 96462, specId: 267 }],
   },
   BURN_TO_ASHES_TALENT: {
     id: 387153,
@@ -177,6 +178,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [125837],
     definitionIds: [{ id: 130668, specId: 266 }],
+    soulShardsCost: 2,
   },
   CARNIVOROUS_STALKERS_TALENT: {
     id: 386194,
@@ -193,6 +195,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [91487],
     definitionIds: [{ id: 96489, specId: 267 }],
+    manaCost: 25000,
   },
   CHANNEL_DEMONFIRE_TALENT: {
     id: 196447,
@@ -201,6 +204,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [91586],
     definitionIds: [{ id: 96588, specId: 267 }],
+    manaCost: 37500,
   },
   CHAOS_INCARNATE_TALENT: {
     id: 387275,
@@ -216,7 +220,7 @@ const talents = {
     icon: 'ability_creature_felfrenzy',
     maxRanks: 1,
     entryIds: [117446],
-    definitionIds: [{ id: 122458, specId: 266 }],
+    definitionIds: [{ id: 122458, specId: 267 }],
   },
   CONFLAGRATE_TALENT: {
     id: 17962,
@@ -225,6 +229,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [91591],
     definitionIds: [{ id: 96593, specId: 267 }],
+    manaCost: 25000,
   },
   CONFLAGRATION_OF_CHAOS_TALENT: {
     id: 387108,
@@ -264,7 +269,7 @@ const talents = {
     icon: 'creatureportrait_fomorhand',
     maxRanks: 1,
     entryIds: [117445],
-    definitionIds: [{ id: 122457, specId: 266 }],
+    definitionIds: [{ id: 122457, specId: 267 }],
   },
   CULL_THE_WEAK_TALENT: {
     id: 453056,
@@ -288,7 +293,7 @@ const talents = {
     icon: 'ability_creature_cursed_02',
     maxRanks: 1,
     entryIds: [91462],
-    definitionIds: [{ id: 96464, specId: 266 }],
+    definitionIds: [{ id: 96464, specId: 267 }],
   },
   CURSE_OF_THE_SATYR_TALENT: {
     id: 440057,
@@ -304,7 +309,7 @@ const talents = {
     icon: 'ability_warlock_shadowfurytga',
     maxRanks: 1,
     entryIds: [91451],
-    definitionIds: [{ id: 96453, specId: 266 }],
+    definitionIds: [{ id: 96453, specId: 267 }],
   },
   DARK_ACCORD_TALENT: {
     id: 386659,
@@ -312,7 +317,7 @@ const talents = {
     icon: 'ability_warlock_improveddemonictactics',
     maxRanks: 1,
     entryIds: [91467],
-    definitionIds: [{ id: 96469, specId: 266 }],
+    definitionIds: [{ id: 96469, specId: 267 }],
   },
   DARK_HARVEST_TALENT: {
     id: 387016,
@@ -328,7 +333,7 @@ const talents = {
     icon: 'spell_shadow_deathpact',
     maxRanks: 1,
     entryIds: [91444],
-    definitionIds: [{ id: 96446, specId: 266 }],
+    definitionIds: [{ id: 96446, specId: 267 }],
   },
   DARK_VIRTUOSITY_TALENT: {
     id: 405327,
@@ -400,7 +405,8 @@ const talents = {
     icon: 'spell_shadow_demoniccirclesummon',
     maxRanks: 1,
     entryIds: [124694],
-    definitionIds: [{ id: 129532, specId: 266 }],
+    definitionIds: [{ id: 129532, specId: 267 }],
+    manaCost: 50000,
   },
   DEMONIC_EMBRACE_TALENT: {
     id: 288843,
@@ -408,7 +414,7 @@ const talents = {
     icon: 'spell_shadow_metamorphosis',
     maxRanks: 1,
     entryIds: [91438],
-    definitionIds: [{ id: 96440, specId: 266 }],
+    definitionIds: [{ id: 96440, specId: 267 }],
   },
   DEMONIC_FORTITUDE_TALENT: {
     id: 386617,
@@ -416,7 +422,7 @@ const talents = {
     icon: 'spell_warlock_summonimpoutland',
     maxRanks: 1,
     entryIds: [91430],
-    definitionIds: [{ id: 96432, specId: 266 }],
+    definitionIds: [{ id: 96432, specId: 267 }],
   },
   DEMONIC_GATEWAY_TALENT: {
     id: 111771,
@@ -424,7 +430,8 @@ const talents = {
     icon: 'spell_warlock_demonicportal_green',
     maxRanks: 1,
     entryIds: [91466],
-    definitionIds: [{ id: 96468, specId: 266 }],
+    definitionIds: [{ id: 96468, specId: 267 }],
+    manaCost: 250000,
   },
   DEMONIC_INSPIRATION_TALENT: {
     id: 386858,
@@ -432,7 +439,7 @@ const talents = {
     icon: 'ability_warlock_demonicpower',
     maxRanks: 1,
     entryIds: [91436],
-    definitionIds: [{ id: 96438, specId: 266 }],
+    definitionIds: [{ id: 96438, specId: 267 }],
   },
   DEMONIC_RESILIENCE_TALENT: {
     id: 389590,
@@ -440,12 +447,12 @@ const talents = {
     icon: 'ability_warlock_avoidance',
     maxRanks: 2,
     entryIds: [91424],
-    definitionIds: [{ id: 96426, specId: 266 }],
+    definitionIds: [{ id: 96426, specId: 267 }],
   },
   DEMONIC_SOUL_TALENT: {
     id: 449614,
     name: 'Demonic Soul',
-    icon: 'achievement_boss_hellfire_xhulhorac',
+    icon: 'inv_ability_soulharvesterwarlock_demonicsoul',
     maxRanks: 1,
     entryIds: [117448],
     definitionIds: [{ id: 122460, specId: 266 }],
@@ -464,7 +471,7 @@ const talents = {
     icon: 'inv_helm_laughingskull_01',
     maxRanks: 1,
     entryIds: [91433],
-    definitionIds: [{ id: 96435, specId: 266 }],
+    definitionIds: [{ id: 96435, specId: 267 }],
   },
   DEMON_SKIN_TALENT: {
     id: 219272,
@@ -472,7 +479,7 @@ const talents = {
     icon: 'spell_shadow_ragingscream',
     maxRanks: 2,
     entryIds: [91463],
-    definitionIds: [{ id: 96465, specId: 266 }],
+    definitionIds: [{ id: 96465, specId: 267 }],
   },
   DEVASTATION_TALENT: {
     id: 454735,
@@ -496,7 +503,7 @@ const talents = {
     icon: 'ability_bossfelorcs_necromancer_purple',
     maxRanks: 1,
     entryIds: [117452],
-    definitionIds: [{ id: 122464, specId: 266 }],
+    definitionIds: [{ id: 122464, specId: 267 }],
   },
   DIMENSIONAL_RIFT_TALENT: {
     id: 387976,
@@ -525,10 +532,11 @@ const talents = {
   DOOM_TALENT: {
     id: 603,
     name: 'Doom',
-    icon: 'spell_nature_removecurse',
+    icon: 'spell_shadow_auraofdarkness',
     maxRanks: 1,
     entryIds: [125865],
     definitionIds: [{ id: 130696, specId: 266 }],
+    manaCost: 25000,
   },
   DRAIN_SOUL_TALENT: {
     id: 388667,
@@ -600,7 +608,7 @@ const talents = {
     icon: 'spell_shadow_felarmour',
     maxRanks: 2,
     entryIds: [91461],
-    definitionIds: [{ id: 96463, specId: 266 }],
+    definitionIds: [{ id: 96463, specId: 267 }],
   },
   FEL_DOMINATION_TALENT: {
     id: 333889,
@@ -608,7 +616,7 @@ const talents = {
     icon: 'spell_shadow_felmending',
     maxRanks: 1,
     entryIds: [91439],
-    definitionIds: [{ id: 96441, specId: 266 }],
+    definitionIds: [{ id: 96441, specId: 267 }],
   },
   FEL_INVOCATION_TALENT: {
     id: 428351,
@@ -624,7 +632,7 @@ const talents = {
     icon: 'spell_shadow_impphaseshift',
     maxRanks: 1,
     entryIds: [91440],
-    definitionIds: [{ id: 96442, specId: 266 }],
+    definitionIds: [{ id: 96442, specId: 267 }],
   },
   FEL_SUNDER_TALENT: {
     id: 387399,
@@ -640,7 +648,7 @@ const talents = {
     icon: 'inv_sword_1h_felfireraid_d_01',
     maxRanks: 2,
     entryIds: [91432],
-    definitionIds: [{ id: 96434, specId: 266 }],
+    definitionIds: [{ id: 96434, specId: 267 }],
   },
   FIENDISH_CRUELTY_TALENT: {
     id: 456943,
@@ -664,7 +672,7 @@ const talents = {
     icon: 'inv_misc_moosehoof_fel',
     maxRanks: 1,
     entryIds: [91459],
-    definitionIds: [{ id: 96461, specId: 266 }],
+    definitionIds: [{ id: 96461, specId: 267 }],
   },
   FIRE_AND_BRIMSTONE_TALENT: {
     id: 196408,
@@ -680,7 +688,7 @@ const talents = {
     icon: 'ability_warlock_burningembers',
     maxRanks: 1,
     entryIds: [117430],
-    definitionIds: [{ id: 122442, specId: 266 }],
+    definitionIds: [{ id: 122442, specId: 267 }],
   },
   FLAMETOUCHED_TALENT: {
     id: 453699,
@@ -720,7 +728,7 @@ const talents = {
     icon: 'ability_ironmaidens_bloodritual',
     maxRanks: 1,
     entryIds: [91445],
-    definitionIds: [{ id: 96447, specId: 266 }],
+    definitionIds: [{ id: 96447, specId: 267 }],
   },
   FRIENDS_IN_DARK_PLACES_TALENT: {
     id: 449703,
@@ -736,7 +744,7 @@ const talents = {
     icon: 'ability_rogue_envelopingshadows',
     maxRanks: 1,
     entryIds: [117440],
-    definitionIds: [{ id: 122452, specId: 266 }],
+    definitionIds: [{ id: 122452, specId: 267 }],
   },
   GOREBOUND_FORTITUDE_TALENT: {
     id: 449701,
@@ -753,6 +761,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [125852],
     definitionIds: [{ id: 130683, specId: 266 }],
+    soulShardsCost: 1,
   },
   GRIMOIRE_OF_SACRIFICE_TALENT: {
     id: 108503,
@@ -788,6 +797,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [91552],
     definitionIds: [{ id: 96554, specId: 265 }],
+    manaCost: 50000,
   },
   HAVOC_TALENT: {
     id: 80240,
@@ -796,6 +806,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [91493],
     definitionIds: [{ id: 96495, specId: 267 }],
+    manaCost: 50000,
   },
   HORRIFY_TALENT: {
     id: 56244,
@@ -803,7 +814,7 @@ const talents = {
     icon: 'spell_nzinsanity_bloodthirst',
     maxRanks: 1,
     entryIds: [115459],
-    definitionIds: [{ id: 120471, specId: 266 }],
+    definitionIds: [{ id: 120471, specId: 267 }],
   },
   HOWL_OF_TERROR_TALENT: {
     id: 5484,
@@ -811,7 +822,8 @@ const talents = {
     icon: 'ability_warlock_howlofterror',
     maxRanks: 1,
     entryIds: [91458],
-    definitionIds: [{ id: 96460, specId: 266 }],
+    definitionIds: [{ id: 96460, specId: 267 }],
+    manaCost: 45000,
   },
   ICHOR_OF_DEVILS_TALENT: {
     id: 386664,
@@ -819,7 +831,7 @@ const talents = {
     icon: 'spell_yorsahj_bloodboil_greenoil',
     maxRanks: 1,
     entryIds: [91446],
-    definitionIds: [{ id: 96448, specId: 266 }],
+    definitionIds: [{ id: 96448, specId: 267 }],
   },
   ILLHOOFS_DESIGN_TALENT: {
     id: 440070,
@@ -840,7 +852,7 @@ const talents = {
   IMPENDING_DOOM_TALENT: {
     id: 455587,
     name: 'Impending Doom',
-    icon: 'spell_shadow_auraofdarkness',
+    icon: 'spell_shadow_unstableafllictions',
     maxRanks: 1,
     entryIds: [125827],
     definitionIds: [{ id: 130658, specId: 266 }],
@@ -852,6 +864,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [125836],
     definitionIds: [{ id: 130667, specId: 266 }],
+    manaCost: 50000,
   },
   IMPROVED_CHAOS_BOLT_TALENT: {
     id: 456951,
@@ -939,7 +952,7 @@ const talents = {
     icon: 'spell_fire_felfireward',
     maxRanks: 1,
     entryIds: [118839],
-    definitionIds: [{ id: 123739, specId: 266 }],
+    definitionIds: [{ id: 123739, specId: 267 }],
   },
   INFERNAL_MACHINE_TALENT: {
     id: 429917,
@@ -947,7 +960,7 @@ const talents = {
     icon: 'inv_misc_supersoulash',
     maxRanks: 1,
     entryIds: [118838],
-    definitionIds: [{ id: 123738, specId: 266 }],
+    definitionIds: [{ id: 123738, specId: 267 }],
   },
   INFERNAL_VITALITY_TALENT: {
     id: 429115,
@@ -955,7 +968,7 @@ const talents = {
     icon: 'inv_fabric_felcloth_ebon',
     maxRanks: 1,
     entryIds: [117449],
-    definitionIds: [{ id: 122461, specId: 266 }],
+    definitionIds: [{ id: 122461, specId: 267 }],
   },
   INFERNO_TALENT: {
     id: 270545,
@@ -1003,7 +1016,7 @@ const talents = {
     icon: 'warlock__healthstone',
     maxRanks: 2,
     entryIds: [91449],
-    definitionIds: [{ id: 96451, specId: 266 }],
+    definitionIds: [{ id: 96451, specId: 267 }],
   },
   MALEDICTION_TALENT: {
     id: 453087,
@@ -1024,7 +1037,7 @@ const talents = {
   MALEVOLENCE_TALENT: {
     id: 430014,
     name: 'Malevolence',
-    icon: 'spell_shadow_demonform',
+    icon: 'inv_ability_hellcallerwarlock_malevolence',
     maxRanks: 1,
     entryIds: [117439],
     definitionIds: [{ id: 122451, specId: 267 }],
@@ -1062,7 +1075,7 @@ const talents = {
     definitionIds: [{ id: 130669, specId: 266 }],
   },
   MARK_OF_PEROTHARN_TALENT: {
-    id: 440046,
+    id: 440045,
     name: "Mark of Peroth'arn",
     icon: '70_inscription_vantus_rune_tomb',
     maxRanks: 1,
@@ -1078,9 +1091,9 @@ const talents = {
     definitionIds: [{ id: 130670, specId: 266 }],
   },
   MARK_OF_XAVIUS_TALENT: {
-    id: 440045,
+    id: 440046,
     name: 'Mark of Xavius',
-    icon: '70_inscription_vantus_rune_nightmare',
+    icon: 'warlock_curse_shadow_aura',
     maxRanks: 1,
     entryIds: [117431],
     definitionIds: [{ id: 122443, specId: 267 }],
@@ -1107,7 +1120,8 @@ const talents = {
     icon: 'ability_warlock_mortalcoil',
     maxRanks: 1,
     entryIds: [91457],
-    definitionIds: [{ id: 96459, specId: 266 }],
+    definitionIds: [{ id: 96459, specId: 267 }],
+    manaCost: 50000,
   },
   NECROLYTE_TEACHINGS_TALENT: {
     id: 449620,
@@ -1131,7 +1145,7 @@ const talents = {
     icon: 'spell_shadow_possession',
     maxRanks: 1,
     entryIds: [91422],
-    definitionIds: [{ id: 96424, specId: 266 }],
+    definitionIds: [{ id: 96424, specId: 267 }],
   },
   OBLIVION_TALENT: {
     id: 417537,
@@ -1140,6 +1154,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [91503],
     definitionIds: [{ id: 96505, specId: 265 }],
+    soulShardsCost: 2,
   },
   PACT_OF_GLUTTONY_TALENT: {
     id: 386689,
@@ -1147,7 +1162,7 @@ const talents = {
     icon: 'warlock__bloodstone',
     maxRanks: 1,
     entryIds: [91434],
-    definitionIds: [{ id: 96436, specId: 266 }],
+    definitionIds: [{ id: 96436, specId: 267 }],
   },
   PACT_OF_THE_EREDRUIN_TALENT: {
     id: 453568,
@@ -1180,6 +1195,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [126061],
     definitionIds: [{ id: 130893, specId: 265 }],
+    manaCost: 25000,
   },
   POWER_OVERWHELMING_TALENT: {
     id: 387279,
@@ -1236,6 +1252,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [91592],
     definitionIds: [{ id: 96594, specId: 267 }],
+    soulShardsCost: 3,
   },
   RAVENOUS_AFFLICTIONS_TALENT: {
     id: 459440,
@@ -1267,7 +1284,7 @@ const talents = {
     icon: 'inv_shield_1h_demonweapon_c_01',
     maxRanks: 2,
     entryIds: [91421],
-    definitionIds: [{ id: 96423, specId: 266 }],
+    definitionIds: [{ id: 96423, specId: 267 }],
   },
   REVERSE_ENTROPY_TALENT: {
     id: 205148,
@@ -1307,7 +1324,7 @@ const talents = {
     icon: 'ability_bossmannoroth_empoweredmannorothsgaze',
     maxRanks: 1,
     entryIds: [117427],
-    definitionIds: [{ id: 122439, specId: 266 }],
+    definitionIds: [{ id: 122439, specId: 267 }],
   },
   RUIN_TALENT: {
     id: 387103,
@@ -1347,7 +1364,7 @@ const talents = {
     icon: '70_inscription_glyph_demonhunter_major',
     maxRanks: 2,
     entryIds: [115462],
-    definitionIds: [{ id: 120474, specId: 266 }],
+    definitionIds: [{ id: 120474, specId: 267 }],
   },
   SATAIELS_AMBITION_TALENT: {
     id: 449631,
@@ -1371,7 +1388,7 @@ const talents = {
     icon: 'achievement_boss_argus_shivan',
     maxRanks: 1,
     entryIds: [117423],
-    definitionIds: [{ id: 122435, specId: 266 }],
+    definitionIds: [{ id: 122435, specId: 267 }],
   },
   SEEDS_OF_THEIR_DEMISE_TALENT: {
     id: 440055,
@@ -1388,6 +1405,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [91571],
     definitionIds: [{ id: 96573, specId: 265 }],
+    soulShardsCost: 1,
   },
   SHADOWBURN_TALENT: {
     id: 17877,
@@ -1396,6 +1414,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [91582],
     definitionIds: [{ id: 96584, specId: 267 }],
+    soulShardsCost: 1,
   },
   SHADOWFLAME_TALENT: {
     id: 384069,
@@ -1403,7 +1422,8 @@ const talents = {
     icon: 'ability_warlock_shadowflame',
     maxRanks: 1,
     entryIds: [91450],
-    definitionIds: [{ id: 96452, specId: 266 }],
+    definitionIds: [{ id: 96452, specId: 267 }],
+    manaCost: 75000,
   },
   SHADOWFURY_TALENT: {
     id: 30283,
@@ -1411,7 +1431,8 @@ const talents = {
     icon: 'ability_warlock_shadowfurytga',
     maxRanks: 1,
     entryIds: [91452],
-    definitionIds: [{ id: 96454, specId: 266 }],
+    definitionIds: [{ id: 96454, specId: 267 }],
+    manaCost: 25000,
   },
   SHADOWTOUCHED_TALENT: {
     id: 453619,
@@ -1467,7 +1488,7 @@ const talents = {
     icon: 'spell_fire_soulburn',
     maxRanks: 2,
     entryIds: [115461],
-    definitionIds: [{ id: 120473, specId: 266 }],
+    definitionIds: [{ id: 120473, specId: 267 }],
   },
   SOULBURN_TALENT: {
     id: 385899,
@@ -1475,7 +1496,8 @@ const talents = {
     icon: 'spell_warlock_soulburn',
     maxRanks: 1,
     entryIds: [91469],
-    definitionIds: [{ id: 96471, specId: 266 }],
+    definitionIds: [{ id: 96471, specId: 267 }],
+    soulShardsCost: 1,
   },
   SOUL_ANATHEMA_TALENT: {
     id: 449624,
@@ -1491,7 +1513,7 @@ const talents = {
     icon: 'spell_shadow_soulleech_2',
     maxRanks: 1,
     entryIds: [91427],
-    definitionIds: [{ id: 96450, specId: 266 }],
+    definitionIds: [{ id: 96450, specId: 267 }],
   },
   SOUL_ETCHED_CIRCLES_TALENT: {
     id: 428911,
@@ -1499,7 +1521,7 @@ const talents = {
     icon: 'spell_shadow_demoniccircleteleport',
     maxRanks: 1,
     entryIds: [117433],
-    definitionIds: [{ id: 122445, specId: 266 }],
+    definitionIds: [{ id: 122445, specId: 267 }],
   },
   SOUL_FIRE_TALENT: {
     id: 6353,
@@ -1508,6 +1530,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [91492],
     definitionIds: [{ id: 96494, specId: 267 }],
+    manaCost: 50000,
   },
   SOUL_LEECH_TALENT: {
     id: 108370,
@@ -1515,7 +1538,7 @@ const talents = {
     icon: 'warlock_siphonlife',
     maxRanks: 1,
     entryIds: [91441],
-    definitionIds: [{ id: 96443, specId: 266 }],
+    definitionIds: [{ id: 96443, specId: 267 }],
   },
   SOUL_LINK_TALENT: {
     id: 108415,
@@ -1523,7 +1546,7 @@ const talents = {
     icon: 'ability_warlock_soullink',
     maxRanks: 2,
     entryIds: [91431],
-    definitionIds: [{ id: 96433, specId: 266 }],
+    definitionIds: [{ id: 96433, specId: 267 }],
   },
   SOUL_ROT_TALENT: {
     id: 386997,
@@ -1563,7 +1586,7 @@ const talents = {
     icon: 'spell_shadow_demonictactics',
     maxRanks: 1,
     entryIds: [91468],
-    definitionIds: [{ id: 96470, specId: 266 }],
+    definitionIds: [{ id: 96470, specId: 267 }],
   },
   SUMMONERS_EMBRACE_TALENT: {
     id: 453105,
@@ -1583,6 +1606,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [91554],
     definitionIds: [{ id: 96556, specId: 265 }],
+    manaCost: 50000,
   },
   SUMMON_DEMONIC_TYRANT_TALENT: {
     id: 265187,
@@ -1591,6 +1615,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [125850],
     definitionIds: [{ id: 130681, specId: 266 }],
+    manaCost: 50000,
   },
   SUMMON_INFERNAL_TALENT: {
     id: 1122,
@@ -1599,6 +1624,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [91502],
     definitionIds: [{ id: 96504, specId: 267 }],
+    manaCost: 50000,
   },
   SUMMON_VILEFIEND_TALENT: {
     id: 264119,
@@ -1607,6 +1633,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [125845],
     definitionIds: [{ id: 130676, specId: 266 }],
+    soulShardsCost: 1,
   },
   SWEET_SOULS_TALENT: {
     id: 386620,
@@ -1614,7 +1641,7 @@ const talents = {
     icon: 'spell_shadow_soulleech',
     maxRanks: 1,
     entryIds: [91435],
-    definitionIds: [{ id: 96437, specId: 266 }],
+    definitionIds: [{ id: 96437, specId: 267 }],
   },
   SWIFT_ARTIFICE_TALENT: {
     id: 452902,
@@ -1622,7 +1649,7 @@ const talents = {
     icon: 'spell_shadow_destructivesoul',
     maxRanks: 1,
     entryIds: [91425],
-    definitionIds: [{ id: 96427, specId: 266 }],
+    definitionIds: [{ id: 96427, specId: 267 }],
   },
   TEACHINGS_OF_THE_BLACK_HARVEST_TALENT: {
     id: 385881,
@@ -1630,7 +1657,7 @@ const talents = {
     icon: 'inv_misc_codexofxerrath_nochains',
     maxRanks: 1,
     entryIds: [91447],
-    definitionIds: [{ id: 96449, specId: 266 }],
+    definitionIds: [{ id: 96449, specId: 267 }],
   },
   TEACHINGS_OF_THE_SATYR_TALENT: {
     id: 387972,
@@ -1638,7 +1665,7 @@ const talents = {
     icon: 'spell_shadow_carrionswarm',
     maxRanks: 1,
     entryIds: [91443],
-    definitionIds: [{ id: 96445, specId: 266 }],
+    definitionIds: [{ id: 96445, specId: 267 }],
   },
   THE_EXPENDABLES_TALENT: {
     id: 387600,
@@ -1670,7 +1697,7 @@ const talents = {
     icon: 'ability_bossfellord_felspike',
     maxRanks: 1,
     entryIds: [117453],
-    definitionIds: [{ id: 122465, specId: 266 }],
+    definitionIds: [{ id: 122465, specId: 267 }],
   },
   UMBRAL_BLAZE_TALENT: {
     id: 405798,
@@ -1687,6 +1714,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [91570],
     definitionIds: [{ id: 96572, specId: 265 }],
+    manaCost: 25000,
   },
   VILE_TAINT_TALENT: {
     id: 278350,
@@ -1695,6 +1723,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [91556],
     definitionIds: [{ id: 96558, specId: 265 }],
+    soulShardsCost: 1,
   },
   VOLATILE_AGONY_TALENT: {
     id: 453034,
@@ -1723,7 +1752,7 @@ const talents = {
   WITHER_TALENT: {
     id: 445465,
     name: 'Wither',
-    icon: 'spell_fire_moltenbloodgreen',
+    icon: 'inv_ability_hellcallerwarlock_wither',
     maxRanks: 1,
     entryIds: [117437],
     definitionIds: [{ id: 122449, specId: 267 }],
@@ -1734,7 +1763,7 @@ const talents = {
     icon: 'spell_fel_incinerate',
     maxRanks: 1,
     entryIds: [91456],
-    definitionIds: [{ id: 96458, specId: 266 }],
+    definitionIds: [{ id: 96458, specId: 267 }],
   },
   WRITHE_IN_AGONY_TALENT: {
     id: 196102,
@@ -1755,7 +1784,7 @@ const talents = {
   XALANS_FEROCITY_TALENT: {
     id: 440044,
     name: "Xalan's Ferocity",
-    icon: 'spell_fire_felflamering',
+    icon: 'ability_warlock_demonicpower',
     maxRanks: 1,
     entryIds: [117450],
     definitionIds: [{ id: 122462, specId: 267 }],
