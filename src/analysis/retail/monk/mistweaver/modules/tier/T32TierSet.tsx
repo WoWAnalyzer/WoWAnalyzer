@@ -36,8 +36,6 @@ class T32TierSet extends Analyzer {
   twoPieceHealingBySpell = new Map<number, number>();
 
   fourPieceActive: boolean = false;
-
-  fourPieceAdditionalHealing: number = 0;
   fourPieceExtensionBySpell = new Map<number, number>();
 
   missedCasts: number = 0;
@@ -77,18 +75,40 @@ class T32TierSet extends Analyzer {
     return this.fourPieceExtensionBySpell.get(talents.ENVELOPING_MIST_TALENT.id) || 0;
   }
 
-  get fourPieceHealing() {
+  get fourPieceRemHealing() {
     const filteredExtensions: Set<Extension> = new Set<Extension>();
     this.hotTracker.hotHistory.forEach(function (tracker) {
-      const extensions = tracker.extensions.filter((extension) =>
-        extension.attribution.name.includes(ATTRIBUTION_PREFIX),
-      );
-      if (extensions) {
-        extensions.forEach((ext) => filteredExtensions.add(ext));
+      if (tracker.spellId === SPELLS.RENEWING_MIST_HEAL.id) {
+        const extensions = tracker.extensions.filter((extension) =>
+          extension.attribution.name.includes(ATTRIBUTION_PREFIX),
+        );
+        if (extensions) {
+          extensions.forEach((ext) => filteredExtensions.add(ext));
+        }
       }
     });
     const result = [...filteredExtensions].reduce((sum, ext) => sum + ext.attribution.healing, 0);
     return result;
+  }
+
+  get fourPieceEnvHealing() {
+    const filteredExtensions: Set<Extension> = new Set<Extension>();
+    this.hotTracker.hotHistory.forEach(function (tracker) {
+      if (tracker.spellId === talents.ENVELOPING_MIST_TALENT.id) {
+        const extensions = tracker.extensions.filter((extension) =>
+          extension.attribution.name.includes(ATTRIBUTION_PREFIX),
+        );
+        if (extensions) {
+          extensions.forEach((ext) => filteredExtensions.add(ext));
+        }
+      }
+    });
+    const result = [...filteredExtensions].reduce((sum, ext) => sum + ext.attribution.healing, 0);
+    return result;
+  }
+
+  get fourPieceHealing() {
+    return this.fourPieceRemHealing + this.fourPieceEnvHealing;
   }
 
   private onTwoPieceHeal(event: HealEvent) {
