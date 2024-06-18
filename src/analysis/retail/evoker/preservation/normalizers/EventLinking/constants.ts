@@ -53,3 +53,4 @@ export const STASIS_BUFFER = 1000;
 export const TIME_OF_NEED_DURATION = 8000;
 export const LIVING_FLAME_FLIGHT_TIME = 1000;
 export const MAX_DREAM_BREATH_DURATION = 28000;
+export const TITANS_GIFT_INC = 0.25;
