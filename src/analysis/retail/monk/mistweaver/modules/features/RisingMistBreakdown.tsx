@@ -66,7 +66,7 @@ class RisingMistBreakdown extends Analyzer {
             //additional zen pulse healing from extended rems
             spell: talents.ZEN_PULSE_TALENT,
             amount: this.risingMist.zpHealing,
-            color: SPELL_COLORS.MISTY_PEAKS,
+            color: SPELL_COLORS.ZEN_PULSE,
             tooltip: this.zenPulseTooltip(),
           },
         ],

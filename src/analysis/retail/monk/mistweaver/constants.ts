@@ -137,4 +137,5 @@ export const SPELL_COLORS = {
   TIGER_PALM: '#e377c2',
   UPLIFTED_SPIRITS: '#f7b6d2',
   ALTERNATE_GUST_OF_MIST: '#7f7f7f',
+  ZEN_PULSE: '#c6f4f5',
 };

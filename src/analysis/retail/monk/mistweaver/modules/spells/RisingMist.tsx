@@ -214,10 +214,11 @@ class RisingMist extends Analyzer {
   }
 
   handlevivify(event: HealEvent) {
-    if (this.checkForReM(event)) {
+    const spellId = SPELLS.RENEWING_MIST_HEAL.id;
+    if (this.hotTracker.hasHot(event, spellId)) {
       return;
     }
-    const hot = this.hotTracker.hots[event.targetID][SPELLS.RENEWING_MIST_HEAL.id];
+    const hot = this.hotTracker.hots[event.targetID][spellId];
 
     if (hot.originalEnd < event.timestamp) {
       if (this.hotTracker.fromHardcast(hot)) {
@@ -237,10 +238,11 @@ class RisingMist extends Analyzer {
   }
 
   handleZenPulse(event: HealEvent) {
-    if (this.checkForReM(event)) {
+    const spellId = SPELLS.RENEWING_MIST_HEAL.id;
+    if (this.hotTracker.hasHot(event, spellId)) {
       return;
     }
-    const hot = this.hotTracker.hots[event.targetID][SPELLS.RENEWING_MIST_HEAL.id];
+    const hot = this.hotTracker.hots[event.targetID][spellId];
     if (hot.originalEnd < event.timestamp) {
       if (this.hotTracker.fromHardcast(hot)) {
         this.zpHealingFromHardcastRems += event.amount + (event.absorbed || 0);
@@ -315,14 +317,6 @@ class RisingMist extends Analyzer {
       }
     });
     return value;
-  }
-
-  private checkForReM(event: HealEvent): boolean {
-    const targetId = event.targetID;
-    return (
-      !this.hotTracker.hots[targetId] ||
-      !this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id]
-    );
   }
 
   averageTargetsPerRSKCast() {

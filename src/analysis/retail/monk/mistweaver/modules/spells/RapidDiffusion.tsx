@@ -37,7 +37,8 @@ class RapidDiffusion extends Analyzer {
     return (
       this.totalRemThroughput +
       this.totalVivifyThroughput +
-      this.mistyPeaksHealingFromRapidDiffusion
+      this.mistyPeaksHealingFromRapidDiffusion +
+      this.zpHealing
     );
   }
 
@@ -54,6 +55,14 @@ class RapidDiffusion extends Analyzer {
         amount: this.totalVivifyThroughput,
         color: SPELL_COLORS.VIVIFY,
         tooltip: this.getBarTooltip(SPELLS.VIVIFY),
+        subSpecs: [
+          {
+            spell: TALENTS_MONK.ZEN_PULSE_TALENT,
+            amount: this.zpHealing,
+            color: SPELL_COLORS.ZEN_PULSE,
+            tooltip: this.getBarTooltip(TALENTS_MONK.ZEN_PULSE_TALENT),
+          },
+        ],
       },
       {
         spell: TALENTS_MONK.RENEWING_MIST_TALENT,
@@ -74,6 +83,11 @@ class RapidDiffusion extends Analyzer {
   combatants!: Combatants;
   mistyPeaks!: MistyPeaks;
   vivify!: Vivify;
+  zpHits: number = 0;
+  zpHealing: number = 0;
+  zpOverhealing: number = 0;
+  zpHealingFromRskRem: number = 0;
+  zpHealingFromEnvRem: number = 0;
   remCount: number = 0;
   remHealing: number = 0;
   remHealingFromRSK: number = 0;
@@ -110,6 +124,12 @@ class RapidDiffusion extends Analyzer {
       Events.heal.by(SELECTED_PLAYER).spell([SPELLS.INVIGORATING_MISTS_HEAL]),
       this.handleVivify,
     );
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.ZEN_PULSE_TALENT)) {
+      this.addEventListener(
+        Events.heal.by(SELECTED_PLAYER).spell([SPELLS.ZEN_PULSE_HEAL]),
+        this.handleZenPulse,
+      );
+    }
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS_MONK.ENVELOPING_MIST_TALENT),
       this.handleEnvApply,
@@ -143,6 +163,11 @@ class RapidDiffusion extends Analyzer {
         rskSourceHealing = this.vivHealingFromRskRem;
         envSourceHealing = this.vivHealingFromEnvRem;
         procs = this.extraVivCleaves;
+        break;
+      case TALENTS_MONK.ZEN_PULSE_TALENT.id:
+        rskSourceHealing = this.zpHealingFromRskRem;
+        envSourceHealing = this.zpHealingFromEnvRem;
+        procs = this.zpHits;
         break;
     }
     const items = [
@@ -233,6 +258,26 @@ class RapidDiffusion extends Analyzer {
       this.extraVivHealing += event.amount || 0;
       this.extraVivOverhealing += event.overheal || 0;
       this.extraVivAbsorbed += event.absorbed || 0;
+    }
+  }
+
+  handleZenPulse(event: HealEvent) {
+    const spellId = SPELLS.RENEWING_MIST_HEAL.id;
+    if (this.hotTracker.hasHot(event, spellId)) {
+      return;
+    }
+    const hot = this.hotTracker.hots[event.targetID][spellId];
+    if (hot.originalEnd < event.timestamp) {
+      if (this.hotTracker.fromRapidDiffusion(hot)) {
+        if (this.hotTracker.fromRapidDiffusionRisingSunKick(hot)) {
+          this.zpHealingFromRskRem += event.amount + (event.absorbed || 0);
+        } else if (this.hotTracker.fromRapidDiffusionEnvelopingMist(hot)) {
+          this.zpHealingFromEnvRem += event.amount + (event.absorbed || 0);
+        }
+        this.zpHits += 1;
+        this.zpHealing += event.amount + (event.absorbed || 0);
+        this.zpOverhealing += event.overheal || 0;
+      }
     }
   }
 
