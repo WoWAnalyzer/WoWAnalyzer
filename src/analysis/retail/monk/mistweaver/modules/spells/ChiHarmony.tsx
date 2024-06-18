@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
-import Events, { HealEvent, RefreshBuffEvent } from 'parser/core/Events';
+import Events, { HealEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
@@ -29,7 +29,6 @@ class ChiHarmony extends Analyzer {
 
   healing: number = 0;
   overheal: number = 0;
-  refreshes: number = 0;
 
   constructor(options: Options) {
     super(options);
@@ -41,21 +40,6 @@ class ChiHarmony extends Analyzer {
     }
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
-    this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS),
-      this.handleGomHit,
-    );
-  }
-
-  handleRefresh(event: RefreshBuffEvent) {
-    this.refreshes += 1;
-  }
-
-  handleGomHit(event: HealEvent) {
-    const combatant = this.combatants.getEntity(event);
-    if (!combatant) {
-      return;
-    }
   }
 
   onHeal(event: HealEvent) {
