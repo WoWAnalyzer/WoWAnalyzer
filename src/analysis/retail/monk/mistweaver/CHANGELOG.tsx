@@ -5,6 +5,7 @@ import { Vohrr } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date (2024, 6, 18), <>Removed dragonflight tier set analysis, moved Tier 31 into <SpellLink spell={TALENTS_MONK.CHI_HARMONY_TALENT}/> module.</>, Vohrr),
   change(date(2024, 6, 18), <>Added Nerubar Palance Tier Set</>, Vohrr),
   change(date(2024, 6, 17), <>Bug fix for <SpellLink spell={SPELLS.VIVIFY}/> cast entry section of the guide.</>, Vohrr),
   change(date(2024, 6, 16), <>Added <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT}/>.</>, Vohrr),
