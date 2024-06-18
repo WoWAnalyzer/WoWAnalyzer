@@ -1,34 +1,33 @@
-// Base file
+// Base files
 import BaseCombatLogParser from 'parser/classic/CombatLogParser';
+import Guide from './Guide';
 // Shared
-import lowRankSpellsSuggestion from 'parser/classic/suggestions/lowRankSpells';
-import { lowRankSpells } from '../shared';
+//import { SharedModule } from '../shared';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import SpellManaCost from 'parser/shared/modules/SpellManaCost';
-// Features
-import Abilities from './modules/features/Abilities';
+// Modules
+import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import Buffs from './modules/features/Buffs';
+import Buffs from './modules/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import Checklist from './modules/checklist/Module';
 // Spells
 // import SpellName from './modules/spells';
 
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
     // Shared
-    lowRankSpells: lowRankSpellsSuggestion(lowRankSpells),
+    // sharedModule: SharedModule,
     manaTracker: ManaTracker,
     spellManaCost: SpellManaCost,
-    // Features
+    // Modules
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
     buffs: Buffs,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    checklist: Checklist,
     // Spells
     // spellName: SpellName,
   };
+  static guide = Guide;
 }
 
 export default CombatLogParser;

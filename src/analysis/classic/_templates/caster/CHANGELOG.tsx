@@ -2,6 +2,6 @@ import { change, date } from 'common/changelog';
 import { jazminite } from 'CONTRIBUTORS';
 
 export default [
-  // Remove this entry and add your own
-  change(date(2023, 1, 13), 'Add Classic Caster spec template.', jazminite),
+  // REMOVE THIS ENTRY AND ADD YOUR OWN
+  change(date(2024, 6, 17), 'Add Cata Classic Caster spec template', jazminite),
 ];
