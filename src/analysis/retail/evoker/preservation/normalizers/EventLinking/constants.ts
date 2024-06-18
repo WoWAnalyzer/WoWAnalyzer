@@ -31,6 +31,8 @@ export const LIFESPARK_LIVING_FLAME = 'LifesparkLivingFlame'; //Instant living f
 export const REVERSION = 'Reversion';
 export const T32_2PC = 'T32TwoPiece'; // link 2 pc heal to rev/blossom
 export const T32_4PC = 'T32FourPiece'; // link 4pc apply to buff removal
+export const EMERALD_BLOSSOM_CAST = 'EmeraldBlossomCast'; //Find first heal event from a Blossom cast
+export const DREAM_BREATH = 'DreamBreath';
 
 export enum ECHO_TYPE {
   NONE,
@@ -50,3 +52,4 @@ export const TA_BUFFER_MS = 6000 + CAST_BUFFER_MS; //TA pulses over 6s at 0% has
 export const STASIS_BUFFER = 1000;
 export const TIME_OF_NEED_DURATION = 8000;
 export const LIVING_FLAME_FLIGHT_TIME = 1000;
+export const MAX_DREAM_BREATH_DURATION = 28000;

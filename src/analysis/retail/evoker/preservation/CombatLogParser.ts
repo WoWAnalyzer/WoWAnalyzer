@@ -45,6 +45,7 @@ import NozTeachings from './modules/talents/NozTeachings';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import RegenerativeMagic from '../shared/modules/talents/RegenerativeMagic';
 import AncientFlame from './modules/talents/AncientFlame';
+import TitansGift from './modules/talents/TitansGift';
 import EchoTypeBreakdown from './modules/talents/EchoTypeBreakdown';
 import {
   LivingFlameNormalizer,
@@ -137,6 +138,7 @@ class CombatLogParser extends CoreCombatLogParser {
     echoTypeBreakdown: EchoTypeBreakdown,
     essenceBurstSources: EssenceBurstSources,
     lifespark: Lifespark,
+    titansGift: TitansGift,
 
     // other
     t32Prevoker: T32Prevoker,
