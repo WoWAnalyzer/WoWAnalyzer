@@ -3,7 +3,7 @@ import {
   PERIODIC_DAMAGE_IDS,
   PERIODIC_HEALING_IDS,
 } from 'analysis/retail/evoker/shared/constants';
-import { formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { TooltipElement } from 'interface/Tooltip';
@@ -59,7 +59,6 @@ class Engulf extends Analyzer {
       return;
     }
     const numPeriodics = this.getNumPeriodicEffects(enemy);
-    console.log(numPeriodics);
     this.damagePeriodicCounts.push(numPeriodics);
     this.damageFromInc += calculateEffectiveDamage(event, ENGULF_PERIODIC_INCREASE * numPeriodics);
   }
@@ -104,7 +103,7 @@ class Engulf extends Analyzer {
             <TooltipElement
               content={
                 <>
-                  <div>Average Periodics: {this.averageHealPeriodics}</div>
+                  <div>Average Periodics: {formatNumber(this.averageHealPeriodics)}</div>
                   <div>
                     % of healing from periodic increase:{' '}
                     {formatPercentage(this.healingFromInc / this.totalHealing)}%
@@ -119,7 +118,7 @@ class Engulf extends Analyzer {
             <TooltipElement
               content={
                 <>
-                  <div>Average Periodics: {this.averageDamagePeriodics}</div>
+                  <div>Average Periodics: {formatNumber(this.averageDamagePeriodics)}</div>
                   <div>
                     % of damage from periodic increase:{' '}
                     {formatPercentage(this.damageFromInc / this.totalDamage)}%
