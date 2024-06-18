@@ -78,7 +78,6 @@ class T32TierSet extends Analyzer {
   }
 
   get fourPieceHealing() {
-    console.log(this.hotTracker.hotHistory);
     const filteredExtensions: Set<Extension> = new Set<Extension>();
     this.hotTracker.hotHistory.forEach(function (tracker) {
       const extensions = tracker.extensions.filter((extension) =>
@@ -88,7 +87,8 @@ class T32TierSet extends Analyzer {
         extensions.forEach((ext) => filteredExtensions.add(ext));
       }
     });
-    return [...filteredExtensions].reduce((sum, ext) => sum + ext.attribution.healing, 0);
+    const result = [...filteredExtensions].reduce((sum, ext) => sum + ext.attribution.healing, 0);
+    return result;
   }
 
   private onTwoPieceHeal(event: HealEvent) {
