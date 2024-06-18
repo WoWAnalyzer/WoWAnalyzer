@@ -20,6 +20,14 @@ import { Arrow } from 'interface/icons';
 
 const debug = false;
 
+const THUNDER_FOCUS_TEA_SPELLS = [
+  SPELLS.VIVIFY,
+  TALENTS_MONK.RISING_SUN_KICK_TALENT,
+  TALENTS_MONK.ENVELOPING_MIST_TALENT,
+  TALENTS_MONK.RENEWING_MIST_TALENT,
+  SPELLS.EXPEL_HARM,
+];
+
 //TODO clean up and make easier to add triggers
 class ThunderFocusTea extends Analyzer {
   static dependencies = {
@@ -33,6 +41,7 @@ class ThunderFocusTea extends Analyzer {
   castsTftViv: number = 0;
   castsTftEnm: number = 0;
   castsTftRem: number = 0;
+  castsTftEh: number = 0;
   //add EH
 
   castsTft: number = 0;
@@ -70,7 +79,10 @@ class ThunderFocusTea extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT),
       this.tftCast,
     );
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.buffedCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(THUNDER_FOCUS_TEA_SPELLS),
+      this.buffedCast,
+    );
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)) {
       this.correctCapstoneSpells = [TALENTS_MONK.RENEWING_MIST_TALENT.id];
       this.okCapstoneSpells = [TALENTS_MONK.RISING_SUN_KICK_TALENT.id];
@@ -144,6 +156,10 @@ class ThunderFocusTea extends Analyzer {
       this.castsUnderTft += 1;
       this.castsTftRem += 1;
       debug && console.log('REM TFT Check ', event.timestamp);
+    } else if (SPELLS.EXPEL_HARM.id === spellId) {
+      this.castsUnderTft += 1;
+      this.castsTftEh += 1;
+      debug && console.log('EH TFT Check ', event.timestamp);
     } else {
       return;
     }
@@ -201,6 +217,12 @@ class ThunderFocusTea extends Analyzer {
         label: 'Rising Sun Kick',
         spellId: TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
         value: this.castsTftRsk,
+      },
+      {
+        color: SPELL_COLORS.EXPEL_HARM,
+        label: 'Expel Harm',
+        spellId: SPELLS.EXPEL_HARM.id,
+        value: this.castsTftEh,
       },
     ];
 
