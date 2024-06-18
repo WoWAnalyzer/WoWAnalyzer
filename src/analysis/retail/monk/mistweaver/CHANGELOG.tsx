@@ -5,6 +5,7 @@ import { Vohrr } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2024, 6, 17), <>Bug fix for <SpellLink spell={SPELLS.VIVIFY}/> cast entry section of the guide.</>, Vohrr),
   change(date(2024, 6, 16), <>Added <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT}/>.</>, Vohrr),
   change(date(2024, 6, 16), <>Removed old checklist and suggestion thresholds. Updated <SpellLink spell={SPELLS.VIVIFY}/> event linking to fix cast entry bugs. Added healing boost statistic for <SpellLink spell={TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT}/>.</>, Vohrr),
   change(date(2024, 6, 14), <>Added <SpellLink spell={TALENTS_MONK.CRANE_STYLE_TALENT}/> analysis.</>, Vohrr),

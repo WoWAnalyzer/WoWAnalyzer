@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro';
 import { formatNumber, formatPercentage, formatDuration } from 'common/format';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
@@ -171,11 +170,7 @@ class CombustionActiveTime extends Analyzer {
         </>,
       )
         .icon(TALENTS.COMBUSTION_TALENT.icon)
-        .actual(
-          <Trans id="mage.frost.suggestions.combustion.combustionActiveTime">
-            {formatPercentage(actual)}% Active Time during Combustion
-          </Trans>,
-        )
+        .actual(`${formatPercentage(actual)}% Active Time during Combustion`)
         .recommended(`${formatPercentage(recommended)}% is recommended`),
     );
   }

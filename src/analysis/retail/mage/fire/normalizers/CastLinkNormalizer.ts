@@ -20,7 +20,6 @@ const CAST_BEGIN = 'CastBegin';
 const SPELL_CAST = 'SpellCast';
 const PRE_CAST = 'PreCast';
 const SPELL_DAMAGE = 'SpellDamage';
-const EXPLODE_DEBUFF = 'ExplosionDebuff';
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -60,17 +59,6 @@ const EVENT_LINKS: EventLink[] = [
   },
   {
     reverseLinkRelation: BUFF_APPLY,
-    linkingEventId: SPELLS.FLAMES_FURY.id,
-    linkingEventType: EventType.ApplyBuff,
-    linkRelation: BUFF_REMOVE,
-    referencedEventId: SPELLS.FLAMES_FURY.id,
-    referencedEventType: EventType.RemoveBuff,
-    maximumLinks: 1,
-    forwardBufferMs: 32_000, //30sec duration, plus a buffer
-    backwardBufferMs: CAST_BUFFER_MS,
-  },
-  {
-    reverseLinkRelation: BUFF_APPLY,
     linkingEventId: SPELLS.FURY_OF_THE_SUN_KING.id,
     linkingEventType: EventType.ApplyBuff,
     linkRelation: BUFF_REMOVE,
@@ -91,18 +79,6 @@ const EVENT_LINKS: EventLink[] = [
     maximumLinks: 1,
     forwardBufferMs: EXTENDED_CAST_BUFFER_MS,
     backwardBufferMs: EXTENDED_CAST_BUFFER_MS,
-  },
-  {
-    reverseLinkRelation: BUFF_REMOVE,
-    linkingEventId: SPELLS.FLAMES_FURY.id,
-    linkingEventType: EventType.RemoveBuff,
-    linkRelation: SPELL_CAST,
-    referencedEventId: TALENTS.PHOENIX_FLAMES_TALENT.id,
-    referencedEventType: EventType.Cast,
-    anyTarget: true,
-    maximumLinks: 1,
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: 2000,
   },
   {
     reverseLinkRelation: BUFF_APPLY,
@@ -133,17 +109,6 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: EventType.RemoveBuff,
     maximumLinks: 1,
     forwardBufferMs: 600_000, //If you manage your charges, you can keep the buff up pretty much the whole fight, so 10min just in case.
-    backwardBufferMs: CAST_BUFFER_MS,
-  },
-  {
-    reverseLinkRelation: SPELL_CAST,
-    linkingEventId: TALENTS.LIVING_BOMB_TALENT.id,
-    linkingEventType: EventType.Cast,
-    linkRelation: EXPLODE_DEBUFF,
-    referencedEventId: SPELLS.LIVING_BOMB_EXPLODE_DEBUFF.id,
-    referencedEventType: EventType.ApplyDebuff,
-    anyTarget: true,
-    forwardBufferMs: 7000,
     backwardBufferMs: CAST_BUFFER_MS,
   },
   {
@@ -309,6 +274,17 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: EventType.Damage,
     anyTarget: true,
     forwardBufferMs: 2000,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    reverseLinkRelation: BUFF_REMOVE,
+    linkingEventId: SPELLS.EXCESS_FROST_BUFF.id,
+    linkingEventType: EventType.RemoveBuff,
+    linkRelation: SPELL_DAMAGE,
+    referencedEventId: TALENTS.PHOENIX_FLAMES_TALENT.id,
+    referencedEventType: EventType.Damage,
+    anyTarget: true,
+    forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
   },
 ];

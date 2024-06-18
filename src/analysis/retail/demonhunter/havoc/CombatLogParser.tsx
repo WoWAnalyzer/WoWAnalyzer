@@ -35,7 +35,7 @@ import CycleOfHatred from './modules/talents/CycleOfHatred';
 import DemonBlades from './modules/talents/DemonBlades';
 import DemonicDeathSweep from './modules/talents/DemonicDeathSweep';
 import DemonicAppetite from './modules/talents/DemonicAppetite';
-import ElysianDecree from './modules/talents/ElysianDecree';
+import SigilOfSpite from 'analysis/retail/demonhunter/havoc/modules/talents/SigilOfSpite';
 import EssenceBreak from './modules/talents/EssenceBreak';
 import FelBarrage from './modules/talents/FelBarrage';
 import FelEruption from './modules/talents/FelEruption';
@@ -110,7 +110,7 @@ class CombatLogParser extends CoreCombatLogParser {
     theHunt: TheHunt,
     chaosTheory: ChaosTheory,
     shatteredRestoration: ShatteredRestoration,
-    elysianDecree: ElysianDecree,
+    sigilOfSpite: SigilOfSpite,
     tacticalRetreat: TacticalRetreat,
     initiative: Initiative,
     ragefire: Ragefire,

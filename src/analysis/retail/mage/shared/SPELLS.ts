@@ -7,16 +7,6 @@
 import Spell from 'common/SPELLS/Spell';
 
 const spells = {
-  METEOR_DAMAGE: {
-    id: 351140,
-    name: 'Meteor',
-    icon: 'spell_mage_meteor',
-  },
-  METEOR_BURN: {
-    id: 155158,
-    name: 'Meteor',
-    icon: 'spell_mage_meteor',
-  },
   CONE_OF_COLD: {
     id: 120,
     name: 'Cone of Cold',
@@ -178,6 +168,43 @@ const spells = {
     id: 414658,
     name: 'Ice Cold',
     icon: 'spell_fire_bluefire',
+  },
+
+  //Frostfire Hero Talents
+  FIRE_MASTERY_BUFF: {
+    id: 431040,
+    name: 'Fire Mastery',
+    icon: 'spell_fire_immolation',
+  },
+  FROST_MASTERY_BUFF: {
+    id: 431039,
+    name: 'Frost Mastery',
+    icon: 'spell_fire_blueimmolation',
+  },
+  EXCESS_FROST_BUFF: {
+    id: 438611,
+    name: 'Excess Frost',
+    icon: 'spell_deathknight_iceboundfortitude',
+  },
+  MANA_ADDICTION_BUFF_FIRE: {
+    id: 449314,
+    name: 'Mana Addiction',
+    icon: 'spell_frost_manarecharge',
+  },
+  MANA_ADDICTION_BUFF_ARCANE: {
+    id: 449322,
+    name: 'Mana Addiction',
+    icon: 'spell_frost_manarecharge',
+  },
+  METEORITE_DAMAGE: {
+    id: 449569,
+    name: 'Meteorite',
+    icon: 'spell_mage_meteor',
+  },
+  GLORIOUS_INCANDESCENCE_BUFF: {
+    id: 451073,
+    name: 'Glorious Incandescence',
+    icon: 'spell_burningsoul',
   },
 } satisfies Record<string, Spell>;
 

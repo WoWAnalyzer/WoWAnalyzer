@@ -143,8 +143,8 @@ const cooldowns: Cooldown[] = [
     isActive: (c) => c.hasTalent(TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT),
   },
   {
-    spell: TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT,
-    isActive: (c) => c.hasTalent(TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT),
+    spell: TALENTS_DEMON_HUNTER.SIGIL_OF_SPITE_TALENT,
+    isActive: (c) => c.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_SPITE_TALENT),
   },
   {
     spell: TALENTS_DEMON_HUNTER.THE_HUNT_TALENT,

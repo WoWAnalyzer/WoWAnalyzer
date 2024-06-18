@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro';
 import {
   COMBUSTION_END_BUFFER,
   FIRESTARTER_THRESHOLD,
@@ -42,7 +41,7 @@ class HotStreak extends Analyzer {
   protected sharedCode!: SharedCode;
 
   hasFirestarter: boolean = this.selectedCombatant.hasTalent(TALENTS.FIRESTARTER_TALENT);
-  hasSearingTouch: boolean = this.selectedCombatant.hasTalent(TALENTS.SEARING_TOUCH_TALENT);
+  hasSearingTouch: boolean = this.selectedCombatant.hasTalent(TALENTS.SCORCH_TALENT);
   hasHyperthermia: boolean = this.selectedCombatant.hasTalent(TALENTS.HYPERTHERMIA_TALENT);
   hasPyromaniac: boolean = this.selectedCombatant.hasTalent(TALENTS.PYROMANIAC_TALENT);
 
@@ -273,11 +272,7 @@ class HotStreak extends Analyzer {
         </>,
       )
         .icon(SPELLS.HOT_STREAK.icon)
-        .actual(
-          <Trans id="mage.fire.suggestions.hotStreak.expired">
-            {formatPercentage(this.hotStreakUtilizationThresholds.actual)}% expired
-          </Trans>,
-        )
+        .actual(`${formatPercentage(this.hotStreakUtilizationThresholds.actual)}% expired`)
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );
     when(this.castBeforeHotStreakThresholds).addSuggestion((suggest, actual, recommended) =>
@@ -297,11 +292,7 @@ class HotStreak extends Analyzer {
         </>,
       )
         .icon(SPELLS.HOT_STREAK.icon)
-        .actual(
-          <Trans id="mage.fire.suggestions.hostStreak.precasts.utilization">
-            {formatPercentage(this.castBeforeHotStreakThresholds.actual)}% Utilization
-          </Trans>,
-        )
+        .actual(`${formatPercentage(this.castBeforeHotStreakThresholds.actual)}% Utilization`)
         .recommended(`${formatPercentage(recommended)}% is recommended`),
     );
     when(this.wastedCritsThresholds).addSuggestion((suggest, actual, recommended) =>
@@ -315,11 +306,7 @@ class HotStreak extends Analyzer {
         </>,
       )
         .icon(SPELLS.HOT_STREAK.icon)
-        .actual(
-          <Trans id="mage.fire.suggestions.hotStreak.wastedCrits">
-            {formatNumber(this.wastedCrits())} crits wasted
-          </Trans>,
-        )
+        .actual(`${formatNumber(this.wastedCrits())} crits wasted`)
         .recommended(`${formatNumber(recommended)} is recommended`),
     );
   }

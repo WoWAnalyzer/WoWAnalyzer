@@ -84,6 +84,15 @@ export const DEFAULT_HASTE_BUFFS: HasteBuffMap = {
   //region Mage
   [TALENTS_MAGE.ICY_VEINS_TALENT.id]: 0.3,
   [TALENTS_MAGE.TOME_OF_ANTONIDAS_TALENT.id]: 0.02,
+  [SPELLS.FIRE_MASTERY_BUFF.id]: {
+    hastePerStack: 0.01,
+  },
+  [SPELLS.MANA_ADDICTION_BUFF_FIRE.id]: {
+    hastePerStack: 0.02,
+  },
+  [SPELLS.MANA_ADDICTION_BUFF_ARCANE.id]: {
+    hastePerStack: 0.03,
+  },
   //endregion
 
   //region Monk
