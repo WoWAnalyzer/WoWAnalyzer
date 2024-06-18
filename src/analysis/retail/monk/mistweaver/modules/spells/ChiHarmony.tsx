@@ -17,8 +17,6 @@ import {
 import HotTrackerMW from '../core/HotTrackerMW';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
-//TODO : Move into & refactor into Chi Harmony talent module
-
 class ChiHarmony extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -87,7 +85,7 @@ class ChiHarmony extends Analyzer {
       <Statistic
         size="flexible"
         position={STATISTIC_ORDER.CORE(0)}
-        category={STATISTIC_CATEGORY.ITEMS}
+        category={STATISTIC_CATEGORY.TALENTS}
       >
         <TalentSpellText talent={TALENTS_MONK.CHI_HARMONY_TALENT}>
           <ItemHealingDone amount={this.healing} />
