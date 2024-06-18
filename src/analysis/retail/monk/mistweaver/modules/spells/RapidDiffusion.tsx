@@ -240,11 +240,8 @@ class RapidDiffusion extends Analyzer {
 
   handleVivify(event: HealEvent) {
     const targetId = event.targetID;
-    //check for rem on the target
-    if (
-      !this.hotTracker.hots[targetId] ||
-      !this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id]
-    ) {
+    const spellId = SPELLS.RENEWING_MIST_HEAL.id;
+    if (!this.hotTracker.hasHot(event, spellId)) {
       return;
     }
     const hot = this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id];
@@ -263,7 +260,7 @@ class RapidDiffusion extends Analyzer {
 
   handleZenPulse(event: HealEvent) {
     const spellId = SPELLS.RENEWING_MIST_HEAL.id;
-    if (this.hotTracker.hasHot(event, spellId)) {
+    if (!this.hotTracker.hasHot(event, spellId)) {
       return;
     }
     const hot = this.hotTracker.hots[event.targetID][spellId];

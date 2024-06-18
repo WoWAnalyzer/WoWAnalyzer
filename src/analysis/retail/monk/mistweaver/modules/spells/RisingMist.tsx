@@ -215,7 +215,7 @@ class RisingMist extends Analyzer {
 
   handlevivify(event: HealEvent) {
     const spellId = SPELLS.RENEWING_MIST_HEAL.id;
-    if (this.hotTracker.hasHot(event, spellId)) {
+    if (!this.hotTracker.hasHot(event, spellId)) {
       return;
     }
     const hot = this.hotTracker.hots[event.targetID][spellId];
@@ -239,7 +239,7 @@ class RisingMist extends Analyzer {
 
   handleZenPulse(event: HealEvent) {
     const spellId = SPELLS.RENEWING_MIST_HEAL.id;
-    if (this.hotTracker.hasHot(event, spellId)) {
+    if (!this.hotTracker.hasHot(event, spellId)) {
       return;
     }
     const hot = this.hotTracker.hots[event.targetID][spellId];
