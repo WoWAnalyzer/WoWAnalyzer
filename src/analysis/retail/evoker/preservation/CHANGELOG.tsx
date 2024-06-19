@@ -4,6 +4,7 @@ import { Trevor} from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2024, 6, 19), <>Implement <SpellLink spell={TALENTS_EVOKER.EXPANDED_LUNGS_TALENT}/> module</>, Trevor),
   change(date(2024, 6, 19), <>Improve accuracy of T32 tier set module</>, Trevor),
   change(date(2024, 6, 17), <>Implement <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT}/> module</>, Trevor),
   change(date(2024, 6, 16), <>Add T32 tier set module</>, Trevor),
