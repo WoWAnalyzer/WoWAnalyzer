@@ -258,7 +258,7 @@ class EchoBreakdown extends Analyzer {
   }
 
   statistic() {
-    const echoData = this.getEchoDataItems;
+    const echoData = this.getEchoDataItems();
     if (!echoData.length) {
       return null;
     }
@@ -269,12 +269,12 @@ class EchoBreakdown extends Analyzer {
             <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} /> <small>breakdown by spell</small>
           </>
         }
+        position={STATISTIC_ORDER.OPTIONAL(13)}
         category={STATISTIC_CATEGORY.TALENTS}
-        position={STATISTIC_ORDER.CORE(1)}
-        wide
         smallTitle
+        wide
       >
-        <TalentAggregateBars bars={this.getEchoDataItems()} wide></TalentAggregateBars>
+        <TalentAggregateBars bars={this.getEchoDataItems()}></TalentAggregateBars>
       </TalentAggregateStatisticContainer>
     );
   }

@@ -1,4 +1,3 @@
-import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 
@@ -43,7 +42,7 @@ export const DUPLICATION_SPELLS = [
   SPELLS.EMERALD_COMMUNION_ALLY.id,
   SPELLS.FLUTTERING_SEEDLINGS_HEAL.id,
   TALENTS_EVOKER.ECHO_TALENT.id,
-  ITEMS.BROODKEEPERS_PROMISE_HEAL.id, // adding this here because everyone is running it
+  SPELLS.ENGULF_HEAL.id,
 ]; // common spell ids that trigger heal duplication for Cycle of Life and Lifebind
 
 // heal events that can be caused by an echo heal
@@ -58,6 +57,7 @@ export const ECHO_HEALS = [
   SPELLS.VERDANT_EMBRACE_HEAL,
   SPELLS.LIFEBIND_HEAL,
   SPELLS.GOLDEN_HOUR_HEAL,
+  SPELLS.ENGULF_HEAL,
 ];
 
 export const STASIS_CAST_IDS = [

@@ -528,6 +528,26 @@ const spells = {
     name: 'Recommencement',
     icon: 'ability_evoker_bronze_01',
   },
+  ENKINDLE_HOT: {
+    id: 445740,
+    name: 'Enkindle',
+    icon: 'spell_fire_burnout',
+  },
+  ENKINDLE_DOT: {
+    id: 444017,
+    name: 'Enkindle',
+    icon: 'spell_fire_burnout',
+  },
+  ENGULF_DAMAGE: {
+    id: 443329,
+    name: 'Engulf',
+    icon: 'inv_ability_flameshaperevoker_engulf',
+  },
+  ENGULF_HEAL: {
+    id: 443330,
+    name: 'Engulf',
+    icon: 'inv_ability_flameshaperevoker_engulf',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;

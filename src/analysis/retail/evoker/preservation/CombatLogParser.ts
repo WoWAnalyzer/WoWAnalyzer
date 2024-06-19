@@ -60,6 +60,7 @@ import {
   EssenceTracker,
   SourceOfMagic,
   PotentMana,
+  Engulf,
 } from '../shared';
 import T32Prevoker from './modules/tier/T32TierSet';
 
@@ -137,6 +138,9 @@ class CombatLogParser extends CoreCombatLogParser {
     echoTypeBreakdown: EchoTypeBreakdown,
     essenceBurstSources: EssenceBurstSources,
     lifespark: Lifespark,
+
+    // hero talents
+    engulf: Engulf,
 
     // other
     t32Prevoker: T32Prevoker,
