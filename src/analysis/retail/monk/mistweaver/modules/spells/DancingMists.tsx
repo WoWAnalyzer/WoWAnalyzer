@@ -128,14 +128,14 @@ class DancingMists extends Analyzer {
       },
       {
         color: SPELL_COLORS.RAPID_DIFFUSION,
-        label: 'Rapid Diffusion',
+        label: TALENTS_MONK.RAPID_DIFFUSION_TALENT.name,
         spellId: TALENTS_MONK.RAPID_DIFFUSION_TALENT.id,
         value: this.dancingMistRapidDiffusionCount,
         valuePercent: false,
       },
       {
         color: SPELL_COLORS.ENVELOPING_MIST,
-        label: 'Mists of Life',
+        label: TALENTS_MONK.MISTS_OF_LIFE_TALENT.name,
         spellId: TALENTS_MONK.MISTS_OF_LIFE_TALENT.id,
         value: this.dancingMistMistsOfLifeCount,
         valuePercent: false,
@@ -249,7 +249,7 @@ class DancingMists extends Analyzer {
     const items = [
       {
         color: SPELL_COLORS.RAPID_DIFFUSION,
-        label: 'Rapid Diffusion',
+        label: TALENTS_MONK.RAPID_DIFFUSION_TALENT.name,
         spellId: TALENTS_MONK.RAPID_DIFFUSION_TALENT.id,
         value: rdSourceHealing,
         valuePercent: false,
@@ -263,7 +263,7 @@ class DancingMists extends Analyzer {
       },
       {
         color: SPELL_COLORS.ENVELOPING_MIST,
-        label: 'Mists of Life',
+        label: TALENTS_MONK.MISTS_OF_LIFE_TALENT.name,
         spellId: TALENTS_MONK.MISTS_OF_LIFE_TALENT.id,
         value: molSourceHealing,
         valuePercent: false,

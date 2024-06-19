@@ -173,14 +173,14 @@ class RapidDiffusion extends Analyzer {
     const items = [
       {
         color: SPELL_COLORS.RISING_SUN_KICK,
-        label: 'Rising Sun Kick',
+        label: TALENTS_MONK.RISING_SUN_KICK_TALENT.name,
         spellId: TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
         value: rskSourceHealing,
         valuePercent: false,
       },
       {
         color: SPELL_COLORS.ENVELOPING_MIST,
-        label: 'Enveloping Mist',
+        label: TALENTS_MONK.ENVELOPING_MIST_TALENT.name,
         spellId: TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
         value: envSourceHealing,
         valuePercent: false,

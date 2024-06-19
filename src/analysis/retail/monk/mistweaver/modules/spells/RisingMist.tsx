@@ -168,7 +168,7 @@ class RisingMist extends Analyzer {
     );
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.INVIGORATING_MISTS_HEAL),
-      this.handlevivify,
+      this.handleVivify,
     );
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.ZEN_PULSE_TALENT)) {
       this.addEventListener(
@@ -213,7 +213,7 @@ class RisingMist extends Analyzer {
     }
   }
 
-  handlevivify(event: HealEvent) {
+  handleVivify(event: HealEvent) {
     const spellId = SPELLS.RENEWING_MIST_HEAL.id;
     if (!this.hotTracker.hasHot(event, spellId)) {
       return;
@@ -341,9 +341,12 @@ class RisingMist extends Analyzer {
         <ul>
           <li>HoT Extension Healing: {formatNumber(this.hotHealing)}</li>
           <li>Average HoT Extension Seconds per cast: {this.averageExtension.toFixed(2)}</li>
-          <li>Renewing Mist HoTs Extended: {this.remCount}</li>
-          <li>Enveloping Mist HoTs Extended: {this.evmCount}</li>
-          <li>Exte Zen Pulse Hits: {this.zpHits}</li>
+          <li>
+            <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> HoTs Extended: {this.remCount}
+          </li>
+          <li>
+            <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> HoTs Extended: {this.evmCount}
+          </li>
         </ul>
       </>
     );

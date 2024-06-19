@@ -8,7 +8,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 import Haste from 'parser/shared/modules/Haste';
-import { SPELL_COLORS } from '../../constants';
+import { SPELL_COLORS, THUNDER_FOCUS_TEA_SPELLS } from '../../constants';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
@@ -19,14 +19,6 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { Arrow } from 'interface/icons';
 
 const debug = false;
-
-const THUNDER_FOCUS_TEA_SPELLS = [
-  SPELLS.VIVIFY,
-  TALENTS_MONK.RISING_SUN_KICK_TALENT,
-  TALENTS_MONK.ENVELOPING_MIST_TALENT,
-  TALENTS_MONK.RENEWING_MIST_TALENT,
-  SPELLS.EXPEL_HARM,
-];
 
 //TODO clean up and make easier to add triggers
 class ThunderFocusTea extends Analyzer {

@@ -86,7 +86,7 @@ class RisingMistBreakdown extends Analyzer {
       },
       {
         color: SPELL_COLORS.MISTY_PEAKS,
-        label: 'Misty Peaks',
+        label: talents.MISTY_PEAKS_TALENT.name,
         spellId: talents.MISTY_PEAKS_TALENT.id,
         value: this.risingMist.envMistyPeaksExtensionHealing,
         valuePercent: false,
@@ -112,7 +112,7 @@ class RisingMistBreakdown extends Analyzer {
       },
       {
         color: SPELL_COLORS.MISTY_PEAKS,
-        label: 'Misty Peaks',
+        label: talents.MISTY_PEAKS_TALENT.name,
         spellId: talents.MISTY_PEAKS_TALENT.id,
         value: this.risingMist.envBonusMistyPeaks,
         valuePercent: false,
@@ -133,14 +133,14 @@ class RisingMistBreakdown extends Analyzer {
     const items = [
       {
         color: SPELL_COLORS.DANCING_MISTS,
-        label: 'Dancing Mists',
+        label: talents.DANCING_MISTS_TALENT.name,
         spellId: talents.DANCING_MISTS_TALENT.id,
         value: this.risingMist.renewingMistDancingMistExtensionHealing,
         valuePercent: false,
       },
       {
         color: SPELL_COLORS.RAPID_DIFFUSION,
-        label: 'Rapid Diffusion',
+        label: talents.RAPID_DIFFUSION_TALENT.name,
         spellId: talents.RAPID_DIFFUSION_TALENT.id,
         value: this.risingMist.renewingMistRapidDiffusionExtensionHealing,
         valuePercent: false,
@@ -185,14 +185,14 @@ class RisingMistBreakdown extends Analyzer {
     const items = [
       {
         color: SPELL_COLORS.DANCING_MISTS,
-        label: 'Dancing Mists',
+        label: talents.DANCING_MISTS_TALENT.name,
         spellId: talents.DANCING_MISTS_TALENT.id,
         value: this.risingMist.vivhealingFromDancingMistRems,
         valuePercent: false,
       },
       {
         color: SPELL_COLORS.RAPID_DIFFUSION,
-        label: 'Rapid Diffusion',
+        label: talents.RAPID_DIFFUSION_TALENT.name,
         spellId: talents.RAPID_DIFFUSION_TALENT.id,
         value: this.risingMist.vivHealingFromRapidDiffusionRems,
         valuePercent: false,
@@ -220,14 +220,14 @@ class RisingMistBreakdown extends Analyzer {
     const items = [
       {
         color: SPELL_COLORS.DANCING_MISTS,
-        label: 'Dancing Mists',
+        label: talents.DANCING_MISTS_TALENT.name,
         spellId: talents.DANCING_MISTS_TALENT.id,
         value: this.risingMist.zphealingFromDancingMistRems,
         valuePercent: false,
       },
       {
         color: SPELL_COLORS.RAPID_DIFFUSION,
-        label: 'Rapid Diffusion',
+        label: talents.RAPID_DIFFUSION_TALENT.name,
         spellId: talents.RAPID_DIFFUSION_TALENT.id,
         value: this.risingMist.zpHealingFromRapidDiffusionRems,
         valuePercent: false,
