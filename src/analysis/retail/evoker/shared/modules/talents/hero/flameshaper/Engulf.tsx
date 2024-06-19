@@ -3,7 +3,7 @@ import {
   PERIODIC_DAMAGE_IDS,
   PERIODIC_HEALING_IDS,
 } from 'analysis/retail/evoker/shared/constants';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { TooltipElement } from 'interface/Tooltip';
@@ -103,7 +103,7 @@ class Engulf extends Analyzer {
             <TooltipElement
               content={
                 <>
-                  <div>Average Periodics: {formatNumber(this.averageHealPeriodics)}</div>
+                  <div>Average Periodics: {this.averageHealPeriodics.toFixed(2)}</div>
                   <div>
                     % of healing from periodic increase:{' '}
                     {formatPercentage(this.healingFromInc / this.totalHealing)}%
@@ -118,7 +118,7 @@ class Engulf extends Analyzer {
             <TooltipElement
               content={
                 <>
-                  <div>Average Periodics: {formatNumber(this.averageDamagePeriodics)}</div>
+                  <div>Average Periodics: {this.averageDamagePeriodics.toFixed(2)}</div>
                   <div>
                     % of damage from periodic increase:{' '}
                     {formatPercentage(this.damageFromInc / this.totalDamage)}%
