@@ -39,11 +39,15 @@ import Kindling from './talents/Kindling';
 import MeteorCombustion from './talents/MeteorCombustion';
 import SearingTouch from './talents/SearingTouch';
 import Meteor from './talents/Meteor';
-import LivingBomb from './talents/LivingBomb';
 import ImprovedScorch from './talents/ImprovedScorch';
 
+//Hero Talents
+import ExcessFire from '../shared/ExcessFire';
+import ExcessFrost from '../shared/ExcessFrost';
+import FlameAndFrost from '../shared/FlameAndFrost';
+import GloriousIncandescence from '../shared/GloriousIncandescense';
+
 //Items
-import CharringEmbers from './items/CharringEmbers';
 
 //Normalizers
 import CombustionNormalizer from './normalizers/Combustion';
@@ -100,11 +104,15 @@ class CombatLogParser extends CoreCombatLogParser {
     shiftingPowerUsage: ShiftingPowerUsage,
     feelTheBurn: FeelTheBurn,
     meteor: Meteor,
-    livingBomb: LivingBomb,
     improvedScorch: ImprovedScorch,
 
+    //Hero Talents
+    excessFire: ExcessFire,
+    excessFrost: ExcessFrost,
+    flameAndFrost: FlameAndFrost,
+    gloriousIncandescence: GloriousIncandescence,
+
     //Items - Fire
-    charringEmbers: CharringEmbers,
 
     //Talents - Shared
     mirrorImage: MirrorImage,

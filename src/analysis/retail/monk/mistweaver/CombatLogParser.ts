@@ -73,7 +73,6 @@ import SheilunsGiftCloudGraph from './modules/spells/SheilunsGiftCloudGraph';
 import HotCountGraph from './modules/features/HotCountGraph';
 import AplCheck from './modules/core/apl/AplCheck';
 import RisingMistBreakdown from './modules/features/RisingMistBreakdown';
-import T30TierSet from './modules/dragonflight/tier/T30MWTier';
 import CalmingCoalescence from './modules/spells/CalmingCoalescence';
 import LifeCocoon from './modules/spells/LifeCocoon';
 import SecretInfusion from './modules/spells/SecretInfusion';
@@ -81,12 +80,12 @@ import CallToDominance from '../../../../parser/retail/modules/items/dragonfligh
 import MWSpellManaCost from './modules/core/SpellManaCost';
 import ManaTeaSources from './modules/spells/ManaTeaSources';
 import EnergizingBrew from './modules/spells/EnergizingBrew';
-import T31TierSet from './modules/dragonflight/tier/T31MWTier';
+import ChiHarmony from './modules/spells/ChiHarmony';
 import TearOfMorning from './modules/spells/TearOfMorning';
-import T31HealingBreakdown from './modules/dragonflight/T31HealingBreakdown';
 import LotusInfusion from './modules/spells/LotusInfusion';
 import CraneStyle from './modules/spells/CraneStyle';
 import ZenPulse from './modules/spells/ZenPulse';
+import T32TierSet from './modules/tier/T32TierSet';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -181,14 +180,13 @@ class CombatLogParser extends CoreCombatLogParser {
     lotusInfusion: LotusInfusion,
     craneStyle: CraneStyle,
     zenPulse: ZenPulse,
+    chiHarmony: ChiHarmony,
 
     apl: AplCheck,
 
     // Borrowed Power
-    t30TierSet: T30TierSet,
-    t31TierSet: T31TierSet,
-    t31TierSetBreakdown: T31HealingBreakdown,
     callToDominance: CallToDominance,
+    t32TierSet: T32TierSet,
 
     // Mana Tab
     manaTracker: ManaTracker,

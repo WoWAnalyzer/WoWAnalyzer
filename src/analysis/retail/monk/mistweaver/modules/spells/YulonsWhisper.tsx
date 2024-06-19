@@ -17,7 +17,7 @@ class YulonsWhisper extends Analyzer {
   };
   healCount: number = 0;
   combatants!: Combatants;
-  tftCount: number = 0;
+  MTCount: number = 0;
 
   constructor(options: Options) {
     super(options);
@@ -25,10 +25,7 @@ class YulonsWhisper extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT),
-      this.onTFT,
-    );
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MANA_TEA_CAST), this.onMT);
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.YULONS_WHISPER_HEAL),
       this.onHeal,
@@ -39,12 +36,12 @@ class YulonsWhisper extends Analyzer {
     this.healCount += 1;
   }
 
-  onTFT(event: CastEvent) {
-    this.tftCount += 1;
+  onMT(event: CastEvent) {
+    this.MTCount += 1;
   }
 
   get averageYWCount() {
-    return this.healCount / this.tftCount / NUM_TICKS;
+    return this.healCount / this.MTCount / NUM_TICKS;
   }
 
   statistic() {

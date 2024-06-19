@@ -87,10 +87,10 @@ function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
       <CooldownGraphSubsection />
       <CooldownUsage analyzer={modules.essenceBreak} title="Essence Break" />
       <CooldownUsage analyzer={modules.eyeBeam} title="Eye Beam" />
-      {info.combatant.hasTalent(TALENTS.ELYSIAN_DECREE_TALENT) &&
+      {info.combatant.hasTalent(TALENTS.SIGIL_OF_SPITE_TALENT) &&
         explanationAndDataSubsection(
           <div>
-            Per-cast breakdown for <SpellLink spell={TALENTS.ELYSIAN_DECREE_TALENT} /> coming soon!
+            Per-cast breakdown for <SpellLink spell={TALENTS.SIGIL_OF_SPITE_TALENT} /> coming soon!
           </div>,
           <></>,
         )}

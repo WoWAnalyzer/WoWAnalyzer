@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
-import { TIERS } from 'game/TIERS';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
@@ -112,9 +111,8 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
             <SpellLink spell={SPELLS.FLAMESTRIKE} /> cast be instant cast. Additionally, you have
             spells like <SpellLink spell={SPELLS.FIRE_BLAST} /> which is always guaranteed to crit
             and spells like <SpellLink spell={SPELLS.SCORCH} /> which are guaranteed to crit when
-            the target is below 30% health (If you are using the{' '}
-            <SpellLink spell={TALENTS.SEARING_TOUCH_TALENT} /> talent). These can be used to force{' '}
-            <SpellLink spell={SPELLS.HOT_STREAK} /> procs.
+            the target is below 30% health (If you are using the Searing Touch talent). These can be
+            used to force <SpellLink spell={SPELLS.HOT_STREAK} /> procs.
           </>
         }
       >
@@ -139,56 +137,6 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
           tooltip="Since Fire Blast is always guaranteed to crit, you should only be using it to convert Heating Up into Hot Streak or if you have a buff like Firestarter, Combustion, or Searing Touch where you know that the other spells you are casting will crit and give you the Hot Streak."
         />
       </Rule>
-      {combatant.has2PieceByTier(TIERS.DF2) ||
-        (combatant.has2PieceByTier(TIERS.DF4) && (
-          <Rule
-            name="Charring Embers (Tier Bonus)"
-            description={
-              <>
-                The tier set bonus from Aberrus gives you an additional interraction with{' '}
-                <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} />. With the 2pc bonus, when you
-                cast <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} />, you apply the{' '}
-                <SpellLink spell={SPELLS.CHARRING_EMBERS_DEBUFF} /> debuff to the target, increasing
-                their damage taken for the duration. With the 4pc bonus, when you deal damage 20
-                times to an enemy with the <SpellLink spell={SPELLS.CHARRING_EMBERS_DEBUFF} />{' '}
-                debuff, you gain a proc of <SpellLink spell={SPELLS.FLAMES_FURY} /> that makes your
-                next 2 <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} /> casts deal extra damage
-                and immediately refund themselves after they are used. In order to get the most out
-                of this, you should ensure you keep the{' '}
-                <SpellLink spell={SPELLS.CHARRING_EMBERS_DEBUFF} /> debuff up as much as possible,
-                avoid situations where you run out of{' '}
-                <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} /> charges (if you do not have a
-                charge available when <SpellLink spell={SPELLS.FLAMES_FURY} /> procs, then you
-                cannot use them until <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} />{' '}
-                recharges), and ensure you are using all procs of{' '}
-                <SpellLink spell={SPELLS.FLAMES_FURY} /> before they expire or proc again
-                (overwritting the previous procs).
-              </>
-            }
-          >
-            <Requirement
-              name="Debuff Uptime"
-              thresholds={thresholds.charringEmbersUptime}
-              tooltip="The Charring Embers debuff causes the target to take additional damage and also influences how quickly you get Flame's Fury procs, so you should ensure that you have Charring Embers up on your target for as much of the fight as possible to get the most out of it."
-            />
-            {combatant.has4PieceByTier(TIERS.DF2) ||
-              (combatant.has4PieceByTier(TIERS.DF4) && (
-                <Requirement
-                  name="Flame's Fury Procs w/o Phoenix Flames"
-                  thresholds={thresholds.flamesFuryNoPhoenix}
-                  tooltip="While Flame's Fury does give you two free casts of Phoenix Flames, there is a somewhat weird interraction where it immediately refunds a charge after you use a charge. Because of this, you must have an available Phoenix Flames charge to be able to use the first charge, otherwise you will need to wait until one comes off cooldown before you can use the procs."
-                />
-              ))}
-            {combatant.has4PieceByTier(TIERS.DF2) ||
-              (combatant.has4PieceByTier(TIERS.DF4) && (
-                <Requirement
-                  name="Wasted Flame's Fury Procs"
-                  thresholds={thresholds.flamesFuryWastedProcs}
-                  tooltip="In order to get the most out of Flame's Fury, you should ensure you are using the procs before they expire, and also ensure you are using your procs before you gain more ... overwritting any you had remaining."
-                />
-              ))}
-          </Rule>
-        ))}
       <Rule
         name="Using your supporting spells and talents"
         description={
@@ -231,25 +179,11 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
             thresholds={thresholds.meteorEfficiency}
           />
         )}
-        {combatant.hasTalent(TALENTS.SEARING_TOUCH_TALENT) && (
-          <Requirement
-            name="Spell usage during Searing Touch"
-            thresholds={thresholds.searingTouchUtilization}
-            tooltip="Searing Touch causes Scorch to deal 150% additional damage and be guaranteed to crit when the target is under 30% health. Therefore it is important that when the target is under 30% health, you cast Scorch instead of Fireball."
-          />
-        )}
         {combatant.hasTalent(TALENTS.SHIFTING_POWER_TALENT) && (
           <Requirement
             name="Shifting Power proper usage"
             thresholds={thresholds.shiftingPowerUsage}
             tooltip="Using Shifting Power, and channeling it for the entire duration, will reduce the cooldown on all your abilities by a decent amount. Because of the number of short cooldowns Fire Mage has, you should ensure you are getting the most out of it by reducing as many cooldowns as possible. Specifically, it is important that you only use Shifting Power if both Combustion and Rune of Power are on cooldown, as this will allow you to get more uses of both of those abilities and will help increase your damage."
-          />
-        )}
-        {combatant.hasTalent(TALENTS.LIVING_BOMB_TALENT) && (
-          <Requirement
-            name="Living Bomb Casts"
-            thresholds={thresholds.livingBombCasts}
-            tooltip="Unlike the majority of your spells, you should never cast Living Bomb. The only reason we take the Living Bomb talent is so we can get to the Firefall talent beneath it. Casting Living Bomb in Single Target is a DPS loss, and in AOE it is not worth taking the talent at all."
           />
         )}
         {combatant.hasTalent(TALENTS.IMPROVED_SCORCH_TALENT) && (

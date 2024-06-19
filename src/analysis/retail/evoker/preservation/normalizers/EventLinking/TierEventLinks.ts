@@ -17,7 +17,7 @@ export const TIER_EVENT_LINKS: EventLink[] = [
     linkingEventType: EventType.Heal,
     referencedEventId: SPELLS.EPOCH_FRAGMENT.id,
     referencedEventType: EventType.Heal,
-    forwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS * 5,
     anyTarget: true,
     maximumLinks: 1,
     additionalCondition(linkingEvent, refEvent) {
