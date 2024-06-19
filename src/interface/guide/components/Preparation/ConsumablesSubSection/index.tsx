@@ -5,7 +5,8 @@ import { SideBySidePanels } from 'interface/guide/components/GuideDivs';
 import FoodPanel from './FoodPanel';
 import PotionPanel from './PotionPanel';
 import FlaskPanel from './FlaskPanel';
-import Expansion from 'game/Expansion';
+import Expansion, { isClassicExpansion } from 'game/Expansion';
+import AlertWarning from 'interface/AlertWarning';
 
 interface Props {
   recommendedFlasks?: Spell[];
@@ -21,6 +22,12 @@ const ConsumablesSubSection = ({ recommendedFlasks, recommendedFoods, expansion 
         <PotionPanel expansion={expansion} />
         <FlaskPanel recommendedFlasks={recommendedFlasks} expansion={expansion} />
       </SideBySidePanels>
+
+      {expansion && isClassicExpansion(expansion) && (
+        <AlertWarning style={{ marginTop: '1em' }}>
+          Food and Flasks do not always appear in logs in Cataclysm Classic, even if they are used!
+        </AlertWarning>
+      )}
     </SubSection>
   );
 };

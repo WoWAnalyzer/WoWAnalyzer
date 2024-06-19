@@ -25,6 +25,7 @@ $available-cd-color: #696864;
   section {
     margin: initial;
   }
+
   & > section {
     & > .meta > header {
       font-size: 24px;
@@ -36,6 +37,7 @@ $available-cd-color: #696864;
 
   .subsection {
     margin-top: 1rem;
+
     > header {
       font-size: 20px;
       font-weight: bold;
@@ -45,6 +47,7 @@ $available-cd-color: #696864;
 
     .subsection {
       margin-top: 0;
+
       > header {
         font-size: 16px;
         border-top: none;
