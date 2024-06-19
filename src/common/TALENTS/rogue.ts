@@ -237,7 +237,7 @@ const talents = {
   COUP_DE_GRACE_TALENT: {
     id: 441423,
     name: 'Coup de Grace',
-    icon: 'spell_rogue_deathfromabove',
+    icon: 'inv_ability_tricksterrogue_coupdegrace',
     maxRanks: 1,
     entryIds: [117712],
     definitionIds: [{ id: 122724, specId: 261 }],
@@ -257,6 +257,8 @@ const talents = {
     maxRanks: 1,
     entryIds: [112517],
     definitionIds: [{ id: 117522, specId: 259 }],
+    energyCost: 45,
+    comboPointsCost: 1,
   },
   DANCING_STEEL_TALENT: {
     id: 272026,
@@ -489,6 +491,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [112525],
     definitionIds: [{ id: 117530, specId: 261 }],
+    energyCost: 10,
   },
   EDGE_CASE_TALENT: {
     id: 453457,
@@ -681,6 +684,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [112530],
     definitionIds: [{ id: 117535, specId: 260 }],
+    energyCost: 35,
   },
   GLOOMBLADE_TALENT: {
     id: 200758,
@@ -689,6 +693,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [112587],
     definitionIds: [{ id: 117592, specId: 261 }],
+    energyCost: 40,
   },
   GOREMAWS_BITE_TALENT: {
     id: 426591,
@@ -697,6 +702,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [117169],
     definitionIds: [{ id: 122181, specId: 261 }],
+    energyCost: 25,
   },
   GOUGE_TALENT: {
     id: 1776,
@@ -705,6 +711,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [112631],
     definitionIds: [{ id: 117636, specId: 261 }],
+    energyCost: 25,
   },
   GRACEFUL_GUILE_TALENT: {
     id: 423647,
@@ -725,7 +732,7 @@ const talents = {
   HAND_OF_FATE_TALENT: {
     id: 452536,
     name: 'Hand of Fate',
-    icon: 'inv_weapon_hand_31',
+    icon: 'inv_ability_fateboundrogue_handoffateheads',
     maxRanks: 1,
     entryIds: [117722],
     definitionIds: [{ id: 122734, specId: 260 }],
@@ -874,7 +881,7 @@ const talents = {
     entryIds: [112667],
     definitionIds: [{ id: 117672, specId: 259 }],
   },
-  INEVITABILITY_SPEC_TALENT: {
+  INEVITABILITY_ASSASSINATION_TALENT: {
     id: 454434,
     name: 'Inevitability',
     icon: 'spell_ice_lament',
@@ -953,6 +960,8 @@ const talents = {
     maxRanks: 1,
     entryIds: [117149],
     definitionIds: [{ id: 122161, specId: 260 }],
+    energyCost: 45,
+    comboPointsCost: 1,
   },
   KINGSBANE_TALENT: {
     id: 385627,
@@ -961,6 +970,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [117130],
     definitionIds: [{ id: 122142, specId: 259 }],
+    energyCost: 35,
   },
   LEECHING_POISON_TALENT: {
     id: 280716,
@@ -1313,6 +1323,8 @@ const talents = {
     maxRanks: 1,
     entryIds: [112603],
     definitionIds: [{ id: 117608, specId: 261 }],
+    energyCost: 30,
+    comboPointsCost: 1,
   },
   SEPSIS_TALENT: {
     id: 385408,
@@ -1321,6 +1333,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [117171],
     definitionIds: [{ id: 122183, specId: 261 }],
+    energyCost: 25,
   },
   SERRATED_BONE_SPIKES_TALENT: {
     id: 455352,
@@ -1401,6 +1414,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [112630],
     definitionIds: [{ id: 117635, specId: 261 }],
+    energyCost: 30,
   },
   SHOT_IN_THE_DARK_TALENT: {
     id: 257505,
@@ -1441,6 +1455,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [112604],
     definitionIds: [{ id: 117609, specId: 261 }],
+    energyCost: 60,
   },
   SILENT_STORM_TALENT: {
     id: 385722,
