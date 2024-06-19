@@ -90,7 +90,7 @@ class HotStreakGuide extends Analyzer {
     const flamestrike = <SpellLink spell={SPELLS.FLAMESTRIKE} />;
     const ignite = <SpellLink spell={SPELLS.IGNITE} />;
     const firestarter = <SpellLink spell={TALENTS.FIRESTARTER_TALENT} />;
-    const searingTouch = <SpellLink spell={TALENTS.SEARING_TOUCH_TALENT} />;
+    const searingTouch = <SpellLink spell={TALENTS.SCORCH_TALENT} />;
     const sunKingsBlessing = <SpellLink spell={TALENTS.SUN_KINGS_BLESSING_TALENT} />;
 
     const hotStreakIcon = <SpellIcon spell={SPELLS.HOT_STREAK} />;

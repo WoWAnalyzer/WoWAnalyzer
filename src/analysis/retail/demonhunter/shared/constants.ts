@@ -33,11 +33,11 @@ export function getSigilOfMiserySpell(c: Combatant): Spell {
   return TALENTS_DEMON_HUNTER.SIGIL_OF_MISERY_TALENT;
 }
 
-export function getElysianDecreeSpell(c: Combatant): Spell {
+export function getSigilOfSpiteSpell(c: Combatant): Spell {
   if (c.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT)) {
-    return SPELLS.ELYSIAN_DECREE_PRECISE;
+    return SPELLS.SIGIL_OF_SPITE_PRECISE;
   }
-  return TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT;
+  return TALENTS_DEMON_HUNTER.SIGIL_OF_SPITE_TALENT;
 }
 
 export function getSigilOfSilenceSpell(c: Combatant): Spell {
@@ -74,11 +74,11 @@ const SIGIL_OF_MISERY_SPELLS: Spell[] = [
 ];
 export const SIGIL_OF_MISERY_SPELL_IDS = SIGIL_OF_MISERY_SPELLS.map((spell) => spell.id);
 
-const ELYSIAN_DECREE_SPELLS: Spell[] = [
-  TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT,
-  SPELLS.ELYSIAN_DECREE_PRECISE,
+const SIGIL_OF_SPITE_SPELLS: Spell[] = [
+  TALENTS_DEMON_HUNTER.SIGIL_OF_SPITE_TALENT,
+  SPELLS.SIGIL_OF_SPITE_PRECISE,
 ];
-export const ELYSIAN_DECREE_SPELL_IDS = ELYSIAN_DECREE_SPELLS.map((spell) => spell.id);
+export const SIGIL_OF_SPITE_SPELL_IDS = SIGIL_OF_SPITE_SPELLS.map((spell) => spell.id);
 
 const SIGIL_OF_SILENCE_SPELLS: Spell[] = [
   TALENTS_DEMON_HUNTER.SIGIL_OF_SILENCE_TALENT,

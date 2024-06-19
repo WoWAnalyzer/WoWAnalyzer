@@ -18,86 +18,6 @@ export interface Patch {
 
 const PATCHES: Patch[] = [
   {
-    name: '10.0.0',
-    timestamp: 1666728000000, // GMT: Tuesday, 25 October 2022 22:00:00
-    urlPrefix: '',
-    isCurrent: false,
-    gameVersion: 1, // retail
-    expansion: Expansion.Dragonflight,
-  },
-  {
-    name: '10.0.2',
-    timestamp: 1668549600000, // GMT: Tuesday, 15 November 2022 22:00:00
-    urlPrefix: '',
-    isCurrent: false,
-    gameVersion: 1, // retail
-    expansion: Expansion.Dragonflight,
-  },
-  {
-    name: '10.0.2 Dragonflight Launch',
-    timestamp: 1669676400000, // GMT: Monday, 28 November 2022 23:00:00
-    urlPrefix: '',
-    isCurrent: false,
-    gameVersion: 1, // retail
-    expansion: Expansion.Dragonflight,
-  },
-  {
-    name: '10.0.5',
-    timestamp: 1674597600000, // GMT: Tuesday, 24 January 2023 22:00:00
-    urlPrefix: '',
-    isCurrent: false,
-    gameVersion: 1, // retail
-    expansion: Expansion.Dragonflight,
-  },
-  {
-    name: '10.0.7',
-    timestamp: 1679436000000, // GMT: Tuesday, 21 March 2023 22:00:00
-    urlPrefix: '',
-    isCurrent: false,
-    gameVersion: 1, // retail
-    expansion: Expansion.Dragonflight,
-  },
-  {
-    name: '10.1.0',
-    timestamp: 1683064800000, // GMT: Tuesday, 2 May 2023 22:00:00
-    urlPrefix: '',
-    isCurrent: false,
-    gameVersion: 1, // retail
-    expansion: Expansion.Dragonflight,
-  },
-  {
-    name: '10.1.5',
-    timestamp: 1689112800000, // GMT: Tuesday, 11 July 2023 22:00:00
-    urlPrefix: '',
-    isCurrent: false,
-    gameVersion: 1, // retail
-    expansion: Expansion.Dragonflight,
-  },
-  {
-    name: '10.2.0',
-    timestamp: 1699387200000, // GMT: Tuesday, 7 November 2023 22:00:00
-    urlPrefix: '',
-    isCurrent: false,
-    gameVersion: 1, // retail
-    expansion: Expansion.Dragonflight,
-  },
-  {
-    name: '10.2.5',
-    timestamp: 1705438800000, // GMT: Tuesday, 16 January 2024 21:00:00
-    urlPrefix: '',
-    isCurrent: false,
-    gameVersion: 1, // retail
-    expansion: Expansion.Dragonflight,
-  },
-  {
-    name: '10.2.6 Season 3',
-    timestamp: 1710882000000, // GMT: Tuesday, 19 March 2024 21:00:00
-    urlPrefix: '',
-    isCurrent: false,
-    gameVersion: 1, // retail
-    expansion: Expansion.Dragonflight,
-  },
-  {
     name: '10.2.6 Season 4',
     timestamp: 1713906000000, // GMT: Tuesday, 23 April 2024 21:00:00
     urlPrefix: '',
@@ -120,6 +40,15 @@ const PATCHES: Patch[] = [
     isCurrent: true,
     gameVersion: 5, // Cataclysm
     expansion: Expansion.Cataclysm,
+  },
+  {
+    name: '11.0.0',
+    // TODO: Update this for actual 11.0.0 launch
+    timestamp: 1715119200000, // GMT: Tuesday, 7 May 2024 22:00:00
+    urlPrefix: '',
+    isCurrent: true,
+    gameVersion: 1, // retail
+    expansion: Expansion.TheWarWithin,
   },
 ];
 

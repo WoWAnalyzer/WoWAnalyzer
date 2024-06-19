@@ -129,7 +129,7 @@
     "extract": "lingui extract --overwrite --clean",
     "script": "set NODE_ENV=development&&babel-node",
     "postinstall": "patch-package",
-    "prepare": "is-ci || husky install",
+    "prepare": "is-ci || husky",
     "e2e:setup": "node scripts/e2e/generate-configs-bootstrap.cjs",
     "e2e": "yarn e2e:setup && playwright test",
     "e2e:codegen": "playwright codegen http://localhost:3000",

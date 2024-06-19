@@ -59,7 +59,6 @@ class Engulf extends Analyzer {
       return;
     }
     const numPeriodics = this.getNumPeriodicEffects(enemy);
-    console.log(numPeriodics);
     this.damagePeriodicCounts.push(numPeriodics);
     this.damageFromInc += calculateEffectiveDamage(event, ENGULF_PERIODIC_INCREASE * numPeriodics);
   }
@@ -104,7 +103,7 @@ class Engulf extends Analyzer {
             <TooltipElement
               content={
                 <>
-                  <div>Average Periodics: {this.averageHealPeriodics}</div>
+                  <div>Average Periodics: {this.averageHealPeriodics.toFixed(2)}</div>
                   <div>
                     % of healing from periodic increase:{' '}
                     {formatPercentage(this.healingFromInc / this.totalHealing)}%
@@ -119,7 +118,7 @@ class Engulf extends Analyzer {
             <TooltipElement
               content={
                 <>
-                  <div>Average Periodics: {this.averageDamagePeriodics}</div>
+                  <div>Average Periodics: {this.averageDamagePeriodics.toFixed(2)}</div>
                   <div>
                     % of damage from periodic increase:{' '}
                     {formatPercentage(this.damageFromInc / this.totalDamage)}%

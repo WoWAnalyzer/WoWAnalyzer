@@ -40,7 +40,7 @@ export type GenericTalentInterface = {
   maxRanks: number;
   entryIds: number[];
   definitionIds: GenericTalentDefinitionId[];
-  sourceTree?: 'class' | 'spec';
+  sourceTree?: 'class' | 'spec' | 'hero';
   spec?: string;
   reqPoints?: number;
   talentType?: ClassNodeType;
@@ -55,9 +55,8 @@ export interface ITalentObjectByClass {
 }
 
 export interface ITalentTree {
-  // commenting these out to prevent use because they are currently bugged on raidbots
-  // className: string;
-  // classId: number;
+  className: string;
+  classId: number;
   specName: string;
   specId: number;
   classNodes: TalentNode[];

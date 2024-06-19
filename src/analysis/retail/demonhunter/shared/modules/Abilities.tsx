@@ -135,20 +135,20 @@ export default class Abilities extends CoreAbilities {
         damageSpellIds: [SPELLS.SIGIL_OF_FLAME_DEBUFF.id],
       },
       {
-        spell: [TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT.id, SPELLS.ELYSIAN_DECREE_PRECISE.id],
+        spell: [TALENTS_DEMON_HUNTER.SIGIL_OF_SPITE_TALENT.id, SPELLS.SIGIL_OF_SPITE_PRECISE.id],
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 60,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT),
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_SPITE_TALENT),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
           extraSuggestion: (
             <>
               The only time you should delay casting{' '}
-              <SpellLink spell={TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT} /> is when you're
+              <SpellLink spell={TALENTS_DEMON_HUNTER.SIGIL_OF_SPITE_TALENT} /> is when you're
               expecting adds to spawn soon.
             </>
           ),

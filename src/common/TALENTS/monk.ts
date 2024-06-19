@@ -16,7 +16,7 @@ const talents = {
     icon: 'ability_monk_shuffle',
     maxRanks: 1,
     entryIds: [125074],
-    definitionIds: [{ id: 129906, specId: 268 }],
+    definitionIds: [{ id: 129906, specId: 269 }],
   },
   ANCIENT_ARTS_TALENT: {
     id: 344359,
@@ -61,7 +61,7 @@ const talents = {
   ASPECT_OF_HARMONY_TALENT: {
     id: 450508,
     name: 'Aspect of Harmony',
-    icon: 'ability_monk_explodingjadeblossom',
+    icon: 'inv_ability_masterofharmonymonk_aspectofharmony',
     maxRanks: 1,
     entryIds: [125033],
     definitionIds: [{ id: 129869, specId: 270 }],
@@ -213,10 +213,11 @@ const talents = {
   CELESTIAL_CONDUIT_TALENT: {
     id: 443028,
     name: 'Celestial Conduit',
-    icon: 'inv_leather_raidmonkmythic_r_01_bracer',
+    icon: 'inv_ability_conduitofthecelestialsmonk_celestialconduit',
     maxRanks: 1,
     entryIds: [125062],
     definitionIds: [{ id: 129894, specId: 270 }],
+    manaCost: 125000,
   },
   CELESTIAL_DETERMINATION_TALENT: {
     id: 450638,
@@ -453,6 +454,14 @@ const talents = {
     entryIds: [124893],
     definitionIds: [{ id: 129731, specId: 270 }],
   },
+  DARTING_HURRICANE_TALENT: {
+    id: 459839,
+    name: 'Darting Hurricane',
+    icon: 'ability_skyreach_four_wind',
+    maxRanks: 1,
+    entryIds: [126307],
+    definitionIds: [{ id: 131133, specId: 269 }],
+  },
   DEEP_CLARITY_TALENT: {
     id: 446345,
     name: 'Deep Clarity',
@@ -466,11 +475,12 @@ const talents = {
     name: 'Detox',
     icon: 'ability_rogue_imrovedrecuperate',
     maxRanks: 1,
-    entryIds: [124941, 124867],
+    entryIds: [124867, 124941],
     definitionIds: [
-      { id: 129779, specId: 269 },
       { id: 129705, specId: 268 },
+      { id: 129779, specId: 269 },
     ],
+    energyCost: 20,
   },
   DIFFUSE_MAGIC_TALENT: {
     id: 122783,
@@ -487,6 +497,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [124939],
     definitionIds: [{ id: 129777, specId: 270 }],
+    energyCost: 15,
   },
   DRAGONFIRE_BREW_TALENT: {
     id: 383994,
@@ -518,7 +529,7 @@ const talents = {
     icon: 'inv_fistofthewhitetiger',
     maxRanks: 1,
     entryIds: [125072],
-    definitionIds: [{ id: 129904, specId: 268 }],
+    definitionIds: [{ id: 129904, specId: 269 }],
   },
   ELIXIR_OF_DETERMINATION_TALENT: {
     id: 455139,
@@ -583,6 +594,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [124922],
     definitionIds: [{ id: 129760, specId: 270 }],
+    manaCost: 105000,
   },
   ESCAPE_FROM_REALITY_TALENT: {
     id: 394110,
@@ -655,6 +667,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [125026],
     definitionIds: [{ id: 129864, specId: 269 }],
+    chiCost: 3,
   },
   FLIGHT_OF_THE_RED_CRANE_TALENT: {
     id: 443255,
@@ -694,7 +707,7 @@ const talents = {
     icon: 'ability_monk_pathofmists',
     maxRanks: 1,
     entryIds: [125069],
-    definitionIds: [{ id: 129901, specId: 268 }],
+    definitionIds: [{ id: 129901, specId: 269 }],
   },
   FOCUSED_THUNDER_TALENT: {
     id: 197895,
@@ -838,7 +851,7 @@ const talents = {
     icon: 'ability_monk_powerstrikes',
     maxRanks: 1,
     entryIds: [125067],
-    definitionIds: [{ id: 129899, specId: 268 }],
+    definitionIds: [{ id: 129899, specId: 269 }],
   },
   HIGH_TOLERANCE_TALENT: {
     id: 196737,
@@ -930,6 +943,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [124914],
     definitionIds: [{ id: 129752, specId: 270 }],
+    manaCost: 125000,
   },
   INVOKE_NIUZAO_THE_BLACK_OX_TALENT: {
     id: 132578,
@@ -954,6 +968,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [124915],
     definitionIds: [{ id: 129753, specId: 270 }],
+    manaCost: 125000,
   },
   IRONSHELL_BREW_TALENT: {
     id: 388814,
@@ -989,6 +1004,7 @@ const talents = {
       { id: 130858, specId: 269 },
       { id: 129719, specId: 270 },
     ],
+    manaCost: 100000,
   },
   JADE_BOND_TALENT: {
     id: 388031,
@@ -1029,6 +1045,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [124865],
     definitionIds: [{ id: 129703, specId: 268 }],
+    energyCost: 40,
   },
   KNOWLEDGE_OF_THE_BROKEN_TEMPLE_TALENT: {
     id: 451529,
@@ -1052,7 +1069,7 @@ const talents = {
     icon: 'ability_monk_quipunch',
     maxRanks: 1,
     entryIds: [125075],
-    definitionIds: [{ id: 129907, specId: 268 }],
+    definitionIds: [{ id: 129907, specId: 269 }],
   },
   LEGACY_OF_WISDOM_TALENT: {
     id: 404408,
@@ -1077,6 +1094,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [124875],
     definitionIds: [{ id: 129713, specId: 270 }],
+    manaCost: 60000,
   },
   LIGHTER_THAN_AIR_TALENT: {
     id: 449582,
@@ -1109,6 +1127,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [124920],
     definitionIds: [{ id: 129758, specId: 270 }],
+    manaCost: 25000,
   },
   MANIFESTATION_TALENT: {
     id: 450875,
@@ -1156,7 +1175,7 @@ const talents = {
     icon: 'ability_monk_jab',
     maxRanks: 1,
     entryIds: [125066],
-    definitionIds: [{ id: 129898, specId: 268 }],
+    definitionIds: [{ id: 129898, specId: 269 }],
   },
   MEMORY_OF_THE_MONASTERY_TALENT: {
     id: 454969,
@@ -1236,7 +1255,7 @@ const talents = {
     icon: 'ability_monk_chargingoxwave',
     maxRanks: 1,
     entryIds: [125071],
-    definitionIds: [{ id: 129903, specId: 268 }],
+    definitionIds: [{ id: 129903, specId: 269 }],
   },
   ONE_WITH_THE_WIND_TALENT: {
     id: 454484,
@@ -1285,6 +1304,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [124932],
     definitionIds: [{ id: 129770, specId: 270 }],
+    energyCost: 20,
   },
   PATH_OF_JADE_TALENT: {
     id: 392994,
@@ -1334,13 +1354,21 @@ const talents = {
     entryIds: [125932],
     definitionIds: [{ id: 130763, specId: 270 }],
   },
+  POWER_OF_THE_THUNDER_KING_TALENT: {
+    id: 459809,
+    name: 'Power of the Thunder King',
+    icon: 'ability_thunderking_thunderstruck',
+    maxRanks: 1,
+    entryIds: [126309],
+    definitionIds: [{ id: 131135, specId: 269 }],
+  },
   PREDICTIVE_TRAINING_TALENT: {
     id: 450992,
     name: 'Predictive Training',
     icon: 'ability_monk_domeofmist',
     maxRanks: 1,
     entryIds: [125064],
-    definitionIds: [{ id: 129896, specId: 268 }],
+    definitionIds: [{ id: 129896, specId: 269 }],
   },
   PRESSURE_POINTS_TALENT: {
     id: 450432,
@@ -1372,7 +1400,7 @@ const talents = {
     icon: 'inv_staff_2h_pandarenmonk_c_01',
     maxRanks: 1,
     entryIds: [125068],
-    definitionIds: [{ id: 129900, specId: 268 }],
+    definitionIds: [{ id: 129900, specId: 269 }],
   },
   PROFOUND_REBUTTAL_TALENT: {
     id: 392910,
@@ -1388,7 +1416,7 @@ const talents = {
     icon: 'ability_monk_vivify',
     maxRanks: 1,
     entryIds: [125076],
-    definitionIds: [{ id: 129908, specId: 268 }],
+    definitionIds: [{ id: 129908, specId: 269 }],
   },
   PURIFIED_SPIRIT_TALENT: {
     id: 450867,
@@ -1445,6 +1473,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [124888],
     definitionIds: [{ id: 129726, specId: 270 }],
+    manaCost: 45000,
   },
   RESPLENDENT_MIST_TALENT: {
     id: 388020,
@@ -1461,6 +1490,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [124918],
     definitionIds: [{ id: 129756, specId: 270 }],
+    manaCost: 109350,
   },
   RESTORE_BALANCE_TALENT: {
     id: 442719,
@@ -1477,6 +1507,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [124919],
     definitionIds: [{ id: 129757, specId: 270 }],
+    manaCost: 109350,
   },
   REVOLVING_WHIRL_TALENT: {
     id: 451524,
@@ -1517,6 +1548,8 @@ const talents = {
     maxRanks: 1,
     entryIds: [124985],
     definitionIds: [{ id: 129823, specId: 270 }],
+    chiCost: 2,
+    manaCost: 62500,
   },
   ROAR_FROM_THE_HEAVENS_TALENT: {
     id: 451043,
@@ -1533,6 +1566,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [125007],
     definitionIds: [{ id: 129845, specId: 268 }],
+    chiCost: 1,
   },
   RUSHING_JADE_WIND_WINDWALKER_TALENT: {
     id: 451505,
@@ -1621,6 +1655,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [124904],
     definitionIds: [{ id: 129742, specId: 270 }],
+    manaCost: 62500,
   },
   SHUFFLE_TALENT: {
     id: 322120,
@@ -1751,6 +1786,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [125022],
     definitionIds: [{ id: 129860, specId: 269 }],
+    chiCost: 2,
   },
   SUMMON_BLACK_OX_STATUE_TALENT: {
     id: 115315,
@@ -1950,7 +1986,7 @@ const talents = {
     icon: 'ability_monk_provoke',
     maxRanks: 1,
     entryIds: [125070],
-    definitionIds: [{ id: 129902, specId: 268 }],
+    definitionIds: [{ id: 129902, specId: 269 }],
   },
   VIGILANT_WATCH_TALENT: {
     id: 450993,
@@ -1958,7 +1994,7 @@ const talents = {
     icon: 'ability_rogue_masterofsubtlety',
     maxRanks: 1,
     entryIds: [125063],
-    definitionIds: [{ id: 129895, specId: 268 }],
+    definitionIds: [{ id: 129895, specId: 269 }],
   },
   VIGOROUS_EXPULSION_TALENT: {
     id: 392900,
@@ -1999,6 +2035,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [124996],
     definitionIds: [{ id: 129834, specId: 268 }],
+    manaCost: 125000,
   },
   WHIRLING_DRAGON_PUNCH_TALENT: {
     id: 152175,
@@ -2014,7 +2051,7 @@ const talents = {
     icon: 'ability_whirlwind',
     maxRanks: 1,
     entryIds: [125065],
-    definitionIds: [{ id: 129897, specId: 268 }],
+    definitionIds: [{ id: 129897, specId: 269 }],
   },
   WINDS_REACH_TALENT: {
     id: 450514,
@@ -2038,7 +2075,7 @@ const talents = {
     icon: 'inv_legendary_sigilofwisdom',
     maxRanks: 1,
     entryIds: [125073],
-    definitionIds: [{ id: 129905, specId: 268 }],
+    definitionIds: [{ id: 129905, specId: 269 }],
   },
   XUENS_BATTLEGEAR_TALENT: {
     id: 392993,
