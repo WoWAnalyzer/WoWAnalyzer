@@ -14,6 +14,7 @@ import {
   RISING_MIST,
   TFT_REM_EXTRA_DURATION,
 } from '../../constants';
+import { HealEvent } from 'parser/core/Events';
 
 const HARDCAST = 'Hardcast';
 
@@ -33,6 +34,17 @@ class HotTrackerMW extends HotTracker {
       TALENTS_MONK.RAPID_DIFFUSION_TALENT,
     );
     this.risingMistActive = this.owner.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT);
+  }
+
+  /**
+   * Checks if the target of the event currently has the specified HoT on them
+   * @param event the healing event to check
+   * @param spellId the spellId of the HoT to check for
+   * @return true if the target of the event has the specificed HoT, false if not
+   */
+  hasHot(event: HealEvent, spellId: number): boolean {
+    const targetId = event.targetID;
+    return !(!this.hots[targetId] || !this.hots[targetId][spellId]);
   }
 
   fromRapidDiffusionRisingSunKick(hot: Tracker): boolean {

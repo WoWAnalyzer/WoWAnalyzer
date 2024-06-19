@@ -16,7 +16,7 @@ const talents = {
     icon: 'ability_evoker_aerialmastery',
     maxRanks: 1,
     entryIds: [115667],
-    definitionIds: [{ id: 120679, specId: 1467 }],
+    definitionIds: [{ id: 120679, specId: 1473 }],
   },
   AFTERIMAGE_TALENT: {
     id: 431875,
@@ -24,7 +24,7 @@ const talents = {
     icon: 'ability_evoker_livingflame',
     maxRanks: 1,
     entryIds: [117526],
-    definitionIds: [{ id: 122538, specId: 1468 }],
+    definitionIds: [{ id: 122538, specId: 1473 }],
   },
   ANACHRONISM_TALENT: {
     id: 407869,
@@ -40,7 +40,7 @@ const talents = {
     icon: 'inv_elemental_mote_fire01',
     maxRanks: 1,
     entryIds: [115577],
-    definitionIds: [{ id: 120589, specId: 1467 }],
+    definitionIds: [{ id: 120589, specId: 1473 }],
   },
   ANIMOSITY_TALENT: {
     id: 375797,
@@ -88,7 +88,7 @@ const talents = {
     icon: 'ability_rogue_imrovedrecuperate',
     maxRanks: 2,
     entryIds: [115600],
-    definitionIds: [{ id: 120612, specId: 1467 }],
+    definitionIds: [{ id: 120612, specId: 1473 }],
   },
   AZURE_ESSENCE_BURST_TALENT: {
     id: 375721,
@@ -112,7 +112,7 @@ const talents = {
     icon: 'ability_evoker_firebreath',
     maxRanks: 1,
     entryIds: [115618],
-    definitionIds: [{ id: 120630, specId: 1467 }],
+    definitionIds: [{ id: 120630, specId: 1473 }],
   },
   BLISTERING_SCALES_TALENT: {
     id: 360827,
@@ -125,10 +125,10 @@ const talents = {
   BOMBARDMENTS_TALENT: {
     id: 434300,
     name: 'Bombardments',
-    icon: 'ability_evoker_seismicslam',
+    icon: 'inv_ability_scalecommanderevoker_bombardments',
     maxRanks: 1,
     entryIds: [117533],
-    definitionIds: [{ id: 122545, specId: 1467 }],
+    definitionIds: [{ id: 122545, specId: 1473 }],
   },
   BOUNTIFUL_BLOOM_TALENT: {
     id: 370886,
@@ -136,7 +136,7 @@ const talents = {
     icon: 'ability_evoker_emeraldblossom',
     maxRanks: 1,
     entryIds: [115599],
-    definitionIds: [{ id: 120611, specId: 1467 }],
+    definitionIds: [{ id: 120611, specId: 1473 }],
   },
   BREATH_OF_EONS_TALENT: {
     id: 403631,
@@ -152,7 +152,7 @@ const talents = {
     icon: 'inv_gauntlets_03',
     maxRanks: 1,
     entryIds: [117543],
-    definitionIds: [{ id: 122555, specId: 1467 }],
+    definitionIds: [{ id: 122555, specId: 1468 }],
   },
   BURNOUT_TALENT: {
     id: 375801,
@@ -192,7 +192,8 @@ const talents = {
     icon: 'ability_evoker_fontofmagic_red',
     maxRanks: 1,
     entryIds: [115602],
-    definitionIds: [{ id: 120614, specId: 1467 }],
+    definitionIds: [{ id: 120614, specId: 1473 }],
+    manaCost: 35000,
   },
   CHARGED_BLAST_TALENT: {
     id: 370455,
@@ -205,10 +206,10 @@ const talents = {
   CHRONO_FLAME_TALENT: {
     id: 431442,
     name: 'Chrono Flame',
-    icon: 'ability_evoker_pupilofalexstraza',
+    icon: 'inv_ability_chronowardenevoker_chronoflame',
     maxRanks: 1,
     entryIds: [117551],
-    definitionIds: [{ id: 122563, specId: 1468 }],
+    definitionIds: [{ id: 122563, specId: 1473 }],
   },
   CHRONO_WARD_TALENT: {
     id: 409676,
@@ -224,7 +225,7 @@ const talents = {
     icon: 'ability_racial_tailswipe',
     maxRanks: 1,
     entryIds: [115604],
-    definitionIds: [{ id: 120616, specId: 1467 }],
+    definitionIds: [{ id: 120616, specId: 1473 }],
   },
   CONDUIT_OF_FLAME_TALENT: {
     id: 444843,
@@ -232,7 +233,7 @@ const talents = {
     icon: 'ability_evoker_innatemagic5',
     maxRanks: 1,
     entryIds: [117546],
-    definitionIds: [{ id: 122558, specId: 1467 }],
+    definitionIds: [{ id: 122558, specId: 1468 }],
   },
   CONSUME_FLAME_TALENT: {
     id: 444088,
@@ -240,7 +241,7 @@ const talents = {
     icon: 'inv_shadowflames_wave',
     maxRanks: 1,
     entryIds: [117519],
-    definitionIds: [{ id: 122531, specId: 1467 }],
+    definitionIds: [{ id: 122531, specId: 1468 }],
   },
   CYCLE_OF_LIFE_TALENT: {
     id: 371832,
@@ -280,7 +281,7 @@ const talents = {
     icon: 'ability_evoker_powerswell',
     maxRanks: 1,
     entryIds: [120124],
-    definitionIds: [{ id: 125024, specId: 1467 }],
+    definitionIds: [{ id: 125024, specId: 1473 }],
   },
   DOUBLE_TIME_TALENT: {
     id: 431874,
@@ -288,7 +289,7 @@ const talents = {
     icon: 'spell_holy_borrowedtime',
     maxRanks: 1,
     entryIds: [117529],
-    definitionIds: [{ id: 122541, specId: 1468 }],
+    definitionIds: [{ id: 122541, specId: 1473 }],
   },
   DRACONIC_ATTUNEMENTS_TALENT: {
     id: 403208,
@@ -304,7 +305,7 @@ const talents = {
     icon: 'inv_misc_scales_basilliskorange',
     maxRanks: 1,
     entryIds: [123405],
-    definitionIds: [{ id: 128243, specId: 1467 }],
+    definitionIds: [{ id: 128243, specId: 1468 }],
   },
   DRACONIC_LEGACY_TALENT: {
     id: 376166,
@@ -312,7 +313,7 @@ const talents = {
     icon: 'inv_helm_mail_dracthyrquest_b_02',
     maxRanks: 1,
     entryIds: [115609],
-    definitionIds: [{ id: 120621, specId: 1467 }],
+    definitionIds: [{ id: 120621, specId: 1473 }],
   },
   DRAGONRAGE_TALENT: {
     id: 375087,
@@ -337,6 +338,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [115542],
     definitionIds: [{ id: 120554, specId: 1468 }],
+    manaCost: 122500,
   },
   DREAM_FLIGHT_TALENT: {
     id: 359816,
@@ -345,6 +347,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [115573],
     definitionIds: [{ id: 120585, specId: 1468 }],
+    manaCost: 100000,
   },
   DREAM_OF_SPRING_TALENT: {
     id: 414969,
@@ -361,6 +364,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [115496],
     definitionIds: [{ id: 120508, specId: 1473 }],
+    manaCost: 25000,
   },
   ECHOING_STRIKE_TALENT: {
     id: 410784,
@@ -377,6 +381,8 @@ const talents = {
     maxRanks: 1,
     entryIds: [115653],
     definitionIds: [{ id: 120665, specId: 1468 }],
+    essenceCost: 2,
+    manaCost: 47500,
   },
   EMERALD_COMMUNION_TALENT: {
     id: 370960,
@@ -413,10 +419,11 @@ const talents = {
   ENGULF_TALENT: {
     id: 443328,
     name: 'Engulf',
-    icon: 'ability_evoker_essenceburst4',
+    icon: 'inv_ability_flameshaperevoker_engulf',
     maxRanks: 1,
     entryIds: [117547],
-    definitionIds: [{ id: 122559, specId: 1467 }],
+    definitionIds: [{ id: 122559, specId: 1468 }],
+    manaCost: 35000,
   },
   ENKINDLED_TALENT: {
     id: 375554,
@@ -424,7 +431,7 @@ const talents = {
     icon: 'ability_evoker_livingflame',
     maxRanks: 2,
     entryIds: [115603],
-    definitionIds: [{ id: 120615, specId: 1467 }],
+    definitionIds: [{ id: 120615, specId: 1473 }],
   },
   ENKINDLE_TALENT: {
     id: 444016,
@@ -432,7 +439,7 @@ const talents = {
     icon: 'inv_10_elementalcombinedfoozles_purifiedshadowflame',
     maxRanks: 1,
     entryIds: [117553],
-    definitionIds: [{ id: 122565, specId: 1467 }],
+    definitionIds: [{ id: 122565, specId: 1468 }],
   },
   ERASURE_TALENT: {
     id: 376210,
@@ -449,17 +456,18 @@ const talents = {
     maxRanks: 1,
     entryIds: [115498],
     definitionIds: [{ id: 120510, specId: 1473 }],
+    essenceCost: 3,
   },
   ESSENCE_ATTUNEMENT_TALENT: {
     id: 375722,
     name: 'Essence Attunement',
     icon: 'ability_evoker_essenceburststacks',
     maxRanks: 1,
-    entryIds: [115519, 115540, 115631],
+    entryIds: [115631, 115540, 115519],
     definitionIds: [
-      { id: 120531, specId: 1473 },
-      { id: 120552, specId: 1468 },
       { id: 120643, specId: 1467 },
+      { id: 120552, specId: 1468 },
+      { id: 120531, specId: 1473 },
     ],
   },
   ESSENCE_BURST_AUGMENTATION_TALENT: {
@@ -516,7 +524,7 @@ const talents = {
     icon: 'inv_fyrakk_dragonbreath',
     maxRanks: 1,
     entryIds: [123767],
-    definitionIds: [{ id: 128605, specId: 1467 }],
+    definitionIds: [{ id: 128605, specId: 1468 }],
   },
   EXPUNGE_TALENT: {
     id: 365585,
@@ -524,7 +532,8 @@ const talents = {
     icon: 'ability_evoker_fontofmagic_green',
     maxRanks: 1,
     entryIds: [115615],
-    definitionIds: [{ id: 120627, specId: 1467 }],
+    definitionIds: [{ id: 120627, specId: 1473 }],
+    manaCost: 250000,
   },
   EXTENDED_BATTLE_TALENT: {
     id: 441212,
@@ -532,7 +541,7 @@ const talents = {
     icon: 'ability_evoker_divideandconquer',
     maxRanks: 1,
     entryIds: [117525],
-    definitionIds: [{ id: 122537, specId: 1467 }],
+    definitionIds: [{ id: 122537, specId: 1473 }],
   },
   EXTENDED_FLIGHT_TALENT: {
     id: 375517,
@@ -540,7 +549,7 @@ const talents = {
     icon: 'ability_evoker_hover',
     maxRanks: 2,
     entryIds: [115664],
-    definitionIds: [{ id: 120676, specId: 1467 }],
+    definitionIds: [{ id: 120676, specId: 1473 }],
   },
   EXUBERANCE_TALENT: {
     id: 375542,
@@ -548,7 +557,7 @@ const talents = {
     icon: 'ability_evoker_hover2',
     maxRanks: 1,
     entryIds: [115608],
-    definitionIds: [{ id: 120620, specId: 1467 }],
+    definitionIds: [{ id: 120620, specId: 1473 }],
   },
   EYE_OF_INFINITY_TALENT: {
     id: 411165,
@@ -564,7 +573,7 @@ const talents = {
     icon: 'ability_evoker_oppressingroar2',
     maxRanks: 1,
     entryIds: [117520],
-    definitionIds: [{ id: 122532, specId: 1467 }],
+    definitionIds: [{ id: 122532, specId: 1468 }],
   },
   FATE_MIRROR_TALENT: {
     id: 412774,
@@ -604,7 +613,7 @@ const talents = {
     icon: 'item_sparkofragnoros',
     maxRanks: 1,
     entryIds: [115659],
-    definitionIds: [{ id: 120671, specId: 1467 }],
+    definitionIds: [{ id: 120671, specId: 1473 }],
   },
   FLOW_STATE_TALENT: {
     id: 385696,
@@ -628,7 +637,7 @@ const talents = {
     icon: 'spell_fire_incinerate',
     maxRanks: 1,
     entryIds: [115660],
-    definitionIds: [{ id: 120672, specId: 1467 }],
+    definitionIds: [{ id: 120672, specId: 1473 }],
   },
   FOCUSING_IRIS_TALENT: {
     id: 386336,
@@ -668,7 +677,7 @@ const talents = {
     icon: 'ability_earthen_pillar',
     maxRanks: 1,
     entryIds: [115576],
-    definitionIds: [{ id: 120588, specId: 1467 }],
+    definitionIds: [{ id: 120588, specId: 1473 }],
   },
   GOLDEN_HOUR_TALENT: {
     id: 378196,
@@ -683,8 +692,8 @@ const talents = {
     name: 'Golden Opportunity',
     icon: 'achievement_faction_goldenlotus',
     maxRanks: 1,
-    entryIds: [117785],
-    definitionIds: [{ id: 122797, specId: 1468 }],
+    entryIds: [117539],
+    definitionIds: [{ id: 122551, specId: 1473 }],
   },
   GRACE_PERIOD_TALENT: {
     id: 376239,
@@ -700,7 +709,7 @@ const talents = {
     icon: 'inv_10_skinning_scales_black',
     maxRanks: 1,
     entryIds: [117530],
-    definitionIds: [{ id: 122542, specId: 1467 }],
+    definitionIds: [{ id: 122542, specId: 1473 }],
   },
   HEAT_WAVE_TALENT: {
     id: 375725,
@@ -716,17 +725,17 @@ const talents = {
     icon: 'ability_racial_wingbuffet',
     maxRanks: 1,
     entryIds: [115605],
-    definitionIds: [{ id: 120617, specId: 1467 }],
+    definitionIds: [{ id: 120617, specId: 1473 }],
   },
   HOARDED_POWER_TALENT: {
     id: 375796,
     name: 'Hoarded Power',
     icon: 'ability_evoker_innatemagic2',
     maxRanks: 1,
-    entryIds: [115512, 115637],
+    entryIds: [115637, 115512],
     definitionIds: [
-      { id: 120524, specId: 1473 },
       { id: 120649, specId: 1467 },
+      { id: 120524, specId: 1473 },
     ],
   },
   HONED_AGGRESSION_TALENT: {
@@ -745,7 +754,15 @@ const talents = {
     entryIds: [115531],
     definitionIds: [{ id: 120543, specId: 1473 }],
   },
-  IMMINENT_DESTRUCTION_TALENT: {
+  IMMINENT_DESTRUCTION_AUGMENTATION_TALENT: {
+    id: 459537,
+    name: 'Imminent Destruction',
+    icon: 'spell_burningbladeshaman_blazing_radiance',
+    maxRanks: 1,
+    entryIds: [126304],
+    definitionIds: [{ id: 131130, specId: 1473 }],
+  },
+  IMMINENT_DESTRUCTION_DEVASTATION_TALENT: {
     id: 370781,
     name: 'Imminent Destruction',
     icon: 'spell_burningbladeshaman_blazing_radiance',
@@ -758,10 +775,10 @@ const talents = {
     name: 'Imposing Presence',
     icon: 'ability_evoker_quell',
     maxRanks: 1,
-    entryIds: [115497, 115645],
+    entryIds: [115645, 115497],
     definitionIds: [
-      { id: 120509, specId: 1473 },
       { id: 120657, specId: 1467 },
+      { id: 120509, specId: 1473 },
     ],
   },
   INFERNOS_BLESSING_TALENT: {
@@ -778,7 +795,7 @@ const talents = {
     icon: 'inv_misc_rubysanctum1',
     maxRanks: 2,
     entryIds: [115670],
-    definitionIds: [{ id: 120682, specId: 1467 }],
+    definitionIds: [{ id: 120682, specId: 1473 }],
   },
   INNATE_MAGIC_TALENT: {
     id: 375520,
@@ -786,17 +803,17 @@ const talents = {
     icon: 'ability_evoker_innatemagic4',
     maxRanks: 2,
     entryIds: [115611],
-    definitionIds: [{ id: 120623, specId: 1467 }],
+    definitionIds: [{ id: 120623, specId: 1473 }],
   },
   INNER_RADIANCE_TALENT: {
     id: 386405,
     name: 'Inner Radiance',
     icon: 'spell_holy_spellwarding',
     maxRanks: 1,
-    entryIds: [115690, 115644],
+    entryIds: [115644, 115690],
     definitionIds: [
-      { id: 120702, specId: 1473 },
       { id: 120656, specId: 1467 },
+      { id: 120702, specId: 1473 },
     ],
   },
   INSTABILITY_MATRIX_TALENT: {
@@ -804,8 +821,8 @@ const talents = {
     name: 'Instability Matrix',
     icon: 'ability_evoker_masterylifebinder_blue',
     maxRanks: 1,
-    entryIds: [117539],
-    definitionIds: [{ id: 122551, specId: 1468 }],
+    entryIds: [126310],
+    definitionIds: [{ id: 131136, specId: 1473 }],
   },
   INSTINCTIVE_ARCANA_TALENT: {
     id: 376164,
@@ -813,7 +830,7 @@ const talents = {
     icon: 'spell_arcane_studentofmagic',
     maxRanks: 2,
     entryIds: [115619],
-    definitionIds: [{ id: 120631, specId: 1467 }],
+    definitionIds: [{ id: 120631, specId: 1473 }],
   },
   INTERWOVEN_THREADS_TALENT: {
     id: 412713,
@@ -845,7 +862,8 @@ const talents = {
     icon: 'ability_earthen_pillar',
     maxRanks: 1,
     entryIds: [115614],
-    definitionIds: [{ id: 120626, specId: 1467 }],
+    definitionIds: [{ id: 120626, specId: 1473 }],
+    manaCost: 35000,
   },
   LAY_WASTE_TALENT: {
     id: 371034,
@@ -861,7 +879,7 @@ const talents = {
     icon: 'spell_fire_flare',
     maxRanks: 1,
     entryIds: [115657],
-    definitionIds: [{ id: 120669, specId: 1467 }],
+    definitionIds: [{ id: 120669, specId: 1473 }],
   },
   LIFEBIND_TALENT: {
     id: 373270,
@@ -877,7 +895,7 @@ const talents = {
     icon: 'inv_misc_herb_cinderbloom_petal',
     maxRanks: 1,
     entryIds: [117528],
-    definitionIds: [{ id: 122540, specId: 1467 }],
+    definitionIds: [{ id: 122540, specId: 1468 }],
   },
   LIFEFORCE_MENDER_TALENT: {
     id: 376179,
@@ -909,7 +927,7 @@ const talents = {
     icon: 'inv_staff_2h_bloodelf_c_01',
     maxRanks: 2,
     entryIds: [115662],
-    definitionIds: [{ id: 120674, specId: 1467 }],
+    definitionIds: [{ id: 120674, specId: 1473 }],
   },
   MANEUVERABILITY_TALENT: {
     id: 433871,
@@ -917,7 +935,7 @@ const talents = {
     icon: 'ability_evoker_deepbreath',
     maxRanks: 1,
     entryIds: [117538],
-    definitionIds: [{ id: 122550, specId: 1467 }],
+    definitionIds: [{ id: 122550, specId: 1473 }],
   },
   MASS_DISINTEGRATE_TALENT: {
     id: 436335,
@@ -925,7 +943,7 @@ const talents = {
     icon: 'ability_evoker_disintegrate',
     maxRanks: 1,
     entryIds: [117536],
-    definitionIds: [{ id: 122548, specId: 1467 }],
+    definitionIds: [{ id: 122548, specId: 1473 }],
   },
   MASS_ERUPTION_TALENT: {
     id: 438587,
@@ -941,7 +959,7 @@ const talents = {
     icon: 'ability_evoker_defyfate',
     maxRanks: 1,
     entryIds: [117527],
-    definitionIds: [{ id: 122539, specId: 1468 }],
+    definitionIds: [{ id: 122539, specId: 1473 }],
   },
   MELT_ARMOR_TALENT: {
     id: 441176,
@@ -949,7 +967,7 @@ const talents = {
     icon: 'inv_10_gearupgrade_drakesshadowflameenhancedcrest',
     maxRanks: 1,
     entryIds: [117518],
-    definitionIds: [{ id: 122530, specId: 1467 }],
+    definitionIds: [{ id: 122530, specId: 1473 }],
   },
   MENACING_PRESENCE_TALENT: {
     id: 441181,
@@ -957,7 +975,7 @@ const talents = {
     icon: 'ability_racial_wingbuffet',
     maxRanks: 1,
     entryIds: [120125],
-    definitionIds: [{ id: 125025, specId: 1467 }],
+    definitionIds: [{ id: 125025, specId: 1473 }],
   },
   MIGHT_OF_THE_BLACK_DRAGONFLIGHT_TALENT: {
     id: 441705,
@@ -965,7 +983,7 @@ const talents = {
     icon: 'ability_evoker_blackattunementalt',
     maxRanks: 1,
     entryIds: [117549],
-    definitionIds: [{ id: 122561, specId: 1467 }],
+    definitionIds: [{ id: 122561, specId: 1473 }],
   },
   MOLTEN_BLOOD_TALENT: {
     id: 410643,
@@ -974,6 +992,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [115510],
     definitionIds: [{ id: 120522, specId: 1473 }],
+  },
+  MOLTEN_EMBERS_TALENT: {
+    id: 459725,
+    name: 'Molten Embers',
+    icon: 'ability_evoker_earthensky',
+    maxRanks: 1,
+    entryIds: [126305],
+    definitionIds: [{ id: 131131, specId: 1473 }],
   },
   MOMENTUM_SHIFT_TALENT: {
     id: 408004,
@@ -989,7 +1015,7 @@ const talents = {
     icon: 'item_timemote_icon',
     maxRanks: 1,
     entryIds: [117784],
-    definitionIds: [{ id: 122796, specId: 1468 }],
+    definitionIds: [{ id: 122796, specId: 1473 }],
   },
   MOTES_OF_POSSIBILITY_TALENT: {
     id: 409267,
@@ -1005,7 +1031,7 @@ const talents = {
     icon: 'spell_frost_frostblast',
     maxRanks: 1,
     entryIds: [115621],
-    definitionIds: [{ id: 120633, specId: 1467 }],
+    definitionIds: [{ id: 120633, specId: 1473 }],
   },
   NIMBLE_FLYER_TALENT: {
     id: 441253,
@@ -1013,7 +1039,7 @@ const talents = {
     icon: 'ability_evoker_hover',
     maxRanks: 1,
     entryIds: [117540],
-    definitionIds: [{ id: 122552, specId: 1467 }],
+    definitionIds: [{ id: 122552, specId: 1473 }],
   },
   NOZDORMUS_TEACHINGS_TALENT: {
     id: 376237,
@@ -1029,7 +1055,7 @@ const talents = {
     icon: 'inv_shield_1h_revenantfire_d_01',
     maxRanks: 1,
     entryIds: [115597],
-    definitionIds: [{ id: 120609, specId: 1467 }],
+    definitionIds: [{ id: 120609, specId: 1473 }],
   },
   OBSIDIAN_SCALES_TALENT: {
     id: 363916,
@@ -1037,7 +1063,7 @@ const talents = {
     icon: 'inv_artifact_dragonscales',
     maxRanks: 1,
     entryIds: [115613],
-    definitionIds: [{ id: 120625, specId: 1467 }],
+    definitionIds: [{ id: 120625, specId: 1473 }],
   },
   ONSLAUGHT_TALENT: {
     id: 441245,
@@ -1045,7 +1071,7 @@ const talents = {
     icon: 'spell_fire_soulburn',
     maxRanks: 1,
     entryIds: [117541],
-    definitionIds: [{ id: 122553, specId: 1467 }],
+    definitionIds: [{ id: 122553, specId: 1473 }],
   },
   ONYX_LEGACY_TALENT: {
     id: 386348,
@@ -1061,7 +1087,7 @@ const talents = {
     icon: 'ability_evoker_oppressingroar',
     maxRanks: 1,
     entryIds: [115607],
-    definitionIds: [{ id: 120619, specId: 1467 }],
+    definitionIds: [{ id: 120619, specId: 1473 }],
   },
   OUROBOROS_TALENT: {
     id: 381921,
@@ -1077,7 +1103,7 @@ const talents = {
     icon: 'ability_evoker_oppressingroar2',
     maxRanks: 1,
     entryIds: [115606],
-    definitionIds: [{ id: 120618, specId: 1467 }],
+    definitionIds: [{ id: 120618, specId: 1473 }],
   },
   OVERLORD_TALENT: {
     id: 410260,
@@ -1093,7 +1119,7 @@ const talents = {
     icon: 'ability_druid_protectionofthegrove',
     maxRanks: 1,
     entryIds: [115663],
-    definitionIds: [{ id: 120675, specId: 1467 }],
+    definitionIds: [{ id: 120675, specId: 1473 }],
   },
   PERILOUS_FATE_TALENT: {
     id: 410253,
@@ -1109,7 +1135,7 @@ const talents = {
     icon: 'spell_frost_coldhearted',
     maxRanks: 1,
     entryIds: [115612],
-    definitionIds: [{ id: 120624, specId: 1467 }],
+    definitionIds: [{ id: 120624, specId: 1473 }],
   },
   PLOT_THE_FUTURE_TALENT: {
     id: 407866,
@@ -1125,18 +1151,18 @@ const talents = {
     icon: 'spell_magic_managain',
     maxRanks: 1,
     entryIds: [116103],
-    definitionIds: [{ id: 121115, specId: 1467 }],
+    definitionIds: [{ id: 121115, specId: 1473 }],
   },
   POWER_NEXUS_TALENT: {
     id: 369908,
     name: 'Power Nexus',
     icon: 'ability_evoker_powernexus',
     maxRanks: 1,
-    entryIds: [115499, 115553, 115582],
+    entryIds: [115582, 115553, 115499],
     definitionIds: [
-      { id: 120511, specId: 1473 },
-      { id: 120565, specId: 1468 },
       { id: 120594, specId: 1467 },
+      { id: 120565, specId: 1468 },
+      { id: 120511, specId: 1473 },
     ],
   },
   POWER_SWELL_TALENT: {
@@ -1161,7 +1187,7 @@ const talents = {
     icon: 'inv_misc_pocketwatch_01',
     maxRanks: 1,
     entryIds: [117548],
-    definitionIds: [{ id: 122560, specId: 1468 }],
+    definitionIds: [{ id: 122560, specId: 1473 }],
   },
   PROLONG_LIFE_TALENT: {
     id: 410687,
@@ -1177,7 +1203,7 @@ const talents = {
     icon: 'ability_evoker_azurestrike',
     maxRanks: 1,
     entryIds: [115616],
-    definitionIds: [{ id: 120628, specId: 1467 }],
+    definitionIds: [{ id: 120628, specId: 1473 }],
   },
   PUNCTUALITY_TALENT: {
     id: 371270,
@@ -1202,6 +1228,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [115647],
     definitionIds: [{ id: 120659, specId: 1467 }],
+    essenceCost: 3,
   },
   QUELL_TALENT: {
     id: 351338,
@@ -1209,7 +1236,7 @@ const talents = {
     icon: 'ability_evoker_quell',
     maxRanks: 1,
     entryIds: [115620],
-    definitionIds: [{ id: 120632, specId: 1467 }],
+    definitionIds: [{ id: 120632, specId: 1473 }],
   },
   REACTIVE_HIDE_TALENT: {
     id: 409329,
@@ -1225,7 +1252,7 @@ const talents = {
     icon: 'ability_evoker_recall',
     maxRanks: 1,
     entryIds: [115610],
-    definitionIds: [{ id: 120622, specId: 1467 }],
+    definitionIds: [{ id: 120622, specId: 1473 }],
   },
   RED_HOT_TALENT: {
     id: 444081,
@@ -1233,7 +1260,7 @@ const talents = {
     icon: 'ability_ironmaidens_grapeshotblast',
     maxRanks: 1,
     entryIds: [117542],
-    definitionIds: [{ id: 122554, specId: 1467 }],
+    definitionIds: [{ id: 122554, specId: 1468 }],
   },
   REGENERATIVE_CHITIN_TALENT: {
     id: 406907,
@@ -1249,7 +1276,7 @@ const talents = {
     icon: 'spell_frost_manarecharge',
     maxRanks: 1,
     entryIds: [115668],
-    definitionIds: [{ id: 120680, specId: 1467 }],
+    definitionIds: [{ id: 120680, specId: 1473 }],
   },
   RENEWING_BLAZE_TALENT: {
     id: 374348,
@@ -1257,7 +1284,7 @@ const talents = {
     icon: 'ability_evoker_masterylifebinder_red',
     maxRanks: 1,
     entryIds: [115669],
-    definitionIds: [{ id: 120681, specId: 1467 }],
+    definitionIds: [{ id: 120681, specId: 1473 }],
   },
   RENEWING_BREATH_TALENT: {
     id: 371257,
@@ -1273,7 +1300,7 @@ const talents = {
     icon: 'ability_evoker_flywithme',
     maxRanks: 1,
     entryIds: [115596],
-    definitionIds: [{ id: 120608, specId: 1467 }],
+    definitionIds: [{ id: 120608, specId: 1473 }],
   },
   RESONATING_SPHERE_TALENT: {
     id: 376236,
@@ -1289,7 +1316,7 @@ const talents = {
     icon: 'ability_evoker_giftoftheaspects',
     maxRanks: 1,
     entryIds: [117522],
-    definitionIds: [{ id: 122534, specId: 1468 }],
+    definitionIds: [{ id: 122534, specId: 1473 }],
   },
   REVERSION_TALENT: {
     id: 366155,
@@ -1298,6 +1325,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [115652],
     definitionIds: [{ id: 120664, specId: 1468 }],
+    manaCost: 70000,
   },
   REWIND_TALENT: {
     id: 363534,
@@ -1306,6 +1334,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [115651],
     definitionIds: [{ id: 120663, specId: 1468 }],
+    manaCost: 137500,
   },
   RICOCHETING_PYROCLAST_TALENT: {
     id: 406659,
@@ -1353,7 +1382,7 @@ const talents = {
     icon: 'inv_bijou_red',
     maxRanks: 1,
     entryIds: [115654],
-    definitionIds: [{ id: 120666, specId: 1467 }],
+    definitionIds: [{ id: 120666, specId: 1473 }],
   },
   SCINTILLATION_TALENT: {
     id: 370821,
@@ -1385,7 +1414,7 @@ const talents = {
     icon: 'ability_mage_flamecannon',
     maxRanks: 1,
     entryIds: [123404],
-    definitionIds: [{ id: 128242, specId: 1467 }],
+    definitionIds: [{ id: 128242, specId: 1468 }],
   },
   SHATTERING_STAR_TALENT: {
     id: 370452,
@@ -1401,7 +1430,8 @@ const talents = {
     icon: 'ability_xavius_dreamsimulacrum',
     maxRanks: 1,
     entryIds: [115601],
-    definitionIds: [{ id: 120613, specId: 1467 }],
+    definitionIds: [{ id: 120613, specId: 1473 }],
+    manaCost: 25000,
   },
   SLIPSTREAM_TALENT: {
     id: 441257,
@@ -1409,7 +1439,7 @@ const talents = {
     icon: 'ability_dragonriding_barrelroll01',
     maxRanks: 1,
     entryIds: [120123],
-    definitionIds: [{ id: 125023, specId: 1467 }],
+    definitionIds: [{ id: 125023, specId: 1473 }],
   },
   SNAPFIRE_TALENT: {
     id: 370783,
@@ -1425,7 +1455,7 @@ const talents = {
     icon: 'ability_evoker_blue_01',
     maxRanks: 1,
     entryIds: [115658],
-    definitionIds: [{ id: 120670, specId: 1467 }],
+    definitionIds: [{ id: 120670, specId: 1473 }],
   },
   SPARK_OF_INSIGHT_TALENT: {
     id: 377099,
@@ -1441,7 +1471,7 @@ const talents = {
     icon: 'ability_evoker_stretchtime',
     maxRanks: 1,
     entryIds: [125610],
-    definitionIds: [{ id: 130442, specId: 1467 }],
+    definitionIds: [{ id: 130442, specId: 1473 }],
   },
   SPELLWEAVERS_DOMINANCE_TALENT: {
     id: 370845,
@@ -1458,6 +1488,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [115546],
     definitionIds: [{ id: 120558, specId: 1468 }],
+    manaCost: 105000,
   },
   SPIRITUAL_CLARITY_TALENT: {
     id: 376150,
@@ -1474,6 +1505,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [115567],
     definitionIds: [{ id: 120579, specId: 1468 }],
+    manaCost: 100000,
   },
   STRETCH_TIME_TALENT: {
     id: 410352,
@@ -1497,7 +1529,7 @@ const talents = {
     icon: 'ability_skyreach_wind',
     maxRanks: 1,
     entryIds: [115598],
-    definitionIds: [{ id: 120610, specId: 1467 }],
+    definitionIds: [{ id: 120610, specId: 1473 }],
   },
   TECTONIC_LOCUS_TALENT: {
     id: 408002,
@@ -1513,7 +1545,7 @@ const talents = {
     icon: 'ability_evoker_return',
     maxRanks: 1,
     entryIds: [117532],
-    definitionIds: [{ id: 122544, specId: 1468 }],
+    definitionIds: [{ id: 122544, specId: 1473 }],
   },
   TEMPORAL_ANOMALY_TALENT: {
     id: 373861,
@@ -1522,6 +1554,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [115561],
     definitionIds: [{ id: 120573, specId: 1468 }],
+    manaCost: 187500,
   },
   TEMPORAL_ARTIFICER_TALENT: {
     id: 381922,
@@ -1537,7 +1570,7 @@ const talents = {
     icon: 'ability_evoker_essenceburst5',
     maxRanks: 1,
     entryIds: [117552],
-    definitionIds: [{ id: 122564, specId: 1468 }],
+    definitionIds: [{ id: 122564, specId: 1473 }],
   },
   TEMPORAL_COMPRESSION_TALENT: {
     id: 362874,
@@ -1553,7 +1586,7 @@ const talents = {
     icon: 'ability_evoker_terroroftheskies',
     maxRanks: 1,
     entryIds: [115656],
-    definitionIds: [{ id: 120668, specId: 1467 }],
+    definitionIds: [{ id: 120668, specId: 1473 }],
   },
   THREADS_OF_FATE_TALENT: {
     id: 431715,
@@ -1561,7 +1594,7 @@ const talents = {
     icon: 'ability_evoker_sandsoftime',
     maxRanks: 1,
     entryIds: [117544],
-    definitionIds: [{ id: 122556, specId: 1468 }],
+    definitionIds: [{ id: 122556, specId: 1473 }],
   },
   TIMELESSNESS_TALENT: {
     id: 412710,
@@ -1585,7 +1618,7 @@ const talents = {
     icon: 'ability_evoker_plotthefuture',
     maxRanks: 1,
     entryIds: [117786],
-    definitionIds: [{ id: 122798, specId: 1468 }],
+    definitionIds: [{ id: 122798, specId: 1473 }],
   },
   TIME_DILATION_TALENT: {
     id: 357170,
@@ -1594,6 +1627,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [115650],
     definitionIds: [{ id: 120662, specId: 1468 }],
+    manaCost: 55000,
   },
   TIME_LORD_TALENT: {
     id: 372527,
@@ -1625,7 +1659,7 @@ const talents = {
     icon: 'ability_evoker_timespiral',
     maxRanks: 1,
     entryIds: [115666],
-    definitionIds: [{ id: 120678, specId: 1467 }],
+    definitionIds: [{ id: 120678, specId: 1473 }],
   },
   TIP_THE_SCALES_TALENT: {
     id: 370553,
@@ -1633,7 +1667,7 @@ const talents = {
     icon: 'ability_evoker_tipthescales',
     maxRanks: 1,
     entryIds: [115665],
-    definitionIds: [{ id: 120677, specId: 1467 }],
+    definitionIds: [{ id: 120677, specId: 1473 }],
   },
   TITANIC_PRECISION_TALENT: {
     id: 445625,
@@ -1641,7 +1675,7 @@ const talents = {
     icon: 'inv_10_misc_titansspark_shadowflame',
     maxRanks: 1,
     entryIds: [117517],
-    definitionIds: [{ id: 122529, specId: 1467 }],
+    definitionIds: [{ id: 122529, specId: 1468 }],
   },
   TITANIC_WRATH_TALENT: {
     id: 386272,
@@ -1673,7 +1707,7 @@ const talents = {
     icon: 'ability_deathwing_fierygrip',
     maxRanks: 1,
     entryIds: [117534],
-    definitionIds: [{ id: 122546, specId: 1467 }],
+    definitionIds: [{ id: 122546, specId: 1468 }],
   },
   TRAVELING_FLAME_TALENT: {
     id: 444140,
@@ -1681,7 +1715,7 @@ const talents = {
     icon: 'ability_evoker_infernosblessing',
     maxRanks: 1,
     entryIds: [123416],
-    definitionIds: [{ id: 128254, specId: 1467 }],
+    definitionIds: [{ id: 128254, specId: 1468 }],
   },
   TWIN_GUARDIAN_TALENT: {
     id: 370888,
@@ -1689,7 +1723,7 @@ const talents = {
     icon: 'ability_skyreach_shielded',
     maxRanks: 1,
     entryIds: [115595],
-    definitionIds: [{ id: 120607, specId: 1467 }],
+    definitionIds: [{ id: 120607, specId: 1473 }],
   },
   TYRANNY_TALENT: {
     id: 376888,
@@ -1705,7 +1739,8 @@ const talents = {
     icon: 'ability_evoker_unravel',
     maxRanks: 1,
     entryIds: [115617],
-    definitionIds: [{ id: 120629, specId: 1467 }],
+    definitionIds: [{ id: 120629, specId: 1473 }],
+    manaCost: 25000,
   },
   UNRELENTING_SIEGE_TALENT: {
     id: 441246,
@@ -1713,7 +1748,7 @@ const talents = {
     icon: 'ability_siege_engineer_superheated',
     maxRanks: 1,
     entryIds: [117531],
-    definitionIds: [{ id: 122543, specId: 1467 }],
+    definitionIds: [{ id: 122543, specId: 1473 }],
   },
   UNYIELDING_DOMAIN_TALENT: {
     id: 412733,
@@ -1737,7 +1772,8 @@ const talents = {
     icon: 'ability_evoker_rescue',
     maxRanks: 1,
     entryIds: [115655],
-    definitionIds: [{ id: 120667, specId: 1467 }],
+    definitionIds: [{ id: 120667, specId: 1473 }],
+    manaCost: 82500,
   },
   VOLATILITY_TALENT: {
     id: 369089,
@@ -1761,7 +1797,7 @@ const talents = {
     icon: 'inv_misc_monsterscales_06',
     maxRanks: 1,
     entryIds: [115594],
-    definitionIds: [{ id: 120606, specId: 1467 }],
+    definitionIds: [{ id: 120606, specId: 1473 }],
   },
   WARP_TALENT: {
     id: 429483,
@@ -1769,7 +1805,7 @@ const talents = {
     icon: 'ability_evoker_spatialparadox',
     maxRanks: 1,
     entryIds: [117545],
-    definitionIds: [{ id: 122557, specId: 1468 }],
+    definitionIds: [{ id: 122557, specId: 1473 }],
   },
   WINGLEADER_TALENT: {
     id: 441206,
@@ -1777,7 +1813,7 @@ const talents = {
     icon: 'ability_racial_soar',
     maxRanks: 1,
     entryIds: [117550],
-    definitionIds: [{ id: 122562, specId: 1467 }],
+    definitionIds: [{ id: 122562, specId: 1473 }],
   },
   ZEPHYR_TALENT: {
     id: 374227,
@@ -1785,7 +1821,7 @@ const talents = {
     icon: 'ability_evoker_hoverblack',
     maxRanks: 1,
     entryIds: [115661],
-    definitionIds: [{ id: 120673, specId: 1467 }],
+    definitionIds: [{ id: 120673, specId: 1473 }],
   },
 } satisfies Record<string, Talent>;
 

@@ -23,11 +23,11 @@ const talents = {
     name: 'Afterimage',
     icon: 'spell_holy_aspiration',
     maxRanks: 1,
-    entryIds: [115480, 115482, 102601],
+    entryIds: [102601, 115480, 115482],
     definitionIds: [
+      { id: 107606, specId: 65 },
       { id: 120492, specId: 66 },
       { id: 120494, specId: 70 },
-      { id: 107606, specId: 65 },
     ],
   },
   ARDENT_DEFENDER_TALENT: {
@@ -52,7 +52,7 @@ const talents = {
     icon: 'spell_holy_crusade',
     maxRanks: 1,
     entryIds: [102588],
-    definitionIds: [{ id: 107593, specId: 65 }],
+    definitionIds: [{ id: 107593, specId: 70 }],
   },
   AURAS_OF_THE_RESOLUTE_TALENT: {
     id: 385633,
@@ -60,7 +60,7 @@ const talents = {
     icon: 'spell_holy_devotionaura',
     maxRanks: 1,
     entryIds: [102586],
-    definitionIds: [{ id: 107591, specId: 65 }],
+    definitionIds: [{ id: 107591, specId: 70 }],
   },
   AURA_MASTERY_TALENT: {
     id: 31821,
@@ -76,7 +76,7 @@ const talents = {
     icon: 'spell_holy_rune',
     maxRanks: 1,
     entryIds: [117666],
-    definitionIds: [{ id: 122678, specId: 65 }],
+    definitionIds: [{ id: 122678, specId: 70 }],
   },
   AVENGERS_SHIELD_TALENT: {
     id: 31935,
@@ -99,11 +99,11 @@ const talents = {
     name: 'Avenging Wrath: Might',
     icon: 'spell_holy_avenginewrath',
     maxRanks: 1,
-    entryIds: [102448, 102519, 102569],
+    entryIds: [102569, 102448, 102519],
     definitionIds: [
+      { id: 107574, specId: 65 },
       { id: 107453, specId: 66 },
       { id: 107524, specId: 70 },
-      { id: 107574, specId: 65 },
     ],
   },
   AVENGING_WRATH_TALENT: {
@@ -112,7 +112,7 @@ const talents = {
     icon: 'spell_holy_avenginewrath',
     maxRanks: 1,
     entryIds: [102593],
-    definitionIds: [{ id: 107598, specId: 65 }],
+    definitionIds: [{ id: 107598, specId: 70 }],
   },
   AWAKENING_TALENT: {
     id: 414195,
@@ -145,6 +145,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [102560],
     definitionIds: [{ id: 107565, specId: 65 }],
+    manaCost: 60000,
   },
   BASTION_OF_LIGHT_TALENT: {
     id: 378974,
@@ -177,6 +178,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [102532],
     definitionIds: [{ id: 107537, specId: 65 }],
+    manaCost: 100000,
   },
   BESTOW_LIGHT_TALENT: {
     id: 448040,
@@ -216,7 +218,7 @@ const talents = {
     icon: 'spell_holy_blessedlife',
     maxRanks: 1,
     entryIds: [117883],
-    definitionIds: [{ id: 122895, specId: 65 }],
+    definitionIds: [{ id: 122895, specId: 66 }],
   },
   BLESSED_CHAMPION_TALENT: {
     id: 403010,
@@ -248,7 +250,7 @@ const talents = {
     icon: 'spell_holy_holynova',
     maxRanks: 1,
     entryIds: [117668],
-    definitionIds: [{ id: 122680, specId: 65 }],
+    definitionIds: [{ id: 122680, specId: 70 }],
   },
   BLESSING_OF_FREEDOM_TALENT: {
     id: 1044,
@@ -256,7 +258,8 @@ const talents = {
     icon: 'spell_holy_sealofvalor',
     maxRanks: 1,
     entryIds: [102587],
-    definitionIds: [{ id: 107592, specId: 65 }],
+    definitionIds: [{ id: 107592, specId: 70 }],
+    manaCost: 35000,
   },
   BLESSING_OF_PROTECTION_TALENT: {
     id: 1022,
@@ -264,7 +267,8 @@ const talents = {
     icon: 'spell_holy_sealofprotection',
     maxRanks: 1,
     entryIds: [102604],
-    definitionIds: [{ id: 107609, specId: 65 }],
+    definitionIds: [{ id: 107609, specId: 70 }],
+    manaCost: 75000,
   },
   BLESSING_OF_SACRIFICE_TALENT: {
     id: 6940,
@@ -272,7 +276,8 @@ const talents = {
     icon: 'spell_holy_sealofsacrifice',
     maxRanks: 1,
     entryIds: [102602],
-    definitionIds: [{ id: 107607, specId: 65 }],
+    definitionIds: [{ id: 107607, specId: 70 }],
+    manaCost: 35000,
   },
   BLESSING_OF_SPELLWARDING_TALENT: {
     id: 204018,
@@ -281,6 +286,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [111886],
     definitionIds: [{ id: 116891, specId: 66 }],
+    manaCost: 75000,
   },
   BLESSING_OF_SUMMER_TALENT: {
     id: 388007,
@@ -289,14 +295,15 @@ const talents = {
     maxRanks: 1,
     entryIds: [116183],
     definitionIds: [{ id: 121195, specId: 65 }],
+    manaCost: 25000,
   },
   BLESSING_OF_THE_FORGE_TALENT: {
     id: 433011,
     name: 'Blessing of the Forge',
-    icon: 'inv_mace_1h_artifactnorgannon_d_06',
+    icon: 'inv_ability_lightsmithpaladin_sacredweapon',
     maxRanks: 1,
     entryIds: [117875],
-    definitionIds: [{ id: 122887, specId: 65 }],
+    definitionIds: [{ id: 122887, specId: 66 }],
   },
   BLINDING_LIGHT_TALENT: {
     id: 115750,
@@ -304,7 +311,8 @@ const talents = {
     icon: 'ability_paladin_blindinglight',
     maxRanks: 1,
     entryIds: [102584],
-    definitionIds: [{ id: 107589, specId: 65 }],
+    definitionIds: [{ id: 107589, specId: 70 }],
+    manaCost: 30000,
   },
   BONDS_OF_FELLOWSHIP_TALENT: {
     id: 432992,
@@ -376,7 +384,7 @@ const talents = {
     icon: 'ability_paladin_divinesteed',
     maxRanks: 1,
     entryIds: [102592],
-    definitionIds: [{ id: 107597, specId: 65 }],
+    definitionIds: [{ id: 107597, specId: 70 }],
   },
   CLEANSE_TOXINS_TALENT: {
     id: 213644,
@@ -385,6 +393,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [102476],
     definitionIds: [{ id: 107481, specId: 70 }],
+    manaCost: 250000,
   },
   COMMANDING_LIGHT_TALENT: {
     id: 387781,
@@ -464,10 +473,10 @@ const talents = {
   DAWNLIGHT_TALENT: {
     id: 431377,
     name: 'Dawnlight',
-    icon: 'ability_priest_flashoflight',
+    icon: 'inv_ability_heraldofthesunpaladin_dawnlight',
     maxRanks: 1,
     entryIds: [117696],
-    definitionIds: [{ id: 122708, specId: 65 }],
+    definitionIds: [{ id: 122708, specId: 70 }],
   },
   DAYBREAK_TALENT: {
     id: 414170,
@@ -515,7 +524,7 @@ const talents = {
     icon: 'spell_holy_lightsgrace',
     maxRanks: 1,
     entryIds: [117884],
-    definitionIds: [{ id: 122896, specId: 65 }],
+    definitionIds: [{ id: 122896, specId: 66 }],
   },
   DIVINE_HAMMER_TALENT: {
     id: 198034,
@@ -524,6 +533,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [115016],
     definitionIds: [{ id: 120023, specId: 70 }],
+    holyPowerCostPerSecond: 1,
   },
   DIVINE_INSPIRATION_TALENT: {
     id: 432964,
@@ -531,7 +541,7 @@ const talents = {
     icon: 'ability_priest_flashoflight',
     maxRanks: 1,
     entryIds: [117877],
-    definitionIds: [{ id: 122889, specId: 65 }],
+    definitionIds: [{ id: 122889, specId: 66 }],
   },
   DIVINE_PURPOSE_RETRIBUTION_TALENT: {
     id: 408459,
@@ -546,10 +556,10 @@ const talents = {
     name: 'Divine Purpose',
     icon: 'spell_holy_divinepurpose',
     maxRanks: 1,
-    entryIds: [115490, 115489],
+    entryIds: [115489, 115490],
     definitionIds: [
-      { id: 120502, specId: 66 },
       { id: 120501, specId: 65 },
+      { id: 120502, specId: 66 },
     ],
   },
   DIVINE_RESONANCE_RETRIBUTION_TALENT: {
@@ -565,10 +575,10 @@ const talents = {
     name: 'Divine Resonance',
     icon: 'ability_mount_goatmountwhite',
     maxRanks: 1,
-    entryIds: [102443, 115466],
+    entryIds: [115466, 102443],
     definitionIds: [
-      { id: 107448, specId: 66 },
       { id: 120478, specId: 65 },
+      { id: 107448, specId: 66 },
     ],
   },
   DIVINE_REVELATIONS_TALENT: {
@@ -585,7 +595,7 @@ const talents = {
     icon: 'ability_paladin_divinesteed',
     maxRanks: 1,
     entryIds: [102625],
-    definitionIds: [{ id: 107630, specId: 65 }],
+    definitionIds: [{ id: 107630, specId: 70 }],
   },
   DIVINE_STORM_TALENT: {
     id: 53385,
@@ -594,6 +604,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [102499],
     definitionIds: [{ id: 107504, specId: 70 }],
+    holyPowerCost: 3,
   },
   DIVINE_TOLL_TALENT: {
     id: 375576,
@@ -601,7 +612,8 @@ const talents = {
     icon: 'ability_bastion_paladin',
     maxRanks: 1,
     entryIds: [102465],
-    definitionIds: [{ id: 107470, specId: 65 }],
+    definitionIds: [{ id: 107470, specId: 70 }],
+    manaCost: 75000,
   },
   DIVINE_WRATH_TALENT: {
     id: 406872,
@@ -624,10 +636,10 @@ const talents = {
     name: 'Empyrean Legacy',
     icon: 'item_holyspark',
     maxRanks: 1,
-    entryIds: [115438, 102576],
+    entryIds: [102576, 115438],
     definitionIds: [
-      { id: 120450, specId: 70 },
       { id: 107581, specId: 65 },
+      { id: 120450, specId: 70 },
     ],
   },
   EMPYREAN_POWER_TALENT: {
@@ -652,7 +664,9 @@ const talents = {
     icon: 'inv_torch_thrown',
     maxRanks: 1,
     entryIds: [117692],
-    definitionIds: [{ id: 122704, specId: 65 }],
+    definitionIds: [{ id: 122704, specId: 70 }],
+    holyPowerCost: 3,
+    manaCost: 250000,
   },
   EXCORIATION_TALENT: {
     id: 433896,
@@ -660,7 +674,7 @@ const talents = {
     icon: 'ability_paladin_sanctifiedwrath',
     maxRanks: 1,
     entryIds: [117878],
-    definitionIds: [{ id: 122890, specId: 65 }],
+    definitionIds: [{ id: 122890, specId: 66 }],
   },
   EXECUTIONERS_WILL_TALENT: {
     id: 406940,
@@ -700,7 +714,7 @@ const talents = {
     icon: 'spell_shadow_sealofkings',
     maxRanks: 1,
     entryIds: [115169],
-    definitionIds: [{ id: 120176, specId: 65 }],
+    definitionIds: [{ id: 120176, specId: 70 }],
   },
   FAITHS_ARMOR_TALENT: {
     id: 406101,
@@ -708,7 +722,7 @@ const talents = {
     icon: 'inv_shield_1h_newplayer_a_01',
     maxRanks: 1,
     entryIds: [102464],
-    definitionIds: [{ id: 107469, specId: 65 }],
+    definitionIds: [{ id: 107469, specId: 70 }],
   },
   FAITH_IN_THE_LIGHT_TALENT: {
     id: 379043,
@@ -724,7 +738,7 @@ const talents = {
     icon: 'spell_holy_senseundead',
     maxRanks: 1,
     entryIds: [117879],
-    definitionIds: [{ id: 122891, specId: 65 }],
+    definitionIds: [{ id: 122891, specId: 66 }],
   },
   FERREN_MARCUSS_FERVOR_TALENT: {
     id: 378762,
@@ -757,6 +771,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [102504],
     definitionIds: [{ id: 107509, specId: 70 }],
+    holyPowerCost: 3,
   },
   FIST_OF_JUSTICE_TALENT: {
     id: 234299,
@@ -764,7 +779,7 @@ const talents = {
     icon: 'spell_holy_fistofjustice',
     maxRanks: 2,
     entryIds: [102589],
-    definitionIds: [{ id: 107594, specId: 65 }],
+    definitionIds: [{ id: 107594, specId: 70 }],
   },
   FOCUSED_ENMITY_TALENT: {
     id: 378845,
@@ -780,7 +795,7 @@ const talents = {
     icon: 'ability_paladin_gaurdedbythelight',
     maxRanks: 1,
     entryIds: [117876],
-    definitionIds: [{ id: 122888, specId: 65 }],
+    definitionIds: [{ id: 122888, specId: 66 }],
   },
   FOR_WHOM_THE_BELL_TOLLS_TALENT: {
     id: 432929,
@@ -804,7 +819,7 @@ const talents = {
     icon: 'spell_priest_power_word',
     maxRanks: 1,
     entryIds: [117778],
-    definitionIds: [{ id: 122790, specId: 65 }],
+    definitionIds: [{ id: 122790, specId: 70 }],
   },
   GLIMMER_OF_LIGHT_TALENT: {
     id: 287269,
@@ -836,7 +851,7 @@ const talents = {
     icon: 'ability_priest_cascade',
     maxRanks: 1,
     entryIds: [102598],
-    definitionIds: [{ id: 107603, specId: 65 }],
+    definitionIds: [{ id: 107603, specId: 70 }],
   },
   GRAND_CRUSADER_TALENT: {
     id: 85043,
@@ -892,7 +907,7 @@ const talents = {
     icon: 'inv_10_blacksmithing_consumable_repairhammer_color1',
     maxRanks: 1,
     entryIds: [117887],
-    definitionIds: [{ id: 122899, specId: 65 }],
+    definitionIds: [{ id: 122899, specId: 66 }],
   },
   HAMMER_OF_THE_RIGHTEOUS_TALENT: {
     id: 53595,
@@ -908,7 +923,7 @@ const talents = {
     icon: 'spell_paladin_hammerofwrath',
     maxRanks: 1,
     entryIds: [102479],
-    definitionIds: [{ id: 107484, specId: 65 }],
+    definitionIds: [{ id: 107484, specId: 70 }],
   },
   HAND_OF_DIVINITY_TALENT: {
     id: 414273,
@@ -964,15 +979,15 @@ const talents = {
     icon: 'ability_paladin_touchedbylight',
     maxRanks: 2,
     entryIds: [102597],
-    definitionIds: [{ id: 107602, specId: 65 }],
+    definitionIds: [{ id: 107602, specId: 70 }],
   },
   HOLY_ARMAMENTS_TALENT: {
     id: 432459,
     name: 'Holy Armaments',
-    icon: 'inv_shield_1h_artifactnorgannon_d_06',
+    icon: 'inv_ability_lightsmithpaladin_holybulwark',
     maxRanks: 1,
     entryIds: [117882],
-    definitionIds: [{ id: 122894, specId: 65 }],
+    definitionIds: [{ id: 122894, specId: 66 }],
   },
   HOLY_BLADE_TALENT: {
     id: 383342,
@@ -997,6 +1012,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [102561],
     definitionIds: [{ id: 107566, specId: 65 }],
+    manaCost: 65000,
   },
   HOLY_SHIELD_TALENT: {
     id: 152261,
@@ -1013,6 +1029,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [102534],
     definitionIds: [{ id: 107539, specId: 65 }],
+    manaCost: 70000,
   },
   ILLUMINATION_TALENT: {
     id: 414378,
@@ -1028,7 +1045,7 @@ const talents = {
     icon: 'spell_holy_divineillumination',
     maxRanks: 1,
     entryIds: [117695],
-    definitionIds: [{ id: 122707, specId: 65 }],
+    definitionIds: [{ id: 122707, specId: 70 }],
   },
   IMBUED_INFUSIONS_TALENT: {
     id: 392961,
@@ -1060,7 +1077,7 @@ const talents = {
     icon: 'spell_holy_sealofprotection',
     maxRanks: 1,
     entryIds: [102606],
-    definitionIds: [{ id: 107611, specId: 65 }],
+    definitionIds: [{ id: 107611, specId: 70 }],
   },
   IMPROVED_CLEANSE_TALENT: {
     id: 393024,
@@ -1092,7 +1109,7 @@ const talents = {
     icon: 'inv_summerfest_firespirit',
     maxRanks: 1,
     entryIds: [102620],
-    definitionIds: [{ id: 107625, specId: 65 }],
+    definitionIds: [{ id: 107625, specId: 70 }],
   },
   INFLORESCENCE_OF_THE_SUNWELL_TALENT: {
     id: 392907,
@@ -1156,7 +1173,7 @@ const talents = {
     icon: 'spell_holy_divineprovidence',
     maxRanks: 1,
     entryIds: [102596],
-    definitionIds: [{ id: 107601, specId: 65 }],
+    definitionIds: [{ id: 107601, specId: 70 }],
   },
   JURISDICTION_TALENT: {
     id: 402971,
@@ -1173,6 +1190,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [114831],
     definitionIds: [{ id: 119838, specId: 70 }],
+    holyPowerCost: 3,
   },
   JUSTIFICATION_TALENT: {
     id: 377043,
@@ -1180,7 +1198,7 @@ const talents = {
     icon: 'ability_paladin_empoweredsealsrighteous',
     maxRanks: 1,
     entryIds: [102478],
-    definitionIds: [{ id: 107483, specId: 65 }],
+    definitionIds: [{ id: 107483, specId: 70 }],
   },
   LAYING_DOWN_ARMS_TALENT: {
     id: 432866,
@@ -1188,7 +1206,7 @@ const talents = {
     icon: 'ability_paladin_infusionoflight',
     maxRanks: 1,
     entryIds: [117885],
-    definitionIds: [{ id: 122897, specId: 65 }],
+    definitionIds: [{ id: 122897, specId: 66 }],
   },
   LAY_ON_HANDS_TALENT: {
     id: 633,
@@ -1196,7 +1214,7 @@ const talents = {
     icon: 'spell_holy_layonhands',
     maxRanks: 1,
     entryIds: [102583],
-    definitionIds: [{ id: 107588, specId: 65 }],
+    definitionIds: [{ id: 107588, specId: 70 }],
   },
   LIGHTFORGED_BLESSING_RETRIBUTION_TALENT: {
     id: 403479,
@@ -1212,7 +1230,7 @@ const talents = {
     icon: 'spell_holy_circleofrenewal',
     maxRanks: 1,
     entryIds: [115447],
-    definitionIds: [{ id: 120459, specId: 65 }],
+    definitionIds: [{ id: 120459, specId: 66 }],
   },
   LIGHTS_CELERITY_TALENT: {
     id: 403698,
@@ -1261,6 +1279,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [102545],
     definitionIds: [{ id: 107550, specId: 65 }],
+    holyPowerCost: 3,
   },
   LIGHT_OF_JUSTICE_TALENT: {
     id: 404436,
@@ -1292,7 +1311,7 @@ const talents = {
     icon: 'spell_holy_mindvision',
     maxRanks: 1,
     entryIds: [117779],
-    definitionIds: [{ id: 122791, specId: 65 }],
+    definitionIds: [{ id: 122791, specId: 70 }],
   },
   LUMINOSITY_TALENT: {
     id: 431402,
@@ -1300,7 +1319,7 @@ const talents = {
     icon: 'inv_qirajidol_sun',
     maxRanks: 1,
     entryIds: [117677],
-    definitionIds: [{ id: 122689, specId: 65 }],
+    definitionIds: [{ id: 122689, specId: 70 }],
   },
   MERCIFUL_AURAS_TALENT: {
     id: 183415,
@@ -1332,7 +1351,7 @@ const talents = {
     icon: 'spell_holy_persecution',
     maxRanks: 1,
     entryIds: [117670],
-    definitionIds: [{ id: 122682, specId: 65 }],
+    definitionIds: [{ id: 122682, specId: 70 }],
   },
   OBDURACY_TALENT: {
     id: 385427,
@@ -1340,7 +1359,7 @@ const talents = {
     icon: 'ability_paladin_speedoflight',
     maxRanks: 1,
     entryIds: [102622],
-    definitionIds: [{ id: 107627, specId: 65 }],
+    definitionIds: [{ id: 107627, specId: 70 }],
   },
   OF_DUSK_AND_DAWN_HOLY_TALENT: {
     id: 409439,
@@ -1404,18 +1423,18 @@ const talents = {
     icon: 'spell_holy_rebuke',
     maxRanks: 1,
     entryIds: [115444],
-    definitionIds: [{ id: 120456, specId: 65 }],
+    definitionIds: [{ id: 120456, specId: 70 }],
   },
   QUICKENED_INVOCATION_TALENT: {
     id: 379391,
     name: 'Quickened Invocation',
     icon: 'spell_holy_pureofheart',
     maxRanks: 1,
-    entryIds: [115168, 115467, 115465],
+    entryIds: [115465, 115168, 115467],
     definitionIds: [
+      { id: 120477, specId: 65 },
       { id: 120175, specId: 66 },
       { id: 120479, specId: 70 },
-      { id: 120477, specId: 65 },
     ],
   },
   RADIANT_GLORY_TALENT: {
@@ -1432,7 +1451,7 @@ const talents = {
     icon: 'spell_holy_rebuke',
     maxRanks: 1,
     entryIds: [102591],
-    definitionIds: [{ id: 107596, specId: 65 }],
+    definitionIds: [{ id: 107596, specId: 70 }],
   },
   RECLAMATION_TALENT: {
     id: 415364,
@@ -1448,7 +1467,7 @@ const talents = {
     icon: 'ability_racial_foregedinflames',
     maxRanks: 1,
     entryIds: [102594],
-    definitionIds: [{ id: 107599, specId: 65 }],
+    definitionIds: [{ id: 107599, specId: 70 }],
   },
   REDOUBT_TALENT: {
     id: 280373,
@@ -1463,10 +1482,10 @@ const talents = {
     name: 'Relentless Inquisitor',
     icon: 'spell_holy_mindvision',
     maxRanks: 1,
-    entryIds: [102475, 102575],
+    entryIds: [102575, 102475],
     definitionIds: [
-      { id: 107480, specId: 66 },
       { id: 107580, specId: 65 },
+      { id: 107480, specId: 66 },
     ],
   },
   REPENTANCE_TALENT: {
@@ -1475,7 +1494,8 @@ const talents = {
     icon: 'spell_holy_prayerofhealing',
     maxRanks: 1,
     entryIds: [102585],
-    definitionIds: [{ id: 107590, specId: 65 }],
+    definitionIds: [{ id: 107590, specId: 70 }],
+    manaCost: 30000,
   },
   RESOLUTE_DEFENDER_TALENT: {
     id: 385422,
@@ -1531,7 +1551,7 @@ const talents = {
     icon: 'inv_inscription_armorscroll02',
     maxRanks: 1,
     entryIds: [117880],
-    definitionIds: [{ id: 122892, specId: 65 }],
+    definitionIds: [{ id: 122892, specId: 66 }],
   },
   RITE_OF_SANCTIFICATION_TALENT: {
     id: 433568,
@@ -1539,7 +1559,7 @@ const talents = {
     icon: 'inv_inscription_weaponscroll01',
     maxRanks: 1,
     entryIds: [117881],
-    definitionIds: [{ id: 122893, specId: 65 }],
+    definitionIds: [{ id: 122893, specId: 66 }],
   },
   RUSH_OF_LIGHT_TALENT: {
     id: 407067,
@@ -1555,7 +1575,7 @@ const talents = {
     icon: 'spell_holy_sealofsacrifice',
     maxRanks: 1,
     entryIds: [102595],
-    definitionIds: [{ id: 107600, specId: 65 }],
+    definitionIds: [{ id: 107600, specId: 70 }],
   },
   SACROSANCT_CRUSADE_TALENT: {
     id: 431730,
@@ -1579,17 +1599,17 @@ const talents = {
     icon: 'inv_chest_plate_raidpaladin_s_01',
     maxRanks: 2,
     entryIds: [115034],
-    definitionIds: [{ id: 120041, specId: 65 }],
+    definitionIds: [{ id: 120041, specId: 70 }],
   },
   SANCTIFIED_WRATH_TALENT: {
     id: 53376,
     name: 'Sanctified Wrath',
     icon: 'ability_paladin_judgementsofthejust',
     maxRanks: 1,
-    entryIds: [102611, 102578],
+    entryIds: [102578, 102611],
     definitionIds: [
-      { id: 107616, specId: 66 },
       { id: 107583, specId: 65 },
+      { id: 107616, specId: 66 },
     ],
   },
   SANCTIFY_TALENT: {
@@ -1622,7 +1642,7 @@ const talents = {
     icon: 'spell_holy_sealofvengeance',
     maxRanks: 2,
     entryIds: [102609],
-    definitionIds: [{ id: 107614, specId: 65 }],
+    definitionIds: [{ id: 107614, specId: 70 }],
   },
   SEAL_OF_CHARITY_TALENT: {
     id: 384815,
@@ -1638,7 +1658,7 @@ const talents = {
     icon: 'spell_holy_greaterblessingofsalvation',
     maxRanks: 1,
     entryIds: [102599],
-    definitionIds: [{ id: 107604, specId: 65 }],
+    definitionIds: [{ id: 107604, specId: 70 }],
   },
   SEAL_OF_MIGHT_TALENT: {
     id: 385450,
@@ -1646,7 +1666,7 @@ const talents = {
     icon: 'spell_holy_sealofwrath',
     maxRanks: 2,
     entryIds: [102612],
-    definitionIds: [{ id: 107617, specId: 65 }],
+    definitionIds: [{ id: 107617, specId: 70 }],
   },
   SEAL_OF_ORDER_TALENT: {
     id: 385129,
@@ -1654,7 +1674,7 @@ const talents = {
     icon: 'spell_holy_sealofwisdom',
     maxRanks: 1,
     entryIds: [102614],
-    definitionIds: [{ id: 107619, specId: 65 }],
+    definitionIds: [{ id: 107619, specId: 70 }],
   },
   SEAL_OF_REPRISAL_TALENT: {
     id: 377053,
@@ -1697,7 +1717,7 @@ const talents = {
     icon: 'spell_nature_swiftness',
     maxRanks: 1,
     entryIds: [102624],
-    definitionIds: [{ id: 107629, specId: 65 }],
+    definitionIds: [{ id: 107629, specId: 70 }],
   },
   SECOND_SUNRISE_TALENT: {
     id: 431474,
@@ -1705,7 +1725,7 @@ const talents = {
     icon: 'ability_priest_halo',
     maxRanks: 1,
     entryIds: [117683],
-    definitionIds: [{ id: 122695, specId: 65 }],
+    definitionIds: [{ id: 122695, specId: 70 }],
   },
   SEETHING_FLAMES_TALENT: {
     id: 405355,
@@ -1737,7 +1757,7 @@ const talents = {
     icon: 'spell_holy_devotionaura',
     maxRanks: 1,
     entryIds: [117886],
-    definitionIds: [{ id: 122898, specId: 65 }],
+    definitionIds: [{ id: 122898, specId: 66 }],
   },
   SHIELD_OF_VENGEANCE_TALENT: {
     id: 184662,
@@ -1777,7 +1797,7 @@ const talents = {
     icon: 'ability_malkorok_blightofyshaarj_yellow',
     maxRanks: 1,
     entryIds: [117691],
-    definitionIds: [{ id: 122703, specId: 65 }],
+    definitionIds: [{ id: 122703, specId: 70 }],
   },
   SOLIDARITY_TALENT: {
     id: 432802,
@@ -1785,7 +1805,7 @@ const talents = {
     icon: 'spell_holy_heroism',
     maxRanks: 1,
     entryIds: [117873],
-    definitionIds: [{ id: 122885, specId: 65 }],
+    definitionIds: [{ id: 122885, specId: 66 }],
   },
   STRENGTH_IN_ADVERSITY_TALENT: {
     id: 393071,
@@ -1801,7 +1821,7 @@ const talents = {
     icon: 'spell_holy_eyeforaneye',
     maxRanks: 2,
     entryIds: [102444],
-    definitionIds: [{ id: 107455, specId: 65 }],
+    definitionIds: [{ id: 107455, specId: 70 }],
   },
   SUNS_AVATAR_TALENT: {
     id: 431425,
@@ -1809,7 +1829,7 @@ const talents = {
     icon: 'ability_paladin_holyavenger',
     maxRanks: 1,
     entryIds: [117702],
-    definitionIds: [{ id: 122714, specId: 65 }],
+    definitionIds: [{ id: 122714, specId: 70 }],
   },
   SUN_SEAR_TALENT: {
     id: 431413,
@@ -1817,7 +1837,7 @@ const talents = {
     icon: 'spell_priest_burningwill',
     maxRanks: 1,
     entryIds: [117669],
-    definitionIds: [{ id: 122681, specId: 65 }],
+    definitionIds: [{ id: 122681, specId: 70 }],
   },
   SWIFT_JUSTICE_TALENT: {
     id: 383228,
@@ -1865,7 +1885,7 @@ const talents = {
     icon: 'achievment_raid_houroftwilight',
     maxRanks: 1,
     entryIds: [102518],
-    definitionIds: [{ id: 107523, specId: 65 }],
+    definitionIds: [{ id: 107523, specId: 70 }],
   },
   TOWER_OF_RADIANCE_TALENT: {
     id: 231642,
@@ -1881,7 +1901,8 @@ const talents = {
     icon: 'ability_paladin_turnevil',
     maxRanks: 1,
     entryIds: [102623],
-    definitionIds: [{ id: 107628, specId: 65 }],
+    definitionIds: [{ id: 107628, specId: 70 }],
+    manaCost: 52500,
   },
   TYRS_DELIVERANCE_TALENT: {
     id: 200652,
@@ -1890,6 +1911,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [102573],
     definitionIds: [{ id: 107578, specId: 65 }],
+    manaCost: 60000,
   },
   TYRS_ENFORCER_TALENT: {
     id: 378285,
@@ -1916,7 +1938,7 @@ const talents = {
     icon: 'spell_holy_holyguidance',
     maxRanks: 1,
     entryIds: [102603],
-    definitionIds: [{ id: 107608, specId: 65 }],
+    definitionIds: [{ id: 107608, specId: 70 }],
   },
   UNDISPUTED_RULING_TALENT: {
     id: 432626,
@@ -1964,7 +1986,7 @@ const talents = {
     icon: 'inv_mace_47',
     maxRanks: 1,
     entryIds: [117874],
-    definitionIds: [{ id: 122886, specId: 65 }],
+    definitionIds: [{ id: 122886, specId: 66 }],
   },
   VANGUARDS_MOMENTUM_RETRIBUTION_TALENT: {
     id: 383314,
@@ -2020,7 +2042,7 @@ const talents = {
     icon: 'spell_holy_divineprovidence',
     maxRanks: 1,
     entryIds: [117777],
-    definitionIds: [{ id: 122789, specId: 65 }],
+    definitionIds: [{ id: 122789, specId: 70 }],
   },
   WRATHFUL_DESCENT_TALENT: {
     id: 431551,

@@ -19,7 +19,9 @@ class RefreshingJadeWind extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.REFRESHING_JADE_WIND_TALENT);
+    this.active =
+      this.selectedCombatant.hasTalent(TALENTS_MONK.REFRESHING_JADE_WIND_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS_MONK.RESTORE_BALANCE_TALENT);
     if (!this.active) {
       return;
     }
