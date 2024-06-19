@@ -38,6 +38,7 @@ import DevastationEvoker from 'analysis/retail/evoker/devastation';
 import PreservationEvoker from 'analysis/retail/evoker/preservation';
 import AugmentationEvoker from 'analysis/retail/evoker/augmentation';
 // Classic
+import ClassicDeathKnightBlood from 'analysis/classic/deathknight/blood';
 import ClassicDeathKnightFrost from 'analysis/classic/deathknight/frost';
 import ClassicDeathKnightUnholy from 'analysis/classic/deathknight/unholy';
 import ClassicDruidBalance from 'analysis/classic/druid/balance';
@@ -115,6 +116,7 @@ const configs: Config[] = [
   FuryWarrior,
 
   // Classic
+  ClassicDeathKnightBlood,
   ClassicDeathKnightFrost,
   ClassicDeathKnightUnholy,
 
