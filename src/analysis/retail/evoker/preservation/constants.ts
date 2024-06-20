@@ -3,6 +3,7 @@ import Spell from 'common/SPELLS/Spell';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 
 export const SPELL_COLORS = {
+  CONSUME_FLAME: '#d078ff',
   CYCLE_OF_LIFE: '#fafad2',
   DISINTEGRATE: '#0047AB',
   DREAM_BREATH: '#c49c94',
@@ -10,6 +11,8 @@ export const SPELL_COLORS = {
   ECHO: '#2E8B57',
   EMERALD_BLOSSOM: '#c1e1c1',
   EMERALD_COMMUNION: '#aef359',
+  ENKINDLE: '#fc036b',
+  ENGULF: '#ff78b0',
   FLUTTERING_SEEDLING: '#ffff00',
   LIVING_FLAME: '#880e0b',
   LIFEBIND: '#bf0a30',
@@ -94,6 +97,7 @@ export const CYCLE_SPELLS = [
   TALENTS_EVOKER.REVERSION_TALENT.id,
   SPELLS.ENGULF_HEAL.id,
   SPELLS.ENKINDLE_HOT.id,
+  SPELLS.CONSUME_FLAME_HEAL.id,
 ];
 
 // hots

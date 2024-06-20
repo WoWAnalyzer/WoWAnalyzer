@@ -548,6 +548,11 @@ const spells = {
     name: 'Engulf',
     icon: 'inv_ability_flameshaperevoker_engulf',
   },
+  CONSUME_FLAME_HEAL: {
+    id: 445495,
+    name: 'Consume Flame',
+    icon: 'inv_shadowflames_wave',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;
