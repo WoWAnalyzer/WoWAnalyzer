@@ -17,6 +17,7 @@ import {
 } from '../../normalizers/EventLinking/helpers';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import { TITANS_GIFT_INC } from '../../normalizers/EventLinking/constants';
+import { formatPercentage } from 'common/format';
 
 class TitansGift extends Analyzer {
   //Blossom
@@ -127,9 +128,9 @@ class TitansGift extends Analyzer {
 
   statistic() {
     const percentBuffedBlossoms =
-      this.totalBlossomsCasted !== 0 ? (this.buffedBlossoms * 100) / this.totalBlossomsCasted : 0;
+      this.totalBlossomsCasted !== 0 ? this.buffedBlossoms / this.totalBlossomsCasted : 0;
     const percentBuffedEchoes =
-      this.totalEchoesCasted !== 0 ? (this.buffedEchoes * 100) / this.totalEchoesCasted : 0;
+      this.totalEchoesCasted !== 0 ? this.buffedEchoes / this.totalEchoesCasted : 0;
 
     return (
       <Statistic
@@ -150,7 +151,7 @@ class TitansGift extends Analyzer {
               <TooltipElement
                 content={
                   <>
-                    {this.buffedBlossoms} casts buffed ({Math.trunc(percentBuffedBlossoms)}%)
+                    {this.buffedBlossoms} casts buffed ({formatPercentage(percentBuffedBlossoms)}%)
                   </>
                 }
               >
@@ -165,7 +166,7 @@ class TitansGift extends Analyzer {
               <TooltipElement
                 content={
                   <>
-                    {this.buffedEchoes} casts buffed ({Math.trunc(percentBuffedEchoes)}%)
+                    {this.buffedEchoes} casts buffed ({formatPercentage(percentBuffedEchoes)}%)
                   </>
                 }
               >
