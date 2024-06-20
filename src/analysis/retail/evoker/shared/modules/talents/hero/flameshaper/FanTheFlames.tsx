@@ -25,12 +25,14 @@ import Combatants from 'parser/shared/modules/Combatants';
 import Enemies from 'parser/shared/modules/Enemies';
 import SpellLink from 'interface/SpellLink';
 import { formatNumber } from 'common/format';
+import SPECS from 'game/SPECS';
 
 class FanTheFlames extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     enemies: Enemies,
   };
+
   totalDamage: number = 0;
   totalHealing: number = 0;
   numExtended: number[] = [];
@@ -38,6 +40,7 @@ class FanTheFlames extends Analyzer {
   buffedTargets = new Set<Combatant | Enemy>();
   protected combatants!: Combatants;
   protected enemies!: Enemies;
+
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.FAN_THE_FLAMES_TALENT);
@@ -55,17 +58,19 @@ class FanTheFlames extends Analyzer {
       this.onBuffApply,
     );
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ENKINDLE_HOT),
-      this.onBuffApply,
-    );
-    this.addEventListener(
       Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.ENKINDLE_DOT),
       this.onRemoveBuffEvent,
     );
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.ENKINDLE_HOT),
-      this.onRemoveBuffEvent,
-    );
+    if (this.selectedCombatant.spec === SPECS.PRESERVATION_EVOKER) {
+      this.addEventListener(
+        Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.ENKINDLE_HOT),
+        this.onRemoveBuffEvent,
+      );
+      this.addEventListener(
+        Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ENKINDLE_HOT),
+        this.onBuffApply,
+      );
+    }
   }
 
   onCast(event: CastEvent) {
@@ -134,9 +139,13 @@ class FanTheFlames extends Analyzer {
         category={STATISTIC_CATEGORY.HERO_TALENTS}
       >
         <TalentSpellText talent={TALENTS_EVOKER.FAN_THE_FLAMES_TALENT}>
-          <div>
-            <ItemHealingDone amount={this.totalHealing} />
-          </div>
+          {this.selectedCombatant.spec === SPECS.PRESERVATION_EVOKER ? (
+            <div>
+              <ItemHealingDone amount={this.totalHealing} />
+            </div>
+          ) : (
+            <></>
+          )}
           <div>
             <ItemDamageDone amount={this.totalDamage} />
           </div>
