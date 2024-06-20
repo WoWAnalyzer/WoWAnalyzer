@@ -14,6 +14,8 @@ import Statistic from 'parser/ui/Statistic';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import SpellIcon from 'interface/SpellIcon';
 
+const POOL_OF_MISTS_ICD = 300;
+
 class PoolOfMists extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
@@ -22,6 +24,9 @@ class PoolOfMists extends Analyzer {
 
   protected spellUsable!: SpellUsable;
   protected hotTracker!: HotTrackerMW;
+
+  lastTimestamp: number = 0;
+  cdrEatenByICD: number = 0;
 
   remCDR: number = 0;
   remWaste: number = 0;
@@ -68,12 +73,17 @@ class PoolOfMists extends Analyzer {
       return;
     }
     const hot = this.hotTracker.hots[playerId][spellId];
+
     if (
-      (this.hotTracker.fromRapidDiffusion(hot) || this.hotTracker.fromHardcast(hot)) &&
-      !this.hotTracker.fromBounce(hot)
+      (this.hotTracker.fromRapidDiffusionEnvelopingMist(hot) ||
+        this.hotTracker.fromHardcast(hot)) &&
+      !(this.hotTracker.fromBounce(hot) || this.hotTracker.fromDancingMists(hot))
     ) {
       this.rskCDR += POOL_OF_MISTS_CDR;
-      if (this.spellUsable.isOnCooldown(TALENTS_MONK.RISING_SUN_KICK_TALENT.id)) {
+      if (
+        this.spellUsable.isOnCooldown(TALENTS_MONK.RISING_SUN_KICK_TALENT.id) &&
+        event.timestamp > this.lastTimestamp + POOL_OF_MISTS_ICD
+      ) {
         const reduction = this.spellUsable.reduceCooldown(
           TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
           POOL_OF_MISTS_CDR,
@@ -81,9 +91,13 @@ class PoolOfMists extends Analyzer {
         this.rskEffective += reduction;
         this.rskWaste += POOL_OF_MISTS_CDR - reduction;
       } else {
+        if (event.timestamp <= this.lastTimestamp + POOL_OF_MISTS_ICD) {
+          this.cdrEatenByICD += POOL_OF_MISTS_CDR;
+        }
         this.rskWaste += POOL_OF_MISTS_CDR;
       }
     }
+    this.lastTimestamp = event.timestamp;
   }
 
   private onRisingSunKick(event: CastEvent) {
@@ -109,28 +123,34 @@ class PoolOfMists extends Analyzer {
         tooltip={
           <ul>
             <li>
-              Total <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> reduction:{' '}
+              <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> reduction:{' '}
               {formatDuration(this.remCDR)} ({formatDuration(this.remWaste)} wasted)
             </li>
             <ul>
               <li>{formatNumber(this.extraReMCasts)} additional casts</li>
             </ul>
             <li>
-              Total <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} /> reduction:{' '}
+              <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} /> reduction:{' '}
               {formatDuration(this.rskCDR)} ({formatDuration(this.rskWaste)} wasted)
             </li>
             <ul>
               <li>{formatNumber(this.extraRSKCasts)} additional casts</li>
+              <li>
+                {formatDuration(this.cdrEatenByICD)} seconds eaten by the {POOL_OF_MISTS_ICD}ms ICD
+              </li>
             </ul>
           </ul>
         }
       >
         <TalentSpellText talent={TALENTS_MONK.POOL_OF_MISTS_TALENT}>
-          <SpellIcon spell={TALENTS_MONK.RENEWING_MIST_TALENT} />{' '}
-          <ItemCooldownReduction effective={this.remEffective} />
-          <div></div>
-          <SpellIcon spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} />{' '}
-          <ItemCooldownReduction effective={this.rskEffective} />
+          <div>
+            <SpellIcon spell={TALENTS_MONK.RENEWING_MIST_TALENT} />{' '}
+            <ItemCooldownReduction effective={this.remEffective} />
+          </div>
+          <div>
+            <SpellIcon spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} />{' '}
+            <ItemCooldownReduction effective={this.rskEffective} />
+          </div>
         </TalentSpellText>
       </Statistic>
     );
