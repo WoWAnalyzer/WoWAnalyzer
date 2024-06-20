@@ -144,11 +144,10 @@ class FanTheFlames extends Analyzer {
               <ItemHealingDone amount={this.totalHealing} />
             </div>
           ) : (
-            <></>
+            <div>
+              <ItemDamageDone amount={this.totalDamage} />
+            </div>
           )}
-          <div>
-            <ItemDamageDone amount={this.totalDamage} />
-          </div>
         </TalentSpellText>
         <div className="pad">
           Average buffs on <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT} /> cast:{' '}
