@@ -7,7 +7,6 @@ import {
   ECHO_REMOVAL,
   ECHO_TEMPORAL_ANOMALY,
   FROM_HARDCAST,
-  FROM_TEMPORAL_ANOMALY,
   MAX_ECHO_DURATION,
   SHIELD_FROM_TA_CAST,
   TA_BUFFER_MS,
@@ -43,26 +42,6 @@ export const ECHO_EVENT_LINKS: EventLink[] = [
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
   },
-  //link echo apply to the Temporal Anomaly shield application
-  {
-    linkRelation: FROM_TEMPORAL_ANOMALY,
-    reverseLinkRelation: FROM_TEMPORAL_ANOMALY,
-    linkingEventId: [TALENTS_EVOKER.ECHO_TALENT.id],
-    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
-    referencedEventId: SPELLS.TEMPORAL_ANOMALY_SHIELD.id,
-    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
-    isActive(c) {
-      return (
-        c.hasTalent(TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT) &&
-        c.hasTalent(TALENTS_EVOKER.RESONATING_SPHERE_TALENT)
-      );
-    },
-    additionalCondition(linkedEvent, referencedEvent) {
-      return !HasRelatedEvent(linkedEvent, FROM_HARDCAST);
-    },
-  },
   /* ECHO APPLY TO ECHO REMOVAL LINKING */
   // link echo removal to echo apply
   {
@@ -87,7 +66,7 @@ export const ECHO_EVENT_LINKS: EventLink[] = [
     referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     backwardBufferMs: MAX_ECHO_DURATION,
     additionalCondition(linkedEvent, referencedEvent) {
-      return HasRelatedEvent(referencedEvent, FROM_TEMPORAL_ANOMALY);
+      return !HasRelatedEvent(referencedEvent, FROM_HARDCAST);
     },
   },
   /* ECHO REMOVAL TO HOT APPLY */
@@ -144,6 +123,7 @@ export const ECHO_EVENT_LINKS: EventLink[] = [
       SPELLS.SPIRITBLOOM_FONT.id,
       SPELLS.SPIRITBLOOM.id,
       SPELLS.VERDANT_EMBRACE_HEAL.id,
+      SPELLS.ENGULF_HEAL.id,
     ],
     referencedEventType: EventType.Heal,
     forwardBufferMs: ECHO_BUFFER,
@@ -180,6 +160,7 @@ export const ECHO_EVENT_LINKS: EventLink[] = [
       SPELLS.DREAM_BREATH_ECHO.id,
       SPELLS.LIVING_FLAME_HEAL.id,
       SPELLS.VERDANT_EMBRACE_HEAL.id,
+      SPELLS.ENGULF_HEAL.id,
     ],
     referencedEventType: EventType.Heal,
     maximumLinks: 1,
@@ -187,8 +168,7 @@ export const ECHO_EVENT_LINKS: EventLink[] = [
     additionalCondition(linkingEvent, referencedEvent) {
       return (
         HasRelatedEvent(linkingEvent, TA_ECHO_REMOVAL) &&
-        HasRelatedEvent(linkingEvent, FROM_TEMPORAL_ANOMALY) &&
-        HasRelatedEvent(linkingEvent, FROM_TEMPORAL_ANOMALY) &&
+        !HasRelatedEvent(linkingEvent, FROM_HARDCAST) &&
         !HasRelatedEvent(linkingEvent, ECHO_REMOVAL) &&
         !HasRelatedEvent(referencedEvent, ECHO)
       );
