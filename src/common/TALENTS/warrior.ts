@@ -7,11 +7,11 @@ const talents = {
     name: 'Anger Management',
     icon: 'warrior_talent_icon_angermanagement',
     maxRanks: 1,
-    entryIds: [112285, 112166, 112143],
+    entryIds: [112143, 112285, 112166],
     definitionIds: [
+      { id: 117148, specId: 71 },
       { id: 117290, specId: 72 },
       { id: 117171, specId: 73 },
-      { id: 117148, specId: 71 },
     ],
   },
   ARMORED_TO_THE_TEETH_PROTECTION_TALENT: {
@@ -27,10 +27,10 @@ const talents = {
     name: 'Armored to the Teeth',
     icon: 'inv_shoulder_22',
     maxRanks: 2,
-    entryIds: [112108, 112233],
+    entryIds: [112233, 112108],
     definitionIds: [
-      { id: 117113, specId: 72 },
       { id: 117238, specId: 71 },
+      { id: 117113, specId: 72 },
     ],
   },
   ARTERIAL_BLEED_TALENT: {
@@ -39,7 +39,7 @@ const talents = {
     icon: 'ability_warrior_deepcuts',
     maxRanks: 1,
     entryIds: [119856],
-    definitionIds: [{ id: 124756, specId: 71 }],
+    definitionIds: [{ id: 124756, specId: 73 }],
   },
   ASHEN_JUGGERNAUT_TALENT: {
     id: 392536,
@@ -70,10 +70,10 @@ const talents = {
     name: 'Avatar',
     icon: 'warrior_talent_icon_avatar',
     maxRanks: 1,
-    entryIds: [114770, 112232],
+    entryIds: [112232, 114770],
     definitionIds: [
-      { id: 119777, specId: 72 },
       { id: 117237, specId: 71 },
+      { id: 119777, specId: 72 },
     ],
   },
   BARBARIC_TRAINING_ARMS_TALENT: {
@@ -129,10 +129,10 @@ const talents = {
     name: 'Battle Stance',
     icon: 'ability_warrior_offensivestance',
     maxRanks: 1,
-    entryIds: [112112, 112184],
+    entryIds: [112184, 112112],
     definitionIds: [
-      { id: 117117, specId: 73 },
       { id: 117189, specId: 71 },
+      { id: 117117, specId: 73 },
     ],
   },
   BERSERKERS_TORMENT_TALENT: {
@@ -149,7 +149,7 @@ const talents = {
     icon: 'spell_nature_ancestralguardian',
     maxRanks: 1,
     entryIds: [112211],
-    definitionIds: [{ id: 117216, specId: 71 }],
+    definitionIds: [{ id: 117216, specId: 73 }],
   },
   BERSERKER_STANCE_TALENT: {
     id: 386196,
@@ -173,7 +173,7 @@ const talents = {
     icon: 'spell_nature_shamanrage',
     maxRanks: 1,
     entryIds: [112220],
-    definitionIds: [{ id: 117225, specId: 71 }],
+    definitionIds: [{ id: 117225, specId: 73 }],
   },
   BLADEMASTERS_TORMENT_TALENT: {
     id: 390138,
@@ -188,10 +188,10 @@ const talents = {
     name: 'Bladestorm',
     icon: 'ability_warrior_bladestorm',
     maxRanks: 1,
-    entryIds: [119139, 112314],
+    entryIds: [112314, 119139],
     definitionIds: [
-      { id: 124039, specId: 72 },
       { id: 117319, specId: 71 },
+      { id: 124039, specId: 72 },
     ],
   },
   BLOODBORNE_ARMS_TALENT: {
@@ -239,10 +239,10 @@ const talents = {
     name: 'Bloodsurge',
     icon: 'ability_warrior_bloodsurge',
     maxRanks: 1,
-    entryIds: [112154, 112129],
+    entryIds: [112129, 112154],
     definitionIds: [
-      { id: 117159, specId: 73 },
       { id: 117134, specId: 71 },
+      { id: 117159, specId: 73 },
     ],
   },
   BLOODTHIRST_TALENT: {
@@ -258,10 +258,10 @@ const talents = {
     name: 'Blood and Thunder',
     icon: 'warrior_talent_icon_bloodandthunder',
     maxRanks: 1,
-    entryIds: [118855, 112204],
+    entryIds: [112204, 118855],
     definitionIds: [
-      { id: 123755, specId: 73 },
       { id: 117209, specId: 71 },
+      { id: 123755, specId: 73 },
     ],
   },
   BLUNT_INSTRUMENTS_TALENT: {
@@ -286,7 +286,7 @@ const talents = {
     icon: 'ability_deathknight_brittlebones',
     maxRanks: 1,
     entryIds: [117386],
-    definitionIds: [{ id: 122398, specId: 71 }],
+    definitionIds: [{ id: 122398, specId: 73 }],
   },
   BOOMING_VOICE_TALENT: {
     id: 202743,
@@ -302,7 +302,7 @@ const talents = {
     icon: 'ability_heroicleap',
     maxRanks: 1,
     entryIds: [112219],
-    definitionIds: [{ id: 117224, specId: 71 }],
+    definitionIds: [{ id: 117224, specId: 73 }],
   },
   BRACE_FOR_IMPACT_TALENT: {
     id: 386030,
@@ -318,7 +318,7 @@ const talents = {
     icon: 'ability_revendreth_warrior',
     maxRanks: 1,
     entryIds: [123409],
-    definitionIds: [{ id: 128247, specId: 71 }],
+    definitionIds: [{ id: 128247, specId: 72 }],
   },
   BRUTAL_VITALITY_TALENT: {
     id: 384036,
@@ -342,15 +342,7 @@ const talents = {
     icon: 'ability_fomor_boss_shout',
     maxRanks: 1,
     entryIds: [112251],
-    definitionIds: [{ id: 117256, specId: 71 }],
-  },
-  CALL_OF_THUNDER_TALENT: {
-    id: 436707,
-    name: 'Call of Thunder',
-    icon: 'spell_nature_thunderclap',
-    maxRanks: 1,
-    entryIds: [117413],
-    definitionIds: [{ id: 122425, specId: 73 }],
+    definitionIds: [{ id: 117256, specId: 73 }],
   },
   CHALLENGING_SHOUT_TALENT: {
     id: 1161,
@@ -374,7 +366,7 @@ const talents = {
     icon: 'ability_bastion_warrior',
     maxRanks: 1,
     entryIds: [112180],
-    definitionIds: [{ id: 117185, specId: 71 }],
+    definitionIds: [{ id: 117185, specId: 73 }],
   },
   CHAMPIONS_SPEAR_TALENT: {
     id: 376079,
@@ -382,7 +374,7 @@ const talents = {
     icon: 'ability_bastion_warrior',
     maxRanks: 1,
     entryIds: [112247],
-    definitionIds: [{ id: 117252, specId: 71 }],
+    definitionIds: [{ id: 117252, specId: 73 }],
   },
   CLEAVE_TALENT: {
     id: 845,
@@ -391,6 +383,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [112147],
     definitionIds: [{ id: 117152, specId: 71 }],
+    rageCost: 20,
   },
   COLD_STEEL_HOT_BLOOD_TALENT: {
     id: 383959,
@@ -414,7 +407,7 @@ const talents = {
     icon: 'ability_warrior_strengthofarms',
     maxRanks: 1,
     entryIds: [117416],
-    definitionIds: [{ id: 122428, specId: 71 }],
+    definitionIds: [{ id: 122428, specId: 73 }],
   },
   COLOSSUS_SMASH_TALENT: {
     id: 167105,
@@ -430,19 +423,27 @@ const talents = {
     icon: 'ability_warrior_intervene',
     maxRanks: 1,
     entryIds: [118843],
-    definitionIds: [{ id: 123743, specId: 71 }],
+    definitionIds: [{ id: 123743, specId: 73 }],
   },
   CRACKLING_THUNDER_TALENT: {
     id: 203201,
     name: 'Crackling Thunder',
     icon: 'ability_thunderking_overcharge',
     maxRanks: 1,
-    entryIds: [118853, 118854, 112203],
+    entryIds: [112203, 118853, 118854],
     definitionIds: [
+      { id: 117208, specId: 71 },
       { id: 123753, specId: 72 },
       { id: 123754, specId: 73 },
-      { id: 117208, specId: 71 },
     ],
+  },
+  CRASHING_THUNDER_TALENT: {
+    id: 436707,
+    name: 'Crashing Thunder',
+    icon: 'spell_nature_thunderclap',
+    maxRanks: 1,
+    entryIds: [117413],
+    definitionIds: [{ id: 122425, specId: 73 }],
   },
   CRITICAL_THINKING_ARMS_TALENT: {
     id: 389306,
@@ -474,7 +475,7 @@ const talents = {
     icon: 'ability_criticalstrike',
     maxRanks: 2,
     entryIds: [112248],
-    definitionIds: [{ id: 117253, specId: 71 }],
+    definitionIds: [{ id: 117253, specId: 73 }],
   },
   CRUSHING_FORCE_PROTECTION_TALENT: {
     id: 390642,
@@ -489,10 +490,10 @@ const talents = {
     name: 'Crushing Force',
     icon: 'spell_shadow_unholystrength',
     maxRanks: 2,
-    entryIds: [112212, 112209],
+    entryIds: [112209, 112212],
     definitionIds: [
-      { id: 117217, specId: 72 },
       { id: 117214, specId: 71 },
+      { id: 117217, specId: 72 },
     ],
   },
   CULLING_CYCLONE_TALENT: {
@@ -501,23 +502,18 @@ const talents = {
     icon: 'ability_warrior_bladestorm',
     maxRanks: 1,
     entryIds: [117383],
-    definitionIds: [{ id: 122395, specId: 71 }],
+    definitionIds: [{ id: 122395, specId: 72 }],
   },
-  DANCE_OF_DEATH_ARMS_TALENT: {
+  DANCE_OF_DEATH_TALENT: {
     id: 390713,
     name: 'Dance of Death',
     icon: 'ability_butcher_whirl',
     maxRanks: 1,
-    entryIds: [114639],
-    definitionIds: [{ id: 119645, specId: 71 }],
-  },
-  DANCE_OF_DEATH_PROTECTION_TALENT: {
-    id: 393965,
-    name: 'Dance of Death',
-    icon: 'ability_butcher_whirl',
-    maxRanks: 1,
-    entryIds: [112302],
-    definitionIds: [{ id: 117307, specId: 73 }],
+    entryIds: [114639, 112302],
+    definitionIds: [
+      { id: 119645, specId: 71 },
+      { id: 117307, specId: 73 },
+    ],
   },
   DANCING_BLADES_TALENT: {
     id: 391683,
@@ -533,7 +529,7 @@ const talents = {
     icon: 'ability_warrior_focusedrage',
     maxRanks: 1,
     entryIds: [117410],
-    definitionIds: [{ id: 122422, specId: 71 }],
+    definitionIds: [{ id: 122422, specId: 72 }],
   },
   DEFENDERS_AEGIS_TALENT: {
     id: 397103,
@@ -548,11 +544,11 @@ const talents = {
     name: 'Defensive Stance',
     icon: 'ability_warrior_defensivestance',
     maxRanks: 1,
-    entryIds: [114644, 112187, 114643],
+    entryIds: [114643, 114644, 112187],
     definitionIds: [
+      { id: 119649, specId: 71 },
       { id: 119650, specId: 72 },
       { id: 117192, specId: 73 },
-      { id: 119649, specId: 71 },
     ],
   },
   DEFT_EXPERIENCE_ARMS_TALENT: {
@@ -574,10 +570,10 @@ const talents = {
   DEMOLISH_TALENT: {
     id: 436358,
     name: 'Demolish',
-    icon: 'inv_axe_2h_orcwarrior_c_01',
+    icon: 'inv_ability_colossuswarrior_demolish',
     maxRanks: 1,
     entryIds: [117415],
-    definitionIds: [{ id: 122427, specId: 71 }],
+    definitionIds: [{ id: 122427, specId: 73 }],
   },
   DEMORALIZING_SHOUT_TALENT: {
     id: 1160,
@@ -625,7 +621,7 @@ const talents = {
     icon: 'ability_warrior_titansgrip',
     maxRanks: 1,
     entryIds: [117390],
-    definitionIds: [{ id: 122402, specId: 71 }],
+    definitionIds: [{ id: 122402, specId: 73 }],
   },
   DOUBLE_TIME_TALENT: {
     id: 103827,
@@ -633,7 +629,7 @@ const talents = {
     icon: 'inv_misc_horn_04',
     maxRanks: 1,
     entryIds: [112249],
-    definitionIds: [{ id: 117254, specId: 71 }],
+    definitionIds: [{ id: 117254, specId: 73 }],
   },
   DREADNAUGHT_TALENT: {
     id: 262150,
@@ -657,7 +653,7 @@ const talents = {
     icon: 'spell_shaman_earthquake',
     maxRanks: 1,
     entryIds: [119858],
-    definitionIds: [{ id: 124758, specId: 71 }],
+    definitionIds: [{ id: 124758, specId: 73 }],
   },
   ENDURANCE_TRAINING_FURY_TALENT: {
     id: 391997,
@@ -672,10 +668,10 @@ const talents = {
     name: 'Endurance Training',
     icon: 'spell_nature_unyeildingstamina',
     maxRanks: 2,
-    entryIds: [112200, 112199],
+    entryIds: [112199, 112200],
     definitionIds: [
-      { id: 117205, specId: 73 },
       { id: 117204, specId: 71 },
+      { id: 117205, specId: 73 },
     ],
   },
   ENDURING_ALACRITY_TALENT: {
@@ -724,7 +720,7 @@ const talents = {
     icon: 'ability_hunter_posthaste',
     maxRanks: 1,
     entryIds: [112238],
-    definitionIds: [{ id: 117243, specId: 71 }],
+    definitionIds: [{ id: 117243, specId: 73 }],
   },
   FATALITY_TALENT: {
     id: 383703,
@@ -748,7 +744,7 @@ const talents = {
     icon: 'spell_deathknight_butcher2',
     maxRanks: 1,
     entryIds: [117384],
-    definitionIds: [{ id: 122396, specId: 71 }],
+    definitionIds: [{ id: 122396, specId: 72 }],
   },
   FIGHT_THROUGH_THE_FLAMES_TALENT: {
     id: 452494,
@@ -843,10 +839,10 @@ const talents = {
     name: 'Fueled by Violence',
     icon: 'ability_demonhunter_bloodlet',
     maxRanks: 1,
-    entryIds: [112326, 112127],
+    entryIds: [112127, 112326],
     definitionIds: [
-      { id: 117331, specId: 73 },
       { id: 117132, specId: 71 },
+      { id: 117331, specId: 73 },
     ],
   },
   GATHERING_CLOUDS_TALENT: {
@@ -887,25 +883,9 @@ const talents = {
     icon: 'ability_heroicleap',
     maxRanks: 1,
     entryIds: [112208],
-    definitionIds: [{ id: 117213, specId: 71 }],
+    definitionIds: [{ id: 117213, specId: 73 }],
   },
-  HONED_REFLEXES_ARMS_TALENT: {
-    id: 382461,
-    name: 'Honed Reflexes',
-    icon: 'spell_holy_borrowedtime',
-    maxRanks: 1,
-    entryIds: [118852],
-    definitionIds: [{ id: 123752, specId: 71 }],
-  },
-  HONED_REFLEXES_FURY_TALENT: {
-    id: 391270,
-    name: 'Honed Reflexes',
-    icon: 'spell_holy_borrowedtime',
-    maxRanks: 1,
-    entryIds: [118851],
-    definitionIds: [{ id: 123751, specId: 72 }],
-  },
-  HONED_REFLEXES_PROTECTION_TALENT: {
+  HONED_REFLEXES_TALENT: {
     id: 391271,
     name: 'Honed Reflexes',
     icon: 'spell_holy_borrowedtime',
@@ -918,11 +898,12 @@ const talents = {
     name: 'Ignore Pain',
     icon: 'ability_warrior_renewedvigor',
     maxRanks: 1,
-    entryIds: [112149, 114738],
+    entryIds: [114738, 112149],
     definitionIds: [
-      { id: 117154, specId: 73 },
       { id: 119745, specId: 71 },
+      { id: 117154, specId: 73 },
     ],
+    rageCost: 20,
   },
   IMMINENT_DEMISE_TALENT: {
     id: 444769,
@@ -930,7 +911,7 @@ const talents = {
     icon: 'ability_warrior_improveddisciplines',
     maxRanks: 1,
     entryIds: [117385],
-    definitionIds: [{ id: 122397, specId: 71 }],
+    definitionIds: [{ id: 122397, specId: 72 }],
   },
   IMMOVABLE_OBJECT_TALENT: {
     id: 394307,
@@ -954,7 +935,8 @@ const talents = {
     icon: 'spell_impending_victory',
     maxRanks: 1,
     entryIds: [112183],
-    definitionIds: [{ id: 117188, specId: 71 }],
+    definitionIds: [{ id: 117188, specId: 73 }],
+    rageCost: 10,
   },
   IMPENETRABLE_WALL_TALENT: {
     id: 384072,
@@ -1042,7 +1024,7 @@ const talents = {
     icon: 'ability_warrior_victoryrush',
     maxRanks: 1,
     entryIds: [112186],
-    definitionIds: [{ id: 117191, specId: 71 }],
+    definitionIds: [{ id: 117191, specId: 73 }],
   },
   INTIMIDATING_SHOUT_TALENT: {
     id: 5246,
@@ -1050,7 +1032,7 @@ const talents = {
     icon: 'ability_golemthunderclap',
     maxRanks: 1,
     entryIds: [112252],
-    definitionIds: [{ id: 117257, specId: 71 }],
+    definitionIds: [{ id: 117257, specId: 73 }],
   },
   INTO_THE_FRAY_TALENT: {
     id: 202603,
@@ -1114,7 +1096,7 @@ const talents = {
     icon: 'inv_artifact_bloodoftheassassinated',
     maxRanks: 1,
     entryIds: [112206],
-    definitionIds: [{ id: 117211, specId: 71 }],
+    definitionIds: [{ id: 117211, specId: 73 }],
   },
   LIGHTNING_STRIKES_TALENT: {
     id: 434969,
@@ -1130,7 +1112,7 @@ const talents = {
     icon: 'ability_warrior_stalwartprotector',
     maxRanks: 1,
     entryIds: [117409],
-    definitionIds: [{ id: 122421, specId: 71 }],
+    definitionIds: [{ id: 122421, specId: 73 }],
   },
   MARTIAL_PROWESS_TALENT: {
     id: 316440,
@@ -1153,10 +1135,10 @@ const talents = {
     name: 'Massacre',
     icon: 'inv_sword_48',
     maxRanks: 1,
-    entryIds: [112168, 112145],
+    entryIds: [112145, 112168],
     definitionIds: [
-      { id: 117173, specId: 73 },
       { id: 117150, specId: 71 },
+      { id: 117173, specId: 73 },
     ],
   },
   MEAT_CLEAVER_TALENT: {
@@ -1173,7 +1155,7 @@ const talents = {
     icon: 'ability_golemthunderclap',
     maxRanks: 1,
     entryIds: [112250],
-    definitionIds: [{ id: 117255, specId: 71 }],
+    definitionIds: [{ id: 117255, specId: 73 }],
   },
   MERCILESS_BONEGRINDER_TALENT: {
     id: 383317,
@@ -1190,6 +1172,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [112122],
     definitionIds: [{ id: 117127, specId: 71 }],
+    rageCost: 30,
   },
   MOUNTAIN_OF_MUSCLE_AND_SCARS_TALENT: {
     id: 429642,
@@ -1197,7 +1180,7 @@ const talents = {
     icon: 'ability_warrior_intensifyrage',
     maxRanks: 1,
     entryIds: [117403],
-    definitionIds: [{ id: 122415, specId: 71 }],
+    definitionIds: [{ id: 122415, specId: 73 }],
   },
   NO_STRANGER_TO_PAIN_TALENT: {
     id: 429644,
@@ -1205,7 +1188,7 @@ const talents = {
     icon: 'ability_warrior_renewedvigor',
     maxRanks: 1,
     entryIds: [117412],
-    definitionIds: [{ id: 122424, specId: 71 }],
+    definitionIds: [{ id: 122424, specId: 73 }],
   },
   ODYNS_FURY_TALENT: {
     id: 385059,
@@ -1221,7 +1204,7 @@ const talents = {
     icon: 'ability_warrior_incite',
     maxRanks: 1,
     entryIds: [117396],
-    definitionIds: [{ id: 122408, specId: 71 }],
+    definitionIds: [{ id: 122408, specId: 73 }],
   },
   ONE_HANDED_WEAPON_SPECIALIZATION_TALENT: {
     id: 382895,
@@ -1245,7 +1228,7 @@ const talents = {
     icon: 'ability_warrior_weaponmastery',
     maxRanks: 1,
     entryIds: [123770],
-    definitionIds: [{ id: 128608, specId: 71 }],
+    definitionIds: [{ id: 128608, specId: 72 }],
   },
   OVERPOWER_TALENT: {
     id: 7384,
@@ -1261,7 +1244,7 @@ const talents = {
     icon: 'inv_10_specialization_blacksmithing_blades_color1',
     maxRanks: 1,
     entryIds: [117407],
-    definitionIds: [{ id: 122419, specId: 71 }],
+    definitionIds: [{ id: 122419, specId: 72 }],
   },
   OVERWHELMING_RAGE_TALENT: {
     id: 382767,
@@ -1269,7 +1252,7 @@ const talents = {
     icon: 'racial_orc_berserkerstrength',
     maxRanks: 2,
     entryIds: [112245],
-    definitionIds: [{ id: 117250, specId: 71 }],
+    definitionIds: [{ id: 117250, specId: 73 }],
   },
   PAIN_AND_GAIN_TALENT: {
     id: 382549,
@@ -1277,7 +1260,7 @@ const talents = {
     icon: 'spell_holy_painsupression',
     maxRanks: 1,
     entryIds: [112217],
-    definitionIds: [{ id: 117222, specId: 71 }],
+    definitionIds: [{ id: 117222, specId: 73 }],
   },
   PIERCING_CHALLENGE_TALENT: {
     id: 382948,
@@ -1285,7 +1268,7 @@ const talents = {
     icon: 'ability_revendreth_warrior',
     maxRanks: 1,
     entryIds: [112246],
-    definitionIds: [{ id: 117251, specId: 71 }],
+    definitionIds: [{ id: 117251, specId: 73 }],
   },
   PIERCING_HOWL_TALENT: {
     id: 12323,
@@ -1293,7 +1276,7 @@ const talents = {
     icon: 'spell_shadow_deathscream',
     maxRanks: 1,
     entryIds: [112210],
-    definitionIds: [{ id: 117215, specId: 71 }],
+    definitionIds: [{ id: 117215, specId: 73 }],
   },
   POWERFUL_ENRAGE_TALENT: {
     id: 440277,
@@ -1309,7 +1292,7 @@ const talents = {
     icon: 'spell_warrior_sharpenblade',
     maxRanks: 1,
     entryIds: [117393],
-    definitionIds: [{ id: 122405, specId: 71 }],
+    definitionIds: [{ id: 122405, specId: 73 }],
   },
   PRECISE_MIGHT_TALENT: {
     id: 431548,
@@ -1317,7 +1300,7 @@ const talents = {
     icon: 'spell_hunter_focusingshot',
     maxRanks: 1,
     entryIds: [117391],
-    definitionIds: [{ id: 122403, specId: 71 }],
+    definitionIds: [{ id: 122403, specId: 73 }],
   },
   PUNISH_TALENT: {
     id: 275334,
@@ -1341,7 +1324,7 @@ const talents = {
     icon: 'ability_warrior_rallyingcry',
     maxRanks: 1,
     entryIds: [112188],
-    definitionIds: [{ id: 117193, specId: 71 }],
+    definitionIds: [{ id: 117193, specId: 73 }],
   },
   RAMPAGE_TALENT: {
     id: 184367,
@@ -1350,17 +1333,18 @@ const talents = {
     maxRanks: 1,
     entryIds: [112277],
     definitionIds: [{ id: 117282, specId: 72 }],
+    rageCost: 80,
   },
   RAVAGER_TALENT: {
     id: 228920,
     name: 'Ravager',
     icon: 'warrior_talent_icon_ravager',
     maxRanks: 1,
-    entryIds: [112256, 112304, 119138],
+    entryIds: [119138, 112256, 112304],
     definitionIds: [
+      { id: 124038, specId: 71 },
       { id: 117261, specId: 72 },
       { id: 117309, specId: 73 },
-      { id: 124038, specId: 71 },
     ],
   },
   REAP_THE_STORM_TALENT: {
@@ -1369,7 +1353,7 @@ const talents = {
     icon: 'ability_arakkoa_spinning_blade',
     maxRanks: 1,
     entryIds: [117406],
-    definitionIds: [{ id: 122418, specId: 71 }],
+    definitionIds: [{ id: 122418, specId: 72 }],
   },
   RECKLESSNESS_TALENT: {
     id: 1719,
@@ -1393,7 +1377,7 @@ const talents = {
     icon: 'inv_chest_plate04',
     maxRanks: 1,
     entryIds: [112235],
-    definitionIds: [{ id: 117240, specId: 71 }],
+    definitionIds: [{ id: 117240, specId: 73 }],
   },
   RELENTLESS_PURSUIT_TALENT: {
     id: 444776,
@@ -1401,7 +1385,7 @@ const talents = {
     icon: 'ability_rogue_sprint',
     maxRanks: 1,
     entryIds: [117392],
-    definitionIds: [{ id: 122404, specId: 71 }],
+    definitionIds: [{ id: 122404, specId: 72 }],
   },
   REND_ARMS_TALENT: {
     id: 772,
@@ -1410,6 +1394,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [112136],
     definitionIds: [{ id: 117141, specId: 71 }],
+    rageCost: 20,
   },
   REND_PROTECTION_TALENT: {
     id: 394062,
@@ -1418,6 +1403,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [112156],
     definitionIds: [{ id: 117161, specId: 73 }],
+    rageCost: 20,
   },
   REVENGE_TALENT: {
     id: 6572,
@@ -1426,6 +1412,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [112152],
     definitionIds: [{ id: 117157, specId: 73 }],
+    rageCost: 20,
   },
   RUMBLING_EARTH_TALENT: {
     id: 275339,
@@ -1433,7 +1420,7 @@ const talents = {
     icon: 'spell_shaman_earthquake',
     maxRanks: 1,
     entryIds: [112241],
-    definitionIds: [{ id: 117246, specId: 71 }],
+    definitionIds: [{ id: 117246, specId: 73 }],
   },
   SECOND_WIND_TALENT: {
     id: 29838,
@@ -1441,7 +1428,7 @@ const talents = {
     icon: 'ability_hunter_harass',
     maxRanks: 1,
     entryIds: [112190],
-    definitionIds: [{ id: 117195, specId: 71 }],
+    definitionIds: [{ id: 117195, specId: 73 }],
   },
   SEISMIC_REVERBERATION_TALENT: {
     id: 382956,
@@ -1449,7 +1436,7 @@ const talents = {
     icon: 'ability_warrior_bloodnova',
     maxRanks: 1,
     entryIds: [112218],
-    definitionIds: [{ id: 117223, specId: 71 }],
+    definitionIds: [{ id: 117223, specId: 73 }],
   },
   SHARPENED_BLADES_TALENT: {
     id: 383341,
@@ -1465,7 +1452,7 @@ const talents = {
     icon: 'ability_warrior_shatteringthrow',
     maxRanks: 1,
     entryIds: [112214],
-    definitionIds: [{ id: 117219, specId: 71 }],
+    definitionIds: [{ id: 117219, specId: 73 }],
   },
   SHIELD_CHARGE_TALENT: {
     id: 385952,
@@ -1497,7 +1484,7 @@ const talents = {
     icon: 'ability_warrior_shockwave',
     maxRanks: 1,
     entryIds: [112242],
-    definitionIds: [{ id: 117247, specId: 71 }],
+    definitionIds: [{ id: 117247, specId: 73 }],
   },
   SHOW_NO_MERCY_TALENT: {
     id: 444771,
@@ -1505,7 +1492,7 @@ const talents = {
     icon: 'warrior_talent_icon_lambstotheslaughter',
     maxRanks: 1,
     entryIds: [117381],
-    definitionIds: [{ id: 122393, specId: 71 }],
+    definitionIds: [{ id: 122393, specId: 72 }],
   },
   SHOW_OF_FORCE_TALENT: {
     id: 385843,
@@ -1520,11 +1507,11 @@ const talents = {
     name: 'Sidearm',
     icon: 'inv_throwingaxe_06',
     maxRanks: 1,
-    entryIds: [118848, 118846, 118845],
+    entryIds: [118845, 118848, 118846],
     definitionIds: [
+      { id: 123745, specId: 71 },
       { id: 123748, specId: 72 },
       { id: 123746, specId: 73 },
-      { id: 123745, specId: 71 },
     ],
   },
   SINGLE_MINDED_FURY_TALENT: {
@@ -1554,10 +1541,10 @@ const talents = {
   SLAYERS_DOMINANCE_TALENT: {
     id: 444767,
     name: "Slayer's Dominance",
-    icon: 'ability_warrior_unrelentingassault',
+    icon: 'inv_ability_slayerwarrior_slayersdominance',
     maxRanks: 1,
     entryIds: [117411],
-    definitionIds: [{ id: 122423, specId: 71 }],
+    definitionIds: [{ id: 122423, specId: 72 }],
   },
   SLAYERS_MALICE_TALENT: {
     id: 444779,
@@ -1565,7 +1552,7 @@ const talents = {
     icon: 'ability_warrior_revenge',
     maxRanks: 1,
     entryIds: [117398],
-    definitionIds: [{ id: 122410, specId: 71 }],
+    definitionIds: [{ id: 122410, specId: 72 }],
   },
   SNAP_INDUCTION_TALENT: {
     id: 456270,
@@ -1589,7 +1576,7 @@ const talents = {
     icon: 'ability_warrior_shieldreflection',
     maxRanks: 1,
     entryIds: [112253],
-    definitionIds: [{ id: 117258, specId: 71 }],
+    definitionIds: [{ id: 117258, specId: 73 }],
   },
   SPITEFUL_SERENITY_TALENT: {
     id: 400314,
@@ -1621,17 +1608,17 @@ const talents = {
     icon: 'warrior_talent_icon_stormbolt',
     maxRanks: 1,
     entryIds: [112198],
-    definitionIds: [{ id: 117203, specId: 71 }],
+    definitionIds: [{ id: 117203, specId: 73 }],
   },
   STORM_OF_STEEL_TALENT: {
     id: 382953,
     name: 'Storm of Steel',
     icon: 'ability_creature_cursed_04',
     maxRanks: 1,
-    entryIds: [112258, 112303],
+    entryIds: [112258, 126306],
     definitionIds: [
       { id: 117263, specId: 72 },
-      { id: 117308, specId: 73 },
+      { id: 131132, specId: 73 },
     ],
   },
   STORM_OF_SWORDS_TALENT: {
@@ -1695,10 +1682,10 @@ const talents = {
     name: 'Sudden Death',
     icon: 'ability_warrior_improveddisciplines',
     maxRanks: 1,
-    entryIds: [112111, 112126],
+    entryIds: [112126, 112111],
     definitionIds: [
-      { id: 117116, specId: 73 },
       { id: 117131, specId: 71 },
+      { id: 117116, specId: 73 },
     ],
   },
   SWIFT_STRIKES_TALENT: {
@@ -1736,7 +1723,7 @@ const talents = {
   THORIMS_MIGHT_TALENT: {
     id: 436152,
     name: "Thorim's Might",
-    icon: 'inv_axe_102',
+    icon: 'inv_ability_mountainthanewarrior_thorimsmight',
     maxRanks: 1,
     entryIds: [118834],
     definitionIds: [{ id: 123734, specId: 73 }],
@@ -1755,7 +1742,7 @@ const talents = {
     icon: 'ability_warrior_dragonroar',
     maxRanks: 1,
     entryIds: [112223],
-    definitionIds: [{ id: 117228, specId: 71 }],
+    definitionIds: [{ id: 117228, specId: 73 }],
   },
   THUNDEROUS_WORDS_TALENT: {
     id: 384969,
@@ -1763,7 +1750,7 @@ const talents = {
     icon: 'spell_nature_earthquake',
     maxRanks: 1,
     entryIds: [112222],
-    definitionIds: [{ id: 117227, specId: 71 }],
+    definitionIds: [{ id: 117227, specId: 73 }],
   },
   THUNDER_BLAST_TALENT: {
     id: 435607,
@@ -1779,7 +1766,8 @@ const talents = {
     icon: 'spell_nature_thunderclap',
     maxRanks: 1,
     entryIds: [112205],
-    definitionIds: [{ id: 117210, specId: 71 }],
+    definitionIds: [{ id: 117210, specId: 73 }],
+    rageCost: 20,
   },
   TIDE_OF_BATTLE_TALENT: {
     id: 429641,
@@ -1787,7 +1775,7 @@ const talents = {
     icon: 'ability_warrior_weaponmastery',
     maxRanks: 1,
     entryIds: [117408],
-    definitionIds: [{ id: 122420, specId: 71 }],
+    definitionIds: [{ id: 122420, specId: 73 }],
   },
   TITANIC_RAGE_TALENT: {
     id: 394329,
@@ -1832,12 +1820,12 @@ const talents = {
   UNHINGED_TALENT: {
     id: 386628,
     name: 'Unhinged',
-    icon: 'ability_warrior_savageblow',
+    icon: 'spell_shadow_spectralsight',
     maxRanks: 1,
-    entryIds: [112257, 112313],
+    entryIds: [112313, 112257],
     definitionIds: [
-      { id: 117262, specId: 72 },
       { id: 117318, specId: 71 },
+      { id: 117262, specId: 72 },
     ],
   },
   UNNERVING_FOCUS_TALENT: {
@@ -1854,7 +1842,7 @@ const talents = {
     icon: 'ability_warrior_commandingshout',
     maxRanks: 1,
     entryIds: [117417],
-    definitionIds: [{ id: 122429, specId: 71 }],
+    definitionIds: [{ id: 122429, specId: 72 }],
   },
   UNSTOPPABLE_FORCE_TALENT: {
     id: 275336,
@@ -1870,7 +1858,7 @@ const talents = {
     icon: 'inv_misc_head_dragon_01',
     maxRanks: 1,
     entryIds: [112221],
-    definitionIds: [{ id: 117226, specId: 71 }],
+    definitionIds: [{ id: 117226, specId: 73 }],
   },
   VALOR_IN_VICTORY_TALENT: {
     id: 383338,
@@ -1886,7 +1874,7 @@ const talents = {
     icon: 'ability_hunter_harass',
     maxRanks: 1,
     entryIds: [119857],
-    definitionIds: [{ id: 124757, specId: 71 }],
+    definitionIds: [{ id: 124757, specId: 73 }],
   },
   VICIOUS_AGILITY_TALENT: {
     id: 444777,
@@ -1894,7 +1882,7 @@ const talents = {
     icon: 'ability_paladin_speedoflight',
     maxRanks: 1,
     entryIds: [123408],
-    definitionIds: [{ id: 128246, specId: 71 }],
+    definitionIds: [{ id: 128246, specId: 72 }],
   },
   VICIOUS_CONTEMPT_TALENT: {
     id: 383885,
@@ -1966,7 +1954,7 @@ const talents = {
     icon: 'ability_rogue_sprint',
     maxRanks: 2,
     entryIds: [112224],
-    definitionIds: [{ id: 117229, specId: 71 }],
+    definitionIds: [{ id: 117229, specId: 73 }],
   },
   WRATH_AND_FURY_TALENT: {
     id: 392936,
@@ -1982,7 +1970,7 @@ const talents = {
     icon: 'warrior_talent_icon_mastercleaver',
     maxRanks: 1,
     entryIds: [112215],
-    definitionIds: [{ id: 117220, specId: 71 }],
+    definitionIds: [{ id: 117220, specId: 73 }],
   },
 } satisfies Record<string, Talent>;
 

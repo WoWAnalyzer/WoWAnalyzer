@@ -12,12 +12,12 @@ import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 
 const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
-  const AbilityRequirement = (props: AbilityRequirementProps) => (
-    <GenericCastEfficiencyRequirement
-      castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
-      {...props}
-    />
-  );
+  const AbilityRequirement = (props: AbilityRequirementProps) => {
+    const efficiency = castEfficiency.getCastEfficiencyForSpellId(props.spell);
+    return efficiency ? (
+      <GenericCastEfficiencyRequirement castEfficiency={efficiency} {...props} />
+    ) : null;
+  };
 
   return (
     <Checklist>

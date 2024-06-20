@@ -1,5 +1,5 @@
-import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
+import Spell from 'common/SPELLS/Spell';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 
 export const SPELL_COLORS = {
@@ -43,22 +43,26 @@ export const DUPLICATION_SPELLS = [
   SPELLS.EMERALD_COMMUNION_ALLY.id,
   SPELLS.FLUTTERING_SEEDLINGS_HEAL.id,
   TALENTS_EVOKER.ECHO_TALENT.id,
-  ITEMS.BROODKEEPERS_PROMISE_HEAL.id, // adding this here because everyone is running it
+  SPELLS.ENGULF_HEAL.id,
 ]; // common spell ids that trigger heal duplication for Cycle of Life and Lifebind
 
 // heal events that can be caused by an echo heal
-export const ECHO_HEALS = [
+export const HOT_ECHO_HEALS = [SPELLS.REVERSION_ECHO, SPELLS.DREAM_BREATH_ECHO];
+
+export const HIT_ECHO_HEALS = [
   SPELLS.DREAM_BREATH_ECHO,
   SPELLS.EMERALD_BLOSSOM_ECHO,
   SPELLS.LIVING_FLAME_HEAL,
-  SPELLS.REVERSION_ECHO,
   SPELLS.SPIRITBLOOM_SPLIT,
   SPELLS.SPIRITBLOOM_FONT,
   SPELLS.SPIRITBLOOM,
   SPELLS.VERDANT_EMBRACE_HEAL,
   SPELLS.LIFEBIND_HEAL,
   SPELLS.GOLDEN_HOUR_HEAL,
+  SPELLS.ENGULF_HEAL,
 ];
+
+export const ECHO_HEALS = [...HOT_ECHO_HEALS, ...HIT_ECHO_HEALS];
 
 export const STASIS_CAST_IDS = [
   SPELLS.LIVING_FLAME_CAST.id,
@@ -92,3 +96,7 @@ export const LIFESPARK_INCREASE = 0.5;
 export const RENEWING_BREATH_INCREASE = 0.15;
 export const TIMELESS_MAGIC = 0.15;
 export const TIMELORD_INCREASE = 0.25;
+
+export function getSpellIds(spells: Spell[]) {
+  return spells.map((spell) => spell.id);
+}

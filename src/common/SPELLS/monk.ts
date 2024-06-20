@@ -476,30 +476,6 @@ const spells = {
     name: 'Overflowing Mists',
     icon: 'inv_legion_faction_dreamweavers',
   },
-  //Tier 30 2pc Buff
-  SOULFANG_INFUSION: {
-    id: 410007,
-    name: 'Soulfang Infusion',
-    icon: 'inv_glove_leather_raidmonkdragon_d_01',
-  },
-  //Tier 30 4pc Buff
-  SOULFANG_VITALITY: {
-    id: 410082,
-    name: 'Soulfang Vitality',
-    icon: 'nv_helm_leather_raidmonkdragon_d_01',
-  },
-  //Tier 31 2pc Buff
-  CHI_HARMONY_HEAL_BONUS: {
-    id: 423439,
-    name: 'Chi Harmony',
-    icon: 'ability_monk_counteractmagic',
-  },
-  //Tier 31 2pc Buff
-  CHI_HARMONY_HEAL: {
-    id: 423458,
-    name: 'Chi Harmony',
-    icon: 'ability_monk_counteractmagic',
-  },
   //Invigorating Mist Heal
   INVIGORATING_MISTS_HEAL: {
     id: 425804,
