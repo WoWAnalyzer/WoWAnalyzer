@@ -11,6 +11,7 @@ import Events, {
   CastEvent,
   DamageEvent,
   HealEvent,
+  RefreshBuffEvent,
   RemoveBuffEvent,
   RemoveDebuffEvent,
 } from 'parser/core/Events';
@@ -35,7 +36,7 @@ class FanTheFlames extends Analyzer {
 
   totalDamage: number = 0;
   totalHealing: number = 0;
-  numExtended: number[] = [];
+  numAmplified: number[] = [];
   activeTargets = new Set<Combatant | Enemy>();
   buffedTargets = new Set<Combatant | Enemy>();
   protected combatants!: Combatants;
@@ -59,6 +60,10 @@ class FanTheFlames extends Analyzer {
         this.onRemoveBuffEvent,
       );
       this.addEventListener(
+        Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.ENKINDLE_HOT),
+        this.onRefresh,
+      );
+      this.addEventListener(
         Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ENKINDLE_HOT),
         this.onBuffApply,
       );
@@ -68,19 +73,23 @@ class FanTheFlames extends Analyzer {
         this.onDamage,
       );
       this.addEventListener(
-        Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.ENKINDLE_DOT),
-        this.onBuffApply,
-      );
-      this.addEventListener(
         Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.ENKINDLE_DOT),
         this.onRemoveBuffEvent,
+      );
+      this.addEventListener(
+        Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.ENKINDLE_DOT),
+        this.onRefresh,
+      );
+      this.addEventListener(
+        Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.ENKINDLE_DOT),
+        this.onBuffApply,
       );
     }
   }
 
   onCast(event: CastEvent) {
     this.buffedTargets = new Set(this.activeTargets);
-    this.numExtended.push(this.buffedTargets.size);
+    this.numAmplified.push(this.buffedTargets.size);
   }
 
   onBuffApply(event: ApplyBuffEvent | ApplyDebuffEvent) {
@@ -97,8 +106,16 @@ class FanTheFlames extends Analyzer {
     }
   }
 
+  onRefresh(event: RefreshBuffEvent) {
+    const target = this.getEntity(event);
+    if (target) {
+      this.buffedTargets.delete(target);
+    }
+  }
+
   getEntity(
     event:
+      | RefreshBuffEvent
       | RemoveBuffEvent
       | RemoveDebuffEvent
       | ApplyBuffEvent
@@ -133,7 +150,7 @@ class FanTheFlames extends Analyzer {
   }
 
   get averageBuffs() {
-    return this.numExtended.reduce((prev, cur) => prev + cur, 0) / this.numExtended.length;
+    return this.numAmplified.reduce((prev, cur) => prev + cur, 0) / this.numAmplified.length;
   }
 
   statistic() {
