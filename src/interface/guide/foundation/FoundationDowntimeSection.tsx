@@ -21,8 +21,8 @@ export function FoundationDowntimeSection(): JSX.Element | null {
     <Section title="Always Be Casting">
       <Explanation>
         <p>
-          The foundation of good play in <em>World of Warcraft</em> is having low downtime: step 1
-          to doing well is to <strong>Always Be Casting</strong>.{' '}
+          The foundation of good play in <em>World of Warcraft</em> is having low downtime. The
+          first step is to <strong>Always Be Casting</strong>.{' '}
           <HL>
             <ByRole>
               <Role.Melee>
@@ -38,8 +38,8 @@ export function FoundationDowntimeSection(): JSX.Element | null {
           isn't the <em>best</em> choice) will at least do <em>something.</em>
         </p>
         <p>
-          With practice, you will be able to both keep active and pick the right spells for each
-          moment, but remember that <strong>doing something is better than doing nothing</strong>.
+          With practice, you can keep active <em>and</em> pick the right spells for each moment, but
+          remember that <strong>doing something is better than doing nothing</strong>.
         </p>
       </Explanation>
 
@@ -67,7 +67,7 @@ export function FoundationDowntimeSection(): JSX.Element | null {
         />
       </p>
       <p>
-        A good rule of thumb is that{' '}
+        As a general guideline,{' '}
         <HL>
           you should have <strong>80%+</strong> active time during normal phases of a boss fight.
         </HL>{' '}

@@ -41,12 +41,12 @@ export function FoundationCooldownSection({
     <Section title="Cooldown Usage">
       <Explanation>
         <p>
-          Perfect cooldown usage is a kind of art&mdash;a combination of in-depth fight knowledge
-          and player skill to get exceptional output. However, 90% of the time you can get 90% of
-          those results by <strong>making sure to use every cooldown available to you.</strong>
+          Perfect cooldown usage is a combination of in-depth fight knowledge and player skill.
+          However, 90% of the time you can get 90% of those results by{' '}
+          <strong>making sure to use every cooldown available to you.</strong>
         </p>
         <p>
-          The key idea is to <HL>use your cooldowns as many times as you can.</HL> For example: you
+          The key idea is to <HL>use your cooldowns as many times as you can.</HL> For example, you
           can use a 2-minute cooldown <em>at most</em> 3 times in a 2m 30s boss fight. As long as
           you hit all 3 uses, it is okay to delay it for a better time.
         </p>
