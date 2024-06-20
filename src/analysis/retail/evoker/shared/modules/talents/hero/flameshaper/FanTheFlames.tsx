@@ -44,24 +44,16 @@ class FanTheFlames extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.FAN_THE_FLAMES_TALENT);
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ENKINDLE_DOT),
-      this.onDamage,
-    );
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ENKINDLE_DOT), this.onHeal);
+
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_EVOKER.ENGULF_TALENT),
       this.onCast,
     );
-    this.addEventListener(
-      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.ENKINDLE_DOT),
-      this.onBuffApply,
-    );
-    this.addEventListener(
-      Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.ENKINDLE_DOT),
-      this.onRemoveBuffEvent,
-    );
     if (this.selectedCombatant.spec === SPECS.PRESERVATION_EVOKER) {
+      this.addEventListener(
+        Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ENKINDLE_HOT),
+        this.onHeal,
+      );
       this.addEventListener(
         Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.ENKINDLE_HOT),
         this.onRemoveBuffEvent,
@@ -69,6 +61,19 @@ class FanTheFlames extends Analyzer {
       this.addEventListener(
         Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ENKINDLE_HOT),
         this.onBuffApply,
+      );
+    } else {
+      this.addEventListener(
+        Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ENKINDLE_DOT),
+        this.onDamage,
+      );
+      this.addEventListener(
+        Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.ENKINDLE_DOT),
+        this.onBuffApply,
+      );
+      this.addEventListener(
+        Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.ENKINDLE_DOT),
+        this.onRemoveBuffEvent,
       );
     }
   }
@@ -123,7 +128,7 @@ class FanTheFlames extends Analyzer {
       return;
     }
     if (this.buffedTargets.has(target)) {
-      this.totalDamage += calculateEffectiveHealing(event, FAN_THE_FLAMES_INCREASE);
+      this.totalHealing += calculateEffectiveHealing(event, FAN_THE_FLAMES_INCREASE);
     }
   }
 
