@@ -1,9 +1,12 @@
 import { EXPANDED_LUNG_INCREASE } from 'analysis/retail/evoker/shared/constants';
+import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
+import SpellLink from 'interface/SpellLink';
+import { TooltipElement } from 'interface/Tooltip';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage, calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
-import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
+import Events, { DamageEvent, EventType, HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/EventSubscriber';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
@@ -15,6 +18,8 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 class ExpandedLungs extends Analyzer {
   totalDamage: number = 0;
   totalHealing: number = 0;
+  consumeFlameExtraDamage: number = 0;
+  consumeFlameExtraHealing: number = 0;
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.EXPANDED_LUNGS_TALENT);
@@ -22,12 +27,20 @@ class ExpandedLungs extends Analyzer {
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FIRE_BREATH_DOT),
       this.onDamage,
     );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CONSUME_FLAME_DAMAGE),
+      this.onConsumeFlame,
+    );
     if (this.selectedCombatant.hasTalent(TALENTS_EVOKER.DREAM_BREATH_TALENT)) {
       this.addEventListener(
         Events.heal
           .by(SELECTED_PLAYER)
           .spell([SPELLS.DREAM_BREATH, SPELLS.DREAM_BREATH_ECHO, SPELLS.DREAM_BREATH_FONT]),
         this.onHeal,
+      );
+      this.addEventListener(
+        Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CONSUME_FLAME_HEAL),
+        this.onConsumeFlame,
       );
     }
   }
@@ -44,6 +57,14 @@ class ExpandedLungs extends Analyzer {
     }
   }
 
+  onConsumeFlame(event: HealEvent | DamageEvent) {
+    if (event.type === EventType.Heal) {
+      this.consumeFlameExtraHealing += calculateEffectiveHealing(event, EXPANDED_LUNG_INCREASE);
+    } else {
+      this.consumeFlameExtraDamage += calculateEffectiveDamage(event, EXPANDED_LUNG_INCREASE);
+    }
+  }
+
   statistic() {
     return (
       <Statistic
@@ -53,14 +74,30 @@ class ExpandedLungs extends Analyzer {
       >
         <TalentSpellText talent={TALENTS_EVOKER.EXPANDED_LUNGS_TALENT}>
           {this.selectedCombatant.hasTalent(TALENTS_EVOKER.DREAM_BREATH_TALENT) ? (
-            <div>
-              <ItemHealingDone amount={this.totalHealing} />
-            </div>
+            <TooltipElement
+              content={
+                <>
+                  Extra <SpellLink spell={TALENTS_EVOKER.CONSUME_FLAME_TALENT} /> healing:{' '}
+                  {formatNumber(this.consumeFlameExtraHealing)}
+                </>
+              }
+            >
+              <ItemHealingDone amount={this.totalHealing + this.consumeFlameExtraHealing} />
+            </TooltipElement>
           ) : (
             <></>
           )}
           <div>
-            <ItemDamageDone amount={this.totalDamage} />
+            <TooltipElement
+              content={
+                <>
+                  Extra <SpellLink spell={TALENTS_EVOKER.CONSUME_FLAME_TALENT} /> damage:{' '}
+                  {formatNumber(this.consumeFlameExtraDamage)}
+                </>
+              }
+            >
+              <ItemDamageDone amount={this.totalDamage + this.consumeFlameExtraDamage} />
+            </TooltipElement>
           </div>
         </TalentSpellText>
       </Statistic>
