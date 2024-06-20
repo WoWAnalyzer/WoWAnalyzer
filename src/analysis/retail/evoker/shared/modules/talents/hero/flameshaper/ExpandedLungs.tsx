@@ -22,12 +22,14 @@ class ExpandedLungs extends Analyzer {
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FIRE_BREATH_DOT),
       this.onDamage,
     );
-    this.addEventListener(
-      Events.heal
-        .by(SELECTED_PLAYER)
-        .spell([SPELLS.DREAM_BREATH, SPELLS.DREAM_BREATH_ECHO, SPELLS.DREAM_BREATH_FONT]),
-      this.onHeal,
-    );
+    if (this.selectedCombatant.hasTalent(TALENTS_EVOKER.DREAM_BREATH_TALENT)) {
+      this.addEventListener(
+        Events.heal
+          .by(SELECTED_PLAYER)
+          .spell([SPELLS.DREAM_BREATH, SPELLS.DREAM_BREATH_ECHO, SPELLS.DREAM_BREATH_FONT]),
+        this.onHeal,
+      );
+    }
   }
 
   onDamage(event: DamageEvent) {
@@ -50,9 +52,13 @@ class ExpandedLungs extends Analyzer {
         category={STATISTIC_CATEGORY.HERO_TALENTS}
       >
         <TalentSpellText talent={TALENTS_EVOKER.EXPANDED_LUNGS_TALENT}>
-          <div>
-            <ItemHealingDone amount={this.totalHealing} />
-          </div>
+          {this.selectedCombatant.hasTalent(TALENTS_EVOKER.DREAM_BREATH_TALENT) ? (
+            <div>
+              <ItemHealingDone amount={this.totalHealing} />
+            </div>
+          ) : (
+            <></>
+          )}
           <div>
             <ItemDamageDone amount={this.totalDamage} />
           </div>
