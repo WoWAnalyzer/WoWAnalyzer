@@ -15,6 +15,7 @@ import {
 import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { EventType, HasRelatedEvent } from 'parser/core/Events';
+import { HIT_ECHO_HEALS, HOT_ECHO_HEALS, getSpellIds } from '../../constants';
 
 export const ECHO_EVENT_LINKS: EventLink[] = [
   /* ECHO CAST TO ECHO APPLY LINKING */
@@ -76,7 +77,7 @@ export const ECHO_EVENT_LINKS: EventLink[] = [
     reverseLinkRelation: ECHO,
     linkingEventId: TALENTS_EVOKER.ECHO_TALENT.id,
     linkingEventType: [EventType.RemoveBuff],
-    referencedEventId: [SPELLS.REVERSION_ECHO.id, SPELLS.DREAM_BREATH_ECHO.id],
+    referencedEventId: getSpellIds(HOT_ECHO_HEALS),
     referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     forwardBufferMs: ECHO_BUFFER,
     maximumLinks: 1,
@@ -90,7 +91,7 @@ export const ECHO_EVENT_LINKS: EventLink[] = [
     reverseLinkRelation: ECHO_TEMPORAL_ANOMALY,
     linkingEventId: TALENTS_EVOKER.ECHO_TALENT.id,
     linkingEventType: [EventType.RemoveBuff],
-    referencedEventId: [SPELLS.REVERSION_ECHO.id, SPELLS.DREAM_BREATH_ECHO.id],
+    referencedEventId: getSpellIds(HOT_ECHO_HEALS),
     referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     forwardBufferMs: ECHO_BUFFER,
     maximumLinks: 1,
@@ -115,16 +116,7 @@ export const ECHO_EVENT_LINKS: EventLink[] = [
     reverseLinkRelation: ECHO,
     linkingEventId: TALENTS_EVOKER.ECHO_TALENT.id,
     linkingEventType: [EventType.RemoveBuff],
-    referencedEventId: [
-      SPELLS.DREAM_BREATH_ECHO.id,
-      SPELLS.EMERALD_BLOSSOM_ECHO.id,
-      SPELLS.LIVING_FLAME_HEAL.id,
-      SPELLS.SPIRITBLOOM_SPLIT.id,
-      SPELLS.SPIRITBLOOM_FONT.id,
-      SPELLS.SPIRITBLOOM.id,
-      SPELLS.VERDANT_EMBRACE_HEAL.id,
-      SPELLS.ENGULF_HEAL.id,
-    ],
+    referencedEventId: getSpellIds(HIT_ECHO_HEALS),
     referencedEventType: EventType.Heal,
     forwardBufferMs: ECHO_BUFFER,
     maximumLinks: 1,
@@ -152,16 +144,7 @@ export const ECHO_EVENT_LINKS: EventLink[] = [
     reverseLinkRelation: ECHO_TEMPORAL_ANOMALY,
     linkingEventId: TALENTS_EVOKER.ECHO_TALENT.id,
     linkingEventType: EventType.RemoveBuff,
-    referencedEventId: [
-      SPELLS.EMERALD_BLOSSOM_ECHO.id,
-      SPELLS.SPIRITBLOOM_SPLIT.id,
-      SPELLS.SPIRITBLOOM.id,
-      SPELLS.SPIRITBLOOM_FONT.id,
-      SPELLS.DREAM_BREATH_ECHO.id,
-      SPELLS.LIVING_FLAME_HEAL.id,
-      SPELLS.VERDANT_EMBRACE_HEAL.id,
-      SPELLS.ENGULF_HEAL.id,
-    ],
+    referencedEventId: getSpellIds(HIT_ECHO_HEALS),
     referencedEventType: EventType.Heal,
     maximumLinks: 1,
     forwardBufferMs: ECHO_BUFFER,
