@@ -63,6 +63,7 @@ import {
   Engulf,
 } from '../shared';
 import T32Prevoker from './modules/tier/T32TierSet';
+import ExpandedLungs from '../shared/modules/talents/hero/flameshaper/ExpandedLungs';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -141,6 +142,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // hero talents
     engulf: Engulf,
+    expandedLungs: ExpandedLungs,
 
     // other
     t32Prevoker: T32Prevoker,

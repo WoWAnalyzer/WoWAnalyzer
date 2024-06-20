@@ -56,6 +56,7 @@ import {
   RenewingBlaze,
   Engulf,
 } from 'analysis/retail/evoker/shared';
+import ExpandedLungs from '../shared/modules/talents/hero/flameshaper/ExpandedLungs';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -114,6 +115,7 @@ class CombatLogParser extends MainCombatLogParser {
 
     // hero talents
     engulf: Engulf,
+    expandedLungs: ExpandedLungs,
 
     // core abilities
     disintegrate: Disintegrate,

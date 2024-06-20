@@ -55,3 +55,4 @@ export const PERIODIC_HEALING_IDS = [
 ];
 
 export const ENGULF_PERIODIC_INCREASE = 0.5;
+export const EXPANDED_LUNG_INCREASE = 0.2;
