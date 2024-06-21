@@ -8,7 +8,7 @@ class Abilities extends CoreAbilities {
     return [
       // Rotational
       {
-        spell: [SPELLS.CORRUPTION.id, ...SPELLS.CORRUPTION.lowRanks],
+        spell: SPELLS.CORRUPTION.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
@@ -30,7 +30,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.talentPoints[0] >= 50,
       },
       {
-        spell: [SPELLS.LIFE_TAP.id, ...SPELLS.LIFE_TAP.lowRanks],
+        spell: SPELLS.LIFE_TAP.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
@@ -100,17 +100,17 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.IMMOLATE.id, ...SPELLS.IMMOLATE.lowRanks],
+        spell: SPELLS.IMMOLATE.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.INCINERATE.id, ...SPELLS.INCINERATE.lowRanks],
+        spell: SPELLS.INCINERATE.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.SOUL_FIRE.id, ...SPELLS.SOUL_FIRE.lowRanks],
+        spell: SPELLS.SOUL_FIRE.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: { base: 1500 },
       },
@@ -120,12 +120,12 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.RAIN_OF_FIRE.id, ...SPELLS.RAIN_OF_FIRE.lowRanks],
+        spell: SPELLS.RAIN_OF_FIRE.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.SHADOWFLAME.id, ...SPELLS.SHADOWFLAME.lowRanks],
+        spell: SPELLS.SHADOWFLAME.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: { base: 1500 },
       },
@@ -136,7 +136,7 @@ class Abilities extends CoreAbilities {
       },
       // Utility
       {
-        spell: [SPELLS.CURSE_OF_THE_ELEMENTS.id, ...SPELLS.CURSE_OF_THE_ELEMENTS.lowRanks],
+        spell: SPELLS.CURSE_OF_THE_ELEMENTS.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
