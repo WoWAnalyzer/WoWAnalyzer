@@ -44,8 +44,7 @@ enum EB_SOURCE {
 
 export const MANA_COSTS: { [name: string]: number } = {
   'Emerald Blossom': SPELLS.EMERALD_BLOSSOM_CAST.manaCost,
-  Echo: 0,
-  // Echo: TALENTS_EVOKER.ECHO_TALENT.manaCost?,
+  Echo: TALENTS_EVOKER.ECHO_TALENT.manaCost,
   Disintegrate: 0,
 };
 

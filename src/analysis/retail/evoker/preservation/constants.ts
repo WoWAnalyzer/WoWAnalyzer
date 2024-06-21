@@ -1,8 +1,9 @@
-import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
+import Spell from 'common/SPELLS/Spell';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 
 export const SPELL_COLORS = {
+  CONSUME_FLAME: '#d078ff',
   CYCLE_OF_LIFE: '#fafad2',
   DISINTEGRATE: '#0047AB',
   DREAM_BREATH: '#c49c94',
@@ -10,6 +11,8 @@ export const SPELL_COLORS = {
   ECHO: '#2E8B57',
   EMERALD_BLOSSOM: '#c1e1c1',
   EMERALD_COMMUNION: '#aef359',
+  ENKINDLE: '#fc036b',
+  ENGULF: '#ff78b0',
   FLUTTERING_SEEDLING: '#ffff00',
   LIVING_FLAME: '#880e0b',
   LIFEBIND: '#bf0a30',
@@ -43,22 +46,26 @@ export const DUPLICATION_SPELLS = [
   SPELLS.EMERALD_COMMUNION_ALLY.id,
   SPELLS.FLUTTERING_SEEDLINGS_HEAL.id,
   TALENTS_EVOKER.ECHO_TALENT.id,
-  ITEMS.BROODKEEPERS_PROMISE_HEAL.id, // adding this here because everyone is running it
+  SPELLS.ENGULF_HEAL.id,
 ]; // common spell ids that trigger heal duplication for Cycle of Life and Lifebind
 
 // heal events that can be caused by an echo heal
-export const ECHO_HEALS = [
+export const HOT_ECHO_HEALS = [SPELLS.REVERSION_ECHO, SPELLS.DREAM_BREATH_ECHO];
+
+export const HIT_ECHO_HEALS = [
   SPELLS.DREAM_BREATH_ECHO,
   SPELLS.EMERALD_BLOSSOM_ECHO,
   SPELLS.LIVING_FLAME_HEAL,
-  SPELLS.REVERSION_ECHO,
   SPELLS.SPIRITBLOOM_SPLIT,
   SPELLS.SPIRITBLOOM_FONT,
   SPELLS.SPIRITBLOOM,
   SPELLS.VERDANT_EMBRACE_HEAL,
   SPELLS.LIFEBIND_HEAL,
   SPELLS.GOLDEN_HOUR_HEAL,
+  SPELLS.ENGULF_HEAL,
 ];
+
+export const ECHO_HEALS = [...HOT_ECHO_HEALS, ...HIT_ECHO_HEALS];
 
 export const STASIS_CAST_IDS = [
   SPELLS.LIVING_FLAME_CAST.id,
@@ -73,6 +80,24 @@ export const STASIS_CAST_IDS = [
   TALENTS_EVOKER.SPIRITBLOOM_TALENT.id,
   SPELLS.SPIRITBLOOM_FONT.id,
   SPELLS.NATURALIZE.id,
+];
+
+export const CYCLE_SPELLS = [
+  ...getSpellIds(ECHO_HEALS),
+  SPELLS.CYCLE_OF_LIFE_HEAL.id,
+  SPELLS.DREAM_BREATH.id,
+  TALENTS_EVOKER.ECHO_TALENT.id,
+  SPELLS.EMERALD_BLOSSOM.id,
+  SPELLS.EMERALD_COMMUNION_ALLY.id,
+  TALENTS_EVOKER.EMERALD_COMMUNION_TALENT.id,
+  SPELLS.FLUTTERING_SEEDLINGS_HEAL.id,
+  SPELLS.LIFEBIND_HEAL.id,
+  SPELLS.LIVING_FLAME_HEAL.id,
+  SPELLS.RENEWING_BLAZE_HEAL.id,
+  TALENTS_EVOKER.REVERSION_TALENT.id,
+  SPELLS.ENGULF_HEAL.id,
+  SPELLS.ENKINDLE_HOT.id,
+  SPELLS.CONSUME_FLAME_HEAL.id,
 ];
 
 // hots
@@ -92,3 +117,7 @@ export const LIFESPARK_INCREASE = 0.5;
 export const RENEWING_BREATH_INCREASE = 0.15;
 export const TIMELESS_MAGIC = 0.15;
 export const TIMELORD_INCREASE = 0.25;
+
+export function getSpellIds(spells: Spell[]) {
+  return spells.map((spell) => spell.id);
+}

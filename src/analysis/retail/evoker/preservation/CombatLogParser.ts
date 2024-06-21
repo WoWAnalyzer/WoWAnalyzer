@@ -61,8 +61,11 @@ import {
   EssenceTracker,
   SourceOfMagic,
   PotentMana,
+  Engulf,
 } from '../shared';
 import T32Prevoker from './modules/tier/T32TierSet';
+import ExpandedLungs from '../shared/modules/talents/hero/flameshaper/ExpandedLungs';
+import FanTheFlames from '../shared/modules/talents/hero/flameshaper/FanTheFlames';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -139,6 +142,11 @@ class CombatLogParser extends CoreCombatLogParser {
     essenceBurstSources: EssenceBurstSources,
     lifespark: Lifespark,
     titansGift: TitansGift,
+
+    // hero talents
+    engulf: Engulf,
+    expandedLungs: ExpandedLungs,
+    FanTheFlames: FanTheFlames,
 
     // other
     t32Prevoker: T32Prevoker,

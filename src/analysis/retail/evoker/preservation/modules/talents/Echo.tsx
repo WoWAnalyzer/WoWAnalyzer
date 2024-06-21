@@ -1,7 +1,5 @@
-import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   CastEvent,
@@ -10,11 +8,7 @@ import Events, {
   RemoveBuffEvent,
 } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
-import DonutChart from 'parser/ui/DonutChart';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { ECHO_HEALS, SPELL_COLORS } from '../../constants';
+import { ECHO_HEALS } from '../../constants';
 import {
   didEchoExpire,
   getEchoTypeForGoldenHour,
@@ -173,126 +167,6 @@ class Echo extends Analyzer {
     return isHardcast
       ? this.hardcastEchoHealingForSpell(spellId)
       : this.taEchoHealingForSpell(spellId);
-  }
-
-  renderDonutChart() {
-    const items = [
-      {
-        color: SPELL_COLORS.DREAM_BREATH,
-        label: 'Dream Breath',
-        spellId: TALENTS_EVOKER.DREAM_BREATH_TALENT.id,
-        value: this.totalEchoHealingForSpell(SPELLS.DREAM_BREATH_ECHO.id),
-        valueTooltip:
-          formatNumber(this.totalEchoHealingForSpell(SPELLS.DREAM_BREATH_ECHO.id)) +
-          ' in ' +
-          this.consumptionsBySpell.get(SPELLS.DREAM_BREATH_ECHO.id) +
-          ' consumptions',
-      },
-      {
-        color: SPELL_COLORS.SPIRITBLOOM,
-        label: 'Spiritbloom',
-        spellId: TALENTS_EVOKER.SPIRITBLOOM_TALENT.id,
-        value:
-          this.totalEchoHealingForSpell(SPELLS.SPIRITBLOOM.id) +
-          this.totalEchoHealingForSpell(SPELLS.SPIRITBLOOM_SPLIT.id) +
-          this.totalEchoHealingForSpell(SPELLS.SPIRITBLOOM_FONT.id),
-        valueTooltip:
-          formatNumber(
-            this.totalEchoHealingForSpell(SPELLS.SPIRITBLOOM.id) +
-              this.totalEchoHealingForSpell(SPELLS.SPIRITBLOOM_SPLIT.id) +
-              this.totalEchoHealingForSpell(SPELLS.SPIRITBLOOM_FONT.id),
-          ) +
-          ' in ' +
-          (this.consumptionsBySpell.get(SPELLS.SPIRITBLOOM.id)! +
-            this.consumptionsBySpell.get(SPELLS.SPIRITBLOOM_SPLIT.id)! +
-            this.consumptionsBySpell.get(SPELLS.SPIRITBLOOM_FONT.id)!) +
-          ' consumptions',
-      },
-      {
-        color: SPELL_COLORS.LIVING_FLAME,
-        label: 'Living Flame',
-        spellId: SPELLS.LIVING_FLAME_HEAL.id,
-        value: this.totalEchoHealingForSpell(SPELLS.LIVING_FLAME_HEAL.id),
-        valueTooltip:
-          formatNumber(this.totalEchoHealingForSpell(SPELLS.LIVING_FLAME_HEAL.id)) +
-          ' in ' +
-          this.consumptionsBySpell.get(SPELLS.LIVING_FLAME_HEAL.id) +
-          ' consumptions',
-      },
-      {
-        color: SPELL_COLORS.REVERSION,
-        label: 'Reversion',
-        spellId: TALENTS_EVOKER.REVERSION_TALENT.id,
-        value:
-          this.totalEchoHealingForSpell(SPELLS.REVERSION_ECHO.id) +
-          this.totalEchoHealingForSpell(SPELLS.GOLDEN_HOUR_HEAL.id),
-        valueTooltip: (
-          <>
-            <SpellLink spell={TALENTS_EVOKER.REVERSION_TALENT} /> healing:{' '}
-            {formatNumber(this.totalEchoHealingForSpell(SPELLS.REVERSION_ECHO.id))} <br />
-            and <SpellLink spell={TALENTS_EVOKER.GOLDEN_HOUR_TALENT} /> healing:{' '}
-            {formatNumber(this.totalEchoHealingForSpell(SPELLS.GOLDEN_HOUR_HEAL.id))} <br />
-            in {this.consumptionsBySpell.get(SPELLS.REVERSION_ECHO.id) + ' consumptions'}
-          </>
-        ),
-      },
-      {
-        color: SPELL_COLORS.EMERALD_BLOSSOM,
-        label: 'Emerald Blossom',
-        spellId: SPELLS.EMERALD_BLOSSOM.id,
-        value: this.totalEchoHealingForSpell(SPELLS.EMERALD_BLOSSOM_ECHO.id),
-        valueTooltip:
-          formatNumber(this.totalEchoHealingForSpell(SPELLS.EMERALD_BLOSSOM_ECHO.id)) +
-          ' in ' +
-          this.consumptionsBySpell.get(SPELLS.EMERALD_BLOSSOM_ECHO.id) +
-          ' consumptions',
-      },
-      {
-        color: SPELL_COLORS.VERDANT_EMBRACE,
-        label: 'Verdant Embrace',
-        spellId: SPELLS.VERDANT_EMBRACE_HEAL.id,
-        value:
-          this.totalEchoHealingForSpell(SPELLS.VERDANT_EMBRACE_HEAL.id) +
-          this.totalEchoHealingForSpell(SPELLS.LIFEBIND_HEAL.id),
-        valueTooltip: (
-          <>
-            <SpellLink spell={TALENTS_EVOKER.VERDANT_EMBRACE_TALENT} /> healing:{' '}
-            {formatNumber(this.totalEchoHealingForSpell(SPELLS.VERDANT_EMBRACE_HEAL.id))} <br />
-            and <SpellLink spell={TALENTS_EVOKER.LIFEBIND_TALENT} /> healing:{' '}
-            {formatNumber(this.totalEchoHealingForSpell(SPELLS.LIFEBIND_HEAL.id))} <br />
-            in {this.consumptionsBySpell.get(SPELLS.VERDANT_EMBRACE_HEAL.id) + ' consumptions'}
-          </>
-        ),
-      },
-    ]
-      .filter((item) => {
-        return item.value > 0;
-      })
-      .sort((a, b) => {
-        return Math.sign(b.value - a.value);
-      });
-    return items.length > 0 ? <DonutChart items={items} /> : null;
-  }
-
-  statistic() {
-    const chart = this.renderDonutChart();
-    if (!chart) {
-      return null;
-    }
-    return (
-      <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(13)}
-        size="flexible"
-        category={STATISTIC_CATEGORY.TALENTS}
-      >
-        <div className="pad">
-          <label>
-            <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} /> healing breakdown by spell
-          </label>
-          {chart}
-        </div>
-      </Statistic>
-    );
   }
 }
 

@@ -5,6 +5,11 @@ import { Vohrr } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date (2024, 6, 20), <>Added <SpellLink spell={TALENTS_MONK.POOL_OF_MISTS_TALENT}/>.</>, Vohrr),
+  change(date (2024, 6, 18), <>Updated <SpellLink spell={TALENTS_MONK.RISING_MIST_TALENT}/>, <SpellLink spell={TALENTS_MONK.RAPID_DIFFUSION_TALENT}/>, and <SpellLink spell={TALENTS_MONK.DANCING_MISTS_TALENT}/> to include healing contribution from <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT}/>.</>, Vohrr),
+  change(date (2024, 6, 18), <>Updated <SpellLink spell={TALENTS_MONK.REFRESHING_JADE_WIND_TALENT}/>, <SpellLink spell={TALENTS_MONK.YULONS_WHISPER_TALENT}/>, and <SpellLink spell={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT}/> for The War Within.</>, Vohrr),
+  change(date (2024, 6, 18), <>Removed dragonflight tier set analysis, moved Tier 31 into <SpellLink spell={TALENTS_MONK.CHI_HARMONY_TALENT}/> module.</>, Vohrr),
+  change(date(2024, 6, 18), <>Added Nerubar Palance Tier Set</>, Vohrr),
   change(date(2024, 6, 17), <>Bug fix for <SpellLink spell={SPELLS.VIVIFY}/> cast entry section of the guide.</>, Vohrr),
   change(date(2024, 6, 16), <>Added <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT}/>.</>, Vohrr),
   change(date(2024, 6, 16), <>Removed old checklist and suggestion thresholds. Updated <SpellLink spell={SPELLS.VIVIFY}/> event linking to fix cast entry bugs. Added healing boost statistic for <SpellLink spell={TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT}/>.</>, Vohrr),

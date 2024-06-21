@@ -54,7 +54,10 @@ import {
   DefensiveCastLinkNormalizer,
   TwinGuardian,
   RenewingBlaze,
+  Engulf,
 } from 'analysis/retail/evoker/shared';
+import ExpandedLungs from '../shared/modules/talents/hero/flameshaper/ExpandedLungs';
+import FanTheFlames from '../shared/modules/talents/hero/flameshaper/FanTheFlames';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -110,6 +113,11 @@ class CombatLogParser extends MainCombatLogParser {
     engulfingBlaze: EngulfingBlaze,
     layWaste: LayWaste,
     iridescence: Iridescence,
+
+    // hero talents
+    engulf: Engulf,
+    expandedLungs: ExpandedLungs,
+    fanTheFlames: FanTheFlames,
 
     // core abilities
     disintegrate: Disintegrate,

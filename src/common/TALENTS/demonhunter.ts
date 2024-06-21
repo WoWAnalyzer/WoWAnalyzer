@@ -193,6 +193,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [112911],
     definitionIds: [{ id: 117916, specId: 581 }],
+    furyCost: 25,
   },
   CHAOS_THEORY_TALENT: {
     id: 389687,
@@ -341,7 +342,7 @@ const talents = {
   DEMONSURGE_TALENT: {
     id: 452402,
     name: 'Demonsurge',
-    icon: 'spell_fire_felhellfire',
+    icon: 'inv_ability_felscarreddemonhunter_demonsurge',
     maxRanks: 1,
     entryIds: [117514],
     definitionIds: [{ id: 122526, specId: 581 }],
@@ -449,6 +450,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [112939],
     definitionIds: [{ id: 117944, specId: 577 }],
+    furyCost: 30,
   },
   FALLOUT_TALENT: {
     id: 227174,
@@ -497,6 +499,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [117742],
     definitionIds: [{ id: 122754, specId: 577 }],
+    furyCost: 10,
   },
   FEL_DEVASTATION_TALENT: {
     id: 212084,
@@ -505,6 +508,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [112908],
     definitionIds: [{ id: 117913, specId: 581 }],
+    furyCost: 50,
   },
   FEL_FLAME_FORTIFICATION_TALENT: {
     id: 389705,
@@ -609,6 +613,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [117763],
     definitionIds: [{ id: 122775, specId: 577 }],
+    furyCost: 30,
   },
   GROWING_INFERNO_TALENT: {
     id: 390158,
@@ -1145,6 +1150,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [112894],
     definitionIds: [{ id: 117899, specId: 581 }],
+    furyCost: 40,
   },
   STOKE_THE_FLAMES_TALENT: {
     id: 393827,

@@ -9,11 +9,12 @@ import {
   LOTUS_INFUSION_DURATION,
   MISTWRAP,
   MISTY_PEAKS_DURATION,
-  RAPID_DIFFUSION,
+  RAPID_DIFFUSION_DURATION,
   REM_BASE_DURATION,
   RISING_MIST,
   TFT_REM_EXTRA_DURATION,
 } from '../../constants';
+import { ApplyBuffEvent, HealEvent } from 'parser/core/Events';
 
 const HARDCAST = 'Hardcast';
 
@@ -33,6 +34,17 @@ class HotTrackerMW extends HotTracker {
       TALENTS_MONK.RAPID_DIFFUSION_TALENT,
     );
     this.risingMistActive = this.owner.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT);
+  }
+
+  /**
+   * Checks if the target of the event currently has the specified HoT on them
+   * @param event the healing event to check
+   * @param spellId the spellId of the HoT to check for
+   * @return true if the target of the event has the specificed HoT, false if not
+   */
+  hasHot(event: HealEvent | ApplyBuffEvent, spellId: number): boolean {
+    const targetId = event.targetID;
+    return !(!this.hots[targetId] || !this.hots[targetId][spellId]);
   }
 
   fromRapidDiffusionRisingSunKick(hot: Tracker): boolean {
@@ -161,13 +173,13 @@ class HotTrackerMW extends HotTracker {
   _getRapidDiffusionMaxDuration(combatant: Combatant): number {
     return (
       (combatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)
-        ? RAPID_DIFFUSION * RISING_MIST
-        : RAPID_DIFFUSION) * combatant.getTalentRank(TALENTS_MONK.RAPID_DIFFUSION_TALENT)
+        ? RAPID_DIFFUSION_DURATION * RISING_MIST
+        : RAPID_DIFFUSION_DURATION) * combatant.getTalentRank(TALENTS_MONK.RAPID_DIFFUSION_TALENT)
     );
   }
 
   _getRapidDiffusionDuration(combatant: Combatant): number {
-    return RAPID_DIFFUSION * combatant.getTalentRank(TALENTS_MONK.RAPID_DIFFUSION_TALENT);
+    return RAPID_DIFFUSION_DURATION * combatant.getTalentRank(TALENTS_MONK.RAPID_DIFFUSION_TALENT);
   }
 
   _getMistyPeaksMaxDuration(combatant: Combatant): number {

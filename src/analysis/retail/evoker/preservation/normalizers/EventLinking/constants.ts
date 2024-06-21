@@ -2,9 +2,8 @@ export const ANCIENT_FLAME = 'AncientFlame'; // links cast to buff apply
 export const ANCIENT_FLAME_CONSUME = 'AncientFlameConnsume'; // links buff remove to buff apply
 // BEGIN ECHO constants
 export const FROM_HARDCAST = 'FromHardcast'; // for linking a buffapply or heal to its cast
-export const FROM_TEMPORAL_ANOMALY = 'FromTemporalAnomaly'; // for linking TA echo apply to TA shield apply
 export const ECHO_REMOVAL = 'EchoRemoval'; // for linking echo removal to echo apply
-export const TA_ECHO_REMOVAL = 'TaEchoTemoval'; // for linking TA echo removal to echo apply
+export const TA_ECHO_REMOVAL = 'TaEchoRemoval'; // for linking TA echo removal to echo apply
 export const ECHO_TEMPORAL_ANOMALY = 'TemporalAnomaly'; // for linking BuffApply/Heal to echo removal
 export const ECHO = 'Echo'; // for linking BuffApply/Heal to echo removal
 // END ECHO constants

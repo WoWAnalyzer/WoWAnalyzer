@@ -119,7 +119,7 @@ class T32Prevoker extends Analyzer {
         valueTooltip: formatNumber(this.twoPcHealingBySpell.get(0) || 0),
       });
     }
-    return <DonutChart items={items} />;
+    return <DonutChart items={items.filter((item) => item.value > 0)} />;
   }
 
   statistic() {
