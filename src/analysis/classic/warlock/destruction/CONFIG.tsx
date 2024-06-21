@@ -26,7 +26,8 @@ const CONFIG: Config = {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/<UPDATE_THIS>', // *** UPDATE THIS ***
+  exampleReport:
+    "/report/7hMAQ6RzkXF82G94/3-Heroic+Al'Akir+-+Kill+(5:57)/Deepdrei/standard/overview",
   guideDefault: true,
   guideOnly: true,
 
