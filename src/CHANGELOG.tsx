@@ -1,6 +1,7 @@
 import { change, date } from 'common/changelog';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
+import CLASSIC_SPELLS from 'common/SPELLS/classic';
 import {
   Arbixal,
   emallson,
@@ -35,6 +36,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 6, 21), <>Add <SpellLink spell={CLASSIC_SPELLS.SYNAPSE_SPRINGS} /> support to Cataclysm Classic specs.</>, emallson),
   change(date(2024, 6, 8), <>Include the channel of <SpellLink spell={SPELLS.RAGE_OF_FYRALATH_1} /> in timelines and reflect uptime better.</>, nullDozzer),
   change(date(2024, 6, 7), 'Update Classic Potions for Cataclysm', jazminite),
   change(date(2024, 6, 6), 'Temporary workaround for talent breakage on the character parses page. Talents have been disabled for the moment.', emallson),
