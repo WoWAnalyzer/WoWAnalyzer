@@ -19,11 +19,15 @@ const COMBAT_POTIONS: number[] = [
 
 class CombatPotionChecker extends Potion {
   static spells = COMBAT_POTIONS;
-  static recommendedEfficiency = 1;
   static extraAbilityInfo = {
     name: 'Combat Potion',
     buffSpellId: COMBAT_POTIONS,
   };
+  // Cata potions have a 60s shared cooldown, and are single-use in combat.
+  // however, you can pre-pot in cata
+  static cooldown = 60;
+  maxCasts = 2;
+  static recommendedEfficiency = 2;
 }
 
 export default CombatPotionChecker;
