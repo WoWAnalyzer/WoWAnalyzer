@@ -44,6 +44,8 @@ import {
   T32_2PC,
   REVERSION,
   T32_4PC,
+  EMERALD_BLOSSOM_CAST,
+  DREAM_BREATH,
 } from './constants';
 
 /** Returns true iff the given buff application or heal can be matched back to a hardcast */
@@ -230,4 +232,32 @@ export function isRevBuffedFromT32(event: HealEvent): boolean {
 
 export function isT32ProcWasted(event: RemoveBuffEvent | RefreshBuffEvent): boolean {
   return event.type === EventType.RefreshBuff || !HasRelatedEvent(event, T32_4PC);
+}
+
+//Gets the cast event from a blossom heal
+export function getBlossomCast(event: HealEvent) {
+  return GetRelatedEvent<CastEvent>(event, EMERALD_BLOSSOM_CAST);
+}
+
+//Find if a cast was from an essence burst
+export function isCastFromBurst(event: CastEvent) {
+  return HasRelatedEvent(event, ESSENCE_BURST_CONSUME);
+}
+
+export function getEchoAplication(event: HealEvent | ApplyBuffEvent | RefreshBuffEvent) {
+  const EchoRemoval = GetRelatedEvent(event, ECHO);
+  if (EchoRemoval) {
+    const EchoAplication = GetRelatedEvent(EchoRemoval, ECHO_REMOVAL);
+    if (EchoAplication) {
+      return GetRelatedEvent<CastEvent>(EchoAplication, FROM_HARDCAST);
+    }
+  }
+}
+
+export function getDreamBreathHealing(event: ApplyBuffEvent | RefreshBuffEvent) {
+  return GetRelatedEvents<HealEvent>(event, DREAM_BREATH);
+}
+
+export function getReversionHealing(event: ApplyBuffEvent | RefreshBuffEvent) {
+  return GetRelatedEvents<HealEvent>(event, REVERSION);
 }
