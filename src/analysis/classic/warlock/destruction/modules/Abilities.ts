@@ -79,6 +79,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DEMON_SOUL.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 120,
+        buffSpellIds: [SPELLS.DEMON_SOUL_IMP_BUFF.id],
       },
       {
         spell: SPELLS.SUMMON_DOOMGUARD.id,
