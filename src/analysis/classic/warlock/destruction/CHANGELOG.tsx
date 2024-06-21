@@ -1,7 +1,7 @@
 import { change, date } from 'common/changelog';
-import { jazminite } from 'CONTRIBUTORS';
+import { emallson } from 'CONTRIBUTORS';
 
 export default [
   // REMOVE THIS ENTRY AND ADD YOUR OWN
-  change(date(2024, 6, 17), 'Add Cata Classic Caster spec template', jazminite),
+  change(date(2024, 6, 21), 'Implemented core support for Destruction Warlock', emallson),
 ];
