@@ -58,6 +58,7 @@ import ClassicShamanEnhancement from 'analysis/classic/shaman/enhancement';
 import ClassicShamanRestoration from 'analysis/classic/shaman/restoration';
 import ClassicWarlockAffliction from 'analysis/classic/warlock/affliction';
 import ClassicWarlockDemonology from 'analysis/classic/warlock/demonology';
+import ClassicWarlockDestruction from 'analysis/classic/warlock/destruction';
 import ClassicFuryWarrior from 'analysis/classic/warrior/fury';
 
 import Config from './Config';
@@ -144,6 +145,7 @@ const configs: Config[] = [
 
   ClassicWarlockAffliction,
   ClassicWarlockDemonology,
+  ClassicWarlockDestruction,
 
   ClassicFuryWarrior,
 ];

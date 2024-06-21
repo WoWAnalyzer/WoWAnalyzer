@@ -17,18 +17,24 @@ const spells = {
     icon: 'spell_shadow_cripple',
     lowRanks: [710],
   },
+  BANE_OF_DOOM: { id: 603, name: 'Bane of Doom', icon: 'spell_shadow_auraofdarkness.jpg' },
+  BANE_OF_HAVOC: { id: 80240, name: 'Bane of Havoc', icon: 'ability_warlock_baneofhavoc.jpg' },
+  BANE_OF_AGONY: { id: 980, name: 'Bane of Agony', icon: 'spell_shadow_curseofsargeras.jpg' },
+  CHAOS_BOLT: { id: 50796, name: 'Chaos Bolt', icon: 'ability_warlock_chaosbolt.jpg' },
   CORRUPTION: {
-    id: 47813,
+    id: 172,
     name: 'Corruption',
     icon: 'spell_shadow_abominationexplosion',
-    lowRanks: [47812, 27216, 11672, 11671, 7648, 6223, 6222, 172],
   },
+  CONFLAGRATE: { id: 17962, name: 'Conflagrate', icon: 'spell_fire_fireball.jpg' },
+  // TODO remove this after updating aff/demo
   CURSE_OF_AGONY: {
     id: 47864,
     name: 'Curse of Agony',
     icon: 'spell_shadow_curseofsargeras',
     lowRanks: [47863, 27218, 11713, 11712, 11711, 6217, 1014, 980],
   },
+  // TODO remove this after updating aff/demo
   CURSE_OF_DOOM: {
     id: 47867,
     name: 'Curse of Doom',
@@ -36,10 +42,9 @@ const spells = {
     lowRanks: [30910, 603],
   },
   CURSE_OF_THE_ELEMENTS: {
-    id: 47865,
+    id: 1490,
     name: 'Curse of the Elements',
     icon: 'spell_shadow_chilltouch',
-    lowRanks: [27228, 11722, 11721, 1490],
   },
   CURSE_OF_TONGUES: {
     id: 11719,
@@ -158,39 +163,33 @@ const spells = {
     lowRanks: [5484],
   },
   IMMOLATE: {
-    id: 47811,
+    id: 348,
     name: 'Immolate',
     icon: 'spell_fire_immolation',
-    lowRanks: [47810, 27215, 25309, 11668, 11667, 11665, 2941, 1094, 707, 348],
   },
   INCINERATE: {
-    id: 47838,
+    id: 29722,
     name: 'Incinerate',
     icon: 'spell_fire_burnout',
-    lowRanks: [47837, 32231, 29722],
   },
   LIFE_TAP: {
-    id: 57946,
+    id: 1454,
     name: 'Life Tap',
     icon: 'spell_shadow_burningspirit',
-    lowRanks: [27222, 11689, 11688, 11687, 1456, 1455, 1454],
   },
   LIFE_TAP_GLYPH: {
     id: 63321,
     name: 'Life Tap Glyph', // buff
     icon: 'spell_shadow_burningspirit',
   },
+  MORTAL_COIL: { id: 6789, name: 'Mortal Coil', icon: 'ability_warlock_mortalcoil.jpg' },
+  NETHER_WARD: { id: 91711, name: 'Nether Ward', icon: 'spell_fire_felfireward.jpg' },
   RAIN_OF_FIRE: {
-    id: 47820,
+    id: 5740,
     name: 'Rain of Fire',
     icon: 'spell_shadow_rainoffire',
-    lowRanks: [47819, 27212, 11678, 11677, 6219, 5740],
   },
-  RITUAL_OF_DOOM: {
-    id: 18540,
-    name: 'Ritual of Doom',
-    icon: 'spell_shadow_antimagicshell',
-  },
+  RAIN_OF_FIRE_DAMAGE: { id: 42223, name: 'Rain of Fire', icon: 'spell_shadow_rainoffire.jpg' },
   RITUAL_OF_SOULS: {
     id: 58887,
     name: 'Ritual of Souls',
@@ -219,6 +218,8 @@ const spells = {
     name: 'Sense Demons',
     icon: 'spell_shadow_metamorphosis',
   },
+  SHADOWBURN: { id: 17877, name: 'Shadowburn', icon: 'spell_shadow_scourgebuild.jpg' },
+  SHADOWFURY: { id: 30283, name: 'Shadowfury', icon: 'ability_warlock_shadowfurytga.jpg' },
   SHADOW_BOLT: {
     id: 47809,
     name: 'Shadow Bolt',
@@ -237,16 +238,16 @@ const spells = {
     lowRanks: [47890, 28610, 11740, 11739, 6229],
   },
   SHADOWFLAME: {
-    id: 61290,
+    id: 47897,
     name: 'Shadowflame',
     icon: 'ability_warlock_shadowflame',
-    lowRanks: [47897],
   },
+
+  SOULBURN: { id: 74434, name: 'Soulburn', icon: 'spell_warlock_soulburn.jpg' },
   SOUL_FIRE: {
-    id: 47825,
+    id: 6353,
     name: 'Soul Fire',
     icon: 'spell_fire_fireball02',
-    lowRanks: [47824, 30545, 27211, 17924, 6353],
   },
   SOULSHATTER: {
     id: 29858,
@@ -324,12 +325,14 @@ const spells = {
     icon: 'spell_shadow_summonvoidwalker',
     soulShardsCost: 1,
   },
+  SUMMON_DOOMGUARD: { id: 18540, name: 'Summon Doomguard', icon: 'warlock_summon_doomguard.jpg' },
   UNENDING_BREATH: {
     id: 5697,
     name: 'Unending Breath',
     icon: 'spell_shadow_demonbreath',
   },
-
+  DEMON_SOUL: { id: 77801, name: 'Demon Soul', icon: 'spell_warlock_demonsoul.jpg' },
+  DEMON_SOUL_IMP_BUFF: { id: 79459, name: 'Demon Soul: Imp', icon: 'spell_warlock_demonsoul.jpg' },
   // ---------
   // TALENTS
   // ---------
@@ -438,6 +441,9 @@ const spells = {
     icon: 'spell_shadow_summonfelguard',
     soulShardsCost: 1,
   },
+
+  // Destruction
+  FEL_FLAME: { id: 77799, name: 'Fel Flame', icon: 'spell_fire_felfirenova.jpg' },
 } satisfies Record<string, Spell>;
 
 export default spells;
