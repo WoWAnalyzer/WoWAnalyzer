@@ -61,8 +61,8 @@ export const ENV_BASE_DURATION = 6000;
 export const TFT_REM_EXTRA_DURATION = 10000;
 
 // Talent Constants
+export const POOL_OF_MISTS_CDR = 1000;
 export const MISTWRAP = 1000;
-export const RAPID_DIFFUSION = 3000;
 export const MISTY_PEAKS_DURATION = 2000;
 export const RISING_MIST = 2;
 export const LOTUS_INFUSION_DURATION = 2000;
@@ -77,7 +77,7 @@ export const MANA_TEA_REDUCTION = 0.3;
 export const JADE_BOND_INC = 0.4;
 export const JADE_BOND_SOOB_INC = 3;
 export const NOURISHING_CHI_INC = 0.2;
-export const DANCING_MIST_CHANCE = 0.05;
+export const DANCING_MIST_CHANCE = 0.08;
 export const RAPID_DIFFUSION_DURATION = 3000; // per rank
 export const RISING_MIST_EXTENSION = 4000;
 export const ENVELOPING_MIST_INCREASE = 0.3;
