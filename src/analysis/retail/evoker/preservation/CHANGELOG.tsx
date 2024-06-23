@@ -4,6 +4,7 @@ import { SpellLink } from 'interface';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 
 export default [
+  change(date(2024, 6, 22), <>Add <SpellLink spell={TALENTS_EVOKER.RED_HOT_TALENT} /> module</>, Trevor),
   change(date(2024, 6, 20), <>Integrate <SpellLink spell={TALENTS_EVOKER.CONSUME_FLAME_TALENT}/> into <SpellLink spell={TALENTS_EVOKER.EXPANDED_LUNGS_TALENT}/> module</>, Trevor),
   change(date(2024, 6, 20), <>Add <SpellLink spell={TALENTS_EVOKER.TITANS_GIFT_TALENT} /> module</>, Harrek),
   change(date(2024, 6, 20), <>Update <SpellLink spell={TALENTS_EVOKER.CYCLE_OF_LIFE_TALENT}/> spells for Flameshaper</>, Trevor),
