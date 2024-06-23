@@ -30,9 +30,7 @@ class RedHot extends Analyzer {
   }
 
   onHeal(event: HealEvent) {
-    if (event.tick) {
-      this.totalHealing += calculateEffectiveHealing(event, RED_HOT_INCREASE);
-    }
+    this.totalHealing += calculateEffectiveHealing(event, RED_HOT_INCREASE);
   }
 
   statistic() {
