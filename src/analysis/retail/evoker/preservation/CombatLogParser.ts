@@ -66,6 +66,7 @@ import {
 import T32Prevoker from './modules/tier/T32TierSet';
 import ExpandedLungs from '../shared/modules/talents/hero/flameshaper/ExpandedLungs';
 import FanTheFlames from '../shared/modules/talents/hero/flameshaper/FanTheFlames';
+import RedHot from '../shared/modules/talents/hero/flameshaper/RedHot';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -147,6 +148,7 @@ class CombatLogParser extends CoreCombatLogParser {
     engulf: Engulf,
     expandedLungs: ExpandedLungs,
     FanTheFlames: FanTheFlames,
+    redHot: RedHot,
 
     // other
     t32Prevoker: T32Prevoker,

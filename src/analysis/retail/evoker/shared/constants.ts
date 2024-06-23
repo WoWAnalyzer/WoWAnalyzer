@@ -57,3 +57,4 @@ export const PERIODIC_HEALING_IDS = [
 export const ENGULF_PERIODIC_INCREASE = 0.5;
 export const EXPANDED_LUNG_INCREASE = 0.2;
 export const FAN_THE_FLAMES_INCREASE = 1;
+export const RED_HOT_INCREASE = 0.2;

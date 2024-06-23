@@ -45,7 +45,6 @@ class FanTheFlames extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.FAN_THE_FLAMES_TALENT);
-
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_EVOKER.ENGULF_TALENT),
       this.onCast,
