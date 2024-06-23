@@ -1,7 +1,13 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { EventLink } from 'parser/core/EventLinkNormalizer';
-import { EventType } from 'parser/core/Events';
+import {
+  EventType,
+  HealEvent,
+  RefreshBuffEvent,
+  ApplyBuffEvent,
+  HasRelatedEvent,
+} from 'parser/core/Events';
 import {
   FIELD_OF_DREAMS_PROC,
   EB_BUFFER_MS,
@@ -9,6 +15,9 @@ import {
   DREAM_BREATH_CALL_OF_YSERA_HOT,
   CAST_BUFFER_MS,
   DREAM_BREATH_CALL_OF_YSERA,
+  EMERALD_BLOSSOM_CAST,
+  DREAM_BREATH,
+  MAX_DREAM_BREATH_DURATION,
 } from './constants';
 
 export const GREEN_EVENT_LINKS: EventLink[] = [
@@ -55,6 +64,38 @@ export const GREEN_EVENT_LINKS: EventLink[] = [
       return (
         c.hasTalent(TALENTS_EVOKER.DREAM_BREATH_TALENT) &&
         c.hasTalent(TALENTS_EVOKER.CALL_OF_YSERA_TALENT)
+      );
+    },
+  },
+  {
+    linkRelation: EMERALD_BLOSSOM_CAST,
+    linkingEventId: SPELLS.EMERALD_BLOSSOM.id,
+    linkingEventType: EventType.Heal,
+    referencedEventId: SPELLS.EMERALD_BLOSSOM_CAST.id,
+    referencedEventType: EventType.Cast,
+    maximumLinks: 1,
+    backwardBufferMs: EB_BUFFER_MS + 150,
+    additionalCondition(linkingEvent, referencedEvent) {
+      return linkingEvent.timestamp - referencedEvent.timestamp > 1500;
+    },
+  },
+  {
+    linkRelation: DREAM_BREATH,
+    linkingEventId: [TALENTS_EVOKER.DREAM_BREATH_TALENT.id, SPELLS.DREAM_BREATH_ECHO.id],
+    linkingEventType: EventType.Heal,
+    referencedEventId: [TALENTS_EVOKER.DREAM_BREATH_TALENT.id, SPELLS.DREAM_BREATH_ECHO.id],
+    referencedEventType: [EventType.RefreshBuff, EventType.ApplyBuff],
+    reverseLinkRelation: DREAM_BREATH,
+    backwardBufferMs: MAX_DREAM_BREATH_DURATION,
+    additionalCondition(linkingEvent, referencedEvent) {
+      const linkHealEvent = linkingEvent as HealEvent;
+      const refBuffEvent =
+        referencedEvent.type === EventType.RefreshBuff
+          ? (referencedEvent as RefreshBuffEvent)
+          : (referencedEvent as ApplyBuffEvent);
+      return (
+        linkHealEvent.ability.guid === refBuffEvent.ability.guid &&
+        !HasRelatedEvent(linkingEvent, DREAM_BREATH)
       );
     },
   },

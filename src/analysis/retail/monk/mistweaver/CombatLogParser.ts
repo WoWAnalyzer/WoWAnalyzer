@@ -86,6 +86,7 @@ import LotusInfusion from './modules/spells/LotusInfusion';
 import CraneStyle from './modules/spells/CraneStyle';
 import ZenPulse from './modules/spells/ZenPulse';
 import T32TierSet from './modules/tier/T32TierSet';
+import PoolOfMists from './modules/spells/PoolOfMists';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -181,6 +182,7 @@ class CombatLogParser extends CoreCombatLogParser {
     craneStyle: CraneStyle,
     zenPulse: ZenPulse,
     chiHarmony: ChiHarmony,
+    poolOfMists: PoolOfMists,
 
     apl: AplCheck,
 

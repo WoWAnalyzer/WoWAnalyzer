@@ -45,6 +45,7 @@ import NozTeachings from './modules/talents/NozTeachings';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import RegenerativeMagic from '../shared/modules/talents/RegenerativeMagic';
 import AncientFlame from './modules/talents/AncientFlame';
+import TitansGift from './modules/talents/TitansGift';
 import EchoTypeBreakdown from './modules/talents/EchoTypeBreakdown';
 import {
   LivingFlameNormalizer,
@@ -64,6 +65,7 @@ import {
 } from '../shared';
 import T32Prevoker from './modules/tier/T32TierSet';
 import ExpandedLungs from '../shared/modules/talents/hero/flameshaper/ExpandedLungs';
+import FanTheFlames from '../shared/modules/talents/hero/flameshaper/FanTheFlames';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -139,10 +141,12 @@ class CombatLogParser extends CoreCombatLogParser {
     echoTypeBreakdown: EchoTypeBreakdown,
     essenceBurstSources: EssenceBurstSources,
     lifespark: Lifespark,
+    titansGift: TitansGift,
 
     // hero talents
     engulf: Engulf,
     expandedLungs: ExpandedLungs,
+    FanTheFlames: FanTheFlames,
 
     // other
     t32Prevoker: T32Prevoker,
