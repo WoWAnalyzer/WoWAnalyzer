@@ -121,6 +121,11 @@ const spells = {
     name: 'Inner Fire',
     icon: 'spell_holy_innerfire',
   },
+  INNER_FOCUS: {
+    id: 89485,
+    name: 'Inner Focus',
+    icon: 'spell_frost_windwalkon',
+  },
   LESSER_HEAL: {
     id: 2053,
     name: 'Lesser Heal',
