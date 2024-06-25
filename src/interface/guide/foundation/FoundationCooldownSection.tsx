@@ -38,7 +38,7 @@ export function FoundationCooldownSection({
   }
 
   return (
-    <Section title="Cooldown Usage">
+    <Section title="Use Your Cooldowns">
       <Explanation>
         <p>
           Perfect cooldown usage is a combination of in-depth fight knowledge and player skill.

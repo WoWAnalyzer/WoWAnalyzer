@@ -69,6 +69,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: { base: 1500 },
         cooldown: 180,
+        healSpellIds: [SPELLS.LIGHTWELL_HEAL.id],
       },
       {
         spell: SPELLS.HYMN_OF_HOPE.id,

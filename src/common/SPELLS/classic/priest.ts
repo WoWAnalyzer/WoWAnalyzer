@@ -338,6 +338,11 @@ const spells = {
     name: 'Lightwell',
     icon: 'spell_holy_summonlightwell',
   },
+  LIGHTWELL_HEAL: {
+    id: 7001,
+    name: 'Lightwell',
+    icon: 'spell_holy_summonlightwell',
+  },
   HOLY_WORD_SANCTUARY: {
     id: 88685,
     name: 'Holy Word: Sanctuary',
