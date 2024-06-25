@@ -179,13 +179,6 @@ const spells = {
     name: 'Power Word Shield',
     icon: 'spell_holy_powerwordshield',
   },
-  // TODO: remove in favor of Power Word: Fortitude
-  PRAYER_OF_FORTITUDE: {
-    id: 48162,
-    name: 'Prayer of Fortitude',
-    icon: 'spell_holy_prayeroffortitude',
-    lowRanks: [25392, 21564, 21562],
-  },
   PRAYER_OF_HEALING: {
     id: 596,
     name: 'Prayer of Healing',

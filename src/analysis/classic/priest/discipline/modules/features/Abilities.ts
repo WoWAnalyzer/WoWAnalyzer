@@ -8,12 +8,12 @@ class Abilities extends CoreAbilities {
       // SPELLS ADDED HERE ARE DISPLAYED ON THE STATISTICS TAB
       // Rotational
       {
-        spell: [SPELLS.POWER_WORD_SHIELD.id, ...SPELLS.POWER_WORD_SHIELD.lowRanks],
+        spell: SPELLS.POWER_WORD_SHIELD.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.PRAYER_OF_MENDING.id, ...SPELLS.PRAYER_OF_MENDING.lowRanks],
+        spell: SPELLS.PRAYER_OF_MENDING.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
@@ -23,7 +23,7 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.FLASH_HEAL.id, ...SPELLS.FLASH_HEAL.lowRanks],
+        spell: SPELLS.FLASH_HEAL.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
@@ -33,7 +33,7 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.RENEW.id, ...SPELLS.RENEW.lowRanks],
+        spell: SPELLS.RENEW.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
@@ -43,7 +43,7 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.HEAL.id, ...SPELLS.HEAL.lowRanks],
+        spell: SPELLS.HEAL.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
@@ -54,7 +54,7 @@ class Abilities extends CoreAbilities {
       },
       // Rotational AOE
       {
-        spell: [SPELLS.PRAYER_OF_HEALING.id, ...SPELLS.PRAYER_OF_HEALING.lowRanks],
+        spell: SPELLS.PRAYER_OF_HEALING.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: { base: 1500 },
       },
@@ -118,22 +118,22 @@ class Abilities extends CoreAbilities {
       },
       // Other spells (not apart of the normal rotation)
       {
-        spell: [SPELLS.DEVOURING_PLAGUE.id, ...SPELLS.DEVOURING_PLAGUE.lowRanks],
+        spell: SPELLS.DEVOURING_PLAGUE.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.HOLY_FIRE.id, ...SPELLS.HOLY_FIRE.lowRanks],
+        spell: SPELLS.HOLY_FIRE.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.MIND_BLAST.id, ...SPELLS.MIND_BLAST.lowRanks],
+        spell: SPELLS.MIND_BLAST.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.SHADOW_WORD_PAIN.id, ...SPELLS.SHADOW_WORD_PAIN.lowRanks],
+        spell: SPELLS.SHADOW_WORD_PAIN.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: { base: 1500 },
       },
@@ -143,7 +143,7 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.SMITE.id, ...SPELLS.SMITE.lowRanks],
+        spell: SPELLS.SMITE.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: { base: 1500 },
       },
@@ -199,7 +199,7 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.POWER_WORD_FORTITUDE.id, ...SPELLS.POWER_WORD_FORTITUDE.lowRanks],
+        spell: SPELLS.POWER_WORD_FORTITUDE.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
