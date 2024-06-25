@@ -10,36 +10,37 @@ import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import PreparationRule from 'parser/classic/modules/features/Checklist/PreparationRule';
 import SPELLS from 'common/SPELLS/classic';
 
-const CasterChecklist = ({ thresholds, castEfficiency, combatant }: ChecklistProps) => {
+const MeleeChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
   const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
     />
   );
+
   return (
     <Checklist>
       {/* Downtime */}
       <Rule
-        name="Always Be Casting"
+        name="Avoid Downtime"
         description={
           <>
-            Try to avoid downtime during the fight. When moving, use your instant abilities, such as{' '}
-            {/* UPDATE THE SPELLS BELOW */}
-            <SpellLink spell={SPELLS.FIRE_BLAST} /> or <SpellLink spell={SPELLS.ICE_LANCE} />.
+            Avoid unnecessary downtime during the fight. If you have to be out of range, try casting
+            instant spells such as <SpellLink spell={SPELLS.DEATH_COIL_DK} /> or refresh your
+            diseases with <SpellLink spell={SPELLS.ICY_TOUCH} />.
           </>
         }
       >
         <Requirement name="Downtime" thresholds={thresholds.downtimeSuggestionThresholds} />
       </Rule>
-      {/* Cooldowns */}
       <Rule
         name="Use Cooldowns Effectively"
         description={<>Use your cooldowns as often as possible to maximize your damage output.</>}
       >
-        {/* SPELLS listed here must be in ../features/Abilities */}
-        {/* UPDATE THE ABILITIES BELOW */}
-        <AbilityRequirement spell={SPELLS.ICY_VEINS.id} />
+        <AbilityRequirement spell={SPELLS.DANCING_RUNE_WEAPON.id} />
+        <AbilityRequirement spell={SPELLS.EMPOWER_RUNE_WEAPON.id} />
+        <AbilityRequirement spell={SPELLS.BONE_SHIELD.id} />
+        <AbilityRequirement spell={SPELLS.BLOOD_TAP.id} />
       </Rule>
       {/* Enchants and Consumes */}
       <PreparationRule thresholds={thresholds} />
@@ -47,4 +48,4 @@ const CasterChecklist = ({ thresholds, castEfficiency, combatant }: ChecklistPro
   );
 };
 
-export default CasterChecklist;
+export default MeleeChecklist;

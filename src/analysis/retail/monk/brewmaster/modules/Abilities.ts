@@ -186,7 +186,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.FORTIFYING_BREW_BRM.id,
         buffSpellId: SPELLS.FORTIFYING_BREW_BRM_BUFF.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: combatant.hasTalent(talents.EXPEDITIOUS_FORTIFICATION_TALENT) ? 300 : 420,
+        cooldown: combatant.hasTalent(talents.EXPEDITIOUS_FORTIFICATION_TALENT) ? 240 : 360,
         gcd: null,
       },
       {
@@ -286,7 +286,7 @@ class Abilities extends CoreAbilities {
       {
         spell: talents.PARALYSIS_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 45,
+        cooldown: combatant.hasTalent(talents.IMPROVED_PARALYSIS_TALENT) ? 30 : 45,
         gcd: {
           static: 1000,
         },
