@@ -334,6 +334,13 @@ const SupportProvidedBy = ({
         improve it, let us know!
       </Trans>
     );
+  } else if (supportLevel === SupportLevel.Unmaintained) {
+    description = (
+      <Trans id="interface.report.results.unmaintainedProvidedBy">
+        {specTitle} analysis is unmaintained. If you're interested in helping support {specTitle},
+        let us know!
+      </Trans>
+    );
   } else {
     const contributorinfo = (
       <ReadableListing>

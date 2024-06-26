@@ -25,7 +25,7 @@ const About = ({ config }: Props) => {
       <Trans id="interface.report.results.about.unmaintained">CURRENTLY UNMAINTAINED</Trans>
     );
 
-  const description = config.description ?? <FoundationDescription {...config} />;
+  const description = config.description ?? <DefaultDescription {...config} />;
 
   return (
     <Panel
@@ -90,7 +90,7 @@ const About = ({ config }: Props) => {
   );
 };
 
-const FoundationDescription = ({ spec }: Config) => {
+const DefaultDescription = ({ spec, supportLevel }: Config) => {
   const i18n = useLingui();
 
   const specTitle = (
@@ -99,22 +99,32 @@ const FoundationDescription = ({ spec }: Config) => {
     </>
   );
 
-  return (
-    <div>
-      <Trans id="interface.report.results.about.foundationDescription">
-        <p>
+  const supportDesc =
+    supportLevel === SupportLevel.Foundation ? (
+      <p>
+        <Trans id="interface.report.results.about.foundationDescription">
           {specTitle} has support for core spells and abilities, but may be missing spec-specific
           analysis.
-        </p>
-        <AlertInfo>
-          Interested in contributing to {specTitle} analysis? Check out our{' '}
-          <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/wiki#getting-started">
-            getting started guide
-          </a>{' '}
-          or visit our <DiscordButton style={{ padding: '1px 5px', height: 'unset' }} /> to help
-          out!
-        </AlertInfo>
-      </Trans>
+        </Trans>
+      </p>
+    ) : (
+      <p>
+        <Trans id="interface.report.results.about.unmaintainedDescription">
+          {specTitle} is not currently maintained.
+        </Trans>{' '}
+      </p>
+    );
+
+  return (
+    <div>
+      {supportDesc}
+      <AlertInfo>
+        Interested in contributing to {specTitle} analysis? Check out our{' '}
+        <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/wiki#getting-started">
+          getting started guide
+        </a>{' '}
+        or visit our <DiscordButton style={{ padding: '1px 5px', height: 'unset' }} /> to help out!
+      </AlertInfo>
     </div>
   );
 };

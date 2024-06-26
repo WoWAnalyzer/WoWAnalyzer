@@ -19,6 +19,10 @@ export type CataPatchVersion = `4.4.0`;
 
 export enum SupportLevel {
   /**
+   * The spec is totally unmaintained and may have no analysis or broken analysis.
+   */
+  Unmaintained,
+  /**
    * The spec has core support for ability & cooldown tracking, and likely uses most or all of the Foundation guide.
    *
    * The analysis may not give many/any spec-specific tips, but what is shown is accurate.
@@ -112,7 +116,7 @@ interface CoreConfig {
  * At the Foundation support level, many fields are optional.
  */
 interface FoundationConfig {
-  supportLevel: SupportLevel.Foundation;
+  supportLevel: SupportLevel.Foundation | SupportLevel.Unmaintained;
   description?: ReactNode;
 }
 
