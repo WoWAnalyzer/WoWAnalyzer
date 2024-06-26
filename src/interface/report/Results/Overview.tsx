@@ -41,7 +41,7 @@ const Overview = ({ guide: GuideComponent, checklist, issues }: Props) => {
   const initialGuideSetting =
     sessionGuideSetting === null
       ? configDefaultFrontmatter === 'guide'
-      : Boolean(sessionGuideSetting);
+      : sessionGuideSetting === 'true';
 
   const [guideMode, setGuideMode] = React.useState(initialGuideSetting);
 

@@ -1,7 +1,7 @@
 import { Juko8, Klamuz, Skeletor, ToppleTheNun } from 'CONTRIBUTORS';
 import GameBranch from 'game/GameBranch';
 import SPECS from 'game/SPECS';
-import Config from 'parser/Config';
+import Config, { SupportLevel } from 'parser/Config';
 
 import CHANGELOG from './CHANGELOG';
 
@@ -9,7 +9,7 @@ const config: Config = {
   contributors: [ToppleTheNun, Klamuz, Juko8, Skeletor],
   branch: GameBranch.Retail,
   patchCompatibility: '10.1.7',
-  isPartial: true,
+  supportLevel: SupportLevel.MaintainedPartial,
   description: (
     <>
       We hope you get some use out this analyzer we have been working on.
@@ -45,8 +45,6 @@ const config: Config = {
   ),
   exampleReport:
     '/report/zv8KTrVGJbnmD2PX/1-Mythic++Brackenhide+Hollow+-+Kill+(18:56)/Wogmyhog/standard/overview',
-  guideDefault: true,
-  guideOnly: true,
 
   spec: SPECS.RETRIBUTION_PALADIN,
   changelog: CHANGELOG,
