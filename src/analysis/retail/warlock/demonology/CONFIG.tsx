@@ -79,7 +79,6 @@ const config: Config = {
   spec: SPECS.DEMONOLOGY_WARLOCK,
   // The contents of your changelog.
   changelog: CHANGELOG,
-  guideDefault: true,
   // The CombatLogParser class for your spec.
   parser: () =>
     import('./CombatLogParser' /* webpackChunkName: "DemonologyWarlock" */).then(

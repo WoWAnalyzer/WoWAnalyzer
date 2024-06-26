@@ -23,7 +23,7 @@ export enum SupportLevel {
    */
   Unmaintained,
   /**
-   * The spec has core support for ability & cooldown tracking, and likely uses most or all of the Foundation guide.
+   * The spec has core support for ability & cooldown tracking. It may use the Foundation guide, or a pre-existing (but updated!) checklist/guide.
    *
    * The analysis may not give many/any spec-specific tips, but what is shown is accurate.
    *
@@ -31,7 +31,9 @@ export enum SupportLevel {
    */
   Foundation,
   /**
-   * The spec has a dedicated maintainer that is working on adding spec-specific analysis, but the analysis incomplete.
+   * The spec has a dedicated maintainer that is working on adding spec-specific analysis, but the analysis is incomplete.
+   *
+   * As with the `Foundation` level, what is shown should be accurate (within reason).
    *
    * Core analysis should remain correct but there is still more work to be done.
    */

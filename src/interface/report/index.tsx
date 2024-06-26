@@ -155,8 +155,6 @@ const ResultsLoader = () => {
   });
   const parsingState = isParsingEvents ? EVENT_PARSING_STATE.PARSING : EVENT_PARSING_STATE.DONE;
 
-  const build = (parser && parser.build) || undefined;
-
   const pageProgress = pagesLoaded / pageCount;
 
   const progress =
@@ -195,10 +193,7 @@ const ResultsLoader = () => {
       handleDungeonPullSelection={applyDungeonPullFilter}
       applyFilter={applyTimeFilter}
       timeFilter={timeFilter!}
-      build={build}
-      makeTabUrl={(tab: string, newBuild?: string) =>
-        makeAnalyzerUrl(report, fight.id, player.id, tab, newBuild || config.builds?.[build!]?.url)
-      }
+      makeTabUrl={(tab: string) => makeAnalyzerUrl(report, fight.id, player.id, tab)}
     />
   );
 };
