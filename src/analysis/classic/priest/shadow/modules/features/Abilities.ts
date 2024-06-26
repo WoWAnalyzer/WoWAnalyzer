@@ -18,12 +18,12 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.MIND_FLAY.id, ...SPELLS.MIND_FLAY.lowRanks],
+        spell: SPELLS.MIND_FLAY.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.SHADOW_WORD_DEATH.id, ...SPELLS.SHADOW_WORD_DEATH.lowRanks],
+        spell: SPELLS.SHADOW_WORD_DEATH.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
@@ -33,13 +33,13 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.VAMPIRIC_TOUCH.id, ...SPELLS.VAMPIRIC_TOUCH.lowRanks],
+        spell: SPELLS.VAMPIRIC_TOUCH.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
       // Rotational AOE
       {
-        spell: [SPELLS.MIND_SEAR.id, ...SPELLS.MIND_SEAR.lowRanks],
+        spell: SPELLS.MIND_SEAR.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: { base: 1500 },
       },
@@ -86,12 +86,12 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.DISPEL_MAGIC.id, ...SPELLS.DISPEL_MAGIC.lowRanks],
+        spell: SPELLS.DISPEL_MAGIC.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.DIVINE_SPIRIT.id, ...SPELLS.DIVINE_SPIRIT.lowRanks],
+        spell: SPELLS.DIVINE_SPIRIT.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
@@ -126,20 +126,17 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: [
-          SPELLS.PRAYER_OF_SHADOW_PROTECTION.id,
-          ...SPELLS.PRAYER_OF_SHADOW_PROTECTION.lowRanks,
-        ],
+        spell: SPELLS.PRAYER_OF_SHADOW_PROTECTION.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.PSYCHIC_SCREAM.id, ...SPELLS.PSYCHIC_SCREAM.lowRanks],
+        spell: SPELLS.PSYCHIC_SCREAM.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.SHACKLE_UNDEAD.id, ...SPELLS.SHACKLE_UNDEAD.lowRanks],
+        spell: SPELLS.SHACKLE_UNDEAD.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },

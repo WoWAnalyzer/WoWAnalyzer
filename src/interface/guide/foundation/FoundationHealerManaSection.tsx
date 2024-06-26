@@ -35,7 +35,7 @@ export default function FoundationHealerManaSection(): JSX.Element | null {
           </ol>
         </p>
         <p>
-          A good guideline is that{' '}
+          As a general guideline,{' '}
           <HL>
             the percent of mana you have left should match the percent of the fight you have left.
           </HL>{' '}
@@ -77,7 +77,7 @@ export default function FoundationHealerManaSection(): JSX.Element | null {
       {healingEfficiencyTracker && (
         <SubSection title="Use Efficient Spells">
           <Explanation>
-            This table shows how mana-efficient and time-efficient your spells are.{' '}
+            This table shows the mana and time-efficiency of your spells.{' '}
             <HL>If you are running out of mana, try switching to more mana-efficient spells.</HL> If
             you are ending a fight with too much mana, try switching to spells that are more
             time-efficient even if they are less mana-efficient.

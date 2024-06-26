@@ -28,7 +28,7 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.BINDING_HEAL.id, ...SPELLS.BINDING_HEAL.lowRanks],
+        spell: SPELLS.BINDING_HEAL.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
@@ -38,7 +38,7 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.GREATER_HEAL.id, ...SPELLS.GREATER_HEAL.lowRanks],
+        spell: SPELLS.GREATER_HEAL.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
@@ -48,7 +48,7 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.LESSER_HEAL.id, ...SPELLS.LESSER_HEAL.lowRanks],
+        spell: SPELLS.LESSER_HEAL.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
@@ -59,7 +59,7 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.HOLY_NOVA.id, ...SPELLS.HOLY_NOVA.lowRanks],
+        spell: SPELLS.HOLY_NOVA.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: { base: 1500 },
       },
@@ -138,7 +138,7 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.SHADOW_WORD_DEATH.id, ...SPELLS.SHADOW_WORD_DEATH.lowRanks],
+        spell: SPELLS.SHADOW_WORD_DEATH.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: { base: 1500 },
       },
@@ -164,7 +164,7 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.DIVINE_SPIRIT.id, ...SPELLS.DIVINE_SPIRIT.lowRanks],
+        spell: SPELLS.DIVINE_SPIRIT.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
@@ -204,7 +204,7 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.SHADOW_PROTECTION.id, ...SPELLS.SHADOW_PROTECTION.lowRanks],
+        spell: SPELLS.SHADOW_PROTECTION.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },

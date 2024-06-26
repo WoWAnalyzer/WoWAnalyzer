@@ -15,7 +15,6 @@ const spells = {
     id: 18647,
     name: 'Banish',
     icon: 'spell_shadow_cripple',
-    lowRanks: [710],
   },
   BANE_OF_DOOM: { id: 603, name: 'Bane of Doom', icon: 'spell_shadow_auraofdarkness.jpg' },
   BANE_OF_HAVOC: { id: 80240, name: 'Bane of Havoc', icon: 'ability_warlock_baneofhavoc.jpg' },
@@ -32,14 +31,12 @@ const spells = {
     id: 47864,
     name: 'Curse of Agony',
     icon: 'spell_shadow_curseofsargeras',
-    lowRanks: [47863, 27218, 11713, 11712, 11711, 6217, 1014, 980],
   },
   // TODO remove this after updating aff/demo
   CURSE_OF_DOOM: {
     id: 47867,
     name: 'Curse of Doom',
     icon: 'spell_shadow_auraofdarkness',
-    lowRanks: [30910, 603],
   },
   CURSE_OF_THE_ELEMENTS: {
     id: 1490,
@@ -50,25 +47,21 @@ const spells = {
     id: 11719,
     name: 'Curse of Tongues',
     icon: 'spell_shadow_curseoftounges',
-    lowRanks: [1714],
   },
   CURSE_OF_WEAKNESS: {
     id: 50511,
     name: 'Curse of Weakness',
     icon: 'spell_shadow_curseofmannoroth',
-    lowRanks: [30909, 27224, 11708, 11707, 7646, 6205, 1108, 702],
   },
   DEATH_COIL: {
     id: 47860,
     name: 'Death Coil',
     icon: 'spell_shadow_deathcoil',
-    lowRanks: [47859, 27223, 17926, 17925, 6789],
   },
   DEMON_ARMOR: {
     id: 47889,
     name: 'Demon Armor',
     icon: 'spell_shadow_ragingscream',
-    lowRanks: [47793, 27260, 11735, 11734, 11733, 1086, 706],
   },
   DEMONIC_CIRCLE_SUMMON: {
     id: 48018,
@@ -84,7 +77,6 @@ const spells = {
     id: 696,
     name: 'Demon Skin',
     icon: 'spell_shadow_ragingscream',
-    lowRanks: [687],
   },
   DETECT_INVISIBILITY: {
     id: 132,
@@ -95,7 +87,6 @@ const spells = {
     id: 47857,
     name: 'Drain Life',
     icon: 'spell_shadow_lifedrain02',
-    lowRanks: [27220, 27219, 11700, 11699, 7651, 709, 699, 689],
   },
   DRAIN_MANA: {
     id: 5138,
@@ -106,7 +97,6 @@ const spells = {
     id: 47855,
     name: 'Drain Soul',
     icon: 'spell_shadow_haunting',
-    lowRanks: [27217, 11675, 8289, 8288, 1120],
   },
   EYE_OF_KILROGG: {
     id: 126,
@@ -117,50 +107,42 @@ const spells = {
     id: 60220,
     name: 'Create Firestone',
     icon: 'inv_misc_gem_bloodstone_02',
-    lowRanks: [60219, 27250, 17953, 17952, 17951, 6366],
     soulShardsCost: 1,
   },
   FEAR: {
     id: 6215,
     name: 'Fear',
     icon: 'spell_shadow_possession',
-    lowRanks: [6213, 5782],
   },
   FEL_ARMOR: {
     id: 47893,
     name: 'Fel Armor',
     icon: 'spell_shadow_felarmour',
-    lowRanks: [47892, 28189, 28176],
   },
   FIRESTONE_USE: {
     id: 41174,
     name: 'Firestone',
     icon: 'inv_misc_gem_bloodstone_02',
-    lowRanks: [41173, 40773, 41172, 41171, 41169, 41170],
   },
   HEALTH_FUNNEL: {
     id: 47856,
     name: 'Health Funnel',
     icon: 'spell_shadow_lifedrain',
-    lowRanks: [27259, 11695, 11694, 11693, 3700, 3699, 3698, 755],
   },
   HEALTHSTONE_CREATE: {
     id: 47878,
     name: 'Create Healthstone',
     icon: 'inv_stone_04',
-    lowRanks: [47871, 27230, 11730, 11729, 5699, 6202, 6201],
   },
   HELLFIRE: {
     id: 47823,
     name: 'Hellfire',
     icon: 'spell_fire_incinerate',
-    lowRanks: [27213, 11684, 11683, 1949],
   },
   HOWL_OF_TERROR: {
     id: 17928,
     name: 'Howl of Terror',
     icon: 'spell_shadow_deathscream',
-    lowRanks: [5484],
   },
   IMMOLATE: {
     id: 348,
@@ -194,7 +176,6 @@ const spells = {
     id: 58887,
     name: 'Ritual of Souls',
     icon: 'spell_shadow_shadesofdarkness',
-    lowRanks: [29893],
   },
   RITUAL_OF_SUMMONING: {
     id: 698,
@@ -205,13 +186,11 @@ const spells = {
     id: 47815,
     name: 'Searing Pain',
     icon: 'spell_fire_soulburn',
-    lowRanks: [47814, 30459, 27210, 17923, 17922, 17921, 17920, 17919, 5676],
   },
   SEED_OF_CORRUPTION: {
     id: 47836,
     name: 'Seed of Corruption',
     icon: 'spell_shadow_seedofdestruction',
-    lowRanks: [47835, 27243],
   },
   SENSE_DEMONS: {
     id: 5500,
@@ -224,7 +203,6 @@ const spells = {
     id: 47809,
     name: 'Shadow Bolt',
     icon: 'spell_shadow_shadowbolt',
-    lowRanks: [47808, 27209, 25307, 11661, 11660, 11659, 7641, 1106, 1088, 705, 695, 686],
   },
   SHADOW_MASTERY_DEBUFF: {
     id: 17800,
@@ -235,7 +213,6 @@ const spells = {
     id: 47891,
     name: 'Shadow Ward',
     icon: 'spell_shadow_antishadow',
-    lowRanks: [47890, 28610, 11740, 11739, 6229],
   },
   SHADOWFLAME: {
     id: 47897,
@@ -259,27 +236,23 @@ const spells = {
     id: 47884,
     name: 'Create Spellstone',
     icon: 'inv_misc_orb_04',
-    lowRanks: [27238, 20757, 20756, 20755, 20752, 693],
     soulShardsCost: 1,
   },
   SPELLSTONE_CREATE: {
     id: 47888,
     name: 'Create Spellstone',
     icon: 'inv_misc_gem_sapphire_01',
-    lowRanks: [47886, 28172, 17728, 17727, 2362],
     soulShardsCost: 1,
   },
   SPELLSTONE_USE: {
     id: 41196,
     name: 'Spellstone',
     icon: 'inv_misc_gem_sapphire_01',
-    lowRanks: [41195, 41194, 41193, 41192, 41191],
   },
   SUBJUGATE_DEMON: {
     id: 61191,
     name: 'Subjugate Demon',
     icon: 'spell_shadow_enslavedemon',
-    lowRanks: [11726, 11725, 1098],
   },
   SUMMON_DREADSTEED: {
     id: 23161,
@@ -342,7 +315,6 @@ const spells = {
     id: 59164,
     name: 'Haunt',
     icon: 'ability_warlock_haunt',
-    lowRanks: [59163, 59161, 48181],
   },
   ERADICATION_BUFF_6: {
     id: 64368,
@@ -373,7 +345,6 @@ const spells = {
     id: 47843,
     name: 'Unstable Affliction',
     icon: 'spell_shadow_unstableaffliction_3',
-    lowRanks: [47841, 30405, 30404, 30108],
   },
 
   // Demonology
@@ -381,7 +352,6 @@ const spells = {
     id: 63167,
     name: 'Decimation',
     icon: 'spell_fire_fireball02',
-    lowRanks: [63165],
   },
   DEMONIC_EMPOWERMENT: {
     id: 47193,

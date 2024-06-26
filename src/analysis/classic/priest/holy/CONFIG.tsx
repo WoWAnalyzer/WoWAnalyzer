@@ -22,18 +22,6 @@ const config: Config = {
       Thanks!
     </>
   ),
-  pages: {
-    overview: {
-      hideChecklist: false,
-      text: (
-        <>
-          Classic Cataclysm support is still a Work in Progress. This spec guide is a stub. See the
-          "About" tab for information on contributing.
-        </>
-      ),
-      type: 'warning', // info, warning, or danger
-    },
-  },
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport:
     '/report/aGWLfp3yxVgNkP4Z/13-Heroic+Atramedes+-+Kill+(3:34)/Kerfluffle/standard/overview',

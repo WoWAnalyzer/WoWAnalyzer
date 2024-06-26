@@ -19,7 +19,6 @@ const spells = {
     id: 48120,
     name: 'Binding Heal',
     icon: 'spell_holy_blindingheal',
-    lowRanks: [48119, 32546],
   },
   BLESSED_HEALING: {
     id: 70772,
@@ -40,7 +39,6 @@ const spells = {
     id: 988,
     name: 'Dispel Magic',
     icon: 'spell_holy_dispelmagic',
-    lowRanks: [527],
   },
   DIVINE_HYMN: {
     id: 64843,
@@ -56,7 +54,6 @@ const spells = {
     id: 48073,
     name: 'Divine Spirit',
     icon: 'spell_holy_divinespirit',
-    lowRanks: [25312, 27841, 14819, 14818, 14752],
   },
   EMPOWERED_RENEW: {
     id: 63544,
@@ -88,7 +85,6 @@ const spells = {
     id: 48063,
     name: 'Greater Heal',
     icon: 'spell_holy_greaterheal',
-    lowRanks: [48062, 25213, 25210, 25314, 10965, 10964, 10963, 2060],
   },
   HEAL: {
     id: 2050,
@@ -104,7 +100,6 @@ const spells = {
     id: 48078,
     name: 'Holy Nova',
     icon: 'spell_holy_holynova',
-    lowRanks: [48077, 25331, 27801, 27800, 27799, 15431, 15430, 15237],
   },
   HYMN_OF_HOPE: {
     id: 64901,
@@ -130,7 +125,6 @@ const spells = {
     id: 2053,
     name: 'Lesser Heal',
     icon: 'spell_holy_lesserheal',
-    lowRanks: [2052, 2050],
   },
   LEVITATE: {
     id: 1706,
@@ -161,7 +155,6 @@ const spells = {
     id: 53023,
     name: 'Mind Sear',
     icon: 'spell_shadow_mindshear',
-    lowRanks: [48045],
   },
   MIND_SOOTHE: {
     id: 453,
@@ -172,7 +165,6 @@ const spells = {
     id: 10909,
     name: 'Mind Vision',
     icon: 'spell_holy_mindvision',
-    lowRanks: [2096],
   },
   POWER_WORD_FORTITUDE: {
     id: 21562,
@@ -203,19 +195,16 @@ const spells = {
     id: 48170,
     name: 'Prayer of Shadow Protection',
     icon: 'spell_holy_prayerofshadowprotection',
-    lowRanks: [39374, 27683],
   },
   PRAYER_OF_SPIRIT: {
     id: 48074,
     name: 'Prayer of Spirit',
     icon: 'spell_holy_prayerofspirit',
-    lowRanks: [32999, 27681],
   },
   PSYCHIC_SCREAM: {
     id: 10890,
     name: 'Psychic Scream',
     icon: 'spell_shadow_psychicscream',
-    lowRanks: [10888, 8124, 8122],
   },
   RENEW: {
     id: 139,
@@ -226,19 +215,16 @@ const spells = {
     id: 10955,
     name: 'Shackle Undead',
     icon: 'spell_nature_slow',
-    lowRanks: [9485, 9484],
   },
   SHADOW_PROTECTION: {
     id: 48169,
     name: 'Shadow Protection',
     icon: 'spell_shadow_antishadow',
-    lowRanks: [25433, 10958, 10957, 976],
   },
   SHADOW_WORD_DEATH: {
     id: 48158,
     name: 'Shadow Word Death',
     icon: 'spell_shadow_demonicfortitude',
-    lowRanks: [48157, 32996, 32379],
   },
   SHADOW_WORD_PAIN: {
     id: 589,
@@ -273,7 +259,6 @@ const spells = {
     id: 53007,
     name: 'Penance',
     icon: 'spell_holy_penance',
-    lowRanks: [53006, 53005, 47540],
   },
   PENANCE_DAMAGE: {
     id: 53000,
@@ -369,7 +354,6 @@ const spells = {
     id: 48156,
     name: 'Mind Flay',
     icon: 'spell_shadow_siphonmana',
-    lowRanks: [48155, 25387, 18807, 17314, 17313, 17312, 17311, 15407],
   },
   PAIN_AND_SUFFERING_TALENT: {
     id: 47582,
@@ -410,7 +394,6 @@ const spells = {
     id: 48160,
     name: 'Vampiric Touch',
     icon: 'spell_holy_stoicism',
-    lowRanks: [48159, 34917, 34916, 34914],
   },
   // -----
   // PET

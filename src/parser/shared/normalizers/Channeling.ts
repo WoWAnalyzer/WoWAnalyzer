@@ -110,7 +110,7 @@ class Channeling extends EventsNormalizer {
     buffChannelSpec(CLASSIC_SPELLS.DRAIN_MANA.id),
     buffChannelSpec(CLASSIC_SPELLS.RAIN_OF_FIRE.id),
     // Holy Priest
-    buffChannelSpec(CLASSIC_SPELLS.DIVINE_HYMN.id),
+    // Divine Hymn is handled by the Retail version currently
     buffChannelSpec(CLASSIC_SPELLS.HYMN_OF_HOPE_BUFF.id),
   ];
 

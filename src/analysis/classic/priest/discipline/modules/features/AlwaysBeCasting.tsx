@@ -12,16 +12,12 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.PENANCE_HEALING.id,
     SPELLS.FLASH_HEAL.id,
     SPELLS.BINDING_HEAL.id,
-    ...SPELLS.BINDING_HEAL.lowRanks,
     SPELLS.RENEW.id,
     SPELLS.GREATER_HEAL.id,
-    ...SPELLS.GREATER_HEAL.lowRanks,
     SPELLS.HEAL.id,
     SPELLS.LESSER_HEAL.id,
-    ...SPELLS.LESSER_HEAL.lowRanks,
     SPELLS.PRAYER_OF_HEALING.id,
     SPELLS.HOLY_NOVA.id,
-    ...SPELLS.HOLY_NOVA.lowRanks,
   ];
 
   suggestions(when: When) {
