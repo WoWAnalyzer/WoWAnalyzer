@@ -20,7 +20,6 @@ import Tooltip from 'interface/Tooltip';
 import { CombatantInfoEvent } from 'parser/core/Events';
 import { WCLFight } from 'parser/core/Fight';
 import Report from 'parser/core/Report';
-import getBuild from 'parser/getBuild';
 import getConfig from 'parser/getConfig';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { PlayerProvider } from 'interface/report/context/PlayerContext';
@@ -338,10 +337,8 @@ const PlayerLoader = ({ children }: Props) => {
       player,
       combatant,
     );
-  const build = combatant && getBuild(config, combatant);
 
-  const missingBuild = config?.builds && !build;
-  if (!player || hasDuplicatePlayers || !combatant || !config || missingBuild || combatant.error) {
+  if (!player || hasDuplicatePlayers || !combatant || !config || combatant.error) {
     if (player) {
       // Player data was in the report, but there was another issue
       if (hasDuplicatePlayers) {
@@ -371,7 +368,7 @@ const PlayerLoader = ({ children }: Props) => {
             }),
           ),
         );
-      } else if (!config || missingBuild) {
+      } else if (!config) {
         alert(
           i18n._(
             defineMessage({
@@ -434,8 +431,8 @@ const PlayerLoader = ({ children }: Props) => {
         <PlayerSelection
           report={selectedReport}
           combatants={combatants}
-          makeUrl={(playerId, build) =>
-            makeAnalyzerUrl(selectedReport, selectedFight.id, playerId, undefined, build)
+          makeUrl={(playerId) =>
+            makeAnalyzerUrl(selectedReport, selectedFight.id, playerId, undefined)
           }
         />
         <ReportRaidBuffList report={selectedReport} combatants={combatants} />

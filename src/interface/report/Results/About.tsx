@@ -1,11 +1,13 @@
 import { Plural, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import isLatestPatch from 'game/isLatestPatch';
+import AlertInfo from 'interface/AlertInfo';
 import AlertWarning from 'interface/AlertWarning';
 import Contributor from 'interface/ContributorButton';
+import DiscordButton from 'interface/DiscordButton';
 import Panel from 'interface/Panel';
 import ReadableListing from 'interface/ReadableListing';
-import Config from 'parser/Config';
+import Config, { SupportLevel } from 'parser/Config';
 import { Link } from 'react-router-dom';
 
 interface Props {
@@ -13,14 +15,17 @@ interface Props {
 }
 
 const About = ({ config }: Props) => {
-  const { spec, description, contributors, patchCompatibility, isPartial } = config;
+  const { spec, contributors, patchCompatibility, supportLevel } = config;
   const { i18n } = useLingui();
+  const isPartial = supportLevel === SupportLevel.MaintainedPartial;
   const contributorinfo =
     contributors.length !== 0 ? (
       contributors.map((contributor) => <Contributor key={contributor.nickname} {...contributor} />)
     ) : (
       <Trans id="interface.report.results.about.unmaintained">CURRENTLY UNMAINTAINED</Trans>
     );
+
+  const description = config.description ?? <FoundationDescription {...config} />;
 
   return (
     <Panel
@@ -82,6 +87,35 @@ const About = ({ config }: Props) => {
         </AlertWarning>
       )}
     </Panel>
+  );
+};
+
+const FoundationDescription = ({ spec }: Config) => {
+  const i18n = useLingui();
+
+  const specTitle = (
+    <>
+      {spec.specName && i18n._(spec.specName)} {i18n._(spec.className)}
+    </>
+  );
+
+  return (
+    <div>
+      <Trans id="interface.report.results.about.foundationDescription">
+        <p>
+          {specTitle} has support for core spells and abilities, but may be missing spec-specific
+          analysis.
+        </p>
+        <AlertInfo>
+          Interested in contributing to {specTitle} analysis? Check out our{' '}
+          <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/wiki#getting-started">
+            getting started guide
+          </a>{' '}
+          or visit our <DiscordButton style={{ padding: '1px 5px', height: 'unset' }} /> to help
+          out!
+        </AlertInfo>
+      </Trans>
+    </div>
   );
 };
 

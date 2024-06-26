@@ -6,6 +6,7 @@ import type { PlayerInfo } from 'parser/core/Player';
 import type Fight from 'parser/core/Fight';
 import type CharacterProfile from 'parser/core/CharacterProfile';
 import GameBranch from 'game/GameBranch';
+import { SupportLevel } from 'parser/Config';
 
 const TEST_SPEC: Spec = {
   className: {
@@ -32,7 +33,7 @@ export const DEFAULT_CONFIG: Config = {
   description: undefined,
   exampleReport: '',
   branch: GameBranch.Retail,
-  isPartial: false,
+  supportLevel: SupportLevel.MaintainedFull,
   patchCompatibility: null,
   path: '',
   spec: TEST_SPEC,

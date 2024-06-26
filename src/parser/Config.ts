@@ -8,21 +8,6 @@ import { ReactNode } from 'react';
 import type { Stats } from './shared/modules/StatTracker';
 import GameBranch from 'game/GameBranch';
 
-export type Build = {
-  url: string;
-  name: string;
-  talents: [number, number, number];
-  icon: ReactNode;
-  /**
-   * Whether the build should be visible. Using `false` can allow you to
-   * incrementally add support to modules, without having to bundle
-   * everything in a single giant PR or release it incomplete.
-   */
-  visible: boolean;
-  active?: boolean;
-};
-export type Builds = { [name: string]: Build };
-
 type VaultPatchCycle = `0.${0 | 2 | 5 | 7}`;
 type AberrusPatchCycle = `1.${0 | 5 | 7}`;
 type AmirdrassilPatchCycle = `2.${0 | 5 | 6 | 7}`;
@@ -32,7 +17,30 @@ export type DragonflightPatchVersion = `10.${
   | AmirdrassilPatchCycle}`;
 export type CataPatchVersion = `4.4.0`;
 
-interface Config {
+export enum SupportLevel {
+  /**
+   * The spec has core support for ability & cooldown tracking, and likely uses most or all of the Foundation guide.
+   *
+   * The analysis may not give many/any spec-specific tips, but what is shown is accurate.
+   *
+   * Specs with this level of support **do not have dedicated maintainers.**
+   */
+  Foundation,
+  /**
+   * The spec has a dedicated maintainer that is working on adding spec-specific analysis, but the analysis incomplete.
+   *
+   * Core analysis should remain correct but there is still more work to be done.
+   */
+  MaintainedPartial,
+  /**
+   * The spec has a dedicated maintainer that considers spec-specific analysis largely complete. Further additions are either niche, cover uncommon builds, or in service of theorycrafting.
+   */
+  MaintainedFull,
+}
+
+interface CoreConfig {
+  branch: GameBranch;
+  patchCompatibility: null | DragonflightPatchVersion | CataPatchVersion;
   /**
    * The people that have contributed to this spec recently. People don't have
    * to sign up to be long-time maintainers to be included in this list. If
@@ -41,30 +49,30 @@ interface Config {
    * they may be removed after major changes or during a new expansion.
    */
   contributors: Contributor[];
-  branch: GameBranch;
   /**
-   * The WoW client patch this spec is compatible with.
+   * These are multipliers to the stats applied *on pull* that are not
+   * included in the stats reported by WCL. These are *baked in* and do
+   * not multiply temporary buffs.
+   *
+   * In general, it looks like armor is the only one that isn't applied
+   * by WCL.
    */
-  patchCompatibility: null | DragonflightPatchVersion | CataPatchVersion;
+  statMultipliers?: Partial<Stats>;
   /**
-   * Whether support for the spec is only partial and some important elements
-   * are still missing. Note: you do not need to support every possible
-   * statistic to stop marking it as partial. Only the important issues need to
-   * be covered with decent accuracy.
+   * A recent example report to see interesting parts of the spec. Will be shown
+   * on the homepage.
    */
-  isPartial: boolean;
+  exampleReport: string;
   /**
-   * Explain the status of this spec's analysis here. Try to mention how
-   * complete it is, and perhaps show links to places users can learn more.
-   * If this spec's analysis does not show a complete picture please mention
-   * this in the `<Warning>` component.
+   * Extra description/notes and configuration for pages.
    */
-  description: ReactNode;
   pages?: {
     overview?: {
-      hideChecklist?: boolean;
-      text: ReactNode;
-      type: AlertKind;
+      /**
+       * Which type of frontmatter to use by default when both are present.
+       */
+      frontmatterType?: 'checklist' | 'guide';
+      notes?: ReactNode;
     };
     timeline?:
       | {
@@ -76,35 +84,9 @@ interface Config {
           type: AlertKind;
         } | null);
   };
-  /**
-   * A recent example report to see interesting parts of the spec. Will be shown
-   * on the homepage.
-   */
-  exampleReport: string;
-  builds?: Builds;
-  /**
-   * These are multipliers to the stats applied *on pull* that are not
-   * included in the stats reported by WCL. These are *baked in* and do
-   * not multiply temporary buffs.
-   *
-   * In general, it looks like armor is the only one that isn't applied
-   * by WCL.
-   */
-  statMultipliers?: Partial<Stats>;
   timeline?: {
     separateCastBars: number[][];
   };
-  /**
-   * Indicates if the new Guide or old Checklist should be the default starting tab.
-   * If omitted, Checklist will be the default.
-   */
-  guideDefault?: boolean;
-  /**
-   * Indicates if only the new Guide should be accessible. Requires {@link guideDefault} to be
-   * `true`. If omitted, Checklist will be accessible.
-   */
-  guideOnly?: boolean;
-
   // Don't change values for props below this line;
   /**
    * The spec this config is for . This is the only place (in code) that
@@ -125,5 +107,26 @@ interface Config {
    */
   path: string;
 }
+
+/**
+ * At the Foundation support level, many fields are optional.
+ */
+interface FoundationConfig {
+  supportLevel: SupportLevel.Foundation;
+  description?: ReactNode;
+}
+
+interface MaintainedConfig {
+  supportLevel: SupportLevel.MaintainedPartial | SupportLevel.MaintainedFull;
+  /**
+   * Explain the status of this spec's analysis here. Try to mention how
+   * complete it is, and perhaps show links to places users can learn more.
+   * If this spec's analysis does not show a complete picture please mention
+   * this in the `<Warning>` component.
+   */
+  description: ReactNode;
+}
+
+type Config = CoreConfig & (FoundationConfig | MaintainedConfig);
 
 export default Config;

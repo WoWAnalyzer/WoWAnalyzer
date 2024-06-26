@@ -1,4 +1,3 @@
-import { getAlertComponent } from 'interface/Alert';
 import { Suggestion } from 'parser/core/CombatLogParser';
 import { Issue } from 'parser/core/ParseResults';
 import { ReactNode } from 'react';
@@ -38,28 +37,24 @@ const Overview = ({ guide: GuideComponent, checklist, issues }: Props) => {
   const config = useConfig();
 
   const sessionGuideSetting = window.sessionStorage?.getItem('guideMode');
-  const configGuideSetting = Boolean(config.guideDefault);
-  const configOnlyGuideSetting = Boolean(config.guideOnly);
-  let initialGuideSetting =
-    sessionGuideSetting === null ? configGuideSetting : Boolean(sessionGuideSetting);
-  if (configGuideSetting || configOnlyGuideSetting) {
-    initialGuideSetting = true;
-  }
+  const configDefaultFrontmatter = config.pages?.overview?.frontmatterType ?? 'guide';
+  const initialGuideSetting =
+    sessionGuideSetting === null
+      ? configDefaultFrontmatter === 'guide'
+      : Boolean(sessionGuideSetting);
 
   const [guideMode, setGuideMode] = React.useState(initialGuideSetting);
 
   let alert: ReactNode = null;
-  if (config.pages?.overview?.text) {
-    const Component = getAlertComponent(config.pages.overview.type);
-
+  if (config.pages?.overview?.notes) {
     alert = (
-      <Component
+      <div
         style={{
           marginBottom: 30,
         }}
       >
-        {config.pages.overview.text}
-      </Component>
+        {config.pages.overview.notes}
+      </div>
     );
   }
 
@@ -70,9 +65,9 @@ const Overview = ({ guide: GuideComponent, checklist, issues }: Props) => {
 
   return guideMode && GuideComponent ? (
     <div className="container" style={{ display: 'grid' }}>
-      {!configOnlyGuideSetting && (
+      {checklist && (
         <PrototypeSwitcher
-          defaultGuide={configGuideSetting}
+          defaultGuide={configDefaultFrontmatter === 'guide'}
           guideMode={guideMode}
           setGuideMode={setMode}
         />
@@ -83,14 +78,14 @@ const Overview = ({ guide: GuideComponent, checklist, issues }: Props) => {
     <div className="container" style={{ display: 'grid' }}>
       {GuideComponent && (
         <PrototypeSwitcher
-          defaultGuide={configGuideSetting}
+          defaultGuide={configDefaultFrontmatter === 'guide'}
           guideMode={guideMode}
           setGuideMode={setMode}
         />
       )}
       {alert}
 
-      {config.pages?.overview?.hideChecklist !== true && <Checklist>{checklist}</Checklist>}
+      {checklist && <Checklist>{checklist}</Checklist>}
 
       <Suggestions style={{ marginBottom: 0 }}>{issues}</Suggestions>
     </div>
