@@ -1,5 +1,5 @@
 import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
-import { Section, useAnalyzer, useInfo } from '../index';
+import { SubSection, useAnalyzer, useInfo } from '../index';
 import CancelledCasts from 'parser/shared/modules/CancelledCasts';
 import Explanation from '../components/Explanation';
 import { TooltipElement } from 'interface/Tooltip';
@@ -18,7 +18,7 @@ export function FoundationDowntimeSection(): JSX.Element | null {
   }
 
   return (
-    <Section title="Always Be Casting">
+    <SubSection title="Always Be Casting">
       <Explanation>
         <p>
           The foundation of good play in <em>World of Warcraft</em> is having low downtime. The
@@ -73,7 +73,7 @@ export function FoundationDowntimeSection(): JSX.Element | null {
         </HL>{' '}
         Exceptional players will often hit <em>nearly 100%</em> during these periods.
       </p>
-    </Section>
+    </SubSection>
   );
 }
 

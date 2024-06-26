@@ -1,6 +1,6 @@
 import ResourceLink from 'interface/ResourceLink';
 import Explanation from '../components/Explanation';
-import { Section, SubSection, useAnalyzer } from '../index';
+import { SubSection, useAnalyzer } from '../index';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { FoundationHighlight as HL } from './shared';
 import AlertInfo from 'interface/AlertInfo';
@@ -24,7 +24,7 @@ export default function FoundationHealerManaSection(): JSX.Element | null {
   const healingEfficiencyTracker = useAnalyzer(HealingEfficiencyTracker);
 
   return (
-    <Section title="Spend Your Mana">
+    <SubSection title="Spend Your Mana">
       <Explanation>
         <p>
           As a <strong>Healer</strong>, <ResourceLink id={RESOURCE_TYPES.MANA.id} /> is your most
@@ -85,6 +85,6 @@ export default function FoundationHealerManaSection(): JSX.Element | null {
           <HealingEfficiencyBreakdown tracker={healingEfficiencyTracker} disableDamageToggle />
         </SubSection>
       )}
-    </Section>
+    </SubSection>
   );
 }

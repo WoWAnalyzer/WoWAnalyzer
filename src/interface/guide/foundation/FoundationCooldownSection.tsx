@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Section, useInfo } from '../index';
+import { SubSection, useInfo } from '../index';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
 import Explanation from '../components/Explanation';
@@ -38,7 +38,7 @@ export function FoundationCooldownSection({
   }
 
   return (
-    <Section title="Use Your Cooldowns">
+    <SubSection title="Use Your Cooldowns">
       <Explanation>
         <p>
           Perfect cooldown usage is a combination of in-depth fight knowledge and player skill.
@@ -60,6 +60,6 @@ export function FoundationCooldownSection({
         <a href="https://www.wowhead.com/discord-servers">Community Discords</a> to get more
         information about improving your cooldown use!
       </AlertInfo>
-    </Section>
+    </SubSection>
   );
 }
