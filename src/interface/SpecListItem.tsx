@@ -33,9 +33,10 @@ const SpecListItem = ({
     </ReadableListing>
   );
 
+  const isUnmaintained = supportLevel === SupportLevel.Unmaintained || patchCompatibility === null;
   let supportDescription;
   let maintainerDescription;
-  if (supportLevel === SupportLevel.Unmaintained || patchCompatibility === null) {
+  if (isUnmaintained) {
     maintainerDescription = (
       <small>
         <em>
@@ -81,7 +82,7 @@ const SpecListItem = ({
       key={spec.id}
       to={exampleReport?.replace(/^\/*/, '/')}
       title={exampleReport ? 'Open example report' : undefined}
-      className={`spec-card ${supportLevel === SupportLevel.Unmaintained ? 'spec-card_unmaintained' : ''}`}
+      className={`spec-card ${isUnmaintained ? 'spec-card_unmaintained' : ''}`}
     >
       <div className="icon">
         <figure>
