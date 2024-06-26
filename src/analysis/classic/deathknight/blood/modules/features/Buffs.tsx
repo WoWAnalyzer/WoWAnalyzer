@@ -12,6 +12,18 @@ class Buffs extends CoreAuras {
         spellId: SPELLS.UNHOLY_PRESENCE.id,
         timelineHighlight: true,
       },
+      {
+        spellId: SPELLS.BLOOD_PRESENCE.id,
+        timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.FROST_PRESENCE.id,
+        timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.BONE_SHIELD.id,
+        triggeredBySpellId: SPELLS.BONE_SHIELD.id,
+      },
       // Do not adjust the lines below
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),

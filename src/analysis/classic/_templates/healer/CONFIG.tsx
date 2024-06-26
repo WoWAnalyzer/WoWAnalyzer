@@ -41,7 +41,7 @@ const config: Config = {
     separateCastBars: [[]],
   },
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
-  spec: SPECS.CLASSIC_DRUID_RESTORATION, // UPDATE THIS
+  spec: SPECS.CLASSIC_PRIEST_HOLY, // UPDATE THIS
 
   // USE CAUTION when changing anything below this line.
   // The contents of your changelog.
@@ -54,6 +54,9 @@ const config: Config = {
     ),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: import.meta.url,
+
+  guideDefault: true,
+  guideOnly: true,
 };
 
 export default config;

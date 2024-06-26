@@ -18,6 +18,7 @@ interface Props {
   mana: Point[];
   deaths: XPoint[];
   bossData: BossData[];
+  height?: number;
 }
 
 class ManaLevelGraph extends PureComponent<Props> {
@@ -65,7 +66,7 @@ class ManaLevelGraph extends PureComponent<Props> {
             { calculate: 'datum.data.y', as: 'y' },
           ],
           mark: {
-            type: 'area',
+            type: 'line',
             opacity: 0.6,
             line: {
               interpolate: 'linear',
@@ -130,7 +131,9 @@ class ManaLevelGraph extends PureComponent<Props> {
 
     return (
       <AutoSizer disableHeight>
-        {({ width }) => <BaseChart height={400} width={width} spec={spec} data={data} />}
+        {({ width }) => (
+          <BaseChart height={this.props.height ?? 400} width={width} spec={spec} data={data} />
+        )}
       </AutoSizer>
     );
   }

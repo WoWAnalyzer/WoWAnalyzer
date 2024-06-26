@@ -1,14 +1,8 @@
-import {
-  lowRankSpells,
-  whitelist,
-  Haste,
-  DemonicCirclesCreated,
-} from 'analysis/classic/warlock/shared';
+import { Haste, DemonicCirclesCreated } from 'analysis/classic/warlock/shared';
 
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BaseCombatLogParser from 'parser/classic/CombatLogParser';
 import PreparationRuleAnalyzer from 'parser/classic/modules/features/Checklist/PreparationRuleAnalyzer';
-import lowRankSpellsSuggestion from 'parser/classic/suggestions/lowRankSpells';
 import Channeling from 'parser/shared/normalizers/Channeling';
 
 import Abilities from './modules/features/Abilities';
@@ -46,7 +40,6 @@ class CombatLogParser extends BaseCombatLogParser {
     drainSoul: DrainSoul,
     // Shared
     haste: Haste,
-    lowRankSpells: lowRankSpellsSuggestion(lowRankSpells, whitelist),
   };
 }
 

@@ -9,4 +9,5 @@ export const Highlight = styled.span<{ color: string; textColor?: string }>`
   background-color: ${(props) => props.color};
   padding: 0 3px;
   ${(props) => (props.textColor ? `color: ${props.textColor};` : '')}
+  box-decoration-break: clone;
 `;

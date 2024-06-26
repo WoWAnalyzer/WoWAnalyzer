@@ -1038,6 +1038,12 @@ export interface Item {
   effectID?: number;
   permanentEnchant?: number;
   temporaryEnchant?: number;
+  /**
+   * An enchant that provides an activatable ability.
+   *
+   * Only seen it used on Cata Engineering "enchants".
+   */
+  onUseEnchant?: number;
   gems?: Gem[];
   setID?: number;
 

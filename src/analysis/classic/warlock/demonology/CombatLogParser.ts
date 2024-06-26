@@ -2,13 +2,7 @@ import BaseCombatLogParser from 'parser/classic/CombatLogParser';
 import Guide from './Guide';
 // Shared
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import {
-  lowRankSpells,
-  whitelist,
-  DemonicCirclesCreated,
-  GlobalCooldown,
-  Spellstone,
-} from 'analysis/classic/warlock/shared';
+import { DemonicCirclesCreated, GlobalCooldown, Spellstone } from 'analysis/classic/warlock/shared';
 // Normalizers
 import Channeling from 'parser/shared/normalizers/Channeling';
 // Features
@@ -22,7 +16,6 @@ import CurseUptime from './modules/features/CurseUptime';
 import DotUptimes from './modules/features/DotUptimes';
 import PreparationRuleAnalyzer from 'parser/classic/modules/features/Checklist/PreparationRuleAnalyzer';
 // Spells
-import lowRankSpellsSuggestion from 'parser/classic/suggestions/lowRankSpells';
 import Corruption from './modules/spells/Corruption';
 import CurseOfAgony from './modules/spells/CurseOfAgony';
 import CurseOfDoom from './modules/spells/CurseOfDoom';
@@ -51,7 +44,6 @@ class CombatLogParser extends BaseCombatLogParser {
     dotUptimes: DotUptimes,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
     // Spells
-    lowRankSpells: lowRankSpellsSuggestion(lowRankSpells, whitelist),
     Corruption: Corruption,
     curseOfAgony: CurseOfAgony,
     curseOfDoom: CurseOfDoom,

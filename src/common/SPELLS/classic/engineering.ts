@@ -36,6 +36,7 @@ const spells = {
     name: 'Super Sapper Charge',
     icon: 'inv_gizmo_supersappercharge',
   },
+  SYNAPSE_SPRINGS: { id: 82174, name: 'Synapse Springs', icon: 'spell_shaman_elementaloath.jpg' },
 } satisfies Record<string, Spell>;
 
 export default spells;
