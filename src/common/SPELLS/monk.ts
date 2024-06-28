@@ -37,7 +37,7 @@ const spells = {
     id: 101546,
     name: 'Spinning Crane Kick',
     icon: 'ability_monk_cranekick_new',
-    manaCost: 2500,
+    manaCost: 25000,
   },
   SPINNING_CRANE_KICK_DAMAGE: {
     id: 107270,
@@ -176,7 +176,7 @@ const spells = {
     id: 116670,
     name: 'Vivify',
     icon: 'ability_monk_vivify',
-    manaCost: 8500,
+    manaCost: 75000,
   },
   VIVIFICATION_BUFF: {
     id: 392883,
@@ -272,7 +272,7 @@ const spells = {
     id: 115450,
     name: 'Detox',
     icon: 'ability_rogue_imrovedrecuperate',
-    manaCost: 650,
+    manaCost: 32500,
   },
 
   // Talents
