@@ -5,6 +5,7 @@ import { Vohrr } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date (2024, 6, 28), <>Added <SpellLink spell={TALENTS_MONK.HEART_OF_THE_JADE_SERPENT_TALENT}/> and updated healing efficiency metrics.</>, Vohrr),
   change(date (2024, 6, 20), <>Added <SpellLink spell={TALENTS_MONK.POOL_OF_MISTS_TALENT}/>.</>, Vohrr),
   change(date (2024, 6, 18), <>Updated <SpellLink spell={TALENTS_MONK.RISING_MIST_TALENT}/>, <SpellLink spell={TALENTS_MONK.RAPID_DIFFUSION_TALENT}/>, and <SpellLink spell={TALENTS_MONK.DANCING_MISTS_TALENT}/> to include healing contribution from <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT}/>.</>, Vohrr),
   change(date (2024, 6, 18), <>Updated <SpellLink spell={TALENTS_MONK.REFRESHING_JADE_WIND_TALENT}/>, <SpellLink spell={TALENTS_MONK.YULONS_WHISPER_TALENT}/>, and <SpellLink spell={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT}/> for The War Within.</>, Vohrr),
