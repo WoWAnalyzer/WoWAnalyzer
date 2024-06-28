@@ -95,8 +95,12 @@ export default class Shuffle extends Analyzer {
       return;
     }
 
+    // we include shuffle that expired in the last 20 ms because the combat log very consistently shows shuffle
+    // expiring before a hit that kills you.
+    const overkillBuffer = (event.overkill ?? 0) > 0 ? 20 : undefined;
+
     const wasMitigated =
-      this.selectedCombatant.hasBuff(SPELLS.SHUFFLE.id) ||
+      this.selectedCombatant.hasBuff(SPELLS.SHUFFLE.id, null, overkillBuffer) ||
       (event.unmitigatedAmount === undefined && event.amount === 0);
     const mitigated = wasMitigated ? QualitativePerformance.Good : QualitativePerformance.Fail;
 
