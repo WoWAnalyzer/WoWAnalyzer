@@ -87,6 +87,7 @@ import CraneStyle from './modules/spells/CraneStyle';
 import ZenPulse from './modules/spells/ZenPulse';
 import T32TierSet from './modules/tier/T32TierSet';
 import PoolOfMists from './modules/spells/PoolOfMists';
+import HeartOfTheJadeSerpent from '../shared/hero/conduit/HeartOfTheJadeSerpent';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -183,6 +184,10 @@ class CombatLogParser extends CoreCombatLogParser {
     zenPulse: ZenPulse,
     chiHarmony: ChiHarmony,
     poolOfMists: PoolOfMists,
+
+    //Hero Talents
+    //Conduit
+    heartOfTheJadeSerpent: HeartOfTheJadeSerpent,
 
     apl: AplCheck,
 

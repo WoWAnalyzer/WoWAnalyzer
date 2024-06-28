@@ -37,7 +37,7 @@ const spells = {
     id: 101546,
     name: 'Spinning Crane Kick',
     icon: 'ability_monk_cranekick_new',
-    manaCost: 2500,
+    manaCost: 25000,
   },
   SPINNING_CRANE_KICK_DAMAGE: {
     id: 107270,
@@ -140,7 +140,26 @@ const spells = {
     name: 'Flight of the Red Crane',
     icon: 'inv_pet_cranegod',
   },
-
+  HEART_OF_THE_JADE_SERPENT_STACK_WW: {
+    id: 443424,
+    name: 'Heart of the Jade Serpent',
+    icon: 'ability_monk_chiswirl',
+  },
+  HEART_OF_THE_JADE_SERPENT_STACK_MW: {
+    id: 443506,
+    name: 'Heart of the Jade Serpent',
+    icon: 'ability_monk_chiswirl',
+  },
+  HEART_OF_THE_JADE_SERPENT_UNITY: {
+    id: 443616,
+    name: 'Heart of the Jade Serpent',
+    icon: 'ability_monk_summonserpentstatue',
+  },
+  HEART_OF_THE_JADE_SERPENT_BUFF: {
+    id: 443421,
+    name: 'Heart of the Jade Serpent',
+    icon: 'ability_monk_summonserpentstatue',
+  },
   // Mistweaver Monk Spells
   ENVELOPING_MIST_TFT: {
     id: 274062,
@@ -176,7 +195,7 @@ const spells = {
     id: 116670,
     name: 'Vivify',
     icon: 'ability_monk_vivify',
-    manaCost: 8500,
+    manaCost: 75000,
   },
   VIVIFICATION_BUFF: {
     id: 392883,
@@ -272,7 +291,7 @@ const spells = {
     id: 115450,
     name: 'Detox',
     icon: 'ability_rogue_imrovedrecuperate',
-    manaCost: 650,
+    manaCost: 32500,
   },
 
   // Talents
