@@ -44,8 +44,8 @@ class Season4Tier extends Analyzer {
   protected statTracker!: StatTracker;
   protected critEffectBonus!: CritEffectBonus;
   protected criticalHealCount: number = 0;
-  protected increasedCritHealing: number = 0;
-  protected totalHealingDuringTotemUptime: number = 0;
+  protected increased2pcHealing: number = 0;
+  protected totalHealing: number = 0;
   protected totalCritsFromBonus: number = 0;
   protected activeTotem: ActiveTotem = ActiveTotem.None;
   protected increased4pcHealing: number = 0;
@@ -70,9 +70,7 @@ class Season4Tier extends Analyzer {
     );
 
     this.addEventListener(
-      Events.applybuff
-        .by(SELECTED_PLAYER)
-        .spell(TALENTS_SHAMAN.HEALING_STREAM_TOTEM_RESTORATION_TALENT),
+      Events.summon.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.HEALING_STREAM_TOTEM_SHARED_TALENT),
       this.onHealingStreamApply,
     );
     this.addEventListener(
@@ -84,45 +82,59 @@ class Season4Tier extends Analyzer {
   }
 
   private onCloudburstApply() {
+    console.log('Cloudburst Totem applied');
     this.activeTotem = ActiveTotem.Cloudburst;
   }
 
   private onCloudburstRemove() {
     if (this.activeTotem === ActiveTotem.Cloudburst) {
+      console.log('Cloudburst Totem removed');
       this.activeTotem = ActiveTotem.None;
     }
   }
 
   private onHealingStreamApply() {
+    console.log('Healing Stream Totem applied');
     this.activeTotem = ActiveTotem.HealingStream;
   }
 
   private onHealingStreamRemove() {
     if (this.activeTotem === ActiveTotem.HealingStream) {
+      console.log('Healing Stream Totem removed');
       this.activeTotem = ActiveTotem.None;
     }
   }
 
   onHeal(event: HealEvent) {
-    if (this.active && this.activeTotem !== ActiveTotem.None) {
-      const totalHealing = (event.amount || 0) + (event.absorbed || 0) + (event.overheal || 0);
-      this.totalHealingDuringTotemUptime += totalHealing;
+    const nonOverhealHealing = (event.amount || 0) + (event.absorbed || 0);
+    this.totalHealing += nonOverhealHealing;
+    const is2pcActive = this.active && this.activeTotem !== ActiveTotem.None;
+    const is4pcActive = this.has4pc;
+    if (event.hitType === HIT_TYPES.CRIT) {
+      // Calculate healing with only the 2pc effect
+      const effectiveHealing2pc = calculateEffectiveHealingFromCritIncrease(
+        event,
+        this.statTracker.critPercentage(event.timestamp, true),
+        is2pcActive ? CRIT_RATE_TOTEM_HEALING_INCREASE : 0,
+      );
+      this.increased2pcHealing += effectiveHealing2pc;
 
-      if (event.hitType === HIT_TYPES.CRIT) {
-        const effectiveHealing = calculateEffectiveHealingFromCritIncrease(
+      // Calculate healing with the 4pc effect and attribute the difference
+      if (is4pcActive) {
+        const effectiveHealing4pc = calculateEffectiveHealingFromCritIncrease(
           event,
           this.statTracker.critPercentage(event.timestamp, true),
           CRIT_RATE_TOTEM_HEALING_INCREASE,
-          2 + (this.has4pc ? CRIT_EFFECT_INCREASE_4PC : 0),
+          2 + CRIT_EFFECT_INCREASE_4PC,
         );
-        this.increasedCritHealing += effectiveHealing;
+        this.increased4pcHealing += effectiveHealing4pc - effectiveHealing2pc;
       }
     }
   }
 
   statistic() {
     const tierSetId = SHAMAN_DF4_ID;
-    const increasedCritPercentage = this.increasedCritHealing / this.totalHealingDuringTotemUptime;
+    const increasedCritPercentage = this.increased2pcHealing / this.totalHealing;
 
     return (
       <Statistic
@@ -131,9 +143,9 @@ class Season4Tier extends Analyzer {
         size="flexible"
         tooltip={`
           During totem uptime:
-          Total Healing: ${formatNumber(this.totalHealingDuringTotemUptime)}
-          Increased Healing from 15% crit chance bonus: ${formatNumber(this.increasedCritHealing)} (${formatPercentage(increasedCritPercentage)}% of total healing)
-          Increased Healing from 4pc bonus: ${formatNumber(this.increased4pcHealing)} (${formatPercentage(this.increased4pcHealing / this.totalHealingDuringTotemUptime)}% of total healing)
+          Total Healing: ${formatNumber(this.totalHealing)}
+          Increased Healing from 15% crit chance bonus: ${formatNumber(this.increased2pcHealing)} (${formatPercentage(increasedCritPercentage)}% of total healing)
+          Increased Healing from 4pc bonus: ${formatNumber(this.increased4pcHealing)} (${formatPercentage(this.increased4pcHealing / this.totalHealing)}% of total healing)
         `}
       >
         <BoringItemSetValueText
@@ -142,18 +154,16 @@ class Season4Tier extends Analyzer {
         >
           <>
             <div>
-              2pc: <ItemPercentHealingDone amount={this.increasedCritHealing} />
+              2pc: <ItemPercentHealingDone amount={this.increased2pcHealing} />
               <br />
-              {formatPercentage(increasedCritPercentage)}%{' '}
-              <small>of healing during totem uptime</small>
+              {formatPercentage(increasedCritPercentage)}% <small>of healing from 2pc bonus</small>
             </div>
             {this.has4pc && (
               <div>
                 4pc: <ItemPercentHealingDone amount={this.increased4pcHealing} />
                 <br />
-                {formatPercentage(
-                  this.increased4pcHealing / this.totalHealingDuringTotemUptime,
-                )}% <small>of healing during totem uptime</small>
+                {formatPercentage(this.increased4pcHealing / this.totalHealing)}%{' '}
+                <small>of healing from 4pc bonus</small>
               </div>
             )}
           </>
