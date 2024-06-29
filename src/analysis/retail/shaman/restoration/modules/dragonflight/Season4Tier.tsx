@@ -1,11 +1,11 @@
 import { TIERS } from 'game/TIERS';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Statistic from 'parser/ui/Statistic';
 import Abilities from 'parser/core/modules/Abilities';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
-import Events, { HealEvent } from 'parser/core/Events';
+import Events, { DeathEvent, HealEvent, SummonEvent } from 'parser/core/Events';
 import HIT_TYPES from 'game/HIT_TYPES';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
@@ -23,11 +23,6 @@ import { calculateEffectiveHealingFromCritIncrease } from 'parser/core/EventCalc
  *
  * 4pc : Your critical heals have 220% effectiveness instead of the usual 200%.
  */
-enum ActiveTotem {
-  Cloudburst = 'cloudburst',
-  HealingStream = 'healing_stream',
-  None = 'none',
-}
 
 const CRIT_RATE_TOTEM_HEALING_INCREASE = 0.15;
 const CRIT_EFFECT_INCREASE_4PC = 0.2;
@@ -43,11 +38,9 @@ class Season4Tier extends Analyzer {
   protected spellUsable!: SpellUsable;
   protected statTracker!: StatTracker;
   protected critEffectBonus!: CritEffectBonus;
-  protected criticalHealCount: number = 0;
+  protected summonedTotems: Set<string> = new Set();
   protected increased2pcHealing: number = 0;
   protected totalHealing: number = 0;
-  protected totalCritsFromBonus: number = 0;
-  protected activeTotem: ActiveTotem = ActiveTotem.None;
   protected increased4pcHealing: number = 0;
   protected has4pc: boolean;
   constructor(options: Options) {
@@ -56,59 +49,36 @@ class Season4Tier extends Analyzer {
     this.active = this.selectedCombatant.has2PieceByTier(TIERS.DF4);
     this.has4pc = this.selectedCombatant.has4PieceByTier(TIERS.DF4);
 
-    console.log(this.active);
-    console.log(this.has4pc);
-
+    this.addEventListener(Events.summon.by(SELECTED_PLAYER), this.onSummon);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.CLOUDBURST_TOTEM_TALENT),
-      this.onCloudburstApply,
-    );
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.CLOUDBURST_TOTEM_TALENT),
-      this.onCloudburstRemove,
-    );
-
-    this.addEventListener(
-      Events.summon.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.HEALING_STREAM_TOTEM_SHARED_TALENT),
-      this.onHealingStreamApply,
-    );
-    this.addEventListener(
-      Events.removebuff
-        .by(SELECTED_PLAYER)
-        .spell(TALENTS_SHAMAN.HEALING_STREAM_TOTEM_RESTORATION_TALENT),
-      this.onHealingStreamRemove,
-    );
+    this.addEventListener(Events.death.to(SELECTED_PLAYER_PET), this.onDeath);
   }
 
-  private onCloudburstApply() {
-    console.log('Cloudburst Totem applied');
-    this.activeTotem = ActiveTotem.Cloudburst;
+  getTotemId(targetID: number, targetInstance: number | undefined): string {
+    return `${targetID}-${targetInstance}`;
   }
 
-  private onCloudburstRemove() {
-    if (this.activeTotem === ActiveTotem.Cloudburst) {
-      console.log('Cloudburst Totem removed');
-      this.activeTotem = ActiveTotem.None;
+  onSummon(event: SummonEvent) {
+    if (
+      event.ability.name === TALENTS_SHAMAN.HEALING_STREAM_TOTEM_RESTORATION_TALENT.name ||
+      event.ability.name === TALENTS_SHAMAN.CLOUDBURST_TOTEM_TALENT.name
+    ) {
+      const totemId = this.getTotemId(event.targetID, event.targetInstance);
+      this.summonedTotems.add(totemId);
     }
   }
 
-  private onHealingStreamApply() {
-    console.log('Healing Stream Totem applied');
-    this.activeTotem = ActiveTotem.HealingStream;
-  }
-
-  private onHealingStreamRemove() {
-    if (this.activeTotem === ActiveTotem.HealingStream) {
-      console.log('Healing Stream Totem removed');
-      this.activeTotem = ActiveTotem.None;
+  onDeath(event: DeathEvent) {
+    const totemId = this.getTotemId(event.targetID, event.targetInstance);
+    if (this.summonedTotems.has(totemId)) {
+      this.summonedTotems.delete(totemId);
     }
   }
 
   onHeal(event: HealEvent) {
     const nonOverhealHealing = (event.amount || 0) + (event.absorbed || 0);
     this.totalHealing += nonOverhealHealing;
-    const is2pcActive = this.active && this.activeTotem !== ActiveTotem.None;
+    const is2pcActive = this.active && this.summonedTotems.size > 0;
     const is4pcActive = this.has4pc;
     if (event.hitType === HIT_TYPES.CRIT) {
       // Calculate healing with only the 2pc effect
