@@ -5,15 +5,16 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Statistic from 'parser/ui/Statistic';
 import Abilities from 'parser/core/modules/Abilities';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
-import Events, { EventType, HealEvent } from 'parser/core/Events';
+import Events, { HealEvent } from 'parser/core/Events';
 import HIT_TYPES from 'game/HIT_TYPES';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import ItemSetLink from 'interface/ItemSetLink';
+import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import { SHAMAN_DF4_ID } from 'common/ITEMS/dragonflight';
 import { formatNumber, formatPercentage } from 'common/format';
-import CritEffectBonus, { ValidEvents } from 'parser/shared/modules/helpers/CritEffectBonus';
+import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import BoringItemSetValueText from 'parser/ui/BoringItemSetValueText';
+import { calculateEffectiveHealingFromCritIncrease } from 'parser/core/EventCalculateLib';
 
 /**
  * **Resto Shaman Season 4 **
@@ -54,6 +55,9 @@ class Season4Tier extends Analyzer {
 
     this.active = this.selectedCombatant.has2PieceByTier(TIERS.DF4);
     this.has4pc = this.selectedCombatant.has4PieceByTier(TIERS.DF4);
+
+    console.log(this.active);
+    console.log(this.has4pc);
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
     this.addEventListener(
@@ -99,38 +103,19 @@ class Season4Tier extends Analyzer {
     }
   }
 
-  increaseCritEffect(critEffectModifier: number, event: ValidEvents): number {
-    if (event.type === EventType.Heal) {
-      return critEffectModifier + CRIT_EFFECT_INCREASE_4PC;
-    }
-    return critEffectModifier;
-  }
-
-  increaseCritRate(critEffectModifier: number, event: ValidEvents): number {
-    if (event.type === EventType.Heal && this.activeTotem !== ActiveTotem.None) {
-      return critEffectModifier * (1 + CRIT_RATE_TOTEM_HEALING_INCREASE);
-    }
-    return critEffectModifier;
-  }
-
   onHeal(event: HealEvent) {
     if (this.active && this.activeTotem !== ActiveTotem.None) {
       const totalHealing = (event.amount || 0) + (event.absorbed || 0) + (event.overheal || 0);
       this.totalHealingDuringTotemUptime += totalHealing;
 
       if (event.hitType === HIT_TYPES.CRIT) {
-        const normalCritChance = this.statTracker.critPercentage(event.timestamp, true);
-        const actualCritChance = normalCritChance + CRIT_RATE_TOTEM_HEALING_INCREASE;
-        const chanceOfThisCritDueToBonus = (actualCritChance - normalCritChance) / actualCritChance;
-
-        this.increasedCritHealing += totalHealing * chanceOfThisCritDueToBonus;
-        this.totalCritsFromBonus += chanceOfThisCritDueToBonus;
-
-        if (this.has4pc) {
-          const critBonus =
-            this.critEffectBonus.getBonus(event) - CritEffectBonus.BASE_CRIT_EFFECT_MOD;
-          this.increased4pcHealing += totalHealing * (critBonus / 2);
-        }
+        const effectiveHealing = calculateEffectiveHealingFromCritIncrease(
+          event,
+          this.statTracker.critPercentage(event.timestamp, true),
+          CRIT_RATE_TOTEM_HEALING_INCREASE,
+          2 + (this.has4pc ? CRIT_EFFECT_INCREASE_4PC : 0),
+        );
+        this.increasedCritHealing += effectiveHealing;
       }
     }
   }
@@ -138,7 +123,6 @@ class Season4Tier extends Analyzer {
   statistic() {
     const tierSetId = SHAMAN_DF4_ID;
     const increasedCritPercentage = this.increasedCritHealing / this.totalHealingDuringTotemUptime;
-    const increased4pcPercentage = this.increased4pcHealing / this.totalHealingDuringTotemUptime;
 
     return (
       <Statistic
@@ -149,35 +133,31 @@ class Season4Tier extends Analyzer {
           During totem uptime:
           Total Healing: ${formatNumber(this.totalHealingDuringTotemUptime)}
           Increased Healing from 15% crit chance bonus: ${formatNumber(this.increasedCritHealing)} (${formatPercentage(increasedCritPercentage)}% of total healing)
-          Estimated additional crits: ${formatNumber(this.totalCritsFromBonus)}
-          ${this.has4pc ? `Increased Healing from 4pc bonus: ${formatNumber(this.increased4pcHealing)} (${formatPercentage(increased4pcPercentage)}% of total healing)` : ''}
+          Increased Healing from 4pc bonus: ${formatNumber(this.increased4pcHealing)} (${formatPercentage(this.increased4pcHealing / this.totalHealingDuringTotemUptime)}% of total healing)
         `}
       >
-        <div className="pad boring-text">
-          <label>
-            <ItemSetLink id={tierSetId}>
-              <>
-                Vision of the Greatwolf Outcast
+        <BoringItemSetValueText
+          setId={tierSetId}
+          title="Vision of the Greatwolf Outcast (Tier-32 Set)"
+        >
+          <>
+            <div>
+              2pc: <ItemPercentHealingDone amount={this.increasedCritHealing} />
+              <br />
+              {formatPercentage(increasedCritPercentage)}%{' '}
+              <small>of healing during totem uptime</small>
+            </div>
+            {this.has4pc && (
+              <div>
+                4pc: <ItemPercentHealingDone amount={this.increased4pcHealing} />
                 <br />
-                (Tier-32 Set)
-              </>
-            </ItemSetLink>
-          </label>
-        </div>
-        <div className="value">
-          <ItemHealingDone
-            amount={this.increasedCritHealing + (this.has4pc ? this.increased4pcHealing : 0)}
-          />
-          <br />
-          {formatPercentage(
-            increasedCritPercentage + (this.has4pc ? increased4pcPercentage : 0),
-          )}% <small>of healing during totem uptime</small>
-        </div>
-        {this.has4pc && (
-          <div className="value">
-            4pc: Your critical heals have 220% effectiveness instead of the usual 200%.
-          </div>
-        )}
+                {formatPercentage(
+                  this.increased4pcHealing / this.totalHealingDuringTotemUptime,
+                )}% <small>of healing during totem uptime</small>
+              </div>
+            )}
+          </>
+        </BoringItemSetValueText>
       </Statistic>
     );
   }
