@@ -88,11 +88,14 @@ import ZenPulse from './modules/spells/ZenPulse';
 import T32TierSet from './modules/tier/T32TierSet';
 import PoolOfMists from './modules/spells/PoolOfMists';
 import HeartOfTheJadeSerpent from '../shared/hero/conduit/HeartOfTheJadeSerpent';
+import RestoreBalance from '../shared/hero/conduit/RestoreBalance';
+import ConduitOfTheCelestialsEventLinks from '../shared/hero/conduit/ConduitOfTheCelestialsEventLinks';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Normalizer
     castLinkNormalizer: CastLinkNormalizer,
+    conduitOfTheCelestialsEventLinks: ConduitOfTheCelestialsEventLinks,
     hotApplicationNormalizer: HotApplicationNormalizer,
     hotRemovalNormalizer: HotRemovalNormalizer,
 
@@ -188,7 +191,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Hero Talents
     //Conduit
     heartOfTheJadeSerpent: HeartOfTheJadeSerpent,
-
+    restoreBalance: RestoreBalance,
     apl: AplCheck,
 
     // Borrowed Power

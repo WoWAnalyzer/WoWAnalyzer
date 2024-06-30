@@ -7,6 +7,7 @@ import {
   FROM_HARDCAST,
   APPLIED_HEAL,
   CAST_BUFFER_MS,
+  TFT_ENV_TOM,
 } from './EventLinkConstants';
 
 export const ENVELOPING_MIST_EVENT_LINKS: EventLink[] = [
@@ -35,5 +36,19 @@ export const ENVELOPING_MIST_EVENT_LINKS: EventLink[] = [
     referencedEventType: EventType.Cast,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
+  },
+  //TFT Enveloping Mist - Tear Of Morning Cleave Link
+  {
+    linkRelation: TFT_ENV_TOM,
+    linkingEventId: [TALENTS_MONK.ENVELOPING_MIST_TALENT.id],
+    linkingEventType: [EventType.Cast],
+    referencedEventId: [SPELLS.ENVELOPING_MIST_TFT.id],
+    referencedEventType: [EventType.Heal],
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+    isActive(c) {
+      return c.hasTalent(TALENTS_MONK.TEAR_OF_MORNING_TALENT);
+    },
   },
 ];

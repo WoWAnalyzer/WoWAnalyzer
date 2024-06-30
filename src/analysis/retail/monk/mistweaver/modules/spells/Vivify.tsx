@@ -35,6 +35,7 @@ class Vivify extends Analyzer {
 
   protected spellUsable!: SpellUsable;
   protected upliftedSpirits!: UpliftedSpirits;
+
   casts: number = 0;
   healsPerPlayer: InvigoratingMistHealPerPlayer = {};
   mainTargetHealing: number = 0;
@@ -231,19 +232,18 @@ class Vivify extends Analyzer {
             <ul>
               <li>
                 {formatNumber(this.mainTargetHealing + this.cleaveHealing)} overall healing from
-                <SpellLink spell={SPELLS.VIVIFY} />.
+                casting <SpellLink spell={SPELLS.VIVIFY} />.
               </li>
               <li>
-                {formatNumber(this.cleaveHealing)} portion of your{' '}
-                <SpellLink spell={SPELLS.VIVIFY} /> healing to{' '}
-                <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> targets.
+                {formatNumber(this.cleaveHealing)} healing from{' '}
+                <SpellLink spell={TALENTS_MONK.INVIGORATING_MISTS_TALENT} />
               </li>
               <li>{formatNumber(this.fullOverhealCleaves)} cleaves that were 100% overheal.</li>
             </ul>
           </>
         }
       >
-        <TalentSpellText talent={TALENTS_MONK.RENEWING_MIST_TALENT}>
+        <TalentSpellText talent={TALENTS_MONK.INVIGORATING_MISTS_TALENT}>
           <>
             {this.averageRemPerVivify.toFixed(2)}{' '}
             <small>

@@ -19,6 +19,7 @@ import RisingMist from '../spells/RisingMist';
 import ShaohaosLessons from '../spells/ShaohaosLessons';
 import CraneStyle from '../spells/CraneStyle';
 import ZenPulse from '../spells/ZenPulse';
+import TearOfMorning from '../spells/TearOfMorning';
 
 class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   static dependencies = {
@@ -40,6 +41,7 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
     shaohaosLessons: ShaohaosLessons,
     craneStyle: CraneStyle,
     zenPulse: ZenPulse,
+    tearOfMorning: TearOfMorning,
   };
 
   protected envelopingMists!: EnvelopingMists;
@@ -57,6 +59,7 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   protected shaohaosLessons!: ShaohaosLessons;
   protected craneStyle!: CraneStyle;
   protected zenPulse!: ZenPulse;
+  protected tearOfMorning!: TearOfMorning;
 
   getCustomSpellStats(spellInfo: SpellInfoDetails, spellId: number) {
     if (spellId === TALENTS_MONK.ENVELOPING_MIST_TALENT.id) {
@@ -104,7 +107,10 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
       this.rapidDiffusion.mistyPeakHealingFromEnvRem +
       this.envelopingMists.gustsHealing +
       this.rapidDiffusion.remHealingFromEnv +
-      this.envelopingMists.healingIncrease;
+      this.envelopingMists.healingIncrease +
+      this.tearOfMorning.tftCleaveHealing +
+      this.healingDone.byAbility(SPELLS.ENVELOPING_MIST_TFT.id).effective;
+
     return spellInfo;
   }
 
@@ -148,7 +154,6 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   }
 
   getRisingSunKickDetails(spellInfo: SpellInfoDetails) {
-    // Since I don't want messy code right now it will only give the rising mist healing not any of the other fun stuff it gives indirectly
     spellInfo.healingDone =
       this.risingMist.totalHealing +
       this.rapidDiffusion.remHealingFromRSK +
