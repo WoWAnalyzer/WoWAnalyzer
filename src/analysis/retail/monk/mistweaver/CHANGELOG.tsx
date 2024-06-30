@@ -5,6 +5,7 @@ import { Vohrr } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date (2024, 6, 29), <>Added <SpellLink spell={TALENTS_MONK.RESTORE_BALANCE_TALENT}/> module.</>, Vohrr),
   change(date (2024, 6, 29), <>Updated <SpellLink spell={TALENTS_MONK.TEAR_OF_MORNING_TALENT}/> module</>, Vohrr),
   change(date (2024, 6, 28), <>Added <SpellLink spell={TALENTS_MONK.HEART_OF_THE_JADE_SERPENT_TALENT}/> and updated healing efficiency metrics.</>, Vohrr),
   change(date (2024, 6, 20), <>Added <SpellLink spell={TALENTS_MONK.POOL_OF_MISTS_TALENT}/>.</>, Vohrr),
