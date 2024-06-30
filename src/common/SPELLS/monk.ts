@@ -405,6 +405,11 @@ const spells = {
     name: 'Refreshing Jade Wind',
     icon: 'ability_monk_rushingjadewind',
   },
+  REFRESHING_JADE_WIND_BUFF: {
+    id: 196725,
+    name: 'Refreshing Jade Wind',
+    icon: 'ability_monk_rushingjadewind',
+  },
   INVOKE_CHIJI_THE_RED_CRANE_BUFF: {
     id: 343820,
     name: 'Invoke Chi-Ji, the Red Crane',
