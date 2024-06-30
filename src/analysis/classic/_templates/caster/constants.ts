@@ -1,0 +1,5 @@
+export const SPELL_COLORS = {
+  DOWNTIME: '#FF0000',
+  UPTIME: '#00FF00',
+  SPELL_NAME: '#9933CC',
+};

@@ -7,7 +7,7 @@ class Abilities extends CoreAbilities {
     return [
       // Rotational
       {
-        spell: [SPELLS.DEATH_COIL_DK.id, ...SPELLS.DEATH_COIL_DK.lowRanks],
+        spell: SPELLS.DEATH_COIL_DK.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },

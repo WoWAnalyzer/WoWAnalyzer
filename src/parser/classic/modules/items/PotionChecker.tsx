@@ -119,7 +119,7 @@ class ClassicPotionChecker extends Analyzer {
   }
 
   get maxPotions() {
-    return 1;
+    return 2;
   }
 
   get potionsUsedThresholds() {

@@ -11,6 +11,7 @@ interface Props {
   offset: number;
   combatants: any;
   manaUpdates: any[];
+  height?: number;
 }
 
 interface State {
@@ -107,7 +108,12 @@ class ManaLevelChartComponent extends PureComponent<Props, State> {
 
     return (
       <div className="graph-container">
-        <ManaLevelGraph mana={mana} bossData={bossData} deaths={deaths} />
+        <ManaLevelGraph
+          mana={mana}
+          bossData={bossData}
+          deaths={deaths}
+          height={this.props.height}
+        />
       </div>
     );
   }

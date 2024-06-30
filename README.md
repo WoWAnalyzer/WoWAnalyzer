@@ -12,8 +12,6 @@ This guide is an excellent introduction and explains all the jargon we may use: 
 
 If you ever get stuck or want to have a chat, join us on our [Discord](https://wowanalyzer.com/discord) server. We love to hear what you're (going to be) working on!
 
-Our docs aren't very good, but we have a really fun and helpful developer community on Discord. So please consider joining and reaching out if you need help. Be bold!
-
 ## Getting started
 
 First make sure you have the following:
@@ -25,11 +23,11 @@ First make sure you have the following:
 
 Now you need to pull a copy of the codebase onto your computer. Make a fork of the repo by clicking the **Fork** button at the top of this page. Next, click the green button **Clone or download** and copy your _Clone with HTTPS_ URL, and then run the command `git clone <paste link>`. This will take a minute.
 
-When cloning finishes, open a command window to the source and run the command `yarn`. This will take a minute or two the first time. While it's running, copy the `.env.local.example` file in the project root, and name it `.env.local`. Now you need to fill the WCL API key. To get your key, login to Warcraft Logs and go to [your profile](https://www.warcraftlogs.com/profile). Scroll to the bottom, enter the **V1 Client Name** "WoWAnalyzer (development)" (this is required) and copy the **V1 Client Key**, then replace `INSERT_YOUR_OWN_API_KEY_HERE` in `.env.local` with this key.
+When cloning finishes, open a command window to the source and run the command `yarn install`.
 
-Optionally if you're on a bash compatible machine, you can run `scripts/setup` for an interactive setup of this application.
+Once all that's done you're ready to fire up the development server! Just run the command `yarn start` in the project root. This should open up your local version of WoWAnalyzer in the browser.
 
-Once all that's done you're ready to fire up the development server! Just run the command `yarn start` in the project root. The first start may take a few minutes as it has to compile everything. This does get cached, so that any code changes while the server is already running will be compiled much quicker.
+At this point you can poke around and start making changes, or head over to the [wiki](https://github.com/WoWAnalyzer/WoWAnalyzer/wiki) for more information.
 
 <table align="center">
   <tr>
@@ -39,8 +37,6 @@ Once all that's done you're ready to fire up the development server! Just run th
 </table>
 
 ### Troubleshooting
-
-If you are getting `Error: Invalid key specified`, ensure your key is correct in `.env.local` and restart `yarn start` after changing the file so the new value is loaded (.env files are cached).
 
 If you are getting an error about a missing module or library you might have to update your dependencies. Run `yarn install` or `docker-compose build dev` if you're using the Docker container. Make sure there's no running `yarn start` or `yarn test` when you do as they might lock files.
 

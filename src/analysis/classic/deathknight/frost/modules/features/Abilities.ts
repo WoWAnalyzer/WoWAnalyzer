@@ -7,27 +7,27 @@ class Abilities extends CoreAbilities {
     return [
       // Rotational
       {
-        spell: [SPELLS.OBLITERATE.id, ...SPELLS.OBLITERATE.lowRanks],
+        spell: SPELLS.OBLITERATE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.FROST_STRIKE.id, ...SPELLS.FROST_STRIKE.lowRanks],
+        spell: SPELLS.FROST_STRIKE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.BLOOD_STRIKE.id, ...SPELLS.BLOOD_STRIKE.lowRanks],
+        spell: SPELLS.BLOOD_STRIKE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.ICY_TOUCH.id, ...SPELLS.ICY_TOUCH.lowRanks],
+        spell: SPELLS.ICY_TOUCH.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.PLAGUE_STRIKE.id, ...SPELLS.PLAGUE_STRIKE.lowRanks],
+        spell: SPELLS.PLAGUE_STRIKE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
@@ -37,13 +37,13 @@ class Abilities extends CoreAbilities {
         gcd: null,
       },
       {
-        spell: [SPELLS.DEATH_STRIKE.id, ...SPELLS.DEATH_STRIKE.lowRanks],
+        spell: SPELLS.DEATH_STRIKE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
       // Rotational AOE
       {
-        spell: [SPELLS.HOWLING_BLAST.id, ...SPELLS.HOWLING_BLAST.lowRanks],
+        spell: SPELLS.HOWLING_BLAST.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: { base: 1500 },
       },
@@ -53,12 +53,12 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.BLOOD_BOIL.id, ...SPELLS.BLOOD_BOIL.lowRanks],
+        spell: SPELLS.BLOOD_BOIL.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.DEATH_AND_DECAY.id, ...SPELLS.DEATH_AND_DECAY.lowRanks],
+        spell: SPELLS.DEATH_AND_DECAY.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: { base: 1500 },
       },
@@ -112,7 +112,7 @@ class Abilities extends CoreAbilities {
       },
       // Other spells (not apart of the normal rotation)
       {
-        spell: [SPELLS.DEATH_COIL_DK.id, ...SPELLS.DEATH_COIL_DK.lowRanks],
+        spell: SPELLS.DEATH_COIL_DK.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: { base: 1500 },
       },
@@ -133,7 +133,7 @@ class Abilities extends CoreAbilities {
         gcd: null,
       },
       {
-        spell: [SPELLS.HORN_OF_WINTER.id, ...SPELLS.HORN_OF_WINTER.lowRanks],
+        spell: SPELLS.HORN_OF_WINTER.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },

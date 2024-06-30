@@ -5,8 +5,8 @@ import DebugAnnotations, {
 } from 'parser/core/modules/DebugAnnotations';
 import Tooltip from './Tooltip';
 import styled from '@emotion/styled';
-import { AnyEvent, HasAbility, HasSource, HasTarget } from 'parser/core/Events';
-import { useMemo, useState } from 'react';
+import { Ability, AnyEvent, HasAbility, HasSource, HasTarget } from 'parser/core/Events';
+import { useMemo, useState, useCallback } from 'react';
 import { useCombatLogParser } from './report/CombatLogParserContext';
 import { formatDuration } from 'common/format';
 import SpellLink from './SpellLink';
@@ -88,7 +88,7 @@ function EventDetails({
               <>
                 <dt>Ability</dt>
                 <dd>
-                  <SpellLink spell={event.ability.guid} />
+                  <SpellLink spell={event.ability.guid} /> <CopySpellData ability={event.ability} />
                 </dd>
               </>
             )}
@@ -217,4 +217,37 @@ function intoRows<T extends { event: AnyEvent }>(data: Array<T>, startTime: numb
   }
 
   return rows;
+}
+
+const CopyTextLink = styled.button`
+  appearance: none;
+  border: none;
+  background: none;
+  font-size: small;
+  color: #777;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+function CopySpellData({ ability }: { ability: Ability }) {
+  const copy = useCallback(async () => {
+    try {
+      const data = JSON.stringify({
+        id: ability.guid,
+        name: ability.name,
+        icon: ability.abilityIcon,
+      });
+      const key = ability.name
+        .toUpperCase()
+        .replaceAll(/\W+/g, '_')
+        .replaceAll(/[^a-zA-Z_]/g, '');
+      const text = `${key}: ${data},`;
+      await navigator.clipboard.writeText(text);
+    } catch {
+      alert('Unable to copy data to clipboard');
+    }
+  }, [ability]);
+  return <CopyTextLink onClick={copy}>(copy definition)</CopyTextLink>;
 }
