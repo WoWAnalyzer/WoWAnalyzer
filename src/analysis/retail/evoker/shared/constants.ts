@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS/evoker';
-import TALENTS, { TALENTS_EVOKER } from 'common/TALENTS/evoker';
+import TALENTS from 'common/TALENTS/evoker';
 
 export const BASE_ESSENCE_REGEN = 0.2;
 
@@ -40,8 +40,7 @@ export const EB_BUFF_IDS = [
 export const PERIODIC_DAMAGE_IDS = [
   SPELLS.ENKINDLE_DOT.id,
   SPELLS.FIRE_BREATH_DOT.id,
-  TALENTS_EVOKER.RUBY_EMBERS_TALENT.id,
-  TALENTS_EVOKER.FIRESTORM_TALENT.id,
+  SPELLS.LIVING_FLAME_DAMAGE.id, // Ruby Embers
 ];
 
 export const PERIODIC_HEALING_IDS = [
@@ -52,6 +51,7 @@ export const PERIODIC_HEALING_IDS = [
   SPELLS.REVERSION_ECHO.id,
   SPELLS.ENKINDLE_HOT.id,
   SPELLS.RENEWING_BLAZE_HEAL.id,
+  SPELLS.LIVING_FLAME_HEAL.id, // Ruby Embers
 ];
 
 export const ENGULF_PERIODIC_INCREASE = 0.5;
