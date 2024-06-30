@@ -1,6 +1,7 @@
 import { change, date } from 'common/changelog';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
+import CLASSIC_SPELLS from 'common/SPELLS/classic';
 import {
   Arbixal,
   emallson,
@@ -36,6 +37,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 6, 21), <>Add <SpellLink spell={CLASSIC_SPELLS.SYNAPSE_SPRINGS} /> support to Cataclysm Classic specs.</>, emallson),
   change(date(2024, 6, 17), 'Add some TWW patch data.', ToppleTheNun),
   change(date(2024, 6, 16), <>Add T32 tier set ids</>, Trevor),
   change(date(2024, 6, 16), <>Add hero talents statistic category</>, Trevor),

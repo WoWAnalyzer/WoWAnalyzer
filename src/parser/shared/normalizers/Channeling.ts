@@ -67,9 +67,9 @@ class Channeling extends EventsNormalizer {
     nextCastChannelSpec(SPELLS.PENANCE_CAST.id),
     nextCastChannelSpec(SPELLS.DARK_REPRIMAND_CAST.id),
     buffChannelSpec(TALENTS_PRIEST.ULTIMATE_PENITENCE_TALENT.id),
-    buffChannelSpec(SPELLS.MIND_FLAY.id), // TODO double check ID
-    buffChannelSpec(SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE.id), // TODO double check ID
-    buffChannelSpec(TALENTS_PRIEST.VOID_TORRENT_TALENT.id), // TODO double check ID
+    buffChannelSpec(SPELLS.MIND_FLAY.id),
+    buffChannelSpec(SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE.id),
+    buffChannelSpec(TALENTS_PRIEST.VOID_TORRENT_TALENT.id),
     // Evoker
     empowerChannelSpec(SPELLS.FIRE_BREATH.id),
     empowerChannelSpec(SPELLS.FIRE_BREATH_FONT.id),
@@ -107,6 +107,10 @@ class Channeling extends EventsNormalizer {
     buffChannelSpec(CLASSIC_SPELLS.DRAIN_SOUL.id),
     buffChannelSpec(CLASSIC_SPELLS.DRAIN_LIFE.id),
     buffChannelSpec(CLASSIC_SPELLS.DRAIN_MANA.id),
+    buffChannelSpec(CLASSIC_SPELLS.RAIN_OF_FIRE.id),
+    // Holy Priest
+    // Divine Hymn is handled by the Retail version currently
+    buffChannelSpec(CLASSIC_SPELLS.HYMN_OF_HOPE_BUFF.id),
   ];
 
   // registered special case handlers, mapped by guid

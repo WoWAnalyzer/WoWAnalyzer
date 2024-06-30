@@ -1,6 +1,7 @@
 import { AnyEvent, EventType } from 'parser/core/Events';
 
 import Module from './Module';
+import DebugAnnotations, { type Annotation } from './modules/DebugAnnotations';
 
 abstract class EventsNormalizer extends Module {
   /**
@@ -25,6 +26,17 @@ abstract class EventsNormalizer extends Module {
     throw new Error(
       "Fight doesn't have an event other than combatants, something must have gone wrong.",
     );
+  }
+
+  /**
+   * Add an annotation which will be displayed on the /debug view. Multiple annotations
+   * can be added to the same event.
+   *
+   * Annotations are automatically broken down by analyzer. You don't need to split them
+   * up yourself.
+   */
+  addDebugAnnotation(event: AnyEvent, annotation: Annotation): void {
+    this.owner.getModule(DebugAnnotations)?.addAnnotation(this, event, annotation);
   }
 }
 

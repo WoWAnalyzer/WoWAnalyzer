@@ -1,5 +1,6 @@
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
+import CLASSIC_SPELLS from 'common/SPELLS/classic';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 const spells: number[] = [
@@ -87,6 +88,10 @@ const spells: number[] = [
 
   //region paladin
   SPELLS.RECLAMATION_CAST.id,
+  //endregion
+
+  //region warlock
+  CLASSIC_SPELLS.RAIN_OF_FIRE_DAMAGE.id,
   //endregion
 
   //region warrior
