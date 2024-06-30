@@ -63,6 +63,7 @@ import {
   EssenceTracker,
   SourceOfMagic,
   PotentMana,
+  Panacea,
 } from '../shared';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -103,6 +104,7 @@ class CombatLogParser extends CoreCombatLogParser {
     leapingFlames: LeapingFlames,
     sourceOfMagic: SourceOfMagic,
     potentMana: PotentMana,
+    panacea: Panacea,
     // Empower Normalizer
     empowerNormalizer: EmpowerNormalizer,
     spellUsable: SpellUsable,

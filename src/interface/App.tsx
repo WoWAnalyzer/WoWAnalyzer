@@ -16,6 +16,7 @@ import RouterErrorBoundary from 'interface/RouterErrorBoundary';
 import {
   AboutTab,
   CharacterTab,
+  DebugAnnotationsTab,
   DefaultTab,
   EventsTab,
   OverviewTab,
@@ -95,6 +96,7 @@ const appRoutes = createRoutesFromElements(
       <Route path="statistics" element={<StatisticsTab />} />
       <Route path="timeline" element={<TimelineTab />} />
       <Route path="events" element={<EventsTab />} />
+      <Route path="debug" element={<DebugAnnotationsTab />} />
       <Route path="character" element={<CharacterTab />} />
       <Route path="about" element={<AboutTab />} />
       <Route path=":resultTab" element={<DefaultTab />} />

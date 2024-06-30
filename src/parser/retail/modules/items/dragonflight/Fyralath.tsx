@@ -20,6 +20,9 @@ export default class Fyralath extends Analyzer.withDependencies(deps) {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
+        gcd: {
+          base: 1500,
+        },
         damageSpellIds: [SPELLS.RAGE_OF_FYRALATH_DAMAGE_1.id, SPELLS.RAGE_OF_FYRALATH_DAMAGE_2.id],
       });
     }

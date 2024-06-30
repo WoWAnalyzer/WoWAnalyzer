@@ -58,6 +58,7 @@ import SpinningCraneKickLinkNormalizer from './normalizers/SpinningCraneKick';
 import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
 import PressTheAdvantage from './modules/talents/PressTheAdvantage';
 import PressTheAdvantageNormalizer from './modules/talents/PressTheAdvantage/normalizer';
+import BonedustBrew from './modules/talents/BonedustBrew';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -128,6 +129,7 @@ class CombatLogParser extends CoreCombatLogParser {
     anvilStave: AnvilStave,
     chiSurge: ChiSurge,
     pta: PressTheAdvantage,
+    bdb: BonedustBrew,
 
     apl: AplCheck,
 

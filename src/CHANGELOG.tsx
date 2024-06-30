@@ -1,6 +1,7 @@
 import { change, date } from 'common/changelog';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
+import CLASSIC_SPELLS from 'common/SPELLS/classic';
 import {
   Arbixal,
   emallson,
@@ -35,10 +36,15 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
-  change(date(2024, 6, 3), 'Replace react-helmet with react-helmet-async.', ToppleTheNun),
+  change(date(2024, 6, 30), 'Replace react-helmet with react-helmet-async.', ToppleTheNun),
   // Above is next changes, below is dragonflight changes
-  change(date(2024, 6, 3), 'Update event meta usage.', ToppleTheNun),
+  change(date(2024, 6, 21), <>Add <SpellLink spell={CLASSIC_SPELLS.SYNAPSE_SPRINGS} /> support to Cataclysm Classic specs.</>, emallson),
+  change(date(2024, 6, 8), <>Include the channel of <SpellLink spell={SPELLS.RAGE_OF_FYRALATH_1} /> in timelines and reflect uptime better.</>, nullDozzer),
+  change(date(2024, 6, 7), 'Update Classic Potions for Cataclysm', jazminite),
+  change(date(2024, 6, 6), 'Temporary workaround for talent breakage on the character parses page. Talents have been disabled for the moment.', emallson),
+  change(date(2024, 6, 5), 'Update Classic Food Buffs for Cataclysm', jazminite),
   change(date(2024, 6, 3), 'Update Classic Flasks for Cataclysm', jazminite),
+  change(date(2024, 6, 3), 'Update event meta usage.', ToppleTheNun),
   change(date(2024, 5, 31), 'Update Classic Enchants for Cataclysm', jazminite),
   change(date(2024, 5, 31), "Add Cataclysm patch 4.4.0.", Putro),
   change(date(2024, 5, 28), 'Add Cataclysm boss images and raid zones', emallson),

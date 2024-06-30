@@ -1,64 +1,91 @@
 import Item from 'common/ITEMS/Item';
 
 const items = {
-  FISH_FEAST: { id: 43015, name: 'Fish Feast', icon: 'inv_misc_fish_52' },
-  DRAGONFIN_FILET: { id: 43000, name: 'Dragonfin Filet', icon: 'inv_misc_food_75' },
-  FIRECRACKER_SALMON: { id: 34767, name: 'Firecracker Salmon', icon: 'inv_misc_food_141_fish' },
-  TENDER_SHOVELTUSK_STEAK: {
-    id: 34755,
-    name: 'Tender Shoveltusk Steak',
+  // id = item id
+  BAKED_ROCKFISH: {
+    id: 62661,
+    name: 'Baked Rockfish',
+    icon: 'inv_misc_food_155_fish_78',
+  },
+  BASILISK_LIVERDOG: {
+    id: 62665,
+    name: 'Basilisk Liverdog',
+    icon: 'inv_misc_food_17',
+  },
+  BEER_BASTED_CROCOLISK: {
+    id: 62670,
+    name: 'Beer-Basted Crocolisk',
+    icon: 'inv_misc_food_meat_cooked_08',
+  },
+  BLACKBELLY_SUSHI: {
+    id: 62668,
+    name: 'Blackbelly Sushi',
+    icon: 'inv_misc_food_161_fish_89',
+  },
+  BROILED_DRAGON_FEAST: {
+    id: 62289,
+    name: 'Broiled Dragon Feast',
+    icon: 'inv_misc_food_99',
+  },
+  CRISPY_BAKON_SNACK: {
+    id: 62678,
+    name: 'Crispy "Bakon" Snack',
+    icon: 'inv_misc_food_71',
+  },
+  CROCOLISK_AU_GRATIN: {
+    id: 62664,
+    name: 'Crocolisk Au Gratin',
+    icon: 'inv_misc_food_meat_cooked_10',
+  },
+  DELICIOUS_SAGEFISH_TAIL: {
+    id: 62666,
+    name: 'Delicious Sagefish Tail',
+    icon: 'inv_misc_food_158_fish_81',
+  },
+  ENRICHED_FISH_BISCUIT: {
+    id: 62679,
+    name: 'Enriched Fish Biscuit',
+    icon: 'inv_misc_food_meat_raw_10',
+  },
+  FORTUNE_COOKIE: {
+    id: 62649,
+    name: 'Fortune Cookie',
+    icon: 'inv_misc_fortunecookie',
+  },
+  GOBLIN_BARBECUE: {
+    id: 60858,
+    name: 'Goblin Barbecue',
+    icon: 'inv_gizmo_fuelcell',
+  },
+  GRILLED_DRAGON: {
+    id: 62662,
+    name: 'Grilled Dragon',
     icon: 'inv_misc_food_122_steak',
   },
-  BLACKENED_DRAGONFIN: { id: 42999, name: 'Blackened Dragonfin', icon: 'inv_misc_food_142_fish' },
-  SPICED_MAMMOTH_TREATS: {
-    id: 43005,
-    name: 'Spiced Mammoth Treats',
-    icon: 'inv_misc_food_123_roast',
+  LAVASCALE_MINESTRONE: {
+    id: 62663,
+    name: 'Lavascale Minestrone',
+    icon: 'inv_misc_food_154_fish_77',
   },
-  SNAPPER_EXTREME: { id: 42996, name: 'Snapper Extreme', icon: 'inv_misc_food_129_fish' },
-  RHINO_DOGS: { id: 34752, name: 'Rhino Dogs', icon: 'inv_misc_food_53' },
-  GREAT_FEAST: { id: 34753, name: 'Great Feast', icon: 'ability_hunter_pet_boar' },
-  RHINOLICIOUS_WORMSTEAK: { id: 42994, name: 'Rhinolicious Wormsteak', icon: 'inv_misc_food_47' },
-  MEGA_MAMMOTH_MEAL: {
-    id: 34754,
-    name: 'Mega Mammoth Meal',
-    icon: 'inv_misc_food_108_meadcaribou',
+  MUSHROOM_SAUCE_MUDFISH: {
+    id: 62667,
+    name: 'Mushroom Sauce Mudfish',
+    icon: 'inv_misc_food_meat_cooked_01',
   },
-  IMPERIAL_MANTA_STEAK: {
-    id: 34769,
-    name: 'Imperial Manta Steak',
-    icon: 'inv_misc_food_121_buttermeat',
+  SEAFOOD_MAGNIFIQUE_FEAST: {
+    id: 62290,
+    name: 'Seafood Magnifique Feast',
+    icon: 'inv_misc_food_meat_cooked_02',
   },
-  WORG_TARTARE: { id: 44953, name: 'Worg Tartare', icon: 'inv_misc_food_71' },
-  HEARTY_RHINO: { id: 42995, name: 'Hearty Rhino', icon: 'inv_misc_food_115_condorsoup' },
-  VERY_BURNT_WORG: { id: 34757, name: 'Very Burnt Worg', icon: 'inv_misc_food_60' },
-  DALARAN_CLAM_CHOWDER: {
-    id: 43268,
-    name: 'Dalaran Clam Chowder',
-    icon: 'inv_misc_cauldron_frost',
+  SEVERED_SAGEFISH_HEAD: {
+    id: 62671,
+    name: 'Severed Sagefish Head',
+    icon: 'inv_misc_food_160_fish_87',
   },
-  POACHED_NORTHERN_SCULPIN: {
-    id: 34766,
-    name: 'Poached Northern Sculpin',
-    icon: 'inv_misc_food_77',
+  SKEWERED_EEL: {
+    id: 62669,
+    name: 'Skewered Eel',
+    icon: 'inv_misc_food_163_fish_91',
   },
-  CUTTLESTEAK: { id: 42998, name: 'Cuttlesteak', icon: 'inv_misc_food_133_meat' },
-  SHOVELTUSK_STEAK: { id: 34749, name: 'Shoveltusk Steak', icon: 'inv_misc_food_89' },
-  GRILLED_SCULPIN: { id: 34762, name: 'Grilled Sculpin', icon: 'inv_misc_food_79' },
-  SPICED_WORM_BURGER: { id: 34756, name: 'Spiced Worm Burger', icon: 'inv_misc_food_65' },
-  BAKED_MANTA_RAY: { id: 42942, name: 'Baked Manta Ray', icon: 'inv_misc_food_140_fish' },
-  SPICY_FRIED_HERRING: { id: 42993, name: 'Spicy Fried Herring', icon: 'inv_misc_food_78' },
-  MAMMOTH_MEAL: { id: 34748, name: 'Mammoth Meal', icon: 'inv_misc_food_116_condorleg' },
-  SPICY_BLUE_NETTLEFISH: {
-    id: 34768,
-    name: 'Spicy Blue Nettlefish',
-    icon: 'inv_misc_food_139_fish',
-  },
-  SMOKED_SALMON: { id: 34763, name: 'Smoked Salmon', icon: 'inv_misc_food_130_fish' },
-  POACHED_NETTLEFISH: { id: 34764, name: 'Poached Nettlefish', icon: 'inv_misc_food_138_fish' },
-  WORM_DELIGHT: { id: 34750, name: 'Worm Delight', icon: 'inv_misc_food_124_skewer' },
-  PICKLED_FANGTOOTH: { id: 34765, name: 'Pickled Fangtooth', icon: 'inv_misc_food_76' },
-  MIGHTY_RHINO_DOGS: { id: 34758, name: 'Mighty Rhino Dogs', icon: 'inv_misc_food_66' },
-  ROASTED_WORG: { id: 34751, name: 'Roasted Worg', icon: 'inv_misc_food_86_basilisk' },
 } satisfies Record<string, Item>;
 export default items;

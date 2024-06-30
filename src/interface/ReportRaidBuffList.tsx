@@ -64,7 +64,7 @@ const RETAIL_RAID_BUFFS = new Map<Spell | Talent, Array<Class | object>>([
 const CLASSIC_RAID_BUFFS = new Map<Spell, Array<Class | object>>([
   // BUFFS
   // Stamina
-  [CLASSIC_SPELLS.PRAYER_OF_FORTITUDE, [Class.Priest]],
+  [CLASSIC_SPELLS.POWER_WORD_FORTITUDE, [Class.Priest]],
   // Spirit
   [CLASSIC_SPELLS.PRAYER_OF_SPIRIT, [Class.Priest]],
   // Intellect

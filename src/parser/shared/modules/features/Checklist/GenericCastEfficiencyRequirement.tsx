@@ -1,4 +1,3 @@
-import { captureException } from 'common/errorLogger';
 import { SpellLink } from 'interface';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import { AbilityCastEfficiency } from 'parser/shared/modules/CastEfficiency';
@@ -23,11 +22,6 @@ interface Props {
 class GenericCastEfficiencyRequirement extends PureComponent<Props> {
   get thresholds(): RequirementThresholds | null {
     if (!this.props.castEfficiency) {
-      captureException(
-        new Error(
-          `GenericCastEfficiencyRequirement requires that you pass the castEfficiency object yourself. Spell: ${this.props.spell}`,
-        ),
-      );
       return null;
     }
 

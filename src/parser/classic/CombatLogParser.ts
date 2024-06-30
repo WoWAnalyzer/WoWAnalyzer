@@ -48,6 +48,7 @@ import Bombs from 'parser/classic/modules/items/engineering/Bombs';
 import FlaskChecker from 'parser/classic/modules/items/FlaskChecker';
 import FoodChecker from 'parser/classic/modules/items/FoodChecker';
 import PotionChecker from 'parser/classic/modules/items/PotionChecker';
+import SynapseSprings from './modules/items/engineering/SynapseSprings';
 
 class CombatLogParser extends BaseCombatLogParser {
   static defaultModules: DependenciesDefinition = {
@@ -109,6 +110,7 @@ class CombatLogParser extends BaseCombatLogParser {
     hyperspeedAccelerators: HyperspeedAccelerators,
     fragBelt: FragBelt,
     bombs: Bombs,
+    synapseSprings: SynapseSprings,
 
     // Guide
     foodChecker: FoodChecker,

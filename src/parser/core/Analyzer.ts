@@ -8,6 +8,8 @@ import { Info, Metric } from './metric';
 import Module from './Module';
 import { When } from './ParseResults';
 import { MessageDescriptor } from '@lingui/core';
+import type { Annotation } from './modules/DebugAnnotations';
+import DebugAnnotations from './modules/DebugAnnotations';
 
 export const SELECTED_PLAYER = 1;
 export const SELECTED_PLAYER_PET = 2;
@@ -37,6 +39,19 @@ class Analyzer extends EventSubscriber {
     listener: EventListener<ET, E>,
   ) {
     super.addEventListener(eventFilter, listener);
+  }
+
+  readonly deps: InjectedDependencies<Record<string, never>> = {};
+
+  /**
+   * Add an annotation which will be displayed on the /debug view. Multiple annotations
+   * can be added to the same event.
+   *
+   * Annotations are automatically broken down by analyzer. You don't need to split them
+   * up yourself.
+   */
+  addDebugAnnotation(event: AnyEvent, annotation: Annotation): void {
+    this.owner.getModule(DebugAnnotations)?.addAnnotation(this, event, annotation);
   }
 
   // Override these with functions that return info about their rendering in the specific slots
@@ -72,14 +87,23 @@ class Analyzer extends EventSubscriber {
    * > Note that if the Analyzer you are extending has more constructor parameters than
    * > `options`, options should be the last parameter.
    */
-  static withDependencies<T extends Dependencies>(deps: T) {
+  static withDependencies<T extends Analyzer, D extends Dependencies>(
+    this: AnalyzerConstructor<T, any>,
+    deps: D,
+  ): AnalyzerConstructor<T, D> {
     return withDependencies(this, deps);
   }
 }
 
 export default Analyzer;
 
-type AnalyzerConstructor = { dependencies?: Dependencies } & (new (...args: any[]) => Analyzer);
+type AnalyzerConstructor<T extends Analyzer, Deps extends Dependencies> = {
+  dependencies: Deps;
+  applyDependencies: (options: Options, instance: Module) => void;
+} & (new (...args: any[]) => T & { readonly deps: InjectedDependencies<Deps> });
+
+type DependenciesOf<T extends AnalyzerConstructor<any, any>> =
+  T extends AnalyzerConstructor<any, infer Deps> ? Deps : never;
 
 /**
  * Creates a class which extends `Base` and has `deps` as dependencies, with correct
@@ -101,22 +125,25 @@ type AnalyzerConstructor = { dependencies?: Dependencies } & (new (...args: any[
  * > Note that if the Analyzer you are extending has more constructor parameters than
  * > `options`, options should be the last parameter.
  */
-export function withDependencies<TBase extends AnalyzerConstructor, D extends Dependencies>(
+export function withDependencies<
+  Deps extends Dependencies,
+  TBase extends AnalyzerConstructor<any, any>,
+>(
   Base: TBase,
-  deps?: D,
-) {
+  deps?: Deps,
+): AnalyzerConstructor<InstanceType<TBase>, Deps & DependenciesOf<TBase>> {
   return class WithDependencies extends Base {
     static dependencies = {
       ...Base.dependencies,
       ...deps,
     };
 
-    protected readonly deps: InjectedDependencies<D>;
+    readonly deps: InjectedDependencies<Deps & DependenciesOf<TBase>>;
 
     constructor(...args: any[]) {
       super(...args);
 
-      this.deps = args[args.length - 1] as InjectedDependencies<D>;
+      this.deps = args[args.length - 1] as InjectedDependencies<Deps & DependenciesOf<TBase>>;
     }
   };
 }

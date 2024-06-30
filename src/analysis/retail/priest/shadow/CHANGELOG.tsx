@@ -5,6 +5,7 @@ import { Arlie, DoxAshe, Havoc, Sref, ToppleTheNun } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2024, 6, 15), <>Fix incorrect Active Time due to <SpellLink spell={TALENTS.VOID_TORRENT_TALENT}/> channel</>,DoxAshe),
   change(date(2024, 5, 4), <>Track <SpellLink spell={SPELLS.SHADOWFORM}/>, fix missing spells in <SpellLink spell={TALENTS.PSYCHIC_LINK_TALENT}/>, and add statistic for <SpellLink spell={TALENTS.DARK_ASCENSION_TALENT}/></>,DoxAshe),
   change(date(2024, 4, 30), <>Add statistics for <SpellLink spell={TALENTS.VOIDTOUCHED_TALENT}/>, <SpellLink spell={TALENTS.MINDS_EYE_TALENT}/>, <SpellLink spell={TALENTS.DISTORTED_REALITY_TALENT}/>, <SpellLink spell={TALENTS.MADDENING_TOUCH_TALENT}/>, <SpellLink spell={TALENTS.MIND_MELT_TALENT}/>, <SpellLink spell={TALENTS.MASTERMIND_TALENT}/> and <SpellLink spell={TALENTS.DARK_EVANGELISM_TALENT}/> talents</>,DoxAshe),
   change(date(2024, 4, 26), <>Add statistics for <SpellLink spell={TALENTS.PSYCHIC_LINK_TALENT}/> talent</>,DoxAshe),

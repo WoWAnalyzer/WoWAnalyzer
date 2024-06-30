@@ -17,4 +17,5 @@ export { default as DefensiveNormalizer } from './modules/normalizers/DefensiveN
 export { default as DefensiveCastLinkNormalizer } from './modules/normalizers/DefensiveCastLinkNormalizer';
 export { default as TwinGuardian } from './modules/MajorDefensives/TwinGuardian';
 export { default as RenewingBlaze } from './modules/MajorDefensives/RenewingBlaze';
+export { default as Panacea } from './modules/talents/Panacea';
 export * from './constants';
