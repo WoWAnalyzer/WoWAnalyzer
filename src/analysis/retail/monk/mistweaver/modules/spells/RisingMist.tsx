@@ -446,7 +446,17 @@ class RisingMist extends Analyzer {
           title={
             hotSpan.call(this, hotId) +
             (attribution.length > 0 ? ' - ' + attribution : '') +
-            this.getAverageDuration(hotHistory)
+            this.getAverageDuration(hotHistory) +
+            ' (' +
+            formatNumber(
+              this.hotTracker.getAverageHealingForAttribution(
+                hotId,
+                attribution,
+                undefined,
+                hotHistory,
+              ),
+            ) +
+            ' Average)'
           }
         >
           <SubSection>
@@ -508,51 +518,46 @@ class RisingMist extends Analyzer {
   }
 
   entries() {
-    const rementries = this.hotTable(
+    const remHardcastHistory = this.hotTracker.getHistoryForSpellAndAttribution(
       SPELLS.RENEWING_MIST_HEAL.id,
-      this.hotTracker.hotHistory.filter(
-        (tracker) =>
-          tracker.spellId === SPELLS.RENEWING_MIST_HEAL.id &&
-          this.hotTracker.fromHardcast(tracker) &&
-          !this.hotTracker.fromDancingMists(tracker),
-      ),
-      'Hardcast',
+      ATTRIBUTION_STRINGS.HARDCAST_RENEWING_MIST,
+      true,
+    );
+    const rementries = this.hotTable(SPELLS.RENEWING_MIST_HEAL.id, remHardcastHistory, 'Hardcast');
+    const rdRemHistory = this.hotTracker.getHistoryForSpellAndAttribution(
+      SPELLS.RENEWING_MIST_HEAL.id,
+      ATTRIBUTION_STRINGS.RAPID_DIFFUSION_RENEWING_MIST,
+      true,
     );
     const rdRemEntries = this.hotTable(
       SPELLS.RENEWING_MIST_HEAL.id,
-      this.hotTracker.hotHistory.filter(
-        (tracker) =>
-          tracker.spellId === SPELLS.RENEWING_MIST_HEAL.id &&
-          this.hotTracker.fromRapidDiffusion(tracker) &&
-          !this.hotTracker.fromDancingMists(tracker),
-      ),
+      rdRemHistory,
       'Rapid Diffusion',
     );
-    const dmRemEntries = this.hotTable(
+    const dmRemHistory = this.hotTracker.getHistoryForSpellAndAttribution(
       SPELLS.RENEWING_MIST_HEAL.id,
-      this.hotTracker.hotHistory.filter(
-        (tracker) =>
-          tracker.spellId === SPELLS.RENEWING_MIST_HEAL.id &&
-          this.hotTracker.fromDancingMists(tracker),
-      ),
-      'Dancing Mist',
+      ATTRIBUTION_STRINGS.DANCING_MIST_RENEWING_MIST,
+      false,
+    );
+    const dmRemEntries = this.hotTable(SPELLS.RENEWING_MIST_HEAL.id, dmRemHistory, 'Dancing Mist');
+    const mistyPeaksHistory = this.hotTracker.getHistoryForSpellAndAttribution(
+      TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
+      ATTRIBUTION_STRINGS.MISTY_PEAKS_ENVELOPING_MIST,
+      false,
     );
     const mistyPeaksentries = this.hotTable(
       TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
-      this.hotTracker.hotHistory.filter(
-        (tracker) =>
-          tracker.spellId === TALENTS_MONK.ENVELOPING_MIST_TALENT.id &&
-          this.hotTracker.fromMistyPeaks(tracker),
-      ),
+      mistyPeaksHistory,
       'Misty Peaks',
+    );
+    const envHardcastHistory = this.hotTracker.getHistoryForSpellAndAttribution(
+      TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
+      ATTRIBUTION_STRINGS.HARDCAST_ENVELOPING_MIST,
+      false,
     );
     const envEntries = this.hotTable(
       TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
-      this.hotTracker.hotHistory.filter(
-        (tracker) =>
-          tracker.spellId === TALENTS_MONK.ENVELOPING_MIST_TALENT.id &&
-          this.hotTracker.fromHardcast(tracker),
-      ),
+      envHardcastHistory,
       'Hardcast',
     );
 

@@ -14,6 +14,7 @@ export const MAX_REM_DURATION = 77000;
 
 //Enveloping Mist
 export const FROM_MISTY_PEAKS = 'FromMistyPeaks';
+export const TFT_ENV_TOM = 'TFTEnvTom';
 
 //Mastery
 export const ENVELOPING_MIST_GOM = 'EnvGOM';
