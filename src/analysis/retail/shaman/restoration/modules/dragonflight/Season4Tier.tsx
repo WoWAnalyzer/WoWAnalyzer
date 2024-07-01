@@ -59,9 +59,10 @@ class Season4Tier extends Analyzer {
   }
 
   onSummon(event: SummonEvent) {
+    console.log(event);
     if (
-      event.ability.name === TALENTS_SHAMAN.HEALING_STREAM_TOTEM_RESTORATION_TALENT.name ||
-      event.ability.name === TALENTS_SHAMAN.CLOUDBURST_TOTEM_TALENT.name
+      event.ability.guid === TALENTS_SHAMAN.HEALING_STREAM_TOTEM_RESTORATION_TALENT.id ||
+      event.ability.guid === TALENTS_SHAMAN.CLOUDBURST_TOTEM_TALENT.id
     ) {
       const totemId = this.getTotemId(event.targetID, event.targetInstance);
       this.summonedTotems.add(totemId);
