@@ -95,8 +95,13 @@ const spells = {
     name: 'Healing Winds',
     icon: 'ability_monk_pathofmists',
   },
+  CELESTIAL_CONDUIT_DAMAGE: {
+    id: 443038,
+    name: 'Celestial Conduit',
+    icon: 'inv_ability_conduitofthecelestialsmonk_celestialconduit',
+  },
   CELESTIAL_CONDUIT_HEAL: {
-    id: 443029,
+    id: 443039,
     name: 'Celestial Conduit',
     icon: 'inv_ability_conduitofthecelestialsmonk_celestialconduit',
   },
@@ -159,6 +164,11 @@ const spells = {
     id: 443421,
     name: 'Heart of the Jade Serpent',
     icon: 'ability_monk_summonserpentstatue',
+  },
+  UNITY_WITHIN_CAST: {
+    id: 443591,
+    name: 'Unity WIthin',
+    icon: 'ability_monk_prideofthetiger',
   },
   // Mistweaver Monk Spells
   ENVELOPING_MIST_TFT: {

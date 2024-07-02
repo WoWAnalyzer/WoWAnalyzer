@@ -58,6 +58,15 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       ],
       branch: GameBranch.Retail,
     },
+    {
+      spell: TALENTS_MONK.CELESTIAL_CONDUIT_TALENT.id,
+      summary: [
+        BUILT_IN_SUMMARY_TYPES.HEALING,
+        BUILT_IN_SUMMARY_TYPES.OVERHEALING,
+        BUILT_IN_SUMMARY_TYPES.MANA,
+      ],
+      branch: GameBranch.Retail,
+    },
   ];
   static castCooldowns = [
     ...CoreCooldownThroughputTracker.castCooldowns,
