@@ -13,7 +13,7 @@ class CurseOfAgony extends Analyzer {
   protected enemies!: Enemies;
 
   get uptime() {
-    return this.enemies.getBuffUptime(SPELLS.CURSE_OF_AGONY.id) / this.owner.fightDuration;
+    return this.enemies.getBuffUptime(SPELLS.BANE_OF_AGONY.id) / this.owner.fightDuration;
   }
 
   get suggestionThresholds() {
@@ -29,11 +29,11 @@ class CurseOfAgony extends Analyzer {
   }
 
   subStatistic() {
-    const history = this.enemies.getDebuffHistory(SPELLS.CURSE_OF_AGONY.id);
+    const history = this.enemies.getDebuffHistory(SPELLS.BANE_OF_AGONY.id);
     return (
       <div className="flex">
         <div className="flex-sub icon">
-          <SpellIcon spell={SPELLS.CURSE_OF_AGONY} />
+          <SpellIcon spell={SPELLS.BANE_OF_AGONY} />
         </div>
         <div className="flex-sub value" style={{ width: 140 }}>
           {formatPercentage(this.uptime, 0)}% <small>uptime</small>

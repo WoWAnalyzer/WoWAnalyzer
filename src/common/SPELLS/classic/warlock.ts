@@ -237,7 +237,7 @@ const spells = {
   },
   SOULSTONE_CREATE: {
     id: 693,
-    name: 'Create Spellstone',
+    name: 'Create Soulstone',
     icon: 'inv_misc_orb_04.jpg',
   },
   SUBJUGATE_DEMON: {
