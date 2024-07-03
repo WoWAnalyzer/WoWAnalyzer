@@ -15,6 +15,7 @@ import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringItemSetValueText from 'parser/ui/BoringItemSetValueText';
 import { calculateEffectiveHealingFromCritIncrease } from 'parser/core/EventCalculateLib';
+import SPELLS from 'common/SPELLS';
 
 /**
  * **Resto Shaman Season 4 **
