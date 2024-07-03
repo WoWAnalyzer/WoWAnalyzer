@@ -1,7 +1,6 @@
 import { t, Trans } from '@lingui/macro';
 import getFightName from 'common/getFightName';
 import makeWclUrl from 'common/makeWclUrl';
-import Logo from 'interface/images/logo.svg?react';
 import { findByBossId, Phase } from 'game/raids';
 import { wclGameVersionToExpansion } from 'game/VERSIONS';
 import AlertWarning from 'interface/AlertWarning';
@@ -39,6 +38,7 @@ import ScrollToTop from './ScrollToTop';
 import ZONES from 'game/ZONES';
 import { useLingui } from '@lingui/react';
 import { appendReportHistory } from 'interface/reducers/reportHistory';
+import FoundationSupportBadge from 'interface/guide/foundation/FoundationSupportBadge';
 
 interface PassedProps {
   parser: CombatLogParser;
@@ -325,13 +325,22 @@ const SupportProvidedBy = ({
     </>
   );
 
+  const contributorinfo = (
+    <ReadableListing>
+      {contributors.length !== 0
+        ? contributors.map((contributor) => (
+            <Contributor key={contributor.nickname} {...contributor} />
+          ))
+        : 'CURRENTLY UNMAINTAINED'}
+    </ReadableListing>
+  );
+
   let description = null;
   if (supportLevel === SupportLevel.Foundation) {
     description = (
       <Trans id="interface.report.results.providedByFoundation">
-        {specTitle} analysis has core support that is maintained by the{' '}
-        <Logo style={{ maxHeight: '1em' }} /> WoWAnalyzer community. If you're interested in helping
-        improve it, let us know!
+        {specTitle} analysis has <FoundationSupportBadge /> courtesy of {contributorinfo} but does
+        not have a dedicated maintainer. If you're interested in helping improve it, let us know!
       </Trans>
     );
   } else if (supportLevel === SupportLevel.Unmaintained) {
@@ -342,16 +351,6 @@ const SupportProvidedBy = ({
       </Trans>
     );
   } else {
-    const contributorinfo = (
-      <ReadableListing>
-        {contributors.length !== 0
-          ? contributors.map((contributor) => (
-              <Contributor key={contributor.nickname} {...contributor} />
-            ))
-          : 'CURRENTLY UNMAINTAINED'}
-      </ReadableListing>
-    );
-
     description = (
       <Trans id="interface.report.results.providedByDetails">
         {specTitle} analysis has been provided by {contributorinfo}. They love hearing what you

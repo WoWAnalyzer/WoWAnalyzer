@@ -7,6 +7,7 @@ import Contributor from 'interface/ContributorButton';
 import DiscordButton from 'interface/DiscordButton';
 import Panel from 'interface/Panel';
 import ReadableListing from 'interface/ReadableListing';
+import FoundationSupportBadge from 'interface/guide/foundation/FoundationSupportBadge';
 import Config, { SupportLevel } from 'parser/Config';
 import { Link } from 'react-router-dom';
 
@@ -101,17 +102,32 @@ const DefaultDescription = ({ spec, supportLevel }: Config) => {
 
   const supportDesc =
     supportLevel === SupportLevel.Foundation ? (
-      <p>
+      <>
         <Trans id="interface.report.results.about.foundationDescription">
-          {specTitle} has support for core spells and abilities, but may be missing spec-specific
-          analysis.
+          <p>
+            {specTitle} has <FoundationSupportBadge /> including:
+          </p>
+          <p>
+            <ul>
+              <li>Analysis for overall ability usage and uptime (Always Be Casting!)</li>
+              <li>Accurate cooldown tracking for all class and spec abilities</li>
+            </ul>
+          </p>
+          <p>
+            However, it does not have a dedicated maintainer providing detailed rotational analysis,
+            statistics, or other features.
+          </p>
+          <p>
+            If you believe there is an error in ability or cooldown tracking, please let us know on{' '}
+            <SmallDiscordButton />
+          </p>
         </Trans>
-      </p>
+      </>
     ) : (
       <p>
         <Trans id="interface.report.results.about.unmaintainedDescription">
           {specTitle} is not currently maintained.
-        </Trans>{' '}
+        </Trans>
       </p>
     );
 
@@ -123,10 +139,12 @@ const DefaultDescription = ({ spec, supportLevel }: Config) => {
         <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/wiki#getting-started">
           getting started guide
         </a>{' '}
-        or visit our <DiscordButton style={{ padding: '1px 5px', height: 'unset' }} /> to help out!
+        or visit our <SmallDiscordButton /> to help out!
       </AlertInfo>
     </div>
   );
 };
+
+const SmallDiscordButton = () => <DiscordButton style={{ padding: '1px 5px', height: 'unset ' }} />;
 
 export default About;

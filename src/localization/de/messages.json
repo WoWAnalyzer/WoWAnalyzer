@@ -544,7 +544,7 @@
   "interface.report.results.overview.suggestions.noMajorIssues": "Keine bedeutenden Probleme in diesem Kampf. Gute Arbeit!",
   "interface.report.results.overview.suggestions.suggestions": "Vorschläge",
   "interface.report.results.providedBy": "Angeboten von: ",
-  "interface.report.results.providedByDetails": "{0} {1} Analyse wurde von {contributorinfo} angeboten. Er/sie würde gerne deine Meinung hören, also bitte sag ihm/ihr Bescheid! <0>Weitere Informationen über den Analyst dieser Spezialisierung.</0>",
+  "interface.report.results.providedByDetails": "{specTitle} Analyse wurde von {contributorinfo} angeboten. Er/sie würde gerne deine Meinung hören, also bitte sag ihm/ihr Bescheid! <0>Weitere Informationen über den Analyst dieser Spezialisierung.</0>",
   "interface.report.results.statistics.adjustStatistics": "Statistiken anpassen für <0>Kampf-Downtime</0> (<1>experimentell</1>)",
   "interface.report.results.statistics.covenants": "Pakte",
   "interface.report.results.statistics.fightDowntime": "Kampf-Downtime ist irgendeine erzwungene Ausfallzeit aufgrund von Mechaniken oder Sterben. Downtime wegen einfach Nichtstun, wird nicht eingeschlossen.",

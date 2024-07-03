@@ -50,7 +50,7 @@ const SpecListItem = ({
   } else if (supportLevel === SupportLevel.Foundation) {
     supportDescription = (
       <Trans id="interface.specListItem.coreSupport">
-        Basic Support for patch {patchCompatibility}
+        Core support for patch {patchCompatibility}
       </Trans>
     );
     maintainerDescription = (

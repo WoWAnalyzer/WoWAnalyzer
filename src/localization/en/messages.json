@@ -544,7 +544,7 @@
   "interface.report.results.overview.suggestions.noMajorIssues": "There are no major issues in this fight. Good job!",
   "interface.report.results.overview.suggestions.suggestions": "Suggestions",
   "interface.report.results.providedBy": "Provided by",
-  "interface.report.results.providedByDetails": "{0} {1} analysis has been provided by {contributorinfo}. They love hearing what you think, so please let them know! <0>More information about this spec's analyzer.</0>",
+  "interface.report.results.providedByDetails": "{specTitle} analysis has been provided by {contributorinfo}. They love hearing what you think, so please let them know! <0>More information about this spec's analyzer.</0>",
   "interface.report.results.statistics.adjustStatistics": "Adjust statistics for <0>fight downtime</0> (<1>experimental</1>)",
   "interface.report.results.statistics.covenants": "Covenants",
   "interface.report.results.statistics.fightDowntime": "Fight downtime is any forced downtime caused by fight mechanics or dying. Downtime caused by simply not doing anything is not included.",
