@@ -788,6 +788,7 @@ export interface InterruptEvent extends Event<EventType.Interrupt> {
 
 export interface DeathEvent extends Event<EventType.Death> {
   killingAbility?: Ability;
+  targetInstance?: number;
   source: CastTarget;
   sourceIsFriendly: boolean;
   targetID: number;
