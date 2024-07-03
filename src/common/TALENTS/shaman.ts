@@ -678,7 +678,7 @@ const talents = {
     manaCost: 10800,
   },
   HEALING_STREAM_TOTEM_RESTORATION_TALENT: {
-    id: 5394,
+    id: 392916,
     name: 'Healing Stream Totem',
     icon: 'inv_spear_04',
     maxRanks: 1,

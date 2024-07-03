@@ -41,10 +41,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: [
-          TALENTS.HEALING_STREAM_TOTEM_SHARED_TALENT.id,
-          TALENTS.HEALING_STREAM_TOTEM_RESTORATION_TALENT.id,
-        ],
+        spell: [SPELLS.HEALING_STREAM_TOTEM.id],
         category: SPELL_CATEGORY.ROTATIONAL,
         charges: combatant.getMultipleTalentRanks(
           TALENTS.HEALING_STREAM_TOTEM_SHARED_TALENT,
