@@ -91,6 +91,7 @@ import HeartOfTheJadeSerpent from '../shared/hero/ConduitOfTheCelestials/talents
 import RestoreBalance from '../shared/hero/ConduitOfTheCelestials/talents/RestoreBalance';
 import ConduitOfTheCelestialsEventLinks from '../shared/hero/ConduitOfTheCelestials/normalizers/ConduitOfTheCelestialsEventLinks';
 import CelestialConduitNormalizer from '../shared/hero/ConduitOfTheCelestials/normalizers/CelestialConduitNormalizer';
+import CelestialConduit from '../shared/hero/ConduitOfTheCelestials/talents/CelestialConduit';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -192,6 +193,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Hero Talents
     //Conduit
+    celestialConduit: CelestialConduit,
     heartOfTheJadeSerpent: HeartOfTheJadeSerpent,
     restoreBalance: RestoreBalance,
     apl: AplCheck,
