@@ -19,15 +19,15 @@ export const CELESTIAL_CONDUIT_MAX_DURATION = 4000;
 const CELESTIAL_CONDUIT_LINK: EventLink = {
   linkRelation: CELESTIAL_CONDUIT_,
   reverseLinkRelation: CELESTIAL_CONDUIT_,
-  linkingEventId: SPELLS.CELESTIAL_CONDUIT_HEAL.id,
-  linkingEventType: EventType.Heal,
+  linkingEventId: [SPELLS.CELESTIAL_CONDUIT_HEAL.id, SPELLS.CELESTIAL_CONDUIT_DAMAGE.id],
+  linkingEventType: [EventType.Heal, EventType.Damage],
   referencedEventId: [talents.CELESTIAL_CONDUIT_TALENT.id],
   referencedEventType: EventType.Cast,
   anyTarget: true,
   forwardBufferMs: CAST_BUFFER_MS,
   backwardBufferMs: CELESTIAL_CONDUIT_MAX_DURATION,
   isActive(c) {
-    return c.hasTalent(talents.CELESTIAL_CONDUIT_TALENT) && c.specId === SPECS.MISTWEAVER_MONK.id;
+    return c.hasTalent(talents.CELESTIAL_CONDUIT_TALENT);
   },
 };
 
