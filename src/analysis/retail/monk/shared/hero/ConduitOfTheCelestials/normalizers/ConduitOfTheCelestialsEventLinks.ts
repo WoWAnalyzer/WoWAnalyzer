@@ -5,6 +5,7 @@ import { CAST_BUFFER_MS } from 'analysis/retail/monk/mistweaver/normalizers/Even
 import SPELLS from 'common/SPELLS';
 import { Options } from 'parser/core/Module';
 import SPECS from 'game/SPECS';
+import { CELESTIAL_CONDUIT_MAX_DURATION } from 'analysis/retail/monk/mistweaver/constants';
 
 export const CELESTIAL_CONDUIT_ = 'CelestialConduit';
 export const RESTORE_BALANCE_APPLY = 'restoreBalanceApply';
@@ -12,9 +13,6 @@ export const RESTORE_BALANCE = 'restoreBalance';
 export const UNITY_FOTRC = 'UnityFlightOfTheRedCrane';
 export const UNITY_COTWT = 'UnityCourageOfTheWhiteTiger';
 export const UNITY_SOTBO = 'UnityStrengthOfTheBlackOx';
-
-const RJW_MAX_DURATION = 25000;
-export const CELESTIAL_CONDUIT_MAX_DURATION = 4000;
 
 const CELESTIAL_CONDUIT_LINK: EventLink = {
   linkRelation: CELESTIAL_CONDUIT_,
