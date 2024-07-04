@@ -5,7 +5,8 @@ import { CAST_BUFFER_MS } from 'analysis/retail/monk/mistweaver/normalizers/Even
 import SPELLS from 'common/SPELLS';
 import { Options } from 'parser/core/Module';
 import SPECS from 'game/SPECS';
-import { CELESTIAL_CONDUIT_MAX_DURATION } from 'analysis/retail/monk/mistweaver/constants';
+import { RJW_MAX_DURATION } from 'analysis/retail/monk/mistweaver/constants';
+import { CELESTIAL_CONDUIT_MAX_DURATION } from '../constants';
 
 export const CELESTIAL_CONDUIT_ = 'CelestialConduit';
 export const RESTORE_BALANCE_APPLY = 'restoreBalanceApply';

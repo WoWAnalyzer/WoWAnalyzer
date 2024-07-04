@@ -4,7 +4,7 @@ import { TALENTS_MONK } from 'common/TALENTS';
 import SPECS from 'game/SPECS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, HealEvent } from 'parser/core/Events';
-import { isFromRestoreBalance } from './normalizers/ConduitOfTheCelestialsEventLinks';
+import { isFromRestoreBalance } from '../normalizers/ConduitOfTheCelestialsEventLinks';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';

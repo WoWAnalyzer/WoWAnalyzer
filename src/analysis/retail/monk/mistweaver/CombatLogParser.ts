@@ -87,8 +87,8 @@ import CraneStyle from './modules/spells/CraneStyle';
 import ZenPulse from './modules/spells/ZenPulse';
 import T32TierSet from './modules/tier/T32TierSet';
 import PoolOfMists from './modules/spells/PoolOfMists';
-import HeartOfTheJadeSerpent from '../shared/hero/ConduitOfTheCelestials/HeartOfTheJadeSerpent';
-import RestoreBalance from '../shared/hero/ConduitOfTheCelestials/RestoreBalance';
+import HeartOfTheJadeSerpent from '../shared/hero/ConduitOfTheCelestials/talents/HeartOfTheJadeSerpent';
+import RestoreBalance from '../shared/hero/ConduitOfTheCelestials/talents/RestoreBalance';
 import ConduitOfTheCelestialsEventLinks from '../shared/hero/ConduitOfTheCelestials/normalizers/ConduitOfTheCelestialsEventLinks';
 import CelestialConduitNormalizer from '../shared/hero/ConduitOfTheCelestials/normalizers/CelestialConduitNormalizer';
 
