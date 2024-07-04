@@ -9,7 +9,7 @@ class Abilities extends CoreAbilities {
       // LIST ALL SPELLS THAT COULD BE CAST DURING COMBAT BY THIS SPEC
       // Rotational
       {
-        spell: [SPELLS.FIREBALL.id, ...SPELLS.FIREBALL.lowRanks],
+        spell: SPELLS.FIREBALL.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
