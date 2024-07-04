@@ -7,15 +7,11 @@ class Buffs extends CoreAuras {
   auras() {
     return [
       {
-        spellId: SPELLS.INCANTERS_ABSORPTION.id,
+        spellId: SPELLS.INCANTERS_ABSORPTION_BUFF.id,
         timelineHighlight: true,
       },
       {
         spellId: SPELLS.LIGHTWEAVE_BUFF.id,
-        timelineHighlight: true,
-      },
-      {
-        spellId: SPELLS.MISSILE_BARRAGE.id,
         timelineHighlight: true,
       },
       {
