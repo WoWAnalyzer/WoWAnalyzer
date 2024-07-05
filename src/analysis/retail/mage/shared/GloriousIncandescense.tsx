@@ -26,7 +26,7 @@ class GloriousIncandescence extends Analyzer {
     }
 
     if (this.selectedCombatant.spec === SPECS.ARCANE_MAGE) {
-      this.spellUsable.reduceCooldown(TALENTS.ARCANE_ORB_TALENT.id, 8000);
+      this.spellUsable.reduceCooldown(SPELLS.ARCANE_ORB.id, 8000);
     }
   }
 }

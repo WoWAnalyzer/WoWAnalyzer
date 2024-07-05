@@ -53,7 +53,7 @@ const talents = {
   ART_OF_THE_GLAIVE_TALENT: {
     id: 442290,
     name: 'Art of the Glaive',
-    icon: 'inv_trinket_fragmentofwarglaivesofazzinoth',
+    icon: 'inv_ability_aldrachireaverdemonhunter_reaversglaive',
     maxRanks: 1,
     entryIds: [117512],
     definitionIds: [{ id: 122524, specId: 581 }],
@@ -411,14 +411,6 @@ const talents = {
     entryIds: [112914],
     definitionIds: [{ id: 117919, specId: 581 }],
   },
-  ESCALATION_TALENT: {
-    id: 442718,
-    name: 'Escalation',
-    icon: 'spell_fire_felflamestrike',
-    maxRanks: 1,
-    entryIds: [117507],
-    definitionIds: [{ id: 122519, specId: 581 }],
-  },
   ESSENCE_BREAK_TALENT: {
     id: 258860,
     name: 'Essence Break',
@@ -606,6 +598,14 @@ const talents = {
     entryIds: [115244],
     definitionIds: [{ id: 120256, specId: 577 }],
   },
+  FURY_OF_THE_ALDRACHI_TALENT: {
+    id: 442718,
+    name: 'Fury of the Aldrachi',
+    icon: 'spell_fire_felflamestrike',
+    maxRanks: 1,
+    entryIds: [117495],
+    definitionIds: [{ id: 122519, specId: 581 }],
+  },
   GLAIVE_TEMPEST_TALENT: {
     id: 342817,
     name: 'Glaive Tempest',
@@ -692,8 +692,8 @@ const talents = {
     name: 'Incisive Blade',
     icon: 'ability_dualwieldspecialization',
     maxRanks: 1,
-    entryIds: [117500],
-    definitionIds: [{ id: 122512, specId: 581 }],
+    entryIds: [117492],
+    definitionIds: [{ id: 122504, specId: 581 }],
   },
   INCORRUPTIBLE_SPIRIT_TALENT: {
     id: 442736,
@@ -743,14 +743,6 @@ const talents = {
     entryIds: [112941],
     definitionIds: [{ id: 117946, specId: 577 }],
   },
-  INTENT_PURSUIT_TALENT: {
-    id: 442679,
-    name: 'Intent Pursuit',
-    icon: 'ability_felarakkoa_focusedblast',
-    maxRanks: 1,
-    entryIds: [117492],
-    definitionIds: [{ id: 122504, specId: 581 }],
-  },
   INTERNAL_STRUGGLE_TALENT: {
     id: 393822,
     name: 'Internal Struggle',
@@ -772,7 +764,7 @@ const talents = {
     name: 'Keen Engagement',
     icon: 'ability_warlock_shadowfurytga',
     maxRanks: 1,
-    entryIds: [117495],
+    entryIds: [117507],
     definitionIds: [{ id: 122507, specId: 581 }],
   },
   KNOW_YOUR_ENEMY_TALENT: {
@@ -942,6 +934,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [112827],
     definitionIds: [{ id: 117832, specId: 577 }],
+  },
+  REAVERS_MARK_TALENT: {
+    id: 442679,
+    name: "Reaver's Mark",
+    icon: 'ability_hunter_harass',
+    maxRanks: 1,
+    entryIds: [117500],
+    definitionIds: [{ id: 122512, specId: 581 }],
   },
   RELENTLESS_ONSLAUGHT_TALENT: {
     id: 389977,

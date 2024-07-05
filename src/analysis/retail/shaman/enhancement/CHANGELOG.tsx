@@ -4,8 +4,8 @@ import TALENTS from 'common/TALENTS/shaman';
 import { Taum, Vetyst, Vohrr, xunni, Seriousnes, ToppleTheNun, Putro } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
+// prettier-ignore
 export default [
-  change(date(2024, 5, 21), <><SpellLink spell={TALENTS.ELEMENTAL_BLAST_ENHANCEMENT_TALENT} /> cast performance was too strict when casting with less than 8 <SpellLink spell={TALENTS.MAELSTROM_WEAPON_TALENT} />.</>, Seriousnes),
   change(date(2024, 4, 24), <>Updating mana cost for <SpellLink spell={TALENTS.EARTH_SHIELD_TALENT} />.</>, Seriousnes),
   change(date(2024, 4, 24), <>Updated to 10.2.6 compatibility </>, Seriousnes),
   change(date(2024, 4, 10), <><SpellLink spell={TALENTS.CHAIN_LIGHTNING_TALENT} /> damage calculations didn't include chains</>, Seriousnes),

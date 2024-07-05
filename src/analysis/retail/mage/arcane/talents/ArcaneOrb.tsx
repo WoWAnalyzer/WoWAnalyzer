@@ -1,6 +1,5 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, FightEndEvent } from 'parser/core/Events';
@@ -22,11 +21,7 @@ class ArcaneOrb extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.ARCANE_ORB_TALENT);
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.ARCANE_ORB_TALENT),
-      this.onOrbCast,
-    );
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ARCANE_ORB), this.onOrbCast);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ARCANE_ORB_DAMAGE),
       this.onOrbDamage,
@@ -53,7 +48,7 @@ class ArcaneOrb extends Analyzer {
   }
 
   get averageHitsPerCast() {
-    return this.totalHits / this.abilityTracker.getAbility(TALENTS.ARCANE_ORB_TALENT.id).casts;
+    return this.totalHits / this.abilityTracker.getAbility(SPELLS.ARCANE_ORB.id).casts;
   }
 
   get missedOrbsThresholds() {
@@ -71,12 +66,12 @@ class ArcaneOrb extends Analyzer {
     when(this.missedOrbsThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You cast <SpellLink spell={TALENTS.ARCANE_ORB_TALENT} /> {this.badCasts} times without
-          hitting anything. While it is acceptable to use this ability on Single Target encounters,
-          you need to ensure you are aiming the ability so that it will at least hit one target.
+          You cast <SpellLink spell={SPELLS.ARCANE_ORB} /> {this.badCasts} times without hitting
+          anything. While it is acceptable to use this ability on Single Target encounters, you need
+          to ensure you are aiming the ability so that it will at least hit one target.
         </>,
       )
-        .icon(TALENTS.ARCANE_ORB_TALENT.icon)
+        .icon(SPELLS.ARCANE_ORB.icon)
         .actual(<>{formatNumber(this.badCasts)} Missed Orbs</>)
         .recommended(<>{formatNumber(recommended)} is recommended</>),
     );
@@ -95,7 +90,7 @@ class ArcaneOrb extends Analyzer {
             : ''
         } Casting Arcane Orb when it will only hit one target is still beneficial and acceptable, but if you can aim it so that it hits multiple enemies then you should.`}
       >
-        <BoringSpellValueText spell={TALENTS.ARCANE_ORB_TALENT}>
+        <BoringSpellValueText spell={SPELLS.ARCANE_ORB}>
           <>
             {formatNumber(this.averageHitsPerCast)} <small>Average hits per cast</small>
           </>

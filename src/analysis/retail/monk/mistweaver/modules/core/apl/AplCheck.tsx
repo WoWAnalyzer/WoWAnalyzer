@@ -122,7 +122,7 @@ const rotation_rm_at_sg = build([
   SHEILUNS_SHAOHAOS,
   ...RM_AT_CORE,
   BLACKOUT_KICK,
-  talents.CHI_BURST_TALENT,
+  talents.CHI_BURST_SHARED_TALENT,
   {
     spell: SPELLS.TIGER_PALM,
     condition: cnd.optionalRule(

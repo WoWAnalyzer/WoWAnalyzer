@@ -142,10 +142,10 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 17,
       },
       {
-        spell: TALENTS_MONK.CHI_BURST_TALENT.id,
+        spell: TALENTS_MONK.CHI_BURST_SHARED_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 30,
-        enabled: combatant.hasTalent(TALENTS_MONK.CHI_BURST_TALENT),
+        enabled: combatant.hasTalent(TALENTS_MONK.CHI_BURST_SHARED_TALENT),
         castEfficiency: {
           suggestion: true,
         },

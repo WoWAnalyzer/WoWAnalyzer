@@ -324,8 +324,8 @@ const talents = {
     name: 'Dark Harvest',
     icon: 'ability_creature_disease_02',
     maxRanks: 1,
-    entryIds: [91579],
-    definitionIds: [{ id: 96581, specId: 265 }],
+    entryIds: [126062],
+    definitionIds: [{ id: 130894, specId: 265 }],
   },
   DARK_PACT_TALENT: {
     id: 108416,
@@ -530,13 +530,12 @@ const talents = {
     definitionIds: [{ id: 130682, specId: 266 }],
   },
   DOOM_TALENT: {
-    id: 603,
+    id: 460551,
     name: 'Doom',
     icon: 'spell_shadow_auraofdarkness',
     maxRanks: 1,
     entryIds: [125865],
     definitionIds: [{ id: 130696, specId: 266 }],
-    manaCost: 25000,
   },
   DRAIN_SOUL_TALENT: {
     id: 388667,
@@ -754,6 +753,14 @@ const talents = {
     entryIds: [117447],
     definitionIds: [{ id: 122459, specId: 266 }],
   },
+  GOREFIENDS_RESOLVE_TALENT: {
+    id: 389623,
+    name: "Gorefiend's Resolve",
+    icon: 'ability_rogue_masterofsubtlety',
+    maxRanks: 1,
+    entryIds: [123838],
+    definitionIds: [{ id: 128676, specId: 266 }],
+  },
   GRIMOIRE_FELGUARD_TALENT: {
     id: 111898,
     name: 'Grimoire: Felguard',
@@ -938,14 +945,6 @@ const talents = {
     entryIds: [126005],
     definitionIds: [{ id: 130836, specId: 267 }],
   },
-  INFERNAL_BRAND_TALENT: {
-    id: 387475,
-    name: 'Infernal Brand',
-    icon: 'warlock_pvp_burninglegion',
-    maxRanks: 1,
-    entryIds: [126001],
-    definitionIds: [{ id: 130832, specId: 267 }],
-  },
   INFERNAL_BULWARK_TALENT: {
     id: 429130,
     name: 'Infernal Bulwark',
@@ -1055,16 +1054,8 @@ const talents = {
     name: 'Malign Omen',
     icon: 'spell_shadow_coneofsilence',
     maxRanks: 1,
-    entryIds: [126062],
-    definitionIds: [{ id: 130894, specId: 265 }],
-  },
-  MANTLE_OF_THE_HARVESTER_TALENT: {
-    id: 449637,
-    name: 'Mantle of the Harvester',
-    icon: 'spell_necro_deathlyecho',
-    maxRanks: 1,
-    entryIds: [117435],
-    definitionIds: [{ id: 122447, specId: 266 }],
+    entryIds: [91579],
+    definitionIds: [{ id: 96581, specId: 265 }],
   },
   MARK_OF_FHARG_TALENT: {
     id: 455450,
@@ -1242,8 +1233,8 @@ const talents = {
     name: 'Rain of Chaos',
     icon: 'spell_fire_felrainoffire',
     maxRanks: 1,
-    entryIds: [91472],
-    definitionIds: [{ id: 96474, specId: 267 }],
+    entryIds: [126494],
+    definitionIds: [{ id: 131320, specId: 267 }],
   },
   RAIN_OF_FIRE_TALENT: {
     id: 5740,
@@ -1297,7 +1288,7 @@ const talents = {
   RITUAL_OF_RUIN_TALENT: {
     id: 387156,
     name: 'Ritual of Ruin',
-    icon: 'ability_warlock_moltencoregreen',
+    icon: 'ability_mage_worldinflamesgreen',
     maxRanks: 1,
     entryIds: [91483],
     definitionIds: [{ id: 96485, specId: 267 }],
@@ -1366,13 +1357,13 @@ const talents = {
     entryIds: [115462],
     definitionIds: [{ id: 120474, specId: 267 }],
   },
-  SATAIELS_AMBITION_TALENT: {
-    id: 449631,
-    name: "Sataiel's Ambition",
-    icon: 'inv_staff_2h_artifactdeadwind_d_05',
+  SATAIELS_VOLITION_TALENT: {
+    id: 449637,
+    name: "Sataiel's Volition",
+    icon: 'spell_necro_deathlyecho',
     maxRanks: 1,
-    entryIds: [117418],
-    definitionIds: [{ id: 122430, specId: 266 }],
+    entryIds: [117435],
+    definitionIds: [{ id: 122447, specId: 266 }],
   },
   SCALDING_FLAMES_TALENT: {
     id: 388832,
@@ -1564,14 +1555,6 @@ const talents = {
     entryIds: [125844],
     definitionIds: [{ id: 130675, specId: 266 }],
   },
-  SPIRITED_AWAY_TALENT: {
-    id: 449708,
-    name: 'Spirited Away',
-    icon: 'inv_misc_supersoulash',
-    maxRanks: 1,
-    entryIds: [123838],
-    definitionIds: [{ id: 128676, specId: 266 }],
-  },
   SPITEFUL_RECONSTITUTION_TALENT: {
     id: 428394,
     name: 'Spiteful Reconstitution',
@@ -1716,6 +1699,14 @@ const talents = {
     definitionIds: [{ id: 96572, specId: 265 }],
     manaCost: 25000,
   },
+  UNSTABLE_RIFTS_TALENT: {
+    id: 457064,
+    name: 'Unstable Rifts',
+    icon: 'inv_shadowflame_groundstate',
+    maxRanks: 1,
+    entryIds: [126493],
+    definitionIds: [{ id: 131319, specId: 267 }],
+  },
   VILE_TAINT_TALENT: {
     id: 278350,
     name: 'Vile Taint',
@@ -1740,6 +1731,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [125872],
     definitionIds: [{ id: 130703, specId: 266 }],
+  },
+  WICKED_REAPING_TALENT: {
+    id: 449631,
+    name: 'Wicked Reaping',
+    icon: 'inv_staff_2h_artifactdeadwind_d_05',
+    maxRanks: 1,
+    entryIds: [117418],
+    definitionIds: [{ id: 122430, specId: 266 }],
   },
   WITHERING_BOLT_TALENT: {
     id: 386976,
@@ -1776,7 +1775,7 @@ const talents = {
   XALANS_CRUELTY_TALENT: {
     id: 440040,
     name: "Xalan's Cruelty",
-    icon: 'spell_fire_felrainoffire',
+    icon: 'spell_shadow_demonicempathy',
     maxRanks: 1,
     entryIds: [117442],
     definitionIds: [{ id: 122454, specId: 267 }],
@@ -1784,7 +1783,7 @@ const talents = {
   XALANS_FEROCITY_TALENT: {
     id: 440044,
     name: "Xalan's Ferocity",
-    icon: 'ability_warlock_demonicpower',
+    icon: 'spell_fire_felfire',
     maxRanks: 1,
     entryIds: [117450],
     definitionIds: [{ id: 122462, specId: 267 }],

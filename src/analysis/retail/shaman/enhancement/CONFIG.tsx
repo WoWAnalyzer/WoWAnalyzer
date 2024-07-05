@@ -27,10 +27,10 @@ const config: Config = {
   spec: SPECS.ENHANCEMENT_SHAMAN,
   changelog: CHANGELOG,
   guideDefault: true,
-  parser: () =>
-    import('./CombatLogParser' /* webpackChunkName: "EnhancementShaman" */).then(
-      (exports) => exports.default,
-    ),
+  // parser: () =>
+  //   import('./CombatLogParser' /* webpackChunkName: "EnhancementShaman" */).then(
+  //     (exports) => exports.default,
+  //   ),
 
   path: import.meta.url,
 };

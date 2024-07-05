@@ -484,7 +484,7 @@ const talents = {
   EMBRACE_THE_SHADOW_TALENT: {
     id: 451569,
     name: 'Embrace the Shadow',
-    icon: 'warlock_curse_shadow_aura',
+    icon: 'spell_shadow_shadesofdarkness',
     maxRanks: 1,
     entryIds: [123844],
     definitionIds: [{ id: 128682, specId: 258 }],
@@ -1602,7 +1602,15 @@ const talents = {
     entryIds: [103706],
     definitionIds: [{ id: 108711, specId: 256 }],
   },
-  SHADOW_CRASH_TALENT: {
+  SHADOW_CRASH_1_SHADOW_TALENT: {
+    id: 457042,
+    name: 'Shadow Crash',
+    icon: 'spell_shadow_shadowfury',
+    maxRanks: 1,
+    entryIds: [103813],
+    definitionIds: [{ id: 108818, specId: 258 }],
+  },
+  SHADOW_CRASH_2_SHADOW_TALENT: {
     id: 205385,
     name: 'Shadow Crash',
     icon: 'spell_shadow_shadowfury',
@@ -1837,7 +1845,7 @@ const talents = {
   VOIDWRAITH_TALENT: {
     id: 451234,
     name: 'Voidwraith',
-    icon: 'spell_priest_psyfiend',
+    icon: 'warlock_curse_shadow',
     maxRanks: 1,
     entryIds: [123841],
     definitionIds: [{ id: 128679, specId: 258 }],
@@ -1849,14 +1857,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [117306],
     definitionIds: [{ id: 122318, specId: 258 }],
-  },
-  VOID_CRASH_TALENT: {
-    id: 457042,
-    name: 'Void Crash',
-    icon: 'inv_cosmicvoid_groundsate',
-    maxRanks: 1,
-    entryIds: [103813],
-    definitionIds: [{ id: 108818, specId: 258 }],
   },
   VOID_EMPOWERMENT_TALENT: {
     id: 450138,
