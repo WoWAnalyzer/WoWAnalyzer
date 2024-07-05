@@ -29,11 +29,13 @@ export default class ArmyOfTheDead extends EventsNormalizer {
           },
           sourceID: this.owner.selectedCombatant.id,
           sourceIsFriendly: true,
+          targetID: -1,
+          targetIsFriendly: false,
           prepull: true,
           __fabricated: true,
         },
         ...events,
-      ];
+      ] satisfies AnyEvent[];
     } else {
       return events;
     }
