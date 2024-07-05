@@ -61,6 +61,7 @@ export const ENV_BASE_DURATION = 6000;
 export const TFT_REM_EXTRA_DURATION = 10000;
 
 // Talent Constants
+export const RJW_MAX_DURATION = 25000;
 export const POOL_OF_MISTS_CDR = 1000;
 export const MISTWRAP = 1000;
 export const MISTY_PEAKS_DURATION = 2000;
