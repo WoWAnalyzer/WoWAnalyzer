@@ -714,8 +714,8 @@ class StatTracker extends Analyzer {
   hastePercentage(rating: number, withBase = false): number {
     if (this.isClassic) {
       return (
-        (withBase ? this.baseCritPercentage : 0) +
-        rating / this.classicStatRatingPerPercent[STAT.CRITICAL_STRIKE]
+        (withBase ? this.baseHastePercentage : 0) +
+        rating / this.classicStatRatingPerPercent[STAT.HASTE]
       );
     }
     return (
