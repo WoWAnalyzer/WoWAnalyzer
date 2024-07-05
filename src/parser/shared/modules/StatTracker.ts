@@ -23,6 +23,7 @@ import STAT, { PRIMARY_STAT } from 'parser/shared/modules/features/STAT';
 
 import { calculateSecondaryStatDefault } from 'parser/core/stats';
 import GameBranch from 'game/GameBranch';
+import { wclGameVersionToBranch } from 'game/VERSIONS';
 
 /**
  * Generates a {@link StatBuff} that defines a buff that gives the
@@ -142,6 +143,8 @@ class StatTracker extends Analyzer {
     // endregion
   };
 
+  protected isClassic = false;
+
   // all known stat buffs
   statBuffs: StatBuffsByGuid;
   // the player's stat ratings at pull
@@ -185,6 +188,11 @@ class StatTracker extends Analyzer {
     [STAT.AVOIDANCE]: 72,
     [STAT.LEECH]: 148,
     [STAT.SPEED]: 50,
+  };
+
+  classicStatRatingPerPercent = {
+    [STAT.HASTE]: 128.125,
+    [STAT.CRITICAL_STRIKE]: 179.34,
   };
 
   /** Secondary stat scaling thresholds
@@ -277,6 +285,10 @@ class StatTracker extends Analyzer {
       speed: this.selectedCombatant._combatantInfo.speed,
       armor: this.selectedCombatant._combatantInfo.armor,
     };
+
+    if (wclGameVersionToBranch(options.owner.report.gameVersion) === GameBranch.Classic) {
+      this.isClassic = true;
+    }
 
     this.applySpecModifiers();
 
@@ -687,6 +699,12 @@ class StatTracker extends Analyzer {
    * For percentage stats, returns the combined base stat values and the values gained from ratings -- this does not include percentage increases such as Bloodlust
    */
   critPercentage(rating: number, withBase = false): number {
+    if (this.isClassic) {
+      return (
+        (withBase ? this.baseCritPercentage : 0) +
+        rating / this.classicStatRatingPerPercent[STAT.CRITICAL_STRIKE]
+      );
+    }
     return (
       (withBase ? this.baseCritPercentage : 0) +
       this.calculateStatPercentage(rating, this.statBaselineRatingPerPercent[STAT.CRITICAL_STRIKE])
@@ -694,6 +712,12 @@ class StatTracker extends Analyzer {
   }
 
   hastePercentage(rating: number, withBase = false): number {
+    if (this.isClassic) {
+      return (
+        (withBase ? this.baseCritPercentage : 0) +
+        rating / this.classicStatRatingPerPercent[STAT.CRITICAL_STRIKE]
+      );
+    }
     return (
       (withBase ? this.baseHastePercentage : 0) +
       this.calculateStatPercentage(rating, this.statBaselineRatingPerPercent[STAT.HASTE])
@@ -701,6 +725,10 @@ class StatTracker extends Analyzer {
   }
 
   masteryPercentage(rating: number, withBase = false): number {
+    if (this.isClassic) {
+      // Classic Cata does not log the mastery rating.
+      return 0;
+    }
     return (
       (withBase ? this.baseMasteryPercentage : 0) +
       this.calculateStatPercentage(
@@ -714,6 +742,9 @@ class StatTracker extends Analyzer {
   }
 
   versatilityPercentage(rating: number, withBase = false): number {
+    if (this.isClassic) {
+      return 0; // Classic does not have this stat
+    }
     return (
       (withBase ? this.baseVersatilityPercentage : 0) +
       this.calculateStatPercentage(rating, this.statBaselineRatingPerPercent[STAT.VERSATILITY])
@@ -721,6 +752,9 @@ class StatTracker extends Analyzer {
   }
 
   avoidancePercentage(rating: number, withBase = false) {
+    if (this.isClassic) {
+      return 0; // Classic does not have this stat
+    }
     return (
       (withBase ? this.baseAvoidancePercentage : 0) +
       this.calculateStatPercentage(
@@ -733,6 +767,9 @@ class StatTracker extends Analyzer {
   }
 
   leechPercentage(rating: number, withBase = false): number {
+    if (this.isClassic) {
+      return 0; // Classic does not have this stat
+    }
     return (
       (withBase ? this.baseLeechPercentage : 0) +
       this.calculateStatPercentage(
@@ -745,6 +782,9 @@ class StatTracker extends Analyzer {
   }
 
   speedPercentage(rating: number, withBase: boolean = false): number {
+    if (this.isClassic) {
+      return 0; // Classic does not have this stat
+    }
     return (
       (withBase ? this.baseSpeedPercentage : 0) +
       this.calculateStatPercentage(

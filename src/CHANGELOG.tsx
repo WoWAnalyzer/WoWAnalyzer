@@ -36,6 +36,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 7, 5), <>Update Haste and GCD tracking for Classic.</>, emallson),
   change(date(2024, 7, 4), 'Update Mage spells for Classic Cataclysm', jazminite),
   change(date(2024, 6, 21), <>Add <SpellLink spell={CLASSIC_SPELLS.SYNAPSE_SPRINGS} /> support to Cataclysm Classic specs.</>, emallson),
   change(date(2024, 6, 8), <>Include the channel of <SpellLink spell={SPELLS.RAGE_OF_FYRALATH_1} /> in timelines and reflect uptime better.</>, nullDozzer),
