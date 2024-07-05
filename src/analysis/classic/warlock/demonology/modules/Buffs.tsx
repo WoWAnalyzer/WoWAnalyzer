@@ -7,7 +7,11 @@ class Buffs extends CoreAuras {
   auras() {
     return [
       {
-        spellId: SPELLS.LIFE_TAP_GLYPH.id,
+        spellId: SPELLS.DECIMATION.id,
+        timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.DEMON_SOUL_FELGUARD_BUFF.id,
         timelineHighlight: true,
       },
       {
@@ -16,10 +20,6 @@ class Buffs extends CoreAuras {
       },
       {
         spellId: SPELLS.MOLTEN_CORE_BUFF.id,
-        timelineHighlight: true,
-      },
-      {
-        spellId: SPELLS.DECIMATION.id,
         timelineHighlight: true,
       },
       {

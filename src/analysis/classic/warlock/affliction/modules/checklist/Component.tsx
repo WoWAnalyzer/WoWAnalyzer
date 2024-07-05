@@ -27,7 +27,7 @@ const ClassicAfflictionChecklist = ({ combatant, castEfficiency, thresholds }: C
         name="Maintain your DoTs and debuffs"
         description="Affliction Warlocks rely heavily on DoTs to deal damage. Try to keep your DoT uptime as high as possible."
       >
-        <DotUptime spell={SPELLS.CURSE_OF_AGONY} thresholds={thresholds.curseOfAgony} />
+        <DotUptime spell={SPELLS.BANE_OF_AGONY} thresholds={thresholds.curseOfAgony} />
         <DotUptime spell={SPELLS.CORRUPTION} thresholds={thresholds.corruption} />
         {combatant.talentPoints[0] >= 50 && (
           <DotUptime spell={SPELLS.HAUNT} thresholds={thresholds.haunt} />

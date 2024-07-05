@@ -89,7 +89,7 @@ class Abilities extends CoreAbilities {
       },
       // Defensive
       {
-        spell: SPELLS.MORTAL_COIL.id,
+        spell: SPELLS.DEATH_COIL.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         gcd: { base: 1500 },
         cooldown: 120,
