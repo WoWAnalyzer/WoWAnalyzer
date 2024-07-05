@@ -33,9 +33,8 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.ARCANE_ORB_TALENT.id,
+        spell: SPELLS.ARCANE_ORB.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        enabled: combatant.hasTalent(TALENTS.ARCANE_ORB_TALENT),
         gcd: {
           base: 1500,
         },

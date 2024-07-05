@@ -588,8 +588,8 @@ const talents = {
     name: 'Feed the Flames',
     icon: 'mace_1h_blacksmithing_d_04_icon',
     maxRanks: 1,
-    entryIds: [115638],
-    definitionIds: [{ id: 120650, specId: 1467 }],
+    entryIds: [115623],
+    definitionIds: [{ id: 120635, specId: 1467 }],
   },
   FIELD_OF_DREAMS_TALENT: {
     id: 370062,
@@ -767,8 +767,8 @@ const talents = {
     name: 'Imminent Destruction',
     icon: 'spell_burningbladeshaman_blazing_radiance',
     maxRanks: 1,
-    entryIds: [115623],
-    definitionIds: [{ id: 120635, specId: 1467 }],
+    entryIds: [115638],
+    definitionIds: [{ id: 120650, specId: 1467 }],
   },
   IMPOSING_PRESENCE_TALENT: {
     id: 371016,

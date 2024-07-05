@@ -36,7 +36,7 @@ const EVENT_LINKS: EventLink[] = [
   },
   {
     reverseLinkRelation: SPELL_CAST,
-    linkingEventId: TALENTS.ARCANE_ORB_TALENT.id,
+    linkingEventId: SPELLS.ARCANE_ORB.id,
     linkingEventType: EventType.Cast,
     linkRelation: SPELL_DAMAGE,
     referencedEventId: SPELLS.ARCANE_ORB_DAMAGE.id,

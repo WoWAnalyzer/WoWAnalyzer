@@ -1,9 +1,19 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
-import { Arlie, Elitesparkle, Fassbrause, niseko, ToppleTheNun, Vetyst, Vohrr, Ypp } from 'CONTRIBUTORS';
+import {
+  Arlie,
+  Elitesparkle,
+  Fassbrause,
+  niseko,
+  ToppleTheNun,
+  Vetyst,
+  Vohrr,
+  Ypp,
+} from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
+// prettier-ignore
 export default [
   change(date(2023, 12, 2), <>Update suggestions for T31 set bonuses</>, Ypp),
   change(date(2023, 11, 28), <>Fix Resurgence mana returns</>, Ypp),
@@ -31,7 +41,6 @@ export default [
   change(date(2023, 1, 8), <>Added <SpellLink spell={TALENTS.CHAIN_HEAL_TALENT}></SpellLink> to the <SpellLink spell={TALENTS.TIDAL_WAVES_TALENT}></SpellLink> buff usage breakdown and Tidal Waves suggestions.</>, Fassbrause),
   change(date(2022, 12, 24), <>Added <SpellLink spell={TALENTS.HEALING_RAIN_TALENT}></SpellLink>, <SpellLink spell={TALENTS.DOWNPOUR_TALENT}></SpellLink> and <SpellLink spell={TALENTS.WELLSPRING_TALENT}></SpellLink> to the <SpellLink spell={TALENTS.UNLEASH_LIFE_TALENT}></SpellLink> buff usage breakdown.</>, Fassbrause),
   change(date(2022, 11, 7), <>Added a statistic to display the healing gained from <SpellLink spell={TALENTS.UNDERCURRENT_TALENT} />.</>, niseko),
-  change(date(2022, 11, 6), <>Add support for <SpellLink spell={TALENTS.FLASH_FLOOD_TALENT}/> haste increases per rank.</>, Arlie),
   change(date(2022, 10, 29), <>Converted Shadowlands spells and talents to Dragonflight versions</>, Arlie),
   change(date(2022, 10, 18), <>Cleanup majority of old spells.</>, Vetyst),
 ];

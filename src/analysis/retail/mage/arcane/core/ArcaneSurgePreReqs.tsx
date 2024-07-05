@@ -25,7 +25,7 @@ class ArcaneSurgePreReqs extends Analyzer {
   protected arcaneChargeTracker!: ArcaneChargeTracker;
   protected enemies!: Enemies;
 
-  hasSiphonStorm: boolean = this.selectedCombatant.hasTalent(TALENTS.SIPHON_STORM_TALENT);
+  hasSiphonStorm: boolean = false; // TODO
   hasTouchOfMagi: boolean = this.selectedCombatant.hasTalent(TALENTS.TOUCH_OF_THE_MAGI_TALENT);
 
   arcaneSurges: {
@@ -51,8 +51,7 @@ class ArcaneSurgePreReqs extends Analyzer {
 
     this.arcaneSurges.push({
       cast: event,
-      siphonStormActive:
-        this.hasSiphonStorm && this.selectedCombatant.hasBuff(TALENTS.SIPHON_STORM_TALENT.id),
+      siphonStormActive: false,
       manaPercent: manaResource && manaResource.amount / manaResource.max,
       maxCharges: this.arcaneChargeTracker.charges >= ARCANE_CHARGE_MAX_STACKS,
     });
@@ -150,12 +149,6 @@ class ArcaneSurgePreReqs extends Analyzer {
                 You have {ARCANE_CHARGE_MAX_STACKS} Arcane Charges - Missed {this.notMaxCharges}{' '}
                 times
               </li>
-              {this.hasSiphonStorm && (
-                <li>
-                  <SpellLink spell={TALENTS.SIPHON_STORM_TALENT} /> is active - Missed{' '}
-                  {this.missingSiphonStorm} times
-                </li>
-              )}
             </ul>
           </>
         }

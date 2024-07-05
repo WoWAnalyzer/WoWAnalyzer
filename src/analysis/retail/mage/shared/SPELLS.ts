@@ -206,6 +206,12 @@ const spells = {
     name: 'Glorious Incandescence',
     icon: 'spell_burningsoul',
   },
+  ARCANE_ORB: {
+    id: 153626,
+    name: 'Arcane Orb',
+    icon: 'spell_mage_arcaneorb',
+    manaCost: 25000,
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;

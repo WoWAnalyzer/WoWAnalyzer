@@ -45,7 +45,7 @@ const talents = {
   APOCALYPSE_NOW_TALENT: {
     id: 444040,
     name: 'Apocalypse Now',
-    icon: 'achievement_boss_fourhorsemen',
+    icon: 'inv_ability_rideroftheapocalypsedeathknight_apocalypsenow',
     maxRanks: 1,
     entryIds: [117638],
     definitionIds: [{ id: 122650, specId: 252 }],
@@ -141,6 +141,14 @@ const talents = {
     definitionIds: [{ id: 131126, specId: 250 }],
     runesCost: 1,
     runicPowerCost: -10,
+  },
+  BLOODIED_BLADE_TALENT: {
+    id: 458753,
+    name: 'Bloodied Blade',
+    icon: 'inv_sword_2h_ebonblade_b_01_red',
+    maxRanks: 1,
+    entryIds: [126296],
+    definitionIds: [{ id: 131122, specId: 250 }],
   },
   BLOODSHOT_TALENT: {
     id: 391398,
@@ -396,14 +404,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [96324],
     definitionIds: [{ id: 101326, specId: 252 }],
-  },
-  DEATHS_BARGAIN_TALENT: {
-    id: 440476,
-    name: "Death's Bargain",
-    icon: 'ability_revendreth_deathknight',
-    maxRanks: 1,
-    entryIds: [117632],
-    definitionIds: [{ id: 122644, specId: 251 }],
   },
   DEATHS_ECHO_TALENT: {
     id: 356367,
@@ -1115,14 +1115,6 @@ const talents = {
     entryIds: [126016],
     definitionIds: [{ id: 130847, specId: 252 }],
   },
-  NYI_UNDER_CONSTRUCTION_TALENT: {
-    id: 458753,
-    name: '[NYI] Under Construction',
-    icon: 'achievement_bg_xkills_avgraveyard',
-    maxRanks: 1,
-    entryIds: [126296],
-    definitionIds: [{ id: 131122, specId: 250 }],
-  },
   OBLITERATE_TALENT: {
     id: 49020,
     name: 'Obliterate',
@@ -1179,6 +1171,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [123410],
     definitionIds: [{ id: 128248, specId: 252 }],
+  },
+  PACT_OF_THE_DEATHBRINGER_TALENT: {
+    id: 440476,
+    name: 'Pact of the Deathbringer',
+    icon: 'ability_revendreth_deathknight',
+    maxRanks: 1,
+    entryIds: [117632],
+    definitionIds: [{ id: 122644, specId: 251 }],
   },
   PACT_OF_THE_SANLAYN_TALENT: {
     id: 434261,
@@ -1621,14 +1621,12 @@ const talents = {
     definitionIds: [{ id: 101286, specId: 252 }],
   },
   UNHOLY_BLIGHT_TALENT: {
-    id: 115989,
+    id: 460448,
     name: 'Unholy Blight',
     icon: 'spell_shadow_contagion',
     maxRanks: 1,
     entryIds: [96297],
     definitionIds: [{ id: 101299, specId: 252 }],
-    runicPowerCost: -10,
-    runesCost: 1,
   },
   UNHOLY_BOND_TALENT: {
     id: 374261,
@@ -1735,9 +1733,9 @@ const talents = {
     definitionIds: [{ id: 101295, specId: 252 }],
     runicPowerCost: 30,
   },
-  VISCERAL_REGENERATION_TALENT: {
+  VISCERAL_STRENGTH_TALENT: {
     id: 434157,
-    name: 'Visceral Regeneration',
+    name: 'Visceral Strength',
     icon: 'inv_ragnaros_heart',
     maxRanks: 1,
     entryIds: [117642],

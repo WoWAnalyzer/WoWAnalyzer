@@ -93,7 +93,7 @@ const talents = {
   BLACKJACK_TALENT: {
     id: 379005,
     name: 'Blackjack',
-    icon: 'ability_sap',
+    icon: 'ability_rogue_blackjack',
     maxRanks: 1,
     entryIds: [117143],
     definitionIds: [{ id: 122155, specId: 261 }],
@@ -351,7 +351,7 @@ const talents = {
   DEATHSTALKERS_MARK_TALENT: {
     id: 457052,
     name: "Deathstalker's Mark",
-    icon: 'spell_warlock_soulburn',
+    icon: 'inv_ability_deathstalkerrogue_deathstalkersmark',
     maxRanks: 1,
     entryIds: [117733],
     definitionIds: [{ id: 122745, specId: 261 }],
@@ -573,6 +573,14 @@ const talents = {
     entryIds: [112548],
     definitionIds: [{ id: 117553, specId: 260 }],
   },
+  FATAL_INTENT_TALENT: {
+    id: 461980,
+    name: 'Fatal Intent',
+    icon: 'ability_warrior_deepcuts',
+    maxRanks: 1,
+    entryIds: [117732],
+    definitionIds: [{ id: 122744, specId: 261 }],
+  },
   FATEFUL_ENDING_TALENT: {
     id: 454428,
     name: 'Fateful Ending',
@@ -636,14 +644,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [112654],
     definitionIds: [{ id: 117659, specId: 261 }],
-  },
-  FLENSING_KNIVES_TALENT: {
-    id: 457017,
-    name: 'Flensing Knives',
-    icon: 'ability_rogue_nightblade',
-    maxRanks: 1,
-    entryIds: [117732],
-    definitionIds: [{ id: 122744, specId: 261 }],
   },
   FLICKERSTRIKE_TALENT: {
     id: 441359,

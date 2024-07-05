@@ -178,7 +178,7 @@ const talents = {
   BLADEMASTERS_TORMENT_TALENT: {
     id: 390138,
     name: "Blademaster's Torment",
-    icon: 'spell_nature_mirrorimage',
+    icon: 'ability_warrior_endlessrage',
     maxRanks: 1,
     entryIds: [112229],
     definitionIds: [{ id: 117234, specId: 71 }],
@@ -252,17 +252,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [112261],
     definitionIds: [{ id: 117266, specId: 72 }],
-  },
-  BLOOD_AND_THUNDER_TALENT: {
-    id: 384277,
-    name: 'Blood and Thunder',
-    icon: 'warrior_talent_icon_bloodandthunder',
-    maxRanks: 1,
-    entryIds: [112204, 118855],
-    definitionIds: [
-      { id: 117209, specId: 71 },
-      { id: 123755, specId: 73 },
-    ],
   },
   BLUNT_INSTRUMENTS_TALENT: {
     id: 383442,
@@ -361,7 +350,7 @@ const talents = {
     definitionIds: [{ id: 117177, specId: 73 }],
   },
   CHAMPIONS_MIGHT_TALENT: {
-    id: 386285,
+    id: 386284,
     name: "Champion's Might",
     icon: 'ability_bastion_warrior',
     maxRanks: 1,
@@ -430,12 +419,8 @@ const talents = {
     name: 'Crackling Thunder',
     icon: 'ability_thunderking_overcharge',
     maxRanks: 1,
-    entryIds: [112203, 118853, 118854],
-    definitionIds: [
-      { id: 117208, specId: 71 },
-      { id: 123753, specId: 72 },
-      { id: 123754, specId: 73 },
-    ],
+    entryIds: [118853],
+    definitionIds: [{ id: 123753, specId: 73 }],
   },
   CRASHING_THUNDER_TALENT: {
     id: 436707,
@@ -719,8 +704,8 @@ const talents = {
     name: 'Fast Footwork',
     icon: 'ability_hunter_posthaste',
     maxRanks: 1,
-    entryIds: [112238],
-    definitionIds: [{ id: 117243, specId: 73 }],
+    entryIds: [112206],
+    definitionIds: [{ id: 117211, specId: 73 }],
   },
   FATALITY_TALENT: {
     id: 383703,
@@ -1095,8 +1080,8 @@ const talents = {
     name: 'Leeching Strikes',
     icon: 'inv_artifact_bloodoftheassassinated',
     maxRanks: 1,
-    entryIds: [112206],
-    definitionIds: [{ id: 117211, specId: 73 }],
+    entryIds: [112238],
+    definitionIds: [{ id: 117243, specId: 73 }],
   },
   LIGHTNING_STRIKES_TALENT: {
     id: 434969,

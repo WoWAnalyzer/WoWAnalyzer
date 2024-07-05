@@ -251,13 +251,24 @@ const talents = {
     entryIds: [124986],
     definitionIds: [{ id: 129824, specId: 268 }],
   },
-  CHI_BURST_TALENT: {
+  CHI_BURST_SHARED_TALENT: {
     id: 123986,
     name: 'Chi Burst',
     icon: 'spell_arcane_arcanetorrent',
     maxRanks: 1,
+    entryIds: [126501, 126499],
+    definitionIds: [
+      { id: 131327, specId: 268 },
+      { id: 131325, specId: 270 },
+    ],
+  },
+  CHI_BURST_WINDWALKER_TALENT: {
+    id: 460485,
+    name: 'Chi Burst',
+    icon: 'spell_arcane_arcanetorrent',
+    maxRanks: 1,
     entryIds: [124952],
-    definitionIds: [{ id: 129790, specId: 270 }],
+    definitionIds: [{ id: 129790, specId: 269 }],
   },
   CHI_HARMONY_TALENT: {
     id: 448392,
@@ -304,8 +315,12 @@ const talents = {
     name: 'Chi Wave',
     icon: 'ability_monk_chiwave',
     maxRanks: 1,
-    entryIds: [124953],
-    definitionIds: [{ id: 129791, specId: 270 }],
+    entryIds: [126502, 124953, 126500],
+    definitionIds: [
+      { id: 131328, specId: 268 },
+      { id: 129791, specId: 269 },
+      { id: 131326, specId: 270 },
+    ],
   },
   CHRYSALIS_TALENT: {
     id: 202424,
@@ -704,7 +719,7 @@ const talents = {
   FLURRY_STRIKES_TALENT: {
     id: 450615,
     name: 'Flurry Strikes',
-    icon: 'ability_monk_pathofmists',
+    icon: 'inv_ability_shadopanmonk_flurrystrikes',
     maxRanks: 1,
     entryIds: [125069],
     definitionIds: [{ id: 129901, specId: 269 }],
@@ -1421,7 +1436,7 @@ const talents = {
   PURIFIED_SPIRIT_TALENT: {
     id: 450867,
     name: 'Purified Spirit',
-    icon: 'ability_argus_soulburst',
+    icon: 'ability_monk_explodingjadeblossom',
     maxRanks: 1,
     entryIds: [125035],
     definitionIds: [{ id: 129871, specId: 270 }],

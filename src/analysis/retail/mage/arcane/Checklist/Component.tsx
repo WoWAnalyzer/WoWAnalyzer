@@ -90,16 +90,14 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
             spell={TALENTS.EVOCATION_TALENT.id}
           />
         )}
-        {combatant.hasTalent(TALENTS.ARCANE_ORB_TALENT) && (
-          <AbilityRequirement
-            name={
-              <>
-                <SpellLink spell={TALENTS.ARCANE_ORB_TALENT} /> Cast Efficiency
-              </>
-            }
-            spell={TALENTS.ARCANE_ORB_TALENT.id}
-          />
-        )}
+        <AbilityRequirement
+          name={
+            <>
+              <SpellLink spell={SPELLS.ARCANE_ORB} /> Cast Efficiency
+            </>
+          }
+          spell={SPELLS.ARCANE_ORB.id}
+        />
         {combatant.hasTalent(TALENTS.SUPERNOVA_TALENT) && (
           <AbilityRequirement
             name={
@@ -108,13 +106,6 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
               </>
             }
             spell={TALENTS.SUPERNOVA_TALENT.id}
-          />
-        )}
-        {combatant.hasTalent(TALENTS.SIPHON_STORM_TALENT) && (
-          <Requirement
-            name="Siphon Storm not active during Surge"
-            tooltip="Since Siphon Storm increases your Intellect, which boosts your damage, you want to ensure that you are casting it before every Arcane Surge (Evocation > Radiant Spark > Arcane Surge). This way, your entire burn phase will be covered by the Siphon Storm buff."
-            thresholds={thresholds.siphonStormPreReqs}
           />
         )}
         {combatant.hasTalent(TALENTS.SHIFTING_POWER_TALENT) && (
@@ -127,13 +118,11 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
             spell={TALENTS.SHIFTING_POWER_TALENT.id}
           />
         )}
-        {combatant.hasTalent(TALENTS.ARCANE_ORB_TALENT) && (
-          <Requirement
-            name="Missed Arcane Orbs"
-            tooltip="Arcane Orb is a skillshot which means that it is important for you to aim it properly in order to get the most out of it. Therefore, on single target you should always ensure that the enemy gets hit by it, and if there are multiple enemies then you should do what you can to ensure all or most of them will get hit by the Orb as well."
-            thresholds={thresholds.arcaneOrbMissedOrbs}
-          />
-        )}
+        <Requirement
+          name="Missed Arcane Orbs"
+          tooltip="Arcane Orb is a skillshot which means that it is important for you to aim it properly in order to get the most out of it. Therefore, on single target you should always ensure that the enemy gets hit by it, and if there are multiple enemies then you should do what you can to ensure all or most of them will get hit by the Orb as well."
+          thresholds={thresholds.arcaneOrbMissedOrbs}
+        />
       </Rule>
       <Rule
         name={<>Manage your mana</>}

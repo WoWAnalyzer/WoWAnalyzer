@@ -24,9 +24,9 @@ class ChiBurst extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.CHI_BURST_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.CHI_BURST_SHARED_TALENT);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.CHI_BURST_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.CHI_BURST_SHARED_TALENT),
       this.onCast,
     );
     this.addEventListener(
@@ -62,11 +62,11 @@ class ChiBurst extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink spell={TALENTS_MONK.CHI_BURST_TALENT} />
+          <SpellLink spell={TALENTS_MONK.CHI_BURST_SHARED_TALENT} />
         </b>{' '}
         is a filler spell that does consistent healing for 1 GCD and 0 mana, making it a very good
         button to press all around. <br />
-        <SpellLink spell={TALENTS_MONK.CHI_BURST_TALENT} /> should ideally replace a cast of{' '}
+        <SpellLink spell={TALENTS_MONK.CHI_BURST_SHARED_TALENT} /> should ideally replace a cast of{' '}
         <SpellLink spell={SPELLS.TIGER_PALM} /> in your rotation.
       </p>
     );
@@ -75,7 +75,7 @@ class ChiBurst extends Analyzer {
       <div>
         <RoundedPanel>
           <strong>
-            <SpellLink spell={TALENTS_MONK.CHI_BURST_TALENT} /> cast efficiency
+            <SpellLink spell={TALENTS_MONK.CHI_BURST_SHARED_TALENT} /> cast efficiency
           </strong>
           {this.subStatistic()}
         </RoundedPanel>
@@ -88,7 +88,7 @@ class ChiBurst extends Analyzer {
   subStatistic() {
     return (
       <CastEfficiencyBar
-        spellId={TALENTS_MONK.CHI_BURST_TALENT.id}
+        spellId={TALENTS_MONK.CHI_BURST_SHARED_TALENT.id}
         gapHighlightMode={GapHighlight.FullCooldown}
         minimizeIcons
         useThresholds

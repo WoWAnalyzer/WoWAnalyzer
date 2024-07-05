@@ -46,14 +46,6 @@ const talents = {
     entryIds: [102493],
     definitionIds: [{ id: 107498, specId: 70 }],
   },
-  AURAS_OF_SWIFT_VENGEANCE_TALENT: {
-    id: 385639,
-    name: 'Auras of Swift Vengeance',
-    icon: 'spell_holy_crusade',
-    maxRanks: 1,
-    entryIds: [102588],
-    definitionIds: [{ id: 107593, specId: 70 }],
-  },
   AURAS_OF_THE_RESOLUTE_TALENT: {
     id: 385633,
     name: 'Auras of the Resolute',
@@ -227,14 +219,6 @@ const talents = {
     maxRanks: 2,
     entryIds: [102515],
     definitionIds: [{ id: 107520, specId: 70 }],
-  },
-  BLESSED_FOCUS_TALENT: {
-    id: 414708,
-    name: 'Blessed Focus',
-    icon: 'spell_paladin_inquisition',
-    maxRanks: 1,
-    entryIds: [115879],
-    definitionIds: [{ id: 120891, specId: 65 }],
   },
   BLESSED_HAMMER_TALENT: {
     id: 204019,
@@ -454,6 +438,14 @@ const talents = {
     entryIds: [102460],
     definitionIds: [{ id: 107465, specId: 66 }],
   },
+  CRUSADER_AURA_TALENT: {
+    id: 32223,
+    name: 'Crusader Aura',
+    icon: 'spell_holy_crusaderaura',
+    maxRanks: 1,
+    entryIds: [102588],
+    definitionIds: [{ id: 107593, specId: 70 }],
+  },
   CRUSADE_TALENT: {
     id: 384392,
     name: 'Crusade',
@@ -478,14 +470,6 @@ const talents = {
     entryIds: [117696],
     definitionIds: [{ id: 122708, specId: 70 }],
   },
-  DAYBREAK_TALENT: {
-    id: 414170,
-    name: 'Daybreak',
-    icon: 'spell_holy_aspiration',
-    maxRanks: 1,
-    entryIds: [102563],
-    definitionIds: [{ id: 107568, specId: 65 }],
-  },
   DIVINE_ARBITER_TALENT: {
     id: 404306,
     name: 'Divine Arbiter',
@@ -503,7 +487,7 @@ const talents = {
     definitionIds: [{ id: 107517, specId: 70 }],
   },
   DIVINE_FAVOR_TALENT: {
-    id: 210294,
+    id: 460422,
     name: 'Divine Favor',
     icon: 'spell_holy_heal',
     maxRanks: 1,
@@ -700,6 +684,14 @@ const talents = {
     entryIds: [114830],
     definitionIds: [{ id: 119837, specId: 70 }],
   },
+  EXTRICATION_TALENT: {
+    id: 461278,
+    name: 'Extrication',
+    icon: 'ability_paladin_righteousvengeance',
+    maxRanks: 1,
+    entryIds: [102550],
+    definitionIds: [{ id: 107555, specId: 65 }],
+  },
   EYE_OF_TYR_TALENT: {
     id: 387174,
     name: 'Eye of Tyr',
@@ -821,16 +813,8 @@ const talents = {
     entryIds: [117778],
     definitionIds: [{ id: 122790, specId: 70 }],
   },
-  GLIMMER_OF_LIGHT_TALENT: {
-    id: 287269,
-    name: 'Glimmer of Light',
-    icon: 'ability_paladin_toweroflight',
-    maxRanks: 1,
-    entryIds: [102550],
-    definitionIds: [{ id: 107555, specId: 65 }],
-  },
   GLISTENING_RADIANCE_TALENT: {
-    id: 414139,
+    id: 461245,
     name: 'Glistening Radiance',
     icon: 'spell_paladin_divinecircle',
     maxRanks: 1,
@@ -838,7 +822,7 @@ const talents = {
     definitionIds: [{ id: 107564, specId: 65 }],
   },
   GLORIOUS_DAWN_TALENT: {
-    id: 414065,
+    id: 461246,
     name: 'Glorious Dawn',
     icon: 'ability_paladin_holyavenger',
     maxRanks: 1,
@@ -1031,14 +1015,6 @@ const talents = {
     definitionIds: [{ id: 107539, specId: 65 }],
     manaCost: 70000,
   },
-  ILLUMINATION_TALENT: {
-    id: 414378,
-    name: 'Illumination',
-    icon: 'ability_priest_cascade',
-    maxRanks: 1,
-    entryIds: [102542],
-    definitionIds: [{ id: 107547, specId: 65 }],
-  },
   ILLUMINE_TALENT: {
     id: 431423,
     name: 'Illumine',
@@ -1216,6 +1192,14 @@ const talents = {
     entryIds: [102583],
     definitionIds: [{ id: 107588, specId: 70 }],
   },
+  LIBERATION_TALENT: {
+    id: 461287,
+    name: 'Liberation',
+    icon: 'ability_paladin_toweroflight',
+    maxRanks: 1,
+    entryIds: [126571],
+    definitionIds: [{ id: 131398, specId: 65 }],
+  },
   LIGHTFORGED_BLESSING_RETRIBUTION_TALENT: {
     id: 403479,
     name: 'Lightforged Blessing',
@@ -1265,7 +1249,7 @@ const talents = {
     definitionIds: [{ id: 122825, specId: 70 }],
   },
   LIGHTS_PROTECTION_TALENT: {
-    id: 416799,
+    id: 461243,
     name: "Light's Protection",
     icon: 'spell_holy_absolution',
     maxRanks: 1,
@@ -1386,7 +1370,7 @@ const talents = {
     definitionIds: [{ id: 107620, specId: 70 }],
   },
   OVERFLOWING_LIGHT_TALENT: {
-    id: 414127,
+    id: 461244,
     name: 'Overflowing Light',
     icon: 'spell_holy_holyguidance',
     maxRanks: 1,
@@ -1538,7 +1522,7 @@ const talents = {
     definitionIds: [{ id: 107445, specId: 66 }],
   },
   RISING_SUNLIGHT_TALENT: {
-    id: 414203,
+    id: 461250,
     name: 'Rising Sunlight',
     icon: 'spell_priest_divinestar_holy',
     maxRanks: 1,
@@ -1894,6 +1878,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [102571],
     definitionIds: [{ id: 107576, specId: 65 }],
+  },
+  TRUTH_PREVAILS_TALENT: {
+    id: 461273,
+    name: 'Truth Prevails',
+    icon: 'spell_holy_spiritualguidence',
+    maxRanks: 1,
+    entryIds: [102563],
+    definitionIds: [{ id: 107568, specId: 65 }],
   },
   TURN_EVIL_TALENT: {
     id: 10326,
