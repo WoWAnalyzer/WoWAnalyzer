@@ -190,9 +190,10 @@ class StatTracker extends Analyzer {
     [STAT.SPEED]: 50,
   };
 
+  // Values taken from https://github.com/wowsims/cata/blob/master/sim/core/base_stats_auto_gen.go
   classicStatRatingPerPercent = {
-    [STAT.HASTE]: 128.125,
-    [STAT.CRITICAL_STRIKE]: 179.34,
+    [STAT.HASTE]: 128.05716,
+    [STAT.CRITICAL_STRIKE]: 179.28004,
   };
 
   /** Secondary stat scaling thresholds
