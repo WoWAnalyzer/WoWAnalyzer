@@ -18,4 +18,5 @@ export { default as DefensiveCastLinkNormalizer } from './modules/normalizers/De
 export { default as TwinGuardian } from './modules/MajorDefensives/TwinGuardian';
 export { default as RenewingBlaze } from './modules/MajorDefensives/RenewingBlaze';
 export { default as Engulf } from './modules/talents/hero/flameshaper/Engulf';
+export { default as Panacea } from './modules/talents/Panacea';
 export * from './constants';

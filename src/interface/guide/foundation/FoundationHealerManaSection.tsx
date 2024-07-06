@@ -26,22 +26,22 @@ export default function FoundationHealerManaSection(): JSX.Element | null {
   return (
     <SubSection title="Spend Your Mana">
       <Explanation>
-        <p>
+        <div>
           As a <strong>Healer</strong>, <ResourceLink id={RESOURCE_TYPES.MANA.id} /> is your most
           important resource. You have two goals:
           <ol>
             <li>Spend all of your mana by the end of the fight.</li>
             <li>Don't run out of mana before the end of the fight.</li>
           </ol>
-        </p>
-        <p>
+        </div>
+        <div>
           As a general guideline,{' '}
           <HL>
             the percent of mana you have left should match the percent of the fight you have left.
           </HL>{' '}
           You should have 50% remaining mana half-way through the fight, and 25% remaining mana with
           25% left.
-        </p>
+        </div>
         <AlertInfo className="alert-subtle">
           Remember that this is just a guideline! Many boss fights have raid damage that requires
           spending more mana early in a fight.
@@ -49,7 +49,7 @@ export default function FoundationHealerManaSection(): JSX.Element | null {
       </Explanation>
       <SubSection title="Check Your Mana Level">
         <Explanation>
-          <p>
+          <div>
             This chart shows your mana level over time, along with boss HP. There are a couple of
             common problems to look for:
             <ul>
@@ -62,7 +62,7 @@ export default function FoundationHealerManaSection(): JSX.Element | null {
                 less-efficient spells to <strong>spend mana more quickly</strong>.
               </li>
             </ul>
-          </p>
+          </div>
         </Explanation>
         <ManaLevelChartComponent
           reportCode={report.code}

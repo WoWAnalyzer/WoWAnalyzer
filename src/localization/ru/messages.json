@@ -544,7 +544,7 @@
   "interface.report.results.overview.suggestions.noMajorIssues": "Серьезных ошибок в данном бою не обнаружено. Хорошая работа!",
   "interface.report.results.overview.suggestions.suggestions": "Предложения",
   "interface.report.results.providedBy": "Предоставлен",
-  "interface.report.results.providedByDetails": "Анализ {0} {1} предоставлен {contributorinfo}. Поделитесь Вашим мнением, они это ценят. <0>Информация об анализе этой специализации.</0>",
+  "interface.report.results.providedByDetails": "Анализ {specTitle} предоставлен {contributorinfo}. Поделитесь Вашим мнением, они это ценят. <0>Информация об анализе этой специализации.</0>",
   "interface.report.results.statistics.adjustStatistics": "Настроить статистику для <0>вынужденного простоя</0> (<1>экспериментально</1>)",
   "interface.report.results.statistics.covenants": "Ковенанты",
   "interface.report.results.statistics.fightDowntime": "Вынужденный простой – это любое время без активности игрока, вызванное механикой босса или смертью игрока. Время, когда игрок не совершал никаких действий, хотя имел такую возможность, не учитывается. ",

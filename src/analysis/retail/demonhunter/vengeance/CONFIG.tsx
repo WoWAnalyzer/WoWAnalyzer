@@ -4,9 +4,9 @@ import GameBranch from 'game/GameBranch';
 import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
 import { CSSProperties } from 'react';
-import Config from 'parser/Config';
 
 import CHANGELOG from './CHANGELOG';
+import Config, { SupportLevel } from 'parser/Config';
 
 const textAlignStyle: CSSProperties = {
   textAlign: 'center',
@@ -18,7 +18,7 @@ const config: Config = {
   branch: GameBranch.Retail,
   // The WoW client patch this spec was last updated.
   patchCompatibility: '10.2.7',
-  isPartial: false,
+  supportLevel: SupportLevel.MaintainedFull,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
@@ -69,10 +69,6 @@ const config: Config = {
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport: '/report/akZLCTYbN2XpQFmg/63-Mythic+Smolderon+-+Kill+(5:44)/Toppledh/standard',
-  // Default to using the Guide
-  guideDefault: true,
-  // Only use the Guide
-  guideOnly: true,
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

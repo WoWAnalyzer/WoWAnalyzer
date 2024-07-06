@@ -15,6 +15,7 @@ import { SpellLink } from 'interface';
 
 // prettier-ignore
 export default [
+  change(date(2024, 6, 29), <>Added Tier 32 module</>, Ypp),
   change(date(2023, 12, 2), <>Update suggestions for T31 set bonuses</>, Ypp),
   change(date(2023, 11, 28), <>Fix Resurgence mana returns</>, Ypp),
   change(date(2023, 11, 16), <>Reactivate Restoration, implement T31 Tier Set for Restoration</>, Ypp),

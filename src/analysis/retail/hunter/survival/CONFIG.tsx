@@ -1,7 +1,7 @@
 import { Arlie, Putro } from 'CONTRIBUTORS';
 import GameBranch from 'game/GameBranch';
 import SPECS from 'game/SPECS';
-import Config from 'parser/Config';
+import Config, { SupportLevel } from 'parser/Config';
 // import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
@@ -10,7 +10,7 @@ const config: Config = {
   branch: GameBranch.Retail,
   // The WoW client patch this spec was last updated.
   patchCompatibility: null,
-  isPartial: false,
+  supportLevel: SupportLevel.Unmaintained,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (

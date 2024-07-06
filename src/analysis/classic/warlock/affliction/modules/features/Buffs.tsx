@@ -7,10 +7,6 @@ class Buffs extends CoreAuras {
   auras() {
     return [
       {
-        spellId: SPELLS.LIFE_TAP_GLYPH.id,
-        timelineHighlight: true,
-      },
-      {
         spellId: SPELLS.ERADICATION_BUFF_6.id,
         timelineHighlight: true,
       },

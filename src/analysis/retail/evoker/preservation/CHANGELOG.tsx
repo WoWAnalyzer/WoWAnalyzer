@@ -1,8 +1,9 @@
 import { change, date } from 'common/changelog';
-import { Trevor, Harrek} from 'CONTRIBUTORS';
+import { Trevor, Harrek } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 
+// prettier-ignore
 export default [
   change(date(2024, 6, 22), <>Add <SpellLink spell={TALENTS_EVOKER.RED_HOT_TALENT} /> module</>, Trevor),
   change(date(2024, 6, 20), <>Integrate <SpellLink spell={TALENTS_EVOKER.CONSUME_FLAME_TALENT}/> into <SpellLink spell={TALENTS_EVOKER.EXPANDED_LUNGS_TALENT}/> module</>, Trevor),

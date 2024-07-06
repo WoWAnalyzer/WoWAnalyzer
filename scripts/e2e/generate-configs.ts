@@ -90,9 +90,12 @@ export const generateConfigs = async () => {
               cfg[property.key.name] = property.value.property.name;
             }
             break;
-          case 'isPartial':
-            if (property.value.type === 'BooleanLiteral') {
-              cfg[property.key.name] = property.value.value;
+          case 'supportLevel':
+            if (
+              property.value.type === 'MemberExpression' &&
+              property.value.property.type === 'Identifier'
+            ) {
+              cfg.isPartial = property.value.property.name === 'Unmaintained';
             }
             break;
           case 'parser':

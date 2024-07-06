@@ -651,6 +651,11 @@ const spells = {
     name: 'Healing Rain',
     icon: 'spell_nature_giftofthewaterspirit',
   },
+  HEALING_STREAM_TOTEM: {
+    id: 5394,
+    name: 'Healing Stream Totem',
+    icon: 'inv_spear_04',
+  },
   HEALING_STREAM_TOTEM_HEAL: {
     id: 52042,
     name: 'Healing Stream Totem',

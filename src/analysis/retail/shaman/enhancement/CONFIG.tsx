@@ -2,7 +2,7 @@ import { Seriousnes } from 'CONTRIBUTORS';
 import GameBranch from 'game/GameBranch';
 import SPECS from 'game/SPECS';
 import { AlertWarning } from 'interface';
-import Config from 'parser/Config';
+import Config, { SupportLevel } from 'parser/Config';
 
 import CHANGELOG from './CHANGELOG';
 
@@ -10,7 +10,7 @@ const config: Config = {
   contributors: [Seriousnes],
   branch: GameBranch.Retail,
   patchCompatibility: '10.2.7',
-  isPartial: false,
+  supportLevel: SupportLevel.MaintainedFull,
   description: (
     <>
       <AlertWarning>
@@ -26,12 +26,10 @@ const config: Config = {
   exampleReport: '/report/DCyQGgBxP3R8MaN9/28-Heroic+Smolderon+-+Kill+(3:46)/Seriousnes/standard',
   spec: SPECS.ENHANCEMENT_SHAMAN,
   changelog: CHANGELOG,
-  guideDefault: true,
   // parser: () =>
   //   import('./CombatLogParser' /* webpackChunkName: "EnhancementShaman" */).then(
   //     (exports) => exports.default,
   //   ),
-
   path: import.meta.url,
 };
 

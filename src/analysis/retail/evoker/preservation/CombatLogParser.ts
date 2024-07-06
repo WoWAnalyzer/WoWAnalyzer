@@ -62,6 +62,7 @@ import {
   SourceOfMagic,
   PotentMana,
   Engulf,
+  Panacea,
 } from '../shared';
 import T32Prevoker from './modules/tier/T32TierSet';
 import ExpandedLungs from '../shared/modules/talents/hero/flameshaper/ExpandedLungs';
@@ -103,6 +104,7 @@ class CombatLogParser extends CoreCombatLogParser {
     leapingFlames: LeapingFlames,
     sourceOfMagic: SourceOfMagic,
     potentMana: PotentMana,
+    panacea: Panacea,
 
     // Empower Normalizer
     empowerNormalizer: EmpowerNormalizer,

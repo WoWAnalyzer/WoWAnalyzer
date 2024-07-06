@@ -13,8 +13,13 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: SPELLS.CURSE_OF_AGONY.id,
+        spell: SPELLS.BANE_OF_AGONY.id,
         category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: SPELLS.BANE_OF_DOOM.id,
+        category: SPELL_CATEGORY.OTHERS,
         gcd: { base: 1500 },
       },
       {
@@ -95,11 +100,6 @@ class Abilities extends CoreAbilities {
       },
       // Other spells (not apart of the normal Affliction lock rotation)
       {
-        spell: SPELLS.CURSE_OF_DOOM.id,
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: { base: 1500 },
-      },
-      {
         spell: SPELLS.IMMOLATE.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: { base: 1500 },
@@ -165,24 +165,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
-      {
-        spell: [SPELLS.DRAIN_MANA.id],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { base: 1500 },
-      },
-      {
-        spell: [SPELLS.CHALLENGING_HOWL.id],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { base: 1500 },
-        enabled: combatant.talentPoints[1] >= 50,
-      },
       // Pet Related
-      {
-        spell: [SPELLS.FEL_DOMINATION.id],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: null,
-        enabled: combatant.talentPoints[1] >= 10,
-      },
       {
         spell: SPELLS.HEALTH_FUNNEL.id,
         category: SPELL_CATEGORY.UTILITY,
