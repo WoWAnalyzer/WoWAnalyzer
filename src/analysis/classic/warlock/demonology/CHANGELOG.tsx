@@ -3,6 +3,7 @@ import { jazminite } from 'CONTRIBUTORS';
 import { Melnais } from 'CONTRIBUTORS';
 
 export default [
+  change(date(2024, 7, 6), 'Add Always Be Casting module.', jazminite),
   change(date(2024, 7, 3), 'Add foundation guide for Cata Classic Warlock Demonology spec.', jazminite),
   change(date(2023, 8, 4), 'Add Decimation to timeline', Melnais),
   change(date(2023, 7, 6), 'Add Guide Procs subsection + set guide to default view.', jazminite),
