@@ -14,10 +14,10 @@ class GlobalCooldown extends CoreGlobalCooldown {
   getGlobalCooldownDuration(spellId: number) {
     const gcd = super.getGlobalCooldownDuration(spellId);
     if (gcd && this.selectedCombatant.hasBuff(SPELLS.UNHOLY_PRESENCE.id)) {
-      return Math.max(gcd - UNHOLY_PRESENCE_GCD_REDUCTION, 750);
+      return Math.max(gcd - UNHOLY_PRESENCE_GCD_REDUCTION, this.minDuration);
     }
     if (gcd && this.selectedCombatant.hasBuff(SPELLS.ICY_TALONS_BUFF.id)) {
-      return Math.max(gcd * (1 - ICY_TALONS_GCD_REDUCTION), 750);
+      return Math.max(gcd * (1 - ICY_TALONS_GCD_REDUCTION), this.minDuration);
     }
     return gcd;
   }
