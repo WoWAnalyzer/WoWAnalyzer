@@ -51,7 +51,6 @@ class TestCombatLogParser extends CombatLogParser {
       selectedFight,
       combatantInfoEvents,
       DEFAULT_CHARACTER_PROFILE,
-      undefined,
     );
   }
 

@@ -40,20 +40,20 @@ export function FoundationCooldownSection({
   return (
     <SubSection title="Use Your Cooldowns">
       <Explanation>
-        <p>
+        <div>
           Perfect cooldown usage is a combination of in-depth fight knowledge and player skill.
           However, 90% of the time you can get 90% of those results by{' '}
           <strong>making sure to use every cooldown available to you.</strong>
-        </p>
-        <p>
+        </div>
+        <div>
           The key idea is to <HL>use your cooldowns as many times as you can.</HL> For example, you
           can use a 2-minute cooldown <em>at most</em> 3 times in a 2m 30s boss fight. As long as
           you hit all 3 uses, it is okay to delay it for a better time.
-        </p>
+        </div>
       </Explanation>
-      <p>
+      <div>
         <CooldownGraphSubsection cooldowns={cooldowns} />
-      </p>
+      </div>
       <AlertInfo>
         Getting the most out of your cooldowns requires up-to-date knowledge of your spec and the
         boss fights. We highly recommend finding a community for your class like the{' '}

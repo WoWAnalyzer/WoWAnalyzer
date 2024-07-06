@@ -11,6 +11,7 @@ import { useWaSelector } from 'interface/utils/useWaSelector';
 
 import { useConfig } from './ConfigContext';
 import { ignoreSpecNotSupportedWarning } from 'interface/reducers/specsIgnoredNotSupportedWarning';
+import { SupportLevel } from 'parser/Config';
 
 interface Props {
   children: ReactElement<any, any> | null;
@@ -43,7 +44,7 @@ const SupportChecker = ({ children }: Props) => {
           config={config}
           onContinueAnyway={handleClickContinue}
         />
-      ) : !isIgnored && config.isPartial ? (
+      ) : !isIgnored && config.supportLevel === SupportLevel.Unmaintained ? (
         <SupportCheckerSpecPartialSupport
           report={report}
           fight={fight}

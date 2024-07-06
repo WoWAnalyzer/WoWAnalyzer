@@ -6,7 +6,6 @@ import { getCharacterById } from 'interface/selectors/characters';
 import SpecIcon from 'interface/SpecIcon';
 import Config from 'parser/Config';
 import Player from 'parser/core/Player';
-import getBuild from 'parser/getBuild';
 import { ReactNode, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { isSupportedRegion } from 'common/regions';
@@ -94,7 +93,7 @@ const PlayerTileContents = ({ avatar, player, spec }: PlayerTileContentsProps) =
 
 interface PlayerTileProps {
   player: Player;
-  makeUrl: (playerId: number, build?: string) => string;
+  makeUrl: (playerId: number) => string;
   config?: Config;
 }
 
@@ -139,10 +138,8 @@ const PlayerTile = ({ player, makeUrl, config }: PlayerTileProps) => {
     config = getConfig(GameBranch.Classic, 1, player, player.combatant);
   }
   const spec = config?.spec;
-  const build = getBuild(config, player.combatant);
-  const missingBuild = config?.builds && !build;
 
-  if (!config || missingBuild) {
+  if (!config) {
     return (
       <BasicBlockLoading
         avatar={avatar}
@@ -169,7 +166,7 @@ const PlayerTile = ({ player, makeUrl, config }: PlayerTileProps) => {
   }
 
   return (
-    <Link to={makeUrl(player.id, build?.url)} className={`player ${getClassName(spec.role)}`}>
+    <Link to={makeUrl(player.id)} className={`player ${getClassName(spec.role)}`}>
       <PlayerTileContents avatar={avatar} player={player} spec={spec} />
     </Link>
   );
