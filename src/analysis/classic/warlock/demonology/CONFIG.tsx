@@ -2,7 +2,6 @@ import { jazminite } from 'CONTRIBUTORS';
 import GameBranch from 'game/GameBranch';
 import SPECS from 'game/SPECS';
 import type Config from 'parser/Config';
-
 import CHANGELOG from './CHANGELOG';
 import { SupportLevel } from 'parser/Config';
 import AlertInfo from 'interface/AlertInfo';
@@ -12,24 +11,20 @@ const CONFIG: Config = {
   contributors: [jazminite],
   branch: GameBranch.Classic,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: null,
+  patchCompatibility: '4.4.0',
   supportLevel: SupportLevel.MaintainedPartial,
+  // Update to false when the spec is mostly complete (and safe to use)
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
-      Welcome! Thank you for using WoWAnalyzer to improve your overall Demonology Warlock game play.
-      The tool is under active development and may provide suggestions that are strange.
+      Welcome! Thanks for checking out WoWAnalyzer. This guide is seeking a maintainer.
       <br />
-      If you have any suggestions or comments, please submit a{' '}
-      <a
-        href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        GitHub issue
-      </a>{' '}
-      . Thanks and we hope you enjoy the tool!
+      <br />
+      Classic Cataclysm support is still a Work in Progress.
+      <br />
+      See the public GitHub repo or join our community Discord for information about contributing.
+      Thanks!
     </>
   ),
   pages: {
@@ -39,19 +34,20 @@ const CONFIG: Config = {
     },
   },
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: "/report/BMT7atLzGvV9R8FJ/11-Heroic+Twin+Val'kyr+-+Kill+(2:51)/Jazminites",
+  exampleReport: '/report/8MkqJXZaB13pwLFT/5-Heroic+Magmaw+-+Kill+(3:54)/Voluptuouss',
 
-  // Don't change anything below this line;
+  // USE CAUTION when changing anything below this line.
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
   spec: SPECS.CLASSIC_WARLOCK_DEMONOLOGY,
   // The contents of your changelog.
   changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
   parser: () =>
-    import('./CombatLogParser' /* webpackChunkName: "ClassicDemonologyWarlock" */).then(
+    import('./CombatLogParser' /* webpackChunkName: "ClassicDemoWarlock" */).then(
       (exports) => exports.default,
     ),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: import.meta.url,
 };
+
 export default CONFIG;
