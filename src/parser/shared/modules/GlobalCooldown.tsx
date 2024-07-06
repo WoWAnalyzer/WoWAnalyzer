@@ -14,8 +14,11 @@ import EventEmitter from 'parser/core/modules/EventEmitter';
 import Haste from 'parser/shared/modules/Haste';
 
 import Abilities from '../../core/modules/Abilities';
+import { wclGameVersionToBranch } from 'game/VERSIONS';
+import GameBranch from 'game/GameBranch';
 const INVALID_GCD_CONFIG_LAG_MARGIN = 150; // not sure what this is based around, but <150 seems to catch most false positives
 const MIN_GCD = 750; // Minimum GCD for most abilities is 750ms.
+const MIN_GCD_CLASSIC = 1000; // Minimum regular GCD was 1s until Legion
 
 /**
  * This triggers a fabricated `globalcooldown` event when appropriate.
@@ -34,11 +37,19 @@ class GlobalCooldown extends Analyzer {
   protected abilities!: Abilities;
   protected haste!: Haste;
 
+  protected readonly minDuration;
+
   constructor(options: Options) {
     super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
     this.addEventListener(Events.BeginChannel.by(SELECTED_PLAYER), this.onBeginChannel);
     this.addEventListener(Events.GlobalCooldown.to(SELECTED_PLAYER), this.onGlobalcooldown);
+
+    if (wclGameVersionToBranch(options.owner.report.gameVersion) === GameBranch.Classic) {
+      this.minDuration = MIN_GCD_CLASSIC;
+    } else {
+      this.minDuration = MIN_GCD;
+    }
   }
 
   _errors = 0;
@@ -161,7 +172,7 @@ class GlobalCooldown extends Analyzer {
     }
     if (gcd.base) {
       const baseGCD = this._resolveAbilityGcdField(gcd.base);
-      const minimumGCD = this._resolveAbilityGcdField(gcd.minimum) || MIN_GCD;
+      const minimumGCD = this._resolveAbilityGcdField(gcd.minimum) || this.minDuration;
       return GlobalCooldown.calculateGlobalCooldown(this.haste.current, baseGCD, minimumGCD);
     }
     throw new Error(

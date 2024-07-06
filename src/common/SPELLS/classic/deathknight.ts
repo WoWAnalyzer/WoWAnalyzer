@@ -333,15 +333,19 @@ const spells = {
     icon: 'ability_ghoulfrenzy',
   },
   SCOURGE_STRIKE: {
-    id: 55271,
+    id: 55090,
     name: 'Scourge Strike',
     icon: 'spell_deathknight_scourgestrike',
-    lowRanks: [55270, 55265, 55090],
   },
   SUMMON_GARGOYLE: {
     id: 49206,
     name: 'Summon Gargoyle',
     icon: 'ability_hunter_pet_bat',
+  },
+  FESTERING_STRIKE: {
+    id: 85948,
+    name: 'Festering Strike',
+    icon: 'spell_deathknight_festering_strike.jpg',
   },
 } satisfies Record<string, Spell>;
 
