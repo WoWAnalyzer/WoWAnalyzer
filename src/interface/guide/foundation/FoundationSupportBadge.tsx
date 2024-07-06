@@ -1,5 +1,8 @@
 import styled from '@emotion/styled';
 import { OkMark } from '../index';
+import { TooltipElement } from 'interface/Tooltip';
+import { Trans, defineMessage } from '@lingui/macro';
+import { i18n } from '@lingui/core';
 
 const BadgeContainer = styled.span`
   white-space: nowrap;
@@ -17,10 +20,27 @@ const BadgeContainer = styled.span`
   }
 `;
 
-export default function FoundationSupportBadge(): JSX.Element {
-  return (
+export default function FoundationSupportBadge({
+  withTooltip,
+}: {
+  withTooltip?: boolean;
+}): JSX.Element {
+  const badge = (
     <BadgeContainer>
-      <OkMark /> Foundational Support
+      <OkMark />{' '}
+      <Trans id="interface.guide.foundation.foundational-support">Foundational Support</Trans>
     </BadgeContainer>
   );
+
+  if (withTooltip) {
+    return <TooltipElement content={i18n._(FOUNDATIONAL_SUPPORT_DESC)}>{badge}</TooltipElement>;
+  } else {
+    return badge;
+  }
 }
+
+const FOUNDATIONAL_SUPPORT_DESC = defineMessage({
+  id: 'interface.guide.foundation.foundational-support-desc',
+  message:
+    'Foundational support covers analysis of uptime, cancelled casts, cooldowns, and other core aspects of gameplay common across all specs.',
+});

@@ -339,8 +339,9 @@ const SupportProvidedBy = ({
   if (supportLevel === SupportLevel.Foundation) {
     description = (
       <Trans id="interface.report.results.providedByFoundation">
-        {specTitle} analysis has <FoundationSupportBadge /> courtesy of {contributorinfo} but does
-        not have a dedicated maintainer. If you're interested in helping improve it, let us know!
+        {specTitle} analysis has <FoundationSupportBadge withTooltip /> courtesy of{' '}
+        {contributorinfo} but does not have a dedicated maintainer. If you're interested in helping
+        improve it, let us know!
       </Trans>
     );
   } else if (supportLevel === SupportLevel.Unmaintained) {
