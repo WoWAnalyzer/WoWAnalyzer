@@ -4,7 +4,7 @@ import { Abelito75 } from 'CONTRIBUTORS';
 import GameBranch from 'game/GameBranch';
 import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
-import Config from 'parser/Config';
+import Config, { SupportLevel } from 'parser/Config';
 
 import CHANGELOG from './CHANGELOG';
 
@@ -12,7 +12,7 @@ const config: Config = {
   contributors: [Abelito75],
   branch: GameBranch.Retail,
   patchCompatibility: '10.1.7',
-  isPartial: false,
+  supportLevel: SupportLevel.MaintainedFull,
   description: (
     <>
       Hey! I hope the suggestions will help you improve your performance. Remember: focus on

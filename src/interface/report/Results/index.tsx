@@ -12,7 +12,7 @@ import { Filter } from 'interface/report/hooks/useTimeEventFilter';
 import REPORT_HISTORY_TYPES from 'interface/REPORT_HISTORY_TYPES';
 import { getResultTab } from 'interface/selectors/url/report';
 import Tooltip from 'interface/Tooltip';
-import Config from 'parser/Config';
+import Config, { SupportLevel } from 'parser/Config';
 import CharacterProfile from 'parser/core/CharacterProfile';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import Fight from 'parser/core/Fight';
@@ -38,6 +38,7 @@ import ScrollToTop from './ScrollToTop';
 import ZONES from 'game/ZONES';
 import { useLingui } from '@lingui/react';
 import { appendReportHistory } from 'interface/reducers/reportHistory';
+import FoundationSupportBadge from 'interface/guide/foundation/FoundationSupportBadge';
 
 interface PassedProps {
   parser: CombatLogParser;
@@ -66,7 +67,6 @@ const Results = (props: PassedProps) => {
   const dispatch = useDispatch();
   const [adjustForDowntime, setAdjustForDowntime] = useState(false);
   const [results, setResults] = useState<ParseResults | null>(null);
-  const { i18n } = useLingui();
 
   const generateResults = useCallback(() => {
     if (props.parser == null) {
@@ -165,16 +165,6 @@ const Results = (props: PassedProps) => {
     window.scrollTo(0, 0);
   }, []);
 
-  const contributorinfo = (
-    <ReadableListing>
-      {props.config.contributors.length !== 0
-        ? props.config.contributors.map((contributor) => (
-            <Contributor key={contributor.nickname} {...contributor} />
-          ))
-        : 'CURRENTLY UNMAINTAINED'}
-    </ReadableListing>
-  );
-
   const reportDuration = props.report.end - props.report.start;
 
   return (
@@ -205,7 +195,6 @@ const Results = (props: PassedProps) => {
           handlePhaseSelection={props.handlePhaseSelection}
           handleDungeonPullSelection={props.handleDungeonPullSelection}
           applyFilter={props.applyFilter}
-          build={props.build}
           isLoading={isLoading}
         />
 
@@ -254,19 +243,7 @@ const Results = (props: PassedProps) => {
         <div className="container" style={{ marginTop: 40 }}>
           <div className="row">
             <div className="col-md-8">
-              <small>
-                <Trans id="interface.report.results.providedBy">Provided by</Trans>
-              </small>
-              <div style={{ fontSize: 16 }}>
-                <Trans id="interface.report.results.providedByDetails">
-                  {props.config.spec.specName ? i18n._(props.config.spec.specName) : null}{' '}
-                  {i18n._(props.config.spec.className)} analysis has been provided by{' '}
-                  {contributorinfo}. They love hearing what you think, so please let them know!{' '}
-                  <Link to={props.makeTabUrl('about')}>
-                    More information about this spec's analyzer.
-                  </Link>
-                </Trans>
-              </div>
+              <SupportProvidedBy config={props.config} aboutUrl={props.makeTabUrl('about')} />
             </div>
             <div className="col-md-3">
               <small>
@@ -330,6 +307,67 @@ const Results = (props: PassedProps) => {
         </div>
       </div>
     </ResultsContext.Provider>
+  );
+};
+
+const SupportProvidedBy = ({
+  config: { contributors, spec, supportLevel },
+  aboutUrl,
+}: {
+  config: Config;
+  aboutUrl: string;
+}) => {
+  const i18n = useLingui();
+
+  const specTitle = (
+    <>
+      {spec.specName ? i18n._(spec.specName) : null} {i18n._(spec.className)}
+    </>
+  );
+
+  const contributorinfo = (
+    <ReadableListing>
+      {contributors.length !== 0
+        ? contributors.map((contributor) => (
+            <Contributor key={contributor.nickname} {...contributor} />
+          ))
+        : 'CURRENTLY UNMAINTAINED'}
+    </ReadableListing>
+  );
+
+  let description = null;
+  if (supportLevel === SupportLevel.Foundation) {
+    description = (
+      <Trans id="interface.report.results.providedByFoundation">
+        {specTitle} analysis has <FoundationSupportBadge withTooltip /> courtesy of{' '}
+        {contributorinfo} but does not have a dedicated maintainer. If you're interested in helping
+        improve it, let us know!
+      </Trans>
+    );
+  } else if (supportLevel === SupportLevel.Unmaintained) {
+    description = (
+      <Trans id="interface.report.results.unmaintainedProvidedBy">
+        {specTitle} analysis is unmaintained. If you're interested in helping support {specTitle},
+        let us know!
+      </Trans>
+    );
+  } else {
+    description = (
+      <Trans id="interface.report.results.providedByDetails">
+        {specTitle} analysis has been provided by {contributorinfo}. They love hearing what you
+        think, so please let them know!{' '}
+        <Link to={aboutUrl}>More information about this spec's analyzer.</Link>
+      </Trans>
+    );
+  }
+
+  return (
+    <>
+      <small>
+        <Trans id="interface.report.results.providedBy">Provided by</Trans>
+      </small>
+      <div style={{ fontSize: 16 }}>{description}</div>
+    </>
   );
 };
 
