@@ -1,4 +1,5 @@
 import BaseCombatLogParser from 'parser/classic/CombatLogParser';
+import FoundationGuide from 'interface/guide/foundation/FoundationGuide';
 // Shared
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { GlobalCooldown } from 'analysis/classic/deathknight/shared';
@@ -10,7 +11,6 @@ import Buffs from './modules/features/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import PreparationRuleAnalyzer from 'parser/classic/modules/features/Checklist/PreparationRuleAnalyzer';
 // Spells
-import FoundationGuide from 'interface/guide/foundation/FoundationGuide';
 import ArmyOfTheDead from '../shared/ArmyOfTheDead';
 
 class CombatLogParser extends BaseCombatLogParser {

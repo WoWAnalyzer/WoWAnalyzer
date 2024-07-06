@@ -6,9 +6,8 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Buffs from './modules/features/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import FoundationGuide from 'interface/guide/foundation/FoundationGuide';
-import ArmyOfTheDead from '../shared/ArmyOfTheDead';
 // Spells
-// import SpellName from './modules/spells';
+import ArmyOfTheDead from '../shared/ArmyOfTheDead';
 
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
@@ -18,7 +17,6 @@ class CombatLogParser extends BaseCombatLogParser {
     buffs: Buffs,
     cooldownThroughputTracker: CooldownThroughputTracker,
     // Spells
-    // spellName: SpellName,
     ArmyOfTheDead,
   };
 
