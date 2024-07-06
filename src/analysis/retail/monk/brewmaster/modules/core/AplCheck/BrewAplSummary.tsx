@@ -63,7 +63,7 @@ function BoCTPSummary(): JSX.Element {
               <li>
                 Spend any <strong>two</strong> cooldowns like{' '}
                 <SpellLink spell={talents.RISING_SUN_KICK_TALENT} />,{' '}
-                <SpellLink spell={talents.RUSHING_JADE_WIND_TALENT} />,{' '}
+                <SpellLink spell={talents.RUSHING_JADE_WIND_BREWMASTER_TALENT} />,{' '}
                 <SpellLink spell={talents.WEAPONS_OF_ORDER_TALENT} /> or{' '}
                 <SpellLink spell={talents.SUMMON_WHITE_TIGER_STATUE_TALENT}>
                   White Tiger Statue

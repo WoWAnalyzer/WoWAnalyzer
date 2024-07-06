@@ -262,15 +262,6 @@ const reasonOrder = [
   PurifyReason.Unknown,
 ];
 
-function reasonEnabled(info: Info, reason: PurifyReason): boolean {
-  switch (reason) {
-    case PurifyReason.RefreshPurifiedChi:
-      return info.combatant.hasTalent(talents.IMPROVED_CELESTIAL_BREW_TALENT);
-    default:
-      return true;
-  }
-}
-
 function PurifyReasonBreakdown({
   purifies,
   castEfficiency,
@@ -286,7 +277,7 @@ function PurifyReasonBreakdown({
 }): JSX.Element {
   const threatTable = useThreatTable(info);
 
-  const possibleReasons = reasonOrder.filter(reasonEnabled.bind(null, info));
+  const possibleReasons = reasonOrder;
 
   return (
     <table className="hits-list purify-reasons">

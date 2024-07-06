@@ -48,7 +48,6 @@
     "src/analysis/retail/druid/restoration",
     "src/analysis/retail/druid/shared",
     "src/analysis/retail/mage/frost",
-    "src/analysis/retail/monk/brewmaster",
     "src/analysis/retail/monk/windwalker",
     "src/analysis/retail/paladin/holy",
     "src/analysis/retail/priest/shadow",
