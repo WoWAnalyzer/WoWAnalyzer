@@ -71,6 +71,7 @@ import Guide from './Guide';
 import Riptide from './modules/talents/Riptide';
 import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
 import ManaSpring from 'analysis/retail/shaman/shared/talents/ManaSpring';
+import Season4Tier from './modules/dragonflight/Season4Tier';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -156,6 +157,7 @@ class CombatLogParser extends CoreCombatLogParser {
     tier30Normalizer: Tier30Normalizer,
     callToDominance: CallToDominance,
     tier31: Tier31,
+    tier32: Season4Tier,
   };
   static guide = Guide;
 }

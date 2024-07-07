@@ -8,10 +8,6 @@ class Buffs extends CoreAuras {
   auras() {
     return [
       {
-        spellId: SPELLS.COMBUSTION_BUFF.id,
-        timelineHighlight: true,
-      },
-      {
         spellId: SPELLS.INNERVATE.id,
         timelineHighlight: true,
       },

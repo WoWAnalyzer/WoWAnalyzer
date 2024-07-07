@@ -2415,7 +2415,20 @@ export const ZiayaKens: Contributor = {
     {
       name: 'EonWorm',
       spec: SPECS.HOLY_PALADIN,
-      link: 'https://www.warcraftlogs.com/character/id/72594250',
+      link: 'https://www.warcraftlogs.com/character/id/72594250'
+    }
+  ]
+};
+
+export const Lspinheiro: Contributor = {
+  nickname: 'Lspinheiro',
+  github: 'lspinheiro',
+  discord: 'lspinheiro',
+  mains: [
+    {
+      name: 'Gromlash',
+      spec: SPECS.RESTORATION_SHAMAN,
+      link: 'https://worldofwarcraft.blizzard.com/en-us/character/us/khazgoroth/gromlash',
     },
   ],
 };

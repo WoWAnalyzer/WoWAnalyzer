@@ -10,10 +10,11 @@ import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Buffs from './modules/features/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import Checklist from './modules/checklist/Module';
 // Healer Features
 import HealingEfficiencyDetails from './modules/features/HealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/features/HealingEfficiencyTracker';
+import CancelledCasts from 'parser/shared/modules/CancelledCasts';
+import FoundationGuide from 'interface/guide/foundation/FoundationGuide';
 // Spells
 // import SpellName from './modules/spells';
 
@@ -27,15 +28,17 @@ class CombatLogParser extends BaseCombatLogParser {
     // Features
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
+    cancelledCasts: CancelledCasts,
     buffs: Buffs,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    checklist: Checklist,
     // Healer Features
     hpmTracker: HealingEfficiencyTracker,
     hpmDetails: HealingEfficiencyDetails,
     // Spells
     // spellName: SpellName,
   };
+
+  static guide = FoundationGuide;
 }
 
 export default CombatLogParser;

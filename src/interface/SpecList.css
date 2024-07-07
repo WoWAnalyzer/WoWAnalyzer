@@ -13,20 +13,28 @@
   flex-direction: row;
   color: currentColor;
 }
+
+.spec-card_unmaintained {
+  opacity: 75%;
+}
+
 a.spec-card:hover {
   color: currentColor;
   text-decoration: none;
   background: rgba(0, 0, 0, 0.4);
   border-radius: 5px;
 }
+
 .spec-card .icon {
   flex: 0 0 auto;
 }
+
 .spec-card .icon figure {
   position: relative;
   display: inline-block;
   margin: 10px;
 }
+
 .spec-card .icon figure:before {
   content: '';
   position: absolute;
@@ -38,14 +46,17 @@ a.spec-card:hover {
   background-size: contain;
   pointer-events: none;
 }
+
 .spec-card .icon figure img {
   border-radius: 50%;
   height: 5em;
 }
+
 .spec-card .description {
   padding: 0 15px;
   flex: 1 1 auto;
 }
+
 .spec-card .description h2 {
   margin-top: 5px;
   margin-bottom: 0;

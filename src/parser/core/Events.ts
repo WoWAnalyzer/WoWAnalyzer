@@ -788,6 +788,7 @@ export interface InterruptEvent extends Event<EventType.Interrupt> {
 
 export interface DeathEvent extends Event<EventType.Death> {
   killingAbility?: Ability;
+  targetInstance?: number;
   source: CastTarget;
   sourceIsFriendly: boolean;
   targetID: number;
@@ -1038,6 +1039,12 @@ export interface Item {
   effectID?: number;
   permanentEnchant?: number;
   temporaryEnchant?: number;
+  /**
+   * An enchant that provides an activatable ability.
+   *
+   * Only seen it used on Cata Engineering "enchants".
+   */
+  onUseEnchant?: number;
   gems?: Gem[];
   setID?: number;
 

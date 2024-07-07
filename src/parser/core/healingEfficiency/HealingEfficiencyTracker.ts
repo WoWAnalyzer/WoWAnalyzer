@@ -10,6 +10,7 @@ import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import { SpellbookAbility } from '../modules/Ability';
 import ManaTracker from './ManaTracker';
 import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
+import { wclGameVersionToExpansion } from 'game/VERSIONS';
 
 export interface SpellInfoDetails {
   spell: Spell;
@@ -53,7 +54,10 @@ class HealingEfficiencyTracker extends Analyzer {
 
   getSpellStats(spellId: number, healingSpellIds: number[] | null = null) {
     let spellInfo: SpellInfoDetails = {
-      spell: maybeGetTalentOrSpell(spellId)!,
+      spell: maybeGetTalentOrSpell(
+        spellId,
+        wclGameVersionToExpansion(this.owner.report.gameVersion),
+      )!,
       casts: 0,
       healingHits: 0,
       healingDone: 0,

@@ -64,7 +64,7 @@ const RETAIL_RAID_BUFFS = new Map<Spell | Talent, Array<Class | object>>([
 const CLASSIC_RAID_BUFFS = new Map<Spell, Array<Class | object>>([
   // BUFFS
   // Stamina
-  [CLASSIC_SPELLS.PRAYER_OF_FORTITUDE, [Class.Priest]],
+  [CLASSIC_SPELLS.POWER_WORD_FORTITUDE, [Class.Priest]],
   // Spirit
   [CLASSIC_SPELLS.PRAYER_OF_SPIRIT, [Class.Priest]],
   // Intellect
@@ -109,11 +109,6 @@ const CLASSIC_RAID_BUFFS = new Map<Spell, Array<Class | object>>([
   [CLASSIC_SPELLS.MANGLE_CAT, [SPECS.CLASSIC_DRUID_FERAL_COMBAT]],
   // Physical Damage
   [CLASSIC_SPELLS.SAVAGE_COMBAT, [SPECS.CLASSIC_ROGUE_COMBAT, SPECS.CLASSIC_WARRIOR_ARMS]],
-  // Spell Crit Chance %
-  [
-    CLASSIC_SPELLS.SHADOW_MASTERY_DEBUFF,
-    [SPECS.CLASSIC_WARLOCK_DEMONOLOGY, SPECS.CLASSIC_WARLOCK_DESTRUCTION],
-  ],
   // Spell Hit Chance %
   [CLASSIC_SPELLS.FAERIE_FIRE, [SPECS.CLASSIC_DRUID_BALANCE]],
   // Spell Damage

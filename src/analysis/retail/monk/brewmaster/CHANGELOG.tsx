@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 // prettier-ignore
 export default [
+  change(date(2024, 6, 28), <>Fix a bug with <SpellLink spell={SPELLS.SHUFFLE} /> detection on hits that kill you.</>, emallson),
   change(date(2024, 6, 6), <>Fix missing cooldown reduction from damage to targets debuffed by <SpellLink spell={talents.BONEDUST_BREW_TALENT} /></>, emallson),
   change(date(2024, 4, 15), <>Fix issue where <SpellLink spell={talents.CHARRED_PASSIONS_TALENT} /> was showing in the rotation when playing <SpellLink spell={talents.DRAGONFIRE_BREW_TALENT} /></>, emallson),
   change(date(2024, 2, 11), <>Add shield size to <SpellLink spell={talents.CELESTIAL_BREW_TALENT} /> mitigation breakdown.</>, emallson),

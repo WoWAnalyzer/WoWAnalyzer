@@ -1,17 +1,17 @@
 import BaseCombatLogParser from 'parser/classic/CombatLogParser';
+import FoundationGuide from 'interface/guide/foundation/FoundationGuide';
 // Shared
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import { lowRankSpells, GlobalCooldown } from 'analysis/classic/deathknight/shared';
+import { GlobalCooldown } from 'analysis/classic/deathknight/shared';
 import Haste from 'parser/shared/modules/Haste';
 // Features
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Buffs from './modules/features/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import Checklist from './modules/checklist/Module';
 import PreparationRuleAnalyzer from 'parser/classic/modules/features/Checklist/PreparationRuleAnalyzer';
 // Spells
-import lowRankSpellsSuggestion from 'parser/classic/suggestions/lowRankSpells';
+import ArmyOfTheDead from '../shared/ArmyOfTheDead';
 
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
@@ -24,11 +24,12 @@ class CombatLogParser extends BaseCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     buffs: Buffs,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    checklist: Checklist,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
     // Spells
-    lowRankSpells: lowRankSpellsSuggestion(lowRankSpells),
+    ArmyOfTheDead,
   };
+
+  static guide = FoundationGuide;
 }
 
 export default CombatLogParser;
