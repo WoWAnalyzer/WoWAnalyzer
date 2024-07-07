@@ -6,10 +6,12 @@ import Abilities from 'parser/core/modules/Abilities';
 import AurasModule from 'parser/core/modules/Auras';
 import PropTypes from 'prop-types';
 import { PureComponent } from 'react';
+import Toggle from 'react-toggle';
 
 import './Timeline.scss';
 import Auras from './Auras';
 import Casts, { isApplicableEvent } from './Casts';
+import EnemyCasts from './EnemyCasts';
 import Cooldowns from './Cooldowns';
 import TimeIndicators from './TimeIndicators';
 
@@ -32,9 +34,29 @@ export function isApplicableUpdateSpellUsableEvent(event, startTime) {
   return true;
 }
 
+const EnemySpellTypeToggle = (label, toggleCallBack, checked) => {
+  return (
+    <div className="npc-toggle-container">
+      <span className="text-left toggle-control npc-toggle-options">
+        <Toggle
+          defaultChecked={checked}
+          icons={false}
+          onChange={toggleCallBack}
+          id="absolute-toggle"
+        />
+        <label htmlFor="absolute-toggle" style={{ marginRight: 'auto' }}>
+          {label}
+        </label>
+      </span>
+    </div>
+  );
+};
+const ShowNPCSpellsToggle = EnemySpellTypeToggle;
+
 class Timeline extends PureComponent {
   static propTypes = {
     abilities: PropTypes.instanceOf(Abilities).isRequired,
+    enemyCasts: PropTypes.array,
     auras: PropTypes.instanceOf(AurasModule).isRequired,
     movement: PropTypes.arrayOf(
       PropTypes.shape({
@@ -47,6 +69,8 @@ class Timeline extends PureComponent {
     config: PropTypes.shape({
       separateCastBars: PropTypes.array,
     }),
+    shouldRenderNPCSpells: PropTypes.bool.isRequired,
+    setRenderNPCSpells: PropTypes.func.isRequired,
   };
   static defaultProps = {
     showCooldowns: true,
@@ -58,8 +82,20 @@ class Timeline extends PureComponent {
     this.state = {
       zoom: 2,
       padding: 0,
+      instantCast: true,
+      channeledAbilities: true,
+      silencedInterrupted: true,
+      bossAbilities: true,
+      filteredEnemyCasts: [],
     };
     this.setContainerRef = this.setContainerRef.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
+  }
+
+  handleToggle(toggleName) {
+    this.setState((prevState) => ({
+      [toggleName]: !prevState[toggleName],
+    }));
   }
 
   get fight() {
@@ -163,13 +199,22 @@ class Timeline extends PureComponent {
   }
 
   render() {
-    const { parser, abilities, auras, movement } = this.props;
+    const {
+      parser,
+      abilities,
+      auras,
+      movement,
+      enemyCasts,
+      setRenderNPCSpells,
+      shouldRenderNPCSpells,
+    } = this.props;
 
     const skipInterval = Math.ceil(40 / this.secondWidth);
 
     const eventsBySpellId = this.getEventsBySpellId(parser.eventHistory);
 
     const allSeparatedIds = this.props.config?.separateCastBars.flat() || [];
+
     const castEvents = [
       ...(this.props.config?.separateCastBars.map((spellIds) =>
         parser.eventHistory
@@ -180,6 +225,8 @@ class Timeline extends PureComponent {
         .filter(isApplicableEvent(parser.playerId))
         .filter((event) => !allSeparatedIds.includes(event.ability?.guid)),
     ];
+
+    const { instantCast, channeledAbilities, silencedInterrupted, bossAbilities } = this.state;
 
     return (
       <>
@@ -197,6 +244,54 @@ class Timeline extends PureComponent {
               '--cast-bars': castEvents.length,
             }}
           >
+            {ShowNPCSpellsToggle(
+              'Render NPC Spells on the timeline',
+              () => setRenderNPCSpells(!shouldRenderNPCSpells),
+              shouldRenderNPCSpells,
+            )}
+            {shouldRenderNPCSpells ? (
+              <>
+                {EnemySpellTypeToggle(
+                  'Instant Cast Abilities',
+                  () => this.handleToggle('instantCast'),
+                  instantCast,
+                )}
+                {EnemySpellTypeToggle(
+                  'channeled Abilities',
+                  () => this.handleToggle('channeledAbilities'),
+                  channeledAbilities,
+                )}
+                {EnemySpellTypeToggle(
+                  'Silenced/Interrupted Abilities',
+                  () => this.handleToggle('silencedInterrupted'),
+                  silencedInterrupted,
+                )}
+                {EnemySpellTypeToggle(
+                  'Boss Abilities',
+                  () => this.handleToggle('bossAbilities'),
+                  bossAbilities,
+                )}
+                <TimeIndicators
+                  seconds={this.seconds}
+                  offset={this.offset}
+                  secondWidth={this.secondWidth}
+                  skipInterval={skipInterval}
+                />
+                <EnemyCasts
+                  start={this.start}
+                  secondWidth={this.secondWidth}
+                  reportCode={parser.report.code}
+                  actorId={parser.player.id}
+                  events={enemyCasts}
+                  showInstantCasts={instantCast}
+                  showChanneledCasts={channeledAbilities}
+                  showInterruptedAbilities={silencedInterrupted}
+                  showBossAbilities={bossAbilities}
+                />
+              </>
+            ) : (
+              <></>
+            )}
             <Auras
               start={this.start}
               secondWidth={this.secondWidth}
