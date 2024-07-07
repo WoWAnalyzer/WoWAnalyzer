@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
+import { AlertWarning, SpellLink } from 'interface';
 import ShuffleSection from './modules/spells/Shuffle/GuideSection';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import CombatLogParser from './CombatLogParser';
@@ -53,6 +53,9 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       </Section>
       <MajorDefensivesSection />
       <Section title="Core Rotation">
+        <AlertWarning>
+          This section has not yet been updated for <strong>The War Within</strong>.
+        </AlertWarning>
         <AplChoiceDescription aplChoice={AplCheck.chooseApl(info)} />
         <SubSection>
           <AplSectionData
@@ -129,13 +132,6 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
               useThresholds
             />
           )}
-          {info.combatant.hasTalent(talents.BONEDUST_BREW_TALENT) && (
-            <CastEfficiencyBar
-              spellId={talents.BONEDUST_BREW_TALENT.id}
-              gapHighlightMode={GapHighlight.FullCooldown}
-              useThresholds
-            />
-          )}{' '}
           {info.combatant.hasTalent(talents.EXPLODING_KEG_TALENT) && (
             <CastEfficiencyBar
               spellId={talents.EXPLODING_KEG_TALENT.id}
