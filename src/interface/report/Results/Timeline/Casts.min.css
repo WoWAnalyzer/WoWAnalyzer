@@ -1,0 +1,190 @@
+.spell-timeline .casts {
+  width: 100%;
+  border-radius: 10px;
+  top: calc(var(--cast-bars) * -22px);
+  height: 22px;
+  height: calc(22px + var(--has-levels) * 32px + var(--levels) * 25px);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  box-sizing: content-box;
+}
+.spell-timeline .casts:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 22px;
+  background: rgba(104, 103, 100, 0.15);
+  border-radius: 10px;
+}
+.spell-timeline .casts > * {
+  position: absolute;
+  height: 22px;
+}
+.spell-timeline .casts .cast {
+  z-index: 3;
+  display: block;
+  --color: #ecb000;
+}
+.spell-timeline .casts .cast img {
+  border: 1px solid var(--color);
+  box-shadow: 0 0 3px #000;
+  border-radius: 2px;
+  margin-top: 0;
+  height: 100%;
+  display: block;
+}
+.spell-timeline .casts .cast.upper,
+.spell-timeline .casts .cast.lower {
+  --level: 0;
+  height: 22px;
+}
+.spell-timeline .casts .cast.upper img,
+.spell-timeline .casts .cast.lower img {
+  border-color: var(--color);
+  transform: translateX(-50%);
+  z-index: 2;
+  position: relative;
+}
+.spell-timeline .casts .cast.upper .time-indicator,
+.spell-timeline .casts .cast.lower .time-indicator {
+  position: absolute;
+  height: 50px;
+  height: calc(45px + var(--level) * 25px);
+  width: 1px;
+  background: var(--color);
+}
+.spell-timeline .casts .cast.upper {
+  top: calc(100% - 54px + var(--level) * 25px);
+}
+.spell-timeline .casts .cast.upper .time-indicator {
+  top: 7px;
+}
+.spell-timeline .casts .cast.upper .time-indicator:before {
+  content: '';
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid var(--color);
+  bottom: 0;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.spell-timeline .casts .cast.lower {
+  top: calc(54px + var(--level) * 25px);
+}
+.spell-timeline .casts .cast.lower .time-indicator {
+  bottom: 7px;
+}
+.spell-timeline .casts .cast.lower .time-indicator:before {
+  content: '';
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid var(--color);
+  top: 0px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.spell-timeline .casts .cast.failed-cast {
+  --color: red;
+}
+.spell-timeline .casts .cast.failed-cast:before {
+  content: '';
+  position: absolute;
+  bottom: calc(100% - 1px);
+  width: 100%;
+  height: 6px;
+  left: -50%;
+  background: linear-gradient(to top, rgba(255, 0, 0, 0.8), rgba(255, 0, 0, 0.2));
+}
+.spell-timeline .casts .cast.failed-cast:after {
+  content: '';
+  position: absolute;
+  top: calc(100% - 1px);
+  width: 100%;
+  height: 6px;
+  left: -50%;
+  background: linear-gradient(to bottom, rgba(255, 0, 0, 0.8), rgba(255, 0, 0, 0.2));
+}
+.spell-timeline .casts .cast.failed-cast img {
+  border-color: var(--color) !important;
+}
+.spell-timeline .casts .cast.failed-cast .time-indicator {
+  background: var(--color) !important;
+}
+.spell-timeline .casts .cast.failed-cast .time-indicator:before {
+  border-bottom-color: var(--color) !important;
+}
+.spell-timeline .casts .cast.cancelled:before {
+  content: '❌';
+  position: absolute;
+  text-align: center;
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 800;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: red;
+}
+.spell-timeline .casts .cast.cancelled img {
+  border-color: red;
+}
+.spell-timeline .casts .cast.inefficient img {
+  border: 2px solid red;
+  box-sizing: content-box;
+  margin-left: -1px;
+  margin-top: -1px;
+  box-shadow: 0 0 11px red;
+  border-radius: 2px;
+}
+.spell-timeline .casts .cast.enhanced img {
+  border: 2px solid #e2e2e2;
+  box-sizing: content-box;
+  margin-left: -1px;
+  margin-top: -1px;
+  box-shadow: 0 0 11px #adadad;
+  border-radius: 2px;
+}
+.spell-timeline .casts .gcd {
+  border-radius: 5px;
+  background: #f8b700;
+  box-shadow: 0 0 3px #000;
+  z-index: 2;
+  height: 10px;
+  top: 6px;
+  cursor: default;
+}
+.spell-timeline .casts .channel {
+  border-radius: 3px;
+  background-color: #fff;
+  background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ecb000' fill-opacity='0.6' fill-rule='evenodd'%3E%3Cpath d='M0 10L10 0H5L0 5M10 10V5L5 10'/%3E%3C/g%3E%3C/svg%3E");
+  box-shadow: 0 0 3px #000;
+  z-index: 2;
+  height: 8px;
+  top: 7px;
+}
+.spell-timeline .casts .movement {
+  border-radius: 3px;
+  background-color: rgba(0, 47, 255, 0.2);
+  box-shadow: 0 0 3px #000;
+  z-index: 2;
+  height: 22px;
+  top: 0;
+}
+.spell-timeline .casts .movement::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(var(--rate-height) * 22px);
+  background-color: rgba(0, 47, 255, 0.5);
+  opacity: 0.5;
+}
