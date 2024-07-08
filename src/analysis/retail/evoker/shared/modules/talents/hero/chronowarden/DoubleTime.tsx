@@ -26,13 +26,14 @@ import {
   FIRE_BREATH,
   FIRE_BREATH_CAST,
 } from 'analysis/retail/evoker/preservation/normalizers/EventLinking/constants';
+import { DOUBLE_TIME_EXTENSION } from 'analysis/retail/evoker/preservation/constants';
 
 class DoubleTime extends Analyzer {
-  //Dreambreath
+  // Dream Breath
   totalDbs: number = 0;
   sumDbDurations: number = 0;
   dbDurations: number[] = [0, 16, 12, 8, 4];
-  //Firebreath
+  // Fire Breath
   blastFurnace: boolean = false;
   totalFbs: number = 0;
   sumFbDurations: number = 0;
@@ -43,7 +44,7 @@ class DoubleTime extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.DOUBLE_TIME_TALENT);
     this.blastFurnace = this.selectedCombatant.hasTalent(TALENTS_EVOKER.BLAST_FURNACE_TALENT);
 
-    //Dream Breath
+    // Dream Breath
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.DREAM_BREATH, SPELLS.DREAM_BREATH_ECHO]),
       this.onApplyDb,
@@ -53,7 +54,7 @@ class DoubleTime extends Analyzer {
       this.onApplyDb,
     );
 
-    //Fire Breath
+    // Fire Breath
     this.addEventListener(
       Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.FIRE_BREATH_DOT),
       this.onApplyFb,
@@ -72,7 +73,7 @@ class DoubleTime extends Analyzer {
       let extensions = 0;
       for (const heal of healEvents) {
         if (heal.hitType === HIT_TYPES.CRIT) {
-          extensions += 2;
+          extensions += DOUBLE_TIME_EXTENSION;
         }
       }
       this.sumDbDurations +=
@@ -88,7 +89,7 @@ class DoubleTime extends Analyzer {
       let extensions = 0;
       for (const tick of dotEvents) {
         if (tick.hitType === HIT_TYPES.CRIT) {
-          extensions += 2;
+          extensions += DOUBLE_TIME_EXTENSION;
         }
       }
       this.sumFbDurations +=
@@ -111,14 +112,20 @@ class DoubleTime extends Analyzer {
               <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} />
             </small>
             <br />
-            {(this.sumDbDurations / this.totalDbs).toFixed(1)}s <small>average HoT duration</small>
+            {(this.sumDbDurations / this.totalDbs).toFixed(1)}s{' '}
+            <small>
+              average <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> duration
+            </small>
           </div>
           <div>
             <small>
               <SpellLink spell={SPELLS.FIRE_BREATH} />
             </small>
             <br />
-            {(this.sumFbDurations / this.totalFbs).toFixed(1)}s <small>average DoT duration</small>
+            {(this.sumFbDurations / this.totalFbs).toFixed(1)}s{' '}
+            <small>
+              average <SpellLink spell={SPELLS.FIRE_BREATH} /> duration
+            </small>
           </div>
         </TalentSpellText>
       </Statistic>
