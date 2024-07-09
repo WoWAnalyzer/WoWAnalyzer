@@ -9,7 +9,6 @@ import CharacterProfile from 'parser/core/CharacterProfile';
 import Fight from 'parser/core/Fight';
 import { PlayerInfo } from 'parser/core/Player';
 
-import BuildSelection from './BuildSelection';
 import HeaderBackground from './HeaderBackground';
 import NavigationBar from './NavigationBar';
 import PhaseSelector from './PhaseSelector';
@@ -29,7 +28,6 @@ interface Props {
   handlePhaseSelection: (phase: string, instance: number) => void;
   applyFilter: (start: number, end: number) => void;
   phases: { [key: string]: Phase } | null;
-  build?: string;
   selectedPhase: string;
   selectedInstance: number;
   selectedDungeonPull: string;
@@ -41,8 +39,7 @@ interface Props {
 }
 
 const Header = ({
-  config: { spec, builds, branch },
-  build,
+  config: { spec, branch },
   player: { name, icon },
   fight,
   boss,
@@ -118,14 +115,6 @@ const Header = ({
             <img src={playerThumbnail} alt="" />
           </div>
           <div className="details">
-            {builds && (
-              <BuildSelection
-                builds={builds}
-                activeBuild={build}
-                makeUrl={(build: string) => makeTabUrl(selectedTab, build)}
-                className="builds"
-              />
-            )}
             <h2>
               {spec.specName ? i18n._(spec.specName) : ''} {i18n._(spec.className)}
             </h2>

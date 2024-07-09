@@ -162,6 +162,9 @@ function generateVegaSpec(fightStartTime: number): VisualizationSpec {
             field: 'activeTimePercentage',
             title: 'Active Time',
             type: 'quantitative' as const,
+            scale: {
+              domain: [0, 1],
+            },
             axis: {
               grid: true,
               format: '.0%',

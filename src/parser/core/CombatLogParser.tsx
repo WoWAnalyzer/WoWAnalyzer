@@ -270,7 +270,6 @@ class CombatLogParser {
   player: PlayerInfo;
   playerPets: PetInfo[];
   fight: Fight;
-  build?: string;
   boss: Boss | null;
   combatantInfoEvents: CombatantInfoEvent[];
 
@@ -321,14 +320,12 @@ class CombatLogParser {
     selectedFight: Fight,
     combatantInfoEvents: CombatantInfoEvent[],
     characterProfile: CharacterProfile,
-    build?: string,
   ) {
     this.config = config;
     this.report = report;
     this.player = selectedPlayer;
     this.playerPets = report.friendlyPets.filter((pet) => pet.petOwner === selectedPlayer.id);
     this.fight = selectedFight;
-    this.build = build;
     this.combatantInfoEvents = combatantInfoEvents;
     // combatantinfo events aren't included in the regular events, but they're still used to analysis. We should have them show in the history to make it complete.
     combatantInfoEvents.forEach((event) => this.eventHistory.push(event));

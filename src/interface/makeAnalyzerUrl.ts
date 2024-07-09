@@ -2,7 +2,6 @@ import getFightName from 'common/getFightName';
 import prettyEncodeURI from 'common/prettyEncodeURI';
 import Combatant from 'parser/core/Combatant';
 import Report from 'parser/core/Report';
-import DEFAULT_BUILD from 'parser/DEFAULT_BUILD';
 import CharacterProfile from 'parser/core/CharacterProfile';
 
 export function makePlainUrl(
@@ -11,7 +10,7 @@ export function makePlainUrl(
   fightName?: string,
   playerId?: string,
   playerName?: string,
-  tab: string = DEFAULT_BUILD.url,
+  tab: string = 'standard',
 ) {
   const parts = [];
   if (reportCode) {
@@ -34,7 +33,7 @@ export default function makeReportUrl(
   fightId?: number,
   playerId?: number,
   tab?: string,
-  build = DEFAULT_BUILD.url,
+  build = 'standard',
 ) {
   const parts = [];
   if (report) {

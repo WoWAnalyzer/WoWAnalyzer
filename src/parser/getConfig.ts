@@ -45,13 +45,6 @@ export default function getConfig(
   if (!config) {
     return undefined;
   }
-  // Classic Builds
-  if (config.builds) {
-    config.builds =
-      Object.fromEntries(
-        Object.entries(config.builds).filter(([_key, build]) => build.visible, {}),
-      ) || undefined;
-  }
 
   return config;
 }

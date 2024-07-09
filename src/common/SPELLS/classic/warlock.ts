@@ -10,302 +10,282 @@ const spells = {
   // --------
   // SHARED
   // --------
-
-  BANISH: {
-    id: 18647,
-    name: 'Banish',
-    icon: 'spell_shadow_cripple',
+  BANE_OF_AGONY: {
+    id: 980,
+    name: 'Bane of Agony',
+    icon: 'spell_shadow_curseofsargeras.jpg',
   },
-  BANE_OF_DOOM: { id: 603, name: 'Bane of Doom', icon: 'spell_shadow_auraofdarkness.jpg' },
-  BANE_OF_HAVOC: { id: 80240, name: 'Bane of Havoc', icon: 'ability_warlock_baneofhavoc.jpg' },
-  BANE_OF_AGONY: { id: 980, name: 'Bane of Agony', icon: 'spell_shadow_curseofsargeras.jpg' },
-  CHAOS_BOLT: { id: 50796, name: 'Chaos Bolt', icon: 'ability_warlock_chaosbolt.jpg' },
+  BANE_OF_DOOM: {
+    id: 603,
+    name: 'Bane of Doom',
+    icon: 'spell_shadow_auraofdarkness.jpg',
+  },
+  BANISH: {
+    id: 710,
+    name: 'Banish',
+    icon: 'spell_shadow_cripple.jpg',
+  },
   CORRUPTION: {
     id: 172,
     name: 'Corruption',
-    icon: 'spell_shadow_abominationexplosion',
-  },
-  CONFLAGRATE: { id: 17962, name: 'Conflagrate', icon: 'spell_fire_fireball.jpg' },
-  // TODO remove this after updating aff/demo
-  CURSE_OF_AGONY: {
-    id: 47864,
-    name: 'Curse of Agony',
-    icon: 'spell_shadow_curseofsargeras',
-  },
-  // TODO remove this after updating aff/demo
-  CURSE_OF_DOOM: {
-    id: 47867,
-    name: 'Curse of Doom',
-    icon: 'spell_shadow_auraofdarkness',
+    icon: 'spell_shadow_abominationexplosion.jpg',
   },
   CURSE_OF_THE_ELEMENTS: {
     id: 1490,
     name: 'Curse of the Elements',
-    icon: 'spell_shadow_chilltouch',
+    icon: 'spell_shadow_chilltouch.jpg',
   },
   CURSE_OF_TONGUES: {
-    id: 11719,
+    id: 1714,
     name: 'Curse of Tongues',
-    icon: 'spell_shadow_curseoftounges',
+    icon: 'spell_shadow_curseoftounges.jpg',
   },
   CURSE_OF_WEAKNESS: {
-    id: 50511,
+    id: 702,
     name: 'Curse of Weakness',
-    icon: 'spell_shadow_curseofmannoroth',
+    icon: 'spell_shadow_curseofmannoroth.jpg',
+  },
+  DARK_INTENT: {
+    id: 80398,
+    name: 'Dark Intent',
+    icon: 'spell_warlock_focusshadow.jpg',
   },
   DEATH_COIL: {
-    id: 47860,
+    id: 6789,
     name: 'Death Coil',
-    icon: 'spell_shadow_deathcoil',
+    icon: 'spell_shadow_deathcoil.jpg',
   },
   DEMON_ARMOR: {
-    id: 47889,
+    id: 687,
     name: 'Demon Armor',
-    icon: 'spell_shadow_ragingscream',
+    icon: 'spell_shadow_ragingscream.jpg',
+  },
+  DEMON_SOUL: {
+    id: 77801,
+    name: 'Demon Soul',
+    icon: 'spell_warlock_demonsoul.jpg',
+  },
+  DEMON_SOUL_FELGUARD_BUFF: {
+    id: 79462,
+    name: 'Demon Soul: Felguard',
+    icon: 'spell_warlock_demonsoul.jpg',
+  },
+  DEMON_SOUL_FELHUNTER_BUFF: {
+    id: 79460,
+    name: 'Demon Soul: Felhunter',
+    icon: 'spell_warlock_demonsoul.jpg',
+  },
+  DEMON_SOUL_IMP_BUFF: {
+    id: 79459,
+    name: 'Demon Soul: Imp',
+    icon: 'spell_warlock_demonsoul.jpg',
+  },
+  DEMON_SOUL_SUCCUBUS_BUFF: {
+    id: 79463,
+    name: 'Demon Soul: Succubus',
+    icon: 'spell_warlock_demonsoul.jpg',
+  },
+  DEMON_SOUL_VOIDWALKER_BUFF: {
+    id: 79464,
+    name: 'Demon Soul: Voidwalker',
+    icon: 'spell_warlock_demonsoul.jpg',
   },
   DEMONIC_CIRCLE_SUMMON: {
     id: 48018,
     name: 'Demonic Circle: Summon',
-    icon: 'spell_shadow_demoniccirclesummon',
+    icon: 'spell_shadow_demoniccirclesummon.jpg',
   },
   DEMONIC_CIRCLE_TELEPORT: {
     id: 48020,
     name: 'Demonic Circle: Teleport',
-    icon: 'spell_shadow_demoniccircleteleport',
-  },
-  DEMON_SKIN: {
-    id: 696,
-    name: 'Demon Skin',
-    icon: 'spell_shadow_ragingscream',
-  },
-  DETECT_INVISIBILITY: {
-    id: 132,
-    name: 'Detect Invisibility',
-    icon: 'spell_shadow_detectlesserinvisibility',
+    icon: 'spell_shadow_demoniccircleteleport.jpg',
   },
   DRAIN_LIFE: {
-    id: 47857,
+    id: 689,
     name: 'Drain Life',
-    icon: 'spell_shadow_lifedrain02',
+    icon: 'spell_shadow_lifedrain02.jpg',
   },
-  DRAIN_MANA: {
-    id: 5138,
-    name: 'Drain Mana',
-    icon: 'spell_shadow_siphonmana',
+  DRAIN_LIFE_SOULBURN: {
+    id: 89420,
+    name: 'Drain Life',
+    icon: 'spell_shadow_lifedrain02.jpg',
   },
   DRAIN_SOUL: {
-    id: 47855,
+    id: 1120,
     name: 'Drain Soul',
-    icon: 'spell_shadow_haunting',
+    icon: 'spell_shadow_haunting.jpg',
   },
   EYE_OF_KILROGG: {
     id: 126,
     name: 'Eye of Kilrogg',
-    icon: 'spell_shadow_evileye',
-  },
-  FIRESTONE_CREATE: {
-    id: 60220,
-    name: 'Create Firestone',
-    icon: 'inv_misc_gem_bloodstone_02',
-    soulShardsCost: 1,
+    icon: 'spell_shadow_evileye.jpg',
   },
   FEAR: {
-    id: 6215,
+    id: 5782,
     name: 'Fear',
-    icon: 'spell_shadow_possession',
+    icon: 'spell_shadow_possession.jpg',
   },
   FEL_ARMOR: {
-    id: 47893,
+    id: 28176,
     name: 'Fel Armor',
-    icon: 'spell_shadow_felarmour',
+    icon: 'spell_shadow_felarmour.jpg',
   },
-  FIRESTONE_USE: {
-    id: 41174,
-    name: 'Firestone',
-    icon: 'inv_misc_gem_bloodstone_02',
+  FEL_FLAME: {
+    id: 77799,
+    name: 'Fel Flame',
+    icon: 'spell_fire_felfirenova.jpg',
   },
   HEALTH_FUNNEL: {
-    id: 47856,
+    id: 755,
     name: 'Health Funnel',
-    icon: 'spell_shadow_lifedrain',
+    icon: 'spell_shadow_lifedrain.jpg',
   },
   HEALTHSTONE_CREATE: {
-    id: 47878,
+    id: 6201,
     name: 'Create Healthstone',
-    icon: 'inv_stone_04',
+    icon: 'inv_stone_04.jpg',
   },
   HELLFIRE: {
-    id: 47823,
+    id: 1949,
     name: 'Hellfire',
-    icon: 'spell_fire_incinerate',
+    icon: 'spell_fire_incinerate.jpg',
   },
   HOWL_OF_TERROR: {
-    id: 17928,
+    id: 5484,
     name: 'Howl of Terror',
-    icon: 'spell_shadow_deathscream',
+    icon: 'spell_shadow_deathscream.jpg',
   },
   IMMOLATE: {
     id: 348,
     name: 'Immolate',
-    icon: 'spell_fire_immolation',
+    icon: 'spell_fire_immolation.jpg',
   },
   INCINERATE: {
     id: 29722,
     name: 'Incinerate',
-    icon: 'spell_fire_burnout',
+    icon: 'spell_fire_burnout.jpg',
   },
   LIFE_TAP: {
     id: 1454,
     name: 'Life Tap',
-    icon: 'spell_shadow_burningspirit',
+    icon: 'spell_shadow_burningspirit.jpg',
   },
-  LIFE_TAP_GLYPH: {
-    id: 63321,
-    name: 'Life Tap Glyph', // buff
-    icon: 'spell_shadow_burningspirit',
-  },
-  MORTAL_COIL: { id: 6789, name: 'Mortal Coil', icon: 'ability_warlock_mortalcoil.jpg' },
-  NETHER_WARD: { id: 91711, name: 'Nether Ward', icon: 'spell_fire_felfireward.jpg' },
   RAIN_OF_FIRE: {
     id: 5740,
     name: 'Rain of Fire',
-    icon: 'spell_shadow_rainoffire',
+    icon: 'spell_shadow_rainoffire.jpg',
   },
-  RAIN_OF_FIRE_DAMAGE: { id: 42223, name: 'Rain of Fire', icon: 'spell_shadow_rainoffire.jpg' },
+  RAIN_OF_FIRE_DAMAGE: {
+    id: 42223,
+    name: 'Rain of Fire',
+    icon: 'spell_shadow_rainoffire.jpg',
+  },
   RITUAL_OF_SOULS: {
-    id: 58887,
+    id: 29893,
     name: 'Ritual of Souls',
-    icon: 'spell_shadow_shadesofdarkness',
+    icon: 'spell_shadow_shadesofdarkness.jpg',
   },
   RITUAL_OF_SUMMONING: {
     id: 698,
     name: 'Ritual of Summoning',
-    icon: 'spell_shadow_twilight',
+    icon: 'spell_shadow_twilight.jpg',
   },
   SEARING_PAIN: {
-    id: 47815,
+    id: 5676,
     name: 'Searing Pain',
-    icon: 'spell_fire_soulburn',
+    icon: 'spell_fire_soulburn.jpg',
   },
   SEED_OF_CORRUPTION: {
-    id: 47836,
+    id: 27243,
     name: 'Seed of Corruption',
-    icon: 'spell_shadow_seedofdestruction',
+    icon: 'spell_shadow_seedofdestruction.jpg',
   },
-  SENSE_DEMONS: {
-    id: 5500,
-    name: 'Sense Demons',
-    icon: 'spell_shadow_metamorphosis',
-  },
-  SHADOWBURN: { id: 17877, name: 'Shadowburn', icon: 'spell_shadow_scourgebuild.jpg' },
-  SHADOWFURY: { id: 30283, name: 'Shadowfury', icon: 'ability_warlock_shadowfurytga.jpg' },
   SHADOW_BOLT: {
-    id: 47809,
+    id: 686,
     name: 'Shadow Bolt',
-    icon: 'spell_shadow_shadowbolt',
-  },
-  SHADOW_MASTERY_DEBUFF: {
-    id: 17800,
-    name: 'Shadow Mastery',
-    icon: 'spell_shadow_shadowbolt',
+    icon: 'spell_shadow_shadowbolt.jpg',
   },
   SHADOW_WARD: {
-    id: 47891,
+    id: 6229,
     name: 'Shadow Ward',
-    icon: 'spell_shadow_antishadow',
+    icon: 'spell_shadow_antishadow.jpg',
   },
   SHADOWFLAME: {
     id: 47897,
     name: 'Shadowflame',
-    icon: 'ability_warlock_shadowflame',
+    icon: 'ability_warlock_shadowflame.jpg',
   },
-
-  SOULBURN: { id: 74434, name: 'Soulburn', icon: 'spell_warlock_soulburn.jpg' },
   SOUL_FIRE: {
     id: 6353,
     name: 'Soul Fire',
-    icon: 'spell_fire_fireball02',
+    icon: 'spell_fire_fireball02.jpg',
+  },
+  SOUL_LINK: {
+    id: 19028,
+    name: 'Soul Link',
+    icon: 'spell_shadow_gathershadows.jpg',
+  },
+  SOULBURN: {
+    id: 74434,
+    name: 'Soulburn',
+    icon: 'spell_warlock_soulburn.jpg',
   },
   SOULSHATTER: {
     id: 29858,
     name: 'Soulshatter',
-    icon: 'spell_arcane_arcane01',
-    soulShardsCost: 1,
+    icon: 'spell_arcane_arcane01.jpg',
   },
   SOULSTONE_CREATE: {
-    id: 47884,
-    name: 'Create Spellstone',
-    icon: 'inv_misc_orb_04',
-    soulShardsCost: 1,
-  },
-  SPELLSTONE_CREATE: {
-    id: 47888,
-    name: 'Create Spellstone',
-    icon: 'inv_misc_gem_sapphire_01',
-    soulShardsCost: 1,
-  },
-  SPELLSTONE_USE: {
-    id: 41196,
-    name: 'Spellstone',
-    icon: 'inv_misc_gem_sapphire_01',
+    id: 693,
+    name: 'Create Soulstone',
+    icon: 'inv_misc_orb_04.jpg',
   },
   SUBJUGATE_DEMON: {
-    id: 61191,
+    id: 1098,
     name: 'Subjugate Demon',
-    icon: 'spell_shadow_enslavedemon',
+    icon: 'spell_shadow_enslavedemon.jpg',
   },
-  SUMMON_DREADSTEED: {
-    id: 23161,
-    name: 'Dreadsteed',
-    icon: 'ability_mount_dreadsteed',
+  SUMMON_DOOMGUARD: {
+    id: 18540,
+    name: 'Summon Doomguard',
+    icon: 'warlock_summon_doomguard.jpg',
   },
   SUMMON_FELHUNTER: {
     id: 691,
     name: 'Summon Felhunter',
-    icon: 'spell_shadow_summonfelhunter',
-    soulShardsCost: 1,
-  },
-  SUMMON_FELSTEED: {
-    id: 5784,
-    name: 'Felsteed',
-    icon: 'spell_nature_swiftness',
+    icon: 'spell_shadow_summonfelhunter.jpg',
   },
   SUMMON_IMP: {
     id: 688,
     name: 'Summon Imp',
-    icon: 'spell_shadow_summonimp',
+    icon: 'spell_shadow_summonimp.jpg',
   },
   SUMMON_INCUBUS: {
     id: 713,
     name: 'Summon Incubus',
-    icon: 'ability_warlock_incubus',
-    soulShardsCost: 1,
+    icon: 'ability_warlock_incubus.jpg',
   },
   SUMMON_INFERNO: {
     id: 1122,
     name: 'Inferno',
-    icon: 'spell_shadow_summoninfernal',
+    icon: 'spell_shadow_summoninfernal.jpg',
   },
   SUMMON_SUCCUBUS: {
     id: 712,
     name: 'Summon Succubus',
-    icon: 'spell_shadow_summonsuccubus',
-    soulShardsCost: 1,
+    icon: 'spell_shadow_summonsuccubus.jpg',
   },
   SUMMON_VOIDWALKER: {
     id: 697,
     name: 'Summon Voidwalker',
-    icon: 'spell_shadow_summonvoidwalker',
-    soulShardsCost: 1,
+    icon: 'spell_shadow_summonvoidwalker.jpg',
   },
-  SUMMON_DOOMGUARD: { id: 18540, name: 'Summon Doomguard', icon: 'warlock_summon_doomguard.jpg' },
   UNENDING_BREATH: {
     id: 5697,
     name: 'Unending Breath',
-    icon: 'spell_shadow_demonbreath',
+    icon: 'spell_shadow_demonbreath.jpg',
   },
-  DEMON_SOUL: { id: 77801, name: 'Demon Soul', icon: 'spell_warlock_demonsoul.jpg' },
-  DEMON_SOUL_IMP_BUFF: { id: 79459, name: 'Demon Soul: Imp', icon: 'spell_warlock_demonsoul.jpg' },
+
   // ---------
   // TALENTS
   // ---------
@@ -339,7 +319,7 @@ const spells = {
   SHADOW_TRANCE: {
     id: 17941,
     name: 'Shadow Trance',
-    icon: 'spell_shadow_twilight',
+    icon: 'spell_shadow_twilight.jpg',
   },
   UNSTABLE_AFFLICTION: {
     id: 47843,
@@ -349,71 +329,89 @@ const spells = {
 
   // Demonology
   DECIMATION: {
-    id: 63167,
+    id: 63158,
     name: 'Decimation',
-    icon: 'spell_fire_fireball02',
+    icon: 'spell_fire_fireball02.jpg',
   },
   DEMONIC_EMPOWERMENT: {
     id: 47193,
     name: 'Demonic Empowerment',
-    icon: 'ability_warlock_demonicempowerment',
+    icon: 'ability_warlock_demonicempowerment.jpg',
   },
   DEMONIC_PACT: {
-    id: 47240,
+    id: 47236,
     name: 'Demonic Pact',
-    icon: 'spell_shadow_demonicpact',
+    icon: 'spell_shadow_demonicpact.jpg',
   },
-  FEL_DOMINATION: {
-    id: 18708,
-    name: 'Fel Domination',
-    icon: 'spell_nature_removecurse',
+  DEMONIC_REBIRTH: {
+    id: 88447,
+    name: 'Demonic Rebirth',
+    icon: 'spell_shadow_demonictactics.jpg',
+  },
+  HAND_OF_GULDAN: {
+    id: 71521,
+    name: "Hand of Gul'dan",
+    icon: 'inv_summerfest_firespirit.jpg',
   },
   METAMORPHOSIS: {
     // --------------------------------
     id: 47241,
     name: 'Metamorphosis',
-    icon: 'spell_shadow_demonform',
+    icon: 'spell_shadow_demonform.jpg',
   },
-  DEMON_CHARGE: {
+  DEMON_LEAP: {
     id: 54785,
-    name: 'Demon Charge',
-    icon: 'ability_warstomp',
-  },
-  CHALLENGING_HOWL: {
-    id: 59671,
-    name: 'Challenging Howl',
-    icon: 'spell_nature_shamanrage',
+    name: 'Demon Leap',
+    icon: 'ability_warstomp.jpg',
   },
   IMMOLATION_AURA: {
     id: 50589,
     name: 'Immolation Aura',
-    icon: 'spell_fire_incinerate',
-  },
-  SHADOW_CLEAVE: {
-    id: 50581,
-    name: 'Shadow Cleave',
-    icon: 'ability_warlock_avoidance',
+    icon: 'spell_fire_incinerate.jpg',
   },
   // --------------------------------
   MOLTEN_CORE_BUFF: {
     id: 71165,
     name: 'Molten Core',
-    icon: 'ability_warlock_moltencore',
-  },
-  SOUL_LINK: {
-    id: 19028,
-    name: 'Soul Link',
-    icon: 'spell_shadow_gathershadows',
+    icon: 'ability_warlock_moltencore.jpg',
   },
   SUMMON_FELGUARD: {
     id: 30146,
     name: 'Summon Felguard',
-    icon: 'spell_shadow_summonfelguard',
-    soulShardsCost: 1,
+    icon: 'spell_shadow_summonfelguard.jpg',
   },
 
   // Destruction
-  FEL_FLAME: { id: 77799, name: 'Fel Flame', icon: 'spell_fire_felfirenova.jpg' },
+  BANE_OF_HAVOC: {
+    id: 80240,
+    name: 'Bane of Havoc',
+    icon: 'ability_warlock_baneofhavoc.jpg',
+  },
+  CHAOS_BOLT: {
+    id: 50796,
+    name: 'Chaos Bolt',
+    icon: 'ability_warlock_chaosbolt.jpg',
+  },
+  CONFLAGRATE: {
+    id: 17962,
+    name: 'Conflagrate',
+    icon: 'spell_fire_fireball.jpg',
+  },
+  NETHER_WARD: {
+    id: 91711,
+    name: 'Nether Ward',
+    icon: 'spell_fire_felfireward.jpg',
+  },
+  SHADOWBURN: {
+    id: 17877,
+    name: 'Shadowburn',
+    icon: 'spell_shadow_scourgebuild.jpg',
+  },
+  SHADOWFURY: {
+    id: 30283,
+    name: 'Shadowfury',
+    icon: 'ability_warlock_shadowfurytga.jpg',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;

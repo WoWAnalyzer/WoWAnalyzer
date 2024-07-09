@@ -46,20 +46,23 @@ export function calculateEffectiveHealing(
  * @param event a crit heal event
  * @param currentCrit current crit percentage (excluding crit buff)
  * @param percentCritIncrease percent buff to calculate effect of
+ * @param critHealMultiplier multiplier for critical heals (e.g., 2.2 for 220% healing)
  * @return amount of crit heal attributable to percent crit increase
  */
 export function calculateEffectiveHealingFromCritIncrease(
   event: LightWeightHealingEvent,
   currentCrit: number,
   percentCritIncrease: number,
+  critHealMultiplier: number = 2,
 ) {
   const amount = event.amount;
   const absorbed = event.absorbed || 0;
   const overheal = event.overheal || 0;
   const nonOverheal = amount + absorbed;
   const raw = amount + absorbed + overheal;
-  const baseCritHeal = (raw / 2) * (currentCrit / (percentCritIncrease + currentCrit));
-  const effectiveCritHeal = Math.max(0, nonOverheal - raw / 2);
+  const baseHeal = raw / critHealMultiplier;
+  const baseCritHeal = baseHeal * (currentCrit / (percentCritIncrease + currentCrit));
+  const effectiveCritHeal = Math.max(0, nonOverheal - baseHeal);
   return Math.max(0, effectiveCritHeal - baseCritHeal);
 }
 

@@ -724,22 +724,22 @@ code.inactive {
 }
 
 .contributor {
+  white-space: nowrap;
   background: #2b2b2b;
   color: #f1c40f;
-  padding: 0 0.4em;
   border-radius: 0.3em;
-  white-space: nowrap;
-  display: inline-block;
-  line-height: 1.8em;
   overflow: hidden;
-  vertical-align: middle;
+  line-height: 1.8em;
+  padding: 0 0.4em;
+  display: inline-flex;
+  align-items: baseline;
+  flex-direction: row;
 }
 
 .contributor img {
   margin: 0 0.4em 0 -0.4em;
-  width: 1.8em;
-  height: 1.8em;
-  vertical-align: top;
+  max-height: 1.8em;
+  align-self: end;
 }
 
 .item-divider {
