@@ -558,6 +558,31 @@ const spells = {
     name: 'Consume Flame',
     icon: 'inv_shadowflames_wave',
   },
+  SPIRITBLOOM_HOT: {
+    id: 409895,
+    name: 'Spiritbloom',
+    icon: 'ability_evoker_spiritbloom2',
+  },
+  CHRONO_FLAME_HEAL: {
+    id: 431483,
+    name: 'Chronoflame',
+    icon: 'inv_ability_chronowardenevoker_chronoflame',
+  },
+  CHRONO_FLAME_DAMAGE: {
+    id: 431583,
+    name: 'Chronoflame',
+    icon: 'inv_ability_chronowardenevoker_chronoflame',
+  },
+  THREADS_OF_FATE_HEALING: {
+    id: 432896,
+    name: 'Threads of Fate',
+    icon: 'ability_evoker_sandsoftime',
+  },
+  THREADS_OF_FATE_DAMAGE: {
+    id: 432895,
+    name: 'Threads of Fate',
+    icon: 'ability_evoker_sandsoftime',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;

@@ -24,6 +24,7 @@ export const SHIELD_FROM_TA_CAST = 'ShieldFromTACast';
 export const SPARK_OF_INSIGHT = 'SparkOfInsight'; // link TC stack removals to Spark
 export const STASIS = 'Stasis';
 export const STASIS_FOR_RAMP = 'ForRamp';
+export const STASIS_FILLING = 'StasisFilling';
 export const EB_REVERSION = 'EssenceBurstReversion';
 export const TIME_OF_NEED_HEALING = 'TimeOfNeedHealing';
 export const LIFESPARK_LIVING_FLAME = 'LifesparkLivingFlame'; //Instant living flame from Lifespark
@@ -32,6 +33,10 @@ export const T32_2PC = 'T32TwoPiece'; // link 2 pc heal to rev/blossom
 export const T32_4PC = 'T32FourPiece'; // link 4pc apply to buff removal
 export const EMERALD_BLOSSOM_CAST = 'EmeraldBlossomCast'; //Find first heal event from a Blossom cast
 export const DREAM_BREATH = 'DreamBreath';
+export const DREAM_BREATH_CAST = 'DreamBreathCast'; //Apply buff and Refresh buff to Cast event
+export const DREAM_BREATH_FROM_STASIS = 'DreamBreathFromStasis';
+export const FIRE_BREATH = 'FireBreath';
+export const FIRE_BREATH_CAST = 'FireBreathCast';
 
 export enum ECHO_TYPE {
   NONE,
@@ -52,4 +57,6 @@ export const STASIS_BUFFER = 1000;
 export const TIME_OF_NEED_DURATION = 8000;
 export const LIVING_FLAME_FLIGHT_TIME = 1000;
 export const MAX_DREAM_BREATH_DURATION = 28000;
+export const MAX_FIRE_BREATH_DURATION = 36000;
 export const TITANS_GIFT_INC = 0.25;
+export const FULL_STASIS_DURATION = 60000; //Need to grab all the way from stasis release back to spells that filled it. Maybe better way?

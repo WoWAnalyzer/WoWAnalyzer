@@ -18,6 +18,9 @@ import {
   EMERALD_BLOSSOM_CAST,
   DREAM_BREATH,
   MAX_DREAM_BREATH_DURATION,
+  DREAM_BREATH_CAST,
+  DREAM_BREATH_FROM_STASIS,
+  STASIS_BUFFER,
 } from './constants';
 
 export const GREEN_EVENT_LINKS: EventLink[] = [
@@ -98,5 +101,25 @@ export const GREEN_EVENT_LINKS: EventLink[] = [
         !HasRelatedEvent(linkingEvent, DREAM_BREATH)
       );
     },
+  },
+  {
+    linkRelation: DREAM_BREATH_CAST,
+    linkingEventId: [SPELLS.DREAM_BREATH.id, SPELLS.DREAM_BREATH_ECHO.id],
+    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    referencedEventId: [TALENTS_EVOKER.DREAM_BREATH_TALENT.id, SPELLS.DREAM_BREATH_FONT.id],
+    referencedEventType: EventType.EmpowerEnd,
+    backwardBufferMs: CAST_BUFFER_MS,
+    maximumLinks: 1,
+    anyTarget: true,
+  },
+  {
+    linkRelation: DREAM_BREATH_FROM_STASIS,
+    linkingEventId: [SPELLS.DREAM_BREATH.id, SPELLS.DREAM_BREATH_ECHO.id],
+    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    referencedEventId: SPELLS.STASIS_BUFF.id,
+    referencedEventType: EventType.RemoveBuff,
+    backwardBufferMs: STASIS_BUFFER,
+    maximumLinks: 1,
+    anyTarget: true,
   },
 ];

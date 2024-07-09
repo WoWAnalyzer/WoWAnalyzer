@@ -46,6 +46,9 @@ import {
   T32_4PC,
   EMERALD_BLOSSOM_CAST,
   DREAM_BREATH,
+  DREAM_BREATH_CAST,
+  DREAM_BREATH_FROM_STASIS,
+  STASIS_FILLING,
 } from './constants';
 
 /** Returns true iff the given buff application or heal can be matched back to a hardcast */
@@ -254,8 +257,39 @@ export function getEchoAplication(event: HealEvent | ApplyBuffEvent | RefreshBuf
   }
 }
 
-export function getDreamBreathHealing(event: ApplyBuffEvent | RefreshBuffEvent) {
+export function getDreamBreathHealing(event: ApplyBuffEvent | RefreshBuffEvent | CastEvent) {
+  if (event.type === EventType.Cast) {
+    const applyEvent = GetRelatedEvent(event, DREAM_BREATH_CAST);
+    if (applyEvent) {
+      return GetRelatedEvents<HealEvent>(applyEvent, DREAM_BREATH);
+    }
+  }
   return GetRelatedEvents<HealEvent>(event, DREAM_BREATH);
+}
+
+export function getDreamBreathCast(event: ApplyBuffEvent | RefreshBuffEvent) {
+  const castEvent = GetRelatedEvent<EmpowerEndEvent>(event, DREAM_BREATH_CAST);
+  if (!castEvent) {
+    const stasisEvent = GetRelatedEvent(event, DREAM_BREATH_FROM_STASIS);
+    if (stasisEvent) {
+      const stasisFill = GetRelatedEvents(stasisEvent, STASIS_FILLING);
+      if (stasisFill) {
+        const foundCast = stasisFill.find(function (cast) {
+          const stasisSpell = GetRelatedEvent(cast, STASIS);
+          return (
+            stasisSpell &&
+            stasisSpell.type === EventType.EmpowerEnd &&
+            stasisSpell.ability.name === event.ability.name
+          );
+        });
+        if (foundCast) {
+          return GetRelatedEvent<EmpowerEndEvent>(foundCast, STASIS);
+        }
+      }
+    }
+  } else {
+    return castEvent;
+  }
 }
 
 export function getReversionHealing(event: ApplyBuffEvent | RefreshBuffEvent) {

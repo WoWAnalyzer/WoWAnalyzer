@@ -1,7 +1,15 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { EventLink } from 'parser/core/EventLinkNormalizer';
-import { EventType, ApplyBuffEvent, HealEvent, HasRelatedEvent } from 'parser/core/Events';
+import {
+  EventType,
+  ApplyBuffEvent,
+  HealEvent,
+  HasRelatedEvent,
+  ApplyDebuffEvent,
+  RefreshDebuffEvent,
+  DamageEvent,
+} from 'parser/core/Events';
 import { DUPLICATION_SPELLS } from '../../constants';
 import {
   LIFEBIND,
@@ -14,6 +22,9 @@ import {
   LIFESPARK_LIVING_FLAME,
   LIVING_FLAME_FLIGHT_TIME,
   LIVING_FLAME_CALL_OF_YSERA,
+  FIRE_BREATH,
+  FIRE_BREATH_CAST,
+  MAX_FIRE_BREATH_DURATION,
 } from './constants';
 
 export const RED_EVENT_LINKS: EventLink[] = [
@@ -108,5 +119,35 @@ export const RED_EVENT_LINKS: EventLink[] = [
     isActive(c) {
       return c.hasTalent(TALENTS_EVOKER.CALL_OF_YSERA_TALENT);
     },
+  },
+  //Fire Breath
+  {
+    linkRelation: FIRE_BREATH,
+    linkingEventId: SPELLS.FIRE_BREATH_DOT.id,
+    linkingEventType: EventType.Damage,
+    referencedEventId: SPELLS.FIRE_BREATH_DOT.id,
+    referencedEventType: [EventType.RefreshDebuff, EventType.ApplyDebuff],
+    reverseLinkRelation: FIRE_BREATH,
+    backwardBufferMs: MAX_FIRE_BREATH_DURATION,
+    additionalCondition(linkingEvent, referencedEvent) {
+      const linkDamageEvent = linkingEvent as DamageEvent;
+      const refDebuffEvent =
+        referencedEvent.type === EventType.RefreshDebuff
+          ? (referencedEvent as RefreshDebuffEvent)
+          : (referencedEvent as ApplyDebuffEvent);
+      return (
+        linkDamageEvent.ability.guid === refDebuffEvent.ability.guid &&
+        !HasRelatedEvent(linkingEvent, FIRE_BREATH)
+      );
+    },
+  },
+  {
+    linkRelation: FIRE_BREATH_CAST,
+    linkingEventId: SPELLS.FIRE_BREATH_DOT.id,
+    linkingEventType: [EventType.RefreshDebuff, EventType.ApplyDebuff],
+    referencedEventId: [SPELLS.FIRE_BREATH.id, SPELLS.FIRE_BREATH_FONT.id],
+    referencedEventType: EventType.EmpowerEnd,
+    backwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
   },
 ];
