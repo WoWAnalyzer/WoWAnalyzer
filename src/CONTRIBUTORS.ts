@@ -2415,9 +2415,9 @@ export const ZiayaKens: Contributor = {
     {
       name: 'EonWorm',
       spec: SPECS.HOLY_PALADIN,
-      link: 'https://www.warcraftlogs.com/character/id/72594250'
-    }
-  ]
+      link: 'https://www.warcraftlogs.com/character/id/72594250',
+    },
+  ],
 };
 
 export const Lspinheiro: Contributor = {
