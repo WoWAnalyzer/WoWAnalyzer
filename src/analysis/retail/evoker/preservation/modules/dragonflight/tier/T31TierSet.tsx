@@ -257,7 +257,6 @@ class T31PrevokerSet extends Analyzer {
                     {this.wastedEb} wasted procs from refreshes
                   </>
                 }
-                hoverable
               >
                 <div>
                   <ItemManaGained
@@ -288,7 +287,6 @@ class T31PrevokerSet extends Analyzer {
           <h4>4 piece</h4>
           <>
             <TooltipElement
-              hoverable
               content={
                 <>
                   {this.echoProcs} extra <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} /> buffs

@@ -147,7 +147,6 @@ class DampenHarm extends MajorDefensiveBuff {
         <p>
           <SpellLink spell={talents.DAMPEN_HARM_TALENT} /> provides{' '}
           <TooltipElement
-            hoverable
             content={
               <>
                 The damage reduction is based on the amount of damage you'd take <em>after</em>{' '}

@@ -365,7 +365,6 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
               <>
                 <SpellLink spell={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> stacks on cast{' '}
                 <Tooltip
-                  hoverable
                   content={
                     <>
                       Get 3 stacks of{' '}

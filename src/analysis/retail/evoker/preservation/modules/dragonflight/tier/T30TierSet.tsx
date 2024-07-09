@@ -112,7 +112,6 @@ class T30PrevokerSet extends Analyzer {
       >
         <BoringValueText label="Legacy of Obsidian Secrets (T30 Set Bonus)">
           <TooltipElement
-            hoverable
             content={
               <>
                 <SpellLink spell={ITEMS.T30_SPIRITBLOOM_HOT} /> HoT healing:{' '}
@@ -140,7 +139,6 @@ class T30PrevokerSet extends Analyzer {
                     {this.wastedProcs} wasted procs from refreshes
                   </>
                 }
-                hoverable
               >
                 <h4>4 Piece</h4>
               </TooltipElement>

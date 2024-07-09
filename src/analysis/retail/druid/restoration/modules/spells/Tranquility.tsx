@@ -132,7 +132,6 @@ class Tranquility extends Analyzer {
               <>
                 Channeled full duration{' '}
                 <Tooltip
-                  hoverable
                   content={
                     <>
                       Every tick of Tranquility is very powerful - plan ahead so you're in a

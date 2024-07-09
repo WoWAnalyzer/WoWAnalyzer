@@ -161,7 +161,6 @@ class Stasis extends Analyzer {
           {this.owner.formatTimestamp(timestamp)}
           {'  '}
           <Tooltip
-            hoverable
             content={
               <>
                 <SpellLink spell={TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT} /> is always good to store
@@ -183,7 +182,6 @@ class Stasis extends Analyzer {
             {this.owner.formatTimestamp(timestamp)}
             {'  '}
             <Tooltip
-              hoverable
               content={
                 <>
                   <SpellLink spell={SPELLS.EMERALD_BLOSSOM_CAST} /> is always good to store when
@@ -204,7 +202,6 @@ class Stasis extends Analyzer {
             {this.owner.formatTimestamp(timestamp)}
             {'  '}
             <Tooltip
-              hoverable
               content={
                 <>
                   You should never store <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> if not
@@ -225,7 +222,6 @@ class Stasis extends Analyzer {
             {this.owner.formatTimestamp(timestamp)}
             {'  '}
             <Tooltip
-              hoverable
               content={
                 <>
                   you should never store <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> when doing an{' '}
@@ -248,7 +244,6 @@ class Stasis extends Analyzer {
             {this.owner.formatTimestamp(timestamp)}
             {'  '}
             <Tooltip
-              hoverable
               content={
                 <>
                   Although <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} /> is not high value, it is
@@ -270,7 +265,6 @@ class Stasis extends Analyzer {
             {this.owner.formatTimestamp(timestamp)}
             {'  '}
             <Tooltip
-              hoverable
               content={
                 <>
                   <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} /> is not a high value spell to
@@ -293,7 +287,6 @@ class Stasis extends Analyzer {
           {this.owner.formatTimestamp(timestamp)}
           {'  '}
           <Tooltip
-            hoverable
             content={
               <>
                 <SpellLink spell={TALENTS_EVOKER.CAUTERIZING_FLAME_TALENT} /> is not a good spell to
@@ -313,7 +306,6 @@ class Stasis extends Analyzer {
           <SpellLink spell={SPELLS.NATURALIZE} /> @ {this.owner.formatTimestamp(timestamp)}
           {'  '}
           <Tooltip
-            hoverable
             content={
               <>
                 <SpellLink spell={SPELLS.NATURALIZE} /> is not a good spell to store outside of very
@@ -334,7 +326,6 @@ class Stasis extends Analyzer {
           {this.owner.formatTimestamp(timestamp)}
           {'  '}
           <Tooltip
-            hoverable
             content={
               <>
                 <SpellLink spell={TALENTS_EVOKER.REVERSION_TALENT} /> is not a good spell to store
@@ -359,7 +350,6 @@ class Stasis extends Analyzer {
             {this.owner.formatTimestamp(timestamp)}
             {'  '}
             <Tooltip
-              hoverable
               content={
                 <>
                   <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> is not a high value spell
@@ -382,7 +372,6 @@ class Stasis extends Analyzer {
             {this.owner.formatTimestamp(timestamp)}
             {'  '}
             <Tooltip
-              hoverable
               content={
                 <>
                   <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> is a very high value
@@ -404,7 +393,6 @@ class Stasis extends Analyzer {
           {this.owner.formatTimestamp(timestamp)}
           {'  '}
           <Tooltip
-            hoverable
             content={
               <>
                 <SpellLink spell={TALENTS_EVOKER.VERDANT_EMBRACE_TALENT} /> is not a high value
@@ -433,7 +421,6 @@ class Stasis extends Analyzer {
             {this.owner.formatTimestamp(timestamp)}
             {'  '}
             <Tooltip
-              hoverable
               content={
                 <>
                   <SpellLink spell={TALENTS_EVOKER.SPIRITBLOOM_TALENT} /> is not a high value spell
@@ -456,7 +443,6 @@ class Stasis extends Analyzer {
             {this.owner.formatTimestamp(timestamp)}
             {'  '}
             <Tooltip
-              hoverable
               content={
                 <>
                   <SpellLink spell={TALENTS_EVOKER.SPIRITBLOOM_TALENT} /> is a very high value spell

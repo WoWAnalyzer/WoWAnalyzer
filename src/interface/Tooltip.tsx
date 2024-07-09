@@ -1,43 +1,31 @@
-import { CSSProperties, ReactNode } from 'react';
+import { Arrow, Content, Portal, Root, Trigger } from '@radix-ui/react-tooltip';
+import type { ComponentProps, CSSProperties, ReactNode } from 'react';
 
-import ReactTooltip, { TooltipProps as ReactTooltipProps } from '@wowanalyzer/react-tooltip-lite';
+import styles from './Tooltip.module.scss';
 
-import './Tooltip.scss';
-
-interface TooltipProps extends ReactTooltipProps {
-  /**
-   * REQUIRED: The text/element that triggers the tooltip
-   */
+interface TooltipProps {
   children: ReactNode;
-  /**
-   * Boolean which states, if a person can access the tooltip contents (and click links, select and copy text etc.)
-   * Default: false
-   */
-  hoverable?: boolean;
+  content: ReactNode;
+  isOpen?: boolean;
+  side?: ComponentProps<typeof Content>['side'];
 }
-const Tooltip = ({
-  content,
-  children,
-  className = '',
-  direction = 'down',
-  hoverable = false,
-  ...others
-}: TooltipProps) => {
+export function Tooltip({ children, content, isOpen, side = 'bottom' }: TooltipProps) {
   return (
-    <ReactTooltip
-      {...others}
-      className={className}
-      direction={direction}
-      tipContentHover={hoverable}
-      content={content}
-    >
-      {children}
-    </ReactTooltip>
+    <Root open={isOpen}>
+      <Trigger asChild>{children}</Trigger>
+      <Portal>
+        <Content className={styles['content']} side={side}>
+          {content}
+          <Arrow className={styles['arrow']} />
+        </Content>
+      </Portal>
+    </Root>
   );
-};
+}
 export default Tooltip;
 
 interface TooltipElementProps extends TooltipProps {
+  className?: string;
   style?: CSSProperties;
   tooltipClassName?: string;
 }
@@ -45,31 +33,35 @@ export const TooltipElement = ({
   content,
   children,
   className = '',
-  direction = 'down',
-  hoverable = false,
+  side = 'bottom',
   style = {},
   tooltipClassName = '',
   ...others
 }: TooltipElementProps) => {
   return (
-    <ReactTooltip
-      {...others}
-      content={content}
-      className={tooltipClassName}
-      direction={direction}
-      tipContentHover={hoverable}
-    >
-      <dfn className={className} style={style}>
-        {children}
-      </dfn>
-    </ReactTooltip>
+    <Root>
+      <Trigger asChild>
+        <dfn className={className} style={style}>
+          {children}
+        </dfn>
+      </Trigger>
+      <Portal>
+        <Content
+          className={[styles['content'], tooltipClassName].filter((it) => it).join(' ')}
+          side={side}
+        >
+          {content}
+          <Arrow className={styles['arrow']} />
+        </Content>
+      </Portal>
+    </Root>
   );
 };
 
 type MaybeTooltipProps = Partial<Pick<TooltipElementProps, 'content'>> &
   Omit<TooltipElementProps, 'content'>;
 
-export const MaybeTooltip = ({ content, children, ...rest }: MaybeTooltipProps): JSX.Element => {
+export const MaybeTooltip = ({ content, children, ...rest }: MaybeTooltipProps) => {
   if (content) {
     return (
       <TooltipElement content={content} {...rest}>

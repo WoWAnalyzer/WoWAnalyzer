@@ -236,7 +236,6 @@ class Berserk extends Analyzer {
                 <>
                   <SpellLink spell={SPELLS.CONVOKE_SPIRITS} /> during Berserk{' '}
                   <Tooltip
-                    hoverable
                     content={
                       <>
                         Berserking without Convoke is fine, but it's optimal to wait a few seconds

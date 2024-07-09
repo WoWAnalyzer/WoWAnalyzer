@@ -33,7 +33,6 @@ const CountsAsBrew = ({
     <>
       It counts as a{' '}
       <TooltipElement
-        hoverable
         content={
           <>
             This means that it benefits from the cooldown reduction on spells like{' '}
@@ -45,13 +44,7 @@ const CountsAsBrew = ({
         Brew
       </TooltipElement>
       , with a typical cooldown of about{' '}
-      {cdTooltip ? (
-        <TooltipElement hoverable content={cdTooltip}>
-          {cdText}
-        </TooltipElement>
-      ) : (
-        cdText
-      )}
+      {cdTooltip ? <TooltipElement content={cdTooltip}>{cdText}</TooltipElement> : cdText}
     </>
   );
 };

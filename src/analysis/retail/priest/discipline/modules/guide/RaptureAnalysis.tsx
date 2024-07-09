@@ -201,7 +201,7 @@ class RaptureAnalysis extends Analyzer {
         );
         const iconClass = `evang__icon ${ramp.badCastIndexes?.includes(index) ? '--fail' : ''}`;
         return (
-          <Tooltip content={tooltipContent} key={index} direction="up">
+          <Tooltip content={tooltipContent} key={index} side="top">
             <div className="" data-place="top">
               <Icon icon={cast.ability.abilityIcon} className={iconClass} />
             </div>

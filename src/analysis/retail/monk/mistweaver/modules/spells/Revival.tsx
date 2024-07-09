@@ -215,7 +215,6 @@ class Revival extends Analyzer {
                   <SpellLink spell={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT} /> buff active if next
                   buff is not <SpellLink spell={SPELLS.LESSON_OF_FEAR_BUFF} />
                   <Tooltip
-                    hoverable
                     content={
                       <>
                         Make sure to use <SpellLink spell={TALENTS_MONK.SHEILUNS_GIFT_TALENT} />{' '}

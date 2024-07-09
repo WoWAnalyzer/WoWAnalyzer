@@ -165,7 +165,7 @@ function HitTimeline({
       <HitTimelineBar>
         {hits.map((hit, ix) => {
           return (
-            <Tooltip hoverable content={<TooltipContent hit={hit} />} key={ix} direction="up">
+            <Tooltip content={<TooltipContent hit={hit} />} key={ix} side="top">
               <HitTimelineSlice
                 color={qualitativePerformanceToColor(hit.mitigated)}
                 widthPct={blockWidth}
