@@ -36,6 +36,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 7, 10), 'Improve debugging information for Global Cooldown tracking', emallson),
   change(date(2024, 7, 8), 'Rewrite Premium page in TypeScript.', ToppleTheNun),
   change(date(2024, 7, 6), 'Update Foundation Guides to use div instead of p (DOM warnings)', jazminite),
   change(date(2024, 7, 5), <>Update Haste and GCD tracking for Classic.</>, emallson),
