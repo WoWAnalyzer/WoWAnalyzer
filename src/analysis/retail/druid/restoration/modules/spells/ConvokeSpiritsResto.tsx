@@ -258,6 +258,7 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
                 <>
                   Avoid <SpellLink spell={TALENTS_DRUID.FLOURISH_TALENT} /> clip{' '}
                   <Tooltip
+                    hoverable
                     content={
                       <>
                         When casting <SpellLink spell={SPELLS.CONVOKE_SPIRITS} /> and{' '}
@@ -284,6 +285,7 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
                 <>
                   Sync with <SpellLink spell={TALENTS_DRUID.REFORESTATION_TALENT} />{' '}
                   <Tooltip
+                    hoverable
                     content={
                       <>
                         <SpellLink spell={SPELLS.CONVOKE_SPIRITS} />

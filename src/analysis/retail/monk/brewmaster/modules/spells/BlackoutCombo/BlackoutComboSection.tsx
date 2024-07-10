@@ -122,6 +122,7 @@ export default function BlackoutComboSection(): JSX.Element | null {
               <div>
                 Great when you need it, but the{' '}
                 <TooltipElement
+                  hoverable
                   content={
                     <>
                       These are stacks of{' '}

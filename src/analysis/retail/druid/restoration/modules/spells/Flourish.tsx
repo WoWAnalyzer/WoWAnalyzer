@@ -229,6 +229,7 @@ class Flourish extends Analyzer {
                 <>
                   Don't clip existing <SpellLink spell={TALENTS_DRUID.FLOURISH_TALENT} />{' '}
                   <Tooltip
+                    hoverable
                     content={
                       <>
                         <SpellLink spell={SPELLS.CONVOKE_SPIRITS} /> can proc{' '}

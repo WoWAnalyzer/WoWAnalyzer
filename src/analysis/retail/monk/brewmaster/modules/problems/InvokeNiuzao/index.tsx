@@ -203,6 +203,7 @@ function InvokeNiuzaoChecklist({ events, cast, info }: CommonProps): JSX.Element
         <>
           ({formatNumber(cast.purifyStompContribution)} damage Purified){' '}
           <Tooltip
+            hoverable
             content={
               <>
                 This is the full amount of purified damage that contributed to any{' '}

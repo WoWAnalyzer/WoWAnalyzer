@@ -44,7 +44,13 @@ const CountsAsBrew = ({
         Brew
       </TooltipElement>
       , with a typical cooldown of about{' '}
-      {cdTooltip ? <TooltipElement content={cdTooltip}>{cdText}</TooltipElement> : cdText}
+      {cdTooltip ? (
+        <TooltipElement hoverable content={cdTooltip}>
+          {cdText}
+        </TooltipElement>
+      ) : (
+        cdText
+      )}
     </>
   );
 };

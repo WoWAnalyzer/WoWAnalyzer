@@ -406,6 +406,7 @@ class BaseCelestialAnalyzer extends Analyzer {
           <>
             <SpellLink spell={TALENTS_MONK.SECRET_INFUSION_TALENT} /> uptime{' '}
             <Tooltip
+              hoverable
               content={
                 <>
                   Be sure to use <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> with{' '}

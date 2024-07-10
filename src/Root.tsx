@@ -3,10 +3,10 @@ import { ReactNode } from 'react';
 import { Provider as ReduxProvider } from 'react-redux';
 import { store } from 'store';
 import RootErrorBoundary from 'interface/RootErrorBoundary';
+import { TooltipProvider } from '@radix-ui/react-tooltip';
+import { HelmetProvider } from 'react-helmet-async';
 
 import I18nProvider from './localization/I18nProvider';
-import { HelmetProvider } from 'react-helmet-async';
-import { TooltipProvider } from '@radix-ui/react-tooltip';
 
 interface Props {
   children?: ReactNode;
@@ -14,7 +14,7 @@ interface Props {
 
 const Root = ({ children }: Props) => (
   <HelmetProvider>
-    <TooltipProvider>
+    <TooltipProvider delayDuration={100}>
       <ReduxProvider store={store}>
         <I18nProvider>
           {/* We need to place the error boundary inside all providers since it uses i18n for localized messages. */}

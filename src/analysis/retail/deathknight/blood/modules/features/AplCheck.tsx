@@ -217,6 +217,7 @@ export const AplSummary = () => {
                   </p>
                 </>
               }
+              hoverable
             >
               Why?
             </TooltipElement>

@@ -118,6 +118,7 @@ function HitTimeline({ hits, showSourceName, unmitigatedContent }: HitTimelinePr
         {hits.map((hit, ix) => {
           return (
             <Tooltip
+              hoverable
               content={<HitTooltipContent hit={hit} unmitigatedContent={unmitigatedContent} />}
               key={ix}
               side="top"

@@ -6,12 +6,21 @@ import styles from './Tooltip.module.scss';
 interface TooltipProps {
   children: ReactNode;
   content: ReactNode;
+  hoverable?: boolean;
   isOpen?: boolean;
   side?: ComponentProps<typeof Content>['side'];
 }
-export function Tooltip({ children, content, isOpen, side = 'bottom' }: TooltipProps) {
+export function Tooltip({
+  children,
+  content,
+  hoverable = false,
+  isOpen,
+  side = 'bottom',
+}: TooltipProps) {
+  console.log('Tooltip hoverable=', hoverable);
+  console.log('Tooltip disableHoverableContent=', !hoverable);
   return (
-    <Root open={isOpen}>
+    <Root disableHoverableContent={!hoverable} open={isOpen}>
       <Trigger asChild>{children}</Trigger>
       <Portal>
         <Content className={styles['content']} side={side}>

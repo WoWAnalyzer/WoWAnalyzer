@@ -152,6 +152,7 @@ const BuffDisplay = ({
       {buffEvents.map(({ start, end, ability, externalHover, tooltipData }) => (
         <Tooltip
           key={`${start}-${ability.id}`}
+          hoverable
           content={
             tooltipData ? (
               <BuffTooltip {...tooltipData} maxValue={maxValue} />
