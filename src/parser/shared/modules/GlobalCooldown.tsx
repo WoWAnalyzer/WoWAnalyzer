@@ -206,7 +206,10 @@ class GlobalCooldown extends Analyzer {
               <dl>
                 <dt>Timestamp</dt>
                 <dd>
-                  {formatDuration(this.lastGlobalCooldown.timestamp - this.owner.fight.start_time)}
+                  {formatDuration(
+                    this.lastGlobalCooldown.timestamp - this.owner.fight.start_time,
+                    2,
+                  )}
                 </dd>
                 <dt>Ability</dt>
                 <dd>
@@ -220,6 +223,7 @@ class GlobalCooldown extends Analyzer {
                     this.lastGlobalCooldown.timestamp +
                       this.lastGlobalCooldown.duration -
                       this.owner.fight.start_time,
+                    2,
                   )}{' '}
                   ({(remainingDuration / 1000).toFixed(2)}s after this event)
                 </dd>
