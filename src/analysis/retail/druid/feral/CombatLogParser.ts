@@ -38,15 +38,12 @@ import SuddenAmbushLinkNormalizer from 'analysis/retail/druid/feral/normalizers/
 import SuddenAmbush from 'analysis/retail/druid/feral/modules/spells/SuddenAmbush';
 import RampantFerocityLinkNormalizer from 'analysis/retail/druid/feral/normalizers/RampantFerocityLinkNormalizer';
 import TasteForBlood from 'analysis/retail/druid/feral/modules/spells/TasteForBlood';
-import RagingFury from 'analysis/retail/druid/feral/modules/spells/RagingFury';
 import ThrashUptimeAndSnapshot from 'analysis/retail/druid/feral/modules/spells/ThrashUptimeAndSnapshot';
 import LionsStrength from 'analysis/retail/druid/feral/modules/spells/LionsStrength';
 import CarnivorousInstinct from 'analysis/retail/druid/feral/modules/spells/CarnivorousInstinct';
 import BrutalSlash from 'analysis/retail/druid/feral/modules/spells/BrutalSlash';
 import OmenAndMomentOfClarity from 'analysis/retail/druid/feral/modules/spells/OmenAndMomentOfClarity';
 import FeralFrenzy from 'analysis/retail/druid/feral/modules/spells/FeralFrenzy';
-import Tier29 from 'analysis/retail/druid/feral/modules/dragonflight/Tier29';
-import DireFixation from 'analysis/retail/druid/feral/modules/spells/DireFixation';
 import SaberJaws from 'analysis/retail/druid/feral/modules/spells/SaberJaws';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -104,17 +101,15 @@ class CombatLogParser extends CoreCombatLogParser {
     sabertooth: Sabertooth,
     suddenAmbush: SuddenAmbush,
     tasteForBlood: TasteForBlood,
-    ragingFury: RagingFury,
     lionsStrength: LionsStrength,
     carnivorousInstinct: CarnivorousInstinct,
     brutalSlash: BrutalSlash,
     omenAndMomentOfClarity: OmenAndMomentOfClarity,
     feralFrenzy: FeralFrenzy,
-    direFixation: DireFixation,
     saberJaws: SaberJaws,
+    // TODO TWW - might actually want a Tiger's Tenacity module now
 
     // tier
-    tier29: Tier29,
   };
 
   static guide = Guide;

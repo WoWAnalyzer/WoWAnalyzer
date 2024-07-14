@@ -1076,7 +1076,7 @@ const spells = {
     name: 'Primal Claws',
     icon: 'ability_druid_rake',
   },
-  // buff from Sabertooth talent
+  // debuff from Sabertooth talent
   SABERTOOTH: {
     id: 391722,
     name: 'Sabertooth',
@@ -1086,12 +1086,6 @@ const spells = {
   TEAR: {
     id: 391356,
     name: 'Tear',
-    icon: 'artifactability_feraldruid_ashamanesbite',
-  },
-  // damage from Tear Open Wounds talent
-  TEAR_OPEN_WOUNDS: {
-    id: 391786,
-    name: 'Tear Open Wounds',
     icon: 'artifactability_feraldruid_ashamanesbite',
   },
   // damage from Rampant Ferocity talent
@@ -1156,6 +1150,11 @@ const spells = {
     id: 245591,
     name: 'Energetic Rip',
     icon: 'ability_deathwing_bloodcorruption_earth',
+  },
+  SAVAGE_FURY_BUFF: {
+    id: 449646,
+    name: 'Savage Fury',
+    icon: 'ability_druid_kingofthejungle',
   },
   FERAL_DRUID_T20_4SET_BONUS_BUFF: {
     id: 242235,
@@ -1233,12 +1232,30 @@ const spells = {
   SYMBIOTIC_BLOOMS_WILDSTALKER: {
     id: 439530,
     name: 'Symbiotic Blooms',
-    icon: '463540',
+    icon: 'inv_misc_lifeblood',
+  },
+  BLOODSEEKER_VINES: {
+    id: 439531,
+    name: 'Bloodseeker Vines',
+    icon: 'inv_misc_herb_16',
   },
 
   /////////////////////////////////////////////////////////////////////////////
   // DRUID OF THE CLAW
   //
+
+  // this is the cast ID (replaces FB) and the damage ID (direct and cleave)
+  RAVAGE_DOTC_CAT: {
+    id: 441591,
+    name: 'Ravage',
+    icon: 'inv_ability_druidoftheclawdruid_ravage',
+  },
+  // this is the DoT debuff and damage ID
+  DREADFUL_WOUND: {
+    id: 441812,
+    name: 'Dreadful Wound',
+    icon: 'artifactability_feraldruid_openwounds',
+  },
 
   /////////////////////////////////////////////////////////////////////////////
   // ELUNE'S CHOSEN
@@ -1251,7 +1268,7 @@ const spells = {
   CENARIUS_MIGHT_BUFF: {
     id: 455801,
     name: "Cenarius' Might",
-    icon: '236692',
+    icon: 'achievement_reputation_guardiansofcenarius',
   },
 
   // TODO TWW find a log with the ID of the "minor cenarion ward" applied 'Durability of Nature'

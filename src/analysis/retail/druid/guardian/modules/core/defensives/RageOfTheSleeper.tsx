@@ -11,8 +11,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import { SELECTED_PLAYER } from 'parser/core/Analyzer';
-
-const MITIGATION = 0.25;
+import { RAGE_OF_THE_SLEEPER_MIT } from 'analysis/retail/druid/guardian/constants';
 
 export default class RageOfTheSleeper extends MajorDefensiveBuff {
   constructor(options: Options) {
@@ -31,7 +30,7 @@ export default class RageOfTheSleeper extends MajorDefensiveBuff {
     if (this.defensiveActive(event) && !event.sourceIsFriendly) {
       this.recordMitigation({
         event,
-        mitigatedAmount: absoluteMitigation(event, MITIGATION),
+        mitigatedAmount: absoluteMitigation(event, RAGE_OF_THE_SLEEPER_MIT),
       });
     }
   }

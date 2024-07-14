@@ -17,7 +17,12 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { cdSpell, CONVOKE_FB_CPS, FINISHERS } from 'analysis/retail/druid/feral/constants';
+import {
+  cdSpell,
+  CONVOKE_FB_CPS,
+  FB_SPELLS,
+  FINISHERS,
+} from 'analysis/retail/druid/feral/constants';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { formatNumber, formatPercentage } from 'common/format';
 import getResourceSpent from 'parser/core/getResourceSpent';
@@ -113,10 +118,7 @@ class Berserk extends Analyzer {
 
     this.cdSpell = cdSpell(this.selectedCombatant);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(FINISHERS), this.onFinisher);
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FEROCIOUS_BITE),
-      this.onBiteDamage,
-    );
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(FB_SPELLS), this.onBiteDamage);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.cdSpell), this.onCdUse);
     this.addEventListener(
       new EventFilter(EventType.UpdateSpellUsable).by(SELECTED_PLAYER).spell(this.cdSpell),

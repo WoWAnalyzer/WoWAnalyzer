@@ -3,7 +3,6 @@ import SPELLS from 'common/SPELLS';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
-import { has4pcDF3or4 } from 'analysis/retail/druid/feral/constants';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -38,6 +37,15 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.FEROCIOUS_BITE.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          static: 1000,
+        },
+        timelineSortIndex: 6,
+      },
+      {
+        // TODO TWW - should I just try to roll this in with Bite in the user facing view?
+        spell: SPELLS.RAVAGE_DOTC_CAT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           static: 1000,
@@ -193,7 +201,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_DRUID.FERAL_FRENZY_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         enabled: combatant.hasTalent(TALENTS_DRUID.FERAL_FRENZY_TALENT),
-        cooldown: has4pcDF3or4(combatant) ? 30 : 45,
+        cooldown: 45 - combatant.getTalentRank(TALENTS_DRUID.TEAR_DOWN_THE_MIGHTY_TALENT) * 5,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,

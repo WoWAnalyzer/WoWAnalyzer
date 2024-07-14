@@ -12,20 +12,11 @@ import MajorDefensiveStatistic from 'interface/MajorDefensiveStatistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { SpellLink } from 'interface';
 import { SELECTED_PLAYER } from 'parser/core/Analyzer';
-
-const BASE_MITIGATION = 0.2;
-const REINFORCED_FUR_ADDITIONAL_MITIGATION = 0.1;
+import { barkskinMitigation } from 'analysis/retail/druid/guardian/constants';
 
 export default class Barkskin extends MajorDefensiveBuff {
-  mitPct: number;
-
   constructor(options: Options) {
     super(SPELLS.BARKSKIN, buff(SPELLS.BARKSKIN), options);
-
-    this.mitPct =
-      BASE_MITIGATION +
-      this.selectedCombatant.getTalentRank(TALENTS_DRUID.REINFORCED_FUR_TALENT) *
-        REINFORCED_FUR_ADDITIONAL_MITIGATION;
 
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.recordDamage);
   }
@@ -34,7 +25,7 @@ export default class Barkskin extends MajorDefensiveBuff {
     if (this.defensiveActive(event) && !event.sourceIsFriendly) {
       this.recordMitigation({
         event,
-        mitigatedAmount: absoluteMitigation(event, this.mitPct),
+        mitigatedAmount: absoluteMitigation(event, barkskinMitigation(this.selectedCombatant)),
       });
     }
   }

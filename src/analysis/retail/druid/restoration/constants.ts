@@ -41,6 +41,7 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES: number[] = [
   SPELLS.NOURISH.id,
   SPELLS.T31_TREANT_CLEAVE_NOURISH.id,
   SPELLS.T31_CAST_CLEAVE_NOURISH.id,
+  // TODO TWW - more TWW IDs?
 ];
 
 // procs Nature's Vigil
