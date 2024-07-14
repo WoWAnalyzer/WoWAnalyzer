@@ -28,7 +28,6 @@ import Swiftmend from 'analysis/retail/druid/restoration/modules/spells/Swiftmen
 import Tranquility from 'analysis/retail/druid/restoration/modules/spells/Tranquility';
 import WildGrowth from 'analysis/retail/druid/restoration/modules/spells/WildGrowth';
 import FlashOfClarity from 'analysis/retail/druid/restoration/modules/spells/FlashOfClarity';
-import AdaptiveSwarmResto from 'analysis/retail/druid/restoration/modules/spells/AdaptiveSwarmResto';
 import ConvokeSpiritsResto from 'analysis/retail/druid/restoration/modules/spells/ConvokeSpiritsResto';
 import Reforestation from 'analysis/retail/druid/restoration/modules/spells/Reforestation';
 import PowerOfTheArchdruid from 'analysis/retail/druid/restoration/modules/spells/PowerOfTheArchdruid';
@@ -57,12 +56,9 @@ import RampantGrowth from 'analysis/retail/druid/restoration/modules/spells/Ramp
 import Overgrowth from 'analysis/retail/druid/restoration/modules/spells/Overgrowth';
 import BuddingLeaves from 'analysis/retail/druid/restoration/modules/spells/BuddingLeaves';
 import Dreamstate from 'analysis/retail/druid/restoration/modules/spells/Dreamstate';
-import Tier29 from 'analysis/retail/druid/restoration/modules/dragonflight/Tier29';
-import Tier30 from 'analysis/retail/druid/restoration/modules/dragonflight/Tier30';
 import WildGrowthPrecastOrderNormalizer from 'analysis/retail/druid/restoration/normalizers/WildGrowthPrecastOrderNormalizer';
 import WakingDream from 'analysis/retail/druid/restoration/modules/spells/WakingDream';
 import GroveGuardians from 'analysis/retail/druid/restoration/modules/spells/GroveGuardians';
-import Tier31 from 'analysis/retail/druid/restoration/modules/dragonflight/Tier31';
 import CenariusGuidanceTol from 'analysis/retail/druid/restoration/modules/spells/CenariusGuidanceTol';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -113,7 +109,6 @@ class CombatLogParser extends CoreCombatLogParser {
     cenarionWard: CenarionWard,
     abundance: Abundance,
     convokeSpirits: ConvokeSpiritsResto,
-    adaptiveSwarm: AdaptiveSwarmResto,
     flashOfClarity: FlashOfClarity,
     unendingGrowrth: LuxuriantSoil,
     memoryoftheMotherTree: PowerOfTheArchdruid,
@@ -138,9 +133,6 @@ class CombatLogParser extends CoreCombatLogParser {
     hpmTracker: HealingEfficiencyTracker,
 
     //Tier
-    tier29: Tier29,
-    tier30: Tier30,
-    tier31: Tier31,
   };
 
   static guide = Guide;

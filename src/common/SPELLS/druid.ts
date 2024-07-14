@@ -1224,6 +1224,38 @@ const spells = {
     name: 'Smoldering Frenzy',
     icon: 'inv_staff_99',
   },
+
+  /////////////////////////////////////////////////////////////////////////////
+  // WILDSTALKER
+  //
+
+  // 'wildstalker' to differentiate from very similarly named Evoker spell
+  SYMBIOTIC_BLOOMS_WILDSTALKER: {
+    id: 439530,
+    name: 'Symbiotic Blooms',
+    icon: '463540',
+  },
+
+  /////////////////////////////////////////////////////////////////////////////
+  // DRUID OF THE CLAW
+  //
+
+  /////////////////////////////////////////////////////////////////////////////
+  // ELUNE'S CHOSEN
+  //
+
+  /////////////////////////////////////////////////////////////////////////////
+  // KEEPER OF THE GROVE
+  //
+
+  CENARIUS_MIGHT_BUFF: {
+    id: 455801,
+    name: "Cenarius' Might",
+    icon: '236692',
+  },
+
+  // TODO TWW find a log with the ID of the "minor cenarion ward" applied 'Durability of Nature'
+  //      ... it appears to be the less popular choice on the node unforch
 } satisfies Record<string, Spell>;
 
 export default spells;

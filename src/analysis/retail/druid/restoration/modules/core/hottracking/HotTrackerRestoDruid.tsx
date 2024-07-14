@@ -17,6 +17,8 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 
 const LIVELINESS_MULT = 0.95;
 
+// TODO TWW handle Wildstalker's Symbiotic Blooms - weird handling because of overlapping behavior?
+
 class HotTrackerRestoDruid extends HotTracker {
   static dependencies = {
     ...HotTracker.dependencies,
@@ -93,9 +95,13 @@ class HotTrackerRestoDruid extends HotTracker {
       TALENTS_DRUID.IMPROVED_REJUVENATION_TALENT,
     );
     const hasGermination = this.selectedCombatant.hasTalent(TALENTS_DRUID.GERMINATION_TALENT);
+    const thrivingVegetationRank = this.selectedCombatant.getTalentRank(
+      TALENTS_DRUID.THRIVING_VEGETATION_TALENT,
+    );
 
     const globalMult = hasLiveliness ? LIVELINESS_MULT : 1;
     const rejuvDuration = 12000 + (hasImpRejuv ? 3000 : 0) + (hasGermination ? 2000 : 0);
+    const regrowthDuration = 12000 + thrivingVegetationRank * 3000;
 
     return [
       {
@@ -110,7 +116,7 @@ class HotTrackerRestoDruid extends HotTracker {
       },
       {
         spell: SPELLS.REGROWTH,
-        duration: 12000 * globalMult,
+        duration: regrowthDuration * globalMult,
         tickPeriod: 2000,
       },
       {
