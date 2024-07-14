@@ -37,10 +37,9 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   events: NpcBeginCastEvent[] | NpcCastEvent[];
   reportCode: string;
   actorId: number;
-  showInstantCasts: boolean;
-  showChanneledCasts: boolean;
-  showInterruptedAbilities: boolean;
-  showBossAbilities: boolean;
+  style?: CSSProperties & {
+    '--level'?: number;
+  };
 }
 
 const RenderIcon = (
@@ -56,7 +55,7 @@ const RenderIcon = (
     windowStart?: number | undefined;
     secondWidth: number;
     className?: string;
-    style?: CSSProperties;
+    style?: CSSProperties & { '--level'?: number };
   } = {
     secondWidth: 60,
     start: 0,
@@ -82,7 +81,7 @@ const RenderIcon = (
     <>
       <Icon icon={event.ability.abilityIcon.replace('.jpg', '')} alt={event.ability.name} />
       {!event.matchedCast && event.type === 'begincast' ? (
-        <div className="time-indicator"></div>
+        <div className={`time-indicator ${className}`}></div>
       ) : (
         <></>
       )}
@@ -98,7 +97,7 @@ const RenderIcon = (
       {event.matchedCast ? (
         <>
           <div
-            className="channel"
+            className={`channel ${className}`}
             style={{
               left,
               width: ((event.matchedCast.timestamp - event.timestamp) / 1000) * secondWidth,
@@ -119,50 +118,48 @@ const EnemyCasts = ({
   events,
   reportCode,
   actorId,
-  showInstantCasts,
-  showChanneledCasts,
-  showInterruptedAbilities,
-  showBossAbilities,
   ...others
 }: Props) => {
-  const renderCast = (event: NpcCastEvent | NpcBeginCastEvent) => {
-    const className = '';
+  console.log('is enemy casts rerendering');
+  const RenderCast = ({
+    event,
+    className,
+  }: {
+    event: NpcCastEvent | NpcBeginCastEvent;
+    className: string;
+  }) => {
     const level = 0;
     return RenderIcon(event, {
       className,
       start,
       windowStart,
       secondWidth,
-      reportCode,
-      actorId,
       style: {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
         '--level': level > 0 ? level : undefined,
       },
     });
   };
 
-  const filteredEvents = events.filter(
-    (val) =>
-      (val.matchedCast && showChanneledCasts) ||
-      (!val.matchedCast && val.type === 'begincast' && showInterruptedAbilities) ||
-      (val.type === 'cast' && showInstantCasts) ||
-      (val.npc?.subType === 'Boss' && showBossAbilities),
-  );
-
+  const style: CSSProperties & { '--levels'?: number } = {
+    '--levels': 0,
+    ...others.style,
+  };
   return (
-    <div
-      className="casts"
-      {...others}
-      style={{
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        '--levels': 0,
-        ...others.style,
-      }}
-    >
-      {filteredEvents.map(renderCast)}
+    <div className="casts" {...others} style={{ ...style, position: 'relative' }}>
+      {events.map((castEvent: NpcCastEvent | NpcBeginCastEvent, index: number) => {
+        let className = '';
+        if (castEvent.npc?.subType === 'Boss') {
+          className = 'npc-boss-cast';
+        } else if (castEvent.matchedCast) {
+          className = 'npc-channeled-cast';
+        } else if (!castEvent.matchedCast && castEvent.type === 'begincast') {
+          className = 'npc-stopped-cast';
+        } else if (!castEvent.matchedCast) {
+          className = 'npc-instant-cast';
+        }
+
+        return <RenderCast key={`npc_cast_${index}`} event={castEvent} className={className} />;
+      })}
     </div>
   );
 };

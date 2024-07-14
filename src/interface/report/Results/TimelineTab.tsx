@@ -3,7 +3,7 @@ import CombatLogParser from 'parser/core/CombatLogParser';
 import Abilities from 'parser/core/modules/Abilities';
 import Buffs from 'parser/core/modules/Auras';
 import DistanceMoved from 'parser/shared/modules/DistanceMoved';
-import { ReactNode, useState, useEffect, useRef } from 'react';
+import { ReactNode, useState, useEffect } from 'react';
 import { fetchEvents } from 'common/fetchWclApi';
 import { useConfig } from '../ConfigContext';
 import Component from './Timeline/Component';
@@ -49,20 +49,27 @@ const TimelineTab = ({ parser }: Props) => {
   const config = useConfig();
   const [shouldRenderNPCSpells, setRenderNPCSpells] = useState<boolean>(false);
   const [NPCCasts, setNPCCasts] = useState<(BeginCastEvent | CastEvent | any)[]>([]);
-  const prevShouldRenderNPCSpells = useRef(shouldRenderNPCSpells);
-  const hasUserRequestsNPCSpells = useRef(false);
+  const [hasUserRequestedNPCSpells, setHasUserRequestedNPCSpells] = useState<boolean>(false);
+  const [loadingNPCSpellsState, setLoadingNPCSpellsState] = useState<
+    'notFetched' | 'loading' | 'loaded'
+  >('notFetched');
+
+  const toggleHandler = () => {
+    setRenderNPCSpells((prev) => {
+      //set hasUserRequestsNPCSpells to true when the toggle goes from false to true, indicating the user wants to see the npc spells for the first  time
+      if (!prev) {
+        setHasUserRequestedNPCSpells(true);
+        if (loadingNPCSpellsState === 'notFetched') {
+          setLoadingNPCSpellsState('loading');
+        }
+      }
+      return !prev;
+    });
+  };
 
   useEffect(() => {
     const fetchData = async () => {
-      const userRequestFirstTime =
-        !hasUserRequestsNPCSpells.current &&
-        prevShouldRenderNPCSpells.current === false &&
-        shouldRenderNPCSpells === true;
-      //This condition ensures npc abilities are only fetched once for the firs time a use requests them
-      if (userRequestFirstTime) {
-        hasUserRequestsNPCSpells.current = true;
-      }
-      if (hasUserRequestsNPCSpells.current) {
+      if (hasUserRequestedNPCSpells) {
         try {
           //This call grabs the abilities cast by NPCs
           const events = (await fetchEvents(
@@ -70,7 +77,7 @@ const TimelineTab = ({ parser }: Props) => {
             parser.fight.start_time,
             parser.fight.end_time,
             undefined,
-            "type in ('begincast', 'cast') and source.type in ('NPC', 'Boss')",
+            "type in ('begincast', 'cast') and source.type in ('NPC', 'Boss') AND ability.id > 1",
             40,
           )) as (NpcBeginCastEvent | NpcCastEvent)[];
           //This call grabs the damage events that friendly players took from NPCs
@@ -79,7 +86,7 @@ const TimelineTab = ({ parser }: Props) => {
             parser.fight.start_time,
             parser.fight.end_time,
             undefined,
-            "type = 'damage' AND source.type in ('NPC', 'Boss')",
+            "type = 'damage' AND source.type in ('NPC', 'Boss') AND ability.id > 1",
             40,
           )) as any;
 
@@ -113,34 +120,32 @@ const TimelineTab = ({ parser }: Props) => {
           );
 
           //This groups damage events together. Helpful for aoe spells from the enemy that hit multiple players at the same time
-          const nonMeleeDamageEvents = damageStuff
-            .filter((val: any) => val.ability.name !== 'Melee')
-            .reduce((acc: any, cur: any) => {
-              const lastItem = acc[acc.length - 1];
-              if (cur.sourceID > -1) {
-                if (
-                  Array.isArray(lastItem) &&
-                  //group events that are within 300ms and have the same ability name and source
-                  lastItem[lastItem.length - 1].timestamp <= cur.timestamp &&
-                  lastItem[lastItem.length - 1].timestamp >= cur.timestamp - 300 &&
-                  lastItem[lastItem.length - 1].sourceID === cur.sourceID &&
-                  lastItem[lastItem.length - 1].ability.name === cur.ability.name
-                ) {
-                  lastItem.push(cur);
-                } else if (
-                  lastItem &&
-                  lastItem.timestamp <= cur.timestamp &&
-                  lastItem.timestamp >= cur.timestamp - 300 &&
-                  lastItem.sourceID === cur.sourceID &&
-                  lastItem.ability.name === cur.ability.name
-                ) {
-                  acc[acc.length - 1] = [lastItem, cur];
-                } else {
-                  acc.push(cur);
-                }
+          const nonMeleeDamageEvents = damageStuff.reduce((acc: any, cur: any) => {
+            const lastItem = acc[acc.length - 1];
+            if (cur.sourceID > -1) {
+              if (
+                Array.isArray(lastItem) &&
+                //group events that are within 300ms and have the same ability name and source
+                lastItem[lastItem.length - 1].timestamp <= cur.timestamp &&
+                lastItem[lastItem.length - 1].timestamp >= cur.timestamp - 300 &&
+                lastItem[lastItem.length - 1].sourceID === cur.sourceID &&
+                lastItem[lastItem.length - 1].ability.name === cur.ability.name
+              ) {
+                lastItem.push(cur);
+              } else if (
+                lastItem &&
+                lastItem.timestamp <= cur.timestamp &&
+                lastItem.timestamp >= cur.timestamp - 300 &&
+                lastItem.sourceID === cur.sourceID &&
+                lastItem.ability.name === cur.ability.name
+              ) {
+                acc[acc.length - 1] = [lastItem, cur];
+              } else {
+                acc.push(cur);
               }
-              return acc;
-            }, []) as any;
+            }
+            return acc;
+          }, []) as any;
 
           const beginCastMap: { [key: string]: NpcCastEvent | NpcBeginCastEvent } = {};
           /*
@@ -184,13 +189,13 @@ const TimelineTab = ({ parser }: Props) => {
             });
             event['matchingDmgEvent'] = matchingDmgEvent;
             return (
-              //remove melee events, and events that do not damage allies.
-              //keep events that were silenced/interrupted
-              event.ability.name !== 'Melee' &&
-              (matchingDmgEvent.length || (!event.matchedCast && event.type === 'begincast'))
+              //remove events that do not damage allies.
+              //keep events that were silenced/interrupted/stopped
+              matchingDmgEvent.length || (!event.matchedCast && event.type === 'begincast')
             );
           });
           setNPCCasts(npcAbilities);
+          setLoadingNPCSpellsState('loaded');
         } catch (err) {
           console.log('failed npc cast call: ', err);
         }
@@ -205,7 +210,7 @@ const TimelineTab = ({ parser }: Props) => {
     parser.combatantInfoEvents,
     parser.report.enemies,
     parser.report.enemyPets,
-    shouldRenderNPCSpells,
+    hasUserRequestedNPCSpells,
   ]);
 
   let alert: ReactNode = null;
@@ -237,7 +242,8 @@ const TimelineTab = ({ parser }: Props) => {
       <div className="container">{alert}</div>
 
       <Component
-        setRenderNPCSpells={setRenderNPCSpells}
+        loadingNPCSpellsState={loadingNPCSpellsState}
+        setRenderNPCSpells={toggleHandler}
         shouldRenderNPCSpells={shouldRenderNPCSpells}
         parser={parser}
         abilities={parser.getModule(Abilities)}
