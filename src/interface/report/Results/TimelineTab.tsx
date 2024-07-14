@@ -77,7 +77,7 @@ const TimelineTab = ({ parser }: Props) => {
             parser.fight.start_time,
             parser.fight.end_time,
             undefined,
-            "type in ('begincast', 'cast') and source.type in ('NPC', 'Boss') AND ability.id > 1",
+            "type in ('begincast', 'cast') and source.type in ('NPC', 'Boss') AND ability.id > 1 AND sourceID > -1",
             40,
           )) as (NpcBeginCastEvent | NpcCastEvent)[];
           //This call grabs the damage events that friendly players took from NPCs
@@ -86,10 +86,9 @@ const TimelineTab = ({ parser }: Props) => {
             parser.fight.start_time,
             parser.fight.end_time,
             undefined,
-            "type = 'damage' AND source.type in ('NPC', 'Boss') AND ability.id > 1",
+            "type = 'damage' AND source.type in ('NPC', 'Boss') AND ability.id > 1 AND source.id > 0 AND target.type = 'Player'",
             40,
           )) as any;
-
           //These three reducers map the character id to the character so that the source and targets for the damage events can be matched
           const enemies = parser.report.enemies.reduce(
             (acc: Record<number, any>, cur: { id: number }) => {
