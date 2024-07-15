@@ -335,15 +335,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.SWIFTMEND.id,
-        category: SPELL_CATEGORY.UTILITY,
-        enabled: combatant.hasTalent(TALENTS_DRUID.SWIFTMEND_TALENT),
-        gcd: {
-          base: 1500,
-        },
-        cooldown: 25,
-      },
-      {
         spell: SPELLS.WILD_GROWTH.id,
         category: SPELL_CATEGORY.UTILITY,
         enabled: combatant.hasTalent(TALENTS_DRUID.WILD_GROWTH_TALENT),
