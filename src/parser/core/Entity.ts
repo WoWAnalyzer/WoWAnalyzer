@@ -72,11 +72,11 @@ class Entity {
     bufferTime = 0,
     minimalActiveTime = 0,
     sourceID: number | null = null,
-  ) {
+  ): boolean {
     if (forTimestamp === null && bufferTime === 0 && minimalActiveTime === 0) {
       // fast-path for common case
       if (sourceID !== null) {
-        return this.activeBuffSet.get(spellId)?.has(sourceID);
+        return this.activeBuffSet.get(spellId)?.has(sourceID) ?? false;
       } else {
         return (this.activeBuffSet.get(spellId)?.size ?? 0) > 0;
       }
