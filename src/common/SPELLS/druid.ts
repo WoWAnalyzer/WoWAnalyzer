@@ -1239,6 +1239,16 @@ const spells = {
     name: 'Bloodseeker Vines',
     icon: 'inv_misc_herb_16',
   },
+  BURSTING_GROWTH_HEAL: {
+    id: 440121,
+    name: 'Bursting Growth',
+    icon: 'inv_collections_armor_flowerbracelet_b_01',
+  },
+  BURSTING_GROWTH_DAMAGE: {
+    id: 440122,
+    name: 'Bursting Growth',
+    icon: 'inv_misc_thornnecklace',
+  },
 
   /////////////////////////////////////////////////////////////////////////////
   // DRUID OF THE CLAW
