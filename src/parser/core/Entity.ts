@@ -21,6 +21,8 @@ class Entity {
    */
   buffs: TrackedBuffEvent[] = [];
 
+  private activeBuffSet: Map<number, Set<number>> = new Map();
+
   /**
    * @param {number} timestamp - Timestamp (in ms) to be considered, or the current timestamp if null. Won't work right for timestamps after the currentTimestamp.
    * @param {number} bufferTime - Time (in ms) after buff's expiration where it will still be included. There's a bug in the combat log where if a spell consumes a buff that buff may disappear a short time before the heal or damage event it's buffing is logged. This can sometimes go up to hundreds of milliseconds.
@@ -71,6 +73,14 @@ class Entity {
     minimalActiveTime = 0,
     sourceID: number | null = null,
   ) {
+    if (forTimestamp === null && bufferTime === 0 && minimalActiveTime === 0) {
+      // fast-path for common case
+      if (sourceID !== null) {
+        return this.activeBuffSet.get(spellId)?.has(sourceID);
+      } else {
+        return (this.activeBuffSet.get(spellId)?.size ?? 0) > 0;
+      }
+    }
     return (
       this.getBuff(spellId, forTimestamp, bufferTime, minimalActiveTime, sourceID) !== undefined
     );
@@ -306,6 +316,23 @@ class Entity {
       stacks: 1,
       ...buff,
     });
+
+    if (buff.sourceID !== undefined) {
+      let set = this.activeBuffSet.get(buff.ability.guid);
+      if (!set) {
+        this.activeBuffSet.set(buff.ability.guid, new Set());
+        set = this.activeBuffSet.get(buff.ability.guid);
+      }
+
+      set!.add(buff.sourceID);
+    }
+  }
+
+  removeBuffSource(buffId: number, sourceId: number | undefined) {
+    if (sourceId === undefined) {
+      return;
+    }
+    this.activeBuffSet.get(buffId)?.delete(sourceId);
   }
 }
 
