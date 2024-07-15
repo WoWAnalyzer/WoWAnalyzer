@@ -11,6 +11,8 @@ import Buffs from './modules/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import FoundationGuide from 'interface/guide/foundation/FoundationGuide';
 import CancelledCasts from 'parser/shared/modules/CancelledCasts';
+import MetamorphosisNormalizer from './modules/normalizers/MetamorphosisNormalizer';
+import DemonSoulNormalizer from './modules/normalizers/DemonSoulNormalizer';
 // Spells
 // import SpellName from './modules/spells';
 
@@ -28,6 +30,9 @@ class CombatLogParser extends BaseCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     // Spells
     // spellName: SpellName,
+    // Normalizers
+    metamorphosisNormalizer: MetamorphosisNormalizer,
+    demonSoulNormalizer: DemonSoulNormalizer,
   };
   static guide = FoundationGuide;
 }
