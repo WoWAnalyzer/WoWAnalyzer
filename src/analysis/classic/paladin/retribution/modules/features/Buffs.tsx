@@ -24,7 +24,7 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.SEAL_OF_LIGHT.id,
+        spellId: SPELLS.SEAL_OF_INSIGHT.id,
         timelineHighlight: true,
       },
       {
@@ -36,7 +36,7 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.SEAL_OF_VENGEANCE.id,
+        spellId: SPELLS.SEAL_OF_TRUTH.id,
         timelineHighlight: true,
       },
       {

@@ -119,17 +119,22 @@ class Abilities extends CoreAbilities {
         gcd: null,
       },
       {
+        spell: [SPELLS.CLEANSE.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.DIVINE_SACRIFICE.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+      },
+      {
         spell: [SPELLS.HAND_OF_RECKONING.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: null,
       },
       {
-        spell: [SPELLS.JUDGEMENT_OF_LIGHT.id],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { base: 1500 },
-      },
-      {
-        spell: [SPELLS.CLEANSE.id],
+        spell: [SPELLS.JUDGEMENT.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
@@ -139,7 +144,7 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.SEAL_OF_VENGEANCE.id],
+        spell: [SPELLS.SEAL_OF_TRUTH.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
@@ -154,7 +159,7 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.SEAL_OF_LIGHT.id],
+        spell: [SPELLS.SEAL_OF_INSIGHT.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
@@ -180,11 +185,6 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: [SPELLS.GREATER_BLESSING_OF_MIGHT.id, ...SPELLS.GREATER_BLESSING_OF_MIGHT.lowRanks],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { base: 1500 },
-      },
-      {
-        spell: [SPELLS.DIVINE_SACRIFICE.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },

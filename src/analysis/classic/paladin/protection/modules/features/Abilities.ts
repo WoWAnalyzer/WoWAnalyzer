@@ -32,7 +32,7 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.JUDGEMENT_OF_LIGHT.id],
+        spell: [SPELLS.JUDGEMENT.id],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },

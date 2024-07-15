@@ -131,7 +131,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.talentPoints[0] >= 50,
       },
       {
-        spell: [SPELLS.JUDGEMENT_OF_LIGHT.id],
+        spell: [SPELLS.JUDGEMENT.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },

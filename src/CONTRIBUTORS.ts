@@ -2418,3 +2418,8 @@ export const Lspinheiro: Contributor = {
     },
   ],
 };
+
+export const Ethelis: Contributor = {
+  nickname: 'Ethelis',
+  github: 'ethelis',
+};
