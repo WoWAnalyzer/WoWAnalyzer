@@ -31,12 +31,10 @@ class ConvokeSpiritsFeral extends ConvokeSpirits {
 
     const tfOnCast = this.selectedCombatant.hasBuff(SPELLS.TIGERS_FURY.id);
     const cpsOnCast = this.comboPointTracker.current;
-    const smolderingFrenzyOnCast = this.selectedCombatant.hasBuff(SPELLS.SMOLDERING_FRENZY.id);
 
     this.feralConvokeTracker[this.cast] = {
       tfOnCast,
       cpsOnCast,
-      smolderingFrenzyOnCast,
     };
   }
 
@@ -110,9 +108,7 @@ class ConvokeSpiritsFeral extends ConvokeSpirits {
           }
 
           const overallPerf =
-            feralCast.cpsOnCast <= 2 &&
-            feralCast.tfOnCast &&
-            (!hasT31 || feralCast.smolderingFrenzyOnCast)
+            feralCast.cpsOnCast <= 2 && feralCast.tfOnCast
               ? QualitativePerformance.Good
               : QualitativePerformance.Fail;
 
@@ -151,7 +147,6 @@ class ConvokeSpiritsFeral extends ConvokeSpirits {
 interface FeralConvokeCast {
   tfOnCast: boolean;
   cpsOnCast: number;
-  smolderingFrenzyOnCast: boolean;
 }
 
 export default ConvokeSpiritsFeral;
