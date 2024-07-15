@@ -234,9 +234,6 @@ export function getBiteCps(event: DamageEvent) {
 export function getFerociousBiteMaxDrain(c: Combatant) {
   return (
     FEROCIOUS_BITE_MAX_DRAIN *
-    (c.hasTalent(TALENTS_DRUID.RELENTLESS_PREDATOR_TALENT)
-      ? RELENTLESS_PREDATOR_FB_ENERGY_MULT
-      : 1) *
     (c.hasBuff(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id) ? INCARN_ENERGY_MULT : 1)
   );
 }

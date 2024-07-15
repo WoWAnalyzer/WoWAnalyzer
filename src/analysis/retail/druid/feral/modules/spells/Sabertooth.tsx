@@ -53,7 +53,7 @@ class Sabertooth extends Analyzer.withDependencies(deps) {
   }
 
   onDotDamage(event: DamageEvent) {
-    const target = deps.combatants.getEntity(event);
+    const target = this.deps.combatants.getEntity(event);
     if (target !== null && target.hasBuff(SPELLS.SABERTOOTH.id)) {
       this.dotBoostDamage += calculateEffectiveDamage(event, this.currentSbtStrength);
     }

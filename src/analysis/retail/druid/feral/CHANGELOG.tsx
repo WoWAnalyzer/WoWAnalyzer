@@ -15,7 +15,7 @@ export default [
   change(date(2023, 6, 21), <>Fixed an issue where parried <SpellLink spell={SPELLS.FEROCIOUS_BITE}/> casts were counted as 0 CP casts.</>, Sref),
   change(date(2023, 6, 20), 'Update SpellLink usage.', ToppleTheNun),
   change(date(2023, 6, 6), <>Fixed an issue where the analyzer was overstating the amount of cooldown reduction from <SpellLink spell={TALENTS_DRUID.BERSERK_HEART_OF_THE_LION_TALENT}/></>, Sref),
-  change(date(2023, 5, 17), <>Fixed an issue where the <SpellLink spell={TALENTS_DRUID.RELENTLESS_PREDATOR_TALENT}/> value wasn't updated for 10.1</>, Sref),
+  change(date(2023, 5, 17), <>Fixed an issue where the Relentless Predator value wasn't updated for 10.1</>, Sref),
   change(date(2023, 5, 4), <>Updated <SpellLink spell={SPELLS.THRASH_FERAL} /> handling for new spell ID</>, Sref),
   change(date(2023, 5, 2), <>Updated Guide logic to support 10.1 changes.</>, Sref),
   change(date(2023, 4, 15), <>Update to indicate support for 10.0.7, and updates to cast evaluation logic in Guide view.</>, Sref),
