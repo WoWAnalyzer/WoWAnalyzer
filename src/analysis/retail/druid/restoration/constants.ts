@@ -117,7 +117,7 @@ export const PHOTO_INCREASED_RATE = [
 ];
 
 // HoTs that get rate increased by Liveliness
-export const LIVELINESS_INCREASED_RATE = PHOTO_INCRESED_RATE;
+export const LIVELINESS_INCREASED_RATE = PHOTO_INCREASED_RATE;
 
 //probably need to add natures vigil here as well and need to check if it reduces tranquility itself
 export const DRUID_COOLDOWNS = [

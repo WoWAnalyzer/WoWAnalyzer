@@ -32,7 +32,6 @@ import ConvokeSpiritsResto from 'analysis/retail/druid/restoration/modules/spell
 import Reforestation from 'analysis/retail/druid/restoration/modules/spells/Reforestation';
 import PowerOfTheArchdruid from 'analysis/retail/druid/restoration/modules/spells/PowerOfTheArchdruid';
 import VerdantInfusion from 'analysis/retail/druid/restoration/modules/spells/VerdantInfusion';
-import LuxuriantSoil from 'analysis/retail/druid/restoration/modules/spells/LuxuriantSoil';
 import Abundance from 'analysis/retail/druid/restoration/modules/spells/Abundance';
 import CenarionWard from 'analysis/retail/druid/restoration/modules/spells/CenarionWard';
 import Cultivation from 'analysis/retail/druid/restoration/modules/spells/Cultivation';
@@ -110,7 +109,6 @@ class CombatLogParser extends CoreCombatLogParser {
     abundance: Abundance,
     convokeSpirits: ConvokeSpiritsResto,
     flashOfClarity: FlashOfClarity,
-    unendingGrowrth: LuxuriantSoil,
     memoryoftheMotherTree: PowerOfTheArchdruid,
     verdantInfusion: VerdantInfusion,
     reforestation: Reforestation,

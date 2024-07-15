@@ -274,14 +274,6 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
-      {
-        spell: SPELLS.MOONKIN_FORM.id,
-        enabled: combatant.hasTalent(TALENTS_DRUID.MOONKIN_FORM_BALANCE_TALENT),
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: {
-          base: 1500,
-        },
-      },
     ];
   }
 }

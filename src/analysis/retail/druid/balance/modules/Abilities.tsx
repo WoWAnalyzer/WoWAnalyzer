@@ -247,6 +247,13 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
+      {
+        spell: SPELLS.MOONKIN_FORM.id,
+        category: SPELL_CATEGORY.OTHERS,
+        gcd: {
+          base: 1500,
+        },
+      },
       ...super.spellbook(),
     ];
   }
