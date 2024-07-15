@@ -263,15 +263,6 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 42,
       },
       {
-        spell: SPELLS.MOONKIN_FORM_AFFINITY.id, // with no affinity any more, is this correct?
-        category: SPELL_CATEGORY.UTILITY,
-        enabled: combatant.hasTalent(TALENTS_DRUID.MOONKIN_FORM_SHARED_TALENT),
-        gcd: {
-          base: 1500,
-        },
-        timelineSortIndex: 54,
-      },
-      {
         spell: SPELLS.MANGLE_BEAR.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: {
@@ -288,7 +279,7 @@ class Abilities extends CoreAbilities {
         cooldown: (haste: number) => 6 / (1 + haste),
       },
       {
-        // Moonfire from caster, bear, and moonkin forms. See MOONFIRE_FERAL for cat
+        // Moonfire from caster and bear forms. See MOONFIRE_FERAL for cat
         spell: SPELLS.MOONFIRE_CAST.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: {
@@ -333,15 +324,6 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS_DRUID.SUNFIRE_TALENT),
         gcd: {
           base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.FLAP.id,
-        category: SPELL_CATEGORY.UTILITY,
-        // only usable in Moonkin form so need Balance affinity, also need to learn from a tome
-        enabled: combatant.hasTalent(TALENTS_DRUID.MOONKIN_FORM_SHARED_TALENT),
-        gcd: {
-          static: 500,
         },
       },
       {
