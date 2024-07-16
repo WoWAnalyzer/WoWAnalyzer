@@ -16,54 +16,54 @@ then
 fi
 
 # Run Typecheck
-if ! yarn typecheck;
+if ! pnpm run typecheck;
 then
   echo "Typecheck failed."
   exit 1
 fi
 
 # ESLint
-if ! yarn lint --max-warnings=0;
+if ! pnpm run lint --max-warnings=0;
 then
   echo "ESLint failed."
   exit 1
 fi
 
 # Interface tests
-if ! yarn test:interface --runInBand;
+if ! pnpm run test:interface --runInBand;
 then
   echo "Interface tests failed."
   exit 1
 fi
 
 # Parser tests
-if ! yarn test:parser --runInBand;
+if ! pnpm run test:parser --runInBand;
 then
   echo "Parser tests failed."
   exit 1
 fi
 
 # Integration tests
-if ! yarn test:integration --runInBand;
+if ! pnpm run test:integration --runInBand;
 then
   echo "Interface tests failed."
   exit 1
 fi
 
+# Verify i18n
+if ! pnpm run extract && pnpm exec lingui compile;
+then
+  echo "i18n verification failed."
+  exit 1
+fi
+
 # Build
 if [ "$1" = "build" ]; then
-  if ! yarn build;
+  if ! pnpm run build;
   then
     echo "Build failed."
     exit 1
   fi
-fi
-
-# Verify i18n
-if ! yarn extract && yarn lingui compile;
-then
-  echo "i18n verification failed."
-  exit 1
 fi
 
 echo "All steps completed."

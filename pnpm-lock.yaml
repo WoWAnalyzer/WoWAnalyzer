@@ -262,7 +262,7 @@ importers:
         specifier: ^0.0.1
         version: 0.0.1
       eslint-plugin-wowanalyzer:
-        specifier: link:./packages/eslint-plugin-wowanalyzer
+        specifier: workspace:*
         version: link:packages/eslint-plugin-wowanalyzer
       eslint-plugin-you-dont-need-lodash-underscore:
         specifier: ^6.14.0

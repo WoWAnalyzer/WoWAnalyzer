@@ -87,7 +87,7 @@
     "eslint-plugin-no-only-tests": "^3.1.0",
     "eslint-plugin-prettier": "^5.1.3",
     "eslint-plugin-progress": "^0.0.1",
-    "eslint-plugin-wowanalyzer": "link:./packages/eslint-plugin-wowanalyzer",
+    "eslint-plugin-wowanalyzer": "workspace:*",
     "eslint-plugin-you-dont-need-lodash-underscore": "^6.14.0",
     "husky": "^9.0.11",
     "identity-obj-proxy": "^3.0.0",

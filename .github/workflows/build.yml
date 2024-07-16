@@ -58,7 +58,7 @@ jobs:
           node-version: '20.x'
           cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
-      - run: yarn prettier . --check
+      - run: pnpm exec prettier . --check
 
   test-interface:
     needs: [prepare]
@@ -73,7 +73,7 @@ jobs:
           node-version: '20.x'
           cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
-      - run: yarn test:interface
+      - run: pnpm run test:interface
 
   test-parser:
     needs: [prepare]
@@ -87,7 +87,7 @@ jobs:
           node-version: '20.x'
           cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
-      - run: yarn test:parser
+      - run: pnpm run test:parser
 
   build:
     needs: [prepare]
@@ -107,13 +107,13 @@ jobs:
       - name: Extract messages
         if: github.event_name != 'pull_request' && github.repository == 'wowanalyzer/wowanalyzer'
         run: |
-          yarn extract
-          yarn lingui compile
+          pnpm run extract
+          pnpm exec lingui compile
       - name: Calculate environment name
         id: environment-name
         run: echo "environment_name=${GITHUB_REF##*/}" >> $GITHUB_OUTPUT
       - name: Production build
-        run: yarn build
+        run: pnpm run build
         env:
           DISABLE_AUTOMATIC_ESLINT: true
           VITE_ENABLE_GA: true
@@ -139,8 +139,8 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - name: Extract messages
         run: |
-          yarn extract
-          yarn lingui compile
+          pnpm run extract
+          pnpm exec lingui compile
       - name: Calculate environment name
         id: environment-name
         run: echo "environment_name=${GITHUB_REF##*/}" >> $GITHUB_OUTPUT
@@ -149,7 +149,7 @@ jobs:
         # using for e2e testing.
         run: cp .env.development .env.production
       - name: Production build
-        run: yarn build
+        run: pnpm run build
         env:
           DISABLE_AUTOMATIC_ESLINT: true
           VITE_ENABLE_GA: false
@@ -182,9 +182,9 @@ jobs:
           name: e2e-build
       - run: tar -xzf dist.tar.gz
       - name: Install Playwright deps
-        run: yarn playwright install --with-deps
+        run: pnpm exec playwright install --with-deps
       - name: Run Playwright tests
-        run: yarn e2e --shard=${{ matrix.shard }}/4
+        run: pnpm run e2e --shard=${{ matrix.shard }}/4
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -209,9 +209,9 @@ jobs:
           cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
       - name: Extract messages
-        run: yarn extract
+        run: pnpm run extract
       - name: Compile messages
-        run: yarn lingui compile
+        run: pnpm exec lingui compile
 
   docker-image:
     needs: [typecheck, linting, prettier, test-interface, test-parser, build]
