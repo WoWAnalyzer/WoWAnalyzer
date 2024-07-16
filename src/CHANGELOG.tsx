@@ -37,6 +37,8 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 7, 16), 'Update Shaman spells for Classic Cataclysm', jazminite),
+  change(date(2024, 7, 15), 'Significantly improve loading time for M+ logs', emallson),
   change(date(2024, 7, 10), 'Improve debugging information for Global Cooldown tracking', emallson),
   change(date(2024, 7, 8), 'Rewrite Premium page in TypeScript.', ToppleTheNun),
   change(date(2024, 7, 7), 'Add NPC abilities on the timeline module', ZiayaKens),

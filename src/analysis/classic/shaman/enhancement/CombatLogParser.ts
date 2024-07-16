@@ -1,8 +1,7 @@
 // Base file
 import BaseCombatLogParser from 'parser/classic/CombatLogParser';
 // Shared
-import lowRankSpellsSuggestion from 'parser/classic/suggestions/lowRankSpells';
-import { lowRankSpells, TotemTracker } from '../shared';
+import { TotemTracker } from '../shared';
 import {
   AirTotems,
   EarthTotems,
@@ -23,7 +22,6 @@ import Checklist from './modules/checklist/Module';
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
     // Shared
-    lowRankSpells: lowRankSpellsSuggestion(lowRankSpells),
     totemTracker: TotemTracker,
     airTotems: AirTotems,
     earthTotems: EarthTotems,
