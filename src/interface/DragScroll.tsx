@@ -7,12 +7,14 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import * as React from 'react';
 
+import './DragScroll.scss';
+
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
   style?: Record<string, unknown>;
 }
 
-const DragScroll = ({ children, style = {}, ...otherProps }: Props) => {
+const DragScroll = ({ children, style = {}, className, ...otherProps }: Props) => {
   const [dragging, setDragging] = useState(false);
   const container = useRef<HTMLDivElement>(null);
 
@@ -58,11 +60,9 @@ const DragScroll = ({ children, style = {}, ...otherProps }: Props) => {
     <div
       onMouseDown={handleMouseDown}
       ref={container}
-      style={{
-        ...style,
-        cursor: dragging ? 'grabbing' : 'grab',
-      }}
+      style={style}
       {...otherProps}
+      className={`drag-scroll-container ${className ? className : ''}`}
     >
       {children}
     </div>
