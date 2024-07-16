@@ -5,3 +5,4 @@ node_modules
 /src/interface/static/bootstrap
 CHANGELOG.tsx
 CHANGELOG.js
+pnpm-lock.yaml

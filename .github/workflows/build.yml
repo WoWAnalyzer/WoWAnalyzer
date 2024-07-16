@@ -9,15 +9,14 @@ jobs:
   prepare:
     name: 'Install dependencies'
     runs-on: ubuntu-latest
-    env:
-      YARN_CACHE_FOLDER: .yarn-cache
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-          cache: 'yarn'
-      - run: yarn install --frozen-lockfile --prefer-offline
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
 
   typecheck:
     needs: [prepare]
@@ -25,12 +24,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-          cache: 'yarn'
-      - run: yarn install --frozen-lockfile --prefer-offline
-      - run: yarn typecheck
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run typecheck
 
   linting:
     needs: [prepare]
@@ -38,12 +38,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-          cache: 'yarn'
-      - run: yarn install --frozen-lockfile --prefer-offline
-      - run: yarn lint --max-warnings=0
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run lint --max-warnings=0
 
   prettier:
     needs: [prepare]
@@ -51,11 +52,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-          cache: 'yarn'
-      - run: yarn install --frozen-lockfile --prefer-offline
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
       - run: yarn prettier . --check
 
   test-interface:
@@ -65,11 +67,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-          cache: 'yarn'
-      - run: yarn install --frozen-lockfile --prefer-offline
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
       - run: yarn test:interface
 
   test-parser:
@@ -78,11 +81,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-          cache: 'yarn'
-      - run: yarn install --frozen-lockfile --prefer-offline
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
       - run: yarn test:parser
 
   build:
@@ -94,11 +98,12 @@ jobs:
       environment_name: ${{ steps.environment-name.outputs.environment_name }}
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-          cache: 'yarn'
-      - run: yarn install --frozen-lockfile --prefer-offline
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
       - name: Extract messages
         if: github.event_name != 'pull_request' && github.repository == 'wowanalyzer/wowanalyzer'
         run: |
@@ -126,11 +131,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-          cache: 'yarn'
-      - run: yarn install --frozen-lockfile --prefer-offline
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
       - name: Extract messages
         run: |
           yarn extract
@@ -165,11 +171,12 @@ jobs:
         shard: [1, 2, 3, 4]
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-          cache: 'yarn'
-      - run: yarn install --frozen-lockfile --prefer-offline
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
       - uses: actions/download-artifact@v4
         with:
           name: e2e-build
@@ -195,11 +202,12 @@ jobs:
     if: github.event_name == 'pull_request'
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-          cache: 'yarn'
-      - run: yarn install --frozen-lockfile --prefer-offline
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
       - name: Extract messages
         run: yarn extract
       - name: Compile messages
@@ -261,8 +269,6 @@ jobs:
     name: 'Has new changelog entry'
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
-    env:
-      YARN_CACHE_FOLDER: .yarn-cache
     steps:
       - uses: actions/checkout@v4
       - run: git fetch --no-tags --depth=1 origin $GITHUB_BASE_REF:$GITHUB_BASE_REF

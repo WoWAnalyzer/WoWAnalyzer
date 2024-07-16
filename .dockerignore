@@ -1,4 +1,4 @@
-# This greatly speeds up the build process if the user already has run `yarn install` locally
+# This greatly speeds up the build process if the user already has run `pnpm install` locally
 node_modules
 
 # Unused files
@@ -6,7 +6,7 @@ node_modules
 .docker*
 Docker*
 *.md
-# .git is very slow and we don't need it for anything but `yarn test`
+# .git is very slow and we don't need it for anything but `pnpm run test`
 .git
 .git*
 .editorconfig

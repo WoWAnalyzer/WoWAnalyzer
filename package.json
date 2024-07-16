@@ -94,8 +94,6 @@
     "is-ci": "^3.0.1",
     "jsdom": "^22.1.0",
     "lint-staged": "15.2.2",
-    "patch-package": "^8.0.0",
-    "postinstall-postinstall": "^2.1.0",
     "prettier": "~3.2.5",
     "react-test-renderer": "^17.0.2",
     "sass": "^1.74.1",
@@ -117,21 +115,20 @@
   },
   "scripts": {
     "start": "vite",
-    "safestart": "yarn && react-app-rewired start",
+    "safestart": "pnpm install && react-app-rewired start",
     "build": "vite build",
     "test": "vitest",
-    "test:interface": "yarn test --exclude \"src/parser/**/*\"",
-    "test:parser": "yarn test ./src/parser",
+    "test:interface": "pnpm run test --exclude \"src/parser/**/*\"",
+    "test:parser": "pnpm run test ./src/parser",
     "typecheck": "tsc",
     "lint-uncached": "eslint --format stylish --max-warnings 0",
-    "lint": "yarn lint-uncached --cache .",
-    "lint:fix": "yarn lint --fix",
+    "lint": "pnpm run lint-uncached --cache .",
+    "lint:fix": "pnpm run lint --fix",
     "extract": "lingui extract --overwrite --clean",
     "script": "set NODE_ENV=development&&babel-node",
-    "postinstall": "patch-package",
     "prepare": "is-ci || husky",
     "e2e:setup": "node scripts/e2e/generate-configs-bootstrap.cjs",
-    "e2e": "yarn e2e:setup && playwright test",
+    "e2e": "pnpm run e2e:setup && playwright test",
     "e2e:codegen": "playwright codegen http://localhost:3000",
     "e2e:report": "playwright show-report"
   },
@@ -140,8 +137,14 @@
       "prettier --write"
     ],
     "*.{ts,tsx,js,jsx}": [
-      "yarn lint-uncached --fix"
+      "pnpm run lint-uncached --fix"
     ]
   },
-  "packageManager": "yarn@1.22.22"
+  "packageManager": "pnpm@9.5.0",
+  "pnpm": {
+    "patchedDependencies": {
+      "react-virtualized@9.22.5": "patches/react-virtualized@9.22.5.patch",
+      "vega-embed@6.20.2": "patches/vega-embed@6.20.2.patch"
+    }
+  }
 }

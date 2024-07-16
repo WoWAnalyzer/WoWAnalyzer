@@ -37,8 +37,9 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 7, 15), 'Migrate to pnpm instead of yarn v1.', ToppleTheNun),
   change(date(2024, 7, 15), 'Replace react-helmet with react-helmet-async.', ToppleTheNun),
-  // Above is next changes, below is dragonflight changes
+  // Above is next changes, below is the-war-within changes
   change(date(2024, 7, 10), 'Improve debugging information for Global Cooldown tracking', emallson),
   change(date(2024, 7, 8), 'Rewrite Premium page in TypeScript.', ToppleTheNun),
   change(date(2024, 7, 6), 'Update Foundation Guides to use div instead of p (DOM warnings)', jazminite),
