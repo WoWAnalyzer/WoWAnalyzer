@@ -41,6 +41,7 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES: number[] = [
   SPELLS.NOURISH.id,
   SPELLS.T31_TREANT_CLEAVE_NOURISH.id,
   SPELLS.T31_CAST_CLEAVE_NOURISH.id,
+  // TODO TWW - more TWW IDs?
 ];
 
 // procs Nature's Vigil
@@ -88,6 +89,7 @@ export const MASTERY_STACK_BUFF_IDS: number[] = [
   SPELLS.ADAPTIVE_SWARM_HEAL.id,
   SPELLS.RENEWING_BLOOM.id,
   SPELLS.GROVE_TENDING.id,
+  SPELLS.SYMBIOTIC_BLOOMS_WILDSTALKER.id, // TODO TWW - is special handling required due to overlapping stack behavior?
 ];
 
 // HoTs that get rate increased by Flourish
@@ -104,6 +106,7 @@ export const FLOURISH_INCREASED_RATE = [
   SPELLS.ADAPTIVE_SWARM_HEAL,
   SPELLS.RENEWING_BLOOM,
   SPELLS.GROVE_TENDING,
+  SPELLS.SYMBIOTIC_BLOOMS_WILDSTALKER, // TODO TWW is in list for photo / liveliness, but not yet for Flourish - almost certainly a bug
 ];
 
 // HoTs that get rate increased by Photosynthesis, which is different from the Flourish one because Blizzard
@@ -112,6 +115,9 @@ export const PHOTO_INCREASED_RATE = [
   SPELLS.SPRING_BLOSSOMS,
   SPELLS.EFFLORESCENCE_HEAL,
 ];
+
+// HoTs that get rate increased by Liveliness
+export const LIVELINESS_INCREASED_RATE = PHOTO_INCREASED_RATE;
 
 //probably need to add natures vigil here as well and need to check if it reduces tranquility itself
 export const DRUID_COOLDOWNS = [

@@ -13,6 +13,7 @@ import { TALENTS_DRUID as TALENTS } from 'common/TALENTS/druid';
 const FERAL_PERIODIC_BOOST = 0.25; // the amount Adaptive Swarm boosts periodic effects for Feral
 const RESTO_PERIODIC_BOOST = 0.2; // the amount Adaptive Swarm boosts periodic effects for Resto
 
+// TODO TWW check lists again
 const PERIODIC_HEALS: SpellInfo[] = [
   SPELLS.REJUVENATION,
   SPELLS.REJUVENATION_GERMINATION,

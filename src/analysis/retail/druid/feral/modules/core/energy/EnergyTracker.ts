@@ -5,10 +5,11 @@ import { Options } from 'parser/core/Module';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
 const BASE_MAX_ENERGY = 100;
-const TE_ENERGY_PER_RANK = 30;
+const TE_ENERGY_PER_RANK = 20;
 const BASE_REGEN = 11;
 const TE_REGEN_MULT_PER_RANK = 0.075;
 
+// TODO TWW - need Savage Fury module for energy regen boost
 class EnergyTracker extends ResourceTracker {
   constructor(options: Options) {
     super(options);

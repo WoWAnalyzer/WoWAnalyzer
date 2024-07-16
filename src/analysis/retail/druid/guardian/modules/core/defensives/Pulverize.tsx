@@ -12,8 +12,7 @@ import MajorDefensiveStatistic from 'interface/MajorDefensiveStatistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { SpellLink } from 'interface';
 import { SELECTED_PLAYER } from 'parser/core/Analyzer';
-
-const MITIGATION = 0.35;
+import { PULVERIZE_MIT } from 'analysis/retail/druid/guardian/constants';
 
 export default class Pulverize extends MajorDefensiveDebuff {
   constructor(options: Options) {
@@ -28,7 +27,7 @@ export default class Pulverize extends MajorDefensiveDebuff {
     if (this.defensiveActive(event) && !event.sourceIsFriendly) {
       this.recordMitigation({
         event,
-        mitigatedAmount: absoluteMitigation(event, MITIGATION),
+        mitigatedAmount: absoluteMitigation(event, PULVERIZE_MIT),
       });
     }
   }
@@ -40,9 +39,9 @@ export default class Pulverize extends MajorDefensiveDebuff {
           <strong>
             <SpellLink spell={TALENTS_DRUID.PULVERIZE_TALENT} />
           </strong>{' '}
-          debuffs a single target to do heavily reduced damage to you for several seconds. It can be
-          particularly useful for covering scary tankbusters, especially magic damage / bleeds that
-          can't be mitigated by <SpellLink spell={SPELLS.IRONFUR} />.
+          debuffs a single target to do moderately reduced damage to you for several seconds. It can
+          be particularly useful for covering scary tankbusters, especially magic damage / bleeds
+          that can't be mitigated by <SpellLink spell={SPELLS.IRONFUR} />.
         </p>
       </>
     );

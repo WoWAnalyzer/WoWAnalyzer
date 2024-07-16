@@ -37,7 +37,6 @@ class HotAttributor extends Analyzer {
 
   hasOvergrowth: boolean;
   hasPowerOfTheArchdruid: boolean;
-  hasLuxuriantSoil: boolean;
   hasRampantGrowth: boolean;
   hasConvoke: boolean;
 
@@ -57,7 +56,6 @@ class HotAttributor extends Analyzer {
   overgrowthAttrib = HotTracker.getNewAttribution('Overgrowth');
   powerOfTheArchdruidRejuvAttrib = HotTracker.getNewAttribution('PowerOfTheArchdruid-Rejuv');
   powerOfTheArchdruidRegrowthAttrib = HotTracker.getNewAttribution('PowerOfTheArchdruid-Regrowth');
-  luxuriantSoilAttrib = HotTracker.getNewAttribution('LuxuriantSoil');
   rampantGrowthAttrib = HotTracker.getNewAttribution('RampantGrowth');
   // Convoke handled separately in Resto Convoke module
 
@@ -68,7 +66,6 @@ class HotAttributor extends Analyzer {
     this.hasPowerOfTheArchdruid = this.selectedCombatant.hasTalent(
       TALENTS_DRUID.POWER_OF_THE_ARCHDRUID_TALENT,
     );
-    this.hasLuxuriantSoil = this.selectedCombatant.hasTalent(TALENTS_DRUID.LUXURIANT_SOIL_TALENT);
     this.hasRampantGrowth = this.selectedCombatant.hasTalent(TALENTS_DRUID.RAMPANT_GROWTH_TALENT);
     this.hasConvoke = this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT);
 
@@ -136,9 +133,6 @@ class HotAttributor extends Analyzer {
     } else if (possiblePota) {
       this.hotTracker.addAttributionFromApply(this.powerOfTheArchdruidRejuvAttrib, event);
       this._logAttrib(event, this.powerOfTheArchdruidRejuvAttrib);
-    } else if (this.hasLuxuriantSoil) {
-      this.hotTracker.addAttributionFromApply(this.luxuriantSoilAttrib, event);
-      this._logAttrib(event, this.luxuriantSoilAttrib);
     } else {
       this._logAttrib(event, undefined);
     }

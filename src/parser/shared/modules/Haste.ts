@@ -61,7 +61,9 @@ export const DEFAULT_HASTE_BUFFS: HasteBuffMap = {
   [SPELLS.CELESTIAL_ALIGNMENT.id]: 0.1,
   [SPELLS.INCARNATION_CHOSEN_OF_ELUNE.id]: 0.1,
   [SPELLS.NATURES_GRACE.id]: 0.15,
-  [SPELLS.FRANTIC_MOMENTUM.id]: 0.1, // TODO check for possible tuning updates
+  [SPELLS.FRANTIC_MOMENTUM.id]: 0.1,
+  [SPELLS.CENARIUS_MIGHT_BUFF.id]: 0.1,
+  [SPELLS.SAVAGE_FURY_BUFF.id]: 0.08,
   //endregion
 
   //region Hunter Haste Buffs

@@ -134,7 +134,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 45,
+        cooldown: 45 - combatant.getTalentRank(TALENTS_DRUID.TEAR_DOWN_THE_MIGHTY_TALENT) * 5,
         timelineSortIndex: 6,
       },
       {
@@ -147,6 +147,7 @@ class Abilities extends CoreAbilities {
         cooldown: 60,
         timelineSortIndex: 7,
       },
+      // TODO TWW - Lunation needs handled (which spells are Arcane?)
       {
         spell: TALENTS_DRUID.LUNAR_BEAM_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,

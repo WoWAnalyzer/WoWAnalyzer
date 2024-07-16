@@ -129,10 +129,7 @@ class Bloodtalons extends Analyzer {
       Events.damage.by(SELECTED_PLAYER).spell([SPELLS.FEROCIOUS_BITE, SPELLS.RAMPANT_FEROCITY]),
       this.onBtDirect,
     );
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell([SPELLS.RIP, SPELLS.TEAR_OPEN_WOUNDS]),
-      this.onBtFromRip,
-    );
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RIP), this.onBtFromRip);
     this.addEventListener(
       Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.RIP),
       this.onRipApply,
