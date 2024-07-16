@@ -205,7 +205,7 @@ class Abilities extends CoreAbilities {
         cooldown:
           45 -
           combatant.getTalentRank(TALENTS_DRUID.TEAR_DOWN_THE_MIGHTY_TALENT) * 5 -
-          combatant.has4PieceByTier(TIERS.DF4) * 15,
+          (combatant.has4PieceByTier(TIERS.DF4) ? 15 : 0),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
