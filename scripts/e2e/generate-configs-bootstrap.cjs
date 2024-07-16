@@ -13,7 +13,8 @@ require('tsconfig-paths').register({
 require('@babel/register')({
   presets: [
     '@babel/preset-env',
-    ['react-app', { flow: false, typescript: true, useESModules: false }],
+    '@babel/preset-react',
+    '@babel/preset-typescript',
   ],
   extensions: ['.es6', '.es', '.jsx', '.mjs', '.js', '.ts', '.tsx'],
 });
