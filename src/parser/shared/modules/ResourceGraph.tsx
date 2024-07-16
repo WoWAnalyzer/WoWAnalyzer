@@ -192,7 +192,7 @@ abstract class ResourceGraph extends Analyzer {
     const tracker = this.tracker();
     const scaleFactor = this.scaleFactor();
     tracker.resourceUpdates.forEach((u) => {
-      if (u.change !== undefined && u.change !== 0) {
+      if (u.change) {
         graphData.push({
           timestamp: u.timestamp,
           amount: (u.current - u.change) * scaleFactor,
