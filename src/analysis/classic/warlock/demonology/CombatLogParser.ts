@@ -11,6 +11,7 @@ import Buffs from './modules/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import FoundationGuide from 'interface/guide/foundation/FoundationGuide';
 import CancelledCasts from 'parser/shared/modules/CancelledCasts';
+
 // Spells
 // import SpellName from './modules/spells';
 
