@@ -13,10 +13,12 @@ class Buffs extends CoreAuras {
       {
         spellId: SPELLS.DEMON_SOUL_FELGUARD_BUFF.id,
         timelineHighlight: true,
+        triggeredBySpellId: SPELLS.DEMON_SOUL.id,
       },
       {
         spellId: SPELLS.METAMORPHOSIS.id,
         timelineHighlight: true,
+        triggeredBySpellId: SPELLS.METAMORPHOSIS.id,
       },
       {
         spellId: SPELLS.MOLTEN_CORE_BUFF.id,
