@@ -133,7 +133,7 @@
     "e2e:report": "playwright show-report"
   },
   "lint-staged": {
-    "*.{ts,tsx,js,jsx,json,md,mdx,yml,graphql,scss,css}": [
+    "*.{ts,tsx,js,jsx,cjs,mjs,json,md,mdx,yml,graphql,scss,css}": [
       "prettier --write"
     ],
     "*.{ts,tsx,js,jsx}": [
