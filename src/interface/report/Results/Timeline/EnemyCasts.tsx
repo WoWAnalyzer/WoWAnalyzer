@@ -131,14 +131,8 @@ const EnemyCasts = React.memo(
       <div className="casts" {...others} style={{ ...style, position: 'relative' }}>
         {events.map((castEvent: NpcCastEvent | NpcBeginCastEvent, index: number) => {
           let className = '';
-          if (castEvent.npc?.subType === 'Boss') {
-            className = 'npc-boss-cast';
-          } else if (castEvent.matchedCast) {
-            className = 'npc-channeled-cast';
-          } else if (!castEvent.matchedCast && castEvent.type === 'begincast') {
+          if (!castEvent.matchedCast && castEvent.type === 'begincast') {
             className = 'npc-stopped-cast';
-          } else if (!castEvent.matchedCast) {
-            className = 'npc-instant-cast';
           }
 
           return (
