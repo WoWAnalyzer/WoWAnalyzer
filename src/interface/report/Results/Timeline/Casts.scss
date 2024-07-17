@@ -1,19 +1,28 @@
+@import 'interface/Theme.scss';
+
+$npc-content-offset: 8em;
+
 .spell-timeline {
   .npc-content-container {
     display: var(--npc-content);
+    margin-bottom: 1em;
+    margin-top: $npc-content-offset;
   }
-  .npc-channeled-cast {
-    display: var(--npc-channeled-cast, block) !important;
+
+  .enemy-casts-controls {
+    position: absolute;
+    /* this is a trick that makes the controls show in the left gutter on wide screens, but never move off the edge of the screen on smaller ones. */
+    left: calc(50% - min(50%, 1300px / 2 + 20em) + 1em);
+
+    &__visible {
+      margin-top: -$npc-content-offset;
+    }
   }
+
   .npc-stopped-cast {
     display: var(--npc-stopped-cast, block) !important;
   }
-  .npc-instant-cast {
-    display: var(--npc-instant-cast, block) !important;
-  }
-  .npc-boss-cast {
-    display: var(--npc-boss-cast, block) !important;
-  }
+
   .casts {
     width: 100%;
     border-radius: 10px;
@@ -33,6 +42,7 @@
       background: hsla(44, 2%, 40%, 0.15);
       border-radius: 10px;
     }
+
     > * {
       position: absolute;
       height: 22px;
@@ -42,6 +52,7 @@
       z-index: 3;
       display: block;
       --color: #ecb000;
+
       img {
         border: 1px solid var(--color);
         box-shadow: 0 0 3px #000;
@@ -50,12 +61,14 @@
         height: 100%;
         display: block;
       }
+
       @mixin arrow($direction) {
         content: '';
         width: 0;
         height: 0;
         border-left: 5px solid transparent;
         border-right: 5px solid transparent;
+
         @if $direction == 'up' {
           border-top: 5px solid var(--color);
           bottom: 0;
@@ -63,6 +76,7 @@
           border-bottom: 5px solid var(--color);
           top: 0px;
         }
+
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
@@ -79,6 +93,7 @@
           z-index: 2;
           position: relative;
         }
+
         .time-indicator {
           position: absolute;
           height: 50px;
@@ -91,8 +106,10 @@
       // Specific top calculations for upper and lower
       &.upper {
         top: calc(100% - 54px + var(--level) * 25px);
+
         .time-indicator {
           top: 7px;
+
           &:before {
             @include arrow('up');
           }
@@ -101,8 +118,10 @@
 
       &.lower {
         top: calc(54px + var(--level) * 25px);
+
         .time-indicator {
           bottom: 7px;
+
           &:before {
             @include arrow('down');
           }
@@ -112,6 +131,7 @@
       &.failed-cast {
         // position: relative;
         --color: red;
+
         &:before {
           content: '';
           position: absolute;
@@ -121,6 +141,7 @@
           left: -50%;
           background: linear-gradient(to top, rgba(255, 0, 0, 0.8), rgba(255, 0, 0, 0.2));
         }
+
         &:after {
           content: '';
           position: absolute;
@@ -130,11 +151,14 @@
           left: -50%;
           background: linear-gradient(to bottom, rgba(255, 0, 0, 0.8), rgba(255, 0, 0, 0.2));
         }
+
         img {
           border-color: var(--color) !important;
         }
+
         .time-indicator {
           background: var(--color) !important;
+
           &:before {
             border-bottom-color: var(--color) !important;
           }
@@ -155,10 +179,12 @@
           height: 100%;
           color: red;
         }
+
         img {
           border-color: red;
         }
       }
+
       &.inefficient img {
         border: 2px solid red;
         box-sizing: content-box;
@@ -167,6 +193,7 @@
         box-shadow: 0 0 11px red;
         border-radius: 2px;
       }
+
       &.enhanced img {
         border: 2px solid rgb(226, 226, 226);
         box-sizing: content-box;
@@ -176,6 +203,7 @@
         border-radius: 2px;
       }
     }
+
     .gcd {
       border-radius: 5px;
       background: #f8b700;
@@ -185,6 +213,7 @@
       top: 6px;
       cursor: default;
     }
+
     .channel {
       border-radius: 3px;
       /*background: #505ff8;*/
@@ -198,6 +227,7 @@
       height: 8px;
       top: 7px;
     }
+
     .movement {
       border-radius: 3px;
       background-color: rgba(0, 47, 255, 0.2);

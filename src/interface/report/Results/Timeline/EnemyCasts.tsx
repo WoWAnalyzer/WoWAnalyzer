@@ -17,6 +17,8 @@ import Toggle from 'react-toggle';
 import { fetchEvents } from 'common/fetchWclApi';
 import { useCombatLogParser } from 'interface/report/CombatLogParserContext';
 import TimeIndicators from './TimeIndicators';
+import ActivityIndicator from 'interface/ActivityIndicator';
+import SPELLS from 'common/SPELLS';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   start: number;
@@ -161,24 +163,69 @@ const EnemySpellTypeToggle = ({
   label,
   toggleCallBack,
   checked,
+  id,
 }: {
-  label: string;
+  label: React.ReactNode;
   toggleCallBack: () => void;
   checked: boolean;
+  id: string;
 }) => {
   return (
     <div className="npc-toggle-container">
       <span className="text-left toggle-control npc-toggle-options">
-        <Toggle
-          defaultChecked={checked}
-          icons={false}
-          onChange={toggleCallBack}
-          id="absolute-toggle"
-        />
-        <label htmlFor="absolute-toggle" style={{ marginRight: 'auto' }}>
+        <Toggle defaultChecked={checked} icons={false} onChange={toggleCallBack} id={id} />
+        <label htmlFor={id} style={{ marginRight: 'auto' }}>
           {label}
         </label>
       </span>
+    </div>
+  );
+};
+
+/**
+ * The toggle controls for the enemy spells timeline.
+ *
+ * Note that the positioning of these is pretty janky and relies on a specific interaction of `static` positioning (which means no `width`!) and the parent container right now.
+ */
+const EnemySpellControlBlock = ({
+  toggleAll,
+  toggleStopped,
+  shouldRenderNPCSpells,
+  shouldRenderStoppedSpells,
+  isLoaded,
+}: {
+  toggleAll: () => void;
+  toggleStopped: () => void;
+  shouldRenderNPCSpells: boolean;
+  shouldRenderStoppedSpells: boolean;
+  isLoaded: boolean;
+}) => {
+  return (
+    <div
+      className={`enemy-casts-controls ${isLoaded && shouldRenderNPCSpells ? 'enemy-casts-controls__visible' : ''}`}
+    >
+      <EnemySpellTypeToggle
+        id="enemy-casts-toggle"
+        label=<>Show Enemy Ability Timeline</>
+        toggleCallBack={toggleAll}
+        checked={shouldRenderNPCSpells}
+      />
+      {shouldRenderNPCSpells && (
+        <EnemySpellTypeToggle
+          id="stopped-spells-toggle"
+          label={
+            <>
+              Show{' '}
+              <SpellLink style={{ pointerEvents: 'none' }} spell={SPELLS.KICK}>
+                Stopped
+              </SpellLink>{' '}
+              Abilities
+            </>
+          }
+          toggleCallBack={toggleStopped}
+          checked={shouldRenderStoppedSpells}
+        />
+      )}
     </div>
   );
 };
@@ -195,10 +242,7 @@ export const EnemyCastsTimeline = ({
   const [shouldRenderNPCSpells, setRenderNPCSpells] = useState<boolean>(false);
   const [NPCCasts, setNPCCasts] = useState<(BeginCastEvent | CastEvent | any)[]>([]);
 
-  const [instantCast, setInstantCast] = useState(true);
-  const [channeledAbilities, setChanneledAbilities] = useState(true);
   const [interruptedAbilities, setInterruptedAbilities] = useState(true);
-  const [bossAbilities, setBossAbilities] = useState(true);
 
   const [hasUserRequestedNPCSpells, setHasUserRequestedNPCSpells] = useState<boolean>(false);
   const [loadingNPCSpellsState, setLoadingNPCSpellsState] = useState<
@@ -375,58 +419,23 @@ export const EnemyCastsTimeline = ({
   ]);
 
   return (
-    <div ref={containerRef}>
-      <EnemySpellTypeToggle
-        label="Render NPC Spells on the timeline"
-        toggleCallBack={() => {
-          toggleHandler();
+    <div ref={containerRef} style={{ position: 'static', minHeight: '1em' }}>
+      <EnemySpellControlBlock
+        toggleAll={toggleHandler}
+        toggleStopped={() => {
+          setInterruptedAbilities((v) => {
+            toggle('stopped-cast', !v);
+            return !v;
+          });
         }}
-        checked={shouldRenderNPCSpells}
+        shouldRenderNPCSpells={shouldRenderNPCSpells}
+        shouldRenderStoppedSpells={interruptedAbilities}
+        isLoaded={loadingNPCSpellsState === 'loaded'}
       />
       {loadingNPCSpellsState === 'loading' ? (
-        <div>Loading</div>
+        <ActivityIndicator text="Loading..." />
       ) : loadingNPCSpellsState === 'loaded' ? (
         <div className="npc-content-container">
-          <EnemySpellTypeToggle
-            label="Instant Cast Abilities"
-            toggleCallBack={() => {
-              setInstantCast((v) => {
-                toggle('instant-cast', !v);
-                return !v;
-              });
-            }}
-            checked={instantCast}
-          />
-          <EnemySpellTypeToggle
-            label="channeled Abilities"
-            toggleCallBack={() => {
-              setChanneledAbilities((v) => {
-                toggle('channeled-cast', !v);
-                return !v;
-              });
-            }}
-            checked={channeledAbilities}
-          />
-          <EnemySpellTypeToggle
-            label="Silenced/Interrupted Abilities"
-            toggleCallBack={() => {
-              setInterruptedAbilities((v) => {
-                toggle('stopped-cast', !v);
-                return !v;
-              });
-            }}
-            checked={interruptedAbilities}
-          />
-          <EnemySpellTypeToggle
-            label="Boss Abilities"
-            toggleCallBack={() => {
-              setBossAbilities((v) => {
-                toggle('boss-cast', !v);
-                return !v;
-              });
-            }}
-            checked={bossAbilities}
-          />
           <TimeIndicators
             seconds={seconds}
             offset={offset}
