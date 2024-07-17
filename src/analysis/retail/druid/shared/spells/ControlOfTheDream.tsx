@@ -30,7 +30,7 @@ const deps = {
  * Balance: Force of Nature, Celestial Alignment, Convoke the Spirits
  * Resto: Nature's Swiftness, Incarnation: ToL, Convoke the Spirits
  */
-export class ControlOfTheDream extends Analyzer.withDependencies(deps) {
+export default class ControlOfTheDream extends Analyzer.withDependencies(deps) {
   /**
    * Mapping from major ability spellID to the timestamp it last became available.
    * When there's no mapping (beginning of encounter), we presume maxed CDR.
