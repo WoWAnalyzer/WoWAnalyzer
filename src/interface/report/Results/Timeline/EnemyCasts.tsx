@@ -210,7 +210,7 @@ const EnemySpellControlBlock = ({
         toggleCallBack={toggleAll}
         checked={shouldRenderNPCSpells}
       />
-      {shouldRenderNPCSpells && (
+      {shouldRenderNPCSpells && isLoaded && (
         <EnemySpellTypeToggle
           id="stopped-spells-toggle"
           label={
