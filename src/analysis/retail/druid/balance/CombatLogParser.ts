@@ -33,6 +33,7 @@ import SpenderUsage from 'analysis/retail/druid/balance/modules/features/Spender
 import NewMoon from 'analysis/retail/druid/balance/modules/spells/NewMoon';
 import WildMushroom from 'analysis/retail/druid/balance/modules/spells/WildMushroom';
 import CelestialAlignment from 'analysis/retail/druid/balance/modules/spells/CelestialAlignment';
+import ControlOfTheDream from 'analysis/retail/druid/shared/spells/ControlOfTheDream';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -72,6 +73,7 @@ class CombatLogParser extends MainCombatLogParser {
     newMoon: NewMoon,
     wildMushroom: WildMushroom,
     celestialAlignment: CelestialAlignment,
+    controlOfTheDream: ControlOfTheDream,
     //Tier set
     gatheringStarstuff: GatheringStarstuff,
     touchTheCosmos: TouchTheCosmos,

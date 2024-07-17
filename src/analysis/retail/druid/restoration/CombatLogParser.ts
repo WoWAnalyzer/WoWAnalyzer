@@ -59,6 +59,7 @@ import WildGrowthPrecastOrderNormalizer from 'analysis/retail/druid/restoration/
 import WakingDream from 'analysis/retail/druid/restoration/modules/spells/WakingDream';
 import GroveGuardians from 'analysis/retail/druid/restoration/modules/spells/GroveGuardians';
 import CenariusGuidanceTol from 'analysis/retail/druid/restoration/modules/spells/CenariusGuidanceTol';
+import ControlOfTheDream from 'analysis/retail/druid/shared/spells/ControlOfTheDream';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -124,6 +125,7 @@ class CombatLogParser extends CoreCombatLogParser {
     wakingDream: WakingDream,
     groveGuardians: GroveGuardians,
     cenariusGuidanceTol: CenariusGuidanceTol,
+    controlOfTheDream: ControlOfTheDream,
 
     // Mana Tab
     manaTracker: ManaTracker,
