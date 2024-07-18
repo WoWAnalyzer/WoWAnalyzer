@@ -17,7 +17,7 @@ If you ever get stuck or want to have a chat, join us on our [Discord](https://w
 First make sure you have the following:
 
 - [git](https://git-scm.com/)
-  - Optional: Get a UI such as [Fork](https://git-fork.com/) or [TortoiseGit](https://tortoisegit.org/)
+  - Optional: Get a UI such [GitHub Desktop](https://github.com/apps/desktop) [TortoiseGit](https://tortoisegit.org/)
 - [Node.js](https://nodejs.org/). We recommend the _LTS_ version.
 - [pnpm](https://pnpm.io/)
 
