@@ -29,16 +29,9 @@ Once all that's done you're ready to fire up the development server! Just run th
 
 At this point you can poke around and start making changes, or head over to the [wiki](https://github.com/WoWAnalyzer/WoWAnalyzer/wiki) for more information.
 
-<table align="center">
-  <tr>
-    <td align="center" width="150"><img src="https://www.docker.com/wp-content/uploads/2022/03/horizontal-logo-monochromatic-white.png" alt="Docker"></td>
-    <td>Alternatively <b>there's a Docker container available</b> so you don't have to install any software other than Git (and your IDE with its dependencies which likely includes Node.js). Follow the above steps, skipping all `yarn` commands, and then fire up the Docker container with <code>docker-compose up dev</code> (first start might take a few minutes). Just like the regular development environment it will automatically recompile your code and refresh your browser whenever you make changes to the code so long as it is running. The app will be available at <a href="http://localhost:3000/">http://localhost:3000/</a>.</td>
-  </tr>
-</table>
-
 ### Troubleshooting
 
-If you are getting an error about a missing module or library you might have to update your dependencies. Run `yarn install` or `docker-compose build dev` if you're using the Docker container. Make sure there's no running `yarn start` or `yarn test` when you do as they might lock files.
+If you are getting an error about a missing module or library you might have to update your dependencies. Run `yarn install`. Make sure there's no running `yarn start` or `yarn test` when you do as they might lock files.
 
 ## Contributing
 
