@@ -4,14 +4,8 @@ import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 class Abilities extends CoreAbilities {
   spellbook() {
-    const combatant = this.selectedCombatant;
     return [
       // Rotational
-      {
-        spell: SPELLS.CORRUPTION.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { base: 1500 },
-      },
       {
         spell: SPELLS.BANE_OF_AGONY.id,
         category: SPELL_CATEGORY.ROTATIONAL,
@@ -19,7 +13,12 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BANE_OF_DOOM.id,
-        category: SPELL_CATEGORY.OTHERS,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: SPELLS.CORRUPTION.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
       {
@@ -32,12 +31,6 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 8,
         gcd: { base: 1500 },
-        enabled: combatant.talentPoints[0] >= 50,
-      },
-      {
-        spell: SPELLS.LIFE_TAP.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { base: 1500 },
       },
       {
         spell: SPELLS.SHADOW_BOLT.id,
@@ -45,15 +38,30 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
+        spell: SPELLS.SHADOWFLAME.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+        cooldown: 12,
+      },
+      {
         spell: [SPELLS.SHADOW_TRANCE.id],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: null,
       },
       {
+        spell: SPELLS.SOUL_SWAP.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1000 },
+      },
+      {
+        spell: SPELLS.SOUL_SWAP_EXHALE.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1000 },
+      },
+      {
         spell: SPELLS.UNSTABLE_AFFLICTION.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
-        enabled: combatant.talentPoints[0] >= 40,
       },
       // Rotational AOE
       {
@@ -63,28 +71,25 @@ class Abilities extends CoreAbilities {
       },
       // Cooldowns
       {
-        spell: [SPELLS.SUMMON_INFERNO.id],
+        spell: SPELLS.DEMON_SOUL.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: null,
+        cooldown: 120,
+      },
+      {
+        spell: [SPELLS.SUMMON_DOOMGUARD.id],
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: { base: 1500 },
+        cooldown: 600,
       },
       // Defensive
       {
-        spell: [SPELLS.SOULSHATTER.id],
+        spell: SPELLS.BANISH.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         gcd: { base: 1500 },
       },
       {
         spell: SPELLS.DEATH_COIL.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        gcd: { base: 1500 },
-      },
-      {
-        spell: SPELLS.SHADOW_WARD.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        gcd: { base: 1500 },
-      },
-      {
-        spell: SPELLS.BANISH.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         gcd: { base: 1500 },
       },
@@ -98,7 +103,22 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.DEFENSIVE,
         gcd: { base: 1500 },
       },
+      {
+        spell: SPELLS.SHADOW_WARD.id,
+        category: SPELL_CATEGORY.DEFENSIVE,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.SOULSHATTER.id],
+        category: SPELL_CATEGORY.DEFENSIVE,
+        gcd: { base: 1500 },
+      },
       // Other spells (not apart of the normal Affliction lock rotation)
+      {
+        spell: SPELLS.FEL_FLAME.id,
+        category: SPELL_CATEGORY.OTHERS,
+        gcd: { base: 1500 },
+      },
       {
         spell: SPELLS.IMMOLATE.id,
         category: SPELL_CATEGORY.OTHERS,
@@ -110,12 +130,7 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: SPELLS.SOUL_FIRE.id,
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: { base: 1500 },
-      },
-      {
-        spell: SPELLS.SEARING_PAIN.id,
+        spell: SPELLS.HELLFIRE.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: { base: 1500 },
       },
@@ -125,12 +140,12 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: SPELLS.SHADOWFLAME.id,
+        spell: SPELLS.SEARING_PAIN.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: { base: 1500 },
       },
       {
-        spell: SPELLS.HELLFIRE.id,
+        spell: SPELLS.SOUL_FIRE.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: { base: 1500 },
       },
@@ -165,6 +180,17 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
+      {
+        spell: SPELLS.LIFE_TAP.id,
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: SPELLS.SOULBURN.id,
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: null,
+        cooldown: 45,
+      },
       // Pet Related
       {
         spell: SPELLS.HEALTH_FUNNEL.id,
@@ -173,6 +199,11 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: [SPELLS.SUMMON_FELHUNTER.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.SUMMON_IMP.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
