@@ -473,6 +473,16 @@ const spells = {
     name: 'Breath of Eons',
     icon: 'ability_evoker_breathofeons',
   },
+  MELT_ARMOR_DAMAGE: {
+    id: 441172,
+    name: 'Melt Armor',
+    icon: 'inv_10_gearupgrade_drakesshadowflameenhancedcrest',
+  },
+  BOMBARDMENTS_DAMAGE: {
+    id: 434481,
+    name: 'Bombardments',
+    icon: 'inv_ability_scalecommanderevoker_bombardments',
+  },
   BLACK_ATTUNEMENT: {
     id: 403264,
     name: 'Black Attunement',

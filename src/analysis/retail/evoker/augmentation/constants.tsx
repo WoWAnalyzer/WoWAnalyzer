@@ -25,6 +25,7 @@ export const TECTONIC_LOCUS_MULTIPLIER = 0.5;
 export const VOLCANISM_ESSENCE_REDUCTION = 1;
 export const ANACHRONISM_ESSENCE_CHANCE = 0.35;
 export const SYMBIOTIC_HEALING_INCREASE = 0.03;
+export const MOLTEN_EMBERS_MULTIPLIER = 0.2;
 
 // Breath of Eons multiplier
 export const BREATH_OF_EONS_MULTIPLIER = 0.1;

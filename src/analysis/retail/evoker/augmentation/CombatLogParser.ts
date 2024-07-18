@@ -20,6 +20,7 @@ import SymbioticBloom from './modules/talents/SymbioticBloom';
 import TectonicLocus from './modules/talents/TectonicLocus';
 import Volcanism from './modules/talents/Volcanism';
 import BlisteringScales from './modules/talents/BlisteringScales';
+import MoltenEmbers from './modules/talents/MoltenEmbers';
 
 import BuffTrackerGraph from './modules/features/BuffTrackerGraph';
 import BuffTargetHelper from './modules/features/BuffTargetHelper/BuffTargetHelper';
@@ -110,6 +111,7 @@ class CombatLogParser extends MainCombatLogParser {
     tectonicLocus: TectonicLocus,
     volcanism: Volcanism,
     blisteringScales: BlisteringScales,
+    moltenEmbers: MoltenEmbers,
 
     // Features
     buffTrackerGraph: BuffTrackerGraph,
