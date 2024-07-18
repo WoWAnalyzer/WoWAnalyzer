@@ -190,7 +190,9 @@ class BreathOfEonsRotational extends Analyzer {
     );
     /** CAST EVENTS */
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.BREATH_OF_EONS_TALENT),
+      Events.cast
+        .by(SELECTED_PLAYER)
+        .spell([TALENTS.BREATH_OF_EONS_TALENT, SPELLS.BREATH_OF_EONS_CAST]),
       (event) => {
         this.onBreathCast(event);
       },

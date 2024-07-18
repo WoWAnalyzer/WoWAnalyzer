@@ -468,6 +468,11 @@ const spells = {
     name: 'Temporal Wound',
     icon: 'ability_evoker_breathofeons',
   },
+  BREATH_OF_EONS_CAST: {
+    id: 442204,
+    name: 'Breath of Eons',
+    icon: 'ability_evoker_breathofeons',
+  },
   BLACK_ATTUNEMENT: {
     id: 403264,
     name: 'Black Attunement',

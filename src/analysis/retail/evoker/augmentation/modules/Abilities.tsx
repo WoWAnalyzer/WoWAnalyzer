@@ -68,7 +68,7 @@ class Abilities extends CoreAbilities {
       //endregion
       //region Cooldowns
       {
-        spell: TALENTS.BREATH_OF_EONS_TALENT.id,
+        spell: [TALENTS.BREATH_OF_EONS_TALENT.id, SPELLS.BREATH_OF_EONS_CAST.id],
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 120 * interwovenThreadsMultiplier,
         gcd: {
