@@ -36,6 +36,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 7, 16), 'Fixed an issue where naturally regenerating resources were not showing correctly on resource graphs', Sref),
   change(date(2024, 7, 18), 'Clean up padding on specs with core support', emallson),
   change(date(2024, 7, 16), 'Update Shaman spells for Classic Cataclysm', jazminite),
   change(date(2024, 7, 15), 'Significantly improve loading time for M+ logs', emallson),
