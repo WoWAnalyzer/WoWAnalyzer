@@ -378,7 +378,7 @@ export const EnemyCastsTimeline = ({
                 dmgEvent.timestamp >= event.timestamp &&
                 dmgEvent.timestamp <= event.timestamp + 10000 && //Assumes a damage event from an npc ability happens within 10 seconds
                 dmgEvent.sourceID === event.sourceID &&
-                dmgEvent.ability.name === event.ability.name
+                dmgEvent.ability.name === event.ability.name // we are intentionally using the name here instead of guid to account for casts having different spell ids from damage
               );
             });
             return (
