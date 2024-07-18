@@ -11,6 +11,7 @@ import { useCombatLogParser } from 'interface/report/CombatLogParserContext';
 import ManaValues from 'parser/shared/modules/ManaValues';
 import HealingEfficiencyTracker from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
 import HealingEfficiencyBreakdown from 'parser/core/healingEfficiency/HealingEfficiencyBreakdown';
+import Para from '../Para';
 
 export default function FoundationHealerManaSection(): JSX.Element | null {
   const { report } = useReport();
@@ -26,22 +27,22 @@ export default function FoundationHealerManaSection(): JSX.Element | null {
   return (
     <SubSection title="Spend Your Mana">
       <Explanation>
-        <div>
+        <Para>
           As a <strong>Healer</strong>, <ResourceLink id={RESOURCE_TYPES.MANA.id} /> is your most
           important resource. You have two goals:
           <ol>
             <li>Spend all of your mana by the end of the fight.</li>
             <li>Don't run out of mana before the end of the fight.</li>
           </ol>
-        </div>
-        <div>
+        </Para>
+        <Para>
           As a general guideline,{' '}
           <HL>
             the percent of mana you have left should match the percent of the fight you have left.
           </HL>{' '}
           You should have 50% remaining mana half-way through the fight, and 25% remaining mana with
           25% left.
-        </div>
+        </Para>
         <AlertInfo className="alert-subtle">
           Remember that this is just a guideline! Many boss fights have raid damage that requires
           spending more mana early in a fight.
@@ -49,7 +50,7 @@ export default function FoundationHealerManaSection(): JSX.Element | null {
       </Explanation>
       <SubSection title="Check Your Mana Level">
         <Explanation>
-          <div>
+          <Para>
             This chart shows your mana level over time, along with boss HP. There are a couple of
             common problems to look for:
             <ul>
@@ -62,7 +63,7 @@ export default function FoundationHealerManaSection(): JSX.Element | null {
                 less-efficient spells to <strong>spend mana more quickly</strong>.
               </li>
             </ul>
-          </div>
+          </Para>
         </Explanation>
         <ManaLevelChartComponent
           reportCode={report.code}

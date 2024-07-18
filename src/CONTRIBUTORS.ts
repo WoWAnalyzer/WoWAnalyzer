@@ -2418,3 +2418,9 @@ export const Lspinheiro: Contributor = {
     },
   ],
 };
+
+export const Bhahlou: Contributor = {
+  nickname: 'Bhahlou',
+  github: 'Bhahlou',
+  discord: 'Bhahlou',
+};

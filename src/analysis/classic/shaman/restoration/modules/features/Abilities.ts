@@ -8,18 +8,18 @@ class Abilities extends CoreAbilities {
     return [
       // Rotational
       {
-        spell: [SPELLS.RIP_TIDE.id, ...SPELLS.RIP_TIDE.lowRanks],
+        spell: [SPELLS.RIP_TIDE.id],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
         cooldown: 6,
       },
       {
-        spell: [SPELLS.HEALING_WAVE.id, ...SPELLS.HEALING_WAVE.lowRanks],
+        spell: [SPELLS.HEALING_WAVE.id],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
         castEfficiency: {
           casts: (ability, parser) => {
-            const healingWave: number[] = [SPELLS.HEALING_WAVE.id, ...SPELLS.HEALING_WAVE.lowRanks];
+            const healingWave: number[] = [SPELLS.HEALING_WAVE.id];
             return healingWave.reduce((casts, spell) => {
               casts += this.abilityTracker.getAbility(spell).casts;
               return casts;
@@ -28,23 +28,18 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: [SPELLS.LESSER_HEALING_WAVE.id, ...SPELLS.LESSER_HEALING_WAVE.lowRanks],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { base: 1500 },
-      },
-      {
-        spell: [SPELLS.EARTH_SHIELD.id, ...SPELLS.EARTH_SHIELD.lowRanks],
+        spell: [SPELLS.EARTH_SHIELD.id],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
       // Rotational AOE
       {
-        spell: [SPELLS.CHAIN_HEAL.id, ...SPELLS.CHAIN_HEAL.lowRanks],
+        spell: [SPELLS.CHAIN_HEAL.id],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
         castEfficiency: {
           casts: (ability, parser) => {
-            const chainHeals: number[] = [SPELLS.CHAIN_HEAL.id, ...SPELLS.CHAIN_HEAL.lowRanks];
+            const chainHeals: number[] = [SPELLS.CHAIN_HEAL.id];
             return chainHeals.reduce((casts, spell) => {
               casts += this.abilityTracker.getAbility(spell).casts;
               return casts;
@@ -53,12 +48,6 @@ class Abilities extends CoreAbilities {
         },
       },
       // Cooldowns
-      {
-        spell: [SPELLS.TIDAL_FORCE.id],
-        category: SPELL_CATEGORY.COOLDOWNS,
-        gcd: { base: 1500 },
-        cooldown: 180,
-      },
       {
         spell: [SPELLS.NATURES_SWIFTNESS.id],
         category: SPELL_CATEGORY.COOLDOWNS,
@@ -103,59 +92,54 @@ class Abilities extends CoreAbilities {
 
       // Other spells (not apart of the normal rotation)
       {
-        spell: [SPELLS.LIGHTNING_BOLT.id, ...SPELLS.LIGHTNING_BOLT.lowRanks],
+        spell: [SPELLS.LIGHTNING_BOLT.id],
         category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.CHAIN_LIGHTNING.id, ...SPELLS.CHAIN_LIGHTNING.lowRanks],
+        spell: [SPELLS.CHAIN_LIGHTNING.id],
         category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.LAVA_BURST.id, ...SPELLS.LAVA_BURST.lowRanks],
+        spell: [SPELLS.LAVA_BURST.id],
         category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.FLAME_SHOCK.id, ...SPELLS.FLAME_SHOCK.lowRanks],
+        spell: [SPELLS.FLAME_SHOCK.id],
         category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.EARTH_SHOCK.id, ...SPELLS.EARTH_SHOCK.lowRanks],
+        spell: [SPELLS.EARTH_SHOCK.id],
         category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.SEARING_TOTEM.id, ...SPELLS.SEARING_TOTEM.lowRanks],
+        spell: [SPELLS.SEARING_TOTEM.id],
         category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
         gcd: { base: 1000 },
       },
       {
-        spell: [SPELLS.FIRE_NOVA.id, ...SPELLS.FIRE_NOVA.lowRanks],
+        spell: [SPELLS.FIRE_NOVA.id],
         category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.MAGMA_TOTEM.id, ...SPELLS.MAGMA_TOTEM.lowRanks],
+        spell: [SPELLS.MAGMA_TOTEM.id],
         category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
         gcd: { base: 1000 },
       },
 
       // Utility
       {
-        spell: [SPELLS.CURE_TOXINS.id],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { base: 1500 },
-      },
-      {
         spell: [SPELLS.CLEANSE_SPIRIT.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.FROST_SHOCK.id, ...SPELLS.FROST_SHOCK.lowRanks],
+        spell: [SPELLS.FROST_SHOCK.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
@@ -175,27 +159,12 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1000 },
       },
       {
-        spell: [SPELLS.CLEANSING_TOTEM.id],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { base: 1000 },
-      },
-      {
         spell: [SPELLS.EARTHBIND_TOTEM.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1000 },
       },
       {
-        spell: [SPELLS.FIRE_RESISTANCE_TOTEM.id, ...SPELLS.FIRE_RESISTANCE_TOTEM.lowRanks],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { base: 1000 },
-      },
-      {
-        spell: [SPELLS.FLAMETONGUE_TOTEM.id, ...SPELLS.FLAMETONGUE_TOTEM.lowRanks],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { base: 1000 },
-      },
-      {
-        spell: [SPELLS.FROST_RESISTANCE_TOTEM.id, ...SPELLS.FROST_RESISTANCE_TOTEM.lowRanks],
+        spell: [SPELLS.FLAMETONGUE_TOTEM.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1000 },
       },
@@ -205,47 +174,42 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1000 },
       },
       {
-        spell: [SPELLS.HEALING_STREAM_TOTEM.id, ...SPELLS.HEALING_STREAM_TOTEM.lowRanks],
+        spell: [SPELLS.HEALING_STREAM_TOTEM.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1000 },
       },
       {
-        spell: [SPELLS.LIGHTNING_SHIELD.id, ...SPELLS.LIGHTNING_SHIELD.lowRanks],
+        spell: [SPELLS.LIGHTNING_SHIELD.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.MANA_SPRING_TOTEM.id, ...SPELLS.MANA_SPRING_TOTEM.lowRanks],
+        spell: [SPELLS.MANA_SPRING_TOTEM.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1000 },
       },
       {
-        spell: [SPELLS.NATURE_RESISTANCE_TOTEM.id, ...SPELLS.NATURE_RESISTANCE_TOTEM.lowRanks],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { base: 1000 },
-      },
-      {
-        spell: [SPELLS.PURGE.id, ...SPELLS.PURGE.lowRanks],
+        spell: [SPELLS.PURGE.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.STONECLAW_TOTEM.id, ...SPELLS.STONECLAW_TOTEM.lowRanks],
+        spell: [SPELLS.STONECLAW_TOTEM.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1000 },
       },
       {
-        spell: [SPELLS.STONESKIN_TOTEM.id, ...SPELLS.STONESKIN_TOTEM.lowRanks],
+        spell: [SPELLS.STONESKIN_TOTEM.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1000 },
       },
       {
-        spell: [SPELLS.STRENGTH_OF_EARTH_TOTEM.id, ...SPELLS.STRENGTH_OF_EARTH_TOTEM.lowRanks],
+        spell: [SPELLS.STRENGTH_OF_EARTH_TOTEM.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1000 },
       },
       {
-        spell: [SPELLS.TOTEMIC_CALL.id],
+        spell: [SPELLS.TOTEMIC_RECALL.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
@@ -255,7 +219,7 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1000 },
       },
       {
-        spell: [SPELLS.WATER_SHIELD.id, ...SPELLS.WATER_SHIELD.lowRanks],
+        spell: [SPELLS.WATER_SHIELD.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },

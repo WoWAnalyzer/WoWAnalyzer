@@ -78,7 +78,7 @@ class DrainSoul extends Analyzer {
     const dps = (damage / this.owner.fightDuration) * 1000;
     return (
       <Statistic
-        category={STATISTIC_CATEGORY.TALENTS}
+        category={STATISTIC_CATEGORY.GENERAL}
         size="flexible"
         tooltip={`${formatThousands(damage)} total damage`}
       >

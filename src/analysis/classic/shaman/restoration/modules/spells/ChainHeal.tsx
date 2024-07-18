@@ -51,9 +51,7 @@ class ChainHeal extends Analyzer {
     this.active = true;
     this.suggestedTargets = this.maxTargets * CHAIN_HEAL_TARGET_EFFICIENCY;
 
-    const chainHealSpells: SpellInfo[] = [SPELLS.CHAIN_HEAL.id, ...SPELLS.CHAIN_HEAL.lowRanks].map(
-      (spell) => ({ id: spell }),
-    );
+    const chainHealSpells: SpellInfo[] = [SPELLS.CHAIN_HEAL.id].map((spell) => ({ id: spell }));
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(chainHealSpells), this.chainHeal);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(chainHealSpells), this.chainHeal);
@@ -130,7 +128,7 @@ class ChainHeal extends Analyzer {
   }
 
   get avgHits() {
-    const chainHeals: number[] = [SPELLS.CHAIN_HEAL.id, ...SPELLS.CHAIN_HEAL.lowRanks];
+    const chainHeals: number[] = [SPELLS.CHAIN_HEAL.id];
     const chStats = chainHeals.reduce(
       (stats, spell) => {
         const ability = this.abilityTracker.getAbility(spell);
@@ -145,7 +143,7 @@ class ChainHeal extends Analyzer {
   }
 
   get casts() {
-    const chainHeals: number[] = [SPELLS.CHAIN_HEAL.id, ...SPELLS.CHAIN_HEAL.lowRanks];
+    const chainHeals: number[] = [SPELLS.CHAIN_HEAL.id];
     return chainHeals.reduce((casts, spell) => {
       casts += this.abilityTracker.getAbility(spell).casts;
 

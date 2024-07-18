@@ -190,6 +190,7 @@ abstract class Entities<T extends Entity> extends Analyzer {
         item.end === null &&
         event.sourceID === item.sourceID,
     );
+    entity.removeBuffSource(event.ability.guid, event.sourceID);
     if (existingBuff) {
       existingBuff.end = event.timestamp;
       existingBuff.stackHistory.push({ stacks: 0, timestamp: event.timestamp });

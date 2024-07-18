@@ -115,7 +115,6 @@
   },
   "scripts": {
     "start": "vite",
-    "safestart": "pnpm install && react-app-rewired start",
     "build": "vite build",
     "test": "vitest",
     "test:interface": "pnpm run test --exclude \"src/parser/**/*\"",
