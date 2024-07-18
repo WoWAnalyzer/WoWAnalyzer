@@ -1,6 +1,6 @@
 import Icon from 'interface/Icon';
 import SpellLink from 'interface/SpellLink';
-import { CastEvent, BeginCastEvent } from 'parser/core/Events';
+import { CastEvent, BeginCastEvent, HasSource, HasAbility, DamageEvent } from 'parser/core/Events';
 import {
   Fragment,
   CSSProperties,
@@ -19,12 +19,16 @@ import { useCombatLogParser } from 'interface/report/CombatLogParserContext';
 import TimeIndicators from './TimeIndicators';
 import ActivityIndicator from 'interface/ActivityIndicator';
 import SPELLS from 'common/SPELLS';
+import { EnemyInfo } from 'parser/core/Enemy';
+import { PetInfo } from 'parser/core/Pet';
+import { PlayerInfo } from 'parser/core/Player';
+import { encodeEventSourceString } from 'parser/shared/modules/Enemies';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   start: number;
   windowStart?: number;
   secondWidth: number;
-  events: NpcBeginCastEvent[] | NpcCastEvent[];
+  events: (NpcBeginCastEvent | NpcCastEvent)[];
   reportCode: string;
   actorId: number;
   style?: CSSProperties & {
@@ -234,7 +238,7 @@ export const EnemyCastsTimeline = ({
   const containerRef = useRef<HTMLDivElement | null>(null);
   const { combatLogParser: parser } = useCombatLogParser();
   const [shouldRenderNPCSpells, setRenderNPCSpells] = useState<boolean>(false);
-  const [NPCCasts, setNPCCasts] = useState<(BeginCastEvent | CastEvent | any)[]>([]);
+  const [NPCCasts, setNPCCasts] = useState<(NpcBeginCastEvent | NpcCastEvent)[]>([]);
 
   const [interruptedAbilities, setInterruptedAbilities] = useState(true);
 
@@ -277,39 +281,37 @@ export const EnemyCastsTimeline = ({
             parser.fight.start_time,
             parser.fight.end_time,
             undefined,
-            "type in ('begincast', 'cast') and source.type in ('NPC', 'Boss') AND ability.id > 1 AND sourceID > -1",
+            `type in ('begincast', 'cast') and source.type in ('NPC', 'Boss') AND ability.id > 1 AND sourceID > -1 AND ability.id not in (${EXCLUDED_SPELLS.join(',')})`,
             40,
           )) as (NpcBeginCastEvent | NpcCastEvent)[];
+          const abilities = new Set();
+          for (const event of events) {
+            abilities.add(event.ability.guid);
+          }
           //This call grabs the damage events that friendly players took from NPCs
           const damageStuff = (await fetchEvents(
             parser.report.code,
             parser.fight.start_time,
             parser.fight.end_time,
             undefined,
-            "type = 'damage' AND source.type in ('NPC', 'Boss') AND ability.id > 1 AND source.id > 0 AND target.type = 'Player'",
+            `type = 'damage' AND source.type in ('NPC', 'Boss') AND ability.id > 1 AND source.id > 0 AND target.type = 'Player' AND missType not in ('immune', 'deflect', 'reflect', 'misfire', 'evade') AND ability.id in (${Array.from(abilities).join(',')})`,
             40,
-          )) as any;
+          )) as DamageEvent[];
           //These three reducers map the character id to the character so that the source and targets for the damage events can be matched
-          const enemies = parser.report.enemies.reduce(
-            (acc: Record<number, any>, cur: { id: number }) => {
-              if (!acc[cur.id]) {
-                acc[cur.id] = cur;
-              }
-              return acc;
-            },
-            {},
-          );
-          const enemyPets = parser.report.enemyPets.reduce(
-            (acc: Record<number, any>, cur: { id: number }) => {
-              if (!acc[cur.id]) {
-                acc[cur.id] = cur;
-              }
-              return acc;
-            },
-            {},
-          );
+          const enemies = parser.report.enemies.reduce((acc: Record<number, EnemyInfo>, cur) => {
+            if (!acc[cur.id]) {
+              acc[cur.id] = cur;
+            }
+            return acc;
+          }, {});
+          const enemyPets = parser.report.enemyPets.reduce((acc: Record<number, PetInfo>, cur) => {
+            if (!acc[cur.id]) {
+              acc[cur.id] = cur;
+            }
+            return acc;
+          }, {});
           const allies = parser.combatantInfoEvents.reduce(
-            (acc: Record<number, any>, cur: { sourceID: number; player: any }) => {
+            (acc: Record<number, PlayerInfo>, cur) => {
               if (!acc[cur.sourceID]) {
                 acc[cur.sourceID] = cur.player;
               }
@@ -319,32 +321,25 @@ export const EnemyCastsTimeline = ({
           );
 
           //This groups damage events together. Helpful for aoe spells from the enemy that hit multiple players at the same time
-          const nonMeleeDamageEvents = damageStuff.reduce((acc: any, cur: any) => {
+          const nonMeleeDamageEvents = damageStuff.reduce((acc: DamageEvent[][], cur) => {
             const lastItem = acc[acc.length - 1];
-            if (cur.sourceID > -1) {
+            if (HasAbility(cur) && HasSource(cur) && cur.sourceID > -1) {
+              const lastEvent = lastItem?.at(-1);
               if (
-                Array.isArray(lastItem) &&
-                //group events that are within 300ms and have the same ability name and source
-                lastItem[lastItem.length - 1].timestamp <= cur.timestamp &&
-                lastItem[lastItem.length - 1].timestamp >= cur.timestamp - 300 &&
-                lastItem[lastItem.length - 1].sourceID === cur.sourceID &&
-                lastItem[lastItem.length - 1].ability.name === cur.ability.name
+                lastEvent &&
+                lastEvent.timestamp <= cur.timestamp &&
+                lastEvent.timestamp >= cur.timestamp - 300 &&
+                lastEvent.sourceID === cur.sourceID &&
+                lastEvent.sourceInstance === cur.sourceInstance &&
+                lastEvent.ability.guid === cur.ability.guid
               ) {
                 lastItem.push(cur);
-              } else if (
-                lastItem &&
-                lastItem.timestamp <= cur.timestamp &&
-                lastItem.timestamp >= cur.timestamp - 300 &&
-                lastItem.sourceID === cur.sourceID &&
-                lastItem.ability.name === cur.ability.name
-              ) {
-                acc[acc.length - 1] = [lastItem, cur];
               } else {
-                acc.push(cur);
+                acc.push([cur]);
               }
             }
             return acc;
-          }, []) as any;
+          }, []);
 
           const beginCastMap: { [key: string]: NpcCastEvent | NpcBeginCastEvent } = {};
           /*
@@ -355,7 +350,7 @@ export const EnemyCastsTimeline = ({
             const event = events[i] as NpcCastEvent | NpcBeginCastEvent;
             event['npc'] = enemies[event.sourceID];
             event['npcPet'] = enemyPets[event.sourceID];
-            const eventKey = `${event.ability.name}_${event.sourceID}`;
+            const eventKey = `${event.ability.guid}_${encodeEventSourceString(event)}`;
             if (allies[event.targetID]) {
               event['friendlyTarget'] = allies[event.targetID];
             }
@@ -377,8 +372,8 @@ export const EnemyCastsTimeline = ({
             It also removes npc abilities that were melee, or did not damage an ally
           */
           const npcAbilities = events.filter((event) => {
-            const matchingDmgEvent = nonMeleeDamageEvents.filter((damageTaken: any) => {
-              const dmgEvent = Array.isArray(damageTaken) ? damageTaken[0] : damageTaken;
+            const matchingDmgEvent = nonMeleeDamageEvents.filter((damageTaken) => {
+              const dmgEvent = damageTaken[0];
               return (
                 dmgEvent.timestamp >= event.timestamp &&
                 dmgEvent.timestamp <= event.timestamp + 10000 && //Assumes a damage event from an npc ability happens within 10 seconds
@@ -386,11 +381,13 @@ export const EnemyCastsTimeline = ({
                 dmgEvent.ability.name === event.ability.name
               );
             });
-            event['matchingDmgEvent'] = matchingDmgEvent;
             return (
               //remove events that do not damage allies.
               //keep events that were silenced/interrupted/stopped
-              matchingDmgEvent.length || (!event.matchedCast && event.type === 'begincast')
+              //keep events that are sourced to a boss
+              matchingDmgEvent.length ||
+              (!event.matchedCast && event.type === 'begincast') ||
+              event.npc?.subType === 'Boss'
             );
           });
           setNPCCasts(npcAbilities);
@@ -459,34 +456,24 @@ interface TimelineProps {
   skipInterval: number;
 }
 
-interface NpcInfo {
-  fights: Array<{
-    id: number;
-    name: string;
-  }>;
-  guid: number;
-  icon: string;
-  id: number;
-  name: string;
-  petOwner: string | null;
-  subType: string;
-  type: string;
-}
 interface NpcCastEvent extends CastEvent {
-  npc: NpcInfo;
-  npcPet: NpcInfo;
-  matchedCast?: any;
-  friendlyTarget?: any;
+  npc?: EnemyInfo;
+  npcPet?: PetInfo;
+  matchedCast?: CastEvent;
+  friendlyTarget?: PlayerInfo;
   targetID: number;
   time: string;
-  matchingDmgEvent?: any;
 }
 interface NpcBeginCastEvent extends BeginCastEvent {
-  npc: NpcInfo;
-  npcPet: NpcInfo;
-  matchedCast?: any;
-  friendlyTarget?: any;
+  npc?: EnemyInfo;
+  npcPet?: PetInfo;
+  matchedCast?: CastEvent;
+  friendlyTarget?: PlayerInfo;
   targetID: number;
   time: string;
-  matchingDmgEvent?: any;
 }
+
+const EXCLUDED_SPELLS = [
+  429740, // Tindral - Scorching Treant - Pulsing Heat cosmetic cast
+  421532, // Smolderon - Smoldering Ground cosmetic cast
+];
