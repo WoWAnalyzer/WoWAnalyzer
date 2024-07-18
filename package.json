@@ -22,7 +22,7 @@
     "react": "^17.0.2",
     "react-animate-height": "^3.2.3",
     "react-dom": "^17.0.2",
-    "react-helmet": "^6.1.0",
+    "react-helmet-async": "2.0.5",
     "react-masonry-component": "^6.3.0",
     "react-redux": "^8.1.2",
     "react-router-dom": "^6.22.3",
@@ -87,15 +87,13 @@
     "eslint-plugin-no-only-tests": "^3.1.0",
     "eslint-plugin-prettier": "^5.1.3",
     "eslint-plugin-progress": "^0.0.1",
-    "eslint-plugin-wowanalyzer": "link:./packages/eslint-plugin-wowanalyzer",
+    "eslint-plugin-wowanalyzer": "workspace:*",
     "eslint-plugin-you-dont-need-lodash-underscore": "^6.14.0",
     "husky": "^9.0.11",
     "identity-obj-proxy": "^3.0.0",
     "is-ci": "^3.0.1",
     "jsdom": "^22.1.0",
     "lint-staged": "15.2.2",
-    "patch-package": "^8.0.0",
-    "postinstall-postinstall": "^2.1.0",
     "prettier": "~3.2.5",
     "react-test-renderer": "^17.0.2",
     "sass": "^1.74.1",
@@ -117,31 +115,36 @@
   },
   "scripts": {
     "start": "vite",
-    "safestart": "yarn && react-app-rewired start",
+    "safestart": "pnpm install && react-app-rewired start",
     "build": "vite build",
     "test": "vitest",
-    "test:interface": "yarn test --exclude \"src/parser/**/*\"",
-    "test:parser": "yarn test ./src/parser",
+    "test:interface": "pnpm run test --exclude \"src/parser/**/*\"",
+    "test:parser": "pnpm run test ./src/parser",
     "typecheck": "tsc",
     "lint-uncached": "eslint --format stylish --max-warnings 0",
-    "lint": "yarn lint-uncached --cache .",
-    "lint:fix": "yarn lint --fix",
+    "lint": "pnpm run lint-uncached --cache .",
+    "lint:fix": "pnpm run lint --fix",
     "extract": "lingui extract --overwrite --clean",
     "script": "set NODE_ENV=development&&babel-node",
-    "postinstall": "patch-package",
     "prepare": "is-ci || husky",
     "e2e:setup": "node scripts/e2e/generate-configs-bootstrap.cjs",
-    "e2e": "yarn e2e:setup && playwright test",
+    "e2e": "pnpm run e2e:setup && playwright test",
     "e2e:codegen": "playwright codegen http://localhost:3000",
     "e2e:report": "playwright show-report"
   },
   "lint-staged": {
-    "*.{ts,tsx,js,jsx,json,md,mdx,yml,graphql,scss,css}": [
+    "*.{ts,tsx,js,jsx,cjs,mjs,json,md,mdx,yml,graphql,scss,css}": [
       "prettier --write"
     ],
     "*.{ts,tsx,js,jsx}": [
-      "yarn lint-uncached --fix"
+      "pnpm run lint-uncached --fix"
     ]
   },
-  "packageManager": "yarn@1.22.19"
+  "packageManager": "pnpm@9.5.0",
+  "pnpm": {
+    "patchedDependencies": {
+      "react-virtualized@9.22.5": "patches/react-virtualized@9.22.5.patch",
+      "vega-embed@6.20.2": "patches/vega-embed@6.20.2.patch"
+    }
+  }
 }

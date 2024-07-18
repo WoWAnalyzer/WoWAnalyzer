@@ -765,7 +765,9 @@ class SpellUsable extends Analyzer {
         color: BadColor,
         summary: `${spellName(spellId)} (ID=${spellId}) was used while SpellUsable's tracker thought it had no available charges`,
         // note: we are making a copy of `info` so that later display is not muddled by mutation
-        details: SpellUsableDebugDescription({ cdInfo: { ...info }, event, parser: this.owner }),
+        details: (
+          <SpellUsableDebugDescription cdInfo={{ ...info }} event={event} parser={this.owner} />
+        ),
       };
     } else if (!ability && HasAbility(event)) {
       annotation = {
