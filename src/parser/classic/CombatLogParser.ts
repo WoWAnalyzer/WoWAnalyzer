@@ -49,6 +49,8 @@ import FlaskChecker from 'parser/classic/modules/items/FlaskChecker';
 import FoodChecker from 'parser/classic/modules/items/FoodChecker';
 import PotionChecker from 'parser/classic/modules/items/PotionChecker';
 import SynapseSprings from './modules/items/engineering/SynapseSprings';
+// Racials
+import Orc from 'parser/classic/modules/racials/Orc';
 
 class CombatLogParser extends BaseCombatLogParser {
   static defaultModules: DependenciesDefinition = {
@@ -116,6 +118,9 @@ class CombatLogParser extends BaseCombatLogParser {
     foodChecker: FoodChecker,
     flaskChecker: FlaskChecker,
     potionChecker: PotionChecker,
+
+    // Racials
+    orc: Orc,
   };
 }
 
