@@ -100,8 +100,8 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: RACIALS.BLOOD_FURY.id,
-        buffSpellId: RACIALS.BLOOD_FURY.id,
+        spell: RACIALS.BLOOD_FURY_PHYSICAL.id,
+        buffSpellId: RACIALS.BLOOD_FURY_PHYSICAL.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 120,
         isUndetectable: true,
