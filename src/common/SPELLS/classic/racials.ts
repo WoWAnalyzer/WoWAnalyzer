@@ -119,19 +119,19 @@ const spells = {
     icon: 'ability_racial_rocketjump.jpg',
   },
   // Orc
-  BLOOD_FURY: {
+  BLOOD_FURY_PHYSICAL: {
     // Warrior, Hunter, Rogue, DK
     id: 20572,
     name: 'Blood Fury',
     icon: 'racial_orc_berserkerstrength.jpg',
   },
-  BLOOD_FURY_CASTER: {
+  BLOOD_FURY_SPELL: {
     // Mage, Warlock
     id: 33702,
     name: 'Blood Fury',
     icon: 'racial_orc_berserkerstrength.jpg',
   },
-  BLOOD_FURY_SHAMAN: {
+  BLOOD_FURY_SPELL_AND_PHYSICAL: {
     id: 33697,
     name: 'Blood Fury',
     icon: 'racial_orc_berserkerstrength.jpg',

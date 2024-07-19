@@ -50,7 +50,7 @@ import FoodChecker from 'parser/classic/modules/items/FoodChecker';
 import PotionChecker from 'parser/classic/modules/items/PotionChecker';
 import SynapseSprings from './modules/items/engineering/SynapseSprings';
 // Racials
-import Orc from 'parser/classic/modules/racials/Orc';
+import BloodFury from 'parser/shared/modules/racials/orc/BloodFury';
 
 class CombatLogParser extends BaseCombatLogParser {
   static defaultModules: DependenciesDefinition = {
@@ -120,7 +120,7 @@ class CombatLogParser extends BaseCombatLogParser {
     potionChecker: PotionChecker,
 
     // Racials
-    orc: Orc,
+    bloodFury: BloodFury,
   };
 }
 
