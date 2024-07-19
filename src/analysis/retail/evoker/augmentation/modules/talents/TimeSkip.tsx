@@ -3,6 +3,7 @@ import TALENTS from 'common/TALENTS/evoker';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import { BREATH_OF_EONS_SPELLS } from '../../constants';
 
 /**
  * Time Skip is a channeled spell that makes cooldowns recover 1000% faster
@@ -25,7 +26,7 @@ class TimeSkip extends Analyzer {
     SPELLS.UPHEAVAL_FONT,
     SPELLS.FIRE_BREATH,
     SPELLS.FIRE_BREATH_FONT,
-    TALENTS.BREATH_OF_EONS_TALENT,
+    ...BREATH_OF_EONS_SPELLS,
     TALENTS.BLISTERING_SCALES_TALENT,
     TALENTS.SPATIAL_PARADOX_TALENT,
     TALENTS.PRESCIENCE_TALENT,

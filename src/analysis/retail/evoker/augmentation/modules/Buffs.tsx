@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS/evoker';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import CoreAuras from 'parser/core/modules/Auras';
 import TALENTS from 'common/TALENTS/evoker';
+import { BREATH_OF_EONS_SPELL_IDS } from '../constants';
 
 class Buffs extends CoreAuras {
   auras() {
@@ -40,8 +41,8 @@ class Buffs extends CoreAuras {
         timelineHighlight: false,
       },
       {
-        spellId: TALENTS.BREATH_OF_EONS_TALENT.id,
-        triggeredBySpellId: TALENTS.BREATH_OF_EONS_TALENT.id,
+        spellId: BREATH_OF_EONS_SPELL_IDS,
+        triggeredBySpellId: BREATH_OF_EONS_SPELL_IDS,
         timelineHighlight: false,
       },
       // Bloodlust

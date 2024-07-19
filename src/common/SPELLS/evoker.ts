@@ -243,6 +243,11 @@ const spells = {
     name: 'Deep Breath',
     icon: 'ability_evoker_deepbreath',
   },
+  DEEP_BREATH_SCALECOMMANDER: {
+    id: 433874,
+    name: 'Deep Breath',
+    icon: 'ability_evoker_deepbreath',
+  },
   DEEP_BREATH_DAM: {
     id: 353759,
     name: 'Deep Breath',
@@ -468,7 +473,7 @@ const spells = {
     name: 'Temporal Wound',
     icon: 'ability_evoker_breathofeons',
   },
-  BREATH_OF_EONS_CAST: {
+  BREATH_OF_EONS_SCALECOMMANDER: {
     id: 442204,
     name: 'Breath of Eons',
     icon: 'ability_evoker_breathofeons',

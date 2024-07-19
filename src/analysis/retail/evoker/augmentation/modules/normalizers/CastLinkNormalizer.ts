@@ -19,6 +19,7 @@ import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer'
 import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
 import PrePullCooldowns from 'parser/shared/normalizers/PrePullCooldowns';
 import { LEAPING_FLAMES_HITS } from 'analysis/retail/evoker/shared/modules/normalizers/LeapingFlamesNormalizer';
+import { BREATH_OF_EONS_SPELL_IDS } from '../../constants';
 
 /** So sometimes when Ebon Might should be extended
  * it just kinda doesn't? This messes with our analysis so
@@ -82,7 +83,7 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: BREATH_EBON_APPLY_LINK,
     reverseLinkRelation: BREATH_EBON_APPLY_LINK,
-    linkingEventId: TALENTS.BREATH_OF_EONS_TALENT.id,
+    linkingEventId: BREATH_OF_EONS_SPELL_IDS,
     linkingEventType: EventType.Cast,
     referencedEventId: SPELLS.EBON_MIGHT_BUFF_PERSONAL.id,
     referencedEventType: EventType.ApplyBuff,
@@ -113,7 +114,7 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: BREATH_OF_EONS_CAST_DEBUFF_APPLY_LINK,
     reverseLinkRelation: BREATH_OF_EONS_CAST_DEBUFF_APPLY_LINK,
-    linkingEventId: TALENTS.BREATH_OF_EONS_TALENT.id,
+    linkingEventId: BREATH_OF_EONS_SPELL_IDS,
     linkingEventType: EventType.Cast,
     referencedEventId: SPELLS.TEMPORAL_WOUND_DEBUFF.id,
     referencedEventType: EventType.ApplyDebuff,
@@ -124,9 +125,9 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: BREATH_OF_EONS_CAST_BUFF_LINK,
     reverseLinkRelation: BREATH_OF_EONS_CAST_BUFF_LINK,
-    linkingEventId: TALENTS.BREATH_OF_EONS_TALENT.id,
+    linkingEventId: BREATH_OF_EONS_SPELL_IDS,
     linkingEventType: [EventType.Cast],
-    referencedEventId: TALENTS.BREATH_OF_EONS_TALENT.id,
+    referencedEventId: BREATH_OF_EONS_SPELL_IDS,
     referencedEventType: [EventType.ApplyBuff, EventType.RemoveBuff],
     anyTarget: true,
     forwardBufferMs: BREATH_OF_EONS_BUFF_BUFFER,

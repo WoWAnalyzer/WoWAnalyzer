@@ -17,6 +17,8 @@ import {
   BREATH_OF_EONS_EXTENSION_MS,
   SANDS_OF_TIME_CRIT_MOD,
   DREAM_OF_SPRINGS_EXTENSION_MS,
+  BREATH_OF_EONS_SPELL_IDS,
+  BREATH_OF_EONS_SPELLS,
 } from 'analysis/retail/evoker/augmentation/constants';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { ChecklistUsageInfo, SpellUse } from 'parser/core/SpellUsage/core';
@@ -77,7 +79,8 @@ class EbonMight extends Analyzer {
 
   trackedSpells = [
     TALENTS.ERUPTION_TALENT,
-    TALENTS.BREATH_OF_EONS_TALENT,
+    ...BREATH_OF_EONS_SPELLS,
+    SPELLS.BREATH_OF_EONS_SCALECOMMANDER,
     SPELLS.EMERALD_BLOSSOM_CAST,
   ];
   empowers = [SPELLS.FIRE_BREATH, SPELLS.FIRE_BREATH_FONT, SPELLS.UPHEAVAL, SPELLS.UPHEAVAL_FONT];
@@ -202,7 +205,7 @@ class EbonMight extends Analyzer {
 
     let newEbonMightDuration;
 
-    if (event.ability.guid === TALENTS.BREATH_OF_EONS_TALENT.id) {
+    if (BREATH_OF_EONS_SPELL_IDS.includes(event.ability.guid)) {
       newEbonMightDuration = ebonMightTimeLeft + BREATH_OF_EONS_EXTENSION_MS * critMod;
     } else if (event.ability.guid === TALENTS.ERUPTION_TALENT.id) {
       newEbonMightDuration = ebonMightTimeLeft + ERUPTION_EXTENSION_MS * critMod;
