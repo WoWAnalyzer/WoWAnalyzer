@@ -45,7 +45,7 @@ export function makeGuildApiUrl(region?: string, realm?: string, name?: string, 
     parts.push('classic');
   }
   if (region && realm && name) {
-    parts.push(classic ? region : region.toLowerCase());
+    parts.push(classic ? region.toUpperCase() : region);
     parts.push(realm);
     parts.push(name);
   }
