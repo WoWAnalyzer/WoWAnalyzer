@@ -50,7 +50,11 @@ import FoodChecker from 'parser/classic/modules/items/FoodChecker';
 import PotionChecker from 'parser/classic/modules/items/PotionChecker';
 import SynapseSprings from './modules/items/engineering/SynapseSprings';
 // Racials
+import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
+import Berserking from 'parser/shared/modules/racials/troll/Berserking';
 import BloodFury from 'parser/shared/modules/racials/orc/BloodFury';
+import GiftOfTheNaaru from 'parser/shared/modules/racials/draenei/GiftOfTheNaaru';
+import Stoneform from 'parser/shared/modules/racials/dwarf/Stoneform';
 
 class CombatLogParser extends BaseCombatLogParser {
   static defaultModules: DependenciesDefinition = {
@@ -120,7 +124,11 @@ class CombatLogParser extends BaseCombatLogParser {
     potionChecker: PotionChecker,
 
     // Racials
+    arcaneTorrent: ArcaneTorrent,
+    berserking: Berserking,
     bloodFury: BloodFury,
+    giftOfTheNaaru: GiftOfTheNaaru,
+    stoneform: Stoneform,
   };
 }
 
