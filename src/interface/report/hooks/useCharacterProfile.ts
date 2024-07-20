@@ -24,7 +24,7 @@ const useCharacterProfile = ({ report, player }: { report: Report; player: Playe
         ? report.exportedCharacters.find((char) => char.name === player.name)
         : null;
       if (exportedCharacter) {
-        region = exportedCharacter.region.toLowerCase();
+        region = exportedCharacter.region;
         realm = exportedCharacter.server;
         name = exportedCharacter.name;
         if (region === CHINESE_REGION) {
