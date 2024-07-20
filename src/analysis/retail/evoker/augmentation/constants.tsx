@@ -1,3 +1,6 @@
+import SPELLS from 'common/SPELLS/evoker';
+import TALENTS from 'common/TALENTS/evoker';
+
 // Accretion
 export const ACCRETION_CDR_MS = 1000;
 
@@ -25,6 +28,7 @@ export const TECTONIC_LOCUS_MULTIPLIER = 0.5;
 export const VOLCANISM_ESSENCE_REDUCTION = 1;
 export const ANACHRONISM_ESSENCE_CHANCE = 0.35;
 export const SYMBIOTIC_HEALING_INCREASE = 0.03;
+export const MOLTEN_EMBERS_MULTIPLIER = 0.2;
 
 // Breath of Eons multiplier
 export const BREATH_OF_EONS_MULTIPLIER = 0.1;
@@ -32,3 +36,10 @@ export const BREATH_OF_EONS_MULTIPLIER = 0.1;
 // Tier
 export const TREMBLING_EARTH_EXTENSION_MS = 200;
 export const TREMBLING_EARTH_STACK_LIMIT = 5;
+
+// Scalecommander changes ID for breath of eons
+export const BREATH_OF_EONS_SPELLS = [
+  TALENTS.BREATH_OF_EONS_TALENT,
+  SPELLS.BREATH_OF_EONS_SCALECOMMANDER,
+];
+export const BREATH_OF_EONS_SPELL_IDS = BREATH_OF_EONS_SPELLS.map((spell) => spell.id);

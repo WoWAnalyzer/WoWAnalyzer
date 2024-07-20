@@ -243,6 +243,11 @@ const spells = {
     name: 'Deep Breath',
     icon: 'ability_evoker_deepbreath',
   },
+  DEEP_BREATH_SCALECOMMANDER: {
+    id: 433874,
+    name: 'Deep Breath',
+    icon: 'ability_evoker_deepbreath',
+  },
   DEEP_BREATH_DAM: {
     id: 353759,
     name: 'Deep Breath',
@@ -467,6 +472,21 @@ const spells = {
     id: 409632,
     name: 'Temporal Wound',
     icon: 'ability_evoker_breathofeons',
+  },
+  BREATH_OF_EONS_SCALECOMMANDER: {
+    id: 442204,
+    name: 'Breath of Eons',
+    icon: 'ability_evoker_breathofeons',
+  },
+  MELT_ARMOR_DAMAGE: {
+    id: 441172,
+    name: 'Melt Armor',
+    icon: 'inv_10_gearupgrade_drakesshadowflameenhancedcrest',
+  },
+  BOMBARDMENTS_DAMAGE: {
+    id: 434481,
+    name: 'Bombardments',
+    icon: 'inv_ability_scalecommanderevoker_bombardments',
   },
   BLACK_ATTUNEMENT: {
     id: 403264,

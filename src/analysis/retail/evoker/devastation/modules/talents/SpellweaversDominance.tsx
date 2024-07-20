@@ -13,6 +13,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { SPELLWEAVERS_DOMINANCE_CRIT_MULTIPLIER } from 'analysis/retail/evoker/devastation/constants';
 import TalentSpellText from 'parser/ui/TalentSpellText';
+import { DEEP_BREATH_SPELLS } from 'analysis/retail/evoker/shared';
 
 class SpellweaversDominance extends Analyzer {
   SpellweaversDominanceDamage: number = 0;
@@ -25,7 +26,7 @@ class SpellweaversDominance extends Analyzer {
     SPELLS.PYRE,
     SPELLS.FIRESTORM_DAMAGE,
     SPELLS.SHATTERING_STAR,
-    SPELLS.DEEP_BREATH,
+    ...DEEP_BREATH_SPELLS,
     SPELLS.AZURE_STRIKE,
     SPELLS.UNRAVEL,
   ];

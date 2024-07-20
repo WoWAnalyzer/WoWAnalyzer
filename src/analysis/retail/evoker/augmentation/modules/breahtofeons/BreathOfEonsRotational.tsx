@@ -30,6 +30,7 @@ import Combatant from 'parser/core/Combatant';
 import Combatants from 'parser/shared/modules/Combatants';
 import { SpellTracker } from 'analysis/retail/evoker/shared/modules/components/ExplanationGraph';
 import BreathOfEonsHelper from './BreathOfEonsHelper';
+import { BREATH_OF_EONS_SPELLS } from '../../constants';
 
 export type BreathOfEonsWindows = {
   flightData: SpellTracker[];
@@ -189,12 +190,9 @@ class BreathOfEonsRotational extends Analyzer {
       },
     );
     /** CAST EVENTS */
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.BREATH_OF_EONS_TALENT),
-      (event) => {
-        this.onBreathCast(event);
-      },
-    );
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(BREATH_OF_EONS_SPELLS), (event) => {
+      this.onBreathCast(event);
+    });
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.trackedSpells), (event) => {
       this.onCast(event);
     });
@@ -491,7 +489,7 @@ class BreathOfEonsRotational extends Analyzer {
 
     if (
       this.activeDebuffs === 0 &&
-      !this.selectedCombatant.hasBuff(TALENTS.BREATH_OF_EONS_TALENT.id)
+      !BREATH_OF_EONS_SPELLS.some((spell) => this.selectedCombatant.hasBuff(spell.id))
     ) {
       this.breathWindowActive = false;
 

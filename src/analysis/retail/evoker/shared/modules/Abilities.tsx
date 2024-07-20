@@ -104,7 +104,9 @@ class Abilities extends CoreAbilities {
       //endregion
       //region Cooldowns
       {
-        spell: SPELLS.DEEP_BREATH.id,
+        spell: combatant.hasTalent(TALENTS.MANEUVERABILITY_TALENT)
+          ? SPELLS.DEEP_BREATH_SCALECOMMANDER.id
+          : SPELLS.DEEP_BREATH.id,
         category:
           combatant.spec === SPECS.PRESERVATION_EVOKER
             ? SPELL_CATEGORY.HEALER_DAMAGING_SPELL
@@ -115,7 +117,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        damageSpellIds: [SPELLS.DEEP_BREATH.id],
+        damageSpellIds: [SPELLS.DEEP_BREATH_DAM.id],
         enabled: !combatant.hasTalent(TALENTS.BREATH_OF_EONS_TALENT),
       },
       {
