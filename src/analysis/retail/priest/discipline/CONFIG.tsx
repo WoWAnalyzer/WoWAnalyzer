@@ -36,7 +36,7 @@ const config: Config = {
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport:
-    '/report/TDdwqCKRmZzpX8hY/32-Mythic+Kurog+Grimtotem+-+Kill+(8:51)/Xephiroze/standard/overview',
+    '/report/bNCqm427cLFntQdZ/31-Mythic+The+Forgotten+Experiments+-+Kill+(2:57)/200-Chaddaddy',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
