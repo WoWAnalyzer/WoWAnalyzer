@@ -50,6 +50,11 @@ const spells = {
     name: 'Dark Intent',
     icon: 'spell_warlock_focusshadow.jpg',
   },
+  DARK_INTENT_HASTE: {
+    id: 85767,
+    name: 'Dark Intent',
+    icon: 'spell_warlock_focusshadow.jpg',
+  },
   DEATH_COIL: {
     id: 6789,
     name: 'Death Coil',
