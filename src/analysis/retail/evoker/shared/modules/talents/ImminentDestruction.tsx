@@ -21,7 +21,7 @@ import SPECS from 'game/SPECS';
 import { isCastFromEB } from '../normalizers/EssenceBurstCastLinkNormalizer';
 
 /**
- * Deep Breath reduces the Essence costs of Disintegrate and Pyre by 1
+ * Deep Breath/Breath of Eons reduces the Essence costs of Disintegrate, Pyre and Eruption by 1
  * and increases their damage by 10% for 12 sec after you land.
  */
 class ImminentDestruction extends Analyzer {
