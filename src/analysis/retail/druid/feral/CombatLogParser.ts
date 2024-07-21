@@ -15,7 +15,6 @@ import EnergyDetails from 'analysis/retail/druid/feral/modules/core/energy/Energ
 import EnergyTracker from 'analysis/retail/druid/feral/modules/core/energy/EnergyTracker';
 import SpellEnergyCost from 'analysis/retail/druid/feral/modules/core/energy/SpellEnergyCost';
 import SpellUsable from './modules/features/SpellUsable';
-import AdaptiveSwarmFeral from 'analysis/retail/druid/feral/modules/spells/AdaptiveSwarmFeral';
 import ApexPredatorsCraving from 'analysis/retail/druid/feral/modules/spells/ApexPredatorsCraving';
 import ConvokeSpiritsFeral from 'analysis/retail/druid/feral/modules/spells/ConvokeSpiritsFeral';
 import Berserk from 'analysis/retail/druid/feral/modules/spells/Berserk';
@@ -45,6 +44,7 @@ import BrutalSlash from 'analysis/retail/druid/feral/modules/spells/BrutalSlash'
 import OmenAndMomentOfClarity from 'analysis/retail/druid/feral/modules/spells/OmenAndMomentOfClarity';
 import FeralFrenzy from 'analysis/retail/druid/feral/modules/spells/FeralFrenzy';
 import SaberJaws from 'analysis/retail/druid/feral/modules/spells/SaberJaws';
+import AdaptiveSwarm from 'analysis/retail/druid/feral/modules/spells/AdaptiveSwarm';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -94,7 +94,7 @@ class CombatLogParser extends CoreCombatLogParser {
     bloodtalons: Bloodtalons,
     apexPredatorsCraving: ApexPredatorsCraving,
     convokeSpirits: ConvokeSpiritsFeral,
-    adaptiveSwarm: AdaptiveSwarmFeral,
+    adaptiveSwarm: AdaptiveSwarm,
     berserk: Berserk,
     rampantFerocity: RampantFerocity,
     doubleClawedRake: DoubleClawedRake,
