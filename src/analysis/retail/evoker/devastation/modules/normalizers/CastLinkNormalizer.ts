@@ -11,7 +11,6 @@ import {
 } from 'parser/core/Events';
 import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
 
-export const ESSENCE_BURST_CONSUME = 'EssenceBurstConsumption';
 const BURNOUT_CONSUME = 'BurnoutConsumption';
 const SNAPFIRE_CONSUME = 'SnapfireConsumption';
 export const IRIDESCENCE_RED_CONSUME = 'IridescentRedConsumption';
@@ -25,29 +24,6 @@ export const PYRE_MIN_TRAVEL_TIME = 950;
 export const PYRE_MAX_TRAVEL_TIME = 1_050;
 const CAST_BUFFER_MS = 100;
 const EVENT_LINKS: EventLink[] = [
-  {
-    linkRelation: ESSENCE_BURST_CONSUME,
-    reverseLinkRelation: ESSENCE_BURST_CONSUME,
-    linkingEventId: [TALENTS.RUBY_ESSENCE_BURST_TALENT.id, SPELLS.ESSENCE_BURST_DEV_BUFF.id],
-    linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
-    referencedEventId: SPELLS.DISINTEGRATE.id,
-
-    referencedEventType: EventType.Cast,
-    anyTarget: true,
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
-  },
-  {
-    linkRelation: ESSENCE_BURST_CONSUME,
-    reverseLinkRelation: ESSENCE_BURST_CONSUME,
-    linkingEventId: [TALENTS.RUBY_ESSENCE_BURST_TALENT.id, SPELLS.ESSENCE_BURST_DEV_BUFF.id],
-    linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
-    referencedEventId: [SPELLS.PYRE.id, SPELLS.PYRE_DENSE_TALENT.id],
-    referencedEventType: EventType.Cast,
-    anyTarget: true,
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
-  },
   {
     linkRelation: BURNOUT_CONSUME,
     reverseLinkRelation: BURNOUT_CONSUME,
@@ -186,10 +162,6 @@ class CastLinkNormalizer extends EventLinkNormalizer {
 // region HELPERS
 export function isFromBurnout(event: CastEvent) {
   return HasRelatedEvent(event, BURNOUT_CONSUME);
-}
-
-export function isFromEssenceBurst(event: CastEvent) {
-  return HasRelatedEvent(event, ESSENCE_BURST_CONSUME);
 }
 
 export function isFromSnapfire(event: CastEvent) {
