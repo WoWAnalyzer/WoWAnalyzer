@@ -7,6 +7,7 @@ import SPELLS from 'common/SPELLS/evoker';
 export default [
   change(date(2024, 7, 22), <>Update <SpellLink spell={TALENTS_EVOKER.HEAT_WAVE_TALENT}/> and <SpellLink spell={TALENTS_EVOKER.HONED_AGGRESSION_TALENT}/> multipliers</>, Vollmer),
   change(date(2024, 7, 21), <>Implement <SpellLink spell={TALENTS_EVOKER.SCORCHING_EMBERS_TALENT} /> module</>, Vollmer),
+  change(date(2024, 7, 21), <>Implement <SpellLink spell={TALENTS_EVOKER.IMMINENT_DESTRUCTION_DEVASTATION_TALENT}/> module</>, Vollmer),
   change(date(2024, 7, 19), <>Update IDs for <SpellLink spell={SPELLS.DEEP_BREATH} /></>, Vollmer),
   change(date(2024, 6, 30), <>Update periodic IDs for <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT} /> module</>, Vollmer),
   change(date(2024, 6, 22), <>Add <SpellLink spell={TALENTS_EVOKER.RED_HOT_TALENT} /> module</>, Trevor),
