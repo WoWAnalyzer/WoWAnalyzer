@@ -5,7 +5,7 @@ import UptimeMultiBarStatistic from 'parser/ui/UptimeMultiBarStatistic';
 
 import RakeUptimeAndSnapshots from 'analysis/retail/druid/feral/modules/spells/RakeUptimeAndSnapshots';
 import RipUptimeAndSnapshots from 'analysis/retail/druid/feral/modules/spells/RipUptimeAndSnapshots';
-import AdaptiveSwarmFeral from 'analysis/retail/druid/feral/modules/spells/AdaptiveSwarmFeral';
+import AdaptiveSwarm from 'analysis/retail/druid/feral/modules/spells/AdaptiveSwarm';
 import MoonfireUptimeAndSnapshots from 'analysis/retail/druid/feral/modules/spells/MoonfireUptimeAndSnapshots';
 
 /**
@@ -16,13 +16,13 @@ class DotUptimesAndSnapshots extends Analyzer {
     ripUptime: RipUptimeAndSnapshots,
     rakeUptime: RakeUptimeAndSnapshots,
     moonfireUptime: MoonfireUptimeAndSnapshots,
-    adaptiveSwarm: AdaptiveSwarmFeral,
+    adaptiveSwarm: AdaptiveSwarm,
   };
 
   protected ripUptime!: RipUptimeAndSnapshots;
   protected rakeUptime!: RakeUptimeAndSnapshots;
   protected moonfireUptime!: MoonfireUptimeAndSnapshots;
-  protected adaptiveSwarm!: AdaptiveSwarmFeral;
+  protected adaptiveSwarm!: AdaptiveSwarm;
 
   statistic() {
     return (
