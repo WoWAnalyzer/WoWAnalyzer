@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, ApplyBuffStackEvent, CastEvent } from 'parser/core/Events';
-import { isFromEssenceBurst } from '../normalizers/CastLinkNormalizer';
+import { isCastFromEB } from 'analysis/retail/evoker/shared/modules/normalizers/EssenceBurstCastLinkNormalizer';
 
 class EssenceBurst extends Analyzer {
   procs: number = 0;
@@ -40,7 +40,7 @@ class EssenceBurst extends Analyzer {
   }
 
   onEssenceSpend(event: CastEvent) {
-    if (isFromEssenceBurst(event)) {
+    if (isCastFromEB(event)) {
       this.consumedProcs += 1;
     }
   }
