@@ -21,6 +21,7 @@ import TectonicLocus from './modules/talents/TectonicLocus';
 import Volcanism from './modules/talents/Volcanism';
 import BlisteringScales from './modules/talents/BlisteringScales';
 import MoltenEmbers from './modules/talents/MoltenEmbers';
+import RumblingEarth from './modules/talents/RumblingEarth';
 
 import BuffTrackerGraph from './modules/features/BuffTrackerGraph';
 import BuffTargetHelper from './modules/features/BuffTargetHelper/BuffTargetHelper';
@@ -112,6 +113,7 @@ class CombatLogParser extends MainCombatLogParser {
     volcanism: Volcanism,
     blisteringScales: BlisteringScales,
     moltenEmbers: MoltenEmbers,
+    rumblingEarth: RumblingEarth,
 
     // Features
     buffTrackerGraph: BuffTrackerGraph,
