@@ -55,6 +55,7 @@ import {
   TwinGuardian,
   RenewingBlaze,
   Engulf,
+  ImminentDestruction,
 } from 'analysis/retail/evoker/shared';
 import ExpandedLungs from '../shared/modules/talents/hero/flameshaper/ExpandedLungs';
 import FanTheFlames from '../shared/modules/talents/hero/flameshaper/FanTheFlames';
@@ -79,6 +80,7 @@ class CombatLogParser extends MainCombatLogParser {
     essenceGraph: EssenceGraph,
     sourceOfMagic: SourceOfMagic,
     potentMana: PotentMana,
+    imminentDestruction: ImminentDestruction,
 
     obsidianScales: ObsidianScales,
     defensiveCastLinkNormalizer: DefensiveCastLinkNormalizer,

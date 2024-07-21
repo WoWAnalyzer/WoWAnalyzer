@@ -19,4 +19,5 @@ export { default as TwinGuardian } from './modules/MajorDefensives/TwinGuardian'
 export { default as RenewingBlaze } from './modules/MajorDefensives/RenewingBlaze';
 export { default as Engulf } from './modules/talents/hero/flameshaper/Engulf';
 export { default as Panacea } from './modules/talents/Panacea';
+export { default as ImminentDestruction } from './modules/talents/ImminentDestruction';
 export * from './constants';
