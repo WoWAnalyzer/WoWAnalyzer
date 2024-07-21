@@ -603,6 +603,16 @@ const spells = {
     name: 'Threads of Fate',
     icon: 'ability_evoker_sandsoftime',
   },
+  IMMINENT_DESTRUCTION_DEV_BUFF: {
+    id: 411055,
+    name: 'Imminent Destruction',
+    icon: 'spell_burningbladeshaman_blazing_radiance',
+  },
+  IMMINENT_DESTRUCTION_AUG_BUFF: {
+    id: 459574,
+    name: 'Imminent Destruction',
+    icon: 'spell_burningbladeshaman_blazing_radiance',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;
