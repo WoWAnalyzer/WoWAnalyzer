@@ -1,5 +1,5 @@
 import CoreHaste, { DEFAULT_HASTE_BUFFS } from 'parser/shared/modules/Haste';
-import SPELLS from 'common/SPELLS/classic/mage';
+import SPELLS from 'common/SPELLS/classic';
 
 class Haste extends CoreHaste {
   hasteBuffs = {
