@@ -42,6 +42,8 @@ export const BREATH_OF_EONS_DAMAGE_LINK = 'breathOfEonsDamageLink';
 const ERUPTION_CAST_DAM_LINK = 'eruptionCastDamLink';
 const ERUPTION_CHITIN_LINK = 'eruptionChitinLink';
 const PUPIL_OF_ALEXSTRASZA_LINK = 'pupilOfAlexstraszaLink';
+export const UPHEAVAL_CAST_DAM_LINK = 'upheavalCastDamLink';
+export const UPHEAVAL_RUMBLING_EARTH_LINK = 'upheavalRumblingEarthLink';
 // Tier
 export const TREMBLING_EARTH_DAM_LINK = 'tremblingEarthDamLink';
 
@@ -53,6 +55,7 @@ const BREATH_OF_EONS_DEBUFF_APPLY_BUFFER = 8000;
 const BREATH_OF_EONS_BUFF_BUFFER = 8000;
 const BREATH_OF_EONS_DAMAGE_BUFFER = 100;
 const PUPIL_OF_ALEXSTRASZA_BUFFER = 1000;
+const UPHEAVAL_DAMAGE_BUFFER = 800;
 
 // Tier
 // No clue why but this gets very weirdly staggered/delayed
@@ -225,6 +228,34 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: TREMBLING_EARTH_BUFFER,
     backwardBufferMs: TREMBLING_EARTH_BUFFER,
   },
+  {
+    linkRelation: UPHEAVAL_CAST_DAM_LINK,
+    reverseLinkRelation: UPHEAVAL_CAST_DAM_LINK,
+    linkingEventId: [TALENTS.UPHEAVAL_TALENT.id, SPELLS.UPHEAVAL_FONT.id],
+    linkingEventType: EventType.EmpowerEnd,
+    referencedEventId: SPELLS.UPHEAVAL_DAM.id,
+    referencedEventType: EventType.Damage,
+    anyTarget: true,
+    forwardBufferMs: UPHEAVAL_DAMAGE_BUFFER,
+    isActive: (c) => c.hasTalent(TALENTS.UPHEAVAL_TALENT),
+    additionalCondition(linkingEvent, referencedEvent) {
+      return upheavalHitIsUnique(linkingEvent as EmpowerEndEvent, referencedEvent as DamageEvent);
+    },
+  },
+  {
+    linkRelation: UPHEAVAL_RUMBLING_EARTH_LINK,
+    reverseLinkRelation: UPHEAVAL_RUMBLING_EARTH_LINK,
+    linkingEventId: [TALENTS.UPHEAVAL_TALENT.id, SPELLS.UPHEAVAL_FONT.id],
+    linkingEventType: EventType.EmpowerEnd,
+    referencedEventId: SPELLS.UPHEAVAL_DAM.id,
+    referencedEventType: EventType.Damage,
+    anyTarget: true,
+    forwardBufferMs: UPHEAVAL_DAMAGE_BUFFER * 2,
+    isActive: (c) => c.hasTalent(TALENTS.RUMBLING_EARTH_TALENT),
+    additionalCondition(_linkingEvent, referencedEvent) {
+      return !HasRelatedEvent(referencedEvent, UPHEAVAL_CAST_DAM_LINK);
+    },
+  },
 ];
 
 class CastLinkNormalizer extends EventLinkNormalizer {
@@ -305,6 +336,14 @@ export function ebonIsFromBreath(event: ApplyBuffEvent | CastEvent) {
 
 export function failedEbonMightExtension(event: CastEvent | EmpowerEndEvent) {
   return HasRelatedEvent(event, FAILED_EXTENSION_LINK);
+}
+
+function upheavalHitIsUnique(castEvent: EmpowerEndEvent, damageEvent: DamageEvent) {
+  const previousEvents = GetRelatedEvents<DamageEvent>(castEvent, UPHEAVAL_CAST_DAM_LINK);
+
+  return !previousEvents.some(
+    (e) => encodeEventTargetString(e) === encodeEventTargetString(damageEvent),
+  );
 }
 
 export default CastLinkNormalizer;
