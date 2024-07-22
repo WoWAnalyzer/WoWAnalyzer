@@ -219,6 +219,15 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: TALENTS.SPATIAL_PARADOX_TALENT.id,
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown: 180 * interwovenThreadsMultiplier,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(TALENTS.SPATIAL_PARADOX_TALENT),
+      },
+      {
         spell: SPELLS.HOVER.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 30 * interwovenThreadsMultiplier,
