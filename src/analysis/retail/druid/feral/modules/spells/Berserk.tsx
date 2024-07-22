@@ -1,18 +1,17 @@
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
-import { SpellIcon, SpellLink, Tooltip } from 'interface';
+import { SpellLink, Tooltip } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { cdSpell } from 'analysis/retail/druid/feral/constants';
 import { TALENTS_DRUID } from 'common/TALENTS';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
 import EnergyTracker from 'analysis/retail/druid/feral/modules/core/energy/EnergyTracker';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { PassFailCheckmark, PerformanceMark } from 'interface/guide';
@@ -21,6 +20,8 @@ import InformationIcon from 'interface/icons/Information';
 import CooldownExpandable, {
   CooldownExpandableItem,
 } from 'interface/guide/components/CooldownExpandable';
+import ItemPercentDamageDone from 'parser/ui/ItemPercentDamageDone';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 const BERSERK_HARDCAST_DURATION = 15_000;
 const INCARN_HARDCAST_DURATION = 20_000;
@@ -209,26 +210,18 @@ class Berserk extends Analyzer {
   }
 
   statistic() {
+    if (!this.hasFrenzy) {
+      return undefined;
+    }
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(20)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={SPELLS.BERSERK}>
-          <>
-            {this.hasFrenzy && (
-              <>
-                <SpellIcon spell={SPELLS.FRENZIED_ASSAULT} />{' '}
-                <img src="/img/sword.png" alt="Damage" className="icon" />{' '}
-                {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.totalDotDamage))} %{' '}
-                <small>
-                  {formatNumber((this.totalDotDamage / this.owner.fightDuration) * 1000)} DPS
-                </small>
-              </>
-            )}
-          </>
-        </BoringSpellValueText>
+        <TalentSpellText talent={TALENTS_DRUID.BERSERK_FRENZY_TALENT}>
+          <ItemPercentDamageDone amount={this.totalDotDamage} />
+        </TalentSpellText>
       </Statistic>
     );
   }

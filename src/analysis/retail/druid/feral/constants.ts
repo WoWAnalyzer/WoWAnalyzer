@@ -34,6 +34,7 @@ export const FINISHERS: Spell[] = [
   SPELLS.MAIM,
   TALENTS_DRUID.PRIMAL_WRATH_TALENT,
 ];
+export const FINISHER_IDS: number[] = FINISHERS.map((s) => s.id);
 
 /** Druid of the Claw's 'Ravage' conditionally replaces Ferocious Bite.
  * These spells are for the cast, damage, and extra energy drain. */

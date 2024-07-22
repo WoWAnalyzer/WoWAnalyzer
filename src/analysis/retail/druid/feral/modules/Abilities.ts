@@ -57,7 +57,7 @@ class Abilities extends CoreAbilities {
 
       {
         spell: SPELLS.THRASH_FERAL.id,
-        category: SPELL_CATEGORY.ROTATIONAL_AOE,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           static: 1000,
         },

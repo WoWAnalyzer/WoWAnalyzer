@@ -7,7 +7,6 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
   DamageEvent,
-  ResourceChangeEvent,
   RefreshBuffEvent,
   CastEvent,
 } from 'parser/core/Events';
@@ -22,6 +21,7 @@ import { formatPercentage } from 'common/format';
 import { isConvoking } from 'analysis/retail/druid/shared/spells/ConvokeSpirits';
 import { FB_SPELLS } from 'analysis/retail/druid/feral/constants';
 import { getDamageHits } from 'analysis/retail/druid/feral/normalizers/CastLinkNormalizer';
+import { getSotfEnergize } from 'analysis/retail/druid/feral/normalizers/SoulOfTheForestLinkNormalizer';
 
 const BUFFER_MS = 50;
 
@@ -45,7 +45,6 @@ class ApexPredatorsCraving extends Analyzer {
   /** Damage from Rampant Ferocity splash of an Apex bite */
   rampantFerocityDamage: number = 0;
 
-  lastSotf?: ResourceChangeEvent;
   sotfEnergyGained: number = 0;
   sotfEnergyEffective: number = 0;
   sotfEnergyWasted: number = 0;
@@ -67,12 +66,6 @@ class ApexPredatorsCraving extends Analyzer {
     );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(FB_SPELLS), this.onFbCast);
 
-    if (this.hasSotf) {
-      this.addEventListener(
-        Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.SOUL_OF_THE_FOREST_FERAL_ENERGY),
-        this.onSotfEnergize,
-      );
-    }
     if (this.hasRf) {
       this.addEventListener(
         Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RAMPANT_FEROCITY),
@@ -100,11 +93,11 @@ class ApexPredatorsCraving extends Analyzer {
       )
     ) {
       this.buffsUsed += 1;
-      // SotF energize actually seems to consistently come before the damage and on same timestamp
-      if (this.lastSotf && this.lastSotf.timestamp === event.timestamp) {
-        this.sotfEnergyGained += this.lastSotf.resourceChange;
-        this.sotfEnergyWasted += this.lastSotf.waste;
-        this.sotfEnergyEffective += this.lastSotf.resourceChange - this.lastSotf.waste;
+      const sotfEnergize = getSotfEnergize(event);
+      if (sotfEnergize) {
+        this.sotfEnergyGained += sotfEnergize.resourceChange;
+        this.sotfEnergyWasted += sotfEnergize.waste;
+        this.sotfEnergyEffective += sotfEnergize.resourceChange - sotfEnergize.waste;
       }
       getDamageHits(event).forEach((hit) => {
         this.biteDamage += hit.amount + (hit.absorbed || 0);
@@ -123,10 +116,6 @@ class ApexPredatorsCraving extends Analyzer {
     ) {
       this.rampantFerocityDamage += event.amount + (event.absorbed || 0);
     }
-  }
-
-  onSotfEnergize(event: ResourceChangeEvent) {
-    this.lastSotf = event;
   }
 
   get buffsActive() {

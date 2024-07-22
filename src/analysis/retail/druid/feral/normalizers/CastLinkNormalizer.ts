@@ -105,6 +105,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: EventType.Cast,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: AFTER_CAST_BUFFER_MS,
+    anyTarget: true,
     isActive: (c) => c.hasTalent(TALENTS_DRUID.RAVAGE_TALENT),
   },
   {

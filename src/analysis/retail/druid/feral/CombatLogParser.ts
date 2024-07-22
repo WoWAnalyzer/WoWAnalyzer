@@ -44,6 +44,7 @@ import OmenAndMomentOfClarity from 'analysis/retail/druid/feral/modules/spells/O
 import FeralFrenzy from 'analysis/retail/druid/feral/modules/spells/FeralFrenzy';
 import SaberJaws from 'analysis/retail/druid/feral/modules/spells/SaberJaws';
 import AdaptiveSwarm from 'analysis/retail/druid/feral/modules/spells/AdaptiveSwarm';
+import SoulOfTheForestLinkNormalizer from 'analysis/retail/druid/feral/normalizers/SoulOfTheForestLinkNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -52,6 +53,7 @@ class CombatLogParser extends CoreCombatLogParser {
     castLinkNormalizer: CastLinkNormalizer,
     ferociousBiteDrainLinkNormalizer: FerociousBiteDrainLinkNormalizer,
     bloodtalonsLinkNormalizer: BloodtalonsLinkNormalizer,
+    soulOfTheForestLinkNormalizer: SoulOfTheForestLinkNormalizer,
     suddenAmbushLinkNormalizer: SuddenAmbushLinkNormalizer,
 
     // Core
