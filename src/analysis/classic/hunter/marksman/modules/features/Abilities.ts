@@ -14,7 +14,7 @@ class Abilities extends CoreAbilities {
         gcd: null,
       },
       {
-        spell: [SPELLS.SERPENT_STING.id, ...SPELLS.SERPENT_STING.lowRanks],
+        spell: SPELLS.SERPENT_STING.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
@@ -24,7 +24,7 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.EXPLOSIVE_TRAP.id, ...SPELLS.EXPLOSIVE_TRAP.lowRanks],
+        spell: SPELLS.EXPLOSIVE_TRAP.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         // gcd tracking with delayed trigger of trap seems to be a problem
         gcd: null,
@@ -32,41 +32,41 @@ class Abilities extends CoreAbilities {
         cooldown: 24,
       },
       {
-        spell: [SPELLS.ARCANE_SHOT.id, ...SPELLS.ARCANE_SHOT.lowRanks],
+        spell: SPELLS.ARCANE_SHOT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.AIMED_SHOT.id, ...SPELLS.AIMED_SHOT.lowRanks],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { base: 1500 },
-        cooldown: 10,
-      },
-      {
-        spell: [SPELLS.MULTI_SHOT.id, ...SPELLS.MULTI_SHOT.lowRanks],
+        spell: SPELLS.AIMED_SHOT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
         cooldown: 10,
       },
       {
-        spell: [SPELLS.STEADY_SHOT.id, ...SPELLS.STEADY_SHOT.lowRanks],
+        spell: SPELLS.MULTI_SHOT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+        cooldown: 10,
+      },
+      {
+        spell: SPELLS.STEADY_SHOT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.RAPTOR_STRIKE.id, ...SPELLS.RAPTOR_STRIKE.lowRanks],
+        spell: SPELLS.RAPTOR_STRIKE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.MONGOOSE_BITE.id, ...SPELLS.MONGOOSE_BITE.lowRanks],
+        spell: SPELLS.MONGOOSE_BITE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
 
       // Rotational AOE
       {
-        spell: [SPELLS.VOLLEY.id, ...SPELLS.VOLLEY.lowRanks],
+        spell: SPELLS.VOLLEY.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
@@ -138,17 +138,7 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.ASPECT_DRAGONHAWK.id],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: null,
-      },
-      {
         spell: [SPELLS.ASPECT_CHEETAH.id],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: null,
-      },
-      {
-        spell: [SPELLS.ASPECT_MONKEY.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: null,
       },
@@ -159,11 +149,6 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: [SPELLS.ASPECT_WILD.id],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: null,
-      },
-      {
-        spell: [SPELLS.ASPECT_VIPER.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: null,
       },

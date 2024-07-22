@@ -23,14 +23,6 @@ class Buffs extends CoreAuras {
         spellId: SPELLS.MISDIRECTION.id,
         timelineHighlight: true,
       },
-      {
-        spellId: SPELLS.ASPECT_DRAGONHAWK.id,
-        timelineHighlight: true,
-      },
-      {
-        spellId: SPELLS.ASPECT_VIPER.id,
-        timelineHighlight: true,
-      },
       // Do not adjust the lines below
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),

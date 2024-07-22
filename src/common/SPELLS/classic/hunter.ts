@@ -1,5 +1,5 @@
 /**
- * All WotLK Hunter spells (including talent spells) go here.
+ * All Classic Hunter spells (including talent spells) go here.
  * You need to do this manually by opening a WCL report and clicking the icons of spells to open the relevant Wowhead page. Here, you can get the icon name by clicking the icon, copy the name of the spell, and the ID is in the URL.
  * You can access these entries like other entries in the spells files by importing `common/SPELLS/classic` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
@@ -11,37 +11,19 @@ const spells = {
   // SHARED
   // --------
   ARCANE_SHOT: {
-    id: 49045,
+    id: 3044,
     name: 'Arcane Shot',
     icon: 'ability_impalingbolt',
-    lowRanks: [49044, 27019, 14287, 14286, 14285, 14284, 14283, 14282, 14281, 3044],
-  },
-  ASPECT_BEAST: {
-    id: 13161,
-    name: 'Aspect of the Beast',
-    icon: 'ability_mount_pinktiger',
   },
   ASPECT_CHEETAH: {
     id: 5118,
     name: 'Aspect of the Cheetah',
     icon: 'ability_mount_jungletiger',
   },
-  ASPECT_DRAGONHAWK: {
-    id: 61847,
-    name: 'Aspect of the Dragonhawk',
-    icon: 'ability_hunter_pet_dragonhawk',
-    lowRanks: [61846],
-  },
   ASPECT_HAWK: {
-    id: 27044,
+    id: 13165,
     name: 'Aspect of the Hawk',
     icon: 'spell_nature_ravenform',
-    lowRanks: [25296, 14322, 14321, 14320, 14319, 14318, 13165],
-  },
-  ASPECT_MONKEY: {
-    id: 13163,
-    name: 'Aspect of the Monkey',
-    icon: 'ability_hunter_aspectofthemonkey',
   },
   ASPECT_PACK: {
     id: 13159,
@@ -57,7 +39,6 @@ const spells = {
     id: 49071,
     name: 'Aspect of the Wild',
     icon: 'spell_nature_protectionformnature',
-    lowRanks: [27045, 20190, 20043],
   },
   AUTO_SHOT: {
     id: 75,
@@ -69,6 +50,8 @@ const spells = {
     name: 'Call Pet',
     icon: 'ability_hunter_beastcall',
   },
+
+  COBRA_SHOT: { id: 77767, name: 'Cobra Shot', icon: 'ability_hunter_cobrashot.jpg' },
   CONCUSSIVE_SHOT: {
     id: 5116,
     name: 'Concussive Shot',
@@ -95,10 +78,14 @@ const spells = {
     icon: 'spell_arcane_blink',
   },
   EXPLOSIVE_TRAP: {
-    id: 49067,
+    id: 13813,
     name: 'Explosive Trap',
     icon: 'spell_fire_selfdestruct',
-    lowRanks: [49066, 27025, 14317, 14316, 13813],
+  },
+  EXPLOSIVE_TRAP_LAUNCHER: {
+    id: 82939,
+    name: 'Explosive Trap',
+    icon: 'spell_fire_selfdestruct',
   },
   EYES_OF_THE_BEAST: {
     id: 1002,
@@ -120,33 +107,40 @@ const spells = {
     name: 'Flare',
     icon: 'spell_fire_flare',
   },
-  FREEZING_ARROW: {
-    id: 60192,
-    name: 'Freezing Arrow',
-    icon: 'spell_frost_chillingbolt',
-  },
   FREEZING_TRAP: {
-    id: 14311,
+    id: 1499,
     name: 'Freezing Trap',
     icon: 'spell_frost_chainsofice',
-    lowRanks: [14310, 1499],
   },
-  FROST_TRAP: {
+  FREEZING_TRAP_LAUNCHER: {
+    id: 60192,
+    name: 'Freezing Trap',
+    icon: 'spell_frost_chainsofice',
+  },
+  ICE_TRAP: {
     id: 13809,
-    name: 'Frost Trap',
+    name: 'Ice Trap',
+    icon: 'spell_frost_freezingbreath',
+  },
+  ICE_TRAP_LAUNCHER: {
+    id: 82941,
+    name: 'Ice Trap',
     icon: 'spell_frost_freezingbreath',
   },
   HUNTERS_MARK: {
-    id: 53338,
+    id: 1130,
     name: "Hunter's Mark",
     icon: 'ability_hunter_snipershot',
-    lowRanks: [14325, 14324, 14323, 1130],
   },
   IMMOLATION_TRAP: {
-    id: 49056,
+    id: 13795,
     name: 'Immolation Trap',
     icon: 'spell_fire_flameshock',
-    lowRanks: [49055, 27023, 14305, 14304, 14303, 14302, 13795],
+  },
+  IMMOLATION_TRAP_LAUNCHER: {
+    id: 82945,
+    name: 'Immolation Trap',
+    icon: 'spell_fire_flameshock',
   },
   IMPROVED_STEADY_SHOT: {
     id: 53220,
@@ -159,10 +153,9 @@ const spells = {
     icon: 'ability_hunter_killcommand',
   },
   KILL_SHOT: {
-    id: 61006,
+    id: 53351,
     name: 'Kill Shot',
     icon: 'ability_hunter_assassinate2',
-    lowRanks: [61005, 53351],
   },
   LOCK_AND_LOAD: {
     id: 56453,
@@ -178,7 +171,6 @@ const spells = {
     id: 48990,
     name: 'Mend Pet',
     icon: 'ability_hunter_mendpet',
-    lowRanks: [48989, 27046, 13544, 13543, 13542, 3662, 3661, 3111, 136],
   },
   MISDIRECTION: {
     id: 34477,
@@ -189,13 +181,11 @@ const spells = {
     id: 53339,
     name: 'Mongoose Bite',
     icon: 'ability_hunter_swiftstrike',
-    lowRanks: [36916, 14271, 14270, 14269, 1495],
   },
   MULTI_SHOT: {
-    id: 49048,
+    id: 2643,
     name: 'Multi-Shot',
     icon: 'ability_upgrademoonglaive',
-    lowRanks: [49047, 27021, 25294, 14290, 14289, 14288, 2643],
   },
   RAPID_FIRE: {
     id: 3045,
@@ -206,7 +196,6 @@ const spells = {
     id: 48996,
     name: 'Raptor Strike',
     icon: 'ability_meleedamage',
-    lowRanks: [48995, 27014, 14266, 14265, 14264, 14263, 14262, 14261, 14260, 2973],
   },
   REVIVE_PET: {
     id: 982,
@@ -217,7 +206,6 @@ const spells = {
     id: 14327,
     name: 'Scare Beast',
     icon: 'ability_druid_cower',
-    lowRanks: [14326, 1513],
   },
   SCORPID_STING: {
     id: 3043,
@@ -225,10 +213,9 @@ const spells = {
     icon: 'ability_hunter_criticalshot',
   },
   SERPENT_STING: {
-    id: 49001,
+    id: 1978,
     name: 'Serpent Sting',
     icon: 'ability_hunter_quickshot',
-    lowRanks: [49000, 27016, 25295, 13555, 13554, 13553, 13552, 13551, 13550, 13549, 1978],
   },
   SNAKE_TRAP: {
     id: 34600,
@@ -244,7 +231,6 @@ const spells = {
     id: 49052,
     name: 'Steady Shot',
     icon: 'ability_hunter_steadyshot',
-    lowRanks: [49051, 34120, 56641],
   },
   TRANQUILIZING_SHOT: {
     id: 19801,
@@ -260,7 +246,6 @@ const spells = {
     id: 58434,
     name: 'Volley',
     icon: 'ability_marksmanship',
-    lowRanks: [58431, 27022, 14295, 14294, 1510],
   },
   WING_CLIP: {
     id: 2974,
@@ -287,7 +272,6 @@ const spells = {
     id: 49050,
     name: 'Aimed Shot',
     icon: 'inv_spear_07',
-    lowRanks: [49049, 27065, 20904, 20903, 20902, 20901, 20900, 19434],
   },
   CHIMERA_SHOT: {
     id: 53209,
@@ -311,22 +295,19 @@ const spells = {
   },
   // Survival
   BLACK_ARROW: {
-    id: 63672,
+    id: 3674,
     name: 'Black Arrow',
     icon: 'spell_shadow_painspike',
-    lowRanks: [63671, 63670, 63669, 63668],
   },
   COUNTERATTACK: {
     id: 48999,
     name: 'Counterattack',
     icon: 'ability_warrior_challange',
-    lowRanks: [48998, 27067, 20910, 20909, 19306],
   },
   EXPLOSIVE_SHOT: {
-    id: 60053,
+    id: 53301,
     name: 'Explosive Shot',
     icon: 'ability_hunter_explosiveshot',
-    lowRanks: [60052, 60051, 53301],
   },
   SCATTER_SHOT: {
     id: 19503,
@@ -337,7 +318,12 @@ const spells = {
     id: 49012,
     name: 'Wyvern Sting',
     icon: 'inv_spear_02',
-    lowRanks: [49011, 27068, 24133, 24132, 19386],
+  },
+  TRAP_LAUNCHER: { id: 77769, name: 'Trap Launcher', icon: 'ability_hunter_traplauncher.jpg' },
+  ASPECT_OF_THE_FOX: {
+    id: 82661,
+    name: 'Aspect of the Fox',
+    icon: 'ability_hunter_aspectofthefox.jpg',
   },
 } satisfies Record<string, Spell>;
 
