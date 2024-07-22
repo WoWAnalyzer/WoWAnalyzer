@@ -37,16 +37,7 @@ class Abilities extends CoreAbilities {
         primaryCoefficient: 0.125, // damage per tick
       },
       {
-        spell: SPELLS.FEROCIOUS_BITE.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          static: 1000,
-        },
-        timelineSortIndex: 6,
-      },
-      {
-        // TODO TWW - should I just try to roll this in with Bite in the user facing view?
-        spell: SPELLS.RAVAGE_DOTC_CAT.id,
+        spell: [SPELLS.FEROCIOUS_BITE.id, SPELLS.RAVAGE_DOTC_CAT.id],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           static: 1000,
@@ -124,7 +115,8 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 180,
+        cooldown:
+          180 - combatant.getTalentRank(TALENTS_DRUID.BERSERK_HEART_OF_THE_LION_TALENT) * 60,
         enabled: combatant.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT),
         castEfficiency: {
           suggestion: true,
@@ -141,7 +133,8 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BERSERK.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 180,
+        cooldown:
+          180 - combatant.getTalentRank(TALENTS_DRUID.BERSERK_HEART_OF_THE_LION_TALENT) * 60,
         enabled: !combatant.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT),
         castEfficiency: {
           suggestion: true,

@@ -2,14 +2,7 @@ import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import { SpellIcon, SpellLink, Tooltip } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import EventFilter from 'parser/core/EventFilter';
-import Events, {
-  CastEvent,
-  DamageEvent,
-  EventType,
-  UpdateSpellUsableEvent,
-  UpdateSpellUsableType,
-} from 'parser/core/Events';
+import Events, { CastEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -17,17 +10,9 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import {
-  cdSpell,
-  CONVOKE_FB_CPS,
-  FB_SPELLS,
-  FINISHERS,
-} from 'analysis/retail/druid/feral/constants';
+import { cdSpell } from 'analysis/retail/druid/feral/constants';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { formatNumber, formatPercentage } from 'common/format';
-import getResourceSpent from 'parser/core/getResourceSpent';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { isConvoking } from 'analysis/retail/druid/shared/spells/ConvokeSpirits';
 import EnergyTracker from 'analysis/retail/druid/feral/modules/core/energy/EnergyTracker';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { PassFailCheckmark, PerformanceMark } from 'interface/guide';
@@ -37,31 +22,30 @@ import CooldownExpandable, {
   CooldownExpandableItem,
 } from 'interface/guide/components/CooldownExpandable';
 
-const BERSERK_CDR_MS = 500;
-const BERSERK_HARDCAST_DURATION = 20_000;
-const INCARN_HARDCAST_DURATION = 30_000;
+const BERSERK_HARDCAST_DURATION = 15_000;
+const INCARN_HARDCAST_DURATION = 20_000;
 
 /**
  * This tracks Berserk and its 'upgrade' talents, and produces guide / statistic output.
  *
  * **Berserk**
- * Spec Talent Tier 5
+ * Spec Talent
  *
- * Go Berserk for 20 seconds. While Berserk: Generate 1 combo point every 1.5 seconds.
+ * Go Berserk for 15 seconds. While Berserk: Generate 1 combo point every 1.5 seconds.
  * Finishing moves restore up to 3 combo points generated over the cap.
  * Shred and Rake damage increased by 50%.
  * Combo point generating abilities generate one additional combo point.
  *
  * **Berserk: Heart of the Lion**
- * Spec Talent Tier 7
+ * Spec Talent
  *
- * Each combo point spent reduces the cooldown of Berserk (or Incarnation) by 0.5 seconds.
+ * Reduce the cooldown of Berserk (or Incarnation) by 60 seconds.
  *
  * **Berserk: Frenzy**
- * Spec Talent Tier 7
+ * Spec Talent
  *
  * During Berserk (or Incarnation) your combo-point generating abilites bleed the target for
- * an additional 150% of their damage over 8 seconds.
+ * an additional 135% of their damage over 8 seconds.
  */
 class Berserk extends Analyzer {
   static dependencies = {
@@ -83,20 +67,12 @@ class Berserk extends Analyzer {
   hasHeartOfTheLion: boolean;
   /** If player has the Berserk: Frenzy talent */
   hasFrenzy: boolean;
-  /** If player has both the above talents */
-  hasBoth: boolean;
   /** If player has Convoke the Spirits talent */
   hasConvoke: boolean;
   /** If player has Incarnation talent */
   hasIncarn: boolean;
   /** Either Berserk or Incarnation depending on talent */
   cdSpell: Spell;
-  /** The total raw amount the CD was reduced */
-  totalRawCdReduced: number = 0;
-  /** The total effective amount the CD was reduced - penalized by delaying cast or being unable due to fight end */
-  totalEffectiveCdReduced: number = 0;
-  /** The amount the current CD has been reduced */
-  currCastCdReduced: number = 0;
 
   /** The timestamp the CD became available */
   timestampAvailable?: number;
@@ -108,7 +84,6 @@ class Berserk extends Analyzer {
       TALENTS_DRUID.BERSERK_HEART_OF_THE_LION_TALENT,
     );
     this.hasFrenzy = this.selectedCombatant.hasTalent(TALENTS_DRUID.BERSERK_FRENZY_TALENT);
-    this.hasBoth = this.hasHeartOfTheLion && this.hasFrenzy;
     this.hasConvoke = this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT);
     this.hasIncarn = this.selectedCombatant.hasTalent(
       TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT,
@@ -117,39 +92,12 @@ class Berserk extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.BERSERK_TALENT);
 
     this.cdSpell = cdSpell(this.selectedCombatant);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(FINISHERS), this.onFinisher);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(FB_SPELLS), this.onBiteDamage);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.cdSpell), this.onCdUse);
-    this.addEventListener(
-      new EventFilter(EventType.UpdateSpellUsable).by(SELECTED_PLAYER).spell(this.cdSpell),
-      this.onCdAvailable,
-    );
     this.hasConvoke &&
       this.addEventListener(
         Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CONVOKE_SPIRITS),
         this.onConvoke,
       );
-  }
-
-  onFinisher(event: CastEvent) {
-    if (this.hasHeartOfTheLion && this.spellUsable.isOnCooldown(this.cdSpell.id)) {
-      this._tallyReduction(getResourceSpent(event, RESOURCE_TYPES.COMBO_POINTS));
-    }
-  }
-
-  onBiteDamage(_: DamageEvent) {
-    if (this.hasHeartOfTheLion && isConvoking(this.selectedCombatant)) {
-      this._tallyReduction(CONVOKE_FB_CPS);
-    }
-  }
-
-  _tallyReduction(cpsUsed: number) {
-    if (this.spellUsable.isOnCooldown(this.cdSpell.id)) {
-      const reduction = cpsUsed * BERSERK_CDR_MS;
-      const reduced = this.spellUsable.reduceCooldown(this.cdSpell.id, reduction);
-      this.totalRawCdReduced += reduced;
-      this.currCastCdReduced += reduced;
-    }
   }
 
   onCdUse(event: CastEvent) {
@@ -158,19 +106,6 @@ class Berserk extends Analyzer {
       energyOnCast: this.energyTracker.current,
       usedConvoke: false, // changed to true later if a Convoke happens while its active
     });
-
-    if (this.hasHeartOfTheLion) {
-      const timeAvailableBeforeCast =
-        this.timestampAvailable === undefined ? 0 : event.timestamp - this.timestampAvailable;
-      this.totalEffectiveCdReduced += Math.max(0, this.currCastCdReduced - timeAvailableBeforeCast);
-      this.currCastCdReduced = 0;
-    }
-  }
-
-  onCdAvailable(event: UpdateSpellUsableEvent) {
-    if (event.updateType === UpdateSpellUsableType.EndCooldown) {
-      this.timestampAvailable = event.timestamp;
-    }
   }
 
   onConvoke(event: CastEvent) {
@@ -187,6 +122,16 @@ class Berserk extends Analyzer {
     return this.abilityTracker.getAbility(SPELLS.FRENZIED_ASSAULT.id).damageEffective;
   }
 
+  private getPercentAtCapPerf(percentAtCap: number): QualitativePerformance {
+    if (percentAtCap < 0.1) {
+      return QualitativePerformance.Good;
+    } else if (percentAtCap < 0.3) {
+      return QualitativePerformance.Ok;
+    } else {
+      return QualitativePerformance.Fail;
+    }
+  }
+
   /** Guide fragment showing a breakdown of each Berserk cast */
   get guideCastBreakdown(): JSX.Element {
     const explanation = (
@@ -197,13 +142,6 @@ class Berserk extends Analyzer {
         is our primary damage cooldown. It's best used as soon as it's available, but can be held to
         ensure you'll have full target uptime during its duration (don't use it when it will be
         interrupted by a fight mechanic).{' '}
-        {this.hasIncarn && (
-          <>
-            With <SpellLink spell={TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT} />, it's
-            likely you will be generating energy faster than you can spend it, so energy capping may
-            be unavoidable - just make sure you're using every GCD.
-          </>
-        )}
       </p>
     );
 
@@ -216,8 +154,7 @@ class Berserk extends Analyzer {
           const cdEnd = Math.min(this.owner.fight.end_time, cast.timestamp + this.hardcastDuration);
           const segmentEnergy = this.energyTracker.generateSegmentData(cast.timestamp, cdEnd);
           const percentAtCap = segmentEnergy.percentAtCap;
-          const percentAtCapPerf =
-            percentAtCap > 0.1 ? QualitativePerformance.Ok : QualitativePerformance.Good;
+          const percentAtCapPerf = this.getPercentAtCapPerf(percentAtCap);
 
           const header = (
             <>
@@ -233,6 +170,7 @@ class Berserk extends Analyzer {
             details: <>({formatPercentage(percentAtCap, 0)}% capped)</>,
           });
           this.hasConvoke &&
+            this.hasHeartOfTheLion &&
             checklistItems.push({
               label: (
                 <>
@@ -241,8 +179,8 @@ class Berserk extends Analyzer {
                     hoverable
                     content={
                       <>
-                        Berserking without Convoke is fine, but it's optimal to wait a few seconds
-                        if it will mean you can line them up.
+                        With <SpellLink spell={TALENTS_DRUID.BERSERK_HEART_OF_THE_LION_TALENT} />,
+                        Convoke and Berserk have the same CD and should always be used together.
                       </>
                     }
                   >
@@ -279,13 +217,6 @@ class Berserk extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.BERSERK}>
           <>
-            {this.hasHeartOfTheLion && (
-              <>
-                <SpellIcon spell={TALENTS_DRUID.BERSERK_HEART_OF_THE_LION_TALENT} />{' '}
-                {(this.totalEffectiveCdReduced / 1000).toFixed(1)}s <small>eff. CD reduction</small>
-              </>
-            )}
-            {this.hasBoth && <br />}
             {this.hasFrenzy && (
               <>
                 <SpellIcon spell={SPELLS.FRENZIED_ASSAULT} />{' '}

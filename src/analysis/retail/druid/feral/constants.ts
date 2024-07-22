@@ -35,8 +35,8 @@ export const FINISHERS: Spell[] = [
   TALENTS_DRUID.PRIMAL_WRATH_TALENT,
 ];
 
-/** Druid of the Claw's 'Ravage' conditionally replaces Ferocious Bite. These are both cast and damage IDs */
-// TODO TWW - hook this in everywhere lmao
+/** Druid of the Claw's 'Ravage' conditionally replaces Ferocious Bite.
+ * These spells are for the cast, damage, and extra energy drain. */
 export const FB_SPELLS: Spell[] = [SPELLS.FEROCIOUS_BITE, SPELLS.RAVAGE_DOTC_CAT];
 
 export const FB_IDS: number[] = FB_SPELLS.map((s) => s.id);

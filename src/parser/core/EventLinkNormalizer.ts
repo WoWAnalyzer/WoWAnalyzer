@@ -45,7 +45,7 @@ export type EventLink = {
   reverseLinkRelation?: string;
   /** If defined, this spec will create at most the given number of links to matching reference events.
    *  This maximum applies only to this spec (not other specs on the same event), and applies
-   *  only *from the linkingEvent* (the same referenceEvent can be pointed to used any number of times).
+   *  only *from the linkingEvent* (the same referenceEvent can be pointed to any number of times).
    *  Scan for referenced events starts forward from the linking event first, then back
    *  from the linking event, and will stop as soon as the maximum number of links are found.
    *  Usually, including this field will not be needed! Proper time and target constraints should
