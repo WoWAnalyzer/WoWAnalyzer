@@ -1,7 +1,6 @@
 import SPELLS from 'common/SPELLS/classic/hunter';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
-import RACIALS from 'common/SPELLS/classic/racials';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -14,66 +13,59 @@ class Abilities extends CoreAbilities {
         gcd: null,
       },
       {
-        spell: [SPELLS.ARCANE_SHOT.id, ...SPELLS.ARCANE_SHOT.lowRanks],
+        spell: SPELLS.ARCANE_SHOT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.SERPENT_STING.id, ...SPELLS.SERPENT_STING.lowRanks],
+        spell: SPELLS.COBRA_SHOT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { static: 1000 },
+      },
+      {
+        spell: SPELLS.SERPENT_STING.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.EXPLOSIVE_SHOT.id, ...SPELLS.EXPLOSIVE_SHOT.lowRanks],
+        spell: SPELLS.EXPLOSIVE_SHOT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
+        cooldown: 6,
+        castEfficiency: {},
       },
       {
-        spell: [SPELLS.BLACK_ARROW.id, ...SPELLS.BLACK_ARROW.lowRanks],
+        // black arrow shares a cooldown with explosive trap. the latter is used on AoE
+        spell: [SPELLS.BLACK_ARROW.id, SPELLS.EXPLOSIVE_TRAP.id, SPELLS.EXPLOSIVE_TRAP_LAUNCHER.id],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
         // Each talent point(3) in resources reduces cooldown by 2 seconds
         cooldown: 24,
       },
       {
-        spell: [SPELLS.EXPLOSIVE_TRAP.id, ...SPELLS.EXPLOSIVE_TRAP.lowRanks],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        // gcd tracking with delayed trigger of trap seems to be a problem
-        gcd: null,
-        // Each talent point(3) in resources reduces cooldown by 2 seconds
-        cooldown: 24,
-      },
-      {
-        spell: [SPELLS.AIMED_SHOT.id, ...SPELLS.AIMED_SHOT.lowRanks],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { base: 1500 },
-        cooldown: 10,
-      },
-      {
-        spell: [SPELLS.MULTI_SHOT.id, ...SPELLS.MULTI_SHOT.lowRanks],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { base: 1500 },
-        cooldown: 10,
-      },
-      {
-        spell: [SPELLS.STEADY_SHOT.id, ...SPELLS.STEADY_SHOT.lowRanks],
+        spell: SPELLS.MULTI_SHOT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.RAPTOR_STRIKE.id, ...SPELLS.RAPTOR_STRIKE.lowRanks],
+        spell: SPELLS.STEADY_SHOT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.MONGOOSE_BITE.id, ...SPELLS.MONGOOSE_BITE.lowRanks],
+        spell: SPELLS.RAPTOR_STRIKE.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: SPELLS.MONGOOSE_BITE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
 
       // Rotational AOE
       {
-        spell: [SPELLS.VOLLEY.id, ...SPELLS.VOLLEY.lowRanks],
+        spell: SPELLS.VOLLEY.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
@@ -85,40 +77,12 @@ class Abilities extends CoreAbilities {
         gcd: null,
         cooldown: 300,
       },
-      {
-        spell: RACIALS.BERSERKING.id,
-        buffSpellId: RACIALS.BERSERKING.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 180,
-        isUndetectable: true,
-        gcd: null,
-        castEfficiency: {
-          suggestion: true,
-          majorIssueEfficiency: 0.2,
-          averageIssueEfficiency: 0.5,
-          recommendedEfficiency: 0.7,
-        },
-      },
-      {
-        spell: RACIALS.BLOOD_FURY.id,
-        buffSpellId: RACIALS.BLOOD_FURY.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 120,
-        isUndetectable: true,
-        gcd: null,
-        castEfficiency: {
-          suggestion: true,
-          majorIssueEfficiency: 0.2,
-          averageIssueEfficiency: 0.5,
-          recommendedEfficiency: 0.7,
-        },
-      },
       // Defensive
       {
         spell: [SPELLS.DISENGAGE.id],
         category: SPELL_CATEGORY.DEFENSIVE,
         gcd: null,
-        cooldown: 25,
+        cooldown: 16, // glyph reduces by 5s and talents by another 4s
       },
 
       // Other spells (not apart of the normal rotation)
@@ -133,22 +97,7 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.LOCK_AND_LOAD.id],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: null,
-      },
-      {
         spell: [SPELLS.ASPECT_CHEETAH.id],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: null,
-      },
-      {
-        spell: [SPELLS.ASPECT_DRAGONHAWK.id],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: null,
-      },
-      {
-        spell: [SPELLS.ASPECT_MONKEY.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: null,
       },
@@ -167,8 +116,38 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         gcd: null,
       },
+      {
+        spell: SPELLS.ASPECT_OF_THE_FOX.id,
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: null,
+      },
 
       // Utility
+
+      {
+        spell: [SPELLS.FREEZING_TRAP.id, SPELLS.FREEZING_TRAP_LAUNCHER.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+        cooldown: 24,
+      },
+      // technically a shared cooldown
+      {
+        spell: [SPELLS.ICE_TRAP.id, SPELLS.ICE_TRAP_LAUNCHER.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+        cooldown: 24,
+      },
+      {
+        spell: SPELLS.TRAP_LAUNCHER.id,
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: null,
+      },
+      {
+        spell: SPELLS.DISTRACTING_SHOT.id,
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+        cooldown: 8,
+      },
 
       // Pet Related
       {
