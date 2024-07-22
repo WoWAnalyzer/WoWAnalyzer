@@ -5,7 +5,13 @@ import Combatant from 'parser/core/Combatant';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
-import { BASE_EVOKER_RANGE, EMPOWER_BASE_GCD, EMPOWER_MINIMUM_GCD } from '../constants';
+import {
+  BASE_EVOKER_RANGE,
+  CLOBBERING_SWEEP_CDR,
+  EMPOWER_BASE_GCD,
+  EMPOWER_MINIMUM_GCD,
+  HEAVY_WINGBEATS_CDR,
+} from '../constants';
 
 const hasFont = (combatant: Combatant) =>
   combatant.hasTalent(TALENTS.FONT_OF_MAGIC_PRESERVATION_TALENT) ||
@@ -232,6 +238,32 @@ class Abilities extends CoreAbilities {
         charges: combatant.hasTalent(TALENTS.AERIAL_MASTERY_TALENT) ? 2 : 1,
         gcd: null,
         enabled: true,
+      },
+      {
+        spell: SPELLS.FURY_OF_THE_ASPECTS.id,
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown: 300 * interwovenThreadsMultiplier,
+        gcd: null,
+      },
+      {
+        spell: SPELLS.TAIL_SWIPE.id,
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown:
+          (90 - (combatant.hasTalent(TALENTS.CLOBBERING_SWEEP_TALENT) ? CLOBBERING_SWEEP_CDR : 0)) *
+          interwovenThreadsMultiplier,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.WING_BUFFET.id,
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown:
+          (90 - (combatant.hasTalent(TALENTS.HEAVY_WINGBEATS_TALENT) ? HEAVY_WINGBEATS_CDR : 0)) *
+          interwovenThreadsMultiplier,
+        gcd: {
+          base: 1500,
+        },
       },
       //endregion
       //region Defensive
