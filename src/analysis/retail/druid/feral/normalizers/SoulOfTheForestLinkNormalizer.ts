@@ -34,9 +34,10 @@ export default class SoulOfTheForestLinkNormalizer extends EventLinkNormalizer {
 }
 
 export function getSotfEnergize(event: CastEvent): ResourceChangeEvent | undefined {
-  return GetRelatedEvents(
+  const events: ResourceChangeEvent[] = GetRelatedEvents(
     event,
     PROCCED_SOTF,
     (e): e is ResourceChangeEvent => e.type === EventType.ResourceChange,
-  ).pop();
+  );
+  return events.pop();
 }
