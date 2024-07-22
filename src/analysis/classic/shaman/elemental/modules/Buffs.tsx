@@ -1,29 +1,25 @@
 import CoreAuras from 'parser/core/modules/Auras';
+import SPELLS from 'common/SPELLS/classic';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import ITEM_BUFFS from 'game/classic/ITEM_BUFFS';
-import SPELLS from 'common/SPELLS/classic/warlock';
 
 class Buffs extends CoreAuras {
+  // A list of Buffs (on the current player) to highlight on the Timeline
   auras() {
     return [
       {
-        spellId: SPELLS.DECIMATION.id,
+        spellId: SPELLS.ELEMENTAL_MASTERY_BUFF.id,
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.DEMON_SOUL_FELGUARD_BUFF.id,
+        spellId: SPELLS.INNERVATE.id,
         timelineHighlight: true,
-        triggeredBySpellId: SPELLS.DEMON_SOUL.id,
       },
       {
-        spellId: SPELLS.METAMORPHOSIS.id,
-        timelineHighlight: true,
-        triggeredBySpellId: SPELLS.METAMORPHOSIS.id,
-      },
-      {
-        spellId: SPELLS.MOLTEN_CORE_BUFF.id,
+        spellId: SPELLS.POWER_INFUSION.id,
         timelineHighlight: true,
       },
+      // Do not adjust the lines below
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),
         timelineHighlight: true,

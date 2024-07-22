@@ -1,7 +1,7 @@
 // Base files
 import BaseCombatLogParser from 'parser/classic/CombatLogParser';
 // Shared
-import { Haste, DemonicCirclesCreated } from 'analysis/classic/warlock/shared';
+//import { SharedModule } from '../shared';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import SpellManaCost from 'parser/shared/modules/SpellManaCost';
 // Modules
@@ -11,15 +11,12 @@ import Buffs from './modules/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import FoundationGuide from 'interface/guide/foundation/FoundationGuide';
 import CancelledCasts from 'parser/shared/modules/CancelledCasts';
-
 // Spells
-import DrainSoul from './modules/spells/DrainSoul';
+// import SpellName from './modules/spells';
 
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
     // Shared
-    haste: Haste,
-    demonicCirclesCreated: DemonicCirclesCreated,
     // sharedModule: SharedModule,
     manaTracker: ManaTracker,
     spellManaCost: SpellManaCost,
@@ -30,7 +27,7 @@ class CombatLogParser extends BaseCombatLogParser {
     buffs: Buffs,
     cooldownThroughputTracker: CooldownThroughputTracker,
     // Spells
-    drainSoul: DrainSoul,
+    // spellName: SpellName,
   };
   static guide = FoundationGuide;
 }

@@ -45,7 +45,7 @@ class ArcaneTorrent extends Analyzer {
         SPELLS.ARCANE_TORRENT_FOCUS.id,
         SPELLS.ARCANE_TORRENT_FURY.id,
       ],
-      category: SPELL_CATEGORY.COOLDOWNS,
+      category: SPELL_CATEGORY.DEFENSIVE,
       cooldown: 120,
       gcd: {
         base: this.gcd,

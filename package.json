@@ -117,7 +117,6 @@
   },
   "scripts": {
     "start": "vite",
-    "safestart": "yarn && react-app-rewired start",
     "build": "vite build",
     "test": "vitest",
     "test:interface": "yarn test --exclude \"src/parser/**/*\"",

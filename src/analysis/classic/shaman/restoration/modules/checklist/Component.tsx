@@ -180,7 +180,6 @@ const HealerChecklist = ({
         description={<>Use your cooldowns as often as possible to maximize your healing output.</>}
       >
         {/* SPELLS listed here must be in ../features/Abilities */}
-        <AbilityRequirement spell={SPELLS.TIDAL_FORCE.id} />
         <AbilityRequirement spell={SPELLS.NATURES_SWIFTNESS.id} />
         <AbilityRequirement spell={SPELLS.MANA_TIDE_TOTEM.id} />
       </Rule>
