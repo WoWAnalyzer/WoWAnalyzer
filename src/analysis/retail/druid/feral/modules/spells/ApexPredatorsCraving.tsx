@@ -7,8 +7,8 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
   DamageEvent,
-  ResourceChangeEvent,
   RefreshBuffEvent,
+  CastEvent,
 } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentDamageDone from 'parser/ui/ItemPercentDamageDone';
@@ -19,6 +19,10 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { formatPercentage } from 'common/format';
 import { isConvoking } from 'analysis/retail/druid/shared/spells/ConvokeSpirits';
+import { FB_SPELLS } from 'analysis/retail/druid/feral/constants';
+import { getDamageHits } from 'analysis/retail/druid/feral/normalizers/CastLinkNormalizer';
+import { getSotfEnergize } from 'analysis/retail/druid/feral/normalizers/SoulOfTheForestLinkNormalizer';
+import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
 
 const BUFFER_MS = 50;
 
@@ -27,7 +31,7 @@ const BUFFER_MS = 50;
  * **Apex Predator's Craving**
  * Spec Talent
  *
- * Rip damage has a 4% chance to make your next Ferocious Bite free and deal the maximum damage.
+ * Rip damage has a 6% chance to make your next Ferocious Bite free and deal the maximum damage.
  */
 class ApexPredatorsCraving extends Analyzer {
   hasSotf: boolean;
@@ -42,7 +46,6 @@ class ApexPredatorsCraving extends Analyzer {
   /** Damage from Rampant Ferocity splash of an Apex bite */
   rampantFerocityDamage: number = 0;
 
-  lastSotf?: ResourceChangeEvent;
   sotfEnergyGained: number = 0;
   sotfEnergyEffective: number = 0;
   sotfEnergyWasted: number = 0;
@@ -62,17 +65,8 @@ class ApexPredatorsCraving extends Analyzer {
       Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.APEX_PREDATORS_CRAVING_BUFF),
       this.onBuffRefresh,
     );
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FEROCIOUS_BITE),
-      this.onFbDamage,
-    );
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(FB_SPELLS), this.onFbCast);
 
-    if (this.hasSotf) {
-      this.addEventListener(
-        Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.SOUL_OF_THE_FOREST_FERAL_ENERGY),
-        this.onSotfEnergize,
-      );
-    }
     if (this.hasRf) {
       this.addEventListener(
         Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RAMPANT_FEROCITY),
@@ -90,9 +84,9 @@ class ApexPredatorsCraving extends Analyzer {
     this.buffsOverwritten += 1;
   }
 
-  onFbDamage(event: DamageEvent) {
+  // Convoke'd bites don't interact with APC, so it's fine we're missing them here
+  onFbCast(event: CastEvent) {
     if (
-      !isConvoking(this.selectedCombatant) &&
       this.selectedCombatant.hasBuff(
         SPELLS.APEX_PREDATORS_CRAVING_BUFF.id,
         event.timestamp,
@@ -100,13 +94,18 @@ class ApexPredatorsCraving extends Analyzer {
       )
     ) {
       this.buffsUsed += 1;
-      this.biteDamage += event.amount + (event.absorbed || 0);
-      // SotF energize actually seems to consistently come before the damage and on same timestamp
-      if (this.lastSotf && this.lastSotf.timestamp === event.timestamp) {
-        this.sotfEnergyGained += this.lastSotf.resourceChange;
-        this.sotfEnergyWasted += this.lastSotf.waste;
-        this.sotfEnergyEffective += this.lastSotf.resourceChange - this.lastSotf.waste;
+      const sotfEnergize = getSotfEnergize(event);
+      if (sotfEnergize) {
+        this.sotfEnergyGained += sotfEnergize.resourceChange;
+        this.sotfEnergyWasted += sotfEnergize.waste;
+        this.sotfEnergyEffective += sotfEnergize.resourceChange - sotfEnergize.waste;
       }
+      getDamageHits(event).forEach((hit) => {
+        // Ravage cleave hits are from consumable proc - should not be attributed to APC
+        if (encodeEventTargetString(hit) === encodeEventTargetString(event)) {
+          this.biteDamage += hit.amount + (hit.absorbed || 0);
+        }
+      });
     }
   }
 
@@ -121,10 +120,6 @@ class ApexPredatorsCraving extends Analyzer {
     ) {
       this.rampantFerocityDamage += event.amount + (event.absorbed || 0);
     }
-  }
-
-  onSotfEnergize(event: ResourceChangeEvent) {
-    this.lastSotf = event;
   }
 
   get buffsActive() {

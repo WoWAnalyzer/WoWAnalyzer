@@ -13,7 +13,7 @@ import { CP_GENERATORS } from 'analysis/retail/druid/feral/constants';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
 /** Link from BT application to the casts that procced it */
-const PROCCED_BY = 'ProccedBy';
+const PROCCED_BY = 'BloodtalonsProccedBy';
 /** Link from cast to the BT application it contributed to */
 const PROCCED_BLOODTALONS = 'ProccedBloodtalons';
 

@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import SPECS from 'game/SPECS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
@@ -8,16 +7,24 @@ import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Combatants from 'parser/shared/modules/Combatants';
 import Enemies from 'parser/shared/modules/Enemies';
-import { TALENTS_DRUID as TALENTS } from 'common/TALENTS/druid';
+import { TALENTS_DRUID, TALENTS_DRUID as TALENTS } from 'common/TALENTS/druid';
+import { ThresholdStyle } from 'parser/core/ParseResults';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import { formatNumber, formatPercentage } from 'common/format';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemPercentDamageDone from 'parser/ui/ItemPercentDamageDone';
+import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
+import { SpellLink } from 'interface';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 
-const FERAL_PERIODIC_BOOST = 0.25; // the amount Adaptive Swarm boosts periodic effects for Feral
-const RESTO_PERIODIC_BOOST = 0.2; // the amount Adaptive Swarm boosts periodic effects for Resto
+const PERIODIC_BOOST = 0.25;
 
-// TODO TWW check lists again
 const PERIODIC_HEALS: SpellInfo[] = [
   SPELLS.REJUVENATION,
   SPELLS.REJUVENATION_GERMINATION,
-  SPELLS.REGROWTH, // adaptive swarm also boosts the direct healing, so no need for 'tick' differentiation
   SPELLS.WILD_GROWTH,
   SPELLS.CULTIVATION,
   SPELLS.SPRING_BLOSSOMS,
@@ -32,38 +39,17 @@ const PERIODIC_HEALS: SpellInfo[] = [
   // deliberately doesn't include Adaptive Swarm itself to avoid double count
 ];
 
-// A very wide definition of 'periodic damage', but these are the actual data-mined values...
-// Some of these IDs were clearly copy-pasted and don't proc actual damage, omitted for now
-/*
-  Apply Aura (6) | Modify Damage Taken% from Caster's Spells (271)
-  Base Value: 25 | Scaled Value: 25 | PvP Coefficient: 1.00000 | Target: Unknown(25)
-  Affected Spells:
-    Entangling Roots (339), Rip (1079), Rake (1822), Starfall (50286), Mass Entanglement (102359),
-    Thrash (106830), Moonfire (155625), Rake (155722), Moonfire (164812), Sunfire (164815),
-    Starfall (191034), Starfall (191037), Thrash (192090), Stellar Flare (202347),
-    Shooting Stars (202497), Fury of Elune (202770), Overgrowth (203651), Fury of Elune (211545),
-    Brambles (213709), Feral Frenzy (274837), Feral Frenzy (274838), Primal Wrath (285381), Fury of Elune (365640)
- */
 const PERIODIC_DAMAGE: SpellInfo[] = [
-  SPELLS.ENTANGLING_ROOTS,
   SPELLS.RIP,
   SPELLS.RAKE, // adaptive swarm also boosts the direct damage, so no need for 'tick' differentiation
-  TALENTS.MASS_ENTANGLEMENT_TALENT,
   SPELLS.THRASH_FERAL, // even thrashes direct is "bleed damage"
   SPELLS.THRASH_FERAL_BLEED,
   SPELLS.MOONFIRE_FERAL,
   SPELLS.MOONFIRE_DEBUFF,
   SPELLS.SUNFIRE,
-  SPELLS.STARFALL,
   SPELLS.THRASH_BEAR_DOT,
-  TALENTS.STELLAR_FLARE_TALENT,
-  SPELLS.SHOOTING_STARS,
-  SPELLS.FURY_OF_ELUNE_DAMAGE,
-  SPELLS.BRAMBLES_DAMAGE,
   TALENTS.FERAL_FRENZY_TALENT,
   SPELLS.FERAL_FRENZY_DEBUFF,
-  TALENTS.PRIMAL_WRATH_TALENT,
-  SPELLS.FURY_OF_ELUNE_DAMAGE_SUNDERED_FIRMAMENT,
   // deliberately doesn't include Adaptive Swarm itself to avoid double count
 ];
 
@@ -89,9 +75,6 @@ class AdaptiveSwarm extends Analyzer {
   protected combatants!: Combatants;
   protected enemies!: Enemies;
 
-  // Strength of the boost to periodic effects
-  _periodicBoost: number;
-
   // A tally of the healing attributable to Adaptive Swarm's boost on periodic effects,
   // including any additional boost from Evolved Swarm. While it does buff itself,
   // we don't count that because it's already covered by the 'direct healing' category
@@ -105,13 +88,7 @@ class AdaptiveSwarm extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    // TODO update if Guardian gets it too
     this.active = this.selectedCombatant.hasTalent(TALENTS.ADAPTIVE_SWARM_TALENT);
-
-    this._periodicBoost =
-      this.selectedCombatant.specId === SPECS.RESTORATION_DRUID.id
-        ? RESTO_PERIODIC_BOOST
-        : FERAL_PERIODIC_BOOST;
 
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(PERIODIC_HEALS),
@@ -140,7 +117,7 @@ class AdaptiveSwarm extends Analyzer {
     }
 
     // if we got this far, our adaptive swarm is on the heal target
-    this._periodicBoostHealingAttribution += calculateEffectiveHealing(event, this._periodicBoost);
+    this._periodicBoostHealingAttribution += calculateEffectiveHealing(event, PERIODIC_BOOST);
   }
 
   onPeriodicDamage(event: DamageEvent) {
@@ -159,7 +136,7 @@ class AdaptiveSwarm extends Analyzer {
     }
 
     // if we got this far, our adaptive swarm is on the damage target
-    this._periodicBoostDamageAttribution += calculateEffectiveDamage(event, this._periodicBoost);
+    this._periodicBoostDamageAttribution += calculateEffectiveDamage(event, PERIODIC_BOOST);
   }
 
   /** The total healing done directly by Adaptive Swarm (this includes the boost to itself) */
@@ -220,6 +197,108 @@ class AdaptiveSwarm extends Analyzer {
   /** The average ms of uptime for the player's Adaptive Swarm damage debuff (DoT) per cast */
   get debuffTimePerCast(): number {
     return this.casts === 0 ? 0 : this.debuffUptime / this.casts;
+  }
+
+  get damageUptimeHistory() {
+    return this.enemies.getDebuffHistory(SPELLS.ADAPTIVE_SWARM_DAMAGE.id);
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.debuffUptimePercent,
+      isLessThan: {
+        minor: 0.65,
+        average: 0.5,
+        major: 0.3,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
+
+  statistic() {
+    return (
+      <Statistic
+        size="flexible"
+        position={STATISTIC_ORDER.CORE(0)}
+        category={STATISTIC_CATEGORY.TALENTS}
+        tooltip={
+          <>
+            This is the sum of the direct damage from Adaptive Swarm and the damage enabled by its
+            boost to periodic effects. The DoT had an uptime of{' '}
+            <strong>{formatPercentage(this.debuffUptime / this.owner.fightDuration, 0)}%</strong>.
+            <ul>
+              <li>
+                Direct: <strong>{this.owner.formatItemDamageDone(this.directDamage)}</strong>
+              </li>
+              <li>
+                Boost: <strong>{this.owner.formatItemDamageDone(this.boostedDamage)}</strong>
+              </li>
+            </ul>
+            In addition, Adaptive Swarm did{' '}
+            <strong>{formatNumber(this.owner.getPerSecond(this.totalHealing))} HPS</strong> over the
+            encounter with a HoT uptime of{' '}
+            <strong>{formatPercentage(this.buffUptime / this.owner.fightDuration, 0)}%</strong>.
+          </>
+        }
+      >
+        <BoringSpellValueText spell={SPELLS.ADAPTIVE_SWARM}>
+          <ItemPercentDamageDone amount={this.totalDamage} />
+          <br />
+        </BoringSpellValueText>
+      </Statistic>
+    );
+  }
+
+  subStatistic() {
+    return uptimeBarSubStatistic(
+      this.owner.fight,
+      {
+        spells: [SPELLS.ADAPTIVE_SWARM],
+        uptimes: this.damageUptimeHistory,
+      },
+      [],
+      SubPercentageStyle.RELATIVE,
+    );
+  }
+
+  get guideSubsection(): JSX.Element {
+    const hasUs = this.selectedCombatant.hasTalent(TALENTS_DRUID.UNBRIDLED_SWARM_TALENT);
+    const explanation = (
+      <>
+        <p>
+          <strong>
+            <SpellLink spell={TALENTS_DRUID.ADAPTIVE_SWARM_TALENT} />
+          </strong>{' '}
+          is a 'bouncy' DoT / HoT that boosts your periodic effects on the target. Focus on
+          maximizing the DoTs uptime by casting on enemy targets only.
+        </p>
+        <p>
+          {hasUs ? (
+            <>
+              With <SpellLink spell={TALENTS_DRUID.UNBRIDLED_SWARM_TALENT} /> and multiple
+              consistent enemy targets, it should be possible to maintain high uptime on multiple
+              targets. This talent's value diminishes considerably in single target encounters.
+            </>
+          ) : (
+            <>
+              Without <SpellLink spell={TALENTS_DRUID.UNBRIDLED_SWARM_TALENT} />, you'll only be
+              able to maintain one Swarm at a time. Refresh on your primary target as soon as the
+              previous Swarm falls, and you should be able to maintain 60+% uptime.
+            </>
+          )}
+        </p>
+      </>
+    );
+    const data = (
+      <div>
+        <RoundedPanel>
+          <strong>Adaptive Swarm uptime</strong>
+          {this.subStatistic()}
+        </RoundedPanel>
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data);
   }
 }
 

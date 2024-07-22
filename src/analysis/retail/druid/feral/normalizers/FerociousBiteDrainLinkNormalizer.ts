@@ -1,7 +1,7 @@
-import SPELLS from 'common/SPELLS';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import { CastEvent, DrainEvent, EventType, GetRelatedEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
+import { FB_IDS } from 'analysis/retail/druid/feral/constants';
 
 const ADDITIONAL_ENERGY_USED = 'AdditionalEnergyUsed';
 
@@ -10,9 +10,9 @@ const BUFFER_MS = 50;
 const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: ADDITIONAL_ENERGY_USED,
-    linkingEventId: SPELLS.FEROCIOUS_BITE.id,
+    linkingEventId: FB_IDS,
     linkingEventType: EventType.Cast,
-    referencedEventId: SPELLS.FEROCIOUS_BITE.id,
+    referencedEventId: FB_IDS,
     referencedEventType: EventType.Drain,
     anyTarget: true, // the drain targets the player, the cast targets an enemy
     forwardBufferMs: BUFFER_MS,

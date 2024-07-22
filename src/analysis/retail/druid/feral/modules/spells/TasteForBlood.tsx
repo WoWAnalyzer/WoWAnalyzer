@@ -8,6 +8,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemPercentDamageDone from 'parser/ui/ItemPercentDamageDone';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
+import { FB_SPELLS } from 'analysis/retail/druid/feral/constants';
 
 const BASE_BOOST = 0.15;
 const TF_BOOST = 0.15;
@@ -25,10 +26,7 @@ class TasteForBlood extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.TASTE_FOR_BLOOD_TALENT);
 
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FEROCIOUS_BITE),
-      this.onFbDamage,
-    );
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(FB_SPELLS), this.onFbDamage);
   }
 
   onFbDamage(event: DamageEvent) {
