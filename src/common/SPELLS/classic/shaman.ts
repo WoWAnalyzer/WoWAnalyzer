@@ -186,7 +186,7 @@ const spells = {
     icon: 'spell_nature_lightning.jpg',
   },
   LIGHTNING_SHIELD: {
-    id: 324,
+    id: 26364,
     name: 'Lightning Shield',
     icon: 'spell_nature_lightningshield.jpg',
   },
@@ -331,6 +331,11 @@ const spells = {
     name: 'Elemental Mastery',
     icon: 'spell_nature_wispheal.jpg',
   },
+  ELEMENTAL_MASTERY_BUFF: {
+    id: 64701,
+    name: 'Elemental Mastery',
+    icon: 'spell_nature_wispheal.jpg',
+  },
   THUNDERSTORM: {
     id: 51490,
     name: 'Thunderstorm',
@@ -351,6 +356,11 @@ const spells = {
     id: 60103,
     name: 'Lava Lash',
     icon: 'ability_shaman_lavalash.jpg',
+  },
+  LAVA_SURGE: {
+    id: 77762,
+    name: 'Lava Surge!',
+    icon: 'spell_shaman_lavasurge.jpg',
   },
   MAELSTROM_WEAPON_BUFF: {
     id: 53817,
