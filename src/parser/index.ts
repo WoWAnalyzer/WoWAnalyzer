@@ -55,6 +55,7 @@ import ClassicPriestDiscipline from 'analysis/classic/priest/discipline';
 import ClassicPriestShadow from 'analysis/classic/priest/shadow';
 import ClassicPriestHoly from 'analysis/classic/priest/holy';
 import ClassicRogueAssassination from 'analysis/classic/rogue/assassination';
+import ClassicShamanElemental from 'analysis/classic/shaman/elemental';
 import ClassicShamanEnhancement from 'analysis/classic/shaman/enhancement';
 import ClassicShamanRestoration from 'analysis/classic/shaman/restoration';
 import ClassicWarlockAffliction from 'analysis/classic/warlock/affliction';
@@ -142,6 +143,7 @@ const configs: Config[] = [
 
   ClassicRogueAssassination,
 
+  ClassicShamanElemental,
   ClassicShamanEnhancement,
   ClassicShamanRestoration,
 
