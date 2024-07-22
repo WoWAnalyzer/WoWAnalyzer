@@ -32,6 +32,7 @@ import Iridescence from './modules/talents/Iridescence';
 import T31DevaTier from './modules/dragonflight/tier/T31DevaTier';
 import Pyre from './modules/abilities/Pyre';
 import EternitySurgeNormalizer from './modules/normalizers/EternitySurgeNormalizer';
+import ScorchingEmbers from './modules/talents/ScorchingEmbers';
 
 // Shared
 import {
@@ -116,6 +117,7 @@ class CombatLogParser extends MainCombatLogParser {
     engulfingBlaze: EngulfingBlaze,
     layWaste: LayWaste,
     iridescence: Iridescence,
+    scorchingEmbers: ScorchingEmbers,
 
     // hero talents
     engulf: Engulf,
