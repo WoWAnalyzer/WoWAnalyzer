@@ -30,13 +30,14 @@ import {
   dub,
   Zyer,
   Earosselot,
+  Ethelis,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
-  change(date(2024, 7, 15), 'Update Paladin spells for Classic Cataclysm', ethelis),
+  change(date(2024, 7, 22), 'Update Paladin spells for Classic Cataclysm', Ethelis),
   change(date(2024, 7, 6), 'Update Foundation Guides to use div instead of p (DOM warnings)', jazminite),
   change(date(2024, 7, 5), <>Update Haste and GCD tracking for Classic.</>, emallson),
   change(date(2024, 7, 4), 'Update Mage spells for Classic Cataclysm', jazminite),

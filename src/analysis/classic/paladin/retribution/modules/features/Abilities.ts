@@ -22,17 +22,17 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.HAMMER_OF_WRATH.id, ...SPELLS.HAMMER_OF_WRATH.lowRanks],
+        spell: [SPELLS.HAMMER_OF_WRATH.id],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.EXORCISM.id, ...SPELLS.EXORCISM.lowRanks],
+        spell: [SPELLS.EXORCISM.id],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.HOLY_WRATH.id, ...SPELLS.HOLY_WRATH.lowRanks],
+        spell: [SPELLS.HOLY_WRATH.id],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
@@ -43,7 +43,7 @@ class Abilities extends CoreAbilities {
       },
       // Rotational AOE
       {
-        spell: [SPELLS.CONSECRATION.id, ...SPELLS.CONSECRATION.lowRanks],
+        spell: [SPELLS.CONSECRATION.id],
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: { base: 1500 },
       },
@@ -67,12 +67,12 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.HAMMER_OF_JUSTICE.id, ...SPELLS.HAMMER_OF_JUSTICE.lowRanks],
+        spell: [SPELLS.HAMMER_OF_JUSTICE.id],
         category: SPELL_CATEGORY.DEFENSIVE,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.LAY_ON_HANDS.id, ...SPELLS.LAY_ON_HANDS.lowRanks],
+        spell: [SPELLS.LAY_ON_HANDS.id],
         category: SPELL_CATEGORY.DEFENSIVE,
         gcd: { base: 1500 },
       },
@@ -82,7 +82,7 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.HAND_OF_PROTECTION.id, ...SPELLS.HAND_OF_PROTECTION.lowRanks],
+        spell: [SPELLS.HAND_OF_PROTECTION.id],
         category: SPELL_CATEGORY.DEFENSIVE,
         gcd: { base: 1500 },
       },
@@ -108,7 +108,7 @@ class Abilities extends CoreAbilities {
       },
       // Other spells (not apart of the normal rotation)
       {
-        spell: [SPELLS.FLASH_OF_LIGHT.id, ...SPELLS.FLASH_OF_LIGHT.lowRanks],
+        spell: [SPELLS.FLASH_OF_LIGHT.id],
         category: SPELL_CATEGORY.OTHERS,
         gcd: { base: 1500 },
       },
@@ -174,17 +174,17 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.RETRIBUTION_AURA.id, ...SPELLS.RETRIBUTION_AURA.lowRanks],
+        spell: [SPELLS.RETRIBUTION_AURA.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.FIRE_RESISTANCE_AURA.id, ...SPELLS.FIRE_RESISTANCE_AURA.lowRanks],
+        spell: [SPELLS.RESISTANCE_AURA.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.GREATER_BLESSING_OF_MIGHT.id, ...SPELLS.GREATER_BLESSING_OF_MIGHT.lowRanks],
+        spell: [SPELLS.GREATER_BLESSING_OF_MIGHT.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },

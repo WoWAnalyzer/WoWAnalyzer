@@ -313,11 +313,6 @@ const spells = {
     icon: 'ability_paladin_shieldofvengeance',
   },
   // Retribution
-  CRUSADER_STRIKE: {
-    id: 35395,
-    name: 'Crusader Strike',
-    icon: 'spell_holy_crusaderstrike',
-  },
   DIVINE_STORM: {
     id: 53385,
     name: 'Divine Storm',

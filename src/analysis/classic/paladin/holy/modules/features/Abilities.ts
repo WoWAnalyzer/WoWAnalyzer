@@ -8,12 +8,12 @@ class Abilities extends CoreAbilities {
     return [
       // Rotational
       {
-        spell: [SPELLS.FLASH_OF_LIGHT.id, ...SPELLS.FLASH_OF_LIGHT.lowRanks],
+        spell: [SPELLS.FLASH_OF_LIGHT.id],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.HOLY_LIGHT.id, ...SPELLS.HOLY_LIGHT.lowRanks],
+        spell: [SPELLS.HOLY_LIGHT.id],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
@@ -89,7 +89,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: [SPELLS.LAY_ON_HANDS.id, ...SPELLS.LAY_ON_HANDS.lowRanks],
+        spell: [SPELLS.LAY_ON_HANDS.id],
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: { base: 1500 },
       },
@@ -108,7 +108,7 @@ class Abilities extends CoreAbilities {
       },
       // Other spells (not apart of the normal rotation)
       {
-        spell: [SPELLS.HOLY_SHOCK.id, ...SPELLS.HOLY_SHOCK.lowRanks],
+        spell: [SPELLS.HOLY_SHOCK.id],
         category: SPELL_CATEGORY.OTHERS,
         gcd: { base: 1500 },
         cooldown: 6,
@@ -146,7 +146,7 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.HAMMER_OF_JUSTICE.id, ...SPELLS.HAMMER_OF_JUSTICE.lowRanks],
+        spell: [SPELLS.HAMMER_OF_JUSTICE.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
@@ -166,7 +166,7 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.HAND_OF_PROTECTION.id, ...SPELLS.HAND_OF_PROTECTION.lowRanks],
+        spell: [SPELLS.HAND_OF_PROTECTION.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
