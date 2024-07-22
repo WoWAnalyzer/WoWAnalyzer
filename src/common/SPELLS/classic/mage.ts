@@ -310,6 +310,11 @@ const spells = {
     name: 'Pyroblast',
     icon: 'spell_fire_fireball02.jpg',
   },
+  PYROMANIAC: {
+    id: 83582,
+    name: 'Pyromaniac',
+    icon: 'spell_fire_burnout.jpg',
+  },
 
   // Frost
   COLD_SNAP: {

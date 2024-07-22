@@ -109,10 +109,8 @@ export const DEFAULT_HASTE_BUFFS: HasteBuffMap = {
   //endregion
 
   //region CLASSIC
-  // Raids
-  [CLASSIC_SPELLS.SHADOW_CRASH.id]: 1, // Ulduar - General Vezax
-  [CLASSIC_SPELLS.SLAG_IMBUED.id]: 1, // Ulduar - Ignis
-  [CLASSIC_SPELLS.STARLIGHT.id]: 0.5, // Ulduar - Hodir
+  // Warlock
+  [CLASSIC_SPELLS.DARK_INTENT_HASTE.id]: 0.03,
   //endregion
 
   //region Encounter

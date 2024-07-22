@@ -1,7 +1,7 @@
 // Base files
 import BaseCombatLogParser from 'parser/classic/CombatLogParser';
 // Shared
-import { Haste } from 'analysis/classic/mage/shared';
+//import { SharedModule } from '../shared';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import SpellManaCost from 'parser/shared/modules/SpellManaCost';
 // Modules
@@ -17,7 +17,7 @@ import CancelledCasts from 'parser/shared/modules/CancelledCasts';
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
     // Shared
-    haste: Haste,
+    // sharedModule: SharedModule,
     manaTracker: ManaTracker,
     spellManaCost: SpellManaCost,
     // Modules
