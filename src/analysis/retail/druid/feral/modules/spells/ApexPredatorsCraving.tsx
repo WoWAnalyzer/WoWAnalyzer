@@ -22,6 +22,7 @@ import { isConvoking } from 'analysis/retail/druid/shared/spells/ConvokeSpirits'
 import { FB_SPELLS } from 'analysis/retail/druid/feral/constants';
 import { getDamageHits } from 'analysis/retail/druid/feral/normalizers/CastLinkNormalizer';
 import { getSotfEnergize } from 'analysis/retail/druid/feral/normalizers/SoulOfTheForestLinkNormalizer';
+import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
 
 const BUFFER_MS = 50;
 
@@ -100,7 +101,10 @@ class ApexPredatorsCraving extends Analyzer {
         this.sotfEnergyEffective += sotfEnergize.resourceChange - sotfEnergize.waste;
       }
       getDamageHits(event).forEach((hit) => {
-        this.biteDamage += hit.amount + (hit.absorbed || 0);
+        // Ravage cleave hits are from consumable proc - should not be attributed to APC
+        if (encodeEventTargetString(hit) === encodeEventTargetString(event)) {
+          this.biteDamage += hit.amount + (hit.absorbed || 0);
+        }
       });
     }
   }
