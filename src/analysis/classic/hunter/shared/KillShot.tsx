@@ -78,7 +78,7 @@ class KillShot extends ExecuteHelper {
 
   adjustMaxCasts() {
     // the glyph basically lets you shoot twice every time the normal cooldown recovers
-    this.maxCasts += Math.ceil(this.totalExecuteDuration / (KILL_SHOT_COOLDOWN * 1000) / 2);
+    this.maxCasts += Math.ceil((this.totalExecuteDuration / (KILL_SHOT_COOLDOWN * 1000)) * 2);
   }
 
   statistic() {
