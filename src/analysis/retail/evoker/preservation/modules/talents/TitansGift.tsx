@@ -13,11 +13,11 @@ import {
   getReversionHealing,
   getEchoAplication,
   getHealEvents,
-  isCastFromBurst,
 } from '../../normalizers/EventLinking/helpers';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import { TITANS_GIFT_INC } from '../../normalizers/EventLinking/constants';
 import { formatPercentage } from 'common/format';
+import { isCastFromEB } from 'analysis/retail/evoker/shared/modules/normalizers/EssenceBurstCastLinkNormalizer';
 
 class TitansGift extends Analyzer {
   //Blossom
@@ -92,7 +92,7 @@ class TitansGift extends Analyzer {
   //Track blossom healing added
   emeraldBlossomHeal(event: HealEvent) {
     const blossomCast = getBlossomCast(event);
-    if (blossomCast && isCastFromBurst(blossomCast)) {
+    if (blossomCast && isCastFromEB(blossomCast)) {
       this.buffedBlossoms += 1;
       const blossomHeals = getHealEvents(event);
       for (const blossomHeal of blossomHeals) {
@@ -104,7 +104,7 @@ class TitansGift extends Analyzer {
   //Track echo healing added
   echoHeal(event: HealEvent | ApplyBuffEvent | RefreshBuffEvent) {
     const echoApplication = getEchoAplication(event);
-    if (echoApplication && isCastFromBurst(echoApplication)) {
+    if (echoApplication && isCastFromEB(echoApplication)) {
       this.buffedEchoes += 1;
       if (event.type === EventType.Heal) {
         this.healingAddedToEcho += calculateEffectiveHealing(event, TITANS_GIFT_INC);

@@ -8,7 +8,6 @@ export const ECHO_TEMPORAL_ANOMALY = 'TemporalAnomaly'; // for linking BuffApply
 export const ECHO = 'Echo'; // for linking BuffApply/Heal to echo removal
 // END ECHO constants
 export const ESSENCE_BURST_LINK = 'EssenceBurstLink'; // link eb removal to apply
-export const ESSENCE_BURST_CONSUME = 'EssenceBurstConsumption'; // link essence cast to removing the essence burst buff
 export const DREAM_BREATH_CALL_OF_YSERA = 'DreamBreathCallOfYsera'; // link DB hit to buff removal
 export const DREAM_BREATH_CALL_OF_YSERA_HOT = 'DreamBreathCallOfYseraHoT'; // link DB hot to buff removal
 export const FIELD_OF_DREAMS_PROC = 'FromFieldOfDreams'; // link EB heal to fluttering heal

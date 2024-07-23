@@ -3,8 +3,6 @@ import { TALENTS_EVOKER } from 'common/TALENTS';
 import { EventLink } from 'parser/core/EventLinkNormalizer';
 import { EventType, HasRelatedEvent } from 'parser/core/Events';
 import {
-  ESSENCE_BURST_CONSUME,
-  CAST_BUFFER_MS,
   ESSENCE_BURST_LINK,
   MAX_ESSENCE_BURST_DURATION,
   EB_REVERSION,
@@ -14,25 +12,6 @@ import {
 } from './constants';
 
 export const ESSENCE_BURST_EVENT_LINKS: EventLink[] = [
-  // link essence burst remove to a cast to track expirations vs consumptions
-  {
-    linkRelation: ESSENCE_BURST_CONSUME,
-    reverseLinkRelation: ESSENCE_BURST_CONSUME,
-    linkingEventId: SPELLS.ESSENCE_BURST_BUFF.id,
-    linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
-    referencedEventId: [
-      SPELLS.EMERALD_BLOSSOM_CAST.id,
-      SPELLS.DISINTEGRATE.id,
-      TALENTS_EVOKER.ECHO_TALENT.id,
-    ],
-    referencedEventType: EventType.Cast,
-    anyTarget: true,
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
-    isActive(c) {
-      return c.hasTalent(TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT);
-    },
-  },
   {
     linkRelation: ESSENCE_BURST_LINK,
     reverseLinkRelation: ESSENCE_BURST_LINK,
