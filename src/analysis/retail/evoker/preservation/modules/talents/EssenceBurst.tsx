@@ -12,10 +12,10 @@ import Events, {
 } from 'parser/core/Events';
 import {
   didSparkProcEssenceBurst,
-  getEssenceBurstConsumeAbility,
   isEbFromHardcast,
   isEbFromReversion,
 } from '../../normalizers/EventLinking/helpers';
+import { getEssenceBurstConsumeAbility } from 'analysis/retail/evoker/shared/modules/normalizers/EssenceBurstCastLinkNormalizer';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { SPELL_COLORS } from 'analysis/retail/evoker/preservation/constants';
 import DonutChart from 'parser/ui/DonutChart';

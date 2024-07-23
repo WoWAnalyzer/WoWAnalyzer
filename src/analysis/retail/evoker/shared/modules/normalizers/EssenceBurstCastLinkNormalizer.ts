@@ -186,9 +186,19 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: ESSENCE_BURST_CONSUME,
     reverseLinkRelation: ESSENCE_BURST_CONSUME,
-    linkingEventId: [SPELLS.ESSENCE_BURST_AUGMENTATION_BUFF.id, SPELLS.ESSENCE_BURST_DEV_BUFF.id],
+    linkingEventId: [
+      SPELLS.ESSENCE_BURST_BUFF.id,
+      SPELLS.ESSENCE_BURST_AUGMENTATION_BUFF.id,
+      SPELLS.ESSENCE_BURST_DEV_BUFF.id,
+    ],
     linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
-    referencedEventId: [TALENTS.PYRE_TALENT.id, SPELLS.DISINTEGRATE.id, TALENTS.ERUPTION_TALENT.id],
+    referencedEventId: [
+      TALENTS.PYRE_TALENT.id,
+      SPELLS.DISINTEGRATE.id,
+      TALENTS.ERUPTION_TALENT.id,
+      TALENTS.ECHO_TALENT.id,
+      SPELLS.EMERALD_BLOSSOM_CAST.id,
+    ],
     referencedEventType: EventType.Cast,
     anyTarget: true,
     forwardBufferMs: ESSENCE_BURST_BUFFER,
@@ -204,6 +214,10 @@ class EssenceBurstCastLinkNormalizer extends EventLinkNormalizer {
   };
   constructor(options: Options) {
     super(options, EVENT_LINKS);
+    this.active =
+      this.selectedCombatant.hasTalent(TALENTS.ESSENCE_BURST_PRESERVATION_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS.ESSENCE_BURST_AUGMENTATION_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS.RUBY_ESSENCE_BURST_TALENT);
   }
 }
 
@@ -322,6 +336,13 @@ function hasNoGenerationLink(event: AnyBuffEvent) {
 /** Check if Spender consumed EB */
 export function isCastFromEB(event: CastEvent) {
   return HasRelatedEvent(event, ESSENCE_BURST_CONSUME);
+}
+
+/** Get the event that consumed EB */
+export function getEssenceBurstConsumeAbility(
+  event: RemoveBuffEvent | RemoveBuffStackEvent,
+): null | CastEvent {
+  return GetRelatedEvent<CastEvent>(event, ESSENCE_BURST_CONSUME) ?? null;
 }
 
 export default EssenceBurstCastLinkNormalizer;
