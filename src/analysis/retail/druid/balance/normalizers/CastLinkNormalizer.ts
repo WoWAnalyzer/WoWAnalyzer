@@ -1,6 +1,12 @@
 import SPELLS from 'common/SPELLS';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
-import { CastEvent, EventType, GetRelatedEvents } from 'parser/core/Events';
+import {
+  CastEvent,
+  DamageEvent,
+  EventType,
+  GetRelatedEvents,
+  ResourceChangeEvent,
+} from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
@@ -9,6 +15,7 @@ const MUSHROOM_BUFFER_MS = 1_100;
 
 const FROM_HARDCAST = 'FromHardcast';
 const HITS_TARGET = 'HitsTarget';
+const GENERATES_AP = 'GeneratesAp';
 
 // TODO TWW - add hit count AoE module
 const EVENT_LINKS: EventLink[] = [
@@ -22,6 +29,17 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
+  },
+  {
+    linkRelation: FROM_HARDCAST,
+    reverseLinkRelation: GENERATES_AP,
+    linkingEventId: SPELLS.STARFIRE.id,
+    linkingEventType: EventType.ResourceChange,
+    referencedEventId: SPELLS.STARFIRE.id,
+    referencedEventType: EventType.Cast,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true, // cast on target, energize on self
   },
   // wild mushroom bursts exactly 1 sec after cast - TODO any danger of overlap if player spams at high haste?
   {
@@ -39,9 +57,13 @@ const EVENT_LINKS: EventLink[] = [
 ];
 
 /**
- * Some Balance spells are only called for based on the number of targets hit.
- * This normalizer adds a _linkedEvent to the Damage linking back to the Cast event that caused it
+ * Links some Balance spells to their targets hit and astral power gained.
+ *
+ * This normalizer links Damage back to the Cast event that caused it
  * (if one can be found). This makes it easier to count the number of targets hit.
+ *
+ * This normalizer links Energizes back to the Cast event that caused it (if one can be found) -
+ * making it easier to do AsP related analysis.
  */
 class CastLinkNormalizer extends EventLinkNormalizer {
   constructor(options: Options) {
@@ -49,8 +71,20 @@ class CastLinkNormalizer extends EventLinkNormalizer {
   }
 }
 
+export function hardcastGetHits(event: CastEvent): DamageEvent[] {
+  return GetRelatedEvents(event, HITS_TARGET, (e): e is DamageEvent => e.type === EventType.Damage);
+}
+
 export function hardcastTargetsHit(event: CastEvent): number {
   return GetRelatedEvents(event, HITS_TARGET).length;
+}
+
+export function hardcastApGenerated(event: CastEvent): ResourceChangeEvent | undefined {
+  return GetRelatedEvents(
+    event,
+    GENERATES_AP,
+    (e): e is ResourceChangeEvent => e.type === EventType.ResourceChange,
+  ).pop();
 }
 
 export default CastLinkNormalizer;

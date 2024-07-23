@@ -10,6 +10,7 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 
 const TWIN_MOONS_BONUS_DAMAGE = 0.1;
 
+// TODO TWW account for other moonfire hit sources
 /**
  * **Twin Moons**
  * Spec Talent

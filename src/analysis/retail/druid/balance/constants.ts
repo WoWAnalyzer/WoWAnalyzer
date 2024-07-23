@@ -42,15 +42,25 @@ export function cdDuration(c: Combatant): number {
     : CA_DURATION;
 }
 
+/** Helper for checking if player has solar eclipse */
+export function hasSolar(c: Combatant): boolean {
+  return c.hasBuff(SPELLS.ECLIPSE_SOLAR.id);
+}
+
+/** Helper for checking if player has lunar eclipse */
+export function hasLunar(c: Combatant): boolean {
+  return c.hasBuff(SPELLS.ECLIPSE_LUNAR.id);
+}
+
 /** Helper for figuring out the current eclipse state */
 export function currentEclipse(c: Combatant): 'none' | 'solar' | 'lunar' | 'both' {
-  const hasSolar = c.hasBuff(SPELLS.ECLIPSE_SOLAR.id);
-  const hasLunar = c.hasBuff(SPELLS.ECLIPSE_LUNAR.id);
-  if (hasSolar && hasLunar) {
+  const solar = hasSolar(c);
+  const lunar = hasLunar(c);
+  if (solar && lunar) {
     return 'both';
-  } else if (hasSolar) {
+  } else if (solar) {
     return 'solar';
-  } else if (hasLunar) {
+  } else if (lunar) {
     return 'lunar';
   } else {
     return 'none';
