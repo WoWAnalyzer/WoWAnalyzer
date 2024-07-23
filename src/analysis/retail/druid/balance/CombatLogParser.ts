@@ -26,7 +26,6 @@ import WaningTwilight from './modules/spells/WaningTwilight';
 import GatheringStarstuff from 'analysis/retail/druid/balance/modules/spells/GatheringStarstuff';
 import TouchTheCosmos from './modules/spells/TouchTheCosmos';
 import Starweaver from './modules/spells/Starweaver';
-import FriendOfTheFae from './modules/spells/FriendOfTheFae';
 import SunderedFirmament from './modules/spells/SunderedFirmament';
 import Eclipse from 'analysis/retail/druid/balance/modules/spells/Eclipse';
 import SpenderUsage from 'analysis/retail/druid/balance/modules/features/SpenderUsage';
@@ -67,7 +66,6 @@ class CombatLogParser extends MainCombatLogParser {
     waningTwilight: WaningTwilight,
     convokeSpiritsBalance: ConvokeSpiritsBalance,
     starweaver: Starweaver,
-    firendOfTheFae: FriendOfTheFae,
     sunderedFirmament: SunderedFirmament,
     newMoon: NewMoon,
     wildMushroom: WildMushroom,
