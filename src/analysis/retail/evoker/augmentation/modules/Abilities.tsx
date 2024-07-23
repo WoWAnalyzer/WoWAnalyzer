@@ -106,15 +106,6 @@ class Abilities extends CoreAbilities {
         },
         enabled: combatant.hasTalent(TALENTS.BESTOW_WEYRNSTONE_TALENT),
       },
-      {
-        spell: TALENTS.SPATIAL_PARADOX_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 120 * interwovenThreadsMultiplier,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS.SPATIAL_PARADOX_TALENT),
-      },
       //endregion
       //region Other
       {
