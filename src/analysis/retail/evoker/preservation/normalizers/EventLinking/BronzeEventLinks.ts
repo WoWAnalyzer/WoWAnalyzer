@@ -25,6 +25,7 @@ import {
   MAX_REVERSION_DURATION,
   STASIS_FILLING,
   FULL_STASIS_DURATION,
+  TEMPORAL_COMPRESSION_REVERSION,
 } from './constants';
 
 export const BRONZE_EVENT_LINKS: EventLink[] = [
@@ -144,5 +145,14 @@ export const BRONZE_EVENT_LINKS: EventLink[] = [
         !HasRelatedEvent(linkingEvent, REVERSION)
       );
     },
+  },
+  {
+    linkRelation: TEMPORAL_COMPRESSION_REVERSION,
+    reverseLinkRelation: TEMPORAL_COMPRESSION_REVERSION,
+    linkingEventId: SPELLS.TEMPORAL_COMPRESSION_BUFF.id,
+    linkingEventType: [EventType.ApplyBuff, EventType.ApplyBuffStack],
+    referencedEventId: TALENTS_EVOKER.REVERSION_TALENT.id,
+    referencedEventType: EventType.Cast,
+    anyTarget: true,
   },
 ];

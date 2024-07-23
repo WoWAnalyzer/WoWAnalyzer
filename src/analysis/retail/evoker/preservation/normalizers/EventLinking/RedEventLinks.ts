@@ -25,6 +25,11 @@ import {
   FIRE_BREATH,
   FIRE_BREATH_CAST,
   MAX_FIRE_BREATH_DURATION,
+  ENGULF_DREAM_BREATH,
+  MAX_DREAM_BREATH_DURATION,
+  ENGULF_CONSUME_FLAME,
+  ENGULF_CONSUME_BUFFER,
+  LIFEBIND_HEAL_EMPOWER,
 } from './constants';
 
 export const RED_EVENT_LINKS: EventLink[] = [
@@ -68,6 +73,17 @@ export const RED_EVENT_LINKS: EventLink[] = [
     additionalCondition(linkingEvent, referencedEvent) {
       return HasRelatedEvent(linkingEvent, LIFEBIND); // make sure the heal is on someone with lifebind buff
     },
+  },
+  {
+    linkRelation: LIFEBIND_HEAL_EMPOWER,
+    reverseLinkRelation: LIFEBIND_HEAL_EMPOWER,
+    linkingEventId: SPELLS.LIFEBIND_HEAL.id,
+    linkingEventType: EventType.Heal,
+    referencedEventId: [SPELLS.SPIRITBLOOM.id, SPELLS.SPIRITBLOOM_FONT.id],
+    referencedEventType: EventType.Heal,
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
   },
   {
     linkRelation: ANCIENT_FLAME,
@@ -148,6 +164,27 @@ export const RED_EVENT_LINKS: EventLink[] = [
     referencedEventId: [SPELLS.FIRE_BREATH.id, SPELLS.FIRE_BREATH_FONT.id],
     referencedEventType: EventType.EmpowerEnd,
     backwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+  },
+  //Engulf
+  {
+    linkRelation: ENGULF_DREAM_BREATH,
+    linkingEventId: SPELLS.ENGULF_HEAL.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: [SPELLS.DREAM_BREATH.id, SPELLS.DREAM_BREATH_FONT.id],
+    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    backwardBufferMs: MAX_DREAM_BREATH_DURATION,
+    maximumLinks: 1,
+  },
+  {
+    linkRelation: ENGULF_CONSUME_FLAME,
+    linkingEventId: SPELLS.ENGULF_HEAL.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.CONSUME_FLAME_HEAL.id,
+    referencedEventType: EventType.Heal,
+    forwardBufferMs: ENGULF_CONSUME_BUFFER,
+    backwardBufferMs: ENGULF_CONSUME_BUFFER,
+    reverseLinkRelation: ENGULF_CONSUME_FLAME,
     anyTarget: true,
   },
 ];
