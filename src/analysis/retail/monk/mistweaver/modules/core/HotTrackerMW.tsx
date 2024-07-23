@@ -52,7 +52,7 @@ class HotTrackerMW extends HotTracker {
     return (
       filteredHistory.filter((hot) =>
         hot.attributions.filter((attr) => attr.name === attribution),
-      )[0].attributions[0].healing / filteredHistory.length
+      )[0]?.attributions[0].healing / filteredHistory.length
     );
   }
 
