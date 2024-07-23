@@ -71,11 +71,8 @@ const CLASSIC_RAID_BUFFS = new Map<Spell, Array<Class | object>>([
   // Stats
   [CLASSIC_SPELLS.GIFT_OF_THE_WILD, [Class.Druid]],
   // Stats %
-  [CLASSIC_SPELLS.GREATER_BLESSING_OF_KINGS, [Class.Paladin]],
   // Attack Power
-  [CLASSIC_SPELLS.GREATER_BLESSING_OF_MIGHT, [Class.Paladin]],
   // MP5
-  [CLASSIC_SPELLS.GREATER_BLESSING_OF_WISDOM, [Class.Paladin]],
   // Melee Crit
   [
     CLASSIC_SPELLS.LEADER_OF_THE_PACK,
