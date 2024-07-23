@@ -128,11 +128,6 @@ class Abilities extends CoreAbilities {
         cooldown: 3,
       },
       {
-        spell: SPELLS.PURIFY.id,
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { base: 1500 },
-      },
-      {
         spell: SPELLS.CHAKRA.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: null,

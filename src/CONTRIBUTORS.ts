@@ -2424,3 +2424,8 @@ export const Bhahlou: Contributor = {
   github: 'Bhahlou',
   discord: 'Bhahlou',
 };
+
+export const Ethelis: Contributor = {
+  nickname: 'Ethelis',
+  github: 'ethelis',
+};

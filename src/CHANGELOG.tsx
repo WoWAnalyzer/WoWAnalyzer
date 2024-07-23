@@ -31,12 +31,14 @@ import {
   Zyer,
   Earosselot,
   Vohrr,
+  Ethelis,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 7, 22), 'Update Paladin spells for Classic Cataclysm', Ethelis),
   change(date(2024, 7, 19), 'Update Racials for Classic Cataclysm', jazminite),
   change(date(2024, 7, 18), 'Clean up padding on specs with core support', emallson),
   change(date(2024, 7, 16), 'Fixed an issue where naturally regenerating resources were not showing correctly on resource graphs', Sref),
