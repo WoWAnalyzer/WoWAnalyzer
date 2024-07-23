@@ -11,10 +11,9 @@ import { SpellLink, TooltipElement } from 'interface';
 import { formatNumber } from 'common/format';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import HotTrackerMW from '../core/HotTrackerMW';
-import { ATTRIBUTION_STRINGS } from '../../constants';
+import { ATTRIBUTION_STRINGS, TEAR_OF_MORNING_INVIG_INCREASE } from '../../constants';
 import { TFT_ENV_TOM } from '../../normalizers/EventLinks/EventLinkConstants';
 
-const TEAR_OF_MORNING_INCREASE = 0.2;
 class TearOfMorning extends Analyzer {
   static dependencies = {
     hotTracker: HotTrackerMW,
@@ -95,7 +94,10 @@ class TearOfMorning extends Analyzer {
   }
 
   handleVivify(event: HealEvent) {
-    this.invigoratingMistHealing += calculateEffectiveHealing(event, TEAR_OF_MORNING_INCREASE);
+    this.invigoratingMistHealing += calculateEffectiveHealing(
+      event,
+      TEAR_OF_MORNING_INVIG_INCREASE,
+    );
   }
 
   handleEnv(event: HealEvent) {
