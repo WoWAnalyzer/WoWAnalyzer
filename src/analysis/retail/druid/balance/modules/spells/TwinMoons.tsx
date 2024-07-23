@@ -10,6 +10,12 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 
 const TWIN_MOONS_BONUS_DAMAGE = 0.1;
 
+/**
+ * **Twin Moons**
+ * Spec Talent
+ *
+ * Moonfire deals 10% increased damage and also hits another nearby enemy within 15 yds of the target.
+ */
 class TwinMoons extends Analyzer {
   get perSecond() {
     return this.bonusDamage / (this.owner.fightDuration / 1000);

@@ -10,6 +10,14 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 
 const SOTF_WRATH_BONUS_AP = 0.6;
 
+// TODO TWW include the Starfire part too
+/**
+ * **Soul of the Forest**
+ * Spec Talent
+ *
+ * Solar Eclipse increases Wrath's Astral Power generation by 60% and Lunar Eclipse increases
+ * Starfire's damage and Astral Power generation by 20% for each target hit beyond the first, up to 60%.
+ */
 class SoulOfTheForest extends Analyzer {
   constructor(options: Options) {
     super(options);

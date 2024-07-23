@@ -23,7 +23,6 @@ import AstralPowerDetails from 'analysis/retail/druid/balance/modules/core/astra
 import Guide from 'analysis/retail/druid/balance/Guide';
 import AstralPowerGraph from 'analysis/retail/druid/balance/modules/core/astralpower/AstralPowerGraph';
 import WaningTwilight from './modules/spells/WaningTwilight';
-import GatheringStarstuff from 'analysis/retail/druid/balance/modules/spells/GatheringStarstuff';
 import TouchTheCosmos from './modules/spells/TouchTheCosmos';
 import Starweaver from './modules/spells/Starweaver';
 import SunderedFirmament from './modules/spells/SunderedFirmament';
@@ -71,7 +70,6 @@ class CombatLogParser extends MainCombatLogParser {
     wildMushroom: WildMushroom,
     celestialAlignment: CelestialAlignment,
     //Tier set
-    gatheringStarstuff: GatheringStarstuff,
     touchTheCosmos: TouchTheCosmos,
   };
 

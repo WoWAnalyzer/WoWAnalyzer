@@ -176,13 +176,6 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
           useThresholds
         />
       )}
-      {info.combatant.hasTalent(TALENTS_DRUID.ASTRAL_COMMUNION_TALENT) && (
-        <CastEfficiencyBar
-          spellId={TALENTS_DRUID.ASTRAL_COMMUNION_TALENT.id}
-          gapHighlightMode={GapHighlight.FullCooldown}
-          useThresholds
-        />
-      )}
     </SubSection>
   );
 }

@@ -3,6 +3,7 @@ import Spell from 'common/SPELLS/Spell';
 import Combatant from 'parser/core/Combatant';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
+// TODO TWW - actually hook this in?
 export const WHITELIST_ABILITIES = [
   SPELLS.STARSURGE_MOONKIN,
   SPELLS.STARSURGE_AFFINITY,
@@ -32,8 +33,8 @@ export function cdSpell(c: Combatant): Spell {
       : SPELLS.CELESTIAL_ALIGNMENT;
 }
 
-const CA_DURATION = 20_000;
-const INCARN_DURATION = 30_000;
+const CA_DURATION = 15_000;
+const INCARN_DURATION = 20_000;
 /** Returns the duration of Balance Druid's primary cooldown spell, which changes based on talent */
 export function cdDuration(c: Combatant): number {
   return c.hasTalent(TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT)

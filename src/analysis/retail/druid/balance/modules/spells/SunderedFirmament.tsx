@@ -11,6 +11,12 @@ import SPELLS from 'common/SPELLS';
 const AP_PER_PROC = 8;
 const AP_PER_TICK = 0.5;
 
+/**
+ * **Sundered Firmament**
+ * Spec Talent
+ *
+ * Every other Eclipse creates a Fury of Elune at 25% effectiveness that follows your current target for 8 sec.
+ */
 class SunderedFirmament extends Analyzer {
   totalDamage = 0;
   gainedAP = 0;

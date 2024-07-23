@@ -8,6 +8,7 @@ import { currentEclipse } from 'analysis/retail/druid/balance/constants';
 import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
+// TODO TWW - look at these numbers again after TWW talent changes / sims
 const MIN_STARFIRE_TARGETS_LUNAR = 3;
 const MIN_STARFIRE_TARGETS_CA = 4;
 
