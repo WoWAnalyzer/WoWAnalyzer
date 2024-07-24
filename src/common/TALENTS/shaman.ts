@@ -47,8 +47,8 @@ const talents = {
     name: 'Ancestral Guidance',
     icon: 'ability_shaman_ancestralguidance',
     maxRanks: 1,
-    entryIds: [127852],
-    definitionIds: [{ id: 132661, specId: 264 }],
+    entryIds: [128116],
+    definitionIds: [{ id: 132925, specId: 264 }],
   },
   ANCESTRAL_PROTECTION_TOTEM_TALENT: {
     id: 207399,
@@ -387,6 +387,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [101855],
     definitionIds: [{ id: 106814, specId: 262 }],
+    maelstromCost: 60,
   },
   EARTHQUAKE_2_ELEMENTAL_TALENT: {
     id: 61882,
@@ -1456,7 +1457,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [127911],
     definitionIds: [{ id: 132720, specId: 264 }],
-    manaCost: 200000,
+    manaCost: 50000,
   },
   STORMBLAST_TALENT: {
     id: 319930,
@@ -1696,7 +1697,7 @@ const talents = {
     id: 200072,
     name: 'Torrent',
     icon: 'spell_nature_riptide',
-    maxRanks: 2,
+    maxRanks: 1,
     entryIds: [101932],
     definitionIds: [{ id: 106929, specId: 264 }],
   },

@@ -943,7 +943,7 @@ const talents = {
     icon: 'ability_evoker_disintegrate',
     maxRanks: 1,
     entryIds: [117536],
-    definitionIds: [{ id: 122548, specId: 1473 }],
+    definitionIds: [{ id: 122548, specId: 1467 }],
   },
   MASS_ERUPTION_TALENT: {
     id: 438587,

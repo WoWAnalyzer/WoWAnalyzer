@@ -1775,7 +1775,7 @@ const talents = {
   XALANS_CRUELTY_TALENT: {
     id: 440040,
     name: "Xalan's Cruelty",
-    icon: 'spell_shadow_demonicempathy',
+    icon: 'spell_fire_felrainoffire',
     maxRanks: 1,
     entryIds: [117442],
     definitionIds: [{ id: 122454, specId: 267 }],
@@ -1783,7 +1783,7 @@ const talents = {
   XALANS_FEROCITY_TALENT: {
     id: 440044,
     name: "Xalan's Ferocity",
-    icon: 'spell_fire_felfire',
+    icon: 'ability_warlock_demonicpower',
     maxRanks: 1,
     entryIds: [117450],
     definitionIds: [{ id: 122462, specId: 267 }],

@@ -219,8 +219,8 @@ const talents = {
     name: 'Chain Reaction',
     icon: 'spell_frost_frostblast',
     maxRanks: 1,
-    entryIds: [80226],
-    definitionIds: [{ id: 85229, specId: 64 }],
+    entryIds: [80224],
+    definitionIds: [{ id: 85227, specId: 64 }],
   },
   CHARGED_ORB_TALENT: {
     id: 384651,
@@ -1104,9 +1104,9 @@ const talents = {
     entryIds: [117256],
     definitionIds: [{ id: 122268, specId: 63 }],
   },
-  MARK_OF_THE_FIRELORD_TALENT: {
+  MARK_OF_THE_FIRE_LORD_TALENT: {
     id: 450325,
-    name: 'Mark of the Firelord',
+    name: 'Mark of the Fire Lord',
     icon: 'achievement_firelands_raid_ragnaros',
     maxRanks: 1,
     entryIds: [124749],
@@ -1596,8 +1596,8 @@ const talents = {
     name: 'Splintering Ray',
     icon: 'spell_fire_blueflamestrike',
     maxRanks: 1,
-    entryIds: [116133],
-    definitionIds: [{ id: 121145, specId: 64 }],
+    entryIds: [128077],
+    definitionIds: [{ id: 132886, specId: 64 }],
   },
   SPLINTERING_SORCERY_TALENT: {
     id: 443739,
@@ -1620,8 +1620,8 @@ const talents = {
     name: 'Splitting Ice',
     icon: 'spell_frost_ice_shards',
     maxRanks: 1,
-    entryIds: [80224],
-    definitionIds: [{ id: 85227, specId: 64 }],
+    entryIds: [80226],
+    definitionIds: [{ id: 85229, specId: 64 }],
   },
   SPONTANEOUS_COMBUSTION_TALENT: {
     id: 451875,
