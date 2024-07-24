@@ -73,3 +73,6 @@ export const RED_HOT_INCREASE = 0.2;
 // Scalecommander changes ID for deep breath
 export const DEEP_BREATH_SPELLS = [SPELLS.DEEP_BREATH, SPELLS.DEEP_BREATH_SCALECOMMANDER];
 export const DEEP_BREATH_SPELL_IDS = DEEP_BREATH_SPELLS.map((spell) => spell.id);
+
+export const IMMINENT_DESTRUCTION_MULTIPLIER = 0.1;
+export const IMMINENT_DESTRUCTION_ESSENCE_REDUCTION = 1;

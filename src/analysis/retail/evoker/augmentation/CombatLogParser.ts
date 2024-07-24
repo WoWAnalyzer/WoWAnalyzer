@@ -56,6 +56,7 @@ import {
   DefensiveCastLinkNormalizer,
   TwinGuardian,
   RenewingBlaze,
+  ImminentDestruction,
 } from 'analysis/retail/evoker/shared';
 
 class CombatLogParser extends MainCombatLogParser {
@@ -77,6 +78,7 @@ class CombatLogParser extends MainCombatLogParser {
     essenceGraph: EssenceGraph,
     sourceOfMagic: SourceOfMagic,
     potentMana: PotentMana,
+    imminentDestruction: ImminentDestruction,
 
     obsidianScales: ObsidianScales,
     defensiveCastLinkNormalizer: DefensiveCastLinkNormalizer,

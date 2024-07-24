@@ -23,7 +23,6 @@ import {
   LIVING_FLAME_CALL_OF_YSERA,
   DREAM_BREATH_CALL_OF_YSERA_HOT,
   FIELD_OF_DREAMS_PROC,
-  ESSENCE_BURST_CONSUME,
   LIFEBIND_HEAL,
   ECHO_TYPE,
   LIFEBIND,
@@ -77,12 +76,6 @@ export function isFromFieldOfDreams(event: HealEvent) {
 
 export function didEchoExpire(event: RemoveBuffEvent) {
   return !HasRelatedEvent(event, ECHO) && !HasRelatedEvent(event, ECHO_TEMPORAL_ANOMALY);
-}
-
-export function getEssenceBurstConsumeAbility(
-  event: RemoveBuffEvent | RemoveBuffStackEvent,
-): null | CastEvent {
-  return GetRelatedEvent<CastEvent>(event, ESSENCE_BURST_CONSUME) ?? null;
 }
 
 export function getHealForLifebindHeal(event: HealEvent): HealEvent | null {
@@ -240,11 +233,6 @@ export function isT32ProcWasted(event: RemoveBuffEvent | RefreshBuffEvent): bool
 //Gets the cast event from a blossom heal
 export function getBlossomCast(event: HealEvent) {
   return GetRelatedEvent<CastEvent>(event, EMERALD_BLOSSOM_CAST);
-}
-
-//Find if a cast was from an essence burst
-export function isCastFromBurst(event: CastEvent) {
-  return HasRelatedEvent(event, ESSENCE_BURST_CONSUME);
 }
 
 export function getEchoAplication(event: HealEvent | ApplyBuffEvent | RefreshBuffEvent) {

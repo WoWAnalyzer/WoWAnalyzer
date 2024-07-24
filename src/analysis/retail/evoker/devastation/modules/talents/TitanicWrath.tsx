@@ -23,8 +23,8 @@ import {
   DISINTEGRATE_TICKS,
 } from 'analysis/retail/evoker/devastation/constants';
 import { SpellLink } from 'interface';
-import { ESSENCE_BURST_CONSUME } from '../normalizers/CastLinkNormalizer';
 import TalentSpellText from 'parser/ui/TalentSpellText';
+import { ESSENCE_BURST_CONSUME } from 'analysis/retail/evoker/shared/modules/normalizers/EssenceBurstCastLinkNormalizer';
 
 const { DISINTEGRATE, PYRE, ESSENCE_BURST_DEV_BUFF } = SPELLS;
 
