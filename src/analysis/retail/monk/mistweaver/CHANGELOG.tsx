@@ -5,6 +5,7 @@ import { Vohrr } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date (2024, 7, 24), <>Bump patch support to 11.0 and sample log.</>, Vohrr),
   change(date (2024, 7, 23), <>Updated Talent values per July 17th tuning.</>, Vohrr),
   change(date (2024, 7, 4), <>Added <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_TALENT}/>.</>, Vohrr),
   change(date (2024, 6, 29), <>Added <SpellLink spell={TALENTS_MONK.RESTORE_BALANCE_TALENT}/> module.</>, Vohrr),
