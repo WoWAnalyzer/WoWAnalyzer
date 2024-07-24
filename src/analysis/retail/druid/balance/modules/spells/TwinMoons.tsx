@@ -17,7 +17,7 @@ const TWIN_MOONS_BONUS_DAMAGE = 0.1;
  *
  * Moonfire deals 10% increased damage and also hits another nearby enemy within 15 yds of the target.
  */
-class TwinMoons extends Analyzer {
+export default class TwinMoons extends Analyzer {
   damage = 0;
   extraHits = 0;
 
@@ -60,5 +60,3 @@ class TwinMoons extends Analyzer {
     );
   }
 }
-
-export default TwinMoons;
