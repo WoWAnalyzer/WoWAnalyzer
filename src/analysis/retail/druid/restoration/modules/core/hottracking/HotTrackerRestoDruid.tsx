@@ -17,8 +17,6 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 
 const LIVELINESS_MULT = 0.95;
 
-// TODO TWW handle Wildstalker's Symbiotic Blooms - weird handling because of overlapping behavior?
-
 class HotTrackerRestoDruid extends HotTracker {
   static dependencies = {
     ...HotTracker.dependencies,
@@ -171,6 +169,8 @@ class HotTrackerRestoDruid extends HotTracker {
         duration: 9000 * globalMult,
         tickPeriod: 3000,
       },
+      // Wildstalker's Symbiotic Bloom appears to largely not interact with extensions
+      // and other similar mechanics, so is inteniontally left out of this list.
     ];
   }
 }

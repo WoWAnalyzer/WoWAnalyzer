@@ -420,6 +420,12 @@ const spells = {
     name: 'Power of the Archdruid',
     icon: 'spell_druid_rampantgrowth',
   },
+  // heal from Thriving Vegetation talent
+  THRIVING_VEGETATION: {
+    id: 447132,
+    name: 'Thriving Vegetation',
+    icon: 'spell_nature_rejuvenation',
+  },
   // Sets/Items:
   ASTRAL_HARMONY: {
     // 2pc T19
@@ -1249,6 +1255,11 @@ const spells = {
     name: 'Bursting Growth',
     icon: 'inv_misc_thornnecklace',
   },
+  FLOWER_WALK: {
+    id: 439902,
+    name: 'Flower Walk',
+    icon: 'inv_misc_trailofflowers',
+  },
 
   /////////////////////////////////////////////////////////////////////////////
   // DRUID OF THE CLAW
@@ -1279,6 +1290,12 @@ const spells = {
     id: 455801,
     name: "Cenarius' Might",
     icon: 'achievement_reputation_guardiansofcenarius',
+  },
+  // heal from Dream Surge 'dream petals'
+  DREAM_BLOOM: {
+    id: 434141,
+    name: 'Dream Bloom',
+    icon: 'inv_ability_keeperofthegrovedruid_dreamsurge_fiendly',
   },
 
   // TODO TWW find a log with the ID of the "minor cenarion ward" applied 'Durability of Nature'
