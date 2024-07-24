@@ -908,6 +908,7 @@ const spells = {
     name: "Starweaver's Weft",
     icon: 'spell_arcane_invocation',
   },
+  // the damage ID for wild mushroom's initial burst
   WILD_MUSHROOM: {
     id: 88751,
     name: 'Wild Mushroom',

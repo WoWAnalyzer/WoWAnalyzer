@@ -152,6 +152,7 @@ class Abilities extends CoreAbilities {
         },
         timelineSortIndex: 11,
       },
+      // TODO TWW - Lunation needs handled (which spells are Arcane?) - Moonfire, Starfire, Starsurge, Starfall, Moons, FoE, Arcane Thrash, Lunar Beam
       {
         spell: TALENTS_DRUID.FURY_OF_ELUNE_TALENT.id,
         buffSpellId: TALENTS_DRUID.FURY_OF_ELUNE_TALENT.id,

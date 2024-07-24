@@ -11,7 +11,6 @@ import Events, {
   FightEndEvent,
 } from 'parser/core/Events';
 import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { TALENTS_DRUID } from 'common/TALENTS';
@@ -20,13 +19,21 @@ import { SpellIcon, SpellLink, TooltipElement } from 'interface';
 import UptimeStackBar, { getStackUptimesFromBuffHistory } from 'parser/ui/UptimeStackBar';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { getUptimesFromBuffHistory } from 'parser/ui/UptimeBar';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 const MAX_STACKS = 3;
-const HASTE_PER_STACK = 4;
+const HASTE_PER_STACK_PER_RANK = 0.02;
 
 const STARLORD_COLOR = '#224488';
 const STARLORD_BG_COLOR = '#88aabb';
 
+/**
+ * **Starlord**
+ * Spec Talent
+ *
+ * Starsurge and Starfall grant you (2 / 4)% Haste for 15 sec.
+ * Stacks up to 3 times. Gaining a stack does not refresh the duration.
+ */
 class Starlord extends Analyzer {
   get averageStacks() {
     let avgStacks = 0;
@@ -37,8 +44,11 @@ class Starlord extends Analyzer {
   }
 
   get averageHaste() {
-    return this.averageStacks * HASTE_PER_STACK;
+    return this.averageStacks * this.hastePerStack * 100;
   }
+
+  ranks;
+  hastePerStack;
 
   buffStacks: number[][];
   lastStacks = 0;
@@ -46,7 +56,9 @@ class Starlord extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.STARLORD_TALENT);
+    this.ranks = this.selectedCombatant.getTalentRank(TALENTS_DRUID.STARLORD_TALENT);
+    this.active = this.ranks > 0;
+    this.hastePerStack = HASTE_PER_STACK_PER_RANK * this.ranks;
     this.buffStacks = Array.from({ length: MAX_STACKS + 1 }, (x) => [0]);
 
     this.addEventListener(
@@ -169,7 +181,7 @@ class Starlord extends Analyzer {
               <tbody>
                 {this.buffStacks.map((e, i) => (
                   <tr key={i}>
-                    <th>{(i * HASTE_PER_STACK).toFixed(0)}%</th>
+                    <th>{formatPercentage(i * this.hastePerStack, 0)}%</th>
                     <td>{formatDuration(e.reduce((a, b) => a + b, 0))}</td>
                     <td>
                       {formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%
@@ -181,11 +193,11 @@ class Starlord extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={TALENTS_DRUID.STARLORD_TALENT}>
+        <TalentSpellText talent={TALENTS_DRUID.STARLORD_TALENT}>
           <>
             <HasteIcon /> {this.averageHaste.toFixed(2)} % <small>average haste gained</small>
           </>
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }

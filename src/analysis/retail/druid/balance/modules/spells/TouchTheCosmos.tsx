@@ -5,12 +5,21 @@ import Events, { CastEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { TIERS } from 'game/TIERS';
 import { SpellLink } from 'interface';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STARFALL_BASE_COST, STARSURGE_BASE_COST } from '../../constants';
+import { TALENTS_DRUID } from 'common/TALENTS';
 
 const AFFECTED_CAST = [SPELLS.STARSURGE_MOONKIN, SPELLS.STARFALL_CAST];
+
+// TODO TWW this used to be a tier set and is now a largely different talent, needs full rework before it can be re-added to CombatLogParser
+/**
+ * **Touch the Cosmos**
+ * Spec Talent
+ *
+ * Casting Wrath in an Eclipse has an 12% chance to make your next Starsurge free.
+ * Casting Starfire in an Eclipse has a 15% chance to make your next Starfall free.
+ */
 class TouchTheCosmos extends Analyzer {
   totalDamage = 0;
   totcBuffedAbilities: { [key: number]: number } = {};
@@ -18,7 +27,7 @@ class TouchTheCosmos extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.has4PieceByTier(TIERS.DF1);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.TOUCH_THE_COSMOS_TALENT);
 
     Object.values(AFFECTED_CAST).forEach((spell) => {
       this.totcBuffedAbilities[spell.id] = 0;
