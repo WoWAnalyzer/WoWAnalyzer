@@ -1013,7 +1013,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [102534],
     definitionIds: [{ id: 107539, specId: 65 }],
-    manaCost: 70000,
+    manaCost: 65000,
   },
   ILLUMINE_TALENT: {
     id: 431423,
