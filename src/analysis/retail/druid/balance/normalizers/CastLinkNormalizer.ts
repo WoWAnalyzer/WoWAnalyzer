@@ -92,11 +92,12 @@ export function hardcastTargetsHit(event: CastEvent): number {
 }
 
 export function hardcastApGenerated(event: CastEvent): ResourceChangeEvent | undefined {
-  return GetRelatedEvents(
+  const events: ResourceChangeEvent[] = GetRelatedEvents(
     event,
     GENERATES_AP,
     (e): e is ResourceChangeEvent => e.type === EventType.ResourceChange,
-  ).pop();
+  );
+  return events.pop();
 }
 
 export default CastLinkNormalizer;
