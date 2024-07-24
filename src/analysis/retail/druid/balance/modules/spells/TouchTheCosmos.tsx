@@ -12,7 +12,7 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 
 const AFFECTED_CAST = [SPELLS.STARSURGE_MOONKIN, SPELLS.STARFALL_CAST];
 
-// TODO TWW this used to be the name of tier set - review and handle changes to functionality
+// TODO TWW this used to be a tier set and is now a largely different talent, needs full rework before it can be re-added to CombatLogParser
 /**
  * **Touch the Cosmos**
  * Spec Talent
