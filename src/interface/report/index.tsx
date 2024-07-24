@@ -43,7 +43,7 @@ const ResultsLoader = () => {
   const parserClass = useParser(config);
   const isLoadingParser = !parserClass;
 
-  const { events, pageCount, pagesLoaded } = useEvents({ report, fight, player });
+  const { events, currentTime } = useEvents({ report, fight, player });
   const isLoadingEvents = events == null;
 
   const {
@@ -160,7 +160,7 @@ const ResultsLoader = () => {
   });
   const parsingState = isParsingEvents ? EVENT_PARSING_STATE.PARSING : EVENT_PARSING_STATE.DONE;
 
-  const pageProgress = pagesLoaded / pageCount;
+  const pageProgress = (currentTime - fight.start_time) / (fight.end_time - fight.start_time);
 
   const progress =
     (!isLoadingParser ? 0.05 : 0) +
