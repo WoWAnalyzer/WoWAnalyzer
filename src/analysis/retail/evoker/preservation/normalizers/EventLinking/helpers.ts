@@ -40,9 +40,7 @@ import {
   EB_REVERSION,
   TIME_OF_NEED_HEALING,
   LIFESPARK_LIVING_FLAME,
-  T32_2PC,
   REVERSION,
-  T32_4PC,
   EMERALD_BLOSSOM_CAST,
   DREAM_BREATH,
   DREAM_BREATH_CAST,
@@ -214,22 +212,6 @@ export function getLifesparkLivingFlame(event: RemoveBuffEvent | RemoveBuffStack
   return GetRelatedEvent(event, LIFESPARK_LIVING_FLAME) ?? null;
 }
 
-export function getT32SourceEvent(event: HealEvent): HealEvent | undefined {
-  return GetRelatedEvent<HealEvent>(event, T32_2PC);
-}
-
-export function isRevBuffedFromT32(event: HealEvent): boolean {
-  const applyEvent = GetRelatedEvent<ApplyBuffEvent | RefreshBuffEvent>(event, REVERSION);
-  if (!applyEvent) {
-    return false;
-  }
-  return HasRelatedEvent(applyEvent, T32_4PC);
-}
-
-export function isT32ProcWasted(event: RemoveBuffEvent | RefreshBuffEvent): boolean {
-  return event.type === EventType.RefreshBuff || !HasRelatedEvent(event, T32_4PC);
-}
-
 //Gets the cast event from a blossom heal
 export function getBlossomCast(event: HealEvent) {
   return GetRelatedEvent<CastEvent>(event, EMERALD_BLOSSOM_CAST);
@@ -255,9 +237,20 @@ export function getDreamBreathHealing(event: ApplyBuffEvent | RefreshBuffEvent |
   return GetRelatedEvents<HealEvent>(event, DREAM_BREATH);
 }
 
-export function getDreamBreathCast(event: ApplyBuffEvent | RefreshBuffEvent) {
-  const castEvent = GetRelatedEvent<EmpowerEndEvent>(event, DREAM_BREATH_CAST);
-  if (!castEvent) {
+export function getDreamBreathCast(
+  event: ApplyBuffEvent | RefreshBuffEvent | HealEvent,
+  searchStasis: boolean = true,
+) {
+  let castEvent;
+  if (event.type === EventType.Heal) {
+    const applyEvent = GetRelatedEvent(event, DREAM_BREATH);
+    if (applyEvent) {
+      castEvent = GetRelatedEvent<EmpowerEndEvent>(applyEvent, DREAM_BREATH_CAST);
+    }
+  } else {
+    castEvent = GetRelatedEvent<EmpowerEndEvent>(event, DREAM_BREATH_CAST);
+  }
+  if (!castEvent && searchStasis) {
     const stasisEvent = GetRelatedEvent(event, DREAM_BREATH_FROM_STASIS);
     if (stasisEvent) {
       const stasisFill = GetRelatedEvents(stasisEvent, STASIS_FILLING);
