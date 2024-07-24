@@ -14,6 +14,7 @@ class Buffs extends CoreAuras {
         spellId: SPELLS.LIGHTWEAVE_BUFF.id,
         timelineHighlight: true,
       },
+      // Do not adjust the lines below
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),
         timelineHighlight: true,

@@ -16,11 +16,6 @@ const spells = {
     name: 'Arcane Blast',
     icon: 'spell_arcane_blast.jpg',
   },
-  ARCANE_BLAST_DEBUFF: {
-    id: 36032,
-    name: 'Arcane Blast',
-    icon: 'spell_arcane_blast.jpg',
-  },
   ARCANE_BRILLIANCE: {
     id: 1459,
     name: 'Arcane Brilliance',
@@ -57,7 +52,7 @@ const spells = {
     icon: 'spell_frost_glacier.jpg',
   },
   CONJURE_MANA_GEM: {
-    id: 36799,
+    id: 759,
     name: 'Conjure Mana Gem',
     icon: 'inv_misc_gem_sapphire_02.jpg',
   },
