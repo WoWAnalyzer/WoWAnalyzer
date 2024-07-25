@@ -5,7 +5,7 @@ import TwitterIcon from 'interface/icons/Twitter';
 import NewsList from './NewsList';
 import { usePageView } from './useGoogleAnalytics';
 
-const News = () => {
+export function Component() {
   usePageView('Home/News');
   return (
     <>
@@ -31,6 +31,4 @@ const News = () => {
       <NewsList topAnchor="news-top" />
     </>
   );
-};
-
-export default News;
+}

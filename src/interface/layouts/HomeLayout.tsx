@@ -11,9 +11,9 @@ import { hasPremium } from 'interface/selectors/user';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { useWaSelector } from 'interface/utils/useWaSelector';
 
-import './Home.scss';
-import LanguageSwitcher from './LanguageSwitcher';
-import ReportSelectionHeader from './ReportSelectionHeader';
+import './HomeLayout.scss';
+import LanguageSwitcher from '../LanguageSwitcher';
+import ReportSelectionHeader from '../ReportSelectionHeader';
 
 const pages = [
   {
@@ -43,7 +43,7 @@ const pages = [
   },
 ];
 
-const Home = () => {
+export function Component() {
   const premium = useWaSelector((state) => hasPremium(state));
   const location = useLocation();
 
@@ -97,6 +97,4 @@ const Home = () => {
       </main>
     </div>
   );
-};
-
-export default Home;
+}

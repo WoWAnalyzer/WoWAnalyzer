@@ -30,6 +30,30 @@ import Report from 'parser/core/Report';
 import { Link } from 'react-router-dom';
 import { WCLFight } from 'parser/core/Fight';
 
+const UnsupportedSpecBouncer = ({ report, fight }: { report: Report; fight: WCLFight }) => (
+  <div className="container offset">
+    <Panel
+      title={
+        <Trans id="interface.report.unsupportSpec.title">
+          The selected specialization is not supported.
+        </Trans>
+      }
+    >
+      <div className="flex wrappable">
+        <div className="flex-main pad">
+          <p>
+            <Trans id="interface.report.unsupportedSpec.body">
+              The selected specialization has not been updated for the latest expansion and cannot
+              be used due to ability changes.
+            </Trans>
+          </p>
+          <Link to={makeAnalyzerUrl(report, fight.id)}>Go Back</Link>
+        </div>
+      </div>
+    </Panel>
+  </div>
+);
+
 const ResultsLoader = () => {
   const config = useConfig();
   const { report } = useReport();
@@ -208,51 +232,26 @@ const ResultsLoader = () => {
   );
 };
 
-const ReportLayout = () => (
-  // TODO: Error boundary so all sub components don't need the errorHandler with the silly withRouter dependency. Instead just throw the error and let the boundary catch it - if possible.
-  <>
-    <NavigationBar />
+export function Component() {
+  return (
+    <>
+      <NavigationBar />
 
-    <ErrorBoundary>
-      <ReportLoader>
-        <ReportExpansionContextProvider>
-          <PatchChecker>
-            <FightSelection>
-              <PlayerLoader>
-                <SupportChecker>
-                  <ResultsLoader />
-                </SupportChecker>
-              </PlayerLoader>
-            </FightSelection>
-          </PatchChecker>
-        </ReportExpansionContextProvider>
-      </ReportLoader>
-    </ErrorBoundary>
-  </>
-);
-
-export default ReportLayout;
-
-const UnsupportedSpecBouncer = ({ report, fight }: { report: Report; fight: WCLFight }) => (
-  <div className="container offset">
-    <Panel
-      title={
-        <Trans id="interface.report.unsupportSpec.title">
-          The selected specialization is not supported.
-        </Trans>
-      }
-    >
-      <div className="flex wrappable">
-        <div className="flex-main pad">
-          <p>
-            <Trans id="interface.report.unsupportedSpec.body">
-              The selected specialization has not been updated for the latest expansion and cannot
-              be used due to ability changes.
-            </Trans>
-          </p>
-          <Link to={makeAnalyzerUrl(report, fight.id)}>Go Back</Link>
-        </div>
-      </div>
-    </Panel>
-  </div>
-);
+      <ErrorBoundary>
+        <ReportLoader>
+          <ReportExpansionContextProvider>
+            <PatchChecker>
+              <FightSelection>
+                <PlayerLoader>
+                  <SupportChecker>
+                    <ResultsLoader />
+                  </SupportChecker>
+                </PlayerLoader>
+              </FightSelection>
+            </PatchChecker>
+          </ReportExpansionContextProvider>
+        </ReportLoader>
+      </ErrorBoundary>
+    </>
+  );
+}

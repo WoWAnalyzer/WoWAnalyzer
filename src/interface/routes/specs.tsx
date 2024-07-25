@@ -16,7 +16,7 @@ const isAnySpecSupported = (configs: Config[]) =>
 
 const retailSpecs = AVAILABLE_CONFIGS.filter((it) => it.branch === GameBranch.Retail);
 
-const SpecListing = () => {
+export function Component() {
   usePageView('SpecList');
 
   const { i18n } = useLingui();
@@ -95,6 +95,4 @@ const SpecListing = () => {
       </div>
     </>
   );
-};
-
-export default SpecListing;
+}

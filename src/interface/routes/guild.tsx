@@ -3,7 +3,7 @@ import NavigationBar from 'interface/NavigationBar';
 import { useParams, useSearchParams } from 'react-router-dom';
 import DocumentTitle from 'interface/DocumentTitle';
 
-const GuildPage = () => {
+export function Component() {
   const { region, realm, name } = useParams();
   const regionDecoded = decodeURI(region?.replace(/\+/g, ' ') ?? '').toUpperCase();
   const realmDecoded = decodeURI(realm?.replace(/\+/g, ' ') ?? '');
@@ -18,6 +18,4 @@ const GuildPage = () => {
       <GuildReports region={regionDecoded} realm={realmDecoded} name={nameDecoded} game={game} />
     </>
   );
-};
-
-export default GuildPage;
+}

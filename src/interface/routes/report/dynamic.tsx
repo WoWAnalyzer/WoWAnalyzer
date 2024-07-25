@@ -1,10 +1,10 @@
-import ErrorBoundary from 'interface/ErrorBoundary';
-import ResultsLoadingIndicator from 'interface/report/Results/ResultsLoadingIndicator';
-import { useResults } from 'interface/report/Results/ResultsContext';
 import { useParams } from 'react-router-dom';
+import { useResults } from 'interface/report/Results/ResultsContext';
 import { usePageView } from 'interface/useGoogleAnalytics';
+import ResultsLoadingIndicator from 'interface/report/Results/ResultsLoadingIndicator';
+import ErrorBoundary from 'interface/ErrorBoundary';
 
-export const DefaultTab = () => {
+export function Component() {
   const { resultTab } = useParams();
   const { isLoading, results } = useResults();
   usePageView('Results/CustomTab', resultTab);
@@ -20,4 +20,4 @@ export const DefaultTab = () => {
       <ErrorBoundary>{tab ? tab.render() : '404 tab not found'}</ErrorBoundary>
     </div>
   );
-};
+}
