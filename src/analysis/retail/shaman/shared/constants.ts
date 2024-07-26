@@ -8,14 +8,6 @@ export const ELEMENTAL_BLAST_BUFFS = [
   SPELLS.ELEMENTAL_BLAST_HASTE,
 ];
 
-export const TOTEMIC_SURGE_SCALING = [0, 2, 4];
-
-// Go with the flow - Spirit Walk
-export const GWTF_SW_SCALING = [0, 7.5, 15];
-
-// Go with the flow - Gust of Wind
-export const GWTF_GOW_SCALING = [0, 5, 10];
-
 // event links for Splintered Elements
 export const PRIMORDIAL_WAVE_LINK = 'primoridal-wave';
 export const SPLINTERED_ELEMENTS_LINK = 'splintered-elements';

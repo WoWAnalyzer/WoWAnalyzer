@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 // prettier-ignore
 export default [
+  change(date(2024, 7, 26), <>Updating to 11.0.0</>, Seriousnes),
   change(date(2024, 4, 24), <>Updating mana cost for <SpellLink spell={TALENTS.EARTH_SHIELD_TALENT} />.</>, Seriousnes),
   change(date(2024, 4, 24), <>Updated to 10.2.6 compatibility </>, Seriousnes),
   change(date(2024, 4, 10), <><SpellLink spell={TALENTS.CHAIN_LIGHTNING_TALENT} /> damage calculations didn't include chains</>, Seriousnes),

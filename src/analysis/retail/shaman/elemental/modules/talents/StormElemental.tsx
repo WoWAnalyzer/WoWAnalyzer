@@ -24,7 +24,8 @@ class StormElemental extends Analyzer {
     [SPELLS.LIGHTNING_BOLT.id]: 0,
     [TALENTS.CHAIN_LIGHTNING_TALENT.id]: 0,
     [TALENTS.EARTH_SHOCK_TALENT.id]: 0,
-    [TALENTS.EARTHQUAKE_TALENT.id]: 0,
+    [TALENTS.EARTHQUAKE_1_ELEMENTAL_TALENT.id]: 0,
+    [TALENTS.EARTHQUAKE_2_ELEMENTAL_TALENT.id]: 0,
     others: 0,
   };
   protected enemies!: Enemies;
@@ -98,7 +99,11 @@ class StormElemental extends Analyzer {
             <ul>
               <li>Earth Shock: {this.numCasts[TALENTS.EARTH_SHOCK_TALENT.id]}</li>
               <li>Lightning Bolt: {this.numCasts[SPELLS.LIGHTNING_BOLT.id]}</li>
-              <li>Earthquake: {this.numCasts[TALENTS.EARTH_SHOCK_TALENT.id]}</li>
+              <li>
+                Earthquake:{' '}
+                {this.numCasts[TALENTS.EARTHQUAKE_1_ELEMENTAL_TALENT.id] +
+                  this.numCasts[TALENTS.EARTHQUAKE_2_ELEMENTAL_TALENT.id]}
+              </li>
               <li>Chain Lightning: {this.numCasts[TALENTS.CHAIN_LIGHTNING_TALENT.id]}</li>
               <li>Other Spells: {this.numCasts.others}</li>
             </ul>

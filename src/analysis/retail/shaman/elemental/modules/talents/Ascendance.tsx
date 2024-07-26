@@ -1,6 +1,6 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/shaman';
-import Analyzer, { Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -9,12 +9,22 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 import Abilities from '../Abilities';
+import Events, {
+  ApplyBuffEvent,
+  CastEvent,
+  RefreshBuffEvent,
+  UpdateSpellUsableEvent,
+  UpdateSpellUsableType,
+} from 'parser/core/Events';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 class Ascendance extends Analyzer {
   static dependencies = {
     abilities: Abilities,
     enemies: Enemies,
+    spellUsable: SpellUsable,
   };
+
   justEnteredAscendance = false;
   checkDelay = 0;
   numCasts = {
@@ -26,12 +36,61 @@ class Ascendance extends Analyzer {
   };
   protected abilities!: Abilities;
   protected enemies!: Enemies;
+  protected spellUsable!: SpellUsable;
+
+  private ascendanceIsActive: boolean = false;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.ASCENDANCE_ELEMENTAL_TALENT);
+    this.active =
+      this.selectedCombatant.hasTalent(TALENTS.ASCENDANCE_ELEMENTAL_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT);
     if (!this.active) {
       return;
+    }
+
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.ASCENDANCE_ELEMENTAL_TALENT),
+      this.onApplyAscendance,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(TALENTS.ASCENDANCE_ELEMENTAL_TALENT),
+      this.onApplyAscendance,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.ASCENDANCE_ELEMENTAL_TALENT),
+      () => (this.ascendanceIsActive = false),
+    );
+    this.addEventListener(Events.UpdateSpellUsable, this.onLvBUpdateSpellUsable);
+  }
+
+  onLvBUpdateSpellUsable(event: UpdateSpellUsableEvent) {
+    const spellId = TALENTS.LAVA_BURST_TALENT.id;
+    if (!this.ascendanceIsActive || event.ability.guid !== spellId) {
+      return;
+    }
+
+    if (
+      event.updateType === UpdateSpellUsableType.UseCharge ||
+      event.updateType === UpdateSpellUsableType.BeginCooldown
+    ) {
+      this.spellUsable.endCooldown(spellId, event.timestamp, true, true);
+    }
+  }
+
+  onApplyAscendance(event: ApplyBuffEvent | RefreshBuffEvent) {
+    this.ascendanceIsActive = true;
+    this.numCasts[event.ability.guid] += 1;
+  }
+
+  onCast(event: CastEvent) {
+    const spellId = event.ability.guid;
+
+    if (this.numCasts[spellId] !== undefined) {
+      this.numCasts[spellId] += 1;
+    } else {
+      this.numCasts.others += 1;
     }
   }
 
@@ -72,13 +131,12 @@ class Ascendance extends Analyzer {
             With a uptime of: {formatPercentage(this.AscendanceUptime)} %<br />
             Casts while Ascendance was up:
             <ul>
-              <li>Earth Shock: {this.numCasts[TALENTS.EARTH_SHOCK_TALENT.id]}</li>
               <li>Lava Burst: {this.numCasts[TALENTS.LAVA_BURST_TALENT.id]}</li>
-              {hasEB && (
+              {(hasEB && (
                 <li>
                   Elemental Blast: {this.numCasts[TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id]}
                 </li>
-              )}
+              )) || <li>Earth Shock: {this.numCasts[TALENTS.EARTH_SHOCK_TALENT.id]}</li>}
               <li>Other Spells: {this.numCasts.others}</li>
             </ul>
           </>

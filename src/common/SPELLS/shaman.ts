@@ -305,6 +305,11 @@ const spells = {
     name: 'Icefury Overload',
     icon: 'spell_frost_iceshard',
   },
+  ICEFURY: {
+    id: 210714,
+    name: 'Icefury',
+    icon: 'spell_frost_iceshard',
+  },
   LAVA_SURGE: {
     id: 77762,
     name: 'Lava Surge',
@@ -478,9 +483,14 @@ const spells = {
     icon: 'spell_nature_spiritwolf',
   },
   FERAL_LUNGE: {
+    id: 196884,
+    name: 'Feral Lunge',
+    icon: 'spell_beastmaster_wolf.jpg',
+  },
+  FERAL_LUNGE_NOT_A_CAST: {
     id: 196881,
     name: 'Feral Lunge',
-    icon: 'spell_beastmaster_wolf',
+    icon: 'spell_beastmaster_wolf.jpg',
   },
   FERAL_LUNGE_DAMAGE: {
     id: 215802,
@@ -524,10 +534,10 @@ const spells = {
     name: 'Windfury Attack',
     icon: 'spell_shaman_unleashweapon_wind',
   },
-  WINDFURY_TOTEM_BUFF: {
-    id: 327942,
-    name: 'Windfury Totem',
-    icon: 'spell_nature_windfury',
+  SKYFURY: {
+    id: 462854,
+    name: 'Skyfury',
+    icon: 'achievement_raidprimalist_windelemental',
   },
   ELEMENTAL_HEALING: {
     id: 198249,
@@ -826,6 +836,16 @@ const spells = {
     id: 404551,
     name: 'Mana Spring',
     icon: 'spell_nature_manaregentotem',
+  },
+  STONE_BULWARK_CAST_BUFF: {
+    id: 114893,
+    name: 'Stone Bulwark',
+    icon: 'ability_shaman_stonebulwark',
+  },
+  STONE_BULWARK_PULSE_BUFF: {
+    id: 462844,
+    name: 'Stone Bulwark',
+    icon: 'ability_shaman_stonebulwark',
   },
 } satisfies Record<string, Spell>;
 

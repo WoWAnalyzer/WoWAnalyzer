@@ -13,11 +13,13 @@ import {
   ToppleTheNun,
   Awildfivreld,
   Sref,
+  Seriousnes,
 } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 // prettier-ignore
 export default [
+  change(date(2024, 7, 26), <>Updating to 11.0.0</>, Seriousnes),
   change(date(2023, 11, 12), <>Updated Active Time Graph to use a rolling average instead of cumulative average.</>, Sref),
   change(date(2023, 9, 17), <>Reorder guide sections and make the guide default.</>, Awildfivreld),
   change(date(2023, 9, 17), <>Use core ResourceTracker logic now that it is available.</>, Awildfivreld),

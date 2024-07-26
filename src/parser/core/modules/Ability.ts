@@ -45,7 +45,7 @@ export interface SpellbookAbility<TrackedAbilityType extends TrackedAbility = Tr
    * will recharge at a time, so a spell having multiple charges will only have
    * the amount of charges as extra possible casts during a fight.
    */
-  charges?: number;
+  charges?: ((combatant: Combatant) => number) | number;
   /**
    * `null` is the spell is off the GCD, or an object if the spell is on the
    * GCD. If this spell overlaps in the Spell Timeline it likely is incorrectly
@@ -99,7 +99,7 @@ export interface SpellbookAbility<TrackedAbilityType extends TrackedAbility = Tr
    * displayed. This should only be used for hiding spells that are
    * unavailable, for example due to talents.
    */
-  enabled?: boolean;
+  enabled?: ((combatant: Combatant) => boolean) | boolean;
 
   /**
    * The ability's priority on the timeline. The lower the number the higher on
@@ -234,8 +234,34 @@ class Ability {
     maxCasts: undefined,
     importance: undefined,
   };
-  charges = 1;
-  enabled = true;
+  _charges: SpellbookAbility['charges'];
+  set charges(value) {
+    this._charges = value;
+  }
+  get charges() {
+    if (this._charges === undefined) {
+      // Most abilities will have 1 charge unless otherwise specified
+      return undefined;
+    }
+    if (typeof this._charges === 'function') {
+      return this._charges.call(this.owner, this.owner!.selectedCombatant);
+    }
+    return this._charges;
+  }
+  _enabled: SpellbookAbility['enabled'];
+  set enabled(value) {
+    this._enabled = value;
+  }
+  get enabled() {
+    if (this._enabled === undefined) {
+      // Most abilities will have 1 charge unless otherwise specified
+      return true;
+    }
+    if (typeof this._enabled === 'function') {
+      return this._enabled.call(this.owner, this.owner!.selectedCombatant);
+    }
+    return this._enabled;
+  }
   timelineSortIndex: number | null = null;
   timelineCastableBuff: number | undefined;
   /** @deprecated Use the Buffs module to define your buffs instead. If your spec has no Buffs module, this prop will be used to prefill it. */

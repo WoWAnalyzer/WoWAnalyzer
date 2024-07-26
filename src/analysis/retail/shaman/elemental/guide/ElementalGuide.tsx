@@ -46,11 +46,9 @@ const CoreSection = (props: GuideProps<typeof CombatLogParser>) => {
   const { info, modules } = props;
   return (
     <Section title="Core Abilities">
-      {(info.combatant.hasTalent(TALENTS_SHAMAN.STORMKEEPER_1_ELEMENTAL_TALENT) ||
-        info.combatant.hasTalent(TALENTS_SHAMAN.STORMKEEPER_2_ELEMENTAL_TALENT)) &&
+      {info.combatant.hasTalent(TALENTS_SHAMAN.STORMKEEPER_TALENT) &&
         modules.stormkeeper.guideSubsection()}
       {modules.spenderWindow.active && modules.spenderWindow.guideSubsection()}
-      {modules.electrifiedShocks.active && modules.electrifiedShocks.guideSubsection}
       <FlameShockSubSection {...props} />
     </Section>
   );
@@ -59,7 +57,7 @@ const CoreSection = (props: GuideProps<typeof CombatLogParser>) => {
 const cooldownTalents: Cooldown[] = [
   {
     spell: SPELLS.STORMKEEPER_BUFF_AND_CAST,
-    isActive: (c) => c.hasTalent(TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT),
+    isActive: (c) => c.hasTalent(TALENTS.STORMKEEPER_TALENT),
   },
   {
     spell: TALENTS.LIQUID_MAGMA_TOTEM_TALENT,
@@ -73,7 +71,6 @@ const cooldownTalents: Cooldown[] = [
     spell: TALENTS.FIRE_ELEMENTAL_TALENT,
     isActive: (c) => c.hasTalent(TALENTS.FIRE_ELEMENTAL_TALENT),
   },
-  { spell: TALENTS.ICEFURY_TALENT, isActive: (c) => c.hasTalent(TALENTS.ICEFURY_TALENT) },
 ];
 
 const defensiveTalents: Cooldown[] = [
@@ -97,6 +94,10 @@ const defensiveTalents: Cooldown[] = [
   {
     spell: TALENTS.SPIRITWALKERS_GRACE_TALENT,
     isActive: (c) => c.hasTalent(TALENTS.SPIRITWALKERS_GRACE_TALENT),
+  },
+  {
+    spell: TALENTS.STONE_BULWARK_TOTEM_TALENT,
+    isActive: (c) => c.hasTalent(TALENTS.STONE_BULWARK_TOTEM_TALENT),
   },
 ];
 
