@@ -19,10 +19,16 @@ import { formatNumber, formatPercentage } from 'common/format';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import { ZEN_PULSE_INCREASE_PER_STACK, ZEN_PULSE_MAX_HITS_FOR_BOOST } from '../../constants';
+import Abilities from '../features/Abilities';
 
 const MAX_STACKS = 2;
 
 class ZenPulse extends Analyzer {
+  static dependencies = {
+    abilities: Abilities,
+  };
+
+  protected abilities!: Abilities;
   zenPulseHits: number = 0;
   healing: number = 0;
   overhealing: number = 0;
@@ -76,6 +82,13 @@ class ZenPulse extends Analyzer {
     );
   }
 
+  get ppm() {
+    const tftCasts =
+      this.abilities.abilityTracker.getAbility(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id).casts || 0;
+    console.log(tftCasts, this.consumedBuffs, this.wastedBuffs);
+    return this.owner.getPerMinute(this.consumedBuffs + this.wastedBuffs - tftCasts).toFixed(2);
+  }
+
   get avgHealingPerCast() {
     return this.healing / this.castIncreases.length;
   }
@@ -101,6 +114,7 @@ class ZenPulse extends Analyzer {
     } else {
       this.wastedBuffs += 1;
       this.currentBuffs = 0;
+      console.log(event, this.owner.formatTimestamp(event.timestamp));
     }
   }
 
@@ -132,6 +146,7 @@ class ZenPulse extends Analyzer {
         tooltip={
           <>
             <ul>
+              <li>Procs per minute: {this.ppm}</li>
               <li>Effective healing: {formatNumber(this.healing)}</li>
               <li>Overhealing: {formatNumber(this.overhealing)}</li>
               <li>Average increase: {formatPercentage(this.avgIncrease)}%</li>
