@@ -85,7 +85,6 @@ class ZenPulse extends Analyzer {
   get ppm() {
     const tftCasts =
       this.abilities.abilityTracker.getAbility(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id).casts || 0;
-    console.log(tftCasts, this.consumedBuffs, this.wastedBuffs);
     return this.owner.getPerMinute(this.consumedBuffs + this.wastedBuffs - tftCasts).toFixed(2);
   }
 
@@ -114,7 +113,6 @@ class ZenPulse extends Analyzer {
     } else {
       this.wastedBuffs += 1;
       this.currentBuffs = 0;
-      console.log(event, this.owner.formatTimestamp(event.timestamp));
     }
   }
 
