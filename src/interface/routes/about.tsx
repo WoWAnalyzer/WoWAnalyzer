@@ -9,7 +9,7 @@ import MasteryRadiusImage from 'interface/images/mastery-radius.png';
 import Panel from 'interface/Panel';
 import PatreonButton from 'interface/PatreonButton';
 import { Link } from 'react-router-dom';
-import { usePageView } from './useGoogleAnalytics';
+import { usePageView } from '../useGoogleAnalytics';
 
 export function Component() {
   usePageView('AboutPage');

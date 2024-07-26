@@ -14,6 +14,7 @@ import 'react-toggle/style.css';
 import '../App.scss';
 import { setInternetExplorer } from '../reducers/internetExplorer';
 import { fetchUser } from '../reducers/user';
+import { ProgressBar } from 'interface/ProgressBar';
 
 function detectInternetExplorer() {
   const myNav = navigator.userAgent.toLowerCase();
@@ -64,6 +65,7 @@ export function Component() {
       <PortalTarget />
       <Hotkeys />
       <ScrollRestoration />
+      <ProgressBar />
     </>
   );
 }

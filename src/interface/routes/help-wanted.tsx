@@ -2,7 +2,7 @@ import { Trans, t } from '@lingui/macro';
 import DocumentTitle from 'interface/DocumentTitle';
 import Panel from 'interface/Panel';
 import { Link } from 'react-router-dom';
-import { usePageView } from './useGoogleAnalytics';
+import { usePageView } from '../useGoogleAnalytics';
 
 export function Component() {
   usePageView('HelpWantedPage');
