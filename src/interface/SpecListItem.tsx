@@ -62,7 +62,7 @@ const SpecListItem = ({
         </em>
       </small>
     );
-  } else if ((supportLevel = SupportLevel.MaintainedPartial)) {
+  } else if (supportLevel === SupportLevel.MaintainedPartial) {
     supportDescription = (
       <Trans id="interface.specListItem.partialPatchCompatability">
         Partial support for patch {patchCompatibility}
