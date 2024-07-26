@@ -5,6 +5,7 @@ import { Vohrr } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date (2024, 7, 25), <>Logging cleanup.</>, Vohrr),
   change(date (2024, 7, 25), <>Add procs per minute metric to <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT}/>.</>, Vohrr),
   change(date (2024, 7, 25), <>Update <SpellLink spell={TALENTS_MONK.MENDING_PROLIFERATION_TALENT}/>.</>, Vohrr),
   change(date (2024, 7, 24), <>Bump patch support to 11.0 and sample log.</>, Vohrr),
