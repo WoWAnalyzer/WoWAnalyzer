@@ -38,6 +38,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 7, 22), 'Fix partial support indication on spec list.', ToppleTheNun),
   change(date(2024, 7, 22), 'Update Paladin spells for Classic Cataclysm', Ethelis),
   change(date(2024, 7, 19), 'Update Racials for Classic Cataclysm', jazminite),
   change(date(2024, 7, 18), 'Clean up padding on specs with core support', emallson),
