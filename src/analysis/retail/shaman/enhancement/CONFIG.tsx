@@ -19,7 +19,7 @@ const config: Config = {
       </AlertWarning>
       <br />
       Hey there! Thanks for checking out the Enhancement Analyzer. If you have any feedback or
-      suggestions, feel free to reach out to Vetyst via Discord (Vetyst#0001) or drop an issue in
+      suggestions, feel free to reach out to Seriousnes via Discord (seriousnes) or drop an issue in
       the GitHub repo.
     </>
   ),
