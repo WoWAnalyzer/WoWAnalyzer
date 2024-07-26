@@ -34,7 +34,7 @@ class Abilities extends CoreAbilities {
       },
       // Rotational AOE
       {
-        spell: SPELLS.BLIZZARD_CHANNELED.id,
+        spell: SPELLS.BLIZZARD.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: { base: 1500 },
       },

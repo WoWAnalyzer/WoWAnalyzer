@@ -41,7 +41,7 @@ const spells = {
     name: 'Blink',
     icon: 'spell_arcane_blink.jpg',
   },
-  BLIZZARD_CHANNELED: {
+  BLIZZARD: {
     id: 10,
     name: 'Blizzard',
     icon: 'spell_frost_icestorm.jpg',
