@@ -41,8 +41,13 @@ const spells = {
     name: 'Blink',
     icon: 'spell_arcane_blink.jpg',
   },
-  BLIZZARD: {
+  BLIZZARD_CHANNELED: {
     id: 10,
+    name: 'Blizzard',
+    icon: 'spell_frost_icestorm.jpg',
+  },
+  BLIZZARD_TICK: {
+    id: 42208,
     name: 'Blizzard',
     icon: 'spell_frost_icestorm.jpg',
   },
@@ -328,7 +333,7 @@ const spells = {
     icon: 'ability_mage_deepfreeze.jpg',
   },
   FROSTFIRE_ORB: {
-    id: 84714,
+    id: 92283,
     name: 'Frostfire Orb',
     icon: 'spell_firefrost-orb.jpg',
   },
