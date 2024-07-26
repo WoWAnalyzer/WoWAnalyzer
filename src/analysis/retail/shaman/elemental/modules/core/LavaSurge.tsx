@@ -25,7 +25,7 @@ class LavaSurge extends Analyzer {
 
   applyBuff(event: ApplyBuffEvent | RefreshBuffEvent) {
     if (this.spellUsable.isOnCooldown(TALENTS.LAVA_BURST_TALENT.id)) {
-      this.spellUsable.endCooldown(TALENTS.LAVA_BURST_TALENT.id, event.timestamp, true, false);
+      this.spellUsable.endCooldown(TALENTS.LAVA_BURST_TALENT.id, event.timestamp, false, false);
     }
   }
 }
