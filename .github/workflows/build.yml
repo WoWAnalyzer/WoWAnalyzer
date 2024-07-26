@@ -60,10 +60,9 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm exec prettier . --check
 
-  test-interface:
+  tests:
     needs: [prepare]
-    # This should actually include anything but parser tests
-    name: 'Interface tests'
+    name: 'Tests'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -73,21 +72,7 @@ jobs:
           node-version: '20.x'
           cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
-      - run: pnpm run test:interface
-
-  test-parser:
-    needs: [prepare]
-    name: 'Parser tests'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20.x'
-          cache: 'pnpm'
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm run test:parser
+      - run: pnpm run test
 
   build:
     needs: [prepare]
@@ -214,7 +199,7 @@ jobs:
         run: pnpm exec lingui compile
 
   docker-image:
-    needs: [typecheck, linting, prettier, test-interface, test-parser, build]
+    needs: [typecheck, linting, prettier, tests, build]
     name: 'Publish Docker image'
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.repository == 'wowanalyzer/wowanalyzer'
