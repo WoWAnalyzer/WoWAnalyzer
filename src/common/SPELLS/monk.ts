@@ -212,6 +212,11 @@ const spells = {
     name: 'Vivifacious Vivification',
     icon: 'ability_monk_vivify',
   },
+  MENDING_PROLIFERATION_BUFF: {
+    id: 388510,
+    name: 'Mending Proliferation',
+    icon: 'inv_shoulder_inv_leather_raidmonk_s_01',
+  },
   AT_BUFF: {
     id: 388026,
     name: 'Ancient Teachings',

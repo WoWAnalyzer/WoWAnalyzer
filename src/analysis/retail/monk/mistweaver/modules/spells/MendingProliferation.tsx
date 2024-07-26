@@ -10,6 +10,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { ENVELOPING_MIST_INCREASE, MISTWRAP_INCREASE } from '../../constants';
+import SPELLS from 'common/SPELLS';
 
 class MendingProliferation extends Analyzer {
   static dependencies = {
@@ -41,7 +42,7 @@ class MendingProliferation extends Analyzer {
     }
     if (
       this.combatants.players[targetID].hasBuff(
-        TALENTS_MONK.MENDING_PROLIFERATION_TALENT.id,
+        SPELLS.MENDING_PROLIFERATION_BUFF.id,
         event.timestamp,
         0,
         0,
