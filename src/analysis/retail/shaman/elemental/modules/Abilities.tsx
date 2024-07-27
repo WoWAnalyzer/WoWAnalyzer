@@ -29,6 +29,11 @@ class Abilities extends ClassAbilities {
       {
         spell: SPELLS.ICEFURY.id,
         category: SPELL_CATEGORY.ROTATIONAL,
+        enabled: combatant.hasTalent(TALENTS.ICEFURY_TALENT),
+        gcd: {
+          base: 1500,
+        },
+        range: 40,
       },
       {
         spell: SPELLS.LAVA_BEAM.id,
@@ -110,14 +115,6 @@ class Abilities extends ClassAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
-        },
-      },
-      {
-        spell: TALENTS.ICEFURY_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.ICEFURY_TALENT),
-        category: SPELL_CATEGORY.COOLDOWNS,
-        gcd: {
-          base: 1500,
         },
       },
       {

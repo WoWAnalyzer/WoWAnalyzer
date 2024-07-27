@@ -20,7 +20,6 @@ interface ActiveSpenderWindow {
 }
 
 interface FinishedSpenderWindow extends ActiveSpenderWindow {
-  elshocksPresent: boolean;
   sopUse: CastEvent;
 }
 
@@ -129,14 +128,8 @@ class SpenderWindow extends Analyzer {
       return;
     }
 
-    const elshocksPresent =
-      this.enemies
-        .getEntity(event)
-        ?.hasBuff(SPELLS.ELECTRIFIED_SHOCKS_DEBUFF.id, event.timestamp) || false;
-
     this.spenderWindows.push({
       ...this.activeSpenderWindow,
-      elshocksPresent,
       sopUse: event,
     });
     this.activeSpenderWindow = null;

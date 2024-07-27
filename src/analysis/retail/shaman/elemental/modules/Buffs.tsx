@@ -13,6 +13,13 @@ class Buffs extends CoreAuras {
         spellId: SPELLS.ICEFURY.id,
         enabled: combatant.hasTalent(TALENTS.ICEFURY_TALENT),
         timelineHighlight: true,
+        triggeredBySpellId: SPELLS.ICEFURY.id,
+      },
+      {
+        spellId: SPELLS.ICEFURY_CAST.id,
+        enabled: combatant.hasTalent(TALENTS.ICEFURY_TALENT),
+        timelineHighlight: true,
+        triggeredBySpellId: TALENTS.LAVA_BURST_TALENT.id,
       },
       {
         spellId: TALENTS.FIRE_ELEMENTAL_TALENT.id,
@@ -32,6 +39,18 @@ class Buffs extends CoreAuras {
         spellId: SPELLS.STORMKEEPER_BUFF_AND_CAST.id,
         triggeredBySpellId: SPELLS.STORMKEEPER_BUFF_AND_CAST.id,
         enabled: combatant.hasTalent(TALENTS.STORMKEEPER_TALENT),
+        timelineHighlight: true,
+      },
+      {
+        spellId: TALENTS.ASCENDANCE_ELEMENTAL_TALENT.id,
+        enabled:
+          combatant.hasTalent(TALENTS.ASCENDANCE_ELEMENTAL_TALENT) ||
+          combatant.hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT),
+        timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.LAVA_SURGE.id,
+        enabled: true,
         timelineHighlight: true,
       },
     ];

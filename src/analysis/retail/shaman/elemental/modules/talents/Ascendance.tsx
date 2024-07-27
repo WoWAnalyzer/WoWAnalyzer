@@ -9,13 +9,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 import Abilities from '../Abilities';
-import Events, {
-  ApplyBuffEvent,
-  CastEvent,
-  RefreshBuffEvent,
-  UpdateSpellUsableEvent,
-  UpdateSpellUsableType,
-} from 'parser/core/Events';
+import Events, { ApplyBuffEvent, CastEvent, RefreshBuffEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 class Ascendance extends Analyzer {
@@ -38,8 +32,6 @@ class Ascendance extends Analyzer {
   protected enemies!: Enemies;
   protected spellUsable!: SpellUsable;
 
-  private ascendanceIsActive: boolean = false;
-
   constructor(options: Options) {
     super(options);
     this.active =
@@ -58,30 +50,11 @@ class Ascendance extends Analyzer {
       Events.refreshbuff.by(SELECTED_PLAYER).spell(TALENTS.ASCENDANCE_ELEMENTAL_TALENT),
       this.onApplyAscendance,
     );
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.ASCENDANCE_ELEMENTAL_TALENT),
-      () => (this.ascendanceIsActive = false),
-    );
-    this.addEventListener(Events.UpdateSpellUsable, this.onLvBUpdateSpellUsable);
-  }
-
-  onLvBUpdateSpellUsable(event: UpdateSpellUsableEvent) {
-    const spellId = TALENTS.LAVA_BURST_TALENT.id;
-    if (!this.ascendanceIsActive || event.ability.guid !== spellId) {
-      return;
-    }
-
-    if (
-      event.updateType === UpdateSpellUsableType.UseCharge ||
-      event.updateType === UpdateSpellUsableType.BeginCooldown
-    ) {
-      this.spellUsable.endCooldown(spellId, event.timestamp, true, true);
-    }
   }
 
   onApplyAscendance(event: ApplyBuffEvent | RefreshBuffEvent) {
-    this.ascendanceIsActive = true;
     this.numCasts[event.ability.guid] += 1;
+    this.spellUsable.endCooldown(TALENTS.LAVA_BURST_TALENT.id, event.timestamp, true, true);
   }
 
   onCast(event: CastEvent) {

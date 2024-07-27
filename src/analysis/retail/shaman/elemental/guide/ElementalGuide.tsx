@@ -7,6 +7,8 @@ import CooldownGraphSubsection, {
   Cooldown,
 } from 'interface/guide/components/CooldownGraphSubSection';
 import SPELLS from 'common/SPELLS';
+import { AplSectionData } from 'interface/guide/components/Apl';
+import * as AplCheck from 'analysis/retail/shaman/elemental/apl/AplCheck';
 
 const PrefaceSection = () => {
   return (
@@ -50,6 +52,14 @@ const CoreSection = (props: GuideProps<typeof CombatLogParser>) => {
         modules.stormkeeper.guideSubsection()}
       {modules.spenderWindow.active && modules.spenderWindow.guideSubsection()}
       <FlameShockSubSection {...props} />
+    </Section>
+  );
+};
+
+const RotationSection = ({ modules, info }: GuideProps<typeof CombatLogParser>) => {
+  return (
+    <Section title="Single Target Rotation">
+      <AplSectionData checker={AplCheck.check} apl={AplCheck.apl(info)} />
     </Section>
   );
 };
@@ -114,6 +124,7 @@ export default function ElementalGuide(props: GuideProps<typeof CombatLogParser>
         <CooldownGraphSubsection cooldowns={cooldownTalents} />
       </Section>
       <CoreSection {...props} />
+      <RotationSection {...props} />
       <Section title="Defensive and utility">
         <CooldownGraphSubsection
           cooldowns={defensiveTalents}

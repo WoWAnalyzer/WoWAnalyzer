@@ -16,10 +16,15 @@ const spells = {
     name: 'Earth Shock Overload',
     icon: 'spell_nature_earthshock',
   },
-  ELECTRIFIED_SHOCKS_DEBUFF: {
-    id: 382089,
-    name: 'Electrified Shocks',
-    icon: 'inv_offhand_1h_artifactdoomhammer_d_02',
+  FUSION_OF_THE_ELEMENTS_NATURE_BUFF: {
+    id: 462841,
+    name: 'Fusion of Elements',
+    icon: 'inv_10_enchanting2_elementalswirl_color1',
+  },
+  FUSION_OF_THE_ELEMENTS_FIRE_BUFF: {
+    id: 462843,
+    name: 'Fusion of Elements',
+    icon: 'inv_10_enchanting2_elementalswirl_color1',
   },
   PURIFY_SPIRIT: {
     id: 77130,
@@ -307,6 +312,11 @@ const spells = {
   },
   ICEFURY: {
     id: 210714,
+    name: 'Icefury',
+    icon: 'spell_frost_iceshard',
+  },
+  ICEFURY_CAST: {
+    id: 462818,
     name: 'Icefury',
     icon: 'spell_frost_iceshard',
   },

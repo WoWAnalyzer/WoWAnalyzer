@@ -241,7 +241,7 @@ class Ability {
   get charges() {
     if (this._charges === undefined) {
       // Most abilities will have 1 charge unless otherwise specified
-      return undefined;
+      return 0;
     }
     if (typeof this._charges === 'function') {
       return this._charges.call(this.owner, this.owner!.selectedCombatant);

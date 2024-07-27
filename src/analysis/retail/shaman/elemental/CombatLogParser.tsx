@@ -18,7 +18,6 @@ import CancelledCasts from './modules/features/CancelledCasts';
 import SubOptimalChainLightning from './modules/features/SubOptimalChainLightning';
 import Aftershock from './modules/talents/Aftershock';
 import Ascendance from './modules/talents/Ascendance';
-import Icefury from './modules/talents/Icefury';
 import LiquidMagmaTotem from './modules/talents/LiquidMagmaTotem';
 import MasterOfTheElements from './modules/talents/MasterOfTheElements';
 import PrimalFireElemental from './modules/talents/PrimalFireElemental';
@@ -37,6 +36,7 @@ import MaelstromTracker from './modules/resources/MaelstromTracker';
 import MaelstromDetails from './modules/resources/MaelstromDetails';
 import MaelstromGraph from './modules/resources/MaelstromGraph';
 import SkybreakersFieryDemise from './modules/talents/SkybreakersFieryDemise';
+import IcefuryNormalizer from './modules/normalizers/IcefuryNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -49,6 +49,8 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     subOptimalChainLightning: SubOptimalChainLightning,
     spenderWindow: SpenderWindow,
+
+    icefuryNormalizer: IcefuryNormalizer,
 
     // Talents
     aftershock: Aftershock,
@@ -64,7 +66,6 @@ class CombatLogParser extends CoreCombatLogParser {
     surgeOfPower: SurgeOfPower,
     primalFireElemental: PrimalFireElemental,
     primalStormElemental: PrimalStormElemental,
-    icefury: Icefury,
     stormkeeper: Stormkeeper,
     ascendance: Ascendance,
     manaSpring: ManaSpring,

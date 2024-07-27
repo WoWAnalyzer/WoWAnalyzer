@@ -79,7 +79,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.FROST_SHOCK_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.FROST_SHOCK_TALENT),
+        enabled: true, // combatant.hasTalent(TALENTS.FROST_SHOCK_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) =>
           combatant.specId === SPECS.ENHANCEMENT_SHAMAN.id ? 6 / (1 + haste) : 0,
@@ -121,7 +121,12 @@ class Abilities extends CoreAbilities {
               return c.hasTalent(TALENTS.LAVA_BURST_TALENT);
           }
         },
-        cooldown: 8,
+        cooldown: (_) => {
+          if (combatant.hasBuff(TALENTS.ASCENDANCE_ELEMENTAL_TALENT.id)) {
+            return 0;
+          }
+          return 8;
+        },
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
