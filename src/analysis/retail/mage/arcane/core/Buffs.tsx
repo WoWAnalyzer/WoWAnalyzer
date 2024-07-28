@@ -54,6 +54,11 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
+        spellId: SPELLS.ARCANE_TEMPO_BUFF.id,
+        enabled: combatant.hasTalent(TALENTS.ARCANE_TEMPO_TALENT),
+        timelineHighlight: true,
+      },
+      {
         spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),
         timelineHighlight: true,
       },
