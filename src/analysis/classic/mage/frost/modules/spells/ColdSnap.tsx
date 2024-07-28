@@ -5,9 +5,10 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SPELLS from 'common/SPELLS/classic/mage';
 
 const SPELL_RESETS = [
-  SPELLS.ICE_BARRIER,
-  SPELLS.FROST_NOVA,
   SPELLS.CONE_OF_COLD,
+  SPELLS.FROST_NOVA,
+  SPELLS.FROSTFIRE_ORB,
+  SPELLS.ICE_BARRIER,
   SPELLS.ICE_BLOCK,
   SPELLS.ICY_VEINS,
 ];
