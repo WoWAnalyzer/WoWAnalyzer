@@ -13,7 +13,7 @@ import Events, {
 import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
-const MAX_BONE_SHIELD_STACKS = 10;
+const MAX_BONE_SHIELD_STACKS = 15;
 const BONE_SHIELD_DURATION_MS = 30 * 1000;
 const DRW_COOLDOWN_REDUCTION_MS = 5000;
 const BLOOD_TAP_COOLDOWN_REDUCTION_MS = 2000;
