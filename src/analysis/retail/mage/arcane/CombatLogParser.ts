@@ -20,22 +20,37 @@ import AlwaysBeCasting from './core/AlwaysBeCasting';
 import Buffs from './core/Buffs';
 import CooldownThroughputTracker from './core/CooldownThroughputTracker';
 import ArcaneChargeTracker from './core/ArcaneChargeTracker';
-import ArcaneMissiles from './core/ArcaneMissiles';
-import ArcaneSurgeMana from './core/ArcaneSurgeMana';
-import ArcaneSurgePreReqs from './core/ArcaneSurgePreReqs';
+import Clearcasting from './core/Clearcasting';
+import ArcaneBarrage from './core/ArcaneBarrage';
+import ArcaneOrb from './talents/ArcaneOrb';
+import ArcaneSurge from './core/ArcaneSurge';
+
+//Guide
+import Guide from './Guide';
+import ArcaneSurgeGuide from './guide/ArcaneSurge';
+import TouchOfTheMagiGuide from './guide/TouchOfTheMagi';
+import ArcaneBarrageGuide from './guide/ArcaneBarrage';
+import ArcaneOrbGuide from './guide/ArcaneOrb';
+import ClearcastingGuide from './guide/Clearcasting';
+import NetherPrecisionGuide from './guide/NetherPrecision';
+import SiphonStormGuide from './guide/SiphonStorm';
+import ArcaneTempoGuide from './guide/ArcaneTempo';
 
 //Items
 
 //Mana Chart
 import Mana from './ManaChart/Mana';
 import ManaValues from './ManaChart/ManaValues';
+import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 
 //Talents
 import ArcaneBombardment from './talents/ArcaneBombardment';
 import ArcaneEcho from './talents/ArcaneEcho';
 import ArcaneHarmony from './talents/ArcaneHarmony';
-import ArcaneOrb from './talents/ArcaneOrb';
 import TouchOfTheMagi from './talents/TouchOfTheMagi';
+import NetherPrecision from './talents/NetherPrecision';
+import SiphonStorm from './talents/SiphonStorm';
+import ArcaneTempo from './talents/ArcaneTempo';
 
 //Normalizers
 import ArcaneChargesNormalizer from './normalizers/ArcaneCharges';
@@ -58,19 +73,33 @@ class CombatLogParser extends CoreCombatLogParser {
     channeling: Channeling,
     mana: Mana,
     manaValues: ManaValues,
+    manaLevelChart: ManaLevelChart,
     cancelledCasts: CancelledCasts,
     arcaneChargeTracker: ArcaneChargeTracker,
-    arcaneSurgePreReqs: ArcaneSurgePreReqs,
-    arcaneSurgeMana: ArcaneSurgeMana,
-    arcaneMissiles: ArcaneMissiles,
+    arcaneSurge: ArcaneSurge,
+    clearcasting: Clearcasting,
+    arcaneBarrage: ArcaneBarrage,
+    arcaneOrb: ArcaneOrb,
+
+    // Guide
+    arcaneSurgeGuide: ArcaneSurgeGuide,
+    touchOfTheMagiGuide: TouchOfTheMagiGuide,
+    arcaneBarrageGuide: ArcaneBarrageGuide,
+    arcaneOrbGuide: ArcaneOrbGuide,
+    clearcastingGuide: ClearcastingGuide,
+    netherPrecisionGuide: NetherPrecisionGuide,
+    siphonStormGuide: SiphonStormGuide,
+    arcaneTempoGuide: ArcaneTempoGuide,
 
     // Talents - Arcane
-    arcaneOrb: ArcaneOrb,
     arcaneEcho: ArcaneEcho,
     arcaneHarmony: ArcaneHarmony,
     arcaneBombardment: ArcaneBombardment,
     shiftingPower: ShiftingPower,
     touchOfTheMagi: TouchOfTheMagi,
+    netherPrecision: NetherPrecision,
+    siphonStorm: SiphonStorm,
+    arcaneTempo: ArcaneTempo,
 
     //Talents - Shared
     divertedEnergy: DivertedEnergy,
@@ -82,6 +111,7 @@ class CombatLogParser extends CoreCombatLogParser {
     masterOfTime: MasterOfTime,
     arcaneIntellect: ArcaneIntellect,
   };
+  static guide = Guide;
 }
 
 export default CombatLogParser;
