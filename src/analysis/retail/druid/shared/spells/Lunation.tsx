@@ -63,7 +63,6 @@ export default class Lunation extends Analyzer.withDependencies({ spellUsable: S
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.LUNATION_TALENT);
 
-    // TODO end cd listener for finished cound
     if (this.selectedCombatant.hasTalent(TALENTS_DRUID.NEW_MOON_TALENT)) {
       this.spell = TALENTS_DRUID.NEW_MOON_TALENT;
       this.cdrMsPerCast = MOON_REDUCE_MS;
