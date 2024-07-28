@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  change(date(2024, 7, 27), <>Added support for <SpellLink spell={TALENTS_DRUID.LUNATION_TALENT} /></>, Sref),
   change(date(2024, 7, 14), <>Numbers and talent changes for The War Within. Hero talent analyzers not yet implemented.</>, Sref),
   change(date(2024, 2, 6), <>Fixed an issue where <SpellLink spell={SPELLS.MAUL} /> would show as not having a GCD when player is talented for <SpellLink spell={TALENTS_DRUID.RAZE_TALENT} /></>, Sref),
   change(date(2024, 1, 19), <>Marked up to date for 10.2.5</>, Sref),
