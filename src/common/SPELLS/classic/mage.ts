@@ -46,6 +46,11 @@ const spells = {
     name: 'Blizzard',
     icon: 'spell_frost_icestorm.jpg',
   },
+  BLIZZARD_TICK: {
+    id: 42208,
+    name: 'Blizzard',
+    icon: 'spell_frost_icestorm.jpg',
+  },
   CONE_OF_COLD: {
     id: 120,
     name: 'Cone of Cold',
@@ -328,7 +333,7 @@ const spells = {
     icon: 'ability_mage_deepfreeze.jpg',
   },
   FROSTFIRE_ORB: {
-    id: 84714,
+    id: 92283,
     name: 'Frostfire Orb',
     icon: 'spell_firefrost-orb.jpg',
   },
