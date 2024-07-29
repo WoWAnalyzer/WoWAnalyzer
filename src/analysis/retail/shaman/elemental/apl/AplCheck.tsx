@@ -7,17 +7,19 @@ import {
   and,
   or,
   buffPresent,
-  spellCharges,
   hasResource,
   debuffMissing,
-  buffMissing,
-  describe,
 } from 'parser/shared/metrics/apl/conditions';
 import annotateTimeline from 'parser/shared/metrics/apl/annotate';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { SpellLink } from 'interface';
+
+const ENABLE_APL = false; // disabled while Icefury isn't logged properly
 
 export const apl = (info: PlayerInfo): Apl => {
+  if (!ENABLE_APL) {
+    return build([]);
+  }
+
   const combatant = info.combatant;
   const maelstromCap = 100 + (combatant.hasTalent(TALENTS.SWELLING_MAELSTROM_TALENT) ? 50 : 0) - 20;
   const minRequiredEBMaelstrom =
@@ -45,20 +47,10 @@ export const apl = (info: PlayerInfo): Apl => {
         ),
       ),
     },
-    {
-      spell: TALENTS.LAVA_BURST_TALENT,
-      condition: spellCharges(TALENTS.LAVA_BURST_TALENT, { atLeast: 1 }),
-    },
+    TALENTS.LAVA_BURST_TALENT,
     {
       spell: SPELLS.ICEFURY,
-      condition: describe(
-        and(buffPresent(SPELLS.ICEFURY_CAST), buffMissing(SPELLS.ICEFURY)),
-        () => (
-          <>
-            <SpellLink spell={SPELLS.ICEFURY_CAST} /> procs
-          </>
-        ),
-      ),
+      condition: buffPresent(SPELLS.ICEFURY_CASTABLE_BUFF),
     },
     {
       spell: TALENTS.FROST_SHOCK_TALENT,

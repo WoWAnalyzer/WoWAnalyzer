@@ -315,7 +315,8 @@ const spells = {
     name: 'Icefury',
     icon: 'spell_frost_iceshard',
   },
-  ICEFURY_CAST: {
+  // NYI in game
+  ICEFURY_CASTABLE_BUFF: {
     id: 462818,
     name: 'Icefury',
     icon: 'spell_frost_iceshard',

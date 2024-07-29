@@ -36,7 +36,6 @@ import MaelstromTracker from './modules/resources/MaelstromTracker';
 import MaelstromDetails from './modules/resources/MaelstromDetails';
 import MaelstromGraph from './modules/resources/MaelstromGraph';
 import SkybreakersFieryDemise from './modules/talents/SkybreakersFieryDemise';
-import IcefuryNormalizer from './modules/normalizers/IcefuryNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -49,8 +48,6 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     subOptimalChainLightning: SubOptimalChainLightning,
     spenderWindow: SpenderWindow,
-
-    icefuryNormalizer: IcefuryNormalizer,
 
     // Talents
     aftershock: Aftershock,

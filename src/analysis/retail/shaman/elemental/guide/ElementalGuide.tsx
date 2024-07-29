@@ -9,6 +9,7 @@ import CooldownGraphSubsection, {
 import SPELLS from 'common/SPELLS';
 import { AplSectionData } from 'interface/guide/components/Apl';
 import * as AplCheck from 'analysis/retail/shaman/elemental/apl/AplCheck';
+import Cooldowns from 'analysis/retail/shaman/elemental/guide/Cooldowns';
 
 const PrefaceSection = () => {
   return (
@@ -56,11 +57,16 @@ const CoreSection = (props: GuideProps<typeof CombatLogParser>) => {
   );
 };
 
+const enableRotation = false; // currently disabled due to unlogged Icefury buffs. Hidden buff to enable Icefury is not logged, so unable to check if Icefury is castable.
+
 const RotationSection = ({ modules, info }: GuideProps<typeof CombatLogParser>) => {
   return (
-    <Section title="Single Target Rotation">
-      <AplSectionData checker={AplCheck.check} apl={AplCheck.apl(info)} />
-    </Section>
+    (enableRotation && (
+      <Section title="Single Target Rotation">
+        <AplSectionData checker={AplCheck.check} apl={AplCheck.apl(info)} />
+      </Section>
+    )) ||
+    null
   );
 };
 
@@ -121,6 +127,7 @@ export default function ElementalGuide(props: GuideProps<typeof CombatLogParser>
       <PrefaceSection />
       <ResourcesSection {...props} />
       <Section title="Cooldown">
+        <Cooldowns {...props} />
         <CooldownGraphSubsection cooldowns={cooldownTalents} />
       </Section>
       <CoreSection {...props} />

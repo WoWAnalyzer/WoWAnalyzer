@@ -36,6 +36,9 @@ class LavaSurge extends Analyzer {
   }
 
   applyBuff(event: ApplyBuffEvent | RefreshBuffEvent) {
+    if (this.selectedCombatant.hasBuff(TALENTS.ASCENDANCE_ELEMENTAL_TALENT.id, event.timestamp)) {
+      return;
+    }
     if (this.isCastingLvB) {
       this.lavaSurgeDuringLvB = true;
     }
@@ -45,10 +48,13 @@ class LavaSurge extends Analyzer {
   }
 
   onEndCast(event: EndChannelEvent) {
-    if (this.lavaSurgeDuringLvB && this.spellUsable.isOnCooldown(TALENTS.LAVA_BURST_TALENT.id)) {
-      this.spellUsable.endCooldown(TALENTS.LAVA_BURST_TALENT.id, event.timestamp, false, false);
-    }
     this.isCastingLvB = false;
+    if (this.selectedCombatant.hasBuff(TALENTS.ASCENDANCE_ELEMENTAL_TALENT.id, event.timestamp)) {
+      return;
+    }
+    if (this.lavaSurgeDuringLvB && this.spellUsable.isOnCooldown(TALENTS.LAVA_BURST_TALENT.id)) {
+      this.spellUsable.endCooldown(TALENTS.LAVA_BURST_TALENT.id, event.timestamp + 1, false, false);
+    }
     this.lavaSurgeDuringLvB = false;
   }
 }

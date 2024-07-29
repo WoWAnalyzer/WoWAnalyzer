@@ -111,21 +111,33 @@ const ElementalShamanChecklist = ({ combatant, castEfficiency, thresholds }: Che
       </Rule>
       {combatant.hasTalent(TALENTS.ASCENDANCE_ELEMENTAL_TALENT) && (
         <Rule
-          name="Spam Meatballs(Lava Burst)"
+          name="Spam Lava Burst"
           description={
             <>
               <SpellLink spell={TALENTS.ASCENDANCE_ELEMENTAL_TALENT} />
-              's damage comes from spamming <SpellLink spell={TALENTS.LAVA_BURST_TALENT} /> during
-              it's duration. Only use <SpellLink spell={TALENTS.LAVA_BURST_TALENT} /> and{' '}
-              <SpellLink spell={TALENTS.EARTH_SHOCK_TALENT} /> while it is up.
-              {combatant.hasTalent(TALENTS.ASCENDANCE_ELEMENTAL_TALENT) && (
-                <>
-                  {' '}
-                  Use <SpellLink spell={TALENTS.LAVA_BURST_TALENT} /> as much as you can. Only use{' '}
-                  <SpellLink spell={TALENTS.EARTH_SHOCK_TALENT} /> when you need to spend
-                  Malestrom..
-                </>
-              )}
+              's damage comes from maximising the number of{' '}
+              <SpellLink spell={TALENTS.LAVA_BURST_TALENT} />
+              's cast during it's duration. Only use <SpellLink
+                spell={TALENTS.LAVA_BURST_TALENT}
+              />{' '}
+              and{' '}
+              <SpellLink
+                spell={
+                  combatant.hasTalent(TALENTS.EARTH_SHOCK_TALENT)
+                    ? TALENTS.EARTH_SHOCK_TALENT
+                    : TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT
+                }
+              />{' '}
+              while it is up. Use <SpellLink spell={TALENTS.LAVA_BURST_TALENT} /> as much as you
+              can. Only use{' '}
+              <SpellLink
+                spell={
+                  combatant.hasTalent(TALENTS.EARTH_SHOCK_TALENT)
+                    ? TALENTS.EARTH_SHOCK_TALENT
+                    : TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT
+                }
+              />{' '}
+              when you need to spend Malestrom.
             </>
           }
         >

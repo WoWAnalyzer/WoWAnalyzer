@@ -39,8 +39,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FLAME_SHOCK.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste) =>
-          6 / (1 + (combatant.specId === SPECS.ENHANCEMENT_SHAMAN.id ? haste : 1)),
+        cooldown: combatant.specId === SPECS.ENHANCEMENT_SHAMAN.id ? (haste) => 6 / (1 + haste) : 6,
         gcd: {
           base: 1500,
         },
@@ -99,7 +98,7 @@ class Abilities extends CoreAbilities {
         charges: (c) => {
           switch (c.specId) {
             case SPECS.ELEMENTAL_SHAMAN.id:
-              return c.hasTalent(TALENTS.ECHO_OF_THE_ELEMENTS_TALENT) ? 2 : 1;
+              return 1 + (c.hasTalent(TALENTS.ECHO_OF_THE_ELEMENTS_TALENT) ? 1 : 0);
             case SPECS.ENHANCEMENT_SHAMAN.id:
               return c.hasTalent(TALENTS.ELEMENTAL_BLAST_ENHANCEMENT_TALENT)
                 ? 0
@@ -121,12 +120,7 @@ class Abilities extends CoreAbilities {
               return c.hasTalent(TALENTS.LAVA_BURST_TALENT);
           }
         },
-        cooldown: (_) => {
-          if (combatant.hasBuff(TALENTS.ASCENDANCE_ELEMENTAL_TALENT.id)) {
-            return 0;
-          }
-          return 8;
-        },
+        cooldown: (_) => (combatant.hasBuff(TALENTS.ASCENDANCE_ELEMENTAL_TALENT.id) ? 0 : 8),
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,

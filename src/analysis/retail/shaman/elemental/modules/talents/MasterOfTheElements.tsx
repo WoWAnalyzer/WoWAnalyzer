@@ -93,7 +93,12 @@ class MasterOfTheElements extends Analyzer {
     }
     this.moteConsumptionTimestamp = event.timestamp;
     this.moteActivationTimestamp = null;
-    addEnhancedCastReason(event);
+    addEnhancedCastReason(
+      event,
+      <>
+        Cast with <SpellLink spell={TALENTS.MASTER_OF_THE_ELEMENTS_ELEMENTAL_TALENT} />
+      </>,
+    );
     this.moteBuffedAbilities[event.ability.guid] += 1;
   }
 
