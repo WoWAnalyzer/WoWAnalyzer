@@ -16,6 +16,8 @@ import Pulverize from 'analysis/retail/druid/guardian/modules/core/defensives/Pu
 import Thrash from 'analysis/retail/druid/guardian/modules/spells/Thrash';
 import Mangle from 'analysis/retail/druid/guardian/modules/spells/Mangle';
 import Moonfire from 'analysis/retail/druid/guardian/modules/spells/Moonfire';
+import Swipe from 'analysis/retail/druid/guardian/modules/spells/Swipe';
+import Gore from 'analysis/retail/druid/guardian/modules/spells/Gore';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -35,7 +37,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     // activeTargets: ActiveTargets,
-    // goreProcs: Gore,
     // galacticGuardianProcs: GalacticGuardian,
     // guardianOfEluneProcs: GuardianOfElune,
     // ironFurGoEProcs: IronFurGoEProcs,
@@ -48,6 +49,8 @@ class CombatLogParser extends CoreCombatLogParser {
     thrash: Thrash,
     mangle: Mangle,
     moonfire: Moonfire,
+    swipe: Swipe,
+    gore: Gore,
     // pulverize: Pulverize,
     // frenziedRegeneration: FrenziedRegeneration,
     // earthwarden: Earthwarden,

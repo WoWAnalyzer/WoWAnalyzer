@@ -4,8 +4,7 @@ import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import Enemies from 'parser/shared/modules/Enemies';
-
-const hastedCooldown = (baseCD: number, haste: number) => baseCD / (1 + haste);
+import { hasted } from 'common/abilitiesConstants';
 
 class Abilities extends CoreAbilities {
   static dependencies = {
@@ -20,12 +19,10 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.MANGLE_BEAR.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste) => {
-          if (combatant.hasBuff(TALENTS_DRUID.INCARNATION_GUARDIAN_OF_URSOC_TALENT.id)) {
-            return hastedCooldown(3, haste);
-          }
-          return hastedCooldown(6, haste);
-        },
+        cooldown: (haste) =>
+          combatant.hasBuff(TALENTS_DRUID.INCARNATION_GUARDIAN_OF_URSOC_TALENT.id)
+            ? hasted(3, haste)
+            : hasted(6, haste),
         gcd: {
           base: 1500,
         },
@@ -40,12 +37,10 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.THRASH_BEAR.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste) => {
-          if (combatant.hasBuff(TALENTS_DRUID.INCARNATION_GUARDIAN_OF_URSOC_TALENT.id)) {
-            return hastedCooldown(3, haste);
-          }
-          return hastedCooldown(6, haste);
-        },
+        cooldown: (haste) =>
+          combatant.hasBuff(TALENTS_DRUID.INCARNATION_GUARDIAN_OF_URSOC_TALENT.id)
+            ? hasted(3, haste)
+            : hasted(6, haste),
         gcd: {
           base: 1500,
         },
@@ -101,7 +96,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.SURVIVAL_INSTINCTS.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown:
-          180 * (1 - combatant.getTalentRank(TALENTS_DRUID.SURVIVAL_OF_THE_FITTEST_TALENT) * 0.15),
+          180 * (1 - combatant.getTalentRank(TALENTS_DRUID.SURVIVAL_OF_THE_FITTEST_TALENT) * 0.15), // TODO TWW change this to 0.12 in 11.0.2
         charges: 1 + combatant.getTalentRank(TALENTS_DRUID.IMPROVED_SURVIVAL_INSTINCTS_TALENT),
         timelineSortIndex: 9,
       },
