@@ -54,8 +54,6 @@ class Checklist extends BaseChecklist {
           ...this.preparationRuleAnalyzer.thresholds,
 
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
-          touchMagiBadUses: this.touchOfTheMagi.touchOfTheMagiUtilization,
-          touchMagiOverlap: this.touchOfTheMagi.touchOfTheMagiOverlap,
           timeAnomalyManaUtilization: this.timeAnomaly.timeAnomalyManaThresholds,
           manaOnKill: this.manaValues.suggestionThresholds,
           arcaneIntellectUptime: this.arcaneIntellect.suggestionThresholds,
