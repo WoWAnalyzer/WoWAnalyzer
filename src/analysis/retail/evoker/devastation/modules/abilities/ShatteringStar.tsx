@@ -28,6 +28,7 @@ import {
   isFromLeapingFlames,
 } from 'analysis/retail/evoker/shared/modules/normalizers/LeapingFlamesNormalizer';
 import { SHATTERING_STAR_AMP_MULTIPLIER } from '../../constants';
+import { DEEP_BREATH_SPELLS } from 'analysis/retail/evoker/shared';
 
 const WHITELISTED_DAMAGE_SPELLS: Spell[] = [
   SPELLS.DISINTEGRATE,
@@ -45,7 +46,7 @@ const WHITELISTED_DAMAGE_SPELLS: Spell[] = [
 const WHITELISTED_SPELL_CASTS: Spell[] = [
   SPELLS.AZURE_STRIKE,
   TALENTS.FIRESTORM_TALENT,
-  SPELLS.DEEP_BREATH,
+  ...DEEP_BREATH_SPELLS,
   SPELLS.DISINTEGRATE,
   SPELLS.LIVING_FLAME_CAST,
   TALENTS.PYRE_TALENT,

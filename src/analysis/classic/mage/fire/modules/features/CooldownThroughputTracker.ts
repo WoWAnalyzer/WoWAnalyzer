@@ -6,9 +6,9 @@ import CoreCooldownThroughputTracker, {
 class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static castCooldowns = [
     ...CoreCooldownThroughputTracker.castCooldowns,
-    // Add Cooldown Spells specific to Spec
     {
-      spell: SPELLS.ICY_VEINS.id,
+      spell: SPELLS.COMBUSTION.id,
+      duration: 10,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
   ];

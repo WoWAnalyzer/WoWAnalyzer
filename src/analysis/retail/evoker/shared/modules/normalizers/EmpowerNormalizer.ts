@@ -86,13 +86,19 @@ class EmpowerNormalizer extends EventLinkNormalizer {
       }
 
       const fabricatedEvent: EmpowerEndEvent = {
-        ...event,
+        ability: event.ability,
+        timestamp: event.timestamp,
+        sourceID: event.sourceID,
+        sourceIsFriendly: event.sourceIsFriendly,
+        targetID: event.targetID,
+        targetIsFriendly: event.targetIsFriendly,
         type: EventType.EmpowerEnd,
         empowermentLevel: hasFont ? 4 : 3,
         __fabricated: true,
       };
 
       AddRelatedEvent(event, EMPOWERED_CAST, fabricatedEvent);
+      AddRelatedEvent(fabricatedEvent, EMPOWERED_CAST, event);
 
       fixedEvents.push(event);
       fixedEvents.push(fabricatedEvent);

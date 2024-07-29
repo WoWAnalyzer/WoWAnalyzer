@@ -41,6 +41,11 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES: number[] = [
   SPELLS.NOURISH.id,
   SPELLS.T31_TREANT_CLEAVE_NOURISH.id,
   SPELLS.T31_CAST_CLEAVE_NOURISH.id,
+  SPELLS.THRIVING_VEGETATION.id,
+  SPELLS.SYMBIOTIC_BLOOMS_WILDSTALKER.id,
+  SPELLS.BURSTING_GROWTH_HEAL.id,
+  SPELLS.DREAM_BLOOM.id,
+  SPELLS.FLOWER_WALK.id,
 ];
 
 // procs Nature's Vigil
@@ -88,6 +93,7 @@ export const MASTERY_STACK_BUFF_IDS: number[] = [
   SPELLS.ADAPTIVE_SWARM_HEAL.id,
   SPELLS.RENEWING_BLOOM.id,
   SPELLS.GROVE_TENDING.id,
+  SPELLS.SYMBIOTIC_BLOOMS_WILDSTALKER.id,
 ];
 
 // HoTs that get rate increased by Flourish
@@ -111,7 +117,11 @@ export const PHOTO_INCREASED_RATE = [
   ...FLOURISH_INCREASED_RATE,
   SPELLS.SPRING_BLOSSOMS,
   SPELLS.EFFLORESCENCE_HEAL,
+  SPELLS.SYMBIOTIC_BLOOMS_WILDSTALKER,
 ];
+
+// HoTs that get rate increased by Liveliness
+export const LIVELINESS_INCREASED_RATE = PHOTO_INCREASED_RATE;
 
 //probably need to add natures vigil here as well and need to check if it reduces tranquility itself
 export const DRUID_COOLDOWNS = [

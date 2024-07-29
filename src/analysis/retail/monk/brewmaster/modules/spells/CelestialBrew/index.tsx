@@ -72,20 +72,18 @@ class CelestialBrew extends MajorDefensiveBuff {
       this._cbAbsorb,
     );
 
-    if (this.selectedCombatant.hasTalent(talents.IMPROVED_CELESTIAL_BREW_TALENT)) {
-      this.addEventListener(
-        Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.PURIFIED_CHI),
-        this._purifiedChiApplied,
-      );
-      this.addEventListener(
-        Events.applybuffstack.to(SELECTED_PLAYER).spell(SPELLS.PURIFIED_CHI),
-        this._purifiedChiStackApplied,
-      );
-      this.addEventListener(
-        Events.removebuff.spell(SPELLS.PURIFIED_CHI).to(SELECTED_PLAYER),
-        this._expirePurifiedChi,
-      );
-    }
+    this.addEventListener(
+      Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.PURIFIED_CHI),
+      this._purifiedChiApplied,
+    );
+    this.addEventListener(
+      Events.applybuffstack.to(SELECTED_PLAYER).spell(SPELLS.PURIFIED_CHI),
+      this._purifiedChiStackApplied,
+    );
+    this.addEventListener(
+      Events.removebuff.spell(SPELLS.PURIFIED_CHI).to(SELECTED_PLAYER),
+      this._expirePurifiedChi,
+    );
   }
 
   get absorbs(): Absorb[] {
@@ -123,11 +121,6 @@ class CelestialBrew extends MajorDefensiveBuff {
           30-100% of your health bar. <CountsAsBrew baseCooldown={60} lightBrewing /> To use it
           effectively, you need to balance two goals: using it to <em>cover major damage events</em>
           , and using it <em>often</em>.
-        </p>
-        <p>
-          If the <a href="#purifying-brew">previous section</a> shows many purifies for{' '}
-          <em>Large Hits</em> or <em>High Stagger</em>, it is <strong>strongly recommended</strong>{' '}
-          that you also use <SpellLink spell={talents.IMPROVED_CELESTIAL_BREW_TALENT} />.
         </p>
       </div>
     );
@@ -249,35 +242,31 @@ class CelestialBrew extends MajorDefensiveBuff {
   }
 
   mitigationSegments(mit: Mitigation): MitigationSegment[] {
-    if (this.selectedCombatant.hasTalent(talents.IMPROVED_CELESTIAL_BREW_TALENT)) {
-      const absorb = this.absorbs.find((absorb) => absorb.start === mit.start)!;
-      const totalAmount = absorb.amount + absorb.wastedAmount;
+    const absorb = this.absorbs.find((absorb) => absorb.start === mit.start)!;
+    const totalAmount = absorb.amount + absorb.wastedAmount;
 
-      const baseRatio =
-        PURIFIED_CHI_STACKS_PER_100 / (PURIFIED_CHI_STACKS_PER_100 + absorb.purifiedChiStacks);
+    const baseRatio =
+      PURIFIED_CHI_STACKS_PER_100 / (PURIFIED_CHI_STACKS_PER_100 + absorb.purifiedChiStacks);
 
-      const baseAmount = Math.min(totalAmount * baseRatio, absorb.amount);
-      const stackAmount = absorb.amount - baseAmount;
+    const baseAmount = Math.min(totalAmount * baseRatio, absorb.amount);
+    const stackAmount = absorb.amount - baseAmount;
 
-      return [
-        {
-          amount: baseAmount,
-          color: color(MAGIC_SCHOOLS.ids.PHYSICAL),
-          description: (
-            <>
-              Base <SpellLink spell={this.spell} />
-            </>
-          ),
-        },
-        {
-          amount: stackAmount,
-          color: color(MAGIC_SCHOOLS.ids.HOLY),
-          description: <SpellLink spell={talents.IMPROVED_CELESTIAL_BREW_TALENT} />,
-        },
-      ];
-    } else {
-      return super.mitigationSegments(mit);
-    }
+    return [
+      {
+        amount: baseAmount,
+        color: color(MAGIC_SCHOOLS.ids.PHYSICAL),
+        description: (
+          <>
+            Base <SpellLink spell={this.spell} />
+          </>
+        ),
+      },
+      {
+        amount: stackAmount,
+        color: color(MAGIC_SCHOOLS.ids.HOLY),
+        description: <SpellLink spell={SPELLS.PURIFIED_CHI} />,
+      },
+    ];
   }
 }
 

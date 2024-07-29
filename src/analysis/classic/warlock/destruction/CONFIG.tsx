@@ -2,6 +2,7 @@ import GameBranch from 'game/GameBranch';
 import SPECS from 'game/SPECS';
 import type Config from 'parser/Config';
 import CHANGELOG from './CHANGELOG';
+
 import { SupportLevel } from 'parser/Config';
 import { emallson } from 'CONTRIBUTORS';
 

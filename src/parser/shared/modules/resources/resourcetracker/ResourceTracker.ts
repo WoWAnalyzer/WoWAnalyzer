@@ -321,6 +321,18 @@ export default class ResourceTracker extends Analyzer {
     this._resourceUpdate('rateChange');
   }
 
+  /** Multiplies the base resource regeneration rate by the given factor.
+   *  A useful helper for handling the application of a regen modifying buff. */
+  addRateMultiplier(rateMult: number) {
+    this.triggerRateChange(this.baseRegenRate * rateMult);
+  }
+
+  /** Divides the base resource regeneration rate by the given factor.
+   *  A useful helper for handling the removal of a regen modifying buff. */
+  removeRateMultiplier(rateMult: number) {
+    this.triggerRateChange(this.baseRegenRate / rateMult);
+  }
+
   /**
    * Registers a builder use, updating the relevant builderObj with the given values
    * and pushing a resourceUpdate.

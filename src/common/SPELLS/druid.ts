@@ -420,6 +420,12 @@ const spells = {
     name: 'Power of the Archdruid',
     icon: 'spell_druid_rampantgrowth',
   },
+  // heal from Thriving Vegetation talent
+  THRIVING_VEGETATION: {
+    id: 447132,
+    name: 'Thriving Vegetation',
+    icon: 'spell_nature_rejuvenation',
+  },
   // Sets/Items:
   ASTRAL_HARMONY: {
     // 2pc T19
@@ -902,6 +908,7 @@ const spells = {
     name: "Starweaver's Weft",
     icon: 'spell_arcane_invocation',
   },
+  // the damage ID for wild mushroom's initial burst
   WILD_MUSHROOM: {
     id: 88751,
     name: 'Wild Mushroom',
@@ -1076,7 +1083,7 @@ const spells = {
     name: 'Primal Claws',
     icon: 'ability_druid_rake',
   },
-  // buff from Sabertooth talent
+  // debuff from Sabertooth talent
   SABERTOOTH: {
     id: 391722,
     name: 'Sabertooth',
@@ -1086,12 +1093,6 @@ const spells = {
   TEAR: {
     id: 391356,
     name: 'Tear',
-    icon: 'artifactability_feraldruid_ashamanesbite',
-  },
-  // damage from Tear Open Wounds talent
-  TEAR_OPEN_WOUNDS: {
-    id: 391786,
-    name: 'Tear Open Wounds',
     icon: 'artifactability_feraldruid_ashamanesbite',
   },
   // damage from Rampant Ferocity talent
@@ -1156,6 +1157,11 @@ const spells = {
     id: 245591,
     name: 'Energetic Rip',
     icon: 'ability_deathwing_bloodcorruption_earth',
+  },
+  SAVAGE_FURY_BUFF: {
+    id: 449646,
+    name: 'Savage Fury',
+    icon: 'ability_druid_kingofthejungle',
   },
   FERAL_DRUID_T20_4SET_BONUS_BUFF: {
     id: 242235,
@@ -1224,6 +1230,77 @@ const spells = {
     name: 'Smoldering Frenzy',
     icon: 'inv_staff_99',
   },
+
+  /////////////////////////////////////////////////////////////////////////////
+  // WILDSTALKER
+  //
+
+  // 'wildstalker' to differentiate from very similarly named Evoker spell
+  SYMBIOTIC_BLOOMS_WILDSTALKER: {
+    id: 439530,
+    name: 'Symbiotic Blooms',
+    icon: 'inv_misc_lifeblood',
+  },
+  BLOODSEEKER_VINES: {
+    id: 439531,
+    name: 'Bloodseeker Vines',
+    icon: 'inv_misc_herb_16',
+  },
+  BURSTING_GROWTH_HEAL: {
+    id: 440121,
+    name: 'Bursting Growth',
+    icon: 'inv_collections_armor_flowerbracelet_b_01',
+  },
+  BURSTING_GROWTH_DAMAGE: {
+    id: 440122,
+    name: 'Bursting Growth',
+    icon: 'inv_misc_thornnecklace',
+  },
+  FLOWER_WALK: {
+    id: 439902,
+    name: 'Flower Walk',
+    icon: 'inv_misc_trailofflowers',
+  },
+
+  /////////////////////////////////////////////////////////////////////////////
+  // DRUID OF THE CLAW
+  //
+
+  // this is the cast ID (replaces FB) and the damage ID (direct and cleave)
+  RAVAGE_DOTC_CAT: {
+    id: 441591,
+    name: 'Ravage',
+    icon: 'inv_ability_druidoftheclawdruid_ravage',
+  },
+  // this is the DoT debuff and damage ID
+  DREADFUL_WOUND: {
+    id: 441812,
+    name: 'Dreadful Wound',
+    icon: 'artifactability_feraldruid_openwounds',
+  },
+
+  /////////////////////////////////////////////////////////////////////////////
+  // ELUNE'S CHOSEN
+  //
+
+  /////////////////////////////////////////////////////////////////////////////
+  // KEEPER OF THE GROVE
+  //
+
+  CENARIUS_MIGHT_BUFF: {
+    id: 455801,
+    name: "Cenarius' Might",
+    icon: 'achievement_reputation_guardiansofcenarius',
+  },
+  // heal from Dream Surge 'dream petals'
+  DREAM_BLOOM: {
+    id: 434141,
+    name: 'Dream Bloom',
+    icon: 'inv_ability_keeperofthegrovedruid_dreamsurge_fiendly',
+  },
+
+  // TODO TWW find a log with the ID of the "minor cenarion ward" applied 'Durability of Nature'
+  //      ... it appears to be the less popular choice on the node unforch
 } satisfies Record<string, Spell>;
 
 export default spells;

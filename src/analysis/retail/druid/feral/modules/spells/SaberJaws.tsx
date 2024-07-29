@@ -1,15 +1,14 @@
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { Options } from 'parser/core/Module';
 import { TALENTS_DRUID } from 'common/TALENTS';
-import SPELLS from 'common/SPELLS';
-import Events, { DamageEvent } from 'parser/core/Events';
+import Events, { CastEvent } from 'parser/core/Events';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import ItemPercentDamageDone from 'parser/ui/ItemPercentDamageDone';
-import { getFerociousBiteMaxDrain } from 'analysis/retail/druid/feral/constants';
-import { getHardcast } from 'analysis/retail/druid/feral/normalizers/CastLinkNormalizer';
+import { FB_SPELLS, getFerociousBiteMaxDrain } from 'analysis/retail/druid/feral/constants';
+import { getDamageHits } from 'analysis/retail/druid/feral/normalizers/CastLinkNormalizer';
 import { getAdditionalEnergyUsed } from 'analysis/retail/druid/feral/normalizers/FerociousBiteDrainLinkNormalizer';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
@@ -37,20 +36,12 @@ export default class SaberJaws extends Analyzer {
 
     this.bonusMultiplier = 1 + FEROCIOUS_BITE_BONUS_BOOST_PER_POINT * this.rank;
 
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FEROCIOUS_BITE),
-      this.onFbDamage,
-    );
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(FB_SPELLS), this.onFbCast);
   }
 
-  onFbDamage(event: DamageEvent) {
-    const fbCast = getHardcast(event);
-    if (!fbCast) {
-      // procced by Convoke probably, which isn't boosted by Saber Jaws
-      return;
-    }
-
-    const fbDrain = getAdditionalEnergyUsed(fbCast);
+  // Convoke'd bites don't proc Saber Jaws, so it's fine we're missing them here
+  onFbCast(event: CastEvent) {
+    const fbDrain = getAdditionalEnergyUsed(event);
     if (!fbDrain) {
       // either apex proc or minimum energy bite, neither of which are boosted by Saber Jaws
       return;
@@ -72,7 +63,9 @@ export default class SaberJaws extends Analyzer {
     const effectiveBoostVsNormalDrain =
       (1 + percentDrain * this.bonusMultiplier) / (1 + percentDrain) - 1;
 
-    this.totalDamage += calculateEffectiveDamage(event, effectiveBoostVsNormalDrain);
+    getDamageHits(event).forEach((hit) => {
+      this.totalDamage += calculateEffectiveDamage(hit, effectiveBoostVsNormalDrain);
+    });
   }
 
   statistic() {

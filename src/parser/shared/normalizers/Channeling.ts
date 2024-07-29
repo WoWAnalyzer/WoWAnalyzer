@@ -83,14 +83,15 @@ class Channeling extends EventsNormalizer {
     empowerChannelSpec(SPELLS.DREAM_BREATH_FONT.id),
     buffChannelSpec(SPELLS.DISINTEGRATE.id),
     buffChannelSpec(TALENTS_EVOKER.BREATH_OF_EONS_TALENT.id),
+    buffChannelSpec(SPELLS.BREATH_OF_EONS_SCALECOMMANDER.id),
     buffChannelSpec(TALENTS_EVOKER.TIME_SKIP_TALENT.id),
     buffChannelSpec(SPELLS.DEEP_BREATH.id),
+    buffChannelSpec(SPELLS.DEEP_BREATH_SCALECOMMANDER.id),
     // Rogue
     // Druid
     buffChannelSpec(SPELLS.CONVOKE_SPIRITS.id),
     // Monk
     buffChannelSpec(TALENTS_MONK.ZEN_MEDITATION_TALENT.id),
-    buffChannelSpec(TALENTS_MONK.ESSENCE_FONT_TALENT.id),
     buffChannelSpec(TALENTS_MONK.SOOTHING_MIST_TALENT.id),
     buffChannelSpec(SPELLS.CRACKLING_JADE_LIGHTNING.id),
     buffChannelSpec(SPELLS.FISTS_OF_FURY_CAST.id),

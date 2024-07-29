@@ -48,10 +48,6 @@ class Buffs extends CoreAuras {
         timelineHighlight: false,
       },
       {
-        spellId: SPELLS.FRIEND_OF_THE_FAE.id,
-        timelineHighlight: false,
-      },
-      {
         spellId: SPELLS.TOUCH_THE_COSMOS.id,
         timelineHighlight: false,
       },

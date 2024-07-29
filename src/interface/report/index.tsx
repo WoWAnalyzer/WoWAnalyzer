@@ -24,6 +24,11 @@ import { useReport } from 'interface/report/context/ReportContext';
 import { usePlayer } from 'interface/report/context/PlayerContext';
 import { useFight } from 'interface/report/context/FightContext';
 import { LoadingStatus } from 'interface/report/Results/ResultsContext';
+import Panel from 'interface/Panel';
+import { Trans } from '@lingui/macro';
+import Report from 'parser/core/Report';
+import { Link } from 'react-router-dom';
+import { WCLFight } from 'parser/core/Fight';
 
 const ResultsLoader = () => {
   const config = useConfig();
@@ -36,9 +41,9 @@ const ResultsLoader = () => {
   const [selectedDungeonPull, setSelectedDungeonPull] = useState<string>(SELECTION_ALL_PHASES);
 
   const parserClass = useParser(config);
-  const isLoadingParser = parserClass == null;
+  const isLoadingParser = !parserClass;
 
-  const { events, pageCount, pagesLoaded } = useEvents({ report, fight, player });
+  const { events, currentTime } = useEvents({ report, fight, player });
   const isLoadingEvents = events == null;
 
   const {
@@ -155,7 +160,7 @@ const ResultsLoader = () => {
   });
   const parsingState = isParsingEvents ? EVENT_PARSING_STATE.PARSING : EVENT_PARSING_STATE.DONE;
 
-  const pageProgress = pagesLoaded / pageCount;
+  const pageProgress = (currentTime - fight.start_time) / (fight.end_time - fight.start_time);
 
   const progress =
     (!isLoadingParser ? 0.05 : 0) +
@@ -175,6 +180,11 @@ const ResultsLoader = () => {
     isFilteringEvents: isFilteringEvents,
     parsingState: parsingState,
   };
+
+  if (!config.parser) {
+    // display error instead. this is not normally accessible via the UI but would be via direct link / URL modification
+    return <UnsupportedSpecBouncer report={report} fight={fight} />;
+  }
 
   return (
     <Results
@@ -222,3 +232,27 @@ const ReportLayout = () => (
 );
 
 export default ReportLayout;
+
+const UnsupportedSpecBouncer = ({ report, fight }: { report: Report; fight: WCLFight }) => (
+  <div className="container offset">
+    <Panel
+      title={
+        <Trans id="interface.report.unsupportSpec.title">
+          The selected specialization is not supported.
+        </Trans>
+      }
+    >
+      <div className="flex wrappable">
+        <div className="flex-main pad">
+          <p>
+            <Trans id="interface.report.unsupportedSpec.body">
+              The selected specialization has not been updated for the latest expansion and cannot
+              be used due to ability changes.
+            </Trans>
+          </p>
+          <Link to={makeAnalyzerUrl(report, fight.id)}>Go Back</Link>
+        </div>
+      </div>
+    </Panel>
+  </div>
+);

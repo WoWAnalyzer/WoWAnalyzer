@@ -1,7 +1,7 @@
 import GameBranch from 'game/GameBranch';
 import SPECS from 'game/SPECS';
 
-import CHANGELOG from './CHANGELOG';
+// import CHANGELOG from './CHANGELOG';
 import { SupportLevel } from 'parser/Config';
 
 export default {
@@ -45,12 +45,12 @@ export default {
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
   spec: SPECS.DESTRUCTION_WARLOCK,
   // The contents of your changelog.
-  changelog: CHANGELOG,
+  // changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
-  parser: () =>
-    import('./CombatLogParser' /* webpackChunkName: "DestructionWarlock" */).then(
-      (exports) => exports.default,
-    ),
+  // parser: () =>
+  //   import('./CombatLogParser' /* webpackChunkName: "DestructionWarlock" */).then(
+  //     (exports) => exports.default,
+  //   ),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: import.meta.url,
 };

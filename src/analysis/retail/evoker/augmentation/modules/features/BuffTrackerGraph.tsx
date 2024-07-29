@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-useless-constructor */
 import { Options } from 'parser/core/Module';
 import BuffCountGraph, { GraphedSpellSpec } from 'parser/shared/modules/BuffCountGraph';
-import TALENTS from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS/evoker';
+import { BREATH_OF_EONS_SPELLS } from '../../constants';
 
 class BuffTrackerGraph extends BuffCountGraph {
   static dependencies = {
@@ -23,8 +23,7 @@ class BuffTrackerGraph extends BuffCountGraph {
   }
 
   castRuleSpecs(): GraphedSpellSpec[] {
-    const castSpecs: GraphedSpellSpec[] = [];
-    castSpecs.push({ spells: TALENTS.BREATH_OF_EONS_TALENT, color: '#E1CF1E' });
+    const castSpecs: GraphedSpellSpec[] = [{ spells: BREATH_OF_EONS_SPELLS, color: '#E1CF1E' }];
     return castSpecs;
   }
 }

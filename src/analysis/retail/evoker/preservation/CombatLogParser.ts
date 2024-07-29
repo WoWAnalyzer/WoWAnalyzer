@@ -11,11 +11,10 @@ import MasteryEffectiveness from './modules/core/MasteryEffectiveness';
 import Spiritbloom from './modules/talents/Spiritbloom';
 import HotAttributor from './modules/core/HotAttributor';
 import HotTrackerPrevoker from './modules/core/HotTrackerPrevoker';
-import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
+import CastLinkNormalizer from './normalizers/EventLinking/CastLinkNormalizer';
 import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
 import HotRemovalNormalizer from './normalizers/HotRemovalNormalizer';
 
-import Checklist from 'analysis/retail/evoker/preservation/modules/features/Checklist/Module';
 import EssenceDetails from './modules/features/EssenceDetails';
 import GracePeriod from './modules/talents/GracePeriod';
 import Reversion from './modules/talents/Reversion';
@@ -33,6 +32,7 @@ import ExhilBurst from './modules/talents/ExhilBurst';
 import Stasis from './modules/talents/Stasis';
 import TimeOfNeed from './modules/talents/TimeOfNeed';
 import Lifebind from './modules/talents/Lifebind';
+import Lifespark from './modules/talents/Lifespark';
 import EnergyLoop from './modules/talents/EnergyLoop';
 import AlwaysBeCasting from './modules/core/AlwaysBeCasting';
 import FontOfMagic from './modules/talents/FontOfMagic';
@@ -40,14 +40,12 @@ import EmeraldCommunion from './modules/talents/EmeraldCommunion';
 import SparkOfInsight from './modules/talents/SparkOfInsight';
 import EchoBreakdown from './modules/talents/EchoBreakdown';
 import Ouroboros from './modules/talents/Ouroboros';
-import T30PrevokerSet from './modules/dragonflight/tier/T30TierSet';
 import Guide from 'analysis/retail/evoker/preservation/Guide';
 import NozTeachings from './modules/talents/NozTeachings';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import RegenerativeMagic from '../shared/modules/talents/RegenerativeMagic';
 import AncientFlame from './modules/talents/AncientFlame';
-import T31PrevokerSet from './modules/dragonflight/tier/T31TierSet';
-import AwakenedPrevokerSet from './modules/dragonflight/tier/AwakenedTierSet';
+import TitansGift from './modules/talents/TitansGift';
 import EchoTypeBreakdown from './modules/talents/EchoTypeBreakdown';
 import {
   LivingFlameNormalizer,
@@ -63,8 +61,17 @@ import {
   EssenceTracker,
   SourceOfMagic,
   PotentMana,
+  Engulf,
   Panacea,
 } from '../shared';
+import T32Prevoker from './modules/tier/T32TierSet';
+import ExpandedLungs from '../shared/modules/talents/hero/flameshaper/ExpandedLungs';
+import FanTheFlames from '../shared/modules/talents/hero/flameshaper/FanTheFlames';
+import RedHot from '../shared/modules/talents/hero/flameshaper/RedHot';
+import Reverberations from '../shared/modules/talents/hero/chronowarden/Reverberations';
+import Chronoflame from '../shared/modules/talents/hero/chronowarden/Chronoflame';
+import ThreadsOfFate from '../shared/modules/talents/hero/chronowarden/ThreadsOfFate';
+import DoubleTime from '../shared/modules/talents/hero/chronowarden/DoubleTime';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -90,9 +97,6 @@ class CombatLogParser extends CoreCombatLogParser {
     spellEssenceCost: SpellEssenceCost,
     manaTracker: ManaTracker,
 
-    //features
-    checklist: Checklist,
-
     //core
     alwaysBeCasting: AlwaysBeCasting,
     hotTrackerPrevoker: HotTrackerPrevoker,
@@ -105,6 +109,7 @@ class CombatLogParser extends CoreCombatLogParser {
     sourceOfMagic: SourceOfMagic,
     potentMana: PotentMana,
     panacea: Panacea,
+
     // Empower Normalizer
     empowerNormalizer: EmpowerNormalizer,
     spellUsable: SpellUsable,
@@ -142,11 +147,21 @@ class CombatLogParser extends CoreCombatLogParser {
     regenerativeMagic: RegenerativeMagic,
     echoTypeBreakdown: EchoTypeBreakdown,
     essenceBurstSources: EssenceBurstSources,
+    lifespark: Lifespark,
+    titansGift: TitansGift,
 
-    // tier
-    t30PrevokerTier: T30PrevokerSet,
-    t31PrevokerTIer: T31PrevokerSet,
-    awakenedPrevokerTier: AwakenedPrevokerSet,
+    // hero talents
+    engulf: Engulf,
+    expandedLungs: ExpandedLungs,
+    FanTheFlames: FanTheFlames,
+    redHot: RedHot,
+    reverberations: Reverberations,
+    chronoflame: Chronoflame,
+    threadsOfFate: ThreadsOfFate,
+    doubleTime: DoubleTime,
+
+    // other
+    t32Prevoker: T32Prevoker,
   };
   static guide = Guide;
 }

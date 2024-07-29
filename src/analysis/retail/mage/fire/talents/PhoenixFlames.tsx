@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
@@ -81,11 +80,7 @@ class PhoenixFlames extends Analyzer {
         </>,
       )
         .icon(TALENTS.PHOENIX_FLAMES_TALENT.icon)
-        .actual(
-          <Trans id="mage.fire.suggestions.phoenixFlames.phoenixFlamesCappedCharges">
-            {formatPercentage(actual)}% of fight capped on charges
-          </Trans>,
-        )
+        .actual(`${formatPercentage(actual)}% of fight capped on charges`)
         .recommended(`${formatPercentage(recommended)}% is recommended`),
     );
   }

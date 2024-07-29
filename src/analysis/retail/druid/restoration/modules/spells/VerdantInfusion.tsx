@@ -13,7 +13,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import HotTrackerRestoDruid from 'analysis/retail/druid/restoration/modules/core/hottracking/HotTrackerRestoDruid';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
-const HOT_EXTENSION = 12_000;
+const HOT_EXTENSION = 8_000;
 
 const HOT_ID_CONSUME_ORDER = [
   SPELLS.REGROWTH.id,
@@ -27,7 +27,7 @@ const HOT_ID_CONSUME_ORDER = [
  * Spec Talent Tier 8
  *
  * Swiftmend no longer consumes a heal over time effect,
- * and extends the duration of your heal over time effects on the target by 12 sec.
+ * and extends the duration of your heal over time effects on the target by 8 sec.
  */
 class VerdantInfusion extends Analyzer {
   static dependencies = {

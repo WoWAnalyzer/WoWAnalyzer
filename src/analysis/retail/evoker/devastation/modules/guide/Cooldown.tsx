@@ -59,7 +59,14 @@ export function CooldownSection({ modules, info }: GuideProps<typeof CombatLogPa
           gapHighlightMode={GapHighlight.All}
         />
       )}
-      <CastEfficiencyBar spellId={SPELLS.DEEP_BREATH.id} gapHighlightMode={GapHighlight.All} />
+      <CastEfficiencyBar
+        spell={
+          info.combatant.hasTalent(TALENTS.MANEUVERABILITY_TALENT)
+            ? SPELLS.DEEP_BREATH_SCALECOMMANDER
+            : SPELLS.DEEP_BREATH
+        }
+        gapHighlightMode={GapHighlight.All}
+      />
     </Section>
   );
 }

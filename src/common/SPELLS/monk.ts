@@ -37,7 +37,7 @@ const spells = {
     id: 101546,
     name: 'Spinning Crane Kick',
     icon: 'ability_monk_cranekick_new',
-    manaCost: 2500,
+    manaCost: 25000,
   },
   SPINNING_CRANE_KICK_DAMAGE: {
     id: 107270,
@@ -73,7 +73,7 @@ const spells = {
     id: 322101,
     name: 'Expel Harm',
     icon: 'ability_monk_expelharm',
-    manaCost: 7500,
+    manaCost: 35000,
   },
   SAVE_THEM_ALL_BUFF: {
     id: 390105,
@@ -90,22 +90,91 @@ const spells = {
     name: 'Bonedust Brew',
     icon: 'ability_maldraxxus_monk',
   },
-
-  // Mistweaver Monk Spells
-  CLOUDED_FOCUS_BUFF: {
-    id: 388048,
-    name: 'Clouded Focus',
-    icon: 'ability_monk_surgingmist',
+  HEALING_WINDS_HEAL: {
+    id: 450559,
+    name: 'Healing Winds',
+    icon: 'ability_monk_pathofmists',
   },
+  CELESTIAL_CONDUIT_DAMAGE: {
+    id: 443038,
+    name: 'Celestial Conduit',
+    icon: 'inv_ability_conduitofthecelestialsmonk_celestialconduit',
+  },
+  CELESTIAL_CONDUIT_HEAL: {
+    id: 443039,
+    name: 'Celestial Conduit',
+    icon: 'inv_ability_conduitofthecelestialsmonk_celestialconduit',
+  },
+  COURAGE_OF_THE_WHITE_TIGER_HEAL: {
+    id: 443106,
+    name: 'Courage of the White Tiger',
+    icon: 'ability_monk_summontigerstatue',
+  },
+  COURAGE_OF_THE_WHITE_TIGER_DAMAGE: {
+    id: 457917,
+    name: 'Courage of the White Tiger',
+    icon: 'ability_monk_summontigerstatue',
+  },
+  COURAGE_OF_THE_WHITE_TIGER_BUFF: {
+    id: 460127,
+    name: 'Courage of the White Tiger',
+    icon: 'ability_monk_summontigerstatue',
+  },
+  STRENGTH_OF_THE_BLACK_OX_BUFF: {
+    id: 443112,
+    name: 'Strength of the Black Ox',
+    icon: 'ability_monk_chargingoxwave',
+  },
+  STRENGTH_OF_THE_BLACK_OX_SHIELD: {
+    id: 443113,
+    name: 'Strength of the Black Ox',
+    icon: 'ability_monk_chargingoxwave',
+  },
+  NIUZAOS_PROTECTION_SHIELD: {
+    id: 442749,
+    name: "Niuzao's Protection",
+    icon: 'ability_monk_chargingoxwave',
+  },
+  FLIGHT_OF_THE_RED_CRANE_HEAL: {
+    id: 443272,
+    name: 'Flight of the Red Crane',
+    icon: 'inv_pet_cranegod',
+  },
+  FLIGHT_OF_THE_RED_CRANE_UNITY: {
+    id: 443614,
+    name: 'Flight of the Red Crane',
+    icon: 'inv_pet_cranegod',
+  },
+  HEART_OF_THE_JADE_SERPENT_STACK_WW: {
+    id: 443424,
+    name: 'Heart of the Jade Serpent',
+    icon: 'ability_monk_chiswirl',
+  },
+  HEART_OF_THE_JADE_SERPENT_STACK_MW: {
+    id: 443506,
+    name: 'Heart of the Jade Serpent',
+    icon: 'ability_monk_chiswirl',
+  },
+  HEART_OF_THE_JADE_SERPENT_UNITY: {
+    id: 443616,
+    name: 'Heart of the Jade Serpent',
+    icon: 'ability_monk_summonserpentstatue',
+  },
+  HEART_OF_THE_JADE_SERPENT_BUFF: {
+    id: 443421,
+    name: 'Heart of the Jade Serpent',
+    icon: 'ability_monk_summonserpentstatue',
+  },
+  UNITY_WITHIN_CAST: {
+    id: 443591,
+    name: 'Unity WIthin',
+    icon: 'ability_monk_prideofthetiger',
+  },
+  // Mistweaver Monk Spells
   ENVELOPING_MIST_TFT: {
     id: 274062,
     name: 'Enveloping Mist',
     icon: 'spell_monk_envelopingmist',
-  },
-  ESSENCE_FONT_BUFF: {
-    id: 191840,
-    name: 'Essence Font',
-    icon: 'ability_monk_essencefont',
   },
   SECRET_INFUSION_CRIT_BUFF: {
     id: 388498,
@@ -136,12 +205,17 @@ const spells = {
     id: 116670,
     name: 'Vivify',
     icon: 'ability_monk_vivify',
-    manaCost: 8500,
+    manaCost: 75000,
   },
   VIVIFICATION_BUFF: {
     id: 392883,
     name: 'Vivifacious Vivification',
     icon: 'ability_monk_vivify',
+  },
+  MENDING_PROLIFERATION_BUFF: {
+    id: 388510,
+    name: 'Mending Proliferation',
+    icon: 'inv_shoulder_inv_leather_raidmonk_s_01',
   },
   AT_BUFF: {
     id: 388026,
@@ -232,7 +306,7 @@ const spells = {
     id: 115450,
     name: 'Detox',
     icon: 'ability_rogue_imrovedrecuperate',
-    manaCost: 650,
+    manaCost: 32500,
   },
 
   // Talents
@@ -346,6 +420,11 @@ const spells = {
     name: 'Refreshing Jade Wind',
     icon: 'ability_monk_rushingjadewind',
   },
+  REFRESHING_JADE_WIND_BUFF: {
+    id: 196725,
+    name: 'Refreshing Jade Wind',
+    icon: 'ability_monk_rushingjadewind',
+  },
   INVOKE_CHIJI_THE_RED_CRANE_BUFF: {
     id: 343820,
     name: 'Invoke Chi-Ji, the Red Crane',
@@ -396,7 +475,12 @@ const spells = {
     name: 'Zen Pulse',
     icon: 'ability_monk_forcesphere',
   },
-  FAELINE_STOMP_HEAL: {
+  ZEN_PULSE_BUFF: {
+    id: 446334,
+    name: 'Zen Pulse',
+    icon: 'ability_monk_forcesphere',
+  },
+  JADEFIRE_STOMP_HEAL: {
     id: 388207,
     name: 'Faeline Stomp',
     icon: 'ability_ardenweald_monk',
@@ -405,11 +489,6 @@ const spells = {
     id: 327264,
     name: 'Faeline Stomp',
     icon: 'ability_ardenweald_monk',
-  },
-  FAELINE_STOMP_ESSENCE_FONT: {
-    id: 344006,
-    name: 'Faeline Stomp',
-    icon: 'ability_monk_essencefont',
   },
   FAELINE_STOMP_RESET: {
     id: 388203,
@@ -435,30 +514,6 @@ const spells = {
     id: 388513,
     name: 'Overflowing Mists',
     icon: 'inv_legion_faction_dreamweavers',
-  },
-  //Tier 30 2pc Buff
-  SOULFANG_INFUSION: {
-    id: 410007,
-    name: 'Soulfang Infusion',
-    icon: 'inv_glove_leather_raidmonkdragon_d_01',
-  },
-  //Tier 30 4pc Buff
-  SOULFANG_VITALITY: {
-    id: 410082,
-    name: 'Soulfang Vitality',
-    icon: 'nv_helm_leather_raidmonkdragon_d_01',
-  },
-  //Tier 31 2pc Buff
-  CHI_HARMONY_HEAL_BONUS: {
-    id: 423439,
-    name: 'Chi Harmony',
-    icon: 'ability_monk_counteractmagic',
-  },
-  //Tier 31 2pc Buff
-  CHI_HARMONY_HEAL: {
-    id: 423458,
-    name: 'Chi Harmony',
-    icon: 'ability_monk_counteractmagic',
   },
   //Invigorating Mist Heal
   INVIGORATING_MISTS_HEAL: {

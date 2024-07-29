@@ -13,7 +13,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { GRACE_PERIOD_INCREASE } from '../../constants';
 import HotTrackerPrevoker from '../core/HotTrackerPrevoker';
-import { getHealForLifebindHeal } from '../../normalizers/CastLinkNormalizer';
+import { getHealForLifebindHeal } from '../../normalizers/EventLinking/helpers';
 
 class GracePeriod extends Analyzer {
   static dependencies = {

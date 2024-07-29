@@ -10,6 +10,7 @@ const spells: number[] = [
    * into their abilities and so forth
    */
   SPELLS.MELEE.id, // Auto attack
+  SPELLS.AUTO_SHOT.id, // hunter auto attack (classic)
   SPELLS.CHI_BURST_HEAL.id, // this is the "tick" when you hit a player, the actual cast has a different id
   SPELLS.REFRESHING_JADE_WIND_HEAL.id, // this is the "tick" when you hit a player, the actual cast has a different id
   SPELLS.SHADOWY_APPARITION.id,
@@ -101,6 +102,10 @@ const spells: number[] = [
   SPELLS.RAMPAGE_4.id,
   SPELLS.HACK_AND_SLASH.id,
   SPELLS.WRATH_AND_FURY.id,
+  //endregion
+
+  //region classic hunter
+  CLASSIC_SPELLS.LOCK_AND_LOAD.id,
   //endregion
 
   //region trinket

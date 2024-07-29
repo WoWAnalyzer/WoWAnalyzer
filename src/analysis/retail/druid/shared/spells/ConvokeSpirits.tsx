@@ -104,7 +104,7 @@ const TRAVEL_BUFFER_MS = 2_000;
 
 /**
  * **Convoke the Spirits**
- * Covenant - Night Fae
+ * Spec Talent
  *
  * Call upon the Night Fae for an eruption of energy,
  * channeling a rapid flurry of 16 (12 for Resto) Druid spells and abilities over 4 sec.

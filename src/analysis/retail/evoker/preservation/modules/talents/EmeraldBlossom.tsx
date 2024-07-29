@@ -6,12 +6,11 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { TALENTS_EVOKER } from 'common/TALENTS';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import { getHealEvents, isFromFieldOfDreams } from '../../normalizers/CastLinkNormalizer';
+import { getHealEvents, isFromFieldOfDreams } from '../../normalizers/EventLinking/helpers';
 import { SpellLink } from 'interface';
 import { formatNumber, formatPercentage } from 'common/format';
-import { defineMessage } from '@lingui/macro';
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
@@ -130,25 +129,6 @@ class EmeraldBlossom extends Analyzer {
 
   get avgHitsFromCast() {
     return this.totalCastHits / this.castEntries.length;
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Try to maximize the amount of targets hit by{' '}
-          <SpellLink spell={SPELLS.EMERALD_BLOSSOM_CAST} />
-        </>,
-      )
-        .icon(SPELLS.EMERALD_BLOSSOM.icon)
-        .actual(
-          `${this.averageNumTargets.toFixed(1)} ${defineMessage({
-            id: 'evoker.preservation.suggestions.emeraldBlossom.avgTargetsHit',
-            message: ` average targets hit`,
-          })}`,
-        )
-        .recommended(`at least ${recommended} targets hit recommended`),
-    );
   }
 
   get guideSubsection(): JSX.Element {

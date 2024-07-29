@@ -1,27 +1,25 @@
-import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { TALENTS_DRUID } from 'common/TALENTS';
+import { hardcastTargetsHit } from 'analysis/retail/druid/balance/normalizers/CastLinkNormalizer';
+import TalentSpellText from 'parser/ui/TalentSpellText';
+import ItemPercentDamageDone from 'parser/ui/ItemPercentDamageDone';
 
 const TWIN_MOONS_BONUS_DAMAGE = 0.1;
 
-class TwinMoons extends Analyzer {
-  get perSecond() {
-    return this.bonusDamage / (this.owner.fightDuration / 1000);
-  }
-
-  get percentTwoHits() {
-    return (this.moonfireHits - this.moonfireCasts) / this.moonfireCasts;
-  }
-
-  moonfireCasts = 0;
-  moonfireHits = 0;
-  bonusDamage = 0;
+/**
+ * **Twin Moons**
+ * Spec Talent
+ *
+ * Moonfire deals 10% increased damage and also hits another nearby enemy within 15 yds of the target.
+ */
+export default class TwinMoons extends Analyzer {
+  damage = 0;
+  extraHits = 0;
 
   constructor(options: Options) {
     super(options);
@@ -34,15 +32,13 @@ class TwinMoons extends Analyzer {
   }
 
   onDamage(event: DamageEvent) {
-    this.bonusDamage += calculateEffectiveDamage(event, TWIN_MOONS_BONUS_DAMAGE);
-    if (event.tick === true) {
-      return;
-    }
-    this.moonfireHits += 1;
+    this.damage += calculateEffectiveDamage(event, TWIN_MOONS_BONUS_DAMAGE);
   }
 
   onCast(event: CastEvent) {
-    this.moonfireCasts += 1;
+    if (hardcastTargetsHit(event) >= 2) {
+      this.extraHits += 1;
+    }
   }
 
   statistic() {
@@ -50,20 +46,17 @@ class TwinMoons extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(7)}
         size="flexible"
-        tooltip={`You hit ${this.moonfireHits} times with ${
-          this.moonfireCasts
-        } casts. This talent added ${formatNumber(this.perSecond)} DPS to your Moonfire.`}
+        tooltip={`The listed damage value counts ONLY the boost to Moonfire's damage, and does not account for the saved GCDs incurred by producing extra moonfire debuffs.`}
       >
-        <BoringSpellValueText spell={TALENTS_DRUID.TWIN_MOONS_TALENT}>
+        <TalentSpellText talent={TALENTS_DRUID.TWIN_MOONS_TALENT}>
           <>
-            {formatPercentage(this.percentTwoHits)} % <small>double hits</small>
+            <ItemPercentDamageDone amount={this.damage} />
             <br />
-            {formatNumber(this.bonusDamage)} <small>damage gained</small>
+            {this.owner.getPerMinute(this.extraHits).toFixed(1)}{' '}
+            <small>extra moonfires per minute</small>
           </>
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }
 }
-
-export default TwinMoons;

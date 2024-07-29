@@ -14,14 +14,14 @@ import { SpellLink } from 'interface';
 
 const EXTENSION_AMOUNT = 2_000;
 const REJUV_MAX = 30_000;
-const MAX_PROCS = 3;
+const MAX_PROCS = 2;
 
 /**
  * **Nurturing Dormancy**
  * Spec Talent
  *
  * When your Rejuvenation heals a full health target, its duration is increased by 2 sec, up to a
- * maximum total increase of 3 sec per cast. Cannot extend duration past 30 sec.
+ * maximum total increase of 4 sec per cast. Cannot extend duration past 30 sec.
  */
 class NurturingDormancy extends Analyzer {
   static dependencies = {

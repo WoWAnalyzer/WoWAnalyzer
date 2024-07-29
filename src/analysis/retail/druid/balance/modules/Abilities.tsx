@@ -152,6 +152,7 @@ class Abilities extends CoreAbilities {
         },
         timelineSortIndex: 11,
       },
+      // TODO TWW - Lunation needs handled (which spells are Arcane?) - Moonfire, Starfire, Starsurge, Starfall, Moons, FoE, Arcane Thrash, Lunar Beam
       {
         spell: TALENTS_DRUID.FURY_OF_ELUNE_TALENT.id,
         buffSpellId: TALENTS_DRUID.FURY_OF_ELUNE_TALENT.id,
@@ -224,14 +225,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.SWIFTMEND.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        enabled: combatant.hasTalent(TALENTS_DRUID.SWIFTMEND_TALENT),
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
         spell: SPELLS.REJUVENATION.id,
         category: SPELL_CATEGORY.UTILITY,
         enabled: combatant.hasTalent(TALENTS_DRUID.REJUVENATION_TALENT),
@@ -243,6 +236,13 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.WILD_GROWTH.id,
         category: SPELL_CATEGORY.UTILITY,
         enabled: combatant.hasTalent(TALENTS_DRUID.WILD_GROWTH_TALENT),
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.MOONKIN_FORM.id,
+        category: SPELL_CATEGORY.OTHERS,
         gcd: {
           base: 1500,
         },

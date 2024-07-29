@@ -154,6 +154,28 @@ class EchoBreakdown extends Analyzer {
           },
         ],
       },
+      {
+        spell: SPELLS.ENGULF_HEAL,
+        amount: this.echo.hardcastEchoHealingForSpell(SPELLS.ENGULF_HEAL.id),
+        color: SPELL_COLORS.ECHO,
+        tooltip: this.genericTooltipForSpell(
+          true,
+          SPELLS.ENGULF_HEAL.id,
+          this.echo.hardcastEchoHealingForSpell(SPELLS.ENGULF_HEAL.id),
+        ),
+        subSpecs: [
+          {
+            spell: SPELLS.ENGULF_HEAL,
+            amount: this.echo.taEchoHealingForSpell(SPELLS.ENGULF_HEAL.id),
+            color: SPELL_COLORS.TA_ECHO,
+            tooltip: this.genericTooltipForSpell(
+              false,
+              SPELLS.ENGULF_HEAL.id,
+              this.echo.taEchoHealingForSpell(SPELLS.ENGULF_HEAL.id),
+            ),
+          },
+        ],
+      },
     ].filter((info) => {
       return info.amount > 0;
     });
@@ -258,7 +280,7 @@ class EchoBreakdown extends Analyzer {
   }
 
   statistic() {
-    const echoData = this.getEchoDataItems;
+    const echoData = this.getEchoDataItems();
     if (!echoData.length) {
       return null;
     }
@@ -269,12 +291,12 @@ class EchoBreakdown extends Analyzer {
             <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} /> <small>breakdown by spell</small>
           </>
         }
-        category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.CORE(1)}
-        wide
+        category={STATISTIC_CATEGORY.TALENTS}
         smallTitle
+        wide
       >
-        <TalentAggregateBars bars={this.getEchoDataItems()} wide></TalentAggregateBars>
+        <TalentAggregateBars bars={this.getEchoDataItems()}></TalentAggregateBars>
       </TalentAggregateStatisticContainer>
     );
   }

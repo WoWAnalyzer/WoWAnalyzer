@@ -61,7 +61,9 @@ export const DEFAULT_HASTE_BUFFS: HasteBuffMap = {
   [SPELLS.CELESTIAL_ALIGNMENT.id]: 0.1,
   [SPELLS.INCARNATION_CHOSEN_OF_ELUNE.id]: 0.1,
   [SPELLS.NATURES_GRACE.id]: 0.15,
-  [SPELLS.FRANTIC_MOMENTUM.id]: 0.1, // TODO check for possible tuning updates
+  [SPELLS.FRANTIC_MOMENTUM.id]: 0.1,
+  [SPELLS.CENARIUS_MIGHT_BUFF.id]: 0.1,
+  [SPELLS.SAVAGE_FURY_BUFF.id]: 0.08,
   //endregion
 
   //region Hunter Haste Buffs
@@ -84,6 +86,15 @@ export const DEFAULT_HASTE_BUFFS: HasteBuffMap = {
   //region Mage
   [TALENTS_MAGE.ICY_VEINS_TALENT.id]: 0.3,
   [TALENTS_MAGE.TOME_OF_ANTONIDAS_TALENT.id]: 0.02,
+  [SPELLS.FIRE_MASTERY_BUFF.id]: {
+    hastePerStack: 0.01,
+  },
+  [SPELLS.MANA_ADDICTION_BUFF_FIRE.id]: {
+    hastePerStack: 0.02,
+  },
+  [SPELLS.MANA_ADDICTION_BUFF_ARCANE.id]: {
+    hastePerStack: 0.03,
+  },
   //endregion
 
   //region Monk
@@ -98,10 +109,8 @@ export const DEFAULT_HASTE_BUFFS: HasteBuffMap = {
   //endregion
 
   //region CLASSIC
-  // Raids
-  [CLASSIC_SPELLS.SHADOW_CRASH.id]: 1, // Ulduar - General Vezax
-  [CLASSIC_SPELLS.SLAG_IMBUED.id]: 1, // Ulduar - Ignis
-  [CLASSIC_SPELLS.STARLIGHT.id]: 0.5, // Ulduar - Hodir
+  // Warlock
+  [CLASSIC_SPELLS.DARK_INTENT_HASTE.id]: 0.03,
   //endregion
 
   //region Encounter

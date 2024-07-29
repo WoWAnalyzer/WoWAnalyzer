@@ -26,11 +26,10 @@ const config: Config = {
   exampleReport: '/report/DCyQGgBxP3R8MaN9/28-Heroic+Smolderon+-+Kill+(3:46)/Seriousnes/standard',
   spec: SPECS.ENHANCEMENT_SHAMAN,
   changelog: CHANGELOG,
-  parser: () =>
-    import('./CombatLogParser' /* webpackChunkName: "EnhancementShaman" */).then(
-      (exports) => exports.default,
-    ),
-
+  // parser: () =>
+  //   import('./CombatLogParser' /* webpackChunkName: "EnhancementShaman" */).then(
+  //     (exports) => exports.default,
+  //   ),
   path: import.meta.url,
 };
 

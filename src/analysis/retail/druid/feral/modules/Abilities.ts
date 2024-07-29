@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
-import { has4pcDF3or4 } from 'analysis/retail/druid/feral/constants';
+import { TIERS } from 'game/TIERS';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -37,7 +37,7 @@ class Abilities extends CoreAbilities {
         primaryCoefficient: 0.125, // damage per tick
       },
       {
-        spell: SPELLS.FEROCIOUS_BITE.id,
+        spell: [SPELLS.FEROCIOUS_BITE.id, SPELLS.RAVAGE_DOTC_CAT.id],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           static: 1000,
@@ -57,7 +57,7 @@ class Abilities extends CoreAbilities {
 
       {
         spell: SPELLS.THRASH_FERAL.id,
-        category: SPELL_CATEGORY.ROTATIONAL_AOE,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           static: 1000,
         },
@@ -115,7 +115,8 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 180,
+        cooldown:
+          180 - combatant.getTalentRank(TALENTS_DRUID.BERSERK_HEART_OF_THE_LION_TALENT) * 60,
         enabled: combatant.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT),
         castEfficiency: {
           suggestion: true,
@@ -132,7 +133,8 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BERSERK.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 180,
+        cooldown:
+          180 - combatant.getTalentRank(TALENTS_DRUID.BERSERK_HEART_OF_THE_LION_TALENT) * 60,
         enabled: !combatant.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT),
         castEfficiency: {
           suggestion: true,
@@ -193,7 +195,10 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_DRUID.FERAL_FRENZY_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         enabled: combatant.hasTalent(TALENTS_DRUID.FERAL_FRENZY_TALENT),
-        cooldown: has4pcDF3or4(combatant) ? 30 : 45,
+        cooldown:
+          45 -
+          combatant.getTalentRank(TALENTS_DRUID.TEAR_DOWN_THE_MIGHTY_TALENT) * 5 -
+          (combatant.has4PieceByTier(TIERS.DF4) ? 15 : 0),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -251,15 +256,6 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 42,
       },
       {
-        spell: SPELLS.MOONKIN_FORM_AFFINITY.id, // with no affinity any more, is this correct?
-        category: SPELL_CATEGORY.UTILITY,
-        enabled: combatant.hasTalent(TALENTS_DRUID.MOONKIN_FORM_SHARED_TALENT),
-        gcd: {
-          base: 1500,
-        },
-        timelineSortIndex: 54,
-      },
-      {
         spell: SPELLS.MANGLE_BEAR.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: {
@@ -276,7 +272,7 @@ class Abilities extends CoreAbilities {
         cooldown: (haste: number) => 6 / (1 + haste),
       },
       {
-        // Moonfire from caster, bear, and moonkin forms. See MOONFIRE_FERAL for cat
+        // Moonfire from caster and bear forms. See MOONFIRE_FERAL for cat
         spell: SPELLS.MOONFIRE_CAST.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: {
@@ -324,30 +320,12 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.FLAP.id,
-        category: SPELL_CATEGORY.UTILITY,
-        // only usable in Moonkin form so need Balance affinity, also need to learn from a tome
-        enabled: combatant.hasTalent(TALENTS_DRUID.MOONKIN_FORM_SHARED_TALENT),
-        gcd: {
-          static: 500,
-        },
-      },
-      {
         spell: SPELLS.REJUVENATION.id,
         category: SPELL_CATEGORY.UTILITY,
         enabled: combatant.hasTalent(TALENTS_DRUID.REJUVENATION_TALENT),
         gcd: {
           base: 1500,
         },
-      },
-      {
-        spell: SPELLS.SWIFTMEND.id,
-        category: SPELL_CATEGORY.UTILITY,
-        enabled: combatant.hasTalent(TALENTS_DRUID.SWIFTMEND_TALENT),
-        gcd: {
-          base: 1500,
-        },
-        cooldown: 25,
       },
       {
         spell: SPELLS.WILD_GROWTH.id,

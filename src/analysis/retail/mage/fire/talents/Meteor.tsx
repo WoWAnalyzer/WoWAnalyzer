@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
@@ -62,11 +61,7 @@ class Meteor extends Analyzer {
         </>,
       )
         .icon(TALENTS.METEOR_TALENT.icon)
-        .actual(
-          <Trans id="mage.fire.suggestions.meteor.efficiency">
-            {formatPercentage(this.meteorCastEfficiency)}% Utilization
-          </Trans>,
-        )
+        .actual(`${formatPercentage(this.meteorCastEfficiency)}% Utilization`)
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );
   }

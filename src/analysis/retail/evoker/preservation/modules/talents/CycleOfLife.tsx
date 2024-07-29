@@ -11,27 +11,11 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import {
   CYCLE_OF_LIFE_PERCENT_SAVED,
   CYCLE_OF_LIFE_SEED_DURATION,
-  ECHO_HEALS,
+  CYCLE_SPELLS,
   SPELL_COLORS,
 } from '../../constants';
 
-const TRACKED_SPELL_IDS = [
-  SPELLS.CYCLE_OF_LIFE_HEAL.id,
-  SPELLS.DREAM_BREATH.id,
-  TALENTS_EVOKER.ECHO_TALENT.id,
-  SPELLS.EMERALD_BLOSSOM.id,
-  SPELLS.EMERALD_COMMUNION_ALLY.id,
-  TALENTS_EVOKER.EMERALD_COMMUNION_TALENT.id,
-  SPELLS.FLUTTERING_SEEDLINGS_HEAL.id,
-  SPELLS.LIFEBIND_HEAL.id,
-  SPELLS.LIVING_FLAME_HEAL.id,
-  SPELLS.RENEWING_BLAZE_HEAL.id,
-  TALENTS_EVOKER.REVERSION_TALENT.id,
-].concat(
-  ECHO_HEALS.map((info) => {
-    return info.id;
-  }),
-);
+const cycleSpells = new Set<number>(CYCLE_SPELLS);
 
 class CycleOfLife extends Analyzer {
   savedBySpell: Map<number, number> = new Map<number, number>();
@@ -72,7 +56,7 @@ class CycleOfLife extends Analyzer {
   getOtherHealing(items: Item[]) {
     let totalHealing = 0;
     this.savedBySpell.forEach((value: number, key: number) => {
-      if (!TRACKED_SPELL_IDS.includes(key)) {
+      if (!cycleSpells.has(key)) {
         totalHealing += value;
       }
     });
@@ -208,6 +192,27 @@ class CycleOfLife extends Analyzer {
         spellId: TALENTS_EVOKER.VERDANT_EMBRACE_TALENT.id,
         value: this.totalSavedBySpell(SPELLS.VERDANT_EMBRACE_HEAL.id),
         valueTooltip: formatNumber(this.totalSavedBySpell(SPELLS.VERDANT_EMBRACE_HEAL.id)),
+      },
+      {
+        color: SPELL_COLORS.ENKINDLE,
+        label: TALENTS_EVOKER.ENKINDLE_TALENT.name,
+        spellId: TALENTS_EVOKER.ENKINDLE_TALENT.id,
+        value: this.totalSavedBySpell(SPELLS.ENKINDLE_HOT.id),
+        valueTooltip: formatNumber(this.totalSavedBySpell(SPELLS.ENKINDLE_HOT.id)),
+      },
+      {
+        color: SPELL_COLORS.ENGULF,
+        label: TALENTS_EVOKER.ENGULF_TALENT.name,
+        spellId: TALENTS_EVOKER.ENGULF_TALENT.id,
+        value: this.totalSavedBySpell(SPELLS.ENGULF_HEAL.id),
+        valueTooltip: formatNumber(this.totalSavedBySpell(SPELLS.ENGULF_HEAL.id)),
+      },
+      {
+        color: SPELL_COLORS.CONSUME_FLAME,
+        label: TALENTS_EVOKER.CONSUME_FLAME_TALENT.name,
+        spellId: TALENTS_EVOKER.CONSUME_FLAME_TALENT.id,
+        value: this.totalSavedBySpell(SPELLS.CONSUME_FLAME_HEAL.id),
+        valueTooltip: formatNumber(this.totalSavedBySpell(SPELLS.CONSUME_FLAME_HEAL.id)),
       },
     ];
     const otherHealing = this.getOtherHealing(items);

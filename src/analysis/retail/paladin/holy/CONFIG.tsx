@@ -6,7 +6,7 @@ import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
 import Config, { SupportLevel } from 'parser/Config';
 
-import CHANGELOG from './CHANGELOG';
+// import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
   contributors: [Abelito75],
@@ -28,9 +28,7 @@ const config: Config = {
       (such as <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> and{' '}
       <SpellLink spell={TALENTS.LIGHT_OF_DAWN_TALENT} />
       ). Finally, don't cast <SpellLink spell={TALENTS.LIGHT_OF_THE_MARTYR_TALENT} /> unless there's
-      nothing else to cast, or you're playing with{' '}
-      <SpellLink spell={TALENTS.MARAADS_DYING_BREATH_TALENT} />
-      .
+      nothing else to cast, or you're playing with Maraad's.
       <br />
       <br />
       If you want to learn more about Holy Paladins, join the Paladin community at the{' '}
@@ -50,11 +48,11 @@ const config: Config = {
 
   //
   spec: SPECS.HOLY_PALADIN,
-  changelog: CHANGELOG,
-  parser: () =>
-    import('./CombatLogParser' /* webpackChunkName: "HolyPaladin" */).then(
-      (exports) => exports.default,
-    ),
+  // changelog: CHANGELOG,
+  // parser: () =>
+  //   import('./CombatLogParser' /* webpackChunkName: "HolyPaladin" */).then(
+  //     (exports) => exports.default,
+  //   ),
   path: import.meta.url,
 };
 

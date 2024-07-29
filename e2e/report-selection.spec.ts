@@ -11,7 +11,9 @@ const playerName = 'Toppledh';
 const bossDifficultyAndName = 'LFRCouncil Of Dreams';
 const resultsPageTitle = `${bossTitle} by ${playerName} in ${reportTitle}`;
 
-test('report selection', async ({ page, homePage, fightSelectionPage }) => {
+// TODO: update this once we have a properly supported TWW spec
+
+test.skip('report selection', async ({ page, homePage, fightSelectionPage }) => {
   await homePage.goto();
 
   await homePage.fillInReportInputWithCode(reportCode);

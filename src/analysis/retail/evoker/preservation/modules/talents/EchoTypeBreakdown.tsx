@@ -1,4 +1,3 @@
-import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -7,20 +6,16 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { SPELL_COLORS } from '../../constants';
-import { TIERS } from 'game/TIERS';
-import { isEchoFromT314PC, isFromTAEcho } from '../../normalizers/CastLinkNormalizer';
+import { isFromTAEcho } from '../../normalizers/EventLinking/helpers';
 import Events, { ApplyBuffEvent } from 'parser/core/Events';
 
 class EchoTypeBreakdown extends Analyzer {
-  tierCount: number = 0;
   hardcastCount: number = 0;
   rsCount: number = 0;
 
   constructor(options: Options) {
     super(options);
-    this.active =
-      this.selectedCombatant.hasTalent(TALENTS_EVOKER.RESONATING_SPHERE_TALENT) ||
-      this.selectedCombatant.has4PieceByTier(TIERS.DF3);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.RESONATING_SPHERE_TALENT);
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS_EVOKER.ECHO_TALENT),
       this.onEchoApply,
@@ -30,8 +25,6 @@ class EchoTypeBreakdown extends Analyzer {
   onEchoApply(event: ApplyBuffEvent) {
     if (isFromTAEcho(event)) {
       this.rsCount += 1;
-    } else if (isEchoFromT314PC(event)) {
-      this.tierCount += 1;
     } else {
       this.hardcastCount += 1;
     }
@@ -55,15 +48,6 @@ class EchoTypeBreakdown extends Analyzer {
         spellId: TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT.id,
         value: this.rsCount,
         valueTooltip: this.rsCount,
-      });
-    }
-    if (this.selectedCombatant.has4PieceByTier(TIERS.DF3)) {
-      items.push({
-        color: SPELL_COLORS.VERDANT_EMBRACE,
-        label: 'Echo from T31 4PC',
-        spellId: SPELLS.LIVING_FLAME_CAST.id,
-        value: this.tierCount,
-        valueTooltip: this.tierCount,
       });
     }
     return <DonutChart items={items} />;

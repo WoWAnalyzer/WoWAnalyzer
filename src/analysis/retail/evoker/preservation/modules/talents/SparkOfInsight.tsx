@@ -17,9 +17,9 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import {
   didEbConsumeSparkProc,
   didSparkProcEssenceBurst,
-  getEssenceBurstConsumeAbility,
   wasEbConsumed,
-} from '../../normalizers/CastLinkNormalizer';
+} from '../../normalizers/EventLinking/helpers';
+import { getEssenceBurstConsumeAbility } from 'analysis/retail/evoker/shared/modules/normalizers/EssenceBurstCastLinkNormalizer';
 import { ESSENCE_COSTS, MANA_COSTS } from './EssenceBurst';
 
 class SparkOfInsight extends Analyzer {

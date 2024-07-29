@@ -58,12 +58,6 @@ const VIVIFY_6_REMS = {
     ),
   ),
 };
-
-const SOOM_BEFORE_VIVIFY = {
-  spell: SPELLS.VIVIFY,
-  condition: cnd.or(cnd.lastSpellCast(talents.SOOTHING_MIST_TALENT)),
-};
-
 const BLACKOUT_KICK = {
   spell: SPELLS.BLACKOUT_KICK,
   condition: cnd.optionalRule(
@@ -107,12 +101,12 @@ const atMissingCondition = cnd.buffMissing(talents.ANCIENT_TEACHINGS_TALENT, {
   timeRemaining: 1500,
 });
 
-const EF_AT = {
-  spell: talents.ESSENCE_FONT_TALENT,
+const JFS_AT = {
+  spell: talents.JADEFIRE_STOMP_TALENT,
   condition: atMissingCondition,
 };
 
-const RM_AT_CORE = [VIVIFY_8_REMS, EF_AT, VIVIFY_6_REMS];
+const RM_AT_CORE = [VIVIFY_8_REMS, JFS_AT, VIVIFY_6_REMS];
 
 const rotation_rm_at_sg = build([
   {
@@ -128,66 +122,7 @@ const rotation_rm_at_sg = build([
   SHEILUNS_SHAOHAOS,
   ...RM_AT_CORE,
   BLACKOUT_KICK,
-  talents.CHI_BURST_TALENT,
-  {
-    spell: SPELLS.TIGER_PALM,
-    condition: cnd.optionalRule(
-      cnd.buffStacks(SPELLS.TEACHINGS_OF_THE_MONASTERY, { atLeast: 0, atMost: 3 }),
-    ),
-  },
-  ...commonBottom,
-]);
-
-const rotation_rm_at_upw = build([
-  {
-    spell: talents.ESSENCE_FONT_TALENT,
-    condition: cnd.describe(cnd.lastSpellCast(talents.THUNDER_FOCUS_TEA_TALENT), (tense) => (
-      <>
-        {' '}
-        you cast <SpellLink spell={talents.THUNDER_FOCUS_TEA_TALENT} />
-      </>
-    )),
-  },
-  ...commonTop,
-  ...RM_AT_CORE,
-  {
-    spell: talents.JADEFIRE_STOMP_TALENT,
-    condition: cnd.describe(
-      cnd.and(
-        cnd.hasTalent(talents.JADEFIRE_STOMP_TALENT),
-        cnd.hasTalent(talents.UPWELLING_TALENT),
-        cnd.spellCooldownRemaining(talents.ESSENCE_FONT_TALENT, { atLeast: 0.00001 }),
-        atMissingCondition,
-      ),
-      (tense) => (
-        <>
-          <SpellLink spell={talents.ESSENCE_FONT_TALENT} /> {tenseAlt(tense, 'is', 'was')} on
-          cooldown and <SpellLink spell={talents.ANCIENT_TEACHINGS_TALENT} /> is missing or about to
-          expire.
-        </>
-      ),
-    ),
-  },
-  BLACKOUT_KICK,
-  talents.CHI_BURST_TALENT,
-  SPELLS.TIGER_PALM,
-  ...commonBottom,
-]);
-
-const rotation_rm_cf_shaohaos = build([
-  {
-    spell: talents.RENEWING_MIST_TALENT,
-    condition: cnd.describe(cnd.lastSpellCast(talents.THUNDER_FOCUS_TEA_TALENT), (tense) => (
-      <>
-        {' '}
-        you cast <SpellLink spell={talents.THUNDER_FOCUS_TEA_TALENT} />
-      </>
-    )),
-  },
-  ...commonTop,
-  SOOM_BEFORE_VIVIFY,
-  VIVIFY_6_REMS,
-  BLACKOUT_KICK,
+  talents.CHI_BURST_SHARED_TALENT,
   {
     spell: SPELLS.TIGER_PALM,
     condition: cnd.optionalRule(
@@ -201,8 +136,6 @@ const rotation_fallback = build([...commonTop, ...commonBottom]);
 
 export enum MistweaverApl {
   RisingMistAncientTeachingsShaohaos,
-  RisingMistAncientTeachingsUpwellFls,
-  RisingMistCloudedFocusShaohaos,
   AwakenedFaeline,
   TearOfMorning,
   Fallback,
@@ -217,20 +150,6 @@ export const chooseApl = (info: PlayerInfo): MistweaverApl => {
   ) {
     return MistweaverApl.RisingMistAncientTeachingsShaohaos;
   } else if (
-    info.combatant.hasTalent(talents.ANCIENT_TEACHINGS_TALENT) &&
-    info.combatant.hasTalent(talents.RISING_MIST_TALENT) &&
-    info.combatant.hasTalent(talents.UPWELLING_TALENT) &&
-    info.combatant.hasTalent(talents.INVOKERS_DELIGHT_TALENT)
-  ) {
-    return MistweaverApl.RisingMistAncientTeachingsUpwellFls;
-  } else if (
-    info.combatant.hasTalent(talents.CLOUDED_FOCUS_TALENT) &&
-    info.combatant.hasTalent(talents.RISING_MIST_TALENT) &&
-    info.combatant.hasTalent(talents.INVOKERS_DELIGHT_TALENT) &&
-    info.combatant.hasTalent(talents.SHAOHAOS_LESSONS_TALENT)
-  ) {
-    return MistweaverApl.RisingMistCloudedFocusShaohaos;
-  } else if (
     info.combatant.hasTalent(talents.AWAKENED_JADEFIRE_TALENT) &&
     info.combatant.hasTalent(talents.ANCIENT_TEACHINGS_TALENT)
   ) {
@@ -243,8 +162,6 @@ export const chooseApl = (info: PlayerInfo): MistweaverApl => {
 
 const apls: Record<MistweaverApl, Apl> = {
   [MistweaverApl.RisingMistAncientTeachingsShaohaos]: rotation_rm_at_sg,
-  [MistweaverApl.RisingMistAncientTeachingsUpwellFls]: rotation_rm_at_upw,
-  [MistweaverApl.RisingMistCloudedFocusShaohaos]: rotation_rm_cf_shaohaos,
   [MistweaverApl.AwakenedFaeline]: rotation_fallback,
   [MistweaverApl.TearOfMorning]: rotation_fallback,
   [MistweaverApl.Fallback]: rotation_fallback,

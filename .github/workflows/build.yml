@@ -9,15 +9,14 @@ jobs:
   prepare:
     name: 'Install dependencies'
     runs-on: ubuntu-latest
-    env:
-      YARN_CACHE_FOLDER: .yarn-cache
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-          cache: 'yarn'
-      - run: yarn install --frozen-lockfile --prefer-offline
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
 
   typecheck:
     needs: [prepare]
@@ -25,12 +24,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-          cache: 'yarn'
-      - run: yarn install --frozen-lockfile --prefer-offline
-      - run: yarn typecheck
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run typecheck
 
   linting:
     needs: [prepare]
@@ -38,12 +38,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-          cache: 'yarn'
-      - run: yarn install --frozen-lockfile --prefer-offline
-      - run: yarn lint --max-warnings=0
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run lint --max-warnings=0
 
   prettier:
     needs: [prepare]
@@ -51,12 +52,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-          cache: 'yarn'
-      - run: yarn install --frozen-lockfile --prefer-offline
-      - run: yarn prettier . --check
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec prettier . --check
 
   test-interface:
     needs: [prepare]
@@ -65,12 +67,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-          cache: 'yarn'
-      - run: yarn install --frozen-lockfile --prefer-offline
-      - run: yarn test:interface
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run test:interface
 
   test-parser:
     needs: [prepare]
@@ -78,12 +81,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-          cache: 'yarn'
-      - run: yarn install --frozen-lockfile --prefer-offline
-      - run: yarn test:parser
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run test:parser
 
   build:
     needs: [prepare]
@@ -94,21 +98,22 @@ jobs:
       environment_name: ${{ steps.environment-name.outputs.environment_name }}
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-          cache: 'yarn'
-      - run: yarn install --frozen-lockfile --prefer-offline
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
       - name: Extract messages
         if: github.event_name != 'pull_request' && github.repository == 'wowanalyzer/wowanalyzer'
         run: |
-          yarn extract
-          yarn lingui compile
+          pnpm run extract
+          pnpm exec lingui compile
       - name: Calculate environment name
         id: environment-name
         run: echo "environment_name=${GITHUB_REF##*/}" >> $GITHUB_OUTPUT
       - name: Production build
-        run: yarn build
+        run: pnpm run build
         env:
           DISABLE_AUTOMATIC_ESLINT: true
           VITE_ENABLE_GA: true
@@ -126,15 +131,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-          cache: 'yarn'
-      - run: yarn install --frozen-lockfile --prefer-offline
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
       - name: Extract messages
         run: |
-          yarn extract
-          yarn lingui compile
+          pnpm run extract
+          pnpm exec lingui compile
       - name: Calculate environment name
         id: environment-name
         run: echo "environment_name=${GITHUB_REF##*/}" >> $GITHUB_OUTPUT
@@ -143,7 +149,7 @@ jobs:
         # using for e2e testing.
         run: cp .env.development .env.production
       - name: Production build
-        run: yarn build
+        run: pnpm run build
         env:
           DISABLE_AUTOMATIC_ESLINT: true
           VITE_ENABLE_GA: false
@@ -165,20 +171,21 @@ jobs:
         shard: [1, 2, 3, 4]
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-          cache: 'yarn'
-      - run: yarn install --frozen-lockfile --prefer-offline
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
       - uses: actions/download-artifact@v4
         with:
           name: e2e-build
       - run: tar -xzf dist.tar.gz
       - name: Install Playwright deps
-        run: yarn playwright install --with-deps
+        run: pnpm exec playwright install --with-deps
       - name: Run Playwright tests
-        run: yarn e2e --shard=${{ matrix.shard }}/4
-      - uses: actions/upload-artifact@v3
+        run: pnpm run e2e --shard=${{ matrix.shard }}/4
+      - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: playwright-report-shard-${{ matrix.shard }}
@@ -195,15 +202,16 @@ jobs:
     if: github.event_name == 'pull_request'
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-          cache: 'yarn'
-      - run: yarn install --frozen-lockfile --prefer-offline
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
       - name: Extract messages
-        run: yarn extract
+        run: pnpm run extract
       - name: Compile messages
-        run: yarn lingui compile
+        run: pnpm exec lingui compile
 
   docker-image:
     needs: [typecheck, linting, prettier, test-interface, test-parser, build]
@@ -261,8 +269,6 @@ jobs:
     name: 'Has new changelog entry'
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
-    env:
-      YARN_CACHE_FOLDER: .yarn-cache
     steps:
       - uses: actions/checkout@v4
       - run: git fetch --no-tags --depth=1 origin $GITHUB_BASE_REF:$GITHUB_BASE_REF

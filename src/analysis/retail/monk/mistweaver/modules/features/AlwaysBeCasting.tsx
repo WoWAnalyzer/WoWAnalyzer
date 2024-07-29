@@ -16,20 +16,18 @@ import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHea
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   HEALING_ABILITIES_ON_GCD: number[] = [
     TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
-    TALENTS_MONK.ESSENCE_FONT_TALENT.id,
+    TALENTS_MONK.CELESTIAL_CONDUIT_TALENT.id,
     TALENTS_MONK.RENEWING_MIST_TALENT.id,
     SPELLS.VIVIFY.id,
     TALENTS_MONK.REVIVAL_TALENT.id,
     TALENTS_MONK.RESTORAL_TALENT.id,
-    TALENTS_MONK.CHI_BURST_TALENT.id,
-    TALENTS_MONK.CHI_WAVE_TALENT.id,
-    TALENTS_MONK.REFRESHING_JADE_WIND_TALENT.id,
+    TALENTS_MONK.CHI_BURST_SHARED_TALENT.id,
     TALENTS_MONK.SOOTHING_MIST_TALENT.id,
     TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id,
     SPELLS.EXPEL_HARM.id,
     TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id,
     TALENTS_MONK.JADEFIRE_STOMP_TALENT.id,
-    TALENTS_MONK.ZEN_PULSE_TALENT.id,
+    TALENTS_MONK.SHEILUNS_GIFT_TALENT.id,
   ];
   isSooming = false;
   constructor(options: Options) {
@@ -37,6 +35,12 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)) {
       this.HEALING_ABILITIES_ON_GCD.push(TALENTS_MONK.RISING_SUN_KICK_TALENT.id);
       this.HEALING_ABILITIES_ON_GCD.push(SPELLS.RISING_SUN_KICK_DAMAGE.id);
+    }
+    if (
+      this.selectedCombatant.hasTalent(TALENTS_MONK.COURAGE_OF_THE_WHITE_TIGER_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS_MONK.ANCIENT_TEACHINGS_TALENT)
+    ) {
+      this.HEALING_ABILITIES_ON_GCD.push(SPELLS.TIGER_PALM.id);
     }
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT)) {
       this.addEventListener(
@@ -46,7 +50,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
       this.addEventListener(Events.death.to(SELECTED_PLAYER_PET), this.handleChijiDeath);
     }
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.ANCIENT_TEACHINGS_TALENT)) {
-      this.HEALING_ABILITIES_ON_GCD.push(SPELLS.TIGER_PALM.id);
       this.HEALING_ABILITIES_ON_GCD.push(TALENTS_MONK.RISING_SUN_KICK_TALENT.id);
       this.HEALING_ABILITIES_ON_GCD.push(SPELLS.RISING_SUN_KICK_DAMAGE.id);
       this.HEALING_ABILITIES_ON_GCD.push(SPELLS.BLACKOUT_KICK.id);

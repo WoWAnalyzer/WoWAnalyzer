@@ -5,7 +5,6 @@ import SpellHistory from 'parser/shared/modules/SpellHistory';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 const BREWS = [
-  talents.BONEDUST_BREW_TALENT,
   talents.BLACK_OX_BREW_TALENT,
   SPELLS.FORTIFYING_BREW_BRM,
   talents.CELESTIAL_BREW_TALENT,

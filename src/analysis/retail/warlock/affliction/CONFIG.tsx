@@ -3,7 +3,7 @@ import GameBranch from 'game/GameBranch';
 import SPECS from 'game/SPECS';
 import type Config from 'parser/Config';
 
-import CHANGELOG from './CHANGELOG';
+// import CHANGELOG from './CHANGELOG';
 import { SupportLevel } from 'parser/Config';
 
 const CONFIG: Config = {
@@ -49,12 +49,12 @@ const CONFIG: Config = {
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
   spec: SPECS.AFFLICTION_WARLOCK,
   // The contents of your changelog.
-  changelog: CHANGELOG,
+  // changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
-  parser: () =>
-    import('./CombatLogParser' /* webpackChunkName: "AfflictionWarlock" */).then(
-      (exports) => exports.default,
-    ),
+  // parser: () =>
+  //   import('./CombatLogParser' /* webpackChunkName: "AfflictionWarlock" */).then(
+  //     (exports) => exports.default,
+  //   ),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: import.meta.url,
 };

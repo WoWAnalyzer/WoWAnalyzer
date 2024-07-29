@@ -125,9 +125,8 @@ export default function BlackoutComboSection(): JSX.Element | null {
                   hoverable
                   content={
                     <>
-                      These are stacks of{' '}
-                      <SpellLink spell={talents.IMPROVED_CELESTIAL_BREW_TALENT} />, which is limited
-                      to 10 stacks total (including the 3 bonus from{' '}
+                      These are stacks of <SpellLink spell={SPELLS.PURIFIED_CHI} />, which is
+                      limited to 10 stacks total (including the 3 bonus from{' '}
                       <SpellLink spell={talents.BLACKOUT_COMBO_TALENT} />
                       ).
                     </>

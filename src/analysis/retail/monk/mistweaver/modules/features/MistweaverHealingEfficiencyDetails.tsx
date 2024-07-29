@@ -13,15 +13,12 @@ class MistweaverHealingEfficiencyDetails extends HealingEfficiencyDetails {
         explanation={
           <>
             <SpellLink spell={SPELLS.GUSTS_OF_MISTS} /> healing is added to the appropriate spell
-            that caused the gust. <br /> <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> is
-            given the healing from duplicated gusts, since without{' '}
-            <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> the second gust would not have
-            happened. <br />
+            that caused the gust. <br />
             {this.selectedCombatant.hasTalent(TALENTS_MONK.ANCIENT_TEACHINGS_TALENT) && (
               <>
-                <SpellLink spell={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT} /> is given to the spell
-                that applied the buff, either <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} />{' '}
-                or <SpellLink spell={TALENTS_MONK.JADEFIRE_STOMP_TALENT} />. <br />
+                <SpellLink spell={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT} /> is given to{' '}
+                <SpellLink spell={TALENTS_MONK.JADEFIRE_STOMP_TALENT} /> since it is the spell that
+                applied the buff. <br />
               </>
             )}
             <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> healing from{' '}
@@ -31,10 +28,6 @@ class MistweaverHealingEfficiencyDetails extends HealingEfficiencyDetails {
                 procced it. <br />
               </>
             )}
-            <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> is given the healing of{' '}
-            <SpellLink spell={SPELLS.ENVELOPING_BREATH_HEAL} /> since without casting{' '}
-            <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} />,{' '}
-            <SpellLink spell={SPELLS.ENVELOPING_BREATH_HEAL} /> healing would not occur. <br />
             {this.selectedCombatant.hasTalent(TALENTS_MONK.MISTY_PEAKS_TALENT) && (
               <>
                 <SpellLink spell={TALENTS_MONK.MISTY_PEAKS_TALENT} /> healing is attributed to the
@@ -45,7 +38,13 @@ class MistweaverHealingEfficiencyDetails extends HealingEfficiencyDetails {
             {this.selectedCombatant.hasTalent(TALENTS_MONK.SHAOHAOS_LESSONS_TALENT) && (
               <>
                 <SpellLink spell={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT} /> healing is attributed to{' '}
-                <SpellLink spell={TALENTS_MONK.SHEILUNS_GIFT_TALENT} />.
+                <SpellLink spell={TALENTS_MONK.SHEILUNS_GIFT_TALENT} />.<br />
+              </>
+            )}
+            {this.selectedCombatant.hasTalent(TALENTS_MONK.ZEN_PULSE_TALENT) && (
+              <>
+                <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT} /> healing is attributed to{' '}
+                <SpellLink spell={SPELLS.VIVIFY} />.
               </>
             )}
           </>

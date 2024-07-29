@@ -14,9 +14,6 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { ApplyBuffEvent } from 'parser/core/Events';
 import ComboPointTracker from 'analysis/retail/druid/feral/modules/core/combopoints/ComboPointTracker';
 import { PassFailCheckmark, PerformanceMark } from 'interface/guide';
-import ItemSetLink from 'interface/ItemSetLink';
-import { has2pcDF3or4 } from 'analysis/retail/druid/feral/constants';
-import { DRUID_DF3_ID } from 'common/ITEMS/dragonflight';
 
 class ConvokeSpiritsFeral extends ConvokeSpirits {
   static dependencies = {
@@ -34,12 +31,10 @@ class ConvokeSpiritsFeral extends ConvokeSpirits {
 
     const tfOnCast = this.selectedCombatant.hasBuff(SPELLS.TIGERS_FURY.id);
     const cpsOnCast = this.comboPointTracker.current;
-    const smolderingFrenzyOnCast = this.selectedCombatant.hasBuff(SPELLS.SMOLDERING_FRENZY.id);
 
     this.feralConvokeTracker[this.cast] = {
       tfOnCast,
       cpsOnCast,
-      smolderingFrenzyOnCast,
     };
   }
 
@@ -77,7 +72,6 @@ class ConvokeSpiritsFeral extends ConvokeSpirits {
 
   /** Guide fragment showing a breakdown of each Convoke cast */
   get guideCastBreakdown() {
-    const hasT31 = has2pcDF3or4(this.selectedCombatant);
     const explanation = (
       <>
         <p>
@@ -89,13 +83,6 @@ class ConvokeSpiritsFeral extends ConvokeSpirits {
           boost, and ideally use it at low combo points to benefit from the combo points it will
           generate.
         </p>
-        {hasT31 && (
-          <p>
-            Because you have the <ItemSetLink id={DRUID_DF3_ID}>Amirdrassil Tier Set</ItemSetLink>,
-            you should also make sure to have <SpellLink spell={SPELLS.SMOLDERING_FRENZY} /> active
-            during Convoke.
-          </p>
-        )}
       </>
     );
 
@@ -121,9 +108,7 @@ class ConvokeSpiritsFeral extends ConvokeSpirits {
           }
 
           const overallPerf =
-            feralCast.cpsOnCast <= 2 &&
-            feralCast.tfOnCast &&
-            (!hasT31 || feralCast.smolderingFrenzyOnCast)
+            feralCast.cpsOnCast <= 2 && feralCast.tfOnCast
               ? QualitativePerformance.Good
               : QualitativePerformance.Fail;
 
@@ -136,15 +121,6 @@ class ConvokeSpiritsFeral extends ConvokeSpirits {
             ),
             result: <PassFailCheckmark pass={feralCast.tfOnCast} />,
           });
-          hasT31 &&
-            checklistItems.push({
-              label: (
-                <>
-                  <SpellLink spell={SPELLS.SMOLDERING_FRENZY} /> active
-                </>
-              ),
-              result: <PassFailCheckmark pass={feralCast.smolderingFrenzyOnCast} />,
-            });
           checklistItems.push({
             label: 'Combo Points on cast',
             result: <PerformanceMark perf={cpsPerf} />,
@@ -171,7 +147,6 @@ class ConvokeSpiritsFeral extends ConvokeSpirits {
 interface FeralConvokeCast {
   tfOnCast: boolean;
   cpsOnCast: number;
-  smolderingFrenzyOnCast: boolean;
 }
 
 export default ConvokeSpiritsFeral;

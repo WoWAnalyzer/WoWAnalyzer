@@ -1,14 +1,26 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
-import { HawkCorrigan, Putro, Zeboot, Maximaw, Zea, emallson, Vetyst, Periodic, ToppleTheNun, Awildfivreld, Sref } from 'CONTRIBUTORS';
+import {
+  HawkCorrigan,
+  Putro,
+  Zeboot,
+  Maximaw,
+  Zea,
+  emallson,
+  Vetyst,
+  Periodic,
+  ToppleTheNun,
+  Awildfivreld,
+  Sref,
+} from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
+// prettier-ignore
 export default [
   change(date(2023, 11, 12), <>Updated Active Time Graph to use a rolling average instead of cumulative average.</>, Sref),
   change(date(2023, 9, 17), <>Reorder guide sections and make the guide default.</>, Awildfivreld),
   change(date(2023, 9, 17), <>Use core ResourceTracker logic now that it is available.</>, Awildfivreld),
-  change(date(2023, 9, 6), <>Use the correct spell id for <SpellLink spell={TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT} /> casts.</>, Putro),
   change(date(2023, 8, 30), <>Add section on electrified shocks.</>, Awildfivreld),
   change(date(2023, 8, 13), <>Add section on always be casting, with graph.</>, Awildfivreld),
   change(date(2023, 8, 12), <>Fix and improve the resource graph, and add a section on it in the guide section.</>, Awildfivreld),

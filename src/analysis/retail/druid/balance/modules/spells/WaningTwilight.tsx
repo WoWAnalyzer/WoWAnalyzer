@@ -17,9 +17,15 @@ import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../constants';
 import UptimeIcon from 'interface/icons/Uptime';
 import ItemPercentDamageDone from 'parser/ui/ItemPercentDamageDone';
 
-const WANING_TWILIGHT_BONUS_DAMAGE = 0.04;
+const WANING_TWILIGHT_BONUS_DAMAGE = 0.06;
 const WT_COLOR = '#00bb44';
 
+/**
+ * **Waning Twilight**
+ * Spec Talent
+ *
+ * When you have 3 periodic effects from your spells on a target, your damage and healing on them are increased by 6%.
+ */
 class WaningTwilight extends Analyzer {
   static dependencies = {
     enemies: Enemies,
@@ -27,14 +33,10 @@ class WaningTwilight extends Analyzer {
   protected enemies!: Enemies;
 
   totalDamage = 0;
-  bonusDamageMod: number;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.WANING_TWILIGHT_TALENT);
-    this.bonusDamageMod =
-      this.selectedCombatant.getTalentRank(TALENTS_DRUID.WANING_TWILIGHT_TALENT) *
-      WANING_TWILIGHT_BONUS_DAMAGE;
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
@@ -43,7 +45,7 @@ class WaningTwilight extends Analyzer {
     const target = this.enemies.enemies[`${event.targetID}.0`];
     const hasWaningTwilight = target?.hasBuff(SPELLS.WANING_TWILIGHT.id);
     if (hasWaningTwilight) {
-      this.totalDamage += calculateEffectiveDamage(event, this.bonusDamageMod);
+      this.totalDamage += calculateEffectiveDamage(event, WANING_TWILIGHT_BONUS_DAMAGE);
     }
   }
 

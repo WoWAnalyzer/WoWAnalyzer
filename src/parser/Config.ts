@@ -15,6 +15,10 @@ export type DragonflightPatchVersion = `10.${
   | VaultPatchCycle
   | AberrusPatchCycle
   | AmirdrassilPatchCycle}`;
+
+type NerubarPatchCycle = `0.${0 | 2}`;
+export type TwwPatchVersion = `11.${NerubarPatchCycle}`;
+
 export type CataPatchVersion = `4.4.0`;
 
 export enum SupportLevel {
@@ -46,7 +50,7 @@ export enum SupportLevel {
 
 interface CoreConfig {
   branch: GameBranch;
-  patchCompatibility: null | DragonflightPatchVersion | CataPatchVersion;
+  patchCompatibility: null | DragonflightPatchVersion | TwwPatchVersion | CataPatchVersion;
   /**
    * The people that have contributed to this spec recently. People don't have
    * to sign up to be long-time maintainers to be included in this list. If
@@ -102,7 +106,7 @@ interface CoreConfig {
   /**
    * The contents of your changelog.
    */
-  changelog: ChangelogEntry[];
+  changelog?: ChangelogEntry[];
   /**
    * The CombatLogParser class for your spec.
    */

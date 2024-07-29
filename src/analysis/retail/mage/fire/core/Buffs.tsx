@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
-import { TIERS } from 'game/TIERS';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import CoreAuras from 'parser/core/modules/Auras';
 
@@ -52,11 +51,6 @@ class Buffs extends CoreAuras {
       {
         spellId: SPELLS.FURY_OF_THE_SUN_KING.id,
         enabled: combatant.hasTalent(TALENTS.SUN_KINGS_BLESSING_TALENT),
-        timelineHighlight: true,
-      },
-      {
-        spellId: SPELLS.FLAMES_FURY.id,
-        enabled: combatant.has4PieceByTier(TIERS.DF2),
         timelineHighlight: true,
       },
       {

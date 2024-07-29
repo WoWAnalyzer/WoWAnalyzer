@@ -15,9 +15,8 @@ import { LIONS_STRENGTH_DAMAGE_BONUS } from 'analysis/retail/druid/feral/constan
 const LIONS_STRENGTH_BOOSTED_SPELLS = [
   SPELLS.RIP,
   SPELLS.FEROCIOUS_BITE,
+  SPELLS.RAVAGE_DOTC_CAT,
   SPELLS.TEAR,
-  SPELLS.TEAR_OPEN_WOUNDS,
-  SPELLS.RAMPANT_FEROCITY,
 ];
 
 /**
@@ -55,8 +54,8 @@ export default class LionsStrength extends Analyzer {
           <>
             This counts the talent's direct (<SpellLink spell={SPELLS.RIP} />,{' '}
             <SpellLink spell={SPELLS.FEROCIOUS_BITE} />) and indirect (
-            <SpellLink spell={SPELLS.TEAR} />, <SpellLink spell={SPELLS.TEAR_OPEN_WOUNDS} />,{' '}
-            <SpellLink spell={SPELLS.RAMPANT_FEROCITY} />) boosts.
+            <SpellLink spell={SPELLS.TEAR} />, <SpellLink spell={SPELLS.RAMPANT_FEROCITY} />)
+            boosts.
           </>
         }
       >

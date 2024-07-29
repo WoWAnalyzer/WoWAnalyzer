@@ -1,5 +1,5 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { getTimeOfNeedHealing } from '../../normalizers/CastLinkNormalizer';
+import { getTimeOfNeedHealing } from '../../normalizers/EventLinking/helpers';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import Events, { HealEvent, SummonEvent, DamageEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';

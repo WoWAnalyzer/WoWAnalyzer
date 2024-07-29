@@ -1,4 +1,3 @@
-import { defineMessage } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
@@ -15,7 +14,6 @@ import Events, {
   RefreshBuffEvent,
   ResourceChangeEvent,
 } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import ItemManaGained from 'parser/ui/ItemManaGained';
 import { getLowestPerf, QualitativePerformance } from 'parser/ui/QualitativePerformance';
@@ -201,76 +199,9 @@ class ManaTea extends Analyzer {
     return totalDuration / totalValid;
   }
 
-  get suggestionThresholds() {
-    return {
-      actual: this.avgMtSaves,
-      isLessThan: {
-        minor: this.manaPerManaTeaGoal,
-        average: this.manaPerManaTeaGoal - 1000,
-        major: this.manaPerManaTeaGoal - 2000,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
-  }
-
   get avgOverhealing() {
     return parseFloat(
       (this.overhealing / (this.overhealing + this.effectiveHealing) || 0).toFixed(4),
-    );
-  }
-
-  get suggestionThresholdsOverhealing() {
-    return {
-      actual: this.avgOverhealing,
-      isGreaterThan: {
-        minor: 0.2,
-        average: 0.3,
-        major: 0.4,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Your mana spent during <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} /> can be improved.
-          Aim to prioritize as many <SpellLink spell={SPELLS.VIVIFY} /> casts until the last second
-          of the buff and then cast <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} />.{' '}
-          <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} />
-          's mana cost is taken at the beginning of the channel, so you gain the benefit of{' '}
-          <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} /> even if the channel continues past the
-          buff.
-        </>,
-      )
-        .icon(TALENTS_MONK.MANA_TEA_TALENT.icon)
-        .actual(
-          `${formatNumber(this.avgMtSaves)}${defineMessage({
-            id: 'monk.mistweaver.suggestions.manaTea.avgManaSaved',
-            message: ` average mana saved per Mana Tea cast`,
-          })}`,
-        )
-        .recommended(`${(recommended / 1000).toFixed(0)}k average mana saved is recommended`),
-    );
-    when(this.suggestionThresholdsOverhealing).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Your average overhealing was high during your{' '}
-          <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} /> usage. Consider using{' '}
-          <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} /> during specific boss abilities or
-          general periods of high damage to the raid. Also look to target low health raid members to
-          avoid large amounts of overhealing.
-        </>,
-      )
-        .icon(TALENTS_MONK.MANA_TEA_TALENT.icon)
-        .actual(
-          `${formatPercentage(this.avgOverhealing)}${defineMessage({
-            id: 'monk.mistweaver.suggestions.manaTea.avgOverHealing',
-            message: ` % average overhealing per Mana Tea cast`,
-          })}`,
-        )
-        .recommended(`under ${formatPercentage(recommended)}% over healing is recommended`),
     );
   }
 
@@ -285,19 +216,7 @@ class ManaTea extends Analyzer {
         <strong>
           <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} />
         </strong>{' '}
-        is a powerful buff that can save a large amount of mana and doubles as a throughput cooldown
-        once you obtain your 4 piece tier set bonus. Aim to maximize effectiveness of{' '}
-        <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} /> by spamming{' '}
-        <SpellLink spell={SPELLS.VIVIFY} /> during damage moments when you have at least 8{' '}
-        <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> HoTs out on the raid.
-        <br />
-        Alternatively, If talented into{' '}
-        <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} /> and{' '}
-        <SpellLink spell={TALENTS_MONK.CLOUDED_FOCUS_TALENT} />, use{' '}
-        <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} /> toward the end of your celestial for a
-        guaranteed proc of <SpellLink spell={SPELLS.SOULFANG_VITALITY} /> and spam
-        <SpellLink spell={SPELLS.VIVIFY} /> while channeling{' '}
-        <SpellLink spell={TALENTS_MONK.SOOTHING_MIST_TALENT} />.
+        Need to update me!
       </p>
     );
 
@@ -415,7 +334,7 @@ class ManaTea extends Analyzer {
       >
         <TalentSpellText talent={TALENTS_MONK.MANA_TEA_TALENT}>
           <div>
-            <ItemManaGained amount={this.totalManaSaved} useAbbrev />
+            <ItemManaGained amount={this.totalManaSaved} useAbbrev customLabel="mana" />
           </div>
           <div>
             <TooltipElement

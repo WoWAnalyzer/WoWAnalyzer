@@ -130,14 +130,14 @@ const spells = {
     name: 'Disrupt',
     icon: 'ability_demonhunter_consumemagic',
   },
-  ELYSIAN_DECREE_PRECISE: {
+  SIGIL_OF_SPITE_PRECISE: {
     id: 389815,
-    name: 'Elysian Decree',
+    name: 'Sigil of Spite',
     icon: 'ability_bastion_demonhunter',
   },
-  ELYSIAN_DECREE_DAMAGE: {
+  SIGIL_OF_SPITE_DAMAGE: {
     id: 389860,
-    name: 'Elysian Decree',
+    name: 'Sigil of Spite',
     icon: 'ability_bastion_demonhunter',
   },
   FODDER_TO_THE_FLAME: {

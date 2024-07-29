@@ -13,7 +13,7 @@ export const getPlayerNameFromParam = (param: string | null | undefined) => {
       return player.replace('+', ' ');
     }
     if (!Number.isInteger(player)) {
-      return player;
+      return decodeURIComponent(player);
     }
     return null;
   }

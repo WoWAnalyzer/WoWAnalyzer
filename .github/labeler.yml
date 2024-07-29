@@ -7,7 +7,7 @@ Classic:
       - any-glob-to-any-file: 'src/parser/classic/**/*'
       - any-glob-to-any-file: 'src/parser/shared/**/*'
 
-Dragonflight:
+'The War Within':
   - changed-files:
       - any-glob-to-any-file: 'src/analysis/retail/**/*'
       - any-glob-to-any-file: 'src/common/ITEMS/*'

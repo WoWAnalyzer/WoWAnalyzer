@@ -15,7 +15,7 @@ import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { reduce } from 'vega-lite/build/src/encoding';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
-import { getAncientFlameSource } from '../../normalizers/CastLinkNormalizer';
+import { getAncientFlameSource } from '../../normalizers/EventLinking/helpers';
 
 class AncientFlame extends Analyzer {
   consumptions: BoxRowEntry[] = [];

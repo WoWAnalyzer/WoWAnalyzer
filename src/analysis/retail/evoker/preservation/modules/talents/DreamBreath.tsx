@@ -1,11 +1,10 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, EmpowerEndEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import { defineMessage } from '@lingui/macro';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import { SpellLink } from 'interface';
 import { TALENTS_EVOKER } from 'common/TALENTS';
-import { getBuffEvents } from '../../normalizers/CastLinkNormalizer';
+import { getBuffEvents } from '../../normalizers/EventLinking/helpers';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { GUIDE_CORE_EXPLANATION_PERCENT, GuideContainer } from '../../Guide';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
@@ -167,25 +166,6 @@ class DreamBreath extends Analyzer {
         slimLines
         useThresholds
       />
-    );
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Try to maximize the amount of targets hit by{' '}
-          <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} />
-        </>,
-      )
-        .icon(TALENTS_EVOKER.DREAM_BREATH_TALENT.icon)
-        .actual(
-          `${this.averageTargetsHit.toFixed(1)} ${defineMessage({
-            id: 'evoker.preservation.suggestions.dreamBreath.avgTargetsHit',
-            message: ` average targets hit`,
-          })}`,
-        )
-        .recommended(`at least ${recommended} targets hit recommended`),
     );
   }
 }

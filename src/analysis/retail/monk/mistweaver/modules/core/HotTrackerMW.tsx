@@ -3,39 +3,83 @@ import { TALENTS_MONK } from 'common/TALENTS';
 import { Options } from 'parser/core/Analyzer';
 import Combatant from 'parser/core/Combatant';
 import HotTracker, { Tracker, HotInfo, Extension } from 'parser/shared/modules/HotTracker';
-import { ATTRIBUTION_STRINGS } from '../../constants';
-
-const RAPID_DIFFUSION = 3000;
-const MISTY_PEAKS_DURATION = 2000;
-const REM_BASE_DURATION = 20000;
-const ENV_BASE_DURATION = 6000;
-const EF_BASE_DURATION = 8000;
-const RISING_MIST = 2;
-
-const UPWELLING = 4000;
-const MISTWRAP = 1000;
-const TFT_REM_EXTRA_DURATION = 10000;
+import {
+  ATTRIBUTION_STRINGS,
+  ENV_BASE_DURATION,
+  LOTUS_INFUSION_DURATION,
+  MISTWRAP,
+  MISTY_PEAKS_DURATION,
+  RAPID_DIFFUSION_DURATION,
+  REM_BASE_DURATION,
+  RISING_MIST,
+  TFT_REM_EXTRA_DURATION,
+} from '../../constants';
+import { ApplyBuffEvent, HealEvent } from 'parser/core/Events';
 
 const HARDCAST = 'Hardcast';
 
 class HotTrackerMW extends HotTracker {
   mistwrapActive: boolean;
-  upwellingActive: boolean;
   rapidDiffusionActive: boolean;
   risingMistActive: boolean;
-  rapidDiffusionRank: number;
+  lotusInfusionActive: boolean;
 
   constructor(options: Options) {
     super(options);
     this.mistwrapActive = this.owner.selectedCombatant.hasTalent(TALENTS_MONK.MIST_WRAP_TALENT);
-    this.upwellingActive = this.owner.selectedCombatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT);
+    this.lotusInfusionActive = this.owner.selectedCombatant.hasTalent(
+      TALENTS_MONK.LOTUS_INFUSION_TALENT,
+    );
     this.rapidDiffusionActive = this.owner.selectedCombatant.hasTalent(
       TALENTS_MONK.RAPID_DIFFUSION_TALENT,
     );
-    this.rapidDiffusionRank = this.owner.selectedCombatant.getTalentRank(
-      TALENTS_MONK.RAPID_DIFFUSION_TALENT,
-    );
     this.risingMistActive = this.owner.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT);
+  }
+
+  getAverageHealingForAttribution(
+    spellId: number,
+    attribution: string,
+    excludeDancingMist: boolean = false,
+    filteredHistory?: Tracker[],
+  ): number {
+    if (!filteredHistory) {
+      filteredHistory = this.getHistoryForSpellAndAttribution(
+        spellId,
+        attribution,
+        excludeDancingMist,
+      );
+    }
+    return (
+      filteredHistory.filter((hot) =>
+        hot.attributions.filter((attr) => attr.name === attribution),
+      )[0]?.attributions[0].healing / filteredHistory.length
+    );
+  }
+
+  getHistoryForSpellAndAttribution(
+    spellId: number,
+    attribution: string,
+    excludeDancingMist: boolean,
+  ): Tracker[] {
+    return this.hotHistory.filter(
+      (tracker) =>
+        tracker.spellId === spellId &&
+        tracker.attributions.some((attr) => {
+          return attr.name === attribution;
+        }) &&
+        (excludeDancingMist ? !this.fromDancingMists(tracker) : true),
+    );
+  }
+
+  /**
+   * Checks if the target of the event currently has the specified HoT on them
+   * @param event the healing event to check
+   * @param spellId the spellId of the HoT to check for
+   * @return true if the target of the event has the specificed HoT, false if not
+   */
+  hasHot(event: HealEvent | ApplyBuffEvent, spellId: number): boolean {
+    const targetId = event.targetID;
+    return !(!this.hots[targetId] || !this.hots[targetId][spellId]);
   }
 
   fromRapidDiffusionRisingSunKick(hot: Tracker): boolean {
@@ -127,17 +171,22 @@ class HotTrackerMW extends HotTracker {
 
   // Renewing Mist applies with a longer duration if Thunder Focus Tea is active
   _calculateRemDuration(combatant: Combatant): number {
+    const baseDuration =
+      REM_BASE_DURATION +
+      (combatant.hasTalent(TALENTS_MONK.LOTUS_INFUSION_TALENT) ? LOTUS_INFUSION_DURATION : 0);
     return combatant.hasBuff(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id)
-      ? REM_BASE_DURATION + TFT_REM_EXTRA_DURATION
-      : REM_BASE_DURATION;
+      ? baseDuration + TFT_REM_EXTRA_DURATION
+      : baseDuration;
   }
 
   _calculateMaxRemDuration(combatant: Combatant): number {
+    const baseDuration =
+      REM_BASE_DURATION +
+      (combatant.hasTalent(TALENTS_MONK.LOTUS_INFUSION_TALENT) ? LOTUS_INFUSION_DURATION : 0);
     return combatant.hasBuff(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id)
-      ? (REM_BASE_DURATION + TFT_REM_EXTRA_DURATION) *
+      ? (baseDuration + TFT_REM_EXTRA_DURATION) *
           (combatant.getTalentRank(TALENTS_MONK.RISING_MIST_TALENT) * RISING_MIST)
-      : REM_BASE_DURATION *
-          (combatant.getTalentRank(TALENTS_MONK.RISING_MIST_TALENT) * RISING_MIST);
+      : baseDuration * (combatant.getTalentRank(TALENTS_MONK.RISING_MIST_TALENT) * RISING_MIST);
   }
 
   _calculateEnvDuration(combatant: Combatant): number {
@@ -156,32 +205,16 @@ class HotTrackerMW extends HotTracker {
     );
   }
 
-  _calculateEssenceFontDuration(combatant: Combatant): number {
-    return combatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT)
-      ? EF_BASE_DURATION + UPWELLING
-      : EF_BASE_DURATION;
-  }
-
-  _calculateMaxEssenceFontDuration(combatant: Combatant): number {
-    return (
-      (combatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT)
-        ? EF_BASE_DURATION + UPWELLING
-        : EF_BASE_DURATION) *
-      combatant.getTalentRank(TALENTS_MONK.RISING_MIST_TALENT) *
-      RISING_MIST
-    );
-  }
-
   _getRapidDiffusionMaxDuration(combatant: Combatant): number {
     return (
       (combatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)
-        ? RAPID_DIFFUSION * RISING_MIST
-        : RAPID_DIFFUSION) * combatant.getTalentRank(TALENTS_MONK.RAPID_DIFFUSION_TALENT)
+        ? RAPID_DIFFUSION_DURATION * RISING_MIST
+        : RAPID_DIFFUSION_DURATION) * combatant.getTalentRank(TALENTS_MONK.RAPID_DIFFUSION_TALENT)
     );
   }
 
   _getRapidDiffusionDuration(combatant: Combatant): number {
-    return RAPID_DIFFUSION * combatant.getTalentRank(TALENTS_MONK.RAPID_DIFFUSION_TALENT);
+    return RAPID_DIFFUSION_DURATION * combatant.getTalentRank(TALENTS_MONK.RAPID_DIFFUSION_TALENT);
   }
 
   _getMistyPeaksMaxDuration(combatant: Combatant): number {
@@ -218,18 +251,6 @@ class HotTrackerMW extends HotTracker {
         duration: this._calculateEnvDuration,
         tickPeriod: 1000,
         maxDuration: this._calculateEnvDuration,
-      },
-      {
-        spell: SPELLS.ESSENCE_FONT_BUFF,
-        duration: this._calculateEssenceFontDuration,
-        tickPeriod: 2000,
-        maxDuration: this._calculateMaxEssenceFontDuration,
-      },
-      {
-        spell: SPELLS.FAELINE_STOMP_ESSENCE_FONT,
-        duration: this._calculateEssenceFontDuration,
-        tickPeriod: 2000,
-        maxDuration: this._calculateMaxEssenceFontDuration,
       },
     ];
   }

@@ -114,7 +114,7 @@ const SupportCheckerIssue = ({
         title={<Trans id="supportCheckerIssue.specChangelog">Spec changelog</Trans>}
         pad={false}
       >
-        <Changelog includeCore={false} changelog={changelog} />
+        <Changelog includeCore={false} changelog={changelog ?? []} />
       </Panel>
     </Modal>
   );

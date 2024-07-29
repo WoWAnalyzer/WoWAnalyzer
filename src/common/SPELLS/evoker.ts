@@ -243,6 +243,11 @@ const spells = {
     name: 'Deep Breath',
     icon: 'ability_evoker_deepbreath',
   },
+  DEEP_BREATH_SCALECOMMANDER: {
+    id: 433874,
+    name: 'Deep Breath',
+    icon: 'ability_evoker_deepbreath',
+  },
   DEEP_BREATH_DAM: {
     id: 353759,
     name: 'Deep Breath',
@@ -468,6 +473,21 @@ const spells = {
     name: 'Temporal Wound',
     icon: 'ability_evoker_breathofeons',
   },
+  BREATH_OF_EONS_SCALECOMMANDER: {
+    id: 442204,
+    name: 'Breath of Eons',
+    icon: 'ability_evoker_breathofeons',
+  },
+  MELT_ARMOR_DAMAGE: {
+    id: 441172,
+    name: 'Melt Armor',
+    icon: 'inv_10_gearupgrade_drakesshadowflameenhancedcrest',
+  },
+  BOMBARDMENTS_DAMAGE: {
+    id: 434481,
+    name: 'Bombardments',
+    icon: 'inv_ability_scalecommanderevoker_bombardments',
+  },
   BLACK_ATTUNEMENT: {
     id: 403264,
     name: 'Black Attunement',
@@ -513,10 +533,85 @@ const spells = {
     name: 'Time Bender',
     icon: 'ability_evoker_masterylifebinder_bronze',
   },
-  LIFESPARK: {
-    id: 394552,
+  LIFESPARK_BUFF: {
+    id: 443176,
     name: 'Lifespark',
     icon: 'ability_evoker_masterylifebinder_red',
+  },
+  EPOCH_FRAGMENT: {
+    id: 456083,
+    name: 'Epoch Fragment',
+    icon: 'ability_evoker_bronze_01',
+  },
+  T32_4PC_BUFF: {
+    id: 456058,
+    name: 'Recommencement',
+    icon: 'ability_evoker_bronze_01',
+  },
+  ENKINDLE_HOT: {
+    id: 445740,
+    name: 'Enkindle',
+    icon: 'spell_fire_burnout',
+  },
+  ENKINDLE_DOT: {
+    id: 444017,
+    name: 'Enkindle',
+    icon: 'spell_fire_burnout',
+  },
+  ENGULF_DAMAGE: {
+    id: 443329,
+    name: 'Engulf',
+    icon: 'inv_ability_flameshaperevoker_engulf',
+  },
+  ENGULF_HEAL: {
+    id: 443330,
+    name: 'Engulf',
+    icon: 'inv_ability_flameshaperevoker_engulf',
+  },
+  CONSUME_FLAME_HEAL: {
+    id: 445495,
+    name: 'Consume Flame',
+    icon: 'inv_shadowflames_wave',
+  },
+  CONSUME_FLAME_DAMAGE: {
+    id: 444089,
+    name: 'Consume Flame',
+    icon: 'inv_shadowflames_wave',
+  },
+  SPIRITBLOOM_HOT: {
+    id: 409895,
+    name: 'Spiritbloom',
+    icon: 'ability_evoker_spiritbloom2',
+  },
+  CHRONO_FLAME_HEAL: {
+    id: 431483,
+    name: 'Chronoflame',
+    icon: 'inv_ability_chronowardenevoker_chronoflame',
+  },
+  CHRONO_FLAME_DAMAGE: {
+    id: 431583,
+    name: 'Chronoflame',
+    icon: 'inv_ability_chronowardenevoker_chronoflame',
+  },
+  THREADS_OF_FATE_HEALING: {
+    id: 432896,
+    name: 'Threads of Fate',
+    icon: 'ability_evoker_sandsoftime',
+  },
+  THREADS_OF_FATE_DAMAGE: {
+    id: 432895,
+    name: 'Threads of Fate',
+    icon: 'ability_evoker_sandsoftime',
+  },
+  IMMINENT_DESTRUCTION_DEV_BUFF: {
+    id: 411055,
+    name: 'Imminent Destruction',
+    icon: 'spell_burningbladeshaman_blazing_radiance',
+  },
+  IMMINENT_DESTRUCTION_AUG_BUFF: {
+    id: 459574,
+    name: 'Imminent Destruction',
+    icon: 'spell_burningbladeshaman_blazing_radiance',
   },
 } satisfies Record<string, Spell>;
 

@@ -22,28 +22,28 @@ import {
   TalentNode,
 } from './talent-tree-types';
 
-const LIVE_WOW_BUILD_NUMBER = '10.2.6.53913';
+const LIVE_WOW_BUILD_NUMBER = '11.0.0.55818';
 const LIVE_TALENT_DATA_URL = 'https://www.raidbots.com/static/data/live/talents.json';
 const LIVE_SPELLPOWER_DATA_URL = `https://wago.tools/db2/SpellPower/csv?build=${LIVE_WOW_BUILD_NUMBER}`;
-const PTR_WOW_BUILD_NUMBER = '10.2.6.53877';
-const PTR_TALENT_DATA_URL = 'https://www.raidbots.com/static/data/xptr/talents.json';
+const PTR_WOW_BUILD_NUMBER = '11.0.2.55763';
+const PTR_TALENT_DATA_URL = 'https://www.raidbots.com/static/data/beta/talents.json';
 const PTR_SPELLPOWER_DATA_URL = `https://wago.tools/db2/SpellPower/csv?build=${PTR_WOW_BUILD_NUMBER}`;
 
 const classes: { [classId: number]: { name: string; baseMaxResource: number } } = {
   //TODO Non Mana users verification
   1: { name: 'Warrior', baseMaxResource: 1000 },
-  2: { name: 'Paladin', baseMaxResource: 250000 },
+  2: { name: 'Paladin', baseMaxResource: 2500000 },
   3: { name: 'Hunter', baseMaxResource: 100 },
   4: { name: 'Rogue', baseMaxResource: 100 },
-  5: { name: 'Priest', baseMaxResource: 250000 },
+  5: { name: 'Priest', baseMaxResource: 2500000 },
   6: { name: 'Death Knight', baseMaxResource: 1000 },
-  7: { name: 'Shaman', baseMaxResource: 250000 },
-  8: { name: 'Mage', baseMaxResource: 250000 },
-  9: { name: 'Warlock', baseMaxResource: 250000 },
-  10: { name: 'Monk', baseMaxResource: 250000 },
-  11: { name: 'Druid', baseMaxResource: 250000 },
+  7: { name: 'Shaman', baseMaxResource: 2500000 },
+  8: { name: 'Mage', baseMaxResource: 2500000 },
+  9: { name: 'Warlock', baseMaxResource: 2500000 },
+  10: { name: 'Monk', baseMaxResource: 2500000 },
+  11: { name: 'Druid', baseMaxResource: 2500000 },
   12: { name: 'Demon Hunter', baseMaxResource: 100 },
-  13: { name: 'Evoker', baseMaxResource: 250000 },
+  13: { name: 'Evoker', baseMaxResource: 2500000 },
 };
 
 const withResources = (
@@ -103,7 +103,7 @@ const entryToSpell = (
   entry: TalentEntry,
   spec: string,
   specId: number,
-  sourceTree: 'class' | 'spec',
+  sourceTree: 'class' | 'spec' | 'hero',
 ): GenericTalentInterface => ({
   id: entry.spellId!,
   name: entry.name!,
@@ -167,13 +167,15 @@ async function generateTalents(isPTR: boolean = false) {
   const spellpowerCsv = await readCsvFromUrl(
     isPTR ? PTR_SPELLPOWER_DATA_URL : LIVE_SPELLPOWER_DATA_URL,
   );
+  // eslint-disable-next-line
   const spellpower: ISpellpower[] = csvToObject(spellpowerCsv);
 
   const talentsByClass = talents.reduce((map: Record<string, ITalentTree[]>, tree) => {
-    if (!map[tree.className]) {
-      map[tree.className] = [];
+    const className = tree.className;
+    if (!map[className]) {
+      map[className] = [];
     }
-    map[tree.className].push(tree);
+    map[className].push(tree);
     return map;
   }, {});
 
@@ -196,6 +198,18 @@ async function generateTalents(isPTR: boolean = false) {
       ),
     );
 
+    const heroTalents = trees.flatMap((tree) =>
+      tree.heroNodes.flatMap((node) =>
+        nodeEntries(node)
+          .filter((entry) => entry.spellId && entry.name)
+          .map((entry) => ({
+            key: createTalentKey(entry.name!),
+            conflictKey: createTalentKey(entry.name!, tree.specName),
+            value: entryToSpell(entry, tree.specName, tree.specId, 'hero'),
+          })),
+      ),
+    );
+
     // we have to process ALL class nodes, not just the first tree due to (basically) Warriors.
     const classTalents: typeof specTalents = trees.flatMap((tree) =>
       tree.classNodes.flatMap((node) =>
@@ -214,7 +228,7 @@ async function generateTalents(isPTR: boolean = false) {
     // to safely disambiguate
     const talentsByKey: Record<string, typeof classTalents> = {};
 
-    [classTalents, specTalents].forEach((list) => {
+    [classTalents, specTalents, heroTalents].forEach((list) => {
       list.forEach((talent) => {
         if (!talentsByKey[talent.key]) {
           talentsByKey[talent.key] = [];
@@ -296,7 +310,10 @@ async function generateTalents(isPTR: boolean = false) {
 
       // the final case that we support is that every talent is in a spec tree, but some are in the same spec tree.
       // in this case, we disambiguate within each spec by numeric indices. not pretty, but it works
-      if (result.every((talent) => talent.value.sourceTree === 'spec')) {
+      if (
+        result.every((talent) => talent.value.sourceTree === 'spec') ||
+        result.every((talent) => talent.value.sourceTree === 'hero')
+      ) {
         const bySpec: Record<string, GenericTalentInterface[]> = {};
 
         for (const talent of result) {

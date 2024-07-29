@@ -11,8 +11,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { SELECTED_PLAYER } from 'parser/core/Analyzer';
-
-const MITIGATION = 0.5;
+import { survivalInstinctsMitigation } from 'analysis/retail/druid/guardian/constants';
 
 export default class SurvivalInstincts extends MajorDefensiveBuff {
   constructor(options: Options) {
@@ -25,7 +24,10 @@ export default class SurvivalInstincts extends MajorDefensiveBuff {
     if (this.defensiveActive(event) && !event.sourceIsFriendly) {
       this.recordMitigation({
         event,
-        mitigatedAmount: absoluteMitigation(event, MITIGATION),
+        mitigatedAmount: absoluteMitigation(
+          event,
+          survivalInstinctsMitigation(this.selectedCombatant),
+        ),
       });
     }
   }

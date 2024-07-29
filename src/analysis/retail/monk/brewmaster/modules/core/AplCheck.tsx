@@ -28,8 +28,8 @@ const SCK_AOE = {
 };
 
 const refreshRjw = {
-  spell: talents.RUSHING_JADE_WIND_TALENT,
-  condition: cnd.buffMissing(talents.RUSHING_JADE_WIND_TALENT, {
+  spell: talents.RUSHING_JADE_WIND_BREWMASTER_TALENT,
+  condition: cnd.buffMissing(talents.RUSHING_JADE_WIND_BREWMASTER_TALENT, {
     timeRemaining: 1500,
     duration: 6000,
     pandemicCap: 1.5,
@@ -37,8 +37,8 @@ const refreshRjw = {
 };
 
 const applyRjw = {
-  spell: talents.RUSHING_JADE_WIND_TALENT,
-  condition: cnd.buffMissing(talents.RUSHING_JADE_WIND_TALENT),
+  spell: talents.RUSHING_JADE_WIND_BREWMASTER_TALENT,
+  condition: cnd.buffMissing(talents.RUSHING_JADE_WIND_BREWMASTER_TALENT),
 };
 
 const refreshChp: Rule = {
@@ -79,8 +79,7 @@ const commonLowPrio = [
   refreshRjw,
   SCK_AOE,
   SPELLS.TIGER_PALM,
-  talents.CHI_WAVE_TALENT,
-  talents.CHI_BURST_TALENT,
+  talents.CHI_BURST_SHARED_TALENT,
   {
     spell: SPELLS.SPINNING_CRANE_KICK_BRM,
     condition: cnd.optionalRule(
@@ -131,18 +130,15 @@ const chp_sequence = [
 // this is fairly lax. could prioritize it a bit but not going to for now.
 export const dump_cd_rule: Rule = {
   spell: [
-    talents.BONEDUST_BREW_TALENT,
     talents.EXPLODING_KEG_TALENT,
     talents.RISING_SUN_KICK_TALENT,
-    talents.RUSHING_JADE_WIND_TALENT,
-    talents.CHI_WAVE_TALENT,
-    talents.CHI_BURST_TALENT,
+    talents.RUSHING_JADE_WIND_BREWMASTER_TALENT,
+    talents.CHI_BURST_SHARED_TALENT,
   ],
   description: (
     <>
       Spend cooldowns like <SpellLink spell={talents.RISING_SUN_KICK_TALENT} />,{' '}
-      <SpellLink spell={talents.RUSHING_JADE_WIND_TALENT} />,{' '}
-      <SpellLink spell={talents.BONEDUST_BREW_TALENT} />, or{' '}
+      <SpellLink spell={talents.RUSHING_JADE_WIND_BREWMASTER_TALENT} />, or{' '}
       <SpellLink spell={talents.WEAPONS_OF_ORDER_TALENT} />
     </>
   ),

@@ -3,7 +3,7 @@ import SPECS from 'game/SPECS';
 import { AlertWarning } from 'interface';
 import { Anty } from 'CONTRIBUTORS';
 
-import CHANGELOG from './CHANGELOG';
+// import CHANGELOG from './CHANGELOG';
 import Config, { SupportLevel } from 'parser/Config';
 
 const config: Config = {
@@ -37,12 +37,12 @@ const config: Config = {
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
   spec: SPECS.OUTLAW_ROGUE,
   // The contents of your changelog.
-  changelog: CHANGELOG,
+  // changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
-  parser: () =>
-    import('./CombatLogParser' /* webpackChunkName: "OutlawRogue" */).then(
-      (exports) => exports.default,
-    ),
+  // parser: () =>
+  //   import('./CombatLogParser' /* webpackChunkName: "OutlawRogue" */).then(
+  //     (exports) => exports.default,
+  //   ),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: import.meta.url,
 };

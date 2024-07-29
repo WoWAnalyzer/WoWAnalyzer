@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro';
 import { formatPercentage, formatNumber } from 'common/format';
 import { Options } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
@@ -46,11 +45,7 @@ class ArcaneManaValues extends ManaValues {
           'You had mana left at the end of the fight. You should be aiming to complete the fight with as little mana as possible regardless of whether your cooldowns will be coming up or not. So dont be afraid to burn your mana before the boss dies.',
         )
           .icon('inv_elemental_mote_mana')
-          .actual(
-            <Trans id="mage.arcane.suggestions.arcaneMana.manaLeft">
-              {formatPercentage(actual)}% (${formatNumber(this.endingMana)} mana left
-            </Trans>,
-          )
+          .actual(`${formatPercentage(actual)}% (${formatNumber(this.endingMana)} mana left`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
           .regular(this.suggestionThresholds.isGreaterThan.average)
           .major(this.suggestionThresholds.isGreaterThan.major),

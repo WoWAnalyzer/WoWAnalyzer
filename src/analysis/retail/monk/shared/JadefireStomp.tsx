@@ -9,12 +9,12 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import { isFromEssenceFont } from '../mistweaver/normalizers/CastLinkNormalizer';
 import Combatants from 'parser/shared/modules/Combatants';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import { SpellLink, TooltipElement } from 'interface';
 import { formatNumber, formatPercentage } from 'common/format';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
+import { isFromJadefireStomp } from '../mistweaver/normalizers/CastLinkNormalizer';
 
 class JadefireStomp extends Analyzer {
   static dependencies = {
@@ -28,7 +28,7 @@ class JadefireStomp extends Analyzer {
   protected combatants!: Combatants;
 
   resets: number = 0;
-  flsCasts: number = 0;
+  jfsCasts: number = 0;
   targetsDamaged: number = 0;
   targetsHealed: number = 0;
 
@@ -36,8 +36,6 @@ class JadefireStomp extends Analyzer {
   specIsMW: boolean = false;
   healing: number = 0;
   overhealing: number = 0;
-  essenceFontHealing: number = 0;
-  essenceFontOverhealing: number = 0;
   gomHealing: number = 0;
   gomOverhealing: number = 0;
 
@@ -61,43 +59,39 @@ class JadefireStomp extends Analyzer {
     this.addEventListener(
       Events.damage
         .by(SELECTED_PLAYER)
-        .spell([SPELLS.FAELINE_STOMP_HEAL, TALENTS_MONK.JADEFIRE_STOMP_TALENT]),
+        .spell([SPELLS.JADEFIRE_STOMP_HEAL, TALENTS_MONK.JADEFIRE_STOMP_TALENT]),
       this.damage,
     );
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.FAELINE_STOMP_HEAL),
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.JADEFIRE_STOMP_HEAL),
       this.heal,
     );
 
     if (this.specIsMW) {
       this.addEventListener(
-        Events.heal.by(SELECTED_PLAYER).spell(SPELLS.FAELINE_STOMP_ESSENCE_FONT),
-        this.onFaelineStompEssenceFontHeal,
-      );
-      this.addEventListener(
-        Events.heal.by(SELECTED_PLAYER).spell([SPELLS.GUSTS_OF_MISTS, SPELLS.GUST_OF_MISTS_CHIJI]),
+        Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS),
         this.onGustOfMistHeal,
       );
     }
   }
 
   get totalHealing() {
-    return this.healing + this.essenceFontHealing + this.gomHealing;
+    return this.healing + this.gomHealing;
   }
 
   get rawHealing() {
-    return this.overhealing + this.gomOverhealing + this.essenceFontOverhealing;
+    return this.overhealing + this.gomOverhealing;
   }
   get averageHealingPerCast() {
-    return this.totalHealing / this.flsCasts;
+    return this.totalHealing / this.jfsCasts;
   }
 
   get rawHealingPerCast() {
-    return (this.totalHealing + this.rawHealing) / this.flsCasts;
+    return (this.totalHealing + this.rawHealing) / this.jfsCasts;
   }
 
   casts() {
-    this.flsCasts += 1;
+    this.jfsCasts += 1;
   }
 
   reset() {
@@ -118,19 +112,8 @@ class JadefireStomp extends Analyzer {
   }
 
   ///Mistweaver specific functions
-  onFaelineStompEssenceFontHeal(event: HealEvent) {
-    this.essenceFontHealing += event.amount + (event.absorbed || 0);
-    this.essenceFontOverhealing += event.overheal || 0;
-  }
-
   onGustOfMistHeal(event: HealEvent) {
-    const combatant = this.combatants.getEntity(event);
-    if (
-      isFromEssenceFont(event) &&
-      combatant &&
-      combatant.hasBuff(SPELLS.FAELINE_STOMP_ESSENCE_FONT.id) &&
-      !combatant.hasBuff(SPELLS.ESSENCE_FONT_BUFF.id)
-    ) {
+    if (isFromJadefireStomp(event)) {
       this.gomHealing += event.amount + (event.absorbed || 0);
       this.gomOverhealing += event.overheal || 0;
     }
@@ -160,17 +143,13 @@ class JadefireStomp extends Analyzer {
                 {formatNumber(this.healing)}{' '}
                 <SpellLink spell={TALENTS_MONK.JADEFIRE_STOMP_TALENT} /> healing (
                 {formatNumber(this.overhealing)} overheal) <br />
-                {formatNumber(this.essenceFontHealing)}{' '}
-                <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> healing (
-                {formatNumber(this.essenceFontOverhealing)} overheal) <br />
-                {formatNumber(this.gomHealing)} additional{' '}
-                <SpellLink spell={SPELLS.GUSTS_OF_MISTS} /> healing (
-                {formatNumber(this.gomOverhealing)} overheal)
+                {formatNumber(this.gomHealing)} <SpellLink spell={SPELLS.GUSTS_OF_MISTS} /> healing
+                ({formatNumber(this.gomOverhealing)} overheal)
                 <br />
                 {this.resets} <small>resets</small> <br />
-                {(this.targetsDamaged / this.flsCasts).toFixed(2)} <small>Foes Hit per cast</small>{' '}
+                {(this.targetsDamaged / this.jfsCasts).toFixed(2)} <small>Foes Hit per cast</small>{' '}
                 <br />
-                {(this.targetsHealed / this.flsCasts).toFixed(2)} <small>Allies Hit per cast</small>
+                {(this.targetsHealed / this.jfsCasts).toFixed(2)} <small>Allies Hit per cast</small>
               </>
             )}
           </>
@@ -194,9 +173,9 @@ class JadefireStomp extends Analyzer {
           ) : (
             <>
               {this.resets} <small>resets</small> <br />
-              {(this.targetsDamaged / this.flsCasts).toFixed(2)} <small>Foes Hit per cast</small>{' '}
+              {(this.targetsDamaged / this.jfsCasts).toFixed(2)} <small>Foes Hit per cast</small>{' '}
               <br />
-              {(this.targetsHealed / this.flsCasts).toFixed(2)} <small>Allies Hit per cast</small>
+              {(this.targetsHealed / this.jfsCasts).toFixed(2)} <small>Allies Hit per cast</small>
             </>
           )}
         </TalentSpellText>

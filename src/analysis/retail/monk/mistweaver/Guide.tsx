@@ -30,9 +30,6 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           modules.risingSunKick.guideSubsection}
         {modules.thunderFocusTea.guideSubsection}
         {modules.vivify.guideSubsection}
-        {(info.combatant.hasTalent(TALENTS_MONK.ANCIENT_TEACHINGS_TALENT) ||
-          info.combatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT)) &&
-          modules.essenceFont.guideSubsection}
         {info.combatant.hasTalent(TALENTS_MONK.ANCIENT_TEACHINGS_TALENT) &&
           modules.ancientTeachings.guideSubsection}
         {info.combatant.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT) && (
@@ -77,7 +74,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       <Section title="Other cooldowns, buffs, and procs">
         {info.combatant.hasTalent(TALENTS_MONK.LIFE_COCOON_TALENT) &&
           modules.lifeCocoon.guideSubsection}
-        {info.combatant.hasTalent(TALENTS_MONK.CHI_BURST_TALENT) &&
+        {info.combatant.hasTalent(TALENTS_MONK.CHI_BURST_SHARED_TALENT) &&
           modules.chiBurst.guideSubsection}
         {info.combatant.hasTalent(TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT) &&
           modules.vivaciousVivification.guideSubsection}

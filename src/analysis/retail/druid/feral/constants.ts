@@ -6,7 +6,6 @@ import { CastEvent, DamageEvent } from 'parser/core/Events';
 import getResourceSpent from 'parser/core/getResourceSpent';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { getHardcast } from 'analysis/retail/druid/feral/normalizers/CastLinkNormalizer';
-import { TIERS } from 'game/TIERS';
 
 /** Feral combo point cap */
 export const MAX_CPS = 5;
@@ -30,15 +29,25 @@ export const CP_GENERATORS: Spell[] = [
 /** The cast spells for Finishers */
 export const FINISHERS: Spell[] = [
   SPELLS.FEROCIOUS_BITE,
+  SPELLS.RAVAGE_DOTC_CAT,
   SPELLS.RIP,
   SPELLS.MAIM,
   TALENTS_DRUID.PRIMAL_WRATH_TALENT,
 ];
+export const FINISHER_IDS: number[] = FINISHERS.map((s) => s.id);
+
+/** Druid of the Claw's 'Ravage' conditionally replaces Ferocious Bite.
+ * These spells are for the cast, damage, and extra energy drain. */
+export const FB_SPELLS: Spell[] = [SPELLS.FEROCIOUS_BITE, SPELLS.RAVAGE_DOTC_CAT];
+
+export const FB_IDS: number[] = FB_SPELLS.map((s) => s.id);
 
 /** Spells that have their damage boosted by Tiger's Fury */
 export const TIGERS_FURY_BOOSTED: Spell[] = [
   SPELLS.SHRED,
   SPELLS.FEROCIOUS_BITE,
+  SPELLS.RAVAGE_DOTC_CAT,
+  SPELLS.DREADFUL_WOUND,
   SPELLS.THRASH_FERAL,
   SPELLS.THRASH_FERAL_BLEED,
   SPELLS.RIP,
@@ -54,7 +63,23 @@ export const TIGERS_FURY_BOOSTED: Spell[] = [
   SPELLS.FRENZIED_ASSAULT,
   SPELLS.TEAR,
   SPELLS.RAMPANT_FEROCITY,
-  SPELLS.TEAR_OPEN_WOUNDS,
+  SPELLS.ADAPTIVE_SWARM_DAMAGE,
+  SPELLS.BLOODSEEKER_VINES,
+  SPELLS.BURSTING_GROWTH_DAMAGE,
+];
+
+export const SABERTOOTH_BOOSTED: Spell[] = [
+  SPELLS.THRASH_FERAL,
+  SPELLS.THRASH_FERAL_BLEED,
+  SPELLS.RIP,
+  SPELLS.TEAR,
+  SPELLS.RAKE,
+  SPELLS.RAKE_BLEED,
+  TALENTS_DRUID.FERAL_FRENZY_TALENT,
+  SPELLS.FERAL_FRENZY_DEBUFF,
+  SPELLS.MOONFIRE_DEBUFF,
+  SPELLS.MOONFIRE_FERAL,
+  SPELLS.SUNFIRE, // lmao
   SPELLS.ADAPTIVE_SWARM_DAMAGE,
 ];
 
@@ -64,8 +89,6 @@ export const TIGERS_FURY_BOOSTED: Spell[] = [
 
 /** Multiplier to energy costs from having Incarnation: Avatar of Ashamane active */
 export const INCARN_ENERGY_MULT = 0.8;
-/** Multiplier to Ferocious Bite's energy cost and drain from the Relentless Predator talent */
-export const RELENTLESS_PREDATOR_FB_ENERGY_MULT = 0.9;
 
 /** Shred's energy cost (before modifiers) */
 export const SHRED_ENERGY = 40;
@@ -212,29 +235,18 @@ export function getBiteCps(event: DamageEvent) {
 export function getFerociousBiteMaxDrain(c: Combatant) {
   return (
     FEROCIOUS_BITE_MAX_DRAIN *
-    (c.hasTalent(TALENTS_DRUID.RELENTLESS_PREDATOR_TALENT)
-      ? RELENTLESS_PREDATOR_FB_ENERGY_MULT
-      : 1) *
     (c.hasBuff(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id) ? INCARN_ENERGY_MULT : 1)
   );
 }
 
 const TIGERS_FURY_BASE_DURATION = 10_000;
 const PREDATOR_DURATION_BOOST = 5_000;
+const RAGING_FURY_DURATION_BOOST = 5_000;
 
 export function getTigersFuryDuration(c: Combatant) {
   return (
     TIGERS_FURY_BASE_DURATION +
-    (c.hasTalent(TALENTS_DRUID.PREDATOR_TALENT) ? PREDATOR_DURATION_BOOST : 0)
+    c.getTalentRank(TALENTS_DRUID.PREDATOR_TALENT) * PREDATOR_DURATION_BOOST +
+    c.getTalentRank(TALENTS_DRUID.RAGING_FURY_TALENT) * RAGING_FURY_DURATION_BOOST
   );
-}
-
-/** If player has the Feral Frenzy 2set (same bonus Season 3 and 4) */
-export function has2pcDF3or4(c: Combatant) {
-  return c.has2PieceByTier(TIERS.DF3) || c.has2PieceByTier(TIERS.DF4);
-}
-
-/** If player has the Feral Frenzy 4set (same bonus Season 3 and 4) */
-export function has4pcDF3or4(c: Combatant) {
-  return c.has4PieceByTier(TIERS.DF3) || c.has4PieceByTier(TIERS.DF4);
 }

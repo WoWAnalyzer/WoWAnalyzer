@@ -1,8 +1,5 @@
-import { defineMessage } from '@lingui/macro';
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
@@ -10,7 +7,6 @@ import Events, {
   RefreshBuffEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 const TARGETSPERCAST = 78;
 
@@ -23,7 +19,9 @@ class RefreshingJadeWind extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.REFRESHING_JADE_WIND_TALENT);
+    this.active =
+      this.selectedCombatant.hasTalent(TALENTS_MONK.REFRESHING_JADE_WIND_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS_MONK.RESTORE_BALANCE_TALENT);
     if (!this.active) {
       return;
     }
@@ -55,18 +53,6 @@ class RefreshingJadeWind extends Analyzer {
     return rjwEfficiency.toFixed(4);
   }
 
-  get suggestionThresholds() {
-    return {
-      actual: this.avgTargetsHitPerRJWPercentage,
-      isLessThan: {
-        minor: 0.9,
-        average: 0.8,
-        major: 0.7,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
   rjwBuffApplied(event: ApplyBuffEvent) {
     // no matter what we want to add 1 if buff applied
     this.castRJW += 1;
@@ -96,27 +82,6 @@ class RefreshingJadeWind extends Analyzer {
     this.healsRJW += 1;
     this.healingRJW += (event.amount || 0) + (event.absorbed || 0);
     this.overhealingRJW += event.overheal || 0;
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You are not utilizing your <SpellLink spell={TALENTS_MONK.REFRESHING_JADE_WIND_TALENT} />{' '}
-          effectively. <SpellLink spell={TALENTS_MONK.REFRESHING_JADE_WIND_TALENT} /> excells when
-          you hit 6 targets for the duration of the spell. The easiest way to accomplish this is to
-          stand in melee, but there can be other uses when the raid stacks for various abilities.
-        </>,
-      )
-        .icon(TALENTS_MONK.REFRESHING_JADE_WIND_TALENT.icon)
-        .actual(
-          `${formatPercentage(this.avgTargetsHitPerRJWPercentage)}${defineMessage({
-            id: 'monk.mistweaver.suggestions.refreshingJadeWind.avgTargetsHit',
-            message: `% of targets hit per Refreshing Jade Wind`,
-          })}`,
-        )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
-    );
   }
 }
 

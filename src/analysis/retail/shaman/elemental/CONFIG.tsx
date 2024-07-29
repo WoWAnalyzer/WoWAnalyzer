@@ -61,10 +61,10 @@ export default {
   // The contents of your changelog.
   changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
-  parser: () =>
-    import('./CombatLogParser' /* webpackChunkName: "ElementalShaman" */).then(
-      (exports) => exports.default,
-    ),
+  // parser: () =>
+  //   import('./CombatLogParser' /* webpackChunkName: "ElementalShaman" */).then(
+  //     (exports) => exports.default,
+  //   ),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: import.meta.url,
 } satisfies Config;

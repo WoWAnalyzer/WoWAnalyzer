@@ -11,7 +11,8 @@ class GlobalCooldown extends CoreGlobalCooldown {
     if (
       event.ability.guid === SPELLS.CRACKLING_JADE_LIGHTNING.id ||
       event.ability.guid === TALENTS_MONK.SOOTHING_MIST_TALENT.id ||
-      event.ability.guid === TALENTS_MONK.ESSENCE_FONT_TALENT.id
+      event.ability.guid === TALENTS_MONK.CELESTIAL_CONDUIT_TALENT.id ||
+      event.ability.guid === SPELLS.MANA_TEA_CAST.id
     ) {
       // Channeling fabricates fake `beginchannel` events for these abilities, that already takes care of the GCD.
       return;
