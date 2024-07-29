@@ -132,6 +132,16 @@ const spells = {
     name: 'Cryopathy',
     icon: 'ability_hunter_pointofnoescape',
   },
+  DEATHS_CHILL_BUFF: {
+    id: 454371,
+    name: "Death's Chill",
+    icon: 'inv_trinket_fragmentoffrostmourne',
+  },
+  PERMAFROST_LANCES_BUFF: {
+    id: 455122,
+    name: 'Permafrost Lances',
+    icon: 'ability_deathknight_icygrip',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;
