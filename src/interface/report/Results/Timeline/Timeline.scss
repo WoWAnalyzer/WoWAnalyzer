@@ -1,5 +1,4 @@
 .spell-timeline-container {
-  position: relative;
   width: 100%;
   overflow: auto;
   padding-bottom: 6px;
@@ -8,15 +7,18 @@
     height: 12px;
     cursor: default !important;
   }
+
   &::-webkit-scrollbar-track {
     background: rgba(104, 103, 100, 0.15);
     border-radius: 10px;
   }
+
   &::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background-color: #fab700;
   }
 }
+
 .spell-timeline-premium-box {
   position: absolute;
   top: 0;
@@ -34,9 +36,11 @@
     left: 15px;
   }
 }
+
 .spell-timeline > * {
   position: relative;
 }
+
 /* Time indicator */
 .spell-timeline .time-line {
   white-space: nowrap;
@@ -51,6 +55,7 @@
     font-size: 14px;
     position: relative;
   }
+
   > *:before {
     content: attr(data-duration);
     position: absolute;
@@ -59,6 +64,7 @@
     transform: translateX(-50%);
     color: rgba(200, 200, 200, 0.8);
   }
+
   > *:after {
     content: '';
     width: 1px;
@@ -68,13 +74,22 @@
     height: 7px;
     left: 50%;
   }
+
   > *:first-of-type {
     height: calc(100% - 14px);
+    border-left: none;
+
+    &:before {
+      display: none;
+    }
   }
-  > *:first-of-type:before {
-    top: calc(33px - 14px);
-  }
-  > *:first-of-type:after {
-    top: calc(22px - 14px);
+}
+
+.npc-toggle-container {
+  position: relative;
+
+  .npc-toggle-options {
+    position: sticky;
+    left: 0;
   }
 }
