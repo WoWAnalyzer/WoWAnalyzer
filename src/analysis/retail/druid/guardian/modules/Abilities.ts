@@ -5,6 +5,7 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import Enemies from 'parser/shared/modules/Enemies';
 import { hasted } from 'common/abilitiesConstants';
+import { inBerserk } from 'analysis/retail/druid/guardian/constants';
 
 class Abilities extends CoreAbilities {
   static dependencies = {
@@ -19,10 +20,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.MANGLE_BEAR.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste) =>
-          combatant.hasBuff(TALENTS_DRUID.INCARNATION_GUARDIAN_OF_URSOC_TALENT.id)
-            ? hasted(3, haste)
-            : hasted(6, haste),
+        cooldown: (haste) => (inBerserk(combatant) ? hasted(3, haste) : hasted(6, haste)),
         gcd: {
           base: 1500,
         },
@@ -37,10 +35,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.THRASH_BEAR.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste) =>
-          combatant.hasBuff(TALENTS_DRUID.INCARNATION_GUARDIAN_OF_URSOC_TALENT.id)
-            ? hasted(3, haste)
-            : hasted(6, haste),
+        cooldown: (haste) => (inBerserk(combatant) ? hasted(3, haste) : hasted(6, haste)),
         gcd: {
           base: 1500,
         },

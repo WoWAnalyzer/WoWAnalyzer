@@ -31,6 +31,7 @@ export function cdSpell(c: Combatant): Spell {
     : SPELLS.BERSERK_BEAR;
 }
 
-export function inCd(c: Combatant): boolean {
-  return c.hasBuff(cdSpell(c));
+/** True iff combatant has Berserk (or Incarn if talented) active */
+export function inBerserk(c: Combatant): boolean {
+  return c.hasBuff(cdSpell(c).id);
 }

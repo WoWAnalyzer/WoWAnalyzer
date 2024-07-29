@@ -5,7 +5,7 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Events, { CastEvent, DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS';
-import { inCd } from 'analysis/retail/druid/guardian/constants';
+import { inBerserk } from 'analysis/retail/druid/guardian/constants';
 
 /** Internally, all rage values are out of 1000, but player facing they are out of 100 */
 export const RAGE_SCALE_FACTOR = 0.1;
@@ -58,7 +58,7 @@ export default class RageTracker extends ResourceTracker {
     }
 
     const spellId = event.ability.guid;
-    if (inCd(this.selectedCombatant)) {
+    if (inBerserk(this.selectedCombatant)) {
       if (
         this.hasBerserkUA &&
         (spellId === SPELLS.MAUL.id || spellId === TALENTS_DRUID.RAZE_TALENT.id)

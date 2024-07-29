@@ -7,7 +7,7 @@ import Events, { CastEvent } from 'parser/core/Events';
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { cdSpell, inCd } from 'analysis/retail/druid/guardian/constants';
+import { cdSpell, inBerserk } from 'analysis/retail/druid/guardian/constants';
 
 export default class Swipe extends Analyzer.withDependencies({ spellUsable: SpellUsable }) {
   castEntries: BoxRowEntry[] = [];
@@ -22,19 +22,19 @@ export default class Swipe extends Analyzer.withDependencies({ spellUsable: Spel
   }
 
   onSwipeCast(event: CastEvent) {
-    const inBerserk = inCd(this.selectedCombatant);
+    const hasBerserk = inBerserk(this.selectedCombatant);
     const remainingThrashCd = this.deps.spellUsable.cooldownRemaining(SPELLS.THRASH_BEAR.id);
     const remainingMangleCd = this.deps.spellUsable.cooldownRemaining(SPELLS.MANGLE_BEAR.id);
 
     const value =
-      remainingThrashCd < 1000 || remainingMangleCd < 1000 || inBerserk
+      remainingThrashCd <= 1000 || remainingMangleCd <= 1000 || hasBerserk
         ? QualitativePerformance.Fail
         : QualitativePerformance.Good;
     const tooltip = (
       <>
         @<strong>{this.owner.formatTimestamp(event.timestamp)}</strong>
         <br />
-        {inBerserk && (
+        {hasBerserk && (
           <>
             in <SpellLink spell={cdSpell(this.selectedCombatant)} /> (Mangle or Thrash always
             available)
