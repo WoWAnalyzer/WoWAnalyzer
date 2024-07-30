@@ -7,6 +7,7 @@ import ActiveTimeGraph from 'parser/ui/ActiveTimeGraph';
 import { SpellLink } from 'interface';
 import TALENTS from 'common/TALENTS/mage';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
+import { HideExplanationsToggle } from 'interface/guide/components/HideExplanationsToggle';
 
 export const GUIDE_CORE_EXPLANATION_PERCENT = 50;
 
@@ -50,6 +51,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
   return (
     <>
       <Section title="Core">
+        <HideExplanationsToggle id="hide-explanations-cooldowns" />
         {alwaysBeCastingSubsection}
         {modules.wintersChill.guideSubsection}
         {modules.flurry.guideSubsection}
@@ -57,12 +59,14 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           modules.glacialSpike.guideSubsection}
       </Section>
       <Section title="Procs">
+        <HideExplanationsToggle id="hide-explanations-cooldowns" />
         {info.combatant.hasTalent(TALENTS.BRAIN_FREEZE_TALENT) &&
           modules.brainFreeze.guideSubsection}
         {info.combatant.hasTalent(TALENTS.FINGERS_OF_FROST_TALENT) &&
           modules.fingersOfFrost.guideSubsection}
       </Section>
       <Section title="Cooldowns">
+        <HideExplanationsToggle id="hide-explanations-cooldowns" />
         {info.combatant.hasTalent(TALENTS.ICY_VEINS_TALENT) && modules.icyVeins.guideSubsection}
         {info.combatant.hasTalent(TALENTS.RAY_OF_FROST_TALENT) &&
           modules.rayOfFrost.guideSubsection}
