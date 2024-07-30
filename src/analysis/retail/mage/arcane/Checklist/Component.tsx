@@ -108,11 +108,6 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
             spell={TALENTS.SHIFTING_POWER_TALENT.id}
           />
         )}
-        <Requirement
-          name="Missed Arcane Orbs"
-          tooltip="Arcane Orb is a skillshot which means that it is important for you to aim it properly in order to get the most out of it. Therefore, on single target you should always ensure that the enemy gets hit by it, and if there are multiple enemies then you should do what you can to ensure all or most of them will get hit by the Orb as well."
-          thresholds={thresholds.arcaneOrbMissedOrbs}
-        />
       </Rule>
       <Rule
         name={<>Manage your mana</>}

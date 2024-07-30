@@ -14,7 +14,6 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import Channeling from 'parser/shared/normalizers/Channeling';
 
 //Core
-import Checklist from './Checklist/Module';
 import Abilities from './core/Abilities';
 import AlwaysBeCasting from './core/AlwaysBeCasting';
 import Buffs from './core/Buffs';
@@ -65,7 +64,6 @@ class CombatLogParser extends CoreCombatLogParser {
     castLinkNormalizer: CastLinkNormalizer,
 
     //Core
-    checklist: Checklist,
     buffs: Buffs,
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
