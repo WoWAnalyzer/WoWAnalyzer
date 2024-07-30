@@ -10,7 +10,7 @@ const config: Config = {
   contributors: [Seriousnes],
   branch: GameBranch.Retail,
   patchCompatibility: '11.0.0',
-  supportLevel: SupportLevel.MaintainedFull,
+  supportLevel: SupportLevel.MaintainedPartial,
   description: (
     <>
       <AlertWarning>
