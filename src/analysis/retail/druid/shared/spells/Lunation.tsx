@@ -45,7 +45,7 @@ const LUNAR_BEAM_REDUCE_MS = 3_000;
  */
 export default class Lunation extends Analyzer.withDependencies({ spellUsable: SpellUsable }) {
   /** The spell whose CD will be reduced */
-  spell: Spell;
+  spell: Spell | undefined = undefined;
   /** The amount to reduce the spell's CD by when an Arcane spell is cast */
   cdrMsPerCast: number = 0;
   /** CDR applied so far to the currently cooling down charge */
