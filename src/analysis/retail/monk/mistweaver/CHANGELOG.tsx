@@ -5,7 +5,7 @@ import { Vohrr } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 export default [
-  change(date (2024, 7, 31), <>Added <SpellLink spell={TALENTS_MONK.MENDING_PROLIFERATION_TALENT}/>, <SpellLink spell={TALENTS_MONK.TEAR_OF_MORNING_TALENT}/>, <SpellLink spell={TALENTS_MONK.CHI_HARMONY_TALENT}/>, <SpellLink spell={TALENTS_MONK.LOTUS_INFUSION_TALENT}/>, and <SpellLink spell={TALENTS_MONK.CRANE_STYLE_TALENT}/> to Talent Breakdown.</>, Vohrr),
+  change(date (2024, 7, 31), <>Added <SpellLink spell={TALENTS_MONK.MENDING_PROLIFERATION_TALENT}/>, <SpellLink spell={TALENTS_MONK.TEAR_OF_MORNING_TALENT}/>, <SpellLink spell={TALENTS_MONK.CHI_HARMONY_TALENT}/>, <SpellLink spell={TALENTS_MONK.LOTUS_INFUSION_TALENT}/>, <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT}/>, and <SpellLink spell={TALENTS_MONK.CRANE_STYLE_TALENT}/> to Talent Breakdown.</>, Vohrr),
   change(date (2024, 7, 25), <>Logging cleanup.</>, Vohrr),
   change(date (2024, 7, 25), <>Add procs per minute metric to <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT}/>.</>, Vohrr),
   change(date (2024, 7, 25), <>Update <SpellLink spell={TALENTS_MONK.MENDING_PROLIFERATION_TALENT}/>.</>, Vohrr),
