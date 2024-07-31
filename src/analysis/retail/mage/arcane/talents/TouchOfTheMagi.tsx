@@ -53,7 +53,6 @@ class TouchOfTheMagi extends Analyzer {
   }
 
   onTouch(event: ApplyDebuffEvent) {
-    this.log(event);
     const removeDebuff: RemoveDebuffEvent | undefined = GetRelatedEvent(event, 'DebuffRemove');
     const damageEvents: DamageEvent[] = GetRelatedEvents(event, 'SpellDamage');
     let damage = 0;
