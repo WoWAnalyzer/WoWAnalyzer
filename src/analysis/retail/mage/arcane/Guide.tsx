@@ -4,8 +4,6 @@ import Explanation from 'interface/guide/components/Explanation';
 import PerformanceStrong from 'interface/PerformanceStrong';
 import { formatPercentage } from 'common/format';
 import ActiveTimeGraph from 'parser/ui/ActiveTimeGraph';
-import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
-import { GapHighlight } from 'parser/ui/CooldownBar';
 import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
@@ -135,6 +133,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         </>
         {modules.arcaneBarrageGuide.guideSubsection}
         {modules.arcaneOrbGuide.guideSubsection}
+        {info.combatant.hasTalent(TALENTS.SHIFTING_POWER_TALENT) &&
+          modules.shiftingPowerGuide.guideSubsection}
       </Section>
 
       <Section title="Buffs & Procs">
@@ -153,21 +153,6 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           modules.siphonStormGuide.guideSubsection}
         {info.combatant.hasTalent(TALENTS.ARCANE_TEMPO_TALENT) &&
           modules.arcaneTempoGuide.guideSubsection}
-      </Section>
-
-      <Section title="Cooldowns">
-        <>
-          As is the case with most damage specs, properly utilizing your damage cooldowns will go a
-          long way towards improving your overall damage, especially{' '}
-          <SpellLink spell={TALENTS.ARCANE_SURGE_TALENT} />.
-        </>
-        {info.combatant.hasTalent(TALENTS.SHIFTING_POWER_TALENT) && (
-          <CastEfficiencyBar
-            spellId={TALENTS.SHIFTING_POWER_TALENT.id}
-            gapHighlightMode={GapHighlight.FullCooldown}
-            useThresholds
-          />
-        )}
       </Section>
       <PreparationSection />
     </>

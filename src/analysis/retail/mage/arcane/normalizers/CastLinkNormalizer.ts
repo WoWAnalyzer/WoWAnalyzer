@@ -15,6 +15,7 @@ const CAST_BUFFER_MS = 75;
 
 const SPELL_CAST = 'SpellCast';
 const SPELL_DAMAGE = 'SpellDamage';
+const SPELL_TICK = 'SpellTick';
 const BUFF_APPLY = 'BuffApply';
 const BUFF_REMOVE = 'BuffRemove';
 const DEBUFF_APPLY = 'DebuffApply';
@@ -67,6 +68,17 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: EventType.ResourceChange,
     anyTarget: true,
     forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    reverseLinkRelation: SPELL_CAST,
+    linkingEventId: TALENTS.SHIFTING_POWER_TALENT.id,
+    linkingEventType: EventType.Cast,
+    linkRelation: SPELL_TICK,
+    referencedEventId: SPELLS.SHIFTING_POWER_TICK.id,
+    referencedEventType: EventType.Cast,
+    anyTarget: true,
+    forwardBufferMs: 5000,
     backwardBufferMs: CAST_BUFFER_MS,
   },
   {

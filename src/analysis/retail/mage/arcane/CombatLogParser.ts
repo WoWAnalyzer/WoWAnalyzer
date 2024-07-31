@@ -28,6 +28,7 @@ import ArcaneSurge from './core/ArcaneSurge';
 import Guide from './Guide';
 import ArcaneSurgeGuide from './guide/ArcaneSurge';
 import TouchOfTheMagiGuide from './guide/TouchOfTheMagi';
+import ShiftingPowerGuide from './guide/ShiftingPower';
 import ArcaneBarrageGuide from './guide/ArcaneBarrage';
 import ArcaneOrbGuide from './guide/ArcaneOrb';
 import ClearcastingGuide from './guide/Clearcasting';
@@ -47,6 +48,7 @@ import ArcaneBombardment from './talents/ArcaneBombardment';
 import ArcaneEcho from './talents/ArcaneEcho';
 import ArcaneHarmony from './talents/ArcaneHarmony';
 import TouchOfTheMagi from './talents/TouchOfTheMagi';
+import ShiftingPowerArcane from './talents/ShiftingPower';
 import NetherPrecision from './talents/NetherPrecision';
 import SiphonStorm from './talents/SiphonStorm';
 import ArcaneTempo from './talents/ArcaneTempo';
@@ -82,6 +84,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Guide
     arcaneSurgeGuide: ArcaneSurgeGuide,
     touchOfTheMagiGuide: TouchOfTheMagiGuide,
+    shiftingPowerGuide: ShiftingPowerGuide,
     arcaneBarrageGuide: ArcaneBarrageGuide,
     arcaneOrbGuide: ArcaneOrbGuide,
     clearcastingGuide: ClearcastingGuide,
@@ -89,25 +92,26 @@ class CombatLogParser extends CoreCombatLogParser {
     siphonStormGuide: SiphonStormGuide,
     arcaneTempoGuide: ArcaneTempoGuide,
 
-    // Talents - Arcane
-    arcaneEcho: ArcaneEcho,
-    arcaneHarmony: ArcaneHarmony,
-    arcaneBombardment: ArcaneBombardment,
-    shiftingPower: ShiftingPower,
-    touchOfTheMagi: TouchOfTheMagi,
-    netherPrecision: NetherPrecision,
-    siphonStorm: SiphonStorm,
-    arcaneTempo: ArcaneTempo,
-
     //Talents - Shared
     divertedEnergy: DivertedEnergy,
     quickWitted: QuickWitted,
     tempestBarrier: TempestBarrier,
     mirrorImage: MirrorImage,
+    shiftingPower: ShiftingPower,
     elementalBarrier: ElementalBarrier,
     timeAnomaly: TimeAnomaly,
     masterOfTime: MasterOfTime,
     arcaneIntellect: ArcaneIntellect,
+
+    // Talents - Arcane
+    arcaneEcho: ArcaneEcho,
+    arcaneHarmony: ArcaneHarmony,
+    arcaneBombardment: ArcaneBombardment,
+    shiftingPowerArcane: ShiftingPowerArcane,
+    touchOfTheMagi: TouchOfTheMagi,
+    netherPrecision: NetherPrecision,
+    siphonStorm: SiphonStorm,
+    arcaneTempo: ArcaneTempo,
   };
   static guide = Guide;
 }
