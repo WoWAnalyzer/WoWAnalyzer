@@ -1,6 +1,5 @@
 import {
   TwistOfFate,
-  Mindgames,
   ShadowfiendNormalizer,
   TwinsOfTheSunPriestess,
 } from 'analysis/retail/priest/shared';
@@ -46,7 +45,6 @@ import IdolOfCthun from './modules/talents/IdolOfCthun';
 import IdolOfYoggSaron from './modules/talents/IdolOfYoggSaron';
 import IdolOfNzoth from './modules/talents/IdolOfNzoth';
 import IdolOfYshaarj from './modules/talents/IdolOfYshaarj';
-import Manipulation from './modules/talents/Manipulation';
 import InsanityGraph from './modules/guide/InsanityGraph';
 import ShadowyApparitions from './modules/spells/ShadowyApparitions';
 import AuspiciousSpirits from './modules/talents/AuspiciousSpirits';
@@ -61,11 +59,6 @@ import MindMelt from './modules/talents/MindMelt';
 import Mastermind from './modules/talents/Mastermind';
 import DarkAscension from './modules/talents/DarkAscension';
 import Shadowform from './modules/spells/Shadowform';
-
-import Tier29FourSet from './modules/tier/Tier29ShadowPriest4Set';
-import Tier30 from './modules/tier/Tier30ShadowPriest';
-import Tier31FourSet from './modules/tier/Tier31ShadowPriest4Set';
-import Tier31FourSetNormalizer from './modules/tier/Tier31ShadowPriest4SetNormalizer';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -129,8 +122,6 @@ class CombatLogParser extends MainCombatLogParser {
 
     // Class Talents:
     deathAndMadness: DeathAndMadness,
-    manipulation: Manipulation,
-    mindgames: Mindgames,
     twinsOfTheSunPriestess: TwinsOfTheSunPriestess,
     twistOfFate: TwistOfFate,
     vampiricEmbrace: VampiricEmbrace,
@@ -138,12 +129,8 @@ class CombatLogParser extends MainCombatLogParser {
     // normalizers:
     channeling: Channeling,
     shadowfiendNormalizer: ShadowfiendNormalizer,
-    tier31FourSetNormalizer: Tier31FourSetNormalizer,
 
     //Tier
-    tier29FourSet: Tier29FourSet,
-    tier30: Tier30,
-    tier31FourSet: Tier31FourSet,
 
     arcaneTorrent: [ArcaneTorrent, { active: false }] as const,
   };

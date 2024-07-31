@@ -18,7 +18,6 @@ class PsychicLink extends Analyzer {
   //damage of Psychic Link by the spell that caused it
   damageMB = 0;
   damageSWD = 0;
-  damageMG = 0;
   damageDP = 0;
   damageMS = 0;
   damageMSI = 0;
@@ -36,10 +35,6 @@ class PsychicLink extends Analyzer {
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MIND_BLAST), this.onSpell);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(TALENTS.SHADOW_WORD_DEATH_TALENT),
-      this.onSpell,
-    );
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.MINDGAMES_TALENT),
       this.onSpell,
     );
     this.addEventListener(
@@ -85,9 +80,6 @@ class PsychicLink extends Analyzer {
         break;
       case TALENTS.SHADOW_WORD_DEATH_TALENT.name:
         this.damageSWD += event.amount;
-        break;
-      case TALENTS.MINDGAMES_TALENT.name:
-        this.damageMG += event.amount;
         break;
       case TALENTS.DEVOURING_PLAGUE_TALENT.name:
         this.damageDP += event.amount;
@@ -179,13 +171,6 @@ class PsychicLink extends Analyzer {
               <div>
                 <SpellLink spell={TALENTS.VOID_TORRENT_TALENT} />:{' '}
                 {formatPercentage(this.damageVT / this.damageTotal, 1)}%
-              </div>
-            ) : null}
-
-            {this.selectedCombatant.hasTalent(TALENTS.MINDGAMES_TALENT) ? (
-              <div>
-                <SpellLink spell={TALENTS.MINDGAMES_TALENT} />:{' '}
-                {formatPercentage(this.damageMG / this.damageTotal, 1)}%
               </div>
             ) : null}
           </small>

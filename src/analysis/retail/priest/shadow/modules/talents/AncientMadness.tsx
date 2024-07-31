@@ -10,8 +10,8 @@ import { calculateEffectiveDamageFromCritIncrease } from 'parser/core/EventCalcu
 import StatTracker from 'parser/shared/modules/StatTracker';
 import HIT_TYPES from 'game/HIT_TYPES';
 
-const ANCIENT_MADNESS_CRIT_INCREASE = 0.1; //Starts by giving 10% crit
-const ANCEINT_MADNESS_CRIT_DECREASE_PER_SECOND = 0.005; //Reduces by 0.5% per second
+import { ANCIENT_MADNESS_CRIT_INCREASE } from '../../constants';
+import { ANCEINT_MADNESS_CRIT_DECREASE_PER_SECOND } from '../../constants';
 
 class AncientMadness extends Analyzer {
   static dependencies = {
