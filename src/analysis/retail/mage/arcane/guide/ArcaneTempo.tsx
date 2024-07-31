@@ -1,15 +1,19 @@
 import { formatPercentage, formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
-import { SpellLink, SpellIcon, TooltipElement } from 'interface';
+import { SpellLink, TooltipElement } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { qualitativePerformanceToColor } from 'interface/guide';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/mage/arcane/Guide';
+import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
 
 import ArcaneTempo from '../talents/ArcaneTempo';
+import { getUptimesFromBuffHistory } from 'parser/ui/UptimeBar';
+
+const TEMPO_COLOR = '#cd1bdf';
 
 class ArcaneTempoGuide extends Analyzer {
   static dependencies = {
@@ -36,7 +40,6 @@ class ArcaneTempoGuide extends Analyzer {
     const arcaneTempo = <SpellLink spell={TALENTS.ARCANE_TEMPO_TALENT} />;
     const arcaneBarrage = <SpellLink spell={SPELLS.ARCANE_BARRAGE} />;
     const arcaneCharge = <SpellLink spell={SPELLS.ARCANE_CHARGE} />;
-    const arcaneTempoIcon = <SpellIcon spell={TALENTS.ARCANE_TEMPO_TALENT} />;
 
     const explanation = (
       <>
@@ -56,19 +59,26 @@ class ArcaneTempoGuide extends Analyzer {
         ).
       </>
     );
+    const history = this.selectedCombatant.getBuffHistory(SPELLS.ARCANE_TEMPO_BUFF.id);
+    const buffs = getUptimesFromBuffHistory(history, this.owner.currentTimestamp);
+    const uptimeBar = uptimeBarSubStatistic(this.owner.fight, {
+      spells: [SPELLS.ARCANE_TEMPO_BUFF],
+      uptimes: buffs,
+      color: TEMPO_COLOR,
+    });
     const data = (
       <div>
         <RoundedPanel>
           <div
             style={{
               color: qualitativePerformanceToColor(this.arcaneTempoUptime),
-              fontSize: '20px',
+              fontSize: '16px',
             }}
           >
-            {arcaneTempoIcon}{' '}
             <TooltipElement content={arcaneTempoTooltip}>
-              {formatPercentage(this.arcaneTempo.buffUptimePercent, 2)}% <small>Buff Uptime</small>
+              <strong>Buff Uptime</strong>
             </TooltipElement>
+            {uptimeBar}
           </div>
         </RoundedPanel>
       </div>

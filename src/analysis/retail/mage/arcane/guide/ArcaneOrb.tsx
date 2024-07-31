@@ -11,6 +11,8 @@ import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/mage/arcane/Guid
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 
 import ArcaneOrb from '../talents/ArcaneOrb';
+import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
+import { GapHighlight } from 'parser/ui/CooldownBar';
 
 class ArcaneOrbGuide extends Analyzer {
   static dependencies = {
@@ -93,6 +95,15 @@ class ArcaneOrbGuide extends Analyzer {
             <strong>Arcane Orb Usage</strong>
             <PerformanceBoxRow values={this.arcaneOrbData} />
             <small>green (good) / red (fail) mouseover the rectangles to see more details</small>
+          </div>
+          <div>
+            <strong>Arcane Orb Cast Efficiency</strong>
+            <CastEfficiencyBar
+              spellId={SPELLS.ARCANE_ORB.id}
+              gapHighlightMode={GapHighlight.FullCooldown}
+              useThresholds
+              minimizeIcons
+            />
           </div>
         </RoundedPanel>
       </div>

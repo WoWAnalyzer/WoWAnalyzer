@@ -11,6 +11,8 @@ import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/mage/arcane/Guid
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 
 import SiphonStorm from '../talents/SiphonStorm';
+import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
+import { GapHighlight } from 'parser/ui/CooldownBar';
 
 class SiphonStormGuide extends Analyzer {
   static dependencies = {
@@ -72,6 +74,14 @@ class SiphonStormGuide extends Analyzer {
             <strong>Siphon Storm Buff Usage</strong>
             <PerformanceBoxRow values={this.siphonStormData} />
             <small>green (good) / red (fail) mouseover the rectangles to see more details</small>
+          </div>
+          <div>
+            <strong>Evocation Cast Efficiency</strong>
+            <CastEfficiencyBar
+              spellId={TALENTS.EVOCATION_TALENT.id}
+              gapHighlightMode={GapHighlight.FullCooldown}
+              useThresholds
+            />
           </div>
         </RoundedPanel>
       </div>

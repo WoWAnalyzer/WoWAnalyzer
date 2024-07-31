@@ -161,13 +161,6 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           long way towards improving your overall damage, especially{' '}
           <SpellLink spell={TALENTS.ARCANE_SURGE_TALENT} />.
         </>
-        {info.combatant.hasTalent(TALENTS.ARCANE_SURGE_TALENT) && (
-          <CastEfficiencyBar
-            spellId={TALENTS.ARCANE_SURGE_TALENT.id}
-            gapHighlightMode={GapHighlight.FullCooldown}
-            useThresholds
-          />
-        )}
         {info.combatant.hasTalent(TALENTS.SHIFTING_POWER_TALENT) && (
           <CastEfficiencyBar
             spellId={TALENTS.SHIFTING_POWER_TALENT.id}
@@ -175,27 +168,6 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
             useThresholds
           />
         )}
-        {info.combatant.hasTalent(TALENTS.TOUCH_OF_THE_MAGI_TALENT) && (
-          <CastEfficiencyBar
-            spellId={TALENTS.TOUCH_OF_THE_MAGI_TALENT.id}
-            gapHighlightMode={GapHighlight.FullCooldown}
-            useThresholds
-            minimizeIcons
-          />
-        )}
-        {info.combatant.hasTalent(TALENTS.EVOCATION_TALENT) && (
-          <CastEfficiencyBar
-            spellId={TALENTS.EVOCATION_TALENT.id}
-            gapHighlightMode={GapHighlight.FullCooldown}
-            useThresholds
-            minimizeIcons
-          />
-        )}
-        <CastEfficiencyBar
-          spellId={SPELLS.ARCANE_ORB.id}
-          gapHighlightMode={GapHighlight.FullCooldown}
-          useThresholds
-        />
       </Section>
       <PreparationSection />
     </>
