@@ -89,7 +89,7 @@ class AlwaysBeCasting extends Analyzer {
       // Ignore prepull casts for active time since active time should only include casts during the
       return false;
     }
-    if (event.trigger.type === EventType.BeginChannel) {
+    if (event.trigger.type === EventType.BeginChannel || event.trigger.channel) {
       // Only add active time for this channel, we do this when the channel is finished and use the highest of the GCD and channel time
       return false;
     }
@@ -122,6 +122,12 @@ class AlwaysBeCasting extends Analyzer {
     if (this.globalCooldown.isOnGlobalCooldown(event.ability.guid)) {
       amount = Math.max(amount, this._lastGlobalCooldownDuration);
     }
+
+    // check if the initial channel is from pre-pull, if it is, only count active time from the beginning of the fight
+    if (!this.activeTimeSegments.length) {
+      amount = Math.min(amount, event.timestamp - this.owner.fight.start_time);
+    }
+
     this.activeTime += amount;
     this._handleNewUptimeSegment(event.timestamp - amount, event.timestamp);
     DEBUG &&
