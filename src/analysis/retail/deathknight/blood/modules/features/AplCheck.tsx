@@ -41,7 +41,7 @@ export const runeRules = {
     condition: cnd.inExecute(0.35), // this should really get a custom condition for the case where you cast soul reaper and then it explodes below 35%, but that can only happen 1 time per target
   },
   deathsCaress: {
-    spell: talents.DEATHS_CARESS_TALENT,
+    spell: SPELLS.DEATHS_CARESS,
     condition: cnd.optionalRule(ossuaryCnd), // allow optionally using DC for BS refresh. i'm not here to litigate optimality. some high end people use DC for it a ton
   },
   drw: {

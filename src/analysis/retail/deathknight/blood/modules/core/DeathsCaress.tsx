@@ -1,12 +1,8 @@
-import { defineMessage, Trans } from '@lingui/macro';
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
 import Spell from 'common/SPELLS/Spell';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
-import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 const RANGE_WHERE_YOU_SHOULDNT_DC = 12; // yrd
@@ -40,12 +36,9 @@ class DeathsCaress extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DEATHS_CARESS), this.onCast);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.DEATHS_CARESS_TALENT),
-      this.onCast,
-    );
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.DEATHS_CARESS_TALENT),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.DEATHS_CARESS),
       this.onDamage,
     );
     if (this.selectedCombatant.hasTalent(TALENTS.BLOODDRINKER_TALENT)) {
@@ -111,46 +104,6 @@ class DeathsCaress extends Analyzer {
     });
 
     return badCasts;
-  }
-
-  get averageCastSuggestionThresholds(): NumberThreshold {
-    return {
-      actual: 1 - this.badDcCasts / this.dcCasts,
-      isLessThan: {
-        minor: 1,
-        average: 0.95,
-        major: 0.9,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
-  suggestions(when: When) {
-    when(this.averageCastSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <Trans id="deathknight.blood.deathsCaress.suggestion.suggestion">
-          Avoid casting <SpellLink spell={TALENTS.DEATHS_CARESS_TALENT} /> unless you're out of
-          melee range and about to cap your runes while <SpellLink spell={this.DD_ABILITY} /> and{' '}
-          <SpellLink spell={TALENTS.BLOODDRINKER_TALENT} /> are on cooldown. Dump runes primarily
-          with <SpellLink spell={TALENTS.HEART_STRIKE_TALENT} />.
-        </Trans>,
-      )
-        .icon(TALENTS.DEATHS_CARESS_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'deathknight.blood.deathsCaress.suggestion.actual',
-            message: `${formatPercentage(this.badDcCasts / this.dcCasts)}% bad ${
-              TALENTS.DEATHS_CARESS_TALENT.name
-            } casts`,
-          }),
-        )
-        .recommended(
-          defineMessage({
-            id: 'deathknight.blood.deathsCaress.suggestion.recommended',
-            message: '0% are recommended',
-          }),
-        ),
-    );
   }
 }
 
