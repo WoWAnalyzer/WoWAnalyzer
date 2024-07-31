@@ -8,11 +8,12 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { SpellLink, TooltipElement } from 'interface';
-import { formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import HotTrackerMW from '../core/HotTrackerMW';
 import { ATTRIBUTION_STRINGS, TEAR_OF_MORNING_INVIG_INCREASE } from '../../constants';
 import { TFT_ENV_TOM } from '../../normalizers/EventLinks/EventLinkConstants';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
 class TearOfMorning extends Analyzer {
   static dependencies = {
@@ -105,6 +106,17 @@ class TearOfMorning extends Analyzer {
       return;
     }
     this.envelopingMisthealing += event.amount + (event.absorbed || 0);
+  }
+
+  subStatistic() {
+    return (
+      <StatisticListBoxItem
+        title={<SpellLink spell={TALENTS_MONK.TEAR_OF_MORNING_TALENT} />}
+        value={`${formatPercentage(
+          this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
+        )} %`}
+      />
+    );
   }
 
   statistic() {
