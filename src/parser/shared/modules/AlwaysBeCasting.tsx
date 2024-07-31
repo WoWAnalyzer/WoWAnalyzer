@@ -106,12 +106,7 @@ class AlwaysBeCasting extends Analyzer {
     this._handleNewUptimeSegment(event.timestamp, event.timestamp + event.duration);
     DEBUG &&
       console.log(
-        'Active Time: added ' +
-          event.duration +
-          ' from GCD for ' +
-          event.trigger.ability.name +
-          ' @ ' +
-          this.owner.formatTimestamp(event.trigger.timestamp),
+        `Active Time: added ${event.duration.toFixed(0)}ms from GCD for ${event.trigger.ability.name} @ ${this.owner.formatTimestamp(event.timestamp, 1)} - ${this.owner.formatTimestamp(event.timestamp + event.duration, 1)}`,
       );
     return true;
   }
@@ -132,12 +127,7 @@ class AlwaysBeCasting extends Analyzer {
     this._handleNewUptimeSegment(event.timestamp - amount, event.timestamp);
     DEBUG &&
       console.log(
-        'Active Time: added ' +
-          amount +
-          ' from Channel for ' +
-          event.ability.name +
-          ' @ ' +
-          this.owner.formatTimestamp(event.timestamp),
+        `Active Time: added ${event.duration.toFixed(0)}ms from Channel for ${event.ability.name} @ ${this.owner.formatTimestamp(event.timestamp - amount, 1)} - ${this.owner.formatTimestamp(event.timestamp, 1)}`,
       );
     return true;
   }
