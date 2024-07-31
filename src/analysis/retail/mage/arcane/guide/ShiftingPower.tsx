@@ -6,7 +6,6 @@ import { explanationAndDataSubsection } from 'interface/guide/components/Explana
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { PassFailCheckmark, PerformanceMark } from 'interface/guide';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/mage/arcane/Guide';
-import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 
 import ShiftingPowerArcane, { MAX_TICKS, ShiftingPowerCast } from '../talents/ShiftingPower';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
@@ -39,17 +38,6 @@ class ShiftingPowerGuide extends Analyzer {
       </>
     );
     return tooltip;
-  }
-
-  get shiftingPowerData() {
-    const data: BoxRowEntry[] = [];
-    this.shiftingPower.casts.forEach((sp) => {
-      if (sp.usage && sp.usage?.tooltip) {
-        const tooltip = this.generateGuideTooltip(sp.usage?.value, sp.usage?.tooltip, sp.timestamp);
-        data.push({ value: sp.usage?.value, tooltip });
-      }
-    });
-    return data;
   }
 
   private perCastBreakdown(cast: ShiftingPowerCast): React.ReactNode {
