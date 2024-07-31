@@ -2,16 +2,18 @@ import { ReactNode } from 'react';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
-import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { PerformanceMark } from 'interface/guide';
+import { PassFailCheckmark, PerformanceMark } from 'interface/guide';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/mage/arcane/Guide';
-import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 
-import ShiftingPowerArcane from '../talents/ShiftingPower';
+import ShiftingPowerArcane, { MAX_TICKS, ShiftingPowerCast } from '../talents/ShiftingPower';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
+import CooldownExpandable, {
+  CooldownExpandableItem,
+} from 'interface/guide/components/CooldownExpandable';
+import SPELLS from 'common/SPELLS';
 
 class ShiftingPowerGuide extends Analyzer {
   static dependencies = {
@@ -38,15 +40,110 @@ class ShiftingPowerGuide extends Analyzer {
     return tooltip;
   }
 
-  get shiftingPowerData() {
-    const data: BoxRowEntry[] = [];
-    this.shiftingPower.shiftingPower.forEach((sp) => {
-      if (sp.usage && sp.usage?.tooltip) {
-        const tooltip = this.generateGuideTooltip(sp.usage?.value, sp.usage?.tooltip, sp.cast);
-        data.push({ value: sp.usage?.value, tooltip });
-      }
+  private perCastBreakdown(cast: ShiftingPowerCast): React.ReactNode {
+    const header = (
+      <>
+        @ {this.owner.formatTimestamp(cast.timestamp)} &mdash;{' '}
+        <SpellLink spell={TALENTS.SHIFTING_POWER_TALENT} />
+      </>
+    );
+
+    const maxTicks = cast.ticks >= MAX_TICKS;
+    const checklistItems: CooldownExpandableItem[] = [];
+    checklistItems.push({
+      label: 'Channeled full duration',
+      result: <PassFailCheckmark pass={maxTicks} />,
+      details: (
+        <>
+          ({cast.ticks} / {MAX_TICKS} ticks)
+        </>
+      ),
     });
-    return data;
+
+    checklistItems.push({
+      label: (
+        <>
+          <SpellLink spell={TALENTS.ARCANE_SURGE_TALENT} />{' '}
+          {!cast.spellsReduced.arcaneSurge && 'NOT'} on CD
+        </>
+      ),
+      result: <PassFailCheckmark pass={cast.spellsReduced.arcaneSurge} />,
+    });
+    checklistItems.push({
+      label: (
+        <>
+          <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} />{' '}
+          {!cast.spellsReduced.touchOfTheMagi && 'NOT'} on CD
+        </>
+      ),
+      result: <PassFailCheckmark pass={cast.spellsReduced.touchOfTheMagi} />,
+    });
+    checklistItems.push({
+      label: (
+        <>
+          <SpellLink spell={TALENTS.EVOCATION_TALENT} /> {!cast.spellsReduced.evocation && 'NOT'} on
+          CD
+        </>
+      ),
+      result: <PassFailCheckmark pass={cast.spellsReduced.evocation} />,
+    });
+
+    const inConservePhase =
+      !cast.cdsActive.arcaneSurge && !cast.cdsActive.touchOfTheMagi && !cast.cdsActive.siphonStorm;
+    if (inConservePhase) {
+      checklistItems.push({
+        label: 'In Conserve phase',
+        result: <PassFailCheckmark pass={inConservePhase} />,
+      });
+    }
+    if (cast.cdsActive.arcaneSurge) {
+      checklistItems.push({
+        label: (
+          <>
+            <SpellLink spell={TALENTS.ARCANE_SURGE_TALENT} /> active!
+          </>
+        ),
+        result: <PassFailCheckmark pass={false} />,
+      });
+    }
+    if (cast.cdsActive.touchOfTheMagi) {
+      checklistItems.push({
+        label: (
+          <>
+            <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} /> active!
+          </>
+        ),
+        result: <PassFailCheckmark pass={false} />,
+      });
+    }
+    if (cast.cdsActive.siphonStorm) {
+      checklistItems.push({
+        label: (
+          <>
+            <SpellLink spell={SPELLS.SIPHON_STORM_BUFF} /> active!
+          </>
+        ),
+        result: <PassFailCheckmark pass={false} />,
+      });
+    }
+
+    const overallPerf =
+      maxTicks &&
+      cast.spellsReduced.arcaneSurge &&
+      cast.spellsReduced.touchOfTheMagi &&
+      cast.spellsReduced.evocation &&
+      inConservePhase
+        ? QualitativePerformance.Good
+        : QualitativePerformance.Fail;
+
+    return (
+      <CooldownExpandable
+        header={header}
+        checklistItems={checklistItems}
+        perf={overallPerf}
+        key={cast.ordinal}
+      />
+    );
   }
 
   get guideSubsection(): JSX.Element {
@@ -58,30 +155,27 @@ class ShiftingPowerGuide extends Analyzer {
     const explanation = (
       <>
         <div>
-          <b>{shiftingPower}</b> reduces your active cooldowns for every tick that you channel.
-          Since Arcane revolves around your burn phases, you should use {shiftingPower} after your
-          major burn phase when {arcaneSurge}, {touchOfTheMagi}, and {evocation}
-          are on cooldown.
+          <strong>{shiftingPower}</strong> reduces your active cooldowns while you channel. Use it
+          when your major abilites ({arcaneSurge}, {touchOfTheMagi}, and {evocation}) are all on
+          cooldown, after the burn phase is concluded. Do not clip ticks.
         </div>
       </>
     );
+
     const data = (
       <div>
-        <RoundedPanel>
-          <div>
-            <strong>Shifting Power Buff Usage</strong>
-            <PerformanceBoxRow values={this.shiftingPowerData} />
-            <small>green (good) / red (fail) mouseover the rectangles to see more details</small>
-          </div>
-          <div>
-            <strong>Shifting Power Cast Efficiency</strong>
-            <CastEfficiencyBar
-              spellId={TALENTS.SHIFTING_POWER_TALENT.id}
-              gapHighlightMode={GapHighlight.FullCooldown}
-              useThresholds
-            />
-          </div>
-        </RoundedPanel>
+        <p>
+          <strong>Shifting Power Cast Efficiency</strong>
+          <CastEfficiencyBar
+            spellId={TALENTS.SHIFTING_POWER_TALENT.id}
+            gapHighlightMode={GapHighlight.FullCooldown}
+          />
+        </p>
+        <p>
+          <strong>Per-Cast Breakdown</strong>
+          <small> - click to expand</small>
+          {this.shiftingPower.casts.map((cast) => this.perCastBreakdown(cast))}
+        </p>
       </div>
     );
 
