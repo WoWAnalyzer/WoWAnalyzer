@@ -2406,6 +2406,20 @@ export const Saeldur: Contributor = {
   github: 'Saeldur',
   discord: 'saeldur',
 };
+
+export const ZiayaKens: Contributor = {
+  nickname: 'Ziaya Kens',
+  github: 'JordanKlaers',
+  discord: 'EonWorm',
+  mains: [
+    {
+      name: 'EonWorm',
+      spec: SPECS.HOLY_PALADIN,
+      link: 'https://www.warcraftlogs.com/character/id/72594250',
+    },
+  ],
+};
+
 export const Lspinheiro: Contributor = {
   nickname: 'Lspinheiro',
   github: 'lspinheiro',

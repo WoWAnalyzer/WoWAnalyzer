@@ -26,6 +26,12 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
+        spellId: SPELLS.SIPHON_STORM_BUFF.id,
+        triggeredBySpellId: TALENTS.EVOCATION_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.EVOCATION_TALENT),
+        timelineHighlight: true,
+      },
+      {
         spellId: TALENTS.PRESENCE_OF_MIND_TALENT.id,
         triggeredBySpellId: TALENTS.PRESENCE_OF_MIND_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.PRESENCE_OF_MIND_TALENT),
@@ -51,6 +57,11 @@ class Buffs extends CoreAuras {
       {
         spellId: SPELLS.ARCANE_HARMONY_BUFF.id,
         enabled: combatant.hasTalent(TALENTS.ARCANE_HARMONY_TALENT),
+        timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.ARCANE_TEMPO_BUFF.id,
+        enabled: combatant.hasTalent(TALENTS.ARCANE_TEMPO_TALENT),
         timelineHighlight: true,
       },
       {

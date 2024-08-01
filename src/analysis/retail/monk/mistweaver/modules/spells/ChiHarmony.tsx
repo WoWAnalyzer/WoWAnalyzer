@@ -16,6 +16,9 @@ import {
 } from '../../constants';
 import HotTrackerMW from '../core/HotTrackerMW';
 import TalentSpellText from 'parser/ui/TalentSpellText';
+import { formatPercentage } from 'common/format';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
+import SpellLink from 'interface/SpellLink';
 
 class ChiHarmony extends Analyzer {
   static dependencies = {
@@ -62,6 +65,15 @@ class ChiHarmony extends Analyzer {
       this.healing += calculateEffectiveHealing(event, CHI_HARMONY_BOOST);
       this.overheal += calculateOverhealing(event, CHI_HARMONY_BOOST);
     }
+  }
+
+  subStatistic() {
+    return (
+      <StatisticListBoxItem
+        title={<SpellLink spell={TALENTS_MONK.CHI_HARMONY_TALENT} />}
+        value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
+      />
+    );
   }
 
   statistic() {

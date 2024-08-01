@@ -30,6 +30,7 @@ import {
   dub,
   Zyer,
   Earosselot,
+  ZiayaKens,
   Vohrr,
   Ethelis,
 } from 'CONTRIBUTORS';
@@ -39,6 +40,9 @@ import SpellLink from 'interface/SpellLink';
 // prettier-ignore
 export default [
   change(date(2024, 8, 1), 'Add Classic Cataclysm Phase 1 trinkets.', jazminite),
+  change(date(2024, 7, 31), 'Fixed an issue where pre-pull channels could cause wildly incorrect Active Time value', Sref),
+  change(date(2024, 7, 31), 'Fixed an issue with AlwaysBeCasting over counting channels.', Vollmer),
+  change(date(2024, 7, 29), 'Fixed handling of not-found and private logs.', emallson),
   change(date(2024, 7, 27), "Fixed an issue where fully supported specs on spec list weren't displaying their maintainer.", Sref),
   change(date(2024, 7, 22), 'Fix partial support indication on spec list.', ToppleTheNun),
   change(date(2024, 7, 22), 'Update Paladin spells for Classic Cataclysm', Ethelis),
@@ -51,6 +55,7 @@ export default [
   change(date(2024, 7, 15), 'Replace react-helmet with react-helmet-async.', ToppleTheNun),
   change(date(2024, 7, 10), 'Improve debugging information for Global Cooldown tracking', emallson),
   change(date(2024, 7, 8), 'Rewrite Premium page in TypeScript.', ToppleTheNun),
+  change(date(2024, 7, 7), 'Add NPC abilities on the timeline module', ZiayaKens),
   change(date(2024, 7, 6), 'Update Foundation Guides to use div instead of p (DOM warnings)', jazminite),
   change(date(2024, 7, 5), <>Update Haste and GCD tracking for Classic.</>, emallson),
   change(date(2024, 7, 4), 'Update Mage spells for Classic Cataclysm', jazminite),

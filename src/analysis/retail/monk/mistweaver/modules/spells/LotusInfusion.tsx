@@ -20,6 +20,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import SpellLink from 'interface/SpellLink';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
 class LotusInfusion extends Analyzer {
   static dependencies = {
@@ -113,6 +114,17 @@ class LotusInfusion extends Analyzer {
 
     this.renewingMistHealingBoost += calculateEffectiveHealing(event, LOTUS_INFUSION_BOOST);
     this.renewingMistOverhealingBoost += calculateOverhealing(event, LOTUS_INFUSION_BOOST);
+  }
+
+  subStatistic() {
+    return (
+      <StatisticListBoxItem
+        title={<SpellLink spell={TALENTS_MONK.LOTUS_INFUSION_TALENT} />}
+        value={`${formatPercentage(
+          this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
+        )} %`}
+      />
+    );
   }
 
   statistic(): ReactNode {

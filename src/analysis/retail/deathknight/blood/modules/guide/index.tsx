@@ -28,10 +28,6 @@ export default function BloodGuide(props: GuideProps<typeof CombatLogParser>): J
       isActive: (c) => c.hasTalent(TALENTS_DEATH_KNIGHT.TOMBSTONE_TALENT),
     },
     {
-      spell: SPELLS.EMPOWER_RUNE_WEAPON,
-      isActive: (c) => c.hasTalent(TALENTS_DEATH_KNIGHT.EMPOWER_RUNE_WEAPON_SHARED_TALENT),
-    },
-    {
       spell: DRAGONFLIGHT_OTHERS_SPELLS.RAGE_OF_FYRALATH_1,
       isActive: (c) => c.hasMainHand(DRAGONFLIGHT_OTHERS_ITEMS.FYRALATH.id),
     },
@@ -48,6 +44,9 @@ export default function BloodGuide(props: GuideProps<typeof CombatLogParser>): J
         {props.modules.deathStrikeTiming.guideSubsection}
       </Section>
       <Section title="Rotation">
+        <AlertWarning>
+          This section has not yet been updated for <strong>The War Within</strong>.
+        </AlertWarning>
         <AplDescription />
         <SubSection>
           <AplSectionData checker={apl.check} apl={apl.apl} summary={apl.AplSummary} />
