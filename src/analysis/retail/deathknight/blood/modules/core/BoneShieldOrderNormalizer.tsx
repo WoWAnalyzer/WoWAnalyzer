@@ -8,7 +8,7 @@ export default class BoneShieldOrderNormalizer extends EventOrderNormalizer {
   constructor(options: Options) {
     super(options, [
       {
-        beforeEventId: [talents.MARROWREND_TALENT.id, talents.DEATHS_CARESS_TALENT.id],
+        beforeEventId: [talents.MARROWREND_TALENT.id, SPELLS.DEATHS_CARESS.id],
         beforeEventType: EventType.Cast,
         afterEventId: SPELLS.BONE_SHIELD.id,
         afterEventType: [EventType.ApplyBuff, EventType.ApplyBuffStack, EventType.RefreshBuff],

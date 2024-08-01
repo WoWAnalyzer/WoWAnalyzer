@@ -92,6 +92,21 @@ const spells = {
     name: 'Siphon Storm',
     icon: 'ability_monk_forcesphere_arcane',
   },
+  NETHER_PRECISION_BUFF: {
+    id: 383783,
+    name: 'Nether Precision',
+    icon: 'spell_arcane_blast_nightborne',
+  },
+  ARCANE_TEMPO_BUFF: {
+    id: 383997,
+    name: 'Arcane Tempo',
+    icon: 'ability_socererking_arcaneacceleration',
+  },
+  ARCANE_ECHO_DAMAGE: {
+    id: 342232,
+    name: 'Arcane Echo',
+    icon: 'ability_socererking_arcanewrath',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;

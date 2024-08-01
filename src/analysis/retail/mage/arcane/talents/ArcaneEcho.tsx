@@ -1,17 +1,12 @@
-import { formatNumber, formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import { formatNumber } from 'common/format';
 import TALENTS from 'common/TALENTS/mage';
-import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, { CastEvent, ApplyDebuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import Events, { CastEvent, DamageEvent, GetRelatedEvents } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-
-const MIN_MISSILE_THRESHOLD = 3;
 
 class ArcaneEcho extends Analyzer {
   static dependencies = {
@@ -19,94 +14,33 @@ class ArcaneEcho extends Analyzer {
   };
   protected abilityTracker!: AbilityTracker;
 
-  castsPerTouch = 0;
-  totalCasts = 0;
-  noMissileCasts = 0;
-  lowMissileCasts = 0;
-  touchOfTheMagiApplied = false;
+  arcaneEchoes: { touchMagiCast: number; damageEvents?: DamageEvent[]; totalDamage: number }[] = [];
 
   constructor(options: Options) {
     super(options);
-    this.active = false; //Disabling this for now, at the very least this needs to be completely redone, but might not be needed at all
+    this.active = this.selectedCombatant.hasTalent(TALENTS.ARCANE_ECHO_TALENT);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.ARCANE_MISSILES_TALENT),
-      this.onMissilesCast,
-    );
-    this.addEventListener(
-      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.TOUCH_OF_THE_MAGI_DEBUFF),
-      this.onDebuffApplied,
-    );
-    this.addEventListener(
-      Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.TOUCH_OF_THE_MAGI_DEBUFF),
-      this.onDebuffRemoved,
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.TOUCH_OF_THE_MAGI_TALENT),
+      this.onTouchMagiCast,
     );
   }
 
-  onMissilesCast(event: CastEvent) {
-    if (!this.touchOfTheMagiApplied) {
-      return;
-    }
-    this.castsPerTouch += 1;
+  onTouchMagiCast(event: CastEvent) {
+    const damageEvents: DamageEvent[] = GetRelatedEvents(event, 'SpellDamage');
+    let damage = 0;
+    damageEvents.forEach((a) => (damage += a.amount + (a.absorbed || 0)));
+
+    this.arcaneEchoes.push({
+      touchMagiCast: event.timestamp,
+      damageEvents: damageEvents || [],
+      totalDamage: damage,
+    });
   }
 
-  onDebuffApplied(event: ApplyDebuffEvent) {
-    this.touchOfTheMagiApplied = true;
-  }
-
-  onDebuffRemoved(event: RemoveDebuffEvent) {
-    if (this.castsPerTouch === 0) {
-      this.noMissileCasts += 1;
-    } else if (this.castsPerTouch < MIN_MISSILE_THRESHOLD) {
-      this.lowMissileCasts += 1;
-    }
-    this.totalCasts += this.castsPerTouch;
-    this.castsPerTouch = 0;
-    this.touchOfTheMagiApplied = false;
-  }
-
-  get averageCastsPerTouch() {
-    return (
-      this.totalCasts / this.abilityTracker.getAbility(TALENTS.TOUCH_OF_THE_MAGI_TALENT.id).casts
-    );
-  }
-  get badTouchUses() {
-    return this.noMissileCasts + this.lowMissileCasts;
-  }
-
-  get touchUtilization() {
-    return (
-      1 -
-      this.badTouchUses / this.abilityTracker.getAbility(TALENTS.TOUCH_OF_THE_MAGI_TALENT.id).casts
-    );
-  }
-
-  get badTouchUsageThreshold() {
-    return {
-      actual: this.badTouchUses,
-      isGreaterThan: {
-        average: 0,
-        major: 1,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
-  }
-
-  suggestions(when: When) {
-    when(this.badTouchUsageThreshold).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You failed to cast enough <SpellLink spell={TALENTS.ARCANE_MISSILES_TALENT} /> into{' '}
-          <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} /> {this.badTouchUses} times. When
-          using <SpellLink spell={TALENTS.ARCANE_ECHO_TALENT} /> you should be casting{' '}
-          <SpellLink spell={TALENTS.ARCANE_MISSILES_TALENT} /> non-stop (Whether you have{' '}
-          <SpellLink spell={SPELLS.CLEARCASTING_ARCANE} /> procs or not) until the{' '}
-          <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} /> debuff is removed from the target.
-        </>,
-      )
-        .icon(TALENTS.ARCANE_MISSILES_TALENT.icon)
-        .actual(<>{formatNumber(this.badTouchUses)} Bad Touch of the Magi Uses</>)
-        .recommended(`<${formatNumber(recommended)} is recommended`),
-    );
+  get averageDamagePerTouch() {
+    let totalDamage = 0;
+    this.arcaneEchoes.forEach((a) => (totalDamage += a.totalDamage));
+    return totalDamage / this.abilityTracker.getAbility(TALENTS.TOUCH_OF_THE_MAGI_TALENT.id).casts;
   }
 
   statistic() {
@@ -114,22 +48,17 @@ class ArcaneEcho extends Analyzer {
       <Statistic
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={`You averaged ${formatNumber(
-          this.averageCastsPerTouch,
-        )} Arcane Missile casts per use of Touch of the Magi. ${
-          this.noMissileCasts > 0
-            ? `Additionally, you cast Touch of the Magi ${this.noMissileCasts} times without casting Arcane Missiles into it at all.`
-            : ''
-        } In order to get the most out of Arcane Echo, you should be hard casting Arcane Missiles into Touch of the Magi until the debuff is removed.`}
+        tooltip={
+          <>
+            On average you did {formatNumber(this.averageDamagePerTouch)} damage per Touch of the
+            Magi cast.
+          </>
+        }
       >
         <BoringSpellValueText spell={TALENTS.ARCANE_ECHO_TALENT}>
           <>
-            <SpellIcon spell={TALENTS.ARCANE_MISSILES_TALENT} />{' '}
-            {formatNumber(this.averageCastsPerTouch)}{' '}
-            <small>Average casts per Touch of the Magi</small>
-            <br />
-            <SpellIcon spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} />{' '}
-            {formatPercentage(this.touchUtilization)}% <small>Touch of the Magi Utilization</small>
+            <SpellIcon spell={TALENTS.ARCANE_ECHO_TALENT} />{' '}
+            {formatNumber(this.averageDamagePerTouch)} <small>Average Damage</small>
           </>
         </BoringSpellValueText>
       </Statistic>
