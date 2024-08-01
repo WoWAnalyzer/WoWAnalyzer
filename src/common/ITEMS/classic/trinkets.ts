@@ -252,6 +252,16 @@ const trinkets = {
     icon: 'inv_misc_bone_skull_02.jpg',
     buffs: [{ id: 71541, name: 'Icy Rage' }],
   },
+  // -------------
+  // WRATH PHASE 1
+  // -------------
+  SOUL_PRESERVER: {
+    //To Be Removed
+    id: 37111,
+    name: 'Soul Preserver',
+    icon: 'inv_misc_orb_03',
+    buffs: [{ id: 60513, name: 'Healing Trance' }],
+  },
 } satisfies Record<string, Trinket>;
 
 export default trinkets;
