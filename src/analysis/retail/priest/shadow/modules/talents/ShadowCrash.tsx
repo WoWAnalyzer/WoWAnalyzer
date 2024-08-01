@@ -29,12 +29,12 @@ class ShadowCrash extends Analyzer {
   recentHits = 0;
   recentSCTimestamp = 0;
 
-  V1 = this.selectedCombatant.hasTalent(TALENTS.SHADOW_CRASH_1_SHADOW_TALENT);
-  V2 = this.selectedCombatant.hasTalent(TALENTS.SHADOW_CRASH_2_SHADOW_TALENT);
+  shadowCrash1 = this.selectedCombatant.hasTalent(TALENTS.SHADOW_CRASH_1_SHADOW_TALENT);
+  shadowCrash2 = this.selectedCombatant.hasTalent(TALENTS.SHADOW_CRASH_2_SHADOW_TALENT);
 
   constructor(options: Options) {
     super(options);
-    this.active = this.V1 || this.V2;
+    this.active = this.shadowCrash1 || this.shadowCrash2;
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_CRASH_TALENT_DAMAGE),
       this.onDamage,
@@ -59,12 +59,14 @@ class ShadowCrash extends Analyzer {
   }
 
   get abilityVersion() {
-    if (this.V1) {
+    if (this.shadowCrash1) {
       return this.abilityTracker.getAbility(TALENTS.SHADOW_CRASH_1_SHADOW_TALENT.id).casts;
     }
-    if (this.V2) {
+    if (this.shadowCrash2) {
       return this.abilityTracker.getAbility(TALENTS.SHADOW_CRASH_2_SHADOW_TALENT.id).casts;
-    } else {return 1;} //this should never be reached
+    } else {
+      return 1;
+    } //this should never be reached
   }
 
   get averageTargetsHit() {
