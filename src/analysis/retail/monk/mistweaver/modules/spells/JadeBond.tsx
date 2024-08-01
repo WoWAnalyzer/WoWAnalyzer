@@ -14,7 +14,7 @@ import { JADE_BOND_INC, JADE_BOND_SOOB_INC } from '../../constants';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { TooltipElement } from 'interface';
 
-const JADE_BOND_REDUCTION = 300;
+const JADE_BOND_REDUCTION = 500;
 
 class JadeBond extends Analyzer {
   static dependencies = {
