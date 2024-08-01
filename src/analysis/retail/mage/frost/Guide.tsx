@@ -51,7 +51,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
   return (
     <>
       <Section title="Core">
-        <HideExplanationsToggle id="hide-explanations-cooldowns" />
+        <HideExplanationsToggle id="hide-explanations-core" />
         {alwaysBeCastingSubsection}
         {modules.wintersChill.guideSubsection}
         {modules.flurry.guideSubsection}
@@ -59,7 +59,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           modules.glacialSpike.guideSubsection}
       </Section>
       <Section title="Procs">
-        <HideExplanationsToggle id="hide-explanations-cooldowns" />
+        <HideExplanationsToggle id="hide-explanations-procs" />
         {info.combatant.hasTalent(TALENTS.BRAIN_FREEZE_TALENT) &&
           modules.brainFreeze.guideSubsection}
         {info.combatant.hasTalent(TALENTS.FINGERS_OF_FROST_TALENT) &&
