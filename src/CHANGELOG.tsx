@@ -39,6 +39,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 8, 1), 'Add Classic Cataclysm Phase 1 trinkets.', jazminite),
   change(date(2024, 7, 31), 'Fixed an issue where pre-pull channels could cause wildly incorrect Active Time value', Sref),
   change(date(2024, 7, 31), 'Fixed an issue with AlwaysBeCasting over counting channels.', Vollmer),
   change(date(2024, 7, 29), 'Fixed handling of not-found and private logs.', emallson),
