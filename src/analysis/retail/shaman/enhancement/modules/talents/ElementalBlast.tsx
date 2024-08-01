@@ -67,11 +67,10 @@ class ElementalBlast extends BaseElementalBlast {
       {},
     );
 
-    this.maxCharges = 1;
-    // this.maxCharges = this.selectedCombatant.getMultipleTalentRanks(
-    //   TALENTS.ELEMENTAL_BLAST_ENHANCEMENT_TALENT,
-    //   TALENTS.LAVA_BURST_TALENT,
-    // );
+    this.maxCharges = this.selectedCombatant.getMultipleTalentRanks(
+      TALENTS.ELEMENTAL_BLAST_ENHANCEMENT_TALENT,
+      TALENTS.LAVA_BURST_TALENT,
+    );
     this.currentCharges = this.maxCharges;
 
     this.addEventListener(

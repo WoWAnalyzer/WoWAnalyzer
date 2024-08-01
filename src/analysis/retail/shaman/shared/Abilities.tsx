@@ -39,7 +39,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FLAME_SHOCK.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: combatant.specId === SPECS.ENHANCEMENT_SHAMAN.id ? (haste) => 6 / (1 + haste) : 6,
+        cooldown: combatant.spec === SPECS.ENHANCEMENT_SHAMAN ? (haste) => 6 / (1 + haste) : 6,
         gcd: {
           base: 1500,
         },
@@ -80,8 +80,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.FROST_SHOCK_TALENT.id,
         enabled: true, // combatant.hasTalent(TALENTS.FROST_SHOCK_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste) =>
-          combatant.specId === SPECS.ENHANCEMENT_SHAMAN.id ? 6 / (1 + haste) : 0,
+        cooldown: (haste) => (combatant.spec === SPECS.ENHANCEMENT_SHAMAN ? 6 / (1 + haste) : 0),
         gcd: {
           base: 1500,
         },
@@ -95,31 +94,21 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.LAVA_BURST_TALENT.id,
-        charges: (c) => {
-          switch (c.specId) {
-            case SPECS.ELEMENTAL_SHAMAN.id:
-              return 1 + (c.hasTalent(TALENTS.ECHO_OF_THE_ELEMENTS_TALENT) ? 1 : 0);
-            case SPECS.ENHANCEMENT_SHAMAN.id:
-              return c.hasTalent(TALENTS.ELEMENTAL_BLAST_ENHANCEMENT_TALENT)
+        charges:
+          combatant.spec === SPECS.ELEMENTAL_SHAMAN
+            ? 1 + (combatant.hasTalent(TALENTS.ECHO_OF_THE_ELEMENTS_TALENT) ? 1 : 0)
+            : combatant.spec === SPECS.ENHANCEMENT_SHAMAN
+              ? combatant.hasTalent(TALENTS.ELEMENTAL_BLAST_ENHANCEMENT_TALENT)
                 ? 0
-                : c.hasTalent(TALENTS.LAVA_BURST_TALENT)
+                : combatant.hasTalent(TALENTS.LAVA_BURST_TALENT)
                   ? 1
-                  : 0;
-            default:
-              return 1;
-          }
-        },
-        enabled: (c) => {
-          switch (c.specId) {
-            case SPECS.ENHANCEMENT_SHAMAN.id:
-              return (
-                c.hasTalent(TALENTS.LAVA_BURST_TALENT) &&
-                !c.hasTalent(TALENTS.ELEMENTAL_BLAST_ENHANCEMENT_TALENT)
-              );
-            default:
-              return c.hasTalent(TALENTS.LAVA_BURST_TALENT);
-          }
-        },
+                  : 0
+              : 1,
+        enabled:
+          combatant.spec === SPECS.ENHANCEMENT_SHAMAN
+            ? combatant.hasTalent(TALENTS.LAVA_BURST_TALENT) &&
+              !combatant.hasTalent(TALENTS.ELEMENTAL_BLAST_ENHANCEMENT_TALENT)
+            : combatant.hasTalent(TALENTS.LAVA_BURST_TALENT),
         cooldown: (_) => (combatant.hasBuff(TALENTS.ASCENDANCE_ELEMENTAL_TALENT.id) ? 0 : 8),
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {

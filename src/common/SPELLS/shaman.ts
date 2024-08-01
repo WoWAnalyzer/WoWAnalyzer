@@ -290,11 +290,6 @@ const spells = {
     name: 'Earthquake',
     icon: 'spell_shaman_earthquake',
   },
-  SUMMON_FIRE_ELEMENTAL: {
-    id: 263819,
-    name: 'Fire Elemental',
-    icon: 'spell_fire_elemental_totem',
-  },
   FLAME_SHOCK: {
     id: 188389,
     name: 'Flame Shock',
@@ -386,6 +381,11 @@ const spells = {
     id: 118297,
     name: 'Fire Elemental Immolate',
     icon: 'spell_fire_immolation',
+  },
+  FIRE_ELEMENTAL_BUFF: {
+    id: 188592,
+    name: 'Fire Elemental',
+    icon: 'spell_fire_elemental_totem',
   },
   // Enhancement Shaman
   FERAL_SPIRIT_LIGHTNING_TIER: {

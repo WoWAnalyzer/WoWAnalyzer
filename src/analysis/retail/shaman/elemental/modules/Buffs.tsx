@@ -51,6 +51,11 @@ class Buffs extends CoreAuras {
         enabled: true,
         timelineHighlight: true,
       },
+      {
+        spellId: SPELLS.FIRE_ELEMENTAL_BUFF.id,
+        enabled: combatant.hasTalent(TALENTS.FIRE_ELEMENTAL_TALENT),
+        triggeredBySpellId: TALENTS.FIRE_ELEMENTAL_TALENT.id,
+      },
     ];
   }
 }

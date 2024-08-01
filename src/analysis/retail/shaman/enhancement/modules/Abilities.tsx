@@ -49,7 +49,10 @@ class Abilities extends ClassAbilities {
         // This is no error. We actually use the elemental shaman elemental blast spell id.
         spell: TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.ELEMENTAL_BLAST_ENHANCEMENT_TALENT),
-        charges: 1, //combatant.getMultipleTalentRanks(TALENTS.ELEMENTAL_BLAST_ENHANCEMENT_TALENT, TALENTS.LAVA_BURST_TALENT),
+        charges: combatant.getMultipleTalentRanks(
+          TALENTS.ELEMENTAL_BLAST_ENHANCEMENT_TALENT,
+          TALENTS.LAVA_BURST_TALENT,
+        ),
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 12,
         gcd: {

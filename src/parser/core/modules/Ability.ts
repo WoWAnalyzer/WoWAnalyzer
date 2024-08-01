@@ -99,7 +99,7 @@ export interface SpellbookAbility<TrackedAbilityType extends TrackedAbility = Tr
    * displayed. This should only be used for hiding spells that are
    * unavailable, for example due to talents.
    */
-  enabled?: ((combatant: Combatant) => boolean) | boolean;
+  enabled?: boolean;
 
   /**
    * The ability's priority on the timeline. The lower the number the higher on
@@ -248,20 +248,7 @@ class Ability {
     }
     return this._charges;
   }
-  _enabled: SpellbookAbility['enabled'];
-  set enabled(value) {
-    this._enabled = value;
-  }
-  get enabled() {
-    if (this._enabled === undefined) {
-      // Most abilities will have 1 charge unless otherwise specified
-      return true;
-    }
-    if (typeof this._enabled === 'function') {
-      return this._enabled.call(this.owner, this.owner!.selectedCombatant);
-    }
-    return this._enabled;
-  }
+  enabled = true;
   timelineSortIndex: number | null = null;
   timelineCastableBuff: number | undefined;
   /** @deprecated Use the Buffs module to define your buffs instead. If your spec has no Buffs module, this prop will be used to prefill it. */
