@@ -54,16 +54,6 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
         }
       >
         <AbilityRequirement spell={TALENTS.ARCANE_SURGE_TALENT.id} />
-        <Requirement
-          name="Arcane Surge Pre-Cast Setup"
-          tooltip="In order to effectively utilize Arcane Surge, there are some abilities and spells that you need to setup before you cast Arcane Surge. Ensuring you have 4 Arcane Charges, a good amount of mana, and ensuring other abilities such as Radiant Spark and Siphon Storm are properly utilized will help you get the most out of your Arcane Surge cast and your burn phase as a whole."
-          thresholds={thresholds.arcaneSurgePreReqs}
-        />
-        <Requirement
-          name="Arcane Surge Mana Mgmt."
-          tooltip="Arcane Surge expends all your mana and deals damage based on how much damage it expended, so the more mana you have when you cast Arcane Surge, the harder it will hit."
-          thresholds={thresholds.arcaneSurgeManaUtilization}
-        />
       </Rule>
       <Rule
         name="Using your supporting spells and talents"
@@ -118,11 +108,6 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
             spell={TALENTS.SHIFTING_POWER_TALENT.id}
           />
         )}
-        <Requirement
-          name="Missed Arcane Orbs"
-          tooltip="Arcane Orb is a skillshot which means that it is important for you to aim it properly in order to get the most out of it. Therefore, on single target you should always ensure that the enemy gets hit by it, and if there are multiple enemies then you should do what you can to ensure all or most of them will get hit by the Orb as well."
-          thresholds={thresholds.arcaneOrbMissedOrbs}
-        />
       </Rule>
       <Rule
         name={<>Manage your mana</>}
@@ -137,12 +122,6 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
         }
       >
         <Requirement name="Mana left on boss kill" thresholds={thresholds.manaOnKill} />
-        {!combatant.hasTalent(TALENTS.ARCANE_HARMONY_TALENT) && (
-          <Requirement
-            name="Arcane Missiles only with Clearcasting"
-            thresholds={thresholds.arcaneMissilesUtilization}
-          />
-        )}
         {combatant.hasTalent(TALENTS.TIME_ANOMALY_TALENT) && (
           <Requirement
             name="Time Anomaly Mana Mgmt."

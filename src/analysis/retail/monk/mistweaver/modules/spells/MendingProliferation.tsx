@@ -1,5 +1,5 @@
 import { TALENTS_MONK } from 'common/TALENTS';
-import { SpellIcon } from 'interface';
+import { SpellIcon, SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { HealEvent } from 'parser/core/Events';
@@ -11,6 +11,8 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { ENVELOPING_MIST_INCREASE, MISTWRAP_INCREASE } from '../../constants';
 import SPELLS from 'common/SPELLS';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
+import { formatPercentage } from 'common/format';
 
 class MendingProliferation extends Analyzer {
   static dependencies = {
@@ -53,6 +55,17 @@ class MendingProliferation extends Analyzer {
         this.mendingProlifHealingIncrease,
       );
     }
+  }
+
+  subStatistic() {
+    return (
+      <StatisticListBoxItem
+        title={<SpellLink spell={TALENTS_MONK.MENDING_PROLIFERATION_TALENT} />}
+        value={`${formatPercentage(
+          this.owner.getPercentageOfTotalHealingDone(this.bonusHealingFromMendingProlif),
+        )} %`}
+      />
+    );
   }
 
   statistic() {

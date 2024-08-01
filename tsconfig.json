@@ -39,7 +39,6 @@
   },
   "include": ["./types", "./src"],
   "exclude": [
-    "src/analysis/retail/deathknight/blood",
     "src/analysis/retail/deathknight/frost",
     "src/analysis/retail/deathknight/unholy",
     "src/analysis/retail/druid/balance",
@@ -75,7 +74,6 @@
     "src/analysis/retail/shaman/shared"
   ],
   "files": [
-    "./src/analysis/retail/deathknight/blood/CONFIG.tsx",
     "./src/analysis/retail/deathknight/frost/CONFIG.tsx",
     "./src/analysis/retail/deathknight/unholy/CONFIG.tsx",
     "./src/analysis/retail/druid/balance/CONFIG.tsx",
