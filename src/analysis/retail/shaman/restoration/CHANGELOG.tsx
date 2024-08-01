@@ -5,7 +5,7 @@ import {
   Arlie,
   Elitesparkle,
   Fassbrause,
-  niseko,
+  niseko, Seriousnes,
   ToppleTheNun,
   Vetyst,
   Vohrr,
@@ -15,6 +15,7 @@ import { SpellLink } from 'interface';
 
 // prettier-ignore
 export default [
+  change(date(2024, 7, 27), <>Partial update for 11.0.0</>, Seriousnes),
   change(date(2024, 6, 29), <>Added Tier 32 module</>, Ypp),
   change(date(2023, 12, 2), <>Update suggestions for T31 set bonuses</>, Ypp),
   change(date(2023, 11, 28), <>Fix Resurgence mana returns</>, Ypp),

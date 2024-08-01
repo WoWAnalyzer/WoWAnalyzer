@@ -1,4 +1,4 @@
-import TALENTS from 'common/TALENTS/shaman';
+import SPELLS from 'common/SPELLS/shaman';
 import { SpellLink } from 'interface';
 import { GuideProps, Section, SubSection } from 'interface/guide';
 import CombatLogParser from '../../CombatLogParser';
@@ -8,9 +8,9 @@ const MaelstromUsage = ({ modules }: GuideProps<typeof CombatLogParser>) => {
     <Section title="Resources">
       <SubSection title="Maelstrom Weapon">
         <p>
-          Enhancement's primary resource is <SpellLink spell={TALENTS.MAELSTROM_WEAPON_TALENT} />.
-          The chart below shows your <SpellLink spell={TALENTS.MAELSTROM_WEAPON_TALENT} /> over the
-          source of the encounter.
+          Enhancement's primary resource is <SpellLink spell={SPELLS.MAELSTROM_WEAPON} />. The chart
+          below shows your <SpellLink spell={SPELLS.MAELSTROM_WEAPON} /> over the source of the
+          encounter.
         </p>
         {modules.maelstromWeaponGraph.plot}
       </SubSection>
