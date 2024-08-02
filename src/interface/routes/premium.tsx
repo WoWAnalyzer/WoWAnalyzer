@@ -11,17 +11,11 @@ import { TooltipElement } from 'interface/Tooltip';
 import { useWaSelector } from 'interface/utils/useWaSelector';
 import { usePageView } from 'interface/useGoogleAnalytics';
 
-import './PremiumPage.scss';
+import './premium.scss';
 
-import LoginPanel from './PremiumLoginPanel';
+import LoginPanel from '../PremiumLoginPanel';
 
-interface Props {
-  dateToLocaleString: (date: Date) => string;
-}
-
-export function PremiumPage({
-  dateToLocaleString = (date) => date.toLocaleDateString(import.meta.env.LOCALE),
-}: Props) {
+export function Component() {
   usePageView('Premium');
   const user = useWaSelector((state) => getUser(state));
 
@@ -211,9 +205,7 @@ export function PremiumPage({
                   {user.github && user.github.premium && user.github.expires
                     ? ` ${t({
                         id: 'interface.premiumPage.status.gitHub',
-                        message: `because of a recent GitHub contribution (active until ${dateToLocaleString(
-                          new Date(user.github.expires),
-                        )})`,
+                        message: `because of a recent GitHub contribution (active until ${new Date(user.github.expires).toLocaleDateString(import.meta.env.LOCALE)})`,
                       })}`
                     : null}
                   .{' '}
@@ -236,4 +228,4 @@ export function PremiumPage({
   );
 }
 
-export default PremiumPage;
+export default Component;

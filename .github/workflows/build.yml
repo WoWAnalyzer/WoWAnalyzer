@@ -60,10 +60,9 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm exec prettier . --check
 
-  test-interface:
+  tests:
     needs: [prepare]
-    # This should actually include anything but parser tests
-    name: 'Interface tests'
+    name: 'Tests'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -73,21 +72,7 @@ jobs:
           node-version: '20.x'
           cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
-      - run: pnpm run test:interface
-
-  test-parser:
-    needs: [prepare]
-    name: 'Parser tests'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20.x'
-          cache: 'pnpm'
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm run test:parser
+      - run: pnpm run test
 
   build:
     needs: [prepare]
@@ -111,7 +96,7 @@ jobs:
           pnpm exec lingui compile
       - name: Calculate environment name
         id: environment-name
-        run: echo "environment_name=${GITHUB_REF##*/}" >> $GITHUB_OUTPUT
+        run: echo "environment_name=${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
       - name: Production build
         run: pnpm run build
         env:
@@ -214,7 +199,7 @@ jobs:
         run: pnpm exec lingui compile
 
   docker-image:
-    needs: [typecheck, linting, prettier, test-interface, test-parser, build]
+    needs: [typecheck, linting, prettier, tests, build]
     name: 'Publish Docker image'
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.repository == 'wowanalyzer/wowanalyzer'
@@ -255,15 +240,6 @@ jobs:
           push: true
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
-      - uses: getsentry/action-release@v1
-        env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          SENTRY_ORG: wowanalyzer
-          SENTRY_PROJECT: wowanalyzer-app
-        with:
-          environment: ${{ needs.build.outputs.environment_name }}
-          sourcemaps: './build/static/js'
-          url_prefix: '~/static/js'
 
   require-changelog-entry:
     name: 'Has new changelog entry'

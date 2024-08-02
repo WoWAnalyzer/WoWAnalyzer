@@ -1,5 +1,5 @@
-import LanguageSwitcher from './LanguageSwitcher';
-import NavigationBar from './NavigationBar';
+import LanguageSwitcher from '../LanguageSwitcher';
+import NavigationBar from '../NavigationBar';
 
 declare global {
   interface Window {
@@ -33,7 +33,7 @@ function euOptOut() {
   }
 }
 
-export default function PrivacyPage() {
+export function Component() {
   return (
     <div className="home-page">
       <NavigationBar>
