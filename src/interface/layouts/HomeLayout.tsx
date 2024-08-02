@@ -43,7 +43,7 @@ const pages = [
   },
 ];
 
-export function Component() {
+export function HomeLayout() {
   const premium = useWaSelector((state) => hasPremium(state));
   const location = useLocation();
 

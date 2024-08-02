@@ -21,7 +21,7 @@ function detectInternetExplorer() {
   return myNav.includes('msie') || myNav.includes('trident');
 }
 
-export function Component() {
+export function AppLayout() {
   const dispatch = useWaDispatch();
   const isIE = useWaSelector((state) => isInternetExplorer(state));
   const openModals = useWaSelector((state) => getOpenModalCount(state));

@@ -7,9 +7,11 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 import RouterErrorBoundary from 'interface/RouterErrorBoundary';
+import { AppLayout } from 'interface/layouts/AppLayout';
+import { HomeLayout } from 'interface/layouts/HomeLayout';
 
 const appRoutes = createRoutesFromElements(
-  <Route path="/" lazy={() => import('./layouts/AppLayout')} errorElement={<RouterErrorBoundary />}>
+  <Route path="/" element={<AppLayout />} errorElement={<RouterErrorBoundary />}>
     <Route path="character/:region/:realm/:name" lazy={() => import('./routes/character')} />
     <Route path="guild/:region/:realm/:name" lazy={() => import('./routes/guild')} />
     <Route path="report/:reportCode/:fightId?/:player?/:build?" lazy={() => import('./report')}>
@@ -24,7 +26,7 @@ const appRoutes = createRoutesFromElements(
       <Route path=":resultTab" lazy={() => import('./routes/report/dynamic')} />
     </Route>
     <Route path="privacy" lazy={() => import('./routes/privacy')} />
-    <Route lazy={() => import('./layouts/HomeLayout')}>
+    <Route element={<HomeLayout />}>
       <Route index lazy={() => import('./routes/news')} />
       <Route path="news" lazy={() => import('./routes/news')} />
       <Route path="specs" lazy={() => import('./routes/specs')} />
