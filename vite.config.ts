@@ -77,6 +77,9 @@ export default defineConfig((env) => ({
           sourcemaps: {
             filesToDeleteAfterUpload: globSync(['./dist/**/*.map']),
           },
+          bundleSizeOptimizations: {
+            excludeDebugStatements: true,
+          },
         })
       : null,
   ],
