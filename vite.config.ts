@@ -1,10 +1,12 @@
 import { join } from 'node:path';
+import process from 'node:process';
 
+import { lingui } from '@lingui/vite-plugin';
 import { sentryVitePlugin } from '@sentry/vite-plugin';
 import react from '@vitejs/plugin-react';
-import tsconfigPaths from 'vite-tsconfig-paths';
+import { globSync } from 'glob';
 import { defineConfig } from 'vite';
-import { lingui } from '@lingui/vite-plugin';
+import tsconfigPaths from 'vite-tsconfig-paths';
 import svgr from 'vite-plugin-svgr';
 
 const GOOGLE_ANALYTICS_SCRIPT = `
@@ -42,15 +44,16 @@ gtag('event', 'ramp_js', { send_to: 'G-E0TKKBEXVD', pageview_id: window._pwGA4Pa
 // https://vitejs.dev/config/
 export default defineConfig((env) => ({
   build: {
+    cssMinify: env.mode === 'production',
     sourcemap: env.mode === 'production',
   },
   plugins: [
+    tsconfigPaths(),
     react({
       babel: {
         plugins: ['macros', '@emotion/babel-plugin'],
       },
     }),
-    tsconfigPaths(),
     {
       name: 'vite-plugin-wowanalyzer-index-html-inject-ga',
       transformIndexHtml: (html) =>
@@ -60,12 +63,25 @@ export default defineConfig((env) => ({
     },
     env.mode === 'test' ? null : lingui(),
     svgr(),
-    env.mode !== 'production'
-      ? null
-      : sentryVitePlugin({
+    process.env.SENTRY_AUTH_TOKEN
+      ? sentryVitePlugin({
           org: 'wowanalyzer',
           project: 'wowanalyzer-app',
-        }),
+          disable: env.mode !== 'production',
+          authToken: process.env.SENTRY_AUTH_TOKEN,
+          release: {
+            setCommits: {
+              auto: true,
+            },
+          },
+          sourcemaps: {
+            filesToDeleteAfterUpload: globSync(['./dist/**/*.map']),
+          },
+          bundleSizeOptimizations: {
+            excludeDebugStatements: true,
+          },
+        })
+      : null,
   ],
   optimizeDeps: {
     include: ['@emotion/styled/base'],

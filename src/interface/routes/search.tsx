@@ -4,7 +4,7 @@ import { constructURL } from 'interface/ReportSelecter';
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-const Search = () => {
+export function Component() {
   const location = useLocation();
   const query =
     decodeURIComponent(location.pathname.replace('/search/', '')) +
@@ -56,6 +56,4 @@ const Search = () => {
       </Link>
     </div>
   );
-};
-
-export default Search;
+}
