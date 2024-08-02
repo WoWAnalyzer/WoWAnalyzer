@@ -858,6 +858,13 @@ const spells = {
     name: 'Stone Bulwark',
     icon: 'ability_shaman_stonebulwark',
   },
+  /** HERO TALENTS **/
+  // Stormbringer
+  TEMPEST: {
+    id: 452201,
+    name: 'Tempest',
+    icon: 'inv_ability_stormcallershaman_tempest',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;
