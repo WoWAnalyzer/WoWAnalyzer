@@ -26,6 +26,10 @@ const defensiveTalents: Cooldown[] = [
     spell: TALENTS.SPIRITWALKERS_GRACE_TALENT,
     isActive: (c) => c.hasTalent(TALENTS.SPIRITWALKERS_GRACE_TALENT),
   },
+  {
+    spell: TALENTS.STONE_BULWARK_TOTEM_TALENT,
+    isActive: (c) => c.hasTalent(TALENTS.STONE_BULWARK_TOTEM_TALENT),
+  },
 ];
 
 export default function DefensiveAndUtility() {

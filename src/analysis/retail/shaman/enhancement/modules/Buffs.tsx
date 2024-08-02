@@ -1,33 +1,20 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
-import typedKeys from 'common/typedKeys';
-import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import { SpellbookAura } from 'parser/core/modules/Aura';
-import CoreAuras from 'parser/core/modules/Auras';
+import ClassBuffs from '../../shared/Buffs';
 
-class Buffs extends CoreAuras {
+class Buffs extends ClassBuffs {
   auras(): SpellbookAura[] {
     const combatant = this.selectedCombatant;
 
     return [
+      ...super.auras(),
       {
         spellId: TALENTS.ASCENDANCE_ENHANCEMENT_TALENT.id,
         timelineHighlight: true,
       },
       {
         spellId: SPELLS.STORMBRINGER_BUFF.id,
-        timelineHighlight: true,
-      },
-      {
-        spellId: SPELLS.BERSERKING.id,
-        timelineHighlight: true,
-      },
-      {
-        spellId: SPELLS.BLOOD_FURY_SPELL_AND_PHYSICAL.id,
-        timelineHighlight: true,
-      },
-      {
-        spellId: typedKeys(BLOODLUST_BUFFS).map((item) => Number(item)),
         timelineHighlight: true,
       },
       {
@@ -40,10 +27,6 @@ class Buffs extends CoreAuras {
         triggeredBySpellId: TALENTS.HAILSTORM_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.HAILSTORM_TALENT),
         timelineHighlight: true,
-      },
-      {
-        spellId: SPELLS.WINDFURY_TOTEM_BUFF.id,
-        triggeredBySpellId: TALENTS.WINDFURY_TOTEM_TALENT.id,
       },
       {
         spellId: TALENTS.DOOM_WINDS_TALENT.id,
@@ -65,6 +48,22 @@ class Buffs extends CoreAuras {
         spellId: SPELLS.SPLINTERED_ELEMENTS_BUFF.id,
         enabled: combatant.hasTalent(TALENTS.SPLINTERED_ELEMENTS_TALENT),
         triggeredBySpellId: TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT.id,
+      },
+      {
+        spellId: SPELLS.FERAL_SPIRIT_BUFF_EARTHEN_WEAPON.id,
+        enabled:
+          combatant.hasTalent(TALENTS.FERAL_SPIRIT_TALENT) &&
+          !combatant.hasTalent(TALENTS.ELEMENTAL_SPIRITS_TALENT),
+        triggeredBySpellId: TALENTS.FERAL_SPIRIT_TALENT.id,
+      },
+      {
+        spellId: [
+          SPELLS.ELEMENTAL_SPIRITS_BUFF_MOLTEN_WEAPON.id,
+          SPELLS.ELEMENTAL_SPIRITS_BUFF_ICY_EDGE.id,
+          SPELLS.ELEMENTAL_SPIRITS_BUFF_CRACKLING_SURGE.id,
+        ],
+        enabled: combatant.hasTalent(TALENTS.ELEMENTAL_SPIRITS_TALENT),
+        triggeredBySpellId: TALENTS.FERAL_SPIRIT_TALENT.id,
       },
     ];
   }

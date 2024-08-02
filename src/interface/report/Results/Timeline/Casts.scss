@@ -1,145 +1,251 @@
-.spell-timeline .casts {
-  width: 100%;
-  border-radius: 10px;
-  top: calc(var(--cast-bars) * -22px);
-  height: 22px;
-  height: calc(22px + var(--has-levels) * 32px + var(--levels) * 25px);
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
-  box-sizing: content-box;
+@import 'interface/Theme.scss';
 
-  &:before {
-    content: '';
+$npc-content-offset: 8em;
+
+.spell-timeline {
+  .npc-content-container {
+    display: var(--npc-content);
+    margin-bottom: 1em;
+    margin-top: $npc-content-offset;
+  }
+
+  .enemy-casts-controls {
     position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    height: 22px;
-    background: hsla(44, 2%, 40%, 0.15);
+    /* this is a trick that makes the controls show in the left gutter on wide screens, but never move off the edge of the screen on smaller ones. */
+    left: calc(50% - min(50%, 1300px / 2) + 1em);
+
+    &__visible {
+      margin-top: -$npc-content-offset;
+    }
+  }
+
+  .npc-stopped-cast {
+    display: var(--npc-stopped-cast, block) !important;
+  }
+
+  .casts {
+    width: 100%;
     border-radius: 10px;
-  }
-  > * {
-    position: absolute;
+    top: calc(var(--cast-bars) * -22px);
     height: 22px;
-  }
-  .cast {
-    z-index: 3;
-    display: block;
-  }
-  .cast img {
-    border: 1px solid #f8b700;
-    box-shadow: 0 0 3px #000;
-    border-radius: 2px;
-    margin-top: 0;
-    height: 100%;
-    display: block;
-  }
-  //noinspection CssOverwrittenProperties
-  .cast.lower {
-    --level: 0;
-    height: 22px;
-    top: 50px;
-    top: calc(54px + var(--level) * 25px);
-  }
-  .cast.lower img {
-    border-color: #ecb000;
-    transform: translateX(-50%);
-    z-index: 2;
-    position: relative;
-  }
-  //noinspection CssOverwrittenProperties
-  .cast.lower .time-indicator {
-    position: absolute;
-    bottom: 7px;
-    height: 50px;
-    height: calc(45px + var(--level) * 25px);
-    width: 1px;
-    background: #ecb000;
-  }
-  .cast.lower .time-indicator:before {
-    content: '';
-    width: 0;
-    height: 0;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-bottom: 5px solid #ecb000;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  .cast.cancelled {
-    &:before {
-      content: '❌';
-      position: absolute;
-      text-align: center;
-      font-size: 15px;
-      line-height: 22px;
-      font-weight: 800;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      color: red;
-    }
-    img {
-      border-color: red;
-    }
-  }
-  .cast.inefficient img {
-    border: 2px solid red;
+    height: calc(22px + var(--has-levels) * 32px + var(--levels) * 25px);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
     box-sizing: content-box;
-    margin-left: -1px;
-    margin-top: -1px;
-    box-shadow: 0 0 11px red;
-    border-radius: 2px;
-  }
-  .cast.enhanced img {
-    border: 2px solid rgb(226, 226, 226);
-    box-sizing: content-box;
-    margin-left: -1px;
-    margin-top: -1px;
-    box-shadow: 0 0 11px rgb(173, 173, 173);
-    border-radius: 2px;
-  }
-  .gcd {
-    border-radius: 5px;
-    background: #f8b700;
-    box-shadow: 0 0 3px #000;
-    z-index: 2;
-    height: 10px;
-    top: 6px;
-    cursor: default;
-  }
-  .channel {
-    border-radius: 3px;
-    /*background: #505ff8;*/
-    /*background: #9f710f;*/
-    /* Source: http://www.heropatterns.com/ */
-    // background-color: #9f710f;
-    background-color: #fff;
-    background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ecb000' fill-opacity='0.6' fill-rule='evenodd'%3E%3Cpath d='M0 10L10 0H5L0 5M10 10V5L5 10'/%3E%3C/g%3E%3C/svg%3E");
-    box-shadow: 0 0 3px #000;
-    z-index: 2;
-    height: 8px;
-    top: 7px;
-  }
-  .movement {
-    border-radius: 3px;
-    background-color: rgba(0, 47, 255, 0.2);
-    box-shadow: 0 0 3px #000;
-    z-index: 2;
-    height: 22px;
-    top: 0;
 
-    &::before {
+    &:before {
       content: '';
       position: absolute;
-      top: 0;
       left: 0;
-      width: 100%;
-      height: calc(var(--rate-height) * 22px);
-      background-color: rgba(0, 47, 255, 0.5);
-      opacity: 0.5;
+      right: 0;
+      top: 0;
+      height: 22px;
+      background: hsla(44, 2%, 40%, 0.15);
+      border-radius: 10px;
+    }
+
+    > * {
+      position: absolute;
+      height: 22px;
+    }
+
+    .cast {
+      z-index: 3;
+      display: block;
+      --color: #ecb000;
+
+      img {
+        border: 1px solid var(--color);
+        box-shadow: 0 0 3px #000;
+        border-radius: 2px;
+        margin-top: 0;
+        height: 100%;
+        display: block;
+      }
+
+      @mixin arrow($direction) {
+        content: '';
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+
+        @if $direction == 'up' {
+          border-top: 5px solid var(--color);
+          bottom: 0;
+        } @else if $direction == 'down' {
+          border-bottom: 5px solid var(--color);
+          top: 0px;
+        }
+
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      &.upper,
+      &.lower {
+        --level: 0;
+        height: 22px;
+
+        img {
+          border-color: var(--color);
+          transform: translateX(-50%);
+          z-index: 2;
+          position: relative;
+        }
+
+        .time-indicator {
+          position: absolute;
+          height: 50px;
+          height: calc(45px + var(--level) * 25px);
+          width: 1px;
+          background: var(--color);
+        }
+      }
+
+      // Specific top calculations for upper and lower
+      &.upper {
+        top: calc(100% - 54px + var(--level) * 25px);
+
+        .time-indicator {
+          top: 7px;
+
+          &:before {
+            @include arrow('up');
+          }
+        }
+      }
+
+      &.lower {
+        top: calc(54px + var(--level) * 25px);
+
+        .time-indicator {
+          bottom: 7px;
+
+          &:before {
+            @include arrow('down');
+          }
+        }
+      }
+
+      &.failed-cast {
+        // position: relative;
+        --color: red;
+
+        &:before {
+          content: '';
+          position: absolute;
+          bottom: calc(100% - 1px);
+          width: 100%;
+          height: 6px;
+          left: -50%;
+          background: linear-gradient(to top, rgba(255, 0, 0, 0.8), rgba(255, 0, 0, 0.2));
+        }
+
+        &:after {
+          content: '';
+          position: absolute;
+          top: calc(100% - 1px);
+          width: 100%;
+          height: 6px;
+          left: -50%;
+          background: linear-gradient(to bottom, rgba(255, 0, 0, 0.8), rgba(255, 0, 0, 0.2));
+        }
+
+        img {
+          border-color: var(--color) !important;
+        }
+
+        .time-indicator {
+          background: var(--color) !important;
+
+          &:before {
+            border-bottom-color: var(--color) !important;
+          }
+        }
+      }
+
+      &.cancelled {
+        &:before {
+          content: '❌';
+          position: absolute;
+          text-align: center;
+          font-size: 15px;
+          line-height: 22px;
+          font-weight: 800;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          color: red;
+        }
+
+        img {
+          border-color: red;
+        }
+      }
+
+      &.inefficient img {
+        border: 2px solid red;
+        box-sizing: content-box;
+        margin-left: -1px;
+        margin-top: -1px;
+        box-shadow: 0 0 11px red;
+        border-radius: 2px;
+      }
+
+      &.enhanced img {
+        border: 2px solid rgb(226, 226, 226);
+        box-sizing: content-box;
+        margin-left: -1px;
+        margin-top: -1px;
+        box-shadow: 0 0 11px rgb(173, 173, 173);
+        border-radius: 2px;
+      }
+    }
+
+    .gcd {
+      border-radius: 5px;
+      background: #f8b700;
+      box-shadow: 0 0 3px #000;
+      z-index: 2;
+      height: 10px;
+      top: 6px;
+      cursor: default;
+    }
+
+    .channel {
+      border-radius: 3px;
+      /*background: #505ff8;*/
+      /*background: #9f710f;*/
+      /* Source: http://www.heropatterns.com/ */
+      // background-color: #9f710f;
+      background-color: #fff;
+      background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ecb000' fill-opacity='0.6' fill-rule='evenodd'%3E%3Cpath d='M0 10L10 0H5L0 5M10 10V5L5 10'/%3E%3C/g%3E%3C/svg%3E");
+      box-shadow: 0 0 3px #000;
+      z-index: 2;
+      height: 8px;
+      top: 7px;
+    }
+
+    .movement {
+      border-radius: 3px;
+      background-color: rgba(0, 47, 255, 0.2);
+      box-shadow: 0 0 3px #000;
+      z-index: 2;
+      height: 22px;
+      top: 0;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: calc(var(--rate-height) * 22px);
+        background-color: rgba(0, 47, 255, 0.5);
+        opacity: 0.5;
+      }
     }
   }
 }

@@ -39,7 +39,7 @@ const runePrio = build([
   runeRules.marrowrend,
   runeRules.soulReaper,
   talents.HEART_STRIKE_TALENT,
-  talents.DEATHS_CARESS_TALENT,
+  SPELLS.DEATHS_CARESS,
 ]);
 
 const check = aplCheck(runePrio);
@@ -64,7 +64,7 @@ function boneShieldViolations(violations: Violation[]) {
   for (const violation of violations) {
     if (
       violation.actualCast.ability.guid === talents.MARROWREND_TALENT.id ||
-      violation.actualCast.ability.guid === talents.DEATHS_CARESS_TALENT.id
+      violation.actualCast.ability.guid === SPELLS.DEATHS_CARESS.id
     ) {
       resultSet.add(violation);
     }

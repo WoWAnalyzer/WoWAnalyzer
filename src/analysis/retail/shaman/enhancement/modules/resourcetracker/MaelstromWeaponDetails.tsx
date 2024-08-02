@@ -3,7 +3,7 @@ import MaelstromWeaponTracker from './MaelstromWeaponTracker';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import TALENTS from 'common/TALENTS/shaman';
+import SPELLS from 'common/SPELLS/shaman';
 
 class MaelstromWeaponDetails extends Analyzer {
   static dependencies = {
@@ -29,7 +29,7 @@ class MaelstromWeaponDetails extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={TALENTS.MAELSTROM_WEAPON_TALENT}>
+        <BoringSpellValueText spell={SPELLS.MAELSTROM_WEAPON}>
           {gainedPerSecond.toFixed(2)} <small>stacks per second</small>
         </BoringSpellValueText>
       </Statistic>

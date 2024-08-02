@@ -15,7 +15,6 @@ import BlooddrinkerTicks from './modules/features/BlooddrinkerTicks';
 import BloodPlagueUptime from './modules/features/BloodPlagueUptime';
 import BoneShield from './modules/features/BoneShield';
 import BoneShieldTimesByStacks from './modules/features/BoneShieldTimesByStacks';
-import Checklist from './modules/features/checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import CrimsonScourge from './modules/features/CrimsonScourge';
 import DancingRuneWeapon from './modules/features/DancingRuneWeapon';
@@ -66,7 +65,6 @@ class CombatLogParser extends CoreCombatLogParser {
     dancingRuneWeapon: DancingRuneWeapon,
     initialMarrowrendCast: InitialMarrowrendCast,
     blooddrinkerTicks: BlooddrinkerTicks,
-    checklist: Checklist,
     deathStrikeTiming: DeathStrikeTiming,
     marrowrendUsage: MarrowrendUsage,
     boneShield: BoneShield,

@@ -77,6 +77,9 @@ const SpecListItem = ({
         Accurate for patch {patchCompatibility}
       </Trans>
     );
+    maintainerDescription = (
+      <Trans id="interface.specListItem.maintainer">Maintained by: {maintainers}</Trans>
+    );
   }
 
   return (

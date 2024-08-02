@@ -478,6 +478,11 @@ const spells = {
     name: 'Darkmoon Firework',
     icon: 'inv_misc_missilesmallcluster_green',
   },
+  BLOOD_ELF_ILLUSION: {
+    id: 160331,
+    name: 'Blood Elf Illusion',
+    icon: 'inv_mask_01.jpg',
+  },
   BIG_RED_RAYS: {
     id: 229837,
     name: 'Big Red Rays',
