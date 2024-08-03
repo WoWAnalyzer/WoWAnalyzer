@@ -39,7 +39,7 @@ class SigilOfSpite extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE()}
         size="flexible"
-        category={STATISTIC_CATEGORY.COVENANTS}
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={<>{formatThousands(this.damage)} Total damage</>}
       >
         <TalentSpellText talent={TALENTS_DEMON_HUNTER.SIGIL_OF_SPITE_TALENT}>
