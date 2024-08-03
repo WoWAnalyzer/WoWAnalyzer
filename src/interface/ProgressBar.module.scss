@@ -1,0 +1,80 @@
+@import './Theme.scss';
+
+.progress-bar-container {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 50;
+  height: 0.2rem;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.progress-bar {
+  height: 100%;
+  background: $primaryColor;
+  transition-duration: 500ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  width: 0;
+
+  &.progress-bar-idle-animation-complete {
+    transition-property: none;
+  }
+
+  &.progress-bar-idle-animation-incomplete {
+    width: 100%;
+    opacity: 0;
+    transition-property: all;
+  }
+
+  &.progress-bar-submitting {
+    width: 41.666667%;
+  }
+
+  &.progress-bar-loading {
+    width: 66.666667%;
+  }
+}
+
+.spinner-container {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Source: http://tobiasahlin.com/spinkit/ */
+.spinner {
+  display: inline;
+  align-self: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  background-color: $primaryColor;
+
+  margin: 1em;
+  animation: sk-rotateplane 1.2s infinite ease-in-out;
+}
+
+@keyframes sk-rotateplane {
+  0% {
+    transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+  }
+
+  50% {
+    transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+  }
+
+  100% {
+    transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+  }
+}

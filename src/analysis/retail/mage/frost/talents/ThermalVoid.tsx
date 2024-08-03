@@ -7,7 +7,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
-const BASE_DURATION = 25_000;
+const BASE_DURATION = 30_000;
 
 /*
  * Icy Veins' duration is increased by 5 sec.

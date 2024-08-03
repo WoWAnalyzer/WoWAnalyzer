@@ -2,9 +2,9 @@ import { Trans, t } from '@lingui/macro';
 import DocumentTitle from 'interface/DocumentTitle';
 import Panel from 'interface/Panel';
 import { Link } from 'react-router-dom';
-import { usePageView } from './useGoogleAnalytics';
+import { usePageView } from '../useGoogleAnalytics';
 
-const HelpWanted = () => {
+export function Component() {
   usePageView('HelpWantedPage');
   return (
     <>
@@ -47,6 +47,4 @@ const HelpWanted = () => {
       </Panel>
     </>
   );
-};
-
-export default HelpWanted;
+}

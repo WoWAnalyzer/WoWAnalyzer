@@ -139,7 +139,7 @@ class SurgeOfPower extends Analyzer {
           </table>
         }
       >
-        <BoringSpellValueText spell={TALENTS.MASTER_OF_THE_ELEMENTS_TALENT}>
+        <BoringSpellValueText spell={TALENTS.MASTER_OF_THE_ELEMENTS_ELEMENTAL_TALENT}>
           {Object.values(this.sopBuffedAbilities).reduce((a, b) => a + b)} buffs consumed
         </BoringSpellValueText>
       </Statistic>

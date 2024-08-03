@@ -152,7 +152,7 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
       />
       {hasBerserk && !hasIncarn && (
         <CastEfficiencyBar
-          spellId={SPELLS.BERSERK.id}
+          spellId={SPELLS.BERSERK_CAT.id}
           gapHighlightMode={GapHighlight.FullCooldown}
           useThresholds
         />
