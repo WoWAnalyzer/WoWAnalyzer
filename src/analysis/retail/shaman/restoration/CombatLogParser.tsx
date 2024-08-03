@@ -37,7 +37,6 @@ import CloudburstTotem from './modules/talents/CloudburstTotem';
 import Deluge from './modules/talents/Deluge';
 import Downpour from './modules/talents/Downpour';
 import EarthenWallTotem from './modules/talents/EarthenWallTotem';
-import FlashFlood from './modules/talents/FlashFlood';
 import HighTide from './modules/talents/HighTide';
 import NaturesGuardian from './modules/talents/NaturesGuardian';
 import TalentStatisticBox from './modules/features/TalentStatisticBox';
@@ -63,7 +62,6 @@ import FlowOfTheTides from './modules/talents/FlowOfTheTides';
 import EarthShieldBreakdown from './modules/features/EarthShieldBreakdown';
 import EarthenHarmony from './modules/talents/EarthenHarmony';
 import ElementalOrbit from '../shared/talents/ElementalOrbit';
-import SurgingShields from '../shared/talents/SurgingShields';
 import Tier30 from './modules/dragonflight/Tier30';
 import Tier30Normalizer from './normalizers/Tier30Normalizer';
 import Tier31 from './modules/dragonflight/Tier31';
@@ -103,7 +101,6 @@ class CombatLogParser extends CoreCombatLogParser {
     unleashLife: UnleashLife,
     undulation: Undulation,
     deluge: Deluge,
-    flashFlood: FlashFlood,
     ancestralVigor: AncestralVigor,
     earthenWallTotem: EarthenWallTotem,
     downpour: Downpour,
@@ -141,7 +138,6 @@ class CombatLogParser extends CoreCombatLogParser {
     astralShift: AstralShift,
     earthShield: EarthShield,
     elementalOrbit: ElementalOrbit,
-    surgingShields: SurgingShields,
 
     // Normalizers
     cloudburstNormalizer: CloudburstNormalizer,

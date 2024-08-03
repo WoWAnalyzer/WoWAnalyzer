@@ -7,20 +7,24 @@ import SpellResourceCost from 'parser/shared/modules/SpellResourceCost';
 export default class SpellMaelstromCost extends SpellResourceCost {
   static resourceType = RESOURCE_TYPES.MAELSTROM;
 
-  eotsRanks: number;
-
   constructor(options: Options) {
     super(options);
 
-    this.eotsRanks = this.selectedCombatant.getTalentRank(TALENTS.EYE_OF_THE_STORM_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.EYE_OF_THE_STORM_TALENT);
   }
 
   findAdjustedSpellResourceCost(spellID: number, originalCost: number) {
-    if (spellID === TALENTS.EARTHQUAKE_TALENT.id || spellID === TALENTS.EARTH_SHOCK_TALENT.id) {
-      return originalCost - 5 * this.eotsRanks;
+    if (
+      [
+        TALENTS.EARTHQUAKE_1_ELEMENTAL_TALENT.id,
+        TALENTS.EARTHQUAKE_2_ELEMENTAL_TALENT.id,
+        TALENTS.EARTH_SHOCK_TALENT.id,
+      ].includes(spellID)
+    ) {
+      return originalCost - 5;
     }
     if (spellID === TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id) {
-      return originalCost - Math.floor(7.5 * this.eotsRanks);
+      return originalCost - 10;
     }
 
     return originalCost;

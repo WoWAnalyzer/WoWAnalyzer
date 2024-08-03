@@ -10,7 +10,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 const HEALTH_THRESHOLD = 0.35;
-const DAMAGE_BONUS = 0.8;
+const DAMAGE_BONUS = 1;
 
 class ArcaneBombardment extends Analyzer {
   static dependencies = {
@@ -22,7 +22,7 @@ class ArcaneBombardment extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = false;
+    this.active = this.selectedCombatant.hasTalent(TALENTS.ARCANE_BOMBARDMENT_TALENT);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ARCANE_BARRAGE),
       this.onBarrageDamage,
@@ -41,7 +41,7 @@ class ArcaneBombardment extends Analyzer {
 
   statistic() {
     return (
-      <Statistic category={STATISTIC_CATEGORY.ITEMS} size="flexible">
+      <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
         <BoringSpellValueText spell={TALENTS.ARCANE_BOMBARDMENT_TALENT}>
           <ItemDamageDone amount={this.bonusDamage} />
           <br />

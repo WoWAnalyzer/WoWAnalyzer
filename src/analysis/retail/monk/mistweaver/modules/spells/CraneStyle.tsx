@@ -13,7 +13,8 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import SpellLink from 'interface/SpellLink';
-import { formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
 class CraneStyle extends Analyzer {
   gomHealing: number = 0;
@@ -50,6 +51,15 @@ class CraneStyle extends Analyzer {
       return false;
     }
     return true;
+  }
+
+  subStatistic() {
+    return (
+      <StatisticListBoxItem
+        title={<SpellLink spell={TALENTS_MONK.CRANE_STYLE_TALENT} />}
+        value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.gomHealing))} %`}
+      />
+    );
   }
 
   statistic() {

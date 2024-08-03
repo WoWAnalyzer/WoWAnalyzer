@@ -6,7 +6,6 @@ import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
 import Checklist from './modules/checklist/Module';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import WindfuryTotem from './modules/talents/WindfuryTotem';
 import ForcefulWinds from './modules/talents/ForcefulWinds';
 import Stormflurry from './modules/talents/Stormflurry';
 import ElementalBlast from './modules/talents/ElementalBlast';
@@ -89,7 +88,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Enhancement Core Talents
     ascendance: Ascendance,
-    windfuryTotem: WindfuryTotem,
     forcefulWinds: ForcefulWinds,
     elementalBlast: ElementalBlast,
     stormflurry: Stormflurry,

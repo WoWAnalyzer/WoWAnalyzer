@@ -329,7 +329,7 @@ function buffChannelSpec(spellId: number): ChannelSpec {
     eventIndex: number,
     state: ChannelState,
   ) => {
-    if (event.type === EventType.Cast) {
+    if (event.type === EventType.Cast && !event.prepull) {
       // do standard start channel stuff
       cancelCurrentChannel(event, state);
       beginCurrentChannel(event, state);

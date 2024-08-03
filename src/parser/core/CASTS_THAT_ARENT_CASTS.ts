@@ -22,8 +22,7 @@ const spells: number[] = [
   SPELLS.MUTILATE_OFFHAND.id, // Mutilate off hand
   SPELLS.DIVINE_HYMN_HEAL.id, //The heal component of divine hymn
   SPELLS.CHARGE_2.id, // The damage component of charge
-  SPELLS.CLOUDBURST_TOTEM_RECALL.id, // Cloudburst reactivation
-  TALENTS_SHAMAN.SPIRITWALKERS_GRACE_TALENT.id,
+  SPELLS.BLOOD_ELF_ILLUSION.id, // Orb of the Sin'dorei
 
   //region Boss abilities
   SPELLS.RIONTHUS_DISINTEGRATE.id, // targeted player is shown as 'casting' this spell
@@ -89,6 +88,12 @@ const spells: number[] = [
 
   //region paladin
   SPELLS.RECLAMATION_CAST.id,
+  //endregion
+
+  //region shaman
+  SPELLS.CLOUDBURST_TOTEM_RECALL.id, // Cloudburst reactivation
+  TALENTS_SHAMAN.SPIRITWALKERS_GRACE_TALENT.id,
+  SPELLS.FERAL_LUNGE_NOT_A_CAST.id, // duplicate event of regular Feral Lunge cast
   //endregion
 
   //region warlock

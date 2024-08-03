@@ -4,7 +4,6 @@ import Abilities from 'parser/core/modules/Abilities';
 import Buffs from 'parser/core/modules/Auras';
 import DistanceMoved from 'parser/shared/modules/DistanceMoved';
 import { ReactNode } from 'react';
-
 import { useConfig } from '../ConfigContext';
 import Component from './Timeline/Component';
 
@@ -42,7 +41,6 @@ const TimelineTab = ({ parser }: Props) => {
   return (
     <>
       <div className="container">{alert}</div>
-
       <Component
         parser={parser}
         abilities={parser.getModule(Abilities)}

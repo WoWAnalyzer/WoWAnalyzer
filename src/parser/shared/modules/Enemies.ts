@@ -285,6 +285,14 @@ class Enemies extends Entities<Enemy> {
     return { maxStacks, stackUptimeHistory };
   }
 
+  /**
+   * Returns true iff player currently has the given (de)buff ID on any enemy
+   * @param spellId the (de)buff ID to look for
+   */
+  hasBuffOnAny(spellId: number): boolean {
+    return Object.values(this.getEntities()).find((e) => e.hasBuff(spellId)) !== undefined;
+  }
+
   /** Get the longest duration remaining of the spell on any enemy
    *
    * @param spellId The spell to check

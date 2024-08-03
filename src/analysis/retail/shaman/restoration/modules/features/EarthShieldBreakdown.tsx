@@ -1,7 +1,6 @@
 import { EarthShield } from 'analysis/retail/shaman/shared';
 import EarthenHarmony from '../talents/EarthenHarmony';
 import ElementalOrbit from 'analysis/retail/shaman/shared/talents/ElementalOrbit';
-import SurgingShields from 'analysis/retail/shaman/shared/talents/SurgingShields';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import TalentAggregateBars, { TalentAggregateBarSpec } from 'parser/ui/TalentAggregateStatistic';
 import talents from 'common/TALENTS/shaman';
@@ -19,7 +18,6 @@ class EarthShieldBreakdown extends Analyzer {
     earthShield: EarthShield,
     earthenHarmony: EarthenHarmony,
     elementalOrbit: ElementalOrbit,
-    surgingShields: SurgingShields,
   };
   wide: boolean = false;
   earthShieldItems: TalentAggregateBarSpec[] = [];
@@ -34,7 +32,6 @@ class EarthShieldBreakdown extends Analyzer {
   protected earthShield!: EarthShield;
   protected earthenHarmony!: EarthenHarmony;
   protected elementalOrbit!: ElementalOrbit;
-  protected surgingShields!: SurgingShields;
 
   get totalHealing() {
     return (
@@ -96,23 +93,6 @@ class EarthShieldBreakdown extends Analyzer {
           },
         ],
       },
-      //surging shields
-      {
-        //targeted earth shield
-        spell: talents.SURGING_SHIELDS_TALENT,
-        amount: this.surgingShields.earthShieldHealing,
-        color: RESTORATION_COLORS.CHAIN_HEAL,
-        tooltip: this.surgingShieldsTooltip(),
-        subSpecs: [
-          {
-            //elemental orbit earth shield
-            spell: talents.SURGING_SHIELDS_TALENT,
-            amount: this.surgingShields.elementalOrbitEarthShieldHealing,
-            color: RESTORATION_COLORS.HEALING_RAIN,
-            tooltip: this.surgingShieldsEOTooltip(),
-          },
-        ],
-      },
     ];
     return this.earthShieldItems;
   }
@@ -163,26 +143,6 @@ class EarthShieldBreakdown extends Analyzer {
         {this.healingIcon()}{' '}
         <strong>{formatNumber(this.earthenHarmony.elementalOrbitEarthShieldHealing)}</strong>{' '}
         additional healing
-      </>
-    );
-  }
-
-  surgingShieldsTooltip() {
-    return (
-      <>
-        {this.healingIcon()} <strong>{formatNumber(this.surgingShields.earthShieldHealing)}</strong>{' '}
-        additional <SpellLink spell={talents.EARTH_SHIELD_TALENT} /> healing
-      </>
-    );
-  }
-
-  surgingShieldsEOTooltip() {
-    return (
-      <>
-        {this.healingIcon()}{' '}
-        <strong>{formatNumber(this.surgingShields.elementalOrbitEarthShieldHealing)}</strong>{' '}
-        additional <SpellLink spell={talents.EARTH_SHIELD_TALENT} /> healing from{' '}
-        <SpellLink spell={talents.ELEMENTAL_ORBIT_TALENT} />
       </>
     );
   }

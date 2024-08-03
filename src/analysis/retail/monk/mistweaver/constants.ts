@@ -76,7 +76,7 @@ export const MAX_CHIJI_STACKS = 3;
 export const MANA_TEA_MAX_STACKS = 20;
 export const MANA_TEA_REDUCTION = 0.3;
 export const JADE_BOND_INC = 0.6;
-export const JADE_BOND_SOOB_INC = 3;
+export const JADE_BOND_SOOB_INC = 5;
 export const NOURISHING_CHI_INC = 0.2;
 export const DANCING_MIST_CHANCE = 0.08;
 export const RAPID_DIFFUSION_DURATION = 3000; // per rank
@@ -91,7 +91,7 @@ export const PEACE_AND_PROSPERITY_ROP = 5;
 export const VIVACIOUS_VIVIFICATION_BOOST = 0.2;
 export const ZEN_PULSE_INCREASE_PER_STACK = 0.06;
 export const ZEN_PULSE_MAX_HITS_FOR_BOOST = 5;
-export const TEAR_OF_MORNING_INVIG_INCREASE = 0.5;
+export const TEAR_OF_MORNING_INVIG_INCREASE = 0.1;
 export const TEAR_OF_MORNING_ENV_INCREASE = 0.12;
 
 export const ATTRIBUTION_STRINGS = {
