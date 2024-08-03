@@ -4,14 +4,17 @@ import { Options } from 'parser/core/Analyzer';
 import BaseEventOrderNormalizer, { EventOrder } from 'parser/core/EventOrderNormalizer';
 import { AnyEvent, EventType } from 'parser/core/Events';
 import { MAELSTROM_WEAPON_MS } from '../../constants';
+import { NormalizerOrder } from './constants';
 
 /** Thorim's Invocation automatically casts Lightning Bolts when Windstrike used, but
  * these free casts appear in the event log prior to the windstrike. Re-order so the Windstrike
  * comes first. */
+
+//"windstrike" "lightning bolt" "tempest"
 const thorimsInvocationEventOrder: EventOrder = {
   beforeEventId: SPELLS.WINDSTRIKE_CAST.id,
   beforeEventType: EventType.Cast,
-  afterEventId: [SPELLS.LIGHTNING_BOLT.id, TALENTS.CHAIN_LIGHTNING_TALENT.id],
+  afterEventId: [SPELLS.LIGHTNING_BOLT.id, TALENTS.CHAIN_LIGHTNING_TALENT.id, SPELLS.TEMPEST_CAST.id],
   afterEventType: EventType.Cast,
   bufferMs: MAELSTROM_WEAPON_MS,
   anyTarget: true,
@@ -19,7 +22,7 @@ const thorimsInvocationEventOrder: EventOrder = {
 };
 
 /**
- * In some instances, the comes before the cast, so normalize to force it after
+ * In some instances, the healcomes before the cast, so normalize to force it after
  */
 const healingOrder: EventOrder = {
   afterEventId: [SPELLS.HEALING_SURGE.id, TALENTS.CHAIN_HEAL_TALENT.id],
@@ -46,6 +49,8 @@ const primordialWaveEventOrder: EventOrder = {
 export class EventOrderNormalizer extends BaseEventOrderNormalizer {
   constructor(options: Options) {
     super(options, [thorimsInvocationEventOrder, healingOrder, primordialWaveEventOrder]);
+
+    this.priority = NormalizerOrder.EventOrderNormalizer;
   }
 
   /** After the base normalize is done, we're changing all auto-casts of Lightning Bolt
@@ -54,7 +59,7 @@ export class EventOrderNormalizer extends BaseEventOrderNormalizer {
     events = super.normalize(events);
 
     const fixedEvents: AnyEvent[] = [];
-    const thorimsInvocationCastIds = [SPELLS.LIGHTNING_BOLT.id, TALENTS.CHAIN_LIGHTNING_TALENT.id];
+    const thorimsInvocationCastIds = [SPELLS.LIGHTNING_BOLT.id, TALENTS.CHAIN_LIGHTNING_TALENT.id, SPELLS.TEMPEST_CAST];
     const windstrikeId = SPELLS.WINDSTRIKE_CAST.id;
 
     events.forEach((event: AnyEvent, idx: number) => {
@@ -69,7 +74,7 @@ export class EventOrderNormalizer extends BaseEventOrderNormalizer {
         return;
       }
 
-      // For ChL and LB casts, look backwards for a Windstrike cast
+      // For ChL, LB, and Tempest casts, look backwards for a Windstrike cast
       for (let backwardsIndex = idx - 1; backwardsIndex >= 0; backwardsIndex -= 1) {
         const backwardsEvent = events[backwardsIndex];
         // The windstrike and auto cast typically occur on the same timestamp

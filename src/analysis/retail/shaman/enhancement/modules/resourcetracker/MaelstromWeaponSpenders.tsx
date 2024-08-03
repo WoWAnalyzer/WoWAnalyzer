@@ -106,10 +106,10 @@ class MaelstromWeaponSpenders extends Analyzer {
   }
 
   onSpender(event: DamageEvent | HealEvent) {
-    if (!this.recordNextSpenderAmount) {
-      return;
-    }
-    this.recordNextSpenderAmount = false;
+    // if (!this.recordNextSpenderAmount) {
+    //   return;
+    // }
+    // this.recordNextSpenderAmount = false;
 
     let spellId = event.ability.guid;
     if (spellId === SPELLS.LAVA_BURST_DAMAGE.id) {

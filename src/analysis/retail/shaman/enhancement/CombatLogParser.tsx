@@ -45,12 +45,14 @@ import SplinteredElements from '../shared/talents/SplinteredElements';
 import SwirlingMaelstrom from './modules/talents/SwirlingMaelstrom';
 import MaelstromWeaponBuffNormalizer from './modules/normalizers/MaelstromWeaponBuffNormalizer';
 import MaelstromWeaponGeneratorLinkNormalizer from './modules/normalizers/MaelstromWeaponGeneratorLinkNormalizer';
+import MaelstromWeaponResourceNormalizer from './modules/normalizers/MaelstromWeaponResourceNormalizer';
 import {
   MaelstromWeaponDetails,
   MaelstromWeaponGraph,
   MaelstromWeaponSpenders,
   MaelstromWeaponTracker,
 } from './modules/resourcetracker';
+import MaestromRefreshBuffNormalizer from './modules/normalizers/MaelstromRefreshBuffNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -116,11 +118,13 @@ class CombatLogParser extends CoreCombatLogParser {
     callToDominance: CallToDominance,
 
     // Normalizers
-    maelstromWeaponBuffNormalizer: MaelstromWeaponBuffNormalizer,
-    maelstromWeaponGeneratorLinkNormalizer: MaelstromWeaponGeneratorLinkNormalizer,
-    eventLinkNormalizer: EventLinkNormalizer,
+    // maelstromWeaponBuffNormalizer: MaelstromWeaponBuffNormalizer,
+    // maelstromWeaponGeneratorLinkNormalizer: MaelstromWeaponGeneratorLinkNormalizer,
+    maestromRefreshBuffNormalizer: MaestromRefreshBuffNormalizer,
     eventOrderNormalizer: EventOrderNormalizer,
     maelstromWeaponCastNormalizer: MaelstromWeaponCastNormalizer,
+    eventLinkNormalizer: EventLinkNormalizer,    
+    maelstromWeaponResourceNormalizer: MaelstromWeaponResourceNormalizer,
 
     aplCheck: AplCheck,
   };

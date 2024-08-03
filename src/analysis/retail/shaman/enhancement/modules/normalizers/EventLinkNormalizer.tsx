@@ -13,6 +13,7 @@ import {
   PRIMORDIAL_WAVE_LINK,
   SPLINTERED_ELEMENTS_LINK,
 } from 'analysis/retail/shaman/shared/constants';
+import { NormalizerOrder } from './constants';
 
 export const MAELSTROM_WEAPON_INSTANT_CAST = 'maelstrom-weapon-instant-cast';
 export const THORIMS_INVOCATION_LINK = 'thorims-invocation';
@@ -131,7 +132,7 @@ class EventLinkNormalizer extends BaseEventLinkNormalizer {
       lightningBoltLink,
     ]);
 
-    this.priority = -80;
+    this.priority = NormalizerOrder.EventLinkNormalizer;
   }
 }
 

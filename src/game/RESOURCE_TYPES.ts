@@ -139,6 +139,12 @@ const RESOURCE_TYPES = {
     icon: 'ability_evoker_powernexus',
     url: 'essence',
   },
+  MAELSTROM_WEAPON: {
+    id: -99,
+    name: 'Maestrom',
+    icon: 'spell_shaman_maelstromweapon',
+    url: 'maelstrom_weapon',
+  },
 } satisfies Record<string, InternalResource>;
 
 export default indexById<InternalResource, typeof RESOURCE_TYPES>(RESOURCE_TYPES);
