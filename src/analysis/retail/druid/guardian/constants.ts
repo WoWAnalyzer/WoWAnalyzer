@@ -1,8 +1,10 @@
 import Combatant from 'parser/core/Combatant';
 import { TALENTS_DRUID } from 'common/TALENTS';
+import Spell from 'common/SPELLS/Spell';
+import SPELLS from 'common/SPELLS';
 
 export const BARKSKIN_BASE_MIT = 0.2;
-export const RAGE_OF_THE_SLEEPER_MIT = 0.25;
+export const RAGE_OF_THE_SLEEPER_MIT = 0.25; // TODO TWW change this to 0.20 in 11.0.2
 export const SURVIVAL_INSTINCTS_BASE_MIT = 0.5;
 export const PULVERIZE_MIT = 0.35;
 export const REINFORCED_FUR_ADDITIONAL_MIT = 0.1;
@@ -21,4 +23,15 @@ export function survivalInstinctsMitigation(c: Combatant): number {
     SURVIVAL_INSTINCTS_BASE_MIT +
     c.getTalentRank(TALENTS_DRUID.OAKSKIN_TALENT) * OAKSKIN_ADDITIONAL_MIT
   );
+}
+
+export function cdSpell(c: Combatant): Spell {
+  return c.hasTalent(TALENTS_DRUID.INCARNATION_GUARDIAN_OF_URSOC_TALENT)
+    ? SPELLS.INCARNATION_GUARDIAN_OF_URSOC
+    : SPELLS.BERSERK_BEAR;
+}
+
+/** True iff combatant has Berserk (or Incarn if talented) active */
+export function inBerserk(c: Combatant): boolean {
+  return c.hasBuff(cdSpell(c).id);
 }

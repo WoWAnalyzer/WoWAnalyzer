@@ -25,7 +25,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       branch: GameBranch.Retail,
     },
     {
-      spell: SPELLS.BERSERK.id,
+      spell: SPELLS.BERSERK_CAT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
       branch: GameBranch.Retail,
     },

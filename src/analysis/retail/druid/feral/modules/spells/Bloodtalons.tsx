@@ -280,7 +280,7 @@ class Bloodtalons extends Analyzer {
 
   _isBerserkOrIncarn(): boolean {
     return (
-      this.selectedCombatant.hasBuff(SPELLS.BERSERK.id) ||
+      this.selectedCombatant.hasBuff(SPELLS.BERSERK_CAT.id) ||
       this.selectedCombatant.hasBuff(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id)
     );
   }

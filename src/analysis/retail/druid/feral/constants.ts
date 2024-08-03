@@ -199,7 +199,7 @@ export const PANDEMIC_FRACTION = 0.3;
 export function cdSpell(c: Combatant): Spell {
   return c.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT)
     ? TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT
-    : SPELLS.BERSERK;
+    : SPELLS.BERSERK_CAT;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
