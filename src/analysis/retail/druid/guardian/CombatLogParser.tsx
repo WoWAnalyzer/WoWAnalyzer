@@ -16,6 +16,7 @@ import Pulverize from 'analysis/retail/druid/guardian/modules/core/defensives/Pu
 import Thrash from 'analysis/retail/druid/guardian/modules/spells/Thrash';
 import Mangle from 'analysis/retail/druid/guardian/modules/spells/Mangle';
 import Moonfire from 'analysis/retail/druid/guardian/modules/spells/Moonfire';
+import Lunation from 'analysis/retail/druid/shared/spells/Lunation';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -52,6 +53,9 @@ class CombatLogParser extends CoreCombatLogParser {
     // frenziedRegeneration: FrenziedRegeneration,
     // earthwarden: Earthwarden,
     // incarnation: Incarnation,
+
+    // Hero Talents
+    lunation: Lunation,
   };
 
   static guide = Guide;
