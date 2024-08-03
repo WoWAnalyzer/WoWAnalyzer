@@ -1,4 +1,4 @@
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
 import { SpellLink } from 'interface';
@@ -37,10 +37,10 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
             is your most efficient healing spell available. Try to cast them as much as possible
             without overhealing.
             <TooltipElement
-              content={t({
-                id: 'paladin.holy.modules.checklist.usePrimarySpells.descriptionTooltipElement',
-                message: `When you're not bringing too many healers.`,
-              })}
+            // content={t({
+            //   id: 'paladin.holy.modules.checklist.usePrimarySpells.descriptionTooltipElement',
+            //   message: `When you're not bringing too many healers.`,
+            // })}
             >
               On Mythic
             </TooltipElement>{' '}
@@ -58,9 +58,6 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
       >
         {combatant.hasTalent(TALENTS.HOLY_SHOCK_TALENT) && (
           <AbilityRequirement spell={TALENTS.HOLY_SHOCK_TALENT.id} />
-        )}
-        {combatant.hasTalent(TALENTS.LIGHTS_HAMMER_TALENT) && (
-          <AbilityRequirement spell={TALENTS.LIGHTS_HAMMER_TALENT.id} />
         )}
         {combatant.hasTalent(TALENTS.HOLY_PRISM_TALENT) && (
           <AbilityRequirement spell={TALENTS.HOLY_PRISM_TALENT.id} />
@@ -90,21 +87,6 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
           </Trans>
         }
       >
-        {combatant.hasTalent(TALENTS.DAYBREAK_TALENT) && (
-          <AbilityRequirement spell={TALENTS.DAYBREAK_TALENT.id} />
-        )}
-        {combatant.hasTalent(TALENTS.DAYBREAK_TALENT) && (
-          <Requirement
-            name={
-              <>
-                <SpellLink spell={TALENTS.GLIMMER_OF_LIGHT_TALENT} /> consumed per
-                <SpellLink spell={TALENTS.DAYBREAK_TALENT} />
-              </>
-            }
-            thresholds={thresholds.daybreak}
-          />
-        )}
-
         {/* Avenging Crusader replaces Avenging Wrath */}
         {!combatant.hasTalent(TALENTS.AVENGING_CRUSADER_TALENT) && (
           <AbilityRequirement spell={SPELLS.AVENGING_WRATH.id} />
@@ -144,22 +126,6 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
           </Trans>
         }
       >
-        <Requirement
-          name={
-            <Trans id="paladin.holy.modules.checklist.totalFillerPerMinute">
-              Total filler casts per minute
-            </Trans>
-          }
-          thresholds={thresholds.fillerLightOfTheMartyrsCpm}
-        />
-        <Requirement
-          name={
-            <Trans id="paladin.holy.modules.checklist.totalFillerPerMinuteWhileHolyShock">
-              Total filler casts while <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> was available
-            </Trans>
-          }
-          thresholds={thresholds.fillerLightOfTheMartyrsInefficientCpm}
-        />
         <Requirement
           name={
             <Trans id="paladin.holy.modules.checklist.totalFillerWhileHolyShock">
@@ -305,10 +271,10 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
             your downtime by reducing the delay between casting spells, anticipating movement,
             moving during the GCD, and{' '}
             <TooltipElement
-              content={t({
-                id: 'paladin.holy.modules.checklist.avoidBeingInactive.description.ignoreDamage',
-                message: `While helping with damage would be optimal, it's much less important as a healer than any of the other suggestions on this checklist. You should ignore this suggestion while you are having difficulties with anything else.`,
-              })}
+            // content={t({
+            //   id: 'paladin.holy.modules.checklist.avoidBeingInactive.description.ignoreDamage',
+            //   message: `While helping with damage would be optimal, it's much less important as a healer than any of the other suggestions on this checklist. You should ignore this suggestion while you are having difficulties with anything else.`,
+            // })}
             >
               when you're not healing try to contribute some damage*
             </TooltipElement>

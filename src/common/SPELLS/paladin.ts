@@ -285,11 +285,6 @@ const spells = {
     name: 'Untempered Dedication',
     icon: 'achievement_admiral_of_the_light',
   },
-  MARAADS_DYING_BREATH_BUFF: {
-    id: 388019,
-    name: "Maraad's Dying Breath",
-    icon: 'paladin_icon_speedoflight',
-  },
   BLESSING_OF_SUMMER_TALENT: {
     id: 388007,
     name: 'Blessing of Summer',

@@ -1,6 +1,5 @@
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { ResourceLink } from 'interface';
-import { TooltipElement } from 'interface/Tooltip';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import {
   AbilityRequirementProps,
@@ -30,9 +29,9 @@ const HealerChecklist = ({ thresholds, castEfficiency, combatant }: ChecklistPro
             usually something you can do to contribute to the raid. You can reduce your downtime by
             reducing the delay between casting spells, anticipating movement, moving during the GCD,
             and{' '}
-            <TooltipElement content="You can ignore this while learning to heal, but contributing DPS while healing is a major part of becoming a better than average player.">
+            {/* <TooltipElement content="You can ignore this while learning to heal, but contributing DPS while healing is a major part of becoming a better than average player.">
               when you're not healing try to contribute some damage.*
-            </TooltipElement>
+            </TooltipElement> */}
             .
           </>
         }
@@ -57,7 +56,6 @@ const HealerChecklist = ({ thresholds, castEfficiency, combatant }: ChecklistPro
       >
         {/* SPELLS listed here must be in ../features/Abilities */}
         <AbilityRequirement spell={SPELLS.AURA_MASTERY.id} />
-        <AbilityRequirement spell={SPELLS.DIVINE_FAVOR.id} />
         <AbilityRequirement spell={SPELLS.DIVINE_SACRIFICE.id} />
         <AbilityRequirement spell={SPELLS.HOLY_SHOCK.id} />
       </Rule>

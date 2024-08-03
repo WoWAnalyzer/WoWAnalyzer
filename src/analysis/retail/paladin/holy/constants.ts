@@ -52,8 +52,9 @@ export const BEACON_TRANSFERING_ABILITIES = {
   [SPELLS.AVENGING_CRUSADER_HEAL_CRIT.id]: 1,
   [SPELLS.GLIMMER_OF_LIGHT_HEAL_TALENT.id]: 0.5,
   [SPELLS.WORD_OF_GLORY.id]: 1,
-  [TALENTS.LIGHT_OF_THE_MARTYR_TALENT.id]: (player: Combatant) =>
-    player.hasBuff(SPELLS.MARAADS_DYING_BREATH_BUFF.id) ? 1 : undefined,
+  // TODO: figure out beacon healing for new LotM
+  // [TALENTS.LIGHT_OF_THE_MARTYR_TALENT.id]: (player: Combatant) =>
+  //   player.hasBuff(SPELLS.MARAADS_DYING_BREATH_BUFF.id) ? 1 : undefined,
   [SPELLS.HOLY_LIGHT.id]: 1,
   [SPELLS.GOLDEN_PATH_HEAL_TALENT.id]: 1,
   [SPELLS.SEAL_OF_MERCY_HEAL_TALENT.id]: 1,
@@ -68,11 +69,6 @@ export function getBeaconSpellFactor(spellID: number, player: Combatant): number
   if (!factor) {
     return undefined;
   }
-
-  if (typeof factor === 'function') {
-    return factor(player);
-  }
-
   return factor;
 }
 

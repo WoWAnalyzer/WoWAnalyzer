@@ -1,17 +1,17 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
-import { Abelito75 } from 'CONTRIBUTORS';
+import { Squided } from 'CONTRIBUTORS';
 import GameBranch from 'game/GameBranch';
 import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
 import Config, { SupportLevel } from 'parser/Config';
 
-// import CHANGELOG from './CHANGELOG';
+import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
-  contributors: [Abelito75],
+  contributors: [Squided],
   branch: GameBranch.Retail,
-  patchCompatibility: '10.1.7',
+  patchCompatibility: '11.0.0',
   supportLevel: SupportLevel.MaintainedFull,
   description: (
     <>
@@ -46,13 +46,12 @@ const config: Config = {
   exampleReport:
     '/report/K3QhqX8brd7aHJn4/26-Mythic+The+Vigilant+Steward,+Zskarn+-+Kill+(4:15)/467-Mytholcgy/standard',
 
-  //
   spec: SPECS.HOLY_PALADIN,
-  // changelog: CHANGELOG,
-  // parser: () =>
-  //   import('./CombatLogParser' /* webpackChunkName: "HolyPaladin" */).then(
-  //     (exports) => exports.default,
-  //   ),
+  changelog: CHANGELOG,
+  parser: () =>
+    import('./CombatLogParser' /* webpackChunkName: "HolyPaladin" */).then(
+      (exports) => exports.default,
+    ),
   path: import.meta.url,
 };
 
