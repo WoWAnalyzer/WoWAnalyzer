@@ -9,16 +9,17 @@ import Ironfur from 'analysis/retail/druid/guardian/modules/spells/Ironfur';
 import RageTracker from 'analysis/retail/druid/guardian/modules/core/rage/RageTracker';
 import RageGraph from 'analysis/retail/druid/guardian/modules/core/rage/RageGraph';
 import RageDetails from 'analysis/retail/druid/guardian/modules/core/rage/RageDetails';
-import Barkskin from 'analysis/retail/druid/guardian/modules/core/defensives/Barkskin';
-import SurvivalInstincts from 'analysis/retail/druid/guardian/modules/core/defensives/SurvivalInstincts';
-import RageOfTheSleeper from 'analysis/retail/druid/guardian/modules/core/defensives/RageOfTheSleeper';
-import Pulverize from 'analysis/retail/druid/guardian/modules/core/defensives/Pulverize';
 import Thrash from 'analysis/retail/druid/guardian/modules/spells/Thrash';
 import Mangle from 'analysis/retail/druid/guardian/modules/spells/Mangle';
 import Moonfire from 'analysis/retail/druid/guardian/modules/spells/Moonfire';
 import Swipe from 'analysis/retail/druid/guardian/modules/spells/Swipe';
 import Gore from 'analysis/retail/druid/guardian/modules/spells/Gore';
 import Lunation from 'analysis/retail/druid/shared/spells/Lunation';
+import Berserk from 'analysis/retail/druid/guardian/modules/spells/Berserk';
+import Barkskin from 'analysis/retail/druid/guardian/modules/spells/Barkskin';
+import RageOfTheSleeper from 'analysis/retail/druid/guardian/modules/spells/RageOfTheSleeper';
+import SurvivalInstincts from 'analysis/retail/druid/guardian/modules/spells/SurvivalInstincts';
+import Pulverize from 'analysis/retail/druid/guardian/modules/spells/Pulverize';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -42,7 +43,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // guardianOfEluneProcs: GuardianOfElune,
     // ironFurGoEProcs: IronFurGoEProcs,
     // frenziedRegenGoEProcs: FrenziedRegenGoEProcs,
-    // rageWasted: RageWasted,
 
     // Spells
     convokeSpirits: ConvokeSpiritsGuardian,
@@ -52,10 +52,10 @@ class CombatLogParser extends CoreCombatLogParser {
     moonfire: Moonfire,
     swipe: Swipe,
     gore: Gore,
+    berserk: Berserk,
     // pulverize: Pulverize,
     // frenziedRegeneration: FrenziedRegeneration,
     // earthwarden: Earthwarden,
-    // incarnation: Incarnation,
 
     // Hero Talents
     lunation: Lunation,

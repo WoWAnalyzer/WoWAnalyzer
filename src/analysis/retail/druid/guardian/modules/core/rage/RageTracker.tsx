@@ -20,6 +20,17 @@ const GORY_FUR_BUFFER = 30;
 export const PERFECT_RAGE_WASTED = 0.05;
 export const GOOD_RAGE_WASTED = 0.1;
 export const OK_RAGE_WASTED = 0.2;
+export function rageWasteToPerf(rageWastePercent: number): QualitativePerformance {
+  if (rageWastePercent <= PERFECT_RAGE_WASTED) {
+    return QualitativePerformance.Perfect;
+  } else if (rageWastePercent >= GOOD_RAGE_WASTED) {
+    return QualitativePerformance.Good;
+  } else if (rageWastePercent >= OK_RAGE_WASTED) {
+    return QualitativePerformance.Ok;
+  } else {
+    return QualitativePerformance.Fail;
+  }
+}
 
 const RAW_RAGE_GAINED_FROM_MELEE = 40;
 

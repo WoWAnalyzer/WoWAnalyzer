@@ -64,6 +64,7 @@ export const DEFAULT_HASTE_BUFFS: HasteBuffMap = {
   [SPELLS.FRANTIC_MOMENTUM.id]: 0.1,
   [SPELLS.CENARIUS_MIGHT_BUFF.id]: 0.1,
   [SPELLS.SAVAGE_FURY_BUFF.id]: 0.08,
+  // Guardian Berserk handled in spec module
   //endregion
 
   //region Hunter Haste Buffs
