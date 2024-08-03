@@ -1,6 +1,5 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
@@ -96,7 +95,6 @@ const SPELL_IDS_WITH_AOE = [
 ];
 
 const SPELLS_CAST = 16;
-const SPELLS_CAST_RESTO = 12;
 
 const AOE_BUFFER_MS = 100;
 const AFTER_CHANNEL_BUFFER_MS = 50;
@@ -143,10 +141,8 @@ class ConvokeSpirits extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT);
 
-    this.spellsPerCast =
-      this.selectedCombatant.specId === SPECS.RESTORATION_DRUID.id
-        ? SPELLS_CAST_RESTO
-        : SPELLS_CAST;
+    // used to be different per spec, leaving var just in case it goes back to that
+    this.spellsPerCast = SPELLS_CAST;
 
     // watch for convokes
     this.addEventListener(

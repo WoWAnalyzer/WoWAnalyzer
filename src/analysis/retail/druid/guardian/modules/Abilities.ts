@@ -91,7 +91,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.SURVIVAL_INSTINCTS.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown:
-          180 * (1 - combatant.getTalentRank(TALENTS_DRUID.SURVIVAL_OF_THE_FITTEST_TALENT) * 0.15), // TODO TWW change this to 0.12 in 11.0.2
+          180 * (1 - combatant.getTalentRank(TALENTS_DRUID.SURVIVAL_OF_THE_FITTEST_TALENT) * 0.12),
         charges: 1 + combatant.getTalentRank(TALENTS_DRUID.IMPROVED_SURVIVAL_INSTINCTS_TALENT),
         timelineSortIndex: 9,
       },
@@ -124,7 +124,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 45 - combatant.getTalentRank(TALENTS_DRUID.TEAR_DOWN_THE_MIGHTY_TALENT) * 5,
+        cooldown: 45 - combatant.getTalentRank(TALENTS_DRUID.TEAR_DOWN_THE_MIGHTY_TALENT) * 10,
         timelineSortIndex: 6,
       },
       {

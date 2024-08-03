@@ -10,7 +10,7 @@ const BASE_MAX_ENERGY = 100;
 const TE_ENERGY_PER_RANK = 20;
 const BASE_REGEN = 11;
 const TE_REGEN_MULT_PER_RANK = 0.075;
-const SAVAGE_FURY_REGEN_MULT = 1.2;
+const SAVAGE_FURY_REGEN_MULT = 1.25;
 
 class EnergyTracker extends ResourceTracker {
   constructor(options: Options) {
