@@ -184,11 +184,6 @@ const spells = {
     name: 'Holy Prism',
     icon: 'spell_paladin_holyprism',
   },
-  LIGHTS_HAMMER_HEAL: {
-    id: 119952,
-    name: "Light's Hammer",
-    icon: 'spell_paladin_lightshammer',
-  },
   JUDGMENT_OF_LIGHT_HEAL: {
     id: 183811,
     name: 'Judgment of Light',
@@ -255,21 +250,6 @@ const spells = {
     name: 'Beacon of Light',
     icon: 'ability_paladin_beaconoflight',
   },
-  GLIMMER_OF_LIGHT_BUFF: {
-    id: 287280,
-    name: 'Glimmer of Light',
-    icon: 'ability_paladin_toweroflight',
-  },
-  GLIMMER_OF_LIGHT_HEAL_TALENT: {
-    id: 325983,
-    name: 'Glimmer of Light',
-    icon: 'ability_paladin_toweroflight',
-  },
-  GLIMMER_OF_LIGHT_DAMAGE_TALENT: {
-    id: 325984,
-    name: 'Glimmer of Light',
-    icon: 'ability_paladin_toweroflight',
-  },
   GOLDEN_PATH_HEAL_TALENT: {
     id: 377129,
     name: 'Golden Path',
@@ -334,11 +314,6 @@ const spells = {
     id: 392903,
     name: 'Resplendent Light',
     icon: 'ability_priest_voidshift',
-  },
-  DAYBREAK_ENERGIZE: {
-    id: 414176,
-    name: 'Daybreak',
-    icon: 'spell_holy_aspiration',
   },
   DIVINE_RESONANCE_TALENT_HOLY: {
     id: 386730,
