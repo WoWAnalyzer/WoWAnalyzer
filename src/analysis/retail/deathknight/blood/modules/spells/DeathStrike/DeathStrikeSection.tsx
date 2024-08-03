@@ -165,7 +165,7 @@ const abilityGroups = [
   [talents.MARROWREND_TALENT],
   [SPELLS.DEATH_AND_DECAY, SPELLS.RELISH_IN_BLOOD],
   [talents.SOUL_REAPER_TALENT],
-  [talents.DEATHS_CARESS_TALENT],
+  [SPELLS.DEATHS_CARESS],
 ];
 
 function RunicPowerTable() {

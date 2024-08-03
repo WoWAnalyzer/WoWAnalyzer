@@ -20,6 +20,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import { ZEN_PULSE_INCREASE_PER_STACK, ZEN_PULSE_MAX_HITS_FOR_BOOST } from '../../constants';
 import Abilities from '../features/Abilities';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
 const MAX_STACKS = 2;
 
@@ -132,6 +133,15 @@ class ZenPulse extends Analyzer {
     }
     this.castIncreases.push(
       Math.min(zenPulseHits.length, ZEN_PULSE_MAX_HITS_FOR_BOOST) * ZEN_PULSE_INCREASE_PER_STACK,
+    );
+  }
+
+  subStatistic() {
+    return (
+      <StatisticListBoxItem
+        title={<SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT} />}
+        value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
+      />
     );
   }
 

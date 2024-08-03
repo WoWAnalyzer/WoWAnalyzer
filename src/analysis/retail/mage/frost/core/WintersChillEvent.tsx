@@ -11,6 +11,7 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { PerformanceMark } from 'interface/guide';
 import { SpellSeq } from 'parser/ui/SpellSeq';
 import Spell from 'common/SPELLS/Spell';
+import { Enchant } from 'common/ITEMS/Item';
 
 const WINTERS_CHILL_SPENDERS = [SPELLS.ICE_LANCE_DAMAGE.id, SPELLS.GLACIAL_SPIKE_DAMAGE.id];
 
@@ -143,11 +144,7 @@ class WintersChillEvent {
       damageSpells.shift();
     }
 
-    damageSpells
-      .filter((spell, pos, arr) => {
-        return this._isNotRayOfFrostTick(pos, spell, arr);
-      })
-      .forEach((spell) => spells.push(spell));
+    damageSpells.filter(this.removeRayOfFrostTicks).forEach((spell) => spells.push(spell));
 
     const tooltip = (
       <>
@@ -165,12 +162,12 @@ class WintersChillEvent {
     return tooltip;
   }
 
+  removeRayOfFrostTicks = (spell: Spell | Enchant, pos: number, arr: (Spell | Enchant)[]) => {
+    return this._isNotRayOfFrostTick(pos, spell, arr);
+  };
+
   private _isNotRayOfFrostTick(pos: number, spell: Spell, arr: Spell[]) {
-    return (
-      pos === 0 ||
-      spell !== SPELLS[TALENTS.RAY_OF_FROST_TALENT.id] ||
-      (spell === SPELLS[TALENTS.RAY_OF_FROST_TALENT.id] && spell !== arr[pos - 1])
-    );
+    return pos === 0 || spell.id !== TALENTS.RAY_OF_FROST_TALENT.id || spell !== arr[pos - 1];
   }
 }
 

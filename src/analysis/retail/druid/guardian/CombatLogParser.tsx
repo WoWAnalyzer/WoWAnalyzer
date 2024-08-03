@@ -18,6 +18,7 @@ import Mangle from 'analysis/retail/druid/guardian/modules/spells/Mangle';
 import Moonfire from 'analysis/retail/druid/guardian/modules/spells/Moonfire';
 import Swipe from 'analysis/retail/druid/guardian/modules/spells/Swipe';
 import Gore from 'analysis/retail/druid/guardian/modules/spells/Gore';
+import Lunation from 'analysis/retail/druid/shared/spells/Lunation';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -55,6 +56,9 @@ class CombatLogParser extends CoreCombatLogParser {
     // frenziedRegeneration: FrenziedRegeneration,
     // earthwarden: Earthwarden,
     // incarnation: Incarnation,
+
+    // Hero Talents
+    lunation: Lunation,
   };
 
   static guide = Guide;

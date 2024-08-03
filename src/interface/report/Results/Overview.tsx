@@ -72,6 +72,7 @@ const Overview = ({ guide: GuideComponent, checklist, issues }: Props) => {
           setGuideMode={setMode}
         />
       )}
+      {alert}
       <GuideComponent />
     </div>
   ) : (

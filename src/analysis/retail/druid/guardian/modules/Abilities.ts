@@ -137,7 +137,6 @@ class Abilities extends CoreAbilities {
         cooldown: 60,
         timelineSortIndex: 7,
       },
-      // TODO TWW - Lunation needs handled (which spells are Arcane?)
       {
         spell: TALENTS_DRUID.LUNAR_BEAM_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
