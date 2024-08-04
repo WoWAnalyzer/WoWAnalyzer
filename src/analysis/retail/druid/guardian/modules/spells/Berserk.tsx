@@ -166,7 +166,7 @@ export default class Berserk extends Analyzer.withDependencies({
     checklistItems.push({
       label: <>Spend your Rage</>,
       result: <PerformanceMark perf={rageSpendPerf} />,
-      details: <>({formatPercentage(cast.rageWastedPercentage ?? 0, 0)}% rage wasted)</>,
+      details: <>({formatPercentage(rageWastedPercentage ?? 0, 0)}% rage wasted)</>,
     });
     checklistItems.push({
       label: <>Don't Swipe</>,
@@ -176,34 +176,36 @@ export default class Berserk extends Analyzer.withDependencies({
     const overallPerf = getLowestPerf([percentActivePerf, rageSpendPerf, swipesPerf]);
 
     const detailItems: CooldownExpandableItem[] = [];
-    detailItems.push({
-      label: <>Total Rage generated</>,
-      details: <>{cast.rageData.builderGenerated * RAGE_SCALE_FACTOR} Rage</>,
-    });
-    detailItems.push({
-      label: (
-        <>
-          Rage spent on <SpellLink spell={SPELLS.IRONFUR} />
-        </>
-      ),
-      details: <>{cast.rageData.spentBySpell(SPELLS.IRONFUR.id) * RAGE_SCALE_FACTOR} Rage</>,
-    });
-    detailItems.push({
-      label: (
-        <>
-          Rage spent on <SpellLink spell={SPELLS.MAUL} /> &{' '}
-          <SpellLink spell={TALENTS_DRUID.RAZE_TALENT} />
-        </>
-      ),
-      details: (
-        <>
-          {(cast.rageData.spentBySpell(SPELLS.MAUL.id) +
-            cast.rageData.spentBySpell(TALENTS_DRUID.RAZE_TALENT.id)) *
-            RAGE_SCALE_FACTOR}{' '}
-          Rage
-        </>
-      ),
-    });
+    if (cast.rageData) {
+      detailItems.push({
+        label: <>Total Rage generated</>,
+        details: <>{cast.rageData.builderGenerated * RAGE_SCALE_FACTOR} Rage</>,
+      });
+      detailItems.push({
+        label: (
+          <>
+            Rage spent on <SpellLink spell={SPELLS.IRONFUR} />
+          </>
+        ),
+        details: <>{cast.rageData.spentBySpell(SPELLS.IRONFUR.id) * RAGE_SCALE_FACTOR} Rage</>,
+      });
+      detailItems.push({
+        label: (
+          <>
+            Rage spent on <SpellLink spell={SPELLS.MAUL} /> &{' '}
+            <SpellLink spell={TALENTS_DRUID.RAZE_TALENT} />
+          </>
+        ),
+        details: (
+          <>
+            {(cast.rageData.spentBySpell(SPELLS.MAUL.id) +
+              cast.rageData.spentBySpell(TALENTS_DRUID.RAZE_TALENT.id)) *
+              RAGE_SCALE_FACTOR}{' '}
+            Rage
+          </>
+        ),
+      });
+    }
 
     return (
       <CooldownExpandable

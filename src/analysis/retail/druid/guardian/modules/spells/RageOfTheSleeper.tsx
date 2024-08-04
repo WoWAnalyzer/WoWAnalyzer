@@ -107,10 +107,6 @@ export default class RageOfTheSleeper extends MajorDefensiveBuff {
     const lastRots = this.rotsTrackers.at(-1);
     if (lastRots && lastRots.endTimestamp === undefined) {
       lastRots.endTimestamp = this.owner.currentTimestamp;
-      lastRots.rageData = this.rageTracker.generateSegmentData(
-        lastRots.startTimestamp,
-        lastRots.endTimestamp,
-      );
     }
   }
 
