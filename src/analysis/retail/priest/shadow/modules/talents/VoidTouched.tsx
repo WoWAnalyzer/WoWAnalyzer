@@ -8,9 +8,10 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
+import { VOID_TOUCHED_MULTIPLIER } from '../../constants';
+
 class VoidTouched extends Analyzer {
   damage = 0;
-  multiplierVoidTouched = 0.06; //6%
 
   constructor(options: Options) {
     super(options);
@@ -22,7 +23,7 @@ class VoidTouched extends Analyzer {
   }
 
   onDevouringPlague(event: DamageEvent) {
-    this.damage += calculateEffectiveDamage(event, this.multiplierVoidTouched);
+    this.damage += calculateEffectiveDamage(event, VOID_TOUCHED_MULTIPLIER);
   }
 
   statistic() {
