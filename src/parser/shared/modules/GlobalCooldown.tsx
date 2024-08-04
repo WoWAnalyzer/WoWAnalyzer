@@ -237,6 +237,14 @@ class GlobalCooldown extends Analyzer {
           summary: `GCD for ${event.trigger?.ability.name}`,
           color: GoodColor,
           priority: -Infinity,
+          details: (
+            <div>
+              <dl>
+                <dt>Expected GCD Duration</dt>
+                <dd>{(this.lastGlobalCooldown.duration / 1000).toFixed(2)}s</dd>
+              </dl>
+            </div>
+          ),
         });
       }
     }
@@ -251,6 +259,7 @@ class GlobalCooldown extends Analyzer {
     baseGcd: number = 1500,
     minGcd: number = 750,
   ): number {
+    console.log(haste, baseGcd, minGcd);
     const gcd = baseGcd / (1 + haste);
     // Global cooldowns can't normally drop below a certain threshold
     return Math.max(minGcd, gcd);

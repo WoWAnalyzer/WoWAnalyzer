@@ -37,16 +37,14 @@ const spells = {
     icon: 'ability_bullrush',
   },
   CHARGE: {
-    id: 11578,
+    id: 100,
     name: 'Charge',
     icon: 'ability_warrior_charge',
-    lowRanks: [6178, 100],
   },
   CLEAVE: {
-    id: 47520,
+    id: 845,
     name: 'Cleave',
     icon: 'ability_warrior_cleave',
-    lowRanks: [47519, 25231, 20569, 11609, 11608, 7369, 845],
   },
   COMMANDING_SHOUT: {
     id: 47440,
@@ -76,10 +74,9 @@ const spells = {
     icon: 'ability_warrior_focusedrage',
   },
   EXECUTE: {
-    id: 47471,
+    id: 5308,
     name: 'Execute',
     icon: 'inv_sword_48',
-    lowRanks: [47470, 25236, 25234, 20662, 20661, 20660, 20658, 5308],
   },
   HAMSTRING: {
     id: 1715,
@@ -87,10 +84,9 @@ const spells = {
     icon: 'ability_shockwave',
   },
   HEROIC_STRIKE: {
-    id: 47450,
+    id: 78,
     name: 'Heroic Strike',
     icon: 'ability_rogue_ambush',
-    lowRanks: [47470, 25236, 25234, 20662, 20661, 20660, 20658, 5308],
   },
   HEROIC_THROW: {
     id: 57550,
@@ -122,6 +118,11 @@ const spells = {
     name: 'Overpower',
     icon: 'ability_meleedamage',
   },
+  TASTE_FOR_BLOOD: {
+    id: 60503,
+    name: 'Taste for Blood',
+    icon: 'ability_rogue_hungerforblood.jpg',
+  },
   PUMMEL: {
     id: 6552,
     name: 'Pummel',
@@ -133,10 +134,9 @@ const spells = {
     icon: 'ability_criticalstrike',
   },
   REND: {
-    id: 47465,
+    id: 772,
     name: 'Rend',
     icon: 'ability_gouge',
-    lowRanks: [46845, 25208, 11574, 11573, 11572, 6548, 6547, 6546, 772],
   },
   RETALIATION: {
     id: 20230,
@@ -176,10 +176,9 @@ const spells = {
     icon: 'ability_warrior_shieldwall',
   },
   SLAM: {
-    id: 47475,
+    id: 1464,
     name: 'Slam',
     icon: 'ability_warrior_decisivestrike',
-    lowRanks: [47474, 25242, 25241, 11605, 11604, 8820, 1464],
   },
   SPELL_REFLECTION: {
     id: 23920,
@@ -257,7 +256,7 @@ const spells = {
     icon: 'ability_warrior_bladestorm',
   },
   MORTAL_STRIKE: {
-    id: 47486,
+    id: 12294,
     name: 'Mortal Strike',
     icon: 'ability_warrior_savageblow',
   },
@@ -295,6 +294,22 @@ const spells = {
     id: 50720,
     name: 'Vigilance',
     icon: 'ability_warrior_vigilance',
+  },
+  COLOSSUS_SMASH: { id: 86346, name: 'Colossus Smash', icon: 'ability_warrior_colossussmash.jpg' },
+  SUDDEN_DEATH: {
+    id: 52437,
+    name: 'Sudden Death',
+    icon: 'ability_warrior_improveddisciplines.jpg',
+  },
+  DEADLY_CALM: { id: 85730, name: 'Deadly Calm', icon: 'achievement_boss_kingymiron.jpg' },
+  RALLYING_CRY: { id: 97462, name: 'Rallying Cry', icon: 'ability_warrior_rallyingcry.jpg' },
+  // note: wowhead thinks this is an npc spell but this is what the actual Heroic Leap spell logs as
+  HEROIC_LEAP: { id: 52174, name: 'Heroic Leap', icon: 'ability_heroicleap.jpg' },
+  INNER_RAGE: { id: 1134, name: 'Inner Rage', icon: 'warrior_talent_icon_innerrage.jpg' },
+  BLADESTORM_TRIGGERED_SPELL: {
+    id: 50622,
+    name: 'Whirlwind',
+    icon: 'ability_warrior_bladestorm.jpg',
   },
 } satisfies Record<string, Spell>;
 

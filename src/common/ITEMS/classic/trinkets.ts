@@ -121,6 +121,12 @@ const trinkets = {
     icon: 'inv_misc_stonetablet_11.jpg',
     buffs: [{ id: 92123, name: 'Enigma' }], // Alliance has same buffId
   },
+  IMPATIENCE_OF_YOUTH: {
+    id: 62464, // Alliance = 62469
+    name: 'Impatience of Youth',
+    icon: 'inv_misc_idol_05',
+    buffs: [{ id: 91828, name: 'Thrill of Victory' }], // Alliance has same buffId
+  },
   // -------------
   // WRATH PHASE 4
   // -------------
