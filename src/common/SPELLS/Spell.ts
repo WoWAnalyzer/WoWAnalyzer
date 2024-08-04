@@ -49,6 +49,7 @@ export default interface Spell {
   essenceCostPerSecond?: number;
   //Classic
   lowRanks?: Array<number>;
+  enchantId?: number;
 }
 
 /**
