@@ -134,6 +134,12 @@ class Abilities extends CoreAbilities {
         gcd: null,
         cooldown: 30,
       },
+      {
+        spell: SPELLS.PUMMEL.id,
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: null,
+        cooldown: 10,
+      },
       // Pet Related
       // Consumable
     ] satisfies SpellbookAbility[];
