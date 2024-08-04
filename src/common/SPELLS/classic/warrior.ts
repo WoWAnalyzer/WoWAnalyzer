@@ -9,7 +9,6 @@ const spells = {
     id: 47436,
     name: 'Battle Shout',
     icon: 'ability_warrior_battleshout',
-    lowRanks: [2048, 25289, 11551, 11550, 11549, 6192, 5242, 6673],
   },
   BATTLE_STANCE: {
     id: 2457,
@@ -46,12 +45,6 @@ const spells = {
     name: 'Cleave',
     icon: 'ability_warrior_cleave',
   },
-  COMMANDING_SHOUT: {
-    id: 47440,
-    name: 'Commanding Shout',
-    icon: 'ability_warrior_rallyingcry',
-    lowRanks: [47439, 469],
-  },
   DEFENSIVE_STANCE: {
     id: 71,
     name: 'Defensive Stance',
@@ -61,7 +54,6 @@ const spells = {
     id: 47437,
     name: 'Demoralizing Shout',
     icon: 'ability_warrior_warcry',
-    lowRanks: [47519, 25231, 20569, 11609, 11608, 7369, 845],
   },
   DISARM: {
     id: 676,
@@ -147,7 +139,6 @@ const spells = {
     id: 57823,
     name: 'Revenge',
     icon: 'ability_warrior_revenge',
-    lowRanks: [47470, 25236, 25234, 20662, 20661, 20660, 20658, 5308],
   },
   SHATTERING_THROW: {
     id: 64382,
@@ -168,7 +159,6 @@ const spells = {
     id: 47488,
     name: 'Shield Slam',
     icon: 'inv_shield_05',
-    lowRanks: [47487, 30356, 25258, 23925, 23924, 23923, 23922],
   },
   SHIELD_WALL: {
     id: 871,
@@ -199,7 +189,6 @@ const spells = {
     id: 47502,
     name: 'Thunder Clap',
     icon: 'spell_nature_thunderclap',
-    lowRanks: [47501, 25264, 11581, 11580, 8205, 8204, 8198, 6343],
   },
   VICTORY_RUSH: {
     id: 34428,
@@ -221,7 +210,6 @@ const spells = {
     id: 46915,
     name: 'Bloodsurge',
     icon: 'ability_warrior_bloodsurge',
-    lowRanks: [46914, 46913],
   },
   SLAM_PROC: {
     id: 46916,
@@ -232,13 +220,11 @@ const spells = {
     id: 12867,
     name: 'Deep Wounds',
     icon: 'ability_backstab',
-    lowRanks: [12849, 12834],
   },
   FLURRY: {
     id: 12974,
     name: 'Flurry',
     icon: 'ability_ghoulfrenzy',
-    lowRanks: [12319, 12971, 12972, 12973],
   },
   SHOCKWAVE: {
     id: 46968,

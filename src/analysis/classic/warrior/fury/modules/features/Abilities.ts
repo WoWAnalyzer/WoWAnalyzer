@@ -22,7 +22,7 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.HEROIC_STRIKE.id, ...SPELLS.HEROIC_STRIKE.lowRanks],
+        spell: SPELLS.HEROIC_STRIKE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: null,
       },
@@ -38,7 +38,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: [SPELLS.CLEAVE.id, ...SPELLS.CLEAVE.lowRanks],
+        spell: SPELLS.CLEAVE.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: null,
       },
