@@ -24,9 +24,10 @@ export default function Guide() {
       )
       .sort((a, b) => b.cooldown - a.cooldown)
       .map((ability) => ({
-        spell: maybeGetTalentOrSpell(ability.primarySpell)!,
+        spell: maybeGetTalentOrSpell(ability.primarySpell, CLASSIC_EXPANSION)!,
       }));
   }, [abilities]);
+
   return (
     <>
       <Section title="Core Skills">
