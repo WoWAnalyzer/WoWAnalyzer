@@ -52,9 +52,9 @@ export default defineConfig((env) => ({
       output: {
         chunkFileNames: (chunkInfo) => {
           if (HASH_ONLY_CHUNKS.has(chunkInfo.name)) {
-            return '[hash].js';
+            return 'assets/[hash].js';
           }
-          return '[name]-[hash].js';
+          return 'assets/[name]-[hash].js';
         },
       },
     },
