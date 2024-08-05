@@ -40,9 +40,7 @@ export default class SuddenDeath extends Analyzer.withDependencies({ spellUsable
             {this.triggerCount - this.wastedTriggers} resets{' '}
             <small>
               (+{this.wastedTriggers}{' '}
-              <TooltipElement
-                content="A reset is wasted if it occurs while Colossus Smash is not on cooldown."
-              >
+              <TooltipElement content="A reset is wasted if it occurs while Colossus Smash is not on cooldown.">
                 wasted
               </TooltipElement>
               )
