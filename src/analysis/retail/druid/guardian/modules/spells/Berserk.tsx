@@ -39,6 +39,9 @@ export function activePerf(activeTimePercentage: number): QualitativePerformance
   }
 }
 
+// TODO TWW 11.0.2 - changes to per 25 rage
+const CDR_MS_TO_RAGE_SPEND_RATIO = 1_000 / (20 / RAGE_SCALE_FACTOR);
+
 /**
  * **Berserk: Ravage**
  * Spec Talent
@@ -61,6 +64,11 @@ export function activePerf(activeTimePercentage: number): QualitativePerformance
  * An improved Bear Form that grants the benefits of Berserk, causes Mangle to hit up to 3 targets,
  * and increases maximum health by 30%.
  * Lasts 30 sec. You may freely shapeshift in and out of this improved Bear Form for its duration.
+ *
+ * **Ursoc's Guidance**
+ * Spec Talent
+ *
+ * Every 20 Rage you spend reduces the cooldown of Incarnation: Guardian of Ursoc by 1 sec.
  */
 export default class Berserk extends Analyzer.withDependencies({
   spellUsable: SpellUsable,
@@ -71,36 +79,43 @@ export default class Berserk extends Analyzer.withDependencies({
   cdSpell: Spell;
   cdDuration: number;
 
-  hasBRavage: boolean;
-  hasBUa: boolean;
-  hasBPersistence: boolean;
-  hasIncarn: boolean;
+  hasBerserkPersistence: boolean;
 
   berserkTrackers: BerserkCast[] = [];
 
   constructor(options: Options) {
     super(options);
 
-    this.hasBRavage = this.selectedCombatant.hasTalent(TALENTS_DRUID.BERSERK_RAVAGE_TALENT);
-    this.hasBUa = this.selectedCombatant.hasTalent(
-      TALENTS_DRUID.BERSERK_UNCHECKED_AGGRESSION_TALENT,
-    );
-    this.hasBPersistence = this.selectedCombatant.hasTalent(
+    this.active =
+      this.selectedCombatant.hasTalent(TALENTS_DRUID.BERSERK_PERSISTENCE_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS_DRUID.BERSERK_RAVAGE_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS_DRUID.BERSERK_UNCHECKED_AGGRESSION_TALENT);
+    this.hasBerserkPersistence = this.selectedCombatant.hasTalent(
       TALENTS_DRUID.BERSERK_PERSISTENCE_TALENT,
     );
-    this.hasIncarn = this.selectedCombatant.hasTalent(
-      TALENTS_DRUID.INCARNATION_GUARDIAN_OF_URSOC_TALENT,
-    );
-    this.active = this.hasBRavage || this.hasBUa || this.hasBPersistence || this.hasIncarn;
 
     this.cdSpell = cdSpell(this.selectedCombatant);
     this.cdDuration = cdDuration(this.selectedCombatant);
 
-    if (this.hasBUa) {
+    if (this.selectedCombatant.hasTalent(TALENTS_DRUID.BERSERK_UNCHECKED_AGGRESSION_TALENT)) {
       this.deps.haste.addHasteBuff(this.cdSpell.id, BUA_HASTE);
     }
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.cdSpell), this.onCdUse);
+    if (
+      this.selectedCombatant.hasTalent(TALENTS_DRUID.URSOCS_GUIDANCE_TALENT) &&
+      this.selectedCombatant.hasTalent(TALENTS_DRUID.INCARNATION_GUARDIAN_OF_URSOC_TALENT)
+    ) {
+      this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onSpenderCast);
+    }
+  }
+
+  // listener added for this only with Ursoc's Guidance - handles the CDR
+  onSpenderCast(event: CastEvent) {
+    const rageSpend = this.deps.rageTracker.getAdjustedCost(event);
+    if (rageSpend) {
+      this.deps.spellUsable.reduceCooldown(this.cdSpell.id, rageSpend * CDR_MS_TO_RAGE_SPEND_RATIO);
+    }
   }
 
   onCdUse(event: CastEvent) {
@@ -112,7 +127,7 @@ export default class Berserk extends Analyzer.withDependencies({
       swipes: 0,
     });
 
-    if (this.hasBPersistence) {
+    if (this.hasBerserkPersistence) {
       this.deps.spellUsable.endCooldown(
         TALENTS_DRUID.FRENZIED_REGENERATION_TALENT.id,
         this.owner.currentTimestamp,
