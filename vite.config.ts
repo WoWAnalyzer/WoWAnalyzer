@@ -41,11 +41,23 @@ gtag('event', 'ramp_js', { send_to: 'G-E0TKKBEXVD', pageview_id: window._pwGA4Pa
 </head>
 `.trim();
 
+const HASH_ONLY_CHUNKS = new Set(['StatTracker']);
+
 // https://vitejs.dev/config/
 export default defineConfig((env) => ({
   build: {
     cssMinify: env.mode === 'production',
     sourcemap: env.mode === 'production',
+    rollupOptions: {
+      output: {
+        chunkFileNames: (chunkInfo) => {
+          if (HASH_ONLY_CHUNKS.has(chunkInfo.name)) {
+            return '[hash].js';
+          }
+          return '[name]-[hash].js';
+        },
+      },
+    },
   },
   plugins: [
     tsconfigPaths(),
