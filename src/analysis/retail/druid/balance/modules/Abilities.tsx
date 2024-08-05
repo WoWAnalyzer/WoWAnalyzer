@@ -144,15 +144,15 @@ class Abilities extends CoreAbilities {
           extraSuggestion: (
             <>
               Your <SpellLink spell={TALENTS_DRUID.NEW_MOON_TALENT} />,{' '}
-              <SpellLink spell={SPELLS.HALF_MOON} /> and <SpellLink spell={SPELLS.FULL_MOON} /> cast
-              efficiency can be improved, try keeping yourself at low Moon charges at all times; you
-              should (almost) never be at max (3) charges.
+              <SpellLink spell={TALENTS_DRUID.NEW_MOON_TALENT} /> and{' '}
+              <SpellLink spell={SPELLS.FULL_MOON} /> cast efficiency can be improved, try keeping
+              yourself at low Moon charges at all times; you should (almost) never be at max (3)
+              charges.
             </>
           ),
         },
         timelineSortIndex: 11,
       },
-      // TODO TWW - Lunation needs handled (which spells are Arcane?) - Moonfire, Starfire, Starsurge, Starfall, Moons, FoE, Arcane Thrash, Lunar Beam
       {
         spell: TALENTS_DRUID.FURY_OF_ELUNE_TALENT.id,
         buffSpellId: TALENTS_DRUID.FURY_OF_ELUNE_TALENT.id,

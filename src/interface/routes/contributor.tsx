@@ -1,9 +1,9 @@
 import { useParams } from 'react-router-dom';
 import DocumentTitle from 'interface/DocumentTitle';
 
-import Details from './ContributorDetails';
+import Details from '../ContributorDetails';
 
-const ContributorPage = () => {
+export function Component() {
   const { id } = useParams();
   const contributorId = decodeURI(id?.replace(/\+/g, ' ') ?? '');
 
@@ -14,6 +14,4 @@ const ContributorPage = () => {
       <Details ownPage contributorId={contributorId} />
     </div>
   );
-};
-
-export default ContributorPage;
+}

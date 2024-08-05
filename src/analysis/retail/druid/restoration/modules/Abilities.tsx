@@ -5,7 +5,7 @@ import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../constants';
 import { TALENTS_DRUID } from 'common/TALENTS';
-import { hastedCooldown } from 'common/hastedCooldown';
+import { hastedCooldown } from 'common/abilitiesConstants';
 
 // TODO TWW - CONTROL OF THE DREAM LMAO
 class Abilities extends CoreAbilities {

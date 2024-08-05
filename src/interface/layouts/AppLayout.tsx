@@ -11,16 +11,17 @@ import PortalTarget from 'interface/PortalTarget';
 import Hotkeys from 'interface/Hotkeys';
 import 'react-toggle/style.css';
 
-import './App.scss';
-import { setInternetExplorer } from './reducers/internetExplorer';
-import { fetchUser } from './reducers/user';
+import '../App.scss';
+import { setInternetExplorer } from '../reducers/internetExplorer';
+import { fetchUser } from '../reducers/user';
+import { ProgressBar } from 'interface/ProgressBar';
 
 function detectInternetExplorer() {
   const myNav = navigator.userAgent.toLowerCase();
   return myNav.includes('msie') || myNav.includes('trident');
 }
 
-const AppLayout = () => {
+export function AppLayout() {
   const dispatch = useWaDispatch();
   const isIE = useWaSelector((state) => isInternetExplorer(state));
   const openModals = useWaSelector((state) => getOpenModalCount(state));
@@ -64,8 +65,7 @@ const AppLayout = () => {
       <PortalTarget />
       <Hotkeys />
       <ScrollRestoration />
+      <ProgressBar />
     </>
   );
-};
-
-export default AppLayout;
+}

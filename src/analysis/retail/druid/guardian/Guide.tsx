@@ -106,6 +106,7 @@ function RotationSection({ modules, events, info }: GuideProps<typeof CombatLogP
       {modules.mangle.guideSubsection}
       {modules.thrash.guideSubsection}
       {modules.moonfire.guideSubsection}
+      {modules.swipe.guideSubsection}
     </Section>
   );
 }

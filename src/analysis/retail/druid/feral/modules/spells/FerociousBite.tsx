@@ -64,7 +64,7 @@ class FerociousBite extends Analyzer {
 
     const duringBerserkAndSotf =
       this.hasSotf &&
-      (this.selectedCombatant.hasBuff(SPELLS.BERSERK.id) ||
+      (this.selectedCombatant.hasBuff(SPELLS.BERSERK_CAT.id) ||
         this.selectedCombatant.hasBuff(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id));
     const extraEnergyUsed = getAdditionalEnergyUsed(event);
     const maxExtraEnergy = getFerociousBiteMaxDrain(this.selectedCombatant);

@@ -41,14 +41,13 @@ import HealthstoneChecker from './modules/items/HealthstoneChecker';
 import EnchantChecker from './modules/items/EnchantChecker';
 import ManaGained from './statistic/ManaGained';
 // Engineering
-import HyperspeedAccelerators from './modules/items/engineering/HyperspeedAccelerators';
-import FragBelt from 'parser/classic/modules/items/engineering/FragBelt';
 import Bombs from 'parser/classic/modules/items/engineering/Bombs';
+import HyperspeedAccelerators from './modules/items/engineering/HyperspeedAccelerators';
+import SynapseSprings from './modules/items/engineering/SynapseSprings';
 // Guide
 import FlaskChecker from 'parser/classic/modules/items/FlaskChecker';
 import FoodChecker from 'parser/classic/modules/items/FoodChecker';
 import PotionChecker from 'parser/classic/modules/items/PotionChecker';
-import SynapseSprings from './modules/items/engineering/SynapseSprings';
 // Racials
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import Berserking from 'parser/shared/modules/racials/troll/Berserking';
@@ -113,9 +112,8 @@ class CombatLogParser extends BaseCombatLogParser {
     manaGained: ManaGained,
 
     // Engineering
-    hyperspeedAccelerators: HyperspeedAccelerators,
-    fragBelt: FragBelt,
     bombs: Bombs,
+    hyperspeedAccelerators: HyperspeedAccelerators,
     synapseSprings: SynapseSprings,
 
     // Guide

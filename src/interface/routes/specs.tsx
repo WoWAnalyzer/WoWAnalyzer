@@ -3,20 +3,20 @@ import groupByToMap from 'common/groupByToMap';
 import DocumentTitle from 'interface/DocumentTitle';
 import AVAILABLE_CONFIGS from 'parser';
 import Config from 'parser/Config';
-
-import SpecListItem from './SpecListItem';
-import './SpecList.css';
-import { usePageView } from './useGoogleAnalytics';
 import { useLingui } from '@lingui/react';
 import { useMemo } from 'react';
 import GameBranch from 'game/GameBranch';
+
+import SpecListItem from '../SpecListItem';
+import '../SpecList.css';
+import { usePageView } from '../useGoogleAnalytics';
 
 const isAnySpecSupported = (configs: Config[]) =>
   configs.some((config) => config.patchCompatibility);
 
 const retailSpecs = AVAILABLE_CONFIGS.filter((it) => it.branch === GameBranch.Retail);
 
-const SpecListing = () => {
+export function Component() {
   usePageView('SpecList');
 
   const { i18n } = useLingui();
@@ -95,6 +95,4 @@ const SpecListing = () => {
       </div>
     </>
   );
-};
-
-export default SpecListing;
+}

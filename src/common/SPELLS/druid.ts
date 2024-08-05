@@ -707,6 +707,18 @@ const spells = {
     name: 'Fury of Nature',
     icon: 'ability_creature_cursed_04',
   },
+  // id for the cast and the buff
+  BERSERK_BEAR: {
+    id: 50334,
+    name: 'Berserk',
+    icon: 'ability_druid_berserk',
+  },
+  // id for the cast and the buff
+  INCARNATION_GUARDIAN_OF_URSOC: {
+    id: 102558,
+    name: 'Incarnation: Guardian of Ursoc',
+    icon: 'spell_druid_incarnation',
+  },
   GUARDIAN_TIER_21_2P_SET_BONUS: {
     id: 251791,
     name: 'Tier 21 2P Bonus',
@@ -1010,7 +1022,7 @@ const spells = {
     icon: 'spell_druid_thrash',
   },
   // this is the spell for the cast and the buff
-  BERSERK: {
+  BERSERK_CAT: {
     id: 106951,
     name: 'Berserk',
     icon: 'ability_druid_berserk',
