@@ -37,10 +37,10 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
             is your most efficient healing spell available. Try to cast them as much as possible
             without overhealing.
             <TooltipElement
-            // content={t({
-            //   id: 'paladin.holy.modules.checklist.usePrimarySpells.descriptionTooltipElement',
-            //   message: `When you're not bringing too many healers.`,
-            // })}
+              content={{
+                id: 'paladin.holy.modules.checklist.usePrimarySpells.descriptionTooltipElement',
+                message: `When you're not bringing too many healers.`,
+              }}
             >
               On Mythic
             </TooltipElement>{' '}
@@ -271,10 +271,10 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
             your downtime by reducing the delay between casting spells, anticipating movement,
             moving during the GCD, and{' '}
             <TooltipElement
-            // content={t({
-            //   id: 'paladin.holy.modules.checklist.avoidBeingInactive.description.ignoreDamage',
-            //   message: `While helping with damage would be optimal, it's much less important as a healer than any of the other suggestions on this checklist. You should ignore this suggestion while you are having difficulties with anything else.`,
-            // })}
+              content={{
+                id: 'paladin.holy.modules.checklist.avoidBeingInactive.description.ignoreDamage',
+                message: `While helping with damage would be optimal, it's much less important as a healer than any of the other suggestions on this checklist. You should ignore this suggestion while you are having difficulties with anything else.`,
+              }}
             >
               when you're not healing try to contribute some damage*
             </TooltipElement>
