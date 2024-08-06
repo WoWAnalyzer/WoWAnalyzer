@@ -81,17 +81,7 @@ class Abilities extends CoreAbilities {
       },
       // Utility
       {
-        spell: [SPELLS.ABOLISH_DISEASE.id],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { base: 1500 },
-      },
-      {
         spell: SPELLS.DISPEL_MAGIC.id,
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { base: 1500 },
-      },
-      {
-        spell: SPELLS.DIVINE_SPIRIT.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
@@ -126,7 +116,7 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: SPELLS.PRAYER_OF_SHADOW_PROTECTION.id,
+        spell: SPELLS.SHADOW_PROTECTION.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },

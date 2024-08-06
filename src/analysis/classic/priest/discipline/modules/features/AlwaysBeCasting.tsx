@@ -15,7 +15,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.RENEW.id,
     SPELLS.GREATER_HEAL.id,
     SPELLS.HEAL.id,
-    SPELLS.LESSER_HEAL.id,
     SPELLS.PRAYER_OF_HEALING.id,
     SPELLS.HOLY_NOVA.id,
   ];
