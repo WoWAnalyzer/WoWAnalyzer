@@ -12,7 +12,7 @@ const config: Config = {
   contributors: [Squided],
   branch: GameBranch.Retail,
   patchCompatibility: '11.0.0',
-  supportLevel: SupportLevel.MaintainedFull,
+  supportLevel: SupportLevel.Unmaintained,
   description: (
     <>
       Hey! I hope the suggestions will help you improve your performance. Remember: focus on
@@ -26,9 +26,8 @@ const config: Config = {
       unused for long periods of time (they're not raid cooldowns, they're required for you to have
       decent throughput and not run OOM) and <b>hit those buttons</b> that have short cooldowns
       (such as <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> and{' '}
-      <SpellLink spell={TALENTS.LIGHT_OF_DAWN_TALENT} />
-      ). Finally, don't cast <SpellLink spell={TALENTS.LIGHT_OF_THE_MARTYR_TALENT} /> unless there's
-      nothing else to cast, or you're playing with Maraad's.
+      <SpellLink spell={TALENTS.HOLY_PRISM_TALENT} />
+      ).
       <br />
       <br />
       If you want to learn more about Holy Paladins, join the Paladin community at the{' '}
