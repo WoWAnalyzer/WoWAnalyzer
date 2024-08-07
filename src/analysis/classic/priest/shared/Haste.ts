@@ -6,7 +6,8 @@ class Haste extends CoreHaste {
   hasteBuffs = {
     ...DEFAULT_HASTE_BUFFS,
     ...BLOODLUST_BUFFS,
-    [SPELLS.BORROWED_TIME.id]: 0.25,
+    [SPELLS.BORROWED_TIME_7.id]: 0.07,
+    [SPELLS.BORROWED_TIME_14.id]: 0.14,
   };
 }
 
