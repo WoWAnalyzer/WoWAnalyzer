@@ -11,7 +11,6 @@ const config: Config = {
   branch: GameBranch.Classic,
   // The WoW client patch this spec was last updated.
   patchCompatibility: '4.4.0',
-  // Update to false when the spec is mostly complete (and safe to use)
   supportLevel: SupportLevel.Foundation,
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport: '/report/zHX3VMN6YAPRFTKg/32-Heroic+Chimaeron+-+Kill+(3:12)/Dolbob/standard',

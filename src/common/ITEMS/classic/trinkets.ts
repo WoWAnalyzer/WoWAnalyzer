@@ -65,6 +65,12 @@ const trinkets = {
     icon: 'spell_holy_persecution.jpg',
     buffs: [{ id: 91364, name: 'Heartened' }],
   },
+  IMPATIENCE_OF_YOUTH: {
+    id: 62464, // Alliance = 62469
+    name: 'Impatience of Youth',
+    icon: 'inv_misc_idol_05.jpg',
+    buffs: [{ id: 91828, name: 'Thrill of Victory' }], // Alliance has same buffId
+  },
   KEY_TO_THE_ENDLESS_CHAMBER: {
     id: 56328,
     name: 'Key to the Endless Chamber',
@@ -120,12 +126,6 @@ const trinkets = {
     name: 'Unsolvable Riddle',
     icon: 'inv_misc_stonetablet_11.jpg',
     buffs: [{ id: 92123, name: 'Enigma' }], // Alliance has same buffId
-  },
-  IMPATIENCE_OF_YOUTH: {
-    id: 62464, // Alliance = 62469
-    name: 'Impatience of Youth',
-    icon: 'inv_misc_idol_05',
-    buffs: [{ id: 91828, name: 'Thrill of Victory' }], // Alliance has same buffId
   },
   // -------------
   // WRATH PHASE 4
