@@ -127,7 +127,7 @@ const ZONES: Zone[] = [
   {
     id: 37,
     name: 'Mythic+ Season 4',
-    frozen: false,
+    frozen: true,
     encounters: [
       mythicplusseasonfour.bosses.AlgetharAcademy,
       mythicplusseasonfour.bosses.AzureVault,
@@ -145,12 +145,14 @@ const ZONES: Zone[] = [
     name: "Nerub'ar Palace",
     frozen: false,
     encounters: [],
+    usePtrTooltips: true,
   },
   {
     id: 39,
     name: 'Mythic+ Season 1',
     frozen: false,
     encounters: [],
+    usePtrTooltips: true,
   },
 ];
 

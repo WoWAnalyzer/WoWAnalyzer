@@ -10,10 +10,11 @@ import InsanityIcon from 'interface/icons/Insanity';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
+import { DISTORTED_REALITY_MULTIPLIER } from '../../constants';
+
 class DistortedReality extends Analyzer {
   damage = 0;
   insanitySpent = 0; // extra insanity requred to cast spell
-  multiplierDistortedReality = 0.2; //20%
 
   constructor(options: Options) {
     super(options);
@@ -29,7 +30,7 @@ class DistortedReality extends Analyzer {
   }
 
   onDevouringPlagueDamage(event: DamageEvent) {
-    this.damage += calculateEffectiveDamage(event, this.multiplierDistortedReality);
+    this.damage += calculateEffectiveDamage(event, DISTORTED_REALITY_MULTIPLIER);
   }
 
   onDevouringPlagueCast(event: CastEvent) {
