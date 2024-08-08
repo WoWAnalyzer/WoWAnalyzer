@@ -1,14 +1,14 @@
 import { expect, test } from './fixtures';
 
-const reportCode = 'Mr2VApnPLycBj9hW';
-const reportTitle = 'LFR princess';
-const fightLinkName = 'Kill 2:30';
-const fightUrlPart = '3-LFR+Council+of+Dreams+-+Kill+(2:30)';
-const bossTitle = `LFR Council of Dreams - Kill (2:30)`;
+const reportCode = '6YPW2m1bMBLAgvQG';
+const reportTitle = 'prepatch is a silly billy time';
+const fightLinkName = 'Kill 5:17';
+const fightUrlPart = '12-Mythic+Tindral+Sageswift,+Seer+of+the+Flame+-+Kill+(5:17)';
+const bossTitle = `Mythic Tindral Sageswift, Seer of the Flame - Kill (5:17)`;
 const fightPageTitle = `${bossTitle} in ${reportTitle}`;
-const playerLinkName = 'Toppledh Vengeance Demon Hunter Vengeance Demon Hunter 505';
+const playerLinkName = 'Toppledh Vengeance Demon Hunter Vengeance Demon Hunter 526';
 const playerName = 'Toppledh';
-const bossDifficultyAndName = 'LFRCouncil Of Dreams';
+const bossDifficultyAndName = 'MythicTindral Sageswift, Seer of Flame';
 const resultsPageTitle = `${bossTitle} by ${playerName} in ${reportTitle}`;
 
 // TODO: update this once we have a properly supported TWW spec
