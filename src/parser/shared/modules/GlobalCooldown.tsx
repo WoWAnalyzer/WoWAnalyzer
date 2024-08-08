@@ -237,6 +237,14 @@ class GlobalCooldown extends Analyzer {
           summary: `GCD for ${event.trigger?.ability.name}`,
           color: GoodColor,
           priority: -Infinity,
+          details: (
+            <div>
+              <dl>
+                <dt>Expected GCD Duration</dt>
+                <dd>{(this.lastGlobalCooldown.duration / 1000).toFixed(2)}s</dd>
+              </dl>
+            </div>
+          ),
         });
       }
     }

@@ -112,6 +112,8 @@ class Channeling extends EventsNormalizer {
     // Holy Priest
     // Divine Hymn is handled by the Retail version currently
     buffChannelSpec(CLASSIC_SPELLS.HYMN_OF_HOPE_BUFF.id),
+    // Warrior
+    buffChannelSpec(CLASSIC_SPELLS.BLADESTORM.id),
   ];
 
   // registered special case handlers, mapped by guid

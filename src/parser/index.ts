@@ -63,6 +63,7 @@ import ClassicWarlockAffliction from 'analysis/classic/warlock/affliction';
 import ClassicWarlockDemonology from 'analysis/classic/warlock/demonology';
 import ClassicWarlockDestruction from 'analysis/classic/warlock/destruction';
 import ClassicFuryWarrior from 'analysis/classic/warrior/fury';
+import ClassicArmsWarrior from 'analysis/classic/warrior/arms';
 
 import Config from './Config';
 
@@ -154,6 +155,7 @@ const configs: Config[] = [
   ClassicWarlockDestruction,
 
   ClassicFuryWarrior,
+  ClassicArmsWarrior,
 ];
 
 export default configs;
