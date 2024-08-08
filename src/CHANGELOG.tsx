@@ -35,7 +35,9 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
-  change(date(2024, 8, 1), 'Prepare for cleanup of Dragonflight items.', ToppleTheNun),
+  change(date(2024, 8, 7), 'Prepare for cleanup of Dragonflight items.', ToppleTheNun),
+  change(date(2024, 8, 6), 'Update Priest spells for Classic Cataclysm', jazminite),
+  change(date(2024, 8, 3), 'Update Engineering items for Classic Cataclysm', jazminite),
   change(date(2024, 8, 1), 'Load routes asynchronously.', ToppleTheNun),
   change(date(2024, 8, 1), 'Add Classic Cataclysm Phase 1 trinkets.', jazminite),
   change(date(2024, 7, 31), 'Fixed an issue where pre-pull channels could cause wildly incorrect Active Time value', Sref),

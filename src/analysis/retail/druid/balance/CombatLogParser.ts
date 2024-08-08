@@ -31,6 +31,7 @@ import NewMoon from 'analysis/retail/druid/balance/modules/spells/NewMoon';
 import WildMushroom from 'analysis/retail/druid/balance/modules/spells/WildMushroom';
 import CelestialAlignment from 'analysis/retail/druid/balance/modules/spells/CelestialAlignment';
 import CastLinkNormalizer from 'analysis/retail/druid/balance/normalizers/CastLinkNormalizer';
+import Lunation from 'analysis/retail/druid/shared/spells/Lunation';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -72,6 +73,8 @@ class CombatLogParser extends MainCombatLogParser {
     newMoon: NewMoon,
     wildMushroom: WildMushroom,
     celestialAlignment: CelestialAlignment,
+    //Hero Talents
+    lunation: Lunation,
   };
 
   static guide = Guide;

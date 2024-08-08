@@ -58,7 +58,7 @@ class Abilities extends CoreAbilities {
           combatant.hasTalent(TALENTS.MIND_SPIKE_TALENT),
       },
       {
-        spell: TALENTS.SHADOW_CRASH_TALENT.id,
+        spell: TALENTS.SHADOW_CRASH_1_SHADOW_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 20,
         gcd: {
@@ -68,21 +68,22 @@ class Abilities extends CoreAbilities {
           suggestion: false,
           recommendedEfficiency: 0.4,
         },
-        enabled: combatant.hasTalent(TALENTS.SHADOW_CRASH_TALENT),
+        enabled: combatant.hasTalent(TALENTS.SHADOW_CRASH_1_SHADOW_TALENT),
         damageSpellIds: [SPELLS.SHADOW_CRASH_TALENT_DAMAGE.id],
       },
       {
-        spell: TALENTS.MINDGAMES_TALENT.id,
+        spell: TALENTS.SHADOW_CRASH_2_SHADOW_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 45,
+        cooldown: 20,
         gcd: {
           base: 1500,
         },
         castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.6,
+          suggestion: false,
+          recommendedEfficiency: 0.4,
         },
-        enabled: combatant.hasTalent(TALENTS.MINDGAMES_TALENT),
+        enabled: combatant.hasTalent(TALENTS.SHADOW_CRASH_2_SHADOW_TALENT),
+        damageSpellIds: [SPELLS.SHADOW_CRASH_TALENT_DAMAGE.id],
       },
       {
         spell: SPELLS.SHADOW_WORD_PAIN.id,
@@ -112,7 +113,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.HALO_SHADOW_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 40,
+        cooldown: 60,
         gcd: {
           base: 1500,
         },

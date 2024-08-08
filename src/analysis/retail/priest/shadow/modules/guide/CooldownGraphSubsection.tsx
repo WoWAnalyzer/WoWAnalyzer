@@ -37,8 +37,8 @@ const coreCooldownsVB: SpellCooldown[] = [
 
 const shortCooldowns: Cooldown[] = [
   { talent: TALENTS.VOID_TORRENT_TALENT },
-  { talent: TALENTS.MINDGAMES_TALENT },
-  { talent: TALENTS.SHADOW_CRASH_TALENT },
+  { talent: TALENTS.SHADOW_CRASH_1_SHADOW_TALENT },
+  { talent: TALENTS.SHADOW_CRASH_2_SHADOW_TALENT },
 ];
 
 const longCooldownsMB: Cooldown[] = [
@@ -163,33 +163,15 @@ const ShortCooldownsGraph = () => {
         </>
       )}
 
-      {info!.combatant.hasTalent(TALENTS.MINDGAMES_TALENT) && (
+      {(info!.combatant.hasTalent(TALENTS.SHADOW_CRASH_1_SHADOW_TALENT) ||
+        info!.combatant.hasTalent(TALENTS.SHADOW_CRASH_2_SHADOW_TALENT)) && (
         <>
           <strong>
-            <SpellLink spell={TALENTS.MINDGAMES_TALENT} />
-          </strong>{' '}
-          is a lower priority spell, but when it is cast, make sure{' '}
-          <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} /> is on its target so it benefits
-          fully from <SpellLink spell={SPELLS.MASTERY_SHADOW_WEAVING} />.
-        </>
-      )}
-
-      {info!.combatant.hasTalent(TALENTS.SHADOW_CRASH_TALENT) && (
-        <>
-          <strong>
-            <SpellLink spell={TALENTS.SHADOW_CRASH_TALENT} />
+            <SpellLink spell={TALENTS.SHADOW_CRASH_1_SHADOW_TALENT} />
           </strong>{' '}
           is used to apply and refresh <SpellLink spell={SPELLS.VAMPIRIC_TOUCH} />. This can be held
           if it would allow you to apply your dots to more targets.
           <br />
-          {info!.combatant.has4PieceByTier(TIERS.DF3) && (
-            <>
-              &nbsp;&nbsp;&nbsp;&nbsp;
-              <SpellLink spell={TALENTS.SHADOW_CRASH_TALENT} /> should also be used to spend stacks
-              of <SpellLink spell={SPELLS.SHADOW_PRIEST_TIER_31_4_SET_BUFF} /> from{' '}
-              <ItemSetLink id={PRIEST_DF3_ID}> Amirdrassil 4 Piece </ItemSetLink>{' '}
-            </>
-          )}
         </>
       )}
     </p>

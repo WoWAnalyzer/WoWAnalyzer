@@ -13,7 +13,7 @@ export const MaelstromSubSection = ({ modules }: GuideProps<typeof CombatLogPars
       <p>
         Maelstrom is the primary resource of elemental shamans. It empowers our most powerful
         spells: <SpellLink spell={TALENTS_SHAMAN.EARTH_SHOCK_TALENT} />,
-        <SpellLink spell={TALENTS_SHAMAN.EARTHQUAKE_TALENT} /> and{' '}
+        <SpellLink spell={TALENTS_SHAMAN.EARTHQUAKE_1_ELEMENTAL_TALENT} /> and{' '}
         <SpellLink spell={TALENTS_SHAMAN.ELEMENTAL_BLAST_ELEMENTAL_TALENT} />. These spells are
         almost always more powerful than the alternatives so you will want to cast them as much as
         possible.
