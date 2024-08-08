@@ -1,31 +1,20 @@
-import COVENANTS from 'game/shadowlands/COVENANTS';
-import SOULBINDS from 'game/shadowlands/SOULBINDS';
 import SPECS from 'game/SPECS';
 import { specificGearSets } from 'interface/report/CombatantInfoFakerGearsets';
-import { CombatantInfo } from 'parser/core/Combatant';
 
 const debugGear = false;
 
 type FakeInfo = {
-  covenantID: CombatantInfo['covenantID'];
-  soulbindID: CombatantInfo['soulbindID'];
   legendaryInfo: { slotId: number; bonusId: number }; //slotId 0 would be head slot, and bonusID is the bonusID that is added to an item with the given legendary effect
 };
 
 const SPEC_CONFIGS: { [specId: number]: FakeInfo } = {
   [SPECS.MARKSMANSHIP_HUNTER.id]: {
-    covenantID: COVENANTS.VENTHYR.id,
-    soulbindID: SOULBINDS.GENERAL_DRAVEN.id,
     legendaryInfo: { slotId: 0, bonusId: 7003 },
   },
   [SPECS.BEAST_MASTERY_HUNTER.id]: {
-    covenantID: COVENANTS.NIGHT_FAE.id,
-    soulbindID: SOULBINDS.NIYA.id,
     legendaryInfo: { slotId: 0, bonusId: 7003 },
   },
   [SPECS.FROST_MAGE.id]: {
-    covenantID: COVENANTS.VENTHYR.id,
-    soulbindID: SOULBINDS.NADJIA_THE_MISTBLADE.id,
     legendaryInfo: { slotId: 14, bonusId: 6828 },
   },
 };
@@ -38,8 +27,6 @@ export function generateFakeCombatantInfo(player: any) {
     SPEC_CONFIGS[player.specID]?.legendaryInfo,
   );
   fakedPlayer.auras = fakeBuffGenerator();
-  fakedPlayer.covenantID = SPEC_CONFIGS[player.specID]?.covenantID;
-  fakedPlayer.soulbindID = SPEC_CONFIGS[player.specID]?.soulbindID;
   fakedPlayer.error = null;
   return fakedPlayer;
 }
