@@ -9,7 +9,8 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import Overpower from '../shared/Overpower';
 import Execute from '../shared/Execute';
 import SuddenDeath from './modules/spells/SuddenDeath';
-import FoundationGuide from 'interface/guide/foundation/FoundationGuide';
+import Guide from './Guide';
+import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
@@ -18,13 +19,14 @@ class CombatLogParser extends BaseCombatLogParser {
     abilities: Abilities,
     buffs: Buffs,
     cooldownThroughputTracker: CooldownThroughputTracker,
+    alwaysBeCasting: AlwaysBeCasting,
     // Spells
     overpower: Overpower,
     execute: Execute,
     suddenDeath: SuddenDeath,
   };
 
-  static guide = FoundationGuide;
+  static guide = Guide;
 }
 
 export default CombatLogParser;
