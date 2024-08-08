@@ -68,15 +68,16 @@ class Abilities extends CoreAbilities {
         gcd: null,
         cooldown: 300,
       },
+      // these are cooldowns but you never ever use them in single-target
       {
         spell: SPELLS.SWEEPING_STRIKES.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: null,
         cooldown: 60,
       },
       {
         spell: SPELLS.BLADESTORM.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: null,
         cooldown: 90,
       },

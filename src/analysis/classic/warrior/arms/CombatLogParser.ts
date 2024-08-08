@@ -5,11 +5,11 @@ import BaseCombatLogParser from 'parser/classic/CombatLogParser';
 import Abilities from './modules/features/Abilities';
 import Buffs from './modules/features/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import Guide from './Guide';
 // Spells
 import Overpower from '../shared/Overpower';
 import Execute from '../shared/Execute';
 import SuddenDeath from './modules/spells/SuddenDeath';
+import FoundationGuide from 'interface/guide/foundation/FoundationGuide';
 
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
@@ -24,7 +24,7 @@ class CombatLogParser extends BaseCombatLogParser {
     suddenDeath: SuddenDeath,
   };
 
-  static guide = Guide;
+  static guide = FoundationGuide;
 }
 
 export default CombatLogParser;
