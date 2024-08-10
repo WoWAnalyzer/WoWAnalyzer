@@ -121,6 +121,18 @@ const EVENT_LINKS: EventLink[] = [
     reverseLinkRelation: DEBUFF_APPLY,
     linkingEventId: SPELLS.TOUCH_OF_THE_MAGI_DEBUFF.id,
     linkingEventType: EventType.ApplyDebuff,
+    linkRelation: ENERGIZE,
+    referencedEventId: TALENTS.TOUCH_OF_THE_MAGI_TALENT.id,
+    referencedEventType: EventType.ResourceChange,
+    maximumLinks: 1,
+    anyTarget: true,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    reverseLinkRelation: DEBUFF_APPLY,
+    linkingEventId: SPELLS.TOUCH_OF_THE_MAGI_DEBUFF.id,
+    linkingEventType: EventType.ApplyDebuff,
     linkRelation: SPELL_DAMAGE,
     referencedEventId: [
       SPELLS.ARCANE_BLAST.id,
