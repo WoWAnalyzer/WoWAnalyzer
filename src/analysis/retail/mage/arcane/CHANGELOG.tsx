@@ -5,6 +5,7 @@ import { change, date } from 'common/changelog';
 import { Sharrq, Sref } from 'CONTRIBUTORS';
 
 export default [
+  change(date(2024, 8, 10), <>Fixed an issue that was causing <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} /> to always say it had 4 <SpellLink spell={SPELLS.ARCANE_CHARGE} />s due to an issue with the way the combat log orders events.</>, Sref),
   change(date(2024, 7, 29), <>Enhanced Guide view for <SpellLink spell={TALENTS.SHIFTING_POWER_TALENT} /></>, Sref),
   change(date(2024, 7, 29), <>Removed ability to load Checklist.</>, Sharrq),
   change(date(2024, 7, 29), <>Increased spec support to 11.0, Partial Support.</>, Sharrq),
