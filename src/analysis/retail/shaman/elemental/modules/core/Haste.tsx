@@ -1,9 +1,8 @@
 import SPELLS from 'common/SPELLS';
-import CoreHaste, { DEFAULT_HASTE_BUFFS } from 'parser/shared/modules/Haste';
+import CoreHaste from 'parser/shared/modules/Haste';
 
 class Haste extends CoreHaste {
-  hasteBuffs = {
-    ...DEFAULT_HASTE_BUFFS,
+  override hasteBuffOverrides = {
     // Shaman specific
     [SPELLS.UNLIMITED_POWER_BUFF.id]: {
       hastePerStack: 0.02,
