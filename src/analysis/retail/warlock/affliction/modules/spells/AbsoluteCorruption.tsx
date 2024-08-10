@@ -7,8 +7,7 @@ import Events, { DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-
-const AC_DAMAGE_BONUS = 0.15;
+import { AC_DAMAGE_BONUS } from '../../constants';
 
 class AbsoluteCorruption extends Analyzer {
   get dps() {

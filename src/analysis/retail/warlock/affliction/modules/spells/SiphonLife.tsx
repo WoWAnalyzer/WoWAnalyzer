@@ -7,8 +7,7 @@ import Events, { DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-
-const SL_DAMAGE_BONUS = 0.2;
+import { SL_DAMAGE_BONUS } from '../../constants';
 
 class SiphonLife extends Analyzer {
   get dps() {
@@ -40,7 +39,6 @@ class SiphonLife extends Analyzer {
             {formatThousands(this.bonusDmg)} bonus damage
             <br />
             <br />
-            test
           </>
         }
       >
