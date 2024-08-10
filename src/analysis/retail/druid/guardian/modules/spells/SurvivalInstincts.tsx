@@ -13,6 +13,12 @@ import { SpellLink } from 'interface';
 import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { survivalInstinctsMitigation } from 'analysis/retail/druid/guardian/constants';
 
+/**
+ * **Survival Instincts**
+ * Spec Talents
+ *
+ * Reduces all damage the target takes by 50% for 6 sec.
+ */
 export default class SurvivalInstincts extends MajorDefensiveBuff {
   constructor(options: Options) {
     super(SPELLS.SURVIVAL_INSTINCTS, buff(SPELLS.SURVIVAL_INSTINCTS), options);

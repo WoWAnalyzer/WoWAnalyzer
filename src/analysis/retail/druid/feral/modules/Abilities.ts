@@ -4,7 +4,7 @@ import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import { TIERS } from 'game/TIERS';
-import { fastMeleeGcd, normalGcd } from 'common/abilitiesConstants';
+import { fastMeleeGcd, hastedCooldown, normalGcd } from 'common/abilitiesConstants';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -235,6 +235,14 @@ class Abilities extends CoreAbilities {
         gcd: null,
         isDefensive: true,
         timelineSortIndex: 40,
+      },
+      {
+        spell: SPELLS.FRENZIED_REGENERATION.id,
+        enabled: combatant.hasTalent(TALENTS_DRUID.FRENZIED_REGENERATION_TALENT),
+        category: SPELL_CATEGORY.DEFENSIVE,
+        cooldown: hastedCooldown(36),
+        gcd: normalGcd,
+        isDefensive: true,
       },
       {
         spell: [

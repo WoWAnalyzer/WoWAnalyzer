@@ -4,7 +4,7 @@ import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import Enemies from 'parser/shared/modules/Enemies';
-import { hasted } from 'common/abilitiesConstants';
+import { hasted, normalGcd } from 'common/abilitiesConstants';
 import { inBerserk } from 'analysis/retail/druid/guardian/constants';
 
 class Abilities extends CoreAbilities {
@@ -20,7 +20,10 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.MANGLE_BEAR.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste) => (inBerserk(combatant) ? hasted(3, haste) : hasted(6, haste)),
+        cooldown: (haste) =>
+          inBerserk(combatant) && combatant.hasTalent(TALENTS_DRUID.BERSERK_RAVAGE_TALENT)
+            ? hasted(3, haste)
+            : hasted(6, haste),
         gcd: {
           base: 1500,
         },
@@ -35,7 +38,10 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.THRASH_BEAR.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste) => (inBerserk(combatant) ? hasted(3, haste) : hasted(6, haste)),
+        cooldown: (haste) =>
+          inBerserk(combatant) && combatant.hasTalent(TALENTS_DRUID.BERSERK_RAVAGE_TALENT)
+            ? hasted(3, haste)
+            : hasted(6, haste),
         gcd: {
           base: 1500,
         },
@@ -84,6 +90,21 @@ class Abilities extends CoreAbilities {
         gcd: null,
         isDefensive: true,
       },
+      {
+        spell: SPELLS.FRENZIED_REGENERATION.id,
+        enabled: combatant.hasTalent(TALENTS_DRUID.FRENZIED_REGENERATION_TALENT),
+        category: SPELL_CATEGORY.DEFENSIVE,
+        cooldown: (haste) =>
+          inBerserk(combatant) && combatant.hasTalent(TALENTS_DRUID.BERSERK_PERSISTENCE_TALENT)
+            ? 0
+            : hasted(
+                36 * (1 - 0.2 * combatant.getTalentRank(TALENTS_DRUID.REINVIGORATION_TALENT)),
+                haste,
+              ), // TODO TWW change this to 0.10 per rank in 11.0.2
+        gcd: normalGcd,
+        charges: 1 + combatant.getTalentRank(TALENTS_DRUID.INNATE_RESOLVE_TALENT),
+        isDefensive: true,
+      },
 
       // Cooldowns
       {
@@ -96,7 +117,17 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 9,
       },
       {
-        spell: TALENTS_DRUID.INCARNATION_GUARDIAN_OF_URSOC_TALENT.id,
+        spell: SPELLS.BERSERK_BEAR.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 180,
+        enabled: !combatant.hasTalent(TALENTS_DRUID.INCARNATION_GUARDIAN_OF_URSOC_TALENT),
+        timelineSortIndex: 9,
+      },
+      {
+        spell: SPELLS.INCARNATION_GUARDIAN_OF_URSOC.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: {
           base: 1500,

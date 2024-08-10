@@ -3,34 +3,37 @@ import {
   buff,
   MajorDefensiveBuff,
 } from 'interface/guide/components/MajorDefensives/MajorDefensiveAnalyzer';
+import SPELLS from 'common/SPELLS';
 import { Options } from 'parser/core/Module';
 import Events, { DamageEvent } from 'parser/core/Events';
+import { TALENTS_DRUID } from 'common/TALENTS';
 import { ReactNode } from 'react';
 import MajorDefensiveStatistic from 'interface/MajorDefensiveStatistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import { TALENTS_DRUID } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { RAGE_OF_THE_SLEEPER_MIT } from 'analysis/retail/druid/guardian/constants';
+import { barkskinMitigation } from 'analysis/retail/druid/guardian/constants';
 
-export default class RageOfTheSleeper extends MajorDefensiveBuff {
+/**
+ * **Barkskin**
+ * Spec Talent
+ *
+ * Your skin becomes as tough as bark, reducing all damage you take by 20% and
+ * preventing damage from delaying your spellcasts. Lasts 8 sec. Usable while stunned,
+ * frozen, incapacitated, feared, or asleep, and in all shapeshift forms.
+ */
+export default class Barkskin extends MajorDefensiveBuff {
   constructor(options: Options) {
-    super(
-      TALENTS_DRUID.RAGE_OF_THE_SLEEPER_TALENT,
-      buff(TALENTS_DRUID.RAGE_OF_THE_SLEEPER_TALENT),
-      options,
-    );
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.RAGE_OF_THE_SLEEPER_TALENT);
+    super(SPELLS.BARKSKIN, buff(SPELLS.BARKSKIN), options);
 
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.recordDamage);
   }
 
   private recordDamage(event: DamageEvent) {
-    // TODO also count the flat mitigation / reflect
     if (this.defensiveActive(event) && !event.sourceIsFriendly) {
       this.recordMitigation({
         event,
-        mitigatedAmount: absoluteMitigation(event, RAGE_OF_THE_SLEEPER_MIT),
+        mitigatedAmount: absoluteMitigation(event, barkskinMitigation(this.selectedCombatant)),
       });
     }
   }
@@ -40,13 +43,15 @@ export default class RageOfTheSleeper extends MajorDefensiveBuff {
       <>
         <p>
           <strong>
-            <SpellLink spell={TALENTS_DRUID.RAGE_OF_THE_SLEEPER_TALENT} />
+            <SpellLink spell={SPELLS.BARKSKIN} />
           </strong>{' '}
-          provides a moderate damage reduction in addition to Leech and an outgoing damage boost.
+          provides a modest damage reduction on a short cooldown. With{' '}
+          <SpellLink spell={TALENTS_DRUID.VERDANT_HEART_TALENT} />, it also increases all incoming
+          healing by 20%.
         </p>
         <p>
-          It's best when you will be both taking and dealing a large volume of damage, like during a
-          large pull in Dungeons or while picking up many adds in Raids.
+          With its brief cooldown and long duration, you can use it pretty freely. Cover time of
+          moderate danger, like on pull or before a routine tankbuster.
         </p>
       </>
     );
