@@ -1,11 +1,8 @@
 import { change, date } from 'common/changelog';
-//import SPELLS from 'common/SPELLS';
-//import TALENTS from 'common/TALENTS/shaman';
 import {
   Seriousnes,
   Ypp,
 } from 'CONTRIBUTORS';
-//import { SpellLink } from 'interface';
 
 // prettier-ignore
 export default [
