@@ -613,6 +613,12 @@ const spells = {
     name: 'Imminent Destruction',
     icon: 'spell_burningbladeshaman_blazing_radiance',
   },
+  // region Scalecommander
+  MASS_DISINTEGRATE_BUFF: {
+    id: 436336,
+    name: 'Mass Disintegrate',
+    icon: 'ability_evoker_disintegrate',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;
