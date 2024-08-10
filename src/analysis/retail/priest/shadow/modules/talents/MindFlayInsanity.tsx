@@ -21,7 +21,7 @@ import UptimeIcon from 'interface/icons/Uptime';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
 
-const BUFF_DURATION_MS = 15000;
+const BUFF_DURATION_MS = 30000;
 
 class MindFlayInsanity extends Analyzer {
   damage = 0;
@@ -91,11 +91,11 @@ class MindFlayInsanity extends Analyzer {
 
   onCastDP(event: CastEvent) {
     //DP cast occurs after the Buff is Applied but at the same timestamp
-    //If at 2 stacks and this DP isn't at the same time we reach 2 stacks, then it might be an overwritten proc
+    //If at 4 stacks and this DP isn't at the same time we reach 4 stacks, then it might be an overwritten proc
     //Since it is ever other DP that gives a stack of the buff, we check if this is the second time DP is cast while we have been at 2 stacks.
     //This is only necesary because this buff does not have a refresh event.
     const compare: number = event.timestamp - this.lastCastTime; //Somtimes the DP timestamp is slightly delayed.
-    if (this.currentStacks === 2 && compare >= 50) {
+    if (this.currentStacks === 4 && compare >= 50) {
       if (this.secondCast) {
         this.procsGained += 1;
         this.procsOver += 1;

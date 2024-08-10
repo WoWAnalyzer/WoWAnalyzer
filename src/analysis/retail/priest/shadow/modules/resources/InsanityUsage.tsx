@@ -47,7 +47,7 @@ class InsanityUsage extends Analyzer {
       url: 'insanity-usage',
       render: () => (
         <Panel>
-          <ResourceBreakdown tracker={this.insanityTracker} showSpenders />
+          <ResourceBreakdown tracker={this.insanityTracker} showSpenders={false} />
         </Panel>
       ),
     };
