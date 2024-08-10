@@ -57,7 +57,9 @@ class TouchOfTheMagi extends Analyzer {
     const removeDebuff: RemoveDebuffEvent | undefined = GetRelatedEvent(event, 'DebuffRemove');
     const damageEvents: DamageEvent[] = GetRelatedEvents(event, 'SpellDamage');
     const resourceChange: ResourceChangeEvent | undefined = GetRelatedEvent(event, 'Energize');
+    this.log(resourceChange);
     const wastedCharges = resourceChange && resourceChange.waste;
+    this.log(wastedCharges);
     let damage = 0;
     damageEvents.forEach((d) => (damage += d.amount + (d.absorb || 0)));
 
