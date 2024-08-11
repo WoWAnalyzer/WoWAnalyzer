@@ -106,6 +106,17 @@ import UsurpedFromBeyond from 'parser/retail/modules/items/dragonflight/UsurpedF
 import VoiceOfTheSilentStar from 'parser/retail/modules/items/dragonflight/VoiceOfTheSilentStar';
 import AmalgamsSeventhSpine from 'parser/retail/modules/items/dragonflight/AmalgamsSeventhSpine';
 import ElementalLariat from 'parser/retail/modules/items/dragonflight/ElementalLariat';
+import EchoingTyrstone from 'parser/retail/modules/items/dragonflight/EchoingTyrstone';
+import Fyralath from 'parser/retail/modules/items/dragonflight/Fyralath';
+import Dreambinder from 'parser/retail/modules/items/dragonflight/Dreambinder';
+import Iridal from 'parser/retail/modules/items/dragonflight/Iridal';
+import BelorrelosTheSuncaller from 'parser/retail/modules/items/dragonflight/BelorrelosTheSuncaller';
+import NymuesUnravelingSpindle from 'parser/retail/modules/items/dragonflight/NymuesUnravelingSpindle';
+import EnduringDreadplate, {
+  EnduringDreadplateEventLinkNormalizer,
+} from 'parser/retail/modules/items/dragonflight/EnduringDreadplate';
+import { FyralathNormalizer } from 'parser/shared/normalizers/FyralathNormalizer';
+import FriendlyCompatNormalizer from './FriendlyCompatNormalizer';
 import ForcedDowntime from 'parser/shared/normalizers/ForcedDowntime';
 
 // This prints to console anything that the DI has to do
