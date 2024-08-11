@@ -109,9 +109,9 @@ class Channeling extends EventsNormalizer {
     buffChannelSpec(CLASSIC_SPELLS.DRAIN_SOUL.id),
     buffChannelSpec(CLASSIC_SPELLS.DRAIN_LIFE.id),
     buffChannelSpec(CLASSIC_SPELLS.RAIN_OF_FIRE.id),
-    // Holy Priest
-    // Divine Hymn is handled by the Retail version currently
+    // Priest
     buffChannelSpec(CLASSIC_SPELLS.HYMN_OF_HOPE_BUFF.id),
+    buffChannelSpec(CLASSIC_SPELLS.MIND_SEAR.id),
     // Warrior
     buffChannelSpec(CLASSIC_SPELLS.BLADESTORM.id),
   ];

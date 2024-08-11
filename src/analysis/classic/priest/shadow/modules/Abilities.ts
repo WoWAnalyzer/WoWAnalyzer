@@ -8,6 +8,11 @@ class Abilities extends CoreAbilities {
       // SPELLS ADDED HERE ARE DISPLAYED ON THE STATISTICS TAB
       // Rotational
       {
+        spell: SPELLS.ARCHANGEL.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: null,
+      },
+      {
         spell: SPELLS.DEVOURING_PLAGUE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
@@ -19,6 +24,11 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.MIND_FLAY.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: SPELLS.MIND_SPIKE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
@@ -43,18 +53,17 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: { base: 1500 },
       },
-      // Cooldowns
       {
-        spell: [SPELLS.INNER_FOCUS.id],
-        category: SPELL_CATEGORY.COOLDOWNS,
+        spell: SPELLS.MIND_SEAR_TICK.id,
+        category: SPELL_CATEGORY.HIDDEN,
         gcd: null,
-        cooldown: 180,
       },
+      // Cooldowns
       {
         spell: [SPELLS.SHADOW_FIEND.id],
         category: SPELL_CATEGORY.COOLDOWNS,
-        gcd: null,
-        cooldown: 180,
+        gcd: { base: 1500 },
+        cooldown: 240, // Veiled Shadows (rank 2) reduces the cooldown by 60s
       },
       // Defensive
       {
