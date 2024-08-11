@@ -164,7 +164,7 @@ class MassDisintegrate extends Analyzer {
           <label>
             <SpellLink
               spell={
-                this.isDevastation ? TALENTS.MASS_DISINTEGRATE_TALENT : TALENTS.ERUPTION_TALENT
+                this.isDevastation ? TALENTS.MASS_DISINTEGRATE_TALENT : TALENTS.MASS_ERUPTION_TALENT
               }
             />
           </label>
