@@ -57,6 +57,7 @@ import {
   TwinGuardian,
   RenewingBlaze,
   ImminentDestruction,
+  MightOfTheBlackDragonflight,
 } from 'analysis/retail/evoker/shared';
 
 class CombatLogParser extends MainCombatLogParser {
@@ -116,6 +117,9 @@ class CombatLogParser extends MainCombatLogParser {
     blisteringScales: BlisteringScales,
     moltenEmbers: MoltenEmbers,
     rumblingEarth: RumblingEarth,
+
+    // hero talents
+    mightOfTheBlackDragonflight: MightOfTheBlackDragonflight,
 
     // Features
     buffTrackerGraph: BuffTrackerGraph,
