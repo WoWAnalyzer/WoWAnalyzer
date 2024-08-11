@@ -113,6 +113,10 @@ const spells: number[] = [
   CLASSIC_SPELLS.LOCK_AND_LOAD.id,
   //endregion
 
+  //region classic priest
+  CLASSIC_SPELLS.MIND_SEAR_TICK.id,
+  //endregion
+
   //region classic warrior
   CLASSIC_SPELLS.BLADESTORM_TRIGGERED_SPELL.id,
   //endregion

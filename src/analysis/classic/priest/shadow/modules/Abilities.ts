@@ -53,11 +53,6 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: { base: 1500 },
       },
-      {
-        spell: SPELLS.MIND_SEAR_TICK.id,
-        category: SPELL_CATEGORY.HIDDEN,
-        gcd: null,
-      },
       // Cooldowns
       {
         spell: [SPELLS.SHADOW_FIEND.id],
