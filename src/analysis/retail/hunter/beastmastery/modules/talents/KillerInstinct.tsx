@@ -17,7 +17,7 @@ import { KILLER_INSTINCT_MULTIPLIER, KILLER_INSTINCT_THRESHOLD } from '../../con
  * https://www.warcraftlogs.com/reports/DFZVfmhkj9bYa6rn#fight=1&type=damage-done
  */
 class KillerInstinct extends ExecuteHelper {
-  static executeSpells = [TALENTS.KILL_COMMAND_SHARED_TALENT];
+  static executeSpells = [TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT];
   static executeSources = SELECTED_PLAYER_PET | SELECTED_PLAYER;
   static lowerThreshold = KILLER_INSTINCT_THRESHOLD;
   static modifiesDamage = true;
