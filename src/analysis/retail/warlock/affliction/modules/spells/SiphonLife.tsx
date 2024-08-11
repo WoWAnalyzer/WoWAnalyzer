@@ -31,13 +31,7 @@ class SiphonLife extends Analyzer {
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
-        tooltip={
-          <>
-            {formatThousands(this.bonusDmg)} bonus damage
-            <br />
-            <br />
-          </>
-        }
+        tooltip={<>{formatThousands(this.bonusDmg)} bonus damage</>}
       >
         <BoringSpellValueText spell={TALENTS.SIPHON_LIFE_TALENT}>
           <ItemDamageDone amount={this.bonusDmg} />
