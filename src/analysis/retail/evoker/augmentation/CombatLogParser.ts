@@ -57,6 +57,7 @@ import {
   TwinGuardian,
   RenewingBlaze,
   ImminentDestruction,
+  MeltArmor,
 } from 'analysis/retail/evoker/shared';
 
 class CombatLogParser extends MainCombatLogParser {
@@ -116,6 +117,8 @@ class CombatLogParser extends MainCombatLogParser {
     blisteringScales: BlisteringScales,
     moltenEmbers: MoltenEmbers,
     rumblingEarth: RumblingEarth,
+
+    meltArmor: MeltArmor,
 
     // Features
     buffTrackerGraph: BuffTrackerGraph,
