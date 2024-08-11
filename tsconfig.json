@@ -42,7 +42,6 @@
     "src/analysis/retail/deathknight/frost",
     "src/analysis/retail/deathknight/unholy",
     "src/analysis/retail/monk/windwalker",
-    "src/analysis/retail/paladin/holy",
     "src/analysis/retail/priest/discipline",
     "src/analysis/retail/priest/holy",
     "src/analysis/retail/rogue/assassination",
@@ -66,7 +65,6 @@
   "files": [
     "./src/analysis/retail/deathknight/unholy/CONFIG.tsx",
     "./src/analysis/retail/mage/frost/CONFIG.tsx",
-    "./src/analysis/retail/paladin/holy/CONFIG.tsx",
     "./src/analysis/retail/priest/discipline/CONFIG.tsx",
     "./src/analysis/retail/priest/holy/CONFIG.tsx",
     "./src/analysis/retail/rogue/assassination/CONFIG.tsx",
