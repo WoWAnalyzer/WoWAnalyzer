@@ -2075,8 +2075,13 @@ export const Squided: Contributor = {
   mains: [
     {
       name: 'Squided',
-      spec: SPECS.HOLY_PRIEST,
+      spec: SPECS.HOLY_PALADIN,
       link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Squided',
+    },
+    {
+      name: 'Squidkid',
+      spec: SPECS.HOLY_PRIEST,
+      link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Squidkid',
     },
   ],
 };
