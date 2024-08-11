@@ -9,7 +9,10 @@ import {
 } from 'analysis/retail/evoker/devastation/modules/normalizers/CastLinkNormalizer';
 import Enemies from 'parser/shared/modules/Enemies';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
-import { MASS_DISINTEGRATE_MULTIPLIER_PER_MISSING_TARGET } from 'analysis/retail/evoker/shared/constants';
+import {
+  MASS_DISINTEGRATE_MULTIPLIER_PER_MISSING_TARGET,
+  MASS_ERUPTION_MULTIPLIER_PER_MISSING_TARGET,
+} from 'analysis/retail/evoker/shared/constants';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -17,6 +20,11 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import SpellLink from 'interface/SpellLink';
 import { formatNumber } from 'common/format';
 import { InformationIcon, WarningIcon } from 'interface/icons';
+import {
+  getEruptionDamageEvents,
+  getMassEruptionDamageEvents,
+  isFromMassEruption,
+} from 'analysis/retail/evoker/augmentation/modules/normalizers/CastLinkNormalizer';
 
 const MAX_TARGETS = 3;
 const BUFF_EVENTS = [Events.applybuff, Events.applybuffstack];
@@ -36,18 +44,27 @@ class MassDisintegrate extends Analyzer {
   targetCount = 0;
   damageFromAmp = 0;
   damageFromExtraTargets = 0;
+  isDevastation = false;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(
-      TALENTS.MASS_DISINTEGRATE_TALENT || TALENTS.MASS_ERUPTION_TALENT,
-    );
+    this.active =
+      this.selectedCombatant.hasTalent(TALENTS.MASS_DISINTEGRATE_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS.ERUPTION_TALENT);
+    this.isDevastation = this.selectedCombatant.hasTalent(TALENTS.MASS_DISINTEGRATE_TALENT);
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DISINTEGRATE), this.onCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DISINTEGRATE),
+      this.onDisintegrateCast,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.ERUPTION_TALENT),
+      this.onEruptionCast,
+    );
 
     BUFF_EVENTS.forEach((event) =>
       this.addEventListener(
-        event.by(SELECTED_PLAYER).spell(SPELLS.MASS_DISINTEGRATE_BUFF),
+        event.by(SELECTED_PLAYER).spell([SPELLS.MASS_DISINTEGRATE_BUFF, SPELLS.MASS_ERUPTION_BUFF]),
         this.onBuff,
       ),
     );
@@ -57,7 +74,46 @@ class MassDisintegrate extends Analyzer {
     this.buffCount += 1;
   }
 
-  onCast(event: CastEvent) {
+  onEruptionCast(event: CastEvent) {
+    if (!isFromMassEruption(event)) {
+      return;
+    }
+    this.castCount += 1;
+
+    const eruptionDamageEvents = getEruptionDamageEvents(event);
+    const massEruptionDamageEvents = getMassEruptionDamageEvents(event);
+
+    const targetCount = Math.min(MAX_TARGETS, eruptionDamageEvents.length);
+    this.targetCount += targetCount;
+
+    if (targetCount < MAX_TARGETS) {
+      eruptionDamageEvents.forEach((damageEvent) => {
+        this.damageFromAmp += calculateEffectiveDamage(
+          damageEvent,
+          MASS_ERUPTION_MULTIPLIER_PER_MISSING_TARGET * (MAX_TARGETS - targetCount),
+        );
+      });
+
+      massEruptionDamageEvents.forEach((damageEvent) => {
+        const extraAmpDamage = calculateEffectiveDamage(
+          damageEvent,
+          MASS_ERUPTION_MULTIPLIER_PER_MISSING_TARGET * (MAX_TARGETS - targetCount),
+        );
+
+        this.damageFromAmp += extraAmpDamage;
+        this.damageFromExtraTargets +=
+          damageEvent.amount + (damageEvent.absorbed || 0) - extraAmpDamage;
+      });
+
+      return;
+    }
+
+    this.damageFromExtraTargets += massEruptionDamageEvents.reduce((total, damageEvent) => {
+      return total + damageEvent.amount + (damageEvent.absorbed || 0);
+    }, 0);
+  }
+
+  onDisintegrateCast(event: CastEvent) {
     if (!isFromMassDisintegrate(event)) {
       return;
     }
@@ -84,7 +140,6 @@ class MassDisintegrate extends Analyzer {
   }
 
   get averageTargets() {
-    console.log(this.targetCount, this.castCount);
     return this.targetCount / this.castCount;
   }
 
@@ -107,7 +162,11 @@ class MassDisintegrate extends Analyzer {
       >
         <div className="pad">
           <label>
-            <SpellLink spell={TALENTS.MASS_DISINTEGRATE_TALENT} />
+            <SpellLink
+              spell={
+                this.isDevastation ? TALENTS.MASS_DISINTEGRATE_TALENT : TALENTS.ERUPTION_TALENT
+              }
+            />
           </label>
 
           <strong>Damage from amp:</strong>
@@ -127,9 +186,14 @@ class MassDisintegrate extends Analyzer {
 
           {this.wastedBuffs > 0 && (
             <div className="value">
-              <WarningIcon /> {this.wastedBuffs}
+              <WarningIcon /> {this.wastedBuffs}{' '}
               <small>
-                <SpellLink spell={SPELLS.MASS_DISINTEGRATE_BUFF} /> wasted
+                <SpellLink
+                  spell={
+                    this.isDevastation ? SPELLS.MASS_DISINTEGRATE_BUFF : SPELLS.MASS_ERUPTION_BUFF
+                  }
+                />{' '}
+                wasted
               </small>
             </div>
           )}
