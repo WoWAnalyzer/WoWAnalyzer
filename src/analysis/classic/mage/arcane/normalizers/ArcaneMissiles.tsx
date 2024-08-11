@@ -31,7 +31,6 @@ function isArcaneMissilesEvent(event: AnyEvent) {
 }
 
 function createBeginChannelEvent(event: CastEvent): ArcaneMissilesBeginChannelEvent {
-  event.ability.guid = SPELLS.ARCANE_MISSILES_CHANNELED.id;
   const beginChannel: ArcaneMissilesBeginChannelEvent = {
     ...event,
     type: EventType.BeginChannel,
@@ -101,6 +100,15 @@ class ArcaneMissilesNormalizer extends EventsNormalizer {
         ) {
           const endChannelEvent = createEndChannelEvent(event, this.beginChannelEvent);
           fixedEvents.push(endChannelEvent);
+        }
+
+        // to fix an interaction with the GCD analyzer, we are going to omit all cast events except the first.
+        if (
+          event.type === EventType.Cast &&
+          this.beginChannelEvent &&
+          this.beginChannelEvent.arcaneMissilesCastEvents[0] !== event
+        ) {
+          return;
         }
       }
       if (event.type === EventType.Damage && isArcaneMissilesEvent(event)) {

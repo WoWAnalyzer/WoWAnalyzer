@@ -35,6 +35,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 8, 9), <>Fix the haste bonus of <SpellLink spell={SPELLS.BERSERKING.id} /> in Classic Cataclysm.</>, emallson),
   change(date(2024, 8, 7), 'Prepare for cleanup of Dragonflight items.', ToppleTheNun),
   change(date(2024, 8, 6), 'Update Priest spells for Classic Cataclysm', jazminite),
   change(date(2024, 8, 3), 'Update Engineering items for Classic Cataclysm', jazminite),

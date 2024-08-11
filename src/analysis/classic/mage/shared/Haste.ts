@@ -1,9 +1,8 @@
-import CoreHaste, { DEFAULT_HASTE_BUFFS } from 'parser/shared/modules/Haste';
+import CoreHaste from 'parser/shared/modules/Haste';
 import SPELLS from 'common/SPELLS/classic/mage';
 
 class Haste extends CoreHaste {
-  hasteBuffs = {
-    ...DEFAULT_HASTE_BUFFS,
+  override hasteBuffOverrides = {
     [SPELLS.ICY_VEINS.id]: 0.2,
     [SPELLS.PYROMANIAC.id]: 0.05,
   };

@@ -112,7 +112,7 @@ class PsychicLink extends Analyzer {
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
-        tooltip="Contrubution by each spell"
+        tooltip="Contribution by each spell"
       >
         <BoringSpellValueText spell={TALENTS.PSYCHIC_LINK_TALENT}>
           <ItemDamageDone amount={this.damageTotal} />

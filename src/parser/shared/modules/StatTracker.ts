@@ -141,6 +141,10 @@ class StatTracker extends Analyzer {
     [CLASSIC_SPELLS.HYPERSPEED_ACCELERATION.id]: { haste: 340 },
     [CLASSIC_SPELLS.POTION_OF_SPEED.id]: { haste: 500 },
     // endregion
+
+    // region Classic Cata
+    [CLASSIC_SPELLS.SHARD_OF_WOE_CELERITY.id]: { haste: 1935 },
+    // endregion
   };
 
   protected isClassic = false;

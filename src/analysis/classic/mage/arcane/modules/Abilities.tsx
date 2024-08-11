@@ -7,14 +7,9 @@ class Abilities extends CoreAbilities {
     return [
       // Rotational
       {
-        spell: [SPELLS.ARCANE_MISSILES_CHANNELED.id],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { base: 1500 },
-      },
-      {
         spell: [SPELLS.ARCANE_MISSILES.id],
         category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: null,
+        gcd: { base: 1500 },
       },
       {
         spell: [SPELLS.ARCANE_BLAST.id],
@@ -36,7 +31,7 @@ class Abilities extends CoreAbilities {
       {
         spell: [SPELLS.ARCANE_EXPLOSION.id],
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        gcd: { base: 1500 },
+        gcd: { base: 1000 },
       },
       // Cooldowns
       {
