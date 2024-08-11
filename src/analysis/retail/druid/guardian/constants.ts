@@ -31,6 +31,12 @@ export function cdSpell(c: Combatant): Spell {
     : SPELLS.BERSERK_BEAR;
 }
 
+export function cdDuration(c: Combatant): number {
+  return c.hasTalent(TALENTS_DRUID.INCARNATION_GUARDIAN_OF_URSOC_TALENT)
+    ? 30_000 // TODO TWW 11.0.2 - to 20_000
+    : 15_000;
+}
+
 /** True iff combatant has Berserk (or Incarn if talented) active */
 export function inBerserk(c: Combatant): boolean {
   return c.hasBuff(cdSpell(c).id);

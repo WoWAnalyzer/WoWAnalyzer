@@ -14,6 +14,13 @@ import { SpellLink } from 'interface';
 import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { PULVERIZE_MIT } from 'analysis/retail/druid/guardian/constants';
 
+/**
+ * **Pulverize**
+ * Spec Talent
+ *
+ * A devastating blow that consumes 2 stacks of your Thrash on the target
+ * to deal X Physical damage and reduce the damage they deal to you by 35% for 8 sec.
+ */
 export default class Pulverize extends MajorDefensiveDebuff {
   constructor(options: Options) {
     super(TALENTS_DRUID.PULVERIZE_TALENT, debuff(TALENTS_DRUID.PULVERIZE_TALENT), options);

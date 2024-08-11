@@ -123,6 +123,9 @@ class EarthShield extends Analyzer {
     const hasEarthenHarmony = this.selectedCombatant.hasTalent(
       TALENTS_SHAMAN.EARTHEN_HARMONY_TALENT,
     );
+    const hasReactiveWarding = this.selectedCombatant.hasTalent(
+      TALENTS_SHAMAN.REACTIVE_WARDING_TALENT,
+    );
 
     const explanation = (
       <>
@@ -140,7 +143,8 @@ class EarthShield extends Analyzer {
               <SpellLink spell={TALENTS_SHAMAN.ELEMENTAL_ORBIT_TALENT} />
             </b>{' '}
             allows you to place <SpellLink spell={TALENTS_SHAMAN.EARTH_SHIELD_TALENT} /> on yourself
-            as well as an ally, and you should aim to maintain high uptime on both
+            as well as an ally, and you should aim to maintain high uptime on both.
+            <br />
             <br />
           </>
         )}
@@ -150,13 +154,18 @@ class EarthShield extends Analyzer {
               <SpellLink spell={TALENTS_SHAMAN.EARTHEN_HARMONY_TALENT} />
             </b>{' '}
             augments <SpellLink spell={TALENTS_SHAMAN.EARTH_SHIELD_TALENT} /> even further by
-            providing damage reduction
-            <br />(
+            providing damage reduction (
+            <b>{formatNumber(this.earthenHarmony.totalDamageReduction)} mitigated</b>){' '}
+          </>
+        )}
+        {hasReactiveWarding && hasEarthenHarmony && <>while </>}
+        {hasReactiveWarding && (
+          <>
             <b>
-              {formatNumber(this.earthenHarmony.totalDamageReduction)} was mitigated from{' '}
-              <SpellLink spell={TALENTS_SHAMAN.EARTHEN_HARMONY_TALENT} />
-            </b>
-            )
+              <SpellLink spell={TALENTS_SHAMAN.REACTIVE_WARDING_TALENT} />
+            </b>{' '}
+            is most efficient when you refresh your shields with as few stacks left as possible
+            <br />
           </>
         )}
       </>

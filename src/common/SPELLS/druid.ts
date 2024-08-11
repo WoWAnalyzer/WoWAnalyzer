@@ -543,6 +543,18 @@ const spells = {
     name: 'Ironfur',
     icon: 'ability_druid_ironfur',
   },
+  // The proc buff on the player
+  TOOTH_AND_CLAW_BUFF: {
+    id: 135286,
+    name: 'Tooth and Claw',
+    icon: 'inv_misc_monsterfang_01',
+  },
+  // The damage done debuff on the target
+  TOOTH_AND_CLAW_DEBUFF: {
+    id: 135601,
+    name: 'Tooth and Claw',
+    icon: 'inv_misc_monsterfang_01',
+  },
   // when casting stampeding outside of cat or bear form, and puts caster into bear form
   STAMPEDING_ROAR_HUMANOID: {
     id: 106898,
