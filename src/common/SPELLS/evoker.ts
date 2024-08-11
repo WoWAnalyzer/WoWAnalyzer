@@ -478,7 +478,7 @@ const spells = {
     name: 'Breath of Eons',
     icon: 'ability_evoker_breathofeons',
   },
-  MELT_ARMOR_DAMAGE: {
+  MELT_ARMOR: {
     id: 441172,
     name: 'Melt Armor',
     icon: 'inv_10_gearupgrade_drakesshadowflameenhancedcrest',
