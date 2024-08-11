@@ -93,9 +93,13 @@ class HotTrackerRestoDruid extends HotTracker {
       TALENTS_DRUID.IMPROVED_REJUVENATION_TALENT,
     );
     const hasGermination = this.selectedCombatant.hasTalent(TALENTS_DRUID.GERMINATION_TALENT);
+    const thrivingVegetationRank = this.selectedCombatant.getTalentRank(
+      TALENTS_DRUID.THRIVING_VEGETATION_TALENT,
+    );
 
     const globalMult = hasLiveliness ? LIVELINESS_MULT : 1;
     const rejuvDuration = 12000 + (hasImpRejuv ? 3000 : 0) + (hasGermination ? 2000 : 0);
+    const regrowthDuration = 12000 + thrivingVegetationRank * 3000;
 
     return [
       {
@@ -110,7 +114,7 @@ class HotTrackerRestoDruid extends HotTracker {
       },
       {
         spell: SPELLS.REGROWTH,
-        duration: 12000 * globalMult,
+        duration: regrowthDuration * globalMult,
         tickPeriod: 2000,
       },
       {
@@ -165,6 +169,8 @@ class HotTrackerRestoDruid extends HotTracker {
         duration: 9000 * globalMult,
         tickPeriod: 3000,
       },
+      // Wildstalker's Symbiotic Bloom appears to largely not interact with extensions
+      // and other similar mechanics, so is inteniontally left out of this list.
     ];
   }
 }

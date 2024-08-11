@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro';
 import { COMBUSTION_DURATION, SKB_COMBUST_DURATION } from 'analysis/retail/mage/shared';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -106,9 +105,9 @@ class SunKingsBlessing extends Analyzer {
     return {
       actual: this.percentSunKingBuffExpired,
       isGreaterThan: {
-        minor: 0.1,
-        average: 0.2,
-        major: 0.3,
+        minor: 0,
+        average: 0.1,
+        major: 0.2,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
@@ -149,11 +148,7 @@ class SunKingsBlessing extends Analyzer {
         </>,
       )
         .icon(TALENTS.SUN_KINGS_BLESSING_TALENT.icon)
-        .actual(
-          <Trans id="mage.fire.suggestions.sunKingsBlessing.combustionDuringCombustion">
-            {formatNumber(actual)} bad uses
-          </Trans>,
-        )
+        .actual(`${formatNumber(actual)} bad uses`)
         .recommended(`${formatNumber(recommended)} is recommended`),
     );
     when(this.sunKingExpireThresholds).addSuggestion((suggest, actual, recommended) =>
@@ -168,11 +163,7 @@ class SunKingsBlessing extends Analyzer {
         </>,
       )
         .icon(TALENTS.SUN_KINGS_BLESSING_TALENT.icon)
-        .actual(
-          <Trans id="mage.fire.suggestions.sunKingsBlessing.expiredProcs">
-            {formatPercentage(actual)}% expired procs
-          </Trans>,
-        )
+        .actual(`${formatPercentage(actual)}% expired procs`)
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );
     when(this.hotStreaksWithSKBThresholds).addSuggestion((suggest, actual, recommended) =>
@@ -189,11 +180,7 @@ class SunKingsBlessing extends Analyzer {
         </>,
       )
         .icon(TALENTS.SUN_KINGS_BLESSING_TALENT.icon)
-        .actual(
-          <Trans id="mage.fire.suggestions.sunKingsBlessing.hotStreaksWithSKB">
-            {formatNumber(actual)}wasted Hot Streaks
-          </Trans>,
-        )
+        .actual(`${formatNumber(actual)}wasted Hot Streaks`)
         .recommended(`<${formatNumber(recommended)} is recommended`),
     );
   }

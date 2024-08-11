@@ -8,10 +8,11 @@ import Toggle from 'react-toggle';
 
 import HealingEfficiencyTracker, { SpellInfoDetails } from './HealingEfficiencyTracker';
 
-export interface Props<T extends HealingEfficiencyTracker = HealingEfficiencyTracker> {
+interface Props<T extends HealingEfficiencyTracker = HealingEfficiencyTracker> {
   tracker: T;
+  disableDamageToggle?: boolean;
 }
-export interface State {
+interface State {
   showHealing: boolean;
   detailedView: boolean;
   showCooldowns: boolean;
@@ -346,20 +347,22 @@ class HealingEfficiencyBreakdown extends Component<Props, State> {
                 <Trans id="shared.healingEfficiency.toggle.cooldowns">Show Cooldowns</Trans>
               </label>
             </div>
-            <div className="toggle-control pull-left" style={{ marginLeft: '.5em' }}>
-              <label htmlFor="healing-toggle" style={{ marginLeft: '0.5em', marginRight: '1em' }}>
-                <Trans id="shared.healingEfficiency.toggle.damage">Show Damage</Trans>
-              </label>
-              <Toggle
-                defaultChecked
-                icons={false}
-                onChange={(event) => this.setState({ showHealing: event.target.checked })}
-                id="healing-toggle"
-              />
-              <label htmlFor="healing-toggle" style={{ marginLeft: '0.5em' }}>
-                <Trans id="shared.healingEfficiency.toggle.healing">Show Healing</Trans>
-              </label>
-            </div>
+            {!this.props.disableDamageToggle && (
+              <div className="toggle-control pull-left" style={{ marginLeft: '.5em' }}>
+                <label htmlFor="healing-toggle" style={{ marginLeft: '0.5em', marginRight: '1em' }}>
+                  <Trans id="shared.healingEfficiency.toggle.damage">Show Damage</Trans>
+                </label>
+                <Toggle
+                  defaultChecked
+                  icons={false}
+                  onChange={(event) => this.setState({ showHealing: event.target.checked })}
+                  id="healing-toggle"
+                />
+                <label htmlFor="healing-toggle" style={{ marginLeft: '0.5em' }}>
+                  <Trans id="shared.healingEfficiency.toggle.healing">Show Healing</Trans>
+                </label>
+              </div>
+            )}
           </div>
         </div>
         <table className="data-table">

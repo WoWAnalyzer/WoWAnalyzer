@@ -30,6 +30,7 @@ import Combatant from 'parser/core/Combatant';
 import Combatants from 'parser/shared/modules/Combatants';
 import { SpellTracker } from 'analysis/retail/evoker/shared/modules/components/ExplanationGraph';
 import BreathOfEonsHelper from './BreathOfEonsHelper';
+import { BREATH_OF_EONS_SPELLS } from '../../constants';
 
 export type BreathOfEonsWindows = {
   flightData: SpellTracker[];
@@ -38,7 +39,7 @@ export type BreathOfEonsWindows = {
   end: number;
 };
 
-export type BreathWindowPerformance = {
+type BreathWindowPerformance = {
   temporalWoundsCounter: SpellTracker[];
   ebonMightDroppedDuringBreath: boolean;
   ebonMightDroppedDuration: number;
@@ -49,14 +50,14 @@ export type BreathWindowPerformance = {
   potionUsed: number;
   fireBreaths: number;
   possibleFireBreaths: number;
-  upheavels: number;
-  possibleUpheavels: number;
+  upheavals: number;
+  possibleUpheavals: number;
   timeskipTalented: boolean;
   possibleTimeSkips: number;
   timeSkips: number;
   damageProblemPoints: SpellTracker[];
   earlyDeaths: number;
-  succesfulHits: number;
+  successfulHits: number;
   potentialLostDamage: number;
   damage: number;
   buffedPlayers: Map<string, Combatant>;
@@ -67,7 +68,7 @@ export type BreathWindowPerformance = {
  * Breath of Eons is Augmentations major cooldown, it works as a damage amp for your allies
  * with Ebon Might up. Therefore it is important to play around this window correctly.
  *
- * Currently in this module we will be analysing the buff mangement aspect of the cooldown usages,
+ * Currently in this module we will be analyzing the buff management aspect of the cooldown usages,
  * along with cast performance (Empowers/Timeskip/Potion/Trinket).
  *
  * Essentially keeping track of Ebon Might, Shifting Sands and Temporal Wounds debuffs.
@@ -76,7 +77,7 @@ export type BreathWindowPerformance = {
  * are marked on the graph as red circles.
  *
  * Ideally in the future we would like to introduce outside information gathered from fetchWCL.
- * Some of these things would be either tracking spell usages of your buffed/non buffed teamates,
+ * Some of these things would be either tracking spell usages of your buffed/non buffed teammates,
  * to figure out if a window should have been shifted.
  * Even better solution would be to track raid DPS and compare to see if your should have shifted
  * and/or buffed other players for a stronger burst window.
@@ -84,7 +85,7 @@ export type BreathWindowPerformance = {
  *
  */
 
-export const GRAPHBUFFER = 3000;
+const GRAPH_BUFFER = 3000;
 
 class BreathOfEonsRotational extends Analyzer {
   static dependencies = {
@@ -113,12 +114,12 @@ class BreathOfEonsRotational extends Analyzer {
     ? SPELLS.FIRE_BREATH_FONT
     : SPELLS.FIRE_BREATH;
 
-  upheavel = this.selectedCombatant.hasTalent(TALENTS.FONT_OF_MAGIC_AUGMENTATION_TALENT)
+  upheaval = this.selectedCombatant.hasTalent(TALENTS.FONT_OF_MAGIC_AUGMENTATION_TALENT)
     ? SPELLS.UPHEAVAL_FONT
     : SPELLS.UPHEAVAL;
 
   trackedSpells = [TALENTS.TIME_SKIP_TALENT];
-  empowers = [this.fireBreath, this.upheavel];
+  empowers = [this.fireBreath, this.upheaval];
 
   trinketItems = [
     trinkets.IRIDEUS_FRAGMENT,
@@ -140,10 +141,10 @@ class BreathOfEonsRotational extends Analyzer {
   foundTrinket = this.selectedCombatant.hasTrinket(trinkets.IRIDEUS_FRAGMENT.id)
     ? spells.IRIDEUS_FRAGMENT.id
     : this.selectedCombatant.hasTrinket(trinkets.SPOILS_OF_NELTHARUS.id)
-    ? spells.SPOILS_OF_NELTHARUS_CRIT.id
-    : this.selectedCombatant.hasTrinket(trinkets.MIRROR_OF_FRACTURED_TOMORROWS.id)
-    ? spells.MIRROR_OF_FRACTURED_TOMORROWS.id
-    : undefined;
+      ? spells.SPOILS_OF_NELTHARUS_CRIT.id
+      : this.selectedCombatant.hasTrinket(trinkets.MIRROR_OF_FRACTURED_TOMORROWS.id)
+        ? spells.MIRROR_OF_FRACTURED_TOMORROWS.id
+        : undefined;
 
   constructor(options: Options) {
     super(options);
@@ -189,12 +190,9 @@ class BreathOfEonsRotational extends Analyzer {
       },
     );
     /** CAST EVENTS */
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.BREATH_OF_EONS_TALENT),
-      (event) => {
-        this.onBreathCast(event);
-      },
-    );
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(BREATH_OF_EONS_SPELLS), (event) => {
+      this.onBreathCast(event);
+    });
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.trackedSpells), (event) => {
       this.onCast(event);
     });
@@ -306,8 +304,8 @@ class BreathOfEonsRotational extends Analyzer {
         potionUsed: potionUsed,
         fireBreaths: 0,
         possibleFireBreaths: this.spellUsable.isAvailable(this.fireBreath.id) ? 1 : 0,
-        upheavels: 0,
-        possibleUpheavels: this.spellUsable.isAvailable(this.upheavel.id) ? 1 : 0,
+        upheavals: 0,
+        possibleUpheavals: this.spellUsable.isAvailable(this.upheaval.id) ? 1 : 0,
         timeskipTalented:
           this.selectedCombatant.hasTalent(TALENTS.TIME_SKIP_TALENT) &&
           !this.selectedCombatant.hasTalent(TALENTS.INTERWOVEN_THREADS_TALENT),
@@ -316,7 +314,7 @@ class BreathOfEonsRotational extends Analyzer {
         damageProblemPoints: [],
         ebonMightProblems: [],
         earlyDeaths: 0,
-        succesfulHits: 0,
+        successfulHits: 0,
         potentialLostDamage: 0,
         damage: 0,
         buffedPlayers: currentBuffedTargets,
@@ -336,8 +334,8 @@ class BreathOfEonsRotational extends Analyzer {
     const perfWindow = this.currentPerformanceBreathWindow;
     if (event.ability.guid === this.fireBreath.id) {
       perfWindow.fireBreaths += 1;
-    } else if (event.ability.guid === this.upheavel.id) {
-      perfWindow.upheavels += 1;
+    } else if (event.ability.guid === this.upheaval.id) {
+      perfWindow.upheavals += 1;
     } else if (event.ability.guid === TALENTS.TIME_SKIP_TALENT.id) {
       perfWindow.timeSkips += 1;
     } else if (event.ability.guid === this.foundTrinket) {
@@ -356,8 +354,8 @@ class BreathOfEonsRotational extends Analyzer {
       const perfWindow = this.currentPerformanceBreathWindow;
       if (event.ability.guid === this.fireBreath.id) {
         perfWindow.possibleFireBreaths += 1;
-      } else if (event.ability.guid === this.upheavel.id) {
-        perfWindow.possibleUpheavels += 1;
+      } else if (event.ability.guid === this.upheaval.id) {
+        perfWindow.possibleUpheavals += 1;
       } else if (event.ability.guid === this.foundTrinket) {
         perfWindow.possibleTrinkets += 1;
       }
@@ -486,12 +484,12 @@ class BreathOfEonsRotational extends Analyzer {
       damageEvents.forEach((damageEvent) => {
         perfWindow.damage += damageEvent.amount + (damageEvent.absorbed ?? 0);
       });
-      perfWindow.succesfulHits += 1;
+      perfWindow.successfulHits += 1;
     }
 
     if (
       this.activeDebuffs === 0 &&
-      !this.selectedCombatant.hasBuff(TALENTS.BREATH_OF_EONS_TALENT.id)
+      !BREATH_OF_EONS_SPELLS.some((spell) => this.selectedCombatant.hasBuff(spell.id))
     ) {
       this.breathWindowActive = false;
 
@@ -507,8 +505,8 @@ class BreathOfEonsRotational extends Analyzer {
       breathWindow.end = event.timestamp;
 
       const endTimestamp =
-        event.timestamp + GRAPHBUFFER < this.owner.fight.end_time
-          ? event.timestamp + GRAPHBUFFER
+        event.timestamp + GRAPH_BUFFER < this.owner.fight.end_time
+          ? event.timestamp + GRAPH_BUFFER
           : this.owner.fight.end_time;
       perfWindow.temporalWoundsCounter.push({
         timestamp: endTimestamp,
@@ -517,10 +515,10 @@ class BreathOfEonsRotational extends Analyzer {
 
       // Calculate potential damage loss
       // We add a multiplier to account for prio target damage
-      const PRIO_MULTIPLER = 0.8;
-      const potentialDamagePerTarget = perfWindow.damage / perfWindow.succesfulHits;
+      const PRIO_MULTIPLIER = 0.8;
+      const potentialDamagePerTarget = perfWindow.damage / perfWindow.successfulHits;
       perfWindow.potentialLostDamage =
-        potentialDamagePerTarget * perfWindow.earlyDeaths * PRIO_MULTIPLER;
+        potentialDamagePerTarget * perfWindow.earlyDeaths * PRIO_MULTIPLIER;
     }
 
     /** In 10.2 blizzard introduced *sparkles* delayed EM buffs *sparkles*
@@ -549,9 +547,9 @@ class BreathOfEonsRotational extends Analyzer {
       // Incase something weird happened make sure we don't make a super long window
       // Length doesnt really matter too much if you dead so we just
       // Cap it at 14s.
-      const windowSudoMaxLenght = 1400;
-      if (breathWindow.end - breathWindow.start > windowSudoMaxLenght) {
-        breathWindow.end = breathWindow.start + windowSudoMaxLenght;
+      const windowSudoMaxLength = 1400;
+      if (breathWindow.end - breathWindow.start > windowSudoMaxLength) {
+        breathWindow.end = breathWindow.start + windowSudoMaxLength;
       }
       this.ebonMightCount.push({
         timestamp: this.owner.fight.end_time,

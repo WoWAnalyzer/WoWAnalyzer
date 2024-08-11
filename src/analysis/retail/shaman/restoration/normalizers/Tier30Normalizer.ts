@@ -36,7 +36,7 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: 255,
     anyTarget: true,
     isActive(c) {
-      return c.has4PieceByTier(TIERS.T30);
+      return c.has4PieceByTier(TIERS.DF2);
     },
   },
   {
@@ -50,7 +50,7 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
     isActive(c) {
-      return c.has4PieceByTier(TIERS.T30);
+      return c.has4PieceByTier(TIERS.DF2);
     },
     additionalCondition(linkingEvent, referencedEvent) {
       return (
@@ -70,7 +70,7 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
     isActive(c) {
-      return c.has2PieceByTier(TIERS.T30);
+      return c.has2PieceByTier(TIERS.DF2);
     },
   },
 ];

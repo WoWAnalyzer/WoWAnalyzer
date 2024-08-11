@@ -1,3 +1,4 @@
+import type { Raid } from 'game/raids';
 import Kazzara from 'game/raids/aberrus/Kazzara';
 import AmalgamationChamber from 'game/raids/aberrus/AmalgamationChamber';
 import ForgottenExperiments from 'game/raids/aberrus/ForgottenExperiments';
@@ -24,4 +25,4 @@ export default {
     EchoOfNeltharion,
     Sarkareth,
   },
-};
+} satisfies Raid;

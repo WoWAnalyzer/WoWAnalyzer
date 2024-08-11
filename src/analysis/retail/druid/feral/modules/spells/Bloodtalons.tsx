@@ -16,6 +16,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import {
   BLOODTALONS_DAMAGE_BONUS,
   cdSpell,
+  FB_SPELLS,
   FINISHERS,
   LIONS_STRENGTH_DAMAGE_BONUS,
 } from 'analysis/retail/druid/feral/constants';
@@ -111,6 +112,9 @@ class Bloodtalons extends Analyzer {
   /** Set of target IDs whose last rip application had BT */
   targetsWithBtRip: Set<string> = new Set<string>();
 
+  /** Timestamp of last ravage damage, to avoid double counting the cleave hits */
+  lastRavageHitTimestamp: number | undefined = undefined;
+
   constructor(options: Options) {
     super(options);
 
@@ -123,16 +127,16 @@ class Bloodtalons extends Analyzer {
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FEROCIOUS_BITE),
       this.onFbDamage,
     );
+    if (this.selectedCombatant.hasTalent(TALENTS_DRUID.RAVAGE_TALENT)) {
+      this.addEventListener(
+        Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RAVAGE_DOTC_CAT),
+        this.onRavageDamage,
+      );
+    }
 
     // for counting damage (Primal Wrath direct damage does not benefit from BT, hence its omission)
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell([SPELLS.FEROCIOUS_BITE, SPELLS.RAMPANT_FEROCITY]),
-      this.onBtDirect,
-    );
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell([SPELLS.RIP, SPELLS.TEAR_OPEN_WOUNDS]),
-      this.onBtFromRip,
-    );
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(FB_SPELLS), this.onBtDirect);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RIP), this.onBtFromRip);
     this.addEventListener(
       Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.RIP),
       this.onRipApply,
@@ -234,6 +238,13 @@ class Bloodtalons extends Analyzer {
     }
   }
 
+  onRavageDamage(event: DamageEvent) {
+    if (!this.lastRavageHitTimestamp || event.timestamp > this.lastRavageHitTimestamp + BUFFER_MS) {
+      this.onFbDamage(event);
+      this.lastRavageHitTimestamp = event.timestamp;
+    }
+  }
+
   onBtDirect(event: DamageEvent) {
     this._tallyBtDamage(event, this._hasBt(event));
   }
@@ -269,7 +280,7 @@ class Bloodtalons extends Analyzer {
 
   _isBerserkOrIncarn(): boolean {
     return (
-      this.selectedCombatant.hasBuff(SPELLS.BERSERK.id) ||
+      this.selectedCombatant.hasBuff(SPELLS.BERSERK_CAT.id) ||
       this.selectedCombatant.hasBuff(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id)
     );
   }

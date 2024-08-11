@@ -1,11 +1,6 @@
 // Base file
 import BaseCombatLogParser from 'parser/classic/CombatLogParser';
 // Shared
-import { suggestion } from 'parser/core/Analyzer';
-import lowRankSpellsSuggestion from 'parser/classic/suggestions/lowRankSpells';
-import lowRankSpellsPetSuggestion from './suggestions/lowRankSpellsPet';
-import { lowRankSpells, whitelist } from 'analysis/classic/hunter/shared';
-import lowRankSpellsPet from '../shared/lowRankSpellsPet';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import SpellManaCost from 'parser/shared/modules/SpellManaCost';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
@@ -22,15 +17,11 @@ import DotUptimes from './modules/features/DotUptimes';
 import SerpentSting from './modules/spells/SerpentSting';
 import Readingess from './modules/spells/Readiness';
 import KillShot from '../shared/KillShot';
-import KillCommandNormalizer from '../shared/normalizers/KillCommandNormalizer';
 import GoForTheThroat from '../shared/statistics/GoForTheThroat';
-import growl from './suggestions/growl';
 
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
     // Shared
-    lowRankSpells: lowRankSpellsSuggestion(lowRankSpells, whitelist),
-    lowRankPetSpells: lowRankSpellsPetSuggestion(lowRankSpellsPet),
     manaTracker: ManaTracker,
     spellManaCost: SpellManaCost,
     manaLevelChart: ManaLevelChart,
@@ -45,9 +36,7 @@ class CombatLogParser extends BaseCombatLogParser {
     serpentSting: SerpentSting,
     readiness: Readingess,
     killShot: KillShot,
-    killCommandNormalizer: KillCommandNormalizer,
     goForTheThroat: GoForTheThroat,
-    growl: suggestion(growl()),
   };
 }
 

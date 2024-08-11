@@ -6,11 +6,9 @@ import { getCharacterById } from 'interface/selectors/characters';
 import SpecIcon from 'interface/SpecIcon';
 import Config from 'parser/Config';
 import Player from 'parser/core/Player';
-import getBuild from 'parser/getBuild';
 import { ReactNode, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { isSupportedRegion } from 'common/regions';
-import { CLASSIC_EXPANSION, CLASSIC_EXPANSION_NAME } from 'game/Expansion';
 import getConfig from 'parser/getConfig';
 import { useWaDispatch } from 'interface/utils/useWaDispatch';
 import { useWaSelector } from 'interface/utils/useWaSelector';
@@ -20,6 +18,9 @@ import { Spec } from 'game/SPECS';
 import { useFight } from 'interface/report/context/FightContext';
 import { isMythicPlus } from 'common/isMythicPlus';
 import { fetchCharacter } from 'interface/reducers/charactersById';
+import { useReport } from './context/ReportContext';
+import { wclGameVersionToBranch } from 'game/VERSIONS';
+import GameBranch from 'game/GameBranch';
 
 interface BlockLoadingProps {
   children: ReactNode;
@@ -92,7 +93,7 @@ const PlayerTileContents = ({ avatar, player, spec }: PlayerTileContentsProps) =
 
 interface PlayerTileProps {
   player: Player;
-  makeUrl: (playerId: number, build?: string) => string;
+  makeUrl: (playerId: number) => string;
   config?: Config;
 }
 
@@ -102,10 +103,11 @@ function isSpecDisabledInDungeons(spec: Spec): boolean {
 }
 
 const PlayerTile = ({ player, makeUrl, config }: PlayerTileProps) => {
-  const classic = player.combatant.expansion === CLASSIC_EXPANSION_NAME;
   const characterInfo = useWaSelector((state) => getCharacterById(state, player.guid));
   const dispatch = useWaDispatch();
   const { fight } = useFight();
+  const { report } = useReport();
+  const classic = wclGameVersionToBranch(report.gameVersion) === GameBranch.Classic;
 
   useEffect(() => {
     const load = async () => {
@@ -132,14 +134,12 @@ const PlayerTile = ({ player, makeUrl, config }: PlayerTileProps) => {
 
   const avatar = makeThumbnailUrl(characterInfo, classic);
 
-  if (!config && CLASSIC_EXPANSION) {
-    config = getConfig(CLASSIC_EXPANSION, 1, player, player.combatant);
+  if (!config) {
+    config = getConfig(GameBranch.Classic, 1, player, player.combatant);
   }
   const spec = config?.spec;
-  const build = getBuild(config, player.combatant);
-  const missingBuild = config?.builds && !build;
 
-  if (!config || missingBuild) {
+  if (!config || !config.parser) {
     return (
       <BasicBlockLoading
         avatar={avatar}
@@ -166,7 +166,7 @@ const PlayerTile = ({ player, makeUrl, config }: PlayerTileProps) => {
   }
 
   return (
-    <Link to={makeUrl(player.id, build?.url)} className={`player ${getClassName(spec.role)}`}>
+    <Link to={makeUrl(player.id)} className={`player ${getClassName(spec.role)}`}>
       <PlayerTileContents avatar={avatar} player={player} spec={spec} />
     </Link>
   );

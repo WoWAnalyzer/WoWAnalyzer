@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro';
 import { SEARING_TOUCH_THRESHOLD, COMBUSTION_END_BUFFER } from 'analysis/retail/mage/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -11,8 +10,9 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
-export const DAMAGE_MODIFIER = 1.5;
+const DAMAGE_MODIFIER = 1.5;
 
 const debug = false;
 
@@ -32,7 +32,7 @@ class SearingTouch extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.SEARING_TOUCH_TALENT);
+    this.active = false; // Need to get this shifted towards the other talents that replicate what Searing Touch did.
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell([SPELLS.FIREBALL, SPELLS.SCORCH]),
       this.onCast,
@@ -77,13 +77,14 @@ class SearingTouch extends Analyzer {
     } else if (spellId === SPELLS.FIREBALL.id && this.healthPercent < SEARING_TOUCH_THRESHOLD) {
       this.fireballExecuteCasts += 1;
       if (this.lastCastEvent) {
-        this.lastCastEvent.meta = this.lastCastEvent.meta || {};
-        this.lastCastEvent.meta.isInefficientCast = true;
-        this.lastCastEvent.meta.inefficientCastReason = `This Fireball was cast while the target was under ${formatPercentage(
-          SEARING_TOUCH_THRESHOLD,
-        )}% health. While talented into Searing Touch, ensure that you are casting Scorch instead of Fireball while the target is under 30% health since Scorch does ${formatPercentage(
-          DAMAGE_MODIFIER,
-        )}% additional damage.`;
+        addInefficientCastReason(
+          this.lastCastEvent,
+          `This Fireball was cast while the target was under ${formatPercentage(
+            SEARING_TOUCH_THRESHOLD,
+          )}% health. While talented into Searing Touch, ensure that you are casting Scorch instead of Fireball while the target is under 30% health since Scorch does ${formatPercentage(
+            DAMAGE_MODIFIER,
+          )}% additional damage.`,
+        );
         debug && this.log('Cast Fireball under 30% Health');
       }
     }
@@ -127,18 +128,13 @@ class SearingTouch extends Analyzer {
         <>
           You cast <SpellLink spell={SPELLS.FIREBALL} /> instead of{' '}
           <SpellLink spell={SPELLS.SCORCH} /> while the target was under 30% health{' '}
-          {this.fireballExecuteCasts} times. When using{' '}
-          <SpellLink spell={TALENTS.SEARING_TOUCH_TALENT} /> always use Scorch instead of Fireball
-          when the target is under 30% health since Scorch does 150% damage and is guaranteed to
-          crit.
+          {this.fireballExecuteCasts} times. When using Searing Touch always use Scorch instead of
+          Fireball when the target is under 30% health since Scorch does 150% damage and is
+          guaranteed to crit.
         </>,
       )
-        .icon(TALENTS.SEARING_TOUCH_TALENT.icon)
-        .actual(
-          <Trans id="mage.fire.suggestions.searingTouch.executeCasts">
-            {formatPercentage(this.executeUtil)}% Utilization
-          </Trans>,
-        )
+        .icon(TALENTS.SCORCH_TALENT.icon)
+        .actual(`${formatPercentage(this.executeUtil)}% Utilization`)
         .recommended(`${formatPercentage(recommended)} is recommended`),
     );
     when(this.nonExecuteSuggestionThreshold).addSuggestion((suggest, actual, recommended) =>
@@ -151,12 +147,8 @@ class SearingTouch extends Analyzer {
           possible or by using your instant abilities and procs.
         </>,
       )
-        .icon(TALENTS.SEARING_TOUCH_TALENT.icon)
-        .actual(
-          <Trans id="mage.fire.suggestions.searingTouch.nonExecuteScorchCasts">
-            {formatPercentage(this.nonExecuteUtil)}% Utilization
-          </Trans>,
-        )
+        .icon(TALENTS.SCORCH_TALENT.icon)
+        .actual(`${formatPercentage(this.nonExecuteUtil)}% Utilization`)
         .recommended(`${formatPercentage(recommended)} is recommended`),
     );
   }
@@ -174,7 +166,7 @@ class SearingTouch extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={TALENTS.SEARING_TOUCH_TALENT}>
+        <BoringSpellValueText spell={TALENTS.SCORCH_TALENT}>
           <>
             {formatPercentage(this.executeUtil, 0)}% <small>Execute Utilization</small>
           </>

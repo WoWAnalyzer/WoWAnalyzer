@@ -10,10 +10,7 @@ export { default as SwallowedAnger } from './modules/talents/SwallowedAnger';
 export { default as FlamesOfFury } from './modules/talents/FlamesOfFury';
 export { default as DisruptingFury } from './modules/talents/DisruptingFury';
 export { default as DemonSoulBuff } from './modules/spells/DemonSoulBuff';
-export { default as TheHuntNormalizer, getChargeImpact } from './normalizers/TheHuntNormalizer';
-export {
-  default as SigilOfFlameNormalizer,
-  getSigilOfFlameDamages,
-} from './normalizers/SigilOfFlameNormalizer';
+export { default as TheHuntNormalizer } from './normalizers/TheHuntNormalizer';
+export { default as SigilOfFlameNormalizer } from './normalizers/SigilOfFlameNormalizer';
 export { default as SigilOfFlame } from './modules/spells/SigilOfFlame';
 export * from './constants';

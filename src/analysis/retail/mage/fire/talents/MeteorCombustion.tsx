@@ -1,96 +1,53 @@
-import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, { DamageEvent, ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent, GetRelatedEvents } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import Enemies from 'parser/shared/modules/Enemies';
-import EventHistory from 'parser/shared/modules/EventHistory';
 
 class MeteorCombustion extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
-    enemies: Enemies,
-    eventHistory: EventHistory,
   };
   protected abilityTracker!: AbilityTracker;
-  protected enemies!: Enemies;
-  protected eventHistory!: EventHistory;
 
-  lastRuneCast = 0;
-  badMeteor = 0;
-  meteorCast = false;
-  meteorDuringCombustion = false;
-  meteorInCombustion = 0;
-  combustionActive = false;
+  meteorCasts: { cast: CastEvent; damage: DamageEvent | undefined; combustionActive: boolean }[] =
+    [];
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.METEOR_TALENT);
-    if (!this.active) {
-      return;
-    }
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.METEOR_DAMAGE),
-      this.onMeteorDamage,
-    );
-    this.addEventListener(
-      Events.applybuff.to(SELECTED_PLAYER).spell(TALENTS.COMBUSTION_TALENT),
-      this.onCombustionStart,
-    );
-    this.addEventListener(
-      Events.removebuff.to(SELECTED_PLAYER).spell(TALENTS.COMBUSTION_TALENT),
-      this.onCombustionEnd,
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.METEOR_TALENT),
+      this.onMeteor,
     );
   }
 
-  onMeteorDamage(event: DamageEvent) {
-    if (this.combustionActive) {
-      this.meteorCast = true;
-    }
+  onMeteor(event: CastEvent) {
+    const damage: DamageEvent[] | undefined = GetRelatedEvents(event, 'SpellDamage');
+    const combustion = damage
+      ? this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id, damage[0]?.timestamp)
+      : false;
+    this.meteorCasts.push({
+      cast: event,
+      damage: damage[0],
+      combustionActive: combustion,
+    });
   }
 
-  onCombustionStart(event: ApplyBuffEvent) {
-    //The Sun King's Blessing Legendary effect has a chance to trigger a 6sec Combust which was throwing this stat off, so we are just checking to see if Combustion was cast within 100ms of the buff being applied.
-    const lastCast = this.eventHistory.last(
-      1,
-      100,
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.COMBUSTION_TALENT),
-    );
-    if (lastCast.length !== 0) {
-      this.combustionActive = true;
-    }
-  }
-
-  onCombustionEnd(event: RemoveBuffEvent) {
-    if (!this.combustionActive) {
-      return;
-    }
-
-    if (this.meteorCast) {
-      this.meteorInCombustion += 1;
-    }
-    this.combustionActive = false;
-    this.meteorDuringCombustion = false;
-  }
+  badCasts = () => {
+    const badCasts = this.meteorCasts.filter((m) => !m.combustionActive);
+    return badCasts.length;
+  };
 
   get totalMeteorCasts() {
-    return this.abilityTracker.getAbility(TALENTS.METEOR_TALENT.id).casts;
-  }
-
-  get totalCombustionCasts() {
-    return this.abilityTracker.getAbility(TALENTS.COMBUSTION_TALENT.id).casts;
-  }
-
-  get combustionWithoutMeteor() {
-    return this.totalCombustionCasts - this.meteorInCombustion;
+    return this.meteorCasts.length;
   }
 
   get combustionUtilization() {
-    return 1 - this.combustionWithoutMeteor / this.totalCombustionCasts;
+    return 1 - this.badCasts() / this.totalMeteorCasts;
   }
 
   get meteorMaxCasts() {
@@ -107,8 +64,8 @@ class MeteorCombustion extends Analyzer {
       actual: this.combustionUtilization,
       isLessThan: {
         minor: 1,
-        average: 1,
-        major: 1,
+        average: 0.9,
+        major: 0.8,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
@@ -118,19 +75,17 @@ class MeteorCombustion extends Analyzer {
     when(this.meteorCombustionSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You failed to cast <SpellLink spell={TALENTS.METEOR_TALENT} /> during{' '}
-          <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> {this.combustionWithoutMeteor} times. In
-          order to make the most of Combustion and <SpellLink spell={SPELLS.IGNITE} />, you should
-          always cast Meteor during Combustion. If Meteor will not come off cooldown before
-          Combustion is available, then you should hold Meteor for Combustion.
+          <SpellLink spell={TALENTS.METEOR_TALENT} /> landed outside of{' '}
+          <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> {this.badCasts()} times. In order to make
+          the most of Combustion and <SpellLink spell={SPELLS.IGNITE} />, you should always ensure
+          Meteor hits the target during Combustion. Keep in mind that{' '}
+          <SpellLink spell={TALENTS.METEOR_TALENT} /> takes time to manifest and hit the target, so
+          make sure you leave enough time after casting it so that it will land before{' '}
+          <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> ends.
         </>,
       )
         .icon(TALENTS.METEOR_TALENT.icon)
-        .actual(
-          <Trans id="mage.fire.suggestions.meteor.combustion.utilization">
-            {formatPercentage(this.combustionUtilization)}% Utilization
-          </Trans>,
-        )
+        .actual(`${formatPercentage(this.combustionUtilization)}% Utilization`)
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );
   }

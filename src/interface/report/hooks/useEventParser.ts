@@ -1,6 +1,5 @@
 import { captureException } from 'common/errorLogger';
 import ExtendableError from 'es6-error';
-import getBuild from 'interface/selectors/url/report/getBuild';
 import Config from 'parser/Config';
 import CharacterProfile from 'parser/core/CharacterProfile';
 import CombatLogParser from 'parser/core/CombatLogParser';
@@ -10,7 +9,6 @@ import EventEmitter from 'parser/core/modules/EventEmitter';
 import { PlayerInfo } from 'parser/core/Player';
 import Report from 'parser/core/Report';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 
 const BENCHMARK = false;
 // Picking a correct batch duration is hard. I tried various durations to get the batch sizes to 1 frame, but that results in a lot of wasted time waiting for the next frame. 30ms (33 fps) as well causes a lot of wasted time. 60ms (16fps) seem to have really low wasted time while not blocking the UI anymore than a user might expect.
@@ -59,9 +57,6 @@ const useEventParser = ({
   const [progress, setProgress] = useState(0);
   const eventIndexRef = useRef(0);
 
-  const location = useLocation();
-  const build = getBuild(location.pathname);
-
   const parser = useMemo(() => {
     // Original code only rendered EventParser if
     // > !this.state.isLoadingParser &&
@@ -74,22 +69,8 @@ const useEventParser = ({
     if (dependenciesLoading) {
       return null;
     }
-    const builds = config.builds;
-    const buildKey = builds && Object.keys(builds).find((b) => builds[b].url === build);
-    builds &&
-      Object.keys(builds).forEach((key) => {
-        builds[key].active = key === buildKey;
-      });
     //set current build to undefined if default build or non-existing build selected
-    const parser = new parserClass!(
-      config,
-      report,
-      player,
-      fight!,
-      combatants,
-      characterProfile!,
-      buildKey,
-    );
+    const parser = new parserClass!(config, report, player, fight!, combatants, characterProfile!);
     parser.applyTimeFilter = applyTimeFilter;
     parser.applyPhaseFilter = applyPhaseFilter;
 
@@ -104,7 +85,6 @@ const useEventParser = ({
     report,
     player,
     combatants,
-    build,
     config,
   ]);
 

@@ -6,6 +6,11 @@ const spells = {
     name: 'Nightmare Seed',
     icon: 'inv_misc_herb_nightmareseed',
   },
+  SHARD_OF_WOE_CELERITY: {
+    id: 91173,
+    name: 'Celerity',
+    icon: 'spell_livegivingspeed',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;

@@ -3,6 +3,7 @@ import { TrackedBuffEvent } from 'parser/core/Entity';
 import { AnyEvent, HasSource, HasTarget, SourcedEvent, TargettedEvent } from 'parser/core/Events';
 
 import Entities from './Entities';
+import { Options } from 'parser/core/Analyzer';
 
 const debug = false;
 
@@ -43,16 +44,44 @@ export function encodeTargetString(id: number, instance = 0) {
   return `${id}.${instance}`;
 }
 
-export function decodeTargetString(string: string) {
-  const [id, instance = 0] = string.split('.');
-  return { id, instance };
-}
-
 class Enemies extends Entities<Enemy> {
   enemies: { [enemyId: string]: Enemy } = {};
+  /**
+   * The set of all known enemy ids. Used to speed up negative lookups.
+   */
+  enemyIds: Set<number>;
+
+  constructor(options: Options) {
+    super(options);
+
+    this.enemyIds = new Set(this.owner.report.enemies.map((enemy) => enemy.id));
+  }
 
   getEntities() {
     return this.enemies;
+  }
+
+  isEnemy(id: number, instanceId?: number): boolean {
+    return this.getById(id, instanceId) !== null;
+  }
+
+  getById(id: number, instanceId?: number): Enemy | null {
+    if (!this.enemyIds.has(id)) {
+      return null;
+    }
+    const enemyId = encodeTargetString(id, instanceId ?? 0);
+
+    let enemy = this.enemies[enemyId];
+
+    if (!enemy) {
+      const baseInfo = this.owner.report.enemies.find((enemy: { id: number }) => enemy.id === id);
+      if (!baseInfo) {
+        debug && console.warn('Enemy not noteworthy enough:', id, instanceId);
+        return null;
+      }
+      this.enemies[enemyId] = enemy = new Enemy(this.owner, baseInfo, instanceId);
+    }
+    return enemy;
   }
 
   /**
@@ -64,27 +93,7 @@ class Enemies extends Entities<Enemy> {
     if (!HasTarget(event)) {
       return null;
     }
-    if (event.targetIsFriendly) {
-      return null;
-    }
-    const targetId = event.targetID;
-    const targetInstance = event.targetInstance || 0;
-
-    const enemyId = encodeTargetString(targetId, targetInstance);
-
-    let enemy = this.enemies[enemyId];
-
-    if (!enemy) {
-      const baseInfo = this.owner.report.enemies.find(
-        (enemy: { id: number }) => enemy.id === targetId,
-      );
-      if (!baseInfo) {
-        debug && console.warn('Enemy not noteworthy enough:', targetId, targetInstance, event);
-        return null;
-      }
-      this.enemies[enemyId] = enemy = new Enemy(this.owner, baseInfo, targetInstance);
-    }
-    return enemy;
+    return this.getById(event.targetID, event.targetInstance);
   }
 
   /**
@@ -96,28 +105,8 @@ class Enemies extends Entities<Enemy> {
     if (!HasSource(event)) {
       return null;
     }
-    if (event.sourceIsFriendly) {
-      return null;
-    }
 
-    const sourceId = event.sourceID;
-    const sourceInstance = event.sourceInstance ?? 0;
-
-    const enemyId = encodeTargetString(sourceId, sourceInstance);
-
-    let enemy = this.enemies[enemyId];
-
-    if (!enemy) {
-      const baseInfo = this.owner.report.enemies.find(
-        (enemy: { id: number }) => enemy.id === sourceId,
-      );
-      if (!baseInfo) {
-        debug && console.warn('Enemy not noteworthy enough:', sourceId, sourceInstance, event);
-        return null;
-      }
-      this.enemies[enemyId] = enemy = new Enemy(this.owner, baseInfo, sourceInstance);
-    }
-    return enemy;
+    return this.getById(event.sourceID, event.sourceInstance);
   }
 
   /**
@@ -294,6 +283,14 @@ class Enemies extends Entities<Enemy> {
         prevTimestamp = event.timestamp;
       });
     return { maxStacks, stackUptimeHistory };
+  }
+
+  /**
+   * Returns true iff player currently has the given (de)buff ID on any enemy
+   * @param spellId the (de)buff ID to look for
+   */
+  hasBuffOnAny(spellId: number): boolean {
+    return Object.values(this.getEntities()).find((e) => e.hasBuff(spellId)) !== undefined;
   }
 
   /** Get the longest duration remaining of the spell on any enemy

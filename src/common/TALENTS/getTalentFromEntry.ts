@@ -16,5 +16,6 @@ for (const table of Object.values(talent_tables)) {
   }
 }
 
-const getTalentFromEntry = (entry: TalentEntry): Talent | undefined => TALENTS[entry.id];
+const getTalentFromEntry = (entry: Pick<TalentEntry, 'id'>): Talent | undefined =>
+  TALENTS[entry.id];
 export default getTalentFromEntry;

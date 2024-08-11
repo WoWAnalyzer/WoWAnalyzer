@@ -15,7 +15,7 @@ import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
-import { SHAMAN_T30_ID } from 'common/ITEMS/dragonflight';
+import { SHAMAN_DF2_ID } from 'common/ITEMS/dragonflight';
 import ItemSetLink from 'interface/ItemSetLink';
 
 // 50 was too low, 100 was too high
@@ -182,10 +182,10 @@ class HealingRain extends Analyzer {
         <SpellLink spell={SPELLS.HEALING_SURGE} /> and{' '}
         <SpellLink spell={TALENTS.CHAIN_HEAL_TALENT} /> through{' '}
         <SpellLink spell={TALENTS.DELUGE_TALENT} />
-        {this.selectedCombatant.has2PieceByTier(TIERS.T30) && (
+        {this.selectedCombatant.has2PieceByTier(TIERS.DF2) && (
           <>
             and is the activator for your{' '}
-            <ItemSetLink id={SHAMAN_T30_ID}>
+            <ItemSetLink id={SHAMAN_DF2_ID}>
               <>Tier 30 Set Bonus</>
             </ItemSetLink>{' '}
             and should be used as often as possible

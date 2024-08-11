@@ -5,7 +5,6 @@ import { SpellLink } from 'interface';
 import BuffCountGraph, { GraphedSpellSpec } from 'parser/shared/modules/BuffCountGraph';
 import { SPELL_COLORS } from '../../constants';
 import BaseCelestialAnalyzer from '../spells/BaseCelestialAnalyzer';
-import EssenceFont from '../spells/EssenceFont';
 import Revival from '../spells/Revival';
 import Panel from 'parser/ui/Panel';
 import { Options } from 'parser/core/Module';
@@ -14,7 +13,6 @@ class HotCountGraph extends BuffCountGraph {
   static dependencies = {
     ...BuffCountGraph.dependencies,
     celestial: BaseCelestialAnalyzer,
-    essenceFont: EssenceFont,
     revival: Revival,
   };
   protected revival!: Revival;
@@ -27,10 +25,6 @@ class HotCountGraph extends BuffCountGraph {
   buffSpecs(): GraphedSpellSpec[] {
     const buffSpecs: GraphedSpellSpec[] = [];
     buffSpecs.push(
-      {
-        spells: [SPELLS.ESSENCE_FONT_BUFF, SPELLS.FAELINE_STOMP_ESSENCE_FONT],
-        color: SPELL_COLORS.ESSENCE_FONT,
-      },
       {
         spells: [TALENTS_MONK.ENVELOPING_MIST_TALENT],
         color: SPELL_COLORS.ENVELOPING_MIST,
@@ -63,10 +57,7 @@ class HotCountGraph extends BuffCountGraph {
           <>
             This graph shows the number of non-Renewing Mist HoTs you had active over the course of
             the encounter. It can help you evaluate how effective you were at prepping and executing
-            your cooldowns. Having several <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} />{' '}
-            out before casting <SpellLink spell={this.revival.getRevivalTalent()} /> or{' '}
-            <SpellLink spell={this.celestial.getCelestialTalent()} /> will drastically increase
-            their effectiveness, and the number of{' '}
+            your cooldowns. For example, the number of{' '}
             <SpellLink spell={SPELLS.ENVELOPING_BREATH_HEAL} /> that go out during{' '}
             <SpellLink spell={this.celestial.getCelestialTalent()} /> directly correlates to your
             hps during.

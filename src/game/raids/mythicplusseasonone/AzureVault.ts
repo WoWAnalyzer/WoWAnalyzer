@@ -1,9 +1,9 @@
-import { Dungeon } from 'game/raids';
+import type { Boss } from 'game/raids';
 
 import Background from './backgrounds/AzureVault.jpg';
 import Headshot from './headshots/AzureVault.jpg';
 
-const AzureVault: Dungeon = {
+const AzureVault: Boss = {
   id: 12515,
   name: 'The Azure Vault',
   background: Background,

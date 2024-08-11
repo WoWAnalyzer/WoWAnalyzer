@@ -67,7 +67,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.ULTIMATE_PENITENCE_DAMAGE.id,
+        spell: TALENTS.ULTIMATE_PENITENCE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: {
           base: 1500,
@@ -80,7 +80,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.POWER_WORD_SHIELD.id,
-        category: SPELL_CATEGORY.OTHERS,
+        category: SPELL_CATEGORY.ROTATIONAL,
         isDefensive: true,
         gcd: {
           base: 1500,
@@ -171,8 +171,8 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DESPERATE_PRAYER.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 90,
+        category: SPELL_CATEGORY.DEFENSIVE,
+        cooldown: 90 - (combatant.hasTalent(TALENTS_PRIEST.ANGELS_MERCY_TALENT) ? 20 : 0),
       },
       {
         spell: [SPELLS.POWER_WORD_BARRIER_CAST.id, TALENTS_PRIEST.LUMINOUS_BARRIER_TALENT.id],
@@ -184,7 +184,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SHADOW_WORD_PAIN.id,
-        category: SPELL_CATEGORY.OTHERS,
+        category: SPELL_CATEGORY.ROTATIONAL,
         enabled: !combatant.hasTalent(TALENTS.PURGE_THE_WICKED_TALENT),
         gcd: {
           base: 1500,
@@ -192,7 +192,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.PURGE_THE_WICKED_TALENT.id,
-        category: SPELL_CATEGORY.OTHERS,
+        category: SPELL_CATEGORY.ROTATIONAL,
         enabled: combatant.hasTalent(TALENTS.PURGE_THE_WICKED_TALENT),
         gcd: {
           base: 1500,
@@ -200,14 +200,14 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SMITE.id,
-        category: SPELL_CATEGORY.OTHERS,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: TALENTS_PRIEST.HOLY_NOVA_TALENT.id,
-        category: SPELL_CATEGORY.OTHERS,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
@@ -225,8 +225,10 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.FADE.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 30,
+        category: combatant.hasTalent(TALENTS_PRIEST.TRANSLUCENT_IMAGE_TALENT)
+          ? SPELL_CATEGORY.DEFENSIVE
+          : SPELL_CATEGORY.UTILITY,
+        cooldown: 30 - combatant.getTalentRank(TALENTS_PRIEST.IMPROVED_FADE_TALENT) * 5,
       },
       {
         spell: SPELLS.LEAP_OF_FAITH.id,
@@ -243,7 +245,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.MASS_DISPEL.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 15,
+        cooldown: 120,
         gcd: {
           base: 1500,
         },
@@ -276,25 +278,6 @@ class Abilities extends CoreAbilities {
         cooldown: 60 - (combatant.hasTalent(TALENTS_PRIEST.PSYCHIC_VOICE_TALENT) ? 30 : 0),
       },
       {
-        spell: SPELLS.SHADOW_MEND.id,
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: TALENTS_PRIEST.SHADOW_COVENANT_TALENT.id,
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: {
-          base: 1500,
-        },
-        cooldown: 12,
-        castEfficiency: {
-          suggestion: true,
-        },
-        enabled: combatant.hasTalent(TALENTS_PRIEST.SHADOW_COVENANT_TALENT),
-      },
-      {
         spell: SPELLS.LEVITATE.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
@@ -303,22 +286,15 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.MIND_BLAST.id,
-        category: SPELL_CATEGORY.OTHERS,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
         cooldown: 24,
       },
       {
-        spell: SPELLS.MIND_SEAR.id,
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
         spell: SPELLS.MIND_SOOTHE.id,
-        category: SPELL_CATEGORY.OTHERS,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
@@ -335,7 +311,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.SHADOW_WORD_DEATH_TALENT.id,
-        category: SPELL_CATEGORY.OTHERS,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },

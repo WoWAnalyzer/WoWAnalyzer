@@ -16,7 +16,7 @@ const spells = {
     id: 20271,
     name: 'Judgment',
     icon: 'spell_holy_righteousfury',
-    manaCost: 300,
+    manaCost: 1500,
   },
   JUDGMENT_CAST_HOLY: {
     id: 275773,
@@ -462,19 +462,17 @@ const spells = {
     icon: 'spell_holy_layonhands',
   },
   ART_OF_WAR: {
-    id: 267344,
+    id: 406086,
     name: 'Art of War',
     icon: 'ability_paladin_artofwar',
   },
   FINAL_VERDICT_RESET: {
-    // TODO: Make this actually correct, I could not find any logs with the ability
-    id: 337228,
+    id: 383329,
     name: 'Final Verdict',
     icon: 'spell_paladin_hammerofwrath',
   },
   FINAL_VERDICT_FINISHER: {
-    // TODO: Make this actually correct, I could not find any logs with the ability
-    id: 336872,
+    id: 383328,
     name: 'Final Verdict',
     icon: 'spell_paladin_templarsverdict',
   },
@@ -488,10 +486,15 @@ const spells = {
     name: 'Templar Slash',
     icon: 'inv_sword_2h_artifactashbringerpurified_d_03',
   },
-  CRUSADING_STRIKES: {
+  CRUSADING_STRIKES_ENERGIZE: {
     id: 406834,
     name: 'Crusading Strikes',
     icon: 'inv_sword_2h_artifactashbringer_d_01',
+  },
+  CRUSADING_STRIKES: {
+    id: 408385,
+    name: 'Crusading Strikes',
+    icon: 'spell_holy_crusaderstrike.jpg',
   },
   VANGUARDS_MOMENTUM: {
     id: 403081,
@@ -502,6 +505,11 @@ const spells = {
     id: 408386,
     name: 'Divine Auxiliary',
     icon: 'spell_holy_righteousfury',
+  },
+  RUSH_OF_LIGHT: {
+    id: 407065,
+    name: 'Rush of Light',
+    icon: 'spell_holy_borrowedtime',
   },
 
   // Protection
@@ -642,6 +650,11 @@ const spells = {
     id: 81297,
     name: 'Consecration',
     icon: 'spell_holy_innerfire',
+  },
+  CONSECRATED_BLADE_BUFF: {
+    id: 407475,
+    name: 'Consecrated Blade',
+    icon: 'ability_mage_firestarter',
   },
   DIVINE_SHIELD: {
     id: 642,

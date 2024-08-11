@@ -1,9 +1,9 @@
-import { Dungeon } from 'game/raids';
+import type { Boss } from 'game/raids';
 
 import Background from './backgrounds/WaycrestManor.jpg';
 import Headshot from './headshots/WaycrestManor.jpg';
 
-const WaycrestManor: Dungeon = {
+const WaycrestManor: Boss = {
   id: 61862,
   name: 'Waycrest Manor',
   background: Background,

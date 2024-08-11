@@ -1,4 +1,3 @@
-import { DemonicCirclesCreated } from 'analysis/retail/warlock/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import DemonologyWarlockVaultOfTheIncarnates4Set from './modules/dragonflight/tier/VaultOfTheIncarnates4Set';
@@ -34,6 +33,7 @@ import GrimoireFelguard from './modules/talents/GrimoireFelguard';
 import InnerDemons from './modules/talents/InnerDemons';
 import NetherPortal from './modules/talents/NetherPortal';
 import PowerSiphonNormalizer from './modules/talents/normalizers/PowerSiphonNormalizer';
+import PowerSiphonBuffCastNormalizer from './modules/talents/normalizers/PowerSiphonBuffCastNormalizer';
 import PowerSiphon from './modules/talents/PowerSiphon';
 import SacrificedSouls from './modules/talents/SacrificedSouls';
 import ShadowsBite from './modules/talents/ShadowsBite';
@@ -42,6 +42,8 @@ import SoulStrike from './modules/talents/SoulStrike';
 import SummonVilefiend from './modules/talents/SummonVilefiend';
 import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
 import Guide from './Guide';
+import T31AmirdrassilDemonology from './modules/dragonflight/tier/T31AmirdrassilDemonology';
+import { UnendingResolve, DarkPact, DemonicCircle } from '../shared';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -51,14 +53,12 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     felstorm: Felstorm,
     checklist: Checklist,
-    summonDemonicTyrant: SummonDemonicTyrant,
     legionStrike: LegionStrike,
 
     // Core
     soulShardTracker: SoulShardTracker,
     soulShardDetails: SoulShardDetails,
     soulshardGraph: SoulShardGraph,
-    demonicCirclesCreated: DemonicCirclesCreated,
 
     // Pets
     demoPets: DemoPets,
@@ -73,8 +73,10 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Normalizers
     powerSiphonNormalizer: PowerSiphonNormalizer,
+    PowerSiphonBuffCastNormalizer: PowerSiphonBuffCastNormalizer,
 
     // Talents
+    summonDemonicTyrant: SummonDemonicTyrant,
     dreadlash: Dreadlash,
     demonicStrength: DemonicStrength,
     bilescourgeBombers: BilescourgeBombers,
@@ -92,10 +94,18 @@ class CombatLogParser extends CoreCombatLogParser {
     shadowsBite: ShadowsBite,
     dreadCalling: DreadCalling,
 
+    // Shared Spells
+    unendingResolve: UnendingResolve,
+    darkPact: DarkPact,
+    demonicCircle: DemonicCircle,
+
     // Items
     vaultOfTheIncarnates4Set: DemonologyWarlockVaultOfTheIncarnates4Set,
     callToDominance: CallToDominance,
     aberrus2Set: DemonologyWarlockAberrus2Set,
+
+    // Tier
+    t31AmirdrassilDemonology: T31AmirdrassilDemonology,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

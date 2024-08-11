@@ -1,4 +1,4 @@
-import { formatMilliseconds } from 'common/format';
+import { formatDuration } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import Events, {
@@ -14,8 +14,13 @@ import EventEmitter from 'parser/core/modules/EventEmitter';
 import Haste from 'parser/shared/modules/Haste';
 
 import Abilities from '../../core/modules/Abilities';
+import { wclGameVersionToBranch } from 'game/VERSIONS';
+import GameBranch from 'game/GameBranch';
+import { BadColor, GoodColor, OkColor } from 'interface/guide';
+import SpellLink from 'interface/SpellLink';
 const INVALID_GCD_CONFIG_LAG_MARGIN = 150; // not sure what this is based around, but <150 seems to catch most false positives
 const MIN_GCD = 750; // Minimum GCD for most abilities is 750ms.
+const MIN_GCD_CLASSIC = 1000; // Minimum regular GCD was 1s until Legion
 
 /**
  * This triggers a fabricated `globalcooldown` event when appropriate.
@@ -34,11 +39,19 @@ class GlobalCooldown extends Analyzer {
   protected abilities!: Abilities;
   protected haste!: Haste;
 
+  protected readonly minDuration;
+
   constructor(options: Options) {
     super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
     this.addEventListener(Events.BeginChannel.by(SELECTED_PLAYER), this.onBeginChannel);
     this.addEventListener(Events.GlobalCooldown.to(SELECTED_PLAYER), this.onGlobalcooldown);
+
+    if (wclGameVersionToBranch(options.owner.report.gameVersion) === GameBranch.Classic) {
+      this.minDuration = MIN_GCD_CLASSIC;
+    } else {
+      this.minDuration = MIN_GCD;
+    }
   }
 
   _errors = 0;
@@ -116,15 +129,10 @@ class GlobalCooldown extends Analyzer {
       this.lastGlobalCooldown.timestamp === event.timestamp &&
       this.lastGlobalCooldown.ability.guid === event.ability.guid
     ) {
-      console.warn(
-        'GlobalCooldown module attempted to trigger duplicate GCDs for ability ' +
-          event.ability.name +
-          '(' +
-          event.ability.guid +
-          ') @ ' +
-          event.timestamp +
-          ' - duplicate will be ignored. This is probably due to an event ordering issue not being handled correctly by this module.',
-      );
+      this.addDebugAnnotation(event, {
+        summary: 'Attempted to trigger duplicate GCD for ability',
+        color: OkColor,
+      });
       return undefined;
     }
     return this.eventEmitter.fabricateEvent(
@@ -161,7 +169,7 @@ class GlobalCooldown extends Analyzer {
     }
     if (gcd.base) {
       const baseGCD = this._resolveAbilityGcdField(gcd.base);
-      const minimumGCD = this._resolveAbilityGcdField(gcd.minimum) || MIN_GCD;
+      const minimumGCD = this._resolveAbilityGcdField(gcd.minimum) || this.minDuration;
       return GlobalCooldown.calculateGlobalCooldown(this.haste.current, baseGCD, minimumGCD);
     }
     throw new Error(
@@ -187,26 +195,57 @@ class GlobalCooldown extends Analyzer {
     if (this.lastGlobalCooldown) {
       const timeSince = event.timestamp - this.lastGlobalCooldown.timestamp;
       const remainingDuration = this.lastGlobalCooldown.duration - timeSince;
+      // the debug annotations are attached to the triggering event so that other annotations (like duplicate gcds) work
       if (remainingDuration > INVALID_GCD_CONFIG_LAG_MARGIN) {
         this._errors += 1;
-        console.error(
-          formatMilliseconds(this.owner.fightDuration),
-          'GlobalCooldown',
-          event.trigger?.ability.name,
-          event.trigger?.ability.guid,
-          `was cast while the Global Cooldown from`,
-          this.lastGlobalCooldown.ability.name,
-          this.lastGlobalCooldown.ability.guid,
-          `was already running. There's probably a Haste buff missing from StatTracker or the Haste module, this spell has a GCD different from the default, or the base GCD for this spec is different from default.`,
-          'time passed:',
-          timeSince,
-          'cooldown remaining:',
-          remainingDuration,
-          'expectedDuration:',
-          this.lastGlobalCooldown.duration,
-          'errors:',
-          this._errors,
-        );
+        this.addDebugAnnotation(event.trigger, {
+          summary: `GCD for ${event.trigger?.ability.name} triggered while GCD from ${this.lastGlobalCooldown.ability.name} was active`,
+          details: (
+            <div>
+              <h4>Previous GCD</h4>
+              <dl>
+                <dt>Timestamp</dt>
+                <dd>
+                  {formatDuration(
+                    this.lastGlobalCooldown.timestamp - this.owner.fight.start_time,
+                    2,
+                  )}
+                </dd>
+                <dt>Ability</dt>
+                <dd>
+                  <SpellLink spell={this.lastGlobalCooldown.ability.guid} />
+                </dd>
+                <dt>Expected GCD Duration</dt>
+                <dd>{(this.lastGlobalCooldown.duration / 1000).toFixed(2)}s</dd>
+                <dt>Expected GCD End Timestamp</dt>
+                <dd>
+                  {formatDuration(
+                    this.lastGlobalCooldown.timestamp +
+                      this.lastGlobalCooldown.duration -
+                      this.owner.fight.start_time,
+                    2,
+                  )}{' '}
+                  ({(remainingDuration / 1000).toFixed(2)}s after this event)
+                </dd>
+              </dl>
+            </div>
+          ),
+          color: BadColor,
+        });
+      } else {
+        this.addDebugAnnotation(event.trigger, {
+          summary: `GCD for ${event.trigger?.ability.name}`,
+          color: GoodColor,
+          priority: -Infinity,
+          details: (
+            <div>
+              <dl>
+                <dt>Expected GCD Duration</dt>
+                <dd>{(this.lastGlobalCooldown.duration / 1000).toFixed(2)}s</dd>
+              </dl>
+            </div>
+          ),
+        });
       }
     }
     this.lastGlobalCooldown = event;

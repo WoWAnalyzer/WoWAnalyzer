@@ -27,7 +27,7 @@ class ImpenetrableWall extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.has2PieceByTier(TIERS.T30);
+    this.active = this.selectedCombatant.has2PieceByTier(TIERS.DF2);
     if (!this.active) {
       return;
     }

@@ -11,6 +11,7 @@ import { When, ThresholdStyle } from 'parser/core/ParseResults';
 
 import SpellUsable from '../features/SpellUsable';
 import ExecuteRange from './Execute/ExecuteRange';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 /**
  * Logs used to test:
@@ -71,10 +72,10 @@ class OverpowerAnalyzer extends Analyzer {
     if (!this.executeRange.isTargetInExecuteRange(event.targetID || 0, event.targetInstance || 0)) {
       this.wastedProc += 1;
 
-      event.meta = event.meta || {};
-      event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason =
-        'This Overpower was used while already at 2 stacks and Mortal Strike was available';
+      addInefficientCastReason(
+        event,
+        'This Overpower was used while already at 2 stacks and Mortal Strike was available',
+      );
     }
   }
 

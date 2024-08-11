@@ -13,9 +13,13 @@ import '../../Styling.scss';
 import { SubSection } from 'interface/guide';
 import { SpellLink } from 'interface';
 import LazyLoadGuideSection from 'analysis/retail/evoker/shared/modules/components/LazyLoadGuideSection';
-import { ABILITY_BLACKLIST } from '../../../constants';
+import { TIMEWALKER_BASE_EXTENSION } from '../../../constants';
 import BuffTargetHelperWarningLabel from './BuffTargetHelperWarningLabel';
 import Toggle from 'react-toggle';
+import { TIERS } from 'game/TIERS';
+import StatTracker from 'parser/shared/modules/StatTracker';
+import BuffTargetHelperInfoLabel from './BuffTargetHelperInfoLabel';
+import { ABILITY_BLACKLIST, ABILITY_NO_BOE_SCALING } from '../../util/abilityFilter';
 
 /**
  * @key ClassName
@@ -68,8 +72,10 @@ type DamageTables = {
 class BuffTargetHelper extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    stats: StatTracker,
   };
   protected combatants!: Combatants;
+  protected stats!: StatTracker;
 
   /**
    * @key Player Name
@@ -90,17 +96,23 @@ class BuffTargetHelper extends Analyzer {
     30 * 1000 * (this.selectedCombatant.hasTalent(TALENTS.INTERWOVEN_THREADS_TALENT) ? 0.9 : 1);
 
   fightStart: number = this.owner.fight.start_time;
+  fightStartDelay: number = 4_000;
   fightEnd: number = this.owner.fight.end_time;
-  mrtTwoTargetPrescienceHelperNote: string = '';
+  prescienceHelperMrtNote: string = '';
   mrtFourTargetPrescienceHelperNote: string = '';
+  // If we have 4pc we need to account for long prescience
+  has4Pc =
+    this.selectedCombatant.has4PieceByTier(TIERS.DF3) ||
+    this.selectedCombatant.has4PieceByTier(TIERS.DF4);
 
   filterBossDamage: boolean = false;
   nameFilter: string = '';
   bossFilter: string = this.owner.report.enemies
-    .filter((enemy) => enemy.type === 'Boss')
+    .filter((enemy) => enemy.subType === 'Boss')
     .map((enemy) => `${enemy.guid}`)
     .join(',');
-  abilityFilter: string = ABILITY_BLACKLIST.join(', ');
+  abilityBlacklist: string = [...ABILITY_BLACKLIST].join(', ');
+  abilityFilter = [...ABILITY_NO_BOE_SCALING].join(', ');
 
   constructor(options: Options) {
     super(options);
@@ -126,17 +138,16 @@ class BuffTargetHelper extends Analyzer {
       });
     });
   }
-
-  /** Generate filter based on black list and whitelist */
+  /** Generate filter based on our ability filters */
   getFilter(noEbonScaling: boolean) {
+    let filter = `(not ability.id in(${this.abilityBlacklist})) 
+    AND (${noEbonScaling ? '' : 'not'} ability.id in(${this.abilityFilter}))
+    AND (source.name in (${this.nameFilter}) OR source.owner.name in (${this.nameFilter}))`;
+
     if (this.filterBossDamage) {
-      return `(${noEbonScaling ? '' : 'not'} ability.id in(${this.abilityFilter})) 
-      AND (source.name in (${this.nameFilter}) OR source.owner.name in (${this.nameFilter})) 
-      AND (target.id in(${this.bossFilter}))`;
-    } else {
-      return `(${noEbonScaling ? '' : 'not'} ability.id in(${this.abilityFilter})) 
-      AND (source.name in (${this.nameFilter}) OR source.owner.name in (${this.nameFilter}))`;
+      filter += ` AND (target.id in(${this.bossFilter}))`;
     }
+    return filter;
   }
 
   /**
@@ -158,7 +169,9 @@ class BuffTargetHelper extends Analyzer {
       return;
     }
 
-    let currentTime = this.fightStart;
+    // Start 4 seconds in since you start the fight with 2x Prescience -> Ebon Might
+    // This will also show MUCH better value targets
+    let currentTime = this.fightStart + this.fightStartDelay;
 
     const fetchPromises: Promise<DamageTables>[] = [];
     while (currentTime < this.fightEnd) {
@@ -247,8 +260,10 @@ class BuffTargetHelper extends Analyzer {
 
     const topPumpersData = this.getTopPumpersData();
     const top4PumpersData = this.getTop4Pumpers(topPumpersData);
-    const defaultTargets = this.getDefaultTargets(top4PumpersData);
-    const tableContent = this.renderTableContent(topPumpersData, defaultTargets, top4PumpersData);
+    const default2Targets = this.getDefaultTargets(top4PumpersData);
+    const default4Targets = this.getDefaultTargets(top4PumpersData, 4);
+    const tableContent = this.renderTableContent(topPumpersData, default2Targets, top4PumpersData);
+    this.generateMRTNoteHenryG(top4PumpersData, default4Targets);
 
     return tableContent;
   }
@@ -271,7 +286,7 @@ class BuffTargetHelper extends Analyzer {
     return top4PumpersData;
   }
 
-  getDefaultTargets(top4PumpersData: [string, number[]][][]) {
+  getDefaultTargets(top4PumpersData: [string, number[]][][], amount: number = 2): string[] {
     const nameSums = new Map();
 
     top4PumpersData.flat().forEach(([name, values]) => {
@@ -283,12 +298,12 @@ class BuffTargetHelper extends Analyzer {
 
     const sortedNames = [...nameSums.entries()].sort((a, b) => b[1] - a[1]);
 
-    return sortedNames.slice(0, 2).map((entry) => entry[0]);
+    return sortedNames.slice(0, amount).map((entry) => entry[0]);
   }
 
   renderTableContent(
     topPumpersData: [string, number[]][][],
-    defaultTargets: any[],
+    defaultTargets: string[],
     top4PumpersData: [string, number[]][][],
   ) {
     const tableRows = [];
@@ -303,9 +318,9 @@ class BuffTargetHelper extends Analyzer {
     );
 
     for (let i = 0; i < topPumpersData.length; i += 1) {
-      const intervalStart = formatDuration(i * this.interval);
+      const intervalStart = formatDuration(i * this.interval + this.fightStartDelay);
       const intervalEnd = formatDuration(
-        Math.min((i + 1) * this.interval, this.fightEnd - this.fightStart),
+        Math.min((i + 1) * this.interval + this.fightStartDelay, this.fightEnd - this.fightStart),
       );
 
       const formattedEntriesTable = top4PumpersData[i].map(([name, values]) => (
@@ -352,22 +367,8 @@ class BuffTargetHelper extends Analyzer {
         isImportant = true;
       }
 
-      this.addEntryToTwoTargetMRTNote(top2Entries, i, intervalStart, isImportant);
       this.addEntryToFourTargetMRTNote(top4Entries, i, intervalStart, isImportant);
     }
-
-    /** Finalize TwoTargetMRT note */
-    this.mrtTwoTargetPrescienceHelperNote =
-      'prescGlowsStart \n' +
-      'defaultTargets - ' +
-      mrtColorMap.get(this.playerWhitelist.get(defaultTargets[0]) ?? '') +
-      defaultTargets[0] +
-      '|r ' +
-      mrtColorMap.get(this.playerWhitelist.get(defaultTargets[1]) ?? '') +
-      defaultTargets[1] +
-      '|r \n' +
-      this.mrtTwoTargetPrescienceHelperNote +
-      'prescGlowsEnd';
 
     /** Finalize Four Target MRT note */
     // Constructing the header and footer
@@ -389,7 +390,7 @@ class BuffTargetHelper extends Analyzer {
           </table>
         </div>
         <div className="button-container">
-          <button className="button" onClick={this.handleTwoTargetCopyClick}>
+          <button className="button" onClick={this.handlePrescienceHelperCopyClick}>
             Copy Prescience Helper MRT note
           </button>
           <button className="button" onClick={this.handleFourTargetCopyClick}>
@@ -401,7 +402,7 @@ class BuffTargetHelper extends Analyzer {
   }
 
   /**
-   * Create a  2 Target MRT note for who to Prescience and when
+   * Create a MRT note for who to Prescience and when
    *
    * The format is made to support the WA
    * Created by HenryG
@@ -409,31 +410,108 @@ class BuffTargetHelper extends Analyzer {
    *
    * Format is basically:
    * prescGlowsStart
-   * defaultTargets - |cff3fc7ebSheeper|r |cffffffffXanapriest|r
-   * PREPULL - |cffc41e3aDérp|r |cff3fc7ebSheeper|r
-   * 0:30 - |cff33937fVollmer|r |cfffff468Zylv|r *
-   * 1:00 - |cffffffffXanapriest|r |cffc69b6dDolanpepe|r
+   * defaultTargets - |cff8788eeOlgey|r |cfffff468Zylv|r
+   * PULL - |cffc41e3aDérp|r |cffff7c0aMckulling|r
+   * 0:12 - |cffff7c0aLøutus|r
+   * 0:23 - |cff8788eeOlgey|r
+   * 0:34 - |cffff7c0aMckulling|r
    * ...etc...
    * prescGlowsEnd
    */
-  addEntryToTwoTargetMRTNote(
-    top2Pumpers: [string, number[]][],
-    index: number,
-    interval: string,
-    important: boolean = false,
-  ) {
-    if (index === 0) {
-      this.mrtTwoTargetPrescienceHelperNote += 'PREPULL - ';
-    } else {
-      this.mrtTwoTargetPrescienceHelperNote += interval + ' - ';
-    }
-    this.mrtTwoTargetPrescienceHelperNote += top2Pumpers
-      .map(([name]) => mrtColorMap.get(this.playerWhitelist.get(name) ?? '') + name + '|r')
+  generateMRTNoteHenryG(top4Pumpers: [string, number[]][][], defaultTargets: string[]) {
+    // Initialize the note with the default targets
+    const defaultTargetsNote = defaultTargets
+      .map((player) => mrtColorMap.get(this.playerWhitelist.get(player) ?? '') + player + '|r')
       .join(' ');
-    if (important) {
-      this.mrtTwoTargetPrescienceHelperNote += ' *';
+    let newNote = 'prescGlowsStart \ndefaultTargets - ' + defaultTargetsNote + '\n';
+
+    const prescienceCooldown =
+      12_000 * (this.selectedCombatant.hasTalent(TALENTS.INTERWOVEN_THREADS_TALENT) ? 0.9 : 1);
+    // First two casts in fight should be 2x Prescience
+    // We are assuming that count of 3 is long prescience so we go 3->1->2(start)
+    let prescienceCount = 2;
+    // Start 2 seconds in to mimic what HenryG does
+    let curTime = prescienceCooldown + 2_000;
+
+    const intervals = top4Pumpers.length;
+    // Normalize fight length to be divisible by intervals
+    // This makes logic infinitely easier
+    const fightLength =
+      this.fightEnd - this.fightStart - ((this.fightEnd - this.fightStart) % intervals);
+
+    const prescienceDuration =
+      18_000 * (1 + TIMEWALKER_BASE_EXTENSION + this.stats.currentMasteryPercentage);
+
+    /** Playername, expiration time */
+    const prescienceMap = new Map<string, number>();
+
+    // Grab the top 2 pumpers for the pull
+    newNote +=
+      'PULL - ' +
+      mrtColorMap.get(this.playerWhitelist.get(top4Pumpers[0][0][0]) ?? '') +
+      top4Pumpers[0][0][0] +
+      '|r ' +
+      mrtColorMap.get(this.playerWhitelist.get(top4Pumpers[0][1][0]) ?? '') +
+      top4Pumpers[0][1][0] +
+      '|r \n';
+
+    // Add them to the map
+    prescienceMap.set(top4Pumpers[0][0][0], prescienceDuration * (this.has4Pc ? 2 : 1));
+    prescienceMap.set(top4Pumpers[0][1][0], 1_000 + prescienceDuration); // Takes roughly 1 second to cast 2nd Prescience
+
+    while (curTime < fightLength) {
+      const curInterval = intervals - Math.round((fightLength - curTime) / this.interval) - 1;
+      const hasLongPrescience = prescienceCount === 3 && this.has4Pc;
+      let intervalToCheck = hasLongPrescience ? curInterval + 2 : curInterval + 1;
+
+      let target: string | undefined;
+      while (!target && intervalToCheck >= 0) {
+        // If the interval we want to check is empty, keep going to previous
+        // Ones until we find one that isn't
+        // These last ones are kinda just filler since we don't have future data
+        if (!top4Pumpers[intervalToCheck] && intervalToCheck > 0) {
+          intervalToCheck -= 1;
+          continue;
+        }
+
+        const targetInterval = [...top4Pumpers[intervalToCheck]];
+
+        while (targetInterval.length) {
+          // Keep going through the interval until we find a target that isn't
+          // Already buffed by prescience - overriding loses uptime
+          // Technically we should check for damage and stuff
+          // But data structure is bad so cba for now
+          // TODO: come back to this, maybe, idk
+          const nextTarget = targetInterval.shift()![0];
+
+          const curPrescience = prescienceMap.get(nextTarget);
+          if (!curPrescience || curPrescience < curTime) {
+            /* console.log(
+              `Found target ${nextTarget} at ${curTime} for interval ${curInterval} checked ${intervalToCheck} prescienceCount ${prescienceCount}}`,
+            ); */
+            prescienceMap.set(
+              nextTarget,
+              curTime + prescienceDuration * (hasLongPrescience ? 2 : 1),
+            );
+            target = nextTarget;
+            break;
+          }
+        }
+      }
+
+      if (target) {
+        newNote += `${formatDuration(curTime)} - ${
+          mrtColorMap.get(this.playerWhitelist.get(target) ?? '') + target + '|r'
+        } \n`;
+        prescienceCount = prescienceCount === 3 ? 1 : prescienceCount + 1;
+      }
+
+      curTime += prescienceCooldown;
     }
-    this.mrtTwoTargetPrescienceHelperNote += '\n';
+
+    /** Finalize TwoTargetMRT note */
+    newNote += 'prescGlowsEnd';
+    this.prescienceHelperMrtNote = newNote;
   }
 
   /**
@@ -475,8 +553,8 @@ class BuffTargetHelper extends Analyzer {
     this.mrtFourTargetPrescienceHelperNote += '\n';
   }
 
-  handleTwoTargetCopyClick = () => {
-    navigator.clipboard.writeText(this.mrtTwoTargetPrescienceHelperNote);
+  handlePrescienceHelperCopyClick = () => {
+    navigator.clipboard.writeText(this.prescienceHelperMrtNote);
   };
   handleFourTargetCopyClick = () => {
     navigator.clipboard.writeText(this.mrtFourTargetPrescienceHelperNote);
@@ -528,6 +606,8 @@ class BuffTargetHelper extends Analyzer {
               <b>HenryG</b> or the <a href="https://wago.io/KP-BlDV58">Frame Glows</a> WeakAura made
               by <b>Zephy</b> based on which Weak Aura you use.
             </p>
+
+            {this.has4Pc && <BuffTargetHelperInfoLabel />}
           </div>
           <div>
             <BuffTargetHelperWarningLabel />

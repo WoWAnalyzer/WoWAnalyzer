@@ -42,7 +42,7 @@ const ORDER_BY = {
   PERCENTILE: 2,
 };
 const DEFAULT_RETAIL_ZONE = 35; // Amirdrassil
-const DEFAULT_CLASSIC_ZONE = 1020; // ICC
+const DEFAULT_CLASSIC_ZONE = 1023; // BWD / BoT / TotFW
 const BOSS_DEFAULT_ALL_BOSSES = 0;
 const FALLBACK_PICTURE = '/img/fallback-character.jpg';
 const ERRORS = {
@@ -245,7 +245,9 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
       character_name: elem.characterName,
       talents: elem.talents,
       gear: elem.gear,
-      advanced: Object.values(elem.talents).filter((talent) => talent.id === null).length === 0,
+      advanced: elem.talents
+        ? Object.values(elem.talents).filter((talent) => talent.id === null).length === 0
+        : false,
     }));
 
     return parses;
@@ -311,23 +313,18 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
 
     const data = await response.json();
 
-    if (!data.thumbnail) {
-      this.setState({
-        isLoading: false,
-        error: ERRORS.UNEXPECTED,
-        errorMessage: 'Corrupt Battle.net API response received.',
-      });
-      return;
-    }
-    const image = data.thumbnail.replace('-avatar.jpg', '');
-    const imageUrl = `https://render-${this.props.region}.worldofwarcraft.com/character/${image}-main.jpg`;
-    const avatarImage = `https://render-${this.props.region}.worldofwarcraft.com/character/${image}-avatar.jpg`;
+    const avatarUrl = data.thumbnail
+      ? data.thumbnail.startsWith('https')
+        ? data.thumbnail
+        : `https://render-${this.props.region}.worldofwarcraft.com/character/${data.thumbnail}`
+      : undefined;
+    const imageUrl = avatarUrl?.replace('avatar.jpg', 'main.jpg');
     const role = data.role;
     const metric = role === 'HEALING' ? 'hps' : 'dps';
     this.setState(
       {
         image: imageUrl,
-        avatarImage: avatarImage,
+        avatarImage: avatarUrl,
         metric: metric,
       },
       () => {
@@ -386,10 +383,10 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
         metric: this.state.metric,
         zone: this.state.activeZoneID,
         timeframe: 'historical',
-        _: refresh ? Number(new Date()) : undefined,
-        // Always refresh since requiring a manual refresh is unclear and unfriendly to users and they cache hits are low anyway
-        // _: +new Date(), // disabled due to Uldir raid release hitting cap all the time
+        partition: this.zones.find((z) => z.id === this.state.activeZoneID)?.partition ?? -1,
       },
+      undefined,
+      refresh,
     )
       .then((rawParses) => {
         if (rawParses.length === 0) {
@@ -418,7 +415,7 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
           // SPECS is indexed both by name and id. only take the id-keyed entries
           .filter(([k]) => Number.isFinite(Number(k)))
           .map(([, v]) => v)
-          .filter(isRetailSpec) //Classic doesn't support look up by characters at the moment
+          .filter((e) => isRetailSpec(e) === !this.isClassic) // only take retail specs on retail, classic specs on classic
           .filter((e) => e.wclClassName === charClass);
 
         const parses = this.changeParseStructure(rawParses);
@@ -585,9 +582,8 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
       );
     }
 
-    let battleNetUrl:
-      | string
-      | undefined = `https://worldofwarcraft.com/en-${this.props.region}/character/${this.state.realmSlug}/${this.props.name}`;
+    let battleNetUrl: string | undefined =
+      `https://worldofwarcraft.com/en-${this.props.region}/character/${this.state.realmSlug}/${this.props.name}`;
     if (this.isClassic) {
       battleNetUrl = undefined;
     } else if (this.props.region === 'CN') {

@@ -3,6 +3,7 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, HealEvent } from 'parser/core/Events';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 class InefficientLightOfTheMartyrs extends Analyzer {
   // have to track over multiple events when player has Maraad's talent
@@ -61,12 +62,13 @@ class InefficientLightOfTheMartyrs extends Analyzer {
 
     const effectiveHealing = healingDone - this.damageTakenSinceLast;
     if (effectiveHealing <= 0) {
-      cast.meta = cast.meta || {};
-      cast.meta.isInefficientCast = true;
-      cast.meta.inefficientCastReason = defineMessage({
-        id: 'paladin.holy.timeline.badLotM',
-        message: `This cast dealt more damage to you than it healed the target. If there is nothing to heal, you should deal damage instead.`,
-      });
+      addInefficientCastReason(
+        cast,
+        defineMessage({
+          id: 'paladin.holy.timeline.badLotM',
+          message: `This cast dealt more damage to you than it healed the target. If there is nothing to heal, you should deal damage instead.`,
+        }),
+      );
     }
   }
 }

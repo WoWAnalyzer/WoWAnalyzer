@@ -9,7 +9,7 @@ import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import ItemSetLink from 'interface/ItemSetLink';
-import { SHAMAN_T31_ID, SHAMAN_T30_ID } from 'common/ITEMS/dragonflight';
+import { SHAMAN_DF3_ID, SHAMAN_DF2_ID } from 'common/ITEMS/dragonflight';
 
 class Riptide extends Analyzer {
   // eslint-disable-next-line @typescript-eslint/no-useless-constructor
@@ -44,21 +44,21 @@ class Riptide extends Analyzer {
           </>
         )}{' '}
         etc.{' '}
-        {this.selectedCombatant.has4PieceByTier(TIERS.T30) && (
+        {this.selectedCombatant.has4PieceByTier(TIERS.DF2) && (
           <>
             <SpellLink spell={talents.RIPTIDE_TALENT} /> should be kept on cooldown as often as
             possible, particularly with the addition of the{' '}
-            <ItemSetLink id={SHAMAN_T30_ID}>
+            <ItemSetLink id={SHAMAN_DF2_ID}>
               <>Tier 30 Set Bonus</>
             </ItemSetLink>
             , whose power is directly tied to the number of active{' '}
             <SpellLink spell={talents.RIPTIDE_TALENT} /> HoTs out on the raid
           </>
         )}
-        {this.selectedCombatant.has4PieceByTier(TIERS.T31) && (
+        {this.selectedCombatant.has4PieceByTier(TIERS.DF3) && (
           <>
             In season 3 of Dragonflight, the{' '}
-            <ItemSetLink id={SHAMAN_T31_ID}>
+            <ItemSetLink id={SHAMAN_DF3_ID}>
               <>Tier 31 Set Bonus</>
             </ItemSetLink>{' '}
             makes your <SpellLink spell={talents.RIPTIDE_TALENT} /> uptime even more critical, as{' '}

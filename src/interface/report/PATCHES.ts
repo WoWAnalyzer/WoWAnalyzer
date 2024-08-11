@@ -18,140 +18,36 @@ export interface Patch {
 
 const PATCHES: Patch[] = [
   {
-    name: '3.4.0',
-    timestamp: 1664229600000, // GMT: Monday, 26 September 2022 22:00:00
+    name: '10.2.6 Season 4',
+    timestamp: 1713906000000, // GMT: Tuesday, 23 April 2024 21:00:00
+    urlPrefix: 'dragonflight',
+    isCurrent: false,
+    gameVersion: 1, // retail
+    expansion: Expansion.Dragonflight,
+  },
+  {
+    name: '10.2.7',
+    timestamp: 1715115600000, // GMT: Tuesday, 6 May 2024 21:00:00
+    urlPrefix: 'dragonflight',
+    isCurrent: false,
+    gameVersion: 1, // retail
+    expansion: Expansion.Dragonflight,
+  },
+  {
+    name: '4.4.0',
+    timestamp: 1716242400000, // GMT: Monday, 20 May 2024 22:00:00
     urlPrefix: '',
     isCurrent: true,
-    gameVersion: 4, // WotLK
-    expansion: Expansion.WrathOfTheLichKing,
+    gameVersion: 5, // Cataclysm
+    expansion: Expansion.Cataclysm,
   },
   {
-    name: '9.0.2',
-    timestamp: 1605564000000, // GMT: Monday, 16 November 2020 22:00:00
-    urlPrefix: 'shadowlands',
-    isCurrent: false,
-    gameVersion: 1, // retail
-    expansion: Expansion.Shadowlands,
-  },
-  {
-    name: '9.0.5',
-    timestamp: 1615240800000, // GMT: Monday, 8 March 2021 22:00:00
-    urlPrefix: 'shadowlands',
-    isCurrent: false,
-    gameVersion: 1, // retail
-    expansion: Expansion.Shadowlands,
-  },
-  {
-    name: '9.1.0',
-    timestamp: 1624917600000, // GMT: Monday, 28 June 2021 22:00:00
-    urlPrefix: 'shadowlands',
-    isCurrent: false,
-    gameVersion: 1, // retail
-    expansion: Expansion.Shadowlands,
-  },
-  {
-    name: '9.1.5',
-    timestamp: 1635804000000, // GMT: Monday, 1 November 2021 22:00:00
-    urlPrefix: 'shadowlands',
-    isCurrent: false,
-    gameVersion: 1, // retail
-    expansion: Expansion.Shadowlands,
-  },
-  {
-    name: '9.2.0',
-    timestamp: 1645480800000, // GMT: Monday, 21 February 2022 22:00:00
-    urlPrefix: 'shadowlands',
-    isCurrent: false,
-    gameVersion: 1, // retail
-    expansion: Expansion.Shadowlands,
-  },
-  {
-    name: '9.2.5 Season 3',
-    timestamp: 1653948000000, // GMT: Monday, 30 May 2022 22:00:00
-    urlPrefix: 'shadowlands',
-    isCurrent: false,
-    gameVersion: 1, // retail
-    expansion: Expansion.Shadowlands,
-  },
-  {
-    name: '9.2.5 Season 4',
-    timestamp: 1659391200000, // GMT: Monday, 1 August 2022 22:00:00
-    urlPrefix: 'shadowlands',
-    isCurrent: false,
-    gameVersion: 1, // retail
-    expansion: Expansion.Shadowlands,
-  },
-  {
-    name: '9.2.7',
-    timestamp: 1660600800000, // GMT: Monday, 15 August 2022 22:00:00
-    urlPrefix: 'shadowlands',
-    isCurrent: false,
-    gameVersion: 1, // retail
-    expansion: Expansion.Shadowlands,
-  },
-  {
-    name: '10.0.0',
-    timestamp: 1666728000000, // GMT: Tuesday, 25 October 2022 22:00:00
-    urlPrefix: '',
-    isCurrent: false,
-    gameVersion: 1, // retail
-    expansion: Expansion.Dragonflight,
-  },
-  {
-    name: '10.0.2',
-    timestamp: 1668549600000, // GMT: Tuesday, 15 November 2022 22:00:00
-    urlPrefix: '',
-    isCurrent: false,
-    gameVersion: 1, // retail
-    expansion: Expansion.Dragonflight,
-  },
-  {
-    name: '10.0.2 Dragonflight Launch',
-    timestamp: 1669676400000, // GMT: Monday, 28 November 2022 23:00:00
-    urlPrefix: '',
-    isCurrent: false,
-    gameVersion: 1, // retail
-    expansion: Expansion.Dragonflight,
-  },
-  {
-    name: '10.0.5',
-    timestamp: 1674597600000, // GMT: Tuesday, 24 January 2023 22:00:00
-    urlPrefix: '',
-    isCurrent: false,
-    gameVersion: 1, // retail
-    expansion: Expansion.Dragonflight,
-  },
-  {
-    name: '10.0.7',
-    timestamp: 1679436000000, // GMT: Tuesday, 21 March 2023 22:00:00
-    urlPrefix: '',
-    isCurrent: false,
-    gameVersion: 1, // retail
-    expansion: Expansion.Dragonflight,
-  },
-  {
-    name: '10.1.0',
-    timestamp: 1683064800000, // GMT: Tuesday, 2 May 2023 22:00:00
-    urlPrefix: '',
-    isCurrent: false,
-    gameVersion: 1, // retail
-    expansion: Expansion.Dragonflight,
-  },
-  {
-    name: '10.1.5',
-    timestamp: 1689112800000, // GMT: Tuesday, 11 July 2023 22:00:00
-    urlPrefix: '',
-    isCurrent: false,
-    gameVersion: 1, // retail
-    expansion: Expansion.Dragonflight,
-  },
-  {
-    name: '10.2.0',
-    timestamp: 1699387200000, // GMT: Tuesday, 7 November 2023 22:00:00
+    name: '11.0.0',
+    timestamp: 1721764800000, // GMT: Tuesday, 23 July 2024 22:00:00
     urlPrefix: '',
     isCurrent: true,
     gameVersion: 1, // retail
-    expansion: Expansion.Dragonflight,
+    expansion: Expansion.TheWarWithin,
   },
 ];
 

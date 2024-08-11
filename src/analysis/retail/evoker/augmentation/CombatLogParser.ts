@@ -20,6 +20,8 @@ import SymbioticBloom from './modules/talents/SymbioticBloom';
 import TectonicLocus from './modules/talents/TectonicLocus';
 import Volcanism from './modules/talents/Volcanism';
 import BlisteringScales from './modules/talents/BlisteringScales';
+import MoltenEmbers from './modules/talents/MoltenEmbers';
+import RumblingEarth from './modules/talents/RumblingEarth';
 
 import BuffTrackerGraph from './modules/features/BuffTrackerGraph';
 import BuffTargetHelper from './modules/features/BuffTargetHelper/BuffTargetHelper';
@@ -28,25 +30,65 @@ import BlisteringScalesStackTracker from './modules/talents/BlisteringScalesStac
 
 import PrescienceNormalizer from './modules/normalizers/PrescienceNormalizer';
 import CastLinkNormalizer from './modules/normalizers/CastLinkNormalizer';
-import EmpowerNormalizer from './modules/normalizers/EmpowerNormalizer';
 import EbonMightNormalizer from './modules/normalizers/EbonMightNormalizer';
 
 // Tier
 import T31Augmentation4P from './modules/dragonflight/T31Augmentation4P';
 
 //Shared
-import { LeapingFlamesNormalizer, LeapingFlames } from 'analysis/retail/evoker/shared';
+import {
+  LivingFlameNormalizer,
+  LivingFlamePrePullNormalizer,
+  EssenceBurstCastLinkNormalizer,
+  EssenceBurstRefreshNormalizer,
+  LeapingFlamesNormalizer,
+  LeapingFlames,
+  EmpowerNormalizer,
+  SpellUsable,
+  GlobalCooldown,
+  SpellEssenceCost,
+  EssenceTracker,
+  EssenceGraph,
+  SourceOfMagic,
+  PotentMana,
+  ObsidianScales,
+  DefensiveNormalizer,
+  DefensiveCastLinkNormalizer,
+  TwinGuardian,
+  RenewingBlaze,
+  ImminentDestruction,
+} from 'analysis/retail/evoker/shared';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
+    // Empower Normalizer
+    empowerNormalizer: EmpowerNormalizer,
+    spellUsable: SpellUsable,
+    globalCooldown: GlobalCooldown,
+
     // Shared
+    livingFlameNormalizer: LivingFlameNormalizer,
+    livingFlamePrePullNormalizer: LivingFlamePrePullNormalizer,
+    essenceBurstRefreshNormalizer: EssenceBurstRefreshNormalizer,
+    essenceBurstCastLinkNormalizer: EssenceBurstCastLinkNormalizer,
     leapingFlamesNormalizer: LeapingFlamesNormalizer,
     leapingFlames: LeapingFlames,
+    spellEssenceCost: SpellEssenceCost,
+    essenceTracker: EssenceTracker,
+    essenceGraph: EssenceGraph,
+    sourceOfMagic: SourceOfMagic,
+    potentMana: PotentMana,
+    imminentDestruction: ImminentDestruction,
+
+    obsidianScales: ObsidianScales,
+    defensiveCastLinkNormalizer: DefensiveCastLinkNormalizer,
+    defensiveNormalizer: DefensiveNormalizer,
+    twinGuardian: TwinGuardian,
+    renewingBlaze: RenewingBlaze,
 
     // Normalizers
     castLinkNormalizer: CastLinkNormalizer,
     prescienceNormalizer: PrescienceNormalizer,
-    empowerNormalizer: EmpowerNormalizer,
     ebonMightNormalizer: EbonMightNormalizer,
 
     // Core
@@ -72,6 +114,8 @@ class CombatLogParser extends MainCombatLogParser {
     tectonicLocus: TectonicLocus,
     volcanism: Volcanism,
     blisteringScales: BlisteringScales,
+    moltenEmbers: MoltenEmbers,
+    rumblingEarth: RumblingEarth,
 
     // Features
     buffTrackerGraph: BuffTrackerGraph,

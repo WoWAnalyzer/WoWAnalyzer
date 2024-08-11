@@ -41,7 +41,7 @@ const MULTI_UPDATE_BUFFER_MS = 150;
 const REFUND_HIT_TYPES = [HIT_TYPES.MISS, HIT_TYPES.DODGE, HIT_TYPES.PARRY];
 
 /** Data for a builder ability (one that generates resource) */
-export type BuilderObj = {
+type BuilderObj = {
   /** The total amount of resource generated */
   generated: number;
   /** The total amount of resource wasted (overcapped) */
@@ -51,7 +51,7 @@ export type BuilderObj = {
 };
 
 /** Data for a spender ability (one that uses resource) */
-export type SpenderObj = {
+type SpenderObj = {
   /** The total cost of resource spent */
   spent: number;
   /** A list of the amount spent by each use of this ability */
@@ -61,7 +61,7 @@ export type SpenderObj = {
 };
 
 /** An update on the resource state */
-export type ResourceUpdate = {
+type ResourceUpdate = {
   /** What triggered this update (see {@link ResourceUpdateType} */
   type: ResourceUpdateType;
   /** This update's timestamp */
@@ -90,7 +90,7 @@ export type ResourceUpdate = {
   atCap: boolean;
 };
 
-export type ResourceUpdateType =
+type ResourceUpdateType =
   /** Player spent resource, as shown in a cast's classResources */
   | 'spend'
   /** Player drained resource, as shown in a DrainEvent */
@@ -132,6 +132,8 @@ export default class ResourceTracker extends Analyzer {
   /** The maximum amount of the resource.
    * This is only used as a starting value - it will be updated from event's classResources field. */
   maxResource!: number;
+  /** The amount of resources you start the fight with. */
+  initialResources = 0;
 
   /** Resource's base regeneration rate, in units per second. This is the value before haste.
    *  Leave as 0 for non-regenerating resources.
@@ -157,6 +159,15 @@ export default class ResourceTracker extends Analyzer {
    *  timestamp as a valid gain.
    */
   allowMultipleGainsInSameTimestamp = false;
+  /** Instead of calculating resource as rounded numbers, use decimal precision for granularity.
+   * This is needed for specs that have resource generation that isn't provided in whole numbers
+   * eg. Evoker's Essence */
+  useGranularity = false;
+  /** amount of decimals to use for granularity */
+  granularity = 2;
+  /** If true, will adjust the resource amount to account for any mismatch between the previous
+   *  update's current and the new current. */
+  adjustResourceMismatch = false;
   // END override values
 
   /** Data object for the whole fight - updated during analysis */
@@ -310,6 +321,18 @@ export default class ResourceTracker extends Analyzer {
     this._resourceUpdate('rateChange');
   }
 
+  /** Multiplies the base resource regeneration rate by the given factor.
+   *  A useful helper for handling the application of a regen modifying buff. */
+  addRateMultiplier(rateMult: number) {
+    this.triggerRateChange(this.baseRegenRate * rateMult);
+  }
+
+  /** Divides the base resource regeneration rate by the given factor.
+   *  A useful helper for handling the removal of a regen modifying buff. */
+  removeRateMultiplier(rateMult: number) {
+    this.triggerRateChange(this.baseRegenRate / rateMult);
+  }
+
   /**
    * Registers a builder use, updating the relevant builderObj with the given values
    * and pushing a resourceUpdate.
@@ -404,11 +427,45 @@ export default class ResourceTracker extends Analyzer {
       !this.allowMultipleGainsInSameTimestamp &&
       prevUpdate &&
       timestamp <= prevUpdate.timestamp + MULTI_UPDATE_BUFFER_MS;
+    /** If 'useGranularity' is true we use 'calculatedBeforeAmount', since 'reportedBeforeAmount' will always return a rounded
+     * amount, whilst 'calculatedBeforeAmount' will return the amount with the decimal precision specified by 'granularity'. */
     const beforeAmount =
-      reportedBeforeAmount !== undefined && !withinMultiUpdateBuffer
+      reportedBeforeAmount !== undefined && !withinMultiUpdateBuffer && !this.useGranularity
         ? reportedBeforeAmount
         : calculatedBeforeAmount;
     const current = Math.max(Math.min(max, beforeAmount + change), 0); // current is the after amount
+
+    /** There may be a discrepancy between the previous update's current value and
+     * the new current value due to the time elapsed since the last resource generation calculation.
+     * This discrepancy can cause issues when plotting the resource graph.
+     *
+     * For instance, if prevUpdate.current = 100,
+     * and beforeAmount = 110 with a change of -105,
+     *
+     * Ideally, the plot should show: 100 -> 110 -> 5
+     * However, it displays: 100 -> 5, despite reporting a change of -105.
+     *
+     * To address this, we generate a new update using the beforeAmount as the current value.
+     */
+    if (
+      this.adjustResourceMismatch &&
+      prevUpdate &&
+      prevUpdate.current < beforeAmount &&
+      type === 'spend' &&
+      change < 0
+    ) {
+      this._logAndPushUpdate({
+        type: 'gain',
+        timestamp: timestamp - (timestamp - prevUpdate.timestamp) / 2,
+        change: beforeAmount - prevUpdate.current,
+        current: beforeAmount,
+        max,
+        rate: this.currentRegenRate,
+        rateWaste: 0,
+        changeWaste: 0,
+        atCap: false,
+      });
+    }
 
     // if our resource regenerates and the beforeAmount was capped,
     // then we were wasting resources due to natural regeneration
@@ -520,7 +577,7 @@ export default class ResourceTracker extends Analyzer {
     const lastUpdate = this.resourceUpdates.at(-1);
     if (!lastUpdate) {
       // there have been no updates so far, return a default
-      return 0; // TODO make some resources default to max?
+      return this.initialResources;
     }
     if (lastUpdate.rate === 0) {
       // resource doesn't naturally regenerate, so return the last seen val
@@ -528,7 +585,10 @@ export default class ResourceTracker extends Analyzer {
     }
     // resource naturally regenerates, estimate current based on last seen val
     const timePassedSeconds = (this.owner.currentTimestamp - lastUpdate.timestamp) / 1000;
-    const naturalGain = Math.round(timePassedSeconds * lastUpdate.rate); // whole number amount of resources pls
+    const naturalGain = this.useGranularity
+      ? parseFloat((timePassedSeconds * lastUpdate.rate).toFixed(this.granularity))
+      : Math.round(timePassedSeconds * lastUpdate.rate); // whole number amount of resources pls
+
     return Math.min(lastUpdate.max, lastUpdate.current + naturalGain);
   }
 
@@ -590,10 +650,9 @@ export default class ResourceTracker extends Analyzer {
     return this.fightData.spent;
   }
 
-  /** Percent of raw generated resources that were wasted */
+  /** Percent of raw generated resources that were wasted - this is only from builders and does NOT include rate gain or rate waste */
   get percentWasted(): number {
-    const rawTotal = this.generated + this.wasted;
-    return rawTotal === 0 ? 0 : this.wasted / rawTotal;
+    return this.fightData.percentWasted;
   }
 
   /** Total spender abilities cast */
@@ -617,7 +676,7 @@ export default class ResourceTracker extends Analyzer {
    *  @param endTime the segment's end time (exclusive).
    *    Must be later than startTime and will be clamped to current time if later than it.
    * */
-  generateSegmentData(startTime: number, endTime: number) {
+  generateSegmentData(startTime: number, endTime: number): SegmentData {
     if (endTime <= startTime) {
       throw new Error(
         `Tried to generate segment with endTime ${endTime} not after startTime ${startTime}`,
@@ -719,7 +778,7 @@ export default class ResourceTracker extends Analyzer {
 
 /** Data for player resources over a segment of time
  *  and a lot of functions to do calculations on that data */
-class SegmentData {
+export class SegmentData {
   /** The start time of this segment */
   startTimestamp: number;
   /** The end time of this segment */
@@ -814,6 +873,14 @@ class SegmentData {
   /** The total amount of wasted resources from both builders and natural regen within this segment. */
   get totalWaste(): number {
     return this.gainWaste + this.rateWaste;
+  }
+
+  // TODO - would be nice to also track rate gain / rate waste here, but needs some work because we
+  //  don't currently track rate gain at all
+  /** Percent of raw generated resources that were wasted - this is only from builders and does NOT include rate gain or rate waste */
+  get percentWasted(): number {
+    const rawTotal = this.builderGenerated + this.gainWaste;
+    return rawTotal === 0 ? 0 : this.gainWaste / rawTotal;
   }
 
   /** The total amount of resource generated by the builder with the given spellId within this segment. */

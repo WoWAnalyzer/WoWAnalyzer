@@ -8,7 +8,7 @@ export interface Dot {
   debuffId: number;
 }
 
-export interface DotStatus {
+interface DotStatus {
   debuffId: number;
   missingApplyDebuff?: boolean;
   // The first damage event we find of a dot that is missing an apply debuff event. Used to fabricate the apply debuff event.

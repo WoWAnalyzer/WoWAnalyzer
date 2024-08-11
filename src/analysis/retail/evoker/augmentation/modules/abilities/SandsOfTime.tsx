@@ -9,9 +9,9 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { SpellLink } from 'interface';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 import ContextualSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
-import { logSpellUseEvent } from 'parser/core/SpellUsage/SpellUsageSubSection';
 import { failedEbonMightExtension } from '../normalizers/CastLinkNormalizer';
 import '../Styling.scss';
+import { BREATH_OF_EONS_SPELLS } from '../../constants';
 
 /**
  * Sands of time is an innate ability for Augmentation.
@@ -32,7 +32,11 @@ class SandsOfTime extends Analyzer {
   private extendAttempts: PossibleExtends[] = [];
 
   ebonMightActive: boolean = false;
-  trackedSpells = [TALENTS.ERUPTION_TALENT, TALENTS.BREATH_OF_EONS_TALENT];
+  trackedSpells = [
+    TALENTS.ERUPTION_TALENT,
+    ...BREATH_OF_EONS_SPELLS,
+    SPELLS.BREATH_OF_EONS_SCALECOMMANDER,
+  ];
   empowers = [SPELLS.FIRE_BREATH, SPELLS.FIRE_BREATH_FONT, SPELLS.UPHEAVAL, SPELLS.UPHEAVAL_FONT];
   constructor(options: Options) {
     super(options);
@@ -152,7 +156,6 @@ class SandsOfTime extends Analyzer {
             <span className="badCast">red</span> is a bad cast where you didn't extend.
           </>
         }
-        onPerformanceBoxClick={logSpellUseEvent}
         abovePerformanceDetails={<div style={{ marginBottom: 10 }}></div>}
       />
     );

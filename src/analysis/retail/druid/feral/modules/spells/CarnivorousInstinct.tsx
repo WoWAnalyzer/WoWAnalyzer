@@ -73,7 +73,7 @@ export default class CarnivorousInstinct extends Analyzer {
   onBoostedDamage(event: DamageEvent) {
     const spellId = event.ability.guid;
     let applies = false;
-    if (spellId === SPELLS.RIP.id || spellId === SPELLS.TEAR_OPEN_WOUNDS.id) {
+    if (spellId === SPELLS.RIP.id) {
       applies = this.targetsWithTfRip.has(encodeEventTargetString(event) || '');
     } else if (spellId === SPELLS.RAKE_BLEED.id) {
       applies = this.targetsWithTfRake.has(encodeEventTargetString(event) || '');

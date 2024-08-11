@@ -15,7 +15,7 @@ import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { reduce } from 'vega-lite/build/src/encoding';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
-import { getAncientFlameSource } from '../../normalizers/CastLinkNormalizer';
+import { getAncientFlameSource } from '../../normalizers/EventLinking/helpers';
 
 class AncientFlame extends Analyzer {
   consumptions: BoxRowEntry[] = [];
@@ -90,7 +90,11 @@ class AncientFlame extends Analyzer {
     );
     const value = QualitativePerformance.Good;
     this.consumptions.push({ value, tooltip });
-    this.consumeTimes.push(event.timestamp - applyEvent.timestamp ?? this.owner.fight.start_time);
+    const startTime =
+      applyEvent === null || applyEvent === undefined
+        ? this.owner.fight.start_time
+        : event.timestamp - applyEvent.timestamp;
+    this.consumeTimes.push(startTime);
   }
 
   get averageTimeToConsume() {

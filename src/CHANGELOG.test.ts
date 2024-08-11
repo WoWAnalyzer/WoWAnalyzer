@@ -10,7 +10,7 @@ describe('CHANGELOG', () => {
       const specName = `${config.spec.specName ? i18n._(config.spec.specName) : null} ${i18n._(
         config.spec.className,
       )}`;
-      obj[specName] = config.changelog;
+      obj[specName] = config.changelog ?? [];
       return obj;
     },
     {

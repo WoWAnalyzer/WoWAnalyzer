@@ -33,7 +33,7 @@ type PurifyBreakdown = {
   [key: number]: number;
 };
 
-export type MaxHPEvent = AnyEvent & { maxHitPoints?: number };
+type MaxHPEvent = AnyEvent & { maxHitPoints?: number };
 
 /**
  * Fabricate events corresponding to stagger pool updates. Each stagger
@@ -60,7 +60,7 @@ class StaggerFabricator extends Analyzer {
     //count as uninitialized if fight didn't start at actual fight start time (aka phase)
     this._initialized = (this.owner.fight.offset_time || 0) === 0;
 
-    this._has4pcT29 = this.selectedCombatant.has4PieceByTier(TIERS.T29);
+    this._has4pcT29 = this.selectedCombatant.has4PieceByTier(TIERS.DF1);
 
     this.addEventListener(Events.cast.spell(talents.PURIFYING_BREW_TALENT), this._pbCast);
     this.addEventListener(Events.absorbed, this._absorb);

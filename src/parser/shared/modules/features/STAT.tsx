@@ -27,7 +27,7 @@ export enum SECONDARY_STAT {
   VERSATILITY = 'versatility',
 }
 
-export enum OTHER_STAT {
+enum OTHER_STAT {
   HEALTH = 'health',
   STAMINA = 'stamina',
   MANA = 'mana',
@@ -174,10 +174,6 @@ export function getClassNameColor(stat: STAT) {
     default:
       return null;
   }
-}
-
-export function getClassNameBackgroundColor(stat: STAT) {
-  return `${getClassNameColor(stat)}-bg`;
 }
 
 export function getIcon(stat: STAT): (props: any) => JSX.Element {

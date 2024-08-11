@@ -6,7 +6,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import { ELECTRIFIED_SHOCKS_DURATION, ON_CAST_BUFF_REMOVAL_GRACE_MS } from '../../constants';
+import { ON_CAST_BUFF_REMOVAL_GRACE_MS } from '../../constants';
 import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
 import MajorCooldown, { CooldownTrigger } from 'parser/core/MajorCooldowns/MajorCooldown';
 import { QualitativePerformance, getLowestPerf } from 'parser/ui/QualitativePerformance';
@@ -27,6 +27,7 @@ import { formatDuration } from 'common/format';
 import { PerformanceMark } from 'interface/guide';
 import SpellMaelstromCost from '../core/SpellMaelstromCost';
 import MaelstromTracker from '../resources/MaelstromTracker';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 const SK_DAMAGE_AFFECTED_ABILITIES = [
   SPELLS.LIGHTNING_BOLT_OVERLOAD,
@@ -51,8 +52,6 @@ interface SKCast extends CooldownTrigger<CastEvent> {
   maelstromOnCast: number;
   /** How long Flameshock had left when starting the window rotation */
   flameshockDurationOnCast: number;
-  /** How long Electrified shocks had left when starting the window rotation */
-  electrifiedShocksDurationOnCast: number;
   /** If the user had Surge of Power already active when casting SK */
   sopOnCast: boolean;
   /** If the user had Master of the Elements already active when casting SK */
@@ -70,7 +69,8 @@ const WINDOW_START_SPELLS = [
   TALENTS.LAVA_BURST_TALENT.id,
   TALENTS.EARTH_SHOCK_TALENT.id,
   TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id,
-  TALENTS.EARTHQUAKE_TALENT.id,
+  TALENTS.EARTHQUAKE_1_ELEMENTAL_TALENT,
+  TALENTS.EARTHQUAKE_2_ELEMENTAL_TALENT,
 ];
 
 // Spells that must have SOP if cast within the SK window
@@ -128,16 +128,12 @@ class Stormkeeper extends MajorCooldown<SKCast> {
   damageDoneByBuffedCasts = 0;
 
   constructor(options: Options) {
-    super({ spell: TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT }, options);
+    super({ spell: TALENTS.STORMKEEPER_TALENT }, options);
 
     this.stSpender = this.selectedCombatant.hasTalent(TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT)
       ? TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT
       : TALENTS.EARTH_SHOCK_TALENT;
-    this.active =
-      this.selectedCombatant.getMultipleTalentRanks(
-        TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT,
-        TALENTS.STORMKEEPER_2_ELEMENTAL_TALENT,
-      ) > 0;
+    this.active = this.selectedCombatant.hasTalent(TALENTS.STORMKEEPER_TALENT);
     if (!this.active) {
       return;
     }
@@ -200,15 +196,6 @@ class Stormkeeper extends MajorCooldown<SKCast> {
               FLAMESHOCK_BASE_DURATION * (1 + PANDEMIC_WINDOW),
               event.timestamp,
             ) || 0,
-        electrifiedShocksDurationOnCast:
-          this.enemies
-            .getEntity(event)
-            ?.getRemainingBuffTimeAtTimestamp(
-              SPELLS.ELECTRIFIED_SHOCKS_DEBUFF.id,
-              ELECTRIFIED_SHOCKS_DURATION,
-              ELECTRIFIED_SHOCKS_DURATION,
-              event.timestamp,
-            ) || 0,
         sopOnCast: this.selectedCombatant.hasBuff(SPELLS.SURGE_OF_POWER_BUFF.id),
         moteOnCast: this.selectedCombatant.hasBuff(SPELLS.MASTER_OF_THE_ELEMENTS_BUFF.id),
         timeline: {
@@ -237,10 +224,10 @@ class Stormkeeper extends MajorCooldown<SKCast> {
         // Some rotations cast SK before pull. In this case, the rotation is slightly different.
         !(isPrepull && spenderNotAlreadyCast)
       ) {
-        event.meta = {
-          isInefficientCast: true,
-          inefficientCastReason: <>{this.stSpender.name} cast without Master of the Elements</>,
-        };
+        addInefficientCastReason(
+          event,
+          <>{this.stSpender.name} cast without Master of the Elements</>,
+        );
         this.activeWindow.timeline.performance = getLowestPerf([
           MISSING_MOTE_PERFORMANCE,
           this.activeWindow.timeline.performance,
@@ -262,10 +249,7 @@ class Stormkeeper extends MajorCooldown<SKCast> {
         // Some rotations cast SK before pull. In this case, the rotation is slightly different.
         !(isPrepull && sopSpellNotAlreadyCast)
       ) {
-        event.meta = {
-          isInefficientCast: true,
-          inefficientCastReason: <>{event.ability.name} cast without Surge of Power</>,
-        };
+        addInefficientCastReason(event, <>{event.ability.name} cast without Surge of Power</>);
         this.activeWindow.timeline.performance = getLowestPerf([
           SOP_BUFF_MISSING_PERFORMANCE,
           this.activeWindow.timeline.performance,
@@ -330,7 +314,7 @@ class Stormkeeper extends MajorCooldown<SKCast> {
 
         {showPrecastMote && (
           <p>
-            <SpellIcon spell={TALENTS.MASTER_OF_THE_ELEMENTS_TALENT} />:{' '}
+            <SpellIcon spell={TALENTS.MASTER_OF_THE_ELEMENTS_ELEMENTAL_TALENT} />:{' '}
             <PerformanceMark
               perf={
                 cast.firstRotationCast.meta?.isEnhancedCast
@@ -457,39 +441,10 @@ class Stormkeeper extends MajorCooldown<SKCast> {
     }
   }
 
-  private explainElShocksPerformance(cast: SKCast) {
-    const ElShocksPerformance = this.determineElshocksPerformance(
-      cast.electrifiedShocksDurationOnCast,
-    );
-
-    const checklistItem = {
-      performance: ElShocksPerformance,
-      summary: (
-        <span>
-          <SpellLink spell={TALENTS.ELECTRIFIED_SHOCKS_TALENT} />:{' '}
-          {formatDuration(cast.electrifiedShocksDurationOnCast)}s
-        </span>
-      ),
-      details: (
-        <span>
-          {' '}
-          <SpellLink spell={TALENTS.ELECTRIFIED_SHOCKS_TALENT} /> had at least{' '}
-          {formatDuration(ELECTRIFIED_SHOCKS_IDEAL_DURATION_REMAINING)} seconds remaining on window
-          start (you had {formatDuration(cast.electrifiedShocksDurationOnCast)}s)
-        </span>
-      ),
-      check: 'stormkeeper-elshocks',
-      timestamp: cast.event.timestamp,
-    };
-
-    return checklistItem;
-  }
-
   private determineTotalWindowPerformance(
     timelinePerformance: QualitativePerformance,
     maelstromOnCastPerformance: QualitativePerformance,
     FlSPerformance: QualitativePerformance,
-    elshocksPerformance: QualitativePerformance,
   ) {
     return getLowestPerf([
       timelinePerformance,
@@ -501,9 +456,6 @@ class Stormkeeper extends MajorCooldown<SKCast> {
         : QualitativePerformance.Good,
       /* Failing this should not nuke the entire performance, so make the lower
       limit Good */
-      elshocksPerformance === QualitativePerformance.Perfect
-        ? QualitativePerformance.Perfect
-        : QualitativePerformance.Good,
     ]);
   }
 
@@ -511,19 +463,17 @@ class Stormkeeper extends MajorCooldown<SKCast> {
     const timeline = this.explainTimelineWithDetails(cast);
     const maelstromOnCast = this.explainMaelstromPerformance(cast);
     const FlSDuration = this.explainFlSPerformance(cast);
-    const ELShocksperf = this.explainElShocksPerformance(cast);
 
     const totalPerformance = this.determineTotalWindowPerformance(
       timeline.checklistItem.performance,
       maelstromOnCast.performance,
       FlSDuration.performance,
-      ELShocksperf.performance,
     );
 
     return {
       event: cast.event,
       performance: totalPerformance,
-      checklistItems: [timeline.checklistItem, maelstromOnCast, ELShocksperf, FlSDuration],
+      checklistItems: [timeline.checklistItem, maelstromOnCast, FlSDuration],
       extraDetails: timeline.extraDetails,
     };
   }
@@ -531,7 +481,7 @@ class Stormkeeper extends MajorCooldown<SKCast> {
   statistic() {
     return (
       <Statistic position={STATISTIC_ORDER.OPTIONAL()} size="flexible">
-        <BoringSpellValueText spell={TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT}>
+        <BoringSpellValueText spell={TALENTS.STORMKEEPER_TALENT}>
           <>
             <ItemDamageDone amount={this.damageDoneByBuffedCasts} />
           </>
@@ -545,7 +495,7 @@ class Stormkeeper extends MajorCooldown<SKCast> {
       <>
         <p>
           <strong>
-            <SpellLink spell={TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT} />
+            <SpellLink spell={TALENTS.STORMKEEPER_TALENT} />
           </strong>{' '}
           massively amplifies the strength of your next two
           <SpellLink spell={SPELLS.LIGHTNING_BOLT} /> or
@@ -559,7 +509,7 @@ class Stormkeeper extends MajorCooldown<SKCast> {
         <p>
           (<SpellIcon spell={SPELLS.FLAME_SHOCK} /> &rarr;) (
           <SpellIcon spell={TALENTS.FROST_SHOCK_TALENT} /> &rarr;)
-          <SpellIcon spell={TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT} /> &rarr;
+          <SpellIcon spell={TALENTS.STORMKEEPER_TALENT} /> &rarr;
           <SpellIcon spell={TALENTS.LAVA_BURST_TALENT} /> &rarr;
           <SpellIcon spell={TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT} /> &rarr;
           <SpellIcon spell={SPELLS.LIGHTNING_BOLT} /> &rarr;

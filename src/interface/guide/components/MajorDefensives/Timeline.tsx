@@ -6,7 +6,7 @@ import { HasAbility, AbilityEvent, EventType } from 'parser/core/Events';
 import { useMemo } from 'react';
 import { useCallback, useState } from 'react';
 import { SignalListener } from 'react-vega';
-import { AutoSizer } from 'react-virtualized';
+import AutoSizer from 'react-virtualized-auto-sizer';
 import EmbeddedTimelineContainer, {
   SpellTimeline,
 } from 'interface/report/Results/Timeline/EmbeddedTimeline';
@@ -60,13 +60,7 @@ const MitigationDataRow = styled.div`
   margin-top: 0.4em;
 `;
 
-export const MitigationLabel = ({
-  mitigation,
-  long,
-}: {
-  mitigation: Mitigation;
-  long?: boolean;
-}) => {
+const MitigationLabel = ({ mitigation, long }: { mitigation: Mitigation; long?: boolean }) => {
   const fightStart = useInfo()?.fightStart ?? 0;
   return (
     <>

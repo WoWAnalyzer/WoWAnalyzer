@@ -12,6 +12,7 @@ import Events, {
 } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 /**
  * A powerful aimed shot that deals [(248.4% of Attack power) * ((max(0, min(Level - 10, 10)) * 8 + 130) / 210)] Physical damage.
@@ -119,18 +120,11 @@ class AimedShot extends Analyzer {
       this.casts += 1;
     }
 
-    if (event.meta === undefined) {
-      event.meta = {
-        isEnhancedCast: false,
-        isInefficientCast: false,
-      };
-    }
     const hasPreciseShotsBuff = this.selectedCombatant.hasBuff(SPELLS.PRECISE_SHOTS.id);
     const hasTrueshotBuff = this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id);
 
     if (hasPreciseShotsBuff && !hasTrueshotBuff) {
-      event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = 'Aimed Shot while having Precise Shots stacks left.';
+      addInefficientCastReason(event, 'Aimed Shot while having Precise Shots stacks left.');
     }
   }
 }

@@ -1,11 +1,11 @@
 import CombatLogParser from 'parser/core/CombatLogParser';
 import { BuffEvent, HasSource } from 'parser/core/Events';
 
-type StackHistory = Array<{ stacks: number; timestamp: number }>;
+type StackHistoryElement = { stacks: number; timestamp: number };
 export interface TrackedBuffEvent extends BuffEvent<any> {
   start: number;
   end: number | null;
-  stackHistory: StackHistory;
+  stackHistory: Array<StackHistoryElement>;
   refreshHistory: number[];
   stacks: number;
 }
@@ -20,6 +20,8 @@ class Entity {
    * This also tracks debuffs in the exact same array. There are no parameters to filter results by debuffs. I don't think this should be necessary as debuffs and buffs usually have different spell IDs.
    */
   buffs: TrackedBuffEvent[] = [];
+
+  private activeBuffSet: Map<number, Set<number>> = new Map();
 
   /**
    * @param {number} timestamp - Timestamp (in ms) to be considered, or the current timestamp if null. Won't work right for timestamps after the currentTimestamp.
@@ -70,7 +72,15 @@ class Entity {
     bufferTime = 0,
     minimalActiveTime = 0,
     sourceID: number | null = null,
-  ) {
+  ): boolean {
+    if (forTimestamp === null && bufferTime === 0 && minimalActiveTime === 0) {
+      // fast-path for common case
+      if (sourceID !== null) {
+        return this.activeBuffSet.get(spellId)?.has(sourceID) ?? false;
+      } else {
+        return (this.activeBuffSet.get(spellId)?.size ?? 0) > 0;
+      }
+    }
     return (
       this.getBuff(spellId, forTimestamp, bufferTime, minimalActiveTime, sourceID) !== undefined
     );
@@ -111,13 +121,27 @@ class Entity {
   getBuffStacks(
     spellId: number,
     forTimestamp: number | null = null,
-    bufferTime = 0,
-    minimalActiveTime = 0,
+    bufferTime: number = 0,
+    minimalActiveTime: number = 0,
     sourceID: number | null = null,
-  ) {
-    return (
-      this.getBuff(spellId, forTimestamp, bufferTime, minimalActiveTime, sourceID)?.stacks || 0
+  ): number {
+    const buff: TrackedBuffEvent | undefined = this.getBuff(
+      spellId,
+      forTimestamp,
+      bufferTime,
+      minimalActiveTime,
+      sourceID,
     );
+    const currentTimestamp = forTimestamp !== null ? forTimestamp : this.owner.currentTimestamp;
+
+    let maxStackForTimestamp: StackHistoryElement = { timestamp: 0, stacks: 0 };
+    buff?.stackHistory.forEach((stack) => {
+      if (maxStackForTimestamp.timestamp < stack.timestamp && stack.timestamp < currentTimestamp) {
+        maxStackForTimestamp = stack;
+      }
+    });
+
+    return maxStackForTimestamp.stacks;
   }
 
   /**
@@ -292,6 +316,23 @@ class Entity {
       stacks: 1,
       ...buff,
     });
+
+    if (buff.sourceID !== undefined) {
+      let set = this.activeBuffSet.get(buff.ability.guid);
+      if (!set) {
+        this.activeBuffSet.set(buff.ability.guid, new Set());
+        set = this.activeBuffSet.get(buff.ability.guid);
+      }
+
+      set!.add(buff.sourceID);
+    }
+  }
+
+  removeBuffSource(buffId: number, sourceId: number | undefined) {
+    if (sourceId === undefined) {
+      return;
+    }
+    this.activeBuffSet.get(buffId)?.delete(sourceId);
   }
 }
 

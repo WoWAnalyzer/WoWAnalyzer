@@ -18,7 +18,7 @@ const debug = false;
 
 const MS_BUFFER = 500;
 
-export enum ExecuteRangeType {
+enum ExecuteRangeType {
   /**
    * A range that indicates low (or high, for reverse executes) HP.
    */

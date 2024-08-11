@@ -10,7 +10,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { SPELL_COLORS } from '../../constants';
-import { getHealForLifebindHeal } from '../../normalizers/CastLinkNormalizer';
+import { getHealForLifebindHeal } from '../../normalizers/EventLinking/helpers';
 import Combatants from 'parser/shared/modules/Combatants';
 
 class Lifebind extends Analyzer {

@@ -4,8 +4,7 @@ import Analyzer from 'parser/core/Analyzer';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import StatisticsListBox, { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 
-import { FaelineStomp, SaveThemAll } from 'analysis/retail/monk/shared';
-import CloudedFocus from '../spells/CloudedFocus';
+import { JadefireStomp, SaveThemAll } from 'analysis/retail/monk/shared';
 import DancingMists from '../spells/DancingMists';
 import MistyPeaks from '../spells/MistyPeaks';
 import RapidDiffusion from '../spells/RapidDiffusion';
@@ -13,7 +12,6 @@ import RisingMist from '../spells/RisingMist';
 import InvokeChiJi from '../spells/InvokeChiJi';
 import InvokeYulon from '../spells/InvokeYulon';
 import { TALENTS_MONK } from 'common/TALENTS';
-import Upwelling from '../spells/Upwelling';
 import Unison from '../spells/Unison';
 import MistsOfLife from '../spells/MistsOfLife';
 import MistWrap from '../spells/MistWrap';
@@ -22,18 +20,22 @@ import ShaohaosLessons from '../spells/ShaohaosLessons';
 import VeilOfPride from '../spells/VeilOfPride';
 import LegacyOfWisdom from '../spells/LegacyOfWisdom';
 import AncientTeachings from '../spells/AncientTeachings';
+import TearOfMorning from '../spells/TearOfMorning';
+import ChiHarmony from '../spells/ChiHarmony';
+import LotusInfusion from '../spells/LotusInfusion';
+import MendingProliferation from '../spells/MendingProliferation';
+import CraneStyle from '../spells/CraneStyle';
+import ZenPulse from '../spells/ZenPulse';
 
 class TalentHealingStatistic extends Analyzer {
   static dependencies = {
     risingMist: RisingMist,
-    upwelling: Upwelling,
     mistyPeaks: MistyPeaks,
     invokeChiji: InvokeChiJi,
     invokeYulon: InvokeYulon,
     dancingMists: DancingMists,
     rapidDiffusion: RapidDiffusion,
     saveThemAll: SaveThemAll,
-    cloudedFocus: CloudedFocus,
     unison: Unison,
     mistsOfLife: MistsOfLife,
     mistWrap: MistWrap,
@@ -42,10 +44,16 @@ class TalentHealingStatistic extends Analyzer {
     veilOfPride: VeilOfPride,
     legacyOfWisdom: LegacyOfWisdom,
     ancientTeachings: AncientTeachings,
-    faelineStomp: FaelineStomp,
+    jadefireStomp: JadefireStomp,
+    tearOfMorning: TearOfMorning,
+    chiHarmony: ChiHarmony,
+    lotusInfusion: LotusInfusion,
+    mendingProliferation: MendingProliferation,
+    craneStyle: CraneStyle,
+    zenPulse: ZenPulse,
   };
+
   protected risingMist!: RisingMist;
-  protected upwelling!: Upwelling;
   protected mistyPeaks!: MistyPeaks;
   protected invokeChiji!: InvokeChiJi;
   protected invokeYulon!: InvokeYulon;
@@ -53,7 +61,6 @@ class TalentHealingStatistic extends Analyzer {
   protected rapidDiffusion!: RapidDiffusion;
   protected saveThemAll!: SaveThemAll;
   protected unison!: Unison;
-  protected cloudedFocus!: CloudedFocus;
   protected mistsOfLife!: MistsOfLife;
   protected mistWrap!: MistWrap;
   protected sheiluns!: SheilunsGift;
@@ -61,7 +68,14 @@ class TalentHealingStatistic extends Analyzer {
   protected veilOfPride!: VeilOfPride;
   protected legacyOfWisdom!: LegacyOfWisdom;
   protected ancientTeachings!: AncientTeachings;
-  protected faelineStomp!: FaelineStomp;
+  protected jadefireStomp!: JadefireStomp;
+
+  protected tearOfMorning!: TearOfMorning;
+  protected chiHarmony!: ChiHarmony;
+  protected lotusInfusion!: LotusInfusion;
+  protected mendingProliferation!: MendingProliferation;
+  protected craneStyle!: CraneStyle;
+  protected zenPulse!: ZenPulse;
 
   buildTalentList() {
     const talentList = [];
@@ -74,9 +88,6 @@ class TalentHealingStatistic extends Analyzer {
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)) {
       talentList.push(this.risingMist.subStatistic());
     }
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT)) {
-      talentList.push(this.upwelling.subStatistic());
-    }
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.MISTY_PEAKS_TALENT)) {
       talentList.push(this.mistyPeaks.subStatistic());
     }
@@ -85,9 +96,6 @@ class TalentHealingStatistic extends Analyzer {
     }
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.RAPID_DIFFUSION_TALENT)) {
       talentList.push(this.rapidDiffusion.subStatistic());
-    }
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.CLOUDED_FOCUS_TALENT)) {
-      talentList.push(this.cloudedFocus.subStatistic());
     }
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.SAVE_THEM_ALL_TALENT)) {
       talentList.push(this.saveThemAll.subStatistic());
@@ -116,9 +124,28 @@ class TalentHealingStatistic extends Analyzer {
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.ANCIENT_TEACHINGS_TALENT)) {
       talentList.push(this.ancientTeachings.talentHealingStatistic());
     }
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.FAELINE_STOMP_TALENT)) {
-      talentList.push(this.faelineStomp.talentHealingStatistic());
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.JADEFIRE_STOMP_TALENT)) {
+      talentList.push(this.jadefireStomp.talentHealingStatistic());
     }
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.TEAR_OF_MORNING_TALENT)) {
+      talentList.push(this.tearOfMorning.subStatistic());
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.CHI_HARMONY_TALENT)) {
+      talentList.push(this.chiHarmony.subStatistic());
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.LOTUS_INFUSION_TALENT)) {
+      talentList.push(this.lotusInfusion.subStatistic());
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.MENDING_PROLIFERATION_TALENT)) {
+      talentList.push(this.mendingProliferation.subStatistic());
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.CRANE_STYLE_TALENT)) {
+      talentList.push(this.craneStyle.subStatistic());
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.ZEN_PULSE_TALENT)) {
+      talentList.push(this.zenPulse.subStatistic());
+    }
+
     const sortedTalentList = talentList.sort(
       (a, b) => parseFloat(b.props.value) - parseFloat(a.props.value),
     );

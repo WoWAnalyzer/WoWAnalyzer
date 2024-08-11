@@ -145,7 +145,6 @@ class ElementalLariat extends Analyzer.withDependencies(deps) {
       this.gemCounts.fire,
       this.gemCounts.frost,
     ].reduce((prev, cur) => prev + (cur ? 1 : 0), 0);
-    console.log(uniqueGemTypes);
     const gemChance = [
       {
         type: 'Air',

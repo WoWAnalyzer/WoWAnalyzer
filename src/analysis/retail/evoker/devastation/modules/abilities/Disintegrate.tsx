@@ -21,6 +21,7 @@ import ExplanationGraph, {
 import { SpellLink } from 'interface';
 import { DISINTEGRATE_REMOVE_APPLY } from '../normalizers/CastLinkNormalizer';
 import { isMythicPlus } from 'common/isMythicPlus';
+import { InformationIcon } from 'interface/icons';
 
 const { DISINTEGRATE } = SPELLS;
 
@@ -436,7 +437,10 @@ class Disintegrate extends Analyzer {
               <SpellLink spell={DRAGONRAGE_TALENT} /> is shown as a filled in background.
             </li>
           </ul>
-          Mouseover each point for more detailed explanations.
+          <br />
+          <b>
+            <InformationIcon /> Mouseover each point on the graph for more detailed explanations.
+          </b>
         </div>
         <ExplanationGraph
           fightStartTime={this.owner.fight.start_time}

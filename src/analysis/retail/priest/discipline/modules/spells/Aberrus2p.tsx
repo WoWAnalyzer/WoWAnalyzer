@@ -1,4 +1,4 @@
-import { PRIEST_T30_ID } from 'common/ITEMS/dragonflight/tier';
+import { PRIEST_DF2_ID } from 'common/ITEMS/dragonflight/tier';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import { TIERS } from 'game/TIERS';
@@ -29,7 +29,7 @@ class Aberrus2p extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.has2PieceByTier(TIERS.T30);
+    this.active = this.selectedCombatant.has2PieceByTier(TIERS.DF2);
     if (!this.active) {
       return;
     }
@@ -108,7 +108,7 @@ class Aberrus2p extends Analyzer {
         <>
           <div className="pad boring-text">
             <label>
-              <ItemSetLink id={PRIEST_T30_ID}>
+              <ItemSetLink id={PRIEST_DF2_ID}>
                 <>
                   The Furnace Seraph's Verdict
                   <br />

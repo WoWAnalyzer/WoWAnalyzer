@@ -1,4 +1,3 @@
-import { defineMessage } from '@lingui/macro';
 import LivingFlame from 'analysis/retail/evoker/shared/modules/core/LivingFlame';
 import { SPELL_COLORS } from 'analysis/retail/monk/mistweaver/constants';
 import { formatNumber, formatThousands } from 'common/format';
@@ -8,7 +7,7 @@ import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { EmpowerEndEvent, HealEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import DonutChart from 'parser/ui/DonutChart';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
@@ -22,7 +21,7 @@ import {
 import {
   isFromDreamBreathCallOfYsera,
   isFromLivingFlameCallOfYsera,
-} from '../../normalizers/CastLinkNormalizer';
+} from '../../normalizers/EventLinking/helpers';
 import HotTrackerPrevoker from '../core/HotTrackerPrevoker';
 import DreamBreath from './DreamBreath';
 
@@ -107,26 +106,6 @@ class CallOfYsera extends Analyzer {
       },
       style: ThresholdStyle.NUMBER,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Try to empower all <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> casts using
-          the <SpellLink spell={TALENTS_EVOKER.CALL_OF_YSERA_TALENT} /> buff and avoid using it on{' '}
-          <SpellLink spell={SPELLS.LIVING_FLAME_CAST} />
-        </>,
-      )
-        .icon(TALENTS_EVOKER.DREAM_BREATH_TALENT.icon)
-        .actual(
-          `${this.percentDbBuffed.toFixed(1)}${defineMessage({
-            id: 'evoker.preservation.suggestions.callOfYsera.percentBuffed',
-            message: `% of casts buffed`,
-          })}`,
-        )
-        .recommended(`at least ${recommended}% buffed recommended`),
-    );
   }
 
   onDreamBreathHeal(event: HealEvent) {

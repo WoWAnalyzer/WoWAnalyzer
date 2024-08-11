@@ -17,6 +17,7 @@ import {
 import { Fragment, CSSProperties, HTMLAttributes, ReactNode } from 'react';
 
 import './Casts.scss';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 const ICON_WIDTH = 22;
 
@@ -67,27 +68,25 @@ export const highlightInefficientCast = (
 ) => {
   if (Array.isArray(event)) {
     event.forEach((e) => {
-      e.meta = e.meta || {};
-      e.meta.isInefficientCast = true;
-      e.meta.inefficientCastReason = tooltip;
+      addInefficientCastReason(e, tooltip);
     });
   } else {
-    event.meta = event.meta || {};
-    event.meta.isInefficientCast = true;
-    event.meta.inefficientCastReason = tooltip;
+    addInefficientCastReason(event, tooltip);
   }
 };
 
 type MovementInstance = { start: number; end: number; distance: number };
 interface Props extends HTMLAttributes<HTMLDivElement> {
   start: number;
+  windowStart?: number;
   secondWidth: number;
   events: AnyEvent[];
   movement?: MovementInstance[];
 }
 
-const Casts = ({ start, secondWidth, events, movement, ...others }: Props) => {
-  const getOffsetLeft = (timestamp: number) => ((timestamp - start) / 1000) * secondWidth;
+const Casts = ({ start, windowStart, secondWidth, events, movement, ...others }: Props) => {
+  const getOffsetLeft = (timestamp: number) =>
+    ((timestamp - (windowStart ?? start)) / 1000) * secondWidth;
 
   const renderIcon = (
     event: CastEvent | BeginChannelEvent | FreeCastEvent,

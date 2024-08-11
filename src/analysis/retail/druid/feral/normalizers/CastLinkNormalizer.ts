@@ -19,10 +19,10 @@ import { Options } from 'parser/core/Module';
 const CAST_BUFFER_MS = 200;
 const AFTER_CAST_BUFFER_MS = 300; // parries can be delayed even more...
 
-export const FROM_HARDCAST = 'FromHardcast';
-export const FROM_DOUBLE_CLAWED_RAKE = 'FromDoubleClawedRake';
-export const FROM_PRIMAL_WRATH = 'FromPrimalWrath';
-export const HIT_TARGET = 'HitTarget';
+const FROM_HARDCAST = 'FromHardcast';
+const FROM_DOUBLE_CLAWED_RAKE = 'FromDoubleClawedRake';
+const FROM_PRIMAL_WRATH = 'FromPrimalWrath';
+const HIT_TARGET = 'HitTarget';
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -95,6 +95,18 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: EventType.Cast,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: AFTER_CAST_BUFFER_MS,
+  },
+  {
+    linkRelation: FROM_HARDCAST,
+    reverseLinkRelation: HIT_TARGET,
+    linkingEventId: SPELLS.RAVAGE_DOTC_CAT.id,
+    linkingEventType: EventType.Damage,
+    referencedEventId: SPELLS.RAVAGE_DOTC_CAT.id,
+    referencedEventType: EventType.Cast,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: AFTER_CAST_BUFFER_MS,
+    anyTarget: true,
+    isActive: (c) => c.hasTalent(TALENTS_DRUID.RAVAGE_TALENT),
   },
   {
     linkRelation: FROM_HARDCAST,
@@ -175,12 +187,6 @@ export function getHardcast(
   return GetRelatedEvent(event, FROM_HARDCAST);
 }
 
-// TODO get hardcast energy / cp?
-
-export function isFromPrimalWrath(event: ApplyDebuffEvent | RefreshDebuffEvent): boolean {
-  return HasRelatedEvent(event, FROM_PRIMAL_WRATH);
-}
-
 export function getPrimalWrath(
   event: ApplyDebuffEvent | RefreshDebuffEvent | DamageEvent,
 ): CastEvent | undefined {
@@ -194,6 +200,14 @@ export function getHitCount(aoeCastEvent: CastEvent): number {
 
 export function getHits(castEvent: CastEvent): AbilityEvent<any>[] {
   return GetRelatedEvents(castEvent, HIT_TARGET, HasAbility);
+}
+
+export function getDamageHits(castEvent: CastEvent): DamageEvent[] {
+  return GetRelatedEvents(
+    castEvent,
+    HIT_TARGET,
+    (e): e is DamageEvent => e.type === EventType.Damage,
+  );
 }
 
 export default CastLinkNormalizer;

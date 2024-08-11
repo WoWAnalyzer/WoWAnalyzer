@@ -1,9 +1,8 @@
 import {
-  FaelineStomp,
+  JadefireStomp,
   InvokersDelight,
   MysticTouch,
   TouchOfDeath,
-  DampenHarm,
   SaveThemAll,
   TeachingsOfTheMonestary,
 } from 'analysis/retail/monk/shared';
@@ -20,9 +19,7 @@ import HotAttributor from './modules/core/HotAttributor';
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Buffs from './modules/features/Buffs';
-import Checklist from './modules/features/Checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import EssenceFontHealingBreakdown from './modules/features/EssenceFontHealingBreakdown';
 import EvmVivCastRatio from './modules/features/EvmVivCastRatio';
 import MasteryStats from './modules/features/MasteryStats';
 import MistweaverHealingEfficiencyDetails from './modules/features/MistweaverHealingEfficiencyDetails';
@@ -31,14 +28,10 @@ import REMGraph from './modules/features/REMGraph';
 import JadeBond from './modules/spells/JadeBond';
 import NourishingChi from './modules/spells/NourishingChi';
 import RisingSunRevival from './modules/spells/UpliftedSpirits';
-import FaelineStompHealing from './modules/spells/FaelineStompHealing';
+import JadefireStompHealing from './modules/spells/JadefireStompHealing';
 import AncientTeachings from './modules/spells/AncientTeachings';
-import CloudedFocus from './modules/spells/CloudedFocus';
 import EnvelopingBreath from './modules/spells/EnvelopingBreath';
 import EnvelopingMists from './modules/spells/EnvelopingMists';
-import EssenceFont from './modules/spells/EssenceFont';
-import EssenceFontTargetsHit from './modules/spells/EssenceFontTargetsHit';
-import EssenceFontUniqueTargets from './modules/spells/EssenceFontUniqueTargets';
 import ExpelHarm from './modules/spells/ExpelHarm';
 import InvokeYulon from './modules/spells/InvokeYulon';
 import RenewingMist from './modules/spells/RenewingMist';
@@ -59,14 +52,12 @@ import RefreshingJadeWind from './modules/spells/RefreshingJadeWind';
 import RenewingMistDuringManaTea from './modules/spells/RenewingMistDuringManaTea';
 import RisingMist from './modules/spells/RisingMist';
 import VivaciousVivification from './modules/spells/VivaciousVivify';
-import Upwelling from './modules/spells/Upwelling';
 import YulonsWhisper from './modules/spells/YulonsWhisper';
 import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
 import HotRemovalNormalizer from './normalizers/HotRemovalNormalizer';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import Unison from './modules/spells/Unison';
 import RapidDiffusion from './modules/spells/RapidDiffusion';
-import T29TierSet from './modules/dragonflight/tier/T29MWTier';
 import DancingMists from './modules/spells/DancingMists';
 import MistyPeaksHealingBreakdown from './modules/features/MistyPeaksHealingBreakdown';
 import TalentHealingStatistic from './modules/features/TalentHealingStatistic';
@@ -82,7 +73,6 @@ import SheilunsGiftCloudGraph from './modules/spells/SheilunsGiftCloudGraph';
 import HotCountGraph from './modules/features/HotCountGraph';
 import AplCheck from './modules/core/apl/AplCheck';
 import RisingMistBreakdown from './modules/features/RisingMistBreakdown';
-import T30TierSet from './modules/dragonflight/tier/T30MWTier';
 import CalmingCoalescence from './modules/spells/CalmingCoalescence';
 import LifeCocoon from './modules/spells/LifeCocoon';
 import SecretInfusion from './modules/spells/SecretInfusion';
@@ -90,16 +80,25 @@ import CallToDominance from '../../../../parser/retail/modules/items/dragonfligh
 import MWSpellManaCost from './modules/core/SpellManaCost';
 import ManaTeaSources from './modules/spells/ManaTeaSources';
 import EnergizingBrew from './modules/spells/EnergizingBrew';
-import T31TierSet from './modules/dragonflight/tier/T31MWTier';
+import ChiHarmony from './modules/spells/ChiHarmony';
 import TearOfMorning from './modules/spells/TearOfMorning';
-import T31HealingBreakdown from './modules/dragonflight/T31HealingBreakdown';
-import FontOfLife from './modules/spells/FontOfLife';
-import AmalgamsSeventhSpineMW from './modules/dragonflight/items/AmalgamsSeventhSpineSources';
+import LotusInfusion from './modules/spells/LotusInfusion';
+import CraneStyle from './modules/spells/CraneStyle';
+import ZenPulse from './modules/spells/ZenPulse';
+import T32TierSet from './modules/tier/T32TierSet';
+import PoolOfMists from './modules/spells/PoolOfMists';
+import HeartOfTheJadeSerpent from '../shared/hero/ConduitOfTheCelestials/talents/HeartOfTheJadeSerpent';
+import RestoreBalance from '../shared/hero/ConduitOfTheCelestials/talents/RestoreBalance';
+import ConduitOfTheCelestialsEventLinks from '../shared/hero/ConduitOfTheCelestials/normalizers/ConduitOfTheCelestialsEventLinks';
+import CelestialConduitNormalizer from '../shared/hero/ConduitOfTheCelestials/normalizers/CelestialConduitNormalizer';
+import CelestialConduit from '../shared/hero/ConduitOfTheCelestials/talents/CelestialConduit';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Normalizer
     castLinkNormalizer: CastLinkNormalizer,
+    conduitOfTheCelestialsEventLinks: ConduitOfTheCelestialsEventLinks,
+    celestialConduitNormalizer: CelestialConduitNormalizer,
     hotApplicationNormalizer: HotApplicationNormalizer,
     hotRemovalNormalizer: HotRemovalNormalizer,
 
@@ -120,11 +119,9 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    checklist: Checklist,
     evmVivCastRatio: EvmVivCastRatio,
     masteryStats: MasteryStats,
     buffs: Buffs,
-    essenceFontHealingBreakDown: EssenceFontHealingBreakdown,
     mistyPeaksHealingBreakdown: MistyPeaksHealingBreakdown,
     averageTimeBetweenRSKSs: AverageTimeBetweenRSKSs,
     remGraph: REMGraph,
@@ -142,7 +139,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Shared Talents
     chiBurst: ChiBurst,
-    dampenHarm: DampenHarm,
     touchOfDeath: TouchOfDeath,
     risingSunKick: RisingSunKick,
     saveThemAll: SaveThemAll,
@@ -150,17 +146,12 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // MW Talents
     ancientTeachings: AncientTeachings,
-    fontOfLife: FontOfLife,
-    cloudedFocus: CloudedFocus,
     energizingBrew: EnergizingBrew,
     envelopingBreath: EnvelopingBreath,
     envelopingMists: EnvelopingMists,
-    essenceFont: EssenceFont,
-    essenceFontUniqueTargets: EssenceFontUniqueTargets,
-    essenceFontTargetsHit: EssenceFontTargetsHit,
     expelHarm: ExpelHarm,
-    faelineStomp: FaelineStomp,
-    faelineStompHealing: FaelineStompHealing,
+    jadefireStomp: JadefireStomp,
+    jadefireStompHealing: JadefireStompHealing,
     invokersDelight: InvokersDelight,
     invokeChiJi: InvokeChiJi,
     invokeYulon: InvokeYulon,
@@ -180,7 +171,6 @@ class CombatLogParser extends CoreCombatLogParser {
     risingSunRevival: RisingSunRevival,
     soothingMist: SoothingMist,
     thunderFocusTea: ThunderFocusTea,
-    upwelling: Upwelling,
     yulonsWhisper: YulonsWhisper,
     unison: Unison,
     rapidDiffusion: RapidDiffusion,
@@ -195,16 +185,22 @@ class CombatLogParser extends CoreCombatLogParser {
     lifeCocoon: LifeCocoon,
     secretInfusion: SecretInfusion,
     tearOfMorning: TearOfMorning,
+    lotusInfusion: LotusInfusion,
+    craneStyle: CraneStyle,
+    zenPulse: ZenPulse,
+    chiHarmony: ChiHarmony,
+    poolOfMists: PoolOfMists,
 
+    //Hero Talents
+    //Conduit
+    celestialConduit: CelestialConduit,
+    heartOfTheJadeSerpent: HeartOfTheJadeSerpent,
+    restoreBalance: RestoreBalance,
     apl: AplCheck,
 
     // Borrowed Power
-    t29TierSet: T29TierSet,
-    t30TierSet: T30TierSet,
-    t31TierSet: T31TierSet,
-    t31TierSetBreakdown: T31HealingBreakdown,
     callToDominance: CallToDominance,
-    amalgamsSeventSpineMW: AmalgamsSeventhSpineMW,
+    t32TierSet: T32TierSet,
 
     // Mana Tab
     manaTracker: ManaTracker,

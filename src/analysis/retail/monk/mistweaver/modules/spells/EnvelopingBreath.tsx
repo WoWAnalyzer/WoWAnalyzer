@@ -1,12 +1,9 @@
-import { defineMessage } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { ApplyBuffEvent, CastEvent, DeathEvent, HealEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Combatants from 'parser/shared/modules/Combatants';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -50,18 +47,6 @@ class EnvelopingBreath extends Analyzer {
     return this.envBreathsApplied / this.envsDuringCelestial || 0;
   }
 
-  get suggestionThresholds() {
-    return {
-      actual: this.averageEnvBPerEnv,
-      isLessThan: {
-        minor: 5,
-        average: 4,
-        major: 3,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
-  }
-
   handleEnvelopingBreathHeal(event: HealEvent) {
     const targetId = event.targetID;
     const sourceId = event.sourceID;
@@ -102,28 +87,6 @@ class EnvelopingBreath extends Analyzer {
   handleChijiDeath(event: DeathEvent) {
     this.chijiActive = false;
     debug && console.log('Chiji Died');
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You are not utilizing <SpellLink spell={SPELLS.ENVELOPING_BREATH_HEAL} /> effectively.
-          Make sure you are choosing good targets for your{' '}
-          <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> during your Celestial cooldowns
-          to apply the maximum number of <SpellLink spell={SPELLS.ENVELOPING_BREATH_HEAL} />{' '}
-          possible.
-        </>,
-      )
-        .icon(SPELLS.ENVELOPING_BREATH_HEAL.icon)
-        .actual(
-          `${this.averageEnvBPerEnv.toFixed(2) + ' '}${defineMessage({
-            id: 'monk.mistweaver.suggestions.envelopingBreath.averageEnvBPerEnv',
-            message: ` Enveloping Breaths per Enveloping Mist during Celestial`,
-          })}`,
-        )
-        .recommended(`${recommended} Enveloping Breaths are recommended per cast`),
-    );
   }
 
   statistic() {

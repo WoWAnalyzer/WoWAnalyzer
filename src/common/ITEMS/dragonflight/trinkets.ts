@@ -31,6 +31,21 @@ const trinkets = {
     name: 'Accelerating Sandglass',
     icon: 'ability_bossmagistrix_timewarp2',
   },
+  NYMUES_UNRAVELING_SPINDLE: {
+    id: 208615,
+    name: "Nymue's Unraveling Spindle",
+    icon: 'inv_cloth_outdooremeralddream_d_01_buckle',
+  },
+  BELORRELOS_THE_SUNCALLER: {
+    id: 207172,
+    name: "Belor'relos, the Suncaller",
+    icon: 'inv_wand_1h_firelandsraid_d_01',
+  },
+  ENDURING_DREADPLATE: {
+    id: 202616,
+    name: 'Enduring Dreadplate',
+    icon: 'inv_10_blacksmithing_craftedbar_bloodyalloy',
+  },
 } satisfies Record<string, Item>;
 
 export default trinkets;

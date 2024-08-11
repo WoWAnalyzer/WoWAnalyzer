@@ -110,7 +110,7 @@ describe('core/Modules/SpellUsable', () => {
       expect(module.isAvailable(SPELLS.FAKE_SPELL.id)).toBe(true);
     });
     it('casting a spell already on cooldown before the cooldown runs out restarts the cooldown (and reports)', () => {
-      console.error = jest.fn();
+      module.addDebugAnnotation = jest.fn();
       triggerCast(SPELLS.FAKE_SPELL.id);
       parser.currentTimestamp = 5000;
       triggerCast(SPELLS.FAKE_SPELL.id);
@@ -118,7 +118,7 @@ describe('core/Modules/SpellUsable', () => {
       // It's still on cooldown
       expect(module.isOnCooldown(SPELLS.FAKE_SPELL.id)).toBe(true);
       // It reports when this happens, as it's not supposed to happen normally.
-      expect(console.error).toHaveBeenCalled();
+      expect(module.addDebugAnnotation).toHaveBeenCalled();
       // Its cooldown is based on the timestamp of the second cast, as the log results are leading over our predictions
       expect(module.cooldownRemaining(SPELLS.FAKE_SPELL.id)).toBe(7500);
     });

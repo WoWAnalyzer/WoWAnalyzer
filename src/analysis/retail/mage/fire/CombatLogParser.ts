@@ -39,11 +39,15 @@ import Kindling from './talents/Kindling';
 import MeteorCombustion from './talents/MeteorCombustion';
 import SearingTouch from './talents/SearingTouch';
 import Meteor from './talents/Meteor';
-import LivingBomb from './talents/LivingBomb';
 import ImprovedScorch from './talents/ImprovedScorch';
 
+//Hero Talents
+import ExcessFire from '../shared/ExcessFire';
+import ExcessFrost from '../shared/ExcessFrost';
+import FlameAndFrost from '../shared/FlameAndFrost';
+import GloriousIncandescence from '../shared/GloriousIncandescense';
+
 //Items
-import CharringEmbers from './items/CharringEmbers';
 
 //Normalizers
 import CombustionNormalizer from './normalizers/Combustion';
@@ -51,6 +55,11 @@ import FlamestrikeNormalizer from './normalizers/Flamestrike';
 import ScorchNormalizer from './normalizers/Scorch';
 import SunKingsBlessingNormalizer from './normalizers/SunKingsBlessingBuffs';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
+import Guide from './Guide';
+import HotStreakGuide from './guide/HotStreak';
+import HeatingUpGuide from './guide/HeatingUp';
+import CombustionGuide from './guide/Combustion';
+import SunKingsBlessingGuide from './guide/SunKingsBlessing';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -63,6 +72,12 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Checklist
     checklist: Checklist,
+
+    //Guide
+    hotStreakGuide: HotStreakGuide,
+    heatingUpGuide: HeatingUpGuide,
+    combustionGuide: CombustionGuide,
+    sunKingsBlessingGuide: SunKingsBlessingGuide,
 
     //Core
     buffs: Buffs,
@@ -89,11 +104,15 @@ class CombatLogParser extends CoreCombatLogParser {
     shiftingPowerUsage: ShiftingPowerUsage,
     feelTheBurn: FeelTheBurn,
     meteor: Meteor,
-    livingBomb: LivingBomb,
     improvedScorch: ImprovedScorch,
 
+    //Hero Talents
+    excessFire: ExcessFire,
+    excessFrost: ExcessFrost,
+    flameAndFrost: FlameAndFrost,
+    gloriousIncandescence: GloriousIncandescence,
+
     //Items - Fire
-    charringEmbers: CharringEmbers,
 
     //Talents - Shared
     mirrorImage: MirrorImage,
@@ -108,6 +127,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
   };
+  static guide = Guide;
 }
 
 export default CombatLogParser;

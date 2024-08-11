@@ -1,19 +1,22 @@
 import React, { createContext, useContext } from 'react';
 import Expansion from 'game/Expansion';
-import { wclGameVersionToExpansion } from 'game/VERSIONS';
+import { wclGameVersionToBranch, wclGameVersionToExpansion } from 'game/VERSIONS';
 import { useReport } from 'interface/report/context/ReportContext';
+import GameBranch from 'game/GameBranch';
 
-export interface ExpansionContext {
+interface ExpansionContext {
   expansion: Expansion;
   gameVersion: number;
+  branch: GameBranch;
 }
 
-export const ExpansionCtx = createContext<ExpansionContext>({
+const ExpansionCtx = createContext<ExpansionContext>({
   expansion: Expansion.Dragonflight,
   gameVersion: 0,
+  branch: GameBranch.Retail,
 });
 
-export const ExpansionContextProvider = ({
+const ExpansionContextProvider = ({
   children,
   gameVersion,
 }: {
@@ -24,7 +27,8 @@ export const ExpansionContextProvider = ({
     <ExpansionCtx.Provider
       value={{
         expansion: wclGameVersionToExpansion(gameVersion),
-        gameVersion: 0,
+        gameVersion: gameVersion,
+        branch: wclGameVersionToBranch(gameVersion),
       }}
     >
       {children}

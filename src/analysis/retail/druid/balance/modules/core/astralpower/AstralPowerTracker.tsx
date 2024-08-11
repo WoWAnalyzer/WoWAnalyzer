@@ -3,9 +3,7 @@ import { Options } from 'parser/core/Analyzer';
 import { ResourceChangeEvent } from 'parser/core/Events';
 import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-
-/** Internally, all astral power values are out of 1000, but player facing they are out of 100 */
-export const ASP_SCALE_FACTOR = 0.1;
+import { ASTRAL_POWER_SCALE_FACTOR } from 'analysis/retail/druid/balance/constants';
 
 export const PERFECT_ASP_WASTED = 0;
 export const GOOD_ASP_WASTED = 0.05;
@@ -34,7 +32,10 @@ class AstralPowerTracker extends ResourceTracker {
   /** All AsP amounts multiplied by 10 - except gain and waste for some reason */
   getAdjustedGain(event: ResourceChangeEvent): { gain: number; waste: number } {
     const baseGain = super.getAdjustedGain(event);
-    return { gain: baseGain.gain / ASP_SCALE_FACTOR, waste: baseGain.waste / ASP_SCALE_FACTOR };
+    return {
+      gain: baseGain.gain / ASTRAL_POWER_SCALE_FACTOR,
+      waste: baseGain.waste / ASTRAL_POWER_SCALE_FACTOR,
+    };
   }
 
   // TODO reactivate WoE handling when/if needed

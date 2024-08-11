@@ -7,7 +7,7 @@ import getFightName from 'common/getFightName';
 import getAverageItemLevel from 'game/getAverageItemLevel';
 import ROLES from 'game/ROLES';
 import SPECS from 'game/SPECS';
-import { isUnsupportedClassicVersion, wclGameVersionToExpansion } from 'game/VERSIONS';
+import { isUnsupportedClassicVersion, wclGameVersionToBranch } from 'game/VERSIONS';
 import ActivityIndicator from 'interface/ActivityIndicator';
 import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
 import Panel from 'interface/Panel';
@@ -20,7 +20,6 @@ import Tooltip from 'interface/Tooltip';
 import { CombatantInfoEvent } from 'parser/core/Events';
 import { WCLFight } from 'parser/core/Fight';
 import Report from 'parser/core/Report';
-import getBuild from 'parser/getBuild';
 import getConfig from 'parser/getConfig';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { PlayerProvider } from 'interface/report/context/PlayerContext';
@@ -32,12 +31,11 @@ import handleApiError from './handleApiError';
 import PlayerSelection from './PlayerSelection';
 import { getPlayerIdFromParam } from 'interface/selectors/url/report/getPlayerId';
 import { getPlayerNameFromParam } from 'interface/selectors/url/report/getPlayerName';
-import { isClassicExpansion } from 'game/Expansion';
 import { useWaDispatch } from 'interface/utils/useWaDispatch';
-import { CLASSIC_EXPANSION } from 'game/Expansion';
 import { i18n } from '@lingui/core';
 import { uniqueBy } from 'common/uniqueBy';
 import { setCombatants } from 'interface/reducers/combatants';
+import GameBranch from 'game/GameBranch';
 
 const FAKE_PLAYER_IF_DEV_ENV = false;
 
@@ -119,7 +117,7 @@ async function fetchCombatantsWithClassicRP(
 
   if (
     currentCombatants.length === 0 &&
-    isClassicExpansion(wclGameVersionToExpansion(report.gameVersion))
+    wclGameVersionToBranch(report.gameVersion) === GameBranch.Classic
   ) {
     // no combatants found, but due to RP handling sometimes they are present in a previous fight
     const prevFight = report.fights.find((other) => other.id === fight.id - 1);
@@ -165,7 +163,7 @@ const PlayerLoader = ({ children }: Props) => {
         let ilvl = 0;
 
         combatants.forEach((combatant) => {
-          if (process.env.NODE_ENV === 'development' && FAKE_PLAYER_IF_DEV_ENV) {
+          if (import.meta.env.DEV && FAKE_PLAYER_IF_DEV_ENV) {
             console.error(
               `This player (sourceID: ${combatant.sourceID!}) has an error. Because you're in development environment, we have faked the missing information, see CombatantInfoFaker.ts for more information.`,
             );
@@ -201,7 +199,7 @@ const PlayerLoader = ({ children }: Props) => {
                 break;
             }
           } else {
-            const config = getConfig(CLASSIC_EXPANSION, 1, player, combatant);
+            const config = getConfig(GameBranch.Classic, 1, player, combatant);
             if (config) {
               if (config?.spec) {
                 switch (config?.spec.role) {
@@ -293,16 +291,14 @@ const PlayerLoader = ({ children }: Props) => {
       <div className="container offset">
         <Panel
           title={
-            <Trans id="interface.report.renderClassicWarning.classicUnsupported">
-              Sorry, Classic WoW Logs are not supported
-            </Trans>
+            <Trans id="interface.report.oldLogWarning.title">Unsupported encounters detected</Trans>
           }
         >
           <div className="flex wrapable">
             <div className="flex-main" style={{ minWidth: 400 }}>
-              <Trans id="interface.report.renderClassicWarning.classicUnsupportedDetails">
-                The current report contains encounters from World of Warcraft: Classic. Currently
-                WoWAnalyzer does not support, and does not have plans to support, Classic WoW logs.
+              <Trans id="interface.report.oldLogWarning.details">
+                The current report contains encounters from an old World of Warcraft expansion. Old
+                expansion logs are not supported.
               </Trans>
               <br />
               <br />
@@ -336,15 +332,13 @@ const PlayerLoader = ({ children }: Props) => {
   const config =
     combatant &&
     getConfig(
-      wclGameVersionToExpansion(selectedReport.gameVersion),
+      wclGameVersionToBranch(selectedReport.gameVersion),
       combatant.specID,
       player,
       combatant,
     );
-  const build = combatant && getBuild(config, combatant);
 
-  const missingBuild = config?.builds && !build;
-  if (!player || hasDuplicatePlayers || !combatant || !config || missingBuild || combatant.error) {
+  if (!player || hasDuplicatePlayers || !combatant || !config || combatant.error) {
     if (player) {
       // Player data was in the report, but there was another issue
       if (hasDuplicatePlayers) {
@@ -374,7 +368,7 @@ const PlayerLoader = ({ children }: Props) => {
             }),
           ),
         );
-      } else if (!config || missingBuild) {
+      } else if (!config) {
         alert(
           i18n._(
             defineMessage({
@@ -437,8 +431,8 @@ const PlayerLoader = ({ children }: Props) => {
         <PlayerSelection
           report={selectedReport}
           combatants={combatants}
-          makeUrl={(playerId, build) =>
-            makeAnalyzerUrl(selectedReport, selectedFight.id, playerId, undefined, build)
+          makeUrl={(playerId) =>
+            makeAnalyzerUrl(selectedReport, selectedFight.id, playerId, undefined)
           }
         />
         <ReportRaidBuffList report={selectedReport} combatants={combatants} />

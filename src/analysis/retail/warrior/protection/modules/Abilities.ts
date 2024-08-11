@@ -268,8 +268,8 @@ class Abilities extends CoreAbilities {
         cooldown: 90 - (combatant.hasTalent(TALENTS.UPROAR_TALENT) ? 30 : 0),
       },
       {
-        spell: TALENTS.SPEAR_OF_BASTION_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.SPEAR_OF_BASTION_TALENT),
+        spell: TALENTS.CHAMPIONS_SPEAR_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.CHAMPIONS_SPEAR_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: {
           base: 1500,

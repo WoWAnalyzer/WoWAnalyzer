@@ -1,9 +1,7 @@
 import CoreHaste from 'parser/shared/modules/Haste';
 
 class Haste extends CoreHaste {
-  hasteBuffs = {
-    ...super.hasteBuffs,
-  };
+  override hasteBuffOverrides = {};
 }
 
 export default Haste;

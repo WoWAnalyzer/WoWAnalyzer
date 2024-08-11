@@ -49,7 +49,7 @@ export default class GrowingInferno extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
         size="flexible"
-        category={STATISTIC_CATEGORY.COVENANTS}
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={<>Total damage of Immolation Aura {formatThousands(this.totalDamage)}</>}
       >
         <TalentSpellText talent={TALENTS_DEMON_HUNTER.GROWING_INFERNO_TALENT}>

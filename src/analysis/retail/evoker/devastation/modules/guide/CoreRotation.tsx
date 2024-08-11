@@ -1,6 +1,6 @@
 import { GuideProps, Section } from 'interface/guide';
 import { AplSectionData } from 'interface/guide/components/Apl';
-import * as AplCheck from '../AplCheck';
+import * as AplCheck from '../AplCheck/AplCheck';
 import { ResourceLink, SpellLink } from 'interface';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
@@ -20,10 +20,10 @@ export function CoreRotation({ modules, info }: GuideProps<typeof CombatLogParse
       </p>
 
       <p>
-        This Action Prioriy List (APL) is based off the Devastation APL found at{' '}
+        This Action Priority List (APL) is based off the Devastation APL found at{' '}
         <a href="https://github.com/WyrmrestTemple/df-devastation">WyrmrestTemple.</a>
       </p>
-      <AplSectionData checker={AplCheck.check} apl={AplCheck.apl()} />
+      <AplSectionData checker={AplCheck.check} apl={AplCheck.apl(info)} />
       <hr />
       <div>
         As mentioned before use the accuracy here as a reference point to compare to other logs.

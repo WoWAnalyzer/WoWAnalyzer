@@ -10,19 +10,24 @@ import {
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import { TALENTS_PRIEST } from 'common/TALENTS';
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/priest';
 
 const CAST_BUFFER_MS = 200;
 
-export const FROM_HARDCAST = 'FromHardcast'; // for linking a heal to its cast
-export const LIGHTWEAVER_APPLY = 'LightweaverApplication'; // link flash heal cast to applying the lightweaver buff
-export const LIGHTWEAVER_CONSUME = 'LightweaverConsumption'; // link heal cast to removing the lightweaver buff
-export const POH_CAST = 'PrayerOfHealingCast';
-export const COH_CAST = 'CircleOfHealingCast';
-export const SERENITY_CAST = 'HolyWordSerenityCast';
-export const SANCTIFY_CAST = 'HolyWordSanctifyCast';
-export const SALVATION_CAST = 'HolyWordSalvationCast';
-export const CHASTISE_CAST = 'HolyWordChastiseCast';
+const FROM_HARDCAST = 'FromHardcast'; // for linking a heal to its cast
+const LIGHTWEAVER_CONSUME = 'LightweaverConsumption'; // link heal cast to removing the lightweaver buff
+const POH_CAST = 'PrayerOfHealingCast';
+const COH_CAST = 'CircleOfHealingCast';
+const SERENITY_CAST = 'HolyWordSerenityCast';
+const SANCTIFY_CAST = 'HolyWordSanctifyCast';
+const SALVATION_CAST = 'HolyWordSalvationCast';
+const CHASTISE_CAST = 'HolyWordChastiseCast';
+export const LIGHTWELL_RENEW_HEALS = 'LightwellRenewHeal';
+export const SALVATION_RENEW_HEALS = 'SalvationRenewHeal';
+export const LIGHTWELL_RENEW = 'LightwellRenew';
+export const SALVATION_RENEW = 'SalvationRenew';
+export const BENEDICTION_RENEW = 'BenedictionRenew';
+export const BENEDICTION_RENEW_HEALS = 'BenedictionRenewHeal';
 
 const EVENT_LINKS: EventLink[] = [
   // Link single target heal casts to their heal events.
@@ -120,6 +125,72 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: EventType.Damage,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    linkRelation: LIGHTWELL_RENEW_HEALS,
+    reverseLinkRelation: LIGHTWELL_RENEW_HEALS,
+    linkingEventId: SPELLS.LIGHTWELL_TALENT_HEAL.id,
+    linkingEventType: EventType.Heal,
+    referencedEventId: TALENTS_PRIEST.RENEW_TALENT.id,
+    referencedEventType: EventType.Heal,
+    forwardBufferMs: 6000 + CAST_BUFFER_MS,
+    anyTarget: false,
+  },
+  {
+    linkRelation: SALVATION_RENEW_HEALS,
+    reverseLinkRelation: SALVATION_RENEW_HEALS,
+    linkingEventId: TALENTS_PRIEST.HOLY_WORD_SALVATION_TALENT.id,
+    linkingEventType: EventType.Heal,
+    referencedEventId: TALENTS_PRIEST.RENEW_TALENT.id,
+    referencedEventType: EventType.Heal,
+    forwardBufferMs: 15000 + CAST_BUFFER_MS,
+    anyTarget: false,
+  },
+  {
+    linkRelation: LIGHTWELL_RENEW,
+    reverseLinkRelation: LIGHTWELL_RENEW,
+    linkingEventId: SPELLS.LIGHTWELL_TALENT_HEAL.id,
+    linkingEventType: EventType.Heal,
+    referencedEventId: TALENTS_PRIEST.RENEW_TALENT.id,
+    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: false,
+  },
+  {
+    linkRelation: SALVATION_RENEW,
+    reverseLinkRelation: SALVATION_RENEW,
+    linkingEventId: TALENTS_PRIEST.HOLY_WORD_SALVATION_TALENT.id,
+    linkingEventType: EventType.Heal,
+    referencedEventId: TALENTS_PRIEST.RENEW_TALENT.id,
+    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: false,
+  },
+  {
+    linkRelation: BENEDICTION_RENEW,
+    reverseLinkRelation: BENEDICTION_RENEW,
+    linkingEventId: SPELLS.PRAYER_OF_MENDING_HEAL.id,
+    linkingEventType: EventType.Heal,
+    referencedEventId: TALENTS_PRIEST.RENEW_TALENT.id,
+    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: false,
+  },
+  {
+    linkRelation: BENEDICTION_RENEW_HEALS,
+    reverseLinkRelation: BENEDICTION_RENEW_HEALS,
+    linkingEventId: TALENTS_PRIEST.RENEW_TALENT.id,
+    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    referencedEventId: TALENTS_PRIEST.RENEW_TALENT.id,
+    referencedEventType: EventType.Heal,
+    forwardBufferMs: 15000 + CAST_BUFFER_MS,
+    anyTarget: false,
+    additionalCondition(linkingEvent, referencedEvent) {
+      return (
+        HasRelatedEvent(linkingEvent, BENEDICTION_RENEW) &&
+        !HasRelatedEvent(referencedEvent, SALVATION_RENEW_HEALS)
+      );
+    },
   },
 ];
 

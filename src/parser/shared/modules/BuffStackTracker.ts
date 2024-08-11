@@ -34,8 +34,17 @@ export default class BuffStackTracker extends Analyzer {
   /** Whether the module should look at player (default) or at pets when tracking buffs */
   static trackPets = false;
 
+  /** Experimental feature that makes it so we try and work around weird buff events in the game */
+  static workaroundWeirdBuffEvents_experimental = false;
+
   /** Time ordered list of buff stack updates */
   buffStackUpdates: BuffStackUpdate[] = [];
+
+  /** Duration of the buff */
+  buffDuration = 0;
+
+  /** Whether the buff is currently active */
+  buffActive = false;
 
   constructor(options: Options) {
     super(options);
@@ -69,6 +78,11 @@ export default class BuffStackTracker extends Analyzer {
     return ctor.trackedBuff;
   }
 
+  get workaroundWeirdBuffEvents_experimental() {
+    const ctor = this.constructor as typeof BuffStackTracker;
+    return ctor.workaroundWeirdBuffEvents_experimental;
+  }
+
   /** The player's buff stack amount at the current timestamp */
   get current(): number {
     const lastUpdate = this.buffStackUpdates.at(-1);
@@ -80,6 +94,18 @@ export default class BuffStackTracker extends Analyzer {
   }
 
   onApplyBuff(event: ApplyBuffEvent) {
+    if (this.workaroundWeirdBuffEvents_experimental) {
+      const lastUpdate = this.buffStackUpdates.at(-1);
+      //If we are registering an ApplyBuffEvent before it's meant to be expire and we have not seen a RemoveBuffEvent then we should not log and push it as it was most likely a refresh
+      if (
+        this.buffActive &&
+        lastUpdate &&
+        lastUpdate.timestamp < event.timestamp + this.buffDuration
+      ) {
+        return;
+      }
+    }
+    this.buffActive = true;
     this._logAndPushUpdate(
       {
         type: event.type,
@@ -104,6 +130,7 @@ export default class BuffStackTracker extends Analyzer {
   }
 
   onRemoveBuff(event: RemoveBuffEvent) {
+    this.buffActive = false;
     this._logAndPushUpdate(
       {
         type: event.type,

@@ -58,7 +58,6 @@ const HealerChecklist = ({ thresholds, castEfficiency, combatant }: ChecklistPro
         {/* SPELLS listed here must be in ../features/Abilities */}
         <AbilityRequirement spell={SPELLS.AURA_MASTERY.id} />
         <AbilityRequirement spell={SPELLS.DIVINE_FAVOR.id} />
-        <AbilityRequirement spell={SPELLS.DIVINE_ILLUMINATION.id} />
         <AbilityRequirement spell={SPELLS.DIVINE_SACRIFICE.id} />
         <AbilityRequirement spell={SPELLS.HOLY_SHOCK.id} />
       </Rule>

@@ -12,14 +12,14 @@ import {
   TOTEMS_BY_ELEMENT,
 } from './totems/totemConstants';
 
-export interface TotemEventTracker {
+interface TotemEventTracker {
   [TotemElements.Fire]: TotemEvent[];
   [TotemElements.Water]: TotemEvent[];
   [TotemElements.Earth]: TotemEvent[];
   [TotemElements.Air]: TotemEvent[];
 }
 
-export interface TotemEvent {
+interface TotemEvent {
   totemSpellId: number;
   totemName: string; // This is just to make debugging easier
   summonedAt: number;
@@ -155,7 +155,7 @@ class TotemTracker extends Analyzer {
     this.addEventListener(Events.cast, this.totemCastEvent);
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell({ id: SPELLS.TOTEMIC_CALL.id }),
+      Events.cast.by(SELECTED_PLAYER).spell({ id: SPELLS.TOTEMIC_RECALL.id }),
       this.totemPurgeEvent,
     );
     this.addEventListener(Events.death.to(SELECTED_PLAYER), this.totemPurgeEvent);

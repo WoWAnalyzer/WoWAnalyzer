@@ -4,7 +4,6 @@ import Combatants from 'parser/shared/modules/Combatants';
 import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 
 import { apl, check as aplCheck } from '../apl/AplCheck';
-import WindfuryTotem from '../talents/WindfuryTotem';
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import Component from './Component';
 import MaelstromWeaponDetails from '../resourcetracker/MaelstromWeaponDetails';
@@ -16,7 +15,6 @@ class Checklist extends BaseChecklist {
     castEfficiency: CastEfficiency,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
     alwaysBeCasting: AlwaysBeCasting,
-    windfuryTotem: WindfuryTotem,
     maestromWeaponDetails: MaelstromWeaponDetails,
   };
 
@@ -24,7 +22,6 @@ class Checklist extends BaseChecklist {
   protected castEfficiency!: CastEfficiency;
   protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
   protected alwaysBeCasting!: AlwaysBeCasting;
-  protected windfuryTotem!: WindfuryTotem;
 
   render() {
     const checkResults = aplCheck(this.owner.eventHistory, this.owner.info);
@@ -38,7 +35,6 @@ class Checklist extends BaseChecklist {
           ...this.preparationRuleAnalyzer.thresholds,
 
           alwaysBeCasting: this.alwaysBeCasting.suggestionThresholds,
-          windfuryTotemUptime: this.windfuryTotem.uptimeThreshold,
         }}
       />
     );

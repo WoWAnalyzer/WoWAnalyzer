@@ -4,7 +4,7 @@ import { DamageEvent, EventType } from 'parser/core/Events';
 import BaseChart, { defaultConfig, formatTime } from 'parser/ui/BaseChart';
 import React from 'react';
 import { SignalListener, VisualizationSpec } from 'react-vega';
-import { AutoSizer } from 'react-virtualized';
+import AutoSizer from 'react-virtualized-auto-sizer';
 import MajorDefensive from './MajorDefensiveAnalyzer';
 
 const rekey = (key: string) =>

@@ -18,7 +18,7 @@ import {
   nonSerenityProps,
   serenityProps,
 } from 'analysis/retail/monk/windwalker/modules/apl/AplCheck';
-import FaelineStomp from 'analysis/retail/monk/shared/FaelineStomp';
+import JadefireStomp from 'analysis/retail/monk/shared/JadefireStomp';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -32,7 +32,7 @@ class Checklist extends BaseChecklist {
     touchOfKarma: TouchOfKarma,
     comboStrikes: ComboStrikes,
     blackoutKick: BlackoutKick,
-    faelineStomp: FaelineStomp,
+    JadefireStomp: JadefireStomp,
 
     hitCombo: HitCombo,
     chiDetails: ChiDetails,

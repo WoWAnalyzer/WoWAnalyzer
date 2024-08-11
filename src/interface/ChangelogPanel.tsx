@@ -39,9 +39,9 @@ const ChangelogPanel = () => {
         <div style={{ margin: '30px -30px 0 -30px' }}>
           <Changelog
             changelog={
-              changelogType
+              (changelogType
                 ? AVAILABLE_CONFIGS.find((config) => config.spec.id === changelogType)!.changelog
-                : CORE_CHANGELOG
+                : CORE_CHANGELOG) ?? []
             }
             limit={limit}
             includeCore={false}

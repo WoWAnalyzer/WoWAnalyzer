@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro';
 import { formatNumber, formatPercentage, formatDuration } from 'common/format';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
@@ -9,8 +8,10 @@ import Events, {
   GetRelatedEvent,
   RemoveBuffEvent,
   FightEndEvent,
+  HasRelatedEvent,
 } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -19,6 +20,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import CombustionPreCastDelay from './Combustion';
 import AlwaysBeCasting from './AlwaysBeCasting';
 import EventHistory from 'parser/shared/modules/EventHistory';
+import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 
 class CombustionActiveTime extends Analyzer {
   static dependencies = {
@@ -32,7 +34,13 @@ class CombustionActiveTime extends Analyzer {
   protected alwaysBeCasting!: AlwaysBeCasting;
   protected combustionPreCastDelay!: CombustionPreCastDelay;
 
-  activeTime: number[] = [];
+  activeTime: {
+    buffStart: number;
+    duration: number;
+    downtime: number;
+    activePercent: number;
+    analysis: BoxRowEntry;
+  }[] = [];
   buffApplies: number = 0;
 
   constructor(options: Options) {
@@ -57,10 +65,7 @@ class CombustionActiveTime extends Analyzer {
     if (!buffApply) {
       return;
     }
-    this.activeTime[buffApply.timestamp] = this.alwaysBeCasting.getActiveTimePercentageInWindow(
-      buffApply.timestamp,
-      event.timestamp,
-    );
+    this.analyzeActiveTime(buffApply, event.timestamp);
   }
 
   onFightEnd(event: FightEndEvent) {
@@ -71,28 +76,70 @@ class CombustionActiveTime extends Analyzer {
     if (!this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id) || !buffApply) {
       return;
     }
-    this.activeTime[buffApply.timestamp] = this.alwaysBeCasting.getActiveTimePercentageInWindow(
-      buffApply.timestamp,
-      event.timestamp,
-    );
+    this.analyzeActiveTime(buffApply, event.timestamp);
   }
 
-  combustionActiveTime = () => {
-    let activeTime = 0;
-    this.activeTime.forEach((c) => (activeTime += c));
-    return activeTime;
+  combustionDowntime = () => {
+    let active = 0;
+    this.activeTime.forEach((c) => (active += c.downtime));
+    return active / 1000;
   };
 
-  get buffUptime() {
-    return this.selectedCombatant.getBuffUptime(TALENTS.COMBUSTION_TALENT.id);
+  analyzeActiveTime(buffApply: ApplyBuffEvent, buffEnd: number) {
+    const cast = HasRelatedEvent(buffApply, 'SpellCast') && GetRelatedEvent(buffApply, 'SpellCast');
+    if (!cast) {
+      return;
+    }
+
+    const duration = buffEnd - buffApply.timestamp;
+    const activeTime = this.alwaysBeCasting.getActiveTimeMillisecondsInWindow(
+      buffApply.timestamp,
+      buffEnd,
+    );
+    const activePercent = Math.min(activeTime / duration, 1);
+    const downtime = Math.max(duration - activeTime, 0);
+    const tooltip = (
+      <>
+        {formatPercentage(activePercent, 0)}% Active Time
+        <br />
+        {(downtime / 1000).toFixed(2)}s Downtime
+      </>
+    );
+    this.activeTime[cast.timestamp] = {
+      buffStart: buffApply.timestamp,
+      duration,
+      downtime,
+      activePercent,
+      analysis: {
+        value: this.checkPerformance(activeTime, duration),
+        tooltip,
+      },
+    };
   }
 
-  get downtimeSeconds() {
-    return this.buffUptime - this.combustionActiveTime();
+  checkPerformance(activeTime: number, buffDuration: number) {
+    const activePercent = activeTime / buffDuration;
+
+    let performance;
+    if (activePercent > this.combustionActiveTimeThresholds.isLessThan.minor) {
+      performance = QualitativePerformance.Perfect;
+    } else if (activePercent > this.combustionActiveTimeThresholds.isLessThan.average) {
+      performance = QualitativePerformance.Good;
+    } else if (activePercent > this.combustionActiveTimeThresholds.isLessThan.major) {
+      performance = QualitativePerformance.Ok;
+    } else {
+      performance = QualitativePerformance.Fail;
+    }
+
+    return performance;
+  }
+
+  get buffUptime() {
+    return this.selectedCombatant.getBuffUptime(TALENTS.COMBUSTION_TALENT.id) / 1000;
   }
 
   get percentActiveTime() {
-    return this.combustionActiveTime() / this.buffApplies;
+    return 1 - this.combustionDowntime() / this.buffUptime;
   }
 
   get combustionActiveTimeThresholds() {
@@ -111,8 +158,8 @@ class CombustionActiveTime extends Analyzer {
     when(this.combustionActiveTimeThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You spent {formatNumber(this.downtimeSeconds)} (
-          {formatNumber(this.downtimeSeconds / this.buffApplies)} average per{' '}
+          You spent {formatNumber(this.combustionDowntime())}s (
+          {formatNumber(this.combustionDowntime() / this.buffApplies)}s average per{' '}
           <SpellLink spell={TALENTS.COMBUSTION_TALENT} />
           ), not casting anything while <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> was active.
           Because a large portion of your damage comes from Combustion, you should ensure that you
@@ -123,11 +170,7 @@ class CombustionActiveTime extends Analyzer {
         </>,
       )
         .icon(TALENTS.COMBUSTION_TALENT.icon)
-        .actual(
-          <Trans id="mage.frost.suggestions.combustion.combustionActiveTime">
-            {formatPercentage(actual)}% Active Time during Combustion
-          </Trans>,
-        )
+        .actual(`${formatPercentage(actual)}% Active Time during Combustion`)
         .recommended(`${formatPercentage(recommended)}% is recommended`),
     );
   }
@@ -174,7 +217,7 @@ class CombustionActiveTime extends Analyzer {
                       {formatDuration(Number(cast) - this.owner.fight.start_time)}
                     </th>
                     <th style={{ textAlign: 'left' }}>
-                      {formatPercentage(this.activeTime[Number(cast)])}%
+                      {formatPercentage(this.activeTime[Number(cast)].activePercent)}%
                     </th>
                     <td style={{ textAlign: 'left' }}>
                       {(

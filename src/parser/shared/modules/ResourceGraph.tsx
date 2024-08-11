@@ -1,7 +1,7 @@
 import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 import Analyzer from 'parser/core/Analyzer';
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
-import { AutoSizer } from 'react-virtualized';
+import AutoSizer from 'react-virtualized-auto-sizer';
 import { VisualizationSpec } from 'react-vega';
 import { Color } from 'vega';
 
@@ -87,7 +87,7 @@ abstract class ResourceGraph extends Analyzer {
               mark: {
                 type: 'line' as const,
                 color: this.lineColor(),
-                interpolate: 'step-after' as const,
+                interpolate: 'linear' as const,
               },
             },
             // Makes a visual point if the "hover" signal defined further down is active for this point.
@@ -192,6 +192,12 @@ abstract class ResourceGraph extends Analyzer {
     const tracker = this.tracker();
     const scaleFactor = this.scaleFactor();
     tracker.resourceUpdates.forEach((u) => {
+      if (u.change) {
+        graphData.push({
+          timestamp: u.timestamp,
+          amount: (u.current - u.change) * scaleFactor,
+        });
+      }
       const data: GraphData = {
         timestamp: u.timestamp,
         amount: u.current * scaleFactor,
@@ -228,7 +234,7 @@ abstract class ResourceGraph extends Analyzer {
 }
 
 /** The type used to compile the data for graphing. */
-export type GraphData = {
+type GraphData = {
   /** Timestamp of the data point */
   timestamp: number;
 

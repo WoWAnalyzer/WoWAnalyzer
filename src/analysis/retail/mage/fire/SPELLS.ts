@@ -88,20 +88,50 @@ const spells = {
     name: "Sun King's Blessing",
     icon: 'ability_mage_firestarter',
   },
-  CHARRING_EMBERS_DEBUFF: {
-    id: 408665,
-    name: 'Charring Embers',
-    icon: 'ability_warlock_burningembers',
-  },
-  FLAMES_FURY: {
-    id: 409964,
-    name: "Flame's Fury",
-    icon: 'inv_misc_volatilefire',
-  },
   IMPROVED_SCORCH_BUFF: {
     id: 383608,
     name: 'Improved Scorch',
     icon: 'ability_mage_fierypayback',
+  },
+  FLAME_ACCELERANT_BUFF: {
+    id: 203277,
+    name: 'Flame Accelerant',
+    icon: 'inv_ember',
+  },
+  LIVING_BOMB_TICK_DAMAGE: {
+    id: 217694,
+    name: 'Living Bomb',
+    icon: 'ability_mage_livingbomb',
+  },
+  LIVING_BOMB_EXPLODE_DAMAGE: {
+    id: 44461,
+    name: 'Living Bomb',
+    icon: 'ability_mage_livingbomb',
+  },
+  LIVING_BOMB_EXPLODE_DEBUFF: {
+    id: 244813,
+    name: 'Living Bomb',
+    icon: 'ability_mage_livingbomb',
+  },
+  LIVING_BOMB_EXCESS_FIRE_EXPLODE_DEBUFF: {
+    id: 438672,
+    name: 'Living Bomb',
+    icon: 'ability_mage_livingbomb',
+  },
+  METEOR_DAMAGE: {
+    id: 351140,
+    name: 'Meteor',
+    icon: 'spell_mage_meteor',
+  },
+  METEOR_BURN: {
+    id: 155158,
+    name: 'Meteor',
+    icon: 'spell_mage_meteor',
+  },
+  CAUTERIZED_DEBUFF: {
+    id: 87024,
+    name: 'Cauterized',
+    icon: 'spell_fire_rune',
   },
 } satisfies Record<string, Spell>;
 

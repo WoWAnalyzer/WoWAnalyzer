@@ -8,14 +8,6 @@ class Buffs extends CoreAuras {
   auras() {
     return [
       {
-        spellId: SPELLS.SEAL_OF_BLOOD.id,
-        timelineHighlight: true,
-      },
-      {
-        spellId: SPELLS.SEAL_OF_COMMAND.id,
-        timelineHighlight: true,
-      },
-      {
         spellId: SPELLS.SEAL_OF_CORRUPTION.id,
         timelineHighlight: true,
       },
@@ -24,7 +16,7 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.SEAL_OF_LIGHT.id,
+        spellId: SPELLS.SEAL_OF_INSIGHT.id,
         timelineHighlight: true,
       },
       {
@@ -32,15 +24,7 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.SEAL_OF_THE_MARTYR.id,
-        timelineHighlight: true,
-      },
-      {
-        spellId: SPELLS.SEAL_OF_VENGEANCE.id,
-        timelineHighlight: true,
-      },
-      {
-        spellId: SPELLS.SEAL_OF_WISDOM.id,
+        spellId: SPELLS.SEAL_OF_TRUTH.id,
         timelineHighlight: true,
       },
       // Do not adjust the lines below

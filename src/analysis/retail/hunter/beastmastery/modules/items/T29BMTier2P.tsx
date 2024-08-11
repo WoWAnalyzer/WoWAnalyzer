@@ -27,7 +27,7 @@ export default class T29BMTier2P extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.has2PieceByTier(TIERS.T29);
+    this.active = this.selectedCombatant.has2PieceByTier(TIERS.DF1);
 
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.KILL_COMMAND_SHARED_DAMAGE),

@@ -31,11 +31,13 @@ export class DuskAndDawn extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = false;
-    // FIXME: disabled due to major changes to Dusk & Dawn
-    // this.hasDuskAndDawn = this.selectedCombatant.hasTalent(TALENTS.OF_DUSK_AND_DAWN_TALENT);
+    this.hasDuskAndDawn =
+      this.selectedCombatant.hasTalent(TALENTS.OF_DUSK_AND_DAWN_HOLY_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS.OF_DUSK_AND_DAWN_PROTECTION_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS.OF_DUSK_AND_DAWN_RETRIBUTION_TALENT);
     this.hasSealOfOrder = this.selectedCombatant.hasTalent(TALENTS.SEAL_OF_ORDER_TALENT);
-    // this.active = this.hasDuskAndDawn;
+    this.active = this.hasDuskAndDawn;
+
     if (!this.active) {
       return;
     }
@@ -50,54 +52,34 @@ export class DuskAndDawn extends Analyzer {
 
     this.addEventListener(Events.applybuff.spell(SPELLS.BLESSING_OF_DUSK), this.onDuskApplied);
     this.addEventListener(Events.removebuff.spell(SPELLS.BLESSING_OF_DUSK), this.onDuskRemoved);
-
-    this.addEventListener(Events.applybuff.spell(SPELLS.BLESSING_OF_DAWN), this.onDawnApplied);
-    this.addEventListener(Events.removebuff.spell(SPELLS.BLESSING_OF_DAWN), this.onDawnRemoved);
   }
-
-  duskUptime = 0;
-  dawnUptime = 0;
-
-  duskAppliedTime: number | undefined;
-  dawnAppliedTime: number | undefined;
 
   get holyPowerGeneratorIds() {
     return this.holyPowerGenerators.map((spell) => spell.id);
   }
 
   onDuskApplied(event: ApplyBuffEvent) {
-    this.duskAppliedTime = event.timestamp;
-
     // TODO: track DR
     if (this.hasSealOfOrder) {
       this.spellUsable.applyCooldownRateChange(this.holyPowerGeneratorIds, 1.1);
     }
   }
   onDuskRemoved(event: RemoveBuffEvent) {
-    if (this.duskAppliedTime !== undefined) {
-      this.duskUptime += event.timestamp - this.duskAppliedTime;
-      if (this.hasSealOfOrder) {
-        this.spellUsable.removeCooldownRateChange(this.holyPowerGeneratorIds, 1.1);
-      }
-    }
-  }
-
-  onDawnApplied(event: ApplyBuffEvent) {
-    this.dawnAppliedTime = event.timestamp;
-    // TODO: track damage/healing
-  }
-  onDawnRemoved(event: RemoveBuffEvent) {
-    if (this.dawnAppliedTime !== undefined) {
-      this.dawnUptime += event.timestamp - this.dawnAppliedTime;
+    if (this.hasSealOfOrder) {
+      this.spellUsable.removeCooldownRateChange(this.holyPowerGeneratorIds, 1.1);
     }
   }
 
   get duskUptimePct() {
-    return this.duskUptime / this.owner.fightDuration;
+    return (
+      this.selectedCombatant.getBuffUptime(SPELLS.BLESSING_OF_DUSK.id) / this.owner.fightDuration
+    );
   }
 
   get dawnUptimePct() {
-    return this.dawnUptime / this.owner.fightDuration;
+    return (
+      this.selectedCombatant.getBuffUptime(SPELLS.BLESSING_OF_DAWN.id) / this.owner.fightDuration
+    );
   }
 
   statistic() {

@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
-import { RETAIL_EXPANSION } from 'game/Expansion';
+import GameBranch from 'game/GameBranch';
 import {
   ApplyBuffEvent,
   ApplyDebuffEvent,
@@ -39,7 +39,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
         BUILT_IN_SUMMARY_TYPES.OVERHEALING,
         BUILT_IN_SUMMARY_TYPES.MANA,
       ],
-      expansion: RETAIL_EXPANSION,
+      branch: GameBranch.Retail,
       durationTooltip: (
         <>
           Duration includes the duration of any{' '}
@@ -56,7 +56,16 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
         BUILT_IN_SUMMARY_TYPES.OVERHEALING,
         BUILT_IN_SUMMARY_TYPES.MANA,
       ],
-      expansion: RETAIL_EXPANSION,
+      branch: GameBranch.Retail,
+    },
+    {
+      spell: TALENTS_MONK.CELESTIAL_CONDUIT_TALENT.id,
+      summary: [
+        BUILT_IN_SUMMARY_TYPES.HEALING,
+        BUILT_IN_SUMMARY_TYPES.OVERHEALING,
+        BUILT_IN_SUMMARY_TYPES.MANA,
+      ],
+      branch: GameBranch.Retail,
     },
   ];
   static castCooldowns = [
@@ -68,7 +77,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
         BUILT_IN_SUMMARY_TYPES.OVERHEALING,
         BUILT_IN_SUMMARY_TYPES.MANA,
       ],
-      expansion: RETAIL_EXPANSION,
+      branch: GameBranch.Retail,
     },
   ];
 

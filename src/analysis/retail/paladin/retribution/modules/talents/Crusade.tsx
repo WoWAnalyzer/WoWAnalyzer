@@ -9,6 +9,7 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import TALENTS from 'common/TALENTS/paladin';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 const CAST_BUFFER = 500;
 
@@ -47,10 +48,10 @@ class Crusade extends Analyzer {
     this.crusadeCastTimestamp = event.timestamp;
     this.gcdBuffer = this.globalCooldown.getGlobalCooldownDuration(TALENTS.CRUSADE_TALENT.id);
     if (this.holyPowerTracker.current < 3) {
-      event.meta = event.meta || {};
-      event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason =
-        'Make sure to have at least 3 Holy Power before using Crusade. Ideally you should have 5 Holy Power before using Crusade after your first use.';
+      addInefficientCastReason(
+        event,
+        'Make sure to have at least 3 Holy Power before using Crusade. Ideally you should have 5 Holy Power before using Crusade after your first use.',
+      );
     }
   }
 

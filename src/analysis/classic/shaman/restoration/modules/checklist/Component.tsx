@@ -15,7 +15,7 @@ import SPELLS from 'common/SPELLS/classic';
 import { TotemElements } from 'analysis/classic/shaman/shared/totems/totemConstants';
 import { TotemTracker } from 'analysis/classic/shaman/shared';
 
-export interface ChecklistProps extends BaseChecklistProps {
+interface ChecklistProps extends BaseChecklistProps {
   totemTracker: TotemTracker;
 }
 
@@ -129,16 +129,17 @@ const HealerChecklist = ({
           </Trans>
         }
       >
-        {thresholds.chainHealTargetThresholds.actual > 0 && (
-          <Requirement
-            name={
-              <Trans id="classic.shaman.restoration.checklist.aoeSpell.targets">
-                Average <SpellLink spell={SPELLS.CHAIN_HEAL} /> targets
-              </Trans>
-            }
-            thresholds={thresholds.chainHealTargetThresholds}
-          />
-        )}
+        {typeof thresholds.chainHealTargetThresholds.actual === 'number' &&
+          thresholds.chainHealTargetThresholds.actual > 0 && (
+            <Requirement
+              name={
+                <Trans id="classic.shaman.restoration.checklist.aoeSpell.targets">
+                  Average <SpellLink spell={SPELLS.CHAIN_HEAL} /> targets
+                </Trans>
+              }
+              thresholds={thresholds.chainHealTargetThresholds}
+            />
+          )}
       </Rule>
       {/* Downtime */}
       <Rule
@@ -179,7 +180,6 @@ const HealerChecklist = ({
         description={<>Use your cooldowns as often as possible to maximize your healing output.</>}
       >
         {/* SPELLS listed here must be in ../features/Abilities */}
-        <AbilityRequirement spell={SPELLS.TIDAL_FORCE.id} />
         <AbilityRequirement spell={SPELLS.NATURES_SWIFTNESS.id} />
         <AbilityRequirement spell={SPELLS.MANA_TIDE_TOTEM.id} />
       </Rule>

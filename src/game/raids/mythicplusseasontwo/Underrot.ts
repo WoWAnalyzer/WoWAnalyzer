@@ -1,9 +1,9 @@
-import { Dungeon } from 'game/raids';
+import type { Boss } from 'game/raids';
 
 import Background from './backgrounds/Underrot.jpg';
 import Headshot from './headshots/Underrot.jpg';
 
-const Underrot: Dungeon = {
+const Underrot: Boss = {
   id: 61841,
   name: 'The Underrot',
   background: Background,

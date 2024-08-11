@@ -14,36 +14,49 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import Channeling from 'parser/shared/normalizers/Channeling';
 
 //Core
-import Checklist from './Checklist/Module';
 import Abilities from './core/Abilities';
 import AlwaysBeCasting from './core/AlwaysBeCasting';
 import Buffs from './core/Buffs';
 import CooldownThroughputTracker from './core/CooldownThroughputTracker';
 import ArcaneChargeTracker from './core/ArcaneChargeTracker';
-import ArcaneMissiles from './core/ArcaneMissiles';
-import ArcaneSurgeActiveTime from './core/ArcaneSurgeActiveTime';
-import ArcaneSurgeCasts from './core/ArcaneSurgeCasts';
-import ArcaneSurgeMana from './core/ArcaneSurgeMana';
-import ArcaneSurgePreReqs from './core/ArcaneSurgePreReqs';
+import Clearcasting from './core/Clearcasting';
+import ArcaneBarrage from './core/ArcaneBarrage';
+import ArcaneOrb from './talents/ArcaneOrb';
+import ArcaneSurge from './core/ArcaneSurge';
+
+//Guide
+import Guide from './Guide';
+import ArcaneSurgeGuide from './guide/ArcaneSurge';
+import TouchOfTheMagiGuide from './guide/TouchOfTheMagi';
+import ShiftingPowerGuide from './guide/ShiftingPower';
+import ArcaneBarrageGuide from './guide/ArcaneBarrage';
+import ArcaneOrbGuide from './guide/ArcaneOrb';
+import ClearcastingGuide from './guide/Clearcasting';
+import NetherPrecisionGuide from './guide/NetherPrecision';
+import SiphonStormGuide from './guide/SiphonStorm';
+import ArcaneTempoGuide from './guide/ArcaneTempo';
 
 //Items
 
 //Mana Chart
 import Mana from './ManaChart/Mana';
 import ManaValues from './ManaChart/ManaValues';
+import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 
 //Talents
 import ArcaneBombardment from './talents/ArcaneBombardment';
 import ArcaneEcho from './talents/ArcaneEcho';
-import ArcaneFamiliar from './talents/ArcaneFamiliar';
 import ArcaneHarmony from './talents/ArcaneHarmony';
-import ArcaneOrb from './talents/ArcaneOrb';
-import RadiantSpark from './talents/RadiantSpark';
-import RuleOfThrees from './talents/RuleOfThrees';
+import TouchOfTheMagi from './talents/TouchOfTheMagi';
+import ShiftingPowerArcane from './talents/ShiftingPower';
+import NetherPrecision from './talents/NetherPrecision';
+import SiphonStorm from './talents/SiphonStorm';
+import ArcaneTempo from './talents/ArcaneTempo';
 
 //Normalizers
 import ArcaneChargesNormalizer from './normalizers/ArcaneCharges';
 import ArcaneSurgeNormalizer from './normalizers/ArcaneSurge';
+import TouchOfTheMagiNormalizer from './normalizers/TouchOfTheMagi';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -51,10 +64,10 @@ class CombatLogParser extends CoreCombatLogParser {
     //Normalizers
     arcaneChargesNormalizer: ArcaneChargesNormalizer,
     arcaneSurgeNormalizer: ArcaneSurgeNormalizer,
+    touchOfTheMagiNormalizer: TouchOfTheMagiNormalizer,
     castLinkNormalizer: CastLinkNormalizer,
 
     //Core
-    checklist: Checklist,
     buffs: Buffs,
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
@@ -62,34 +75,47 @@ class CombatLogParser extends CoreCombatLogParser {
     channeling: Channeling,
     mana: Mana,
     manaValues: ManaValues,
+    manaLevelChart: ManaLevelChart,
     cancelledCasts: CancelledCasts,
     arcaneChargeTracker: ArcaneChargeTracker,
-    arcaneSurgePreReqs: ArcaneSurgePreReqs,
-    arcaneSurgeMana: ArcaneSurgeMana,
-    arcaneSurgeCasts: ArcaneSurgeCasts,
-    arcaneSurgeActiveTime: ArcaneSurgeActiveTime,
-    arcaneMissiles: ArcaneMissiles,
-
-    // Talents - Arcane
-    arcaneFamiliar: ArcaneFamiliar,
+    arcaneSurge: ArcaneSurge,
+    clearcasting: Clearcasting,
+    arcaneBarrage: ArcaneBarrage,
     arcaneOrb: ArcaneOrb,
-    ruleOfThrees: RuleOfThrees,
-    arcaneEcho: ArcaneEcho,
-    arcaneHarmony: ArcaneHarmony,
-    arcaneBombardment: ArcaneBombardment,
-    shiftingPower: ShiftingPower,
-    radiantSpark: RadiantSpark,
+
+    // Guide
+    arcaneSurgeGuide: ArcaneSurgeGuide,
+    touchOfTheMagiGuide: TouchOfTheMagiGuide,
+    shiftingPowerGuide: ShiftingPowerGuide,
+    arcaneBarrageGuide: ArcaneBarrageGuide,
+    arcaneOrbGuide: ArcaneOrbGuide,
+    clearcastingGuide: ClearcastingGuide,
+    netherPrecisionGuide: NetherPrecisionGuide,
+    siphonStormGuide: SiphonStormGuide,
+    arcaneTempoGuide: ArcaneTempoGuide,
 
     //Talents - Shared
     divertedEnergy: DivertedEnergy,
     quickWitted: QuickWitted,
     tempestBarrier: TempestBarrier,
     mirrorImage: MirrorImage,
+    shiftingPower: ShiftingPower,
     elementalBarrier: ElementalBarrier,
     timeAnomaly: TimeAnomaly,
     masterOfTime: MasterOfTime,
     arcaneIntellect: ArcaneIntellect,
+
+    // Talents - Arcane
+    arcaneEcho: ArcaneEcho,
+    arcaneHarmony: ArcaneHarmony,
+    arcaneBombardment: ArcaneBombardment,
+    shiftingPowerArcane: ShiftingPowerArcane,
+    touchOfTheMagi: TouchOfTheMagi,
+    netherPrecision: NetherPrecision,
+    siphonStorm: SiphonStorm,
+    arcaneTempo: ArcaneTempo,
   };
+  static guide = Guide;
 }
 
 export default CombatLogParser;

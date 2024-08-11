@@ -9,6 +9,12 @@ const deps = {
   castEfficiency: CastEfficiency,
 };
 
+/**
+ * **New Moon**
+ * Spec Talent
+ *
+ * Deals X Astral damage to the target and empowers New Moon to become Half Moon.
+ */
 export default class NewMoon extends Analyzer.withDependencies(deps) {
   constructor(options: Options) {
     super(options);

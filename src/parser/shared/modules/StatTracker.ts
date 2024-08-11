@@ -1,10 +1,9 @@
 import { formatMilliseconds } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import CLASSIC_SPELLS from 'common/SPELLS/classic';
-import SHADOWLANDS_SPELLS from 'common/SPELLS/shadowlands/others';
 import ITEMS from 'common/ITEMS';
 import RACES from 'game/RACES';
-import SPECS, { isRetailSpec, specMasteryCoefficient } from 'game/SPECS';
+import SPECS, { isRetailSpec } from 'game/SPECS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatant from 'parser/core/Combatant';
 import { SpellInfo } from 'parser/core/EventFilter';
@@ -22,14 +21,15 @@ import Events, {
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import STAT, { PRIMARY_STAT } from 'parser/shared/modules/features/STAT';
 
-import { CLASSIC_EXPANSION } from 'game/Expansion';
 import { calculateSecondaryStatDefault } from 'parser/core/stats';
+import GameBranch from 'game/GameBranch';
+import { wclGameVersionToBranch } from 'game/VERSIONS';
 
 /**
  * Generates a {@link StatBuff} that defines a buff that gives the
  * appropiate `PRIMARY_STAT` for the current spec.
  */
-export function primaryStat(value: number): StatBuff {
+function primaryStat(value: number): StatBuff {
   return {
     [PRIMARY_STAT.STRENGTH]: (selectedCombatant) =>
       selectedCombatant.primaryStat === PRIMARY_STAT.STRENGTH ? value : 0,
@@ -63,8 +63,6 @@ class StatTracker extends Analyzer {
     // endregion
 
     // region Runes
-    [SHADOWLANDS_SPELLS.VEILED_AUGMENT_RUNE.id]: primaryStat(18),
-    [SHADOWLANDS_SPELLS.ETERNAL_AUGMENT_RUNE.id]: primaryStat(18),
     [SPELLS.DRACONIC_AUGMENT_RUNE.id]: primaryStat(87),
     // endregion
 
@@ -143,7 +141,13 @@ class StatTracker extends Analyzer {
     [CLASSIC_SPELLS.HYPERSPEED_ACCELERATION.id]: { haste: 340 },
     [CLASSIC_SPELLS.POTION_OF_SPEED.id]: { haste: 500 },
     // endregion
+
+    // region Classic Cata
+    [CLASSIC_SPELLS.SHARD_OF_WOE_CELERITY.id]: { haste: 1935 },
+    // endregion
   };
+
+  protected isClassic = false;
 
   // all known stat buffs
   statBuffs: StatBuffsByGuid;
@@ -190,6 +194,13 @@ class StatTracker extends Analyzer {
     [STAT.SPEED]: 50,
   };
 
+  // Values taken from https://github.com/wowsims/cata/blob/master/sim/core/base_stats_auto_gen.go
+  // we multiply by 100 to convert e.g. 5.8% haste to 0.058
+  classicStatRatingPerPercent = {
+    [STAT.HASTE]: 128.05716 * 100,
+    [STAT.CRITICAL_STRIKE]: 179.28004 * 100,
+  };
+
   /** Secondary stat scaling thresholds
    * Taken from https://raw.githubusercontent.com/simulationcraft/simc/dragonflight/engine/dbc/generated/item_scaling.inc
    * Search for 21024 in the first column for secondary stat scaling
@@ -217,13 +228,13 @@ class StatTracker extends Analyzer {
     { base: 0.1, scaled: 0.1, penaltyAboveThis: 0.2 },
     { base: 0.15, scaled: 0.14, penaltyAboveThis: 0.4 },
     { base: 0.2, scaled: 0.17, penaltyAboveThis: 0.6 },
-    { base: 0.25, scaled: 0.19, penaltyAboveThis: 0.8 },
+    { base: 0.25, scaled: 0.19, penaltyAboveThis: 0.6 },
     { base: 1, scaled: 0.49, penaltyAboveThis: 1 },
   ];
 
   get activeStats(): STAT[] {
-    switch (this.owner.config.expansion) {
-      case CLASSIC_EXPANSION:
+    switch (this.owner.config.branch) {
+      case GameBranch.Classic:
         return [
           STAT.HEALTH,
           STAT.STAMINA,
@@ -235,6 +246,7 @@ class StatTracker extends Analyzer {
           STAT.HASTE,
           STAT.HASTE_HPCT,
           STAT.HASTE_HPM,
+          STAT.MASTERY,
         ];
       default:
         return [
@@ -279,6 +291,10 @@ class StatTracker extends Analyzer {
       speed: this.selectedCombatant._combatantInfo.speed,
       armor: this.selectedCombatant._combatantInfo.armor,
     };
+
+    if (wclGameVersionToBranch(options.owner.report.gameVersion) === GameBranch.Classic) {
+      this.isClassic = true;
+    }
 
     this.applySpecModifiers();
 
@@ -567,7 +583,7 @@ class StatTracker extends Analyzer {
 
   get baseMasteryPercentage() {
     const spellPoints = 8; // Spellpoint is a unit of mastery, each class has 8 base Spellpoints
-    let mastery = (spellPoints * (specMasteryCoefficient(this.selectedCombatant.spec) || 1)) / 100;
+    let mastery = (spellPoints * (this.selectedCombatant.spec?.masteryCoefficient ?? 1)) / 100;
     if (this.selectedCombatant.race === RACES.Dracthyr) {
       mastery += 0.018;
     }
@@ -689,6 +705,12 @@ class StatTracker extends Analyzer {
    * For percentage stats, returns the combined base stat values and the values gained from ratings -- this does not include percentage increases such as Bloodlust
    */
   critPercentage(rating: number, withBase = false): number {
+    if (this.isClassic) {
+      return (
+        (withBase ? this.baseCritPercentage : 0) +
+        rating / this.classicStatRatingPerPercent[STAT.CRITICAL_STRIKE]
+      );
+    }
     return (
       (withBase ? this.baseCritPercentage : 0) +
       this.calculateStatPercentage(rating, this.statBaselineRatingPerPercent[STAT.CRITICAL_STRIKE])
@@ -696,6 +718,12 @@ class StatTracker extends Analyzer {
   }
 
   hastePercentage(rating: number, withBase = false): number {
+    if (this.isClassic) {
+      return (
+        (withBase ? this.baseHastePercentage : 0) +
+        rating / this.classicStatRatingPerPercent[STAT.HASTE]
+      );
+    }
     return (
       (withBase ? this.baseHastePercentage : 0) +
       this.calculateStatPercentage(rating, this.statBaselineRatingPerPercent[STAT.HASTE])
@@ -703,6 +731,10 @@ class StatTracker extends Analyzer {
   }
 
   masteryPercentage(rating: number, withBase = false): number {
+    if (this.isClassic) {
+      // Classic Cata does not log the mastery rating.
+      return 0;
+    }
     return (
       (withBase ? this.baseMasteryPercentage : 0) +
       this.calculateStatPercentage(
@@ -710,12 +742,15 @@ class StatTracker extends Analyzer {
         this.statBaselineRatingPerPercent[STAT.MASTERY],
         false,
         true,
-        specMasteryCoefficient(this.selectedCombatant.spec) || 1,
+        this.selectedCombatant.spec?.masteryCoefficient ?? 1,
       )
     );
   }
 
   versatilityPercentage(rating: number, withBase = false): number {
+    if (this.isClassic) {
+      return 0; // Classic does not have this stat
+    }
     return (
       (withBase ? this.baseVersatilityPercentage : 0) +
       this.calculateStatPercentage(rating, this.statBaselineRatingPerPercent[STAT.VERSATILITY])
@@ -723,6 +758,9 @@ class StatTracker extends Analyzer {
   }
 
   avoidancePercentage(rating: number, withBase = false) {
+    if (this.isClassic) {
+      return 0; // Classic does not have this stat
+    }
     return (
       (withBase ? this.baseAvoidancePercentage : 0) +
       this.calculateStatPercentage(
@@ -735,6 +773,9 @@ class StatTracker extends Analyzer {
   }
 
   leechPercentage(rating: number, withBase = false): number {
+    if (this.isClassic) {
+      return 0; // Classic does not have this stat
+    }
     return (
       (withBase ? this.baseLeechPercentage : 0) +
       this.calculateStatPercentage(
@@ -747,6 +788,9 @@ class StatTracker extends Analyzer {
   }
 
   speedPercentage(rating: number, withBase: boolean = false): number {
+    if (this.isClassic) {
+      return 0; // Classic does not have this stat
+    }
     return (
       (withBase ? this.baseSpeedPercentage : 0) +
       this.calculateStatPercentage(
@@ -1002,7 +1046,7 @@ class StatTracker extends Analyzer {
 /**
  * TODO better docs for this object once I understand how it works
  */
-export interface PenaltyThreshold {
+interface PenaltyThreshold {
   base: number;
   scaled: number;
   penaltyAboveThis: number;
@@ -1029,39 +1073,39 @@ export interface Stats {
 /**
  * A player's total stat ratings
  */
-export type PlayerStats = Stats;
+type PlayerStats = Stats;
 
 /**
  * A player's total stat multipliers
  */
-export type PlayerMultipliers = Stats;
+type PlayerMultipliers = Stats;
 
 /**
  * StatBuff values can be represented as a static value
  * or as a dynamically generated value using the combatant and item
  * (typically an item buff will have power based on its ilvl)
  */
-export type BuffVal = number | ((s: Combatant, t: Item | null) => number);
+type BuffVal = number | ((s: Combatant, t: Item | null) => number);
 
 /**
  * A buff that boosts player stats.
  * 'itemId' need only be filled in for an item based buff, when we will need the ID for the BuffVal callback.
  */
-export type StatBuff = Partial<Record<keyof Stats, BuffVal>> & { itemId?: number };
+type StatBuff = Partial<Record<keyof Stats, BuffVal>> & { itemId?: number };
 
 /**
  * StatBuffs mapped by their guid
  */
-export type StatBuffsByGuid = { [key: string]: StatBuff };
+type StatBuffsByGuid = { [key: string]: StatBuff };
 
 /**
  * A buff or effect that multiplies stats (as opposed to adding)
  */
-export type StatMultiplier = Partial<Stats>;
+type StatMultiplier = Partial<Stats>;
 
 /**
  * StatMultipliers mapped by their guid
  */
-export type StatMultipliersByGuid = { [key: string]: StatMultiplier };
+type StatMultipliersByGuid = { [key: string]: StatMultiplier };
 
 export default StatTracker;

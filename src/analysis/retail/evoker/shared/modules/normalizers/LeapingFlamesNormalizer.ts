@@ -1,40 +1,38 @@
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/evoker';
+import TALENTS from 'common/TALENTS/evoker';
+import { Options } from 'parser/core/Analyzer';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
-import { Options } from 'parser/core/Module';
-import { TALENTS_EVOKER } from 'common/TALENTS';
 import {
-  ApplyBuffEvent,
-  ApplyBuffStackEvent,
   CastEvent,
   DamageEvent,
   EventType,
+  GetRelatedEvent,
   GetRelatedEvents,
   HasRelatedEvent,
   HealEvent,
-  RefreshBuffEvent,
+  RemoveBuffEvent,
+  AnyEvent,
+  EmpowerEndEvent,
 } from 'parser/core/Events';
+import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
 
 export const LEAPING_FLAMES_HITS = 'leapingFlamesHits';
 export const LEAPING_FLAMES_CONSUME = 'leapingFlamesConsume';
-export const ESSENCE_BURST_GENERATED = 'essenceBurstGenerated';
-export const ESSENCE_BURST_CAST_GENERATED = 'essenceBurstCastGenerated';
-export const ESSENCE_BURST_WASTED = 'essenceBurstWasted';
-
-const LEAPING_FLAMES_HIT_BUFFER = 1000;
-const ESSENCE_BURST_BUFFER = 20;
+export const LEAPING_FLAMES_BUFF = 'leapingFlamesBuff';
+export const LEAPING_FLAMES_APPLICATION = 'leapingFlamesApplication';
 const LEAPING_FLAMES_CONSUME_BUFFER = 35;
+const LEAPING_FLAMES_BUFF_BUFFER = 30_000;
+
+export const LIVING_FLAME_CAST_HIT = 'livingFlameCastHit';
+const LIVING_FLAME_HIT_BUFFER = 1_000; // LF has travel time
+
+export const EB_FROM_LF_CAST = 'ebFromLFCast';
+export const EB_FROM_LF_HEAL = 'ebFromLFHeal';
+export const EB_WASTE_FROM_LF_CAST = 'ebWasteFromLFCast';
+export const EB_WASTE_FROM_LF_HEAL = 'ebWasteFromLFHeal';
+const BACKWARDS_BUFFER = 10;
 
 const EVENT_LINKS: EventLink[] = [
-  {
-    linkRelation: LEAPING_FLAMES_HITS,
-    reverseLinkRelation: LEAPING_FLAMES_HITS,
-    linkingEventId: SPELLS.LIVING_FLAME_CAST.id,
-    linkingEventType: EventType.Cast,
-    referencedEventId: [SPELLS.LIVING_FLAME_DAMAGE.id, SPELLS.LIVING_FLAME_HEAL.id],
-    referencedEventType: [EventType.Damage, EventType.Heal],
-    anyTarget: true,
-    forwardBufferMs: LEAPING_FLAMES_HIT_BUFFER,
-  },
   {
     linkRelation: LEAPING_FLAMES_CONSUME,
     reverseLinkRelation: LEAPING_FLAMES_CONSUME,
@@ -45,115 +43,180 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true,
     forwardBufferMs: LEAPING_FLAMES_CONSUME_BUFFER,
     backwardBufferMs: LEAPING_FLAMES_CONSUME_BUFFER,
-    additionalCondition(linkingEvent) {
-      return HasRelatedEvent(linkingEvent, LEAPING_FLAMES_HITS);
+    isActive: (c) => c.hasTalent(TALENTS.LEAPING_FLAMES_TALENT),
+  },
+  {
+    linkRelation: LEAPING_FLAMES_BUFF,
+    reverseLinkRelation: LEAPING_FLAMES_BUFF,
+    linkingEventId: SPELLS.LEAPING_FLAMES_BUFF.id,
+    /** If the buff is refreshed/overridden it will gain/lose stacks instead of refreshing
+     * It can be observed in this log @24:53.644 & @27:58.515 /reports/rXkDfLBavt1mWpKx#fight=5&type=damage-done&source=1 */
+    linkingEventType: [EventType.ApplyBuff, EventType.ApplyBuffStack, EventType.RemoveBuffStack],
+    referencedEventId: SPELLS.LEAPING_FLAMES_BUFF.id,
+    referencedEventType: EventType.RemoveBuff,
+    forwardBufferMs: LEAPING_FLAMES_BUFF_BUFFER,
+    anyTarget: true,
+    maximumLinks: 1,
+    isActive: (c) => c.hasTalent(TALENTS.LEAPING_FLAMES_TALENT),
+    additionalCondition(_linkingEvent, referencedEvent) {
+      /** Condition to ensure that we only ever link unique hits to cast
+       * LF has travel time so you can technically cast back-to-back before
+       * the first LF hits */
+      return !HasRelatedEvent(referencedEvent, LEAPING_FLAMES_BUFF);
     },
   },
   {
-    linkRelation: ESSENCE_BURST_GENERATED,
-    reverseLinkRelation: ESSENCE_BURST_GENERATED,
-    linkingEventId: [
-      TALENTS_EVOKER.RUBY_ESSENCE_BURST_TALENT.id,
-      SPELLS.ESSENCE_BURST_DEV_BUFF.id,
-      SPELLS.ESSENCE_BURST_AUGMENTATION_BUFF.id,
-      SPELLS.ESSENCE_BURST_BUFF.id,
-    ],
-    linkingEventType: [EventType.ApplyBuff, EventType.ApplyBuffStack],
-    referencedEventId: [
-      SPELLS.LIVING_FLAME_DAMAGE.id,
-      SPELLS.LIVING_FLAME_HEAL.id,
-      SPELLS.AZURE_STRIKE.id,
-    ],
+    linkRelation: LEAPING_FLAMES_APPLICATION,
+    reverseLinkRelation: LEAPING_FLAMES_APPLICATION,
+    linkingEventId: SPELLS.LEAPING_FLAMES_BUFF.id,
+    /** If the buff is refreshed/overridden it will gain/lose stacks instead of refreshing
+     * See examples above */
+    linkingEventType: [EventType.ApplyBuff, EventType.ApplyBuffStack, EventType.RemoveBuffStack],
+    referencedEventId: [SPELLS.FIRE_BREATH.id, SPELLS.FIRE_BREATH_FONT.id],
+    referencedEventType: EventType.EmpowerEnd,
+    forwardBufferMs: LEAPING_FLAMES_CONSUME_BUFFER,
+    backwardBufferMs: LEAPING_FLAMES_CONSUME_BUFFER,
+    anyTarget: true,
+    maximumLinks: 1,
+    isActive: (c) => c.hasTalent(TALENTS.LEAPING_FLAMES_TALENT),
+  },
+  {
+    linkRelation: LIVING_FLAME_CAST_HIT,
+    reverseLinkRelation: LIVING_FLAME_CAST_HIT,
+    linkingEventId: SPELLS.LIVING_FLAME_CAST.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: [SPELLS.LIVING_FLAME_DAMAGE.id, SPELLS.LIVING_FLAME_HEAL.id],
+    referencedEventType: [EventType.Damage, EventType.Heal],
+    forwardBufferMs: LIVING_FLAME_HIT_BUFFER,
+    backwardBufferMs: BACKWARDS_BUFFER,
+    maximumLinks: 1,
+    additionalCondition(_linkingEvent, referencedEvent) {
+      /** Condition to ensure that we only ever link unique hits to cast
+       * LF has travel time so you can technically cast back-to-back before
+       * the first LF hits */
+      return !HasRelatedEvent(referencedEvent, LIVING_FLAME_CAST_HIT);
+    },
+  },
+  {
+    linkRelation: LEAPING_FLAMES_HITS,
+    reverseLinkRelation: LEAPING_FLAMES_HITS,
+    linkingEventId: SPELLS.LIVING_FLAME_CAST.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: [SPELLS.LIVING_FLAME_DAMAGE.id, SPELLS.LIVING_FLAME_HEAL.id],
     referencedEventType: [EventType.Damage, EventType.Heal],
     anyTarget: true,
-    forwardBufferMs: ESSENCE_BURST_BUFFER,
-    backwardBufferMs: ESSENCE_BURST_BUFFER, // Sometimes the EB comes a bit early/late
-    maximumLinks: 1,
-  },
-  {
-    linkRelation: ESSENCE_BURST_CAST_GENERATED,
-    reverseLinkRelation: ESSENCE_BURST_CAST_GENERATED,
-    linkingEventId: [
-      TALENTS_EVOKER.RUBY_ESSENCE_BURST_TALENT.id,
-      SPELLS.ESSENCE_BURST_BUFF.id,
-      SPELLS.ESSENCE_BURST_DEV_BUFF.id,
-      SPELLS.ESSENCE_BURST_AUGMENTATION_BUFF.id,
-    ],
-    linkingEventType: [EventType.ApplyBuff, EventType.ApplyBuffStack],
-    referencedEventId: SPELLS.LIVING_FLAME_CAST.id,
-    referencedEventType: EventType.Cast,
-    forwardBufferMs: ESSENCE_BURST_BUFFER,
-    backwardBufferMs: ESSENCE_BURST_BUFFER,
-    anyTarget: true,
-  },
-  {
-    linkRelation: ESSENCE_BURST_WASTED,
-    reverseLinkRelation: ESSENCE_BURST_WASTED,
-    linkingEventId: [
-      TALENTS_EVOKER.RUBY_ESSENCE_BURST_TALENT.id,
-      SPELLS.ESSENCE_BURST_DEV_BUFF.id,
-      SPELLS.ESSENCE_BURST_BUFF.id,
-      SPELLS.ESSENCE_BURST_AUGMENTATION_BUFF.id,
-    ],
-    linkingEventType: EventType.RefreshBuff,
-    referencedEventId: SPELLS.LIVING_FLAME_CAST.id,
-    referencedEventType: EventType.Cast,
-    forwardBufferMs: ESSENCE_BURST_BUFFER,
-    backwardBufferMs: ESSENCE_BURST_BUFFER,
-    anyTarget: true,
+    forwardBufferMs: LIVING_FLAME_HIT_BUFFER,
+    // Specifically heal hits on yourself / really close targets can show up prior
+    // can be seen here at 0:30
+    // /report/vDVJKnwGmAM9tCQN/48-Mythic+Volcoross+-+Kill+(2:49)/Vollmer/standard/events
+    backwardBufferMs: BACKWARDS_BUFFER,
+    maximumLinks: (c) => {
+      return c.hasTalent(TALENTS.FONT_OF_MAGIC_AUGMENTATION_TALENT) ||
+        c.hasTalent(TALENTS.FONT_OF_MAGIC_DEVASTATION_TALENT) ||
+        c.hasTalent(TALENTS.FONT_OF_MAGIC_PRESERVATION_TALENT)
+        ? 4
+        : 3;
+    },
+    isActive: (c) => c.hasTalent(TALENTS.LEAPING_FLAMES_TALENT),
+    additionalCondition(linkingEvent, referencedEvent) {
+      if (!HasRelatedEvent(linkingEvent, LEAPING_FLAMES_CONSUME)) {
+        return false;
+      }
+
+      /** To ensure we don't over attribute hits to Leaping Flames
+       * we need to check for amount of targets hit, and max possible */
+      const previousLeapingHits = getLeapingEvents(linkingEvent as CastEvent);
+      const maxPossibleHits = getLeapingFlamesStacks(linkingEvent);
+      if (previousLeapingHits.length >= maxPossibleHits) {
+        return false;
+      }
+
+      /** Make sure we don't attribute to the main target */
+      const curTarget = encodeEventTargetString(referencedEvent);
+      /** Talents like Pupil of Alexstrasza will also cleave LF
+       * so we just need to make sure we don't double dip the same target */
+      const targetHitBefore = previousLeapingHits.some(
+        (prevEvent) => encodeEventTargetString(prevEvent) === curTarget,
+      );
+
+      return !HasRelatedEvent(referencedEvent, LIVING_FLAME_CAST_HIT) && !targetHitBefore;
+    },
   },
 ];
 
 class LeapingFlamesNormalizer extends EventLinkNormalizer {
   constructor(options: Options) {
     super(options, EVENT_LINKS);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.LEAPING_FLAMES_TALENT);
   }
 }
-
-export function getLeapingDamageEvents(event: CastEvent): DamageEvent[] {
-  return GetRelatedEvents(
-    event,
-    LEAPING_FLAMES_HITS,
-    (e): e is DamageEvent => e.type === EventType.Damage,
-  );
-}
-
-export function getLeapingHealEvents(event: CastEvent): HealEvent[] {
-  return GetRelatedEvents(
-    event,
-    LEAPING_FLAMES_HITS,
-    (e): e is HealEvent => e.type === EventType.Heal,
-  );
-}
-
-export function getCastedGeneratedEssenceBurst(
+export function getLeapingEvents<T extends EventType.Damage | EventType.Heal>(
   event: CastEvent,
-): (ApplyBuffEvent | ApplyBuffStackEvent)[] {
-  return GetRelatedEvents(
+  filter?: T,
+): AnyEvent<T>[] {
+  const events = GetRelatedEvents<AnyEvent<T>>(
     event,
-    ESSENCE_BURST_CAST_GENERATED,
-    (e): e is ApplyBuffEvent | ApplyBuffStackEvent =>
-      e.type === EventType.ApplyBuff || e.type === EventType.ApplyBuffStack,
+    LEAPING_FLAMES_HITS,
+    filter ? (e): e is AnyEvent<T> => e.type === filter : undefined,
+  );
+
+  return events;
+}
+export function getLivingFlameCastHit(event: CastEvent): HealEvent | DamageEvent | undefined {
+  return GetRelatedEvent(
+    event,
+    LIVING_FLAME_CAST_HIT,
+    (e): e is HealEvent | DamageEvent => e.type === EventType.Heal || e.type === EventType.Damage,
   );
 }
 
-export function getWastedEssenceBurst(event: CastEvent): RefreshBuffEvent[] {
-  return GetRelatedEvents(
-    event,
-    ESSENCE_BURST_WASTED,
-    (e): e is RefreshBuffEvent => e.type === EventType.RefreshBuff,
-  );
-}
-
-export function generatedEssenceBurst(event: DamageEvent | HealEvent) {
-  return HasRelatedEvent(event, ESSENCE_BURST_GENERATED);
-}
-
-export function isFromLeapingFlames(event: CastEvent) {
+export function isFromLeapingFlames(event: CastEvent | DamageEvent | HealEvent) {
   return (
     HasRelatedEvent(event, LEAPING_FLAMES_CONSUME) || HasRelatedEvent(event, LEAPING_FLAMES_HITS)
   );
+}
+
+export function getLeapingCast(event: RemoveBuffEvent): CastEvent | undefined {
+  return GetRelatedEvent(
+    event,
+    LEAPING_FLAMES_CONSUME,
+    (e): e is CastEvent => e.type === EventType.Cast,
+  );
+}
+
+function getLeapingFlamesStacks(event: AnyEvent): number {
+  const leapingEvent =
+    event.type === EventType.Cast ? GetRelatedEvent(event, LEAPING_FLAMES_CONSUME) : event;
+
+  if (!leapingEvent) {
+    return 1;
+  }
+
+  if (
+    leapingEvent.type === EventType.ApplyBuffStack ||
+    leapingEvent.type === EventType.RemoveBuffStack
+  ) {
+    return leapingEvent.stack;
+  }
+
+  const applyEvent =
+    leapingEvent.type === EventType.RemoveBuff
+      ? GetRelatedEvent(leapingEvent, LEAPING_FLAMES_BUFF)
+      : leapingEvent;
+
+  if (!applyEvent) {
+    return 1;
+  }
+
+  if (
+    applyEvent.type === EventType.ApplyBuffStack ||
+    applyEvent.type === EventType.RemoveBuffStack
+  ) {
+    return applyEvent.stack;
+  }
+
+  const empowerEvent = GetRelatedEvent<EmpowerEndEvent>(applyEvent, LEAPING_FLAMES_APPLICATION);
+
+  return empowerEvent?.empowermentLevel || 1;
 }
 
 export default LeapingFlamesNormalizer;

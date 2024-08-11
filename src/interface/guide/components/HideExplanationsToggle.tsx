@@ -30,5 +30,3 @@ export const HideExplanationsToggle = ({
     </div>
   );
 };
-
-export default HideExplanationsToggle;

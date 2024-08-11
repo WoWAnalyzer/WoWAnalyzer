@@ -1,0 +1,6 @@
+export const SPELL_COLORS = {
+  CORRUPTION: '#9933CC',
+  DOWNTIME: '#FF0000',
+  IMMOLATE: '#DD8811',
+  UPTIME: '#00FF00',
+};

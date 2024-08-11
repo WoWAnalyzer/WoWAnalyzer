@@ -20,7 +20,7 @@ class HolyWordsReductionBySpell extends Analyzer {
   };
   lightOfTheNaaruActive = false;
   apotheosisActive = false;
-  harmoniousApparatusActive = false;
+  voiceOfHarmonyActive = false;
 
   protected sanctify!: HolyWordSanctify;
   protected serenity!: HolyWordSerenity;
@@ -33,9 +33,7 @@ class HolyWordsReductionBySpell extends Analyzer {
       TALENTS.LIGHT_OF_THE_NAARU_TALENT,
     );
     this.apotheosisActive = this.selectedCombatant.hasTalent(TALENTS.APOTHEOSIS_TALENT);
-    this.harmoniousApparatusActive = this.selectedCombatant.hasTalent(
-      TALENTS.HARMONIOUS_APPARATUS_TALENT,
-    );
+    this.voiceOfHarmonyActive = this.selectedCombatant.hasTalent(TALENTS.VOICE_OF_HARMONY_TALENT);
   }
 
   get totalReduction() {
@@ -155,7 +153,7 @@ class HolyWordsReductionBySpell extends Analyzer {
                   <td>Base</td>
                   {this.apotheosisActive && <th>Apotheosis</th>}
                   {this.lightOfTheNaaruActive && <th>Light of the Naaru</th>}
-                  {this.harmoniousApparatusActive && <th>Harmonious apparatus</th>}
+                  {this.voiceOfHarmonyActive && <th>Harmonious apparatus</th>}
                 </tr>
               </thead>
               <tbody>
@@ -171,7 +169,7 @@ class HolyWordsReductionBySpell extends Analyzer {
                     {this.lightOfTheNaaruActive && (
                       <td>{Math.ceil(reductionBySpell[e].lightOfTheNaaru / 1000)}s</td>
                     )}
-                    {this.harmoniousApparatusActive && (
+                    {this.voiceOfHarmonyActive && (
                       <td>{Math.ceil(reductionBySpell[e].apparatus / 1000)}s</td>
                     )}
                   </tr>

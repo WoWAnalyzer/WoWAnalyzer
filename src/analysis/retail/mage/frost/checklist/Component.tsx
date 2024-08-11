@@ -110,32 +110,6 @@ const FrostMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklist
         />
       </Rule>
       <Rule
-        name="Use Glacial Spike properly"
-        description={
-          <>
-            When talented into <SpellLink spell={TALENTS.GLACIAL_SPIKE_TALENT} /> you should always
-            ensure that you are getting the most out of it, because a large part of your damage will
-            come from making sure that you are handling Glacial Spike properly. As a rule, once you
-            have Glacial Spike available, you should not cast it unless you can cast{' '}
-            <SpellLink spell={TALENTS.FLURRY_TALENT} /> alongside it (
-            <SpellLink spell={TALENTS.GLACIAL_SPIKE_TALENT} /> {'>'}{' '}
-            <SpellLink spell={TALENTS.FLURRY_TALENT} /> {'>'}
-            <SpellLink spell={TALENTS.ICE_LANCE_TALENT} />) or if you also have the{' '}
-            <SpellLink spell={TALENTS.SPLITTING_ICE_TALENT} /> and the Glacial Spike will hit a
-            second target. If neither of those are true, then you should continue casting{' '}
-            <SpellLink spell={SPELLS.FROSTBOLT} /> until <SpellLink spell={TALENTS.FLURRY_TALENT} />{' '}
-            is available or you get a <SpellLink spell={TALENTS.BRAIN_FREEZE_TALENT} /> proc.
-          </>
-        }
-      >
-        {combatant.hasTalent(TALENTS.GLACIAL_SPIKE_TALENT) && (
-          <Requirement
-            name="Glacial Spike utilization"
-            thresholds={thresholds.glacialSpikeUtilization}
-          />
-        )}
-      </Rule>
-      <Rule
         name="Use your talents effectively"
         description="Regardless of which talents you select, you should ensure that you are utilizing them properly. If you are having trouble effectively using a particular talent, you should consider taking a different talent that you can utilize properly or focus on effectively using the talents that you have selected."
       >

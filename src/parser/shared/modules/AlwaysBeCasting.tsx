@@ -46,6 +46,13 @@ class AlwaysBeCasting extends Analyzer {
   /** Gets active time percentage within a specified time segment.
    *  This will not work properly unless the current timestamp advances past the end time. */
   getActiveTimePercentageInWindow(start: number, end: number): number {
+    const windowDuration = end - start;
+    return this.getActiveTimeMillisecondsInWindow(start, end) / windowDuration;
+  }
+
+  /** Gets active time milliseconds within a specified time segment.
+   *  This will not work properly unless the current timestamp advances past the end time. */
+  getActiveTimeMillisecondsInWindow(start: number, end: number): number {
     let activeTime = 0;
     for (let i = 0; i < this.activeTimeSegments.length; i += 1) {
       const seg = this.activeTimeSegments[i];
@@ -58,8 +65,7 @@ class AlwaysBeCasting extends Analyzer {
       const overlapEnd = Math.min(end, seg.end);
       activeTime += Math.max(0, overlapEnd - overlapStart);
     }
-    const windowDuration = end - start;
-    return activeTime / windowDuration;
+    return activeTime;
   }
 
   activeTime = 0;
@@ -83,7 +89,7 @@ class AlwaysBeCasting extends Analyzer {
       // Ignore prepull casts for active time since active time should only include casts during the
       return false;
     }
-    if (event.trigger.type === EventType.BeginChannel) {
+    if (event.trigger.type === EventType.BeginChannel || event.trigger.channel) {
       // Only add active time for this channel, we do this when the channel is finished and use the highest of the GCD and channel time
       return false;
     }
@@ -100,12 +106,7 @@ class AlwaysBeCasting extends Analyzer {
     this._handleNewUptimeSegment(event.timestamp, event.timestamp + event.duration);
     DEBUG &&
       console.log(
-        'Active Time: added ' +
-          event.duration +
-          ' from GCD for ' +
-          event.trigger.ability.name +
-          ' @ ' +
-          this.owner.formatTimestamp(event.trigger.timestamp),
+        `Active Time: added ${event.duration.toFixed(0)}ms from GCD for ${event.trigger.ability.name} @ ${this.owner.formatTimestamp(event.timestamp, 1)} - ${this.owner.formatTimestamp(event.timestamp + event.duration, 1)}`,
       );
     return true;
   }
@@ -116,16 +117,17 @@ class AlwaysBeCasting extends Analyzer {
     if (this.globalCooldown.isOnGlobalCooldown(event.ability.guid)) {
       amount = Math.max(amount, this._lastGlobalCooldownDuration);
     }
+
+    // check if the initial channel is from pre-pull, if it is, only count active time from the beginning of the fight
+    if (!this.activeTimeSegments.length) {
+      amount = Math.min(amount, event.timestamp - this.owner.fight.start_time);
+    }
+
     this.activeTime += amount;
     this._handleNewUptimeSegment(event.timestamp - amount, event.timestamp);
     DEBUG &&
       console.log(
-        'Active Time: added ' +
-          amount +
-          ' from Channel for ' +
-          event.ability.name +
-          ' @ ' +
-          this.owner.formatTimestamp(event.timestamp),
+        `Active Time: added ${event.duration.toFixed(0)}ms from Channel for ${event.ability.name} @ ${this.owner.formatTimestamp(event.timestamp - amount, 1)} - ${this.owner.formatTimestamp(event.timestamp, 1)}`,
       );
     return true;
   }

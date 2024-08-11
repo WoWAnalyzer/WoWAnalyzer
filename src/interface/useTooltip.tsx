@@ -1,7 +1,7 @@
 import { useWaSelector } from 'interface/utils/useWaSelector';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
-export const itemRelative = (id: number, details: any): string => {
+const itemRelative = (id: number, details: any): string => {
   const base = `item=${id}`;
   if (!details) {
     return base;
@@ -23,19 +23,19 @@ export const itemRelative = (id: number, details: any): string => {
   }
 };
 
-export const itemSetRelative = (id: number): string => {
+const itemSetRelative = (id: number): string => {
   return `item-set=${id}`;
 };
 
-export const npcRelative = (id: number): string => {
+const npcRelative = (id: number): string => {
   return `npc=${id}`;
 };
 
-export const resourceRelative = (id: number): string => {
+const resourceRelative = (id: number): string => {
   return RESOURCE_TYPES[id].url;
 };
 
-export const spellRelative = (id: number, details: any): string => {
+const spellRelative = (id: number, details: any): string => {
   const base = `spell=${id}`;
   if (!details) {
     return base;
@@ -56,7 +56,7 @@ export const spellRelative = (id: number, details: any): string => {
   }
 };
 
-export interface TooltipHelpers {
+interface TooltipHelpers {
   item: (...args: [number, any]) => string;
   itemSet: (id: number) => string;
   npc: (id: number) => string;

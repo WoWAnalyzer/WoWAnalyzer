@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
-import { TIERS } from 'game/TIERS';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import CoreAuras from 'parser/core/modules/Auras';
 
@@ -13,7 +12,7 @@ class Buffs extends CoreAuras {
     return [
       {
         spellId: SPELLS.HEATING_UP.id,
-        timelineHighlight: true,
+        timelineHighlight: false,
       },
       {
         spellId: SPELLS.HOT_STREAK.id,
@@ -55,11 +54,6 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.FLAMES_FURY.id,
-        enabled: combatant.has4PieceByTier(TIERS.T30),
-        timelineHighlight: true,
-      },
-      {
         spellId: TALENTS.MIRROR_IMAGE_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.MIRROR_IMAGE_TALENT),
         timelineHighlight: true,
@@ -67,6 +61,11 @@ class Buffs extends CoreAuras {
       {
         spellId: SPELLS.IMPROVED_SCORCH_BUFF.id,
         enabled: combatant.hasTalent(TALENTS.IMPROVED_SCORCH_TALENT),
+        timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.FLAME_ACCELERANT_BUFF.id,
+        enabled: combatant.hasTalent(TALENTS.FLAME_ACCELERANT_TALENT),
         timelineHighlight: true,
       },
       {

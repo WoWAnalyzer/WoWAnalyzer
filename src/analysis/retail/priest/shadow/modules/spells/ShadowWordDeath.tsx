@@ -34,7 +34,7 @@ class ShadowWordDeath extends ExecuteHelper {
   constructor(options: Options) {
     super(options);
     this.addEventListener(Events.fightend, this.adjustMaxCasts);
-    if (this.selectedCombatant.has4PieceByTier(TIERS.T31)) {
+    if (this.selectedCombatant.has4PieceByTier(TIERS.DF3)) {
       ShadowWordDeath.lowerThreshold = 1; //When shadow has its tier 31 four piece, they always use shadow word death
     }
     const ctor = this.constructor as typeof ExecuteHelper;

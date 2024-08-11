@@ -13,13 +13,6 @@ const EVENT_ORDERS: EventOrder[] = [
     afterEventType: EventType.Heal,
     bufferMs: MAX_DELAY,
   },
-  {
-    beforeEventId: SPELLS.ESSENCE_FONT_BUFF.id,
-    beforeEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
-    afterEventId: SPELLS.ESSENCE_FONT_BUFF.id,
-    afterEventType: EventType.Heal,
-    bufferMs: MAX_DELAY,
-  },
 ];
 
 /**

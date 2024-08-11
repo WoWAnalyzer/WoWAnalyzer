@@ -1,8 +1,7 @@
 import AbilityTracker from 'analysis/retail/priest/shadow/modules/core/AbilityTracker';
-import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
-import Insanity from 'interface/icons/Insanity';
+import ItemInsanityGained from 'analysis/retail/priest/shadow/interface/ItemInsanityGained';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, ResourceChangeEvent, CastEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -30,28 +29,48 @@ class ShadowCrash extends Analyzer {
   recentHits = 0;
   recentSCTimestamp = 0;
 
+  shadowCrash1 = this.selectedCombatant.hasTalent(TALENTS.SHADOW_CRASH_1_SHADOW_TALENT);
+  shadowCrash2 = this.selectedCombatant.hasTalent(TALENTS.SHADOW_CRASH_2_SHADOW_TALENT);
+
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.SHADOW_CRASH_TALENT);
+    this.active = this.shadowCrash1 || this.shadowCrash2;
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_CRASH_TALENT_DAMAGE),
       this.onDamage,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.SHADOW_CRASH_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.SHADOW_CRASH_1_SHADOW_TALENT),
       this.onCast,
     );
     this.addEventListener(
-      Events.resourcechange.by(SELECTED_PLAYER).spell(TALENTS.SHADOW_CRASH_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.SHADOW_CRASH_2_SHADOW_TALENT),
+      this.onCast,
+    );
+    this.addEventListener(
+      Events.resourcechange.by(SELECTED_PLAYER).spell(TALENTS.SHADOW_CRASH_1_SHADOW_TALENT),
+      this.onEnergize,
+    );
+    this.addEventListener(
+      Events.resourcechange.by(SELECTED_PLAYER).spell(TALENTS.SHADOW_CRASH_2_SHADOW_TALENT),
       this.onEnergize,
     );
     this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
+  get abilityVersion() {
+    if (this.shadowCrash1) {
+      return this.abilityTracker.getAbility(TALENTS.SHADOW_CRASH_1_SHADOW_TALENT.id).casts;
+    }
+    if (this.shadowCrash2) {
+      return this.abilityTracker.getAbility(TALENTS.SHADOW_CRASH_2_SHADOW_TALENT.id).casts;
+    } else {
+      return 1;
+    } //this should never be reached
+  }
+
   get averageTargetsHit() {
-    return (
-      this.totalTargetsHit / this.abilityTracker.getAbility(TALENTS.SHADOW_CRASH_TALENT.id).casts
-    );
+    return this.totalTargetsHit / this.abilityVersion;
   }
 
   onDamage(event: DamageEvent) {
@@ -102,13 +121,13 @@ class ShadowCrash extends Analyzer {
         size="flexible"
         tooltip={`Average targets hit: ${this.averageTargetsHit.toFixed(1)}`}
       >
-        <BoringSpellValueText spell={TALENTS.SHADOW_CRASH_TALENT}>
+        <BoringSpellValueText spell={TALENTS.SHADOW_CRASH_1_SHADOW_TALENT}>
           <>
             <div>
               <ItemDamageDone amount={this.damage} />
             </div>
             <div>
-              <Insanity /> {formatNumber(this.insanityGained)} <small>Insanity generated</small>
+              <ItemInsanityGained amount={this.insanityGained} />
             </div>
           </>
         </BoringSpellValueText>
@@ -125,12 +144,13 @@ class ShadowCrash extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink spell={TALENTS.SHADOW_CRASH_TALENT} />
+          <SpellLink spell={TALENTS.SHADOW_CRASH_1_SHADOW_TALENT} />
         </b>{' '}
         deals damage and applies <SpellLink spell={SPELLS.VAMPIRIC_TOUCH} /> to targets it hits.
         <br />
-        Use <SpellLink spell={TALENTS.SHADOW_CRASH_TALENT} /> to apply your DoTs, and generate
-        insanity. You should hold this ability if it will allow you to hit more targets.
+        Use <SpellLink spell={TALENTS.SHADOW_CRASH_1_SHADOW_TALENT} /> to apply your DoTs, and
+        generate insanity. You may want to hold this ability if it will allow you to hit more
+        targets.
       </p>
     );
 

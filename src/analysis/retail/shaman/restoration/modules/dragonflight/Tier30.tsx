@@ -10,7 +10,7 @@ import {
   getTidewatersHealingEvents,
 } from '../../normalizers/Tier30Normalizer';
 import ChainHealNormalizer from '../../normalizers/ChainHealNormalizer';
-import { SHAMAN_T30_ID } from 'common/ITEMS/dragonflight';
+import { SHAMAN_DF2_ID } from 'common/ITEMS/dragonflight';
 import { SpellLink } from 'interface';
 import ItemSetLink from 'interface/ItemSetLink';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -49,8 +49,8 @@ export default class Tier30 extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.has2PieceByTier(TIERS.T30);
-    this.has4pc = this.selectedCombatant.has4PieceByTier(TIERS.T30);
+    this.active = this.selectedCombatant.has2PieceByTier(TIERS.DF2);
+    this.has4pc = this.selectedCombatant.has4PieceByTier(TIERS.DF2);
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(talents.HEALING_RAIN_TALENT),
@@ -211,7 +211,7 @@ export default class Tier30 extends Analyzer {
       >
         <div className="pad boring-text">
           <label>
-            <ItemSetLink id={SHAMAN_T30_ID}>
+            <ItemSetLink id={SHAMAN_DF2_ID}>
               <>
                 Runes of the Cinderwolf
                 <br />

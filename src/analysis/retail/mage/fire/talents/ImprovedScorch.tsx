@@ -1,10 +1,8 @@
-import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
-import Analyzer, { Options } from 'parser/core/Analyzer';
-import { SELECTED_PLAYER } from 'parser/core/EventFilter';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, FightEndEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
@@ -91,11 +89,7 @@ class ImprovedScorch extends Analyzer {
         </>,
       )
         .icon(TALENTS.IMPROVED_SCORCH_TALENT.icon)
-        .actual(
-          <Trans id="mage.fire.suggestions.improvedScorch.uptimePercent">
-            {formatPercentage(this.uptimePercent)}% Utilization
-          </Trans>,
-        )
+        .actual(`${formatPercentage(this.uptimePercent)}% Utilization`)
         .recommended(`${formatPercentage(recommended)} is recommended`),
     );
   }

@@ -38,14 +38,6 @@ export class ZenMeditation extends MajorDefensiveBuff {
           cooldown is so long, it is difficult to use effectively without researching a fight's
           damage patterns in advance.
         </p>
-        <p>
-          <small>
-            You will usually want to use{' '}
-            <SpellLink spell={talents.FUNDAMENTAL_OBSERVATION_TALENT} /> if you expect to be using{' '}
-            <SpellLink spell={talents.ZEN_MEDITATION_TALENT} /> while actively tanking, as many
-            bosses can auto-attack while casting.
-          </small>
-        </p>
       </>
     );
   }

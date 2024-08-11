@@ -38,14 +38,14 @@ class Accretion extends Analyzer {
   totalDamageDone: number = 0;
   totalShiftingSandsDamage: number = 0;
   totalShiftingSandsApplications: number = 0;
-  totalUpheavelDamage: number = 0;
-  totalUpheavelCasts: number = 0;
-  effectiveUpheavelCDR: number = 0;
-  ebonMightUpheavelExtention: number = 0;
+  totalUpheavalDamage: number = 0;
+  totalUpheavalCasts: number = 0;
+  effectiveUpheavalCDR: number = 0;
+  ebonMightUpheavalExtension: number = 0;
 
   accretionEbonMight: number = 0;
   accretionShiftingSands: number = 0;
-  accretionUpheavel: number = 0;
+  accretionUpheaval: number = 0;
 
   constructor(options: Options) {
     super(options);
@@ -56,7 +56,7 @@ class Accretion extends Analyzer {
     );
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(this.currentUpheaval),
-      this.uphealvelCast,
+      this.upheavalCast,
     );
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SHIFTING_SANDS_BUFF),
@@ -67,7 +67,7 @@ class Accretion extends Analyzer {
   }
 
   onCast() {
-    this.effectiveUpheavelCDR += this.spellUsable.reduceCooldown(
+    this.effectiveUpheavalCDR += this.spellUsable.reduceCooldown(
       this.currentUpheaval.id,
       ACCRETION_CDR_MS,
     );
@@ -78,18 +78,18 @@ class Accretion extends Analyzer {
     this.totalShiftingSandsApplications += 1;
   }
 
-  uphealvelCast() {
+  upheavalCast() {
     const critChance = this.stats.currentCritPercentage;
     const critMod = 1 + SANDS_OF_TIME_CRIT_MOD * critChance;
     if (this.selectedCombatant.hasBuff(SPELLS.EBON_MIGHT_BUFF_PERSONAL.id)) {
-      this.ebonMightUpheavelExtention += EMPOWER_EXTENSION_MS * critMod;
+      this.ebonMightUpheavalExtension += EMPOWER_EXTENSION_MS * critMod;
     }
-    this.totalUpheavelCasts += 1;
+    this.totalUpheavalCasts += 1;
   }
 
   onDamage(event: DamageEvent) {
     if (event.ability.guid === SPELLS.UPHEAVAL_DAM.id) {
-      this.totalUpheavelDamage += event.amount + (event.absorbed ?? 0);
+      this.totalUpheavalDamage += event.amount + (event.absorbed ?? 0);
     }
     if (event.ability.guid === TALENTS.EBON_MIGHT_TALENT.id) {
       this.totalEbonMightDamage += event.amount + (event.absorbed ?? 0);
@@ -104,21 +104,21 @@ class Accretion extends Analyzer {
     const EbonMightUptime = this.selectedCombatant.getBuffUptime(
       SPELLS.EBON_MIGHT_BUFF_PERSONAL.id,
     );
-    const additionalUpheavalCastsViaCdr = Math.floor(this.effectiveUpheavelCDR / (36 * 1000));
+    const additionalUpheavalCastsViaCdr = Math.floor(this.effectiveUpheavalCDR / (36 * 1000));
 
-    const avgUpheavalCastDamage = this.totalUpheavelDamage / this.totalUpheavelCasts;
+    const avgUpheavalCastDamage = this.totalUpheavalDamage / this.totalUpheavalCasts;
 
-    this.accretionUpheavel = avgUpheavalCastDamage * additionalUpheavalCastsViaCdr;
+    this.accretionUpheaval = avgUpheavalCastDamage * additionalUpheavalCastsViaCdr;
 
     const avgShiftingSandsDamage =
       this.totalShiftingSandsDamage / this.totalShiftingSandsApplications;
 
     this.accretionShiftingSands = avgShiftingSandsDamage * additionalUpheavalCastsViaCdr;
 
-    const cdrUpheavelExtention =
-      (this.ebonMightUpheavelExtention / this.totalUpheavelCasts) * additionalUpheavalCastsViaCdr;
+    const cdrUpheavalExtension =
+      (this.ebonMightUpheavalExtension / this.totalUpheavalCasts) * additionalUpheavalCastsViaCdr;
 
-    this.accretionEbonMight = (this.totalEbonMightDamage / EbonMightUptime) * cdrUpheavelExtention;
+    this.accretionEbonMight = (this.totalEbonMightDamage / EbonMightUptime) * cdrUpheavalExtension;
   }
 
   statistic() {
@@ -132,10 +132,10 @@ class Accretion extends Analyzer {
       },
       {
         color: '#813405',
-        label: 'Upheavel',
+        label: 'Upheaval',
         spellId: SPELLS.UPHEAVAL.id,
-        valueTooltip: formatNumber(this.accretionUpheavel),
-        value: this.accretionUpheavel,
+        valueTooltip: formatNumber(this.accretionUpheaval),
+        value: this.accretionUpheaval,
       },
       {
         color: 'rgb(212, 81, 19)',
@@ -155,8 +155,8 @@ class Accretion extends Analyzer {
             These values are averaged gain from extra casts of{' '}
             <SpellLink spell={TALENTS.UPHEAVAL_TALENT} />, based on your overall damage.
             <br />
-            Realisticly these values can, and will, range more broadly in actual gameplay since when
-            you get the extra casts off will matter a lot. eg. extra casts inside of{' '}
+            Realistically these values can, and will, range more broadly in actual gameplay since
+            when you get the extra casts off will matter a lot. eg. extra casts inside of{' '}
             <SpellLink spell={TALENTS.BREATH_OF_EONS_TALENT} /> , or alongside your allies big CDs
             for <SpellLink spell={SPELLS.SHIFTING_SANDS_BUFF} /> will increase the value provided.
             <br />
@@ -164,12 +164,12 @@ class Accretion extends Analyzer {
           </>
         }
       >
-        {this.accretionShiftingSands + this.accretionEbonMight + this.accretionUpheavel > 0 ? (
+        {this.accretionShiftingSands + this.accretionEbonMight + this.accretionUpheaval > 0 ? (
           <div>
             <TalentSpellText talent={TALENTS.ACCRETION_TALENT}>
               <ItemDamageDone
                 amount={
-                  this.accretionShiftingSands + this.accretionEbonMight + this.accretionUpheavel
+                  this.accretionShiftingSands + this.accretionEbonMight + this.accretionUpheaval
                 }
               />
             </TalentSpellText>

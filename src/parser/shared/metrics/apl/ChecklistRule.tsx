@@ -139,7 +139,7 @@ function CooldownList({ castEfficiency, cooldowns }: Pick<Props, 'castEfficiency
   );
 }
 
-export function RuleSpellsDescription({ rule }: { rule: AplRule }): JSX.Element {
+function RuleSpellsDescription({ rule }: { rule: AplRule }): JSX.Element {
   return (
     <>
       {spells(rule).map((spell, index) => (

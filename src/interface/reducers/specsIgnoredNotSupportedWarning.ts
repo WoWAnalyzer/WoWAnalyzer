@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export type SpecsIgnoredNotSupportedWarningState = number[];
+type SpecsIgnoredNotSupportedWarningState = number[];
 const initialState: SpecsIgnoredNotSupportedWarningState =
   [] as SpecsIgnoredNotSupportedWarningState;
 
@@ -15,6 +15,5 @@ const specsIgnoredNotSupportedWarningSlice = createSlice({
   },
 });
 
-export const { resetSlice, ignoreSpecNotSupportedWarning } =
-  specsIgnoredNotSupportedWarningSlice.actions;
+export const { ignoreSpecNotSupportedWarning } = specsIgnoredNotSupportedWarningSlice.actions;
 export default specsIgnoredNotSupportedWarningSlice.reducer;

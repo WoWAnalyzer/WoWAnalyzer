@@ -3,8 +3,7 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
-import Analyzer, { Options } from 'parser/core/Analyzer';
-import { SELECTED_PLAYER } from 'parser/core/EventFilter';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Statistic from 'parser/ui/Statistic';
@@ -12,6 +11,7 @@ import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { GUIDE_EXPLANATION_PERCENT_WIDTH, ON_CAST_BUFF_REMOVAL_GRACE_MS } from '../../constants';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { ExplanationAndDataSubSection } from 'interface/guide/components/ExplanationRow';
+import { addEnhancedCastReason } from 'parser/core/EventMetaLib';
 
 const SURGE_OF_POWER = {
   AFFECTED_CASTS: [
@@ -96,8 +96,7 @@ class SurgeOfPower extends Analyzer {
       return;
     }
 
-    event.meta = event.meta || {};
-    event.meta.isEnhancedCast = true;
+    addEnhancedCastReason(event);
     this.sopBuffedAbilities[event.ability.guid] += 1;
     this.sopActive = false;
 
@@ -140,7 +139,7 @@ class SurgeOfPower extends Analyzer {
           </table>
         }
       >
-        <BoringSpellValueText spell={TALENTS.MASTER_OF_THE_ELEMENTS_TALENT}>
+        <BoringSpellValueText spell={TALENTS.MASTER_OF_THE_ELEMENTS_ELEMENTAL_TALENT}>
           {Object.values(this.sopBuffedAbilities).reduce((a, b) => a + b)} buffs consumed
         </BoringSpellValueText>
       </Statistic>

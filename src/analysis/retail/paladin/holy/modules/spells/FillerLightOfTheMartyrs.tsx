@@ -1,12 +1,11 @@
 import { defineMessage, t, Trans } from '@lingui/macro';
-import { i18n } from '@lingui/core';
 import TALENTS from 'common/TALENTS/paladin';
-import { SpellLink } from 'interface';
-import { TooltipElement } from 'interface';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import { SpellLink, TooltipElement } from 'interface';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 /** @type {number} (ms) When Holy Shock has less than this as cooldown remaining you should wait and still not cast that filler FoL. */
 const HOLY_SHOCK_COOLDOWN_WAIT_TIME = 200;
@@ -43,9 +42,8 @@ class FillerLightOfTheMartyrs extends Analyzer {
       }
     }
     this.inefficientCasts.push(event);
-    event.meta = event.meta || {};
-    event.meta.isInefficientCast = true;
-    event.meta.inefficientCastReason = i18n._(
+    addInefficientCastReason(
+      event,
       defineMessage({
         id: 'paladin.holy.modules.fillerLightOfTheMatyrs.holyShockWasAvailable',
         message: `Holy Shock was available and should have been cast instead as it is a much more efficient spell.`,

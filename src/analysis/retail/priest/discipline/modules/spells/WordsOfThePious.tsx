@@ -21,7 +21,9 @@ class WordsOfThePious extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.WORDS_OF_THE_PIOUS_TALENT);
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell([SPELLS.SMITE, TALENTS_PRIEST.HOLY_NOVA_TALENT]),
+      Events.damage
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.SMITE, SPELLS.SHADOW_SMITE, TALENTS_PRIEST.HOLY_NOVA_TALENT]),
       this.onDamage,
     );
     this.addEventListener(
@@ -49,7 +51,8 @@ class WordsOfThePious extends Analyzer {
 
     if (
       damageEvent.ability.guid !== TALENTS_PRIEST.HOLY_NOVA_TALENT.id &&
-      damageEvent.ability.guid !== SPELLS.SMITE.id
+      damageEvent.ability.guid !== SPELLS.SMITE.id &&
+      damageEvent.ability.guid !== SPELLS.SHADOW_SMITE.id
     ) {
       return;
     }

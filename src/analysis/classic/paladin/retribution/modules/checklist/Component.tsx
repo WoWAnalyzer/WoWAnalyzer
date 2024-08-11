@@ -27,7 +27,7 @@ const MeleeChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProp
           <>
             Avoid unnecessary downtime during the fight by staying within melee range of the boss.
             If you need to move out, used ranged abilities like{' '}
-            <SpellLink spell={SPELLS.JUDGEMENT_OF_WISDOM} />.
+            <SpellLink spell={SPELLS.JUDGEMENT} />.
           </>
         }
       >

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export type ModalState = string[];
+type ModalState = string[];
 const initialState = [] as ModalState;
 
 const openModalsSlice = createSlice({
@@ -17,5 +17,5 @@ const openModalsSlice = createSlice({
   },
 });
 
-export const { resetSlice, openModal, closeModal } = openModalsSlice.actions;
+export const { openModal, closeModal } = openModalsSlice.actions;
 export default openModalsSlice.reducer;

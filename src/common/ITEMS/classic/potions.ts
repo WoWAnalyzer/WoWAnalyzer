@@ -2,15 +2,17 @@ import Item from 'common/ITEMS/Item';
 
 const items = {
   // id = item id
-  POTION_OF_SPEED: {
-    id: 40211,
-    name: 'Potion of Speed',
-    icon: 'inv_alchemy_elixir_04',
+  POTION_OF_THE_COBRA: {
+    // Weak Potion example
+    id: 54643,
+    name: 'Potion of the Cobra',
+    icon: 'inv_alchemy_elixir_03',
   },
-  RUNIC_MANA_POTION: {
-    id: 33448,
-    name: 'Runic Mana Potion',
-    icon: 'inv_alchemy_elixir_02',
+  VOLCANIC_POTION: {
+    // Strong Potion example
+    id: 58091,
+    name: 'Volcanic Potion',
+    icon: 'inv_potiond_3',
   },
 } satisfies Record<string, Item>;
 

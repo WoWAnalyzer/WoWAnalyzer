@@ -50,7 +50,7 @@ class RisingMistBreakdown extends Analyzer {
           {
             //bonus healing from healing bonus
             spell: talents.ENVELOPING_MIST_TALENT,
-            amount: this.risingMist.extraEnvBonusHealing,
+            amount: this.risingMist.envBonusHealing,
             color: SPELL_COLORS.BLACKOUT_KICK_TOTM,
             tooltip: this.envelopingMistBonusHealingTooltip(),
           },
@@ -58,23 +58,16 @@ class RisingMistBreakdown extends Analyzer {
       },
       {
         spell: SPELLS.VIVIFY,
-        amount: this.risingMist.extraVivHealing,
+        amount: this.risingMist.vivHealing,
         color: SPELL_COLORS.VIVIFY,
         tooltip: this.vivifyTooltip(),
-      },
-      {
-        //essence font extension healing
-        spell: talents.ESSENCE_FONT_TALENT,
-        amount: this.risingMist.essenceFontExtensionHealing,
-        color: SPELL_COLORS.ESSENCE_FONT,
-        tooltip: this.essenceFontTooltip(),
         subSpecs: [
           {
-            //additional mastery hits from extended EF hots
-            spell: SPELLS.GUSTS_OF_MISTS,
-            amount: this.risingMist.extraMasteryhealing,
-            color: SPELL_COLORS.GUSTS_OF_MISTS,
-            tooltip: this.gustsOfMistsTooltip(),
+            //additional zen pulse healing from extended rems
+            spell: talents.ZEN_PULSE_TALENT,
+            amount: this.risingMist.zpHealing,
+            color: SPELL_COLORS.ZEN_PULSE,
+            tooltip: this.zenPulseTooltip(),
           },
         ],
       },
@@ -93,7 +86,7 @@ class RisingMistBreakdown extends Analyzer {
       },
       {
         color: SPELL_COLORS.MISTY_PEAKS,
-        label: 'Misty Peaks',
+        label: talents.MISTY_PEAKS_TALENT.name,
         spellId: talents.MISTY_PEAKS_TALENT.id,
         value: this.risingMist.envMistyPeaksExtensionHealing,
         valuePercent: false,
@@ -114,14 +107,14 @@ class RisingMistBreakdown extends Analyzer {
         color: SPELL_COLORS.ENVELOPING_MIST,
         label: 'Hardcast',
         spellId: talents.ENVELOPING_MIST_TALENT.id,
-        value: this.risingMist.extraEnvBonusHardcast,
+        value: this.risingMist.envBonusHardcast,
         valuePercent: false,
       },
       {
         color: SPELL_COLORS.MISTY_PEAKS,
-        label: 'Misty Peaks',
+        label: talents.MISTY_PEAKS_TALENT.name,
         spellId: talents.MISTY_PEAKS_TALENT.id,
-        value: this.risingMist.extraEnvBonusMistyPeaks,
+        value: this.risingMist.envBonusMistyPeaks,
         valuePercent: false,
       },
     ];
@@ -140,14 +133,14 @@ class RisingMistBreakdown extends Analyzer {
     const items = [
       {
         color: SPELL_COLORS.DANCING_MISTS,
-        label: 'Dancing Mists',
+        label: talents.DANCING_MISTS_TALENT.name,
         spellId: talents.DANCING_MISTS_TALENT.id,
         value: this.risingMist.renewingMistDancingMistExtensionHealing,
         valuePercent: false,
       },
       {
         color: SPELL_COLORS.RAPID_DIFFUSION,
-        label: 'Rapid Diffusion',
+        label: talents.RAPID_DIFFUSION_TALENT.name,
         spellId: talents.RAPID_DIFFUSION_TALENT.id,
         value: this.risingMist.renewingMistRapidDiffusionExtensionHealing,
         valuePercent: false,
@@ -192,67 +185,68 @@ class RisingMistBreakdown extends Analyzer {
     const items = [
       {
         color: SPELL_COLORS.DANCING_MISTS,
-        label: 'Dancing Mists',
+        label: talents.DANCING_MISTS_TALENT.name,
         spellId: talents.DANCING_MISTS_TALENT.id,
-        value: this.risingMist.extraVivhealingFromDancingMistRems,
+        value: this.risingMist.vivhealingFromDancingMistRems,
         valuePercent: false,
       },
       {
         color: SPELL_COLORS.RAPID_DIFFUSION,
-        label: 'Rapid Diffusion',
+        label: talents.RAPID_DIFFUSION_TALENT.name,
         spellId: talents.RAPID_DIFFUSION_TALENT.id,
-        value: this.risingMist.extraVivHealingFromRapidDiffusionRems,
+        value: this.risingMist.vivHealingFromRapidDiffusionRems,
         valuePercent: false,
       },
       {
         color: SPELL_COLORS.RENEWING_MIST,
         label: 'Hardcast',
         spellId: SPELLS.RENEWING_MIST_HEAL.id,
-        value: this.risingMist.extraVivHealingFromHardcastRems,
+        value: this.risingMist.vivHealingFromHardcastRems,
         valuePercent: false,
       },
     ];
     return (
       <>
-        <strong>{this.risingMist.extraVivCleaves}</strong> total extra cleaves via{' '}
-        <SpellLink spell={talents.INVIGORATING_MISTS_TALENT} />
-        <br />
-        <SpellLink spell={SPELLS.VIVIFY} /> healing via extended{' '}
-        <SpellLink spell={talents.RENEWING_MIST_TALENT} />
-        <br />
-        by source:
+        <strong>{this.risingMist.vivCleaves}</strong> total extra{' '}
+        <SpellLink spell={talents.INVIGORATING_MISTS_TALENT} /> hits from extended <br />
+        <SpellLink spell={talents.RENEWING_MIST_TALENT} /> by source:
         <hr />
         <DonutChart items={items} />
       </>
     );
   }
 
-  essenceFontTooltip() {
+  zenPulseTooltip() {
+    const items = [
+      {
+        color: SPELL_COLORS.DANCING_MISTS,
+        label: talents.DANCING_MISTS_TALENT.name,
+        spellId: talents.DANCING_MISTS_TALENT.id,
+        value: this.risingMist.zphealingFromDancingMistRems,
+        valuePercent: false,
+      },
+      {
+        color: SPELL_COLORS.RAPID_DIFFUSION,
+        label: talents.RAPID_DIFFUSION_TALENT.name,
+        spellId: talents.RAPID_DIFFUSION_TALENT.id,
+        value: this.risingMist.zpHealingFromRapidDiffusionRems,
+        valuePercent: false,
+      },
+      {
+        color: SPELL_COLORS.RENEWING_MIST,
+        label: 'Hardcast',
+        spellId: SPELLS.RENEWING_MIST_HEAL.id,
+        value: this.risingMist.zpHealingFromHardcastRems,
+        valuePercent: false,
+      },
+    ];
     return (
       <>
-        {formatNumber(this.risingMist.essenceFontExtensionHealing)}{' '}
-        <SpellLink spell={SPELLS.ESSENCE_FONT_BUFF} /> extension healing
-      </>
-    );
-  }
-
-  gustsOfMistsTooltip() {
-    return (
-      <>
-        Additional <SpellLink spell={SPELLS.GUSTS_OF_MISTS} /> healing from extended{' '}
-        <SpellLink spell={talents.ESSENCE_FONT_TALENT} />
-        <ul>
-          {this.selectedCombatant.hasTalent(talents.INVOKE_CHI_JI_THE_RED_CRANE_TALENT) && (
-            <li>
-              {formatNumber(this.risingMist.extraChijiGomHealing)}{' '}
-              <SpellLink spell={SPELLS.GUST_OF_MISTS_CHIJI} /> healing
-            </li>
-          )}
-          <li>
-            {formatNumber(this.risingMist.extraGomHealing)}{' '}
-            <SpellLink spell={SPELLS.GUSTS_OF_MISTS} /> healing
-          </li>
-        </ul>
+        <strong>{this.risingMist.zpHits}</strong> total extra{' '}
+        <SpellLink spell={talents.ZEN_PULSE_TALENT} /> hits from extended <br />
+        <SpellLink spell={talents.RENEWING_MIST_TALENT} /> by source:
+        <hr />
+        <DonutChart items={items} />
       </>
     );
   }

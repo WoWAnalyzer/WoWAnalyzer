@@ -232,7 +232,7 @@ class HotHand extends MajorCooldown<HotHandProc> {
   private explainTimelineWithDetails(cast: HotHandProc) {
     const checklistItem = {
       performance: QualitativePerformance.Perfect,
-      summary: <span>Spell order</span>,
+      summary: null,
       details: <span>Spell order: See below</span>,
       check: 'hothand-timeline',
       timestamp: cast.event.timestamp,
@@ -287,10 +287,10 @@ class HotHand extends MajorCooldown<HotHandProc> {
         estimatedMissedCasts === 0
           ? QualitativePerformance.Perfect
           : estimatedMissedCasts === 1
-          ? QualitativePerformance.Good
-          : estimatedMissedCasts === 2
-          ? QualitativePerformance.Ok
-          : QualitativePerformance.Fail,
+            ? QualitativePerformance.Good
+            : estimatedMissedCasts === 2
+              ? QualitativePerformance.Ok
+              : QualitativePerformance.Fail,
       summary: (
         <span>
           {lavaLashCasts} <SpellLink spell={TALENTS_SHAMAN.LAVA_LASH_TALENT} /> cast(s)
@@ -320,15 +320,19 @@ class HotHand extends MajorCooldown<HotHandProc> {
   private explainGcdPerformance(cast: HotHandProc): ChecklistUsageInfo {
     const avgGcd = this.getAverageGcdOfWindow(cast);
     const unsedGlobalCooldowns = Math.max(Math.floor(cast.unusedGcdTime / avgGcd), 0);
+    const estimatedPotentialCasts = (cast.timeline.end! - cast.timeline.start) / avgGcd;
+    const gcdPerfCalc = (unsedGlobalCooldowns / estimatedPotentialCasts) * 100;
     return {
       check: 'global-cooldown',
       timestamp: cast.event.timestamp,
       performance:
-        unsedGlobalCooldowns < 1
+        gcdPerfCalc < 5
           ? QualitativePerformance.Perfect
-          : unsedGlobalCooldowns < 2
-          ? QualitativePerformance.Ok
-          : QualitativePerformance.Fail,
+          : unsedGlobalCooldowns < 10
+            ? QualitativePerformance.Good
+            : unsedGlobalCooldowns < 20
+              ? QualitativePerformance.Ok
+              : QualitativePerformance.Fail,
       details: (
         <>
           {unsedGlobalCooldowns === 0 ? (

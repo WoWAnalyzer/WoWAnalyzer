@@ -23,13 +23,9 @@ class TimeBetweenRSKs extends Analyzer {
   totalRSKCasts: number = 0;
   firstRSKTimestamp: number = 0;
   lastRSKTimestamp: number = 0;
-  totmActive: boolean = false;
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT);
-    this.totmActive = this.selectedCombatant.hasTalent(
-      TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT,
-    );
     if (!this.active) {
       return;
     }
@@ -81,7 +77,7 @@ class TimeBetweenRSKs extends Analyzer {
             </small>
           </>
           <br />
-          <>{this.totmActive && this.risingSunKick.subStatistic()}</>
+          <>{this.risingSunKick.subStatistic()}</>
         </TalentSpellText>
       </Statistic>
     );

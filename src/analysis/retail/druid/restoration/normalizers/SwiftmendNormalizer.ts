@@ -12,7 +12,7 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 
 const REMOVE_BUFFER_MS = 50;
 
-export const CONSUMED_HOT = 'ConsumedHot';
+const CONSUMED_HOT = 'ConsumedHot';
 
 const EVENT_LINKS: EventLink[] = [
   {

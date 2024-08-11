@@ -9,7 +9,7 @@ import { TALENTS_EVOKER } from 'common/TALENTS';
 import { formatNumber } from 'common/format';
 import { SpellLink, TooltipElement } from 'interface';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import { getHealEvents, isFromFieldOfDreams } from '../../normalizers/CastLinkNormalizer';
+import { getHealEvents, isFromFieldOfDreams } from '../../normalizers/EventLinking/helpers';
 
 class FieldOfDreams extends Analyzer {
   countedTimestamps: Set<number> = new Set<number>();

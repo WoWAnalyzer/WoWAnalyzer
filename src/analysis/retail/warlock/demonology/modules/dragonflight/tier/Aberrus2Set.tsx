@@ -23,7 +23,7 @@ class DemonologyWarlockAberrus2Set extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.has2PieceByTier(TIERS.T30);
+    this.active = this.selectedCombatant.has2PieceByTier(TIERS.DF2);
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DEMONIC_CORE_BUFF),

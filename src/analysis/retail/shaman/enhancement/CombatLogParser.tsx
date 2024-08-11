@@ -6,7 +6,6 @@ import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
 import Checklist from './modules/checklist/Module';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import WindfuryTotem from './modules/talents/WindfuryTotem';
 import ForcefulWinds from './modules/talents/ForcefulWinds';
 import Stormflurry from './modules/talents/Stormflurry';
 import ElementalBlast from './modules/talents/ElementalBlast';
@@ -19,7 +18,6 @@ import NaturesGuardian from './modules/talents/NaturesGuardian';
 import Sundering from './modules/talents/Sundering';
 import ElementalSpirits from './modules/talents/ElementalSpirits';
 import ElementalAssault from './modules/talents/ElementalAssault';
-import Tier28TwoSet from './modules/shadowlands/tier/Tier28TwoSet';
 import Stormbringer from './modules/spells/Stormbringer';
 import FeralSpirit from './modules/talents/FeralSpirit';
 import ChainLightning from './modules/talents/ChainLightning';
@@ -90,7 +88,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Enhancement Core Talents
     ascendance: Ascendance,
-    windfuryTotem: WindfuryTotem,
     forcefulWinds: ForcefulWinds,
     elementalBlast: ElementalBlast,
     stormflurry: Stormflurry,
@@ -112,9 +109,8 @@ class CombatLogParser extends CoreCombatLogParser {
     swirlingMaelstrom: SwirlingMaelstrom,
 
     // Tier
-    tier28TwoSet: Tier28TwoSet,
     tier30: Tiers.T30,
-    tier31: Tiers.T31,
+    tier31: Tiers.Season3And4Tier,
 
     // Items
     callToDominance: CallToDominance,

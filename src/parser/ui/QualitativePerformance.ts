@@ -23,6 +23,9 @@ export const enum QualitativePerformance {
  * @returns average QualitativePerformance in array
  */
 export function getAveragePerf(perfs: QualitativePerformance[]) {
+  if (perfs.length === 0) {
+    return QualitativePerformance.Fail;
+  }
   let total = 0;
   const order = [
     QualitativePerformance.Fail,
@@ -45,7 +48,10 @@ export function getAveragePerf(perfs: QualitativePerformance[]) {
  * @param perfs array of QualitativePerformance enums
  * @returns lowest QualitativePerformance in array
  */
-export function getLowestPerf(perfs: QualitativePerformance[]) {
+export function getLowestPerf(perfs: QualitativePerformance[]): QualitativePerformance {
+  if (perfs.length === 0) {
+    return QualitativePerformance.Fail;
+  }
   const order = [
     QualitativePerformance.Fail,
     QualitativePerformance.Ok,

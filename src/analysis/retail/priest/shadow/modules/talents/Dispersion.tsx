@@ -1,11 +1,8 @@
-import { defineMessage } from '@lingui/macro';
-import { formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/priest';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateMaxCasts } from 'parser/core/EventCalculateLib';
 import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 import { DISPERSION_BASE_CD, DISPERSION_UPTIME_MS } from '../../constants';
 
@@ -65,29 +62,6 @@ class Disperion extends Analyzer {
     };
 
     this._previousDispersionCast = null;
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <span>
-          You spent {Math.round(this.dispersionUptime / 1000)} seconds (out of a possible{' '}
-          {Math.round(this.maxDispersionTime / 1000)} seconds) in{' '}
-          <SpellLink spell={TALENTS.DISPERSION_TALENT} />. Consider using{' '}
-          <SpellLink spell={TALENTS.DISPERSION_TALENT} /> less or cancel it early.
-        </span>,
-      )
-        .icon(TALENTS.DISPERSION_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'priest.shadow.suggestions.dispersion.uptime',
-            message: `${formatPercentage(actual)}% Dispersion uptime`,
-          }),
-        )
-        .recommended(
-          `<${formatPercentage(recommended)}% is recommended, unless the encounter requires it.`,
-        ),
-    );
   }
 }
 

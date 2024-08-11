@@ -114,8 +114,6 @@ function AdvancedRotationSection({ modules, events, info }: GuideProps<typeof Co
         modules.adaptiveSwarm.guideSubsection}
       {info.combatant.hasTalent(TALENTS_DRUID.BRUTAL_SLASH_TALENT) &&
         modules.brutalSlash.guideSubsection}
-      {info.combatant.hasTalent(TALENTS_DRUID.DIRE_FIXATION_TALENT) &&
-        modules.direFixation.guideSubsection}
       {modules.hitCountAoe.guideSubsection}
     </Section>
   );
@@ -154,7 +152,7 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
       />
       {hasBerserk && !hasIncarn && (
         <CastEfficiencyBar
-          spellId={SPELLS.BERSERK.id}
+          spellId={SPELLS.BERSERK_CAT.id}
           gapHighlightMode={GapHighlight.FullCooldown}
           useThresholds
         />

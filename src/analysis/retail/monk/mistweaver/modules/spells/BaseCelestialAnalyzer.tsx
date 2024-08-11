@@ -10,12 +10,10 @@ import Events, {
   RefreshBuffEvent,
   HealEvent,
   DamageEvent,
-  EndChannelEvent,
   EventType,
 } from 'parser/core/Events';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { SECRET_INFUSION_BUFFS, LESSONS_BUFFS } from '../../constants';
-import EssenceFont from './EssenceFont';
 import { PerformanceMark } from 'interface/guide';
 import SPELLS from 'common/SPELLS';
 import { formatDurationMillisMinSec, formatNumber } from 'common/format';
@@ -31,9 +29,7 @@ export interface BaseCelestialTracker {
   totalEnvM: number; // total envm casts
   totalEnvB: number; // total envb applications
   averageHaste: number; // average haste during celestial
-  numEfHots: number; // number of ef hots on raid prior to casting chiji
   totmStacks: number; // number of stacks of TOTM prior to casting Chiji
-  recastEf: boolean; // whether player recast ef during celestial
   deathTimestamp: number; // when pet died
   castRsk: boolean; // true if player cast rsk during yulon
 }
@@ -46,7 +42,6 @@ const YULON_GIFT_ENVMS = 4;
 class BaseCelestialAnalyzer extends Analyzer {
   static dependencies = {
     envb: EnvelopingBreath,
-    ef: EssenceFont,
     haste: Haste,
     pets: Pets,
   };
@@ -125,10 +120,6 @@ class BaseCelestialAnalyzer extends Analyzer {
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onAction);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onAction);
     this.addEventListener(
-      Events.EndChannel.by(SELECTED_PLAYER).spell(TALENTS_MONK.ESSENCE_FONT_TALENT),
-      this.handleEfEnd,
-    );
-    this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.RISING_SUN_KICK_TALENT),
       this.onRsk,
     );
@@ -140,8 +131,6 @@ class BaseCelestialAnalyzer extends Analyzer {
     this.idealEnvmCastsUnhasted =
       idealEnvmCastsUnhastedForGift *
       (1 + this.selectedCombatant.getTalentRank(TALENTS_MONK.JADE_BOND_TALENT));
-    this.minEfHotsBeforeCast =
-      10 + 6 * this.selectedCombatant.getTalentRank(TALENTS_MONK.UPWELLING_TALENT);
     this.goodSiDuration = this.selectedCombatant.hasTalent(
       TALENTS_MONK.GIFT_OF_THE_CELESTIALS_TALENT,
     )
@@ -211,24 +200,6 @@ class BaseCelestialAnalyzer extends Analyzer {
 
   onAction(event: HealEvent | CastEvent | DamageEvent) {
     this.hasteDataPoints.push(this.haste.current);
-  }
-
-  getEfRefreshPerfAndItem(
-    cast: BaseCelestialTracker,
-  ): [QualitativePerformance, CooldownExpandableItem] {
-    const recastPerf = cast.recastEf ? QualitativePerformance.Good : QualitativePerformance.Fail;
-    return [
-      recastPerf,
-      {
-        label: (
-          <>
-            <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> recast
-          </>
-        ),
-        result: <PerformanceMark perf={recastPerf} />,
-        details: cast.recastEf ? <>Yes</> : <>No</>,
-      },
-    ];
   }
 
   getRskCastPerfAndItem(
@@ -314,13 +285,6 @@ class BaseCelestialAnalyzer extends Analyzer {
     return this.idealEnvmCastsUnhasted * (1 + avgHaste * ENVM_HASTE_FACTOR);
   }
 
-  handleEfEnd(event: EndChannelEvent) {
-    if (!this.celestialActive) {
-      return;
-    }
-    this.castTrackers.at(-1)!.recastEf = true;
-  }
-
   getCelestialTalent() {
     return this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT)
       ? TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT
@@ -372,26 +336,6 @@ class BaseCelestialAnalyzer extends Analyzer {
       details: <>{formatNumber(cast.totalEnvM)}</>,
     });
 
-    //Pre-cast essence font hots
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT)) {
-      let efPerf = QualitativePerformance.Good;
-      if (cast.numEfHots < Math.floor(this.minEfHotsBeforeCast * 0.75)) {
-        efPerf = QualitativePerformance.Fail;
-      } else if (cast.numEfHots < Math.floor(this.minEfHotsBeforeCast * 0.9)) {
-        efPerf = QualitativePerformance.Ok;
-      }
-      allPerfs.push(efPerf);
-      checklistItems.push({
-        label: (
-          <>
-            <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> HoTs active on start
-          </>
-        ),
-        result: <PerformanceMark perf={efPerf} />,
-        details: <>{cast.numEfHots}</>,
-      });
-    }
-
     //secret infusion duration
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.SECRET_INFUSION_TALENT)) {
       let siPerf = QualitativePerformance.Good;
@@ -410,15 +354,8 @@ class BaseCelestialAnalyzer extends Analyzer {
               content={
                 <>
                   Be sure to use <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> with{' '}
-                  <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />{' '}
-                  {this.selectedCombatant.hasTalent(
-                    TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT,
-                  ) && (
-                    <>
-                      or <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} />
-                    </>
-                  )}{' '}
-                  for a multiplicative haste bonus
+                  <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> for a multiplicative haste
+                  bonus
                 </>
               }
             >

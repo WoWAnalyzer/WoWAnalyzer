@@ -1,11 +1,13 @@
-import { Boss } from 'game/raids';
+import type { Boss } from 'game/raids';
 
-import Background from './images/kurog.jpg';
+import Background from './backgrounds/kurog.jpg';
+import Headshot from './headshots/KurogGrimtotem.jpg';
 
 const KurogGrimtotem: Boss = {
   id: 2605,
   name: 'Kurog Grimtotem',
   background: Background,
+  headshot: Headshot,
   icon: 'achievement_raidprimalist_kurog',
   fight: {},
 };

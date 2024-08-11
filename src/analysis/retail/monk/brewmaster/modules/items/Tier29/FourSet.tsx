@@ -17,7 +17,7 @@ export default class BrewmasterT29FourSet extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.has4PieceByTier(TIERS.T29);
+    this.active = this.selectedCombatant.has4PieceByTier(TIERS.DF1);
 
     this.addEventListener(EventType.RemoveStagger, this.onRemoveStagger);
   }

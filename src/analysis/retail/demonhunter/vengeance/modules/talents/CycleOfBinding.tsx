@@ -10,7 +10,7 @@ import {
   getTargetsAffectedBySigilOfSilence,
 } from 'analysis/retail/demonhunter/vengeance/normalizers/CycleOfBindingNormalizer';
 import {
-  getElysianDecreeSpell,
+  getSigilOfSpiteSpell,
   getSigilOfChainsSpell,
   getSigilOfFlameSpell,
   getSigilOfMiserySpell,
@@ -48,7 +48,7 @@ export default class CycleOfBinding extends Analyzer.withDependencies(deps) {
 
     const sigilOfFlameSpell = getSigilOfFlameSpell(this.selectedCombatant);
     const sigilOfMiserySpell = getSigilOfMiserySpell(this.selectedCombatant);
-    const elysianDecreeSpell = getElysianDecreeSpell(this.selectedCombatant);
+    const elysianDecreeSpell = getSigilOfSpiteSpell(this.selectedCombatant);
     const sigilOfSilenceSpell = getSigilOfSilenceSpell(this.selectedCombatant);
     const sigilOfChainsSpell = getSigilOfChainsSpell(this.selectedCombatant);
     this.sigilSpells = [

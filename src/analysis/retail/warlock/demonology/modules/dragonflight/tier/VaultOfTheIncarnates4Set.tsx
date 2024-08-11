@@ -23,7 +23,7 @@ class DemonologyWarlockVaultOfTheIncarnates4Set extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.has4PieceByTier(TIERS.T29);
+    this.active = this.selectedCombatant.has4PieceByTier(TIERS.DF1);
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BLAZING_METEOR),

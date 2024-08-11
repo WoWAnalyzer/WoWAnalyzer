@@ -165,7 +165,7 @@ export const Section = ({
   children,
   title,
   expanded = true,
-}: React.PropsWithChildren<{ title: string; expanded?: boolean }>) => {
+}: React.PropsWithChildren<{ title: React.ReactNode; expanded?: boolean }>) => {
   const [isExpanded, setIsExpanded] = useState(expanded);
 
   return (
@@ -299,7 +299,12 @@ export const GuideContainer = ({ children }: { children: React.ReactNode }) => (
  * A section within a section. This can be nested (so you'd have a
  * sub-sub-section). Don't go too crazy with that.
  */
-export const SubSection = ({ children, title, id, ...props }: React.ComponentProps<'div'>) => (
+export const SubSection = ({
+  children,
+  title,
+  id,
+  ...props
+}: Omit<React.ComponentProps<'div'>, 'title'> & { title?: React.ReactNode }) => (
   <section className="subsection" id={id}>
     <header>{title || ''}</header>
     <div {...props}>{children}</div>

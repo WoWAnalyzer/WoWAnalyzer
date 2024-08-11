@@ -252,6 +252,16 @@ export enum ResourceActor {
   Target = 2,
 }
 
+/**
+ * Event meta information filled in by various modules.
+ */
+export interface EventMeta {
+  isInefficientCast?: boolean;
+  inefficientCastReason?: React.ReactNode;
+  isEnhancedCast?: boolean;
+  enhancedCastReason?: React.ReactNode;
+}
+
 export type AbilityEvent<T extends string> = Event<T> & { ability: Ability };
 export type SourcedEvent<T extends string> = Event<T> & {
   sourceID: number;
@@ -378,14 +388,14 @@ export interface Event<T extends string> {
 }
 
 // TODO way to specify specific expected event type?
-export interface LinkedEvent {
+interface LinkedEvent {
   /** A string specifying the relationship of the linked event. Will be used as a key during lookup */
   relation: string;
   /** The linked event */
   event: AnyEvent;
 }
 
-export interface CastTarget {
+interface CastTarget {
   name: string;
   id: number;
   guid: number;
@@ -420,12 +430,7 @@ export interface BeginChannelEvent extends Event<EventType.BeginChannel> {
   targetIsFriendly: boolean;
   classResources?: Array<ClassResources & { cost: number }>;
   // Added by any module, used in the timeline
-  meta?: {
-    isInefficientCast?: boolean;
-    inefficientCastReason?: React.ReactNode;
-    isEnhancedCast?: boolean;
-    enhancedCastReason?: React.ReactNode;
-  };
+  meta?: EventMeta;
   trigger?: AnyEvent;
   globalCooldown?: GlobalCooldownEvent;
 }
@@ -444,21 +449,7 @@ export interface BaseCastEvent<T extends string> extends Event<T> {
   absorb?: number;
   armor?: number;
   attackPower?: number;
-  channel?: {
-    type: EventType.BeginChannel;
-    timestamp: number;
-    duration: number;
-    ability: Ability;
-    sourceID: number;
-    isCancelled: boolean;
-    start: number;
-    beginChannel?: {
-      isCancelled: boolean;
-      sourceID: number;
-      timestamp: number;
-      type: string;
-    };
-  };
+  channel?: EndChannelEvent;
   classResources?: Array<ClassResources & { cost: number }>;
   facing?: number;
   hitPoints?: number;
@@ -487,12 +478,7 @@ export interface BaseCastEvent<T extends string> extends Event<T> {
   // Added by the GlobalCooldown module
   globalCooldown?: GlobalCooldownEvent;
   // Added by any module, used in the timeline
-  meta?: {
-    isInefficientCast?: boolean;
-    inefficientCastReason?: React.ReactNode;
-    isEnhancedCast?: boolean;
-    enhancedCastReason?: React.ReactNode;
-  };
+  meta?: EventMeta;
 }
 
 export type CastEvent = BaseCastEvent<EventType.Cast>;
@@ -585,6 +571,7 @@ export interface AbsorbedEvent extends Event<EventType.Absorbed> {
   ability: Ability;
   attacker?: CastTarget;
   attackerID?: number;
+  attackerInstance?: number;
   attackerIsFriendly: boolean;
   amount: number;
   extraAbility: Ability;
@@ -803,6 +790,7 @@ export interface InterruptEvent extends Event<EventType.Interrupt> {
 
 export interface DeathEvent extends Event<EventType.Death> {
   killingAbility?: Ability;
+  targetInstance?: number;
   source: CastTarget;
   sourceIsFriendly: boolean;
   targetID: number;
@@ -954,7 +942,7 @@ export interface MaxChargesDecreasedEvent extends Event<EventType.MaxChargesDecr
   __fabricated: true;
 }
 
-export interface Stats {
+interface Stats {
   agility: number;
   armor: number;
   avoidance: number;
@@ -995,7 +983,7 @@ export interface DispelEvent extends Event<EventType.Dispel> {
   targetIsFriendly: boolean;
 }
 
-export interface BasePhaseEvent<T extends string> extends Event<T> {
+interface BasePhaseEvent<T extends string> extends Event<T> {
   phase: PhaseConfig;
   __fabricated: true;
 }
@@ -1063,6 +1051,12 @@ export interface Item {
   effectID?: number;
   permanentEnchant?: number;
   temporaryEnchant?: number;
+  /**
+   * An enchant that provides an activatable ability.
+   *
+   * Only seen it used on Cata Engineering "enchants".
+   */
+  onUseEnchant?: number;
   gems?: Gem[];
   setID?: number;
 
@@ -1074,7 +1068,7 @@ export interface Item {
   setItemIDs?: number[];
 }
 
-export interface Gem {
+interface Gem {
   id: number;
   itemLevel: number;
   icon: string;
@@ -1102,21 +1096,6 @@ export interface Soulbind {
   covenantID: number;
   garrisonTalentTreeId: number;
   capstoneTraitID: number;
-}
-
-export interface SoulbindTrait {
-  traitID: number;
-  rank: number;
-  spellID: number;
-  icon: string;
-}
-
-export interface Conduit {
-  traitID: number;
-  rank: number;
-  itemLevel?: number;
-  spellID: number;
-  icon: string;
 }
 
 /**

@@ -59,20 +59,20 @@ class Abilities extends CoreAbilities {
         range: AbilityRange.Melee,
       },
       {
-        spell: talents.RUSHING_JADE_WIND_TALENT.id,
+        spell: talents.RUSHING_JADE_WIND_BREWMASTER_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 6 / (1 + haste),
-        enabled: combatant.hasTalent(talents.RUSHING_JADE_WIND_TALENT),
-        buffSpellId: talents.RUSHING_JADE_WIND_TALENT.id,
+        enabled: combatant.hasTalent(talents.RUSHING_JADE_WIND_BREWMASTER_TALENT),
+        buffSpellId: talents.RUSHING_JADE_WIND_BREWMASTER_TALENT.id,
         gcd: {
           static: 1000,
         },
       },
       {
-        spell: talents.CHI_BURST_TALENT.id,
+        spell: talents.CHI_BURST_SHARED_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 30,
-        enabled: combatant.hasTalent(talents.CHI_BURST_TALENT),
+        enabled: combatant.hasTalent(talents.CHI_BURST_SHARED_TALENT),
         castEfficiency: {
           suggestion: false,
         },
@@ -118,13 +118,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: talents.BONEDUST_BREW_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 60,
-        gcd: { static: 1000 }, // TODO: verify gcd
-        enabled: combatant.hasTalent(talents.BONEDUST_BREW_TALENT),
-      },
-      {
         spell: talents.WEAPONS_OF_ORDER_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 120,
@@ -143,7 +136,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: (haste) =>
           (combatant.hasTalent(talents.LIGHT_BREWING_TALENT) ? 16 : 20) / (1 + haste),
-        charges: combatant.hasTalent(talents.IMPROVED_PURIFYING_BREW_TALENT) ? 2 : 1,
+        charges: 2,
         gcd: null,
         castEfficiency: {
           suggestion: true,
@@ -186,14 +179,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.FORTIFYING_BREW_BRM.id,
         buffSpellId: SPELLS.FORTIFYING_BREW_BRM_BUFF.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: combatant.hasTalent(talents.EXPEDITIOUS_FORTIFICATION_TALENT) ? 300 : 420,
-        gcd: null,
-      },
-      {
-        spell: talents.HEALING_ELIXIR_BREWMASTER_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 30,
-        enabled: combatant.hasTalent(talents.HEALING_ELIXIR_BREWMASTER_TALENT),
+        cooldown: combatant.hasTalent(talents.EXPEDITIOUS_FORTIFICATION_TALENT) ? 240 : 360,
         gcd: null,
       },
       {
@@ -216,7 +202,7 @@ class Abilities extends CoreAbilities {
         spell: talents.ZEN_MEDITATION_TALENT.id,
         buffSpellId: talents.ZEN_MEDITATION_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: combatant.hasTalent(talents.FUNDAMENTAL_OBSERVATION_TALENT) ? 225 : 300,
+        cooldown: 300,
         gcd: null,
       },
       // Utility
@@ -234,7 +220,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         enabled: combatant.hasTalent(talents.CHI_TORPEDO_TALENT),
         cooldown: 20,
-        charges: 1 + Number(combatant.hasTalent(talents.IMPROVED_ROLL_TALENT)),
+        charges: 2,
         // Both Roll and Chi Torpedo don't actually have a GCD but block all spells during its animation for about the same duration, so maybe time it in-game and mark it as channeling instead? The issue is you can follow up any ability on the GCD with chi torpedo/roll, so it can still cause overlap.
         gcd: null,
       },
@@ -243,10 +229,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         enabled: !combatant.hasTalent(talents.CHI_TORPEDO_TALENT),
         cooldown: combatant.hasTalent(talents.CELERITY_TALENT) ? 15 : 20,
-        charges:
-          1 +
-          Number(combatant.hasTalent(talents.CELERITY_TALENT)) +
-          Number(combatant.hasTalent(talents.IMPROVED_ROLL_TALENT)),
+        charges: 2 + Number(combatant.hasTalent(talents.CELERITY_TALENT)),
         // Both Roll and Chi Torpedo don't actually have a GCD but block all spells during its animation for about the same duration, so maybe time it in-game and mark it as channeling instead? The issue is you can follow up any ability on the GCD with chi torpedo/roll, so it can still cause overlap.
         gcd: null,
       },
@@ -286,7 +269,7 @@ class Abilities extends CoreAbilities {
       {
         spell: talents.PARALYSIS_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 45,
+        cooldown: 45 - Math.ceil(combatant.getTalentRank(talents.ANCIENT_ARTS_TALENT) * 7.5),
         gcd: {
           static: 1000,
         },

@@ -1,16 +1,14 @@
-import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 import Haste from 'parser/shared/modules/Haste';
-import { SPELL_COLORS } from '../../constants';
+import { SPELL_COLORS, THUNDER_FOCUS_TEA_SPELLS } from '../../constants';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
@@ -35,7 +33,8 @@ class ThunderFocusTea extends Analyzer {
   castsTftViv: number = 0;
   castsTftEnm: number = 0;
   castsTftRem: number = 0;
-  castsTftEF: number = 0;
+  castsTftEh: number = 0;
+  //add EH
 
   castsTft: number = 0;
   castsUnderTft: number = 0;
@@ -72,7 +71,10 @@ class ThunderFocusTea extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT),
       this.tftCast,
     );
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.buffedCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(THUNDER_FOCUS_TEA_SPELLS),
+      this.buffedCast,
+    );
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)) {
       this.correctCapstoneSpells = [TALENTS_MONK.RENEWING_MIST_TALENT.id];
       this.okCapstoneSpells = [TALENTS_MONK.RISING_SUN_KICK_TALENT.id];
@@ -104,8 +106,6 @@ class ThunderFocusTea extends Analyzer {
       } else {
         return this.isCorrect(event, false /* isFTCast */, isOk); // same as 1st spell logic
       }
-    } else if (this.selectedCombatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT)) {
-      return spellId === TALENTS_MONK.ESSENCE_FONT_TALENT.id;
     } else if (this.selectedCombatant.hasTalent(TALENTS_MONK.SECRET_INFUSION_TALENT)) {
       return isOk && this.selectedCombatant.hasTalent(TALENTS_MONK.TEAR_OF_MORNING_TALENT)
         ? spellId === TALENTS_MONK.ENVELOPING_MIST_TALENT.id
@@ -113,18 +113,6 @@ class ThunderFocusTea extends Analyzer {
     } else {
       return spellMap.includes(spellId);
     }
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.incorrectTftCasts,
-      isGreaterThan: {
-        minor: 0,
-        average: 1,
-        major: 2,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
   }
 
   tftCast(event: CastEvent) {
@@ -160,10 +148,10 @@ class ThunderFocusTea extends Analyzer {
       this.castsUnderTft += 1;
       this.castsTftRem += 1;
       debug && console.log('REM TFT Check ', event.timestamp);
-    } else if (TALENTS_MONK.ESSENCE_FONT_TALENT.id === spellId) {
+    } else if (SPELLS.EXPEL_HARM.id === spellId) {
       this.castsUnderTft += 1;
-      this.castsTftEF += 1;
-      debug && console.log('REM EF Check ', event.timestamp);
+      this.castsTftEh += 1;
+      debug && console.log('EH TFT Check ', event.timestamp);
     } else {
       return;
     }
@@ -223,10 +211,10 @@ class ThunderFocusTea extends Analyzer {
         value: this.castsTftRsk,
       },
       {
-        color: SPELL_COLORS.ESSENCE_FONT,
-        label: 'Essence Font',
-        spellId: TALENTS_MONK.ESSENCE_FONT_TALENT.id,
-        value: this.castsTftEF,
+        color: SPELL_COLORS.EXPEL_HARM,
+        label: 'Expel Harm',
+        spellId: SPELLS.EXPEL_HARM.id,
+        value: this.castsTftEh,
       },
     ];
 
@@ -244,11 +232,6 @@ class ThunderFocusTea extends Analyzer {
         times and the spell that you use it on depends on your talent selection, in general try to
         adhere to the following priority list
         <ol>
-          <li>
-            {' '}
-            <SpellLink spell={TALENTS_MONK.UPWELLING_TALENT} /> talented <Arrow /> use on{' '}
-            <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} />
-          </li>
           <li>
             {' '}
             <SpellLink spell={TALENTS_MONK.SECRET_INFUSION_TALENT} /> talented <Arrow /> use on{' '}
@@ -334,31 +317,6 @@ class ThunderFocusTea extends Analyzer {
         minimizeIcons
         useThresholds
       />
-    );
-  }
-
-  suggestions(when: When) {
-    const elements = this.correctCapstoneSpells.map((spell) => (
-      <SpellLink spell={spell} key={spell} />
-    ));
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You are currently buffing spells other than{' '}
-          {this.correctCapstoneSpells.length === 1
-            ? elements[0]
-            : [elements[0], ' and ', elements[1]]}{' '}
-          with <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} />
-        </>,
-      )
-        .icon(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.icon)
-        .actual(
-          `${this.incorrectTftCasts} ${defineMessage({
-            id: 'monk.mistweaver.suggestions.thunderFocusTea.incorrectCasts',
-            message: `incorrect casts with Thunder Focus Tea`,
-          })}`,
-        )
-        .recommended(`${recommended} incorrect casts is recommended`),
     );
   }
 

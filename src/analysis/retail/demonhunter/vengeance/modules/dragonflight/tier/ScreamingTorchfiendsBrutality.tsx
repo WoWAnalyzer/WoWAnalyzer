@@ -6,7 +6,7 @@ import React from 'react';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import Statistic from 'parser/ui/Statistic';
 import BoringItemSetValueText from 'parser/ui/BoringItemSetValueText';
-import { DEMON_HUNTER_T31_ID } from 'common/ITEMS/dragonflight';
+import { DEMON_HUNTER_DF3_ID } from 'common/ITEMS/dragonflight';
 import { formatDurationMillisMinSec, formatPercentage } from 'common/format';
 import SpellLink from 'interface/SpellLink';
 import getResourceSpent from 'parser/core/getResourceSpent';
@@ -34,7 +34,7 @@ export class ScreamingTorchfiendsBrutality extends Analyzer.withDependencies(dep
   constructor(options: Options) {
     super(options);
     this.spell = getSigilOfFlameSpell(this.selectedCombatant);
-    this.active = this.selectedCombatant.has4PieceByTier(TIERS.T31);
+    this.active = this.selectedCombatant.has4PieceByTier(TIERS.DF3);
     this.addEventListener(
       Events.damage.spell(SPELLS.SIGIL_OF_FLAME_DEBUFF).by(SELECTED_PLAYER),
       this.onSigilOfFlameTick,
@@ -63,7 +63,7 @@ export class ScreamingTorchfiendsBrutality extends Analyzer.withDependencies(dep
         }
       >
         <BoringItemSetValueText
-          setId={DEMON_HUNTER_T31_ID}
+          setId={DEMON_HUNTER_DF3_ID}
           title="Screaming Torchfiend's Brutality"
         >
           <div>

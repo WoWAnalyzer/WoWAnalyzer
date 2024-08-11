@@ -29,15 +29,25 @@ export const CP_GENERATORS: Spell[] = [
 /** The cast spells for Finishers */
 export const FINISHERS: Spell[] = [
   SPELLS.FEROCIOUS_BITE,
+  SPELLS.RAVAGE_DOTC_CAT,
   SPELLS.RIP,
   SPELLS.MAIM,
   TALENTS_DRUID.PRIMAL_WRATH_TALENT,
 ];
+export const FINISHER_IDS: number[] = FINISHERS.map((s) => s.id);
+
+/** Druid of the Claw's 'Ravage' conditionally replaces Ferocious Bite.
+ * These spells are for the cast, damage, and extra energy drain. */
+export const FB_SPELLS: Spell[] = [SPELLS.FEROCIOUS_BITE, SPELLS.RAVAGE_DOTC_CAT];
+
+export const FB_IDS: number[] = FB_SPELLS.map((s) => s.id);
 
 /** Spells that have their damage boosted by Tiger's Fury */
 export const TIGERS_FURY_BOOSTED: Spell[] = [
   SPELLS.SHRED,
   SPELLS.FEROCIOUS_BITE,
+  SPELLS.RAVAGE_DOTC_CAT,
+  SPELLS.DREADFUL_WOUND,
   SPELLS.THRASH_FERAL,
   SPELLS.THRASH_FERAL_BLEED,
   SPELLS.RIP,
@@ -53,7 +63,23 @@ export const TIGERS_FURY_BOOSTED: Spell[] = [
   SPELLS.FRENZIED_ASSAULT,
   SPELLS.TEAR,
   SPELLS.RAMPANT_FEROCITY,
-  SPELLS.TEAR_OPEN_WOUNDS,
+  SPELLS.ADAPTIVE_SWARM_DAMAGE,
+  SPELLS.BLOODSEEKER_VINES,
+  SPELLS.BURSTING_GROWTH_DAMAGE,
+];
+
+export const SABERTOOTH_BOOSTED: Spell[] = [
+  SPELLS.THRASH_FERAL,
+  SPELLS.THRASH_FERAL_BLEED,
+  SPELLS.RIP,
+  SPELLS.TEAR,
+  SPELLS.RAKE,
+  SPELLS.RAKE_BLEED,
+  TALENTS_DRUID.FERAL_FRENZY_TALENT,
+  SPELLS.FERAL_FRENZY_DEBUFF,
+  SPELLS.MOONFIRE_DEBUFF,
+  SPELLS.MOONFIRE_FERAL,
+  SPELLS.SUNFIRE, // lmao
   SPELLS.ADAPTIVE_SWARM_DAMAGE,
 ];
 
@@ -63,8 +89,6 @@ export const TIGERS_FURY_BOOSTED: Spell[] = [
 
 /** Multiplier to energy costs from having Incarnation: Avatar of Ashamane active */
 export const INCARN_ENERGY_MULT = 0.8;
-/** Multiplier to Ferocious Bite's energy cost and drain from the Relentless Predator talent */
-export const RELENTLESS_PREDATOR_FB_ENERGY_MULT = 0.9;
 
 /** Shred's energy cost (before modifiers) */
 export const SHRED_ENERGY = 40;
@@ -83,7 +107,7 @@ export const FEROCIOUS_BITE_MAX_DRAIN = 25;
 // DOT DURATIONS
 //
 
-export const CIRCLE_DOT_DURATION_MULT = 0.8;
+const CIRCLE_DOT_DURATION_MULT = 0.8;
 /** Gets the multiplier to apply to a DoT's duration depending on if player is using
  *  the 'Circle of Life and Death' talent */
 function getCircleMult(c: Combatant): number {
@@ -92,30 +116,30 @@ function getCircleMult(c: Combatant): number {
     : 1;
 }
 
-export const VEINRIPPER_DURATION_MULT = 1.25;
+const VEINRIPPER_DURATION_MULT = 1.25;
 /** Gets the multiplier to apply to Rip / Rake / Thrash's duration depending on if player is using
  *  the 'Veinripper' talent */
 function getVeinripperMult(c: Combatant): number {
   return c.hasTalent(TALENTS_DRUID.VEINRIPPER_TALENT) ? VEINRIPPER_DURATION_MULT : 1;
 }
 
-export const RAKE_BASE_DURATION = 15000;
+const RAKE_BASE_DURATION = 15000;
 export function getRakeDuration(c: Combatant): number {
   return RAKE_BASE_DURATION * getCircleMult(c) * getVeinripperMult(c);
 }
 
-export const MOONFIRE_BASE_DURATION = 16000;
+const MOONFIRE_BASE_DURATION = 16000;
 export function getMoonfireDuration(c: Combatant): number {
   return MOONFIRE_BASE_DURATION * getCircleMult(c);
 }
 
-export const THRASH_FERAL_BASE_DURATION = 15000;
+const THRASH_FERAL_BASE_DURATION = 15000;
 export function getThrashFeralDuration(c: Combatant): number {
   return THRASH_FERAL_BASE_DURATION * getCircleMult(c) * getVeinripperMult(c);
 }
 
 export const RIP_DURATION_BASE = 4000;
-export const RIP_DURATION_PER_CP = 4000;
+const RIP_DURATION_PER_CP = 4000;
 export function getRipDuration(cast: CastEvent, c: Combatant): number {
   return (
     (RIP_DURATION_BASE +
@@ -125,8 +149,8 @@ export function getRipDuration(cast: CastEvent, c: Combatant): number {
   );
 }
 
-export const PRIMAL_WRATH_RIP_DURATION_BASE = 2000;
-export const PRIMAL_WRATH_RIP_DURATION_PER_CP = 2000;
+const PRIMAL_WRATH_RIP_DURATION_BASE = 2000;
+const PRIMAL_WRATH_RIP_DURATION_PER_CP = 2000;
 export function getPrimalWrathDuration(cast: CastEvent, c: Combatant): number {
   return (
     (PRIMAL_WRATH_RIP_DURATION_BASE +
@@ -147,7 +171,7 @@ export function getRipFullDuration(c: Combatant): number {
 //
 
 export const BASE_TIGERS_FURY_DAMAGE_BONUS = 0.15;
-export const CARNIVOROUS_INSTINCT_DAMAGE_BONUS = 0.06;
+const CARNIVOROUS_INSTINCT_DAMAGE_BONUS = 0.06;
 export function getTigersFuryDamageBonus(c: Combatant): number {
   return (
     BASE_TIGERS_FURY_DAMAGE_BONUS +
@@ -157,7 +181,6 @@ export function getTigersFuryDamageBonus(c: Combatant): number {
 
 export const BLOODTALONS_DAMAGE_BONUS = 0.25;
 export const LIONS_STRENGTH_DAMAGE_BONUS = 0.15;
-export const MOMENT_OF_CLARITY_DAMAGE_BONUS = 0.15;
 export const PROWL_RAKE_DAMAGE_BONUS = 0.6;
 
 /** Max time left on a DoT for us to not yell if snapshot is downgraded */
@@ -176,14 +199,7 @@ export const PANDEMIC_FRACTION = 0.3;
 export function cdSpell(c: Combatant): Spell {
   return c.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT)
     ? TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT
-    : SPELLS.BERSERK;
-}
-
-/** Returns the Feral Druid's direct damage AoE builder, which changes based on talent */
-export function directAoeBuilder(c: Combatant): Spell {
-  return c.hasTalent(TALENTS_DRUID.BRUTAL_SLASH_TALENT)
-    ? TALENTS_DRUID.BRUTAL_SLASH_TALENT
-    : SPELLS.SWIPE_CAT;
+    : SPELLS.BERSERK_CAT;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -219,19 +235,18 @@ export function getBiteCps(event: DamageEvent) {
 export function getFerociousBiteMaxDrain(c: Combatant) {
   return (
     FEROCIOUS_BITE_MAX_DRAIN *
-    (c.hasTalent(TALENTS_DRUID.RELENTLESS_PREDATOR_TALENT)
-      ? RELENTLESS_PREDATOR_FB_ENERGY_MULT
-      : 1) *
     (c.hasBuff(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id) ? INCARN_ENERGY_MULT : 1)
   );
 }
 
-export const TIGERS_FURY_BASE_DURATION = 10_000;
-export const PREDATOR_DURATION_BOOST = 5_000;
+const TIGERS_FURY_BASE_DURATION = 10_000;
+const PREDATOR_DURATION_BOOST = 5_000;
+const RAGING_FURY_DURATION_BOOST = 5_000;
 
 export function getTigersFuryDuration(c: Combatant) {
   return (
     TIGERS_FURY_BASE_DURATION +
-    (c.hasTalent(TALENTS_DRUID.PREDATOR_TALENT) ? PREDATOR_DURATION_BOOST : 0)
+    c.getTalentRank(TALENTS_DRUID.PREDATOR_TALENT) * PREDATOR_DURATION_BOOST +
+    c.getTalentRank(TALENTS_DRUID.RAGING_FURY_TALENT) * RAGING_FURY_DURATION_BOOST
   );
 }

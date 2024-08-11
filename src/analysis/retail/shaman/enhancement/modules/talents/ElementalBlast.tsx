@@ -124,6 +124,9 @@ class ElementalBlast extends BaseElementalBlast {
 
   onRemoveElementalSpiritBuff(event: RemoveBuffEvent) {
     this.elementalSpritsActive[event.ability.guid] -= 1;
+    if (this.elementalSpritsActive[event.ability.guid] < 0) {
+      this.elementalSpritsActive[event.ability.guid] = 0;
+    }
   }
 
   get activeElementalSpirits(): number {
@@ -137,31 +140,35 @@ class ElementalBlast extends BaseElementalBlast {
     return cast.elementalSpiritsActive >= 3
       ? QualitativePerformance.Perfect
       : cast.elementalSpiritsActive >= 2
-      ? QualitativePerformance.Good
-      : cast.elementalSpiritsActive >= 1
-      ? QualitativePerformance.Ok
-      : QualitativePerformance.Fail;
+        ? QualitativePerformance.Good
+        : cast.elementalSpiritsActive >= 1
+          ? QualitativePerformance.Ok
+          : QualitativePerformance.Fail;
   }
 
   getMaelstromUsagePerformance(cast: ElementalBlastCastDetails) {
     return cast.maelstromUsed === 10
       ? QualitativePerformance.Perfect
       : cast.maelstromUsed >= 8
-      ? QualitativePerformance.Good
-      : cast.maelstromUsed >= 5
-      ? QualitativePerformance.Ok
-      : QualitativePerformance.Fail;
+        ? QualitativePerformance.Good
+        : cast.maelstromUsed >= 5
+          ? QualitativePerformance.Ok
+          : QualitativePerformance.Fail;
   }
 
   getElementaBlastChargesPerformance(cast: ElementalBlastCastDetails) {
-    if (cast.chargesBeforeCast === 2 && cast.maelstromUsed >= 5) {
+    if (cast.maelstromUsed < 5) {
+      return QualitativePerformance.Fail;
+    }
+    if (cast.chargesBeforeCast === 2) {
       return QualitativePerformance.Perfect;
-    } else if (cast.maelstromUsed >= 8) {
+    }
+    if (cast.elementalSpiritsActive > 0) {
       return cast.elementalSpiritsActive >= 2
         ? QualitativePerformance.Perfect
         : cast.elementalSpiritsActive >= 1
-        ? QualitativePerformance.Good
-        : QualitativePerformance.Ok;
+          ? QualitativePerformance.Good
+          : QualitativePerformance.Ok;
     }
     return QualitativePerformance.Fail;
   }
@@ -169,16 +176,21 @@ class ElementalBlast extends BaseElementalBlast {
   getOverallCastPerformance(cast: ElementalBlastCastDetails) {
     if (cast.chargesBeforeCast === 2 && cast.maelstromUsed >= 5) {
       return QualitativePerformance.Perfect;
-    } else if (cast.elementalSpiritsActive >= 1) {
-      return cast.maelstromUsed >= 8
-        ? cast.elementalSpiritsActive >= 2
-          ? QualitativePerformance.Perfect
-          : QualitativePerformance.Good
-        : cast.maelstromUsed >= 5
-        ? QualitativePerformance.Ok
-        : QualitativePerformance.Fail;
+    } else {
+      switch (cast.elementalSpiritsActive) {
+        case 0:
+          /** elemental blast should not be cast without elemental spirits if uncapped on charges */
+          return QualitativePerformance.Fail;
+        case 1:
+          return cast.maelstromUsed === 10
+            ? QualitativePerformance.Good
+            : QualitativePerformance.Ok;
+        default:
+          return cast.maelstromUsed >= 8
+            ? QualitativePerformance.Perfect
+            : QualitativePerformance.Good;
+      }
     }
-    return QualitativePerformance.Fail;
   }
 
   get guideSubsection() {
@@ -223,7 +235,8 @@ class ElementalBlast extends BaseElementalBlast {
           <>
             {cast.chargesBeforeCast}{' '}
             {plural(cast.chargesBeforeCast, { one: 'charge', other: 'charges' })} of{' '}
-            <SpellLink spell={TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT} /> available
+            <SpellLink spell={TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT} />{' '}
+            {plural(cast.chargesBeforeCast, { one: 'was', other: 'were' })} available
           </>
         ),
         details: <></>,
@@ -276,10 +289,14 @@ class ElementalBlast extends BaseElementalBlast {
 
     if (cast.elementalSpiritsActive > 0) {
       return cast.maelstromUsed >= 8
-        ? QualitativePerformance.Perfect
+        ? cast.elementalSpiritsActive > 1
+          ? QualitativePerformance.Perfect
+          : QualitativePerformance.Good
         : cast.maelstromUsed >= 5
-        ? QualitativePerformance.Good
-        : QualitativePerformance.Fail;
+          ? cast.elementalSpiritsActive > 1
+            ? QualitativePerformance.Good
+            : QualitativePerformance.Ok
+          : QualitativePerformance.Fail;
     }
 
     return cast.maelstromUsed >= 5 ? QualitativePerformance.Ok : QualitativePerformance.Fail;

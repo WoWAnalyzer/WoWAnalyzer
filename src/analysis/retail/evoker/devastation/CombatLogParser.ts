@@ -3,11 +3,10 @@ import MainCombatLogParser from 'parser/core/CombatLogParser';
 import Abilities from './modules/Abilities';
 
 import ShatteringStar from './modules/abilities/ShatteringStar';
+import ShatteringStarGuide from './modules/abilities/ShatterStarGuide';
 import Buffs from './modules/Buffs';
 import Guide from './Guide';
-import AplCheck from './modules/AplCheck';
-import EssenceTracker from '../preservation/modules/features/EssenceTracker';
-import EssenceGraph from './modules/guide/EssenceGraph/EssenceGraph';
+import AplCheck from './modules/AplCheck/AplCheck';
 import Disintegrate from './modules/abilities/Disintegrate';
 import EssenceBurst from './modules/abilities/EssenceBurst';
 import Burnout from './modules/abilities/Burnout';
@@ -15,7 +14,7 @@ import DragonRage from './modules/abilities/DragonRage';
 import CastLinkNormalizer from './modules/normalizers/CastLinkNormalizer';
 import EssenceBurstNormalizer from './modules/normalizers/EssenceBurstNormalizer';
 import Snapfire from './modules/abilities/Snapfire';
-import T30DevaTier4P from './modules/dragonflight/tier/T30DevaTier4P';
+import T30DevaTier from './modules/dragonflight/tier/T30DevaTier';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import Catalyze from './modules/talents/Catalyze';
 import Scintillation from './modules/talents/Scintillation';
@@ -31,15 +30,64 @@ import EngulfingBlaze from './modules/talents/EngulfingBlaze';
 import LayWaste from './modules/talents/LayWaste';
 import Iridescence from './modules/talents/Iridescence';
 import T31DevaTier from './modules/dragonflight/tier/T31DevaTier';
+import Pyre from './modules/abilities/Pyre';
+import EternitySurgeNormalizer from './modules/normalizers/EternitySurgeNormalizer';
+import ScorchingEmbers from './modules/talents/ScorchingEmbers';
 
 // Shared
-import { LeapingFlamesNormalizer, LeapingFlames } from 'analysis/retail/evoker/shared';
+import {
+  LivingFlameNormalizer,
+  LivingFlamePrePullNormalizer,
+  EssenceBurstCastLinkNormalizer,
+  EssenceBurstRefreshNormalizer,
+  LeapingFlamesNormalizer,
+  LeapingFlames,
+  EmpowerNormalizer,
+  SpellUsable,
+  GlobalCooldown,
+  SpellEssenceCost,
+  EssenceTracker,
+  EssenceGraph,
+  SourceOfMagic,
+  PotentMana,
+  ObsidianScales,
+  DefensiveNormalizer,
+  DefensiveCastLinkNormalizer,
+  TwinGuardian,
+  RenewingBlaze,
+  Engulf,
+  ImminentDestruction,
+} from 'analysis/retail/evoker/shared';
+import ExpandedLungs from '../shared/modules/talents/hero/flameshaper/ExpandedLungs';
+import FanTheFlames from '../shared/modules/talents/hero/flameshaper/FanTheFlames';
+import RedHot from '../shared/modules/talents/hero/flameshaper/RedHot';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
+    // Empower Normalizer
+    empowerNormalizer: EmpowerNormalizer,
+    spellUsable: SpellUsable,
+    globalCooldown: GlobalCooldown,
+
     // Shared
+    livingFlameNormalizer: LivingFlameNormalizer,
+    livingFlamePrePullNormalizer: LivingFlamePrePullNormalizer,
+    essenceBurstRefreshNormalizer: EssenceBurstRefreshNormalizer,
+    essenceBurstCastLinkNormalizer: EssenceBurstCastLinkNormalizer,
     leapingFlamesNormalizer: LeapingFlamesNormalizer,
     leapingFlames: LeapingFlames,
+    spellEssenceCost: SpellEssenceCost,
+    essenceTracker: EssenceTracker,
+    essenceGraph: EssenceGraph,
+    sourceOfMagic: SourceOfMagic,
+    potentMana: PotentMana,
+    imminentDestruction: ImminentDestruction,
+
+    obsidianScales: ObsidianScales,
+    defensiveCastLinkNormalizer: DefensiveCastLinkNormalizer,
+    defensiveNormalizer: DefensiveNormalizer,
+    twinGuardian: TwinGuardian,
+    renewingBlaze: RenewingBlaze,
 
     // Core
     abilities: Abilities,
@@ -48,10 +96,9 @@ class CombatLogParser extends MainCombatLogParser {
     // Normalizer
     castLinkNormalizer: CastLinkNormalizer,
     essenceBurstNormalizer: EssenceBurstNormalizer,
+    eternitySurgeNormalizer: EternitySurgeNormalizer,
 
     // features
-    essenceTracker: EssenceTracker,
-    essenceGraph: EssenceGraph,
     apls: AplCheck,
     cooldownThroughputTracker: CooldownThroughputTracker,
 
@@ -70,16 +117,25 @@ class CombatLogParser extends MainCombatLogParser {
     engulfingBlaze: EngulfingBlaze,
     layWaste: LayWaste,
     iridescence: Iridescence,
+    scorchingEmbers: ScorchingEmbers,
+
+    // hero talents
+    engulf: Engulf,
+    expandedLungs: ExpandedLungs,
+    fanTheFlames: FanTheFlames,
+    redHot: RedHot,
 
     // core abilities
     disintegrate: Disintegrate,
     shatteringStar: ShatteringStar,
+    shatteringStarGuide: ShatteringStarGuide,
     essenceBurst: EssenceBurst,
     burnout: Burnout,
     dragonRage: DragonRage,
+    pyre: Pyre,
 
     // tier
-    T30devaTier4P: T30DevaTier4P,
+    T30devaTier: T30DevaTier,
     T31devaTier: T31DevaTier,
   };
 

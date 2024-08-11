@@ -14,7 +14,7 @@ import { AbilityCastEfficiency } from 'parser/shared/modules/CastEfficiency';
 import BaseChart from 'parser/ui/BaseChart';
 import { useEffect, useState } from 'react';
 import { VisualizationSpec } from 'react-vega';
-import { AutoSizer } from 'react-virtualized';
+import AutoSizer from 'react-virtualized-auto-sizer';
 
 import { staggerChart, line, point, color, normalizeTimestampTransform } from '../../charts';
 import PurifyingBrewProblems, {
@@ -32,7 +32,7 @@ import CastReasonBreakdownTableContents from 'interface/guide/components/CastRea
 
 export { default } from './analyzer';
 
-export function useThreatTable({
+function useThreatTable({
   reportCode,
   fightStart,
   fightEnd,
@@ -87,11 +87,7 @@ const PurifyProblemDescription = ({ data }: { data: ProblemData }) =>
     </p>
   );
 
-export function PurifyProblem({
-  problem,
-  events,
-  info,
-}: ProblemRendererProps<ProblemData>): JSX.Element {
+function PurifyProblem({ problem, events, info }: ProblemRendererProps<ProblemData>): JSX.Element {
   const stagger: Array<AddStaggerEvent | RemoveStaggerEvent> = events.filter(
     ({ type }) => type === EventType.AddStagger || type === EventType.RemoveStagger,
   ) as Array<AddStaggerEvent | RemoveStaggerEvent>;
@@ -134,6 +130,7 @@ export function PurifyProblem({
 
   const spec: VisualizationSpec = {
     ...staggerChart,
+    // @ts-expect-error This is a valid typing but Vega types are being weird with TS 5.4
     layer: [
       {
         ...line('stagger', color.stagger),
@@ -265,15 +262,6 @@ const reasonOrder = [
   PurifyReason.Unknown,
 ];
 
-function reasonEnabled(info: Info, reason: PurifyReason): boolean {
-  switch (reason) {
-    case PurifyReason.RefreshPurifiedChi:
-      return info.combatant.hasTalent(talents.IMPROVED_CELESTIAL_BREW_TALENT);
-    default:
-      return true;
-  }
-}
-
 function PurifyReasonBreakdown({
   purifies,
   castEfficiency,
@@ -289,7 +277,7 @@ function PurifyReasonBreakdown({
 }): JSX.Element {
   const threatTable = useThreatTable(info);
 
-  const possibleReasons = reasonOrder.filter(reasonEnabled.bind(null, info));
+  const possibleReasons = reasonOrder;
 
   return (
     <table className="hits-list purify-reasons">

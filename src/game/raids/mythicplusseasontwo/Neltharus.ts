@@ -1,9 +1,9 @@
-import { Dungeon } from 'game/raids';
+import type { Boss } from 'game/raids';
 
 import Background from './backgrounds/Neltharus.jpg';
 import Headshot from './headshots/Neltharus.jpg';
 
-const Neltharus: Dungeon = {
+const Neltharus: Boss = {
   id: 12519,
   name: 'Neltharus',
   background: Background,

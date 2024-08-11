@@ -1,11 +1,14 @@
 import { Plural, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import isLatestPatch from 'game/isLatestPatch';
+import AlertInfo from 'interface/AlertInfo';
 import AlertWarning from 'interface/AlertWarning';
 import Contributor from 'interface/ContributorButton';
+import DiscordButton from 'interface/DiscordButton';
 import Panel from 'interface/Panel';
 import ReadableListing from 'interface/ReadableListing';
-import Config from 'parser/Config';
+import FoundationSupportBadge from 'interface/guide/foundation/FoundationSupportBadge';
+import Config, { SupportLevel } from 'parser/Config';
 import { Link } from 'react-router-dom';
 
 interface Props {
@@ -13,14 +16,17 @@ interface Props {
 }
 
 const About = ({ config }: Props) => {
-  const { spec, description, contributors, patchCompatibility, isPartial } = config;
+  const { spec, contributors, patchCompatibility, supportLevel } = config;
   const { i18n } = useLingui();
+  const isPartial = supportLevel === SupportLevel.MaintainedPartial;
   const contributorinfo =
     contributors.length !== 0 ? (
       contributors.map((contributor) => <Contributor key={contributor.nickname} {...contributor} />)
     ) : (
       <Trans id="interface.report.results.about.unmaintained">CURRENTLY UNMAINTAINED</Trans>
     );
+
+  const description = config.description ?? <DefaultDescription {...config} />;
 
   return (
     <Panel
@@ -30,9 +36,18 @@ const About = ({ config }: Props) => {
         </Trans>
       }
       actions={
-        <Link to="../events">
-          <Trans id="interface.report.results.about.viewEvents">View all events</Trans>
-        </Link>
+        <>
+          <div>
+            <Link to="../events">
+              <Trans id="interface.report.results.about.viewEvents">View all events</Trans>
+            </Link>
+          </div>
+          <div>
+            <Link to="../debug">
+              <Trans id="interface.report.results.about.viewDebug">View debug info</Trans>
+            </Link>
+          </div>
+        </>
       }
     >
       {description}
@@ -75,5 +90,61 @@ const About = ({ config }: Props) => {
     </Panel>
   );
 };
+
+const DefaultDescription = ({ spec, supportLevel }: Config) => {
+  const i18n = useLingui();
+
+  const specTitle = (
+    <>
+      {spec.specName && i18n._(spec.specName)} {i18n._(spec.className)}
+    </>
+  );
+
+  const supportDesc =
+    supportLevel === SupportLevel.Foundation ? (
+      <>
+        <Trans id="interface.report.results.about.foundationDescription">
+          <p>
+            {specTitle} has <FoundationSupportBadge /> including:
+          </p>
+          <p>
+            <ul>
+              <li>Analysis for overall ability usage and uptime (Always Be Casting!)</li>
+              <li>Accurate cooldown tracking for all class and spec abilities</li>
+            </ul>
+          </p>
+          <p>
+            However, it does not have a dedicated maintainer providing detailed rotational analysis,
+            statistics, or other features.
+          </p>
+          <p>
+            If you believe there is an error in ability or cooldown tracking, please let us know on{' '}
+            <SmallDiscordButton />
+          </p>
+        </Trans>
+      </>
+    ) : (
+      <p>
+        <Trans id="interface.report.results.about.unmaintainedDescription">
+          {specTitle} is not currently maintained.
+        </Trans>
+      </p>
+    );
+
+  return (
+    <div>
+      {supportDesc}
+      <AlertInfo>
+        Interested in contributing to {specTitle} analysis? Check out our{' '}
+        <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/wiki#getting-started">
+          getting started guide
+        </a>{' '}
+        or visit our <SmallDiscordButton /> to help out!
+      </AlertInfo>
+    </div>
+  );
+};
+
+const SmallDiscordButton = () => <DiscordButton style={{ padding: '1px 5px', height: 'unset ' }} />;
 
 export default About;

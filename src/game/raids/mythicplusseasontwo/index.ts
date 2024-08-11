@@ -6,6 +6,7 @@ import Uldaman from 'game/raids/mythicplusseasontwo/Uldaman';
 import Underrot from 'game/raids/mythicplusseasontwo/Underrot';
 import NeltharionsLair from 'game/raids/mythicplusseasontwo/NeltharionsLair';
 import VortexPinnacle from 'game/raids/mythicplusseasontwo/VortexPinnacle';
+import type { Raid } from 'game/raids';
 
 export default {
   name: 'Mythic+ Season 2',
@@ -20,4 +21,4 @@ export default {
     Underrot,
     VortexPinnacle,
   },
-};
+} satisfies Raid;

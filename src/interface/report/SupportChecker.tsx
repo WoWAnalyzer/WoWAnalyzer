@@ -11,6 +11,7 @@ import { useWaSelector } from 'interface/utils/useWaSelector';
 
 import { useConfig } from './ConfigContext';
 import { ignoreSpecNotSupportedWarning } from 'interface/reducers/specsIgnoredNotSupportedWarning';
+import { SupportLevel } from 'parser/Config';
 
 interface Props {
   children: ReactElement<any, any> | null;
@@ -31,7 +32,7 @@ const SupportChecker = ({ children }: Props) => {
 
   const isIgnored =
     // Avoid the support-warning modal while developing to ease testing.
-    process.env.NODE_ENV === 'development' || ignored.includes(config.spec.id);
+    import.meta.env.DEV || ignored.includes(config.spec.id);
 
   return (
     <>
@@ -43,7 +44,7 @@ const SupportChecker = ({ children }: Props) => {
           config={config}
           onContinueAnyway={handleClickContinue}
         />
-      ) : !isIgnored && config.isPartial ? (
+      ) : !isIgnored && config.supportLevel === SupportLevel.Unmaintained ? (
         <SupportCheckerSpecPartialSupport
           report={report}
           fight={fight}

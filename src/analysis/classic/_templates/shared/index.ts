@@ -1,1 +1,1 @@
-export { default as lowRankSpells } from './lowRankSpells';
+// EXPORT SHARED MODULES HERE

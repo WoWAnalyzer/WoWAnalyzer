@@ -17,7 +17,7 @@ import { ATONEMENT_DAMAGE_SOURCES } from '../../constants';
 import AtonementApplicationSource from '../features/AtonementApplicationSource';
 import isAtonement from './isAtonement';
 
-export enum SourceProvenance {
+enum SourceProvenance {
   Atonement = 'Atonement',
 }
 

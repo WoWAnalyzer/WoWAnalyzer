@@ -11,7 +11,7 @@ import { TIERS } from 'game/TIERS';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { SpellLink } from 'interface';
 import ItemSetLink from 'interface/ItemSetLink';
-import { PRIEST_T31_ID } from 'common/ITEMS/dragonflight';
+import { PRIEST_DF3_ID } from 'common/ITEMS/dragonflight';
 
 class Amirdrassil4p extends Analyzer {
   shadowSmiteHealing = 0;
@@ -19,7 +19,7 @@ class Amirdrassil4p extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.has4PieceByTier(TIERS.T31);
+    this.active = this.selectedCombatant.has4PieceByTier(TIERS.DF3);
 
     this.addEventListener(
       Events.heal
@@ -67,7 +67,7 @@ class Amirdrassil4p extends Analyzer {
         <>
           <div className="pad boring-text">
             <label>
-              <ItemSetLink id={PRIEST_T31_ID}>
+              <ItemSetLink id={PRIEST_DF3_ID}>
                 <>
                   The Furnace Seraph's Verdict
                   <br />

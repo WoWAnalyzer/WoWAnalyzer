@@ -4,17 +4,9 @@ import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
 import HealingEfficiencyBreakdown from 'parser/core/healingEfficiency/HealingEfficiencyBreakdown';
 import CoreHealingEfficiencyDetails from 'parser/core/healingEfficiency/HealingEfficiencyDetails';
-import HealingEfficiencyTracker from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
 import Panel from 'parser/ui/Panel';
 
 class HealingEfficiencyDetails extends CoreHealingEfficiencyDetails {
-  static dependencies = {
-    ...CoreHealingEfficiencyDetails.dependencies,
-    healingEfficiencyTracker: HealingEfficiencyTracker,
-  };
-
-  protected healingEfficiencyTracker!: HealingEfficiencyTracker;
-
   statistic() {
     return (
       <Panel

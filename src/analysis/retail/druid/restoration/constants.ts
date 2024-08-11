@@ -16,8 +16,7 @@ export function lifebloomSpell(c: Combatant): Spell {
     : SPELLS.LIFEBLOOM_HOT_HEAL;
 }
 
-// TODO double check the entries on this list for Dragonflight
-
+/** This is also the list of spell IDs that are boosted by Druid's mastery */
 export const ABILITIES_AFFECTED_BY_HEALING_INCREASES: number[] = [
   SPELLS.REJUVENATION.id,
   SPELLS.REJUVENATION_GERMINATION.id,
@@ -39,6 +38,14 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES: number[] = [
   SPELLS.GROVE_GUARDIANS_SWIFTMEND.id,
   SPELLS.GROVE_GUARDIANS_NOURISH.id,
   SPELLS.GROVE_GUARDIANS_WILD_GROWTH.id,
+  SPELLS.NOURISH.id,
+  SPELLS.T31_TREANT_CLEAVE_NOURISH.id,
+  SPELLS.T31_CAST_CLEAVE_NOURISH.id,
+  SPELLS.THRIVING_VEGETATION.id,
+  SPELLS.SYMBIOTIC_BLOOMS_WILDSTALKER.id,
+  SPELLS.BURSTING_GROWTH_HEAL.id,
+  SPELLS.DREAM_BLOOM.id,
+  SPELLS.FLOWER_WALK.id,
 ];
 
 // procs Nature's Vigil
@@ -64,7 +71,7 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES_SPELL_OBJECTS =
 
 /** IDs of heals that get triple benefit from mastery */
 export const TRIPLE_MASTERY_BENEFIT_IDS: number[] = [
-  TALENTS_DRUID.NOURISH_TALENT.id,
+  SPELLS.NOURISH.id,
   SPELLS.GROVE_GUARDIANS_NOURISH.id,
   SPELLS.T31_TREANT_CLEAVE_NOURISH.id,
   SPELLS.T31_CAST_CLEAVE_NOURISH.id,
@@ -86,6 +93,7 @@ export const MASTERY_STACK_BUFF_IDS: number[] = [
   SPELLS.ADAPTIVE_SWARM_HEAL.id,
   SPELLS.RENEWING_BLOOM.id,
   SPELLS.GROVE_TENDING.id,
+  SPELLS.SYMBIOTIC_BLOOMS_WILDSTALKER.id,
 ];
 
 // HoTs that get rate increased by Flourish
@@ -109,7 +117,11 @@ export const PHOTO_INCREASED_RATE = [
   ...FLOURISH_INCREASED_RATE,
   SPELLS.SPRING_BLOSSOMS,
   SPELLS.EFFLORESCENCE_HEAL,
+  SPELLS.SYMBIOTIC_BLOOMS_WILDSTALKER,
 ];
+
+// HoTs that get rate increased by Liveliness
+export const LIVELINESS_INCREASED_RATE = PHOTO_INCREASED_RATE;
 
 //probably need to add natures vigil here as well and need to check if it reduces tranquility itself
 export const DRUID_COOLDOWNS = [

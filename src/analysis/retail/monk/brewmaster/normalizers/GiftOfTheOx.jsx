@@ -3,7 +3,7 @@ import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 import { GIFT_OF_THE_OX_SPELL_IDS } from '../constants';
 
-export const GOTOX_GENERATED_EVENT = 'orb-generated';
+const GOTOX_GENERATED_EVENT = 'orb-generated';
 
 /**
  * Gift of the Ox orbs show up as 'casts' which messes with other things

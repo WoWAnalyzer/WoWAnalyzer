@@ -5,9 +5,9 @@ import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../constants';
 import { TALENTS_DRUID } from 'common/TALENTS';
-import { hastedCooldown } from 'common/hastedCooldown';
+import { hastedCooldown, normalGcd } from 'common/abilitiesConstants';
 
-// TODO add missing talents
+// TODO TWW - CONTROL OF THE DREAM LMAO
 class Abilities extends CoreAbilities {
   constructor(...args: ConstructorParameters<typeof CoreAbilities>) {
     super(...args);
@@ -70,6 +70,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SWIFTMEND.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 15,
+        charges: combatant.hasTalent(TALENTS_DRUID.PROSPERITY_TALENT) ? 2 : 1,
         gcd: {
           base: 1500,
         },
@@ -114,7 +115,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS_DRUID.GROVE_GUARDIANS_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: null, // odd that it's off GCD, but it is
-        cooldown: 20,
+        cooldown: 20 - combatant.getTalentRank(TALENTS_DRUID.EARLY_SPRING_TALENT) * 3,
         charges: 3,
         castEfficiency: {
           recommendedEfficiency: 0.8,
@@ -329,6 +330,14 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+      },
+      {
+        spell: SPELLS.FRENZIED_REGENERATION.id,
+        enabled: combatant.hasTalent(TALENTS_DRUID.FRENZIED_REGENERATION_TALENT),
+        category: SPELL_CATEGORY.DEFENSIVE,
+        cooldown: hastedCooldown(36),
+        gcd: normalGcd,
+        isDefensive: true,
       },
       ...super.spellbook(),
     ];

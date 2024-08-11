@@ -1,12 +1,11 @@
 import { GuideProps, PassFailCheckmark, Section, SubSection } from 'interface/guide';
-import { ResourceLink, SpellLink } from 'interface';
+import { SpellLink } from 'interface';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import CombatLogParser from '../../CombatLogParser';
 import SPELLS from 'common/SPELLS';
 
 import PassFailBar from 'interface/guide/components/PassFailBar';
 import { ExplanationAndDataSubSection } from 'interface/guide/components/ExplanationRow';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import DonutChart from 'parser/ui/DonutChart';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
@@ -40,7 +39,7 @@ export function DamageEfficiency(props: GuideProps<typeof CombatLogParser>) {
     <Section title="Damage Efficiency">
       <DisintegrateSubsection {...props} />
       <NoWastedProcsSubsection {...props} />
-      <ShatteringStarSubsection {...props} />
+      {props.modules.shatteringStarGuide.guideSubsection()}
       <BlazeShardsSubsection {...props} />
     </Section>
   );
@@ -135,8 +134,8 @@ function NoWastedProcsSubsection({ modules, info }: GuideProps<typeof CombatLogP
         explanationPercent={EXPLANATION_PERCENTAGE}
         explanation={
           <p>
-            <SpellLink spell={TALENTS_EVOKER.RUBY_ESSENCE_BURST_TALENT} /> procs are essential
-            because they help you cast your primary damaging spells,
+            <SpellLink spell={SPELLS.ESSENCE_BURST_BUFF} /> procs are essential because they help
+            you cast your primary damaging spells,
             <SpellLink spell={SPELLS.DISINTEGRATE} /> and{' '}
             <SpellLink spell={TALENTS_EVOKER.PYRE_TALENT} />, for free. None should go to waste.
           </p>
@@ -198,52 +197,8 @@ function NoWastedProcsSubsection({ modules, info }: GuideProps<typeof CombatLogP
   );
 }
 
-function ShatteringStarSubsection({ modules, info }: GuideProps<typeof CombatLogParser>) {
-  if (!info.combatant.hasTalent(TALENTS_EVOKER.SHATTERING_STAR_TALENT)) {
-    return null;
-  }
-
-  return (
-    <SubSection title="Shattering Star">
-      <p>
-        <SpellLink spell={TALENTS_EVOKER.SHATTERING_STAR_TALENT} /> provides us with a small window
-        where our damage gets amplified. To maximize this window aim to have at least 1-2 uses of{' '}
-        <SpellLink spell={SPELLS.DISINTEGRATE} /> or <SpellLink spell={SPELLS.PYRE} /> by pooling{' '}
-        <ResourceLink id={RESOURCE_TYPES.ESSENCE.id} /> and/or{' '}
-        <SpellLink spell={SPELLS.ESSENCE_BURST_BUFF} /> when{' '}
-        <SpellLink spell={TALENTS_EVOKER.SHATTERING_STAR_TALENT} /> is almost off CD. Using{' '}
-        <SpellLink spell={SPELLS.ETERNITY_SURGE} /> is also good, but don't hold the CD for this
-        window. With <SpellLink spell={TALENTS_EVOKER.ARCANE_VIGOR_TALENT} /> talented, you should
-        always have atleast one use of <SpellLink spell={SPELLS.DISINTEGRATE} />. For more tips,
-        check out mentions of Shattering Star in the{' '}
-        <a href="https://www.wowhead.com/guide/classes/evoker/devastation/rotation-cooldowns-pve-dps#rotation">
-          Wowhead guide
-        </a>
-        .
-      </p>
-      <ExplanationAndDataSubSection
-        explanationPercent={EXPLANATION_PERCENTAGE}
-        explanation={
-          <RoundedPanel>
-            <strong>Per cast breakdown</strong>
-            <small> Try to get 2+ strong spells as much as possible!</small>
-
-            <PerformanceBoxRow values={modules.shatteringStar.windowEntries} />
-          </RoundedPanel>
-        }
-        data={
-          <div>
-            <strong>Summary</strong>
-            <DonutChart items={modules.shatteringStar.donutItems} />
-          </div>
-        }
-      />
-    </SubSection>
-  );
-}
-
 function BlazeShardsSubsection({ modules, info }: GuideProps<typeof CombatLogParser>) {
-  if (!info.combatant.has4PieceByTier(TIERS.T30)) {
+  if (!info.combatant.has4PieceByTier(TIERS.DF2) && !info.combatant.has4PieceByTier(TIERS.DF4)) {
     return null;
   }
 
@@ -260,7 +215,7 @@ function BlazeShardsSubsection({ modules, info }: GuideProps<typeof CombatLogPar
         to maximize uptime of <SpellLink spell={SPELLS.BLAZING_SHARDS} />.
       </p>
       <p>
-        Total uptime lost is: <strong>{modules.T30devaTier4P.lostUptime.toFixed(2)}s</strong>.
+        Total uptime lost is: <strong>{modules.T30devaTier.lostUptime.toFixed(2)}s</strong>.
       </p>
       <ExplanationAndDataSubSection
         explanationPercent={EXPLANATION_PERCENTAGE}
@@ -269,13 +224,13 @@ function BlazeShardsSubsection({ modules, info }: GuideProps<typeof CombatLogPar
             <strong>Buff breakdown</strong>
             <small> Try not to override Blazing Shards!</small>
 
-            <PerformanceBoxRow values={modules.T30devaTier4P.windowEntries} />
+            <PerformanceBoxRow values={modules.T30devaTier.windowEntries} />
           </RoundedPanel>
         }
         data={
           <div>
             <strong>Summary</strong>
-            <DonutChart items={modules.T30devaTier4P.donutItems} />
+            <DonutChart items={modules.T30devaTier.donutItems} />
           </div>
         }
       />

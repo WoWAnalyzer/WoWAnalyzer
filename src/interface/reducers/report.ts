@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import Report from 'parser/core/Report';
 
-export type ReportState = Report | null;
+type ReportState = Report | null;
 const initialState = null as ReportState;
 
 const reportSlice = createSlice({
@@ -15,5 +15,5 @@ const reportSlice = createSlice({
   },
 });
 
-export const { resetSlice, setReport } = reportSlice.actions;
+export const { setReport } = reportSlice.actions;
 export default reportSlice.reducer;

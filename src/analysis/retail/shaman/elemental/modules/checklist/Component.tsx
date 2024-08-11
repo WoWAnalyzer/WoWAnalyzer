@@ -48,11 +48,7 @@ const ElementalShamanChecklist = ({ combatant, castEfficiency, thresholds }: Che
         {combatant.hasTalent(TALENTS.STORM_ELEMENTAL_TALENT) && (
           <AbilityRequirement spell={TALENTS.STORM_ELEMENTAL_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.ICEFURY_TALENT) && (
-          <AbilityRequirement spell={TALENTS.ICEFURY_TALENT.id} />
-        )}
-        {(combatant.hasTalent(TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT) ||
-          combatant.hasTalent(TALENTS.STORMKEEPER_2_ELEMENTAL_TALENT)) && (
+        {combatant.hasTalent(TALENTS.STORMKEEPER_TALENT) && (
           <AbilityRequirement spell={SPELLS.STORMKEEPER_BUFF_AND_CAST.id} />
         )}
         {combatant.hasTalent(TALENTS.LIQUID_MAGMA_TOTEM_TALENT) && (
@@ -113,58 +109,35 @@ const ElementalShamanChecklist = ({ combatant, castEfficiency, thresholds }: Che
           thresholds={thresholds.flameShockRefreshes}
         />
       </Rule>
-      {combatant.hasTalent(TALENTS.ICEFURY_TALENT) && (
-        <Rule
-          name="Utilize all Icefury Stacks"
-          description={
-            <>
-              <SpellLink spell={TALENTS.ICEFURY_TALENT} />
-              's damage component itself is not a strong spell so it's important to fully utilize
-              the talent by consuming all 4 <SpellLink spell={TALENTS.ICEFURY_TALENT} /> buff stacks
-              with <SpellLink spell={TALENTS.FROST_SHOCK_TALENT} /> casts during the buff's
-              duration.
-              {combatant.hasTalent(TALENTS.MASTER_OF_THE_ELEMENTS_TALENT) && (
-                <>
-                  {' '}
-                  While you should try to buff as many <SpellLink
-                    spell={TALENTS.ICEFURY_TALENT}
-                  />{' '}
-                  empowered <SpellLink spell={TALENTS.FROST_SHOCK_TALENT} /> as you can with{' '}
-                  <SpellLink spell={TALENTS.MASTER_OF_THE_ELEMENTS_TALENT} />, it is far more
-                  important to actually use all 4 charges before the buff expires.
-                </>
-              )}
-            </>
-          }
-        >
-          <Requirement
-            name={
-              <>
-                Average <SpellLink spell={TALENTS.FROST_SHOCK_TALENT} /> Casts within{' '}
-                <SpellLink spell={TALENTS.ICEFURY_TALENT} /> Duration
-              </>
-            }
-            thresholds={thresholds.icefuryEfficiency}
-          />
-        </Rule>
-      )}
       {combatant.hasTalent(TALENTS.ASCENDANCE_ELEMENTAL_TALENT) && (
         <Rule
-          name="Spam Meatballs(Lava Burst)"
+          name="Spam Lava Burst"
           description={
             <>
               <SpellLink spell={TALENTS.ASCENDANCE_ELEMENTAL_TALENT} />
-              's damage comes from spamming <SpellLink spell={TALENTS.LAVA_BURST_TALENT} /> during
-              it's duration. Only use <SpellLink spell={TALENTS.LAVA_BURST_TALENT} /> and{' '}
-              <SpellLink spell={TALENTS.EARTH_SHOCK_TALENT} /> while it is up.
-              {combatant.hasTalent(TALENTS.ASCENDANCE_ELEMENTAL_TALENT) && (
-                <>
-                  {' '}
-                  Use <SpellLink spell={TALENTS.LAVA_BURST_TALENT} /> as much as you can. Only use{' '}
-                  <SpellLink spell={TALENTS.EARTH_SHOCK_TALENT} /> when you need to spend
-                  Malestrom..
-                </>
-              )}
+              's damage comes from maximising the number of{' '}
+              <SpellLink spell={TALENTS.LAVA_BURST_TALENT} />
+              's cast during it's duration. Only use <SpellLink
+                spell={TALENTS.LAVA_BURST_TALENT}
+              />{' '}
+              and{' '}
+              <SpellLink
+                spell={
+                  combatant.hasTalent(TALENTS.EARTH_SHOCK_TALENT)
+                    ? TALENTS.EARTH_SHOCK_TALENT
+                    : TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT
+                }
+              />{' '}
+              while it is up. Use <SpellLink spell={TALENTS.LAVA_BURST_TALENT} /> as much as you
+              can. Only use{' '}
+              <SpellLink
+                spell={
+                  combatant.hasTalent(TALENTS.EARTH_SHOCK_TALENT)
+                    ? TALENTS.EARTH_SHOCK_TALENT
+                    : TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT
+                }
+              />{' '}
+              when you need to spend Malestrom.
             </>
           }
         >

@@ -7,7 +7,6 @@ import {
   BeginCastEvent,
   BeginChannelEvent,
   CastEvent,
-  EmpowerStartEvent,
   EndChannelEvent,
   EventType,
   HasAbility,
@@ -18,7 +17,11 @@ import InsertableEventsWrapper from 'parser/core/InsertableEventsWrapper';
 import { Options } from 'parser/core/Module';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
 import { TALENTS_PRIEST } from 'common/TALENTS';
-import { playerInfo } from '../metrics/apl/conditions/test-tools';
+import {
+  getEmpowerEndEvent,
+  isFromTipTheScales,
+} from 'analysis/retail/evoker/shared/modules/normalizers/EmpowerNormalizer';
+import PrePullCooldowns from './PrePullCooldowns';
 
 /**
  * Channels and casts are handled differently in events, and some information is also missing and must be inferred.
@@ -40,6 +43,11 @@ import { playerInfo } from '../metrics/apl/conditions/test-tools';
  * in events, and this normalizer allows special case handling to be registered for each.
  */
 class Channeling extends EventsNormalizer {
+  static dependencies = {
+    ...EventsNormalizer.dependencies,
+    /** We add dependency to PrePullCooldowns to ensure we also normalize fabricated pre-pull events */
+    prePullCooldowns: PrePullCooldowns,
+  };
   /**
    * Listing of all special case handlers for channels
    */
@@ -47,18 +55,21 @@ class Channeling extends EventsNormalizer {
     // General
     // Shadowlands Encounter
     buffChannelSpec(SPELLS.SOUL_INFUSION.id), // fight channel from Sun King's Salvation - see in this log: https://wowanalyzer.com/report/g4Pja6pLHnmQtbvk/32-Normal+Sun+King's+Salvation+-+Kill+(10:14)/Pjurbo/standard/events
+    // Trinkets
+    buffChannelSpec(SPELLS.NYMUES_UNRAVELING_SPINDLE.id),
     // Mage
     buffChannelSpec(TALENTS_MAGE.EVOCATION_TALENT.id),
     buffChannelSpec(TALENTS_MAGE.SHIFTING_POWER_TALENT.id),
+    buffChannelSpec(TALENTS_MAGE.RAY_OF_FROST_TALENT.id),
     nextCastChannelSpec(TALENTS_MAGE.ARCANE_MISSILES_TALENT.id),
     // Priest
     buffChannelSpec(TALENTS_PRIEST.DIVINE_HYMN_TALENT.id),
     nextCastChannelSpec(SPELLS.PENANCE_CAST.id),
     nextCastChannelSpec(SPELLS.DARK_REPRIMAND_CAST.id),
     buffChannelSpec(TALENTS_PRIEST.ULTIMATE_PENITENCE_TALENT.id),
-    buffChannelSpec(SPELLS.MIND_FLAY.id), // TODO double check ID
-    buffChannelSpec(SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE.id), // TODO double check ID
-    buffChannelSpec(TALENTS_PRIEST.VOID_TORRENT_TALENT.id), // TODO double check ID
+    buffChannelSpec(SPELLS.MIND_FLAY.id),
+    buffChannelSpec(SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE.id),
+    buffChannelSpec(TALENTS_PRIEST.VOID_TORRENT_TALENT.id),
     // Evoker
     empowerChannelSpec(SPELLS.FIRE_BREATH.id),
     empowerChannelSpec(SPELLS.FIRE_BREATH_FONT.id),
@@ -66,19 +77,25 @@ class Channeling extends EventsNormalizer {
     empowerChannelSpec(SPELLS.ETERNITY_SURGE_FONT.id),
     empowerChannelSpec(SPELLS.UPHEAVAL.id),
     empowerChannelSpec(SPELLS.UPHEAVAL_FONT.id),
+    empowerChannelSpec(TALENTS_EVOKER.SPIRITBLOOM_TALENT.id),
+    empowerChannelSpec(SPELLS.SPIRITBLOOM_FONT.id),
+    empowerChannelSpec(TALENTS_EVOKER.DREAM_BREATH_TALENT.id),
+    empowerChannelSpec(SPELLS.DREAM_BREATH_FONT.id),
     buffChannelSpec(SPELLS.DISINTEGRATE.id),
     buffChannelSpec(TALENTS_EVOKER.BREATH_OF_EONS_TALENT.id),
+    buffChannelSpec(SPELLS.BREATH_OF_EONS_SCALECOMMANDER.id),
     buffChannelSpec(TALENTS_EVOKER.TIME_SKIP_TALENT.id),
     buffChannelSpec(SPELLS.DEEP_BREATH.id),
+    buffChannelSpec(SPELLS.DEEP_BREATH_SCALECOMMANDER.id),
     // Rogue
     // Druid
     buffChannelSpec(SPELLS.CONVOKE_SPIRITS.id),
     // Monk
     buffChannelSpec(TALENTS_MONK.ZEN_MEDITATION_TALENT.id),
-    buffChannelSpec(TALENTS_MONK.ESSENCE_FONT_TALENT.id),
     buffChannelSpec(TALENTS_MONK.SOOTHING_MIST_TALENT.id),
     buffChannelSpec(SPELLS.CRACKLING_JADE_LIGHTNING.id),
     buffChannelSpec(SPELLS.FISTS_OF_FURY_CAST.id),
+    buffChannelSpec(SPELLS.MANA_TEA_CAST.id),
     // Demon Hunter
     buffChannelSpec(TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT.id), // TODO special handling because of the two buffs?
     // Shaman
@@ -91,7 +108,12 @@ class Channeling extends EventsNormalizer {
     // Warlock
     buffChannelSpec(CLASSIC_SPELLS.DRAIN_SOUL.id),
     buffChannelSpec(CLASSIC_SPELLS.DRAIN_LIFE.id),
-    buffChannelSpec(CLASSIC_SPELLS.DRAIN_MANA.id),
+    buffChannelSpec(CLASSIC_SPELLS.RAIN_OF_FIRE.id),
+    // Holy Priest
+    // Divine Hymn is handled by the Retail version currently
+    buffChannelSpec(CLASSIC_SPELLS.HYMN_OF_HOPE_BUFF.id),
+    // Warrior
+    buffChannelSpec(CLASSIC_SPELLS.BLADESTORM.id),
   ];
 
   // registered special case handlers, mapped by guid
@@ -191,24 +213,7 @@ export function isRealCast(event: CastEvent): boolean {
 }
 
 /** Updates the ChannelState with a BeginChannelEvent */
-export function beginCurrentChannel(event: BeginCastEvent | CastEvent, channelState: ChannelState) {
-  const beginChannel: BeginChannelEvent = {
-    type: EventType.BeginChannel,
-    ability: event.ability,
-    timestamp: event.timestamp,
-    sourceID: event.sourceID,
-    isCancelled: false,
-    trigger: event,
-    targetIsFriendly: event.targetIsFriendly,
-    sourceIsFriendly: event.sourceIsFriendly,
-    targetID: event.target?.id,
-  };
-  channelState.eventsInserter.addAfterEvent(beginChannel, event);
-  channelState.unresolvedChannel = beginChannel;
-}
-
-/** Updates the ChannelState with a BeginChannelEvent */
-export function beginEmpowerCurrentChannel(event: EmpowerStartEvent, channelState: ChannelState) {
+function beginCurrentChannel(event: BeginCastEvent | CastEvent, channelState: ChannelState) {
   const beginChannel: BeginChannelEvent = {
     type: EventType.BeginChannel,
     ability: event.ability,
@@ -233,7 +238,7 @@ function copyTargetData(target: ChannelState['unresolvedChannel'], source: AnyEv
 }
 
 /** Updates the ChannelState with a EndChannelEvent tied to the current channel */
-export function endCurrentChannel(event: AnyEvent, channelState: ChannelState) {
+function endCurrentChannel(event: AnyEvent, channelState: ChannelState) {
   if (!channelState.unresolvedChannel) {
     // TODO log error?
     return;
@@ -250,7 +255,45 @@ export function endCurrentChannel(event: AnyEvent, channelState: ChannelState) {
     trigger: event,
   };
   channelState.eventsInserter.addAfterEvent(endChannel, event);
+
+  attachChannelToCast(endChannel);
+
   channelState.unresolvedChannel = null;
+}
+
+/**
+ * Attempts to attach the endChannel event to the associated cast event
+ *
+ * This is needed to allow the Casts module to properly render channels on the timeline without
+ * inserting the cast on top of the the fabricated channel
+ */
+function attachChannelToCast(endChannelEvent: EndChannelEvent): void {
+  const beginChannelTrigger = endChannelEvent.beginChannel.trigger;
+  const endChannelTrigger = endChannelEvent.trigger;
+
+  // If we for some reason don't have a cast event
+  // Currently only observed happening with Empowers, which makes sense with their current implementation but they are (for now) being ignored anyways
+  if (endChannelTrigger?.type !== EventType.Cast && beginChannelTrigger?.type !== EventType.Cast) {
+    console.warn(
+      'Tried to attach endChannelEvent to cast event for ability',
+      endChannelEvent.ability.name + '(' + endChannelEvent.ability.guid + ')',
+      '@',
+      endChannelEvent.timestamp,
+      'but was unable to find it',
+      endChannelEvent,
+    );
+    return;
+  }
+
+  // If the beginChannelTrigger was a cast attach to that
+  // The trigger could also be a beginCast, in which case the endChannelTrigger should be the cast
+  if (beginChannelTrigger?.type === EventType.Cast) {
+    beginChannelTrigger.channel = endChannelEvent;
+    return;
+  } else if (endChannelTrigger?.type === EventType.Cast) {
+    endChannelTrigger.channel = endChannelEvent;
+    return;
+  }
 }
 
 /**
@@ -258,7 +301,7 @@ export function endCurrentChannel(event: AnyEvent, channelState: ChannelState) {
  * @param channelState the current channel state
  * @param currentEvent the current event being handled
  */
-export function cancelCurrentChannel(currentEvent: AnyEvent, channelState: ChannelState) {
+function cancelCurrentChannel(currentEvent: AnyEvent, channelState: ChannelState) {
   if (channelState.unresolvedChannel !== null) {
     channelState.unresolvedChannel.isCancelled = true;
     channelState.unresolvedChannel = null;
@@ -280,7 +323,7 @@ export function cancelCurrentChannel(currentEvent: AnyEvent, channelState: Chann
  *
  * @param spellId the guid for the tracked Cast and RemoveBuff/RemoveDebuff events.
  */
-export function buffChannelSpec(spellId: number): ChannelSpec {
+function buffChannelSpec(spellId: number): ChannelSpec {
   const guids = [spellId];
   const handler: ChannelHandler = (
     event: AnyEvent,
@@ -288,7 +331,7 @@ export function buffChannelSpec(spellId: number): ChannelSpec {
     eventIndex: number,
     state: ChannelState,
   ) => {
-    if (event.type === EventType.Cast) {
+    if (event.type === EventType.Cast && !event.prepull) {
       // do standard start channel stuff
       cancelCurrentChannel(event, state);
       beginCurrentChannel(event, state);
@@ -313,63 +356,33 @@ export function buffChannelSpec(spellId: number): ChannelSpec {
 }
 
 /**
- * Helper to create a channel spec handler for Evokers empowered spells.
+ * This handler works by handling empower cast events with the given guid, and then finding the matched empowerend
+ * event through event links, and then making the pair of beginchannel and endchannel events based on them.
  *
- * This handler works by handling EmpowerStart events with the given guid, and then scanning forward for the
- * matched EmpowerEnd, and then making the pair of beginchannel and endchannel events based on them.
- * Sometimes Empowers don't produce EmpowerEnd, mainly when cancelling the spell. To account for this
- * we will also cancel the channel on next cast, begincast or if buff is removed(fire breath).
- *
- * Tipped Empowers don't produce a EmpowerStart event so we use this event to filter those out.
- *
- * @param spellId the guid for the tracked Cast and EmpowerStart/EmpowerEnd events.
+ * @param spellId the guid for the tracked Empower Cast event.
  */
-export function empowerChannelSpec(spellId: number): ChannelSpec {
+function empowerChannelSpec(spellId: number): ChannelSpec {
   const guids = [spellId];
   const handler: ChannelHandler = (
     event: AnyEvent,
-    events: AnyEvent[],
-    eventIndex: number,
+    _events: AnyEvent[],
+    _eventIndex: number,
     state: ChannelState,
   ) => {
-    if (
-      event.type === EventType.EmpowerStart ||
-      event.type === EventType.Cast ||
-      event.type === EventType.RemoveBuff
-    ) {
+    // Tipped cast is instant cast so don't start a channel
+    if (event.type === EventType.Cast && !isFromTipTheScales(event)) {
       // do standard start channel stuff
       cancelCurrentChannel(event, state);
-      if (event.type === EventType.EmpowerStart) {
-        beginEmpowerCurrentChannel(event, state);
-      }
-      // now scan ahead for the matched empowerend, cast or begincast and end the channel at it
-      for (let idx = eventIndex + 1; idx < events.length; idx += 1) {
-        const laterEvent = events[idx];
-        if (
-          HasAbility(laterEvent) &&
-          laterEvent.ability.guid === spellId &&
-          laterEvent.type === EventType.EmpowerEnd
-        ) {
-          endCurrentChannel(laterEvent, state);
-          break;
-        } else if (
-          laterEvent.type === EventType.BeginCast ||
-          (laterEvent.type === EventType.Cast &&
-            isRealCast(laterEvent) &&
-            laterEvent.timestamp > event.timestamp &&
-            event.sourceID === playerInfo.playerId)
-        ) {
-          endCurrentChannel(laterEvent, state);
-          break;
-        } else if (
-          HasAbility(laterEvent) &&
-          laterEvent.ability.guid === spellId &&
-          laterEvent.type === EventType.RemoveBuff &&
-          laterEvent.timestamp > event.timestamp
-        ) {
-          endCurrentChannel(laterEvent, state);
-          break;
-        }
+      beginCurrentChannel(event, state);
+
+      const potentiallyEmpowerEnd = getEmpowerEndEvent(event);
+      if (potentiallyEmpowerEnd) {
+        // Empower finished channeling so we end the channel
+        endCurrentChannel(potentiallyEmpowerEnd, state);
+      } else {
+        // Empower didn't finish channeling so we cancel the channel
+        // NOTE: if cancelCurrentChannel gets reworked to push a cancel channel event, this potentially needs to change
+        cancelCurrentChannel(event, state);
       }
     }
   };
@@ -393,7 +406,7 @@ export function empowerChannelSpec(spellId: number): ChannelSpec {
  *
  * @param spellId the guid for the tracked Cast events
  */
-export function nextCastChannelSpec(spellId: number): ChannelSpec {
+function nextCastChannelSpec(spellId: number): ChannelSpec {
   const guids = [spellId];
   const handler: ChannelHandler = (
     event: AnyEvent,
@@ -430,7 +443,7 @@ export function nextCastChannelSpec(spellId: number): ChannelSpec {
 }
 
 /** Specification of special handling for a spell */
-export type ChannelSpec = {
+type ChannelSpec = {
   /** The handling function for this spell */
   handler: ChannelHandler;
   /** The guid or guids of the spells to handle */
@@ -441,7 +454,7 @@ export type ChannelSpec = {
  * A handling function for a channel. Given an applicable event, this function should appropriately
  * handle the event by updating the channel state as required. Keep in mind that this function will
  * be called *instead of* the default handling code for any events that trigger it. */
-export type ChannelHandler = (
+type ChannelHandler = (
   /** The event to handle */
   event: AnyEvent,
   /** All events in the encounter */
@@ -453,7 +466,7 @@ export type ChannelHandler = (
 ) => void;
 
 /** A state holder during channel handling, to be updated */
-export type ChannelState = {
+type ChannelState = {
   /** The current 'unresolved' channel. This represents a spell that has been started but isn't yet finished
    * and we're not sure when or if it will be finished. Depending on follow on events, it could be finished or cancelled.
    */

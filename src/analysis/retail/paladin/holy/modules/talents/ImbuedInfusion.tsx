@@ -13,6 +13,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import TalentSpellText from 'parser/ui/TalentSpellText';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 // its one point right now but I already had this so w/e
 const COOLDOWN_REDUCTION_MS_PER_POINT = 2000;
@@ -74,13 +75,12 @@ class ImbuedInfusion extends Analyzer {
       this.holyShocksCastsLost += timeWasted / holyShockCooldown;
 
       // mark the event on the timeline
-      event.meta = event.meta || {};
-      event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = (
+      addInefficientCastReason(
+        event,
         <Trans id="paladin.holy.modules.talents.imbuedInfusion.inefficientCast">
           Holy Shock was off cooldown when you consumed Infusion of Light. You should cast Holy
           Shock before Crusader Strike for maximum healing or damage.
-        </Trans>
+        </Trans>,
       );
     }
   }

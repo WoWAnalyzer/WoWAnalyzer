@@ -7,7 +7,7 @@ const cookieOptions = {
   path: '/',
   maxAge: 86400 * 365, // 1 year
 };
-export type LanguageState = string;
+type LanguageState = string;
 
 const initialState: LanguageState = cookies.get(COOKIE_NAME) || 'en';
 
@@ -23,5 +23,5 @@ const languageSlice = createSlice({
   },
 });
 
-export const { resetSlice, setLanguage } = languageSlice.actions;
+export const { setLanguage } = languageSlice.actions;
 export default languageSlice.reducer;

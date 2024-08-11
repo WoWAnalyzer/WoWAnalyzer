@@ -10,6 +10,7 @@ import { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
 import { Item } from 'parser/core/Events';
 import Spell from 'common/SPELLS/Spell';
+import getTalentFromEntry from 'common/TALENTS/getTalentFromEntry';
 
 const TRINKET_SLOTS = [GEAR_SLOTS.TRINKET1, GEAR_SLOTS.TRINKET2];
 
@@ -20,6 +21,11 @@ const styles = {
     marginRight: 2,
   },
 };
+
+interface ParseTalentEntry {
+  entryID: number;
+  rank: number;
+}
 
 export interface Parse {
   encounterId: number;
@@ -33,7 +39,7 @@ export interface Parse {
   persecondamount: number;
   start_time: number;
   character_name: string;
-  talents: Spell[];
+  talents: (Spell | ParseTalentEntry)[];
   gear: Item[];
   advanced: boolean;
 }
@@ -103,9 +109,10 @@ class CharacterParsesList extends PureComponent<CharacterParsesListProps> {
       detailIcons = (elem: Parse) => (
         <div className="col-md-4 flex wrapable">
           {elem.advanced &&
+            Array.isArray(elem.talents) &&
             elem.talents.slice(0, 8).map((talent) => (
-              <div key={talent.id} className="flex-sub">
-                <SpellIcon spell={talent} style={styles.icon} />
+              <div key={'id' in talent ? talent.id : talent.entryID} className="flex-sub">
+                <RetailTalentIcon {...talent} />
               </div>
             ))}
         </div>
@@ -160,6 +167,15 @@ class CharacterParsesList extends PureComponent<CharacterParsesListProps> {
       </ul>
     );
   }
+}
+
+function RetailTalentIcon(value: ParseTalentEntry | Spell): JSX.Element | null {
+  if ('id' in value) {
+    return <SpellIcon spell={value} />;
+  }
+
+  const spell = getTalentFromEntry({ id: value.entryID });
+  return spell ? <SpellIcon spell={spell} /> : null;
 }
 
 export default CharacterParsesList;

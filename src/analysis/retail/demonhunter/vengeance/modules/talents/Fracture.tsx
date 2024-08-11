@@ -59,7 +59,7 @@ export default class Fracture extends Analyzer {
       return;
     }
 
-    const hasT292Pc = this.selectedCombatant.has2PieceByTier(TIERS.T29);
+    const hasT292Pc = this.selectedCombatant.has2PieceByTier(TIERS.DF1);
 
     this.maximumFury =
       BASE_FURY +
@@ -132,7 +132,7 @@ export default class Fracture extends Analyzer {
       SPELLS.METAMORPHOSIS_TANK.id,
       event.timestamp,
     );
-    const hasT292Piece = this.selectedCombatant.has2PieceByTier(TIERS.T29);
+    const hasT292Piece = this.selectedCombatant.has2PieceByTier(TIERS.DF1);
 
     const hasExtraDetails = hasMetamorphosis || hasT292Piece;
     const extraDetails = (

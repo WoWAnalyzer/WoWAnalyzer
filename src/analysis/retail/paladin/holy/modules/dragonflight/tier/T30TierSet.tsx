@@ -43,8 +43,8 @@ class T30HpalTierSet extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.has2PieceByTier(TIERS.T30);
-    this.has4Piece = this.selectedCombatant.has4PieceByTier(TIERS.T30);
+    this.active = this.selectedCombatant.has2PieceByTier(TIERS.DF2);
+    this.has4Piece = this.selectedCombatant.has4PieceByTier(TIERS.DF2);
     if (this.selectedCombatant.hasTalent(TALENTS_PALADIN.HOLY_PRISM_TALENT)) {
       this.fourPcSpellId = TALENTS_PALADIN.HOLY_PRISM_TALENT.id;
       this.cdrPerCast = 1;

@@ -10,10 +10,11 @@ import Events, {
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Enemies from 'parser/shared/modules/Enemies';
 import { encodeTargetString } from 'parser/shared/modules/Enemies';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 const BUFFER_MS = 100;
 export const PANDEMIC_WINDOW = 0.3;
 
-export interface Dot {
+interface Dot {
   debuffId: number;
   castId: number;
   name: string;
@@ -77,9 +78,7 @@ class EarlyDotRefreshes extends Analyzer {
 
     this.casts[this.lastCast.ability.guid].badCasts += 1;
     this.casts[this.lastCast.ability.guid].wastedDuration += this.lastCastMinWaste;
-    event.meta = event.meta || {};
-    event.meta.isInefficientCast = true;
-    event.meta.inefficientCastReason = text;
+    addInefficientCastReason(event, text);
   }
 
   onRefreshDebuff(event: RefreshDebuffEvent) {
@@ -239,7 +238,7 @@ class EarlyDotRefreshes extends Analyzer {
   }
 }
 
-export type DotsById = { [key: number]: DotsByTarget };
-export type DotsByTarget = { [key: string]: number };
+type DotsById = { [key: number]: DotsByTarget };
+type DotsByTarget = { [key: string]: number };
 
 export default EarlyDotRefreshes;

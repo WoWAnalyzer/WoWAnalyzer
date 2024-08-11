@@ -1,9 +1,10 @@
-import CoreAbilities, { druidGcd } from 'analysis/retail/druid/shared/core/Abilities';
+import CoreAbilities from 'analysis/retail/druid/shared/core/Abilities';
 import SPELLS from 'common/SPELLS';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import { TIERS } from 'game/TIERS';
+import { fastMeleeGcd, hastedCooldown, normalGcd } from 'common/abilitiesConstants';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -37,7 +38,7 @@ class Abilities extends CoreAbilities {
         primaryCoefficient: 0.125, // damage per tick
       },
       {
-        spell: SPELLS.FEROCIOUS_BITE.id,
+        spell: [SPELLS.FEROCIOUS_BITE.id, SPELLS.RAVAGE_DOTC_CAT.id],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           static: 1000,
@@ -57,7 +58,7 @@ class Abilities extends CoreAbilities {
 
       {
         spell: SPELLS.THRASH_FERAL.id,
-        category: SPELL_CATEGORY.ROTATIONAL_AOE,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           static: 1000,
         },
@@ -115,7 +116,8 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 180,
+        cooldown:
+          180 - combatant.getTalentRank(TALENTS_DRUID.BERSERK_HEART_OF_THE_LION_TALENT) * 60,
         enabled: combatant.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT),
         castEfficiency: {
           suggestion: true,
@@ -130,9 +132,10 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 22,
       },
       {
-        spell: SPELLS.BERSERK.id,
+        spell: SPELLS.BERSERK_CAT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 180,
+        cooldown:
+          180 - combatant.getTalentRank(TALENTS_DRUID.BERSERK_HEART_OF_THE_LION_TALENT) * 60,
         enabled: !combatant.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT),
         castEfficiency: {
           suggestion: true,
@@ -150,9 +153,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: combatant.hasTalent(TALENTS_DRUID.ASHAMANES_GUIDANCE_TALENT) ? 60 : 120,
         enabled: combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT),
-        gcd: {
-          base: druidGcd,
-        },
+        gcd: normalGcd,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -165,9 +166,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS_DRUID.ADAPTIVE_SWARM_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 25,
-        gcd: {
-          base: druidGcd,
-        },
+        gcd: normalGcd,
         // Swarm sometimes best not to cast purely on CD in single target encounters
         castEfficiency: {
           suggestion: true,
@@ -193,7 +192,10 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_DRUID.FERAL_FRENZY_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         enabled: combatant.hasTalent(TALENTS_DRUID.FERAL_FRENZY_TALENT),
-        cooldown: combatant.has4PieceByTier(TIERS.T31) ? 30 : 45,
+        cooldown:
+          45 -
+          combatant.getTalentRank(TALENTS_DRUID.TEAR_DOWN_THE_MIGHTY_TALENT) * 5 -
+          (combatant.has4PieceByTier(TIERS.DF4) ? 15 : 0),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -208,9 +210,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.REGROWTH.id,
         category: SPELL_CATEGORY.UTILITY,
-        gcd: {
-          base: druidGcd,
-        },
+        gcd: fastMeleeGcd,
         timelineSortIndex: 30,
       },
       {
@@ -237,6 +237,14 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 40,
       },
       {
+        spell: SPELLS.FRENZIED_REGENERATION.id,
+        enabled: combatant.hasTalent(TALENTS_DRUID.FRENZIED_REGENERATION_TALENT),
+        category: SPELL_CATEGORY.DEFENSIVE,
+        cooldown: hastedCooldown(36),
+        gcd: normalGcd,
+        isDefensive: true,
+      },
+      {
         spell: [
           SPELLS.WILD_CHARGE_TALENT.id, // TODO rename ? Is this the caster form version?
           SPELLS.WILD_CHARGE_MOONKIN.id,
@@ -249,15 +257,6 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS_DRUID.WILD_CHARGE_TALENT),
         gcd: null,
         timelineSortIndex: 42,
-      },
-      {
-        spell: SPELLS.MOONKIN_FORM_AFFINITY.id, // with no affinity any more, is this correct?
-        category: SPELL_CATEGORY.UTILITY,
-        enabled: combatant.hasTalent(TALENTS_DRUID.MOONKIN_FORM_SHARED_TALENT),
-        gcd: {
-          base: 1500,
-        },
-        timelineSortIndex: 54,
       },
       {
         spell: SPELLS.MANGLE_BEAR.id,
@@ -276,7 +275,7 @@ class Abilities extends CoreAbilities {
         cooldown: (haste: number) => 6 / (1 + haste),
       },
       {
-        // Moonfire from caster, bear, and moonkin forms. See MOONFIRE_FERAL for cat
+        // Moonfire from caster and bear forms. See MOONFIRE_FERAL for cat
         spell: SPELLS.MOONFIRE_CAST.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: {
@@ -324,30 +323,12 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.FLAP.id,
-        category: SPELL_CATEGORY.UTILITY,
-        // only usable in Moonkin form so need Balance affinity, also need to learn from a tome
-        enabled: combatant.hasTalent(TALENTS_DRUID.MOONKIN_FORM_SHARED_TALENT),
-        gcd: {
-          static: 500,
-        },
-      },
-      {
         spell: SPELLS.REJUVENATION.id,
         category: SPELL_CATEGORY.UTILITY,
         enabled: combatant.hasTalent(TALENTS_DRUID.REJUVENATION_TALENT),
         gcd: {
           base: 1500,
         },
-      },
-      {
-        spell: SPELLS.SWIFTMEND.id,
-        category: SPELL_CATEGORY.UTILITY,
-        enabled: combatant.hasTalent(TALENTS_DRUID.SWIFTMEND_TALENT),
-        gcd: {
-          base: 1500,
-        },
-        cooldown: 25,
       },
       {
         spell: SPELLS.WILD_GROWTH.id,

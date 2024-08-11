@@ -6,13 +6,14 @@ import HIT_TYPES from 'game/HIT_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Events, { DamageEvent } from 'parser/core/Events';
-import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
+import { calculateEffectiveDamageFromCritDamageIncrease } from 'parser/core/EventCalculateLib';
 
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { SPELLWEAVERS_DOMINANCE_CRIT_MULTIPLIER } from 'analysis/retail/evoker/devastation/constants';
 import TalentSpellText from 'parser/ui/TalentSpellText';
+import { DEEP_BREATH_SPELLS } from 'analysis/retail/evoker/shared';
 
 class SpellweaversDominance extends Analyzer {
   SpellweaversDominanceDamage: number = 0;
@@ -25,7 +26,7 @@ class SpellweaversDominance extends Analyzer {
     SPELLS.PYRE,
     SPELLS.FIRESTORM_DAMAGE,
     SPELLS.SHATTERING_STAR,
-    SPELLS.DEEP_BREATH,
+    ...DEEP_BREATH_SPELLS,
     SPELLS.AZURE_STRIKE,
     SPELLS.UNRAVEL,
   ];
@@ -39,7 +40,7 @@ class SpellweaversDominance extends Analyzer {
 
   onHit(event: DamageEvent) {
     if (event.hitType === HIT_TYPES.CRIT) {
-      this.SpellweaversDominanceDamage += calculateEffectiveDamage(
+      this.SpellweaversDominanceDamage += calculateEffectiveDamageFromCritDamageIncrease(
         event,
         SPELLWEAVERS_DOMINANCE_CRIT_MULTIPLIER,
       );

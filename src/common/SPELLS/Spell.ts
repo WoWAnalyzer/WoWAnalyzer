@@ -49,6 +49,7 @@ export default interface Spell {
   essenceCostPerSecond?: number;
   //Classic
   lowRanks?: Array<number>;
+  enchantId?: number;
 }
 
 /**
@@ -60,10 +61,6 @@ export interface LegendarySpell extends Spell {
 
 export interface Enchant extends Spell {
   effectId: number;
-}
-
-export interface SpellList<T extends Spell = Spell> {
-  [key: string | number]: T;
 }
 
 export const isSpell = (x: unknown): x is Spell => {

@@ -7,7 +7,7 @@ import {
   isFromDreamBreathCallOfYsera,
   isFromHardcastEcho,
   isFromTAEcho,
-} from '../../normalizers/CastLinkNormalizer';
+} from '../../normalizers/EventLinking/helpers';
 import HotTrackerPrevoker from '../core/HotTrackerPrevoker';
 
 const debug = false;

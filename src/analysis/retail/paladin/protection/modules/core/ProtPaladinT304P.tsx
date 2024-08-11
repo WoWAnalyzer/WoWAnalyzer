@@ -67,7 +67,7 @@ class ProtPaladinT304P extends Analyzer {
   trackGrandCrusaderChanceCrits(event: DamageEvent) {
     if (
       event.ability.guid !== SPELLS.JUDGMENT_CAST_PROTECTION.id ||
-      !this.selectedCombatant.has4PieceByTier(TIERS.T30) ||
+      !this.selectedCombatant.has4PieceByTier(TIERS.DF2) ||
       event.hitType !== HIT_TYPES.CRIT
     ) {
       return;

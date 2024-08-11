@@ -6,6 +6,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { TALENTS_MONK } from 'common/TALENTS';
 import TalentSpellText from 'parser/ui/TalentSpellText';
+import SPECS from 'game/SPECS';
 
 class TeachingsOfTheMonestary extends Analyzer {
   numCasts: number = 0;
@@ -13,7 +14,9 @@ class TeachingsOfTheMonestary extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT);
+    this.active =
+      this.selectedCombatant.hasTalent(TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT) ||
+      this.selectedCombatant.specId === SPECS.MISTWEAVER_MONK.id;
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_KICK), this.onCast);
   }
 

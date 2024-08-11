@@ -68,7 +68,7 @@ class DrainSoul extends Analyzer {
   onFinished() {
     const allEnemies = this.enemies.getEntities();
     this.totalNumOfAdds = Object.values(allEnemies)
-      .filter((enemy) => enemy.type === 'NPC')
+      .filter((enemy) => enemy.subType === 'NPC')
       .reduce((count, enemy) => count + enemy._baseInfo.fights[0].instances, 0);
   }
 
@@ -78,7 +78,7 @@ class DrainSoul extends Analyzer {
     const dps = (damage / this.owner.fightDuration) * 1000;
     return (
       <Statistic
-        category={STATISTIC_CATEGORY.TALENTS}
+        category={STATISTIC_CATEGORY.GENERAL}
         size="flexible"
         tooltip={`${formatThousands(damage)} total damage`}
       >

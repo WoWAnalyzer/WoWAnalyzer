@@ -25,6 +25,7 @@ $available-cd-color: #696864;
   section {
     margin: initial;
   }
+
   & > section {
     & > .meta > header {
       font-size: 24px;
@@ -32,10 +33,19 @@ $available-cd-color: #696864;
       font-weight: bold;
       background-color: #333a;
     }
+
+    // remove top margin / border for an immediate subsection within a top-level section
+    & .subsection:first-child {
+      margin-top: 0;
+      & > header {
+        border-top: none;
+      }
+    }
   }
 
   .subsection {
     margin-top: 1rem;
+
     > header {
       font-size: 20px;
       font-weight: bold;
@@ -45,6 +55,7 @@ $available-cd-color: #696864;
 
     .subsection {
       margin-top: 0;
+
       > header {
         font-size: 16px;
         border-top: none;

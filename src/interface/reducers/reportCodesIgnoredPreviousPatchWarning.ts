@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export type ReportCodesIgnoredPreviousPatchWarning = string[];
+type ReportCodesIgnoredPreviousPatchWarning = string[];
 const initialState: ReportCodesIgnoredPreviousPatchWarning =
   [] as ReportCodesIgnoredPreviousPatchWarning;
 
@@ -18,6 +18,5 @@ const reportCodesIgnoredPreviousPatchWarningSlice = createSlice({
   },
 });
 
-export const { resetSlice, ignorePreviousPatchWarning } =
-  reportCodesIgnoredPreviousPatchWarningSlice.actions;
+export const { ignorePreviousPatchWarning } = reportCodesIgnoredPreviousPatchWarningSlice.actions;
 export default reportCodesIgnoredPreviousPatchWarningSlice.reducer;

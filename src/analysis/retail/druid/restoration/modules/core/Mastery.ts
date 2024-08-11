@@ -14,7 +14,6 @@ import {
   MASTERY_STACK_BUFF_IDS,
   TRIPLE_MASTERY_BENEFIT_IDS,
 } from 'analysis/retail/druid/restoration/constants';
-import { specMasteryCoefficient } from 'game/SPECS';
 
 const DEBUG = false;
 
@@ -90,8 +89,26 @@ class Mastery extends Analyzer {
     if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(spellId)) {
       const hotsOn = this.getHotsOn(target);
       const hasTripleMasteryBenefit = TRIPLE_MASTERY_BENEFIT_IDS.includes(spellId);
-      const numHotsOn = hotsOn.length * (hasTripleMasteryBenefit ? 3 : 1);
+      const numHotsOn = this.getHotCount(target) * (hasTripleMasteryBenefit ? 3 : 1);
       const decomposedHeal = this._decompHeal(healVal, numHotsOn);
+
+      if (DEBUG) {
+        let logPrefix = 'ALL-EFFECTIVE';
+        if (healVal.effective === 0) {
+          logPrefix = 'ALL-OVERHEAL';
+        } else if (healVal.overheal > 0) {
+          logPrefix = 'PARTIAL-EFFECTIVE';
+        }
+        console.log(
+          `${logPrefix} - ${event.ability.name}: ${healVal.effective.toFixed(
+            0,
+          )} (O: ${healVal.overheal.toFixed(
+            0,
+          )}) // Mastery: ${this.statTracker.currentMasteryPercentage.toFixed(
+            2,
+          )} Hots: ${numHotsOn} EffHots: ${decomposedHeal.effectiveStackBenefit}`,
+        );
+      }
 
       this.totalNoMasteryHealing += decomposedHeal.noMastery;
       this.druidSpellNoMasteryHealing += decomposedHeal.noMastery;
@@ -264,8 +281,9 @@ class Mastery extends Analyzer {
   _decompHeal(healVal: HealingValue, hotCount: number): DecomposedHeal {
     const masteryBonus = this.statTracker.currentMasteryPercentage;
     const healMasteryMult = 1 + hotCount * masteryBonus;
-
+    // the raw healing this spell would have done if it benefitted from zero mastery stacks
     const rawNoMasteryHealing = healVal.raw / healMasteryMult;
+    // effective healing spell would have done if it benefitted from zero mastery stacks
     const noMasteryHealing = Math.min(rawNoMasteryHealing, healVal.effective);
 
     // because Mastery is a bonus on top of the base healing, all overhealing is counted against Mastery
@@ -284,7 +302,7 @@ class Mastery extends Analyzer {
         this.statTracker.ratingNeededForNextPercentage(
           this.statTracker.currentMasteryRating,
           this.statTracker.statBaselineRatingPerPercent[STAT.MASTERY],
-          specMasteryCoefficient(this.selectedCombatant.spec),
+          this.selectedCombatant.spec?.masteryCoefficient,
         );
       return buffBonus / healMasteryMult;
     };
@@ -301,12 +319,12 @@ class Mastery extends Analyzer {
 /**
  * A mapping from spell guid to the MasteryAttribution for that spell
  */
-export type MasteryAttributionsBySpell = { [key: number]: MasterySpellAttribution };
+type MasteryAttributionsBySpell = { [key: number]: MasterySpellAttribution };
 
 /**
  * A HoT's mastery attribution.
  */
-export class MasterySpellAttribution {
+class MasterySpellAttribution {
   direct: number; // the direct healing from the HoT, should be same as entry in WCL. Includes benefit from own stack of Mastery.
   mastery: { [key: number]: number }; // a mapping from spell ID to how much this HoT boosted it via Mastery.
 
@@ -327,12 +345,12 @@ export class MasterySpellAttribution {
 /**
  * A mapping from buff guid to the attribution amount for that buff
  */
-export type MasteryAttributionsByBuff = { [key: number]: MasteryBuffAttribution };
+type MasteryAttributionsByBuff = { [key: number]: MasteryBuffAttribution };
 
 /**
  * A Buff's mastery attribution.
  */
-export class MasteryBuffAttribution {
+class MasteryBuffAttribution {
   attributable: number; // the amount of healing attributable to the buff
   buffAmount: number; // the amount of mastery rating the buff provides
 
@@ -345,11 +363,15 @@ export class MasteryBuffAttribution {
 /**
  * A instance of healing that has been decomposed into parts based on Mastery attribution
  */
-export interface DecomposedHeal {
-  noMastery: number; // the amount the heal would have done without being boosted by mastery
-  oneStack: number; // the amount of *effective* heal added per stack of mastery
-  effectiveStackBenefit: number; // the number of mastery stacks that we actually benefitted from once overheal is considered.
-  relativeBuffBenefit: (rating: number) => number; // a function that takes a mastery buff rating as input and outputs the healing attributable to that buff
+interface DecomposedHeal {
+  /** The amount of effective healing that would have been done before being boosted by mastery */
+  noMastery: number;
+  /** The amount of effective heal added per stack of mastery */
+  oneStack: number;
+  /** Number of mastery stacks that we actually benefitted from once overheal is considered */
+  effectiveStackBenefit: number;
+  /** Function from mastery buff rating to heal attributable to that buff */
+  relativeBuffBenefit: (rating: number) => number;
 }
 
 export default Mastery;

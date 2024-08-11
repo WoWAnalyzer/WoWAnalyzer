@@ -71,6 +71,46 @@ const spells = {
     name: 'Elemental Lariat - Empowered Frost',
     icon: 'inv_10_elementalcombinedfoozles_frost',
   },
+  ECHOING_TYRSTONE_HEAL: {
+    id: 417957,
+    name: 'Echoing Tyrstone',
+    icon: 'ability_paladin_lightofthemartyr',
+  },
+  ECHOING_TYRSTONE_BUFF: {
+    id: 417939,
+    name: 'Echoing Tyrstone',
+    icon: 'ability_paladin_lightofthemartyr',
+  },
+  ECHOING_TYRSTONE_HASTE_BUFF: {
+    id: 418080,
+    name: 'Echoing Tyrstone',
+    icon: 'achievement_dungeon_ulduarraid_titan_01',
+  },
+  NYMUES_UNRAVELING_SPINDLE: {
+    id: 422956,
+    name: "Nymue's Unraveling Spindle",
+    icon: 'inv_cloth_outdooremeralddream_d_01_buckle',
+  },
+  NYMUES_UNRAVELING_SPINDLE_DAMAGE: {
+    id: 427161,
+    name: "Nymue's Unraveling Spindle",
+    icon: 'inv_cloth_outdooremeralddream_d_01_buckle',
+  },
+  NYMUES_UNRAVELING_SPINDLE_BUFF: {
+    id: 427072,
+    name: "Nymue's Unraveling Spindle",
+    icon: 'inv_cloth_outdooremeralddream_d_01_buckle',
+  },
+  BELORRELOS_SOLAR_MAELSTROM: {
+    id: 422146,
+    name: 'Solar Maelstrom',
+    icon: 'inv_10_jewelcrafting_gem3primal_titan_cut_bronze',
+  },
+  HELLSTEEL_PLATING: {
+    id: 400986,
+    name: 'Hellsteel Plating',
+    icon: 'inv_10_blacksmithing_craftedoptional_reinforcedmetalplating_color01',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;

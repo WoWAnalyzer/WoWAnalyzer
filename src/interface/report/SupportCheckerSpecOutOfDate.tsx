@@ -19,7 +19,7 @@ interface Props {
 const SupportCheckerSpecOutOfDate = ({ config, ...others }: Props) => {
   const { i18n } = useLingui();
 
-  const gameVersion = VERSIONS[config.expansion];
+  const gameVersion = VERSIONS[config.branch];
   const specName = config.spec.specName ? i18n._(config.spec.specName) : null;
   const className = i18n._(config.spec.className);
   console.log('SupportCheckerSpecOutOfDate', { specName, className });
@@ -32,6 +32,7 @@ const SupportCheckerSpecOutOfDate = ({ config, ...others }: Props) => {
         </Trans>
       }
       config={config}
+      testId="spec-not-updated-for-patch"
       {...others}
     >
       <Trans id="interface.report.supportChecker.specNotSupportedDetails">

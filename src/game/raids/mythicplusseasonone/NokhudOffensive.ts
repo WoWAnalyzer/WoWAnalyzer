@@ -1,9 +1,9 @@
-import { Dungeon } from 'game/raids';
+import type { Boss } from 'game/raids';
 
 import Background from './backgrounds/NokhudOffensive.jpg';
 import Headshot from './headshots/NokhudOffensive.jpg';
 
-const NokhudOffensive: Dungeon = {
+const NokhudOffensive: Boss = {
   id: 12516,
   name: 'The Nokhud Offensive',
   background: Background,

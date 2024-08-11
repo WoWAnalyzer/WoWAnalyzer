@@ -18,25 +18,30 @@ class AverageHots extends Analyzer {
     const avgTotalHots = this.mastery.getAverageTotalMasteryStacks().toFixed(2);
     const avgDruidHots = this.mastery.getAverageDruidSpellMasteryStacks().toFixed(2);
 
+    console.log(`Total Healing: ${this.mastery.totalNoMasteryHealing}`);
+    console.log(`Total Mastery Effected Healing: ${this.mastery.druidSpellNoMasteryHealing}`);
+
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(11)}
         size="flexible"
         tooltip={
           <>
-            This is the average number of mastery stacks your heals benefitted from, weighted by
-            healing done. It can help show how valuable mastery was to you during the encounter.
-            <br />
-            <br />
-            This number should not be read as a measure of performance but rather of talent choices
-            and healing style. Doing lots of tank healing will increase this number, as will
-            speccing Talents that spread extra HoTs around like Cultivation and Spring Blossoms. On
-            the other hand, playing in larger groups will tend to reduce average stacks.
-            <br />
-            <br />
-            This number includes all your healing, even heals that don't benefit from mastery (like
-            most trinkets). Your average mastery stacks counting only heals that benefit from
-            mastery is <strong>{avgDruidHots}</strong>.
+            <p>
+              This is the average effective number of mastery stacks your heals benefitted from,
+              weighted by healing done.
+            </p>
+            <p>
+              This number should not be read as a performance metric but rather a function of talent
+              choices and healing style. Talents that spread extra HoTs like Cultivation or Spring
+              Blossoms will increase this number, while playing in larger groups will tend to reduce
+              this number.
+            </p>
+            <p>
+              This number includes all your healing, even heals that don't benefit from mastery
+              (like Trinkets, potions, Renewal, etc..) Your average mastery stacks counting only
+              heals that benefit from mastery is <strong>{avgDruidHots}</strong>.
+            </p>
           </>
         }
       >

@@ -8,6 +8,7 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 class LegionStrike extends Analyzer {
@@ -79,7 +80,8 @@ class LegionStrike extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.CORE(5)}
+        category={STATISTIC_CATEGORY.THEORYCRAFT}
+        position={STATISTIC_ORDER.UNIMPORTANT(1)}
         size="flexible"
         tooltip={`${formatThousands(this.damage)} damage`}
       >

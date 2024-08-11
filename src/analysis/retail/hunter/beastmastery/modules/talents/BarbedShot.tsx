@@ -20,7 +20,6 @@ import Events, {
 } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
-import Pets from 'parser/shared/modules/Pets';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Statistic from 'parser/ui/Statistic';
@@ -44,12 +43,10 @@ import SpellUsable from '../core/SpellUsable';
 class BarbedShot extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
-    pets: Pets,
     globalCooldown: GlobalCooldown,
   };
 
   protected spellUsable!: SpellUsable;
-  protected pets!: Pets;
   protected globalCooldown!: GlobalCooldown;
 
   barbedShotStacks: number[][] = [];
@@ -162,6 +159,13 @@ class BarbedShot extends Analyzer {
       return;
     }
     this.lastBarbedShotUpdate = event.timestamp;
+    //Bosses like Volcoross are shit and will trigger ApplyBuffEvents without the buff having expired, and it should have been RefreshBuffEvent instead
+    if (
+      event.type === EventType.ApplyBuff &&
+      event.timestamp < this.lastBarbedShotUpdate + this.frenzyBuffDuration
+    ) {
+      return;
+    }
     this.lastBarbedShotStack = currentStacks(event);
   }
 

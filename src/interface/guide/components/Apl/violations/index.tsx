@@ -16,7 +16,7 @@ import {
   minClaimCount,
   ViolationExplainer,
 } from './claims';
-import deduplicate, { DEDUP_WINDOW } from './deduplication';
+import deduplicate from './deduplication';
 import PassFailBar from 'interface/guide/components/PassFailBar';
 
 const EmbedContainer = styled.div`
@@ -202,9 +202,12 @@ export function AplViolationExplanations({
 
 export const AplViolationTimelineContainer = styled.div``;
 
-const ViolationProblemContainer = styled.div`
+const ViolationProblemContainer = styled('div')<{ orientation: 'row' | 'column' }>`
   display: grid;
-  grid-template-columns: auto max-content;
+  ${(props) =>
+    props.orientation === 'row'
+      ? 'grid-template-columns: auto max-content;'
+      : 'grid-template-rows: auto max-content;'}
   grid-gap: 1rem;
 `;
 
@@ -213,35 +216,44 @@ export default function ViolationProblemList<T = unknown>({
   claimData,
   apl,
   result,
-}: SelectedExplanation<T> & { result: CheckResult; apl: Apl }): JSX.Element | null {
+  orientation,
+  secondsShown = 12,
+}: SelectedExplanation<T> & {
+  result: CheckResult;
+  apl: Apl;
+  orientation?: 'row' | 'column';
+  secondsShown?: number;
+}): JSX.Element | null {
   const events = useEvents();
   const info = useInfo();
 
   const renderer = useMemo(
-    () => (props: ProblemRendererProps<Violation>) =>
-      (
-        <ViolationProblemContainer>
-          {DescribeViolation && (
-            <div>
-              <DescribeViolation violation={props.problem.data} result={result} apl={apl} />
-            </div>
-          )}
+    () => (props: ProblemRendererProps<Violation>) => (
+      <ViolationProblemContainer orientation={orientation ?? 'row'}>
+        {DescribeViolation && (
           <div>
-            <ViolationTimeline
-              violation={props.problem.data}
-              events={props.events}
-              results={result}
-              apl={apl}
-            />
+            <DescribeViolation violation={props.problem.data} result={result} apl={apl} />
           </div>
-        </ViolationProblemContainer>
-      ),
-    [DescribeViolation, result, apl],
+        )}
+        <div>
+          <ViolationTimeline
+            violation={props.problem.data}
+            events={props.events}
+            results={result}
+            apl={apl}
+            secondsShown={secondsShown}
+          />
+        </div>
+      </ViolationProblemContainer>
+    ),
+    [DescribeViolation, result, apl, orientation, secondsShown],
   );
 
   if (!info) {
     return null;
   }
+
+  const beforeRatio = 5 / 12;
 
   const problems = deduplicate(claimData.claims).map(
     (violation): Problem<Violation> => ({
@@ -250,8 +262,8 @@ export default function ViolationProblemList<T = unknown>({
         end: violation.actualCast.timestamp,
       },
       context: {
-        before: 5000,
-        after: DEDUP_WINDOW,
+        before: beforeRatio * secondsShown * 1000,
+        after: (1 - beforeRatio) * secondsShown * 1000,
       },
       data: violation,
     }),

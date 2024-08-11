@@ -2,8 +2,9 @@ import Spell from 'common/SPELLS/Spell';
 import { AnyEvent, CastEvent, DamageEvent, HealEvent } from 'parser/core/Events';
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
 import { ReactNode } from 'react';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
-export type FilteredDamageObserver = (event: CastEvent) => void;
+type FilteredDamageObserver = (event: CastEvent) => void;
 
 class FilteredDamageTracker extends DamageTracker {
   castObservers: FilteredDamageObserver[] = [];
@@ -42,9 +43,7 @@ class FilteredDamageTracker extends DamageTracker {
     this.subscribeToCastEvent((event) => {
       const spell = spells.find((s) => event.ability.guid === s.id);
       if (spell) {
-        event.meta = event.meta || {};
-        event.meta.isInefficientCast = true;
-        event.meta.inefficientCastReason = messageFunction(spell);
+        addInefficientCastReason(event, messageFunction(spell));
       }
     });
   }

@@ -1,5 +1,6 @@
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
+import CLASSIC_SPELLS from 'common/SPELLS/classic';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 const spells: number[] = [
@@ -9,6 +10,7 @@ const spells: number[] = [
    * into their abilities and so forth
    */
   SPELLS.MELEE.id, // Auto attack
+  SPELLS.AUTO_SHOT.id, // hunter auto attack (classic)
   SPELLS.CHI_BURST_HEAL.id, // this is the "tick" when you hit a player, the actual cast has a different id
   SPELLS.REFRESHING_JADE_WIND_HEAL.id, // this is the "tick" when you hit a player, the actual cast has a different id
   SPELLS.SHADOWY_APPARITION.id,
@@ -20,11 +22,14 @@ const spells: number[] = [
   SPELLS.MUTILATE_OFFHAND.id, // Mutilate off hand
   SPELLS.DIVINE_HYMN_HEAL.id, //The heal component of divine hymn
   SPELLS.CHARGE_2.id, // The damage component of charge
-  SPELLS.CLOUDBURST_TOTEM_RECALL.id, // Cloudburst reactivation
-  TALENTS_SHAMAN.SPIRITWALKERS_GRACE_TALENT.id,
+  SPELLS.BLOOD_ELF_ILLUSION.id, // Orb of the Sin'dorei
 
   //region Boss abilities
   SPELLS.RIONTHUS_DISINTEGRATE.id, // targeted player is shown as 'casting' this spell
+  //endregion
+
+  //region Items
+  SPELLS.RAGE_OF_FYRALATH_2.id, // second cast logged by Fyr'alath
   //endregion
 
   //region Consumables
@@ -55,6 +60,7 @@ const spells: number[] = [
 
   //region Mage
   SPELLS.SHIFTING_POWER_TICK.id,
+  SPELLS.GREATER_INVISIBILITY_BUFF.id,
   //endregion
 
   //region Demon Hunter
@@ -68,6 +74,8 @@ const spells: number[] = [
   SPELLS.SOUL_CARVER_OFF_HAND.id, // Soul Carver off hand damage ability
   SPELLS.THROW_GLAIVE_VENGEANCE_DAMAGE.id, // Vengeance Throw Glaive damage ability
   SPELLS.COLLECTIVE_ANGUISH_EYE_BEAM.id, // Vengeance Collective Anguish Eye Beam
+  SPELLS.THROW_GLAIVE_PROC_BLADE_DANCE.id, // extra throw from Amirdrassil 2pc
+  SPELLS.THROW_GLAIVE_PROC_FURIOUS_THROWS.id, // extra throw from Furious Throws talent
   //endregion
 
   //region druid
@@ -82,6 +90,16 @@ const spells: number[] = [
   SPELLS.RECLAMATION_CAST.id,
   //endregion
 
+  //region shaman
+  SPELLS.CLOUDBURST_TOTEM_RECALL.id, // Cloudburst reactivation
+  TALENTS_SHAMAN.SPIRITWALKERS_GRACE_TALENT.id,
+  SPELLS.FERAL_LUNGE_NOT_A_CAST.id, // duplicate event of regular Feral Lunge cast
+  //endregion
+
+  //region warlock
+  CLASSIC_SPELLS.RAIN_OF_FIRE_DAMAGE.id,
+  //endregion
+
   //region warrior
   SPELLS.RAMPAGE_1.id,
   SPELLS.RAMPAGE_2.id,
@@ -89,6 +107,14 @@ const spells: number[] = [
   SPELLS.RAMPAGE_4.id,
   SPELLS.HACK_AND_SLASH.id,
   SPELLS.WRATH_AND_FURY.id,
+  //endregion
+
+  //region classic hunter
+  CLASSIC_SPELLS.LOCK_AND_LOAD.id,
+  //endregion
+
+  //region classic warrior
+  CLASSIC_SPELLS.BLADESTORM_TRIGGERED_SPELL.id,
   //endregion
 
   //region trinket

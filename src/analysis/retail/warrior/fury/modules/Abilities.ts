@@ -4,7 +4,6 @@ import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import TALENTS from 'common/TALENTS/warrior';
-import { TIERS } from 'game/TIERS';
 
 //https://www.warcraftlogs.com/reports/9Vw8TvjHNfXgWyP7#fight=19&type=summary&source=21 2+ cold steel hot blood
 
@@ -34,7 +33,7 @@ class Abilities extends CoreAbilities {
           }
           return 9 / (1 + haste);
         },
-        charges: combatant.has2PieceByTier(TIERS.T28) ? 3 : 2,
+        charges: 2,
         gcd: {
           base: 1500,
         },
@@ -64,13 +63,13 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: talents.SPEAR_OF_BASTION_TALENT.id,
+        spell: talents.CHAMPIONS_SPEAR_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: 90,
         gcd: {
           base: 1500,
         },
-        enabled: false,
+        enabled: combatant.hasTalent(talents.CHAMPIONS_SPEAR_TALENT),
       },
       // Others
       {

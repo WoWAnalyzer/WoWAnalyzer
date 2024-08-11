@@ -21,7 +21,7 @@ class HarmoniousApparatus extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.HARMONIOUS_APPARATUS_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.VOICE_OF_HARMONY_TALENT);
   }
 
   get reductionForAllSpells() {
@@ -92,7 +92,7 @@ class HarmoniousApparatus extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={TALENTS.HARMONIOUS_APPARATUS_TALENT}>
+        <BoringSpellValueText spell={TALENTS.VOICE_OF_HARMONY_TALENT}>
           {Math.ceil(totalHealingSpellReduction / 1000)}s{' '}
           <small>Healing Spell Cooldown Reduction</small>
         </BoringSpellValueText>

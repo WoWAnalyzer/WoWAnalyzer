@@ -25,13 +25,19 @@ class ArtOfWarProbability extends Analyzer {
     this.active = this.chance > 0;
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MELEE), this.castCounter);
+    if (this.selectedCombatant.hasTalent(TALENTS.CRUSADING_STRIKES_TALENT)) {
+      this.addEventListener(
+        Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CRUSADING_STRIKES),
+        this.castCounter,
+      );
+    }
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BLADE_OF_WRATH_PROC),
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ART_OF_WAR),
       this.gotAProc,
     );
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.BLADE_OF_WRATH_PROC),
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.ART_OF_WAR),
       this.gotAProc,
     );
   }

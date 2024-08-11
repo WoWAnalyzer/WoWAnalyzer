@@ -27,11 +27,11 @@ class AoWProcTracker extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BLADE_OF_WRATH_PROC),
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ART_OF_WAR),
       this.onApplyBuff,
     );
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.BLADE_OF_WRATH_PROC),
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.ART_OF_WAR),
       this.onRefreshBuff,
     );
     this.addEventListener(

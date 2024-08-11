@@ -23,7 +23,7 @@ const useParser = (config: Config) => {
     }
   }, [config]);
 
-  return parserClass;
+  return config.parser ? parserClass : undefined;
 };
 
 export default useParser;

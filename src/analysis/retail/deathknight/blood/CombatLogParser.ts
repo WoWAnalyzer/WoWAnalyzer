@@ -1,5 +1,4 @@
 import {
-  RuneTracker,
   RuneDetails,
   RuneOfTheFallenCrusader,
   RuneOfHysteria,
@@ -16,7 +15,6 @@ import BlooddrinkerTicks from './modules/features/BlooddrinkerTicks';
 import BloodPlagueUptime from './modules/features/BloodPlagueUptime';
 import BoneShield from './modules/features/BoneShield';
 import BoneShieldTimesByStacks from './modules/features/BoneShieldTimesByStacks';
-import Checklist from './modules/features/checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import CrimsonScourge from './modules/features/CrimsonScourge';
 import DancingRuneWeapon from './modules/features/DancingRuneWeapon';
@@ -45,6 +43,10 @@ import RelishInBlood from './modules/talents/RelishInBlood';
 import Tombstone from './modules/talents/Tombstone';
 import Voracious from './modules/talents/Voracious';
 import WillOfTheNecropolis from './modules/talents/WillOfTheNecropolis';
+import RuneTracker from './modules/core/RuneTracker';
+import ResourceOrderNormalizer from './modules/core/ResourceOrderNormalizer';
+import BoneShieldOrderNormalizer from './modules/core/BoneShieldOrderNormalizer';
+import AplCheck from './modules/features/AplCheck';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -63,7 +65,6 @@ class CombatLogParser extends CoreCombatLogParser {
     dancingRuneWeapon: DancingRuneWeapon,
     initialMarrowrendCast: InitialMarrowrendCast,
     blooddrinkerTicks: BlooddrinkerTicks,
-    checklist: Checklist,
     deathStrikeTiming: DeathStrikeTiming,
     marrowrendUsage: MarrowrendUsage,
     boneShield: BoneShield,
@@ -103,10 +104,13 @@ class CombatLogParser extends CoreCombatLogParser {
     // guide stuff
     deathStrike: DeathStrike,
     bloodShield: BloodShield,
+    aplCheck: AplCheck,
 
     // normalizers
     deathStrikeNormalizer: DeathStrikeLinkNormalizer,
     bloodShieldNormalizer: BloodShieldNormalizer,
+    resourceOrderNormalizer: ResourceOrderNormalizer,
+    boneShieldOrderNormalizer: BoneShieldOrderNormalizer,
   };
 
   static guide = BloodGuide;

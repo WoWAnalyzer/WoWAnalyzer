@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
-import CoreAbilities from 'parser/core/modules/Abilities';
+import CoreAbilities, { AbilityRange } from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
@@ -15,14 +15,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: TALENTS.ICEBOUND_FORTITUDE_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.ICEBOUND_FORTITUDE_TALENT),
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: combatant.hasTalent(TALENTS.ACCLIMATION_TALENT) ? 120 : 180,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.5,
-          extraSuggestion:
-            'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake, to take the edge of big attacks, or heal up quickly after a large hit.',
-          importance: ISSUE_IMPORTANCE.MINOR,
-        },
+        cooldown: 120,
         timelineSortIndex: 10,
       },
       {
@@ -31,28 +24,13 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.VAMPIRIC_BLOOD_TALENT),
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 90,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.5,
-          extraSuggestion:
-            'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake, to take the edge of big attacks, or heal up quickly after a large hit.',
-          importance: ISSUE_IMPORTANCE.MINOR,
-        },
         timelineSortIndex: 10,
       },
       {
-        spell: TALENTS.ANTI_MAGIC_SHELL_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.ANTI_MAGIC_SHELL_TALENT),
-        buffSpellId: TALENTS.ANTI_MAGIC_SHELL_TALENT.id,
+        spell: SPELLS.ANTI_MAGIC_SHELL.id,
+        buffSpellId: SPELLS.ANTI_MAGIC_SHELL.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: combatant.hasTalent(TALENTS.ANTI_MAGIC_BARRIER_TALENT) ? 40 : 60,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.5,
-          extraSuggestion:
-            'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake, to take the edge of big attacks, or heal up quickly after a large hit.',
-          importance: ISSUE_IMPORTANCE.MINOR,
-        },
         timelineSortIndex: 10,
       },
       {
@@ -63,13 +41,6 @@ class Abilities extends CoreAbilities {
         cooldown: 120,
         gcd: {
           base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.5,
-          extraSuggestion:
-            'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake, to take the edge of big attacks, or heal up quickly after a large hit.',
-          importance: ISSUE_IMPORTANCE.MINOR,
         },
         isDefensive: true,
       },
@@ -115,7 +86,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.CONSUMPTION_TALENT.id,
         category: SPELL_CATEGORY.SEMI_DEFENSIVE,
         enabled: combatant.hasTalent(TALENTS.CONSUMPTION_TALENT),
-        cooldown: 45,
+        cooldown: 30,
         gcd: {
           base: 1500,
         },
@@ -203,20 +174,6 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 9,
       },
       {
-        spell: TALENTS.EMPOWER_RUNE_WEAPON_SHARED_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        //buff spell id later?
-        enabled: combatant.hasTalent(TALENTS.EMPOWER_RUNE_WEAPON_SHARED_TALENT),
-        gcd: null,
-        cooldown: 120,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-          extraSuggestion: 'Be mindful of the haste/runic power increase and make use of it.',
-        },
-        timelineSortIndex: 9,
-      },
-      {
         spell: TALENTS.BLOODDRINKER_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 30,
@@ -239,6 +196,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         timelineSortIndex: 7,
+        range: AbilityRange.Melee,
       },
       {
         spell: TALENTS.DEATH_STRIKE_TALENT.id,
@@ -247,33 +205,17 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         timelineSortIndex: 1,
+        range: AbilityRange.Melee,
       },
       {
-        //Check if there is a time to ever use this
-        spell: TALENTS.DEATHS_CARESS_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.DEATHS_CARESS_TALENT),
+        spell: SPELLS.DEATHS_CARESS.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
         timelineSortIndex: 7,
+        range: 30,
       },
-      {
-        //should this be used without procs?
-        spell: SPELLS.DEATH_AND_DECAY.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS.RAPID_DECOMPOSITION_TALENT),
-        cooldown: 15,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.8, //reduced because of proc resets
-        },
-        timelineSortIndex: 5,
-      },
-      //do not use cast efficiency for DnD without Rapid Decomposition.
       {
         spell: SPELLS.DEATH_AND_DECAY.id,
         category: SPELL_CATEGORY.ROTATIONAL,
@@ -281,6 +223,12 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         cooldown: 15,
+        castEfficiency: combatant.hasTalent(TALENTS.RAPID_DECOMPOSITION_TALENT)
+          ? {
+              suggestion: true,
+              recommendedEfficiency: 0.8, //reduced because of proc resets
+            }
+          : undefined,
         charges: combatant.hasTalent(TALENTS.DEATHS_ECHO_TALENT) ? 2 : 1,
         timelineSortIndex: 5,
       },
@@ -292,6 +240,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         timelineSortIndex: 3,
+        range: AbilityRange.Melee,
       },
       {
         spell: TALENTS.MARROWREND_TALENT.id,
@@ -302,6 +251,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         timelineSortIndex: 2,
+        range: AbilityRange.Melee,
       },
       {
         spell: TALENTS.RAISE_DEAD_SHARED_TALENT.id,
@@ -342,7 +292,7 @@ class Abilities extends CoreAbilities {
 
       {
         spell: TALENTS.BONESTORM_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL_AOE,
+        category: SPELL_CATEGORY.COOLDOWNS,
         enabled: combatant.hasTalent(TALENTS.BONESTORM_TALENT),
         cooldown: 60,
         gcd: {
@@ -358,8 +308,7 @@ class Abilities extends CoreAbilities {
         cooldown: 15,
       },
       {
-        spell: TALENTS.CHAINS_OF_ICE_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.CHAINS_OF_ICE_TALENT),
+        spell: SPELLS.CHAINS_OF_ICE.id,
         category: SPELL_CATEGORY.UTILITY,
       },
       {

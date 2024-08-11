@@ -8,6 +8,11 @@ import Spell, { Enchant } from './Spell';
 
 const spells = {
   // Blood:
+  DEATHS_CARESS: {
+    id: 195292,
+    name: "Death's Caress",
+    icon: 'ability_deathknight_deathscaress.jpg',
+  },
 
   //Summons
   //Bloodworm summon spell by the Bloodworms talent
@@ -93,6 +98,18 @@ const spells = {
     id: 317614,
     name: 'Relish in Blood',
     icon: 'ability_deathknight_roilingblood',
+  },
+  COAGULOPATHY_BUFF: {
+    id: 391477,
+    name: 'Coagulopathy',
+    icon: 'ability_skeer_bloodletting',
+  },
+
+  // Other
+  HEARTBREAKER_ENERGIZE: {
+    id: 210738,
+    name: 'Heartbreaker',
+    icon: 'spell_deathknight_deathstrike',
   },
 
   // Frost:
@@ -384,6 +401,11 @@ const spells = {
   },
 
   // Shared:
+  CHAINS_OF_ICE: {
+    id: 45524,
+    name: 'Chains of Ice',
+    icon: 'spell_frost_chainsofice',
+  },
   RUNEFORGING: {
     id: 53428,
     name: 'Runeforging',
@@ -424,6 +446,11 @@ const spells = {
     icon: 'ability_deathknight_runicimpowerment',
   },
 
+  ANTI_MAGIC_SHELL: {
+    id: 48707,
+    name: 'Anti-Magic Shell',
+    icon: 'spell_shadow_antimagicshell.jpg',
+  },
   ANTI_MAGIC_ZONE_TALENT_BUFF: {
     id: 145629,
     name: 'Anti-Magic Zone',
@@ -452,6 +479,8 @@ const spells = {
     id: 43265,
     name: 'Death and Decay',
     icon: 'spell_shadow_deathanddecay',
+    runesCost: 1,
+    runicPowerCost: -10,
   },
 
   DEATH_AND_DECAY_BUFF: {
@@ -500,12 +529,6 @@ const spells = {
     id: 61999,
     name: 'Raise Ally',
     icon: 'spell_shadow_deadofnight',
-  },
-
-  RAISE_DEAD_BLOOD_FROST: {
-    id: 46585,
-    name: 'Raise Dead',
-    icon: 'inv_pet_ghoul',
   },
 
   DEATH_COIL: {

@@ -37,16 +37,30 @@ import SPECS from 'game/SPECS';
     },
   };
 */
+const avatars = import.meta.glob(
+  [
+    './interface/images/avatars/*.png',
+    './interface/images/avatars/*.jpg',
+    './interface/images/avatars/*.jpeg',
+  ],
+  { eager: true },
+);
 
 function avatar(filename: string): string {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const avatar = require(`interface/images/avatars/${filename}`);
+  const avatar = avatars[`./interface/images/avatars/${filename}`];
 
   // this branch makes it work both in tests and in the browser
   if (typeof avatar === 'string') {
     return avatar;
-  } else {
+  } else if (
+    avatar &&
+    typeof avatar === 'object' &&
+    'default' in avatar &&
+    typeof avatar.default === 'string'
+  ) {
     return avatar.default;
+  } else {
+    throw new Error(`./interface/images/avatars/${filename} is an unsupported file type`);
   }
 }
 
@@ -1808,6 +1822,13 @@ export const Trevor: Contributor = {
   avatar: avatar('Trevor-avatar.png'),
 };
 
+export const Harrek: Contributor = {
+  nickname: 'Harrek',
+  discord: 'harrek',
+  github: 'Harreks',
+  avatar: avatar('Harrek-avatar.png'),
+};
+
 export const Jeff: Contributor = {
   nickname: 'Jeff',
   discord: 'muhnameizjeff#8143',
@@ -1969,7 +1990,7 @@ export const ToppleTheNun: Contributor = {
   nickname: 'ToppleTheNun',
   github: 'ToppleTheNun',
   avatar: avatar('ToppleTheNun-avatar.jpg'),
-  discord: 'ToppleTheNun#6969',
+  discord: 'ToppleTheNun',
   mains: [
     {
       name: 'Toppledh',
@@ -2333,4 +2354,92 @@ export const Pants: Contributor = {
   nickname: 'Pants',
   github: 'Smetz42',
   discord: 'pants_of_silver',
+};
+
+export const dub: Contributor = {
+  nickname: 'wes/dub',
+  github: 'wtodom',
+  discord: 'its_me_dub',
+};
+
+export const Earosselot: Contributor = {
+  nickname: 'earosselot',
+  github: 'earosselot',
+  avatar: avatar('raistlinn-avatar.png'),
+  mains: [
+    {
+      name: 'Raistlinn',
+      spec: SPECS.FROST_MAGE,
+      link: 'https://www.warcraftlogs.com/character/id/77062152',
+    },
+  ],
+};
+
+export const Zyer: Contributor = {
+  nickname: 'Zyer',
+  github: 'ZyerTCoder',
+  discord: 'zyer',
+  mains: [
+    {
+      name: 'Yumiblood',
+      spec: SPECS.DEMONOLOGY_WARLOCK,
+      link: 'https://www.warcraftlogs.com/character/id/42737929',
+    },
+  ],
+};
+
+export const Humperella: Contributor = {
+  nickname: 'Humperella',
+  github: 'kevindqc',
+  discord: '.darkvirus.',
+  mains: [
+    {
+      name: 'Humperella',
+      spec: SPECS.RETRIBUTION_PALADIN,
+      link: 'https://worldofwarcraft.com/en-us/character/zuljin/Humperella',
+    },
+  ],
+};
+
+export const Saeldur: Contributor = {
+  nickname: 'Saeldur',
+  github: 'Saeldur',
+  discord: 'saeldur',
+};
+
+export const ZiayaKens: Contributor = {
+  nickname: 'Ziaya Kens',
+  github: 'JordanKlaers',
+  discord: 'EonWorm',
+  mains: [
+    {
+      name: 'EonWorm',
+      spec: SPECS.HOLY_PALADIN,
+      link: 'https://www.warcraftlogs.com/character/id/72594250',
+    },
+  ],
+};
+
+export const Lspinheiro: Contributor = {
+  nickname: 'Lspinheiro',
+  github: 'lspinheiro',
+  discord: 'lspinheiro',
+  mains: [
+    {
+      name: 'Gromlash',
+      spec: SPECS.RESTORATION_SHAMAN,
+      link: 'https://worldofwarcraft.blizzard.com/en-us/character/us/khazgoroth/gromlash',
+    },
+  ],
+};
+
+export const Bhahlou: Contributor = {
+  nickname: 'Bhahlou',
+  github: 'Bhahlou',
+  discord: 'Bhahlou',
+};
+
+export const Ethelis: Contributor = {
+  nickname: 'Ethelis',
+  github: 'ethelis',
 };

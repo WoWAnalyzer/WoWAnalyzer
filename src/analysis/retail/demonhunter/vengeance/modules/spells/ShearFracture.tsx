@@ -11,6 +11,7 @@ import {
   getGeneratingCast,
   getWastedSoulFragment,
 } from '../../normalizers/ShearFractureNormalizer';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 /*WCL: https://www.warcraftlogs.com/reports/Y7BWyCx3mHVZzPrk#fight=last&type=summary&view=events&pins=2%24Off%24%23244F4B%24casts%7Cauras%24-1%240.0.0.Any%240.0.0.Any%24true%240.0.0.Any%24true%24258920%7C204255%7C203981%7C263642
 Default spell is Shear (generates 1 soul). Fracture (generates 2 souls) talent replaces it.
@@ -64,9 +65,7 @@ export default class ShearFracture extends Analyzer {
 
     this.lastCast = generatingCast;
     this.badCasts += 1;
-    this.lastCast.meta = this.lastCast.meta || {};
-    this.lastCast.meta.isInefficientCast = true;
-    this.lastCast.meta.inefficientCastReason = 'Fracture cast that overcapped souls';
+    addInefficientCastReason(this.lastCast, 'Fracture cast that overcapped souls');
   }
 
   suggestions(when: When) {

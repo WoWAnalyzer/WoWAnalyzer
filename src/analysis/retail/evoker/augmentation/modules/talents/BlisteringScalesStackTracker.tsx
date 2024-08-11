@@ -39,6 +39,11 @@ export default class BlisteringScalesStackTracker extends Analyzer {
     ? 20
     : 15;
 
+  //Unused in this module but exists because this is a custom implementation of BuffStackTracker that is used to render a graph that relies on these values being present
+  static workaroundWeirdBuffEvents_experimental = false;
+  buffDuration = 0;
+  buffActive = false;
+
   constructor(options: Options) {
     super(options);
     this.addEventListener(
@@ -68,6 +73,11 @@ export default class BlisteringScalesStackTracker extends Analyzer {
   get trackedBuff() {
     const ctor = this.constructor as typeof BlisteringScalesStackTracker;
     return ctor.trackedBuff;
+  }
+
+  get workaroundWeirdBuffEvents_experimental() {
+    const ctor = this.constructor as typeof BlisteringScalesStackTracker;
+    return ctor.workaroundWeirdBuffEvents_experimental;
   }
 
   /** The player's buff stack amount at the current timestamp */

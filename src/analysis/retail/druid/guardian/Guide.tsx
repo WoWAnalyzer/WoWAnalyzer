@@ -18,10 +18,16 @@ import Explanation from 'interface/guide/components/Explanation';
 import { TooltipElement } from 'interface';
 import Timeline from 'interface/guide/components/MajorDefensives/Timeline';
 import AllCooldownUsagesList from 'interface/guide/components/MajorDefensives/AllCooldownUsagesList';
-import { MAJOR_DEFENSIVE_ANALYZERS } from 'analysis/retail/druid/guardian/modules/core/defensives/config';
 import { PerformanceStrong } from 'analysis/retail/priest/shadow/modules/guide/ExtraComponents';
 import { formatPercentage } from 'common/format';
 import ActiveTimeGraph from 'parser/ui/ActiveTimeGraph';
+import Barkskin from 'analysis/retail/druid/guardian/modules/spells/Barkskin';
+import Pulverize from 'analysis/retail/druid/guardian/modules/spells/Pulverize';
+import SurvivalInstincts from 'analysis/retail/druid/guardian/modules/spells/SurvivalInstincts';
+import RageOfTheSleeper from 'analysis/retail/druid/guardian/modules/spells/RageOfTheSleeper';
+import { GapHighlight } from 'parser/ui/CooldownBar';
+import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
+import { cdSpell } from 'analysis/retail/druid/guardian/constants';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -30,6 +36,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       <RageSection modules={modules} events={events} info={info} />
       <RotationSection modules={modules} events={events} info={info} />
       <MajorDefensivesSection />
+      <OffensiveCooldownsSection modules={modules} events={events} info={info} />
       <PreparationSection />
     </>
   );
@@ -106,12 +113,50 @@ function RotationSection({ modules, events, info }: GuideProps<typeof CombatLogP
       {modules.mangle.guideSubsection}
       {modules.thrash.guideSubsection}
       {modules.moonfire.guideSubsection}
+      {modules.swipe.guideSubsection}
+    </Section>
+  );
+}
+
+function OffensiveCooldownsSection({
+  modules,
+  info,
+}: GuideProps<typeof CombatLogParser>): JSX.Element | null {
+  return (
+    <Section title="Offensive Cooldowns">
+      <Explanation>
+        While your first priority should always be to stay alive, prompt and proper use of your
+        offensive cooldowns can increase your damage contribution.
+      </Explanation>
+      <SubSection>
+        <CastEfficiencyBar
+          spellId={cdSpell(info.combatant).id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+          useThresholds
+        />
+        {info.combatant.hasTalent(TALENTS_DRUID.RAGE_OF_THE_SLEEPER_TALENT) && (
+          <CastEfficiencyBar
+            spellId={TALENTS_DRUID.RAGE_OF_THE_SLEEPER_TALENT.id}
+            gapHighlightMode={GapHighlight.FullCooldown}
+            useThresholds
+          />
+        )}
+        {info.combatant.hasTalent(TALENTS_DRUID.LUNAR_BEAM_TALENT) && (
+          <CastEfficiencyBar
+            spellId={TALENTS_DRUID.LUNAR_BEAM_TALENT.id}
+            gapHighlightMode={GapHighlight.FullCooldown}
+            useThresholds
+          />
+        )}
+      </SubSection>
+      {modules.berserk.guideCastBreakdown}
+      {modules.rageOfTheSleeper.active && modules.rageOfTheSleeper.guideCastBreakdown}
     </Section>
   );
 }
 
 function MajorDefensivesSection(): JSX.Element | null {
-  const analyzers = useAnalyzers(MAJOR_DEFENSIVE_ANALYZERS);
+  const analyzers = useAnalyzers([Barkskin, RageOfTheSleeper, Pulverize, SurvivalInstincts]);
   return (
     <Section title="Major Defensives">
       <Explanation>

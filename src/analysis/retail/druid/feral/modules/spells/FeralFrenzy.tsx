@@ -11,9 +11,6 @@ import CooldownExpandable, {
   CooldownExpandableItem,
 } from 'interface/guide/components/CooldownExpandable';
 import { PassFailCheckmark, PerformanceMark } from 'interface/guide';
-import { TIERS } from 'game/TIERS';
-import { DRUID_T31_ID } from 'common/ITEMS/dragonflight';
-import ItemSetLink from 'interface/ItemSetLink';
 import EnergyTracker from 'analysis/retail/druid/feral/modules/core/energy/EnergyTracker';
 
 /**
@@ -35,7 +32,6 @@ export default class FeralFrenzy extends Analyzer {
   protected enemies!: Enemies;
 
   hasSwarm: boolean;
-  hasT31: boolean;
 
   /** Tracker for each Feral Frenzy cast */
   ffTrackers: FeralFrenzyCast[] = [];
@@ -45,7 +41,6 @@ export default class FeralFrenzy extends Analyzer {
 
     this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.FERAL_FRENZY_TALENT);
     this.hasSwarm = this.selectedCombatant.hasTalent(TALENTS_DRUID.ADAPTIVE_SWARM_TALENT);
-    this.hasT31 = this.selectedCombatant.has2PieceByTier(TIERS.T31);
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DRUID.FERAL_FRENZY_TALENT),
@@ -94,13 +89,6 @@ export default class FeralFrenzy extends Analyzer {
           . As it also gives 5 combo points, it's best used at low combo points in order not to
           waste them.
         </p>
-        {this.hasT31 && (
-          <p>
-            Because you have the <ItemSetLink id={DRUID_T31_ID}>Amirdrassil Tier Set</ItemSetLink>,
-            it's also important to pool energy before using Feral Frezy in order to maximize your
-            abilities used during <SpellLink spell={SPELLS.SMOLDERING_FRENZY} />.
-          </p>
-        )}
       </>
     );
 
@@ -123,19 +111,8 @@ export default class FeralFrenzy extends Analyzer {
             cpsPerf = QualitativePerformance.Ok;
           }
 
-          const percentMaxEnergyOnCast = cast.energyOnCast / this.energyTracker.maxResource;
-          let energyPerf = QualitativePerformance.Good;
-          if (percentMaxEnergyOnCast < 0.4) {
-            energyPerf = QualitativePerformance.Fail;
-          } else if (percentMaxEnergyOnCast < 0.7) {
-            energyPerf = QualitativePerformance.Ok;
-          }
-
           let overallPerf = QualitativePerformance.Good;
-          if (
-            (this.hasSwarm && !cast.swarmOnTarget) ||
-            (this.hasT31 && percentMaxEnergyOnCast < 0.4)
-          ) {
+          if (this.hasSwarm && !cast.swarmOnTarget) {
             overallPerf = QualitativePerformance.Ok;
           }
           if (cast.cpsOnCast > 2 || !cast.tfOnCast) {
@@ -156,16 +133,6 @@ export default class FeralFrenzy extends Analyzer {
             result: <PerformanceMark perf={cpsPerf} />,
             details: <>({cast.cpsOnCast} CPs)</>,
           });
-          this.hasT31 &&
-            checklistItems.push({
-              label: 'Energy on cast',
-              result: <PerformanceMark perf={energyPerf} />,
-              details: (
-                <>
-                  ({cast.energyOnCast} / {this.energyTracker.maxResource} energy)
-                </>
-              ),
-            });
           this.hasSwarm &&
             checklistItems.push({
               label: (

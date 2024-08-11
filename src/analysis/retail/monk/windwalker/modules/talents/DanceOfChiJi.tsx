@@ -1,14 +1,14 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import Analyzer, { Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
-import { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/EventFilter';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { TALENTS_MONK } from 'common/TALENTS';
+import { addEnhancedCastReason } from 'parser/core/EventMetaLib';
 
 const DAMAGE_MODIFIER = 1;
 const STORM_EARTH_AND_FIRE_CAST_BUFFER = 200;
@@ -19,7 +19,7 @@ class DANCE_OF_CHI_JI extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.DANCE_OF_CHI_JI_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.DANCE_OF_CHI_JI_WINDWALKER_TALENT);
     this.addEventListener(
       Events.damage
         .by(SELECTED_PLAYER | SELECTED_PLAYER_PET)
@@ -46,21 +46,11 @@ class DANCE_OF_CHI_JI extends Analyzer {
       )
     ) {
       this.buffedCast = true;
-      event.meta = event.meta || {};
-      event.meta.isEnhancedCast = true;
-      const reason = (
+      addEnhancedCastReason(
+        event,
         <>
           This cast was empowered by <SpellLink spell={SPELLS.DANCE_OF_CHI_JI_BUFF} />
-        </>
-      );
-      event.meta.enhancedCastReason = event.meta.enhancedCastReason ? (
-        <>
-          {event.meta.enhancedCastReason}
-          <br />
-          {reason}
-        </>
-      ) : (
-        reason
+        </>,
       );
     } else {
       // GCD is shorter than the duration SCK deals damage, and new SCK casts override any ongoing SCK cast, so this prevents a directly following from being marked as benefitting
@@ -79,7 +69,7 @@ class DANCE_OF_CHI_JI extends Analyzer {
         size="flexible"
         tooltip={<>Total damage increase: {formatNumber(this.damageGain)}</>}
       >
-        <BoringSpellValueText spell={TALENTS_MONK.DANCE_OF_CHI_JI_TALENT}>
+        <BoringSpellValueText spell={TALENTS_MONK.DANCE_OF_CHI_JI_WINDWALKER_TALENT}>
           <img src="/img/sword.png" alt="Damage" className="icon" /> {formatNumber(this.dps)} DPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damageGain))} % of

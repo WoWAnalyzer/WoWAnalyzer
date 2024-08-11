@@ -76,7 +76,7 @@ class EnvelopingMists extends Analyzer {
       >
         <BoringSpellValueText spell={TALENTS_MONK.ENVELOPING_MIST_TALENT}>
           <>
-            {formatNumber(this.healingIncrease)} <small>healing contributed by the buff</small>
+            {formatNumber(this.healingIncrease)} <small>healing from the buff</small>
           </>
         </BoringSpellValueText>
       </Statistic>

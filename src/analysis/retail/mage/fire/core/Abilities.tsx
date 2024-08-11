@@ -37,22 +37,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.FROSTBOLT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-        damageSpellIds: [SPELLS.FROSTBOLT_DAMAGE.id],
-      },
-      {
-        spell: SPELLS.ARCANE_EXPLOSION.id,
-        category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        gcd: {
-          base: 1500,
-        },
-        damageSpellIds: [SPELLS.ARCANE_EXPLOSION.id],
-      },
-      {
         spell: TALENTS.PYROBLAST_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
@@ -90,32 +74,17 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.FIRE_BLAST.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: combatant.hasTalent(TALENTS.FIRE_BLAST_TALENT) ? null : { base: 1500 },
+        enabled: combatant.hasTalent(TALENTS.FIRE_BLAST_TALENT),
         cooldown: (haste: any) =>
           combatant.hasTalent(TALENTS.FIERY_RUSH_TALENT) &&
           combatant.hasBuff(TALENTS.COMBUSTION_TALENT.id)
-            ? (combatant.hasTalent(TALENTS.FLAME_ON_TALENT) ? 10 : 12) / 1.5 / (1 + haste)
-            : (combatant.hasTalent(TALENTS.FLAME_ON_TALENT) ? 10 : 12) / (1 + haste),
-        charges: 1 + combatant.getTalentRank(TALENTS.FLAME_ON_TALENT),
+            ? 10 / 1.5 / (1 + haste)
+            : 10 / (1 + haste),
+        charges: combatant.hasTalent(TALENTS.FLAME_ON_TALENT) ? 3 : 1,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
-      },
-      {
-        spell: SPELLS.FLAMESTRIKE.id,
-        category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: TALENTS.LIVING_BOMB_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        gcd: {
-          base: 1500,
-        },
-        cooldown: (haste: any) => 12 / (1 + haste),
-        enabled: combatant.hasTalent(TALENTS.LIVING_BOMB_TALENT),
       },
 
       // Cooldowns

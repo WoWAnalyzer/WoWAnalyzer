@@ -1,6 +1,5 @@
 import {
   TwistOfFate,
-  Mindgames,
   ShadowfiendNormalizer,
   TwinsOfTheSunPriestess,
 } from 'analysis/retail/priest/shared';
@@ -12,13 +11,12 @@ import CancelledCasts from './modules/features/CancelledCasts';
 import Guide from 'analysis/retail/priest/shadow/Guide';
 
 import Abilities from './modules/Abilities';
-import Checklist from './modules/checklist/Module';
 import AbilityTracker from './modules/core/AbilityTracker';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Buffs from './modules/features/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import ShadowyInsight from './modules/spells/ShadowyInsight';
+import ShadowyInsight from './modules/talents/ShadowyInsight';
 import DotUptimes from './modules/features/DotUptimes';
 import Voidform from './modules/spells/Voidform';
 import Voidbolt from './modules/spells/Voidbolt';
@@ -32,7 +30,6 @@ import ShadowWordDeath from './modules/spells/ShadowWordDeath';
 import ShadowWordPain from './modules/spells/ShadowWordPain';
 import VampiricEmbrace from './modules/talents/VampiricEmbrace';
 import VampiricTouch from './modules/spells/VampiricTouch';
-import AuspiciousSpirits from './modules/talents/AuspiciousSpirits';
 import DeathAndMadness from './modules/talents/DeathAndMadness';
 import ShadowCrash from './modules/talents/ShadowCrash';
 import InsidiousIre from './modules/talents/InsidiousIre';
@@ -48,78 +45,92 @@ import IdolOfCthun from './modules/talents/IdolOfCthun';
 import IdolOfYoggSaron from './modules/talents/IdolOfYoggSaron';
 import IdolOfNzoth from './modules/talents/IdolOfNzoth';
 import IdolOfYshaarj from './modules/talents/IdolOfYshaarj';
-import Manipulation from './modules/talents/Manipulation';
 import InsanityGraph from './modules/guide/InsanityGraph';
-
-import Tier29FourSet from './modules/tier/Tier29ShadowPriest4Set';
-import Tier31FourSet from './modules/tier/Tier31ShadowPriest4Set';
-import Tier31FourSetNormalizer from './modules/tier/Tier31ShadowPriest4SetNormalizer';
+import ShadowyApparitions from './modules/spells/ShadowyApparitions';
+import AuspiciousSpirits from './modules/talents/AuspiciousSpirits';
+import PhantasmalPathogen from './modules/talents/PhantasmalPathogen';
+import TormentedSpirits from './modules/talents/TormentedSpirits';
+import PsychicLink from './modules/talents/PsychicLink';
+import VoidTouched from './modules/talents/VoidTouched';
+import MindsEye from './modules/talents/MindsEye';
+import DistortedReality from './modules/talents/DistortedReality';
+import MaddeningTouch from './modules/talents/Maddening Touch';
+import MindMelt from './modules/talents/MindMelt';
+import Mastermind from './modules/talents/Mastermind';
+import DarkAscension from './modules/talents/DarkAscension';
+import Shadowform from './modules/spells/Shadowform';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     // core
+    abilities: Abilities,
     abilityTracker: AbilityTracker,
-    cooldownThroughputTracker: CooldownThroughputTracker,
-    channeling: Channeling,
     globalCooldown: GlobalCooldown,
+
+    // features:
+    alwaysBeCasting: AlwaysBeCasting,
+    buffs: Buffs,
     cancelledCasts: CancelledCasts,
+    cooldownThroughputTracker: CooldownThroughputTracker,
+    dotUptimes: DotUptimes,
 
     // resources:
     insanityTracker: InsanityTracker,
     insanityUsage: InsanityUsage,
     insanityGraph: InsanityGraph,
 
-    // features:
-    abilities: Abilities,
-    buffs: Buffs,
-    alwaysBeCasting: AlwaysBeCasting,
-    checklist: Checklist,
-    dotUptimes: DotUptimes,
-    shadowyInsight: ShadowyInsight,
-    voidform: Voidform,
-    voidbolt: Voidbolt,
-    twinsOfTheSunPriestess: TwinsOfTheSunPriestess,
-
     // spells:
+    devouringPlague: DevouringPlague,
     shadowfiend: Shadowfiend,
-    vampiricTouch: VampiricTouch,
+    shadowform: Shadowform,
     shadowWordDeath: ShadowWordDeath,
     shadowWordPain: ShadowWordPain,
-    devouringPlague: DevouringPlague,
-    dispersion: Dispersion,
-    vampiricEmbrace: VampiricEmbrace,
-    darkEvangelism: DarkEvangelism,
+    shadowyApparitions: ShadowyApparitions,
+    vampiricTouch: VampiricTouch,
+    voidbolt: Voidbolt,
+    voidform: Voidform,
 
-    // talents:
+    // Spec talents:
     ancientMadness: AncientMadness,
-    deathAndMadness: DeathAndMadness,
-    unfurlingDarkness: UnfurlingDarkness,
-    twistOfFate: TwistOfFate,
-    voidTorrent: VoidTorrent,
-    mindFlayInsanity: MindFlayInsanity,
-    shadowCrash: ShadowCrash,
-    inescapableTorment: InescapableTorment,
     auspiciousSpirits: AuspiciousSpirits,
-    mindDevourer: MindDevourer,
-    mindSpikeInsanity: MindSpikeInsanity,
+    darkAscension: DarkAscension,
+    darkEvangelism: DarkEvangelism,
     deathspeaker: Deathspeaker,
+    dispersion: Dispersion,
+    distortedReality: DistortedReality,
     idolOfCthun: IdolOfCthun,
-    idolOfYoggSaron: IdolOfYoggSaron,
     idolOfNzoth: IdolOfNzoth,
+    idolOfYoggSaron: IdolOfYoggSaron,
     idolOfYshaarj: IdolOfYshaarj,
+    inescapableTorment: InescapableTorment,
     insidiousIre: InsidiousIre,
-    manipulation: Manipulation,
+    maddeningTouch: MaddeningTouch,
+    mastermind: Mastermind,
+    mindDevourer: MindDevourer,
+    mindFlayInsanity: MindFlayInsanity,
+    mindMelt: MindMelt,
+    mindsEye: MindsEye,
+    mindSpikeInsanity: MindSpikeInsanity,
+    phantasmalPathogen: PhantasmalPathogen,
+    psychicLink: PsychicLink,
+    shadowCrash: ShadowCrash,
+    shadowyInsight: ShadowyInsight,
+    tormentedSpirits: TormentedSpirits,
+    unfurlingDarkness: UnfurlingDarkness,
+    voidTorrent: VoidTorrent,
+    voidTouched: VoidTouched,
+
+    // Class Talents:
+    deathAndMadness: DeathAndMadness,
+    twinsOfTheSunPriestess: TwinsOfTheSunPriestess,
+    twistOfFate: TwistOfFate,
+    vampiricEmbrace: VampiricEmbrace,
 
     // normalizers:
+    channeling: Channeling,
     shadowfiendNormalizer: ShadowfiendNormalizer,
 
-    // covenants:
-    mindgames: Mindgames,
-
     //Tier
-    tier29FourSet: Tier29FourSet,
-    tier31FourSet: Tier31FourSet,
-    tier31FourSetNormalizer: Tier31FourSetNormalizer,
 
     arcaneTorrent: [ArcaneTorrent, { active: false }] as const,
   };

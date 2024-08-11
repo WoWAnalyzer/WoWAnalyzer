@@ -31,7 +31,7 @@ class T31DevaTier extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.has2PieceByTier(TIERS.T31);
+    this.active = this.selectedCombatant.has2PieceByTier(TIERS.DF3);
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), (event) => {
       this.onHit(event);

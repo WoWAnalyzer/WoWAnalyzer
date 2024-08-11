@@ -34,7 +34,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DESPERATE_PRAYER.id,
         buffSpellId: SPELLS.DESPERATE_PRAYER.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 90, // todo: Account for Angel's Mercy if possible
+        cooldown: 90 - (combatant.hasTalent(TALENTS.ANGELS_MERCY_TALENT) ? 20 : 0),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.35,

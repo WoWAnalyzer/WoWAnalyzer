@@ -9,7 +9,7 @@ import {
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import {
-  ELYSIAN_DECREE_SPELL_IDS,
+  SIGIL_OF_SPITE_SPELL_IDS,
   SIGIL_OF_CHAINS_SPELL_IDS,
   SIGIL_OF_FLAME_SPELL_IDS,
   SIGIL_OF_MISERY_SPELL_IDS,
@@ -47,9 +47,9 @@ const EVENT_LINKS: EventLink[] = [
   },
   {
     linkRelation: CYCLE_OF_BINDING_ELYSIAN_DECREE,
-    referencedEventId: SPELLS.ELYSIAN_DECREE_DAMAGE.id,
+    referencedEventId: SPELLS.SIGIL_OF_SPITE_DAMAGE.id,
     referencedEventType: EventType.ApplyDebuff,
-    linkingEventId: ELYSIAN_DECREE_SPELL_IDS,
+    linkingEventId: SIGIL_OF_SPITE_SPELL_IDS,
     linkingEventType: EventType.Cast,
     forwardBufferMs: SIGIL_EFFECT_BUFFER,
     backwardBufferMs: SIGIL_EFFECT_BUFFER,

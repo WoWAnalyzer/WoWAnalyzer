@@ -3,6 +3,7 @@
 import mythicPlusSeasonOne from 'game/raids/mythicplusseasonone';
 import mythicPlusSeasonTwo from 'game/raids/mythicplusseasontwo';
 import mythicplusseasonthree from './raids/mythicplusseasonthree';
+import mythicplusseasonfour from 'game/raids/mythicplusseasonfour';
 import vaultOfTheIncarnates from 'game/raids/vaultoftheincarnates';
 import aberrus from 'game/raids/aberrus';
 import amirdrassil from 'game/raids/amirdrassil';
@@ -20,6 +21,7 @@ export interface Zone {
   frozen?: boolean;
   encounters: Encounter[];
   usePtrTooltips?: boolean;
+  partition?: number;
 }
 
 const ZONES: Zone[] = [
@@ -27,6 +29,7 @@ const ZONES: Zone[] = [
     id: 31,
     name: 'Vault of the Incarnates',
     frozen: false,
+    partition: 4,
     encounters: [
       vaultOfTheIncarnates.bosses.Eranog,
       vaultOfTheIncarnates.bosses.Terros,
@@ -41,7 +44,7 @@ const ZONES: Zone[] = [
   {
     id: 32,
     name: 'Mythic+ Season 1',
-    frozen: false,
+    frozen: true,
     encounters: [
       mythicPlusSeasonOne.bosses.AlgetharAcademy,
       mythicPlusSeasonOne.bosses.AzureVault,
@@ -57,6 +60,7 @@ const ZONES: Zone[] = [
     id: 33,
     name: 'Aberrus, the Shadowed Crucible',
     frozen: false,
+    partition: 6,
     encounters: [
       aberrus.bosses.Kazzara,
       aberrus.bosses.AmalgamationChamber,
@@ -73,7 +77,7 @@ const ZONES: Zone[] = [
   {
     id: 34,
     name: 'Mythic+ Season 2',
-    frozen: false,
+    frozen: true,
     encounters: [
       mythicPlusSeasonTwo.bosses.BrackenhideHollow,
       mythicPlusSeasonTwo.bosses.Freehold,
@@ -90,6 +94,7 @@ const ZONES: Zone[] = [
     id: 35,
     name: "Amirdrassil, the Dream's Hope",
     frozen: false,
+    partition: 3,
     encounters: [
       amirdrassil.bosses.Gnarlroot,
       amirdrassil.bosses.Igira,
@@ -106,7 +111,7 @@ const ZONES: Zone[] = [
   {
     id: 36,
     name: 'Mythic+ Season 3',
-    frozen: false,
+    frozen: true,
     encounters: [
       mythicplusseasonthree.bosses.AtalDazar,
       mythicplusseasonthree.bosses.BlackRookHold,
@@ -118,6 +123,36 @@ const ZONES: Zone[] = [
       mythicplusseasonthree.bosses.WaycrestManor,
     ],
     usePtrTooltips: false,
+  },
+  {
+    id: 37,
+    name: 'Mythic+ Season 4',
+    frozen: true,
+    encounters: [
+      mythicplusseasonfour.bosses.AlgetharAcademy,
+      mythicplusseasonfour.bosses.AzureVault,
+      mythicplusseasonfour.bosses.BrackenhideHollow,
+      mythicplusseasonfour.bosses.HallsOfInfusion,
+      mythicplusseasonfour.bosses.Neltharus,
+      mythicplusseasonfour.bosses.NokhudOffensive,
+      mythicplusseasonfour.bosses.RubyLifePools,
+      mythicplusseasonfour.bosses.Uldaman,
+    ],
+    usePtrTooltips: false,
+  },
+  {
+    id: 38,
+    name: "Nerub'ar Palace",
+    frozen: false,
+    encounters: [],
+    usePtrTooltips: true,
+  },
+  {
+    id: 39,
+    name: 'Mythic+ Season 1',
+    frozen: false,
+    encounters: [],
+    usePtrTooltips: true,
   },
 ];
 

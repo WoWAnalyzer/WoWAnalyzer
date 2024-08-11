@@ -6,6 +6,7 @@ import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
 import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
 import { currentEclipse } from 'analysis/retail/druid/balance/constants';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 const MIN_STARFALL_TARGETS = 3;
 
@@ -42,9 +43,7 @@ export default class SpenderUsage extends Analyzer {
   onStarsurge(event: CastEvent) {
     if (currentEclipse(this.selectedCombatant) === 'none') {
       this.noEclipseStarsurges += 1;
-      event.meta = event.meta || {};
-      event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = `You should only cast Starsurge during Eclipse!`;
+      addInefficientCastReason(event, `You should only cast Starsurge during Eclipse!`);
     }
     this.totalStarsurges += 1;
   }
@@ -52,9 +51,7 @@ export default class SpenderUsage extends Analyzer {
   onStarfall(event: CastEvent) {
     if (currentEclipse(this.selectedCombatant) === 'none') {
       this.noEclipseStarfalls += 1;
-      event.meta = event.meta || {};
-      event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = `You should only cast Starfall during Eclipse!`;
+      addInefficientCastReason(event, `You should only cast Starfall during Eclipse!`);
     }
     this.totalStarfalls += 1;
 
@@ -77,9 +74,7 @@ export default class SpenderUsage extends Analyzer {
   _tallyLastStarfall() {
     if (this.recentlyHitStarfallTargets.size < MIN_STARFALL_TARGETS && this.lastStarfallCast) {
       this.lowTargetStarfalls += 1;
-      this.lastStarfallCast.meta = this.lastStarfallCast.meta || {};
-      this.lastStarfallCast.meta.isInefficientCast = true;
-      this.lastStarfallCast.meta.inefficientCastReason = `This Starfall hit too few targets!`;
+      addInefficientCastReason(this.lastStarfallCast, `This Starfall hit too few targets!`);
 
       this.recentlyHitStarfallTargets.clear();
       this.lastStarfallCast = undefined;

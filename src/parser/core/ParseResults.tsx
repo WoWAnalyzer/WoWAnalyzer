@@ -56,7 +56,7 @@ abstract class SuggestionAssertion<T extends number | boolean> {
   }
 }
 
-export class NumberSuggestionAssertion extends SuggestionAssertion<number> {
+class NumberSuggestionAssertion extends SuggestionAssertion<number> {
   _threshold?: number | ThresholdRange;
   _mode?: AssertionMode | null;
 
@@ -171,7 +171,7 @@ export class NumberSuggestionAssertion extends SuggestionAssertion<number> {
   }
 }
 
-export class BoolSuggestionAssertion extends SuggestionAssertion<boolean> {
+class BoolSuggestionAssertion extends SuggestionAssertion<boolean> {
   _compareTo?: boolean;
 
   constructor(options: boolean | BoolThreshold, addIssue: (issue: Issue) => void) {
@@ -301,7 +301,7 @@ export interface Threshold<T extends number | boolean> {
   actual: T;
 }
 
-export type ThresholdRange = {
+type ThresholdRange = {
   minor?: number;
   average?: number;
   major?: number;
@@ -336,16 +336,16 @@ type RequireExactlyOne<T, Keys extends keyof T = keyof T> = Pick<T, Exclude<keyo
     [K in Keys]-?: Required<Pick<T, K>> & Partial<Record<Exclude<Keys, K>, undefined>>;
   }[Keys];
 
-export type ValidThresholds = number | boolean | BoolThreshold | NumberThreshold;
+type ValidThresholds = number | boolean | BoolThreshold | NumberThreshold;
 type GenericSuggestionType<T extends ValidThresholds> = T extends number
   ? NumberSuggestionAssertion
   : T extends boolean
-  ? BoolSuggestionAssertion
-  : T extends NumberThreshold
-  ? NumberSuggestionAssertion
-  : T extends BoolThreshold
-  ? BoolSuggestionAssertion
-  : never;
+    ? BoolSuggestionAssertion
+    : T extends NumberThreshold
+      ? NumberSuggestionAssertion
+      : T extends BoolThreshold
+        ? BoolSuggestionAssertion
+        : never;
 
 export type When = <T extends ValidThresholds>(threshold: T) => GenericSuggestionType<T>;
 

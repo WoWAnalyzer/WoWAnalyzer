@@ -1,7 +1,6 @@
 // Shared
 import Report from 'parser/core/Report';
-import { wclGameVersionToExpansion } from 'game/VERSIONS';
-import { isRetailExpansion } from 'game/Expansion';
+import { wclGameVersionToBranch } from 'game/VERSIONS';
 import ReportRaidBuffListItem from './ReportRaidBuffListItem';
 import SPECS from 'game/SPECS';
 import getConfig from 'parser/getConfig';
@@ -15,6 +14,7 @@ import {
   TALENTS_DEATH_KNIGHT,
   TALENTS_DEMON_HUNTER,
   TALENTS_DRUID,
+  TALENTS_EVOKER,
   TALENTS_MONK,
   TALENTS_PALADIN,
   TALENTS_PRIEST,
@@ -25,6 +25,7 @@ import CLASSIC_SPELLS from 'common/SPELLS/classic';
 
 import './ReportRaidBuffList.scss';
 import { useLingui } from '@lingui/react';
+import GameBranch from 'game/GameBranch';
 
 // eslint-disable-next-line
 const RETAIL_RAID_BUFFS = new Map<Spell | Talent, Array<Class | object>>([
@@ -37,6 +38,7 @@ const RETAIL_RAID_BUFFS = new Map<Spell | Talent, Array<Class | object>>([
   [SPELLS.ARCANE_INTELLECT, [Class.Mage]],
   //  Movement CD
   [SPELLS.BLESSING_OF_THE_BRONZE, [Class.Evoker]],
+  [TALENTS_EVOKER.SPATIAL_PARADOX_TALENT, [Class.Evoker]],
   // Debuffs
   //  Magic vulnerability
   [SPELLS.CHAOS_BRAND, [Class.DemonHunter]],
@@ -52,7 +54,7 @@ const RETAIL_RAID_BUFFS = new Map<Spell | Talent, Array<Class | object>>([
   [TALENTS_PALADIN.AURA_MASTERY_TALENT, [SPECS.HOLY_PALADIN]],
   [TALENTS_SHAMAN.SPIRIT_LINK_TOTEM_TALENT, [SPECS.RESTORATION_SHAMAN]],
   [TALENTS_SHAMAN.HEALING_TIDE_TOTEM_TALENT, [SPECS.RESTORATION_SHAMAN]],
-  [TALENTS_SHAMAN.WINDFURY_TOTEM_TALENT, [SPECS.ENHANCEMENT_SHAMAN]],
+  [SPELLS.SKYFURY, [Class.Shaman]],
   [TALENTS_MONK.REVIVAL_TALENT, [SPECS.MISTWEAVER_MONK]],
   [TALENTS_MONK.RESTORAL_TALENT, [SPECS.MISTWEAVER_MONK]],
   [TALENTS_PRIEST.POWER_WORD_BARRIER_TALENT, [SPECS.DISCIPLINE_PRIEST]],
@@ -64,19 +66,14 @@ const RETAIL_RAID_BUFFS = new Map<Spell | Talent, Array<Class | object>>([
 const CLASSIC_RAID_BUFFS = new Map<Spell, Array<Class | object>>([
   // BUFFS
   // Stamina
-  [CLASSIC_SPELLS.PRAYER_OF_FORTITUDE, [Class.Priest]],
-  // Spirit
-  [CLASSIC_SPELLS.PRAYER_OF_SPIRIT, [Class.Priest]],
+  [CLASSIC_SPELLS.POWER_WORD_FORTITUDE, [Class.Priest]],
   // Intellect
   [CLASSIC_SPELLS.ARCANE_BRILLIANCE, [Class.Mage]],
   // Stats
   [CLASSIC_SPELLS.GIFT_OF_THE_WILD, [Class.Druid]],
   // Stats %
-  [CLASSIC_SPELLS.GREATER_BLESSING_OF_KINGS, [Class.Paladin]],
   // Attack Power
-  [CLASSIC_SPELLS.GREATER_BLESSING_OF_MIGHT, [Class.Paladin]],
   // MP5
-  [CLASSIC_SPELLS.GREATER_BLESSING_OF_WISDOM, [Class.Paladin]],
   // Melee Crit
   [
     CLASSIC_SPELLS.LEADER_OF_THE_PACK,
@@ -109,11 +106,6 @@ const CLASSIC_RAID_BUFFS = new Map<Spell, Array<Class | object>>([
   [CLASSIC_SPELLS.MANGLE_CAT, [SPECS.CLASSIC_DRUID_FERAL_COMBAT]],
   // Physical Damage
   [CLASSIC_SPELLS.SAVAGE_COMBAT, [SPECS.CLASSIC_ROGUE_COMBAT, SPECS.CLASSIC_WARRIOR_ARMS]],
-  // Spell Crit Chance %
-  [
-    CLASSIC_SPELLS.SHADOW_MASTERY_DEBUFF,
-    [SPECS.CLASSIC_WARLOCK_DEMONOLOGY, SPECS.CLASSIC_WARLOCK_DESTRUCTION],
-  ],
   // Spell Hit Chance %
   [CLASSIC_SPELLS.FAERIE_FIRE, [SPECS.CLASSIC_DRUID_BALANCE]],
   // Spell Damage
@@ -134,7 +126,7 @@ interface Props {
 
 const ReportRaidBuffList = ({ report, combatants }: Props) => {
   const { i18n } = useLingui();
-  const isRetail = isRetailExpansion(wclGameVersionToExpansion(report.gameVersion));
+  const isRetail = wclGameVersionToBranch(report.gameVersion) === GameBranch.Retail;
   const getCompositionBreakdown = (combatants: CombatantInfoEvent[]) => {
     const results = new Map<Spell | Talent, number>();
 
@@ -146,7 +138,7 @@ const ReportRaidBuffList = ({ report, combatants }: Props) => {
 
     return combatants.reduce((map, combatant) => {
       const config = getConfig(
-        wclGameVersionToExpansion(report.gameVersion),
+        wclGameVersionToBranch(report.gameVersion),
         combatant.specID,
         combatant.player,
         combatant,

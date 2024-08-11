@@ -28,7 +28,7 @@ export default class T29MMTier4P extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.has4PieceByTier(TIERS.T29);
+    this.active = this.selectedCombatant.has4PieceByTier(TIERS.DF1);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell([SPELLS.ARCANE_SHOT, SPELLS.MULTISHOT_MM]),
       this.onShotDamage,

@@ -1,20 +1,15 @@
-import { change, date } from 'common/changelog';
+import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
-import { Sharrq, emallson, SyncSubaru, ToppleTheNun } from 'CONTRIBUTORS';
-import { SpellLink } from 'interface';
+import SpellLink from 'interface/SpellLink';
+import { change, date } from 'common/changelog';
+import { Sharrq, Sref } from 'CONTRIBUTORS';
 
 export default [
-  change(date(2023, 7, 10), 'Remove references to 10.1.5 removed talents.', Sharrq),
-  change(date(2023, 7, 3), 'Update SpellLink usage.', ToppleTheNun),
-  change(date(2023, 6, 27), <>Added <SpellLink spell={TALENTS.TEMPORAL_WARP_TALENT} /> to list of Bloodlust Buffs.</>, Sharrq),
-  change(date(2023, 1, 17), <>Fixed outdated reference to the Shadowlands version of <SpellLink spell={TALENTS.RADIANT_SPARK_TALENT} />.</>, emallson),
-  change(date(2023, 3, 19), <>Fixed utilisation percentage for <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} /> under <SpellLink spell={TALENTS.ARCANE_ECHO_TALENT} />.</>, SyncSubaru),
-  change(date(2023, 3, 26), <>Renamed old Arcane Power into <SpellLink spell={TALENTS.ARCANE_SURGE_TALENT} /> in preparation for new analysis modules.</>, SyncSubaru),
-  change(date(2023, 3, 25), <><SpellLink spell={TALENTS.ARCANE_SURGE_TALENT} /> now shows on the timeline when active.</>, SyncSubaru),
-  change(date(2023, 3, 19), <>Created anaylser for <SpellLink spell={TALENTS.RADIANT_SPARK_TALENT} /> ramp phases.</>, SyncSubaru),
-  change(date(2023, 3, 14), <><SpellLink spell={TALENTS.ARCANE_HARMONY_TALENT} /> now shows Bonus Damage under Statistics.</>, SyncSubaru),
-  change(date(2023, 3, 13), <>Updated bonus damage multiplier of <SpellLink spell={TALENTS.ARCANE_HARMONY_TALENT} />.</>, SyncSubaru),
-  change(date(2023, 1, 17), <>Fixed outdated reference to the Shadowlands version of <SpellLink spell={TALENTS.RADIANT_SPARK_TALENT} />.</>, emallson),
-  change(date(2022, 10, 30), `Update Dragonflight SPELLS, Abilities, and Buffs`, Sharrq),
-  change(date(2022, 9, 29), 'Initial Dragonflight support', Sharrq),
+  change(date(2024, 8, 10), <>Fixed an issue that was causing <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} /> to always say it had 4 <SpellLink spell={SPELLS.ARCANE_CHARGE} />s due to an issue with the way the combat log orders events.</>, Sref),
+  change(date(2024, 7, 29), <>Enhanced Guide view for <SpellLink spell={TALENTS.SHIFTING_POWER_TALENT} /></>, Sref),
+  change(date(2024, 7, 29), <>Removed ability to load Checklist.</>, Sharrq),
+  change(date(2024, 7, 29), <>Increased spec support to 11.0, Partial Support.</>, Sharrq),
+  change(date(2024, 7, 29), <>Added a warning to the Overview page for Prepatch.</>, Sharrq),
+  change(date(2024, 7, 28), <>Added Guide view and started removing Suggestions and Checklist.</>, Sharrq),
+  change(date(2024, 7, 28), <>Complete rewrite of <SpellLink spell={TALENTS.ARCANE_SURGE_TALENT} />, <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} />, <SpellLink spell={SPELLS.CLEARCASTING_ARCANE} />, <SpellLink spell={SPELLS.ARCANE_BARRAGE} />, <SpellLink spell={SPELLS.ARCANE_ORB} />, <SpellLink spell={TALENTS.NETHER_PRECISION_TALENT} />, <SpellLink spell={TALENTS.EVOCATION_TALENT} />, and <SpellLink spell={TALENTS.ARCANE_TEMPO_TALENT} />.</>, Sharrq),
 ];

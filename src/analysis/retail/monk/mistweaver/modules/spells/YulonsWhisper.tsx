@@ -1,10 +1,8 @@
-import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Combatants from 'parser/shared/modules/Combatants';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -19,7 +17,7 @@ class YulonsWhisper extends Analyzer {
   };
   healCount: number = 0;
   combatants!: Combatants;
-  tftCount: number = 0;
+  MTCount: number = 0;
 
   constructor(options: Options) {
     super(options);
@@ -27,10 +25,7 @@ class YulonsWhisper extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT),
-      this.onTFT,
-    );
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MANA_TEA_CAST), this.onMT);
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.YULONS_WHISPER_HEAL),
       this.onHeal,
@@ -41,44 +36,12 @@ class YulonsWhisper extends Analyzer {
     this.healCount += 1;
   }
 
-  onTFT(event: CastEvent) {
-    this.tftCount += 1;
+  onMT(event: CastEvent) {
+    this.MTCount += 1;
   }
 
   get averageYWCount() {
-    return this.healCount / this.tftCount / NUM_TICKS;
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.averageYWCount,
-      isLessThan: {
-        minor: 4,
-        average: 3,
-      },
-      recommended: 4.5,
-      style: ThresholdStyle.NUMBER,
-    };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You are not hitting enough targets with{' '}
-          <SpellLink spell={TALENTS_MONK.YULONS_WHISPER_TALENT} />, try positioning with more people
-          in front of you when using <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} />
-        </>,
-      )
-        .icon(TALENTS_MONK.YULONS_WHISPER_TALENT.icon)
-        .actual(
-          `${actual.toFixed(2) + ' '}${defineMessage({
-            id: 'monk.mistweaver.suggestions.yulonsWhisper.avgTargets',
-            message: `average targets hit`,
-          })}`,
-        )
-        .recommended(`> ${recommended} average targets hit is recommended`),
-    );
+    return this.healCount / this.MTCount / NUM_TICKS;
   }
 
   statistic() {

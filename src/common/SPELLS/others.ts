@@ -316,7 +316,7 @@ const spells = {
   HEALTHSTONE: {
     id: 6262,
     name: 'Healthstone',
-    icon: 'warlock_healthstone',
+    icon: 'warlock_-healthstone',
   },
   ANCIENT_REJUVENATION_POTION: {
     id: 188018,
@@ -477,6 +477,11 @@ const spells = {
     id: 103740,
     name: 'Darkmoon Firework',
     icon: 'inv_misc_missilesmallcluster_green',
+  },
+  BLOOD_ELF_ILLUSION: {
+    id: 160331,
+    name: 'Blood Elf Illusion',
+    icon: 'inv_mask_01.jpg',
   },
   BIG_RED_RAYS: {
     id: 229837,

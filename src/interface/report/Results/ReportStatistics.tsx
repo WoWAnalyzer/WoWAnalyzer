@@ -38,11 +38,6 @@ const getStatisticGroupName = (key: STATISTIC_CATEGORY) => {
         id: 'interface.report.results.statistics.talents',
         message: `Talents`,
       });
-    case STATISTIC_CATEGORY.COVENANTS:
-      return defineMessage({
-        id: 'interface.report.results.statistics.covenants',
-        message: `Covenants`,
-      });
     case STATISTIC_CATEGORY.ITEMS:
       return defineMessage({
         id: 'interface.report.results.statistics.items',
@@ -52,6 +47,11 @@ const getStatisticGroupName = (key: STATISTIC_CATEGORY) => {
       return defineMessage({
         id: 'interface.report.results.statistics.theorycraft',
         message: `Theorycraft`,
+      });
+    case STATISTIC_CATEGORY.HERO_TALENTS:
+      return defineMessage({
+        id: 'interface.report.results.statistics.hero_talents',
+        message: `Hero Talents`,
       });
     default:
       throw new Error(`Unknown category: ${key}`);

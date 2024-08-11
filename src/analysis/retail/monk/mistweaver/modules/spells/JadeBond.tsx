@@ -10,11 +10,11 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { JADE_BOND_INC } from '../../constants';
+import { JADE_BOND_INC, JADE_BOND_SOOB_INC } from '../../constants';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { TooltipElement } from 'interface';
 
-const JADE_BOND_REDUCTION = 300;
+const JADE_BOND_REDUCTION = 500;
 
 class JadeBond extends Analyzer {
   static dependencies = {
@@ -25,6 +25,7 @@ class JadeBond extends Analyzer {
   cooldownReductionWasted: number = 0;
   healing: number = 0;
   spellToReduce: Spell = TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT;
+  boostAmount: number = JADE_BOND_INC;
   protected spellUsable!: SpellUsable;
 
   /**
@@ -35,6 +36,9 @@ class JadeBond extends Analyzer {
     if (!this.selectedCombatant.hasTalent(TALENTS_MONK.JADE_BOND_TALENT)) {
       this.active = false;
       return;
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT)) {
+      this.boostAmount = JADE_BOND_SOOB_INC;
     }
 
     this.addEventListener(
@@ -76,7 +80,7 @@ class JadeBond extends Analyzer {
   }
 
   normalizeBoost(event: HealEvent) {
-    this.healing += calculateEffectiveHealing(event, JADE_BOND_INC);
+    this.healing += calculateEffectiveHealing(event, this.boostAmount);
   }
 
   get averageCDR() {

@@ -9,16 +9,19 @@ type User = {
     premium?: boolean;
     expires?: string;
   };
+  patreon?: {
+    premium?: boolean;
+  };
 };
 
 export const fetchUser = createAsyncThunk<User | null>('user/fetchUser', async () => {
   try {
-    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE}user`, {
+    const response = await fetch(`${import.meta.env.VITE_SERVER_BASE}user`, {
       credentials: 'include',
     });
 
     if (response.status !== 200) {
-      if (response.status === 401) {
+      if (response.status === 401 || response.status === 403) {
         // Unauthorized
         // We need to store this explicitely so we know the diff between "unknown" and "logged out"
         return false;
@@ -40,7 +43,7 @@ export const fetchUser = createAsyncThunk<User | null>('user/fetchUser', async (
 
 export const logout = createAsyncThunk('user/logout', async () => {
   try {
-    await fetch(`${process.env.REACT_APP_SERVER_BASE}logout`, {
+    await fetch(`${import.meta.env.VITE_SERVER_BASE}logout`, {
       credentials: 'include',
     });
   } catch (err: any) {
@@ -75,5 +78,4 @@ const userSlice = createSlice({
   },
 });
 
-export const { reset } = userSlice.actions;
 export default userSlice.reducer;

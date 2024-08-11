@@ -2,21 +2,21 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
 import { isTalent } from 'common/TALENTS/types';
 import { SpellLink } from 'interface';
-import Analyzer, { Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
-import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import TalentSpellText from 'parser/ui/TalentSpellText';
+import { addEnhancedCastReason } from 'parser/core/EventMetaLib';
 
 const MASTER_OF_THE_ELEMENTS = {
-  INCREASE: 0.2,
+  INCREASE: 0.15,
   DURATION: 15000,
   WINDOW_DURATION: 500,
   AFFECTED_DAMAGE: [
-    TALENTS.ICEFURY_TALENT,
+    SPELLS.ICEFURY,
     SPELLS.ICEFURY_OVERLOAD,
     TALENTS.FROST_SHOCK_TALENT,
     SPELLS.LIGHTNING_BOLT,
@@ -28,8 +28,9 @@ const MASTER_OF_THE_ELEMENTS = {
     TALENTS.EARTH_SHOCK_TALENT,
   ],
   AFFECTED_CASTS: [
-    TALENTS.EARTHQUAKE_TALENT,
-    TALENTS.ICEFURY_TALENT,
+    TALENTS.EARTHQUAKE_1_ELEMENTAL_TALENT,
+    TALENTS.EARTHQUAKE_2_ELEMENTAL_TALENT,
+    SPELLS.ICEFURY,
     TALENTS.FROST_SHOCK_TALENT,
     TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT,
     TALENTS.CHAIN_LIGHTNING_TALENT,
@@ -39,7 +40,8 @@ const MASTER_OF_THE_ELEMENTS = {
   TALENTS: [
     TALENTS.ICEFURY_TALENT.id,
     TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id,
-    TALENTS.EARTHQUAKE_TALENT.id,
+    TALENTS.EARTHQUAKE_1_ELEMENTAL_TALENT.id,
+    TALENTS.EARTHQUAKE_2_ELEMENTAL_TALENT.id,
     TALENTS.ICEFURY_TALENT.id,
     TALENTS.FROST_SHOCK_TALENT.id,
     TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id,
@@ -56,7 +58,7 @@ class MasterOfTheElements extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.MASTER_OF_THE_ELEMENTS_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.MASTER_OF_THE_ELEMENTS_ELEMENTAL_TALENT);
     if (!this.active) {
       return;
     }
@@ -91,8 +93,12 @@ class MasterOfTheElements extends Analyzer {
     }
     this.moteConsumptionTimestamp = event.timestamp;
     this.moteActivationTimestamp = null;
-    event.meta = event.meta || {};
-    event.meta.isEnhancedCast = true;
+    addEnhancedCastReason(
+      event,
+      <>
+        Cast with <SpellLink spell={TALENTS.MASTER_OF_THE_ELEMENTS_ELEMENTAL_TALENT} />
+      </>,
+    );
     this.moteBuffedAbilities[event.ability.guid] += 1;
   }
 
@@ -141,7 +147,7 @@ class MasterOfTheElements extends Analyzer {
           </>
         }
       >
-        <TalentSpellText talent={TALENTS.MASTER_OF_THE_ELEMENTS_TALENT}>
+        <TalentSpellText talent={TALENTS.MASTER_OF_THE_ELEMENTS_ELEMENTAL_TALENT}>
           <>
             <ItemDamageDone amount={this.damageGained} />
           </>

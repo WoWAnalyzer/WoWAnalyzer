@@ -1,9 +1,9 @@
-import { Dungeon } from 'game/raids';
+import type { Boss } from 'game/raids';
 
 import Background from './backgrounds/HallsOfInfusion.jpg';
 import Headshot from './headshots/HallsOfInfusion.jpg';
 
-const HallsOfInfusion: Dungeon = {
+const HallsOfInfusion: Boss = {
   id: 12527,
   name: 'Halls of Infusion',
   background: Background,

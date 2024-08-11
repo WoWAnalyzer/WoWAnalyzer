@@ -4,10 +4,12 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import CombatLogParser from 'analysis/retail/paladin/retribution/CombatLogParser';
 import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/GuideDivs';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
-import HideExplanationsToggle from 'interface/guide/components/HideExplanationsToggle';
-import HideGoodCastsToggle from 'interface/guide/components/HideGoodCastsToggle';
+import { HideExplanationsToggle } from 'interface/guide/components/HideExplanationsToggle';
+import { HideGoodCastsToggle } from 'interface/guide/components/HideGoodCastsToggle';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import PerformancePercentage from 'analysis/retail/demonhunter/shared/guide/PerformancePercentage';
+import DRAGONFLIGHT_OTHERS_ITEMS from 'common/ITEMS/dragonflight/others';
+import DRAGONFLIGHT_OTHERS_SPELLS from 'common/SPELLS/dragonflight/others';
 import TALENTS from 'common/TALENTS/paladin';
 import SpellLink from 'interface/SpellLink';
 import CooldownGraphSubsection, {
@@ -116,6 +118,10 @@ const cooldowns: Cooldown[] = [
   {
     spell: TALENTS.DIVINE_TOLL_TALENT,
     isActive: (c) => c.hasTalent(TALENTS.DIVINE_TOLL_TALENT),
+  },
+  {
+    spell: DRAGONFLIGHT_OTHERS_SPELLS.RAGE_OF_FYRALATH_1,
+    isActive: (c) => c.hasMainHand(DRAGONFLIGHT_OTHERS_ITEMS.FYRALATH.id),
   },
 ];
 function CooldownSection() {

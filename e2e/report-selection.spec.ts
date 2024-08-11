@@ -1,53 +1,55 @@
 import { expect, test } from './fixtures';
 
-test('report selection', async ({ page, homePage, fightSelectionPage }) => {
+const reportCode = '6YPW2m1bMBLAgvQG';
+const reportTitle = 'prepatch is a silly billy time';
+const fightLinkName = 'Kill 5:17';
+const fightUrlPart = '12-Mythic+Tindral+Sageswift,+Seer+of+the+Flame+-+Kill+(5:17)';
+const bossTitle = `Mythic Tindral Sageswift, Seer of the Flame - Kill (5:17)`;
+const fightPageTitle = `${bossTitle} in ${reportTitle}`;
+const playerLinkName = 'Toppledh Vengeance Demon Hunter Vengeance Demon Hunter 526';
+const playerName = 'Toppledh';
+const bossDifficultyAndName = 'MythicTindral Sageswift, Seer of Flame';
+const resultsPageTitle = `${bossTitle} by ${playerName} in ${reportTitle}`;
+
+// TODO: update this once we have a properly supported TWW spec
+
+test.skip('report selection', async ({ page, homePage, fightSelectionPage }) => {
   await homePage.goto();
 
-  await homePage.fillInReportInputWithCode('D8Jpabz1kM2rNy4X');
+  await homePage.fillInReportInputWithCode(reportCode);
 
   await fightSelectionPage.expectFightSelectionHeaderToBeVisible();
-  await fightSelectionPage.expectUrlToHaveReportCode('D8Jpabz1kM2rNy4X');
-  await expect(page).toHaveTitle('FIRST DAY BAYBEE LETS GET IT');
+  await fightSelectionPage.expectUrlToHaveReportCode(reportCode);
+  await expect(page).toHaveTitle(reportTitle);
 });
 
 test('fight selection', async ({ page, fightSelectionPage, playerSelectionPage }) => {
-  await fightSelectionPage.goto('D8Jpabz1kM2rNy4X');
+  await fightSelectionPage.goto(reportCode);
 
-  await page.getByRole('link', { name: 'Kill 3:36' }).click();
+  await page.getByRole('link', { name: fightLinkName }).click();
 
   await playerSelectionPage.expectPlayerSelectionHeaderToBeVisible();
-  await playerSelectionPage.expectUrlToHaveReportCodeAndFight(
-    'D8Jpabz1kM2rNy4X',
-    '16-Heroic+Volcoross+-+Kill+(3:36)',
-  );
-  await expect(page).toHaveTitle('Heroic Volcoross - Kill (3:36) in FIRST DAY BAYBEE LETS GET IT');
+  await playerSelectionPage.expectUrlToHaveReportCodeAndFight(reportCode, fightUrlPart);
+  await expect(page).toHaveTitle(fightPageTitle);
 });
 
 test('player selection', async ({ page, playerSelectionPage, reportPage }) => {
-  await playerSelectionPage.goto('D8Jpabz1kM2rNy4X', '16-Heroic+Volcoross+-+Kill+(3:36)');
+  await playerSelectionPage.goto(reportCode, fightUrlPart);
 
-  await page
-    .getByRole('link', { name: 'Toppledh Vengeance Demon Hunter Vengeance Demon Hunter 449' })
-    .click();
+  await page.getByRole('link', { name: playerLinkName }).click();
 
   await reportPage.expectBossDifficultyAndNameHeaderToBeVisible();
-  await reportPage.expectBossDifficultyAndNameHeaderToHaveText('HeroicVolcoross');
-  await reportPage.expectUrlToHave(
-    'D8Jpabz1kM2rNy4X',
-    '16-Heroic+Volcoross+-+Kill+(3:36)',
-    'Toppledh',
-  );
-  await expect(page).toHaveTitle(
-    'Heroic Volcoross - Kill (3:36) by Toppledh in FIRST DAY BAYBEE LETS GET IT',
-  );
+  await reportPage.expectBossDifficultyAndNameHeaderToHaveText(bossDifficultyAndName);
+  await reportPage.expectUrlToHave(reportCode, fightUrlPart, playerName);
+  await expect(page).toHaveTitle(resultsPageTitle);
 });
 
 test.describe('tab selection', () => {
   test.beforeEach(async ({ reportPage }) => {
     await reportPage.goto({
-      reportCode: 'D8Jpabz1kM2rNy4X',
-      fightCode: '16-Heroic+Volcoross+-+Kill+(3:36)',
-      playerName: 'Toppledh',
+      reportCode: reportCode,
+      fightCode: fightUrlPart,
+      playerName,
     });
   });
 
@@ -55,7 +57,7 @@ test.describe('tab selection', () => {
     await reportPage.clickOnStatisticsTab();
 
     await expect(page).toHaveURL(
-      '/report/D8Jpabz1kM2rNy4X/16-Heroic+Volcoross+-+Kill+(3:36)/Toppledh/standard/statistics',
+      `/report/${reportCode}/${fightUrlPart}/${playerName}/standard/statistics`,
     );
   });
 
@@ -63,7 +65,7 @@ test.describe('tab selection', () => {
     await reportPage.clickOnTimelineTab();
 
     await expect(page).toHaveURL(
-      '/report/D8Jpabz1kM2rNy4X/16-Heroic+Volcoross+-+Kill+(3:36)/Toppledh/standard/timeline',
+      `/report/${reportCode}/${fightUrlPart}/${playerName}/standard/timeline`,
     );
   });
 
@@ -71,7 +73,7 @@ test.describe('tab selection', () => {
     await reportPage.clickOnCooldownsTab();
 
     await expect(page).toHaveURL(
-      '/report/D8Jpabz1kM2rNy4X/16-Heroic+Volcoross+-+Kill+(3:36)/Toppledh/standard/cooldowns',
+      `/report/${reportCode}/${fightUrlPart}/${playerName}/standard/cooldowns`,
     );
   });
 
@@ -79,15 +81,15 @@ test.describe('tab selection', () => {
     await reportPage.clickOnCharacterTab();
 
     await expect(page).toHaveURL(
-      '/report/D8Jpabz1kM2rNy4X/16-Heroic+Volcoross+-+Kill+(3:36)/Toppledh/standard/character',
+      `/report/${reportCode}/${fightUrlPart}/${playerName}/standard/character`,
     );
   });
 
   test('about', async ({ page, reportPage }) => {
-    await reportPage.clickOnAboutTab('Vengeance Demon Hunter');
+    await reportPage.clickOnAboutTab();
 
     await expect(page).toHaveURL(
-      '/report/D8Jpabz1kM2rNy4X/16-Heroic+Volcoross+-+Kill+(3:36)/Toppledh/standard/about',
+      `/report/${reportCode}/${fightUrlPart}/${playerName}/standard/about`,
     );
   });
 });
@@ -98,16 +100,12 @@ test('perform analysis', async ({ page }) => {
   await page.getByPlaceholder('https://www.warcraftlogs.com/reports/<report code>').click();
   await page
     .getByPlaceholder('https://www.warcraftlogs.com/reports/<report code>')
-    .fill('https://www.warcraftlogs.com/reports/D8Jpabz1kM2rNy4X');
+    .fill(`https://www.warcraftlogs.com/reports/${reportCode}`);
   await page.getByRole('heading', { name: 'Fight selection' }).waitFor();
-  await page.getByRole('link', { name: 'Kill 3:36' }).click();
+  await page.getByRole('link', { name: fightLinkName }).click();
   await page.getByRole('heading', { name: 'Player selection' }).waitFor();
-  await page
-    .getByRole('link', { name: 'Toppledh Vengeance Demon Hunter Vengeance Demon Hunter 449' })
-    .click();
-  await page.getByText('HeroicVolcoross').waitFor();
+  await page.getByRole('link', { name: playerLinkName }).click();
+  await page.getByText(bossDifficultyAndName).waitFor();
 
-  await expect(page).toHaveURL(
-    '/report/D8Jpabz1kM2rNy4X/16-Heroic+Volcoross+-+Kill+(3:36)/Toppledh/standard',
-  );
+  await expect(page).toHaveURL(`/report/${reportCode}/${fightUrlPart}/${playerName}/standard`);
 });

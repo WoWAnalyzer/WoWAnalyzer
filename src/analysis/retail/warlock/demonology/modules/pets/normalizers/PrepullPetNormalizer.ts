@@ -94,7 +94,7 @@ class PrepullPetNormalizer extends EventsNormalizer {
                 );
               continue;
             }
-            spell = SPELLS[PETS[petGUID].summonAbility];
+            spell = PETS[petGUID].summonAbility;
           }
           const fabricatedEvent: SummonEvent = {
             target: {
@@ -104,6 +104,7 @@ class PrepullPetNormalizer extends EventsNormalizer {
               petOwner: this.owner.playerId,
               fights: [],
               type: 'faketype',
+              subType: 'faketype',
               icon: spell.icon,
             },
             timestamp: this.owner.fight.start_time,

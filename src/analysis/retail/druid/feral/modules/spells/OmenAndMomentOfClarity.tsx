@@ -35,7 +35,7 @@ const CC_SPELL_TO_BASE_COST = {
  * **Moment of Clarity**
  * Spec Talent
  *
- * Omen of Clarity now triggers 50% more often, can accumulate up to 2 charges, and increases the
+ * Omen of Clarity now triggers 30% more often, can accumulate up to 2 charges, and increases the
  * damage of your next Shred, Thrash, or Swipe (Brutal Slash) by 15%.
  */
 export default class OmenAndMomentOfClarity extends Analyzer {

@@ -71,6 +71,26 @@ const others = {
     name: 'Voice of the Silent Star',
     icon: 'inv_cloth_raidpriestdragon_d_01_cape',
   },
+  ECHOING_TYRSTONE: {
+    id: 207552,
+    name: 'Echoing Tyrstone',
+    icon: 'ability_paladin_lightofthemartyr',
+  },
+  FYRALATH: {
+    id: 206448,
+    name: "Fyr'alath the Dreamrender",
+    icon: 'inv_axe_2h_fyrakk_d_01_shadowflame',
+  },
+  IRIDAL_THE_EARTHS_MASTER: {
+    id: 208321,
+    name: "Iridal, the Earth's Master",
+    icon: 'inv_staff_2h_dracthyr_c_01',
+  },
+  DREAMBINDER_LOOM_OF_THE_GREAT_CYCLE: {
+    id: 208616,
+    name: 'Dreambinder, Loom of the Great Cycle',
+    icon: 'inv_staff_2h_dreamweaver_d_01',
+  },
 } satisfies Record<string, Item>;
 
 export default others;

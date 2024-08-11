@@ -276,19 +276,19 @@ const enchants = {
     id: 207085,
     name: 'Dreaming Devotion',
     icon: 'inv_misc_enchantedscroll',
-    effectId: 6520,
+    effectId: 7001,
   },
   ENCHANT_WEAPON_DREAMING_DEVOTION_R2: {
     id: 207086,
     name: 'Dreaming Devotion',
     icon: 'inv_misc_enchantedscroll',
-    effectId: 6521,
+    effectId: 7002,
   },
   ENCHANT_WEAPON_DREAMING_DEVOTION_R3: {
     id: 207087,
     name: 'Dreaming Devotion',
     icon: 'inv_misc_enchantedscroll',
-    effectId: 6522,
+    effectId: 7003,
   },
 
   // Boots

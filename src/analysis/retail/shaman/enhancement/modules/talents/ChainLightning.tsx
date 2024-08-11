@@ -6,6 +6,7 @@ import { CHAIN_LIGHTNING_LINK } from 'analysis/retail/shaman/enhancement/modules
 import SPELLS from 'common/SPELLS';
 import { TIERS } from 'game/TIERS';
 import { SpellLink } from 'interface';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 const CRASH_LIGHTNING_REDUCTION = 1000;
 
@@ -33,7 +34,7 @@ class ChainLightning extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.has4pcT30 = this.selectedCombatant.has4PieceByTier(TIERS.T30);
+    this.has4pcT30 = this.selectedCombatant.has4PieceByTier(TIERS.DF2);
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.CHAIN_LIGHTNING_TALENT),
@@ -52,23 +53,21 @@ class ChainLightning extends Analyzer {
     if (hits < 2) {
       if (this.has4pcT30) {
         if (!this.selectedCombatant.getBuff(SPELLS.CRACKLING_THUNDER_TIER_BUFF.id)) {
-          event.meta = event.meta || {};
-          event.meta.isInefficientCast = true;
-          event.meta.inefficientCastReason = (
+          addInefficientCastReason(
+            event,
             <>
               <SpellLink spell={TALENTS_SHAMAN.CHAIN_LIGHTNING_TALENT} /> only hit one target and
               was cast without <SpellLink spell={SPELLS.CRACKLING_THUNDER_TIER_BUFF} />
-            </>
+            </>,
           );
         }
       }
     } else {
-      event.meta = event.meta || {};
-      event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = (
+      addInefficientCastReason(
+        event,
         <>
           <SpellLink spell={TALENTS_SHAMAN.CHAIN_LIGHTNING_TALENT} /> only hit one target
-        </>
+        </>,
       );
     }
   }

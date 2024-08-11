@@ -6,10 +6,11 @@ import NokhudOffensive from 'game/raids/mythicplusseasonone/NokhudOffensive';
 import RubyLifePools from 'game/raids/mythicplusseasonone/RubyLifePools';
 import ShadowmoonBurialGrounds from 'game/raids/mythicplusseasonone/ShadowmoonBurialGrounds';
 import TempleOfTheJadeSerpent from 'game/raids/mythicplusseasonone/TempleOfTheJadeSerpent';
+import type { Raid } from 'game/raids';
 
 export default {
   name: 'Mythic+ Season 1',
-  background: undefined, // TODO: Set up
+  background: undefined,
   bosses: {
     AlgetharAcademy,
     AzureVault,
@@ -20,4 +21,4 @@ export default {
     ShadowmoonBurialGrounds,
     TempleOfTheJadeSerpent,
   },
-};
+} satisfies Raid;

@@ -1,3 +1,4 @@
+import SPECS from 'game/SPECS';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import CoreAbilities from 'parser/core/modules/Abilities';
@@ -12,6 +13,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FROSTBOLT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
+        enabled: !combatant.hasTalent(TALENTS.FROSTFIRE_BOLT_TALENT),
         gcd: {
           base: 1500,
         },
@@ -21,10 +23,15 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FIRE_BLAST.id,
         category: SPELL_CATEGORY.ROTATIONAL,
+        enabled: !combatant.hasTalent(TALENTS.FIRE_BLAST_TALENT),
         gcd: {
           base: 1500,
         },
-        cooldown: (haste: any) => 12 / (1 + haste),
+        cooldown: (haste: any) =>
+          combatant.spec === SPECS.FROST_MAGE &&
+          combatant.hasTalent(TALENTS.ELEMENTAL_AFFINITY_TALENT)
+            ? 12 / 1.3 / (1 + haste)
+            : 12 / (1 + haste),
       },
       {
         spell: SPELLS.ARCANE_EXPLOSION.id,
@@ -39,7 +46,11 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 12,
+        cooldown:
+          combatant.spec === SPECS.FIRE_MAGE &&
+          combatant.hasTalent(TALENTS.ELEMENTAL_AFFINITY_TALENT)
+            ? 12 / 1.3
+            : 12,
         timelineSortIndex: 8,
         //damageSpellIds: [SPELLS.CONE_OF_COLD.id], // needs verification
       },
@@ -50,7 +61,11 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 18,
+        cooldown:
+          combatant.spec === SPECS.FROST_MAGE &&
+          combatant.hasTalent(TALENTS.ELEMENTAL_AFFINITY_TALENT)
+            ? 45 / 1.3
+            : 45,
       },
       {
         spell: TALENTS.BLAST_WAVE_TALENT.id,
@@ -59,7 +74,11 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 25,
+        cooldown:
+          combatant.spec === SPECS.FROST_MAGE &&
+          combatant.hasTalent(TALENTS.ELEMENTAL_AFFINITY_TALENT)
+            ? 30 / 1.3
+            : 30,
       },
       {
         spell: TALENTS.ICE_NOVA_TALENT.id,
@@ -68,9 +87,34 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 25,
+        cooldown:
+          combatant.spec === SPECS.FIRE_MAGE &&
+          combatant.hasTalent(TALENTS.ELEMENTAL_AFFINITY_TALENT)
+            ? 25 / 1.3
+            : 25,
         timelineSortIndex: 9,
         //damageSpellIds: [SPELLS.ICE_NOVA_TALENT.id], // needs verification
+      },
+      {
+        spell: TALENTS.SUPERNOVA_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        enabled: combatant.hasTalent(TALENTS.SUPERNOVA_TALENT),
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 45,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
+      },
+      {
+        spell: TALENTS.FROSTFIRE_BOLT_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        enabled: combatant.hasTalent(TALENTS.FROSTFIRE_BOLT_TALENT),
+        gcd: {
+          base: 1500,
+        },
       },
 
       // Cooldowns
@@ -114,7 +158,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.BLAZING_BARRIER_TALENT),
         cooldown:
           combatant.hasTalent(TALENTS.ACCUMULATIVE_SHIELDING_TALENT) &&
-          combatant.hasBuff(TALENTS.ICE_BARRIER_TALENT.id)
+          combatant.hasBuff(TALENTS.BLAZING_BARRIER_TALENT.id)
             ? 25 / 1.3
             : 25,
         gcd: {
@@ -128,7 +172,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.PRISMATIC_BARRIER_TALENT),
         cooldown:
           combatant.hasTalent(TALENTS.ACCUMULATIVE_SHIELDING_TALENT) &&
-          combatant.hasBuff(TALENTS.ICE_BARRIER_TALENT.id)
+          combatant.hasBuff(TALENTS.PRISMATIC_BARRIER_TALENT.id)
             ? 25 / 1.3
             : 25,
         gcd: {
@@ -139,16 +183,34 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.ICE_BLOCK_TALENT.id,
         buffSpellId: TALENTS.ICE_BLOCK_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        enabled: combatant.hasTalent(TALENTS.ICE_BLOCK_TALENT),
+        enabled:
+          combatant.hasTalent(TALENTS.ICE_BLOCK_TALENT) &&
+          !combatant.hasTalent(TALENTS.ICE_COLD_TALENT),
         cooldown: 240 - combatant.getTalentRank(TALENTS.WINTERS_PROTECTION_TALENT) * 30,
         gcd: {
           base: 1500,
         },
       },
       {
+        spell: SPELLS.ICE_COLD.id,
+        category: SPELL_CATEGORY.DEFENSIVE,
+        enabled: combatant.hasTalent(TALENTS.ICE_COLD_TALENT),
+        cooldown: 240 - combatant.getTalentRank(TALENTS.WINTERS_PROTECTION_TALENT) * 30,
+        gcd: null,
+      },
+      {
         spell: TALENTS.MIRROR_IMAGE_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         enabled: combatant.hasTalent(TALENTS.MIRROR_IMAGE_TALENT),
+        cooldown: 120,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: TALENTS.MASS_BARRIER_TALENT.id,
+        category: SPELL_CATEGORY.DEFENSIVE,
+        enabled: combatant.hasTalent(TALENTS.MASS_BARRIER_TALENT),
         cooldown: 120,
         gcd: {
           base: 1500,
@@ -166,14 +228,22 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FROST_NOVA.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 30,
+        cooldown:
+          combatant.spec === SPECS.FIRE_MAGE &&
+          combatant.hasTalent(TALENTS.ELEMENTAL_AFFINITY_TALENT)
+            ? 30 / 1.3
+            : 30,
         charges: 1 + combatant.getTalentRank(TALENTS.ICE_WARD_TALENT),
       },
       {
         spell: TALENTS.RING_OF_FROST_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         enabled: combatant.hasTalent(TALENTS.RING_OF_FROST_TALENT),
-        cooldown: 45,
+        cooldown:
+          combatant.spec === SPECS.FIRE_MAGE &&
+          combatant.hasTalent(TALENTS.ELEMENTAL_AFFINITY_TALENT)
+            ? 45 / 1.3
+            : 45,
       },
       {
         spell: SPELLS.BLINK.id,
@@ -254,9 +324,14 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         enabled: combatant.hasTalent(TALENTS.ALTER_TIME_TALENT),
         cooldown: 60 - combatant.getTalentRank(TALENTS.ALTER_TIME_TALENT) * 10,
-        gcd: {
-          base: 1500,
-        },
+        gcd: null,
+      },
+      {
+        spell: SPELLS.ALTER_TIME_RETURN.id,
+        category: SPELL_CATEGORY.UTILITY,
+        enabled: combatant.hasTalent(TALENTS.ALTER_TIME_TALENT),
+        cooldown: 0,
+        gcd: null,
       },
       {
         spell: SPELLS.INVISIBILITY.id,
@@ -273,6 +348,15 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.GREATER_INVISIBILITY_BUFF.id,
         category: SPELL_CATEGORY.UTILITY,
         enabled: combatant.hasTalent(TALENTS.GREATER_INVISIBILITY_TALENT),
+        cooldown: 120,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: TALENTS.MASS_INVISIBILITY_TALENT.id,
+        category: SPELL_CATEGORY.UTILITY,
+        enabled: combatant.hasTalent(TALENTS.MASS_INVISIBILITY_TALENT),
         cooldown: 120,
         gcd: {
           base: 1500,
@@ -315,4 +399,3 @@ class Abilities extends CoreAbilities {
 }
 
 export default Abilities;
-export { Abilities as MAGE_SHARED_ABILITIES };

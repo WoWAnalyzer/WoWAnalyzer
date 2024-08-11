@@ -18,11 +18,7 @@ import Combatant from 'parser/core/Combatant';
 export const BUFF_DROP_BUFFER = 200;
 
 /** Default fraction of DoT duration carried over to new applications */
-export const DEFAULT_PANDEMIC_FRACTION = 0.3;
-
-export function hasSpec(snapshots: SnapshotSpec[], sss: StaticSnapshotSpec) {
-  return snapshots.find((ss) => ss.name === sss.name) !== undefined;
-}
+const DEFAULT_PANDEMIC_FRACTION = 0.3;
 
 /**
  * Many DoT spells 'snapshot' certain buffs on cast, benefitting from them over the DoT's
@@ -263,7 +259,7 @@ export type SnapshotSpec = {
 };
 
 /** Data object recording a period of time that a DoT was active, and which snapshots it benfitted from */
-export type DotUptime = {
+type DotUptime = {
   /** Timestamp when this debuff was applied or refreshed */
   start: number;
   /** Timestamp when we expect the debuff to expire */

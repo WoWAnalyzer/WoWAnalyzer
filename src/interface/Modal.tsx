@@ -13,9 +13,10 @@ interface Props {
   children: React.ReactNode;
   onClose: () => void;
   id: string;
+  testId?: string;
 }
 
-const Modal = ({ children, onClose, id }: Props) => {
+const Modal = ({ children, onClose, id, testId }: Props) => {
   const dispatch = useDispatch();
 
   const [hasDispatched, setHasDispatched] = useState(false);
@@ -39,6 +40,7 @@ const Modal = ({ children, onClose, id }: Props) => {
         role="dialog"
         aria-modal
         style={{ animation: isTopModal ? '' : 'blur 10ms forwards' }}
+        data-testid={testId}
       >
         <div className="container">
           <button className="close" onClick={onClose}>

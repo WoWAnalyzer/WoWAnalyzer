@@ -9,7 +9,7 @@ export interface QueryParams {
 
 export default function makeApiUrl(endpoint: string, queryParams: QueryParams = {}) {
   return makeUrl(
-    `${process.env.REACT_APP_SERVER_BASE}${process.env.REACT_APP_API_BASE}${endpoint}`,
+    `${import.meta.env.VITE_SERVER_BASE}${import.meta.env.VITE_API_BASE}${endpoint}`,
     queryParams,
   );
 }
@@ -50,15 +50,5 @@ export function makeGuildApiUrl(region?: string, realm?: string, name?: string, 
     parts.push(name);
   }
 
-  return makeApiUrl(parts.map((part) => encodeURIComponent(part)).join('/'));
-}
-
-export function makeItemApiUrl(itemId: string) {
-  const parts = ['item', itemId];
-  return makeApiUrl(parts.map((part) => encodeURIComponent(part)).join('/'));
-}
-
-export function makeSpellApiUrl(spellId: number) {
-  const parts = ['spell', spellId];
   return makeApiUrl(parts.map((part) => encodeURIComponent(part)).join('/'));
 }

@@ -11,6 +11,7 @@ interface Props {
   offset: number;
   combatants: any;
   manaUpdates: any[];
+  height?: number;
 }
 
 interface State {
@@ -43,11 +44,11 @@ class ManaLevelChartComponent extends PureComponent<Props, State> {
 
   load() {
     const { reportCode, start, end } = this.props;
-    fetchWcl(`report/tables/resources/${reportCode}`, {
+    fetchWcl(`report/graph/resources/${reportCode}`, {
       start,
       end,
       sourceclass: 'Boss',
-      hostility: 1,
+      hostility: 'Enemies',
       abilityid: 1000,
     }).then((json) => {
       this.setState({
@@ -107,7 +108,12 @@ class ManaLevelChartComponent extends PureComponent<Props, State> {
 
     return (
       <div className="graph-container">
-        <ManaLevelGraph mana={mana} bossData={bossData} deaths={deaths} />
+        <ManaLevelGraph
+          mana={mana}
+          bossData={bossData}
+          deaths={deaths}
+          height={this.props.height}
+        />
       </div>
     );
   }

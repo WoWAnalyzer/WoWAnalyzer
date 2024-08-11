@@ -1,41 +1,29 @@
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/evoker';
+import TALENTS from 'common/TALENTS/evoker';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import { Options } from 'parser/core/Module';
-import { TALENTS_EVOKER } from 'common/TALENTS';
-import { CastEvent, EventType, HasRelatedEvent } from 'parser/core/Events';
+import {
+  CastEvent,
+  DamageEvent,
+  EventType,
+  GetRelatedEvents,
+  HasRelatedEvent,
+} from 'parser/core/Events';
+import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
 
-export const ESSENCE_BURST_CONSUME = 'EssenceBurstConsumption';
-export const BURNOUT_CONSUME = 'BurnoutConsumption';
-export const SNAPFIRE_CONSUME = 'SnapfireConsumption';
+const BURNOUT_CONSUME = 'BurnoutConsumption';
+const SNAPFIRE_CONSUME = 'SnapfireConsumption';
 export const IRIDESCENCE_RED_CONSUME = 'IridescentRedConsumption';
 export const IRIDESCENCE_BLUE_CONSUME = 'IridescentBlueConsumption';
 export const DISINTEGRATE_REMOVE_APPLY = 'DisintegrateRemoveApply';
+export const PYRE_CAST = 'PyreCast';
+export const PYRE_DRAGONRAGE = 'PyreDragonrage';
+export const PYRE_VOLATILITY = 'PyreVolatility';
 
+export const PYRE_MIN_TRAVEL_TIME = 950;
+export const PYRE_MAX_TRAVEL_TIME = 1_050;
 const CAST_BUFFER_MS = 100;
 const EVENT_LINKS: EventLink[] = [
-  {
-    linkRelation: ESSENCE_BURST_CONSUME,
-    reverseLinkRelation: ESSENCE_BURST_CONSUME,
-    linkingEventId: [TALENTS_EVOKER.RUBY_ESSENCE_BURST_TALENT.id, SPELLS.ESSENCE_BURST_DEV_BUFF.id],
-    linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
-    referencedEventId: SPELLS.DISINTEGRATE.id,
-
-    referencedEventType: EventType.Cast,
-    anyTarget: true,
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
-  },
-  {
-    linkRelation: ESSENCE_BURST_CONSUME,
-    reverseLinkRelation: ESSENCE_BURST_CONSUME,
-    linkingEventId: [TALENTS_EVOKER.RUBY_ESSENCE_BURST_TALENT.id, SPELLS.ESSENCE_BURST_DEV_BUFF.id],
-    linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
-    referencedEventId: [SPELLS.PYRE.id, SPELLS.PYRE_DENSE_TALENT.id],
-    referencedEventType: EventType.Cast,
-    anyTarget: true,
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
-  },
   {
     linkRelation: BURNOUT_CONSUME,
     reverseLinkRelation: BURNOUT_CONSUME,
@@ -46,8 +34,9 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
+    maximumLinks: 1,
     isActive(c) {
-      return c.hasTalent(TALENTS_EVOKER.BURNOUT_TALENT);
+      return c.hasTalent(TALENTS.BURNOUT_TALENT);
     },
   },
   {
@@ -55,13 +44,13 @@ const EVENT_LINKS: EventLink[] = [
     reverseLinkRelation: SNAPFIRE_CONSUME,
     linkingEventId: SPELLS.SNAPFIRE_BUFF.id,
     linkingEventType: [EventType.RemoveBuff],
-    referencedEventId: [TALENTS_EVOKER.FIRESTORM_TALENT.id],
+    referencedEventId: [TALENTS.FIRESTORM_TALENT.id],
     referencedEventType: EventType.Cast,
     anyTarget: true,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: 1000,
     isActive(c) {
-      return c.hasTalent(TALENTS_EVOKER.FIRESTORM_TALENT);
+      return c.hasTalent(TALENTS.FIRESTORM_TALENT);
     },
   },
   {
@@ -75,7 +64,7 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
     isActive(c) {
-      return c.hasTalent(TALENTS_EVOKER.IRIDESCENCE_TALENT);
+      return c.hasTalent(TALENTS.IRIDESCENCE_TALENT);
     },
   },
   {
@@ -94,7 +83,7 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
     isActive(c) {
-      return c.hasTalent(TALENTS_EVOKER.IRIDESCENCE_TALENT);
+      return c.hasTalent(TALENTS.IRIDESCENCE_TALENT);
     },
   },
   /** Sometimes, rarely, will disintegrate debuff be removed and reapplied
@@ -113,6 +102,55 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: EventType.ApplyDebuff,
     anyTarget: true,
   },
+  // region PYRE
+  {
+    linkRelation: PYRE_DRAGONRAGE,
+    reverseLinkRelation: PYRE_DRAGONRAGE,
+    linkingEventId: TALENTS.DRAGONRAGE_TALENT.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.PYRE.id,
+    referencedEventType: EventType.Damage,
+    anyTarget: true,
+    forwardBufferMs: PYRE_MAX_TRAVEL_TIME,
+    isActive(c) {
+      return c.hasTalent(TALENTS.DRAGONRAGE_TALENT);
+    },
+    additionalCondition(linkingEvent, referencedEvent) {
+      if (pyreHasSource(referencedEvent as DamageEvent)) {
+        return false;
+      }
+      const delay = referencedEvent.timestamp - linkingEvent.timestamp;
+      if (delay < PYRE_MIN_TRAVEL_TIME) {
+        return false;
+      }
+
+      return pyreHitIsUnique(linkingEvent as CastEvent, referencedEvent as DamageEvent, 3);
+    },
+  },
+  {
+    linkRelation: PYRE_CAST,
+    reverseLinkRelation: PYRE_CAST,
+    linkingEventId: TALENTS.PYRE_TALENT.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.PYRE.id,
+    referencedEventType: EventType.Damage,
+    anyTarget: true,
+    forwardBufferMs: PYRE_MAX_TRAVEL_TIME,
+    isActive(c) {
+      return c.hasTalent(TALENTS.PYRE_TALENT);
+    },
+    additionalCondition(linkingEvent, referencedEvent) {
+      if (pyreHasSource(referencedEvent as DamageEvent)) {
+        return false;
+      }
+      const delay = referencedEvent.timestamp - linkingEvent.timestamp;
+      if (delay < PYRE_MIN_TRAVEL_TIME) {
+        return false;
+      }
+
+      return pyreHitIsUnique(linkingEvent as CastEvent, referencedEvent as DamageEvent);
+    },
+  },
 ];
 
 class CastLinkNormalizer extends EventLinkNormalizer {
@@ -121,16 +159,52 @@ class CastLinkNormalizer extends EventLinkNormalizer {
   }
 }
 
+// region HELPERS
 export function isFromBurnout(event: CastEvent) {
   return HasRelatedEvent(event, BURNOUT_CONSUME);
 }
 
-export function isFromEssenceBurst(event: CastEvent) {
-  return HasRelatedEvent(event, ESSENCE_BURST_CONSUME);
-}
-
 export function isFromSnapfire(event: CastEvent) {
   return HasRelatedEvent(event, SNAPFIRE_CONSUME);
+}
+
+export function pyreHasSource(event: DamageEvent) {
+  return isPyreFromDragonrage(event) || isPyreFromCast(event);
+}
+
+export function isPyreFromDragonrage(event: DamageEvent) {
+  return HasRelatedEvent(event, PYRE_DRAGONRAGE);
+}
+
+export function isPyreFromCast(event: DamageEvent) {
+  return HasRelatedEvent(event, PYRE_CAST);
+}
+
+export function getPyreEvents(event: CastEvent): DamageEvent[] {
+  if (event.ability.guid === TALENTS.PYRE_TALENT.id) {
+    return GetRelatedEvents<DamageEvent>(event, PYRE_CAST);
+  }
+
+  return GetRelatedEvents<DamageEvent>(event, PYRE_DRAGONRAGE);
+}
+
+function pyreHitIsUnique(
+  castEvent: CastEvent,
+  damageEvent: DamageEvent,
+  maxHitsAllowed: number = 1,
+) {
+  /** Since Pyre can only hit a target once per cast
+   * we need to check if it's the same target
+   * Dragonrage shoots out 3 pyres so we need to count */
+  const previousEvents = getPyreEvents(castEvent);
+  if (previousEvents.length > 0) {
+    const targetHitCount = previousEvents.filter(
+      (e) => encodeEventTargetString(e) === encodeEventTargetString(damageEvent),
+    );
+    return targetHitCount.length < maxHitsAllowed;
+  }
+
+  return true;
 }
 
 export default CastLinkNormalizer;

@@ -1,7 +1,7 @@
 import TALENTS from 'common/TALENTS/priest';
 import SPELLS from 'common/SPELLS';
-import Analyzer, { Options } from 'parser/core/Analyzer';
-import { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/EventFilter';
+import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import { TIERS } from 'game/TIERS';
 import Events, { CastEvent, DamageEvent, FightEndEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
@@ -21,10 +21,18 @@ class InescapableTorment extends Analyzer {
   castTime: number = 0;
   MBExtension: BoxRowEntry[] = [];
   recentIT: number = 0;
+  has2Piece: boolean = true;
+  tier31Effectiveness: number = 1.0;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.INESCAPABLE_TORMENT_TALENT);
+    this.has2Piece = this.selectedCombatant.has2PieceByTier(TIERS.DF3);
+    //Shadow's Tier 31 2 piece causes Inescapable torment to proc at 15% effectiveness 2-3 times after a cast of SW:D
+    //It occurs quickly, so it is not possible to have a cast between any of these damage events.
+    //The damage is calculated correctly automatically, but the extension time on mindbender is not.
+    this.tier31Effectiveness = 1.0;
+
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.INESCAPABLE_TORMENT_TALENT_DAMAGE),
       this.onDamage,
@@ -33,6 +41,16 @@ class InescapableTorment extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.MINDBENDER_SHADOW_TALENT),
       this.onCast,
     );
+    this.has2Piece &&
+      this.addEventListener(
+        Events.cast.by(SELECTED_PLAYER).spell(TALENTS.SHADOW_WORD_DEATH_TALENT),
+        this.onCastSWD,
+      );
+    this.has2Piece &&
+      this.addEventListener(
+        Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MIND_BLAST),
+        this.onCastMB,
+      );
     this.addEventListener(Events.fightend, this.onEnd);
   }
 
@@ -49,12 +67,22 @@ class InescapableTorment extends Analyzer {
       if (this.extension <= 6) {
         value = QualitativePerformance.Ok;
       }
-      if (this.extension <= 3) {
+      if (this.extension <= 4) {
         value = QualitativePerformance.Fail;
       }
 
       this.MBExtension.push({ value, tooltip });
     }
+  }
+
+  onCastSWD(event: CastEvent) {
+    //console.log("SW:D Cast", event.timestamp)
+    this.tier31Effectiveness = 1.0;
+  }
+
+  onCastMB(event: CastEvent) {
+    //console.log("MB Cast", event.timestamp)
+    this.tier31Effectiveness = 1.0;
   }
 
   onCast(event: CastEvent) {
@@ -71,7 +99,6 @@ class InescapableTorment extends Analyzer {
     //Since there is no way to tell when mindbender ends, we resolve the last Mindbender when the fight is over.
     //So long as a mindbender was cast, we generate the extension.
     this.finalizeMindBenderCast();
-
     this.totalTime += this.extension; // add previous extension to total time.
   }
 
@@ -79,9 +106,14 @@ class InescapableTorment extends Analyzer {
     this.damage += event.amount + (event.absorbed || 0);
     //Inescapable Torment can hit 5 targets at once, but it only gives the extension for the first one hit.
     if (event.timestamp !== this.recentIT) {
+      //console.log("extension at", event.timestamp, "With", this.Tier31TwoPiece)
       this.extension +=
         INESCAPABLE_TORMENT_EXTENSION *
+        this.tier31Effectiveness *
         this.selectedCombatant.getTalentRank(TALENTS.INESCAPABLE_TORMENT_TALENT);
+      if (this.has2Piece) {
+        this.tier31Effectiveness = 0.15;
+      }
     }
     this.recentIT = event.timestamp;
   }

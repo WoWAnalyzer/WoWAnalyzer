@@ -5,6 +5,7 @@ import { ReactNode } from 'react';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { SpellIcon, TooltipElement } from 'interface';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 export default abstract class HitCountAoE extends Analyzer {
   allTrackers: SpellAoeTracker[] = [];
@@ -64,9 +65,7 @@ export default abstract class HitCountAoE extends Analyzer {
     tracker.hits += hits;
     if (hits === 0) {
       tracker.zeroHitCasts += 1;
-      event.meta = event.meta || {};
-      event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = 'This cast hit nothing!';
+      addInefficientCastReason(event, 'This cast hit nothing!');
     } else if (hits === 1) {
       tracker.oneHitCasts += 1;
     } else {

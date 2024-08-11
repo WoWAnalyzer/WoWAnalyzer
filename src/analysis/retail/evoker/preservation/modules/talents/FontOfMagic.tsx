@@ -7,7 +7,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import { getHealEvents } from '../../normalizers/CastLinkNormalizer';
+import { getHealEvents } from '../../normalizers/EventLinking/helpers';
 import { formatNumber } from 'common/format';
 
 const FONT_SPLIT_TARGETS = 3; // level 4 empower sb = 3 additional targets

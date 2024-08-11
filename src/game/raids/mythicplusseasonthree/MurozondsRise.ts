@@ -1,9 +1,9 @@
-import { Dungeon } from 'game/raids';
+import type { Boss } from 'game/raids';
 
 import Background from './backgrounds/DawnOfTheInfinite.png';
 import Headshot from './headshots/MurozondsRise.jpg';
 
-const MurozondsRise: Dungeon = {
+const MurozondsRise: Boss = {
   id: 12580,
   name: "DOTI: Murozond's Rise",
   background: Background,

@@ -21,7 +21,7 @@ export interface CooldownTrigger<T extends AnyEvent> {
   event: T;
 }
 
-export interface CooldownOptions {
+interface CooldownOptions {
   spell: Spell;
 }
 

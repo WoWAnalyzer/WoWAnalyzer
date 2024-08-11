@@ -1,5 +1,5 @@
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
-import { AutoSizer } from 'react-virtualized';
+import AutoSizer from 'react-virtualized-auto-sizer';
 import { VisualizationSpec } from 'react-vega';
 import { useMemo } from 'react';
 
@@ -162,6 +162,9 @@ function generateVegaSpec(fightStartTime: number): VisualizationSpec {
             field: 'activeTimePercentage',
             title: 'Active Time',
             type: 'quantitative' as const,
+            scale: {
+              domain: [0, 1],
+            },
             axis: {
               grid: true,
               format: '.0%',

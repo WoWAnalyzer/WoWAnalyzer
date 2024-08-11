@@ -14,6 +14,11 @@ const items: ItemList = {
     name: 'Essence Rush',
     icon: 'ability_evoker_essenceburststacks',
   },
+  KHARNALEX_THE_FIRST_LIGHT: {
+    id: 195519,
+    name: 'Kharnalex, The First Light',
+    icon: 'inv_staff_2h_dragondungeon_c_02',
+  },
   //endregion
   //region Shared
   //endregion

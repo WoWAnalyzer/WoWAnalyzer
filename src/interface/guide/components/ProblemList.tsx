@@ -10,7 +10,7 @@ import './ProblemList.scss';
    Your editor may or may not show documentation for the fields when you read
    the type documentation. Be sure to examine the individual fields for details!
  */
-export type Problem<T> = {
+export interface Problem<T> {
   /**
      The range (in time) where the problem occurred. `start`/`end` are event
      timestamps. It is okay if `start = end`.
@@ -50,7 +50,7 @@ export type Problem<T> = {
      is passed to your `ProblemRenderer`.
    */
   data: T;
-};
+}
 
 /**
    The properties passed to a problem renderer.
@@ -76,11 +76,11 @@ export type Problem<T> = {
    - A `ProblemRenderer` must not be used to detect problems. Problems should be pre-computed and passed to the `ProblemList`.
    - It is okay if you compute some extra data from the `events` list to show more detail, make a graph, etc.
  */
-export type ProblemRendererProps<T> = {
+export interface ProblemRendererProps<T> {
   events: AnyEvent[];
   problem: Problem<T>;
   info: Info;
-};
+}
 
 /**
    Convenience type for a React component that takes `ProblemRendererProps<T>` as its props.
@@ -93,7 +93,7 @@ export type ProblemRendererProps<T> = {
    };
    ```
  */
-export type ProblemRenderer<T> = (props: ProblemRendererProps<T>) => JSX.Element;
+type ProblemRenderer<T> = (props: ProblemRendererProps<T>) => JSX.Element;
 
 export function NoProblem({ children }: React.PropsWithChildren<object>) {
   return (

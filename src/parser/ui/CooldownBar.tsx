@@ -251,8 +251,8 @@ function CooldownBarSegment({
     type === 'onCooldown'
       ? 'cooldown-unavailable'
       : redHighlight
-      ? 'cooldown-available-bad'
-      : 'cooldown-available';
+        ? 'cooldown-available-bad'
+        : 'cooldown-available';
   const tooltipContent =
     type === 'onCooldown' ? (
       hasCharges ? (
@@ -304,6 +304,8 @@ function timestampOrFightTerminus(timestamp: number, fightStart: number, fightEn
     return 'fight start';
   } else if (timestamp === fightEnd) {
     return 'fight end';
+  } else if (timestamp < fightStart) {
+    return 'pre-pull';
   } else {
     return formatDuration(timestamp - fightStart);
   }

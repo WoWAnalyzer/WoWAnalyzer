@@ -17,6 +17,8 @@ import {
   BREATH_OF_EONS_EXTENSION_MS,
   SANDS_OF_TIME_CRIT_MOD,
   DREAM_OF_SPRINGS_EXTENSION_MS,
+  BREATH_OF_EONS_SPELL_IDS,
+  BREATH_OF_EONS_SPELLS,
 } from 'analysis/retail/evoker/augmentation/constants';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { ChecklistUsageInfo, SpellUse } from 'parser/core/SpellUsage/core';
@@ -24,7 +26,6 @@ import { SpellLink } from 'interface';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 import ContextualSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
-import { logSpellUseEvent } from 'parser/core/SpellUsage/SpellUsageSubSection';
 import { ebonIsFromBreath, getEbonMightBuffEvents } from '../normalizers/CastLinkNormalizer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Combatants from 'parser/shared/modules/Combatants';
@@ -78,7 +79,8 @@ class EbonMight extends Analyzer {
 
   trackedSpells = [
     TALENTS.ERUPTION_TALENT,
-    TALENTS.BREATH_OF_EONS_TALENT,
+    ...BREATH_OF_EONS_SPELLS,
+    SPELLS.BREATH_OF_EONS_SCALECOMMANDER,
     SPELLS.EMERALD_BLOSSOM_CAST,
   ];
   empowers = [SPELLS.FIRE_BREATH, SPELLS.FIRE_BREATH_FONT, SPELLS.UPHEAVAL, SPELLS.UPHEAVAL_FONT];
@@ -165,7 +167,7 @@ class EbonMight extends Analyzer {
   }
 
   private onCast(event: CastEvent | EmpowerEndEvent) {
-    this.extendEbongMight(event);
+    this.extendEbonMight(event);
   }
 
   /* Here we figure out how long the duration should be based on current mastery
@@ -188,7 +190,7 @@ class EbonMight extends Analyzer {
   /* Here we figure out how much to extend the current buffs, we average
    * out the crit chance of the +50% effect, gives accurate enough results
    * for what we need.*/
-  private extendEbongMight(event: CastEvent | EmpowerEndEvent) {
+  private extendEbonMight(event: CastEvent | EmpowerEndEvent) {
     if (
       !this.ebonMightActive ||
       (event.ability.guid === SPELLS.EMERALD_BLOSSOM_CAST.id &&
@@ -203,7 +205,7 @@ class EbonMight extends Analyzer {
 
     let newEbonMightDuration;
 
-    if (event.ability.guid === TALENTS.BREATH_OF_EONS_TALENT.id) {
+    if (BREATH_OF_EONS_SPELL_IDS.includes(event.ability.guid)) {
       newEbonMightDuration = ebonMightTimeLeft + BREATH_OF_EONS_EXTENSION_MS * critMod;
     } else if (event.ability.guid === TALENTS.ERUPTION_TALENT.id) {
       newEbonMightDuration = ebonMightTimeLeft + ERUPTION_EXTENSION_MS * critMod;
@@ -290,13 +292,20 @@ class EbonMight extends Analyzer {
       EBON_MIGHT_BASE_DURATION_MS *
       (1 + TIMEWALKER_BASE_EXTENSION + ebonMightCooldownCast.currentMastery) *
       PANDEMIC_WINDOW;
-    const hasT31 = this.selectedCombatant.has2PieceByTier(TIERS.T31);
+    const hasT31 =
+      this.selectedCombatant.has2PieceByTier(TIERS.DF3) ||
+      this.selectedCombatant.has2PieceByTier(TIERS.DF4);
 
     let performance;
     let summary;
     let details;
     let prescienceBuffsActive = 0;
-    const PERFECT_PRESCIENCE_BUFFS = hasT31 ? 3 : 2;
+
+    /** We can only ever start the fight with 2 Prescience with current design, so don't bonk that on pull */
+    const isPullPrescience =
+      ebonMightCooldownCast.event.timestamp >= this.owner.fight.start_time + 10_000;
+
+    const PERFECT_PRESCIENCE_BUFFS = hasT31 && isPullPrescience ? 3 : 2;
     const GOOD_PRESCIENCE_BUFFS = 2;
     const OK_PRESCIENCE_BUFFS = 1;
 
@@ -395,56 +404,71 @@ class EbonMight extends Analyzer {
   /** Do role/spec Performance check for players
    * getting buffed are DPS (excluding Aug this one is a crime!) */
   private getRolePerformance(ebonMightCooldownCast: EbonMightCooldownCast) {
+    if (!ebonMightCooldownCast.buffedTargets) {
+      return;
+    }
+
     // Only run the check if there is actually 4 dps players amongus
     const players = Object.values(this.combatants.players);
-
     const enoughDPSFound =
       players.reduce((dpsCount, player) => {
-        const targetID = player._combatantInfo.sourceID;
+        const playerSpec = player.spec;
+        if (!playerSpec) {
+          return dpsCount;
+        }
 
-        const isRangedDPS = this.combatants.players[targetID]?.spec?.role === ROLES.DPS.RANGED;
-        const isMeleeDPS = this.combatants.players[targetID]?.spec?.role === ROLES.DPS.MELEE;
-        const isAugmentation =
-          this.combatants.players[targetID]?.spec === SPECS.AUGMENTATION_EVOKER;
+        const isRangedDPS = playerSpec.role === ROLES.DPS.RANGED;
+        const isMeleeDPS = playerSpec.role === ROLES.DPS.MELEE;
+        const isAugmentation = playerSpec === SPECS.AUGMENTATION_EVOKER;
 
         return (isRangedDPS || isMeleeDPS) && !isAugmentation ? dpsCount + 1 : dpsCount;
       }, 0) >= 4;
 
-    if (!enoughDPSFound || !ebonMightCooldownCast.buffedTargets) {
+    if (!enoughDPSFound) {
       return;
     }
 
     let rolePerformance = QualitativePerformance.Perfect;
-    const buffedPlayers: JSX.Element[] = [];
 
-    ebonMightCooldownCast.buffedTargets.forEach((player) => {
-      const currentPlayer = this.combatants.players[player.targetID];
-      if (currentPlayer.spec) {
-        const className = classColor(currentPlayer);
-        let currentPlayerRole = 'DPS';
-        if (
-          currentPlayer.spec.role === ROLES.HEALER ||
-          currentPlayer.spec.role === ROLES.TANK ||
-          currentPlayer.spec === SPECS.AUGMENTATION_EVOKER
-        ) {
-          if (currentPlayer.spec.role === ROLES.HEALER) {
-            currentPlayerRole = 'Healer';
-          } else if (currentPlayer.spec.role === ROLES.TANK) {
-            currentPlayerRole = 'Tank';
-          } else {
-            currentPlayerRole = 'Augmentation';
-          }
-          rolePerformance = QualitativePerformance.Fail;
+    /** Figure out the specs of the buffed players */
+    const buffedPlayers = ebonMightCooldownCast.buffedTargets.reduce<JSX.Element[]>(
+      (acc, ebonMightApplication) => {
+        const player = this.combatants.players[ebonMightApplication.targetID];
+
+        /** No spec so we can't really judge or add styling */
+        if (!player?.spec) {
+          acc.push(<div key={player.id}>Buffed {player.name}</div>);
+          return acc;
         }
-        buffedPlayers.push(
-          <div>
-            Buffed {currentPlayerRole}: <span className={className}>{currentPlayer.name}</span>
+
+        let playerRole = 'DPS';
+        switch (player.spec.role) {
+          case ROLES.HEALER:
+            playerRole = 'Healer';
+            rolePerformance = QualitativePerformance.Fail;
+            break;
+          case ROLES.TANK:
+            playerRole = 'Tank';
+            rolePerformance = QualitativePerformance.Fail;
+            break;
+          default:
+            if (player.spec === SPECS.AUGMENTATION_EVOKER) {
+              playerRole = 'Augmentation';
+              rolePerformance = QualitativePerformance.Fail;
+            }
+            break;
+        }
+
+        acc.push(
+          <div key={player.id}>
+            Buffed {playerRole}: <span className={classColor(player)}>{player.name}</span>
           </div>,
         );
-      } else {
-        buffedPlayers.push(<div>Buffed {currentPlayer.name}</div>);
-      }
-    });
+
+        return acc;
+      },
+      [],
+    );
 
     const performanceCheck = {
       performance: rolePerformance,
@@ -485,7 +509,6 @@ class EbonMight extends Analyzer {
         castBreakdownSmallText={
           <> - These boxes represent each cast, colored by how good the usage was.</>
         }
-        onPerformanceBoxClick={logSpellUseEvent}
         abovePerformanceDetails={<div style={{ marginBottom: 10 }}></div>}
       />
     );

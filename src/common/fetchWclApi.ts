@@ -33,6 +33,7 @@ const HTTP_CODES = {
   OK: 200,
   BAD_REQUEST: 400,
   UNAUTHORIZED: 401,
+  NOT_FOUND: 404,
   CLOUDFLARE: {
     UNKNOWN_ERROR: 520,
     WEB_SERVER_IS_DOWN: 521,
@@ -89,12 +90,12 @@ export async function toJson(response: string | Response) {
   }
 }
 
-async function rawFetchWcl(endpoint: string, queryParams: QueryParams) {
-  if (process.env.NODE_ENV === 'test') {
+async function rawFetchWcl(endpoint: string, queryParams: QueryParams, noCache: boolean = false) {
+  if (import.meta.env.MODE === 'test') {
     throw new Error('Unable to query WCL during test');
   }
   const url = makeWclApiUrl(endpoint, queryParams);
-  const response = await fetch(url);
+  const response = await fetch(url, { cache: noCache ? 'reload' : 'default' });
 
   if (Object.values(HTTP_CODES.CLOUDFLARE).includes(response.status)) {
     throw new ApiDownError(
@@ -116,6 +117,12 @@ async function rawFetchWcl(endpoint: string, queryParams: QueryParams) {
     }
     throw new Error(message || json.error);
   }
+
+  if (response.status === HTTP_CODES.NOT_FOUND) {
+    // TODO: this doesn't handle character/guild not found
+    throw new LogNotFoundError();
+  }
+
   if (!response.ok) {
     if (json.error === WCL_API_ERROR_TEXT) {
       throw new WclApiError(`${response.status}: ${json.message}`);
@@ -133,6 +140,7 @@ export default function fetchWcl<T extends WCLResponseJSON>(
   endpoint: string,
   queryParams: QueryParams,
   options?: WclOptions,
+  noCache: boolean = false,
 ): Promise<T> {
   options = !options ? defaultOptions : { ...defaultOptions, ...options };
 
@@ -143,7 +151,7 @@ export default function fetchWcl<T extends WCLResponseJSON>(
       reject(new Error('Request timed out, probably due to an issue on our side. Try again.'));
     }, options!.timeout);
 
-    rawFetchWcl(endpoint, queryParams)
+    rawFetchWcl(endpoint, queryParams, noCache)
       .then((results) => {
         clearTimeout(timeoutTimer);
         if (timedOut) {
@@ -162,10 +170,14 @@ export default function fetchWcl<T extends WCLResponseJSON>(
 }
 
 function rawFetchFights(code: string, refresh = false, translate = true) {
-  return fetchWcl<WCLFightsResponse>(`report/fights/${code}`, {
-    _: refresh ? Number(new Date()) : undefined,
-    translate: translate ? true : undefined, // so long as we don't have the entire site localized, it's better to have 1 consistent language
-  });
+  return fetchWcl<WCLFightsResponse>(
+    `report/fights/${code}`,
+    {
+      translate: translate ? true : undefined, // so long as we don't have the entire site localized, it's better to have 1 consistent language
+    },
+    undefined,
+    refresh,
+  );
 }
 export async function fetchFights(code: string, refresh = false) {
   // This deals with a bunch of bugs in the fights API so implementers don't have to

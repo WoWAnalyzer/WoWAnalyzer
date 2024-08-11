@@ -15,10 +15,15 @@ const rangeSatisfied = (actualAmount: number, range: Range): boolean =>
 // NOTE: this doesn't explicitly model natural regen (mana, energy, focus) but
 // when the classResources are present it does use those as the main source of
 // truth, which should accomodate them in the vast majority of cases.
-export default function hasResource(resource: Resource, range: Range): Condition<number> {
+// use initial to set the expected initial resources on fight start
+export default function hasResource(
+  resource: Resource,
+  range: Range,
+  initial?: number,
+): Condition<number> {
   return {
     key: `hasResource-${resource.id}`,
-    init: () => 0,
+    init: () => initial ?? 0,
     update: (state, event) => {
       if (event.type === EventType.ResourceChange && event.resourceChangeType === resource.id) {
         return event.resourceChange - event.waste + state;

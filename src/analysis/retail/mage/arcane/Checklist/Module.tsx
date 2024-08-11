@@ -10,16 +10,10 @@ import Combatants from 'parser/shared/modules/Combatants';
 import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 
 import AlwaysBeCasting from '../core/AlwaysBeCasting';
-import ArcaneMissiles from '../core/ArcaneMissiles';
-import ArcaneSurgeActiveTime from '../core/ArcaneSurgeActiveTime';
-import ArcaneSurgeMana from '../core/ArcaneSurgeMana';
-import ArcaneSurgePreReqs from '../core/ArcaneSurgePreReqs';
-import RadiantSpark from '../talents/RadiantSpark';
+import Clearcasting from '../core/Clearcasting';
 import ManaValues from '../ManaChart/ManaValues';
-import ArcaneEcho from '../talents/ArcaneEcho';
-import ArcaneFamiliar from '../talents/ArcaneFamiliar';
 import ArcaneOrb from '../talents/ArcaneOrb';
-import RuleOfThrees from '../talents/RuleOfThrees';
+import TouchOfTheMagi from '../talents/TouchOfTheMagi';
 import Component from './Component';
 
 class Checklist extends BaseChecklist {
@@ -27,16 +21,10 @@ class Checklist extends BaseChecklist {
     ...BaseChecklist.dependencies,
     combatants: Combatants,
     castEfficiency: CastEfficiency,
-    arcaneFamiliar: ArcaneFamiliar,
     arcaneOrb: ArcaneOrb,
-    arcaneEcho: ArcaneEcho,
-    arcaneSurgePreReqs: ArcaneSurgePreReqs,
-    arcaneSurgeMana: ArcaneSurgeMana,
-    arcaneSurgeActiveTime: ArcaneSurgeActiveTime,
-    radiantSpark: RadiantSpark,
-    ruleOfThrees: RuleOfThrees,
+    touchOfTheMagi: TouchOfTheMagi,
     timeAnomaly: TimeAnomaly,
-    arcaneMissiles: ArcaneMissiles,
+    clearcasting: Clearcasting,
     manaValues: ManaValues,
     arcaneIntellect: ArcaneIntellect,
     cancelledCasts: CancelledCasts,
@@ -46,16 +34,10 @@ class Checklist extends BaseChecklist {
   };
   protected combatants!: Combatants;
   protected castEfficiency!: CastEfficiency;
-  protected arcaneFamiliar!: ArcaneFamiliar;
   protected arcaneOrb!: ArcaneOrb;
-  protected arcaneEcho!: ArcaneEcho;
-  protected arcaneSurgePreReqs!: ArcaneSurgePreReqs;
-  protected arcaneSurgeMana!: ArcaneSurgeMana;
-  protected arcaneSurgeActiveTime!: ArcaneSurgeActiveTime;
-  protected radiantSpark!: RadiantSpark;
-  protected ruleOfThrees!: RuleOfThrees;
+  protected touchOfTheMagi!: TouchOfTheMagi;
   protected timeAnomaly!: TimeAnomaly;
-  protected arcaneMissiles!: ArcaneMissiles;
+  protected clearcasting!: Clearcasting;
   protected manaValues!: ManaValues;
   protected arcaneIntellect!: ArcaneIntellect;
   protected cancelledCasts!: CancelledCasts;
@@ -72,21 +54,10 @@ class Checklist extends BaseChecklist {
           ...this.preparationRuleAnalyzer.thresholds,
 
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
-          arcaneFamiliarUptime: this.arcaneFamiliar.arcaneFamiliarUptimeThresholds,
-          arcaneOrbMissedOrbs: this.arcaneOrb.missedOrbsThresholds,
-          arcaneEchoLowUsage: this.arcaneEcho.badTouchUsageThreshold,
-          arcaneSurgePreReqs: this.arcaneSurgePreReqs.arcaneSurgePreReqThresholds,
-          arcaneHarmonyPreReqs: this.arcaneSurgePreReqs.arcaneHarmonyPreReqThresholds,
-          radiantSparkPreReqs: this.arcaneSurgePreReqs.radiantSparkPreReqThresholds,
-          arcaneSurgeActiveTime: this.arcaneSurgeActiveTime.arcaneSurgeActiveTimeThresholds,
-          arcaneSurgeManaUtilization: this.arcaneSurgeMana.arcaneSurgeManaUtilization,
-          ruleOfThreesUsage: this.ruleOfThrees.ruleOfThreesUtilizationThresholds,
           timeAnomalyManaUtilization: this.timeAnomaly.timeAnomalyManaThresholds,
-          arcaneMissilesUtilization: this.arcaneMissiles.arcaneMissileUsageThresholds,
           manaOnKill: this.manaValues.suggestionThresholds,
           arcaneIntellectUptime: this.arcaneIntellect.suggestionThresholds,
           cancelledCasts: this.cancelledCasts.suggestionThresholds,
-          radiantSparkUtilization: this.radiantSpark.radiantSparkUsageThresholds,
         }}
       />
     );
