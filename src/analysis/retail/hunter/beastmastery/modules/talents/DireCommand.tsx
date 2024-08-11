@@ -65,7 +65,7 @@ class DireCommand extends Analyzer {
       this.direBeastSummon,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.KILL_COMMAND_SHARED_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT),
       this.killCommandCast,
     );
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onPetDamage);
@@ -169,7 +169,8 @@ class DireCommand extends Analyzer {
               )}
               <p>
                 Likelihood of getting <em>exactly</em> as many procs as estimated on a fight given
-                your number of <SpellLink spell={TALENTS.KILL_COMMAND_SHARED_TALENT} /> casts.
+                your number of <SpellLink spell={TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT} />{' '}
+                casts.
               </p>
             </div>
           </>
