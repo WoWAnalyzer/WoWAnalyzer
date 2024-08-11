@@ -13,8 +13,8 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import UptimeBar from 'parser/ui/UptimeBar';
 import {
-  Shadow_Default_Embrace_Modifier,
-  Shadow_Drain_Soul_Embrace_Modifier,
+  SHADOW_DEFAULT_EMBRACE_MODIFIER,
+  SHADOW_DRAIN_SOUL_EMBRACE_MODIFIER,
 } from '../../constants';
 
 const BUFFER = 50; // for some reason, changedebuffstack triggers twice on the same timestamp for each event, ignore an event if it happened < BUFFER ms after another
@@ -33,8 +33,8 @@ class ShadowEmbrace extends Analyzer {
   protected enemies!: Enemies;
 
   BONUS_PER_STACK_BASE = this.selectedCombatant.hasTalent(TALENTS.DRAIN_SOUL_TALENT)
-    ? Shadow_Drain_Soul_Embrace_Modifier
-    : Shadow_Default_Embrace_Modifier;
+    ? SHADOW_DRAIN_SOUL_EMBRACE_MODIFIER
+    : SHADOW_DEFAULT_EMBRACE_MODIFIER;
 
   BONUS_PER_STACK =
     this.BONUS_PER_STACK_BASE * this.selectedCombatant.getTalentRank(TALENTS.SHADOW_EMBRACE_TALENT);

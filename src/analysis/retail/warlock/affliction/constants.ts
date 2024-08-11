@@ -32,8 +32,8 @@ export const getDotDurations = (combatant: Combatant): Record<number, number> =>
     : defaultDurations;
 
 // Shadow Embrace modifiers for Drain Soul / No Drain Soul
-export const Shadow_Default_Embrace_Modifier = 0.04;
-export const Shadow_Drain_Soul_Embrace_Modifier = 0.02;
+export const SHADOW_DEFAULT_EMBRACE_MODIFIER = 0.04;
+export const SHADOW_DRAIN_SOUL_EMBRACE_MODIFIER = 0.02;
 
 // Corruption Talent Modifiers
 export const SL_DAMAGE_BONUS = 0.2;
