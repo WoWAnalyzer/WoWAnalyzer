@@ -1,4 +1,4 @@
-import { formatThousands, formatNumber, formatPercentage } from 'common/format';
+import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -8,12 +8,9 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { SL_DAMAGE_BONUS } from '../../constants';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 
 class SiphonLife extends Analyzer {
-  get dps() {
-    return (this.bonusDmg / this.owner.fightDuration) * 1000;
-  }
-
   bonusDmg = 0;
 
   constructor(options: Options) {
@@ -43,10 +40,7 @@ class SiphonLife extends Analyzer {
         }
       >
         <BoringSpellValueText spell={TALENTS.SIPHON_LIFE_TALENT}>
-          {formatNumber(this.dps)} DPS{' '}
-          <small>
-            {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} % of total
-          </small>
+          <ItemDamageDone amount={this.bonusDmg} />
         </BoringSpellValueText>
       </Statistic>
     );

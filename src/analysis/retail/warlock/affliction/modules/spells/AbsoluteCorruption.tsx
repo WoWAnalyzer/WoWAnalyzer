@@ -1,4 +1,4 @@
-import { formatThousands, formatNumber, formatPercentage } from 'common/format';
+import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -8,6 +8,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { AC_DAMAGE_BONUS } from '../../constants';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 
 class AbsoluteCorruption extends Analyzer {
   get dps() {
@@ -45,10 +46,7 @@ class AbsoluteCorruption extends Analyzer {
         }
       >
         <BoringSpellValueText spell={TALENTS.ABSOLUTE_CORRUPTION_TALENT}>
-          {formatNumber(this.dps)} DPS{' '}
-          <small>
-            {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} % of total
-          </small>
+          <ItemDamageDone amount={this.bonusDmg} />
         </BoringSpellValueText>
       </Statistic>
     );
