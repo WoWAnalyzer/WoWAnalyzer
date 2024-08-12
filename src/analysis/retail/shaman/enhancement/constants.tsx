@@ -37,7 +37,7 @@ export const MAELSTROM_WEAPON_ELIGIBLE_SPELLS: Spell[] = [
   TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT, //Intentional usage of Elemental Shaman spell id
   TALENTS.CHAIN_HEAL_TALENT,
   SPELLS.HEALING_SURGE,
-  SPELLS.TEMPEST,
+  SPELLS.TEMPEST_CAST,
 ];
 
 //* maximum difference found so far is 45ms, so setting to 50 for a little wiggle room */

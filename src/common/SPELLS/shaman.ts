@@ -860,7 +860,7 @@ const spells = {
   },
   /** HERO TALENTS **/
   // Stormbringer
-  TEMPEST: {
+  TEMPEST_CAST: {
     id: 452201,
     name: 'Tempest',
     icon: 'inv_ability_stormcallershaman_tempest',
