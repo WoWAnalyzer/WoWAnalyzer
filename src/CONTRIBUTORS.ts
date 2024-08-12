@@ -2448,3 +2448,9 @@ export const Ethelis: Contributor = {
   nickname: 'Ethelis',
   github: 'ethelis',
 };
+
+export const Lithix: Contributor = {
+  nickname: 'Lithix',
+  github: 'Yitaarli',
+  discord: 'lithix#0749',
+};
