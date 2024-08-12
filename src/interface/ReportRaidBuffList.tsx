@@ -67,8 +67,6 @@ const CLASSIC_RAID_BUFFS = new Map<Spell, Array<Class | object>>([
   // BUFFS
   // Stamina
   [CLASSIC_SPELLS.POWER_WORD_FORTITUDE, [Class.Priest]],
-  // Spirit
-  [CLASSIC_SPELLS.PRAYER_OF_SPIRIT, [Class.Priest]],
   // Intellect
   [CLASSIC_SPELLS.ARCANE_BRILLIANCE, [Class.Mage]],
   // Stats

@@ -59,9 +59,6 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
         {combatant.hasTalent(TALENTS.HOLY_SHOCK_TALENT) && (
           <AbilityRequirement spell={TALENTS.HOLY_SHOCK_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.LIGHTS_HAMMER_TALENT) && (
-          <AbilityRequirement spell={TALENTS.LIGHTS_HAMMER_TALENT.id} />
-        )}
         {combatant.hasTalent(TALENTS.HOLY_PRISM_TALENT) && (
           <AbilityRequirement spell={TALENTS.HOLY_PRISM_TALENT.id} />
         )}
@@ -90,21 +87,6 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
           </Trans>
         }
       >
-        {combatant.hasTalent(TALENTS.DAYBREAK_TALENT) && (
-          <AbilityRequirement spell={TALENTS.DAYBREAK_TALENT.id} />
-        )}
-        {combatant.hasTalent(TALENTS.DAYBREAK_TALENT) && (
-          <Requirement
-            name={
-              <>
-                <SpellLink spell={TALENTS.GLIMMER_OF_LIGHT_TALENT} /> consumed per
-                <SpellLink spell={TALENTS.DAYBREAK_TALENT} />
-              </>
-            }
-            thresholds={thresholds.daybreak}
-          />
-        )}
-
         {/* Avenging Crusader replaces Avenging Wrath */}
         {!combatant.hasTalent(TALENTS.AVENGING_CRUSADER_TALENT) && (
           <AbilityRequirement spell={SPELLS.AVENGING_WRATH.id} />
@@ -144,22 +126,6 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
           </Trans>
         }
       >
-        <Requirement
-          name={
-            <Trans id="paladin.holy.modules.checklist.totalFillerPerMinute">
-              Total filler casts per minute
-            </Trans>
-          }
-          thresholds={thresholds.fillerLightOfTheMartyrsCpm}
-        />
-        <Requirement
-          name={
-            <Trans id="paladin.holy.modules.checklist.totalFillerPerMinuteWhileHolyShock">
-              Total filler casts while <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> was available
-            </Trans>
-          }
-          thresholds={thresholds.fillerLightOfTheMartyrsInefficientCpm}
-        />
         <Requirement
           name={
             <Trans id="paladin.holy.modules.checklist.totalFillerWhileHolyShock">

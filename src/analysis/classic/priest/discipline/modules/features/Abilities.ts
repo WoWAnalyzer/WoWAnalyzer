@@ -47,11 +47,6 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
-      {
-        spell: SPELLS.LESSER_HEAL.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { base: 1500 },
-      },
       // Rotational AOE
       {
         spell: SPELLS.PRAYER_OF_HEALING.id,
@@ -149,22 +144,12 @@ class Abilities extends CoreAbilities {
       },
       // Utility
       {
-        spell: [SPELLS.ABOLISH_DISEASE.id],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { base: 1500 },
-      },
-      {
         spell: [SPELLS.CURE_DISEASE.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
       {
         spell: [SPELLS.DISPEL_MAGIC.id],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { base: 1500 },
-      },
-      {
-        spell: SPELLS.DIVINE_SPIRIT.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },

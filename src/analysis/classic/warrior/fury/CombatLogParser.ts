@@ -1,8 +1,5 @@
 // Base file
 import BaseCombatLogParser from 'parser/classic/CombatLogParser';
-// Shared
-import lowRankSpellsSuggestion from 'parser/classic/suggestions/lowRankSpells';
-import { lowRankSpells } from '../shared';
 // Features
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -13,8 +10,6 @@ import Checklist from './modules/checklist/Module';
 
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
-    // Shared
-    lowRankSpells: lowRankSpellsSuggestion(lowRankSpells),
     // Features
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,

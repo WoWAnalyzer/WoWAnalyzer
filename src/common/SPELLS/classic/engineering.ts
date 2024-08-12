@@ -1,42 +1,45 @@
 import Spell from '../Spell';
 
 const spells = {
-  COBALT_FRAG_BOMB: {
-    id: 67769,
-    name: 'Cobalt Frag Bomb',
-    icon: 'inv_misc_enggizmos_31',
+  BIG_DADDY: {
+    id: 89637,
+    name: 'Big Daddy',
+    icon: 'inv_misc_enggizmos_38.jpg',
   },
-  FRAG_BELT: {
-    id: 67890,
-    name: 'Cobalt Frag Bomb',
-    icon: 'inv_misc_enggizmos_31',
+  FLEXWEAVE_UNDERLAY: {
+    id: 55001, // Parachute
+    name: 'Flexweave Underlay',
+    icon: 'spell_magic_featherfall.jpg',
+    enchantId: 3605,
   },
   GLOBAL_THERMAL_SAPPER_CHARGE: {
     id: 56488,
     name: 'Global Thermal Sapper Charge',
-    icon: 'inv_gizmo_supersappercharge',
-  },
-  GOBLIN_SAPPER_CHARGE: {
-    id: 13241,
-    name: 'Goblin Sapper Charge',
-    icon: 'spell_fire_selfdestruct',
+    icon: 'inv_gizmo_supersappercharge.jpg',
   },
   HYPERSPEED_ACCELERATION: {
     id: 54758,
     name: 'Hyperspeed Acceleration',
-    icon: 'spell_shaman_elementaloath',
+    icon: 'spell_shaman_elementaloath.jpg',
+    enchantId: 3604,
+  },
+  NITRO_BOOSTS: {
+    id: 54861,
+    name: 'Nitro Boosts',
+    icon: 'spell_fire_burningspeed.jpg',
+    enchantId: 4223,
   },
   SARONITE_BOMB: {
     id: 56350,
     name: 'Saronite Bomb',
-    icon: 'inv_misc_enggizmos_32',
+    icon: 'inv_misc_enggizmos_32.jpg',
   },
-  SUPER_SAPPER_CHARGE: {
-    id: 30486,
-    name: 'Super Sapper Charge',
-    icon: 'inv_gizmo_supersappercharge',
+  SYNAPSE_SPRINGS: {
+    id: 82174,
+    name: 'Synapse Springs',
+    icon: 'spell_shaman_elementaloath.jpg',
+    enchantId: 4179,
   },
-  SYNAPSE_SPRINGS: { id: 82174, name: 'Synapse Springs', icon: 'spell_shaman_elementaloath.jpg' },
 } satisfies Record<string, Spell>;
 
 export default spells;

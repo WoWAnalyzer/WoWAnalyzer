@@ -5,7 +5,7 @@ import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../constants';
 import { TALENTS_DRUID } from 'common/TALENTS';
-import { hastedCooldown } from 'common/hastedCooldown';
+import { hastedCooldown, normalGcd } from 'common/abilitiesConstants';
 
 // TODO TWW - CONTROL OF THE DREAM LMAO
 class Abilities extends CoreAbilities {
@@ -330,6 +330,14 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+      },
+      {
+        spell: SPELLS.FRENZIED_REGENERATION.id,
+        enabled: combatant.hasTalent(TALENTS_DRUID.FRENZIED_REGENERATION_TALENT),
+        category: SPELL_CATEGORY.DEFENSIVE,
+        cooldown: hastedCooldown(36),
+        gcd: normalGcd,
+        isDefensive: true,
       },
       ...super.spellbook(),
     ];

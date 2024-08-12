@@ -25,7 +25,7 @@ class DeeperDaggers extends Analyzer {
 
   statistic() {
     return (
-      <Statistic size="flexible" category={STATISTIC_CATEGORY.COVENANTS}>
+      <Statistic size="flexible" category={STATISTIC_CATEGORY.TALENTS}>
         <div className="pad">
           <label>
             <SpellLink spell={TALENTS.DEEPER_DAGGERS_TALENT} /> Uptime

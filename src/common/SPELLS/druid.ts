@@ -543,6 +543,18 @@ const spells = {
     name: 'Ironfur',
     icon: 'ability_druid_ironfur',
   },
+  // The proc buff on the player
+  TOOTH_AND_CLAW_BUFF: {
+    id: 135286,
+    name: 'Tooth and Claw',
+    icon: 'inv_misc_monsterfang_01',
+  },
+  // The damage done debuff on the target
+  TOOTH_AND_CLAW_DEBUFF: {
+    id: 135601,
+    name: 'Tooth and Claw',
+    icon: 'inv_misc_monsterfang_01',
+  },
   // when casting stampeding outside of cat or bear form, and puts caster into bear form
   STAMPEDING_ROAR_HUMANOID: {
     id: 106898,
@@ -706,6 +718,18 @@ const spells = {
     id: 248522,
     name: 'Fury of Nature',
     icon: 'ability_creature_cursed_04',
+  },
+  // id for the cast and the buff
+  BERSERK_BEAR: {
+    id: 50334,
+    name: 'Berserk',
+    icon: 'ability_druid_berserk',
+  },
+  // id for the cast and the buff
+  INCARNATION_GUARDIAN_OF_URSOC: {
+    id: 102558,
+    name: 'Incarnation: Guardian of Ursoc',
+    icon: 'spell_druid_incarnation',
   },
   GUARDIAN_TIER_21_2P_SET_BONUS: {
     id: 251791,
@@ -1010,7 +1034,7 @@ const spells = {
     icon: 'spell_druid_thrash',
   },
   // this is the spell for the cast and the buff
-  BERSERK: {
+  BERSERK_CAT: {
     id: 106951,
     name: 'Berserk',
     icon: 'ability_druid_berserk',

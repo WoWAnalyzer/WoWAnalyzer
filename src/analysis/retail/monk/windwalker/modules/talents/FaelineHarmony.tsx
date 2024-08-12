@@ -65,7 +65,7 @@ class FaelineHarmony extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE()}
         size="flexible"
-        category={STATISTIC_CATEGORY.COVENANTS}
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
             This shows the HPS and DPS provided by the {formatPercentage(amp_exposure)}% increase

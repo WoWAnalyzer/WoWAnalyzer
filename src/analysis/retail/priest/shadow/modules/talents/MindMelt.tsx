@@ -11,6 +11,8 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import HIT_TYPES from 'game/HIT_TYPES';
 
+import { MIND_MELT_CRIT } from '../../constants';
+
 class MindMelt extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
@@ -20,7 +22,6 @@ class MindMelt extends Analyzer {
 
   damage = 0;
   buffStacks = 0;
-  multiplierCritMindMelt = 0.2; //20% per stack
 
   constructor(options: Options) {
     super(options);
@@ -61,7 +62,7 @@ class MindMelt extends Analyzer {
       this.damage += calculateEffectiveDamageFromCritIncrease(
         event,
         this.statTracker.currentCritPercentage,
-        this.buffStacks * this.multiplierCritMindMelt,
+        this.buffStacks * MIND_MELT_CRIT,
       );
     }
   }

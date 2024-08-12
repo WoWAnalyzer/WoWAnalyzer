@@ -1,9 +1,10 @@
-import CoreAbilities, { druidGcd } from 'analysis/retail/druid/shared/core/Abilities';
+import CoreAbilities from 'analysis/retail/druid/shared/core/Abilities';
 import SPELLS from 'common/SPELLS';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import { TIERS } from 'game/TIERS';
+import { fastMeleeGcd, hastedCooldown, normalGcd } from 'common/abilitiesConstants';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -131,7 +132,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 22,
       },
       {
-        spell: SPELLS.BERSERK.id,
+        spell: SPELLS.BERSERK_CAT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown:
           180 - combatant.getTalentRank(TALENTS_DRUID.BERSERK_HEART_OF_THE_LION_TALENT) * 60,
@@ -152,9 +153,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: combatant.hasTalent(TALENTS_DRUID.ASHAMANES_GUIDANCE_TALENT) ? 60 : 120,
         enabled: combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT),
-        gcd: {
-          base: druidGcd,
-        },
+        gcd: normalGcd,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -167,9 +166,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS_DRUID.ADAPTIVE_SWARM_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 25,
-        gcd: {
-          base: druidGcd,
-        },
+        gcd: normalGcd,
         // Swarm sometimes best not to cast purely on CD in single target encounters
         castEfficiency: {
           suggestion: true,
@@ -213,9 +210,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.REGROWTH.id,
         category: SPELL_CATEGORY.UTILITY,
-        gcd: {
-          base: druidGcd,
-        },
+        gcd: fastMeleeGcd,
         timelineSortIndex: 30,
       },
       {
@@ -240,6 +235,14 @@ class Abilities extends CoreAbilities {
         gcd: null,
         isDefensive: true,
         timelineSortIndex: 40,
+      },
+      {
+        spell: SPELLS.FRENZIED_REGENERATION.id,
+        enabled: combatant.hasTalent(TALENTS_DRUID.FRENZIED_REGENERATION_TALENT),
+        category: SPELL_CATEGORY.DEFENSIVE,
+        cooldown: hastedCooldown(36),
+        gcd: normalGcd,
+        isDefensive: true,
       },
       {
         spell: [

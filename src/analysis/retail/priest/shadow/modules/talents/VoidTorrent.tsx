@@ -151,7 +151,8 @@ class VoidTorrent extends Analyzer {
         tooltip={
           <>
             <div>
-              {formatSeconds(this.timeWasted)} seconds wasted by cancelling the channel early.{' '}
+              {formatSeconds(this.totalWastedTime / 1000)} seconds wasted by cancelling the channel
+              early.{' '}
             </div>
             <div>
               {formatNumber(this.insanityWasted)} insanity wasted by cancelling the channel early or
