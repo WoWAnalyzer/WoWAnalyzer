@@ -87,11 +87,7 @@ function CoreSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
             {formatPercentage(modules.alwaysBeCasting.activeTimePercentage, 1)}%
           </PerformanceStrong>{' '}
         </p>
-        <ActiveTimeGraph
-          activeTimeSegments={modules.alwaysBeCasting.activeTimeSegments}
-          fightStart={info.fightStart}
-          fightEnd={info.fightEnd}
-        />
+        <ActiveTimeGraph />
       </SubSection>
     </Section>
   );

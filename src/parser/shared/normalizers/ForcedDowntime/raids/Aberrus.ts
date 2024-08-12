@@ -1,4 +1,4 @@
-import { DowntimeSpec } from 'parser/shared/normalizers/ForcedDowntime/index';
+import { DowntimeSpec } from 'parser/shared/normalizers/ForcedDowntime';
 
 export const aberrus_downtime_specs: DowntimeSpec[] = [
   // TODO amalgamation chamber P1->P2

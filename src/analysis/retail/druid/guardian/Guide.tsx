@@ -104,11 +104,7 @@ function RotationSection({ modules, events, info }: GuideProps<typeof CombatLogP
         </strong>
       </p>
       <p>
-        <ActiveTimeGraph
-          activeTimeSegments={modules.alwaysBeCasting.activeTimeSegments}
-          fightStart={info.fightStart}
-          fightEnd={info.fightEnd}
-        />
+        <ActiveTimeGraph />
       </p>
       {modules.mangle.guideSubsection}
       {modules.thrash.guideSubsection}

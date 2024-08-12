@@ -66,11 +66,7 @@ function ArmsDowntimeSection() {
         </PerformanceStrong>{' '}
       </Para>
       <Para>
-        <ActiveTimeGraph
-          activeTimeSegments={alwaysBeCasting.activeTimeSegments}
-          fightStart={info.fightStart}
-          fightEnd={info.fightEnd}
-        />
+        <ActiveTimeGraph />
       </Para>
       <Para>
         As a general guideline,{' '}

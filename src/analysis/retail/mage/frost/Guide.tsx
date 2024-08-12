@@ -40,11 +40,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           {formatPercentage(modules.cancelledCasts.cancelledPercentage, 1)}%
         </PerformanceStrong>{' '}
       </p>
-      <ActiveTimeGraph
-        activeTimeSegments={modules.alwaysBeCasting.activeTimeSegments}
-        fightStart={info.fightStart}
-        fightEnd={info.fightEnd}
-      />
+      <ActiveTimeGraph />
     </SubSection>
   );
 

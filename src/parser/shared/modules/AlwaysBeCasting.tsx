@@ -12,18 +12,21 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 import Abilities from '../../core/modules/Abilities';
 import GlobalCooldown from './GlobalCooldown';
+import ForcedDowntime from 'parser/shared/normalizers/ForcedDowntime';
 
-const DEBUG = false;
+const DEBUG = true;
 
 class AlwaysBeCasting extends Analyzer {
   static dependencies = {
     haste: Haste,
     abilities: Abilities,
+    forcedDowntime: ForcedDowntime,
     globalCooldown: GlobalCooldown, // triggers the globalcooldown event
     channeling: Channeling, // triggers the channeling-related events
   };
   protected haste!: Haste;
   protected abilities!: Abilities;
+  protected forcedDowntime!: ForcedDowntime;
   protected globalCooldown!: GlobalCooldown;
   protected channeling!: Channeling;
 
@@ -35,12 +38,40 @@ class AlwaysBeCasting extends Analyzer {
     return this.owner.fightDuration - this.activeTime;
   }
 
+  /**
+   * Percentage of fight time spent not casting anything or waiting on GCD.
+   * In range 0..1.
+   */
   get downtimePercentage() {
     return 1 - this.activeTimePercentage;
   }
 
+  /**
+   * Percentage of fight time spent casting or waiting on GCD.
+   * In range 0..1.
+   */
   get activeTimePercentage() {
     return this.activeTime / this.owner.fightDuration;
+  }
+
+  /**
+   * Percentage of fight time spent casting or waiting on GCD, with 'forced downtime' segments excluded.
+   * In range 0..1.
+   */
+  get activeTimePercentageExcludingForcedDowntime() {
+    const durationWithoutForcedDowntime =
+      this.owner.fightDuration -
+      this.forcedDowntime.downtimeWindows.reduce(
+        (sum, window) => sum + (window.end - window.start),
+        0,
+      );
+    if (durationWithoutForcedDowntime <= 0) {
+      console.warn(
+        'Somehow got all fight time as forced downtime - unable to calculate no-forced-downtime active time percentage',
+      );
+      return 0;
+    }
+    return this.activeTimeExcludingForcedDowntime / durationWithoutForcedDowntime;
   }
 
   /** Gets active time percentage within a specified time segment.
@@ -68,8 +99,16 @@ class AlwaysBeCasting extends Analyzer {
     return activeTime;
   }
 
-  activeTime = 0;
-  _lastGlobalCooldownDuration = 0;
+  // TODO 'active time excluding downtime in window'?
+  //   Likely don't need because 'in window' queries for checking on CDs,
+  //   and we want to show player that they overlapped downtime with a CD and that's bad
+
+  /** Tally of active time in the encounter so far */
+  private activeTime = 0;
+  /** Tally of active time in the encounter so far, with forced downtime segments excluded */
+  private activeTimeExcludingForcedDowntime = 0;
+
+  private _lastGlobalCooldownDuration = 0;
 
   /** Segments of time when the player was active, populated at the same time activeTime is incremented.
    *  Guaranteed to not overlap and to be in chronological order,
@@ -94,20 +133,11 @@ class AlwaysBeCasting extends Analyzer {
       return false;
     }
 
-    // check if previous GCD overlaps the beginning of this one. If it does, we don't want to double-count.
-    const lastEntry = this.activeTimeSegments.at(-1);
-    if (lastEntry && lastEntry.end > event.timestamp) {
-      const overlap = lastEntry.end - event.timestamp;
-      this.activeTime -= overlap;
-      lastEntry.end = event.timestamp;
-    }
-
-    this.activeTime += event.duration;
-    this._handleNewUptimeSegment(event.timestamp, event.timestamp + event.duration);
-    DEBUG &&
-      console.log(
-        `Active Time: added ${event.duration.toFixed(0)}ms from GCD for ${event.trigger.ability.name} @ ${this.owner.formatTimestamp(event.timestamp, 1)} - ${this.owner.formatTimestamp(event.timestamp + event.duration, 1)}`,
-      );
+    this._handleNewUptimeSegment(
+      event.timestamp,
+      event.timestamp + event.duration,
+      `GCD for ${event.trigger.ability.name}`,
+    );
     return true;
   }
 
@@ -123,12 +153,11 @@ class AlwaysBeCasting extends Analyzer {
       amount = Math.min(amount, event.timestamp - this.owner.fight.start_time);
     }
 
-    this.activeTime += amount;
-    this._handleNewUptimeSegment(event.timestamp - amount, event.timestamp);
-    DEBUG &&
-      console.log(
-        `Active Time: added ${event.duration.toFixed(0)}ms from Channel for ${event.ability.name} @ ${this.owner.formatTimestamp(event.timestamp - amount, 1)} - ${this.owner.formatTimestamp(event.timestamp, 1)}`,
-      );
+    this._handleNewUptimeSegment(
+      event.timestamp - amount,
+      event.timestamp,
+      `Channel for ${event.ability.name}`,
+    );
     return true;
   }
 
@@ -147,8 +176,84 @@ class AlwaysBeCasting extends Analyzer {
       );
   }
 
-  _handleNewUptimeSegment(start: number, end: number) {
-    this.activeTimeSegments.push({ start, end });
+  /** Adds a new active time segment, updating active time tallies and ensuring no overlap.
+   *  This must be called in chronological order to work properly! */
+  private _handleNewUptimeSegment(start: number, end: number, reason: string) {
+    const prev = this.activeTimeSegments.at(-1);
+    const noOverlapStart = prev && prev.end > start ? prev.end : start;
+
+    const duration = end - noOverlapStart;
+    if (duration <= 0) {
+      console.warn(`Tried to add ActiveTime segment with reason ${reason}
+        @ ${this.owner.formatTimestamp(noOverlapStart, 1)} - ${this.owner.formatTimestamp(end, 1)}
+        that would be fully overlapped by an existing activeTime`);
+    }
+
+    this.activeTimeSegments.push({ start: noOverlapStart, end });
+    this.activeTime += duration;
+    this.activeTimeExcludingForcedDowntime += this._amountNotForcedDowntime(noOverlapStart, end);
+
+    DEBUG &&
+      console.log(
+        `Active Time: added ${duration.toFixed(0)}ms from ${reason} @ ` +
+          `${this.owner.formatTimestamp(noOverlapStart, 1)} - ${this.owner.formatTimestamp(end, 1)} ` +
+          `${noOverlapStart !== start ? `(start changed from original overlapping @ ${this.owner.formatTimestamp(start, 1)})` : ''}`,
+      );
+  }
+
+  /** Check if active time with the given start and end overlaps any of the downtime windows,
+   *  and returns the segment length after removing overlap.
+   *
+   *  For simplicity of logic and perf reasons, this algorithm assumes the active time segment
+   *  is shorter than any of the downtime segments, and further assumes it overlaps at most one
+   *  of the downtime segments. This should be a reasonable assumption.
+   */
+  private _amountNotForcedDowntime(start: number, end: number): number {
+    const active = { start, end };
+    for (const downtime of this.forcedDowntime.downtimeWindows) {
+      if (active.start >= downtime.end) {
+        // active window is entirely after downtime window
+        // this window doesn't overlap, but we have to keep looping to check the others
+      } else if (active.end <= downtime.start) {
+        // active window is entirely before downtime window
+        // this window doesn't overlap, but we have to keep looping to check the others
+      } else if (active.end <= downtime.end && active.start >= downtime.start) {
+        // active window is entirely contained in downtime window
+        DEBUG &&
+          console.log(
+            `Active Time: segment @ ${this.owner.formatTimestamp(start, 1)} - ${this.owner.formatTimestamp(end, 1)} ` +
+              `omitted from noForcedDowntime active due to full overlap with forced downtime @ ` +
+              `${this.owner.formatTimestamp(downtime.start, 1)} - ${this.owner.formatTimestamp(downtime.end, 1)}`,
+          );
+        return 0;
+      } else if (active.start >= downtime.start && active.start < downtime.end) {
+        // active window's beginning overlaps downtime
+        DEBUG &&
+          console.log(
+            `Active Time: segment @ ${this.owner.formatTimestamp(start, 1)} - ${this.owner.formatTimestamp(end, 1)} ` +
+              `truncated to ${active.end - downtime.end}ms in noForcedDowntime active due to partial overlap with forced downtime @ ` +
+              `${this.owner.formatTimestamp(downtime.start, 1)} - ${this.owner.formatTimestamp(downtime.end, 1)}`,
+          );
+        return Math.max(0, active.end - downtime.end);
+      } else if (active.end >= downtime.start && active.end < downtime.end) {
+        // active window's ending overlaps downtime
+        DEBUG &&
+          console.log(
+            `Active Time: segment @ ${this.owner.formatTimestamp(start, 1)} - ${this.owner.formatTimestamp(end, 1)} ` +
+              `truncated to ${downtime.start - active.start}ms in noForcedDowntime active due to partial overlap with forced downtime @ ` +
+              `${this.owner.formatTimestamp(downtime.start, 1)} - ${this.owner.formatTimestamp(downtime.end, 1)}`,
+          );
+        return Math.max(0, downtime.start - active.start);
+      } else {
+        // unhandled case???
+        console.warn(
+          `Unexpected active/downtime overlap - ` +
+            `activeStart:${active.start}, activeEnd:${active.end}, downtimeStart:${downtime.start}, downtimeEnd:${downtime.end}`,
+        );
+        return 0;
+      }
+    }
+    return active.end - active.start;
   }
 
   showStatistic = true;

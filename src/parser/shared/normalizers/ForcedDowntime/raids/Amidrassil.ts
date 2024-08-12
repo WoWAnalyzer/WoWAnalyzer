@@ -1,6 +1,6 @@
 import Tindral from 'game/raids/amirdrassil/Tindral';
 import generatePhaseDowntimes from 'parser/shared/normalizers/ForcedDowntime/generatePhaseDowntimes';
-import { DowntimeSpec } from 'parser/shared/normalizers/ForcedDowntime/index';
+import { DowntimeSpec } from 'parser/shared/normalizers/ForcedDowntime';
 
 export const amidrassil_downtime_specs: DowntimeSpec[] = [
   {

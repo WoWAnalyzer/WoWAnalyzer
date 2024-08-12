@@ -48,6 +48,7 @@ type Props = {
    *  Useful for spells on CD shorter than 30s where the icons might be too closely packed to
    *  be usable */
   minimizeIcons?: boolean;
+  /** If true, spell uses will be represented by an even more minimal white line */
   slimLines?: boolean;
   /**
    * Windows where the spell is actually usable. Useful for execute spells or spells that only become active inside of a cooldown.

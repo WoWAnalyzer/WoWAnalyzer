@@ -2,6 +2,8 @@ import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { VisualizationSpec } from 'react-vega';
 import { useMemo } from 'react';
+import { useAnalyzer, useInfo } from 'interface/guide';
+import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 
 /** The maximum value on the Y axis. Can't have active time higher than 100%. */
 const GRAPH_MAX_Y = 1;
@@ -18,13 +20,13 @@ interface GraphData {
   activeTimePercentage: number;
 }
 
-type Props = {
-  activeTimeSegments: { start: number; end: number }[];
-  fightStart: number;
-  fightEnd: number;
-};
+const ActiveTimeGraph = () => {
+  const abc = useAnalyzer(AlwaysBeCasting)!;
+  const info = useInfo()!;
+  const activeTimeSegments = abc.activeTimeSegments;
+  const fightStart = info.fightStart;
+  const fightEnd = info.fightEnd;
 
-const ActiveTimeGraph = ({ activeTimeSegments, fightStart, fightEnd, ...others }: Props) => {
   // Generate active time rolling average from active time segments (memoize for perf)
   const graphData = useMemo(() => {
     const graphData: GraphData[] = [];
@@ -57,7 +59,6 @@ const ActiveTimeGraph = ({ activeTimeSegments, fightStart, fightEnd, ...others }
         width: '100%',
         minHeight: GRAPH_HEIGHT,
       }}
-      {...others}
     >
       <AutoSizer>
         {({ width, height }) => (

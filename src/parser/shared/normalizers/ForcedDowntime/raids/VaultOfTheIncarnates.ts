@@ -1,4 +1,4 @@
-import { DowntimeSpec } from 'parser/shared/normalizers/ForcedDowntime/index';
+import { DowntimeSpec } from 'parser/shared/normalizers/ForcedDowntime';
 
 export const vault_of_the_incarnates_downtime_specs: DowntimeSpec[] = [
   // TODO Kurog P1->I1 (is this not downtime on Mythic? is this too short to bother?)

@@ -68,11 +68,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
           }
           element="section"
         >
-          <ActiveTimeGraph
-            activeTimeSegments={this.activeTimeSegments}
-            fightStart={this.owner.fight.start_time}
-            fightEnd={this.owner.fight.end_time}
-          />
+          <ActiveTimeGraph />
         </Expandable>
       </SubSection>
     );
