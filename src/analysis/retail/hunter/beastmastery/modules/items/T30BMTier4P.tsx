@@ -33,7 +33,7 @@ export default class T30BMTier4P extends Analyzer {
         .spell([
           TALENTS_HUNTER.MULTI_SHOT_BEAST_MASTERY_TALENT,
           TALENTS_HUNTER.COBRA_SHOT_TALENT,
-          TALENTS_HUNTER.KILL_COMMAND_SHARED_TALENT,
+          TALENTS_HUNTER.KILL_COMMAND_BEAST_MASTERY_TALENT,
         ]),
       this.onCast,
     );

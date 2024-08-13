@@ -43,10 +43,6 @@ const AfflictionWarlockChecklist = ({ combatant, castEfficiency, thresholds }: C
         {combatant.hasTalent(TALENTS.SHADOW_EMBRACE_TALENT) && (
           <DotUptime spell={TALENTS.SHADOW_EMBRACE_TALENT} thresholds={thresholds.shadowEmbrace} />
         )}
-        <DotUptime spell={TALENTS.SHADOW_EMBRACE_TALENT} thresholds={thresholds.shadowEmbrace} />
-        {combatant.hasTalent(TALENTS.SIPHON_LIFE_TALENT) && (
-          <DotUptime spell={TALENTS.SIPHON_LIFE_TALENT} thresholds={thresholds.siphonLife} />
-        )}
         {combatant.hasTalent(TALENTS.HAUNT_TALENT) && (
           <DotUptime spell={TALENTS.HAUNT_TALENT} thresholds={thresholds.haunt} />
         )}

@@ -2,12 +2,11 @@ import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, EventType, GetRelatedEvents, HealEvent } from 'parser/core/Events';
+import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { GLIMMER_PROC } from '../../normalizers/CastLinkNormalizer';
 import { SpellLink } from 'interface';
 
 class HealingPerHolyPower extends Analyzer {
@@ -30,12 +29,8 @@ class HealingPerHolyPower extends Analyzer {
 
   castSpender(event: CastEvent) {
     this.totalSpenders += 1;
-
-    GetRelatedEvents(event, GLIMMER_PROC).forEach((e) => {
-      if (e.type === EventType.Heal) {
-        this.totalGlimmerHealing += e.amount + (e.absorbed || 0);
-      }
-    });
+    // TODO: get glistening radiance procs healing
+    // need to add a cast link normalizer for glistening radiance
   }
 
   healEvent(event: HealEvent) {

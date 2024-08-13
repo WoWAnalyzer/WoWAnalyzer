@@ -5,6 +5,8 @@ import TALENTS from 'common/TALENTS/evoker';
 
 export default [
   change(date(2024, 8, 11), <>Implement <SpellLink spell={TALENTS.MELT_ARMOR_TALENT}/> module</>, Vollmer), 
+  change(date(2024, 8, 11), <>Implement <SpellLink spell={TALENTS.MIGHT_OF_THE_BLACK_DRAGONFLIGHT_TALENT}/> module</>, Vollmer),
+  change(date(2024, 8, 11), <>Implement <SpellLink spell={TALENTS.MASS_ERUPTION_TALENT}/> module</>, Vollmer),
   change(date(2024, 7, 22), <>Update <SpellLink spell={TALENTS.REACTIVE_HIDE_TALENT}/> multiplier</>, Vollmer),
   change(date(2024, 7, 21), <>Implement <SpellLink spell={TALENTS.RUMBLING_EARTH_TALENT}/> module</>, Vollmer),
   change(date(2024, 7, 21), <>Implement <SpellLink spell={TALENTS.IMMINENT_DESTRUCTION_AUGMENTATION_TALENT}/> module</>, Vollmer),

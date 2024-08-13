@@ -1,18 +1,18 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
-import { Abelito75 } from 'CONTRIBUTORS';
+import { Squided } from 'CONTRIBUTORS';
 import GameBranch from 'game/GameBranch';
 import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
 import Config, { SupportLevel } from 'parser/Config';
 
-// import CHANGELOG from './CHANGELOG';
+import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
-  contributors: [Abelito75],
+  contributors: [Squided],
   branch: GameBranch.Retail,
-  patchCompatibility: '10.1.7',
-  supportLevel: SupportLevel.MaintainedFull,
+  patchCompatibility: '11.0.0',
+  supportLevel: SupportLevel.Unmaintained,
   description: (
     <>
       Hey! I hope the suggestions will help you improve your performance. Remember: focus on
@@ -26,9 +26,8 @@ const config: Config = {
       unused for long periods of time (they're not raid cooldowns, they're required for you to have
       decent throughput and not run OOM) and <b>hit those buttons</b> that have short cooldowns
       (such as <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> and{' '}
-      <SpellLink spell={TALENTS.LIGHT_OF_DAWN_TALENT} />
-      ). Finally, don't cast <SpellLink spell={TALENTS.LIGHT_OF_THE_MARTYR_TALENT} /> unless there's
-      nothing else to cast, or you're playing with Maraad's.
+      <SpellLink spell={TALENTS.HOLY_PRISM_TALENT} />
+      ).
       <br />
       <br />
       If you want to learn more about Holy Paladins, join the Paladin community at the{' '}
@@ -46,13 +45,12 @@ const config: Config = {
   exampleReport:
     '/report/K3QhqX8brd7aHJn4/26-Mythic+The+Vigilant+Steward,+Zskarn+-+Kill+(4:15)/467-Mytholcgy/standard',
 
-  //
   spec: SPECS.HOLY_PALADIN,
-  // changelog: CHANGELOG,
-  // parser: () =>
-  //   import('./CombatLogParser' /* webpackChunkName: "HolyPaladin" */).then(
-  //     (exports) => exports.default,
-  //   ),
+  changelog: CHANGELOG,
+  parser: () =>
+    import('./CombatLogParser' /* webpackChunkName: "HolyPaladin" */).then(
+      (exports) => exports.default,
+    ),
   path: import.meta.url,
 };
 

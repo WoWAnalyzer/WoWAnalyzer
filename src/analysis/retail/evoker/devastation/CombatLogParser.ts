@@ -33,6 +33,8 @@ import T31DevaTier from './modules/dragonflight/tier/T31DevaTier';
 import Pyre from './modules/abilities/Pyre';
 import EternitySurgeNormalizer from './modules/normalizers/EternitySurgeNormalizer';
 import ScorchingEmbers from './modules/talents/ScorchingEmbers';
+import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
+import CancelledCasts from 'parser/shared/modules/CancelledCasts';
 
 // Shared
 import {
@@ -58,6 +60,8 @@ import {
   Engulf,
   ImminentDestruction,
   MeltArmor,
+  MassDisintegrate,
+  MightOfTheBlackDragonflight,
 } from 'analysis/retail/evoker/shared';
 import ExpandedLungs from '../shared/modules/talents/hero/flameshaper/ExpandedLungs';
 import FanTheFlames from '../shared/modules/talents/hero/flameshaper/FanTheFlames';
@@ -102,6 +106,8 @@ class CombatLogParser extends MainCombatLogParser {
     // features
     apls: AplCheck,
     cooldownThroughputTracker: CooldownThroughputTracker,
+    alwaysBeCasting: AlwaysBeCasting,
+    cancelledCasts: CancelledCasts,
 
     // talents
     catalyze: Catalyze,
@@ -126,6 +132,8 @@ class CombatLogParser extends MainCombatLogParser {
     fanTheFlames: FanTheFlames,
     redHot: RedHot,
     meltArmor: MeltArmor,
+    massDisintegrate: MassDisintegrate,
+    mightOfTheBlackDragonflight: MightOfTheBlackDragonflight,
 
     // core abilities
     disintegrate: Disintegrate,
