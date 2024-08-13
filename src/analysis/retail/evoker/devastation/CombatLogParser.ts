@@ -59,6 +59,7 @@ import {
   RenewingBlaze,
   Engulf,
   ImminentDestruction,
+  MeltArmor,
   MassDisintegrate,
   MightOfTheBlackDragonflight,
 } from 'analysis/retail/evoker/shared';
@@ -130,6 +131,7 @@ class CombatLogParser extends MainCombatLogParser {
     expandedLungs: ExpandedLungs,
     fanTheFlames: FanTheFlames,
     redHot: RedHot,
+    meltArmor: MeltArmor,
     massDisintegrate: MassDisintegrate,
     mightOfTheBlackDragonflight: MightOfTheBlackDragonflight,
 

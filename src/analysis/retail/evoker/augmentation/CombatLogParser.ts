@@ -57,6 +57,7 @@ import {
   TwinGuardian,
   RenewingBlaze,
   ImminentDestruction,
+  MeltArmor,
   MassDisintegrate,
   MightOfTheBlackDragonflight,
 } from 'analysis/retail/evoker/shared';
@@ -122,6 +123,7 @@ class CombatLogParser extends MainCombatLogParser {
 
     // hero talents
     mightOfTheBlackDragonflight: MightOfTheBlackDragonflight,
+    meltArmor: MeltArmor,
 
     // Features
     buffTrackerGraph: BuffTrackerGraph,
