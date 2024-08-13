@@ -5,6 +5,7 @@ import { TALENTS_EVOKER } from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS/evoker';
 
 export default [
+  change(date(2024, 8, 10), <>Add Always Be Casting guide section</>, Vollmer), 
   change(date(2024, 7, 22), <>Update <SpellLink spell={TALENTS_EVOKER.HEAT_WAVE_TALENT}/> and <SpellLink spell={TALENTS_EVOKER.HONED_AGGRESSION_TALENT}/> multipliers</>, Vollmer),
   change(date(2024, 7, 21), <>Implement <SpellLink spell={TALENTS_EVOKER.SCORCHING_EMBERS_TALENT} /> module</>, Vollmer),
   change(date(2024, 7, 21), <>Implement <SpellLink spell={TALENTS_EVOKER.IMMINENT_DESTRUCTION_DEVASTATION_TALENT}/> module</>, Vollmer),
