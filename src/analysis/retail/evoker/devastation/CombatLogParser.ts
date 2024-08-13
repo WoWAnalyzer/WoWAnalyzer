@@ -33,6 +33,8 @@ import T31DevaTier from './modules/dragonflight/tier/T31DevaTier';
 import Pyre from './modules/abilities/Pyre';
 import EternitySurgeNormalizer from './modules/normalizers/EternitySurgeNormalizer';
 import ScorchingEmbers from './modules/talents/ScorchingEmbers';
+import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
+import CancelledCasts from 'parser/shared/modules/CancelledCasts';
 
 // Shared
 import {
@@ -102,6 +104,8 @@ class CombatLogParser extends MainCombatLogParser {
     // features
     apls: AplCheck,
     cooldownThroughputTracker: CooldownThroughputTracker,
+    alwaysBeCasting: AlwaysBeCasting,
+    cancelledCasts: CancelledCasts,
 
     // talents
     catalyze: Catalyze,

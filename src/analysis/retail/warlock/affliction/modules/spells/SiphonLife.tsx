@@ -1,78 +1,44 @@
-import { defineMessage } from '@lingui/macro';
-import { formatPercentage } from 'common/format';
+import { formatThousands } from 'common/format';
+import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
-import { SpellIcon, SpellLink } from 'interface';
-import Analyzer, { Options } from 'parser/core/Analyzer';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import Enemies from 'parser/shared/modules/Enemies';
-import UptimeBar from 'parser/ui/UptimeBar';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
+import Events, { DamageEvent } from 'parser/core/Events';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import { SL_DAMAGE_BONUS } from '../../constants';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 
-class SiphonLifeUptime extends Analyzer {
-  static dependencies = {
-    enemies: Enemies,
-  };
-  protected enemies!: Enemies;
-
-  get uptime() {
-    return this.enemies.getBuffUptime(TALENTS.SIPHON_LIFE_TALENT.id) / this.owner.fightDuration;
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.uptime,
-      isLessThan: {
-        minor: 0.95,
-        average: 0.9,
-        major: 0.8,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
+class SiphonLife extends Analyzer {
+  bonusDmg = 0;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.SIPHON_LIFE_TALENT);
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Your <SpellLink spell={TALENTS.SIPHON_LIFE_TALENT} /> uptime can be improved. Try to pay
-          more attention to your Siphon Life on the boss, perhaps use some debuff tracker.
-        </>,
-      )
-        .icon(TALENTS.SIPHON_LIFE_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'warlock.affliction.suggestions.siphonLife.uptime',
-            message: `${formatPercentage(actual)}% Siphon Life uptime`,
-          }),
-        )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CORRUPTION_DEBUFF),
+      this.onCorruptionDamage,
     );
   }
 
-  subStatistic() {
-    const history = this.enemies.getDebuffHistory(TALENTS.SIPHON_LIFE_TALENT.id);
+  onCorruptionDamage(event: DamageEvent) {
+    this.bonusDmg += calculateEffectiveDamage(event, SL_DAMAGE_BONUS);
+  }
+
+  statistic() {
     return (
-      <div className="flex">
-        <div className="flex-sub icon">
-          <SpellIcon spell={TALENTS.SIPHON_LIFE_TALENT} />
-        </div>
-        <div className="flex-sub value" style={{ width: 140 }}>
-          {formatPercentage(this.uptime, 0)} % <small>uptime</small>
-        </div>
-        <div className="flex-main chart" style={{ padding: 15 }}>
-          <UptimeBar
-            uptimeHistory={history}
-            start={this.owner.fight.start_time}
-            end={this.owner.fight.end_time}
-          />
-        </div>
-      </div>
+      <Statistic
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
+        tooltip={<>{formatThousands(this.bonusDmg)} bonus damage</>}
+      >
+        <BoringSpellValueText spell={TALENTS.SIPHON_LIFE_TALENT}>
+          <ItemDamageDone amount={this.bonusDmg} />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }
 
-export default SiphonLifeUptime;
+export default SiphonLife;

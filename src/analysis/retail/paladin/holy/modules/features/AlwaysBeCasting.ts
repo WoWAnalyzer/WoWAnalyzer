@@ -22,7 +22,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     this.HEALING_ABILITIES_ON_GCD.push(TALENTS.LIGHT_OF_DAWN_TALENT.id);
     this.HEALING_ABILITIES_ON_GCD.push(TALENTS.HAMMER_OF_WRATH_TALENT.id);
     this.HEALING_ABILITIES_ON_GCD.push(TALENTS.HOLY_PRISM_TALENT.id);
-    this.HEALING_ABILITIES_ON_GCD.push(TALENTS.LIGHTS_HAMMER_TALENT.id);
 
     this.hasAC = this.selectedCombatant.hasTalent(TALENTS.AVENGING_CRUSADER_TALENT);
 

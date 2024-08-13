@@ -98,8 +98,7 @@ class CrusadersMight extends Analyzer {
             <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> was off cooldown.{' '}
             <SpellLink spell={SPELLS.CRUSADER_STRIKE} /> should be used to reduce the cooldown of
             <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> and should never be cast when{' '}
-            <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> is avalible. This is a core component of
-            the <SpellLink spell={TALENTS.GLIMMER_OF_LIGHT_TALENT} />{' '}
+            <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> is avalible.
             <a
               href="https://questionablyepic.com/glimmer-of-light/"
               target="_blank"
