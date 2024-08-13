@@ -59,6 +59,7 @@ import {
   RenewingBlaze,
   Engulf,
   ImminentDestruction,
+  MassDisintegrate,
 } from 'analysis/retail/evoker/shared';
 import ExpandedLungs from '../shared/modules/talents/hero/flameshaper/ExpandedLungs';
 import FanTheFlames from '../shared/modules/talents/hero/flameshaper/FanTheFlames';
@@ -128,6 +129,7 @@ class CombatLogParser extends MainCombatLogParser {
     expandedLungs: ExpandedLungs,
     fanTheFlames: FanTheFlames,
     redHot: RedHot,
+    massDisintegrate: MassDisintegrate,
 
     // core abilities
     disintegrate: Disintegrate,
