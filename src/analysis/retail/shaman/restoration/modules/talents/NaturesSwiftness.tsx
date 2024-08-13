@@ -51,6 +51,10 @@ class NaturesSwiftness extends Analyzer {
       return;
     }
 
+    if (this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
+      return;
+    }
+
     const baseCost = event.resourceCost[RESOURCE_TYPES.MANA.id];
 
     // Nature's Switness removes the mana cost of the spell entirely
