@@ -2350,6 +2350,12 @@ export const Ypp: Contributor = {
   ],
 };
 
+export const Texleretour: Contributor = {
+  nickname: 'Tex',
+  github: 'Texleretour',
+  discord: 'texleretour',
+};
+
 export const LucasLevyOB: Contributor = {
   nickname: 'LucasLevyOB',
   github: 'LucasLevyOB',
