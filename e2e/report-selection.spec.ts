@@ -1,17 +1,15 @@
 import { expect, test } from './fixtures';
 
-const reportCode = '6YPW2m1bMBLAgvQG';
-const reportTitle = 'prepatch is a silly billy time';
-const fightLinkName = 'Kill 5:17';
-const fightUrlPart = '12-Mythic+Tindral+Sageswift,+Seer+of+the+Flame+-+Kill+(5:17)';
-const bossTitle = `Mythic Tindral Sageswift, Seer of the Flame - Kill (5:17)`;
+const reportCode = 'MPHCJLw8zR4gZqfF';
+const reportTitle = 'Mythic+ Season 4';
+const fightLinkName = 'Kill 22:27';
+const fightUrlPart = "20-Mythic++Algeth'ar+Academy+-+Kill+(22:27)";
+const bossTitle = `Mythic+ Algeth'ar Academy - Kill (22:27)`;
 const fightPageTitle = `${bossTitle} in ${reportTitle}`;
-const playerLinkName = 'Toppledh Vengeance Demon Hunter Vengeance Demon Hunter 526';
-const playerName = 'Toppledh';
-const bossDifficultyAndName = 'MythicTindral Sageswift, Seer of Flame';
+const playerName = 'Smaragda';
+const playerLinkName = `${playerName} Vengeance Demon Hunter Vengeance Demon Hunter 524`;
+const bossDifficultyAndName = "Mythic+Algeth'ar Academy";
 const resultsPageTitle = `${bossTitle} by ${playerName} in ${reportTitle}`;
-
-// TODO: update this once we have a properly supported TWW spec
 
 test.skip('report selection', async ({ page, homePage, fightSelectionPage }) => {
   await homePage.goto();
