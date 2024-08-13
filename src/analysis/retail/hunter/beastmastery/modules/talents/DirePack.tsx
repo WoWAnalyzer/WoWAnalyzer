@@ -30,15 +30,15 @@ class DirePack extends Analyzer {
   }
 
   onApplyBuff(event: ApplyBuffEvent) {
-    this.spellUsable.applyCooldownRateChange(TALENTS.KILL_COMMAND_SHARED_TALENT.id, 0.5);
-    if (!this.spellUsable.isOnCooldown(TALENTS.KILL_COMMAND_SHARED_TALENT.id)) {
+    this.spellUsable.applyCooldownRateChange(TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT.id, 0.5);
+    if (!this.spellUsable.isOnCooldown(TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT.id)) {
       return;
     }
-    this.spellUsable.endCooldown(TALENTS.KILL_COMMAND_SHARED_TALENT.id);
+    this.spellUsable.endCooldown(TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT.id);
   }
 
   onRemoveBuff(event: RemoveBuffEvent) {
-    this.spellUsable.removeCooldownRateChange(TALENTS.KILL_COMMAND_SHARED_TALENT.id, 0.5);
+    this.spellUsable.removeCooldownRateChange(TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT.id, 0.5);
   }
 }
 

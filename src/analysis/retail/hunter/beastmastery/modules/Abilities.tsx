@@ -33,8 +33,8 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.KILL_COMMAND_SHARED_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.KILL_COMMAND_SHARED_TALENT),
+        spell: TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => hastedCooldown(7.5, haste),
         charges: combatant.hasTalent(TALENTS.ALPHA_PREDATOR_TALENT) ? 2 : 1,

@@ -296,7 +296,7 @@ const spells = {
     icon: 'inv_enchant_voidsphere',
   },
   SHADOW_EMBRACE_DEBUFF: {
-    id: 32390,
+    id: 453206,
     name: 'Shadow Embrace',
     icon: 'spell_shadow_shadowembrace',
   },
@@ -309,11 +309,6 @@ const spells = {
     id: 386931,
     name: 'Vile Taint',
     icon: 'sha_spell_shadow_shadesofdarkness_nightborne',
-  },
-  WRATH_OF_CONSUMPTION_BUFF: {
-    id: 387066,
-    name: 'Wrath of Consumption',
-    icon: 'spell_nature_drowsy',
   },
 
   // Affliction shard generating effects

@@ -20,19 +20,14 @@ import AbsoluteCorruption from './modules/spells/AbsoluteCorruption';
 import AgonyUptime from './modules/spells/Agony';
 import CorruptionUptime from './modules/spells/Corruption';
 import DrainSoul from './modules/spells/DrainSoul';
-import DreadTouch from './modules/spells/DreadTouch';
 import Haunt from './modules/spells/Haunt';
-import InevitableDemise from './modules/spells/InevitableDemise';
 import Nightfall from './modules/spells/Nightfall';
-import PandemicInvocation from './modules/spells/PandemicInvocation';
 import PhantomSingularity from './modules/spells/PhantomSingularity';
 import ShadowEmbrace from './modules/spells/ShadowEmbrace';
-import SiphonLifeUptime from './modules/spells/SiphonLife';
 import SoulConduit from './modules/spells/SoulConduit';
 import TormentedCrescendo from './modules/spells/TormentedCrescendo';
 import UnstableAfflictionUptime from './modules/spells/UnstableAffliction';
 import VileTaint from './modules/spells/VileTaint';
-import WrathOfConsumption from './modules/spells/WrathOfConsumption';
 import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
 import { UnendingResolve, DarkPact, DemonicCircle } from '../shared';
 
@@ -67,18 +62,13 @@ class CombatLogParser extends CoreCombatLogParser {
     // Talents
     absoluteCorruption: AbsoluteCorruption,
     drainSoul: DrainSoul,
-    dreadTouch: DreadTouch,
-    inevitableDemise: InevitableDemise,
     grimoireOfSacrifice: GrimoireOfSacrifice,
     haunt: Haunt,
     nightfall: Nightfall,
-    pandemicInvocation: PandemicInvocation,
     phantomSingularity: PhantomSingularity,
-    siphonLifeUptime: SiphonLifeUptime,
     soulConduit: SoulConduit,
     tormentedCrescendo: TormentedCrescendo,
     vileTaint: VileTaint,
-    wrathOfConsumption: WrathOfConsumption,
 
     // Shared Spells
     unendingResolve: UnendingResolve,

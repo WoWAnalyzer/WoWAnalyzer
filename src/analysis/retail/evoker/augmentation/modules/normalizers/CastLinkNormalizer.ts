@@ -47,6 +47,10 @@ export const UPHEAVAL_RUMBLING_EARTH_LINK = 'upheavalRumblingEarthLink';
 // Tier
 export const TREMBLING_EARTH_DAM_LINK = 'tremblingEarthDamLink';
 
+export const MASS_ERUPTION_DAM_LINK = 'massEruptionDamLink';
+export const MASS_ERUPTION_CONSUME = 'massEruptionConsume';
+const MASS_ERUPTION_DAMAGE_BUFFER = 1000; // These have very spooky delay
+
 const PRESCIENCE_BUFFER = 150;
 const CAST_BUFFER_MS = 100;
 const BREATH_EBON_BUFFER = 250;
@@ -256,6 +260,30 @@ const EVENT_LINKS: EventLink[] = [
       return !HasRelatedEvent(referencedEvent, UPHEAVAL_CAST_DAM_LINK);
     },
   },
+  {
+    linkRelation: MASS_ERUPTION_CONSUME,
+    reverseLinkRelation: MASS_ERUPTION_CONSUME,
+    linkingEventId: TALENTS.ERUPTION_TALENT.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.MASS_ERUPTION_BUFF.id,
+    referencedEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
+    anyTarget: true,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+    isActive: (C) => C.hasTalent(TALENTS.MASS_ERUPTION_TALENT),
+    maximumLinks: 1,
+  },
+  {
+    linkRelation: MASS_ERUPTION_DAM_LINK,
+    reverseLinkRelation: MASS_ERUPTION_DAM_LINK,
+    linkingEventId: TALENTS.ERUPTION_TALENT.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.MASS_ERUPTION_DAMAGE.id,
+    referencedEventType: EventType.Damage,
+    anyTarget: true,
+    forwardBufferMs: MASS_ERUPTION_DAMAGE_BUFFER,
+    isActive: (C) => C.hasTalent(TALENTS.MASS_ERUPTION_TALENT),
+  },
 ];
 
 class CastLinkNormalizer extends EventLinkNormalizer {
@@ -343,6 +371,18 @@ function upheavalHitIsUnique(castEvent: EmpowerEndEvent, damageEvent: DamageEven
 
   return !previousEvents.some(
     (e) => encodeEventTargetString(e) === encodeEventTargetString(damageEvent),
+  );
+}
+
+export function isFromMassEruption(event: CastEvent) {
+  return HasRelatedEvent(event, MASS_ERUPTION_CONSUME);
+}
+
+export function getMassEruptionDamageEvents(event: CastEvent): DamageEvent[] {
+  return GetRelatedEvents(
+    event,
+    MASS_ERUPTION_DAM_LINK,
+    (e): e is DamageEvent => e.type === EventType.Damage,
   );
 }
 
