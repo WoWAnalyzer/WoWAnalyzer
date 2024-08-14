@@ -60,6 +60,7 @@ import {
   MeltArmor,
   MassDisintegrate,
   MightOfTheBlackDragonflight,
+  DivertedPower,
 } from 'analysis/retail/evoker/shared';
 
 class CombatLogParser extends MainCombatLogParser {
@@ -124,6 +125,7 @@ class CombatLogParser extends MainCombatLogParser {
     // hero talents
     mightOfTheBlackDragonflight: MightOfTheBlackDragonflight,
     meltArmor: MeltArmor,
+    divertedPower: DivertedPower,
 
     // Features
     buffTrackerGraph: BuffTrackerGraph,
