@@ -19,10 +19,6 @@ class SpiritWalkersTidalTotem extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.SPIRITWALKERS_TIDAL_TOTEM_TALENT);
 
-    if (!this.active) {
-      return;
-    }
-
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HEALING_SURGE),
       this.onHealingSurgeCast,
