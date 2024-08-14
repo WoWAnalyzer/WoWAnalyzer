@@ -1,4 +1,9 @@
-import { AnkhNormalizer, AstralShift, StaticCharge } from 'analysis/retail/shaman/shared';
+import {
+  AnkhNormalizer,
+  AstralShift,
+  ElementalBlast,
+  StaticCharge,
+} from 'analysis/retail/shaman/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
 import FlameShock from './modules/spells/FlameShock';
@@ -8,7 +13,6 @@ import Checklist from './modules/checklist/Module';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import ForcefulWinds from './modules/talents/ForcefulWinds';
 import Stormflurry from './modules/talents/Stormflurry';
-import ElementalBlast from './modules/talents/ElementalBlast';
 import HotHand from './modules/talents/HotHand';
 import SpiritWolf from 'analysis/retail/shaman/shared/talents/SpiritWolf';
 import EarthShield from 'analysis/retail/shaman/shared/talents/EarthShield';
@@ -51,6 +55,7 @@ import {
   MaelstromWeaponSpenders,
   MaelstromWeaponTracker,
 } from './modules/resourcetracker';
+import ElementalBlastGuide from './modules/talents/ElementalBlastGuide';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -90,6 +95,7 @@ class CombatLogParser extends CoreCombatLogParser {
     ascendance: Ascendance,
     forcefulWinds: ForcefulWinds,
     elementalBlast: ElementalBlast,
+    elementalBlastGuide: ElementalBlastGuide,
     stormflurry: Stormflurry,
     tempestStrikes: TempestStrikes,
     hotHand: HotHand,

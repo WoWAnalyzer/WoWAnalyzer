@@ -109,7 +109,7 @@ class Abilities extends ClassAbilities {
       {
         spell: [SPELLS.PRIMORDIAL_WAVE.id, SPELLS.PRIMORDIAL_WAVE_DAMAGE.id],
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 45,
+        cooldown: 30,
         gcd: {
           base: 1500,
         },
@@ -123,7 +123,7 @@ class Abilities extends ClassAbilities {
       {
         spell: TALENTS.DOOM_WINDS_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.DOOM_WINDS_TALENT),
-        cooldown: 90,
+        cooldown: 60,
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: {
           base: 1500,
@@ -166,6 +166,11 @@ class Abilities extends ClassAbilities {
           combatant.hasTalent(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT) ||
           combatant.hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT),
         category: SPELL_CATEGORY.HIDDEN,
+      },
+      {
+        spell: SPELLS.TEMPEST_CAST.id,
+        enabled: combatant.hasTalent(TALENTS.TEMPEST_TALENT),
+        category: SPELL_CATEGORY.ROTATIONAL,
       },
     ];
   }

@@ -24,13 +24,12 @@ import {
 } from '../normalizers/EventLinkNormalizer';
 import { MAELSTROM_WEAPON_ELIGIBLE_SPELLS } from 'analysis/retail/shaman/enhancement/constants';
 
-const DEBUG = false;
+const DEBUG = true;
 
 export const PERFECT_WASTED_PERCENT = 0.1;
 export const GOOD_WASTED_PERCENT = 0.2;
 export const OK_WASTED_PERCENT = 0.3;
 
-const WITCH_DOCTORS_ANCESTRY_REDUCTION_MS: Record<number, number> = { 1: 1000, 2: 2000 };
 const MAELSTROM_SPENDERS = MAELSTROM_WEAPON_ELIGIBLE_SPELLS.map((spell) => spell.id);
 const MAELSTROM_GENERATORS = [
   TALENTS.STORMSTRIKE_TALENT.id,
@@ -39,7 +38,11 @@ const MAELSTROM_GENERATORS = [
   TALENTS.FROST_SHOCK_TALENT.id,
   TALENTS.FIRE_NOVA_TALENT.id,
   TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT.id,
+  TALENTS.CHAIN_LIGHTNING_TALENT.id,
+  SPELLS.LIGHTNING_BOLT.id,
 ];
+const SUPERCHARGE_MAELSTROM = 3;
+const FERAL_SPIRIT_CDR_PER_MSW_GAINED = 2000;
 
 const MaelstromWeaponResource: Resource = {
   id: -99,
@@ -54,7 +57,6 @@ class MaelstromWeaponTracker extends ResourceTracker {
     spellUsable: SpellUsable,
   };
 
-  cooldownPerMaelstromGained = 0;
   feralSpiritTotalCooldownReduction = 0;
   feralSpiritCooldownReductionWasted = 0;
   outOfOrderCooldownReduction = 0;
@@ -65,6 +67,8 @@ class MaelstromWeaponTracker extends ResourceTracker {
   isDead: boolean = false;
   lastAppliedTime = 0;
   expiredWaste = 0;
+  isStormbringer = false;
+  hasStaticAccumulation = false;
 
   constructor(options: Options) {
     super(options);
@@ -76,9 +80,10 @@ class MaelstromWeaponTracker extends ResourceTracker {
       ? 10
       : 5;
     this.allowMultipleGainsInSameTimestamp = true;
-
-    const rank = this.selectedCombatant.getTalentRank(TALENTS.WITCH_DOCTORS_ANCESTRY_TALENT);
-    this.cooldownPerMaelstromGained = WITCH_DOCTORS_ANCESTRY_REDUCTION_MS[rank];
+    this.isStormbringer = this.selectedCombatant.hasTalent(TALENTS.TEMPEST_TALENT);
+    this.hasStaticAccumulation = this.selectedCombatant.hasTalent(
+      TALENTS.STATIC_ACCUMULATION_TALENT,
+    );
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCastSpell);
 
@@ -143,14 +148,18 @@ class MaelstromWeaponTracker extends ResourceTracker {
     return QualitativePerformance.Fail;
   }
 
+  getResourceCost(event: CastEvent): { [resourceType: number]: number } {
+    const cost = event.resourceCost ?? {};
+    return {
+      ...cost,
+      [this.resource.id]: this.current,
+    };
+  }
+
   onCastSpell(event: CastEvent) {
     if (MAELSTROM_SPENDERS.includes(event.ability.guid)) {
       if (HasRelatedEvent(event, MAELSTROM_SPENDER_LINK)) {
-        const cost = event.resourceCost ?? {};
-        event.resourceCost = {
-          ...cost,
-          [this.resource.id]: this.current,
-        };
+        event.resourceCost = this.getResourceCost(event);
         this._applySpender(event, this.current, {
           amount: this.current,
           max: this.maxResource,
@@ -166,27 +175,63 @@ class MaelstromWeaponTracker extends ResourceTracker {
             event,
           );
       }
-    } else if (MAELSTROM_GENERATORS.includes(event.ability.guid)) {
-      const gain = GetRelatedEvents(
+    }
+    if (MAELSTROM_GENERATORS.includes(event.ability.guid)) {
+      let gain = GetRelatedEvents(
         event,
         MAELSTROM_GENERATOR_LINK,
         (e) => e.type === EventType.ApplyBuff || e.type === EventType.ApplyBuffStack,
       ).length;
-      const waste = GetRelatedEvents(
+      let waste = GetRelatedEvents(
         event,
         MAELSTROM_GENERATOR_LINK,
         (e) => e.type === EventType.RefreshBuff,
       ).length;
 
-      if (gain || waste) {
-        this._applyBuilder(event.ability.guid, gain, waste, event.timestamp, {
-          amount: this.current + gain,
-          max: this.maxResource,
-          type: this.resource.id,
-        });
-        this.reduceFeralSpiritCooldown(gain + waste);
+      const spent = event.resourceCost ? event.resourceCost[this.resource.id] : 0;
+      const total = gain + waste;
+      if (spent > 0 && total) {
+        switch (total) {
+          case spent + SUPERCHARGE_MAELSTROM:
+            // static accumulation is first and we assume it can't have any waste
+            this.applyBuilder(TALENTS.STATIC_ACCUMULATION_TALENT.id, spent, 0, event.timestamp);
+            gain -= spent;
+            waste += gain < 0 ? -gain : 0;
+            gain = Math.max(0, gain);
+            // Apply supercharge if there's any gain or waste
+            if (gain + waste > 0) {
+              this.applyBuilder(TALENTS.SUPERCHARGE_TALENT.id, gain, waste, event.timestamp);
+            }
+            break;
+          case spent:
+            this.applyBuilder(TALENTS.STATIC_ACCUMULATION_TALENT.id, gain, waste, event.timestamp);
+            break;
+          case SUPERCHARGE_MAELSTROM:
+            this.applyBuilder(TALENTS.SUPERCHARGE_TALENT.id, gain, waste, event.timestamp);
+            break;
+          default:
+            DEBUG &&
+              console.error(
+                `${total} Maelstrom was gained by ${event.ability.name} but only ${spent} was spent at ${this.owner.formatTimestamp(event.timestamp, 3)}`,
+                event,
+              );
+            break;
+        }
+      } else {
+        if (gain || waste) {
+          this.applyBuilder(event.ability.guid, gain, waste, event.timestamp);
+        }
       }
     }
+  }
+
+  applyBuilder(spellId: number, gain: number, waste: number, timestamp: number) {
+    this._applyBuilder(spellId, gain, waste, timestamp, {
+      amount: this.current + gain,
+      max: this.maxResource,
+      type: this.resource.id,
+    });
+    this.reduceFeralSpiritCooldown(gain + waste);
   }
 
   onChangeStack(
@@ -278,7 +323,7 @@ class MaelstromWeaponTracker extends ResourceTracker {
   }
 
   onFeralSpiritCast() {
-    this.outOfOrderCooldownReduction += this.cooldownPerMaelstromGained;
+    this.outOfOrderCooldownReduction += FERAL_SPIRIT_CDR_PER_MSW_GAINED;
   }
 
   reduceFeralSpiritCooldown(maelstromGained: number = 1) {
@@ -289,15 +334,15 @@ class MaelstromWeaponTracker extends ResourceTracker {
     if (this.spellUsable.isOnCooldown(TALENTS.FERAL_SPIRIT_TALENT.id)) {
       const effectiveReduction = this.spellUsable.reduceCooldown(
         TALENTS.FERAL_SPIRIT_TALENT.id,
-        this.cooldownPerMaelstromGained * maelstromGained + this.outOfOrderCooldownReduction,
+        FERAL_SPIRIT_CDR_PER_MSW_GAINED * maelstromGained + this.outOfOrderCooldownReduction,
       );
       this.feralSpiritTotalCooldownReduction += effectiveReduction;
       this.feralSpiritCooldownReductionWasted +=
-        this.cooldownPerMaelstromGained * maelstromGained - effectiveReduction;
+        FERAL_SPIRIT_CDR_PER_MSW_GAINED * maelstromGained - effectiveReduction;
       this.outOfOrderCooldownReduction = 0;
     } else {
       this.feralSpiritCooldownReductionWasted += Math.max(
-        this.cooldownPerMaelstromGained * maelstromGained - this.outOfOrderCooldownReduction,
+        FERAL_SPIRIT_CDR_PER_MSW_GAINED * maelstromGained - this.outOfOrderCooldownReduction,
         0,
       );
     }

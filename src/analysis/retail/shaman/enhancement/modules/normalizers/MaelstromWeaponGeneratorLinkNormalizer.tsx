@@ -15,7 +15,7 @@ const MAELSTROM_GENERATOR_LINK = 'maelstrom-generator';
  */
 class MaelstromWeaponGeneratorLinkNormalizer extends EventLinkNormalizer {
   constructor(options: Options) {
-    super(options, [primordialWave, iceStrike, frostShock, otherGenerator]);
+    super(options, [primordialWave, iceStrike, frostShock, otherGenerator, spenderRefund]);
 
     this.priority = -90;
   }
@@ -75,6 +75,14 @@ const otherGenerator: EventLink = {
   forwardBufferMs: 25,
   anySource: false,
   maximumLinks: 1,
+};
+
+const spenderRefund: EventLink = {
+  ...linkTemplate,
+  linkingEventId: [SPELLS.LIGHTNING_BOLT.id, TALENTS.CHAIN_LIGHTNING_TALENT.id],
+  forwardBufferMs: 100,
+  anySource: true,
+  isActive: (c) => c.hasTalent(TALENTS.STATIC_ACCUMULATION_TALENT),
 };
 
 export default MaelstromWeaponGeneratorLinkNormalizer;
