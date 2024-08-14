@@ -78,9 +78,6 @@ const DemonologyWarlockChecklist = ({ combatant, castEfficiency, thresholds }: C
         {combatant.hasTalent(TALENTS.GRIMOIRE_FELGUARD_TALENT) && (
           <AbilityRequirement spell={TALENTS.GRIMOIRE_FELGUARD_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.NETHER_PORTAL_TALENT) && (
-          <AbilityRequirement spell={TALENTS.NETHER_PORTAL_TALENT.id} />
-        )}
       </Rule>
       <Rule
         name="Use your utility and defensive spells"

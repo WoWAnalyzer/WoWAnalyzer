@@ -2075,8 +2075,13 @@ export const Squided: Contributor = {
   mains: [
     {
       name: 'Squided',
-      spec: SPECS.HOLY_PRIEST,
+      spec: SPECS.HOLY_PALADIN,
       link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Squided',
+    },
+    {
+      name: 'Squidkid',
+      spec: SPECS.HOLY_PRIEST,
+      link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Squidkid',
     },
   ],
 };
@@ -2345,6 +2350,12 @@ export const Ypp: Contributor = {
   ],
 };
 
+export const Texleretour: Contributor = {
+  nickname: 'Tex',
+  github: 'Texleretour',
+  discord: 'texleretour',
+};
+
 export const LucasLevyOB: Contributor = {
   nickname: 'LucasLevyOB',
   github: 'LucasLevyOB',
@@ -2442,4 +2453,16 @@ export const Bhahlou: Contributor = {
 export const Ethelis: Contributor = {
   nickname: 'Ethelis',
   github: 'ethelis',
+};
+
+export const Lithix: Contributor = {
+  nickname: 'Lithix',
+  github: 'Yitaarli',
+  discord: 'lithix#0749',
+};
+
+export const Liavre: Contributor = {
+  nickname: 'Liavre',
+  github: 'Liavre',
+  discord: 'Liavre',
 };

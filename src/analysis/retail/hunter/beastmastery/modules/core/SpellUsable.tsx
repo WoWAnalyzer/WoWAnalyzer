@@ -81,7 +81,7 @@ class SpellUsable extends CoreSpellUsable {
         this.endCooldown(spellId, this.lastPotentialTriggerForBarbedShotReset?.timestamp);
       }
     }
-    if (spellId === TALENTS.KILL_COMMAND_SHARED_TALENT.id) {
+    if (spellId === TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT.id) {
       if (this.isOnCooldown(spellId) && this.chargesAvailable(spellId) === 0) {
         this.endCooldown(spellId, this.lastPotentialTriggerForKillCommandReset?.timestamp);
       }
