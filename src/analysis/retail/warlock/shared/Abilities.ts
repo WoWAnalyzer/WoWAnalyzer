@@ -12,11 +12,6 @@ class Abilities extends CoreAbilities {
     // moving class abilities here as theyre updated
     return [
       // Offensive
-      {
-        spell: SPELLS.INQUISITORS_GAZE_CAST.id,
-        category: SPELL_CATEGORY.OTHERS,
-        enabled: combatant.hasTalent(TALENTS.INQUISITORS_GAZE_TALENT),
-      },
 
       // Defensive
       {

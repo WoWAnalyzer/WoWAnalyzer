@@ -7,6 +7,7 @@ import CooldownGraphSubsection, { Cooldown } from '../components/CooldownGraphSu
 import AlertInfo from 'interface/AlertInfo';
 import { FoundationHighlight as HL } from './shared';
 import Para from '../Para';
+import { useExpansionContext } from 'interface/report/ExpansionContext';
 
 interface Props {
   cooldowns?: Cooldown[];
@@ -16,6 +17,7 @@ export function FoundationCooldownSection({
   cooldowns: manualCooldowns,
 }: Props): JSX.Element | null {
   const abilities = useInfo()?.abilities;
+  const { expansion } = useExpansionContext();
   const cooldowns = useMemo(
     () =>
       manualCooldowns ??
@@ -28,10 +30,10 @@ export function FoundationCooldownSection({
         )
         .sort((a, b) => b.cooldown - a.cooldown)
         .map((ability) => ({
-          spell: maybeGetTalentOrSpell(ability.primarySpell)!,
+          spell: maybeGetTalentOrSpell(ability.primarySpell, expansion)!,
           isActive: () => true,
         })),
-    [manualCooldowns, abilities],
+    [manualCooldowns, abilities, expansion],
   );
 
   if (!cooldowns || cooldowns.length === 0) {

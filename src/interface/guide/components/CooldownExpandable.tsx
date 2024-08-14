@@ -5,7 +5,7 @@ import { ControlledExpandable } from 'interface';
 
 export interface CooldownExpandableItem {
   label: ReactNode;
-  result: ReactNode;
+  result?: ReactNode;
   details?: ReactNode;
 }
 
@@ -35,7 +35,9 @@ export const CooldownExpandableDataList = ({
             <td style={{ paddingRight: '1em', paddingLeft: '1em', minWidth: '25em' }}>
               {item.label}
             </td>
-            <td style={{ paddingRight: '1em', textAlign: 'right' }}>{item.result}</td>
+            <td style={{ paddingRight: '1em', textAlign: 'right' }}>
+              {item.result ? item.result : ''}
+            </td>
             {item.details && <td style={{ paddingRight: '1em' }}>{item.details}</td>}
           </tr>
         ))}

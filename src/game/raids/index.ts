@@ -8,6 +8,7 @@ import MythicPlusSeasonFour from 'game/raids/mythicplusseasonfour';
 import VaultOfTheIncarnates from 'game/raids/vaultoftheincarnates';
 import Aberrus from 'game/raids/aberrus';
 import Amirdrassil from 'game/raids/amirdrassil';
+import NerubarPalace from 'game/raids/nerubarpalace';
 import {
   bot as BastionOfTwilight,
   bwd as BlackwingDescent,
@@ -63,6 +64,7 @@ const raids = {
   VaultOfTheIncarnates, // tier 29
   Aberrus, // tier 30
   Amirdrassil, // tier 31
+  NerubarPalace, // TWW S1
   // Cataclysm (Classic)
   BlackwingDescent,
   BastionOfTwilight,

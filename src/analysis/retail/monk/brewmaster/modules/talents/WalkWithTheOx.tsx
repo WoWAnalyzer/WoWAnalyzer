@@ -105,7 +105,7 @@ export default class WalkWithTheOx extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
-        category={STATISTIC_CATEGORY.COVENANTS}
+        category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringSpellValueText spell={talents.WALK_WITH_THE_OX_TALENT}>
           <>

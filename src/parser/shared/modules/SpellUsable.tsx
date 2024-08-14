@@ -763,7 +763,7 @@ class SpellUsable extends Analyzer {
     ) {
       annotation = {
         color: BadColor,
-        summary: `${spellName(spellId)} (ID=${spellId}) was used while SpellUsable's tracker thought it had no available charges`,
+        summary: `${spellName(spellId)} (ID=${spellId}) was used while SpellUsable's tracker thought it had no available charges (expected end @ ${this.owner.formatTimestamp(info.expectedEnd)})`,
         // note: we are making a copy of `info` so that later display is not muddled by mutation
         details: (
           <SpellUsableDebugDescription cdInfo={{ ...info }} event={event} parser={this.owner} />

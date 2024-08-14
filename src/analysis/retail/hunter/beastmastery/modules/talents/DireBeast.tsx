@@ -56,7 +56,7 @@ class DireBeast extends Analyzer {
       this.onDireSummon,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.KILL_COMMAND_SHARED_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT),
       this.killCommandCast,
     );
     this.addEventListener(

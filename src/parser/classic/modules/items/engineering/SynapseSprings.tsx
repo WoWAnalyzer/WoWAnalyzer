@@ -1,17 +1,16 @@
-import SPELLS from 'common/SPELLS/classic';
-import GEAR_SLOTS from 'game/GEAR_SLOTS';
-import Analyzer, { Options } from 'parser/core/Analyzer';
-import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import Abilities from 'parser/core/modules/Abilities';
-
-const SYNAPSE_SPRINGS_ENCHANT_ID = 4179;
+import Analyzer, { Options } from 'parser/core/Analyzer';
+import GEAR_SLOTS from 'game/GEAR_SLOTS';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
+import SPELLS from 'common/SPELLS/classic/engineering';
 
 export default class SynapseSprings extends Analyzer.withDependencies({ abilities: Abilities }) {
   constructor(options: Options) {
     super(options);
 
-    const gloves = this.selectedCombatant._getGearItemBySlotId(GEAR_SLOTS.HANDS);
-    this.active = gloves.onUseEnchant === SYNAPSE_SPRINGS_ENCHANT_ID;
+    const combatant = this.selectedCombatant;
+    const gloves = combatant._getGearItemBySlotId(GEAR_SLOTS.HANDS);
+    this.active = gloves.onUseEnchant === SPELLS.SYNAPSE_SPRINGS.enchantId;
 
     if (this.active) {
       this.deps.abilities.add({

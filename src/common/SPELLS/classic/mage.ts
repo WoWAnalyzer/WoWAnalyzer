@@ -31,11 +31,6 @@ const spells = {
     name: 'Arcane Missiles',
     icon: 'spell_nature_starfall.jpg',
   },
-  ARCANE_MISSILES_CHANNELED: {
-    id: 5143,
-    name: 'Arcane Missiles',
-    icon: 'spell_nature_starfall.jpg',
-  },
   BLINK: {
     id: 1953,
     name: 'Blink',

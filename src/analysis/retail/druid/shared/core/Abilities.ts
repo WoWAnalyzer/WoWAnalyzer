@@ -3,7 +3,7 @@ import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import { TALENTS_DRUID } from 'common/TALENTS/druid';
-import { fastMeleeGcd, hastedCooldown, normalGcd } from 'common/abilitiesConstants';
+import { fastMeleeGcd, normalGcd } from 'common/abilitiesConstants';
 import SPECS from 'game/SPECS';
 
 /**
@@ -12,8 +12,8 @@ import SPECS from 'game/SPECS';
  * Rotational abilities (even shared ones) are reserved to the spec specific Abilities list,
  * so that custom handling of category and order can be provided. The list of general abilities
  * that are omitted from this list:
- * Shred, Ferocious Bite, Rake, Thrash, Swipe, Mangle, Ironfur, Rejuvenation, Regrowth, Swiftmend,
- * Wild Growth, Wrath, Starfire, Starsurge, Moonfire, Sunfire
+ * Shred, Ferocious Bite, Rake, Thrash, Swipe, Mangle, Ironfur, Frenzied Regeneration,
+ * Rejuvenation, Regrowth, Swiftmend, Wild Growth, Wrath, Starfire, Starsurge, Moonfire, Sunfire
  */
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -165,17 +165,6 @@ class Abilities extends CoreAbilities {
         gcd: normalGcd,
       },
       // Cat/Bear stuff
-      {
-        spell: SPELLS.FRENZIED_REGENERATION.id,
-        enabled: combatant.hasTalent(TALENTS_DRUID.FRENZIED_REGENERATION_TALENT),
-        category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: hastedCooldown(
-          36 * (1 - 0.2 * combatant.getTalentRank(TALENTS_DRUID.REINVIGORATION_TALENT)),
-        ), // TODO TWW change this to 0.10 per rank in 11.0.2
-        gcd: normalGcd,
-        charges: 1 + combatant.getTalentRank(TALENTS_DRUID.INNATE_RESOLVE_TALENT),
-        isDefensive: true,
-      },
       {
         spell: SPELLS.GROWL.id,
         category: SPELL_CATEGORY.UTILITY,
