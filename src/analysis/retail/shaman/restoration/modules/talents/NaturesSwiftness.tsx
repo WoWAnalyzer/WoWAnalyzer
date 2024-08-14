@@ -28,10 +28,6 @@ class NaturesSwiftness extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.NATURES_SWIFTNESS_TALENT);
 
-    if (!this.active) {
-      return;
-    }
-
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(NaturesSwiftness.affectedSpells),
       this.onRelevantCast,
