@@ -660,7 +660,7 @@ const spells = {
     id: 8004,
     name: 'Healing Surge',
     icon: 'spell_nature_healingway',
-    manaCost: 12000, // enh/ele cost is higher
+    manaCost: 110000, // enh/ele cost is higher
   },
   TIDAL_WAVES_BUFF: {
     id: 53390,
