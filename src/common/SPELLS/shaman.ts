@@ -778,6 +778,11 @@ const spells = {
     name: 'High Tide',
     icon: 'spell_shaman_hightide',
   },
+  NATURES_SWIFTNESS_BUFF: {
+    id: 378081,
+    name: "Nature's Swiftness",
+    icon: 'spell_nature_ravenform',
+  },
   MANA_TIDE_TOTEM_BUFF: {
     id: 320763,
     name: 'Mana Tide Totem',
