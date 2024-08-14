@@ -206,7 +206,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: !combatant.hasTalent(TALENTS.CONSECRATED_BLADE_TALENT),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.25,
