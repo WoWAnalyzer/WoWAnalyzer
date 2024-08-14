@@ -8,7 +8,6 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemManaGained from 'parser/ui/ItemManaGained';
 import { formatNumber } from 'common/format';
-import { SPIRITWALKERS_TIDAL_TOTEM_REDUCTION } from '../../constants';
 
 class NaturesSwiftness extends Analyzer {
   static AFFECTED_SPELLS = [
@@ -44,22 +43,12 @@ class NaturesSwiftness extends Analyzer {
     );
   }
 
-  triggerConditions() {
-    let condition = true;
-
+  onHealingSurgeCast(event: CastEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.NATURES_SWIFTNESS_BUFF.id)) {
-      condition = false;
+      return;
     }
 
     if (this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
-      condition = false;
-    }
-
-    return condition;
-  }
-
-  onHealingSurgeCast(event: CastEvent) {
-    if (!this.triggerConditions) {
       return;
     }
 
@@ -67,19 +56,22 @@ class NaturesSwiftness extends Analyzer {
       return;
     }
 
-    let manaSaved = event.resourceCost[RESOURCE_TYPES.MANA.id];
-
     if (this.selectedCombatant.hasBuff(SPELLS.SPIRITWALKERS_TIDAL_TOTEM_BUFF.id)) {
-      // NS only saves the rest of the mana cost after SWTT mana reduction
-      manaSaved =
-        event.resourceCost[RESOURCE_TYPES.MANA.id] * (1 - SPIRITWALKERS_TIDAL_TOTEM_REDUCTION);
+      // if both SWTT and NS are present when a Healing Surge is cast, only SWTT is consumed base on my testing
+      return;
     }
 
-    this.manaSaved += manaSaved;
+    const baseCost = event.resourceCost[RESOURCE_TYPES.MANA.id];
+
+    this.manaSaved += baseCost;
   }
 
   onRelevantCast(event: CastEvent) {
-    if (!this.triggerConditions) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.NATURES_SWIFTNESS_BUFF.id)) {
+      return;
+    }
+
+    if (this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
       return;
     }
 
@@ -103,11 +95,7 @@ class NaturesSwiftness extends Analyzer {
 
   statistic() {
     return (
-      <Statistic
-        size="flexible"
-        category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={<>Total mana saved: {this.manaSaved}</>}
-      >
+      <Statistic size="flexible" category={STATISTIC_CATEGORY.TALENTS}>
         <TalentSpellText talent={TALENTS_SHAMAN.NATURES_SWIFTNESS_TALENT}>
           <div>
             <ItemManaGained amount={this.manaSaved} useAbbrev customLabel="mana" />

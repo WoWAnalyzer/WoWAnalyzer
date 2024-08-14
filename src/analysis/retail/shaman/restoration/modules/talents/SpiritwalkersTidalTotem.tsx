@@ -49,11 +49,8 @@ class SpiritWalkersTidalTotem extends Analyzer {
       return;
     }
 
-    const actualCost = event.resourceCost[RESOURCE_TYPES.MANA.id];
-    console.log('actualCostHealingSurge', actualCost);
-    const baseCost =
-      event.resourceCost[RESOURCE_TYPES.MANA.id] / (1 - SPIRITWALKERS_TIDAL_TOTEM_REDUCTION);
-    const manaSaved = baseCost - actualCost;
+    const manaSaved =
+      event.resourceCost[RESOURCE_TYPES.MANA.id] * SPIRITWALKERS_TIDAL_TOTEM_REDUCTION;
 
     this.manaSaved += manaSaved;
   }
