@@ -38,6 +38,9 @@ export const CHAIN_HEAL_TARGETS = 4;
 export const ANCESTRAL_REACH_TARGET = 1;
 export const FLOW_OF_THE_TIDES_TARGET = 1;
 
+//mana saves
+export const SPIRITWALKERS_TIDAL_TOTEM_REDUCTION = 0.5;
+
 export const RESTORATION_COLORS = {
   CHAIN_HEAL: '#203755',
   HEALING_WAVE: '#146585',

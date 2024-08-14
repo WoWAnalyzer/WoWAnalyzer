@@ -783,6 +783,11 @@ const spells = {
     name: "Nature's Swiftness",
     icon: 'spell_nature_ravenform',
   },
+  SPIRITWALKERS_TIDAL_TOTEM_BUFF: {
+    id: 404523,
+    name: "Spiritwalker's Tidal Totem",
+    icon: 'spell_nature_regeneration_02',
+  },
   MANA_TIDE_TOTEM_BUFF: {
     id: 320763,
     name: 'Mana Tide Totem',

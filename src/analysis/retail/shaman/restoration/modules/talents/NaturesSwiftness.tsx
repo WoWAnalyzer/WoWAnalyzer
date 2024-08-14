@@ -10,7 +10,7 @@ import ItemManaGained from 'parser/ui/ItemManaGained';
 import { formatNumber } from 'common/format';
 
 class NaturesSwiftness extends Analyzer {
-  static affectedSpells = [
+  static AFFECTED_SPELLS = [
     SPELLS.HEALING_SURGE,
     SPELLS.LIGHTNING_BOLT,
     TALENTS_SHAMAN.CHAIN_HEAL_TALENT,
@@ -33,7 +33,7 @@ class NaturesSwiftness extends Analyzer {
     }
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(NaturesSwiftness.affectedSpells),
+      Events.cast.by(SELECTED_PLAYER).spell(NaturesSwiftness.AFFECTED_SPELLS),
       this.onRelevantCast,
     );
     this.addEventListener(
