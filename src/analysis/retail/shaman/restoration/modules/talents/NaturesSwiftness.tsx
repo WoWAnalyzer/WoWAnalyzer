@@ -8,6 +8,14 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemManaGained from 'parser/ui/ItemManaGained';
 import { formatNumber } from 'common/format';
+import { SpellLink } from 'interface';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
+import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
+import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
+import { GapHighlight } from 'parser/ui/CooldownBar';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 class NaturesSwiftness extends Analyzer {
   static affectedSpells = [
@@ -21,8 +29,15 @@ class NaturesSwiftness extends Analyzer {
     TALENTS_SHAMAN.DOWNPOUR_TALENT,
   ];
 
+  static GOOD_SPELLS = [TALENTS_SHAMAN.CHAIN_HEAL_TALENT.id];
+
+  static OK_SPELLS = [SPELLS.HEALING_SURGE.id, TALENTS_SHAMAN.HEALING_RAIN_TALENT.id];
+
   manaSaved = 0;
   castCount = 0;
+
+  // Guide vars
+  castEntries: BoxRowEntry[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -51,6 +66,8 @@ class NaturesSwiftness extends Analyzer {
       return;
     }
 
+    this.rateCast(event.ability.guid);
+
     const baseCost = event.resourceCost[RESOURCE_TYPES.MANA.id];
 
     // Nature's Switness removes the mana cost of the spell entirely
@@ -63,6 +80,36 @@ class NaturesSwiftness extends Analyzer {
 
   get avgManaSaved() {
     return this.manaSaved / this.castCount;
+  }
+
+  rateCast(spellId: number) {
+    let value = null;
+    let tooltip = null;
+
+    if (NaturesSwiftness.GOOD_SPELLS.includes(spellId)) {
+      value = QualitativePerformance.Good;
+      tooltip = (
+        <>
+          Correct cast: buffed <SpellLink spell={spellId} />
+        </>
+      );
+    } else if (NaturesSwiftness.OK_SPELLS.includes(spellId)) {
+      value = QualitativePerformance.Ok;
+      tooltip = (
+        <>
+          Ok cast: buffed <SpellLink spell={spellId} />
+        </>
+      );
+    } else {
+      value = QualitativePerformance.Fail;
+      tooltip = (
+        <>
+          Incorrect cast: buffed <SpellLink spell={spellId} />
+        </>
+      );
+    }
+
+    this.castEntries.push({ value, tooltip });
   }
 
   statistic() {
@@ -82,6 +129,50 @@ class NaturesSwiftness extends Analyzer {
         </TalentSpellText>
       </Statistic>
     );
+  }
+
+  get guideSubsection(): JSX.Element {
+    const explanation = (
+      <p>
+        While{' '}
+        <b>
+          <SpellLink spell={TALENTS_SHAMAN.NATURES_SWIFTNESS_TALENT} />
+        </b>{' '}
+        can be used to save someone's life with an instant{' '}
+        <SpellLink spell={SPELLS.HEALING_SURGE} />, it can also save you a substantial amount of
+        mana over the course of a fight. You should aim to use it on your most expensive spells,
+        like <SpellLink spell={TALENTS_SHAMAN.CHAIN_HEAL_TALENT} /> or sometimes{' '}
+        <SpellLink spell={SPELLS.HEALING_SURGE} />. Avoid using it with{' '}
+        <SpellLink spell={TALENTS_SHAMAN.HEALING_WAVE_TALENT} /> or DPS spells.
+      </p>
+    );
+
+    const data = (
+      <div>
+        <RoundedPanel>
+          <strong>
+            <SpellLink spell={TALENTS_SHAMAN.NATURES_SWIFTNESS_TALENT} /> cast efficiency
+          </strong>
+          <div className="flex-main chart" style={{ padding: 15 }}>
+            <CastEfficiencyBar
+              spellId={TALENTS_SHAMAN.NATURES_SWIFTNESS_TALENT.id}
+              useThresholds
+              gapHighlightMode={GapHighlight.FullCooldown}
+            />{' '}
+            <br />
+            <strong>Casts </strong>
+            <small>
+              - Green indicates a good use of the{' '}
+              <SpellLink spell={TALENTS_SHAMAN.NATURES_SWIFTNESS_TALENT} /> buff, Yellow indicates
+              an ok use, and Red is an incorrect use or the buff expired.
+            </small>
+            <PerformanceBoxRow values={this.castEntries} />
+          </div>
+        </RoundedPanel>
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 }
 
