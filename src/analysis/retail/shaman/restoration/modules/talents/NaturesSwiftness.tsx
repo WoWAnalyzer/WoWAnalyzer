@@ -11,8 +11,7 @@ import { formatNumber } from 'common/format';
 
 class NaturesSwiftness extends Analyzer {
   static AFFECTED_SPELLS = [
-    // Healing surge is affected but is handled in a separate event handler
-    // due to SWTT reducing specifically this spell's mana cost
+    SPELLS.HEALING_SURGE,
     SPELLS.LIGHTNING_BOLT,
     TALENTS_SHAMAN.CHAIN_HEAL_TALENT,
     TALENTS_SHAMAN.HEALING_RAIN_TALENT,
@@ -34,36 +33,9 @@ class NaturesSwiftness extends Analyzer {
       this.onRelevantCast,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HEALING_SURGE),
-      this.onHealingSurgeCast,
-    );
-    this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.NATURES_SWIFTNESS_BUFF),
       this.onApplyBuff,
     );
-  }
-
-  onHealingSurgeCast(event: CastEvent) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.NATURES_SWIFTNESS_BUFF.id)) {
-      return;
-    }
-
-    if (this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
-      return;
-    }
-
-    if (!event.resourceCost) {
-      return;
-    }
-
-    if (this.selectedCombatant.hasBuff(SPELLS.SPIRITWALKERS_TIDAL_TOTEM_BUFF.id)) {
-      // if both SWTT and NS are present when a Healing Surge is cast, only SWTT is consumed base on my testing
-      return;
-    }
-
-    const baseCost = event.resourceCost[RESOURCE_TYPES.MANA.id];
-
-    this.manaSaved += baseCost;
   }
 
   onRelevantCast(event: CastEvent) {
@@ -76,6 +48,14 @@ class NaturesSwiftness extends Analyzer {
     }
 
     if (!event.resourceCost) {
+      return;
+    }
+
+    if (
+      this.selectedCombatant.hasBuff(SPELLS.SPIRITWALKERS_TIDAL_TOTEM_BUFF.id) &&
+      event.ability.guid === SPELLS.HEALING_SURGE.id
+    ) {
+      // if both SWTT and NS are present when a Healing Surge is cast, only SWTT is consumed base on my testing
       return;
     }
 
