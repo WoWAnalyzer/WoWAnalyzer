@@ -1,15 +1,15 @@
 import { expect, test } from './fixtures';
 
-const reportCode = 'MPHCJLw8zR4gZqfF';
-const reportTitle = 'Mythic+ Season 4';
-const fightLinkName = 'Kill 22:27';
-const fightUrlPart = "20-Mythic++Algeth'ar+Academy+-+Kill+(22:27)";
-const bossTitle = `Mythic+ Algeth'ar Academy - Kill (22:27)`;
+const reportCode = 'GaB2ZMR769kJ8vNq';
+const reportTitle = "Amirdrassil, the Dream's Hope";
+const fightLinkName = 'Kill 4:36';
+const fightUrlPart = '11-Mythic+Smolderon+-+Kill+(4:36)';
+const bossTitle = `Mythic Smolderon - Kill (4:36)`;
 const fightPageTitle = `${bossTitle} in ${reportTitle}`;
-const playerName = 'Smaragda';
+const playerName = 'Thundrdh';
 const playerLinkName = `${playerName} Vengeance Demon Hunter Vengeance Demon Hunter 524`;
-const bossDifficultyAndName = "Mythic+Algeth'ar Academy";
 const resultsPageTitle = `${bossTitle} by ${playerName} in ${reportTitle}`;
+const bossDifficultyAndName = 'MythicSmolderon';
 
 test.skip('report selection', async ({ page, homePage, fightSelectionPage }) => {
   await homePage.goto();
