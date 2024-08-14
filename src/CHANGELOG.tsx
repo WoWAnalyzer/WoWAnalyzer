@@ -16,7 +16,6 @@ import {
   jazminite,
   Jundarer,
   Lapideas,
-  Liavre,
   LucasLevyOB,
   nullDozzer,
   Pilsung,
@@ -36,7 +35,6 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
-  change(date(2024, 8, 13), 'remove mindgame ref from hpriest', Liavre),
   change(date(2024, 8, 13), 'Add patch 11.0.2.', ToppleTheNun),
   change(date(2024, 8, 10), <>Implement buffAndNextCastChannelSpec for channeling normalizer</>, Vollmer),
   change(date(2024, 8, 9), <>Fix the haste bonus of <SpellLink spell={SPELLS.BERSERKING.id} /> in Classic Cataclysm.</>, emallson),
