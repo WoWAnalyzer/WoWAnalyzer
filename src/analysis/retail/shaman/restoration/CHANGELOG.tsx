@@ -2,7 +2,7 @@ import { change, date } from 'common/changelog';
 import {
   Seriousnes,
   Ypp,
-  Texleretour
+  Texleretour,
 } from 'CONTRIBUTORS';
 
 // prettier-ignore

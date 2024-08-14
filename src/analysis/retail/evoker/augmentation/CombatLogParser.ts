@@ -57,6 +57,9 @@ import {
   TwinGuardian,
   RenewingBlaze,
   ImminentDestruction,
+  MeltArmor,
+  MassDisintegrate,
+  MightOfTheBlackDragonflight,
 } from 'analysis/retail/evoker/shared';
 
 class CombatLogParser extends MainCombatLogParser {
@@ -85,6 +88,7 @@ class CombatLogParser extends MainCombatLogParser {
     defensiveNormalizer: DefensiveNormalizer,
     twinGuardian: TwinGuardian,
     renewingBlaze: RenewingBlaze,
+    massDisintegrate: MassDisintegrate,
 
     // Normalizers
     castLinkNormalizer: CastLinkNormalizer,
@@ -116,6 +120,10 @@ class CombatLogParser extends MainCombatLogParser {
     blisteringScales: BlisteringScales,
     moltenEmbers: MoltenEmbers,
     rumblingEarth: RumblingEarth,
+
+    // hero talents
+    mightOfTheBlackDragonflight: MightOfTheBlackDragonflight,
+    meltArmor: MeltArmor,
 
     // Features
     buffTrackerGraph: BuffTrackerGraph,
