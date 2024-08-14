@@ -23,4 +23,5 @@ export { default as ImminentDestruction } from './modules/talents/ImminentDestru
 export { default as MeltArmor } from './modules/talents/hero/scalecommander/MeltArmor';
 export { default as MassDisintegrate } from './modules/talents/hero/scalecommander/MassDisintegrate';
 export { default as MightOfTheBlackDragonflight } from './modules/talents/hero/scalecommander/MightOfTheBlackDragonflight';
+export { default as DivertedPower } from './modules/talents/hero/scalecommander/DivertedPower';
 export * from './constants';
