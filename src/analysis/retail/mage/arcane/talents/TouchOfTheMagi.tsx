@@ -5,7 +5,6 @@ import Events, {
   DamageEvent,
   ApplyDebuffEvent,
   RemoveDebuffEvent,
-  ResourceChangeEvent,
   GetRelatedEvent,
   GetRelatedEvents,
 } from 'parser/core/Events';
@@ -47,8 +46,6 @@ export default class TouchOfTheMagi extends Analyzer {
     const ordinal = this.touchCasts.length + 1;
     const removeDebuff: RemoveDebuffEvent | undefined = GetRelatedEvent(event, 'DebuffRemove');
     const damageEvents: DamageEvent[] = GetRelatedEvents(event, 'SpellDamage');
-    const resourceChange: ResourceChangeEvent | undefined = GetRelatedEvent(event, 'Energize');
-    const wastedCharges = resourceChange && resourceChange.waste;
     let damage = 0;
     damageEvents.forEach((d) => (damage += d.amount + (d.absorb || 0)));
 
@@ -56,7 +53,7 @@ export default class TouchOfTheMagi extends Analyzer {
       ordinal,
       applied: event.timestamp,
       removed: removeDebuff?.timestamp || this.owner.fight.end_time,
-      charges: wastedCharges !== undefined ? 0 + wastedCharges : 4,
+      charges: this.chargeTracker.charges,
       damage: damageEvents || [],
       totalDamage: damage,
     });

@@ -56,7 +56,6 @@ import ArcaneTempo from './talents/ArcaneTempo';
 //Normalizers
 import ArcaneChargesNormalizer from './normalizers/ArcaneCharges';
 import ArcaneSurgeNormalizer from './normalizers/ArcaneSurge';
-import TouchOfTheMagiNormalizer from './normalizers/TouchOfTheMagi';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -64,7 +63,6 @@ class CombatLogParser extends CoreCombatLogParser {
     //Normalizers
     arcaneChargesNormalizer: ArcaneChargesNormalizer,
     arcaneSurgeNormalizer: ArcaneSurgeNormalizer,
-    touchOfTheMagiNormalizer: TouchOfTheMagiNormalizer,
     castLinkNormalizer: CastLinkNormalizer,
 
     //Core

@@ -1,3 +1,4 @@
+import { formatDurationMillisMinSec, formatPercentage } from 'common/format';
 import { ReactNode } from 'react';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
@@ -8,9 +9,20 @@ import { explanationAndDataSubsection } from 'interface/guide/components/Explana
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { PerformanceMark } from 'interface/guide';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/mage/arcane/Guide';
-import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 
-import ArcaneBarrage from '../core/ArcaneBarrage';
+import ArcaneBarrage, { ArcaneBarrageCast } from '../core/ArcaneBarrage';
+import CooldownExpandable, {
+  CooldownExpandableItem,
+} from 'interface/guide/components/CooldownExpandable';
+
+const MAX_CHARGES = 4;
+const AOE_THRESHOLD = 3;
+const TEMPO_REMAINING_THRESHOLD = 5000;
+const NETHER_STACK_THRESHOLD = 1;
+const TOUCH_CD_THRESHOLD = 6000;
+const EVOCATION_CD_THRESHOLD = 45000;
+const LOW_MANA_THRESHOLD = 0.7;
+const NO_MANA_THRESHOLD = 0.1;
 
 class ArcaneBarrageGuide extends Analyzer {
   static dependencies = {
@@ -37,15 +49,138 @@ class ArcaneBarrageGuide extends Analyzer {
     return tooltip;
   }
 
-  get arcaneBarrageData() {
-    const data: BoxRowEntry[] = [];
-    this.arcaneBarrage.barrageCasts.forEach((ab) => {
-      if (ab.usage && ab.usage?.tooltip) {
-        const tooltip = this.generateGuideTooltip(ab.usage?.value, ab.usage?.tooltip, ab.cast);
-        data.push({ value: ab.usage?.value, tooltip });
-      }
+  private perCastBreakdown(cast: ArcaneBarrageCast): React.ReactNode {
+    const header = (
+      <>
+        @ {this.owner.formatTimestamp(cast.cast)} &mdash;{' '}
+        <SpellLink spell={SPELLS.ARCANE_BARRAGE} />
+      </>
+    );
+
+    const checklistItems: CooldownExpandableItem[] = [];
+
+    checklistItems.push({
+      label: (
+        <>
+          <SpellLink spell={SPELLS.ARCANE_CHARGE} />s Before Barrage
+        </>
+      ),
+      details: <>{cast.charges}</>,
     });
-    return data;
+
+    checklistItems.push({
+      label: <>Mana %</>,
+      details: <>{formatPercentage(cast.mana || 0, 2)}%</>,
+    });
+
+    checklistItems.push({
+      label: <>Targets Hit</>,
+      details: <>{cast.targetsHit}</>,
+    });
+
+    checklistItems.push({
+      label: (
+        <>
+          <SpellLink spell={SPELLS.ARCANE_CHARGE} />s Before Barrage
+        </>
+      ),
+      details: <>{cast.charges}</>,
+    });
+
+    if (this.selectedCombatant.hasTalent(TALENTS.ARCANE_TEMPO_TALENT)) {
+      checklistItems.push({
+        label: (
+          <>
+            Time until <SpellLink spell={TALENTS.ARCANE_TEMPO_TALENT} /> expires
+          </>
+        ),
+        details: (
+          <>
+            {cast.tempoRemaining && cast.tempoRemaining > 0
+              ? formatDurationMillisMinSec(cast.tempoRemaining)
+              : `Buff Missing`}
+          </>
+        ),
+      });
+    }
+
+    if (this.selectedCombatant.hasTalent(TALENTS.TOUCH_OF_THE_MAGI_TALENT)) {
+      checklistItems.push({
+        label: (
+          <>
+            <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} /> Cooldown Remaining
+          </>
+        ),
+        details: (
+          <>
+            {cast.touchCD && cast.touchCD > 0
+              ? formatDurationMillisMinSec(cast.touchCD)
+              : `Available`}
+          </>
+        ),
+      });
+    }
+
+    if (this.selectedCombatant.hasTalent(TALENTS.EVOCATION_TALENT)) {
+      checklistItems.push({
+        label: (
+          <>
+            <SpellLink spell={TALENTS.EVOCATION_TALENT} /> Cooldown Remaining
+          </>
+        ),
+        details: (
+          <>
+            {cast.evocationCD && cast.evocationCD > 0
+              ? formatDurationMillisMinSec(cast.evocationCD)
+              : `Available`}
+          </>
+        ),
+      });
+    }
+
+    if (this.selectedCombatant.hasTalent(TALENTS.NETHER_PRECISION_TALENT)) {
+      checklistItems.push({
+        label: (
+          <>
+            <SpellLink spell={TALENTS.NETHER_PRECISION_TALENT} /> Stacks
+          </>
+        ),
+        details: <>{cast.netherPrecisionStacks}</>,
+      });
+    }
+
+    const ST = cast.targetsHit < AOE_THRESHOLD;
+    const AOE = cast.targetsHit >= AOE_THRESHOLD;
+    const maxCharges = cast.charges >= MAX_CHARGES;
+    const tempoExpiring =
+      cast.tempoRemaining &&
+      cast.tempoRemaining < TEMPO_REMAINING_THRESHOLD &&
+      cast.tempoRemaining !== 0;
+    const touchNotSoon = cast.touchCD && cast.touchCD > TOUCH_CD_THRESHOLD;
+    const lowMana = cast.mana && cast.mana < LOW_MANA_THRESHOLD;
+    const noMana = cast.mana && cast.mana < NO_MANA_THRESHOLD;
+    const evocationNotSoon = cast.evocationCD && cast.evocationCD > EVOCATION_CD_THRESHOLD;
+    const oneNPStack = cast.netherPrecisionStacks === NETHER_STACK_THRESHOLD;
+    const arcaneOrbAvail = cast.arcaneOrbAvail;
+    const clearcastingAvail = cast.clearcasting;
+
+    const overallPerf =
+      tempoExpiring ||
+      (ST && lowMana && touchNotSoon && evocationNotSoon) ||
+      (ST && maxCharges && oneNPStack && (arcaneOrbAvail || clearcastingAvail)) ||
+      (ST && noMana) ||
+      (AOE && maxCharges)
+        ? QualitativePerformance.Good
+        : QualitativePerformance.Fail;
+
+    return (
+      <CooldownExpandable
+        header={header}
+        checklistItems={checklistItems}
+        perf={overallPerf}
+        key={cast.ordinal}
+      />
+    );
   }
 
   get guideSubsection(): JSX.Element {
@@ -96,9 +231,11 @@ class ArcaneBarrageGuide extends Analyzer {
       <div>
         <RoundedPanel>
           <div>
-            <strong>Arcane Barrage Usage</strong>
-            <PerformanceBoxRow values={this.arcaneBarrageData} />
-            <small>green (good) / red (fail) mouseover the rectangles to see more details</small>
+            <p>
+              <strong>Per-Cast Breakdown</strong>
+              <small> - click to expand</small>
+              {this.arcaneBarrage.barrageCasts.map((cast) => this.perCastBreakdown(cast))}
+            </p>
           </div>
         </RoundedPanel>
       </div>
