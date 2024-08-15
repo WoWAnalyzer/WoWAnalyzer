@@ -55,6 +55,12 @@ const spells = {
     name: 'Borrowed Time',
     icon: 'spell_holy_borrowedtime',
   },
+  RENEW_HEAL: {
+    id: 139,
+    name: 'Renew',
+    icon: 'spell_holy_renew',
+    manaCost: 800,
+  },
   // Discipline Priest:
   GRACE: {
     id: 271534,
@@ -489,6 +495,32 @@ const spells = {
     name: 'Cosmic Ripple Heal',
     icon: 'spell_holy_summonlightwell',
   },
+  HOLY_WORD_SERENITY: {
+    id: 2050,
+    name: 'Holy Word: Serenity',
+    icon: 'spell_holy_persuitofjustice',
+  },
+  HOLY_WORD_SANCTIFY: {
+    id: 34861,
+    name: 'Holy Word: Sanctify',
+    icon: 'spell_holy_divineprovidence',
+  },
+  HOLY_WORD_SALVATION: {
+    id: 265202,
+    name: 'Holy Word: Salvation',
+    icon: 'spell_holy_archangel',
+  },
+  CIRCLE_OF_HEALING: {
+    id: 204883,
+    name: 'Circle of Healing',
+    icon: 'spell_holy_circleofrenewal',
+  },
+  POWER_WORD_LIFE: {
+    id: 373481,
+    name: 'Power Word: Life',
+    icon: 'ability_priest_holywordlife',
+  },
+
   // Buffs
   SPIRIT_OF_REDEMPTION_BUFF: {
     id: 27827,

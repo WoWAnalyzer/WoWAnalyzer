@@ -138,6 +138,10 @@ class CombatLogParser extends CoreCombatLogParser {
 
     BurningVehemence: Talents.TopRow.BurningVehemence,
 
+    // Hero Talents
+    PerfectedFormHoly: Talents.Archon.PerfectedFormHoly,
+    ResonantEnergyHoly: Talents.Archon.ResonantEnergyHoly,
+
     // Mana Tab
     manaTracker: ManaTracker,
     hpmDetails: HealingEfficiencyDetails,
