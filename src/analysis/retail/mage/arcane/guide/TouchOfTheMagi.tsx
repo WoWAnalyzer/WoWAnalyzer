@@ -14,8 +14,6 @@ import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/Perfo
 import { SpellSeq } from 'parser/ui/SpellSeq';
 
 import TouchOfTheMagi from '../talents/TouchOfTheMagi';
-import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
-import { GapHighlight } from 'parser/ui/CooldownBar';
 
 class TouchOfTheMagiGuide extends Analyzer {
   static dependencies = {
@@ -146,14 +144,6 @@ class TouchOfTheMagiGuide extends Analyzer {
             <strong>Touch of the Magi Usage</strong>
             <PerformanceBoxRow values={this.touchMagiData} />
             <small>green (good) / red (fail) mouseover the rectangles to see more details</small>
-          </div>
-          <div>
-            <strong>Touch of the Magi Cast Efficiency</strong>
-            <CastEfficiencyBar
-              spellId={TALENTS.TOUCH_OF_THE_MAGI_TALENT.id}
-              gapHighlightMode={GapHighlight.FullCooldown}
-              useThresholds
-            />
           </div>
         </RoundedPanel>
       </div>

@@ -8,8 +8,6 @@ import { PassFailCheckmark, PerformanceMark } from 'interface/guide';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/mage/arcane/Guide';
 
 import ShiftingPowerArcane, { MAX_TICKS, ShiftingPowerCast } from '../talents/ShiftingPower';
-import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
-import { GapHighlight } from 'parser/ui/CooldownBar';
 import CooldownExpandable, {
   CooldownExpandableItem,
 } from 'interface/guide/components/CooldownExpandable';
@@ -164,13 +162,6 @@ class ShiftingPowerGuide extends Analyzer {
 
     const data = (
       <div>
-        <p>
-          <strong>Shifting Power Cast Efficiency</strong>
-          <CastEfficiencyBar
-            spellId={TALENTS.SHIFTING_POWER_TALENT.id}
-            gapHighlightMode={GapHighlight.FullCooldown}
-          />
-        </p>
         <p>
           <strong>Per-Cast Breakdown</strong>
           <small> - click to expand</small>

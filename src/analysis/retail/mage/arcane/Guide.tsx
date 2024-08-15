@@ -10,6 +10,8 @@ import TALENTS from 'common/TALENTS/mage';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 
 import ManaLevelGraph from './ManaChart/TabComponent/ManaLevelGraph';
+import { GapHighlight } from 'parser/ui/CooldownBar';
+import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 
 export const GUIDE_CORE_EXPLANATION_PERCENT = 50;
 
@@ -153,6 +155,38 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           modules.siphonStormGuide.guideSubsection}
         {info.combatant.hasTalent(TALENTS.ARCANE_TEMPO_TALENT) &&
           modules.arcaneTempoGuide.guideSubsection}
+      </Section>
+      <Section title="Cooldowns">
+        <>
+          As is the case with most damage specs, properly utilizing your damage cooldowns will go a
+          long way towards improving your overall damage, especially{' '}
+          <SpellLink spell={TALENTS.ARCANE_SURGE_TALENT} />.
+        </>
+        <CastEfficiencyBar
+          spellId={TALENTS.TOUCH_OF_THE_MAGI_TALENT.id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+          useThresholds
+        />
+        <CastEfficiencyBar
+          spellId={TALENTS.ARCANE_SURGE_TALENT.id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+          useThresholds
+        />
+        <CastEfficiencyBar
+          spellId={SPELLS.ARCANE_ORB.id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+          useThresholds
+          minimizeIcons
+        />
+        <CastEfficiencyBar
+          spellId={TALENTS.EVOCATION_TALENT.id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+          useThresholds
+        />
+        <CastEfficiencyBar
+          spellId={TALENTS.SHIFTING_POWER_TALENT.id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+        />
       </Section>
       <PreparationSection />
     </>
