@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
-import { Squided } from 'CONTRIBUTORS';
+import { Squided, Texleretour } from 'CONTRIBUTORS';
 import GameBranch from 'game/GameBranch';
 import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
@@ -9,9 +9,9 @@ import Config, { SupportLevel } from 'parser/Config';
 import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
-  contributors: [Squided],
+  contributors: [Squided, Texleretour],
   branch: GameBranch.Retail,
-  patchCompatibility: '11.0.0',
+  patchCompatibility: '11.0.2',
   supportLevel: SupportLevel.Unmaintained,
   description: (
     <>
@@ -42,8 +42,7 @@ const config: Config = {
       guides.
     </>
   ),
-  exampleReport:
-    '/report/K3QhqX8brd7aHJn4/26-Mythic+The+Vigilant+Steward,+Zskarn+-+Kill+(4:15)/467-Mytholcgy/standard',
+  exampleReport: '/report/bNZLjxM4kPVrQzmA/1-Mythic+Smolderon+-+Kill+(4:30)/Weszv/standard',
 
   spec: SPECS.HOLY_PALADIN,
   changelog: CHANGELOG,
