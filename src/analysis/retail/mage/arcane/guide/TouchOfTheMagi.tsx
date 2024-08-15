@@ -7,13 +7,15 @@ import Analyzer from 'parser/core/Analyzer';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { qualitativePerformanceToColor } from 'interface/guide';
+import { PassFailCheckmark, qualitativePerformanceToColor } from 'interface/guide';
 import { PerformanceMark } from 'interface/guide';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/mage/arcane/Guide';
-import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { SpellSeq } from 'parser/ui/SpellSeq';
 
-import TouchOfTheMagi from '../talents/TouchOfTheMagi';
+import TouchOfTheMagi, { TouchOfTheMagiCast } from '../talents/TouchOfTheMagi';
+import CooldownExpandable, {
+  CooldownExpandableItem,
+} from 'interface/guide/components/CooldownExpandable';
 
 class TouchOfTheMagiGuide extends Analyzer {
   static dependencies = {
@@ -54,15 +56,49 @@ class TouchOfTheMagiGuide extends Analyzer {
     return performance;
   }
 
-  get touchMagiData() {
-    const data: BoxRowEntry[] = [];
-    this.touchOfTheMagi.touchCasts.forEach((tm) => {
-      if (tm.usage && tm.usage?.tooltip) {
-        const tooltip = this.generateGuideTooltip(tm.usage?.value, tm.usage?.tooltip, tm.applied);
-        data.push({ value: tm.usage?.value, tooltip });
-      }
+  private perCastBreakdown(cast: TouchOfTheMagiCast): React.ReactNode {
+    const header = (
+      <>
+        @ {this.owner.formatTimestamp(cast.applied)} &mdash;{' '}
+        <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} />
+      </>
+    );
+
+    const checklistItems: CooldownExpandableItem[] = [];
+
+    const noCharges = cast.charges === 0;
+    checklistItems.push({
+      label: (
+        <>
+          <SpellLink spell={SPELLS.ARCANE_CHARGE} />s Before Touch
+        </>
+      ),
+      result: <PassFailCheckmark pass={noCharges} />,
+      details: <>{cast.charges}</>,
     });
-    return data;
+
+    const activeTime = cast.activeTime;
+    checklistItems.push({
+      label: (
+        <>
+          Active Time Percent during <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} />
+        </>
+      ),
+      result: <PerformanceMark perf={this.activeTimeUtil} />,
+      details: <>{formatPercentage(activeTime || 0, 2)}%</>,
+    });
+
+    const overallPerf =
+      noCharges && activeTime ? QualitativePerformance.Good : QualitativePerformance.Fail;
+
+    return (
+      <CooldownExpandable
+        header={header}
+        checklistItems={checklistItems}
+        perf={overallPerf}
+        key={cast.ordinal}
+      />
+    );
   }
 
   get guideSubsection(): JSX.Element {
@@ -141,9 +177,11 @@ class TouchOfTheMagiGuide extends Analyzer {
             </TooltipElement>
           </div>
           <div>
-            <strong>Touch of the Magi Usage</strong>
-            <PerformanceBoxRow values={this.touchMagiData} />
-            <small>green (good) / red (fail) mouseover the rectangles to see more details</small>
+            <p>
+              <strong>Per-Cast Breakdown</strong>
+              <small> - click to expand</small>
+              {this.touchOfTheMagi.touchCasts.map((cast) => this.perCastBreakdown(cast))}
+            </p>
           </div>
         </RoundedPanel>
       </div>

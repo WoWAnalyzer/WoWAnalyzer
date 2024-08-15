@@ -1,4 +1,3 @@
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -16,9 +15,8 @@ import Enemies from 'parser/shared/modules/Enemies';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import AlwaysBeCasting from '../core/AlwaysBeCasting';
-import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
-class TouchOfTheMagi extends Analyzer {
+export default class TouchOfTheMagi extends Analyzer {
   static dependencies = {
     chargeTracker: ArcaneChargeTracker,
     alwaysBeCasting: AlwaysBeCasting,
@@ -33,15 +31,7 @@ class TouchOfTheMagi extends Analyzer {
   hasSiphonStorm: boolean = this.selectedCombatant.hasTalent(TALENTS.EVOCATION_TALENT);
   hasNetherPrecision: boolean = this.selectedCombatant.hasTalent(TALENTS.NETHER_PRECISION_TALENT);
 
-  touchCasts: {
-    applied: number;
-    removed: number;
-    charges: number;
-    activeTime?: number;
-    damage: DamageEvent[];
-    totalDamage: number;
-    usage?: BoxRowEntry;
-  }[] = [];
+  touchCasts: TouchOfTheMagiCast[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -54,6 +44,7 @@ class TouchOfTheMagi extends Analyzer {
   }
 
   onTouch(event: ApplyDebuffEvent) {
+    const ordinal = this.touchCasts.length + 1;
     const removeDebuff: RemoveDebuffEvent | undefined = GetRelatedEvent(event, 'DebuffRemove');
     const damageEvents: DamageEvent[] = GetRelatedEvents(event, 'SpellDamage');
     const resourceChange: ResourceChangeEvent | undefined = GetRelatedEvent(event, 'Energize');
@@ -62,6 +53,7 @@ class TouchOfTheMagi extends Analyzer {
     damageEvents.forEach((d) => (damage += d.amount + (d.absorb || 0)));
 
     this.touchCasts.push({
+      ordinal,
       applied: event.timestamp,
       removed: removeDebuff?.timestamp || this.owner.fight.end_time,
       charges: wastedCharges !== undefined ? 0 + wastedCharges : 4,
@@ -82,27 +74,6 @@ class TouchOfTheMagi extends Analyzer {
       );
       const activeTimePercent = activeTime / ((t.removed || this.owner.fight.end_time) - t.applied);
       t.activeTime = activeTimePercent;
-    });
-
-    this.touchCasts.forEach((t) => {
-      if (t.charges !== 0) {
-        t.usage = {
-          value: QualitativePerformance.Fail,
-          tooltip: `Did not spend Arcane Charge before Touch (Had ${t.charges} charges)`,
-        };
-      } else if (t.activeTime && t.activeTime < 0.85) {
-        t.usage = {
-          value: QualitativePerformance.Fail,
-          tooltip: `Low Active Time (${formatPercentage(t.activeTime)}).`,
-        };
-      } else if (t.activeTime && t.activeTime < 0.9) {
-        t.usage = {
-          value: QualitativePerformance.Ok,
-          tooltip: `Low Active Time (${formatPercentage(t.activeTime)}).`,
-        };
-      } else {
-        t.usage = { value: QualitativePerformance.Good, tooltip: `Good Touch of the Magi cast.` };
-      }
     });
   };
 
@@ -131,4 +102,13 @@ class TouchOfTheMagi extends Analyzer {
   }
 }
 
-export default TouchOfTheMagi;
+export interface TouchOfTheMagiCast {
+  ordinal: number;
+  applied: number;
+  removed: number;
+  charges: number;
+  activeTime?: number;
+  damage: DamageEvent[];
+  totalDamage: number;
+  usage?: BoxRowEntry;
+}
