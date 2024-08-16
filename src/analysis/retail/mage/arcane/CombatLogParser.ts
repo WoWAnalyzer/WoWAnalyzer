@@ -60,9 +60,6 @@ import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
-    //Resources
-    arcaneChargeTracker: ArcaneChargeTracker,
-
     //Normalizers
     arcaneChargesNormalizer: ArcaneChargesNormalizer,
     arcaneSurgeNormalizer: ArcaneSurgeNormalizer,
@@ -73,6 +70,7 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
     cooldownThroughputTracker: CooldownThroughputTracker,
+    arcaneChargeTracker: ArcaneChargeTracker,
     channeling: Channeling,
     mana: Mana,
     manaValues: ManaValues,

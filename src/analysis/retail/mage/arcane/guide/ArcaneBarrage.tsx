@@ -145,7 +145,7 @@ class ArcaneBarrageGuide extends Analyzer {
             <SpellLink spell={TALENTS.NETHER_PRECISION_TALENT} /> Stacks
           </>
         ),
-        details: <>{cast.netherPrecisionStacks}</>,
+        details: <>{cast.netherPrecisionStacks ? cast.netherPrecisionStacks : `Buff Missing`}</>,
       });
     }
 
