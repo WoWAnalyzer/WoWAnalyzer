@@ -1104,9 +1104,9 @@ const talents = {
     entryIds: [117256],
     definitionIds: [{ id: 122268, specId: 63 }],
   },
-  MARK_OF_THE_FIRE_LORD_TALENT: {
+  MARK_OF_THE_FIRELORD_TALENT: {
     id: 450325,
-    name: 'Mark of the Fire Lord',
+    name: 'Mark of the Firelord',
     icon: 'achievement_firelands_raid_ragnaros',
     maxRanks: 1,
     entryIds: [124749],
@@ -1626,7 +1626,7 @@ const talents = {
   SPONTANEOUS_COMBUSTION_TALENT: {
     id: 451875,
     name: 'Spontaneous Combustion',
-    icon: 'ability_mage_greaterpyroblast',
+    icon: 'ability_mage_worldinflames',
     maxRanks: 1,
     entryIds: [124768],
     definitionIds: [{ id: 129606, specId: 63 }],

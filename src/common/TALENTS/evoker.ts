@@ -819,7 +819,7 @@ const talents = {
   INSTABILITY_MATRIX_TALENT: {
     id: 431484,
     name: 'Instability Matrix',
-    icon: 'ability_evoker_masterylifebinder_blue',
+    icon: 'ability_dragonriding_bronzerewind01',
     maxRanks: 1,
     entryIds: [126310],
     definitionIds: [{ id: 131136, specId: 1473 }],
@@ -1681,7 +1681,7 @@ const talents = {
     id: 386272,
     name: 'Titanic Wrath',
     icon: 'spell_fireresistancetotem_01',
-    maxRanks: 2,
+    maxRanks: 1,
     entryIds: [115578],
     definitionIds: [{ id: 120590, specId: 1467 }],
   },
