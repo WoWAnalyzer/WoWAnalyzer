@@ -21,7 +21,6 @@ const EVENT_ORDERS: EventOrder[] = [
     bufferMs: 50,
     anyTarget: true,
     updateTimestamp: true,
-    timestampSkew: 5,
   },
   {
     beforeEventId: [SPELLS.TOUCH_OF_THE_MAGI_DEBUFF.id],
@@ -31,7 +30,6 @@ const EVENT_ORDERS: EventOrder[] = [
     bufferMs: 50,
     anyTarget: true,
     updateTimestamp: true,
-    timestampSkew: 1,
   },
 ];
 

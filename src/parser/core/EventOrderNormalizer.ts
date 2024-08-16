@@ -100,7 +100,7 @@ abstract class EventOrderNormalizer extends EventsNormalizer {
               fixedEvents.splice(previousEventIndex, 1);
               fixedEvents.push(previousEvent);
               if (eo.updateTimestamp) {
-                previousEvent.timestamp = event.timestamp + (eo.timestampSkew || 0);
+                previousEvent.timestamp = event.timestamp;
                 previousEvent.__modified = true;
               }
               previousEvent.__reordered = true;
@@ -162,11 +162,6 @@ export type EventOrder = {
    * the 'after' event will have its timestamp pushed forward to match the 'before' event.
    * Defaults to 'false' when omitted. */
   updateTimestamp?: boolean;
-  /**
-   * If updateTimestamp is set to true, optionally add x milliseconds to the timestamp.
-   * Useful if you need the reordered event to not happen at the same timestamp
-   */
-  timestampSkew?: number;
   /**
    * The maximum number of events to re-order. Defaults to 1.
    */
