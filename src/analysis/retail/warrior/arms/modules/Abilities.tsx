@@ -320,8 +320,8 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.PUMMEL.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown:
-         (15 -(combatant.hasTalent(TALENTS.CONCUSSIVE_BLOWS_TALENT) ? 1 : 0)) *
-         (combatant.hasTalent(TALENTS.HONED_REFLEXES_TALENT) ? 0.95 : 1),
+          (15 - (combatant.hasTalent(TALENTS.CONCUSSIVE_BLOWS_TALENT) ? 1 : 0)) *
+          (combatant.hasTalent(TALENTS.HONED_REFLEXES_TALENT) ? 0.95 : 1),
         gcd: null,
       },
       {
