@@ -2052,6 +2052,11 @@ export const Litena: Contributor = {
   ],
 };
 
+export const manu310891: Contributor = {
+  nickname: 'manu310891',
+  github: 'manu310891',
+};
+
 export const jazminite: Contributor = {
   nickname: 'jazminite',
   github: 'jazminite',
