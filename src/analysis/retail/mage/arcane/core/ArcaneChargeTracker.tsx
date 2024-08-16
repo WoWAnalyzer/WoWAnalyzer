@@ -1,62 +1,23 @@
-import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, { CastEvent, ResourceChangeEvent, DeathEvent } from 'parser/core/Events';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { Options } from 'parser/core/Analyzer';
+import { CastEvent } from 'parser/core/Events';
+import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 
-const debug = false;
+const MAX_ARCANE_CHARGES = 4;
 
-class ArcaneChargeTracker extends Analyzer {
-  charges = 0;
+class ArcaneChargeTracker extends ResourceTracker {
+  static dependencies = {
+    ...ResourceTracker.dependencies,
+  };
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.resourcechange.to(SELECTED_PLAYER), this.onEnergize);
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ARCANE_BARRAGE),
-      this.onBarrage,
-    );
-    this.addEventListener(Events.death.to(SELECTED_PLAYER), this.onDeath);
+    this.resource = RESOURCE_TYPES.ARCANE_CHARGES;
+    this.maxResource = MAX_ARCANE_CHARGES;
   }
 
-  onEnergize(event: ResourceChangeEvent) {
-    const resourceType = event.resourceChangeType;
-    if (resourceType !== 16) {
-      return;
-    }
-    if (this.charges < 4) {
-      this.charges += event.resourceChange;
-      debug &&
-        this.log(
-          'Gained ' +
-            event.resourceChange +
-            ' charges from ' +
-            event.ability.name +
-            ': ' +
-            this.charges +
-            ' total charges',
-        );
-      if (this.charges > 4) {
-        debug &&
-          this.log(
-            'ERROR: Event caused overcapped charges. Adjusted charge count from ' +
-              this.charges +
-              ' to 4',
-          );
-        this.charges = 4;
-      }
-      // FIXME } else if (this.charges < 4 && event.waste === 1) {
-      //   this.charges = 4;
-      //   debug && this.log('ERROR: Auto Corrected to 4 Charges');
-    }
-  }
-
-  onBarrage(event: CastEvent) {
-    debug && this.log('Arcane Barrage cast with ' + this.charges + ' charges. Reset Charges to 0');
-    this.charges = 0;
-  }
-
-  onDeath(event: DeathEvent) {
-    this.charges = 0;
-    debug && this.log('Player Died. Reset Charges to 0.');
+  clearCharges(event: CastEvent) {
+    this._applySpender(event, this.current);
   }
 }
 

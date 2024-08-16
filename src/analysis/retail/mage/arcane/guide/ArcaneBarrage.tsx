@@ -96,7 +96,7 @@ class ArcaneBarrageGuide extends Analyzer {
         ),
         details: (
           <>
-            {cast.tempoRemaining && cast.tempoRemaining > 0
+            {cast.tempoRemaining && cast.tempoRemaining !== 0
               ? formatDurationMillisMinSec(cast.tempoRemaining)
               : `Buff Missing`}
           </>

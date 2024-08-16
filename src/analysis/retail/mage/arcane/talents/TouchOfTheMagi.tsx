@@ -53,7 +53,7 @@ export default class TouchOfTheMagi extends Analyzer {
       ordinal,
       applied: event.timestamp,
       removed: removeDebuff?.timestamp || this.owner.fight.end_time,
-      charges: this.chargeTracker.charges,
+      charges: this.chargeTracker.current,
       damage: damageEvents || [],
       totalDamage: damage,
     });
