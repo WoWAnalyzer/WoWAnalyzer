@@ -14,7 +14,7 @@ import { explanationAndDataSubsection } from 'interface/guide/components/Explana
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../../Guide';
 import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
 
-const HEALING_BONUS = 0.15;
+const HEALING_BONUS = 0.25;
 const OVERHEAL_THRESHOLD = 0.75;
 
 /**
