@@ -84,7 +84,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown:
           (combatant.spec === SPECS.GUARDIAN_DRUID ? 45 : 60) *
-          (1 - combatant.getTalentRank(TALENTS_DRUID.SURVIVAL_OF_THE_FITTEST_TALENT) * 0.15), // TODO TWW change this to 0.12 in 11.0.2
+          (1 - combatant.getTalentRank(TALENTS_DRUID.SURVIVAL_OF_THE_FITTEST_TALENT) * 0.12),
         gcd: null,
         isDefensive: true,
       },

@@ -4,7 +4,7 @@ import Spell from 'common/SPELLS/Spell';
 import SPELLS from 'common/SPELLS';
 
 export const BARKSKIN_BASE_MIT = 0.2;
-export const RAGE_OF_THE_SLEEPER_MIT = 0.25; // TODO TWW change this to 0.20 in 11.0.2
+export const RAGE_OF_THE_SLEEPER_MIT = 0.2;
 export const SURVIVAL_INSTINCTS_BASE_MIT = 0.5;
 export const PULVERIZE_MIT = 0.35;
 export const REINFORCED_FUR_ADDITIONAL_MIT = 0.1;

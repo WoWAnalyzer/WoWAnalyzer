@@ -35,7 +35,7 @@ const BeastMasteryChecklist = (props: ChecklistProps) => {
           </>
         }
       >
-        <TalentCastEfficiencyRequirement talent={TALENTS.KILL_COMMAND_SHARED_TALENT} />
+        <TalentCastEfficiencyRequirement talent={TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT} />
         <TalentCastEfficiencyRequirement talent={TALENTS.BARBED_SHOT_TALENT} />
         <TalentCastEfficiencyRequirement talent={TALENTS.BESTIAL_WRATH_TALENT} />
         <TalentCastEfficiencyRequirement talent={TALENTS.DIRE_BEAST_TALENT} />
@@ -94,7 +94,8 @@ const BeastMasteryChecklist = (props: ChecklistProps) => {
           name={
             <>
               <SpellIcon spell={TALENTS.COBRA_SHOT_TALENT} />
-              <SpellLink spell={TALENTS.KILL_COMMAND_SHARED_TALENT} icon={false} /> CDR efficiency
+              <SpellLink spell={TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT} icon={false} /> CDR
+              efficiency
             </>
           }
           thresholds={thresholds.cobraShotCDREfficiencyThreshold}
@@ -103,7 +104,7 @@ const BeastMasteryChecklist = (props: ChecklistProps) => {
           name={
             <>
               <SpellLink spell={TALENTS.COBRA_SHOT_TALENT} /> casts when{' '}
-              <SpellLink spell={TALENTS.KILL_COMMAND_SHARED_TALENT} /> wasn't on cd
+              <SpellLink spell={TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT} /> wasn't on cd
             </>
           }
           thresholds={thresholds.wastedCobraShotsThreshold}

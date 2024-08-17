@@ -45,6 +45,7 @@ import Undulation from './modules/talents/Undulation';
 import UnleashLife from './modules/talents/UnleashLife';
 import Wellspring from './modules/talents/Wellspring';
 import Undercurrent from './modules/talents/Undercurrent';
+import NaturesSwiftness from './modules/talents/NaturesSwiftness';
 // Spells
 // Shared
 // Normalizers
@@ -119,6 +120,7 @@ class CombatLogParser extends CoreCombatLogParser {
     flowOfTheTides: FlowOfTheTides,
     earthenHarmony: EarthenHarmony,
     manaSpring: ManaSpring,
+    naturesSwiftness: NaturesSwiftness,
 
     // Spells
     riptide: Riptide,

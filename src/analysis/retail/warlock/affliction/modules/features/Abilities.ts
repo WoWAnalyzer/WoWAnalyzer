@@ -51,13 +51,6 @@ class Abilities extends SharedAbilities {
         buffSpellId: SPELLS.CORRUPTION_DEBUFF.id,
       },
       {
-        spell: TALENTS.MALEFIC_RAPTURE_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
         spell: TALENTS.SIPHON_LIFE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         enabled: combatant.hasTalent(TALENTS.SIPHON_LIFE_TALENT),
@@ -123,10 +116,8 @@ class Abilities extends SharedAbilities {
           base: 1500,
         },
         enabled: combatant.hasTalent(TALENTS.SOUL_ROT_TALENT),
-        // TODO: how to account for soul-eater's gluttony
         cooldown: 40,
         castEfficiency: {
-          // TODO: make a good suggestion here.
           suggestion: false,
         },
       },

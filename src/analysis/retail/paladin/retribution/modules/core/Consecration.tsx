@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import { TALENTS_PALADIN } from 'common/TALENTS';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
@@ -28,12 +27,8 @@ class Consecration extends Analyzer {
   }
 
   get averageHitPerCast() {
-    let casts = 0;
-    if (this.selectedCombatant.hasTalent(TALENTS_PALADIN.CONSECRATED_BLADE_TALENT)) {
-      casts = this.selectedCombatant.getBuffTriggerCount(SPELLS.CONSECRATED_BLADE_BUFF.id);
-    } else {
-      casts = this.abilityTracker.getAbility(SPELLS.CONSECRATION_CAST.id).casts;
-    }
+    const casts = this.abilityTracker.getAbility(SPELLS.CONSECRATION_CAST.id).casts;
+
     return this.totalHits / casts;
   }
 

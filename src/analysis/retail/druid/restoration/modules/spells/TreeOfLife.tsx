@@ -29,9 +29,9 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/druid/restoration/Guide';
 
-const ALL_BOOST = 0.15;
-const ALL_MULT = 1.15;
-const REJUV_BOOST = 0.5;
+const ALL_BOOST = 0.1;
+const ALL_MULT = 1 + ALL_BOOST;
+const REJUV_BOOST = 0.4;
 const REJUV_MANA_SAVED = 0.3;
 const REJUV_MANA_COST = SPELLS.REJUVENATION.manaCost;
 const WG_INCREASE = 8 / 6 - 1;

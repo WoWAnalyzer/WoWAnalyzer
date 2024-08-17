@@ -27,8 +27,8 @@ import { explanationAndDataSubsection } from 'interface/guide/components/Explana
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { isConvoking } from 'analysis/retail/druid/shared/spells/ConvokeSpirits';
 
-const HARDCAST_FLOURISH_EXTENSION = 6000;
-const CONVOKE_FLOURISH_EXTENSION = 3000;
+const HARDCAST_FLOURISH_EXTENSION = 8000;
+const CONVOKE_FLOURISH_EXTENSION = 4000;
 const FLOURISH_HEALING_INCREASE = 0.25;
 
 /**
