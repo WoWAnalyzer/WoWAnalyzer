@@ -1,4 +1,6 @@
-import PerfectedFormHoly from './PerfectedFormHoly';
+import PerfectedFormHoly from './PerfectedFormHolyDisplay';
 import ResonantEnergyHoly from './ResonantEnergyHoly';
+import ArchonAnalysis from './ArchonAnalysis';
+//
 
-export { PerfectedFormHoly, ResonantEnergyHoly };
+export { PerfectedFormHoly, ResonantEnergyHoly, ArchonAnalysis };

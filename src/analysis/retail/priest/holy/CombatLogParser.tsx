@@ -141,6 +141,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Hero Talents
     PerfectedFormHoly: Talents.Archon.PerfectedFormHoly,
     ResonantEnergyHoly: Talents.Archon.ResonantEnergyHoly,
+    ArchonAnalysis: Talents.Archon.ArchonAnalysis,
 
     // Mana Tab
     manaTracker: ManaTracker,

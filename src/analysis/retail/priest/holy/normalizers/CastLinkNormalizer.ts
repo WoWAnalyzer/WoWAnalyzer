@@ -1,5 +1,7 @@
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import {
+  ApplyBuffEvent,
+  ApplyBuffStackEvent,
   CastEvent,
   DamageEvent,
   EventType,
@@ -7,6 +9,9 @@ import {
   GetRelatedEvents,
   HasRelatedEvent,
   HealEvent,
+  RefreshBuffEvent,
+  RemoveBuffEvent,
+  RemoveBuffStackEvent,
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import { TALENTS_PRIEST } from 'common/TALENTS';
@@ -22,6 +27,9 @@ const SERENITY_CAST = 'HolyWordSerenityCast';
 const SANCTIFY_CAST = 'HolyWordSanctifyCast';
 const SALVATION_CAST = 'HolyWordSalvationCast';
 const CHASTISE_CAST = 'HolyWordChastiseCast';
+const BUFFED_BY_SURGE_OF_LIGHT = 'BuffedBySurgeOfLight';
+const SURGE_OF_LIGHT_APPLIED_BY_HALO = 'SurgeOfLightAppliedByHalo';
+const HALO_LINKED_TO_SURGE_OF_LIGHT = 'HaloLinkedtoSurgeOfLight';
 export const LIGHTWELL_RENEW_HEALS = 'LightwellRenewHeal';
 export const SALVATION_RENEW_HEALS = 'SalvationRenewHeal';
 export const LIGHTWELL_RENEW = 'LightwellRenew';
@@ -192,6 +200,31 @@ const EVENT_LINKS: EventLink[] = [
       );
     },
   },
+  {
+    linkRelation: BUFFED_BY_SURGE_OF_LIGHT,
+    reverseLinkRelation: BUFFED_BY_SURGE_OF_LIGHT,
+    linkingEventId: SPELLS.FLASH_HEAL.id,
+    linkingEventType: EventType.Heal,
+    referencedEventId: [SPELLS.SURGE_OF_LIGHT_BUFF.id],
+    referencedEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
+    anyTarget: true,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    linkRelation: SURGE_OF_LIGHT_APPLIED_BY_HALO,
+    reverseLinkRelation: HALO_LINKED_TO_SURGE_OF_LIGHT,
+    linkingEventId: [449840, 120517], //uncategorized halo buffs for archon, add to /spells later
+    linkingEventType: EventType.ApplyBuff,
+    referencedEventId: [SPELLS.SURGE_OF_LIGHT_BUFF.id],
+    referencedEventType: [EventType.ApplyBuffStack, EventType.ApplyBuff, EventType.RefreshBuff],
+    anyTarget: true,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+    isActive(c) {
+      return c.hasTalent(TALENTS_PRIEST.MANIFESTED_POWER_TALENT);
+    },
+  },
 ];
 
 class CastLinkNormalizer extends EventLinkNormalizer {
@@ -236,8 +269,26 @@ export function getChastiseDamageEvent(event: CastEvent): DamageEvent {
   )!;
 }
 
+export function getHealFromSurge(
+  event: RemoveBuffEvent | RemoveBuffStackEvent,
+): HealEvent | undefined {
+  return GetRelatedEvents<HealEvent>(
+    event,
+    BUFFED_BY_SURGE_OF_LIGHT,
+    (e): e is HealEvent => e.type === EventType.Heal,
+  ).pop();
+}
+
 export function isCastBuffedByLightweaver(event: CastEvent) {
   return HasRelatedEvent(event, LIGHTWEAVER_CONSUME);
+}
+export function isSurgeOfLightFromHalo(
+  event: ApplyBuffStackEvent | ApplyBuffEvent | RefreshBuffEvent,
+) {
+  return HasRelatedEvent(event, HALO_LINKED_TO_SURGE_OF_LIGHT);
+}
+export function buffedBySurgeOfLight(event: RemoveBuffEvent | RemoveBuffStackEvent): boolean {
+  return HasRelatedEvent(event, BUFFED_BY_SURGE_OF_LIGHT);
 }
 
 export default CastLinkNormalizer;
