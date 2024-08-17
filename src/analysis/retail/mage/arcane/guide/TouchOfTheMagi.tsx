@@ -42,15 +42,14 @@ class TouchOfTheMagiGuide extends Analyzer {
     return tooltip;
   }
 
-  get activeTimeUtil() {
-    const util = this.touchOfTheMagi.touchMagiActiveTimeThresholds.actual;
+  activeTimeUtil(activePercent: number) {
     const thresholds = this.touchOfTheMagi.touchMagiActiveTimeThresholds.isLessThan;
     let performance = QualitativePerformance.Good;
-    if (util >= thresholds.minor) {
+    if (activePercent >= thresholds.minor) {
       performance = QualitativePerformance.Perfect;
-    } else if (util >= thresholds.average) {
+    } else if (activePercent >= thresholds.average) {
       performance = QualitativePerformance.Good;
-    } else if (util >= thresholds.major) {
+    } else if (activePercent >= thresholds.major) {
       performance = QualitativePerformance.Ok;
     }
     return performance;
@@ -84,7 +83,7 @@ class TouchOfTheMagiGuide extends Analyzer {
           Active Time Percent during <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} />
         </>
       ),
-      result: <PerformanceMark perf={this.activeTimeUtil} />,
+      result: <PerformanceMark perf={this.activeTimeUtil(activeTime || 0)} />,
       details: <>{formatPercentage(activeTime || 0, 2)}%</>,
     });
 
@@ -168,7 +167,12 @@ class TouchOfTheMagiGuide extends Analyzer {
       <div>
         <RoundedPanel>
           <div
-            style={{ color: qualitativePerformanceToColor(this.activeTimeUtil), fontSize: '20px' }}
+            style={{
+              color: qualitativePerformanceToColor(
+                this.activeTimeUtil(this.touchOfTheMagi.averageActiveTime),
+              ),
+              fontSize: '20px',
+            }}
           >
             {touchOfTheMagiIcon}{' '}
             <TooltipElement content={activeTimeTooltip}>
