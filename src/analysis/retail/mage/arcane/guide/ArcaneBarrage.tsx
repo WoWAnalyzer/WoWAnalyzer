@@ -14,8 +14,8 @@ import ArcaneBarrage, { ArcaneBarrageCast } from '../core/ArcaneBarrage';
 import CooldownExpandable, {
   CooldownExpandableItem,
 } from 'interface/guide/components/CooldownExpandable';
+import { ARCANE_CHARGE_MAX_STACKS } from '../../shared';
 
-const MAX_CHARGES = 4;
 const AOE_THRESHOLD = 3;
 const TEMPO_REMAINING_THRESHOLD = 5000;
 const NETHER_STACK_THRESHOLD = 1;
@@ -151,7 +151,7 @@ class ArcaneBarrageGuide extends Analyzer {
 
     const ST = cast.targetsHit < AOE_THRESHOLD;
     const AOE = cast.targetsHit >= AOE_THRESHOLD;
-    const maxCharges = cast.charges >= MAX_CHARGES;
+    const maxCharges = cast.charges >= ARCANE_CHARGE_MAX_STACKS;
     const tempoExpiring =
       cast.tempoRemaining &&
       cast.tempoRemaining < TEMPO_REMAINING_THRESHOLD &&

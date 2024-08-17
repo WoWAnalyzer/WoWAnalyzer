@@ -16,8 +16,7 @@ import ArcaneSurge, { ArcaneSurgeCast } from '../core/ArcaneSurge';
 import CooldownExpandable, {
   CooldownExpandableItem,
 } from 'interface/guide/components/CooldownExpandable';
-
-const MAX_ARCANE_CHARGES = 4;
+import { ARCANE_CHARGE_MAX_STACKS } from '../../shared';
 
 class ArcaneSurgeGuide extends Analyzer {
   static dependencies = {
@@ -68,7 +67,7 @@ class ArcaneSurgeGuide extends Analyzer {
 
     const checklistItems: CooldownExpandableItem[] = [];
 
-    const maxCharges = cast.charges === MAX_ARCANE_CHARGES;
+    const maxCharges = cast.charges === ARCANE_CHARGE_MAX_STACKS;
     checklistItems.push({
       label: (
         <>

@@ -11,8 +11,8 @@ import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/mage/arcane/Guid
 import ArcaneTempo from '../talents/ArcaneTempo';
 import { getUptimesFromBuffHistory } from 'parser/ui/UptimeBar';
 import UptimeStackBar, { getStackUptimesFromBuffHistory } from 'parser/ui/UptimeStackBar';
+import { ARCANE_TEMPO_MAX_STACKS } from '../../shared';
 
-const TEMPO_MAX_STACKS = 5;
 const TEMPO_COLOR = '#cd1bdf';
 const TEMPO_BG_COLOR = '#8a2be2';
 
@@ -78,7 +78,7 @@ class ArcaneTempoGuide extends Analyzer {
                   stackUptimeHistory={stackUptimes}
                   start={this.owner.fight.start_time}
                   end={this.owner.fight.end_time}
-                  maxStacks={TEMPO_MAX_STACKS}
+                  maxStacks={ARCANE_TEMPO_MAX_STACKS}
                   barColor={TEMPO_COLOR}
                   backgroundHistory={overallUptimes}
                   backgroundBarColor={TEMPO_BG_COLOR}
