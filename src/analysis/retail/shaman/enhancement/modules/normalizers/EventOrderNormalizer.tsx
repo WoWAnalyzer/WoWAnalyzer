@@ -11,7 +11,11 @@ import { MAELSTROM_WEAPON_MS } from '../../constants';
 const thorimsInvocationEventOrder: EventOrder = {
   beforeEventId: SPELLS.WINDSTRIKE_CAST.id,
   beforeEventType: EventType.Cast,
-  afterEventId: [SPELLS.LIGHTNING_BOLT.id, TALENTS.CHAIN_LIGHTNING_TALENT.id],
+  afterEventId: [
+    SPELLS.LIGHTNING_BOLT.id,
+    TALENTS.CHAIN_LIGHTNING_TALENT.id,
+    SPELLS.TEMPEST_CAST.id,
+  ],
   afterEventType: EventType.Cast,
   bufferMs: MAELSTROM_WEAPON_MS,
   anyTarget: true,

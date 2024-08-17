@@ -297,7 +297,13 @@ class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
       return null;
     }
 
-    return <CooldownUsage analyzer={this} title="Elemental Blast cast breakdown" />;
+    return (
+      <CooldownUsage
+        analyzer={this}
+        title="Elemental Blast cast breakdown"
+        hidePotentialMissedCasts
+      />
+    );
 
     // explanationAndDataSubsection(
     //   // description

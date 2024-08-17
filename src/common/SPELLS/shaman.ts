@@ -865,6 +865,21 @@ const spells = {
     name: 'Tempest',
     icon: 'inv_ability_stormcallershaman_tempest',
   },
+  TEMPEST_BUFF: {
+    id: 454015,
+    name: 'Tempest',
+    icon: 'inv_ability_stormcallershaman_tempest',
+  },
+  AWAKENING_STORMS_DAMAGE: {
+    id: 455130,
+    name: 'Awakening Storms',
+    icon: 'spell_nature_stormreach',
+  },
+  AWAKENING_STORMS_BUFF: {
+    id: 462131,
+    name: 'Awakening Storms',
+    icon: 'spell_nature_stormreach',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;

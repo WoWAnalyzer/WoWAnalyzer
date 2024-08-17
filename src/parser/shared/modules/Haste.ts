@@ -1,7 +1,7 @@
 import { formatMilliseconds, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import CLASSIC_SPELLS from 'common/SPELLS/classic';
-import { TALENTS_DEATH_KNIGHT, TALENTS_MAGE, TALENTS_PRIEST } from 'common/TALENTS';
+import { TALENTS_DEATH_KNIGHT, TALENTS_MAGE, TALENTS_PRIEST, TALENTS_SHAMAN } from 'common/TALENTS';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import GameBranch from 'game/GameBranch';
 import { wclGameVersionToBranch } from 'game/VERSIONS';
@@ -112,6 +112,9 @@ const DEFAULT_HASTE_BUFFS: HasteBuffMap = {
 
   //region Shaman
   [SPELLS.ELEMENTAL_BLAST_HASTE.id]: 0.03,
+  [TALENTS_SHAMAN.UNLIMITED_POWER_TALENT.id]: {
+    hastePerStack: 0.01,
+  },
   //endregion
 
   //region CLASSIC

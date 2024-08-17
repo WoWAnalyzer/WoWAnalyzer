@@ -15,6 +15,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import { DamageIcon, UptimeIcon } from 'interface/icons';
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';
+import typedKeys from 'common/typedKeys';
 
 /** Lightning Bolt and Chain Lightning damage increased by 20%.
  *
@@ -39,6 +40,7 @@ class ThorimsInvocation extends Analyzer {
   protected procs: Record<number, ThorimsInvocationProc> = {
     [SPELLS.LIGHTNING_BOLT.id]: { casts: 0, damage: 0 },
     [TALENTS.CHAIN_LIGHTNING_TALENT.id]: { casts: 0, hits: 0, damage: 0 },
+    [SPELLS.TEMPEST_CAST.id]: { casts: 0, hits: 0, damage: 0 },
   };
   protected increaseDamage = 0;
   protected lastSpellCast: number | null = null;
@@ -69,7 +71,7 @@ class ThorimsInvocation extends Analyzer {
     this.addEventListener(
       Events.damage
         .by(SELECTED_PLAYER)
-        .spell([SPELLS.LIGHTNING_BOLT, TALENTS.CHAIN_LIGHTNING_TALENT]),
+        .spell([SPELLS.LIGHTNING_BOLT, TALENTS.CHAIN_LIGHTNING_TALENT, SPELLS.TEMPEST_CAST]),
       this.onDamage,
     );
   }
@@ -94,6 +96,17 @@ class ThorimsInvocation extends Analyzer {
     this.procs[spellId].hits! += hits;
     this.lastSpellCast = spellId;
 
+    if (spellId === SPELLS.TEMPEST_CAST.id) {
+      addInefficientCastReason(
+        event,
+        <>
+          When possible, it is better to cast <SpellLink spell={TALENTS.TEMPEST_TALENT} /> with
+          closer to 10 <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> stacks, rather than
+          auto-cast with <SpellLink spell={SPELLS.WINDSTRIKE_CAST} /> and only using up to 5{' '}
+          <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} />.
+        </>,
+      );
+    }
     if (spellId === TALENTS.CHAIN_LIGHTNING_TALENT.id) {
       const mswStacks =
         this.selectedCombatant.getBuff(SPELLS.MAELSTROM_WEAPON_BUFF.id)?.stacks || 0;
@@ -134,15 +147,14 @@ class ThorimsInvocation extends Analyzer {
   get damageDone() {
     return (
       this.increaseDamage +
-      this.procs[SPELLS.LIGHTNING_BOLT.id].damage +
-      this.procs[TALENTS.CHAIN_LIGHTNING_TALENT.id].damage
+      typedKeys(this.procs).reduce((total, spellId) => (total += this.procs[spellId].damage), 0)
     );
   }
 
   get totalProcs() {
-    return (
-      this.procs[SPELLS.LIGHTNING_BOLT.id].casts +
-      this.procs[TALENTS.CHAIN_LIGHTNING_TALENT.id].casts
+    return typedKeys(this.procs).reduce(
+      (total, spellId) => (total += this.procs[spellId].casts),
+      0,
     );
   }
 
@@ -151,6 +163,36 @@ class ThorimsInvocation extends Analyzer {
     const castComponent = (
       <>
         <SpellLink spell={SPELLS.LIGHTNING_BOLT} />
+        {': '}
+        <strong>{formatNumber(proc.casts)}</strong> {proc.casts === 1 ? 'cast' : 'casts'}
+      </>
+    );
+    const damageComponent =
+      proc.casts > 0 ? (
+        <>
+          {' - '}
+          <DamageIcon /> <strong>{formatNumber(proc.damage)}</strong> damage done (<DamageIcon />{' '}
+          <strong>{formatNumber(proc.damage / proc.casts)}</strong> per cast)
+        </>
+      ) : (
+        <></>
+      );
+
+    return (
+      <>
+        <div>
+          {castComponent}
+          {damageComponent}
+        </div>
+      </>
+    );
+  }
+
+  get tempestStatisticTooltip() {
+    const proc = this.procs[SPELLS.TEMPEST_CAST.id];
+    const castComponent = (
+      <>
+        <SpellLink spell={SPELLS.TEMPEST_CAST} />
         {': '}
         <strong>{formatNumber(proc.casts)}</strong> {proc.casts === 1 ? 'cast' : 'casts'}
       </>
@@ -219,10 +261,16 @@ class ThorimsInvocation extends Analyzer {
         tooltip={
           <>
             {this.lightningBoltStatisticTooltip}
+            {this.tempestStatisticTooltip}
             {this.chainLightningStatisticTooltip}
             <div>
-              Total <SpellLink spell={SPELLS.LIGHTNING_BOLT} /> and{' '}
-              <SpellLink spell={TALENTS.CHAIN_LIGHTNING_TALENT} /> damage increased by{' '}
+              Total <SpellLink spell={SPELLS.LIGHTNING_BOLT} />
+              {this.selectedCombatant.hasTalent(TALENTS.TEMPEST_TALENT) ? (
+                <>
+                  , <SpellLink spell={TALENTS.TEMPEST_TALENT} />{' '}
+                </>
+              ) : null}
+              and <SpellLink spell={TALENTS.CHAIN_LIGHTNING_TALENT} /> damage increased by{' '}
               <DamageIcon /> <strong>{formatNumber(this.increaseDamage)}</strong>
             </div>
           </>

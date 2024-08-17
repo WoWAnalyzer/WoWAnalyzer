@@ -79,10 +79,17 @@ const otherGenerator: EventLink = {
 
 const spenderRefund: EventLink = {
   ...linkTemplate,
-  linkingEventId: [SPELLS.LIGHTNING_BOLT.id, TALENTS.CHAIN_LIGHTNING_TALENT.id],
+  linkingEventId: [
+    SPELLS.LIGHTNING_BOLT.id,
+    TALENTS.CHAIN_LIGHTNING_TALENT.id,
+    SPELLS.TEMPEST_CAST.id,
+  ],
   forwardBufferMs: 100,
   anySource: true,
-  isActive: (c) => c.hasTalent(TALENTS.STATIC_ACCUMULATION_TALENT),
+  isActive: (c) =>
+    c.hasTalent(TALENTS.STATIC_ACCUMULATION_TALENT) ||
+    c.hasTalent(TALENTS.SUPERCHARGE_TALENT) ||
+    c.hasTalent(TALENTS.SWELLING_MAELSTROM_TALENT),
 };
 
 export default MaelstromWeaponGeneratorLinkNormalizer;

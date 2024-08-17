@@ -56,6 +56,8 @@ import {
   MaelstromWeaponTracker,
 } from './modules/resourcetracker';
 import ElementalBlastGuide from './modules/talents/ElementalBlastGuide';
+import StaticAccumulation from './modules/talents/StaticAccumulation';
+import Tempest from 'analysis/retail/shaman/enhancement/modules/hero/stormbringer/Tempest';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -113,6 +115,10 @@ class CombatLogParser extends CoreCombatLogParser {
     ashenCatalyst: AshenCatalyst,
     splinteredElements: SplinteredElements,
     swirlingMaelstrom: SwirlingMaelstrom,
+    staticAccumulation: StaticAccumulation,
+
+    // hero talents
+    tempest: Tempest,
 
     // Tier
     tier30: Tiers.T30,

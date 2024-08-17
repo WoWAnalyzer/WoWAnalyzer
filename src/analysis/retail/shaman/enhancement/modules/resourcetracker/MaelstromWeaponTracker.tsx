@@ -21,6 +21,7 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import {
   MAELSTROM_GENERATOR_LINK,
   MAELSTROM_SPENDER_LINK,
+  TEMPEST_LINK,
 } from '../normalizers/EventLinkNormalizer';
 import { MAELSTROM_WEAPON_ELIGIBLE_SPELLS } from 'analysis/retail/shaman/enhancement/constants';
 
@@ -40,8 +41,10 @@ const MAELSTROM_GENERATORS = [
   TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT.id,
   TALENTS.CHAIN_LIGHTNING_TALENT.id,
   SPELLS.LIGHTNING_BOLT.id,
+  SPELLS.TEMPEST_CAST.id,
 ];
 const SUPERCHARGE_MAELSTROM = 3;
+const STORM_SWELL_MAELSTROM = 3;
 const FERAL_SPIRIT_CDR_PER_MSW_GAINED = 2000;
 
 const MaelstromWeaponResource: Resource = {
@@ -68,7 +71,8 @@ class MaelstromWeaponTracker extends ResourceTracker {
   lastAppliedTime = 0;
   expiredWaste = 0;
   isStormbringer = false;
-  hasStaticAccumulation = false;
+
+  refundTalentsEnabled: { [key: number]: boolean };
 
   constructor(options: Options) {
     super(options);
@@ -81,9 +85,14 @@ class MaelstromWeaponTracker extends ResourceTracker {
       : 5;
     this.allowMultipleGainsInSameTimestamp = true;
     this.isStormbringer = this.selectedCombatant.hasTalent(TALENTS.TEMPEST_TALENT);
-    this.hasStaticAccumulation = this.selectedCombatant.hasTalent(
-      TALENTS.STATIC_ACCUMULATION_TALENT,
-    );
+
+    this.refundTalentsEnabled = {
+      [TALENTS.STATIC_ACCUMULATION_TALENT.id]: this.selectedCombatant.hasTalent(
+        TALENTS.STATIC_ACCUMULATION_TALENT,
+      ),
+      [TALENTS.STORM_SWELL_TALENT.id]: this.selectedCombatant.hasTalent(TALENTS.STORM_SWELL_TALENT),
+      [TALENTS.SUPERCHARGE_TALENT.id]: this.selectedCombatant.hasTalent(TALENTS.SUPERCHARGE_TALENT),
+    };
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCastSpell);
 
@@ -177,52 +186,103 @@ class MaelstromWeaponTracker extends ResourceTracker {
       }
     }
     if (MAELSTROM_GENERATORS.includes(event.ability.guid)) {
-      let gain = GetRelatedEvents(
+      const gainEvents = GetRelatedEvents(
         event,
         MAELSTROM_GENERATOR_LINK,
         (e) => e.type === EventType.ApplyBuff || e.type === EventType.ApplyBuffStack,
-      ).length;
-      let waste = GetRelatedEvents(
+      );
+      const wasteEvents = GetRelatedEvents(
         event,
         MAELSTROM_GENERATOR_LINK,
         (e) => e.type === EventType.RefreshBuff,
-      ).length;
+      );
+      let gain = gainEvents.length;
+      let waste = wasteEvents.length;
 
       const spent = event.resourceCost ? event.resourceCost[this.resource.id] : 0;
-      const total = gain + waste;
-      if (spent > 0 && total) {
-        switch (total) {
-          case spent + SUPERCHARGE_MAELSTROM:
-            // static accumulation is first and we assume it can't have any waste
-            this.applyBuilder(TALENTS.STATIC_ACCUMULATION_TALENT.id, spent, 0, event.timestamp);
-            gain -= spent;
-            waste += gain < 0 ? -gain : 0;
-            gain = Math.max(0, gain);
-            // Apply supercharge if there's any gain or waste
-            if (gain + waste > 0) {
-              this.applyBuilder(TALENTS.SUPERCHARGE_TALENT.id, gain, waste, event.timestamp);
-            }
-            break;
-          case spent:
-            this.applyBuilder(TALENTS.STATIC_ACCUMULATION_TALENT.id, gain, waste, event.timestamp);
-            break;
-          case SUPERCHARGE_MAELSTROM:
-            this.applyBuilder(TALENTS.SUPERCHARGE_TALENT.id, gain, waste, event.timestamp);
-            break;
-          default:
-            DEBUG &&
-              console.error(
-                `${total} Maelstrom was gained by ${event.ability.name} but only ${spent} was spent at ${this.owner.formatTimestamp(event.timestamp, 3)}`,
-                event,
-              );
-            break;
+      const refunded = gain + waste;
+      let remaininRefund = refunded;
+      // static accumulation first
+      if (spent && refunded) {
+        // Storm Well refund is guaranteed, so apply this first
+        if (
+          event.ability.guid === SPELLS.TEMPEST_CAST.id &&
+          this.refundTalentsEnabled[TALENTS.STORM_SWELL_TALENT.id]
+        ) {
+          const hits = GetRelatedEvents(
+            event,
+            TEMPEST_LINK,
+            (e) => e.type === EventType.Damage,
+          ).length;
+          if (hits === 1 && gain + waste >= STORM_SWELL_MAELSTROM) {
+            [gain, waste, remaininRefund] = this.adjustRefundGains(
+              STORM_SWELL_MAELSTROM,
+              remaininRefund,
+            );
+            this.applyBuilder(
+              TALENTS.STORM_SWELL_TALENT.id,
+              STORM_SWELL_MAELSTROM,
+              0,
+              event.timestamp,
+            );
+          }
         }
-      } else {
-        if (gain || waste) {
-          this.applyBuilder(event.ability.guid, gain, waste, event.timestamp);
+        // static accumulation's refund is variable, so apply it first
+        if (
+          this.refundTalentsEnabled[TALENTS.STATIC_ACCUMULATION_TALENT.id] &&
+          remaininRefund >= spent
+        ) {
+          [gain, waste, remaininRefund] = this.adjustRefundGains(spent, remaininRefund);
+          this.applyBuilder(TALENTS.STATIC_ACCUMULATION_TALENT.id, gain, waste, event.timestamp);
         }
+        // apply remaining gain to supercharge
+        if (
+          this.refundTalentsEnabled[TALENTS.SUPERCHARGE_TALENT.id] &&
+          remaininRefund >= SUPERCHARGE_MAELSTROM
+        ) {
+          [gain, waste, remaininRefund] = this.adjustRefundGains(
+            SUPERCHARGE_MAELSTROM,
+            remaininRefund,
+          );
+          this.applyBuilder(TALENTS.SUPERCHARGE_TALENT.id, gain, waste, event.timestamp);
+        }
+
+        DEBUG &&
+          remaininRefund > 0 &&
+          console.warn(
+            `${refunded} Maelstrom was refunded by ${event.ability.name}, but ${remaininRefund} was unaccounted for @ timestamp ${this.owner.formatTimestamp(event.timestamp, 3)}. Gain assumed to be from other sources`,
+            event,
+          );
+
+        // get any leftover gain and waste
+        [gain, waste] = this.adjustRefundGains(remaininRefund, remaininRefund);
+        // for each, truncate the relevant gain/waste linked events so they're properly accounted for on stack change
+        // const truncatedGains = gainEvents.slice(0, gainEvents.length - 1 - gain);
+        // const truncatedWastes = wasteEvents.slice(0, wasteEvents.length - 1 - gain);
+        // event._linkedEvents = event._linkedEvents?.filter(linkedEvent => ![MAELSTROM_GENERATOR_LINK, MAELSTROM_SPENDER_LINK].includes(linkedEvent.relation) || !(truncatedGains.includes(linkedEvent.event) || !truncatedWastes.includes(linkedEvent.event)));
+      }
+
+      const generatorId = [
+        SPELLS.LIGHTNING_BOLT.id,
+        TALENTS.CHAIN_LIGHTNING_TALENT.id,
+        SPELLS.TEMPEST_CAST.id,
+      ].includes(event.ability.guid)
+        ? SPELLS.MAELSTROM_WEAPON_BUFF.id
+        : event.ability.guid;
+      if (gain || waste) {
+        this.applyBuilder(generatorId, gain, waste, event.timestamp);
       }
     }
+  }
+
+  adjustRefundGains(refunded: number, remainingRefund: number) {
+    let waste = 0;
+    const calculatedCurrent = this.current + refunded;
+    if (calculatedCurrent > this.maxResource) {
+      waste = calculatedCurrent - this.current - this.maxResource;
+    }
+    const gain = refunded - waste;
+    return [gain, waste, remainingRefund - (gain + waste)];
   }
 
   applyBuilder(spellId: number, gain: number, waste: number, timestamp: number) {

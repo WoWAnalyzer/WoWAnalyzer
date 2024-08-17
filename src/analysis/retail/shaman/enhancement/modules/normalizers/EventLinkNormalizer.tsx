@@ -18,6 +18,7 @@ export const MAELSTROM_WEAPON_INSTANT_CAST = 'maelstrom-weapon-instant-cast';
 export const THORIMS_INVOCATION_LINK = 'thorims-invocation';
 export const STORMSTRIKE_LINK = 'stormstrike';
 export const CHAIN_LIGHTNING_LINK = 'chain-lightning';
+export const TEMPEST_LINK = 'tempest';
 export const MAELSTROM_SPENDER_LINK = 'maelstrom-spender';
 export const LIGHTNING_BOLT_LINK = 'lightning-bolt';
 export const MAELSTROM_GENERATOR_LINK = 'maelstrom-generator';
@@ -32,7 +33,7 @@ const PRIMORDIAL_WAVE_BUFFER = 15500;
 const MAELSTROM_SPENDER_FORWARD_BUFFER = 25;
 const MAELSTROM_SPENDER_BACKWARD_BUFFER = 50;
 const STORMSTRIKE_BUFFER = 900;
-const CHAIN_LIGHTNING_BUFFER = 100;
+const CAST_DAMAGE_BUFFER = 100;
 const SPLINTERED_ELEMENTS_BUFFER = 20;
 const LIGHTNING_BOLT_BUFFER = 150;
 
@@ -52,7 +53,11 @@ const thorimsInvocationCastLink: EventLink = {
   linkRelation: THORIMS_INVOCATION_LINK,
   linkingEventId: SPELLS.WINDSTRIKE_CAST.id,
   linkingEventType: EventType.Cast,
-  referencedEventId: [SPELLS.LIGHTNING_BOLT.id, TALENTS.CHAIN_LIGHTNING_TALENT.id],
+  referencedEventId: [
+    SPELLS.LIGHTNING_BOLT.id,
+    TALENTS.CHAIN_LIGHTNING_TALENT.id,
+    SPELLS.TEMPEST_CAST.id,
+  ],
   referencedEventType: [EventType.Damage],
   forwardBufferMs: MAELSTROM_WEAPON_MS,
   anyTarget: true,
@@ -72,7 +77,16 @@ const chainLightningDamageLink: EventLink = {
   linkingEventType: [EventType.Cast, EventType.FreeCast],
   referencedEventId: TALENTS.CHAIN_LIGHTNING_TALENT.id,
   referencedEventType: EventType.Damage,
-  forwardBufferMs: CHAIN_LIGHTNING_BUFFER,
+  forwardBufferMs: CAST_DAMAGE_BUFFER,
+  anyTarget: true,
+};
+const tempestDamageLink: EventLink = {
+  linkRelation: TEMPEST_LINK,
+  linkingEventId: SPELLS.TEMPEST_CAST.id,
+  linkingEventType: [EventType.Cast, EventType.FreeCast],
+  referencedEventId: SPELLS.TEMPEST_CAST.id,
+  referencedEventType: EventType.Damage,
+  forwardBufferMs: CAST_DAMAGE_BUFFER,
   anyTarget: true,
 };
 const maelstromWeaponSpenderLink: EventLink = {
@@ -125,6 +139,7 @@ class EventLinkNormalizer extends BaseEventLinkNormalizer {
       thorimsInvocationCastLink,
       stormStrikeLink,
       chainLightningDamageLink,
+      tempestDamageLink,
       maelstromWeaponSpenderLink,
       primordialWaveLink,
       splinteredElements,
