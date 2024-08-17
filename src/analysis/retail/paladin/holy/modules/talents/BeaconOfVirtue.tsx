@@ -5,7 +5,6 @@ import Analyzer from 'parser/core/Analyzer';
 import talents from 'common/TALENTS/paladin';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import SpellLink from 'interface/SpellLink';
-import SPELLS from 'common/SPELLS';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../guide/Guide';
 
@@ -16,9 +15,8 @@ class BeaconOfVirtue extends Analyzer {
         <b>
           <SpellLink spell={talents.BEACON_OF_VIRTUE_TALENT} />
         </b>{' '}
-        is your main AoE healing tool, since you will be using mostly{' '}
-        <SpellLink spell={SPELLS.WORD_OF_GLORY} /> as a spender. It is quite mana expensive though,
-        so you should use it on cooldown only when healing is required.
+        is your best tool to handle burst AoE damage. It is quite mana expensive though, so you
+        should use it on cooldown only when healing is required.
       </p>
     );
 

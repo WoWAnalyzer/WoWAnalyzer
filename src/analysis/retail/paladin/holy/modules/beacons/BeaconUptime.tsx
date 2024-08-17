@@ -293,7 +293,8 @@ class BeaconUptime extends BeaconAnalyzer {
           <SpellLink spell={TALENTS_PALADIN.BEACON_OF_FAITH_TALENT} />
         </b>
         , you have access to two permanent beacons. While it is common to place them on your tanks,
-        you actually want to place them on ranged DPS players to get the bonus mastery from{' '}
+        you actually want to place them on squishy ranged DPS players if your tanks are able to
+        sustain themselves. This is to get the bonus mastery efficiency from{' '}
         <SpellLink spell={TALENTS_PALADIN.BEACON_OF_THE_LIGHTBRINGER_TALENT} />.
       </p>
     );
