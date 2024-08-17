@@ -111,7 +111,7 @@ class Channeling extends EventsNormalizer {
     buffChannelSpec(CLASSIC_SPELLS.RAIN_OF_FIRE.id),
     // Priest
     buffChannelSpec(CLASSIC_SPELLS.HYMN_OF_HOPE_BUFF.id),
-    buffChannelSpec(CLASSIC_SPELLS.MIND_SEAR.id), // Update to buffAndNextCastChannelSpec when implemented by PR#6934
+    buffAndNextCastChannelSpec(CLASSIC_SPELLS.MIND_SEAR.id),
     // Warrior
     buffChannelSpec(CLASSIC_SPELLS.BLADESTORM.id),
   ];

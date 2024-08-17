@@ -13,7 +13,7 @@ const config: Config = {
   patchCompatibility: '4.4.0',
   supportLevel: SupportLevel.Foundation,
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/QBCrd6FxNZTLzKVj/32-Heroic+Maloriak+-+Kill+(4:23)/Softlite',
+  exampleReport: '/report/QBCrd6FxNZTLzKVj/3-Heroic+Halfus+Wyrmbreaker+-+Kill+(2:24)/Softlite',
   // Add spells to display separately on the timeline
   timeline: { separateCastBars: [[]] },
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
