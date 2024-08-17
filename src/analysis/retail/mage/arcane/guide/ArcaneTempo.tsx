@@ -14,7 +14,7 @@ import UptimeStackBar, { getStackUptimesFromBuffHistory } from 'parser/ui/Uptime
 import { ARCANE_TEMPO_MAX_STACKS } from '../../shared';
 
 const TEMPO_COLOR = '#cd1bdf';
-const TEMPO_BG_COLOR = '#8a2be2';
+const TEMPO_BG_COLOR = '#7e5da8';
 
 class ArcaneTempoGuide extends Analyzer {
   static dependencies = {

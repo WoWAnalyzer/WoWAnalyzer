@@ -31,6 +31,7 @@ import TouchOfTheMagiGuide from './guide/TouchOfTheMagi';
 import ShiftingPowerGuide from './guide/ShiftingPower';
 import ArcaneBarrageGuide from './guide/ArcaneBarrage';
 import ArcaneOrbGuide from './guide/ArcaneOrb';
+import SupernovaGuide from './guide/Supernova';
 import ClearcastingGuide from './guide/Clearcasting';
 import NetherPrecisionGuide from './guide/NetherPrecision';
 import SiphonStormGuide from './guide/SiphonStorm';
@@ -57,6 +58,7 @@ import ArcaneTempo from './talents/ArcaneTempo';
 import ArcaneChargesNormalizer from './normalizers/ArcaneCharges';
 import ArcaneSurgeNormalizer from './normalizers/ArcaneSurge';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
+import Supernova from '../shared/Supernova';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -87,6 +89,7 @@ class CombatLogParser extends CoreCombatLogParser {
     shiftingPowerGuide: ShiftingPowerGuide,
     arcaneBarrageGuide: ArcaneBarrageGuide,
     arcaneOrbGuide: ArcaneOrbGuide,
+    supernovaGuide: SupernovaGuide,
     clearcastingGuide: ClearcastingGuide,
     netherPrecisionGuide: NetherPrecisionGuide,
     siphonStormGuide: SiphonStormGuide,
@@ -97,6 +100,7 @@ class CombatLogParser extends CoreCombatLogParser {
     quickWitted: QuickWitted,
     tempestBarrier: TempestBarrier,
     mirrorImage: MirrorImage,
+    supernova: Supernova,
     shiftingPower: ShiftingPower,
     elementalBarrier: ElementalBarrier,
     timeAnomaly: TimeAnomaly,

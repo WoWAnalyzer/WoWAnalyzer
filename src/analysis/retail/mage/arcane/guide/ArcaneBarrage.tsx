@@ -78,15 +78,6 @@ class ArcaneBarrageGuide extends Analyzer {
       details: <>{cast.targetsHit}</>,
     });
 
-    checklistItems.push({
-      label: (
-        <>
-          <SpellLink spell={SPELLS.ARCANE_CHARGE} />s Before Barrage
-        </>
-      ),
-      details: <>{cast.charges}</>,
-    });
-
     if (this.selectedCombatant.hasTalent(TALENTS.ARCANE_TEMPO_TALENT)) {
       checklistItems.push({
         label: (
@@ -217,11 +208,13 @@ class ArcaneBarrageGuide extends Analyzer {
               If all of the following are true, start casting {arcaneBlast} and queue up an{' '}
               {arcaneBarrage} at the very end of the {arcaneBlast} cast:
             </li>
-            <li>
-              If you have 4 {arcaneCharge}s, 1 stack of {netherPrecision}, AND either {clearcasting}{' '}
-              or {arcaneOrb}, then start casting {arcaneBlast} and queue an {arcaneBarrage} to the
-              end of it.
-            </li>
+            <ul>
+              <li>You have 4 {arcaneCharge}s</li>
+              <li>1 stack of {netherPrecision}</li>
+              <li>
+                Either a {clearcasting} proc or a charge of {arcaneOrb}
+              </li>
+            </ul>
             <li>If you run out of mana, cast {arcaneBarrage}</li>
           </ul>
         </div>

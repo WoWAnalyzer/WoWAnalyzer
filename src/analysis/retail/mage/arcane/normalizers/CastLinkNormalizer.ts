@@ -47,6 +47,17 @@ const EVENT_LINKS: EventLink[] = [
   },
   {
     reverseLinkRelation: SPELL_CAST,
+    linkingEventId: TALENTS.SUPERNOVA_TALENT.id,
+    linkingEventType: EventType.Cast,
+    linkRelation: SPELL_DAMAGE,
+    referencedEventId: TALENTS.SUPERNOVA_TALENT.id,
+    referencedEventType: EventType.Damage,
+    anyTarget: true,
+    forwardBufferMs: 2000,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    reverseLinkRelation: SPELL_CAST,
     linkingEventId: SPELLS.ARCANE_ORB.id,
     linkingEventType: EventType.Cast,
     linkRelation: SPELL_DAMAGE,
