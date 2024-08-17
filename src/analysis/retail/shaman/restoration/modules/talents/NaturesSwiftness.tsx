@@ -10,7 +10,7 @@ import ItemManaGained from 'parser/ui/ItemManaGained';
 import { formatNumber } from 'common/format';
 
 class NaturesSwiftness extends Analyzer {
-  static affectedSpells = [
+  static AFFECTED_SPELLS = [
     SPELLS.HEALING_SURGE,
     SPELLS.LIGHTNING_BOLT,
     TALENTS_SHAMAN.CHAIN_HEAL_TALENT,
@@ -29,7 +29,7 @@ class NaturesSwiftness extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.NATURES_SWIFTNESS_TALENT);
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(NaturesSwiftness.affectedSpells),
+      Events.cast.by(SELECTED_PLAYER).spell(NaturesSwiftness.AFFECTED_SPELLS),
       this.onRelevantCast,
     );
     this.addEventListener(
@@ -43,11 +43,19 @@ class NaturesSwiftness extends Analyzer {
       return;
     }
 
+    if (this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
+      return;
+    }
+
     if (!event.resourceCost) {
       return;
     }
 
-    if (this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
+    if (
+      this.selectedCombatant.hasBuff(SPELLS.SPIRITWALKERS_TIDAL_TOTEM_BUFF.id) &&
+      event.ability.guid === SPELLS.HEALING_SURGE.id
+    ) {
+      // if both SWTT and NS are present when a Healing Surge is cast, only SWTT is consumed base on my testing
       return;
     }
 
@@ -67,11 +75,7 @@ class NaturesSwiftness extends Analyzer {
 
   statistic() {
     return (
-      <Statistic
-        size="flexible"
-        category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={<>Total mana saved: {this.manaSaved}</>}
-      >
+      <Statistic size="flexible" category={STATISTIC_CATEGORY.TALENTS}>
         <TalentSpellText talent={TALENTS_SHAMAN.NATURES_SWIFTNESS_TALENT}>
           <div>
             <ItemManaGained amount={this.manaSaved} useAbbrev customLabel="mana" />

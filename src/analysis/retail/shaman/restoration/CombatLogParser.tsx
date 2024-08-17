@@ -46,6 +46,7 @@ import UnleashLife from './modules/talents/UnleashLife';
 import Wellspring from './modules/talents/Wellspring';
 import Undercurrent from './modules/talents/Undercurrent';
 import NaturesSwiftness from './modules/talents/NaturesSwiftness';
+import SpiritwalkersTidalTotem from './modules/talents/SpiritwalkersTidalTotem';
 // Spells
 // Shared
 // Normalizers
@@ -117,6 +118,7 @@ class CombatLogParser extends CoreCombatLogParser {
     earthenHarmony: EarthenHarmony,
     manaSpring: ManaSpring,
     naturesSwiftness: NaturesSwiftness,
+    spiritwalkersTidalTotem: SpiritwalkersTidalTotem,
 
     // Spells
     riptide: Riptide,

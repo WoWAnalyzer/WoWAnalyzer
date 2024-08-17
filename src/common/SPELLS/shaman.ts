@@ -660,7 +660,7 @@ const spells = {
     id: 8004,
     name: 'Healing Surge',
     icon: 'spell_nature_healingway',
-    manaCost: 12000, // enh/ele cost is higher
+    manaCost: 110000, // enh/ele cost is higher
   },
   TIDAL_WAVES_BUFF: {
     id: 53390,
@@ -782,6 +782,11 @@ const spells = {
     id: 378081,
     name: "Nature's Swiftness",
     icon: 'spell_nature_ravenform',
+  },
+  SPIRITWALKERS_TIDAL_TOTEM_BUFF: {
+    id: 404523,
+    name: "Spiritwalker's Tidal Totem",
+    icon: 'spell_nature_regeneration_02',
   },
   MANA_TIDE_TOTEM_BUFF: {
     id: 320763,
