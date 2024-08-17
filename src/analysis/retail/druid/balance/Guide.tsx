@@ -58,11 +58,7 @@ function CoreSection({ modules, events, info }: GuideProps<typeof CombatLogParse
           </PerformanceStrong>{' '}
         </p>
         <p>
-          <ActiveTimeGraph
-            activeTimeSegments={modules.alwaysBeCasting.activeTimeSegments}
-            fightStart={info.fightStart}
-            fightEnd={info.fightEnd}
-          />
+          <ActiveTimeGraph />
         </p>
       </SubSection>
       <SubSection title="Astral Power">

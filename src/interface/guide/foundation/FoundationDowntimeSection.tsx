@@ -1,5 +1,5 @@
 import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
-import { SubSection, useAnalyzer, useInfo } from '../index';
+import { SubSection, useAnalyzer } from '../index';
 import CancelledCasts from 'parser/shared/modules/CancelledCasts';
 import Explanation from '../components/Explanation';
 import { TooltipElement } from 'interface/Tooltip';
@@ -13,7 +13,6 @@ import Para from '../Para';
 export function FoundationDowntimeSection(): JSX.Element | null {
   const alwaysBeCasting = useAnalyzer(AlwaysBeCasting);
   const cancelledCasts = useAnalyzer(CancelledCasts);
-  const info = useInfo();
   if (!alwaysBeCasting) {
     return null;
   }
@@ -61,11 +60,7 @@ export function FoundationDowntimeSection(): JSX.Element | null {
         </ByRole>
       </Para>
       <Para>
-        <ActiveTimeGraph
-          activeTimeSegments={alwaysBeCasting.activeTimeSegments}
-          fightStart={info!.fightStart}
-          fightEnd={info!.fightEnd}
-        />
+        <ActiveTimeGraph />
       </Para>
       <Para>
         As a general guideline,{' '}

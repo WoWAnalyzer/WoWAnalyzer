@@ -117,6 +117,7 @@ import EnduringDreadplate, {
 } from 'parser/retail/modules/items/dragonflight/EnduringDreadplate';
 import { FyralathNormalizer } from 'parser/shared/normalizers/FyralathNormalizer';
 import FriendlyCompatNormalizer from './FriendlyCompatNormalizer';
+import ForcedDowntime from 'parser/shared/normalizers/ForcedDowntime';
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
@@ -156,6 +157,7 @@ class CombatLogParser {
     // Normalizers
     applyBuffNormalizer: ApplyBuffNormalizer,
     cancelledCastsNormalizer: CancelledCastsNormalizer,
+    forcedDowntime: ForcedDowntime,
     prepullNormalizer: PrePullCooldownsNormalizer,
     phaseChangesNormalizer: PhaseChangesNormalizer,
     missingCastsNormalize: MissingCastsNormalizer,

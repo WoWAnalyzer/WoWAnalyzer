@@ -27,11 +27,7 @@ function CastingSubsection({ modules, events, info }: GuideProps<typeof CombatLo
         </PerformanceStrong>{' '}
       </p>
       <Section title="Active Time Graph">
-        <ActiveTimeGraph
-          activeTimeSegments={modules.alwaysBeCasting.activeTimeSegments}
-          fightStart={info.fightStart}
-          fightEnd={info.fightEnd}
-        />
+        <ActiveTimeGraph />
       </Section>
     </SubSection>
   );

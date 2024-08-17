@@ -67,6 +67,8 @@ export enum EventType {
   SpendResource = 'spendresource',
   // casts that are triggered for free by something else
   FreeCast = 'freecast',
+  ForcedDowntimeStart = 'forceddowntimestart',
+  ForcedDowntimeEnd = 'forceddowntimeend',
 
   // Demon Hunter
   ConsumeSoulFragments = 'consumesoulfragments',
@@ -1002,6 +1004,16 @@ export interface CreateEvent extends Event<EventType.Create> {
   targetInstance: number;
   targetIsFriendly: boolean;
   target: CastTarget;
+}
+
+export interface ForcedDowntimeStartEvent extends Event<EventType.ForcedDowntimeStart> {
+  reason: string;
+  __fabricated: true;
+}
+
+export interface ForcedDowntimeEndEvent extends Event<EventType.ForcedDowntimeEnd> {
+  start: ForcedDowntimeStartEvent;
+  __fabricated: true;
 }
 
 export interface SpellstealEvent extends Event<EventType.Spellsteal> {
