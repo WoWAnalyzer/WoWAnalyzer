@@ -55,9 +55,7 @@
     "src/analysis/retail/hunter/beastmastery",
     "src/analysis/retail/hunter/marksmanship",
     "src/analysis/retail/hunter/survival",
-    "src/analysis/retail/hunter/shared",
-    "src/analysis/retail/shaman/restoration",
-    "src/analysis/retail/shaman/shared"
+    "src/analysis/retail/hunter/shared"
   ],
   "files": [
     "./src/analysis/retail/deathknight/unholy/CONFIG.tsx",
@@ -74,7 +72,6 @@
     "./src/analysis/retail/warrior/fury/CONFIG.tsx",
     "./src/analysis/retail/hunter/beastmastery/CONFIG.tsx",
     "./src/analysis/retail/hunter/marksmanship/CONFIG.tsx",
-    "./src/analysis/retail/hunter/survival/CONFIG.tsx",
-    "./src/analysis/retail/shaman/restoration/CONFIG.tsx"
+    "./src/analysis/retail/hunter/survival/CONFIG.tsx"
   ]
 }
