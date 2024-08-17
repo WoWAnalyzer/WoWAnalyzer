@@ -9,10 +9,15 @@ import Config, { SupportLevel } from 'parser/Config';
 import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
-  contributors: [Squided, Texleretour],
+  contributors: [Texleretour, Squided],
   branch: GameBranch.Retail,
   patchCompatibility: '11.0.2',
-  supportLevel: SupportLevel.Unmaintained,
+  supportLevel: SupportLevel.MaintainedPartial,
+  pages: {
+    overview: {
+      frontmatterType: 'guide',
+    },
+  },
   description: (
     <>
       Hey! I hope the suggestions will help you improve your performance. Remember: focus on
