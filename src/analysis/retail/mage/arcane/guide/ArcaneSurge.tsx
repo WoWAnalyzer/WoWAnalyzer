@@ -7,13 +7,17 @@ import Analyzer from 'parser/core/Analyzer';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { qualitativePerformanceToColor } from 'interface/guide';
+import { PassFailCheckmark, qualitativePerformanceToColor } from 'interface/guide';
 import { PerformanceMark } from 'interface/guide';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/mage/arcane/Guide';
-import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { SpellSeq } from 'parser/ui/SpellSeq';
 
-import ArcaneSurge from '../core/ArcaneSurge';
+import ArcaneSurge, { ArcaneSurgeCast } from '../core/ArcaneSurge';
+import CooldownExpandable, {
+  CooldownExpandableItem,
+} from 'interface/guide/components/CooldownExpandable';
+
+const MAX_ARCANE_CHARGES = 4;
 
 class ArcaneSurgeGuide extends Analyzer {
   static dependencies = {
@@ -21,6 +25,9 @@ class ArcaneSurgeGuide extends Analyzer {
   };
 
   protected arcaneSurge!: ArcaneSurge;
+
+  hasSiphonStorm: boolean = this.selectedCombatant.hasTalent(TALENTS.EVOCATION_TALENT);
+  hasNetherPrecision: boolean = this.selectedCombatant.hasTalent(TALENTS.NETHER_PRECISION_TALENT);
 
   generateGuideTooltip(
     performance: QualitativePerformance,
@@ -40,27 +47,89 @@ class ArcaneSurgeGuide extends Analyzer {
     return tooltip;
   }
 
-  get surgeManaUtil() {
-    const util = this.arcaneSurge.arcaneSurgeManaThresholds.actual;
+  surgeManaUtil(mana: number) {
     const thresholds = this.arcaneSurge.arcaneSurgeManaThresholds.isLessThan;
     let performance = QualitativePerformance.Fail;
-    if (util >= thresholds.average) {
+    if (mana >= thresholds.average) {
       performance = QualitativePerformance.Good;
-    } else if (util >= thresholds.major) {
+    } else if (mana >= thresholds.major) {
       performance = QualitativePerformance.Ok;
     }
     return performance;
   }
 
-  get arcaneSurgeData() {
-    const data: BoxRowEntry[] = [];
-    this.arcaneSurge.surgeCasts.forEach((as) => {
-      if (as.usage && as.usage?.tooltip) {
-        const tooltip = this.generateGuideTooltip(as.usage?.value, as.usage?.tooltip, as.cast);
-        data.push({ value: as.usage?.value, tooltip });
-      }
+  private perCastBreakdown(cast: ArcaneSurgeCast): React.ReactNode {
+    const header = (
+      <>
+        @ {this.owner.formatTimestamp(cast.cast)} &mdash;{' '}
+        <SpellLink spell={TALENTS.ARCANE_SURGE_TALENT} />
+      </>
+    );
+
+    const checklistItems: CooldownExpandableItem[] = [];
+
+    const maxCharges = cast.charges === MAX_ARCANE_CHARGES;
+    checklistItems.push({
+      label: (
+        <>
+          <SpellLink spell={SPELLS.ARCANE_CHARGE} />s Before Surge
+        </>
+      ),
+      result: <PassFailCheckmark pass={maxCharges} />,
+      details: <>{cast.charges}</>,
     });
-    return data;
+
+    checklistItems.push({
+      label: <>Mana % Before Surge</>,
+      result: <PerformanceMark perf={this.surgeManaUtil(cast.mana || 0)} />,
+      details: <>{formatPercentage(cast.mana || 0, 2)}%</>,
+    });
+
+    if (this.selectedCombatant.hasTalent(TALENTS.EVOCATION_TALENT)) {
+      checklistItems.push({
+        label: (
+          <>
+            <SpellLink spell={SPELLS.SIPHON_STORM_BUFF} /> Active
+          </>
+        ),
+        result: <PassFailCheckmark pass={cast.siphonStormBuff} />,
+        details: <>{cast.siphonStormBuff ? `Buff Active` : `Buff Missing`}</>,
+      });
+    }
+
+    if (this.selectedCombatant.hasTalent(TALENTS.NETHER_PRECISION_TALENT)) {
+      checklistItems.push({
+        label: (
+          <>
+            <SpellLink spell={TALENTS.NETHER_PRECISION_TALENT} /> Active
+          </>
+        ),
+        result: <PassFailCheckmark pass={cast.netherPrecision} />,
+        details: <>{cast.netherPrecision ? `Buff Active` : `Buff Missing`}</>,
+      });
+    }
+
+    let perf =
+      maxCharges &&
+      (!this.hasSiphonStorm || cast.siphonStormBuff) &&
+      (!this.hasNetherPrecision || cast.netherPrecision)
+        ? QualitativePerformance.Good
+        : QualitativePerformance.Fail;
+    if (perf === QualitativePerformance.Good) {
+      perf =
+        cast.mana && cast.mana < this.arcaneSurge.arcaneSurgeManaThresholds.isLessThan.average
+          ? QualitativePerformance.Ok
+          : QualitativePerformance.Good;
+    }
+
+    return (
+      <CooldownExpandable
+        header={header}
+        checklistItems={checklistItems}
+        perf={perf}
+        key={cast.ordinal}
+      />
+    );
   }
 
   get guideSubsection(): JSX.Element {
@@ -120,7 +189,12 @@ class ArcaneSurgeGuide extends Analyzer {
       <div>
         <RoundedPanel>
           <div
-            style={{ color: qualitativePerformanceToColor(this.surgeManaUtil), fontSize: '20px' }}
+            style={{
+              color: qualitativePerformanceToColor(
+                this.surgeManaUtil(this.arcaneSurge.averageManaPercent),
+              ),
+              fontSize: '20px',
+            }}
           >
             {arcaneSurgeIcon}{' '}
             <TooltipElement content={surgeTooltip}>
@@ -129,9 +203,11 @@ class ArcaneSurgeGuide extends Analyzer {
             </TooltipElement>
           </div>
           <div>
-            <strong>Arcane Surge Usage</strong>
-            <PerformanceBoxRow values={this.arcaneSurgeData} />
-            <small>green (good) / red (fail) mouseover the rectangles to see more details</small>
+            <p>
+              <strong>Per-Cast Breakdown</strong>
+              <small> - click to expand</small>
+              {this.arcaneSurge.surgeCasts.map((cast) => this.perCastBreakdown(cast))}
+            </p>
           </div>
         </RoundedPanel>
       </div>
