@@ -17,6 +17,12 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       <Section title="Healing cooldowns">
         <CooldownGraphSubsection />
       </Section>
+
+      {info.combatant.hasTalent(talents.BLESSING_OF_SUMMER_TALENT) && (
+        <Section title="Other cooldowns and buffs">
+          {modules.blessingOfTheSeasons.guideSubsection}
+        </Section>
+      )}
       <PreparationSection />
     </>
   );
