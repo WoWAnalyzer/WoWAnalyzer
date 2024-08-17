@@ -64,14 +64,10 @@ import FlowOfTheTides from './modules/talents/FlowOfTheTides';
 import EarthShieldBreakdown from './modules/features/EarthShieldBreakdown';
 import EarthenHarmony from './modules/talents/EarthenHarmony';
 import ElementalOrbit from '../shared/talents/ElementalOrbit';
-import Tier30 from './modules/dragonflight/Tier30';
-import Tier30Normalizer from './normalizers/Tier30Normalizer';
-import Tier31 from './modules/dragonflight/Tier31';
 import Guide from './Guide';
 import Riptide from './modules/talents/Riptide';
 import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
 import ManaSpring from 'analysis/retail/shaman/shared/talents/ManaSpring';
-import Season4Tier from './modules/dragonflight/Season4Tier';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -153,11 +149,7 @@ class CombatLogParser extends CoreCombatLogParser {
     riptideAttributor: RiptideAttributor,
 
     // Items
-    tier30: Tier30,
-    tier30Normalizer: Tier30Normalizer,
     callToDominance: CallToDominance,
-    tier31: Tier31,
-    tier32: Season4Tier,
   };
   static guide = Guide;
 }

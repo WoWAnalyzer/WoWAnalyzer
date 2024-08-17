@@ -1,37 +1,39 @@
-// Base file
+// Base files
 import BaseCombatLogParser from 'parser/classic/CombatLogParser';
+// Core
+import GlobalCooldown from './modules/core/GlobalCooldown';
 // Shared
+import { Haste } from '../shared';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import SpellManaCost from 'parser/shared/modules/SpellManaCost';
-// Features
-import Abilities from './modules/features/Abilities';
+// Modules
+import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import Buffs from './modules/features/Buffs';
+import Buffs from './modules/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import Checklist from './modules/checklist/Module';
+import FoundationGuide from 'interface/guide/foundation/FoundationGuide';
+import CancelledCasts from 'parser/shared/modules/CancelledCasts';
 // Spells
-import Shadowfiend from './modules/features/Shadowfiend';
-import ShadowWordPain from './modules/features/ShadowWordPain';
-import VampiricTouch from 'analysis/classic/priest/shadow/modules/features/VampiricTouch';
-import DevouringPlague from 'analysis/classic/priest/shadow/modules/features/DevouringPlague';
+import Shadowfiend from './modules/spells/Shadowfiend';
 
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
+    // Core
+    globalCooldown: GlobalCooldown,
     // Shared
+    haste: Haste,
     manaTracker: ManaTracker,
     spellManaCost: SpellManaCost,
-    // Features
+    // Modules
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
+    cancelledCasts: CancelledCasts,
     buffs: Buffs,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    checklist: Checklist,
     // Spells
     shadowfiend: Shadowfiend,
-    shadowWordPain: ShadowWordPain,
-    vampiricTouch: VampiricTouch,
-    devouringPlague: DevouringPlague,
   };
+  static guide = FoundationGuide;
 }
 
 export default CombatLogParser;

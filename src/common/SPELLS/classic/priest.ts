@@ -146,6 +146,11 @@ const spells = {
     name: 'Mind Sear',
     icon: 'spell_shadow_mindshear.jpg',
   },
+  MIND_SEAR_TICK: {
+    id: 49821,
+    name: 'Mind Sear',
+    icon: 'spell_shadow_mindshear.jpg',
+  },
   MIND_SOOTHE: {
     id: 453,
     name: 'Mind Soothe',
