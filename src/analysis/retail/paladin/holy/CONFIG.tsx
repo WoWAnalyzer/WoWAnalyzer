@@ -47,7 +47,8 @@ const config: Config = {
       guides.
     </>
   ),
-  exampleReport: '/report/bNZLjxM4kPVrQzmA/1-Mythic+Smolderon+-+Kill+(4:30)/Weszv/standard',
+  exampleReport:
+    '/report/fHk1awXpvV3yMZg7/59-Mythic+Rashok,+the+Elder+-+Kill+(2:50)/Priiyaa/standard/',
 
   spec: SPECS.HOLY_PALADIN,
   changelog: CHANGELOG,
