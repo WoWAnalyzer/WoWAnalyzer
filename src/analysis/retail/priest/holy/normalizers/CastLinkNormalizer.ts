@@ -214,7 +214,7 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: SURGE_OF_LIGHT_APPLIED_BY_HALO,
     reverseLinkRelation: HALO_LINKED_TO_SURGE_OF_LIGHT,
-    linkingEventId: [449840, 120517], //uncategorized halo buffs for archon, add to /spells later
+    linkingEventId: [SPELLS.HALO_TALENT.id, SPELLS.UNCAT_ARCHON_HALO_RETURN_BUFF.id],
     linkingEventType: EventType.ApplyBuff,
     referencedEventId: [SPELLS.SURGE_OF_LIGHT_BUFF.id],
     referencedEventType: [EventType.ApplyBuffStack, EventType.ApplyBuff, EventType.RefreshBuff],

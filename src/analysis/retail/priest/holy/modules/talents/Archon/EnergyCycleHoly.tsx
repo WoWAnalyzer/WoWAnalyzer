@@ -1,12 +1,12 @@
 import Analyzer from 'parser/core/Analyzer';
 import { Options } from 'parser/core/Module';
 import Combatants from 'parser/shared/modules/Combatants';
-import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import TalentSpellText from 'parser/ui/TalentSpellText';
+import { formatNumber } from 'common/format';
 import ArchonAnalysis from './ArchonAnalysis';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 import { TALENTS_PRIEST } from 'common/TALENTS';
 /**
@@ -15,7 +15,7 @@ import { TALENTS_PRIEST } from 'common/TALENTS';
  */
 
 //https://www.warcraftlogs.com/reports/WT19GKp2VHqLarbD#fight=19``&type=auras&source=122
-class ResonantEnergyHoly extends Analyzer {
+class EnergyCycleHoly extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     archonanalysis: ArchonAnalysis,
@@ -27,7 +27,7 @@ class ResonantEnergyHoly extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.RESONANT_ENERGY_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.ENERGY_CYCLE_TALENT);
   }
 
   statistic() {
@@ -37,12 +37,19 @@ class ResonantEnergyHoly extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.HERO_TALENTS}
       >
-        <TalentSpellText talent={TALENTS_PRIEST.RESONANT_ENERGY_TALENT}>
-          <ItemPercentHealingDone amount={this.archonanalysis.resonantEnergyHealing} />
-        </TalentSpellText>
+        <BoringSpellValueText spell={TALENTS_PRIEST.ENERGY_CYCLE_TALENT}>
+          <div>
+            {formatNumber(this.archonanalysis.passActualEnergyCycleCDR)}
+            s
+            <small> reduced from Sanctify</small> <br />
+            {this.archonanalysis.passWastedEnergyCycleCDR}
+            s
+            <small> wasted</small> <br />
+          </div>
+        </BoringSpellValueText>
       </Statistic>
     );
   }
 }
 
-export default ResonantEnergyHoly;
+export default EnergyCycleHoly;

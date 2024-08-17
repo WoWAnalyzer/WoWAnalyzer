@@ -5,6 +5,8 @@ import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, {
   ApplyBuffEvent,
   ApplyBuffStackEvent,
+  CastEvent,
+  DamageEvent,
   HealEvent,
   RefreshBuffEvent,
   RemoveBuffEvent,
@@ -29,21 +31,27 @@ import { TIERS } from 'game/TIERS';
 /**
  * ARCHON HERO TREE
  *
- * Honestly I was told a lot of holy priest should get rewritten and had difficulty following some of the core
- * so I tried to contain all archon analysis into just this file, and using functions to pass out
+ * I had a lot of difficulty following the core modules, and the talents kept overlapping so I
+ * combined all archon analysis into (mostly) just this file, and use functions/valuerefs to pass out
  * the data to the statistic publishers.
+ *
+ * TODO:
+ * -> Implement Sustained Potency/Concentrated Infusion
+ * -> scale empowered surges by binding heal/trail
+ *       -in theory this will already show in the binding heal/trail modules so maybe not worth
+ * -> debate if I should scale down the first halo by energy compression
+ *       -(since total is also amped it should be a similar ratio)
+ * -> implement the better Surge of Light detection in here to spec wide
  *
  */
 const EMPOWERED_SURGES_AMP = 0.3;
-const APOTH_MULTIPIER = 3;
+const APOTH_MULTIPIER = 4;
 const ENERGY_CYCLE_CDR = 4;
 const LIGHT_OF_THE_NAARU_REDUCTION_PER_RANK = 0.1;
-const TWW_TIER1_CDR = 0.1;
-const PERFECTED_FORM_BUFF_ID = 453983;
-//10% INCREASE
+const TWW_TIER1_2PC_CDR = 0.1;
 const PERFECTED_FORM_AMP = 0.1;
-const RESONANT_ENERGY_ID = 453846;
 const RESONANT_ENERGY_AMP_PER_STACK = 0.02;
+const ENERGY_COMPRESSION_AMP = 0.3;
 
 //https://www.warcraftlogs.com/reports/WT19GKp2VHqLarbD#fight=19``&type=auras&source=122
 class ArchonAnalysis extends Analyzer {
@@ -55,26 +63,49 @@ class ArchonAnalysis extends Analyzer {
   protected spellUsable!: SpellUsable;
   protected combatants!: Combatants;
 
+  /**
+   * Start:
+   * These values can all be called directly and don't need a pass function
+   * also check the call functions in case math needs to be done to transform
+   * the results
+   */
   surgeOfLightProcsSpent = 0;
+  surgeOfLightProcsGainedTotal = 0;
   surgeOfLightProcsOverwritten = 0;
   surgeOfLightProcsOverwrittenByHalo = 0;
   surgeOfLightProcsGainedFromHalo = 0;
-  empoweredSurgesActive = false;
+
   empoweredSurgesHealing = 0;
-  manifestedPowerActive = false;
-  energyCycleActive = false;
+
+  //Energy Cycle Ideal - no lost CDR from capping used to calc lost CDR
   energyCycleCDRIdeal = 0;
   energyCycleCDRActual = 0;
 
-  baseHolyWordCDR = 1;
-  modHolyWordCDR = 1;
-  apothBuffActive = false;
-  /** Total healing from salvation buff */
+  /** Total healing from perfected form's salvation buff */
   perfectedFormSalv = 0;
-  /** Total healing from apoth buff */
+  /** Total healing from perfected form's apoth buff */
   perfectedFormApoth = 0;
   /** Total Healing From Resonant Energy */
   resonantEnergyHealing = 0;
+
+  //These are the values from the first cast of halo
+  //all 6 halos and how much energy compression scales them
+  firstHaloHealing = 0;
+  totalArchonHaloHealing = 0;
+  totalEnergyCompressionHealing = 0;
+  firstHaloDamage = 0;
+  totalArchonHaloDamage = 0;
+
+  // These are just internal values used as either flags or scalers
+  energyCompressionActive = false;
+  manifestedPowerActive = false;
+  energyCycleActive = false;
+  baseHolyWordCDR = 1;
+  modHolyWordCDR = 1;
+  apothBuffActive = false;
+  empoweredSurgesActive = false;
+  haloOutActive = false;
+  firstHalo = false;
 
   constructor(options: Options) {
     super(options);
@@ -82,6 +113,10 @@ class ArchonAnalysis extends Analyzer {
     //if the capstone is active, then all the analyzed hero talents will be active too
     this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.DIVINE_HALO_TALENT);
 
+    //Energy Compression is on a choice node
+    if (this.selectedCombatant.hasTalent(TALENTS_PRIEST.ENERGY_COMPRESSION_TALENT)) {
+      this.energyCompressionActive = true;
+    }
     // these two if statements get the scaling CDR for holy word reduction
     if (this.selectedCombatant.hasTalent(TALENTS_PRIEST.LIGHT_OF_THE_NAARU_TALENT)) {
       this.baseHolyWordCDR =
@@ -90,10 +125,10 @@ class ArchonAnalysis extends Analyzer {
         1;
     }
     if (this.selectedCombatant.has2PieceByTier(TIERS.TWW1)) {
-      this.baseHolyWordCDR *= TWW_TIER1_CDR + 1;
+      this.baseHolyWordCDR *= TWW_TIER1_2PC_CDR + 1;
     }
 
-    //tracks usage of Surge of Light
+    //tracks spending of Surge of Light
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.SURGE_OF_LIGHT_BUFF),
       this.onSurgeOfLightHeal,
@@ -104,7 +139,7 @@ class ArchonAnalysis extends Analyzer {
       this.onSurgeOfLightHeal,
     );
 
-    //gains of Surge of light, not just from manifested power
+    //tracks gains of Surge of light, not just from manifested power
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SURGE_OF_LIGHT_BUFF),
       this.onApplySurgeOfLight,
@@ -140,27 +175,51 @@ class ArchonAnalysis extends Analyzer {
       Events.heal.by(SELECTED_PLAYER).spell(HOLY_ABILITIES_AFFECTED_BY_HEALING_INCREASES),
       this.onResonantEnergyHeal,
     );
+
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HALO_TALENT),
+      this.newHaloCast,
+    );
+
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HALO_HEAL),
+      this.handleHaloHealing,
+    );
+
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.HALO_DAMAGE),
+      this.handleHaloDamage,
+    );
+
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.HALO_TALENT),
+      this.removeArchonOut,
+    );
   }
 
   onSurgeOfLightHeal(event: RemoveBuffEvent | RemoveBuffStackEvent) {
-    // linked heal event exists
+    // linked heal event exists from surge of light consumption
     const healEvent = getHealFromSurge(event);
+
     if (healEvent) {
       if (buffedBySurgeOfLight(event)) {
         // calculate effective healing from bonus
         this.empoweredSurgesHealing += calculateEffectiveHealing(healEvent, EMPOWERED_SURGES_AMP);
         this.surgeOfLightProcsSpent += 1;
-        //        if(this.energyCycleActive){
+
+        // calculating energy cycle CDR
+        // reset holy word mod to 1 and check what multipliers are active
         this.modHolyWordCDR = this.baseHolyWordCDR;
         if (this.apothBuffActive) {
           this.modHolyWordCDR *= APOTH_MULTIPIER;
         }
+
         this.energyCycleCDRIdeal += ENERGY_CYCLE_CDR * this.modHolyWordCDR;
+
         this.energyCycleCDRActual += this.spellUsable.reduceCooldown(
           SPELLS.HOLY_WORD_SANCTIFY.id,
           ENERGY_CYCLE_CDR * this.modHolyWordCDR,
         );
-        //        }
       }
     }
   }
@@ -182,6 +241,7 @@ class ArchonAnalysis extends Analyzer {
     if (isSurgeOfLightFromHalo(event)) {
       this.surgeOfLightProcsGainedFromHalo += 1;
     }
+    this.surgeOfLightProcsGainedTotal += 1;
   }
 
   applyApoth() {
@@ -193,14 +253,20 @@ class ArchonAnalysis extends Analyzer {
 
   onPerfectedFormHeal(event: HealEvent) {
     if (
-      this.selectedCombatant.hasBuff(PERFECTED_FORM_BUFF_ID, null, 0, 0, this.selectedCombatant.id)
+      this.selectedCombatant.hasBuff(
+        SPELLS.PERFECTED_FORM_TALENT_BUFF.id,
+        null,
+        0,
+        0,
+        this.selectedCombatant.id,
+      )
     ) {
       this.perfectedFormSalv += calculateEffectiveHealing(event, PERFECTED_FORM_AMP);
     }
     //Apoth only gets the buff when Perfected Form from Salv isn't active
     else if (
       !this.selectedCombatant.hasBuff(
-        PERFECTED_FORM_BUFF_ID,
+        SPELLS.PERFECTED_FORM_TALENT_BUFF.id,
         null,
         0,
         0,
@@ -226,7 +292,7 @@ class ArchonAnalysis extends Analyzer {
     }
 
     const resonantEnergyStacks = this.selectedCombatant.getBuffStacks(
-      RESONANT_ENERGY_ID,
+      SPELLS.RESONANT_ENERGY_TALENT_BUFF.id,
       null,
       0,
       0,
@@ -238,113 +304,69 @@ class ArchonAnalysis extends Analyzer {
     );
   }
 
+  handleHaloHealing(event: HealEvent) {
+    if (this.firstHalo) {
+      this.firstHaloHealing += event.amount + (event.absorbed || 0);
+    }
+
+    this.totalArchonHaloHealing += event.amount + (event.absorbed || 0);
+
+    if (this.energyCompressionActive) {
+      this.totalEnergyCompressionHealing += calculateEffectiveHealing(
+        event,
+        ENERGY_COMPRESSION_AMP,
+      );
+    }
+  }
+
+  handleHaloDamage(event: DamageEvent) {
+    if (this.firstHalo) {
+      this.firstHaloDamage += event.amount + (event.absorbed || 0);
+    }
+
+    this.totalArchonHaloDamage += event.amount + (event.absorbed || 0);
+  }
+
+  newHaloCast(event: CastEvent) {
+    this.firstHalo = true;
+    this.haloOutActive = true;
+  }
+  removeArchonOut() {
+    this.firstHalo = false;
+  }
+
   //PERFECTED FORM STATISTICS
-  get totalPerfectedFormHealing(): number {
+  get passPerfectedFormHealing(): number {
     return this.perfectedFormApoth + this.perfectedFormSalv;
   }
+
   //ENERGY CYCLE VALUES
-  get wastedEnergyCycleCDR(): number {
+  get passWastedEnergyCycleCDR(): number {
     return this.energyCycleCDRIdeal - this.energyCycleCDRActual;
   }
 
-  get actualEnergyCycleCDR(): number {
+  get passActualEnergyCycleCDR(): number {
     return this.energyCycleCDRActual;
   }
 
-  //TODO: This Surge of Light Analysis is more accurate than whats currently in the module
-  //      potentially either break it out or export these values over
+  // These functions return power surge/divine halo's contribution
+  // compared to just the first halo (if you didn't have either archon talent)
+  // aswell as energy compression
+  get passHaloFirstAndCapStoneHealing(): number {
+    return this.totalArchonHaloHealing - this.firstHaloHealing;
+  }
 
-  /* statistic() {
-    return (
-      <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(10)} // number based on talent row
-        category={STATISTIC_CATEGORY.TALENTS}
-        size="flexible"
-        tooltip={
-          <><li>
-            Surge of Light procs spent -{' '}
-            <strong>
-              {this.surgeOfLightProcsSpent}
-              
-            </strong>
-            </li>
-            <li>
-            Surge of Light overwritten -{' '}
-            <strong>
-              {this.surgeOfLightProcsOverwritten}
-              
-            </strong>
-            </li>
-            <li>
-            Surge of Light procs gained from Halo -{' '}
-            <strong>
-              {this.surgeOfLightProcsGainedFromHalo}
-              
-            </strong>
-            </li>
-            <li>
-            Surge of Light Halo procs overwritten -{' '}
-            <strong>
-              {this.surgeOfLightProcsOverwrittenByHalo}
-              
-            </strong>
-            </li>
-            <li>
-            Total seconds of CDR from Energy Cycle -{' '}
-            <strong>
-              {this.energyCycleCDRActual}
-              
-            </strong>
-            </li>
-            <li>
-            Wasted seconds of CDR from Energy Cycle -{' '}
-            <strong>
-              {this.wastedEnergyCycleCDR}
-              
-            </strong>
-            </li>
-          </>
-          
-        }
-      >
-          <>{this.manifestedPowerActive ? (
-              <>{'\n  '}
-                <small>
-                  <SpellLink spell={TALENTS_PRIEST.MANIFESTED_POWER_TALENT} /> gained {' '}
-                </small>
-                <strong>{this.surgeOfLightProcsGainedFromHalo}</strong>
-                <small> Surge of Lights and was overwritten{' '} </small>
-                <strong>{this.surgeOfLightProcsOverwrittenByHalo}</strong>
-                <small> times from Halo </small>
-              </>
-            ) : (
-              <></>
-            )}
-            {this.empoweredSurgesActive ? (
-              <>{'\n'}
-                <small>
-                  <SpellLink spell={TALENTS_PRIEST.EMPOWERED_SURGES_TALENT} /> contributed{' '}
-                </small>
-                <strong>
-                  {formatNumber((this.empoweredSurgesHealing / this.owner.fightDuration) * 1000)}{' '}
-                  HPS
-                </strong>
-                <small>
-                  {' '}
-                  {formatPercentage(
-                    this.owner.getPercentageOfTotalHealingDone(this.empoweredSurgesHealing),
-                  )}
-                  % of total
-                </small>
-              </>
-            ) : (
-              <></>
-            
-            )}
-        </>
-      </Statistic>
-    );
-  } */
+  get passTotalEnergyCompressionHealing(): number {
+    return this.totalEnergyCompressionHealing;
+  }
+
+  get passHaloFirstAndCapStoneDamage(): number {
+    return this.totalArchonHaloDamage - this.firstHaloDamage;
+  }
+
+  get passTotalEnergyCompressionDamage(): number {
+    return this.totalArchonHaloDamage * ENERGY_COMPRESSION_AMP;
+  }
 }
 
 export default ArchonAnalysis;

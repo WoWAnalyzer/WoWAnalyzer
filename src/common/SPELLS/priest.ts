@@ -557,6 +557,22 @@ const spells = {
     name: 'Divine Favor: Serenity',
     icon: 'priest_icon_chakra',
   },
+  PERFECTED_FORM_TALENT_BUFF: {
+    id: 453983,
+    name: 'Perfected Form',
+    icon: 'inv_ability_holyfire_buff',
+  },
+  RESONANT_ENERGY_TALENT_BUFF: {
+    id: 453846,
+    name: 'Resonant Energy',
+    icon: 'ability_priest_halo',
+  },
+  UNCAT_ARCHON_HALO_RETURN_BUFF: {
+    id: 449840,
+    name: 'Halo',
+    icon: 'ability_priest_halo',
+  },
+
   // Sets
   HOLY_PRIEST_TIER_29_2_SET_BUFF: {
     id: 394729,

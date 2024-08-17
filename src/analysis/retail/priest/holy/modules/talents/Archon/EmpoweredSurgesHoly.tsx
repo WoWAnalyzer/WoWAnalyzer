@@ -15,7 +15,7 @@ import { TALENTS_PRIEST } from 'common/TALENTS';
  */
 
 //https://www.warcraftlogs.com/reports/WT19GKp2VHqLarbD#fight=19``&type=auras&source=122
-class ResonantEnergyHoly extends Analyzer {
+class EmpoweredSurgesHoly extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     archonanalysis: ArchonAnalysis,
@@ -27,7 +27,7 @@ class ResonantEnergyHoly extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.RESONANT_ENERGY_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.EMPOWERED_SURGES_TALENT);
   }
 
   statistic() {
@@ -37,12 +37,12 @@ class ResonantEnergyHoly extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.HERO_TALENTS}
       >
-        <TalentSpellText talent={TALENTS_PRIEST.RESONANT_ENERGY_TALENT}>
-          <ItemPercentHealingDone amount={this.archonanalysis.resonantEnergyHealing} />
+        <TalentSpellText talent={TALENTS_PRIEST.EMPOWERED_SURGES_TALENT}>
+          <ItemPercentHealingDone amount={this.archonanalysis.empoweredSurgesHealing} />
         </TalentSpellText>
       </Statistic>
     );
   }
 }
 
-export default ResonantEnergyHoly;
+export default EmpoweredSurgesHoly;
