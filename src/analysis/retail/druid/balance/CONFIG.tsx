@@ -10,47 +10,47 @@ const config: Config = {
   contributors: [Sref],
   branch: GameBranch.Retail,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '11.0.0',
+  patchCompatibility: '11.0.2',
   supportLevel: SupportLevel.MaintainedFull,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
-      Hello Moonkins! This tool is intended to show major statistics and potential issues in your
-      rotation. The Balance Druid analyzer is updated for Dragonflight patch 10.2.
-      <br />
-      <br />
-      If you have suggestions or comments about the analyzer you can reach the WoWAnalyzer team on{' '}
-      <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a>, on{' '}
-      <a href="https://discord.gg/AxphPxU">Discord</a>, or message me (
-      <a href="/contributor/Sref">Sref</a>) directly on Discord. We're always interested in
-      improving the analyzer, whether it's in-depth theorycraft or rewording some text to be easier
-      to understand. The whole project is open source and welcomes contributions so you can directly
-      improve it too!
-      <br />
-      <br />
-      If you want to learn more about how to play Moonkin, visit{' '}
-      <a
-        href="https://discordapp.com/invite/0dWu0WkuetF87H9H"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Dreamgrove, the Druid's Discord
-      </a>{' '}
-      or{' '}
-      <a
-        href="https://www.dreamgrove.gg/balance/compendium/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        DreamGrove.gg | 10.2.0 Compendium
-      </a>
-      .
+      <p>
+        Welcome to the Balance Druid analyzer! We hope you find the guide and statistics useful.
+      </p>
+      <p>
+        If you questions, comments, or suggestions about this analyzer, you can reach the
+        WoWAnalyzer team on{' '}
+        <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a>, on{' '}
+        <a href="https://discord.gg/AxphPxU">Discord</a>, or message me (
+        <a href="/contributor/Sref">Sref</a>) directly on Discord. We're always interested in
+        improving the analyzer, whether it's in-depth theorycraft or rewording some text to be
+        easier to understand. The whole project is open source and welcomes contributions so you can
+        directly improve it too!
+      </p>
+      <p>
+        If you have gameplay questions, check out:
+        <ul>
+          <li>
+            <a href="https://www.wowhead.com/balance-druid-guide">Balance guide</a> on Wowhead
+          </li>
+          <li>
+            <a href="https://www.dreamgrove.gg/blog/balance/compendium">Balance compendium</a> on
+            Dreamgrove.gg
+          </li>
+          <li>
+            <a href="https://discord.gg/dreamgrove" target="_blank" rel="noopener noreferrer">
+              Dreamgrove
+            </a>{' '}
+            - the Druid community Discord
+          </li>
+        </ul>
+      </p>
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport:
-    'report/hAjtTgVWczvnDpyC/19-Heroic+The+Vigilant+Steward,+Zskarn+-+Kill+(3:37)/Dsune',
+  exampleReport: '/report/XJytz49PfbYL6mvR/14-Mythic+Smolderon+-+Kill+(3:45)/Zulyd/standard',
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
   spec: SPECS.BALANCE_DRUID,
