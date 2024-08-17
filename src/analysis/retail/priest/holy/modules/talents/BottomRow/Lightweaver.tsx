@@ -14,12 +14,12 @@ import { explanationAndDataSubsection } from 'interface/guide/components/Explana
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../../Guide';
 import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
 
-const HEALING_BONUS = 0.25;
+const HEALING_BONUS = 0.15;
 const OVERHEAL_THRESHOLD = 0.75;
 
 /**
  * Flash Heal reduces the cast time of your next Heal
- * within 20 sec by 30% and increases its healing done by 25%.
+ * within 20 sec by 30% and increases its healing done by 15%.
  *
  * Stacks up to 2 times.
  */
