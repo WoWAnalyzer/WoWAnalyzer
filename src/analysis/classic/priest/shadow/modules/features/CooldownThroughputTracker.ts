@@ -6,7 +6,6 @@ import CoreCooldownThroughputTracker, {
 class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static castCooldowns = [
     ...CoreCooldownThroughputTracker.castCooldowns,
-    // Add Cooldown Spells specific to Spec
     {
       spell: SPELLS.SHADOW_FIEND.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
