@@ -16,7 +16,7 @@ import CooldownExpandable, {
 } from 'interface/guide/components/CooldownExpandable';
 import { ARCANE_CHARGE_MAX_STACKS } from '../../shared';
 
-const AOE_THRESHOLD = 3;
+const AOE_THRESHOLD = 4;
 const TEMPO_REMAINING_THRESHOLD = 5000;
 const NETHER_STACK_THRESHOLD = 1;
 const TOUCH_CD_THRESHOLD = 6000;
