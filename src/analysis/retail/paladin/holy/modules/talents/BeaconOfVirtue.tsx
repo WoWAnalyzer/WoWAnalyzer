@@ -18,7 +18,7 @@ class BeaconOfVirtue extends Analyzer {
         </b>{' '}
         is your main AoE healing tool, since you will be using mostly{' '}
         <SpellLink spell={SPELLS.WORD_OF_GLORY} /> as a spender. It is quite mana expensive though,
-        so you should use it on cooldown when healing is required.
+        so you should use it on cooldown only when healing is required.
       </p>
     );
 

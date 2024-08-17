@@ -13,7 +13,7 @@ export const GUIDE_CORE_EXPLANATION_PERCENT = 40;
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
-      <CoreSection modules={modules} info={info} events={events}></CoreSection>
+      <CoreSection modules={modules} info={info} events={events} />
       <Section title="Healing cooldowns">
         <CooldownGraphSubsection />
       </Section>
@@ -27,8 +27,11 @@ const CoreSection = ({ modules, info, events }: GuideProps<typeof CombatLogParse
   return (
     <Section title="Core">
       {modules.holyShock.guideSubsection}
-      {info.combatant.hasTalent(talents.BEACON_OF_VIRTUE_TALENT) &&
-        modules.beaconOfVirtue.guideSubsection}
+      {info.combatant.hasTalent(talents.HOLY_PRISM_TALENT) && modules.holyPrism.guideSubsection}
+      {info.combatant.hasTalent(talents.BEACON_OF_VIRTUE_TALENT)
+        ? modules.beaconOfVirtue.guideSubsection
+        : modules.beaconUptime.guideSubsection}
+
       <SubSection title="Holy Power">
         <p>
           With <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} /> spenders being so powerful, you
