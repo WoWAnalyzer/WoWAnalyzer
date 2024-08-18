@@ -199,7 +199,6 @@ class ArcaneMissilesGuide extends Analyzer {
               If you do have {aetherAttunement}, channel {arcaneMissiles} for the full duration.
             </li>
           </ul>
-          '
         </div>
       </>
     );
