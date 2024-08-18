@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
@@ -23,24 +22,6 @@ class TouchOfTheMagiGuide extends Analyzer {
   };
 
   protected touchOfTheMagi!: TouchOfTheMagi;
-
-  generateGuideTooltip(
-    performance: QualitativePerformance,
-    tooltipText: ReactNode,
-    timestamp: number,
-  ) {
-    const tooltip = (
-      <>
-        <div>
-          <b>@ {this.owner.formatTimestamp(timestamp)}</b>
-        </div>
-        <div>
-          <PerformanceMark perf={performance} /> {performance}: {tooltipText}
-        </div>
-      </>
-    );
-    return tooltip;
-  }
 
   activeTimeUtil(activePercent: number) {
     const thresholds = this.touchOfTheMagi.touchMagiActiveTimeThresholds.isLessThan;

@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
@@ -27,24 +26,6 @@ class ArcaneSurgeGuide extends Analyzer {
 
   hasSiphonStorm: boolean = this.selectedCombatant.hasTalent(TALENTS.EVOCATION_TALENT);
   hasNetherPrecision: boolean = this.selectedCombatant.hasTalent(TALENTS.NETHER_PRECISION_TALENT);
-
-  generateGuideTooltip(
-    performance: QualitativePerformance,
-    tooltipText: ReactNode,
-    timestamp: number,
-  ) {
-    const tooltip = (
-      <>
-        <div>
-          <b>@ {this.owner.formatTimestamp(timestamp)}</b>
-        </div>
-        <div>
-          <PerformanceMark perf={performance} /> {performance}: {tooltipText}
-        </div>
-      </>
-    );
-    return tooltip;
-  }
 
   surgeManaUtil(mana: number) {
     const thresholds = this.arcaneSurge.arcaneSurgeManaThresholds.isLessThan;

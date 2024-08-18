@@ -1,5 +1,4 @@
 import { formatDurationMillisMinSec, formatPercentage } from 'common/format';
-import { ReactNode } from 'react';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
@@ -7,7 +6,6 @@ import Analyzer from 'parser/core/Analyzer';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { PerformanceMark } from 'interface/guide';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/mage/arcane/Guide';
 
 import ArcaneBarrage, { ArcaneBarrageCast } from '../core/ArcaneBarrage';
@@ -30,24 +28,6 @@ class ArcaneBarrageGuide extends Analyzer {
   };
 
   protected arcaneBarrage!: ArcaneBarrage;
-
-  generateGuideTooltip(
-    performance: QualitativePerformance,
-    tooltipText: ReactNode,
-    timestamp: number,
-  ) {
-    const tooltip = (
-      <>
-        <div>
-          <b>@ {this.owner.formatTimestamp(timestamp)}</b>
-        </div>
-        <div>
-          <PerformanceMark perf={performance} /> {performance}: {tooltipText}
-        </div>
-      </>
-    );
-    return tooltip;
-  }
 
   private perCastBreakdown(cast: ArcaneBarrageCast): React.ReactNode {
     const header = (

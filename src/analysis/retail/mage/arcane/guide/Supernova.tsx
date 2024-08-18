@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink, SpellIcon, TooltipElement } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
@@ -6,7 +5,6 @@ import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { PassFailCheckmark, qualitativePerformanceToColor } from 'interface/guide';
-import { PerformanceMark } from 'interface/guide';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/mage/arcane/Guide';
 
 import CooldownExpandable, {
@@ -24,28 +22,11 @@ class SupernovaGuide extends Analyzer {
   };
 
   protected supernova!: Supernova;
+
   hasTouchOfTheMagi: boolean = this.selectedCombatant.hasTalent(TALENTS.TOUCH_OF_THE_MAGI_TALENT);
   hasUnerringProficiency: boolean = this.selectedCombatant.hasTalent(
     TALENTS.UNERRING_PROFICIENCY_TALENT,
   );
-
-  generateGuideTooltip(
-    performance: QualitativePerformance,
-    tooltipText: ReactNode,
-    timestamp: number,
-  ) {
-    const tooltip = (
-      <>
-        <div>
-          <b>@ {this.owner.formatTimestamp(timestamp)}</b>
-        </div>
-        <div>
-          <PerformanceMark perf={performance} /> {performance}: {tooltipText}
-        </div>
-      </>
-    );
-    return tooltip;
-  }
 
   private perCastBreakdown(cast: SupernovaCast): React.ReactNode {
     const header = (
