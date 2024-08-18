@@ -88,7 +88,7 @@ export const SABERTOOTH_BOOSTED: Spell[] = [
 //
 
 /** Multiplier to energy costs from having Incarnation: Avatar of Ashamane active */
-export const INCARN_ENERGY_MULT = 0.8;
+export const INCARN_ENERGY_MULT = 0.75;
 
 /** Shred's energy cost (before modifiers) */
 export const SHRED_ENERGY = 40;

@@ -1,6 +1,4 @@
 import talents from 'common/TALENTS/shaman';
-import ITEMS from 'common/ITEMS';
-import { TIERS } from 'game/TIERS';
 import SpellLink from 'interface/SpellLink';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import Analyzer, { Options } from 'parser/core/Analyzer';
@@ -8,8 +6,6 @@ import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
-import ItemSetLink from 'interface/ItemSetLink';
-import { SHAMAN_DF3_ID, SHAMAN_DF2_ID } from 'common/ITEMS/dragonflight';
 
 class Riptide extends Analyzer {
   // eslint-disable-next-line @typescript-eslint/no-useless-constructor
@@ -44,31 +40,6 @@ class Riptide extends Analyzer {
           </>
         )}{' '}
         etc.{' '}
-        {this.selectedCombatant.has4PieceByTier(TIERS.DF2) && (
-          <>
-            <SpellLink spell={talents.RIPTIDE_TALENT} /> should be kept on cooldown as often as
-            possible, particularly with the addition of the{' '}
-            <ItemSetLink id={SHAMAN_DF2_ID}>
-              <>Tier 30 Set Bonus</>
-            </ItemSetLink>
-            , whose power is directly tied to the number of active{' '}
-            <SpellLink spell={talents.RIPTIDE_TALENT} /> HoTs out on the raid
-          </>
-        )}
-        {this.selectedCombatant.has4PieceByTier(TIERS.DF3) && (
-          <>
-            In season 3 of Dragonflight, the{' '}
-            <ItemSetLink id={SHAMAN_DF3_ID}>
-              <>Tier 31 Set Bonus</>
-            </ItemSetLink>{' '}
-            makes your <SpellLink spell={talents.RIPTIDE_TALENT} /> uptime even more critical, as{' '}
-            every tick of <SpellLink spell={talents.RIPTIDE_TALENT} /> also heals every person
-            buffed with <SpellLink spell={ITEMS.T31_TIDAL_RESERVOIR_HEAL} />. You should aim to have
-            as many <SpellLink spell={talents.RIPTIDE_TALENT} />s rolling on the raid at all times,{' '}
-            and maintain <SpellLink spell={ITEMS.T31_TIDAL_RESERVOIR_HEAL} /> on as many people as
-            possible.
-          </>
-        )}
       </p>
     );
 

@@ -65,7 +65,7 @@ const DEFAULT_HASTE_BUFFS: HasteBuffMap = {
   [SPELLS.NATURES_GRACE.id]: 0.15,
   [SPELLS.FRANTIC_MOMENTUM.id]: 0.1,
   [SPELLS.CENARIUS_MIGHT_BUFF.id]: 0.1,
-  [SPELLS.SAVAGE_FURY_BUFF.id]: 0.08,
+  [SPELLS.SAVAGE_FURY_BUFF.id]: 0.1,
   // Guardian Berserk handled in spec module
   //endregion
 

@@ -4,6 +4,8 @@ import { SpellLink } from 'interface';
 import TALENTS from 'common/TALENTS/evoker';
 
 export default [
+  change(date(2024, 8, 14), <>Implement <SpellLink spell={TALENTS.DIVERTED_POWER_TALENT}/> module</>, Vollmer), 
+  change(date(2024, 8, 14), <>Implement <SpellLink spell={TALENTS.UNRELENTING_SIEGE_TALENT}/> module</>, Vollmer), 
   change(date(2024, 8, 11), 'Bump compatibility to 11.0.2', Vollmer), 
   change(date(2024, 8, 11), <>Implement <SpellLink spell={TALENTS.MELT_ARMOR_TALENT}/> module</>, Vollmer), 
   change(date(2024, 8, 11), <>Implement <SpellLink spell={TALENTS.MIGHT_OF_THE_BLACK_DRAGONFLIGHT_TALENT}/> module</>, Vollmer),

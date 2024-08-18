@@ -13,7 +13,7 @@ import HotAttributor from 'analysis/retail/druid/restoration/modules/core/hottra
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 
-const PROC_PROB = 0.4;
+const PROC_PROB = 0.6;
 
 /**
  * **Power of the Archdruid**

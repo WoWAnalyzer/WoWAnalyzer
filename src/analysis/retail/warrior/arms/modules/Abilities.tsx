@@ -24,8 +24,8 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.OVERPOWER.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 12 - (combatant.hasTalent(TALENTS.HONED_REFLEXES_ARMS_TALENT) ? 1 : 0),
-        charges: 1 + (combatant.hasTalent(TALENTS.DREADNAUGHT_TALENT) ? 1 : 0),
+        cooldown: 12,
+        charges: 1 + (combatant.hasTalent(TALENTS.IMPROVED_OVERPOWER_TALENT) ? 1 : 0),
         gcd: {
           base: 1500,
         },
@@ -66,7 +66,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.SKULLSPLITTER_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 22,
+        cooldown: 21,
         gcd: {
           base: 1500,
         },
@@ -97,8 +97,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.CLEAVE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        cooldown: (haste: number) =>
-          (combatant.hasTalent(TALENTS.REAPING_SWINGS_TALENT) ? 3 : 6) / (1 + haste),
+        cooldown: (haste: number) => 4.5 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -120,7 +119,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.THUNDEROUS_ROAR_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        cooldown: 90 - (combatant.hasTalent(TALENTS.UPROAR_TALENT) ? 30 : 0),
+        cooldown: 90 - (combatant.hasTalent(TALENTS.UPROAR_TALENT) ? 45 : 0),
         gcd: {
           base: 1500,
         },
@@ -129,8 +128,6 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.WHIRLWIND.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        cooldown: (haste: number) =>
-          combatant.hasTalent(TALENTS.STORM_OF_SWORDS_ARMS_TALENT) ? 14 / (1 + haste) : 0,
         gcd: {
           base: 1500,
         },
@@ -169,7 +166,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.THUNDER_CLAP_SHARED_TALENT),
+        enabled: combatant.hasTalent(TALENTS.THUNDER_CLAP_TALENT),
       },
       // Others
       {
@@ -236,6 +233,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.IGNORE_PAIN.id,
         category: SPELL_CATEGORY.DEFENSIVE,
+        cooldown: 1,
         buffSpellId: SPELLS.IGNORE_PAIN.id,
         gcd: null,
         enabled: combatant.hasTalent(TALENTS.IGNORE_PAIN_TALENT),
@@ -322,9 +320,8 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.PUMMEL.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown:
-          15 -
-          (combatant.hasTalent(TALENTS.HONED_REFLEXES_ARMS_TALENT) ? 1 : 0) -
-          (combatant.hasTalent(TALENTS.CONCUSSIVE_BLOWS_TALENT) ? 1 : 0),
+          (15 - (combatant.hasTalent(TALENTS.CONCUSSIVE_BLOWS_TALENT) ? 1 : 0)) *
+          (combatant.hasTalent(TALENTS.HONED_REFLEXES_TALENT) ? 0.95 : 1),
         gcd: null,
       },
       {
