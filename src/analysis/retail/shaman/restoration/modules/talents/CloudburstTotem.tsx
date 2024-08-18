@@ -21,7 +21,7 @@ import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-        
+
 const DELAY_MS = 200;
 
 type Cast = {
