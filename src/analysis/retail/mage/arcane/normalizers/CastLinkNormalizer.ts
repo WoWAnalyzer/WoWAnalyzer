@@ -14,8 +14,11 @@ import { Options } from 'parser/core/Module';
 const CAST_BUFFER_MS = 75;
 
 const SPELL_CAST = 'SpellCast';
+const NEXT_CAST = 'NextCast';
 const SPELL_DAMAGE = 'SpellDamage';
 const SPELL_TICK = 'SpellTick';
+const END_CHANNEL = 'EndChannel';
+const GCD = 'GCD';
 const BUFF_APPLY = 'BuffApply';
 const BUFF_REMOVE = 'BuffRemove';
 const DEBUFF_APPLY = 'DebuffApply';
@@ -43,6 +46,57 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: EventType.Damage,
     anyTarget: true,
     forwardBufferMs: 2000,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    reverseLinkRelation: SPELL_CAST,
+    linkingEventId: TALENTS.ARCANE_MISSILES_TALENT.id,
+    linkingEventType: EventType.Cast,
+    linkRelation: SPELL_DAMAGE,
+    referencedEventId: SPELLS.ARCANE_MISSILES_DAMAGE.id,
+    referencedEventType: EventType.Damage,
+    forwardBufferMs: 2000,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    reverseLinkRelation: SPELL_CAST,
+    linkingEventId: TALENTS.ARCANE_MISSILES_TALENT.id,
+    linkingEventType: EventType.Cast,
+    linkRelation: END_CHANNEL,
+    referencedEventId: TALENTS.ARCANE_MISSILES_TALENT.id,
+    referencedEventType: EventType.EndChannel,
+    maximumLinks: 1,
+    forwardBufferMs: 2000,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    reverseLinkRelation: SPELL_CAST,
+    linkingEventId: TALENTS.ARCANE_MISSILES_TALENT.id,
+    linkingEventType: EventType.Cast,
+    linkRelation: GCD,
+    referencedEventId: TALENTS.ARCANE_MISSILES_TALENT.id,
+    referencedEventType: EventType.GlobalCooldown,
+    maximumLinks: 1,
+    anyTarget: true,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    reverseLinkRelation: END_CHANNEL,
+    linkingEventId: TALENTS.ARCANE_MISSILES_TALENT.id,
+    linkingEventType: EventType.EndChannel,
+    linkRelation: NEXT_CAST,
+    referencedEventId: [
+      TALENTS.ARCANE_MISSILES_TALENT.id,
+      SPELLS.ARCANE_BLAST.id,
+      SPELLS.ARCANE_BARRAGE.id,
+      TALENTS.SUPERNOVA_TALENT.id,
+      SPELLS.ARCANE_EXPLOSION.id,
+    ],
+    referencedEventType: [EventType.Cast, EventType.BeginCast],
+    maximumLinks: 1,
+    anyTarget: true,
+    forwardBufferMs: 5000,
     backwardBufferMs: CAST_BUFFER_MS,
   },
   {

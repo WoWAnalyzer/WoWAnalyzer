@@ -133,6 +133,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           rotational abilities also contribute to your damage and, in most cases, help set you up
           for your burn phases so you can get the most out of them.
         </>
+        {modules.arcaneMissilesGuide.guideSubsection}
         {modules.arcaneBarrageGuide.guideSubsection}
         {modules.arcaneOrbGuide.guideSubsection}
         {info.combatant.hasTalent(TALENTS.SHIFTING_POWER_TALENT) &&

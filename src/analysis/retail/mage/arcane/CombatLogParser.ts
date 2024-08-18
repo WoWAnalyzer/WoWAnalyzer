@@ -20,6 +20,7 @@ import Buffs from './core/Buffs';
 import CooldownThroughputTracker from './core/CooldownThroughputTracker';
 import ArcaneChargeTracker from './core/ArcaneChargeTracker';
 import Clearcasting from './core/Clearcasting';
+import ArcaneMissiles from './core/ArcaneMissiles';
 import ArcaneBarrage from './core/ArcaneBarrage';
 import ArcaneOrb from './talents/ArcaneOrb';
 import ArcaneSurge from './core/ArcaneSurge';
@@ -29,6 +30,7 @@ import Guide from './Guide';
 import ArcaneSurgeGuide from './guide/ArcaneSurge';
 import TouchOfTheMagiGuide from './guide/TouchOfTheMagi';
 import ShiftingPowerGuide from './guide/ShiftingPower';
+import ArcaneMissilesGuide from './guide/ArcaneMissiles';
 import ArcaneBarrageGuide from './guide/ArcaneBarrage';
 import ArcaneOrbGuide from './guide/ArcaneOrb';
 import SupernovaGuide from './guide/Supernova';
@@ -80,6 +82,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cancelledCasts: CancelledCasts,
     arcaneSurge: ArcaneSurge,
     clearcasting: Clearcasting,
+    arcaneMissiles: ArcaneMissiles,
     arcaneBarrage: ArcaneBarrage,
     arcaneOrb: ArcaneOrb,
 
@@ -87,6 +90,7 @@ class CombatLogParser extends CoreCombatLogParser {
     arcaneSurgeGuide: ArcaneSurgeGuide,
     touchOfTheMagiGuide: TouchOfTheMagiGuide,
     shiftingPowerGuide: ShiftingPowerGuide,
+    arcaneMissilesGuide: ArcaneMissilesGuide,
     arcaneBarrageGuide: ArcaneBarrageGuide,
     arcaneOrbGuide: ArcaneOrbGuide,
     supernovaGuide: SupernovaGuide,
