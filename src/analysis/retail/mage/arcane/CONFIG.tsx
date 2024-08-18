@@ -11,8 +11,8 @@ const config: Config = {
   contributors: [Sharrq, SyncSubaru],
   branch: GameBranch.Retail,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '11.0.0',
-  supportLevel: SupportLevel.MaintainedPartial,
+  patchCompatibility: '11.0.2',
+  supportLevel: SupportLevel.MaintainedFull,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
@@ -50,8 +50,9 @@ const config: Config = {
       frontmatterType: 'guide',
       notes: (
         <AlertWarning>
-          This analysis is a Work in Progress and is in preparation for The War Within and Nerub'ar
-          Palace. It is not intended to be accurate for Prepatch.
+          This analysis is in preparation for The War Within and Nerub'ar Palace. It is not intended
+          to be accurate for Prepatch. If anything is missing or innacurate please ping{' '}
+          <code>@Sharrq</code> in the Mage Discord.
         </AlertWarning>
       ),
     },
