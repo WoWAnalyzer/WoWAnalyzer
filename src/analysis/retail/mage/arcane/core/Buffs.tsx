@@ -32,6 +32,12 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
+        spellId: SPELLS.NETHER_PRECISION_BUFF.id,
+        triggeredBySpellId: TALENTS.NETHER_PRECISION_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.NETHER_PRECISION_TALENT),
+        timelineHighlight: true,
+      },
+      {
         spellId: TALENTS.PRESENCE_OF_MIND_TALENT.id,
         triggeredBySpellId: TALENTS.PRESENCE_OF_MIND_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.PRESENCE_OF_MIND_TALENT),
