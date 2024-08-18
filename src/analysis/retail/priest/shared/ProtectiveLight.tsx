@@ -13,6 +13,8 @@ const PROTECTIVE_LIGHT_REDUCTION = 0.1;
 class ProtectiveLight extends Analyzer {
   damageReduced = 0;
   damageDuringProtectiveLight = 0;
+  // damage amount/absorbed is post mitigate so it has to be inversed
+  scaledProtectiveLightDR = 1 / (1 - PROTECTIVE_LIGHT_REDUCTION);
 
   constructor(options: Options) {
     super(options);
@@ -33,8 +35,7 @@ class ProtectiveLight extends Analyzer {
 
   statistic() {
     const fightDuration = this.owner.fightDuration;
-    this.damageReduced =
-      this.damageDuringProtectiveLight * (1 / (1 - PROTECTIVE_LIGHT_REDUCTION) - 1);
+    this.damageReduced = this.damageDuringProtectiveLight * (this.scaledProtectiveLightDR - 1);
 
     return (
       <Statistic
