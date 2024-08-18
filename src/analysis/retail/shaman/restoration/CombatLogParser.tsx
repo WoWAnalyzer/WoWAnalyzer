@@ -48,6 +48,8 @@ import Undercurrent from './modules/talents/Undercurrent';
 import NaturesSwiftness from './modules/talents/NaturesSwiftness';
 import SpiritwalkersTidalTotem from './modules/talents/SpiritwalkersTidalTotem';
 // Spells
+// Tiers
+import TWW1TierSet from './modules/tier/TWW1TierSet';
 // Shared
 // Normalizers
 import CloudburstNormalizer from './normalizers/CloudburstNormalizer';
@@ -150,6 +152,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Items
     callToDominance: CallToDominance,
+    tww1TierSet: TWW1TierSet,
   };
   static guide = Guide;
 }
