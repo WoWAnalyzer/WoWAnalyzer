@@ -63,6 +63,7 @@ import {
   MassDisintegrate,
   MightOfTheBlackDragonflight,
   DivertedPower,
+  UnrelentingSiege,
 } from 'analysis/retail/evoker/shared';
 import ExpandedLungs from '../shared/modules/talents/hero/flameshaper/ExpandedLungs';
 import FanTheFlames from '../shared/modules/talents/hero/flameshaper/FanTheFlames';
@@ -136,6 +137,7 @@ class CombatLogParser extends MainCombatLogParser {
     massDisintegrate: MassDisintegrate,
     mightOfTheBlackDragonflight: MightOfTheBlackDragonflight,
     divertedPower: DivertedPower,
+    unrelentingSiege: UnrelentingSiege,
 
     // core abilities
     disintegrate: Disintegrate,
