@@ -10,7 +10,7 @@ import { PerformanceMark } from 'interface/guide';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/mage/arcane/Guide';
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 
-import ArcaneOrb from '../talents/ArcaneOrb';
+import ArcaneOrb from '../core/ArcaneOrb';
 
 class ArcaneOrbGuide extends Analyzer {
   static dependencies = {

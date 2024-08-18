@@ -22,7 +22,7 @@ import ArcaneChargeTracker from './core/ArcaneChargeTracker';
 import Clearcasting from './core/Clearcasting';
 import ArcaneMissiles from './core/ArcaneMissiles';
 import ArcaneBarrage from './core/ArcaneBarrage';
-import ArcaneOrb from './talents/ArcaneOrb';
+import ArcaneOrb from './core/ArcaneOrb';
 import ArcaneSurge from './core/ArcaneSurge';
 
 //Guide
