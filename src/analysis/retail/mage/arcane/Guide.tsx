@@ -136,6 +136,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {modules.arcaneMissilesGuide.guideSubsection}
         {modules.arcaneBarrageGuide.guideSubsection}
         {modules.arcaneOrbGuide.guideSubsection}
+        {info.combatant.hasTalent(TALENTS.PRESENCE_OF_MIND_TALENT) &&
+          modules.presenceOfMindGuide.guideSubsection}
         {info.combatant.hasTalent(TALENTS.SHIFTING_POWER_TALENT) &&
           modules.shiftingPowerGuide.guideSubsection}
         {info.combatant.hasTalent(TALENTS.SUPERNOVA_TALENT) &&
@@ -172,6 +174,11 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         />
         <CastEfficiencyBar
           spellId={TALENTS.ARCANE_SURGE_TALENT.id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+          useThresholds
+        />
+        <CastEfficiencyBar
+          spellId={TALENTS.PRESENCE_OF_MIND_TALENT.id}
           gapHighlightMode={GapHighlight.FullCooldown}
           useThresholds
         />

@@ -33,6 +33,7 @@ import ShiftingPowerGuide from './guide/ShiftingPower';
 import ArcaneMissilesGuide from './guide/ArcaneMissiles';
 import ArcaneBarrageGuide from './guide/ArcaneBarrage';
 import ArcaneOrbGuide from './guide/ArcaneOrb';
+import PresenceOfMindGuide from './guide/PresenceOfMind';
 import SupernovaGuide from './guide/Supernova';
 import ClearcastingGuide from './guide/Clearcasting';
 import NetherPrecisionGuide from './guide/NetherPrecision';
@@ -51,7 +52,9 @@ import ArcaneBombardment from './talents/ArcaneBombardment';
 import ArcaneEcho from './talents/ArcaneEcho';
 import ArcaneHarmony from './talents/ArcaneHarmony';
 import TouchOfTheMagi from './talents/TouchOfTheMagi';
+import PresenceOfMind from './talents/PresenceOfMind';
 import ShiftingPowerArcane from './talents/ShiftingPower';
+import Supernova from '../shared/Supernova';
 import NetherPrecision from './talents/NetherPrecision';
 import SiphonStorm from './talents/SiphonStorm';
 import ArcaneTempo from './talents/ArcaneTempo';
@@ -60,7 +63,6 @@ import ArcaneTempo from './talents/ArcaneTempo';
 import ArcaneChargesNormalizer from './normalizers/ArcaneCharges';
 import ArcaneSurgeNormalizer from './normalizers/ArcaneSurge';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
-import Supernova from '../shared/Supernova';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -92,6 +94,7 @@ class CombatLogParser extends CoreCombatLogParser {
     shiftingPowerGuide: ShiftingPowerGuide,
     arcaneMissilesGuide: ArcaneMissilesGuide,
     arcaneBarrageGuide: ArcaneBarrageGuide,
+    presenceOfMindGuide: PresenceOfMindGuide,
     arcaneOrbGuide: ArcaneOrbGuide,
     supernovaGuide: SupernovaGuide,
     clearcastingGuide: ClearcastingGuide,
@@ -104,6 +107,7 @@ class CombatLogParser extends CoreCombatLogParser {
     quickWitted: QuickWitted,
     tempestBarrier: TempestBarrier,
     mirrorImage: MirrorImage,
+    presenceOfMind: PresenceOfMind,
     supernova: Supernova,
     shiftingPower: ShiftingPower,
     elementalBarrier: ElementalBarrier,
