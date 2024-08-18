@@ -8,7 +8,6 @@ import Events, {
   RefreshBuffEvent,
   GetRelatedEvents,
 } from 'parser/core/Events';
-import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import ArcaneChargeTracker from './ArcaneChargeTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
@@ -101,5 +100,4 @@ export interface ArcaneBarrageCast {
   charges: number;
   targetsHit: number;
   mana?: number;
-  usage?: BoxRowEntry;
 }

@@ -12,7 +12,6 @@ import { ThresholdStyle } from 'parser/core/ParseResults';
 import ArcaneChargeTracker from '../core/ArcaneChargeTracker';
 import Enemies from 'parser/shared/modules/Enemies';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import AlwaysBeCasting from '../core/AlwaysBeCasting';
 
 export default class TouchOfTheMagi extends Analyzer {
@@ -107,5 +106,4 @@ export interface TouchOfTheMagiCast {
   activeTime?: number;
   damage: DamageEvent[];
   totalDamage: number;
-  usage?: BoxRowEntry;
 }
