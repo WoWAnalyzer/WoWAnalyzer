@@ -12,7 +12,6 @@ import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import AlwaysBeCasting from '../core/AlwaysBeCasting';
 import Clearcasting from '../core/Clearcasting';
 import ManaValues from '../ManaChart/ManaValues';
-import ArcaneOrb from '../talents/ArcaneOrb';
 import TouchOfTheMagi from '../talents/TouchOfTheMagi';
 import Component from './Component';
 
@@ -21,7 +20,6 @@ class Checklist extends BaseChecklist {
     ...BaseChecklist.dependencies,
     combatants: Combatants,
     castEfficiency: CastEfficiency,
-    arcaneOrb: ArcaneOrb,
     touchOfTheMagi: TouchOfTheMagi,
     timeAnomaly: TimeAnomaly,
     clearcasting: Clearcasting,
@@ -34,7 +32,6 @@ class Checklist extends BaseChecklist {
   };
   protected combatants!: Combatants;
   protected castEfficiency!: CastEfficiency;
-  protected arcaneOrb!: ArcaneOrb;
   protected touchOfTheMagi!: TouchOfTheMagi;
   protected timeAnomaly!: TimeAnomaly;
   protected clearcasting!: Clearcasting;
