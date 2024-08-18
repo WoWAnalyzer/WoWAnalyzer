@@ -94,8 +94,6 @@ class ArcaneMissilesGuide extends Analyzer {
       ),
     });
 
-    cast.channelEndDelay !== undefined &&
-      this.log('Delay: ' + this.channelDelayUtil(cast.channelEndDelay || 0));
     checklistItems.push({
       label: <>Delay before next cast</>,
       result: (
