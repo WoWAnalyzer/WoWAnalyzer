@@ -33,7 +33,7 @@ class ProtectiveLight extends Analyzer {
 
   statistic() {
     const fightDuration = this.owner.fightDuration;
-    this.damageReduced = this.damageDuringProtectiveLight * PROTECTIVE_LIGHT_REDUCTION;
+    this.damageReduced = this.damageDuringProtectiveLight / (1 - PROTECTIVE_LIGHT_REDUCTION);
 
     return (
       <Statistic
