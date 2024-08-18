@@ -68,7 +68,7 @@ export default class ArcaneBarrage extends Analyzer {
 
     this.barrageCasts.push({
       ordinal: this.barrageCasts.length + 1,
-      cast: event.timestamp,
+      cast: event,
       tempoRemaining: hasTempo
         ? TEMPO_DURATION - (event.timestamp - this.lastTempoApply)
         : undefined,
@@ -91,7 +91,7 @@ export default class ArcaneBarrage extends Analyzer {
 
 export interface ArcaneBarrageCast {
   ordinal: number;
-  cast: number;
+  cast: CastEvent;
   tempoRemaining?: number;
   netherPrecisionStacks?: number;
   touchCD: number;

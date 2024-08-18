@@ -3,16 +3,14 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
-import { RoundedPanel } from 'interface/guide/components/GuideDivs';
-import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/mage/arcane/Guide';
-
 import ArcaneBarrage, { ArcaneBarrageCast } from '../core/ArcaneBarrage';
-import CooldownExpandable, {
-  CooldownExpandableItem,
-} from 'interface/guide/components/CooldownExpandable';
 import { ARCANE_CHARGE_MAX_STACKS } from '../../shared';
+import { ChecklistUsageInfo, SpellUse } from 'parser/core/SpellUsage/core';
+import styled from '@emotion/styled';
+import ContextualSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
+import { logSpellUseEvent } from 'parser/core/SpellUsage/SpellUsageSubSection';
+import CastPerformanceSummary from 'analysis/retail/demonhunter/shared/guide/CastPerformanceSummary';
 
 const AOE_THRESHOLD = 4;
 const TEMPO_REMAINING_THRESHOLD = 5000;
@@ -22,6 +20,12 @@ const EVOCATION_CD_THRESHOLD = 45000;
 const LOW_MANA_THRESHOLD = 0.7;
 const NO_MANA_THRESHOLD = 0.1;
 
+const TwoColumn = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1em;
+`;
+
 class ArcaneBarrageGuide extends Analyzer {
   static dependencies = {
     arcaneBarrage: ArcaneBarrage,
@@ -29,96 +33,13 @@ class ArcaneBarrageGuide extends Analyzer {
 
   protected arcaneBarrage!: ArcaneBarrage;
 
-  private perCastBreakdown(cast: ArcaneBarrageCast): React.ReactNode {
-    const header = (
-      <>
-        @ {this.owner.formatTimestamp(cast.cast)} &mdash;{' '}
-        <SpellLink spell={SPELLS.ARCANE_BARRAGE} />
-      </>
-    );
+  hasArcaneTempo: boolean = this.selectedCombatant.hasTalent(TALENTS.ARCANE_TEMPO_TALENT);
+  hasTouchOfTheMagi: boolean = this.selectedCombatant.hasTalent(TALENTS.TOUCH_OF_THE_MAGI_TALENT);
+  hasEvocation: boolean = this.selectedCombatant.hasTalent(TALENTS.EVOCATION_TALENT);
+  hasNetherPrecision: boolean = this.selectedCombatant.hasTalent(TALENTS.NETHER_PRECISION_TALENT);
 
-    const checklistItems: CooldownExpandableItem[] = [];
-
-    checklistItems.push({
-      label: (
-        <>
-          <SpellLink spell={SPELLS.ARCANE_CHARGE} />s Before Barrage
-        </>
-      ),
-      details: <>{cast.charges}</>,
-    });
-
-    checklistItems.push({
-      label: <>Mana %</>,
-      details: <>{formatPercentage(cast.mana || 0, 2)}%</>,
-    });
-
-    checklistItems.push({
-      label: <>Targets Hit</>,
-      details: <>{cast.targetsHit}</>,
-    });
-
-    if (this.selectedCombatant.hasTalent(TALENTS.ARCANE_TEMPO_TALENT)) {
-      checklistItems.push({
-        label: (
-          <>
-            Time until <SpellLink spell={TALENTS.ARCANE_TEMPO_TALENT} /> expires
-          </>
-        ),
-        details: (
-          <>
-            {cast.tempoRemaining && cast.tempoRemaining !== 0
-              ? formatDurationMillisMinSec(cast.tempoRemaining)
-              : `Buff Missing`}
-          </>
-        ),
-      });
-    }
-
-    if (this.selectedCombatant.hasTalent(TALENTS.TOUCH_OF_THE_MAGI_TALENT)) {
-      checklistItems.push({
-        label: (
-          <>
-            <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} /> Cooldown Remaining
-          </>
-        ),
-        details: (
-          <>
-            {cast.touchCD && cast.touchCD > 0
-              ? formatDurationMillisMinSec(cast.touchCD)
-              : `Available`}
-          </>
-        ),
-      });
-    }
-
-    if (this.selectedCombatant.hasTalent(TALENTS.EVOCATION_TALENT)) {
-      checklistItems.push({
-        label: (
-          <>
-            <SpellLink spell={TALENTS.EVOCATION_TALENT} /> Cooldown Remaining
-          </>
-        ),
-        details: (
-          <>
-            {cast.evocationCD && cast.evocationCD > 0
-              ? formatDurationMillisMinSec(cast.evocationCD)
-              : `Available`}
-          </>
-        ),
-      });
-    }
-
-    if (this.selectedCombatant.hasTalent(TALENTS.NETHER_PRECISION_TALENT)) {
-      checklistItems.push({
-        label: (
-          <>
-            <SpellLink spell={TALENTS.NETHER_PRECISION_TALENT} /> Stacks
-          </>
-        ),
-        details: <>{cast.netherPrecisionStacks ? cast.netherPrecisionStacks : `Buff Missing`}</>,
-      });
-    }
+  private perCastBreakdown(cast: ArcaneBarrageCast): SpellUse {
+    const checklistItems: ChecklistUsageInfo[] = [];
 
     const ST = cast.targetsHit < AOE_THRESHOLD;
     const AOE = cast.targetsHit >= AOE_THRESHOLD;
@@ -135,6 +56,155 @@ class ArcaneBarrageGuide extends Analyzer {
     const arcaneOrbAvail = cast.arcaneOrbAvail;
     const clearcastingAvail = cast.clearcasting;
 
+    const barrageCharges = {
+      performance:
+        (ST && lowMana) || (AOE && maxCharges)
+          ? QualitativePerformance.Good
+          : QualitativePerformance.Fail,
+      summary: <>Arcane Charges Before Barrage</>,
+      details: (
+        <div>
+          <TwoColumn>
+            <div>Arcane Charges Before Barrage</div>
+            {cast.charges}
+          </TwoColumn>
+        </div>
+      ),
+    };
+    checklistItems.push({
+      check: 'barrage-charges',
+      timestamp: cast.cast.timestamp,
+      ...barrageCharges,
+    });
+
+    const barrageMana = {
+      performance:
+        (ST && lowMana) || (AOE && maxCharges) || noMana
+          ? QualitativePerformance.Good
+          : QualitativePerformance.Fail,
+      summary: <>Mana Percent</>,
+      details: (
+        <div>
+          <TwoColumn>
+            <div>Mana Percent</div>
+            {formatPercentage(cast.mana || 0, 2)}
+          </TwoColumn>
+        </div>
+      ),
+    };
+    checklistItems.push({
+      check: 'barrage-mana',
+      timestamp: cast.cast.timestamp,
+      ...barrageMana,
+    });
+
+    const barrageTargetsHit = {
+      performance: cast.targetsHit > 0 ? QualitativePerformance.Good : QualitativePerformance.Fail,
+      summary: <>Targets Hit</>,
+      details: (
+        <div>
+          <TwoColumn>
+            <div>Targets Hit</div>
+            {cast.targetsHit}
+          </TwoColumn>
+        </div>
+      ),
+    };
+    checklistItems.push({
+      check: 'barrage-targets-hit',
+      timestamp: cast.cast.timestamp,
+      ...barrageTargetsHit,
+    });
+
+    if (this.hasArcaneTempo) {
+      const arcaneTempoRemaining = {
+        performance: tempoExpiring ? QualitativePerformance.Good : QualitativePerformance.Ok,
+        summary: <>Time Until Arcane Tempo Expires</>,
+        details: (
+          <div>
+            <TwoColumn>
+              <div>Time Until Arcane Tempo Expires</div>
+              {cast.tempoRemaining
+                ? formatDurationMillisMinSec(cast.tempoRemaining, 3)
+                : `Buff Missing`}
+            </TwoColumn>
+          </div>
+        ),
+      };
+      checklistItems.push({
+        check: 'arcane-tempo-remaining',
+        timestamp: cast.cast.timestamp,
+        ...arcaneTempoRemaining,
+      });
+    }
+
+    if (this.hasTouchOfTheMagi) {
+      const touchCooldown = {
+        performance: touchNotSoon ? QualitativePerformance.Good : QualitativePerformance.Fail,
+        summary: <>Touch of the Magi CD Remaining</>,
+        details: (
+          <div>
+            <TwoColumn>
+              <div>Touch of the Magi CD Remaining</div>
+              {cast.touchCD && cast.touchCD > 0
+                ? formatDurationMillisMinSec(cast.touchCD)
+                : `Available`}
+            </TwoColumn>
+          </div>
+        ),
+      };
+      checklistItems.push({
+        check: 'touch-cooldown',
+        timestamp: cast.cast.timestamp,
+        ...touchCooldown,
+      });
+    }
+
+    if (this.hasEvocation) {
+      const evocationCooldown = {
+        performance: evocationNotSoon ? QualitativePerformance.Good : QualitativePerformance.Fail,
+        summary: <>Evocation CD Remaining</>,
+        details: (
+          <div>
+            <TwoColumn>
+              <div>Evocation CD Remaining</div>
+              {cast.evocationCD && cast.evocationCD > 0
+                ? formatDurationMillisMinSec(cast.evocationCD)
+                : `Available`}
+            </TwoColumn>
+          </div>
+        ),
+      };
+      checklistItems.push({
+        check: 'evocation-cooldown',
+        timestamp: cast.cast.timestamp,
+        ...evocationCooldown,
+      });
+    }
+
+    if (this.hasNetherPrecision) {
+      const netherPrecisionStacks = {
+        performance:
+          oneNPStack || !cast.netherPrecisionStacks
+            ? QualitativePerformance.Good
+            : QualitativePerformance.Fail,
+        summary: <>Nether Precision Stacks</>,
+        details: (
+          <div>
+            <TwoColumn>
+              <div>Nether Precision Stacks</div>
+              {cast.netherPrecisionStacks ? cast.netherPrecisionStacks : `Buff Missing`}
+            </TwoColumn>
+          </div>
+        ),
+      };
+      checklistItems.push({
+        check: 'nether-precision-stacks',
+        timestamp: cast.cast.timestamp,
+        ...netherPrecisionStacks,
+      });
+    }
+
     const overallPerf =
       tempoExpiring ||
       (ST && lowMana && touchNotSoon && evocationNotSoon) ||
@@ -144,14 +214,13 @@ class ArcaneBarrageGuide extends Analyzer {
         ? QualitativePerformance.Good
         : QualitativePerformance.Fail;
 
-    return (
-      <CooldownExpandable
-        header={header}
-        checklistItems={checklistItems}
-        perf={overallPerf}
-        key={cast.ordinal}
-      />
-    );
+    return {
+      event: cast.cast,
+      performance: overallPerf,
+      checklistItems: checklistItems,
+      performanceExplanation:
+        overallPerf !== QualitativePerformance.Fail ? `${overallPerf} Usage` : 'Bad Usage',
+    };
   }
 
   get guideSubsection(): JSX.Element {
@@ -200,25 +269,30 @@ class ArcaneBarrageGuide extends Analyzer {
         </div>
       </>
     );
-    const data = (
+    const uses = this.arcaneBarrage.barrageCasts.map((cast) => this.perCastBreakdown(cast));
+    const goodCasts = uses.filter((it) => it.performance === QualitativePerformance.Good).length;
+    const totalCasts = uses.length;
+    return (
       <div>
-        <RoundedPanel>
-          <div>
-            <p>
-              <strong>Per-Cast Breakdown</strong>
-              <small> - click to expand</small>
-              {this.arcaneBarrage.barrageCasts.map((cast) => this.perCastBreakdown(cast))}
-            </p>
-          </div>
-        </RoundedPanel>
+        <ContextualSpellUsageSubSection
+          title="Arcane Barrage"
+          explanation={explanation}
+          uses={uses}
+          castBreakdownSmallText={<> - Green is a good cast, Red is a bad cast.</>}
+          wideExplanation
+          onPerformanceBoxClick={logSpellUseEvent}
+          abovePerformanceDetails={
+            <div style={{ marginBottom: 10 }}>
+              <CastPerformanceSummary
+                spell={SPELLS.ARCANE_BARRAGE}
+                casts={goodCasts}
+                performance={QualitativePerformance.Good}
+                totalCasts={totalCasts}
+              />
+            </div>
+          }
+        />
       </div>
-    );
-
-    return explanationAndDataSubsection(
-      explanation,
-      data,
-      GUIDE_CORE_EXPLANATION_PERCENT,
-      'Arcane Barrage',
     );
   }
 }
