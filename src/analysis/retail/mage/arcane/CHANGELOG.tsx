@@ -8,6 +8,7 @@ export default [
   change(date(2024, 8, 18), <>Bumped Arcane Mage to Full Support for 11.0.2</>, Sharrq),
   change(date(2024, 8, 18), <>Completely removed the old Checklist view.</>, Sharrq),
   change(date(2024, 8, 18), <>Moved Cooldown timelines back to their own section instead of alongside the spell's corresponding section.</>, Sharrq),
+  change(date(2024, 8, 18), <>Updated the cooldown of <SpellLink spell={TALENTS.MASS_BARRIER_TALENT} /> to 3 minutes instead of 2 minutes.</>, Sharrq),
   change(date(2024, 8, 18), <>Added <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} /> to the cooldown throughout tracking.</>, Sharrq),
   change(date(2024, 8, 18), <>Added <SpellLink spell={TALENTS.NETHER_PRECISION_TALENT} /> to the timeline buff tracking.</>, Sharrq),
   change(date(2024, 8, 18), <>Updated <SpellLink spell={TALENTS.ARCANE_TEMPO_TALENT} />'s uptime graph to also show stack counts.</>, Sharrq),
