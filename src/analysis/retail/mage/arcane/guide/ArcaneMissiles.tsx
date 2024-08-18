@@ -14,7 +14,8 @@ import CooldownExpandable, {
 } from 'interface/guide/components/CooldownExpandable';
 import ArcaneMissiles, { ArcaneMissilesCast } from '../core/ArcaneMissiles';
 import { formatDurationMillisMinSec } from 'common/format';
-import { CAST_BUFFER_MS } from 'analysis/retail/shaman/restoration/constants';
+
+const CAST_BUFFER_MS = 750;
 
 class ArcaneMissilesGuide extends Analyzer {
   static dependencies = {
