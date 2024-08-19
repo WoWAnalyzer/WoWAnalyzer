@@ -51,7 +51,7 @@ class ArcaneOrb extends Analyzer {
         }
       });
     const charges =
-      this.arcaneChargeTracker.charges -
+      this.arcaneChargeTracker.current -
       (energize && energize.filter((e) => e.timestamp < event.timestamp).length > 0 ? 1 : 0);
 
     this.orbCasts.push({
