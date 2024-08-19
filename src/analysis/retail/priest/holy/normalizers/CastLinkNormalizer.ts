@@ -16,6 +16,7 @@ import {
 import { Options } from 'parser/core/Module';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS/priest';
+import { INSIGHT_CDR_ABILITIES } from '../modules/talents/Oracle/OracleValues';
 
 const CAST_BUFFER_MS = 200;
 
@@ -30,6 +31,8 @@ const CHASTISE_CAST = 'HolyWordChastiseCast';
 const BUFFED_BY_SURGE_OF_LIGHT = 'BuffedBySurgeOfLight';
 const SURGE_OF_LIGHT_APPLIED_BY_HALO = 'SurgeOfLightAppliedByHalo';
 const HALO_LINKED_TO_SURGE_OF_LIGHT = 'HaloLinkedtoSurgeOfLight';
+const SPELL_SPENDS_INSIGHT_CHARGE = 'SpellSpendsInsightCharge';
+const GET_SPELL_CAST_FROM_INSIGHT_CHARGE = 'GetSpellCastFromInsightCharge';
 export const LIGHTWELL_RENEW_HEALS = 'LightwellRenewHeal';
 export const SALVATION_RENEW_HEALS = 'SalvationRenewHeal';
 export const LIGHTWELL_RENEW = 'LightwellRenew';
@@ -225,6 +228,20 @@ const EVENT_LINKS: EventLink[] = [
       return c.hasTalent(TALENTS_PRIEST.MANIFESTED_POWER_TALENT);
     },
   },
+  {
+    linkRelation: SPELL_SPENDS_INSIGHT_CHARGE,
+    reverseLinkRelation: GET_SPELL_CAST_FROM_INSIGHT_CHARGE,
+    linkingEventId: INSIGHT_CDR_ABILITIES,
+    linkingEventType: EventType.Cast,
+    referencedEventId: [SPELLS.PREMONITION_OF_INSIGHT_BUFF.id],
+    referencedEventType: [EventType.RemoveBuffStack, EventType.RemoveBuff],
+    anyTarget: true,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+    isActive(c) {
+      return c.hasTalent(TALENTS_PRIEST.PREMONITION_TALENT);
+    },
+  },
 ];
 
 class CastLinkNormalizer extends EventLinkNormalizer {
@@ -289,6 +306,9 @@ export function isSurgeOfLightFromHalo(
 }
 export function buffedBySurgeOfLight(event: RemoveBuffEvent | RemoveBuffStackEvent): boolean {
   return HasRelatedEvent(event, BUFFED_BY_SURGE_OF_LIGHT);
+}
+export function removesInsightCharge(event: CastEvent): boolean {
+  return HasRelatedEvent(event, SPELL_SPENDS_INSIGHT_CHARGE);
 }
 
 export default CastLinkNormalizer;

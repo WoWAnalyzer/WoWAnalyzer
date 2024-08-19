@@ -20,8 +20,8 @@ import HealingTargetTracker from './modules/features/HealingTargetTracker';
 import HealingEfficiencyDetails from './modules/features/HolyPriestHealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/features/HolyPriestHealingEfficiencyTracker';
 import SpellUsable from './modules/features/SpellUsable';
-import StatWeights from './modules/features/StatWeights';
-import CircleOfHealing from './modules/spells/CircleOfHealing';
+//import StatWeights from './modules/features/StatWeights';
+//import CircleOfHealing from './modules/spells/CircleOfHealing';
 import DivineHymn from './modules/spells/DivineHymn';
 import GuardianSpirit from './modules/spells/GuardianSpirit';
 import HolyNova from './modules/spells/HolyNova';
@@ -38,7 +38,7 @@ import T29TwoSet from './modules/dragonflight/tier/tier29/Tier29HolyPriest2Set';
 import T29FourSet from './modules/dragonflight/tier/tier29/Tier29HolyPriest4Set';
 import T30FourSet from './modules/dragonflight/tier/tier30/Tier30HolyPriest4Set';
 import ProtectiveLight from '../shared/ProtectiveLight';
-import PrayerOfHealing from './modules/spells/PrayerOfHealing';
+//import PrayerOfHealing from './modules/spells/PrayerOfHealing';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import Guide from './Guide';
 import Benevolence from '../shared/Benevolence';
@@ -80,9 +80,13 @@ class CombatLogParser extends CoreCombatLogParser {
     holyWordSerenity: HolyWordSerenity,
     holyWordChastise: HolyWordChastise,
     holyWordSalvation: HolyWordSalvationCooldown,
-    statWeights: StatWeights,
-    circleOfHealing: CircleOfHealing,
-    prayerOfHealing: PrayerOfHealing,
+
+    // Pretty sure every other healer has disabled this
+    //statWeights: StatWeights,
+
+    //no need for these, people can see them in their breakdowns
+    //circleOfHealing: CircleOfHealing,
+    //prayerOfHealing: PrayerOfHealing,
     benevolence: Benevolence,
 
     spiritOfRedemption: SpiritOfRedemption,
@@ -140,8 +144,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Hero Talent Analysis
     ArchonAnalysis: Talents.Archon.ArchonAnalysis,
-
-    // Hero Talent Display
+    // Archon Hero Talent Display
     PerfectedFormHoly: Talents.Archon.PerfectedFormHoly,
     ResonantEnergyHoly: Talents.Archon.ResonantEnergyHoly,
     ManifestedPowerHoly: Talents.Archon.ManifestedPowerHoly,
@@ -149,6 +152,14 @@ class CombatLogParser extends CoreCombatLogParser {
     EnergyCycleHoly: Talents.Archon.EnergyCycleHoly,
     EnergyCompressionHoly: Talents.Archon.EnergyCompressionHoly,
     PowerSurgeAndDivineHaloHoly: Talents.Archon.PowerSurgeAndDivineHaloHoly,
+
+    //Oracle Hero Talents
+    PremontitionOfSolace: Talents.Oracle.PremonitionOfSolace,
+    PremonitionOfPiety: Talents.Oracle.PremonitionOfPiety,
+    PremonitionOfInsight: Talents.Oracle.PremonitionOfInsight,
+
+    //Holy Specific Oracle Hero Talents
+    PreventiveMeasuresHoly: Talents.Oracle.PreventiveMeasuresHoly,
 
     // Mana Tab
     manaTracker: ManaTracker,

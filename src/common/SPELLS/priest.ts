@@ -520,6 +520,16 @@ const spells = {
     name: 'Power Word: Life',
     icon: 'ability_priest_holywordlife',
   },
+  PREMONITION_OF_CLAIRVOYANCE: {
+    id: 440725,
+    name: 'Premonition of Clairvoyance',
+    icon: 'inv_inscription_vantusrune_progenitor',
+  },
+  PREMONITION_OF_PIETY: {
+    id: 443126,
+    name: 'Premonition of Piety',
+    icon: 'inv_ability_oraclepriest_premonitionpiety',
+  },
 
   // Buffs
   SPIRIT_OF_REDEMPTION_BUFF: {
@@ -571,6 +581,26 @@ const spells = {
     id: 449840,
     name: 'Halo',
     icon: 'ability_priest_halo',
+  },
+  PREMONITION_OF_SOLACE_DR_AND_SHIELD_BUFF: {
+    id: 443526,
+    name: 'Premonition of Solace',
+    icon: 'inv_ability_oraclepriest_premonitionsolace',
+  },
+  PREMONITION_OF_SOLACE_CASTER_BUFF: {
+    id: 428934,
+    name: 'Premonition of Solace',
+    icon: 'inv_ability_oraclepriest_premonitionsolace',
+  },
+  PREMONITION_OF_PIETY_BUFF: {
+    id: 428930,
+    name: 'Premonition of Piety',
+    icon: 'inv_ability_oraclepriest_premonitionpiety',
+  },
+  PREMONITION_OF_INSIGHT_BUFF: {
+    id: 428933,
+    name: 'Premonition of Insight',
+    icon: 'inv_ability_oraclepriest_premonitioninsight',
   },
 
   // Sets
