@@ -56,6 +56,8 @@ class PremonitionOfInsight extends Analyzer {
     );
   }
 
+  //this function is really messy because i wrote it at 2 am
+  //while dealing with an undefined error for 3 hours
   handleOnCast(event: CastEvent) {
     if (!removesInsightCharge(event)) {
       return;
@@ -113,16 +115,15 @@ class PremonitionOfInsight extends Analyzer {
                     <td className="text-left">
                       <SpellIcon
                         spell={Number(this.insightCastSpellTracker[stackNum].castSpellId)}
-                      />{' '}
-                      {SPELLS[Number(this.insightCastSpellTracker[stackNum].castSpellId)].name}
+                      />
                     </td>
                     <td>{stackNum + 1}</td>
                     <td>
-                        {Math.round(this.insightCastSpellTracker[stackNum].effectiveCDR * 10) / 10}s
-                      </td>
+                      {Math.round(this.insightCastSpellTracker[stackNum].effectiveCDR * 10) / 10}s
+                    </td>
                     <td>
-                        {Math.round(this.insightCastSpellTracker[stackNum].remainingCD * 10) / 10}
-                      </td>
+                      {Math.round(this.insightCastSpellTracker[stackNum].remainingCD * 10) / 10}
+                    </td>
                   </tr>
                 ))}
               </tbody>
