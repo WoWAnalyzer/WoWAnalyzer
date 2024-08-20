@@ -24,7 +24,7 @@ const CONFIG: Config = {
   //   </>
   // ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/8MkqJXZaB13pwLFT/5-Heroic+Magmaw+-+Kill+(3:54)/Voluptuouss',
+  exampleReport: '/report/v14Rt9bdmhjMHQGD/32-Heroic+Magmaw+-+Kill+(2:15)/Softlock',
   // Add spells to display separately on the timeline
   timeline: { separateCastBars: [[]] },
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
