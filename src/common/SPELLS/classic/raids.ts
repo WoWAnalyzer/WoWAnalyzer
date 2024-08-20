@@ -14,7 +14,7 @@ const spells = {
   FREE_YOUR_MIND: {
     id: 79323,
     name: 'Free Your Mind',
-    icon: 'spell_arcane_focusedpower.jpg',
+    icon: 'spell_arcane_mindmastery.jpg',
   },
   SIPHON_POWER: {
     id: 79319,
