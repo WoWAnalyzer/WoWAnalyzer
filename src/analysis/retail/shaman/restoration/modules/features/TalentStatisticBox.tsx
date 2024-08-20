@@ -77,9 +77,6 @@ class TalentStatisticBox extends Analyzer {
     if (this.selectedCombatant.hasTalent(TALENTS.NATURES_GUARDIAN_TALENT)) {
       talentList.push(this.naturesGuardian.subStatistic());
     }
-    if (this.selectedCombatant.hasTalent(TALENTS.DOWNPOUR_TALENT)) {
-      talentList.push(this.downpour.subStatistic());
-    }
     if (this.selectedCombatant.hasTalent(TALENTS.CLOUDBURST_TOTEM_TALENT)) {
       talentList.push(this.cloudburstTotem.subStatistic());
     }

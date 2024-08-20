@@ -49,6 +49,8 @@ import NaturesSwiftness from './modules/talents/NaturesSwiftness';
 import SpiritwalkersTidalTotem from './modules/talents/SpiritwalkersTidalTotem';
 // Spells
 // Shared
+import StoneBulwarkTotem from '../shared/talents/StoneBulwarkTotem';
+
 // Normalizers
 import CloudburstNormalizer from './normalizers/CloudburstNormalizer';
 import RiptideNormalizer from './normalizers/RiptideNormalizer';
@@ -138,6 +140,7 @@ class CombatLogParser extends CoreCombatLogParser {
     astralShift: AstralShift,
     earthShield: EarthShield,
     elementalOrbit: ElementalOrbit,
+    stoneBulwarkTotem: StoneBulwarkTotem,
 
     // Normalizers
     cloudburstNormalizer: CloudburstNormalizer,
