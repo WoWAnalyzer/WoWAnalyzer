@@ -37,7 +37,6 @@ import PresenceOfMindGuide from './guide/PresenceOfMind';
 import SupernovaGuide from './guide/Supernova';
 import ClearcastingGuide from './guide/Clearcasting';
 import NetherPrecisionGuide from './guide/NetherPrecision';
-import SiphonStormGuide from './guide/SiphonStorm';
 import ArcaneTempoGuide from './guide/ArcaneTempo';
 
 //Items
@@ -56,7 +55,6 @@ import PresenceOfMind from './talents/PresenceOfMind';
 import ShiftingPowerArcane from './talents/ShiftingPower';
 import Supernova from '../shared/Supernova';
 import NetherPrecision from './talents/NetherPrecision';
-import SiphonStorm from './talents/SiphonStorm';
 import ArcaneTempo from './talents/ArcaneTempo';
 
 //Normalizers
@@ -99,7 +97,6 @@ class CombatLogParser extends CoreCombatLogParser {
     supernovaGuide: SupernovaGuide,
     clearcastingGuide: ClearcastingGuide,
     netherPrecisionGuide: NetherPrecisionGuide,
-    siphonStormGuide: SiphonStormGuide,
     arcaneTempoGuide: ArcaneTempoGuide,
 
     //Talents - Shared
@@ -122,7 +119,6 @@ class CombatLogParser extends CoreCombatLogParser {
     shiftingPowerArcane: ShiftingPowerArcane,
     touchOfTheMagi: TouchOfTheMagi,
     netherPrecision: NetherPrecision,
-    siphonStorm: SiphonStorm,
     arcaneTempo: ArcaneTempo,
   };
   static guide = Guide;
