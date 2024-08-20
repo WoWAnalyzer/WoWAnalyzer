@@ -7,6 +7,12 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import PlayerHits from 'parser/ui/PlayerHits';
 import Statistic from 'parser/ui/Statistic';
 import BoringSpellValue from 'parser/ui/BoringSpellValue';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../guide/Guide';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import SpellLink from 'interface/SpellLink';
+import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { GapHighlight } from 'parser/ui/CooldownBar';
 
 class HolyPrismTargetsHit extends Analyzer {
   static dependencies = {
@@ -106,6 +112,53 @@ class HolyPrismTargetsHit extends Analyzer {
           extra={<PlayerHits performance={Number(averageTargetsHit)} />}
         />
       </Statistic>
+    );
+  }
+
+  get guideSubsection(): JSX.Element {
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink spell={TALENTS.HOLY_PRISM_TALENT} />
+        </b>{' '}
+        is a quite powerful AoE or Single Target heal depending on who you use it on. Most of the
+        time, you should use it on the boss to trigger the AoE healing. Sometimes though, using it
+        directly on an ally can save a life !
+        {this.selectedCombatant.hasTalent(TALENTS.DIVINE_FAVOR_TALENT) && (
+          <>
+            {' '}
+            It also procs <SpellLink spell={TALENTS.DIVINE_FAVOR_TALENT} />, which you should use on{' '}
+            <SpellLink spell={SPELLS.HOLY_LIGHT} />.
+          </>
+        )}
+      </p>
+    );
+
+    const data = (
+      <div>
+        <RoundedPanel>
+          <strong>
+            <SpellLink spell={TALENTS.HOLY_PRISM_TALENT} /> cast efficiency
+          </strong>
+          <div className="flex-main chart" style={{ padding: 15 }}>
+            {this.subStatistic()}
+          </div>
+        </RoundedPanel>
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
+  }
+
+  subStatistic() {
+    return (
+      <CastEfficiencyBar
+        spellId={TALENTS.HOLY_PRISM_TALENT.id}
+        gapHighlightMode={GapHighlight.FullCooldown}
+        minimizeIcons
+        slimLines
+        useThresholds
+      />
     );
   }
 }

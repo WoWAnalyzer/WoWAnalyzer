@@ -211,7 +211,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.MASS_BARRIER_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         enabled: combatant.hasTalent(TALENTS.MASS_BARRIER_TALENT),
-        cooldown: 120,
+        cooldown: 180,
         gcd: {
           base: 1500,
         },
