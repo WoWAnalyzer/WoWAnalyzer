@@ -13,6 +13,7 @@ import {
 
 // prettier-ignore
 export default [
+  change(date(2024, 8, 21), <>Fixed an error causing the Cloudburst Totem module to crash if one was cast prepull</>, Texleretour),
   change(date(2024, 8, 21), <>Add <SpellLink spell={TALENTS_SHAMAN.STONE_BULWARK_TOTEM_TALENT} /> effective shielding done statistic and add <SpellLink spell={TALENTS_SHAMAN.DOWNPOUR_TALENT} /> procs wasted and average targets hit statistic</>, Texleretour),
   change(date(2024, 8, 18), <>Implement <ItemSetLink id={SHAMAN_TWW1_ID}>Nerub-ar tier set</ItemSetLink> for Resto.</>, Ypp),
   change(date(2024, 8, 18),<>Add <SpellLink spell={TALENTS_SHAMAN.CLOUDBURST_TOTEM_TALENT} /> cast breakdown based on overhealing done and new Section "Mana Efficiency" featuring cast breakdown of <SpellLink spell={TALENTS_SHAMAN.NATURES_SWIFTNESS_TALENT} /> based on mana saved.</> , Texleretour),
