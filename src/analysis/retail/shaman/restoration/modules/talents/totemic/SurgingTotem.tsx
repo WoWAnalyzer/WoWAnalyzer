@@ -7,13 +7,16 @@ import { TooltipElement } from 'interface';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { HealEvent, CastEvent } from 'parser/core/Events';
+import Events, { HealEvent, CastEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Combatants from 'parser/shared/modules/Combatants';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../../Guide';
+import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
+import { HasRelatedEvent } from 'parser/core/Events';
+import { WHIRLINGAIR_HEAL, WHIRLINGEARTH_HEAL, WHIRLINGWATER_HEAL } from '../../../constants';
 
 // 50 was too low, 100 was too high
 // had no issues with 85ms
@@ -24,7 +27,7 @@ interface HealingRainTickInfo {
   hits: number;
 }
 
-class HealingRain extends Analyzer {
+class SurgingTotem extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
@@ -38,25 +41,45 @@ class HealingRain extends Analyzer {
   lastUnleashLifeTimestamp: number = Number.MAX_SAFE_INTEGER;
   casts = 0;
 
+  castEntries: BoxRowEntry[] = [];
+
   unleashLifeSpells = {
     [TALENTS.RIPTIDE_TALENT.id]: {},
     [TALENTS.CHAIN_HEAL_TALENT.id]: {},
     [TALENTS.HEALING_WAVE_TALENT.id]: {},
     [SPELLS.HEALING_SURGE.id]: {},
     [TALENTS.WELLSPRING_TALENT.id]: {},
-    [TALENTS.HEALING_RAIN_TALENT.id]: {},
+    [SPELLS.HEALING_RAIN_TOTEMIC.id]: {},
     [TALENTS.DOWNPOUR_TALENT.id]: {},
+  };
+
+  whirlingMotesConsumed: Record<number, number> = {
+    [SPELLS.WHIRLING_AIR.id]: 0,
+    [SPELLS.WHIRLING_EARTH.id]: 0,
+    [SPELLS.WHIRLING_WATER.id]: 0,
+  };
+
+  whirlingMotesExpired: Record<number, number> = {
+    [SPELLS.WHIRLING_AIR.id]: 0,
+    [SPELLS.WHIRLING_EARTH.id]: 0,
+    [SPELLS.WHIRLING_WATER.id]: 0,
   };
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.HEALING_RAIN_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SURGING_TOTEM_TALENT);
+
+    const whirlingMotes = [SPELLS.WHIRLING_AIR, SPELLS.WHIRLING_EARTH, SPELLS.WHIRLING_WATER];
 
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HEALING_RAIN_HEAL),
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HEALING_RAIN_TOTEMIC),
       this.onHealingRainHeal,
     );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this._onCast);
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(whirlingMotes),
+      this._onRemoveBuff,
+    );
   }
 
   get averageMaxTargets() {
@@ -75,11 +98,18 @@ class HealingRain extends Analyzer {
       .addSuggestion((suggest, actual, recommended) =>
         suggest(
           <span>
-            Try to always cast <SpellLink spell={TALENTS.HEALING_RAIN_TALENT} /> in areas where
+            Try to always cast <SpellLink spell={SPELLS.HEALING_RAIN_TOTEMIC} /> in areas where
             players stack. This allows the spell to consitantly hit all possible targets.
+            {this.selectedCombatant.hasTalent(TALENTS_SHAMAN.TOTEMIC_PROJECTION_TALENT) && (
+              <>
+                {' '}
+                You can reposition it using{' '}
+                <SpellLink spell={TALENTS_SHAMAN.TOTEMIC_PROJECTION_TALENT} /> every 10 seconds.
+              </>
+            )}
           </span>,
         )
-          .icon(TALENTS.HEALING_RAIN_TALENT.icon)
+          .icon(SPELLS.HEALING_RAIN_TOTEMIC.icon)
           .actual(
             defineMessage({
               id: 'shaman.restoration.suggestions.healingRain.averageTargets',
@@ -134,7 +164,7 @@ class HealingRain extends Analyzer {
   _onCast(event: CastEvent) {
     const spellId = event.ability.guid;
 
-    if (spellId === TALENTS.HEALING_RAIN_TALENT.id) {
+    if (spellId === SPELLS.HEALING_RAIN_TOTEMIC.id) {
       this.totalMaxTargets += 6;
       this.casts += 1;
       this.maxTargets = 6;
@@ -164,33 +194,84 @@ class HealingRain extends Analyzer {
     }
   }
 
-  /** Guide subsection describing the proper usage of Healing Rain */
+  _onRemoveBuff(event: RemoveBuffEvent) {
+    const spellId = event.ability.guid;
+    if (didMoteExpire(event)) {
+      this.whirlingMotesExpired[spellId] += 1;
+      console.log('wasted', event.ability.name, this.whirlingMotesExpired[spellId]);
+    } else {
+      this.whirlingMotesConsumed[spellId] += 1;
+      console.log('consumed', event.ability.name, this.whirlingMotesConsumed[spellId]);
+    }
+  }
+
+  /** Guide subsection describing the proper usage of Surging Totem */
   get guideSubsection(): JSX.Element {
     const explanation = (
-      <p>
-        <b>
-          <SpellLink spell={TALENTS_SHAMAN.HEALING_RAIN_TALENT} />
-        </b>{' '}
-        is one of your best sources of consistent throughput and can be augmented to do more healing
-        through <SpellLink spell={TALENTS.OVERFLOWING_SHORES_TALENT} />, more damage through{' '}
-        <SpellLink spell={TALENTS.ACID_RAIN_TALENT} />, and can hit additional targets through{' '}
-        <SpellLink spell={TALENTS.UNLEASH_LIFE_TALENT} />. Aside from being strong throughput, this{' '}
-        spell also buffs <SpellLink spell={TALENTS.HEALING_WAVE_TALENT} />,{' '}
-        <SpellLink spell={SPELLS.HEALING_SURGE} /> and{' '}
-        <SpellLink spell={TALENTS.CHAIN_HEAL_TALENT} /> through{' '}
-        <SpellLink spell={TALENTS.DELUGE_TALENT} />
-      </p>
+      <>
+        <p>
+          <b>
+            <SpellLink spell={SPELLS.SURGING_TOTEM} />
+          </b>{' '}
+          is central to your gameplay as a Totemic Shaman. It should be active at all times as it
+          casts a longer and more potent version of{' '}
+          <SpellLink spell={SPELLS.HEALING_RAIN_TOTEMIC} />.
+          {this.selectedCombatant.hasTalent(TALENTS_SHAMAN.TOTEMIC_PROJECTION_TALENT) && (
+            <>
+              {' '}
+              You can reposition it using{' '}
+              <SpellLink spell={TALENTS_SHAMAN.TOTEMIC_PROJECTION_TALENT} /> as necessary.
+            </>
+          )}
+        </p>
+        <p>
+          It can be augmented to do more healing through{' '}
+          <SpellLink spell={TALENTS.OVERFLOWING_SHORES_TALENT} />, more damage through{' '}
+          <SpellLink spell={TALENTS.ACID_RAIN_TALENT} />, and can hit additional targets through{' '}
+          <SpellLink spell={TALENTS.UNLEASH_LIFE_TALENT} />. Aside from being strong throughput,
+          this spell also buffs <SpellLink spell={TALENTS.HEALING_WAVE_TALENT} />,{' '}
+          <SpellLink spell={SPELLS.HEALING_SURGE} /> and{' '}
+          <SpellLink spell={TALENTS.CHAIN_HEAL_TALENT} /> through{' '}
+          <SpellLink spell={TALENTS.DELUGE_TALENT} />.
+        </p>
+        {this.selectedCombatant.hasTalent(TALENTS_SHAMAN.WHIRLING_ELEMENTS_TALENT) && (
+          <p>
+            Through <SpellLink spell={TALENTS_SHAMAN.WHIRLING_ELEMENTS_TALENT} />, every cast
+            produces three motes, each offering a powerful buff :{' '}
+            <SpellLink spell={SPELLS.WHIRLING_AIR} />, <SpellLink spell={SPELLS.WHIRLING_EARTH} />{' '}
+            and <SpellLink spell={SPELLS.WHIRLING_WATER} />. You should always try and consume each
+            of these buffs.
+          </p>
+        )}
+      </>
     );
 
     const data = (
       <div>
         <RoundedPanel>
           <strong>
-            <SpellLink spell={TALENTS_SHAMAN.HEALING_RAIN_TALENT} /> cast efficiency
+            <SpellLink spell={SPELLS.SURGING_TOTEM} /> cast efficiency
           </strong>
           <div className="flex-main chart" style={{ padding: 15 }}>
             {this.subStatistic()}
           </div>
+          {this.selectedCombatant.hasTalent(TALENTS.SURGING_TOTEM_TALENT) && (
+            <div>
+              Over the course of the fight, you cast{' '}
+              {this.whirlingMotesConsumed[SPELLS.WHIRLING_AIR.id] +
+                this.whirlingMotesExpired[SPELLS.WHIRLING_AIR.id]}
+              <SpellLink spell={TALENTS.SURGING_TOTEM_TALENT} /> and consumed
+              <br />
+              <strong>{this.whirlingMotesConsumed[SPELLS.WHIRLING_AIR.id]}</strong>{' '}
+              <SpellLink spell={SPELLS.WHIRLING_AIR} />
+              <br />
+              <strong>{this.whirlingMotesConsumed[SPELLS.WHIRLING_EARTH.id]}</strong>{' '}
+              <SpellLink spell={SPELLS.WHIRLING_EARTH} />
+              <br />
+              <strong>{this.whirlingMotesConsumed[SPELLS.WHIRLING_WATER.id]}</strong>{' '}
+              <SpellLink spell={SPELLS.WHIRLING_WATER} />
+            </div>
+          )}
         </RoundedPanel>
       </div>
     );
@@ -201,7 +282,7 @@ class HealingRain extends Analyzer {
   subStatistic() {
     return (
       <CastEfficiencyBar
-        spellId={TALENTS_SHAMAN.HEALING_RAIN_TALENT.id}
+        spellId={SPELLS.HEALING_RAIN_TOTEMIC.id}
         gapHighlightMode={GapHighlight.FullCooldown}
         minimizeIcons
         useThresholds
@@ -223,7 +304,7 @@ class HealingRain extends Analyzer {
           <TooltipElement
             content={
               <Trans id="shaman.restoration.healingRain.averageTargets.label.tooltip">
-                The average number of targets healed by Healing Rain out of the maximum amount of 6
+                The average number of targets healed by Healing Rain out of the maximum amount of 5
                 targets.
               </Trans>
             }
@@ -238,4 +319,18 @@ class HealingRain extends Analyzer {
   }
 }
 
-export default HealingRain;
+export function didMoteExpire(event: RemoveBuffEvent) {
+  switch (event.ability.guid) {
+    case SPELLS.WHIRLING_AIR.id: {
+      return !HasRelatedEvent(event, WHIRLINGAIR_HEAL); // TODO check all direct heals
+    }
+    case SPELLS.WHIRLING_EARTH.id: {
+      return !HasRelatedEvent(event, WHIRLINGEARTH_HEAL); // TODO Chain Heal
+    }
+    case SPELLS.WHIRLING_WATER.id: {
+      return !HasRelatedEvent(event, WHIRLINGWATER_HEAL); // TODO check Healing Wave and Healing Surge
+    }
+  }
+}
+
+export default SurgingTotem;
