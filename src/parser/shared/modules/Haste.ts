@@ -114,14 +114,19 @@ const DEFAULT_HASTE_BUFFS: HasteBuffMap = {
   [SPELLS.ELEMENTAL_BLAST_HASTE.id]: 0.03,
   //endregion
 
-  //region CLASSIC
-  // Warlock
-  [CLASSIC_SPELLS.DARK_INTENT_HASTE.id]: 0.03,
-  //endregion
-
   //region Encounter
   //Raids
   [SPELLS.ASTRAL_FLARE_BUFF.id]: { hastePerStack: 0.05 }, // Sarkareth
+  //endregion
+
+  //region CLASSIC
+  // Raids
+  [CLASSIC_SPELLS.CORRUPTION_ABSOLUTE.id]: 1, // Cho'gall
+  [CLASSIC_SPELLS.ESSENCE_OF_THE_RED.id]: 1, // Sinestra
+  // Druid
+  [CLASSIC_SPELLS.MOONKIN_AURA.id]: 0.05,
+  // Warlock
+  [CLASSIC_SPELLS.DARK_INTENT_HASTE.id]: 0.03,
   //endregion
 };
 
