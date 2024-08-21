@@ -57,7 +57,6 @@ import HolyShock from './modules/talents/HolyShock';
 import BeaconOfVirtue from './modules/talents/BeaconOfVirtue';
 import HolyPowerGraph from './modules/core/HolyPowerGraph';
 import OverflowingLight from './modules/talents/OverflowingLight';
-import LightsProtection from './modules/talents/LightsProtection';
 import Guide from './guide/Guide';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -118,7 +117,6 @@ class CombatLogParser extends CoreCombatLogParser {
     holyShock: HolyShock,
     beaconOfVirtue: BeaconOfVirtue,
     overflowingLight: OverflowingLight,
-    lightsProtection: LightsProtection,
 
     // HolyPower
     holyPowerTracker: HolyPowerTracker,
