@@ -13,6 +13,7 @@ import {
 
 // prettier-ignore
 export default [
+  change(date(2024, 8, 21), <>Add <SpellLink spell={TALENTS_SHAMAN.STONE_BULWARK_TOTEM_TALENT} /> effective shielding done statistic and add <SpellLink spell={TALENTS_SHAMAN.DOWNPOUR_TALENT} /> procs wasted and average targets hit statistic</>, Texleretour),
   change(date(2024, 8, 18), <>Implement <ItemSetLink id={SHAMAN_TWW1_ID}>Nerub-ar tier set</ItemSetLink> for Resto.</>, Ypp),
   change(date(2024, 8, 18),<>Add <SpellLink spell={TALENTS_SHAMAN.CLOUDBURST_TOTEM_TALENT} /> cast breakdown based on overhealing done and new Section "Mana Efficiency" featuring cast breakdown of <SpellLink spell={TALENTS_SHAMAN.NATURES_SWIFTNESS_TALENT} /> based on mana saved.</> , Texleretour),
   change(date(2024, 8, 14), <>Added mana saved from <SpellLink spell={TALENTS_SHAMAN.SPIRITWALKERS_TIDAL_TOTEM_TALENT} /> statistic, scaled <SpellLink spell={SPELLS.HEALING_SURGE} /> mana cost for The War Within and fixed <SpellLink spell={TALENTS_SHAMAN.NATURES_SWIFTNESS_TALENT} /> statistic</>, Texleretour),
