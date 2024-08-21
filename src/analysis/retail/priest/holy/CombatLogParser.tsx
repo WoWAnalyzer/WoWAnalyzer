@@ -21,7 +21,7 @@ import HealingEfficiencyDetails from './modules/features/HolyPriestHealingEffici
 import HealingEfficiencyTracker from './modules/features/HolyPriestHealingEfficiencyTracker';
 import SpellUsable from './modules/features/SpellUsable';
 //import StatWeights from './modules/features/StatWeights';
-//import CircleOfHealing from './modules/spells/CircleOfHealing';
+import CircleOfHealing from './modules/spells/CircleOfHealing';
 import DivineHymn from './modules/spells/DivineHymn';
 import GuardianSpirit from './modules/spells/GuardianSpirit';
 import HolyNova from './modules/spells/HolyNova';
@@ -38,10 +38,12 @@ import T29TwoSet from './modules/dragonflight/tier/tier29/Tier29HolyPriest2Set';
 import T29FourSet from './modules/dragonflight/tier/tier29/Tier29HolyPriest4Set';
 import T30FourSet from './modules/dragonflight/tier/tier30/Tier30HolyPriest4Set';
 import ProtectiveLight from '../shared/ProtectiveLight';
-//import PrayerOfHealing from './modules/spells/PrayerOfHealing';
+import PrayerOfHealing from './modules/spells/PrayerOfHealing';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import Guide from './Guide';
 import Benevolence from '../shared/Benevolence';
+import RenewTracker from './modules/talents/Oracle/OracleCore/RenewTracker';
+import RenewAttributor from './modules/talents/Oracle/OracleCore/RenewAttributor';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -70,6 +72,8 @@ class CombatLogParser extends CoreCombatLogParser {
     fortitudeRaidBuff: FortitudeRaidBuff,
     holyWordsReductionBySpell: HolyWordsReductionBySpell,
     holyWordWastedAmounts: HolyWordWastedAmounts,
+    renewTracker: RenewTracker,
+    renewAttributor: RenewAttributor,
 
     // Spells
     divineHymn: DivineHymn,
@@ -84,9 +88,8 @@ class CombatLogParser extends CoreCombatLogParser {
     // Pretty sure every other healer has disabled this
     //statWeights: StatWeights,
 
-    //no need for these, people can see them in their breakdowns
-    //circleOfHealing: CircleOfHealing,
-    //prayerOfHealing: PrayerOfHealing,
+    circleOfHealing: CircleOfHealing,
+    prayerOfHealing: PrayerOfHealing,
     benevolence: Benevolence,
 
     spiritOfRedemption: SpiritOfRedemption,
@@ -160,6 +163,8 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Holy Specific Oracle Hero Talents
     PreventiveMeasuresHoly: Talents.Oracle.PreventiveMeasuresHoly,
+    PreemptiveCareHoly: Talents.Oracle.PreemptiveCareHoly,
+    ProphetsWillHoly: Talents.Oracle.ProphetsWillHoly,
 
     // Mana Tab
     manaTracker: ManaTracker,

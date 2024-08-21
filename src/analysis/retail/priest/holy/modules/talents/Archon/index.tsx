@@ -6,7 +6,6 @@ import EmpoweredSurgesHoly from './EmpoweredSurgesHoly';
 import EnergyCycleHoly from './EnergyCycleHoly';
 import EnergyCompressionHoly from './EnergyCompressionHoly';
 import PowerSurgeAndDivineHaloHoly from './PowerSurgeAndDivineHaloHoly';
-//
 
 export {
   PerfectedFormHoly,

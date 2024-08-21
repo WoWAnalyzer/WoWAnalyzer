@@ -12,10 +12,6 @@ import ArchonAnalysis from './ArchonAnalysis';
 
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import PRIEST_TALENTS from 'common/TALENTS/priest';
-/**
- * **Perfected Form**
- * Your healing done is increased by 10% while Apotheosis is active and for 20 sec after you cast Holy Word: Salvation.
- */
 
 //https://www.warcraftlogs.com/reports/WT19GKp2VHqLarbD#fight=19``&type=auras&source=122
 class PerfectedFormHoly extends Analyzer {

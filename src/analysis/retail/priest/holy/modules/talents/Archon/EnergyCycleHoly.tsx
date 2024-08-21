@@ -39,12 +39,9 @@ class EnergyCycleHoly extends Analyzer {
       >
         <BoringSpellValueText spell={TALENTS_PRIEST.ENERGY_CYCLE_TALENT}>
           <div>
-            {formatNumber(this.archonanalysis.passActualEnergyCycleCDR)}
-            s
+            {formatNumber(this.archonanalysis.passActualEnergyCycleCDR)}s
             <small> reduced from Sanctify</small> <br />
-            {this.archonanalysis.passWastedEnergyCycleCDR}
-            s
-            <small> wasted</small> <br />
+            {this.archonanalysis.passWastedEnergyCycleCDR}s<small> wasted</small> <br />
           </div>
         </BoringSpellValueText>
       </Statistic>

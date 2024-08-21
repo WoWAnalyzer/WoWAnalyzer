@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-//import { formatPercentage, formatNumber } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, {
@@ -14,10 +13,6 @@ import Events, {
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import Combatants from 'parser/shared/modules/Combatants';
-//import Statistic from 'parser/ui/Statistic';
-//import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-//import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-//import { SpellLink } from 'interface';
 import { HOLY_ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../../constants';
 import {
   getHealFromSurge,
@@ -97,15 +92,11 @@ class ArchonAnalysis extends Analyzer {
   totalArchonHaloDamage = 0;
 
   // These are just internal values used as either flags or scalers
-  energyCompressionActive = false;
-  manifestedPowerActive = false;
-  energyCycleActive = false;
-  baseHolyWordCDR = 1;
-  modHolyWordCDR = 1;
-  apothBuffActive = false;
-  empoweredSurgesActive = false;
-  haloOutActive = false;
-  firstHalo = false;
+  private energyCompressionActive = false;
+  private baseHolyWordCDR = 1;
+  private modHolyWordCDR = 1;
+  private apothBuffActive = false;
+  private firstHalo = false;
 
   constructor(options: Options) {
     super(options);
@@ -291,7 +282,7 @@ class ArchonAnalysis extends Analyzer {
       return;
     }
 
-    const resonantEnergyStacks = this.selectedCombatant.getBuffStacks(
+    const resonantEnergyStacks = target.getBuffStacks(
       SPELLS.RESONANT_ENERGY_TALENT_BUFF.id,
       null,
       0,
@@ -329,7 +320,6 @@ class ArchonAnalysis extends Analyzer {
 
   newHaloCast(event: CastEvent) {
     this.firstHalo = true;
-    this.haloOutActive = true;
   }
   removeArchonOut() {
     this.firstHalo = false;

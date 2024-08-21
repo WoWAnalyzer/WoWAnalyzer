@@ -28,7 +28,7 @@ class PreventiveMeasuresHoly extends Analyzer {
   totalPOMHealingIncrease = 0;
   totalPMDamageIncrease = 0;
 
-  invertDamageScaler = 1 / (1 + PREVENTIVE_MEASURES_DMG_AMP);
+  private invertDamageScaler = 1 / (1 + PREVENTIVE_MEASURES_DMG_AMP);
 
   constructor(options: Options) {
     super(options);
@@ -61,7 +61,7 @@ class PreventiveMeasuresHoly extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.HERO_TALENTS}
       >
-        <TalentSpellText talent={TALENTS_PRIEST.ENERGY_COMPRESSION_TALENT}>
+        <TalentSpellText talent={TALENTS_PRIEST.PREVENTIVE_MEASURES_TALENT}>
           <ItemPercentHealingDone amount={this.totalPOMHealingIncrease} /> <br />
           <ItemPercentDamageDone amount={this.totalPMDamageIncrease} /> <br />
         </TalentSpellText>

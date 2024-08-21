@@ -22,10 +22,10 @@ class PremonitionOfSolace extends Analyzer {
   protected combatants!: Combatants;
 
   // Temporary value used as flags or for calculations
-  damageTakenWithSolaceActive = 0;
-  fatebenderActive = false;
-  scaledSolaceDR = SOLACE_DR;
-  baseSolaceDR = SOLACE_DR;
+  private damageTakenWithSolaceActive = 0;
+  private fatebenderActive = false;
+  private scaledSolaceDR = SOLACE_DR;
+  private baseSolaceDR = SOLACE_DR;
 
   constructor(options: Options) {
     super(options);

@@ -1,14 +1,14 @@
-import { formatPercentage, formatThousands } from 'common/format';
+//import { formatPercentage, formatThousands } from 'common/format';
 import TALENTS, { TALENTS_PRIEST } from 'common/TALENTS/priest';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+/* import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER'; */
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { getPrayerOfHealingEvents } from '../../normalizers/CastLinkNormalizer';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
@@ -233,7 +233,9 @@ class PrayerOfHealing extends Analyzer {
     return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 
-  statistic() {
+  //this isn't needed and just clutters the statistics, people see this in their breakdown
+
+  /*   statistic() {
     return (
       <Statistic
         tooltip={
@@ -256,7 +258,7 @@ class PrayerOfHealing extends Analyzer {
         </BoringSpellValueText>
       </Statistic>
     );
-  }
+  } */
 }
 
 export default PrayerOfHealing;

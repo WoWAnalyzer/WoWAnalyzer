@@ -44,23 +44,20 @@ class PowerSurgeAndDivineHaloHoly extends Analyzer {
             {'If you only cast your first '}
             <SpellLink spell={SPELLS.HALO_TALENT} />
             {' each time, it would have done '}
-            {formatNumber(this.archonanalysis.firstHaloHealing)}
-            (
+            {formatNumber(this.archonanalysis.firstHaloHealing)}(
             {formatPercentage(
               this.owner.getPercentageOfTotalHealingDone(this.archonanalysis.firstHaloHealing),
             )}
             %) of your healing
             <br />
             {'and '}
-            {formatNumber(this.archonanalysis.firstHaloDamage)}
-            (
+            {formatNumber(this.archonanalysis.firstHaloDamage)}(
             {formatPercentage(
               this.owner.getPercentageOfTotalHealingDone(this.archonanalysis.firstHaloDamage),
             )}
             %) of your damage
             <br />
             <br />
-
             {'This includes the amp from '}
             <SpellLink spell={TALENTS_PRIEST.DIVINE_HALO_TALENT} />
             {' if you are talented into it.'}

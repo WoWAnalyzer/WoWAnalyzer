@@ -39,6 +39,8 @@ export const LIGHTWELL_RENEW = 'LightwellRenew';
 export const SALVATION_RENEW = 'SalvationRenew';
 export const BENEDICTION_RENEW = 'BenedictionRenew';
 export const BENEDICTION_RENEW_HEALS = 'BenedictionRenewHeal';
+export const REVIT_PRAYER_RENEW = 'RevitalizingPrayersRenew';
+export const HARDCAST_RENEW = 'HardCastRenew';
 
 const EVENT_LINKS: EventLink[] = [
   // Link single target heal casts to their heal events.
@@ -175,6 +177,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: TALENTS_PRIEST.RENEW_TALENT.id,
     referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
     anyTarget: false,
   },
   {
@@ -182,6 +185,29 @@ const EVENT_LINKS: EventLink[] = [
     reverseLinkRelation: BENEDICTION_RENEW,
     linkingEventId: SPELLS.PRAYER_OF_MENDING_HEAL.id,
     linkingEventType: EventType.Heal,
+    referencedEventId: TALENTS_PRIEST.RENEW_TALENT.id,
+    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: false,
+  },
+  {
+    linkRelation: REVIT_PRAYER_RENEW,
+    reverseLinkRelation: REVIT_PRAYER_RENEW,
+    linkingEventId: TALENTS_PRIEST.PRAYER_OF_HEALING_TALENT.id,
+    linkingEventType: EventType.Heal,
+    referencedEventId: TALENTS_PRIEST.RENEW_TALENT.id,
+    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: false,
+    isActive(c) {
+      return c.hasTalent(TALENTS_PRIEST.REVITALIZING_PRAYERS_TALENT);
+    },
+  },
+  {
+    linkRelation: HARDCAST_RENEW,
+    reverseLinkRelation: HARDCAST_RENEW,
+    linkingEventId: SPELLS.RENEW_HEAL.id,
+    linkingEventType: EventType.Cast,
     referencedEventId: TALENTS_PRIEST.RENEW_TALENT.id,
     referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     forwardBufferMs: CAST_BUFFER_MS,
@@ -299,16 +325,23 @@ export function getHealFromSurge(
 export function isCastBuffedByLightweaver(event: CastEvent) {
   return HasRelatedEvent(event, LIGHTWEAVER_CONSUME);
 }
+
 export function isSurgeOfLightFromHalo(
   event: ApplyBuffStackEvent | ApplyBuffEvent | RefreshBuffEvent,
 ) {
   return HasRelatedEvent(event, HALO_LINKED_TO_SURGE_OF_LIGHT);
 }
+
 export function buffedBySurgeOfLight(event: RemoveBuffEvent | RemoveBuffStackEvent): boolean {
   return HasRelatedEvent(event, BUFFED_BY_SURGE_OF_LIGHT);
 }
+
 export function removesInsightCharge(event: CastEvent): boolean {
   return HasRelatedEvent(event, SPELL_SPENDS_INSIGHT_CHARGE);
+}
+
+export function isRenewFromSalv(event: ApplyBuffEvent | RefreshBuffEvent): boolean {
+  return HasRelatedEvent(event, SALVATION_RENEW);
 }
 
 export default CastLinkNormalizer;

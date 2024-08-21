@@ -27,12 +27,10 @@ class PremonitionOfPiety extends Analyzer {
   totalPietyOverHealingMD = 0;
   totalNonFBPietyOverhealingMD = 0;
 
-  // Temporary value used as flags or for calculations
-  damageTakenWithSolaceActive = 0;
-  fatebenderActive = false;
-  scaledPietyAmp = PIETY_AMP;
-  scaledPietyOH = PIETY_OVERHEAL_MISDIRECT;
-  pietyBuffActive = false;
+  // Temporary value used as flags or for calculations, private to not pollute include space
+  private scaledPietyAmp = PIETY_AMP;
+  private scaledPietyOH = PIETY_OVERHEAL_MISDIRECT;
+  private pietyBuffActive = false;
 
   constructor(options: Options) {
     super(options);

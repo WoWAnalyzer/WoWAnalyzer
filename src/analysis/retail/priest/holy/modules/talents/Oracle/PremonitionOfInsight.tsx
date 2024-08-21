@@ -24,15 +24,13 @@ class PremonitionOfInsight extends Analyzer {
   protected combatants!: Combatants;
 
   // Temporary value used as flags or for calculations
-  insightCastNumber: number = 1;
-  insightStackNumber: number = 1;
-  fatebenderActive = false;
-  scaledInsightCDR = INSIGHT_CDR;
-  baseInsightCDR = INSIGHT_CDR;
+  private insightCastNumber: number = 1;
+  private insightStackNumber: number = 1;
+  private scaledInsightCDR = INSIGHT_CDR;
 
-  insightReducBySpell: { [spellID: string]: number } = {};
+  private insightReducBySpell: { [spellID: string]: number } = {};
 
-  insightCastSpellTracker: insightPerCast[] = [];
+  private insightCastSpellTracker: insightPerCast[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -40,11 +38,11 @@ class PremonitionOfInsight extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.CLAIRVOYANCE_TALENT);
     if (this.selectedCombatant.hasTalent(TALENTS_PRIEST.FATEBENDER_TALENT)) {
       this.scaledInsightCDR *= FATEBENDER_SCALER;
-      this.fatebenderActive = true;
     }
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.handleOnCast);
 
+    /*
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PREMONITION_OF_CLAIRVOYANCE),
       this.handleInsightCast,
@@ -54,6 +52,7 @@ class PremonitionOfInsight extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PREMONITION_OF_INSIGHT_BUFF),
       this.handleInsightCast,
     );
+    */
   }
 
   //this function is really messy because i wrote it at 2 am
@@ -70,25 +69,29 @@ class PremonitionOfInsight extends Analyzer {
 
     this.insightReducBySpell[spellId] = this.insightReducBySpell[spellId] || 0;
 
-    this.insightReducBySpell[spellId] += effCDR;
-
     this.insightStackNumber += 1;
 
-    //this is for the dropdown info table and holy fuck i hate TS
     const stackNumx = this.insightStackNumber;
     const castSpellIdx = spellId;
-    const effectiveCDRx = this.spellUsable.reduceCooldown(spellId, this.scaledInsightCDR);
+    let effectiveCDRx = this.spellUsable.reduceCooldown(spellId, this.scaledInsightCDR);
     const remainingCDx = this.spellUsable.cooldownRemaining(spellId) / 1000 - effectiveCDRx;
+
+    // Haste variable CD spells like circle/PoM mess the math up
+    if (
+      spellId === TALENTS_PRIEST.PRAYER_OF_MENDING_TALENT.id ||
+      spellId === TALENTS_PRIEST.CIRCLE_OF_HEALING_TALENT.id
+    ) {
+      effectiveCDRx += remainingCDx;
+      this.insightReducBySpell[spellId] += effectiveCDRx;
+    } else {
+      this.insightReducBySpell[spellId] += effCDR;
+    }
 
     this.insightCastSpellTracker[stackNumx] = {
       castSpellId: castSpellIdx,
       effectiveCDR: effectiveCDRx,
       remainingCD: remainingCDx,
     };
-  }
-
-  handleInsightCast() {
-    this.insightCastNumber += 3;
   }
 
   statistic() {
