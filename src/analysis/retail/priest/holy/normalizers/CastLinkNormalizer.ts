@@ -1,5 +1,6 @@
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import {
+  AbsorbedEvent,
   ApplyBuffEvent,
   ApplyBuffStackEvent,
   CastEvent,
@@ -33,6 +34,8 @@ const SURGE_OF_LIGHT_APPLIED_BY_HALO = 'SurgeOfLightAppliedByHalo';
 const HALO_LINKED_TO_SURGE_OF_LIGHT = 'HaloLinkedtoSurgeOfLight';
 const SPELL_SPENDS_INSIGHT_CHARGE = 'SpellSpendsInsightCharge';
 const GET_SPELL_CAST_FROM_INSIGHT_CHARGE = 'GetSpellCastFromInsightCharge';
+export const HARDCAST_POWER_WORD_SHIELD = 'HardCastPowerWordShield';
+export const POWER_WORD_SHIELD_ABSORB = 'PowerWordShieldAbsorb';
 export const LIGHTWELL_RENEW_HEALS = 'LightwellRenewHeal';
 export const SALVATION_RENEW_HEALS = 'SalvationRenewHeal';
 export const LIGHTWELL_RENEW = 'LightwellRenew';
@@ -214,6 +217,32 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: false,
   },
   {
+    linkRelation: HARDCAST_POWER_WORD_SHIELD,
+    reverseLinkRelation: HARDCAST_POWER_WORD_SHIELD,
+    linkingEventId: SPELLS.POWER_WORD_SHIELD.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.POWER_WORD_SHIELD.id,
+    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: false,
+  },
+
+  {
+    linkRelation: POWER_WORD_SHIELD_ABSORB,
+    reverseLinkRelation: POWER_WORD_SHIELD_ABSORB,
+    linkingEventId: SPELLS.POWER_WORD_SHIELD.id,
+    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    referencedEventId: SPELLS.POWER_WORD_SHIELD.id,
+    referencedEventType: EventType.Absorbed,
+    forwardBufferMs: 15000 + CAST_BUFFER_MS,
+    anyTarget: false,
+    additionalCondition(linkingEvent) {
+      return !HasRelatedEvent(linkingEvent, HARDCAST_POWER_WORD_SHIELD);
+    },
+  },
+
+  {
     linkRelation: BENEDICTION_RENEW_HEALS,
     reverseLinkRelation: BENEDICTION_RENEW_HEALS,
     linkingEventId: TALENTS_PRIEST.RENEW_TALENT.id,
@@ -342,6 +371,10 @@ export function removesInsightCharge(event: CastEvent): boolean {
 
 export function isRenewFromSalv(event: ApplyBuffEvent | RefreshBuffEvent): boolean {
   return HasRelatedEvent(event, SALVATION_RENEW);
+}
+
+export function isPWSHardCast(event: AbsorbedEvent): boolean {
+  return HasRelatedEvent(event, HARDCAST_POWER_WORD_SHIELD);
 }
 
 export default CastLinkNormalizer;

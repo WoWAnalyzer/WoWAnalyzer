@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
-import Events, { DamageEvent } from 'parser/core/Events';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { AbsorbedEvent, DamageEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import Combatants from 'parser/shared/modules/Combatants';
 import { TALENTS_PRIEST } from 'common/TALENTS';
@@ -10,6 +10,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import SpellLink from 'interface/SpellLink';
 import { formatNumber } from 'common/format';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 
 import { SOLACE_DR } from './OracleValues';
 import { FATEBENDER_SCALER } from './OracleValues';
@@ -22,6 +23,7 @@ class PremonitionOfSolace extends Analyzer {
   protected combatants!: Combatants;
 
   // Temporary value used as flags or for calculations
+  private totalSolaceAbsorb = 0;
   private damageTakenWithSolaceActive = 0;
   private fatebenderActive = false;
   private scaledSolaceDR = SOLACE_DR;
@@ -41,6 +43,10 @@ class PremonitionOfSolace extends Analyzer {
 
     // For Solace
     this.addEventListener(Events.damage, this.onDamageSolaceHandler);
+    this.addEventListener(
+      Events.absorbed.by(SELECTED_PLAYER).spell(SPELLS.PREMONITION_OF_SOLACE_DR_AND_SHIELD_BUFF),
+      this.handleSolaceAbsorb,
+    );
   }
 
   onDamageSolaceHandler(event: DamageEvent) {
@@ -48,6 +54,10 @@ class PremonitionOfSolace extends Analyzer {
       return;
     }
     this.damageTakenWithSolaceActive += event.amount + (event.absorbed || 0);
+  }
+
+  handleSolaceAbsorb(event: AbsorbedEvent) {
+    this.totalSolaceAbsorb += event.amount;
   }
 
   get passTotalSolaceDamageReduced(): number {
@@ -97,6 +107,8 @@ class PremonitionOfSolace extends Analyzer {
           <img alt="Damage Mitigated" src="/img/shield.png" className="icon" />{' '}
           {formatNumber(this.passTotalSolaceDamageReduced)} <small> total damage mitigated</small>
           <br />
+          <ItemPercentHealingDone amount={this.totalSolaceAbsorb} />
+          <small>{' in absorbs'}</small>
         </BoringSpellValueText>
       </Statistic>
     );

@@ -4,6 +4,7 @@ import PreventiveMeasuresHoly from './PreventiveMeasuresHoly';
 import PremonitionOfInsight from './PremonitionOfInsight';
 import PreemptiveCareHoly from './PreemptiveCareHoly';
 import ProphetsWillHoly from './ProphetsWillHoly';
+import AssuredSafetyHoly from './AssuredSafetyHoly';
 
 export {
   PremonitionOfSolace,
@@ -12,4 +13,5 @@ export {
   PremonitionOfInsight,
   PreemptiveCareHoly,
   ProphetsWillHoly,
+  AssuredSafetyHoly,
 };

@@ -165,6 +165,7 @@ class CombatLogParser extends CoreCombatLogParser {
     PreventiveMeasuresHoly: Talents.Oracle.PreventiveMeasuresHoly,
     PreemptiveCareHoly: Talents.Oracle.PreemptiveCareHoly,
     ProphetsWillHoly: Talents.Oracle.ProphetsWillHoly,
+    AssuredSafetyHoly: Talents.Oracle.AssuredSafetyHoly,
 
     // Mana Tab
     manaTracker: ManaTracker,
