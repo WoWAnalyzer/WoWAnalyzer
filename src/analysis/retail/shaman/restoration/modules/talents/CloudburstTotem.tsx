@@ -81,6 +81,14 @@ class CloudburstTotem extends Analyzer {
     const healing = event.amount + (event.absorbed || 0);
     const overhealing = event.overheal || 0;
 
+    if (this.CBTCasts.length === 0) {
+      // If CBT was cast prepull
+      this.CBTCasts.push({
+        healingDone: 0,
+        overhealingDone: 0,
+      });
+    }
+
     this.CBTCasts[this.CBTCasts.length - 1].healingDone += healing;
     this.CBTCasts[this.CBTCasts.length - 1].overhealingDone += overhealing;
   }

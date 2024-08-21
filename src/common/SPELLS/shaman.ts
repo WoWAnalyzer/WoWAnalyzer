@@ -868,6 +868,16 @@ const spells = {
     name: 'Stone Bulwark',
     icon: 'ability_shaman_stonebulwark',
   },
+  DOWNPOUR_ABILITY: {
+    id: 462603,
+    name: 'Downpour',
+    icon: 'ability_mage_waterjet',
+  },
+  DOWNPOUR_HEAL: {
+    id: 207778,
+    name: 'Downpour',
+    icon: 'ability_mage_waterjet',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;
