@@ -31,6 +31,11 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       <Section title="Healing Cooldowns">
         <CooldownGraphSubsection modules={modules} events={events} info={info} />
       </Section>
+
+      {info.combatant.hasTalent(talents.NATURES_SWIFTNESS_TALENT) && (
+        <Section title="Mana efficiency">{modules.naturesSwiftness.guideSubsection}</Section>
+      )}
+
       <PreparationSection />
     </>
   );
