@@ -51,6 +51,8 @@ import SpiritwalkersTidalTotem from './modules/talents/SpiritwalkersTidalTotem';
 // Tiers
 import TWW1TierSet from './modules/tier/TWW1TierSet';
 // Shared
+import StoneBulwarkTotem from '../shared/talents/StoneBulwarkTotem';
+
 // Normalizers
 import CloudburstNormalizer from './normalizers/CloudburstNormalizer';
 import RiptideNormalizer from './normalizers/RiptideNormalizer';
@@ -140,6 +142,7 @@ class CombatLogParser extends CoreCombatLogParser {
     astralShift: AstralShift,
     earthShield: EarthShield,
     elementalOrbit: ElementalOrbit,
+    stoneBulwarkTotem: StoneBulwarkTotem,
 
     // Normalizers
     cloudburstNormalizer: CloudburstNormalizer,
