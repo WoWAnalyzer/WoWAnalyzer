@@ -126,9 +126,9 @@ export default class TWW1TierSet extends Analyzer {
             <p>
               The 4-piece bonus also reduces further the cast time of your next{' '}
               <SpellLink spell={TALENTS_SHAMAN.HEALING_RAIN_TALENT} /> or{' '}
-              <SpellLink spell={TALENTS_SHAMAN.HEALING_WAVE_TALENT} /> as well as the critical rate
-              of your next <SpellLink spell={SPELLS.HEALING_SURGE} /> but these bonuses are not yet
-              accounted for.
+              <SpellLink spell={TALENTS_SHAMAN.HEALING_WAVE_TALENT} /> and improves the critical
+              rate of your next <SpellLink spell={SPELLS.HEALING_SURGE} /> but these bonuses are not
+              yet accounted for.
             </p>
           </>
         }
