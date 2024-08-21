@@ -303,13 +303,13 @@ class SurgingTotem extends Analyzer {
         label={
           <TooltipElement
             content={
-              <Trans id="shaman.restoration.healingRain.averageTargets.label.tooltip">
+              <Trans id="shaman.restoration.healingRainTotemic.averageTargets.label.tooltip">
                 The average number of targets healed by Healing Rain out of the maximum amount of 5
                 targets.
               </Trans>
             }
           >
-            <Trans id="shaman.restoration.healingRain.averageTargets.label">
+            <Trans id="shaman.restoration.healingRainTotemic.averageTargets.label">
               Average Healing Rain Targets
             </Trans>
           </TooltipElement>
