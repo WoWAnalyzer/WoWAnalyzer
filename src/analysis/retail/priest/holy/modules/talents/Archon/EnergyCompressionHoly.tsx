@@ -36,6 +36,13 @@ class EnergyCompressionHoly extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(99)}
         size="flexible"
         category={STATISTIC_CATEGORY.HERO_TALENTS}
+        tooltip={
+          <>
+            <small>
+              This is number is included in the Divine Halo/Power Surge results already.
+            </small>
+          </>
+        }
       >
         <TalentSpellText talent={TALENTS_PRIEST.ENERGY_COMPRESSION_TALENT}>
           <ItemPercentHealingDone amount={this.archonanalysis.passTotalEnergyCompressionHealing} />{' '}
