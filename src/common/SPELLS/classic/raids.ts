@@ -2,43 +2,30 @@ import Spell from '../Spell';
 
 const spells = {
   // -----------------
-  // PHASE 2 - ULDUAR
+  // CATA - Tier 11
   // -----------------
-  // Ignis
-  SLAG_IMBUED: {
-    id: 63536,
-    name: 'Slag Imbued',
-    icon: 'spell_fire_lavaspawn',
+  // Cho'gall
+  CORRUPTION_ABSOLUTE: {
+    id: 82170,
+    name: 'Corruption: Absolute',
+    icon: 'ability_warlock_eradication.jpg',
   },
-  // Hodir
-  STARLIGHT: {
-    id: 62807,
-    name: 'Starlight',
-    icon: 'spell_holy_elunesgrace',
+  // Nefarian
+  FREE_YOUR_MIND: {
+    id: 79323,
+    name: 'Free Your Mind',
+    icon: 'spell_arcane_mindmastery.jpg',
   },
-  // Freya
-  ATTUNED_TO_NATURE: {
-    id: 62519,
-    name: 'Attuned to Nature',
-    icon: 'ability_druid_giftoftheearthmother',
+  SIPHON_POWER: {
+    id: 79319,
+    name: 'Siphon Power',
+    icon: 'spell_arcane_focusedpower.jpg',
   },
-  // Mimiron
-  PLASMA_BALL: {
-    id: 65648,
-    name: 'Plasma Ball',
-    icon: 'spell_arcane_arcane04',
-  },
-  // General Vezax
-  SHADOW_CRASH: {
-    id: 64775,
-    name: 'Shadow Crash',
-    icon: 'spell_shadow_painspike',
-  },
-  // Yogg-Saron
-  SHADOWY_BARRIER_YOGG: {
-    id: 63894,
-    name: 'Shadowy Barrier',
-    icon: 'spell_shadow_soulgem',
+  // Sinestra
+  ESSENCE_OF_THE_RED: {
+    id: 87946,
+    name: 'Essence of the Red',
+    icon: 'spell_fire_lavaspawn.jpg',
   },
 } satisfies Record<string, Spell>;
 

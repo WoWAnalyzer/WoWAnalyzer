@@ -1,32 +1,24 @@
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { ThresholdStyle } from 'parser/core/ParseResults';
+import ArcaneChargeTracker from './ArcaneChargeTracker';
 
-const MANA_THRESHOLD = 0.95;
-
-class ArcaneSurge extends Analyzer {
+export default class ArcaneSurge extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
+    chargeTracker: ArcaneChargeTracker,
   };
   protected abilityTracker!: AbilityTracker;
+  protected chargeTracker!: ArcaneChargeTracker;
 
   hasSiphonStorm: boolean = this.selectedCombatant.hasTalent(TALENTS.EVOCATION_TALENT);
   hasNetherPrecision: boolean = this.selectedCombatant.hasTalent(TALENTS.NETHER_PRECISION_TALENT);
 
-  surgeCasts: {
-    cast: number;
-    mana?: number;
-    siphonStormBuff: boolean;
-    netherPrecision: boolean;
-    usage?: BoxRowEntry;
-  }[] = [];
+  surgeCasts: ArcaneSurgeCast[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -35,7 +27,6 @@ class ArcaneSurge extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.ARCANE_SURGE_TALENT),
       this.onSurgeCast,
     );
-    this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
   onSurgeCast(event: CastEvent) {
@@ -47,36 +38,14 @@ class ArcaneSurge extends Analyzer {
     const netherPrecision = this.selectedCombatant.hasBuff(SPELLS.NETHER_PRECISION_BUFF.id);
 
     this.surgeCasts.push({
+      ordinal: this.surgeCasts.length + 1,
       cast: event.timestamp,
       mana: manaPercent,
+      charges: this.chargeTracker.current,
       siphonStormBuff: siphonStorm,
       netherPrecision: netherPrecision,
     });
   }
-
-  onFightEnd() {
-    this.analyzeSurge();
-  }
-
-  analyzeSurge = () => {
-    this.surgeCasts.forEach((s) => {
-      if (s.mana && s.mana < MANA_THRESHOLD) {
-        s.usage = {
-          value: QualitativePerformance.Fail,
-          tooltip: `Player was low on mana (${formatPercentage(s.mana)}).`,
-        };
-      } else if (this.hasSiphonStorm && !s.siphonStormBuff) {
-        s.usage = { value: QualitativePerformance.Fail, tooltip: `Siphon Storm buff not found.` };
-      } else if (this.hasNetherPrecision && !s.netherPrecision) {
-        s.usage = {
-          value: QualitativePerformance.Fail,
-          tooltip: `Nether Precision buff not found.`,
-        };
-      } else {
-        s.usage = { value: QualitativePerformance.Good, tooltip: `Good Arcane Surge cast.` };
-      }
-    });
-  };
 
   get averageManaPercent() {
     let manaPercentTotal = 0;
@@ -97,4 +66,11 @@ class ArcaneSurge extends Analyzer {
   }
 }
 
-export default ArcaneSurge;
+export interface ArcaneSurgeCast {
+  ordinal: number;
+  cast: number;
+  mana?: number;
+  charges: number;
+  siphonStormBuff: boolean;
+  netherPrecision: boolean;
+}
