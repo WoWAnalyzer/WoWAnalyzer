@@ -11,6 +11,7 @@ import {
 
 // prettier-ignore
 export default [
+  change(date(2024, 8, 21), <>Bump supported version to 11.0.2. Set "guide" view as default. </>, Ypp),
   change(date(2024, 8, 14), <>Added mana saved from <SpellLink spell={TALENTS_SHAMAN.SPIRITWALKERS_TIDAL_TOTEM_TALENT} /> statistic, scaled <SpellLink spell={SPELLS.HEALING_SURGE} /> mana cost for The War Within and fixed <SpellLink spell={TALENTS_SHAMAN.NATURES_SWIFTNESS_TALENT} /> statistic</>, Texleretour),
   change(date(2024, 8, 14), <>Deletion of Dragonflight tier sets from the code</>, Ypp),
   change(date(2024, 8, 13), <>Added mana saved from <SpellLink spell={TALENTS_SHAMAN.NATURES_SWIFTNESS_TALENT} /> statistic</>, Texleretour),
