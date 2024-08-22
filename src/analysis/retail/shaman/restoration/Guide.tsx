@@ -1,6 +1,6 @@
 import { GuideProps, Section, SubSection } from 'interface/guide';
 import CombatLogParser from '../restoration/CombatLogParser';
-import talents, { TALENTS_SHAMAN } from 'common/TALENTS/shaman';
+import talents from 'common/TALENTS/shaman';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
@@ -13,7 +13,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
     <>
       <Section title="Core Spells and Buffs">
         {modules.riptide.guideSubsection}
-        {!info.combatant.hasTalent(TALENTS_SHAMAN.SURGING_TOTEM_TALENT) &&
+        {!info.combatant.hasTalent(talents.SURGING_TOTEM_TALENT) &&
           modules.healingRain.guideSubsection}
         {modules.surgingTotem.guideSubsection}
         {info.combatant.hasTalent(talents.EARTH_SHIELD_TALENT) &&
