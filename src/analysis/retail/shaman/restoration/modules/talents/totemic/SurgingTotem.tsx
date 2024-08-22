@@ -225,7 +225,6 @@ class SurgingTotem extends Analyzer {
     const spellId = event.ability.guid;
     if (didMoteExpire(event)) {
       this.whirlingMotesExpired[spellId] += 1;
-      console.log('LOST A BUFF', this.SurgingTotemCasts[this.SurgingTotemCasts.length - 1]);
     } else {
       this.whirlingMotesConsumed[spellId] += 1;
       switch (event.ability.guid) {
