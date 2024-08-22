@@ -1,11 +1,10 @@
-import { ReactNode } from 'react';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon, SpellLink, TooltipElement } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { PerformanceMark, qualitativePerformanceToColor } from 'interface/guide';
+import { qualitativePerformanceToColor } from 'interface/guide';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/mage/arcane/Guide';
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 
@@ -15,30 +14,14 @@ import {
   CastEfficiencyStatElement,
 } from 'interface/guide/components/CastEfficiencyPanel';
 
+const ORB_CHARGE_THRESHOLD = 2;
+
 class ArcaneOrbGuide extends Analyzer {
   static dependencies = {
     arcaneOrb: ArcaneOrb,
   };
 
   protected arcaneOrb!: ArcaneOrb;
-
-  generateGuideTooltip(
-    performance: QualitativePerformance,
-    tooltipText: ReactNode,
-    timestamp: number,
-  ) {
-    const tooltip = (
-      <>
-        <div>
-          <b>@ {this.owner.formatTimestamp(timestamp)}</b>
-        </div>
-        <div>
-          <PerformanceMark perf={performance} /> {performance}: {tooltipText}
-        </div>
-      </>
-    );
-    return tooltip;
-  }
 
   get orbTargetUtil() {
     const util = this.arcaneOrb.orbTargetThresholds.actual;
@@ -52,15 +35,23 @@ class ArcaneOrbGuide extends Analyzer {
     return performance;
   }
 
-  get arcaneOrbData() {
-    const data: BoxRowEntry[] = [];
-    this.arcaneOrb.orbCasts.forEach((ao) => {
-      if (ao.usage && ao.usage?.tooltip) {
-        const tooltip = this.generateGuideTooltip(ao.usage?.value, ao.usage?.tooltip, ao.cast);
-        data.push({ value: ao.usage?.value, tooltip });
-      }
+  get arcaneOrbData(): BoxRowEntry[] {
+    return this.arcaneOrb.orbCasts.map((cast) => {
+      const value =
+        cast.targetsHit > 0 && cast.chargesBefore <= ORB_CHARGE_THRESHOLD
+          ? QualitativePerformance.Good
+          : QualitativePerformance.Fail;
+      const tooltip = (
+        <p>
+          @ <strong>{this.owner.formatTimestamp(cast.timestamp)}</strong>
+          <br />
+          Targets Hit: <strong>{cast.targetsHit}</strong>
+          <br />
+          Charges Before Cast: <strong>{cast.chargesBefore}</strong>
+        </p>
+      );
+      return { value, tooltip };
     });
-    return data;
   }
 
   get guideSubsection(): JSX.Element {
