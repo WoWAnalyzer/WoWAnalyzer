@@ -22,7 +22,6 @@ import CastSummaryAndBreakdown from 'analysis/retail/demonhunter/shared/guide/Ca
 // 50 was too low, 100 was too high
 // had no issues with 85ms
 const BUFFER_MS = 85;
-const UNLEASH_LIFE_DURATION = 100;
 const WHIRLING_AIR_ID = SPELLS.WHIRLING_AIR.id;
 const WHIRLING_EARTH_ID = SPELLS.WHIRLING_EARTH.id;
 const WHIRLING_WATER_ID = SPELLS.WHIRLING_WATER.id;
@@ -49,23 +48,11 @@ class SurgingTotem extends Analyzer {
   healingRainTicks: HealingRainTickInfo[] = [];
   maxTargets = 5;
   totalMaxTargets = 0;
-  unleashLifeRemaining = false;
-  lastUnleashLifeTimestamp: number = Number.MAX_SAFE_INTEGER;
   casts = 0;
 
   //SurgingTotemCasts: Cast[] = [];
   SurgingTotemCasts: SurgingTotemCast[] = [];
   castEntries: BoxRowEntry[] = [];
-
-  unleashLifeSpells = {
-    [TALENTS.RIPTIDE_TALENT.id]: {},
-    [TALENTS.CHAIN_HEAL_TALENT.id]: {},
-    [TALENTS.HEALING_WAVE_TALENT.id]: {},
-    [SPELLS.HEALING_SURGE.id]: {},
-    [TALENTS.WELLSPRING_TALENT.id]: {},
-    [SPELLS.HEALING_RAIN_TOTEMIC.id]: {},
-    [TALENTS.DOWNPOUR_TALENT.id]: {},
-  };
 
   whirlingMotesConsumed: Record<number, number> = {
     [SPELLS.WHIRLING_AIR.id]: 0,
@@ -195,29 +182,6 @@ class SurgingTotem extends Analyzer {
       this.totalMaxTargets += 5;
       this.casts += 1;
       this.maxTargets = 5;
-      if (this.unleashLifeRemaining === true) {
-        this.maxTargets += 2;
-        this.totalMaxTargets += 2;
-      }
-    }
-
-    if (spellId === TALENTS.UNLEASH_LIFE_TALENT.id) {
-      this.unleashLifeRemaining = true;
-      this.lastUnleashLifeTimestamp = event.timestamp;
-    }
-
-    if (
-      this.unleashLifeRemaining &&
-      this.lastUnleashLifeTimestamp + UNLEASH_LIFE_DURATION <= event.timestamp
-    ) {
-      this.unleashLifeRemaining = false;
-      return;
-    }
-
-    if (this.unleashLifeRemaining) {
-      if (this.unleashLifeSpells[spellId]) {
-        this.unleashLifeRemaining = false;
-      }
     }
   }
 
@@ -267,10 +231,9 @@ class SurgingTotem extends Analyzer {
         </p>
         <p>
           It can be augmented to do more healing through{' '}
-          <SpellLink spell={TALENTS.OVERFLOWING_SHORES_TALENT} />, more damage through{' '}
-          <SpellLink spell={TALENTS.ACID_RAIN_TALENT} />, and can hit additional targets through{' '}
-          <SpellLink spell={TALENTS.UNLEASH_LIFE_TALENT} />. Aside from being strong throughput,
-          this spell also buffs <SpellLink spell={TALENTS.HEALING_WAVE_TALENT} />,{' '}
+          <SpellLink spell={TALENTS.OVERFLOWING_SHORES_TALENT} /> and more damage through{' '}
+          <SpellLink spell={TALENTS.ACID_RAIN_TALENT} />. Aside from being strong throughput, this
+          spell also buffs <SpellLink spell={TALENTS.HEALING_WAVE_TALENT} />,{' '}
           <SpellLink spell={SPELLS.HEALING_SURGE} /> and{' '}
           <SpellLink spell={TALENTS.CHAIN_HEAL_TALENT} /> through{' '}
           <SpellLink spell={TALENTS.DELUGE_TALENT} />.
