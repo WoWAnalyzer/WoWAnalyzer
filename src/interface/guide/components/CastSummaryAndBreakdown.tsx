@@ -18,27 +18,27 @@ interface Props {
   /** A per-cast evaluation of the data to be displayed */
   castEntries: BoxRowEntry[];
   /** A label to include when mousing over the 'perfect' section of the Performance Bar */
-  perfectLabel?: string;
+  perfectLabel?: React.ReactNode;
   /** A brief explanation of what makes a cast 'perfect', included in explanatory text */
-  perfectExtraExplanation?: string;
+  perfectExtraExplanation?: React.ReactNode;
   /** If set, text with the percentage of perfect casts is shown before the Performance Bar */
   includePerfectCastPercentage?: boolean;
   /** A label to include when mousing over the 'good' section of the Performance Bar */
-  goodLabel?: string;
+  goodLabel?: React.ReactNode;
   /** A brief explanation of what makes a cast 'good', included in explanatory text */
-  goodExtraExplanation?: string;
+  goodExtraExplanation?: React.ReactNode;
   /** If set, text with the percentage of good casts is shown before the Performance Bar */
   includeGoodCastPercentage?: boolean;
   /** A label to include when mousing over the 'ok' section of the Performance Bar */
-  okLabel?: string;
+  okLabel?: React.ReactNode;
   /** A brief explanation of what makes a cast 'ok', included in explanatory text */
-  okExtraExplanation?: string;
+  okExtraExplanation?: React.ReactNode;
   /** If set, text with the percentage of ok casts is shown before the Performance Bar */
   includeOkCastPercentage?: boolean;
   /** A label to include when mousing over the 'bad' section of the Performance Bar */
-  badLabel?: string;
+  badLabel?: React.ReactNode;
   /** A brief explanation of what makes a cast 'bad', included in explanatory text */
-  badExtraExplanation?: string;
+  badExtraExplanation?: React.ReactNode;
   /** If set, text with the percentage of bad casts is shown before the Performance Bar */
   includeBadCastPercentage?: boolean;
   /** If set, explanatory text uses the word 'use' instead of 'cast'. Useful if data is evaluating
