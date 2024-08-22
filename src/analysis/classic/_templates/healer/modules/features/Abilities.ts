@@ -8,7 +8,7 @@ class Abilities extends CoreAbilities {
       // SPELLS ADDED HERE ARE DISPLAYED ON THE STATISTICS TAB
       // Rotational
       {
-        spell: [SPELLS.HEALING_TOUCH.id, ...SPELLS.HEALING_TOUCH.lowRanks],
+        spell: SPELLS.HEALING_TOUCH.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
