@@ -14,18 +14,28 @@ import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../../Guide';
-import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
-import { HasRelatedEvent } from 'parser/core/Events';
-import { WHIRLINGAIR_HEAL, WHIRLINGEARTH_HEAL, WHIRLINGWATER_HEAL } from '../../../constants';
+import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
+import { didMoteExpire } from '../../../normalizers/CastLinkNormalizer';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 // 50 was too low, 100 was too high
 // had no issues with 85ms
 const BUFFER_MS = 85;
 const UNLEASH_LIFE_DURATION = 100;
+const WHIRLING_AIR_ID = SPELLS.WHIRLING_AIR.id;
+const WHIRLING_EARTH_ID = SPELLS.WHIRLING_EARTH.id;
+const WHIRLING_WATER_ID = SPELLS.WHIRLING_WATER.id;
+
 interface HealingRainTickInfo {
   timestamp: number;
   hits: number;
 }
+
+type SurgingTotemCast = {
+  WHIRLING_AIR_ID: number;
+  WHIRLING_EARTH_ID: number;
+  WHIRLING_WATER_ID: number;
+};
 
 class SurgingTotem extends Analyzer {
   static dependencies = {
@@ -35,12 +45,14 @@ class SurgingTotem extends Analyzer {
   protected combatants!: Combatants;
 
   healingRainTicks: HealingRainTickInfo[] = [];
-  maxTargets = 6;
+  maxTargets = 5;
   totalMaxTargets = 0;
   unleashLifeRemaining = false;
   lastUnleashLifeTimestamp: number = Number.MAX_SAFE_INTEGER;
   casts = 0;
 
+  //SurgingTotemCasts: Cast[] = [];
+  SurgingTotemCasts: SurgingTotemCast[] = [];
   castEntries: BoxRowEntry[] = [];
 
   unleashLifeSpells = {
@@ -80,8 +92,12 @@ class SurgingTotem extends Analyzer {
       Events.removebuff.by(SELECTED_PLAYER).spell(whirlingMotes),
       this._onRemoveBuff,
     );
+    this.addEventListener(Events.fightend, this._onFightEnd);
   }
 
+  _onFightEnd() {
+    this._rateCasts(this.SurgingTotemCasts);
+  }
   get averageMaxTargets() {
     return this.totalMaxTargets / this.casts;
   }
@@ -164,12 +180,20 @@ class SurgingTotem extends Analyzer {
   _onCast(event: CastEvent) {
     const spellId = event.ability.guid;
 
+    if (spellId === SPELLS.SURGING_TOTEM.id) {
+      this.SurgingTotemCasts.push({
+        WHIRLING_AIR_ID: 0,
+        WHIRLING_EARTH_ID: 0,
+        WHIRLING_WATER_ID: 0,
+      });
+    }
+
     if (spellId === SPELLS.HEALING_RAIN_TOTEMIC.id) {
-      this.totalMaxTargets += 6;
+      this.totalMaxTargets += 5;
       this.casts += 1;
-      this.maxTargets = 6;
+      this.maxTargets = 5;
       if (this.unleashLifeRemaining === true) {
-        this.maxTargets = 8;
+        this.maxTargets += 2;
         this.totalMaxTargets += 2;
       }
     }
@@ -198,10 +222,25 @@ class SurgingTotem extends Analyzer {
     const spellId = event.ability.guid;
     if (didMoteExpire(event)) {
       this.whirlingMotesExpired[spellId] += 1;
-      console.log('wasted', event.ability.name, this.whirlingMotesExpired[spellId]);
+      console.log('LOST A BUFF', this.SurgingTotemCasts[this.SurgingTotemCasts.length - 1]);
     } else {
       this.whirlingMotesConsumed[spellId] += 1;
-      console.log('consumed', event.ability.name, this.whirlingMotesConsumed[spellId]);
+      switch (event.ability.guid) {
+        case WHIRLING_AIR_ID: {
+          this.SurgingTotemCasts[this.SurgingTotemCasts.length - 1].WHIRLING_AIR_ID = 1;
+          break;
+        }
+        case WHIRLING_EARTH_ID: {
+          this.SurgingTotemCasts[this.SurgingTotemCasts.length - 1].WHIRLING_EARTH_ID = 1;
+          break;
+        }
+        case WHIRLING_WATER_ID: {
+          this.SurgingTotemCasts[this.SurgingTotemCasts.length - 1].WHIRLING_WATER_ID = 1;
+          break;
+        }
+        default:
+          break;
+      }
     }
   }
 
@@ -239,13 +278,14 @@ class SurgingTotem extends Analyzer {
             Through <SpellLink spell={TALENTS_SHAMAN.WHIRLING_ELEMENTS_TALENT} />, every cast
             produces three motes, each offering a powerful buff :{' '}
             <SpellLink spell={SPELLS.WHIRLING_AIR} />, <SpellLink spell={SPELLS.WHIRLING_EARTH} />{' '}
-            and <SpellLink spell={SPELLS.WHIRLING_WATER} />. You should always try and consume each
-            of these buffs.
+            and <SpellLink spell={SPELLS.WHIRLING_WATER} />. You should always try and consume these
+            buffs.
           </p>
         )}
       </>
     );
 
+    // TODO add cast breakdown
     const data = (
       <div>
         <RoundedPanel>
@@ -256,21 +296,20 @@ class SurgingTotem extends Analyzer {
             {this.subStatistic()}
           </div>
           {this.selectedCombatant.hasTalent(TALENTS.SURGING_TOTEM_TALENT) && (
-            <div>
-              Over the course of the fight, you cast{' '}
-              {this.whirlingMotesConsumed[SPELLS.WHIRLING_AIR.id] +
-                this.whirlingMotesExpired[SPELLS.WHIRLING_AIR.id]}
-              <SpellLink spell={TALENTS.SURGING_TOTEM_TALENT} /> and consumed
-              <br />
-              <strong>{this.whirlingMotesConsumed[SPELLS.WHIRLING_AIR.id]}</strong>{' '}
-              <SpellLink spell={SPELLS.WHIRLING_AIR} />
-              <br />
-              <strong>{this.whirlingMotesConsumed[SPELLS.WHIRLING_EARTH.id]}</strong>{' '}
-              <SpellLink spell={SPELLS.WHIRLING_EARTH} />
-              <br />
-              <strong>{this.whirlingMotesConsumed[SPELLS.WHIRLING_WATER.id]}</strong>{' '}
-              <SpellLink spell={SPELLS.WHIRLING_WATER} />
-            </div>
+            <>
+              <div>
+                Over the course of the fight, you cast{' '}
+                <strong>{this.SurgingTotemCasts.length}</strong>{' '}
+                <SpellLink spell={TALENTS.SURGING_TOTEM_TALENT} /> and consumed{' '}
+                <strong>{this.whirlingMotesConsumed[SPELLS.WHIRLING_AIR.id]}</strong>{' '}
+                <SpellLink spell={SPELLS.WHIRLING_AIR} />,{' '}
+                <strong>{this.whirlingMotesConsumed[SPELLS.WHIRLING_EARTH.id]}</strong>{' '}
+                <SpellLink spell={SPELLS.WHIRLING_EARTH} />, and{' '}
+                <strong>{this.whirlingMotesConsumed[SPELLS.WHIRLING_WATER.id]}</strong>{' '}
+                <SpellLink spell={SPELLS.WHIRLING_WATER} />.
+              </div>
+              <div>{this.guideCastBreakdown()}</div>
+            </>
           )}
         </RoundedPanel>
       </div>
@@ -317,19 +356,62 @@ class SurgingTotem extends Analyzer {
       />
     );
   }
-}
 
-export function didMoteExpire(event: RemoveBuffEvent) {
-  switch (event.ability.guid) {
-    case SPELLS.WHIRLING_AIR.id: {
-      return !HasRelatedEvent(event, WHIRLINGAIR_HEAL); // TODO check all direct heals
-    }
-    case SPELLS.WHIRLING_EARTH.id: {
-      return !HasRelatedEvent(event, WHIRLINGEARTH_HEAL); // TODO Chain Heal
-    }
-    case SPELLS.WHIRLING_WATER.id: {
-      return !HasRelatedEvent(event, WHIRLINGWATER_HEAL); // TODO check Healing Wave and Healing Surge
-    }
+  guideCastBreakdown() {
+    return (
+      <>
+        You should at least consume <SpellLink spell={SPELLS.WHIRLING_EARTH} /> and{' '}
+        <SpellLink spell={SPELLS.WHIRLING_AIR} /> every time.
+        <PerformanceBoxRow values={this.castEntries} />
+      </>
+    );
+  }
+
+  _rateCasts(casts: SurgingTotemCast[]) {
+    casts.forEach((SurgingTotemCast) => {
+      let value = null;
+
+      switch (
+        SurgingTotemCast.WHIRLING_AIR_ID +
+        SurgingTotemCast.WHIRLING_EARTH_ID +
+        SurgingTotemCast.WHIRLING_WATER_ID
+      ) {
+        case 3:
+          value = QualitativePerformance.Perfect;
+          break;
+        case 2:
+          value = QualitativePerformance.Good;
+          break;
+        case 1:
+          value = QualitativePerformance.Ok;
+          break;
+        default:
+          value = QualitativePerformance.Fail;
+      }
+
+      const tooltip = (
+        <>
+          {!SurgingTotemCast.WHIRLING_AIR_ID && (
+            <div>
+              <SpellLink spell={SPELLS.WHIRLING_AIR} /> not consumed.
+            </div>
+          )}
+          {!SurgingTotemCast.WHIRLING_EARTH_ID && (
+            <div>
+              <SpellLink spell={SPELLS.WHIRLING_EARTH} /> not consumed.
+            </div>
+          )}
+          {!SurgingTotemCast.WHIRLING_WATER_ID && (
+            <div>
+              <SpellLink spell={SPELLS.WHIRLING_WATER} /> not consumed.
+            </div>
+          )}
+          {value === QualitativePerformance.Perfect && <div>All motes consumed ✅</div>}
+        </>
+      );
+
+      this.castEntries.push({ value, tooltip });
+    });
   }
 }
 

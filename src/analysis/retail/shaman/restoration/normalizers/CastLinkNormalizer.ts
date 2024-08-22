@@ -383,4 +383,18 @@ export function isBuffedByHighTide(event: CastEvent) {
   return HasRelatedEvent(event, HIGH_TIDE);
 }
 
+export function didMoteExpire(event: RemoveBuffEvent) {
+  switch (event.ability.guid) {
+    case SPELLS.WHIRLING_AIR.id: {
+      return !HasRelatedEvent(event, WHIRLINGAIR_HEAL);
+    }
+    case SPELLS.WHIRLING_EARTH.id: {
+      return !HasRelatedEvent(event, WHIRLINGEARTH_HEAL);
+    }
+    case SPELLS.WHIRLING_WATER.id: {
+      return !HasRelatedEvent(event, WHIRLINGWATER_HEAL);
+    }
+  }
+}
+
 export default CastLinkNormalizer;

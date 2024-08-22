@@ -32,7 +32,7 @@ class HealingRain extends Analyzer {
   protected combatants!: Combatants;
 
   healingRainTicks: HealingRainTickInfo[] = [];
-  maxTargets = 6;
+  maxTargets = 5;
   totalMaxTargets = 0;
   unleashLifeRemaining = false;
   lastUnleashLifeTimestamp: number = Number.MAX_SAFE_INTEGER;
@@ -135,11 +135,11 @@ class HealingRain extends Analyzer {
     const spellId = event.ability.guid;
 
     if (spellId === TALENTS.HEALING_RAIN_TALENT.id) {
-      this.totalMaxTargets += 6;
+      this.totalMaxTargets += 5;
       this.casts += 1;
-      this.maxTargets = 6;
+      this.maxTargets = 5;
       if (this.unleashLifeRemaining === true) {
-        this.maxTargets = 8;
+        this.maxTargets = 7;
         this.totalMaxTargets += 2;
       }
     }
