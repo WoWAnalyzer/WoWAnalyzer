@@ -5,7 +5,7 @@ import { change, date } from 'common/changelog';
 import { Sharrq, Sref } from 'CONTRIBUTORS';
 
 export default [
-  change(date(2024, 8, 20), <>Improvements to <SpellLink spell={TALENTS.ARCANE_TEMPO_TALENT} /> stats. Cleaned up Cooldown bars section to only include relevant spells. Removed <SpellLink spell={SPELLS.SIPHON_STORM_BUFF} /> section from Guide, as it was redundant with the text and tracking in <SpellLink spell={TALENTS.ARCANE_SURGE_TALENT} /> section.</>, Sref),
+  change(date(2024, 8, 20), <>Improvements to <SpellLink spell={TALENTS.ARCANE_TEMPO_TALENT} /> and <SpellLink spell={SPELLS.ARCANE_ORB} /> stats. Cleaned up Cooldown bars section to only include relevant spells. Removed <SpellLink spell={SPELLS.SIPHON_STORM_BUFF} /> section from Guide, as it was redundant with the text and tracking in <SpellLink spell={TALENTS.ARCANE_SURGE_TALENT} /> section.</>, Sref),
   change(date(2024, 8, 18), <>Bumped Arcane Mage to Full Support for 11.0.2</>, Sharrq),
   change(date(2024, 8, 18), <>Completely removed the old Checklist view.</>, Sharrq),
   change(date(2024, 8, 18), <>Moved Cooldown timelines back to their own section instead of alongside the spell's corresponding section.</>, Sharrq),
