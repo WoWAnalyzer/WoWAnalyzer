@@ -1,8 +1,6 @@
 // Base file
 import BaseCombatLogParser from 'parser/classic/CombatLogParser';
 // Shared
-import lowRankSpellsSuggestion from 'parser/classic/suggestions/lowRankSpells';
-import { lowRankSpells } from '../shared';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import SpellManaCost from 'parser/shared/modules/SpellManaCost';
 // Features
@@ -17,7 +15,6 @@ import Checklist from './modules/checklist/Module';
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
     // Shared
-    lowRankSpells: lowRankSpellsSuggestion(lowRankSpells),
     manaTracker: ManaTracker,
     spellManaCost: SpellManaCost,
     // Features
