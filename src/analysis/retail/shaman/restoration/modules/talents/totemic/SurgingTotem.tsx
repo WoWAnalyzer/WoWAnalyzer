@@ -14,9 +14,10 @@ import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../../Guide';
-import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
+import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import { didMoteExpire } from '../../../normalizers/CastLinkNormalizer';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import CastSummaryAndBreakdown from 'analysis/retail/demonhunter/shared/guide/CastSummaryAndBreakdown';
 
 // 50 was too low, 100 was too high
 // had no issues with 85ms
@@ -32,6 +33,7 @@ interface HealingRainTickInfo {
 }
 
 type SurgingTotemCast = {
+  timestamp: number;
   WHIRLING_AIR_ID: number;
   WHIRLING_EARTH_ID: number;
   WHIRLING_WATER_ID: number;
@@ -182,6 +184,7 @@ class SurgingTotem extends Analyzer {
 
     if (spellId === SPELLS.SURGING_TOTEM.id) {
       this.SurgingTotemCasts.push({
+        timestamp: event.timestamp,
         WHIRLING_AIR_ID: 0,
         WHIRLING_EARTH_ID: 0,
         WHIRLING_WATER_ID: 0,
@@ -342,17 +345,10 @@ class SurgingTotem extends Analyzer {
       />
     );
   }
-
+  //<PerformanceBoxRow values={this.castEntries} />
   guideCastBreakdown() {
     return (
       <>
-        <div>
-          The following breakdown represents your usage of the elemental motes provided by{' '}
-          <SpellLink spell={TALENTS_SHAMAN.WHIRLING_ELEMENTS_TALENT} />. You should at least consume{' '}
-          <SpellLink spell={SPELLS.WHIRLING_EARTH} /> and <SpellLink spell={SPELLS.WHIRLING_AIR} />{' '}
-          every time.
-        </div>
-        <PerformanceBoxRow values={this.castEntries} />
         <div>
           Over the course of the fight, you cast <strong>{this.SurgingTotemCasts.length}</strong>{' '}
           <SpellLink spell={TALENTS.SURGING_TOTEM_TALENT} /> and consumed{' '}
@@ -361,8 +357,18 @@ class SurgingTotem extends Analyzer {
           <strong>{this.whirlingMotesConsumed[SPELLS.WHIRLING_EARTH.id]}</strong>{' '}
           <SpellLink spell={SPELLS.WHIRLING_EARTH} />, and{' '}
           <strong>{this.whirlingMotesConsumed[SPELLS.WHIRLING_WATER.id]}</strong>{' '}
-          <SpellLink spell={SPELLS.WHIRLING_WATER} />.
+          <SpellLink spell={SPELLS.WHIRLING_WATER} />. The following breakdown represents your usage
+          of the elemental motes.
         </div>
+
+        <CastSummaryAndBreakdown
+          spell={SPELLS.SURGING_TOTEM}
+          castEntries={this.castEntries}
+          perfectExtraExplanation="all 3 motes consumed"
+          goodExtraExplanation="2 motes consumed"
+          okExtraExplanation="1 mote consumed"
+          badExtraExplanation="all motes wasted"
+        />
       </>
     );
   }
@@ -391,6 +397,9 @@ class SurgingTotem extends Analyzer {
 
       const tooltip = (
         <>
+          <div>
+            <strong>@ {this.owner.formatTimestamp(SurgingTotemCast.timestamp)}</strong>
+          </div>
           {!SurgingTotemCast.WHIRLING_AIR_ID && (
             <div>
               <SpellLink spell={SPELLS.WHIRLING_AIR} /> not consumed.
