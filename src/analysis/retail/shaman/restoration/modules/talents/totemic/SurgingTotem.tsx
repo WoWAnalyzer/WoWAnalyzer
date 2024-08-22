@@ -295,22 +295,8 @@ class SurgingTotem extends Analyzer {
           <div className="flex-main chart" style={{ padding: 15 }}>
             {this.subStatistic()}
           </div>
-          {this.selectedCombatant.hasTalent(TALENTS.SURGING_TOTEM_TALENT) && (
-            <>
-              <div>
-                Over the course of the fight, you cast{' '}
-                <strong>{this.SurgingTotemCasts.length}</strong>{' '}
-                <SpellLink spell={TALENTS.SURGING_TOTEM_TALENT} /> and consumed{' '}
-                <strong>{this.whirlingMotesConsumed[SPELLS.WHIRLING_AIR.id]}</strong>{' '}
-                <SpellLink spell={SPELLS.WHIRLING_AIR} />,{' '}
-                <strong>{this.whirlingMotesConsumed[SPELLS.WHIRLING_EARTH.id]}</strong>{' '}
-                <SpellLink spell={SPELLS.WHIRLING_EARTH} />, and{' '}
-                <strong>{this.whirlingMotesConsumed[SPELLS.WHIRLING_WATER.id]}</strong>{' '}
-                <SpellLink spell={SPELLS.WHIRLING_WATER} />.
-              </div>
-              <div>{this.guideCastBreakdown()}</div>
-            </>
-          )}
+          {this.selectedCombatant.hasTalent(TALENTS.SURGING_TOTEM_TALENT) &&
+            this.guideCastBreakdown()}
         </RoundedPanel>
       </div>
     );
@@ -360,9 +346,23 @@ class SurgingTotem extends Analyzer {
   guideCastBreakdown() {
     return (
       <>
-        You should at least consume <SpellLink spell={SPELLS.WHIRLING_EARTH} /> and{' '}
-        <SpellLink spell={SPELLS.WHIRLING_AIR} /> every time.
+        <div>
+          The following breakdown represents your usage of the elemental motes provided by{' '}
+          <SpellLink spell={TALENTS_SHAMAN.WHIRLING_ELEMENTS_TALENT} />. You should at least consume{' '}
+          <SpellLink spell={SPELLS.WHIRLING_EARTH} /> and <SpellLink spell={SPELLS.WHIRLING_AIR} />{' '}
+          every time.
+        </div>
         <PerformanceBoxRow values={this.castEntries} />
+        <div>
+          Over the course of the fight, you cast <strong>{this.SurgingTotemCasts.length}</strong>{' '}
+          <SpellLink spell={TALENTS.SURGING_TOTEM_TALENT} /> and consumed{' '}
+          <strong>{this.whirlingMotesConsumed[SPELLS.WHIRLING_AIR.id]}</strong>{' '}
+          <SpellLink spell={SPELLS.WHIRLING_AIR} />,{' '}
+          <strong>{this.whirlingMotesConsumed[SPELLS.WHIRLING_EARTH.id]}</strong>{' '}
+          <SpellLink spell={SPELLS.WHIRLING_EARTH} />, and{' '}
+          <strong>{this.whirlingMotesConsumed[SPELLS.WHIRLING_WATER.id]}</strong>{' '}
+          <SpellLink spell={SPELLS.WHIRLING_WATER} />.
+        </div>
       </>
     );
   }
