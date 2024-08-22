@@ -104,14 +104,15 @@ class SurgingTotem extends Analyzer {
         suggest(
           <span>
             Try to always cast <SpellLink spell={SPELLS.HEALING_RAIN_TOTEMIC} /> in areas where
-            players stack. This allows the spell to consitantly hit all possible targets.
-            {this.selectedCombatant.hasTalent(TALENTS_SHAMAN.TOTEMIC_PROJECTION_TALENT) && (
-              <>
-                {' '}
-                You can reposition it using{' '}
-                <SpellLink spell={TALENTS_SHAMAN.TOTEMIC_PROJECTION_TALENT} /> every 10 seconds.
-              </>
+            players stack. This allows the spell to consitantly hit all possible targets. You can{' '}
+            {!this.selectedCombatant.hasTalent(TALENTS_SHAMAN.TOTEMIC_PROJECTION_TALENT) && (
+              <>talent into </>
             )}
+            {this.selectedCombatant.hasTalent(TALENTS_SHAMAN.TOTEMIC_PROJECTION_TALENT) && (
+              <>use </>
+            )}
+            <SpellLink spell={TALENTS_SHAMAN.TOTEMIC_PROJECTION_TALENT} /> to reposition it every 10
+            seconds.
           </span>,
         )
           .icon(SPELLS.HEALING_RAIN_TOTEMIC.icon)
@@ -220,14 +221,13 @@ class SurgingTotem extends Analyzer {
           </b>{' '}
           is central to your gameplay as a Totemic Shaman. It should be active at all times as it
           casts a longer and more potent version of{' '}
-          <SpellLink spell={SPELLS.HEALING_RAIN_TOTEMIC} />.
-          {this.selectedCombatant.hasTalent(TALENTS_SHAMAN.TOTEMIC_PROJECTION_TALENT) && (
-            <>
-              {' '}
-              You can reposition it using{' '}
-              <SpellLink spell={TALENTS_SHAMAN.TOTEMIC_PROJECTION_TALENT} /> as necessary.
-            </>
+          <SpellLink spell={SPELLS.HEALING_RAIN_TOTEMIC} />. You can{' '}
+          {!this.selectedCombatant.hasTalent(TALENTS_SHAMAN.TOTEMIC_PROJECTION_TALENT) && (
+            <>talent into </>
           )}
+          {this.selectedCombatant.hasTalent(TALENTS_SHAMAN.TOTEMIC_PROJECTION_TALENT) && <>use </>}
+          <SpellLink spell={TALENTS_SHAMAN.TOTEMIC_PROJECTION_TALENT} /> to reposition it every 10
+          seconds.
         </p>
         <p>
           It can be augmented to do more healing through{' '}
