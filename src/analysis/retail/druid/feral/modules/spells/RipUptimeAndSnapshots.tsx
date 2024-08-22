@@ -32,7 +32,7 @@ import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { BadColor, OkColor } from 'interface/guide';
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';
-import CastSummaryAndBreakdown from 'analysis/retail/demonhunter/shared/guide/CastSummaryAndBreakdown';
+import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBreakdown';
 
 class RipUptimeAndSnapshots extends Snapshots {
   static dependencies = {

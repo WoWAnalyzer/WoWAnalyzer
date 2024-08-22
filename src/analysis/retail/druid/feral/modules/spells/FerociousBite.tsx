@@ -25,7 +25,7 @@ import { BadColor, OkColor } from 'interface/guide';
 import { getHits } from 'analysis/retail/druid/feral/normalizers/CastLinkNormalizer';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';
-import CastSummaryAndBreakdown from 'analysis/retail/demonhunter/shared/guide/CastSummaryAndBreakdown';
+import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBreakdown';
 
 const MIN_ACCEPTABLE_TIME_LEFT_ON_RIP_MS = 5000;
 

@@ -4,7 +4,6 @@ import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/Perfo
 import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
 import Spell from 'common/SPELLS/Spell';
 import SpellLink from 'interface/SpellLink';
-import { ClickToExpand, MouseoverForMoreDetails } from './CommonLinguiTranslations';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import CastPerformanceSummary from 'analysis/retail/demonhunter/shared/guide/CastPerformanceSummary';
 import styled from '@emotion/styled';
@@ -170,7 +169,8 @@ const CastSummaryAndBreakdown = ({
         <SpellLink spell={spell} /> casts
       </strong>{' '}
       <small>
-        - {performanceExplanation}. <MouseoverForMoreDetails /> <ClickToExpand />
+        - {performanceExplanation}. Mouseover for more details. Click to see per-{instanceWord}{' '}
+        details.
       </small>
       <ControlledExpandable
         header={
@@ -185,9 +185,7 @@ const CastSummaryAndBreakdown = ({
         expanded={isExpanded}
         inverseExpanded={() => setIsExpanded(!isExpanded)}
       >
-        <small>
-          <MouseoverForMoreDetails />
-        </small>
+        <small>Mouseover for more details.</small>
         <PerformanceBoxRow onClickBox={onClickBox} values={castEntries} />
       </ControlledExpandable>
     </CastSummaryAndBreakdownContainer>
