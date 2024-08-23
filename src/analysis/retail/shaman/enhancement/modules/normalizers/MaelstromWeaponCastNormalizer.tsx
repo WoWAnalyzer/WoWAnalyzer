@@ -29,7 +29,9 @@ class MaelstromWeaponCastNormalizer extends EventsNormalizer {
           event.type === EventType.BeginChannel ||
           event.type === EventType.EndChannel
         ) {
-          // probably do something here
+          if (HasRelatedEvent(event, MAELSTROM_WEAPON_INSTANT_CAST)) {
+            return;
+          }            
         }
       }
       fixedEvents.push(event);

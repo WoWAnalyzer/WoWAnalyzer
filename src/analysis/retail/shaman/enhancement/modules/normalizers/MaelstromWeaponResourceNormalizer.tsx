@@ -6,9 +6,10 @@ import {
   ApplyBuffEvent,
   ApplyBuffStackEvent,
   BaseCastEvent,
+  CastEvent,
   ClassResources,
-  Event,
   EventType,
+  GetRelatedEvents,
   HasAbility,
   RefreshBuffEvent,
   RemoveBuffEvent,
@@ -19,265 +20,481 @@ import {
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
-import Combatant from 'parser/core/Combatant';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import RESOURCE_TYPES, { getResource } from 'game/RESOURCE_TYPES';
 import { Options } from 'parser/core/Analyzer';
 import Spell from 'common/SPELLS/Spell';
 import typedKeys from 'common/typedKeys';
 import { NormalizerOrder } from './constants';
-import Abilities from 'parser/core/modules/Abilities';
 import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
 
 enum MaelstromAbilityType {
   Builder = 1,
   Spender = 2,
-  Both = 3,
 }
 
 enum BufferMs {
   Disabled = -1,
   None = 0,
-  Cast = 5,
-  Damage = 30,
-  Spender = 50,
+  MinimumDamageBuffer = 5,
+  Cast = 20,
+  Damage = 40,
+  SpendForward = 50,
+  SpendBackward = 25,
   PrimordialWave = 100,
+  StaticAccumulation = 130,
 }
 
 const MAXIMUM_MAELSTROM_PER_EVENT = {
   [TALENTS.STORM_SWELL_TALENT.id]: 3,
   [TALENTS.SUPERCHARGE_TALENT.id]: 3,
   [TALENTS.STATIC_ACCUMULATION_TALENT.id]: 10,
-}
+};
+
+const GAIN_EVENT_TYPES = [EventType.ApplyBuff, EventType.ApplyBuffStack, EventType.RefreshBuff];
+const SPEND_EVENT_TYPES = [EventType.RemoveBuff, EventType.RemoveBuffStack];
 
 const DEBUG = true;
+const MAELSTROM_WEAPON = 'maelstrom-weapon';
 
 interface MaelstromRelatedAbility {
-  spell: Spell | Spell[];
+  spell: number | number[];
   forwardBufferMs?: number;
   backwardsBufferMs?: number;
-  eventType?: EventType | EventType[];
-  enabled?: ((combatant: Combatant) => boolean) | boolean | undefined;
-  maximum?: ((combatant: Combatant) => number) | number | undefined;
-  type?: ((combatant: Combatant) => MaelstromAbilityType) | MaelstromAbilityType;
-  alternateSpell?: Spell;
+  minimumBuffer?: number;
+  linkFromEventType: EventType | EventType[];
+  linkToEventType: EventType | EventType[];
+  enabled?: boolean | undefined;
+  maximum?: number;
+  type?: MaelstromAbilityType;
+  alternateSpellId?: number;
+  useTimestampFromAbility?: boolean;
+  name?: string;
 }
 
 interface PeriodicGainEffect {
-  spellId: number,
-  frequencyMs: number,
-  immediateGain: boolean,
-  maxGainPerInterval: number,
-  alternateSpellId?: number | undefined,
+  spellId: number;
+  frequencyMs: number;
+  maxGainPerInterval: number;
+  alternateSpellId?: number | undefined;
 }
-interface ActivePeriodicGainEffect extends Omit<PeriodicGainEffect, 'immediateGain'> {
-  nextExpectedGain: number,  
+interface ActivePeriodicGainEffect extends PeriodicGainEffect {
+  nextExpectedGain: number;
+  intervalGains: AnyEvent[];
 }
 
-// type MaelstromEvent = ApplyBuffEvent | ApplyBuffStackEvent | RefreshBuffEvent | RemoveBuffEvent | RemoveBuffStackEvent;
-type GainEventType = ApplyBuffEvent | ApplyBuffStackEvent | RefreshBuffEvent;
-type SpendEventType = RemoveBuffEvent | RemoveBuffStackEvent;
-
-class MaelstromAbility {
-  private readonly combatant!: Combatant;
-
-  constructor(combatant: Combatant, spell: MaelstromRelatedAbility) {
-    this.combatant = combatant;
-    if (typeof spell.spell === "object" && spell.alternateSpell === undefined && spell.type === MaelstromAbilityType.Builder) {
-      throw new Error("When supplying an array of spells, alternateSpell must be defined");      
-    }    
+class MaelstromAbility implements MaelstromRelatedAbility {
+  constructor(spell: MaelstromRelatedAbility) {
+    if (
+      typeof spell.spell === 'object' &&
+      spell.alternateSpellId === undefined &&
+      spell.type === MaelstromAbilityType.Builder
+    ) {
+      throw new Error('When supplying an array of spells, alternateSpell must be defined');
+    }
     Object.assign(this, spell);
+
+    if (!this.name) {
+      this.name = (
+        Array.isArray(this.spell)
+          ? this.spell.map((s) => maybeGetTalentOrSpell(s))
+          : [maybeGetTalentOrSpell(this.spell)]
+      )
+        .map((a) => a?.name)
+        .join(' / ');
+    }
   }
 
-  spell!: Spell | Spell[];
-  eventType: EventType = EventType.Damage;
+  spell!: number | number[];
+  linkFromEventType!: MaelstromRelatedAbility['linkFromEventType'];
+  linkToEventType!: MaelstromRelatedAbility['linkToEventType'];
   forwardBufferMs: MaelstromRelatedAbility['forwardBufferMs'];
-  backwardsBufferMs: MaelstromRelatedAbility['backwardsBufferMs'] = -1;
-  alternateSpell: MaelstromRelatedAbility['alternateSpell'];  
+  backwardsBufferMs: MaelstromRelatedAbility['backwardsBufferMs'];
+  minimumBuffer: MaelstromRelatedAbility['minimumBuffer'];
+  alternateSpellId: MaelstromRelatedAbility['alternateSpellId'];
+  enabled: MaelstromRelatedAbility['enabled'] = true;
+  type: MaelstromAbilityType = MaelstromAbilityType.Builder;
+  maximum: number = 1;
+  useTimestampFromAbility: MaelstromRelatedAbility['useTimestampFromAbility'] = false;
+  name: MaelstromRelatedAbility['name'];
 
   get primarySpell(): number {
     // only valid for builder types
-    if (this.alternateSpell) {
-      return this.alternateSpell.id;
+    if (this.alternateSpellId) {
+      return this.alternateSpellId;
     } else {
-      return (this.spell as Spell).id;
+      return this.spell as number;
     }
-  }
-
-  _type: MaelstromRelatedAbility['type'];
-  get type() {
-    if (typeof this._type === 'function') {
-      return this._type.call(this, this.combatant);
-    }
-    return this._type ?? MaelstromAbilityType.Builder;
-  }
-  set type(value) {
-    this._type = value;
-  }
-
-  _condition: MaelstromRelatedAbility['enabled'];
-  get enabled() {
-    if (typeof this._condition === 'function') {
-      return this._condition.call(this, this.combatant);
-    }
-    return this._condition ?? true;
-  }
-  set enabled(value) {
-    this._condition = value;
-  }
-
-  _maximum: MaelstromRelatedAbility['maximum'];
-  get maximum() {
-    if (typeof this._maximum === 'function') {
-      return this._maximum.call(this, this.combatant);
-    }
-    return this._maximum ?? MAXIMUM_MAELSTROM_PER_EVENT[this.primarySpell] ?? 1;
-  }
-  set maximum(value) {
-    this._maximum = value;
   }
 
   get isBuilder() {
-    return (this.type & MaelstromAbilityType.Builder) === MaelstromAbilityType.Builder;
+    return this.type === MaelstromAbilityType.Builder;
   }
 
   get isSpender() {
-    return (this.type & MaelstromAbilityType.Spender) === MaelstromAbilityType.Spender;
+    return this.type === MaelstromAbilityType.Spender;
   }
 }
 
 class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
-  static dependencies = {
-    ...EventsNormalizer.dependencies,
-    abilities: Abilities
-  }
-  private readonly abilities!: Abilities;
-  private readonly resourceRelatedEvents: MaelstromAbility[];
   private readonly maxResource: number;
   private readonly maxSpend: number;
-  private fixedEvents: AnyEvent[] = [];
 
   constructor(options: Options) {
     super(options);
     this.priority = NormalizerOrder.MaelstromWeaponResourceNormalizer;
 
-    this.maxResource = this.selectedCombatant.hasTalent(TALENTS.RAGING_MAELSTROM_TALENT) ? 10 : 5
-    this.maxSpend = this.selectedCombatant.hasTalent(TALENTS.OVERFLOWING_MAELSTROM_TALENT) ? 10 : 5
-
-    this.resourceRelatedEvents = this.loadAbilities()
-      .map((config) => new MaelstromAbility(this.selectedCombatant, config))
-      .filter((ability) => ability.enabled);
+    this.maxResource = this.selectedCombatant.hasTalent(TALENTS.RAGING_MAELSTROM_TALENT) ? 10 : 5;
+    this.maxSpend = this.selectedCombatant.hasTalent(TALENTS.OVERFLOWING_MAELSTROM_TALENT) ? 10 : 5;
   }
 
-  normalize(events: AnyEvent[]): AnyEvent[] {    
-    let currentMaelstrom = 0;
-    // let lastMissingDetailEvent : ResourceChangeEventMissingProperties | null;
+  /**
+   * Find any periodic gains, such as feral spirit and the passive generation from Static Accumulation
+   */
+  private normalizePeriodicGains(
+    events: AnyEvent[],
+    resourceChangeAddedCallback: (linkedEvents: AnyEvent[]) => void,
+  ): AnyEvent[] {
+    const fixedEvents: AnyEvent[] = [];
     const activePeriodicEffects: Record<number, ActivePeriodicGainEffect> = {};
-    const processedMaelstromEvents = new Set<AnyEvent>();
 
-    events.forEach((event: AnyEvent, index: number) => {      
-      this.fixedEvents.push(event);
-
+    events.forEach((event: AnyEvent) => {
+      fixedEvents.push(event);
       if (HasAbility(event)) {
         // handle current periodic maelstrom gain effects
-        const periodicEffect = this.periodicSpells.find(p => p.spellId === event.ability.guid);        
+        const periodicEffect = this.periodicSpells.find((p) => p.spellId === event.ability.guid);
         if (periodicEffect) {
           if (event.type === EventType.ApplyBuff) {
-            activePeriodicEffects[periodicEffect.spellId] = startPeriodicGain(event, periodicEffect);            
+            activePeriodicEffects[periodicEffect.spellId] = startPeriodicGain(
+              event,
+              periodicEffect,
+            );
           }
           if (event.type === EventType.RemoveBuff) {
             delete activePeriodicEffects[periodicEffect.spellId];
           }
         }
 
-        // if this is a gain and there is a periodic effect active, 
-        if (isGain(event) && !processedMaelstromEvents.has(event)) {
-          const activeEffects = typedKeys(activePeriodicEffects).filter(i => Math.abs(activePeriodicEffects[i].nextExpectedGain - event.timestamp) < 25).map(i => activePeriodicEffects[i]);
+        // if this is a gain and there is a periodic effect active,
+        if (GAIN_EVENT_TYPES.includes(event.type)) {
+          const activeEffects = typedKeys(activePeriodicEffects)
+            .filter(
+              (i) => Math.abs(activePeriodicEffects[i].nextExpectedGain - event.timestamp) < 25,
+            )
+            .map((i) => activePeriodicEffects[i]);
           let handled = false;
-          activeEffects.forEach(activeEffect => {            
+          activeEffects.forEach((activeEffect) => {
             if (!handled) {
-              currentMaelstrom = this.buildEnergizeEvent(activeEffect.alternateSpellId ?? activeEffect.spellId, currentMaelstrom, 1, 1, event.timestamp, event);                
-              activeEffect.nextExpectedGain = event.timestamp + activeEffect.frequencyMs;
-              processedMaelstromEvents.add(event);
+              activeEffect.intervalGains.push(event);
+              if (activeEffect.intervalGains.length >= activeEffect.maxGainPerInterval) {
+                const resourceChange = this.buildEnergizeEvent(
+                  activeEffect.alternateSpellId ?? activeEffect.spellId,
+                  activeEffect.intervalGains.length,
+                  activeEffect.intervalGains[0].timestamp,
+                  ...activeEffect.intervalGains,
+                );
+                fixedEvents.push(resourceChange);
+                resourceChangeAddedCallback(activeEffect.intervalGains);
+
+                activeEffect.intervalGains = [];
+                activeEffect.nextExpectedGain = event.timestamp + activeEffect.frequencyMs;
+              }
               handled = true;
             }
-          });   
-          // if an active effect 
-          if (handled) {
-            return;     
-          }          
+          });
         }
-        const abilities = this.getAbilityForEvent(event.ability.guid).filter((ability) => eventTypesMatch(ability, event));
-        if (abilities.length > 0) {
-          abilities.forEach((ability) => {            
-            const foundEvents: Record<number, SpendEventType | GainEventType> = {};
-
-            for (let i = index + 1; i < events.length; i += 1) {
-              const forwardEvent = events[i];
-              if (timestampCheck(forwardEvent, event, ability.forwardBufferMs ?? 0)) {
-                break;
-              }              
-              if (isMaelstromEvent(forwardEvent)) {
-                if (processedMaelstromEvents.has(forwardEvent)) {
-                  continue;
-                }
-                foundEvents[i] = forwardEvent;
-              }
-            }
-
-            for (let i = index - 1; i >= 0; i -= 1) {
-              const backwardsEvent = events[i];
-              if (timestampCheck(event, backwardsEvent, ability.backwardsBufferMs ?? 0)) {
-                break;
-              }              
-              if (isMaelstromEvent(backwardsEvent)) {
-                if (processedMaelstromEvents.has(backwardsEvent)) {
-                  continue;
-                }
-                foundEvents[i] = backwardsEvent;
-              }
-            }            
-
-            let orderedEvents = typedKeys(foundEvents).sort().map((i) => foundEvents[i]);
-            if (orderedEvents.length === 0) {
-              return;
-            }
-
-            if ((ability.type & MaelstromAbilityType.Spender) === MaelstromAbilityType.Spender && event.type === EventType.Cast) {
-              const spend = orderedEvents.find(isSpend);
-              if (spend === undefined) {
-                return;
-              }
-              let cost = Math.min(this.maxSpend, currentMaelstrom);
-              if (spend?.type === EventType.RemoveBuffStack) {
-                cost = currentMaelstrom - spend.stack;
-              }
-              
-              const cr = getMaelstromClassResources(event, this.maxResource)!;
-              cr.amount = cost;
-              cr.cost = cost;
-              currentMaelstrom -= cost;
-              processedMaelstromEvents.add(spend);
-            }
-
-            if ((ability.type & MaelstromAbilityType.Builder) === MaelstromAbilityType.Builder) {
-              const spendEventIndex = orderedEvents.findIndex(e => e.type === EventType.RemoveBuff || e.type === EventType.RemoveBuffStack);
-              if (spendEventIndex >= 0) {
-                orderedEvents = orderedEvents.filter((_, i) => i > spendEventIndex);
-              }
-              currentMaelstrom = this.buildEnergizeEvent(ability.primarySpell, currentMaelstrom, ability.maximum, orderedEvents.filter(isGain).length, event.timestamp, ...orderedEvents);              
-              orderedEvents.forEach(e => processedMaelstromEvents.add(e));
-            }            
-          })
-        }
-      }            
+      }
     });
 
-    return DEBUG ? this.fixedEvents : this.fixedEvents.filter(f => !isMaelstromEvent(f));
+    return fixedEvents;
   }
 
-  private buildEnergizeEvent(spell: number | Spell, current: number, maximum: number, gain: number, timestamp: number, ...linkToEvent: AnyEvent[]): number {    
-    const change = Math.min(maximum, gain);                
-    current += change;
+  /** For debugging purposes only */
+  private processEvent<T extends string>(
+    processed: any,
+    ability: MaelstromAbility,
+    event: AbilityEvent<T>,
+    events: AnyEvent[],
+  ) {
+    const name = ability.isSpender
+      ? event.ability.name
+      : maybeGetTalentOrSpell(ability.primarySpell)?.name ?? ability.name!;
+    const type = MaelstromAbilityType[ability.type];
+    const timestamp = this.owner.formatTimestamp(event.timestamp, 3);
+
+    const abilityObj = (processed[name] ??= {});
+    const abilityEvent = (abilityObj[event.type] ??= {});
+    const abilityEventType = (abilityEvent[type] ??= { count: 0 });
+    const abilityList = (abilityEventType[timestamp] ??= []);
+
+    abilityEventType.count += 1;
+    abilityList.push(...events);
+  }
+
+  normalize(events: AnyEvent[]): AnyEvent[] {
+    const skip = new Set<AnyEvent>();
+    const processed: any = {};
+
+    // pre-process gains from periodic sources such as feral spirit and static accumulation's passive
+    events = this.normalizePeriodicGains(events, (processedPeriodicGains) => {
+      processedPeriodicGains.forEach((event) => skip.add(event));
+    });
+
+    const abilities = this.loadAbilities()
+      .filter((config) => config.enabled ?? true)
+      .map((config) => new MaelstromAbility(config));
+
+    /* process each active maelstrom related ability. unfortunately this required one parse per configuration,
+     * but multiple spells can be grouped when they relate to the same generator or spender */
+
+    // TODO: support multiple spells within a single iteration
+    abilities.forEach((ability) => {
+      const fixedEvents: AnyEvent[] = [];
+
+      events.forEach((event: AnyEvent, index: number) => {
+        fixedEvents.push(event);
+
+        // only interested in ability events
+        if (
+          HasAbility(event) &&
+          eventTypeAndSpellMatch(ability.spell, ability.linkFromEventType, event)
+        ) {
+          // events never "cross boundaries", either all will be before or all will be after.
+          const foundEvents =
+            this.lookBehind(ability, index, events, skip) ??
+            this.lookAhead(ability, index, events, skip);
+
+          DEBUG && this.processEvent(processed, ability, event, foundEvents ?? []);
+
+          if (!foundEvents) {
+            return;
+          }
+
+          if (ability.isBuilder) {
+            const timestamp = ability.useTimestampFromAbility
+              ? event.timestamp
+              : foundEvents[0].timestamp;
+            const resourcChangeEvent = this.buildEnergizeEvent(
+              ability.primarySpell,
+              foundEvents.length,
+              timestamp,
+              ...foundEvents,
+            );
+
+            fixedEvents.push(resourcChangeEvent);
+            foundEvents.forEach((e) => {
+              skip.add(e);
+            });
+          }
+
+          if (ability.isSpender) {
+            const spend = foundEvents.find((e) => SPEND_EVENT_TYPES.includes(e.type)) as
+              | RemoveBuffEvent
+              | RemoveBuffStackEvent
+              | undefined;
+            if (spend === undefined) {
+              return;
+            }
+            // this just ensures the class resource object exists on the cast event
+            const cr = getMaelstromClassResources(event as CastEvent, this.maxResource);
+            cr.amount = spend.type === EventType.RemoveBuff ? 0 : spend.stack;
+
+            AddRelatedEvent(spend, MAELSTROM_WEAPON, event);
+            AddRelatedEvent(event, MAELSTROM_WEAPON, spend);
+            skip.add(spend);
+          }
+        }
+      });
+
+      events = fixedEvents;
+    });
+
+    DEBUG && console.info('processed events', processed);
+
+    // final pass, calculate resource amounts and apply gains/losses
+    let current = 0;
+    events.forEach((event) => {
+      if (
+        event.type === EventType.ResourceChange &&
+        event.resourceChangeType === RESOURCE_TYPES.MAELSTROM_WEAPON.id
+      ) {
+        const buffs = GetRelatedEvents<ApplyBuffEvent | ApplyBuffStackEvent | RefreshBuffEvent>(
+          event,
+          MAELSTROM_WEAPON,
+        );
+        const lastBuff = buffs.at(-1)!;
+
+        current += event.resourceChange;
+        event.waste = Math.max(current - this.maxResource, 0);
+        current = Math.min(current, this.maxResource);
+
+        const expectedCurrent =
+          lastBuff.type === EventType.ApplyBuff
+            ? 1
+            : lastBuff.type === EventType.ApplyBuffStack
+              ? lastBuff.stack
+              : 10;
+        const expectedWaste = buffs.filter((b) => b.type === EventType.RefreshBuff).length;
+        if (DEBUG) {
+          if (current !== expectedCurrent || event.waste !== expectedWaste) {
+            console.log(
+              `${this.owner.formatTimestamp(event.timestamp, 3)} (${event.timestamp}) - expected ${expectedCurrent} stacks and ${expectedWaste} waste, but got ${current}/${event.waste}`,
+              event,
+            );
+          }
+        }
+
+        current = expectedCurrent;
+        event.waste = expectedWaste;
+      } else if (event.type === EventType.Cast) {
+        const cr = getResource(event.classResources, RESOURCE_TYPES.MAELSTROM_WEAPON.id);
+        if (cr) {
+          const buffs = GetRelatedEvents<RemoveBuffEvent | RemoveBuffStackEvent>(
+            event,
+            MAELSTROM_WEAPON,
+          );
+          if (DEBUG && buffs.length !== 1) {
+            throw Error(
+              `Multiple linked spend events at ${this.owner.formatTimestamp(event.timestamp, 3)}`,
+            );
+          }
+          const expectedCost =
+            buffs[0].type === EventType.RemoveBuff ? current : current - buffs[0].stack;
+
+          cr.cost = current - cr.amount;
+          if (cr.cost !== expectedCost) {
+            DEBUG &&
+              console.error(
+                `${this.owner.formatTimestamp(event.timestamp, 3)} (${event.timestamp}) - expected cost ${expectedCost} but was ${cr.cost}`,
+                event,
+                buffs,
+              );
+            cr.cost = expectedCost;
+          }
+          current -= cr.cost;
+        }
+      }
+    });
+
+    if (!DEBUG) {
+      return events.filter(
+        (event) =>
+          (HasAbility(event) &&
+            event.ability.guid === SPELLS.MAELSTROM_WEAPON_BUFF.id &&
+            [...GAIN_EVENT_TYPES, ...SPEND_EVENT_TYPES].includes(event.type)) ||
+          (event.type === EventType.ResourceChange &&
+            event.resourceChangeType === RESOURCE_TYPES.MAELSTROM_WEAPON.id),
+      );
+    }
+
+    return events;
+  }
+
+  /**
+   * Search backwards through {@link arr} from the {@link currentIndex} for an ability
+   * that matches {@link ability}
+   * @param ability the {@link MaelstromAbility} to find matches for
+   * @param currentIndex current position of the index through {@link arr}
+   * @param arr events being normalized
+   * @param skipTheseEvents any event present in this {@link Set} of events is assumed to have already been associated with a resource gain/spend event
+   * @returns related maelstrom buff events
+   */
+  private lookBehind(
+    ability: MaelstromAbility,
+    currentIndex: number,
+    arr: AnyEvent[],
+    skipTheseEvents: Set<AnyEvent>,
+  ) {
+    const result: AnyEvent[] = [];
+
+    const event = arr[currentIndex];
+    for (let index = currentIndex - 1; index >= 0; index -= 1) {
+      if (result.length === ability.maximum) {
+        break;
+      }
+
+      const backwardsEvent = arr[index];
+      if (timestampCheck(event, backwardsEvent, ability.backwardsBufferMs ?? 0)) {
+        break;
+      }
+      if (Math.abs(event.timestamp - backwardsEvent.timestamp) < (ability.minimumBuffer ?? 0)) {
+        continue;
+      }
+      if (
+        eventTypeAndSpellMatch(
+          SPELLS.MAELSTROM_WEAPON_BUFF.id,
+          ability.linkToEventType,
+          backwardsEvent,
+        )
+      ) {
+        if (skipTheseEvents.has(backwardsEvent)) {
+          continue;
+        }
+        result.splice(0, 0, backwardsEvent);
+      }
+    }
+
+    if (ability.maximum < 0) {
+      return result.length > 0 && result.length <= this.maxSpend ? result : undefined;
+    }
+    return result.length === ability.maximum ? result : undefined;
+  }
+
+  /**
+   * Search forward through {@link arr} from the {@link currentIndex} for an ability
+   * that matches {@link ability}
+   * @param ability the {@link MaelstromAbility} to find matches for
+   * @param currentIndex current position of the index through {@link arr}
+   * @param arr events being normalized
+   * @param skipTheseEvents any event present in this {@link Set} of events is assumed to have already been associated with a resource gain/spend event
+   * @returns related maelstrom buff events, or undefined if an unexpected number of events are found
+   */
+  private lookAhead(
+    ability: MaelstromAbility,
+    currentIndex: number,
+    arr: AnyEvent[],
+    skipTheseEvents: Set<AnyEvent>,
+  ) {
+    const result: AnyEvent[] = [];
+
+    const event = arr[currentIndex];
+    for (let index = currentIndex + 1; index < arr.length; index += 1) {
+      if (result.length === ability.maximum) {
+        break;
+      }
+
+      const forwardEvent = arr[index];
+      if (timestampCheck(forwardEvent, event, ability.forwardBufferMs ?? 0)) {
+        break;
+      }
+      if (Math.abs(event.timestamp - forwardEvent.timestamp) < (ability.minimumBuffer ?? 0)) {
+        continue;
+      }
+      if (
+        eventTypeAndSpellMatch(
+          SPELLS.MAELSTROM_WEAPON_BUFF.id,
+          ability.linkToEventType,
+          forwardEvent,
+        )
+      ) {
+        if (skipTheseEvents.has(forwardEvent)) {
+          continue;
+        }
+        result.push(forwardEvent);
+      }
+    }
+
+    if (ability.maximum < 0) {
+      return result.length > 0 && result.length <= this.maxSpend ? result : undefined;
+    }
+    return result.length === ability.maximum ? result : undefined;
+  }
+
+  private buildEnergizeEvent(
+    spell: number | Spell,
+    gain: number,
+    timestamp: number,
+    ...linkToEvent: AnyEvent[]
+  ): ResourceChangeEvent {
     const resourceChange: ResourceChangeEvent = {
       ability: spellToAbility(spell)!,
       type: EventType.ResourceChange,
@@ -286,11 +503,10 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
       targetID: this.selectedCombatant.id,
       targetIsFriendly: true,
       resourceChangeType: RESOURCE_TYPES.MAELSTROM_WEAPON.id,
-      resourceChange: change,
-      waste: Math.max(0, current - this.maxResource),
+      resourceChange: gain,
+      waste: 0,
       otherResourceChange: 0,
       resourceActor: ResourceActor.Source,
-      __modified: true,
       // don't care about these values
       classResources: [],
       hitPoints: 0,
@@ -303,258 +519,315 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
       facing: 0,
       mapID: 0,
       itemLevel: 0,
-      timestamp: timestamp
+      timestamp: timestamp,
     };
 
-    linkToEvent.forEach((linkedEvent) => AddRelatedEvent(resourceChange, 'maelstrom-resource-link', linkedEvent));
-    // insert before event that generated it
-    this.fixedEvents.push(resourceChange);
-    return Math.min(this.maxResource, current);
-  }  
-
-  private getAbilityForEvent(spellId: number) {
-    return this.resourceRelatedEvents.filter(b => spellsMatch(b, spellId)) ?? [];
+    linkToEvent.forEach((linkedEvent) => {
+      linkedEvent.__modified = true;
+      // add a link and reverse link
+      AddRelatedEvent(linkedEvent, MAELSTROM_WEAPON, resourceChange);
+      AddRelatedEvent(resourceChange, MAELSTROM_WEAPON, linkedEvent);
+    });
+    return resourceChange;
   }
 
-  private periodicSpells: PeriodicGainEffect[] = [
-    { spellId: SPELLS.FERAL_SPIRIT_MAELSTROM_BUFF.id, frequencyMs: 3000, immediateGain: true, maxGainPerInterval: 1 },
-    { spellId: TALENTS.ASCENDANCE_ENHANCEMENT_TALENT.id, frequencyMs: 1000, immediateGain: false, maxGainPerInterval: this.selectedCombatant.getTalentRank(TALENTS.STATIC_ACCUMULATION_TALENT) }
+  private readonly periodicSpells: PeriodicGainEffect[] = [
+    {
+      spellId: SPELLS.FERAL_SPIRIT_MAELSTROM_BUFF.id,
+      frequencyMs: 3000,
+      maxGainPerInterval: 1,
+      alternateSpellId: TALENTS.FERAL_SPIRIT_TALENT.id,
+    },
+    {
+      spellId: TALENTS.ASCENDANCE_ENHANCEMENT_TALENT.id,
+      frequencyMs: 1000,
+      maxGainPerInterval: this.selectedCombatant.getTalentRank(TALENTS.STATIC_ACCUMULATION_TALENT),
+      alternateSpellId: TALENTS.ASCENDANCE_ENHANCEMENT_TALENT.id,
+    },
   ];
 
   private loadAbilities(): MaelstromRelatedAbility[] {
+    // this list should be ordered by priority, with items at the end being the last to have a chance to catch a resource gain/spend
     return [
       {
-        spell: SPELLS.MELEE,
-        forwardBufferMs: BufferMs.Damage
+        name: 'Maelstrom spenders',
+        spell: [
+          SPELLS.LIGHTNING_BOLT.id,
+          TALENTS.CHAIN_LIGHTNING_TALENT.id,
+          SPELLS.TEMPEST_CAST.id,
+          TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id,
+          TALENTS.LAVA_BURST_TALENT.id,
+          SPELLS.HEALING_SURGE.id,
+          TALENTS.CHAIN_HEAL_TALENT.id,
+          TALENTS.LAVA_BURST_TALENT.id,
+        ],
+        type: MaelstromAbilityType.Spender,
+        linkFromEventType: EventType.Cast,
+        forwardBufferMs: BufferMs.SpendForward,
+        backwardsBufferMs: BufferMs.SpendBackward,
+        linkToEventType: SPEND_EVENT_TYPES,
       },
       {
-        spell: SPELLS.WINDFURY_ATTACK,
-        forwardBufferMs: BufferMs.Damage
+        name: 'Static accumulation',
+        spell: [
+          SPELLS.LIGHTNING_BOLT.id,
+          TALENTS.CHAIN_LIGHTNING_TALENT.id,
+          SPELLS.TEMPEST_CAST.id,
+        ],
+        type: MaelstromAbilityType.Builder,
+        enabled: this.selectedCombatant.hasTalent(TALENTS.STATIC_ACCUMULATION_TALENT),
+        maximum: -1,
+        linkFromEventType: EventType.Cast,
+        forwardBufferMs: BufferMs.StaticAccumulation,
+        alternateSpellId: TALENTS.STATIC_ACCUMULATION_TALENT.id,
+        minimumBuffer: 50,
+        useTimestampFromAbility: false,
+        linkToEventType: GAIN_EVENT_TYPES,
       },
       {
-        spell:TALENTS.ICE_STRIKE_TALENT,
-        forwardBufferMs: BufferMs.Damage
+        spell: SPELLS.FERAL_SPIRIT_MAELSTROM_BUFF.id,
+        alternateSpellId: TALENTS.FERAL_SPIRIT_TALENT.id,
+        linkFromEventType: GAIN_EVENT_TYPES,
+        linkToEventType: GAIN_EVENT_TYPES,
+        forwardBufferMs: BufferMs.Cast,
       },
       {
-        spell: TALENTS.LAVA_LASH_TALENT,
-        forwardBufferMs: BufferMs.Damage
+        name: 'Storm Swell',
+        spell: SPELLS.TEMPEST_CAST.id,
+        enabled: this.selectedCombatant.hasTalent(TALENTS.STORM_SWELL_TALENT),
+        linkFromEventType: EventType.Damage,
+        alternateSpellId: TALENTS.STORM_SWELL_TALENT.id,
+        maximum: MAXIMUM_MAELSTROM_PER_EVENT[TALENTS.STORM_SWELL_TALENT.id],
+        backwardsBufferMs: 25,
+        forwardBufferMs: 1,
+        linkToEventType: GAIN_EVENT_TYPES,
+        useTimestampFromAbility: true,
       },
-      // Stormstrike mh and oh hits should reattribute to Stormstrike cast
       {
-        spell: [SPELLS.STORMSTRIKE_DAMAGE, SPELLS.STORMSTRIKE_DAMAGE_OFFHAND],
-        alternateSpell: TALENTS.STORMSTRIKE_TALENT,
-        forwardBufferMs: BufferMs.Damage
+        spell: [
+          SPELLS.LIGHTNING_BOLT.id,
+          TALENTS.CHAIN_LIGHTNING_TALENT.id,
+          SPELLS.TEMPEST_CAST.id,
+          TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id,
+        ],
+        type: MaelstromAbilityType.Builder,
+        enabled: this.selectedCombatant.hasTalent(TALENTS.SUPERCHARGE_TALENT),
+        maximum: MAXIMUM_MAELSTROM_PER_EVENT[TALENTS.SUPERCHARGE_TALENT.id],
+        linkFromEventType: EventType.Cast,
+        forwardBufferMs: BufferMs.SpendForward,
+        alternateSpellId: TALENTS.SUPERCHARGE_TALENT.id,
+        minimumBuffer: 10,
+        linkToEventType: GAIN_EVENT_TYPES,
       },
-      // Windstrike mh and oh hits should reattribute to Stormstrike cast
+
+      // Swirling maelstrom has higher priority than Elemental Assault, as the later can be a chance if 1 of 2 talents invested
       {
-        spell: [SPELLS.WINDSTRIKE_DAMAGE, SPELLS.WINDSTRIKE_DAMAGE_OFFHAND],
-        enabled: [TALENTS.ASCENDANCE_ENHANCEMENT_TALENT, TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT].some((talent) => this.selectedCombatant.hasTalent(talent)),
-        alternateSpell: TALENTS.STORMSTRIKE_TALENT,
-        forwardBufferMs: BufferMs.Damage
-      },
-      // Windstrike casts should reattribute to Stormstrike cast
-      {
-        spell: SPELLS.WINDSTRIKE_CAST,
-        eventType: EventType.Cast,
-        enabled: this.selectedCombatant.hasTalent(TALENTS.ELEMENTAL_ASSAULT_TALENT) && [TALENTS.ASCENDANCE_ENHANCEMENT_TALENT, TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT].some((talent) => this.selectedCombatant.hasTalent(talent)),
-        alternateSpell: TALENTS.STORMSTRIKE_TALENT,
-        forwardBufferMs: BufferMs.Cast
+        spell: [TALENTS.ICE_STRIKE_TALENT.id, TALENTS.FROST_SHOCK_TALENT.id],
+        enabled: this.selectedCombatant.hasTalent(TALENTS.SWIRLING_MAELSTROM_TALENT),
+        linkFromEventType: EventType.Cast,
+        alternateSpellId: TALENTS.SWIRLING_MAELSTROM_TALENT.id,
+        forwardBufferMs: BufferMs.Cast,
+        backwardsBufferMs: 2,
+        linkToEventType: GAIN_EVENT_TYPES,
       },
       // Elemental Assault for Stormstrike & Lava Lash
       {
-        spell: [TALENTS.STORMSTRIKE_TALENT],
-        eventType: EventType.Cast,
+        spell: [
+          TALENTS.STORMSTRIKE_TALENT.id,
+          SPELLS.WINDSTRIKE_CAST.id,
+          TALENTS.LAVA_LASH_TALENT.id,
+          TALENTS.ICE_STRIKE_TALENT.id,
+        ],
+        linkFromEventType: EventType.Cast,
         enabled: this.selectedCombatant.hasTalent(TALENTS.ELEMENTAL_ASSAULT_TALENT),
-        alternateSpell: TALENTS.ELEMENTAL_ASSAULT_TALENT,
-        forwardBufferMs: BufferMs.Cast
+        alternateSpellId: TALENTS.ELEMENTAL_ASSAULT_TALENT.id,
+        forwardBufferMs: BufferMs.Cast * 2,
+        linkToEventType: GAIN_EVENT_TYPES,
       },
       {
-        spell: [TALENTS.ICE_STRIKE_TALENT],
-        eventType: EventType.Cast,
-        enabled: this.selectedCombatant.hasTalent(TALENTS.ELEMENTAL_ASSAULT_TALENT),
-        alternateSpell: TALENTS.ELEMENTAL_ASSAULT_TALENT,
-        forwardBufferMs: BufferMs.Cast
-      },
-      {
-        spell: [TALENTS.LAVA_LASH_TALENT],
-        eventType: EventType.Cast,
-        enabled: this.selectedCombatant.hasTalent(TALENTS.ELEMENTAL_ASSAULT_TALENT),
-        alternateSpell: TALENTS.ELEMENTAL_ASSAULT_TALENT,
-        forwardBufferMs: BufferMs.Cast
-      },      
-      {
-        spell: TALENTS.ICE_STRIKE_TALENT,
-        enabled: this.selectedCombatant.hasTalent(TALENTS.SWIRLING_MAELSTROM_TALENT), //[TALENTS.SWIRLING_MAELSTROM_TALENT, TALENTS.ELEMENTAL_ASSAULT_TALENT].some((talent) => this.selectedCombatant.hasTalent(talent)),
-        maximum: 1, //Number(this.selectedCombatant.hasTalent(TALENTS.SWIRLING_MAELSTROM_TALENT)) + Number(this.selectedCombatant.hasTalent(TALENTS.ELEMENTAL_ASSAULT_TALENT)),
-        eventType: EventType.Cast,
-        alternateSpell: TALENTS.SWIRLING_MAELSTROM_TALENT,
-        forwardBufferMs: BufferMs.Cast
-      },
-      {
-        spell: TALENTS.CRASH_LIGHTNING_TALENT,
-        enabled: this.selectedCombatant.hasTalent(TALENTS.CRASH_LIGHTNING_TALENT),
-        forwardBufferMs: BufferMs.Damage * 2, // longer buffer due to multiple possible hits
-      },
-      {
-        spell: SPELLS.CRASH_LIGHTNING_BUFF,
-        enabled: this.selectedCombatant.hasTalent(TALENTS.CRASH_LIGHTNING_TALENT),
-        alternateSpell: TALENTS.CRASH_LIGHTNING_TALENT,
-        forwardBufferMs: BufferMs.Damage * 2, // longer buffer due to multiple possible hits
-      },
-      {
-        spell: TALENTS.DOOM_WINDS_TALENT,
-        enabled: this.selectedCombatant.hasTalent(TALENTS.DOOM_WINDS_TALENT),
-        forwardBufferMs: BufferMs.Damage
-      },
-      {
-        spell: TALENTS.FROST_SHOCK_TALENT,
-        enabled: this.selectedCombatant.hasTalent(TALENTS.SWIRLING_MAELSTROM_TALENT),
-        eventType: EventType.Cast,
-        backwardsBufferMs: BufferMs.Cast,
-        alternateSpell: TALENTS.SWIRLING_MAELSTROM_TALENT
-      },
-      {
-        spell: TALENTS.SUNDERING_TALENT,
-        enabled: this.selectedCombatant.hasTalent(TALENTS.SUNDERING_TALENT),
-        forwardBufferMs: BufferMs.Damage * 2, // longer buffer due to multiple possible hits
-      },
-      {
-        spell: TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT,
-        eventType: EventType.Cast,
+        spell: TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT.id,
+        linkFromEventType: EventType.Cast,
         forwardBufferMs: BufferMs.None,
         backwardsBufferMs: BufferMs.PrimordialWave,
         maximum: 5 * this.selectedCombatant.getTalentRank(TALENTS.PRIMAL_MAELSTROM_TALENT),
+        linkToEventType: GAIN_EVENT_TYPES,
       },
+      // Melee weapon attacks have a lower priority than other cast and special interaction damage events
+
       {
-        spell: [SPELLS.LIGHTNING_BOLT, TALENTS.CHAIN_LIGHTNING_TALENT, SPELLS.TEMPEST_CAST, TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT, TALENTS.LAVA_BURST_TALENT, SPELLS.HEALING_SURGE, TALENTS.CHAIN_HEAL_TALENT],
-        type: MaelstromAbilityType.Spender,
-        eventType: EventType.Cast,
-        forwardBufferMs: BufferMs.None,
-        backwardsBufferMs: BufferMs.Cast
-      },
-      {
-        spell: [SPELLS.LIGHTNING_BOLT, TALENTS.CHAIN_LIGHTNING_TALENT],
-        type: MaelstromAbilityType.Builder,
-        enabled: this.selectedCombatant.hasTalent(TALENTS.STATIC_ACCUMULATION_TALENT),
-        maximum: this.maxSpend,
-        eventType: EventType.Cast,
-        forwardBufferMs: BufferMs.Spender,
-        alternateSpell: TALENTS.STATIC_ACCUMULATION_TALENT,
-      },      
-      {
-        spell: [SPELLS.LIGHTNING_BOLT, TALENTS.CHAIN_LIGHTNING_TALENT, SPELLS.TEMPEST_CAST],
-        type: MaelstromAbilityType.Builder,
-        enabled: this.selectedCombatant.hasTalent(TALENTS.SUPERCHARGE_TALENT),
-        maximum: 3,
-        eventType: EventType.Cast,
-        forwardBufferMs: BufferMs.Spender,
-        alternateSpell: TALENTS.SUPERCHARGE_TALENT,
-      },      
-      {
-        spell: SPELLS.TEMPEST_CAST,
-        type: MaelstromAbilityType.Spender,
-        eventType: EventType.Cast,
-        alternateSpell: TALENTS.TEMPEST_TALENT,
-        backwardsBufferMs: BufferMs.Cast,
-      },
-      {
-        spell: SPELLS.TEMPEST_CAST,
-        enabled: this.selectedCombatant.hasTalent(TALENTS.SUPERCHARGE_TALENT),
-        eventType: EventType.Cast,
-        alternateSpell: TALENTS.SUPERCHARGE_TALENT,
-        maximum: 3,
+        spell: [SPELLS.STORMSTRIKE_DAMAGE.id, SPELLS.STORMSTRIKE_DAMAGE_OFFHAND.id], // Stormstrike mh and oh hits should reattribute to Stormstrike cast
+        alternateSpellId: TALENTS.STORMSTRIKE_TALENT.id,
         forwardBufferMs: BufferMs.Damage,
+        linkFromEventType: EventType.Damage,
+        linkToEventType: GAIN_EVENT_TYPES,
+        useTimestampFromAbility: true,
       },
       {
-        spell: SPELLS.TEMPEST_CAST,
-        enabled: this.selectedCombatant.hasTalent(TALENTS.STORM_SWELL_TALENT),
-        eventType: EventType.Damage,
-        alternateSpell: TALENTS.STORM_SWELL_TALENT,
-        backwardsBufferMs: BufferMs.Cast,
-        forwardBufferMs: BufferMs.Disabled,         
+        spell: [SPELLS.WINDSTRIKE_DAMAGE.id, SPELLS.WINDSTRIKE_DAMAGE_OFFHAND.id], // Windstrike mh and oh hits should reattribute to Stormstrike cast
+        enabled: [
+          TALENTS.ASCENDANCE_ENHANCEMENT_TALENT,
+          TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT,
+        ].some((talent) => this.selectedCombatant.hasTalent(talent)),
+        alternateSpellId: TALENTS.STORMSTRIKE_TALENT.id,
+        forwardBufferMs: BufferMs.Damage,
+        linkFromEventType: EventType.Damage,
+        linkToEventType: GAIN_EVENT_TYPES,
+        useTimestampFromAbility: true,
       },
-    ]
+      {
+        spell: TALENTS.ICE_STRIKE_TALENT.id,
+        forwardBufferMs: BufferMs.Damage,
+        linkFromEventType: EventType.Damage,
+        minimumBuffer: BufferMs.MinimumDamageBuffer,
+        linkToEventType: GAIN_EVENT_TYPES,
+        useTimestampFromAbility: true,
+      },
+      {
+        spell: TALENTS.LAVA_LASH_TALENT.id,
+        forwardBufferMs: BufferMs.Damage,
+        linkFromEventType: EventType.Damage,
+        minimumBuffer: BufferMs.MinimumDamageBuffer,
+        linkToEventType: GAIN_EVENT_TYPES,
+        useTimestampFromAbility: true,
+      },
+      {
+        spell: TALENTS.CRASH_LIGHTNING_TALENT.id,
+        enabled: this.selectedCombatant.hasTalent(TALENTS.CRASH_LIGHTNING_TALENT),
+        forwardBufferMs: BufferMs.Damage * 2, // longer buffer due to multiple possible hits,
+        linkFromEventType: EventType.Damage,
+        maximum: 20,
+        linkToEventType: GAIN_EVENT_TYPES,
+        useTimestampFromAbility: true,
+      },
+      {
+        spell: SPELLS.CRASH_LIGHTNING_BUFF.id,
+        enabled: this.selectedCombatant.hasTalent(TALENTS.CRASH_LIGHTNING_TALENT),
+        alternateSpellId: TALENTS.CRASH_LIGHTNING_TALENT.id,
+        forwardBufferMs: BufferMs.Damage * 2, // longer buffer due to multiple possible hits,
+        linkFromEventType: EventType.Damage,
+        maximum: 20,
+        linkToEventType: GAIN_EVENT_TYPES,
+        useTimestampFromAbility: true,
+      },
+      {
+        spell: TALENTS.DOOM_WINDS_TALENT.id,
+        enabled: this.selectedCombatant.hasTalent(TALENTS.DOOM_WINDS_TALENT),
+        forwardBufferMs: BufferMs.Damage,
+        linkFromEventType: EventType.Damage,
+        linkToEventType: GAIN_EVENT_TYPES,
+        useTimestampFromAbility: true,
+      },
+      {
+        spell: TALENTS.SUNDERING_TALENT.id,
+        enabled: this.selectedCombatant.hasTalent(TALENTS.SUNDERING_TALENT),
+        forwardBufferMs: BufferMs.Damage * 2, // longer buffer due to multiple possible hits,
+        linkFromEventType: EventType.Damage,
+        linkToEventType: GAIN_EVENT_TYPES,
+        useTimestampFromAbility: true,
+      },
+      {
+        spell: SPELLS.WINDFURY_ATTACK.id,
+        forwardBufferMs: BufferMs.Damage,
+        linkFromEventType: EventType.Damage,
+        minimumBuffer: BufferMs.MinimumDamageBuffer,
+        linkToEventType: GAIN_EVENT_TYPES,
+        useTimestampFromAbility: true,
+      },
+      {
+        spell: [SPELLS.MELEE.id, SPELLS.WINDLASH.id, SPELLS.WINDLASH_OFFHAND.id],
+        forwardBufferMs: BufferMs.Damage,
+        linkFromEventType: EventType.Damage,
+        minimumBuffer: BufferMs.MinimumDamageBuffer,
+        linkToEventType: GAIN_EVENT_TYPES,
+        useTimestampFromAbility: true,
+        alternateSpellId: SPELLS.MELEE.id,
+      },
+      {
+        name: 'Unknown source',
+        spell: SPELLS.MAELSTROM_WEAPON_BUFF.id,
+        forwardBufferMs: 0,
+        backwardsBufferMs: 0,
+        linkToEventType: GAIN_EVENT_TYPES,
+        linkFromEventType: GAIN_EVENT_TYPES,
+      },
+    ];
   }
 }
 
 function getMaelstromClassResources<T extends string>(event: BaseCastEvent<T>, max: number) {
   event.classResources ??= [];
-  const index = event.classResources.findIndex((cr) => cr.type === RESOURCE_TYPES.MAELSTROM_WEAPON.id);
-  const classResource: ClassResources & { cost: number } = index >= 0 ? event.classResources[index] : {
-    amount: 0,
-    max: max,
-    type: RESOURCE_TYPES.MAELSTROM_WEAPON.id,
-    cost: 0
-  };
+  const index = event.classResources.findIndex(
+    (cr) => cr.type === RESOURCE_TYPES.MAELSTROM_WEAPON.id,
+  );
+  const classResource: ClassResources & { cost: number } =
+    index >= 0
+      ? event.classResources[index]
+      : {
+          amount: 0,
+          max: max,
+          type: RESOURCE_TYPES.MAELSTROM_WEAPON.id,
+          cost: 0,
+        };
   if (index < 0) {
     event.classResources.push(classResource!);
   }
   return classResource;
 }
 
-function startPeriodicGain(startEvent: ApplyBuffEvent, conditions: PeriodicGainEffect): ActivePeriodicGainEffect {
+function startPeriodicGain(
+  startEvent: ApplyBuffEvent,
+  conditions: PeriodicGainEffect,
+): ActivePeriodicGainEffect {
   return {
-    ...conditions,      
-    nextExpectedGain: startEvent.timestamp + (conditions.immediateGain ? 0 : conditions.frequencyMs),
-  }
+    ...conditions,
+    nextExpectedGain: startEvent.timestamp + conditions.frequencyMs,
+    intervalGains: [],
+  };
 }
 
-function getSpell(ability: MaelstromAbility, spellId: number) {
-  if (ability.alternateSpell) {
-    return ability.alternateSpell;
-  }
-  if (Array.isArray(ability.spell)) {
-    return ability.spell.find(s => s.id === spellId);
-  }
-  return ability.spell;
-}
-
-function spellToAbility(spell: Spell | number) : Ability | undefined {
-  if (typeof spell === "number") {
+function spellToAbility(spell: Spell | number): Ability | undefined {
+  if (typeof spell === 'number') {
     spell = maybeGetTalentOrSpell(spell)!;
   }
-  if (typeof spell === "undefined"){
+  if (typeof spell === 'undefined') {
     return undefined;
   }
   return {
     guid: spell.id,
     name: spell.name,
     abilityIcon: `${spell.icon}.jpg`,
-    type: 0
-  }  
-}
-
-function isGain(event: AnyEvent): event is GainEventType {
-  return (event as GainEventType).ability !== undefined && (event as GainEventType).ability.guid === SPELLS.MAELSTROM_WEAPON_BUFF.id;
-}
-
-function isSpend(event: AnyEvent): event is SpendEventType {
-  return (event as SpendEventType).ability !== undefined && (event as SpendEventType).ability.guid === SPELLS.MAELSTROM_WEAPON_BUFF.id;
-}
-
-function isMaelstromEvent(event: AnyEvent): event is SpendEventType | GainEventType {
-  if ((event as SpendEventType | GainEventType).ability !== undefined && HasAbility(event) && event.type !== EventType.ResourceChange) {
-    return event.ability!.guid === SPELLS.MAELSTROM_WEAPON_BUFF.id;
-  }
-  return false;
+    type: 0,
+  };
 }
 
 function timestampCheck(A: AnyEvent, B: AnyEvent, bufferMs: number) {
-  return (A.timestamp - B.timestamp) > bufferMs;
+  return A.timestamp - B.timestamp > bufferMs;
 }
 
-function spellsMatch(ability: MaelstromAbility, spellId: number): boolean {
-  if (Array.isArray(ability.spell)) {
-    return ability.spell.some(s => s.id === spellId);
+function spellsMatch(ability: number | number[], spellId: number): boolean {
+  if (Array.isArray(ability)) {
+    return ability.some((s) => s === spellId);
   }
-  return spellId === ability.spell.id;
+  return spellId === ability;
 }
 
-function eventTypesMatch(ability: MaelstromAbility, event: AnyEvent) {
-  if (Array.isArray(ability.eventType)) {
-    return ability.eventType.some(s => s === event.type);
+function eventTypesMatch(eventType: EventType | EventType[], event: AnyEvent) {
+  if (Array.isArray(eventType)) {
+    return eventType.some((s) => s === event.type);
   }
-  return ability.eventType === event.type
+  return eventType === event.type;
+}
+
+function eventTypeAndSpellMatch(
+  spellId: number | number[],
+  eventType: EventType | EventType[],
+  event: AnyEvent,
+) {
+  return (
+    HasAbility(event) &&
+    spellsMatch(spellId, event.ability.guid) &&
+    eventTypesMatch(eventType, event)
+  );
 }
 
 export default MaelstromWeaponResourceNormalizer;

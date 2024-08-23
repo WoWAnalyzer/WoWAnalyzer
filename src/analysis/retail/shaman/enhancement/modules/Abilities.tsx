@@ -167,6 +167,14 @@ class Abilities extends ClassAbilities {
           combatant.hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT),
         category: SPELL_CATEGORY.HIDDEN,
       },
+      {
+        spell: SPELLS.TEMPEST_CAST.id,
+        enabled: combatant.hasTalent(TALENTS.TEMPEST_TALENT),
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500
+        }
+      }
     ];
   }
 }

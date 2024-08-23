@@ -18,6 +18,7 @@ import { SpellLink } from 'interface';
 import { PanelHeader } from 'interface/guide/components/GuideDivs';
 import { PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { plural } from '@lingui/macro';
+import RESOURCE_TYPES, { getResource } from 'game/RESOURCE_TYPES';
 
 const DEBUG = false;
 
@@ -100,10 +101,17 @@ class ElementalBlast extends BaseElementalBlast {
           event,
         );
     }
+
+    const cr = getResource(event.classResources, RESOURCE_TYPES.MAELSTROM_WEAPON.id);
+    cr === undefined &&
+      console.warn(
+        `No resource associated with ${event.ability.name} cast @ ${this.owner.formatTimestamp(event.timestamp, 3)}`,
+        event,
+      );
     this.elementalBlastCasts.push({
       chargesBeforeCast: this.currentCharges,
       elementalSpiritsActive: this.activeElementalSpirits,
-      maelstromUsed: this.maelstromTracker.lastSpenderInfo?.amount ?? 0,
+      maelstromUsed: cr?.cost ?? this.maelstromTracker.lastSpenderInfo?.amount ?? 0,
       event: event,
     });
     this.currentCharges -= 1;
