@@ -8,7 +8,7 @@ import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
+import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { TALENTS_DRUID } from 'common/TALENTS';
@@ -19,6 +19,7 @@ import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import { calculateHealTargetHealthPercent } from 'parser/core/EventCalculateLib';
 import { ABUNDANCE_MANA_REDUCTION } from 'analysis/retail/druid/restoration/modules/spells/Abundance';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBreakdown';
 
 /** Health percent below which we consider a heal to be 'triage' */
 const TRIAGE_THRESHOLD = 0.5;
@@ -156,8 +157,7 @@ class RegrowthAndClearcasting extends Analyzer {
           @ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong> - {castNote}
           <br />
           targetting <strong>{this.owner.getTargetName(event)}</strong> w/{' '}
-          <strong>{targetHealthString}%</strong>
-          health
+          <strong>{targetHealthString}%</strong> health
         </>
       ),
     });
@@ -207,15 +207,13 @@ class RegrowthAndClearcasting extends Analyzer {
         <b>
           <SpellLink spell={SPELLS.REGROWTH} />
         </b>{' '}
-        is for urgent spot healing. The HoT is very weak - Regrowth is only efficient when its
-        direct portion is effective. Exceptions are when Regrowth is free due to{' '}
+        is for spot healing. The HoT is very weak - Regrowth is only efficient when its direct
+        portion is effective. Exceptions are when Regrowth is free due to{' '}
         <SpellLink spell={SPELLS.CLEARCASTING_BUFF} /> /{' '}
         <SpellLink spell={SPELLS.NATURES_SWIFTNESS} />{' '}
         {hasAbundance && (
           <>
-            or cheap due to <SpellLink spell={TALENTS_DRUID.ABUNDANCE_TALENT} />. With{' '}
-            <SpellLink spell={TALENTS_DRUID.ABUNDANCE_TALENT} /> ramp with Rejuvenation, activate
-            cooldowns, and then fill with high-stack Regrowths.
+            or cheap due to <SpellLink spell={TALENTS_DRUID.ABUNDANCE_TALENT} />
           </>
         )}
       </p>
@@ -223,13 +221,13 @@ class RegrowthAndClearcasting extends Analyzer {
 
     const data = (
       <div>
-        <strong>Regrowth casts</strong>
-        <small>
-          {' '}
-          - Green is a good cast, Red is a bad cast (at full mana cost on a high health target).
-          Mouseover boxes for details.
-        </small>
-        <PerformanceBoxRow values={this.castEntries} />
+        <div>
+          <CastSummaryAndBreakdown
+            spell={SPELLS.REGROWTH}
+            castEntries={this.castEntries}
+            badExtraExplanation={<>at full mana cost on a high health target</>}
+          />
+        </div>
       </div>
     );
 
