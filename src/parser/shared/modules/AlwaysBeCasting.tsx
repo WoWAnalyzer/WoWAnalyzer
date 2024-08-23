@@ -3,7 +3,7 @@ import { formatPercentage } from 'common/format';
 import { Icon } from 'interface';
 import { Tooltip } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import Events, { EndChannelEvent, EventType, GlobalCooldownEvent } from 'parser/core/Events';
+import Events, { EndChannelEvent, GlobalCooldownEvent } from 'parser/core/Events';
 import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import Haste from 'parser/shared/modules/Haste';
 import Channeling from 'parser/shared/normalizers/Channeling';
@@ -27,54 +27,16 @@ class AlwaysBeCasting extends Analyzer {
   protected globalCooldown!: GlobalCooldown;
   protected channeling!: Channeling;
 
-  /**
-   * The amount of milliseconds not spent casting anything or waiting for the GCD.
-   * @type {number}
-   */
-  get totalTimeWasted() {
-    return this.owner.fightDuration - this.activeTime;
-  }
-
-  get downtimePercentage() {
-    return 1 - this.activeTimePercentage;
-  }
-
-  get activeTimePercentage() {
-    return this.activeTime / this.owner.fightDuration;
-  }
-
-  /** Gets active time percentage within a specified time segment.
-   *  This will not work properly unless the current timestamp advances past the end time. */
-  getActiveTimePercentageInWindow(start: number, end: number): number {
-    const windowDuration = end - start;
-    return this.getActiveTimeMillisecondsInWindow(start, end) / windowDuration;
-  }
-
-  /** Gets active time milliseconds within a specified time segment.
-   *  This will not work properly unless the current timestamp advances past the end time. */
-  getActiveTimeMillisecondsInWindow(start: number, end: number): number {
-    let activeTime = 0;
-    for (let i = 0; i < this.activeTimeSegments.length; i += 1) {
-      const seg = this.activeTimeSegments[i];
-      if (seg.end <= start) {
-        continue;
-      } else if (seg.start >= end) {
-        break;
-      }
-      const overlapStart = Math.max(start, seg.start);
-      const overlapEnd = Math.min(end, seg.end);
-      activeTime += Math.max(0, overlapEnd - overlapStart);
-    }
-    return activeTime;
-  }
-
-  activeTime = 0;
-  _lastGlobalCooldownDuration = 0;
-
-  /** Segments of time when the player was active, populated at the same time activeTime is incremented.
-   *  Guaranteed to not overlap and to be in chronological order,
-   *  but segments may not exactly correspond to a cast or GCD */
-  activeTimeSegments: { start: number; end: number }[] = [];
+  /** Times when activity started or stopped. Start and end edges are always added as pairs and the
+   *  end edge will always be after the start edge. These effective segments may overlap. */
+  private activeTimeEdges: { timestamp: number; value: 1 | -1 }[] = [];
+  /** If the activeTimeEdges list is currently sorted in time order */
+  private hasUnprocessedData: boolean = false;
+  /** Memoized total active time (ms) */
+  private activeTimeMemo: number | undefined = 0;
+  /** Segments when the player was active, in chronological order and non-overlapping.
+   *  Access with {@link activeTimeSegments} to ensure they're fully generated */
+  private workingActiveTimeSegments: { start: number; end: number }[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -84,51 +46,16 @@ class AlwaysBeCasting extends Analyzer {
   }
 
   onGCD(event: GlobalCooldownEvent) {
-    this._lastGlobalCooldownDuration = event.duration;
-    if (event.trigger.prepull) {
-      // Ignore prepull casts for active time since active time should only include casts during the
-      return false;
-    }
-    if (event.trigger.type === EventType.BeginChannel || event.trigger.channel) {
-      // Only add active time for this channel, we do this when the channel is finished and use the highest of the GCD and channel time
-      return false;
-    }
-
-    // check if previous GCD overlaps the beginning of this one. If it does, we don't want to double-count.
-    const lastEntry = this.activeTimeSegments.at(-1);
-    if (lastEntry && lastEntry.end > event.timestamp) {
-      const overlap = lastEntry.end - event.timestamp;
-      this.activeTime -= overlap;
-      lastEntry.end = event.timestamp;
-    }
-
-    this.activeTime += event.duration;
-    this._handleNewUptimeSegment(event.timestamp, event.timestamp + event.duration);
-    DEBUG &&
-      console.log(
-        `Active Time: added ${event.duration.toFixed(0)}ms from GCD for ${event.trigger.ability.name} @ ${this.owner.formatTimestamp(event.timestamp, 1)} - ${this.owner.formatTimestamp(event.timestamp + event.duration, 1)}`,
-      );
+    const start = event.timestamp;
+    const end = event.timestamp + event.duration;
+    this.addNewUptime(start, end, `${event.ability.name} GCD`);
     return true;
   }
 
   onEndChannel(event: EndChannelEvent) {
-    // If the channel was shorter than the GCD then use the GCD as active time
-    let amount = event.duration;
-    if (this.globalCooldown.isOnGlobalCooldown(event.ability.guid)) {
-      amount = Math.max(amount, this._lastGlobalCooldownDuration);
-    }
-
-    // check if the initial channel is from pre-pull, if it is, only count active time from the beginning of the fight
-    if (!this.activeTimeSegments.length) {
-      amount = Math.min(amount, event.timestamp - this.owner.fight.start_time);
-    }
-
-    this.activeTime += amount;
-    this._handleNewUptimeSegment(event.timestamp - amount, event.timestamp);
-    DEBUG &&
-      console.log(
-        `Active Time: added ${event.duration.toFixed(0)}ms from Channel for ${event.ability.name} @ ${this.owner.formatTimestamp(event.timestamp - amount, 1)} - ${this.owner.formatTimestamp(event.timestamp, 1)}`,
-      );
+    const start = event.start;
+    const end = event.timestamp;
+    this.addNewUptime(start, end, `${event.ability.name} Channel`);
     return true;
   }
 
@@ -147,9 +74,137 @@ class AlwaysBeCasting extends Analyzer {
       );
   }
 
-  _handleNewUptimeSegment(start: number, end: number) {
-    this.activeTimeSegments.push({ start, end });
+  /** Validates and logs inputs, then adds to activeTimeEdges list */
+  private addNewUptime(start: number, end: number, reason: string) {
+    DEBUG &&
+      console.log(
+        `Active Time: adding from ${reason}: ${this.owner.formatTimestamp(start, 3)} to ${this.owner.formatTimestamp(end, 3)}`,
+      );
+    if (end < start) {
+      console.error(
+        `ActiveTime: tried to add uptime with reason (${reason}) with start (${this.owner.formatTimestamp(start, 3)}) after end (${this.owner.formatTimestamp(end, 3)}). No segment will be added.`,
+      );
+      return;
+    }
+    if (start < this.owner.fight.start_time) {
+      DEBUG &&
+        console.log(`ActiveTime: uptime starts before fight start - clamping to fight start`);
+    }
+    if (end > this.owner.fight.end_time) {
+      DEBUG && console.log(`ActiveTime: uptime ends after fight end - clamping to fight end`);
+    }
+    const clampedStart = Math.max(start, this.owner.fight.start_time);
+    const clampedEnd = Math.min(end, this.owner.fight.end_time);
+
+    if (clampedStart >= clampedEnd) {
+      /*
+       * Spells made instant by a proc often show as a zero-time channel - we can just ignore as
+       * the active time will just be caught while handling the GCD.
+       * Other possibility is a cast entirely before or after the fight time shows up here,
+       * which we can also safely ignore.
+       */
+      return;
+    }
+
+    this.activeTimeEdges.push({ timestamp: clampedStart, value: 1 });
+    this.activeTimeEdges.push({ timestamp: clampedEnd, value: -1 });
+    // ideally stuff is only accessed after all events are processed and so we only need to
+    // generate once, but adding robost memoization just in case
+    this.hasUnprocessedData = true;
+    this.activeTimeMemo = undefined;
   }
+
+  /** Process new data if we have any - sorts the edges and uses them to generate segments. */
+  private checkAndProcessData() {
+    if (!this.hasUnprocessedData) {
+      return;
+    }
+
+    this.activeTimeEdges.sort((a, b) => a.timestamp - b.timestamp);
+
+    let activityCount = 0;
+    let activityStartTimestamp = 0;
+    this.workingActiveTimeSegments = [];
+    this.activeTimeEdges.forEach((e) => {
+      if (activityCount === 0 && e.value === 1) {
+        // upwards edge - activity started
+        activityStartTimestamp = e.timestamp;
+      } else if (activityCount === 1 && e.value === -1) {
+        // downwards edge - activity ended
+        this.workingActiveTimeSegments.push({ start: activityStartTimestamp, end: e.timestamp });
+      }
+      activityCount += e.value;
+    });
+
+    this.hasUnprocessedData = false;
+  }
+
+  /////////////////////////////////////////////////////////////////////////////
+  // PUBLIC GETTERS
+  //
+
+  get activeTimeSegments() {
+    this.checkAndProcessData();
+    return this.workingActiveTimeSegments;
+  }
+
+  /** The active time (in ms) recorded */
+  get activeTime() {
+    if (this.activeTimeMemo === undefined) {
+      this.activeTimeMemo = this.getActiveTimeMillisecondsInWindow();
+    }
+    return this.activeTimeMemo;
+  }
+
+  /** The amount of milliseconds not spent casting anything or waiting for the GCD. */
+  get totalTimeWasted() {
+    return this.owner.fightDuration - this.activeTime;
+  }
+
+  get downtimePercentage() {
+    return 1 - this.activeTimePercentage;
+  }
+
+  get activeTimePercentage() {
+    return this.activeTime / this.owner.fightDuration;
+  }
+
+  /** Gets active time milliseconds within a specified time segment.
+   *  Will only see casts that have happened on or before the current timestamp.
+   *  Omit start or end to unbound in that direction. */
+  getActiveTimeMillisecondsInWindow(start?: number, end?: number): number {
+    if (start !== undefined && end !== undefined && start >= end) {
+      console.warn(
+        `ActiveTime: called getActiveTimeMillisecondsInWindow with start (${this.owner.formatTimestamp(start, 3)}) after end (${this.owner.formatTimestamp(end, 3)}). Returning zero.`,
+      );
+      return 0;
+    }
+
+    let activeTimeTally = 0;
+    for (const seg of this.activeTimeSegments) {
+      if (start !== undefined && seg.end <= start) {
+        continue;
+      }
+      if (end !== undefined && seg.start >= end) {
+        break;
+      }
+      const clampedStart = start === undefined ? seg.start : Math.max(start, seg.start);
+      const clampedEnd = end === undefined ? seg.end : Math.min(end, seg.end);
+      activeTimeTally += clampedEnd - clampedStart;
+    }
+    return activeTimeTally;
+  }
+
+  /** Gets active time percentage within a specified time segment.
+   *  This will not work properly unless the current timestamp advances past the end time. */
+  getActiveTimePercentageInWindow(start: number, end: number): number {
+    const windowDuration = end - start;
+    return this.getActiveTimeMillisecondsInWindow(start, end) / windowDuration;
+  }
+
+  /////////////////////////////////////////////////////////////////////////////
+  // DEFAULT SUGGESTION + STATISTIC STUFF
+  //
 
   showStatistic = true;
   position = STATISTIC_ORDER.CORE(10);
