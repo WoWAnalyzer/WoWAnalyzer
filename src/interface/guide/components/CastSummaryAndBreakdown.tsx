@@ -1,12 +1,9 @@
 import { Fragment, useState } from 'react';
 import { ControlledExpandable } from 'interface';
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
-import GradiatedPerformanceBar, {
-  GradiatedPerformanceBarInfo,
-} from 'interface/guide/components/GradiatedPerformanceBar';
+import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
 import Spell from 'common/SPELLS/Spell';
 import SpellLink from 'interface/SpellLink';
-import { ClickToExpand, MouseoverForMoreDetails } from './CommonLinguiTranslations';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import CastPerformanceSummary from 'analysis/retail/demonhunter/shared/guide/CastPerformanceSummary';
 import styled from '@emotion/styled';
@@ -15,34 +12,45 @@ const CastSummaryAndBreakdownContainer = styled.div`
   margin-bottom: 10px;
 `;
 
-const toGradiatedPerformanceBarProp = (
-  count: number,
-  label: string | undefined,
-): number | GradiatedPerformanceBarInfo => {
-  if (label) {
-    return { count, label };
-  }
-  return count;
-};
-
 interface Props {
+  /** The spell ID or Spell object being represented, used in explanatory text */
   spell: number | Spell;
+  /** A per-cast evaluation of the data to be displayed */
   castEntries: BoxRowEntry[];
-  perfectLabel?: string;
-  perfectExtraExplanation?: string;
+  /** A label to include when mousing over the 'perfect' section of the Performance Bar */
+  perfectLabel?: React.ReactNode;
+  /** A brief explanation of what makes a cast 'perfect', included in explanatory text */
+  perfectExtraExplanation?: React.ReactNode;
+  /** If set, text with the percentage of perfect casts is shown before the Performance Bar */
   includePerfectCastPercentage?: boolean;
-  goodLabel?: string;
-  goodExtraExplanation?: string;
+  /** A label to include when mousing over the 'good' section of the Performance Bar */
+  goodLabel?: React.ReactNode;
+  /** A brief explanation of what makes a cast 'good', included in explanatory text */
+  goodExtraExplanation?: React.ReactNode;
+  /** If set, text with the percentage of good casts is shown before the Performance Bar */
   includeGoodCastPercentage?: boolean;
-  okLabel?: string;
-  okExtraExplanation?: string;
+  /** A label to include when mousing over the 'ok' section of the Performance Bar */
+  okLabel?: React.ReactNode;
+  /** A brief explanation of what makes a cast 'ok', included in explanatory text */
+  okExtraExplanation?: React.ReactNode;
+  /** If set, text with the percentage of ok casts is shown before the Performance Bar */
   includeOkCastPercentage?: boolean;
-  badLabel?: string;
-  badExtraExplanation?: string;
+  /** A label to include when mousing over the 'bad' section of the Performance Bar */
+  badLabel?: React.ReactNode;
+  /** A brief explanation of what makes a cast 'bad', included in explanatory text */
+  badExtraExplanation?: React.ReactNode;
+  /** If set, text with the percentage of bad casts is shown before the Performance Bar */
   includeBadCastPercentage?: boolean;
+  /** If set, explanatory text uses the word 'use' instead of 'cast'. Useful if data is evaluating
+   *  procs instead of casts */
+  usesInsteadOfCasts?: boolean;
+  /** A callback to use when the Performance Box with the given index is clicked */
   onClickBox?: (index: number) => void;
 }
 
+/**
+ * A {@link GradiatedPerformanceBar} that can be clicked to expand into a {@link PerformanceBoxRow}.
+ */
 const CastSummaryAndBreakdown = ({
   spell,
   castEntries,
@@ -58,6 +66,7 @@ const CastSummaryAndBreakdown = ({
   badLabel,
   badExtraExplanation,
   includeBadCastPercentage,
+  usesInsteadOfCasts,
   onClickBox,
 }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -72,25 +81,35 @@ const CastSummaryAndBreakdown = ({
   const hasOkCasts = ok !== 0;
   const hasBadCasts = bad !== 0;
 
+  const instanceWord = usesInsteadOfCasts ? 'use' : 'cast';
+
   const perfectExplanation = !perfectExtraExplanation ? (
-    <>Blue is a perfect cast</>
+    <>Blue is a perfect {instanceWord}</>
   ) : (
-    <>Blue is a perfect cast ({perfectExtraExplanation})</>
+    <>
+      Blue is a perfect {instanceWord} ({perfectExtraExplanation})
+    </>
   );
   const goodExplanation = !goodExtraExplanation ? (
-    <>Green is a good cast</>
+    <>Green is a good {instanceWord}</>
   ) : (
-    <>Green is a good cast ({goodExtraExplanation})</>
+    <>
+      Green is a good {instanceWord} ({goodExtraExplanation})
+    </>
   );
   const okExplanation = !okExtraExplanation ? (
-    <>Yellow is an ok cast</>
+    <>Yellow is an ok {instanceWord}</>
   ) : (
-    <>Yellow is an ok cast ({okExtraExplanation})</>
+    <>
+      Yellow is an ok {instanceWord} ({okExtraExplanation})
+    </>
   );
   const badExplanation = !badExtraExplanation ? (
-    <>Red is a bad cast</>
+    <>Red is a bad {instanceWord}</>
   ) : (
-    <>Red is a bad cast ({badExtraExplanation})</>
+    <>
+      Red is a bad {instanceWord} ({badExtraExplanation})
+    </>
   );
 
   const performanceExplanation = [
@@ -106,6 +125,11 @@ const CastSummaryAndBreakdown = ({
         {explanation}
       </Fragment>
     ));
+
+  const perfectBarLabel = perfectLabel || `Perfect ${instanceWord}s`;
+  const goodBarLabel = goodLabel || `Good ${instanceWord}s`;
+  const okBarLabel = okLabel || `Ok ${instanceWord}s`;
+  const badBarLabel = badLabel || `Bad ${instanceWord}s`;
 
   return (
     <CastSummaryAndBreakdownContainer>
@@ -145,24 +169,23 @@ const CastSummaryAndBreakdown = ({
         <SpellLink spell={spell} /> casts
       </strong>{' '}
       <small>
-        - {performanceExplanation}. <MouseoverForMoreDetails /> <ClickToExpand />
+        - {performanceExplanation}. Mouseover for more details. Click to see per-{instanceWord}{' '}
+        details.
       </small>
       <ControlledExpandable
         header={
           <GradiatedPerformanceBar
-            perfect={toGradiatedPerformanceBarProp(perfect, perfectLabel)}
-            good={toGradiatedPerformanceBarProp(good, goodLabel)}
-            ok={toGradiatedPerformanceBarProp(ok, okLabel)}
-            bad={toGradiatedPerformanceBarProp(bad, badLabel)}
+            perfect={{ count: perfect, label: perfectBarLabel }}
+            good={{ count: good, label: goodBarLabel }}
+            ok={{ count: ok, label: okBarLabel }}
+            bad={{ count: bad, label: badBarLabel }}
           />
         }
         element="section"
         expanded={isExpanded}
         inverseExpanded={() => setIsExpanded(!isExpanded)}
       >
-        <small>
-          <MouseoverForMoreDetails />
-        </small>
+        <small>Mouseover for more details.</small>
         <PerformanceBoxRow onClickBox={onClickBox} values={castEntries} />
       </ControlledExpandable>
     </CastSummaryAndBreakdownContainer>
