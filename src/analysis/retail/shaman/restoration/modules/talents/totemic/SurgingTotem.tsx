@@ -18,6 +18,7 @@ import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import { didMoteExpire } from '../../../normalizers/CastLinkNormalizer';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import CastSummaryAndBreakdown from 'analysis/retail/demonhunter/shared/guide/CastSummaryAndBreakdown';
+import { HEALING_RAIN_TARGETS } from '../../../constants';
 
 // 50 was too low, 100 was too high
 // had no issues with 85ms
@@ -46,7 +47,7 @@ class SurgingTotem extends Analyzer {
   protected combatants!: Combatants;
 
   healingRainTicks: HealingRainTickInfo[] = [];
-  maxTargets = 5;
+  maxTargets = HEALING_RAIN_TARGETS;
   totalMaxTargets = 0;
   casts = 0;
 
@@ -134,7 +135,7 @@ class SurgingTotem extends Analyzer {
     return {
       actual: this.averageHitsPerTick,
       isLessThan: {
-        minor: 5,
+        minor: 4,
         average: 3,
         major: 2,
       },
@@ -180,9 +181,9 @@ class SurgingTotem extends Analyzer {
     }
 
     if (spellId === SPELLS.HEALING_RAIN_TOTEMIC.id) {
-      this.totalMaxTargets += 5;
+      this.totalMaxTargets += HEALING_RAIN_TARGETS;
       this.casts += 1;
-      this.maxTargets = 5;
+      this.maxTargets = HEALING_RAIN_TARGETS;
     }
   }
 
@@ -222,10 +223,11 @@ class SurgingTotem extends Analyzer {
           is central to your gameplay as a Totemic Shaman. It should be active at all times as it
           casts a longer and more potent version of{' '}
           <SpellLink spell={SPELLS.HEALING_RAIN_TOTEMIC} />. You can{' '}
-          {!this.selectedCombatant.hasTalent(TALENTS_SHAMAN.TOTEMIC_PROJECTION_TALENT) && (
+          {!this.selectedCombatant.hasTalent(TALENTS_SHAMAN.TOTEMIC_PROJECTION_TALENT) ? (
             <>talent into </>
+          ) : (
+            <>use </>
           )}
-          {this.selectedCombatant.hasTalent(TALENTS_SHAMAN.TOTEMIC_PROJECTION_TALENT) && <>use </>}
           <SpellLink spell={TALENTS_SHAMAN.TOTEMIC_PROJECTION_TALENT} /> to reposition it every 10
           seconds.
         </p>
@@ -294,7 +296,8 @@ class SurgingTotem extends Analyzer {
           <TooltipElement
             content={
               <Trans id="shaman.restoration.healingRainTotemic.averageTargets.label.tooltip">
-                The average number of targets healed by Healing Rain out of the maximum amount of 5
+                The average number of targets healed by Healing Rain out of the maximum amount of{' '}
+                {HEALING_RAIN_TARGETS}
                 targets.
               </Trans>
             }

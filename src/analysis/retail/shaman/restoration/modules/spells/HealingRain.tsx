@@ -14,6 +14,7 @@ import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
+import { HEALING_RAIN_TARGETS } from '../../constants';
 
 // 50 was too low, 100 was too high
 // had no issues with 85ms
@@ -32,7 +33,7 @@ class HealingRain extends Analyzer {
   protected combatants!: Combatants;
 
   healingRainTicks: HealingRainTickInfo[] = [];
-  maxTargets = 5;
+  maxTargets = HEALING_RAIN_TARGETS;
   totalMaxTargets = 0;
   unleashLifeRemaining = false;
   lastUnleashLifeTimestamp: number = Number.MAX_SAFE_INTEGER;
@@ -98,7 +99,7 @@ class HealingRain extends Analyzer {
     return {
       actual: this.averageHitsPerTick,
       isLessThan: {
-        minor: 5,
+        minor: 4,
         average: 3,
         major: 2,
       },
@@ -135,11 +136,11 @@ class HealingRain extends Analyzer {
     const spellId = event.ability.guid;
 
     if (spellId === TALENTS.HEALING_RAIN_TALENT.id) {
-      this.totalMaxTargets += 5;
+      this.totalMaxTargets += HEALING_RAIN_TARGETS;
       this.casts += 1;
-      this.maxTargets = 5;
+      this.maxTargets = HEALING_RAIN_TARGETS;
       if (this.unleashLifeRemaining === true) {
-        this.maxTargets = 7;
+        this.maxTargets += 2;
         this.totalMaxTargets += 2;
       }
     }
@@ -223,7 +224,8 @@ class HealingRain extends Analyzer {
           <TooltipElement
             content={
               <Trans id="shaman.restoration.healingRain.averageTargets.label.tooltip">
-                The average number of targets healed by Healing Rain out of the maximum amount of 5
+                The average number of targets healed by Healing Rain out of the maximum amount of{' '}
+                {HEALING_RAIN_TARGETS}
                 targets.
               </Trans>
             }

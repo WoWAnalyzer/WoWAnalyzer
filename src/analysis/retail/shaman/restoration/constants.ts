@@ -31,7 +31,7 @@ export const ANCESTRAL_REACH_INCREASE = 0.08;
 
 //base targets & target increases
 export const UNLEASH_LIFE_EXTRA_TARGETS = 2;
-export const HEALING_RAIN_TARGETS = 6;
+export const HEALING_RAIN_TARGETS = 5;
 export const DOWNPOUR_TARGETS = 6;
 export const DOWNPOUR_CD_PER_HIT = 5000;
 export const CHAIN_HEAL_TARGETS = 4;
