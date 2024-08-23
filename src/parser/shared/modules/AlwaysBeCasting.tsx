@@ -141,7 +141,8 @@ class AlwaysBeCasting extends Analyzer {
         activityStartTimestamp = e.timestamp;
       } else if (activityCount === 1 && e.value === -1) {
         // downwards edge - activity ended
-        this.workingActiveTimeSegments.push({ start: activityStartTimestamp, end: e.timestamp });
+        // typechecker thinks this could be undefined here, but that's not true
+        this.workingActiveTimeSegments!.push({ start: activityStartTimestamp, end: e.timestamp });
       }
       activityCount += e.value;
     });
