@@ -33,7 +33,7 @@ export default function GradiatedPerformanceBar({
         <Tooltip
           content={
             <>
-              {perfectObj.label && `${perfectObj.label} - `}
+              {perfectObj.label && <>{perfectObj.label} - </>}
               <strong>
                 {perfectObj.count} / {total}
               </strong>
@@ -50,7 +50,7 @@ export default function GradiatedPerformanceBar({
         <Tooltip
           content={
             <>
-              {goodObj.label && `${goodObj.label} - `}
+              {goodObj.label && <>{goodObj.label} - </>}
               <strong>
                 {goodObj.count} / {total}
               </strong>
@@ -64,7 +64,7 @@ export default function GradiatedPerformanceBar({
         <Tooltip
           content={
             <>
-              {okObj.label && `${okObj.label} - `}
+              {okObj.label && <>{okObj.label} - </>}
               <strong>
                 {okObj.count} / {total}
               </strong>
@@ -78,7 +78,7 @@ export default function GradiatedPerformanceBar({
         <Tooltip
           content={
             <>
-              {badObj.label && `${badObj.label} - `}
+              {badObj.label && <>{badObj.label} - </>}
               <strong>
                 {badObj.count} / {total}
               </strong>
@@ -104,5 +104,5 @@ function getDefaultInfo(val?: number | GradiatedPerformanceBarInfo) {
 
 export type GradiatedPerformanceBarInfo = {
   count: number;
-  label: string;
+  label: React.ReactNode;
 };
