@@ -47,6 +47,7 @@ import Wellspring from './modules/talents/Wellspring';
 import Undercurrent from './modules/talents/Undercurrent';
 import NaturesSwiftness from './modules/talents/NaturesSwiftness';
 import SpiritwalkersTidalTotem from './modules/talents/SpiritwalkersTidalTotem';
+import Tidewaters from './modules/talents/Tidewaters';
 // Spells
 // Tiers
 import TWW1TierSet from './modules/tier/TWW1TierSet';
@@ -123,6 +124,7 @@ class CombatLogParser extends CoreCombatLogParser {
     manaSpring: ManaSpring,
     naturesSwiftness: NaturesSwiftness,
     spiritwalkersTidalTotem: SpiritwalkersTidalTotem,
+    tidewaters: Tidewaters,
 
     // Spells
     riptide: Riptide,
