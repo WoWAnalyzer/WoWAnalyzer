@@ -23,11 +23,31 @@ export default function CastEfficiencyPanel({
   useSpellLink?: boolean;
   useThresholds?: boolean;
 }) {
-  const castEfficObj = useAnalyzer(CastEfficiency)!.getCastEfficiencyForSpellId(spell.id);
   const spellName = useSpellLink ? <SpellLink spell={spell} /> : spell.name;
-  const ability = useAnalyzer(Abilities)!.getAbility(spell.id);
-  const hasCharges = ability && ability.charges > 1;
-  const gapHighlightMode = hasCharges ? GapHighlight.All : GapHighlight.FullCooldown;
+  return (
+    <RoundedPanel>
+      <div>
+        {spellName} - <CastEfficiencyStatElement spell={spell} useThresholds={useThresholds} />
+      </div>
+      <CastEfficiencyBarElement spell={spell} />
+    </RoundedPanel>
+  );
+}
+
+/**
+ * A subcomponent of CastEfficiencyPanel including only the percentage and possible casts stats text.
+ * @param spell the spell to show stats for
+ * @param useThresholds iff true, the cast efficiency percentage will be color coded by performance
+ *    using the abilities efficiency requirements.
+ */
+export function CastEfficiencyStatElement({
+  spell,
+  useThresholds,
+}: {
+  spell: Spell;
+  useThresholds?: boolean;
+}) {
+  const castEfficObj = useAnalyzer(CastEfficiency)!.getCastEfficiencyForSpellId(spell.id);
   let textColor: string | undefined;
   if (useThresholds && castEfficObj && castEfficObj.efficiency) {
     const effectiveUtil =
@@ -43,44 +63,50 @@ export default function CastEfficiencyPanel({
     }
   }
   return (
-    <RoundedPanel>
-      <div>
-        {!castEfficObj ? (
-          <>
-            {spellName}: <i>Error getting Cast Efficiency data</i>
-          </>
+    <>
+      {!castEfficObj ? (
+        <>
+          <i>Error getting Cast Efficiency data</i>
+        </>
+      ) : (
+        <>
+          <span style={{ color: textColor, fontSize: 16 }}>
+            <strong>{formatPercentage(castEfficObj.efficiency || 0, 0)}%</strong>
+          </span>{' '}
+          cast efficiency (<strong>{castEfficObj.casts}</strong> of{' '}
+          <strong>{castEfficObj.maxCasts}</strong> possible casts)
+        </>
+      )}
+    </>
+  );
+}
+
+/**
+ * A subcomponent of CastEfficiencyPanel including only the cooldown bar with its text explanation.
+ * @param spell the spell to show stats for
+ */
+export function CastEfficiencyBarElement({ spell }: { spell: Spell }) {
+  const ability = useAnalyzer(Abilities)!.getAbility(spell.id);
+  const hasCharges = ability && ability.charges > 1;
+  const gapHighlightMode = hasCharges ? GapHighlight.All : GapHighlight.FullCooldown;
+  return (
+    <div>
+      <strong>Cooldown Timeline</strong>
+      <small>
+        {hasCharges ? (
+          <> - yellow when cooling down, red when all charges available, white lines show casts.</>
         ) : (
           <>
-            {spellName} -{' '}
-            <span style={{ color: textColor, fontSize: 16 }}>
-              <strong>{formatPercentage(castEfficObj.efficiency || 0, 0)}%</strong>
-            </span>{' '}
-            cast efficiency (<strong>{castEfficObj.casts}</strong> of{' '}
-            <strong>{castEfficObj.maxCasts}</strong> possible casts)
+            {' '}
+            - yellow when on cooldown, grey when available, white lines show casts.
+            <br />
+            Red highlights available times you could have fit a whole extra use of the ability.
           </>
         )}
+      </small>
+      <div className="flex-main chart" style={{ padding: 5 }}>
+        <CooldownBar spellId={spell.id} gapHighlightMode={gapHighlightMode} minimizeIcons />
       </div>
-      <div>
-        <strong>Cooldown Timeline</strong>
-        <small>
-          {hasCharges ? (
-            <>
-              {' '}
-              - yellow when cooling down, red when all charges available, white lines show casts.
-            </>
-          ) : (
-            <>
-              {' '}
-              - yellow when on cooldown, grey when available, white lines show casts.
-              <br />
-              Red highlights available times you could have fit a whole extra use of the ability.
-            </>
-          )}
-        </small>
-        <div className="flex-main chart" style={{ padding: 5 }}>
-          <CooldownBar spellId={spell.id} gapHighlightMode={gapHighlightMode} minimizeIcons />
-        </div>
-      </div>
-    </RoundedPanel>
+    </div>
   );
 }
