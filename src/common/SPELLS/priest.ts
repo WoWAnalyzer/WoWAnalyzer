@@ -986,6 +986,13 @@ const spells = {
     name: 'Spirit Shell',
     icon: 'ability_shaman_astralshift.jpg',
   },
+
+  //ITEMS BECAUSE THEY PROC ECHO OF LIGHT FOR SOME GOD FORSAKEN REASON
+  DREAMING_DEVOTION_HEAL: {
+    id: 416132,
+    name: 'Dreaming Devotion',
+    icon: 'ability_shaman_astralshift.jpg',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;

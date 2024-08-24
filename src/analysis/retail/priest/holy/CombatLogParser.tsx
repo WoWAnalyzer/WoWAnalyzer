@@ -171,6 +171,9 @@ class CombatLogParser extends CoreCombatLogParser {
     manaTracker: ManaTracker,
     hpmDetails: HealingEfficiencyDetails,
     hpmTracker: HealingEfficiencyTracker,
+
+    // testing
+    echoOfLightAttributor: Talents.Oracle.EchoOfLightAttributor,
   };
 
   static guide = Guide;

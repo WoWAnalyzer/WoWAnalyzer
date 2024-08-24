@@ -5,6 +5,7 @@ import PremonitionOfInsight from './PremonitionOfInsight';
 import PreemptiveCareHoly from './PreemptiveCareHoly';
 import ProphetsWillHoly from './ProphetsWillHoly';
 import AssuredSafetyHoly from './AssuredSafetyHoly';
+import EchoOfLightAttributor from './OracleCore/EchoOfLightAttributor';
 
 export {
   PremonitionOfSolace,
@@ -14,4 +15,5 @@ export {
   PreemptiveCareHoly,
   ProphetsWillHoly,
   AssuredSafetyHoly,
+  EchoOfLightAttributor,
 };
