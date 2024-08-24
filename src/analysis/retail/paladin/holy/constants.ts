@@ -80,3 +80,5 @@ export const BEACON_SPELL_IDS: Record<BEACON_TYPE, readonly number[]> = {
   ],
   [BEACON_TYPE.BEACON_OF_VIRTUE]: [TALENTS.BEACON_OF_VIRTUE_TALENT.id],
 } as const;
+
+export const LIGHTS_PROTECTION_DAMAGE_REDUCTION = 0.05;
