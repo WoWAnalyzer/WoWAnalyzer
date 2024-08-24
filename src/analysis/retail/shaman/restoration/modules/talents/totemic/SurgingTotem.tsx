@@ -17,7 +17,7 @@ import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../../Guide';
 import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import { didMoteExpire } from '../../../normalizers/CastLinkNormalizer';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import CastSummaryAndBreakdown from 'analysis/retail/demonhunter/shared/guide/CastSummaryAndBreakdown';
+import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBreakdown';
 import { HEALING_RAIN_TARGETS } from '../../../constants';
 
 // 50 was too low, 100 was too high
