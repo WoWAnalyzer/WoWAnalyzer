@@ -16,6 +16,7 @@ import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerform
 
 const HEALING_BONUS = 0.25;
 const OVERHEAL_THRESHOLD = 0.75;
+const CAST_TIME_DECREASE = 1 - 0.3;
 
 /**
  * Flash Heal reduces the cast time of your next Heal
@@ -205,7 +206,11 @@ class Lightweaver extends Analyzer {
         tooltip={`${overhealingTooltipString}% overhealing`}
       >
         <BoringSpellValueText spell={TALENTS.LIGHTWEAVER_TALENT}>
-          <ItemHealingDone amount={this.healingDoneFromTalent} />
+          <ItemHealingDone amount={this.healingDoneFromTalent} />{' '}
+          <small> from just the heal amp</small>
+          <br />
+          <ItemHealingDone amount={this.healingDoneFromTalent / CAST_TIME_DECREASE} />{' '}
+          <small> from both the heal amp and doing that healing in less time</small>
         </BoringSpellValueText>
       </Statistic>
     );

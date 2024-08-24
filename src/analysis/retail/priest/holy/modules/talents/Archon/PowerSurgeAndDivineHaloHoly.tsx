@@ -59,7 +59,7 @@ class PowerSurgeAndDivineHaloHoly extends Analyzer {
             <br />
             <br />
             {'This includes the amp from '}
-            <SpellLink spell={TALENTS_PRIEST.DIVINE_HALO_TALENT} />
+            <SpellLink spell={TALENTS_PRIEST.ENERGY_COMPRESSION_TALENT} />
             {' if you are talented into it.'}
           </>
         }
