@@ -9,7 +9,11 @@ class Buffs extends CoreAuras {
     return [
       // Holy Paladin specific
       {
-        spellId: SPELLS.JUDGEMENTS_OF_THE_PURE.id,
+        spellId: [
+          SPELLS.JUDGEMENTS_OF_THE_PURE_R1.id,
+          SPELLS.JUDGEMENTS_OF_THE_PURE_R2.id,
+          SPELLS.JUDGEMENTS_OF_THE_PURE_R3.id,
+        ],
         timelineHighlight: true,
       },
       // Do not adjust the lines below
