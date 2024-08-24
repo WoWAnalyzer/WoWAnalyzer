@@ -31,6 +31,7 @@ export const FIRE_DIRECT_DAMAGE_SPELLS = [
 //Arcane
 export const ARCANE_CHARGE_MAX_STACKS = 4;
 export const ARCANE_TEMPO_MAX_STACKS = 5;
+export const ARCANE_TEMPO_HASTE_PER_STACK = 0.02;
 export const UNERRING_PROFICIENCY_MAX_STACKS = 30;
 export const ARCANE_MISSILES_MAX_TICKS = 8;
 export const CLEARCASTING_MAX_STACKS = 3;

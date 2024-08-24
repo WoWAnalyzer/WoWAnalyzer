@@ -229,8 +229,9 @@ class TreeOfLife extends Analyzer {
         <strong>
           <SpellLink spell={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT} />
         </strong>{' '}
-        is a longer, lower-impact cooldown. It should be planned around periods of high sustained
-        healing.
+        is a long duration healing boost with low immediate impact. It should be planned around
+        periods of high sustained healing. Due to its long duration and Rejuvenation mana discount,
+        it should be cast at the start of your ramp.
       </p>
     );
 

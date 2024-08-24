@@ -156,8 +156,6 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {modules.clearcastingGuide.guideSubsection}
         {info.combatant.hasTalent(TALENTS.NETHER_PRECISION_TALENT) &&
           modules.netherPrecisionGuide.guideSubsection}
-        {info.combatant.hasTalent(TALENTS.EVOCATION_TALENT) &&
-          modules.siphonStormGuide.guideSubsection}
         {info.combatant.hasTalent(TALENTS.ARCANE_TEMPO_TALENT) &&
           modules.arcaneTempoGuide.guideSubsection}
       </Section>
@@ -168,37 +166,29 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           <SpellLink spell={TALENTS.ARCANE_SURGE_TALENT} />.
         </>
         <CastEfficiencyBar
-          spellId={TALENTS.TOUCH_OF_THE_MAGI_TALENT.id}
-          gapHighlightMode={GapHighlight.FullCooldown}
-          useThresholds
-        />
-        <CastEfficiencyBar
           spellId={TALENTS.ARCANE_SURGE_TALENT.id}
           gapHighlightMode={GapHighlight.FullCooldown}
           useThresholds
         />
         <CastEfficiencyBar
-          spellId={TALENTS.PRESENCE_OF_MIND_TALENT.id}
+          spellId={TALENTS.TOUCH_OF_THE_MAGI_TALENT.id}
           gapHighlightMode={GapHighlight.FullCooldown}
           useThresholds
         />
-        <CastEfficiencyBar
-          spellId={SPELLS.ARCANE_ORB.id}
-          gapHighlightMode={GapHighlight.FullCooldown}
-          useThresholds
-          minimizeIcons
-        />
-        <CastEfficiencyBar
-          spellId={TALENTS.SUPERNOVA_TALENT.id}
-          gapHighlightMode={GapHighlight.FullCooldown}
-          useThresholds
-          minimizeIcons
-        />
-        <CastEfficiencyBar
-          spellId={TALENTS.EVOCATION_TALENT.id}
-          gapHighlightMode={GapHighlight.FullCooldown}
-          useThresholds
-        />
+        {info.combatant.hasTalent(TALENTS.PRESENCE_OF_MIND_TALENT) && (
+          <CastEfficiencyBar
+            spellId={TALENTS.PRESENCE_OF_MIND_TALENT.id}
+            gapHighlightMode={GapHighlight.FullCooldown}
+            useThresholds
+          />
+        )}
+        {info.combatant.hasTalent(TALENTS.EVOCATION_TALENT) && (
+          <CastEfficiencyBar
+            spellId={TALENTS.EVOCATION_TALENT.id}
+            gapHighlightMode={GapHighlight.FullCooldown}
+            useThresholds
+          />
+        )}
         <CastEfficiencyBar
           spellId={TALENTS.SHIFTING_POWER_TALENT.id}
           gapHighlightMode={GapHighlight.FullCooldown}

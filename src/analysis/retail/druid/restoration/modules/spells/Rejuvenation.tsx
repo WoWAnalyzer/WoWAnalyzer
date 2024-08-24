@@ -186,16 +186,21 @@ class Rejuvenation extends Analyzer {
   /** Guide subsection describing the proper usage of Rejuvenation */
   get guideSubsection(): JSX.Element {
     const explanation = (
-      <p>
-        <b>
-          <SpellLink spell={SPELLS.REJUVENATION} />
-        </b>{' '}
-        is your primary filler spell. It can be used on injured raiders or pre-cast on full health
-        raiders when big damage is incoming. Don't spam it unmotivated - you'll run out of mana.
-        Don't cast it on targets with a high duration Rejuvenation - you'll clip duration. Some
-        high-overheal Rejuvs are unavoidable due to heal sniping, but if a large proportion of them
-        are you might be casting too much.
-      </p>
+      <>
+        <p>
+          <b>
+            <SpellLink spell={SPELLS.REJUVENATION} />
+          </b>{' '}
+          is your primary filler spell. It can be used on injured raiders or pre-cast on full health
+          raiders when ramping for incoming raid damage. Don't spam it unmotivated - you'll run out
+          of mana.
+        </p>
+        <p>
+          Don't overwrite on targets with a recent Rejuvenation - you'll clip duration. Some
+          high-overheal Rejuvs are unavoidable due to heal sniping, but if a large proportion of
+          them are you might be casting too much.
+        </p>
+      </>
     );
 
     const goodRejuvs = {
