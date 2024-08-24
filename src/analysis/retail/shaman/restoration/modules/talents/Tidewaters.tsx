@@ -8,6 +8,7 @@ import { formatPercentage } from 'common/format';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import SpellLink from 'interface/SpellLink';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
 /**
  * **Tidewaters talent (retrofitted from T30 tier set)**
@@ -83,6 +84,17 @@ export default class Tidewaters extends Analyzer {
           </div>
         </TalentSpellText>
       </Statistic>
+    );
+  }
+
+  subStatistic() {
+    return (
+      <StatisticListBoxItem
+        title={<SpellLink spell={TALENTS_SHAMAN.TIDEWATERS_TALENT} />}
+        value={`${formatPercentage(
+          this.owner.getPercentageOfTotalHealingDone(this.tidewatersHealing),
+        )} %`}
+      />
     );
   }
 }
