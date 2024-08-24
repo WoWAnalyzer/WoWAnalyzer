@@ -878,6 +878,11 @@ const spells = {
     name: 'Downpour',
     icon: 'ability_mage_waterjet',
   },
+  TIDEWATERS_HEAL: {
+    id: 462425,
+    name: 'Tidewaters',
+    icon: 'ability_shawaterelemental_split',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;
