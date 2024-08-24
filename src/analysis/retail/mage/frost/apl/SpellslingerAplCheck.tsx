@@ -19,12 +19,12 @@ export const spellslingerApl = build([
     ),
   },
   {
-    spell: TALENTS.FLURRY_TALENT,
-    condition: cnd.buffPresent(TALENTS.ICY_VEINS_TALENT),
-  },
-  {
     spell: TALENTS.GLACIAL_SPIKE_TALENT,
     condition: cnd.buffStacks(SPELLS.ICICLES_BUFF, { atLeast: 5 }),
+  },
+  {
+    spell: TALENTS.FLURRY_TALENT,
+    condition: cnd.buffPresent(TALENTS.ICY_VEINS_TALENT),
   },
   SPELLS.FROSTBOLT,
 ]);
