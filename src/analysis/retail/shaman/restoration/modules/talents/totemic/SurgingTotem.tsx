@@ -105,11 +105,10 @@ class SurgingTotem extends Analyzer {
         suggest(
           <span>
             Try to always cast <SpellLink spell={SPELLS.HEALING_RAIN_TOTEMIC} /> in areas where
-            players stack. This allows the spell to consitantly hit all possible targets. You can{' '}
-            {!this.selectedCombatant.hasTalent(TALENTS_SHAMAN.TOTEMIC_PROJECTION_TALENT) && (
+            players stack. This allows the spell to consistently hit all possible targets. You can{' '}
+            {!this.selectedCombatant.hasTalent(TALENTS_SHAMAN.TOTEMIC_PROJECTION_TALENT) ? (
               <>talent into </>
-            )}
-            {this.selectedCombatant.hasTalent(TALENTS_SHAMAN.TOTEMIC_PROJECTION_TALENT) && (
+            ) : (
               <>use </>
             )}
             <SpellLink spell={TALENTS_SHAMAN.TOTEMIC_PROJECTION_TALENT} /> to reposition it every 10
