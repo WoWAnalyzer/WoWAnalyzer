@@ -160,10 +160,7 @@ class SurgingTotem extends Analyzer {
       });
     } else {
       // dirty fix for partial ticks happening at the same time as a real tick
-      healingRainTick.hits =
-        healingRainTick.hits + 1 > this.maxTargets
-          ? (healingRainTick.hits = this.maxTargets)
-          : healingRainTick.hits + 1;
+      healingRainTick.hits = Math.min(this.maxTargets, healingRainTick.hits + 1);
     }
   }
 
