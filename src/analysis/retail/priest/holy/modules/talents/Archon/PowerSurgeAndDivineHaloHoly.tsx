@@ -1,4 +1,4 @@
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { Options } from 'parser/core/Module';
 import Combatants from 'parser/shared/modules/Combatants';
 import Statistic from 'parser/ui/Statistic';
@@ -8,29 +8,86 @@ import SpellLink from 'interface/SpellLink';
 import SPELLS from 'common/SPELLS';
 import { formatNumber, formatPercentage } from 'common/format';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import ArchonAnalysis from './ArchonAnalysis';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import ItemPercentDamageDone from 'parser/ui/ItemPercentDamageDone';
 import { TALENTS_PRIEST } from 'common/TALENTS';
-/**
- * **Perfected Form**
- * Your healing done is increased by 10% while Apotheosis is active and for 20 sec after you cast Holy Word: Salvation.
- */
+import Events, { CastEvent, DamageEvent, HealEvent } from 'parser/core/Events';
 
 //https://www.warcraftlogs.com/reports/WT19GKp2VHqLarbD#fight=19``&type=auras&source=122
 class PowerSurgeAndDivineHaloHoly extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-    archonanalysis: ArchonAnalysis,
   };
 
   protected combatants!: Combatants;
-  protected archonanalysis!: ArchonAnalysis;
+
+  //These are the values from the first cast of halo
+  //all 6 halos and how much energy compression scales them
+  firstHaloHealing = 0;
+  totalArchonHaloHealing = 0;
+  firstHaloDamage = 0;
+  totalArchonHaloDamage = 0;
+
+  private firstHalo = false;
 
   constructor(options: Options) {
     super(options);
 
     this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.DIVINE_HALO_TALENT);
+
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HALO_TALENT),
+      this.newHaloCast,
+    );
+
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HALO_HEAL),
+      this.handleHaloHealing,
+    );
+
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.HALO_DAMAGE),
+      this.handleHaloDamage,
+    );
+
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.HALO_TALENT),
+      this.removeArchonOut,
+    );
+  }
+
+  handleHaloHealing(event: HealEvent) {
+    if (this.firstHalo) {
+      this.firstHaloHealing += event.amount + (event.absorbed || 0);
+    }
+
+    this.totalArchonHaloHealing += event.amount + (event.absorbed || 0);
+  }
+
+  handleHaloDamage(event: DamageEvent) {
+    if (this.firstHalo) {
+      this.firstHaloDamage += event.amount + (event.absorbed || 0);
+    }
+
+    this.totalArchonHaloDamage += event.amount + (event.absorbed || 0);
+  }
+
+  newHaloCast(event: CastEvent) {
+    this.firstHalo = true;
+  }
+  removeArchonOut() {
+    this.firstHalo = false;
+  }
+
+  // These functions return power surge/divine halo's contribution
+  // compared to just the first halo (if you didn't have either archon talent)
+  // aswell as energy compression
+  passHaloFirstAndCapStoneHealing(): number {
+    return this.totalArchonHaloHealing - this.firstHaloHealing;
+  }
+
+  passHaloFirstAndCapStoneDamage(): number {
+    return this.totalArchonHaloDamage - this.firstHaloDamage;
   }
 
   statistic() {
@@ -44,17 +101,13 @@ class PowerSurgeAndDivineHaloHoly extends Analyzer {
             {'If you only cast your first '}
             <SpellLink spell={SPELLS.HALO_TALENT} />
             {' each time, it would have done '}
-            {formatNumber(this.archonanalysis.firstHaloHealing)}(
-            {formatPercentage(
-              this.owner.getPercentageOfTotalHealingDone(this.archonanalysis.firstHaloHealing),
-            )}
+            {formatNumber(this.firstHaloHealing)}(
+            {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.firstHaloHealing))}
             %) of your healing
             <br />
             {'and '}
-            {formatNumber(this.archonanalysis.firstHaloDamage)}(
-            {formatPercentage(
-              this.owner.getPercentageOfTotalHealingDone(this.archonanalysis.firstHaloDamage),
-            )}
+            {formatNumber(this.firstHaloDamage)}(
+            {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.firstHaloDamage))}
             %) of your damage
             <br />
             <br />
@@ -76,11 +129,8 @@ class PowerSurgeAndDivineHaloHoly extends Analyzer {
           </small>
           <br />
           <br />
-          <ItemPercentHealingDone
-            amount={this.archonanalysis.passHaloFirstAndCapStoneHealing}
-          />{' '}
-          <br />
-          <ItemPercentDamageDone amount={this.archonanalysis.passHaloFirstAndCapStoneDamage} />
+          <ItemPercentHealingDone amount={this.passHaloFirstAndCapStoneHealing()} /> <br />
+          <ItemPercentDamageDone amount={this.passHaloFirstAndCapStoneDamage()} />
         </TalentSpellText>
       </Statistic>
     );
