@@ -63,6 +63,17 @@ class EnergyCycleHoly extends Analyzer {
       Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS_PRIEST.APOTHEOSIS_TALENT),
       this.removeApoth,
     );
+
+    //tracks spending of Surge of Light
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.SURGE_OF_LIGHT_BUFF),
+      this.onSurgeOfLightHeal,
+    );
+
+    this.addEventListener(
+      Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.SURGE_OF_LIGHT_BUFF),
+      this.onSurgeOfLightHeal,
+    );
   }
 
   onSurgeOfLightHeal(event: RemoveBuffEvent | RemoveBuffStackEvent) {
