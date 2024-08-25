@@ -902,6 +902,10 @@ const spells = {
     id: 453407,
     name: 'Whirling Water',
     icon: 'inv_10_elementalcombinedfoozles_water',
+  TIDEWATERS_HEAL: {
+    id: 462425,
+    name: 'Tidewaters',
+    icon: 'ability_shawaterelemental_split',
   },
 } satisfies Record<string, Spell>;
 
