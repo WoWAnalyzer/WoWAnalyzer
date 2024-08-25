@@ -12,14 +12,18 @@ import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import ItemPercentDamageDone from 'parser/ui/ItemPercentDamageDone';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import Events, { CastEvent, DamageEvent, HealEvent } from 'parser/core/Events';
+import { EchoOfLightAttributor } from '../Oracle';
+import SpellIcon from 'interface/SpellIcon';
 
 //https://www.warcraftlogs.com/reports/WT19GKp2VHqLarbD#fight=19``&type=auras&source=122
 class PowerSurgeAndDivineHaloHoly extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    echoOfLightAttributor: EchoOfLightAttributor,
   };
 
   protected combatants!: Combatants;
+  protected echoOfLightAttributor!: EchoOfLightAttributor;
 
   //These are the values from the first cast of halo
   //all 6 halos and how much energy compression scales them
@@ -27,6 +31,9 @@ class PowerSurgeAndDivineHaloHoly extends Analyzer {
   totalArchonHaloHealing = 0;
   firstHaloDamage = 0;
   totalArchonHaloDamage = 0;
+
+  firstHaloEOL = 0;
+  totalArchonHaloEOL = 0;
 
   private firstHalo = false;
 
@@ -59,9 +66,11 @@ class PowerSurgeAndDivineHaloHoly extends Analyzer {
   handleHaloHealing(event: HealEvent) {
     if (this.firstHalo) {
       this.firstHaloHealing += event.amount + (event.absorbed || 0);
+      this.firstHaloEOL += this.echoOfLightAttributor.getEchoOfLightHealingAttrib(event);
     }
 
     this.totalArchonHaloHealing += event.amount + (event.absorbed || 0);
+    this.totalArchonHaloEOL += this.echoOfLightAttributor.getEchoOfLightHealingAttrib(event);
   }
 
   handleHaloDamage(event: DamageEvent) {
@@ -88,6 +97,10 @@ class PowerSurgeAndDivineHaloHoly extends Analyzer {
 
   passHaloFirstAndCapStoneDamage(): number {
     return this.totalArchonHaloDamage - this.firstHaloDamage;
+  }
+
+  passHaloFirstAndCapstoneEOL(): number {
+    return this.totalArchonHaloEOL - this.firstHaloEOL;
   }
 
   statistic() {
@@ -130,6 +143,11 @@ class PowerSurgeAndDivineHaloHoly extends Analyzer {
           <br />
           <br />
           <ItemPercentHealingDone amount={this.passHaloFirstAndCapStoneHealing()} /> <br />
+          <ItemPercentHealingDone amount={this.passHaloFirstAndCapstoneEOL()} />{' '}
+          <small>
+            from <SpellIcon spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />{' '}
+          </small>{' '}
+          <br />
           <ItemPercentDamageDone amount={this.passHaloFirstAndCapStoneDamage()} />
         </TalentSpellText>
       </Statistic>

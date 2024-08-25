@@ -7,6 +7,8 @@ import STAT from 'parser/shared/modules/features/STAT';
 import Mastery from '../core/EchoOfLightMastery';
 import PRIEST_HEAL_INFO from './StatValuesSpellInfo';
 
+//If this isn't being maintained it should be deleted, just redirect people to QELive
+
 class StatWeights extends BaseHealerStatValues {
   static dependencies = {
     ...BaseHealerStatValues.dependencies,

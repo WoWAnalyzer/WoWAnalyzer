@@ -11,6 +11,7 @@ import { ABILITIES_THAT_DONT_TRIGGER_MASTERY } from '../../../../constants';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
 const PRISMATIC_ECHOES_PER_RANK = 0.06;
+const CONVERT_FROM_DF = 180 / 700;
 
 class EchoOfLightAttributor extends Analyzer {
   static dependencies = {
@@ -39,6 +40,11 @@ class EchoOfLightAttributor extends Analyzer {
     }
   }
 
+  getPTRMastery() {
+    const currMastRating = this.statTracker.currentMasteryRating * CONVERT_FROM_DF;
+    return this.statTracker.masteryPercentage(currMastRating, true);
+  }
+
   /** Attributor for a spell's EOL amount,
    *  it is calculated by lookingat the next 3/4 EOL ticks after a heal event
    *  to get average overhealing, then it is raw healing event * mastery % * scaled overhealing
@@ -49,7 +55,7 @@ class EchoOfLightAttributor extends Analyzer {
    */
   public getEchoOfLightHealingAttrib(eolEvent: HealEvent) {
     const passedEventId = eolEvent.ability.guid;
-    const currentMastery = this.statTracker.currentMasteryPercentage;
+    const currentMastery = this.getPTRMastery();
     const initialHeal = eolEvent.amount + (eolEvent.absorbed || 0) + (eolEvent.overheal || 0);
 
     //blacklist non EOL heals as a double check if someone forgot to do it when this function is called
@@ -100,7 +106,7 @@ class EchoOfLightAttributor extends Analyzer {
    */
   public getEchoOfLightAmpAttrib(eolEvent: HealEvent, relativeHealIncrease: number) {
     const passedEventId = eolEvent.ability.guid;
-    const currentMastery = this.statTracker.currentMasteryPercentage;
+    const currentMastery = this.getPTRMastery();
     const initialHeal = eolEvent.amount + (eolEvent.absorbed || 0) + (eolEvent.overheal || 0);
     if (
       ABILITIES_THAT_DONT_TRIGGER_MASTERY.includes(passedEventId) ||
