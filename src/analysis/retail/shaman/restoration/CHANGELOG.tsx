@@ -14,6 +14,7 @@ import {
 // prettier-ignore
 export default [
   change(date(2024, 8, 24), <>Statistic box for <SpellLink spell={TALENTS_SHAMAN.TIDEWATERS_TALENT}/> </>, Ypp),
+  change(date(2024, 8, 22), <>Guide for <SpellLink spell={TALENTS_SHAMAN.SURGING_TOTEM_TALENT} />, including cooldown graph and Whirling motes consumption. </>, Ypp),
   change(date(2024, 8, 21), <>Bump supported version to 11.0.2. Set "guide" view as default. </>, Ypp),
   change(date(2024, 8, 21), <>Fixed an error causing the Cloudburst Totem module to crash if one was cast prepull</>, Texleretour),
   change(date(2024, 8, 21), <>Add <SpellLink spell={TALENTS_SHAMAN.STONE_BULWARK_TOTEM_TALENT} /> effective shielding done statistic and add <SpellLink spell={TALENTS_SHAMAN.DOWNPOUR_TALENT} /> procs wasted and average targets hit statistic</>, Texleretour),

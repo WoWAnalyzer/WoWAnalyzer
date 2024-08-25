@@ -878,6 +878,31 @@ const spells = {
     name: 'Downpour',
     icon: 'ability_mage_waterjet',
   },
+  HEALING_RAIN_TOTEMIC: {
+    id: 456366,
+    name: 'Healing Rain',
+    icon: 'spell_nature_giftofthewaterspirit',
+  },
+  SURGING_TOTEM: {
+    id: 444995,
+    name: 'Surging Totem',
+    icon: 'inv_ability_totemicshaman_surgingtotem',
+  },
+  WHIRLING_AIR: {
+    id: 453409,
+    name: 'Whirling Air',
+    icon: 'inv_10_elementalcombinedfoozles_air',
+  },
+  WHIRLING_EARTH: {
+    id: 453406,
+    name: 'Whirling Earth',
+    icon: 'inv_10_elementalcombinedfoozles_earth',
+  },
+  WHIRLING_WATER: {
+    id: 453407,
+    name: 'Whirling Water',
+    icon: 'inv_10_elementalcombinedfoozles_water',
+  },
   TIDEWATERS_HEAL: {
     id: 462425,
     name: 'Tidewaters',
