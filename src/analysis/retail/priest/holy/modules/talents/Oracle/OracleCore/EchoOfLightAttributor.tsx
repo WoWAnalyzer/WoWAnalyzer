@@ -137,7 +137,7 @@ class EchoOfLightAttributor extends Analyzer {
       const overheal =
         currentMastery *
         1.12 *
-        ((initialHeal * this.eolOverhealing) / (this.eolHealing + this.eolHealing));
+        ((initialHeal * this.eolOverhealing) / (this.eolHealing + this.eolOverhealing));
       const raw = currentMastery * this.masteryScaler * initialHeal;
       const relativeHealingIncreaseFactor = 1 + relativeHealIncrease;
       const healingIncrease = raw - raw / relativeHealingIncreaseFactor;
