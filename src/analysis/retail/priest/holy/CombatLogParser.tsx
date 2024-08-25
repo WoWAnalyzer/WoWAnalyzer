@@ -145,8 +145,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     BurningVehemence: Talents.TopRow.BurningVehemence,
 
-    // Hero Talent Analysis
-    ArchonAnalysis: Talents.Archon.ArchonAnalysis,
     // Archon Hero Talent Display
     PerfectedFormHoly: Talents.Archon.PerfectedFormHoly,
     ResonantEnergyHoly: Talents.Archon.ResonantEnergyHoly,

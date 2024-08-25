@@ -1,4 +1,4 @@
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { Options } from 'parser/core/Module';
 import Combatants from 'parser/shared/modules/Combatants';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
@@ -8,25 +8,77 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import SpellLink from 'interface/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import ArchonAnalysis from './ArchonAnalysis';
 
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import PRIEST_TALENTS from 'common/TALENTS/priest';
+import Events, { HealEvent } from 'parser/core/Events';
+import { HOLY_ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../../constants';
+import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
+import SPELLS from 'common/SPELLS';
+
+const PERFECTED_FORM_AMP = 0.1;
 
 //https://www.warcraftlogs.com/reports/WT19GKp2VHqLarbD#fight=19``&type=auras&source=122
 class PerfectedFormHoly extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-    archonanalysis: ArchonAnalysis,
   };
 
   protected combatants!: Combatants;
-  protected archonanalysis!: ArchonAnalysis;
+
+  /** Total healing from perfected form's salvation buff */
+  perfectedFormSalv = 0;
+  /** Total healing from perfected form's apoth buff */
+  perfectedFormApoth = 0;
 
   constructor(options: Options) {
     super(options);
 
     this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.PERFECTED_FORM_TALENT);
+
+    //perfected form healing
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(HOLY_ABILITIES_AFFECTED_BY_HEALING_INCREASES),
+      this.onPerfectedFormHeal,
+    );
+  }
+
+  onPerfectedFormHeal(event: HealEvent) {
+    if (
+      this.selectedCombatant.hasBuff(
+        SPELLS.PERFECTED_FORM_TALENT_BUFF.id,
+        null,
+        0,
+        0,
+        this.selectedCombatant.id,
+      )
+    ) {
+      this.perfectedFormSalv += calculateEffectiveHealing(event, PERFECTED_FORM_AMP);
+    }
+    //Apoth only gets the buff when Perfected Form from Salv isn't active
+    else if (
+      !this.selectedCombatant.hasBuff(
+        SPELLS.PERFECTED_FORM_TALENT_BUFF.id,
+        null,
+        0,
+        0,
+        this.selectedCombatant.id,
+      ) &&
+      this.selectedCombatant.hasBuff(
+        TALENTS_PRIEST.APOTHEOSIS_TALENT.id,
+        null,
+        0,
+        0,
+        this.selectedCombatant.id,
+      )
+    ) {
+      this.perfectedFormApoth += calculateEffectiveHealing(event, PERFECTED_FORM_AMP);
+    }
+  }
+
+  //PERFECTED FORM STATISTICS
+  passPerfectedFormHealing(): number {
+    return this.perfectedFormApoth + this.perfectedFormSalv;
   }
 
   statistic() {
@@ -40,20 +92,18 @@ class PerfectedFormHoly extends Analyzer {
             <SpellLink spell={PRIEST_TALENTS.PERFECTED_FORM_TALENT} /> healing contributions:
             <ul>
               <li>
-                {formatNumber(this.archonanalysis.perfectedFormApoth)}
+                {formatNumber(this.perfectedFormApoth)}
                 {' ('}
                 {formatPercentage(
-                  this.owner.getPercentageOfTotalHealingDone(
-                    this.archonanalysis.perfectedFormApoth,
-                  ),
+                  this.owner.getPercentageOfTotalHealingDone(this.perfectedFormApoth),
                 )}
                 %) from <SpellLink spell={TALENTS_PRIEST.APOTHEOSIS_TALENT} />
               </li>
               <li>
-                {formatNumber(this.archonanalysis.perfectedFormSalv)}
+                {formatNumber(this.perfectedFormSalv)}
                 {' ('}
                 {formatPercentage(
-                  this.owner.getPercentageOfTotalHealingDone(this.archonanalysis.perfectedFormSalv),
+                  this.owner.getPercentageOfTotalHealingDone(this.perfectedFormSalv),
                 )}
                 %) from <SpellLink spell={TALENTS_PRIEST.HOLY_WORD_SALVATION_TALENT} />
               </li>
@@ -62,7 +112,7 @@ class PerfectedFormHoly extends Analyzer {
         }
       >
         <TalentSpellText talent={TALENTS_PRIEST.PERFECTED_FORM_TALENT}>
-          <ItemPercentHealingDone amount={this.archonanalysis.passPerfectedFormHealing} />
+          <ItemPercentHealingDone amount={this.passPerfectedFormHealing()} />
         </TalentSpellText>
       </Statistic>
     );

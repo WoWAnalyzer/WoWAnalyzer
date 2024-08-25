@@ -1,4 +1,4 @@
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { Options } from 'parser/core/Module';
 import Combatants from 'parser/shared/modules/Combatants';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
@@ -6,28 +6,57 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import ArchonAnalysis from './ArchonAnalysis';
 
 import { TALENTS_PRIEST } from 'common/TALENTS';
-/**
- * **Perfected Form**
- * Your healing done is increased by 10% while Apotheosis is active and for 20 sec after you cast Holy Word: Salvation.
- */
+import SPELLS from 'common/SPELLS';
+import Events, { HealEvent } from 'parser/core/Events';
+import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
+import { HOLY_ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../../constants';
 
 //https://www.warcraftlogs.com/reports/WT19GKp2VHqLarbD#fight=19``&type=auras&source=122
+
+const RESONANT_ENERGY_AMP_PER_STACK = 0.02;
+
 class ResonantEnergyHoly extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-    archonanalysis: ArchonAnalysis,
   };
 
   protected combatants!: Combatants;
-  protected archonanalysis!: ArchonAnalysis;
+
+  /** Total Healing From Resonant Energy */
+  resonantEnergyHealing = 0;
 
   constructor(options: Options) {
     super(options);
 
     this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.RESONANT_ENERGY_TALENT);
+
+    //Resonant Energy Healing
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(HOLY_ABILITIES_AFFECTED_BY_HEALING_INCREASES),
+      this.onResonantEnergyHeal,
+    );
+  }
+
+  onResonantEnergyHeal(event: HealEvent) {
+    const target = this.combatants.getEntity(event);
+
+    if (target === null) {
+      return;
+    }
+
+    const resonantEnergyStacks = target.getBuffStacks(
+      SPELLS.RESONANT_ENERGY_TALENT_BUFF.id,
+      null,
+      0,
+      0,
+      this.selectedCombatant.id,
+    );
+    this.resonantEnergyHealing += calculateEffectiveHealing(
+      event,
+      RESONANT_ENERGY_AMP_PER_STACK * resonantEnergyStacks,
+    );
   }
 
   statistic() {
@@ -38,7 +67,7 @@ class ResonantEnergyHoly extends Analyzer {
         category={STATISTIC_CATEGORY.HERO_TALENTS}
       >
         <TalentSpellText talent={TALENTS_PRIEST.RESONANT_ENERGY_TALENT}>
-          <ItemPercentHealingDone amount={this.archonanalysis.resonantEnergyHealing} />
+          <ItemPercentHealingDone amount={this.resonantEnergyHealing} />
         </TalentSpellText>
       </Statistic>
     );

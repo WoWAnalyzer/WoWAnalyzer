@@ -650,6 +650,11 @@ const spells = {
     name: 'Blessed Light',
     icon: 'spell_holy_divineprovidence',
   },
+  DIVINE_IMAGE_TRANQUIL_LIGHT_HEAL: {
+    id: 196816,
+    name: 'Tranquil Light',
+    icon: 'spell_holy_divineprovidence',
+  },
   HOLY_WORD_CHASTISE_CENSURE_TALENT_INCAPACITATE: {
     id: 200196,
     name: 'Holy Word: Chastise',
