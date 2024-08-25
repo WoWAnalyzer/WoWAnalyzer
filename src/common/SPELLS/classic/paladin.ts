@@ -266,8 +266,18 @@ const spells = {
     name: 'Holy Shock',
     icon: 'spell_holy_searinglight.jpg',
   },
-  JUDGEMENTS_OF_THE_PURE: {
-    id: 54153,
+  JUDGEMENTS_OF_THE_PURE_R1: {
+    id: 53655,
+    name: 'Judgements of the Pure',
+    icon: 'ability_paladin_judgementofthepure.jpg',
+  },
+  JUDGEMENTS_OF_THE_PURE_R2: {
+    id: 53656,
+    name: 'Judgements of the Pure',
+    icon: 'ability_paladin_judgementofthepure.jpg',
+  },
+  JUDGEMENTS_OF_THE_PURE_R3: {
+    id: 53657,
     name: 'Judgements of the Pure',
     icon: 'ability_paladin_judgementofthepure.jpg',
   },
