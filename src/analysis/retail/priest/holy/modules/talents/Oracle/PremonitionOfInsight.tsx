@@ -62,9 +62,6 @@ class PremonitionOfInsight extends Analyzer {
       return;
     }
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.HOLY_FIRE.id) {
-      //WRITE CODE TO FILTER OUT EMPYREAL BLAZE CASTS;
-    }
     const effCDR = this.spellUsable.reduceCooldown(spellId, this.scaledInsightCDR);
 
     this.insightReducBySpell[spellId] = this.insightReducBySpell[spellId] || 0;
@@ -95,6 +92,7 @@ class PremonitionOfInsight extends Analyzer {
   }
 
   statistic() {
+    //this filters out undefined values that cause errors
     this.insightCastSpellTracker = this.insightCastSpellTracker.filter(Boolean);
     return (
       <Statistic
