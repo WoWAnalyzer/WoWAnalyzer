@@ -8,15 +8,23 @@ class Buffs extends CoreAuras {
   auras() {
     return [
       {
-        spellId: SPELLS.INNERVATE.id,
-        timelineHighlight: true,
-      },
-      {
         spellId: SPELLS.ECLIPSE_LUNAR.id,
         timelineHighlight: true,
       },
       {
         spellId: SPELLS.ECLIPSE_SOLAR.id,
+        timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.INNERVATE.id,
+        timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.NATURES_GRACE_BUFF.id,
+        timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.SHOOTING_STARS.id,
         timelineHighlight: true,
       },
       // Do not adjust the lines below

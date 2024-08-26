@@ -290,6 +290,11 @@ const spells = {
     name: 'Tranquility',
     icon: 'spell_nature_tranquility.jpg',
   },
+  TRANQUILITY_HEAL: {
+    id: 44203,
+    name: 'Tranquility',
+    icon: 'spell_nature_tranquility.jpg',
+  },
   WILD_MUSHROOM: {
     id: 88747,
     name: 'Wild Mushroom',
@@ -345,6 +350,11 @@ const spells = {
     name: "Nature's Grace",
     icon: 'spell_nature_naturesblessing.jpg',
   },
+  SHOOTING_STARS: {
+    id: 93400,
+    name: 'Shooting Stars',
+    icon: 'ability_mage_arcanebarrage.jpg',
+  },
   SOLAR_BEAM: {
     id: 78675,
     name: 'Solar Beam',
@@ -360,8 +370,13 @@ const spells = {
     name: 'Starsurge',
     icon: 'spell_arcane_arcane03.jpg',
   },
+  SUNFIRE: {
+    id: 93402,
+    name: 'Sunfire',
+    icon: 'ability_mage_firestarter.jpg',
+  },
   TYPHOON: {
-    id: 50516,
+    id: 61391,
     name: 'Typhoon',
     icon: 'ability_druid_typhoon.jpg',
   },
