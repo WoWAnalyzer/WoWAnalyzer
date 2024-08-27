@@ -1,5 +1,6 @@
 import { defineMessage } from '@lingui/macro';
-import { formatPercentage } from 'common/format';
+import RageGraph from 'analysis/retail/warrior/shared/modules/core/RageGraph';
+import { formatNumber, formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Panel } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
@@ -9,14 +10,16 @@ import BoringResourceValue from 'parser/ui/BoringResourceValue';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
-import RageTracker from './RageTracker';
+import RageTracker from '../../../shared/modules/core/RageTracker';
 
 class RageDetails extends Analyzer {
   static dependencies = {
     rageTracker: RageTracker,
+    rageGraph: RageGraph,
   };
 
   protected rageTracker!: RageTracker;
+  protected rageGraph!: RageGraph;
 
   get wastedPercent() {
     return this.rageTracker.wasted / (this.rageTracker.wasted + this.rageTracker.generated) || 0;
@@ -65,9 +68,9 @@ class RageDetails extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(3)}
         size="flexible"
-        tooltip={`${this.rageTracker.wasted} out of ${
-          this.rageTracker.wasted + this.rageTracker.generated
-        } Rage wasted.`}
+        tooltip={`${formatNumber(this.rageTracker.wasted)} out of ${formatNumber(
+          this.rageTracker.wasted + this.rageTracker.generated,
+        )} Rage wasted.`}
       >
         <BoringResourceValue
           resource={RESOURCE_TYPES.RAGE}
@@ -83,9 +86,12 @@ class RageDetails extends Analyzer {
       title: 'Rage usage',
       url: 'rage-usage',
       render: () => (
-        <Panel>
-          <ResourceBreakdown tracker={this.rageTracker} showSpenders />
-        </Panel>
+        <>
+          <Panel title="Rage over time">{this.rageGraph.plot}</Panel>
+          <Panel title="Breakdown">
+            <ResourceBreakdown tracker={this.rageTracker} showSpenders />
+          </Panel>
+        </>
       ),
     };
   }

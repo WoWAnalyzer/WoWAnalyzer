@@ -1,10 +1,14 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import Channeling from 'parser/shared/normalizers/Channeling';
-
+import WindfuryLinkNormalizer from 'parser/shared/normalizers/WindfuryLinkNormalizer';
+import RageGraph from '../shared/modules/core/RageGraph';
+import RageTracker from '../shared/modules/core/RageTracker';
+import GenerateRageEventsNormalizer from '../shared/modules/normalizers/rageNormalizers/GenerateRageEventsNormalizer';
+import RageAttributeNormalizer from '../shared/modules/normalizers/rageNormalizers/RageAttributeNormalizer';
+import RageGainNormalizer from '../shared/modules/normalizers/rageNormalizers/RageGainNormalizer';
 import Abilities from './modules/Abilities';
 import Enrage from './modules/buffdebuff/Enrage';
 import RageDetails from './modules/core/RageDetails';
-import RageTracker from './modules/core/RageTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Buffs from './modules/features/Buffs';
 import Checklist from './modules/features/checklist/Module';
@@ -26,6 +30,13 @@ import BerserkersTormentNormalizer from './modules/talents/BerserkersTorment';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
+    // Normalizers
+    windfuryNormalizer: WindfuryLinkNormalizer,
+
+    rageGainNormalizer: RageGainNormalizer,
+    generateRageEventsNormalizer: GenerateRageEventsNormalizer,
+    rageAttributeNormalizer: RageAttributeNormalizer,
+
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
     channeling: Channeling,
@@ -36,6 +47,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     whirlWind: WhirlWind,
     rageTracker: RageTracker,
+    rageGraph: RageGraph,
     rageDetails: RageDetails,
 
     enrageNormalizer: EnrageNormalizer,

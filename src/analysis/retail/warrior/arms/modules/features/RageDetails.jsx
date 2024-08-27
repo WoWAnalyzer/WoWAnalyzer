@@ -1,12 +1,13 @@
 import { defineMessage } from '@lingui/macro';
+import RageGraph from 'analysis/retail/warrior/shared/modules/core/RageGraph';
+import RageTracker from 'analysis/retail/warrior/shared/modules/core/RageTracker';
 import { formatPercentage } from 'common/format';
 import { Panel } from 'interface';
 import { Icon } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-
-import RageTracker from './RageTracker';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 class RageDetails extends Analyzer {
   get wastedPercent() {
@@ -39,6 +40,7 @@ class RageDetails extends Analyzer {
 
   static dependencies = {
     rageTracker: RageTracker,
+    rageGraph: RageGraph,
   };
 
   suggestions(when) {
@@ -57,7 +59,7 @@ class RageDetails extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
+      <Statistic
         position={STATISTIC_ORDER.CORE(5)}
         icon={<Icon icon="spell_nature_reincarnation" />}
         value={`${formatPercentage(this.wastedPercent)} %`}
@@ -74,9 +76,12 @@ class RageDetails extends Analyzer {
       title: 'Rage usage',
       url: 'rage-usage',
       render: () => (
-        <Panel>
-          <ResourceBreakdown tracker={this.rageTracker} showSpenders />
-        </Panel>
+        <>
+          <Panel title="Rage over time">{this.rageGraph.plot}</Panel>
+          <Panel title="Breakdown">
+            <ResourceBreakdown tracker={this.rageTracker} showSpenders />
+          </Panel>
+        </>
       ),
     };
   }
