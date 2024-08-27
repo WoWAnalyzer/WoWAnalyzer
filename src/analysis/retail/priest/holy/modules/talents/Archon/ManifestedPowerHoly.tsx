@@ -13,12 +13,14 @@ import PRIEST_TALENTS from 'common/TALENTS/priest';
 import Events, {
   ApplyBuffEvent,
   ApplyBuffStackEvent,
+  HasRelatedEvent,
   RefreshBuffEvent,
   RemoveBuffEvent,
   RemoveBuffStackEvent,
 } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import {
+  BUFFED_BY_SURGE_OF_LIGHT,
   buffedBySurgeOfLight,
   getHealFromSurge,
   isSurgeOfLightFromHalo,
@@ -94,6 +96,10 @@ class ManifestedPowerHoly extends Analyzer {
 
   onRefreshSurgeOfLight(event: RefreshBuffEvent) {
     // surge of light used successfully (spending on 2 stacks counts as a refresh)
+    // also when it spends it refreshes on 2 stacks
+    if (HasRelatedEvent(event, BUFFED_BY_SURGE_OF_LIGHT)) {
+      return;
+    }
     if (1 === this.selectedCombatant.getBuffStacks(SPELLS.SURGE_OF_LIGHT_BUFF.id)) {
       return;
     }

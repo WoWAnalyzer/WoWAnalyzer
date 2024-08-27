@@ -29,7 +29,7 @@ const SERENITY_CAST = 'HolyWordSerenityCast';
 const SANCTIFY_CAST = 'HolyWordSanctifyCast';
 const SALVATION_CAST = 'HolyWordSalvationCast';
 const CHASTISE_CAST = 'HolyWordChastiseCast';
-const BUFFED_BY_SURGE_OF_LIGHT = 'BuffedBySurgeOfLight';
+export const BUFFED_BY_SURGE_OF_LIGHT = 'BuffedBySurgeOfLight';
 const SURGE_OF_LIGHT_APPLIED_BY_HALO = 'SurgeOfLightAppliedByHalo';
 const HALO_LINKED_TO_SURGE_OF_LIGHT = 'HaloLinkedtoSurgeOfLight';
 const SPELL_SPENDS_INSIGHT_CHARGE = 'SpellSpendsInsightCharge';
@@ -264,7 +264,7 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventId: SPELLS.FLASH_HEAL.id,
     linkingEventType: EventType.Heal,
     referencedEventId: [SPELLS.SURGE_OF_LIGHT_BUFF.id],
-    referencedEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
+    referencedEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack, EventType.RefreshBuff],
     anyTarget: true,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
