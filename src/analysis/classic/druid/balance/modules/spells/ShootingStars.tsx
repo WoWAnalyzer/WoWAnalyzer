@@ -4,7 +4,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SPELLS from 'common/SPELLS/classic/druid';
 
 /**
- * Shoot Stars (talent) gives a chance to reset the CD of Starsurge
+ * Shooting Stars (talent) gives a chance to reset the CD of Starsurge
  */
 
 const SPELL_RESETS = [SPELLS.STARSURGE];
