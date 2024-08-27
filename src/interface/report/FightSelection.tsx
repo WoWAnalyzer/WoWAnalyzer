@@ -4,7 +4,6 @@ import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
 import OldExpansionWarning from 'interface/report/OldExpansionWarning';
 import FightSelectionPanel from 'interface/report/FightSelectionPanel';
 import ReportDurationWarning, { MAX_REPORT_DURATION } from 'interface/report/ReportDurationWarning';
-import { getFightFromReport } from 'interface/selectors/fight';
 import Tooltip from 'interface/Tooltip';
 import { ReactNode, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
@@ -15,6 +14,17 @@ import { isUnsupportedClassicVersion } from 'game/VERSIONS';
 import DocumentTitle from 'interface/DocumentTitle';
 import { getFightIdFromParam } from 'interface/selectors/url/report/getFightId';
 import { usePageView } from 'interface/useGoogleAnalytics';
+import { isPresent } from 'common/typeGuards';
+import { useWaDispatch } from 'interface/utils/useWaDispatch';
+import { clearFight, setFight } from 'interface/reducers/navigation';
+import Report from 'parser/core/Report';
+
+const getFightFromReport = (report: Report, fightId: number) => {
+  if (!report.fights) {
+    return null;
+  }
+  return report.fights.find((fight) => fight.id === fightId) || null;
+};
 
 interface Props {
   children: ReactNode;
@@ -103,15 +113,26 @@ const FightSelection = ({ children }: Props) => {
   const { fightId } = useParams();
   const fightIdAsNumber = getFightIdFromParam(fightId);
   const { report } = useReport();
+  const dispatch = useWaDispatch();
+
+  const fight = isPresent(fightIdAsNumber) ? getFightFromReport(report, fightIdAsNumber) : null;
+
+  useEffect(() => {
+    if (fight) {
+      dispatch(
+        setFight({ title: getFightName(report, fight), link: makeAnalyzerUrl(report, fight.id) }),
+      );
+    } else {
+      dispatch(clearFight());
+    }
+  }, [dispatch, fight, report]);
 
   useEffect(() => {
     // Scroll to top of page on initial render
     window.scrollTo(0, 0);
   }, []);
 
-  const fight = fightIdAsNumber && getFightFromReport(report, fightIdAsNumber);
-  const noFightSelected = !fightIdAsNumber || !fight;
-  if (noFightSelected) {
+  if (!fight) {
     return <FightSelectionList />;
   }
 

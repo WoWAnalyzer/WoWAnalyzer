@@ -913,7 +913,7 @@
   "shaman.restoration.healingEfficiencyDetails": "<0/> mana gained is removed from the spell, meaning the mana spent of that spell will be lower.<1/>Healing that is caused by the <2/> buff, is added to <3/> instead of the spell that was buffed.<4/><5/> is given the healing from its healing buff and is removed from the spells that were buffed.",
   "shaman.restoration.healingEfficiencyDetails2": "<0/> is given the healing from its created <1/> & <2/> and is removed from those spells.",
   "shaman.restoration.healingRain.averageTargets.label": "Average Healing Rain Targets",
-  "shaman.restoration.healingRain.averageTargets.label.tooltip": "The average number of targets healed by Healing Rain out of the maximum amount of 6 targets.",
+  "shaman.restoration.healingRain.averageTargets.label.tooltip": "The average number of targets healed by Healing Rain out of the maximum amount of 5 targets.",
   "shaman.restoration.healingWave.inefficientCast.reason": "Riptide was off cooldown when you started casting this unbuffed Healing Wave. Casting Riptide into Healing Wave to generate and use a Tidal Wave stack, or using a Flash Flood buff (if talented) is a lot more efficient compared to casting a full-length Healing Wave.",
   "shaman.restoration.highTide.statistic.tooltip": "{0} High Tide buff stacks used out of {1}.",
   "shaman.restoration.masteryEffectiveness.statistic.label": "Mastery benefit",
