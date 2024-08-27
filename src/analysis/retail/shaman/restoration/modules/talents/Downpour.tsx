@@ -1,12 +1,15 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import TALENTS from 'common/TALENTS/shaman';
-import Events from 'parser/core/Events';
+import Events, { HealEvent } from 'parser/core/Events';
 import Statistic from 'parser/ui/Statistic';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { formatNumber, formatPercentage } from 'common/format';
 import HealingRain from '../spells/HealingRain';
 import SPELLS from 'common/SPELLS';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
+import SpellLink from 'interface/SpellLink';
 
 class Downpour extends Analyzer {
   static dependencies = {
@@ -17,6 +20,7 @@ class Downpour extends Analyzer {
 
   downpourCasts = 0;
   downpourHits = 0;
+  downpourHealing = 0;
 
   constructor(options: Options) {
     super(options);
@@ -28,7 +32,7 @@ class Downpour extends Analyzer {
     );
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.DOWNPOUR_HEAL),
-      this._onDownpourHeal,
+      this._ondownpourHealing,
     );
   }
 
@@ -36,8 +40,9 @@ class Downpour extends Analyzer {
     this.downpourCasts += 1;
   }
 
-  _onDownpourHeal() {
+  _ondownpourHealing(event: HealEvent) {
     this.downpourHits += 1;
+    this.downpourHealing += event.amount;
   }
 
   get wastedDownpourCasts() {
@@ -57,6 +62,9 @@ class Downpour extends Analyzer {
       <Statistic size="flexible" category={STATISTIC_CATEGORY.TALENTS}>
         <TalentSpellText talent={TALENTS.DOWNPOUR_TALENT}>
           <div>
+            <ItemHealingDone amount={this.downpourHealing} />
+          </div>
+          <div>
             {formatNumber(this.wastedDownpourCasts)}{' '}
             <small>wasted procs ({formatPercentage(this.wastedDownpourCastsPercent)}%)</small>
           </div>
@@ -65,6 +73,17 @@ class Downpour extends Analyzer {
           </div>
         </TalentSpellText>
       </Statistic>
+    );
+  }
+
+  subStatistic() {
+    return (
+      <StatisticListBoxItem
+        title={<SpellLink spell={TALENTS.DOWNPOUR_TALENT} />}
+        value={`${formatPercentage(
+          this.owner.getPercentageOfTotalHealingDone(this.downpourHealing),
+        )} %`}
+      />
     );
   }
 }

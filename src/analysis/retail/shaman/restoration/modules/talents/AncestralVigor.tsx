@@ -16,8 +16,12 @@ import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'parser/ui/LazyLoadStatist
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import StatisticBox from 'parser/ui/StatisticBox';
 import { abilityToSpell } from 'common/abilityToSpell';
+import {
+  DOWNPOUR_INCREASED_MAX_HEALTH,
+  ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH,
+} from '../../constants';
 
-const ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH_PER_POINT = 0.05;
+//const ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH_PER_POINT = 0.1;
 
 class AncestralVigor extends Analyzer {
   static dependencies = {
@@ -30,12 +34,12 @@ class AncestralVigor extends Analyzer {
   lifeSavingEvents: DamageEvent[] = [];
   disableStatistics = false;
   ancestralVigorIncrease: number;
+  downpourIncrease: number;
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.ANCESTRAL_VIGOR_TALENT);
-    this.ancestralVigorIncrease =
-      this.selectedCombatant.getTalentRank(TALENTS.ANCESTRAL_VIGOR_TALENT) *
-      ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH_PER_POINT;
+    this.ancestralVigorIncrease = ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH;
+    this.downpourIncrease = DOWNPOUR_INCREASED_MAX_HEALTH;
   }
 
   // recursively fetch events until no nextPageTimestamp is returned
@@ -57,8 +61,8 @@ class AncestralVigor extends Analyzer {
     return checkAndFetch(query);
   }
 
-  load() {
-    const HP_THRESHOLD = 1 - 1 / (1 + this.ancestralVigorIncrease);
+  loadOne(skillId: number) {
+    const HP_THRESHOLD = 1 - 1 / (1 + this.ancestralVigorIncrease + this.downpourIncrease);
     // clear array to avoid duplicate entries after switching tabs and clicking it again
     this.lifeSavingEvents = [];
     const query: WclOptions = {
@@ -76,16 +80,22 @@ class AncestralVigor extends Analyzer {
             10000 * HP_THRESHOLD,
           )}
         FROM type='${EventType.ApplyBuff}'
-          AND ability.id=${SPELLS.ANCESTRAL_VIGOR.id}
+          AND ability.id=${skillId}
           AND source.name='${this.selectedCombatant.name}'
         TO type='${EventType.RemoveBuff}'
-          AND ability.id=${SPELLS.ANCESTRAL_VIGOR.id}
+          AND ability.id=${skillId}
           AND source.name='${this.selectedCombatant.name}'
         END
       )`,
       timeout: 2000,
     };
     return this.fetchAll(`report/events/${this.owner.report.code}`, query);
+  }
+
+  load() {
+    const vigorQuery = this.loadOne(SPELLS.ANCESTRAL_VIGOR.id);
+    const downpourQuery = this.loadOne(SPELLS.DOWNPOUR_HEAL.id);
+    return Promise.all([vigorQuery, downpourQuery]);
   }
 
   statistic() {
@@ -150,6 +160,9 @@ class AncestralVigor extends Analyzer {
                   <Trans id="common.ability">Ability</Trans>
                 </th>
                 <th>
+                  <Trans id="common.buffs">Buff(s)</Trans>
+                </th>
+                <th>
                   <Trans id="common.health">Health</Trans>
                 </th>
               </tr>
@@ -160,6 +173,41 @@ class AncestralVigor extends Analyzer {
                 if (!combatant) {
                   return null;
                 }
+
+                // Check presence of buffs in the timeframe
+                if (
+                  !combatant.hasBuff(SPELLS.DOWNPOUR_HEAL.id, event.timestamp, 100, 50) &&
+                  !combatant.hasBuff(SPELLS.ANCESTRAL_VIGOR.id, event.timestamp, 100, 50)
+                ) {
+                  return null;
+                }
+
+                // Check if player only has the bonus HP left
+                const currentDownpourIncrease = combatant.hasBuff(
+                  SPELLS.DOWNPOUR_HEAL.id,
+                  event.timestamp,
+                  100,
+                  50,
+                )
+                  ? DOWNPOUR_INCREASED_MAX_HEALTH
+                  : 0;
+                const currentAncestralVigorIncrease = combatant.hasBuff(
+                  SPELLS.ANCESTRAL_VIGOR.id,
+                  event.timestamp,
+                  100,
+                  50,
+                )
+                  ? ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH
+                  : 0;
+                const currentBonusHealthRatio =
+                  1 - 1 / (1 + currentAncestralVigorIncrease + currentDownpourIncrease);
+                const currentHealthRation = (event.hitPoints || NaN) / (event.maxHitPoints || NaN);
+                console.log('currentBonusHealthRatio', currentBonusHealthRatio);
+                console.log('currentHealthRation', currentHealthRation);
+                if (currentHealthRation > currentBonusHealthRatio) {
+                  return null;
+                }
+
                 const specClassName = combatant.player.type.replace(' ', '');
 
                 return (
@@ -172,6 +220,22 @@ class AncestralVigor extends Analyzer {
                       <SpellLink spell={abilityToSpell(event.ability)} icon={false}>
                         <Icon icon={event.ability.abilityIcon} />
                       </SpellLink>
+                    </td>
+                    <td>
+                      {combatant.hasBuff(SPELLS.DOWNPOUR_HEAL.id, event.timestamp, 100, 50) && (
+                        <>
+                          <SpellLink spell={SPELLS.DOWNPOUR_HEAL} icon={false}>
+                            <Icon icon={SPELLS.DOWNPOUR_HEAL.icon} />
+                          </SpellLink>
+                        </>
+                      )}
+                      {combatant.hasBuff(SPELLS.ANCESTRAL_VIGOR.id, event.timestamp, 100, 50) && (
+                        <>
+                          <SpellLink spell={TALENTS.ANCESTRAL_VIGOR_TALENT} icon={false}>
+                            <Icon icon={TALENTS.ANCESTRAL_VIGOR_TALENT.icon} />
+                          </SpellLink>
+                        </>
+                      )}
                     </td>
                     <td>
                       {formatPercentage((event.hitPoints || NaN) / (event.maxHitPoints || NaN))}%
