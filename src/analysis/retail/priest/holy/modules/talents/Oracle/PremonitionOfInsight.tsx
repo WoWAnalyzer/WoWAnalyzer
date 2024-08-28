@@ -43,12 +43,11 @@ class PremonitionOfInsight extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.handleOnCast);
   }
 
-  //this function is really messy because i wrote it at 2 am
-  //while dealing with an undefined error for 3 hours
   handleOnCast(event: CastEvent) {
     if (!removesInsightCharge(event)) {
       return;
     }
+
     const spellId = event.ability.guid;
     const effCDR = this.spellUsable.reduceCooldown(spellId, this.scaledInsightCDR);
 
@@ -56,8 +55,18 @@ class PremonitionOfInsight extends Analyzer {
 
     this.insightStackNumber += 1;
 
-    const stackNumx = this.insightStackNumber;
-    const castSpellIdx = spellId;
+    /*have to hard code hf because holy fire's cast time causes it to
+      bug geteffectiveCDR */
+    if (spellId === SPELLS.HOLY_FIRE.id) {
+      this.insightReducBySpell[spellId] += this.scaledInsightCDR;
+      this.insightCastSpellTracker[this.insightStackNumber] = {
+        castSpellId: spellId,
+        effectiveCDR: this.scaledInsightCDR,
+        remainingCD: 10 - this.scaledInsightCDR,
+      };
+      return;
+    }
+
     let effectiveCDRx = this.spellUsable.reduceCooldown(spellId, this.scaledInsightCDR);
     const remainingCDx = this.spellUsable.cooldownRemaining(spellId) / 1000 - effectiveCDRx;
 
@@ -72,8 +81,8 @@ class PremonitionOfInsight extends Analyzer {
       this.insightReducBySpell[spellId] += effCDR;
     }
 
-    this.insightCastSpellTracker[stackNumx] = {
-      castSpellId: castSpellIdx,
+    this.insightCastSpellTracker[this.insightStackNumber] = {
+      castSpellId: spellId,
       effectiveCDR: effectiveCDRx,
       remainingCD: remainingCDx,
     };
