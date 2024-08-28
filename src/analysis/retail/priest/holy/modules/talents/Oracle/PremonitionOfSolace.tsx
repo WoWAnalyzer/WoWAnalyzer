@@ -38,6 +38,8 @@ class PremonitionOfSolace extends Analyzer {
       this.fatebenderActive = true;
     }
     //inverting DR because Damage Amount + absorb is post mitigation
+    //this one doesn't use calculateEffectiveDamageReduction
+    //since it also has to get fatebender value
     this.scaledSolaceDR = 1 / (1 - this.scaledSolaceDR);
     this.baseSolaceDR = 1 / (1 - this.baseSolaceDR);
 

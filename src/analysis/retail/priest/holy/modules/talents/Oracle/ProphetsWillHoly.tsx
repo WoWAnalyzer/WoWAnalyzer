@@ -47,9 +47,10 @@ class ProphetsWillHoly extends Analyzer {
         category={STATISTIC_CATEGORY.HERO_TALENTS}
       >
         <BoringSpellValueText spell={TALENTS_PRIEST.PROPHETS_WILL_TALENT}>
-          <ItemPercentHealingDone amount={this.healingFromProphetsWill} />
-          <small>{' amped healing'}</small>
-          <br />
+          <div>
+            <ItemPercentHealingDone amount={this.healingFromProphetsWill} />
+            <small>{' amped healing'}</small>
+          </div>
         </BoringSpellValueText>
       </Statistic>
     );

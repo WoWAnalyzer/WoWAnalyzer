@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
+import { calculateEffectiveDamage, calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import Combatants from 'parser/shared/modules/Combatants';
@@ -28,8 +28,6 @@ class PreventiveMeasuresHoly extends Analyzer {
   totalPOMHealingIncrease = 0;
   totalPMDamageIncrease = 0;
 
-  private invertDamageScaler = 1 / (1 + PREVENTIVE_MEASURES_DMG_AMP);
-
   constructor(options: Options) {
     super(options);
 
@@ -51,7 +49,7 @@ class PreventiveMeasuresHoly extends Analyzer {
   }
 
   handleDamage(event: DamageEvent) {
-    this.totalPMDamageIncrease += event.amount * (1 - this.invertDamageScaler);
+    this.totalPMDamageIncrease += calculateEffectiveDamage(event, PREVENTIVE_MEASURES_DMG_AMP);
   }
 
   statistic() {
@@ -62,8 +60,12 @@ class PreventiveMeasuresHoly extends Analyzer {
         category={STATISTIC_CATEGORY.HERO_TALENTS}
       >
         <TalentSpellText talent={TALENTS_PRIEST.PREVENTIVE_MEASURES_TALENT}>
-          <ItemPercentHealingDone amount={this.totalPOMHealingIncrease} /> <br />
-          <ItemPercentDamageDone amount={this.totalPMDamageIncrease} /> <br />
+          <div>
+            <ItemPercentHealingDone amount={this.totalPOMHealingIncrease} />
+          </div>
+          <div>
+            <ItemPercentDamageDone amount={this.totalPMDamageIncrease} />
+          </div>
         </TalentSpellText>
       </Statistic>
     );

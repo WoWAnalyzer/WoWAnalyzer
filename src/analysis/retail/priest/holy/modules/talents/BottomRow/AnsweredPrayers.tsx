@@ -38,7 +38,7 @@ class AnsweredPrayers extends Analyzer {
         tooltip={<>Healing in each Apotheosis can be seen in the 'Cooldowns' tab</>}
       >
         <BoringSpellValueText spell={TALENTS.ANSWERED_PRAYERS_TALENT}>
-          {this.prayerHeals}{' '}
+          {this.prayerHeals}
           <small>
             {' '}
             <SpellLink spell={TALENTS.PRAYER_OF_MENDING_TALENT} /> heals

@@ -206,11 +206,14 @@ class Lightweaver extends Analyzer {
         tooltip={`${overhealingTooltipString}% overhealing`}
       >
         <BoringSpellValueText spell={TALENTS.LIGHTWEAVER_TALENT}>
-          <ItemHealingDone amount={this.healingDoneFromTalent} />{' '}
-          <small> from just the heal amp</small>
-          <br />
-          <ItemHealingDone amount={this.healingDoneFromTalent / CAST_TIME_DECREASE} />{' '}
-          <small> from both the heal amp and doing that healing in less time</small>
+          <div>
+            <ItemHealingDone amount={this.healingDoneFromTalent} />{' '}
+            <small> from just the heal amp</small>
+          </div>
+          <div>
+            <ItemHealingDone amount={this.healingDoneFromTalent / CAST_TIME_DECREASE} />{' '}
+            <small> from both the heal amp and doing that healing in less time</small>
+          </div>
         </BoringSpellValueText>
       </Statistic>
     );
