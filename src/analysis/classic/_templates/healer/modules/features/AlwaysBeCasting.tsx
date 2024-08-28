@@ -8,7 +8,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   static HEALING_ABILITIES_ON_GCD: number[] = [
     // List of healing spells on GCD
     SPELLS.HEALING_TOUCH.id,
-    ...SPELLS.HEALING_TOUCH.lowRanks,
   ];
 
   suggestions(when: When) {

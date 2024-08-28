@@ -2,7 +2,6 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { createReduxEnhancer as sentryCreateReduxEnhancer } from '@sentry/react';
 import internetExplorerReducer from 'interface/reducers/internetExplorer';
 import userReducer from 'interface/reducers/user';
-import reportReducer from 'interface/reducers/report';
 import combatantsReducer from 'interface/reducers/combatants';
 import reportHistoryReducer from 'interface/reducers/reportHistory';
 import languageReducer from 'interface/reducers/language';
@@ -13,13 +12,15 @@ import reportCodesIgnoredPreviousPatchWarningReducer from 'interface/reducers/re
 import tooltipsReducer from 'interface/reducers/tooltips';
 import { isPresent } from 'common/typeGuards';
 
+import { reducer as navigationReducer } from './interface/reducers/navigation';
+
 const rootReducer = combineReducers({
   // System
   internetExplorer: internetExplorerReducer,
 
   // App
   user: userReducer,
-  report: reportReducer,
+  navigation: navigationReducer,
   combatants: combatantsReducer,
   reportHistory: reportHistoryReducer,
   language: languageReducer,

@@ -2359,6 +2359,7 @@ export const Texleretour: Contributor = {
   nickname: 'Tex',
   github: 'Texleretour',
   discord: 'texleretour',
+  avatar: avatar('Tex-avatar.jpg'),
 };
 
 export const LucasLevyOB: Contributor = {

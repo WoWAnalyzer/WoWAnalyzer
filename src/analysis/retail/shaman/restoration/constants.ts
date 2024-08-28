@@ -31,7 +31,7 @@ export const ANCESTRAL_REACH_INCREASE = 0.08;
 
 //base targets & target increases
 export const UNLEASH_LIFE_EXTRA_TARGETS = 2;
-export const HEALING_RAIN_TARGETS = 6;
+export const HEALING_RAIN_TARGETS = 5;
 export const DOWNPOUR_TARGETS = 6;
 export const DOWNPOUR_CD_PER_HIT = 5000;
 export const CHAIN_HEAL_TARGETS = 4;
@@ -40,6 +40,11 @@ export const FLOW_OF_THE_TIDES_TARGET = 1;
 
 //mana saves
 export const SPIRITWALKERS_TIDAL_TOTEM_REDUCTION = 0.5;
+
+//whirling elements
+export const WHIRLINGAIR_HEAL = 'WhirlingAirHeal';
+export const WHIRLINGEARTH_HEAL = 'WhirlingEarthHeal';
+export const WHIRLINGWATER_HEAL = 'WhirlingWaterHeal';
 
 export const RESTORATION_COLORS = {
   CHAIN_HEAL: '#203755',

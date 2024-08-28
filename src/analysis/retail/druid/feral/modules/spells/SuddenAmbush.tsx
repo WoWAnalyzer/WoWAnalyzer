@@ -31,7 +31,7 @@ import UptimeIcon from 'interface/icons/Uptime';
 import { formatPercentage } from 'common/format';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
-import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
+import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import { BadColor, OkColor } from 'interface/guide';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Snapshots, {
@@ -40,6 +40,7 @@ import Snapshots, {
   TIGERS_FURY_SPEC,
 } from 'analysis/retail/druid/feral/modules/core/Snapshots';
 import { getHardcast } from 'analysis/retail/druid/feral/normalizers/CastLinkNormalizer';
+import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBreakdown';
 
 /**
  * **Sudden Ambush**
@@ -380,13 +381,12 @@ class SuddenAmbush extends Snapshots {
 
     const data = (
       <div>
-        <strong>Sudden Ambush uses</strong>
-        <small>
-          {' '}
-          - Green is a good use, Red is an incorrect use or a wasted proc, and Yellow is a
-          questionable use. Mouseover for more details.
-        </small>
-        <PerformanceBoxRow values={this.useEntries} />
+        <CastSummaryAndBreakdown
+          spell={TALENTS_DRUID.SUDDEN_AMBUSH_TALENT}
+          castEntries={this.useEntries}
+          badExtraExplanation={<>or an expired proc</>}
+          usesInsteadOfCasts
+        />
       </div>
     );
 

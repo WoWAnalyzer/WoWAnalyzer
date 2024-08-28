@@ -30,6 +30,9 @@ import {
   FLOW_OF_THE_TIDES,
   DOWNPOUR,
   HIGH_TIDE,
+  WHIRLINGAIR_HEAL,
+  WHIRLINGEARTH_HEAL,
+  WHIRLINGWATER_HEAL,
 } from '../constants';
 import SPELLS from 'common/SPELLS';
 
@@ -271,6 +274,57 @@ const EVENT_LINKS: EventLink[] = [
       return (linkingEvent as HealEvent).sourceID === (referencedEvent as CastEvent).sourceID;
     },
   },
+  // Whirling Elements buffs
+  // Whirling Air : The cast time of your next healing spell is reduced by 40%
+  {
+    linkRelation: WHIRLINGAIR_HEAL,
+    reverseLinkRelation: WHIRLINGAIR_HEAL,
+    linkingEventId: [SPELLS.WHIRLING_AIR.id],
+    linkingEventType: [EventType.RemoveBuff],
+    referencedEventId: [
+      talents.HEALING_WAVE_TALENT.id,
+      SPELLS.HEALING_SURGE.id,
+      talents.CHAIN_HEAL_TALENT.id,
+      talents.WELLSPRING_TALENT.id,
+    ],
+    referencedEventType: [EventType.Cast],
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+    isActive(c) {
+      return c.hasTalent(talents.WHIRLING_ELEMENTS_TALENT);
+    },
+  },
+  // Whirling Earth : Your next Chain Heal applies Earthliving at 150% effectiveness to all targets hit
+  {
+    linkRelation: WHIRLINGEARTH_HEAL,
+    reverseLinkRelation: WHIRLINGEARTH_HEAL,
+    linkingEventId: [SPELLS.WHIRLING_EARTH.id],
+    linkingEventType: [EventType.RemoveBuff],
+    referencedEventId: [talents.CHAIN_HEAL_TALENT.id],
+    referencedEventType: [EventType.Cast],
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+    isActive(c) {
+      return c.hasTalent(talents.WHIRLING_ELEMENTS_TALENT);
+    },
+  },
+  // Whirling Water : Your next Healing Wave or Healing Surge also heals an ally inside of your Healing Rain at 100% effectiveness.
+  {
+    linkRelation: WHIRLINGWATER_HEAL,
+    reverseLinkRelation: WHIRLINGWATER_HEAL,
+    linkingEventId: [SPELLS.WHIRLING_WATER.id],
+    linkingEventType: [EventType.RemoveBuff],
+    referencedEventId: [talents.HEALING_WAVE_TALENT.id, SPELLS.HEALING_SURGE.id],
+    referencedEventType: [EventType.Cast],
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+    isActive(c) {
+      return c.hasTalent(talents.WHIRLING_ELEMENTS_TALENT);
+    },
+  },
 ];
 
 class CastLinkNormalizer extends EventLinkNormalizer {
@@ -327,6 +381,20 @@ export function getChainHeals(event: CastEvent): HealEvent[] {
 
 export function isBuffedByHighTide(event: CastEvent) {
   return HasRelatedEvent(event, HIGH_TIDE);
+}
+
+export function didMoteExpire(event: RemoveBuffEvent) {
+  switch (event.ability.guid) {
+    case SPELLS.WHIRLING_AIR.id: {
+      return !HasRelatedEvent(event, WHIRLINGAIR_HEAL);
+    }
+    case SPELLS.WHIRLING_EARTH.id: {
+      return !HasRelatedEvent(event, WHIRLINGEARTH_HEAL);
+    }
+    case SPELLS.WHIRLING_WATER.id: {
+      return !HasRelatedEvent(event, WHIRLINGWATER_HEAL);
+    }
+  }
 }
 
 export default CastLinkNormalizer;
