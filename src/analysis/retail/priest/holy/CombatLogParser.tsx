@@ -20,7 +20,6 @@ import HealingTargetTracker from './modules/features/HealingTargetTracker';
 import HealingEfficiencyDetails from './modules/features/HolyPriestHealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/features/HolyPriestHealingEfficiencyTracker';
 import SpellUsable from './modules/features/SpellUsable';
-//import StatWeights from './modules/features/StatWeights';
 import CircleOfHealing from './modules/spells/CircleOfHealing';
 import DivineHymn from './modules/spells/DivineHymn';
 import GuardianSpirit from './modules/spells/GuardianSpirit';
@@ -84,9 +83,6 @@ class CombatLogParser extends CoreCombatLogParser {
     holyWordSerenity: HolyWordSerenity,
     holyWordChastise: HolyWordChastise,
     holyWordSalvation: HolyWordSalvationCooldown,
-
-    // Pretty sure every other healer has disabled this
-    //statWeights: StatWeights,
 
     circleOfHealing: CircleOfHealing,
     prayerOfHealing: PrayerOfHealing,
