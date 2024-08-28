@@ -32,6 +32,7 @@ class AncestralVigor extends Analyzer {
 
   loaded = false;
   lifeSavingEvents: DamageEvent[] = [];
+  filteredLifeSavingEvents: DamageEvent[] = [];
   disableStatistics = false;
   ancestralVigorIncrease: number;
   downpourIncrease: number;
@@ -137,11 +138,60 @@ class AncestralVigor extends Analyzer {
         />
       );
     } else {
+      // Because we now have 2 buffs giving +10% max hp, we have to consider that the bonus to account for is a +20% max hp,
+      // and filter the events according to the active buffs at the time of the DamageEvent
+      this.lifeSavingEvents.map((event, index) => {
+        const combatant = this.combatants.getEntity(event);
+        if (!combatant) {
+          return null;
+        }
+
+        // Check presence of buffs in the timeframe
+        if (
+          !combatant.hasBuff(SPELLS.DOWNPOUR_HEAL.id, event.timestamp, 100, 50) &&
+          !combatant.hasBuff(SPELLS.ANCESTRAL_VIGOR.id, event.timestamp, 100, 50)
+        ) {
+          return null;
+        }
+
+        // Compute the current max HP bonus from our buffs
+        const currentDownpourIncrease = combatant.hasBuff(
+          SPELLS.DOWNPOUR_HEAL.id,
+          event.timestamp,
+          100,
+          50,
+        )
+          ? DOWNPOUR_INCREASED_MAX_HEALTH
+          : 0;
+        const currentAncestralVigorIncrease = combatant.hasBuff(
+          SPELLS.ANCESTRAL_VIGOR.id,
+          event.timestamp,
+          100,
+          50,
+        )
+          ? ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH
+          : 0;
+
+        // compute health ratio relevant for the statistic, with the current active buffs
+        const currentBonusHealthRatio =
+          1 - 1 / (1 + currentAncestralVigorIncrease + currentDownpourIncrease);
+        const currentHealthRatio = (event.hitPoints || NaN) / (event.maxHitPoints || NaN);
+        if (currentHealthRatio > currentBonusHealthRatio) {
+          return null;
+        }
+        this.filteredLifeSavingEvents.push(event);
+
+        // dirty fix for the value return warning
+        return event;
+      });
+      // As we now have 2 WCL queries, a sort is required
+      this.filteredLifeSavingEvents.sort((a, b) => a.timestamp - b.timestamp);
+
       return (
         <LazyLoadStatisticBox
           loader={this.load.bind(this)}
           icon={<SpellIcon spell={SPELLS.ANCESTRAL_VIGOR} />}
-          value={`≈${this.lifeSavingEvents.length}`}
+          value={`≈${this.filteredLifeSavingEvents.length}`}
           label={<Trans id="shaman.restoration.av.statistic.label">Lives saved</Trans>}
           tooltip={tooltip}
           category={STATISTIC_CATEGORY.TALENTS}
@@ -168,43 +218,10 @@ class AncestralVigor extends Analyzer {
               </tr>
             </thead>
             <tbody>
-              {this.lifeSavingEvents.map((event, index) => {
+              {this.filteredLifeSavingEvents.map((event, index) => {
                 const combatant = this.combatants.getEntity(event);
+
                 if (!combatant) {
-                  return null;
-                }
-
-                // Check presence of buffs in the timeframe
-                if (
-                  !combatant.hasBuff(SPELLS.DOWNPOUR_HEAL.id, event.timestamp, 100, 50) &&
-                  !combatant.hasBuff(SPELLS.ANCESTRAL_VIGOR.id, event.timestamp, 100, 50)
-                ) {
-                  return null;
-                }
-
-                // Check if player only has the bonus HP left
-                const currentDownpourIncrease = combatant.hasBuff(
-                  SPELLS.DOWNPOUR_HEAL.id,
-                  event.timestamp,
-                  100,
-                  50,
-                )
-                  ? DOWNPOUR_INCREASED_MAX_HEALTH
-                  : 0;
-                const currentAncestralVigorIncrease = combatant.hasBuff(
-                  SPELLS.ANCESTRAL_VIGOR.id,
-                  event.timestamp,
-                  100,
-                  50,
-                )
-                  ? ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH
-                  : 0;
-                const currentBonusHealthRatio =
-                  1 - 1 / (1 + currentAncestralVigorIncrease + currentDownpourIncrease);
-                const currentHealthRation = (event.hitPoints || NaN) / (event.maxHitPoints || NaN);
-                console.log('currentBonusHealthRatio', currentBonusHealthRatio);
-                console.log('currentHealthRation', currentHealthRation);
-                if (currentHealthRation > currentBonusHealthRatio) {
                   return null;
                 }
 
