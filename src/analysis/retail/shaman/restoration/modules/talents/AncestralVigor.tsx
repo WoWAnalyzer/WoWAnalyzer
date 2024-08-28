@@ -146,6 +146,11 @@ class AncestralVigor extends Analyzer {
           return null;
         }
 
+        // Check for duplicates, based on timestamp
+        if (this.filteredLifeSavingEvents.find((e) => e.timestamp === event.timestamp)) {
+          return null;
+        }
+
         // Check presence of buffs in the timeframe
         if (
           !combatant.hasBuff(SPELLS.DOWNPOUR_HEAL.id, event.timestamp, 100, 50) &&
