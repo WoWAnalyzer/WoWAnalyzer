@@ -105,6 +105,9 @@ const spells: number[] = [
   SPELLS.RAMPAGE_2.id,
   SPELLS.RAMPAGE_3.id,
   SPELLS.RAMPAGE_4.id,
+  SPELLS.ODYNS_FURY_1.id,
+  SPELLS.ODYNS_FURY_2.id,
+  SPELLS.ODYNS_FURY_3.id,
   SPELLS.HACK_AND_SLASH.id,
   SPELLS.WRATH_AND_FURY.id,
   //endregion
