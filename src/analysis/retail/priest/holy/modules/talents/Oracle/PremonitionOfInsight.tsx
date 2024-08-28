@@ -41,18 +41,6 @@ class PremonitionOfInsight extends Analyzer {
     }
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.handleOnCast);
-
-    /*
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PREMONITION_OF_CLAIRVOYANCE),
-      this.handleInsightCast,
-    );
-
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PREMONITION_OF_INSIGHT_BUFF),
-      this.handleInsightCast,
-    );
-    */
   }
 
   //this function is really messy because i wrote it at 2 am
