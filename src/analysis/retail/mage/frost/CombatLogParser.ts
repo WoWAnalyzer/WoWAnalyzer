@@ -43,6 +43,7 @@ import SplittingIce from './talents/SplittingIce';
 import ThermalVoid from './talents/ThermalVoid';
 import ChainReaction from 'analysis/retail/mage/frost/talents/ChainReaction';
 import Cryopathy from 'analysis/retail/mage/frost/talents/Cryopathy';
+import SpellfrostTeachings from 'analysis/retail/mage/frost/talents/SpellfrostTeachings';
 
 //Normalizers
 import CometStormLinkNormalizer from './normalizers/CometStormLinkNormalizer';
@@ -89,6 +90,7 @@ class CombatLogParser extends CoreCombatLogParser {
     shiftingPowerFrost: ShiftingPowerFrost,
     chainReaction: ChainReaction,
     cryopathy: Cryopathy,
+    spellfrostTeachings: SpellfrostTeachings,
 
     //Talents - Shared
     elementalBarrier: ElementalBarrier,

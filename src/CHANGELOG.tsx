@@ -35,6 +35,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 8, 28), "Update rating to percentage conversions for stats for The War Within.", Putro),
   change(date(2024, 8, 26), <>Add <SpellLink spell={CLASSIC_SPELLS.FLEXWEAVE_UNDERLAY} /> support to Cataclysm Classic specs.</>, jazminite),
   change(date(2024, 8, 25), 'Remove Redux reducer that stored the entire report under analysis.', ToppleTheNun),
   change(date(2024, 8, 22), 'Update Druid spells for Classic Cataclysm', jazminite),
