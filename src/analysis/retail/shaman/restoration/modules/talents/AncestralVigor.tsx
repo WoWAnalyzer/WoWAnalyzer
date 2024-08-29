@@ -21,8 +21,6 @@ import {
   ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH,
 } from '../../constants';
 
-//const ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH_PER_POINT = 0.1;
-
 class AncestralVigor extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -38,7 +36,9 @@ class AncestralVigor extends Analyzer {
   downpourIncrease: number;
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.ANCESTRAL_VIGOR_TALENT);
+    this.active =
+      this.selectedCombatant.hasTalent(TALENTS.ANCESTRAL_VIGOR_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS.DOWNPOUR_TALENT);
     this.ancestralVigorIncrease = ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH;
     this.downpourIncrease = DOWNPOUR_INCREASED_MAX_HEALTH;
   }
@@ -63,7 +63,8 @@ class AncestralVigor extends Analyzer {
   }
 
   loadOne(skillId: number) {
-    const HP_THRESHOLD = 1 - 1 / (1 + this.ancestralVigorIncrease + this.downpourIncrease);
+    // max effective bonus possible, when both buffs are active (they stack multiplicatively)
+    const HP_THRESHOLD = 1 - 1 / ((1 + this.ancestralVigorIncrease) * (1 + this.downpourIncrease));
     // clear array to avoid duplicate entries after switching tabs and clicking it again
     this.lifeSavingEvents = [];
     const query: WclOptions = {
@@ -138,7 +139,7 @@ class AncestralVigor extends Analyzer {
         />
       );
     } else {
-      // Because we now have 2 buffs giving +10% max hp, we have to consider that the bonus to account for is a +20% max hp,
+      // Because we now have 2 buffs giving +10% max hp and stacking multiplicatively, we have to consider that the bonus to account for is a +21% max hp,
       // and filter the events according to the active buffs at the time of the DamageEvent
       this.lifeSavingEvents.map((event, index) => {
         const combatant = this.combatants.getEntity(event);
@@ -179,7 +180,7 @@ class AncestralVigor extends Analyzer {
 
         // compute health ratio relevant for the statistic, with the current active buffs
         const currentBonusHealthRatio =
-          1 - 1 / (1 + currentAncestralVigorIncrease + currentDownpourIncrease);
+          1 - 1 / ((1 + currentAncestralVigorIncrease) * (1 + currentDownpourIncrease));
         const currentHealthRatio = (event.hitPoints || NaN) / (event.maxHitPoints || NaN);
         if (currentHealthRatio > currentBonusHealthRatio) {
           return null;
