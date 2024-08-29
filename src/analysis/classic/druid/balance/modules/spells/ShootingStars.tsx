@@ -1,4 +1,4 @@
-import Analyzer, { Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SPELLS from 'common/SPELLS/classic/druid';
@@ -18,7 +18,7 @@ class ShootingStars extends Analyzer {
   constructor(props: Options) {
     super(props);
     this.addEventListener(
-      Events.applybuff.spell({ id: SPELLS.SHOOTING_STARS.id }),
+      Events.removebuff.by(SELECTED_PLAYER).spell({ id: SPELLS.SHOOTING_STARS.id }),
       this._resetCooldowns,
     );
   }

@@ -1,7 +1,7 @@
 // Base files
 import BaseCombatLogParser from 'parser/classic/CombatLogParser';
 // Shared
-import { Haste } from '../shared';
+import { GlobalCooldown, Haste } from '../shared';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import SpellManaCost from 'parser/shared/modules/SpellManaCost';
 // Modules
@@ -17,6 +17,7 @@ import ShootingStars from './modules/spells/ShootingStars';
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
     // Shared
+    globalCooldown: GlobalCooldown,
     haste: Haste,
     manaTracker: ManaTracker,
     spellManaCost: SpellManaCost,

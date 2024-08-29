@@ -4,7 +4,6 @@ import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 class Abilities extends CoreAbilities {
   spellbook() {
-    const combatant = this.selectedCombatant;
     return [
       // Rotational
       {
@@ -25,7 +24,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.STARSURGE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { base: combatant.hasBuff(SPELLS.SHOOTING_STARS.id) ? 1000 : 1500 },
+        gcd: { base: 1500 },
         cooldown: 15,
       },
       {
