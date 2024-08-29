@@ -174,6 +174,11 @@ class Abilities extends ClassAbilities {
         gcd: {
           base: 1500
         }
+      },
+      {
+        spell: TALENTS.HAILSTORM_TALENT.id,
+        category: SPELL_CATEGORY.HIDDEN,
+        enabled: combatant.hasTalent(TALENTS.HAILSTORM_TALENT),        
       }
     ];
   }

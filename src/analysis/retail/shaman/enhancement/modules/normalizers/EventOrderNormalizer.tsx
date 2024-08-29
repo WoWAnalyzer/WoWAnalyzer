@@ -53,7 +53,7 @@ const primordialWaveEventOrder: EventOrder = {
 export class EventOrderNormalizer extends BaseEventOrderNormalizer {
   private readonly hasRollingThunder: boolean;
   constructor(options: Options) {
-    super(options, [thorimsInvocationEventOrder, healingOrder, primordialWaveEventOrder]);
+    super(options, [/*thorimsInvocationEventOrder,*/ healingOrder, primordialWaveEventOrder]);
 
     this.priority = NormalizerOrder.EventOrderNormalizer;
 
@@ -109,14 +109,18 @@ export class EventOrderNormalizer extends BaseEventOrderNormalizer {
         }
       }
 
+      /** This interaction is a bug. The maelstrom is consumed after the cast so doesn't increase damage, but does apply to 
+       * Static Accumulation refund. */
+
       /** The Rolling Thunder hero talent summons the feral spirt AFTER the tempest cast (but before damage). The issue
        * with this is when a feral spirit is summoned, it also immediately generates 1 stack of msw, but because this
        * appearing after, we need to move it back. a traditional order normalizer doesn't move the events correctly */
+      //return;
       if (this.hasRollingThunder && spellId === SPELLS.TEMPEST_CAST.id) {
         const eventsToMoveBack: AnyEvent[] = [];
         for (let forwardIndex = idx + 1; forwardIndex < events.length; forwardIndex += 1) {
           const forwardEvent = events[forwardIndex];
-          if (forwardEvent.timestamp - event.timestamp > 10 || !HasAbility(forwardEvent)) {
+          if (forwardEvent.timestamp - event.timestamp > 15 || !HasAbility(forwardEvent)) {
             break;
           }
           if (
