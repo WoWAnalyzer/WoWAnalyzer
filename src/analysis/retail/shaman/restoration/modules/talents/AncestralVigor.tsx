@@ -95,8 +95,12 @@ class AncestralVigor extends Analyzer {
   }
 
   load() {
-    const vigorQuery = this.loadOne(SPELLS.ANCESTRAL_VIGOR.id);
-    const downpourQuery = this.loadOne(SPELLS.DOWNPOUR_HEAL.id);
+    const vigorQuery = this.selectedCombatant.hasTalent(TALENTS.ANCESTRAL_VIGOR_TALENT)
+      ? this.loadOne(SPELLS.ANCESTRAL_VIGOR.id)
+      : null;
+    const downpourQuery = this.selectedCombatant.hasTalent(TALENTS.DOWNPOUR_TALENT)
+      ? this.loadOne(SPELLS.DOWNPOUR_HEAL.id)
+      : null;
     return Promise.all([vigorQuery, downpourQuery]);
   }
 
@@ -108,17 +112,25 @@ class AncestralVigor extends Analyzer {
     );
     if (
       restoShamans &&
-      restoShamans.some((shaman) => shaman.hasTalent(TALENTS.ANCESTRAL_VIGOR_TALENT))
+      restoShamans.some(
+        (shaman) =>
+          shaman.hasTalent(TALENTS.ANCESTRAL_VIGOR_TALENT) ||
+          shaman.hasTalent(TALENTS.DOWNPOUR_TALENT),
+      )
     ) {
       this.disableStatistics = true;
     }
     const tooltip = this.loaded ? (
       <Trans id="shaman.restoration.av.statistic.tooltip.active">
-        The amount of players that would have died without your Ancestral Vigor buff.
+        The amount of players that would have died without your max health increase buffs{' '}
+        <SpellLink spell={TALENTS.ANCESTRAL_VIGOR_TALENT} /> and{' '}
+        <SpellLink spell={TALENTS.DOWNPOUR_TALENT} />.
       </Trans>
     ) : (
       <Trans id="shaman.restoration.av.statistic.tooltip.inactive">
-        Click to analyze how many lives were saved by the ancestral vigor buff.
+        Click to analyze how many lives were saved by your max health increase buffs{' '}
+        <SpellLink spell={TALENTS.ANCESTRAL_VIGOR_TALENT} /> and{' '}
+        <SpellLink spell={TALENTS.DOWNPOUR_TALENT} />.
       </Trans>
     );
     if (this.disableStatistics) {
@@ -129,9 +141,9 @@ class AncestralVigor extends Analyzer {
           value={<Trans id="shaman.restoration.av.statistic.disabled">Module disabled</Trans>}
           tooltip={
             <Trans id="shaman.restoration.av.statistic.disabled.reason">
-              There were multiple Restoration Shamans with Ancestral Vigor in your raid group, this
-              causes major issues with buff tracking. As the results from this module would be very
-              inaccurate, it was disabled.
+              There were multiple Restoration Shamans with Ancestral Vigor or Downpour in your raid
+              group, this causes major issues with buff tracking. As the results from this module
+              would be very inaccurate, it was disabled.
             </Trans>
           }
           category={STATISTIC_CATEGORY.TALENTS}
