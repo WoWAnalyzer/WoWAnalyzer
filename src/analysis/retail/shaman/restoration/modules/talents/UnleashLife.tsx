@@ -21,7 +21,6 @@ import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 
 import {
   CHAIN_HEAL_TARGETS,
-  DOWNPOUR_CD_PER_HIT,
   DOWNPOUR_TARGETS,
   HEALING_RAIN_TARGETS,
   RESTORATION_COLORS,
@@ -496,10 +495,6 @@ class UnleashLife extends Analyzer {
 
   get totalHealing() {
     return this.totalBuffedHealing + this.directHealing;
-  }
-
-  get additionalDownpourCD() {
-    return this.extraDownpourHits * DOWNPOUR_CD_PER_HIT;
   }
 
   get buffIcon() {

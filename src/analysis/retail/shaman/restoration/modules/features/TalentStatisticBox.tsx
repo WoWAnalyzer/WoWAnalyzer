@@ -110,6 +110,9 @@ class TalentStatisticBox extends Analyzer {
     if (this.selectedCombatant.hasTalent(TALENTS.TIDEWATERS_TALENT)) {
       talentList.push(this.tidewaters.subStatistic());
     }
+    if (this.selectedCombatant.hasTalent(TALENTS.DOWNPOUR_TALENT)) {
+      talentList.push(this.downpour.subStatistic());
+    }
     const sortedTalentList = talentList.sort(
       (a, b) => parseFloat(b.props.value) - parseFloat(a.props.value),
     );
