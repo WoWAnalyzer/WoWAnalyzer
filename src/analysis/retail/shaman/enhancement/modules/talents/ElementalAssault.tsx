@@ -17,11 +17,12 @@ import { MaelstromWeaponTracker } from '../resourcetracker';
 import TalentAggregateStatisticContainer from 'parser/ui/TalentAggregateStatisticContainer';
 import { SpellLink } from 'interface';
 import TalentAggregateBars, { TalentAggregateBarSpec } from 'parser/ui/TalentAggregateStatistic';
-import SPELLS, { maybeGetSpell } from 'common/SPELLS';
+import SPELLS from 'common/SPELLS';
 import { TalentRankTooltip } from 'parser/ui/TalentSpellText';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { MAELSTROM_WEAPON_SOURCE } from '../normalizers/constants';
 import typedKeys from 'common/typedKeys';
+import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
 
 const ELEMENTAL_ASSAULT_RANKS: Record<number, number> = {
   1: 0.1,
@@ -32,6 +33,7 @@ const BAR_COLORS: Record<number, string> = {
   [TALENTS.STORMSTRIKE_TALENT.id]: '#3b7fb0',
   [TALENTS.LAVA_LASH_TALENT.id]: '#f37735',
   [TALENTS.ICE_STRIKE_TALENT.id]: '#94d3ec',
+  [-1]: '#532121', // wasted
 };
 
 /**
@@ -111,12 +113,21 @@ class ElementalAssault extends Analyzer {
 
   makeBars(): TalentAggregateBarSpec[] {
     return typedKeys(this.elementalAssaultGenerators).map((spellId) => {
-      const spell = maybeGetSpell(spellId);
+      const spell = maybeGetTalentOrSpell(spellId)!;
+      const builder = this.elementalAssaultGenerators[spellId];
       return {
-        spell: spell!,
-        amount: this.elementalAssaultGenerators[spellId].generated,
+        spell: spell,
+        amount: builder.generated - builder.wasted,
         color: BAR_COLORS[spellId],
-        subSpecs: [],
+        tooltip: <>{builder.generated - builder.wasted}</>,
+        subSpecs: [
+          {
+            spell: spell,
+            amount: builder.wasted,
+            color: BAR_COLORS[-1],
+            tooltip: <>{builder.wasted} wasted</>,
+          },
+        ],
       };
     });
   }
@@ -133,10 +144,11 @@ class ElementalAssault extends Analyzer {
           </>
         }
         footer={
-          <>
-            Total <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} />: {totalMaelstrom}
-            {this.talentRanks === 2 ? <> ({totalMaelstrom / 2} per point)</> : null}
-          </>
+          this.talentRanks === 2 && (
+            <>
+              <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> per point: {totalMaelstrom / 2}
+            </>
+          )
         }
         smallFooter
         position={STATISTIC_ORDER.DEFAULT}

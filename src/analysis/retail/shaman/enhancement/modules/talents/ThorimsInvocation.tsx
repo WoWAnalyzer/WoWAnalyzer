@@ -2,7 +2,6 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, DamageEvent } from 'parser/core/Events';
-import { THORIMS_INVOCATION_LINK } from '../normalizers/EventLinkNormalizer';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -16,6 +15,8 @@ import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import { DamageIcon, UptimeIcon } from 'interface/icons';
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 import RESOURCE_TYPES, { getResource } from 'game/RESOURCE_TYPES';
+import typedKeys from 'common/typedKeys';
+import { EnhancementEventLinks } from '../../constants';
 
 /** Lightning Bolt and Chain Lightning damage increased by 20%.
  *
@@ -79,7 +80,7 @@ class ThorimsInvocation extends Analyzer {
   onCast(event: CastEvent) {
     const linkedEvents =
       event._linkedEvents
-        ?.filter((le) => le.relation === THORIMS_INVOCATION_LINK)
+        ?.filter((le) => le.relation === EnhancementEventLinks.THORIMS_INVOCATION_LINK)
         .map((le) => le.event as DamageEvent) || [];
     if (linkedEvents.length === 0) {
       return;

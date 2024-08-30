@@ -113,6 +113,7 @@ interface ActivePeriodicGainEffect extends PeriodicGainEffect {
 
 interface SearchResult {
   index: number;
+  timestamp: number;
   events: AnyEvent[];
 }
 class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
@@ -348,10 +349,7 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
             );
           }
         }
-
-        current = expectedCurrent;
-        event.waste = expectedWaste.length;
-      } else if (event.type === EventType.Cast) {
+      } else if (event.type === EventType.Cast || event.type === EventType.FreeCast) {
         const cr = getResource(event.classResources, RESOURCE_TYPES.MAELSTROM_WEAPON.id);
         if (cr) {
           const buffs = GetRelatedEvents<RemoveBuffEvent | RemoveBuffStackEvent>(
@@ -370,6 +368,7 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
             buffs[0].type === EventType.RemoveBuff ? current : current - buffs[0].stack;
 
           cr.cost = current - cr.amount;
+          cr.amount = current;
           if (cr.cost !== expectedCost) {
             DEBUG &&
               console.log(
@@ -412,10 +411,8 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
     skipTheseEvents: Set<AnyEvent>,
   ): SearchResult | undefined {
     const event = arr[currentIndex];
-
-    const matches: SearchResult[] = [];
-    let current: SearchResult = { index: 0, events: [] };
-    matches.push(current);
+    let current: SearchResult = { index: 0, timestamp: 0, events: [] };
+    const matches: SearchResult[] = [current];
 
     for (let index = currentIndex - 1; index >= 0; index -= 1) {
       const backwardsEvent = arr[index];
@@ -440,7 +437,7 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
         ) {
           continue;
         }
-        current = { index: 0, events: [] };
+        current = { index: 0, timestamp: 0, events: [] };
         matches.push(current);
         continue;
       }
@@ -455,6 +452,10 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
           continue;
         }
         current.index = index;
+        current.timestamp =
+          backwardsEvent.timestamp > current.timestamp
+            ? backwardsEvent.timestamp
+            : current.timestamp; // whatever is closest to the timestamp of the current event
         current.events.splice(0, 0, backwardsEvent);
       }
     }
@@ -476,7 +477,7 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
           return undefined;
         }
         if (truncatedEvents.length > 0) {
-          return { index: m.index, events: truncatedEvents };
+          return { index: m.index, timestamp: m.timestamp, events: truncatedEvents };
         }
 
         return undefined;
@@ -484,7 +485,7 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
 
       return results
         .filter((r) => r !== undefined)
-        .sort((a, _) => a.events[0].timestamp - event.timestamp)
+        .sort((a, _) => event.timestamp - a!.timestamp)
         .at(0);
     }
   }
@@ -506,9 +507,8 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
   ): SearchResult | undefined {
     const event = arr[currentIndex];
 
-    const matches: SearchResult[] = [];
-    let current: SearchResult = { index: 0, events: [] };
-    matches.push(current);
+    let current: SearchResult = { index: 0, timestamp: 0, events: [] };
+    const matches: SearchResult[] = [current];
 
     for (let index = currentIndex + 1; index < arr.length; index += 1) {
       const forwardEvent = arr[index];
@@ -533,7 +533,7 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
         ) {
           continue;
         }
-        current = { index: 0, events: [] };
+        current = { index: 0, timestamp: 0, events: [] };
         matches.push(current);
         continue;
       }
@@ -548,6 +548,7 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
           continue;
         }
         current.index = current.index === 0 ? index : current.index;
+        current.timestamp = current.timestamp === 0 ? forwardEvent.timestamp : current.timestamp;
         current.events.push(forwardEvent);
       }
     }
@@ -569,7 +570,7 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
           return undefined;
         }
         if (truncatedEvents.length > 0) {
-          return { index: m.index, events: truncatedEvents };
+          return { index: m.index, timestamp: m.timestamp, events: truncatedEvents };
         }
 
         return undefined;
@@ -577,7 +578,7 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
 
       return results
         .filter((r) => r !== undefined)
-        .sort((a, _) => a.events[0].timestamp - event.timestamp)
+        .sort((a, _) => a!.timestamp - event.timestamp)
         .at(0);
     }
   }
@@ -592,17 +593,19 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
    */
   private _buildEnergizeEvent(spell: number | Spell): ResourceChangeEvent {
     const resourceChange: ResourceChangeEvent = {
-      ability: spellToAbility(spell)!,
+      timestamp: 0,
       type: EventType.ResourceChange,
       sourceID: this.selectedCombatant.id,
-      sourceIsFriendly: true,
       targetID: this.selectedCombatant.id,
-      targetIsFriendly: true,
+      ability: spellToAbility(spell)!,
       resourceChangeType: RESOURCE_TYPES.MAELSTROM_WEAPON.id,
+      /** timestamp will be updated when this is associated with maelstrom stacks */
       resourceChange: 0,
       waste: 0,
       otherResourceChange: 0,
       resourceActor: ResourceActor.Source,
+      sourceIsFriendly: true,
+      targetIsFriendly: true,
       // don't care about these values
       classResources: [],
       hitPoints: 0,
@@ -615,8 +618,6 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
       facing: 0,
       mapID: 0,
       itemLevel: 0,
-      /** timestamp will be updated when this is associated with maelstrom stacks */
-      timestamp: 0,
     };
 
     return resourceChange;
@@ -660,7 +661,7 @@ const MAELSTROM_ABILITIES = {
     forwardBufferMs: 5,
     linkToEventType: GAIN_EVENT_TYPES,
     searchDirection: SearchDirection.ForwardsFirst,
-    matchMode: MatchMode.MatchLast,
+    matchMode: MatchMode.MatchFirst,
   },
   SUPERCHARGE: {
     spellId: [
@@ -679,24 +680,36 @@ const MAELSTROM_ABILITIES = {
     enabled: (c) => c.hasTalent(TALENTS.SUPERCHARGE_TALENT),
     maximum: MAXIMUM_MAELSTROM_PER_EVENT[TALENTS.SUPERCHARGE_TALENT.id],
     requiresExact: true,
-    linkFromEventType: EventType.Cast,
+    linkFromEventType: [EventType.Cast, EventType.FreeCast],
     forwardBufferMs: BufferMs.Damage,
     spellIdOverride: TALENTS.SUPERCHARGE_TALENT.id,
-    minimumBuffer: 0,
     linkToEventType: GAIN_EVENT_TYPES,
     searchDirection: SearchDirection.ForwardsOnly,
+    matchMode: MatchMode.MatchLast,
   },
   STATIC_ACCUMULATION: {
     spellId: [SPELLS.LIGHTNING_BOLT.id, TALENTS.CHAIN_LIGHTNING_TALENT.id, SPELLS.TEMPEST_CAST.id],
     type: MaelstromAbilityType.Builder,
     enabled: (c) => c.hasTalent(TALENTS.STATIC_ACCUMULATION_TALENT),
     maximum: -1,
-    linkFromEventType: EventType.Cast,
+    linkFromEventType: [EventType.Cast, EventType.FreeCast],
     forwardBufferMs: BufferMs.StaticAccumulation,
     spellIdOverride: TALENTS.STATIC_ACCUMULATION_TALENT.id,
     minimumBuffer: 50,
     linkToEventType: GAIN_EVENT_TYPES,
     searchDirection: SearchDirection.ForwardsOnly,
+    matchMode: MatchMode.MatchLast,
+  },
+  FERAL_SPIRIT_SUMMONED: {
+    spellId: SPELLS.FERAL_SPIRIT_MAELSTROM_BUFF.id,
+    spellIdOverride: TALENTS.FERAL_SPIRIT_TALENT.id,
+    linkFromEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    linkToEventType: GAIN_EVENT_TYPES,
+    searchDirection: SearchDirection.BackwardsFirst,
+    forwardBufferMs: 5,
+    backwardsBufferMs: 5,
+    maximum: 1,
+    requiresExact: true,
   },
   // Swirling maelstrom has higher priority than Elemental Assault, as the later can be a chance if 1 of 2 talents invested
   SWIRLING_MAELSTROM: {
@@ -749,7 +762,7 @@ const MAELSTROM_ABILITIES = {
   FERAL_SPIRIT_PERIODIC_GAIN: {
     spellId: [SPELLS.FERAL_SPIRIT_MAELSTROM_BUFF.id, TALENTS.FERAL_SPIRIT_TALENT.id],
     spellIdOverride: TALENTS.FERAL_SPIRIT_TALENT.id,
-    linkFromEventType: [EventType.ResourceChange, ...GAIN_EVENT_TYPES],
+    linkFromEventType: [EventType.ResourceChange],
     linkToEventType: GAIN_EVENT_TYPES,
     forwardBufferMs: BufferMs.Ticks,
     backwardsBufferMs: BufferMs.Ticks,

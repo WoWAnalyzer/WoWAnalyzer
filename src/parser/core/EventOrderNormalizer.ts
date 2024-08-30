@@ -101,7 +101,7 @@ abstract class EventOrderNormalizer extends EventsNormalizer {
               fixedEvents.push(previousEvent);
               if (eo.updateTimestamp) {
                 previousEvent.timestamp = event.timestamp;
-                previousEvent.__modified = 'Event order normalizer';
+                previousEvent.__modified = true;
               }
               previousEvent.__reordered = true;
               DEBUG &&

@@ -11,7 +11,8 @@ export const STORMSTRIKE_DAMAGE_SPELLS = [
   SPELLS.WINDSTRIKE_DAMAGE_OFFHAND,
 ];
 
-export const MOLTEN_ASSAULT_SCALING = [0, 3, 6];
+export const STORMSTRIKE_SPELL_IDS = STORMSTRIKE_CAST_SPELLS.map((spell) => spell.id);
+export const STORMSTRIKE_DAMAGE_IDS = STORMSTRIKE_DAMAGE_SPELLS.map((spell) => spell.id);
 
 export const MERGE_SPELLS = [
   {
@@ -40,5 +41,26 @@ export const MAELSTROM_WEAPON_ELIGIBLE_SPELLS: Spell[] = [
   SPELLS.TEMPEST_CAST,
 ];
 
-//* maximum difference found so far is 45ms, so setting to 50 for a little wiggle room */
-export const MAELSTROM_WEAPON_MS = 50;
+export const MAELSTROM_WEAPON_ELIGIBLE_SPELL_IDS = MAELSTROM_WEAPON_ELIGIBLE_SPELLS.map(
+  (spell) => spell.id,
+);
+
+export enum EventLinkBuffers {
+  MaelstromWeapon = 50,
+  PrimordialWave = 15500,
+  Stormstrike = 900,
+  CAST_DAMAGE_BUFFER = 100,
+  SPLINTERED_ELEMENTS_BUFFER = 20,
+  LIGHTNING_BOLT_BUFFER = 150,
+}
+
+export enum EnhancementEventLinks {
+  MAELSTROM_WEAPON_INSTANT_CAST = 'maelstrom-weapon-instant-cast',
+  THORIMS_INVOCATION_LINK = 'thorims-invocation',
+  STORMSTRIKE_LINK = 'stormstrike',
+  CHAIN_LIGHTNING_LINK = 'chain-lightning',
+  TEMPEST_LINK = 'tempest',
+  MAELSTROM_SPENDER_LINK = 'maelstrom-spender',
+  LIGHTNING_BOLT_LINK = 'lightning-bolt',
+  MAELSTROM_GENERATOR_LINK = 'maelstrom-generator',
+}

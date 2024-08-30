@@ -4,52 +4,32 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
 import { EventType } from 'parser/core/Events';
 import {
-  MAELSTROM_WEAPON_ELIGIBLE_SPELLS,
-  MAELSTROM_WEAPON_MS,
-  STORMSTRIKE_CAST_SPELLS,
-  STORMSTRIKE_DAMAGE_SPELLS,
-} from '../../constants';
-import {
   PRIMORDIAL_WAVE_LINK,
   SPLINTERED_ELEMENTS_LINK,
 } from 'analysis/retail/shaman/shared/constants';
 import { NormalizerOrder } from './constants';
-
-export const MAELSTROM_WEAPON_INSTANT_CAST = 'maelstrom-weapon-instant-cast';
-export const THORIMS_INVOCATION_LINK = 'thorims-invocation';
-export const STORMSTRIKE_LINK = 'stormstrike';
-export const CHAIN_LIGHTNING_LINK = 'chain-lightning';
-export const TEMPEST_LINK = 'tempest';
-export const MAELSTROM_SPENDER_LINK = 'maelstrom-spender';
-export const LIGHTNING_BOLT_LINK = 'lightning-bolt';
-export const MAELSTROM_GENERATOR_LINK = 'maelstrom-generator';
-
-const MAELSTROM_WEAPON_ELIGIBLE_SPELL_IDS = MAELSTROM_WEAPON_ELIGIBLE_SPELLS.map(
-  (spell) => spell.id,
-);
-const stormStrikeSpellIds = STORMSTRIKE_CAST_SPELLS.map((spell) => spell.id);
-const stormStrikeDamageIds = STORMSTRIKE_DAMAGE_SPELLS.map((spell) => spell.id);
-
-const PRIMORDIAL_WAVE_BUFFER = 15500;
-const STORMSTRIKE_BUFFER = 900;
-const CAST_DAMAGE_BUFFER = 100;
-const SPLINTERED_ELEMENTS_BUFFER = 20;
-const LIGHTNING_BOLT_BUFFER = 150;
+import {
+  EnhancementEventLinks,
+  EventLinkBuffers,
+  MAELSTROM_WEAPON_ELIGIBLE_SPELL_IDS,
+  STORMSTRIKE_DAMAGE_IDS,
+  STORMSTRIKE_SPELL_IDS,
+} from '../../constants';
 
 const maelstromWeaponInstantCastLink: EventLink = {
-  linkRelation: MAELSTROM_WEAPON_INSTANT_CAST,
+  linkRelation: EnhancementEventLinks.MAELSTROM_WEAPON_INSTANT_CAST,
   linkingEventId: MAELSTROM_WEAPON_ELIGIBLE_SPELL_IDS,
   linkingEventType: [EventType.BeginCast, EventType.BeginChannel, EventType.EndChannel],
   referencedEventId: MAELSTROM_WEAPON_ELIGIBLE_SPELL_IDS,
   referencedEventType: [EventType.Cast, EventType.FreeCast],
-  forwardBufferMs: MAELSTROM_WEAPON_MS,
-  backwardBufferMs: MAELSTROM_WEAPON_MS,
+  forwardBufferMs: EventLinkBuffers.MaelstromWeapon,
+  backwardBufferMs: EventLinkBuffers.MaelstromWeapon,
   anyTarget: true,
-  reverseLinkRelation: MAELSTROM_WEAPON_INSTANT_CAST,
+  reverseLinkRelation: EnhancementEventLinks.MAELSTROM_WEAPON_INSTANT_CAST,
   maximumLinks: 1,
 };
 const thorimsInvocationCastLink: EventLink = {
-  linkRelation: THORIMS_INVOCATION_LINK,
+  linkRelation: EnhancementEventLinks.THORIMS_INVOCATION_LINK,
   linkingEventId: SPELLS.WINDSTRIKE_CAST.id,
   linkingEventType: EventType.Cast,
   referencedEventId: [
@@ -58,34 +38,34 @@ const thorimsInvocationCastLink: EventLink = {
     SPELLS.TEMPEST_CAST.id,
   ],
   referencedEventType: [EventType.Damage],
-  forwardBufferMs: MAELSTROM_WEAPON_MS,
+  forwardBufferMs: EventLinkBuffers.MaelstromWeapon,
   anyTarget: true,
 };
 const stormStrikeLink: EventLink = {
-  linkRelation: STORMSTRIKE_LINK,
-  linkingEventId: stormStrikeSpellIds,
+  linkRelation: EnhancementEventLinks.STORMSTRIKE_LINK,
+  linkingEventId: STORMSTRIKE_SPELL_IDS,
   linkingEventType: EventType.Cast,
-  referencedEventId: stormStrikeDamageIds,
+  referencedEventId: STORMSTRIKE_DAMAGE_IDS,
   referencedEventType: EventType.Damage,
-  forwardBufferMs: STORMSTRIKE_BUFFER,
+  forwardBufferMs: EventLinkBuffers.Stormstrike,
   anyTarget: true,
 };
 const chainLightningDamageLink: EventLink = {
-  linkRelation: CHAIN_LIGHTNING_LINK,
+  linkRelation: EnhancementEventLinks.CHAIN_LIGHTNING_LINK,
   linkingEventId: TALENTS.CHAIN_LIGHTNING_TALENT.id,
   linkingEventType: [EventType.Cast, EventType.FreeCast],
   referencedEventId: TALENTS.CHAIN_LIGHTNING_TALENT.id,
   referencedEventType: EventType.Damage,
-  forwardBufferMs: CAST_DAMAGE_BUFFER,
+  forwardBufferMs: EventLinkBuffers.CAST_DAMAGE_BUFFER,
   anyTarget: true,
 };
 const tempestDamageLink: EventLink = {
-  linkRelation: TEMPEST_LINK,
+  linkRelation: EnhancementEventLinks.TEMPEST_LINK,
   linkingEventId: SPELLS.TEMPEST_CAST.id,
   linkingEventType: [EventType.Cast, EventType.FreeCast],
   referencedEventId: SPELLS.TEMPEST_CAST.id,
   referencedEventType: EventType.Damage,
-  forwardBufferMs: CAST_DAMAGE_BUFFER,
+  forwardBufferMs: EventLinkBuffers.CAST_DAMAGE_BUFFER,
   anyTarget: true,
 };
 const primordialWaveLink: EventLink = {
@@ -95,7 +75,7 @@ const primordialWaveLink: EventLink = {
   referencedEventId: SPELLS.LIGHTNING_BOLT.id,
   referencedEventType: EventType.Cast,
   anyTarget: true,
-  forwardBufferMs: PRIMORDIAL_WAVE_BUFFER,
+  forwardBufferMs: EventLinkBuffers.PrimordialWave,
   maximumLinks: 1,
   reverseLinkRelation: PRIMORDIAL_WAVE_LINK,
 };
@@ -106,16 +86,16 @@ const splinteredElements: EventLink = {
   referencedEventId: SPELLS.LIGHTNING_BOLT.id,
   referencedEventType: EventType.Cast,
   anyTarget: true,
-  forwardBufferMs: SPLINTERED_ELEMENTS_BUFFER,
+  forwardBufferMs: EventLinkBuffers.SPLINTERED_ELEMENTS_BUFFER,
   maximumLinks: 1,
 };
 const lightningBoltLink: EventLink = {
-  linkRelation: LIGHTNING_BOLT_LINK,
+  linkRelation: EnhancementEventLinks.LIGHTNING_BOLT_LINK,
   linkingEventId: SPELLS.LIGHTNING_BOLT.id,
   linkingEventType: EventType.Cast,
   referencedEventId: SPELLS.LIGHTNING_BOLT.id,
   referencedEventType: EventType.Damage,
-  forwardBufferMs: LIGHTNING_BOLT_BUFFER,
+  forwardBufferMs: EventLinkBuffers.LIGHTNING_BOLT_BUFFER,
   anyTarget: true,
 };
 
@@ -126,7 +106,7 @@ class EventLinkNormalizer extends BaseEventLinkNormalizer {
       thorimsInvocationCastLink,
       stormStrikeLink,
       chainLightningDamageLink,
-      // maelstromWeaponSpenderLink,
+      tempestDamageLink,
       primordialWaveLink,
       splinteredElements,
       lightningBoltLink,

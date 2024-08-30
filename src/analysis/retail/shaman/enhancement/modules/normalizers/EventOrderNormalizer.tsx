@@ -3,15 +3,15 @@ import TALENTS from 'common/TALENTS/shaman';
 import { Options } from 'parser/core/Analyzer';
 import BaseEventOrderNormalizer, { EventOrder } from 'parser/core/EventOrderNormalizer';
 import { AnyEvent, EventType, HasAbility } from 'parser/core/Events';
-import { MAELSTROM_WEAPON_MS } from '../../constants';
 import { NormalizerOrder } from './constants';
+import { EventLinkBuffers } from '../../constants';
 
 /** Thorim's Invocation automatically casts Lightning Bolts when Windstrike used, but
  * these free casts appear in the event log prior to the windstrike. Re-order so the Windstrike
  * comes first. */
 
 //"windstrike" "lightning bolt" "tempest"
-const thorimsInvocationEventOrder: EventOrder = {
+const thorimsInvocationSpellAfterWindstrike: EventOrder = {
   beforeEventId: SPELLS.WINDSTRIKE_CAST.id,
   beforeEventType: EventType.Cast,
   afterEventId: [
@@ -20,9 +20,25 @@ const thorimsInvocationEventOrder: EventOrder = {
     SPELLS.TEMPEST_CAST.id,
   ],
   afterEventType: EventType.Cast,
-  bufferMs: MAELSTROM_WEAPON_MS,
+  bufferMs: EventLinkBuffers.MaelstromWeapon,
   anyTarget: true,
   updateTimestamp: true,
+  maxMatches: 1,
+};
+
+const thorimsInvocationBuffAfterSpell: EventOrder = {
+  beforeEventId: [
+    SPELLS.LIGHTNING_BOLT.id,
+    TALENTS.CHAIN_LIGHTNING_TALENT.id,
+    SPELLS.TEMPEST_CAST.id,
+  ],
+  beforeEventType: EventType.Cast,
+  afterEventId: SPELLS.MAELSTROM_WEAPON_BUFF.id,
+  afterEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
+  bufferMs: EventLinkBuffers.MaelstromWeapon,
+  anyTarget: true,
+  updateTimestamp: true,
+  maxMatches: 1,
 };
 
 /**
@@ -34,7 +50,7 @@ const healingOrder: EventOrder = {
   beforeEventId: [SPELLS.HEALING_SURGE.id, TALENTS.CHAIN_HEAL_TALENT.id],
   beforeEventType: EventType.Cast,
   anyTarget: true,
-  bufferMs: MAELSTROM_WEAPON_MS,
+  bufferMs: EventLinkBuffers.MaelstromWeapon,
   updateTimestamp: true,
 };
 
@@ -53,14 +69,19 @@ const primordialWaveEventOrder: EventOrder = {
 export class EventOrderNormalizer extends BaseEventOrderNormalizer {
   private readonly hasRollingThunder: boolean;
   constructor(options: Options) {
-    super(options, [/*thorimsInvocationEventOrder,*/ healingOrder, primordialWaveEventOrder]);
+    super(options, [
+      thorimsInvocationSpellAfterWindstrike,
+      thorimsInvocationBuffAfterSpell,
+      healingOrder,
+      primordialWaveEventOrder,
+    ]);
 
     this.priority = NormalizerOrder.EventOrderNormalizer;
 
     this.hasRollingThunder = this.selectedCombatant.hasTalent(TALENTS.ROLLING_THUNDER_TALENT);
   }
 
-  /** After the base normalize is done, we're changing all auto-casts of Lightning Bolt
+  /** After the base normalize is done, we're changing all auto-casts of Lightning Bolt, Chain Lightning, and Tempest
    * from Windstrike into 'freecast' so they don't interfere with the APL */
   normalize(events: AnyEvent[]) {
     events = super.normalize(events);
@@ -89,7 +110,7 @@ export class EventOrderNormalizer extends BaseEventOrderNormalizer {
         for (let backwardsIndex = idx - 1; backwardsIndex >= 0; backwardsIndex -= 1) {
           const backwardsEvent = events[backwardsIndex];
           // The windstrike and auto cast typically occur on the same timestamp
-          if (event.timestamp - backwardsEvent.timestamp > MAELSTROM_WEAPON_MS) {
+          if (event.timestamp - backwardsEvent.timestamp > EventLinkBuffers.MaelstromWeapon) {
             break;
           }
 
@@ -109,7 +130,7 @@ export class EventOrderNormalizer extends BaseEventOrderNormalizer {
         }
       }
 
-      /** This interaction is a bug. The maelstrom is consumed after the cast so doesn't increase damage, but does apply to 
+      /** This interaction is a bug. The maelstrom is consumed after the cast so doesn't increase damage, but does apply to
        * Static Accumulation refund. */
 
       /** The Rolling Thunder hero talent summons the feral spirt AFTER the tempest cast (but before damage). The issue

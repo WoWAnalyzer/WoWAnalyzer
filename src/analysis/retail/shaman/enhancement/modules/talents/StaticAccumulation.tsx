@@ -7,6 +7,15 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { SpellIcon, SpellLink } from 'interface';
+import styled from '@emotion/styled';
+
+const StaticAccumulationTable = styled.table`
+  font-size: 16px;
+  tr td:nth-child(2) {
+    text-align: right;
+  }
+  width: 100%;
+`;
 
 class StaticAccumulation extends Analyzer {
   static dependencies = {
@@ -25,10 +34,8 @@ class StaticAccumulation extends Analyzer {
   }
 
   statistic() {
-    const ranks = this.selectedCombatant.getTalentRank(TALENTS.STATIC_ACCUMULATION_TALENT);
-    const uptime = Math.floor(
-      this.selectedCombatant.getBuffUptime(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT.id) / 1000,
-    );
+    const passive =
+      this.maelstromWeaponTracker.buildersObj[TALENTS.ASCENDANCE_ENHANCEMENT_TALENT.id];
     const refund = this.maelstromWeaponTracker.buildersObj[TALENTS.STATIC_ACCUMULATION_TALENT.id];
 
     return (
@@ -42,22 +49,28 @@ class StaticAccumulation extends Analyzer {
             <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> breakdown
           </small>
           <br />
-          <table className="table-condensed" style={{ width: '100%' }}>
+          <StaticAccumulationTable className="table-condensed">
             <tbody>
-              <tr style={{ fontSize: 16 }}>
+              <tr>
                 <td>
                   <SpellLink spell={TALENTS.ASCENDANCE_ENHANCEMENT_TALENT} /> (passive)
                 </td>
-                <td>{uptime * ranks}</td>
+                <td>{passive.generated + passive.wasted}</td>
               </tr>
-              <tr style={{ fontSize: 16 }}>
+              <tr>
                 <td>
-                  <SpellIcon spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> Refunded
+                  <SpellIcon spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> Refunded from spells
                 </td>
                 <td>{refund.generated + refund.wasted}</td>
               </tr>
             </tbody>
-          </table>
+            <tfoot style={{ fontStyle: 'italic' }}>
+              <tr>
+                <td>Total</td>
+                <td>{passive.generated + passive.wasted + refund.generated + refund.wasted}</td>
+              </tr>
+            </tfoot>
+          </StaticAccumulationTable>
         </TalentSpellText>
       </Statistic>
     );

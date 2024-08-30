@@ -3,7 +3,6 @@ import TALENTS from 'common/TALENTS/shaman';
 import ClassAbilities from '../../shared/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
-import { MOLTEN_ASSAULT_SCALING } from '../constants';
 
 class Abilities extends ClassAbilities {
   spellbook(): SpellbookAbility[] {
@@ -27,8 +26,7 @@ class Abilities extends ClassAbilities {
         enabled: combatant.hasTalent(TALENTS.LAVA_LASH_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) =>
-          (18 - MOLTEN_ASSAULT_SCALING[combatant.getTalentRank(TALENTS.MOLTEN_ASSAULT_TALENT)]) /
-          (1 + haste),
+          (18 - (combatant.hasTalent(TALENTS.MOLTEN_ASSAULT_TALENT) ? 6 : 0)) / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -172,14 +170,14 @@ class Abilities extends ClassAbilities {
         enabled: combatant.hasTalent(TALENTS.TEMPEST_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
-          base: 1500
-        }
+          base: 1500,
+        },
       },
       {
         spell: TALENTS.HAILSTORM_TALENT.id,
         category: SPELL_CATEGORY.HIDDEN,
-        enabled: combatant.hasTalent(TALENTS.HAILSTORM_TALENT),        
-      }
+        enabled: combatant.hasTalent(TALENTS.HAILSTORM_TALENT),
+      },
     ];
   }
 }

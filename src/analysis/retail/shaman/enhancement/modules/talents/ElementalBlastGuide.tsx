@@ -10,7 +10,6 @@ import Events, {
 import TALENTS from 'common/TALENTS/shaman';
 import SPELLS from 'common/SPELLS/shaman';
 import Spell from 'common/SPELLS/Spell';
-import { MaelstromWeaponTracker } from '../resourcetracker';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { ChecklistUsageInfo, SpellUse, UsageInfo } from 'parser/core/SpellUsage/core';
 import { SpellLink } from 'interface';
@@ -20,8 +19,7 @@ import MajorCooldown, { CooldownTrigger } from 'parser/core/MajorCooldowns/Major
 import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { DamageIcon } from 'interface/icons';
-
-const DEBUG = false;
+import RESOURCE_TYPES, { getResource } from 'game/RESOURCE_TYPES';
 
 const ELEMENTAL_SPIRIT_BUFFS: Spell[] = [
   SPELLS.ELEMENTAL_SPIRITS_BUFF_MOLTEN_WEAPON,
@@ -40,9 +38,7 @@ interface ElementalBlastCastDetails extends CooldownTrigger<CastEvent> {
 class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
   static dependencies = {
     ...MajorCooldown.dependencies,
-    maelstromTracker: MaelstromWeaponTracker,
   };
-  protected maelstromTracker!: MaelstromWeaponTracker;
 
   private readonly elementalSpritsActive: Record<number, number> = {};
   private readonly maxCharges: number = 0;
@@ -110,18 +106,11 @@ class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
   }
 
   onCast(event: CastEvent) {
-    if (this.maelstromTracker.lastSpenderInfo?.spellId !== event.ability.guid) {
-      DEBUG &&
-        console.warn(
-          `Last spender is not an elemental blast`,
-          this.maelstromTracker.lastSpenderInfo,
-          event,
-        );
-    }
+    const cr = getResource(event.classResources, RESOURCE_TYPES.MAELSTROM_WEAPON.id);
     this.cast = {
       chargesBeforeCast: this.currentCharges,
       elementalSpiritsActive: this.activeElementalSpirits,
-      maelstromUsed: this.maelstromTracker.lastSpenderInfo?.amount ?? 0,
+      maelstromUsed: cr?.cost ?? 0,
       event: event,
       bonusDamage: 0,
     };
@@ -300,37 +289,14 @@ class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
     return (
       <CooldownUsage
         analyzer={this}
-        title="Elemental Blast cast breakdown"
+        title={
+          <>
+            <SpellLink spell={TALENTS.ELEMENTAL_BLAST_ENHANCEMENT_TALENT} /> cast breakdown
+          </>
+        }
         hidePotentialMissedCasts
       />
     );
-
-    // explanationAndDataSubsection(
-    //   // description
-    //   <>
-    //     <p>
-    //       <SpellLink spell={TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT} /> damage is multiplicatively
-    //       increased for each <SpellLink spell={TALENTS.ELEMENTAL_SPIRITS_TALENT} /> that is
-    //       currently active, typically ranging from a 20% increase with one to 73% with three, and in
-    //       rare cases up to ~150% with five <SpellLink spell={TALENTS.ELEMENTAL_SPIRITS_TALENT} />
-    //     </p>
-    //   </>,
-    //   // details/data
-    //   <>
-    //     <div>
-    //       <PanelHeader>
-    //         <strong>Elemental Blast cast breakdown</strong> -{' '}
-    //         <small>
-    //           Proper usage of <SpellLink spell={TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT} /> with{' '}
-    //           <SpellLink spell={TALENTS.ELEMENTAL_SPIRITS_TALENT} /> active is crucial
-    //         </small>
-    //       </PanelHeader>
-    //       <PerformanceBoxRow values={performance} />
-    //     </div>
-    //   </>,
-    //   undefined,
-    //   'Elemental Blast',
-    // );
   }
 
   getCastPerformance(cast: ElementalBlastCastDetails): QualitativePerformance {

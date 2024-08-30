@@ -358,10 +358,7 @@ export function AddRelatedEvent(event: AnyEvent, relation: string, relatedEvent:
     event._linkedEvents = [];
   }
   event._linkedEvents.push({ relation, event: relatedEvent });
-  if (typeof event.__modified !== 'undefined') {
-    event.__modified = `${event.__modified} / ${relation}`;
-  }
-  event.__modified = relation;
+  event.__modified = true;
 }
 
 export type AnyEvent<T extends EventType = EventType> = T extends keyof MappedEventTypes
@@ -381,11 +378,11 @@ export interface Event<T extends string> {
   /** Set of eventLinks that have been processed already to avoid duplicated linking */
   _processedLinks?: Set<EventLink>;
   /** True iff the event was created by WoWA */
-  __fabricated?: boolean | string;
+  __fabricated?: boolean;
   /** True iff the event's content was modified by WoWA */
-  __modified?: boolean | string;
+  __modified?: boolean;
   /** True iff a WoWA normalizer reordered this event */
-  __reordered?: boolean | string;
+  __reordered?: boolean;
 }
 
 // TODO way to specify specific expected event type?

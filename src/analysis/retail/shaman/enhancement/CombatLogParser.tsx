@@ -57,7 +57,7 @@ import {
 import MaestromRefreshBuffNormalizer from './modules/normalizers/MaelstromRefreshBuffNormalizer';
 import ElementalBlastGuide from './modules/talents/ElementalBlastGuide';
 import StaticAccumulation from './modules/talents/StaticAccumulation';
-import Tempest from 'analysis/retail/shaman/enhancement/modules/hero/stormbringer/Tempest';
+import Tempest from '../shared/hero/stormbringer/Tempest';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {

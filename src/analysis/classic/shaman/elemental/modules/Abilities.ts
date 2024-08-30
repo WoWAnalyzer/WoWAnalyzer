@@ -4,6 +4,8 @@ import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 class Abilities extends CoreAbilities {
   spellbook() {
+    const combatant = this.selectedCombatant;
+    const faction = combatant._combatantInfo.faction === 1 ? 'Alliance' : 'Horde';
     return [
       // SPELLS ADDED HERE ARE DISPLAYED ON THE STATISTICS TAB
       // Rotational
@@ -72,6 +74,18 @@ class Abilities extends CoreAbilities {
       // Other spells (not apart of the normal rotation)
 
       // Utility
+      {
+        spell: SPELLS.BLOODLUST.id,
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+        enabled: faction === 'Horde',
+      },
+      {
+        spell: SPELLS.HEROISM.id,
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+        enabled: faction === 'Alliance',
+      },
       {
         spell: [SPELLS.CLEANSE_SPIRIT.id],
         category: SPELL_CATEGORY.UTILITY,

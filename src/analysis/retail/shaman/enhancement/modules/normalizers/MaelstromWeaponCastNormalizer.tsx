@@ -1,7 +1,6 @@
 import { AnyEvent, EventType, HasAbility, HasRelatedEvent } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
-import { MAELSTROM_WEAPON_INSTANT_CAST } from './EventLinkNormalizer';
-import { MAELSTROM_WEAPON_ELIGIBLE_SPELLS } from '../../constants';
+import { EnhancementEventLinks, MAELSTROM_WEAPON_ELIGIBLE_SPELLS } from '../../constants';
 import { Options } from 'parser/core/Analyzer';
 import { NormalizerOrder } from './constants';
 
@@ -29,9 +28,9 @@ class MaelstromWeaponCastNormalizer extends EventsNormalizer {
           event.type === EventType.BeginChannel ||
           event.type === EventType.EndChannel
         ) {
-          if (HasRelatedEvent(event, MAELSTROM_WEAPON_INSTANT_CAST)) {
+          if (HasRelatedEvent(event, EnhancementEventLinks.MAELSTROM_WEAPON_INSTANT_CAST)) {
             return;
-          }            
+          }
         }
       }
       fixedEvents.push(event);
@@ -39,6 +38,5 @@ class MaelstromWeaponCastNormalizer extends EventsNormalizer {
     return fixedEvents;
   }
 }
-
 
 export default MaelstromWeaponCastNormalizer;

@@ -21,8 +21,31 @@ interface Props {
   scaleFactor?: number;
 }
 
+interface ResourceUsageRow {
+  /** Builder or spender spell id for {@link SpellLink} */
+  abilityId: number;
+  /** If supplied, will be appended to the end of the {@link SpellLink} as plain text */
+  extraDetail?: string;
+}
+
+interface GeneratedResourceRow extends ResourceUsageRow {
+  /** Total resource generated, minus any waste */
+  generated: number;
+  /** Amount of resource wasted */
+  wasted: number;
+}
+
+interface SpentResourceRow extends ResourceUsageRow {
+  /** Total resource spent */
+  spent: number;
+  /** No. of times ability was cast */
+  casts: number;
+  /** No. of casts while at resource cap */
+  maxSpendCasts: number;
+}
+
 class ResourceBreakdown extends Component<Props> {
-  prepareGenerated(tracker: ResourceTracker, scaleFactor = 1) {
+  prepareGenerated(tracker: ResourceTracker, scaleFactor = 1): GeneratedResourceRow[] {
     return Object.keys(tracker.buildersObj)
       .map((abilityId) => ({
         abilityId: Number(abilityId),
@@ -34,7 +57,7 @@ class ResourceBreakdown extends Component<Props> {
       .filter((ability) => ability.generated > 0 || ability.wasted);
   }
 
-  prepareSpent(tracker: ResourceTracker, scaleFactor = 1) {
+  prepareSpent(tracker: ResourceTracker, scaleFactor = 1): SpentResourceRow[] {
     return Object.keys(tracker.spendersObj)
       .map((abilityId) => ({
         abilityId: Number(abilityId),
@@ -177,7 +200,7 @@ class ResourceBreakdown extends Component<Props> {
                 spent.map((ability) => (
                   <tr key={ability.abilityId}>
                     <td style={{ width: '30%' }}>
-                      <SpellLink spell={ability.abilityId} />
+                      <SpellLink spell={ability.abilityId} /> {ability.extraDetail}
                     </td>
                     <td style={numberColumnStyle}>
                       <TooltipElement content={`${formatPercentage(ability.spent / totalSpent)} %`}>

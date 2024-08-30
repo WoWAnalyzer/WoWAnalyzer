@@ -1,5 +1,4 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 import Events, { RefreshBuffEvent, SpendResourceEvent } from 'parser/core/Events';
 import TALENTS from 'common/TALENTS/shaman';
 import SPELLS from 'common/SPELLS/shaman';
@@ -10,21 +9,37 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { SpellLink } from 'interface';
 import typedKeys from 'common/typedKeys';
+import RESOURCE_TYPES, { Resource } from 'game/RESOURCE_TYPES';
+import SPECS from 'game/SPECS';
 
 enum WastedProcType {
   AwakeningStorms,
   SpendMaelstrom,
 }
 
-abstract class Tempest extends Analyzer {
+interface SpecOptions {
+  requiredMaelstrom: number;
+  resource: Resource;
+}
+
+const SPEC_OPTIONS = {
+  [SPECS.ELEMENTAL_SHAMAN.id]: {
+    requiredMaelstrom: 300,
+    resource: RESOURCE_TYPES.MAELSTROM,
+  },
+  [SPECS.ENHANCEMENT_SHAMAN.id]: {
+    requiredMaelstrom: 40,
+    resource: RESOURCE_TYPES.MAELSTROM_WEAPON,
+  },
+} satisfies Record<number, SpecOptions>;
+
+class Tempest extends Analyzer {
   static dependencies = {
-    resourceTracker: ResourceTracker,
     spellUsable: SpellUsable,
   };
 
-  protected resourceTracker!: ResourceTracker;
   protected spellUsable!: SpellUsable;
-  protected enabledAfterMaelstromSpent: number;
+  protected specOptions: SpecOptions;
 
   protected wastedProcs: { [key: number]: number } = {
     [WastedProcType.AwakeningStorms]: 0,
@@ -35,9 +50,9 @@ abstract class Tempest extends Analyzer {
   private awakeningStormsStacks: number = 0;
   private nextTempestIsFromAwakeningStorms: boolean = false;
 
-  protected constructor(enabledAfterMaelstromSpent: number, options: Options) {
+  constructor(options: Options) {
     super(options);
-    this.enabledAfterMaelstromSpent = enabledAfterMaelstromSpent;
+    this.specOptions = SPEC_OPTIONS[this.selectedCombatant.specId];
 
     this.active = this.selectedCombatant.hasTalent(TALENTS.TEMPEST_TALENT);
     if (!this.active) {
@@ -72,12 +87,12 @@ abstract class Tempest extends Analyzer {
   }
 
   onSpendMaelstrom(event: SpendResourceEvent) {
-    if (event.resourceChangeType !== this.resourceTracker.resource.id) {
+    if (event.resourceChangeType !== this.specOptions.resource.id) {
       return;
     }
     this.current += event.resourceChangeType;
-    if (this.current >= this.enabledAfterMaelstromSpent) {
-      this.current -= this.enabledAfterMaelstromSpent;
+    if (this.current >= this.specOptions.requiredMaelstrom) {
+      this.current -= this.specOptions.requiredMaelstrom;
     }
   }
 

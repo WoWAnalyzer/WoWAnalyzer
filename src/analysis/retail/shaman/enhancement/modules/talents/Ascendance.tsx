@@ -21,7 +21,6 @@ import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS/shaman';
 import Abilities from '../Abilities';
 import Haste from 'parser/shared/modules/Haste';
-import { THORIMS_INVOCATION_LINK } from 'analysis/retail/shaman/enhancement/modules/normalizers/EventLinkNormalizer';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { formatNumber, formatPercentage } from 'common/format';
@@ -36,6 +35,7 @@ import EmbeddedTimelineContainer, {
 } from 'interface/report/Results/Timeline/EmbeddedTimeline';
 import Casts from 'interface/report/Results/Timeline/Casts';
 import { MaelstromWeaponTracker } from 'analysis/retail/shaman/enhancement/modules/resourcetracker';
+import { EnhancementEventLinks } from '../../constants';
 
 const NonMissedCastSpells = [
   TALENTS.SUNDERING_TALENT.id,
@@ -324,7 +324,7 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
     const thorimsInvocationFreeCasts = windstrikes.map((event) => {
       return GetRelatedEvents<DamageEvent>(
         event,
-        THORIMS_INVOCATION_LINK,
+        EnhancementEventLinks.THORIMS_INVOCATION_LINK,
         (e) => e.type === EventType.Damage,
       );
     });

@@ -10,9 +10,12 @@ import TalentAggregateStatisticContainer from 'parser/ui/TalentAggregateStatisti
 import { SpellLink } from 'interface';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import TalentAggregateBars from 'parser/ui/TalentAggregateStatistic';
+import TalentAggregateBars, { TalentAggregateBarSpec } from 'parser/ui/TalentAggregateStatistic';
 import SPELLS from 'common/SPELLS';
 import { MAELSTROM_WEAPON_SOURCE } from '../normalizers/constants';
+import { MaelstromWeaponTracker } from '../resourcetracker';
+import typedKeys from 'common/typedKeys';
+import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
 
 const BAR_COLORS: Record<number, string> = {
   [TALENTS.FROST_SHOCK_TALENT.id]: '#3b7fb0',
@@ -33,6 +36,10 @@ class SwirlingMaelstrom extends Analyzer {
 
   maelstromWeaponTracker!: MaelstromWeaponTracker;
 
+  protected swirlingMaelstromGenerators: {
+    [spellId: number]: { generated: number; wasted: number };
+  } = {};
+
   constructor(options: Options) {
     super(options);
 
@@ -40,12 +47,12 @@ class SwirlingMaelstrom extends Analyzer {
     if (!this.active) {
       return;
     }
-  }
 
     this.addEventListener(
       Events.resourcechange.by(SELECTED_PLAYER).spell(TALENTS.SWIRLING_MAELSTROM_TALENT),
       this.onResourceChange,
     );
+  }
 
   onResourceChange(event: ResourceChangeEvent) {
     const cast = GetRelatedEvent<CastEvent>(
@@ -53,47 +60,45 @@ class SwirlingMaelstrom extends Analyzer {
       MAELSTROM_WEAPON_SOURCE,
       (e) => e.type === EventType.Cast,
     );
-    switch (cast?.ability.guid) {
-      case TALENTS.FROST_SHOCK_TALENT.id:
-        this.frostShock += 1;
-        break;
-      case TALENTS.ICE_STRIKE_TALENT.id:
-        this.iceStrike += 1;
-        break;
+    if (cast) {
+      const spellId = cast.ability.guid;
+      if (!this.swirlingMaelstromGenerators[spellId]) {
+        this.swirlingMaelstromGenerators[spellId] = { generated: 0, wasted: 0 };
+      }
+      this.swirlingMaelstromGenerators[spellId].generated += 1;
+      this.swirlingMaelstromGenerators[spellId].wasted += event.waste;
     }
   }
 
+  get maelstromWeaponGained() {
+    return typedKeys(this.swirlingMaelstromGenerators).reduce(
+      (total, spellId) => (total += this.swirlingMaelstromGenerators[spellId].generated),
+      0,
+    );
+  }
+
+  makeBars(): TalentAggregateBarSpec[] {
+    return typedKeys(this.swirlingMaelstromGenerators).map((spellId) => {
+      const spell = maybeGetTalentOrSpell(spellId)!;
+      const builder = this.swirlingMaelstromGenerators[spellId];
+      return {
+        spell: spell,
+        amount: builder.generated - builder.wasted,
+        color: BAR_COLORS[spellId],
+        tooltip: <>{builder.generated - builder.wasted}</>,
+        subSpecs: [
+          {
+            spell: spell,
+            amount: builder.wasted,
+            color: BAR_COLORS[-1],
+            tooltip: <>{builder.wasted} wasted</>,
+          },
+        ],
+      };
+    });
+  }
+
   statistic() {
-    const bars = [
-      {
-        spell: TALENTS.FROST_SHOCK_TALENT,
-        amount: frostShock.generated,
-        color: BAR_COLORS[TALENTS.FROST_SHOCK_TALENT.id],
-        tooltip: <>{frostShock.generated} generated</>,
-        subSpecs: [
-          {
-            spell: TALENTS.FROST_SHOCK_TALENT,
-            amount: frostShock.wasted,
-            color: BAR_COLORS[-1],
-            tooltip: <>{frostShock.wasted} wasted</>,
-          },
-        ],
-      },
-      {
-        spell: TALENTS.ICE_STRIKE_TALENT,
-        amount: iceStrike.generated,
-        color: BAR_COLORS[TALENTS.ICE_STRIKE_TALENT.id],
-        tooltip: <>{iceStrike.generated} generated</>,
-        subSpecs: [
-          {
-            spell: TALENTS.ICE_STRIKE_TALENT,
-            amount: iceStrike.wasted,
-            color: BAR_COLORS[-1],
-            tooltip: <>{iceStrike.wasted} wasted</>,
-          },
-        ],
-      },
-    ];
     return (
       <TalentAggregateStatisticContainer
         title={
@@ -103,8 +108,7 @@ class SwirlingMaelstrom extends Analyzer {
         }
         footer={
           <>
-            Total <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} />:{' '}
-            {bars.reduce((t, b) => (t += b.amount + b.subSpecs[0].amount), 0)}
+            Total <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} />: {this.maelstromWeaponGained}
           </>
         }
         smallFooter
@@ -112,7 +116,7 @@ class SwirlingMaelstrom extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         wide
       >
-        <TalentAggregateBars bars={bars} wide />
+        <TalentAggregateBars bars={this.makeBars()} wide />
       </TalentAggregateStatisticContainer>
     );
   }
