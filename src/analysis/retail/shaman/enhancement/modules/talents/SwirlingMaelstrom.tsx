@@ -1,13 +1,18 @@
 import TALENTS from 'common/TALENTS/shaman';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, GetRelatedEvents } from 'parser/core/Events';
-import { MAELSTROM_GENERATOR_LINK } from '../normalizers/EventLinkNormalizer';
+import Events, {
+  CastEvent,
+  EventType,
+  GetRelatedEvent,
+  ResourceChangeEvent,
+} from 'parser/core/Events';
 import TalentAggregateStatisticContainer from 'parser/ui/TalentAggregateStatisticContainer';
 import { SpellLink } from 'interface';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentAggregateBars from 'parser/ui/TalentAggregateStatistic';
 import SPELLS from 'common/SPELLS';
+import { MAELSTROM_WEAPON_SOURCE } from '../normalizers/constants';
 
 const BAR_COLORS: Record<number, string> = {
   [TALENTS.FROST_SHOCK_TALENT.id]: '#3b7fb0',
@@ -34,20 +39,24 @@ class SwirlingMaelstrom extends Analyzer {
     }
 
     this.addEventListener(
-      Events.cast
-        .by(SELECTED_PLAYER)
-        .spell([TALENTS.FROST_SHOCK_TALENT, TALENTS.ICE_STRIKE_TALENT]),
-      this.onCast,
+      Events.resourcechange.by(SELECTED_PLAYER).spell(TALENTS.SWIRLING_MAELSTROM_TALENT),
+      this.onResourceChange,
     );
   }
 
-  onCast(event: CastEvent) {
-    if (GetRelatedEvents(event, MAELSTROM_GENERATOR_LINK)) {
-      if (event.ability.guid === TALENTS.FROST_SHOCK_TALENT.id) {
+  onResourceChange(event: ResourceChangeEvent) {
+    const cast = GetRelatedEvent<CastEvent>(
+      event,
+      MAELSTROM_WEAPON_SOURCE,
+      (e) => e.type === EventType.Cast,
+    );
+    switch (cast?.ability.guid) {
+      case TALENTS.FROST_SHOCK_TALENT.id:
         this.frostShock += 1;
-      } else if (event.ability.guid === TALENTS.ICE_STRIKE_TALENT.id) {
+        break;
+      case TALENTS.ICE_STRIKE_TALENT.id:
         this.iceStrike += 1;
-      }
+        break;
     }
   }
 

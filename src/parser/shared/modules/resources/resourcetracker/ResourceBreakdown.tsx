@@ -28,6 +28,7 @@ class ResourceBreakdown extends Component<Props> {
         abilityId: Number(abilityId),
         generated: tracker.buildersObj[Number(abilityId)].generated * scaleFactor,
         wasted: tracker.buildersObj[Number(abilityId)].wasted * scaleFactor,
+        extraDetail: undefined as string | undefined,
       }))
       .sort((a, b) => b.generated - a.generated)
       .filter((ability) => ability.generated > 0 || ability.wasted);
@@ -113,7 +114,7 @@ class ResourceBreakdown extends Component<Props> {
               generated.map((ability) => (
                 <tr key={ability.abilityId}>
                   <td style={{ width: '30%' }}>
-                    <SpellLink spell={ability.abilityId} />
+                    <SpellLink spell={ability.abilityId} /> {ability.extraDetail}
                   </td>
                   <td style={numberColumnStyle}>
                     <TooltipElement

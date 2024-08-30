@@ -27,9 +27,19 @@ import RESOURCE_TYPES, { getResource } from 'game/RESOURCE_TYPES';
 import { Options } from 'parser/core/Analyzer';
 import Spell from 'common/SPELLS/Spell';
 import typedKeys from 'common/typedKeys';
-import { NormalizerOrder } from './constants';
+import {
+  MAELSTROM_WEAPON_LINK,
+  MAELSTROM_WEAPON_LINK_REVERSE,
+  MAELSTROM_WEAPON_SOURCE,
+  NormalizerOrder,
+} from './constants';
 import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
 import Combatant from 'parser/core/Combatant';
+
+const DEBUG = false;
+
+const GAIN_EVENT_TYPES = [EventType.ApplyBuff, EventType.ApplyBuffStack, EventType.RefreshBuff];
+const SPEND_EVENT_TYPES = [EventType.RemoveBuff, EventType.RemoveBuffStack];
 
 enum MaelstromAbilityType {
   Builder = 1,
@@ -65,12 +75,6 @@ const MAXIMUM_MAELSTROM_PER_EVENT = {
   [TALENTS.SUPERCHARGE_TALENT.id]: 3,
   [TALENTS.STATIC_ACCUMULATION_TALENT.id]: 10,
 };
-
-const GAIN_EVENT_TYPES = [EventType.ApplyBuff, EventType.ApplyBuffStack, EventType.RefreshBuff];
-const SPEND_EVENT_TYPES = [EventType.RemoveBuff, EventType.RemoveBuffStack];
-
-const DEBUG = true;
-const MAELSTROM_WEAPON = 'maelstrom-weapon';
 
 interface MaelstromAbility {
   spellId: number | number[];
@@ -203,7 +207,7 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
                 events.splice(moveToIndex + moved.length, 0, ...moved);
               }
             } else if (!isExisting) {
-              AddRelatedEvent(resourcChangeEvent, `${MAELSTROM_WEAPON}-source`, event);
+              AddRelatedEvent(resourcChangeEvent, MAELSTROM_WEAPON_SOURCE, event);
               events.splice(searchResult.index, 0, resourcChangeEvent);
             }
 
@@ -227,12 +231,12 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
             const cr = getMaelstromClassResources(event as CastEvent, this.maxResource);
             cr.amount = spend.type === EventType.RemoveBuff ? 0 : spend.stack;
 
-            if (HasRelatedEvent(spend, MAELSTROM_WEAPON)) {
+            if (HasRelatedEvent(spend, MAELSTROM_WEAPON_LINK)) {
               console.error('Already has a related spend event', spend, foundEvents);
             }
 
-            AddRelatedEvent(event, MAELSTROM_WEAPON, spend);
-            AddRelatedEvent(spend, `${MAELSTROM_WEAPON}-reverse`, event);
+            AddRelatedEvent(event, MAELSTROM_WEAPON_LINK, spend);
+            AddRelatedEvent(spend, MAELSTROM_WEAPON_LINK_REVERSE, event);
 
             skip.add(spend);
           }
@@ -240,9 +244,7 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
       }
     });
 
-    this._doResourceCalculations(events);
-
-    return events;
+    return this._doResourceCalculations(events);
   }
 
   /**
@@ -314,10 +316,10 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
       ) {
         const buffs = GetRelatedEvents<ApplyBuffEvent | ApplyBuffStackEvent | RefreshBuffEvent>(
           event,
-          MAELSTROM_WEAPON,
+          MAELSTROM_WEAPON_LINK,
           (e) => GAIN_EVENT_TYPES.includes(e.type),
         );
-        const fromEvent = GetRelatedEvent(event, `${MAELSTROM_WEAPON}-source`);
+        const fromEvent = GetRelatedEvent(event, MAELSTROM_WEAPON_SOURCE);
 
         if (buffs.length === 0) {
           return;
@@ -354,7 +356,7 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
         if (cr) {
           const buffs = GetRelatedEvents<RemoveBuffEvent | RemoveBuffStackEvent>(
             event,
-            MAELSTROM_WEAPON,
+            MAELSTROM_WEAPON_LINK,
             (e) => SPEND_EVENT_TYPES.includes(e.type),
           );
           if (DEBUG && buffs.length !== 1) {
@@ -384,14 +386,10 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
 
     if (!DEBUG) {
       return events.filter(
-        (event) =>
-          (HasAbility(event) &&
-            event.ability.guid === SPELLS.MAELSTROM_WEAPON_BUFF.id &&
-            [...GAIN_EVENT_TYPES, ...SPEND_EVENT_TYPES].includes(event.type)) ||
-          (event.type === EventType.ResourceChange &&
-            event.resourceChangeType === RESOURCE_TYPES.MAELSTROM_WEAPON.id),
+        (event) => !HasAbility(event) || event.ability.guid !== SPELLS.MAELSTROM_WEAPON_BUFF.id,
       );
     }
+    return events;
   }
 
   private _sourceCheck(event: AnyEvent): boolean {
@@ -626,8 +624,8 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
 
   private _linkEnergizeEvent(event: ResourceChangeEvent, ...linkToEvent: AnyEvent[]) {
     linkToEvent.forEach((linkedEvent) => {
-      AddRelatedEvent(event, MAELSTROM_WEAPON, linkedEvent);
-      AddRelatedEvent(linkedEvent, `${MAELSTROM_WEAPON}-reverse`, event);
+      AddRelatedEvent(event, MAELSTROM_WEAPON_LINK, linkedEvent);
+      AddRelatedEvent(linkedEvent, MAELSTROM_WEAPON_LINK_REVERSE, event);
     });
   }
 }
@@ -658,7 +656,7 @@ const MAELSTROM_ABILITIES = {
     spellIdOverride: TALENTS.STORM_SWELL_TALENT.id,
     maximum: MAXIMUM_MAELSTROM_PER_EVENT[TALENTS.STORM_SWELL_TALENT.id],
     requiresExact: true,
-    backwardsBufferMs: 5,
+    backwardsBufferMs: BufferMs.Cast,
     forwardBufferMs: 5,
     linkToEventType: GAIN_EVENT_TYPES,
     searchDirection: SearchDirection.ForwardsFirst,

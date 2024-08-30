@@ -1,7 +1,11 @@
 export enum NormalizerOrder {
   MaelstromWeaponRefreshBuffNormalizer = -150,
-  MaelstromWeaponCastNormalizer = -100,  
+  MaelstromWeaponCastNormalizer = -100,
   EventOrderNormalizer = -90,
   MaelstromWeaponResourceNormalizer = -80,
   EventLinkNormalizer = -125,
 }
+
+export const MAELSTROM_WEAPON_LINK = 'maelstrom-weapon';
+export const MAELSTROM_WEAPON_LINK_REVERSE = 'maelstrom-weapon';
+export const MAELSTROM_WEAPON_SOURCE = 'maelstrom-weapon-source';
