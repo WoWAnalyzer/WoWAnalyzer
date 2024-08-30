@@ -13,7 +13,7 @@ const talents = {
   AGAINST_ALL_ODDS_TALENT: {
     id: 450986,
     name: 'Against All Odds',
-    icon: 'ability_monk_shuffle',
+    icon: 'achievement_legionpvp6tier1',
     maxRanks: 1,
     entryIds: [125074],
     definitionIds: [{ id: 129906, specId: 269 }],
@@ -495,7 +495,7 @@ const talents = {
       { id: 129705, specId: 268 },
       { id: 129779, specId: 269 },
     ],
-    energyCost: 20,
+    energyCost: 10,
   },
   DIFFUSE_MAGIC_TALENT: {
     id: 122783,

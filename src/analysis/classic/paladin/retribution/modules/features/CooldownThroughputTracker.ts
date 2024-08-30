@@ -6,9 +6,8 @@ import CoreCooldownThroughputTracker, {
 class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static castCooldowns = [
     ...CoreCooldownThroughputTracker.castCooldowns,
-    // Add Cooldown Spells specific to Spec
     {
-      spell: SPELLS.AVENGING_WRATH.id,
+      spell: SPELLS.AVENGING_WRATH.id, // Zealotry is macro'd to wings, so not including it separately
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
   ];

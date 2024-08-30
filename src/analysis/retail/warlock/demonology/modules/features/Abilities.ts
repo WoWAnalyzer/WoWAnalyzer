@@ -117,7 +117,7 @@ class Abilities extends SharedAbilities {
       {
         spell: SPELLS.SUMMON_DEMONIC_TYRANT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: combatant.hasTalent(TALENTS.GRAND_WARLOCKS_DESIGN_TALENT) ? 60 : 90,
+        cooldown: 60,
         gcd: {
           base: 1500,
         },
@@ -125,20 +125,6 @@ class Abilities extends SharedAbilities {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
-      },
-      {
-        spell: TALENTS.NETHER_PORTAL_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 180,
-        enabled: combatant.hasTalent(TALENTS.NETHER_PORTAL_TALENT),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-        buffSpellId: SPELLS.NETHER_PORTAL_BUFF.id,
       },
       {
         spell: TALENTS.POWER_SIPHON_TALENT.id,

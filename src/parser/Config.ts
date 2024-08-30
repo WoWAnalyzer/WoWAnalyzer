@@ -4,22 +4,22 @@ import { Spec } from 'game/SPECS';
 import { AlertKind } from 'interface/Alert';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import { ReactNode } from 'react';
+import GameBranch from 'game/GameBranch';
+import type { StringWithAutocompleteOptions } from 'common/stringWithAutocompleteOptions';
 
 import type { Stats } from './shared/modules/StatTracker';
-import GameBranch from 'game/GameBranch';
 
-type VaultPatchCycle = `0.${0 | 2 | 5 | 7}`;
-type AberrusPatchCycle = `1.${0 | 5 | 7}`;
-type AmirdrassilPatchCycle = `2.${0 | 5 | 6 | 7}`;
-export type DragonflightPatchVersion = `10.${
-  | VaultPatchCycle
-  | AberrusPatchCycle
-  | AmirdrassilPatchCycle}`;
+type VaultPatchCycle = `10.0.${0 | 2 | 5 | 7}`;
+type AberrusPatchCycle = `10.1.${0 | 5 | 7}`;
+type AmirdrassilPatchCycle = `10.2.${0 | 5 | 6 | 7}`;
+export type DragonflightPatchVersion = StringWithAutocompleteOptions<
+  VaultPatchCycle | AberrusPatchCycle | AmirdrassilPatchCycle
+>;
 
-type NerubarPatchCycle = `0.${0 | 2}`;
-export type TwwPatchVersion = `11.${NerubarPatchCycle}`;
+type NerubarPatchCycle = `11.0.${0 | 2}`;
+export type TwwPatchVersion = StringWithAutocompleteOptions<NerubarPatchCycle>;
 
-export type CataPatchVersion = `4.4.0`;
+export type CataPatchVersion = StringWithAutocompleteOptions<`4.4.0`>;
 
 export enum SupportLevel {
   /**

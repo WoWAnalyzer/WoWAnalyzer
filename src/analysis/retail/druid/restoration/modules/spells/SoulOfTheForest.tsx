@@ -13,7 +13,7 @@ import Events, {
 } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
-import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
+import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -29,6 +29,7 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import { isConvoking } from 'analysis/retail/druid/shared/spells/ConvokeSpirits';
+import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBreakdown';
 
 const SOTF_SPELLS = [
   SPELLS.REJUVENATION,
@@ -312,13 +313,14 @@ class SoulOfTheForest extends Analyzer {
 
     const data = (
       <div>
-        <strong>Soul of the Forest usage</strong>
-        <small>
-          {' '}
-          - Green is a Wild Growth use, Yellow is a Rejuvenation or Regrowth use, and Red is an
-          expired or overwritten proc. Mouseover for more details.
-        </small>
-        <PerformanceBoxRow values={this.useEntries} />
+        <CastSummaryAndBreakdown
+          spell={TALENTS_DRUID.SOUL_OF_THE_FOREST_RESTORATION_TALENT}
+          castEntries={this.useEntries}
+          usesInsteadOfCasts
+          goodExtraExplanation={<>used on Wild Growth</>}
+          okExtraExplanation={<>used on Rejuvenation or Regrowth</>}
+          badExtraExplanation={<>proc expired or was overwritten</>}
+        />
       </div>
     );
 

@@ -8,11 +8,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static castCooldowns = [
     ...CoreCooldownThroughputTracker.castCooldowns,
     {
-      spell: TALENTS.NETHER_PORTAL_TALENT.id,
-      duration: 20,
-      summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
-    },
-    {
       spell: TALENTS.GRIMOIRE_FELGUARD_TALENT.id,
       duration: 15,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],

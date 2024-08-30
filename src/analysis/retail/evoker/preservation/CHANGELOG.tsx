@@ -5,6 +5,8 @@ import { TALENTS_EVOKER } from 'common/TALENTS';
 
 // prettier-ignore
 export default [
+  change(date(2024, 8, 22), <>Bumped Preservation to full support for 11.0.2</>, Harrek),
+  change(date(2024, 8, 22), <>Temporarily disabled <SpellLink spell={TALENTS_EVOKER.TITANS_GIFT_TALENT} /> module</>, Harrek),
   change(date(2024, 7, 23), <>Rework T32 tier set module</>, Harrek),
   change(date(2024, 7, 2),  <>Add <SpellLink spell={TALENTS_EVOKER.REVERBERATIONS_TALENT}/>, <SpellLink spell={TALENTS_EVOKER.CHRONO_FLAME_TALENT}/>, <SpellLink spell={TALENTS_EVOKER.THREADS_OF_FATE_TALENT}/> and <SpellLink spell={TALENTS_EVOKER.DOUBLE_TIME_TALENT}/> modules</>, Harrek),
   change(date(2024, 6, 22), <>Add <SpellLink spell={TALENTS_EVOKER.RED_HOT_TALENT} /> module</>, Trevor),

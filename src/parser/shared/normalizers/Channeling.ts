@@ -81,7 +81,7 @@ class Channeling extends EventsNormalizer {
     empowerChannelSpec(SPELLS.SPIRITBLOOM_FONT.id),
     empowerChannelSpec(TALENTS_EVOKER.DREAM_BREATH_TALENT.id),
     empowerChannelSpec(SPELLS.DREAM_BREATH_FONT.id),
-    buffChannelSpec(SPELLS.DISINTEGRATE.id),
+    buffAndNextCastChannelSpec(SPELLS.DISINTEGRATE.id),
     buffChannelSpec(TALENTS_EVOKER.BREATH_OF_EONS_TALENT.id),
     buffChannelSpec(SPELLS.BREATH_OF_EONS_SCALECOMMANDER.id),
     buffChannelSpec(TALENTS_EVOKER.TIME_SKIP_TALENT.id),
@@ -109,9 +109,9 @@ class Channeling extends EventsNormalizer {
     buffChannelSpec(CLASSIC_SPELLS.DRAIN_SOUL.id),
     buffChannelSpec(CLASSIC_SPELLS.DRAIN_LIFE.id),
     buffChannelSpec(CLASSIC_SPELLS.RAIN_OF_FIRE.id),
-    // Holy Priest
-    // Divine Hymn is handled by the Retail version currently
+    // Priest
     buffChannelSpec(CLASSIC_SPELLS.HYMN_OF_HOPE_BUFF.id),
+    buffAndNextCastChannelSpec(CLASSIC_SPELLS.MIND_SEAR.id),
     // Warrior
     buffChannelSpec(CLASSIC_SPELLS.BLADESTORM.id),
   ];
@@ -342,6 +342,53 @@ function buffChannelSpec(spellId: number): ChannelSpec {
           HasAbility(laterEvent) &&
           laterEvent.ability.guid === spellId &&
           (laterEvent.type === EventType.RemoveBuff || laterEvent.type === EventType.RemoveDebuff)
+        ) {
+          endCurrentChannel(laterEvent, state);
+          break;
+        }
+      }
+    }
+  };
+  return {
+    handler,
+    guids,
+  };
+}
+
+/**
+ * Helper to create a channel spec handler for the common case of a channeled spell that can be delimited by a buff.
+ * These cases involve a channeled spell that produces a Cast and ApplyBuff event (with the same guid)
+ * when it starts, and then a RemoveBuff event when it finishes. Some instead put a Debuff on the target, but the
+ * principle is the same.
+ *
+ * This handler works by handling cast events with the given guid, and then scanning forward for the
+ * matched removebuff (or removedebuff) event, as well as another cast or begincast event
+ * and then making the pair of beginchannel and endchannel events based on them.
+ *
+ * @param spellId the guid for the tracked Cast and RemoveBuff/RemoveDebuff events.
+ */
+function buffAndNextCastChannelSpec(spellId: number): ChannelSpec {
+  const guids = [spellId];
+  const handler: ChannelHandler = (
+    event: AnyEvent,
+    events: AnyEvent[],
+    eventIndex: number,
+    state: ChannelState,
+  ) => {
+    if (event.type === EventType.Cast) {
+      // do standard start channel stuff
+      cancelCurrentChannel(event, state);
+      beginCurrentChannel(event, state);
+      // now scan ahead for the matched removebuff or another cast and end the channel at it
+      for (let idx = eventIndex + 1; idx < events.length; idx += 1) {
+        const laterEvent = events[idx];
+        if (
+          (HasAbility(laterEvent) &&
+            laterEvent.ability.guid === spellId &&
+            (laterEvent.type === EventType.RemoveBuff ||
+              laterEvent.type === EventType.RemoveDebuff)) ||
+          laterEvent.type === EventType.BeginCast ||
+          (laterEvent.type === EventType.Cast && isRealCast(laterEvent))
         ) {
           endCurrentChannel(laterEvent, state);
           break;

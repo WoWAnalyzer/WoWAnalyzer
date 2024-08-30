@@ -36,10 +36,6 @@ const cooldowns: Cooldown[] = [
     spell: TALENTS.SUMMON_VILEFIEND_TALENT,
     isActive: (c) => c.hasTalent(TALENTS.SUMMON_VILEFIEND_TALENT),
   },
-  {
-    spell: TALENTS.NETHER_PORTAL_TALENT,
-    isActive: (c) => c.hasTalent(TALENTS.NETHER_PORTAL_TALENT),
-  },
 ];
 
 function CooldownSubsection() {

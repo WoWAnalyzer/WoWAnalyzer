@@ -2052,6 +2052,11 @@ export const Litena: Contributor = {
   ],
 };
 
+export const manu310891: Contributor = {
+  nickname: 'manu310891',
+  github: 'manu310891',
+};
+
 export const jazminite: Contributor = {
   nickname: 'jazminite',
   github: 'jazminite',
@@ -2350,6 +2355,13 @@ export const Ypp: Contributor = {
   ],
 };
 
+export const Texleretour: Contributor = {
+  nickname: 'Tex',
+  github: 'Texleretour',
+  discord: 'texleretour',
+  avatar: avatar('Tex-avatar.jpg'),
+};
+
 export const LucasLevyOB: Contributor = {
   nickname: 'LucasLevyOB',
   github: 'LucasLevyOB',
@@ -2447,4 +2459,16 @@ export const Bhahlou: Contributor = {
 export const Ethelis: Contributor = {
   nickname: 'Ethelis',
   github: 'ethelis',
+};
+
+export const Lithix: Contributor = {
+  nickname: 'Lithix',
+  github: 'Yitaarli',
+  discord: 'lithix#0749',
+};
+
+export const Liavre: Contributor = {
+  nickname: 'Liavre',
+  github: 'Liavre',
+  discord: 'Liavre',
 };

@@ -13,7 +13,9 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
     <>
       <Section title="Core Spells and Buffs">
         {modules.riptide.guideSubsection}
-        {modules.healingRain.guideSubsection}
+        {info.combatant.hasTalent(talents.SURGING_TOTEM_TALENT)
+          ? modules.surgingTotem.guideSubsection
+          : modules.healingRain.guideSubsection}
         {info.combatant.hasTalent(talents.EARTH_SHIELD_TALENT) &&
           modules.earthShield.guideSubsection}
         {info.combatant.hasTalent(talents.UNLEASH_LIFE_TALENT) &&
@@ -31,6 +33,11 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       <Section title="Healing Cooldowns">
         <CooldownGraphSubsection modules={modules} events={events} info={info} />
       </Section>
+
+      {info.combatant.hasTalent(talents.NATURES_SWIFTNESS_TALENT) && (
+        <Section title="Mana efficiency">{modules.naturesSwiftness.guideSubsection}</Section>
+      )}
+
       <PreparationSection />
     </>
   );

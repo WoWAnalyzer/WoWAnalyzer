@@ -89,8 +89,10 @@ class HealingChorus extends Analyzer {
         <BoringSpellValueText spell={TALENTS.HEALING_CHORUS_TALENT}>
           <ItemHealingDone amount={this.healingDoneFromTalent} />
           <br />
-          {circleOfHealingPercentage}% of your total{' '}
-          <SpellLink spell={TALENTS.CIRCLE_OF_HEALING_TALENT} /> healing
+          <small>
+            {circleOfHealingPercentage}% of your total{' '}
+            <SpellLink spell={TALENTS.CIRCLE_OF_HEALING_TALENT} /> healing
+          </small>
         </BoringSpellValueText>
       </Statistic>
     );

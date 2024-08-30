@@ -19,6 +19,7 @@ import PrimalTideCore from '../talents/PrimalTideCore';
 import { EarthShield } from 'analysis/retail/shaman/shared';
 import WavespeakersBlessing from '../talents/WavespeakersBlessing';
 import AncestralReach from '../talents/AncestralReach';
+import Tidewaters from '../talents/Tidewaters';
 
 class TalentStatisticBox extends Analyzer {
   static dependencies = {
@@ -38,6 +39,7 @@ class TalentStatisticBox extends Analyzer {
     earthShield: EarthShield,
     wavespeakersBlessing: WavespeakersBlessing,
     ancestralReach: AncestralReach,
+    tidewaters: Tidewaters,
   };
 
   protected torrent!: Torrent;
@@ -56,6 +58,7 @@ class TalentStatisticBox extends Analyzer {
   protected earthShield!: EarthShield;
   protected wavespeakersBlessing!: WavespeakersBlessing;
   protected ancestralReach!: AncestralReach;
+  protected tidewaters!: Tidewaters;
 
   buildTalentList() {
     const talentList = [];
@@ -76,9 +79,6 @@ class TalentStatisticBox extends Analyzer {
     }
     if (this.selectedCombatant.hasTalent(TALENTS.NATURES_GUARDIAN_TALENT)) {
       talentList.push(this.naturesGuardian.subStatistic());
-    }
-    if (this.selectedCombatant.hasTalent(TALENTS.DOWNPOUR_TALENT)) {
-      talentList.push(this.downpour.subStatistic());
     }
     if (this.selectedCombatant.hasTalent(TALENTS.CLOUDBURST_TOTEM_TALENT)) {
       talentList.push(this.cloudburstTotem.subStatistic());
@@ -106,6 +106,12 @@ class TalentStatisticBox extends Analyzer {
     }
     if (this.selectedCombatant.hasTalent(TALENTS.ANCESTRAL_REACH_TALENT)) {
       talentList.push(this.ancestralReach.subStatistic());
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS.TIDEWATERS_TALENT)) {
+      talentList.push(this.tidewaters.subStatistic());
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS.DOWNPOUR_TALENT)) {
+      talentList.push(this.downpour.subStatistic());
     }
     const sortedTalentList = talentList.sort(
       (a, b) => parseFloat(b.props.value) - parseFloat(a.props.value),

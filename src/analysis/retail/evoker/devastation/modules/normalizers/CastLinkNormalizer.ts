@@ -3,11 +3,13 @@ import TALENTS from 'common/TALENTS/evoker';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import { Options } from 'parser/core/Module';
 import {
+  ApplyDebuffEvent,
   CastEvent,
   DamageEvent,
   EventType,
   GetRelatedEvents,
   HasRelatedEvent,
+  RefreshDebuffEvent,
 } from 'parser/core/Events';
 import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
 
@@ -19,10 +21,15 @@ export const DISINTEGRATE_REMOVE_APPLY = 'DisintegrateRemoveApply';
 export const PYRE_CAST = 'PyreCast';
 export const PYRE_DRAGONRAGE = 'PyreDragonrage';
 export const PYRE_VOLATILITY = 'PyreVolatility';
+export const DISINTEGRATE_CAST_DEBUFF_LINK = 'DisintegrateCastDebuffLink';
+export const DISINTEGRATE_DEBUFF_TICK_LINK = 'DisintegrateDebuffTickLink';
+export const MASS_DISINTEGRATE_CONSUME = 'MassDisintegrateConsume';
 
 export const PYRE_MIN_TRAVEL_TIME = 950;
 export const PYRE_MAX_TRAVEL_TIME = 1_050;
 const CAST_BUFFER_MS = 100;
+const DISINTEGRATE_TICK_BUFFER = 4_000; // Haste dependant
+
 const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: BURNOUT_CONSUME,
@@ -151,6 +158,40 @@ const EVENT_LINKS: EventLink[] = [
       return pyreHitIsUnique(linkingEvent as CastEvent, referencedEvent as DamageEvent);
     },
   },
+  {
+    linkRelation: DISINTEGRATE_CAST_DEBUFF_LINK,
+    reverseLinkRelation: DISINTEGRATE_CAST_DEBUFF_LINK,
+    linkingEventId: SPELLS.DISINTEGRATE.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.DISINTEGRATE.id,
+    referencedEventType: [EventType.ApplyDebuff, EventType.RefreshDebuff],
+    anyTarget: true,
+    forwardBufferMs: CAST_BUFFER_MS,
+    maximumLinks: (C) => (C.hasTalent(TALENTS.MASS_DISINTEGRATE_TALENT) ? 3 : 1),
+  },
+  {
+    linkRelation: DISINTEGRATE_DEBUFF_TICK_LINK,
+    reverseLinkRelation: DISINTEGRATE_DEBUFF_TICK_LINK,
+    linkingEventId: SPELLS.DISINTEGRATE.id,
+    linkingEventType: EventType.Damage,
+    referencedEventId: SPELLS.DISINTEGRATE.id,
+    referencedEventType: [EventType.ApplyDebuff, EventType.RefreshDebuff],
+    backwardBufferMs: DISINTEGRATE_TICK_BUFFER,
+    maximumLinks: 1,
+  },
+  {
+    linkRelation: MASS_DISINTEGRATE_CONSUME,
+    reverseLinkRelation: MASS_DISINTEGRATE_CONSUME,
+    linkingEventId: SPELLS.DISINTEGRATE.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.MASS_DISINTEGRATE_BUFF.id,
+    referencedEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
+    anyTarget: true,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+    isActive: (C) => C.hasTalent(TALENTS.MASS_DISINTEGRATE_TALENT),
+    maximumLinks: 1,
+  },
 ];
 
 class CastLinkNormalizer extends EventLinkNormalizer {
@@ -205,6 +246,31 @@ function pyreHitIsUnique(
   }
 
   return true;
+}
+
+/** Returns the number of targets that was hit by a Disintegrate cast */
+export function getDisintegrateTargetCount(event: CastEvent) {
+  return GetRelatedEvents(event, DISINTEGRATE_CAST_DEBUFF_LINK).length;
+}
+
+/** Returns the apply/refresh debuff events that were caused by a Disintegrate cast */
+export function getDisintegrateDebuffEvents(
+  event: CastEvent,
+): (ApplyDebuffEvent | RefreshDebuffEvent)[] {
+  return GetRelatedEvents(event, DISINTEGRATE_CAST_DEBUFF_LINK);
+}
+
+/** Returns the damage events linked to the Disintegrate debuff events */
+export function getDisintegrateDamageEvents(event: CastEvent): DamageEvent[] {
+  const debuffEvents = getDisintegrateDebuffEvents(event);
+  const damageEvents = debuffEvents.map((debuffEvent) =>
+    GetRelatedEvents<DamageEvent>(debuffEvent, DISINTEGRATE_DEBUFF_TICK_LINK),
+  );
+  return damageEvents.flat();
+}
+
+export function isFromMassDisintegrate(event: CastEvent) {
+  return HasRelatedEvent(event, MASS_DISINTEGRATE_CONSUME);
 }
 
 export default CastLinkNormalizer;

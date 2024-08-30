@@ -17,7 +17,7 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 
 const DEBUG = false;
 
-const REJUV_MAX_BOOST_PER_RANK = 0.1;
+const REJUV_MAX_BOOST_PER_RANK = 0.15;
 const TRANQ_MAX_BOOST_PER_RANK = 0.15;
 
 /**

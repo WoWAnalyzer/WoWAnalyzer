@@ -28,15 +28,12 @@ import DemonicStrength from './modules/talents/DemonicStrength';
 import Doom from './modules/talents/Doom';
 import DreadCalling from './modules/talents/DreadCalling';
 import Dreadlash from './modules/talents/Dreadlash';
-import TheHoundmastersStratagem from './modules/talents/TheHoundmastersStratagem';
 import GrimoireFelguard from './modules/talents/GrimoireFelguard';
 import InnerDemons from './modules/talents/InnerDemons';
-import NetherPortal from './modules/talents/NetherPortal';
 import PowerSiphonNormalizer from './modules/talents/normalizers/PowerSiphonNormalizer';
 import PowerSiphonBuffCastNormalizer from './modules/talents/normalizers/PowerSiphonBuffCastNormalizer';
 import PowerSiphon from './modules/talents/PowerSiphon';
 import SacrificedSouls from './modules/talents/SacrificedSouls';
-import ShadowsBite from './modules/talents/ShadowsBite';
 import SoulConduit from './modules/talents/SoulConduit';
 import SoulStrike from './modules/talents/SoulStrike';
 import SummonVilefiend from './modules/talents/SummonVilefiend';
@@ -83,15 +80,12 @@ class CombatLogParser extends CoreCombatLogParser {
     demonicCalling: DemonicCalling,
     soulConduit: SoulConduit,
     innerDemons: InnerDemons,
-    fromTheShadows: TheHoundmastersStratagem,
     soulStrike: SoulStrike,
     summonVilefiend: SummonVilefiend,
     powerSiphon: PowerSiphon,
     doom: Doom,
     grimoireFelguard: GrimoireFelguard,
     sacrificedSouls: SacrificedSouls,
-    netherPortal: NetherPortal,
-    shadowsBite: ShadowsBite,
     dreadCalling: DreadCalling,
 
     // Shared Spells

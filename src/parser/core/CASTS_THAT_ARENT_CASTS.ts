@@ -105,12 +105,19 @@ const spells: number[] = [
   SPELLS.RAMPAGE_2.id,
   SPELLS.RAMPAGE_3.id,
   SPELLS.RAMPAGE_4.id,
+  SPELLS.ODYNS_FURY_1.id,
+  SPELLS.ODYNS_FURY_2.id,
+  SPELLS.ODYNS_FURY_3.id,
   SPELLS.HACK_AND_SLASH.id,
   SPELLS.WRATH_AND_FURY.id,
   //endregion
 
   //region classic hunter
   CLASSIC_SPELLS.LOCK_AND_LOAD.id,
+  //endregion
+
+  //region classic priest
+  CLASSIC_SPELLS.MIND_SEAR_TICK.id,
   //endregion
 
   //region classic warrior

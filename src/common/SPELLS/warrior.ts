@@ -233,6 +233,11 @@ const spells = {
     name: 'Whirlwind',
     icon: 'ability_whirlwind',
   },
+  ONSLAUGHT: {
+    id: 315720,
+    name: 'Onslaught',
+    icon: 'ability_warrior_trauma',
+  },
 
   // Arms/Fury:
   PIERCING_HOWL: {
@@ -274,10 +279,40 @@ const spells = {
     name: 'Impending Victory',
     icon: 'spell_impending_victory',
   },
-  SPEAR_OF_BASTION: {
-    id: 376080,
-    name: 'Spear of Bastion',
+  IMPENDING_VICTORY: {
+    id: 202168,
+    name: 'Impending Victory',
+    icon: 'spell_impending_victory',
+  },
+  CHAMPIONS_SPEAR: {
+    id: 376079,
+    name: "Champion's Spear",
     icon: 'ability_bastion_warrior',
+  },
+  CHAMPIONS_SPEAR_DAMAGE: {
+    id: 376080,
+    name: "Champion's Spear",
+    icon: 'ability_bastion_warrior',
+  },
+  CHAMPIONS_MIGHT: {
+    id: 386286,
+    name: "Champion's Might",
+    icon: 'ability_bastion_warrior',
+  },
+  WILD_STRIKES: {
+    id: 392778,
+    name: 'Wild Strikes',
+    icon: 'ability_ghoulfrenzy',
+  },
+  AVATAR_SHARED: {
+    id: 107574,
+    name: 'Avatar',
+    icon: 'warrior_talent_icon_avatar',
+  },
+  AVATAR_PROTECTION: {
+    id: 401150,
+    name: 'Avatar',
+    icon: 'warrior_talent_icon_avatar',
   },
 
   // Arms:
@@ -321,6 +356,11 @@ const spells = {
     id: 7384,
     name: 'Overpower',
     icon: 'ability_meleedamage',
+  },
+  SEASONED_SOLDIER: {
+    id: 279423,
+    name: 'Seasoned Soldier',
+    icon: 'inv_axe_09',
   },
   SWEEPING_STRIKES: {
     id: 260708,
@@ -454,6 +494,31 @@ const spells = {
     id: 335096,
     name: 'Bloodbath',
     icon: 'ability_warrior_bloodbath',
+  },
+  ODYNS_FURY: {
+    id: 385060,
+    name: "Odyn's Fury",
+    icon: 'inv_sword_1h_artifactvigfus_d_01',
+  },
+  ODYNS_FURY_1: {
+    id: 385059,
+    name: "Odyn's Fury",
+    icon: 'inv_sword_1h_artifactvigfus_d_01',
+  },
+  ODYNS_FURY_2: {
+    id: 385061,
+    name: "Odyn's Fury",
+    icon: 'inv_sword_1h_artifactvigfus_d_01',
+  },
+  ODYNS_FURY_3: {
+    id: 385062,
+    name: "Odyn's Fury",
+    icon: 'inv_sword_1h_artifactvigfus_d_01',
+  },
+  FRENZY: {
+    id: 335082,
+    name: 'Frenzy',
+    icon: 'ability_rogue_bloodyeye',
   },
 
   // Protection:

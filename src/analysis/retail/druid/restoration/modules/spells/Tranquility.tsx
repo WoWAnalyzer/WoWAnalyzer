@@ -74,16 +74,20 @@ class Tranquility extends Analyzer {
   /** Guide fragment showing a breakdown of each Tranquility cast */
   get guideCastBreakdown() {
     const explanation = (
-      <p>
-        <strong>
-          <SpellLink spell={SPELLS.TRANQUILITY_CAST} />
-        </strong>{' '}
-        is the most independent of your cooldowns, and the one most likely to be assigned explicitly
-        by your raid leader. It should typically be planned for a specific mechanic. The vast
-        majority of Tranquility's healing is direct and not from the HoT. Do NOT use the HoT to
-        ramp. Watch your positioning when you cast - you want to be able to channel full duration
-        without moving.
-      </p>
+      <>
+        <p>
+          <strong>
+            <SpellLink spell={SPELLS.TRANQUILITY_CAST} />
+          </strong>{' '}
+          is the most independent of your cooldowns, and the one most likely to be assigned
+          explicitly by your raid leader. It should typically be planned for a specific mechanic.
+        </p>
+        <p>
+          The vast majority of Tranquility's healing is direct and not from the HoT. Do NOT use the
+          HoT to ramp. Watch your positioning when you cast - you want to be able to channel full
+          duration without moving.
+        </p>
+      </>
     );
 
     const data = (
