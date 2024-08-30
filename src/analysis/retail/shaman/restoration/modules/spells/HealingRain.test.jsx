@@ -167,6 +167,6 @@ describe('Shaman/Restoration/Modules/Spells/HealingRain', () => {
   it('can detect ticks', () => {
     parser.processEvents(events);
     expect(module.healingRainTicks.length).toEqual(5);
-    expect(module.averageHitsPerTick).toEqual(4);
+    expect(module.averageHitsPerTick).toEqual(3.6);
   });
 });

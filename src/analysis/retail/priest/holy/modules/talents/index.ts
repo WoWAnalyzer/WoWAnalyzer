@@ -6,10 +6,10 @@ import * as Archon from './Archon';
 import * as Oracle from './Oracle';
 
 export default {
-  Archon,
-  Oracle,
   TopRow,
   MiddleRow,
   BottomRow,
   Classwide,
+  Archon,
+  Oracle,
 };

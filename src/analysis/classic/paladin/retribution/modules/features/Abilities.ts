@@ -31,6 +31,16 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
+      {
+        spell: SPELLS.INQUISITION.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: SPELLS.TEMPLARS_VERDICT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+      },
       // Rotational AOE
       {
         spell: [SPELLS.CONSECRATION.id],
@@ -49,6 +59,12 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: { base: 1500 },
         cooldown: 60,
+      },
+      {
+        spell: SPELLS.ZEALOTRY.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: null,
+        cooldown: 120,
       },
       // Defensive
       {
@@ -162,6 +178,11 @@ class Abilities extends CoreAbilities {
         spell: [SPELLS.RESISTANCE_AURA.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.REBUKE.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: null,
       },
       // Pet Related
 

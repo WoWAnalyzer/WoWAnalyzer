@@ -47,8 +47,15 @@ import Wellspring from './modules/talents/Wellspring';
 import Undercurrent from './modules/talents/Undercurrent';
 import NaturesSwiftness from './modules/talents/NaturesSwiftness';
 import SpiritwalkersTidalTotem from './modules/talents/SpiritwalkersTidalTotem';
+import Tidewaters from './modules/talents/Tidewaters';
+// Hero talents
+import SurgingTotem from './modules/talents/totemic/SurgingTotem';
 // Spells
+// Tiers
+import TWW1TierSet from './modules/tier/TWW1TierSet';
 // Shared
+import StoneBulwarkTotem from '../shared/talents/StoneBulwarkTotem';
+
 // Normalizers
 import CloudburstNormalizer from './normalizers/CloudburstNormalizer';
 import RiptideNormalizer from './normalizers/RiptideNormalizer';
@@ -119,6 +126,10 @@ class CombatLogParser extends CoreCombatLogParser {
     manaSpring: ManaSpring,
     naturesSwiftness: NaturesSwiftness,
     spiritwalkersTidalTotem: SpiritwalkersTidalTotem,
+    tidewaters: Tidewaters,
+
+    // Hero talents
+    surgingTotem: SurgingTotem,
 
     // Spells
     riptide: Riptide,
@@ -138,6 +149,7 @@ class CombatLogParser extends CoreCombatLogParser {
     astralShift: AstralShift,
     earthShield: EarthShield,
     elementalOrbit: ElementalOrbit,
+    stoneBulwarkTotem: StoneBulwarkTotem,
 
     // Normalizers
     cloudburstNormalizer: CloudburstNormalizer,
@@ -150,6 +162,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Items
     callToDominance: CallToDominance,
+    tww1TierSet: TWW1TierSet,
   };
   static guide = Guide;
 }

@@ -14,7 +14,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.LAY_ON_HANDS.id,
     // JUDGEMENTS
     SPELLS.JUDGEMENT.id,
-    SPELLS.JUDGEMENTS_OF_THE_PURE.id,
     // PROCS & DEF
     SPELLS.DIVINE_SHIELD.id,
     SPELLS.DIVINE_PROTECTION.id,

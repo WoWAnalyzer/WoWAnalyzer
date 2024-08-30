@@ -14,34 +14,34 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.WRATH.id, ...SPELLS.WRATH.lowRanks],
+        spell: SPELLS.WRATH.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.STARFIRE.id, ...SPELLS.STARFIRE.lowRanks],
+        spell: SPELLS.STARFIRE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.MOONFIRE.id, ...SPELLS.MOONFIRE.lowRanks],
+        spell: SPELLS.MOONFIRE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.INSECT_SWARM.id, ...SPELLS.INSECT_SWARM.lowRanks],
+        spell: SPELLS.INSECT_SWARM.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
 
       // Rotational AOE
       {
-        spell: [SPELLS.HURRICANE.id, ...SPELLS.HURRICANE.lowRanks],
+        spell: SPELLS.HURRICANE.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.TYPHOON.id, ...SPELLS.TYPHOON.lowRanks],
+        spell: SPELLS.TYPHOON.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: { base: 1500 },
         cooldown: 20,
@@ -49,7 +49,7 @@ class Abilities extends CoreAbilities {
 
       // Cooldowns
       {
-        spell: [SPELLS.STARFALL.id, ...SPELLS.STARFALL.lowRanks],
+        spell: SPELLS.STARFALL.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: { base: 1500 },
         cooldown: 90,
@@ -91,27 +91,22 @@ class Abilities extends CoreAbilities {
 
       // Utility
       {
-        spell: [SPELLS.REBIRTH.id, ...SPELLS.REBIRTH.lowRanks],
+        spell: SPELLS.REBIRTH.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.REMOVE_CURSE.id],
+        spell: [SPELLS.REMOVE_CORRUPTION.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.ABOLISH_POISON.id],
+        spell: SPELLS.TRANQUILITY.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.TRANQUILITY.id, ...SPELLS.TRANQUILITY.lowRanks],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { base: 1500 },
-      },
-      {
-        spell: [SPELLS.DASH.id, ...SPELLS.DASH.lowRanks],
+        spell: SPELLS.DASH.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
         cooldown: 180,

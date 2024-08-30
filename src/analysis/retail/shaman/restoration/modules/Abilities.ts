@@ -95,6 +95,23 @@ class Abilities extends CoreAbilities {
         healSpellIds: [SPELLS.HEALING_RAIN_HEAL.id],
       },
       {
+        spell: SPELLS.HEALING_RAIN_TOTEMIC.id,
+        enabled: combatant.hasTalent(TALENTS.SURGING_TOTEM_TALENT),
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: combatant.hasTalent(TALENTS.TOTEMIC_SURGE_TALENT) ? 24 : 30,
+        timelineSortIndex: 17,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: false,
+          // majorIssueEfficiency: 0.3,
+          // averageIssueEfficiency: 0.5,
+          // recommendedEfficiency: 0.7,
+        },
+        healSpellIds: [SPELLS.HEALING_RAIN_HEAL.id],
+      },
+      {
         spell: TALENTS.WELLSPRING_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.WELLSPRING_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,

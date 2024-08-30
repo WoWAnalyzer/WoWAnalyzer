@@ -20,7 +20,6 @@ const BUFFER_MS = 50;
  * Ferocious Bite also deals X damage per combo point spent to all nearby enemies affect by your Rip.
  * Damage reduced beyond 5 target.
  */
-// TODO TWW update for Ravage
 class RampantFerocity extends Analyzer {
   totalBiteHits: number = 0;
   totalRampantFerocityHits: number = 0;
