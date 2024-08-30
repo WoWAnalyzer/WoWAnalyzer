@@ -27,7 +27,6 @@ class PremonitionOfPiety extends Analyzer {
   totalPietyOverHealingMD = 0;
   totalNonFBPietyOverhealingMD = 0;
 
-  // Temporary value used as flags or for calculations, private to not pollute include space
   private scaledPietyAmp = PIETY_AMP;
   private scaledPietyOH = PIETY_OVERHEAL_MISDIRECT;
   private pietyBuffActive = false;

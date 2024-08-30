@@ -11,6 +11,7 @@ import { TALENTS_PRIEST } from 'common/TALENTS';
 import { isRenewFromSalv } from '../../../normalizers/CastLinkNormalizer';
 import HotTracker, { Attribution } from 'parser/shared/modules/HotTracker';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
+import { PREEMPTIVE_CARE_RENEW_DUR } from './OracleValues';
 
 class PreemptiveCareHoly extends Analyzer {
   static dependencies = {
@@ -46,7 +47,7 @@ class PreemptiveCareHoly extends Analyzer {
 
     this.renewTracker.addExtension(
       this.attribution,
-      3_000,
+      PREEMPTIVE_CARE_RENEW_DUR,
       target.id,
       TALENTS_PRIEST.RENEW_TALENT.id,
     );
