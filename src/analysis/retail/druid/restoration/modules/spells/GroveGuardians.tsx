@@ -99,8 +99,7 @@ export default class GroveGuardians extends Analyzer.withDependencies(deps) {
           <SpellLink spell={TALENTS_DRUID.GROVE_GUARDIANS_TALENT} />
         </b>{' '}
         is an off-GCD heal that interacts minimally with the rest of your kit. Use it whenever extra
-        throughput is needed, but also it's very efficient so you should avoid overcapping on
-        charges.
+        throughput is needed. It's very efficient - avoid overcapping on charges.
       </p>
     );
 

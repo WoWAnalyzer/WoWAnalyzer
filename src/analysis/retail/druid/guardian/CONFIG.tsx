@@ -10,36 +10,47 @@ const config: Config = {
   contributors: [Sref],
   branch: GameBranch.Retail,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '11.0.0',
+  patchCompatibility: '11.0.2',
   supportLevel: SupportLevel.MaintainedPartial,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
-      Welcome to the Guardian Druid analyzer! We hope you find these suggestions and statistics
-      useful.
-      <br />
-      <br />
-      If you have suggestions or comments about the analyzer you can reach the WoWAnalyzer team on{' '}
-      <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a>, on{' '}
-      <a href="https://discord.gg/AxphPxU">Discord</a>, or message me (
-      <a href="/contributor/Sref">Sref</a>) directly on Discord. We're always interested in
-      improving the analyzer, whether it's in-depth theorycraft or rewording some text to be easier
-      to understand. The whole project is open source and welcomes contributions so you can directly
-      improve it too!
-      <br />
-      <br />
-      If you have questions about playing Guardian check out the{' '}
-      <a href="https://www.discord.gg/dreamgrove">Dreamgrove</a> Discord for an active community,
-      and the{' '}
-      <a href="https://www.wowhead.com/guide/classes/druid/guardian/overview-pve-tank">
-        Guardian guide
-      </a>{' '}
-      on Wowhead is an excellent resource.
+      <p>
+        Welcome to the Guardian Druid analyzer! We hope you find the guide and statistics useful.
+      </p>
+      <p>
+        If you questions, comments, or suggestions about this analyzer, you can reach the
+        WoWAnalyzer team on{' '}
+        <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a>, on{' '}
+        <a href="https://discord.gg/AxphPxU">Discord</a>, or message me (
+        <a href="/contributor/Sref">Sref</a>) directly on Discord. We're always interested in
+        improving the analyzer, whether it's in-depth theorycraft or rewording some text to be
+        easier to understand. The whole project is open source and welcomes contributions so you can
+        directly improve it too!
+      </p>
+      <p>
+        If you have gameplay questions, check out:
+        <ul>
+          <li>
+            <a href="https://www.wowhead.com/guardian-druid-guide">Guardian guide</a> on Wowhead
+          </li>
+          <li>
+            <a href="https://www.dreamgrove.gg/blog/guardian/compendium">Guardian compendium</a> on
+            Dreamgrove.gg
+          </li>
+          <li>
+            <a href="https://discord.gg/dreamgrove" target="_blank" rel="noopener noreferrer">
+              Dreamgrove
+            </a>{' '}
+            - the Druid community Discord
+          </li>
+        </ul>
+      </p>
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: 'report/VWt9ZTmxfhQyLw14/9/11',
+  exampleReport: '/report/R6CJMyPkfdmWacgQ/15-Mythic+Smolderon+-+Kill+(4:43)/Stormstríke/standard',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

@@ -35,6 +35,11 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 8, 28), "Update rating to percentage conversions for stats for The War Within.", Putro),
+  change(date(2024, 8, 25), 'Remove Redux reducer that stored the entire report under analysis.', ToppleTheNun),
+  change(date(2024, 8, 22), 'Update Druid spells for Classic Cataclysm', jazminite),
+  change(date(2024, 8, 13), 'Add patch 11.0.2.', ToppleTheNun),
+  change(date(2024, 8, 10), <>Implement buffAndNextCastChannelSpec for channeling normalizer</>, Vollmer),
   change(date(2024, 8, 9), <>Fix the haste bonus of <SpellLink spell={SPELLS.BERSERKING.id} /> in Classic Cataclysm.</>, emallson),
   change(date(2024, 8, 7), 'Prepare for cleanup of Dragonflight items.', ToppleTheNun),
   change(date(2024, 8, 6), 'Update Priest spells for Classic Cataclysm', jazminite),

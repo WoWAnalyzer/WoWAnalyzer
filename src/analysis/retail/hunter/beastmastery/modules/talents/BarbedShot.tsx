@@ -1,5 +1,4 @@
 import { t, Trans } from '@lingui/macro';
-import CastSummaryAndBreakdown from 'analysis/retail/demonhunter/shared/guide/CastSummaryAndBreakdown';
 import { MS_BUFFER_250 } from 'analysis/retail/hunter/shared/constants';
 import { formatDuration, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -32,6 +31,7 @@ import {
 } from '../../constants';
 import GlobalCooldown from '../core/GlobalCooldown';
 import SpellUsable from '../core/SpellUsable';
+import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBreakdown';
 
 /**
  * Fire a shot that tears through your enemy, causing them to bleed for X damage over 8 sec. Sends your pet into a frenzy, increasing attack speed by 30% for 8 sec, stacking up to 3 times.

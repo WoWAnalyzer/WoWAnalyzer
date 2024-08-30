@@ -149,13 +149,7 @@ class PetSummonHandler extends Analyzer {
       if (this._lastIDtick && event.timestamp <= this._lastIDtick + BUFFER) {
         return TALENTS.INNER_DEMONS_TALENT.id;
       }
-      if (
-        this.selectedCombatant.hasBuff(SPELLS.NETHER_PORTAL_BUFF.id) &&
-        this._lastSpendResource &&
-        event.timestamp <= this._lastSpendResource + BUFFER
-      ) {
-        return TALENTS.NETHER_PORTAL_TALENT.id;
-      }
+
       debug && this.error('Unknown source of summon event', event);
       return -1;
     }

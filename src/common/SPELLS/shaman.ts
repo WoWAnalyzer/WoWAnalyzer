@@ -660,7 +660,7 @@ const spells = {
     id: 8004,
     name: 'Healing Surge',
     icon: 'spell_nature_healingway',
-    manaCost: 12000, // enh/ele cost is higher
+    manaCost: 110000, // enh/ele cost is higher
   },
   TIDAL_WAVES_BUFF: {
     id: 53390,
@@ -778,6 +778,16 @@ const spells = {
     name: 'High Tide',
     icon: 'spell_shaman_hightide',
   },
+  NATURES_SWIFTNESS_BUFF: {
+    id: 378081,
+    name: "Nature's Swiftness",
+    icon: 'spell_nature_ravenform',
+  },
+  SPIRITWALKERS_TIDAL_TOTEM_BUFF: {
+    id: 404523,
+    name: "Spiritwalker's Tidal Totem",
+    icon: 'spell_nature_regeneration_02',
+  },
   MANA_TIDE_TOTEM_BUFF: {
     id: 320763,
     name: 'Mana Tide Totem',
@@ -857,6 +867,46 @@ const spells = {
     id: 462844,
     name: 'Stone Bulwark',
     icon: 'ability_shaman_stonebulwark',
+  },
+  DOWNPOUR_ABILITY: {
+    id: 462603,
+    name: 'Downpour',
+    icon: 'ability_mage_waterjet',
+  },
+  DOWNPOUR_HEAL: {
+    id: 207778,
+    name: 'Downpour',
+    icon: 'ability_mage_waterjet',
+  },
+  HEALING_RAIN_TOTEMIC: {
+    id: 456366,
+    name: 'Healing Rain',
+    icon: 'spell_nature_giftofthewaterspirit',
+  },
+  SURGING_TOTEM: {
+    id: 444995,
+    name: 'Surging Totem',
+    icon: 'inv_ability_totemicshaman_surgingtotem',
+  },
+  WHIRLING_AIR: {
+    id: 453409,
+    name: 'Whirling Air',
+    icon: 'inv_10_elementalcombinedfoozles_air',
+  },
+  WHIRLING_EARTH: {
+    id: 453406,
+    name: 'Whirling Earth',
+    icon: 'inv_10_elementalcombinedfoozles_earth',
+  },
+  WHIRLING_WATER: {
+    id: 453407,
+    name: 'Whirling Water',
+    icon: 'inv_10_elementalcombinedfoozles_water',
+  },
+  TIDEWATERS_HEAL: {
+    id: 462425,
+    name: 'Tidewaters',
+    icon: 'ability_shawaterelemental_split',
   },
   /** HERO TALENTS **/
   // Stormbringer

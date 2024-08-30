@@ -573,6 +573,11 @@ const spells = {
     name: 'Redoubt',
     icon: 'ability_warrior_shieldguard',
   },
+  OVERFLOWING_LIGHT_BUFF: {
+    id: 461499,
+    name: 'Overflowing Light',
+    icon: 'spell_holy_holyguidance',
+  },
   // Bonus set tiers
   PROTECTION_PALADIN_T19_2SET_BONUS_BUFF: {
     id: 211553,

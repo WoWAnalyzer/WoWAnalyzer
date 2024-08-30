@@ -1,17 +1,15 @@
 import { expect, test } from './fixtures';
 
-const reportCode = '6YPW2m1bMBLAgvQG';
-const reportTitle = 'prepatch is a silly billy time';
-const fightLinkName = 'Kill 5:17';
-const fightUrlPart = '12-Mythic+Tindral+Sageswift,+Seer+of+the+Flame+-+Kill+(5:17)';
-const bossTitle = `Mythic Tindral Sageswift, Seer of the Flame - Kill (5:17)`;
+const reportCode = 'GaB2ZMR769kJ8vNq';
+const reportTitle = "Amirdrassil, the Dream's Hope";
+const fightLinkName = 'Kill 4:36';
+const fightUrlPart = '11-Mythic+Smolderon+-+Kill+(4:36)';
+const bossTitle = `Mythic Smolderon - Kill (4:36)`;
 const fightPageTitle = `${bossTitle} in ${reportTitle}`;
-const playerLinkName = 'Toppledh Vengeance Demon Hunter Vengeance Demon Hunter 526';
-const playerName = 'Toppledh';
-const bossDifficultyAndName = 'MythicTindral Sageswift, Seer of Flame';
+const playerName = 'Thundrdh';
+const playerLinkName = `${playerName} Vengeance Demon Hunter Vengeance Demon Hunter 524`;
 const resultsPageTitle = `${bossTitle} by ${playerName} in ${reportTitle}`;
-
-// TODO: update this once we have a properly supported TWW spec
+const bossDifficultyAndName = 'MythicSmolderon';
 
 test.skip('report selection', async ({ page, homePage, fightSelectionPage }) => {
   await homePage.goto();

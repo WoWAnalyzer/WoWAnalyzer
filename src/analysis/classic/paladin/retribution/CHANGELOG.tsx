@@ -1,6 +1,6 @@
 import { change, date } from 'common/changelog';
-import { jazminite } from 'CONTRIBUTORS';
+import { emallson } from 'CONTRIBUTORS';
 
 export default [
-  change(date(2023, 4, 18), 'Add Classic Retribution Paladin stub.', jazminite),
+  change(date(2024, 8, 24), 'Added foundational support for Retribution Paladin.', emallson),
 ];

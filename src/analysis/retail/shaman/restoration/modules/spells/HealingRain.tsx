@@ -1,6 +1,5 @@
 import { defineMessage, Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
-import { TIERS } from 'game/TIERS';
 import TALENTS, { TALENTS_SHAMAN } from 'common/TALENTS/shaman';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
@@ -15,8 +14,7 @@ import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
-import { SHAMAN_DF2_ID } from 'common/ITEMS/dragonflight';
-import ItemSetLink from 'interface/ItemSetLink';
+import { HEALING_RAIN_TARGETS } from '../../constants';
 
 // 50 was too low, 100 was too high
 // had no issues with 85ms
@@ -35,7 +33,7 @@ class HealingRain extends Analyzer {
   protected combatants!: Combatants;
 
   healingRainTicks: HealingRainTickInfo[] = [];
-  maxTargets = 6;
+  maxTargets = HEALING_RAIN_TARGETS;
   totalMaxTargets = 0;
   unleashLifeRemaining = false;
   lastUnleashLifeTimestamp: number = Number.MAX_SAFE_INTEGER;
@@ -101,7 +99,7 @@ class HealingRain extends Analyzer {
     return {
       actual: this.averageHitsPerTick,
       isLessThan: {
-        minor: 5,
+        minor: 4,
         average: 3,
         major: 2,
       },
@@ -127,10 +125,7 @@ class HealingRain extends Analyzer {
       });
     } else {
       // dirty fix for partial ticks happening at the same time as a real tick
-      healingRainTick.hits =
-        healingRainTick.hits + 1 > this.maxTargets
-          ? (healingRainTick.hits = this.maxTargets)
-          : healingRainTick.hits + 1;
+      healingRainTick.hits = Math.min(this.maxTargets, healingRainTick.hits + 1);
     }
   }
 
@@ -138,11 +133,11 @@ class HealingRain extends Analyzer {
     const spellId = event.ability.guid;
 
     if (spellId === TALENTS.HEALING_RAIN_TALENT.id) {
-      this.totalMaxTargets += 6;
+      this.totalMaxTargets += HEALING_RAIN_TARGETS;
       this.casts += 1;
-      this.maxTargets = 6;
+      this.maxTargets = HEALING_RAIN_TARGETS;
       if (this.unleashLifeRemaining === true) {
-        this.maxTargets = 8;
+        this.maxTargets += 2;
         this.totalMaxTargets += 2;
       }
     }
@@ -182,15 +177,6 @@ class HealingRain extends Analyzer {
         <SpellLink spell={SPELLS.HEALING_SURGE} /> and{' '}
         <SpellLink spell={TALENTS.CHAIN_HEAL_TALENT} /> through{' '}
         <SpellLink spell={TALENTS.DELUGE_TALENT} />
-        {this.selectedCombatant.has2PieceByTier(TIERS.DF2) && (
-          <>
-            and is the activator for your{' '}
-            <ItemSetLink id={SHAMAN_DF2_ID}>
-              <>Tier 30 Set Bonus</>
-            </ItemSetLink>{' '}
-            and should be used as often as possible
-          </>
-        )}
       </p>
     );
 
@@ -235,7 +221,8 @@ class HealingRain extends Analyzer {
           <TooltipElement
             content={
               <Trans id="shaman.restoration.healingRain.averageTargets.label.tooltip">
-                The average number of targets healed by Healing Rain out of the maximum amount of 6
+                The average number of targets healed by Healing Rain out of the maximum amount of{' '}
+                {HEALING_RAIN_TARGETS}
                 targets.
               </Trans>
             }

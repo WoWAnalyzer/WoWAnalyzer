@@ -1,5 +1,5 @@
 import AbilityTracker from 'analysis/retail/priest/holy/modules/core/AbilityTracker';
-import { Mindgames, TranslucentImage } from 'analysis/retail/priest/shared';
+import { TranslucentImage } from 'analysis/retail/priest/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
@@ -20,7 +20,6 @@ import HealingTargetTracker from './modules/features/HealingTargetTracker';
 import HealingEfficiencyDetails from './modules/features/HolyPriestHealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/features/HolyPriestHealingEfficiencyTracker';
 import SpellUsable from './modules/features/SpellUsable';
-import StatWeights from './modules/features/StatWeights';
 import CircleOfHealing from './modules/spells/CircleOfHealing';
 import DivineHymn from './modules/spells/DivineHymn';
 import GuardianSpirit from './modules/spells/GuardianSpirit';
@@ -42,6 +41,8 @@ import PrayerOfHealing from './modules/spells/PrayerOfHealing';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import Guide from './Guide';
 import Benevolence from '../shared/Benevolence';
+import RenewTracker from './modules/talents/Oracle/OracleCore/RenewTracker';
+import RenewAttributor from './modules/talents/Oracle/OracleCore/RenewAttributor';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -70,6 +71,8 @@ class CombatLogParser extends CoreCombatLogParser {
     fortitudeRaidBuff: FortitudeRaidBuff,
     holyWordsReductionBySpell: HolyWordsReductionBySpell,
     holyWordWastedAmounts: HolyWordWastedAmounts,
+    renewTracker: RenewTracker,
+    renewAttributor: RenewAttributor,
 
     // Spells
     divineHymn: DivineHymn,
@@ -80,7 +83,7 @@ class CombatLogParser extends CoreCombatLogParser {
     holyWordSerenity: HolyWordSerenity,
     holyWordChastise: HolyWordChastise,
     holyWordSalvation: HolyWordSalvationCooldown,
-    statWeights: StatWeights,
+
     circleOfHealing: CircleOfHealing,
     prayerOfHealing: PrayerOfHealing,
     benevolence: Benevolence,
@@ -120,7 +123,6 @@ class CombatLogParser extends CoreCombatLogParser {
     Benediction: Talents.MiddleRow.Benediction,
     RevitalizingPrayers: Talents.MiddleRow.RevitalizingPrayers,
     DivineStar: Talents.Classwide.DivineStar,
-    Mindgames: Mindgames,
     DivineWord: Talents.BottomRow.DivineWord,
 
     HolyWordSalvation: Talents.BottomRow.HolyWordSalvation,
@@ -138,6 +140,17 @@ class CombatLogParser extends CoreCombatLogParser {
     Lightwell: Talents.BottomRow.Lightwell,
 
     BurningVehemence: Talents.TopRow.BurningVehemence,
+
+    //Oracle Hero Talents
+    PremontitionOfSolace: Talents.Oracle.PremonitionOfSolace,
+    PremonitionOfPiety: Talents.Oracle.PremonitionOfPiety,
+    PremonitionOfInsight: Talents.Oracle.PremonitionOfInsight,
+
+    //Holy Specific Oracle Hero Talents
+    PreventiveMeasuresHoly: Talents.Oracle.PreventiveMeasuresHoly,
+    PreemptiveCareHoly: Talents.Oracle.PreemptiveCareHoly,
+    ProphetsWillHoly: Talents.Oracle.ProphetsWillHoly,
+    AssuredSafetyHoly: Talents.Oracle.AssuredSafetyHoly,
 
     // Mana Tab
     manaTracker: ManaTracker,

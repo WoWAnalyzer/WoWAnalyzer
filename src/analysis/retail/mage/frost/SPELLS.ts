@@ -132,6 +132,11 @@ const spells = {
     name: 'Cryopathy',
     icon: 'ability_hunter_pointofnoescape',
   },
+  SPELLFROST_TEACHINGS_BUFF: {
+    id: 458411,
+    name: 'Spellfrost Teachings',
+    icon: '70_inscription_vantus_rune_azure',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;

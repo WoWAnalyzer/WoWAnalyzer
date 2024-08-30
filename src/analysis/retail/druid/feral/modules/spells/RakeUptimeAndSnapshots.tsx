@@ -18,11 +18,12 @@ import Snapshots, {
 } from 'analysis/retail/druid/feral/modules/core/Snapshots';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { proccedBloodtalons } from 'analysis/retail/druid/feral/normalizers/BloodtalonsLinkNormalizer';
-import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
+import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { BadColor, OkColor } from 'interface/guide';
+import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBreakdown';
 
 /** Tracking code for everything Rake related */
 class RakeUptimeAndSnapshots extends Snapshots {
@@ -197,20 +198,18 @@ class RakeUptimeAndSnapshots extends Snapshots {
           {this.subStatistic()}
         </RoundedPanel>
         <br />
-        <strong>Rake casts</strong>
-        <small>
-          {' '}
-          - Green is a good cast{' '}
-          {hasBt && (
+        <CastSummaryAndBreakdown
+          spell={SPELLS.RAKE}
+          castEntries={this.castEntries}
+          goodExtraExplanation={
             <>
-              (or a cast with problems that procced{' '}
-              <SpellLink spell={TALENTS_DRUID.BLOODTALONS_TALENT} />)
+              or a cast with problems that procced{' '}
+              <SpellLink spell={TALENTS_DRUID.BLOODTALONS_TALENT} />
             </>
-          )}
-          , Yellow is an ok cast (clipped duration but upgraded snapshot), Red is a bad cast
-          (clipped duration or downgraded snapshot w/ &gt;2s remaining). Mouseover for more details.
-        </small>
-        <PerformanceBoxRow values={this.castEntries} />
+          }
+          okExtraExplanation={<>clipped duration but upgraded snapshot</>}
+          badExtraExplanation={<>clipped duration or downgraded snapshot w/ &gt;2s remaining</>}
+        />
       </div>
     );
 

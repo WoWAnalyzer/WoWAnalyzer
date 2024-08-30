@@ -70,7 +70,7 @@ const CLASSIC_RAID_BUFFS = new Map<Spell, Array<Class | object>>([
   // Intellect
   [CLASSIC_SPELLS.ARCANE_BRILLIANCE, [Class.Mage]],
   // Stats
-  [CLASSIC_SPELLS.GIFT_OF_THE_WILD, [Class.Druid]],
+  [CLASSIC_SPELLS.MARK_OF_THE_WILD, [Class.Druid]],
   // Stats %
   // Attack Power
   // MP5

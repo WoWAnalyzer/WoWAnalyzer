@@ -16,8 +16,10 @@ import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'parser/ui/LazyLoadStatist
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import StatisticBox from 'parser/ui/StatisticBox';
 import { abilityToSpell } from 'common/abilityToSpell';
-
-const ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH_PER_POINT = 0.05;
+import {
+  DOWNPOUR_INCREASED_MAX_HEALTH,
+  ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH,
+} from '../../constants';
 
 class AncestralVigor extends Analyzer {
   static dependencies = {
@@ -28,14 +30,17 @@ class AncestralVigor extends Analyzer {
 
   loaded = false;
   lifeSavingEvents: DamageEvent[] = [];
+  filteredLifeSavingEvents: DamageEvent[] = [];
   disableStatistics = false;
   ancestralVigorIncrease: number;
+  downpourIncrease: number;
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.ANCESTRAL_VIGOR_TALENT);
-    this.ancestralVigorIncrease =
-      this.selectedCombatant.getTalentRank(TALENTS.ANCESTRAL_VIGOR_TALENT) *
-      ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH_PER_POINT;
+    this.active =
+      this.selectedCombatant.hasTalent(TALENTS.ANCESTRAL_VIGOR_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS.DOWNPOUR_TALENT);
+    this.ancestralVigorIncrease = ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH;
+    this.downpourIncrease = DOWNPOUR_INCREASED_MAX_HEALTH;
   }
 
   // recursively fetch events until no nextPageTimestamp is returned
@@ -57,8 +62,9 @@ class AncestralVigor extends Analyzer {
     return checkAndFetch(query);
   }
 
-  load() {
-    const HP_THRESHOLD = 1 - 1 / (1 + this.ancestralVigorIncrease);
+  loadOne(skillId: number) {
+    // max effective bonus possible, when both buffs are active (they stack multiplicatively)
+    const HP_THRESHOLD = 1 - 1 / ((1 + this.ancestralVigorIncrease) * (1 + this.downpourIncrease));
     // clear array to avoid duplicate entries after switching tabs and clicking it again
     this.lifeSavingEvents = [];
     const query: WclOptions = {
@@ -76,16 +82,26 @@ class AncestralVigor extends Analyzer {
             10000 * HP_THRESHOLD,
           )}
         FROM type='${EventType.ApplyBuff}'
-          AND ability.id=${SPELLS.ANCESTRAL_VIGOR.id}
+          AND ability.id=${skillId}
           AND source.name='${this.selectedCombatant.name}'
         TO type='${EventType.RemoveBuff}'
-          AND ability.id=${SPELLS.ANCESTRAL_VIGOR.id}
+          AND ability.id=${skillId}
           AND source.name='${this.selectedCombatant.name}'
         END
       )`,
       timeout: 2000,
     };
     return this.fetchAll(`report/events/${this.owner.report.code}`, query);
+  }
+
+  load() {
+    const vigorQuery = this.selectedCombatant.hasTalent(TALENTS.ANCESTRAL_VIGOR_TALENT)
+      ? this.loadOne(SPELLS.ANCESTRAL_VIGOR.id)
+      : null;
+    const downpourQuery = this.selectedCombatant.hasTalent(TALENTS.DOWNPOUR_TALENT)
+      ? this.loadOne(SPELLS.DOWNPOUR_HEAL.id)
+      : null;
+    return Promise.all([vigorQuery, downpourQuery]);
   }
 
   statistic() {
@@ -96,17 +112,25 @@ class AncestralVigor extends Analyzer {
     );
     if (
       restoShamans &&
-      restoShamans.some((shaman) => shaman.hasTalent(TALENTS.ANCESTRAL_VIGOR_TALENT))
+      restoShamans.some(
+        (shaman) =>
+          shaman.hasTalent(TALENTS.ANCESTRAL_VIGOR_TALENT) ||
+          shaman.hasTalent(TALENTS.DOWNPOUR_TALENT),
+      )
     ) {
       this.disableStatistics = true;
     }
     const tooltip = this.loaded ? (
       <Trans id="shaman.restoration.av.statistic.tooltip.active">
-        The amount of players that would have died without your Ancestral Vigor buff.
+        The amount of players that would have died without your max health increase buffs{' '}
+        <SpellLink spell={TALENTS.ANCESTRAL_VIGOR_TALENT} /> and{' '}
+        <SpellLink spell={TALENTS.DOWNPOUR_TALENT} />.
       </Trans>
     ) : (
       <Trans id="shaman.restoration.av.statistic.tooltip.inactive">
-        Click to analyze how many lives were saved by the ancestral vigor buff.
+        Click to analyze how many lives were saved by your max health increase buffs{' '}
+        <SpellLink spell={TALENTS.ANCESTRAL_VIGOR_TALENT} /> and{' '}
+        <SpellLink spell={TALENTS.DOWNPOUR_TALENT} />.
       </Trans>
     );
     if (this.disableStatistics) {
@@ -117,9 +141,9 @@ class AncestralVigor extends Analyzer {
           value={<Trans id="shaman.restoration.av.statistic.disabled">Module disabled</Trans>}
           tooltip={
             <Trans id="shaman.restoration.av.statistic.disabled.reason">
-              There were multiple Restoration Shamans with Ancestral Vigor in your raid group, this
-              causes major issues with buff tracking. As the results from this module would be very
-              inaccurate, it was disabled.
+              There were multiple Restoration Shamans with Ancestral Vigor or Downpour in your raid
+              group, this causes major issues with buff tracking. As the results from this module
+              would be very inaccurate, it was disabled.
             </Trans>
           }
           category={STATISTIC_CATEGORY.TALENTS}
@@ -127,11 +151,65 @@ class AncestralVigor extends Analyzer {
         />
       );
     } else {
+      // Because we now have 2 buffs giving +10% max hp and stacking multiplicatively, we have to consider that the bonus to account for is a +21% max hp,
+      // and filter the events according to the active buffs at the time of the DamageEvent
+      this.lifeSavingEvents.map((event, index) => {
+        const combatant = this.combatants.getEntity(event);
+        if (!combatant) {
+          return null;
+        }
+
+        // Check for duplicates, based on timestamp
+        if (this.filteredLifeSavingEvents.find((e) => e.timestamp === event.timestamp)) {
+          return null;
+        }
+
+        // Check presence of buffs in the timeframe
+        if (
+          !combatant.hasBuff(SPELLS.DOWNPOUR_HEAL.id, event.timestamp, 100, 50) &&
+          !combatant.hasBuff(SPELLS.ANCESTRAL_VIGOR.id, event.timestamp, 100, 50)
+        ) {
+          return null;
+        }
+
+        // Compute the current max HP bonus from our buffs
+        const currentDownpourIncrease = combatant.hasBuff(
+          SPELLS.DOWNPOUR_HEAL.id,
+          event.timestamp,
+          100,
+          50,
+        )
+          ? DOWNPOUR_INCREASED_MAX_HEALTH
+          : 0;
+        const currentAncestralVigorIncrease = combatant.hasBuff(
+          SPELLS.ANCESTRAL_VIGOR.id,
+          event.timestamp,
+          100,
+          50,
+        )
+          ? ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH
+          : 0;
+
+        // compute health ratio relevant for the statistic, with the current active buffs
+        const currentBonusHealthRatio =
+          1 - 1 / ((1 + currentAncestralVigorIncrease) * (1 + currentDownpourIncrease));
+        const currentHealthRatio = (event.hitPoints || NaN) / (event.maxHitPoints || NaN);
+        if (currentHealthRatio > currentBonusHealthRatio) {
+          return null;
+        }
+        this.filteredLifeSavingEvents.push(event);
+
+        // dirty fix for the value return warning
+        return event;
+      });
+      // As we now have 2 WCL queries, a sort is required
+      this.filteredLifeSavingEvents.sort((a, b) => a.timestamp - b.timestamp);
+
       return (
         <LazyLoadStatisticBox
           loader={this.load.bind(this)}
           icon={<SpellIcon spell={SPELLS.ANCESTRAL_VIGOR} />}
-          value={`≈${this.lifeSavingEvents.length}`}
+          value={`≈${this.filteredLifeSavingEvents.length}`}
           label={<Trans id="shaman.restoration.av.statistic.label">Lives saved</Trans>}
           tooltip={tooltip}
           category={STATISTIC_CATEGORY.TALENTS}
@@ -150,16 +228,21 @@ class AncestralVigor extends Analyzer {
                   <Trans id="common.ability">Ability</Trans>
                 </th>
                 <th>
+                  <Trans id="common.buffs">Buff(s)</Trans>
+                </th>
+                <th>
                   <Trans id="common.health">Health</Trans>
                 </th>
               </tr>
             </thead>
             <tbody>
-              {this.lifeSavingEvents.map((event, index) => {
+              {this.filteredLifeSavingEvents.map((event, index) => {
                 const combatant = this.combatants.getEntity(event);
+
                 if (!combatant) {
                   return null;
                 }
+
                 const specClassName = combatant.player.type.replace(' ', '');
 
                 return (
@@ -172,6 +255,22 @@ class AncestralVigor extends Analyzer {
                       <SpellLink spell={abilityToSpell(event.ability)} icon={false}>
                         <Icon icon={event.ability.abilityIcon} />
                       </SpellLink>
+                    </td>
+                    <td>
+                      {combatant.hasBuff(SPELLS.DOWNPOUR_HEAL.id, event.timestamp, 100, 50) && (
+                        <>
+                          <SpellLink spell={SPELLS.DOWNPOUR_HEAL} icon={false}>
+                            <Icon icon={SPELLS.DOWNPOUR_HEAL.icon} />
+                          </SpellLink>
+                        </>
+                      )}
+                      {combatant.hasBuff(SPELLS.ANCESTRAL_VIGOR.id, event.timestamp, 100, 50) && (
+                        <>
+                          <SpellLink spell={TALENTS.ANCESTRAL_VIGOR_TALENT} icon={false}>
+                            <Icon icon={TALENTS.ANCESTRAL_VIGOR_TALENT.icon} />
+                          </SpellLink>
+                        </>
+                      )}
                     </td>
                     <td>
                       {formatPercentage((event.hitPoints || NaN) / (event.maxHitPoints || NaN))}%

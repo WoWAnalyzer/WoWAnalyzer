@@ -12,7 +12,7 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
-const COOLDOWN_REDUCTION_MS_PER_POINT = 1500;
+const COOLDOWN_REDUCTION_MS_PER_POINT = 2000;
 
 class CrusadersMight extends Analyzer {
   static dependencies = {
