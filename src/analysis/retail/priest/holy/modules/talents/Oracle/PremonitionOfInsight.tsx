@@ -23,7 +23,6 @@ class PremonitionOfInsight extends Analyzer {
   protected spellUsable!: SpellUsable;
   protected combatants!: Combatants;
 
-  // Temporary value used as flags or for calculations
   private insightCastNumber: number = 1;
   private insightStackNumber: number = 1;
   private scaledInsightCDR = INSIGHT_CDR;

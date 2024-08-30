@@ -150,12 +150,12 @@ class CombatLogParser extends CoreCombatLogParser {
     EnergyCompressionHoly: Talents.Archon.EnergyCompressionHoly,
     PowerSurgeAndDivineHaloHoly: Talents.Archon.PowerSurgeAndDivineHaloHoly,
 
-    //Oracle Hero Talents
+    // Oracle Hero Talents
     PremontitionOfSolace: Talents.Oracle.PremonitionOfSolace,
     PremonitionOfPiety: Talents.Oracle.PremonitionOfPiety,
     PremonitionOfInsight: Talents.Oracle.PremonitionOfInsight,
 
-    //Holy Specific Oracle Hero Talents
+    // Holy Specific Oracle Hero Talents
     PreventiveMeasuresHoly: Talents.Oracle.PreventiveMeasuresHoly,
     PreemptiveCareHoly: Talents.Oracle.PreemptiveCareHoly,
     ProphetsWillHoly: Talents.Oracle.ProphetsWillHoly,

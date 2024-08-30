@@ -18,7 +18,6 @@ class AssuredSafetyHoly extends Analyzer {
 
   protected combatants!: Combatants;
 
-  // Temporary value used as flags or for calculations
   private totalAssuredSafetyAbsorb = 0;
 
   constructor(options: Options) {

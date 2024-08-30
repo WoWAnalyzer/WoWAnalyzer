@@ -11,9 +11,8 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import ItemPercentDamageDone from 'parser/ui/ItemPercentDamageDone';
 import { TALENTS_PRIEST } from 'common/TALENTS';
-import Events, { CastEvent, DamageEvent, HealEvent } from 'parser/core/Events';
+import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 
-//https://www.warcraftlogs.com/reports/WT19GKp2VHqLarbD#fight=19``&type=auras&source=122
 class PowerSurgeAndDivineHaloHoly extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -22,10 +21,11 @@ class PowerSurgeAndDivineHaloHoly extends Analyzer {
   protected combatants!: Combatants;
 
   //These are the values from the first cast of halo
-  //all 6 halos and how much energy compression scales them
   firstHaloHealing = 0;
-  totalArchonHaloHealing = 0;
   firstHaloDamage = 0;
+
+  //all 6 halos and how much energy compression scales them
+  totalArchonHaloHealing = 0;
   totalArchonHaloDamage = 0;
 
   private firstHalo = false;
@@ -72,9 +72,10 @@ class PowerSurgeAndDivineHaloHoly extends Analyzer {
     this.totalArchonHaloDamage += event.amount + (event.absorbed || 0);
   }
 
-  newHaloCast(event: CastEvent) {
+  newHaloCast() {
     this.firstHalo = true;
   }
+
   removeArchonOut() {
     this.firstHalo = false;
   }

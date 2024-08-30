@@ -11,10 +11,10 @@ import { TALENTS_PRIEST } from 'common/TALENTS';
 import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import { calculateEffectiveDamage, calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import SPELLS from 'common/SPELLS';
+import SpellLink from 'interface/SpellLink';
+import PRIEST_TALENTS from 'common/TALENTS/priest';
+import { ENERGY_COMPRESSION_AMP } from './ArchonValues';
 
-//https://www.warcraftlogs.com/reports/WT19GKp2VHqLarbD#fight=19``&type=auras&source=122
-
-const ENERGY_COMPRESSION_AMP = 0.3;
 class EnergyCompressionHoly extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -49,7 +49,7 @@ class EnergyCompressionHoly extends Analyzer {
     this.totalArchonHaloDamage += calculateEffectiveDamage(event, ENERGY_COMPRESSION_AMP);
   }
 
-  getEnergyCompressionDamage() {
+  get energyCompressionDamage() {
     return this.totalArchonHaloDamage;
   }
 
@@ -62,7 +62,8 @@ class EnergyCompressionHoly extends Analyzer {
         tooltip={
           <>
             <small>
-              This is number is included in the Divine Halo/Power Surge results already.
+              This number is included in the <SpellLink spell={PRIEST_TALENTS.DIVINE_HALO_TALENT} />
+              /<SpellLink spell={PRIEST_TALENTS.POWER_SURGE_TALENT} /> results already.
             </small>
           </>
         }
@@ -72,7 +73,7 @@ class EnergyCompressionHoly extends Analyzer {
             <ItemPercentHealingDone amount={this.totalEnergyCompressionHealing} />
           </div>
           <div>
-            <ItemPercentDamageDone amount={this.getEnergyCompressionDamage()} />{' '}
+            <ItemPercentDamageDone amount={this.energyCompressionDamage} />{' '}
           </div>
         </TalentSpellText>
       </Statistic>

@@ -25,12 +25,7 @@ import {
   getHealFromSurge,
   isSurgeOfLightFromHalo,
 } from '../../../normalizers/CastLinkNormalizer';
-/**
- * **Perfected Form**
- * Your healing done is increased by 10% while Apotheosis is active and for 20 sec after you cast Holy Word: Salvation.
- */
 
-//https://www.warcraftlogs.com/reports/WT19GKp2VHqLarbD#fight=19``&type=auras&source=122
 class ManifestedPowerHoly extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -38,12 +33,6 @@ class ManifestedPowerHoly extends Analyzer {
 
   protected combatants!: Combatants;
 
-  /**
-   * Start:
-   * These values can all be called directly and don't need a pass function
-   * also check the call functions in case math needs to be done to transform
-   * the results
-   */
   surgeOfLightProcsSpent = 0;
   surgeOfLightProcsGainedTotal = 0;
   surgeOfLightProcsOverwritten = 0;
@@ -84,7 +73,6 @@ class ManifestedPowerHoly extends Analyzer {
   }
 
   onSurgeOfLightHeal(event: RemoveBuffEvent | RemoveBuffStackEvent) {
-    // linked heal event exists from surge of light consumption
     const healEvent = getHealFromSurge(event);
 
     if (healEvent) {
@@ -126,7 +114,8 @@ class ManifestedPowerHoly extends Analyzer {
         category={STATISTIC_CATEGORY.HERO_TALENTS}
         tooltip={
           <>
-            <SpellLink spell={PRIEST_TALENTS.SURGE_OF_LIGHT_TALENT} /> procs and usage from ALL
+            <SpellLink spell={PRIEST_TALENTS.SURGE_OF_LIGHT_TALENT} /> procs and usage from{' '}
+            <b>all</b>
             sources:
             <ul>
               <div>
@@ -148,11 +137,17 @@ class ManifestedPowerHoly extends Analyzer {
         <BoringSpellValueText spell={TALENTS_PRIEST.MANIFESTED_POWER_TALENT}>
           <div>
             {this.surgeOfLightProcsGainedFromHalo}
-            <small> procs gained from Halo</small>{' '}
+            <small>
+              {' '}
+              procs gained from <SpellLink spell={PRIEST_TALENTS.HALO_SHARED_TALENT} />
+            </small>{' '}
           </div>
           <div>
             {this.surgeOfLightProcsOverwrittenByHalo}
-            <small> overwritten procs from Halo</small>
+            <small>
+              {' '}
+              overwritten procs from <SpellLink spell={PRIEST_TALENTS.HALO_SHARED_TALENT} />
+            </small>
           </div>
         </BoringSpellValueText>
       </Statistic>

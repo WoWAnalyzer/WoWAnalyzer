@@ -12,10 +12,7 @@ import SPELLS from 'common/SPELLS';
 import Events, { HealEvent } from 'parser/core/Events';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import { HOLY_ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../../constants';
-
-//https://www.warcraftlogs.com/reports/WT19GKp2VHqLarbD#fight=19``&type=auras&source=122
-
-const RESONANT_ENERGY_AMP_PER_STACK = 0.02;
+import { RESONANT_ENERGY_AMP_PER_STACK } from './ArchonValues';
 
 class ResonantEnergyHoly extends Analyzer {
   static dependencies = {
@@ -32,7 +29,6 @@ class ResonantEnergyHoly extends Analyzer {
 
     this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.RESONANT_ENERGY_TALENT);
 
-    //Resonant Energy Healing
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(HOLY_ABILITIES_AFFECTED_BY_HEALING_INCREASES),
       this.onResonantEnergyHeal,

@@ -13,13 +13,13 @@ import { TIERS } from 'game/TIERS';
 import Events, { RemoveBuffEvent, RemoveBuffStackEvent } from 'parser/core/Events';
 import { buffedBySurgeOfLight, getHealFromSurge } from '../../../normalizers/CastLinkNormalizer';
 import SPELLS from 'common/SPELLS';
-
-//https://www.warcraftlogs.com/reports/WT19GKp2VHqLarbD#fight=19``&type=auras&source=122
-
-const APOTH_MULTIPIER = 4;
-const ENERGY_CYCLE_CDR = 4;
-const LIGHT_OF_THE_NAARU_REDUCTION_PER_RANK = 0.1;
-const TWW_TIER1_2PC_CDR = 0.1;
+import SpellLink from 'interface/SpellLink';
+import {
+  APOTH_MULTIPIER,
+  ENERGY_CYCLE_CDR,
+  LIGHT_OF_THE_NAARU_REDUCTION_PER_RANK,
+  TWW_TIER1_2PC_CDR,
+} from './ArchonValues';
 
 class EnergyCycleHoly extends Analyzer {
   static dependencies = {
@@ -30,7 +30,7 @@ class EnergyCycleHoly extends Analyzer {
   protected combatants!: Combatants;
   protected spellUsable!: SpellUsable;
 
-  //Energy Cycle Ideal - no lost CDR from capping used to calc lost CDR
+  //Energy Cycle Ideal is no lost CDR from overcapping CD
   energyCycleCDRIdeal = 0;
   energyCycleCDRActual = 0;
 
@@ -42,7 +42,7 @@ class EnergyCycleHoly extends Analyzer {
     super(options);
 
     this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.ENERGY_CYCLE_TALENT);
-    // these two if statements get the scaling CDR for holy word reduction
+
     if (this.selectedCombatant.hasTalent(TALENTS_PRIEST.LIGHT_OF_THE_NAARU_TALENT)) {
       this.baseHolyWordCDR =
         this.selectedCombatant.getTalentRank(TALENTS_PRIEST.LIGHT_OF_THE_NAARU_TALENT) *
@@ -77,7 +77,6 @@ class EnergyCycleHoly extends Analyzer {
   }
 
   onSurgeOfLightHeal(event: RemoveBuffEvent | RemoveBuffStackEvent) {
-    // linked heal event exists from surge of light consumption
     const healEvent = getHealFromSurge(event);
 
     if (healEvent) {
@@ -103,8 +102,8 @@ class EnergyCycleHoly extends Analyzer {
   removeApoth() {
     this.apothBuffActive = false;
   }
-  //ENERGY CYCLE VALUES
-  passWastedEnergyCycleCDR(): number {
+
+  get passWastedEnergyCycleCDR(): number {
     return this.energyCycleCDRIdeal - this.energyCycleCDRActual;
   }
 
@@ -117,8 +116,13 @@ class EnergyCycleHoly extends Analyzer {
       >
         <BoringSpellValueText spell={TALENTS_PRIEST.ENERGY_CYCLE_TALENT}>
           <div>
-            {formatNumber(this.energyCycleCDRActual)}s<small> reduced from Sanctify</small> <br />
-            {this.passWastedEnergyCycleCDR()}s<small> wasted</small> <br />
+            {formatNumber(this.energyCycleCDRActual)}s
+            <small>
+              {' '}
+              reduced from <SpellLink spell={TALENTS_PRIEST.HOLY_WORD_SANCTIFY_TALENT} />
+            </small>{' '}
+            <br />
+            {this.passWastedEnergyCycleCDR}s<small> wasted</small> <br />
           </div>
         </BoringSpellValueText>
       </Statistic>

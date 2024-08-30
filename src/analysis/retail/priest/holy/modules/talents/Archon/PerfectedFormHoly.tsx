@@ -15,10 +15,8 @@ import Events, { HealEvent } from 'parser/core/Events';
 import { HOLY_ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../../constants';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import SPELLS from 'common/SPELLS';
+import { PERFECTED_FORM_AMP } from './ArchonValues';
 
-const PERFECTED_FORM_AMP = 0.1;
-
-//https://www.warcraftlogs.com/reports/WT19GKp2VHqLarbD#fight=19``&type=auras&source=122
 class PerfectedFormHoly extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -55,6 +53,7 @@ class PerfectedFormHoly extends Analyzer {
     ) {
       this.perfectedFormSalv += calculateEffectiveHealing(event, PERFECTED_FORM_AMP);
     }
+
     //Apoth only gets the buff when Perfected Form from Salv isn't active
     else if (
       !this.selectedCombatant.hasBuff(
