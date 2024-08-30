@@ -9,7 +9,7 @@ import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import ItemPercentDamageDone from 'parser/ui/ItemPercentDamageDone';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
-import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
+import { calculateEffectiveDamage, calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import SPELLS from 'common/SPELLS';
 
 //https://www.warcraftlogs.com/reports/WT19GKp2VHqLarbD#fight=19``&type=auras&source=122
@@ -24,7 +24,6 @@ class EnergyCompressionHoly extends Analyzer {
 
   totalEnergyCompressionHealing = 0;
   totalArchonHaloDamage = 0;
-  private scaledAmp = 1 / (1 - ENERGY_COMPRESSION_AMP);
 
   constructor(options: Options) {
     super(options);
@@ -47,11 +46,11 @@ class EnergyCompressionHoly extends Analyzer {
   }
 
   handleHaloDamage(event: DamageEvent) {
-    this.totalArchonHaloDamage += event.amount + (event.absorbed || 0);
+    this.totalArchonHaloDamage += calculateEffectiveDamage(event, ENERGY_COMPRESSION_AMP);
   }
 
   getEnergyCompressionDamage() {
-    return this.totalArchonHaloDamage * (this.scaledAmp - 1);
+    return this.totalArchonHaloDamage;
   }
 
   statistic() {
@@ -69,8 +68,12 @@ class EnergyCompressionHoly extends Analyzer {
         }
       >
         <TalentSpellText talent={TALENTS_PRIEST.ENERGY_COMPRESSION_TALENT}>
-          <ItemPercentHealingDone amount={this.totalEnergyCompressionHealing} /> <br />
-          <ItemPercentDamageDone amount={this.getEnergyCompressionDamage()} /> <br />
+          <div>
+            <ItemPercentHealingDone amount={this.totalEnergyCompressionHealing} />
+          </div>
+          <div>
+            <ItemPercentDamageDone amount={this.getEnergyCompressionDamage()} />{' '}
+          </div>
         </TalentSpellText>
       </Statistic>
     );

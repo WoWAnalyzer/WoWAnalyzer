@@ -129,18 +129,18 @@ class ManifestedPowerHoly extends Analyzer {
             <SpellLink spell={PRIEST_TALENTS.SURGE_OF_LIGHT_TALENT} /> procs and usage from ALL
             sources:
             <ul>
-              <li>
+              <div>
                 {formatNumber(this.surgeOfLightProcsGainedTotal)}
                 {' gained total'}
-              </li>
-              <li>
+              </div>
+              <div>
                 {formatNumber(this.surgeOfLightProcsSpent)}
                 {' spent total'}
-              </li>
-              <li>
+              </div>
+              <div>
                 {formatNumber(this.surgeOfLightProcsOverwritten)}
                 {' overwritten'}
-              </li>
+              </div>
             </ul>
           </>
         }
@@ -148,9 +148,11 @@ class ManifestedPowerHoly extends Analyzer {
         <BoringSpellValueText spell={TALENTS_PRIEST.MANIFESTED_POWER_TALENT}>
           <div>
             {this.surgeOfLightProcsGainedFromHalo}
-            <small> procs gained from Halo</small> <br />
+            <small> procs gained from Halo</small>{' '}
+          </div>
+          <div>
             {this.surgeOfLightProcsOverwrittenByHalo}
-            <small> overwritten procs from Halo</small> <br />
+            <small> overwritten procs from Halo</small>
           </div>
         </BoringSpellValueText>
       </Statistic>

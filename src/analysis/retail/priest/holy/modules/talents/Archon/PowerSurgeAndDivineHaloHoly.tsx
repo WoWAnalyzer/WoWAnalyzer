@@ -129,8 +129,12 @@ class PowerSurgeAndDivineHaloHoly extends Analyzer {
           </small>
           <br />
           <br />
-          <ItemPercentHealingDone amount={this.passHaloFirstAndCapStoneHealing()} /> <br />
-          <ItemPercentDamageDone amount={this.passHaloFirstAndCapStoneDamage()} />
+          <div>
+            <ItemPercentHealingDone amount={this.passHaloFirstAndCapStoneHealing()} />
+          </div>
+          <div>
+            <ItemPercentDamageDone amount={this.passHaloFirstAndCapStoneDamage()} />
+          </div>
         </TalentSpellText>
       </Statistic>
     );
