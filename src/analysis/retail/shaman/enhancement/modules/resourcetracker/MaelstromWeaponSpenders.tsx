@@ -1,6 +1,5 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import MaelstromWeaponTracker from './MaelstromWeaponTracker';
-import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import Panel from 'parser/ui/Panel';
 import { MAELSTROM_WEAPON_ELIGIBLE_SPELLS } from '../../constants';
 import Events, {
@@ -24,6 +23,7 @@ import {
   MAELSTROM_SPENDER_LINK,
 } from '../normalizers/EventLinkNormalizer';
 import { PRIMORDIAL_WAVE_LINK } from 'analysis/retail/shaman/shared/constants';
+import MaelstromWeaponBreakdown from './MaelstromWeaponBreakdown';
 
 class MaelstromWeaponSpenders extends Analyzer {
   static dependencies = {
@@ -106,10 +106,10 @@ class MaelstromWeaponSpenders extends Analyzer {
   }
 
   onSpender(event: DamageEvent | HealEvent) {
-    if (!this.recordNextSpenderAmount) {
-      return;
-    }
-    this.recordNextSpenderAmount = false;
+    // if (!this.recordNextSpenderAmount) {
+    //   return;
+    // }
+    // this.recordNextSpenderAmount = false;
 
     let spellId = event.ability.guid;
     if (spellId === SPELLS.LAVA_BURST_DAMAGE.id) {
@@ -121,7 +121,11 @@ class MaelstromWeaponSpenders extends Analyzer {
   statistic() {
     return [
       <Panel key="spender-panel" title="Maelstrom Weapon usage" pad={false} position={120}>
-        <ResourceBreakdown tracker={this.maelstromWeaponTracker} showSpenders showMaxSpenders />
+        <MaelstromWeaponBreakdown
+          tracker={this.maelstromWeaponTracker}
+          showSpenders
+          showMaxSpenders
+        />
       </Panel>,
       <Panel
         key="damage-per-spender"

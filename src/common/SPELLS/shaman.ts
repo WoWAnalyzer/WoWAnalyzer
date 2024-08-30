@@ -433,6 +433,11 @@ const spells = {
     name: 'Earthen Weapon',
     icon: 'spell_shaman_unleashweapon_earth',
   },
+  SUMMON_FERAL_SPIRIT: {
+    id: 426516,
+    name: 'Feral Spirit',
+    icon: 'spell_shaman_feralspirit',
+  },
   STORMSTRIKE_DAMAGE: {
     id: 32175,
     name: 'Stormstrike',

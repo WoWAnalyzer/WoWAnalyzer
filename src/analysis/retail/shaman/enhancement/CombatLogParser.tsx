@@ -47,14 +47,14 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import Ascendance from './modules/talents/Ascendance';
 import SplinteredElements from '../shared/talents/SplinteredElements';
 import SwirlingMaelstrom from './modules/talents/SwirlingMaelstrom';
-import MaelstromWeaponBuffNormalizer from './modules/normalizers/MaelstromWeaponBuffNormalizer';
-import MaelstromWeaponGeneratorLinkNormalizer from './modules/normalizers/MaelstromWeaponGeneratorLinkNormalizer';
+import MaelstromWeaponResourceNormalizer from './modules/normalizers/MaelstromWeaponResourceNormalizer';
 import {
   MaelstromWeaponDetails,
   MaelstromWeaponGraph,
   MaelstromWeaponSpenders,
   MaelstromWeaponTracker,
 } from './modules/resourcetracker';
+import MaestromRefreshBuffNormalizer from './modules/normalizers/MaelstromRefreshBuffNormalizer';
 import ElementalBlastGuide from './modules/talents/ElementalBlastGuide';
 import StaticAccumulation from './modules/talents/StaticAccumulation';
 import Tempest from 'analysis/retail/shaman/enhancement/modules/hero/stormbringer/Tempest';
@@ -128,11 +128,11 @@ class CombatLogParser extends CoreCombatLogParser {
     callToDominance: CallToDominance,
 
     // Normalizers
-    maelstromWeaponBuffNormalizer: MaelstromWeaponBuffNormalizer,
-    maelstromWeaponGeneratorLinkNormalizer: MaelstromWeaponGeneratorLinkNormalizer,
-    eventLinkNormalizer: EventLinkNormalizer,
-    eventOrderNormalizer: EventOrderNormalizer,
-    maelstromWeaponCastNormalizer: MaelstromWeaponCastNormalizer,
+    maestromRefreshBuffNormalizer: MaestromRefreshBuffNormalizer, // removes refresh events following applybuff and applybuffstack
+    eventOrderNormalizer: EventOrderNormalizer, // correct events occur out of order
+    maelstromWeaponCastNormalizer: MaelstromWeaponCastNormalizer, // links
+    eventLinkNormalizer: EventLinkNormalizer, // links various maelstrom casts to damage events, and spells made instant via maelstrom weapon
+    maelstromWeaponResourceNormalizer: MaelstromWeaponResourceNormalizer, // converts maelstrom weapon buff stacks into resourchange events and ClassResource costs
 
     aplCheck: AplCheck,
   };

@@ -1,13 +1,16 @@
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/shaman';
 import TALENTS from 'common/TALENTS/shaman';
 import { Options } from 'parser/core/Analyzer';
 import BaseEventOrderNormalizer, { EventOrder } from 'parser/core/EventOrderNormalizer';
-import { AnyEvent, EventType } from 'parser/core/Events';
+import { AnyEvent, EventType, HasAbility } from 'parser/core/Events';
 import { MAELSTROM_WEAPON_MS } from '../../constants';
+import { NormalizerOrder } from './constants';
 
 /** Thorim's Invocation automatically casts Lightning Bolts when Windstrike used, but
  * these free casts appear in the event log prior to the windstrike. Re-order so the Windstrike
  * comes first. */
+
+//"windstrike" "lightning bolt" "tempest"
 const thorimsInvocationEventOrder: EventOrder = {
   beforeEventId: SPELLS.WINDSTRIKE_CAST.id,
   beforeEventType: EventType.Cast,
@@ -23,7 +26,7 @@ const thorimsInvocationEventOrder: EventOrder = {
 };
 
 /**
- * In some instances, the comes before the cast, so normalize to force it after
+ * In some instances, the healcomes before the cast, so normalize to force it after
  */
 const healingOrder: EventOrder = {
   afterEventId: [SPELLS.HEALING_SURGE.id, TALENTS.CHAIN_HEAL_TALENT.id],
@@ -48,8 +51,13 @@ const primordialWaveEventOrder: EventOrder = {
 };
 
 export class EventOrderNormalizer extends BaseEventOrderNormalizer {
+  private readonly hasRollingThunder: boolean;
   constructor(options: Options) {
-    super(options, [thorimsInvocationEventOrder, healingOrder, primordialWaveEventOrder]);
+    super(options, [/*thorimsInvocationEventOrder,*/ healingOrder, primordialWaveEventOrder]);
+
+    this.priority = NormalizerOrder.EventOrderNormalizer;
+
+    this.hasRollingThunder = this.selectedCombatant.hasTalent(TALENTS.ROLLING_THUNDER_TALENT);
   }
 
   /** After the base normalize is done, we're changing all auto-casts of Lightning Bolt
@@ -58,42 +66,91 @@ export class EventOrderNormalizer extends BaseEventOrderNormalizer {
     events = super.normalize(events);
 
     const fixedEvents: AnyEvent[] = [];
-    const thorimsInvocationCastIds = [SPELLS.LIGHTNING_BOLT.id, TALENTS.CHAIN_LIGHTNING_TALENT.id];
+    const thorimsInvocationCastIds = [
+      SPELLS.LIGHTNING_BOLT.id,
+      TALENTS.CHAIN_LIGHTNING_TALENT.id,
+      SPELLS.TEMPEST_CAST,
+    ];
     const windstrikeId = SPELLS.WINDSTRIKE_CAST.id;
+    const skipEvents = new Set<AnyEvent>();
 
     events.forEach((event: AnyEvent, idx: number) => {
-      fixedEvents.push(event);
+      if (!skipEvents.has(event)) {
+        fixedEvents.push(event);
+      }
       // non-cast events are irrelevant
       if (event.type !== EventType.Cast) {
         return;
       }
-      // only interested in Lightning Bolt and Chain Lightning
+
       const spellId = event.ability.guid;
-      if (!thorimsInvocationCastIds.includes(spellId)) {
-        return;
+      if (thorimsInvocationCastIds.includes(spellId)) {
+        // For ChL, LB, and Tempest casts, look backwards for a Windstrike cast
+        for (let backwardsIndex = idx - 1; backwardsIndex >= 0; backwardsIndex -= 1) {
+          const backwardsEvent = events[backwardsIndex];
+          // The windstrike and auto cast typically occur on the same timestamp
+          if (event.timestamp - backwardsEvent.timestamp > MAELSTROM_WEAPON_MS) {
+            break;
+          }
+
+          if (
+            backwardsEvent.type !== EventType.Cast ||
+            backwardsEvent.ability.guid !== windstrikeId
+          ) {
+            continue;
+          }
+
+          fixedEvents.splice(idx, 1);
+          fixedEvents.push({
+            ...event,
+            type: EventType.FreeCast,
+            __modified: true,
+          });
+        }
       }
 
-      // For ChL and LB casts, look backwards for a Windstrike cast
-      for (let backwardsIndex = idx - 1; backwardsIndex >= 0; backwardsIndex -= 1) {
-        const backwardsEvent = events[backwardsIndex];
-        // The windstrike and auto cast typically occur on the same timestamp
-        if (event.timestamp - backwardsEvent.timestamp > MAELSTROM_WEAPON_MS) {
-          break;
-        }
+      /** This interaction is a bug. The maelstrom is consumed after the cast so doesn't increase damage, but does apply to 
+       * Static Accumulation refund. */
 
-        if (
-          backwardsEvent.type !== EventType.Cast ||
-          backwardsEvent.ability.guid !== windstrikeId
-        ) {
-          continue;
+      /** The Rolling Thunder hero talent summons the feral spirt AFTER the tempest cast (but before damage). The issue
+       * with this is when a feral spirit is summoned, it also immediately generates 1 stack of msw, but because this
+       * appearing after, we need to move it back. a traditional order normalizer doesn't move the events correctly */
+      //return;
+      if (this.hasRollingThunder && spellId === SPELLS.TEMPEST_CAST.id) {
+        const eventsToMoveBack: AnyEvent[] = [];
+        for (let forwardIndex = idx + 1; forwardIndex < events.length; forwardIndex += 1) {
+          const forwardEvent = events[forwardIndex];
+          if (forwardEvent.timestamp - event.timestamp > 15 || !HasAbility(forwardEvent)) {
+            break;
+          }
+          if (
+            (forwardEvent.ability.guid === SPELLS.SUMMON_FERAL_SPIRIT.id &&
+              [EventType.Summon].includes(forwardEvent.type)) ||
+            (forwardEvent.ability.guid === SPELLS.FERAL_SPIRIT_MAELSTROM_BUFF.id &&
+              [EventType.ApplyBuff, EventType.RefreshBuff].includes(forwardEvent.type)) ||
+            (forwardEvent.ability.guid === SPELLS.MAELSTROM_WEAPON_BUFF.id &&
+              [EventType.ApplyBuff, EventType.ApplyBuffStack, EventType.RefreshBuff].includes(
+                forwardEvent.type,
+              ))
+          ) {
+            eventsToMoveBack.push(forwardEvent);
+            // once the first maelstrom event is hit, exit out
+            if (forwardEvent.ability.guid === SPELLS.MAELSTROM_WEAPON_BUFF.id) {
+              break;
+            }
+          }
         }
+        if (eventsToMoveBack.length === 3) {
+          // update timestamp
+          eventsToMoveBack.forEach((e) => {
+            e.timestamp = event.timestamp;
+            e.__reordered = true;
+            skipEvents.add(e);
+          });
 
-        fixedEvents.splice(idx, 1);
-        fixedEvents.push({
-          ...event,
-          type: EventType.FreeCast,
-          __modified: true,
-        });
+          const currentEvent = fixedEvents.splice(idx, 1, ...eventsToMoveBack);
+          fixedEvents.push(...currentEvent);
+        }
       }
     });
 

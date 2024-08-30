@@ -13,6 +13,7 @@ import {
   PRIMORDIAL_WAVE_LINK,
   SPLINTERED_ELEMENTS_LINK,
 } from 'analysis/retail/shaman/shared/constants';
+import { NormalizerOrder } from './constants';
 
 export const MAELSTROM_WEAPON_INSTANT_CAST = 'maelstrom-weapon-instant-cast';
 export const THORIMS_INVOCATION_LINK = 'thorims-invocation';
@@ -30,8 +31,6 @@ const stormStrikeSpellIds = STORMSTRIKE_CAST_SPELLS.map((spell) => spell.id);
 const stormStrikeDamageIds = STORMSTRIKE_DAMAGE_SPELLS.map((spell) => spell.id);
 
 const PRIMORDIAL_WAVE_BUFFER = 15500;
-const MAELSTROM_SPENDER_FORWARD_BUFFER = 25;
-const MAELSTROM_SPENDER_BACKWARD_BUFFER = 50;
 const STORMSTRIKE_BUFFER = 900;
 const CAST_DAMAGE_BUFFER = 100;
 const SPLINTERED_ELEMENTS_BUFFER = 20;
@@ -89,18 +88,6 @@ const tempestDamageLink: EventLink = {
   forwardBufferMs: CAST_DAMAGE_BUFFER,
   anyTarget: true,
 };
-const maelstromWeaponSpenderLink: EventLink = {
-  linkRelation: MAELSTROM_SPENDER_LINK,
-  linkingEventId: MAELSTROM_WEAPON_ELIGIBLE_SPELL_IDS,
-  linkingEventType: [EventType.Cast, EventType.FreeCast],
-  referencedEventId: SPELLS.MAELSTROM_WEAPON_BUFF.id,
-  referencedEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
-  forwardBufferMs: MAELSTROM_SPENDER_FORWARD_BUFFER,
-  backwardBufferMs: MAELSTROM_SPENDER_BACKWARD_BUFFER,
-  anyTarget: true,
-  reverseLinkRelation: MAELSTROM_SPENDER_LINK,
-  maximumLinks: 1,
-};
 const primordialWaveLink: EventLink = {
   linkRelation: PRIMORDIAL_WAVE_LINK,
   linkingEventId: TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT.id,
@@ -139,14 +126,13 @@ class EventLinkNormalizer extends BaseEventLinkNormalizer {
       thorimsInvocationCastLink,
       stormStrikeLink,
       chainLightningDamageLink,
-      tempestDamageLink,
-      maelstromWeaponSpenderLink,
+      // maelstromWeaponSpenderLink,
       primordialWaveLink,
       splinteredElements,
       lightningBoltLink,
     ]);
 
-    this.priority = -80;
+    this.priority = NormalizerOrder.EventLinkNormalizer;
   }
 }
 

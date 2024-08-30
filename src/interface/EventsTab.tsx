@@ -280,6 +280,20 @@ const reducer = (state: State, action: Action): State => {
   }
 };
 
+const backgroundClass = (rowData: any) => {
+  const classes = [];
+  if (rowData.__modified) {
+    classes.push('modified');
+  }
+  if (rowData.__fabricated) {
+    classes.push('fabricated');
+  }
+  if (rowData.__reordered) {
+    classes.push('reordered');
+  }
+  return classes.join('-');
+};
+
 interface EventsTabFnProps {
   parser: CombatLogParser;
 }
@@ -405,9 +419,7 @@ export default function EventsTabFn({ parser }: EventsTabFnProps) {
                 rowRenderer={(props) =>
                   defaultTableRowRenderer({
                     ...props,
-                    className: `${props.className} ${props.rowData.__modified ? 'modified' : ''} ${
-                      props.rowData.__fabricated ? 'fabricated' : ''
-                    } ${props.rowData.__reordered ? 'reordered' : ''}`,
+                    className: `${props.className} ${backgroundClass(props.rowData)}`,
                   })
                 }
                 onRowClick={({ rowData }) => console.log(rowData)}

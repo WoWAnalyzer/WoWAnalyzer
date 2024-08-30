@@ -15,7 +15,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import { DamageIcon, UptimeIcon } from 'interface/icons';
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';
-import typedKeys from 'common/typedKeys';
+import RESOURCE_TYPES, { getResource } from 'game/RESOURCE_TYPES';
 
 /** Lightning Bolt and Chain Lightning damage increased by 20%.
  *
@@ -108,8 +108,8 @@ class ThorimsInvocation extends Analyzer {
       );
     }
     if (spellId === TALENTS.CHAIN_LIGHTNING_TALENT.id) {
-      const mswStacks =
-        this.selectedCombatant.getBuff(SPELLS.MAELSTROM_WEAPON_BUFF.id)?.stacks || 0;
+      const cr = getResource(event.classResources, RESOURCE_TYPES.MAELSTROM_WEAPON.id);
+      const mswStacks = cr?.cost ?? 0;
       const remainingAscendance = this.ascendanceEndTimestamp - event.timestamp;
       const cracklingThunder = this.selectedCombatant.hasBuff(
         SPELLS.CRACKLING_THUNDER_TIER_BUFF.id,

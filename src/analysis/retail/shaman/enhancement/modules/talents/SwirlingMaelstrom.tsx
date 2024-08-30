@@ -1,12 +1,18 @@
 import TALENTS from 'common/TALENTS/shaman';
-import Analyzer, { Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, {
+  CastEvent,
+  EventType,
+  GetRelatedEvent,
+  ResourceChangeEvent,
+} from 'parser/core/Events';
 import TalentAggregateStatisticContainer from 'parser/ui/TalentAggregateStatisticContainer';
 import { SpellLink } from 'interface';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentAggregateBars from 'parser/ui/TalentAggregateStatistic';
 import SPELLS from 'common/SPELLS';
-import MaelstromWeaponTracker from 'analysis/retail/shaman/enhancement/modules/resourcetracker/MaelstromWeaponTracker';
+import { MAELSTROM_WEAPON_SOURCE } from '../normalizers/constants';
 
 const BAR_COLORS: Record<number, string> = {
   [TALENTS.FROST_SHOCK_TALENT.id]: '#3b7fb0',
@@ -36,19 +42,28 @@ class SwirlingMaelstrom extends Analyzer {
     }
   }
 
-  statistic() {
-    const frostShock = this.maelstromWeaponTracker.buildersObj[TALENTS.FROST_SHOCK_TALENT.id];
-    // copy builderObj for ice strike or calculations will replace builder values
-    const iceStrike = { ...this.maelstromWeaponTracker.buildersObj[TALENTS.ICE_STRIKE_TALENT.id] };
-    iceStrike.generated = Math.floor(
-      iceStrike.generated /
-        (this.selectedCombatant.hasTalent(TALENTS.ELEMENTAL_ASSAULT_TALENT) ? 2 : 1),
-    );
-    iceStrike.wasted = Math.ceil(
-      iceStrike.wasted /
-        (this.selectedCombatant.hasTalent(TALENTS.ELEMENTAL_ASSAULT_TALENT) ? 2 : 1),
+    this.addEventListener(
+      Events.resourcechange.by(SELECTED_PLAYER).spell(TALENTS.SWIRLING_MAELSTROM_TALENT),
+      this.onResourceChange,
     );
 
+  onResourceChange(event: ResourceChangeEvent) {
+    const cast = GetRelatedEvent<CastEvent>(
+      event,
+      MAELSTROM_WEAPON_SOURCE,
+      (e) => e.type === EventType.Cast,
+    );
+    switch (cast?.ability.guid) {
+      case TALENTS.FROST_SHOCK_TALENT.id:
+        this.frostShock += 1;
+        break;
+      case TALENTS.ICE_STRIKE_TALENT.id:
+        this.iceStrike += 1;
+        break;
+    }
+  }
+
+  statistic() {
     const bars = [
       {
         spell: TALENTS.FROST_SHOCK_TALENT,

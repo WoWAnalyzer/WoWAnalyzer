@@ -171,7 +171,15 @@ class Abilities extends ClassAbilities {
         spell: SPELLS.TEMPEST_CAST.id,
         enabled: combatant.hasTalent(TALENTS.TEMPEST_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500
+        }
       },
+      {
+        spell: TALENTS.HAILSTORM_TALENT.id,
+        category: SPELL_CATEGORY.HIDDEN,
+        enabled: combatant.hasTalent(TALENTS.HAILSTORM_TALENT),        
+      }
     ];
   }
 }

@@ -3,6 +3,7 @@ import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { MAELSTROM_WEAPON_INSTANT_CAST } from './EventLinkNormalizer';
 import { MAELSTROM_WEAPON_ELIGIBLE_SPELLS } from '../../constants';
 import { Options } from 'parser/core/Analyzer';
+import { NormalizerOrder } from './constants';
 
 /** This normalizer removes the begincast event, and fabricated beginchannel and endchannel
  * events for instant cast enhancement spells */
@@ -16,7 +17,7 @@ class MaelstromWeaponCastNormalizer extends EventsNormalizer {
     super(options);
 
     // this normalizer depends on the event link normalizer to have already run, so setting a lower priority to enforce later execution (higher value = lower priority)
-    this.priority = 10;
+    this.priority = NormalizerOrder.MaelstromWeaponCastNormalizer;
   }
 
   normalize(events: AnyEvent[]): AnyEvent[] {
@@ -28,18 +29,16 @@ class MaelstromWeaponCastNormalizer extends EventsNormalizer {
           event.type === EventType.BeginChannel ||
           event.type === EventType.EndChannel
         ) {
-          if (!HasRelatedEvent(event, MAELSTROM_WEAPON_INSTANT_CAST)) {
-            fixedEvents.push(event);
-          }
-        } else {
-          fixedEvents.push(event);
+          if (HasRelatedEvent(event, MAELSTROM_WEAPON_INSTANT_CAST)) {
+            return;
+          }            
         }
-      } else {
-        fixedEvents.push(event);
       }
+      fixedEvents.push(event);
     });
     return fixedEvents;
   }
 }
+
 
 export default MaelstromWeaponCastNormalizer;
