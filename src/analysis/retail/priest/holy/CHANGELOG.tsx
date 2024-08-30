@@ -5,6 +5,8 @@ import { Arlie, Hana, Litena, Liavre, Squided, ToppleTheNun, Trevor, Saeldur } f
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2024, 8, 24), <>Added Cast time hps component to lightweaver and other statistic display improvements </>, Liavre),
+  change(date(2024, 8, 20), <>Implemented both Oracle and Archon + minor fixes </>, Liavre),
   change(date(2024, 8, 13), <>Deleted references to Mindgames (old talent) </>, Liavre),
   change(date(2024, 4, 20), <>Fix cooldown of <SpellLink spell={SPELLS.DESPERATE_PRAYER} /> when using <SpellLink spell={TALENTS_PRIEST.ANGELS_MERCY_TALENT} />.</>, Arlie),
   change(

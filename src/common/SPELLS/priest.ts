@@ -55,6 +55,12 @@ const spells = {
     name: 'Borrowed Time',
     icon: 'spell_holy_borrowedtime',
   },
+  RENEW_HEAL: {
+    id: 139,
+    name: 'Renew',
+    icon: 'spell_holy_renew',
+    manaCost: 800,
+  },
   // Discipline Priest:
   GRACE: {
     id: 271534,
@@ -489,6 +495,42 @@ const spells = {
     name: 'Cosmic Ripple Heal',
     icon: 'spell_holy_summonlightwell',
   },
+  HOLY_WORD_SERENITY: {
+    id: 2050,
+    name: 'Holy Word: Serenity',
+    icon: 'spell_holy_persuitofjustice',
+  },
+  HOLY_WORD_SANCTIFY: {
+    id: 34861,
+    name: 'Holy Word: Sanctify',
+    icon: 'spell_holy_divineprovidence',
+  },
+  HOLY_WORD_SALVATION: {
+    id: 265202,
+    name: 'Holy Word: Salvation',
+    icon: 'spell_holy_archangel',
+  },
+  CIRCLE_OF_HEALING: {
+    id: 204883,
+    name: 'Circle of Healing',
+    icon: 'spell_holy_circleofrenewal',
+  },
+  POWER_WORD_LIFE: {
+    id: 373481,
+    name: 'Power Word: Life',
+    icon: 'ability_priest_holywordlife',
+  },
+  PREMONITION_OF_CLAIRVOYANCE: {
+    id: 440725,
+    name: 'Premonition of Clairvoyance',
+    icon: 'inv_inscription_vantusrune_progenitor',
+  },
+  PREMONITION_OF_PIETY: {
+    id: 443126,
+    name: 'Premonition of Piety',
+    icon: 'inv_ability_oraclepriest_premonitionpiety',
+  },
+
   // Buffs
   SPIRIT_OF_REDEMPTION_BUFF: {
     id: 27827,
@@ -525,6 +567,42 @@ const spells = {
     name: 'Divine Favor: Serenity',
     icon: 'priest_icon_chakra',
   },
+  PERFECTED_FORM_TALENT_BUFF: {
+    id: 453983,
+    name: 'Perfected Form',
+    icon: 'inv_ability_holyfire_buff',
+  },
+  RESONANT_ENERGY_TALENT_BUFF: {
+    id: 453846,
+    name: 'Resonant Energy',
+    icon: 'ability_priest_halo',
+  },
+  UNCAT_ARCHON_HALO_RETURN_BUFF: {
+    id: 449840,
+    name: 'Halo',
+    icon: 'ability_priest_halo',
+  },
+  PREMONITION_OF_SOLACE_DR_AND_SHIELD_BUFF: {
+    id: 443526,
+    name: 'Premonition of Solace',
+    icon: 'inv_ability_oraclepriest_premonitionsolace',
+  },
+  PREMONITION_OF_SOLACE_CASTER_BUFF: {
+    id: 428934,
+    name: 'Premonition of Solace',
+    icon: 'inv_ability_oraclepriest_premonitionsolace',
+  },
+  PREMONITION_OF_PIETY_BUFF: {
+    id: 428930,
+    name: 'Premonition of Piety',
+    icon: 'inv_ability_oraclepriest_premonitionpiety',
+  },
+  PREMONITION_OF_INSIGHT_BUFF: {
+    id: 428933,
+    name: 'Premonition of Insight',
+    icon: 'inv_ability_oraclepriest_premonitioninsight',
+  },
+
   // Sets
   HOLY_PRIEST_TIER_29_2_SET_BUFF: {
     id: 394729,
@@ -570,6 +648,11 @@ const spells = {
   DIVINE_IMAGE_BLESSED_LIGHT_HEAL: {
     id: 196813,
     name: 'Blessed Light',
+    icon: 'spell_holy_divineprovidence',
+  },
+  DIVINE_IMAGE_TRANQUIL_LIGHT_HEAL: {
+    id: 196816,
+    name: 'Tranquil Light',
     icon: 'spell_holy_divineprovidence',
   },
   HOLY_WORD_CHASTISE_CENSURE_TALENT_INCAPACITATE: {

@@ -22,7 +22,10 @@ class Halo extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.HALO_SHARED_TALENT);
+    //Disable this module if Archon Hero tree is selected
+    this.active =
+      this.selectedCombatant.hasTalent(TALENTS_PRIEST.HALO_SHARED_TALENT) &&
+      !this.selectedCombatant.hasTalent(TALENTS_PRIEST.POWER_SURGE_TALENT);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.HALO_DAMAGE),
       this.onDamage,
