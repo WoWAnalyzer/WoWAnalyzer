@@ -141,6 +141,15 @@ class CombatLogParser extends CoreCombatLogParser {
 
     BurningVehemence: Talents.TopRow.BurningVehemence,
 
+    // Archon Hero Talent Display
+    PerfectedFormHoly: Talents.Archon.PerfectedFormHoly,
+    ResonantEnergyHoly: Talents.Archon.ResonantEnergyHoly,
+    ManifestedPowerHoly: Talents.Archon.ManifestedPowerHoly,
+    EmpoweredSurgesHoly: Talents.Archon.EmpoweredSurgesHoly,
+    EnergyCycleHoly: Talents.Archon.EnergyCycleHoly,
+    EnergyCompressionHoly: Talents.Archon.EnergyCompressionHoly,
+    PowerSurgeAndDivineHaloHoly: Talents.Archon.PowerSurgeAndDivineHaloHoly,
+
     //Oracle Hero Talents
     PremontitionOfSolace: Talents.Oracle.PremonitionOfSolace,
     PremonitionOfPiety: Talents.Oracle.PremonitionOfPiety,
