@@ -96,8 +96,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.CRACKLING_JADE_LIGHTNING.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
-          // This was tested in-game (in Legion): it does NOT have a static GCD but a base GCD of 1sec and scales with Haste
-          base: 1500,
+          static: 1000,
         },
       },
       {
@@ -211,8 +210,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         enabled: combatant.hasTalent(talents.RING_OF_PEACE_TALENT),
         gcd: {
-          // This was tested in-game (in Legion): it does NOT have a static GCD but a base GCD of 1sec and scales with Haste
-          base: 1500,
+          static: 1000,
         },
       },
       {
@@ -301,8 +299,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 8,
         gcd: {
-          // This was tested in-game (in Legion): it does NOT have a static GCD but a base GCD of 1sec and scales with Haste
-          base: 1500,
+          static: 1000,
         },
       },
       {
