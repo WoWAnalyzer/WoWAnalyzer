@@ -150,7 +150,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.HALO_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 40,
+        cooldown: 60,
         enabled: combatant.hasTalent(TALENTS.HALO_SHARED_TALENT),
         gcd: {
           base: 1500,
