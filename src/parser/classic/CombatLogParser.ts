@@ -42,6 +42,7 @@ import EnchantChecker from './modules/items/EnchantChecker';
 import ManaGained from './statistic/ManaGained';
 // Engineering
 import Bombs from 'parser/classic/modules/items/engineering/Bombs';
+import FlexweaveUnderlay from './modules/items/engineering/FlexweaveUnderlay';
 import HyperspeedAccelerators from './modules/items/engineering/HyperspeedAccelerators';
 import SynapseSprings from './modules/items/engineering/SynapseSprings';
 // Guide
@@ -114,6 +115,7 @@ class CombatLogParser extends BaseCombatLogParser {
     // Engineering
     bombs: Bombs,
     hyperspeedAccelerators: HyperspeedAccelerators,
+    flexweaveUnderlay: FlexweaveUnderlay,
     synapseSprings: SynapseSprings,
 
     // Guide
