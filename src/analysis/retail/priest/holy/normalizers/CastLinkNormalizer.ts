@@ -18,6 +18,7 @@ import { Options } from 'parser/core/Module';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS/priest';
 import { INSIGHT_CDR_ABILITIES } from '../modules/talents/Oracle/OracleValues';
+import { ABILITIES_THAT_TRIGGER_MASTERY } from '../constants';
 
 const CAST_BUFFER_MS = 200;
 
@@ -34,6 +35,8 @@ const SURGE_OF_LIGHT_APPLIED_BY_HALO = 'SurgeOfLightAppliedByHalo';
 const HALO_LINKED_TO_SURGE_OF_LIGHT = 'HaloLinkedtoSurgeOfLight';
 const SPELL_SPENDS_INSIGHT_CHARGE = 'SpellSpendsInsightCharge';
 const GET_SPELL_CAST_FROM_INSIGHT_CHARGE = 'GetSpellCastFromInsightCharge';
+export const ECHO_OF_LIGHT_BUFF_REFRESH = 'EchOfLightRefresh';
+export const ECHO_OF_LIGHT_ATTRIB_EVENT = 'GetEchoOfLight';
 export const HARDCAST_POWER_WORD_SHIELD = 'HardCastPowerWordShield';
 export const POWER_WORD_SHIELD_ABSORB = 'PowerWordShieldAbsorb';
 export const LIGHTWELL_RENEW_HEALS = 'LightwellRenewHeal';
@@ -241,7 +244,25 @@ const EVENT_LINKS: EventLink[] = [
       return !HasRelatedEvent(linkingEvent, HARDCAST_POWER_WORD_SHIELD);
     },
   },
-
+  {
+    linkRelation: ECHO_OF_LIGHT_ATTRIB_EVENT,
+    linkingEventId: ABILITIES_THAT_TRIGGER_MASTERY,
+    linkingEventType: [EventType.Heal],
+    referencedEventId: SPELLS.ECHO_OF_LIGHT_HEAL.id,
+    referencedEventType: EventType.Heal,
+    forwardBufferMs: 5900,
+    anyTarget: false,
+  },
+  {
+    linkRelation: ECHO_OF_LIGHT_BUFF_REFRESH,
+    linkingEventId: ABILITIES_THAT_TRIGGER_MASTERY,
+    linkingEventType: [EventType.Heal],
+    referencedEventId: SPELLS.ECHO_OF_LIGHT_HEAL.id,
+    referencedEventType: EventType.RefreshBuff,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: 4000,
+    anyTarget: false,
+  },
   {
     linkRelation: BENEDICTION_RENEW_HEALS,
     reverseLinkRelation: BENEDICTION_RENEW_HEALS,
