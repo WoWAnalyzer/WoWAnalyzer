@@ -37,6 +37,11 @@ const spells = {
     name: 'Mythical Mana Potion',
     icon: 'inv_misc_potionsetc',
   },
+  POTION_OF_CONCENTRATION: {
+    id: 78993,
+    name: 'Potion of Concentration',
+    icon: 'inv_potionc_3',
+  },
   POTION_OF_OGRE_RAGE: {
     id: 75488,
     name: 'Potion of Ogre Rage',
