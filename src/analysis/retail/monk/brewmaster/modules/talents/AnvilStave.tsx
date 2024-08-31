@@ -17,7 +17,7 @@ const RECHARGE_DURATION = 3000;
 /**
  * Anvil & Stave reduces Brew CDs by 0.5/1.0s every time you dodge / an enemy misses, with some extra steps.
  *
- * Prior to TWW, this operated on a 3s ICD. Now, it is kind of like you have a "CDR pool" that regenerates over time, maxing out at 0.5/1.0s after 3s of no dodging.
+ * Prior to TWW, this operated on a 3s ICD. Now, we don't really know how it works but the lowest CDR model I've found that still works is treating it kind of like you have a "CDR pool" that regenerates over time, maxing out at 0.5/1.0s after 3s of no dodging.
  */
 export default class AnvilStave extends Analyzer {
   static dependencies = {
