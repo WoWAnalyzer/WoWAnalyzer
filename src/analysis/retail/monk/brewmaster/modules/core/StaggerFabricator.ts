@@ -26,6 +26,8 @@ const STAGGER_THRESHOLDS = {
   LIGHT: 0.0,
 };
 
+const MANTRA_OF_PURITY_BONUS = 0.1; // "Purifying Brew removes 10% additional Stagger [...]"
+
 type PurifyBreakdown = {
   base: number;
   [key: number]: number;
@@ -69,9 +71,14 @@ class StaggerFabricator extends Analyzer {
   }
 
   purifyPercentage(): PurifyBreakdown {
-    return {
+    const breakdown: PurifyBreakdown = {
       base: PURIFY_BASE,
     };
+    if (this.selectedCombatant.hasTalent(talents.MANTRA_OF_PURITY_TALENT)) {
+      breakdown[talents.MANTRA_OF_PURITY_TALENT.id] = MANTRA_OF_PURITY_BONUS;
+    }
+
+    return breakdown;
   }
 
   addStagger(event: MaxHPEvent, amount: number) {

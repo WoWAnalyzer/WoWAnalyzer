@@ -50,7 +50,6 @@ import Salsalabims from './modules/talents/Salsalabims';
 import AnvilStave from './modules/talents/AnvilStave';
 import ChiSurge from './modules/talents/ChiSurge';
 import BreathOfFireDebuffTargetNormalizer from './modules/spells/BreathOfFire/normalizer';
-import BrewmasterT29FourSet from './modules/items/Tier29/FourSet';
 import SpinningCraneKickLinkNormalizer from './normalizers/SpinningCraneKick';
 import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
 import PressTheAdvantage from './modules/talents/PressTheAdvantage';
@@ -99,7 +98,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Items
     stormstoutsLastKeg: StormtoutsLastKeg,
-    t29fourSet: BrewmasterT29FourSet,
     callToDominance: CallToDominance,
 
     // normalizers
