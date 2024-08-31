@@ -147,7 +147,9 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 45 * (combatant.hasTalent(talents.LIGHT_BREWING_TALENT) ? 0.8 : 1),
         enabled: combatant.hasTalent(talents.CELESTIAL_BREW_TALENT),
+        charges: 1 + Number(combatant.hasTalent(talents.ENDLESS_DRAUGHT_TALENT)),
         gcd: {
+          // yes, hasted
           base: 1000,
         },
         castEfficiency: {
