@@ -246,7 +246,7 @@ const EVENT_LINKS: EventLink[] = [
   },
   {
     linkRelation: ECHO_OF_LIGHT_ATTRIB_EVENT,
-    linkingEventId: ABILITIES_THAT_TRIGGER_MASTERY,
+    linkingEventId: null,
     linkingEventType: [EventType.Heal],
     referencedEventId: SPELLS.ECHO_OF_LIGHT_HEAL.id,
     referencedEventType: EventType.Heal,

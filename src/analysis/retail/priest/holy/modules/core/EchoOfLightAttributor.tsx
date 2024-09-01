@@ -1,5 +1,5 @@
 import Analyzer from 'parser/core/Analyzer';
-import { GetRelatedEvents, HasRelatedEvent, HealEvent } from 'parser/core/Events';
+import { GetRelatedEvents, HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import Combatants from 'parser/shared/modules/Combatants';
 import { TALENTS_PRIEST } from 'common/TALENTS';
@@ -47,11 +47,8 @@ class EOLAttrib extends Analyzer {
     let eolTicksHeal = 0;
     let eolTicksOverHeal = 0;
 
-    // blacklist non EOL heals as a double check if someone forgot to do it when this function is called
-    if (
-      ABILITIES_THAT_DONT_TRIGGER_MASTERY.includes(eolEvent.ability.guid) ||
-      !HasRelatedEvent(eolEvent, ECHO_OF_LIGHT_ATTRIB_EVENT)
-    ) {
+    // blacklist non EOL heals
+    if (ABILITIES_THAT_DONT_TRIGGER_MASTERY.includes(eolEvent.ability.guid)) {
       return 0;
     }
 
@@ -88,11 +85,8 @@ class EOLAttrib extends Analyzer {
     let eolTicksOverHeal = 0;
     let totalEOLAmpHealing = 0;
 
-    // blacklist non EOL heals as a double check if someone forgot to do it when this function is called
-    if (
-      ABILITIES_THAT_DONT_TRIGGER_MASTERY.includes(eolEvent.ability.guid) ||
-      !HasRelatedEvent(eolEvent, ECHO_OF_LIGHT_ATTRIB_EVENT)
-    ) {
+    // blacklist non EOL heals
+    if (ABILITIES_THAT_DONT_TRIGGER_MASTERY.includes(eolEvent.ability.guid)) {
       return 0;
     }
 
