@@ -20,7 +20,6 @@ class EOLAttrib extends Analyzer {
   protected combatants!: Combatants;
   protected statTracker!: StatTracker;
   private masteryScaler = 1;
-  masteryPerc = 0;
 
   constructor(options: Options) {
     super(options);
@@ -83,7 +82,6 @@ class EOLAttrib extends Analyzer {
    */
   public getEchoOfLightAmpAttrib(eolEvent: HealEvent, relativeHealIncrease: number) {
     const currentMastery = this.statTracker.currentMasteryPercentage * this.masteryScaler;
-    this.masteryPerc = currentMastery;
     const initialHeal =
       currentMastery * (eolEvent.amount + (eolEvent.absorbed || 0) + (eolEvent.overheal || 0));
     let eolTicksHeal = 0;
