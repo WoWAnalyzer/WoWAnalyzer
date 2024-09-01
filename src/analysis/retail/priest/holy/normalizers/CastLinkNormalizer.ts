@@ -250,7 +250,7 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventType: [EventType.Heal],
     referencedEventId: SPELLS.ECHO_OF_LIGHT_HEAL.id,
     referencedEventType: EventType.Heal,
-    forwardBufferMs: 5900,
+    forwardBufferMs: 6000,
     anyTarget: false,
   },
   {
