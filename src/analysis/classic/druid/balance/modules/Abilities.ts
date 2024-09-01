@@ -1,197 +1,197 @@
-import SPELLS from 'common/SPELLS/classic/priest';
+import SPELLS from 'common/SPELLS/classic/druid';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 class Abilities extends CoreAbilities {
   spellbook() {
     return [
-      // SPELLS ADDED HERE ARE DISPLAYED ON THE STATISTICS TAB
       // Rotational
       {
-        spell: SPELLS.POWER_WORD_SHIELD.id,
+        spell: SPELLS.INSECT_SWARM.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
       {
-        spell: SPELLS.PRAYER_OF_MENDING.id,
+        spell: [SPELLS.MOONFIRE.id, SPELLS.SUNFIRE.id],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.PENANCE_HEALING.id],
+        spell: SPELLS.STARFIRE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
       {
-        spell: SPELLS.FLASH_HEAL.id,
+        spell: SPELLS.STARSURGE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
+        cooldown: 15,
       },
       {
-        spell: SPELLS.BINDING_HEAL.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { base: 1500 },
-      },
-      {
-        spell: SPELLS.RENEW.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { base: 1500 },
-      },
-      {
-        spell: SPELLS.GREATER_HEAL.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { base: 1500 },
-      },
-      {
-        spell: SPELLS.HEAL.id,
+        spell: SPELLS.WRATH.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
       // Rotational AOE
       {
-        spell: SPELLS.PRAYER_OF_HEALING.id,
+        spell: SPELLS.HURRICANE.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: { base: 1500 },
       },
       {
-        spell: SPELLS.HOLY_NOVA.id,
+        spell: SPELLS.WILD_MUSHROOM.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        gcd: { base: 1500 },
+        gcd: { base: 1000 },
+      },
+      {
+        spell: SPELLS.WILD_MUSHROOM_DETONATE.id,
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
+        gcd: null,
+        cooldown: 10,
       },
       // Cooldowns
       {
-        spell: [SPELLS.POWER_INFUSION.id],
-        category: SPELL_CATEGORY.COOLDOWNS,
-        gcd: null,
-        cooldown: 120,
-      },
-      {
-        spell: [SPELLS.PAIN_SUPPRESSION.id],
+        spell: [SPELLS.FORCE_OF_NATURE.id],
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: { base: 1500 },
         cooldown: 180,
       },
       {
-        spell: [SPELLS.INNER_FOCUS.id],
-        category: SPELL_CATEGORY.COOLDOWNS,
-        gcd: null,
-        cooldown: 180,
-      },
-      {
-        spell: [SPELLS.SHADOW_FIEND.id],
+        spell: [SPELLS.INNERVATE.id],
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: { base: 1500 },
         cooldown: 180,
       },
       {
-        spell: [SPELLS.HYMN_OF_HOPE.id],
+        spell: SPELLS.STARFALL.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: { base: 1500 },
-        cooldown: 360,
-      },
-      {
-        spell: [SPELLS.DIVINE_HYMN.id],
-        category: SPELL_CATEGORY.COOLDOWNS,
-        gcd: { base: 1500 },
-        cooldown: 180,
+        cooldown: 60, // with Glyph of Starfall
       },
       // Defensive
       {
-        spell: [SPELLS.DESPERATE_PRAYER.id],
+        spell: [SPELLS.BARKSKIN.id],
+        category: SPELL_CATEGORY.DEFENSIVE,
+        gcd: null,
+        cooldown: 60,
+      },
+      {
+        spell: SPELLS.DASH.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         gcd: { base: 1500 },
+        cooldown: 180,
       },
       {
-        spell: [SPELLS.FADE.id],
+        spell: [SPELLS.NATURES_GRASP.id],
         category: SPELL_CATEGORY.DEFENSIVE,
         gcd: { base: 1500 },
+        cooldown: 60,
       },
       {
-        spell: [SPELLS.PSYCHIC_SCREAM.id],
+        spell: [SPELLS.SOLAR_BEAM.id],
+        category: SPELL_CATEGORY.DEFENSIVE,
+        gcd: null,
+        cooldown: 60,
+      },
+      {
+        spell: [SPELLS.TYPHOON.id],
         category: SPELL_CATEGORY.DEFENSIVE,
         gcd: { base: 1500 },
+        cooldown: 20,
       },
-      // Other spells (not apart of the normal rotation)
+      // OTHER SPELLS (not apart of the normal rotation)
       {
-        spell: SPELLS.DEVOURING_PLAGUE.id,
+        spell: SPELLS.HEALING_TOUCH.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: { base: 1500 },
       },
       {
-        spell: SPELLS.HOLY_FIRE.id,
+        spell: SPELLS.LIFEBLOOM.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: { base: 1500 },
       },
       {
-        spell: SPELLS.MIND_BLAST.id,
+        spell: SPELLS.NOURISH.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: { base: 1500 },
       },
       {
-        spell: SPELLS.SHADOW_WORD_PAIN.id,
+        spell: SPELLS.REGROWTH.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: { base: 1500 },
       },
       {
-        spell: SPELLS.SHADOW_WORD_DEATH.id,
+        spell: SPELLS.REJUVENATION.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: { base: 1500 },
       },
       {
-        spell: SPELLS.SMITE.id,
+        spell: SPELLS.TRANQUILITY.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: { base: 1500 },
+        cooldown: 480,
       },
       // Utility
       {
-        spell: [SPELLS.CURE_DISEASE.id],
+        spell: [SPELLS.BEAR_FORM.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.DISPEL_MAGIC.id],
+        spell: [SPELLS.CAT_FORM.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.FEAR_WARD.id],
+        spell: [SPELLS.CYCLONE.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.INNER_FIRE.id],
+        spell: [SPELLS.ENTANGLING_ROOTS.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.LEVITATE.id],
+        spell: [SPELLS.FAERIE_FIRE.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.MANA_BURN.id],
+        spell: [SPELLS.HIBERNATE.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.MASS_DISPEL.id],
+        spell: [SPELLS.MARK_OF_THE_WILD.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.MIND_CONTROL.id],
+        spell: [SPELLS.MOONKIN_FORM.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
       {
-        spell: SPELLS.POWER_WORD_FORTITUDE.id,
+        spell: SPELLS.REBIRTH.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
       {
-        spell: SPELLS.SHADOW_PROTECTION.id,
+        spell: [SPELLS.REMOVE_CORRUPTION.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.SOOTHE.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.THORNS.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+        cooldown: 45,
       },
       // Pet Related
 

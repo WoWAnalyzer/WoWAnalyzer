@@ -97,7 +97,6 @@ const spells: number[] = [
   //endregion
 
   //region warlock
-  CLASSIC_SPELLS.RAIN_OF_FIRE_DAMAGE.id,
   //endregion
 
   //region warrior
@@ -112,12 +111,22 @@ const spells: number[] = [
   SPELLS.WRATH_AND_FURY.id,
   //endregion
 
+  //region classic druid
+  CLASSIC_SPELLS.ECLIPSE_LUNAR.id,
+  CLASSIC_SPELLS.ECLIPSE_SOLAR.id,
+  CLASSIC_SPELLS.TRANQUILITY_HEAL.id,
+  //endregion
+
   //region classic hunter
   CLASSIC_SPELLS.LOCK_AND_LOAD.id,
   //endregion
 
   //region classic priest
   CLASSIC_SPELLS.MIND_SEAR_TICK.id,
+  //endregion
+
+  //region classic warlock
+  CLASSIC_SPELLS.RAIN_OF_FIRE_DAMAGE.id,
   //endregion
 
   //region classic warrior

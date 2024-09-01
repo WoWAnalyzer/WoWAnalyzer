@@ -250,6 +250,11 @@ const spells = {
     name: 'Borrowed Time',
     icon: 'spell_holy_borrowedtime.jpg',
   },
+  BORROWED_TIME_15: {
+    id: 59889,
+    name: 'Borrowed Time',
+    icon: 'spell_holy_borrowedtime.jpg',
+  },
   INNER_FOCUS: {
     id: 89485,
     name: 'Inner Focus',

@@ -17,12 +17,6 @@ const trinkets = {
     icon: 'inv_misc_cat_trinket05.jpg',
     buffs: [{ id: 92342, name: 'Race Against Death' }],
   },
-  DARKMOON_CARD_TSUNAMI: {
-    id: 62050,
-    name: 'Darkmoon Card: Tsunami',
-    icon: 'inv_inscription_tarot_tsunamicard.jpg',
-    buffs: [{ id: 89182, name: 'Giant Wave' }],
-  },
   DARKMOON_CARD_VOLCANO: {
     id: 62047,
     name: 'Darkmoon Card: Volcano',
