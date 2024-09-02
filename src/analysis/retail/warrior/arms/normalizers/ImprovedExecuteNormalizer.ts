@@ -1,3 +1,4 @@
+import getRage from 'analysis/retail/warrior/shared/getRage';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_WARRIOR } from 'common/TALENTS';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
@@ -26,7 +27,7 @@ export default class ImprovedExecuteNormalizer extends EventsNormalizer {
         (event.ability.guid === SPELLS.EXECUTE.id ||
           event.ability.guid === SPELLS.EXECUTE_GLYPHED.id)
       ) {
-        const rage = _getRage(event);
+        const rage = getRage(event, this.selectedCombatant);
 
         if (rage?.cost != null && rage.cost > 0) {
           const damageEvent = executeDamageEvent(event);
@@ -81,12 +82,4 @@ export default class ImprovedExecuteNormalizer extends EventsNormalizer {
 
     return updatedEvents;
   }
-}
-
-function _getRage(event: AnyEvent) {
-  return (
-    ('classResources' in event &&
-      event.classResources?.find((resource) => resource.type === RESOURCE_TYPES.RAGE.id)) ||
-    undefined
-  );
 }

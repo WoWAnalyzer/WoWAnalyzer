@@ -1,9 +1,11 @@
 import calculateResourceIncrease from 'analysis/retail/warrior/shared/calculateResourceIncrease';
+import getRage from 'analysis/retail/warrior/shared/getRage';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import TALENTS from 'common/TALENTS/warrior';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import Combatant from 'parser/core/Combatant';
 import {
   AnyEvent,
   EventType,
@@ -80,6 +82,7 @@ export default class RageAttributeNormalizer extends EventsNormalizer {
               ? WARLORDS_TORMENT_RECKLESSNESS_INCREASE
               : RECKLESSNESS_INCREASE,
             SPELLS.RECKLESSNESS,
+            this.selectedCombatant,
           );
           additions.push(newEvent);
         }
@@ -92,6 +95,7 @@ export default class RageAttributeNormalizer extends EventsNormalizer {
             event,
             WARMACHINE_FURY_INCREASE,
             SPELLS.WAR_MACHINE_TALENT_BUFF,
+            this.selectedCombatant,
           );
           additions.push(newEvent);
         } else if (hasArmsWM) {
@@ -99,6 +103,7 @@ export default class RageAttributeNormalizer extends EventsNormalizer {
             event,
             WARMACHINE_ARMS_INCREASE,
             SPELLS.WAR_MACHINE_TALENT_BUFF,
+            this.selectedCombatant,
           );
           additions.push(newEvent);
         } else if (hasProtWM) {
@@ -106,6 +111,7 @@ export default class RageAttributeNormalizer extends EventsNormalizer {
             event,
             WARMACHINE_PROT_INCREASE,
             SPELLS.WAR_MACHINE_TALENT_BUFF,
+            this.selectedCombatant,
           );
           additions.push(newEvent);
         }
@@ -117,6 +123,7 @@ export default class RageAttributeNormalizer extends EventsNormalizer {
             event,
             PIERCING_CHALLENGE_INCREASE,
             TALENTS.PIERCING_CHALLENGE_TALENT,
+            this.selectedCombatant,
           );
           additions.push(newEvent);
         }
@@ -148,6 +155,7 @@ function removeMultiplicitiveIncrease(
   event: ResourceChangeEvent,
   amount: number,
   referenceTalent: Spell,
+  combatant: Combatant,
 ): ResourceChangeEvent {
   const { base, bonus } = calculateResourceIncrease(event, amount);
 
@@ -156,7 +164,7 @@ function removeMultiplicitiveIncrease(
   event.resourceChange = base.gain + base.waste;
   event.waste = base.waste;
 
-  const originalRage = _getRage(event);
+  const originalRage = getRage(event, combatant);
 
   if (!originalRage) {
     throw new Error('Original rage not found');
@@ -242,12 +250,4 @@ function removeAdditiveIncrease(
   };
 
   return newEvent;
-}
-
-function _getRage(event: AnyEvent) {
-  return (
-    ('classResources' in event &&
-      event.classResources?.find((resource) => resource.type === RESOURCE_TYPES.RAGE.id)) ||
-    undefined
-  );
 }

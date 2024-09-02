@@ -1,10 +1,10 @@
+import getRage from 'analysis/retail/warrior/shared/getRage';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warrior';
 import HIT_TYPES from 'game/HIT_TYPES';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SPECS from 'game/SPECS';
-import Combatant from 'parser/core/Combatant';
 import {
   AddRelatedEvent,
   AnyEvent,
@@ -152,7 +152,7 @@ export default class GenerateRageEventsNormalizer extends EventsNormalizer {
         ragePerSwingOH = Math.ceil(ragePerSwingOH * (1 + recklessnessIncrease));
       }
 
-      const rage = _getRage(event, this.selectedCombatant);
+      const rage = getRage(event, this.selectedCombatant);
 
       if (
         event.type === EventType.Cast &&
@@ -342,7 +342,7 @@ export default class GenerateRageEventsNormalizer extends EventsNormalizer {
   }): ResourceChangeEvent[] => {
     const response: ResourceChangeEvent[] = [];
 
-    const eventRage = _getRage(event, this.selectedCombatant);
+    const eventRage = getRage(event, this.selectedCombatant);
     if (eventRage == null) {
       throw new Error('Event should have rage');
     }
@@ -403,27 +403,5 @@ export default class GenerateRageEventsNormalizer extends EventsNormalizer {
 
       ...modifications,
     };
-  }
-}
-
-function _getRage(event: AnyEvent, selectedCombatant: Combatant) {
-  if ('classResources' in event && 'resourceActor' in event) {
-    if (
-      event.resourceActor === ResourceActor.Source &&
-      'sourceID' in event &&
-      event.sourceID === selectedCombatant.id &&
-      // Charge cast when target is reached has classResources from when it was triggerd
-      // We could maybe do a normalizer step before which adjusts this, but I think it's unecessary
-      event.ability?.guid !== SPELLS.CHARGE_2.id
-    ) {
-      return event.classResources?.find((resource) => resource.type === RESOURCE_TYPES.RAGE.id);
-    } else if (
-      event.resourceActor === ResourceActor.Target &&
-      event.targetID === selectedCombatant.id &&
-      // It seems like heals show the amounts when cast, not when applied, so will often be incorrect
-      event.type !== EventType.Heal
-    ) {
-      return event.classResources?.find((resource) => resource.type === RESOURCE_TYPES.RAGE.id);
-    }
   }
 }

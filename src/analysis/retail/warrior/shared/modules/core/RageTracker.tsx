@@ -1,16 +1,9 @@
-import SPELLS from 'common/SPELLS';
+import getRage from 'analysis/retail/warrior/shared/getRage';
 import TALENTS from 'common/TALENTS/warrior';
 import { formatDuration } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Options } from 'parser/core/Analyzer';
-import Combatant from 'parser/core/Combatant';
-import Events, {
-  AnyEvent,
-  CastEvent,
-  EventType,
-  ResourceActor,
-  ResourceChangeEvent,
-} from 'parser/core/Events';
+import Events, { AnyEvent, CastEvent, EventType, ResourceChangeEvent } from 'parser/core/Events';
 import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 import { RAGE_SCALE_FACTOR } from '../normalizers/rage/constants';
 
@@ -32,7 +25,7 @@ class RageTracker extends ResourceTracker {
         return;
       }
 
-      const rage = _getRage(event, this.selectedCombatant);
+      const rage = getRage(event, this.selectedCombatant);
 
       let warning = false;
       const parts: string[] = [];
@@ -89,25 +82,3 @@ class RageTracker extends ResourceTracker {
 }
 
 export default RageTracker;
-
-function _getRage(event: AnyEvent, selectedCombatant: Combatant) {
-  if ('classResources' in event && 'resourceActor' in event) {
-    if (
-      event.resourceActor === ResourceActor.Source &&
-      'sourceID' in event &&
-      event.sourceID === selectedCombatant.id &&
-      // Charge cast when target is reached has classResources from when it was triggerd
-      // We could maybe do a normalizer step before which adjusts this, but I think it's unecessary
-      event.ability?.guid !== SPELLS.CHARGE_2.id
-    ) {
-      return event.classResources?.find((resource) => resource.type === RESOURCE_TYPES.RAGE.id);
-    } else if (
-      event.resourceActor === ResourceActor.Target &&
-      event.targetID === selectedCombatant.id &&
-      // It seems like heals show the amounts when cast, not when applied, so will often be incorrect
-      event.type !== EventType.Heal
-    ) {
-      return event.classResources?.find((resource) => resource.type === RESOURCE_TYPES.RAGE.id);
-    }
-  }
-}
