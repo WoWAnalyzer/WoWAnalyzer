@@ -6,8 +6,6 @@ import {
   ApplyBuffEvent,
   ApplyBuffStackEvent,
   BaseCastEvent,
-  CastEvent,
-  ClassResources,
   EventType,
   GetRelatedEvent,
   GetRelatedEvents,
@@ -229,8 +227,9 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
               continue;
             }
             // this just ensures the class resource object exists on the cast event
-            const cr = getMaelstromClassResources(event as CastEvent, this.maxResource);
+            const cr = this.getMaelstromClassResources(event);
             cr.amount = spend.type === EventType.RemoveBuff ? 0 : spend.stack;
+            cr.cost = -1;
 
             if (HasRelatedEvent(spend, MAELSTROM_WEAPON_LINK)) {
               console.error('Already has a related spend event', spend, foundEvents);
@@ -308,8 +307,41 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
     return events;
   }
 
+  private _getInitialMaelstrom(events: AnyEvent[]) {
+    const buildInitialMaelstromEvent = (value: number, event: AnyEvent) => {
+      const initial = this._buildEnergizeEvent(SPELLS.MAELSTROM_WEAPON_BUFF);
+      initial.timestamp = 0;
+      initial.resourceChange = value;
+      this._linkEnergizeEvent(initial, event);
+      return initial;
+    };
+
+    // rather than using a prepull normalizer, look for the first maelstrom weapon buff event and set current
+    for (let index = 0; index < events.length; index += 1) {
+      const event = events[index];
+      if (HasAbility(event) && event.ability.guid === SPELLS.MAELSTROM_WEAPON_BUFF.id) {
+        if (HasRelatedEvent(event, MAELSTROM_WEAPON_LINK_REVERSE)) {
+          return 0;
+        }
+        switch (event.type) {
+          case EventType.ApplyBuffStack:
+          case EventType.RemoveBuffStack:
+            events.splice(0, 0, buildInitialMaelstromEvent(event.stack, event));
+            return event.stack;
+          case EventType.RefreshBuff:
+            events.splice(0, 0, buildInitialMaelstromEvent(this.maxResource, event));
+            return this.maxResource;
+          case EventType.RemoveBuff:
+            events.splice(0, 0, buildInitialMaelstromEvent(0, event));
+            return 0;
+        }
+      }
+    }
+    return 0;
+  }
+
   private _doResourceCalculations(events: AnyEvent[]) {
-    let current = 0;
+    let current: number = this._getInitialMaelstrom(events);
     events.forEach((event) => {
       if (
         event.type === EventType.ResourceChange &&
@@ -331,6 +363,9 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
         event.waste = Math.max(current - this.maxResource, 0);
         current = Math.min(current, this.maxResource);
 
+        const resource = this.getMaelstromClassResources(event);
+        resource.amount = current;
+
         const expectedCurrent =
           lastBuff.type === EventType.ApplyBuff
             ? 1
@@ -350,31 +385,33 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
           }
         }
       } else if (event.type === EventType.Cast || event.type === EventType.FreeCast) {
-        const cr = getResource(event.classResources, RESOURCE_TYPES.MAELSTROM_WEAPON.id);
-        if (cr) {
-          const buffs = GetRelatedEvents<RemoveBuffEvent | RemoveBuffStackEvent>(
+        const cr = this.getMaelstromClassResources(event);
+        if (cr && cr.cost !== 0) {
+          const buff = GetRelatedEvent<RemoveBuffEvent | RemoveBuffStackEvent>(
             event,
             MAELSTROM_WEAPON_LINK,
             (e) => SPEND_EVENT_TYPES.includes(e.type),
           );
-          if (DEBUG && buffs.length !== 1) {
-            console.error(
-              `Multiple linked spend events at ${this.owner.formatTimestamp(event.timestamp, 3)}`,
-              event,
-              buffs,
-            );
+          if (buff === undefined) {
+            DEBUG &&
+              console.error(
+                `Multiple linked spend events at ${this.owner.formatTimestamp(event.timestamp, 3)}`,
+                event,
+                buff,
+              );
           }
           const expectedCost =
-            buffs[0].type === EventType.RemoveBuff ? current : current - buffs[0].stack;
+            buff!.type === EventType.RemoveBuff ? current : current - buff!.stack;
 
           cr.cost = current - cr.amount;
           cr.amount = current;
+
           if (cr.cost !== expectedCost) {
             DEBUG &&
               console.log(
                 `${this.owner.formatTimestamp(event.timestamp, 3)}: expected maelstrom spent: ${expectedCost}, actual: ${cr.cost}`,
                 event,
-                buffs,
+                buff,
               );
             cr.cost = expectedCost;
           }
@@ -629,6 +666,25 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
       AddRelatedEvent(linkedEvent, MAELSTROM_WEAPON_LINK_REVERSE, event);
     });
   }
+
+  private getMaelstromClassResources<T extends string>(
+    event: BaseCastEvent<T> | ResourceChangeEvent,
+  ) {
+    event.classResources ??= [];
+    let resource = getResource(event.classResources, RESOURCE_TYPES.MAELSTROM_WEAPON.id);
+    if (!resource) {
+      resource = {
+        amount: 0,
+        max: this.maxResource,
+        type: RESOURCE_TYPES.MAELSTROM_WEAPON.id,
+      };
+      event.classResources.push({
+        ...resource,
+        cost: 0,
+      });
+    }
+    return getResource(event.classResources, RESOURCE_TYPES.MAELSTROM_WEAPON.id)!;
+  }
 }
 
 const MAELSTROM_ABILITIES = {
@@ -839,26 +895,6 @@ const PERIODIC_SPELLS: PeriodicGainEffect[] = [
     spellIdOverride: TALENTS.ASCENDANCE_ENHANCEMENT_TALENT.id,
   },
 ];
-
-function getMaelstromClassResources<T extends string>(event: BaseCastEvent<T>, max: number) {
-  event.classResources ??= [];
-  const index = event.classResources.findIndex(
-    (cr) => cr.type === RESOURCE_TYPES.MAELSTROM_WEAPON.id,
-  );
-  const classResource: ClassResources & { cost: number } =
-    index >= 0
-      ? event.classResources[index]
-      : {
-          amount: 0,
-          max: max,
-          type: RESOURCE_TYPES.MAELSTROM_WEAPON.id,
-          cost: 0,
-        };
-  if (index < 0) {
-    event.classResources.push(classResource!);
-  }
-  return classResource;
-}
 
 function startPeriodicGain(
   startEvent: ApplyBuffEvent,

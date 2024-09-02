@@ -58,6 +58,7 @@ import MaestromRefreshBuffNormalizer from './modules/normalizers/MaelstromRefres
 import ElementalBlastGuide from './modules/talents/ElementalBlastGuide';
 import StaticAccumulation from './modules/talents/StaticAccumulation';
 import Tempest from '../shared/hero/stormbringer/Tempest';
+import { StormbringerTab } from '../shared/hero/stormbringer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -118,6 +119,7 @@ class CombatLogParser extends CoreCombatLogParser {
     staticAccumulation: StaticAccumulation,
 
     // hero talents
+    stormbringerTab: StormbringerTab,
     tempest: Tempest,
 
     // Tier

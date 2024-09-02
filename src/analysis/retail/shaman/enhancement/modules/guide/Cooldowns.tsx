@@ -35,7 +35,6 @@ function Cooldowns({ info, modules }: GuideProps<typeof CombatLogParser>) {
         </p>
         <CooldownGraphSubsection checklist={COOLDOWNS} />
       </SubSection>
-      {modules.tempest.guideSubsection}
       {modules.ascendance.guideSubsection}
       {modules.hotHand.guideSubsection}
       {modules.elementalBlastGuide.guideSubsection}

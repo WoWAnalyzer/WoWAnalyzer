@@ -10,22 +10,13 @@ import Events, {
 import TALENTS from 'common/TALENTS/shaman';
 import SPELLS from 'common/SPELLS/shaman';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import Statistic from 'parser/ui/Statistic';
-import TalentSpellText from 'parser/ui/TalentSpellText';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { SpellLink } from 'interface';
-import typedKeys from 'common/typedKeys';
 import RESOURCE_TYPES, { Resource } from 'game/RESOURCE_TYPES';
 import SPECS from 'game/SPECS';
-import { CompositeEncoding } from 'vega-lite/build/src/compositemark';
-import BaseChart, { formatTime } from 'parser/ui/BaseChart';
-import { VisualizationSpec } from 'react-vega';
+import BaseChart from 'parser/ui/BaseChart';
 import AutoSizer from 'react-virtualized-auto-sizer';
-import Panel from 'parser/ui/Panel';
-import { SubSection } from 'interface/guide';
+import { tempestGraph } from './TempestGraph';
 
-type WasteType = 'maelstrom' | 'awakening-storms';
+type ProcType = 'maelstrom' | 'awakening-storms';
 
 interface SpecOptions {
   requiredMaelstrom: number;
@@ -54,9 +45,9 @@ class Tempest extends Analyzer {
   protected spellUsable!: SpellUsable;
   protected specOptions: SpecOptions;
 
-  protected wastedProcs: Record<WasteType, number> = {
-    maelstrom: 0,
-    'awakening-storms': 0,
+  public tempestSources: Record<ProcType, { generated: number; wasted: number }> = {
+    maelstrom: { generated: 0, wasted: 0 },
+    'awakening-storms': { generated: 0, wasted: 0 },
   };
 
   private maelstrom: Point[] = [];
@@ -64,12 +55,12 @@ class Tempest extends Analyzer {
   private tempestCasts: XPoint[] = [];
 
   private current: number = 0;
-  private startTime: number;
+  private graphEnabled: boolean = true;
 
   constructor(options: Options) {
     super(options);
     this.specOptions = SPEC_OPTIONS[this.selectedCombatant.specId];
-    this.startTime = this.owner.fight.start_time;
+
     this.active = this.selectedCombatant.hasTalent(TALENTS.TEMPEST_TALENT);
     if (!this.active) {
       return;
@@ -91,7 +82,7 @@ class Tempest extends Analyzer {
   }
 
   onTempestCast(event: CastEvent) {
-    this.tempestCasts.push({ timestamp: event.timestamp - this.startTime });
+    this.tempestCasts.push({ timestamp: event.timestamp });
   }
 
   onAwakeningStorms(event: ApplyBuffEvent | ApplyBuffStackEvent | RemoveBuffEvent) {
@@ -101,15 +92,20 @@ class Tempest extends Analyzer {
           timestamp: event.timestamp,
           value: 0,
         });
-        if (this.selectedCombatant.hasBuff(SPELLS.TEMPEST_BUFF.id)) {
-          this.wastedProcs['awakening-storms'] += 1;
-        }
         break;
       default:
         this.awakeningStorms.push({
           timestamp: event.timestamp,
           value: event.type === EventType.ApplyBuff ? 1 : event.stack,
         });
+
+        if (this.awakeningStorms.at(-1)!.value === 3) {
+          const proc = this.tempestSources['awakening-storms'];
+          proc.generated += 1;
+          if (this.selectedCombatant.hasBuff(SPELLS.TEMPEST_BUFF.id)) {
+            proc.wasted += 1;
+          }
+        }
         break;
     }
   }
@@ -121,8 +117,10 @@ class Tempest extends Analyzer {
 
     this.current += event.resourceChange;
     if (this.current >= this.specOptions.requiredMaelstrom) {
+      const proc = this.tempestSources['maelstrom'];
+      proc.generated += 1;
       if (this.selectedCombatant.hasBuff(SPELLS.TEMPEST_BUFF.id)) {
-        this.wastedProcs['maelstrom'] += 1;
+        proc.wasted += 1;
       }
       // reached cap point
       this.maelstrom.push({
@@ -140,157 +138,26 @@ class Tempest extends Analyzer {
   }
 
   get graph() {
-    const colors = {
-      maelstrom: '#00D1FF',
-      awakeningStorms: '#0080FF',
-    };
-
-    const baseEncoding: CompositeEncoding<any> = {
-      x: {
-        field: 'x',
-        type: 'quantitative',
-        axis: {
-          labelExpr: formatTime('datum.value'),
-          tickCount: 25,
-          grid: false,
-        },
-        scale: { zero: true, nice: false },
-        title: 'Time',
-      },
-      y: {
-        field: 'y',
-        type: 'quantitative',
-        axis: {
-          tickCount: 4,
-        },
-      },
-    };
-
-    const spec: VisualizationSpec = {
-      layer: [
-        {
-          data: {
-            name: 'maelstrom',
-          },
-          mark: {
-            type: 'area',
-            line: {
-              interpolate: 'step',
-              color: colors.maelstrom,
-              strokeWidth: 1,
-              opacity: 0.8,
-            },
-            interpolate: 'step',
-            opacity: 0.3,
-          },
-          encoding: {
-            ...baseEncoding,
-            y: {
-              field: 'y',
-              type: 'quantitative',
-              title: 'Maelstrom',
-              axis: {
-                grid: false,
-                format: '~s',
-              },
-            },
-            color: { value: colors.maelstrom },
-          },
-        },
-
-        /** Awakening Storms stacks */
-        {
-          data: {
-            name: 'awakeningStorms',
-          },
-          mark: {
-            type: 'line',
-            opacity: 1,
-            interpolate: 'step',
-            line: {
-              strokeWidth: 1,
-              color: colors.awakeningStorms,
-            },
-            color: colors.awakeningStorms,
-          },
-          encoding: {
-            ...baseEncoding,
-            color: {
-              value: colors.awakeningStorms,
-            },
-          },
-        },
-      ],
-    };
-
-    const start = this.owner.fight.start_time;
     const data = {
-      maelstrom: this.maelstrom.map(({ timestamp, value }) => {
-        const x = Math.max(timestamp, start) - start;
-        return {
-          x: x,
-          y: value,
-        };
-      }),
-      awakeningStorms: this.awakeningStorms.map(({ timestamp, value }) => {
-        const x = Math.max(timestamp, start) - start;
-        return {
-          x: x,
-          y: value,
-        };
-      }),
+      maelstrom: this.maelstrom,
+      awakeningStorms: this.awakeningStorms,
+      tempest: this.tempestCasts,
     };
 
-    return (
+    return this.graphEnabled ? (
       <div className="graph-container">
-        <AutoSizer>
-          {({ width, height }) => (
-            <BaseChart height={height} width={width} spec={spec} data={data} />
+        <AutoSizer disableHeight>
+          {({ width }) => (
+            <BaseChart
+              height={300}
+              width={width}
+              spec={tempestGraph(this.owner.info)}
+              data={data}
+            />
           )}
         </AutoSizer>
       </div>
-    );
-  }
-
-  get guideSubsection(): JSX.Element {
-    return (
-      <>
-        <SubSection title={<SpellLink spell={TALENTS.TEMPEST_TALENT} />}>
-          <SpellLink spell={TALENTS.TEMPEST_TALENT} /> and{' '}
-          <SpellLink spell={TALENTS.AWAKENING_STORMS_TALENT} /> detailed usage
-          {this.graph}
-        </SubSection>
-      </>
-    );
-  }
-
-  statistic() {
-    return [
-      <Statistic
-        key="tempest-statistic"
-        category={STATISTIC_CATEGORY.HERO_TALENTS}
-        size="flexible"
-        position={STATISTIC_ORDER.OPTIONAL()}
-        tooltip={
-          <>
-            {this.wastedProcs['maelstrom']} wasted proc(s) from spending maelstrom
-            <br />
-            {this.wastedProcs['awakening-storms']} wasted proc(s) from{' '}
-            <SpellLink spell={TALENTS.AWAKENING_STORMS_TALENT} />
-          </>
-        }
-      >
-        <TalentSpellText talent={TALENTS.TEMPEST_TALENT}>
-          <div>
-            {typedKeys(this.wastedProcs).reduce((total, k) => this.wastedProcs[k] + total, 0)}{' '}
-            wasted casts
-          </div>
-        </TalentSpellText>
-      </Statistic>,
-      <Panel key="tempest-graph" title="Tempest" position={99}>
-        {this.graph}
-      </Panel>,
-    ];
+    ) : null;
   }
 }
 

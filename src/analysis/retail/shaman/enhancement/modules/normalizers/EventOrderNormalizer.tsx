@@ -66,6 +66,19 @@ const primordialWaveEventOrder: EventOrder = {
   updateTimestamp: true,
 };
 
+/** There is a **BIG** gap between  */
+const awakeningStormsTempestProc: EventOrder = {
+  afterEventId: SPELLS.AWAKENING_STORMS_BUFF.id,
+  afterEventType: EventType.RemoveBuff,
+  beforeEventId: SPELLS.TEMPEST_BUFF.id,
+  beforeEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+  bufferMs: 750,
+  maxMatches: 1,
+  updateTimestamp: true,
+  anyTarget: true,
+  anySource: true,
+};
+
 export class EventOrderNormalizer extends BaseEventOrderNormalizer {
   private readonly hasRollingThunder: boolean;
   constructor(options: Options) {
@@ -74,6 +87,7 @@ export class EventOrderNormalizer extends BaseEventOrderNormalizer {
       thorimsInvocationBuffAfterSpell,
       healingOrder,
       primordialWaveEventOrder,
+      awakeningStormsTempestProc,
     ]);
 
     this.priority = NormalizerOrder.EventOrderNormalizer;
