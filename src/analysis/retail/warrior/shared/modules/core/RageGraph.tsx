@@ -1,5 +1,5 @@
 import ResourceGraph from 'parser/shared/modules/ResourceGraph';
-import { RAGE_SCALE_FACTOR } from '../normalizers/rageNormalizers/constants';
+import { RAGE_SCALE_FACTOR } from '../normalizers/rage/constants';
 import RageTracker from './RageTracker';
 
 const LINE_COLOR = '#DD2222';

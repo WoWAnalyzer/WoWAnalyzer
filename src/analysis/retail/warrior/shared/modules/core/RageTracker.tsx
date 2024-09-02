@@ -12,7 +12,7 @@ import Events, {
   ResourceChangeEvent,
 } from 'parser/core/Events';
 import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
-import { RAGE_SCALE_FACTOR } from '../normalizers/rageNormalizers/constants';
+import { RAGE_SCALE_FACTOR } from '../normalizers/rage/constants';
 
 class RageTracker extends ResourceTracker {
   maxResource = 100;
