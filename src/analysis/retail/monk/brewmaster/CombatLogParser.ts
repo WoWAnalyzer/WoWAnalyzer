@@ -50,11 +50,10 @@ import Salsalabims from './modules/talents/Salsalabims';
 import AnvilStave from './modules/talents/AnvilStave';
 import ChiSurge from './modules/talents/ChiSurge';
 import BreathOfFireDebuffTargetNormalizer from './modules/spells/BreathOfFire/normalizer';
-import BrewmasterT29FourSet from './modules/items/Tier29/FourSet';
 import SpinningCraneKickLinkNormalizer from './normalizers/SpinningCraneKick';
-import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
 import PressTheAdvantage from './modules/talents/PressTheAdvantage';
 import PressTheAdvantageNormalizer from './modules/talents/PressTheAdvantage/normalizer';
+import WarWithinS1TierSet from './modules/items/WarWithinS1TierSet';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -98,9 +97,7 @@ class CombatLogParser extends CoreCombatLogParser {
     defensiveLinks: DefensiveBuffLinkNormalizer,
 
     // Items
-    stormstoutsLastKeg: StormtoutsLastKeg,
-    t29fourSet: BrewmasterT29FourSet,
-    callToDominance: CallToDominance,
+    WarWithinS1TierSet,
 
     // normalizers
     gotoxNorm: GiftOfTheOx,
@@ -122,6 +119,7 @@ class CombatLogParser extends CoreCombatLogParser {
     anvilStave: AnvilStave,
     chiSurge: ChiSurge,
     pta: PressTheAdvantage,
+    stormstoutsLastKeg: StormtoutsLastKeg,
 
     apl: AplCheck,
 

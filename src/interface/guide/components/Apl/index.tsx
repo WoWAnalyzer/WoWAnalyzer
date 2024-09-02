@@ -97,7 +97,7 @@ const AplViolationContainer = styled.div`
 const AplLayout = styled.div`
   display: grid;
   grid-template-areas: 'summary problems' 'timeline timeline';
-  grid-template-columns: auto 1fr;
+  grid-template-columns: 10fr 8fr;
   grid-gap: 2rem;
 
   ${AplRuleList} {
