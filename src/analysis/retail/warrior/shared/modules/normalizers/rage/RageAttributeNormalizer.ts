@@ -5,7 +5,6 @@ import Spell from 'common/SPELLS/Spell';
 import TALENTS from 'common/TALENTS/warrior';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import Combatant from 'parser/core/Combatant';
 import {
   AnyEvent,
   EventType,
@@ -76,13 +75,12 @@ export default class RageAttributeNormalizer extends EventsNormalizer {
           event.ability.guid !== TALENTS.IMPROVED_EXECUTE_ARMS_TALENT.id &&
           event.ability.guid !== TALENTS.CRITICAL_THINKING_ARMS_TALENT.id
         ) {
-          const newEvent = removeMultiplicitiveIncrease(
+          const newEvent = this.removeMultiplicitiveIncrease(
             event,
             this.selectedCombatant.hasTalent(TALENTS.WARLORDS_TORMENT_TALENT)
               ? WARLORDS_TORMENT_RECKLESSNESS_INCREASE
               : RECKLESSNESS_INCREASE,
             SPELLS.RECKLESSNESS,
-            this.selectedCombatant,
           );
           additions.push(newEvent);
         }
@@ -91,27 +89,24 @@ export default class RageAttributeNormalizer extends EventsNormalizer {
       if (event.ability.guid === SPELLS.MELEE.id) {
         // War Machines
         if (hasFuryWM) {
-          const newEvent = removeMultiplicitiveIncrease(
+          const newEvent = this.removeMultiplicitiveIncrease(
             event,
             WARMACHINE_FURY_INCREASE,
             SPELLS.WAR_MACHINE_TALENT_BUFF,
-            this.selectedCombatant,
           );
           additions.push(newEvent);
         } else if (hasArmsWM) {
-          const newEvent = removeMultiplicitiveIncrease(
+          const newEvent = this.removeMultiplicitiveIncrease(
             event,
             WARMACHINE_ARMS_INCREASE,
             SPELLS.WAR_MACHINE_TALENT_BUFF,
-            this.selectedCombatant,
           );
           additions.push(newEvent);
         } else if (hasProtWM) {
-          const newEvent = removeMultiplicitiveIncrease(
+          const newEvent = this.removeMultiplicitiveIncrease(
             event,
             WARMACHINE_PROT_INCREASE,
             SPELLS.WAR_MACHINE_TALENT_BUFF,
-            this.selectedCombatant,
           );
           additions.push(newEvent);
         }
@@ -119,11 +114,10 @@ export default class RageAttributeNormalizer extends EventsNormalizer {
 
       if (hasPC) {
         if (event.ability.guid === SPELLS.CHAMPIONS_SPEAR.id) {
-          const newEvent = removeMultiplicitiveIncrease(
+          const newEvent = this.removeMultiplicitiveIncrease(
             event,
             PIERCING_CHALLENGE_INCREASE,
             TALENTS.PIERCING_CHALLENGE_TALENT,
-            this.selectedCombatant,
           );
           additions.push(newEvent);
         }
@@ -131,7 +125,7 @@ export default class RageAttributeNormalizer extends EventsNormalizer {
 
       if (hasSoS) {
         if (event.ability.guid === SPELLS.RAVAGER_ENERGIZE.id) {
-          const newEvent = removeAdditiveIncrease(
+          const newEvent = this.removeAdditiveIncrease(
             event,
             STORM_OF_STEEL_INCREASE,
             TALENTS.STORM_OF_STEEL_TALENT,
@@ -149,105 +143,102 @@ export default class RageAttributeNormalizer extends EventsNormalizer {
 
     return updatedEvents;
   }
-}
 
-function removeMultiplicitiveIncrease(
-  event: ResourceChangeEvent,
-  amount: number,
-  referenceTalent: Spell,
-  combatant: Combatant,
-): ResourceChangeEvent {
-  const { base, bonus } = calculateResourceIncrease(event, amount);
+  private removeMultiplicitiveIncrease(
+    event: ResourceChangeEvent,
+    /** Multiplicative increase. 10% increase = 0.1 */
+    amount: number,
+    referenceTalent: Spell,
+  ): ResourceChangeEvent {
+    const { base, bonus } = calculateResourceIncrease(event, amount);
 
-  // Update base event
-  event.__modified = true;
-  event.resourceChange = base.gain + base.waste;
-  event.waste = base.waste;
-
-  const originalRage = getRage(event, combatant);
-
-  if (!originalRage) {
-    throw new Error('Original rage not found');
+    return this.synthesizeEvent(event, base, bonus, referenceTalent);
   }
 
-  // Create new event
-  const newEvent: ResourceChangeEvent = {
-    __fabricated: true,
-    waste: bonus.waste,
-    resourceChange: bonus.gain + bonus.waste,
-    ability: {
-      abilityIcon: referenceTalent.icon,
-      guid: referenceTalent.id,
-      name: referenceTalent.name,
-      type: MAGIC_SCHOOLS.ids.PHYSICAL,
-    },
-    classResources: [
+  private removeAdditiveIncrease(
+    event: ResourceChangeEvent,
+    /** How much of the resourceChange is the additive bonus */
+    amount: number,
+    referenceTalent: Spell,
+  ): ResourceChangeEvent {
+    const base = {
+      gain: event.resourceChange - amount,
+      waste: Math.max(0, event.waste - amount),
+    };
+    const bonus = {
+      gain: amount,
+      waste: Math.min(event.waste, amount),
+    };
+
+    return this.synthesizeEvent(event, base, bonus, referenceTalent);
+  }
+
+  private synthesizeEvent(
+    event: ResourceChangeEvent,
+    base: { gain: number; waste: number },
+    bonus: { gain: number; waste: number },
+    referenceTalent: Spell,
+  ): ResourceChangeEvent {
+    // Update base event
+    event.__modified = true;
+    event.resourceChange = base.gain + base.waste;
+    event.waste = base.waste;
+
+    const originalRage = getRage(event, this.selectedCombatant);
+
+    if (!originalRage) {
+      throw new Error('Original rage not found');
+    }
+
+    // Create new event
+    const newEvent: ResourceChangeEvent = {
+      __fabricated: true,
+      waste: bonus.waste,
+      resourceChange: bonus.gain + bonus.waste,
+      ability: {
+        abilityIcon: referenceTalent.icon,
+        guid: referenceTalent.id,
+        name: referenceTalent.name,
+        type: MAGIC_SCHOOLS.ids.PHYSICAL,
+      },
+      classResources: [
+        {
+          type: RESOURCE_TYPES.RAGE.id,
+          amount: originalRage.amount,
+          max: originalRage.max,
+        },
+      ],
+
+      sourceID: event.sourceID,
+      sourceIsFriendly: true,
+      targetID: event.targetID,
+      targetIsFriendly: true,
+      resourceChangeType: RESOURCE_TYPES.RAGE.id,
+      otherResourceChange: 0,
+      resourceActor: ResourceActor.Source,
+      hitPoints: event.hitPoints!,
+      maxHitPoints: event.maxHitPoints!,
+      attackPower: event.attackPower!,
+      spellPower: event.spellPower!,
+      armor: event.armor!,
+      x: event.x!,
+      y: event.y!,
+      facing: event.facing!,
+      mapID: event.mapID!,
+      itemLevel: event.itemLevel!,
+      type: EventType.ResourceChange,
+      timestamp: event.timestamp,
+    };
+
+    // Since original event will not bring to correct rage amount, we need to adjust it
+    event.classResources = [
       {
         type: RESOURCE_TYPES.RAGE.id,
-        amount: originalRage.amount,
+        amount: originalRage.amount - bonus.gain,
         max: originalRage.max,
       },
-    ],
+    ];
 
-    sourceID: event.sourceID,
-    sourceIsFriendly: true,
-    targetID: event.targetID,
-    targetIsFriendly: true,
-    resourceChangeType: RESOURCE_TYPES.RAGE.id,
-    otherResourceChange: 0,
-    resourceActor: ResourceActor.Source,
-    hitPoints: event.hitPoints!,
-    maxHitPoints: event.maxHitPoints!,
-    attackPower: event.attackPower!,
-    spellPower: event.spellPower!,
-    armor: event.armor!,
-    x: event.x!,
-    y: event.y!,
-    facing: event.facing!,
-    mapID: event.mapID!,
-    itemLevel: event.itemLevel!,
-    type: EventType.ResourceChange,
-    timestamp: event.timestamp,
-  };
-
-  // Since original event will not bring to correct rage amount, we need to adjust it
-  event.classResources = [
-    {
-      type: RESOURCE_TYPES.RAGE.id,
-      amount: originalRage.amount - bonus.gain,
-      max: originalRage.max,
-    },
-  ];
-
-  return newEvent;
-}
-
-function removeAdditiveIncrease(
-  event: ResourceChangeEvent,
-  amount: number,
-  referenceTalent: Spell,
-): ResourceChangeEvent {
-  const rageIncreaseWaste = amount - Math.max(amount - event.waste, 0);
-  const remainingWaste = Math.max(event.waste - rageIncreaseWaste);
-  const baseRageWaste = event.resourceChange - Math.max(event.resourceChange - remainingWaste, 0);
-
-  event.__modified = true;
-  event.resourceChange -= amount;
-  event.waste = baseRageWaste;
-
-  const newEvent: ResourceChangeEvent = {
-    ...event,
-    __fabricated: true,
-    waste: rageIncreaseWaste,
-    resourceChange: amount,
-    ability: {
-      abilityIcon: referenceTalent.icon,
-      guid: referenceTalent.id,
-      name: referenceTalent.name,
-      // This is so illegal but there is no good way...
-      type: MAGIC_SCHOOLS.ids.PHYSICAL,
-    },
-  };
-
-  return newEvent;
+    return newEvent;
+  }
 }
