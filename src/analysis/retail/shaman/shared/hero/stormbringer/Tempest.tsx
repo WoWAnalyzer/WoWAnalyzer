@@ -4,19 +4,24 @@ import Events, {
   ApplyBuffStackEvent,
   CastEvent,
   EventType,
+  FreeCastEvent,
+  GetRelatedEvent,
+  RefreshBuffEvent,
   RemoveBuffEvent,
   SpendResourceEvent,
 } from 'parser/core/Events';
 import TALENTS from 'common/TALENTS/shaman';
 import SPELLS from 'common/SPELLS/shaman';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
 import RESOURCE_TYPES, { Resource } from 'game/RESOURCE_TYPES';
 import SPECS from 'game/SPECS';
 import BaseChart from 'parser/ui/BaseChart';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { tempestGraph } from './TempestGraph';
+import { TEMPEST_SOURCE_SPELL_EVENT_LINK } from './normalizers/StormbringerEventLinkNormalizer';
 
 type ProcType = 'maelstrom' | 'awakening-storms';
+
+const DEBUG = false;
 
 interface SpecOptions {
   requiredMaelstrom: number;
@@ -35,14 +40,10 @@ const SPEC_OPTIONS = {
 } satisfies Record<number, SpecOptions>;
 
 type Point = { timestamp: number; value: number };
+type PointWithRange = Point & { min: number; max: number };
 type XPoint = Pick<Point, 'timestamp'>;
 
 class Tempest extends Analyzer {
-  static dependencies = {
-    spellUsable: SpellUsable,
-  };
-
-  protected spellUsable!: SpellUsable;
   protected specOptions: SpecOptions;
 
   public tempestSources: Record<ProcType, { generated: number; wasted: number }> = {
@@ -50,11 +51,10 @@ class Tempest extends Analyzer {
     'awakening-storms': { generated: 0, wasted: 0 },
   };
 
-  private maelstrom: Point[] = [];
+  private maelstromSpenders: (Point | PointWithRange)[] = [];
   private awakeningStorms: Point[] = [];
   private tempestCasts: XPoint[] = [];
 
-  private current: number = 0;
   private graphEnabled: boolean = true;
 
   constructor(options: Options) {
@@ -66,12 +66,31 @@ class Tempest extends Analyzer {
       return;
     }
 
+    this.maelstromSpenders.push({
+      timestamp: this.owner.fight.start_time,
+      value: 0,
+      min: 0,
+      max: this.specOptions.requiredMaelstrom - 1,
+    });
+    this.awakeningStorms.push({
+      timestamp: this.owner.fight.start_time,
+      value: this.selectedCombatant.getBuffStacks(
+        SPELLS.AWAKENING_STORMS_BUFF.id,
+        this.owner.fight.start_time,
+      ),
+    });
+
     this.addEventListener(Events.SpendResource.by(SELECTED_PLAYER), this.onSpendMaelstrom);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.TEMPEST_CAST),
       this.onTempestCast,
     );
-
+    [Events.applybuff, Events.refreshbuff].forEach((filter) =>
+      this.addEventListener(
+        filter.by(SELECTED_PLAYER).spell(SPELLS.TEMPEST_BUFF),
+        this.onApplyTempest,
+      ),
+    );
     /** Awakening Storms listeners */
     [Events.applybuff, Events.applybuffstack, Events.removebuff].forEach((filter) =>
       this.addEventListener(
@@ -83,6 +102,69 @@ class Tempest extends Analyzer {
 
   onTempestCast(event: CastEvent) {
     this.tempestCasts.push({ timestamp: event.timestamp });
+  }
+
+  get maelstromSpent() {
+    return this.maelstromSpenders.reduce((total, spender) => (total += spender.value), 0);
+  }
+
+  get current() {
+    return (
+      this.maelstromSpenders.slice(0, -1).reduce((total, spender) => (total += spender.value), 0) %
+      this.specOptions.requiredMaelstrom
+    );
+  }
+
+  onApplyTempest(event: ApplyBuffEvent | RefreshBuffEvent) {
+    const sourceEvent = GetRelatedEvent<CastEvent | FreeCastEvent | RemoveBuffEvent>(
+      event,
+      TEMPEST_SOURCE_SPELL_EVENT_LINK,
+    );
+    if (!sourceEvent) {
+      DEBUG &&
+        console.error(
+          `tempest buff applied with no source at ${this.owner.formatTimestamp(event.timestamp, 3)}`,
+          event,
+        );
+      return;
+    }
+
+    const procType: ProcType =
+      sourceEvent.type === EventType.RemoveBuff ? 'awakening-storms' : 'maelstrom';
+    this.tempestSources[procType].generated += 1;
+    if (event.type === EventType.RefreshBuff) {
+      this.tempestSources[procType].wasted += 1;
+    }
+
+    // when tempest procs from a cast, check the current progress towards a proc is accurate
+    if (sourceEvent.type === EventType.Cast || sourceEvent.type === EventType.FreeCast) {
+      const cost = sourceEvent.resourceCost![this.specOptions.resource.id]!;
+
+      const current = this.current;
+      // if true, the initial maelstrom is inaccurate and needs recalculating
+      if (current + cost < this.specOptions.requiredMaelstrom) {
+        // adjust the range of possible starting maelstrom
+        const initial = this.maelstromSpenders[0] as PointWithRange;
+
+        const min = Math.max(this.specOptions.requiredMaelstrom - cost! - current, initial.min);
+        const max = Math.min(this.specOptions.requiredMaelstrom - current - 1, initial.max);
+        if (min < initial.max && max > initial.min) {
+          this.maelstromSpenders.splice(0, 1, {
+            ...initial,
+            value: Math.trunc((min + max) / 2),
+            min: min,
+            max: max,
+          });
+        }
+        // } else {
+        //   DEBUG && console.error(
+        //     `failed to update initial maelstrom at ${this.owner.formatTimestamp(event.timestamp, 3)}`,
+        //     initial,
+        //     { min: min, max: max },
+        //   );
+        // }
+      }
+    }
   }
 
   onAwakeningStorms(event: ApplyBuffEvent | ApplyBuffStackEvent | RemoveBuffEvent) {
@@ -98,14 +180,6 @@ class Tempest extends Analyzer {
           timestamp: event.timestamp,
           value: event.type === EventType.ApplyBuff ? 1 : event.stack,
         });
-
-        if (this.awakeningStorms.at(-1)!.value === 3) {
-          const proc = this.tempestSources['awakening-storms'];
-          proc.generated += 1;
-          if (this.selectedCombatant.hasBuff(SPELLS.TEMPEST_BUFF.id)) {
-            proc.wasted += 1;
-          }
-        }
         break;
     }
   }
@@ -114,32 +188,32 @@ class Tempest extends Analyzer {
     if (event.resourceChangeType !== this.specOptions.resource.id) {
       return;
     }
-
-    this.current += event.resourceChange;
-    if (this.current >= this.specOptions.requiredMaelstrom) {
-      const proc = this.tempestSources['maelstrom'];
-      proc.generated += 1;
-      if (this.selectedCombatant.hasBuff(SPELLS.TEMPEST_BUFF.id)) {
-        proc.wasted += 1;
-      }
-      // reached cap point
-      this.maelstrom.push({
-        timestamp: event.timestamp,
-        value: this.specOptions.requiredMaelstrom,
-      });
-      this.current -= this.specOptions.requiredMaelstrom;
-    }
-
-    // progress towards next tempest
-    this.maelstrom.push({
+    this.maelstromSpenders.push({
       timestamp: event.timestamp,
-      value: this.current,
+      value: event.resourceChange,
     });
   }
 
   get graph() {
+    const maelstrom: Point[] = [];
+    let current = 0;
+    this.maelstromSpenders.forEach((spent) => {
+      current += spent.value;
+      if (current >= this.specOptions.requiredMaelstrom) {
+        current -= this.specOptions.requiredMaelstrom;
+        maelstrom.push({
+          timestamp: spent.timestamp,
+          value: this.specOptions.requiredMaelstrom,
+        });
+      }
+      maelstrom.push({
+        timestamp: spent.timestamp,
+        value: current,
+      });
+    });
+
     const data = {
-      maelstrom: this.maelstrom,
+      maelstrom: maelstrom,
       awakeningStorms: this.awakeningStorms,
       tempest: this.tempestCasts,
     };

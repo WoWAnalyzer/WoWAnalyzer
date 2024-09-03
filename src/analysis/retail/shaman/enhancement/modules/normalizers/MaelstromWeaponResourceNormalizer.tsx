@@ -406,6 +406,9 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
           cr.cost = current - cr.amount;
           cr.amount = current;
 
+          event.resourceCost ??= {};
+          event.resourceCost[RESOURCE_TYPES.MAELSTROM_WEAPON.id] = cr.cost;
+
           if (cr.cost !== expectedCost) {
             DEBUG &&
               console.log(

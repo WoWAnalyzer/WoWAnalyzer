@@ -1,7 +1,11 @@
+import SPECS from 'game/SPECS';
 import { Info } from 'parser/core/metric';
 import { formatTime } from 'parser/ui/BaseChart';
 import { VisualizationSpec } from 'react-vega';
+import { expressionFunction, Interpolate, SignalRef } from 'vega';
+import { StringFieldDef } from 'vega-lite/build/src/channeldef';
 import { CompositeEncoding } from 'vega-lite/build/src/compositemark';
+import { OverlayMarkDef } from 'vega-lite/build/src/mark';
 import { Transform } from 'vega-lite/build/src/transform';
 
 export const tempestGraph = (info: Info): VisualizationSpec => {
@@ -31,6 +35,14 @@ export const tempestGraph = (info: Info): VisualizationSpec => {
     },
   ];
 
+  const interpolate: Interpolate | undefined = 'linear';
+  const strokeWidth = 1;
+  const point: OverlayMarkDef<SignalRef> | undefined = { filled: false };
+  const tooltip: StringFieldDef<any> = {
+    field: 'value',
+    type: 'quantitative',
+  };
+
   const spec: VisualizationSpec = {
     layer: [
       /** Maelstrom progress */
@@ -40,13 +52,14 @@ export const tempestGraph = (info: Info): VisualizationSpec => {
         },
         mark: {
           type: 'area',
+          point: point,
           line: {
-            interpolate: 'step',
+            interpolate: interpolate,
             color: colors.maelstrom,
-            strokeWidth: 1,
+            strokeWidth: strokeWidth,
             opacity: 1,
           },
-          interpolate: 'step',
+          interpolate: interpolate,
           opacity: 0.1,
         },
         transform: transforms,
@@ -60,9 +73,18 @@ export const tempestGraph = (info: Info): VisualizationSpec => {
               grid: false,
               format: '~s',
               orient: 'left',
+              tickCount: info.combatant.spec === SPECS.ENHANCEMENT_SHAMAN ? 4 : 6,
             },
           },
-          color: { value: colors.maelstrom },
+          tooltip: [
+            {
+              ...tooltip,
+              title: 'Maelstrom',
+            },
+          ],
+          color: {
+            value: colors.maelstrom,
+          },
         },
       },
 
@@ -73,14 +95,15 @@ export const tempestGraph = (info: Info): VisualizationSpec => {
         },
         mark: {
           type: 'area',
+          point: point,
           line: {
             color: colors.awakeningStorms,
-            interpolate: 'step',
+            interpolate: interpolate,
             opacity: 1,
-            strokeWidth: 1,
+            strokeWidth: strokeWidth,
           },
           opacity: 0.1,
-          interpolate: 'step',
+          interpolate: interpolate,
         },
         transform: transforms,
         encoding: {
@@ -91,12 +114,18 @@ export const tempestGraph = (info: Info): VisualizationSpec => {
             title: 'Awakening Storms',
             axis: {
               orient: 'right',
+              tickCount: 3,
             },
           },
+          tooltip: [
+            {
+              ...tooltip,
+              title: 'Awakening Storms stacks',
+            },
+          ],
           color: { value: colors.awakeningStorms },
         },
       },
-
       /** Tempest casts */
       {
         data: {
@@ -104,12 +133,21 @@ export const tempestGraph = (info: Info): VisualizationSpec => {
         },
         mark: {
           type: 'rule',
-          color: 'red',
+          color: '#fab700',
           strokeWidth: 2,
-          opacity: 0.3,
+          opacity: 1,
         },
         encoding: {
           x: baseEncoding.x,
+          tooltip: [
+            {
+              field: 'timestamp_shifted',
+              type: 'quantitative',
+              title: 'Tempest Cast',
+              formatType: 'timestamp',
+              format: '3',
+            },
+          ],
         },
         transform: transforms,
       },
@@ -123,3 +161,15 @@ export const tempestGraph = (info: Info): VisualizationSpec => {
 
   return spec;
 };
+
+expressionFunction('timestamp', function (datum: number, params: string) {
+  const totalSeconds = datum / 1000;
+  const neg = totalSeconds < 0 ? '-' : '';
+  const posSeconds = Math.abs(totalSeconds);
+  const minutes = Math.floor(posSeconds / 60);
+  const mult = Math.pow(10, Number(params));
+  const rest = (Math.floor((posSeconds % 60) * mult) / mult).toFixed(Number(params));
+  const seconds = Number(rest) < 10 ? `0${rest}` : rest;
+
+  return `${neg}${minutes}:${seconds}`;
+});

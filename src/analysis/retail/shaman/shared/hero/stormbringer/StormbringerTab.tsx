@@ -8,6 +8,8 @@ import SPECS from 'game/SPECS';
 import SPELLS from 'common/SPELLS/shaman';
 import { TooltipElement } from 'interface/Tooltip';
 import { formatPercentage } from 'common/format';
+import ResourceLink from 'interface/ResourceLink';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 type props = {
   parser: CombatLogParser;
@@ -16,11 +18,20 @@ type props = {
 
 const numberColumnStyle = { width: 50, paddingRight: 5, textAlign: 'center' } as const;
 
-export const Stormbringer = (props: props) => {
+export const StormbringerTabContent = (props: props) => {
   const sources = [
     {
       ...props.tempest.tempestSources['maelstrom'],
-      ability: <>Maelstorm Spent</>,
+      ability: (
+        <>
+          {props.parser.selectedCombatant.spec === SPECS.ENHANCEMENT_SHAMAN ? (
+            <SpellLink spell={SPELLS.MAELSTROM_WEAPON} />
+          ) : (
+            <ResourceLink id={RESOURCE_TYPES.MAELSTROM.id} />
+          )}{' '}
+          <span style={{ color: '#fab700' }}>spent</span>
+        </>
+      ),
     },
     {
       ...props.tempest.tempestSources['awakening-storms'],
@@ -50,25 +61,29 @@ export const Stormbringer = (props: props) => {
                 wasting follow-up procs from <SpellLink spell={TALENTS.AWAKENING_STORMS_TALENT} />{' '}
                 is extremely important to performing well with Stormbringer.
               </p>
-              <p>
-                The graph below shows the progress towards the next{' '}
-                <SpellLink spell={TALENTS.TEMPEST_TALENT} /> from both spending{' '}
-                <SpellLink spell={SPELLS.MAELSTROM_WEAPON} /> and
-                <SpellLink spell={TALENTS.AWAKENING_STORMS_TALENT} /> procs. Red lines indicate when
-                you cast
-                <SpellLink spell={TALENTS.TEMPEST_TALENT} />
-              </p>
             </>
           ) : null}
         </SubSection>
-        <SubSection
-          title={
-            <>
-              <SpellLink spell={SPELLS.MAELSTROM_WEAPON} /> &{' '}
-              <SpellLink spell={TALENTS.AWAKENING_STORMS_TALENT} />
-            </>
-          }
-        >
+        <SubSection>
+          <p>
+            The graph below shows the progress towards the next{' '}
+            <SpellLink spell={TALENTS.TEMPEST_TALENT} /> from both spending{' '}
+            {props.parser.selectedCombatant.spec === SPECS.ENHANCEMENT_SHAMAN ? (
+              <SpellLink spell={SPELLS.MAELSTROM_WEAPON} />
+            ) : (
+              <ResourceLink id={RESOURCE_TYPES.MAELSTROM.id} />
+            )}{' '}
+            and
+            <SpellLink spell={TALENTS.AWAKENING_STORMS_TALENT} /> procs.{' '}
+            <span style={{ color: '#fab700', fontWeight: 'bold' }}>Yellow</span> lines show when you
+            cast <SpellLink spell={TALENTS.TEMPEST_TALENT} />
+          </p>
+          <p className="strong">
+            Note: Due to the maelstrom spent towards <SpellLink spell={TALENTS.TEMPEST_TALENT} />{' '}
+            not resetting between pulls and start of dungeons, the initial value is a "best guess"
+            and may not match what you see in game. Until such time the progress resets, this graph
+            may have some inaccuracies.
+          </p>
           {props.tempest.graph}
         </SubSection>
         <SubSection
@@ -147,7 +162,7 @@ export class StormbringerTab extends Analyzer {
     return {
       title: 'Hero Talents',
       url: 'hero',
-      render: () => <Stormbringer parser={this.owner} tempest={this.tempest} />,
+      render: () => <StormbringerTabContent parser={this.owner} tempest={this.tempest} />,
     };
   }
 }

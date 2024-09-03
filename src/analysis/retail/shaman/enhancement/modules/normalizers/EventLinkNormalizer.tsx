@@ -11,23 +11,10 @@ import { NormalizerOrder } from './constants';
 import {
   EnhancementEventLinks,
   EventLinkBuffers,
-  MAELSTROM_WEAPON_ELIGIBLE_SPELL_IDS,
   STORMSTRIKE_DAMAGE_IDS,
   STORMSTRIKE_SPELL_IDS,
 } from '../../constants';
 
-const maelstromWeaponInstantCastLink: EventLink = {
-  linkRelation: EnhancementEventLinks.MAELSTROM_WEAPON_INSTANT_CAST,
-  linkingEventId: MAELSTROM_WEAPON_ELIGIBLE_SPELL_IDS,
-  linkingEventType: [EventType.BeginCast, EventType.BeginChannel, EventType.EndChannel],
-  referencedEventId: MAELSTROM_WEAPON_ELIGIBLE_SPELL_IDS,
-  referencedEventType: [EventType.Cast, EventType.FreeCast],
-  forwardBufferMs: EventLinkBuffers.MaelstromWeapon,
-  backwardBufferMs: EventLinkBuffers.MaelstromWeapon,
-  anyTarget: true,
-  reverseLinkRelation: EnhancementEventLinks.MAELSTROM_WEAPON_INSTANT_CAST,
-  maximumLinks: 1,
-};
 const thorimsInvocationCastLink: EventLink = {
   linkRelation: EnhancementEventLinks.THORIMS_INVOCATION_LINK,
   linkingEventId: SPELLS.WINDSTRIKE_CAST.id,
@@ -102,7 +89,6 @@ const lightningBoltLink: EventLink = {
 class EventLinkNormalizer extends BaseEventLinkNormalizer {
   constructor(options: Options) {
     super(options, [
-      maelstromWeaponInstantCastLink,
       thorimsInvocationCastLink,
       stormStrikeLink,
       chainLightningDamageLink,

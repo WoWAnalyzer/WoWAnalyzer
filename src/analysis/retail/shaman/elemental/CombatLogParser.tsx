@@ -36,6 +36,10 @@ import MaelstromTracker from './modules/resources/MaelstromTracker';
 import MaelstromDetails from './modules/resources/MaelstromDetails';
 import MaelstromGraph from './modules/resources/MaelstromGraph';
 import SkybreakersFieryDemise from './modules/talents/SkybreakersFieryDemise';
+import { StormbringerTab } from '../shared/hero/stormbringer/StormbringerTab';
+import Tempest from '../shared/hero/stormbringer/Tempest';
+import StormbringerEventOrderNormalizer from '../shared/hero/stormbringer/normalizers/StormbringerEventOrderNormalizer';
+import StormbringerEventLinkNormalizer from '../shared/hero/stormbringer/normalizers/StormbringerEventLinkNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -67,6 +71,12 @@ class CombatLogParser extends CoreCombatLogParser {
     ascendance: Ascendance,
     manaSpring: ManaSpring,
     skybreakersFieryDemise: SkybreakersFieryDemise,
+
+    // hero talents
+    stormbringerTab: StormbringerTab,
+    tempest: Tempest,
+    stormbringerEventOrderNormalizer: StormbringerEventOrderNormalizer,
+    stormbringerEventLinkNormalizer: StormbringerEventLinkNormalizer,
 
     maelstromTracker: MaelstromTracker,
     maelstromDetails: MaelstromDetails,

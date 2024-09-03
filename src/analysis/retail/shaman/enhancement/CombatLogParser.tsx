@@ -58,7 +58,9 @@ import MaestromRefreshBuffNormalizer from './modules/normalizers/MaelstromRefres
 import ElementalBlastGuide from './modules/talents/ElementalBlastGuide';
 import StaticAccumulation from './modules/talents/StaticAccumulation';
 import Tempest from '../shared/hero/stormbringer/Tempest';
-import { StormbringerTab } from '../shared/hero/stormbringer';
+import { StormbringerTab } from '../shared/hero/stormbringer/StormbringerTab';
+import StormbringerEventLinkNormalizer from '../shared/hero/stormbringer/normalizers/StormbringerEventLinkNormalizer';
+import StormbringerEventOrderNormalizer from '../shared/hero/stormbringer/normalizers/StormbringerEventOrderNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -121,6 +123,8 @@ class CombatLogParser extends CoreCombatLogParser {
     // hero talents
     stormbringerTab: StormbringerTab,
     tempest: Tempest,
+    stormbringerEventOrderNormalizer: StormbringerEventOrderNormalizer,
+    stormbringerEventLinkNormalizer: StormbringerEventLinkNormalizer,
 
     // Tier
     tier30: Tiers.T30,

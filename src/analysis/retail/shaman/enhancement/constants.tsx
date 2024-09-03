@@ -55,7 +55,6 @@ export enum EventLinkBuffers {
 }
 
 export enum EnhancementEventLinks {
-  MAELSTROM_WEAPON_INSTANT_CAST = 'maelstrom-weapon-instant-cast',
   THORIMS_INVOCATION_LINK = 'thorims-invocation',
   STORMSTRIKE_LINK = 'stormstrike',
   CHAIN_LIGHTNING_LINK = 'chain-lightning',

@@ -1,6 +1,6 @@
-import { AnyEvent, EventType, HasAbility, HasRelatedEvent } from 'parser/core/Events';
+import { AnyEvent, EventType, HasAbility } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
-import { EnhancementEventLinks, MAELSTROM_WEAPON_ELIGIBLE_SPELLS } from '../../constants';
+import { MAELSTROM_WEAPON_ELIGIBLE_SPELLS } from '../../constants';
 import { Options } from 'parser/core/Analyzer';
 import { NormalizerOrder } from './constants';
 
@@ -21,14 +21,16 @@ class MaelstromWeaponCastNormalizer extends EventsNormalizer {
 
   normalize(events: AnyEvent[]): AnyEvent[] {
     const fixedEvents: AnyEvent[] = [];
-    events.forEach((event: AnyEvent) => {
+    events.forEach((event: AnyEvent, index: number) => {
       if (HasAbility(event) && MAELSTROM_WEAPON_ELIGIBLE_SPELL_IDs.includes(event.ability.guid)) {
         if (
           event.type === EventType.BeginCast ||
           event.type === EventType.BeginChannel ||
           event.type === EventType.EndChannel
         ) {
-          if (HasRelatedEvent(event, EnhancementEventLinks.MAELSTROM_WEAPON_INSTANT_CAST)) {
+          // check the next event, if it's a cast success and the same spell as this one, skip this event
+          const next = events.at(index + 1);
+          if (next?.type === EventType.Cast && next.ability.guid === event.ability.guid) {
             return;
           }
         }
