@@ -65,7 +65,7 @@ class Abundance extends Analyzer.withDependencies({
     let currCrit = this.deps.statTracker.currentCritPercentage;
     if (this.hasImpRegrowth) {
       const tar = this.deps.combatants.getEntity(event);
-      if (tar && tar.hasBuff(SPELLS.REGROWTH)) {
+      if (tar && tar.hasOwnBuff(SPELLS.REGROWTH)) {
         currCrit += IMP_REGROWTH_CRIT_BONUS;
       }
     }
@@ -84,7 +84,7 @@ class Abundance extends Analyzer.withDependencies({
   onCast(event: CastEvent) {
     if (
       this.selectedCombatant.hasOwnBuff(SPELLS.CLEARCASTING_BUFF, MS_BUFFER) ||
-      this.selectedCombatant.hasBuff(SPELLS.INNERVATE, event.timestamp, MS_BUFFER)
+      this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id, event.timestamp, MS_BUFFER)
     ) {
       return; // don't tally already free casts
     }
