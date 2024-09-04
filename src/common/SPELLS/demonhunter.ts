@@ -624,6 +624,59 @@ const spells = {
     icon: 'spell_holy_blessingofstrength',
   },
   //endregion
+
+  //region Fel-scarred
+  CONSUMING_FIRE_1: {
+    id: 456640,
+    name: 'Consuming Fire',
+    icon: 'spell_fire_felfire',
+  },
+  CONSUMING_FIRE_2: {
+    id: 452487,
+    name: 'Consuming Fire',
+    icon: 'spell_fire_felfire',
+  },
+  SPIRIT_BURST: {
+    id: 452437,
+    name: 'Spirit Burst',
+    icon: 'sha_spell_shaman_lavaburst_nightborne',
+  },
+  SOUL_SUNDER: {
+    id: 452436,
+    name: 'Soul Sunder',
+    icon: 'ability_demonhunter_soulcleave4',
+  },
+  SIGIL_OF_DOOM_CAST: {
+    id: 452490,
+    name: 'Sigil of Doom',
+    icon: 'ability_bossfelorcs_necromancer_red',
+  },
+  SIGIL_OF_DOOM_DAMAGE: {
+    id: 462030,
+    name: 'Sigil of Doom',
+    icon: 'ability_bossfelorcs_necromancer_red',
+  },
+  FEL_DESOLATION: {
+    id: 452486,
+    name: 'Fel Desolation',
+    icon: 'spell_fire_felflamebreath',
+  },
+  ABYSSAL_GAZE: {
+    id: 452497,
+    name: 'Abyssal Gaze',
+    icon: 'spell_shadow_demonicfortitude',
+  },
+  DEMONSURGE: {
+    id: 452416,
+    name: 'Demonsurge',
+    icon: 'inv_ability_felscarreddemonhunter_demonsurge',
+  },
+  STUDENT_OF_SUFFERING: {
+    id: 453239,
+    name: 'Student of Suffering',
+    icon: 'achievement_dungeon_theatreofpain_kultharok',
+  },
+  //endregion
 } satisfies Record<string, Spell>;
 
 export default spells;
