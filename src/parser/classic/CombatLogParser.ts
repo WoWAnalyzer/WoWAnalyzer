@@ -2,7 +2,6 @@ import BaseCombatLogParser, { DependenciesDefinition } from '../core/CombatLogPa
 import Abilities from '../core/modules/Abilities';
 import Auras from '../core/modules/Auras';
 import SpellTimeWaitingOnGlobalCooldown from '../shared/enhancers/SpellTimeWaitingOnGlobalCooldown';
-import AbilitiesMissing from '../shared/modules/AbilitiesMissing';
 import AbilityTracker from '../shared/modules/AbilityTracker';
 import AlwaysBeCasting from '../shared/modules/AlwaysBeCasting';
 import CastEfficiency from '../shared/modules/CastEfficiency';
@@ -92,7 +91,6 @@ class CombatLogParser extends BaseCombatLogParser {
     filteredActiveTime: FilteredActiveTime,
     abilities: Abilities,
     buffs: Auras,
-    abilitiesMissing: AbilitiesMissing,
     castEfficiency: CastEfficiency,
     spellUsable: SpellUsable,
     spellHistory: SpellHistory,
