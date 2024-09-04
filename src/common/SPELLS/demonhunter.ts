@@ -581,6 +581,49 @@ const spells = {
     icon: 'ability_demonhunter_eyebeam',
   },
   //endregion
+
+  //region Aldrachi Reaver
+  REAVERS_GLAIVE: {
+    id: 442294,
+    name: "Reaver's Glaive",
+    icon: 'inv_ability_aldrachireaverdemonhunter_reaversglaive',
+  },
+  THRILL_OF_THE_FIGHT_ATTACK_SPEED_BUFF: {
+    id: 442695,
+    name: 'Thrill of the Fight',
+    icon: 'spell_arcane_arcanetactics',
+  },
+  THRILL_OF_THE_FIGHT_DAMAGE_BUFF: {
+    id: 442688,
+    name: 'Thrill of the Fight',
+    icon: 'spell_mage_overpowered',
+  },
+  GLAIVE_FLURRY: {
+    id: 442435,
+    name: 'Glaive Flurry',
+    icon: 'spell_holy_blessingofstrength',
+  },
+  RENDING_STRIKE: {
+    id: 442442,
+    name: 'Rending Strike',
+    icon: 'ability_bossmannoroth_glaivethrust',
+  },
+  ART_OF_THE_GLAIVE: {
+    id: 444806,
+    name: 'Art of the Glaive',
+    icon: 'ability_glaivetoss',
+  },
+  WOUNDED_QUARRY: {
+    id: 442808,
+    name: 'Wounded Quarry',
+    icon: 'ability_rogue_venomouswounds',
+  },
+  WARBLADES_HUNGER: {
+    id: 442507,
+    name: "Warblade's Hunger",
+    icon: 'spell_holy_blessingofstrength',
+  },
+  //endregion
 } satisfies Record<string, Spell>;
 
 export default spells;

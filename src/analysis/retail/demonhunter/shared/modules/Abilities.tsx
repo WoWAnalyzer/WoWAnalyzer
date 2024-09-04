@@ -154,6 +154,15 @@ export default class Abilities extends CoreAbilities {
           ),
         },
       },
+
+      // Aldrachi Reaver
+      {
+        spell: SPELLS.REAVERS_GLAIVE.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: {
+          static: 1500,
+        },
+      },
     ];
   }
 }
