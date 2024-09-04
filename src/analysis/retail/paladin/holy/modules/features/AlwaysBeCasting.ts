@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
 import { Options } from 'parser/core/Analyzer';
-import { EndChannelEvent, EventType, GlobalCooldownEvent } from 'parser/core/Events';
+import { AbilityEvent, EventType } from 'parser/core/Events';
 import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHealing';
 
 const debug = false;
@@ -34,7 +34,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     }
   }
 
-  countsAsHealingAbility(event: GlobalCooldownEvent | EndChannelEvent) {
+  isHealingAbility(event: AbilityEvent) {
     const spellId = event.ability.guid;
 
     if (event.type === EventType.GlobalCooldown) {
