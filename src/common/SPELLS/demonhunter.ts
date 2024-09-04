@@ -23,6 +23,11 @@ const spells = {
     name: 'Felblade',
     icon: 'ability_demonhunter_felblade',
   },
+  FELBLADE_CHARGE: {
+    id: 213241,
+    name: 'Felblade',
+    icon: 'ability_demonhunter_felblade',
+  },
   CHAOS_BRAND: {
     id: 281242,
     name: 'Chaos Brand',

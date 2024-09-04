@@ -119,7 +119,11 @@ export default class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: [SPELLS.SIGIL_OF_FLAME.id, SPELLS.SIGIL_OF_FLAME_PRECISE.id],
+        spell: [
+          SPELLS.SIGIL_OF_FLAME.id,
+          SPELLS.SIGIL_OF_FLAME_PRECISE.id,
+          SPELLS.SIGIL_OF_DOOM_CAST.id,
+        ],
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         charges: 1 + (combatant.hasTalent(TALENTS_DEMON_HUNTER.ILLUMINATED_SIGILS_TALENT) ? 1 : 0),
         cooldown: 30,
