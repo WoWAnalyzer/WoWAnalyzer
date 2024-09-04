@@ -56,7 +56,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
       return true;
     }
 
-    return super.countsAsHealingAbility(event);
+    return super.isHealingAbility(event);
   }
 }
 
