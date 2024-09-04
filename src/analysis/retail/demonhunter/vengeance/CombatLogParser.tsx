@@ -62,7 +62,6 @@ import Guide from './Guide';
 import FelDevastationNormalizer from './normalizers/FelDevastationNormalizer';
 import CycleOfBindingNormalizer from './normalizers/CycleOfBindingNormalizer';
 import CycleOfBinding from './modules/talents/CycleOfBinding';
-import { ScreamingTorchfiendsBrutality } from './modules/dragonflight/tier/ScreamingTorchfiendsBrutality';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -135,8 +134,7 @@ class CombatLogParser extends CoreCombatLogParser {
     sigilOfFlame: SigilOfFlame,
     cycleOfBinding: CycleOfBinding,
 
-    //  Tier sets
-    screamingTorchfiendsBrutality: ScreamingTorchfiendsBrutality,
+    // Tier sets
 
     // Stats
     soulsOvercap: SoulsOvercap,
