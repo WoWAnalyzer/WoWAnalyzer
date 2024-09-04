@@ -90,6 +90,11 @@ const spells = {
     name: 'Immolation Aura',
     icon: 'ability_demonhunter_immolation',
   },
+  IMMOLATION_AURA_AFI_CAST: {
+    id: 427917,
+    name: 'Immolation Aura',
+    icon: 'ability_demonhunter_immolation',
+  },
   IMMOLATION_AURA_INITIAL_HIT_DAMAGE: {
     id: 258921,
     name: 'Immolation Aura First Strike',
@@ -98,11 +103,6 @@ const spells = {
   IMMOLATION_AURA_BUFF_DAMAGE: {
     id: 258922,
     name: 'Immolation Aura Second Strike',
-    icon: 'ability_demonhunter_immolation',
-  },
-  IMMOLATION_AURA_PROC: {
-    id: 427917,
-    name: 'Immolation Aura',
     icon: 'ability_demonhunter_immolation',
   },
   INFERNAL_ARMOR: {
