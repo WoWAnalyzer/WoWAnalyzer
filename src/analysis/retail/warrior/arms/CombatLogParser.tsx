@@ -5,7 +5,7 @@ import RageGraph from '../shared/modules/core/RageGraph';
 import RageTracker from '../shared/modules/core/RageTracker';
 import GenerateRageEventsNormalizer from '../shared/modules/normalizers/rage/GenerateRageEventsNormalizer';
 import RageAttributeNormalizer from '../shared/modules/normalizers/rage/RageAttributeNormalizer';
-import RageGainNormalizer from '../shared/modules/normalizers/rage/RageGainNormalizer';
+import ResourceChangeNormalizer from '../shared/modules/normalizers/rage/ResourceChangeNormalizer';
 import Abilities from './modules/Abilities';
 import Checklist from './modules/checklist/Module';
 import AplCheck from './modules/core/AplCheck';
@@ -51,7 +51,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Normalizers
     windfuryNormalizer: WindfuryLinkNormalizer,
 
-    rageGainNormalizer: RageGainNormalizer,
+    rageGainNormalizer: ResourceChangeNormalizer,
     generateRageEventsNormalizer: GenerateRageEventsNormalizer,
     rageAttributeNormalizer: RageAttributeNormalizer,
 
