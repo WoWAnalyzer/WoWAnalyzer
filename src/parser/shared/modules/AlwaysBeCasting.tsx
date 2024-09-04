@@ -15,10 +15,6 @@ import GlobalCooldown from './GlobalCooldown';
 
 const DEBUG = false;
 
-export const DOWNTIME_ICON = <img src="/img/afk.png" alt="Downtime" />;
-export const ACTIVE_TIME_ICON = <img src="/img/sword.png" alt="Active time" />;
-export const HEALING_TIME_ICON = <img src="/img/healing.png" alt="Healing time" />;
-
 export interface ActivitySegment {
   start: number;
   end: number;
@@ -313,7 +309,7 @@ class AlwaysBeCasting extends Analyzer {
                   width: `${this.activeTimePercentage * 100}%`,
                 }}
               >
-                {ACTIVE_TIME_ICON}
+                <img src="/img/sword.png" alt="Active time" />
               </div>
             </Tooltip>
             <Tooltip
@@ -324,7 +320,9 @@ class AlwaysBeCasting extends Analyzer {
                 </Trans>
               }
             >
-              <div className="remainder DeathKnight-bg">{DOWNTIME_ICON}</div>
+              <div className="remainder DeathKnight-bg">
+                <img src="/img/afk.png" alt="Downtime" />
+              </div>
             </Tooltip>
           </div>
         }
