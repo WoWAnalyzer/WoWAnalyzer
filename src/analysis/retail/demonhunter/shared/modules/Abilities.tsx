@@ -110,7 +110,6 @@ export default class Abilities extends CoreAbilities {
       {
         spell: [TALENTS_DEMON_HUNTER.SIGIL_OF_MISERY_TALENT.id, SPELLS.SIGIL_OF_MISERY_PRECISE.id],
         enabled: this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_MISERY_TALENT),
-        charges: 1 + (combatant.hasTalent(TALENTS_DEMON_HUNTER.ILLUMINATED_SIGILS_TALENT) ? 1 : 0),
         category: SPELL_CATEGORY.UTILITY,
         cooldown:
           120 -

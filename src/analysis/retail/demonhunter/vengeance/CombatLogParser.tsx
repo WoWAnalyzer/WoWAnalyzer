@@ -32,7 +32,7 @@ import SoulFragmentsConsume from './modules/statistics/SoulFragmentsConsume';
 import SoulsOvercap from './modules/statistics/SoulsOvercap';
 import AgonizingFlames from './modules/talents/AgonizingFlames';
 import BurningAlive from './modules/talents/BurningAlive';
-import SigilOfSpite from 'src/analysis/retail/demonhunter/vengeance/modules/talents/SigilOfSpite';
+import SigilOfSpite from './modules/talents/SigilOfSpite';
 import FeastOfSouls from './modules/talents/FeastOfSouls';
 import FeedTheDemon from './modules/talents/FeedTheDemon';
 import SoulBarrier from './modules/talents/SoulBarrier';
@@ -62,6 +62,7 @@ import Guide from './Guide';
 import FelDevastationNormalizer from './normalizers/FelDevastationNormalizer';
 import CycleOfBindingNormalizer from './normalizers/CycleOfBindingNormalizer';
 import CycleOfBinding from './modules/talents/CycleOfBinding';
+import ConsumingFireNormalizer from '../shared/normalizers/ConsumingFireNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -92,6 +93,7 @@ class CombatLogParser extends CoreCombatLogParser {
     felDevastationNormalizer: FelDevastationNormalizer,
     sigilOfFlamesNormalizer: SigilOfFlameNormalizer,
     cycleOfBindingNormalizer: CycleOfBindingNormalizer,
+    consumingFireNormalizer: ConsumingFireNormalizer,
 
     // Spell
     immolationAura: ImmolationAura,
