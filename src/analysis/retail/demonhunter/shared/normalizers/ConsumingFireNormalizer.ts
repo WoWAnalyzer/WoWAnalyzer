@@ -42,7 +42,7 @@ export default class ConsumingFireNormalizer extends EventsNormalizer {
         if (backwardsEvent.ability.guid !== consumingFire1Id) {
           continue;
         }
-        fixedEvents.splice(idx, 1);
+        fixedEvents.pop();
       }
     });
 
