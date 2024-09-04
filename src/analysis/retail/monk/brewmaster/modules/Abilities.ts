@@ -96,8 +96,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.CRACKLING_JADE_LIGHTNING.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
-          // This was tested in-game (in Legion): it does NOT have a static GCD but a base GCD of 1sec and scales with Haste
-          base: 1500,
+          static: 1000,
         },
       },
       {
@@ -148,7 +147,9 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 45 * (combatant.hasTalent(talents.LIGHT_BREWING_TALENT) ? 0.8 : 1),
         enabled: combatant.hasTalent(talents.CELESTIAL_BREW_TALENT),
+        charges: 1 + Number(combatant.hasTalent(talents.ENDLESS_DRAUGHT_TALENT)),
         gcd: {
+          // yes, hasted
           base: 1000,
         },
         castEfficiency: {
@@ -211,8 +212,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         enabled: combatant.hasTalent(talents.RING_OF_PEACE_TALENT),
         gcd: {
-          // This was tested in-game (in Legion): it does NOT have a static GCD but a base GCD of 1sec and scales with Haste
-          base: 1500,
+          static: 1000,
         },
       },
       {
@@ -301,8 +301,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 8,
         gcd: {
-          // This was tested in-game (in Legion): it does NOT have a static GCD but a base GCD of 1sec and scales with Haste
-          base: 1500,
+          static: 1000,
         },
       },
       {

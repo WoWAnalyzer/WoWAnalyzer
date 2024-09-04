@@ -35,7 +35,7 @@ import CycleOfHatred from './modules/talents/CycleOfHatred';
 import DemonBlades from './modules/talents/DemonBlades';
 import DemonicDeathSweep from './modules/talents/DemonicDeathSweep';
 import DemonicAppetite from './modules/talents/DemonicAppetite';
-import SigilOfSpite from 'analysis/retail/demonhunter/havoc/modules/talents/SigilOfSpite';
+import SigilOfSpite from './modules/talents/SigilOfSpite';
 import EssenceBreak from './modules/talents/EssenceBreak';
 import FelBarrage from './modules/talents/FelBarrage';
 import FelEruption from './modules/talents/FelEruption';
@@ -45,11 +45,11 @@ import Netherwalk from './modules/talents/Netherwalk';
 import TrailofRuin from './modules/talents/TrailofRuin';
 import TacticalRetreat from './modules/talents/TacticalRetreat';
 import Initiative from './modules/talents/Initiative';
-import EyeBeamNormalizer from 'analysis/retail/demonhunter/havoc/normalizers/EyeBeamNormalizer';
+import EyeBeamNormalizer from './normalizers/EyeBeamNormalizer';
 import Ragefire from './modules/talents/Ragefire';
 import InnerDemon from './modules/talents/InnerDemon';
 import AnyMeansNecessary from './modules/talents/AnyMeansNecessary';
-import Soulscar from 'analysis/retail/demonhunter/havoc/modules/talents/Soulscar';
+import Soulscar from './modules/talents/Soulscar';
 import GrowingInferno from './modules/talents/GrowingInferno';
 import BurningHatred from './modules/talents/BurningHatred';
 import EssenceBreakNormalizer from './normalizers/EssenceBreakNormalizer';
@@ -61,6 +61,7 @@ import { EyeBeam } from './modules/talents/EyeBeam';
 import { ThrowGlaive } from './modules/spells/ThrowGlaive';
 import UnboundChaosNormalizer from './normalizers/UnboundChaosNormalizer';
 import UnboundChaos from './modules/talents/UnboundChaos';
+import ConsumingFireNormalizer from '../shared/normalizers/ConsumingFireNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -77,6 +78,7 @@ class CombatLogParser extends CoreCombatLogParser {
     theHuntVengefulRetreatNormalizer: TheHuntVengefulRetreatNormalizer,
     furiousGazeEventLinkNormalizer: FuriousGazeNormalizer,
     unboundChaosNormalizer: UnboundChaosNormalizer,
+    consumingFireNormalizer: ConsumingFireNormalizer,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,

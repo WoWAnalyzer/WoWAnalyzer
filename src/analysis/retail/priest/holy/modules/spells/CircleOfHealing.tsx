@@ -1,13 +1,7 @@
-import { formatPercentage, formatThousands } from 'common/format';
 import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/priest/holy/Guide';
 import { getCircleOfHealingEvents } from '../../normalizers/CastLinkNormalizer';
@@ -134,31 +128,6 @@ class CircleOfHealing extends Analyzer {
     );
 
     return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
-  }
-
-  statistic() {
-    return (
-      <Statistic
-        tooltip={
-          <>
-            <SpellLink spell={TALENTS.CIRCLE_OF_HEALING_TALENT} /> Casts:{' '}
-            {this.circleOfHealingCasts}
-            <br />
-            Total Healing: {formatThousands(this.circleOfHealingHealing)} (
-            {formatPercentage(this.overHealPercent)}% OH)
-            <br />
-            Average Targets Hit: {this.averageTargetsHit.toFixed(2)}
-          </>
-        }
-        size="flexible"
-        category={STATISTIC_CATEGORY.GENERAL}
-        position={STATISTIC_ORDER.OPTIONAL(5)}
-      >
-        <BoringSpellValueText spell={TALENTS.CIRCLE_OF_HEALING_TALENT}>
-          <ItemHealingDone amount={this.circleOfHealingHealing} />
-        </BoringSpellValueText>
-      </Statistic>
-    );
   }
 }
 

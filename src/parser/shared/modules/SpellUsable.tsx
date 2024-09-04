@@ -774,6 +774,10 @@ class SpellUsable extends Analyzer {
         color: OkColor,
         summary: `Ability ${event.ability.name} (ID: ${event.ability.guid}) was used but is not in spellbook or listed as a cast that isn't a cast`,
       };
+      console.warn(
+        'Ability is missing from spellbook (check out spellUsable in the debug annotation view for more info):',
+        event.ability,
+      );
     } else {
       annotation = {
         color: GoodColor,

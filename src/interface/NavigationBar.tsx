@@ -1,19 +1,15 @@
 import { Trans } from '@lingui/macro';
-import getFightName from 'common/getFightName';
 import DiscordIcon from 'interface/icons/DiscordTiny';
 import GitHubIcon from 'interface/icons/GitHubMarkSmall';
 import PremiumIcon from 'interface/icons/Premium';
 import Logo from 'interface/images/logo.svg?react';
 import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
-import { getFightById } from 'interface/selectors/fight';
-import { getReport } from 'interface/selectors/report';
-import { getFightId, getPlayerName, getReportCode } from 'interface/selectors/url/report';
+import { getPlayerName } from 'interface/selectors/url/report';
 import { getUser } from 'interface/selectors/user';
 import Tooltip from 'interface/Tooltip';
 import { useWaSelector } from 'interface/utils/useWaSelector';
 import { HTMLAttributes, ReactNode } from 'react';
-import { Link } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import './NavigationBar.scss';
 
@@ -24,8 +20,8 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 const NavigationBar = ({ children, ...others }: Props) => {
   const { pathname } = useLocation();
   const playerName = getPlayerName(pathname);
-  const report = useWaSelector((state) => getReportCode(pathname) && getReport(state));
-  const fight = useWaSelector((state) => getFightById(state, getFightId(pathname)));
+  const report = useWaSelector((state) => state.navigation.report);
+  const fight = useWaSelector((state) => state.navigation.fight);
   const user = useWaSelector((state) => getUser(state));
 
   return (
@@ -37,26 +33,26 @@ const NavigationBar = ({ children, ...others }: Props) => {
           </Link>
         </div>
         {children && <div className="menu-item">{children}</div>}
-        {report && (
+        {report ? (
           <div className="menu-item report-title">
-            <Link to={makeAnalyzerUrl(report)}>{report.title}</Link>
+            <Link to={report.link}>{report.title}</Link>
           </div>
-        )}
-        {report && (
+        ) : null}
+        {report ? (
           <div className="menu-item">
-            <Link to={makeAnalyzerUrl(report)}>
+            <Link to={report.link}>
               {fight ? (
-                getFightName(report, fight)
+                fight.title
               ) : (
                 <Trans id="interface.layout.navigationBar.fightSelection">Fight selection</Trans>
               )}
             </Link>
           </div>
-        )}
+        ) : null}
         {report && (fight || playerName) && (
           <div className="menu-item">
-            <Link to={makeAnalyzerUrl(report, fight ? fight.id : undefined)}>
-              {playerName || (
+            <Link to={fight?.link ?? report.link}>
+              {playerName ?? (
                 <Trans id="interface.layout.navigationBar.playerSelection">Player selection</Trans>
               )}
             </Link>

@@ -13,7 +13,9 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
     <>
       <Section title="Core Spells and Buffs">
         {modules.riptide.guideSubsection}
-        {modules.healingRain.guideSubsection}
+        {info.combatant.hasTalent(talents.SURGING_TOTEM_TALENT)
+          ? modules.surgingTotem.guideSubsection
+          : modules.healingRain.guideSubsection}
         {info.combatant.hasTalent(talents.EARTH_SHIELD_TALENT) &&
           modules.earthShield.guideSubsection}
         {info.combatant.hasTalent(talents.UNLEASH_LIFE_TALENT) &&

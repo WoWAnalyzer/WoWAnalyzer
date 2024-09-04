@@ -107,7 +107,7 @@ class AlwaysBeCasting extends Analyzer {
   private addNewUptime(start: number, end: number, isHealingAbility: boolean, reason: string) {
     DEBUG &&
       console.log(
-        `Active Time: adding from ${reason}: ${this.owner.formatTimestamp(start, 3)} to ${this.owner.formatTimestamp(end, 3)}`,
+        `Active Time: adding from ${reason}: ${this.owner.formatTimestamp(start, 3)} to ${this.owner.formatTimestamp(end, 3)}${isHealingAbility ? ' (heal)' : ''}`,
       );
     if (end < start) {
       console.error(
@@ -158,7 +158,7 @@ class AlwaysBeCasting extends Analyzer {
     let activityStartTimestamp = 0;
     workingSegments = [];
     for (const e of this.activeTimeEdges) {
-      if (healingOnly && e.isHealingAbility) {
+      if (healingOnly && !e.isHealingAbility) {
         continue;
       } else if (activityCount === 0 && e.value === 1) {
         // upwards edge - activity started
@@ -226,7 +226,7 @@ class AlwaysBeCasting extends Analyzer {
 
   /** Gets active time milliseconds within a specified time segment.
    *  Will only see casts that have happened on or before the current timestamp. */
-  getActiveTimeMillisecondsInWindow(start: number, end: number): number {
+  getActiveTimeMillisecondsInWindow(start: number, end: number, healingOnly?: boolean): number {
     if (start >= end) {
       console.warn(`ActiveTime: called getActiveTimeMillisecondsInWindow with start
         (${this.owner.formatTimestamp(start, 3)}) after end
@@ -235,7 +235,8 @@ class AlwaysBeCasting extends Analyzer {
     }
 
     let activeTimeTally = 0;
-    for (const seg of this.activeTimeSegments) {
+    const segments = healingOnly ? this.activeHealingTimeSegments : this.activeTimeSegments;
+    for (const seg of segments) {
       if (seg.end <= start) {
         continue;
       }

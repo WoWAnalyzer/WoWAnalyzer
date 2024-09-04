@@ -2,7 +2,6 @@ import BaseCombatLogParser, { DependenciesDefinition } from '../core/CombatLogPa
 import Abilities from '../core/modules/Abilities';
 import Auras from '../core/modules/Auras';
 import SpellTimeWaitingOnGlobalCooldown from '../shared/enhancers/SpellTimeWaitingOnGlobalCooldown';
-import AbilitiesMissing from '../shared/modules/AbilitiesMissing';
 import AbilityTracker from '../shared/modules/AbilityTracker';
 import AlwaysBeCasting from '../shared/modules/AlwaysBeCasting';
 import CastEfficiency from '../shared/modules/CastEfficiency';
@@ -42,6 +41,7 @@ import EnchantChecker from './modules/items/EnchantChecker';
 import ManaGained from './statistic/ManaGained';
 // Engineering
 import Bombs from 'parser/classic/modules/items/engineering/Bombs';
+import FlexweaveUnderlay from './modules/items/engineering/FlexweaveUnderlay';
 import HyperspeedAccelerators from './modules/items/engineering/HyperspeedAccelerators';
 import SynapseSprings from './modules/items/engineering/SynapseSprings';
 // Guide
@@ -91,7 +91,6 @@ class CombatLogParser extends BaseCombatLogParser {
     filteredActiveTime: FilteredActiveTime,
     abilities: Abilities,
     buffs: Auras,
-    abilitiesMissing: AbilitiesMissing,
     castEfficiency: CastEfficiency,
     spellUsable: SpellUsable,
     spellHistory: SpellHistory,
@@ -114,6 +113,7 @@ class CombatLogParser extends BaseCombatLogParser {
     // Engineering
     bombs: Bombs,
     hyperspeedAccelerators: HyperspeedAccelerators,
+    flexweaveUnderlay: FlexweaveUnderlay,
     synapseSprings: SynapseSprings,
 
     // Guide

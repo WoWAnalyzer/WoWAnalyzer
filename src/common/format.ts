@@ -54,7 +54,7 @@ export function formatDuration(duration: number, precision: number = 0): string 
  */
 export function formatDurationMinSec(duration: number): string {
   const minutes = Math.floor(duration / 60);
-  const seconds = duration % 60;
+  const seconds = Number.isInteger(duration) ? duration % 60 : (duration % 60).toFixed(1);
 
   if (minutes > 0) {
     return `${minutes}m ${seconds}s`;

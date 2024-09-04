@@ -1,4 +1,4 @@
-import { formatDurationMinSec } from 'common/format';
+import { formatDuration, formatDurationMinSec, formatPercentage } from 'common/format';
 import talents from 'common/TALENTS/monk';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { SpellLink } from 'interface';
@@ -12,12 +12,12 @@ import SharedBrews from '../core/SharedBrews';
 
 // 500ms per rank
 const CDR_RATE = 500;
-const ICD = 3000;
+const RECHARGE_DURATION = 3000;
 
 /**
- * Anvil & Stave reduces Brew CDs by 0.5/1.0s every time you dodge / an enemy misses, with a 3s ICD.
+ * Anvil & Stave reduces Brew CDs by 0.5/1.0s every time you dodge / an enemy misses, with some extra steps.
  *
- * There is (thankfully) no RNG involved in this, so it is easy to support.
+ * Prior to TWW, this operated on a 3s ICD. Now, we don't really know how it works but the lowest CDR model I've found that still works is treating it kind of like you have a "CDR pool" that regenerates over time, maxing out at 0.5/1.0s after 3s of no dodging.
  */
 export default class AnvilStave extends Analyzer {
   static dependencies = {
@@ -53,11 +53,37 @@ export default class AnvilStave extends Analyzer {
       return;
     }
 
-    if (!this.lastTriggerTimestamp || event.timestamp - this.lastTriggerTimestamp >= ICD) {
-      this.triggerCount += 1;
-      this.totalCdr += this.sharedBrews.reduceCooldown(CDR_RATE * this.rank);
-      this.lastTriggerTimestamp = event.timestamp;
-    }
+    const chargeRatio = this.lastTriggerTimestamp
+      ? Math.min(1.0, (event.timestamp - this.lastTriggerTimestamp) / RECHARGE_DURATION)
+      : 1.0;
+
+    const cdrAmount = chargeRatio * this.rank * CDR_RATE;
+    this.triggerCount += 1;
+    const actualCdr = this.sharedBrews.reduceCooldown(cdrAmount);
+    this.totalCdr += actualCdr;
+    this.addDebugAnnotation(event, {
+      color: 'lightgrey',
+      summary: `A&S reduced cooldown (raw: ${cdrAmount.toFixed(1)}, actual: ${cdrAmount.toFixed(1)})`,
+      details: (
+        <dl>
+          <dt>Last Trigger:</dt>
+          <dd>
+            {this.lastTriggerTimestamp
+              ? `${formatDuration(this.lastTriggerTimestamp - this.owner.fight.start_time)} (${formatDurationMinSec((event.timestamp - this.lastTriggerTimestamp) / 1000)} ago)`
+              : 'never'}
+          </dd>
+          <dt>Charge %:</dt>
+          <dd>{formatPercentage(chargeRatio)}%</dd>
+          <dt>Max CDR (ms)</dt>
+          <dd>{this.rank * CDR_RATE}</dd>
+          <dt>Raw CDR (ms)</dt>
+          <dd>{cdrAmount.toFixed(2)}</dd>
+          <dt>Actual CDR (ms)</dt>
+          <dd>{actualCdr.toFixed(2)}</dd>
+        </dl>
+      ),
+    });
+    this.lastTriggerTimestamp = event.timestamp;
   }
 
   statistic(): ReactNode {

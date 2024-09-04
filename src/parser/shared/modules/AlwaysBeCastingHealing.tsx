@@ -7,6 +7,8 @@ import Gauge from 'parser/ui/Gauge';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
+const DEBUG = false;
+
 class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
   HEALING_ABILITIES_ON_GCD: number[] = [
     // Extend this class and override this property in your spec class to implement this module.
@@ -23,6 +25,27 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
     return this.HEALING_ABILITIES_ON_GCD.includes(event.ability.guid);
   }
 
+  onFightEnd() {
+    DEBUG &&
+      console.log(
+        'ABC Stats:\n' +
+          'Active Time = ' +
+          this.activeTime +
+          '\n' +
+          'Healing Active Time = ' +
+          this.healingTime +
+          '\n' +
+          'Total Fight Time = ' +
+          this.owner.fightDuration +
+          '\n' +
+          'Active Time Percentage = ' +
+          formatPercentage(this.activeTimePercentage) +
+          '\n' +
+          'Active Healing Time Percentage = ' +
+          formatPercentage(this.healingTimePercentage),
+      );
+  }
+
   /** The active healing time (in ms) recorded */
   get healingTime() {
     if (
@@ -35,6 +58,7 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
       this.activeHealingTimeMemo = this.getActiveTimeMillisecondsInWindow(
         this.memoHealingStartTime,
         this.memoHealingEndTime,
+        true,
       );
     }
     return this.activeHealingTimeMemo;
@@ -66,8 +90,8 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
         position={STATISTIC_ORDER.CORE(10)}
         tooltip={
           <Trans id="shared.alwaysBeCastingHealing.statistic.tooltip">
-            This is the precise amount of time you were actively casting something or waiting for a
-            Global Cooldown. The remaining time was downtime; you cast nothing and wasn't waiting
+            Active Time is the amount of time you were actively casting something or waiting for a
+            Global Cooldown. The remaining time was downtime; you cast nothing and weren't waiting
             for a global cooldown (i.e. "AFK time").
             <br />
             <br />
