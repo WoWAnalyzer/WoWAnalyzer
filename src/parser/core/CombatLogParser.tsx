@@ -31,7 +31,6 @@ import FoodChecker from '../retail/modules/items/FoodChecker';
 import HealthPotion from '../retail/modules/items/HealthPotion';
 import Healthstone from '../retail/modules/items/Healthstone';
 import SpellTimeWaitingOnGlobalCooldown from '../shared/enhancers/SpellTimeWaitingOnGlobalCooldown';
-import AbilitiesMissing from '../shared/modules/AbilitiesMissing';
 import AbilityTracker from '../shared/modules/AbilityTracker';
 import AlwaysBeCasting from '../shared/modules/AlwaysBeCasting';
 import CastEfficiency from '../shared/modules/CastEfficiency';
@@ -183,7 +182,6 @@ class CombatLogParser {
     filteredActiveTime: FilteredActiveTime,
     abilities: Abilities,
     buffs: Auras,
-    abilitiesMissing: AbilitiesMissing,
     CastEfficiency: CastEfficiency,
     spellUsable: SpellUsable,
     spellHistory: SpellHistory,
