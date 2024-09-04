@@ -13,7 +13,7 @@ import {
 import { MaxStacksMSW, minimumMaelstromWeaponStacks, AtLeastFiveMSW } from './Conditions';
 
 export function stormbringerElementalist(combatant: Combatant): Apl {
-  const rules: (Rule | false)[] = [
+  const rules: Rule[] = [
     {
       spell: SPELLS.TEMPEST_CAST,
       condition: describe(and(buffPresent(SPELLS.TEMPEST_BUFF), MaxStacksMSW), () => (
@@ -64,5 +64,5 @@ export function stormbringerElementalist(combatant: Combatant): Apl {
     SPELLS.FLAME_SHOCK,
   ];
 
-  return build(rules.filter((rule) => rule !== false) as Rule[]);
+  return build(rules);
 }

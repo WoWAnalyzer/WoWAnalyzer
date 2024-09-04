@@ -175,15 +175,17 @@ class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
   }
 
   maelstromPerformance(cast: ElementalBlastCastDetails): UsageInfo {
+    let performance: QualitativePerformance = QualitativePerformance.Fail;
+    if (cast.maelstromUsed === 10) {
+      performance = QualitativePerformance.Perfect;
+    } else if (cast.maelstromUsed >= 8) {
+      performance = QualitativePerformance.Good;
+    } else if (cast.maelstromUsed >= 5) {
+      performance = QualitativePerformance.Ok;
+    }
+
     return {
-      performance:
-        cast.maelstromUsed === 10
-          ? QualitativePerformance.Perfect
-          : cast.maelstromUsed >= 8
-            ? QualitativePerformance.Good
-            : cast.maelstromUsed >= 5
-              ? QualitativePerformance.Ok
-              : QualitativePerformance.Fail,
+      performance: performance,
       summary: (
         <div>
           {cast.maelstromUsed} <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> used

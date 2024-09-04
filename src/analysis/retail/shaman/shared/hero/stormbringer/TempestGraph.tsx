@@ -1,3 +1,4 @@
+import { formatDuration } from 'common/format';
 import SPECS from 'game/SPECS';
 import { Info } from 'parser/core/metric';
 import { formatTime } from 'parser/ui/BaseChart';
@@ -163,13 +164,5 @@ export const tempestGraph = (info: Info): VisualizationSpec => {
 };
 
 expressionFunction('timestamp', function (datum: number, params: string) {
-  const totalSeconds = datum / 1000;
-  const neg = totalSeconds < 0 ? '-' : '';
-  const posSeconds = Math.abs(totalSeconds);
-  const minutes = Math.floor(posSeconds / 60);
-  const mult = Math.pow(10, Number(params));
-  const rest = (Math.floor((posSeconds % 60) * mult) / mult).toFixed(Number(params));
-  const seconds = Number(rest) < 10 ? `0${rest}` : rest;
-
-  return `${neg}${minutes}:${seconds}`;
+  return formatDuration(datum, Number(params));
 });

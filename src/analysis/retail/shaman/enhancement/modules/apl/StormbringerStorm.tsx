@@ -14,7 +14,7 @@ import {
 import { AtLeastFiveMSW, MaxStacksMSW, minimumMaelstromWeaponStacks } from './Conditions';
 
 export function stormbringerStorm(combatant: Combatant): Apl {
-  const rules: (Rule | false)[] = [
+  const rules: Rule[] = [
     {
       spell: SPELLS.TEMPEST_CAST,
       condition: describe(and(buffPresent(SPELLS.TEMPEST_BUFF), MaxStacksMSW), () => (
@@ -70,18 +70,26 @@ export function stormbringerStorm(combatant: Combatant): Apl {
       condition: AtLeastFiveMSW,
     },
     TALENTS.ICE_STRIKE_TALENT,
-    {
+  ];
+
+  // frost shock is slightly elevated if the hailstorm talent is selected and buff is active
+  combatant.hasTalent(TALENTS.HAILSTORM_TALENT) &&
+    rules.push({
       spell: TALENTS.FROST_SHOCK_TALENT,
       condition: buffPresent(SPELLS.HAILSTORM_BUFF),
-    },
+    });
+
+  rules.push(
     TALENTS.SUNDERING_TALENT,
     {
       spell: SPELLS.FLAME_SHOCK,
       condition: debuffMissing(SPELLS.FLAME_SHOCK),
     },
     TALENTS.LAVA_LASH_TALENT,
-    !combatant.hasTalent(TALENTS.HAILSTORM_TALENT) && TALENTS.FROST_SHOCK_TALENT,
-  ];
+  );
 
-  return build(rules.filter((rule) => rule !== false) as Rule[]);
+  // frost shock is filler without hailstorm
+  !combatant.hasTalent(TALENTS.HAILSTORM_TALENT) && rules.push(TALENTS.FROST_SHOCK_TALENT);
+
+  return build(rules);
 }
