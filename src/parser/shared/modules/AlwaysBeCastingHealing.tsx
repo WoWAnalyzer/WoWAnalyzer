@@ -1,6 +1,6 @@
 import { defineMessage, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import { AbilityEvent } from 'parser/core/Events';
+import { EndChannelEvent, GlobalCooldownEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import Gauge from 'parser/ui/Gauge';
@@ -21,7 +21,7 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
   /** End time of memoized active time segment */
   private memoHealingEndTime: number | undefined;
 
-  isHealingAbility(event: AbilityEvent<any>): boolean {
+  isHealingAbility(event: EndChannelEvent | GlobalCooldownEvent): boolean {
     return this.HEALING_ABILITIES_ON_GCD.includes(event.ability.guid);
   }
 

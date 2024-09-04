@@ -3,7 +3,7 @@ import { formatPercentage } from 'common/format';
 import { Icon } from 'interface';
 import { Tooltip } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import Events, { AbilityEvent, EndChannelEvent, GlobalCooldownEvent } from 'parser/core/Events';
+import Events, { EndChannelEvent, GlobalCooldownEvent } from 'parser/core/Events';
 import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import Haste from 'parser/shared/modules/Haste';
 import Channeling from 'parser/shared/normalizers/Channeling';
@@ -80,7 +80,7 @@ class AlwaysBeCasting extends Analyzer {
   }
 
   /** Override this to differentiate healing vs non-healing abilities */
-  protected isHealingAbility(event: AbilityEvent<any>): boolean {
+  protected isHealingAbility(event: EndChannelEvent | GlobalCooldownEvent): boolean {
     return false;
   }
 
