@@ -344,7 +344,9 @@ export default class GenerateRageEventsNormalizer extends EventsNormalizer {
 
     const eventRage = getRage(event, this.selectedCombatant);
     if (eventRage == null) {
-      throw new Error('Event should have rage');
+      // I'm not sure why some Melee casts does not include Rage classResources
+      console.error(`[GenerateRageEventsNormalizer] Could not find rage for event`, event);
+      return response;
     }
     const meleeResourceChange = this.resourceChangeEvent(event, {
       resourceChange,
