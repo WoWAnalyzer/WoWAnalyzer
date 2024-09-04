@@ -34,7 +34,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     }
   }
 
-  isHealingAbility(event: AbilityEvent) {
+  isHealingAbility(event: AbilityEvent<any>) {
     const spellId = event.ability.guid;
 
     if (event.type === EventType.GlobalCooldown) {
