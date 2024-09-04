@@ -102,12 +102,32 @@ const spells = {
   },
   IMMOLATION_AURA_INITIAL_HIT_DAMAGE: {
     id: 258921,
-    name: 'Immolation Aura First Strike',
+    name: 'Immolation Aura',
     icon: 'ability_demonhunter_immolation',
   },
   IMMOLATION_AURA_BUFF_DAMAGE: {
     id: 258922,
-    name: 'Immolation Aura Second Strike',
+    name: 'Immolation Aura',
+    icon: 'ability_demonhunter_immolation',
+  },
+  IMMOLATION_AURA_AFI_INITIAL_HIT_DAMAGE_1: {
+    id: 427904,
+    name: 'Immolation Aura',
+    icon: 'ability_demonhunter_immolation',
+  },
+  IMMOLATION_AURA_AFI_INITIAL_HIT_DAMAGE_2: {
+    id: 427905,
+    name: 'Immolation Aura',
+    icon: 'ability_demonhunter_immolation',
+  },
+  IMMOLATION_AURA_AFI_BUFF_DAMAGE_1: {
+    id: 427908,
+    name: 'Immolation Aura',
+    icon: 'ability_demonhunter_immolation',
+  },
+  IMMOLATION_AURA_AFI_BUFF_DAMAGE_2: {
+    id: 427910,
+    name: 'Immolation Aura',
     icon: 'ability_demonhunter_immolation',
   },
   INFERNAL_ARMOR: {
