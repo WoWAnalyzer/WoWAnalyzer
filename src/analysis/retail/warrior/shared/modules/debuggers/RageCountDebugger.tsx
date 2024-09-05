@@ -1,4 +1,4 @@
-import getRage from 'analysis/retail/warrior/shared/getRage';
+import getRage from 'analysis/retail/warrior/shared/utils/getRage';
 import { formatDuration } from 'common/format';
 import { BadColor } from 'interface/guide';
 import Analyzer, { Options } from 'parser/core/Analyzer';

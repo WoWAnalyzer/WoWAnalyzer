@@ -1,4 +1,4 @@
-import getRage from 'analysis/retail/warrior/shared/getRage';
+import getRage from 'analysis/retail/warrior/shared/utils/getRage';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_WARRIOR } from 'common/TALENTS';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';

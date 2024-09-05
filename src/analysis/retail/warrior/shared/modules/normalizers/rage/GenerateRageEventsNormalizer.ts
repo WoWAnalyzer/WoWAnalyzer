@@ -1,4 +1,4 @@
-import getRage from 'analysis/retail/warrior/shared/getRage';
+import getRage from 'analysis/retail/warrior/shared/utils/getRage';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warrior';
 import HIT_TYPES from 'game/HIT_TYPES';

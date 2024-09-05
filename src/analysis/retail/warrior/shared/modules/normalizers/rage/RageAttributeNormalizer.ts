@@ -1,5 +1,5 @@
-import calculateResourceIncrease from 'analysis/retail/warrior/shared/calculateResourceIncrease';
-import getRage from 'analysis/retail/warrior/shared/getRage';
+import calculateResourceIncrease from 'analysis/retail/warrior/shared/utils/calculateResourceIncrease';
+import getRage from 'analysis/retail/warrior/shared/utils/getRage';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import TALENTS from 'common/TALENTS/warrior';
