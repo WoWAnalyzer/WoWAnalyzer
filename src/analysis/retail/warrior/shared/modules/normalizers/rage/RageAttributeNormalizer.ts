@@ -1,4 +1,3 @@
-import calculateResourceIncrease from 'analysis/retail/warrior/shared/utils/calculateResourceIncrease';
 import getRage from 'analysis/retail/warrior/shared/utils/getRage';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
@@ -173,7 +172,22 @@ export default class RageAttributeNormalizer extends EventsNormalizer {
     amount: number,
     referenceTalent: Spell,
   ): ResourceChangeEvent {
-    const { base, bonus } = calculateResourceIncrease(event, amount);
+    const rawResourceChange = event.resourceChange;
+    // Find our increase
+    const resourceIncrease = Math.ceil(rawResourceChange - rawResourceChange / (1 + amount));
+    const baseResource = rawResourceChange - resourceIncrease;
+    // Find how much waste we have for each event
+    const resourceIncreaseWaste = resourceIncrease - Math.max(resourceIncrease - event.waste, 0);
+    const remainingWaste = event.waste - resourceIncreaseWaste;
+
+    const base = {
+      gain: baseResource - remainingWaste,
+      waste: remainingWaste,
+    };
+    const bonus = {
+      gain: resourceIncrease - resourceIncreaseWaste,
+      waste: resourceIncreaseWaste,
+    };
 
     return this.synthesizeEvent(event, base, bonus, referenceTalent);
   }
