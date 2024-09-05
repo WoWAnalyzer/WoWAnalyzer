@@ -14,6 +14,7 @@ import {
 } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import {
+  RAGE_SCALE_FACTOR,
   WARLORDS_TORMENT_RECKLESSNESS_INCREASE,
   WARMACHINE_ARMS_INCREASE,
   WARMACHINE_FURY_INCREASE,
@@ -127,7 +128,7 @@ export default class RageAttributeNormalizer extends EventsNormalizer {
         if (event.ability.guid === SPELLS.RAVAGER_ENERGIZE.id) {
           const newEvent = this.removeAdditiveIncrease(
             event,
-            STORM_OF_STEEL_INCREASE,
+            STORM_OF_STEEL_INCREASE / RAGE_SCALE_FACTOR,
             TALENTS.STORM_OF_STEEL_TALENT,
           );
           additions.push(newEvent);
