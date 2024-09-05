@@ -1,30 +1,9 @@
 import { defineMessage } from '@lingui/macro';
-import RageGraph from 'analysis/retail/warrior/shared/modules/core/RageGraph';
-import { formatNumber, formatPercentage } from 'common/format';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { Panel } from 'interface';
-import Analyzer from 'parser/core/Analyzer';
+import WarriorRageDetails from 'analysis/retail/warrior/shared/modules/core/RageDetails';
+import { formatPercentage } from 'common/format';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
-import BoringResourceValue from 'parser/ui/BoringResourceValue';
-import Statistic from 'parser/ui/Statistic';
-import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
-import RageTracker from '../../../shared/modules/core/RageTracker';
-
-class RageDetails extends Analyzer {
-  static dependencies = {
-    rageTracker: RageTracker,
-    rageGraph: RageGraph,
-  };
-
-  protected rageTracker!: RageTracker;
-  protected rageGraph!: RageGraph;
-
-  get wastedPercent() {
-    return this.rageTracker.wasted / (this.rageTracker.wasted + this.rageTracker.generated) || 0;
-  }
-
+class RageDetails extends WarriorRageDetails {
   get efficiencySuggestionThresholds() {
     return {
       actual: 1 - this.wastedPercent,
@@ -61,39 +40,6 @@ class RageDetails extends Analyzer {
         )
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );
-  }
-
-  statistic() {
-    return (
-      <Statistic
-        position={STATISTIC_ORDER.CORE(3)}
-        size="flexible"
-        tooltip={`${formatNumber(this.rageTracker.wasted)} out of ${formatNumber(
-          this.rageTracker.wasted + this.rageTracker.generated,
-        )} Rage wasted.`}
-      >
-        <BoringResourceValue
-          resource={RESOURCE_TYPES.RAGE}
-          value={`${formatPercentage(this.wastedPercent)} %`}
-          label="Rage wasted"
-        />
-      </Statistic>
-    );
-  }
-
-  tab() {
-    return {
-      title: 'Rage usage',
-      url: 'rage-usage',
-      render: () => (
-        <>
-          <Panel title="Rage over time">{this.rageGraph.plot}</Panel>
-          <Panel title="Breakdown">
-            <ResourceBreakdown tracker={this.rageTracker} showSpenders />
-          </Panel>
-        </>
-      ),
-    };
   }
 }
 

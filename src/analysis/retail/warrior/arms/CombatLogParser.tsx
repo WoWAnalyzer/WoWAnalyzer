@@ -24,7 +24,7 @@ import SweepingStrikes from './modules/core/SweepingStrikes';
 import TacticianProc from './modules/core/TacticianProc';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import RageDetail from './modules/features/RageDetails';
+import RageDetails from './modules/features/RageDetails';
 import SpellUsable from './modules/features/SpellUsable';
 import AngerManagement from './modules/talents/AngerManagement';
 import Avatar from './modules/talents/Avatar';
@@ -76,7 +76,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Resource
     rageTracker: RageTracker,
     rageGraph: RageGraph,
-    rageDetail: RageDetail,
+    rageDetails: RageDetails,
 
     // Core
     tacticianProc: TacticianProc,

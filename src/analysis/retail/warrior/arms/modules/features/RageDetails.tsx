@@ -1,20 +1,10 @@
 import { defineMessage } from '@lingui/macro';
-import RageGraph from 'analysis/retail/warrior/shared/modules/core/RageGraph';
-import RageTracker from 'analysis/retail/warrior/shared/modules/core/RageTracker';
+import WarriorRageDetails from 'analysis/retail/warrior/shared/modules/core/RageDetails';
 import { formatPercentage } from 'common/format';
-import { Panel } from 'interface';
-import { Icon } from 'interface';
-import Analyzer from 'parser/core/Analyzer';
-import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 
-class RageDetails extends Analyzer {
-  get wastedPercent() {
-    return this.rageTracker.wasted / (this.rageTracker.wasted + this.rageTracker.generated) || 0;
-  }
-
-  get efficiencySuggestionThresholds() {
+class RageDetails extends WarriorRageDetails {
+  get efficiencySuggestionThresholds(): NumberThreshold {
     return {
       actual: 1 - this.wastedPercent,
       isLessThan: {
@@ -22,11 +12,11 @@ class RageDetails extends Analyzer {
         average: 0.9,
         major: 0.85,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  get suggestionThresholds() {
+  get suggestionThresholds(): NumberThreshold {
     return {
       actual: this.wastedPercent,
       isGreaterThan: {
@@ -34,16 +24,11 @@ class RageDetails extends Analyzer {
         average: 0.1,
         major: 0.15,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  static dependencies = {
-    rageTracker: RageTracker,
-    rageGraph: RageGraph,
-  };
-
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Rage.`)
         .icon('spell_nature_reincarnation')
@@ -55,35 +40,6 @@ class RageDetails extends Analyzer {
         )
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );
-  }
-
-  statistic() {
-    return (
-      <Statistic
-        position={STATISTIC_ORDER.CORE(5)}
-        icon={<Icon icon="spell_nature_reincarnation" />}
-        value={`${formatPercentage(this.wastedPercent)} %`}
-        label="Rage wasted"
-        tooltip={`${Math.round(this.rageTracker.wasted)} out of ${Math.round(
-          this.rageTracker.wasted + this.rageTracker.generated,
-        )} rage wasted.`}
-      />
-    );
-  }
-
-  tab() {
-    return {
-      title: 'Rage usage',
-      url: 'rage-usage',
-      render: () => (
-        <>
-          <Panel title="Rage over time">{this.rageGraph.plot}</Panel>
-          <Panel title="Breakdown">
-            <ResourceBreakdown tracker={this.rageTracker} showSpenders />
-          </Panel>
-        </>
-      ),
-    };
   }
 }
 
