@@ -18,7 +18,6 @@ import { Options } from 'parser/core/Module';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS/priest';
 import { INSIGHT_CDR_ABILITIES } from '../modules/talents/Oracle/OracleValues';
-import { ABILITIES_THAT_TRIGGER_MASTERY } from '../constants';
 
 const CAST_BUFFER_MS = 200;
 
@@ -251,16 +250,6 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: SPELLS.ECHO_OF_LIGHT_HEAL.id,
     referencedEventType: EventType.Heal,
     forwardBufferMs: 6000,
-    anyTarget: false,
-  },
-  {
-    linkRelation: ECHO_OF_LIGHT_BUFF_REFRESH,
-    linkingEventId: ABILITIES_THAT_TRIGGER_MASTERY,
-    linkingEventType: [EventType.Heal],
-    referencedEventId: SPELLS.ECHO_OF_LIGHT_HEAL.id,
-    referencedEventType: EventType.RefreshBuff,
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: 4000,
     anyTarget: false,
   },
   {
