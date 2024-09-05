@@ -21,6 +21,9 @@ import WindfuryLinkNormalizer, {
   getWindfuryFromTriggered,
 } from 'parser/shared/normalizers/WindfuryLinkNormalizer';
 import {
+  AUTO_ATTACK_RAGE_PS,
+  DEFAULT_SPEED_1H,
+  DEFAULT_SPEED_2H,
   RAGE_SCALE_FACTOR,
   RECKLESSNESS_INCREASE,
   SEASONED_SOLDIER_RAGE_INCREASE,
@@ -29,36 +32,6 @@ import {
   WARMACHINE_FURY_INCREASE,
   WARMACHINE_PROT_INCREASE,
 } from './constants';
-
-const BASE_RAGE_GENERATION = 1.75;
-/**
- * Rage generation per second for all specs.
- *
- * This data is based on SimulationCraft data.
- *
- * https://github.com/simulationcraft/simc/blob/1817c80712ebf9d54a4a3aa4e95a05c774fed6f4/engine/class_modules/sc_warrior.cpp#L1916-L1948
- */
-const AUTO_ATTACK_RAGE_PS = Object.freeze({
-  ARMS: {
-    // From SimulationCraft
-    MH: BASE_RAGE_GENERATION * 3.5,
-    OH: Number.MIN_SAFE_INTEGER,
-  },
-  FURY: {
-    // From SimulationCraft
-    MH: Number(BASE_RAGE_GENERATION),
-    // Off-hand is half of main-hand
-    OH: Number(BASE_RAGE_GENERATION) * 0.5,
-  },
-  PROTECTION: {
-    // From SimulationCraft
-    MH: BASE_RAGE_GENERATION * 0.44,
-    OH: Number.MIN_SAFE_INTEGER,
-  },
-} as const);
-
-const DEFAULT_SPEED_2H = 3.6;
-const DEFAULT_SPEED_1H = 2.6;
 
 /**
  * Synthesizes {@link ResourceChangeEvent}s for melee attacks.
