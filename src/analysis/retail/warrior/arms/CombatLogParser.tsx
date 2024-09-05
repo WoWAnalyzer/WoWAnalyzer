@@ -51,7 +51,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Normalizers
     windfuryNormalizer: WindfuryLinkNormalizer,
 
-    rageGainNormalizer: ResourceChangeNormalizer,
+    desourceChangeNormalizer: ResourceChangeNormalizer,
     generateRageEventsNormalizer: GenerateRageEventsNormalizer,
     rageAttributeNormalizer: RageAttributeNormalizer,
 
