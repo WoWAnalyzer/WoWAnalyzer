@@ -3,6 +3,7 @@ import getRage from 'analysis/retail/warrior/shared/getRage';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import TALENTS from 'common/TALENTS/warrior';
+import { formatDuration } from 'common/format';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import {
@@ -21,6 +22,8 @@ import {
   WARMACHINE_FURY_INCREASE,
   WARMACHINE_PROT_INCREASE,
 } from './constants';
+
+const DEBUG = false;
 
 // Spear
 const PIERCING_CHALLENGE_INCREASE = 1;
@@ -65,6 +68,10 @@ export default class RageAttributeNormalizer extends EventsNormalizer {
       if (event.type !== EventType.ResourceChange) {
         return;
       }
+
+      // Store original values, only for logging purposes
+      const originalResourceChange = event.resourceChange;
+      const originalWaste = event.waste;
 
       if (recklessnessBuff) {
         if (
@@ -134,10 +141,27 @@ export default class RageAttributeNormalizer extends EventsNormalizer {
       }
 
       updatedEvents.push(
-        // Since each subsequent modification will adjust the original rage.amount,
-        // we apply them in reverse order to ensure the rage.amount is correct.
-        ...additions.reverse(),
+        // For complicated reasons, we want the new events in reverse order to
+        // to ensure "current rage" is correct after each step
+        ...additions.toReversed(),
       );
+
+      if (DEBUG) {
+        const timestamp = formatDuration(event.timestamp - this.owner.fight.start_time, 3);
+        const mainMessage = `[rageAttributeNormalizer] ${timestamp}: ${event.ability.name} (${event.ability.guid}), Gain: ${originalResourceChange - originalWaste}, Waste: ${originalWaste}, Total: ${originalResourceChange}`;
+
+        if (additions.length > 0) {
+          console.groupCollapsed(mainMessage);
+          [event, ...additions.toReversed()].forEach((e) => {
+            console.log(
+              `${e.ability?.name} (${e?.ability?.guid}) - Gain: ${e.resourceChange - e.waste}, Waste: ${e.waste}, Total: ${e.resourceChange}`,
+            );
+          });
+          console.groupEnd();
+        } else {
+          console.log(mainMessage);
+        }
+      }
     });
 
     return updatedEvents;
