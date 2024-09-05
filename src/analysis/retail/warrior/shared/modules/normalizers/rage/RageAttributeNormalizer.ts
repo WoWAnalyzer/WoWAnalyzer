@@ -30,10 +30,10 @@ const PIERCING_CHALLENGE_INCREASE = 1;
 const STORM_OF_STEEL_INCREASE = 10;
 
 /**
- * Modifies all rage events to add separate events for talents/buffs that modify rage generation.
+ * Separates `ResourceChangeEvent` events into multiple events to atributte rage changes to spells and talents.
  *
- * Note that this normalizer expects that rage events already exists, and thus has to be run after
- * `GenerateRageEventsNormalizer`.
+ * This normalizer is reliant on all necessary ResourceChangeEvents being available, and will only work to attribute
+ * rage to certain spells. If rage is mismatching before this normalizer, it will not be fixed.
  */
 export default class RageAttributeNormalizer extends EventsNormalizer {
   normalize(events: AnyEvent[]): AnyEvent[] {
