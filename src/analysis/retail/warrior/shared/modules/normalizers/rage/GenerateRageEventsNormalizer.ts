@@ -7,7 +7,6 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SPECS from 'game/SPECS';
 import { Options } from 'parser/core/Analyzer';
 import {
-  AddRelatedEvent,
   AnyEvent,
   CastEvent,
   DamageEvent,
@@ -30,8 +29,6 @@ import {
   WARMACHINE_FURY_INCREASE,
   WARMACHINE_PROT_INCREASE,
 } from './constants';
-
-const RAGE_RELATION = 'rage';
 
 const BASE_RAGE_GENERATION = 1.75;
 /**
@@ -380,9 +377,6 @@ export default class GenerateRageEventsNormalizer extends EventsNormalizer {
       ],
     });
     response.push(meleeResourceChange);
-
-    // Link the original cast with the generated resource change
-    AddRelatedEvent(event, RAGE_RELATION, meleeResourceChange);
 
     return response;
   };
