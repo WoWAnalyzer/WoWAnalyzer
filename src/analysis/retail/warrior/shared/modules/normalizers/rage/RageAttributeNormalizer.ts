@@ -85,7 +85,7 @@ export default class RageAttributeNormalizer extends EventsNormalizer {
         }
       }
 
-      if (event.ability.guid === SPELLS.MELEE.id) {
+      if (event.ability.guid === SPELLS.MELEE.id || event.ability.guid === SPELLS.SKYFURY.id) {
         // War Machines
         if (hasFuryWM) {
           const newEvent = this.removeMultiplicitiveIncrease(
