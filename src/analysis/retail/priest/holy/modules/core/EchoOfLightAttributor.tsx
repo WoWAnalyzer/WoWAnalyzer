@@ -55,15 +55,11 @@ class EOLAttrib extends Analyzer {
     // get average healing/overhealing over the next 6s of EOL
     const eolHealEvents = GetRelatedEvents(eolEvent, ECHO_OF_LIGHT_ATTRIB_EVENT);
     if (eolHealEvents.length > 0) {
-      const empty: HealEvent[] = []; //eslint....
-      Object.values(
-        eolHealEvents.reduce((n, eolHealEvent) => {
-          eolHealEvent = eolHealEvent as HealEvent;
-          eolTicksHeal += eolHealEvent.amount + (eolHealEvent.absorbed || 0);
-          eolTicksOverHeal += eolHealEvent.overheal || 0;
-          return n;
-        }, empty),
-      );
+      Object.values(eolHealEvents).forEach((eolHealEvent) => {
+        eolHealEvent = eolHealEvent as HealEvent;
+        eolTicksHeal += eolHealEvent.amount + (eolHealEvent.absorbed || 0);
+        eolTicksOverHeal += eolHealEvent.overheal || 0;
+      });
     }
 
     //scale calculated EOL by how much overhealing the average ticks did
@@ -99,27 +95,22 @@ class EOLAttrib extends Analyzer {
     if (eolHealEvents.length > 0) {
       const initialHealPerTick = initialHeal / eolHealEvents.length;
 
-      const empty: HealEvent[] = []; //eslint....
-      Object.values(
-        eolHealEvents.reduce((n, eolHealEvent) => {
-          eolHealEvent = eolHealEvent as HealEvent;
-          eolTicksHeal += eolHealEvent.amount + (eolHealEvent.absorbed || 0);
-          eolTicksOverHeal += eolHealEvent.overheal || 0;
+      Object.values(eolHealEvents).forEach((eolHealEvent) => {
+        eolHealEvent = eolHealEvent as HealEvent;
+        eolTicksHeal += eolHealEvent.amount + (eolHealEvent.absorbed || 0);
+        eolTicksOverHeal += eolHealEvent.overheal || 0;
 
-          // this is a copy paste of getEffectiveHealing
-          if (eolTicksHeal + eolTicksOverHeal !== 0) {
-            const overheal =
-              (initialHealPerTick * eolTicksOverHeal) / (eolTicksHeal + eolTicksOverHeal);
-            const relativeHealingIncreaseFactor = 1 + relativeHealIncrease;
-            const healingIncrease =
-              initialHealPerTick - initialHealPerTick / relativeHealingIncreaseFactor;
-            const effectiveHealing = healingIncrease - overheal;
-            totalEOLAmpHealing += Math.max(0, effectiveHealing);
-          }
-
-          return n;
-        }, empty),
-      );
+        // this is a copy paste of getEffectiveHealing
+        if (eolTicksHeal + eolTicksOverHeal !== 0) {
+          const overheal =
+            (initialHealPerTick * eolTicksOverHeal) / (eolTicksHeal + eolTicksOverHeal);
+          const relativeHealingIncreaseFactor = 1 + relativeHealIncrease;
+          const healingIncrease =
+            initialHealPerTick - initialHealPerTick / relativeHealingIncreaseFactor;
+          const effectiveHealing = healingIncrease - overheal;
+          totalEOLAmpHealing += Math.max(0, effectiveHealing);
+        }
+      });
     }
     return totalEOLAmpHealing || 0;
   }
