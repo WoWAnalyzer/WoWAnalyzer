@@ -140,9 +140,12 @@ export default class GenerateRageEventsNormalizer extends EventsNormalizer {
       let ragePerSwingOH = this.unbuffedRagePerSwingOH;
 
       if (this.recklessnessBuff) {
-        ragePerSwingMH = Math.ceil(ragePerSwingMH * (1 + this.recklessnessIncrease));
-        ragePerSwingOH = Math.ceil(ragePerSwingOH * (1 + this.recklessnessIncrease));
+        ragePerSwingMH = ragePerSwingMH * (1 + this.recklessnessIncrease);
+        ragePerSwingOH = ragePerSwingOH * (1 + this.recklessnessIncrease);
       }
+
+      ragePerSwingMH = Math.round(ragePerSwingMH);
+      ragePerSwingOH = Math.round(ragePerSwingOH);
 
       const rage = getRage(event, this.selectedCombatant);
 
@@ -297,7 +300,7 @@ export default class GenerateRageEventsNormalizer extends EventsNormalizer {
   }
 
   private calculateRawRagePerSwing(ragePerSecond: number, speed: number) {
-    return Math.ceil((ragePerSecond * speed) / RAGE_SCALE_FACTOR);
+    return (ragePerSecond * speed) / RAGE_SCALE_FACTOR;
   }
 
   private calculateUnbuffedRagePerSwing(rawRagePerSwing: number) {
@@ -311,7 +314,7 @@ export default class GenerateRageEventsNormalizer extends EventsNormalizer {
       unbuffedRagePerSwing += unbuffedRagePerSwing * WARMACHINE_PROT_INCREASE;
     }
 
-    return Math.ceil(unbuffedRagePerSwing);
+    return unbuffedRagePerSwing;
   }
 
   private generateResourceChanges = ({
