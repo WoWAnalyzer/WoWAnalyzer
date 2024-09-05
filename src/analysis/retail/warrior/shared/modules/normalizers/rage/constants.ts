@@ -15,6 +15,10 @@ export const RECKLESSNESS_INCREASE = 1;
 // Since TWW pre-patch, Warlords Torment triggers a longer lasting recklessness, but with a lower rage increase
 export const WARLORDS_TORMENT_RECKLESSNESS_INCREASE = 0.25;
 
+export const PIERCING_CHALLENGE_INCREASE = 1;
+
+export const STORM_OF_STEEL_INCREASE = 10;
+
 const BASE_RAGE_GENERATION = 1.75;
 
 /**

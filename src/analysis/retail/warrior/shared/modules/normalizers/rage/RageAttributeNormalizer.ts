@@ -14,8 +14,10 @@ import {
 } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import {
+  PIERCING_CHALLENGE_INCREASE,
   RAGE_SCALE_FACTOR,
   RECKLESSNESS_INCREASE,
+  STORM_OF_STEEL_INCREASE,
   WARLORDS_TORMENT_RECKLESSNESS_INCREASE,
   WARMACHINE_ARMS_INCREASE,
   WARMACHINE_FURY_INCREASE,
@@ -23,12 +25,6 @@ import {
 } from './constants';
 
 const DEBUG = false;
-
-// Spear
-const PIERCING_CHALLENGE_INCREASE = 1;
-
-// Ravager
-const STORM_OF_STEEL_INCREASE = 10;
 
 /**
  * Separates `ResourceChangeEvent` events into multiple events to atributte rage changes to spells and talents.
