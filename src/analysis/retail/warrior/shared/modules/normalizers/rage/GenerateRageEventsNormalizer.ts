@@ -5,6 +5,7 @@ import HIT_TYPES from 'game/HIT_TYPES';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SPECS from 'game/SPECS';
+import { Options } from 'parser/core/Analyzer';
 import {
   AddRelatedEvent,
   AnyEvent,
@@ -63,8 +64,19 @@ const DEFAULT_SPEED_2H = 3.6;
 const DEFAULT_SPEED_1H = 2.6;
 
 /**
- * Goes through all events, and inserts `ResourceChangeEvent`s for rage generation
- * for auto attacks.
+ * Synthesizes {@link ResourceChangeEvent}s for melee attacks.
+ *
+ * Melee attacks generates rage, but does not log it as resource changes.
+ * By being trying to be clever, we can figure out how much rage was generated
+ * and create {@link ResourceChangeEvent}s for them.
+ *
+ * Note that this normalizer does not attribute rage to the correct ability,
+ * but focuses on the amount of rage generated.
+ *
+ * Whenever rage is actually generated, we rely on the differance in rage since
+ * last event to determine how much rage was generated. When the rage is capped,
+ * we want to track how much rage was wasted, and we have to do some complicated
+ * guessing.
  */
 export default class GenerateRageEventsNormalizer extends EventsNormalizer {
   static dependencies = {
@@ -72,34 +84,33 @@ export default class GenerateRageEventsNormalizer extends EventsNormalizer {
     WindfuryLinkNormalizer,
   };
 
-  normalize(events: AnyEvent[]): AnyEvent[] {
-    const updatedEvents: AnyEvent[] = [];
+  /** How much rage each swing generates, without any buffs or effects */
+  private rawRagePerSwingMH = Number.MIN_SAFE_INTEGER;
+  /** How much rage each swing generates, without any buffs or effects */
+  private rawRagePerSwingOH = Number.MIN_SAFE_INTEGER;
+  /** How much rage each swing generates, with permanent effects, but no buffs */
+  private unbuffedRagePerSwingMH = Number.MIN_SAFE_INTEGER;
+  /** How much rage each swing generates, with permanent effects, but no buffs */
+  private unbuffedRagePerSwingOH = Number.MIN_SAFE_INTEGER;
+  private recklessnessIncrease = Number.MIN_SAFE_INTEGER;
 
-    const recklessnessIncrease =
-      this.selectedCombatant.hasTalent(TALENTS.RECKLESSNESS_TALENT) ||
-      this.selectedCombatant.hasTalent(TALENTS.BERSERKERS_TORMENT_TALENT)
-        ? RECKLESSNESS_INCREASE
-        : WARLORDS_TORMENT_RECKLESSNESS_INCREASE;
-
-    /** How much rage each swing generates, without any buffs or effects */
-    let rawRagePerSwingMH = Number.MIN_SAFE_INTEGER;
-    /** How much rage each swing generates, without any buffs or effects */
-    let rawRagePerSwingOH = Number.MIN_SAFE_INTEGER;
-    /** How much rage each swing generates, with permanent effects, but no buffs */
-    let unbuffedRagePerSwingMH = Number.MIN_SAFE_INTEGER;
-    /** How much rage each swing generates, with permanent effects, but no buffs */
-    let unbuffedRagePerSwingOH = Number.MIN_SAFE_INTEGER;
+  constructor(options: Options) {
+    super(options);
 
     switch (this.selectedCombatant.spec?.id) {
       case SPECS.ARMS_WARRIOR.id: {
-        rawRagePerSwingMH = this.calculateRawRagePerSwing(
+        this.recklessnessIncrease = WARLORDS_TORMENT_RECKLESSNESS_INCREASE;
+
+        this.rawRagePerSwingMH = this.calculateRawRagePerSwing(
           AUTO_ATTACK_RAGE_PS.ARMS.MH,
           DEFAULT_SPEED_2H,
         );
-        unbuffedRagePerSwingMH = this.calculateUnbuffedRagePerSwing(rawRagePerSwingMH);
+        this.unbuffedRagePerSwingMH = this.calculateUnbuffedRagePerSwing(this.rawRagePerSwingMH);
         break;
       }
       case SPECS.FURY_WARRIOR.id: {
+        this.recklessnessIncrease = RECKLESSNESS_INCREASE;
+
         // While it would be nice to look at the speed or slot for weapons, I don't know if that's possible
         // so we'll just make the assumption that they have specced correctly if they are using 1h weapons
         // We also assume you have 2x2h or 2x1h, no mix and match
@@ -107,49 +118,60 @@ export default class GenerateRageEventsNormalizer extends EventsNormalizer {
           ? DEFAULT_SPEED_1H
           : DEFAULT_SPEED_2H;
 
-        rawRagePerSwingMH = this.calculateRawRagePerSwing(AUTO_ATTACK_RAGE_PS.FURY.MH, speed);
-        rawRagePerSwingOH = this.calculateRawRagePerSwing(AUTO_ATTACK_RAGE_PS.FURY.OH, speed);
-        unbuffedRagePerSwingMH = this.calculateUnbuffedRagePerSwing(rawRagePerSwingMH);
-        unbuffedRagePerSwingOH = this.calculateUnbuffedRagePerSwing(rawRagePerSwingOH);
+        this.rawRagePerSwingMH = this.calculateRawRagePerSwing(AUTO_ATTACK_RAGE_PS.FURY.MH, speed);
+        this.rawRagePerSwingOH = this.calculateRawRagePerSwing(AUTO_ATTACK_RAGE_PS.FURY.OH, speed);
+        this.unbuffedRagePerSwingMH = this.calculateUnbuffedRagePerSwing(this.rawRagePerSwingMH);
+        this.unbuffedRagePerSwingOH = this.calculateUnbuffedRagePerSwing(this.rawRagePerSwingOH);
         break;
       }
       case SPECS.PROTECTION_WARRIOR.id:
       default: {
-        rawRagePerSwingMH = this.calculateRawRagePerSwing(
+        this.rawRagePerSwingMH = this.calculateRawRagePerSwing(
           AUTO_ATTACK_RAGE_PS.PROTECTION.MH,
           DEFAULT_SPEED_1H,
         );
-        unbuffedRagePerSwingMH = this.calculateUnbuffedRagePerSwing(rawRagePerSwingMH);
+        this.unbuffedRagePerSwingMH = this.calculateUnbuffedRagePerSwing(this.rawRagePerSwingMH);
         break;
       }
     }
+  }
 
+  private recklessnessBuff = false;
+  /**
+   * Sub-step of `normalize()` which simply updates `this.recklessnessBuff` to
+   * reflect if recklessness is currently active or not
+   */
+  private trackRecklessness(event: AnyEvent): void {
+    if (
+      HasTarget(event) &&
+      event.targetID === this.selectedCombatant.id &&
+      event.ability.guid === SPELLS.RECKLESSNESS.id
+    ) {
+      if (event.type === EventType.ApplyBuff) {
+        this.recklessnessBuff = true;
+      } else if (event.type === EventType.RemoveBuff) {
+        this.recklessnessBuff = false;
+      }
+    }
+  }
+
+  normalize(events: AnyEvent[]): AnyEvent[] {
     /** `true` if next swing _should_ be with offhand */
     let lastHitWasOffHand = true;
     // While it would be nice to adjust for overwhelming rage, we can't check combatant talents in normalizer
     let maxRage = 100 / RAGE_SCALE_FACTOR;
     let lastRageCount = 0;
-    let recklessnessBuff = false;
 
-    events.forEach((event) => {
-      let ragePerSwingMH = unbuffedRagePerSwingMH;
-      let ragePerSwingOH = unbuffedRagePerSwingOH;
+    const updatedEvents: AnyEvent[] = [];
+    for (const event of events) {
+      this.trackRecklessness(event);
 
-      if (
-        HasTarget(event) &&
-        event.targetID === this.selectedCombatant.id &&
-        event.ability.guid === SPELLS.RECKLESSNESS.id
-      ) {
-        if (event.type === EventType.ApplyBuff) {
-          recklessnessBuff = true;
-        } else if (event.type === EventType.RemoveBuff) {
-          recklessnessBuff = false;
-        }
-      }
+      let ragePerSwingMH = this.unbuffedRagePerSwingMH;
+      let ragePerSwingOH = this.unbuffedRagePerSwingOH;
 
-      if (recklessnessBuff) {
-        ragePerSwingMH = Math.ceil(ragePerSwingMH * (1 + recklessnessIncrease));
-        ragePerSwingOH = Math.ceil(ragePerSwingOH * (1 + recklessnessIncrease));
+      if (this.recklessnessBuff) {
+        ragePerSwingMH = Math.ceil(ragePerSwingMH * (1 + this.recklessnessIncrease));
+        ragePerSwingOH = Math.ceil(ragePerSwingOH * (1 + this.recklessnessIncrease));
       }
 
       const rage = getRage(event, this.selectedCombatant);
@@ -167,35 +189,31 @@ export default class GenerateRageEventsNormalizer extends EventsNormalizer {
 
         const extraAttack = getWindfuryFromTriggered(event);
 
-        const isOffHand = (() => {
-          if (this.selectedCombatant.spec?.id !== SPECS.FURY_WARRIOR.id) {
-            return false;
-          }
-
+        let isOffHand = false;
+        if (this.selectedCombatant.spec?.id === SPECS.FURY_WARRIOR.id) {
           if (extraAttack) {
             // If it is windfury attack, look at spell id
-            return extraAttack.ability.guid === SPELLS.WINDFURY_EXTRA_ATTACK_OH.id;
+            isOffHand = extraAttack.ability.guid === SPELLS.WINDFURY_EXTRA_ATTACK_OH.id;
           } else {
             // if it is not a windfury attack.
-
             const windfuryProc = getWindfuryFromTrigger(event);
             if (windfuryProc != null) {
               // If this attack triggered a windfury proc, we can look at the id of the proc
-              return windfuryProc.ability.guid === SPELLS.WINDFURY_EXTRA_ATTACK_OH.id;
+              isOffHand = windfuryProc.ability.guid === SPELLS.WINDFURY_EXTRA_ATTACK_OH.id;
+            } else {
+              if (!isMax && generated > 0) {
+                // As long as we are not capped, and didn't miss,
+                // we can look at the rage generated to figure out if it was offhand
+                // We use the average as a threshold, to allow some variance
+                isOffHand = generated < (ragePerSwingMH + ragePerSwingOH) / 2;
+              } else {
+                // If it did not proc windfury, and we are capped or missed, we can't tell
+                // so we assume alternating swings
+                isOffHand = !lastHitWasOffHand;
+              }
             }
-
-            if (!isMax && generated > 0) {
-              // As long as we are not capped, and didn't miss,
-              // we can look at the rage generated to figure out if it was offhand
-              // We use the average as a threshold, to allow some variance
-              return generated < (ragePerSwingMH + ragePerSwingOH) / 2;
-            }
-
-            // If it did not proc windfury, and we are capped or missed, we can't tell
-            // so we assume alternating swings
-            return !lastHitWasOffHand;
           }
-        })();
+        }
 
         const expectedGeneration = isOffHand ? ragePerSwingOH : ragePerSwingMH;
 
@@ -253,13 +271,10 @@ export default class GenerateRageEventsNormalizer extends EventsNormalizer {
           this.selectedCombatant.spec?.id === SPECS.ARMS_WARRIOR.id &&
           event.hitType === HIT_TYPES.CRIT
         ) {
-          // Handle Seasoned Soldier
-          // const castEvent = meleeCastEvent(event);
-          // const rageEvent = rageEventFromCast(castEvent);
-
-          // We don't account for Recklessness, because the CastEvent resouceChange is accounting for it
-          // ACTUALLY seasoned soldier is unaffected by recklessness, so we can't even use the source event*
-          const seasonedSoldierResourceChange = rawRagePerSwingMH * SEASONED_SOLDIER_RAGE_INCREASE;
+          // Seasoned Soldier is not affected by Recklessness or other rage modifiers
+          // So we can just use the base rage generation
+          const seasonedSoldierResourceChange =
+            this.rawRagePerSwingMH * SEASONED_SOLDIER_RAGE_INCREASE;
           const newRageCount = Math.min(
             Math.round(lastRageCount + seasonedSoldierResourceChange),
             maxRage,
@@ -307,7 +322,7 @@ export default class GenerateRageEventsNormalizer extends EventsNormalizer {
 
       // Add this event no matter what
       updatedEvents.push(event);
-    });
+    }
     return updatedEvents;
   }
 
