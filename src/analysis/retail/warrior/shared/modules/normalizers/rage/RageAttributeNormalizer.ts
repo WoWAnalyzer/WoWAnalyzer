@@ -15,14 +15,12 @@ import {
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import {
   RAGE_SCALE_FACTOR,
+  RECKLESSNESS_INCREASE,
   WARLORDS_TORMENT_RECKLESSNESS_INCREASE,
   WARMACHINE_ARMS_INCREASE,
   WARMACHINE_FURY_INCREASE,
   WARMACHINE_PROT_INCREASE,
 } from './constants';
-
-// Recklessness
-const RECKLESSNESS_INCREASE = 1;
 
 // Spear
 const PIERCING_CHALLENGE_INCREASE = 1;
