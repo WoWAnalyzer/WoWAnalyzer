@@ -7,6 +7,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import BoringSpellValueText from '../../../../parser/ui/BoringSpellValueText';
+import { calculateEffectiveDamageReduction } from 'parser/core/EventCalculateLib';
 
 const PROTECTIVE_LIGHT_REDUCTION = 0.1;
 
@@ -28,12 +29,15 @@ class ProtectiveLight extends Analyzer {
     if (!this.selectedCombatant.hasBuff(SPELLS.PROTECTIVE_LIGHT_BUFF.id)) {
       return;
     }
-    this.damageDuringProtectiveLight += event.amount + (event.absorbed || 0);
+    this.damageDuringProtectiveLight += calculateEffectiveDamageReduction(
+      event,
+      PROTECTIVE_LIGHT_REDUCTION,
+    );
   }
 
   statistic() {
     const fightDuration = this.owner.fightDuration;
-    this.damageReduced = this.damageDuringProtectiveLight * PROTECTIVE_LIGHT_REDUCTION;
+    this.damageReduced = this.damageDuringProtectiveLight;
 
     return (
       <Statistic

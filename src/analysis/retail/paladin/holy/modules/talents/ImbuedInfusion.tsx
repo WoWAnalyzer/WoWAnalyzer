@@ -16,7 +16,7 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 // its one point right now but I already had this so w/e
-const COOLDOWN_REDUCTION_MS_PER_POINT = 2000;
+const COOLDOWN_REDUCTION_MS_PER_POINT = 1000;
 
 class ImbuedInfusion extends Analyzer {
   static dependencies = {

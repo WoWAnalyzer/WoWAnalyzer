@@ -1,15 +1,12 @@
-import { ReactNode } from 'react';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { PassFailCheckmark, PerformanceMark } from 'interface/guide';
+import { PassFailCheckmark } from 'interface/guide';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/mage/arcane/Guide';
 
 import ShiftingPowerArcane, { MAX_TICKS, ShiftingPowerCast } from '../talents/ShiftingPower';
-import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
-import { GapHighlight } from 'parser/ui/CooldownBar';
 import CooldownExpandable, {
   CooldownExpandableItem,
 } from 'interface/guide/components/CooldownExpandable';
@@ -21,24 +18,6 @@ class ShiftingPowerGuide extends Analyzer {
   };
 
   protected shiftingPower!: ShiftingPowerArcane;
-
-  generateGuideTooltip(
-    performance: QualitativePerformance,
-    tooltipText: ReactNode,
-    timestamp: number,
-  ) {
-    const tooltip = (
-      <>
-        <div>
-          <b>@ {this.owner.formatTimestamp(timestamp)}</b>
-        </div>
-        <div>
-          <PerformanceMark perf={performance} /> {performance}: {tooltipText}
-        </div>
-      </>
-    );
-    return tooltip;
-  }
 
   private perCastBreakdown(cast: ShiftingPowerCast): React.ReactNode {
     const header = (
@@ -164,13 +143,6 @@ class ShiftingPowerGuide extends Analyzer {
 
     const data = (
       <div>
-        <p>
-          <strong>Shifting Power Cast Efficiency</strong>
-          <CastEfficiencyBar
-            spellId={TALENTS.SHIFTING_POWER_TALENT.id}
-            gapHighlightMode={GapHighlight.FullCooldown}
-          />
-        </p>
         <p>
           <strong>Per-Cast Breakdown</strong>
           <small> - click to expand</small>

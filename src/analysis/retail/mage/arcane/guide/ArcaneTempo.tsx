@@ -1,19 +1,20 @@
-import { formatPercentage, formatDuration } from 'common/format';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
-import { SpellLink, TooltipElement } from 'interface';
+import { SpellIcon, SpellLink, TooltipElement } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { qualitativePerformanceToColor } from 'interface/guide';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/mage/arcane/Guide';
-import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
 
 import ArcaneTempo from '../talents/ArcaneTempo';
 import { getUptimesFromBuffHistory } from 'parser/ui/UptimeBar';
+import UptimeStackBar, { getStackUptimesFromBuffHistory } from 'parser/ui/UptimeStackBar';
+import { ARCANE_TEMPO_MAX_STACKS } from '../../shared';
 
 const TEMPO_COLOR = '#cd1bdf';
+const TEMPO_BG_COLOR = '#7e5da8';
 
 class ArcaneTempoGuide extends Analyzer {
   static dependencies = {
@@ -39,46 +40,53 @@ class ArcaneTempoGuide extends Analyzer {
   get guideSubsection(): JSX.Element {
     const arcaneTempo = <SpellLink spell={TALENTS.ARCANE_TEMPO_TALENT} />;
     const arcaneBarrage = <SpellLink spell={SPELLS.ARCANE_BARRAGE} />;
-    const arcaneCharge = <SpellLink spell={SPELLS.ARCANE_CHARGE} />;
 
     const explanation = (
       <>
         <div>
-          <b>{arcaneTempo}</b> is a stacking Haste buff that gets applied whenever you spend your{' '}
-          {arcaneCharge}s. This buff lasts for 12s, so you can, and should, keep this buff up for
-          the entire fight by casting {arcaneBarrage} to spend your {arcaneCharge}s before the buff
-          expires. This can sometimes be unavoidable due to forced downtime, but should be minimized
-          as much as possible.
+          <b>{arcaneTempo}</b> grants a high amount of haste if uptime is maintained at max stacks.
+          It can take a while to get back up to max if you let it fall. Cast {arcaneBarrage} before
+          it falls to maintain the buff.
         </div>
       </>
     );
-    const arcaneTempoTooltip = (
-      <>
-        {formatPercentage(this.arcaneTempo.buffUptimePercent)}% Uptime (
-        {formatDuration(this.arcaneTempo.buffUptimeMS)} / {formatDuration(this.owner.fightDuration)}
-        ).
-      </>
-    );
-    const history = this.selectedCombatant.getBuffHistory(SPELLS.ARCANE_TEMPO_BUFF.id);
-    const buffs = getUptimesFromBuffHistory(history, this.owner.currentTimestamp);
-    const uptimeBar = uptimeBarSubStatistic(this.owner.fight, {
-      spells: [SPELLS.ARCANE_TEMPO_BUFF],
-      uptimes: buffs,
-      color: TEMPO_COLOR,
-    });
+    const buffHistory = this.selectedCombatant.getBuffHistory(SPELLS.ARCANE_TEMPO_BUFF.id);
+    const overallUptimes = getUptimesFromBuffHistory(buffHistory, this.owner.currentTimestamp);
+    const stackUptimes = getStackUptimesFromBuffHistory(buffHistory, this.owner.currentTimestamp);
+
     const data = (
       <div>
         <RoundedPanel>
-          <div
-            style={{
-              color: qualitativePerformanceToColor(this.arcaneTempoUptime),
-              fontSize: '16px',
-            }}
-          >
-            <TooltipElement content={arcaneTempoTooltip}>
-              <strong>Buff Uptime</strong>
-            </TooltipElement>
-            {uptimeBar}
+          <strong>Arcane Tempo Uptime</strong>
+          <div className="flex-main multi-uptime-bar">
+            <div className="flex main-bar-big">
+              <div className="flex-sub bar-label">
+                <SpellIcon spell={TALENTS.ARCANE_TEMPO_TALENT} />{' '}
+                <span style={{ color: TEMPO_BG_COLOR }}>
+                  {formatPercentage(this.arcaneTempo.buffUptimePercent, 0)}% <small>active</small>
+                </span>
+                <br />
+                <TooltipElement
+                  content={`This is the average number of stacks you had over the course of the fight, counting periods where you didn't have the buff as zero stacks.`}
+                >
+                  <span style={{ color: TEMPO_COLOR }}>
+                    {this.arcaneTempo.averageStacks.toFixed(1)} <small>avg stacks</small>
+                  </span>
+                </TooltipElement>
+              </div>
+              <div className="flex-main chart">
+                <UptimeStackBar
+                  stackUptimeHistory={stackUptimes}
+                  start={this.owner.fight.start_time}
+                  end={this.owner.fight.end_time}
+                  maxStacks={ARCANE_TEMPO_MAX_STACKS}
+                  barColor={TEMPO_COLOR}
+                  backgroundHistory={overallUptimes}
+                  backgroundBarColor={TEMPO_BG_COLOR}
+                  timeTooltip
+                />
+              </div>
+            </div>
           </div>
         </RoundedPanel>
       </div>

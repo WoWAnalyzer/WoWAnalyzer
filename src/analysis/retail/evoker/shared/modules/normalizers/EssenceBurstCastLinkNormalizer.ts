@@ -42,6 +42,9 @@ const ESSENCE_BURST_BUFFER = 40; // Sometimes the EB comes a bit early/late
 const EB_LF_CAST_BUFFER = 1_000;
 const EMERALD_TRANCE_BUFFER = 5_000;
 
+export const EB_FROM_DIVERTED_POWER = 'ebFromDivertedPower';
+const EB_DIVERTED_POWER_BUFFER = 100; // These for some reason have longer delays
+
 export const ESSENCE_BURST_CONSUME = 'EssenceBurstConsume';
 
 /** More deterministic links should be placed above less deterministic links
@@ -132,6 +135,22 @@ const EVENT_LINKS: EventLink[] = [
     isActive: (c) =>
       c.hasTalent(TALENTS.AZURE_ESSENCE_BURST_TALENT) ||
       c.hasTalent(TALENTS.ESSENCE_BURST_AUGMENTATION_TALENT),
+    additionalCondition(_linkingEvent, referencedEvent) {
+      return hasNoGenerationLink(referencedEvent as AnyBuffEvent);
+    },
+  },
+  {
+    linkRelation: EB_FROM_DIVERTED_POWER,
+    reverseLinkRelation: EB_FROM_DIVERTED_POWER,
+    linkingEventId: SPELLS.BOMBARDMENTS_DAMAGE.id,
+    linkingEventType: EventType.Damage,
+    referencedEventId: EB_BUFF_IDS,
+    referencedEventType: EB_GENERATION_EVENT_TYPES,
+    forwardBufferMs: EB_DIVERTED_POWER_BUFFER,
+    backwardBufferMs: ESSENCE_BURST_BUFFER,
+    anyTarget: true,
+    maximumLinks: 1,
+    isActive: (c) => c.hasTalent(TALENTS.DIVERTED_POWER_TALENT),
     additionalCondition(_linkingEvent, referencedEvent) {
       return hasNoGenerationLink(referencedEvent as AnyBuffEvent);
     },
@@ -229,6 +248,7 @@ export const EBSource = {
   AzureStrike: EB_FROM_AZURE_STRIKE,
   LivingFlameCast: EB_FROM_LF_CAST,
   LivingFlameHeal: EB_FROM_LF_HEAL,
+  DivertedPower: EB_FROM_DIVERTED_POWER,
 } as const;
 export type EBSourceType = (typeof EBSource)[keyof typeof EBSource];
 

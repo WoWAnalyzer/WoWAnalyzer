@@ -2052,6 +2052,11 @@ export const Litena: Contributor = {
   ],
 };
 
+export const manu310891: Contributor = {
+  nickname: 'manu310891',
+  github: 'manu310891',
+};
+
 export const jazminite: Contributor = {
   nickname: 'jazminite',
   github: 'jazminite',
@@ -2348,6 +2353,13 @@ export const Ypp: Contributor = {
       link: 'https://www.warcraftlogs.com/character/id/58915319',
     },
   ],
+};
+
+export const Texleretour: Contributor = {
+  nickname: 'Tex',
+  github: 'Texleretour',
+  discord: 'texleretour',
+  avatar: avatar('Tex-avatar.jpg'),
 };
 
 export const LucasLevyOB: Contributor = {

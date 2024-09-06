@@ -6,9 +6,9 @@ import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
 import SpellManaCost from 'parser/shared/modules/SpellManaCost';
 // Features
-import Abilities from './modules/features/Abilities';
+import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import Buffs from './modules/features/Buffs';
+import Buffs from './modules/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 // Healer Features
 import HealingEfficiencyDetails from './modules/features/HealingEfficiencyDetails';

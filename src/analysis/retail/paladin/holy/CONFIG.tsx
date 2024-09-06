@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
-import { Squided } from 'CONTRIBUTORS';
+import { Squided, Texleretour } from 'CONTRIBUTORS';
 import GameBranch from 'game/GameBranch';
 import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
@@ -9,10 +9,15 @@ import Config, { SupportLevel } from 'parser/Config';
 import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
-  contributors: [Squided],
+  contributors: [Texleretour, Squided],
   branch: GameBranch.Retail,
-  patchCompatibility: '11.0.0',
-  supportLevel: SupportLevel.Unmaintained,
+  patchCompatibility: '11.0.2',
+  supportLevel: SupportLevel.MaintainedPartial,
+  pages: {
+    overview: {
+      frontmatterType: 'guide',
+    },
+  },
   description: (
     <>
       Hey! I hope the suggestions will help you improve your performance. Remember: focus on
@@ -43,7 +48,7 @@ const config: Config = {
     </>
   ),
   exampleReport:
-    '/report/K3QhqX8brd7aHJn4/26-Mythic+The+Vigilant+Steward,+Zskarn+-+Kill+(4:15)/467-Mytholcgy/standard',
+    '/report/fHk1awXpvV3yMZg7/59-Mythic+Rashok,+the+Elder+-+Kill+(2:50)/Priiyaa/standard/',
 
   spec: SPECS.HOLY_PALADIN,
   changelog: CHANGELOG,

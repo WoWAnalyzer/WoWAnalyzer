@@ -53,6 +53,11 @@ import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart'
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
 import SpellManaCost from 'parser/shared/modules/SpellManaCost';
 import HolyPaladinHealingEfficiencyTracker from './modules/features/HolyPaladinHealingEfficiencyTracker';
+import HolyShock from './modules/talents/HolyShock';
+import BeaconOfVirtue from './modules/talents/BeaconOfVirtue';
+import HolyPowerGraph from './modules/core/HolyPowerGraph';
+import OverflowingLight from './modules/talents/OverflowingLight';
+import Guide from './guide/Guide';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -109,11 +114,15 @@ class CombatLogParser extends CoreCombatLogParser {
     reclamation: Reclamation,
     tyrsDeliverance: TyrsDeliverance,
     boundlessSalvation: BoundlessSalvation,
+    holyShock: HolyShock,
+    beaconOfVirtue: BeaconOfVirtue,
+    overflowingLight: OverflowingLight,
 
     // HolyPower
     holyPowerTracker: HolyPowerTracker,
     holyPowerDetails: HolyPowerDetails,
     holyPowerPerMinute: HolyPowerPerMinute,
+    holyPowerGraph: HolyPowerGraph,
 
     // Mana Tab
     spellManaCost: SpellManaCost,
@@ -125,6 +134,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Tier Sets
   };
+  static guide = Guide;
 }
 
 export default CombatLogParser;

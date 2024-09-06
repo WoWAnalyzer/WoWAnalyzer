@@ -634,6 +634,11 @@ const spells = {
     name: 'Mass Eruption',
     icon: 'ability_evoker_eruption',
   },
+  UNRELENTING_SIEGE_BUFF: {
+    id: 441248,
+    name: 'Unrelenting Siege',
+    icon: 'ability_siege_engineer_superheated',
+  },
   // endregion
 } satisfies Record<string, Spell>;
 

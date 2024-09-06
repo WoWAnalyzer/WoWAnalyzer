@@ -1,6 +1,5 @@
-import { formatPercentage } from 'common/format';
+import { formatPercentage, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { TIERS } from 'game/TIERS';
 import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -19,9 +18,16 @@ import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
-import ITEMS from 'common/ITEMS';
+
+import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 const DELAY_MS = 200;
+
+type Cast = {
+  healingDone: number;
+  overhealingDone: number;
+};
 
 /**
  * Cloudburst Totem has no buff events in the combatlog, so we're fabricating it on cast and
@@ -29,7 +35,6 @@ const DELAY_MS = 200;
  *
  * Also sums up the healing it does and feeds for the Talents module.
  */
-
 class CloudburstTotem extends Analyzer {
   static dependencies = {
     eventEmitter: EventEmitter,
@@ -41,6 +46,10 @@ class CloudburstTotem extends Analyzer {
 
   healing = 0;
   cbtActive = false;
+
+  CBTCasts: Cast[] = [];
+
+  castEntries: BoxRowEntry[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -54,6 +63,11 @@ class CloudburstTotem extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.CLOUDBURST_TOTEM_TALENT),
       this._onCast,
     );
+    this.addEventListener(Events.fightend, this._onFightEnd);
+  }
+
+  _onFightEnd() {
+    this._rateCasts(this.CBTCasts);
   }
 
   _onCBTHeal(event: HealEvent) {
@@ -63,6 +77,20 @@ class CloudburstTotem extends Analyzer {
     }
 
     this.healing += event.amount + (event.absorbed || 0);
+
+    const healing = event.amount + (event.absorbed || 0);
+    const overhealing = event.overheal || 0;
+
+    if (this.CBTCasts.length === 0) {
+      // If CBT was cast prepull
+      this.CBTCasts.push({
+        healingDone: 0,
+        overhealingDone: 0,
+      });
+    }
+
+    this.CBTCasts[this.CBTCasts.length - 1].healingDone += healing;
+    this.CBTCasts[this.CBTCasts.length - 1].overhealingDone += overhealing;
   }
 
   _onCast(event: CastEvent) {
@@ -73,6 +101,11 @@ class CloudburstTotem extends Analyzer {
     const timestamp = event.timestamp + DELAY_MS;
     this._createFabricatedEvent(event, EventType.ApplyBuff, timestamp);
     this.cbtActive = true;
+
+    this.CBTCasts.push({
+      healingDone: 0,
+      overhealingDone: 0,
+    });
   }
 
   _createFabricatedEvent(
@@ -103,17 +136,12 @@ class CloudburstTotem extends Analyzer {
         <b>
           <SpellLink spell={TALENTS.CLOUDBURST_TOTEM_TALENT} />
         </b>{' '}
-        has been nerfed by a third of its power in season 3 of Dragonflight, yet it still is one of
-        your most important and highest hps abilities. It is essential to have it active whenever
-        you plan on doing significant healing as it collects a portion of all healing done
-        {this.selectedCombatant.has2PieceByTier(TIERS.DF2) && (
-          <>
-            (this includes <SpellLink spell={ITEMS.T30_TIDEWATERS_HEAL} /> healing!)
-          </>
-        )}
-        . It is not necessary or possible to always have{' '}
+        is one of your most important and highest hps abilities. It is essential to have it active
+        whenever you plan on doing significant healing as it collects a portion of all healing done.
+        It is not necessary or possible to always have{' '}
         <SpellLink spell={TALENTS.CLOUDBURST_TOTEM_TALENT} /> active, but make sure you are never
-        sitting at 2 charges
+        sitting at 2 charges. You may want to recast this ability to pop its healing early in order
+        to avoid overhealing.
       </p>
     );
 
@@ -124,7 +152,10 @@ class CloudburstTotem extends Analyzer {
             <SpellLink spell={TALENTS.CLOUDBURST_TOTEM_TALENT} /> cast efficiency
           </strong>
           <div className="flex-main chart" style={{ padding: 15 }}>
-            {this.guideSubStatistic()}
+            {this.guideCastEfficiency()}
+            <br />
+            <strong>Casts breakdown</strong>
+            {this.guideCastBreakdown()}
           </div>
         </RoundedPanel>
       </div>
@@ -133,7 +164,7 @@ class CloudburstTotem extends Analyzer {
     return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 
-  guideSubStatistic() {
+  guideCastEfficiency() {
     return (
       <CastEfficiencyBar
         spellId={TALENTS.CLOUDBURST_TOTEM_TALENT.id}
@@ -144,6 +175,17 @@ class CloudburstTotem extends Analyzer {
     );
   }
 
+  guideCastBreakdown() {
+    return (
+      <>
+        {' '}
+        - Colors are assigned purely based on overhealing. Try to avoid red casts by recasting{' '}
+        <SpellLink spell={TALENTS.CLOUDBURST_TOTEM_TALENT} /> early.
+        <PerformanceBoxRow values={this.castEntries} />
+      </>
+    );
+  }
+
   subStatistic() {
     return (
       <StatisticListBoxItem
@@ -151,6 +193,34 @@ class CloudburstTotem extends Analyzer {
         value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
       />
     );
+  }
+
+  _rateCasts(casts: Cast[]) {
+    casts.forEach((CBTcast) => {
+      let value = null;
+
+      const percentOverheal =
+        CBTcast.overhealingDone / (CBTcast.healingDone + CBTcast.overhealingDone);
+
+      if (percentOverheal < 0.05) {
+        value = QualitativePerformance.Perfect;
+      } else if (percentOverheal < 0.25) {
+        value = QualitativePerformance.Good;
+      } else if (percentOverheal < 0.6) {
+        value = QualitativePerformance.Ok;
+      } else {
+        value = QualitativePerformance.Fail;
+      }
+
+      const tooltip = (
+        <>
+          Healing: {formatNumber(CBTcast.healingDone)} ({formatPercentage(percentOverheal)}%
+          overheal)
+        </>
+      );
+
+      this.castEntries.push({ value, tooltip });
+    });
   }
 }
 

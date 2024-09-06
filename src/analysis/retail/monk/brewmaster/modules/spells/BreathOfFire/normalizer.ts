@@ -3,10 +3,10 @@ import { Options } from 'parser/core/Analyzer';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import { EventType } from 'parser/core/Events';
 
-const targetRelation = 'bof-target';
+export const BOF_TARGET_HIT = 'bof-target';
 const links: EventLink[] = [
   {
-    linkRelation: targetRelation,
+    linkRelation: BOF_TARGET_HIT,
     linkingEventType: EventType.Cast,
     linkingEventId: talents.BREATH_OF_FIRE_TALENT.id,
     referencedEventType: EventType.Damage,

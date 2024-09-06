@@ -7,74 +7,102 @@ import Gauge from 'parser/ui/Gauge';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
+const DEBUG = false;
+
 class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
   HEALING_ABILITIES_ON_GCD: number[] = [
     // Extend this class and override this property in your spec class to implement this module.
   ];
 
-  healingTime = 0;
+  /** Memoized total active time (ms) */
+  private activeHealingTimeMemo: number | undefined = 0;
+  /** Start time of memoized active segment */
+  private memoHealingStartTime: number | undefined;
+  /** End time of memoized active time segment */
+  private memoHealingEndTime: number | undefined;
+
+  isHealingAbility(event: EndChannelEvent | GlobalCooldownEvent): boolean {
+    return this.HEALING_ABILITIES_ON_GCD.includes(event.ability.guid);
+  }
+
+  onFightEnd() {
+    DEBUG &&
+      console.log(
+        'ABC Stats:\n' +
+          'Active Time = ' +
+          this.activeTime +
+          '\n' +
+          'Healing Active Time = ' +
+          this.healingTime +
+          '\n' +
+          'Total Fight Time = ' +
+          this.owner.fightDuration +
+          '\n' +
+          'Active Time Percentage = ' +
+          formatPercentage(this.activeTimePercentage) +
+          '\n' +
+          'Active Healing Time Percentage = ' +
+          formatPercentage(this.healingTimePercentage),
+      );
+  }
+
+  /** The active healing time (in ms) recorded */
+  get healingTime() {
+    if (
+      this.activeHealingTimeMemo === undefined ||
+      this.owner.fight.start_time !== this.memoHealingStartTime ||
+      this.owner.fight.end_time !== this.memoHealingEndTime
+    ) {
+      this.memoHealingStartTime = this.owner.fight.start_time;
+      this.memoHealingEndTime = this.owner.fight.end_time;
+      this.activeHealingTimeMemo = this.getActiveTimeMillisecondsInWindow(
+        this.memoHealingStartTime,
+        this.memoHealingEndTime,
+        true,
+      );
+    }
+    return this.activeHealingTimeMemo;
+  }
+
+  /** Percentage of fight time spent casting heals */
   get healingTimePercentage() {
     return this.healingTime / this.owner.fightDuration;
   }
+
+  /** Percentage of fight time not casting heals (either idle or casting other spells) */
   get nonHealingTimePercentage() {
     return 1 - this.healingTimePercentage;
   }
 
-  _lastHealingCastFinishedTimestamp = null;
-
-  onGCD(event: GlobalCooldownEvent) {
-    if (!super.onGCD(event)) {
-      return false;
-    }
-    if (this.countsAsHealingAbility(event)) {
-      this.healingTime += event.duration;
-    }
-    return true;
-  }
-  onEndChannel(event: EndChannelEvent) {
-    if (!super.onEndChannel(event)) {
-      return false;
-    }
-    if (this.countsAsHealingAbility(event)) {
-      this.healingTime += event.duration;
-    }
-    return true;
-  }
-  countsAsHealingAbility(event: GlobalCooldownEvent | EndChannelEvent) {
-    return this.HEALING_ABILITIES_ON_GCD.includes(event.ability.guid);
-  }
+  /////////////////////////////////////////////////////////////////////////////
+  // DEFAULT SUGGESTION + STATISTIC STUFF
+  //
 
   showStatistic = true;
-  static icons = {
-    healingTime: '/img/healing.png',
-    activeTime: '/img/sword.png',
-    downtime: '/img/afk.png',
-  };
+
   statistic() {
     if (!this.showStatistic) {
       return null;
     }
-
-    const activeTimePercentage = this.activeTimePercentage;
-    const healingTimePercentage = this.healingTimePercentage;
-    const downtimePercentage = this.downtimePercentage;
 
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(10)}
         tooltip={
           <Trans id="shared.alwaysBeCastingHealing.statistic.tooltip">
-            This is the precise amount of time you were actively casting something or waiting for a
-            Global Cooldown. The remaining time was downtime; you cast nothing and wasn't waiting
+            Active Time is the amount of time you were actively casting something or waiting for a
+            Global Cooldown. The remaining time was downtime; you cast nothing and weren't waiting
             for a global cooldown (i.e. "AFK time").
             <br />
             <br />
-            You were active for <strong>{formatPercentage(activeTimePercentage)}%</strong> of the
-            fight. You spent <strong>{formatPercentage(healingTimePercentage)}%</strong> of your
-            time casting supportive spells,{' '}
-            <strong>{formatPercentage(activeTimePercentage - healingTimePercentage)}%</strong> of
-            the time casting offensive spells and{' '}
-            <strong>{formatPercentage(downtimePercentage)}%</strong> of the time doing nothing.
+            You were active for <strong>{formatPercentage(this.activeTimePercentage)}%</strong> of
+            the fight. You spent <strong>{formatPercentage(this.healingTimePercentage)}%</strong> of
+            your time casting supportive spells,{' '}
+            <strong>
+              {formatPercentage(this.activeTimePercentage - this.healingTimePercentage)}%
+            </strong>{' '}
+            of the time casting offensive spells and{' '}
+            <strong>{formatPercentage(this.downtimePercentage)}%</strong> of the time doing nothing.
             <br />
             <br />
             See the timeline for details.
@@ -87,7 +115,7 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
             <Trans id="shared.alwaysBeCastingHealing.statistic">Active time</Trans>
           </label>
 
-          <Gauge value={activeTimePercentage} />
+          <Gauge value={this.activeTimePercentage} />
         </div>
       </Statistic>
     );

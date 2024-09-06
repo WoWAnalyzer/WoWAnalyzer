@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import { AlertWarning, SpellLink } from 'interface';
+import { SpellLink } from 'interface';
 import ShuffleSection from './modules/spells/Shuffle/GuideSection';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import CombatLogParser from './CombatLogParser';
@@ -10,27 +10,15 @@ import * as AplCheck from './modules/core/AplCheck';
 import { AplSectionData } from 'interface/guide/components/Apl';
 import { ImprovedInvokeNiuzaoSection } from './modules/problems/InvokeNiuzao';
 import MajorDefensivesSection from './modules/core/MajorDefensives';
-import { defaultExplainers } from 'interface/guide/components/Apl/violations/claims';
-import explainSCK, { filterSCK } from './modules/core/AplCheck/explainSCK';
 import AplChoiceDescription from './modules/core/AplCheck/AplChoiceDescription';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import Explanation from 'interface/guide/components/Explanation';
 import { Highlight } from 'interface/Highlight';
 import BlackoutComboSection from './modules/spells/BlackoutCombo/BlackoutComboSection';
-import BrewAplSummary from './modules/core/AplCheck/BrewAplSummary';
-import * as explainSpendCooldowns from './modules/core/AplCheck/explainSpendCooldowns';
 import ActiveTimeGraph from 'parser/ui/ActiveTimeGraph';
 import { formatPercentage } from 'common/format';
 import PerformanceStrong from 'interface/PerformanceStrong';
-
-const explainers = {
-  explainSCK,
-  explainTPSpam: explainSpendCooldowns.tigerPalmSpamExplanation,
-  overcast: defaultExplainers.overcastFillers,
-  // rethinking the lack of explainer priority here. we want to show custom text explaining the change to SCK, but doing so requires post-processing of the droppedRule results
-  dropped: explainSpendCooldowns.filterDropped(filterSCK(defaultExplainers.droppedRule)),
-};
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -53,17 +41,9 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       </Section>
       <MajorDefensivesSection />
       <Section title="Core Rotation">
-        <AlertWarning>
-          This section has not yet been updated for <strong>The War Within</strong>.
-        </AlertWarning>
         <AplChoiceDescription aplChoice={AplCheck.chooseApl(info)} />
         <SubSection>
-          <AplSectionData
-            checker={AplCheck.check}
-            summary={BrewAplSummary}
-            apl={AplCheck.apl(info)}
-            violationExplainers={explainers}
-          />
+          <AplSectionData checker={AplCheck.check} apl={AplCheck.apl(info)} />
         </SubSection>
         <SubSection title="Always Be Casting">
           <Explanation>
@@ -135,13 +115,6 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           {info.combatant.hasTalent(talents.EXPLODING_KEG_TALENT) && (
             <CastEfficiencyBar
               spellId={talents.EXPLODING_KEG_TALENT.id}
-              gapHighlightMode={GapHighlight.FullCooldown}
-              useThresholds
-            />
-          )}
-          {info.combatant.hasTalent(talents.SUMMON_WHITE_TIGER_STATUE_TALENT) && (
-            <CastEfficiencyBar
-              spellId={talents.SUMMON_WHITE_TIGER_STATUE_TALENT.id}
               gapHighlightMode={GapHighlight.FullCooldown}
               useThresholds
             />

@@ -12,7 +12,7 @@ import DocumentTitle from 'interface/DocumentTitle';
 
 import handleApiError from './handleApiError';
 import { setCombatants } from 'interface/reducers/combatants';
-import { setReport } from 'interface/reducers/report';
+import { clearReport, setReport as setNavigationReport } from 'interface/reducers/navigation';
 
 const pageWasReloaded = () =>
   performance
@@ -103,7 +103,16 @@ const ReportLoader = ({ children }: Props) => {
       setError(error);
       setReportState(report);
       dispatch(setCombatants(null));
-      dispatch(setReport(report));
+      if (report) {
+        dispatch(
+          setNavigationReport({
+            link: makeAnalyzerUrl(report),
+            title: report.title,
+          }),
+        );
+      } else {
+        dispatch(clearReport());
+      }
     },
     [dispatch],
   );

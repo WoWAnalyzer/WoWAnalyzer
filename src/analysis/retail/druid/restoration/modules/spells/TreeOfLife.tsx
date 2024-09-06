@@ -29,9 +29,9 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/druid/restoration/Guide';
 
-const ALL_BOOST = 0.15;
-const ALL_MULT = 1.15;
-const REJUV_BOOST = 0.5;
+const ALL_BOOST = 0.1;
+const ALL_MULT = 1 + ALL_BOOST;
+const REJUV_BOOST = 0.4;
 const REJUV_MANA_SAVED = 0.3;
 const REJUV_MANA_COST = SPELLS.REJUVENATION.manaCost;
 const WG_INCREASE = 8 / 6 - 1;
@@ -229,8 +229,9 @@ class TreeOfLife extends Analyzer {
         <strong>
           <SpellLink spell={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT} />
         </strong>{' '}
-        is a longer, lower-impact cooldown. It should be planned around periods of high sustained
-        healing.
+        is a long duration healing boost with low immediate impact. It should be planned around
+        periods of high sustained healing. Due to its long duration and Rejuvenation mana discount,
+        it should be cast at the start of your ramp.
       </p>
     );
 

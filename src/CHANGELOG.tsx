@@ -35,6 +35,14 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 9, 4), 'Updates to Active Time calculation to avoid cases where overcount could occur.', Sref),
+  change(date(2024, 9, 3), "Fixed a bug where the Death Recap wouldn't detect some defensive buffs", Sref),
+  change(date(2024, 9, 3), 'Remove AbilitiesMissing module.', ToppleTheNun),
+  change(date(2024, 8, 30), 'Update Classic Spells, Potions, and Trinkets for Cata Disc Priest.', jazminite),
+  change(date(2024, 8, 28), "Update rating to percentage conversions for stats for The War Within.", Putro),
+  change(date(2024, 8, 26), <>Add <SpellLink spell={CLASSIC_SPELLS.FLEXWEAVE_UNDERLAY} /> support to Cataclysm Classic specs.</>, jazminite),
+  change(date(2024, 8, 25), 'Remove Redux reducer that stored the entire report under analysis.', ToppleTheNun),
+  change(date(2024, 8, 22), 'Update Druid spells for Classic Cataclysm', jazminite),
   change(date(2024, 8, 13), 'Add patch 11.0.2.', ToppleTheNun),
   change(date(2024, 8, 10), <>Implement buffAndNextCastChannelSpec for channeling normalizer</>, Vollmer),
   change(date(2024, 8, 9), <>Fix the haste bonus of <SpellLink spell={SPELLS.BERSERKING.id} /> in Classic Cataclysm.</>, emallson),

@@ -23,6 +23,11 @@ const spells = {
     name: 'Felblade',
     icon: 'ability_demonhunter_felblade',
   },
+  FELBLADE_CHARGE: {
+    id: 213241,
+    name: 'Felblade',
+    icon: 'ability_demonhunter_felblade',
+  },
   CHAOS_BRAND: {
     id: 281242,
     name: 'Chaos Brand',
@@ -90,18 +95,38 @@ const spells = {
     name: 'Immolation Aura',
     icon: 'ability_demonhunter_immolation',
   },
+  IMMOLATION_AURA_AFI_CAST: {
+    id: 427917,
+    name: 'Immolation Aura',
+    icon: 'ability_demonhunter_immolation',
+  },
   IMMOLATION_AURA_INITIAL_HIT_DAMAGE: {
     id: 258921,
-    name: 'Immolation Aura First Strike',
+    name: 'Immolation Aura',
     icon: 'ability_demonhunter_immolation',
   },
   IMMOLATION_AURA_BUFF_DAMAGE: {
     id: 258922,
-    name: 'Immolation Aura Second Strike',
+    name: 'Immolation Aura',
     icon: 'ability_demonhunter_immolation',
   },
-  IMMOLATION_AURA_PROC: {
-    id: 427917,
+  IMMOLATION_AURA_AFI_INITIAL_HIT_DAMAGE_1: {
+    id: 427904,
+    name: 'Immolation Aura',
+    icon: 'ability_demonhunter_immolation',
+  },
+  IMMOLATION_AURA_AFI_INITIAL_HIT_DAMAGE_2: {
+    id: 427905,
+    name: 'Immolation Aura',
+    icon: 'ability_demonhunter_immolation',
+  },
+  IMMOLATION_AURA_AFI_BUFF_DAMAGE_1: {
+    id: 427908,
+    name: 'Immolation Aura',
+    icon: 'ability_demonhunter_immolation',
+  },
+  IMMOLATION_AURA_AFI_BUFF_DAMAGE_2: {
+    id: 427910,
     name: 'Immolation Aura',
     icon: 'ability_demonhunter_immolation',
   },
@@ -579,6 +604,102 @@ const spells = {
     id: 198030,
     name: 'Eye Beam',
     icon: 'ability_demonhunter_eyebeam',
+  },
+  //endregion
+
+  //region Aldrachi Reaver
+  REAVERS_GLAIVE: {
+    id: 442294,
+    name: "Reaver's Glaive",
+    icon: 'inv_ability_aldrachireaverdemonhunter_reaversglaive',
+  },
+  THRILL_OF_THE_FIGHT_ATTACK_SPEED_BUFF: {
+    id: 442695,
+    name: 'Thrill of the Fight',
+    icon: 'spell_arcane_arcanetactics',
+  },
+  THRILL_OF_THE_FIGHT_DAMAGE_BUFF: {
+    id: 442688,
+    name: 'Thrill of the Fight',
+    icon: 'spell_mage_overpowered',
+  },
+  GLAIVE_FLURRY: {
+    id: 442435,
+    name: 'Glaive Flurry',
+    icon: 'spell_holy_blessingofstrength',
+  },
+  RENDING_STRIKE: {
+    id: 442442,
+    name: 'Rending Strike',
+    icon: 'ability_bossmannoroth_glaivethrust',
+  },
+  ART_OF_THE_GLAIVE: {
+    id: 444806,
+    name: 'Art of the Glaive',
+    icon: 'ability_glaivetoss',
+  },
+  WOUNDED_QUARRY: {
+    id: 442808,
+    name: 'Wounded Quarry',
+    icon: 'ability_rogue_venomouswounds',
+  },
+  WARBLADES_HUNGER: {
+    id: 442507,
+    name: "Warblade's Hunger",
+    icon: 'spell_holy_blessingofstrength',
+  },
+  //endregion
+
+  //region Fel-scarred
+  CONSUMING_FIRE_1: {
+    id: 456640,
+    name: 'Consuming Fire',
+    icon: 'spell_fire_felfire',
+  },
+  CONSUMING_FIRE_2: {
+    id: 452487,
+    name: 'Consuming Fire',
+    icon: 'spell_fire_felfire',
+  },
+  SPIRIT_BURST: {
+    id: 452437,
+    name: 'Spirit Burst',
+    icon: 'sha_spell_shaman_lavaburst_nightborne',
+  },
+  SOUL_SUNDER: {
+    id: 452436,
+    name: 'Soul Sunder',
+    icon: 'ability_demonhunter_soulcleave4',
+  },
+  SIGIL_OF_DOOM_CAST: {
+    id: 452490,
+    name: 'Sigil of Doom',
+    icon: 'ability_bossfelorcs_necromancer_red',
+  },
+  SIGIL_OF_DOOM_DAMAGE: {
+    id: 462030,
+    name: 'Sigil of Doom',
+    icon: 'ability_bossfelorcs_necromancer_red',
+  },
+  FEL_DESOLATION: {
+    id: 452486,
+    name: 'Fel Desolation',
+    icon: 'spell_fire_felflamebreath',
+  },
+  ABYSSAL_GAZE: {
+    id: 452497,
+    name: 'Abyssal Gaze',
+    icon: 'spell_shadow_demonicfortitude',
+  },
+  DEMONSURGE: {
+    id: 452416,
+    name: 'Demonsurge',
+    icon: 'inv_ability_felscarreddemonhunter_demonsurge',
+  },
+  STUDENT_OF_SUFFERING: {
+    id: 453239,
+    name: 'Student of Suffering',
+    icon: 'achievement_dungeon_theatreofpain_kultharok',
   },
   //endregion
 } satisfies Record<string, Spell>;

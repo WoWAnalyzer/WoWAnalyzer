@@ -8,17 +8,17 @@ class Abilities extends CoreAbilities {
       // Rotational
 
       {
-        spell: [SPELLS.MANGLE_CAT.id, ...SPELLS.MANGLE_CAT.lowRanks],
+        spell: SPELLS.MANGLE_CAT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { static: 1000 },
       },
       {
-        spell: [SPELLS.SHRED.id, ...SPELLS.SHRED.lowRanks],
+        spell: SPELLS.SHRED.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { static: 1000 },
       },
       {
-        spell: [SPELLS.RAKE.id, ...SPELLS.RAKE.lowRanks],
+        spell: SPELLS.RAKE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { static: 1000 },
       },
@@ -40,12 +40,12 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: [SPELLS.RIP.id, ...SPELLS.RIP.lowRanks],
+        spell: SPELLS.RIP.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { static: 1000 },
       },
       {
-        spell: [SPELLS.FEROCIOUS_BITE.id, ...SPELLS.FEROCIOUS_BITE.lowRanks],
+        spell: SPELLS.FEROCIOUS_BITE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { static: 1000 },
       },
