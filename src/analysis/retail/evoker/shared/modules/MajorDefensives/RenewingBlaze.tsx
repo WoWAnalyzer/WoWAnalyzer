@@ -410,6 +410,26 @@ const CooldownDetails = ({
                   />
                 </TableSegmentContainer>
               </tr>
+
+              {heal.partnerAmount >= 0 && (
+                <tr>
+                  <td>Partner healing</td>
+                  <NumericColumn>{formatNumber(heal.partnerAmount)}</NumericColumn>
+
+                  <TableSegmentContainer>
+                    <MitigationTooltipSegment
+                      color="#4ec04e"
+                      maxWidth={100}
+                      width={Math.min(1, heal.partnerAmount / mit.amount)}
+                    />
+                    <MitigationTooltipSegment
+                      color="rgba(255, 255, 255, 0.05)"
+                      maxWidth={100}
+                      width={Math.max(0, 1 - heal.partnerAmount / mit.amount)}
+                    />
+                  </TableSegmentContainer>
+                </tr>
+              )}
             </>
           ) : (
             <>
