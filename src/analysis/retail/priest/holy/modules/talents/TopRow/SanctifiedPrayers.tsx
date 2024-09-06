@@ -10,11 +10,11 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import { SANCTIFIED_PRAYERS_MULTIPLIER } from '../../../constants';
 
 /*
   Using Holy Word: Sanctify increases the healing done by Prayer of Healing by 15% for 15 sec.
 */
-const SANCTIFIED_PRAYERS_MULTIPLIER = 1.15;
 
 class SanctifiedPrayers extends Analyzer {
   static dependencies = {
