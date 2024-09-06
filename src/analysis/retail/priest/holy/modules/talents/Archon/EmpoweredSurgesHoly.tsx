@@ -12,7 +12,7 @@ import { TALENTS_PRIEST } from 'common/TALENTS';
 import Events, { RemoveBuffEvent, RemoveBuffStackEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
-import { EMPOWERED_SURGES_AMP } from './ArchonValues';
+import { EMPOWERED_SURGES_AMP } from '../../../constants';
 
 class EmpoweredSurgesHoly extends Analyzer {
   static dependencies = {

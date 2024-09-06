@@ -9,9 +9,7 @@ import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/Eve
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import { formatPercentage } from 'common/format';
 import { SpellLink } from 'interface';
-
-const HEALING_BONUS_PER_STACK = 0.05;
-const MAX_STACKS = 20;
+import { HEALING_CHORUS_BONUS_PER_STACK, HEALING_CHORUS_MAX_STACKS } from '../../../constants';
 
 //Example log: /reports/w9BXrzFApPbj6LnG#fight=14&type=healing&source=19
 class HealingChorus extends Analyzer {
@@ -51,7 +49,7 @@ class HealingChorus extends Analyzer {
       this.overhealingDoneFromTalent += calculateOverhealing(Event, this.lastHealedMultiplier);
     }
     if (this.currentStacks > 0) {
-      const multiplier = this.currentStacks * HEALING_BONUS_PER_STACK;
+      const multiplier = this.currentStacks * HEALING_CHORUS_BONUS_PER_STACK;
 
       this.healingDoneFromTalent += calculateEffectiveHealing(Event, multiplier);
       this.overhealingDoneFromTalent += calculateOverhealing(Event, multiplier);
@@ -67,7 +65,7 @@ class HealingChorus extends Analyzer {
 
   onBuff() {
     this.totalStacks += 1;
-    if (this.currentStacks < MAX_STACKS) {
+    if (this.currentStacks < HEALING_CHORUS_MAX_STACKS) {
       this.currentStacks += 1;
     }
   }

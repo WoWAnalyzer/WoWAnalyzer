@@ -11,7 +11,7 @@ import { TALENTS_PRIEST } from 'common/TALENTS';
 import { isRenewFromSalv } from '../../../normalizers/CastLinkNormalizer';
 import HotTracker, { Attribution } from 'parser/shared/modules/HotTracker';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
-import { PREEMPTIVE_CARE_RENEW_DUR } from './OracleValues';
+import { PREEMPTIVE_CARE_RENEW_DUR } from '../../../constants';
 
 class PreemptiveCareHoly extends Analyzer {
   static dependencies = {

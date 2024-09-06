@@ -11,9 +11,9 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
-import { PIETY_AMP } from './OracleValues';
-import { PIETY_OVERHEAL_MISDIRECT } from './OracleValues';
-import { FATEBENDER_SCALER } from './OracleValues';
+import { PIETY_AMP } from '../../../constants';
+import { PIETY_OVERHEAL_MISDIRECT } from '../../../constants';
+import { FATEBENDER_SCALER } from '../../../constants';
 
 class PremonitionOfPiety extends Analyzer {
   static dependencies = {

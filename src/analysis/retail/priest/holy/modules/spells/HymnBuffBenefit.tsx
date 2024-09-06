@@ -7,9 +7,10 @@ import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, ApplyBuffStackEvent, EventType } from 'parser/core/Events';
 import LazyLoadStatisticBox from 'parser/ui/LazyLoadStatisticBox';
-
-const BASE_DIVINE_HYMN_HEALING_INCREASE_PER_STACK = 0.04;
-const GALES_OF_SONG_HEALING_INCREASE_PER_POINT = 0.02;
+import {
+  BASE_DIVINE_HYMN_HEALING_INCREASE_PER_STACK,
+  GALES_OF_SONG_HEALING_INCREASE_PER_POINT,
+} from '../../constants';
 
 class HymnBuffBenefit extends Analyzer {
   // This is an approximation. See the reasoning below.

@@ -19,7 +19,7 @@ import {
   ENERGY_CYCLE_CDR,
   LIGHT_OF_THE_NAARU_REDUCTION_PER_RANK,
   TWW_TIER1_2PC_CDR,
-} from './ArchonValues';
+} from '../../../constants';
 
 class EnergyCycleHoly extends Analyzer {
   static dependencies = {

@@ -13,10 +13,7 @@ import { isCastBuffedByLightweaver, getHeal } from '../../../normalizers/CastLin
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../../Guide';
 import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
-
-const HEALING_BONUS = 0.25;
-const OVERHEAL_THRESHOLD = 0.75;
-const CAST_TIME_DECREASE = 1 - 0.3;
+import { LW_CAST_TIME_DECREASE, LW_HEALING_BONUS, LW_OVERHEAL_THRESHOLD } from '../../../constants';
 
 /**
  * Flash Heal reduces the cast time of your next Heal
@@ -60,7 +57,7 @@ class Lightweaver extends Analyzer {
     if (rawHealing === 0) {
       return false;
     }
-    return (event.overheal || 0) / rawHealing >= OVERHEAL_THRESHOLD;
+    return (event.overheal || 0) / rawHealing >= LW_OVERHEAL_THRESHOLD;
   }
 
   onHealCast(event: CastEvent) {
@@ -71,8 +68,8 @@ class Lightweaver extends Analyzer {
 
       if (isCastBuffedByLightweaver(event)) {
         // calculate effective healing from bonus
-        this.healingDoneFromTalent += calculateEffectiveHealing(healEvent, HEALING_BONUS);
-        this.overhealingDoneFromTalent = calculateOverhealing(healEvent, HEALING_BONUS);
+        this.healingDoneFromTalent += calculateEffectiveHealing(healEvent, LW_HEALING_BONUS);
+        this.overhealingDoneFromTalent = calculateOverhealing(healEvent, LW_HEALING_BONUS);
       } else {
         this.unbuffedHealCasts += 1;
         // return early so we are not counting unbuffed heals for high overheal count
@@ -211,7 +208,7 @@ class Lightweaver extends Analyzer {
             <small> from just the heal amp</small>
           </div>
           <div>
-            <ItemHealingDone amount={this.healingDoneFromTalent / CAST_TIME_DECREASE} />{' '}
+            <ItemHealingDone amount={this.healingDoneFromTalent / LW_CAST_TIME_DECREASE} />{' '}
             <small> from both the heal amp and doing that healing in less time</small>
           </div>
         </BoringSpellValueText>
