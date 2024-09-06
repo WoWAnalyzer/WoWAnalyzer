@@ -63,6 +63,7 @@ import {
   ExtendedBattle,
   DivertedPower,
   UnrelentingSiege,
+  Slipstream,
 } from 'analysis/retail/evoker/shared';
 
 class CombatLogParser extends MainCombatLogParser {
@@ -130,6 +131,7 @@ class CombatLogParser extends MainCombatLogParser {
     extendedBattle: ExtendedBattle,
     divertedPower: DivertedPower,
     unrelentingSiege: UnrelentingSiege,
+    slipstream: Slipstream,
 
     // Features
     buffTrackerGraph: BuffTrackerGraph,
