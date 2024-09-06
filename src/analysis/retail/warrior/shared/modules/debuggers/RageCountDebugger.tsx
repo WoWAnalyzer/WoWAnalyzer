@@ -81,9 +81,9 @@ class RageCountDebugger extends Analyzer {
                       <th>Resourcechange</th>
                       <th>Rage count</th>
                     </tr>
-                    {lastEvents.map((event) => {
+                    {lastEvents.map((event, index) => {
                       return (
-                        <tr key={event.timestamp}>
+                        <tr key={index}>
                           <td>
                             {formatDuration(event.timestamp - options.owner.fight.start_time, 3)}
                           </td>
