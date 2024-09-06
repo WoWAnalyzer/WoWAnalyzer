@@ -52,7 +52,19 @@ class RenewingBlaze extends MajorDefensiveBuff {
   normalizedMitigations: Mitigation[] = [];
 
   constructor(options: Options) {
-    super(TALENTS.RENEWING_BLAZE_TALENT, buff(TALENTS.RENEWING_BLAZE_TALENT), options);
+    // Custom trigger since we only want to track mitigation during our
+    // personal buffs, not any external ones
+    const trigger = buff(TALENTS.RENEWING_BLAZE_TALENT);
+    trigger.applyTrigger = Events.applybuff
+      .spell(TALENTS.RENEWING_BLAZE_TALENT)
+      .by(SELECTED_PLAYER)
+      .to(SELECTED_PLAYER);
+    trigger.removeTrigger = Events.removebuff
+      .spell(TALENTS.RENEWING_BLAZE_TALENT)
+      .by(SELECTED_PLAYER)
+      .to(SELECTED_PLAYER);
+
+    super(TALENTS.RENEWING_BLAZE_TALENT, trigger, options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.RENEWING_BLAZE_TALENT);
 
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.recordDamage);
