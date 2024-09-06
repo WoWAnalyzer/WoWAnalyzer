@@ -141,10 +141,10 @@ export const RESONANT_ENERGY_AMP_PER_STACK = 0.02;
 
 // renew attributor
 export const BASE_RENEW_DURATION = 15;
-//not sure what the max is, df s3 tier could extend it to like 2min
+// not sure what the max is, df s3 tier could extend it to like 2min
 export const MAX_RENEW_DURATION = 50;
 
-//circle of healing
+// circle of healing
 export const COH_OVERHEAL_THRESHOLD = 0.75;
 export const COH_MAX_TARGETS_HIT = 5;
 
@@ -155,10 +155,9 @@ export const GUARDIAN_SPIRIT_HEALING_INCREASE = 0.6;
 export const BASE_DIVINE_HYMN_HEALING_INCREASE_PER_STACK = 0.04;
 export const GALES_OF_SONG_HEALING_INCREASE_PER_POINT = 0.02;
 
-//prayer of healing
+// prayer of healing
 export const POH_MAX_TARGETS_HIT = 5;
 
-//TODO: check if .id will work instead of this block
 export const HOLY_ABILITIES_AFFECTED_BY_HEALING_INCREASES_ID = [
   SPELLS.FLASH_HEAL.id,
   TALENTS.RENEW_TALENT.id,
