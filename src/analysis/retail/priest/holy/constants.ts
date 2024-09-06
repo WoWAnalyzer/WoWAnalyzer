@@ -12,7 +12,7 @@ import { TALENTS_PRIEST } from 'common/TALENTS';
 export const SPIRIT_OF_REDEMPTION_DURATION = 15000;
 // burning vehemence
 export const BV_DAMAGE_INCREASE_PER_RANK = [0, 0.3, 0.6];
-//guardian angel
+// guardian angel
 export const GS_BASE_COOLDOWN_TIME = 60 * 3 * 1000;
 export const GS_MODIFIED_COOLDOWN_TIME = (60 + 10) * 1000; // one minute plus 10 seconds to account for the duration of the buff.
 // renewed faith
@@ -66,7 +66,7 @@ export const RESONANT_WORD_WHITELIST = [
   TALENTS.CIRCLE_OF_HEALING_TALENT,
 ];
 
-//ORACLE VALUES
+// ORACLE VALUES
 
 export const FATEBENDER_SCALER = 1.4;
 export const SOLACE_DR = 0.15;
@@ -220,7 +220,7 @@ export const HOLY_ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   SPELLS.ECHO_OF_LIGHT_HEAL,
 ];
 
-// better off making things that -dont- proc it perhaps?
+// legacy list for some modules
 export const ABILITIES_THAT_TRIGGER_MASTERY = [
   SPELLS.DIVINE_HYMN_HEAL.id,
   SPELLS.GREATER_HEAL.id,
