@@ -124,7 +124,7 @@ class ExtendedBattle extends Analyzer {
     const multiplier = 1 - diff / BOMBARDMENTS_BASE_DURATION_MS;
     const amount = (event.amount + (event.absorbed || 0)) * multiplier;
 
-    this.extraDamage += amount;
+    this.extraDamage += Math.max(amount, 0);
   }
 
   statistic() {
