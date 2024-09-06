@@ -4,6 +4,7 @@ import { SpellLink } from 'interface';
 import TALENTS from 'common/TALENTS/evoker';
 
 export default [
+  change(date(2024, 9, 6), <>Implement <SpellLink spell={TALENTS.EXTENDED_BATTLE_TALENT}/> module</>, Vollmer), 
   change(date(2024, 8, 14), <>Implement <SpellLink spell={TALENTS.DIVERTED_POWER_TALENT}/> module</>, Vollmer), 
   change(date(2024, 8, 14), <>Implement <SpellLink spell={TALENTS.UNRELENTING_SIEGE_TALENT}/> module</>, Vollmer), 
   change(date(2024, 8, 11), 'Bump compatibility to 11.0.2', Vollmer), 

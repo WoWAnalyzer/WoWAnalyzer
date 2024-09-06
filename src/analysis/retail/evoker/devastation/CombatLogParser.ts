@@ -62,6 +62,7 @@ import {
   MeltArmor,
   MassDisintegrate,
   MightOfTheBlackDragonflight,
+  ExtendedBattle,
   DivertedPower,
   UnrelentingSiege,
 } from 'analysis/retail/evoker/shared';
@@ -136,6 +137,7 @@ class CombatLogParser extends MainCombatLogParser {
     meltArmor: MeltArmor,
     massDisintegrate: MassDisintegrate,
     mightOfTheBlackDragonflight: MightOfTheBlackDragonflight,
+    extendedBattle: ExtendedBattle,
     divertedPower: DivertedPower,
     unrelentingSiege: UnrelentingSiege,
 
