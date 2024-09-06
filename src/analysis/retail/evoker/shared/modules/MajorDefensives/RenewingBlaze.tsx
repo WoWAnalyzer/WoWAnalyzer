@@ -131,9 +131,7 @@ class RenewingBlaze extends MajorDefensiveBuff {
   }
 
   mitigationSegments(mit: Mitigation): MitigationSegment[] {
-    const heal = this.renewingBlazeHealBuffs.find(
-      (buff) => GetRelatedEvent(buff.start, RENEWING_BLAZE_BUFFS) === mit.start,
-    );
+    const heal = this.healBuff(mit);
 
     return [
       {
@@ -333,9 +331,7 @@ class RenewingBlaze extends MajorDefensiveBuff {
 
   get cooldownDetailsComponent() {
     return ({ analyzer, mit }: CooldownDetailsProps) => {
-      const heal = this.renewingBlazeHealBuffs.find(
-        (buff) => GetRelatedEvent(buff.start, RENEWING_BLAZE_BUFFS) === mit?.start,
-      );
+      const heal = this.healBuff(mit);
       return <CooldownDetails analyzer={analyzer} mit={mit} heal={heal} />;
     };
   }
