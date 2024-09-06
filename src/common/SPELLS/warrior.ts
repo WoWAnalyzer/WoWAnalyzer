@@ -399,6 +399,12 @@ const spells = {
     name: 'Second Wind',
     icon: 'ability_hunter_harass',
   },
+  // This is the ability that shows up in logs, eventhough this effect is now bound to talent "Finishing Blows"
+  STRENGTH_OF_ARMS_RAGE: {
+    id: 400806,
+    name: 'Strength of Arms',
+    icon: 'ability_meleedamage',
+  },
 
   // Fury:
   BLOODTHIRST: {
