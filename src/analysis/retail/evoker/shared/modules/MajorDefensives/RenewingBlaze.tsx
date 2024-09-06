@@ -7,11 +7,10 @@ import MajorDefensive, {
 } from 'interface/guide/components/MajorDefensives/MajorDefensiveAnalyzer';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import TALENTS from 'common/TALENTS/evoker';
-import SPELLS from 'common/SPELLS/evoker';
 import Events, {
   ApplyBuffEvent,
   DamageEvent,
-  GetRelatedEvent,
+  GetRelatedEvents,
   HealEvent,
 } from 'parser/core/Events';
 import { SpellLink } from 'interface';
@@ -39,14 +38,15 @@ import { RENEWING_BLAZE_HEAL } from '../normalizers/DefensiveCastLinkNormalizer'
 
 type RenewingBlazeHealBuff = {
   start: ApplyBuffEvent;
-  events: HealEvent[];
   amount: number;
   overheal: number;
+  partnerAmount: number;
 };
 
 class RenewingBlaze extends MajorDefensiveBuff {
   renewingBlazeHealBuffs: RenewingBlazeHealBuff[] = [];
   normalizedMitigations: Mitigation[] = [];
+  hasCinders = false;
 
   constructor(options: Options) {
     // Custom trigger since we only want to track mitigation during our
@@ -64,14 +64,13 @@ class RenewingBlaze extends MajorDefensiveBuff {
     super(TALENTS.RENEWING_BLAZE_TALENT, trigger, options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.RENEWING_BLAZE_TALENT);
 
+    this.hasCinders = this.selectedCombatant.hasTalent(TALENTS.LIFECINDERS_TALENT);
+
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.recordDamage);
+
     this.addEventListener(
-      Events.heal.to(SELECTED_PLAYER).spell(SPELLS.RENEWING_BLAZE_HEAL),
-      this.recordHeal,
-    );
-    this.addEventListener(
-      Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.RENEWING_BLAZE_HEAL),
-      this.applyHealBuff,
+      Events.applybuff.by(SELECTED_PLAYER).to(SELECTED_PLAYER).spell(TALENTS.RENEWING_BLAZE_TALENT),
+      this.applyBuff,
     );
     this.addEventListener(Events.fightend, this.onFightEnd);
   }
@@ -87,22 +86,28 @@ class RenewingBlaze extends MajorDefensiveBuff {
     });
   }
 
-  private recordHeal(event: HealEvent) {
-    const heal = this.renewingBlazeHealBuffs.find(
-      (buff) => GetRelatedEvent(event, RENEWING_BLAZE_HEAL) === buff.start,
-    );
-    if (!heal) {
-      console.warn('Unable to find parent buff for Major Defensive analyzer', this.spell, event);
-      return;
+  private applyBuff(event: ApplyBuffEvent) {
+    const heal = {
+      start: event,
+      amount: 0,
+      overheal: 0,
+      partnerAmount: -1,
+    };
+    if (this.hasCinders) {
+      heal.partnerAmount = 0;
     }
 
-    heal.events.push(event);
-    heal.amount += event.amount;
-    heal.overheal += event.overheal ?? 0;
-  }
+    const healEvents = GetRelatedEvents<HealEvent>(event, RENEWING_BLAZE_HEAL);
+    for (const healEvent of healEvents) {
+      if (healEvent.targetID !== this.selectedCombatant.id) {
+        heal.partnerAmount += healEvent.amount;
+        continue;
+      }
 
-  private applyHealBuff(event: ApplyBuffEvent) {
-    this.renewingBlazeHealBuffs.push({ start: event, events: [], amount: 0, overheal: 0 });
+      heal.amount += healEvent.amount;
+      heal.overheal += healEvent.overheal ?? 0;
+    }
+    this.renewingBlazeHealBuffs.push(heal);
   }
 
   /** Returns the related Renewing Healing buff, for our Acc buff. */
