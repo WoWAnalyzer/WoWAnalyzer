@@ -1,5 +1,5 @@
 /**
- * All WotLK Rogue spells (including talent spells) go here.
+ * All Classic Rogue spells (including talent spells) go here.
  * You need to do this manually by opening a WCL report and clicking the icons of spells to open the relevant Wowhead page. Here, you can get the icon name by clicking the icon, copy the name of the spell, and the ID is in the URL.
  * You can access these entries like other entries in the spells files by importing `common/SPELLS/classic` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
@@ -11,138 +11,144 @@ const spells = {
   // SHARED
   // --------
   AMBUSH: {
-    id: 48691,
+    id: 8676,
     name: 'Ambush',
-    icon: 'ability_rogue_ambush',
-    lowRanks: [48690, 48689, 27441, 11269, 11268, 11267, 8725, 8724, 8676],
+    icon: 'ability_rogue_ambush.jpg',
   },
   BACKSTAB: {
-    id: 48657,
+    id: 53,
     name: 'Backstab',
-    icon: 'ability_backstab',
-    lowRanks: [48656, 26863, 25300, 11281, 11280, 11279, 8721, 2591, 2590, 2589, 53],
+    icon: 'ability_backstab.jpg',
   },
   BLIND: {
     id: 2094,
     name: 'Blind',
-    icon: 'spell_shadow_mindsteal',
+    icon: 'spell_shadow_mindsteal.jpg',
   },
   CHEAP_SHOT: {
     id: 1833,
     name: 'Cheap Shot',
-    icon: 'ability_cheapshot',
+    icon: 'ability_cheapshot.jpg',
   },
   CLOAK_OF_SHADOWS: {
     id: 31224,
     name: 'Cloak of Shadows',
-    icon: 'spell_shadow_nethercloak',
+    icon: 'spell_shadow_nethercloak.jpg',
+  },
+  COMBAT_READINESS: {
+    id: 74001,
+    name: 'Combat Readiness',
+    icon: 'ability_rogue_combatreadiness.jpg',
   },
   DEADLY_THROW: {
-    id: 48674,
+    id: 26679,
     name: 'Deadly Throw',
-    icon: 'inv_throwingknife_06',
-    lowRanks: [48673, 26679],
+    icon: 'inv_throwingknife_06.jpg',
   },
   DISMANTLE: {
     id: 51722,
     name: 'Dismantle',
-    icon: 'ability_rogue_dismantle',
+    icon: 'ability_rogue_dismantle.jpg',
   },
   ENVENOM: {
-    id: 57993,
+    id: 32645,
     name: 'Envenom',
-    icon: 'ability_rogue_disembowel',
-    lowRanks: [57992, 32684, 32645],
+    icon: 'ability_rogue_disembowel.jpg',
   },
   EVASION: {
-    id: 26669,
+    id: 5277,
     name: 'Evasion',
-    icon: 'spell_shadow_shadowward',
-    lowRanks: [8],
+    icon: 'spell_shadow_shadowward.jpg',
   },
   EVISCERATE: {
-    id: 48668,
+    id: 2098,
     name: 'Eviscerate',
-    icon: 'ability_rogue_eviscerate',
-    lowRanks: [48667, 26865, 31016, 11300, 11299, 8624, 8623, 6762, 6761, 6760, 2098],
+    icon: 'ability_rogue_eviscerate.jpg',
   },
   EXPOSE_ARMOR: {
     id: 8647,
     name: 'Expose Armor',
-    icon: 'ability_warrior_riposte',
+    icon: 'ability_warrior_riposte.jpg',
   },
   FAN_OF_KNIVES: {
     id: 51723,
     name: 'Fan of Knives',
-    icon: 'ability_rogue_fanofknives',
+    icon: 'ability_rogue_fanofknives.jpg',
   },
   FEINT: {
-    id: 48659,
+    id: 1966,
     name: 'Feint',
-    icon: 'ability_rogue_feint',
-    lowRanks: [48658, 27448, 25302, 11303, 8637, 6768, 1966],
+    icon: 'ability_rogue_feint.jpg',
   },
   GARROTE: {
-    id: 48676,
+    id: 703,
     name: 'Garrote',
-    icon: 'ability_rogue_garrote',
-    lowRanks: [48675, 26884, 26839, 11290, 11289, 8633, 8632, 8631, 703],
+    icon: 'ability_rogue_garrote.jpg',
   },
   GOUGE: {
     id: 1776,
     name: 'Gouge',
-    icon: 'ability_gouge',
+    icon: 'ability_gouge.jpg',
   },
   KICK: {
     id: 1766,
     name: 'Kick',
-    icon: 'ability_kick',
+    icon: 'ability_kick.jpg',
   },
   KIDNEY_SHOT: {
-    id: 8643,
+    id: 408,
     name: 'Kidney Shot',
-    icon: 'ability_rogue_kidneyshot',
-    lowRanks: [408],
+    icon: 'ability_rogue_kidneyshot.jpg',
+  },
+  RECUPERATE: {
+    id: 73651,
+    name: 'Recuperate',
+    icon: 'ability_rogue_recuperate.jpg',
+  },
+  REDIRECT: {
+    id: 73981,
+    name: 'Redirect',
+    icon: 'ability_rogue_redirect.jpg',
   },
   RUPTURE: {
-    id: 48672,
+    id: 1943,
     name: 'Rupture',
-    icon: 'ability_rogue_rupture',
-    lowRanks: [48671, 26867, 11275, 11274, 11273, 8640, 8639, 1943],
+    icon: 'ability_rogue_rupture.jpg',
   },
   SHIV: {
     id: 5938,
     name: 'Shiv',
-    icon: 'inv_throwingknife_04',
+    icon: 'inv_throwingknife_04.jpg',
   },
   SINISTER_STRIKE: {
-    id: 48638,
+    id: 1752,
     name: 'Sinister Strike',
-    icon: 'spell_shadow_ritualofsacrifice',
-    lowRanks: [48637, 26862, 26861, 11294, 11293, 8621, 1760, 1759, 1758, 1757, 1752],
+    icon: 'spell_shadow_ritualofsacrifice.jpg',
   },
   SLICE_AND_DICE: {
-    id: 6774,
+    id: 5171,
     name: 'Slice and Dice',
-    icon: 'ability_rogue_slicedice',
-    lowRanks: [5171],
+    icon: 'ability_rogue_slicedice.jpg',
+  },
+  SMOKE_BOMB: {
+    id: 76577,
+    name: 'Smoke Bomb',
+    icon: 'ability_rogue_smoke.jpg',
   },
   SPRINT: {
-    id: 11305,
+    id: 2983,
     name: 'Sprint',
-    icon: 'ability_rogue_sprint',
-    lowRanks: [8696, 2983],
+    icon: 'ability_rogue_sprint.jpg',
   },
   TRICKS_OF_THE_TRADE: {
     id: 57934,
     name: 'Tricks of the Trade',
-    icon: 'ability_rogue_tricksofthetrade',
+    icon: 'ability_rogue_tricksofthetrade.jpg',
   },
   VANISH: {
-    id: 26889,
+    id: 1856,
     name: 'Vanish',
-    icon: 'ability_vanish',
-    lowRanks: [1857, 1856],
+    icon: 'ability_vanish.jpg',
   },
   // ---------
   // TALENTS
@@ -151,81 +157,79 @@ const spells = {
   COLD_BLOOD: {
     id: 14177,
     name: 'Cold Blood',
-    icon: 'spell_ice_lament',
-  },
-  HUNGER_FOR_BLOOD: {
-    id: 51662,
-    name: 'Hunger For Blood',
-    icon: 'ability_rogue_hungerforblood',
+    icon: 'spell_ice_lament.jpg',
   },
   MUTILATE: {
-    id: 48666,
+    id: 1329,
     name: 'Mutilate',
-    icon: 'ability_rogue_shadowstrikes',
-    lowRanks: [48663, 34413, 34412, 34411, 1329],
+    icon: 'ability_rogue_shadowstrikes.jpg',
+  },
+  VENDETTA: {
+    id: 79140,
+    name: 'Vendetta',
+    icon: 'ability_rogue_deadliness.jpg',
   },
   // Combat
   ADRENALINE_RUSH: {
     id: 13750,
     name: 'Adrenaline Rush',
-    icon: 'spell_shadow_shadowworddominate',
+    icon: 'spell_shadow_shadowworddominate.jpg',
   },
   BLADE_FLURRY: {
     id: 13877,
     name: 'Blade Flurry',
-    icon: 'ability_warrior_punishingblow',
+    icon: 'ability_warrior_punishingblow.jpg',
   },
   KILLING_SPREE: {
     id: 51690,
     name: 'Killing Spree',
-    icon: 'ability_rogue_murderspree',
+    icon: 'ability_rogue_murderspree.jpg',
   },
   OVERKILL_BUFF: {
     id: 58427,
     name: 'Overkill',
-    icon: 'ability_hunter_rapidkilling',
+    icon: 'ability_hunter_rapidkilling.jpg',
+  },
+  REVEALING_STRIKE: {
+    id: 84617,
+    name: 'Revealing Strike',
+    icon: 'inv_sword_97.jpg',
   },
   RIPOSTE: {
     id: 14251,
     name: 'Riposte',
-    icon: 'ability_warrior_challange',
+    icon: 'ability_warrior_challange.jpg',
   },
   SAVAGE_COMBAT: {
     id: 58683,
     name: 'Savage Combat',
-    icon: 'ability_creature_disease_03',
+    icon: 'ability_creature_disease_03.jpg',
   },
   // Subtlety
-  GHOSTLY_STRIKE: {
-    id: 14278,
-    name: 'Ghostly Strike',
-    icon: 'spell_shadow_curse',
-  },
   HEMORRHAGE: {
-    id: 48660,
+    id: 16511,
     name: 'Hemorrhage',
-    icon: 'spell_shadow_lifedrain',
-    lowRanks: [26864, 17348, 17347, 16511],
+    icon: 'spell_shadow_lifedrain.jpg',
   },
   PREMEDITATION: {
     id: 14183,
     name: 'Premeditation',
-    icon: 'spell_shadow_possession',
+    icon: 'spell_shadow_possession.jpg',
   },
   PREPARATION: {
     id: 14185,
     name: 'Preparation',
-    icon: 'spell_shadow_antishadow',
+    icon: 'ability_rogue_preparation.jpg',
   },
   SHADOW_DANCE: {
     id: 51713,
     name: 'Shadow Dance',
-    icon: 'ability_rogue_shadowdance',
+    icon: 'ability_rogue_shadowdance.jpg',
   },
   SHADOWSTEP: {
     id: 36554,
     name: 'Shadowstep',
-    icon: 'ability_rogue_shadowstep',
+    icon: 'ability_rogue_shadowstep.jpg',
   },
   // ---------
   // OTHER
@@ -234,7 +238,7 @@ const spells = {
     // Thistle Tea
     id: 9512,
     name: 'Restore Energy',
-    icon: 'inv_drink_milk_05',
+    icon: 'inv_drink_milk_05.jpg',
   },
 } satisfies Record<string, Spell>;
 
