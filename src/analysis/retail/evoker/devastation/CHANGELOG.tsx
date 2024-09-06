@@ -5,6 +5,7 @@ import { TALENTS_EVOKER } from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS/evoker';
 
 export default [
+  change(date(2024, 9, 6), <>Implement <SpellLink spell={TALENTS_EVOKER.WINGLEADER_TALENT}/> module</>, Vollmer),
   change(date(2024, 9, 6), <>Implement <SpellLink spell={TALENTS_EVOKER.EXTENDED_BATTLE_TALENT}/> module</>, Vollmer), 
   change(date(2024, 8, 14), <>Implement <SpellLink spell={TALENTS_EVOKER.DIVERTED_POWER_TALENT}/> module</>, Vollmer), 
   change(date(2024, 8, 14), <>Implement <SpellLink spell={TALENTS_EVOKER.UNRELENTING_SIEGE_TALENT}/> module</>, Vollmer), 
