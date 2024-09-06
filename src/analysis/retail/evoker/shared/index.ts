@@ -26,4 +26,5 @@ export { default as MightOfTheBlackDragonflight } from './modules/talents/hero/s
 export { default as ExtendedBattle } from './modules/talents/hero/scalecommander/ExtendedBattle';
 export { default as DivertedPower } from './modules/talents/hero/scalecommander/DivertedPower';
 export { default as UnrelentingSiege } from './modules/talents/hero/scalecommander/UnrelentingSiege';
+export { default as Slipstream } from './modules/talents/hero/scalecommander/Slipstream';
 export * from './constants';

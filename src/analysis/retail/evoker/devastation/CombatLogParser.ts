@@ -65,6 +65,7 @@ import {
   ExtendedBattle,
   DivertedPower,
   UnrelentingSiege,
+  Slipstream,
 } from 'analysis/retail/evoker/shared';
 import ExpandedLungs from '../shared/modules/talents/hero/flameshaper/ExpandedLungs';
 import FanTheFlames from '../shared/modules/talents/hero/flameshaper/FanTheFlames';
@@ -140,6 +141,7 @@ class CombatLogParser extends MainCombatLogParser {
     extendedBattle: ExtendedBattle,
     divertedPower: DivertedPower,
     unrelentingSiege: UnrelentingSiege,
+    slipstream: Slipstream,
 
     // core abilities
     disintegrate: Disintegrate,
