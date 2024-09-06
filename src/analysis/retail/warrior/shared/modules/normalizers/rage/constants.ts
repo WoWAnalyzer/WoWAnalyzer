@@ -29,22 +29,12 @@ const BASE_RAGE_GENERATION = 1.75;
  * https://github.com/simulationcraft/simc/blob/1817c80712ebf9d54a4a3aa4e95a05c774fed6f4/engine/class_modules/sc_warrior.cpp#L1916-L1948
  */
 export const AUTO_ATTACK_RAGE_PS = Object.freeze({
-  ARMS: {
-    // From SimulationCraft
-    MH: BASE_RAGE_GENERATION * 3.5,
-    OH: Number.MIN_SAFE_INTEGER,
-  },
-  FURY: {
-    // From SimulationCraft
-    MH: Number(BASE_RAGE_GENERATION),
-    // Off-hand is half of main-hand
-    OH: Number(BASE_RAGE_GENERATION) * 0.5,
-  },
-  PROTECTION: {
-    // From SimulationCraft
-    MH: BASE_RAGE_GENERATION * 0.44,
-    OH: Number.MIN_SAFE_INTEGER,
-  },
+  // From SimulationCraft
+  ARMS: BASE_RAGE_GENERATION * 3.5,
+  // From SimulationCraft (Off-hand is half of main-hand)
+  FURY: BASE_RAGE_GENERATION,
+  // From SimulationCraft
+  PROTECTION: BASE_RAGE_GENERATION * 0.44,
 } as const);
 
 export const DEFAULT_SPEED_2H = 3.6;
