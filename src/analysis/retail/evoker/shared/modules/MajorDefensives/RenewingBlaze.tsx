@@ -35,10 +35,7 @@ import BoringValue from 'parser/ui/BoringValueText';
 import MAGIC_SCHOOLS, { color } from 'game/MAGIC_SCHOOLS';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { ReactNode } from 'react';
-import {
-  RENEWING_BLAZE_BUFFS,
-  RENEWING_BLAZE_HEAL,
-} from '../normalizers/DefensiveCastLinkNormalizer';
+import { RENEWING_BLAZE_HEAL } from '../normalizers/DefensiveCastLinkNormalizer';
 
 type RenewingBlazeHealBuff = {
   start: ApplyBuffEvent;
@@ -109,10 +106,8 @@ class RenewingBlaze extends MajorDefensiveBuff {
   }
 
   /** Returns the related Renewing Healing buff, for our Acc buff. */
-  private healBuff(mit: Mitigation): RenewingBlazeHealBuff | undefined {
-    return this.renewingBlazeHealBuffs.find(
-      (buff) => GetRelatedEvent(buff.start, RENEWING_BLAZE_BUFFS) === mit.start,
-    );
+  private healBuff(mit: Mitigation | undefined): RenewingBlazeHealBuff | undefined {
+    return this.renewingBlazeHealBuffs.find((buff) => buff.start === mit?.start);
   }
 
   // For some reason healing numbers and damage taken doesn't always
