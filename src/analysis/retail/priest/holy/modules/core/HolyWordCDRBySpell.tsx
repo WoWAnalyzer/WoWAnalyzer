@@ -139,7 +139,7 @@ class HolyWordCDRBySpell extends Analyzer {
     });
     return (
       <Statistic
-        position={STATISTIC_ORDER.CORE(6)}
+        position={STATISTIC_ORDER.CORE(1)}
         size="flexible"
         wide
         dropdown={
