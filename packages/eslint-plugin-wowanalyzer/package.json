@@ -5,6 +5,6 @@
   "main": "index.js",
   "license": "AGPLv3",
   "peerDependencies": {
-    "eslint": "^8"
+    "eslint": "^9"
   }
 }
