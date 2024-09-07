@@ -323,6 +323,10 @@ export const salvationHWCDR = new Map<number, baseHolyWordCDR>([
   [TALENTS.HOLY_WORD_SANCTIFY_TALENT.id, { baseCDR: 15, apothDisable: true }],
 ]);
 
+export const energyCycleCDR = new Map<number, baseHolyWordCDR>([
+  [TALENTS.ENERGY_CYCLE_TALENT.id, { baseCDR: 4 }],
+]);
+
 export interface baseHolyWordCDR {
   baseCDR: number;
   vohDependent?: boolean;

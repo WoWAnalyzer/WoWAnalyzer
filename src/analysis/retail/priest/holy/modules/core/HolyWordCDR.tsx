@@ -11,7 +11,9 @@ import {
   APOTH_MULTIPIER,
   baseHolyWordCDR,
   chastiseHWCDR,
+  energyCycleCDR,
   LIGHT_OF_THE_NAARU_REDUCTION_PER_RANK,
+  salvationHWCDR,
   sanctifyHWCDR,
   serenityHWCDR,
   TWW_TIER1_2PC_CDR,
@@ -61,7 +63,9 @@ class HolyWordCDR extends Analyzer {
     this.baseHolyWordCDR = this.lotnMult * this.twwS1TierMult;
   }
 
-  // any of these three functions do one holy word
+  // example of single holy word wrapper
+
+  /**
   public handleSerenityCDR(event: CastEvent): hwCDRBreakdown | undefined {
     //filter
     if (!serenityHWCDR.has(event.ability.guid)) {
@@ -73,34 +77,19 @@ class HolyWordCDR extends Analyzer {
       TALENTS.HOLY_WORD_SERENITY_TALENT.id,
     );
   }
+    */
 
-  public handleSanctifyCDR(event: CastEvent): hwCDRBreakdown | undefined {
+  // special events have to be handled seperately
+
+  public handleAny(event: CastEvent, specialEvent?: string): hwCDRBreakdown | undefined {
     //filter
-    if (!sanctifyHWCDR.has(event.ability.guid)) {
-      return;
+    if (specialEvent === 'ENERGY_CYCLE') {
+      return this.handleCDR(
+        event,
+        energyCycleCDR.get(TALENTS.ENERGY_CYCLE_TALENT.id),
+        TALENTS.HOLY_WORD_SANCTIFY_TALENT.id,
+      );
     }
-    return this.handleCDR(
-      event,
-      sanctifyHWCDR.get(event.ability.guid),
-      TALENTS.HOLY_WORD_SANCTIFY_TALENT.id,
-    );
-  }
-
-  public handleChastiseCDR(event: CastEvent): hwCDRBreakdown | undefined {
-    //filter
-    if (!chastiseHWCDR.has(event.ability.guid)) {
-      return;
-    }
-    return this.handleCDR(
-      event,
-      chastiseHWCDR.get(event.ability.guid),
-      TALENTS.HOLY_WORD_CHASTISE_TALENT.id,
-    );
-  }
-
-  // pass it any spell and it'll figure it out, won't do special cases though
-  public handleAny(event: CastEvent): hwCDRBreakdown | undefined {
-    //filter
     if (chastiseHWCDR.has(event.ability.guid)) {
       return this.handleCDR(
         event,
@@ -122,6 +111,13 @@ class HolyWordCDR extends Analyzer {
         TALENTS.HOLY_WORD_SERENITY_TALENT.id,
       );
     }
+    if (salvationHWCDR.has(event.ability.guid)) {
+      return this.handleCDR(
+        event,
+        salvationHWCDR.get(event.ability.guid),
+        TALENTS.HOLY_WORD_SALVATION_TALENT.id,
+      );
+    }
   }
   /**
    * this function is called by one of the above 4 handlers and returns a breakdown of what effects contributed to
@@ -141,7 +137,7 @@ class HolyWordCDR extends Analyzer {
     let modHolyWordCDR = this.baseHolyWordCDR;
     let apothMult = 1;
 
-    if (this.selectedCombatant.hasBuff(TALENTS.APOTHEOSIS_TALENT)) {
+    if (this.selectedCombatant.hasBuff(TALENTS.APOTHEOSIS_TALENT) && !hwMap?.apothDisable) {
       modHolyWordCDR *= 1 + APOTH_MULTIPIER;
       apothMult = 1 + APOTH_MULTIPIER;
     }

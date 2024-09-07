@@ -6,104 +6,137 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import HolyWordCDR from './HolyWordCDR';
-import Events, { CastEvent } from 'parser/core/Events';
+import Events, { CastEvent, RemoveBuffEvent, RemoveBuffStackEvent } from 'parser/core/Events';
+import { TIERS } from 'game/TIERS';
+import { buffedBySurgeOfLight, getSOLFlashCast } from '../../normalizers/CastLinkNormalizer';
 
 /**
- * PLEASE FOR THE LOVE OF GOD SOMEONE MORE CAPABLE AT CONTAINERS AND TABLES REWRITE THIS
- * MODULE TO DISPLAY THINGS IN A NON ATROCIOUS WAY
- *
- * IHATETYPESCRIPTIHATETYPESCRIPTIHATETYPESCRIPTIHATETYPESCRIPTIHATETYPESCRIPTIHATETYPESCRIPTIHATETYPESCRIPT
- * IHATETYPESCRIPTIHATETYPESCRIPTIHATETYPESCRIPTIHATETYPESCRIPTIHATETYPESCRIPTIHATETYPESCRIPTIHATETYPESCRIPT
+ * this is just the display function for talents powered by the core of HolyWordCDR
  */
 
 class HolyWordCDRBySpell extends Analyzer {
   static dependencies = {
     holyWordCDR: HolyWordCDR,
   };
-  lightOfTheNaaruActive = false;
-  apotheosisActive = false;
-  voiceOfHarmonyActive = false;
-  cast = 0;
+  protected holyWordCDR!: HolyWordCDR;
+
+  private lightOfTheNaaruActive = false;
+  private apotheosisActive = false;
+  private voiceOfHarmonyActive = false;
+  private tierActive = false;
 
   private hwContainer: hwCDRBreakdown[] = [];
 
-  protected holyWordCDR!: HolyWordCDR;
-
-  totalBase = 0;
-  totalLotn = 0;
-  totalApoth = 0;
-
   constructor(options: Options) {
     super(options);
+
     this.lightOfTheNaaruActive = this.selectedCombatant.hasTalent(
       TALENTS.LIGHT_OF_THE_NAARU_TALENT,
     );
-    this.apotheosisActive = this.selectedCombatant.hasTalent(TALENTS.APOTHEOSIS_TALENT);
-    this.voiceOfHarmonyActive = true;
-    this.apotheosisActive = true;
+
+    this.apotheosisActive =
+      this.selectedCombatant.hasTalent(TALENTS.APOTHEOSIS_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS.ANSWERED_PRAYERS_TALENT);
+
+    this.voiceOfHarmonyActive = this.selectedCombatant.hasTalent(TALENTS.VOICE_OF_HARMONY_TALENT);
+
+    this.tierActive = this.selectedCombatant.has2PieceByTier(TIERS.TWW1);
+
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.handleOnCast);
+
+    //for special energy cycle case
+    if (this.selectedCombatant.hasTalent(TALENTS.ENERGY_CYCLE_TALENT)) {
+      this.addEventListener(Events.removebuff.by(SELECTED_PLAYER), this.handleEnergyCycle);
+      this.addEventListener(Events.removebuffstack.by(SELECTED_PLAYER), this.handleEnergyCycle);
+    }
   }
 
-  /**
-   * IDK MAN THIS WORKS BUT ITS REALLY UGLY AND HARD TO MAINTAIN
-   */
-  handleOnCast(event: CastEvent) {
-    const hwBreakdown = this.holyWordCDR.handleAny(event);
-    const spellId = event.ability.guid;
+  handleOnCast(event: CastEvent, specialEvent?: string) {
+    const hwBreakdown = this.holyWordCDR.handleAny(event, specialEvent);
+    let spellId = event.ability.guid;
+
+    if (specialEvent === 'ENERGY_CYCLE') {
+      spellId = TALENTS.ENERGY_CYCLE_TALENT.id;
+    }
+
     let baseCd = hwBreakdown?.cdrFromBase || 0;
     const idealCd = hwBreakdown?.idealTotalCDR || 0;
+    // filters out non HW reducing abilities
     if (idealCd === 0) {
       return;
     }
     let vohCD = 0;
+
+    // if Voice of Harmony enables this ability, switch the base CDR to VoH
     if (hwBreakdown?.vohAffectsBase) {
       baseCd = 0;
       vohCD = hwBreakdown.cdrFromBase;
     }
 
-    const wastedCDR = (hwBreakdown?.idealTotalCDR || 0) - (hwBreakdown?.actualTotalCDR || 0);
-    const cdrFromLotn = hwBreakdown?.cdrFromLOTN || 0;
-    const cdrFromApoth = hwBreakdown?.cdrFromApoth || 0;
-    const cdrFromTwwTier = hwBreakdown?.cdrFromTwwTier || 0;
-    const totalEffectiveCDR = baseCd + vohCD + cdrFromApoth + cdrFromLotn + cdrFromTwwTier;
-    const affectedSpell = hwBreakdown?.affectedSpell || 2060;
+    if (hwBreakdown) {
+      const wastedCDR = hwBreakdown.idealTotalCDR - hwBreakdown.actualTotalCDR;
+      const cdrFromLotn = hwBreakdown.cdrFromLOTN;
+      const cdrFromApoth = hwBreakdown.cdrFromApoth;
+      const cdrFromTwwTier = hwBreakdown.cdrFromTwwTier;
+      const totalEffectiveCDR = baseCd + vohCD + cdrFromApoth + cdrFromLotn + cdrFromTwwTier;
+      const affectedSpell = hwBreakdown.affectedSpell;
 
-    // this is really ugly but it will throw "possibly undefined" errors without all the "|| 0"'s
-
-    if (this.hwContainer[spellId]) {
-      this.hwContainer[spellId].wastedCdr =
-        (this.hwContainer[spellId].wastedCdr || 0) +
-        (hwBreakdown?.idealTotalCDR || 0) -
-        (hwBreakdown?.actualTotalCDR || 0);
-      this.hwContainer[spellId].cdrFromBase = baseCd + (this.hwContainer[spellId].cdrFromBase || 0);
-      this.hwContainer[spellId].cdrFromLOTN =
-        cdrFromLotn + (this.hwContainer[spellId].cdrFromLOTN || 0);
-      this.hwContainer[spellId].cdrFromApoth =
-        cdrFromApoth + (this.hwContainer[spellId].cdrFromApoth || 0);
-      this.hwContainer[spellId].cdrFromTwwTier =
-        cdrFromTwwTier + (this.hwContainer[spellId].cdrFromTwwTier || 0);
-      this.hwContainer[spellId].cdrFromVoh = vohCD + (this.hwContainer[spellId].cdrFromVoh || 0);
-      this.hwContainer[spellId].totalCDR =
-        totalEffectiveCDR + (this.hwContainer[spellId].totalCDR || 0);
+      if (this.hwContainer[spellId]) {
+        this.hwContainer[spellId].wastedCdr +=
+          hwBreakdown.idealTotalCDR - hwBreakdown.actualTotalCDR;
+        this.hwContainer[spellId].cdrFromBase += baseCd;
+        this.hwContainer[spellId].cdrFromLOTN += cdrFromLotn;
+        this.hwContainer[spellId].cdrFromApoth += cdrFromApoth;
+        this.hwContainer[spellId].cdrFromTwwTier += cdrFromTwwTier;
+        this.hwContainer[spellId].cdrFromVoh += vohCD;
+        this.hwContainer[spellId].totalCDR += totalEffectiveCDR;
+      }
+      // first time
+      else {
+        this.hwContainer[spellId] = {
+          wastedCdr: wastedCDR,
+          cdrFromBase: baseCd,
+          cdrFromLOTN: cdrFromLotn,
+          cdrFromApoth: cdrFromApoth,
+          cdrFromTwwTier: cdrFromTwwTier,
+          cdrFromVoh: vohCD,
+          spellNum: spellId,
+          totalCDR: totalEffectiveCDR,
+          affectedSpell: affectedSpell,
+        };
+      }
     }
-    // first time
-    else {
-      this.hwContainer[event.ability.guid] = {
-        wastedCdr: wastedCDR,
-        cdrFromBase: baseCd,
-        cdrFromLOTN: cdrFromLotn,
-        cdrFromApoth: cdrFromApoth,
-        cdrFromTwwTier: cdrFromTwwTier,
-        cdrFromVoh: vohCD,
-        spellNum: event.ability.guid,
-        totalCDR: totalEffectiveCDR,
-        affectedSpell: affectedSpell,
-      };
+  }
+
+  /**
+   *
+   * SPECIAL CASES
+   *
+   */
+
+  handleEnergyCycle(event: RemoveBuffEvent | RemoveBuffStackEvent) {
+    // this uses heal event because tww S1 tier set is stupid and doesn't "cast" it just procs a second heal
+    // but still consumes SoL potentially
+    const castEvent = getSOLFlashCast(event);
+
+    if (castEvent) {
+      if (buffedBySurgeOfLight(event)) {
+        this.handleOnCast(castEvent, 'ENERGY_CYCLE');
+      }
     }
   }
 
   statistic() {
     this.hwContainer = this.hwContainer.filter(Boolean);
+    this.hwContainer.sort((a, b) => {
+      if (a.affectedSpell < b.affectedSpell) {
+        return -1;
+      }
+      if (a.affectedSpell > b.affectedSpell) {
+        return 1;
+      }
+      return 0;
+    });
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(6)}
@@ -114,8 +147,8 @@ class HolyWordCDRBySpell extends Analyzer {
             <table className="table table-condensed">
               <thead>
                 <tr>
-                  <td className="text-left">Cast Spell</td>
-                  <td className="text-left">Reduced Spell</td>
+                  <td className="text-center">Cast Spell</td>
+                  <td className="text-center">Reduced Spell</td>
                   <td>Base</td>
                   {this.apotheosisActive && (
                     <th>
@@ -132,7 +165,7 @@ class HolyWordCDRBySpell extends Analyzer {
                       <SpellIcon spell={TALENTS.VOICE_OF_HARMONY_TALENT}></SpellIcon>
                     </th>
                   )}
-                  <th> Tier</th>
+                  {this.voiceOfHarmonyActive && <th> Tier</th>}
                   <th> Total Used</th>
                   <th> Wasted</th>
                 </tr>
@@ -146,19 +179,21 @@ class HolyWordCDRBySpell extends Analyzer {
                     <td className="text-center">
                       <SpellIcon spell={this.hwContainer[Number(e)].affectedSpell || 2060} />
                     </td>
-                    <td>{Math.round((this.hwContainer[e].cdrFromBase || 0) * 10) / 10}s</td>
+                    <td>{Math.round(this.hwContainer[e].cdrFromBase * 10) / 10}s</td>
                     {this.apotheosisActive && (
-                      <td>{Math.round((this.hwContainer[e].cdrFromApoth || 0) * 10) / 10}s</td>
+                      <td>{Math.round(this.hwContainer[e].cdrFromApoth * 10) / 10}s</td>
                     )}
                     {this.lightOfTheNaaruActive && (
-                      <td>{Math.round((this.hwContainer[e].cdrFromLOTN || 0) * 10) / 10}s</td>
+                      <td>{Math.round(this.hwContainer[e].cdrFromLOTN * 10) / 10}s</td>
                     )}
                     {this.voiceOfHarmonyActive && (
-                      <td>{Math.round((this.hwContainer[e].cdrFromVoh || 0) * 10) / 10}s</td>
+                      <td>{Math.round(this.hwContainer[e].cdrFromVoh * 10) / 10}s</td>
                     )}
-                    <td>{Math.round((this.hwContainer[e].cdrFromTwwTier || 0) * 10) / 10}s</td>
-                    <td>{Math.round((this.hwContainer[Number(e)].totalCDR || 0) * 10) / 10}s</td>
-                    <td>{Math.round((this.hwContainer[Number(e)].wastedCdr || 0) * 10) / 10}s</td>
+                    {this.tierActive && (
+                      <td>{Math.round(this.hwContainer[e].cdrFromTwwTier * 10) / 10}s</td>
+                    )}
+                    <td>{Math.round(this.hwContainer[Number(e)].totalCDR * 10) / 10}s</td>
+                    <td>{Math.round(this.hwContainer[Number(e)].wastedCdr * 10) / 10}s</td>
                   </tr>
                 ))}
               </tbody>
@@ -173,6 +208,8 @@ class HolyWordCDRBySpell extends Analyzer {
     );
   }
 }
+
+// Add more values here as needed
 interface hwCDRBreakdown {
   wastedCdr: number;
   cdrFromBase: number;
