@@ -40,6 +40,8 @@ import Guide from './Guide';
 import Benevolence from '../shared/Benevolence';
 import RenewTracker from './modules/talents/Oracle/OracleCore/RenewTracker';
 import RenewAttributor from './modules/talents/Oracle/OracleCore/RenewAttributor';
+import HolyWordCDRBySpell from './modules/core/HolyWordCDRBySpell';
+import HolyWordCDR from './modules/core/HolyWordCDR';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -70,6 +72,8 @@ class CombatLogParser extends CoreCombatLogParser {
     holyWordWastedAmounts: HolyWordWastedAmounts,
     renewTracker: RenewTracker,
     renewAttributor: RenewAttributor,
+    holyWordCDRBySpell: HolyWordCDRBySpell,
+    holyWordCDR: HolyWordCDR,
 
     // Spells
     divineHymn: DivineHymn,
