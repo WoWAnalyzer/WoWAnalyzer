@@ -15,16 +15,17 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import { formatPercentage } from 'common/format';
-import { ABILITIES_THAT_WORK_WITH_DIVINE_FAVOR_CHASTISE } from 'analysis/retail/priest/holy/constants';
+import {
+  ABILITIES_THAT_WORK_WITH_DIVINE_FAVOR_CHASTISE,
+  DW_ACTIVATOR_SPELL_INCREASE,
+  CHASTISE_REFUNDED_COOLDOWN,
+  DAMAGE_INCREASE_FROM_CHASTISE,
+  HEALING_INCREASE_FROM_SERENITY,
+  MANA_REDUCTION_FROM_SERENITY,
+} from 'analysis/retail/priest/holy/constants';
 import { SpellIcon } from 'interface';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import ItemManaGained from 'parser/ui/ItemManaGained';
-
-const DAMAGE_INCREASE_FROM_CHASTISE = 0.2;
-const CHASTISE_REFUNDED_COOLDOWN = 15;
-const HEALING_INCREASE_FROM_SERENITY = 0.3;
-const MANA_REDUCTION_FROM_SERENITY = 0.2;
-const ACTIVATOR_SPELL_INCREASE = 0.3;
 
 // Example Logs: /report/VXr2kgALF3Rj6Q4M/11-Mythic+Anduin+Wrynn+-+Kill+(5:12)/Litena/standard/statistics
 // /report/xq2FvfVCJh6YLjzZ/2-Mythic+Vigilant+Guardian+-+Kill+(4:40)/Ashelya/standard/statistics
@@ -134,14 +135,14 @@ class DivineWord extends Analyzer {
       spellId === TALENTS.HOLY_WORD_SERENITY_TALENT.id &&
       this.selectedCombatant.hasBuff(TALENTS.DIVINE_WORD_TALENT.id)
     ) {
-      this.serenityHealing += calculateEffectiveHealing(event, ACTIVATOR_SPELL_INCREASE);
-      this.serenityOverhealing += calculateOverhealing(event, ACTIVATOR_SPELL_INCREASE);
+      this.serenityHealing += calculateEffectiveHealing(event, DW_ACTIVATOR_SPELL_INCREASE);
+      this.serenityOverhealing += calculateOverhealing(event, DW_ACTIVATOR_SPELL_INCREASE);
     } else if (
       spellId === TALENTS.HOLY_WORD_SANCTIFY_TALENT.id &&
       this.selectedCombatant.hasBuff(TALENTS.DIVINE_WORD_TALENT.id)
     ) {
-      this.sanctifyHealing += calculateEffectiveHealing(event, ACTIVATOR_SPELL_INCREASE);
-      this.sanctifyOverhealing += calculateOverhealing(event, ACTIVATOR_SPELL_INCREASE);
+      this.sanctifyHealing += calculateEffectiveHealing(event, DW_ACTIVATOR_SPELL_INCREASE);
+      this.sanctifyOverhealing += calculateOverhealing(event, DW_ACTIVATOR_SPELL_INCREASE);
     }
   }
 
@@ -168,7 +169,7 @@ class DivineWord extends Analyzer {
       spellId === TALENTS.HOLY_WORD_CHASTISE_TALENT.id &&
       this.selectedCombatant.hasBuff(TALENTS.DIVINE_WORD_TALENT.id)
     ) {
-      this.chastiseDamage += calculateEffectiveDamage(event, ACTIVATOR_SPELL_INCREASE);
+      this.chastiseDamage += calculateEffectiveDamage(event, DW_ACTIVATOR_SPELL_INCREASE);
     } else if (
       ABILITIES_THAT_WORK_WITH_DIVINE_FAVOR_CHASTISE.includes(event.ability.guid) &&
       this.selectedCombatant.hasBuff(SPELLS.DIVINE_WORD_CHASTISE_TALENT_BUFF.id)

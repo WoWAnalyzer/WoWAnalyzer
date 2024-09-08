@@ -7,8 +7,7 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-
-const SPIRIT_OF_REDEMPTION_DURATION = 15000;
+import { SPIRIT_OF_REDEMPTION_DURATION } from '../../../constants';
 
 // Example Log: /report/zCMpvAPYW16k3bQr/33-Normal+G'huun+-+Wipe+12+(8:24)/60-Кеонна
 class Afterlife extends Analyzer {

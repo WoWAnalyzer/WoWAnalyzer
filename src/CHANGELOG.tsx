@@ -35,6 +35,10 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 9, 5), 'Update Rogue spells for Classic Cataclysm', jazminite),
+  change(date(2024, 9, 4), 'Updates to Active Time calculation to avoid cases where overcount could occur.', Sref),
+  change(date(2024, 9, 3), "Fixed a bug where the Death Recap wouldn't detect some defensive buffs", Sref),
+  change(date(2024, 9, 3), 'Remove AbilitiesMissing module.', ToppleTheNun),
   change(date(2024, 8, 30), 'Update Classic Spells, Potions, and Trinkets for Cata Disc Priest.', jazminite),
   change(date(2024, 8, 28), "Update rating to percentage conversions for stats for The War Within.", Putro),
   change(date(2024, 8, 26), <>Add <SpellLink spell={CLASSIC_SPELLS.FLEXWEAVE_UNDERLAY} /> support to Cataclysm Classic specs.</>, jazminite),

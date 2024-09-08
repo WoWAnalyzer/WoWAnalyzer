@@ -10,9 +10,9 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { HOLY_DMG_ABILITIES_AFFECTED_BY_PM } from './OracleValues';
-import { PREVENTIVE_MEASURES_DMG_AMP } from './OracleValues';
-import { PREVENTIVE_MEASURES_HEAL_AMP } from './OracleValues';
+import { HOLY_DMG_ABILITIES_AFFECTED_BY_PM } from '../../../constants';
+import { PREVENTIVE_MEASURES_DMG_AMP } from '../../../constants';
+import { PREVENTIVE_MEASURES_HEAL_AMP } from '../../../constants';
 import ItemPercentDamageDone from 'parser/ui/ItemPercentDamageDone';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 

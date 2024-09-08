@@ -488,6 +488,11 @@ const spells = {
     name: 'Bombardments',
     icon: 'inv_ability_scalecommanderevoker_bombardments',
   },
+  BOMBARDMENTS_DEBUFF: {
+    id: 434473,
+    name: 'Bombardments',
+    icon: 'inv_ability_scalecommanderevoker_bombardments',
+  },
   BLACK_ATTUNEMENT: {
     id: 403264,
     name: 'Black Attunement',

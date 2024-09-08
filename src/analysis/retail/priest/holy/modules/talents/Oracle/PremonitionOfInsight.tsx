@@ -9,8 +9,8 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { INSIGHT_CDR } from './OracleValues';
-import { FATEBENDER_SCALER } from './OracleValues';
+import { INSIGHT_CDR } from '../../../constants';
+import { FATEBENDER_SCALER } from '../../../constants';
 import { removesInsightCharge } from '../../../normalizers/CastLinkNormalizer';
 import SpellIcon from 'interface/SpellIcon';
 

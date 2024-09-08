@@ -1,5 +1,6 @@
 import CombatLogParser from 'parser/core/CombatLogParser';
 import { BuffEvent, HasSource } from 'parser/core/Events';
+import Spell from 'common/SPELLS/Spell';
 
 type StackHistoryElement = { stacks: number; timestamp: number };
 export interface TrackedBuffEvent extends BuffEvent<any> {
@@ -59,7 +60,7 @@ class Entity {
   }
 
   /**
-   * @param {number} spellId buff ID to check for
+   * @param {number | Spell} spell buff (ID) to check for
    * @param {number} forTimestamp Timestamp (in ms) to be considered, or the current timestamp if null. Won't work right for timestamps after the currentTimestamp.
    * @param {number} bufferTime Time (in ms) after buff's expiration where it will still be included. There's a bug in the combat log where if a spell consumes a buff that buff may disappear a short time before the heal or damage event it's buffing is logged. This can sometimes go up to hundreds of milliseconds.
    * @param {number} minimalActiveTime - Time (in ms) the buff must have been active before timestamp for it to be included.
@@ -67,12 +68,13 @@ class Entity {
    * @returns {boolean} - Whether the buff is present with the given specifications.
    */
   hasBuff(
-    spellId: number,
+    spell: number | Spell,
     forTimestamp: number | null = null,
     bufferTime = 0,
     minimalActiveTime = 0,
     sourceID: number | null = null,
   ): boolean {
+    const spellId = typeof spell === 'number' ? spell : spell.id;
     if (forTimestamp === null && bufferTime === 0 && minimalActiveTime === 0) {
       // fast-path for common case
       if (sourceID !== null) {
@@ -87,7 +89,28 @@ class Entity {
   }
 
   /**
-   * @param {number} spellId - buff ID to check for
+   * Simplified version of {@link hasBuff} that looks only for buffs whose source is the selectedCombatant.
+   * @param {number | Spell} spell buff (ID) to check for
+   * @param {number} bufferTime Time (in ms) after buff's expiration where it will still be included.
+   * @param {number} minimalActiveTime - Time (in ms) the buff must have been active before timestamp for it to be included.
+   * @returns {boolean} - Whether the buff is present with the given specifications.
+   */
+  hasOwnBuff(
+    spell: number | Spell,
+    bufferTime: number = 0,
+    minimalActiveTime: number = 0,
+  ): boolean {
+    return this.hasBuff(
+      spell,
+      null,
+      bufferTime,
+      minimalActiveTime,
+      this.owner.selectedCombatant.id,
+    );
+  }
+
+  /**
+   * @param {number | Spell} spell buff (ID) to check for
    * @param {number} forTimestamp Timestamp (in ms) to be considered, or the current timestamp if null. Won't work right for timestamps after the currentTimestamp.
    * @param {number} bufferTime Time (in ms) after buff's expiration where it will still be included. There's a bug in the combat log where if a spell consumes a buff that buff may disappear a short time before the heal or damage event it's buffing is logged. This can sometimes go up to hundreds of milliseconds.
    * @param {number} minimalActiveTime - Time (in ms) the buff must have been active before timestamp for it to be included.
@@ -95,12 +118,13 @@ class Entity {
    * @returns {Object} - A buff with the given specifications. The buff object will have all the properties of the associated applybuff event, along with a start timestamp, an end timestamp if the buff has fallen, and an isDebuff flag. If multiple buffs meet the specifications, there's no guarantee which you'll get (this could happen if multiple spells with the same spellId but from different sources are on the same target)
    */
   getBuff(
-    spellId: number,
+    spell: number | Spell,
     forTimestamp: number | null = null,
     bufferTime = 0,
     minimalActiveTime = 0,
     sourceID: number | null = null,
   ) {
+    const spellId = typeof spell === 'number' ? spell : spell.id;
     const currentTimestamp = forTimestamp !== null ? forTimestamp : this.owner.currentTimestamp;
     const isCorrectSpell = this.spellIdFilter(spellId);
     const isActive = this.activeAtTimestampFilter(currentTimestamp, bufferTime, minimalActiveTime);
@@ -111,20 +135,42 @@ class Entity {
   }
 
   /**
-   * @param {number} spellId - buff ID to check for
+   * Simplified version of {@link getBuff} that looks only for buffs whose source is the selectedCombatant.
+   * @param {number | Spell} spell buff (ID) to check for
+   * @param {number} bufferTime Time (in ms) after buff's expiration where it will still be included.
+   * @param {number} minimalActiveTime - Time (in ms) the buff must have been active before timestamp for it to be included.
+   * @returns {Object} - A buff with the given specifications. The buff object will have all the properties of the associated applybuff event, along with a start timestamp, an end timestamp if the buff has fallen, and an isDebuff flag.
+   */
+  getOwnBuff(
+    spell: number | Spell,
+    bufferTime: number = 0,
+    minimalActiveTime: number = 0,
+  ): TrackedBuffEvent | undefined {
+    return this.getBuff(
+      spell,
+      null,
+      bufferTime,
+      minimalActiveTime,
+      this.owner.selectedCombatant.id,
+    );
+  }
+
+  /**
+   * @param {number | Spell} spell buff (ID) to check for
    * @param {number} forTimestamp Timestamp (in ms) to be considered, or the current timestamp if null. Won't work right for timestamps after the currentTimestamp.
    * @param {number} bufferTime Time (in ms) after buff's expiration where it will still be included. There's a bug in the combat log where if a spell consumes a buff that buff may disappear a short time before the heal or damage event it's buffing is logged. This can sometimes go up to hundreds of milliseconds.
    * @param {number} minimalActiveTime - Time (in ms) the buff must have been active before timestamp for it to be included.
    * @param {number} sourceID - source ID the buff must have come from, or any source if null.
-   * @returns {number} - The number of stacks of the buff or 0 if there are no stacks.
+   * @returns {number} - The number of stacks of the buff or 0 if the buff isn't present.
    */
   getBuffStacks(
-    spellId: number,
+    spell: number | Spell,
     forTimestamp: number | null = null,
     bufferTime: number = 0,
     minimalActiveTime: number = 0,
     sourceID: number | null = null,
   ): number {
+    const spellId = typeof spell === 'number' ? spell : spell.id;
     const buff: TrackedBuffEvent | undefined = this.getBuff(
       spellId,
       forTimestamp,
@@ -145,21 +191,44 @@ class Entity {
   }
 
   /**
-   * @param {number} spellId - buff ID to check for
+   * Simplified version of {@link getBuffStacks} that looks only for buffs whose source is the selectedCombatant.
+   * @param {number | Spell} spell buff (ID) to check for
+   * @param {number} bufferTime Time (in ms) after buff's expiration where it will still be included.
+   * @param {number} minimalActiveTime - Time (in ms) the buff must have been active before timestamp for it to be included.
+   * @return {number} - The number of stacks of the buff or 0 if the buff isn't present.
+   */
+  getOwnBuffStacks(
+    spell: number | Spell,
+    bufferTime: number = 0,
+    minimalActiveTime: number = 0,
+  ): number {
+    return this.getBuffStacks(
+      spell,
+      null,
+      bufferTime,
+      minimalActiveTime,
+      this.owner.selectedCombatant.id,
+    );
+  }
+
+  /**
+   * @param {number | Spell} spell buff (ID) to check for
    * @param {number} sourceID - source ID the buff must have come from, or any source if null.
    * @returns {array} The buff activations.
    */
-  getBuffHistory(spellId: number, sourceID: number | null = null): TrackedBuffEvent[] {
+  getBuffHistory(spell: number | Spell, sourceID: number | null = null): TrackedBuffEvent[] {
+    const spellId = typeof spell === 'number' ? spell : spell.id;
     const isCorrectSpell = this.spellIdFilter(spellId);
     const isCorrectSource = this.sourceIdFilter(sourceID);
     return this.buffs.filter((buff) => isCorrectSpell(buff) && isCorrectSource(buff));
   }
   /**
-   * @param {number} spellId - buff ID to check for
+   * @param {number | Spell} spell buff (ID) to check for
    * @param {number} sourceID - source ID the buff must have come from, or any source if null.
    * @returns {number} - Time (in ms) the specified buff has been active.
    */
-  getBuffUptime(spellId: number, sourceID: number | null = null) {
+  getBuffUptime(spell: number | Spell, sourceID: number | null = null) {
+    const spellId = typeof spell === 'number' ? spell : spell.id;
     return this.getBuffHistory(spellId, sourceID).reduce(
       (uptime, buff) =>
         uptime + (buff.end !== null ? buff.end : this.owner.currentTimestamp) - buff.start,
@@ -167,23 +236,25 @@ class Entity {
     );
   }
   /**
-   * @param {number} spellId - buff ID to check for
+   * @param {number | Spell} spell buff (ID) to check for
    * @param {number|null} sourceID - source ID the buff must have come from, or any source if null.
    * @returns {number} - The number of times the specified buff has been applied (only applications count, not stack changes or refreshes).
    */
-  getBuffTriggerCount(spellId: number, sourceID: number | null = null) {
+  getBuffTriggerCount(spell: number | Spell, sourceID: number | null = null) {
+    const spellId = typeof spell === 'number' ? spell : spell.id;
     return this.getBuffHistory(spellId, sourceID).length;
   }
 
   /**
-   * @param {number} spellId - buff ID to check for
+   * @param {number | Spell} spell buff (ID) to check for
    * @param {number|null} sourceID - source ID the buff must have come from, or any source if null.
    * @returns {array} - Time (in ms) the specified buff has been active at each stack count.
    */
   getStackBuffUptimes(
-    spellId: number,
+    spell: number | Spell,
     sourceID: number | null = null,
   ): { [stack: number]: number } {
+    const spellId = typeof spell === 'number' ? spell : spell.id;
     const stackUptimes: { [key: number]: number } = { 0: this.owner.fightDuration };
     this.getBuffHistory(spellId, sourceID).forEach((buff, idx, arr) => {
       let startTime: number;
@@ -209,12 +280,13 @@ class Entity {
   }
 
   /**
-   * @param {number} spellId - buff ID to check for
+   * @param {number | Spell} spell buff (ID) to check for
    * @param {number|null} sourceID - source ID the buff must have come from, or any source if null.
    * @returns {number} - Time (in ms) the specified buff has been active weighted by the number of stacks active.
    *      For example if buff was up for 10000ms with 1 stack and 20000ms with 2 stacks, would return 50000.
    */
-  getStackWeightedBuffUptime(spellId: number, sourceID: number | null = null) {
+  getStackWeightedBuffUptime(spell: number | Spell, sourceID: number | null = null) {
+    const spellId = typeof spell === 'number' ? spell : spell.id;
     const stackBuffUptimes = this.getStackBuffUptimes(spellId, sourceID);
     return Object.keys(stackBuffUptimes)
       .map((stack) => stackBuffUptimes[Number(stack)] * Number(stack))
@@ -223,17 +295,18 @@ class Entity {
 
   /**
    * Determine the non-inclusive remaining time of a given debuff/buff at each application/re-application of the buff.
-   * @param {number} spellId - buff ID to check for
+   * @param {number | Spell} spell buff (ID) to check for
    * @param {number} baseBuffLength - the base number of ms added to the buff timer by a single application
    * @param {number} maxBuffLength - the maximum number of ms a buff can have.
    * @param {number | null} sourceId - source ID the buff must have come from, or any source if null.
    */
   getRemainingBuffTimeAtApplication(
-    spellId: number,
+    spell: number | Spell,
     baseBuffLength: number,
     maxBuffLength: number,
     sourceId: number | null = null,
   ): Map<number, number> {
+    const spellId = typeof spell === 'number' ? spell : spell.id;
     const buffTimesAtApplication: Map<number, number> = new Map<number, number>();
 
     const sortedApplicationTimestamps: number[] = this.getBuffHistory(spellId, sourceId).flatMap(
@@ -267,7 +340,7 @@ class Entity {
   /**
    * Determine the remaining time of a given debuff/buff at a given timestamp. If a
    * buff is applied at the given timestamp, the returned value is non-inclusive.
-   * @param {number} spellId - buff ID to check for
+   * @param {number | Spell} spell buff (ID) to check for
    * @param {number} baseBuffLength - the base number of ms added to the buff timer by a single application
    * @param {number} maxBuffLength - the maximum number of ms a buff can have.
    * @param {number} timestamp - the timestamp to determine the remaining time of a buff/debuff.
@@ -275,12 +348,13 @@ class Entity {
    * @return The remaining buff time at the provided timestamp.
    */
   getRemainingBuffTimeAtTimestamp(
-    spellId: number,
+    spell: number | Spell,
     baseBuffLength: number,
     maxBuffLength: number,
     timestamp: number,
     sourceId: number | null = null,
   ): number {
+    const spellId = typeof spell === 'number' ? spell : spell.id;
     const buffApplicationTimes: Map<number, number> = this.getRemainingBuffTimeAtApplication(
       spellId,
       baseBuffLength,

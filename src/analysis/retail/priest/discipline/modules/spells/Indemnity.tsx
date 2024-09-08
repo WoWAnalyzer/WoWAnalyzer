@@ -13,7 +13,7 @@ import { POWER_WORD_SHIELD_ATONEMENT_DUR } from '../../constants';
 
 import AtonementAnalyzer, { AtonementAnalyzerEvent } from '../core/AtonementAnalyzer';
 
-const INDEMNITY_EXTENSION_DURATION = 2000;
+const INDEMNITY_EXTENSION_DURATION = 3000;
 const EVANG_EXTENSION_DURATION = 6000;
 
 type ShieldInfo = {

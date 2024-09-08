@@ -17,7 +17,7 @@ import {
 import { Options } from 'parser/core/Module';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS/priest';
-import { INSIGHT_CDR_ABILITIES } from '../modules/talents/Oracle/OracleValues';
+import { INSIGHT_CDR_ABILITIES } from '../constants';
 
 const CAST_BUFFER_MS = 200;
 

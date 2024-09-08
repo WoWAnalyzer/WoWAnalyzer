@@ -8,8 +8,8 @@ import { formatNumber, formatPercentage } from 'common/format';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
+import { DESP_TIMES_HEALING_MULTIPLIER_PER_RANK } from '../../../constants';
 
-const HEALING_MULTIPLIER_PER_RANK = 0.1;
 //Example log: /report/kVQd4LrBb9RW2h6K/9-Heroic+The+Primal+Council+-+Wipe+5+(5:04)/Delipriest/standard/statistics
 class DesperateTimes extends Analyzer {
   healingDoneFromTalent = 0;
@@ -22,7 +22,7 @@ class DesperateTimes extends Analyzer {
       this.active = false;
     }
     this.healingMultiplier =
-      HEALING_MULTIPLIER_PER_RANK *
+      DESP_TIMES_HEALING_MULTIPLIER_PER_RANK *
       this.selectedCombatant.getTalentRank(TALENTS.DESPERATE_TIMES_TALENT);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
   }

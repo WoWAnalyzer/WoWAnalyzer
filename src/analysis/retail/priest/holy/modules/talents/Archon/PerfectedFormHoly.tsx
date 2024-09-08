@@ -15,7 +15,7 @@ import Events, { HealEvent } from 'parser/core/Events';
 import { HOLY_ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../../constants';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import SPELLS from 'common/SPELLS';
-import { PERFECTED_FORM_AMP } from './ArchonValues';
+import { PERFECTED_FORM_AMP } from '../../../constants';
 
 class PerfectedFormHoly extends Analyzer {
   static dependencies = {

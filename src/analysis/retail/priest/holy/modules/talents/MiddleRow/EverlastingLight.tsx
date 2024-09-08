@@ -10,8 +10,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
-
-const MAX_EVERLASTING_LIGHT_BUFF = 0.15;
+import { MAX_EVERLASTING_LIGHT_BUFF } from '../../../constants';
 
 /**
  * Heal restores up to 15% additional health, based on your missing mana.

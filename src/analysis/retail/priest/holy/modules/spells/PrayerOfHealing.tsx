@@ -10,8 +10,7 @@ import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import { BadColor, OkColor, GoodColor, PerfectColor } from 'interface/guide';
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-
-const POH_MAX_TARGETS_HIT = 5;
+import { POH_MAX_TARGETS_HIT } from '../../constants';
 
 class PrayerOfHealing extends Analyzer {
   static dependencies = {

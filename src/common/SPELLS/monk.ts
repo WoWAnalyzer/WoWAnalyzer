@@ -942,6 +942,12 @@ const spells = {
     name: 'Blackout Reinforcement',
     icon: 'inv_boots_cloth_19',
   },
+  // TWW S1 Brewmaster 4-set
+  FLOW_OF_BATTLE_KS_BUFF: {
+    id: 457271,
+    name: 'Flow of Battle',
+    icon: 'ability_monk_energizingwine.jpg',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;
