@@ -2,6 +2,7 @@
 
 import eslint from '@eslint/js';
 import react from '@eslint-react/eslint-plugin';
+import wowanalyzer from 'eslint-plugin-wowanalyzer';
 import depend from 'eslint-plugin-depend';
 import globals from 'globals';
 import tseslint, { config } from 'typescript-eslint';
@@ -18,6 +19,8 @@ const ignoresConfig = config({
 
     '**/playwright-report/**',
     '**/test-results/**',
+
+    'packages/eslint-plugin-wowanalyzer/**',
   ],
 });
 
@@ -88,6 +91,8 @@ const disableTypeCheckedOnJS = config({
   files: ['**/*.js', '**/*.[cm]js', '**/*.jsx'],
 });
 
+console.error(wowanalyzer.configs.recommended);
+
 export default tseslint.config(
   ...ignoresConfig,
 
@@ -125,4 +130,5 @@ export default tseslint.config(
   ...dependConfig,
   ...reactConfig,
   ...disableTypeCheckedOnJS,
+  ...wowanalyzer.configs.recommended,
 );

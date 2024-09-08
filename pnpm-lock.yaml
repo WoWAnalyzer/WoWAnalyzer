@@ -258,9 +258,9 @@ importers:
       eslint-plugin-depend:
         specifier: 0.11.0
         version: 0.11.0
-      eslint-plugin-file-progress:
-        specifier: 1.5.0
-        version: 1.5.0(eslint@9.10.0(jiti@1.21.0))
+      eslint-plugin-progress:
+        specifier: 0.0.1
+        version: 0.0.1
       eslint-plugin-wowanalyzer:
         specifier: workspace:*
         version: link:packages/eslint-plugin-wowanalyzer
@@ -2760,10 +2760,8 @@ packages:
   eslint-plugin-depend@0.11.0:
     resolution: {integrity: sha512-IwF06BrcdYoELuFd18sdVHhvDfF23xbr8pG/ONqrwB4gXjJ7281mEDEmACKWyvMY63afph8+2aOLbeuvr9mbdg==}
 
-  eslint-plugin-file-progress@1.5.0:
-    resolution: {integrity: sha512-get8oNfacIagP+igSzrEZhepPgodtdwACVeKQsE1fVvTL15tZvgCv8K4B2lKT4FZOZOyhxSkQGnWyjEOx1uoIw==}
-    peerDependencies:
-      eslint: ^7.0.0 || ^8.0.0 || ^9.0.0
+  eslint-plugin-progress@0.0.1:
+    resolution: {integrity: sha512-MAa+Nbw3uAHYKrt5ML2asiXCHdJ4ticANZC/KlfGO5Rck9oB+KhAXc+Zj4bLohci+EAE/3LbbcWyYm3kQuwJiQ==}
 
   eslint-plugin-react-debug@1.13.0:
     resolution: {integrity: sha512-K+xhQ7SITeRUM+4exfzLuci11i13rLAB70zlinDuABB9YwhBQy+qXZFI1POrcvdrbjeLK0e86MrmUGTj4keSwQ==}
@@ -3628,9 +3626,6 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
-  nanospinner@1.1.0:
-    resolution: {integrity: sha512-yFvNYMig4AthKYfHFl1sLj7B2nkHL4lzdig4osvl9/LdGbXwrdFRoqBS98gsEsOakr0yH+r5NZ/1Y9gdVB8trA==}
-
   natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
 
@@ -3789,9 +3784,6 @@ packages:
 
   picocolors@1.0.0:
     resolution: {integrity: sha512-1fygroTLlHu66zi26VoTDv8yRgm0Fccecssto+MhsZ0D/DGW2sm8E8AjW7NU5VVTRt5GxbeZ5qBuJr+HyLYkjQ==}
-
-  picocolors@1.1.0:
-    resolution: {integrity: sha512-TQ92mBOW0l3LeMeyLV6mzy/kWr8lkd/hp3mTg7wYK7zJhuBStmGMBG0BdeDZS/dZx1IukaX6Bk11zcln25o1Aw==}
 
   picomatch@2.3.1:
     resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==}
@@ -7631,11 +7623,7 @@ snapshots:
       module-replacements: 2.5.0
       semver: 7.6.3
 
-  eslint-plugin-file-progress@1.5.0(eslint@9.10.0(jiti@1.21.0)):
-    dependencies:
-      eslint: 9.10.0(jiti@1.21.0)
-      nanospinner: 1.1.0
-      picocolors: 1.1.0
+  eslint-plugin-progress@0.0.1: {}
 
   eslint-plugin-react-debug@1.13.0(eslint@9.10.0(jiti@1.21.0))(typescript@5.5.4):
     dependencies:
@@ -8592,10 +8580,6 @@ snapshots:
 
   nanoid@3.3.7: {}
 
-  nanospinner@1.1.0:
-    dependencies:
-      picocolors: 1.1.0
-
   natural-compare@1.4.0: {}
 
   no-case@3.0.4:
@@ -8746,8 +8730,6 @@ snapshots:
   pend@1.2.0: {}
 
   picocolors@1.0.0: {}
-
-  picocolors@1.1.0: {}
 
   picomatch@2.3.1: {}
 
