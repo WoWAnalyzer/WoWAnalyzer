@@ -1,24 +1,25 @@
-import AlgetharAcademy from 'game/raids/mythicplusseasonone/AlgetharAcademy';
-import AzureVault from 'game/raids/mythicplusseasonone/AzureVault';
-import CourtOfStars from 'game/raids/mythicplusseasonone/CourtOfStars';
-import HallsOfValor from 'game/raids/mythicplusseasonone/HallsOfValor';
-import NokhudOffensive from 'game/raids/mythicplusseasonone/NokhudOffensive';
-import RubyLifePools from 'game/raids/mythicplusseasonone/RubyLifePools';
-import ShadowmoonBurialGrounds from 'game/raids/mythicplusseasonone/ShadowmoonBurialGrounds';
-import TempleOfTheJadeSerpent from 'game/raids/mythicplusseasonone/TempleOfTheJadeSerpent';
 import type { Raid } from 'game/raids';
+import { StoneVault } from './StoneVault';
+import { Siege } from './Siege';
+import { NecroticWake } from './NecroticWake';
+import { Mists } from './Mists';
+import { GrimBatol } from './GrimBatol';
+import { Dawnbreaker } from './Dawnbreaker';
+import { CityOfThreads } from './CityOfThreads';
+import { AraKara } from './AraKara';
+import background from './backgrounds/Season1.jpg';
 
 export default {
   name: 'Mythic+ Season 1',
-  background: undefined,
+  background,
   bosses: {
-    AlgetharAcademy,
-    AzureVault,
-    CourtOfStars,
-    HallsOfValor,
-    NokhudOffensive,
-    RubyLifePools,
-    ShadowmoonBurialGrounds,
-    TempleOfTheJadeSerpent,
+    AraKara,
+    CityOfThreads,
+    Dawnbreaker,
+    GrimBatol,
+    Mists,
+    NecroticWake,
+    Siege,
+    StoneVault,
   },
 } satisfies Raid;
