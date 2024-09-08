@@ -54,12 +54,22 @@ class ShadowCovenant extends Analyzer {
   }
 
   calculateBonus() {
-    let bonus = this.selectedCombatant.hasTalent(TALENTS_PRIEST.MINDBENDER_DISCIPLINE_TALENT)
-      ? 0.1
-      : 0.25;
+    let bonus;
+
+    // Check for VOIDWRAITH_TALENT first, since it overrides the initial bonus
+    if (this.selectedCombatant.hasTalent(TALENTS_PRIEST.VOIDWRAITH_TALENT)) {
+      bonus = 0.25;
+    } else {
+      // voidwraith is not present
+      bonus = this.selectedCombatant.hasTalent(TALENTS_PRIEST.MINDBENDER_DISCIPLINE_TALENT)
+        ? 0.1
+        : 0.25;
+    }
+
     if (this.selectedCombatant.hasTalent(TALENTS_PRIEST.TWILIGHT_CORRUPTION_TALENT)) {
       bonus += 0.1;
     }
+
     return bonus;
   }
 
@@ -79,7 +89,8 @@ class ShadowCovenant extends Analyzer {
       // Shadow spells only
       damageEvent.ability.type !== MAGIC_SCHOOLS.ids.SHADOW ||
       // no pets here
-      damageEvent.ability.guid === -MAGIC_SCHOOLS.ids.SHADOW
+      damageEvent.ability.guid === -MAGIC_SCHOOLS.ids.SHADOW ||
+      damageEvent.ability.guid === SPELLS.VOID_FLAY_DAMAGE_DISC.id
     ) {
       return;
     }

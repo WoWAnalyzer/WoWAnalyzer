@@ -30,21 +30,6 @@ const spells = {
     icon: 'spell_holy_mindsooth',
     manaCost: 500,
   },
-  MINDGAMES_HEAL: {
-    id: 375904,
-    name: 'Mindgames',
-    icon: 'ability_revendreth_priest',
-  },
-  MINDGAMES_ABSORB: {
-    id: 375902,
-    name: 'Mindgames',
-    icon: 'ability_revendreth_priest',
-  },
-  MINDGAMES_HEAL_REVERSAL: {
-    id: 375903,
-    name: 'Mindgames',
-    icon: 'ability_revendreth_priest',
-  },
   CRYSTALLINE_REFLECTION_TALENT_HEAL: {
     id: 373462,
     name: 'Crystalline Reflection',
@@ -423,6 +408,26 @@ const spells = {
     id: 390933,
     name: 'Words of the Pious',
     icon: 'ability_priest_clarityofwill',
+  },
+  ENTROPIC_RIFT_DAMAGE_DISC: {
+    id: 447448,
+    name: 'Entropic Rift',
+    icon: 'inv_ability_voidweaverpriest_entropicrift',
+  },
+  COLLAPSING_VOID_DAMAGE_DISC: {
+    id: 448405,
+    name: 'Collapsing Void',
+    icon: 'inv_cosmicvoid_groundsate',
+  },
+  VOID_BLAST_DAMAGE_DISC: {
+    id: 450215,
+    name: 'Void Blast',
+    icon: 'inv_cosmicvoid_missile',
+  },
+  VOID_FLAY_DAMAGE_DISC: {
+    id: 451435,
+    name: 'Void Flay',
+    icon: 'spell_priest_voidsear',
   },
 
   // Holy Priest Spells

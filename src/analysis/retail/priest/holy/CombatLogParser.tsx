@@ -1,5 +1,5 @@
 import AbilityTracker from 'analysis/retail/priest/holy/modules/core/AbilityTracker';
-import { Mindgames, TranslucentImage } from 'analysis/retail/priest/shared';
+import { TranslucentImage } from 'analysis/retail/priest/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
@@ -120,7 +120,6 @@ class CombatLogParser extends CoreCombatLogParser {
     Benediction: Talents.MiddleRow.Benediction,
     RevitalizingPrayers: Talents.MiddleRow.RevitalizingPrayers,
     DivineStar: Talents.Classwide.DivineStar,
-    Mindgames: Mindgames,
     DivineWord: Talents.BottomRow.DivineWord,
 
     HolyWordSalvation: Talents.BottomRow.HolyWordSalvation,
