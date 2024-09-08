@@ -4,13 +4,8 @@ import { Options } from 'parser/core/Module';
 import Combatants from 'parser/shared/modules/Combatants';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import { ECHO_OF_LIGHT_ATTRIB_EVENT } from '../../normalizers/CastLinkNormalizer';
-import { ABILITIES_THAT_DONT_TRIGGER_MASTERY } from '../../constants';
+import { ABILITIES_THAT_DONT_TRIGGER_MASTERY, PRISMATIC_ECHOES_PER_RANK } from '../../constants';
 import StatTracker from 'parser/shared/modules/StatTracker';
-
-//TODO: move this to constants during planned spec overhaul
-
-const PRISMATIC_ECHOES_PER_RANK = 0.06;
-
 class EOLAttrib extends Analyzer {
   static dependencies = {
     combatants: Combatants,

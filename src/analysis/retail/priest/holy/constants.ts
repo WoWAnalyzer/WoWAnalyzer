@@ -51,6 +51,8 @@ export const LW_OVERHEAL_THRESHOLD = 0.75;
 export const LW_CAST_TIME_DECREASE = 1 - 0.3;
 // pontifex
 export const PONTIFEX_HEALING_INCREASE = 0.06;
+// prismatic echoes
+export const PRISMATIC_ECHOES_PER_RANK = 0.06;
 // resonant words
 export const HEALING_MULTIPLIER_BY_RANK: number[] = [0, 0.2, 0.4];
 export const HOLY_WORD_LIST = [
