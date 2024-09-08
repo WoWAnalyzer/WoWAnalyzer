@@ -8,8 +8,8 @@ import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/Eve
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import { formatNumber, formatPercentage } from 'common/format';
 import TalentSpellText from 'parser/ui/TalentSpellText';
+import { PONTIFEX_HEALING_INCREASE } from '../../../constants';
 
-const PONTIFEX_HEALING_INCREASE = 0.06;
 //const PONTIFEX_MAX_STACKS = 5;
 
 const HOLY_WORD_LIST = [

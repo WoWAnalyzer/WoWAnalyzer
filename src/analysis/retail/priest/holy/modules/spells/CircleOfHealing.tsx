@@ -8,9 +8,7 @@ import { getCircleOfHealingEvents } from '../../normalizers/CastLinkNormalizer';
 import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
 import { BadColor, OkColor, GoodColor } from 'interface/guide';
 import CastEfficiencyPanel from 'interface/guide/components/CastEfficiencyPanel';
-
-const OVERHEAL_THRESHOLD = 0.75;
-const COH_MAX_TARGETS_HIT = 5;
+import { COH_MAX_TARGETS_HIT, COH_OVERHEAL_THRESHOLD } from '../../constants';
 
 class CircleOfHealing extends Analyzer {
   circleOfHealingCasts = 0;
@@ -76,7 +74,7 @@ class CircleOfHealing extends Analyzer {
     const maxTargets = this.orisonActive ? COH_MAX_TARGETS_HIT + 1 : COH_MAX_TARGETS_HIT;
     if (targetsHit < maxTargets) {
       this.badCasts += 1;
-    } else if (overhealing / (healing + overhealing) >= OVERHEAL_THRESHOLD) {
+    } else if (overhealing / (healing + overhealing) >= COH_OVERHEAL_THRESHOLD) {
       this.okCasts += 1;
     } else {
       this.goodCasts += 1;

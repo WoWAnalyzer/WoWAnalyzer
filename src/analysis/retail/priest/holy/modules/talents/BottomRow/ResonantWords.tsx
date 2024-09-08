@@ -10,20 +10,11 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { formatPercentage } from 'common/format';
 import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
-
-const HEALING_MULTIPLIER_BY_RANK: number[] = [0, 0.2, 0.4];
-const HOLY_WORD_LIST = [
-  TALENTS.HOLY_WORD_CHASTISE_TALENT,
-  TALENTS.HOLY_WORD_SALVATION_TALENT,
-  TALENTS.HOLY_WORD_SANCTIFY_TALENT,
-  TALENTS.HOLY_WORD_SERENITY_TALENT,
-];
-const RESONANT_WORD_WHITELIST = [
-  SPELLS.FLASH_HEAL,
-  SPELLS.GREATER_HEAL,
-  TALENTS.PRAYER_OF_HEALING_TALENT,
-  TALENTS.CIRCLE_OF_HEALING_TALENT,
-];
+import {
+  HEALING_MULTIPLIER_BY_RANK,
+  HOLY_WORD_LIST,
+  RESONANT_WORD_WHITELIST,
+} from '../../../constants';
 
 // Example Log: /report/kVQd4LrBb9RW2h6K/9-Heroic+The+Primal+Council+-+Wipe+5+(5:04)/Delipriest/standard/statistics
 class ResonantWords extends Analyzer {

@@ -9,8 +9,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import { formatNumber, formatPercentage } from 'common/format';
-
-const PRAYERFUL_LITANY_MULTIPLIER = 1;
+import { PRAYERFUL_LITANY_MULTIPLIER } from '../../../constants';
 
 /*
   Prayer of Healing heals for 30% more to the most injured ally it affects.

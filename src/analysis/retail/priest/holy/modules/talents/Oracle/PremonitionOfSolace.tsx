@@ -12,8 +12,8 @@ import { formatNumber } from 'common/format';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 
-import { SOLACE_DR } from './OracleValues';
-import { FATEBENDER_SCALER } from './OracleValues';
+import { SOLACE_DR } from '../../../constants';
+import { FATEBENDER_SCALER } from '../../../constants';
 
 class PremonitionOfSolace extends Analyzer {
   static dependencies = {

@@ -5,6 +5,7 @@ import { Arlie, Hana, Litena, Liavre, Squided, ToppleTheNun, Trevor, Saeldur } f
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2024, 9, 6), <>Moved all spell constants to constants file for ease of maintenance </>, Liavre),
   change(date(2024, 8, 20), <>Implemented/pushed Archon </>, Liavre),
   change(date(2024, 8, 24), <>Added Cast time hps component to lightweaver and other statistic display improvements </>, Liavre),
   change(date(2024, 8, 20), <>Implemented both Oracle and Archon + minor fixes </>, Liavre),
