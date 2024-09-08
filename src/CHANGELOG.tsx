@@ -35,6 +35,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 9, 7), 'Update to ESLint 9.', ToppleTheNun),
   change(date(2024, 9, 5), 'Update Rogue spells for Classic Cataclysm', jazminite),
   change(date(2024, 9, 4), 'Updates to Active Time calculation to avoid cases where overcount could occur.', Sref),
   change(date(2024, 9, 3), "Fixed a bug where the Death Recap wouldn't detect some defensive buffs", Sref),

@@ -1,10 +1,16 @@
 {
   "name": "eslint-plugin-wowanalyzer",
   "version": "0.0.0",
+  "type": "module",
   "description": "Custom ESLint rules for WoWAnalyzer",
-  "main": "index.js",
+  "exports": {
+    ".": {
+      "import": "./src/index.js",
+      "types": "./src/index.d.ts"
+    }
+  },
   "license": "AGPLv3",
   "peerDependencies": {
-    "eslint": "^8"
+    "eslint": "^9"
   }
 }
