@@ -91,8 +91,6 @@ const disableTypeCheckedOnJS = config({
   files: ['**/*.js', '**/*.[cm]js', '**/*.jsx'],
 });
 
-console.error(wowanalyzer.configs.recommended);
-
 export default tseslint.config(
   ...ignoresConfig,
 
