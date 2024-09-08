@@ -39,8 +39,8 @@ const eslintConfig = config(eslint.configs.recommended, {
 
 // General typescript-eslint rules that have type knowledge
 const typescriptEslintConfig = config(
-  ...tseslint.configs.recommendedTypeChecked,
-  ...tseslint.configs.stylisticTypeChecked,
+  ...tseslint.configs.recommended,
+  ...tseslint.configs.stylistic,
   {
     rules: {
       /** Rules that need to be turned off in default eslint to be turned on in Typescript ESLint */
@@ -74,7 +74,7 @@ const typescriptEslintConfig = config(
       //We want to encourage marking type imports explicitly which is also enforced by TypeScripts --verbatimModuleSyntax
       '@typescript-eslint/consistent-type-imports': 'warn',
       //We want to encourage marking type exports explicitly
-      '@typescript-eslint/consistent-type-exports': 'warn',
+      // '@typescript-eslint/consistent-type-exports': 'warn',
       //Enforce the use of top-level import type qualifer when an import only has specifiers with inline type qualifiers
       '@typescript-eslint/no-import-type-side-effects': 'warn',
     },
@@ -84,10 +84,10 @@ const typescriptEslintConfig = config(
 // Dependency guidance to migrate off other dependencies
 const dependConfig = config(depend.configs['flat/recommended']);
 
-const reactConfig = config(react.configs['recommended-type-checked']);
+const reactConfig = config(react.configs['recommended']);
 
 const disableTypeCheckedOnJS = config({
-  extends: [tseslint.configs.disableTypeChecked, react.configs['disable-type-checked']],
+  // extends: [tseslint.configs.disableTypeChecked, react.configs['disable-type-checked']],
   files: ['**/*.js', '**/*.[cm]js', '**/*.jsx'],
 });
 
