@@ -45,6 +45,8 @@ jobs:
           cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
       - run: pnpm run lint --max-warnings=0
+        env:
+          TIMING: all
 
   prettier:
     needs: [prepare]
