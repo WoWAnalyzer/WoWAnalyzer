@@ -120,7 +120,7 @@ class HolyWordCDR extends Analyzer {
     }
   }
   /**
-   * this function is called by one of the above 4 handlers and returns a breakdown of what effects contributed to
+   * this function is called by one of the above handlers and returns a breakdown of what effects contributed to
    * holy word CDR effects.
    *
    * if vohAffectsBase is ever true, attribute the entire base to voice of harmony
@@ -197,7 +197,7 @@ class HolyWordCDR extends Analyzer {
     };
   }
 
-  // figure out what the other multipliers combine to without this and minus from total
+  // figure out what the other multipliers combine to without and minus from total
   private getCDRComponent(idealCDR: number, cdrScaler: number, amp: number): number {
     return cdrScaler * (idealCDR - idealCDR / amp);
   }

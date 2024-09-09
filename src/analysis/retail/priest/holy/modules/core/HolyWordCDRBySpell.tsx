@@ -165,7 +165,7 @@ class HolyWordCDRBySpell extends Analyzer {
                       <SpellIcon spell={TALENTS.VOICE_OF_HARMONY_TALENT}></SpellIcon>
                     </th>
                   )}
-                  {this.voiceOfHarmonyActive && <th> Tier</th>}
+                  {this.tierActive && <th> Tier</th>}
                   <th> Total Used</th>
                   <th> Wasted</th>
                 </tr>
