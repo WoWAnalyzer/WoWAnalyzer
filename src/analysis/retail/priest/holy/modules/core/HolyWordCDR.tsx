@@ -41,8 +41,6 @@ class HolyWordCDR extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.ENERGY_CYCLE_TALENT);
-
     // The below 3 if statements scale the CDR base on talents/gear
     if (this.selectedCombatant.hasTalent(TALENTS_PRIEST.LIGHT_OF_THE_NAARU_TALENT)) {
       this.lotnMult =
@@ -78,8 +76,6 @@ class HolyWordCDR extends Analyzer {
     );
   }
     */
-
-  // special events have to be handled seperately
 
   public handleAny(event: CastEvent, specialEvent?: string): hwCDRBreakdown | undefined {
     //filter
@@ -129,10 +125,10 @@ class HolyWordCDR extends Analyzer {
    */
 
   private handleCDR(
-    event: CastEvent,
+    event: CastEvent, //future proof for tww s1 tier check
     hwMap: baseHolyWordCDR | undefined,
     hwToReduceId: number,
-  ): hwCDRBreakdown {
+  ): hwCDRBreakdown | undefined {
     let baseMult = 1;
     let modHolyWordCDR = this.baseHolyWordCDR;
     let apothMult = 1;
@@ -158,16 +154,7 @@ class HolyWordCDR extends Analyzer {
 
     // if there is no base CDR, then a VoH spell was passed and VoH was not specced, return 0
     if (baseCDR === 0) {
-      return {
-        idealTotalCDR: 0,
-        actualTotalCDR: 0,
-        cdrFromBase: 0,
-        cdrFromLOTN: 0,
-        cdrFromApoth: 0,
-        cdrFromTwwTier: 0,
-        vohAffectsBase: hwMap?.vohDependent,
-        affectedSpell: hwToReduceId,
-      };
+      return;
     }
     // if base CDR is larger than actual CDR none of the modifiers mattered
     else if (baseCDR >= actualCDR) {
