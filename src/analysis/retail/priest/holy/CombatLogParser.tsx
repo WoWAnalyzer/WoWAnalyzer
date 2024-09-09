@@ -132,7 +132,6 @@ class CombatLogParser extends CoreCombatLogParser {
     ResonantEnergyHoly: Talents.Archon.ResonantEnergyHoly,
     ManifestedPowerHoly: Talents.Archon.ManifestedPowerHoly,
     EmpoweredSurgesHoly: Talents.Archon.EmpoweredSurgesHoly,
-    EnergyCycleHoly: Talents.Archon.EnergyCycleHoly,
     EnergyCompressionHoly: Talents.Archon.EnergyCompressionHoly,
     PowerSurgeAndDivineHaloHoly: Talents.Archon.PowerSurgeAndDivineHaloHoly,
 
