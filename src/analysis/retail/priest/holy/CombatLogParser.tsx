@@ -34,6 +34,7 @@ import Guide from './Guide';
 import Benevolence from '../shared/Benevolence';
 import RenewTracker from './modules/talents/Oracle/OracleCore/RenewTracker';
 import RenewAttributor from './modules/talents/Oracle/OracleCore/RenewAttributor';
+import EOLAttrib from './modules/core/EchoOfLightAttributor';
 import HolyWordCDRBySpell from './modules/core/HolyWordCDRBySpell';
 import HolyWordCDR from './modules/core/HolyWordCDR';
 
@@ -64,6 +65,7 @@ class CombatLogParser extends CoreCombatLogParser {
     fortitudeRaidBuff: FortitudeRaidBuff,
     renewTracker: RenewTracker,
     renewAttributor: RenewAttributor,
+    eolAttrib: EOLAttrib,
     holyWordCDRBySpell: HolyWordCDRBySpell,
     holyWordCDR: HolyWordCDR,
 

@@ -51,6 +51,8 @@ export const LW_OVERHEAL_THRESHOLD = 0.75;
 export const LW_CAST_TIME_DECREASE = 1 - 0.3;
 // pontifex
 export const PONTIFEX_HEALING_INCREASE = 0.06;
+// prismatic echoes
+export const PRISMATIC_ECHOES_PER_RANK = 0.06;
 // resonant words
 export const HEALING_MULTIPLIER_BY_RANK: number[] = [0, 0.2, 0.4];
 export const HOLY_WORD_LIST = [
@@ -123,7 +125,7 @@ export const HOLY_DMG_ABILITIES_AFFECTED_BY_PM = [
 
 export const EMPOWERED_SURGES_AMP = 0.3;
 export const ENERGY_COMPRESSION_AMP = 0.3;
-export const APOTH_MULTIPIER = 3; // 1 + 300% = 400%
+export const APOTH_MULTIPIER = 4;
 export const ENERGY_CYCLE_CDR = 4;
 export const LIGHT_OF_THE_NAARU_REDUCTION_PER_RANK = 0.1;
 export const TWW_TIER1_2PC_CDR = 0.1;
@@ -220,6 +222,7 @@ export const HOLY_ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
 ];
 
 // legacy list for some modules
+// legacy list for some modules
 export const ABILITIES_THAT_TRIGGER_MASTERY = [
   SPELLS.DIVINE_HYMN_HEAL.id,
   SPELLS.GREATER_HEAL.id,
@@ -267,7 +270,8 @@ export const ABILITIES_THAT_DONT_TRIGGER_MASTERY = [
   SPELLS.DIVINE_IMAGE_HEALING_LIGHT_HEAL.id,
   SPELLS.DIVINE_IMAGE_TRANQUIL_LIGHT_HEAL.id,
   TALENTS.ESSENCE_DEVOURER_TALENT.id,
-  SPELLS.LEECH,
+  SPELLS.LEECH.id,
+  SPELLS.ECHO_OF_LIGHT_HEAL,
 ];
 
 export const EFFECTS_INCREASED_BY_BENEVOLENCE_HOLY = [

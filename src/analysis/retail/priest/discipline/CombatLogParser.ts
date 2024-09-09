@@ -27,7 +27,6 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import PowerWordBarrier from './modules/features/PowerWordBarrier';
 import PowerWordShieldWasted from './modules/features/PowerWordShieldWasted';
 import PurgeTheWicked from './modules/features/PurgeTheWicked';
-import Mindgames from 'analysis/retail/priest/discipline/modules/spells/Mindgames';
 import Atonement from './modules/spells/Atonement';
 import Castigation from './modules/spells/Castigation';
 import Contrition from './modules/spells/Contrition';
@@ -70,6 +69,7 @@ import HeavensWrath from './modules/spells/HeavensWrath';
 import Amirdrassil4p from './modules/spells/Amirdrassil4p';
 import TrainOfThought from './modules/spells/TrainOfThought';
 import VoidSummoner from './modules/spells/VoidSummoner';
+import ShadowCovenant from './modules/spells/ShadowCovenant/ShadowCovenant';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -122,7 +122,6 @@ class CombatLogParser extends CoreCombatLogParser {
     grace: Grace,
     sinsOfTheMany: SinsOfTheMany,
     schism: Schism,
-    mindgames: Mindgames,
     harshDiscipline: HarshDiscipline,
     indemnity: Indemnity,
     expiation: Expiation,
@@ -149,6 +148,7 @@ class CombatLogParser extends CoreCombatLogParser {
     trainOfThought: TrainOfThought,
     voidSummoner: VoidSummoner,
     translucentImage: TranslucentImage,
+    shadowCovenant: ShadowCovenant,
 
     // Items:
     radiantProvidence: RadiantProvidence,
