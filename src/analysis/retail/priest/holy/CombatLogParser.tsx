@@ -41,6 +41,7 @@ import Benevolence from '../shared/Benevolence';
 import RenewTracker from './modules/talents/Oracle/OracleCore/RenewTracker';
 import RenewAttributor from './modules/talents/Oracle/OracleCore/RenewAttributor';
 import EOLAttrib from './modules/core/EchoOfLightAttributor';
+import EchoOfLightDisplay from './modules/core/EchoOfLightDisplay';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -72,6 +73,7 @@ class CombatLogParser extends CoreCombatLogParser {
     renewTracker: RenewTracker,
     renewAttributor: RenewAttributor,
     eolAttrib: EOLAttrib,
+    echoOfLightDisplay: EchoOfLightDisplay,
 
     // Spells
     divineHymn: DivineHymn,

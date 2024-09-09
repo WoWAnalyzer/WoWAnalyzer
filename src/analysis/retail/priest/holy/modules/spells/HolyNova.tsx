@@ -1,14 +1,9 @@
-import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
-import { SpellIcon } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import StatisticBox from 'parser/ui/StatisticBox';
 
 class HolyNova extends Analyzer {
   static dependencies = {
@@ -88,43 +83,10 @@ class HolyNova extends Analyzer {
     };
   }
 
-  statistic() {
-    if (this.casts === 0) {
-      return <></>;
-    }
-    return (
-      <StatisticBox
-        icon={<SpellIcon spell={TALENTS.HOLY_NOVA_TALENT} />}
-        value={
-          <>
-            Average Hits:&nbsp;
-            <div style={{ color: 'green', display: 'inline-block' }}>
-              {' '}
-              {Math.floor(this.averageFriendlyTargetsHit)}
-            </div>
-            |
-            <div style={{ color: 'red', display: 'inline-block' }}>
-              {' '}
-              {Math.floor(this.averageEnemyTargetsHit)}
-            </div>
-            <br />
-            <ItemHealingDone amount={this.effectiveHealing} />
-            <br />
-            <ItemDamageDone amount={this.damageDone} />
-          </>
-        }
-        label="Holy Nova"
-        tooltip={
-          <>
-            Healing done: {formatNumber(this.effectiveHealing)} (
-            {formatPercentage(this.overhealPercent)}% OH)
-            <br />
-            Damage done: {formatNumber(this.damageDone)}
-          </>
-        }
-      />
-    );
-  }
+  /**
+   * deleted statistic since you see this in your breakdown anyways, and suggestions should tell you bad target count
+   *
+   */
 
   suggestions(when: When) {
     when(this.holyNovaThreshold).addSuggestion((suggest, actual, recommended) =>
