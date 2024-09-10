@@ -89,6 +89,7 @@ class HolyWordCDRBySpell extends Analyzer {
         this.hwContainer[spellId].cdrFromTwwTier += cdrFromTwwTier;
         this.hwContainer[spellId].cdrFromVoh += vohCD;
         this.hwContainer[spellId].totalCDR += totalEffectiveCDR;
+        this.hwContainer[spellId].numberOfCasts += 1;
       }
       // first time
       else {
@@ -102,6 +103,7 @@ class HolyWordCDRBySpell extends Analyzer {
           spellNum: spellId,
           totalCDR: totalEffectiveCDR,
           affectedSpell: affectedSpell,
+          numberOfCasts: 1,
         };
       }
     }
@@ -151,6 +153,7 @@ class HolyWordCDRBySpell extends Analyzer {
               <thead>
                 <tr>
                   <td className="text-center">Cast Spell</td>
+                  <td className="text-center">Casts</td>
                   <td className="text-center">Reduced Spell</td>
                   <td>Base</td>
                   {this.apotheosisActive && (
@@ -179,6 +182,8 @@ class HolyWordCDRBySpell extends Analyzer {
                     <td className="text-center">
                       <SpellIcon spell={this.hwContainer[Number(e)].spellNum} />
                     </td>
+
+                    <td className="text-center">{this.hwContainer[Number(e)].numberOfCasts}</td>
                     <td className="text-center">
                       <SpellIcon spell={this.hwContainer[Number(e)].affectedSpell} />
                     </td>
@@ -223,6 +228,7 @@ interface hwCDRBreakdown {
   spellNum: number;
   totalCDR: number;
   affectedSpell: number;
+  numberOfCasts: number;
 }
 
 export default HolyWordCDRBySpell;
