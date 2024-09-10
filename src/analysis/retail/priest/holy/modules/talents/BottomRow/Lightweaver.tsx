@@ -212,6 +212,7 @@ class Lightweaver extends Analyzer {
         tooltip={
           <>
             {`${overhealingTooltipString}% overhealing`} <br />
+            <br />
             <div>Breakdown: </div>
             <div>
               <SpellLink spell={TALENTS_PRIEST.LIGHTWEAVER_TALENT} />:{' '}
@@ -221,6 +222,7 @@ class Lightweaver extends Analyzer {
               <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
               <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone> <br />
             </div>
+            <br />
             <div>
               Notably this module currently is missing the contributions to{' '}
               <SpellLink spell={TALENTS_PRIEST.BINDING_HEALS_TALENT} /> and{' '}
