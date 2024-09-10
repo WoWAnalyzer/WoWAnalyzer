@@ -5,6 +5,7 @@ import { Arlie, Hana, Litena, Liavre, Squided, ToppleTheNun, Trevor, Saeldur } f
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2024, 9, 9), <>Implemented Echo of Light module/attribution into every other module </>, Liavre),
   change(date(2024, 9, 6), <>Moved all spell constants to constants file for ease of maintenance </>, Liavre),
   change(date(2024, 8, 31), <>Implemented an Echo of Light per heal/amp attributor </>, Liavre),
   change(date(2024, 8, 20), <>Implemented/pushed Archon </>, Liavre),

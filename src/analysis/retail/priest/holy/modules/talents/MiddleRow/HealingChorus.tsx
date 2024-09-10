@@ -1,4 +1,4 @@
-import TALENTS from 'common/TALENTS/priest';
+import TALENTS, { TALENTS_PRIEST } from 'common/TALENTS/priest';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -10,9 +10,17 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import { formatPercentage } from 'common/format';
 import { SpellLink } from 'interface';
 import { HEALING_CHORUS_BONUS_PER_STACK, HEALING_CHORUS_MAX_STACKS } from '../../../constants';
+import EOLAttrib from '../../core/EchoOfLightAttributor';
+import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 
 //Example log: /reports/w9BXrzFApPbj6LnG#fight=14&type=healing&source=19
 class HealingChorus extends Analyzer {
+  static dependencies = {
+    eolAttrib: EOLAttrib,
+  };
+  protected eolAttrib!: EOLAttrib;
+  eolContrib = 0;
+
   totalStacks = 0;
   usedStacks = 0;
   healingDoneFromTalent = 0;
@@ -53,6 +61,7 @@ class HealingChorus extends Analyzer {
 
       this.healingDoneFromTalent += calculateEffectiveHealing(Event, multiplier);
       this.overhealingDoneFromTalent += calculateOverhealing(Event, multiplier);
+      this.eolContrib += this.eolAttrib.getEchoOfLightAmpAttrib(Event, multiplier);
 
       this.currentStacks = 0;
       this.lastHealedTimestamp = Event.timestamp;
@@ -82,10 +91,22 @@ class HealingChorus extends Analyzer {
       <Statistic
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={`You gained ${this.totalStacks} stacks in total. ${overhealingTooltipString}% overhealing`}
+        tooltip={
+          <>
+            You gained ${this.totalStacks} stacks in total. ${overhealingTooltipString}% overhealing
+            <br />
+            <br />
+            Breakdown: <br />
+            <SpellLink spell={TALENTS_PRIEST.HEALING_CHORUS_TALENT} />:{' '}
+            <ItemPercentHealingDone amount={this.healingDoneFromTalent}></ItemPercentHealingDone>{' '}
+            <br />
+            <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
+            <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone> <br />
+          </>
+        }
       >
         <BoringSpellValueText spell={TALENTS.HEALING_CHORUS_TALENT}>
-          <ItemHealingDone amount={this.healingDoneFromTalent} />
+          <ItemHealingDone amount={this.healingDoneFromTalent + this.eolContrib} />
           <br />
           <small>
             {circleOfHealingPercentage}% of your total{' '}

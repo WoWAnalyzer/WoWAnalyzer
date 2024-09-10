@@ -1,4 +1,3 @@
-import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -9,9 +8,18 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { LIGHTWELL_RENEW_HEALS } from '../../../normalizers/CastLinkNormalizer';
+import EOLAttrib from '../../core/EchoOfLightAttributor';
+import SpellLink from 'interface/SpellLink';
+import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 
 // Example Log: /report/PNYB4zgrnR86h7Lc/6-Normal+Zek'voz,+Herald+of+N'zoth/Khadaj
 class Lightwell extends Analyzer {
+  static dependencies = {
+    eolAttrib: EOLAttrib,
+  };
+  protected eolAttrib!: EOLAttrib;
+  eolContrib = 0;
+
   Lightwell = 0;
   healingFromLightwell = 0;
   overhealingFromLightwell = 0;
@@ -40,7 +48,7 @@ class Lightwell extends Analyzer {
   }
 
   get totalOverHealing() {
-    return this.overhealingFromLightwell + this.overhealingFromRenew;
+    return this.overhealingFromLightwell + this.overhealingFromRenew + this.eolContrib;
   }
 
   get totalAbsorbed() {
@@ -51,6 +59,7 @@ class Lightwell extends Analyzer {
     this.healingFromLightwell += event.amount || 0;
     this.overhealingFromLightwell += event.overheal || 0;
     this.absorptionFromLightwell += event.absorbed || 0;
+    this.eolContrib += this.eolAttrib.getEchoOfLightHealingAttrib(event);
   }
 
   onRenewHeal(event: HealEvent) {
@@ -66,10 +75,22 @@ class Lightwell extends Analyzer {
       <Statistic
         tooltip={
           <>
-            Healing from Lightwell:{' '}
-            {formatThousands(this.healingFromLightwell + this.absorptionFromLightwell)}
+            Breakdown: <br />
+            <SpellLink spell={SPELLS.LIGHTWELL_TALENT_HEAL} />:{' '}
+            <ItemPercentHealingDone
+              amount={this.healingFromLightwell + this.absorptionFromLightwell}
+            ></ItemPercentHealingDone>{' '}
             <br />
-            Healing from Renews: {formatThousands(this.healingFromRenew + this.absorptionFromRenew)}
+            <SpellLink spell={SPELLS.RENEW_HEAL} />:{' '}
+            <ItemPercentHealingDone
+              amount={this.healingFromRenew + this.absorptionFromRenew}
+            ></ItemPercentHealingDone>{' '}
+            <br />
+            <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
+            <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone> <br />
+            <br />
+            <br />
+            Notably <SpellLink spell={SPELLS.RENEW_HEAL} /> does not contribute to Echo of Light.
           </>
         }
         size="flexible"

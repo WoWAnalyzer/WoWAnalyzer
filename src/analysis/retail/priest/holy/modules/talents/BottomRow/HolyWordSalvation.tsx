@@ -9,6 +9,8 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { SALVATION_RENEW_HEALS } from '../../../normalizers/CastLinkNormalizer';
+import SpellLink from 'interface/SpellLink';
+import SPELLS from 'common/SPELLS';
 
 // Example Log: /report/PNYB4zgrnR86h7Lc/6-Normal+Zek'voz,+Herald+of+N'zoth/Khadaj
 class HolyWordSalvation extends Analyzer {
@@ -93,6 +95,10 @@ class HolyWordSalvation extends Analyzer {
             Healing from Renews: {formatThousands(this.healingFromRenew + this.absorptionFromRenew)}
             <br />
             Healing from PoMs: {formatThousands(this.healingFromPom + this.absorptionFromPom)}
+            <br />
+            This talent does not account for <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} /> in
+            this module due to the nature of Prayer of Mending. Find its direct initial heal
+            contribution in the table at the top.
           </>
         }
         size="flexible"

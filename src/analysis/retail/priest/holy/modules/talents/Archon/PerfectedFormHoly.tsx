@@ -6,28 +6,33 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import SpellLink from 'interface/SpellLink';
-import { formatNumber, formatPercentage } from 'common/format';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import PRIEST_TALENTS from 'common/TALENTS/priest';
 import Events, { HealEvent } from 'parser/core/Events';
-import { HOLY_ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../../constants';
+import {
+  HOLY_ABILITIES_AFFECTED_BY_HEALING_INCREASES,
+  PERFECTED_FORM_AMP,
+} from '../../../constants';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import SPELLS from 'common/SPELLS';
-import { PERFECTED_FORM_AMP } from '../../../constants';
+import EOLAttrib from '../../core/EchoOfLightAttributor';
 
 class PerfectedFormHoly extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    eolAttrib: EOLAttrib,
   };
 
   protected combatants!: Combatants;
-
+  protected eolAttrib!: EOLAttrib;
   /** Total healing from perfected form's salvation buff */
   perfectedFormSalv = 0;
   /** Total healing from perfected form's apoth buff */
   perfectedFormApoth = 0;
+
+  eolContrib = 0;
 
   constructor(options: Options) {
     super(options);
@@ -52,6 +57,7 @@ class PerfectedFormHoly extends Analyzer {
       )
     ) {
       this.perfectedFormSalv += calculateEffectiveHealing(event, PERFECTED_FORM_AMP);
+      this.eolContrib += this.eolAttrib.getEchoOfLightAmpAttrib(event, PERFECTED_FORM_AMP);
     }
 
     //Apoth only gets the buff when Perfected Form from Salv isn't active
@@ -72,12 +78,13 @@ class PerfectedFormHoly extends Analyzer {
       )
     ) {
       this.perfectedFormApoth += calculateEffectiveHealing(event, PERFECTED_FORM_AMP);
+      this.eolContrib += this.eolAttrib.getEchoOfLightAmpAttrib(event, PERFECTED_FORM_AMP);
     }
   }
 
   //PERFECTED FORM STATISTICS
   passPerfectedFormHealing(): number {
-    return this.perfectedFormApoth + this.perfectedFormSalv;
+    return this.perfectedFormApoth + this.perfectedFormSalv + this.eolContrib;
   }
 
   statistic() {
@@ -88,25 +95,16 @@ class PerfectedFormHoly extends Analyzer {
         category={STATISTIC_CATEGORY.HERO_TALENTS}
         tooltip={
           <>
-            <SpellLink spell={PRIEST_TALENTS.PERFECTED_FORM_TALENT} /> healing contributions:
-            <ul>
-              <li>
-                {formatNumber(this.perfectedFormApoth)}
-                {' ('}
-                {formatPercentage(
-                  this.owner.getPercentageOfTotalHealingDone(this.perfectedFormApoth),
-                )}
-                %) from <SpellLink spell={TALENTS_PRIEST.APOTHEOSIS_TALENT} />
-              </li>
-              <li>
-                {formatNumber(this.perfectedFormSalv)}
-                {' ('}
-                {formatPercentage(
-                  this.owner.getPercentageOfTotalHealingDone(this.perfectedFormSalv),
-                )}
-                %) from <SpellLink spell={TALENTS_PRIEST.HOLY_WORD_SALVATION_TALENT} />
-              </li>
-            </ul>
+            <SpellLink spell={PRIEST_TALENTS.PERFECTED_FORM_TALENT} /> triggers from both Salvation
+            + Apoth and contributes to Echo Of Light: <br />
+            <br />
+            <SpellLink spell={TALENTS_PRIEST.APOTHEOSIS_TALENT} />:{' '}
+            <ItemPercentHealingDone amount={this.perfectedFormApoth}></ItemPercentHealingDone>
+            <br /> <SpellLink spell={TALENTS_PRIEST.HOLY_WORD_SALVATION_TALENT} />:{' '}
+            <ItemPercentHealingDone amount={this.perfectedFormSalv}></ItemPercentHealingDone>
+            <br />
+            <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
+            <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone> <br />
           </>
         }
       >

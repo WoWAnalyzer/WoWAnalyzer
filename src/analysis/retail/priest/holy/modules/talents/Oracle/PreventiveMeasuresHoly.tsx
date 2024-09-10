@@ -15,18 +15,23 @@ import { PREVENTIVE_MEASURES_DMG_AMP } from '../../../constants';
 import { PREVENTIVE_MEASURES_HEAL_AMP } from '../../../constants';
 import ItemPercentDamageDone from 'parser/ui/ItemPercentDamageDone';
 import TalentSpellText from 'parser/ui/TalentSpellText';
+import EOLAttrib from '../../core/EchoOfLightAttributor';
+import SpellLink from 'interface/SpellLink';
 
 //Unlike the premonition nodes, this is different between disc/holy
 
 class PreventiveMeasuresHoly extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    eolAttrib: EOLAttrib,
   };
 
   protected combatants!: Combatants;
+  protected eolAttrib!: EOLAttrib;
 
   totalPOMHealingIncrease = 0;
   totalPMDamageIncrease = 0;
+  eolContrib = 0;
 
   constructor(options: Options) {
     super(options);
@@ -46,6 +51,7 @@ class PreventiveMeasuresHoly extends Analyzer {
 
   handlePOM(event: HealEvent) {
     this.totalPOMHealingIncrease += calculateEffectiveHealing(event, PREVENTIVE_MEASURES_HEAL_AMP);
+    this.eolContrib += this.eolAttrib.getEchoOfLightAmpAttrib(event, PREVENTIVE_MEASURES_HEAL_AMP);
   }
 
   handleDamage(event: DamageEvent) {
@@ -58,10 +64,21 @@ class PreventiveMeasuresHoly extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(99)}
         size="flexible"
         category={STATISTIC_CATEGORY.HERO_TALENTS}
+        tooltip={
+          <>
+            {' '}
+            Breakdown: <br />
+            <SpellLink spell={TALENTS_PRIEST.PREVENTIVE_MEASURES_TALENT} />:{' '}
+            <ItemPercentHealingDone amount={this.totalPOMHealingIncrease}></ItemPercentHealingDone>{' '}
+            <br />
+            <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
+            <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone> <br />
+          </>
+        }
       >
         <TalentSpellText talent={TALENTS_PRIEST.PREVENTIVE_MEASURES_TALENT}>
           <div>
-            <ItemPercentHealingDone amount={this.totalPOMHealingIncrease} />
+            <ItemPercentHealingDone amount={this.totalPOMHealingIncrease + this.eolContrib} />
           </div>
           <div>
             <ItemPercentDamageDone amount={this.totalPMDamageIncrease} />
