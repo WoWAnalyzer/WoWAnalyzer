@@ -24,6 +24,8 @@ export const PYRE_VOLATILITY = 'PyreVolatility';
 export const DISINTEGRATE_CAST_DEBUFF_LINK = 'DisintegrateCastDebuffLink';
 export const DISINTEGRATE_DEBUFF_TICK_LINK = 'DisintegrateDebuffTickLink';
 export const MASS_DISINTEGRATE_CONSUME = 'MassDisintegrateConsume';
+export const MASS_DISINTEGRATE_TICK = 'MassDisintegrateTick';
+export const MASS_DISINTEGRATE_DEBUFF = 'MassDisintegrateDebuff';
 
 export const PYRE_MIN_TRAVEL_TIME = 950;
 export const PYRE_MAX_TRAVEL_TIME = 1_050;
@@ -192,6 +194,36 @@ const EVENT_LINKS: EventLink[] = [
     isActive: (C) => C.hasTalent(TALENTS.MASS_DISINTEGRATE_TALENT),
     maximumLinks: 1,
   },
+  {
+    linkRelation: MASS_DISINTEGRATE_TICK,
+    reverseLinkRelation: MASS_DISINTEGRATE_TICK,
+    linkingEventId: SPELLS.DISINTEGRATE.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.DISINTEGRATE.id,
+    referencedEventType: EventType.Damage,
+    anyTarget: true,
+    forwardBufferMs: 4_000,
+    isActive: (C) => C.hasTalent(TALENTS.MASS_DISINTEGRATE_TALENT),
+    maximumLinks: 10,
+    additionalCondition(linkingEvent, referencedEvent) {
+      return encodeEventTargetString(linkingEvent) !== encodeEventTargetString(referencedEvent);
+    },
+  },
+  {
+    linkRelation: MASS_DISINTEGRATE_DEBUFF,
+    reverseLinkRelation: MASS_DISINTEGRATE_DEBUFF,
+    linkingEventId: SPELLS.DISINTEGRATE.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.DISINTEGRATE.id,
+    referencedEventType: [EventType.ApplyDebuff, EventType.RefreshDebuff],
+    anyTarget: true,
+    forwardBufferMs: CAST_BUFFER_MS,
+    isActive: (C) => C.hasTalent(TALENTS.MASS_DISINTEGRATE_TALENT),
+    maximumLinks: 10,
+    additionalCondition(linkingEvent, referencedEvent) {
+      return encodeEventTargetString(linkingEvent) !== encodeEventTargetString(referencedEvent);
+    },
+  },
 ];
 
 class CastLinkNormalizer extends EventLinkNormalizer {
@@ -271,6 +303,14 @@ export function getDisintegrateDamageEvents(event: CastEvent): DamageEvent[] {
 
 export function isFromMassDisintegrate(event: CastEvent) {
   return HasRelatedEvent(event, MASS_DISINTEGRATE_CONSUME);
+}
+
+export function isMassDisintegrateTick(event: DamageEvent) {
+  return HasRelatedEvent(event, MASS_DISINTEGRATE_TICK);
+}
+
+export function isMassDisintegrateDebuff(event: ApplyDebuffEvent | RefreshDebuffEvent) {
+  return HasRelatedEvent(event, MASS_DISINTEGRATE_DEBUFF);
 }
 
 export default CastLinkNormalizer;
