@@ -44,7 +44,6 @@ class HolyWordCDRBySpell extends Analyzer {
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.handleOnCast);
 
-    //for special energy cycle case
     if (this.selectedCombatant.hasTalent(TALENTS.ENERGY_CYCLE_TALENT)) {
       this.addEventListener(Events.removebuff.by(SELECTED_PLAYER), this.handleEnergyCycle);
       this.addEventListener(Events.removebuffstack.by(SELECTED_PLAYER), this.handleEnergyCycle);
@@ -126,6 +125,10 @@ class HolyWordCDRBySpell extends Analyzer {
     }
   }
 
+  roundVal(num: number) {
+    return Math.round(num * 10) / 10;
+  }
+
   statistic() {
     this.hwContainer = this.hwContainer.filter(Boolean);
     this.hwContainer.sort((a, b) => {
@@ -174,26 +177,26 @@ class HolyWordCDRBySpell extends Analyzer {
                 {Array.from(this.hwContainer.keys()).map((e, i) => (
                   <tr key={Number(i)}>
                     <td className="text-center">
-                      <SpellIcon spell={this.hwContainer[Number(e)].spellNum || 2060} />
+                      <SpellIcon spell={this.hwContainer[Number(e)].spellNum} />
                     </td>
                     <td className="text-center">
-                      <SpellIcon spell={this.hwContainer[Number(e)].affectedSpell || 2060} />
+                      <SpellIcon spell={this.hwContainer[Number(e)].affectedSpell} />
                     </td>
-                    <td>{Math.round(this.hwContainer[e].cdrFromBase * 10) / 10}s</td>
+                    <td>{this.roundVal(this.hwContainer[e].cdrFromBase)}s</td>
                     {this.apotheosisActive && (
-                      <td>{Math.round(this.hwContainer[e].cdrFromApoth * 10) / 10}s</td>
+                      <td>{this.roundVal(this.hwContainer[e].cdrFromApoth)}s</td>
                     )}
                     {this.lightOfTheNaaruActive && (
-                      <td>{Math.round(this.hwContainer[e].cdrFromLOTN * 10) / 10}s</td>
+                      <td>{this.roundVal(this.hwContainer[e].cdrFromLOTN)}s</td>
                     )}
                     {this.voiceOfHarmonyActive && (
-                      <td>{Math.round(this.hwContainer[e].cdrFromVoh * 10) / 10}s</td>
+                      <td>{this.roundVal(this.hwContainer[e].cdrFromVoh)}s</td>
                     )}
                     {this.tierActive && (
-                      <td>{Math.round(this.hwContainer[e].cdrFromTwwTier * 10) / 10}s</td>
+                      <td>{this.roundVal(this.hwContainer[e].cdrFromTwwTier)}s</td>
                     )}
-                    <td>{Math.round(this.hwContainer[Number(e)].totalCDR * 10) / 10}s</td>
-                    <td>{Math.round(this.hwContainer[Number(e)].wastedCdr * 10) / 10}s</td>
+                    <td>{this.roundVal(this.hwContainer[Number(e)].totalCDR)}s</td>
+                    <td>{this.roundVal(this.hwContainer[Number(e)].wastedCdr)}s</td>
                   </tr>
                 ))}
               </tbody>

@@ -221,8 +221,6 @@ export const HOLY_ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   SPELLS.ECHO_OF_LIGHT_HEAL,
 ];
 
-// legacy list for some modules
-// legacy list for some modules
 export const ABILITIES_THAT_TRIGGER_MASTERY = [
   SPELLS.DIVINE_HYMN_HEAL.id,
   SPELLS.GREATER_HEAL.id,

@@ -61,24 +61,7 @@ class HolyWordCDR extends Analyzer {
     this.baseHolyWordCDR = this.lotnMult * this.twwS1TierMult;
   }
 
-  // example of single holy word wrapper
-
-  /**
-  public handleSerenityCDR(event: CastEvent): hwCDRBreakdown | undefined {
-    //filter
-    if (!serenityHWCDR.has(event.ability.guid)) {
-      return;
-    }
-    return this.handleCDR(
-      event,
-      serenityHWCDR.get(event.ability.guid),
-      TALENTS.HOLY_WORD_SERENITY_TALENT.id,
-    );
-  }
-    */
-
   public handleAny(event: CastEvent, specialEvent?: string): hwCDRBreakdown | undefined {
-    //filter
     if (specialEvent === 'ENERGY_CYCLE') {
       return this.handleCDR(
         event,

@@ -8,6 +8,8 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { HOLY_WORD_LIST } from '../../../constants';
 import SpellManaCost from 'parser/shared/modules/SpellManaCost';
+import PRIEST_TALENTS from 'common/TALENTS/priest';
+import SpellLink from 'interface/SpellLink';
 
 // Example Log: /report/NfFqTvxrQ8GLWDpY/12-Normal+Fetid+Devourer+-+Kill+(1:25)/6-Yrret
 class Apotheosis extends Analyzer {
@@ -53,10 +55,13 @@ class Apotheosis extends Analyzer {
             For Holy Word CDR see the Holy Word module at the top.
             <br />
             <br />
-            This includes Answered Prayers. <br />
-            Serenity: {this.manaSavedFromSerenity} Mana saved <br />
-            Sanctify: {this.manaSavedFromSanctify} Mana saved <br />
-            Chastise: {this.manaSavedFromChastise} Mana saved
+            This includes <SpellLink spell={PRIEST_TALENTS.ANSWERED_PRAYERS_TALENT} />. <br />
+            <SpellLink spell={PRIEST_TALENTS.HOLY_WORD_SERENITY_TALENT} />:{' '}
+            {this.manaSavedFromSerenity} Mana saved <br />
+            <SpellLink spell={PRIEST_TALENTS.HOLY_WORD_SANCTIFY_TALENT} />:{' '}
+            {this.manaSavedFromSanctify} Mana saved <br />
+            <SpellLink spell={PRIEST_TALENTS.HOLY_WORD_CHASTISE_TALENT} />:{' '}
+            {this.manaSavedFromChastise} Mana saved
           </>
         }
         size="flexible"
