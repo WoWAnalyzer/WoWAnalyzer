@@ -6,7 +6,7 @@ import ShatteringStar from './modules/abilities/ShatteringStar';
 import ShatteringStarGuide from './modules/abilities/ShatterStarGuide';
 import Buffs from './modules/Buffs';
 import Guide from './Guide';
-import AplCheck from './modules/AplCheck/AplCheck';
+//import AplCheck from './modules/AplCheck/AplCheck';
 import Disintegrate from './modules/abilities/Disintegrate';
 import EssenceBurst from './modules/abilities/EssenceBurst';
 import Burnout from './modules/abilities/Burnout';
@@ -14,7 +14,6 @@ import DragonRage from './modules/abilities/DragonRage';
 import CastLinkNormalizer from './modules/normalizers/CastLinkNormalizer';
 import EssenceBurstNormalizer from './modules/normalizers/EssenceBurstNormalizer';
 import Snapfire from './modules/abilities/Snapfire';
-import T30DevaTier from './modules/dragonflight/tier/T30DevaTier';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import Catalyze from './modules/talents/Catalyze';
 import Scintillation from './modules/talents/Scintillation';
@@ -29,7 +28,6 @@ import EyeOfInfinity from './modules/talents/EyeOfInfinity';
 import EngulfingBlaze from './modules/talents/EngulfingBlaze';
 import LayWaste from './modules/talents/LayWaste';
 import Iridescence from './modules/talents/Iridescence';
-import T31DevaTier from './modules/dragonflight/tier/T31DevaTier';
 import Pyre from './modules/abilities/Pyre';
 import EternitySurgeNormalizer from './modules/normalizers/EternitySurgeNormalizer';
 import ScorchingEmbers from './modules/talents/ScorchingEmbers';
@@ -109,7 +107,7 @@ class CombatLogParser extends MainCombatLogParser {
     eternitySurgeNormalizer: EternitySurgeNormalizer,
 
     // features
-    apls: AplCheck,
+    //apls: AplCheck,
     cooldownThroughputTracker: CooldownThroughputTracker,
     alwaysBeCasting: AlwaysBeCasting,
     cancelledCasts: CancelledCasts,
@@ -155,8 +153,6 @@ class CombatLogParser extends MainCombatLogParser {
     pyre: Pyre,
 
     // tier
-    T30devaTier: T30DevaTier,
-    T31devaTier: T31DevaTier,
   };
 
   static guide = Guide;
