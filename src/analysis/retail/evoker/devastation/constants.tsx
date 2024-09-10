@@ -35,7 +35,3 @@ export const VOLATILITY_PROC_CHANCE = 0.15;
 
 export const CAUSALITY_DISINTEGRATE_CDR_MS = 500;
 export const CAUSALITY_PYRE_CDR_MS = 400;
-
-// Tier
-export const DEVA_T31_2PC_MULTIPLER = 0.05;
-export const BLAZING_SHARDS_DURATION = 5;
