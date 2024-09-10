@@ -6,10 +6,6 @@ import SPELLS from 'common/SPELLS';
 
 import PassFailBar from 'interface/guide/components/PassFailBar';
 import { ExplanationAndDataSubSection } from 'interface/guide/components/ExplanationRow';
-import { PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
-import DonutChart from 'parser/ui/DonutChart';
-import { RoundedPanel } from 'interface/guide/components/GuideDivs';
-import { TIERS } from 'game/TIERS';
 
 const EXPLANATION_PERCENTAGE = 70;
 function PassFail({
@@ -40,7 +36,6 @@ export function DamageEfficiency(props: GuideProps<typeof CombatLogParser>) {
       <DisintegrateSubsection {...props} />
       <NoWastedProcsSubsection {...props} />
       {props.modules.shatteringStarGuide.guideSubsection()}
-      <BlazeShardsSubsection {...props} />
     </Section>
   );
 }
@@ -216,47 +211,6 @@ function NoWastedProcsSubsection({ modules, info }: GuideProps<typeof CombatLogP
           }
         />
       )}
-    </SubSection>
-  );
-}
-
-function BlazeShardsSubsection({ modules, info }: GuideProps<typeof CombatLogParser>) {
-  if (!info.combatant.has4PieceByTier(TIERS.DF2) && !info.combatant.has4PieceByTier(TIERS.DF4)) {
-    return null;
-  }
-
-  return (
-    <SubSection title="Blazing Shards">
-      <p>
-        <SpellLink spell={SPELLS.BLAZING_SHARDS} /> is a buff you gain from using{' '}
-        <SpellLink spell={SPELLS.ETERNITY_SURGE} /> or <SpellLink spell={SPELLS.FIRE_BREATH} />.
-        <SpellLink spell={SPELLS.BLAZING_SHARDS} /> gives your{' '}
-        <SpellLink spell={SPELLS.OBSIDIAN_SHARDS} /> DoT a 200% damage amp. This buff is fully
-        active during <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT} />.{' '}
-        <SpellLink spell={SPELLS.BLAZING_SHARDS} /> isn't extended when you cast your empowers back
-        to back, it instead gets overridden. It is therefore important to stagger out your empowers
-        to maximize uptime of <SpellLink spell={SPELLS.BLAZING_SHARDS} />.
-      </p>
-      <p>
-        Total uptime lost is: <strong>{modules.T30devaTier.lostUptime.toFixed(2)}s</strong>.
-      </p>
-      <ExplanationAndDataSubSection
-        explanationPercent={EXPLANATION_PERCENTAGE}
-        explanation={
-          <RoundedPanel>
-            <strong>Buff breakdown</strong>
-            <small> Try not to override Blazing Shards!</small>
-
-            <PerformanceBoxRow values={modules.T30devaTier.windowEntries} />
-          </RoundedPanel>
-        }
-        data={
-          <div>
-            <strong>Summary</strong>
-            <DonutChart items={modules.T30devaTier.donutItems} />
-          </div>
-        }
-      />
     </SubSection>
   );
 }
