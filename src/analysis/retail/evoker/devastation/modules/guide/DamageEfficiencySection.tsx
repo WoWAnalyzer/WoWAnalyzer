@@ -80,8 +80,8 @@ function DisintegrateSubsection({ modules, info }: GuideProps<typeof CombatLogPa
               <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT} />
             </p>
             <p>
-              With T31 it is expected to drop some extra ticks here due to the excessive amount of
-              resources you have available. But you should still aim to to drop as few as possible.
+              Currently it is optimal to always clip ticks, even outside of{' '}
+              <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT} />
             </p>
           </div>
         }
@@ -89,7 +89,7 @@ function DisintegrateSubsection({ modules, info }: GuideProps<typeof CombatLogPa
           <PassFail
             value={tickData.regularTicks}
             total={tickData.totalPossibleRegularTicks}
-            passed={tickData.regularTickRatio > 0.95}
+            passed={tickData.regularTickRatio > 0.8}
           />
         }
       />
