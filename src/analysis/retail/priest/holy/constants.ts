@@ -312,7 +312,7 @@ export const sanctifyHWCDR = new Map<number, baseHolyWordCDR>([
 ]);
 
 export const chastiseHWCDR = new Map<number, baseHolyWordCDR>([
-  [SPELLS.SMITE.id, { baseCDR: 6 }],
+  [SPELLS.SMITE.id, { baseCDR: 4 }],
   [SPELLS.HOLY_FIRE.id, { baseCDR: 4, vohDependent: true }],
   [TALENTS.HOLY_NOVA_TALENT.id, { baseCDR: 4, vohDependent: true }],
 ]);
