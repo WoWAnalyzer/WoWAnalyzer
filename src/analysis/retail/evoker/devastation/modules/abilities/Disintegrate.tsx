@@ -19,9 +19,16 @@ import ExplanationGraph, {
   generateGraphData,
 } from 'analysis/retail/evoker/shared/modules/components/ExplanationGraph';
 import { SpellLink } from 'interface';
-import { DISINTEGRATE_REMOVE_APPLY } from '../normalizers/CastLinkNormalizer';
+import {
+  DISINTEGRATE_REMOVE_APPLY,
+  getDisintegrateTargetCount,
+  isFromMassDisintegrate,
+  isMassDisintegrateDebuff,
+  isMassDisintegrateTick,
+} from '../normalizers/CastLinkNormalizer';
 import { isMythicPlus } from 'common/isMythicPlus';
 import { InformationIcon } from 'interface/icons';
+import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
 
 const { DISINTEGRATE } = SPELLS;
 
@@ -56,6 +63,11 @@ class Disintegrate extends Analyzer {
   dragonRageTicks: number = 0;
   dragonRageCasts: number = 0;
   inDragonRageWindow: boolean = false;
+
+  totalMassDisintegrateHits = 0;
+  totalMassDisintegrateTicks = 0;
+
+  currentMainTarget = '';
 
   /** Variables used for graph */
   currentRemainingTicks: number = 0;
@@ -137,6 +149,8 @@ class Disintegrate extends Analyzer {
     });
 
     this.addEventListener(Events.fightend, () => {
+      /* console.log(this.totalMassDisintegrateHits);
+      console.log(this.totalMassDisintegrateTicks); */
       this.pushToGraphData();
     });
   }
@@ -160,6 +174,11 @@ class Disintegrate extends Analyzer {
   }
 
   onDamage(event: DamageEvent) {
+    if (isMassDisintegrateTick(event)) {
+      this.totalMassDisintegrateTicks += 1;
+      return;
+    }
+
     this.totalTicks += 1;
     if (this.inDragonRageWindow) {
       this.dragonRageTicks += 1;
@@ -178,7 +197,11 @@ class Disintegrate extends Analyzer {
     });
   }
 
-  onCast() {
+  onCast(event: CastEvent) {
+    if (isFromMassDisintegrate(event)) {
+      this.totalMassDisintegrateHits += getDisintegrateTargetCount(event) - 1;
+    }
+
     this.totalCasts += 1;
     if (this.inDragonRageWindow) {
       this.dragonRageCasts += 1;
@@ -203,11 +226,18 @@ class Disintegrate extends Analyzer {
   }
 
   onApplyDebuff(event: ApplyDebuffEvent) {
+    if (isMassDisintegrateDebuff(event)) {
+      return;
+    }
+
     // This is actually a refresh event
     if (HasRelatedEvent(event, DISINTEGRATE_REMOVE_APPLY)) {
       this.onRefreshDebuff(event);
       return;
     }
+
+    this.currentMainTarget = encodeEventTargetString(event);
+
     this.currentRemainingTicks = TICKS_PER_DISINTEGRATE;
     this.isCurrentCastChained = false;
     this.disintegrateClipSpell = undefined;
@@ -226,6 +256,9 @@ class Disintegrate extends Analyzer {
   }
 
   onRefreshDebuff(event: RefreshDebuffEvent | ApplyDebuffEvent) {
+    if (isMassDisintegrateDebuff(event)) {
+      return;
+    }
     // Clipped before GCD, very bad
     if (this.currentRemainingTicks >= (this.isCurrentCastChained ? 3 : 2)) {
       this.problemPoints.push({
@@ -277,6 +310,11 @@ class Disintegrate extends Analyzer {
     if (HasRelatedEvent(event, DISINTEGRATE_REMOVE_APPLY)) {
       return;
     }
+
+    if (this.currentMainTarget !== encodeEventTargetString(event)) {
+      return;
+    }
+
     /**
      * Here we wanna check if we clipped the Disintegrate to cast a higher
      * prio spell, this is currently optimal gameplay during Dragonrage
