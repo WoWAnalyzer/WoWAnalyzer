@@ -17,7 +17,7 @@ import {
 import { Options } from 'parser/core/Module';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS/priest';
-import { INSIGHT_CDR_ABILITIES } from '../modules/talents/Oracle/OracleValues';
+import { INSIGHT_CDR_ABILITIES } from '../constants';
 
 const CAST_BUFFER_MS = 200;
 
@@ -30,10 +30,13 @@ const SANCTIFY_CAST = 'HolyWordSanctifyCast';
 const SALVATION_CAST = 'HolyWordSalvationCast';
 const CHASTISE_CAST = 'HolyWordChastiseCast';
 export const BUFFED_BY_SURGE_OF_LIGHT = 'BuffedBySurgeOfLight';
+export const BUFFED_BY_SURGE_OF_LIGHT_CAST = 'BuffedBySurgeOfLightCast';
 const SURGE_OF_LIGHT_APPLIED_BY_HALO = 'SurgeOfLightAppliedByHalo';
 const HALO_LINKED_TO_SURGE_OF_LIGHT = 'HaloLinkedtoSurgeOfLight';
 const SPELL_SPENDS_INSIGHT_CHARGE = 'SpellSpendsInsightCharge';
 const GET_SPELL_CAST_FROM_INSIGHT_CHARGE = 'GetSpellCastFromInsightCharge';
+export const ECHO_OF_LIGHT_BUFF_REFRESH = 'EchOfLightRefresh';
+export const ECHO_OF_LIGHT_ATTRIB_EVENT = 'GetEchoOfLight';
 export const HARDCAST_POWER_WORD_SHIELD = 'HardCastPowerWordShield';
 export const POWER_WORD_SHIELD_ABSORB = 'PowerWordShieldAbsorb';
 export const LIGHTWELL_RENEW_HEALS = 'LightwellRenewHeal';
@@ -241,7 +244,15 @@ const EVENT_LINKS: EventLink[] = [
       return !HasRelatedEvent(linkingEvent, HARDCAST_POWER_WORD_SHIELD);
     },
   },
-
+  {
+    linkRelation: ECHO_OF_LIGHT_ATTRIB_EVENT,
+    linkingEventId: null,
+    linkingEventType: [EventType.Heal],
+    referencedEventId: SPELLS.ECHO_OF_LIGHT_HEAL.id,
+    referencedEventType: EventType.Heal,
+    forwardBufferMs: 6000,
+    anyTarget: false,
+  },
   {
     linkRelation: BENEDICTION_RENEW_HEALS,
     reverseLinkRelation: BENEDICTION_RENEW_HEALS,
@@ -263,6 +274,17 @@ const EVENT_LINKS: EventLink[] = [
     reverseLinkRelation: BUFFED_BY_SURGE_OF_LIGHT,
     linkingEventId: SPELLS.FLASH_HEAL.id,
     linkingEventType: EventType.Heal,
+    referencedEventId: [SPELLS.SURGE_OF_LIGHT_BUFF.id],
+    referencedEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack, EventType.RefreshBuff],
+    anyTarget: true,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    linkRelation: BUFFED_BY_SURGE_OF_LIGHT_CAST,
+    reverseLinkRelation: BUFFED_BY_SURGE_OF_LIGHT_CAST,
+    linkingEventId: SPELLS.FLASH_HEAL.id,
+    linkingEventType: EventType.Cast,
     referencedEventId: [SPELLS.SURGE_OF_LIGHT_BUFF.id],
     referencedEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack, EventType.RefreshBuff],
     anyTarget: true,
@@ -375,6 +397,16 @@ export function isRenewFromSalv(event: ApplyBuffEvent | RefreshBuffEvent): boole
 
 export function isPWSHardCast(event: AbsorbedEvent): boolean {
   return HasRelatedEvent(event, HARDCAST_POWER_WORD_SHIELD);
+}
+
+export function getSOLFlashCast(
+  event: RemoveBuffEvent | RemoveBuffStackEvent,
+): CastEvent | undefined {
+  return GetRelatedEvents<CastEvent>(
+    event,
+    BUFFED_BY_SURGE_OF_LIGHT_CAST,
+    (e): e is CastEvent => e.type === EventType.Cast,
+  ).pop();
 }
 
 export default CastLinkNormalizer;

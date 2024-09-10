@@ -8,10 +8,7 @@ import {
   SALVATION_RENEW,
   REVIT_PRAYER_RENEW,
 } from '../../../../normalizers/CastLinkNormalizer';
-
-const BASE_RENEW_DURATION = 15;
-//not sure what the max is, df s3 tier could extend it to like 2min
-const MAX_RENEW_DURATION = 50;
+import { BASE_RENEW_DURATION, MAX_RENEW_DURATION } from 'analysis/retail/priest/holy/constants';
 
 class RenewTracker extends HotTracker {
   static dependencies = {

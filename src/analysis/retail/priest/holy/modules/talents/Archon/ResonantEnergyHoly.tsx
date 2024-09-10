@@ -12,7 +12,7 @@ import SPELLS from 'common/SPELLS';
 import Events, { HealEvent } from 'parser/core/Events';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import { HOLY_ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../../constants';
-import { RESONANT_ENERGY_AMP_PER_STACK } from './ArchonValues';
+import { RESONANT_ENERGY_AMP_PER_STACK } from '../../../constants';
 
 class ResonantEnergyHoly extends Analyzer {
   static dependencies = {

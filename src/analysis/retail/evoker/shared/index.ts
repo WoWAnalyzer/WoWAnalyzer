@@ -27,4 +27,5 @@ export { default as ExtendedBattle } from './modules/talents/hero/scalecommander
 export { default as DivertedPower } from './modules/talents/hero/scalecommander/DivertedPower';
 export { default as UnrelentingSiege } from './modules/talents/hero/scalecommander/UnrelentingSiege';
 export { default as Wingleader } from './modules/talents/hero/scalecommander/Wingleader';
+export { default as Slipstream } from './modules/talents/hero/scalecommander/Slipstream';
 export * from './constants';

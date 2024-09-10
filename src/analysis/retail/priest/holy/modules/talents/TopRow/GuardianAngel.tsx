@@ -6,9 +6,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-
-const GS_BASE_COOLDOWN_TIME = 60 * 3 * 1000;
-const GS_MODIFIED_COOLDOWN_TIME = (60 + 10) * 1000; // one minute plus 10 seconds to account for the duration of the buff.
+import { GS_BASE_COOLDOWN_TIME, GS_MODIFIED_COOLDOWN_TIME } from '../../../constants';
 
 // Example Log: /report/mFarpncVW9ALwTq4/7-Mythic+Zek'voz+-+Kill+(8:52)/14-Praydien
 class GuardianAngel extends Analyzer {

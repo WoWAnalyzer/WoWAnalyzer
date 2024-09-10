@@ -6,9 +6,7 @@ import ItemManaGained from 'parser/ui/ItemManaGained';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-
-const MAX_MANA = 250000;
-const BASE_MANA_REGEN = 0.04;
+import { ENLIGHT_BASE_MANA_REGEN, ENLIGHT_MAX_MANA } from '../../../constants';
 
 // Example Log: /report/PNYB4zgrnR86h7Lc/6-Normal+Zek'voz,+Herald+of+N'zoth/Khadaj
 class Enlightenment extends Analyzer {
@@ -23,7 +21,7 @@ class Enlightenment extends Analyzer {
   }
 
   get enlightenmentMana() {
-    const normalManaRegen = MAX_MANA * BASE_MANA_REGEN;
+    const normalManaRegen = ENLIGHT_MAX_MANA * ENLIGHT_BASE_MANA_REGEN;
     const enlightenmentRegen = normalManaRegen * 0.1;
     // Convert from MS to S and from 1 second to 5.
     const totalEnlightenmentManaBack =

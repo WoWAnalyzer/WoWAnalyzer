@@ -7,27 +7,22 @@ class Abilities extends CoreAbilities {
     return [
       // Rotational
       {
-        spell: [SPELLS.MUTILATE.id, ...SPELLS.MUTILATE.lowRanks],
+        spell: SPELLS.MUTILATE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1000 },
       },
       {
-        spell: [SPELLS.SLICE_AND_DICE.id, ...SPELLS.SLICE_AND_DICE.lowRanks],
+        spell: SPELLS.SLICE_AND_DICE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1000 },
       },
       {
-        spell: [SPELLS.HUNGER_FOR_BLOOD.id],
+        spell: SPELLS.ENVENOM.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1000 },
       },
       {
-        spell: [SPELLS.ENVENOM.id, ...SPELLS.ENVENOM.lowRanks],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { base: 1000 },
-      },
-      {
-        spell: [SPELLS.RUPTURE.id, ...SPELLS.RUPTURE.lowRanks],
+        spell: SPELLS.RUPTURE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1000 },
       },
@@ -58,17 +53,17 @@ class Abilities extends CoreAbilities {
       },
       // Defensive
       {
-        spell: [SPELLS.FEINT.id, ...SPELLS.FEINT.lowRanks],
+        spell: SPELLS.FEINT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         gcd: { base: 1000 },
       },
       {
-        spell: [SPELLS.EVASION.id, ...SPELLS.EVASION.lowRanks],
+        spell: SPELLS.EVASION.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         gcd: null,
       },
       {
-        spell: [SPELLS.VANISH.id, ...SPELLS.VANISH.lowRanks],
+        spell: SPELLS.VANISH.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         gcd: null,
       },
@@ -79,7 +74,7 @@ class Abilities extends CoreAbilities {
       },
       // Other spells (not apart of the normal rotation)
       {
-        spell: [SPELLS.EVISCERATE.id, ...SPELLS.EVISCERATE.lowRanks],
+        spell: SPELLS.EVISCERATE.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: { base: 1000 },
       },
@@ -95,12 +90,12 @@ class Abilities extends CoreAbilities {
         gcd: null,
       },
       {
-        spell: [SPELLS.KIDNEY_SHOT.id, ...SPELLS.KIDNEY_SHOT.lowRanks],
+        spell: SPELLS.KIDNEY_SHOT.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1000 },
       },
       {
-        spell: [SPELLS.SPRINT.id, ...SPELLS.SPRINT.lowRanks],
+        spell: SPELLS.SPRINT.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: null,
       },

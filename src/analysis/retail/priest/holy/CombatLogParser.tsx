@@ -9,8 +9,6 @@ import Abilities from './modules/Abilities';
 import Checklist from './modules/checklist/Module';
 import EchoOfLightMastery from './modules/core/EchoOfLightMastery';
 import FortitudeRaidBuff from './modules/core/FortitudeRaidBuff';
-import HolyWordsReductionBySpell from './modules/core/HolyWordsReductionBySpell';
-import HolyWordWastedAmounts from './modules/core/HolyWordWastedAmounts';
 import SpellManaCost from './modules/core/SpellManaCost';
 // Spell data
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -24,18 +22,11 @@ import CircleOfHealing from './modules/spells/CircleOfHealing';
 import DivineHymn from './modules/spells/DivineHymn';
 import GuardianSpirit from './modules/spells/GuardianSpirit';
 import HolyNova from './modules/spells/HolyNova';
-import HolyWordChastise from './modules/spells/holyword/HolyWordChastise';
-import HolyWordSalvationCooldown from './modules/spells/holyword/HolyWordSalvation';
-import HolyWordSanctify from './modules/spells/holyword/HolyWordSanctify';
-import HolyWordSerenity from './modules/spells/holyword/HolyWordSerenity';
 import HymnBuffBenefit from './modules/spells/HymnBuffBenefit';
 import PrayerOfMending from './modules/spells/PrayerOfMending';
 import Renew from './modules/spells/Renew';
 import SpiritOfRedemption from './modules/spells/SpiritOfRedemption';
 import Talents from './modules/talents';
-import T29TwoSet from './modules/dragonflight/tier/tier29/Tier29HolyPriest2Set';
-import T29FourSet from './modules/dragonflight/tier/tier29/Tier29HolyPriest4Set';
-import T30FourSet from './modules/dragonflight/tier/tier30/Tier30HolyPriest4Set';
 import ProtectiveLight from '../shared/ProtectiveLight';
 import PrayerOfHealing from './modules/spells/PrayerOfHealing';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
@@ -43,6 +34,9 @@ import Guide from './Guide';
 import Benevolence from '../shared/Benevolence';
 import RenewTracker from './modules/talents/Oracle/OracleCore/RenewTracker';
 import RenewAttributor from './modules/talents/Oracle/OracleCore/RenewAttributor';
+import EOLAttrib from './modules/core/EchoOfLightAttributor';
+import HolyWordCDRBySpell from './modules/core/HolyWordCDRBySpell';
+import HolyWordCDR from './modules/core/HolyWordCDR';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -69,20 +63,17 @@ class CombatLogParser extends CoreCombatLogParser {
     // Core
     echoOfLightMastery: EchoOfLightMastery,
     fortitudeRaidBuff: FortitudeRaidBuff,
-    holyWordsReductionBySpell: HolyWordsReductionBySpell,
-    holyWordWastedAmounts: HolyWordWastedAmounts,
     renewTracker: RenewTracker,
     renewAttributor: RenewAttributor,
+    eolAttrib: EOLAttrib,
+    holyWordCDRBySpell: HolyWordCDRBySpell,
+    holyWordCDR: HolyWordCDR,
 
     // Spells
     divineHymn: DivineHymn,
     guardianSpirit: GuardianSpirit,
     holyNova: HolyNova,
     hymnBuffBenefit: HymnBuffBenefit,
-    holyWordSanctify: HolyWordSanctify,
-    holyWordSerenity: HolyWordSerenity,
-    holyWordChastise: HolyWordChastise,
-    holyWordSalvation: HolyWordSalvationCooldown,
 
     circleOfHealing: CircleOfHealing,
     prayerOfHealing: PrayerOfHealing,
@@ -92,9 +83,6 @@ class CombatLogParser extends CoreCombatLogParser {
     renew: Renew,
     prayerOfMending: PrayerOfMending,
 
-    T29TwoSet: T29TwoSet,
-    T29FourSet: T29FourSet,
-    T30FourSet: T30FourSet,
     // Talents
     Enlightenment: Talents.MiddleRow.Enlightenment,
     TrailOfLight: Talents.MiddleRow.TrailOfLight,
@@ -132,8 +120,6 @@ class CombatLogParser extends CoreCombatLogParser {
     Lightweaver: Talents.BottomRow.Lightweaver,
 
     divineImage: Talents.BottomRow.DivineImage,
-    lightOfTheNaaru: Talents.BottomRow.LightOfTheNaaru,
-    harmoniousApparatus: Talents.BottomRow.HarmoniousApparatus,
     resonantWords: Talents.BottomRow.ResonantWords,
     TranslucentImage: TranslucentImage,
     miracleWorker: Talents.BottomRow.MiracleWorker,
@@ -146,7 +132,6 @@ class CombatLogParser extends CoreCombatLogParser {
     ResonantEnergyHoly: Talents.Archon.ResonantEnergyHoly,
     ManifestedPowerHoly: Talents.Archon.ManifestedPowerHoly,
     EmpoweredSurgesHoly: Talents.Archon.EmpoweredSurgesHoly,
-    EnergyCycleHoly: Talents.Archon.EnergyCycleHoly,
     EnergyCompressionHoly: Talents.Archon.EnergyCompressionHoly,
     PowerSurgeAndDivineHaloHoly: Talents.Archon.PowerSurgeAndDivineHaloHoly,
 

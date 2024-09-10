@@ -1,49 +1,50 @@
-import HolyWordChastise from 'analysis/retail/priest/holy/modules/spells/holyword/HolyWordChastise';
-import HolyWordSanctify from 'analysis/retail/priest/holy/modules/spells/holyword/HolyWordSanctify';
-import HolyWordSerenity from 'analysis/retail/priest/holy/modules/spells/holyword/HolyWordSerenity';
-import { formatNumber } from 'common/format';
 import TALENTS from 'common/TALENTS/priest';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { CastEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemManaGained from 'parser/ui/ItemManaGained';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { HOLY_WORD_LIST } from '../../../constants';
+import SpellManaCost from 'parser/shared/modules/SpellManaCost';
+import PRIEST_TALENTS from 'common/TALENTS/priest';
+import SpellLink from 'interface/SpellLink';
 
 // Example Log: /report/NfFqTvxrQ8GLWDpY/12-Normal+Fetid+Devourer+-+Kill+(1:25)/6-Yrret
 class Apotheosis extends Analyzer {
   static dependencies = {
-    sanctify: HolyWordSanctify,
-    serenity: HolyWordSerenity,
-    chastise: HolyWordChastise,
+    spellManaCost: SpellManaCost,
   };
+  protected spellManaCost!: SpellManaCost;
   apotheosisCasts = 0;
   apotheosisActive = false;
-  protected sanctify!: HolyWordSanctify;
-  protected serenity!: HolyWordSerenity;
-  protected chastise!: HolyWordChastise;
+  manaSavedFromSerenity = 0;
+  manaSavedFromSanctify = 0;
+  manaSavedFromChastise = 0;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.APOTHEOSIS_TALENT);
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.APOTHEOSIS_TALENT),
-      this.onApplyBuff,
-    );
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.APOTHEOSIS_TALENT),
-      this.onRemoveBuff,
-    );
+    this.active =
+      this.selectedCombatant.hasTalent(TALENTS.APOTHEOSIS_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS.ANSWERED_PRAYERS_TALENT);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(HOLY_WORD_LIST), this.handleCast);
   }
 
-  onApplyBuff(event: ApplyBuffEvent) {
-    this.apotheosisCasts += 1;
-    this.apotheosisActive = true;
+  handleCast(event: CastEvent) {
+    if (this.selectedCombatant.hasBuff(TALENTS.APOTHEOSIS_TALENT)) {
+      if (event.ability.guid === TALENTS.HOLY_WORD_SERENITY_TALENT.id) {
+        this.manaSavedFromSerenity += this.spellManaCost.getRawResourceCost(event);
+      } else if (event.ability.guid === TALENTS.HOLY_WORD_SANCTIFY_TALENT.id) {
+        this.manaSavedFromSanctify += this.spellManaCost.getRawResourceCost(event);
+      } else if (event.ability.guid === TALENTS.HOLY_WORD_CHASTISE_TALENT.id) {
+        this.manaSavedFromChastise += this.spellManaCost.getRawResourceCost(event);
+      }
+    }
   }
 
-  onRemoveBuff(event: RemoveBuffEvent) {
-    this.apotheosisActive = false;
+  get totalManaSaved() {
+    return this.manaSavedFromChastise + this.manaSavedFromSanctify + this.manaSavedFromSerenity;
   }
 
   statistic() {
@@ -51,12 +52,16 @@ class Apotheosis extends Analyzer {
       <Statistic
         tooltip={
           <>
-            Serenity: {this.sanctify.apotheosisCooldownReduction / 1000}s CDR |{' '}
-            {this.sanctify.apotheosisManaReduction} Mana saved <br />
-            Sanctify: {this.serenity.apotheosisCooldownReduction / 1000}s CDR |{' '}
-            {this.serenity.apotheosisManaReduction} Mana saved <br />
-            Chastise: {this.chastise.apotheosisCooldownReduction / 1000}s CDR |{' '}
-            {this.chastise.apotheosisManaReduction} Mana saved
+            For Holy Word CDR see the Holy Word module at the top.
+            <br />
+            <br />
+            This includes <SpellLink spell={PRIEST_TALENTS.ANSWERED_PRAYERS_TALENT} />. <br />
+            <SpellLink spell={PRIEST_TALENTS.HOLY_WORD_SERENITY_TALENT} />:{' '}
+            {this.manaSavedFromSerenity} Mana saved <br />
+            <SpellLink spell={PRIEST_TALENTS.HOLY_WORD_SANCTIFY_TALENT} />:{' '}
+            {this.manaSavedFromSanctify} Mana saved <br />
+            <SpellLink spell={PRIEST_TALENTS.HOLY_WORD_CHASTISE_TALENT} />:{' '}
+            {this.manaSavedFromChastise} Mana saved
           </>
         }
         size="flexible"
@@ -65,21 +70,7 @@ class Apotheosis extends Analyzer {
       >
         <BoringSpellValueText spell={TALENTS.APOTHEOSIS_TALENT}>
           <>
-            <ItemManaGained
-              amount={
-                this.sanctify.apotheosisManaReduction +
-                this.serenity.apotheosisManaReduction +
-                this.chastise.apotheosisManaReduction
-              }
-            />
-            <br />
-            {formatNumber(
-              (this.sanctify.apotheosisCooldownReduction +
-                this.serenity.apotheosisCooldownReduction +
-                this.chastise.apotheosisCooldownReduction) /
-                1000,
-            )}
-            s Cooldown Reduction
+            <ItemManaGained amount={this.totalManaSaved} />
           </>
         </BoringSpellValueText>
       </Statistic>

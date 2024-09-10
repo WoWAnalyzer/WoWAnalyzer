@@ -9,7 +9,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import { PROPHETS_WILL_AMP, PROPHETS_WILL_SPELLS_HOLY } from './OracleValues';
+import { PROPHETS_WILL_AMP, PROPHETS_WILL_SPELLS_HOLY } from '../../../constants';
 
 class ProphetsWillHoly extends Analyzer {
   static dependencies = {

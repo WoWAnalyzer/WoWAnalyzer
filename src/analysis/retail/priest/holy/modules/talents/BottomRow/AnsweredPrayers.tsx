@@ -6,8 +6,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { SpellLink } from 'interface';
-
-const HEALS_PER_TRIGGER_BY_RANK = [0, 100, 50];
+import { AP_HEALS_PER_TRIGGER_BY_RANK } from '../../../constants';
 
 //Example log: /report/cCKp6qfAM8FZgxHL/2-Heroic+Broodkeeper+Diurna+-+Wipe+2+(1:34)/Mayceia/standard/statistics
 class AnsweredPrayers extends Analyzer {
@@ -18,7 +17,7 @@ class AnsweredPrayers extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.ANSWERED_PRAYERS_TALENT);
     this.healsPerApotheosis =
-      HEALS_PER_TRIGGER_BY_RANK[
+      AP_HEALS_PER_TRIGGER_BY_RANK[
         this.selectedCombatant.getTalentRank(TALENTS.ANSWERED_PRAYERS_TALENT)
       ];
     this.addEventListener(

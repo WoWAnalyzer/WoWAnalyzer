@@ -13,7 +13,7 @@ import { calculateEffectiveDamage, calculateEffectiveHealing } from 'parser/core
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'interface/SpellLink';
 import PRIEST_TALENTS from 'common/TALENTS/priest';
-import { ENERGY_COMPRESSION_AMP } from './ArchonValues';
+import { ENERGY_COMPRESSION_AMP } from '../../../constants';
 
 class EnergyCompressionHoly extends Analyzer {
   static dependencies = {

@@ -64,6 +64,7 @@ import {
   DivertedPower,
   UnrelentingSiege,
   Wingleader,
+  Slipstream,
 } from 'analysis/retail/evoker/shared';
 
 class CombatLogParser extends MainCombatLogParser {
@@ -132,6 +133,7 @@ class CombatLogParser extends MainCombatLogParser {
     divertedPower: DivertedPower,
     unrelentingSiege: UnrelentingSiege,
     wingLeader: Wingleader,
+    slipstream: Slipstream,
 
     // Features
     buffTrackerGraph: BuffTrackerGraph,

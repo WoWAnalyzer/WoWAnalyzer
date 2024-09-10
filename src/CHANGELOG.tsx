@@ -35,7 +35,10 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 9, 9), 'Fix character search showing UNKNOWN instead of THE WAR WITHIN.', ToppleTheNun),
+  change(date(2024, 9, 8), "Add Nerub'ar Palace bosses and season 1 M+ dungeons.", ToppleTheNun),
   change(date(2024, 9, 6), "Add missing supportID property to DamageEvent interface", Vollmer),
+  change(date(2024, 9, 5), 'Update Rogue spells for Classic Cataclysm', jazminite),
   change(date(2024, 9, 4), 'Updates to Active Time calculation to avoid cases where overcount could occur.', Sref),
   change(date(2024, 9, 3), "Fixed a bug where the Death Recap wouldn't detect some defensive buffs", Sref),
   change(date(2024, 9, 3), 'Remove AbilitiesMissing module.', ToppleTheNun),
