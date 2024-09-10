@@ -64,7 +64,7 @@ class Disintegrate extends Analyzer {
   dragonRageCasts: number = 0;
   inDragonRageWindow: boolean = false;
 
-  totalMassDisintegrateHits = 0;
+  totalMassDisintegrateTargets = 0;
   totalMassDisintegrateTicks = 0;
 
   currentMainTarget = '';
@@ -150,7 +150,7 @@ class Disintegrate extends Analyzer {
     });
 
     this.addEventListener(Events.fightend, () => {
-      /* console.log(this.totalMassDisintegrateHits);
+      /* console.log(this.totalMassDisintegrateTargets);
       console.log(this.totalMassDisintegrateTicks); */
       this.pushToGraphData();
     });
@@ -200,7 +200,7 @@ class Disintegrate extends Analyzer {
 
   onDisintegrateCast(event: CastEvent) {
     if (isFromMassDisintegrate(event)) {
-      this.totalMassDisintegrateHits += getDisintegrateTargetCount(event) - 1;
+      this.totalMassDisintegrateTargets += getDisintegrateTargetCount(event) - 1;
     }
 
     this.totalCasts += 1;
@@ -216,6 +216,9 @@ class Disintegrate extends Analyzer {
     const dragonRageTicks = this.dragonRageTicks;
     const totalPossibleDragonRageTicks = this.dragonRageCasts * TICKS_PER_DISINTEGRATE;
 
+    const totalPossibleMassDisintegrateTicks =
+      this.totalMassDisintegrateTargets * TICKS_PER_DISINTEGRATE;
+
     return {
       regularTicks,
       totalPossibleRegularTicks,
@@ -223,6 +226,8 @@ class Disintegrate extends Analyzer {
       dragonRageTicks,
       totalPossibleDragonRageTicks,
       dragonRageTickRatio: dragonRageTicks / totalPossibleDragonRageTicks,
+      massDisintegrateTicks: this.totalMassDisintegrateTicks,
+      totalPossibleMassDisintegrateTicks,
     };
   }
 

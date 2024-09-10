@@ -45,7 +45,7 @@ export function DamageEfficiency(props: GuideProps<typeof CombatLogParser>) {
   );
 }
 
-function DisintegrateSubsection({ modules }: GuideProps<typeof CombatLogParser>) {
+function DisintegrateSubsection({ modules, info }: GuideProps<typeof CombatLogParser>) {
   const tickData = modules.disintegrate.tickData;
   if (tickData.regularTicks === 0) {
     return null;
@@ -122,6 +122,29 @@ function DisintegrateSubsection({ modules }: GuideProps<typeof CombatLogParser>)
           />
         }
       />
+
+      {info.combatant.hasTalent(TALENTS_EVOKER.MASS_DISINTEGRATE_TALENT) && (
+        <ExplanationAndDataSubSection
+          explanationPercent={EXPLANATION_PERCENTAGE}
+          explanation={
+            <div>
+              <p>
+                <SpellLink spell={SPELLS.MASS_DISINTEGRATE_BUFF} /> efficiency
+              </p>
+              <p>You should not be dropping any ticks here.</p>
+            </div>
+          }
+          data={
+            <PassFail
+              value={tickData.massDisintegrateTicks}
+              total={tickData.totalPossibleMassDisintegrateTicks}
+              passed={
+                tickData.massDisintegrateTicks === tickData.totalPossibleMassDisintegrateTicks
+              }
+            />
+          }
+        />
+      )}
       {modules.disintegrate.guideSubSection()}
     </SubSection>
   );
