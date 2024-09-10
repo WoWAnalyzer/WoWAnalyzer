@@ -4,6 +4,7 @@ import { SpellLink } from 'interface';
 import TALENTS from 'common/TALENTS/evoker';
 
 export default [
+  change(date(2024, 9, 6), <>Implement <SpellLink spell={TALENTS.WINGLEADER_TALENT}/> module</>, Vollmer),
   change(date(2024, 9, 6), <>Update MajorDefensive module for <SpellLink spell={TALENTS.LIFECINDERS_TALENT}/> and <SpellLink spell={TALENTS.HARDENED_SCALES_TALENT}/></>, Vollmer), 
   change(date(2024, 9, 6), <>Implement <SpellLink spell={TALENTS.SLIPSTREAM_TALENT}/> module</>, Vollmer), 
   change(date(2024, 9, 6), <>Implement <SpellLink spell={TALENTS.EXTENDED_BATTLE_TALENT}/> module</>, Vollmer), 

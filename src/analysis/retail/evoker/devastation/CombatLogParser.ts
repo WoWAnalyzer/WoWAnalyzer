@@ -65,6 +65,7 @@ import {
   ExtendedBattle,
   DivertedPower,
   UnrelentingSiege,
+  Wingleader,
   Slipstream,
 } from 'analysis/retail/evoker/shared';
 import ExpandedLungs from '../shared/modules/talents/hero/flameshaper/ExpandedLungs';
@@ -141,6 +142,7 @@ class CombatLogParser extends MainCombatLogParser {
     extendedBattle: ExtendedBattle,
     divertedPower: DivertedPower,
     unrelentingSiege: UnrelentingSiege,
+    wingLeader: Wingleader,
     slipstream: Slipstream,
 
     // core abilities
