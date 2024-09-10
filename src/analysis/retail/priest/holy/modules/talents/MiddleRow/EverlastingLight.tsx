@@ -78,19 +78,23 @@ class EverlastingLight extends Analyzer {
             Total Healing: {formatNumber(this.rawAdditionalHealing)} (
             {formatPercentage(this.percentOverhealing)}% OH)
             <br />
+            <div>Breakdown: </div>
+            <div>
+              <SpellLink spell={TALENTS_PRIEST.EVERLASTING_LIGHT_TALENT} />:{' '}
+              <ItemPercentHealingDone
+                amount={this.effectiveAdditionalHealing}
+              ></ItemPercentHealingDone>
+            </div>
+            <div>
+              <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
+              <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone>{' '}
+            </div>
             <br />
-            Breakdown: <br />
-            <SpellLink spell={TALENTS_PRIEST.EVERLASTING_LIGHT_TALENT} />:{' '}
-            <ItemPercentHealingDone
-              amount={this.effectiveAdditionalHealing}
-            ></ItemPercentHealingDone>{' '}
-            <br />
-            <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
-            <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone> <br />
-            <br />
-            Notably this module currently is missing the contributions to{' '}
-            <SpellLink spell={TALENTS_PRIEST.BINDING_HEALS_TALENT} /> and{' '}
-            <SpellLink spell={TALENTS_PRIEST.TRAIL_OF_LIGHT_TALENT} />, which can undervalue it.
+            <div>
+              Notably this module currently is missing the contributions to{' '}
+              <SpellLink spell={TALENTS_PRIEST.BINDING_HEALS_TALENT} /> and{' '}
+              <SpellLink spell={TALENTS_PRIEST.TRAIL_OF_LIGHT_TALENT} />, which can undervalue it.
+            </div>
           </>
         }
         size="flexible"

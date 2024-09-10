@@ -78,14 +78,18 @@ class DivineImage extends Analyzer {
         tooltip={
           <>
             Total Images Summoned: {this.totalProcs}
+            <div>
+              Bonus Healing Done: {formatNumber(this.totalHealing)} (
+              {formatPercentage(
+                this.totalOverhealing / (this.totalHealing + this.totalOverhealing),
+              )}
+              % OH)
+            </div>
             <br />
-            Bonus Healing Done: {formatNumber(this.totalHealing)} (
-            {formatPercentage(this.totalOverhealing / (this.totalHealing + this.totalOverhealing))}%
-            OH)
-            <br />
-            <br />
-            Notably this talent does not contribute to{' '}
-            <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />
+            <div>
+              Notably this talent does not contribute to{' '}
+              <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />
+            </div>
           </>
         }
       >

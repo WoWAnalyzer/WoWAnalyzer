@@ -212,17 +212,20 @@ class Lightweaver extends Analyzer {
         tooltip={
           <>
             {`${overhealingTooltipString}% overhealing`} <br />
-            <br />
-            Breakdown: <br />
-            <SpellLink spell={TALENTS_PRIEST.LIGHTWEAVER_TALENT} />:{' '}
-            <ItemPercentHealingDone amount={this.healingDoneFromTalent}></ItemPercentHealingDone>{' '}
-            <br />
-            <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
-            <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone> <br />
-            <br />
-            Notably this module currently is missing the contributions to{' '}
-            <SpellLink spell={TALENTS_PRIEST.BINDING_HEALS_TALENT} /> and{' '}
-            <SpellLink spell={TALENTS_PRIEST.TRAIL_OF_LIGHT_TALENT} />, which can undervalue it.
+            <div>Breakdown: </div>
+            <div>
+              <SpellLink spell={TALENTS_PRIEST.LIGHTWEAVER_TALENT} />:{' '}
+              <ItemPercentHealingDone amount={this.healingDoneFromTalent}></ItemPercentHealingDone>{' '}
+            </div>
+            <div>
+              <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
+              <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone> <br />
+            </div>
+            <div>
+              Notably this module currently is missing the contributions to{' '}
+              <SpellLink spell={TALENTS_PRIEST.BINDING_HEALS_TALENT} /> and{' '}
+              <SpellLink spell={TALENTS_PRIEST.TRAIL_OF_LIGHT_TALENT} />, which can undervalue it.
+            </div>
           </>
         }
       >

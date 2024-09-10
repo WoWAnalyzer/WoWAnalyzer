@@ -56,16 +56,21 @@ class BindingHeals extends Analyzer {
         tooltip={
           <>
             Hits: {this.occured}
+            <div>
+              Healing: {formatThousands(this.selfHealing)} (
+              {formatPercentage(this.getOverhealPercent(this.selfHealing, this.selfOverhealing))}%
+              OH)
+            </div>
             <br />
-            Healing: {formatThousands(this.selfHealing)} (
-            {formatPercentage(this.getOverhealPercent(this.selfHealing, this.selfOverhealing))}% OH)
-            <br /> <br />
-            Breakdown: <br />
-            <SpellLink spell={TALENTS_PRIEST.BINDING_HEALS_TALENT} />:{' '}
-            <ItemPercentHealingDone amount={this.selfHealing}></ItemPercentHealingDone> <br />
-            <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
-            <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone> <br />
-            <br />
+            <div>Breakdown: </div>
+            <div>
+              <SpellLink spell={TALENTS_PRIEST.BINDING_HEALS_TALENT} />:{' '}
+              <ItemPercentHealingDone amount={this.selfHealing}></ItemPercentHealingDone>{' '}
+            </div>
+            <div>
+              <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
+              <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone>
+            </div>
           </>
         }
         size="flexible"

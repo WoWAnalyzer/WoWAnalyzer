@@ -89,15 +89,17 @@ class PrayerfulLitany extends Analyzer {
             Total Healing: {formatNumber(this.effectiveAdditionalHealing + this.overhealing)} (
             {formatPercentage(this.percentOverhealing)}% OH)
             <br />
-            <br />
-            Breakdown: <br />
-            <SpellLink spell={TALENTS_PRIEST.PRAYERFUL_LITANY_TALENT} />:{' '}
-            <ItemPercentHealingDone
-              amount={this.effectiveAdditionalHealing}
-            ></ItemPercentHealingDone>{' '}
-            <br />
-            <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
-            <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone> <br />
+            <div>Breakdown: </div>
+            <div>
+              <SpellLink spell={TALENTS_PRIEST.PRAYERFUL_LITANY_TALENT} />:{' '}
+              <ItemPercentHealingDone
+                amount={this.effectiveAdditionalHealing}
+              ></ItemPercentHealingDone>{' '}
+            </div>
+            <div>
+              <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
+              <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone>
+            </div>
           </>
         }
       >

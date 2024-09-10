@@ -55,11 +55,15 @@ class CosmicRipple extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(3)}
         tooltip={
           <>
-            Breakdown: <br />
-            <SpellLink spell={TALENTS_PRIEST.COSMIC_RIPPLE_TALENT} />:{' '}
-            <ItemPercentHealingDone amount={this.totalHealing}></ItemPercentHealingDone> <br />
-            <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
-            <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone> <br />
+            Breakdown:{' '}
+            <div>
+              <SpellLink spell={TALENTS_PRIEST.COSMIC_RIPPLE_TALENT} />:{' '}
+              <ItemPercentHealingDone amount={this.totalHealing}></ItemPercentHealingDone>{' '}
+            </div>
+            <div>
+              <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
+              <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone>{' '}
+            </div>
           </>
         }
       >

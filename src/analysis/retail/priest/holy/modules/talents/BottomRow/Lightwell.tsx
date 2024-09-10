@@ -75,22 +75,27 @@ class Lightwell extends Analyzer {
       <Statistic
         tooltip={
           <>
-            Breakdown: <br />
-            <SpellLink spell={SPELLS.LIGHTWELL_TALENT_HEAL} />:{' '}
-            <ItemPercentHealingDone
-              amount={this.healingFromLightwell + this.absorptionFromLightwell}
-            ></ItemPercentHealingDone>{' '}
+            Breakdown:{' '}
+            <div>
+              <SpellLink spell={SPELLS.LIGHTWELL_TALENT_HEAL} />:{' '}
+              <ItemPercentHealingDone
+                amount={this.healingFromLightwell + this.absorptionFromLightwell}
+              ></ItemPercentHealingDone>{' '}
+            </div>
+            <div>
+              <SpellLink spell={SPELLS.RENEW_HEAL} />:{' '}
+              <ItemPercentHealingDone
+                amount={this.healingFromRenew + this.absorptionFromRenew}
+              ></ItemPercentHealingDone>{' '}
+            </div>
+            <div>
+              <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
+              <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone>
+            </div>
             <br />
-            <SpellLink spell={SPELLS.RENEW_HEAL} />:{' '}
-            <ItemPercentHealingDone
-              amount={this.healingFromRenew + this.absorptionFromRenew}
-            ></ItemPercentHealingDone>{' '}
-            <br />
-            <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
-            <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone> <br />
-            <br />
-            <br />
-            Notably <SpellLink spell={SPELLS.RENEW_HEAL} /> does not contribute to Echo of Light.
+            <div>
+              Notably <SpellLink spell={SPELLS.RENEW_HEAL} /> does not contribute to Echo of Light.
+            </div>
           </>
         }
         size="flexible"

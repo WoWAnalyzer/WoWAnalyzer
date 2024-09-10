@@ -90,16 +90,22 @@ class HolyWordSalvation extends Analyzer {
       <Statistic
         tooltip={
           <>
-            Healing from Salv: {formatThousands(this.healingFromSalv + this.absorptionFromSalv)}
-            <br />
-            Healing from Renews: {formatThousands(this.healingFromRenew + this.absorptionFromRenew)}
-            <br />
-            Healing from PoMs: {formatThousands(this.healingFromPom + this.absorptionFromPom)}
-            <br />
-            This talent does not account for <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} /> in
-            this module due to the nature of{' '}
-            <SpellLink spell={TALENTS_PRIEST.PRAYER_OF_MENDING_TALENT} />. Find its direct initial
-            heal contribution in the table at the top.
+            <div>
+              Healing from Salv: {formatThousands(this.healingFromSalv + this.absorptionFromSalv)}
+            </div>
+            <div>
+              Healing from Renews:{' '}
+              {formatThousands(this.healingFromRenew + this.absorptionFromRenew)}
+            </div>
+            <div>
+              Healing from PoMs: {formatThousands(this.healingFromPom + this.absorptionFromPom)}
+            </div>
+            <div>
+              This talent does not account for <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} /> in
+              this module due to the nature of{' '}
+              <SpellLink spell={TALENTS_PRIEST.PRAYER_OF_MENDING_TALENT} />. Find its direct initial
+              heal contribution in the table at the top.
+            </div>
           </>
         }
         size="flexible"

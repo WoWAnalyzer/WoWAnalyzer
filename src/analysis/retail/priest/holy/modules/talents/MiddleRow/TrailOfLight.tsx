@@ -44,14 +44,17 @@ class TrailOfLight extends Analyzer {
       <Statistic
         tooltip={
           <>
-            Trail of Light Procs: ${this.totalToLProcs}
+            <div>Trail of Light Procs: ${this.totalToLProcs}</div>
             <br />
-            <br />
-            Breakdown: <br />
-            <SpellLink spell={TALENTS_PRIEST.TRAIL_OF_LIGHT_TALENT} />:{' '}
-            <ItemPercentHealingDone amount={this.totalToLHealing}></ItemPercentHealingDone> <br />
-            <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
-            <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone> <br />
+            <div>Breakdown: </div>
+            <div>
+              <SpellLink spell={TALENTS_PRIEST.TRAIL_OF_LIGHT_TALENT} />:{' '}
+              <ItemPercentHealingDone amount={this.totalToLHealing}></ItemPercentHealingDone>{' '}
+            </div>
+            <div>
+              <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
+              <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone>{' '}
+            </div>
           </>
         }
         size="flexible"
