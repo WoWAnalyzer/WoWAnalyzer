@@ -272,8 +272,9 @@ class Disintegrate extends Analyzer {
         count: this.currentRemainingTicks,
         tooltip: 'Bad Chain, you chained before the 3rd tick.',
       });
-    } // Clipped ticks outside of DR, bad
-    else if (!this.inDragonRageWindow && this.currentRemainingTicks > 1) {
+    } // Clipped ticks outside of DR, bad - for TWW S1 this is optimal
+    // In TWW S1 this is now optimal, will prolly become un-optimal again
+    /* else if (!this.inDragonRageWindow && this.currentRemainingTicks > 1) {
       this.problemPoints.push({
         timestamp: event.timestamp,
         count: this.currentRemainingTicks,
@@ -282,15 +283,14 @@ class Disintegrate extends Analyzer {
           (this.currentRemainingTicks - 1) +
           ' tick(s) outside of Dragonrage',
       });
-    } else {
+    }  */
+    else {
       this.disintegrateChainCasts.push({
         timestamp: event.timestamp,
         count: this.currentRemainingTicks,
         tooltip:
           this.currentRemainingTicks === 2
-            ? 'Good Chain, you clipped: ' +
-              (this.currentRemainingTicks - 1) +
-              ' tick inside of Dragonrage'
+            ? 'Good Chain, you clipped: ' + (this.currentRemainingTicks - 1) + ` tick(s)`
             : 'Good Chain',
       });
     }
@@ -325,7 +325,7 @@ class Disintegrate extends Analyzer {
      * Here we wanna check if we clipped the Disintegrate to cast a higher
      * prio spell, this is currently optimal gameplay during Dragonrage
      */
-    if (this.disintegrateClipSpell && this.inDragonRageWindow) {
+    if (this.disintegrateClipSpell /*  && this.inDragonRageWindow */) {
       // Clipped before GCD, very bad
       if (this.currentRemainingTicks > (this.isCurrentCastChained ? 3 : 2)) {
         this.problemPoints.push({
@@ -348,8 +348,9 @@ class Disintegrate extends Analyzer {
         });
       }
     } // We clipped outside of Dragonrage, bad
+    // In TWW S1 this is now optimal, will prolly become un-optimal again
     else if (this.currentRemainingTicks >= 1) {
-      if (this.disintegrateClipSpell) {
+      /* if (this.disintegrateClipSpell) {
         this.problemPoints.push({
           timestamp: event.timestamp,
           count: this.currentRemainingTicks,
@@ -360,13 +361,13 @@ class Disintegrate extends Analyzer {
             this.disintegrateClipSpell.ability.name,
         });
       } // Straight cancelled Disintegrate, very bad - learn to use hover madge
-      else {
-        this.problemPoints.push({
-          timestamp: event.timestamp,
-          count: this.currentRemainingTicks,
-          tooltip: 'Cancelled channel, losing: ' + this.currentRemainingTicks + ' tick(s)',
-        });
-      }
+      else { */
+      this.problemPoints.push({
+        timestamp: event.timestamp,
+        count: this.currentRemainingTicks,
+        tooltip: 'Cancelled channel, losing: ' + this.currentRemainingTicks + ' tick(s)',
+      });
+      /* } */
     }
 
     this.currentRemainingTicks = 0;
