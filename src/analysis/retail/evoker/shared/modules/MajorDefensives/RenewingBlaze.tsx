@@ -7,11 +7,10 @@ import MajorDefensive, {
 } from 'interface/guide/components/MajorDefensives/MajorDefensiveAnalyzer';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import TALENTS from 'common/TALENTS/evoker';
-import SPELLS from 'common/SPELLS/evoker';
 import Events, {
   ApplyBuffEvent,
   DamageEvent,
-  GetRelatedEvent,
+  GetRelatedEvents,
   HealEvent,
 } from 'parser/core/Events';
 import { SpellLink } from 'interface';
@@ -35,34 +34,43 @@ import BoringValue from 'parser/ui/BoringValueText';
 import MAGIC_SCHOOLS, { color } from 'game/MAGIC_SCHOOLS';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { ReactNode } from 'react';
-import {
-  RENEWING_BLAZE_BUFFS,
-  RENEWING_BLAZE_HEAL,
-} from '../normalizers/DefensiveCastLinkNormalizer';
+import { RENEWING_BLAZE_HEAL } from '../normalizers/DefensiveCastLinkNormalizer';
 
 type RenewingBlazeHealBuff = {
   start: ApplyBuffEvent;
-  events: HealEvent[];
   amount: number;
   overheal: number;
+  partnerAmount: number;
 };
 
 class RenewingBlaze extends MajorDefensiveBuff {
   renewingBlazeHealBuffs: RenewingBlazeHealBuff[] = [];
   normalizedMitigations: Mitigation[] = [];
+  hasCinders = false;
 
   constructor(options: Options) {
-    super(TALENTS.RENEWING_BLAZE_TALENT, buff(TALENTS.RENEWING_BLAZE_TALENT), options);
+    // Custom trigger since we only want to track mitigation during our
+    // personal buffs, not any external ones
+    const trigger = buff(TALENTS.RENEWING_BLAZE_TALENT);
+    trigger.applyTrigger = Events.applybuff
+      .spell(TALENTS.RENEWING_BLAZE_TALENT)
+      .by(SELECTED_PLAYER)
+      .to(SELECTED_PLAYER);
+    trigger.removeTrigger = Events.removebuff
+      .spell(TALENTS.RENEWING_BLAZE_TALENT)
+      .by(SELECTED_PLAYER)
+      .to(SELECTED_PLAYER);
+
+    super(TALENTS.RENEWING_BLAZE_TALENT, trigger, options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.RENEWING_BLAZE_TALENT);
 
+    this.hasCinders = this.selectedCombatant.hasTalent(TALENTS.LIFECINDERS_TALENT);
+
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.recordDamage);
+
     this.addEventListener(
-      Events.heal.to(SELECTED_PLAYER).spell(SPELLS.RENEWING_BLAZE_HEAL),
-      this.recordHeal,
-    );
-    this.addEventListener(
-      Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.RENEWING_BLAZE_HEAL),
-      this.applyHealBuff,
+      Events.applybuff.by(SELECTED_PLAYER).to(SELECTED_PLAYER).spell(TALENTS.RENEWING_BLAZE_TALENT),
+      this.applyBuff,
     );
     this.addEventListener(Events.fightend, this.onFightEnd);
   }
@@ -78,29 +86,33 @@ class RenewingBlaze extends MajorDefensiveBuff {
     });
   }
 
-  private recordHeal(event: HealEvent) {
-    const heal = this.renewingBlazeHealBuffs.find(
-      (buff) => GetRelatedEvent(event, RENEWING_BLAZE_HEAL) === buff.start,
-    );
-    if (!heal) {
-      console.warn('Unable to find parent buff for Major Defensive analyzer', this.spell, event);
-      return;
+  private applyBuff(event: ApplyBuffEvent) {
+    const heal = {
+      start: event,
+      amount: 0,
+      overheal: 0,
+      partnerAmount: -1,
+    };
+    if (this.hasCinders) {
+      heal.partnerAmount = 0;
     }
 
-    heal.events.push(event);
-    heal.amount += event.amount;
-    heal.overheal += event.overheal ?? 0;
-  }
+    const healEvents = GetRelatedEvents<HealEvent>(event, RENEWING_BLAZE_HEAL);
+    for (const healEvent of healEvents) {
+      if (healEvent.targetID !== this.selectedCombatant.id) {
+        heal.partnerAmount += healEvent.amount;
+        continue;
+      }
 
-  private applyHealBuff(event: ApplyBuffEvent) {
-    this.renewingBlazeHealBuffs.push({ start: event, events: [], amount: 0, overheal: 0 });
+      heal.amount += healEvent.amount;
+      heal.overheal += healEvent.overheal ?? 0;
+    }
+    this.renewingBlazeHealBuffs.push(heal);
   }
 
   /** Returns the related Renewing Healing buff, for our Acc buff. */
-  private healBuff(mit: Mitigation): RenewingBlazeHealBuff | undefined {
-    return this.renewingBlazeHealBuffs.find(
-      (buff) => GetRelatedEvent(buff.start, RENEWING_BLAZE_BUFFS) === mit.start,
-    );
+  private healBuff(mit: Mitigation | undefined): RenewingBlazeHealBuff | undefined {
+    return this.renewingBlazeHealBuffs.find((buff) => buff.start === mit?.start);
   }
 
   // For some reason healing numbers and damage taken doesn't always
@@ -119,9 +131,7 @@ class RenewingBlaze extends MajorDefensiveBuff {
   }
 
   mitigationSegments(mit: Mitigation): MitigationSegment[] {
-    const heal = this.renewingBlazeHealBuffs.find(
-      (buff) => GetRelatedEvent(buff.start, RENEWING_BLAZE_BUFFS) === mit.start,
-    );
+    const heal = this.healBuff(mit);
 
     return [
       {
@@ -321,9 +331,7 @@ class RenewingBlaze extends MajorDefensiveBuff {
 
   get cooldownDetailsComponent() {
     return ({ analyzer, mit }: CooldownDetailsProps) => {
-      const heal = this.renewingBlazeHealBuffs.find(
-        (buff) => GetRelatedEvent(buff.start, RENEWING_BLAZE_BUFFS) === mit?.start,
-      );
+      const heal = this.healBuff(mit);
       return <CooldownDetails analyzer={analyzer} mit={mit} heal={heal} />;
     };
   }
@@ -402,6 +410,26 @@ const CooldownDetails = ({
                   />
                 </TableSegmentContainer>
               </tr>
+
+              {heal.partnerAmount >= 0 && (
+                <tr>
+                  <td>Partner healing</td>
+                  <NumericColumn>{formatNumber(heal.partnerAmount)}</NumericColumn>
+
+                  <TableSegmentContainer>
+                    <MitigationTooltipSegment
+                      color="#4ec04e"
+                      maxWidth={100}
+                      width={Math.min(1, heal.partnerAmount / mit.amount)}
+                    />
+                    <MitigationTooltipSegment
+                      color="rgba(255, 255, 255, 0.05)"
+                      maxWidth={100}
+                      width={Math.max(0, 1 - heal.partnerAmount / mit.amount)}
+                    />
+                  </TableSegmentContainer>
+                </tr>
+              )}
             </>
           ) : (
             <>

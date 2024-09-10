@@ -9,13 +9,12 @@ import Events, { DamageEvent } from 'parser/core/Events';
 import { SpellLink } from 'interface';
 import MajorDefensiveStatistic from 'interface/MajorDefensiveStatistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import { HARDENED_SCALES_MITIGATION } from '../../constants';
 
-// TWW ScaleCommander hero talent has a +5% buff so just preparing for that.
 const BASE_MITIGATION = 0.3;
-const HARDENED_SCALES_MITIGATION = 0.05;
 
 class ObsidianScales extends MajorDefensiveBuff {
-  hasHardenedScales = false;
+  hasHardenedScales = this.selectedCombatant.hasTalent(TALENTS.HARDENED_SCALES_TALENT);
   mitPct: number = BASE_MITIGATION + (this.hasHardenedScales ? HARDENED_SCALES_MITIGATION : 0);
 
   constructor(options: Options) {
@@ -39,6 +38,13 @@ class ObsidianScales extends MajorDefensiveBuff {
     return (
       <p>
         <SpellLink spell={TALENTS.OBSIDIAN_SCALES_TALENT} /> reduces the damage you take by 30%.
+        {this.hasHardenedScales && (
+          <>
+            <br />
+            <SpellLink spell={TALENTS.HARDENED_SCALES_TALENT} /> increases this mitigation to{' '}
+            <strong>{this.mitPct * 100}%</strong>.
+          </>
+        )}
       </p>
     );
   }
