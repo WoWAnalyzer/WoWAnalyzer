@@ -108,38 +108,39 @@ class Disintegrate extends Analyzer {
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(DRAGONRAGE_TALENT),
-      (event) => {
-        this.onBuffApply(event);
-      },
+      this.onApplyDragonrage,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(DRAGONRAGE_TALENT),
+      this.onRemoveDragonrage,
     );
 
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(DRAGONRAGE_TALENT),
-      (event) => {
-        this.onBuffRemove(event);
-      },
+      Events.damage.by(SELECTED_PLAYER).spell(DISINTEGRATE),
+      this.onDisintegrateTick,
     );
-
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(DISINTEGRATE), (event) => {
-      this.onDamage(event);
-    });
-
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(DISINTEGRATE), this.onCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(DISINTEGRATE),
+      this.onDisintegrateCast,
+    );
 
     /**
      * We use debuff events for Disintegrate for consistency
      * Since the only way to know when a disintegrate ended is on removed debuff
      * and the first damage tick happens on application not cast.
      */
-    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(DISINTEGRATE), (event) => {
-      this.onApplyDebuff(event);
-    });
-    this.addEventListener(Events.refreshdebuff.by(SELECTED_PLAYER).spell(DISINTEGRATE), (event) => {
-      this.onRefreshDebuff(event);
-    });
-    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(DISINTEGRATE), (event) => {
-      this.onRemoveDebuff(event);
-    });
+    this.addEventListener(
+      Events.applydebuff.by(SELECTED_PLAYER).spell(DISINTEGRATE),
+      this.onApplyDebuff,
+    );
+    this.addEventListener(
+      Events.refreshdebuff.by(SELECTED_PLAYER).spell(DISINTEGRATE),
+      this.onRefreshDebuff,
+    );
+    this.addEventListener(
+      Events.removedebuff.by(SELECTED_PLAYER).spell(DISINTEGRATE),
+      this.onRemoveDebuff,
+    );
     /** Grab the spell we clipped with - this event always happens before the debuffRemove event
      * (Atleast for all the logs I've looked at so far) */
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.trackedSpells), (event) => {
@@ -155,7 +156,7 @@ class Disintegrate extends Analyzer {
     });
   }
 
-  onBuffApply(event: ApplyBuffEvent) {
+  onApplyDragonrage(event: ApplyBuffEvent) {
     this.dragonrageBuffCounter.push({
       timestamp: event.timestamp,
       count: 5,
@@ -164,7 +165,7 @@ class Disintegrate extends Analyzer {
     this.inDragonRageWindow = true;
   }
 
-  onBuffRemove(event: RemoveBuffEvent) {
+  onRemoveDragonrage(event: RemoveBuffEvent) {
     this.dragonrageBuffCounter.push({
       timestamp: event.timestamp,
       count: 0,
@@ -173,7 +174,7 @@ class Disintegrate extends Analyzer {
     this.inDragonRageWindow = false;
   }
 
-  onDamage(event: DamageEvent) {
+  onDisintegrateTick(event: DamageEvent) {
     if (isMassDisintegrateTick(event)) {
       this.totalMassDisintegrateTicks += 1;
       return;
@@ -197,7 +198,7 @@ class Disintegrate extends Analyzer {
     });
   }
 
-  onCast(event: CastEvent) {
+  onDisintegrateCast(event: CastEvent) {
     if (isFromMassDisintegrate(event)) {
       this.totalMassDisintegrateHits += getDisintegrateTargetCount(event) - 1;
     }
