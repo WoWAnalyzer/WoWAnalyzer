@@ -6,7 +6,7 @@ import ShatteringStar from './modules/abilities/ShatteringStar';
 import ShatteringStarGuide from './modules/abilities/ShatterStarGuide';
 import Buffs from './modules/Buffs';
 import Guide from './Guide';
-import AplCheck from './modules/AplCheck/AplCheck';
+//import AplCheck from './modules/AplCheck/AplCheck';
 import Disintegrate from './modules/abilities/Disintegrate';
 import EssenceBurst from './modules/abilities/EssenceBurst';
 import Burnout from './modules/abilities/Burnout';
@@ -109,7 +109,7 @@ class CombatLogParser extends MainCombatLogParser {
     eternitySurgeNormalizer: EternitySurgeNormalizer,
 
     // features
-    apls: AplCheck,
+    //apls: AplCheck,
     cooldownThroughputTracker: CooldownThroughputTracker,
     alwaysBeCasting: AlwaysBeCasting,
     cancelledCasts: CancelledCasts,
