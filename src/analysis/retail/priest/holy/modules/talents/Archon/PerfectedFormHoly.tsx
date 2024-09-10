@@ -95,8 +95,10 @@ class PerfectedFormHoly extends Analyzer {
         category={STATISTIC_CATEGORY.HERO_TALENTS}
         tooltip={
           <>
-            <SpellLink spell={PRIEST_TALENTS.PERFECTED_FORM_TALENT} /> triggers from both Salvation
-            + Apoth and contributes to Echo Of Light: <br />
+            <SpellLink spell={PRIEST_TALENTS.PERFECTED_FORM_TALENT} /> triggers from both{' '}
+            <SpellLink spell={TALENTS_PRIEST.HOLY_WORD_SALVATION_TALENT} />
+            + <SpellLink spell={TALENTS_PRIEST.APOTHEOSIS_TALENT} /> and contributes to{' '}
+            <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />: <br />
             <br />
             <SpellLink spell={TALENTS_PRIEST.APOTHEOSIS_TALENT} />:{' '}
             <ItemPercentHealingDone amount={this.perfectedFormApoth}></ItemPercentHealingDone>

@@ -64,12 +64,15 @@ class EmpoweredSurgesHoly extends Analyzer {
         tooltip={
           <>
             {' '}
-            Breakdown: <br />
-            <SpellLink spell={TALENTS_PRIEST.EMPOWERED_SURGES_TALENT} />:{' '}
-            <ItemPercentHealingDone amount={this.empoweredSurgesHealing}></ItemPercentHealingDone>{' '}
-            <br />
-            <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
-            <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone> <br />
+            Breakdown:{' '}
+            <div>
+              <SpellLink spell={TALENTS_PRIEST.EMPOWERED_SURGES_TALENT} />:{' '}
+              <ItemPercentHealingDone amount={this.empoweredSurgesHealing}></ItemPercentHealingDone>{' '}
+            </div>
+            <div>
+              <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
+              <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone>{' '}
+            </div>
           </>
         }
       >

@@ -217,28 +217,33 @@ class DivineWord extends Analyzer {
               this.serenityOverhealing / (this.serenityHealing + this.serenityOverhealing),
             )}
             % OH
+            <div>
+              The extra effectiveness from the activating <strong>Holy Word</strong> is included.
+            </div>
             <br />
-            The extra effectiveness from the activating <strong>Holy Word</strong> is included.
+            <div>
+              This talent contributed{' '}
+              <ItemPercentHealingDone
+                amount={this.eolContribSerenity + this.eolContribSanctify}
+              ></ItemPercentHealingDone>{' '}
+              from <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} /> which is already included in
+              the talent totals.
+            </div>
             <br />
+            <div>
+              <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} /> procs from the initial Holy Word
+              increase and all of the <SpellLink spell={SPELLS.DIVINE_WORD_SERENITY_TALENT_BUFF} />{' '}
+              buffed <SpellLink spell={SPELLS.GREATER_HEAL} /> and{' '}
+              <SpellLink spell={SPELLS.FLASH_HEAL} />, but NOT{' '}
+              <SpellLink spell={SPELLS.DIVINE_WORD_SANCTIFY_TALENT_HEAL} /> or buffed{' '}
+              <SpellLink spell={SPELLS.RENEW_HEAL} />.
+            </div>
             <br />
-            This talent contributed{' '}
-            <ItemPercentHealingDone
-              amount={this.eolContribSerenity + this.eolContribSanctify}
-            ></ItemPercentHealingDone>{' '}
-            from <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} /> which is already included in the
-            talent totals.
-            <br />
-            <br />
-            Echo of Light procs from the initial Holy Word increase and all of the{' '}
-            <SpellLink spell={SPELLS.DIVINE_WORD_SERENITY_TALENT_BUFF} /> buffed{' '}
-            <SpellLink spell={SPELLS.GREATER_HEAL} /> and <SpellLink spell={SPELLS.FLASH_HEAL} />,
-            but NOT <SpellLink spell={SPELLS.DIVINE_WORD_SANCTIFY_TALENT_HEAL} /> or buffed{' '}
-            <SpellLink spell={SPELLS.RENEW_HEAL} />.
-            <br />
-            <br />
-            Notably this module currently is missing the contributions to{' '}
-            <SpellLink spell={TALENTS_PRIEST.BINDING_HEALS_TALENT} /> and{' '}
-            <SpellLink spell={TALENTS_PRIEST.TRAIL_OF_LIGHT_TALENT} />, which can undervalue it.
+            <div>
+              Notably this module currently is missing the contributions to{' '}
+              <SpellLink spell={TALENTS_PRIEST.BINDING_HEALS_TALENT} /> and{' '}
+              <SpellLink spell={TALENTS_PRIEST.TRAIL_OF_LIGHT_TALENT} />, which can undervalue it.
+            </div>
           </>
         }
         size="flexible"

@@ -83,11 +83,6 @@ class HolyNova extends Analyzer {
     };
   }
 
-  /**
-   * deleted statistic since you see this in your breakdown anyways, and suggestions should tell you bad target count
-   *
-   */
-
   suggestions(when: When) {
     when(this.holyNovaThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(

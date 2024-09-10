@@ -93,15 +93,19 @@ class HealingChorus extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            You gained ${this.totalStacks} stacks in total. ${overhealingTooltipString}% overhealing
+            <div>
+              You gained {this.totalStacks} stacks in total. {overhealingTooltipString}% overhealing
+            </div>
             <br />
-            <br />
-            Breakdown: <br />
-            <SpellLink spell={TALENTS_PRIEST.HEALING_CHORUS_TALENT} />:{' '}
-            <ItemPercentHealingDone amount={this.healingDoneFromTalent}></ItemPercentHealingDone>{' '}
-            <br />
-            <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
-            <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone> <br />
+            <div>Breakdown: </div>
+            <div>
+              <SpellLink spell={TALENTS_PRIEST.HEALING_CHORUS_TALENT} />:{' '}
+              <ItemPercentHealingDone amount={this.healingDoneFromTalent}></ItemPercentHealingDone>{' '}
+            </div>
+            <div>
+              <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
+              <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone>
+            </div>
           </>
         }
       >

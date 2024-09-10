@@ -1,6 +1,6 @@
 import PrayerOfMending from 'analysis/retail/priest/holy/modules/spells/PrayerOfMending';
 import { formatThousands } from 'common/format';
-import TALENTS from 'common/TALENTS/priest';
+import TALENTS, { TALENTS_PRIEST } from 'common/TALENTS/priest';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HasRelatedEvent, HealEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -97,8 +97,9 @@ class HolyWordSalvation extends Analyzer {
             Healing from PoMs: {formatThousands(this.healingFromPom + this.absorptionFromPom)}
             <br />
             This talent does not account for <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} /> in
-            this module due to the nature of Prayer of Mending. Find its direct initial heal
-            contribution in the table at the top.
+            this module due to the nature of{' '}
+            <SpellLink spell={TALENTS_PRIEST.PRAYER_OF_MENDING_TALENT} />. Find its direct initial
+            heal contribution in the table at the top.
           </>
         }
         size="flexible"

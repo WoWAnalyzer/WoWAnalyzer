@@ -94,8 +94,9 @@ class PremonitionOfPiety extends Analyzer {
           <>
             This module doesn't account for{' '}
             <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY}></SpellLink> yet, so it is doing
-            slightly more. Notably the overheal redistribution does NOT contribute to Echo of Light,
-            but it does redistribute any Echo of Light that overheals.
+            slightly more. Notably the overheal redistribution does NOT contribute to{' '}
+            <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY}></SpellLink>, but it does redistribute
+            any <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY}></SpellLink> that overheals.
           </>
         }
       >

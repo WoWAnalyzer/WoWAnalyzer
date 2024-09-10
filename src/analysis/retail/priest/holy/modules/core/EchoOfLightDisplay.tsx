@@ -34,7 +34,7 @@ class EchoOfLightDisplay extends Analyzer {
   handleOnHeal(event: HealEvent) {
     const eolHeal = this.eolAttrib.getEchoOfLightHealingAttrib(event);
     const spellId = event.ability.guid;
-    if (eolHeal === 0) {
+    if (!eolHeal) {
       return;
     }
     if (this.eolHealBreakdown[spellId]) {
@@ -74,17 +74,16 @@ class EchoOfLightDisplay extends Analyzer {
           <>
             {'This module works by closely approximating '}
             <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />, which can proc from most direct
-            heals. This includes non spec direct heals such as enchants, trinkets, etc. Echo of
-            Light SHOULD NOT proc on pet heals or HoTs. There can always be exceptions that have to
-            be updated in the back end blacklist. If there is a heal listed that shouldn't be please
-            contact a maintainer.
+            heals. This includes non spec direct heals such as enchants, trinkets, etc.{' '}
+            <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} /> SHOULD NOT proc on pet heals or HoTs.
+            There can always be exceptions that have to be updated in the back end blacklist. If
+            there is a heal listed that shouldn't be please contact a maintainer.
             <br />
             <br />
             The current error between measured and approximated is{' '}
             <ItemPercentHealingDone
               amount={this.totalCalcEol - this.totalMeasuredEol}
             ></ItemPercentHealingDone>
-            
           </>
         }
         dropdown={
