@@ -221,7 +221,6 @@ export const HOLY_ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   SPELLS.ECHO_OF_LIGHT_HEAL,
 ];
 
-// legacy list for some modules
 export const ABILITIES_THAT_TRIGGER_MASTERY = [
   SPELLS.DIVINE_HYMN_HEAL.id,
   SPELLS.GREATER_HEAL.id,
@@ -302,3 +301,36 @@ export const EFFECTS_INCREASED_BY_BENEVOLENCE_HOLY = [
   //REMOVE WHEN PROPER EOL ATTRIB IS WRITTEN
   SPELLS.ECHO_OF_LIGHT_HEAL.id,
 ];
+
+export const serenityHWCDR = new Map<number, baseHolyWordCDR>([
+  [SPELLS.FLASH_HEAL.id, { baseCDR: 6 }],
+  [SPELLS.GREATER_HEAL.id, { baseCDR: 6 }],
+  [TALENTS.PRAYER_OF_MENDING_TALENT.id, { baseCDR: 4, vohDependent: true }],
+]);
+
+export const sanctifyHWCDR = new Map<number, baseHolyWordCDR>([
+  [TALENTS.PRAYER_OF_HEALING_TALENT.id, { baseCDR: 6 }],
+  [TALENTS.RENEW_TALENT.id, { baseCDR: 2 }],
+  [TALENTS.CIRCLE_OF_HEALING_TALENT.id, { baseCDR: 4, vohDependent: true }],
+]);
+
+export const chastiseHWCDR = new Map<number, baseHolyWordCDR>([
+  [SPELLS.SMITE.id, { baseCDR: 6 }],
+  [SPELLS.HOLY_FIRE.id, { baseCDR: 4, vohDependent: true }],
+  [TALENTS.HOLY_NOVA_TALENT.id, { baseCDR: 4, vohDependent: true }],
+]);
+
+export const salvationHWCDR = new Map<number, baseHolyWordCDR>([
+  [TALENTS.HOLY_WORD_SERENITY_TALENT.id, { baseCDR: 15, apothDisable: true }],
+  [TALENTS.HOLY_WORD_SANCTIFY_TALENT.id, { baseCDR: 15, apothDisable: true }],
+]);
+
+export const energyCycleCDR = new Map<number, baseHolyWordCDR>([
+  [TALENTS.ENERGY_CYCLE_TALENT.id, { baseCDR: 4 }],
+]);
+
+export interface baseHolyWordCDR {
+  baseCDR: number;
+  vohDependent?: boolean;
+  apothDisable?: boolean;
+}
