@@ -34,8 +34,8 @@ class TrailOfLight extends Analyzer {
 
   onHeal(event: HealEvent) {
     this.totalToLProcs += 1;
-    this.totalToLHealing += event.overheal || 0;
-    this.totalToLOverhealing += event.amount || 0;
+    this.totalToLHealing += event.amount + (event.absorbed || 0);
+    this.totalToLOverhealing += event.overheal || 0;
     this.eolContrib += this.eolAttrib.getEchoOfLightHealingAttrib(event);
   }
 
