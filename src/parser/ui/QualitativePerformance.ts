@@ -50,7 +50,7 @@ export function getAveragePerf(perfs: QualitativePerformance[]) {
  */
 export function getLowestPerf(perfs: QualitativePerformance[]): QualitativePerformance {
   if (perfs.length === 0) {
-    return QualitativePerformance.Fail;
+    return QualitativePerformance.Perfect;
   }
   const order = [
     QualitativePerformance.Fail,

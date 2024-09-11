@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
-import { Vohrr } from 'CONTRIBUTORS';
+import { Trevor, Vohrr } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date (2024, 9, 10), <>Change <SpellLink spell={TALENTS_MONK.REVIVAL_TALENT}/> load conditions</>, Trevor),
   change(date (2024, 8, 1), <>Updated values from Beta tuning.</>, Vohrr),
   change(date (2024, 7, 31), <>Added <SpellLink spell={TALENTS_MONK.MENDING_PROLIFERATION_TALENT}/>, <SpellLink spell={TALENTS_MONK.TEAR_OF_MORNING_TALENT}/>, <SpellLink spell={TALENTS_MONK.CHI_HARMONY_TALENT}/>, <SpellLink spell={TALENTS_MONK.LOTUS_INFUSION_TALENT}/>, <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT}/>, and <SpellLink spell={TALENTS_MONK.CRANE_STYLE_TALENT}/> to Talent Breakdown.</>, Vohrr),
   change(date (2024, 7, 25), <>Logging cleanup.</>, Vohrr),
