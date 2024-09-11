@@ -1,3 +1,9 @@
+:root {
+  --modified: rgba(255, 118, 0, 0.3);
+  --fabricated: rgba(0, 255, 67, 0.15);
+  --reordered: rgba(50, 20, 255, 0.3);
+}
+
 .events-tab {
   width: 100%;
   font-size: 13px;
@@ -10,21 +16,33 @@
 }
 .events-tab .ReactVirtualized__Table__row.modified,
 .modified-legend {
-  background: rgba(255, 118, 0, 0.3);
+  background: var(--modified);
 }
 .events-tab .ReactVirtualized__Table__row.modified:hover {
   background: rgba(255, 118, 0, 0.4);
 }
 .events-tab .ReactVirtualized__Table__row.reordered,
 .reordered-legend {
-  background: rgba(50, 20, 255, 0.3);
+  background: var(--reordered);
 }
 .events-tab .ReactVirtualized__Table__row.reordered:hover {
   background: rgba(50, 20, 255, 0.4);
 }
 .events-tab .ReactVirtualized__Table__row.fabricated,
 .fabricated-legend {
-  background: rgba(0, 255, 67, 0.15);
+  background: var(--fabricated);
+}
+.events-tab .ReactVirtualized__Table__row.modified-fabricated {
+  background: linear-gradient(0.25turn, var(--modified), var(--fabricated));
+}
+.events-tab .ReactVirtualized__Table__row.modified-reordered {
+  background: linear-gradient(0.25turn, var(--modified), var(--reordered));
+}
+.events-tab .ReactVirtualized__Table__row.fabricated-reordered {
+  background: linear-gradient(0.25turn, var(--fabricated), var(--reordered));
+}
+.events-tab .ReactVirtualized__Table__row.modified-fabricated-reordered {
+  background: linear-gradient(0.25turn, var(--modified), var(--fabricated), var(--reordered));
 }
 .events-tab .ReactVirtualized__Table__row:nth-child(2n).fabricated {
   background: rgba(0, 255, 67, 0.06);

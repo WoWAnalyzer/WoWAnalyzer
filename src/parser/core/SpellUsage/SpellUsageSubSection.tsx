@@ -127,12 +127,14 @@ const SpellUseDetails = ({ performance, spellUse }: SpellUseDetailsProps) => {
       <div>{formatDuration(spellUse.event.timestamp - info.fightStart)}</div>
       <strong>Perf.</strong>
       <strong>Explanation</strong>
-      {spellUse.checklistItems.map((checklistItem) => (
-        <Fragment key={checklistItem.check}>
-          <PerformanceMark perf={checklistItem.performance} />
-          {checklistItem.details}
-        </Fragment>
-      ))}
+      {spellUse.checklistItems
+        .filter((it) => it.details)
+        .map((checklistItem) => (
+          <Fragment key={checklistItem.check}>
+            <PerformanceMark perf={checklistItem.performance} />
+            {checklistItem.details}
+          </Fragment>
+        ))}
       {spellUse.extraDetails ? (
         <RoundedPanel>
           <div>

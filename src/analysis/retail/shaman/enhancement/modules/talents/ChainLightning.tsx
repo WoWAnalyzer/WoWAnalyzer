@@ -2,11 +2,11 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
-import { CHAIN_LIGHTNING_LINK } from 'analysis/retail/shaman/enhancement/modules/normalizers/EventLinkNormalizer';
 import SPELLS from 'common/SPELLS';
 import { TIERS } from 'game/TIERS';
 import { SpellLink } from 'interface';
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';
+import { EnhancementEventLinks } from '../../constants';
 
 const CRASH_LIGHTNING_REDUCTION = 1000;
 
@@ -49,7 +49,9 @@ class ChainLightning extends Analyzer {
 
   onCast(event: CastEvent) {
     const hits =
-      event._linkedEvents?.filter((le) => le.relation === CHAIN_LIGHTNING_LINK).length || 0;
+      event._linkedEvents?.filter(
+        (le) => le.relation === EnhancementEventLinks.CHAIN_LIGHTNING_LINK,
+      ).length || 0;
     if (hits < 2) {
       if (this.has4pcT30) {
         if (!this.selectedCombatant.getBuff(SPELLS.CRACKLING_THUNDER_TIER_BUFF.id)) {

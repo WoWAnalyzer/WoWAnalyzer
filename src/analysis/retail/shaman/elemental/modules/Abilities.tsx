@@ -25,6 +25,8 @@ class Abilities extends ClassAbilities {
       {
         spell: SPELLS.PRIMORDIAL_WAVE.id,
         category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 30,
+        enabled: combatant.hasTalent(TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT),
       },
       {
         spell: SPELLS.ICEFURY.id,
