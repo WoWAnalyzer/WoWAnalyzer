@@ -20,7 +20,7 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.UNBREAKABLE_ARMOR.id,
+        spellId: SPELLS.PILLAR_OF_FROST.id,
         timelineHighlight: true,
       },
       {

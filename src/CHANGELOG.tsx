@@ -35,6 +35,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 9, 11), 'Update Death Knight spells for Classic Cataclysm', jazminite),
   change(date(2024, 9, 10), 'Change behavior of getLowestPerf when no perfs are provided', Trevor),
   change(date(2024, 9, 9), 'Fix character search showing UNKNOWN instead of THE WAR WITHIN.', ToppleTheNun),
   change(date(2024, 9, 8), "Add Nerub'ar Palace bosses and season 1 M+ dungeons.", ToppleTheNun),
