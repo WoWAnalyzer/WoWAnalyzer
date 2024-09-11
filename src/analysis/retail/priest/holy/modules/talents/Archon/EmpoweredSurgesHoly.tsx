@@ -50,7 +50,7 @@ class EmpoweredSurgesHoly extends Analyzer {
     if (healEvent) {
       if (buffedBySurgeOfLight(event)) {
         this.empoweredSurgesHealing += calculateEffectiveHealing(healEvent, EMPOWERED_SURGES_AMP);
-        this.eolContrib = this.eolAttrib.getEchoOfLightAmpAttrib(healEvent, EMPOWERED_SURGES_AMP);
+        this.eolContrib += this.eolAttrib.getEchoOfLightAmpAttrib(healEvent, EMPOWERED_SURGES_AMP);
       }
     }
   }
