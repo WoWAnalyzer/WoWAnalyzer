@@ -1,16 +1,20 @@
-import { GuideProps, Section } from 'interface/guide';
-import { AplSectionData } from 'interface/guide/components/Apl';
+import { /* GuideProps, */ Section } from 'interface/guide';
+/* import { AplSectionData } from 'interface/guide/components/Apl';
 import * as AplCheck from '../AplCheck/AplCheck';
 import { ResourceLink, SpellLink } from 'interface';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SPELLS from 'common/SPELLS';
-import CombatLogParser from '../../CombatLogParser';
+import CombatLogParser from '../../CombatLogParser'; */
 
-export function CoreRotation({ modules, info }: GuideProps<typeof CombatLogParser>) {
+export function CoreRotation(/* { modules, info }: GuideProps<typeof CombatLogParser> */) {
   return (
     <Section title="Core Rotation (Experimental)">
-      <p>
+      <h4>
+        The APL module has been disabled for now. It will return once it has been updated for The
+        War Within.
+      </h4>
+      {/*  <p>
         The Devastation rotation is driven by a priority list. The priority list is primarily around
         using your important spells: <SpellLink spell={SPELLS.FIRE_BREATH} />,{' '}
         <SpellLink spell={SPELLS.ETERNITY_SURGE} /> and <SpellLink spell={SPELLS.SHATTERING_STAR} />{' '}
@@ -37,7 +41,7 @@ export function CoreRotation({ modules, info }: GuideProps<typeof CombatLogParse
           </li>
           <li>dealing with unique edge cases for AoE (work in progress)</li>
         </ul>
-      </div>
+      </div> */}
     </Section>
   );
 }

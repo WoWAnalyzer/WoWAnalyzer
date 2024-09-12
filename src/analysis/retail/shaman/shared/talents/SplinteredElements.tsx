@@ -10,8 +10,8 @@ import Events, {
   RemoveBuffEvent,
 } from 'parser/core/Events';
 import { SPLINTERED_ELEMENTS_LINK } from 'analysis/retail/shaman/shared/constants';
-import { LIGHTNING_BOLT_LINK } from 'analysis/retail/shaman/enhancement/modules/normalizers/EventLinkNormalizer';
 import Haste from 'parser/shared/modules/Haste';
+import { EnhancementEventLinks } from '../../enhancement/constants';
 
 export default class SplinteredElements extends Analyzer {
   static dependencies = {
@@ -47,7 +47,7 @@ export default class SplinteredElements extends Analyzer {
     }
     const damageEvents = GetRelatedEvents(
       castEvent,
-      LIGHTNING_BOLT_LINK,
+      EnhancementEventLinks.LIGHTNING_BOLT_LINK,
       (e) => e.type === EventType.Damage,
     );
     if (!damageEvents) {

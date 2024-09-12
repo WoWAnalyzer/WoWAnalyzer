@@ -433,6 +433,11 @@ const spells = {
     name: 'Earthen Weapon',
     icon: 'spell_shaman_unleashweapon_earth',
   },
+  SUMMON_FERAL_SPIRIT: {
+    id: 426516,
+    name: 'Feral Spirit',
+    icon: 'spell_shaman_feralspirit',
+  },
   STORMSTRIKE_DAMAGE: {
     id: 32175,
     name: 'Stormstrike',
@@ -907,6 +912,28 @@ const spells = {
     id: 462425,
     name: 'Tidewaters',
     icon: 'ability_shawaterelemental_split',
+  },
+  /** HERO TALENTS **/
+  // Stormbringer
+  TEMPEST_CAST: {
+    id: 452201,
+    name: 'Tempest',
+    icon: 'inv_ability_stormcallershaman_tempest',
+  },
+  TEMPEST_BUFF: {
+    id: 454015,
+    name: 'Tempest',
+    icon: 'inv_ability_stormcallershaman_tempest',
+  },
+  AWAKENING_STORMS_DAMAGE: {
+    id: 455130,
+    name: 'Awakening Storms',
+    icon: 'spell_nature_stormreach',
+  },
+  AWAKENING_STORMS_BUFF: {
+    id: 462131,
+    name: 'Awakening Storms',
+    icon: 'spell_nature_stormreach',
   },
 } satisfies Record<string, Spell>;
 

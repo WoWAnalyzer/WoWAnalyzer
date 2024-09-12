@@ -1,8 +1,7 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import MaelstromWeaponTracker from './MaelstromWeaponTracker';
-import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import Panel from 'parser/ui/Panel';
-import { MAELSTROM_WEAPON_ELIGIBLE_SPELLS } from '../../constants';
+import { EnhancementEventLinks, MAELSTROM_WEAPON_ELIGIBLE_SPELLS } from '../../constants';
 import Events, {
   CastEvent,
   DamageEvent,
@@ -18,12 +17,8 @@ import { formatNumber, formatThousands } from 'common/format';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 import SPELLS, { maybeGetSpell } from 'common/SPELLS';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import {
-  CHAIN_LIGHTNING_LINK,
-  LIGHTNING_BOLT_LINK,
-  MAELSTROM_SPENDER_LINK,
-} from '../normalizers/EventLinkNormalizer';
 import { PRIMORDIAL_WAVE_LINK } from 'analysis/retail/shaman/shared/constants';
+import MaelstromWeaponBreakdown from './MaelstromWeaponBreakdown';
 
 class MaelstromWeaponSpenders extends Analyzer {
   static dependencies = {
@@ -56,12 +51,15 @@ class MaelstromWeaponSpenders extends Analyzer {
   }
 
   onCast(event: CastEvent) {
-    this.recordNextSpenderAmount = HasRelatedEvent(event, MAELSTROM_SPENDER_LINK);
+    this.recordNextSpenderAmount = HasRelatedEvent(
+      event,
+      EnhancementEventLinks.MAELSTROM_SPENDER_LINK,
+    );
 
     if (event.ability.guid === TALENTS_SHAMAN.CHAIN_LIGHTNING_TALENT.id) {
       const damageEvents = GetRelatedEvents<DamageEvent>(
         event,
-        CHAIN_LIGHTNING_LINK,
+        EnhancementEventLinks.CHAIN_LIGHTNING_LINK,
         (e) => e.type === EventType.Damage,
       );
       this.spenderValues[event.ability.guid] =
@@ -87,7 +85,7 @@ class MaelstromWeaponSpenders extends Analyzer {
       if (primordialWave && lightningBolts) {
         const damageEvents = GetRelatedEvents<DamageEvent>(
           lightningBolts,
-          LIGHTNING_BOLT_LINK,
+          EnhancementEventLinks.LIGHTNING_BOLT_LINK,
           (e) => e.type === EventType.Damage,
         );
         if (damageEvents.length > 1) {
@@ -106,11 +104,6 @@ class MaelstromWeaponSpenders extends Analyzer {
   }
 
   onSpender(event: DamageEvent | HealEvent) {
-    if (!this.recordNextSpenderAmount) {
-      return;
-    }
-    this.recordNextSpenderAmount = false;
-
     let spellId = event.ability.guid;
     if (spellId === SPELLS.LAVA_BURST_DAMAGE.id) {
       spellId = TALENTS_SHAMAN.LAVA_BURST_TALENT.id;
@@ -121,7 +114,11 @@ class MaelstromWeaponSpenders extends Analyzer {
   statistic() {
     return [
       <Panel key="spender-panel" title="Maelstrom Weapon usage" pad={false} position={120}>
-        <ResourceBreakdown tracker={this.maelstromWeaponTracker} showSpenders showMaxSpenders />
+        <MaelstromWeaponBreakdown
+          tracker={this.maelstromWeaponTracker}
+          showSpenders
+          showMaxSpenders
+        />
       </Panel>,
       <Panel
         key="damage-per-spender"

@@ -17,7 +17,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       <CooldownSection modules={modules} info={info} events={events} />
       <DragonRageSection modules={modules} info={info} events={events} />
       <DamageEfficiency modules={modules} info={info} events={events} />
-      <CoreRotation modules={modules} info={info} events={events} />
+      <CoreRotation />
       <MajorDefensives />
       <PreparationSection />
     </>
