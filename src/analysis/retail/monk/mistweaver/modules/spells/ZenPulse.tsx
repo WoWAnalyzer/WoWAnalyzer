@@ -114,7 +114,6 @@ class ZenPulse extends Analyzer {
   }
 
   private startUptimeWindow(timestamp: number) {
-    console.log(`Starting uptime window at ${this.owner.formatTimestamp(timestamp)}`);
     this.uptimes.push({
       uptime: {
         start: timestamp,
@@ -126,7 +125,6 @@ class ZenPulse extends Analyzer {
 
   private endUptimeWindow(timestamp: number, expired: boolean) {
     if (this.uptimes.length) {
-      console.log(`Ending uptime window at ${this.owner.formatTimestamp(timestamp)}`);
       const cur = this.uptimes.at(-1)!;
       cur.uptime.end = timestamp;
       cur.expired = expired;
