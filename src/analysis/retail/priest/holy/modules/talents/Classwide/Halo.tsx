@@ -47,7 +47,7 @@ class Halo extends Analyzer {
   }
 
   onHeal(event: HealEvent) {
-    this.haloHealing += event.amount || 0;
+    this.haloHealing += event.amount + (event.absorbed || 0);
     this.haloOverhealing += event.overheal || 0;
     this.eolContrib += this.eolAttrib.getEchoOfLightHealingAttrib(event);
   }
