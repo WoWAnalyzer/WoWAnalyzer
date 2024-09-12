@@ -14,16 +14,20 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'interface/SpellLink';
 import PRIEST_TALENTS from 'common/TALENTS/priest';
 import { ENERGY_COMPRESSION_AMP } from '../../../constants';
+import EOLAttrib from '../../core/EchoOfLightAttributor';
 
 class EnergyCompressionHoly extends Analyzer {
   static dependencies = {
+    eolAttrib: EOLAttrib,
     combatants: Combatants,
   };
 
   protected combatants!: Combatants;
+  protected eolAttrib!: EOLAttrib;
 
   totalEnergyCompressionHealing = 0;
   totalArchonHaloDamage = 0;
+  eolContrib = 0;
 
   constructor(options: Options) {
     super(options);
@@ -43,6 +47,7 @@ class EnergyCompressionHoly extends Analyzer {
 
   handleHaloHealing(event: HealEvent) {
     this.totalEnergyCompressionHealing += calculateEffectiveHealing(event, ENERGY_COMPRESSION_AMP);
+    this.eolContrib += this.eolAttrib.getEchoOfLightAmpAttrib(event, ENERGY_COMPRESSION_AMP);
   }
 
   handleHaloDamage(event: DamageEvent) {
@@ -51,6 +56,10 @@ class EnergyCompressionHoly extends Analyzer {
 
   get energyCompressionDamage() {
     return this.totalArchonHaloDamage;
+  }
+
+  get totalHealingFromTalent() {
+    return this.totalEnergyCompressionHealing + this.eolContrib;
   }
 
   statistic() {
@@ -64,13 +73,23 @@ class EnergyCompressionHoly extends Analyzer {
             <small>
               This number is included in the <SpellLink spell={PRIEST_TALENTS.DIVINE_HALO_TALENT} />
               /<SpellLink spell={PRIEST_TALENTS.POWER_SURGE_TALENT} /> results already.
-            </small>
+            </small>{' '}
+            <br />
+            <br />
+            Breakdown: <br />
+            <SpellLink spell={TALENTS_PRIEST.ENERGY_COMPRESSION_TALENT} />:{' '}
+            <ItemPercentHealingDone
+              amount={this.totalEnergyCompressionHealing}
+            ></ItemPercentHealingDone>{' '}
+            <br />
+            <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
+            <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone> <br />
           </>
         }
       >
         <TalentSpellText talent={TALENTS_PRIEST.ENERGY_COMPRESSION_TALENT}>
           <div>
-            <ItemPercentHealingDone amount={this.totalEnergyCompressionHealing} />
+            <ItemPercentHealingDone amount={this.totalHealingFromTalent} />
           </div>
           <div>
             <ItemPercentDamageDone amount={this.energyCompressionDamage} />{' '}

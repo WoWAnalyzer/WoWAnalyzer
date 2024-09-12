@@ -535,6 +535,11 @@ const spells = {
     name: 'Premonition of Piety',
     icon: 'inv_ability_oraclepriest_premonitionpiety',
   },
+  ESSENCE_DEVOURER_HEAL: {
+    id: 415673,
+    name: 'Essence Devourer',
+    icon: 'achievement_raid_terraceofendlessspring04',
+  },
 
   // Buffs
   SPIRIT_OF_REDEMPTION_BUFF: {

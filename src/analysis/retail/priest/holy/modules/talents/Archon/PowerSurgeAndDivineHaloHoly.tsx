@@ -6,27 +6,32 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import SpellLink from 'interface/SpellLink';
 import SPELLS from 'common/SPELLS';
-import { formatNumber, formatPercentage } from 'common/format';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import ItemPercentDamageDone from 'parser/ui/ItemPercentDamageDone';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
+import EOLAttrib from '../../core/EchoOfLightAttributor';
 
 class PowerSurgeAndDivineHaloHoly extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    eolAttrib: EOLAttrib,
   };
 
   protected combatants!: Combatants;
+  protected eolAttrib!: EOLAttrib;
 
   //These are the values from the first cast of halo
   firstHaloHealing = 0;
   firstHaloDamage = 0;
+  firstHaloEol = 0;
 
   //all 6 halos and how much energy compression scales them
   totalArchonHaloHealing = 0;
   totalArchonHaloDamage = 0;
+
+  eolContrib = 0;
 
   private firstHalo = false;
 
@@ -59,9 +64,11 @@ class PowerSurgeAndDivineHaloHoly extends Analyzer {
   handleHaloHealing(event: HealEvent) {
     if (this.firstHalo) {
       this.firstHaloHealing += event.amount + (event.absorbed || 0);
+      this.firstHaloEol += this.eolAttrib.getEchoOfLightHealingAttrib(event);
     }
 
     this.totalArchonHaloHealing += event.amount + (event.absorbed || 0);
+    this.eolContrib += this.eolAttrib.getEchoOfLightHealingAttrib(event);
   }
 
   handleHaloDamage(event: DamageEvent) {
@@ -83,12 +90,12 @@ class PowerSurgeAndDivineHaloHoly extends Analyzer {
   // These functions return power surge/divine halo's contribution
   // compared to just the first halo (if you didn't have either archon talent)
   // aswell as energy compression
-  passHaloFirstAndCapStoneHealing(): number {
-    return this.totalArchonHaloHealing - this.firstHaloHealing;
+  get passHaloFirstAndCapStoneHealing(): number {
+    return this.totalArchonHaloHealing + this.eolContrib;
   }
 
-  passHaloFirstAndCapStoneDamage(): number {
-    return this.totalArchonHaloDamage - this.firstHaloDamage;
+  get passHaloFirstAndCapStoneDamage(): number {
+    return this.totalArchonHaloDamage;
   }
 
   statistic() {
@@ -101,28 +108,40 @@ class PowerSurgeAndDivineHaloHoly extends Analyzer {
           <>
             {'If you only cast your first '}
             <SpellLink spell={SPELLS.HALO_TALENT} />
-            {' each time, it would have done '}
-            {formatNumber(this.firstHaloHealing)}(
-            {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.firstHaloHealing))}
-            %) of your healing
+            {' each time, it would have done: '}
             <br />
-            {'and '}
-            {formatNumber(this.firstHaloDamage)}(
-            {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.firstHaloDamage))}
-            %) of your damage
+            {<ItemPercentHealingDone amount={this.firstHaloHealing}></ItemPercentHealingDone>}{' '}
+            directly
             <br />
+            <ItemPercentHealingDone amount={this.firstHaloEol}></ItemPercentHealingDone> from{' '}
+            <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />
             <br />
-            {'This includes the amp from '}
-            <SpellLink spell={TALENTS_PRIEST.ENERGY_COMPRESSION_TALENT} />
-            {' if you are talented into it.'}
+            <ItemPercentDamageDone amount={this.firstHaloDamage}></ItemPercentDamageDone> of your
+            damage
+            <br />
+            <br /> Total breakdown of healing from all 6 events per cast: <br />{' '}
+            <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
+            <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone>
+            <br />
+            <SpellLink spell={TALENTS_PRIEST.HALO_SHARED_TALENT} />:{' '}
+            <ItemPercentHealingDone amount={this.totalArchonHaloHealing}></ItemPercentHealingDone>
+            {this.selectedCombatant.hasTalent(TALENTS_PRIEST.ENERGY_COMPRESSION_TALENT) && (
+              <>
+                <br />
+                <br />
+                {'This includes the amp from '}
+                <SpellLink spell={TALENTS_PRIEST.ENERGY_COMPRESSION_TALENT} />
+                {' if you are talented into it.'}
+              </>
+            )}
           </>
         }
       >
         <TalentSpellText talent={TALENTS_PRIEST.POWER_SURGE_TALENT}>
           <small>
-            {'Your extra 5 casts of '}
+            {'All 6 events per cast of '}
             <SpellLink spell={SPELLS.HALO_TALENT} />
-            {' from both '}
+            {' from the base spell and both '}
             <SpellLink spell={TALENTS_PRIEST.POWER_SURGE_TALENT} />
             {' and '}
             <SpellLink spell={TALENTS_PRIEST.DIVINE_HALO_TALENT} />
@@ -131,10 +150,10 @@ class PowerSurgeAndDivineHaloHoly extends Analyzer {
           <br />
           <br />
           <div>
-            <ItemPercentHealingDone amount={this.passHaloFirstAndCapStoneHealing()} />
+            <ItemPercentHealingDone amount={this.passHaloFirstAndCapStoneHealing} />
           </div>
           <div>
-            <ItemPercentDamageDone amount={this.passHaloFirstAndCapStoneDamage()} />
+            <ItemPercentDamageDone amount={this.passHaloFirstAndCapStoneDamage} />
           </div>
         </TalentSpellText>
       </Statistic>

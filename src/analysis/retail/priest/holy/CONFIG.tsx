@@ -22,8 +22,6 @@ const config: Config = {
       <br />
       <a href="https://www.icy-veins.com/wow/holy-priest-pve-healing-guide">Icy-Veins</a>
       <br />
-      <a href="https://warcraftpriests.com/holy/holy-priest-quickstart/">Warcraftpriests</a>
-      <br />
       <br />
       Check out the{' '}
       <a href="https://discord.gg/WarcraftPriests" target="_blank" rel="noopener noreferrer">
