@@ -51,7 +51,7 @@ class DivineStar extends Analyzer {
   }
 
   onHeal(event: HealEvent) {
-    this.divineStarHealing += event.amount || 0;
+    this.divineStarHealing += event.amount + (event.absorbed || 0);
     this.divineStarOverhealing += event.overheal || 0;
     this.eolContrib += this.eolAttrib.getEchoOfLightHealingAttrib(event);
   }

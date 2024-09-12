@@ -5,6 +5,7 @@ import { Arlie, Hana, Litena, Liavre, Squided, ToppleTheNun, Trevor, Saeldur } f
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2024, 9, 11), <>Fixed Salvation, Divine Star, Halo to include absorbed healing as effective healing. </>, Liavre),
   change(date(2024, 9, 10), <>Added cast number and minor fixes to CDR module. </>, Liavre),
   change(date(2024, 9, 10), <>Fixed lightwell and trail modules </>, Liavre),
   change(date(2024, 9, 9), <>Implemented Echo of Light module/attribution into every other module </>, Liavre),
