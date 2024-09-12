@@ -168,6 +168,16 @@ const RACES: {
     side: 'horde',
     name: 'Dracthyr',
   },
+  EarthenHorde: {
+    id: 84,
+    name: 'Earthen',
+    side: 'horde',
+  },
+  EarthenAlliance: {
+    id: 85,
+    name: 'Earthen',
+    side: 'alliance',
+  },
 };
 
 export default RACES;
