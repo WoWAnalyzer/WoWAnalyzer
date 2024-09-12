@@ -5,7 +5,6 @@ import Events, { ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parse
 import { isStrengthOfTheBlackOxConsumed } from '../../normalizers/CastLinkNormalizer';
 import SpellLink from 'interface/SpellLink';
 import { SPELL_COLORS } from '../../constants';
-import Abilities from '../features/Abilities';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
@@ -19,11 +18,6 @@ type UptimeWithType = {
 
 // TODO: add checklist for mana tea usage
 class StrengthOfTheBlackOx extends Analyzer {
-  static dependencies = {
-    abilities: Abilities,
-  };
-
-  protected abilities!: Abilities;
   wastedBuffs: number = 0;
   uptimes: UptimeWithType[] = [];
 
