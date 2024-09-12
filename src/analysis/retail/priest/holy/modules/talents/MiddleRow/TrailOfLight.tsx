@@ -44,7 +44,10 @@ class TrailOfLight extends Analyzer {
       <Statistic
         tooltip={
           <>
-            <div>Trail of Light Procs: ${this.totalToLProcs}</div>
+            <div>
+              <SpellLink spell={TALENTS_PRIEST.TRAIL_OF_LIGHT_TALENT} /> Procs: $
+              {this.totalToLProcs}
+            </div>
             <br />
             <div>Breakdown: </div>
             <div>

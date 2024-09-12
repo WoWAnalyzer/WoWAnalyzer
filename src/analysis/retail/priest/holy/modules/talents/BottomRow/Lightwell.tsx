@@ -94,7 +94,8 @@ class Lightwell extends Analyzer {
             </div>
             <br />
             <div>
-              Notably <SpellLink spell={SPELLS.RENEW_HEAL} /> does not contribute to Echo of Light.
+              Notably <SpellLink spell={SPELLS.RENEW_HEAL} /> does not contribute to{' '}
+              <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />.
             </div>
           </>
         }
