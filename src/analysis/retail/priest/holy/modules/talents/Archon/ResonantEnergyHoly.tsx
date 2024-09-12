@@ -13,16 +13,20 @@ import Events, { HealEvent } from 'parser/core/Events';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import { HOLY_ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../../constants';
 import { RESONANT_ENERGY_AMP_PER_STACK } from '../../../constants';
+import EOLAttrib from '../../core/EchoOfLightAttributor';
+import SpellLink from 'interface/SpellLink';
 
 class ResonantEnergyHoly extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    eolAttrib: EOLAttrib,
   };
 
   protected combatants!: Combatants;
-
+  protected eolAttrib!: EOLAttrib;
   /** Total Healing From Resonant Energy */
   resonantEnergyHealing = 0;
+  eolContrib = 0;
 
   constructor(options: Options) {
     super(options);
@@ -53,6 +57,10 @@ class ResonantEnergyHoly extends Analyzer {
       event,
       RESONANT_ENERGY_AMP_PER_STACK * resonantEnergyStacks,
     );
+    this.eolContrib += this.eolAttrib.getEchoOfLightAmpAttrib(
+      event,
+      RESONANT_ENERGY_AMP_PER_STACK * resonantEnergyStacks,
+    );
   }
 
   statistic() {
@@ -61,9 +69,20 @@ class ResonantEnergyHoly extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(99)}
         size="flexible"
         category={STATISTIC_CATEGORY.HERO_TALENTS}
+        tooltip={
+          <>
+            {' '}
+            Breakdown: <br />
+            <SpellLink spell={TALENTS_PRIEST.RESONANT_ENERGY_TALENT} />:{' '}
+            <ItemPercentHealingDone amount={this.resonantEnergyHealing}></ItemPercentHealingDone>{' '}
+            <br />
+            <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
+            <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone> <br />
+          </>
+        }
       >
         <TalentSpellText talent={TALENTS_PRIEST.RESONANT_ENERGY_TALENT}>
-          <ItemPercentHealingDone amount={this.resonantEnergyHealing} />
+          <ItemPercentHealingDone amount={this.resonantEnergyHealing + this.eolContrib} />
         </TalentSpellText>
       </Statistic>
     );

@@ -16,13 +16,13 @@ const EXECUTE_LINK: EventLink = {
   referencedEventType: EventType.Damage,
 };
 
-class ExecuteNormalizer extends EventLinkNormalizer {
+class ExecuteLinkNormalizer extends EventLinkNormalizer {
   constructor(options: Options) {
     super(options, [EXECUTE_LINK]);
   }
 }
 
-export default ExecuteNormalizer;
+export default ExecuteLinkNormalizer;
 
 export function damageEvent(event: CastEvent): DamageEvent | undefined {
   return event._linkedEvents?.find((rel) => rel.relation === relation)?.event as DamageEvent;

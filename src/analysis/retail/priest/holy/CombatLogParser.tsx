@@ -37,6 +37,7 @@ import RenewAttributor from './modules/talents/Oracle/OracleCore/RenewAttributor
 import EOLAttrib from './modules/core/EchoOfLightAttributor';
 import HolyWordCDRBySpell from './modules/core/HolyWordCDRBySpell';
 import HolyWordCDR from './modules/core/HolyWordCDR';
+import EchoOfLightDisplay from './modules/core/EchoOfLightDisplay';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -68,6 +69,7 @@ class CombatLogParser extends CoreCombatLogParser {
     eolAttrib: EOLAttrib,
     holyWordCDRBySpell: HolyWordCDRBySpell,
     holyWordCDR: HolyWordCDR,
+    echoOfLightDisplay: EchoOfLightDisplay,
 
     // Spells
     divineHymn: DivineHymn,

@@ -37,7 +37,7 @@ function Cooldowns({ info, modules }: GuideProps<typeof CombatLogParser>) {
       </SubSection>
       {modules.ascendance.guideSubsection}
       {modules.hotHand.guideSubsection}
-      {modules.elementalBlast.guideSubsection}
+      {modules.elementalBlastGuide.guideSubsection}
     </Section>
   );
 }

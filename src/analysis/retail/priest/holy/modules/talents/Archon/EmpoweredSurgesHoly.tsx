@@ -13,15 +13,20 @@ import Events, { RemoveBuffEvent, RemoveBuffStackEvent } from 'parser/core/Event
 import SPELLS from 'common/SPELLS';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import { EMPOWERED_SURGES_AMP } from '../../../constants';
+import EOLAttrib from '../../core/EchoOfLightAttributor';
+import SpellLink from 'interface/SpellLink';
 
 class EmpoweredSurgesHoly extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    eolAttrib: EOLAttrib,
   };
 
   protected combatants!: Combatants;
+  protected eolAttrib!: EOLAttrib;
 
-  empoweredSurgesHealing = 0;
+  private empoweredSurgesHealing = 0;
+  private eolContrib = 0;
 
   constructor(options: Options) {
     super(options);
@@ -45,6 +50,7 @@ class EmpoweredSurgesHoly extends Analyzer {
     if (healEvent) {
       if (buffedBySurgeOfLight(event)) {
         this.empoweredSurgesHealing += calculateEffectiveHealing(healEvent, EMPOWERED_SURGES_AMP);
+        this.eolContrib += this.eolAttrib.getEchoOfLightAmpAttrib(healEvent, EMPOWERED_SURGES_AMP);
       }
     }
   }
@@ -55,9 +61,23 @@ class EmpoweredSurgesHoly extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(99)}
         size="flexible"
         category={STATISTIC_CATEGORY.HERO_TALENTS}
+        tooltip={
+          <>
+            {' '}
+            Breakdown:{' '}
+            <div>
+              <SpellLink spell={TALENTS_PRIEST.EMPOWERED_SURGES_TALENT} />:{' '}
+              <ItemPercentHealingDone amount={this.empoweredSurgesHealing}></ItemPercentHealingDone>{' '}
+            </div>
+            <div>
+              <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
+              <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone>{' '}
+            </div>
+          </>
+        }
       >
         <TalentSpellText talent={TALENTS_PRIEST.EMPOWERED_SURGES_TALENT}>
-          <ItemPercentHealingDone amount={this.empoweredSurgesHealing} />
+          <ItemPercentHealingDone amount={this.empoweredSurgesHealing + this.eolContrib} />
         </TalentSpellText>
       </Statistic>
     );

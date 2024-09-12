@@ -3,18 +3,14 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
-import Events, {
-  ChangeBuffStackEvent,
-  DamageEvent,
-  RemoveBuffStackEvent,
-} from 'parser/core/Events';
+import Events, { DamageEvent, RemoveBuffStackEvent, ResourceChangeEvent } from 'parser/core/Events';
 import AverageTargetsHit from 'parser/ui/AverageTargetsHit';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { MAELSTROM_WEAPON_ELIGIBLE_SPELLS } from '../../constants';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 const HAILSTORM = {
   INCREASE_PER_STACK: 0.15,
@@ -25,8 +21,8 @@ const STACKS_CONSUMED_PER_FROST_SHOCK_CAST = 10;
 
 /**
  * Each stack of Maelstrom Weapon consumed increases the damage of your next
- * Frost Shock by 35%, and causes your next Frost Shock to hit 1 additional
- * target per Maelstrom Weapon stack consumed.
+ * Frost Shock by 15% (up to 150%), and causes your next Frost Shock to hit 1 additional
+ * target per Maelstrom Weapon stack consumed (up to 5 additional targets).
  *
  * Example Log:
  */
@@ -58,14 +54,7 @@ class Hailstorm extends Analyzer {
       ? 10
       : 5;
 
-    this.addEventListener(
-      Events.changebuffstack.by(SELECTED_PLAYER).spell(SPELLS.MAELSTROM_WEAPON_BUFF),
-      this.onMaelstromWeaponStackApply,
-    );
-
-    MAELSTROM_WEAPON_ELIGIBLE_SPELLS.forEach((spell) => {
-      this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(spell), this.onSpendMaelstrom);
-    });
+    this.addEventListener(Events.resourcechange.by(SELECTED_PLAYER), this.onSpendMaelstrom);
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.FROST_SHOCK_TALENT),
@@ -88,24 +77,15 @@ class Hailstorm extends Analyzer {
     );
   }
 
-  onMaelstromWeaponStackApply(event: ChangeBuffStackEvent) {
-    this.currentMaelstromWeaponStacks = event.newStacks;
-  }
+  onSpendMaelstrom(event: ResourceChangeEvent) {
+    if (event.resourceChangeType !== RESOURCE_TYPES.MAELSTROM_WEAPON.id) {
+      return;
+    }
 
-  onSpendMaelstrom() {
-    const maelstromWeaponStacksConsumed = Math.min(
-      this.maxStacksConsumedPerCast,
-      this.currentMaelstromWeaponStacks,
-    );
-    this.currentMaelstromWeaponStacks -= maelstromWeaponStacksConsumed;
-
-    const hailstormStacksGained = Math.min(
-      maelstromWeaponStacksConsumed,
-      MAX_STACKS - this.currentStacks,
-    );
+    const hailstormStacksGained = Math.min(event.resourceChange, MAX_STACKS - this.currentStacks);
     this.currentStacks += hailstormStacksGained;
     this.totalStacksGained += hailstormStacksGained;
-    this.overcappedStacks += maelstromWeaponStacksConsumed - hailstormStacksGained;
+    this.overcappedStacks += event.resourceChange - hailstormStacksGained;
   }
 
   onFrostShockCast() {
