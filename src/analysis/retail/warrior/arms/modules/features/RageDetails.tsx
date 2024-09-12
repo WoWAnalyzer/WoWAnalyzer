@@ -1,10 +1,10 @@
 import { defineMessage } from '@lingui/macro';
 import WarriorRageDetails from 'analysis/retail/warrior/shared/modules/core/RageDetails';
 import { formatPercentage } from 'common/format';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 
 class RageDetails extends WarriorRageDetails {
-  get efficiencySuggestionThresholds() {
+  get efficiencySuggestionThresholds(): NumberThreshold {
     return {
       actual: 1 - this.wastedPercent,
       isLessThan: {
@@ -16,7 +16,7 @@ class RageDetails extends WarriorRageDetails {
     };
   }
 
-  get suggestionThresholds() {
+  get suggestionThresholds(): NumberThreshold {
     return {
       actual: this.wastedPercent,
       isGreaterThan: {
@@ -34,7 +34,7 @@ class RageDetails extends WarriorRageDetails {
         .icon('spell_nature_reincarnation')
         .actual(
           defineMessage({
-            id: 'warrior.fury.suggestions.rage.wasted',
+            id: 'warrior.arms.suggestions.rage.wasted',
             message: `${formatPercentage(actual)}% wasted`,
           }),
         )
