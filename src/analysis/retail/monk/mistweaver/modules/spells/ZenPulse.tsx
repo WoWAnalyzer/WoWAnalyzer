@@ -4,6 +4,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
   ApplyBuffStackEvent,
+  EventType,
   HealEvent,
   RefreshBuffEvent,
   RemoveBuffEvent,
@@ -18,11 +19,25 @@ import { TooltipElement } from 'interface/Tooltip';
 import { formatNumber, formatPercentage } from 'common/format';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import { ZEN_PULSE_INCREASE_PER_STACK, ZEN_PULSE_MAX_HITS_FOR_BOOST } from '../../constants';
+import {
+  SPELL_COLORS,
+  ZEN_PULSE_INCREASE_PER_STACK,
+  ZEN_PULSE_MAX_HITS_FOR_BOOST,
+} from '../../constants';
 import Abilities from '../features/Abilities';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
+import { Uptime } from 'parser/ui/UptimeBar';
 
 const MAX_STACKS = 2;
+
+type UptimeWithType = {
+  uptime: Uptime;
+  expired: boolean | undefined;
+};
 
 class ZenPulse extends Analyzer {
   static dependencies = {
@@ -38,6 +53,7 @@ class ZenPulse extends Analyzer {
   consumedBuffs: number = 0;
   badCasts: number = 0;
   castIncreases: number[] = [];
+  uptimes: UptimeWithType[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -97,24 +113,53 @@ class ZenPulse extends Analyzer {
     return (this.healing + this.overhealing) / this.consumedBuffs;
   }
 
-  private onApplyBuff(event: ApplyBuffEvent | ApplyBuffStackEvent) {
-    this.currentBuffs += 1;
+  private startUptimeWindow(timestamp: number) {
+    console.log(`Starting uptime window at ${this.owner.formatTimestamp(timestamp)}`);
+    this.uptimes.push({
+      uptime: {
+        start: timestamp,
+        end: -1,
+      },
+      expired: undefined,
+    });
   }
 
-  private onRefreshBuff(event: RefreshBuffEvent) {
-    if (this.currentBuffs === MAX_STACKS) {
-      this.wastedBuffs = +1;
+  private endUptimeWindow(timestamp: number, expired: boolean) {
+    if (this.uptimes.length) {
+      console.log(`Ending uptime window at ${this.owner.formatTimestamp(timestamp)}`);
+      const cur = this.uptimes.at(-1)!;
+      cur.uptime.end = timestamp;
+      cur.expired = expired;
     }
   }
 
+  private onApplyBuff(event: ApplyBuffEvent | ApplyBuffStackEvent) {
+    this.currentBuffs += 1;
+    if (event.type === EventType.ApplyBuffStack) {
+      this.endUptimeWindow(event.timestamp, false);
+    }
+    this.startUptimeWindow(event.timestamp);
+  }
+
+  private onRefreshBuff(event: RefreshBuffEvent) {
+    const isExpired = this.currentBuffs === MAX_STACKS;
+    if (isExpired) {
+      this.wastedBuffs = +1;
+    }
+    this.endUptimeWindow(event.timestamp, isExpired);
+    this.startUptimeWindow(event.timestamp);
+  }
+
   private onRemoveBuff(event: RemoveBuffEvent | RemoveBuffStackEvent) {
-    if (isZenPulseConsumed(event)) {
+    const isConsumed = isZenPulseConsumed(event);
+    if (isConsumed) {
       this.consumedBuffs += 1;
       this.currentBuffs -= 1;
     } else {
       this.wastedBuffs += 1;
       this.currentBuffs = 0;
     }
+    this.endUptimeWindow(event.timestamp, !isConsumed);
   }
 
   private onHeal(event: HealEvent) {
@@ -134,6 +179,96 @@ class ZenPulse extends Analyzer {
     this.castIncreases.push(
       Math.min(zenPulseHits.length, ZEN_PULSE_MAX_HITS_FOR_BOOST) * ZEN_PULSE_INCREASE_PER_STACK,
     );
+  }
+
+  get nestedUptimes(): Uptime[] {
+    const result: Uptime[] = [];
+    const toInvert: Uptime[] = [];
+    this.uptimes.forEach((u) => {
+      if (u.expired) {
+        toInvert.push(u.uptime);
+      }
+    });
+    // no expirations, mark entire bar as good utilization
+    if (!toInvert.length) {
+      return [{ start: this.owner.fight.start_time, end: this.owner.fight.end_time }];
+    }
+    // get inverse of expiration periods
+    let cur = 0;
+    let prev = -1;
+    for (; cur < toInvert.length; cur += 1) {
+      if (prev >= 0) {
+        result.push({
+          start: toInvert[prev].end,
+          end: toInvert[cur].start,
+        });
+      } else {
+        // start of fight
+        result.push({
+          start: this.owner.fight.start_time,
+          end: toInvert[cur].start,
+        });
+      }
+      prev = cur;
+    }
+    return result;
+  }
+
+  get guideSubsection(): JSX.Element {
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT} />
+        </b>{' '}
+        is a buff that procs off of <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> that
+        makes your next <SpellLink spell={SPELLS.VIVIFY} /> cast do additional healing on your
+        target and all targets with <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />. It is
+        very important to make sure that you never let this buff expire. Ideally try to consume this
+        buff to minimize overheal while ensuring that you have a high number of{' '}
+        <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> buffs active.
+      </p>
+    );
+    const styleObj = {
+      fontSize: 20,
+    };
+    const styleObjInner = {
+      fontSize: 15,
+    };
+    const data = (
+      <div>
+        <RoundedPanel>
+          <strong>
+            <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT} /> utilization
+          </strong>
+          <small>
+            Grey periods indicate periods where your{' '}
+            <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT} /> buff expired and green indicates
+            periods where you did not let the buff expire.
+          </small>
+
+          {uptimeBarSubStatistic(
+            this.owner.fight,
+            {
+              spells: [SPELLS.ZEN_PULSE_BUFF],
+              uptimes: this.nestedUptimes,
+              color: SPELL_COLORS.VIVIFY,
+            },
+            undefined,
+            undefined,
+            undefined,
+            'utilization',
+          )}
+          <div style={styleObj}>
+            <b>{this.wastedBuffs}</b> <small style={styleObjInner}>wasted buffs</small>
+          </div>
+          <div style={styleObj}>
+            <b>{this.avgHitsPerConsume.toFixed(2)}</b>{' '}
+            <small style={styleObjInner}>avg hits per buff</small>
+          </div>
+        </RoundedPanel>
+      </div>
+    );
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 
   subStatistic() {
