@@ -79,6 +79,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           modules.vivaciousVivification.guideSubsection}
         {info.combatant.hasTalent(TALENTS_MONK.ZEN_PULSE_TALENT) &&
           modules.zenPulse.guideSubsection}
+        {info.combatant.hasTalent(TALENTS_MONK.STRENGTH_OF_THE_BLACK_OX_TALENT) &&
+          modules.strengthOfTheBlackOx.guideSubsection}
       </Section>
       <PreparationSection />
     </>
