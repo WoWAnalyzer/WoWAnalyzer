@@ -32,7 +32,7 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.GHOUL_FRENZY.id],
+        spell: [SPELLS.DARK_TRANSFORMATION.id],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
@@ -59,11 +59,6 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: [SPELLS.PESTILENCE.id],
-        category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        gcd: { base: 1500 },
-      },
-      {
-        spell: SPELLS.CORPSE_EXPLOSION.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: { base: 1500 },
       },
