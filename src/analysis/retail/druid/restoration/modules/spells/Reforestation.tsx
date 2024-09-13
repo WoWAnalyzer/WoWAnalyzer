@@ -1,4 +1,4 @@
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import { Options } from 'parser/core/Module';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -62,23 +62,6 @@ class Reforestation extends Analyzer {
                   )}
                   %
                 </strong>
-              </li>
-              <li>
-                Rejuv Mana Saved:{' '}
-                <strong>
-                  {formatNumber(this.treeOfLife._getManaSaved(this.treeOfLife.reforestation))}
-                </strong>{' '}
-                (assuming mana used to fill with Rejuvs:{' '}
-                <strong>
-                  ≈
-                  {formatPercentage(
-                    this.owner.getPercentageOfTotalHealingDone(
-                      this.treeOfLife._getManaSavedHealing(this.treeOfLife.reforestation),
-                    ),
-                  )}
-                  %
-                </strong>{' '}
-                healing)
               </li>
               <li>
                 Increased Wild Growths:{' '}
