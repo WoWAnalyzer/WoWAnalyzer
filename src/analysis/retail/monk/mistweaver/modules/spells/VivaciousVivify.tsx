@@ -107,7 +107,7 @@ class VivaciousVivification extends Analyzer {
     }
   }
 
-  //We enter unusable period if our ReM count becomes too low or if we consume the buff
+  // We enter unusable period if our ReM count becomes too low or if we consume the buff
   onRemRemove(event: RemoveBuffEvent) {
     if (this.inUsablePeriod && !this.isUsable) {
       this.endUsablePeriod(event.timestamp);

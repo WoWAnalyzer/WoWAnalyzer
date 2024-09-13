@@ -77,6 +77,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           modules.chiBurst.guideSubsection}
         {info.combatant.hasTalent(TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT) &&
           modules.vivaciousVivification.guideSubsection}
+        {info.combatant.hasTalent(TALENTS_MONK.ZEN_PULSE_TALENT) &&
+          modules.zenPulse.guideSubsection}
       </Section>
       <PreparationSection />
     </>

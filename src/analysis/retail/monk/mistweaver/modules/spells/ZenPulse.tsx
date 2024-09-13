@@ -21,6 +21,11 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import { ZEN_PULSE_INCREASE_PER_STACK, ZEN_PULSE_MAX_HITS_FOR_BOOST } from '../../constants';
 import Abilities from '../features/Abilities';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
+import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 const MAX_STACKS = 2;
 
@@ -38,6 +43,7 @@ class ZenPulse extends Analyzer {
   consumedBuffs: number = 0;
   badCasts: number = 0;
   castIncreases: number[] = [];
+  entries: BoxRowEntry[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -97,23 +103,33 @@ class ZenPulse extends Analyzer {
     return (this.healing + this.overhealing) / this.consumedBuffs;
   }
 
-  private onApplyBuff(event: ApplyBuffEvent | ApplyBuffStackEvent) {
+  private onApplyBuff(_: ApplyBuffEvent | ApplyBuffStackEvent) {
     this.currentBuffs += 1;
   }
 
   private onRefreshBuff(event: RefreshBuffEvent) {
-    if (this.currentBuffs === MAX_STACKS) {
+    const isExpired = this.currentBuffs === MAX_STACKS;
+    if (isExpired) {
       this.wastedBuffs = +1;
+      this.entries.push({
+        value: QualitativePerformance.Fail,
+        tooltip: <>Buff refreshed at {this.owner.formatTimestamp(event.timestamp)}</>,
+      });
     }
   }
 
   private onRemoveBuff(event: RemoveBuffEvent | RemoveBuffStackEvent) {
-    if (isZenPulseConsumed(event)) {
+    const isConsumed = isZenPulseConsumed(event);
+    if (isConsumed) {
       this.consumedBuffs += 1;
       this.currentBuffs -= 1;
     } else {
       this.wastedBuffs += 1;
       this.currentBuffs = 0;
+      this.entries.push({
+        value: QualitativePerformance.Fail,
+        tooltip: <>Buff expired at {this.owner.formatTimestamp(event.timestamp)}</>,
+      });
     }
   }
 
@@ -123,17 +139,100 @@ class ZenPulse extends Analyzer {
     this.overhealing += event.overheal || 0;
   }
 
+  private getPerf(events: HealEvent[]): { overheal: number; perf: QualitativePerformance } {
+    const avgOverhealing =
+      events
+        .map((hit) => {
+          const overheal = hit.overheal || 0;
+          return overheal / (overheal + hit.amount + (hit.absorbed || 0));
+        })
+        .reduce((prev, cur) => {
+          return prev + cur;
+        }) / events.length;
+    if (events.length < ZEN_PULSE_MAX_HITS_FOR_BOOST) {
+      return { overheal: avgOverhealing, perf: QualitativePerformance.Ok };
+    }
+
+    if (avgOverhealing > 0.75) {
+      return { overheal: avgOverhealing, perf: QualitativePerformance.Ok };
+    }
+    return { overheal: avgOverhealing, perf: QualitativePerformance.Good };
+  }
+
   private onViv(event: HealEvent) {
     const zenPulseHits = getZenPulseHitsPerCast(event);
     if (!zenPulseHits.length) {
       return;
     }
+    const perfInfo = this.getPerf(zenPulseHits);
+    const percentInc =
+      Math.min(zenPulseHits.length, ZEN_PULSE_MAX_HITS_FOR_BOOST) * ZEN_PULSE_INCREASE_PER_STACK;
+    this.castIncreases.push(percentInc);
+    this.entries.push({
+      value: perfInfo.perf,
+      tooltip: (
+        <>
+          <div>@ {this.owner.formatTimestamp(event.timestamp)}</div>
+          <div>
+            Hits: <strong>{zenPulseHits.length}</strong>
+          </div>
+          <div>Avg overhealing: {formatPercentage(perfInfo.overheal)}%</div>
+          <div>Healing increase: {formatPercentage(percentInc)}%</div>
+        </>
+      ),
+    });
     if (zenPulseHits.length < ZEN_PULSE_MAX_HITS_FOR_BOOST) {
       this.badCasts += 1;
     }
-    this.castIncreases.push(
-      Math.min(zenPulseHits.length, ZEN_PULSE_MAX_HITS_FOR_BOOST) * ZEN_PULSE_INCREASE_PER_STACK,
+  }
+
+  get guideSubsection(): JSX.Element {
+    const explanation = (
+      <p>
+        <div>
+          <b>
+            <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT} />
+          </b>{' '}
+          is a buff that procs off of <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> that
+          makes your next <SpellLink spell={SPELLS.VIVIFY} /> cast do additional healing on your
+          target and all targets with <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />. The
+          healing done by <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT} /> is increased by 6% per
+          target with <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> up to 30%, so it is
+          important to have at least 5 ReMs active before consuming the buff.
+        </div>
+        <div style={{ paddingTop: '1em' }}>
+          It is very important to make sure that you never let this buff expire. Ideally try to
+          consume this buff to minimize overheal while ensuring that you have a high number of{' '}
+          <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> buffs active.
+        </div>
+      </p>
     );
+    const styleObj = {
+      fontSize: 20,
+    };
+    const styleObjInner = {
+      fontSize: 15,
+    };
+    const data = (
+      <div>
+        <RoundedPanel>
+          <div>
+            <strong>
+              <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT} /> consumptions
+            </strong>
+            <PerformanceBoxRow values={this.entries} />
+          </div>
+          <div style={styleObj}>
+            <b>{this.wastedBuffs}</b> <small style={styleObjInner}>wasted buffs</small>
+          </div>
+          <div style={styleObj}>
+            <b>{this.avgHitsPerConsume.toFixed(2)}</b>{' '}
+            <small style={styleObjInner}>avg hits per buff</small>
+          </div>
+        </RoundedPanel>
+      </div>
+    );
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 
   subStatistic() {
