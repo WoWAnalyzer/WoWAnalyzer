@@ -6,7 +6,6 @@ import SpellLink from 'interface/SpellLink';
 
 export default [
   change(date (2024, 9, 11), <>Add <SpellLink spell={TALENTS_MONK.STRENGTH_OF_THE_BLACK_OX_TALENT}/> guide section</>, Trevor),
-  change(date (2024, 9, 11), <>Add <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT}/> guide section</>, Trevor),
   change(date (2024, 9, 10), <>Change <SpellLink spell={TALENTS_MONK.REVIVAL_TALENT}/> load conditions</>, Trevor),
   change(date (2024, 8, 1), <>Updated values from Beta tuning.</>, Vohrr),
   change(date (2024, 7, 31), <>Added <SpellLink spell={TALENTS_MONK.MENDING_PROLIFERATION_TALENT}/>, <SpellLink spell={TALENTS_MONK.TEAR_OF_MORNING_TALENT}/>, <SpellLink spell={TALENTS_MONK.CHI_HARMONY_TALENT}/>, <SpellLink spell={TALENTS_MONK.LOTUS_INFUSION_TALENT}/>, <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT}/>, and <SpellLink spell={TALENTS_MONK.CRANE_STYLE_TALENT}/> to Talent Breakdown.</>, Vohrr),
