@@ -44,6 +44,7 @@ class ZenPulse extends Analyzer {
   badCasts: number = 0;
   castIncreases: number[] = [];
   entries: BoxRowEntry[] = [];
+
   constructor(options: Options) {
     super(options);
 
