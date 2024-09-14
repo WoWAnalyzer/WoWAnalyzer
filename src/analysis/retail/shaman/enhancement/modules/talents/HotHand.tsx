@@ -62,6 +62,10 @@ interface HighPriorityRule {
   condition: (e: CastEvent | FreeCastEvent) => boolean;
 }
 
+/**
+ * These abilities are higher priority than casting Lava Lash even during
+ * a Hot Hand window so we don't want to unfairly punish the performance if
+ * any of these are used  */
 const HIGH_PRIORITY_ABILITIES: (number | HighPriorityRule)[] = [
   TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT.id,
   TALENTS.FERAL_SPIRIT_TALENT.id,

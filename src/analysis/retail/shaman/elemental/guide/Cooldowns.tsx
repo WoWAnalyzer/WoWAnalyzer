@@ -47,19 +47,14 @@ const CooldownGraphSubsection = ({ checklist }: Props) => {
   return (
     <SubSection>
       {checklist
-        .filter((talent) => {
-          if (talent.isActive && !talent.isActive(info.combatant)) {
-            return false;
-          }
-          return true;
-        })
-        .map((talent) => (
+        .filter((cooldown) => cooldown.isActive && cooldown.isActive(info.combatant))
+        .map((cooldown) => (
           <CastEfficiencyBar
-            key={talent.spell.id}
-            spell={talent.spell}
+            key={cooldown.spell.id}
+            spell={cooldown.spell}
             gapHighlightMode={GapHighlight.All}
             minimizeIcons={
-              (castEfficiency.getCastEfficiencyForSpell(talent.spell)?.casts ?? 0) > 10
+              (castEfficiency.getCastEfficiencyForSpell(cooldown.spell)?.casts ?? 0) > 10
             }
             useThresholds
           />

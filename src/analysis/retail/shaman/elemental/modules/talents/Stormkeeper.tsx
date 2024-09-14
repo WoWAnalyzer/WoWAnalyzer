@@ -17,7 +17,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import { ON_CAST_BUFF_REMOVAL_GRACE_MS } from '../../constants';
+import { ON_CAST_BUFF_REMOVAL_GRACE_MS, ENABLE_MOTE_CHECKS } from '../../constants';
 import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
 import MajorCooldown, { CooldownTrigger } from 'parser/core/MajorCooldowns/MajorCooldown';
 import { QualitativePerformance, getLowestPerf } from 'parser/ui/QualitativePerformance';
@@ -72,9 +72,6 @@ interface StormkeeperCast extends CooldownTrigger<BeginCastEvent | ApplyBuffEven
   /** The ability that started the window. */
   firstRotationCast?: CastEvent;
 }
-
-/** Master of the Elements is not currently worth playing around, so it's disabled here instead of the code removed */
-const ENABLE_MOTE_CHECKS = false;
 
 // Spells that must have SOP if cast within the SK window
 const SPELLS_SOP_BUFF_REQUIRED = [SPELLS.LIGHTNING_BOLT.id, TALENTS.CHAIN_LIGHTNING_TALENT.id];
@@ -208,7 +205,7 @@ class Stormkeeper extends MajorCooldown<StormkeeperCast> {
       .at(-1);
     this.activeWindow.timeline.end = Math.max(
       event.timestamp,
-      lastGcd ? lastGcd.timestamp + lastGcd.duration : 0,
+      lastGcd?.type === EventType.GlobalCooldown ? lastGcd.timestamp + lastGcd.duration : 0,
     );
     this.recordCooldown(this.activeWindow);
     this.nextCastStartsWindow = false;
@@ -222,7 +219,7 @@ class Stormkeeper extends MajorCooldown<StormkeeperCast> {
       const isPrepull = this.activeWindow.event.timestamp < this.owner.fight.start_time;
       const spenderNotAlreadyCast = !this.activeWindow.timeline.events
         .filter((e) => e.type === EventType.Cast)
-        .map((e) => e.ability.guid)
+        .map((e) => (e.type === EventType.Cast ? e.ability.guid : -1))
         .includes(this.stSpender.id);
 
       if (event.type === EventType.Cast) {
@@ -252,7 +249,7 @@ class Stormkeeper extends MajorCooldown<StormkeeperCast> {
         const sopSpellNotAlreadyCast =
           this.activeWindow.timeline.events
             .filter((e) => e.type === EventType.Cast)
-            .map((e) => e.ability.guid)
+            .map((e) => (e.type === EventType.Cast ? e.ability.guid : -1))
             .filter((e) => SPELLS_SOP_BUFF_REQUIRED.includes(e)).length === 0;
 
         if (

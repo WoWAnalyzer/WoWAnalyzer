@@ -179,9 +179,10 @@ class Abilities extends ClassAbilities {
         enabled: combatant.hasTalent(TALENTS.HAILSTORM_TALENT),
       },
       {
-        spell: TALENTS.ASCENDANCE_ELEMENTAL_TALENT.id,
+        spell: TALENTS.ASCENDANCE_ENHANCEMENT_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         enabled: combatant.hasTalent(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT),
+        cooldown: 180,
       },
     ];
   }

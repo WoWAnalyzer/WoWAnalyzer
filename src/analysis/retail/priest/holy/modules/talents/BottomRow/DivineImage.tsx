@@ -1,5 +1,7 @@
 import { formatNumber, formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
+import SpellLink from 'interface/SpellLink';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { DamageEvent, HealEvent, SummonEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -76,10 +78,18 @@ class DivineImage extends Analyzer {
         tooltip={
           <>
             Total Images Summoned: {this.totalProcs}
+            <div>
+              Bonus Healing Done: {formatNumber(this.totalHealing)} (
+              {formatPercentage(
+                this.totalOverhealing / (this.totalHealing + this.totalOverhealing),
+              )}
+              % OH)
+            </div>
             <br />
-            Bonus Healing Done: {formatNumber(this.totalHealing)} (
-            {formatPercentage(this.totalOverhealing / (this.totalHealing + this.totalOverhealing))}%
-            OH)
+            <div>
+              Notably this talent does not contribute to{' '}
+              <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />
+            </div>
           </>
         }
       >

@@ -291,8 +291,8 @@ export function isVivaciousVivification(event: HealEvent) {
   return GetRelatedEvent(event, VIVACIOUS_VIVIFICATION);
 }
 
-export function getZenPulseHitsPerCast(event: HealEvent) {
-  return GetRelatedEvents(event, ZEN_PULSE_VIVIFY);
+export function getZenPulseHitsPerCast(event: HealEvent): HealEvent[] {
+  return GetRelatedEvents<HealEvent>(event, ZEN_PULSE_VIVIFY);
 }
 
 export function isZenPulseConsumed(event: RemoveBuffEvent | RemoveBuffStackEvent) {

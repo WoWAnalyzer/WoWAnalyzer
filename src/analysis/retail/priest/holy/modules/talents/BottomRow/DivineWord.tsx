@@ -1,4 +1,4 @@
-import TALENTS from 'common/TALENTS/priest';
+import TALENTS, { TALENTS_PRIEST } from 'common/TALENTS/priest';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -23,18 +23,21 @@ import {
   HEALING_INCREASE_FROM_SERENITY,
   MANA_REDUCTION_FROM_SERENITY,
 } from 'analysis/retail/priest/holy/constants';
-import { SpellIcon } from 'interface';
+import { SpellIcon, SpellLink } from 'interface';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import ItemManaGained from 'parser/ui/ItemManaGained';
+import EOLAttrib from '../../core/EchoOfLightAttributor';
+import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 
 // Example Logs: /report/VXr2kgALF3Rj6Q4M/11-Mythic+Anduin+Wrynn+-+Kill+(5:12)/Litena/standard/statistics
 // /report/xq2FvfVCJh6YLjzZ/2-Mythic+Vigilant+Guardian+-+Kill+(4:40)/Ashelya/standard/statistics
 class DivineWord extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
+    eolAttrib: EOLAttrib,
   };
   protected statTracker!: StatTracker;
-
+  protected eolAttrib!: EOLAttrib;
   //Could also track mana saved and wasted Divine Words buffs
   sanctifyHealing = 0;
   sanctifyOverhealing = 0;
@@ -49,6 +52,9 @@ class DivineWord extends Analyzer {
   serenityWordUse = 0;
   chastiseWordUse = 0;
   sanctifyWordUse = 0;
+
+  eolContribSerenity = 0;
+  eolContribSanctify = 0;
 
   constructor(options: Options) {
     super(options);
@@ -131,17 +137,29 @@ class DivineWord extends Analyzer {
       const healingIncreaseTotal = HEALING_INCREASE_FROM_SERENITY;
       this.serenityHealing += calculateEffectiveHealing(event, healingIncreaseTotal);
       this.serenityOverhealing += calculateOverhealing(event, healingIncreaseTotal);
+      this.eolContribSerenity += this.eolAttrib.getEchoOfLightAmpAttrib(
+        event,
+        healingIncreaseTotal,
+      );
     } else if (
       spellId === TALENTS.HOLY_WORD_SERENITY_TALENT.id &&
       this.selectedCombatant.hasBuff(TALENTS.DIVINE_WORD_TALENT.id)
     ) {
       this.serenityHealing += calculateEffectiveHealing(event, DW_ACTIVATOR_SPELL_INCREASE);
       this.serenityOverhealing += calculateOverhealing(event, DW_ACTIVATOR_SPELL_INCREASE);
+      this.eolContribSerenity += this.eolAttrib.getEchoOfLightAmpAttrib(
+        event,
+        DW_ACTIVATOR_SPELL_INCREASE,
+      );
     } else if (
       spellId === TALENTS.HOLY_WORD_SANCTIFY_TALENT.id &&
       this.selectedCombatant.hasBuff(TALENTS.DIVINE_WORD_TALENT.id)
     ) {
       this.sanctifyHealing += calculateEffectiveHealing(event, DW_ACTIVATOR_SPELL_INCREASE);
+      this.eolContribSanctify += this.eolAttrib.getEchoOfLightAmpAttrib(
+        event,
+        DW_ACTIVATOR_SPELL_INCREASE,
+      );
       this.sanctifyOverhealing += calculateOverhealing(event, DW_ACTIVATOR_SPELL_INCREASE);
     }
   }
@@ -199,8 +217,33 @@ class DivineWord extends Analyzer {
               this.serenityOverhealing / (this.serenityHealing + this.serenityOverhealing),
             )}
             % OH
+            <div>
+              The extra effectiveness from the activating <strong>Holy Word</strong> is included.
+            </div>
             <br />
-            The extra effectiveness from the activating <strong>Holy Word</strong> is included.
+            <div>
+              This talent contributed{' '}
+              <ItemPercentHealingDone
+                amount={this.eolContribSerenity + this.eolContribSanctify}
+              ></ItemPercentHealingDone>{' '}
+              from <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} /> which is already included in
+              the talent totals.
+            </div>
+            <br />
+            <div>
+              <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} /> procs from the initial Holy Word
+              increase and all of the <SpellLink spell={SPELLS.DIVINE_WORD_SERENITY_TALENT_BUFF} />{' '}
+              buffed <SpellLink spell={SPELLS.GREATER_HEAL} /> and{' '}
+              <SpellLink spell={SPELLS.FLASH_HEAL} />, but NOT{' '}
+              <SpellLink spell={SPELLS.DIVINE_WORD_SANCTIFY_TALENT_HEAL} /> or buffed{' '}
+              <SpellLink spell={SPELLS.RENEW_HEAL} />.
+            </div>
+            <br />
+            <div>
+              Notably this module currently is missing the contributions to{' '}
+              <SpellLink spell={TALENTS_PRIEST.BINDING_HEALS_TALENT} /> and{' '}
+              <SpellLink spell={TALENTS_PRIEST.TRAIL_OF_LIGHT_TALENT} />, which can undervalue it.
+            </div>
           </>
         }
         size="flexible"
@@ -208,27 +251,30 @@ class DivineWord extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(7)}
       >
         <BoringSpellValueText spell={TALENTS.DIVINE_WORD_TALENT}>
-          Usage: {this.sanctifyWordUse}
-          <SpellIcon spell={SPELLS.DIVINE_WORD_SANCTIFY_TALENT_HEAL} />
-          &nbsp;{this.serenityWordUse}
-          <SpellIcon spell={SPELLS.DIVINE_WORD_SERENITY_TALENT_BUFF} />
-          &nbsp;{this.chastiseWordUse}
-          <SpellIcon spell={SPELLS.DIVINE_WORD_CHASTISE_TALENT_BUFF} />
+          <small>
+            Usage: {this.sanctifyWordUse}
+            <SpellIcon spell={SPELLS.DIVINE_WORD_SANCTIFY_TALENT_HEAL} />
+            &nbsp;{this.serenityWordUse}
+            <SpellIcon spell={SPELLS.DIVINE_WORD_SERENITY_TALENT_BUFF} />
+            &nbsp;{this.chastiseWordUse}
+            <SpellIcon spell={SPELLS.DIVINE_WORD_CHASTISE_TALENT_BUFF} />
+          </small>
           <br />
-          {this.divineWordCasts} total {castsString}
+          {this.divineWordCasts}
+          <small> total {castsString}</small>
         </BoringSpellValueText>
         <BoringSpellValueText spell={SPELLS.DIVINE_WORD_SANCTIFY_TALENT_HEAL}>
-          <ItemHealingDone amount={this.sanctifyHealing} />
+          <ItemHealingDone amount={this.sanctifyHealing + this.eolContribSanctify} />
         </BoringSpellValueText>
         <BoringSpellValueText spell={SPELLS.DIVINE_WORD_SERENITY_TALENT_BUFF}>
-          <ItemHealingDone amount={this.serenityHealing} />
+          <ItemHealingDone amount={this.serenityHealing + this.eolContribSerenity} />
           <br />
           <ItemManaGained amount={this.serenityManaSaved} />
         </BoringSpellValueText>
         <BoringSpellValueText spell={SPELLS.DIVINE_WORD_CHASTISE_TALENT_BUFF}>
           <ItemDamageDone amount={this.chastiseDamage} />
           <br />
-          {this.chastiseWordUse * CHASTISE_REFUNDED_COOLDOWN}s CDR for Chastise.
+          <small>{this.chastiseWordUse * CHASTISE_REFUNDED_COOLDOWN}s CDR for Chastise.</small>
         </BoringSpellValueText>
       </Statistic>
     );

@@ -185,6 +185,9 @@ export function plotOneVariableBinomChart(
     title: 'Likelihood',
   },
 ) {
+  if (procAttempts < 1) {
+    return null;
+  }
   const { procProbabilities, rangeMin, rangeMax } = setMinMaxProbabilities(
     actualProcs,
     procAttempts,

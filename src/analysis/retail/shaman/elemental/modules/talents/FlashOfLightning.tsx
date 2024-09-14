@@ -86,21 +86,18 @@ class FlashOfLightning extends Analyzer.withDependencies({ spellUsable: SpellUsa
                 </tr>
               </thead>
               <tbody>
-                {this.reducedCooldowns
-                  .entries()
-                  .toArray()
-                  .map(([spellId, cdr]) => {
-                    return (
-                      <tr key={spellId}>
-                        <td>
-                          <strong>
-                            <SpellLink spell={spellId} />
-                          </strong>
-                        </td>
-                        <td>{formatNumber(cdr / 1000)}</td>
-                      </tr>
-                    );
-                  })}
+                {Array.from(this.reducedCooldowns.entries()).map(([spellId, cdr]) => {
+                  return (
+                    <tr key={spellId}>
+                      <td>
+                        <strong>
+                          <SpellLink spell={spellId} />
+                        </strong>
+                      </td>
+                      <td>{formatNumber(cdr / 1000)}</td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </>
@@ -111,7 +108,10 @@ class FlashOfLightning extends Analyzer.withDependencies({ spellUsable: SpellUsa
             <p>
               <UptimeIcon />{' '}
               {formatNumber(
-                this.reducedCooldowns.values().reduce((total, value) => (total += value), 0) / 1000,
+                Array.from(this.reducedCooldowns.values()).reduce(
+                  (total, value) => (total += value),
+                  0,
+                ) / 1000,
               )}{' '}
               sec <br />
               <small> total effective reduction</small>
