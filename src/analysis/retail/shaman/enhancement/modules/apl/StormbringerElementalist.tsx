@@ -9,6 +9,8 @@ import {
   repeatableBuffPresent,
   debuffMissing,
   describe,
+  or,
+  spellCharges,
 } from 'parser/shared/metrics/apl/conditions';
 import { MaxStacksMSW, minimumMaelstromWeaponStacks, AtLeastFiveMSW } from './Conditions';
 
@@ -24,15 +26,35 @@ export function stormbringerElementalist(combatant: Combatant): Apl {
     },
     {
       spell: TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT,
-      condition: and(
-        minimumMaelstromWeaponStacks(8),
-        repeatableBuffPresent(
-          [
-            SPELLS.ELEMENTAL_SPIRITS_BUFF_MOLTEN_WEAPON,
-            SPELLS.ELEMENTAL_SPIRITS_BUFF_ICY_EDGE,
-            SPELLS.ELEMENTAL_SPIRITS_BUFF_CRACKLING_SURGE,
-          ],
-          { atLeast: 4 },
+      condition: or(
+        describe(
+          and(
+            AtLeastFiveMSW,
+            spellCharges(TALENTS.ELEMENTAL_BLAST_ENHANCEMENT_TALENT, { atLeast: 2, atMost: 2 }),
+          ),
+          () => <>you are capped on charges</>,
+        ),
+        and(
+          minimumMaelstromWeaponStacks(8),
+          repeatableBuffPresent(
+            [
+              SPELLS.ELEMENTAL_SPIRITS_BUFF_MOLTEN_WEAPON,
+              SPELLS.ELEMENTAL_SPIRITS_BUFF_ICY_EDGE,
+              SPELLS.ELEMENTAL_SPIRITS_BUFF_CRACKLING_SURGE,
+            ],
+            { atLeast: 4 },
+          ),
+        ),
+      ),
+    },
+    {
+      spell: SPELLS.TEMPEST_CAST,
+      condition: describe(
+        and(buffPresent(SPELLS.TEMPEST_BUFF), minimumMaelstromWeaponStacks(6)),
+        () => (
+          <>
+            available and at least 5 <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> stacks
+          </>
         ),
       ),
     },

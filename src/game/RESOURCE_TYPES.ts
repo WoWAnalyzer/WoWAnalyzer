@@ -140,6 +140,7 @@ const RESOURCE_TYPES = {
     url: 'essence',
   },
   MAELSTROM_WEAPON: {
+    // Enhancement Shaman
     id: -99,
     name: 'Maestrom',
     icon: 'spell_shaman_maelstromweapon',
