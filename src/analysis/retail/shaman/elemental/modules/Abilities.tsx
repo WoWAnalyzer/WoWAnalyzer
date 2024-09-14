@@ -127,6 +127,15 @@ class Abilities extends ClassAbilities {
           base: 1500,
         },
       },
+      {
+        spell: SPELLS.ANCESTRAL_SWIFTNESS_CAST.id,
+        enabled: combatant.hasTalent(TALENTS.ANCESTRAL_SWIFTNESS_TALENT),
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 30,
+        gcd: {
+          static: 0,
+        },
+      },
     ];
   }
 }
