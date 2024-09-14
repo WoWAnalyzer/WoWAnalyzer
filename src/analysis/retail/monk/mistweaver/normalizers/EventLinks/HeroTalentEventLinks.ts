@@ -9,9 +9,9 @@ export const HERO_TALENT_EVENT_LINKS: EventLink[] = [
     linkRelation: STRENGTH_OF_THE_BLACK_OX,
     linkingEventId: SPELLS.STRENGTH_OF_THE_BLACK_OX_BUFF.id,
     linkingEventType: EventType.RemoveBuff,
-    referencedEventId: SPELLS.STRENGTH_OF_THE_BLACK_OX_SHIELD.id,
-    referencedEventType: EventType.ApplyBuff,
-    forwardBufferMs: CAST_BUFFER_MS,
+    referencedEventId: [SPELLS.ENVELOPING_MIST_TFT.id, TALENTS_MONK.ENVELOPING_MIST_TALENT.id],
+    referencedEventType: EventType.Cast,
+    backwardBufferMs: CAST_BUFFER_MS,
     maximumLinks: 1,
     anyTarget: true,
     isActive(c) {

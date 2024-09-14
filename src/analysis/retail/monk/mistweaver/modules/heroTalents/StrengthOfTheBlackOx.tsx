@@ -10,7 +10,6 @@ import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
-// TODO: add checklist for mana tea usage
 class StrengthOfTheBlackOx extends Analyzer {
   wastedBuffs: number = 0;
   entries: BoxRowEntry[] = [];
