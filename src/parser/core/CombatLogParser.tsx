@@ -105,6 +105,7 @@ import {
   AuthorityOfRadiantPower,
   AuthorityOfStorms,
   AuthorityOfTheDepths,
+  DarkmoonSigilAscension,
   StormridersFury,
 } from 'parser/retail/modules/items/thewarwithin';
 
@@ -213,6 +214,9 @@ class CombatLogParser {
     authorityOfStorms: AuthorityOfStorms,
     stormridersFury: StormridersFury,
     authorityOfTheDepths: AuthorityOfTheDepths,
+
+    // Embellishments
+    darkmoonSigilAscension: DarkmoonSigilAscension,
 
     // Enchants
     burningDevotion: BurningDevotion,

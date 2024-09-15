@@ -1,7 +1,7 @@
 import { Options } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import StatProcEnchantAnalyzer from './StatProcEnchantAnalyzer';
+import StatProcEnchantAnalyzer from '../../StatProcEnchantAnalyzer';
 import STAT from 'parser/shared/modules/features/STAT';
 
 class StormridersFury extends StatProcEnchantAnalyzer {

@@ -5,7 +5,7 @@ import Events, { DamageEvent } from 'parser/core/Events';
 import { DamageIcon } from 'interface/icons';
 import { formatNumber, formatPercentage } from 'common/format';
 import MAGIC_SCHOOLS, { color } from 'game/MAGIC_SCHOOLS';
-import StatProcEnchantAnalyzer from './StatProcEnchantAnalyzer';
+import StatProcEnchantAnalyzer from '../../StatProcEnchantAnalyzer';
 
 class AuthorityOfRadiantPower extends StatProcEnchantAnalyzer {
   private damage = 0;
