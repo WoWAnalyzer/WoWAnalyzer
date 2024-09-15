@@ -138,9 +138,9 @@ const spells = {
     icon: 'ability_rogue_trip',
   },
   // Human
-  EVERY_MAN_FOR_HIMSELF: {
+  WILL_TO_SURVIVE: {
     id: 59752,
-    name: 'Every Man for Himself',
+    name: 'Will to Survive',
     icon: 'spell_shadow_charm',
   },
   SHADOWMELD: {
@@ -292,11 +292,40 @@ const spells = {
     name: 'Might of the Blackrock',
     icon: 'ability_racial_ancestralcall',
   },
+  // Zandalari Troll
+  PTERRORDAX_SWOOP: {
+    id: 281954,
+    name: 'Pterrordax Swoop',
+    icon: 'ability_racial_pterrordaxswoop',
+  },
+  REGENERATIN: {
+    id: 291944,
+    name: "Regeneratin'",
+    icon: 'ability_racial_regeneratin',
+  },
+  // Vulpera
+  RUMMAGE_YOUR_BAG: {
+    id: 312425,
+    name: 'Rummage Your Bag',
+    icon: 'ability_racial_rummageyourbag',
+  },
+  // Kul-Tiran
+  HAYMAKER: {
+    id: 287712,
+    name: 'Haymaker',
+    icon: 'ability_racial_haymaker',
+  },
   //Dracthyr
   AWAKENED: {
     id: 365575,
     name: 'Awakened',
     icon: 'ability_racial_awakened',
+  },
+  // Earthen
+  AZERITE_SURGE: {
+    id: 436344,
+    name: 'Azerite Surge',
+    icon: 'ability_earthen_azeritesurge',
   },
 } satisfies Record<string, Spell>;
 
