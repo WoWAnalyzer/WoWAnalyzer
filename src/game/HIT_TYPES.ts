@@ -1,4 +1,4 @@
-const HIT_TYPES: Record<string, number> = {
+const HIT_TYPES = {
   MISS: 0,
   NORMAL: 1,
   CRIT: 2,
@@ -8,5 +8,5 @@ const HIT_TYPES: Record<string, number> = {
   DODGE: 7,
   PARRY: 8,
   IMMUNE: 10,
-};
+} as const satisfies Record<string, number>;
 export default HIT_TYPES;
