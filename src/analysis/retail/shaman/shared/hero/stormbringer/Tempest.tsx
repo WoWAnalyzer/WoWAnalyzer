@@ -85,7 +85,7 @@ class Tempest extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.TEMPEST_CAST),
       this.onTempestCast,
     );
-    [Events.applybuff, Events.refreshbuff].forEach((filter) =>
+    [Events.applybuff, Events.applybuffstack, Events.refreshbuff].forEach((filter) =>
       this.addEventListener(
         filter.by(SELECTED_PLAYER).spell(SPELLS.TEMPEST_BUFF),
         this.onApplyTempest,
@@ -97,6 +97,10 @@ class Tempest extends Analyzer {
         filter.by(SELECTED_PLAYER).spell(SPELLS.AWAKENING_STORMS_BUFF),
         this.onAwakeningStorms,
       ),
+    );
+    this.addEventListener(
+      Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.TEMPEST_BUFF),
+      () => (this.ignoreNextRefresh = true),
     );
   }
 
@@ -115,7 +119,8 @@ class Tempest extends Analyzer {
     );
   }
 
-  onApplyTempest(event: ApplyBuffEvent | RefreshBuffEvent) {
+  private ignoreNextRefresh = false;
+  onApplyTempest(event: ApplyBuffEvent | ApplyBuffStackEvent | RefreshBuffEvent) {
     const sourceEvent = GetRelatedEvent<CastEvent | FreeCastEvent | RemoveBuffEvent>(
       event,
       TEMPEST_SOURCE_SPELL_EVENT_LINK,
@@ -132,9 +137,10 @@ class Tempest extends Analyzer {
     const procType: ProcType =
       sourceEvent.type === EventType.RemoveBuff ? 'awakening-storms' : 'maelstrom';
     this.tempestSources[procType].generated += 1;
-    if (event.type === EventType.RefreshBuff) {
+    if (event.type === EventType.RefreshBuff && !this.ignoreNextRefresh) {
       this.tempestSources[procType].wasted += 1;
     }
+    this.ignoreNextRefresh = false;
 
     // when tempest procs from a cast, check the current progress towards a proc is accurate
     if (sourceEvent.type === EventType.Cast || sourceEvent.type === EventType.FreeCast) {
@@ -156,13 +162,6 @@ class Tempest extends Analyzer {
             max: max,
           });
         }
-        // } else {
-        //   DEBUG && console.error(
-        //     `failed to update initial maelstrom at ${this.owner.formatTimestamp(event.timestamp, 3)}`,
-        //     initial,
-        //     { min: min, max: max },
-        //   );
-        // }
       }
     }
   }
