@@ -1,7 +1,6 @@
 import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
@@ -97,7 +96,7 @@ class TouchOfKarma extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink spell={TALENTS_MONK.TOUCH_OF_KARMA_TALENT} />
+          <SpellLink spell={SPELLS.TOUCH_OF_KARMA_CAST} />
         </b>{' '}
         is both a defensive and offensive cooldown, although it is mostly used offensively. It
         should be used any time enough damage will be taken to break the shield.
@@ -108,7 +107,7 @@ class TouchOfKarma extends Analyzer {
       <div>
         <RoundedPanel>
           <strong>
-            <SpellLink spell={TALENTS_MONK.TOUCH_OF_KARMA_TALENT} /> cast efficiency
+            <SpellLink spell={SPELLS.TOUCH_OF_KARMA_CAST} /> cast efficiency
           </strong>
           {this.guideSubStatistic()}
         </RoundedPanel>
@@ -121,7 +120,7 @@ class TouchOfKarma extends Analyzer {
   guideSubStatistic() {
     return (
       <CastEfficiencyBar
-        spellId={TALENTS_MONK.TOUCH_OF_KARMA_TALENT.id}
+        spellId={SPELLS.TOUCH_OF_KARMA_CAST.id}
         gapHighlightMode={GapHighlight.FullCooldown}
         minimizeIcons
         slimLines
