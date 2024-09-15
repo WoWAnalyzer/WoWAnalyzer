@@ -25,7 +25,7 @@ export default function spellAvailable(
       }
     },
     validate: (state, _event) =>
-      state === null || state.isAvailable || (inverse && !state.isAvailable),
+      state === null || (!inverse && state.isAvailable) || (inverse && !state.isAvailable),
     describe: (tense) => (
       <>
         <SpellLink spell={spell.id} /> {tenseAlt(tense, 'is', 'was')} {inverse ? 'on' : 'off'}{' '}
