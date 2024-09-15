@@ -12,7 +12,7 @@ export default function spellAvailable(
   spell: Spell,
   options: SpellAvailableOptions = {},
 ): Condition<UpdateSpellUsableEvent | null> {
-  const inverse = !!options.inverse;
+  const inverse = Boolean(options.inverse);
 
   return {
     key: `spellAvailable-${spell.id}`,
