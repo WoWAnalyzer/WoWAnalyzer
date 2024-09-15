@@ -77,8 +77,9 @@ class GuardianSpirit extends Analyzer {
     if (target === null) {
       return;
     }
-    if (target.hasBuff(TALENTS.GUARDIAN_SPIRIT_TALENT, null, 0, 0, this.selectedCombatant.id))
-      {this.selfGSIncrease += calculateEffectiveHealing(event, GUARDIAN_SPIRIT_HEALING_INCREASE);}
+    if (target.hasBuff(TALENTS.GUARDIAN_SPIRIT_TALENT, null, 0, 0, this.selectedCombatant.id)) {
+      this.selfGSIncrease += calculateEffectiveHealing(event, GUARDIAN_SPIRIT_HEALING_INCREASE);
+    }
   }
 
   get gsContribToothers() {
