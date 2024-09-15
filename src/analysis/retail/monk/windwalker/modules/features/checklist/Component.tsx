@@ -13,7 +13,7 @@ import { TALENTS_MONK } from 'common/TALENTS';
 import AplRule, { AplRuleProps } from 'parser/shared/metrics/apl/ChecklistRule';
 
 interface WWAplProps {
-  nonSerenityProps: AplRuleProps;
+  aplProps: AplRuleProps;
 }
 
 const WindwalkerMonkChecklist = (props: ChecklistProps & WWAplProps) => {
@@ -40,7 +40,7 @@ const WindwalkerMonkChecklist = (props: ChecklistProps & WWAplProps) => {
         <AbilityRequirement spell={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} />
         <AbilityRequirement spell={SPELLS.FISTS_OF_FURY_CAST.id} />
         {combatant.hasTalent(TALENTS_MONK.WHIRLING_DRAGON_PUNCH_TALENT) && (
-          <AbilityRequirement spell={SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id} />
+          <AbilityRequirement spell={SPELLS.WHIRLING_DRAGON_PUNCH_DAMAGE.id} />
         )}
         {combatant.hasTalent(TALENTS_MONK.STRIKE_OF_THE_WINDLORD_TALENT) && (
           <AbilityRequirement spell={TALENTS_MONK.STRIKE_OF_THE_WINDLORD_TALENT.id} />
@@ -247,7 +247,7 @@ const WindwalkerMonkChecklist = (props: ChecklistProps & WWAplProps) => {
       <AplRule
         name="Core Rotation"
         castEfficiency={props.castEfficiency}
-        {...props.nonSerenityProps}
+        {...props.aplProps}
         description={
           <>
             This section measures the quality of your rotation outside of{' '}

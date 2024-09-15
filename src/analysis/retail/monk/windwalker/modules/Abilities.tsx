@@ -36,7 +36,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id,
+        spell: TALENTS_MONK.WHIRLING_DRAGON_PUNCH_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 24 / (1 + haste),
         gcd: {
@@ -161,6 +161,9 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_MONK.STRIKE_OF_THE_WINDLORD_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 40,
+        gcd: {
+          static: 1000,
+        },
         enabled: combatant.hasTalent(TALENTS_MONK.STRIKE_OF_THE_WINDLORD_TALENT),
         castEfficiency: {
           suggestion: true,

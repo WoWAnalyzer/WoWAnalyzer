@@ -335,6 +335,16 @@ const spells = {
     name: 'Chi Burst',
     icon: 'spell_arcane_arcanetorrent',
   },
+  CHI_BURST_PROC: {
+    id: 460490,
+    name: 'Chi Burst',
+    icon: 'spell_arcane_arcanetorrent',
+  },
+  FLURRY_STRIKES_DAMAGE: {
+    id: 450615,
+    name: 'Flurry Strikes',
+    icon: 'inv-ability-shadopanmonk-flurrystrikes',
+  },
   LIFECYCLES_VIVIFY_BUFF: {
     id: 197916,
     name: 'Lifecycles (Vivify)',
@@ -460,8 +470,13 @@ const spells = {
     name: 'Uplifted Spirits',
     icon: 'monk_stance_wiseserpent',
   },
-  WHIRLING_DRAGON_PUNCH_TALENT: {
+  WHIRLING_DRAGON_PUNCH_DAMAGE: {
     id: 158221,
+    name: 'Whirling Dragon Punch',
+    icon: 'ability_monk_hurricanestrike',
+  },
+  WHIRLING_DRAGON_PUNCH_USABLE: {
+    id: 196742,
     name: 'Whirling Dragon Punch',
     icon: 'ability_monk_hurricanestrike',
   },
