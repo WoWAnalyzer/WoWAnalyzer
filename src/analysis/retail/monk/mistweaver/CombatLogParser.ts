@@ -92,6 +92,7 @@ import RestoreBalance from '../shared/hero/ConduitOfTheCelestials/talents/Restor
 import ConduitOfTheCelestialsEventLinks from '../shared/hero/ConduitOfTheCelestials/normalizers/ConduitOfTheCelestialsEventLinks';
 import CelestialConduitNormalizer from '../shared/hero/ConduitOfTheCelestials/normalizers/CelestialConduitNormalizer';
 import CelestialConduit from '../shared/hero/ConduitOfTheCelestials/talents/CelestialConduit';
+import StrengthOfTheBlackOx from './modules/heroTalents/StrengthOfTheBlackOx';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -206,6 +207,9 @@ class CombatLogParser extends CoreCombatLogParser {
     manaTracker: ManaTracker,
     hpmDetails: MistweaverHealingEfficiencyDetails,
     hpmTracker: HealingEfficiencyTracker,
+
+    // Hero Talents
+    strengthOfTheBlackOx: StrengthOfTheBlackOx,
   };
   static guide = Guide;
 }
