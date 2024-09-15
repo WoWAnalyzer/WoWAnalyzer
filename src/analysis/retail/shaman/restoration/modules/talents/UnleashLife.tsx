@@ -171,8 +171,6 @@ class UnleashLife extends Analyzer {
       TALENTS.WELLSPRING_TALENT,
       TALENTS.HEALING_RAIN_TALENT,
       SPELLS.DOWNPOUR_ABILITY,
-      SPELLS.DOWNPOUR_HEAL,
-      TALENTS.DOWNPOUR_TALENT,
     ];
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(spellFilter), this._onCast);
     this.addEventListener(
