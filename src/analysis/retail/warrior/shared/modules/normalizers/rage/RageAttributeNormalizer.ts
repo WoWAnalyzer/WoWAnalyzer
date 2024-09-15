@@ -64,6 +64,27 @@ export default class RageAttributeNormalizer extends EventsNormalizer {
         return;
       }
 
+      if (
+        event.resourceActor === ResourceActor.Source &&
+        event.sourceID !== this.selectedCombatant.id
+      ) {
+        // Resource event is not for the selected combatant
+        return;
+      }
+
+      if (
+        event.resourceActor === ResourceActor.Target &&
+        event.targetID !== this.selectedCombatant.id
+      ) {
+        // Resource event is not for the selected combatant
+        return;
+      }
+
+      if (!event.classResources.some((resource) => resource.type === RESOURCE_TYPES.RAGE.id)) {
+        // Resource event is not for rage
+        return;
+      }
+
       // Store original values, only for logging purposes
       const originalResourceChange = event.resourceChange;
       const originalWaste = event.waste;
