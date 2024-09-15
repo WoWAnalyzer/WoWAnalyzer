@@ -47,6 +47,7 @@ import RaidHealthTab from '../shared/modules/features/RaidHealthTab';
 import FilteredActiveTime from '../shared/modules/FilteredActiveTime';
 import GlobalCooldown from '../shared/modules/GlobalCooldown';
 import CritEffectBonus from '../shared/modules/helpers/CritEffectBonus';
+import OtherRacials from '../shared/modules/racials/OtherRacials';
 import Pets from '../shared/modules/Pets';
 import ArcaneTorrent from '../shared/modules/racials/bloodelf/ArcaneTorrent';
 import GiftOfTheNaaru from '../shared/modules/racials/draenei/GiftOfTheNaaru';
@@ -209,6 +210,7 @@ class CombatLogParser {
     stoneform: Stoneform,
     berserking: Berserking,
     bloodFury: BloodFury,
+    otherRacials: OtherRacials,
 
     // Items:
     authorityOfRadiantPower: AuthorityOfRadiantPower,
