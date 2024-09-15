@@ -114,7 +114,7 @@ class UnleashLife extends Analyzer {
       amount: 0,
       casts: 0,
     },
-    [TALENTS.DOWNPOUR_TALENT.id]: {
+    [SPELLS.DOWNPOUR_ABILITY.id]: {
       amount: 0,
       casts: 0,
     },
@@ -170,6 +170,8 @@ class UnleashLife extends Analyzer {
       SPELLS.HEALING_SURGE,
       TALENTS.WELLSPRING_TALENT,
       TALENTS.HEALING_RAIN_TALENT,
+      SPELLS.DOWNPOUR_ABILITY,
+      SPELLS.DOWNPOUR_HEAL,
       TALENTS.DOWNPOUR_TALENT,
     ];
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(spellFilter), this._onCast);
@@ -250,7 +252,7 @@ class UnleashLife extends Analyzer {
         case TALENTS.CHAIN_HEAL_TALENT.id:
           this._onChainHeal(event);
           break;
-        case TALENTS.DOWNPOUR_TALENT.id:
+        case SPELLS.DOWNPOUR_ABILITY.id:
           this._onDownpour(event);
           break;
         default:
@@ -407,7 +409,7 @@ class UnleashLife extends Analyzer {
         this.missedDownpourHits += UNLEASH_LIFE_EXTRA_TARGETS - filteredhits.length;
       }
       this.extraDownpourHits += filteredhits.length;
-      this.healingMap[TALENTS.DOWNPOUR_TALENT.id].amount += this._tallyHealing(filteredhits);
+      this.healingMap[SPELLS.DOWNPOUR_ABILITY.id].amount += this._tallyHealing(filteredhits);
     }
   }
 
@@ -521,10 +523,10 @@ class UnleashLife extends Analyzer {
         color: RESTORATION_COLORS.DOWNPOUR,
         label: <Trans id="shaman.restoration.spell.downpour">Downpour</Trans>,
         spellId: TALENTS.DOWNPOUR_TALENT.id,
-        value: this.healingMap[TALENTS.DOWNPOUR_TALENT.id].amount,
+        value: this.healingMap[SPELLS.DOWNPOUR_ABILITY.id].amount,
         valueTooltip: this._tooltip({
-          spellId: TALENTS.DOWNPOUR_TALENT.id,
-          amount: this.healingMap[TALENTS.DOWNPOUR_TALENT.id].amount,
+          spellId: SPELLS.DOWNPOUR_ABILITY.id,
+          amount: this.healingMap[SPELLS.DOWNPOUR_ABILITY.id].amount,
           active: this.selectedCombatant.hasTalent(TALENTS.DOWNPOUR_TALENT),
           extraHits: this.extraDownpourHits,
         }),

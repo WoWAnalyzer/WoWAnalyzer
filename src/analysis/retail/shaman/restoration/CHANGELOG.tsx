@@ -13,6 +13,7 @@ import {
 
 // prettier-ignore
 export default [
+  change(date(2024, 9, 15), <>Fixed <SpellLink spell={TALENTS_SHAMAN.DOWNPOUR_TALENT}/> and <SpellLink spell={TALENTS_SHAMAN.UNLEASH_LIFE_TALENT}/> interaction.</>, Ypp),
   change(date(2024, 8, 27), <>Updated <SpellLink spell={TALENTS_SHAMAN.ANCESTRAL_VIGOR_TALENT}/> for The War Within : one rank for the talent, for 10% max health increase. Updated Lives saved statistic, accounting for <SpellLink spell={TALENTS_SHAMAN.DOWNPOUR_TALENT}/>.</>, Ypp),
   change(date(2024, 8, 27), <>Updated <SpellLink spell={TALENTS_SHAMAN.DOWNPOUR_TALENT}/> mechanics for The War Within : no more cooldown, target cap lowered to 5 and new buff for 10% max health increase. Added <SpellLink spell={TALENTS_SHAMAN.DOWNPOUR_TALENT}/> to the healing contribution.</>, Ypp),
   change(date(2024, 8, 24), <>Statistic box for <SpellLink spell={TALENTS_SHAMAN.TIDEWATERS_TALENT}/> </>, Ypp),
