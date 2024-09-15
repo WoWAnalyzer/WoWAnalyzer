@@ -21,7 +21,6 @@ import MissedRampage from './modules/spells/MissedRampage';
 import Recklessness from './modules/spells/Recklessness';
 import WhirlWind from './modules/spells/Whirlwind';
 import AngerManagement from './modules/talents/AngerManagement';
-import MeatCleaver from './modules/talents/MeatCleaver';
 import RecklessAbandon from './modules/talents/RecklessAbandon';
 import SuddenDeath from './modules/talents/SuddenDeath';
 import Warpaint from './modules/talents/Warpaint';
@@ -61,7 +60,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //talents
     angerManagement: AngerManagement,
-    meatCleaver: MeatCleaver,
     recklessAbandon: RecklessAbandon,
     suddenDeath: SuddenDeath,
     warpaint: Warpaint,
