@@ -76,7 +76,6 @@ import RisingMistBreakdown from './modules/features/RisingMistBreakdown';
 import CalmingCoalescence from './modules/spells/CalmingCoalescence';
 import LifeCocoon from './modules/spells/LifeCocoon';
 import SecretInfusion from './modules/spells/SecretInfusion';
-import CallToDominance from '../../../../parser/retail/modules/items/dragonflight/CallToDominance';
 import MWSpellManaCost from './modules/core/SpellManaCost';
 import ManaTeaSources from './modules/spells/ManaTeaSources';
 import EnergizingBrew from './modules/spells/EnergizingBrew';
@@ -200,7 +199,6 @@ class CombatLogParser extends CoreCombatLogParser {
     apl: AplCheck,
 
     // Borrowed Power
-    callToDominance: CallToDominance,
     t32TierSet: T32TierSet,
 
     // Mana Tab

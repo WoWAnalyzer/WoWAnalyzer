@@ -28,7 +28,6 @@ import SoulConduit from './modules/talents/SoulConduit';
 import SoulFire from './modules/talents/SoulFire';
 import FlashPoint from './modules/talents/FlashPoint';
 import BurnToAshes from './modules/talents/BurnToAshes';
-import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
 import { UnendingResolve, DarkPact, DemonicCircle } from '../shared';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -69,7 +68,6 @@ class CombatLogParser extends CoreCombatLogParser {
     rollingHavoc: RollingHavoc,
     flashPoint: FlashPoint,
     burnToAshes: BurnToAshes,
-    callToDominance: CallToDominance,
 
     // Shared Spells
     unendingResolve: UnendingResolve,

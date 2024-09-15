@@ -4,7 +4,7 @@ import QualityIcon from 'interface/QualityIcon';
 import { Options } from 'parser/core/EventSubscriber';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import STAT, { getIcon, getName } from 'parser/shared/modules/features/STAT';
-import WeaponEnchantAnalyzer, { EnchantRank } from '../../WeaponEnchantAnalyzer';
+import WeaponEnchantAnalyzer, { EnchantRank } from './WeaponEnchantAnalyzer';
 import { withDependencies } from 'parser/core/Analyzer';
 
 /**
@@ -59,10 +59,13 @@ abstract class StatProcEnchantAnalyzer extends withDependencies(
     return (this.mainHand?.amount ?? 0) + (this.offHand?.amount ?? 0);
   }
 
+  get totalProcs(): number {
+    return this.selectedCombatant.getBuffTriggerCount(this.buff.id);
+  }
+
   protected statisticParts() {
     const StatIcon = getIcon(this.stat);
     const statName = getName(this.stat);
-    const totalProcs = this.selectedCombatant.getBuffTriggerCount(this.buff.id);
     const totalAmount = this.sumValue();
     const uptime = this.selectedCombatant.getBuffUptime(this.buff.id);
     const uptimePercentage = uptime / this.owner.fightDuration;
@@ -82,7 +85,7 @@ abstract class StatProcEnchantAnalyzer extends withDependencies(
     return {
       tooltip: (
         <>
-          {this.procCount(totalProcs)}
+          {this.procCount(this.totalProcs)}
           <br />
           The buff gives {valueExplanation} {statName}, and had a total uptime of{' '}
           <b>{formatDuration(uptime)}</b>, {formatPercentage(uptimePercentage, 1)}% of the fight.

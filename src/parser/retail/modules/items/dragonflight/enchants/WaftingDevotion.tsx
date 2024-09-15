@@ -4,7 +4,7 @@ import { formatDuration, formatPercentage } from 'common/format';
 import { HasteIcon, SpeedIcon } from 'interface/icons';
 import { Options, withDependencies } from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import WeaponEnchantAnalyzer, { EnchantRank } from './WeaponEnchantAnalyzer';
+import WeaponEnchantAnalyzer, { EnchantRank } from '../../WeaponEnchantAnalyzer';
 
 // ================ SAMPLE LOGS ================
 // Wafting Devotion R1

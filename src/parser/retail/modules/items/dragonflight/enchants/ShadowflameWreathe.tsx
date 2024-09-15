@@ -6,7 +6,7 @@ import { Options, SELECTED_PLAYER, withDependencies } from 'parser/core/Analyzer
 import Events, { DamageEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import WeaponEnchantAnalyzer from './WeaponEnchantAnalyzer';
+import WeaponEnchantAnalyzer from '../../WeaponEnchantAnalyzer';
 
 // ================ SAMPLE LOGS ================
 // Shadowflame Wreathe R1
