@@ -5,6 +5,8 @@ import { Arlie, Hana, Litena, Liavre, Squided, ToppleTheNun, Trevor, Saeldur } f
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2024, 9, 11), <>Split Divine Hymn/GS into proper attributions, fixed mana costs,
+  and added talent check on holy word CDR. </>, Liavre),
   change(date(2024, 9, 11), <>Fixed Salvation, Divine Star, Halo to include absorbed healing as effective healing. </>, Liavre),
   change(date(2024, 9, 10), <>Added cast number and minor fixes to CDR module. </>, Liavre),
   change(date(2024, 9, 10), <>Fixed lightwell and trail modules </>, Liavre),

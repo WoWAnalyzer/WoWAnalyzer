@@ -23,8 +23,9 @@ export const SANCTIFIED_PRAYERS_MULTIPLIER = 1.15;
 // MIDDLE ROW
 
 // enlightenment
-export const ENLIGHT_MAX_MANA = 250000;
+export const ENLIGHT_MAX_MANA = 2500000;
 export const ENLIGHT_BASE_MANA_REGEN = 0.04;
+export const ENLIGHT_SCALED_MANA_REGEN = 0.1;
 // everlasting light
 export const MAX_EVERLASTING_LIGHT_BUFF = 0.15;
 // healing chorus
