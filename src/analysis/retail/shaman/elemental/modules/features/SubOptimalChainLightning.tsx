@@ -8,7 +8,7 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 // https://stormearthandlava.com/guide/general/priority_list.html
-const TARGETS_FOR_GOOD_CAST = 3;
+const TARGETS_FOR_GOOD_CAST = 2;
 
 class SubOptimalChainLightning extends Analyzer {
   get badCastsPerMinute() {
