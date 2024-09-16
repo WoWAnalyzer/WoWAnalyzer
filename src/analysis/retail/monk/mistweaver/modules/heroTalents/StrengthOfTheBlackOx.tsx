@@ -8,7 +8,7 @@ import { explanationAndDataSubsection } from 'interface/guide/components/Explana
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
-import { getAveragePerf, QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import BaseCelestialAnalyzer from '../spells/BaseCelestialAnalyzer';
 
 class StrengthOfTheBlackOx extends Analyzer {
@@ -56,12 +56,13 @@ class StrengthOfTheBlackOx extends Analyzer {
       this.wastedBuffs += 1;
     }
     const hasBuff = this.hasManaBuff();
-    const perfs = [
-      isConsumed ? QualitativePerformance.Good : QualitativePerformance.Fail,
-      hasBuff ? QualitativePerformance.Good : QualitativePerformance.Ok,
-    ];
     this.entries.push({
-      value: getAveragePerf(perfs),
+      value:
+        isConsumed && hasBuff
+          ? QualitativePerformance.Perfect
+          : isConsumed !== hasBuff
+            ? QualitativePerformance.Good
+            : QualitativePerformance.Fail,
       tooltip: (
         <>
           <div>
