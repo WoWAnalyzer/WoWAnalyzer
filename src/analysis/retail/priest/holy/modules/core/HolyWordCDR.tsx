@@ -38,6 +38,11 @@ class HolyWordCDR extends Analyzer {
   private lotnMult = 1;
   private twwS1TierMult = 1;
 
+  private chastiseActive = false;
+  private sanctifyActive = false;
+  private salvationActive = false;
+  //serenity is always active
+
   constructor(options: Options) {
     super(options);
 
@@ -58,6 +63,17 @@ class HolyWordCDR extends Analyzer {
         0.5 * this.selectedCombatant.getTalentRank(TALENTS_PRIEST.VOICE_OF_HARMONY_TALENT);
     }
 
+    if (this.selectedCombatant.hasTalent(TALENTS_PRIEST.HOLY_WORD_CHASTISE_TALENT)) {
+      this.chastiseActive = true;
+    }
+
+    if (this.selectedCombatant.hasTalent(TALENTS_PRIEST.HOLY_WORD_SANCTIFY_TALENT)) {
+      this.sanctifyActive = true;
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS_PRIEST.HOLY_WORD_SALVATION_TALENT)) {
+      this.salvationActive = true;
+    }
+
     this.baseHolyWordCDR = this.lotnMult * this.twwS1TierMult;
   }
 
@@ -69,14 +85,14 @@ class HolyWordCDR extends Analyzer {
         TALENTS.HOLY_WORD_SANCTIFY_TALENT.id,
       );
     }
-    if (chastiseHWCDR.has(event.ability.guid)) {
+    if (chastiseHWCDR.has(event.ability.guid) && this.chastiseActive) {
       return this.handleCDR(
         event,
         chastiseHWCDR.get(event.ability.guid),
         TALENTS.HOLY_WORD_CHASTISE_TALENT.id,
       );
     }
-    if (sanctifyHWCDR.has(event.ability.guid)) {
+    if (sanctifyHWCDR.has(event.ability.guid) && this.sanctifyActive) {
       return this.handleCDR(
         event,
         sanctifyHWCDR.get(event.ability.guid),
@@ -90,7 +106,7 @@ class HolyWordCDR extends Analyzer {
         TALENTS.HOLY_WORD_SERENITY_TALENT.id,
       );
     }
-    if (salvationHWCDR.has(event.ability.guid)) {
+    if (salvationHWCDR.has(event.ability.guid) && this.salvationActive) {
       return this.handleCDR(
         event,
         salvationHWCDR.get(event.ability.guid),
