@@ -37,7 +37,6 @@ import SacrificedSouls from './modules/talents/SacrificedSouls';
 import SoulConduit from './modules/talents/SoulConduit';
 import SoulStrike from './modules/talents/SoulStrike';
 import SummonVilefiend from './modules/talents/SummonVilefiend';
-import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
 import Guide from './Guide';
 import T31AmirdrassilDemonology from './modules/dragonflight/tier/T31AmirdrassilDemonology';
 import { UnendingResolve, DarkPact, DemonicCircle } from '../shared';
@@ -95,7 +94,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Items
     vaultOfTheIncarnates4Set: DemonologyWarlockVaultOfTheIncarnates4Set,
-    callToDominance: CallToDominance,
     aberrus2Set: DemonologyWarlockAberrus2Set,
 
     // Tier

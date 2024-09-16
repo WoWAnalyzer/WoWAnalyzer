@@ -260,9 +260,9 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: DOWNPOUR,
     reverseLinkRelation: DOWNPOUR,
-    linkingEventId: [talents.DOWNPOUR_TALENT.id],
+    linkingEventId: [SPELLS.DOWNPOUR_HEAL.id],
     linkingEventType: EventType.Heal,
-    referencedEventId: [talents.DOWNPOUR_TALENT.id],
+    referencedEventId: [SPELLS.DOWNPOUR_ABILITY.id],
     referencedEventType: EventType.Cast,
     backwardBufferMs: CAST_BUFFER_MS,
     forwardBufferMs: CAST_BUFFER_MS,
