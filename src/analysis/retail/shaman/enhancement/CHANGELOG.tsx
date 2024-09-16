@@ -1,10 +1,12 @@
 import { change, date } from 'common/changelog';
 import TALENTS from 'common/TALENTS/shaman';
+import SPELLS from 'common/SPELLS/shaman';
 import { Seriousnes } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 9, 17), <>Include <SpellLink spell={SPELLS.WINDSTRIKE_CAST} /> in APL check</>, Seriousnes),
   change(date(2024, 9, 14), <>Updating <SpellLink spell={TALENTS.HOT_HAND_TALENT} /> and <SpellLink spell={TALENTS.ASCENDANCE_ENHANCEMENT_TALENT} /> guide sections for priority changes</>, Seriousnes),
   change(date(2024, 9, 12), <>APL updates</>, Seriousnes),  
   change(date(2024, 9, 12), <><SpellLink spell={TALENTS.TEMPEST_TALENT} /> now stacks up to 2 times</>, Seriousnes),
