@@ -38,7 +38,7 @@ const EVENT_LINKS: EventLink[] = [
       SPELLS.HEALING_SURGE.id,
       talents.CHAIN_HEAL_TALENT.id,
       talents.HEALING_RAIN_TALENT.id,
-      talents.DOWNPOUR_TALENT.id,
+      SPELLS.DOWNPOUR_ABILITY.id,
       talents.WELLSPRING_TALENT.id,
     ],
     referencedEventType: [EventType.Cast],

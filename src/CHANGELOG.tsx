@@ -35,6 +35,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 9, 15), 'Adding TWW weapon enchants, removing DF-specific items (e.g. Fyralath, Call To Dominance, Voice of the Silent Star, etc)', Seriousnes),
   change(date(2024, 9, 12), 'Fixed crash when analyzing reports where 0 procs of certain effects ocurred.', emallson),
   change(date(2024, 9, 12), 'Add support for Earthen characters.', ToppleTheNun),
   change(date(2024, 9, 11), 'Update Death Knight spells for Classic Cataclysm', jazminite),

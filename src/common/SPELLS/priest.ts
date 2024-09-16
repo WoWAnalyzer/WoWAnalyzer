@@ -11,13 +11,13 @@ const spells = {
     id: 281265,
     name: 'Holy Nova',
     icon: 'spell_holy_holynova',
-    manaCost: 800,
+    manaCost: 40000,
   },
   POWER_WORD_FORTITUDE: {
     id: 21562,
     name: 'Power Word: Fortitude',
     icon: 'spell_holy_wordfortitude',
-    manaCost: 2000,
+    manaCost: 100000,
   },
   DESPERATE_PRAYER: {
     id: 19236,
@@ -28,7 +28,7 @@ const spells = {
     id: 453,
     name: 'Mind Soothe',
     icon: 'spell_holy_mindsooth',
-    manaCost: 500,
+    manaCost: 25000,
   },
   CRYSTALLINE_REFLECTION_TALENT_HEAL: {
     id: 373462,
@@ -44,7 +44,7 @@ const spells = {
     id: 139,
     name: 'Renew',
     icon: 'spell_holy_renew',
-    manaCost: 800,
+    manaCost: 45000,
   },
   // Discipline Priest:
   GRACE: {
@@ -104,7 +104,7 @@ const spells = {
     id: 17,
     name: 'Power Word: Shield',
     icon: 'spell_holy_powerwordshield',
-    manaCost: 6000,
+    manaCost: 775000,
   },
   SHIELD_OF_ABSOLUTION_BUFF: {
     id: 394624,
@@ -120,7 +120,7 @@ const spells = {
     id: 585,
     name: 'Smite',
     icon: 'spell_holy_holysmite',
-    manaCost: 1000,
+    manaCost: 5000,
   },
   SHADOW_SMITE: {
     id: 425529,
@@ -160,19 +160,19 @@ const spells = {
     id: 32375,
     name: 'Mass Dispel',
     icon: 'spell_arcane_massdispel',
-    manaCost: 4000,
+    manaCost: 200000,
   },
   LEAP_OF_FAITH: {
     id: 73325,
     name: 'Leap of Faith',
     icon: 'priest_spell_leapoffaith_a',
-    manaCost: 1300,
+    manaCost: 65000,
   },
   LEVITATE: {
     id: 1706,
     name: 'Levitate',
     icon: 'spell_holy_layonhands',
-    manaCost: 450,
+    manaCost: 22500,
   },
   LIGHTS_WRATH: {
     id: 207946,
@@ -183,7 +183,7 @@ const spells = {
     id: 605,
     name: 'Mind Control',
     icon: 'spell_shadow_shadowworddominate',
-    manaCost: 1000,
+    manaCost: 50000,
   },
   POWER_WORD_BARRIER_CAST: {
     id: 62618,
@@ -205,13 +205,13 @@ const spells = {
     id: 527,
     name: 'Purify',
     icon: 'spell_holy_dispelmagic',
-    manaCost: 650,
+    manaCost: 32500,
   },
   SHACKLE_UNDEAD: {
     id: 9484,
     name: 'Shackle Undead',
     icon: 'spell_nature_slow',
-    manaCost: 600,
+    manaCost: 30000,
   },
   SHADOWFIEND: {
     id: 34433,
@@ -398,7 +398,7 @@ const spells = {
     id: 120517,
     name: 'Halo',
     icon: 'ability_priest_halo',
-    manaCost: 1350,
+    manaCost: 67500,
   },
   EXPIATION_DAMAGE: {
     id: 390844,
@@ -441,13 +441,13 @@ const spells = {
     id: 2060,
     name: 'Heal',
     icon: 'spell_holy_greaterheal',
-    manaCost: 6000,
+    manaCost: 60000,
   },
   FLASH_HEAL: {
     id: 2061,
     name: 'Flash Heal',
     icon: 'spell_holy_flashheal',
-    manaCost: 9000,
+    manaCost: 90000,
   },
   PRAYER_OF_MENDING_HEAL: {
     id: 33110,
@@ -488,7 +488,7 @@ const spells = {
     id: 14914,
     name: 'Holy Fire',
     icon: 'spell_holy_searinglight',
-    manaCost: 2500,
+    manaCost: 10000,
   },
   TRAIL_OF_LIGHT_TALENT_HEAL: {
     id: 234946,
@@ -675,7 +675,7 @@ const spells = {
     id: 200200,
     name: 'Holy Word: Chastise',
     icon: 'spell_holy_chastise',
-    manaCost: 5000,
+    manaCost: 15000,
   },
   PONTIFEX_TALENT_BUFF: {
     id: 390989,

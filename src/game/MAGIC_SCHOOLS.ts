@@ -54,6 +54,11 @@ const colors: Record<keyof typeof MAGIC_SCHOOLS.ids, [number, number, number]> =
  * Ideally we'd do some smart merging but simple averaging didn't look good.
  */
 export function color(school: number): string {
+  // if a value for this color already exists, return it immediately
+  if (colors[school]) {
+    return `rgb(${colors[school].join(', ')})`;
+  }
+  // otherwise look for the highest numbered school
   let color = [0, 0, 0];
   let current = 1;
   while (current <= school) {

@@ -16,7 +16,7 @@ class StormbringerEventLinkNormalizer extends EventLinkNormalizer {
         linkingEventId: null,
         linkingEventType: [EventType.Cast, EventType.FreeCast],
         referencedEventId: SPELLS.TEMPEST_BUFF.id,
-        referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+        referencedEventType: [EventType.ApplyBuff, EventType.ApplyBuffStack, EventType.RefreshBuff],
         backwardBufferMs: -1, // don't check backwards at all
         forwardBufferMs: 350,
         anySource: true,
@@ -40,7 +40,7 @@ class StormbringerEventLinkNormalizer extends EventLinkNormalizer {
         linkingEventId: SPELLS.AWAKENING_STORMS_BUFF.id,
         linkingEventType: EventType.RemoveBuff,
         referencedEventId: SPELLS.TEMPEST_BUFF.id,
-        referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+        referencedEventType: [EventType.ApplyBuff, EventType.ApplyBuffStack, EventType.RefreshBuff],
         backwardBufferMs: 0, // StormbringerEventOrderNormalizer reorders the awakening storms removebuff to **after** the tempest applybuff
         forwardBufferMs: -1, // don't check forward at all
         anySource: true,

@@ -1,6 +1,6 @@
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { TALENTS_SHAMAN } from 'common/TALENTS';
+import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
@@ -11,6 +11,7 @@ import Events, {
   DamageEvent,
   EventType,
   FightEndEvent,
+  FreeCastEvent,
   GlobalCooldownEvent,
   RefreshBuffEvent,
   RemoveBuffEvent,
@@ -33,6 +34,7 @@ import EmbeddedTimelineContainer, {
 } from 'interface/report/Results/Timeline/EmbeddedTimeline';
 import Casts from 'interface/report/Results/Timeline/Casts';
 import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 const GCD_TOLERANCE = 25;
 
@@ -55,9 +57,28 @@ const HOT_HAND: Record<number, HotHandRank> = {
   2: new HotHandRank(0.75, 0.6),
 };
 
-const HIGH_PRIORITY_ABILITIES = [
-  TALENTS_SHAMAN.PRIMORDIAL_WAVE_SPEC_TALENT.id,
-  TALENTS_SHAMAN.FERAL_SPIRIT_TALENT.id,
+interface HighPriorityRule {
+  spellId: number;
+  condition: (e: CastEvent | FreeCastEvent) => boolean;
+}
+
+/**
+ * These abilities are higher priority than casting Lava Lash even during
+ * a Hot Hand window so we don't want to unfairly punish the performance if
+ * any of these are used  */
+const HIGH_PRIORITY_ABILITIES: (number | HighPriorityRule)[] = [
+  TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT.id,
+  TALENTS.FERAL_SPIRIT_TALENT.id,
+  {
+    spellId: TALENTS.TEMPEST_TALENT.id,
+    condition: (e) =>
+      e.resourceCost !== undefined && e.resourceCost[RESOURCE_TYPES.MAELSTROM_WEAPON.id] >= 8,
+  },
+  {
+    spellId: SPELLS.LIGHTNING_BOLT.id,
+    condition: (e) =>
+      e.resourceCost !== undefined && e.resourceCost[RESOURCE_TYPES.MAELSTROM_WEAPON.id] === 10,
+  },
 ];
 
 interface HotHandTimeline {
@@ -103,13 +124,13 @@ class HotHand extends MajorCooldown<HotHandProc> {
   protected buffedCasts: number = 0;
 
   constructor(options: Options) {
-    super({ spell: TALENTS_SHAMAN.HOT_HAND_TALENT }, options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.HOT_HAND_TALENT);
+    super({ spell: TALENTS.HOT_HAND_TALENT }, options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.HOT_HAND_TALENT);
     if (!this.active) {
       return;
     }
 
-    this.hotHand = HOT_HAND[this.selectedCombatant.getTalentRank(TALENTS_SHAMAN.HOT_HAND_TALENT)];
+    this.hotHand = HOT_HAND[this.selectedCombatant.getTalentRank(TALENTS.HOT_HAND_TALENT)];
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.HOT_HAND_BUFF),
@@ -126,7 +147,7 @@ class HotHand extends MajorCooldown<HotHandProc> {
     this.addEventListener(Events.fightend, this.removeHotHand);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.LAVA_LASH_TALENT),
+      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.LAVA_LASH_TALENT),
       this.onLavaLashDamage,
     );
     this.addEventListener(Events.GlobalCooldown.by(SELECTED_PLAYER), this.onGlobalCooldown);
@@ -141,13 +162,10 @@ class HotHand extends MajorCooldown<HotHandProc> {
 
   startOrRefreshWindow(event: ApplyBuffEvent | RefreshBuffEvent) {
     // on application both resets the CD and applies a mod rate
-    this.spellUsable.endCooldown(TALENTS_SHAMAN.LAVA_LASH_TALENT.id, event.timestamp);
+    this.spellUsable.endCooldown(TALENTS.LAVA_LASH_TALENT.id, event.timestamp);
 
     if (!this.activeWindow) {
-      this.spellUsable.applyCooldownRateChange(
-        TALENTS_SHAMAN.LAVA_LASH_TALENT.id,
-        this.hotHand.rate,
-      );
+      this.spellUsable.applyCooldownRateChange(TALENTS.LAVA_LASH_TALENT.id, this.hotHand.rate);
       this.hotHandActive.startInterval(event.timestamp);
 
       this.activeWindow = {
@@ -166,10 +184,7 @@ class HotHand extends MajorCooldown<HotHandProc> {
   }
 
   removeHotHand(event: RemoveBuffEvent | FightEndEvent) {
-    this.spellUsable.removeCooldownRateChange(
-      TALENTS_SHAMAN.LAVA_LASH_TALENT.id,
-      this.hotHand.rate,
-    );
+    this.spellUsable.removeCooldownRateChange(TALENTS.LAVA_LASH_TALENT.id, this.hotHand.rate);
 
     this.hotHandActive.endInterval(event.timestamp);
 
@@ -185,15 +200,26 @@ class HotHand extends MajorCooldown<HotHandProc> {
       this.activeWindow.unusedGcdTime += Math.max(event.timestamp - this.globalCooldownEnds, 0);
       this.activeWindow.timeline.events.push(event);
       if (
-        event.ability.guid !== TALENTS_SHAMAN.LAVA_LASH_TALENT.id &&
-        this.spellUsable.isAvailable(TALENTS_SHAMAN.LAVA_LASH_TALENT.id)
+        event.ability.guid !== TALENTS.LAVA_LASH_TALENT.id &&
+        this.spellUsable.isAvailable(TALENTS.LAVA_LASH_TALENT.id)
       ) {
         this.activeWindow.hasMissedCasts ||= true;
-        if (HIGH_PRIORITY_ABILITIES.includes(event.ability.guid)) {
+        if (this.isHighPriorityAbility(event)) {
           this.activeWindow.higherPriorityCasts += 1;
         }
       }
     }
+  }
+
+  isHighPriorityAbility(event: CastEvent) {
+    return (
+      HIGH_PRIORITY_ABILITIES.find((value) => {
+        if (typeof value === 'number') {
+          return event.ability.guid === value;
+        }
+        return event.ability.guid === value.spellId && value.condition(event);
+      }) !== undefined
+    );
   }
 
   onLavaLashDamage(event: DamageEvent) {
@@ -218,12 +244,12 @@ class HotHand extends MajorCooldown<HotHandProc> {
       <>
         <p>
           <strong>
-            <SpellLink spell={TALENTS_SHAMAN.HOT_HAND_TALENT} />
+            <SpellLink spell={TALENTS.HOT_HAND_TALENT} />
           </strong>{' '}
-          greatly increases the damage of <SpellLink spell={TALENTS_SHAMAN.LAVA_LASH_TALENT} /> and
+          greatly increases the damage of <SpellLink spell={TALENTS.LAVA_LASH_TALENT} /> and
           significantly reduces it's cooldown. While active,{' '}
-          <SpellLink spell={TALENTS_SHAMAN.LAVA_LASH_TALENT} /> should be cast every other GCD with
-          your regular rotation as fillers.
+          <SpellLink spell={TALENTS.LAVA_LASH_TALENT} /> should be cast every other GCD with your
+          regular rotation as fillers.
         </p>
       </>
     );
@@ -266,7 +292,7 @@ class HotHand extends MajorCooldown<HotHandProc> {
   private explainUsagePerformance(cast: HotHandProc): ChecklistUsageInfo {
     const lavaLashCasts = cast.timeline.events.filter(
       (event) =>
-        event.type === EventType.Cast && event.ability.guid === TALENTS_SHAMAN.LAVA_LASH_TALENT.id,
+        event.type === EventType.Cast && event.ability.guid === TALENTS.LAVA_LASH_TALENT.id,
     ).length;
 
     // if a cast was missed, estimate the number of casts possible by dividing the duration by average gcd and assume half could have been Lava Lash
@@ -293,12 +319,12 @@ class HotHand extends MajorCooldown<HotHandProc> {
               : QualitativePerformance.Fail,
       summary: (
         <span>
-          {lavaLashCasts} <SpellLink spell={TALENTS_SHAMAN.LAVA_LASH_TALENT} /> cast(s)
+          {lavaLashCasts} <SpellLink spell={TALENTS.LAVA_LASH_TALENT} /> cast(s)
         </span>
       ),
       details: (
         <span>
-          Cast <SpellLink spell={TALENTS_SHAMAN.LAVA_LASH_TALENT} /> {lavaLashCasts} time(s)
+          Cast <SpellLink spell={TALENTS.LAVA_LASH_TALENT} /> {lavaLashCasts} time(s)
           {estimatedMissedCasts > 0 ? (
             <> when you could have cast it {estimatedMissedCasts + lavaLashCasts} time(s)</>
           ) : (
@@ -378,14 +404,14 @@ class HotHand extends MajorCooldown<HotHandProc> {
               {formatPercentage(this.timePercentageHotHandsActive)}% uptime)
             </li>
             <li>
-              {this.buffedCasts} total <SpellLink spell={TALENTS_SHAMAN.LAVA_LASH_TALENT} /> casts
-              with Hot Hand buff
+              {this.buffedCasts} total <SpellLink spell={TALENTS.LAVA_LASH_TALENT} /> casts with Hot
+              Hand buff
             </li>
           </ul>
         }
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <TalentSpellText talent={TALENTS_SHAMAN.HOT_HAND_TALENT}>
+        <TalentSpellText talent={TALENTS.HOT_HAND_TALENT}>
           <>
             <ItemDamageDone amount={this.buffedLavaLashDamage} />
             <br />

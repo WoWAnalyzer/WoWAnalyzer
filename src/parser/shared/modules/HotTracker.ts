@@ -79,14 +79,26 @@ abstract class HotTracker extends Analyzer {
   hotHistory: Tracker[] = [];
   /** All registered refresh callbacks, indexed by spellId to watch */
   refreshHooks: { [key: number]: RefreshCallback[] } = {};
-  /** All Attributions seen, indexed by name. For logging purposes only */
+  /** All Attributions seen, indexed by name. */
   attributions: { [key: string]: Attribution } = {};
 
   constructor(options: Options) {
     super(options);
 
     // get dynamically generated HotInfos and read them into a mapping by spellId
-    const hotInfoList: HotInfo[] = this._generateHotInfo();
+    const hotInfoList: HotInfo[] = this._generateHotInfo().map((info) => {
+      if (info.baseExtensions) {
+        // filter extensions with no amount, and add amounts to the base duration
+        let newDuration = this._getDuration(info);
+        info.baseExtensions = info.baseExtensions.filter((e) => e.amount !== 0);
+        info.baseExtensions.forEach((e) => {
+          newDuration += e.amount;
+          this.attributions[e.attribution.name] = e.attribution;
+        });
+        info.duration = newDuration;
+      }
+      return info;
+    });
     if (!hotInfoList) {
       this.active = false;
     }
@@ -128,6 +140,11 @@ abstract class HotTracker extends Analyzer {
       procs: 0,
       totalExtension: 0,
     };
+  }
+
+  /** Look up a registered attribution by name */
+  public getAttribution(name: string): Attribution | undefined {
+    return this.attributions[name];
   }
 
   /**
@@ -239,19 +256,8 @@ abstract class HotTracker extends Analyzer {
       return;
     }
 
-    attribution.procs += 1;
-    attribution.totalExtension += finalAmount;
-    const existingExtension = hot.extensions.find(
-      (extension) => extension.attribution.name === attribution.name,
-    );
-    if (existingExtension) {
-      existingExtension.amount += finalAmount;
-    } else {
-      hot.extensions.push({
-        attribution,
-        amount: finalAmount,
-      });
-    }
+    this._addOrExtendExtension(hot, attribution, finalAmount);
+
     extensionDebug &&
       console.log(
         `${hot.name} on ${targetId} @${this.owner.formatTimestamp(
@@ -458,6 +464,8 @@ abstract class HotTracker extends Analyzer {
       this.hots[targetId] = {};
     }
 
+    this._checkAndRegisterBaseExtensions(newHot);
+
     this.hots[targetId][spellId] = newHot;
     this.hotHistory.push(newHot);
   }
@@ -586,6 +594,8 @@ abstract class HotTracker extends Analyzer {
     const remainingExt = hot.extensions.reduce((acc, ext) => acc + ext.amount, 0);
     hot.originalEnd = hot.end - remainingExt; // reframe our info
 
+    this._checkAndRegisterBaseExtensions(hot);
+
     // a new HoT application should overwrite any existing proc and boost attributions
     hot.attributions = [];
     hot.boosts = [];
@@ -687,6 +697,32 @@ abstract class HotTracker extends Analyzer {
 
     // remove used up extensions
     hot.extensions.filter((ext) => ext.amount !== 0);
+  }
+
+  /** Check if this HoT has any base extensions that apply to it, and add them if so */
+  _checkAndRegisterBaseExtensions(hot: Tracker) {
+    const extensions = this.hotInfo[hot.spellId]?.baseExtensions;
+    if (!extensions) {
+      return;
+    }
+    extensions.forEach((e) => this._addOrExtendExtension(hot, e.attribution, e.amount));
+  }
+
+  /** Apply the given extension amount attributed to the given Attribution to the given HoT */
+  _addOrExtendExtension(hot: Tracker, attribution: Attribution, amount: number): void {
+    attribution.procs += 1;
+    attribution.totalExtension += amount;
+    const existingExtension = hot.extensions.find(
+      (extension) => extension.attribution.name === attribution.name,
+    );
+    if (existingExtension) {
+      existingExtension.amount += amount;
+    } else {
+      hot.extensions.push({
+        attribution,
+        amount,
+      });
+    }
   }
 
   /**
@@ -987,6 +1023,17 @@ export interface HotInfo {
   id?: number;
   /** the duration of the hot applied from an indirect source (i.e, a talent and not a hardcast) - special case handling for Mistweaver's hots from talents that aren't extended by Rising Mist */
   procDuration?: number | ((c: Combatant) => number);
+  /** Extensions to HoT duration due to talents or other effects. Will be added to duration at load time */
+  baseExtensions?: BaseExtension[];
+}
+
+/** an attributed extension to a HoT's base duration */
+interface BaseExtension {
+  /** The attribution to tracker to update */
+  attribution: Attribution;
+  /** The amount of extension to attribute, in ms.
+   * Included BaseExtensions with amount = 0 will be automatically filtered. */
+  amount: number;
 }
 
 /** A callback to be triggered when a HoT is refreshed */

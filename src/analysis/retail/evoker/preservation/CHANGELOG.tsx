@@ -5,6 +5,8 @@ import { TALENTS_EVOKER } from 'common/TALENTS';
 
 // prettier-ignore
 export default [
+  change(date(2024, 9, 14), <>Update <SpellLink spell={TALENTS_EVOKER.SOURCE_OF_MAGIC_TALENT}/> for TWW</>, Trevor),
+  change(date(2024, 9, 14), <>Add <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT}/> to Stasis spells</>, Trevor),
   change(date(2024, 8, 22), <>Bumped Preservation to full support for 11.0.2</>, Harrek),
   change(date(2024, 8, 22), <>Temporarily disabled <SpellLink spell={TALENTS_EVOKER.TITANS_GIFT_TALENT} /> module</>, Harrek),
   change(date(2024, 7, 23), <>Rework T32 tier set module</>, Harrek),

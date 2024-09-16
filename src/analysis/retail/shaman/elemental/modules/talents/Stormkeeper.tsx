@@ -1,12 +1,23 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, DamageEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, {
+  AnyEvent,
+  ApplyBuffEvent,
+  BeginCastEvent,
+  BeginChannelEvent,
+  CastEvent,
+  DamageEvent,
+  EndChannelEvent,
+  EventType,
+  GlobalCooldownEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import { ON_CAST_BUFF_REMOVAL_GRACE_MS } from '../../constants';
+import { ON_CAST_BUFF_REMOVAL_GRACE_MS, ENABLE_MOTE_CHECKS } from '../../constants';
 import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
 import MajorCooldown, { CooldownTrigger } from 'parser/core/MajorCooldowns/MajorCooldown';
 import { QualitativePerformance, getLowestPerf } from 'parser/ui/QualitativePerformance';
@@ -20,7 +31,7 @@ import EmbeddedTimelineContainer, {
   SpellTimeline,
 } from 'interface/report/Results/Timeline/EmbeddedTimeline';
 import Casts from 'interface/report/Results/Timeline/Casts';
-import { SpellUse } from 'parser/core/SpellUsage/core';
+import { ChecklistUsageInfo, SpellUse } from 'parser/core/SpellUsage/core';
 import { ResourceLink, SpellIcon, SpellLink } from 'interface';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatDuration } from 'common/format';
@@ -42,12 +53,12 @@ interface SKTimeline {
   /** The end time (in ms) of the window */
   end: number;
   /** The events that happened inside the window */
-  events: CastEvent[];
+  events: AnyEvent[];
   /** The performance of the window */
   performance: QualitativePerformance;
 }
 
-interface SKCast extends CooldownTrigger<CastEvent> {
+interface StormkeeperCast extends CooldownTrigger<BeginCastEvent | ApplyBuffEvent> {
   /** How much maelstrom the user had when starting the window rotation */
   maelstromOnCast: number;
   /** How long Flameshock had left when starting the window rotation */
@@ -59,19 +70,8 @@ interface SKCast extends CooldownTrigger<CastEvent> {
   /** What the user cast between casting SK and consuming the second buff. */
   timeline: SKTimeline;
   /** The ability that started the window. */
-  firstRotationCast: CastEvent;
+  firstRotationCast?: CastEvent;
 }
-
-// Spells that are considered to start the damage part of the SK window.
-const WINDOW_START_SPELLS = [
-  SPELLS.LIGHTNING_BOLT.id,
-  TALENTS.CHAIN_LIGHTNING_TALENT.id,
-  TALENTS.LAVA_BURST_TALENT.id,
-  TALENTS.EARTH_SHOCK_TALENT.id,
-  TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id,
-  TALENTS.EARTHQUAKE_1_ELEMENTAL_TALENT,
-  TALENTS.EARTHQUAKE_2_ELEMENTAL_TALENT,
-];
 
 // Spells that must have SOP if cast within the SK window
 const SPELLS_SOP_BUFF_REQUIRED = [SPELLS.LIGHTNING_BOLT.id, TALENTS.CHAIN_LIGHTNING_TALENT.id];
@@ -105,7 +105,7 @@ const FIRST_CAST_MAELSTROM_GENERATION = 12; // LvB
 const FLAMESHOCK_IDEAL_DURATION_REMAINING = 10000;
 const ELECTRIFIED_SHOCKS_IDEAL_DURATION_REMAINING = 6000;
 
-class Stormkeeper extends MajorCooldown<SKCast> {
+class Stormkeeper extends MajorCooldown<StormkeeperCast> {
   static dependencies = {
     ...MajorCooldown.dependencies,
     maelstromTracker: MaelstromTracker,
@@ -120,11 +120,11 @@ class Stormkeeper extends MajorCooldown<SKCast> {
   protected abilities!: Abilities;
   protected spellMaelstromCost!: SpellMaelstromCost;
 
-  activeWindow: SKCast | null = null;
-  lastSKHardcast: CastEvent | null = null;
+  nextCastStartsWindow: boolean = false;
+  stormkeeperCast: BeginCastEvent | null = null;
 
+  activeWindow: StormkeeperCast | null = null;
   stSpender: Talent;
-
   damageDoneByBuffedCasts = 0;
 
   constructor(options: Options) {
@@ -138,55 +138,42 @@ class Stormkeeper extends MajorCooldown<SKCast> {
       return;
     }
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onEventDuringSK);
+    [Events.begincast, Events.applybuff].forEach((filter) =>
+      this.addEventListener(
+        filter.by(SELECTED_PLAYER).spell(SPELLS.STORMKEEPER_BUFF_AND_CAST),
+        this.onStormkeeperWindowStart,
+      ),
+    );
+
+    [
+      Events.begincast,
+      Events.BeginChannel,
+      Events.EndChannel,
+      Events.cast,
+      Events.GlobalCooldown,
+    ].forEach((filter) =>
+      this.addEventListener(filter.by(SELECTED_PLAYER), this.addEventToTimeline),
+    );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.STORMKEEPER_BUFF_AND_CAST),
-      this.onSKCast,
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.STORMKEEPER_BUFF_AND_CAST),
+      () => (this.nextCastStartsWindow = true),
     );
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.STORMKEEPER_BUFF_AND_CAST),
-      this.onSKFalloff,
+      this.onStormkeeperRemoved,
     );
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SK_DAMAGE_AFFECTED_ABILITIES),
-      this.onSKDamage,
+      this.onDamage,
     );
   }
 
-  onSKCast(cast: CastEvent) {
-    this.lastSKHardcast = cast;
-  }
-
-  onSKFalloff(event: RemoveBuffEvent) {
-    if (!this.activeWindow) {
-      return;
-    }
-
-    this.activeWindow.timeline.end = event.timestamp;
-
-    this.recordCooldown(this.activeWindow);
-    this.lastSKHardcast = null;
-    this.activeWindow = null;
-  }
-
-  onEventDuringSK(event: CastEvent) {
-    /* Don't include events that did not happen between hardcasts and the
-    SK buff falling off. */
-    if (!this.lastSKHardcast) {
-      return;
-    }
-    if (!this.activeWindow && WINDOW_START_SPELLS.includes(event.ability.guid)) {
-      // Create the window if it doesn't exist.
-
-      const eventResourceCost = event.resourceCost
-        ? event.resourceCost[RESOURCE_TYPES.MAELSTROM.id]
-        : 0;
-
+  onStormkeeperWindowStart(event: BeginCastEvent | ApplyBuffEvent) {
+    // cast was successful and not already in a stormkeeper window
+    if ((event.type === EventType.ApplyBuff || event.castEvent) && !this.activeWindow) {
       this.activeWindow = {
-        event: this.lastSKHardcast,
-        // The resourceTracker has already accounted for the resource cost of
-        // this cast. If it did cost maelstrom, we want to un-do that in the SK window calculation.
-        maelstromOnCast: this.maelstromTracker.current + eventResourceCost,
+        event: event,
+        maelstromOnCast: this.maelstromTracker.current,
         flameshockDurationOnCast:
           this.enemies
             .getEntity(event)
@@ -199,68 +186,95 @@ class Stormkeeper extends MajorCooldown<SKCast> {
         sopOnCast: this.selectedCombatant.hasBuff(SPELLS.SURGE_OF_POWER_BUFF.id),
         moteOnCast: this.selectedCombatant.hasBuff(SPELLS.MASTER_OF_THE_ELEMENTS_BUFF.id),
         timeline: {
-          start: this.lastSKHardcast.timestamp,
+          start: event.timestamp,
           end: -1,
           events: [],
           performance: QualitativePerformance.Perfect,
         },
-        firstRotationCast: event,
       };
     }
+  }
 
+  onStormkeeperRemoved(event: RemoveBuffEvent) {
+    if (!this.activeWindow) {
+      return;
+    }
+
+    const lastGcd = this.activeWindow.timeline.events
+      .filter((e) => e.type === EventType.GlobalCooldown)
+      .at(-1);
+    this.activeWindow.timeline.end = Math.max(
+      event.timestamp,
+      lastGcd?.type === EventType.GlobalCooldown ? lastGcd.timestamp + lastGcd.duration : 0,
+    );
+    this.recordCooldown(this.activeWindow);
+    this.nextCastStartsWindow = false;
+    this.activeWindow = null;
+  }
+
+  addEventToTimeline(
+    event: BeginCastEvent | BeginChannelEvent | EndChannelEvent | CastEvent | GlobalCooldownEvent,
+  ) {
     if (this.activeWindow) {
       const isPrepull = this.activeWindow.event.timestamp < this.owner.fight.start_time;
       const spenderNotAlreadyCast = !this.activeWindow.timeline.events
-        .map((e) => e.ability.guid)
+        .filter((e) => e.type === EventType.Cast)
+        .map((e) => (e.type === EventType.Cast ? e.ability.guid : -1))
         .includes(this.stSpender.id);
 
-      if (
-        event.ability.guid === this.stSpender.id &&
-        !this.selectedCombatant.hasBuff(
-          SPELLS.MASTER_OF_THE_ELEMENTS_BUFF.id,
-          event.timestamp,
-          ON_CAST_BUFF_REMOVAL_GRACE_MS,
-        ) &&
-        // Some rotations cast SK before pull. In this case, the rotation is slightly different.
-        !(isPrepull && spenderNotAlreadyCast)
-      ) {
-        addInefficientCastReason(
-          event,
-          <>{this.stSpender.name} cast without Master of the Elements</>,
-        );
-        this.activeWindow.timeline.performance = getLowestPerf([
-          MISSING_MOTE_PERFORMANCE,
-          this.activeWindow.timeline.performance,
-        ]);
-      }
+      if (event.type === EventType.Cast) {
+        this.activeWindow.firstRotationCast ??= event;
 
-      const sopSpellNotAlreadyCast =
-        this.activeWindow.timeline.events
-          .map((e) => e.ability.guid)
-          .filter((e) => SPELLS_SOP_BUFF_REQUIRED.includes(e)).length === 0;
+        if (
+          ENABLE_MOTE_CHECKS &&
+          event.ability.guid === this.stSpender.id &&
+          !this.selectedCombatant.hasBuff(
+            SPELLS.MASTER_OF_THE_ELEMENTS_BUFF.id,
+            event.timestamp,
+            ON_CAST_BUFF_REMOVAL_GRACE_MS,
+          ) &&
+          // Some rotations cast SK before pull. In this case, the rotation is slightly different.
+          !(isPrepull && spenderNotAlreadyCast)
+        ) {
+          addInefficientCastReason(
+            event,
+            <>{this.stSpender.name} cast without Master of the Elements</>,
+          );
+          this.activeWindow.timeline.performance = getLowestPerf([
+            MISSING_MOTE_PERFORMANCE,
+            this.activeWindow.timeline.performance,
+          ]);
+        }
 
-      if (
-        SPELLS_SOP_BUFF_REQUIRED.includes(event.ability.guid) &&
-        !this.selectedCombatant.hasBuff(
-          SPELLS.SURGE_OF_POWER_BUFF.id,
-          event.timestamp,
-          ON_CAST_BUFF_REMOVAL_GRACE_MS,
-        ) &&
-        // Some rotations cast SK before pull. In this case, the rotation is slightly different.
-        !(isPrepull && sopSpellNotAlreadyCast)
-      ) {
-        addInefficientCastReason(event, <>{event.ability.name} cast without Surge of Power</>);
-        this.activeWindow.timeline.performance = getLowestPerf([
-          SOP_BUFF_MISSING_PERFORMANCE,
-          this.activeWindow.timeline.performance,
-        ]);
+        const sopSpellNotAlreadyCast =
+          this.activeWindow.timeline.events
+            .filter((e) => e.type === EventType.Cast)
+            .map((e) => (e.type === EventType.Cast ? e.ability.guid : -1))
+            .filter((e) => SPELLS_SOP_BUFF_REQUIRED.includes(e)).length === 0;
+
+        if (
+          SPELLS_SOP_BUFF_REQUIRED.includes(event.ability.guid) &&
+          !this.selectedCombatant.hasBuff(
+            SPELLS.SURGE_OF_POWER_BUFF.id,
+            event.timestamp,
+            ON_CAST_BUFF_REMOVAL_GRACE_MS,
+          ) &&
+          // Some rotations cast SK before pull. In this case, the rotation is slightly different.
+          !(isPrepull && sopSpellNotAlreadyCast)
+        ) {
+          addInefficientCastReason(event, <>{event.ability.name} cast without Surge of Power</>);
+          this.activeWindow.timeline.performance = getLowestPerf([
+            SOP_BUFF_MISSING_PERFORMANCE,
+            this.activeWindow.timeline.performance,
+          ]);
+        }
       }
 
       this.activeWindow.timeline.events.push(event);
     }
   }
 
-  onSKDamage(event: DamageEvent) {
+  onDamage(event: DamageEvent) {
     if (
       !this.selectedCombatant.hasBuff(
         SPELLS.STORMKEEPER_BUFF_AND_CAST.id,
@@ -274,7 +288,7 @@ class Stormkeeper extends MajorCooldown<SKCast> {
     this.damageDoneByBuffedCasts += event.amount + (event.absorbed || 0);
   }
 
-  private explainTimelineWithDetails(cast: SKCast) {
+  private explainTimelineWithDetails(cast: StormkeeperCast) {
     const checklistItem = {
       performance: cast.timeline.performance,
       summary: <span>Spell order</span>,
@@ -283,8 +297,12 @@ class Stormkeeper extends MajorCooldown<SKCast> {
       timestamp: cast.event.timestamp,
     };
 
-    const showPrecastSop = SPELLS_SOP_BUFF_REQUIRED.includes(cast.firstRotationCast.ability.guid);
-    const showPrecastMote = [this.stSpender.id].includes(cast.firstRotationCast.ability.guid);
+    const showPrecastSop =
+      cast.firstRotationCast &&
+      SPELLS_SOP_BUFF_REQUIRED.includes(cast.firstRotationCast.ability.guid);
+    // lava burst and therefore master of the elements are not currently relevant to stormkeeper windows
+    const showPrecastMote =
+      ENABLE_MOTE_CHECKS && [this.stSpender.id].includes(cast.firstRotationCast!.ability.guid);
 
     const showPrecastAny = showPrecastSop || showPrecastMote;
 
@@ -304,7 +322,7 @@ class Stormkeeper extends MajorCooldown<SKCast> {
             <SpellIcon spell={TALENTS.SURGE_OF_POWER_TALENT} />:{' '}
             <PerformanceMark
               perf={
-                cast.firstRotationCast.meta?.isEnhancedCast
+                cast.firstRotationCast!.meta?.isEnhancedCast
                   ? QualitativePerformance.Good
                   : QualitativePerformance.Fail
               }
@@ -317,7 +335,7 @@ class Stormkeeper extends MajorCooldown<SKCast> {
             <SpellIcon spell={TALENTS.MASTER_OF_THE_ELEMENTS_ELEMENTAL_TALENT} />:{' '}
             <PerformanceMark
               perf={
-                cast.firstRotationCast.meta?.isEnhancedCast
+                cast.firstRotationCast!.meta?.isEnhancedCast
                   ? QualitativePerformance.Good
                   : QualitativePerformance.Fail
               }
@@ -348,7 +366,7 @@ class Stormkeeper extends MajorCooldown<SKCast> {
    */
   private determineMaelstromPerformance(
     maelstromRequired: number,
-    cast: SKCast,
+    cast: StormkeeperCast,
   ): QualitativePerformance {
     let maelstromOnCastPerformance = QualitativePerformance.Ok;
     if (
@@ -363,7 +381,7 @@ class Stormkeeper extends MajorCooldown<SKCast> {
     return maelstromOnCastPerformance;
   }
 
-  private explainMaelstromPerformance(cast: SKCast) {
+  private explainMaelstromPerformance(cast: StormkeeperCast) {
     let maelstromRequired;
     if (cast.event.timestamp < this.owner.fight.start_time) {
       maelstromRequired = BASE_MAELSTROM_REQUIRED_PREPULL_CAST;
@@ -408,7 +426,7 @@ class Stormkeeper extends MajorCooldown<SKCast> {
     }
   }
 
-  private explainFlSPerformance(cast: SKCast) {
+  private explainFlSPerformance(cast: StormkeeperCast) {
     const FlSPerformance = this.determineFlameshockPerformance(cast.flameshockDurationOnCast);
 
     const checklistItem = {
@@ -459,7 +477,7 @@ class Stormkeeper extends MajorCooldown<SKCast> {
     ]);
   }
 
-  explainPerformance(cast: SKCast): SpellUse {
+  explainPerformance(cast: StormkeeperCast): SpellUse {
     const timeline = this.explainTimelineWithDetails(cast);
     const maelstromOnCast = this.explainMaelstromPerformance(cast);
     const FlSDuration = this.explainFlSPerformance(cast);
@@ -467,13 +485,17 @@ class Stormkeeper extends MajorCooldown<SKCast> {
     const totalPerformance = this.determineTotalWindowPerformance(
       timeline.checklistItem.performance,
       maelstromOnCast.performance,
-      FlSDuration.performance,
+      ENABLE_MOTE_CHECKS ? FlSDuration.performance : QualitativePerformance.Perfect,
     );
 
     return {
       event: cast.event,
       performance: totalPerformance,
-      checklistItems: [timeline.checklistItem, maelstromOnCast, FlSDuration],
+      checklistItems: [
+        timeline.checklistItem,
+        maelstromOnCast,
+        ENABLE_MOTE_CHECKS ? FlSDuration : null,
+      ].filter((x) => x) as ChecklistUsageInfo[],
       extraDetails: timeline.extraDetails,
     };
   }
@@ -507,22 +529,11 @@ class Stormkeeper extends MajorCooldown<SKCast> {
           <small>For more information, see the written guides.</small>
         </p>
         <p>
-          (<SpellIcon spell={SPELLS.FLAME_SHOCK} /> &rarr;) (
-          <SpellIcon spell={TALENTS.FROST_SHOCK_TALENT} /> &rarr;)
           <SpellIcon spell={TALENTS.STORMKEEPER_TALENT} /> &rarr;
-          <SpellIcon spell={TALENTS.LAVA_BURST_TALENT} /> &rarr;
-          <SpellIcon spell={TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT} /> &rarr;
+          <SpellIcon spell={this.stSpender} /> &rarr;
           <SpellIcon spell={SPELLS.LIGHTNING_BOLT} /> &rarr;
-          <SpellIcon spell={TALENTS.FROST_SHOCK_TALENT} /> &rarr;
-          <SpellIcon spell={TALENTS.LAVA_BURST_TALENT} /> &rarr;
-          <SpellIcon spell={TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT} /> &rarr;
+          <SpellIcon spell={this.stSpender} /> &rarr;
           <SpellIcon spell={SPELLS.LIGHTNING_BOLT} />
-        </p>
-        <p>
-          <small>
-            Note: This section does not include T30 2pc procs, this is only when the spell itself is
-            cast.
-          </small>
         </p>
       </>
     );

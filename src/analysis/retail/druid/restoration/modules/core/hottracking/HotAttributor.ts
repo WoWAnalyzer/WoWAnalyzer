@@ -177,6 +177,9 @@ class HotAttributor extends Analyzer {
     } else if (isFromOvergrowth(event)) {
       this.hotTracker.addAttributionFromApply(this.overgrowthAttrib, event);
       this._logAttrib(event, this.overgrowthAttrib);
+    } else if (possibleRg) {
+      this.hotTracker.addAttributionFromApply(this.rampantGrowthAttrib, event);
+      this._logAttrib(event, this.rampantGrowthAttrib);
     } else if (possiblePota) {
       this.hotTracker.addAttributionFromApply(this.powerOfTheArchdruidRegrowthAttrib, event);
       this._logAttrib(event, this.powerOfTheArchdruidRegrowthAttrib);

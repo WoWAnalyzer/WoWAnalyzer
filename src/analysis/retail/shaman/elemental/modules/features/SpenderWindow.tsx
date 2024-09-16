@@ -11,7 +11,11 @@ import { explanationAndDataSubsection } from 'interface/guide/components/Explana
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
-import { GUIDE_EXPLANATION_PERCENT_WIDTH, ON_CAST_BUFF_REMOVAL_GRACE_MS } from '../../constants';
+import {
+  GUIDE_EXPLANATION_PERCENT_WIDTH,
+  ON_CAST_BUFF_REMOVAL_GRACE_MS,
+  ENABLE_MOTE_CHECKS,
+} from '../../constants';
 
 interface ActiveSpenderWindow {
   timestamp: number;
@@ -175,8 +179,12 @@ class SpenderWindow extends Analyzer {
           <small>For more information, see the written guides</small>
         </p>
         <p>
-          <SpellIcon spell={SPELLS.FLAME_SHOCK} />
-          <SpellIcon spell={TALENTS.LAVA_BURST_TALENT} /> &rarr;
+          {ENABLE_MOTE_CHECKS && (
+            <>
+              <SpellIcon spell={SPELLS.FLAME_SHOCK} />
+              <SpellIcon spell={TALENTS.LAVA_BURST_TALENT} /> &rarr;
+            </>
+          )}
           <SpellIcon spell={this.stMSSpender} /> &rarr;
           <SpellIcon spell={SPELLS.LIGHTNING_BOLT} />
         </p>
@@ -216,12 +224,12 @@ class SpenderWindow extends Analyzer {
         perfect = false;
       }
 
-      if (hasMote && !w.motePresent) {
+      if (ENABLE_MOTE_CHECKS && hasMote && !w.motePresent) {
         windowBreakdown.missingMote.push(w);
         perfect = false;
       }
 
-      if (!w.flameshockPresent) {
+      if (ENABLE_MOTE_CHECKS && !w.flameshockPresent) {
         windowBreakdown.missingFlameshock.push(w);
         perfect = false;
       }
@@ -257,7 +265,8 @@ class SpenderWindow extends Analyzer {
               </span>
             )),
         )}
-        {hasMote &&
+        {ENABLE_MOTE_CHECKS &&
+          hasMote &&
           this.spenderWindowsRow(
             windowBreakdown.missingMote,
             <>
@@ -266,13 +275,14 @@ class SpenderWindow extends Analyzer {
             </>,
             MISSING_MOTE_THRESHOLD,
           )}
-        {this.spenderWindowsRow(
-          windowBreakdown.missingFlameshock,
-          <>
-            <SpellLink spell={SPELLS.FLAME_SHOCK} /> missing:{' '}
-          </>,
-          MISSING_FLAMESHOCK_THRESHOLD,
-        )}
+        {ENABLE_MOTE_CHECKS &&
+          this.spenderWindowsRow(
+            windowBreakdown.missingFlameshock,
+            <>
+              <SpellLink spell={SPELLS.FLAME_SHOCK} /> missing:{' '}
+            </>,
+            MISSING_FLAMESHOCK_THRESHOLD,
+          )}
       </div>
     );
 

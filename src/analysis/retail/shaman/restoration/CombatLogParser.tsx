@@ -73,7 +73,6 @@ import EarthenHarmony from './modules/talents/EarthenHarmony';
 import ElementalOrbit from '../shared/talents/ElementalOrbit';
 import Guide from './Guide';
 import Riptide from './modules/talents/Riptide';
-import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
 import ManaSpring from 'analysis/retail/shaman/shared/talents/ManaSpring';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -161,7 +160,6 @@ class CombatLogParser extends CoreCombatLogParser {
     riptideAttributor: RiptideAttributor,
 
     // Items
-    callToDominance: CallToDominance,
     tww1TierSet: TWW1TierSet,
   };
   static guide = Guide;

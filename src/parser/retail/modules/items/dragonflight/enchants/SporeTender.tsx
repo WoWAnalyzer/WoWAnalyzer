@@ -8,7 +8,7 @@ import Combatant from 'parser/core/Combatant';
 import { Options } from 'parser/core/EventSubscriber';
 import Events, { ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
-import WeaponEnchantAnalyzer, { EnchantRank } from './WeaponEnchantAnalyzer';
+import WeaponEnchantAnalyzer, { EnchantRank } from '../../WeaponEnchantAnalyzer';
 
 // ================ SAMPLE LOGS ================
 // Spore Tender R1

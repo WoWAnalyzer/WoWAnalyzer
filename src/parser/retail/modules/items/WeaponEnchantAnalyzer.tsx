@@ -25,6 +25,12 @@ class WeaponEnchantAnalyzer<R extends EnchantRank = EnchantRank> extends Analyze
   protected mainHand: R | null = null;
   protected offHand: R | null = null;
 
+  /**
+   * Creates a new {@link WeaponEnchantAnalyzer} for the specified {@link enchantSpell}
+   * @param enchantSpell spell to use for {@link SpellLink}
+   * @param ranks quality ranks
+   * @param options analyzer options
+   */
   constructor(enchantSpell: Spell, ranks: R[], options: Options) {
     super(options);
     this.enchantSpell = enchantSpell;
