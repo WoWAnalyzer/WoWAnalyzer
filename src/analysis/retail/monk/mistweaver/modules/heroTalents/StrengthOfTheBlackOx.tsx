@@ -67,11 +67,13 @@ class StrengthOfTheBlackOx extends Analyzer {
           <div>
             {isConsumed ? 'Consumed ' : 'Expired '}@ {this.owner.formatTimestamp(event.timestamp)}
           </div>
-          <div>
-            <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} /> or{' '}
-            <SpellLink spell={this.celestial.getCelestialTalent()} /> active:{' '}
-            <strong>{hasBuff ? 'Yes' : 'No'}</strong>
-          </div>
+          {isConsumed && (
+            <div>
+              <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} /> or{' '}
+              <SpellLink spell={this.celestial.getCelestialTalent()} /> active:{' '}
+              <strong>{hasBuff ? 'Yes' : 'No'}</strong>
+            </div>
+          )}
         </>
       ),
     });
