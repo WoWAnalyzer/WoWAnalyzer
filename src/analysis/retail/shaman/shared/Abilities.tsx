@@ -373,7 +373,12 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.TOTEMIC_RECALL_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 60 * 1000 * (combatant.hasTalent(TALENTS.CALL_OF_THE_ELEMENTS_TALENT) ? 2 : 3),
+        cooldown: 60 * (combatant.hasTalent(TALENTS.CALL_OF_THE_ELEMENTS_TALENT) ? 2 : 3),
+      },
+      {
+        spell: TALENTS.SPIRITWALKERS_GRACE_TALENT.id,
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown: 120 - (combatant.hasTalent(TALENTS.GRACEFUL_SPIRIT_TALENT) ? 30 : 0),
       },
 
       /* Hidden Spells */
