@@ -15,7 +15,7 @@ import Events, {
 } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import Haste from 'parser/shared/modules/Haste';
-import HIT_TYPES, { HitType } from 'game/HIT_TYPES';
+import HIT_TYPES from 'game/HIT_TYPES';
 
 /**
  * The time buffer in milliseconds within which resource updates should be combined
@@ -298,7 +298,7 @@ export default class ResourceTracker extends Analyzer {
       this.refundOnMiss &&
       !this.refundBlacklist.includes(event.ability.guid) &&
       !event.tick &&
-      (REFUND_HIT_TYPES as HitType[]).includes(event.hitType) &&
+      REFUND_HIT_TYPES.includes(event.hitType) &&
       this.lastSpenderInfo &&
       this.lastSpenderInfo.timestamp + MULTI_UPDATE_BUFFER_MS >= event.timestamp
     ) {

@@ -71,7 +71,7 @@ export default class AtonementAnalyzer extends Analyzer {
     atonementApplicationSource: AtonementApplicationSource,
   };
 
-  static validHitTypes: Record<number, true> = {
+  static validHitTypes = {
     [HIT_TYPES.NORMAL]: true,
     [HIT_TYPES.CRIT]: true,
     [HIT_TYPES.ABSORB]: true,
