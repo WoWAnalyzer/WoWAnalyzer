@@ -797,6 +797,106 @@ const enchants = {
     effectId: 7445,
   },
 
+  // #region Temporary Weapon Enhancements
+  // For effectId, see https://github.com/simulationcraft/simc/blob/431b448e64a6db85ec9befdf76484e50423bd3ad/engine/dbc/generated/temporary_enchant.inc
+  ALGARI_MANA_OIL_R1: {
+    id: 224105,
+    name: 'Algari Mana Oil',
+    icon: 'trade_alchemy_potiond1',
+    effectId: 7493,
+  },
+  ALGARI_MANA_OIL_R2: {
+    id: 224106,
+    name: 'Algari Mana Oil',
+    icon: 'trade_alchemy_potiond1',
+    effectId: 7494,
+  },
+  ALGARI_MANA_OIL_R3: {
+    id: 224107,
+    name: 'Algari Mana Oil',
+    icon: 'trade_alchemy_potiond1',
+    effectId: 7495,
+  },
+  BUBBLING_WAX: {
+    id: 220156,
+    name: 'Bubbling Wax',
+    icon: 'inv_misc_cauldron_arcane',
+    effectId: 7467,
+  },
+  IRONCLAW_WEIGHSTONE_R1: {
+    id: 222508,
+    name: 'Ironclaw Weighstone',
+    icon: 'inv_blacksmithing_modifiedcraftingreagent_red',
+    effectId: 7549,
+  },
+  IRONCLAW_WEIGHSTONE_R2: {
+    id: 222509,
+    name: 'Ironclaw Weighstone',
+    icon: 'inv_blacksmithing_modifiedcraftingreagent_red',
+    effectId: 7550,
+  },
+  IRONCLAW_WEIGHSTONE_R3: {
+    id: 222510,
+    name: 'Ironclaw Weighstone',
+    icon: 'inv_blacksmithing_modifiedcraftingreagent_red',
+    effectId: 7551,
+  },
+  IRONCLAW_WHETSTONE_R1: {
+    id: 222502,
+    name: 'Ironclaw Whetstone',
+    icon: 'inv_blacksmithing_modifiedcraftingreagent_blue',
+    effectId: 7543,
+  },
+  IRONCLAW_WHETSTONE_R2: {
+    id: 222503,
+    name: 'Ironclaw Whetstone',
+    icon: 'inv_blacksmithing_modifiedcraftingreagent_blue',
+    effectId: 7544,
+  },
+  IRONCLAW_WHETSTONE_R3: {
+    id: 222504,
+    name: 'Ironclaw Whetstone',
+    icon: 'inv_blacksmithing_modifiedcraftingreagent_blue',
+    effectId: 7545,
+  },
+  OIL_OF_BELEDARS_GRACE_R1: {
+    id: 224108,
+    name: "Oil of Beledar's Grace",
+    icon: 'trade_alchemy_potiond5',
+    effectId: 7500,
+  },
+  OIL_OF_BELEDARS_GRACE_R2: {
+    id: 224109,
+    name: "Oil of Beledar's Grace",
+    icon: 'trade_alchemy_potiond5',
+    effectId: 7501,
+  },
+  OIL_OF_BELEDARS_GRACE_R3: {
+    id: 224110,
+    name: "Oil of Beledar's Grace",
+    icon: 'trade_alchemy_potiond5',
+    effectId: 7502,
+  },
+  OIL_OF_DEEP_TOXINS_R1: {
+    id: 224111,
+    name: 'Oil of Deep Toxins',
+    icon: 'trade_alchemy_potiond4',
+    effectId: 7496,
+  },
+  OIL_OF_DEEP_TOXINS_R2: {
+    id: 224112,
+    name: 'Oil of Deep Toxins',
+    icon: 'trade_alchemy_potiond4',
+    effectId: 7497,
+  },
+  OIL_OF_DEEP_TOXINS_R3: {
+    id: 224113,
+    name: 'Oil of Deep Toxins',
+    icon: 'trade_alchemy_potiond4',
+    effectId: 7498,
+  },
+  // #endregion
+
   /* Template */
   // X_R1: {
   //   id: 0,
