@@ -5,6 +5,7 @@ import { Trevor, Vohrr } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date (2024, 9, 14), <>Add <SpellLink spell={TALENTS_MONK.JADE_BOND_TALENT}/> advice to <SpellLink spell={TALENTS_MONK.REVIVAL_TALENT}/> guide section</>, Trevor),
   change(date (2024, 9, 11), <>Add <SpellLink spell={TALENTS_MONK.STRENGTH_OF_THE_BLACK_OX_TALENT}/> guide section</>, Trevor),
   change(date (2024, 9, 11), <>Add <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT}/> guide section</>, Trevor),
   change(date (2024, 9, 10), <>Change <SpellLink spell={TALENTS_MONK.REVIVAL_TALENT}/> load conditions</>, Trevor),
