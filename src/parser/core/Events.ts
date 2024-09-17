@@ -2,6 +2,7 @@ import Spell from 'common/SPELLS/Spell';
 import PhaseConfig from 'parser/core/PhaseConfig';
 import * as React from 'react';
 
+import { HitType } from 'game/HIT_TYPES';
 import EventFilter from './EventFilter';
 import { PetInfo } from './Pet';
 import { PlayerInfo } from './Player';
@@ -584,7 +585,7 @@ export interface DamageEvent extends Event<EventType.Damage> {
   targetInstance: number;
   targetIsFriendly: boolean;
   ability: Ability;
-  hitType: number;
+  hitType: HitType;
   amount: number;
   absorbed?: number;
   resourceActor?: number;

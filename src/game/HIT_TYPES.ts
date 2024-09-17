@@ -9,4 +9,7 @@ const HIT_TYPES = {
   PARRY: 8,
   IMMUNE: 10,
 } as const satisfies Record<string, number>;
+
+export type HitType = (typeof HIT_TYPES)[keyof typeof HIT_TYPES];
+
 export default HIT_TYPES;

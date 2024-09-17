@@ -1,7 +1,7 @@
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
-import HIT_TYPES from 'game/HIT_TYPES';
+import HIT_TYPES, { HitType } from 'game/HIT_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
@@ -66,7 +66,7 @@ class GrandCrusader extends Analyzer {
   }
 
   trackGrandCrusaderChanceHits(event: DamageEvent) {
-    if (![HIT_TYPES.DODGE, HIT_TYPES.PARRY].includes(event.hitType)) {
+    if (!([HIT_TYPES.DODGE, HIT_TYPES.PARRY] as HitType[]).includes(event.hitType)) {
       return;
     }
     this.resetChances += 1;
