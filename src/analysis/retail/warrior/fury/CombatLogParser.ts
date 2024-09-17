@@ -16,6 +16,7 @@ import Checklist from './modules/features/checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import SpellUsable from './modules/features/SpellUsable';
 import EnrageNormalizer from './modules/normalizers/Enrage';
+import ColdSteelHotBloodNormalizer from './modules/normalizers/ColdsteelHotBlood';
 import ChampionsSpear from './modules/talents/ChampionsSpear';
 import MissedRampage from './modules/spells/MissedRampage';
 import Recklessness from './modules/spells/Recklessness';
@@ -35,6 +36,7 @@ class CombatLogParser extends CoreCombatLogParser {
     resourceChangeNormalizer: ResourceChangeNormalizer,
     generateRageEventsNormalizer: GenerateRageEventsNormalizer,
     rageAttributeNormalizer: RageAttributeNormalizer,
+    coldSteelHotBloodNormalizer: ColdSteelHotBloodNormalizer,
 
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
