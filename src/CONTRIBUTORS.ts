@@ -2472,3 +2472,16 @@ export const Liavre: Contributor = {
   github: 'Liavre',
   discord: 'Liavre',
 };
+
+export const Taevis: Contributor = {
+  nickname: 'Taevis',
+  github: 'JoeParrinello',
+  discord: 'EdgeCas3',
+  mains: [
+    {
+      name: 'Taevis',
+      spec: SPECS.RETRIBUTION_PALADIN,
+      link: 'https://worldofwarcraft.blizzard.com/en-us/character/us/destromath/taevis',
+    },
+  ],
+}

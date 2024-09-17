@@ -22,6 +22,7 @@ import {
   Putro,
   Seriousnes,
   Sref,
+  Taevis,
   Tialyss,
   ToppleTheNun,
   Trevor,
@@ -35,6 +36,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 9, 17), 'Updated Class Guide links for Wowhead to point to correct link.', Taevis),
   change(date(2024, 9, 16), 'Updated spellAvailable APL function to properly adjust validation behaviour based on inverse options, and turn it into an options object rather than a straight boolean', Putro),
   change(date(2024, 9, 15), 'Adding TWW weapon enchants, removing DF-specific items (e.g. Fyralath, Call To Dominance, Voice of the Silent Star, etc)', Seriousnes),
   change(date(2024, 9, 12), 'Fixed crash when analyzing reports where 0 procs of certain effects ocurred.', emallson),
