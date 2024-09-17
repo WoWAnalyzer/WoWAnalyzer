@@ -52,7 +52,7 @@ class Abilities extends CoreAbilities {
         healSpellIds: [SPELLS.EFFLORESCENCE_HEAL.id, SPELLS.SPRING_BLOSSOMS.id],
       },
       {
-        spell: SPELLS.REJUVENATION.id,
+        spell: [SPELLS.REJUVENATION.id, SPELLS.REJUVENATION_GERMINATION.id],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,

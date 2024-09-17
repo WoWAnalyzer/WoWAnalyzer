@@ -33,7 +33,6 @@ import StormBlast from './modules/talents/Stormblast';
 import TempestStrikes from './modules/talents/TempestStrikes';
 import WitchDoctorsAncestry from './modules/talents/WitchDoctorsAncestry';
 import LegacyOfTheFrostWitch from './modules/talents/LegacyOfTheFrostWitch';
-import * as Tiers from './modules/dragonflight/TierSets';
 import { EventOrderNormalizer } from './modules/normalizers/EventOrderNormalizer';
 import SpellUsable from './modules/core/SpellUsable';
 import ManaSpring from '../shared/talents/ManaSpring';
@@ -41,7 +40,6 @@ import MaelstromWeaponCastNormalizer from './modules/normalizers/MaelstromWeapon
 import EventLinkNormalizer from './modules/normalizers/EventLinkNormalizer';
 import ThorimsInvocation from './modules/talents/ThorimsInvocation';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
-import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
 import AshenCatalyst from './modules/talents/AshenCatalyst';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import Ascendance from './modules/talents/Ascendance';
@@ -125,13 +123,6 @@ class CombatLogParser extends CoreCombatLogParser {
     tempest: Tempest,
     stormbringerEventOrderNormalizer: StormbringerEventOrderNormalizer,
     stormbringerEventLinkNormalizer: StormbringerEventLinkNormalizer,
-
-    // Tier
-    tier30: Tiers.T30,
-    tier31: Tiers.Season3And4Tier,
-
-    // Items
-    callToDominance: CallToDominance,
 
     // Normalizers
     maestromRefreshBuffNormalizer: MaestromRefreshBuffNormalizer, // removes refresh events following applybuff and applybuffstack

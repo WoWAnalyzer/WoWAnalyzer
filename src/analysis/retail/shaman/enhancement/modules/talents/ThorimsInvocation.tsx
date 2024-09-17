@@ -97,17 +97,6 @@ class ThorimsInvocation extends Analyzer {
     this.procs[spellId].hits! += hits;
     this.lastSpellCast = spellId;
 
-    if (spellId === SPELLS.TEMPEST_CAST.id) {
-      addInefficientCastReason(
-        event,
-        <>
-          When possible, it is better to cast <SpellLink spell={TALENTS.TEMPEST_TALENT} /> with
-          closer to 10 <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> stacks, rather than
-          auto-cast with <SpellLink spell={SPELLS.WINDSTRIKE_CAST} /> and only using up to 5{' '}
-          <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} />.
-        </>,
-      );
-    }
     if (spellId === TALENTS.CHAIN_LIGHTNING_TALENT.id) {
       const cr = getResource(event.classResources, RESOURCE_TYPES.MAELSTROM_WEAPON.id);
       const mswStacks = cr?.cost ?? 0;

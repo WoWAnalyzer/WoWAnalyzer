@@ -935,6 +935,12 @@ const spells = {
     name: 'Awakening Storms',
     icon: 'spell_nature_stormreach',
   },
+  // Farseer
+  ANCESTRAL_SWIFTNESS_CAST: {
+    id: 443454,
+    name: 'Ancestral Swiftness',
+    icon: 'inv_ability_farseershaman_ancestralswiftness.jpg',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;

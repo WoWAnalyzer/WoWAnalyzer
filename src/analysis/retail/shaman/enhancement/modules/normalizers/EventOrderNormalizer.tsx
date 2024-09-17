@@ -87,10 +87,10 @@ export class EventOrderNormalizer extends BaseEventOrderNormalizer {
     events = super.normalize(events);
 
     const fixedEvents: AnyEvent[] = [];
-    const thorimsInvocationCastIds = [
+    const thorimsInvocationCastIds: number[] = [
       SPELLS.LIGHTNING_BOLT.id,
       TALENTS.CHAIN_LIGHTNING_TALENT.id,
-      SPELLS.TEMPEST_CAST,
+      SPELLS.TEMPEST_CAST.id,
     ];
     const windstrikeId = SPELLS.WINDSTRIKE_CAST.id;
     const skipEvents = new Set<AnyEvent>();
