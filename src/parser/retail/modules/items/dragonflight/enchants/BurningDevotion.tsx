@@ -4,7 +4,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import { PlusIcon } from 'interface/icons';
 import { SELECTED_PLAYER, type Options } from 'parser/core/Analyzer';
 import Events, { type HealEvent } from 'parser/core/Events';
-import WeaponEnchantAnalyzer from './WeaponEnchantAnalyzer';
+import WeaponEnchantAnalyzer from '../../WeaponEnchantAnalyzer';
 
 // ================ SAMPLE LOGS ================
 // Burning Devotion R1

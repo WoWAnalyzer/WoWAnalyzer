@@ -16,7 +16,7 @@ type SourceOfMagicWindow = {
   player: string;
 };
 
-const MANA_POOL_SIZE = 250_000;
+const MANA_POOL_SIZE = 2500000;
 
 class SourceOfMagic extends Analyzer {
   static dependencies = {
