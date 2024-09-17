@@ -110,6 +110,7 @@ import {
   DarkmoonSigilAscension,
   StormridersFury,
 } from 'parser/retail/modules/items/thewarwithin';
+import Brawn from 'parser/shared/modules/racials/tauren/Brawn';
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
@@ -205,6 +206,7 @@ class CombatLogParser {
 
     // Racials
     arcaneTorrent: ArcaneTorrent,
+    brawn: Brawn,
     giftOfTheNaaru: GiftOfTheNaaru,
     mightOfTheMountain: MightOfTheMountain,
     stoneform: Stoneform,

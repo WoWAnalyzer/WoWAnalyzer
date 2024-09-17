@@ -198,6 +198,11 @@ const spells = {
     icon: 'racial_orc_berserkerstrength',
   },
   // Tauren
+  BRAWN: {
+    id: 154743,
+    name: 'Brawn',
+    icon: 'inv_misc_head_tauren_01',
+  },
   WAR_STOMP: {
     id: 20549,
     name: 'War Stomp',
