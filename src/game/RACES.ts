@@ -176,6 +176,6 @@ const RACES = {
     name: 'Earthen',
     side: 'alliance',
   },
-} as const satisfies Record<string, Race>;
+} satisfies Record<string, Race>;
 
 export default RACES;
