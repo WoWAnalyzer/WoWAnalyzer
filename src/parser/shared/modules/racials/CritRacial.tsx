@@ -3,6 +3,7 @@ import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
 import RACES from 'game/RACES';
 import ROLES from 'game/ROLES';
+import { wclGameVersionToBranch } from 'game/VERSIONS';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { DamageEvent, EventType, HealEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
@@ -30,7 +31,8 @@ class CritRacial extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active =
-      this.selectedCombatant.race === RACES.Tauren || this.selectedCombatant.race === RACES.Dwarf;
+      wclGameVersionToBranch(options.owner.report.gameVersion) === 'retail' &&
+      (this.selectedCombatant.race === RACES.Tauren || this.selectedCombatant.race === RACES.Dwarf);
     if (!this.active) {
       return;
     }
