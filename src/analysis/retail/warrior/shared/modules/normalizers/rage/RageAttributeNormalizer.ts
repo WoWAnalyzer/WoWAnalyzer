@@ -39,6 +39,7 @@ export default class RageAttributeNormalizer extends EventsNormalizer {
     const hasProtWM = this.selectedCombatant.hasTalent(TALENTS.WAR_MACHINE_PROTECTION_TALENT);
     const hasPC = this.selectedCombatant.hasTalent(TALENTS.PIERCING_CHALLENGE_TALENT);
     const hasSoS = this.selectedCombatant.hasTalent(TALENTS.STORM_OF_STEEL_TALENT);
+    const hasRA = this.selectedCombatant.hasTalent(TALENTS.RECKLESS_ABANDON_TALENT);
 
     let recklessnessBuff = false;
     const updatedEvents: AnyEvent[] = [];
@@ -96,7 +97,8 @@ export default class RageAttributeNormalizer extends EventsNormalizer {
           // "Refunds" are not boosted by Recklessness
           event.ability.guid !== TALENTS.IMPROVED_EXECUTE_ARMS_TALENT.id &&
           event.ability.guid !== TALENTS.CRITICAL_THINKING_ARMS_TALENT.id &&
-          event.ability.guid !== SPELLS.COLD_STEEL_HOT_BLOOD_RAGE.id
+          event.ability.guid !== SPELLS.COLD_STEEL_HOT_BLOOD_RAGE.id &&
+          event.ability.guid !== SPELLS.RECKLESSNESS.id
         ) {
           const newEvent = this.removeMultiplicitiveIncrease(
             event,
@@ -152,6 +154,17 @@ export default class RageAttributeNormalizer extends EventsNormalizer {
             event,
             STORM_OF_STEEL_INCREASE / RAGE_SCALE_FACTOR,
             TALENTS.STORM_OF_STEEL_TALENT,
+          );
+          additions.push(newEvent);
+        }
+      }
+
+      if (hasRA) {
+        if (event.ability.guid === SPELLS.RECKLESSNESS.id) {
+          const newEvent = this.removeAdditiveIncrease(
+            event,
+            50 / RAGE_SCALE_FACTOR,
+            TALENTS.RECKLESS_ABANDON_TALENT,
           );
           additions.push(newEvent);
         }
