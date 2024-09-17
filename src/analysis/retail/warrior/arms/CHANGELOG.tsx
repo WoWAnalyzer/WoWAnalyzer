@@ -5,6 +5,7 @@ import { Abelito75, carglass, Carrottopp, Otthopsy, bandit, Toreole, emallson, T
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2024, 9, 18), 'Fix various rage bugs! Fix bladestorm not being tracked.', nullDozzer),
   change(date(2024, 9, 7), 'Greatly improved tracking of rage generation and sources of rage. Visualized by showing a graph of Rage in the Rage usage tab.', nullDozzer),
   change(date(2024, 8, 15),"Enabled spec, adjusted cooldowns and fixed skullsplitter talent", manu310891),
   change(date(2023, 7, 23), <>Normalize extra casts from <SpellLink spell={TALENTS.BLADEMASTERS_TORMENT_TALENT}/>.</>, ToppleTheNun),
