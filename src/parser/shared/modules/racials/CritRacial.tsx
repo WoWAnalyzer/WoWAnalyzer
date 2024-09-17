@@ -3,18 +3,18 @@ import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
 import RACES from 'game/RACES';
 import ROLES from 'game/ROLES';
-import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { DamageEvent, EventType, HealEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import CritEffectBonus, { ValidEvents } from 'parser/shared/modules/helpers/CritEffectBonus';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import StatisticBox from 'parser/ui/StatisticBox';
+import Statistic from 'parser/ui/Statistic';
 
 export const CRIT_EFFECT = 0.02;
 
-class Brawn extends Analyzer {
+class CritRacial extends Analyzer {
   static dependencies = {
     critEffectBonus: CritEffectBonus,
     abilities: Abilities,
@@ -29,7 +29,8 @@ class Brawn extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.race === RACES.Tauren;
+    this.active =
+      this.selectedCombatant.race === RACES.Tauren || this.selectedCombatant.race === RACES.Dwarf;
     if (!this.active) {
       return;
     }
@@ -126,22 +127,30 @@ class Brawn extends Analyzer {
     }
 
     return (
-      <StatisticBox
-        icon={<SpellIcon spell={SPELLS.BRAWN} />}
-        value={value}
-        label="Tauren crit racial"
+      <Statistic
+        size="small"
         tooltip={
           <>
-            <ul>
-              <li>Damage: {this.owner.formatItemDamageDone(this.damage)}</li>
-              <li>Healing: {this.owner.formatItemHealingDone(this.healing)}</li>
+            <div>Damage: {this.owner.formatItemDamageDone(this.damage)}</div>
+            <div>
+              Healing: {this.owner.formatItemHealingDone(this.healing)}
               {overhealing}
-            </ul>
+            </div>
           </>
         }
-      />
+      >
+        <BoringSpellValueText
+          spell={
+            this.selectedCombatant.race === RACES.Tauren
+              ? SPELLS.BRAWN
+              : SPELLS.MIGHT_OF_THE_MOUNTAIN
+          }
+        >
+          {value}
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }
 
-export default Brawn;
+export default CritRacial;
