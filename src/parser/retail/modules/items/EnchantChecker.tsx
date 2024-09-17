@@ -2,38 +2,11 @@ import { Trans } from '@lingui/macro';
 import ITEMS from 'common/ITEMS';
 import { Enchant } from 'common/ITEMS/Item';
 import SPELLS from 'common/SPELLS';
-import SPECS from 'game/SPECS';
+import { PRIMARY_STAT } from 'parser/shared/modules/features/STAT';
 import BaseEnchantChecker from 'parser/shared/modules/items/EnchantChecker';
 
 // Example logs with missing enchants:
 // https://www.warcraftlogs.com/reports/ydxavfGq1mBrM9Vc/#fight=1&source=14
-
-const AGI_SPECS = [
-  SPECS.GUARDIAN_DRUID.id,
-  SPECS.FERAL_DRUID.id,
-  SPECS.BEAST_MASTERY_HUNTER.id,
-  SPECS.MARKSMANSHIP_HUNTER.id,
-  SPECS.ASSASSINATION_ROGUE.id,
-  SPECS.OUTLAW_ROGUE.id,
-  SPECS.SUBTLETY_ROGUE.id,
-  SPECS.ENHANCEMENT_SHAMAN.id,
-  SPECS.BREWMASTER_MONK.id,
-  SPECS.WINDWALKER_MONK.id,
-  SPECS.VENGEANCE_DEMON_HUNTER.id,
-  SPECS.HAVOC_DEMON_HUNTER.id,
-  SPECS.SURVIVAL_HUNTER.id,
-];
-
-const STR_SPECS = [
-  SPECS.PROTECTION_PALADIN.id,
-  SPECS.PROTECTION_WARRIOR.id,
-  SPECS.BLOOD_DEATH_KNIGHT.id,
-  SPECS.RETRIBUTION_PALADIN.id,
-  SPECS.ARMS_WARRIOR.id,
-  SPECS.FURY_WARRIOR.id,
-  SPECS.FROST_DEATH_KNIGHT.id,
-  SPECS.UNHOLY_DEATH_KNIGHT.id,
-];
 
 const AGI_ENCHANTABLE_SLOTS = {
   4: <Trans id="common.slots.chest">Chest</Trans>,
@@ -241,9 +214,9 @@ const MAX_ENCHANT_IDS = [
 
 class EnchantChecker extends BaseEnchantChecker {
   get EnchantableSlots(): Record<number, JSX.Element> {
-    return AGI_SPECS.includes(this.selectedCombatant.specId)
+    return this.selectedCombatant.spec?.primaryStat === PRIMARY_STAT.AGILITY
       ? AGI_ENCHANTABLE_SLOTS
-      : STR_SPECS.includes(this.selectedCombatant.specId)
+      : this.selectedCombatant.spec?.primaryStat === PRIMARY_STAT.STRENGTH
         ? STR_ENCHANTABLE_SLOTS
         : INT_ENCHANTABLE_SLOTS;
   }
