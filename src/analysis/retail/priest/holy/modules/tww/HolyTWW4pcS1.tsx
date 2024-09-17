@@ -56,7 +56,13 @@ class HolyTWW4pS1 extends Analyzer {
       events.forEach((castHeals) => {
         castHeals = castHeals as HealEvent;
         const rawHeal = castHeals.amount + (castHeals.absorbed || 0) + (castHeals.overheal || 0);
-        if (rawHeal > averageRawHeal / n) {
+        let tempRawHeal = 0;
+        if (castHeals.hitType === HIT_TYPES.CRIT) {
+          tempRawHeal = rawHeal / 2;
+        } else {
+          tempRawHeal = rawHeal;
+        }
+        if (tempRawHeal < averageRawHeal / n) {
           event4pcHealing += castHeals.amount + (castHeals.absorbed || 0);
         }
       });
