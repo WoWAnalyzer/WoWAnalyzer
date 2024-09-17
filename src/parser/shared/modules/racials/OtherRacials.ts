@@ -21,6 +21,17 @@ class OtherRacials extends Analyzer.withDependencies({
     this.classic = wclGameVersionToBranch(options.owner.report.gameVersion) === GameBranch.Classic;
 
     switch (this.selectedCombatant.race) {
+      case RACES.EarthenAlliance:
+      case RACES.EarthenHorde:
+        this.deps.abilities.add({
+          spell: SPELLS.AZERITE_SURGE.id,
+          category: SPELL_CATEGORY.COOLDOWNS,
+          cooldown: 120,
+          gcd: {
+            static: 500,
+          },
+        });
+        break;
       case RACES.Gnome:
         this.deps.abilities.add({
           spell: SPELLS.ESCAPE_ARTIST.id,
