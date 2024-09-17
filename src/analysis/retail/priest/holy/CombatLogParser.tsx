@@ -39,6 +39,7 @@ import HolyWordCDRBySpell from './modules/core/HolyWordCDRBySpell';
 import HolyWordCDR from './modules/core/HolyWordCDR';
 import EchoOfLightDisplay from './modules/core/EchoOfLightDisplay';
 import HolyTWW4pS1 from './modules/tww/HolyTWW4pcS1';
+import HolyTWW4pS1Display from './modules/tww/HolyTWW4pcS1Display';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -89,6 +90,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Items
 
     holyTWW4pcS1: HolyTWW4pS1,
+    holyTWW4pS1Display: HolyTWW4pS1Display,
 
     // Talents
     Enlightenment: Talents.MiddleRow.Enlightenment,
