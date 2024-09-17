@@ -467,6 +467,11 @@ const spells = {
     name: 'Enrage',
     icon: 'spell_shadow_unholyfrenzy',
   },
+  COLD_STEEL_HOT_BLOOD_RAGE: {
+    id: 383978,
+    name: 'Cold Steel, Hot Blood',
+    icon: 'ability_rogue_hungerforblood',
+  },
 
   // Talents
   WAR_MACHINE_FURY_TALENT_BUFF: {

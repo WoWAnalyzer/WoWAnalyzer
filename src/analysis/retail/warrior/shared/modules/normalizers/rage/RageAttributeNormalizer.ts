@@ -95,7 +95,8 @@ export default class RageAttributeNormalizer extends EventsNormalizer {
           event.ability.guid !== SPELLS.SEASONED_SOLDIER.id &&
           // "Refunds" are not boosted by Recklessness
           event.ability.guid !== TALENTS.IMPROVED_EXECUTE_ARMS_TALENT.id &&
-          event.ability.guid !== TALENTS.CRITICAL_THINKING_ARMS_TALENT.id
+          event.ability.guid !== TALENTS.CRITICAL_THINKING_ARMS_TALENT.id &&
+          event.ability.guid !== SPELLS.COLD_STEEL_HOT_BLOOD_RAGE.id
         ) {
           const newEvent = this.removeMultiplicitiveIncrease(
             event,
