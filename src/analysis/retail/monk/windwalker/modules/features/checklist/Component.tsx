@@ -13,8 +13,7 @@ import { TALENTS_MONK } from 'common/TALENTS';
 import AplRule, { AplRuleProps } from 'parser/shared/metrics/apl/ChecklistRule';
 
 interface WWAplProps {
-  serenityProps: AplRuleProps;
-  nonSerenityProps: AplRuleProps;
+  aplProps: AplRuleProps;
 }
 
 const WindwalkerMonkChecklist = (props: ChecklistProps & WWAplProps) => {
@@ -41,7 +40,7 @@ const WindwalkerMonkChecklist = (props: ChecklistProps & WWAplProps) => {
         <AbilityRequirement spell={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} />
         <AbilityRequirement spell={SPELLS.FISTS_OF_FURY_CAST.id} />
         {combatant.hasTalent(TALENTS_MONK.WHIRLING_DRAGON_PUNCH_TALENT) && (
-          <AbilityRequirement spell={SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id} />
+          <AbilityRequirement spell={SPELLS.WHIRLING_DRAGON_PUNCH_DAMAGE.id} />
         )}
         {combatant.hasTalent(TALENTS_MONK.STRIKE_OF_THE_WINDLORD_TALENT) && (
           <AbilityRequirement spell={TALENTS_MONK.STRIKE_OF_THE_WINDLORD_TALENT.id} />
@@ -96,11 +95,8 @@ const WindwalkerMonkChecklist = (props: ChecklistProps & WWAplProps) => {
       >
         <AbilityRequirement spell={SPELLS.TOUCH_OF_DEATH.id} />
         <AbilityRequirement spell={SPELLS.TOUCH_OF_KARMA_CAST.id} />
-        {!combatant.hasTalent(TALENTS_MONK.SERENITY_TALENT) && (
+        {combatant.hasTalent(TALENTS_MONK.STORM_EARTH_AND_FIRE_TALENT) && (
           <AbilityRequirement spell={SPELLS.STORM_EARTH_AND_FIRE_CAST.id} />
-        )}
-        {combatant.hasTalent(TALENTS_MONK.SERENITY_TALENT) && (
-          <AbilityRequirement spell={TALENTS_MONK.SERENITY_TALENT.id} />
         )}
         <AbilityRequirement spell={TALENTS_MONK.INVOKE_XUEN_THE_WHITE_TIGER_TALENT.id} />
         <Requirement
@@ -248,42 +244,13 @@ const WindwalkerMonkChecklist = (props: ChecklistProps & WWAplProps) => {
           thresholds={thresholds.touchOfKarma}
         />
       </Rule>
-      {combatant.hasTalent(TALENTS_MONK.SERENITY_TALENT) && (
-        <AplRule
-          name="Serenity Rotation"
-          castEfficiency={props.castEfficiency}
-          {...props.serenityProps}
-          description={
-            <>
-              This section measures the quality of your rotation during the{' '}
-              <SpellLink spell={TALENTS_MONK.SERENITY_TALENT} /> buff. The priority list differs{' '}
-              slightly with <SpellLink spell={TALENTS_MONK.SERENITY_TALENT} /> active.
-              <p>
-                Note that during <SpellLink spell={TALENTS_MONK.SERENITY_TALENT} />, it is best to{' '}
-                cancel <SpellLink spell={SPELLS.FISTS_OF_FURY_CAST} /> early with a{' '}
-                <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} /> or a{' '}
-                <SpellLink spell={SPELLS.BLACKOUT_KICK} />.
-              </p>
-              <p>
-                See the{' '}
-                <a href="https://www.peakofserenity.com/df/windwalker/pve-guide/">
-                  Peak of Serenity Guide
-                </a>{' '}
-                for more information.
-              </p>
-              <p>For now, this rotation assumes a single target.</p>
-            </>
-          }
-        />
-      )}
       <AplRule
         name="Core Rotation"
         castEfficiency={props.castEfficiency}
-        {...props.nonSerenityProps}
+        {...props.aplProps}
         description={
           <>
             This section measures the quality of your rotation outside of{' '}
-            <SpellLink spell={TALENTS_MONK.SERENITY_TALENT} />, including while{' '}
             <SpellLink spell={TALENTS_MONK.STORM_EARTH_AND_FIRE_TALENT} /> is active. See the{' '}
             <a href="https://www.peakofserenity.com/df/windwalker/pve-guide/">
               Peak of Serenity Guide

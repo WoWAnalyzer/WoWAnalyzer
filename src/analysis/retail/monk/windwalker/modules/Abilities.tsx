@@ -36,7 +36,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id,
+        spell: TALENTS_MONK.WHIRLING_DRAGON_PUNCH_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 24 / (1 + haste),
         gcd: {
@@ -97,14 +97,14 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS_MONK.CHI_BURST_TALENT.id,
+        spell: TALENTS_MONK.CHI_BURST_SHARED_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 30,
         gcd: {
           base: 1000,
           minimum: 750,
         },
-        enabled: combatant.hasTalent(TALENTS_MONK.CHI_BURST_TALENT),
+        enabled: combatant.hasTalent(TALENTS_MONK.CHI_BURST_SHARED_TALENT),
         castEfficiency: {
           suggestion: true,
         },
@@ -118,15 +118,6 @@ class Abilities extends CoreAbilities {
           base: 1000,
         },
       },
-      {
-        spell: TALENTS_MONK.RUSHING_JADE_WIND_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        cooldown: (haste) => 6 / (1 + haste),
-        gcd: {
-          static: 1000,
-        },
-        enabled: combatant.hasTalent(TALENTS_MONK.RUSHING_JADE_WIND_TALENT),
-      },
       // cooldowns
       {
         spell: SPELLS.TOUCH_OF_KARMA_CAST.id,
@@ -139,17 +130,6 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.6,
           extraSuggestion:
             'Touch of Karma is typically used offensively as often as possible, but use changes a lot varying on the encounter',
-        },
-      },
-      {
-        spell: TALENTS_MONK.SERENITY_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 90,
-        gcd: null,
-        enabled: combatant.hasTalent(TALENTS_MONK.SERENITY_TALENT),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.95,
         },
       },
       {
@@ -181,6 +161,9 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_MONK.STRIKE_OF_THE_WINDLORD_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 40,
+        gcd: {
+          static: 1000,
+        },
         enabled: combatant.hasTalent(TALENTS_MONK.STRIKE_OF_THE_WINDLORD_TALENT),
         castEfficiency: {
           suggestion: true,
@@ -222,7 +205,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         cooldown: combatant.hasTalent(TALENTS_MONK.CELERITY_TALENT) ? 15 : 20,
         gcd: null,
-        charges: combatant.hasTalent(TALENTS_MONK.IMPROVED_ROLL_TALENT) ? 3 : 2,
+        charges: combatant.hasTalent(TALENTS_MONK.CELERITY_TALENT) ? 3 : 2,
         enabled: !combatant.hasTalent(TALENTS_MONK.CHI_TORPEDO_TALENT),
       },
       {
@@ -230,7 +213,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 20,
         gcd: null,
-        charges: combatant.hasTalent(TALENTS_MONK.IMPROVED_ROLL_TALENT) ? 3 : 2,
+        charges: 2,
         enabled: combatant.hasTalent(TALENTS_MONK.CHI_TORPEDO_TALENT),
       },
       {
