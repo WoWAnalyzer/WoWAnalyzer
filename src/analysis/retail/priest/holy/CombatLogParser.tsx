@@ -87,7 +87,7 @@ class CombatLogParser extends CoreCombatLogParser {
     renew: Renew,
     prayerOfMending: PrayerOfMending,
 
-    //Items
+    // Items
 
     holyTWW4pcS1: HolyTWW4pS1,
     holyTWW4pS1Display: HolyTWW4pS1Display,

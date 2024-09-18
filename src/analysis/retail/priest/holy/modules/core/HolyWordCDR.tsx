@@ -12,11 +12,13 @@ import {
   baseHolyWordCDR,
   chastiseHWCDR,
   energyCycleCDR,
+  HOLY_ENERGY_CYCLE_PROC,
   HOLY_TWW_S1_4PC_CDR,
   LIGHT_OF_THE_NAARU_REDUCTION_PER_RANK,
   salvationHWCDR,
   sanctifyHWCDR,
   serenityHWCDR,
+  TWW_S1_HOLY_4PC_CDR_PROC,
   TWW_TIER1_2PC_CDR,
 } from '../../constants';
 
@@ -80,21 +82,25 @@ class HolyWordCDR extends Analyzer {
 
   public handleAny(event: CastEvent, specialEvent?: string): hwCDRBreakdown | undefined {
     //energy cycle special events
-    if (specialEvent === 'ENERGY_CYCLE') {
+    if (specialEvent === HOLY_ENERGY_CYCLE_PROC) {
       return this.handleCDR(
         energyCycleCDR.get(TALENTS.ENERGY_CYCLE_TALENT.id),
         TALENTS.HOLY_WORD_SANCTIFY_TALENT.id,
       );
     }
     // 4pc special events
-    if (sanctifyHWCDR.has(event.ability.guid) && this.sanctifyActive && specialEvent === '4PC') {
+    if (
+      sanctifyHWCDR.has(event.ability.guid) &&
+      this.sanctifyActive &&
+      specialEvent === TWW_S1_HOLY_4PC_CDR_PROC
+    ) {
       return this.handleCDR(
         sanctifyHWCDR.get(event.ability.guid),
         TALENTS.HOLY_WORD_SANCTIFY_TALENT.id,
         specialEvent,
       );
     }
-    if (serenityHWCDR.has(event.ability.guid) && specialEvent === '4PC') {
+    if (serenityHWCDR.has(event.ability.guid) && specialEvent === TWW_S1_HOLY_4PC_CDR_PROC) {
       return this.handleCDR(
         serenityHWCDR.get(event.ability.guid),
         TALENTS.HOLY_WORD_SERENITY_TALENT.id,

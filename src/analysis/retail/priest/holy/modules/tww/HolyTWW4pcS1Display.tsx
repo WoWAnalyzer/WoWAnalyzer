@@ -32,6 +32,8 @@ class HolyTWW4pS1Display extends Analyzer {
   totalHealHealing = 0;
   totalPohHealing = 0;
 
+  totalEolHealing = 0;
+
   constructor(options: Options) {
     super(options);
 
@@ -44,23 +46,31 @@ class HolyTWW4pS1Display extends Analyzer {
   }
 
   handleCast(event: CastEvent) {
-    if (!this.holyTWW4pS1.detect4pcProc(event)) {
+    if (!this.holyTWW4pS1.is4pcProc(event)) {
       return;
     }
     if (event.ability.guid === TALENTS_PRIEST.PRAYER_OF_HEALING_TALENT.id) {
       this.pohProcs += 1;
-      this.totalPohHealing += this.holyTWW4pS1.get4pcHealing(event);
+      const tempHealNum = this.holyTWW4pS1.get4pcHealing(event);
+      this.totalPohHealing += tempHealNum[0];
+      this.totalEolHealing += tempHealNum[1];
     } else if (event.ability.guid === SPELLS.GREATER_HEAL.id) {
       this.healProcs += 1;
-      this.totalHealHealing += this.holyTWW4pS1.get4pcHealing(event);
+      const tempHealNums = this.holyTWW4pS1.get4pcHealing(event);
+      this.totalHealHealing += tempHealNums[0];
+      this.totalEolHealing += tempHealNums[1];
     } else if (event.ability.guid === SPELLS.FLASH_HEAL.id) {
       this.flashHealProcs += 1;
-      this.totalFlashHealing += this.holyTWW4pS1.get4pcHealing(event);
+      const tempHealNums = this.holyTWW4pS1.get4pcHealing(event);
+      this.totalFlashHealing += tempHealNums[0];
+      this.totalEolHealing += tempHealNums[1];
     }
   }
 
   get totalHealing() {
-    return this.totalHealHealing + this.totalPohHealing + this.totalFlashHealing;
+    return (
+      this.totalHealHealing + this.totalPohHealing + this.totalFlashHealing + this.totalEolHealing
+    );
   }
 
   statistic() {
@@ -76,25 +86,29 @@ class HolyTWW4pS1Display extends Analyzer {
             {this.selectedCombatant.hasTalent(TALENTS_PRIEST.PRAYER_OF_HEALING_TALENT) && (
               <div>
                 <SpellLink spell={TALENTS_PRIEST.PRAYER_OF_HEALING_TALENT} />:{' '}
-                <ItemPercentHealingDone amount={this.totalPohHealing} /> from {this.pohProcs}{' '}
-                procs
+                <ItemPercentHealingDone amount={this.totalPohHealing} /> from {this.pohProcs} procs
               </div>
             )}
             <div>
               <SpellLink spell={SPELLS.GREATER_HEAL} />:{' '}
-              <ItemPercentHealingDone amount={this.totalHealHealing} /> from {this.healProcs}{' '}
-              procs
+              <ItemPercentHealingDone amount={this.totalHealHealing} /> from {this.healProcs} procs
             </div>
             <div>
               <SpellLink spell={SPELLS.FLASH_HEAL} />:{' '}
-              <ItemPercentHealingDone amount={this.totalFlashHealing} /> from{' '}
-              {this.flashHealProcs} procs
+              <ItemPercentHealingDone amount={this.totalFlashHealing} /> from {this.flashHealProcs}{' '}
+              procs
+            </div>
+            <div>
+              <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
+              <ItemPercentHealingDone amount={this.totalEolHealing} /> procs
             </div>
             <br />
             <div>
               Notably this module only tallies the heals directly associated with 4PC and not any{' '}
-              other additional effects such as <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />{' '}
-              amongst others, which undervalues it.
+              other additional effects such as{' '}
+              <SpellLink spell={TALENTS_PRIEST.BINDING_HEALS_TALENT} /> and{' '}
+              <SpellLink spell={TALENTS_PRIEST.TRAIL_OF_LIGHT_TALENT} /> amongst others, which
+              undervalues it.
             </div>
             <br />
             <div>See the module at the top of the page for CDR.</div>

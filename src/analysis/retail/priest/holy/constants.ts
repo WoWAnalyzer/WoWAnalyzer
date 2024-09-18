@@ -159,6 +159,11 @@ export const RESONANT_ENERGY_AMP_PER_STACK = 0.02;
  *  ------------------CORE/SPELL MODIFIERS AND LISTS------------------------
  */
 
+// CDR Special Events
+
+export const TWW_S1_HOLY_4PC_CDR_PROC = '4PC';
+export const HOLY_ENERGY_CYCLE_PROC = 'ENERGY_CYCLE';
+
 // renew attributor
 export const BASE_RENEW_DURATION = 15;
 // not sure what the max is, df s3 tier could extend it to like 2min

@@ -10,6 +10,7 @@ import Events, { CastEvent, RemoveBuffEvent, RemoveBuffStackEvent } from 'parser
 import { TIERS } from 'game/TIERS';
 import { buffedBySurgeOfLight, getSOLFlashCast } from '../../normalizers/CastLinkNormalizer';
 import HolyTWW4pS1 from '../tww/HolyTWW4pcS1';
+import { HOLY_ENERGY_CYCLE_PROC, TWW_S1_HOLY_4PC_CDR_PROC } from '../../constants';
 
 /**
  * this is just the display function for talents powered by the core of HolyWordCDR
@@ -60,7 +61,7 @@ class HolyWordCDRBySpell extends Analyzer {
     const hwBreakdown = this.holyWordCDR.handleAny(event, specialEvent);
     let spellId = event.ability.guid;
 
-    if (specialEvent === 'ENERGY_CYCLE') {
+    if (specialEvent === HOLY_ENERGY_CYCLE_PROC) {
       spellId = TALENTS.ENERGY_CYCLE_TALENT.id;
     }
 
@@ -125,8 +126,8 @@ class HolyWordCDRBySpell extends Analyzer {
    */
 
   castWrapper(event: CastEvent) {
-    if (this.holyTWW4pS1.detect4pcProc(event)) {
-      this.handleOnCast(event, '4PC');
+    if (this.holyTWW4pS1.is4pcProc(event)) {
+      this.handleOnCast(event, TWW_S1_HOLY_4PC_CDR_PROC);
     } else {
       this.handleOnCast(event);
     }
@@ -139,7 +140,7 @@ class HolyWordCDRBySpell extends Analyzer {
 
     if (castEvent) {
       if (buffedBySurgeOfLight(event)) {
-        this.handleOnCast(castEvent, 'ENERGY_CYCLE');
+        this.handleOnCast(castEvent, HOLY_ENERGY_CYCLE_PROC);
       }
     }
   }

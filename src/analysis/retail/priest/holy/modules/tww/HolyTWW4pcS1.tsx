@@ -4,17 +4,21 @@ import { SPELLS_THAT_PROC_S1_4PC_HOLY_ID } from '../../constants';
 import { HOLY_TWW_S1_4PC } from '../../normalizers/CastLinkNormalizer';
 import HolyWordCDR from '../core/HolyWordCDR';
 import HIT_TYPES from 'game/HIT_TYPES';
+import EOLAttrib from '../core/EchoOfLightAttributor';
 
 class HolyTWW4pS1 extends Analyzer {
   static dependencies = {
     holyWordCDR: HolyWordCDR,
+    eolAttrib: EOLAttrib,
   };
   protected holyWordCDR!: HolyWordCDR;
+
+  protected eolAttrib!: EOLAttrib;
 
   active4p = false;
 
   // If a heal event hits the same person twice then its a tier proc
-  detect4pcProc(event: CastEvent): boolean {
+  is4pcProc(event: CastEvent): boolean {
     if (!SPELLS_THAT_PROC_S1_4PC_HOLY_ID.includes(event.ability.guid)) {
       return false;
     }
@@ -38,11 +42,12 @@ class HolyTWW4pS1 extends Analyzer {
   }
 
   // Gets all heal events associated with a cast, below the average its a tier proc (0.35 scaling of base effect)
-  get4pcHealing(event: CastEvent): number {
+  get4pcHealing(event: CastEvent) {
     const events = GetRelatedEvents(event, HOLY_TWW_S1_4PC);
-    const n = events.length;
     let averageRawHeal = 0;
     let event4pcHealing = 0;
+    let eol4pcHealing = 0;
+    const healBreakdown: number[] = [0, 0];
     if (events.length > 1) {
       events.forEach((castHeals) => {
         castHeals = castHeals as HealEvent;
@@ -62,13 +67,16 @@ class HolyTWW4pS1 extends Analyzer {
         } else {
           tempRawHeal = rawHeal;
         }
-        if (tempRawHeal < averageRawHeal / n) {
+        if (tempRawHeal < averageRawHeal / events.length) {
           event4pcHealing += castHeals.amount + (castHeals.absorbed || 0);
+          eol4pcHealing += this.eolAttrib.getEchoOfLightHealingAttrib(castHeals);
         }
       });
     }
+    healBreakdown[0] = event4pcHealing;
+    healBreakdown[1] = eol4pcHealing;
 
-    return event4pcHealing;
+    return healBreakdown;
   }
 }
 
