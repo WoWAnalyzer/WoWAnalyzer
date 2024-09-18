@@ -47,7 +47,11 @@ class StrengthOfTheBlackOx extends Analyzer {
   }
 
   private hasManaBuff(): boolean {
-    return this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_BUFF) || this.celestial.celestialActive;
+    return (
+      this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_BUFF) ||
+      this.selectedCombatant.hasBuff(SPELLS.INNERVATE) ||
+      this.celestial.celestialActive
+    );
   }
 
   private onRemoveBuff(event: RemoveBuffEvent) {
@@ -88,8 +92,8 @@ class StrengthOfTheBlackOx extends Analyzer {
         </b>{' '}
         is a buff that makes your next <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} />{' '}
         have a reduced cast time and apply a shield to 5 nearby allies. It is very important to
-        never let this buff refresh as it is a considerable amount of shielding. Try to have{' '}
-        <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} /> or{' '}
+        never let this buff refresh or expire as it is a considerable amount of shielding. Try to
+        have <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} /> or{' '}
         <SpellLink spell={this.celestial.getCelestialTalent()} /> active when casting{' '}
         <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> as it is very expensive.
       </p>
