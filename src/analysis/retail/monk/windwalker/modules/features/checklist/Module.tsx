@@ -14,10 +14,7 @@ import FistsofFury from '../../spells/FistsofFury';
 import TouchOfKarma from '../../spells/TouchOfKarma';
 import HitCombo from '../../talents/HitCombo';
 import Component from './Component';
-import {
-  nonSerenityProps,
-  serenityProps,
-} from 'analysis/retail/monk/windwalker/modules/apl/AplCheck';
+import { aplProps } from 'analysis/retail/monk/windwalker/modules/apl/AplCheck';
 import JadefireStomp from 'analysis/retail/monk/shared/JadefireStomp';
 
 class Checklist extends BaseChecklist {
@@ -59,8 +56,7 @@ class Checklist extends BaseChecklist {
   render() {
     return (
       <Component
-        serenityProps={serenityProps(this.owner.eventHistory, this.owner.info)}
-        nonSerenityProps={nonSerenityProps(this.owner.eventHistory, this.owner.info)}
+        aplProps={aplProps(this.owner.eventHistory, this.owner.info)}
         combatant={this.combatants.selected}
         castEfficiency={this.castEfficiency}
         thresholds={{

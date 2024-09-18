@@ -939,7 +939,27 @@ const spells = {
   ANCESTRAL_SWIFTNESS_CAST: {
     id: 443454,
     name: 'Ancestral Swiftness',
-    icon: 'inv_ability_farseershaman_ancestralswiftness.jpg',
+    icon: 'inv_ability_farseershaman_ancestralswiftness',
+  },
+  CALL_OF_THE_ANCESTORS_SUMMON: {
+    id: 445624,
+    name: 'Call of the Ancestors',
+    icon: 'ability_racial_ancestralcall',
+  },
+  CALL_OF_THE_ANCESTORS_BUFF: {
+    id: 447244,
+    name: 'Call of the Ancestors',
+    icon: 'ability_racial_ancestralcall',
+  },
+  CALL_OF_THE_ANCESTORS_ELEMENTAL_BLAST: {
+    id: 465717,
+    name: 'Elemental Blast',
+    icon: 'shaman_talent_elementalblast',
+  },
+  CALL_OF_THE_ANCESTORS_LAVA_BURST: {
+    id: 447419,
+    name: 'Lava Burst',
+    icon: 'spell_shaman_lavaburst',
   },
 } satisfies Record<string, Spell>;
 

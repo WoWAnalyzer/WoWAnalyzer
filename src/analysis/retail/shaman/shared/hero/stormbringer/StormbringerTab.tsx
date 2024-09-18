@@ -1,4 +1,4 @@
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import Tempest from './Tempest';
 import { Section, SubSection } from 'interface/guide';
@@ -157,6 +157,11 @@ export class StormbringerTab extends Analyzer {
   };
 
   protected tempest!: Tempest;
+
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.TEMPEST_TALENT);
+  }
 
   tab() {
     return {

@@ -4,10 +4,16 @@ import { UpdateSpellUsableEvent, EventType } from 'parser/core/Events';
 
 import { Condition, tenseAlt } from '../index';
 
+interface SpellAvailableOptions {
+  inverse?: boolean;
+}
+
 export default function spellAvailable(
   spell: Spell,
-  inverse: boolean = false,
+  options: SpellAvailableOptions = {},
 ): Condition<UpdateSpellUsableEvent | null> {
+  const inverse = Boolean(options.inverse);
+
   return {
     key: `spellAvailable-${spell.id}`,
     init: () => null,
@@ -18,7 +24,8 @@ export default function spellAvailable(
         return state;
       }
     },
-    validate: (state, _event) => state === null || state.isAvailable,
+    validate: (state, _event) =>
+      state === null || (!inverse && state.isAvailable) || (inverse && !state.isAvailable),
     describe: (tense) => (
       <>
         <SpellLink spell={spell.id} /> {tenseAlt(tense, 'is', 'was')} {inverse ? 'on' : 'off'}{' '}
