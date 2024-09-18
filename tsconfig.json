@@ -41,7 +41,6 @@
   "exclude": [
     "src/analysis/retail/deathknight/frost",
     "src/analysis/retail/deathknight/unholy",
-    "src/analysis/retail/monk/windwalker",
     "src/analysis/retail/priest/discipline",
     "src/analysis/retail/rogue/assassination",
     "src/analysis/retail/rogue/subtlety",

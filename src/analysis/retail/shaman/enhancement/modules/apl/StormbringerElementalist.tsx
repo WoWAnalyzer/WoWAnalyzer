@@ -25,6 +25,18 @@ export function stormbringerElementalist(combatant: Combatant): Apl {
       )),
     },
     {
+      spell: SPELLS.WINDSTRIKE_CAST,
+      condition: describe(
+        buffPresent(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT),
+        () => (
+          <>
+            during <SpellLink spell={TALENTS.ASCENDANCE_ENHANCEMENT_TALENT} />
+          </>
+        ),
+        '',
+      ),
+    },
+    {
       spell: TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT,
       condition: or(
         describe(

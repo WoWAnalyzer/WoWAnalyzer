@@ -3,6 +3,7 @@ import TALENTS from 'common/TALENTS/shaman';
 import { Options } from 'parser/core/Analyzer';
 import BaseEventLinkNormalizer from 'parser/core/EventLinkNormalizer';
 import { EventType } from 'parser/core/Events';
+import { NORMALIZER_ORDER } from '../../constants';
 
 class EventLinkNormalizer extends BaseEventLinkNormalizer {
   constructor(options: Options) {
@@ -22,6 +23,7 @@ class EventLinkNormalizer extends BaseEventLinkNormalizer {
         isActive: (c) => c.hasTalent(TALENTS.STORMKEEPER_TALENT),
       },
     ]);
+    this.priority = NORMALIZER_ORDER.EventLink;
   }
 }
 

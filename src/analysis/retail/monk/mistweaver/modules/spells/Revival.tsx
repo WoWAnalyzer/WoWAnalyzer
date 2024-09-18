@@ -20,18 +20,22 @@ import CooldownExpandable, {
 import { PerformanceMark } from 'interface/guide';
 import ShaohaosLessons from './ShaohaosLessons';
 import InformationIcon from 'interface/icons/Information';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 interface RevivalCastTracker {
   timeStamp: number; // time of cast
   lessonsBuffActive: boolean; // was SG pre cast
+  celestialOnCd: boolean;
 }
 
 class Revival extends Analyzer {
   static dependencies = {
     upliftedSpirits: UpliftedSpirits,
     shaohaos: ShaohaosLessons,
+    spellUsable: SpellUsable,
   };
 
+  protected spellUsable!: SpellUsable;
   protected upliftedSpirits!: UpliftedSpirits;
   protected shaohaos!: ShaohaosLessons;
   castTracker: RevivalCastTracker[] = [];
@@ -82,10 +86,17 @@ class Revival extends Analyzer {
       : TALENTS_MONK.REVIVAL_TALENT;
   }
 
+  getCelestialTalent(): Talent {
+    return this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT)
+      ? TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT
+      : TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT;
+  }
+
   handleCast(event: CastEvent) {
     this.castTracker.push({
       timeStamp: event.timestamp,
       lessonsBuffActive: LESSONS_BUFFS.some((buff) => this.selectedCombatant.hasBuff(buff.id)),
+      celestialOnCd: this.spellUsable.isOnCooldown(this.getCelestialTalent().id),
     });
   }
 
@@ -143,7 +154,10 @@ class Revival extends Analyzer {
         relatively short checklist to maximize its healing. If talented into{' '}
         <SpellLink spell={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT} />, always pre-cast{' '}
         <SpellLink spell={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> if your next buff is not{' '}
-        <SpellLink spell={SPELLS.LESSON_OF_FEAR_BUFF} />.
+        <SpellLink spell={SPELLS.LESSON_OF_FEAR_BUFF} />. If talented into{' '}
+        <SpellLink spell={TALENTS_MONK.JADE_BOND_TALENT} />, make sure to use{' '}
+        <SpellLink spell={this.getRevivalTalent()} /> while your celestial is on cooldown in order
+        to get celestial CDR.
       </p>
     );
     const data = (
@@ -194,6 +208,36 @@ class Revival extends Analyzer {
               details: <>{lessonPerf === QualitativePerformance.Good ? <>Yes</> : <>No</>}</>,
             });
             allPerfs.push(lessonPerf);
+          }
+          if (this.selectedCombatant.hasTalent(TALENTS_MONK.JADE_BOND_TALENT)) {
+            const jbPerf = cast.celestialOnCd
+              ? QualitativePerformance.Good
+              : QualitativePerformance.Fail;
+            checklistItems.push({
+              label: (
+                <>
+                  <SpellLink spell={this.getCelestialTalent()} /> on cooldown
+                  <Tooltip
+                    hoverable
+                    content={
+                      <>
+                        Make sure to cast <SpellLink spell={this.getRevivalTalent()} /> when your
+                        celestial is on cooldown in order to get celestial CDR from{' '}
+                        <SpellLink spell={TALENTS_MONK.JADE_BOND_TALENT} />
+                      </>
+                    }
+                  >
+                    <span>
+                      {' '}
+                      <InformationIcon />
+                    </span>
+                  </Tooltip>
+                </>
+              ),
+              result: <PerformanceMark perf={jbPerf} />,
+              details: <>{jbPerf === QualitativePerformance.Good ? <>Yes</> : <>No</>}</>,
+            });
+            allPerfs.push(jbPerf);
           }
           const averagePerf = getLowestPerf(allPerfs);
           return (

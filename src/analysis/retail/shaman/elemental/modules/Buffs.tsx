@@ -56,6 +56,16 @@ class Buffs extends CoreAuras {
         enabled: combatant.hasTalent(TALENTS.FIRE_ELEMENTAL_TALENT),
         triggeredBySpellId: TALENTS.FIRE_ELEMENTAL_TALENT.id,
       },
+      {
+        spellId: SPELLS.PRIMORDIAL_WAVE_BUFF.id,
+        enabled: combatant.hasTalent(TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT),
+        triggeredBySpellId: TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT.id,
+      },
+      {
+        spellId: SPELLS.ANCESTRAL_SWIFTNESS_CAST.id,
+        enabled: combatant.hasTalent(TALENTS.ANCESTRAL_SWIFTNESS_TALENT),
+        triggeredBySpellId: SPELLS.ANCESTRAL_SWIFTNESS_CAST.id,
+      },
     ];
   }
 }

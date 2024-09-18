@@ -819,7 +819,7 @@ export interface ResurrectEvent extends Event<EventType.Resurrect> {
 export interface SummonEvent extends Event<EventType.Summon> {
   sourceID: number;
   sourceIsFriendly: boolean;
-  target: PetInfo;
+  target?: PetInfo;
   targetID: number;
   targetInstance: number;
   targetIsFriendly: boolean;
