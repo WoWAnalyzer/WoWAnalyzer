@@ -38,6 +38,8 @@ import EOLAttrib from './modules/core/EchoOfLightAttributor';
 import HolyWordCDRBySpell from './modules/core/HolyWordCDRBySpell';
 import HolyWordCDR from './modules/core/HolyWordCDR';
 import EchoOfLightDisplay from './modules/core/EchoOfLightDisplay';
+import HolyWordSerenity from './modules/spells/HolyWordSerenity';
+import HolyWordSanctify from './modules/spells/HolyWordSanctify';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -84,6 +86,10 @@ class CombatLogParser extends CoreCombatLogParser {
     spiritOfRedemption: SpiritOfRedemption,
     renew: Renew,
     prayerOfMending: PrayerOfMending,
+
+    // Holy Words
+    holyWordSerenity: HolyWordSerenity,
+    holyWordSanctify: HolyWordSanctify,
 
     // Talents
     Enlightenment: Talents.MiddleRow.Enlightenment,

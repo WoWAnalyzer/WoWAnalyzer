@@ -11,20 +11,23 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
   return (
     <>
       {/* TODO: HOLY WORD GUIDE SECTION */}
-      {/* <Section title="Holy Words"> */}
-      {/* This section should cover effective usage of our holy words. */}
-      {/* Can have three sections, one for each holy words cast effectiveness */}
-      {/* A third section for going over wasted CDR */}
-      {/* </Section> */}
+      <Section title="Holy Words">
+        {/* This section should cover effective usage of our holy words. */}
+        {/* Can have three sections, one for each holy words cast effectiveness */}
+        {/* A third section for going over wasted CDR */}
+        {modules.holyWordSerenity.guideSubsection}
+        {modules.holyWordSanctify.guideSubsection}
+      </Section>
       <Section title="Core Spells">
         {/* This section should cover effective usage of Holy's core spells */}
         {/* Divine Word Casts, idk how to explore this.  */}
-        {modules.Lightweaver.guideSubsection}
-        {modules.prayerOfHealing.guideSubsection}
         {modules.prayerOfMending.guideSubsection}
-        {modules.circleOfHealing.guideSubsection}
-        {modules.DivineStar.guideSubsectionHoly}
         {modules.Halo.guideSubsectionHoly}
+        {modules.Lightweaver.guideSubsection}
+        {/* Surge of Light Stacks Capped */}
+        {modules.circleOfHealing.guideSubsection}
+        {modules.prayerOfHealing.guideSubsection}
+        {modules.DivineStar.guideSubsectionHoly}
       </Section>
       <Section title="Healing Cooldowns">
         <CooldownGraphSubsection modules={modules} events={events} info={info} />
