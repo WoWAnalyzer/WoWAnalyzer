@@ -33,7 +33,7 @@ class holyWordSanctify extends Analyzer {
         <b>
           <SpellLink spell={SPELLS.HOLY_WORD_SANCTIFY} />
         </b>{' '}
-        is one of our most efficient spells and we should avoid being capped on stacks as our other
+        is one of our most efficient spells and we should avoid being capped on charges as our other
         spells reduce its cooldown.
       </p>
     );

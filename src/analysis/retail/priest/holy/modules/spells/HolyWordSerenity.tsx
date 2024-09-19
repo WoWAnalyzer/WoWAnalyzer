@@ -33,7 +33,8 @@ class HolyWordSerenity extends Analyzer {
         <b>
           <SpellLink spell={SPELLS.HOLY_WORD_SERENITY} />
         </b>{' '}
-        is one of our most efficient spells and we should avoid being capped on stacks.
+        is one of our most efficient spells and we should avoid being capped on charges as our other
+        spells reduce its cooldown.
       </p>
     );
 
