@@ -2485,3 +2485,15 @@ export const Taevis: Contributor = {
     },
   ],
 };
+
+export const Crustacea: Contributor = {
+  nickname: 'Crustacea',
+  github: 'j_owens',
+  mains: [
+    {
+      name: 'Crustacea',
+      spec: SPECS.HOLY_PRIEST,
+      link: 'https://worldofwarcraft.blizzard.com/en-eu/character/eu/tarren-mill/crustacea',
+    },
+  ],
+};
