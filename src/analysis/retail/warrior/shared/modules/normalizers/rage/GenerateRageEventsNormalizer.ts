@@ -177,7 +177,12 @@ export default class GenerateRageEventsNormalizer extends EventsNormalizer {
           }
         }
 
-        const expectedGeneration = Math.round(isOffHand ? ragePerSwing / 2 : ragePerSwing);
+        const expectedGeneration =
+          // If there is no `rage`, it was a miss, and we know it should be 0
+          rage == null
+            ? 0
+            : // Otherwise, we calculate based on the swing
+              Math.round(isOffHand ? ragePerSwing / 2 : ragePerSwing);
 
         // If we're not at max, we have not wasted even if expectedGeneration mismatches
         let rageWasted = isMax ? expectedGeneration - generated : 0;
@@ -203,6 +208,8 @@ export default class GenerateRageEventsNormalizer extends EventsNormalizer {
             event: event,
             resourceChange: isMax ? expectedGeneration : generated,
             waste: rageWasted,
+            rageAmount: rage?.amount ?? lastRageCount,
+            rageMax: rage?.max ?? maxRage,
             ability: {
               type: MAGIC_SCHOOLS.ids.PHYSICAL,
               name: SPELLS.SKYFURY.name,
@@ -217,6 +224,8 @@ export default class GenerateRageEventsNormalizer extends EventsNormalizer {
             event: event,
             resourceChange: isMax ? expectedGeneration : generated,
             waste: rageWasted,
+            rageAmount: rage?.amount ?? lastRageCount,
+            rageMax: rage?.max ?? maxRage,
           });
 
           updatedEvents.push(...newEvents);
@@ -310,21 +319,19 @@ export default class GenerateRageEventsNormalizer extends EventsNormalizer {
     event,
     resourceChange,
     waste,
+    rageAmount,
+    rageMax,
     ability,
   }: {
     event: CastEvent;
     resourceChange: number;
     waste: number;
+    rageAmount: number;
+    rageMax: number;
     ability?: ResourceChangeEvent['ability'];
   }): ResourceChangeEvent[] => {
     const response: ResourceChangeEvent[] = [];
 
-    const eventRage = getRage(event, this.selectedCombatant);
-    if (eventRage == null) {
-      // I'm not sure why some Melee casts does not include Rage classResources
-      console.error(`[GenerateRageEventsNormalizer] Could not find rage for event`, event);
-      return response;
-    }
     const meleeResourceChange = this.resourceChangeEvent(event, {
       resourceChange,
       waste,
@@ -336,8 +343,8 @@ export default class GenerateRageEventsNormalizer extends EventsNormalizer {
       classResources: [
         {
           type: RESOURCE_TYPES.RAGE.id,
-          max: eventRage.max,
-          amount: eventRage.amount,
+          max: rageMax,
+          amount: rageAmount,
         },
       ],
     });
