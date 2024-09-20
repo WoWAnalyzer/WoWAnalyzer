@@ -15,9 +15,9 @@ import Buffs from './modules/features/Buffs';
 import Checklist from './modules/features/checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import SpellUsable from './modules/features/SpellUsable';
-import EnrageNormalizer from './modules/normalizers/Enrage';
 import ColdSteelHotBloodNormalizer from './modules/normalizers/ColdSteelHotBlood';
 import ChampionsSpear from './modules/talents/ChampionsSpear';
+import EnrageBeforeBloodthirst from './modules/normalizers/EnrageBeforeBloodthirst';
 import MissedRampage from './modules/spells/MissedRampage';
 import Recklessness from './modules/spells/Recklessness';
 import WhirlWind from './modules/spells/Whirlwind';
@@ -38,6 +38,8 @@ class CombatLogParser extends CoreCombatLogParser {
     rageAttributeNormalizer: RageAttributeNormalizer,
     coldSteelHotBloodNormalizer: ColdSteelHotBloodNormalizer,
 
+    enrageBeforeBloodthirst: EnrageBeforeBloodthirst,
+
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
     channeling: Channeling,
@@ -51,7 +53,6 @@ class CombatLogParser extends CoreCombatLogParser {
     rageGraph: RageGraph,
     rageDetails: RageDetails,
 
-    enrageNormalizer: EnrageNormalizer,
     berserkersTormentNormalizer: BerserkersTormentNormalizer,
 
     enrageUptime: Enrage,
