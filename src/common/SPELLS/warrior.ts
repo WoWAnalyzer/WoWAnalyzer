@@ -294,11 +294,6 @@ const spells = {
     name: "Champion's Spear",
     icon: 'ability_bastion_warrior',
   },
-  CHAMPIONS_MIGHT: {
-    id: 386286,
-    name: "Champion's Might",
-    icon: 'ability_bastion_warrior',
-  },
   WILD_STRIKES: {
     id: 392778,
     name: 'Wild Strikes',
