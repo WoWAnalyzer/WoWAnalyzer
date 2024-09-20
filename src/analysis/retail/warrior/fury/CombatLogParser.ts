@@ -18,6 +18,7 @@ import SpellUsable from './modules/features/SpellUsable';
 import ColdSteelHotBloodNormalizer from './modules/normalizers/ColdSteelHotBlood';
 import ChampionsSpear from './modules/talents/ChampionsSpear';
 import EnrageBeforeBloodthirst from './modules/normalizers/EnrageBeforeBloodthirst';
+import EnrageRefreshNormalizer from './modules/normalizers/EnrageRefresh';
 import MissedRampage from './modules/spells/MissedRampage';
 import Recklessness from './modules/spells/Recklessness';
 import WhirlWind from './modules/spells/Whirlwind';
@@ -38,6 +39,7 @@ class CombatLogParser extends CoreCombatLogParser {
     rageAttributeNormalizer: RageAttributeNormalizer,
     coldSteelHotBloodNormalizer: ColdSteelHotBloodNormalizer,
 
+    enrageRefreshNormalizer: EnrageRefreshNormalizer,
     enrageBeforeBloodthirst: EnrageBeforeBloodthirst,
 
     abilities: Abilities,

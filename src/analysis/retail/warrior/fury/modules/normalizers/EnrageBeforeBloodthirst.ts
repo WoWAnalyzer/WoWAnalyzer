@@ -16,7 +16,7 @@ const EVENT_ORDERS: EventOrder[] = [
 ];
 
 /**
- * The applybuff from enrage is logged after the cast of Bloodthirst if it procs
+ * The applybuff/refreshbuff from enrage is logged after the cast of Bloodthirst if it procs
  * This ensures the enrage buff comes before the cast of Bloodthirst so the haste effect of Enrage updates the GCD correctly
  */
 class EnrageBeforeBloodthirst extends EventOrderNormalizer {
