@@ -9,6 +9,7 @@ import {
   debuffMissing,
   describe,
   hasTalent,
+  not,
   repeatableBuffPresent,
 } from 'parser/shared/metrics/apl/conditions';
 import { AtLeastFiveMSW, MaxStacksMSW, minimumMaelstromWeaponStacks } from './Conditions';
@@ -29,7 +30,7 @@ export function stormbringerStorm(combatant: Combatant): Apl {
         buffPresent(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT),
         () => (
           <>
-            on cooldown during <SpellLink spell={TALENTS.ASCENDANCE_ENHANCEMENT_TALENT} />
+            during <SpellLink spell={TALENTS.ASCENDANCE_ENHANCEMENT_TALENT} />
           </>
         ),
         '',
@@ -56,13 +57,27 @@ export function stormbringerStorm(combatant: Combatant): Apl {
     {
       spell: TALENTS.STORMSTRIKE_TALENT,
       condition: describe(
-        hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT),
+        and(
+          hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT),
+          not(buffPresent(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT)),
+        ),
         () => (
           <>
             to fish for <SpellLink spell={TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT} />
           </>
         ),
         '',
+      ),
+    },
+    {
+      spell: SPELLS.TEMPEST_CAST,
+      condition: describe(
+        and(buffPresent(SPELLS.TEMPEST_BUFF), minimumMaelstromWeaponStacks(5)),
+        () => (
+          <>
+            available and at least 5 <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> stacks
+          </>
+        ),
       ),
     },
     {

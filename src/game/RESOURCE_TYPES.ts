@@ -156,3 +156,10 @@ export function getResource(classResources: ClassResources[] | undefined, type: 
   }
   return classResources.find((resource) => resource.type === type);
 }
+
+export function getResourceCost(
+  resourceCosts: { [resourceType: number]: number } | undefined,
+  resourceType: number,
+): number | undefined {
+  return resourceCosts ? resourceCosts[resourceType] : undefined;
+}
