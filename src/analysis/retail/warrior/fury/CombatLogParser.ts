@@ -1,5 +1,4 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import Channeling from 'parser/shared/normalizers/Channeling';
 import WindfuryLinkNormalizer from 'parser/shared/normalizers/WindfuryLinkNormalizer';
 import RageGraph from '../shared/modules/core/RageGraph';
 import RageTracker from '../shared/modules/core/RageTracker';
@@ -9,15 +8,17 @@ import RageAttributeNormalizer from '../shared/modules/normalizers/rage/RageAttr
 import ResourceChangeNormalizer from '../shared/modules/normalizers/rage/ResourceChangeNormalizer';
 import ChampionsMight from '../shared/modules/talents/ChampionsMight';
 import ChampionsSpear from '../shared/modules/talents/ChampionsSpear';
+import ImpendingVictory from '../shared/modules/talents/ImpendingVictory';
+import SpellReflection from '../shared/modules/talents/SpellReflection';
 import Abilities from './modules/Abilities';
 import Enrage from './modules/buffdebuff/Enrage';
 import Haste from './modules/core/Haste';
 import RageDetails from './modules/core/RageDetails';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Buffs from './modules/features/Buffs';
-import Checklist from './modules/features/checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import SpellUsable from './modules/features/SpellUsable';
+import Checklist from './modules/features/checklist/Module';
 import ColdSteelHotBloodNormalizer from './modules/normalizers/ColdSteelHotBlood';
 import EnrageBeforeBloodthirst from './modules/normalizers/EnrageBeforeBloodthirst';
 import EnrageRefreshNormalizer from './modules/normalizers/EnrageRefresh';
@@ -28,8 +29,6 @@ import AngerManagement from './modules/talents/AngerManagement';
 import HackAndSlash from './modules/talents/HackAndSlash';
 import SuddenDeath from './modules/talents/SuddenDeath';
 import Warpaint from './modules/talents/Warpaint';
-import SpellReflection from '../shared/modules/talents/SpellReflection';
-import ImpendingVictory from '../shared/modules/talents/ImpendingVictory';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -45,20 +44,20 @@ class CombatLogParser extends CoreCombatLogParser {
     enrageBeforeBloodthirst: EnrageBeforeBloodthirst,
 
     // Core
+    buffs: Buffs,
     haste: Haste,
 
+    // Features
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
-    channeling: Channeling,
     checklist: Checklist,
     cooldownThroughputTracker: CooldownThroughputTracker,
     spellUsable: SpellUsable,
-    buffs: Buffs,
 
-    whirlWind: WhirlWind,
     rageTracker: RageTracker,
     rageGraph: RageGraph,
     rageDetails: RageDetails,
+    whirlWind: WhirlWind,
 
     enrageUptime: Enrage,
 
