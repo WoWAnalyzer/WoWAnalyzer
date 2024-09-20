@@ -7,6 +7,8 @@ import RageCountDebugger from '../shared/modules/debuggers/RageCountDebugger';
 import GenerateRageEventsNormalizer from '../shared/modules/normalizers/rage/GenerateRageEventsNormalizer';
 import RageAttributeNormalizer from '../shared/modules/normalizers/rage/RageAttributeNormalizer';
 import ResourceChangeNormalizer from '../shared/modules/normalizers/rage/ResourceChangeNormalizer';
+import ChampionsMight from '../shared/modules/talents/ChampionsMight';
+import ChampionsSpear from '../shared/modules/talents/ChampionsSpear';
 import Abilities from './modules/Abilities';
 import Enrage from './modules/buffdebuff/Enrage';
 import Haste from './modules/core/Haste';
@@ -17,7 +19,6 @@ import Checklist from './modules/features/checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import SpellUsable from './modules/features/SpellUsable';
 import ColdSteelHotBloodNormalizer from './modules/normalizers/ColdSteelHotBlood';
-import ChampionsSpear from './modules/talents/ChampionsSpear';
 import EnrageBeforeBloodthirst from './modules/normalizers/EnrageBeforeBloodthirst';
 import EnrageRefreshNormalizer from './modules/normalizers/EnrageRefresh';
 import MissedRampage from './modules/spells/MissedRampage';
@@ -71,10 +72,11 @@ class CombatLogParser extends CoreCombatLogParser {
     angerManagement: AngerManagement,
     suddenDeath: SuddenDeath,
     warpaint: Warpaint,
-    spearofBastion: ChampionsSpear,
+    championsSpear: ChampionsSpear,
     spellReflection: SpellReflection,
     impendingVictory: ImpendingVictory,
     hackAndSlash: HackAndSlash,
+    championsMight: ChampionsMight,
 
     // Debuggers
     rageCountDebugger: RageCountDebugger,
