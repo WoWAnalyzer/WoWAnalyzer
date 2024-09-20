@@ -14,12 +14,13 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { ChecklistUsageInfo, SpellUse, UsageInfo } from 'parser/core/SpellUsage/core';
 import { SpellLink } from 'interface';
 import { plural } from '@lingui/macro';
-import { formatPercentage, formatThousands } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import MajorCooldown, { CooldownTrigger } from 'parser/core/MajorCooldowns/MajorCooldown';
 import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { DamageIcon } from 'interface/icons';
 import RESOURCE_TYPES, { getResource } from 'game/RESOURCE_TYPES';
+import ElementalSpirits from './ElementalSpirits';
 
 const ELEMENTAL_SPIRIT_BUFFS: Spell[] = [
   SPELLS.ELEMENTAL_SPIRITS_BUFF_MOLTEN_WEAPON,
@@ -33,13 +34,16 @@ interface ElementalBlastCastDetails extends CooldownTrigger<CastEvent> {
   elementalSpiritsActive: number;
   maelstromUsed: number;
   bonusDamage: number;
+  baseDamage: number;
 }
 
 class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
   static dependencies = {
     ...MajorCooldown.dependencies,
+    elementalSpirits: ElementalSpirits,
   };
 
+  protected elementalSpirits!: ElementalSpirits;
   private readonly elementalSpritsActive: Record<number, number> = {};
   private readonly maxCharges: number = 0;
   private cast: ElementalBlastCastDetails | null = null;
@@ -97,12 +101,16 @@ class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
   }
 
   onDamage(event: DamageEvent) {
-    this.cast!.bonusDamage = calculateEffectiveDamage(
-      event,
-      Math.pow(1.2, this.cast?.elementalSpiritsActive ?? 0),
-    );
-    this.recordCooldown(this.cast!);
-    this.cast = null;
+    if (this.cast) {
+      const totalDamage = event.amount + (event.absorbed || 0);
+      this.cast.bonusDamage =
+        this.cast.elementalSpiritsActive > 0
+          ? calculateEffectiveDamage(event, Math.pow(1.2, this.cast.elementalSpiritsActive) - 1)
+          : 0;
+      this.cast.baseDamage = totalDamage - this.cast.bonusDamage;
+      this.recordCooldown(this.cast!);
+      this.cast = null;
+    }
   }
 
   onCast(event: CastEvent) {
@@ -113,6 +121,7 @@ class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
       maelstromUsed: cr?.cost ?? 0,
       event: event,
       bonusDamage: 0,
+      baseDamage: 0,
     };
     this.currentCharges -= 1;
   }
@@ -196,6 +205,28 @@ class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
   }
 
   elementalSpiritPerformance(cast: ElementalBlastCastDetails): UsageInfo {
+    const hadWolvesExplanation = (
+      <>
+        <div>
+          You had <strong>{cast.elementalSpiritsActive}</strong>{' '}
+          <SpellLink spell={TALENTS.ELEMENTAL_SPIRITS_TALENT} /> active, increasing{' '}
+          <SpellLink spell={TALENTS.ELEMENTAL_BLAST_ENHANCEMENT_TALENT} /> damage from{' '}
+          <DamageIcon /> {formatNumber(cast.baseDamage)} &rarr; <DamageIcon />{' '}
+          {formatNumber(cast.bonusDamage + cast.baseDamage)}, for an increase of{' '}
+          {formatPercentage(Math.pow(1.2, cast.elementalSpiritsActive) - 1, 0)}% (
+          <i>
+            <DamageIcon /> {formatNumber(cast.bonusDamage)} bonus damage
+          </i>
+          )
+        </div>
+      </>
+    );
+    const noWolvesExplanation = (
+      <>
+        You did not have any <SpellLink spell={TALENTS.ELEMENTAL_SPIRITS_TALENT} /> active.
+      </>
+    );
+
     return {
       performance:
         cast.elementalSpiritsActive >= 3
@@ -211,14 +242,7 @@ class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
           <SpellLink spell={TALENTS.ELEMENTAL_SPIRITS_TALENT} /> active
         </div>
       ),
-      details: (
-        <div>
-          You had <strong>{cast.elementalSpiritsActive}</strong>{' '}
-          <SpellLink spell={TALENTS.ELEMENTAL_SPIRITS_TALENT} /> active, gaining <DamageIcon />{' '}
-          {formatThousands(cast.bonusDamage)} extra damage (
-          <i>{formatPercentage(Math.pow(1.2, cast.elementalSpiritsActive) - 1, 0)}% more</i>)
-        </div>
-      ),
+      details: <>{cast.elementalSpiritsActive > 0 ? hadWolvesExplanation : noWolvesExplanation}</>,
     };
   }
 
@@ -289,15 +313,18 @@ class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
     }
 
     return (
-      <CooldownUsage
-        analyzer={this}
-        title={
-          <>
-            <SpellLink spell={TALENTS.ELEMENTAL_BLAST_ENHANCEMENT_TALENT} /> cast breakdown
-          </>
-        }
-        hidePotentialMissedCasts
-      />
+      <>
+        <CooldownUsage
+          analyzer={this}
+          title={
+            <>
+              <SpellLink spell={TALENTS.ELEMENTAL_BLAST_ENHANCEMENT_TALENT} /> cast breakdown
+            </>
+          }
+          hidePotentialMissedCasts
+        />
+        {this.elementalSpirits.graph}
+      </>
     );
   }
 

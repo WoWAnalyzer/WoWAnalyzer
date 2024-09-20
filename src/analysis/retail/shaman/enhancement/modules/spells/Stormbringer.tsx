@@ -38,7 +38,10 @@ class Stormbringer extends Analyzer {
 
   onStormbringerApplied(event: ApplyBuffEvent | RefreshBuffEvent) {
     let used = false;
-    if (this.spellUsable.isOnCooldown(TALENTS.STORMSTRIKE_TALENT.id)) {
+    if (
+      this.spellUsable.isOnCooldown(TALENTS.STORMSTRIKE_TALENT.id) &&
+      !this.selectedCombatant.hasBuff(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT.id)
+    ) {
       debug &&
         console.log(
           `Stormstrike reset by stormbringer at timestamp: ${
