@@ -2488,7 +2488,7 @@ export const Taevis: Contributor = {
 
 export const Crustacea: Contributor = {
   nickname: 'Crustacea',
-  github: 'j_owens',
+  github: 'j-owens',
   mains: [
     {
       name: 'Crustacea',
