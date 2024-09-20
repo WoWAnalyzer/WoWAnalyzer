@@ -9,6 +9,7 @@ import RageAttributeNormalizer from '../shared/modules/normalizers/rage/RageAttr
 import ResourceChangeNormalizer from '../shared/modules/normalizers/rage/ResourceChangeNormalizer';
 import Abilities from './modules/Abilities';
 import Enrage from './modules/buffdebuff/Enrage';
+import Haste from './modules/core/Haste';
 import RageDetails from './modules/core/RageDetails';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Buffs from './modules/features/Buffs';
@@ -41,6 +42,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     enrageRefreshNormalizer: EnrageRefreshNormalizer,
     enrageBeforeBloodthirst: EnrageBeforeBloodthirst,
+
+    // Core
+    haste: Haste,
 
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
