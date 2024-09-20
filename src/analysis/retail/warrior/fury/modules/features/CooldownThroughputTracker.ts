@@ -12,6 +12,11 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
       branch: GameBranch.Retail,
     },
+    {
+      spell: SPELLS.AVATAR_SHARED.id,
+      summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
+      branch: GameBranch.Retail,
+    },
   ];
 }
 
