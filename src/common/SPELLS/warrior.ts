@@ -317,7 +317,7 @@ const spells = {
 
   // Arms:
   BLADESTORM: {
-    id: 227847,
+    id: 446035,
     name: 'Bladestorm',
     icon: 'ability_warrior_bladestorm',
   },
@@ -466,6 +466,11 @@ const spells = {
     id: 184362,
     name: 'Enrage',
     icon: 'spell_shadow_unholyfrenzy',
+  },
+  COLD_STEEL_HOT_BLOOD_RAGE: {
+    id: 383978,
+    name: 'Cold Steel, Hot Blood',
+    icon: 'ability_rogue_hungerforblood',
   },
 
   // Talents

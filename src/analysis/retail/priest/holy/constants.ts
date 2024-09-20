@@ -3,6 +3,23 @@ import TALENTS from 'common/TALENTS/priest';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 
 /**
+ *  ------------------------THE WAR WITHIN-----------------------
+ */
+
+export const SPELLS_THAT_PROC_S1_4PC_HOLY = [
+  TALENTS.PRAYER_OF_HEALING_TALENT,
+  SPELLS.FLASH_HEAL,
+  SPELLS.GREATER_HEAL,
+];
+
+export const SPELLS_THAT_PROC_S1_4PC_HOLY_ID = [
+  TALENTS.PRAYER_OF_HEALING_TALENT.id,
+  SPELLS.FLASH_HEAL.id,
+  SPELLS.GREATER_HEAL.id,
+];
+
+export const HOLY_TWW_S1_4PC_CDR = 0.35;
+/**
  *  -------------------------TALENTS------------------------------
  */
 
@@ -141,6 +158,11 @@ export const RESONANT_ENERGY_AMP_PER_STACK = 0.02;
 /**
  *  ------------------CORE/SPELL MODIFIERS AND LISTS------------------------
  */
+
+// CDR Special Events
+
+export const TWW_S1_HOLY_4PC_CDR_PROC = '4PC';
+export const HOLY_ENERGY_CYCLE_PROC = 'ENERGY_CYCLE';
 
 // renew attributor
 export const BASE_RENEW_DURATION = 15;

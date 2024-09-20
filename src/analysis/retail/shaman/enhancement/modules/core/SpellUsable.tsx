@@ -1,5 +1,7 @@
 import { AbilityEvent, EventType } from 'parser/core/Events';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
+import TALENTS from 'common/TALENTS/shaman';
+import SPELLS from 'common/SPELLS/shaman';
 
 class SpellUsable extends CoreSpellUsable {
   static dependencies = {
@@ -12,6 +14,23 @@ class SpellUsable extends CoreSpellUsable {
     }
 
     super.beginCooldown(triggeringEvent, spellId);
+  }
+
+  public isAvailable(spellId: number): boolean {
+    switch (spellId) {
+      case TALENTS.STORMSTRIKE_TALENT.id:
+        return (
+          !this.selectedCombatant.hasBuff(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT) &&
+          super.isAvailable(spellId)
+        );
+      case SPELLS.WINDSTRIKE_CAST.id:
+        return (
+          this.selectedCombatant.hasBuff(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT) &&
+          super.isAvailable(spellId)
+        );
+      default:
+        return super.isAvailable(spellId);
+    }
   }
 }
 

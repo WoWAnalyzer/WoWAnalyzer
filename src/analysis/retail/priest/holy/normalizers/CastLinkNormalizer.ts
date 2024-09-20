@@ -17,7 +17,7 @@ import {
 import { Options } from 'parser/core/Module';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS/priest';
-import { INSIGHT_CDR_ABILITIES } from '../constants';
+import { INSIGHT_CDR_ABILITIES, SPELLS_THAT_PROC_S1_4PC_HOLY_ID } from '../constants';
 
 const CAST_BUFFER_MS = 200;
 
@@ -47,6 +47,7 @@ export const BENEDICTION_RENEW = 'BenedictionRenew';
 export const BENEDICTION_RENEW_HEALS = 'BenedictionRenewHeal';
 export const REVIT_PRAYER_RENEW = 'RevitalizingPrayersRenew';
 export const HARDCAST_RENEW = 'HardCastRenew';
+export const HOLY_TWW_S1_4PC = 'HolyTwwS14pc';
 
 const EVENT_LINKS: EventLink[] = [
   // Link single target heal casts to their heal events.
@@ -318,6 +319,16 @@ const EVENT_LINKS: EventLink[] = [
     isActive(c) {
       return c.hasTalent(TALENTS_PRIEST.PREMONITION_TALENT);
     },
+  },
+  {
+    linkRelation: HOLY_TWW_S1_4PC,
+    linkingEventId: SPELLS_THAT_PROC_S1_4PC_HOLY_ID,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS_THAT_PROC_S1_4PC_HOLY_ID,
+    referencedEventType: EventType.Heal,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
   },
 ];
 

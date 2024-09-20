@@ -612,23 +612,12 @@ const spells = {
     name: 'Premonition of Insight',
     icon: 'inv_ability_oraclepriest_premonitioninsight',
   },
+  HOLY_PRIEST_TWW_4PC_DISPLAY: {
+    id: 453678,
+    name: "4PC Nerub'ar Palace",
+    icon: 'trade_engineering',
+  },
 
-  // Sets
-  HOLY_PRIEST_TIER_29_2_SET_BUFF: {
-    id: 394729,
-    name: 'Prayer Focus',
-    icon: 'spell_priest_finalprayer',
-  },
-  HOLY_PRIEST_TIER_29_4_SET_BUFF: {
-    id: 394745,
-    name: 'Seize the moment',
-    icon: 'inv_mace_1h_artifactheartofkure_d_03',
-  },
-  HOLY_PRIEST_TIER_30_4_SET_BUFF: {
-    id: 409479,
-    name: 'Inspired Word',
-    icon: 'ability_paladin_sacredcleansing',
-  },
   // Talents
   BINDING_HEALS_TALENT_HEAL: {
     id: 368276,

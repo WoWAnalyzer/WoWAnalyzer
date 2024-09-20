@@ -100,6 +100,7 @@ import SophicWrit from 'parser/retail/modules/items/dragonflight/enchants/Sophic
 import SporeTender from 'parser/retail/modules/items/dragonflight/enchants/SporeTender';
 import WaftingDevotion from 'parser/retail/modules/items/dragonflight/enchants/WaftingDevotion';
 import WaftingWrit from 'parser/retail/modules/items/dragonflight/enchants/WaftingWrit';
+import SignetOfThePriory from 'parser/retail/modules/items/thewarwithin/trinkets/SignetOfThePriory';
 import FriendlyCompatNormalizer from './FriendlyCompatNormalizer';
 import {
   AuthorityOfRadiantPower,
@@ -214,6 +215,7 @@ class CombatLogParser {
     authorityOfStorms: AuthorityOfStorms,
     stormridersFury: StormridersFury,
     authorityOfTheDepths: AuthorityOfTheDepths,
+    signetOfThePriory: SignetOfThePriory,
 
     // Embellishments
     darkmoonSigilAscension: DarkmoonSigilAscension,

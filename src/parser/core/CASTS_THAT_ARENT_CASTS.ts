@@ -26,6 +26,8 @@ const spells: number[] = [
 
   //region Boss abilities
   SPELLS.RIONTHUS_DISINTEGRATE.id, // targeted player is shown as 'casting' this spell
+  SPELLS.ULGRAX_GRAB_VISCERA.id,
+  SPELLS.ULGRAX_FEED.id,
   //endregion
 
   //region Items
