@@ -9,13 +9,9 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Statistic from 'parser/ui/Statistic';
 import SpellUsable from '../features/SpellUsable';
 
-class HackAndSlash extends Analyzer {
-  static dependencies = {
-    spellUsable: SpellUsable,
-  };
-
-  protected spellUsable!: SpellUsable;
-
+class HackAndSlash extends Analyzer.withDependencies({
+  spellUsable: SpellUsable,
+}) {
   private rampageCasts = 0;
   private rampageStrikes = 0;
   private hackAndSlashCasts = 0;
@@ -80,7 +76,7 @@ class HackAndSlash extends Analyzer {
   private onHackAndSlash(event: ApplyBuffEvent) {
     this.hackAndSlashCasts += 1;
 
-    const remainingCooldown = this.spellUsable.cooldownRemaining(
+    const remainingCooldown = this.deps.spellUsable.cooldownRemaining(
       SPELLS.RAGING_BLOW.id,
       event.timestamp,
     );
@@ -92,7 +88,7 @@ class HackAndSlash extends Analyzer {
     this.chargesGained += 1;
     this.totalReduction += remainingCooldown;
 
-    this.spellUsable.endCooldown(SPELLS.RAGING_BLOW.id);
+    this.deps.spellUsable.endCooldown(SPELLS.RAGING_BLOW.id);
   }
 
   statistic() {
