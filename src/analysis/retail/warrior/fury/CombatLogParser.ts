@@ -30,7 +30,6 @@ import SuddenDeath from './modules/talents/SuddenDeath';
 import Warpaint from './modules/talents/Warpaint';
 import SpellReflection from '../shared/modules/talents/SpellReflection';
 import ImpendingVictory from '../shared/modules/talents/ImpendingVictory';
-import BerserkersTormentNormalizer from './modules/talents/BerserkersTorment';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -60,8 +59,6 @@ class CombatLogParser extends CoreCombatLogParser {
     rageTracker: RageTracker,
     rageGraph: RageGraph,
     rageDetails: RageDetails,
-
-    berserkersTormentNormalizer: BerserkersTormentNormalizer,
 
     enrageUptime: Enrage,
 
