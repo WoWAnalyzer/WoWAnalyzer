@@ -660,6 +660,22 @@ const spells = {
     name: 'Impenetrable Wall',
     icon: 'ability_warrior_shieldguard',
   },
+
+  THUNDER_BLAST: {
+    id: 435222,
+    name: 'Thunder Blast',
+    icon: 'warrior_talent_icon_bloodandthunder',
+  },
+  SHIELD_CHARGE_SHARED: {
+    id: 385953,
+    name: 'Shield Charge',
+    icon: 'ability_warrior_shieldcharge',
+  },
+  SHIELD_CHARGE: {
+    id: 385954,
+    name: 'Shield Charge',
+    icon: 'ability_warrior_shieldcharge',
+  }
 } satisfies Record<string, Spell>;
 
 export default spells;

@@ -29,7 +29,7 @@ class Abilities extends CoreAbilities {
         },
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => {
-          if (combatant.hasTalent(TALENTS.HONED_REFLEXES_PROTECTION_TALENT)) {
+          if (combatant.hasTalent(TALENTS.HONED_REFLEXES_TALENT)) {
             return 8 / (1 + haste);
           }
           return 9 / (1 + haste);
@@ -62,7 +62,7 @@ class Abilities extends CoreAbilities {
         cooldown:
           15 -
           (combatant.hasTalent(TALENTS.CONCUSSIVE_BLOWS_TALENT) ? 1 : 0) -
-          (combatant.hasTalent(TALENTS.HONED_REFLEXES_PROTECTION_TALENT) ? 1 : 0),
+          (combatant.hasTalent(TALENTS.HONED_REFLEXES_TALENT) ? 1 : 0),
       },
       {
         spell: SPELLS.TAUNT.id,
@@ -94,7 +94,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.HEROIC_THROW.id,
-        enabled: !combatant.hasTalent(TALENTS.TITANIC_THROW_TALENT),
+        enabled: !combatant.hasTalent(TALENTS.SHATTERING_THROW_TALENT) && !combatant.hasTalent(TALENTS.WRECKING_THROW_TALENT),
         gcd: {
           base: 1500,
         },
@@ -117,14 +117,6 @@ class Abilities extends CoreAbilities {
           combatant.hasTalent(TALENTS.DEFENSIVE_STANCE_TALENT),
         category: SPELL_CATEGORY.HIDDEN,
         cooldown: 3000,
-      },
-      {
-        spell: TALENTS.BERSERKER_RAGE_TALENT.id,
-        enabled:
-          combatant.hasTalent(TALENTS.BERSERKER_RAGE_TALENT) &&
-          !combatant.hasTalent(TALENTS.BERSERKER_SHOUT_TALENT),
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 60,
       },
       {
         spell: TALENTS.IMPENDING_VICTORY_TALENT.id,
@@ -153,7 +145,6 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.BERSERKER_SHOUT_TALENT.id,
         enabled:
-          combatant.hasTalent(TALENTS.BERSERKER_RAGE_TALENT) &&
           combatant.hasTalent(TALENTS.BERSERKER_SHOUT_TALENT),
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 60,
@@ -192,8 +183,8 @@ class Abilities extends CoreAbilities {
         cooldown: 90,
       },
       {
-        spell: TALENTS.THUNDER_CLAP_PROTECTION_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.THUNDER_CLAP_PROTECTION_TALENT),
+        spell: TALENTS.THUNDER_CLAP_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.THUNDER_CLAP_TALENT),
 
         gcd: {
           base: 1500,
@@ -243,13 +234,22 @@ class Abilities extends CoreAbilities {
         cooldown: 180,
       },
       {
-        spell: TALENTS.TITANIC_THROW_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.TITANIC_THROW_TALENT),
+        spell: TALENTS.WRECKING_THROW_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.WRECKING_THROW_TALENT),
         category: SPELL_CATEGORY.OTHERS,
         gcd: {
           base: 1500,
         },
-        cooldown: 3,
+        cooldown: 45,
+      },
+      {
+        spell: TALENTS.SHATTERING_THROW_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.SHATTERING_THROW_TALENT),
+        category: SPELL_CATEGORY.OTHERS,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 180,
       },
       {
         spell: TALENTS.AVATAR_PROTECTION_TALENT.id,
@@ -379,6 +379,30 @@ class Abilities extends CoreAbilities {
         },
         cooldown: 90,
         charges: 1 + (combatant.hasTalent(TALENTS.STORM_OF_STEEL_TALENT) ? 1 : 0),
+      },
+      {
+        spell: SPELLS.THUNDER_BLAST.id,
+        enabled: combatant.hasTalent(TALENTS.THUNDER_BLAST_TALENT),
+
+        gcd: {
+          base: 1500,
+        },
+        category: SPELL_CATEGORY.ROTATIONAL, // 6 / (1 + haste)
+        cooldown: (haste) => {
+          if (
+            combatant.hasTalent(TALENTS.UNSTOPPABLE_FORCE_TALENT) &&
+            combatant.hasBuff(TALENTS.AVATAR_PROTECTION_TALENT.id)
+          ) {
+            return 6 / 2 / (1 + haste);
+          }
+          return 6 / (1 + haste);
+        },
+      },
+      {
+        spell: SPELLS.SHIELD_CHARGE.id,
+        enabled: combatant.hasTalent(TALENTS.SHIELD_CHARGE_TALENT),
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: 45,
       },
     ];
   }

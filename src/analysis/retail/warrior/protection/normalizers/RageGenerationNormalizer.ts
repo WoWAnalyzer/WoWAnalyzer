@@ -417,7 +417,7 @@ class RageGenerationNormalizer extends EventsNormalizer {
 
       if (this.hasPV) {
         // Spear of Bastion Area
-        if (event.ability.guid === SPELLS.SPEAR_OF_BASTION.id) {
+        if (event.ability.guid === SPELLS.CHAMPIONS_SPEAR.id) {
           const newEvent = this._removeMultiplicitiveIncrease(
             event,
             PIERCING_CHALLENGE_INCREASE,
