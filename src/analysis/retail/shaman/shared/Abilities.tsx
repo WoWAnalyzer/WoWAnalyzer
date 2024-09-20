@@ -91,7 +91,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.FROST_SHOCK_TALENT.id,
-        enabled: true, // combatant.hasTalent(TALENTS.FROST_SHOCK_TALENT),
+        enabled: combatant.hasTalent(TALENTS.FROST_SHOCK_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => (combatant.spec === SPECS.ENHANCEMENT_SHAMAN ? 6 / (1 + haste) : 0),
         gcd: {
