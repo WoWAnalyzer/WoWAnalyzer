@@ -38,6 +38,8 @@ import EOLAttrib from './modules/core/EchoOfLightAttributor';
 import HolyWordCDRBySpell from './modules/core/HolyWordCDRBySpell';
 import HolyWordCDR from './modules/core/HolyWordCDR';
 import EchoOfLightDisplay from './modules/core/EchoOfLightDisplay';
+import HolyWordSerenity from './modules/spells/HolyWordSerenity';
+import HolyWordSanctify from './modules/spells/HolyWordSanctify';
 import HolyTWW4pS1 from './modules/tww/HolyTWW4pcS1';
 import HolyTWW4pS1Display from './modules/tww/HolyTWW4pcS1Display';
 
@@ -87,8 +89,11 @@ class CombatLogParser extends CoreCombatLogParser {
     renew: Renew,
     prayerOfMending: PrayerOfMending,
 
+    // Holy Words
+    holyWordSerenity: HolyWordSerenity,
+    holyWordSanctify: HolyWordSanctify,
+    
     // Items
-
     holyTWW4pcS1: HolyTWW4pS1,
     holyTWW4pS1Display: HolyTWW4pS1Display,
 

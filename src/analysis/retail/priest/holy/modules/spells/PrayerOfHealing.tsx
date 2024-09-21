@@ -7,7 +7,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { getPrayerOfHealingEvents } from '../../normalizers/CastLinkNormalizer';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
-import { BadColor, OkColor, GoodColor, PerfectColor } from 'interface/guide';
+import { BadColor, OkColor, GoodColor } from 'interface/guide';
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { POH_MAX_TARGETS_HIT } from '../../constants';
@@ -68,27 +68,31 @@ class PrayerOfHealing extends Analyzer {
     }
 
     // Analyze cast for guide section:
-
     // prayer circle buff is available and player is not currently buffed
     const prayerCircleAvailable =
       !this.selectedCombatant.hasBuff(SPELLS.PRAYER_CIRCLE_BUFF.id) &&
       this.selectedCombatant.hasTalent(TALENTS.PRAYER_CIRCLE_TALENT) &&
       this.spellUsable.isAvailable(TALENTS.CIRCLE_OF_HEALING_TALENT.id);
+
     // player is buffed by prayer circle or they don't have the talent
     const prayerCirclePerfect =
       this.selectedCombatant.hasBuff(SPELLS.PRAYER_CIRCLE_BUFF.id) ||
       !this.selectedCombatant.hasTalent(TALENTS.PRAYER_CIRCLE_TALENT);
+
     // player is either buffed by prayer circle, does not have the talent, or circle of healing is on CD
     const prayerCircleGood = prayerCirclePerfect || !prayerCircleAvailable;
+
     // sanctified prayers buff is available and player is not currently buffed
     const sanctifiedPrayersAvailable =
       !this.selectedCombatant.hasBuff(SPELLS.SANCTIFIED_PRAYERS_BUFF.id) &&
       this.selectedCombatant.hasTalent(TALENTS.SANCTIFIED_PRAYERS_TALENT) &&
       this.spellUsable.isAvailable(TALENTS.HOLY_WORD_SANCTIFY_TALENT.id);
+
     // player is buffed by sanctified prayers or they don't have the talent
     const sanctifiedPrayersPerfect =
       this.selectedCombatant.hasBuff(SPELLS.SANCTIFIED_PRAYERS_BUFF.id) ||
       !this.selectedCombatant.hasTalent(TALENTS.SANCTIFIED_PRAYERS_TALENT);
+
     // player is either buffed by sanctified prayers, does not have the talent, or holy word sanctify is on CD
     const sanctifiedPrayersGood = sanctifiedPrayersPerfect || !sanctifiedPrayersAvailable;
 
@@ -120,35 +124,28 @@ class PrayerOfHealing extends Analyzer {
       }
 
       if (
+        // all talented buffs are active, holy word sanctify is on cooldown
+        // no overhealed targets, max targets hit
         prayerCirclePerfect &&
         sanctifiedPrayersPerfect &&
         !sanctifyOffCd &&
         fullyOverhealedTargets === 0 &&
         targetsHit === POH_MAX_TARGETS_HIT
       ) {
-        // all talented buffs are active, holy word sanctify is on cooldown
-        // no overhealed targets, max targets hit
-        value = QualitativePerformance.Perfect;
-      } else if (
-        prayerCircleGood &&
-        sanctifiedPrayersGood &&
-        !sanctifyOffCd &&
-        fullyOverhealedTargets < 2 &&
-        targetsHit === POH_MAX_TARGETS_HIT
-      ) {
-        // all available buffs are active, holy word sanctify is on cooldown
-        // no overhealed targets, max targets hit
         value = QualitativePerformance.Good;
       } else if (
-        (prayerCircleGood || sanctifiedPrayersGood) &&
-        fullyOverhealedTargets < 2 &&
-        targetsHit === POH_MAX_TARGETS_HIT
+        // all talented buffs are active, holy word sanctify is on cooldown
+        // some targets not healed
+        prayerCircleGood &&
+        sanctifiedPrayersGood &&
+        (fullyOverhealedTargets <= 2 || targetsHit < POH_MAX_TARGETS_HIT - 2) &&
+        !sanctifyOffCd
       ) {
-        // one available buff is active or sanctify is on cd or one target overhealed
         value = QualitativePerformance.Ok;
       } else {
-        // fully overhealed more than one target or didnt hit max targets
-        // or all buffs available
+        // fully overhealed more than two target or didnt hit more than three targets
+        // or any buffs available
+        // or sanctify off CD.
         value = QualitativePerformance.Fail;
       }
       const tooltip = (
@@ -172,21 +169,15 @@ class PrayerOfHealing extends Analyzer {
     const explanation = (
       <>
         <p>
-          <b>
-            <SpellLink spell={TALENTS_PRIEST.PRAYER_OF_HEALING_TALENT} />
-          </b>{' '}
-          is your primary raid healing spell. It will be the majority of your healing casts in raid,
-          but you should try to only cast it when your holy words and other short cooldowns like{' '}
-          <SpellLink spell={TALENTS_PRIEST.PRAYER_OF_MENDING_TALENT} /> and{' '}
-          <SpellLink spell={TALENTS_PRIEST.CIRCLE_OF_HEALING_TALENT} /> are not available.
-        </p>
-        <p>
-          If you are running the <SpellLink spell={TALENTS_PRIEST.SANCTIFIED_PRAYERS_TALENT} />{' '}
-          and/or <SpellLink spell={TALENTS_PRIEST.PRAYER_CIRCLE_TALENT} /> talents, make sure to
-          apply these buffs before casting{' '}
-          <SpellLink spell={TALENTS_PRIEST.PRAYER_OF_HEALING_TALENT} />. Remember, this spell does
-          not have any smart healing and only allies within 40 yards can be hit - don't cast this on
-          an isolated player!
+          {' '}
+          <SpellLink spell={TALENTS_PRIEST.PRAYER_OF_HEALING_TALENT} /> should only be cast when{' '}
+          <SpellLink spell={TALENTS_PRIEST.HOLY_WORD_SANCTIFY_TALENT} /> is on cooldown.
+          <br></br>
+          <br></br>
+          If you are running <SpellLink
+            spell={TALENTS_PRIEST.SANCTIFIED_PRAYERS_TALENT}
+          /> and/or <SpellLink spell={TALENTS_PRIEST.PRAYER_CIRCLE_TALENT} />, make sure to apply
+          these buffs before casting <SpellLink spell={TALENTS_PRIEST.PRAYER_OF_HEALING_TALENT} />.
         </p>
       </>
     );
@@ -197,27 +188,19 @@ class PrayerOfHealing extends Analyzer {
         <small>
           <ul>
             <li>
-              <span style={{ color: PerfectColor }}>Blue</span> is a perfect cast, where all
-              talented Prayer of Healing buffs are applied,{' '}
-              <SpellLink spell={TALENTS_PRIEST.HOLY_WORD_SANCTIFY_TALENT} /> is on cooldown,{' '}
-              {POH_MAX_TARGETS_HIT} targets are hit, and no targets are fully overhealed.
+              <span style={{ color: GoodColor }}>Green</span> is a good cast.
             </li>
             <li>
-              <span style={{ color: GoodColor }}>Green</span> is a good cast, where all Prayer of
-              Healing buffs are either applied or not available to be applied, and{' '}
-              <SpellLink spell={TALENTS_PRIEST.HOLY_WORD_SANCTIFY_TALENT} /> is on cooldown.
+              <span style={{ color: OkColor }}>Yellow</span> is an ok cast, where all talented buffs
+              are applied, but some targets are fully overhealed.
             </li>
             <li>
-              <span style={{ color: OkColor }}>Yellow</span> is an ok cast, where one or more Prayer
-              of Healing buffs is available to be applied.
-            </li>
-            <li>
-              <span style={{ color: BadColor }}>Red</span> is a bad cast, where all buffs are
-              available to be applied. Any cast where two or more targets is fully overhealed, or
-              any cast where less than 5 targets are hit, is automatically considered a bad cast.
+              <span style={{ color: BadColor }}>Red</span> is a bad cast, where talented buffs are
+              available to be applied,{' '}
+              <SpellLink spell={TALENTS_PRIEST.HOLY_WORD_SANCTIFY_TALENT} /> is not on cooldown, or
+              many targets are fully overhealed.
             </li>
           </ul>
-          Mouse over for more details!
         </small>
         <PerformanceBoxRow values={this.castEntries} />
       </div>

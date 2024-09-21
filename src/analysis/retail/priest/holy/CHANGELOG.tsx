@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import TALENTS, { TALENTS_PRIEST } from 'common/TALENTS/priest';
-import { Arlie, Hana, Litena, Liavre, Squided, ToppleTheNun, Trevor, Saeldur } from 'CONTRIBUTORS';
+import { Arlie, Hana, Litena, Liavre, Squided, ToppleTheNun, Trevor, Saeldur, Crustacea } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2024, 9, 19), <>Added Holy Words usage module. </>, Crustacea),
   change(date(2024, 9, 16), <>Implemented TWW S1 4pc </>, Liavre),
   change(date(2024, 9, 11), <>Split Divine Hymn/GS into proper attributions, fixed mana costs,
   and added talent check on holy word CDR. </>, Liavre),

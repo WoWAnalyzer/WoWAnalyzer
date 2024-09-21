@@ -16,6 +16,7 @@ import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerform
 import { LW_CAST_TIME_DECREASE, LW_HEALING_BONUS, LW_OVERHEAL_THRESHOLD } from '../../../constants';
 import EOLAttrib from '../../core/EchoOfLightAttributor';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
+import { GoodColor, OkColor, BadColor } from 'interface/guide';
 
 /**
  * Flash Heal reduces the cast time of your next Heal
@@ -127,10 +128,14 @@ class Lightweaver extends Analyzer {
           <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} />
         </b>{' '}
         is a strong buff that you should be playing around to buff your{' '}
-        <SpellLink spell={SPELLS.GREATER_HEAL} /> casts. Focus on alternating your{' '}
-        <SpellLink spell={SPELLS.FLASH_HEAL} /> and <SpellLink spell={SPELLS.GREATER_HEAL} /> casts
-        to avoid wasting stacks of this buff. It is best to also move between different targets to
-        optimize the <SpellLink spell={TALENTS.TRAIL_OF_LIGHT_TALENT} /> talent.
+        <SpellLink spell={SPELLS.GREATER_HEAL} /> casts. <br></br>
+        <br></br>
+        Focus on alternating your <SpellLink spell={SPELLS.FLASH_HEAL} /> and{' '}
+        <SpellLink spell={SPELLS.GREATER_HEAL} /> casts to avoid wasting stacks of this buff.{' '}
+        <br></br>
+        <br></br>
+        It is best to also move between different targets to optimize the{' '}
+        <SpellLink spell={TALENTS.TRAIL_OF_LIGHT_TALENT} /> talent.
       </p>
     );
 
@@ -170,9 +175,18 @@ class Lightweaver extends Analyzer {
           <SpellLink spell={SPELLS.GREATER_HEAL} /> cast breakdown
         </strong>
         <small>
-          {' '}
-          - Green is a good cast. Yellow is a cast with very high overheal, and Red is a cast with
-          no <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> buff.
+          <ul>
+            <li>
+              <span style={{ color: GoodColor }}>Green</span> is a good cast.
+            </li>
+            <li>
+              <span style={{ color: OkColor }}>Yellow</span> is an ok cast with high overheal.
+            </li>
+            <li>
+              <span style={{ color: BadColor }}>Red</span> is a bad cast with with no{' '}
+              <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> buff.
+            </li>
+          </ul>
         </small>
         <GradiatedPerformanceBar
           good={goodHeals}
@@ -184,9 +198,18 @@ class Lightweaver extends Analyzer {
           <SpellLink spell={SPELLS.FLASH_HEAL} /> cast breakdown
         </strong>
         <small>
-          {' '}
-          - Green is a good cast. Yellow is a cast with very high overheal, and Red is a cast with
-          two stacks of <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> already active.
+          <ul>
+            <li>
+              <span style={{ color: GoodColor }}>Green</span> is a good cast.
+            </li>
+            <li>
+              <span style={{ color: OkColor }}>Yellow</span> is an ok cast with high overheal.
+            </li>
+            <li>
+              <span style={{ color: BadColor }}>Red</span> is a bad cast with two stacks of{' '}
+              <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> already active.
+            </li>
+          </ul>
         </small>
         <GradiatedPerformanceBar
           good={goodFlashHeals}

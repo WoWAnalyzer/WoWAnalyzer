@@ -112,9 +112,9 @@ class PrayerOfMending extends Analyzer {
         <b>
           <SpellLink spell={TALENTS_PRIEST.PRAYER_OF_MENDING_TALENT} />
         </b>{' '}
-        is one of our most efficient spells and should be cast on cooldown. It is a heal that is
-        triggered on the target when they take damage, and then bounces to a new target. Because its
-        heal is triggered by damage, the active tank is a good target to cast this on.
+        is one of our most efficient spells and should be cast on cooldown. <br></br>
+        <br></br>
+        Because its heal is triggered by damage, the active tank is a good target to cast this on.
       </p>
     );
 
