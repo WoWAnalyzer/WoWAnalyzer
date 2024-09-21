@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/macro';
-import ITEMS from 'common/ITEMS/dragonflight/potions';
-import SPELLS from 'common/SPELLS/dragonflight/potions';
+import ITEMS from 'common/ITEMS/thewarwithin/potions';
+import SPELLS from 'common/SPELLS/thewarwithin/potions';
 import ALCHEMY from 'common/SPELLS/dragonflight/crafted/alchemy';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import ROLES from 'game/ROLES';
@@ -15,57 +15,28 @@ import { PRIMARY_STAT } from 'parser/shared/modules/features/STAT';
 const debug = false;
 
 // these suggestions are all based on Icy Veins guide recommendations, i.e. which potion to use in which situation.
-// most guides recommend to use Battle Potion of Primary Stat, but I have broken out the class/spec combos whose guides
-// recommend to use Rising Death or Bursting Blood in certain situations.
+// all guides I've looked at recommends tempered potion, but keeping the basic code to support other specs here.
 
-const BOTTLED_PUTRESCENCE: number[] = [
-  // Bottled Putrescence specs
-];
-
-const POTION_OF_FROZEN_FOCUS: number[] = [
-  // Potion of Frozen Focus specs
-];
-
-const RESIDUAL_NEURAL_CHANNELING_AGENT: number[] = [
-  // Residual Neural Channeling Agent specs
-];
-
-const DELICATE_SUSPENSION_OF_SPORES: number[] = [
-  // Delicate Suspension of Spores specs
-];
-
-const POTION_OF_CHILLED_CLARITY: number[] = [
-  // Potion of Chilled Clarity specs
+const POTION_OF_UNWAVERING_FOCUS: number[] = [
+  // Specs that are recommended to use Potion of Unwavering Focus
 ];
 
 // TODO: Determine how we can tell if a potion was R1 or R2
 const WEAK_POTIONS: number[] = [];
 
-const STRONG_POTIONS: number[] = [
-  SPELLS.AERATED_MANA_POTION.id,
-  SPELLS.ELEMENTAL_POTION_OF_ULTIMATE_POWER.id,
-  SPELLS.ELEMENTAL_POTION_OF_POWER.id,
-  SPELLS.BOTTLED_PUTRESCENCE.id,
-  SPELLS.POTION_OF_FROZEN_FOCUS.id,
-  SPELLS.RESIDUAL_NEURAL_CHANNELING_AGENT.id,
-  SPELLS.DELICATE_SUSPENSION_OF_SPORES.id,
-  SPELLS.POTION_OF_SHOCKING_DISCLOSURE.id,
-  SPELLS.POTION_OF_CHILLED_CLARITY_R1.id,
-  SPELLS.POTION_OF_CHILLED_CLARITY_R2.id,
-  SPELLS.POTION_OF_CHILLED_CLARITY_R3.id,
-];
+const STRONG_POTIONS: number[] = [SPELLS.TEMPERED_POTION.id, SPELLS.POTION_OF_UNWAVERING_FOCUS.id];
 
 export const COMBAT_POTIONS: number[] = [
-  SPELLS.ELEMENTAL_POTION_OF_ULTIMATE_POWER.id,
-  SPELLS.ELEMENTAL_POTION_OF_POWER.id,
-  SPELLS.BOTTLED_PUTRESCENCE.id,
-  SPELLS.POTION_OF_FROZEN_FOCUS.id,
-  SPELLS.RESIDUAL_NEURAL_CHANNELING_AGENT.id,
-  SPELLS.DELICATE_SUSPENSION_OF_SPORES.id,
-  SPELLS.POTION_OF_SHOCKING_DISCLOSURE.id,
-  SPELLS.POTION_OF_CHILLED_CLARITY_R1.id,
-  SPELLS.POTION_OF_CHILLED_CLARITY_R2.id,
-  SPELLS.POTION_OF_CHILLED_CLARITY_R3.id,
+  SPELLS.ALGARI_MANA_POTION.id,
+  SPELLS.CAVEDWELLERS_DELIGHT.id,
+  SPELLS.DRAUGHT_OF_SHOCKING_REVELATIONS.id,
+  SPELLS.FRONTLINE_POTION.id,
+  SPELLS.GROTESQUE_VIAL.id,
+  SPELLS.POTION_OF_THE_REBORN_CHEETAH.id,
+  SPELLS.POTION_OF_UNWAVERING_FOCUS.id,
+  SPELLS.SLUMBERING_SOUL_SERUM.id,
+  SPELLS.TEMPERED_POTION.id,
+  SPELLS.TREADING_LIGHTLY.id,
 ];
 
 const COMMON_MANA_POTION_AMOUNT = 11084;
@@ -76,10 +47,10 @@ class PotionChecker extends Analyzer {
   potionsUsed = 0;
   weakPotionsUsed = 0;
   strongPotionsUsed = 0;
-  potionId = ITEMS.ELEMENTAL_POTION_OF_POWER_R3.id; // Giving it an initial value to prevent crashing
-  potionIcon = ITEMS.ELEMENTAL_POTION_OF_POWER_R3.icon; // Giving it an initial value to prevent crashing
-  strongPotionId = ITEMS.ELEMENTAL_POTION_OF_POWER_R3.id;
-  strongPotionIcon = ITEMS.ELEMENTAL_POTION_OF_POWER_R3.icon;
+  potionId = ITEMS.TEMPERED_POTION_R3.id; // Giving it an initial value to prevent crashing
+  potionIcon = ITEMS.TEMPERED_POTION_R3.icon; // Giving it an initial value to prevent crashing
+  strongPotionId = ITEMS.TEMPERED_POTION_R3.id;
+  strongPotionIcon = ITEMS.TEMPERED_POTION_R3.icon;
   neededManaSecondPotion = false;
   addedSuggestionText = false;
   isHealer = false;
@@ -197,35 +168,16 @@ class PotionChecker extends Analyzer {
   }
 
   potionAdjuster(spec: Spec) {
-    if (BOTTLED_PUTRESCENCE.includes(spec.id)) {
-      this.potionId = ITEMS.BOTTLED_PUTRESCENCE_R3.id;
-      this.potionIcon = ITEMS.BOTTLED_PUTRESCENCE_R3.icon;
-      this.addedSuggestionText = true;
-    } else if (POTION_OF_FROZEN_FOCUS.includes(spec.id)) {
-      this.potionId = ITEMS.POTION_OF_FROZEN_FOCUS_R3.id;
-      this.potionIcon = ITEMS.POTION_OF_FROZEN_FOCUS_R3.icon;
-      this.addedSuggestionText = true;
-    } else if (RESIDUAL_NEURAL_CHANNELING_AGENT.includes(spec.id)) {
-      this.potionId = ITEMS.RESIDUAL_NEURAL_CHANNELING_AGENT_R3.id;
-      this.potionIcon = ITEMS.RESIDUAL_NEURAL_CHANNELING_AGENT_R3.icon;
-      this.addedSuggestionText = true;
-    } else if (DELICATE_SUSPENSION_OF_SPORES.includes(spec.id)) {
-      this.potionId = ITEMS.DELICATE_SUSPENSION_OF_SPORES_R3.id;
-      this.potionIcon = ITEMS.DELICATE_SUSPENSION_OF_SPORES_R3.icon;
-      this.addedSuggestionText = true;
-    } else if (POTION_OF_CHILLED_CLARITY.includes(spec.id)) {
-      this.potionId = ITEMS.POTION_OF_CHILLED_CLARITY_R3.id;
-      this.potionIcon = ITEMS.POTION_OF_CHILLED_CLARITY_R3.icon;
-      this.addedSuggestionText = true;
-    } else if (spec.primaryStat === PRIMARY_STAT.AGILITY) {
-      this.potionId = ITEMS.ELEMENTAL_POTION_OF_ULTIMATE_POWER_R3.id;
-      this.potionIcon = ITEMS.ELEMENTAL_POTION_OF_ULTIMATE_POWER_R3.icon;
-    } else if (spec.primaryStat === PRIMARY_STAT.STRENGTH) {
-      this.potionId = ITEMS.ELEMENTAL_POTION_OF_ULTIMATE_POWER_R3.id;
-      this.potionIcon = ITEMS.ELEMENTAL_POTION_OF_ULTIMATE_POWER_R3.icon;
-    } else if (spec.primaryStat === PRIMARY_STAT.INTELLECT) {
-      this.potionId = ITEMS.ELEMENTAL_POTION_OF_ULTIMATE_POWER_R3.id;
-      this.potionIcon = ITEMS.ELEMENTAL_POTION_OF_ULTIMATE_POWER_R3.icon;
+    if (POTION_OF_UNWAVERING_FOCUS.includes(spec.id)) {
+      this.potionId = ITEMS.POTION_OF_UNWAVERING_FOCUS_R3.id;
+      this.potionIcon = ITEMS.POTION_OF_UNWAVERING_FOCUS_R3.icon;
+    } else if (
+      spec.primaryStat === PRIMARY_STAT.AGILITY ||
+      spec.primaryStat === PRIMARY_STAT.STRENGTH ||
+      spec.primaryStat === PRIMARY_STAT.INTELLECT
+    ) {
+      this.potionId = ITEMS.TEMPERED_POTION_R3.id;
+      this.potionIcon = ITEMS.TEMPERED_POTION_R3.icon;
     } else if (spec.role === ROLES.HEALER) {
       this.isHealer = true;
     }
@@ -233,14 +185,14 @@ class PotionChecker extends Analyzer {
 
   setStrongPotionForSpec(spec: Spec) {
     if (spec.primaryStat === PRIMARY_STAT.AGILITY) {
-      this.strongPotionId = ITEMS.ELEMENTAL_POTION_OF_ULTIMATE_POWER_R3.id;
-      this.strongPotionIcon = ITEMS.ELEMENTAL_POTION_OF_ULTIMATE_POWER_R3.icon;
+      this.strongPotionId = ITEMS.TEMPERED_POTION_R3.id;
+      this.strongPotionIcon = ITEMS.TEMPERED_POTION_R3.icon;
     } else if (spec.primaryStat === PRIMARY_STAT.STRENGTH) {
-      this.strongPotionId = ITEMS.ELEMENTAL_POTION_OF_ULTIMATE_POWER_R3.id;
-      this.strongPotionIcon = ITEMS.ELEMENTAL_POTION_OF_ULTIMATE_POWER_R3.icon;
+      this.strongPotionId = ITEMS.TEMPERED_POTION_R3.id;
+      this.strongPotionIcon = ITEMS.TEMPERED_POTION_R3.icon;
     } else if (spec.primaryStat === PRIMARY_STAT.INTELLECT) {
-      this.strongPotionId = ITEMS.ELEMENTAL_POTION_OF_ULTIMATE_POWER_R3.id;
-      this.strongPotionIcon = ITEMS.ELEMENTAL_POTION_OF_ULTIMATE_POWER_R3.icon;
+      this.strongPotionId = ITEMS.TEMPERED_POTION_R3.id;
+      this.strongPotionIcon = ITEMS.TEMPERED_POTION_R3.icon;
     }
   }
 

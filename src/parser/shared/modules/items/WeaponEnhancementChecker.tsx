@@ -1,4 +1,6 @@
 import { Trans } from '@lingui/macro';
+import ITEMS from 'common/ITEMS';
+import { Enchant as EnchantItem } from 'common/ITEMS/Item';
 import { Enchant } from 'common/SPELLS/Spell';
 import { ItemLink } from 'interface';
 import { EnhancementBoxRowEntry } from 'interface/guide/components/Preparation/EnhancementSubSection/EnhancementBoxRow';
@@ -98,6 +100,14 @@ class WeaponEnhancementChecker extends Analyzer {
     };
   }
 
+  get exampleWeaponEnchancements() {
+    return (
+      <Trans id="shared.weaponEnhancementChecker.weaponEnhancementExamples">
+        oil, whetstone, or weightstone
+      </Trans>
+    );
+  }
+
   boxRowPerformance(item: Item, recommendedEnhancements: number[] | undefined) {
     const hasEnhancement = this.hasEnhancement(item);
     const hasMaxEnhancement = hasEnhancement && this.hasMaxEnhancement(item);
@@ -125,58 +135,86 @@ class WeaponEnhancementChecker extends Analyzer {
     );
   }
 
-  boxRowTooltip(item: Item, slotName: JSX.Element, recommendedEnhancements: Enchant[] | undefined) {
+  boxRowTooltip(
+    item: Item,
+    slotName: JSX.Element,
+    recommendedEnhancements: EnchantItem[] | undefined,
+  ) {
     const hasEnhancement = this.hasEnhancement(item);
     const hasMaxEnhancement = hasEnhancement && this.hasMaxEnhancement(item);
-    const recommendedEnhancementNames = recommendedEnhancements?.map((it) => it.name)?.join(', ');
+    const recommendedEnhancementList = recommendedEnhancements
+      ?.map((enchant) => (
+        <ItemLink key={enchant.id} id={enchant.id} craftQuality={enchant.craftQuality} />
+      ))
+      .reduce((acc, x) =>
+        acc == null ? (
+          x
+        ) : (
+          <>
+            {acc}, {x}
+          </>
+        ),
+      );
+
     const recommendedEnhancementIds = recommendedEnhancements?.map((it) => it.effectId);
+    const currentEnhancement = Object.values(ITEMS).find(
+      (items): items is EnchantItem =>
+        'effectId' in items && items.effectId === item.temporaryEnchant,
+    );
+    const currentEnhancementContent = currentEnhancement ? (
+      <ItemLink id={currentEnhancement.id} craftQuality={currentEnhancement.craftQuality} />
+    ) : (
+      this.exampleWeaponEnchancements
+    );
+
     if (hasMaxEnhancement) {
       if (
         recommendedEnhancementIds &&
-        recommendedEnhancementNames &&
+        recommendedEnhancementList &&
         !recommendedEnhancementIds.includes(item.temporaryEnchant ?? 0)
       ) {
         return (
-          <Trans id="shared.enchantChecker.guide.strongEnhancement.labelWithRecommendation">
-            Your {slotName} has a strong enhancement (rune/sharpening stone/weightstone) but these
-            are recommended: {recommendedEnhancementNames}
+          <Trans id="shared.weaponEnhancementChecker.guide.strongEnhancement.labelWithRecommendation">
+            Your {slotName} has a strong enhancement ({currentEnhancementContent}) but these are
+            recommended: {recommendedEnhancementList}
           </Trans>
         );
       }
       return (
-        <Trans id="shared.enchantChecker.guide.strongEnhancement.label">
-          Your {slotName} has a strong enhancement (rune/sharpening stone/weightstone). Good work!
+        <Trans id="shared.weaponEnhancementChecker.guide.strongEnhancement.label">
+          Your {slotName} has a strong enhancement ({currentEnhancementContent}
+          ). Good work!
         </Trans>
       );
     }
     if (hasEnhancement) {
-      if (recommendedEnhancementNames) {
+      if (recommendedEnhancementList) {
         return (
-          <Trans id="shared.enchantChecker.guide.weakEnhancement.labelWithRecommendation">
-            Your {slotName} has a cheap weapon enhancement (rune/sharpening stone/weightstone).
+          <Trans id="shared.weaponEnhancementChecker.guide.weakEnhancement.labelWithRecommendation">
+            Your {slotName} has a cheap weapon enhancement ({this.exampleWeaponEnchancements}) .
             Apply a strong enhancement to very easily increase your throughput slightly.
-            Recommended: {recommendedEnhancementNames}
+            Recommended: {recommendedEnhancementList}
           </Trans>
         );
       }
       return (
-        <Trans id="shared.enchantChecker.guide.weakEnhancement.label">
-          Your {slotName} has a cheap weapon enhancement (rune/sharpening stone/weightstone). Apply
-          a strong enhancement to very easily increase your throughput slightly.
+        <Trans id="shared.weaponEnhancementChecker.guide.weakEnhancement.label">
+          Your {slotName} has a cheap weapon enhancement ({currentEnhancementContent}
+          ). Apply a strong enhancement to very easily increase your throughput slightly.
         </Trans>
       );
     }
-    if (recommendedEnhancementNames) {
+    if (recommendedEnhancementList) {
       return (
-        <Trans id="shared.enchantChecker.guide.noEnhancement.labelWithRecommendation">
+        <Trans id="shared.weaponEnhancementChecker.guide.noEnhancement.labelWithRecommendation">
           Your {slotName} is missing a weapon enhancement (rune/sharpening stone/weightstone). Apply
           an enhancement to very easily increase your throughput slightly. Recommended:{' '}
-          {recommendedEnhancementNames}
+          {recommendedEnhancementList}
         </Trans>
       );
     }
     return (
-      <Trans id="shared.enchantChecker.guide.noEnhancement.label">
+      <Trans id="shared.weaponEnhancementChecker.guide.noEnhancement.label">
         Your {slotName} is missing a weapon enhancement (rune/sharpening stone/weightstone). Apply
         an enhancement to very easily increase your throughput slightly.
       </Trans>
@@ -214,6 +252,10 @@ class WeaponEnhancementChecker extends Analyzer {
       const item = gear[Number(slot)];
       const slotName = weaponSlots[Number(slot)];
       const hasEnhancement = this.hasEnhancement(item);
+      const currentEnhancement = Object.values(ITEMS).find(
+        (items): items is EnchantItem =>
+          'effectId' in items && items.effectId === item.temporaryEnchant,
+      );
 
       when(Boolean(hasEnhancement))
         .isFalse()
@@ -224,7 +266,7 @@ class WeaponEnhancementChecker extends Analyzer {
               <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>
                 {slotName}
               </ItemLink>{' '}
-              is missing a weapon enhancement (rune/sharpening stone/weightstone). Apply an
+              is missing a weapon enhancement ({this.exampleWeaponEnchancements}). Apply an
               enhancement to very easily increase your throughput slightly.
             </Trans>,
           )
@@ -242,8 +284,16 @@ class WeaponEnhancementChecker extends Analyzer {
               <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>
                 {slotName}
               </ItemLink>{' '}
-              has a cheap weapon enhancement (rune/sharpening stone/weightstone). Apply a strong
-              enhancement to very easily increase your throughput slightly.
+              has a cheap weapon enhancement (
+              {currentEnhancement ? (
+                <ItemLink
+                  id={currentEnhancement.id}
+                  craftQuality={currentEnhancement.craftQuality}
+                />
+              ) : (
+                this.exampleWeaponEnchancements
+              )}
+              ). Apply a strong enhancement to very easily increase your throughput slightly.
             </Trans>,
           )
             .icon(item.icon)

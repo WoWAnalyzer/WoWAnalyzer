@@ -407,6 +407,12 @@ class Abilities extends CoreAbilities {
         healSpellIds: [SPELLS.TYRS_DELIVERANCE_HEALING_INCREASE.id],
         enabled: combatant.hasTalent(TALENTS.TYRS_DELIVERANCE_TALENT),
       },
+      {
+        spell: TALENTS.ETERNAL_FLAME_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+        enabled: combatant.hasTalent(TALENTS.ETERNAL_FLAME_TALENT),
+      },
     ];
   }
 }
