@@ -41,11 +41,17 @@ class Buffs extends CoreAuras {
         enabled:
           hasTalent(TALENTS.RECKLESSNESS_TALENT) || hasTalent(TALENTS.BERSERKERS_TORMENT_TALENT),
         timelineHighlight: true,
+        triggeredBySpellId: hasTalent(TALENTS.BERSERKERS_TORMENT_TALENT)
+          ? [SPELLS.AVATAR_SHARED.id, SPELLS.RECKLESSNESS.id]
+          : [SPELLS.RECKLESSNESS.id],
       },
       {
         spellId: SPELLS.AVATAR_SHARED.id,
         enabled: hasTalent(TALENTS.AVATAR_SHARED_TALENT),
         timelineHighlight: true,
+        triggeredBySpellId: hasTalent(TALENTS.BERSERKERS_TORMENT_TALENT)
+          ? [SPELLS.RECKLESSNESS.id, SPELLS.AVATAR_SHARED.id]
+          : [SPELLS.AVATAR_SHARED.id],
       },
     ] satisfies SpellbookAura[];
   }
