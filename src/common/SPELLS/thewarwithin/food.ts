@@ -172,8 +172,10 @@ const food = {
     name: 'Hearty Well Fed',
     icon: 'spell_misc_food',
   },
+
+  // #region 328 Secondary Stats (15 Min) ------------------------------------
   /**
-   * 328 Lowest Secondary Stat (15 min)
+   * 328 Mastery (15 min)
    *
    * - Simple Stew
    * - Skewered Fillet
@@ -181,13 +183,56 @@ const food = {
    * - Spongey Scramble
    * - Roasted Mycobloom
    */
-  WELL_FED_SNACKS: {
+  WELL_FED_328_MASTERY_15: {
+    id: 461942,
+    name: 'Well Fed',
+    icon: 'spell_misc_food',
+  },
+  /**
+   * 328 Versatility (15 min)
+   *
+   * - Simple Stew
+   * - Skewered Fillet
+   * - Unseasoned Field Steak
+   * - Spongey Scramble
+   * - Roasted Mycobloom
+   */
+  WELL_FED_328_VERSATILITY_15: {
     id: 461943,
     name: 'Well Fed',
     icon: 'spell_misc_food',
   },
   /**
-   * 328 Lowest Secondary Stat (15 min)
+   * 328 Crit (15 min)
+   *
+   * - Simple Stew
+   * - Skewered Fillet
+   * - Unseasoned Field Steak
+   * - Spongey Scramble
+   * - Roasted Mycobloom
+   */
+  WELL_FED_328_CRIT_15: {
+    id: 461944,
+    name: 'Well Fed',
+    icon: 'spell_misc_food',
+  },
+  /**
+   * 328 Haste (15 min)
+   *
+   * - Simple Stew
+   * - Skewered Fillet
+   * - Unseasoned Field Steak
+   * - Spongey Scramble
+   * - Roasted Mycobloom
+   */
+  WELL_FED_328_HASTE_15: {
+    id: 461945,
+    name: 'Well Fed',
+    icon: 'spell_misc_food',
+  },
+
+  /**
+   * 328 Haste (15 min) - Hearty
    *
    * - Hearty Simple Stew
    * - Hearty Skewered Fillet
@@ -195,37 +240,163 @@ const food = {
    * - Hearty Spongey Scramble
    * - Hearty Roasted Mycobloom
    */
-  HEARTY_WELL_FED_SNACKS: {
+  HEARTY_WELL_FED_328_HASTE_15: {
+    id: 462188,
+    name: 'Hearty Well Fed',
+    icon: 'spell_misc_food',
+  },
+  /**
+   * 328 Crit (15 min) - Hearty
+   *
+   * - Hearty Simple Stew
+   * - Hearty Skewered Fillet
+   * - Hearty Unseasoned Field Steak
+   * - Hearty Spongey Scramble
+   * - Hearty Roasted Mycobloom
+   */
+  HEARTY_WELL_FED_328_CRIT_15: {
+    id: 462189,
+    name: 'Hearty Well Fed',
+    icon: 'spell_misc_food',
+  },
+  /**
+   * 328 Versatility (15 min) - Hearty
+   *
+   * - Hearty Simple Stew
+   * - Hearty Skewered Fillet
+   * - Hearty Unseasoned Field Steak
+   * - Hearty Spongey Scramble
+   * - Hearty Roasted Mycobloom
+   */
+  HEARTY_WELL_FED_328_VERSATILITY_15: {
     id: 462190,
     name: 'Hearty Well Fed',
     icon: 'spell_misc_food',
   },
   /**
-   * 328 Lowest Secondary Stat (30 min)
+   * 328 Mastery (15 min) - Hearty
+   *
+   * - Hearty Simple Stew
+   * - Hearty Skewered Fillet
+   * - Hearty Unseasoned Field Steak
+   * - Hearty Spongey Scramble
+   * - Hearty Roasted Mycobloom
+   */
+  HEARTY_WELL_FED_328_MASTERY_15: {
+    id: 462191,
+    name: 'Hearty Well Fed',
+    icon: 'spell_misc_food',
+  },
+  // #endregion 328 Secondary Stats (15 Min) ---------------------------------
+
+  // #region 328 Secondary Stats (30 Min) ------------------------------------
+  /**
+   * 328 Haste (30 min)
    *
    * - Coreway Kabob
    * - Flash Fire Fillet
    * - Hallowfall Chili
    * - Pan Seared Mycobloom
    */
-  WELL_FED_QUICK_AND_EASY: {
+  WELL_FED_328_HASTE_30: {
+    id: 461937,
+    name: 'Well Fed',
+    icon: 'spell_misc_food',
+  },
+  /**
+   * 328 Crit (30 min)
+   *
+   * - Coreway Kabob
+   * - Flash Fire Fillet
+   * - Hallowfall Chili
+   * - Pan Seared Mycobloom
+   */
+  WELL_FED_328_CRIT_30: {
+    id: 461938,
+    name: 'Well Fed',
+    icon: 'spell_misc_food',
+  },
+  /**
+   * 328 Versatility (30 min)
+   *
+   * - Coreway Kabob
+   * - Flash Fire Fillet
+   * - Hallowfall Chili
+   * - Pan Seared Mycobloom
+   */
+  WELL_FED_328_VERSATILITY_30: {
     id: 461939,
     name: 'Well Fed',
     icon: 'spell_misc_food',
   },
   /**
-   * 328 Lowest Secondary Stat (30 min)
+   * 328 Mastery (30 min)
+   *
+   * - Coreway Kabob
+   * - Flash Fire Fillet
+   * - Hallowfall Chili
+   * - Pan Seared Mycobloom
+   */
+  WELL_FED_328_MASTERY_30: {
+    id: 461940,
+    name: 'Well Fed',
+    icon: 'spell_misc_food',
+  },
+
+  /**
+   * 328 Mastery (30 min) - Hearty
    *
    * - Hearty Coreway Kabob
    * - Hearty Flash Fire Fillet
    * - Hearty Hallowfall Chili
    * - Hearty Pan Seared Mycobloom
    */
-  HEARTY_WELL_FED_QUICK_AND_EASY: {
+  HEARTY_WELL_FED_328_MASTERY_30: {
+    id: 462192,
+    name: 'Hearty Well Fed',
+    icon: 'spell_misc_food',
+  },
+  /**
+   * 328 Versatility (30 min) - Hearty
+   *
+   * - Hearty Coreway Kabob
+   * - Hearty Flash Fire Fillet
+   * - Hearty Hallowfall Chili
+   * - Hearty Pan Seared Mycobloom
+   */
+  HEARTY_WELL_FED_328_VERSATILITY_30: {
+    id: 462193,
+    name: 'Hearty Well Fed',
+    icon: 'spell_misc_food',
+  },
+  /**
+   * 328 Crit (30 min) - Hearty
+   *
+   * - Hearty Coreway Kabob
+   * - Hearty Flash Fire Fillet
+   * - Hearty Hallowfall Chili
+   * - Hearty Pan Seared Mycobloom
+   */
+  HEARTY_WELL_FED_328_CRIT_30: {
     id: 462194,
     name: 'Hearty Well Fed',
     icon: 'spell_misc_food',
   },
+  /**
+   * 328 Haste (30 min) - Hearty
+   *
+   * - Hearty Coreway Kabob
+   * - Hearty Flash Fire Fillet
+   * - Hearty Hallowfall Chili
+   * - Hearty Pan Seared Mycobloom
+   */
+  HEARTY_WELL_FED_328_HASTE_30: {
+    id: 462195,
+    name: 'Hearty Well Fed',
+    icon: 'spell_misc_food',
+  },
+  // #endregion 328 Secondary Stats (30 Min) ---------------------------------
+
   /** 235 Crit Mastery */
   SALT_BAKED_SEAFOOD: {
     id: 461835,

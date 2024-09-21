@@ -1,6 +1,39 @@
 import SPELLS from 'common/SPELLS/thewarwithin/food';
 import BaseFoodChecker from 'parser/shared/modules/items/FoodChecker';
 
+/**
+ * 328 Lowest Secondary Stat for 30/15 Minutes
+ *
+ * - Simple Stew
+ * - Skewered Fillet
+ * - Unseasoned Field Steak
+ * - Spongey Scramble
+ * - Roasted Mycobloom
+ * - Coreway Kabob
+ * - Flash Fire Fillet
+ * - Hallowfall Chili
+ * - Pan Seared Mycobloom
+ */
+const SNACKS_QUICK_AND_EASY = [
+  SPELLS.HEARTY_WELL_FED_328_CRIT_15.id,
+  SPELLS.HEARTY_WELL_FED_328_HASTE_15.id,
+  SPELLS.HEARTY_WELL_FED_328_MASTERY_15.id,
+  SPELLS.HEARTY_WELL_FED_328_VERSATILITY_15.id,
+  SPELLS.WELL_FED_328_CRIT_15.id,
+  SPELLS.WELL_FED_328_HASTE_15.id,
+  SPELLS.WELL_FED_328_MASTERY_15.id,
+  SPELLS.WELL_FED_328_VERSATILITY_15.id,
+
+  SPELLS.HEARTY_WELL_FED_328_CRIT_30.id,
+  SPELLS.HEARTY_WELL_FED_328_HASTE_30.id,
+  SPELLS.HEARTY_WELL_FED_328_MASTERY_30.id,
+  SPELLS.HEARTY_WELL_FED_328_VERSATILITY_30.id,
+  SPELLS.WELL_FED_328_CRIT_30.id,
+  SPELLS.WELL_FED_328_HASTE_30.id,
+  SPELLS.WELL_FED_328_MASTERY_30.id,
+  SPELLS.WELL_FED_328_VERSATILITY_30.id,
+] satisfies number[];
+
 const LOWER_FOOD_IDS = [
   SPELLS.ANGLERS_DELIGHT.id,
   SPELLS.HEARTY_ANGLERS_DELIGHT.id,
@@ -9,10 +42,7 @@ const LOWER_FOOD_IDS = [
 ] satisfies number[];
 
 const MID_TIER_FOOD_IDS = [
-  SPELLS.WELL_FED_SNACKS.id,
-  SPELLS.HEARTY_WELL_FED_SNACKS.id,
-  SPELLS.WELL_FED_QUICK_AND_EASY.id,
-  SPELLS.HEARTY_WELL_FED_QUICK_AND_EASY.id,
+  ...SNACKS_QUICK_AND_EASY,
   SPELLS.SALT_BAKED_SEAFOOD.id,
   SPELLS.HEARTY_SALT_BAKED_SEAFOOD.id,
   SPELLS.MARINATED_TENDERLOINS.id,
