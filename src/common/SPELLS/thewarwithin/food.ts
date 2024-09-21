@@ -26,6 +26,7 @@ const food = {
     icon: 'inv_misc_food_84_roastclefthoof',
   },
 
+  // #region 496 Secondary Stats
   /**
    * 469 Mastery
    *
@@ -147,6 +148,7 @@ const food = {
     name: 'Hearty Well Fed',
     icon: 'spell_misc_food',
   },
+  // #endregion 496 Secondary Stats
 
   /**
    * 446 Primary Stat
