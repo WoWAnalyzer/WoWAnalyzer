@@ -29,6 +29,7 @@ import AngerManagement from './modules/talents/AngerManagement';
 import HackAndSlash from './modules/talents/HackAndSlash';
 import SuddenDeath from './modules/talents/SuddenDeath';
 import Warpaint from './modules/talents/Warpaint';
+import Channeling from 'parser/shared/normalizers/Channeling';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -44,6 +45,7 @@ class CombatLogParser extends CoreCombatLogParser {
     enrageBeforeBloodthirst: EnrageBeforeBloodthirst,
 
     // Core
+    channeling: Channeling,
     buffs: Buffs,
     haste: Haste,
 
