@@ -26,6 +26,11 @@ const Flasks = {
     name: 'Flask of Alchemical Mastery',
     icon: 'inv_potion_purple',
   },
+  FLASK_OF_SAVING_GRACES: {
+    id: 432473,
+    name: 'Flask of Saving Graces',
+    icon: 'trade_alchemy_potione4',
+  },
 } satisfies Record<string, Spell>;
 
 export default Flasks;
