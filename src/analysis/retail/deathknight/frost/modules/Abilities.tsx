@@ -205,6 +205,16 @@ class Abilities extends CoreAbilities {
         },
         enabled: combatant.hasTalent(talents.REAPERS_MARK_TALENT),
       },
+/*       {
+        spell: talents.EXTERMINATE_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 45,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(talents.EXTERMINATE_TALENT),
+      }, */
+      
 
       // DEFENSIVE
       

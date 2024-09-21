@@ -202,7 +202,6 @@ class KillingMachineEfficiency extends Analyzer {
   }
 
   get guideSubsection(): JSX.Element {
-    console.log("AHHHHHHHHHHHHHHHHHHHHH")
     const goodKms = {
       count:
         this.kmProcs - this.expiredKMProcs - this.refreshedKMProcs - this.procsWastedToResources,

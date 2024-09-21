@@ -58,14 +58,14 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       Wait, multiple parts are fucked.
       Its the proc usage thats not working. We have KME and RE
       */}
-{/*       <Section title="Proc Usage">
+      <Section title="Proc Usage">
         <SubSection title="Killing Machine">
           {modules.killingMachineEfficiency.guideSubsection}
         </SubSection>
         <SubSection title="Rime">
           {modules.rimeEfficiency.guideSubsection}
         </SubSection>
-      </Section> */}
+      </Section>
       <Section title="Cooldowns">
         <CooldownsSubsection modules={modules} events={events} info={info} />
         <CooldownBreakdownSubsection modules={modules} events={events} info={info} />

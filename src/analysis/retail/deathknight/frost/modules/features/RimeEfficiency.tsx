@@ -148,7 +148,8 @@ class RimeEfficiency extends Analyzer {
     const explanation = (
       <p>
         <strong>
-          <SpellLink spell={talents.RIME_TALENT} />
+          {/* Rime is now baseline, going to change this to improved rime */}
+          <SpellLink spell={talents.IMPROVED_RIME_TALENT} />
         </strong>{' '}
         turns <SpellLink spell={talents.HOWLING_BLAST_TALENT} /> from a weak ability you only use to
         apply Frost Fever to a powerful spell that jumps to the top of the priority list. This is
