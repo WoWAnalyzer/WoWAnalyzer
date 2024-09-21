@@ -27,49 +27,127 @@ const food = {
   },
 
   /**
-   * 469 Lowest Secondary Stat
-   */
-  WELL_FED_EVERYTHING_STEW: {
-    id: 461958,
-    name: 'Everything Stew',
-    icon: 'inv_cooking_10_draconicdelicacies',
-  },
-  /**
-   * 469 Lowest Secondary Stat
-   */
-  HEARTY_WELL_FED_EVERYTHING_STEW: {
-    id: 462182,
-    name: 'Hearty Everything Stew',
-    icon: 'inv_cooking_10_draconicdelicacies',
-  },
-  /**
-   * 469 Highest Secondary Stat
+   * 469 Mastery
    *
    * - The Sushi Special
    * - Beledar's Bounty
    * - Jester's Board
    * - Empress' Farewell
    * - Outsider's Provisions
+   * - Everything Stew
    */
-  WELL_FED_HIGHEST_SECONDARY: {
-    id: 462181,
-    name: 'Hearty Well Fed',
-    icon: 'spell_misc_food',
+  WELL_FED_469_MASTERY: {
+    id: 461957,
+    name: 'Everything Stew',
+    icon: 'inv_cooking_10_draconicdelicacies',
   },
   /**
-   * 469 Highest Secondary Stat
+   * 469 Versatility
+   *
+   * - The Sushi Special
+   * - Beledar's Bounty
+   * - Jester's Board
+   * - Empress' Farewell
+   * - Outsider's Provisions
+   * - Everything Stew
+   */
+  WELL_FED_469_VERSATILITY: {
+    id: 461958,
+    name: 'Everything Stew',
+    icon: 'inv_cooking_10_draconicdelicacies',
+  },
+  /**
+   * 469 Crit
+   *
+   * - The Sushi Special
+   * - Beledar's Bounty
+   * - Jester's Board
+   * - Empress' Farewell
+   * - Outsider's Provisions
+   * - Everything Stew
+   */
+  WELL_FED_469_CRIT: {
+    id: 461959,
+    name: 'Everything Stew',
+    icon: 'inv_cooking_10_draconicdelicacies',
+  },
+  /**
+   * 469 Haste
+   *
+   * - The Sushi Special
+   * - Beledar's Bounty
+   * - Jester's Board
+   * - Empress' Farewell
+   * - Outsider's Provisions
+   * - Everything Stew
+   */
+  WELL_FED_469_HASTE: {
+    id: 461960,
+    name: 'Everything Stew',
+    icon: 'inv_cooking_10_draconicdelicacies',
+  },
+
+  /**
+   * 469 Haste - Hearty
    *
    * - Hearty Sushi Special
    * - Hearty Beledar's Bounty
    * - Hearty Jester's Board
    * - Hearty Empress' Farewell
    * - Hearty Outsider's Provisions
+   * - Hearty Everything Stew
    */
-  HEARTY_WELL_FED_HIGHEST_SECONDARY: {
-    id: 462183,
-    name: 'Hearty Well Fed',
-    icon: 'spell_misc_food',
+  HEARTY_WELL_FED_469_HASTE: {
+    id: 462180,
+    name: 'Hearty Everything Stew',
+    icon: 'inv_cooking_10_draconicdelicacies',
   },
+  /**
+   * 469 Crit - Hearty
+   *
+   * - Hearty Sushi Special
+   * - Hearty Beledar's Bounty
+   * - Hearty Jester's Board
+   * - Hearty Empress' Farewell
+   * - Hearty Outsider's Provisions
+   * - Hearty Everything Stew
+   */
+  HEARTY_WELL_FED_469_CRIT: {
+    id: 462181,
+    name: 'Hearty Everything Stew',
+    icon: 'inv_cooking_10_draconicdelicacies',
+  },
+  /**
+   * 469 Versatility - Hearty
+   *
+   * - Hearty Sushi Special
+   * - Hearty Beledar's Bounty
+   * - Hearty Jester's Board
+   * - Hearty Empress' Farewell
+   * - Hearty Outsider's Provisions
+   * - Hearty Everything Stew
+   */
+  HEARTY_WELL_FED_469_VERSATILITY: {
+    id: 462182,
+    name: 'Hearty Everything Stew',
+    icon: 'inv_cooking_10_draconicdelicacies',
+  },
+  /**
+   * 469 Mastery - Hearty
+   *
+   * - Hearty Sushi Special
+   * - Hearty Beledar's Bounty
+   * - Hearty Jester's Board
+   * - Hearty Empress' Farewell
+   * - Hearty Outsider's Provisions
+   * - Hearty Everything Stew
+   */
+  HEARTY_WELL_FED_469_MASTERY: {
+    id: 462183,
+    name: 'Hearty Everything Stew',
+    icon: 'inv_cooking_10_draconicdelicacies',
+  },
+
   /**
    * 446 Primary Stat
    *
