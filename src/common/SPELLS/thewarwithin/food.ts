@@ -38,8 +38,8 @@ const food = {
    */
   WELL_FED_469_MASTERY: {
     id: 461957,
-    name: 'Everything Stew',
-    icon: 'inv_cooking_10_draconicdelicacies',
+    name: 'Well Fed',
+    icon: 'spell_misc_food',
   },
   /**
    * 469 Versatility
@@ -53,8 +53,8 @@ const food = {
    */
   WELL_FED_469_VERSATILITY: {
     id: 461958,
-    name: 'Everything Stew',
-    icon: 'inv_cooking_10_draconicdelicacies',
+    name: 'Well Fed',
+    icon: 'spell_misc_food',
   },
   /**
    * 469 Crit
@@ -68,8 +68,8 @@ const food = {
    */
   WELL_FED_469_CRIT: {
     id: 461959,
-    name: 'Everything Stew',
-    icon: 'inv_cooking_10_draconicdelicacies',
+    name: 'Well Fed',
+    icon: 'spell_misc_food',
   },
   /**
    * 469 Haste
@@ -83,8 +83,8 @@ const food = {
    */
   WELL_FED_469_HASTE: {
     id: 461960,
-    name: 'Everything Stew',
-    icon: 'inv_cooking_10_draconicdelicacies',
+    name: 'Well Fed',
+    icon: 'spell_misc_food',
   },
 
   /**
@@ -99,8 +99,8 @@ const food = {
    */
   HEARTY_WELL_FED_469_HASTE: {
     id: 462180,
-    name: 'Hearty Everything Stew',
-    icon: 'inv_cooking_10_draconicdelicacies',
+    name: 'Hearty Well Fed',
+    icon: 'spell_misc_food',
   },
   /**
    * 469 Crit - Hearty
@@ -114,8 +114,8 @@ const food = {
    */
   HEARTY_WELL_FED_469_CRIT: {
     id: 462181,
-    name: 'Hearty Everything Stew',
-    icon: 'inv_cooking_10_draconicdelicacies',
+    name: 'Hearty Well Fed',
+    icon: 'spell_misc_food',
   },
   /**
    * 469 Versatility - Hearty
@@ -129,8 +129,8 @@ const food = {
    */
   HEARTY_WELL_FED_469_VERSATILITY: {
     id: 462182,
-    name: 'Hearty Everything Stew',
-    icon: 'inv_cooking_10_draconicdelicacies',
+    name: 'Hearty Well Fed',
+    icon: 'spell_misc_food',
   },
   /**
    * 469 Mastery - Hearty
@@ -144,8 +144,8 @@ const food = {
    */
   HEARTY_WELL_FED_469_MASTERY: {
     id: 462183,
-    name: 'Hearty Everything Stew',
-    icon: 'inv_cooking_10_draconicdelicacies',
+    name: 'Hearty Well Fed',
+    icon: 'spell_misc_food',
   },
 
   /**
