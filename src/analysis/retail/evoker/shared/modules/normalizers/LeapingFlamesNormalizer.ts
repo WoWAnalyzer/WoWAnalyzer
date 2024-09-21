@@ -36,7 +36,7 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: LEAPING_FLAMES_CONSUME,
     reverseLinkRelation: LEAPING_FLAMES_CONSUME,
-    linkingEventId: SPELLS.LIVING_FLAME_CAST.id,
+    linkingEventId: [SPELLS.LIVING_FLAME_CAST.id, SPELLS.CHRONO_FLAME_CAST.id],
     linkingEventType: EventType.Cast,
     referencedEventId: SPELLS.LEAPING_FLAMES_BUFF.id,
     referencedEventType: EventType.RemoveBuff,
@@ -100,7 +100,7 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: LEAPING_FLAMES_HITS,
     reverseLinkRelation: LEAPING_FLAMES_HITS,
-    linkingEventId: SPELLS.LIVING_FLAME_CAST.id,
+    linkingEventId: [SPELLS.LIVING_FLAME_CAST.id, SPELLS.CHRONO_FLAME_CAST.id],
     linkingEventType: EventType.Cast,
     referencedEventId: [SPELLS.LIVING_FLAME_DAMAGE.id, SPELLS.LIVING_FLAME_HEAL.id],
     referencedEventType: [EventType.Damage, EventType.Heal],
