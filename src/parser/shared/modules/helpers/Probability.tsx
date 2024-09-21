@@ -185,6 +185,14 @@ export function plotOneVariableBinomChart(
     title: 'Likelihood',
   },
 ) {
+  if (procAttempts < actualProcs) {
+    console.warn(
+      'Cannot generate probability charts with invalid data: # of procs > # possible procs',
+      actualProcs,
+      procAttempts,
+    );
+    return null;
+  }
   if (procAttempts < 1) {
     return null;
   }
