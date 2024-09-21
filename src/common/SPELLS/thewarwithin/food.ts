@@ -173,7 +173,7 @@ const food = {
     icon: 'spell_misc_food',
   },
 
-  // #region 328 Secondary Stats (15 Min) ------------------------------------
+  // #region Snacks - 328 Secondary Stats (15 Min) ----------------------------
   /**
    * 328 Mastery (15 min)
    *
@@ -287,9 +287,9 @@ const food = {
     name: 'Hearty Well Fed',
     icon: 'spell_misc_food',
   },
-  // #endregion 328 Secondary Stats (15 Min) ---------------------------------
+  // #endregion Snacks - 328 Secondary Stats (15 Min) -------------------------
 
-  // #region 328 Secondary Stats (30 Min) ------------------------------------
+  // #region Quik and easy - 328 Secondary Stats (30 Min) ---------------------
   /**
    * 328 Haste (30 min)
    *
@@ -395,7 +395,7 @@ const food = {
     name: 'Hearty Well Fed',
     icon: 'spell_misc_food',
   },
-  // #endregion 328 Secondary Stats (30 Min) ---------------------------------
+  // #endregion Quik and easy - 328 Secondary Stats (30 Min) ------------------
 
   /** 235 Crit Mastery */
   SALT_BAKED_SEAFOOD: {

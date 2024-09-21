@@ -4,15 +4,17 @@ import BaseFoodChecker from 'parser/shared/modules/items/FoodChecker';
 /**
  * 328 Lowest Secondary Stat for 30/15 Minutes
  *
- * - Simple Stew
- * - Skewered Fillet
- * - Unseasoned Field Steak
- * - Spongey Scramble
- * - Roasted Mycobloom
- * - Coreway Kabob
- * - Flash Fire Fillet
- * - Hallowfall Chili
- * - Pan Seared Mycobloom
+ * - Snacks
+ *   - Simple Stew
+ *   - Skewered Fillet
+ *   - Unseasoned Field Steak
+ *   - Spongey Scramble
+ *   - Roasted Mycobloom
+ * - Quick and Easy
+ *   - Coreway Kabob
+ *   - Flash Fire Fillet
+ *   - Hallowfall Chili
+ *   - Pan Seared Mycobloom
  */
 const SNACKS_QUICK_AND_EASY = [
   SPELLS.HEARTY_WELL_FED_328_CRIT_15.id,
@@ -32,6 +34,29 @@ const SNACKS_QUICK_AND_EASY = [
   SPELLS.WELL_FED_328_HASTE_30.id,
   SPELLS.WELL_FED_328_MASTERY_30.id,
   SPELLS.WELL_FED_328_VERSATILITY_30.id,
+] satisfies number[];
+
+/**
+ * 469 Secondary Stat. There's both food that gives your lowest secondary stat
+ * and food that gives your highest. They however give the same effects, so we
+ * count both as good.
+ *
+ * - The Sushi Special
+ * - Beledar's Bounty
+ * - Jester's Board
+ * - Empress' Farewell
+ * - Outsider's Provisions
+ * - Everything Stew
+ */
+const GOOD_SECONDARY_FOOD_IDS = [
+  SPELLS.HEARTY_WELL_FED_469_CRIT.id,
+  SPELLS.HEARTY_WELL_FED_469_HASTE.id,
+  SPELLS.HEARTY_WELL_FED_469_MASTERY.id,
+  SPELLS.HEARTY_WELL_FED_469_VERSATILITY.id,
+  SPELLS.WELL_FED_469_CRIT.id,
+  SPELLS.WELL_FED_469_HASTE.id,
+  SPELLS.WELL_FED_469_MASTERY.id,
+  SPELLS.WELL_FED_469_VERSATILITY.id,
 ] satisfies number[];
 
 const LOWER_FOOD_IDS = [
@@ -78,14 +103,7 @@ const MID_TIER_FOOD_IDS = [
 ] satisfies number[];
 
 const HIGHER_FOOD_IDS = [
-  SPELLS.HEARTY_WELL_FED_469_CRIT.id,
-  SPELLS.HEARTY_WELL_FED_469_HASTE.id,
-  SPELLS.HEARTY_WELL_FED_469_MASTERY.id,
-  SPELLS.HEARTY_WELL_FED_469_VERSATILITY.id,
-  SPELLS.WELL_FED_469_CRIT.id,
-  SPELLS.WELL_FED_469_HASTE.id,
-  SPELLS.WELL_FED_469_MASTERY.id,
-  SPELLS.WELL_FED_469_VERSATILITY.id,
+  ...GOOD_SECONDARY_FOOD_IDS,
   SPELLS.WELL_FED_PRIMARY_FEAST.id,
   SPELLS.HEARTY_WELL_FED_PRIMARY_FEAST.id,
 ] satisfies number[];
