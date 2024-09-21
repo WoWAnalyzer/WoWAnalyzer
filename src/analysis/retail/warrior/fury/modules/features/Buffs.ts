@@ -17,7 +17,7 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: Object.entries(POTIONS).map(([, { id }]) => id),
+        spellId: Object.values(POTIONS).map(({ id }) => id),
         timelineHighlight: true,
       },
 
