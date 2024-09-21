@@ -397,78 +397,81 @@ const food = {
   },
   // #endregion Quik and easy - 328 Secondary Stats (30 Min) ------------------
 
-  /** 235 Crit Mastery */
+  // #region A Full Belly - 235 x 2 Secondary Stats ---------------------------
+  /** 235 Crit+Mastery */
   SALT_BAKED_SEAFOOD: {
     id: 461835,
     name: 'Salt Baked Seafood',
     icon: 'inv_misc_food_draenor_saltedskulker',
   },
-  /** 235 Crit Mastery */
+  /** 235 Crit+Mastery */
   HEARTY_SALT_BAKED_SEAFOOD: {
     id: 462208,
     name: 'Hearty Salt Baked Seafood',
     icon: 'inv_misc_food_draenor_saltedskulker',
   },
-  /** 235 Versatility Mastery */
+  /** 235 Versatility+Mastery */
   MARINATED_TENDERLOINS: {
     id: 461845,
     name: 'Marinated Tenderloins',
     icon: 'inv_misc_food_meat_cooked_02',
   },
-  /** 235 Versatility Mastery */
+  /** 235 Versatility+Mastery */
   HEARTY_MARINATED_TENDERLOINS: {
     id: 462209,
     name: 'Hearty Marinated Tenderloins',
     icon: 'inv_misc_food_meat_cooked_02',
   },
-  /** 235 Crit Versatility */
+  /** 235 Crit+Versatility */
   FISH_AND_CHIPS: {
     id: 461854,
     name: 'Fish and Chips',
     icon: 'inv_cooking_80_swampfishnchips',
   },
-  /** 235 Crit Versatility */
+  /** 235 Crit+Versatility */
   HEARTY_FISH_AND_CHIPS: {
     id: 462207,
     name: 'Hearty Fish and Chips',
     icon: 'inv_cooking_80_swampfishnchips',
   },
-  /** 235 Haste Mastery */
+  /** 235 Haste+Mastery */
   CHIPPY_TEA: {
     id: 461855,
     name: 'Chippy Tea',
     icon: 'inv_misc_food_vendor_roastedbarlytea',
   },
-  /** 235 Haste Mastery */
+  /** 235 Haste+Mastery */
   HEARTY_CHIPPY_TEA: {
     id: 462206,
     name: 'Hearty Chippy Tea',
     icon: 'inv_misc_food_vendor_roastedbarlytea',
   },
-  /** 235 Haste Versatility */
+  /** 235 Haste+Versatility */
   SWEET_AND_SPICY_SOUP: {
     id: 461856,
     name: 'Sweet and Spicy Soup',
     icon: 'inv_misc_food_vendor_tangypeachyogurt',
   },
-  /** 235 Haste Versatility */
+  /** 235 Haste+Versatility */
   HEARTY_SWEET_AND_SPICY_SOUP: {
     id: 462205,
     name: 'Hearty Sweet and Spicy Soup',
     icon: 'inv_misc_food_vendor_tangypeachyogurt',
   },
-  /** 235 Haste Crit */
+  /** 235 Haste+Crit */
   DEEPFIN_PATTY: {
     id: 461857,
     name: 'Deepfin Patty',
     icon: 'inv_misc_food_vendor_poundedricecakes',
   },
-  /** 235 Haste Crit */
+  /** 235 Haste+Crit */
   HEARTY_DEEPFIN_PATTY: {
     id: 462204,
     name: 'Hearty Deepfin Patty',
     icon: 'inv_misc_food_vendor_poundedricecakes',
   },
+  // #endregion A Full Belly - 235 x 2 Secondary Stats ------------------------
+
   /** 328 Mastery */
   SALTY_DOG: {
     id: 461858,

@@ -37,6 +37,24 @@ const SNACKS_QUICK_AND_EASY = [
 ] satisfies number[];
 
 /**
+ * 235 of two secondary stats for 60 minutes
+ */
+const FULL_BELLY_DUAL_SECONDARY = [
+  SPELLS.CHIPPY_TEA.id,
+  SPELLS.DEEPFIN_PATTY.id,
+  SPELLS.FISH_AND_CHIPS.id,
+  SPELLS.HEARTY_CHIPPY_TEA.id,
+  SPELLS.HEARTY_DEEPFIN_PATTY.id,
+  SPELLS.HEARTY_FISH_AND_CHIPS.id,
+  SPELLS.HEARTY_MARINATED_TENDERLOINS.id,
+  SPELLS.HEARTY_SALT_BAKED_SEAFOOD.id,
+  SPELLS.HEARTY_SWEET_AND_SPICY_SOUP.id,
+  SPELLS.MARINATED_TENDERLOINS.id,
+  SPELLS.SALT_BAKED_SEAFOOD.id,
+  SPELLS.SWEET_AND_SPICY_SOUP.id,
+];
+
+/**
  * 469 Secondary Stat. There's both food that gives your lowest secondary stat
  * and food that gives your highest. They however give the same effects, so we
  * count both as good.
@@ -68,16 +86,6 @@ const LOWER_FOOD_IDS = [
 
 const MID_TIER_FOOD_IDS = [
   ...SNACKS_QUICK_AND_EASY,
-  SPELLS.SALT_BAKED_SEAFOOD.id,
-  SPELLS.HEARTY_SALT_BAKED_SEAFOOD.id,
-  SPELLS.MARINATED_TENDERLOINS.id,
-  SPELLS.HEARTY_MARINATED_TENDERLOINS.id,
-  SPELLS.FISH_AND_CHIPS.id,
-  SPELLS.HEARTY_FISH_AND_CHIPS.id,
-  SPELLS.CHIPPY_TEA.id,
-  SPELLS.HEARTY_CHIPPY_TEA.id,
-  SPELLS.SWEET_AND_SPICY_SOUP.id,
-  SPELLS.HEARTY_SWEET_AND_SPICY_SOUP.id,
   SPELLS.DEEPFIN_PATTY.id,
   SPELLS.HEARTY_DEEPFIN_PATTY.id,
   SPELLS.SALTY_DOG.id,
@@ -104,6 +112,9 @@ const MID_TIER_FOOD_IDS = [
 
 const HIGHER_FOOD_IDS = [
   ...GOOD_SECONDARY_FOOD_IDS,
+  // Once secondary stats value even out (as we get more gear),
+  // getting 235 of two secondary stats could be just as good or better than 469 of one.
+  ...FULL_BELLY_DUAL_SECONDARY,
   SPELLS.WELL_FED_PRIMARY_FEAST.id,
   SPELLS.HEARTY_WELL_FED_PRIMARY_FEAST.id,
 ] satisfies number[];
