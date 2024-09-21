@@ -88,9 +88,7 @@ class CircleOfHealing extends Analyzer {
           <SpellLink spell={TALENTS.CIRCLE_OF_HEALING_TALENT} />
         </b>{' '}
         is an extremely efficient group heal and should be cast anytime there are 4 or more injured
-        targets in the raid. If you are running the{' '}
-        <SpellLink spell={TALENTS.PRAYER_CIRCLE_TALENT} /> talent, make sure this is on cooldown
-        before casting <SpellLink spell={TALENTS.PRAYER_OF_HEALING_TALENT} />.
+        targets in the raid.
       </p>
     );
 
@@ -113,11 +111,18 @@ class CircleOfHealing extends Analyzer {
       <div>
         <strong> Circle of Healing cast breakdown</strong>
         <small>
-          {' '}
-          - <span style={{ color: GoodColor }}>Green</span> is a good cast,
-          <span style={{ color: OkColor }}>Yellow</span> is a cast with very high overheal, and{' '}
-          <span style={{ color: BadColor }}>Red</span> is a cast where less than the maximum number
-          of targets were hit.
+          <ul>
+            <li>
+              <span style={{ color: GoodColor }}>Green</span> is a good cast.
+            </li>
+            <li>
+              <span style={{ color: OkColor }}>Yellow</span> is an ok cast with high overheal.
+            </li>
+            <li>
+              <span style={{ color: BadColor }}>Red</span> is a bad cast with less than max targets
+              hit.
+            </li>
+          </ul>
         </small>
         <GradiatedPerformanceBar good={goodCasts} ok={highOverhealCasts} bad={badCasts} />
         <br />

@@ -8,12 +8,13 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { SpellLink } from 'interface';
-import CastEfficiencyPanel from 'interface/guide/components/CastEfficiencyPanel';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/priest/holy/Guide';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import EOLAttrib from '../../core/EchoOfLightAttributor';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
+import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
+import { GapHighlight } from 'parser/ui/CooldownBar';
 
 // Example Log: /report/hRd3mpK1yTQ2tDJM/1-Mythic+MOTHER+-+Kill+(2:24)/14-丶寶寶小喵
 class Halo extends Analyzer {
@@ -72,7 +73,13 @@ class Halo extends Analyzer {
       </p>
     );
 
-    const data = <CastEfficiencyPanel spell={SPELLS.HALO_TALENT} useThresholds />;
+    const data = (
+      <CastEfficiencyBar
+        spell={SPELLS.HALO_TALENT}
+        gapHighlightMode={GapHighlight.FullCooldown}
+        useThresholds
+      />
+    );
 
     return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
