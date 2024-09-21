@@ -1,7 +1,7 @@
 import { SubSection, useAnalyzer, useInfo } from 'interface/guide/index';
 import EnchantChecker from 'parser/shared/modules/items/EnchantChecker';
 import EnchantmentBoxRow from 'interface/guide/components/Preparation/EnchantmentSubSection/EnchantmentBoxRow';
-import { Enchant } from 'common/SPELLS/Spell';
+import { Enchant } from 'common/ITEMS/Item';
 
 interface Props {
   recommendedEnchantments?: Record<number, Enchant[]>;

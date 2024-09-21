@@ -1,5 +1,6 @@
 import { Section } from 'interface/guide';
-import Spell, { Enchant } from 'common/SPELLS/Spell';
+import Spell from 'common/SPELLS/Spell';
+import { Enchant } from 'common/ITEMS/Item';
 
 import EnchantmentSubSection from './EnchantmentSubSection';
 import ConsumablesSubSection from './ConsumablesSubSection';
