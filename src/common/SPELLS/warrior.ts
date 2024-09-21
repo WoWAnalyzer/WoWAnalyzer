@@ -33,6 +33,16 @@ const spells = {
     name: 'Charge',
     icon: 'ability_warrior_charge',
   },
+  SHIELD_CHARGE_SHARED: {
+    id: 385953,
+    name: 'Shield Charge',
+    icon: 'ability_warrior_shieldcharge',
+  },
+  SHIELD_CHARGE: {
+    id: 385954,
+    name: 'Shield Charge',
+    icon: 'ability_warrior_shieldcharge',
+  },
 
   // have to double check
   CHARGE_SLOW: {
@@ -661,21 +671,17 @@ const spells = {
     icon: 'ability_warrior_shieldguard',
   },
 
+  // Mountain Thane
   THUNDER_BLAST: {
     id: 435222,
     name: 'Thunder Blast',
     icon: 'warrior_talent_icon_bloodandthunder',
   },
-  SHIELD_CHARGE_SHARED: {
-    id: 385953,
-    name: 'Shield Charge',
-    icon: 'ability_warrior_shieldcharge',
+  BURST_OF_POWER_BUFF: {
+    id: 437121,
+    name: 'Burst of Power',
+    icon: 'shaman_pvp_thundercharge',
   },
-  SHIELD_CHARGE: {
-    id: 385954,
-    name: 'Shield Charge',
-    icon: 'ability_warrior_shieldcharge',
-  }
 } satisfies Record<string, Spell>;
 
 export default spells;

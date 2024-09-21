@@ -94,7 +94,9 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.HEROIC_THROW.id,
-        enabled: !combatant.hasTalent(TALENTS.SHATTERING_THROW_TALENT) && !combatant.hasTalent(TALENTS.WRECKING_THROW_TALENT),
+        enabled:
+          !combatant.hasTalent(TALENTS.SHATTERING_THROW_TALENT) &&
+          !combatant.hasTalent(TALENTS.WRECKING_THROW_TALENT),
         gcd: {
           base: 1500,
         },
@@ -144,8 +146,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.BERSERKER_SHOUT_TALENT.id,
-        enabled:
-          combatant.hasTalent(TALENTS.BERSERKER_SHOUT_TALENT),
+        enabled: combatant.hasTalent(TALENTS.BERSERKER_SHOUT_TALENT),
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 60,
       },
@@ -167,7 +168,7 @@ class Abilities extends CoreAbilities {
         cooldown: 20,
       },
       {
-        spell: TALENTS.HEROIC_LEAP_TALENT.id,
+        spell: SPELLS.HEROIC_LEAP.id,
         enabled: combatant.hasTalent(TALENTS.HEROIC_LEAP_TALENT),
         category: SPELL_CATEGORY.HIDDEN,
         cooldown: 45 - (combatant.hasTalent(TALENTS.BOUNDING_STRIDE_TALENT) ? 15 : 0),
