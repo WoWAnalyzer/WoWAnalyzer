@@ -472,6 +472,7 @@ const food = {
   },
   // #endregion A Full Belly - 235 x 2 Secondary Stats ------------------------
 
+  // #region A Full Belly - 328 Secondary Stats (60min) -----------------------
   /** 328 Mastery */
   SALTY_DOG: {
     id: 461858,
@@ -520,6 +521,9 @@ const food = {
     name: 'Hearty Zesty Nibblers',
     icon: 'inv_misc_food_86_basilisk',
   },
+  // #endregion A Full Belly - 328 Secondary Stats (60min) --------------------
+
+  // #region A Full Belly - Stamina + 223 Primary -----------------------------
   /** 446 Stamina, 223 Intellect */
   STUFFED_CAVE_PEPPERS: {
     id: 461922,
@@ -550,12 +554,15 @@ const food = {
     name: 'Sizzling Honey Roast',
     icon: 'inv_cooking_100_roastduck',
   },
-  /** 446 Stamina, 156(?) Strength */
+  /** 446 Stamina, 223 Strength */
   HEARTY_SIZZLING_HONEY_ROAST: {
     id: 462197,
     name: 'Hearty Sizzling Honey Roast',
     icon: 'inv_cooking_100_roastduck',
   },
+  // #endregion A Full Belly - Stamina + 223 Primary --------------------------
+
+  // #region A Full Belly - Stamina -------------------------------------------
   /** 892 Stamina */
   ANGLERS_DELIGHT: {
     id: 461927,
@@ -580,6 +587,9 @@ const food = {
     name: 'Hearty Tender Twilight Jerky',
     icon: 'inv_misc_food_79',
   },
+  // #endregion A Full Belly - Stamina ----------------------------------------
+
+  // #region A Full Belly - Stamina + 156 Primary -----------------------------
   /** 312 Stamina, 156 Strength */
   MEAT_AND_POTATOES: {
     id: 461947,
@@ -616,6 +626,7 @@ const food = {
     name: 'Hearty Sweet and Sour Meatballs',
     icon: 'inv_misc_food_mango_ice',
   },
+  // #endregion A Full Belly - Stamina + 156 Primary --------------------------
 } satisfies Record<string, Spell>;
 
 export default food;
