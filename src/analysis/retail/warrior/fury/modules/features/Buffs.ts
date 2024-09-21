@@ -1,4 +1,4 @@
-// import POTIONS from 'common/SPELLS/thewarwithin/potions';
+import POTIONS from 'common/SPELLS/thewarwithin/potions';
 import SPELLS from 'common/SPELLS/warrior';
 import TALENTS from 'common/TALENTS/warrior';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
@@ -16,10 +16,10 @@ class Buffs extends CoreAuras {
         spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),
         timelineHighlight: true,
       },
-      // {
-      //   spellId: Object.entries(POTIONS).map(([, { id }]) => id),
-      //   timelineHighlight: true,
-      // },
+      {
+        spellId: Object.entries(POTIONS).map(([, { id }]) => id),
+        timelineHighlight: true,
+      },
 
       {
         spellId: SPELLS.ENRAGE.id,
