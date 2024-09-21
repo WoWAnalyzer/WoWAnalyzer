@@ -24,6 +24,12 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
       branch: GameBranch.Retail,
     },
+    //need to add reapers mark
+    {
+      spell: talents.REAPERS_MARK_TALENT.id,
+      summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
+      branch: GameBranch.Retail,
+    }
   ];
 
   static ignoredSpells = [

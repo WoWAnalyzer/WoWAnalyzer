@@ -43,7 +43,9 @@ class KillingMachineEfficiency extends Analyzer {
   currentStacks = 0;
   procsWastedToResources = 0;
 
-  readonly fatalFixation = this.selectedCombatant.hasTalent(talents.FATAL_FIXATION_TALENT);
+  //readonly fatalFixation = this.selectedCombatant.hasTalent(talents.FATAL_FIXATION_TALENT);
+  //this was throwing an error. Fatal fixation, which allows killing machine to have 2 stacks, is now baseline I believe
+  readonly fatalFixation = true;
 
   constructor(options: Options) {
     super(options);
@@ -200,6 +202,7 @@ class KillingMachineEfficiency extends Analyzer {
   }
 
   get guideSubsection(): JSX.Element {
+    console.log("AHHHHHHHHHHHHHHHHHHHHH")
     const goodKms = {
       count:
         this.kmProcs - this.expiredKMProcs - this.refreshedKMProcs - this.procsWastedToResources,

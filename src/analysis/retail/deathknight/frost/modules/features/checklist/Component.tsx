@@ -37,6 +37,7 @@ const FrostDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: Ch
         }
       >
         <AbilityRequirement spell={talents.PILLAR_OF_FROST_TALENT.id} />
+        <AbilityRequirement spell={talents.REAPERS_MARK_TALENT.id} />
         {combatant.hasTalent(talents.BREATH_OF_SINDRAGOSA_TALENT) && (
           <AbilityRequirement spell={talents.BREATH_OF_SINDRAGOSA_TALENT.id} />
         )}
