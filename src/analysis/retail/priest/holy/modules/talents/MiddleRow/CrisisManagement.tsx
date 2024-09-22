@@ -11,6 +11,8 @@ import Events, { HealEvent } from 'parser/core/Events';
 import { CRISIS_MANAGEMENT_PER_RANK, HOLY_DIRECT_HEALS } from '../../../constants';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import HIT_TYPES from 'game/HIT_TYPES';
+import SpellLink from 'interface/SpellLink';
+import SPELLS from 'common/SPELLS';
 
 class CrisisManagement extends Analyzer {
   static dependencies = {
@@ -62,6 +64,22 @@ class CrisisManagement extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(99)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
+        tooltip={
+          <>
+            <div>
+              Notably this module currently is missing the contributions to{' '}
+              <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />,{' '}
+              <SpellLink spell={TALENTS_PRIEST.BINDING_HEALS_TALENT} /> and{' '}
+              <SpellLink spell={TALENTS_PRIEST.TRAIL_OF_LIGHT_TALENT} />, which can undervalue it.
+            </div>{' '}
+            <br />
+            <div>
+              This value is approximated by attributing a percentage of each crit based on{' '}
+              <SpellLink spell={TALENTS_PRIEST.CRISIS_MANAGEMENT_TALENT} /> compared to the player's{' '}
+              overall crit value at that moment.
+            </div>
+          </>
+        }
       >
         <TalentSpellText talent={TALENTS_PRIEST.CRISIS_MANAGEMENT_TALENT}>
           <ItemPercentHealingDone amount={this.cmTotal} />
