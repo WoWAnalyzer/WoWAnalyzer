@@ -244,13 +244,13 @@ const spells = {
   //THERES TWO DIFFERENT EXTERMINATE IDS I HAVE NO IDEA WHY THEY WOULD DO THAT
   EXTERMINATE: {
     id: 441424,
-    name : 'Exterminate',
-    icon: 'inv_polearm_2h_titanargus_d_01'
+    name: 'Exterminate',
+    icon: 'inv_polearm_2h_titanargus_d_01',
   },
   EXTERMINATE_TWO: {
     id: 441426,
-    name : 'Exterminate',
-    icon: 'inv_polearm_2h_titanargus_d_01'
+    name: 'Exterminate',
+    icon: 'inv_polearm_2h_titanargus_d_01',
   },
 
   // Unholy:

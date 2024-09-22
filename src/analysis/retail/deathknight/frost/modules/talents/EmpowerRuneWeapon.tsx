@@ -40,11 +40,11 @@ export default class EmpowerRuneWeapon extends Analyzer {
     this.currentTimestamp = 0;
 
     //throwing an error. These talents no longer exist.
-    //Would love to see if this has downstream effects LMAO 
-/*     this.active =
+    //Would love to see if this has downstream effects LMAO
+    /*     this.active =
       this.selectedCombatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_SHARED_TALENT) ||
       this.selectedCombatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_FROST_TALENT); */
-    this.active = this.selectedCombatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_TALENT)
+    this.active = this.selectedCombatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_TALENT);
 
     this.addEventListener(
       Events.resourcechange.by(SELECTED_PLAYER).spell(spells.EMPOWER_RUNE_WEAPON),

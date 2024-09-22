@@ -45,8 +45,9 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
               wasting any of the resources granted.
               {info.combatant.hasTalent(talents.HORN_OF_WINTER_TALENT) &&
                 modules.hornOfWinter.guideCastBreakdown}
-                {(info.combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_TALENT)) && modules.empowerRuneWeapon.guideCastBreakdown}
-{/*            THIS WAS THROWING AN ERROR BECAUSE EMPOWER RUNE WEAPON TALENT HAS BEEN MODIFIED   
+              {info.combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_TALENT) &&
+                modules.empowerRuneWeapon.guideCastBreakdown}
+              {/*            THIS WAS THROWING AN ERROR BECAUSE EMPOWER RUNE WEAPON TALENT HAS BEEN MODIFIED   
               {(info.combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_SHARED_TALENT) || info.combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_FROST_TALENT)) && modules.empowerRuneWeapon.guideCastBreakdown}
              */}
             </span>
@@ -62,9 +63,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         <SubSection title="Killing Machine">
           {modules.killingMachineEfficiency.guideSubsection}
         </SubSection>
-        <SubSection title="Rime">
-          {modules.rimeEfficiency.guideSubsection}
-        </SubSection>
+        <SubSection title="Rime">{modules.rimeEfficiency.guideSubsection}</SubSection>
       </Section>
       <Section title="Cooldowns">
         <CooldownsSubsection modules={modules} events={events} info={info} />
@@ -90,7 +89,7 @@ function CooldownsSubsection({ modules, events, info }: GuideProps<typeof Combat
           />
         </div>
       )}
-    {/* adding reapers mark talent */}
+      {/* adding reapers mark talent */}
       {info.combatant.hasTalent(talents.REAPERS_MARK_TALENT) && (
         <div className="flex-main chart" style={{ padding: 5 }}>
           <CastEfficiencyBar
@@ -144,7 +143,7 @@ function CooldownsSubsection({ modules, events, info }: GuideProps<typeof Combat
       )}
       {/* changing  EMPOWER_RUNE_WEAPON_SHARED_TALENT to EMPOWER_RUNE_WEAPON_TALENT*/}
       {/* also removing ||info.combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_SHARED_TALENT) from before the &&*/}
-      {(info.combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_TALENT)) && (
+      {info.combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_TALENT) && (
         <div className="flex-main chart" style={{ padding: 5 }}>
           <CastEfficiencyBar
             spellId={spells.EMPOWER_RUNE_WEAPON.id}

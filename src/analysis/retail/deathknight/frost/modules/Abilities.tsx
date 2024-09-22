@@ -25,7 +25,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 0,
       },
       {
-      //need to modify this, EPW is no longer baseline, it is a talent
+        //need to modify this, EPW is no longer baseline, it is a talent
         spell: SPELLS.EMPOWER_RUNE_WEAPON.id,
         buffSpellId: SPELLS.EMPOWER_RUNE_WEAPON.id,
         category: SPELL_CATEGORY.COOLDOWNS,
@@ -205,7 +205,7 @@ class Abilities extends CoreAbilities {
         },
         enabled: combatant.hasTalent(talents.REAPERS_MARK_TALENT),
       },
-/*       {
+      /*       {
         spell: talents.EXTERMINATE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 45,
@@ -214,13 +214,12 @@ class Abilities extends CoreAbilities {
         },
         enabled: combatant.hasTalent(talents.EXTERMINATE_TALENT),
       }, */
-      
 
       // DEFENSIVE
-      
+
       //AMS is no longer a talent, it is a baseline ability.
       //Keeping this code blocked out for reference
-/*       {
+      /*       {
         spell: talents.ANTI_MAGIC_SHELL_TALENT.id,
         buffSpellId: talents.ANTI_MAGIC_SHELL_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
@@ -233,7 +232,7 @@ class Abilities extends CoreAbilities {
       //something very annoying, some people import the talents as
       //"TALENTS" and others as "talents"
       //should keep things consistent fellas :(
-      
+
       //I dont know if we need this, but the unyielding will talent will increase this cooldown by 20 seconds
       //and it removes all harmful magic effects.
       //Blood does not have it, but maybe we include it here?
@@ -287,11 +286,11 @@ class Abilities extends CoreAbilities {
         },
         charges: combatant.hasTalent(talents.DEATHS_ECHO_TALENT) ? 2 : 1,
       },
-      
+
       //CoI is no longer a talent, it is a baseline ability.
       //Keeping this code blocked out for reference
       //will need to figure out the cold heart section though
-/*       {
+      /*       {
         spell: talents.CHAINS_OF_ICE_TALENT.id,
         category: combatant.hasTalent(talents.COLD_HEART_TALENT)
           ? SPELL_CATEGORY.ROTATIONAL
@@ -303,9 +302,9 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CHAINS_OF_ICE.id,
         category: SPELL_CATEGORY.UTILITY,
-        gcd:{
-          base:1500,
-        }
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.DEATHS_ADVANCE.id,
