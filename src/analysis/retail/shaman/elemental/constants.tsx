@@ -21,3 +21,8 @@ export enum NORMALIZER_ORDER {
   Prepull = 10,
   EventOrder = 20,
 }
+
+export enum EVENT_LINKS {
+  Stormkeeper = 'stormkeeper',
+  CallOfTheAncestors = 'call-of-the-ancestor',
+}

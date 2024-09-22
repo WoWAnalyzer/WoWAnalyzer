@@ -8,8 +8,10 @@ import Events, {
   EndChannelEvent,
   EventType,
   FightEndEvent,
+  GetRelatedEvent,
   GlobalCooldownEvent,
   RemoveBuffEvent,
+  RemoveBuffStackEvent,
   SummonEvent,
 } from 'parser/core/Events';
 import MajorCooldown, { CooldownTrigger } from 'parser/core/MajorCooldowns/MajorCooldown';
@@ -26,6 +28,7 @@ import Casts from 'interface/report/Results/Timeline/Casts';
 import { formatNumber, formatPercentage } from 'common/format';
 import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import { UptimeIcon } from 'interface/icons';
+import { EVENT_LINKS } from '../../../constants';
 
 type Timeline = {
   start: number;
@@ -87,9 +90,11 @@ class CallOfTheAncestors extends MajorCooldown<CallAncestor> {
       this.summonAncestor,
     );
 
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.CALL_OF_THE_ANCESTORS_BUFF),
-      this.onAncestorEnd,
+    [Events.removebuff, Events.removebuffstack].forEach((filter) =>
+      this.addEventListener(
+        filter.by(SELECTED_PLAYER).spell(SPELLS.CALL_OF_THE_ANCESTORS_BUFF),
+        this.onAncestorEnd,
+      ),
     );
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onAncestorDamage);
@@ -110,7 +115,7 @@ class CallOfTheAncestors extends MajorCooldown<CallAncestor> {
     this.windows.forEach((window) => this.recordCooldown(window));
   }
 
-  onAncestorEnd(event: RemoveBuffEvent) {
+  onAncestorEnd(event: RemoveBuffStackEvent | RemoveBuffEvent) {
     if (this.activeWindows.length > 0) {
       // decrement the ancestor count from the oldest active window
       const window = this.activeWindows[0];
@@ -139,9 +144,15 @@ class CallOfTheAncestors extends MajorCooldown<CallAncestor> {
    */
   createAncestorWindow(event: CastEvent | SummonEvent): CallAncestor[] {
     const relatedWindows = this.activeWindows.filter(
-      (window) => event.timestamp - window.timeline.start < RELATED_WINDOW_BUFFER,
+      (window) => event.timestamp - window.event.timestamp < RELATED_WINDOW_BUFFER,
     );
     if (relatedWindows.length > 0) {
+      if (
+        event.type === EventType.Summon &&
+        !GetRelatedEvent(event, EVENT_LINKS.CallOfTheAncestors)
+      ) {
+        relatedWindows.forEach((window) => (window.activeAncestors += 1));
+      }
       return relatedWindows;
     }
     const window: CallAncestor = {
@@ -296,22 +307,27 @@ class CallOfTheAncestors extends MajorCooldown<CallAncestor> {
   }
 
   private explainAncestors(cast: CallAncestor): ChecklistUsageInfo {
+    // aggregate each ancestor's damage for each spell they cast
     const ancestorSpells = [...cast.ancestors].reduce<Map<number, Map<number, number>>>(
       (acc, ancestor) => {
-        const spells = this.ancestorSpells.get(ancestor) ?? [];
-        const damageBySpell = spells.reduce<Map<number, number>>((dmgAcc, event) => {
+        // each damage event from the current ancestor
+        const damageEvents = this.ancestorSpells.get(ancestor) ?? [];
+        // group damage by spell id
+        const damageBySpell = damageEvents.reduce<Map<number, number>>((dmgAcc, event) => {
           dmgAcc.set(
             event.ability.guid,
             (dmgAcc.get(event.ability.guid) ?? 0) + event.amount + (event.absorbed || 0),
           );
           return dmgAcc;
         }, new Map<number, number>());
+        // add to result
         acc.set(ancestor, damageBySpell);
         return acc;
       },
       new Map<number, Map<number, number>>(),
     );
 
+    // total damage dealt by ancestors in this window
     const totalDamage = [...ancestorSpells].reduce((total, [_, amounts]) => {
       total += [...amounts.values()].reduce((acc, value) => (acc += value), 0);
       return total;
