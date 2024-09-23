@@ -2485,3 +2485,9 @@ export const Taevis: Contributor = {
     },
   ],
 };
+
+export const SebShady: Contributor = {
+  nickname: 'SebShady',
+  github: 'SebShady42',
+  discord: 'SebShady',
+};
