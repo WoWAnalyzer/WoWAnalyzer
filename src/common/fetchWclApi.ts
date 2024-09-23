@@ -268,6 +268,6 @@ export async function fetchTable<T extends WCLResponseJSON>(
   return fetchWcl(`report/tables/${tableName}/${reportCode}`, {
     start: fightStart,
     end: fightEnd,
-    sourceid: sourceId,
+    actorid: sourceId,
   });
 }
