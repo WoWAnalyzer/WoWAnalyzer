@@ -115,7 +115,6 @@ class CelestialConduit extends Analyzer {
         ? MISTWEAVER_HEART_SPELLS
         : WINDWALKER_HEART_SPELLS;
     spellList.forEach((spellId) => {
-      console.log(`Original ID ${spellId}`);
       result.set(spellId, this.spellUsable.cooldownRemaining(spellId));
     });
     return result;
