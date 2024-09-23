@@ -5,6 +5,7 @@ import { Trevor, Vohrr } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date (2024, 9, 22), <>Add guide section for <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_TALENT}/></>, Trevor),
   change(date (2024, 9, 17), <>Add check for <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT}/> to <SpellLink spell={TALENTS_MONK.STRENGTH_OF_THE_BLACK_OX_TALENT}/> module</>, Trevor),
   change(date (2024, 9, 15), <>Fix <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT}/> cooldown duration</>, Trevor),
   change(date (2024, 9, 14), <>Add <SpellLink spell={TALENTS_MONK.JADE_BOND_TALENT}/> advice to <SpellLink spell={TALENTS_MONK.REVIVAL_TALENT}/> guide section</>, Trevor),
