@@ -19,11 +19,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {modules.fistsofFury.guideSubsection}
         {modules.strikeoftheWindlord.guideSubsection}
       </Section>
-      <Section title="Major cooldowns">
-        {modules.invokeXuen.guideSubsection}
-        {info.combatant.hasTalent(TALENTS_MONK.CELESTIAL_CONDUIT_TALENT) &&
-          modules.celestialConduit.guideCastBreakdown}
-      </Section>
+      <Section title="Major cooldowns">{modules.invokeXuen.guideSubsection}</Section>
       <Section title="Core Rotation">
         <SubSection title="Overview">
           The priority list provided here is a rough outline of actions taken, however as always you

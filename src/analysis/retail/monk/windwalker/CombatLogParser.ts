@@ -48,7 +48,6 @@ import {
   FistsOfFuryLinkNormalizer,
   FistsOfFuryNormalizer,
 } from './normalizers/FistsOfFuryNormalizer';
-import CelestialConduit from '../shared/hero/ConduitOfTheCelestials/talents/CelestialConduit';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -80,9 +79,6 @@ class CombatLogParser extends CoreCombatLogParser {
     hitCombo: HitCombo,
     strikeoftheWindlord: StrikeoftheWindlord,
     chiBurst: ChiBurst,
-
-    // Hero Talents:
-    celestialConduit: CelestialConduit,
 
     // Guide helpers
     hitComboTracker: HitComboTracker,

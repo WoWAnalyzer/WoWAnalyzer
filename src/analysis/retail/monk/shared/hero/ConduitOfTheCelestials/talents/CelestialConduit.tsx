@@ -73,7 +73,7 @@ class CelestialConduit extends Analyzer {
     super(options);
     this.active =
       this.selectedCombatant.hasTalent(TALENTS_MONK.CELESTIAL_CONDUIT_TALENT) &&
-      this.selectedCombatant.specId === SPECS.MISTWEAVER_MONK.id;
+      this.selectedCombatant.spec === SPECS.MISTWEAVER_MONK;
 
     this.addEventListener(
       Events.BeginChannel.by(SELECTED_PLAYER).spell(TALENTS_MONK.CELESTIAL_CONDUIT_TALENT),
@@ -155,16 +155,18 @@ class CelestialConduit extends Analyzer {
     const totalHits = groupHits.length || 1;
     const increase =
       CELESTIAL_CONDUIT_INCREASE_PER_TARGET * Math.min(totalHits, CELESTIAL_CONDUIT_MAX_TARGETS);
-
+    // prepull
+    if (!this.castInfoList.length) {
+      this.castInfoList.push({
+        cancelled: false,
+        cooldownMap: undefined,
+        targetsHit: [],
+        timestamp: event.timestamp,
+      });
+    }
     if (event.type === EventType.Heal) {
-      this.healingIncreaseDataPoints.push(increase);
-      if (this.selectedCombatant.spec === SPECS.MISTWEAVER_MONK) {
-        this.castInfoList.at(-1)!.targetsHit.push(totalHits);
-      }
+      this.castInfoList.at(-1)!.targetsHit.push(totalHits);
     } else {
-      if (this.selectedCombatant.spec === SPECS.WINDWALKER_MONK) {
-        this.castInfoList.at(-1)!.targetsHit.push(totalHits);
-      }
       this.damageIncreaseDataPoints.push(increase);
     }
   }
