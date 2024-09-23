@@ -111,7 +111,7 @@ class CelestialConduit extends Analyzer {
   private getCooldownMap(): Map<number, number> {
     const result = new Map<number, number>();
     const spellList =
-      this.selectedCombatant.specId === SPECS.MISTWEAVER_MONK.id
+      this.selectedCombatant.spec === SPECS.MISTWEAVER_MONK
         ? MISTWEAVER_HEART_SPELLS
         : WINDWALKER_HEART_SPELLS;
     spellList.forEach((spellId) => {
