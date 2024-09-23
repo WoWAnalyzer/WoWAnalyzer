@@ -46,6 +46,10 @@ interface CastInfo {
   targetsHit: number[];
 }
 
+const LESS_IMPORTANT_CDR_SPELLS: Set<number> = new Set<number>([
+  TALENTS_MONK.LIFE_COCOON_TALENT.id,
+]);
+
 class CelestialConduit extends Analyzer {
   static dependencies = {
     haste: Haste,
@@ -149,13 +153,18 @@ class CelestialConduit extends Analyzer {
     }
     // groupHits will be empty if the event passed is the only hit
     const totalHits = groupHits.length || 1;
-    this.castInfoList.at(-1)!.targetsHit.push(totalHits);
     const increase =
       CELESTIAL_CONDUIT_INCREASE_PER_TARGET * Math.min(totalHits, CELESTIAL_CONDUIT_MAX_TARGETS);
 
     if (event.type === EventType.Heal) {
       this.healingIncreaseDataPoints.push(increase);
+      if (this.selectedCombatant.spec === SPECS.MISTWEAVER_MONK) {
+        this.castInfoList.at(-1)!.targetsHit.push(totalHits);
+      }
     } else {
+      if (this.selectedCombatant.spec === SPECS.WINDWALKER_MONK) {
+        this.castInfoList.at(-1)!.targetsHit.push(totalHits);
+      }
       this.damageIncreaseDataPoints.push(increase);
     }
   }
@@ -183,11 +192,17 @@ class CelestialConduit extends Analyzer {
           <PerformanceMark perf={cancelPerf} />
         </>
       ),
+      details: <>{castInfo.cancelled ? 'No' : 'Yes'}</>,
     };
     const cooldownPerfs: QualitativePerformance[] = [];
     const cooldownItems: CooldownExpandableItem[] = [];
     castInfo.cooldownMap!.forEach((cooldown, spellId) => {
-      const perf = cooldown === 0 ? QualitativePerformance.Fail : QualitativePerformance.Good;
+      const perf =
+        cooldown === 0
+          ? LESS_IMPORTANT_CDR_SPELLS.has(spellId)
+            ? QualitativePerformance.Ok
+            : QualitativePerformance.Fail
+          : QualitativePerformance.Good;
       cooldownPerfs.push(perf);
       cooldownItems.push({
         label: (
@@ -201,20 +216,23 @@ class CelestialConduit extends Analyzer {
             <PerformanceMark perf={perf} />
           </>
         ),
+        details: <>{cooldown === 0 ? 'No' : 'Yes'}</>,
       });
     });
     const avgTargetsHit =
       castInfo.targetsHit.reduce((prev, cur) => {
         return prev + cur;
       }) / castInfo.targetsHit.length;
+
     const targetHitPerf = this.getTargetsHitPerf(avgTargetsHit);
     const targetsHitItem: CooldownExpandableItem = {
       label: <>Average targets hit per pulse</>,
       result: (
         <>
-          {avgTargetsHit.toFixed(1)} <PerformanceMark perf={targetHitPerf} />
+          <PerformanceMark perf={targetHitPerf} />
         </>
       ),
+      details: <>{avgTargetsHit.toFixed(1)} </>,
     };
     return {
       perf: getAveragePerf([cancelPerf, ...cooldownPerfs, targetHitPerf]),
@@ -241,10 +259,15 @@ class CelestialConduit extends Analyzer {
     const explanation = (
       <p>
         <strong>
-          <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} />
+          <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_TALENT} />
         </strong>
         <br />
-        Before casting <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_TALENT} />, make sure that.
+        Before casting <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_TALENT} />, make sure that
+        all spells reduced by <SpellLink spell={TALENTS_MONK.HEART_OF_THE_JADE_SERPENT_TALENT} />{' '}
+        are on cooldown so that the extra CDR granted when casting{' '}
+        <SpellLink spell={TALENTS_MONK.UNITY_WITHIN_TALENT} /> is not wasted. Additionally, make
+        sure to never cancel the spell and to hit at least 5 targets in order to get the maximum
+        healing/damage buff (up to 30%).
       </p>
     );
 
