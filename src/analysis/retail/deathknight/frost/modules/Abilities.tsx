@@ -205,37 +205,9 @@ class Abilities extends CoreAbilities {
         },
         enabled: combatant.hasTalent(talents.REAPERS_MARK_TALENT),
       },
-      /*       {
-        spell: talents.EXTERMINATE_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 45,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(talents.EXTERMINATE_TALENT),
-      }, */
 
       // DEFENSIVE
-
-      //AMS is no longer a talent, it is a baseline ability.
-      //Keeping this code blocked out for reference
-      /*       {
-        spell: talents.ANTI_MAGIC_SHELL_TALENT.id,
-        buffSpellId: talents.ANTI_MAGIC_SHELL_TALENT.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        gcd: null,
-        cooldown: combatant.hasTalent(talents.ANTI_MAGIC_BARRIER_TALENT) ? 40 : 60,
-        isDefensive: true,
-        enabled: combatant.hasTalent(talents.ANTI_MAGIC_SHELL_TALENT),
-      }, */
-      //code pulled from blood abilities.
-      //something very annoying, some people import the talents as
-      //"TALENTS" and others as "talents"
-      //should keep things consistent fellas :(
-
-      //I dont know if we need this, but the unyielding will talent will increase this cooldown by 20 seconds
-      //and it removes all harmful magic effects.
-      //Blood does not have it, but maybe we include it here?
+      //May require additional logic here for unyielding will
       {
         spell: SPELLS.ANTI_MAGIC_SHELL.id,
         buffSpellId: SPELLS.ANTI_MAGIC_SHELL.id,

@@ -47,18 +47,10 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
                 modules.hornOfWinter.guideCastBreakdown}
               {info.combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_TALENT) &&
                 modules.empowerRuneWeapon.guideCastBreakdown}
-              {/*            THIS WAS THROWING AN ERROR BECAUSE EMPOWER RUNE WEAPON TALENT HAS BEEN MODIFIED   
-              {(info.combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_SHARED_TALENT) || info.combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_FROST_TALENT)) && modules.empowerRuneWeapon.guideCastBreakdown}
-             */}
             </span>
           </SubSection>
         )}
       </Section>
-      {/*
-      THIS PART IS THROWING AN ERROR. NEED TO FIX KILLING MACHINE.
-      Wait, multiple parts are fucked.
-      Its the proc usage thats not working. We have KME and RE
-      */}
       <Section title="Proc Usage">
         <SubSection title="Killing Machine">
           {modules.killingMachineEfficiency.guideSubsection}
@@ -141,8 +133,6 @@ function CooldownsSubsection({ modules, events, info }: GuideProps<typeof Combat
           />
         </div>
       )}
-      {/* changing  EMPOWER_RUNE_WEAPON_SHARED_TALENT to EMPOWER_RUNE_WEAPON_TALENT*/}
-      {/* also removing ||info.combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_SHARED_TALENT) from before the &&*/}
       {info.combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_TALENT) && (
         <div className="flex-main chart" style={{ padding: 5 }}>
           <CastEfficiencyBar

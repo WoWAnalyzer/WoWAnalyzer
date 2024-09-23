@@ -240,8 +240,7 @@ const spells = {
     icon: 'inv_axe_114',
   },
 
-  //exterminate is a proc? It happens directly afte reaper's mark explodes. needs fixing.
-  //THERES TWO DIFFERENT EXTERMINATE IDS I HAVE NO IDEA WHY THEY WOULD DO THAT
+  //exterminate is a proc? It happens directly afte reaper's mark explodes.
   EXTERMINATE: {
     id: 441424,
     name: 'Exterminate',
