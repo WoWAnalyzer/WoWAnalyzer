@@ -76,7 +76,6 @@ import RisingMistBreakdown from './modules/features/RisingMistBreakdown';
 import CalmingCoalescence from './modules/spells/CalmingCoalescence';
 import LifeCocoon from './modules/spells/LifeCocoon';
 import SecretInfusion from './modules/spells/SecretInfusion';
-import CallToDominance from '../../../../parser/retail/modules/items/dragonflight/CallToDominance';
 import MWSpellManaCost from './modules/core/SpellManaCost';
 import ManaTeaSources from './modules/spells/ManaTeaSources';
 import EnergizingBrew from './modules/spells/EnergizingBrew';
@@ -92,6 +91,7 @@ import RestoreBalance from '../shared/hero/ConduitOfTheCelestials/talents/Restor
 import ConduitOfTheCelestialsEventLinks from '../shared/hero/ConduitOfTheCelestials/normalizers/ConduitOfTheCelestialsEventLinks';
 import CelestialConduitNormalizer from '../shared/hero/ConduitOfTheCelestials/normalizers/CelestialConduitNormalizer';
 import CelestialConduit from '../shared/hero/ConduitOfTheCelestials/talents/CelestialConduit';
+import StrengthOfTheBlackOx from './modules/heroTalents/StrengthOfTheBlackOx';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -199,13 +199,15 @@ class CombatLogParser extends CoreCombatLogParser {
     apl: AplCheck,
 
     // Borrowed Power
-    callToDominance: CallToDominance,
     t32TierSet: T32TierSet,
 
     // Mana Tab
     manaTracker: ManaTracker,
     hpmDetails: MistweaverHealingEfficiencyDetails,
     hpmTracker: HealingEfficiencyTracker,
+
+    // Hero Talents
+    strengthOfTheBlackOx: StrengthOfTheBlackOx,
   };
   static guide = Guide;
 }

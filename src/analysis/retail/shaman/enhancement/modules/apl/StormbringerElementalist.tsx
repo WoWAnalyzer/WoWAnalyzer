@@ -11,6 +11,7 @@ import {
   describe,
   or,
   spellCharges,
+  not,
 } from 'parser/shared/metrics/apl/conditions';
 import { MaxStacksMSW, minimumMaelstromWeaponStacks, AtLeastFiveMSW } from './Conditions';
 
@@ -23,6 +24,18 @@ export function stormbringerElementalist(combatant: Combatant): Apl {
           available and at 10 <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> stacks
         </>
       )),
+    },
+    {
+      spell: SPELLS.WINDSTRIKE_CAST,
+      condition: describe(
+        buffPresent(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT),
+        () => (
+          <>
+            during <SpellLink spell={TALENTS.ASCENDANCE_ENHANCEMENT_TALENT} />
+          </>
+        ),
+        '',
+      ),
     },
     {
       spell: TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT,
@@ -53,14 +66,18 @@ export function stormbringerElementalist(combatant: Combatant): Apl {
         and(buffPresent(SPELLS.TEMPEST_BUFF), minimumMaelstromWeaponStacks(6)),
         () => (
           <>
-            available and at least 5 <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> stacks
+            available and at least 6 <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> stacks
           </>
         ),
       ),
     },
     {
       spell: SPELLS.LIGHTNING_BOLT,
-      condition: MaxStacksMSW,
+      condition: describe(and(MaxStacksMSW, not(buffPresent(SPELLS.TEMPEST_BUFF))), () => (
+        <>
+          you have at least 10 <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> stacks
+        </>
+      )),
     },
     {
       spell: SPELLS.FLAME_SHOCK,

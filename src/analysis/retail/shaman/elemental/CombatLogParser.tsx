@@ -28,7 +28,6 @@ import FlashOfLightning from './modules/talents/FlashOfLightning';
 import SurgeOfPower from './modules/talents/SurgeOfPower';
 import ElementalOrbit from '../shared/talents/ElementalOrbit';
 import EarthenHarmony from '../restoration/modules/talents/EarthenHarmony';
-import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
 import ManaSpring from 'analysis/retail/shaman/shared/talents/ManaSpring';
 import ElementalGuide from './guide/ElementalGuide';
 import SpellMaelstromCost from './modules/core/SpellMaelstromCost';
@@ -42,6 +41,9 @@ import Tempest from '../shared/hero/stormbringer/Tempest';
 import StormbringerEventOrderNormalizer from '../shared/hero/stormbringer/normalizers/StormbringerEventOrderNormalizer';
 import StormbringerEventLinkNormalizer from '../shared/hero/stormbringer/normalizers/StormbringerEventLinkNormalizer';
 import EventLinkNormalizer from './modules/normalizers/EventLinkNormalizer';
+import CallOfTheAncestors from './modules/hero/farseer/CallOfTheAncestors';
+import ElementalPrepullNormalizer from './modules/normalizers/ElementalPrepullNormalizer';
+import EventOrderNormalizer from './modules/normalizers/EventOrderNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -56,6 +58,8 @@ class CombatLogParser extends CoreCombatLogParser {
     spenderWindow: SpenderWindow,
 
     eventLinkNormalizer: EventLinkNormalizer,
+    eventOrderNormalizer: EventOrderNormalizer,
+    elementalPrepullNormalizer: ElementalPrepullNormalizer,
 
     // Talents
     aftershock: Aftershock,
@@ -83,6 +87,8 @@ class CombatLogParser extends CoreCombatLogParser {
     stormbringerEventOrderNormalizer: StormbringerEventOrderNormalizer,
     stormbringerEventLinkNormalizer: StormbringerEventLinkNormalizer,
 
+    callOfTheAncestors: CallOfTheAncestors,
+
     maelstromTracker: MaelstromTracker,
     maelstromDetails: MaelstromDetails,
     maelstromGraph: MaelstromGraph,
@@ -90,7 +96,6 @@ class CombatLogParser extends CoreCombatLogParser {
     ankhNormalizer: AnkhNormalizer,
     checklist: Checklist,
     astralShift: AstralShift,
-    callToDominance: CallToDominance,
   };
 
   static guide = ElementalGuide;

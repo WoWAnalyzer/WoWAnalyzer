@@ -35,7 +35,6 @@ import TouchOfKarma from './modules/spells/TouchOfKarma';
 import AplCheck from 'analysis/retail/monk/windwalker/modules/apl/AplCheck';
 import DanceOfChiJiNormalizer from 'analysis/retail/monk/windwalker/modules/core/DanceOfChiJiNormalizer';
 import SpellUsable from 'analysis/retail/monk/windwalker/modules/core/SpellUsable';
-import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
 import Guide from './Guide';
 import ChiBurst from './modules/spells/ChiBurst';
 import RisingSunKick from './modules/spells/RisingSunKick';
@@ -45,20 +44,16 @@ import HitCombo from './modules/talents/HitCombo';
 import HitComboGraph from './modules/talents/HitComboGraph';
 import HitComboTracker from './modules/talents/HitComboTracker';
 import InvokeXuen from './modules/talents/InvokeXuen';
-import Serenity from './modules/talents/Serenity';
 import {
   FistsOfFuryLinkNormalizer,
   FistsOfFuryNormalizer,
 } from './normalizers/FistsOfFuryNormalizer';
-import T31WWTier from './modules/dragonflight/tier/T31WWTier';
-
-// Tier Set Bonuses
-// todo: add t29 tier sets
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
     globalCooldown: GlobalCooldown,
+
     mysticTouch: MysticTouch,
     spellUsable: SpellUsable,
     chiJiNormalizer: DanceOfChiJiNormalizer,
@@ -82,7 +77,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Talents:
     danceOfChiJi: DanceOfChiJi,
     hitCombo: HitCombo,
-    serenity: Serenity,
     strikeoftheWindlord: StrikeoftheWindlord,
     chiBurst: ChiBurst,
 
@@ -108,10 +102,6 @@ class CombatLogParser extends CoreCombatLogParser {
     invokersDelight: InvokersDelight,
     jadeIgnition: JadeIgnition,
     xuensBattleGear: XuensBattlegear,
-    callToDominance: CallToDominance,
-
-    // Tier sets:
-    t31wwtier: T31WWTier,
 
     // apl
     apl: AplCheck,

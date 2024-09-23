@@ -12,10 +12,13 @@ import {
   baseHolyWordCDR,
   chastiseHWCDR,
   energyCycleCDR,
+  HOLY_ENERGY_CYCLE_PROC,
+  HOLY_TWW_S1_4PC_CDR,
   LIGHT_OF_THE_NAARU_REDUCTION_PER_RANK,
   salvationHWCDR,
   sanctifyHWCDR,
   serenityHWCDR,
+  TWW_S1_HOLY_4PC_CDR_PROC,
   TWW_TIER1_2PC_CDR,
 } from '../../constants';
 
@@ -38,6 +41,11 @@ class HolyWordCDR extends Analyzer {
   private lotnMult = 1;
   private twwS1TierMult = 1;
 
+  private chastiseActive = false;
+  private sanctifyActive = false;
+  private salvationActive = false;
+  //serenity is always active
+
   constructor(options: Options) {
     super(options);
 
@@ -58,41 +66,68 @@ class HolyWordCDR extends Analyzer {
         0.5 * this.selectedCombatant.getTalentRank(TALENTS_PRIEST.VOICE_OF_HARMONY_TALENT);
     }
 
+    if (this.selectedCombatant.hasTalent(TALENTS_PRIEST.HOLY_WORD_CHASTISE_TALENT)) {
+      this.chastiseActive = true;
+    }
+
+    if (this.selectedCombatant.hasTalent(TALENTS_PRIEST.HOLY_WORD_SANCTIFY_TALENT)) {
+      this.sanctifyActive = true;
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS_PRIEST.HOLY_WORD_SALVATION_TALENT)) {
+      this.salvationActive = true;
+    }
+
     this.baseHolyWordCDR = this.lotnMult * this.twwS1TierMult;
   }
 
   public handleAny(event: CastEvent, specialEvent?: string): hwCDRBreakdown | undefined {
-    if (specialEvent === 'ENERGY_CYCLE') {
+    //energy cycle special events
+    if (specialEvent === HOLY_ENERGY_CYCLE_PROC) {
       return this.handleCDR(
-        event,
         energyCycleCDR.get(TALENTS.ENERGY_CYCLE_TALENT.id),
         TALENTS.HOLY_WORD_SANCTIFY_TALENT.id,
       );
     }
-    if (chastiseHWCDR.has(event.ability.guid)) {
+    // 4pc special events
+    if (
+      sanctifyHWCDR.has(event.ability.guid) &&
+      this.sanctifyActive &&
+      specialEvent === TWW_S1_HOLY_4PC_CDR_PROC
+    ) {
       return this.handleCDR(
-        event,
+        sanctifyHWCDR.get(event.ability.guid),
+        TALENTS.HOLY_WORD_SANCTIFY_TALENT.id,
+        specialEvent,
+      );
+    }
+    if (serenityHWCDR.has(event.ability.guid) && specialEvent === TWW_S1_HOLY_4PC_CDR_PROC) {
+      return this.handleCDR(
+        serenityHWCDR.get(event.ability.guid),
+        TALENTS.HOLY_WORD_SERENITY_TALENT.id,
+        specialEvent,
+      );
+    }
+    //base events
+    if (chastiseHWCDR.has(event.ability.guid) && this.chastiseActive) {
+      return this.handleCDR(
         chastiseHWCDR.get(event.ability.guid),
         TALENTS.HOLY_WORD_CHASTISE_TALENT.id,
       );
     }
-    if (sanctifyHWCDR.has(event.ability.guid)) {
+    if (sanctifyHWCDR.has(event.ability.guid) && this.sanctifyActive) {
       return this.handleCDR(
-        event,
         sanctifyHWCDR.get(event.ability.guid),
         TALENTS.HOLY_WORD_SANCTIFY_TALENT.id,
       );
     }
     if (serenityHWCDR.has(event.ability.guid)) {
       return this.handleCDR(
-        event,
         serenityHWCDR.get(event.ability.guid),
         TALENTS.HOLY_WORD_SERENITY_TALENT.id,
       );
     }
-    if (salvationHWCDR.has(event.ability.guid)) {
+    if (salvationHWCDR.has(event.ability.guid) && this.salvationActive) {
       return this.handleCDR(
-        event,
         salvationHWCDR.get(event.ability.guid),
         TALENTS.HOLY_WORD_SALVATION_TALENT.id,
       );
@@ -108,13 +143,14 @@ class HolyWordCDR extends Analyzer {
    */
 
   private handleCDR(
-    event: CastEvent, //future proof for tww s1 tier check
     hwMap: baseHolyWordCDR | undefined,
     hwToReduceId: number,
+    specialMod?: string,
   ): hwCDRBreakdown | undefined {
     let baseMult = 1;
     let modHolyWordCDR = this.baseHolyWordCDR;
     let apothMult = 1;
+    let tier4pcMult = 1;
 
     if (this.selectedCombatant.hasBuff(TALENTS.APOTHEOSIS_TALENT) && !hwMap?.apothDisable) {
       modHolyWordCDR *= 1 + APOTH_MULTIPIER;
@@ -123,6 +159,11 @@ class HolyWordCDR extends Analyzer {
 
     if (hwMap?.vohDependent) {
       baseMult = this.baseVohMult;
+    }
+
+    if (specialMod === '4PC') {
+      modHolyWordCDR *= 1 + HOLY_TWW_S1_4PC_CDR;
+      tier4pcMult *= 1 + HOLY_TWW_S1_4PC_CDR;
     }
 
     // At this point all modifiers should be settled, if blizzard ever adds a new modifier
@@ -148,6 +189,7 @@ class HolyWordCDR extends Analyzer {
         cdrFromLOTN: 0,
         cdrFromApoth: 0,
         cdrFromTwwTier: 0,
+        cdrFrom4pc: 0,
         vohAffectsBase: hwMap?.vohDependent,
         affectedSpell: hwToReduceId,
       };
@@ -162,6 +204,7 @@ class HolyWordCDR extends Analyzer {
       cdrFromLOTN: this.getCDRComponent(idealCDR, cdrScaler, this.lotnMult),
       cdrFromApoth: this.getCDRComponent(idealCDR, cdrScaler, apothMult),
       cdrFromTwwTier: this.getCDRComponent(idealCDR, cdrScaler, this.twwS1TierMult),
+      cdrFrom4pc: this.getCDRComponent(idealCDR, cdrScaler, tier4pcMult),
       vohAffectsBase: hwMap?.vohDependent,
       affectedSpell: hwToReduceId,
     };
@@ -182,6 +225,7 @@ interface hwCDRBreakdown {
   cdrFromLOTN: number;
   cdrFromApoth: number;
   cdrFromTwwTier: number;
+  cdrFrom4pc: number;
   vohAffectsBase: boolean | undefined;
   affectedSpell: number;
 }

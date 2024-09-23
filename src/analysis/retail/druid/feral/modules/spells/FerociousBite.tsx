@@ -10,7 +10,6 @@ import RipUptimeAndSnapshots from 'analysis/retail/druid/feral/modules/spells/Ri
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { SpellLink } from 'interface';
 import {
-  ACCEPTABLE_BERSERK_CPS,
   ACCEPTABLE_CPS,
   cdSpell,
   FB_SPELLS,
@@ -157,10 +156,9 @@ class FerociousBite extends Analyzer {
           <SpellLink spell={SPELLS.FEROCIOUS_BITE} />
         </strong>{' '}
         is your direct damage finisher. Use it when you've already applied Rip to enemies. Always
-        use Bite with at least {ACCEPTABLE_CPS} CPs ({ACCEPTABLE_BERSERK_CPS} during{' '}
-        <SpellLink spell={cdSpell(this.selectedCombatant)} />
-        ). Bite can consume up to {FEROCIOUS_BITE_MAX_DRAIN} extra energy to do increased damage -
-        this boost is very efficient and you should always wait until{' '}
+        use Bite with at least {ACCEPTABLE_CPS} CPs. Bite can consume up to{' '}
+        {FEROCIOUS_BITE_MAX_DRAIN} extra energy to do increased damage - this boost is very
+        efficient and you should always wait until{' '}
         {FEROCIOUS_BITE_MAX_DRAIN + FEROCIOUS_BITE_ENERGY} energy to use Bite.{' '}
         {this.hasSotf && (
           <>

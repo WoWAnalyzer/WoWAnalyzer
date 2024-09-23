@@ -35,7 +35,7 @@ const LazyLoadStatisticBox = ({ loader, value, children, ...others }: Props) => 
   const { generateResults } = useResults();
 
   const handleClick = () => {
-    if (loaded) {
+    if (loaded || loading) {
       return;
     }
     setLoading(true);

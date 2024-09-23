@@ -22,6 +22,11 @@ const spells = {
     name: 'Feint',
     icon: 'ability_rogue_feint',
   },
+  EVASION: {
+    id: 5277,
+    name: 'Evasion',
+    icon: 'spell_shadow_shadowward',
+  },
 
   // General spells
   KICK: {
@@ -488,6 +493,12 @@ const spells = {
   },
   AMBUSH: {
     id: 8676,
+    name: 'Ambush',
+    icon: 'ability_rogue_ambush',
+  },
+
+  AMBUSH_PROC: {
+    id: 430023,
     name: 'Ambush',
     icon: 'ability_rogue_ambush',
   },

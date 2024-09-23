@@ -159,7 +159,6 @@ export default class Kingsbane extends MajorCooldown<KingsbaneCooldownTrigger> {
 
     return createSpellUse(trigger, [
       this.explainDeathmarkPerformance(trigger),
-      this.explainShadowDancePerformance(trigger),
       this.explainEnvenomPerformance(trigger),
       this.explainImprovedShivPerformance(trigger),
       this.explainShivPerformance(trigger),
@@ -209,9 +208,6 @@ export default class Kingsbane extends MajorCooldown<KingsbaneCooldownTrigger> {
                 <ul>
                   <li>
                     <SpellLink spell={TALENTS.DEATHMARK_TALENT} /> usage
-                  </li>
-                  <li>
-                    <SpellLink spell={TALENTS.SHADOW_DANCE_TALENT} /> usage
                   </li>
                   <li>
                     Fully accurate <SpellLink spell={TALENTS.SHIV_TALENT} /> usage
@@ -358,14 +354,6 @@ export default class Kingsbane extends MajorCooldown<KingsbaneCooldownTrigger> {
   Even a microsecond after and it doesn’t snapshot
   So it’s doomed
    */
-  private explainShadowDancePerformance(
-    trigger: KingsbaneCooldownTrigger,
-  ): ChecklistUsageInfo | undefined {
-    if (!this.selectedCombatant.hasTalent(TALENTS.SHADOW_DANCE_TALENT)) {
-      return undefined;
-    }
-    return undefined;
-  }
 
   /*
   TODO: implement the below behavior

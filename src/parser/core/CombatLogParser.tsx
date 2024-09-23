@@ -100,22 +100,15 @@ import SophicWrit from 'parser/retail/modules/items/dragonflight/enchants/Sophic
 import SporeTender from 'parser/retail/modules/items/dragonflight/enchants/SporeTender';
 import WaftingDevotion from 'parser/retail/modules/items/dragonflight/enchants/WaftingDevotion';
 import WaftingWrit from 'parser/retail/modules/items/dragonflight/enchants/WaftingWrit';
-import AcceleratingSandglass from 'parser/retail/modules/items/dragonflight/AcceleratingSandglass';
-import UsurpedFromBeyond from 'parser/retail/modules/items/dragonflight/UsurpedFromBeyond';
-import VoiceOfTheSilentStar from 'parser/retail/modules/items/dragonflight/VoiceOfTheSilentStar';
-import AmalgamsSeventhSpine from 'parser/retail/modules/items/dragonflight/AmalgamsSeventhSpine';
-import ElementalLariat from 'parser/retail/modules/items/dragonflight/ElementalLariat';
-import EchoingTyrstone from 'parser/retail/modules/items/dragonflight/EchoingTyrstone';
-import Fyralath from 'parser/retail/modules/items/dragonflight/Fyralath';
-import Dreambinder from 'parser/retail/modules/items/dragonflight/Dreambinder';
-import Iridal from 'parser/retail/modules/items/dragonflight/Iridal';
-import BelorrelosTheSuncaller from 'parser/retail/modules/items/dragonflight/BelorrelosTheSuncaller';
-import NymuesUnravelingSpindle from 'parser/retail/modules/items/dragonflight/NymuesUnravelingSpindle';
-import EnduringDreadplate, {
-  EnduringDreadplateEventLinkNormalizer,
-} from 'parser/retail/modules/items/dragonflight/EnduringDreadplate';
-import { FyralathNormalizer } from 'parser/shared/normalizers/FyralathNormalizer';
+import SignetOfThePriory from 'parser/retail/modules/items/thewarwithin/trinkets/SignetOfThePriory';
 import FriendlyCompatNormalizer from './FriendlyCompatNormalizer';
+import {
+  AuthorityOfRadiantPower,
+  AuthorityOfStorms,
+  AuthorityOfTheDepths,
+  DarkmoonSigilAscension,
+  StormridersFury,
+} from 'parser/retail/modules/items/thewarwithin';
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
@@ -218,20 +211,14 @@ class CombatLogParser {
     bloodFury: BloodFury,
 
     // Items:
-    acceleratingSandglass: AcceleratingSandglass,
-    usurpedFromBeyond: UsurpedFromBeyond,
-    voiceOfTheSilentStar: VoiceOfTheSilentStar,
-    amalgamsSeventhSpine: AmalgamsSeventhSpine,
-    elementalLariat: ElementalLariat,
-    echoingTyrstone: EchoingTyrstone,
-    fyralath: Fyralath,
-    dreambinder: Dreambinder,
-    iridal: Iridal,
-    belorrelosTheSuncaller: BelorrelosTheSuncaller,
-    nymuesUnravelingSpindle: NymuesUnravelingSpindle,
-    enduringDreadplateNormalizer: EnduringDreadplateEventLinkNormalizer,
-    enduringDreadplate: EnduringDreadplate,
-    fyralathNormalizer: FyralathNormalizer,
+    authorityOfRadiantPower: AuthorityOfRadiantPower,
+    authorityOfStorms: AuthorityOfStorms,
+    stormridersFury: StormridersFury,
+    authorityOfTheDepths: AuthorityOfTheDepths,
+    signetOfThePriory: SignetOfThePriory,
+
+    // Embellishments
+    darkmoonSigilAscension: DarkmoonSigilAscension,
 
     // Enchants
     burningDevotion: BurningDevotion,

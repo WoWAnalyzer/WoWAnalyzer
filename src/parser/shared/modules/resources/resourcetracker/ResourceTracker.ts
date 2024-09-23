@@ -176,6 +176,9 @@ export default class ResourceTracker extends Analyzer {
   /** Info about the last spender so we can apply a refund if it misses */
   lastSpenderInfo?: { timestamp: number; amount: number; spellId: number };
 
+  /** Info about the last builder, before the resource was generated */
+  lastBuilderInfo?: { timestamp: number; amount: number; spellId: number };
+
   constructor(options: Options) {
     super(options);
 
@@ -350,6 +353,12 @@ export default class ResourceTracker extends Analyzer {
     timestamp: number,
     resource?: ClassResources,
   ) {
+    this.lastBuilderInfo = {
+      timestamp: timestamp,
+      amount: this.current,
+      spellId: spellId,
+    };
+
     // resource.amount for an energize is the amount AFTER the energize
     const beforeAmount = !resource ? undefined : resource.amount - gain;
     this._resourceUpdate('gain', beforeAmount, resource?.max, gain, waste, spellId);

@@ -43,6 +43,8 @@ export enum EventType {
   EmpowerStart = 'empowerstart',
   EmpowerEnd = 'empowerend',
   Leech = 'leech',
+  StaggerClear = 'staggerclear',
+  StaggerPrevented = 'staggerprevented',
 
   // Fabricated:
   Event = 'event', // everything
@@ -819,7 +821,7 @@ export interface ResurrectEvent extends Event<EventType.Resurrect> {
 export interface SummonEvent extends Event<EventType.Summon> {
   sourceID: number;
   sourceIsFriendly: boolean;
-  target: PetInfo;
+  target?: PetInfo;
   targetID: number;
   targetInstance: number;
   targetIsFriendly: boolean;

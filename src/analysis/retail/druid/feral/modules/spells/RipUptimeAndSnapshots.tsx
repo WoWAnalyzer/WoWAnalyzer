@@ -244,12 +244,6 @@ class RipUptimeAndSnapshots extends Snapshots {
         <CastSummaryAndBreakdown
           spell={SPELLS.RIP}
           castEntries={this.castEntries}
-          goodExtraExplanation={
-            <>
-              or a cast with problems that procced{' '}
-              <SpellLink spell={TALENTS_DRUID.BLOODTALONS_TALENT} />
-            </>
-          }
           okExtraExplanation={<>clipped duration but upgraded snapshot or missing Tigers Fury</>}
           badExtraExplanation={<>clipped duration {this.hasBt && ' or missing Bloodtalons'}</>}
         />

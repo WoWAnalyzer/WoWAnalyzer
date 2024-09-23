@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS/warrior';
 import TALENTS from 'common/TALENTS/warrior';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
+import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 class Abilities extends CoreAbilities {
@@ -114,6 +115,20 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.RAVAGER_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.RAVAGER_TALENT),
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 90,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          importance: ISSUE_IMPORTANCE.MAJOR,
+          recommendedEfficiency: 0.95,
+        },
+      },
+      {
+        spell: SPELLS.BLADESTORM.id,
+        enabled: combatant.hasTalent(TALENTS.BLADESTORM_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 90,
         gcd: {
@@ -362,7 +377,14 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
-    ];
+      {
+        spell: SPELLS.HAMSTRING.id,
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+      },
+    ] satisfies SpellbookAbility[];
   }
 }
 

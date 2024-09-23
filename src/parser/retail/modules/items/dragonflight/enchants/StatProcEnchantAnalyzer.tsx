@@ -4,7 +4,7 @@ import QualityIcon from 'interface/QualityIcon';
 import { Options } from 'parser/core/EventSubscriber';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import STAT, { getIcon, getName } from 'parser/shared/modules/features/STAT';
-import WeaponEnchantAnalyzer, { EnchantRank } from './WeaponEnchantAnalyzer';
+import WeaponEnchantAnalyzer, { EnchantRank } from '../../WeaponEnchantAnalyzer';
 import { withDependencies } from 'parser/core/Analyzer';
 
 /**
