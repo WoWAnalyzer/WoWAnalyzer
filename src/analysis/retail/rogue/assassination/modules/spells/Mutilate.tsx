@@ -27,8 +27,7 @@ export default class Mutilate extends Analyzer {
           <SpellLink spell={SPELLS.MUTILATE} />
         </strong>
         . You should never use <SpellLink spell={SPELLS.MUTILATE} /> during{' '}
-        <SpellLink spell={SPELLS.SHADOW_DANCE_BUFF} />, <SpellLink spell={SPELLS.SUBTERFUGE_BUFF} />
-        , or <SpellLink spell={SPELLS.VANISH_BUFF} />.
+        <SpellLink spell={SPELLS.SUBTERFUGE_BUFF} /> or <SpellLink spell={SPELLS.VANISH_BUFF} />.
       </p>
     );
 
@@ -63,41 +62,7 @@ export default class Mutilate extends Analyzer {
 
   private onCast(event: CastEvent) {
     this.cooldownUses.push(
-      createSpellUse({ event }, [
-        this.shadowDancePerformance(event),
-        this.subterfugePerformance(event),
-        this.vanishPerformance(event),
-      ]),
-    );
-  }
-
-  private shadowDancePerformance(event: CastEvent): ChecklistUsageInfo | undefined {
-    if (!this.selectedCombatant.hasTalent(TALENTS.SHADOW_DANCE_TALENT)) {
-      return undefined;
-    }
-    const isBuffActive = this.selectedCombatant.hasBuff(
-      SPELLS.SHADOW_DANCE_BUFF.id,
-      event.timestamp,
-    );
-    const summary = <div>Do not have Shadow Dance active</div>;
-    const details = isBuffActive ? (
-      <div>
-        You cast <SpellLink spell={SPELLS.MUTILATE} /> when you should have cast a stealth spell due
-        to having <SpellLink spell={SPELLS.SHADOW_DANCE_BUFF} /> active.
-      </div>
-    ) : (
-      <div>
-        You did not have <SpellLink spell={SPELLS.SHADOW_DANCE_BUFF} /> active. Good job!
-      </div>
-    );
-    return createChecklistItem(
-      'shadow-dance',
-      { event },
-      {
-        performance: isBuffActive ? QualitativePerformance.Fail : QualitativePerformance.Good,
-        summary,
-        details,
-      },
+      createSpellUse({ event }, [this.subterfugePerformance(event), this.vanishPerformance(event)]),
     );
   }
 

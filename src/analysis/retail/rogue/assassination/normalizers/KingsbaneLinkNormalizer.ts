@@ -16,9 +16,6 @@ const DEATHMARK_KINGSBANE_REMOVE = 'DeathmarkKingsbaneRemove';
 const DEATHMARK_KINGSBANE_CAST_BUFFER_MS = 2000;
 const DEATHMARK_KINGSBANE_CAST = 'DeathmarkKingsbaneCast';
 
-const SHADOW_DANCE_KINGSBANE_CAST_BUFFER_MS = 1250;
-const SHADOW_DANCE_DANCE_KINGSBANE_CAST = 'ShadowDanceKingsbaneCast';
-
 const EVENT_LINKS: EventLink[] = [
   // Link a Shiv and Kingsbane cast
   {
@@ -73,21 +70,6 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true,
     maximumLinks: 1,
     isActive: (c) => c.hasTalent(TALENTS.DEATHMARK_TALENT),
-  },
-
-  // Link Shadow Dance and Kingsbane
-  {
-    linkingEventType: EventType.Cast,
-    linkingEventId: TALENTS.SHADOW_DANCE_TALENT.id,
-    linkRelation: SHADOW_DANCE_DANCE_KINGSBANE_CAST,
-    reverseLinkRelation: SHADOW_DANCE_DANCE_KINGSBANE_CAST,
-    referencedEventType: EventType.Cast,
-    referencedEventId: TALENTS.KINGSBANE_TALENT.id,
-    forwardBufferMs: SHADOW_DANCE_KINGSBANE_CAST_BUFFER_MS,
-    backwardBufferMs: SHADOW_DANCE_KINGSBANE_CAST_BUFFER_MS,
-    anyTarget: true,
-    maximumLinks: 1,
-    isActive: (c) => c.hasTalent(TALENTS.SHADOW_DANCE_TALENT),
   },
 ];
 

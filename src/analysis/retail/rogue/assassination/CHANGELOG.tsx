@@ -1,11 +1,12 @@
 import { change, date } from 'common/changelog';
-import { Bigsxy, ToppleTheNun, Whispyr } from 'CONTRIBUTORS';
+import { Bigsxy, ToppleTheNun, Whispyr, SebShady } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 import SPELLS from 'common/SPELLS/rogue';
 import TALENTS from 'common/TALENTS/rogue';
 import SHARED_CHANGELOG from 'analysis/retail/rogue/shared/CHANGELOG';
 
 export default [
+  change(date(2024, 9, 22), 'TWW initial compatibility update.', SebShady),
   change(date(2024, 5, 22), 'Fix spelling of Ravenholdt.', ToppleTheNun),
   change(date(2023, 12, 10), <>Add experimental <SpellLink spell={TALENTS.KINGSBANE_TALENT} /> support behind a toggle.</>, ToppleTheNun),
   change(date(2023, 12, 10), <>Mark as partially updated for 10.2 and add note about <SpellLink spell={TALENTS.KINGSBANE_TALENT} /> analysis coming soon.</>, ToppleTheNun),
