@@ -40,7 +40,10 @@ class WealAndWoe extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.WEAL_AND_WOE_TALENT);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.SMITE]), this.onDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell([SPELLS.SMITE, SPELLS.VOID_BLAST_DAMAGE_DISC]),
+      this.onDamage,
+    );
     this.addEventListener(
       Events.heal
         .by(SELECTED_PLAYER)
@@ -50,7 +53,10 @@ class WealAndWoe extends Analyzer {
   }
 
   onDamage(event: DamageEvent) {
-    if (event.ability.guid !== SPELLS.SMITE.id) {
+    if (
+      event.ability.guid !== SPELLS.SMITE.id &&
+      event.ability.guid !== SPELLS.VOID_BLAST_DAMAGE_DISC.id
+    ) {
       return;
     }
 
@@ -72,7 +78,10 @@ class WealAndWoe extends Analyzer {
     if (!damageEvent) {
       return;
     }
-    if (damageEvent.ability.guid !== SPELLS.SMITE.id) {
+    if (
+      damageEvent.ability.guid !== SPELLS.SMITE.id &&
+      damageEvent.ability.guid !== SPELLS.VOID_BLAST_DAMAGE_DISC.id
+    ) {
       return;
     }
 

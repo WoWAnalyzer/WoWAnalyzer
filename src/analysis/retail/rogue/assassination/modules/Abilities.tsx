@@ -12,7 +12,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.GARROTE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        // cooldown: 6,
+        cooldown: 6,
         gcd: {
           base: 1000,
         },
@@ -20,14 +20,6 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SLICE_AND_DICE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          base: 1000,
-        },
-      },
-      {
-        spell: TALENTS.SERRATED_BONE_SPIKE_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS.SERRATED_BONE_SPIKE_TALENT),
         gcd: {
           base: 1000,
         },
@@ -42,7 +34,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SHIV.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 25,
+        cooldown: 30,
         charges: 1 + combatant.getTalentRank(TALENTS.LIGHTWEIGHT_SHIV_TALENT),
         gcd: {
           base: 1000,
@@ -75,6 +67,13 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.AMBUSH_PROC.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1000,
+        },
+      },
+      {
         spell: SPELLS.FAN_OF_KNIVES.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
@@ -95,7 +94,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.KIDNEY_SHOT.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 20,
+        cooldown: 30,
         gcd: {
           base: 1000,
         },
@@ -124,15 +123,24 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SPRINT.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 2 * 60,
+        cooldown: 60,
       },
       // endregion
 
       // region Defensives
       {
+        spell: SPELLS.EVASION.id,
+        category: SPELL_CATEGORY.DEFENSIVE,
+        cooldown: 2 * 60,
+        gcd: {
+          base: 1000,
+        },
+      },
+      {
         spell: SPELLS.FEINT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 15,
+        charges: 2,
         gcd: {
           base: 1000,
         },
@@ -146,20 +154,6 @@ class Abilities extends CoreAbilities {
       // endregion
 
       // region Cooldowns
-      {
-        spell: TALENTS.SEPSIS_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        enabled: combatant.hasTalent(TALENTS.SEPSIS_TALENT),
-        gcd: {
-          base: 1000,
-        },
-        castEfficiency: {
-          recommendedEfficiency: 0.9,
-          averageIssueEfficiency: 0.8,
-          majorIssueEfficiency: 0.6,
-        },
-        cooldown: 1.5 * 60,
-      },
       {
         spell: TALENTS.ECHOING_REPRIMAND_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
@@ -192,17 +186,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.VANISH.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 2 * 60,
-        castEfficiency: {
-          recommendedEfficiency: 0.9,
-          averageIssueEfficiency: 0.8,
-          majorIssueEfficiency: 0.6,
-        },
-      },
-      {
-        spell: TALENTS.INDISCRIMINATE_CARNAGE_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 45,
-        enabled: combatant.hasTalent(TALENTS.INDISCRIMINATE_CARNAGE_TALENT),
+        charges: 1 + combatant.getTalentRank(TALENTS.WITHOUT_A_TRACE_TALENT),
         castEfficiency: {
           recommendedEfficiency: 0.9,
           averageIssueEfficiency: 0.8,

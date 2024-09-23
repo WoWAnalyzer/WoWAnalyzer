@@ -2,5 +2,6 @@ import { change, date } from 'common/changelog';
 import { Hana } from 'CONTRIBUTORS';
 
 export default [
-  change(date(2022, 10, 3), <>The War Within Clean up.</>, Hana),
+  change(date(2024, 23, 9), <>Add void blast to weal and woe</>, Hana),
+  change(date(2024, 3, 9), <>The War Within Clean up.</>, Hana),
 ];
