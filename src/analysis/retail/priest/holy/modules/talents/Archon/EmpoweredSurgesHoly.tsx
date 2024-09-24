@@ -63,7 +63,6 @@ class EmpoweredSurgesHoly extends Analyzer {
         category={STATISTIC_CATEGORY.HERO_TALENTS}
         tooltip={
           <>
-            {' '}
             Breakdown:{' '}
             <div>
               <SpellLink spell={TALENTS_PRIEST.EMPOWERED_SURGES_TALENT} />:{' '}
