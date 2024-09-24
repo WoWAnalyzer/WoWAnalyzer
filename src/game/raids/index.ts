@@ -1,5 +1,5 @@
 import { Spec } from 'game/SPECS';
-import { Race } from 'parser/core/Combatant';
+import { Race } from 'game/RACES';
 import PhaseConfig from 'parser/core/PhaseConfig';
 import MythicPlusSeasonOne from 'game/raids/mythicplusseasonone';
 import NerubarPalace from 'game/raids/nerubarpalace';

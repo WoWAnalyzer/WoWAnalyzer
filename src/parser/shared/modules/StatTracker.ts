@@ -584,7 +584,10 @@ class StatTracker extends Analyzer {
   get baseMasteryPercentage() {
     const spellPoints = 8; // Spellpoint is a unit of mastery, each class has 8 base Spellpoints
     let mastery = (spellPoints * (this.selectedCombatant.spec?.masteryCoefficient ?? 1)) / 100;
-    if (this.selectedCombatant.race === RACES.Dracthyr) {
+    if (
+      this.selectedCombatant.race === RACES.DracthyrAlliance ||
+      this.selectedCombatant.race === RACES.DracthyrHorde
+    ) {
       mastery += 0.018;
     }
     return mastery;

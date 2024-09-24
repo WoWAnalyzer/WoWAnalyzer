@@ -5,6 +5,7 @@ import { Arlie, Hana, Litena, Liavre, Squided, ToppleTheNun, Trevor, Saeldur } f
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2024, 9, 21), <>Changed tooltips, added crisis management, and added prismatic echoes </>, Liavre),
   change(date(2024, 9, 16), <>Implemented TWW S1 4pc </>, Liavre),
   change(date(2024, 9, 11), <>Split Divine Hymn/GS into proper attributions, fixed mana costs,
   and added talent check on holy word CDR. </>, Liavre),
