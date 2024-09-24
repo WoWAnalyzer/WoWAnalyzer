@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
 export default [
+  change(date(2024, 9, 23), <>Added breakdown of HoT extensions to <SpellLink spell={TALENTS_DRUID.VERDANT_INFUSION_TALENT}/> statistic tooltip.</>, Sref),
   change(date(2024, 9, 13), <>Removed mana saved attribution from <SpellLink spell={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT}/> tracking.</>, Sref),
   change(date(2024, 9, 13), <>Added statistics for <SpellLink spell={TALENTS_DRUID.GERMINATION_TALENT}/> and  <SpellLink spell={TALENTS_DRUID.THRIVING_VEGETATION_TALENT}/>. Fixed an issue where  <SpellLink spell={TALENTS_DRUID.RAMPANT_GROWTH_TALENT}/> statistic was undercounting. </>, Sref),
   change(date(2024, 9, 3), <>Fixed numbers for <SpellLink spell={TALENTS_DRUID.PHOTOSYNTHESIS_TALENT}/> self Lifebloom. Fixed calculation issues in <SpellLink spell={TALENTS_DRUID.ABUNDANCE_TALENT}/> statistic and updated tooltip.</>, Sref),
