@@ -177,6 +177,7 @@ class Abilities extends CoreAbilities {
         },
         cooldown: 60,
         timelineSortIndex: 8,
+        isDefensive: true,
       },
       ...super.spellbook(),
     ];

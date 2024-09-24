@@ -20,11 +20,13 @@ import Barkskin from 'analysis/retail/druid/guardian/modules/spells/Barkskin';
 import RageOfTheSleeper from 'analysis/retail/druid/guardian/modules/spells/RageOfTheSleeper';
 import SurvivalInstincts from 'analysis/retail/druid/guardian/modules/spells/SurvivalInstincts';
 import Pulverize from 'analysis/retail/druid/guardian/modules/spells/Pulverize';
+import Buffs from 'analysis/retail/druid/guardian/modules/Buffs';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
     abilities: Abilities,
+    buffs: Buffs,
     activeDruidForm: ActiveDruidForm,
     rageTracker: RageTracker,
     rageGraph: RageGraph,
