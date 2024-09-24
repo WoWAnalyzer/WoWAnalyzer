@@ -84,6 +84,10 @@ class CelestialConduit extends Analyzer {
       Events.EndChannel.by(SELECTED_PLAYER).spell(TALENTS_MONK.CELESTIAL_CONDUIT_TALENT),
       this.onChannelEnd,
     );
+    this.addEventListener(
+      Events.EndChannel.by(SELECTED_PLAYER).spell(TALENTS_MONK.CELESTIAL_CONDUIT_TALENT),
+      this.onUnityWithin,
+    );
 
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CELESTIAL_CONDUIT_DAMAGE),
@@ -133,9 +137,10 @@ class CelestialConduit extends Analyzer {
     });
   }
 
-  private onUnityWithin(event: CastEvent) {
-    this.castInfoList.at(-1)!.cooldownMap = this.getCooldownMap();
-    this.castInfoList.at(-1)!.castUnity = true;
+  private onUnityWithin(event: CastEvent | EndChannelEvent) {
+    if (!this.castInfoList.at(-1)?.cooldownMap) {
+      this.castInfoList.at(-1)!.cooldownMap = this.getCooldownMap();
+    }
   }
 
   private onChannelEnd(event: EndChannelEvent) {
@@ -217,32 +222,29 @@ class CelestialConduit extends Analyzer {
     };
     const cooldownPerfs: QualitativePerformance[] = [];
     const cooldownItems: CooldownExpandableItem[] = [];
-    if (castInfo.cooldownMap) {
-      castInfo.cooldownMap!.forEach((cooldown, spellId) => {
-        const perf =
-          cooldown === 0
-            ? LESS_IMPORTANT_CDR_SPELLS.has(spellId)
-              ? QualitativePerformance.Ok
-              : QualitativePerformance.Fail
-            : QualitativePerformance.Good;
-        cooldownPerfs.push(perf);
-        cooldownItems.push({
-          label: (
-            <>
-              <SpellLink spell={spellId} /> on cooldown when casting{' '}
-              <SpellLink spell={TALENTS_MONK.UNITY_WITHIN_TALENT} />
-            </>
-          ),
-          result: (
-            <>
-              <PerformanceMark perf={perf} />
-            </>
-          ),
-          details: <>{cooldown === 0 ? 'No' : 'Yes'}</>,
-        });
+    castInfo.cooldownMap!.forEach((cooldown, spellId) => {
+      const perf =
+        cooldown === 0
+          ? LESS_IMPORTANT_CDR_SPELLS.has(spellId)
+            ? QualitativePerformance.Ok
+            : QualitativePerformance.Fail
+          : QualitativePerformance.Good;
+      cooldownPerfs.push(perf);
+      cooldownItems.push({
+        label: (
+          <>
+            <SpellLink spell={spellId} /> on cooldown when casting{' '}
+            <SpellLink spell={TALENTS_MONK.UNITY_WITHIN_TALENT} />
+          </>
+        ),
+        result: (
+          <>
+            <PerformanceMark perf={perf} />
+          </>
+        ),
+        details: <>{cooldown === 0 ? 'No' : 'Yes'}</>,
       });
-    }
-
+    });
     const avgTargetsHit =
       castInfo.targetsHit.reduce((prev, cur) => {
         return prev + cur;
