@@ -97,8 +97,8 @@ class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Normalizer
     castLinkNormalizer: CastLinkNormalizer,
-    conduitOfTheCelestialsEventLinks: ConduitOfTheCelestialsEventLinks,
     celestialConduitNormalizer: CelestialConduitNormalizer,
+    conduitOfTheCelestialsEventLinks: ConduitOfTheCelestialsEventLinks,
     hotApplicationNormalizer: HotApplicationNormalizer,
     hotRemovalNormalizer: HotRemovalNormalizer,
 
