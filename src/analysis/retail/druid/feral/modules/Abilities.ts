@@ -217,14 +217,6 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 25,
       },
       {
-        spell: SPELLS.SHADOWMELD.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 120,
-        isUndetectable: true,
-        gcd: null,
-        timelineSortIndex: 24,
-      },
-      {
         spell: SPELLS.SURVIVAL_INSTINCTS.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 180,
