@@ -5,6 +5,7 @@ import { Trevor, Vohrr } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date (2024, 9, 24), <>Fix another crash condition</>, Trevor),
   change(date (2024, 9, 24), <>Fix crash again</>, Trevor),
   change(date (2024, 9, 24), <>Fix crash in <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_TALENT}/> guide section when player did not cast <SpellLink spell={TALENTS_MONK.UNITY_WITHIN_TALENT}/></>, Trevor),
   change(date (2024, 9, 22), <>Add guide section for <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_TALENT}/></>, Trevor),

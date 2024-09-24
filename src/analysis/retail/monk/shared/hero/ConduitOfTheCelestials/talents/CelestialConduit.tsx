@@ -3,7 +3,7 @@ import { TALENTS_MONK } from 'common/TALENTS';
 import SPECS from 'game/SPECS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
-  BeginChannelEvent,
+  ApplyBuffEvent,
   CastEvent,
   DamageEvent,
   EndChannelEvent,
@@ -44,7 +44,6 @@ interface CastInfo {
   cooldownMap: Map<number, number> | undefined;
   // hits per pulse
   targetsHit: number[];
-  castUnity: boolean;
 }
 
 const LESS_IMPORTANT_CDR_SPELLS: Set<number> = new Set<number>([
@@ -77,7 +76,7 @@ class CelestialConduit extends Analyzer {
       this.selectedCombatant.spec === SPECS.MISTWEAVER_MONK;
 
     this.addEventListener(
-      Events.BeginChannel.by(SELECTED_PLAYER).spell(TALENTS_MONK.CELESTIAL_CONDUIT_TALENT),
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS_MONK.CELESTIAL_CONDUIT_TALENT),
       this.onChannelStart,
     );
     this.addEventListener(
@@ -125,7 +124,7 @@ class CelestialConduit extends Analyzer {
     return result;
   }
 
-  private onChannelStart(event: BeginChannelEvent) {
+  private onChannelStart(event: ApplyBuffEvent) {
     this.currentHaste = this.haste.current;
     this.channelStart = event.timestamp;
     this.castInfoList.push({
@@ -133,7 +132,6 @@ class CelestialConduit extends Analyzer {
       cooldownMap: undefined,
       targetsHit: [],
       timestamp: event.timestamp,
-      castUnity: false,
     });
   }
 
@@ -169,7 +167,6 @@ class CelestialConduit extends Analyzer {
         cooldownMap: undefined,
         targetsHit: [],
         timestamp: event.timestamp,
-        castUnity: false,
       });
     }
     if (event.type === EventType.Heal) {
@@ -203,22 +200,6 @@ class CelestialConduit extends Analyzer {
         </>
       ),
       details: <>{castInfo.cancelled ? 'No' : 'Yes'}</>,
-    };
-    const unityPerf = castInfo.castUnity
-      ? QualitativePerformance.Good
-      : QualitativePerformance.Fail;
-    const unityItem: CooldownExpandableItem = {
-      label: (
-        <>
-          Cast <SpellLink spell={TALENTS_MONK.UNITY_WITHIN_TALENT} />
-        </>
-      ),
-      result: (
-        <>
-          <PerformanceMark perf={unityPerf} />
-        </>
-      ),
-      details: castInfo.castUnity ? 'Yes' : 'No',
     };
     const cooldownPerfs: QualitativePerformance[] = [];
     const cooldownItems: CooldownExpandableItem[] = [];
@@ -261,8 +242,8 @@ class CelestialConduit extends Analyzer {
       details: <>{avgTargetsHit.toFixed(1)} </>,
     };
     return {
-      perf: getAveragePerf([cancelPerf, unityPerf, ...cooldownPerfs, targetHitPerf]),
-      items: [cancelledItem, unityItem, ...cooldownItems, targetsHitItem],
+      perf: getAveragePerf([cancelPerf, ...cooldownPerfs, targetHitPerf]),
+      items: [cancelledItem, ...cooldownItems, targetsHitItem],
     };
   }
 
