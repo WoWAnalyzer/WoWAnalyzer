@@ -64,6 +64,8 @@ import CycleOfBindingNormalizer from './normalizers/CycleOfBindingNormalizer';
 import CycleOfBinding from './modules/talents/CycleOfBinding';
 import ConsumingFireNormalizer from '../shared/normalizers/ConsumingFireNormalizer';
 import FelDevastationNormalizer from './normalizers/FelDevastationNormalizer';
+import Demonsurge from '../shared/modules/hero/felscarred/Demonsurge/analyzer';
+import DemonsurgeEventLinkNormalizer from '../shared/modules/hero/felscarred/Demonsurge/eventLinkNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -137,6 +139,10 @@ class CombatLogParser extends CoreCombatLogParser {
     fieryBrand2: FieryBrand2,
     sigilOfFlame: SigilOfFlame,
     cycleOfBinding: CycleOfBinding,
+
+    // Hero
+    demonsurge: Demonsurge,
+    demonsurgeEventLinkNormalizer: DemonsurgeEventLinkNormalizer,
 
     // Tier sets
 
