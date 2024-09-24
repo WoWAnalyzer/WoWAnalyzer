@@ -588,6 +588,11 @@ const spells = {
     name: 'Spiritbloom',
     icon: 'ability_evoker_spiritbloom2',
   },
+  CHRONO_FLAME_CAST: {
+    id: 431443,
+    name: 'Chronoflame',
+    icon: 'inv_ability_chronowardenevoker_chronoflame',
+  },
   CHRONO_FLAME_HEAL: {
     id: 431483,
     name: 'Chronoflame',

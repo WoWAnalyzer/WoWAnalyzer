@@ -1,7 +1,7 @@
 import TALENTS from 'common/TALENTS/evoker';
 import { WCLDamageDoneTableResponse } from 'common/WCL_TYPES';
 import fetchWcl from 'common/fetchWclApi';
-import { formatDuration, formatNumber } from 'common/format';
+import { formatDuration, formatMilliseconds, formatNumber } from 'common/format';
 import classColor from 'game/classColor';
 import ROLES from 'game/ROLES';
 import SPECS from 'game/SPECS';
@@ -338,36 +338,11 @@ class BuffTargetHelper extends Analyzer {
         </tr>,
       );
 
-      /** Determine whether or not to mark the interval as important
-       * This is determined by if the difference between the current top 2
-       * pumpers and the default targets exceeds the threshold. */
-      const threshold = 1.5;
-
-      let isImportant = false;
-      let defaultDamage = 0;
-      let top2Damage = 0;
-
-      const top2Entries = topPumpersData[i].slice(0, 2);
-      const top4Entries = topPumpersData[i].slice(0, 4);
-
-      top2Entries.forEach(([name, values]) => {
-        if (!defaultTargets.includes(name)) {
-          top2Damage += values[i];
-        }
-      });
-
-      /** the default targets aren't always in the top 2/top 4 datasets */
-      topPumpersData[i].forEach(([name, values]) => {
-        if (defaultTargets.includes(name)) {
-          defaultDamage += values[i];
-        }
-      });
-
-      if (top2Damage > defaultDamage * threshold) {
-        isImportant = true;
-      }
-
-      this.addEntryToFourTargetMRTNote(top4Entries, i, intervalStart, isImportant);
+      // We need mm:ss format, and this is the easiest way to do it
+      const noteIntervalTimer = formatMilliseconds(i * this.interval + this.fightStartDelay).split(
+        '.',
+      )[0];
+      this.addEntryToFourTargetMRTNote(topPumpersData[i], i, noteIntervalTimer);
     }
 
     /** Finalize Four Target MRT note */
@@ -522,34 +497,32 @@ class BuffTargetHelper extends Analyzer {
    * https://wago.io/KP-BlDV58
    *
    * Format is basically:
+   * "
    * AugBuffStart
    * aug |cff33937fPantsdormu|r
-   * 00:14  |cfffff468Jackòfblades|r !1 |cffc41e3aCerknight|r !2 |cffaad372Athënâ|r !3 |cffa330c9Jabbernacky|r !4
-   * 00:30 {|T#} |cff8788eeJustinianlok|r !1 |cffaad372Steelshunter|r !2 |cffaad372Athënâ|r !3 |cff0070ddFoxmulders|r !4
+   * {time:00:00}00:00 {#G|T#} |cfffff468Jackòfblades|r !1 |cffc41e3aCerknight|r !2 |cffaad372Athënâ|r !3 |cffa330c9Jabbernacky|r !4
+   * {time:00:30}00:30 {#G|T#} |cff8788eeJustinianlok|r !1 |cffaad372Steelshunter|r !2 |cffaad372Athënâ|r !3 |cff0070ddFoxmulders|r !4
    * ...etc...
    * AugBuffEnd {v2.0}
+   * "
    */
   addEntryToFourTargetMRTNote(
-    top4Pumpers: [string, number[]][],
-    index: number,
-    interval: string,
-    important: boolean = false,
+    topPumpers: [string, number[]][],
+    intervalIndex: number,
+    intervalTimer: string,
   ) {
-    if (index === 0) {
-      this.mrtFourTargetPrescienceHelperNote += 'PREPULL - ';
-    } else {
-      this.mrtFourTargetPrescienceHelperNote += `${interval} `;
-    }
-    this.mrtFourTargetPrescienceHelperNote += top4Pumpers
+    this.mrtFourTargetPrescienceHelperNote += `{time:${intervalTimer}}${intervalTimer} {#G|T#} `;
+
+    // You can only buff 2 people on pull
+    const pumpers = intervalIndex === 0 ? topPumpers.slice(0, 2) : topPumpers.slice(0, 4);
+
+    this.mrtFourTargetPrescienceHelperNote += pumpers
       .map(([name], idx) => {
         const colorCode = mrtColorMap.get(this.playerWhitelist.get(name) ?? '') || '';
         const formattedName = `${colorCode}${name}|r`;
         return `${formattedName} !${idx + 1}`;
       })
       .join(' ');
-    if (important) {
-      this.mrtFourTargetPrescienceHelperNote += ' *';
-    }
     this.mrtFourTargetPrescienceHelperNote += '\n';
   }
 

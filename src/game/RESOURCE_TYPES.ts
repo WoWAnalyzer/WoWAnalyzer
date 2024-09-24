@@ -140,6 +140,7 @@ const RESOURCE_TYPES = {
     url: 'essence',
   },
   MAELSTROM_WEAPON: {
+    // Enhancement Shaman
     id: -99,
     name: 'Maestrom',
     icon: 'spell_shaman_maelstromweapon',
@@ -154,4 +155,11 @@ export function getResource(classResources: ClassResources[] | undefined, type: 
     return undefined;
   }
   return classResources.find((resource) => resource.type === type);
+}
+
+export function getResourceCost(
+  resourceCosts: { [resourceType: number]: number } | undefined,
+  resourceType: number,
+): number | undefined {
+  return resourceCosts ? resourceCosts[resourceType] : undefined;
 }

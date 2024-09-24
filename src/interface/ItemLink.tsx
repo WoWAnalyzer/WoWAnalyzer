@@ -4,6 +4,7 @@ import * as React from 'react';
 import { AnchorHTMLAttributes } from 'react';
 
 import ItemIcon from './ItemIcon';
+import QualityIcon from './QualityIcon';
 import useTooltip from './useTooltip';
 
 interface Props extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'id'> {
@@ -15,6 +16,7 @@ interface Props extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'id'> {
   };
   quality?: number;
   icon?: boolean;
+  craftQuality?: 1 | 2 | 3 | 4 | 5;
 }
 export const EPIC_ITEMS_ILVL = 184;
 
@@ -50,6 +52,7 @@ const ItemLink = (props: Props) => {
         </>
       )}
       {children || ITEMS[id].name}
+      {props.craftQuality ? <QualityIcon quality={props.craftQuality} /> : null}
     </a>
   );
 };

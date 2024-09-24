@@ -158,7 +158,7 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: EB_FROM_LF_CAST,
     reverseLinkRelation: EB_FROM_LF_CAST,
-    linkingEventId: SPELLS.LIVING_FLAME_CAST.id,
+    linkingEventId: [SPELLS.LIVING_FLAME_CAST.id, SPELLS.CHRONO_FLAME_CAST.id],
     linkingEventType: EventType.Cast,
     referencedEventId: EB_BUFF_IDS,
     referencedEventType: EB_GENERATION_EVENT_TYPES,
@@ -173,7 +173,7 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: EB_FROM_LF_HEAL,
     reverseLinkRelation: EB_FROM_LF_HEAL,
-    linkingEventId: SPELLS.LIVING_FLAME_HEAL.id,
+    linkingEventId: [SPELLS.LIVING_FLAME_HEAL.id, SPELLS.CHRONO_FLAME_HEAL.id],
     linkingEventType: EventType.Heal,
     referencedEventId: EB_BUFF_IDS,
     referencedEventType: EB_GENERATION_EVENT_TYPES,

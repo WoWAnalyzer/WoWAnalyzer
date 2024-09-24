@@ -27,6 +27,10 @@ class Abilities extends ClassAbilities {
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 30,
         enabled: combatant.hasTalent(TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT),
+        gcd: {
+          base: 1500,
+        },
+        range: 40,
       },
       {
         spell: SPELLS.ICEFURY.id,
@@ -118,6 +122,9 @@ class Abilities extends ClassAbilities {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: TALENTS.EARTH_SHOCK_TALENT.id,
@@ -125,6 +132,15 @@ class Abilities extends ClassAbilities {
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.ANCESTRAL_SWIFTNESS_CAST.id,
+        enabled: combatant.hasTalent(TALENTS.ANCESTRAL_SWIFTNESS_TALENT),
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 30,
+        gcd: {
+          static: 0,
         },
       },
     ];

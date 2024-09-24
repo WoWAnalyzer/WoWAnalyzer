@@ -16,13 +16,12 @@ import Checklist from './modules/features/checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import SpellUsable from './modules/features/SpellUsable';
 import EnrageNormalizer from './modules/normalizers/Enrage';
+import ColdSteelHotBloodNormalizer from './modules/normalizers/ColdSteelHotBlood';
 import ChampionsSpear from './modules/talents/ChampionsSpear';
 import MissedRampage from './modules/spells/MissedRampage';
 import Recklessness from './modules/spells/Recklessness';
 import WhirlWind from './modules/spells/Whirlwind';
 import AngerManagement from './modules/talents/AngerManagement';
-import MeatCleaver from './modules/talents/MeatCleaver';
-import RecklessAbandon from './modules/talents/RecklessAbandon';
 import SuddenDeath from './modules/talents/SuddenDeath';
 import Warpaint from './modules/talents/Warpaint';
 import SpellReflection from '../shared/modules/talents/SpellReflection';
@@ -37,6 +36,7 @@ class CombatLogParser extends CoreCombatLogParser {
     resourceChangeNormalizer: ResourceChangeNormalizer,
     generateRageEventsNormalizer: GenerateRageEventsNormalizer,
     rageAttributeNormalizer: RageAttributeNormalizer,
+    coldSteelHotBloodNormalizer: ColdSteelHotBloodNormalizer,
 
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
@@ -61,8 +61,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //talents
     angerManagement: AngerManagement,
-    meatCleaver: MeatCleaver,
-    recklessAbandon: RecklessAbandon,
     suddenDeath: SuddenDeath,
     warpaint: Warpaint,
     spearofBastion: ChampionsSpear,

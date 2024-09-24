@@ -1091,7 +1091,7 @@ type BuffVal = number | ((s: Combatant, t: Item | null) => number);
  * A buff that boosts player stats.
  * 'itemId' need only be filled in for an item based buff, when we will need the ID for the BuffVal callback.
  */
-type StatBuff = Partial<Record<keyof Stats, BuffVal>> & { itemId?: number };
+export type StatBuff = Partial<Record<keyof Stats, BuffVal>> & { itemId?: number };
 
 /**
  * StatBuffs mapped by their guid

@@ -4,6 +4,7 @@ import SPECS from 'game/SPECS';
 import Config, { SupportLevel } from 'parser/Config';
 
 import CHANGELOG from './CHANGELOG';
+import AlertWarning from 'interface/AlertWarning';
 
 const config: Config = {
   // The people that have contributed to this spec recently. People don't have to sign up to be long-time maintainers to be included in this list. If someone built a large part of the spec or contributed something recently to that spec, they can be added to the contributors list. If someone goes MIA, they may be removed after major changes or during a new expansion.
@@ -32,6 +33,20 @@ const config: Config = {
       <br />
     </>
   ),
+  pages: {
+    overview: {
+      frontmatterType: 'guide',
+      notes: (
+        <AlertWarning>
+          This analysis is a Work in Progress. I have done some minor updates to Fire, but there are
+          still things that have yet to be implemented or added. Once Blizzard stops changing things
+          every week, and once the theorycrafters finish running numbers, then I will update this.
+          Apologies for the delays, I promise I am working on it. Ping me in the Mage Discord if you
+          have questions about this. <code>@Sharrq</code>
+        </AlertWarning>
+      ),
+    },
+  },
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport:
     'report/XLj7amG2gr4Hwdb3/30-Heroic+Rashok,+the+Elder+-+Kill+(4:35)/Pyrenn/standard',

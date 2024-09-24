@@ -1,9 +1,10 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
+import { SpellbookAura } from 'parser/core/modules/Aura';
 import CoreAuras from 'parser/core/modules/Auras';
 
 class Buffs extends CoreAuras {
-  auras() {
+  auras(): SpellbookAura[] {
     const combatant = this.selectedCombatant;
 
     // This should include ALL buffs that can be applied by your spec.
@@ -55,6 +56,25 @@ class Buffs extends CoreAuras {
         spellId: SPELLS.FIRE_ELEMENTAL_BUFF.id,
         enabled: combatant.hasTalent(TALENTS.FIRE_ELEMENTAL_TALENT),
         triggeredBySpellId: TALENTS.FIRE_ELEMENTAL_TALENT.id,
+      },
+      {
+        spellId: SPELLS.PRIMORDIAL_WAVE_BUFF.id,
+        enabled: combatant.hasTalent(TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT),
+        triggeredBySpellId: TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT.id,
+      },
+      {
+        spellId: SPELLS.ANCESTRAL_SWIFTNESS_CAST.id,
+        enabled: combatant.hasTalent(TALENTS.ANCESTRAL_SWIFTNESS_TALENT),
+        triggeredBySpellId: SPELLS.ANCESTRAL_SWIFTNESS_CAST.id,
+      },
+      {
+        spellId: SPELLS.CALL_OF_THE_ANCESTORS_BUFF.id,
+        enabled: combatant.hasTalent(TALENTS.CALL_OF_THE_ANCESTORS_TALENT),
+        triggeredBySpellId: [
+          TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT.id,
+          SPELLS.ANCESTRAL_SWIFTNESS_CAST.id,
+        ],
+        timelineHighlight: true,
       },
     ];
   }

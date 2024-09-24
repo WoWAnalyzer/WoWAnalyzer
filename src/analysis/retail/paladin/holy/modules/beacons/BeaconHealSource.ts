@@ -10,7 +10,11 @@ import BeaconOfVirtue from '../../normalizers/BeaconOfVirtue';
 import BeaconTargets from './BeaconTargets';
 import BeaconTransferFactor from './BeaconTransferFactor';
 
+// Extremely spammy
 const debug = false;
+
+// Can still be a lot, but much less than `debug`
+const debugUntracked = debug || true;
 
 /**
  * @property {EventEmitter} eventEmitter
@@ -47,6 +51,8 @@ class BeaconHealSource extends Analyzer {
   }
 
   healBacklog: Array<HealEvent & { remainingBeaconTransfers: number }> = [];
+  // heals may be unconfigured because they don't transfer, or because they're new...
+  unconfiguredHeals: Array<HealEvent> = [];
 
   _onHeal(event: HealEvent) {
     const spellId = event.ability.guid;
@@ -57,6 +63,9 @@ class BeaconHealSource extends Analyzer {
     // Not all spells transfer
     const spellBeaconTransferFactor = getBeaconSpellFactor(spellId, this.selectedCombatant);
     if (!spellBeaconTransferFactor) {
+      if (debugUntracked) {
+        this.unconfiguredHeals.push({ ...event });
+      }
       return;
     }
 
@@ -131,6 +140,9 @@ class BeaconHealSource extends Analyzer {
     const matchedHeal = this.healBacklog[index];
     if (!matchedHeal) {
       this.error('No heal found for beacon transfer:', beaconTransferEvent);
+      if (debugUntracked) {
+        this._guessUntracked(beaconTransferEvent);
+      }
       return;
     }
 
@@ -185,6 +197,7 @@ class BeaconHealSource extends Analyzer {
       beaconTransferEvent.amount +
       (beaconTransferEvent.absorbed || 0) +
       (beaconTransferEvent.overheal || 0);
+
     this.healBacklog.forEach((healEvent, i) => {
       const expectedBeaconTransfer = this.beaconTransferFactor.getExpectedTransfer(healEvent);
 
@@ -198,6 +211,54 @@ class BeaconHealSource extends Analyzer {
         beaconTransferFactor: this.beaconTransferFactor.getFactor(healEvent),
       });
     });
+  }
+
+  _guessUntracked(beaconTransferEvent: HealEvent) {
+    const beaconTransferRaw =
+      beaconTransferEvent.amount +
+      (beaconTransferEvent.absorbed || 0) +
+      (beaconTransferEvent.overheal || 0);
+
+    const fmtAbility = (ability: HealEvent['ability']) => ({
+      name: ability.name,
+      id: ability.guid,
+      icon: ability.abilityIcon.replace('.jpg', ''),
+    });
+
+    if (this.unconfiguredHeals.length) {
+      const match = this.unconfiguredHeals.findLast((healEvent) => {
+        const rawHealing = healEvent.amount + (healEvent.absorbed || 0) + (healEvent.overheal || 0);
+        const expectedBeaconTransfer = rawHealing * this.beaconTransferFactor.beaconFactor;
+
+        return (
+          Math.abs(beaconTransferEvent.timestamp - healEvent.timestamp) < 500 &&
+          Math.abs(expectedBeaconTransfer - beaconTransferRaw) <= 2 // allow for rounding errors on Blizzard's end
+        );
+      });
+
+      if (match) {
+        this.log('Likely match:', { ability: fmtAbility(match.ability), healEvent: match });
+        return;
+      }
+
+      const matchHalf = this.unconfiguredHeals.findLast((healEvent) => {
+        const rawHealing = healEvent.amount + (healEvent.absorbed || 0) + (healEvent.overheal || 0);
+        const expectedBeaconTransfer = (rawHealing * this.beaconTransferFactor.beaconFactor) / 2;
+
+        return (
+          Math.abs(beaconTransferEvent.timestamp - healEvent.timestamp) < 500 &&
+          Math.abs(expectedBeaconTransfer - beaconTransferRaw) <= 2 // allow for rounding errors on Blizzard's end
+        );
+      });
+
+      if (matchHalf) {
+        this.log('Likely match at half effect:', {
+          ability: fmtAbility(matchHalf.ability),
+          healEvent: matchHalf,
+        });
+        return;
+      }
+    }
   }
   /**
    * @returns {number} Gets the next heal in the backlog without any extra checks. This usually works since beacon healing is ordered in the combat log right after the heal that triggered it, and, while there's a delay before the beacon transfer happens, it's extremely rare for there to be multiple heals happening within short time spans - short enough to be before the beacon transfer.

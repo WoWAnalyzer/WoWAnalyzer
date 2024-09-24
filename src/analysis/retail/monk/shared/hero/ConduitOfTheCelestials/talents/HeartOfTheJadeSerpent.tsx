@@ -4,22 +4,9 @@ import SPECS from 'game/SPECS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import { MISTWEAVER_HEART_SPELLS, WINDWALKER_HEART_SPELLS } from '../constants';
 
 const HEART_COOLDOWN_RATE = 0.75;
-
-const MISTWEAVER_HEART_SPELLS = [
-  TALENTS_MONK.RENEWING_MIST_TALENT.id,
-  TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
-  TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id,
-  TALENTS_MONK.LIFE_COCOON_TALENT.id,
-];
-
-const WINDWALKER_HEART_SPELLS = [
-  TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
-  TALENTS_MONK.FISTS_OF_FURY_TALENT.id,
-  TALENTS_MONK.STRIKE_OF_THE_WINDLORD_TALENT.id,
-  TALENTS_MONK.WHIRLING_DRAGON_PUNCH_TALENT.id,
-];
 
 class HeartOfTheJadeSerpent extends Analyzer {
   static dependencies = {

@@ -125,12 +125,16 @@ class ComboStrikes extends Analyzer {
                       <th scope="row">
                         {formatDuration(item[0].timestamp - this.owner.fight.start_time)}
                       </th>
-                      <td>
-                        <SpellIcon spell={item[0].ability} style={{ height: '2.4em' }} />
-                      </td>
-                      <td>
-                        <SpellIcon spell={item[1].ability} style={{ height: '2.4em' }} />
-                      </td>
+                      {item[1] && item[1].ability && (
+                        <td>
+                          <SpellIcon spell={item[0].ability} style={{ height: '2.4em' }} />
+                        </td>
+                      )}
+                      {item[1] && item[1].ability && (
+                        <td>
+                          <SpellIcon spell={item[1].ability} style={{ height: '2.4em' }} />
+                        </td>
+                      )}
                       {item[2] && item[2].ability && (
                         <td>
                           <SpellIcon spell={item[2].ability} style={{ height: '2.4em' }} />

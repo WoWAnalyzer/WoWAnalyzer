@@ -11,7 +11,7 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import SpellUsable from '../core/SpellUsable';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
-const WITCH_DOCTORS_ANCESTRY_REDUCTION_MS = 2000;
+const WITCH_DOCTORS_ANCESTRY_REDUCTION_MS = 1000;
 
 class WitchDoctorsAncestry extends Analyzer {
   static dependencies = {

@@ -28,7 +28,6 @@ import SoulConduit from './modules/spells/SoulConduit';
 import TormentedCrescendo from './modules/spells/TormentedCrescendo';
 import UnstableAfflictionUptime from './modules/spells/UnstableAffliction';
 import VileTaint from './modules/spells/VileTaint';
-import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
 import { UnendingResolve, DarkPact, DemonicCircle } from '../shared';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -76,7 +75,6 @@ class CombatLogParser extends CoreCombatLogParser {
     demonicCircle: DemonicCircle,
 
     // Items
-    callToDominance: CallToDominance,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

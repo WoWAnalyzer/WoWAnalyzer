@@ -41,9 +41,7 @@
   "exclude": [
     "src/analysis/retail/deathknight/frost",
     "src/analysis/retail/deathknight/unholy",
-    "src/analysis/retail/monk/windwalker",
     "src/analysis/retail/priest/discipline",
-    "src/analysis/retail/rogue/assassination",
     "src/analysis/retail/rogue/subtlety",
     "src/analysis/retail/rogue/outlaw",
     "src/analysis/retail/rogue/shared",
@@ -60,7 +58,6 @@
     "./src/analysis/retail/deathknight/unholy/CONFIG.tsx",
     "./src/analysis/retail/mage/frost/CONFIG.tsx",
     "./src/analysis/retail/priest/discipline/CONFIG.tsx",
-    "./src/analysis/retail/rogue/assassination/CONFIG.tsx",
     "./src/analysis/retail/rogue/subtlety/CONFIG.tsx",
     "./src/analysis/retail/rogue/outlaw/CONFIG.tsx",
     "./src/analysis/retail/warlock/affliction/CONFIG.tsx",

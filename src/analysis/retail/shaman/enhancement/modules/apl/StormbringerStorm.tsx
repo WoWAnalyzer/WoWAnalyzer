@@ -9,9 +9,9 @@ import {
   debuffMissing,
   describe,
   hasTalent,
-  repeatableBuffPresent,
+  not,
 } from 'parser/shared/metrics/apl/conditions';
-import { AtLeastFiveMSW, MaxStacksMSW, minimumMaelstromWeaponStacks } from './Conditions';
+import { getSpenderBlock, MaxStacksMSW } from './Conditions';
 
 export function stormbringerStorm(combatant: Combatant): Apl {
   const rules: Rule[] = [
@@ -35,28 +35,14 @@ export function stormbringerStorm(combatant: Combatant): Apl {
         '',
       ),
     },
-    {
-      spell: TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT,
-      condition: and(
-        minimumMaelstromWeaponStacks(8),
-        repeatableBuffPresent(
-          [
-            SPELLS.ELEMENTAL_SPIRITS_BUFF_MOLTEN_WEAPON,
-            SPELLS.ELEMENTAL_SPIRITS_BUFF_ICY_EDGE,
-            SPELLS.ELEMENTAL_SPIRITS_BUFF_CRACKLING_SURGE,
-          ],
-          { atLeast: 4 },
-        ),
-      ),
-    },
-    {
-      spell: SPELLS.LIGHTNING_BOLT,
-      condition: MaxStacksMSW,
-    },
+    ...getSpenderBlock(combatant),
     {
       spell: TALENTS.STORMSTRIKE_TALENT,
       condition: describe(
-        hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT),
+        and(
+          hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT),
+          not(buffPresent(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT)),
+        ),
         () => (
           <>
             to fish for <SpellLink spell={TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT} />
@@ -65,11 +51,16 @@ export function stormbringerStorm(combatant: Combatant): Apl {
         '',
       ),
     },
-    {
-      spell: SPELLS.LIGHTNING_BOLT,
-      condition: AtLeastFiveMSW,
-    },
     TALENTS.ICE_STRIKE_TALENT,
+    {
+      spell: TALENTS.FROST_SHOCK_TALENT,
+      condition: buffPresent(SPELLS.HAILSTORM_BUFF),
+    },
+    {
+      spell: SPELLS.FLAME_SHOCK,
+      condition: debuffMissing(SPELLS.FLAME_SHOCK),
+    },
+    TALENTS.LAVA_LASH_TALENT,
   ];
 
   // frost shock is slightly elevated if the hailstorm talent is selected and buff is active

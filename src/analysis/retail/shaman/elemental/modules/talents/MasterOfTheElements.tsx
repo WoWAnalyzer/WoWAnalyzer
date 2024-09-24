@@ -10,6 +10,7 @@ import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { addEnhancedCastReason } from 'parser/core/EventMetaLib';
+import { ENABLE_MOTE_CHECKS } from '../../constants';
 
 const MASTER_OF_THE_ELEMENTS = {
   INCREASE: 0.15,
@@ -93,12 +94,13 @@ class MasterOfTheElements extends Analyzer {
     }
     this.moteConsumptionTimestamp = event.timestamp;
     this.moteActivationTimestamp = null;
-    addEnhancedCastReason(
-      event,
-      <>
-        Cast with <SpellLink spell={TALENTS.MASTER_OF_THE_ELEMENTS_ELEMENTAL_TALENT} />
-      </>,
-    );
+    ENABLE_MOTE_CHECKS &&
+      addEnhancedCastReason(
+        event,
+        <>
+          Cast with <SpellLink spell={TALENTS.MASTER_OF_THE_ELEMENTS_ELEMENTAL_TALENT} />
+        </>,
+      );
     this.moteBuffedAbilities[event.ability.guid] += 1;
   }
 

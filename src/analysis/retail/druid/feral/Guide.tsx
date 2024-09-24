@@ -8,11 +8,7 @@ import { formatPercentage } from 'common/format';
 import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/GuideDivs';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
-import {
-  ACCEPTABLE_BERSERK_CPS,
-  ACCEPTABLE_CPS,
-  cdSpell,
-} from 'analysis/retail/druid/feral/constants';
+import { ACCEPTABLE_CPS } from 'analysis/retail/druid/feral/constants';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -44,16 +40,8 @@ function ResourceUseSection({ modules, events, info }: GuideProps<typeof CombatL
       </SubSection>
       <SubSection title="Combo Points">
         <p>
-          It is acceptable to use finishers at {ACCEPTABLE_CPS} CPs regardless of talent setup. This
-          is because the gain avoiding overcap from{' '}
-          <SpellLink spell={TALENTS_DRUID.PRIMAL_FURY_TALENT} /> outweighs the loss of weaker
-          spenders. However, during <SpellLink spell={cdSpell(info.combatant)} /> you should use{' '}
-          {ACCEPTABLE_BERSERK_CPS} because of its CP overcap protection.
-        </p>
-        <p>
           Most of your abilities either <strong>build</strong> or <strong>spend</strong> Combo
-          Points. Never use a builder at max CPs, and always wait until {ACCEPTABLE_CPS} (
-          {ACCEPTABLE_BERSERK_CPS} in <SpellLink spell={cdSpell(info.combatant)} />) to use a
+          Points. Never use a builder at max CPs, and always wait until {ACCEPTABLE_CPS} to use a
           spender (with the exception of your opening <SpellLink spell={SPELLS.RIP} />
           ).
         </p>
