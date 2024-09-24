@@ -262,7 +262,7 @@ class CallOfTheAncestors extends MajorCooldown<CallAncestor> {
     const source =
       cast.event.type === EventType.Summon ? (
         <>
-          <SpellLink spell={TALENTS.HEED_MY_CALL_TALENT} />
+          <SpellLink spell={TALENTS.ANCIENT_FELLOWSHIP_TALENT} />
         </>
       ) : (
         <>
