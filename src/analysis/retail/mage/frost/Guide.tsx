@@ -10,6 +10,8 @@ import PreparationSection from 'interface/guide/components/Preparation/Preparati
 import { HideExplanationsToggle } from 'interface/guide/components/HideExplanationsToggle';
 import { AplSectionData } from 'interface/guide/components/Apl';
 import * as ssApl from 'src/analysis/retail/mage/frost/apl/SpellslingerAplCheck';
+import { GapHighlight } from 'parser/ui/CooldownBar';
+import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 
 export const GUIDE_CORE_EXPLANATION_PERCENT = 50;
 
@@ -65,6 +67,15 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {info.combatant.hasTalent(TALENTS.GLACIAL_SPIKE_TALENT) &&
           modules.glacialSpike.guideSubsection}
       </Section>
+      <Section title="Rotational Abilities">
+        <>
+          Frost Mage generally revolves around using your procs to shatter your spells and do extra
+          damage, but your other rotational abilities also contribute to your damage and, in some
+          cases, help generate more procs for you to use.
+        </>
+        {info.combatant.hasTalent(TALENTS.FROZEN_ORB_TALENT) &&
+          modules.frozenOrbGuide.guideSubsection}
+      </Section>
       <Section title="Procs">
         <HideExplanationsToggle id="hide-explanations-procs" />
         {info.combatant.hasTalent(TALENTS.BRAIN_FREEZE_TALENT) &&
@@ -73,14 +84,43 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           modules.fingersOfFrost.guideSubsection}
       </Section>
       <Section title="Cooldowns">
-        <HideExplanationsToggle id="hide-explanations-cooldowns" />
-        {info.combatant.hasTalent(TALENTS.ICY_VEINS_TALENT) && modules.icyVeins.guideSubsection}
-        {info.combatant.hasTalent(TALENTS.RAY_OF_FROST_TALENT) &&
-          modules.rayOfFrost.guideSubsection}
-        {info.combatant.hasTalent(TALENTS.COMET_STORM_TALENT) && modules.cometStorm.guideSubsection}
-        {info.combatant.hasTalent(TALENTS.FROZEN_ORB_TALENT) && modules.frozenOrb.guideSubsection}
-        {info.combatant.hasTalent(TALENTS.SHIFTING_POWER_TALENT) &&
-          modules.shiftingPowerFrost.guideSubsection}
+        <>
+          As is the case with most damage specs, properly utilizing your damage cooldowns will go a
+          long way towards improving your overall damage, especially{' '}
+          <SpellLink spell={TALENTS.ICY_VEINS_TALENT} />.
+        </>
+        {info.combatant.hasTalent(TALENTS.ICY_VEINS_TALENT) && (
+          <CastEfficiencyBar
+            spellId={TALENTS.ICY_VEINS_TALENT.id}
+            gapHighlightMode={GapHighlight.FullCooldown}
+            useThresholds
+          />
+        )}
+        {info.combatant.hasTalent(TALENTS.FROZEN_ORB_TALENT) && (
+          <CastEfficiencyBar
+            spellId={TALENTS.FROZEN_ORB_TALENT.id}
+            gapHighlightMode={GapHighlight.FullCooldown}
+            useThresholds
+          />
+        )}
+        {info.combatant.hasTalent(TALENTS.COMET_STORM_TALENT) && (
+          <CastEfficiencyBar
+            spellId={TALENTS.COMET_STORM_TALENT.id}
+            gapHighlightMode={GapHighlight.FullCooldown}
+            useThresholds
+          />
+        )}
+        {info.combatant.hasTalent(TALENTS.RAY_OF_FROST_TALENT) && (
+          <CastEfficiencyBar
+            spellId={TALENTS.RAY_OF_FROST_TALENT.id}
+            gapHighlightMode={GapHighlight.FullCooldown}
+            useThresholds
+          />
+        )}
+        <CastEfficiencyBar
+          spellId={TALENTS.SHIFTING_POWER_TALENT.id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+        />
       </Section>
       <PreparationSection />
     </>
