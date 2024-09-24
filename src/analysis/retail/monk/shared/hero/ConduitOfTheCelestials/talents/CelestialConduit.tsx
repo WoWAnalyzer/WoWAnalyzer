@@ -44,7 +44,6 @@ interface CastInfo {
   cooldownMap: Map<number, number> | undefined;
   // hits per pulse
   targetsHit: number[];
-  castUnity: boolean;
 }
 
 const LESS_IMPORTANT_CDR_SPELLS: Set<number> = new Set<number>([
@@ -83,6 +82,10 @@ class CelestialConduit extends Analyzer {
     this.addEventListener(
       Events.EndChannel.by(SELECTED_PLAYER).spell(TALENTS_MONK.CELESTIAL_CONDUIT_TALENT),
       this.onChannelEnd,
+    );
+    this.addEventListener(
+      Events.EndChannel.by(SELECTED_PLAYER).spell(TALENTS_MONK.CELESTIAL_CONDUIT_TALENT),
+      this.onUnityWithin,
     );
 
     this.addEventListener(
@@ -129,13 +132,13 @@ class CelestialConduit extends Analyzer {
       cooldownMap: undefined,
       targetsHit: [],
       timestamp: event.timestamp,
-      castUnity: false,
     });
   }
 
-  private onUnityWithin(event: CastEvent) {
-    this.castInfoList.at(-1)!.cooldownMap = this.getCooldownMap();
-    this.castInfoList.at(-1)!.castUnity = true;
+  private onUnityWithin(event: CastEvent | EndChannelEvent) {
+    if (!this.castInfoList.at(-1)?.cooldownMap) {
+      this.castInfoList.at(-1)!.cooldownMap = this.getCooldownMap();
+    }
   }
 
   private onChannelEnd(event: EndChannelEvent) {
@@ -164,7 +167,6 @@ class CelestialConduit extends Analyzer {
         cooldownMap: undefined,
         targetsHit: [],
         timestamp: event.timestamp,
-        castUnity: false,
       });
     }
     if (event.type === EventType.Heal) {
@@ -199,49 +201,31 @@ class CelestialConduit extends Analyzer {
       ),
       details: <>{castInfo.cancelled ? 'No' : 'Yes'}</>,
     };
-    const unityPerf = castInfo.castUnity
-      ? QualitativePerformance.Good
-      : QualitativePerformance.Fail;
-    const unityItem: CooldownExpandableItem = {
-      label: (
-        <>
-          Cast <SpellLink spell={TALENTS_MONK.UNITY_WITHIN_TALENT} />
-        </>
-      ),
-      result: (
-        <>
-          <PerformanceMark perf={unityPerf} />
-        </>
-      ),
-      details: castInfo.castUnity ? 'Yes' : 'No',
-    };
     const cooldownPerfs: QualitativePerformance[] = [];
     const cooldownItems: CooldownExpandableItem[] = [];
-    if (castInfo.cooldownMap) {
-      castInfo.cooldownMap!.forEach((cooldown, spellId) => {
-        const perf =
-          cooldown === 0
-            ? LESS_IMPORTANT_CDR_SPELLS.has(spellId)
-              ? QualitativePerformance.Ok
-              : QualitativePerformance.Fail
-            : QualitativePerformance.Good;
-        cooldownPerfs.push(perf);
-        cooldownItems.push({
-          label: (
-            <>
-              <SpellLink spell={spellId} /> on cooldown when casting{' '}
-              <SpellLink spell={TALENTS_MONK.UNITY_WITHIN_TALENT} />
-            </>
-          ),
-          result: (
-            <>
-              <PerformanceMark perf={perf} />
-            </>
-          ),
-          details: <>{cooldown === 0 ? 'No' : 'Yes'}</>,
-        });
+    castInfo.cooldownMap!.forEach((cooldown, spellId) => {
+      const perf =
+        cooldown === 0
+          ? LESS_IMPORTANT_CDR_SPELLS.has(spellId)
+            ? QualitativePerformance.Ok
+            : QualitativePerformance.Fail
+          : QualitativePerformance.Good;
+      cooldownPerfs.push(perf);
+      cooldownItems.push({
+        label: (
+          <>
+            <SpellLink spell={spellId} /> on cooldown when casting{' '}
+            <SpellLink spell={TALENTS_MONK.UNITY_WITHIN_TALENT} />
+          </>
+        ),
+        result: (
+          <>
+            <PerformanceMark perf={perf} />
+          </>
+        ),
+        details: <>{cooldown === 0 ? 'No' : 'Yes'}</>,
       });
-    }
+    });
 
     const avgTargetsHit =
       castInfo.targetsHit.reduce((prev, cur) => {
@@ -259,8 +243,8 @@ class CelestialConduit extends Analyzer {
       details: <>{avgTargetsHit.toFixed(1)} </>,
     };
     return {
-      perf: getAveragePerf([cancelPerf, unityPerf, ...cooldownPerfs, targetHitPerf]),
-      items: [cancelledItem, unityItem, ...cooldownItems, targetsHitItem],
+      perf: getAveragePerf([cancelPerf, ...cooldownPerfs, targetHitPerf]),
+      items: [cancelledItem, ...cooldownItems, targetsHitItem],
     };
   }
 
