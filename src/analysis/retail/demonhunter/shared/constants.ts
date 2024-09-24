@@ -17,7 +17,7 @@ export const CHAMPION_OF_THE_GLAIVE_SCALING = [0, 1];
 
 export const RUSH_OF_CHAOS_SCALING = [0, 30, 60];
 
-export const DEMONIC_DURATION = 6000;
+export const DEMONIC_DURATION = 5000;
 
 export function getSigilOfFlameSpell(c: Combatant): Spell {
   if (c.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT)) {
