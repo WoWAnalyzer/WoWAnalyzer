@@ -62,6 +62,8 @@ import { ThrowGlaive } from './modules/spells/ThrowGlaive';
 import UnboundChaosNormalizer from './normalizers/UnboundChaosNormalizer';
 import UnboundChaos from './modules/talents/UnboundChaos';
 import ConsumingFireNormalizer from '../shared/normalizers/ConsumingFireNormalizer';
+import Demonsurge from '../shared/modules/hero/felscarred/Demonsurge/analyzer';
+import DemonsurgeEventLinkNormalizer from '../shared/modules/hero/felscarred/Demonsurge/eventLinkNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -130,6 +132,10 @@ class CombatLogParser extends CoreCombatLogParser {
     disruptingFury: DisruptingFury,
     eyeBeam: EyeBeam,
     unboundChaos: UnboundChaos,
+
+    // Hero
+    demonsurge: Demonsurge,
+    demonsurgeEventLinkNormalizer: DemonsurgeEventLinkNormalizer,
 
     // Resources
     furyTracker: FuryTracker,
