@@ -44,6 +44,7 @@ interface CastInfo {
   cooldownMap: Map<number, number> | undefined;
   // hits per pulse
   targetsHit: number[];
+  castUnity: boolean;
 }
 
 const LESS_IMPORTANT_CDR_SPELLS: Set<number> = new Set<number>([
@@ -132,6 +133,7 @@ class CelestialConduit extends Analyzer {
       cooldownMap: undefined,
       targetsHit: [],
       timestamp: event.timestamp,
+      castUnity: false,
     });
   }
 
@@ -167,6 +169,7 @@ class CelestialConduit extends Analyzer {
         cooldownMap: undefined,
         targetsHit: [],
         timestamp: event.timestamp,
+        castUnity: false,
       });
     }
     if (event.type === EventType.Heal) {
@@ -201,6 +204,22 @@ class CelestialConduit extends Analyzer {
       ),
       details: <>{castInfo.cancelled ? 'No' : 'Yes'}</>,
     };
+    const unityPerf = castInfo.castUnity
+      ? QualitativePerformance.Good
+      : QualitativePerformance.Fail;
+    const unityItem: CooldownExpandableItem = {
+      label: (
+        <>
+          Cast <SpellLink spell={TALENTS_MONK.UNITY_WITHIN_TALENT} />
+        </>
+      ),
+      result: (
+        <>
+          <PerformanceMark perf={unityPerf} />
+        </>
+      ),
+      details: castInfo.castUnity ? 'Yes' : 'No',
+    };
     const cooldownPerfs: QualitativePerformance[] = [];
     const cooldownItems: CooldownExpandableItem[] = [];
     castInfo.cooldownMap!.forEach((cooldown, spellId) => {
@@ -226,7 +245,6 @@ class CelestialConduit extends Analyzer {
         details: <>{cooldown === 0 ? 'No' : 'Yes'}</>,
       });
     });
-
     const avgTargetsHit =
       castInfo.targetsHit.reduce((prev, cur) => {
         return prev + cur;
@@ -243,8 +261,8 @@ class CelestialConduit extends Analyzer {
       details: <>{avgTargetsHit.toFixed(1)} </>,
     };
     return {
-      perf: getAveragePerf([cancelPerf, ...cooldownPerfs, targetHitPerf]),
-      items: [cancelledItem, ...cooldownItems, targetsHitItem],
+      perf: getAveragePerf([cancelPerf, unityPerf, ...cooldownPerfs, targetHitPerf]),
+      items: [cancelledItem, unityItem, ...cooldownItems, targetsHitItem],
     };
   }
 
