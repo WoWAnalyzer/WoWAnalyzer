@@ -656,6 +656,21 @@ const spells = {
     name: 'Summon Prince Malchezaar',
     icon: 'achievement_boss_princemalchezaar_02',
   },
+  MOTHER_OF_CHAOS_SUMMON: {
+    id: 428565,
+    name: 'Summon Mother of Chaos',
+    icon: 'achievement-boss-argus-shivan',
+  },
+  PIT_LORD_SUMMON: {
+    id: 434400,
+    name: 'Summon Pit Lord',
+    icon: 'Ability_bossmannoroth_empoweredmannorothsgaze',
+  },
+  OVERLORD_SUMMON: {
+    id: 428571,
+    name: 'Summon Overlord',
+    icon: 'ability_creature_felfrenzy',
+  },
   // Glyphed permanent pet summons
   FEL_IMP_SUMMON: {
     id: 112866,
