@@ -559,8 +559,13 @@ const spells = {
   },
 
   // Hellcaller hero talent
-  WITHER: {
+  WITHER_CAST: {
     id: 445468,
+    name: 'Wither',
+    icon: 'inv_ability_hellcallerwarlock_wither',
+  },
+  WITHER_DAMAGE: {
+    id: 445474,
     name: 'Wither',
     icon: 'inv_ability_hellcallerwarlock_wither',
   },
@@ -590,6 +595,21 @@ const spells = {
     id: 434636,
     name: 'Ruination',
     icon: 'spell_fire_felflamestrike',
+  },
+  FELSEEKER_DAMAGE: {
+    id: 434404,
+    name: 'Felseeker',
+    icon: 'spell_fel_elementaldevastation',
+  },
+  WICKED_CLEAVE_DAMAGE: {
+    id: 432120,
+    name: 'Wicked Cleave',
+    icon: 'inv_axe_2h_felfireraid_d_01',
+  },
+  CHAOS_SALVO_DAMAGE: {
+    id: 432596,
+    name: 'Chaos Salvo',
+    icon: 'spell_fire_felpyroblast',
   },
 
   // Demonology shard generating effects
