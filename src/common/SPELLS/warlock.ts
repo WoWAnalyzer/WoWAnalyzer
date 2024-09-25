@@ -558,6 +558,35 @@ const spells = {
     icon: 'inv-felhound3-shadow-mount',
   },
 
+  // Hellcaller hero talent
+  WITHER: {
+    id: 445468,
+    name: 'Wither',
+    icon: 'inv_ability_hellcallerwarlock_wither',
+  },
+  MALEVOLENCE: {
+    id: 442726,
+    name: 'Malevolence',
+    icon: 'inv_ability_hellcallerwarlock_malevolence',
+  },
+  CURSE_OF_THE_SATYR: {
+    id: 440057,
+    name: 'Curse of the Satyr',
+    icon: 'inv_fabric_felrag',
+  },
+
+  // Diabolist hero talent
+  INFERNAL_BOLT: {
+    id: 434506,
+    name: 'Infernal Bolt',
+    icon: 'spell_fel_firebolt',
+  },
+  RUINATION: {
+    id: 434635,
+    name: 'Ruination',
+    icon: 'spell_fire_felflamestrike',
+  },
+
   // Demonology shard generating effects
   SHADOW_BOLT_SHARD_GEN: {
     id: 194192,
