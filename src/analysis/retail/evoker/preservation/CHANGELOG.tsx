@@ -5,6 +5,7 @@ import { TALENTS_EVOKER } from 'common/TALENTS';
 
 // prettier-ignore
 export default [
+  change(date(2024, 9, 21), <>Update <SpellLink spell={TALENTS_EVOKER.LEAPING_FLAMES_TALENT}/> to work with <SpellLink spell={TALENTS_EVOKER.CHRONO_FLAME_TALENT}/></>, Harrek),
   change(date(2024, 9, 14), <>Update <SpellLink spell={TALENTS_EVOKER.SOURCE_OF_MAGIC_TALENT}/> for TWW</>, Trevor),
   change(date(2024, 9, 14), <>Add <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT}/> to Stasis spells</>, Trevor),
   change(date(2024, 8, 22), <>Bumped Preservation to full support for 11.0.2</>, Harrek),

@@ -1,7 +1,7 @@
 import { SubSection, useAnalyzer, useInfo } from 'interface/guide/index';
 import EnhancementBoxRow from 'interface/guide/components/Preparation/EnhancementSubSection/EnhancementBoxRow';
 import WeaponEnhancementChecker from 'parser/shared/modules/items/WeaponEnhancementChecker';
-import { Enchant } from 'common/SPELLS/Spell';
+import { Enchant } from 'common/ITEMS/Item';
 
 interface Props {
   recommendedLegEnhancements?: Enchant[];

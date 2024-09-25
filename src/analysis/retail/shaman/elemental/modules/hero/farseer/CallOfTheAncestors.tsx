@@ -8,12 +8,14 @@ import Events, {
   EndChannelEvent,
   EventType,
   FightEndEvent,
+  GetRelatedEvent,
   GlobalCooldownEvent,
   RemoveBuffEvent,
+  RemoveBuffStackEvent,
   SummonEvent,
 } from 'parser/core/Events';
 import MajorCooldown, { CooldownTrigger } from 'parser/core/MajorCooldowns/MajorCooldown';
-import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { getLowestPerf, QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import TALENTS from 'common/TALENTS/shaman';
 import SPELLS from 'common/SPELLS/shaman';
 import SpellLink from 'interface/SpellLink';
@@ -23,10 +25,10 @@ import EmbeddedTimelineContainer, {
   SpellTimeline,
 } from 'interface/report/Results/Timeline/EmbeddedTimeline';
 import Casts from 'interface/report/Results/Timeline/Casts';
-import { formatNumber } from 'common/format';
-import { TooltipElement } from 'interface/Tooltip';
-import { GoodColor, PerfectColor } from 'interface/guide';
-import { Highlight } from 'interface/Highlight';
+import { formatNumber, formatPercentage } from 'common/format';
+import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
+import { UptimeIcon } from 'interface/icons';
+import { EVENT_LINKS } from '../../../constants';
 
 type Timeline = {
   start: number;
@@ -37,8 +39,12 @@ type Timeline = {
 
 interface CallAncestor extends CooldownTrigger<CastEvent | SummonEvent> {
   timeline: Timeline;
-  /** Ancestor instance IDs for this trigger */
+  /** Ancestor instance IDs for this window */
   ancestors: Set<number>;
+  /** Number of currently active ancestors in this window*/
+  activeAncestors: number;
+  /** AlwaysBeCasting active time */
+  activeTime: number;
 }
 
 const SUMMON_ANCESTOR_SPELLS = [
@@ -46,9 +52,18 @@ const SUMMON_ANCESTOR_SPELLS = [
   SPELLS.ANCESTRAL_SWIFTNESS_CAST.id,
 ];
 
+const RELATED_WINDOW_BUFFER = 2000;
+
 class CallOfTheAncestors extends MajorCooldown<CallAncestor> {
+  static dependencies = {
+    ...MajorCooldown.dependencies,
+    alwaysBeCasting: AlwaysBeCasting,
+  };
+
+  protected alwaysBeCasting!: AlwaysBeCasting;
+
   windows: CallAncestor[] = [];
-  activeWindow: CallAncestor | null = null;
+  activeWindows: CallAncestor[] = [];
   ancestorSpells = new Map<number, DamageEvent[]>();
   ancestorSourceId: number = 0;
 
@@ -75,9 +90,11 @@ class CallOfTheAncestors extends MajorCooldown<CallAncestor> {
       this.summonAncestor,
     );
 
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.CALL_OF_THE_ANCESTORS_BUFF),
-      this.onAncestorEnd,
+    [Events.removebuff, Events.removebuffstack].forEach((filter) =>
+      this.addEventListener(
+        filter.by(SELECTED_PLAYER).spell(SPELLS.CALL_OF_THE_ANCESTORS_BUFF),
+        this.onAncestorEnd,
+      ),
     );
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onAncestorDamage);
@@ -88,80 +105,97 @@ class CallOfTheAncestors extends MajorCooldown<CallAncestor> {
   }
 
   onFightEnd(event: FightEndEvent) {
-    if (this.activeWindow) {
-      this.activeWindow.timeline.end = event.timestamp;
-    }
+    // end any active windows
+    this.activeWindows.forEach((window) => {
+      window.timeline.end = event.timestamp;
+      this.windows.push(window);
+    });
+
+    // record each window
     this.windows.forEach((window) => this.recordCooldown(window));
   }
 
-  onAncestorEnd(event: RemoveBuffEvent) {
-    if (this.activeWindow) {
-      this.activeWindow.timeline.end = event.timestamp;
-      this.windows.push(this.activeWindow);
-      this.activeWindow = null;
+  onAncestorEnd(event: RemoveBuffStackEvent | RemoveBuffEvent) {
+    if (this.activeWindows.length > 0) {
+      // decrement the ancestor count from the oldest active window
+      const window = this.activeWindows[0];
+      window.activeAncestors -= 1;
+      // if no ancestors left, end the window
+      if (window.activeAncestors === 0) {
+        window.timeline.end = event.timestamp;
+        this.activeWindows.splice(0, 1);
+        this.windows.push(window);
+      }
     }
+  }
+
+  recordCooldown(cast: CallAncestor) {
+    cast.activeTime = this.alwaysBeCasting.getActiveTimePercentageInWindow(
+      cast.event.timestamp,
+      cast.timeline.end,
+    );
+    super.recordCooldown(cast);
   }
 
   /**
    * Start a new ancestor window, or returns the existing window
    * @param event event that triggered the new window
-   * @param forceNewWindow if a window already exists, end it and start a new one
    * @returns the currently active window
    */
-  createAncestorWindow(event: CastEvent | SummonEvent, forceNewWindow: boolean) {
-    if (forceNewWindow && this.activeWindow) {
-      this.activeWindow.timeline.end = event.timestamp;
-      this.windows.push(this.activeWindow);
+  createAncestorWindow(event: CastEvent | SummonEvent): CallAncestor[] {
+    const relatedWindows = this.activeWindows.filter(
+      (window) => event.timestamp - window.event.timestamp < RELATED_WINDOW_BUFFER,
+    );
+    if (relatedWindows.length > 0) {
+      if (
+        event.type === EventType.Summon &&
+        !GetRelatedEvent(event, EVENT_LINKS.CallOfTheAncestors)
+      ) {
+        relatedWindows.forEach((window) => (window.activeAncestors += 1));
+      }
+      return relatedWindows;
     }
-
-    if (!this.activeWindow) {
-      this.activeWindow = {
-        event: event,
-        ancestors: new Set<number>(),
-        timeline: {
-          start: event.timestamp,
-          end: -1,
-          events: [],
-          performance: QualitativePerformance.Perfect,
-        },
-      };
-    }
-    return this.activeWindow;
+    const window: CallAncestor = {
+      event: event,
+      ancestors: new Set<number>(),
+      activeAncestors: 1,
+      activeTime: 0,
+      timeline: {
+        start: event.timestamp,
+        end: -1,
+        events: [],
+        performance: QualitativePerformance.Perfect,
+      },
+    };
+    this.activeWindows.push(window);
+    return [window];
   }
 
   onCast(
     event: BeginCastEvent | CastEvent | GlobalCooldownEvent | BeginChannelEvent | EndChannelEvent,
   ) {
     if (SUMMON_ANCESTOR_SPELLS.includes(event.ability.guid)) {
-      if (!this.activeWindow) {
-        if (event.type === EventType.BeginCast && event.castEvent) {
-          this.createAncestorWindow(event.castEvent, true);
-        } else if (
-          event.type === EventType.GlobalCooldown &&
-          event.trigger.type === EventType.Cast
-        ) {
-          this.createAncestorWindow(event.trigger, true);
-        } else if (event.type === EventType.Cast) {
-          this.createAncestorWindow(event, true);
-        }
+      if (event.type === EventType.BeginCast && event.castEvent) {
+        this.createAncestorWindow(event.castEvent);
+      } else if (event.type === EventType.GlobalCooldown && event.trigger.type === EventType.Cast) {
+        this.createAncestorWindow(event.trigger);
+      } else if (event.type === EventType.Cast) {
+        this.createAncestorWindow(event);
       }
     }
 
-    if (this.activeWindow) {
-      this.activeWindow.timeline.events.push(event);
-    }
+    this.activeWindows.forEach((window) => window.timeline.events.push(event));
   }
 
   summonAncestor(event: SummonEvent) {
     this.ancestorSpells.set(event.targetInstance, []);
-    this.createAncestorWindow(event, false);
-    this.ensureAncestorExistsInWindow(event.targetInstance);
-  }
-
-  ensureAncestorExistsInWindow(sourceID: number) {
-    if (this.activeWindow && !this.activeWindow.ancestors.has(sourceID)) {
-      this.activeWindow.ancestors.add(sourceID);
-    }
+    const windows = this.createAncestorWindow(event);
+    windows.forEach((window) => {
+      const sourceID = event.targetInstance;
+      if (!window.ancestors.has(sourceID)) {
+        window.ancestors.add(sourceID);
+      }
+    });
   }
 
   onAncestorDamage(event: DamageEvent) {
@@ -203,63 +237,24 @@ class CallOfTheAncestors extends MajorCooldown<CallAncestor> {
   }
 
   guideSubsection(): JSX.Element {
-    return (
-      <CooldownUsage
-        analyzer={this}
-        title="Farseer"
-        castBreakdownSmallText={this.castBreakdownSmallText}
-      />
-    );
-  }
-
-  get castBreakdownSmallText() {
-    return (
-      <>
-        - These boxes represent each ancestor window, color coded by the spell that triggered it.
-        <TooltipElement
-          content={
-            <>
-              Used for ancestors triggered by <SpellLink spell={TALENTS.HEED_MY_CALL_TALENT} />
-            </>
-          }
-        >
-          <Highlight color={GoodColor} textColor="black">
-            Green
-          </Highlight>
-        </TooltipElement>{' '}
-        for procs, or{' '}
-        <TooltipElement
-          content={
-            <>
-              Used for ancestors triggered by{' '}
-              <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT} /> or{' '}
-              <SpellLink spell={TALENTS.ANCESTRAL_SWIFTNESS_TALENT} />
-            </>
-          }
-        >
-          <Highlight color={PerfectColor} textColor="white">
-            blue
-          </Highlight>
-        </TooltipElement>{' '}
-        for manually triggered via spells.
-      </>
-    );
+    return <CooldownUsage analyzer={this} title="Farseer" />;
   }
 
   explainPerformance(cast: CallAncestor): SpellUse {
     const { timeline, timelineChecklist } = this.explainTimelineWithDetails(cast);
+
+    const checklistItems = [
+      this.explainInvocationMethod(cast),
+      this.explainAlwaysBeCasting(cast),
+      this.explainAncestors(cast),
+      timelineChecklist,
+    ];
+
     return {
       event: cast.event,
-      checklistItems: [
-        this.explainInvocationMethod(cast),
-        this.explainAncestors(cast),
-        timelineChecklist,
-      ],
+      checklistItems: checklistItems,
       extraDetails: timeline,
-      performance:
-        cast.event.type === EventType.Summon
-          ? QualitativePerformance.Good
-          : QualitativePerformance.Perfect,
+      performance: getLowestPerf(checklistItems.map((item) => item.performance)),
     };
   }
 
@@ -267,7 +262,7 @@ class CallOfTheAncestors extends MajorCooldown<CallAncestor> {
     const source =
       cast.event.type === EventType.Summon ? (
         <>
-          <SpellLink spell={TALENTS.HEED_MY_CALL_TALENT} />
+          <SpellLink spell={TALENTS.ANCIENT_FELLOWSHIP_TALENT} />
         </>
       ) : (
         <>
@@ -280,28 +275,59 @@ class CallOfTheAncestors extends MajorCooldown<CallAncestor> {
       check: 'invocation',
       details: <div>Source: {source}</div>,
       summary: source,
-      performance: QualitativePerformance.Good,
+      performance: QualitativePerformance.Perfect,
       timestamp: cast.event.timestamp,
     };
   }
 
+  private explainAlwaysBeCasting(cast: CallAncestor): ChecklistUsageInfo {
+    return {
+      check: 'always-be-casting',
+      timestamp: cast.event.timestamp,
+      summary: <>{formatPercentage(cast.activeTime)}% active time</>,
+      details: (
+        <>
+          <p>
+            <strong>
+              <UptimeIcon /> {formatPercentage(cast.activeTime)}%
+            </strong>{' '}
+            active time
+          </p>
+        </>
+      ),
+      performance:
+        cast.activeTime > 0.95
+          ? QualitativePerformance.Perfect
+          : cast.activeTime > 0.85
+            ? QualitativePerformance.Good
+            : cast.activeTime > 0.75
+              ? QualitativePerformance.Ok
+              : QualitativePerformance.Fail,
+    };
+  }
+
   private explainAncestors(cast: CallAncestor): ChecklistUsageInfo {
+    // aggregate each ancestor's damage for each spell they cast
     const ancestorSpells = [...cast.ancestors].reduce<Map<number, Map<number, number>>>(
       (acc, ancestor) => {
-        const spells = this.ancestorSpells.get(ancestor) ?? [];
-        const damageBySpell = spells.reduce<Map<number, number>>((dmgAcc, event) => {
+        // each damage event from the current ancestor
+        const damageEvents = this.ancestorSpells.get(ancestor) ?? [];
+        // group damage by spell id
+        const damageBySpell = damageEvents.reduce<Map<number, number>>((dmgAcc, event) => {
           dmgAcc.set(
             event.ability.guid,
             (dmgAcc.get(event.ability.guid) ?? 0) + event.amount + (event.absorbed || 0),
           );
           return dmgAcc;
         }, new Map<number, number>());
+        // add to result
         acc.set(ancestor, damageBySpell);
         return acc;
       },
       new Map<number, Map<number, number>>(),
     );
 
+    // total damage dealt by ancestors in this window
     const totalDamage = [...ancestorSpells].reduce((total, [_, amounts]) => {
       total += [...amounts.values()].reduce((acc, value) => (acc += value), 0);
       return total;
@@ -336,14 +362,14 @@ class CallOfTheAncestors extends MajorCooldown<CallAncestor> {
         </>
       ),
       summary: <>Total ancestor damage: {formatNumber(totalDamage)}</>,
-      performance: QualitativePerformance.Good,
+      performance: QualitativePerformance.Perfect,
       timestamp: cast.event.timestamp,
     };
   }
 
   private explainTimelineWithDetails(cast: CallAncestor) {
     const timelineChecklist = {
-      performance: QualitativePerformance.Good,
+      performance: QualitativePerformance.Perfect,
       summary: null,
       details: <span>Spell order: See below</span>,
       check: 'farseer-timeline',

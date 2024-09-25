@@ -49,23 +49,20 @@ export function repeatableBuffPresent(
     describe: (tense) => (
       <>
         you {tenseAlt(tense, 'have', 'had')} {formatRange(range)} of{' '}
-        <>
-          {spell.length === 1 ? (
-            <SpellLink spell={spell[0]} />
-          ) : (
-            <>
-              <ul>
-                {spell.map((s) => (
-                  <>
-                    <li>
-                      <SpellLink key={s.id} spell={s} />
-                    </li>
-                  </>
-                ))}
-              </ul>
-            </>
-          )}
-        </>
+        {spell.reduce((value: React.ReactNode, s: Spell, index: number) => {
+          const spellLink = <SpellLink spell={s} />;
+          if (value === null) {
+            value = <>{spellLink}</>;
+          } else {
+            value = (
+              <>
+                {value}, {index === spell.length - 1 ? ' or ' : ''}
+                {spellLink}
+              </>
+            );
+          }
+          return value;
+        }, null)}
       </>
     ),
   };

@@ -27,6 +27,10 @@ class Abilities extends ClassAbilities {
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 30,
         enabled: combatant.hasTalent(TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT),
+        gcd: {
+          base: 1500,
+        },
+        range: 40,
       },
       {
         spell: SPELLS.ICEFURY.id,
@@ -117,6 +121,9 @@ class Abilities extends ClassAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
+        },
+        gcd: {
+          base: 1500,
         },
       },
       {
