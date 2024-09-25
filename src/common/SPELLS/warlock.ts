@@ -581,8 +581,13 @@ const spells = {
     name: 'Infernal Bolt',
     icon: 'spell_fel_firebolt',
   },
-  RUINATION: {
+  RUINATION_CAST: {
     id: 434635,
+    name: 'Ruination',
+    icon: 'spell_fire_felflamestrike',
+  },
+  RUINATION_DAMAGE: {
+    id: 434636,
     name: 'Ruination',
     icon: 'spell_fire_felflamestrike',
   },
