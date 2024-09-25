@@ -37,6 +37,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 9, 25), 'Fix an error produced on the premium login tab.', Vetyst),
   change(date(2024, 9, 25), 'Show statistic for Tauren crit damage racial. Add all active racials to spellbook, correctly tracking cooldowns.', nullDozzer),
   change(date(2024, 9, 24), 'Update character profile to show gem icons and enchant effects.', Vetyst),
   change(date(2024, 9, 23), 'Fix temporary weapon enchants for all shaman specs', Seriousnes),
