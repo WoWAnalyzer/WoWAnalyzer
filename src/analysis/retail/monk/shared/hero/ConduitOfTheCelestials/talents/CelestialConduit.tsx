@@ -156,8 +156,7 @@ class CelestialConduit extends Analyzer {
     if (!groupHits) {
       return;
     }
-    // groupHits will be empty if the event passed is the only hit
-    const totalHits = groupHits.length || 1;
+    const totalHits = groupHits.length + 1;
     const increase =
       CELESTIAL_CONDUIT_INCREASE_PER_TARGET * Math.min(totalHits, CELESTIAL_CONDUIT_MAX_TARGETS);
     // prepull
@@ -170,6 +169,7 @@ class CelestialConduit extends Analyzer {
       });
     }
     if (event.type === EventType.Heal) {
+      this.healingIncreaseDataPoints.push(increase);
       this.castInfoList.at(-1)!.targetsHit.push(totalHits);
     } else {
       this.damageIncreaseDataPoints.push(increase);
