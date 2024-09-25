@@ -220,6 +220,19 @@ export const Khazak: Contributor = {
     },
   ],
 };
+export const Boohbah: Contributor = {
+  nickname: 'Boohbah',
+  github: 'robertdiasio',
+  avatar: avatar('Boohbah-avatar.png'),
+  discord: 'booohbah',
+  mains: [
+    {
+      name: 'Alaryion',
+      spec: SPECS.FROST_DEATH_KNIGHT,
+      link: 'https://worldofwarcraft.blizzard.com/en-us/character/us/stormrage/Alaryion',
+    },
+  ],
+};
 export const Bicepspump: Contributor = {
   nickname: 'Bicepspump',
   github: 'Bicepspump',

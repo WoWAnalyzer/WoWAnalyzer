@@ -39,7 +39,6 @@
   },
   "include": ["./types", "./src"],
   "exclude": [
-    "src/analysis/retail/deathknight/frost",
     "src/analysis/retail/deathknight/unholy",
     "src/analysis/retail/priest/discipline",
     "src/analysis/retail/rogue/subtlety",
