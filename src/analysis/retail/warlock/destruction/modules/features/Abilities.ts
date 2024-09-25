@@ -17,6 +17,13 @@ class Abilities extends SharedAbilities {
         },
       },
       {
+        spell: SPELLS.RUINATION_CAST.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
         spell: TALENTS.CHANNEL_DEMONFIRE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 25 / (1 + haste),
@@ -84,7 +91,21 @@ class Abilities extends SharedAbilities {
         buffSpellId: SPELLS.IMMOLATE_DEBUFF.id,
       },
       {
+        spell: SPELLS.WITHER_CAST.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
         spell: SPELLS.INCINERATE.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.INFERNAL_BOLT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
