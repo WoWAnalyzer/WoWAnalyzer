@@ -27,7 +27,7 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import HealingPerHolyPower from './modules/features/HealingPerHolyPower';
 import MasteryEffectiveness from './modules/features/MasteryEffectiveness';
 import Overhealing from './modules/features/Overhealing';
-import MightOfTheMountain from './modules/racials/MightOfTheMountain';
+import CritRacial from './modules/racials/CritRacial';
 import DevotionAuraDamageReduction from './modules/spells/DevotionAuraDamageReduction';
 import FillerFlashOfLight from './modules/spells/FillerFlashOfLight';
 import LightOfDawn from './modules/spells/LightOfDawn';
@@ -95,7 +95,7 @@ class CombatLogParser extends CoreCombatLogParser {
     healingPerHolyPower: HealingPerHolyPower,
 
     // Racials
-    mightOfTheMountain: MightOfTheMountain,
+    critRacial: CritRacial,
 
     // Talents
     devotionAuradamageReduction: DevotionAuraDamageReduction,

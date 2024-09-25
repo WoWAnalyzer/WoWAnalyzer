@@ -154,23 +154,24 @@ class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
   }
 
   getOverallCastPerformance(cast: ElementalBlastCastDetails) {
+    // if capped on charges, spend at 5+ maelstrom
     if (cast.chargesBeforeCast === 2 && cast.maelstromUsed >= 5) {
-      return QualitativePerformance.Perfect;
-    } else {
-      switch (cast.elementalSpiritsActive) {
-        case 0:
-          /** elemental blast should not be cast without elemental spirits if uncapped on charges */
-          return QualitativePerformance.Fail;
-        case 1:
-          return cast.maelstromUsed === 10
-            ? QualitativePerformance.Good
-            : QualitativePerformance.Ok;
-        default:
-          return cast.maelstromUsed >= 8
-            ? QualitativePerformance.Perfect
-            : QualitativePerformance.Good;
-      }
+      // should not be cast while capped on charges without at least 4 wolves active
+      return cast.elementalSpiritsActive >= 4
+        ? QualitativePerformance.Perfect
+        : QualitativePerformance.Fail;
     }
+
+    // spending rules when 4 or more elemental spirits active
+    if (cast.elementalSpiritsActive >= 4 && cast.maelstromUsed >= 5) {
+      return cast.elementalSpiritsActive >= 5 && cast.maelstromUsed >= 6
+        ? QualitativePerformance.Perfect
+        : cast.maelstromUsed >= 9
+          ? QualitativePerformance.Perfect
+          : QualitativePerformance.Good;
+    }
+
+    return QualitativePerformance.Fail;
   }
 
   description(): JSX.Element {
@@ -229,11 +230,11 @@ class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
 
     return {
       performance:
-        cast.elementalSpiritsActive >= 3
+        cast.elementalSpiritsActive >= 6
           ? QualitativePerformance.Perfect
-          : cast.elementalSpiritsActive >= 2
+          : cast.elementalSpiritsActive >= 5
             ? QualitativePerformance.Good
-            : cast.elementalSpiritsActive >= 1
+            : cast.elementalSpiritsActive >= 4
               ? QualitativePerformance.Ok
               : QualitativePerformance.Fail,
       summary: (
@@ -252,7 +253,10 @@ class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
       performance = QualitativePerformance.Fail;
     }
     if (cast.chargesBeforeCast === 2) {
-      performance = QualitativePerformance.Perfect;
+      performance =
+        cast.elementalSpiritsActive >= 4
+          ? QualitativePerformance.Perfect
+          : QualitativePerformance.Fail;
     }
     if (cast.elementalSpiritsActive > 0) {
       performance =

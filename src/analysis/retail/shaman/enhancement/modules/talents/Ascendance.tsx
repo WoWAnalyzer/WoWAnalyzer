@@ -36,12 +36,33 @@ import EmbeddedTimelineContainer, {
 import Casts from 'interface/report/Results/Timeline/Casts';
 import { MaelstromWeaponTracker } from 'analysis/retail/shaman/enhancement/modules/resourcetracker';
 import { EnhancementEventLinks } from '../../constants';
+import RESOURCE_TYPES, { getResourceCost } from 'game/RESOURCE_TYPES';
+import { addEnhancedCastReason, addInefficientCastReason } from 'parser/core/EventMetaLib';
+import React from 'react';
 
-const NonMissedCastSpells = [
-  TALENTS.SUNDERING_TALENT.id,
-  TALENTS.DOOM_WINDS_TALENT.id,
-  TALENTS.FERAL_SPIRIT_TALENT.id,
-  SPELLS.WINDSTRIKE_CAST.id,
+interface CastRule {
+  spellId: number | number[];
+  condition?: (cast: CastEvent) => boolean;
+  enhancedCastReason?: (isValidCast: boolean) => React.ReactNode | string;
+}
+
+const AscendanceCastRules: CastRule[] = [
+  { spellId: TALENTS.FERAL_SPIRIT_TALENT.id },
+  {
+    spellId: SPELLS.TEMPEST_CAST.id,
+    condition: (cast) =>
+      getResourceCost(cast.resourceCost, RESOURCE_TYPES.MAELSTROM_WEAPON.id) === 10,
+    enhancedCastReason: (isvalid) =>
+      isvalid ? (
+        <>
+          You had 10 <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} />
+        </>
+      ) : (
+        <>
+          You did not have 10 <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} />
+        </>
+      ),
+  },
 ];
 const SIMULATED_MEDIAN_CASTS_PER_DRE = 13;
 
@@ -190,6 +211,24 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
     this.lastCooldownWasteCheck = event.timestamp;
   }
 
+  isValidCastDuringAscendance(event: CastEvent): boolean {
+    const firstApplicableRule = AscendanceCastRules.find(
+      (rule) =>
+        (Array.isArray(rule.spellId) && rule.spellId.includes(event.ability.guid)) ||
+        rule.spellId === event.ability.guid,
+    );
+
+    if (firstApplicableRule) {
+      const isValidCast = !firstApplicableRule.condition || firstApplicableRule.condition(event);
+      if (firstApplicableRule.enhancedCastReason) {
+        const addReason = isValidCast ? addEnhancedCastReason : addInefficientCastReason;
+        addReason(event, firstApplicableRule.enhancedCastReason(isValidCast));
+      }
+      return !isValidCast;
+    }
+    return true;
+  }
+
   onGeneralCast(event: CastEvent) {
     if (
       !this.currentCooldown ||
@@ -198,7 +237,10 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
     ) {
       return;
     }
-    if (!NonMissedCastSpells.includes(event.ability.guid)) {
+    if (
+      event.ability.guid === SPELLS.WINDSTRIKE_CAST.id ||
+      this.isValidCastDuringAscendance(event)
+    ) {
       this.currentCooldown.hasteAdjustedWastedCooldown +=
         this.hasteAdjustedCooldownWasteSinceLastWasteCheck(event);
     }

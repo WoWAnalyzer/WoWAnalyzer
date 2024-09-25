@@ -26,6 +26,7 @@ import {
   Tialyss,
   ToppleTheNun,
   Trevor,
+  Vetyst,
   Vohrr,
   Vollmer,
   ZiayaKens,
@@ -36,6 +37,10 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 9, 25), 'Show statistic for Tauren crit damage racial. Add all active racials to spellbook, correctly tracking cooldowns.', nullDozzer),
+  change(date(2024, 9, 24), 'Update character profile to show gem icons and enchant effects.', Vetyst),
+  change(date(2024, 9, 23), 'Fix temporary weapon enchants for all shaman specs', Seriousnes),
+  change(date(2024, 9, 23), 'Fix a bug in table filtering. Notably: this fixes a bug with Brewmaster Purifying Brew active tanking time stats.', emallson),
   change(date(2024, 9, 21), 'Update all checks for enchants and consumables for The War Within. Also show more information when suggesting to improve enchants.', nullDozzer),
   change(date(2024, 9, 21), 'Fix another crash in Holy Paladin Divine Purpose.', emallson),
   change(date(2024, 9, 20), 'Ensured that LazyLoadStatisticBox is only requesting the results once.', Arlie),

@@ -1,16 +1,14 @@
 import SPELLS from 'common/SPELLS';
 import { Options } from 'parser/core/Analyzer';
 import Events, { BeaconHealEvent, HealEvent } from 'parser/core/Events';
-import BaseMightOfTheMountain, {
-  CRIT_EFFECT,
-} from 'parser/shared/modules/racials/dwarf/MightOfTheMountain';
+import BaseCritRacial, { CRIT_EFFECT } from 'parser/shared/modules/racials/CritRacial';
 
 import { getBeaconSpellFactor } from '../../constants';
 import BeaconHealSource from '../beacons/BeaconHealSource';
 
-class MightOfTheMountain extends BaseMightOfTheMountain {
+class CritRacial extends BaseCritRacial {
   static dependencies = {
-    ...BaseMightOfTheMountain.dependencies,
+    ...BaseCritRacial.dependencies,
     // We use its "beacontransfer" event
     beaconHealSource: BeaconHealSource,
   };
@@ -46,7 +44,7 @@ class MightOfTheMountain extends BaseMightOfTheMountain {
     if (beaconFactor == null) {
       const origAbility = event.originalHeal.ability;
       console.warn(
-        `MightOfTheMountain encountered a BeaconHealEvent triggered by ` +
+        `CritRacial encountered a BeaconHealEvent triggered by ` +
           `${origAbility.name} (${origAbility.guid}) with no beacon spell factor configured`,
       );
       return;
@@ -61,4 +59,4 @@ class MightOfTheMountain extends BaseMightOfTheMountain {
   }
 }
 
-export default MightOfTheMountain;
+export default CritRacial;

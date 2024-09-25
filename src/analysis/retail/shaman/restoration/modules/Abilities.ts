@@ -555,16 +555,6 @@ class Abilities extends CoreAbilities {
         healSpellIds: [SPELLS.NATURES_GUARDIAN_HEAL.id],
       },
       {
-        spell: SPELLS.ROCKET_JUMP.id,
-        category: SPELL_CATEGORY.UTILITY,
-        timelineSortIndex: 80,
-        cooldown: 90,
-        gcd: {
-          base: 1500,
-        },
-        isUndetectable: true,
-      },
-      {
         spell: SPELLS.WATER_SHIELD.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
