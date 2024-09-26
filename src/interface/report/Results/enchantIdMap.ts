@@ -289,6 +289,9 @@ const enchantIdMap: { [key: number]: string } = {
   7423: 'Defenders March',
   7424: 'Defenders March',
 
+  7437: "Council's Guile",
+  7438: "Council's Guile",
+  7439: "Council's Guile",
   7440: "Stormrider's Fury",
   7441: "Stormrider's Fury",
   7442: "Stormrider's Fury",
