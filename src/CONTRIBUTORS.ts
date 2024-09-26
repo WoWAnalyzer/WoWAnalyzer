@@ -2405,6 +2405,19 @@ export const Zyer: Contributor = {
   ],
 };
 
+export const Gazh: Contributor = {
+  nickname: 'Gazh',
+  github: 'gazhrot',
+  discord: 'gazh_',
+  mains: [
+    {
+      name: 'Meurthe',
+      spec: SPECS.DEMONOLOGY_WARLOCK,
+      link: 'https://www.warcraftlogs.com/character/eu/twisting-nether/meurthe',
+    },
+  ],
+};
+
 export const Humperella: Contributor = {
   nickname: 'Humperella',
   github: 'kevindqc',
