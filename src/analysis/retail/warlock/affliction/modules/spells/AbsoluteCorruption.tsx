@@ -16,7 +16,6 @@ class AbsoluteCorruption extends Analyzer {
   }
 
   bonusDmg = 0;
-  spell_talent = TALENTS.ABSOLUTE_CORRUPTION_TALENT;
 
   constructor(options: Options) {
     super(options);
@@ -53,7 +52,7 @@ class AbsoluteCorruption extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={this.spell_talent}>
+        <BoringSpellValueText spell={TALENTS.ABSOLUTE_CORRUPTION_TALENT}>
           <ItemDamageDone amount={this.bonusDmg} />
         </BoringSpellValueText>
       </Statistic>
