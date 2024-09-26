@@ -11,7 +11,10 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 class DiabolicRitualEmpowers extends Analyzer {
   ruination_damage = 0;
   infernal_bolt_damage = 0;
-  cloven_souls_damage = 0;
+  // TODO : calculate Cloven souls damage
+  // cloven souls is a debuff on enemy, all damage warlock do is increased by 5%
+  // calculate damage done when debuff is up and get 5% from it
+  // see Arcane Mage - Touch of the magi
 
   constructor(options: Options) {
     super(options);
@@ -40,13 +43,12 @@ class DiabolicRitualEmpowers extends Analyzer {
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
-        tooltip={`${formatThousands(this.ruination_damage + this.infernal_bolt_damage + this.cloven_souls_damage)} damage`}
+        tooltip={`${formatThousands(this.ruination_damage + this.infernal_bolt_damage)} damage`}
       >
         <BoringSpellValueText spell={TALENTS.DIABOLIC_RITUAL_TALENT}>
-          <ItemDamageDone amount={this.ruination_damage} />
+          <small>Ruination, Infernal bolt damage</small>
           <br />
-          <ItemDamageDone amount={this.infernal_bolt_damage} />
-          <br />
+          <ItemDamageDone amount={this.ruination_damage + this.infernal_bolt_damage} />
         </BoringSpellValueText>
       </Statistic>
     );

@@ -50,12 +50,11 @@ class DiabolicRitual extends Analyzer {
         tooltip={`${formatThousands(this.felseeker_damage + this.wicked_cleave_damage + this.chaos_salvo_damage)} damage`}
       >
         <BoringSpellValueText spell={TALENTS.DIABOLIC_RITUAL_TALENT}>
-          <ItemDamageDone amount={this.felseeker_damage} />
+          <small>Mother of Chaos, Pit Lord, Overlord damage</small>
           <br />
-          <ItemDamageDone amount={this.wicked_cleave_damage} />
-          <br />
-          <ItemDamageDone amount={this.chaos_salvo_damage} />
-          <br />
+          <ItemDamageDone
+            amount={this.felseeker_damage + this.wicked_cleave_damage + this.chaos_salvo_damage}
+          />
         </BoringSpellValueText>
       </Statistic>
     );
