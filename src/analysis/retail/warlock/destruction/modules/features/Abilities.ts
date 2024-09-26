@@ -19,6 +19,7 @@ class Abilities extends SharedAbilities {
       {
         spell: SPELLS.RUINATION_CAST.id,
         category: SPELL_CATEGORY.ROTATIONAL,
+        enabled: combatant.hasTalent(TALENTS.DIABOLIC_RITUAL_TALENT),
         gcd: {
           base: 1500,
         },
@@ -85,6 +86,7 @@ class Abilities extends SharedAbilities {
       {
         spell: SPELLS.IMMOLATE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
+        enabled: !combatant.hasTalent(TALENTS.WITHER_TALENT),
         gcd: {
           base: 1500,
         },
@@ -93,6 +95,7 @@ class Abilities extends SharedAbilities {
       {
         spell: SPELLS.WITHER_CAST.id,
         category: SPELL_CATEGORY.ROTATIONAL,
+        enabled: combatant.hasTalent(TALENTS.WITHER_TALENT),
         gcd: {
           base: 1500,
         },
@@ -107,6 +110,7 @@ class Abilities extends SharedAbilities {
       {
         spell: SPELLS.INFERNAL_BOLT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
+        enabled: combatant.hasTalent(TALENTS.DIABOLIC_RITUAL_TALENT),
         gcd: {
           base: 1500,
         },

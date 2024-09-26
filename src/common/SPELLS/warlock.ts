@@ -574,6 +574,11 @@ const spells = {
     name: 'Malevolence',
     icon: 'inv_ability_hellcallerwarlock_malevolence',
   },
+  MALEVOLENCE_DAMAGE: {
+    id: 446285,
+    name: 'Malevolence',
+    icon: 'spell_shadow_demonform',
+  },
   CURSE_OF_THE_SATYR: {
     id: 440057,
     name: 'Curse of the Satyr',
