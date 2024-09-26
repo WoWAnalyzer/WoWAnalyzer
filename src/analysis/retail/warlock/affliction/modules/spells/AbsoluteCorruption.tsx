@@ -20,17 +20,16 @@ class AbsoluteCorruption extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.ABSOLUTE_CORRUPTION_TALENT);
-    if (this.selectedCombatant.hasTalent(TALENTS.WITHER_TALENT)) {
-      this.addEventListener(
-        Events.damage.by(SELECTED_PLAYER).spell(SPELLS.WITHER_DEBUFF),
-        this.onCorruptionDamage,
-      );
-    } else {
-      this.addEventListener(
-        Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CORRUPTION_DEBUFF),
-        this.onCorruptionDamage,
-      );
-    }
+    this.addEventListener(
+      Events.damage
+        .by(SELECTED_PLAYER)
+        .spell(
+          this.selectedCombatant.hasTalent(TALENTS.WITHER_TALENT)
+            ? SPELLS.WITHER_DEBUFF
+            : SPELLS.CORRUPTION_DEBUFF,
+        ),
+      this.onCorruptionDamage,
+    );
   }
 
   onCorruptionDamage(event: DamageEvent) {
