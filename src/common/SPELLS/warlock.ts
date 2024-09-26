@@ -564,7 +564,7 @@ const spells = {
     name: 'Wither',
     icon: 'inv_ability_hellcallerwarlock_wither',
   },
-  WITHER_DAMAGE: {
+  WITHER_DEBUFF: {
     id: 445474,
     name: 'Wither',
     icon: 'inv_ability_hellcallerwarlock_wither',

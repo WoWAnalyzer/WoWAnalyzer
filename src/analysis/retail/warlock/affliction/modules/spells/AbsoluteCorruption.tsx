@@ -16,14 +16,22 @@ class AbsoluteCorruption extends Analyzer {
   }
 
   bonusDmg = 0;
+  spell_talent = TALENTS.ABSOLUTE_CORRUPTION_TALENT;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.ABSOLUTE_CORRUPTION_TALENT);
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CORRUPTION_DEBUFF),
-      this.onCorruptionDamage,
-    );
+    if (this.selectedCombatant.hasTalent(TALENTS.WITHER_TALENT)) {
+      this.addEventListener(
+        Events.damage.by(SELECTED_PLAYER).spell(SPELLS.WITHER_DEBUFF),
+        this.onCorruptionDamage,
+      );
+    } else {
+      this.addEventListener(
+        Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CORRUPTION_DEBUFF),
+        this.onCorruptionDamage,
+      );
+    }
   }
 
   onCorruptionDamage(event: DamageEvent) {
@@ -45,7 +53,7 @@ class AbsoluteCorruption extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={TALENTS.ABSOLUTE_CORRUPTION_TALENT}>
+        <BoringSpellValueText spell={this.spell_talent}>
           <ItemDamageDone amount={this.bonusDmg} />
         </BoringSpellValueText>
       </Statistic>
