@@ -99,12 +99,11 @@ class CometStormGuide extends Analyzer {
         {wintersChill}, which makes it very valuable in Single Target & Cleave as well.
         <ul>
           <li>
-            ST & Cleave: Cast immediately after {flurry} to ensure all the comets impact before{' '}
-            {wintersChill} ends.
+            Cast immediately after {flurry} in Single Target & Cleave to allow all comets to impact
+            during {wintersChill}.
           </li>
-          \
           <li>
-            AOE: Cast with or without {wintersChill} if it will hit {AOE_THRESHOLD} targets.
+            Cast with or without {wintersChill} if it will hit {AOE_THRESHOLD} or more targets.
           </li>
           <li>
             You may need to delay spending both {wintersChill} stacks to allow all the comets to get
