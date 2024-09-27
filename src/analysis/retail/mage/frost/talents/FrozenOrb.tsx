@@ -29,9 +29,7 @@ export default class FrozenOrb extends Analyzer {
   }
 
   onOrbCast(event: CastEvent) {
-    this.log(event);
     const hits: DamageEvent[] = GetRelatedEvents(event, 'SpellDamage');
-    this.log(hits);
     const targets: number[] = [];
     hits.forEach((h) => {
       if (!targets.includes(h.targetID)) {
@@ -40,12 +38,10 @@ export default class FrozenOrb extends Analyzer {
     });
 
     this.orbCasts.push({
-      ordinal: this.orbCasts.length + 1,
       cast: event,
       ffstacks: this.selectedCombatant.getBuff(SPELLS.FINGERS_OF_FROST_BUFF.id)?.stacks || 0,
       targetsHit: targets.length || 0,
     });
-    this.log(this.orbCasts);
   }
 
   _reduceCooldown() {
@@ -66,7 +62,6 @@ export default class FrozenOrb extends Analyzer {
 }
 
 export interface FrozenOrbCast {
-  ordinal: number;
   cast: CastEvent;
   ffstacks: number;
   targetsHit: number;
