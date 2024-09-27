@@ -442,14 +442,6 @@ const talents = {
     entryIds: [126439],
     definitionIds: [{ id: 131265, specId: 253 }],
   },
-  DIRE_BEAST_BUFF: {
-    id: 459569,
-    name: 'Dire Beast',
-    icon: 'ability_hunter_sickem',
-    maxRanks: 1,
-    entryIds: [115097],
-    definitionIds: [{ id: 131265, specId: 253 }],
-  },
   DIRE_COMMAND_TALENT: {
     id: 378743,
     name: 'Dire Command',
