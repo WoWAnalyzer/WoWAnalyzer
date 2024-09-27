@@ -569,7 +569,7 @@ export const Vetyst: Contributor = {
   avatar: avatar('vetyst-avatar.png'),
   mains: [
     {
-      name: 'Vetyst',
+      name: 'Vetiest',
       spec: SPECS.SHADOW_PRIEST,
       link: 'https://worldofwarcraft.com/en-gb/character/ragnaros/vetiest',
     },
