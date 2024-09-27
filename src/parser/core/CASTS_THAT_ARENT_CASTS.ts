@@ -100,6 +100,7 @@ const spells: number[] = [
   SPELLS.CLOUDBURST_TOTEM_RECALL.id, // Cloudburst reactivation
   TALENTS_SHAMAN.SPIRITWALKERS_GRACE_TALENT.id,
   SPELLS.FERAL_LUNGE_NOT_A_CAST.id, // duplicate event of regular Feral Lunge cast
+  SPELLS.HEALING_RAIN_TOTEMIC.id,
   //endregion
 
   //region warlock
