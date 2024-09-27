@@ -1,3 +1,4 @@
+import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellIcon, SpellLink, TooltipElement } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
@@ -6,13 +7,13 @@ import { explanationAndDataSubsection } from 'interface/guide/components/Explana
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { PerformanceMark, qualitativePerformanceToColor } from 'interface/guide';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/mage/arcane/Guide';
-import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
+import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 
 import FrozenOrb from '../talents/FrozenOrb';
-import { ReactNode } from 'react';
+import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBreakdown';
 
 const AOE_THRESHOLD = 3;
-const FINGERS_FROST_STACK_THRESHOLD = 2;
+const MAX_FINGERS_FROST_PROCS = 2;
 
 class FrozenOrbGuide extends Analyzer {
   static dependencies = {
@@ -21,9 +22,11 @@ class FrozenOrbGuide extends Analyzer {
 
   protected frozenOrb!: FrozenOrb;
 
+  isSpellslinger: boolean = this.selectedCombatant.hasTalent(TALENTS.SPLINTERSTORM_TALENT);
+
   generateGuideTooltip(
     performance: QualitativePerformance,
-    tooltipText: ReactNode,
+    tooltipItems: { perf: QualitativePerformance; detail: string }[],
     timestamp: number,
   ) {
     const tooltip = (
@@ -32,8 +35,14 @@ class FrozenOrbGuide extends Analyzer {
           <b>@ {this.owner.formatTimestamp(timestamp)}</b>
         </div>
         <div>
-          <PerformanceMark perf={performance} /> {performance}: {tooltipText}
+          <PerformanceMark perf={performance} /> {performance}
         </div>
+        {tooltipItems.map((t, i) => (
+          <div key={i}>
+            <PerformanceMark perf={t.perf} /> {t.detail}
+            <br />
+          </div>
+        ))}
       </>
     );
     return tooltip;
@@ -52,16 +61,49 @@ class FrozenOrbGuide extends Analyzer {
   get frozenOrbData() {
     const data: BoxRowEntry[] = [];
     this.frozenOrb.orbCasts.forEach((fo) => {
-      if (fo.targetsHit < AOE_THRESHOLD && fo.ffstacks >= FINGERS_FROST_STACK_THRESHOLD) {
-        const performance = QualitativePerformance.Fail;
-        const tooltipText = `Frozen Orb cast with ${fo.ffstacks} stacks of Fingers of Frost during Single Target/Cleave.`;
-        const tooltip = this.generateGuideTooltip(performance, tooltipText, fo.cast.timestamp);
-        data.push({ value: performance, tooltip });
-      } else {
-        const performance = QualitativePerformance.Good;
-        const tooltipText = `Good Frozen Orb Cast`;
-        const tooltip = this.generateGuideTooltip(performance, tooltipText, fo.cast.timestamp);
-        data.push({ value: performance, tooltip });
+      const tooltipItems: { perf: QualitativePerformance; detail: string }[] = [];
+
+      const targetsHit = fo.targetsHit;
+      const ffstacks = fo.ffstacks;
+      const ST = targetsHit < AOE_THRESHOLD;
+      const AOE = targetsHit >= AOE_THRESHOLD;
+      const whiffedOrb = targetsHit === 0;
+      const cappedFingersST = ST && ffstacks === MAX_FINGERS_FROST_PROCS;
+      const cappedFingersAOE = AOE && ffstacks === MAX_FINGERS_FROST_PROCS;
+
+      if (whiffedOrb) {
+        tooltipItems.push({
+          perf: QualitativePerformance.Fail,
+          detail: 'No Targets Hit by Frozen Orb',
+        });
+      }
+
+      if (cappedFingersST && !this.isSpellslinger) {
+        tooltipItems.push({
+          perf: QualitativePerformance.Fail,
+          detail: 'Capped on Fingers of Frost in Single Target/Cleave',
+        });
+      } else if (cappedFingersAOE || (cappedFingersST && this.isSpellslinger)) {
+        tooltipItems.push({
+          perf: QualitativePerformance.Ok,
+          detail: 'Capped on Fingers of Frost in AOE',
+        });
+      }
+
+      let overallPerf = QualitativePerformance.Good;
+      if (whiffedOrb || (cappedFingersST && !this.isSpellslinger)) {
+        overallPerf = QualitativePerformance.Fail;
+      } else if (cappedFingersAOE || (cappedFingersST && this.isSpellslinger)) {
+        overallPerf = QualitativePerformance.Ok;
+      }
+
+      if (tooltipItems) {
+        const tooltip = this.generateGuideTooltip(
+          overallPerf,
+          tooltipItems.filter((t) => t.perf !== QualitativePerformance.Good),
+          fo.cast.timestamp,
+        );
+        data.push({ value: overallPerf, tooltip });
       }
     });
     return data;
@@ -70,18 +112,27 @@ class FrozenOrbGuide extends Analyzer {
   get guideSubsection(): JSX.Element {
     const frozenOrb = <SpellLink spell={TALENTS.FROZEN_ORB_TALENT} />;
     const fingersOfFrost = <SpellLink spell={TALENTS.FINGERS_OF_FROST_TALENT} />;
+    const freezingWinds = <SpellLink spell={TALENTS.FREEZING_WINDS_TALENT} />;
+    const blizzard = <SpellLink spell={SPELLS.BLIZZARD} />;
+    const iceCaller = <SpellLink spell={TALENTS.ICE_CALLER_TALENT} />;
 
     const frozenOrbIcon = <SpellIcon spell={TALENTS.FROZEN_ORB_TALENT} />;
 
     const explanation = (
       <>
-        <p>Try to mantain {frozenOrb} on CD as much as you can.</p>
-        {this.selectedCombatant.hasTalent(TALENTS.FREEZING_WINDS_TALENT) && (
-          <p>
-            As it will generate {fingersOfFrost} procs, don't cast it when you have 2{' '}
-            {fingersOfFrost} procs.
-          </p>
-        )}
+        <div>
+          <b>{frozenOrb}</b>'s primary purpose is to quickly generate {fingersOfFrost} procs,
+          especially if you have {freezingWinds} talented. You should generally use this on
+          cooldown, and use {blizzard} to reduce the cooldown on it if you have {iceCaller}{' '}
+          talented. Use the below guidelines to get the most out of this cooldown.
+          <ul>
+            <li>Ensure you aim {frozenOrb} so that it does not completely miss all targets.</li>
+            <li>
+              In ST & Cleave, unless you are Spellslinger, don't use {frozenOrb} if you are capped
+              on {fingersOfFrost}.
+            </li>
+          </ul>
+        </div>
       </>
     );
     const averageTargetsTooltip = <>{this.frozenOrb.averageTargetsHit} Targets Hit on Average.</>;
@@ -99,9 +150,10 @@ class FrozenOrbGuide extends Analyzer {
             </span>
           </div>
           <div>
-            <strong>Frozen Orb Usage</strong>
-            <PerformanceBoxRow values={this.frozenOrbData} />
-            <small>green (good) / red (fail) mouseover the rectangles to see more details</small>
+            <CastSummaryAndBreakdown
+              spell={TALENTS.FROZEN_ORB_TALENT}
+              castEntries={this.frozenOrbData}
+            />
           </div>
         </RoundedPanel>
       </div>
