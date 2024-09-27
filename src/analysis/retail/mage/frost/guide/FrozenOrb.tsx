@@ -98,11 +98,7 @@ class FrozenOrbGuide extends Analyzer {
       }
 
       if (tooltipItems) {
-        const tooltip = this.generateGuideTooltip(
-          overallPerf,
-          tooltipItems.filter((t) => t.perf !== QualitativePerformance.Good),
-          fo.cast.timestamp,
-        );
+        const tooltip = this.generateGuideTooltip(overallPerf, tooltipItems, fo.cast.timestamp);
         data.push({ value: overallPerf, tooltip });
       }
     });
