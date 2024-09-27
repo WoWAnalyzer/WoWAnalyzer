@@ -1,6 +1,7 @@
 import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/warlock';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
@@ -12,7 +13,13 @@ import UptimeBar from 'parser/ui/UptimeBar';
 
 class ImmolateUptime extends Analyzer {
   get uptime() {
-    return this.enemies.getBuffUptime(SPELLS.IMMOLATE_DEBUFF.id) / this.owner.fightDuration;
+    return (
+      this.enemies.getBuffUptime(
+        this.selectedCombatant.hasTalent(TALENTS.WITHER_TALENT)
+          ? SPELLS.WITHER_DEBUFF.id
+          : SPELLS.IMMOLATE_DEBUFF.id,
+      ) / this.owner.fightDuration
+    );
   }
 
   get suggestionThresholds(): NumberThreshold {
@@ -54,12 +61,17 @@ class ImmolateUptime extends Analyzer {
   }
 
   statistic() {
-    const history = this.enemies.getDebuffHistory(SPELLS.IMMOLATE_DEBUFF.id);
+    const history = this.selectedCombatant.hasTalent(TALENTS.WITHER_TALENT)
+      ? this.enemies.getDebuffHistory(SPELLS.WITHER_DEBUFF.id)
+      : this.enemies.getDebuffHistory(SPELLS.IMMOLATE_DEBUFF.id);
+    const spell_icon = this.selectedCombatant.hasTalent(TALENTS.WITHER_TALENT)
+      ? SPELLS.WITHER_CAST
+      : SPELLS.IMMOLATE;
     return (
       <StatisticBar wide position={STATISTIC_ORDER.CORE(1)}>
         <div className="flex">
           <div className="flex-sub icon">
-            <SpellIcon spell={SPELLS.IMMOLATE} />
+            <SpellIcon spell={spell_icon} />
           </div>
           <div className="flex-sub value">
             {formatPercentage(this.uptime, 0)} % <small>uptime</small>

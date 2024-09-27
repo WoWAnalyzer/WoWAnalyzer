@@ -112,6 +112,21 @@ const PETS = {
     summonAbility: SPELLS.PRINCE_MALCHEZAAR_SUMMON,
     isRandom: true,
   },
+  MOTHER_OF_CHAOS: {
+    guid: 428565,
+    duration: 8000,
+    summonAbility: SPELLS.MOTHER_OF_CHAOS_SUMMON,
+  },
+  PIT_LORD: {
+    guid: 434400,
+    duration: 8000,
+    summonAbility: SPELLS.PIT_LORD_SUMMON,
+  },
+  OVERLORD: {
+    guid: 428571,
+    duration: 8000,
+    summonAbility: SPELLS.OVERLORD_SUMMON,
+  },
 };
 
 export default indexByGuid(PETS);
