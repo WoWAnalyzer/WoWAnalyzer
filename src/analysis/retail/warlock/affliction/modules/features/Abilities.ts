@@ -139,10 +139,7 @@ class Abilities extends SharedAbilities {
           base: 1500,
         },
         enabled: combatant.hasTalent(TALENTS.MALEVOLENCE_TALENT),
-        cooldown: 40,
-        castEfficiency: {
-          suggestion: false,
-        },
+        cooldown: 60,
       },
       // Cooldowns
       {
