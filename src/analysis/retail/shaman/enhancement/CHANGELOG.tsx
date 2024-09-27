@@ -6,7 +6,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
-  change(date(2024, 9, 12), <>APL updates (again)</>, Seriousnes),  
+  change(date(2024, 9, 27), <>Consolidate and correct issues with APLs</>, Seriousnes),  
   change(date(2024, 9, 20), <>Fixing <SpellLink spell={SPELLS.WINDSTRIKE_CAST} /> and <SpellLink spell={SPELLS.LIGHTNING_BOLT} /> usage in APL</>, Seriousnes),
   change(date(2024, 9, 18), <><SpellLink spell={TALENTS.WITCH_DOCTORS_ANCESTRY_TALENT} /> reduced to 1 sec per stack of <SpellLink spell={SPELLS.MAELSTROM_WEAPON} /> gained</>, Seriousnes),
   change(date(2024, 9, 17), <>Include <SpellLink spell={SPELLS.WINDSTRIKE_CAST} /> in APL check</>, Seriousnes),
