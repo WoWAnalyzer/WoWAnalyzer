@@ -75,6 +75,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         </>
         {info.combatant.hasTalent(TALENTS.FROZEN_ORB_TALENT) &&
           modules.frozenOrbGuide.guideSubsection}
+        {info.combatant.hasTalent(TALENTS.COMET_STORM_TALENT) &&
+          modules.cometStormGuide.guideSubsection}
       </Section>
       <Section title="Procs">
         <HideExplanationsToggle id="hide-explanations-procs" />
