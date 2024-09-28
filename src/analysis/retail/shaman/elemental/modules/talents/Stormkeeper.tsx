@@ -175,8 +175,11 @@ class Stormkeeper extends MajorCooldown<StormkeeperCast> {
   }
 
   startWindowMaelstromRequired(hasSurgeOfPower: boolean): number {
+    /** in order cast 2 lighting bolts with Surge of Power, need enough starting maelstrom
+     *  to cast 2 spenders, or 1 spender if Surge of Power was present at the start */
     return (
       this.stSpenderCost * (hasSurgeOfPower ? 1 : 2) -
+      /** subtract maelstrom generated from one lightning bolt + 3 overloads (2 from surge of power, 1 from stormkeeper) */
       (this.maelstromGeneration.lightningBolt.base +
         3 * this.maelstromGeneration.lightningBolt.overload)
     );
@@ -205,7 +208,7 @@ class Stormkeeper extends MajorCooldown<StormkeeperCast> {
           events: [],
           performance: QualitativePerformance.Perfect,
         },
-        prepull: event.timestamp <= this.owner.fight.start_time,
+        prepull: event.timestamp <= this.owner.fight.start_time + 1000, // prepull in this context is within the first second of combat
       };
     }
   }
@@ -220,7 +223,9 @@ class Stormkeeper extends MajorCooldown<StormkeeperCast> {
       .at(-1);
     this.activeWindow.timeline.end = Math.max(
       event.timestamp,
-      lastGcd?.type === EventType.GlobalCooldown ? lastGcd.timestamp + lastGcd.duration : 0,
+      lastGcd?.type === EventType.GlobalCooldown
+        ? lastGcd.timestamp + Math.round(lastGcd.duration)
+        : 0,
     );
     this.recordCooldown(this.activeWindow);
     this.nextCastStartsWindow = false;
@@ -391,17 +396,19 @@ class Stormkeeper extends MajorCooldown<StormkeeperCast> {
     maelstromRequired: number,
     cast: StormkeeperCast,
   ): QualitativePerformance {
-    let maelstromOnCastPerformance = QualitativePerformance.Ok;
-    if (
-      cast.maelstromOnCast >
-      this.maelstromTracker.maxResource - 0 //FIRST_CAST_MAELSTROM_GENERATION
-    ) {
-      maelstromOnCastPerformance = QualitativePerformance.Good;
-    } else if (cast.maelstromOnCast >= maelstromRequired) {
-      maelstromOnCastPerformance = QualitativePerformance.Perfect;
+    if (cast.maelstromOnCast >= maelstromRequired) {
+      return QualitativePerformance.Perfect;
+    } else if (cast.prepull) {
+      const maelstromForOneSoP =
+        this.stSpenderCost -
+        (this.maelstromGeneration.lightningBolt.base +
+          this.maelstromGeneration.lightningBolt.overload);
+      return cast.maelstromOnCast >= maelstromForOneSoP
+        ? QualitativePerformance.Perfect
+        : QualitativePerformance.Ok;
+    } else {
+      return QualitativePerformance.Ok;
     }
-
-    return maelstromOnCastPerformance;
   }
 
   private explainMaelstromPerformance(cast: StormkeeperCast) {
@@ -502,9 +509,9 @@ class Stormkeeper extends MajorCooldown<StormkeeperCast> {
       event: cast.event,
       performance: totalPerformance,
       checklistItems: [
-        timeline.checklistItem,
         maelstromOnCast,
         ENABLE_MOTE_CHECKS ? FlSDuration : null,
+        timeline.checklistItem,
       ].filter((x) => x) as ChecklistUsageInfo[],
       extraDetails: timeline.extraDetails,
     };
