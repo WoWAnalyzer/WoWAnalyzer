@@ -241,6 +241,7 @@ export function getDreamBreathCast(
   event: ApplyBuffEvent | RefreshBuffEvent | HealEvent,
   searchStasis: boolean = true,
 ) {
+  console.log(event);
   let castEvent;
   if (event.type === EventType.Heal) {
     const applyEvent = GetRelatedEvent(event, DREAM_BREATH);
