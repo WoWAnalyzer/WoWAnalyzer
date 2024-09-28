@@ -17,7 +17,7 @@ import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 /**
  * A quick shot causing Physical damage.
- * Reduces the cooldown of Kill Command by 2 sec.
+ * Reduces the cooldown of Kill Command by 1 sec.
  *
  * Example log:
  * https://www.warcraftlogs.com/reports/bf3r17Yh86VvDLdF#fight=8&type=damage-done&source=1&ability=193455

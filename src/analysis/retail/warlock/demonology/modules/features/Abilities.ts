@@ -29,6 +29,20 @@ class Abilities extends SharedAbilities {
         },
       },
       {
+        spell: SPELLS.RUINATION_CAST.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.INFERNAL_BOLT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
         spell: SPELLS.DEMONBOLT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
