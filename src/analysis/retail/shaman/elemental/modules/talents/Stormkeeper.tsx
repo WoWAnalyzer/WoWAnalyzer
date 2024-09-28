@@ -179,7 +179,7 @@ class Stormkeeper extends MajorCooldown<StormkeeperCast> {
   }
 
   startWindowMaelstromRequired(hasSurgeOfPower: boolean): number {
-    /** in order cast 2 lighting bolts with Surge of Power, need enough starting maelstrom
+    /** in order to cast 2 lighting bolts with Surge of Power, need enough starting maelstrom
      *  to cast 2 spenders, or 1 spender if Surge of Power was present at the start */
     return (
       this.stSpenderCost * (hasSurgeOfPower ? 1 : 2) -
