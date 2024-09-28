@@ -7,6 +7,8 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 9, 28), <>Fixed <SpellLink spell={TALENTS.SURGE_OF_POWER_TALENT} /> statistic incorrectly showing as <SpellLink spell={TALENTS.MASTER_OF_THE_ELEMENTS_ELEMENTAL_TALENT} /></>, Seriousnes),
+  change(date(2024, 9, 28), <>Updating <SpellLink spell={TALENTS.STORMKEEPER_TALENT} /> analysis</>, Seriousnes),
   change(date(2024, 9, 27), <>Added guide section for <SpellLink spell={TALENTS.PRIMAL_ELEMENTALIST_TALENT} /> usage.</>, Seriousnes),
   change(date(2024, 9, 23), <>Corrected talent link from <i>Heed My Call</i> to <SpellLink spell={TALENTS.ANCIENT_FELLOWSHIP_TALENT}/></>, Seriousnes),
   change(date(2024, 9, 22), <>Added Farseer <SpellLink spell={TALENTS.CALL_OF_THE_ANCESTORS_TALENT} /> analysis.</>, Seriousnes),

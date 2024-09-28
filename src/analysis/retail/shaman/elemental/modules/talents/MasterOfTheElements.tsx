@@ -146,9 +146,9 @@ class MasterOfTheElements extends Analyzer {
                   .filter(([_, casts]) => casts > 0)
                   .map(([spellId, casts]) => (
                     <tr key={spellId}>
-                      <th>
+                      <td>
                         <SpellLink spell={spellId} />
-                      </th>
+                      </td>
                       <td>{casts}</td>
                     </tr>
                   ))}
