@@ -134,8 +134,8 @@ class ResourceBreakdown extends Component<Props> {
               </tr>
             )}
             {generated &&
-              generated.map((ability) => (
-                <tr key={ability.abilityId}>
+              generated.map((ability, index) => (
+                <tr key={`${ability.abilityId}-${index}`}>
                   <td style={{ width: '30%' }}>
                     <SpellLink spell={ability.abilityId} /> {ability.extraDetail}
                   </td>
