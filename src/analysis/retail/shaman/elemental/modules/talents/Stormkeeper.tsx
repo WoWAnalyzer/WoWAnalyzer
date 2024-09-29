@@ -20,7 +20,12 @@ import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { ON_CAST_BUFF_REMOVAL_GRACE_MS, ENABLE_MOTE_CHECKS } from '../../constants';
 import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
 import MajorCooldown, { CooldownTrigger } from 'parser/core/MajorCooldowns/MajorCooldown';
-import { QualitativePerformance, getLowestPerf } from 'parser/ui/QualitativePerformance';
+import {
+  QualitativePerformance,
+  QualitativePerformanceThreshold,
+  evaluateQualitativePerformanceByThreshold,
+  getLowestPerf,
+} from 'parser/ui/QualitativePerformance';
 import Enemies from 'parser/shared/modules/Enemies';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { FLAMESHOCK_BASE_DURATION } from 'analysis/retail/shaman/shared/core/FlameShock';
@@ -383,13 +388,17 @@ class Stormkeeper extends MajorCooldown<StormkeeperCast> {
       return false;
     }).length;
     if (inefficientLavaBurstCasts > 0) {
+      const thresholds: QualitativePerformanceThreshold = {
+        actual: inefficientLavaBurstCasts,
+        isLessThanOrEqual: {
+          perfect: 0,
+          good: 1,
+          ok: 2,
+        },
+      };
       checklistItem.performance = getLowestPerf([
         checklistItem.performance,
-        inefficientLavaBurstCasts > 0
-          ? QualitativePerformance.Good
-          : inefficientLavaBurstCasts > 1
-            ? QualitativePerformance.Ok
-            : QualitativePerformance.Fail,
+        evaluateQualitativePerformanceByThreshold(thresholds),
       ]);
     }
 
