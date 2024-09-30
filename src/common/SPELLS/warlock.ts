@@ -459,6 +459,16 @@ const spells = {
     name: 'Headbutt',
     icon: 'inv_argusfelstalkermountgrey',
   },
+  CHARHOUND_SUMMON: {
+    id: 455476,
+    name: 'Summon Charhound',
+    icon: 'inv_felhound3_shadow_fire',
+  },
+  GLOOMHOUND_SUMMON: {
+    id: 455465,
+    name: 'Summon Gloomhound',
+    icon: 'inv_felhound3_shadow_mount',
+  },
   IMP_SINGE_MAGIC: {
     id: 119905,
     name: 'Singe Magic',
