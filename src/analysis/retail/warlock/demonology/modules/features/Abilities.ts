@@ -74,7 +74,36 @@ class Abilities extends SharedAbilities {
         spell: TALENTS.SUMMON_VILEFIEND_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 45,
-        enabled: combatant.hasTalent(TALENTS.SUMMON_VILEFIEND_TALENT),
+        enabled:
+          combatant.hasTalent(TALENTS.SUMMON_VILEFIEND_TALENT) &&
+          !combatant.hasTalent(TALENTS.MARK_OF_FHARG_TALENT) &&
+          !combatant.hasTalent(TALENTS.MARK_OF_SHATUG_TALENT),
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
+      },
+      {
+        spell: SPELLS.CHARHOUND_SUMMON.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: 30,
+        enabled: combatant.hasTalent(TALENTS.MARK_OF_FHARG_TALENT),
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
+      },
+      {
+        spell: SPELLS.GLOOMHOUND_SUMMON.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: 30,
+        enabled: combatant.hasTalent(TALENTS.MARK_OF_SHATUG_TALENT),
         gcd: {
           base: 1500,
         },

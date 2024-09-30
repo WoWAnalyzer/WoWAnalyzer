@@ -39,6 +39,7 @@ import SpellLink from 'interface/SpellLink';
 // prettier-ignore
 export default [
   change(date(2024, 9, 30), 'Add Classic Cata Firelands raid zone, headshots, and placeholder image', jazminite),
+  change(date(2024, 9, 30), 'Enchant checker now detects Spellthreads', Sref),
   change(date(2024, 9, 26), "Add support for Warlock Hero Talents", Gazh),
   change(date(2024, 9, 25), 'Show statistic for Tauren crit damage racial. Add all active racials to spellbook, correctly tracking cooldowns.', nullDozzer),
   change(date(2024, 9, 24), 'Update character profile to show gem icons and enchant effects.', Vetyst),

@@ -36,6 +36,16 @@ const PETS = {
     duration: 15000,
     summonAbility: TALENTS.SUMMON_VILEFIEND_TALENT,
   },
+  CHARHOUND: {
+    guid: 226269,
+    duration: 15000,
+    summonAbility: SPELLS.CHARHOUND_SUMMON,
+  },
+  GLOOMHOUND: {
+    guid: 226268,
+    duration: 15000,
+    summonAbility: SPELLS.GLOOMHOUND_SUMMON,
+  },
   GRIMOIRE_FELGUARD: {
     guid: 17252,
     duration: 15000,
