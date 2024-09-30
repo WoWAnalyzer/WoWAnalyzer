@@ -12,7 +12,7 @@ import SPELLS from 'common/SPELLS/shaman';
 import Spell from 'common/SPELLS/Spell';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { ChecklistUsageInfo, SpellUse, UsageInfo } from 'parser/core/SpellUsage/core';
-import { SpellLink } from 'interface';
+import { SpellLink, Tooltip } from 'interface';
 import { plural } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import MajorCooldown, { CooldownTrigger } from 'parser/core/MajorCooldowns/MajorCooldown';
@@ -21,6 +21,8 @@ import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { DamageIcon } from 'interface/icons';
 import RESOURCE_TYPES, { getResource } from 'game/RESOURCE_TYPES';
 import ElementalSpirits from './ElementalSpirits';
+import typedKeys from 'common/typedKeys';
+import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
 
 const ELEMENTAL_SPIRIT_BUFFS: Spell[] = [
   SPELLS.ELEMENTAL_SPIRITS_BUFF_MOLTEN_WEAPON,
@@ -31,7 +33,7 @@ const ELEMENTAL_SPIRIT_BUFFS: Spell[] = [
 interface ElementalBlastCastDetails extends CooldownTrigger<CastEvent> {
   event: CastEvent;
   chargesBeforeCast: number;
-  elementalSpiritsActive: number;
+  elementalSpiritsActive: Record<number, number>;
   maelstromUsed: number;
   bonusDamage: number;
   baseDamage: number;
@@ -103,10 +105,10 @@ class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
   onDamage(event: DamageEvent) {
     if (this.cast) {
       const totalDamage = event.amount + (event.absorbed || 0);
-      this.cast.bonusDamage =
-        this.cast.elementalSpiritsActive > 0
-          ? calculateEffectiveDamage(event, Math.pow(1.2, this.cast.elementalSpiritsActive) - 1)
-          : 0;
+      const activeSpirits = this.getActiveElementalSpirits(this.cast.elementalSpiritsActive);
+      this.cast.bonusDamage = activeSpirits
+        ? calculateEffectiveDamage(event, Math.pow(1.2, activeSpirits) - 1)
+        : 0;
       this.cast.baseDamage = totalDamage - this.cast.bonusDamage;
       this.recordCooldown(this.cast!);
       this.cast = null;
@@ -117,7 +119,13 @@ class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
     const cr = getResource(event.classResources, RESOURCE_TYPES.MAELSTROM_WEAPON.id);
     this.cast = {
       chargesBeforeCast: this.currentCharges,
-      elementalSpiritsActive: this.activeElementalSpirits,
+      elementalSpiritsActive: typedKeys(this.elementalSpritsActive).reduce<Record<number, number>>(
+        (r, k) => {
+          r[k] = this.elementalSpritsActive[k];
+          return r;
+        },
+        {},
+      ),
       maelstromUsed: cr?.cost ?? 0,
       event: event,
       bonusDamage: 0,
@@ -146,29 +154,26 @@ class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
     }
   }
 
-  get activeElementalSpirits(): number {
-    return Object.keys(this.elementalSpritsActive).reduce(
-      (total: number, buffId: string) => (total += this.elementalSpritsActive[Number(buffId)]),
+  getActiveElementalSpirits(activeSpirits: Record<number, number>): number {
+    return typedKeys(activeSpirits).reduce(
+      (total: number, buffId: number) => (total += this.elementalSpritsActive[buffId]),
       0,
     );
   }
 
   getOverallCastPerformance(cast: ElementalBlastCastDetails) {
-    // if capped on charges, spend at 5+ maelstrom
-    if (cast.chargesBeforeCast === 2 && cast.maelstromUsed >= 5) {
-      // should not be cast while capped on charges without at least 4 wolves active
-      return cast.elementalSpiritsActive >= 4
-        ? QualitativePerformance.Perfect
-        : QualitativePerformance.Fail;
+    const activeSpirits = this.getActiveElementalSpirits(cast.elementalSpiritsActive);
+
+    if (activeSpirits >= 4 && cast.maelstromUsed >= 6) {
+      return QualitativePerformance.Perfect;
     }
 
-    // spending rules when 4 or more elemental spirits active
-    if (cast.elementalSpiritsActive >= 4 && cast.maelstromUsed >= 5) {
-      return cast.elementalSpiritsActive >= 5 && cast.maelstromUsed >= 6
-        ? QualitativePerformance.Perfect
-        : cast.maelstromUsed >= 9
-          ? QualitativePerformance.Perfect
-          : QualitativePerformance.Good;
+    if (activeSpirits > 0 && cast.maelstromUsed >= 5) {
+      return activeSpirits >= 3
+        ? QualitativePerformance.Good
+        : activeSpirits >= 2
+          ? QualitativePerformance.Ok
+          : QualitativePerformance.Fail;
     }
 
     return QualitativePerformance.Fail;
@@ -186,10 +191,8 @@ class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
 
   maelstromPerformance(cast: ElementalBlastCastDetails): UsageInfo {
     let performance: QualitativePerformance = QualitativePerformance.Fail;
-    if (cast.maelstromUsed === 10) {
+    if (cast.maelstromUsed >= 6) {
       performance = QualitativePerformance.Perfect;
-    } else if (cast.maelstromUsed >= 8) {
-      performance = QualitativePerformance.Good;
     } else if (cast.maelstromUsed >= 5) {
       performance = QualitativePerformance.Ok;
     }
@@ -197,24 +200,56 @@ class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
     return {
       performance: performance,
       summary: (
-        <div>
+        <>
           {cast.maelstromUsed} <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> used
+        </>
+      ),
+      details: (
+        <div>
+          {cast.maelstromUsed} <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> used.
+          {cast.maelstromUsed < 5 ? (
+            <>
+              You should never cast your maelstrom spells with less than 5{' '}
+              <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} />
+            </>
+          ) : cast.maelstromUsed < 6 ? (
+            <>
+              Try to cast with <strong>6 or more</strong>{' '}
+              <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} />.
+            </>
+          ) : null}
         </div>
       ),
-      details: null,
     };
   }
 
   elementalSpiritPerformance(cast: ElementalBlastCastDetails): UsageInfo {
-    const hadWolvesExplanation = (
+    const totalElementalSpirits = this.getActiveElementalSpirits(cast.elementalSpiritsActive);
+
+    const tooltip = (
       <>
+        Active wolves:
+        <ul>
+          {typedKeys(cast.elementalSpiritsActive)
+            .filter((spellId) => cast.elementalSpiritsActive[spellId] > 0)
+            .map((spellId) => {
+              const count = cast.elementalSpiritsActive[spellId];
+              const spell = maybeGetTalentOrSpell(spellId)!;
+              return (
+                <>
+                  <li key={spellId}>
+                    <strong>{count}</strong> <SpellLink spell={spell} />
+                  </li>
+                </>
+              );
+            })}
+        </ul>
+        <hr />
         <div>
-          You had <strong>{cast.elementalSpiritsActive}</strong>{' '}
-          <SpellLink spell={TALENTS.ELEMENTAL_SPIRITS_TALENT} /> active, increasing{' '}
-          <SpellLink spell={TALENTS.ELEMENTAL_BLAST_ENHANCEMENT_TALENT} /> damage from{' '}
+          <SpellLink spell={TALENTS.ELEMENTAL_BLAST_ENHANCEMENT_TALENT} /> damage increased from{' '}
           <DamageIcon /> {formatNumber(cast.baseDamage)} &rarr; <DamageIcon />{' '}
           {formatNumber(cast.bonusDamage + cast.baseDamage)}, for an increase of{' '}
-          {formatPercentage(Math.pow(1.2, cast.elementalSpiritsActive) - 1, 0)}% (
+          {formatPercentage(Math.pow(1.2, totalElementalSpirits) - 1, 0)}% (
           <i>
             <DamageIcon /> {formatNumber(cast.bonusDamage)} bonus damage
           </i>
@@ -222,47 +257,68 @@ class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
         </div>
       </>
     );
+
+    const hadWolvesExplanation = (
+      <>
+        <div>
+          You had{' '}
+          <Tooltip content={<div>{tooltip}</div>} hoverable direction="up">
+            <dfn>
+              <strong>{totalElementalSpirits}</strong>
+            </dfn>
+          </Tooltip>{' '}
+          <SpellLink spell={TALENTS.ELEMENTAL_SPIRITS_TALENT} /> active.
+          {totalElementalSpirits < 4 ? (
+            <>
+              {' '}
+              <SpellLink spell={TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT} /> should be cast with{' '}
+              <strong>4 or more</strong> <SpellLink spell={TALENTS.ELEMENTAL_SPIRITS_TALENT} />{' '}
+              active.
+            </>
+          ) : null}
+        </div>
+      </>
+    );
     const noWolvesExplanation = (
       <>
-        You did not have any <SpellLink spell={TALENTS.ELEMENTAL_SPIRITS_TALENT} /> active.
+        <div>
+          You did not have any <SpellLink spell={TALENTS.ELEMENTAL_SPIRITS_TALENT} /> active.
+        </div>
       </>
     );
 
     return {
       performance:
-        cast.elementalSpiritsActive >= 6
+        totalElementalSpirits >= 4
           ? QualitativePerformance.Perfect
-          : cast.elementalSpiritsActive >= 5
-            ? QualitativePerformance.Good
-            : cast.elementalSpiritsActive >= 4
-              ? QualitativePerformance.Ok
-              : QualitativePerformance.Fail,
+          : totalElementalSpirits >= 2
+            ? QualitativePerformance.Ok
+            : QualitativePerformance.Fail,
       summary: (
         <div>
-          {cast.elementalSpiritsActive === 0 ? 'No' : cast.elementalSpiritsActive}{' '}
+          {totalElementalSpirits === 0 ? 'No' : totalElementalSpirits}{' '}
           <SpellLink spell={TALENTS.ELEMENTAL_SPIRITS_TALENT} /> active
         </div>
       ),
-      details: <>{cast.elementalSpiritsActive > 0 ? hadWolvesExplanation : noWolvesExplanation}</>,
+      details: <>{totalElementalSpirits > 0 ? hadWolvesExplanation : noWolvesExplanation}</>,
     };
   }
 
   chargePerformance(cast: ElementalBlastCastDetails): UsageInfo {
+    const totalElementalSpirits = this.getActiveElementalSpirits(cast.elementalSpiritsActive);
     let performance = QualitativePerformance.Fail;
     if (cast.maelstromUsed < 5) {
       performance = QualitativePerformance.Fail;
     }
     if (cast.chargesBeforeCast === 2) {
       performance =
-        cast.elementalSpiritsActive >= 4
-          ? QualitativePerformance.Perfect
-          : QualitativePerformance.Fail;
+        totalElementalSpirits >= 4 ? QualitativePerformance.Perfect : QualitativePerformance.Fail;
     }
-    if (cast.elementalSpiritsActive > 0) {
+    if (totalElementalSpirits > 0) {
       performance =
-        cast.elementalSpiritsActive >= 2
+        totalElementalSpirits >= 2
           ? QualitativePerformance.Perfect
-          : cast.elementalSpiritsActive >= 1
+          : totalElementalSpirits >= 1
             ? QualitativePerformance.Good
             : QualitativePerformance.Ok;
     }
@@ -330,26 +386,6 @@ class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
         {this.elementalSpirits.graph}
       </>
     );
-  }
-
-  getCastPerformance(cast: ElementalBlastCastDetails): QualitativePerformance {
-    if (cast.chargesBeforeCast === 2 && cast.maelstromUsed >= 5) {
-      return QualitativePerformance.Perfect;
-    }
-
-    if (cast.elementalSpiritsActive > 0) {
-      return cast.maelstromUsed >= 8
-        ? cast.elementalSpiritsActive > 1
-          ? QualitativePerformance.Perfect
-          : QualitativePerformance.Good
-        : cast.maelstromUsed >= 5
-          ? cast.elementalSpiritsActive > 1
-            ? QualitativePerformance.Good
-            : QualitativePerformance.Ok
-          : QualitativePerformance.Fail;
-    }
-
-    return cast.maelstromUsed >= 5 ? QualitativePerformance.Ok : QualitativePerformance.Fail;
   }
 }
 

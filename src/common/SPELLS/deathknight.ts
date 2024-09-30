@@ -240,6 +240,18 @@ const spells = {
     icon: 'inv_axe_114',
   },
 
+  //exterminate is a proc? It happens directly afte reaper's mark explodes.
+  EXTERMINATE: {
+    id: 441424,
+    name: 'Exterminate',
+    icon: 'inv_polearm_2h_titanargus_d_01',
+  },
+  EXTERMINATE_TWO: {
+    id: 441426,
+    name: 'Exterminate',
+    icon: 'inv_polearm_2h_titanargus_d_01',
+  },
+
   // Unholy:
   // Spells
   APOCALYPSE: {

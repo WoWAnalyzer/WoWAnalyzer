@@ -6,6 +6,8 @@ import RevitalizingPrayers from './RevitalizingPrayers';
 import TrailOfLight from './TrailOfLight';
 import EverlastingLight from './EverlastingLight';
 import PrayerfulLitany from './PrayerfulLitany';
+import PrismaticEchoes from './PrismaticEchoes';
+import CrisisManagement from './CrisisManagement';
 
 export {
   Benediction,
@@ -16,4 +18,6 @@ export {
   RevitalizingPrayers,
   EverlastingLight,
   PrayerfulLitany,
+  PrismaticEchoes,
+  CrisisManagement,
 };

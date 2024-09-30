@@ -48,6 +48,9 @@ const spells: number[] = [
   SPELLS.ABOMINATION_LIMB_TICK.id,
   SPELLS.ABOMINATION_LIMB_GRIP_TICK.id,
   SPELLS.COMMANDER_OF_THE_DEAD_BUFF.id,
+  SPELLS.EXTERMINATE.id,
+  SPELLS.EXTERMINATE_TWO.id,
+
   //endregion
 
   //region Evoker

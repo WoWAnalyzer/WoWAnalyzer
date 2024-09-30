@@ -29,6 +29,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import { UptimeIcon } from 'interface/icons';
 import { EVENT_LINKS } from '../../../constants';
+import NPCS from 'common/NPCS/shaman';
 
 type Timeline = {
   start: number;
@@ -74,7 +75,8 @@ class CallOfTheAncestors extends MajorCooldown<CallAncestor> {
     }
 
     // find the source id for ancestors in this log
-    this.ancestorSourceId = this.owner.playerPets.find((pet) => pet.name === 'Ancestor')?.id ?? 0;
+    this.ancestorSourceId =
+      this.owner.playerPets.find((pet) => pet.guid === NPCS.FARSEER_ANCESTOR.id)?.id ?? 0;
 
     // events relevant to the timeline
     [
@@ -262,7 +264,7 @@ class CallOfTheAncestors extends MajorCooldown<CallAncestor> {
     const source =
       cast.event.type === EventType.Summon ? (
         <>
-          <SpellLink spell={TALENTS.HEED_MY_CALL_TALENT} />
+          <SpellLink spell={TALENTS.ANCIENT_FELLOWSHIP_TALENT} />
         </>
       ) : (
         <>

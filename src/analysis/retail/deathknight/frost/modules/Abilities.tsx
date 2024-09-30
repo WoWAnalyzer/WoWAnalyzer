@@ -25,14 +25,16 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 0,
       },
       {
+        //need to modify this, EPW is no longer baseline, it is a talent
         spell: SPELLS.EMPOWER_RUNE_WEAPON.id,
         buffSpellId: SPELLS.EMPOWER_RUNE_WEAPON.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: null,
         cooldown: 120,
-        charges:
-          Number(combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_SHARED_TALENT)) +
-          Number(combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_FROST_TALENT)),
+        // EmpRW no longer has these talents
+        // charges:
+        //   Number(combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_SHARED_TALENT)) +
+        //   Number(combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_FROST_TALENT)),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.8,
@@ -45,9 +47,10 @@ class Abilities extends CoreAbilities {
           ),
         },
         timelineSortIndex: 1,
-        enabled:
-          combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_SHARED_TALENT) ||
-          combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_FROST_TALENT),
+        //EmpRW no longer has these talents
+        // enabled:
+        //   combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_SHARED_TALENT) ||
+        //   combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_FROST_TALENT),
       },
       {
         spell: talents.HORN_OF_WINTER_TALENT.id,
@@ -192,16 +195,25 @@ class Abilities extends CoreAbilities {
         },
         enabled: combatant.hasTalent(talents.SACRIFICIAL_PACT_TALENT),
       },
+      //NEED TO MAKE SURE RM IS PROPERLY ADDED
+      {
+        spell: talents.REAPERS_MARK_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 45,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(talents.REAPERS_MARK_TALENT),
+      },
 
       // DEFENSIVE
+      //May require additional logic here for unyielding will
       {
-        spell: talents.ANTI_MAGIC_SHELL_TALENT.id,
-        buffSpellId: talents.ANTI_MAGIC_SHELL_TALENT.id,
+        spell: SPELLS.ANTI_MAGIC_SHELL.id,
+        buffSpellId: SPELLS.ANTI_MAGIC_SHELL.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        gcd: null,
         cooldown: combatant.hasTalent(talents.ANTI_MAGIC_BARRIER_TALENT) ? 40 : 60,
-        isDefensive: true,
-        enabled: combatant.hasTalent(talents.ANTI_MAGIC_SHELL_TALENT),
+        timelineSortIndex: 10,
       },
       {
         spell: talents.ICEBOUND_FORTITUDE_TALENT.id,
@@ -246,11 +258,22 @@ class Abilities extends CoreAbilities {
         },
         charges: combatant.hasTalent(talents.DEATHS_ECHO_TALENT) ? 2 : 1,
       },
-      {
+
+      //CoI is no longer a talent, it is a baseline ability.
+      //Keeping this code blocked out for reference
+      //will need to figure out the cold heart section though
+      /*       {
         spell: talents.CHAINS_OF_ICE_TALENT.id,
         category: combatant.hasTalent(talents.COLD_HEART_TALENT)
           ? SPELL_CATEGORY.ROTATIONAL
           : SPELL_CATEGORY.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+      }, */
+      {
+        spell: SPELLS.CHAINS_OF_ICE.id,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },

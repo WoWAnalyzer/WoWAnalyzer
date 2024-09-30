@@ -55,6 +55,8 @@ const CoreSection = (props: GuideProps<typeof CombatLogParser>) => {
       {info.combatant.hasTalent(TALENTS.CALL_OF_THE_ANCESTORS_TALENT) &&
         modules.callOfTheAncestors.guideSubsection()}
       {modules.spenderWindow.active && modules.spenderWindow.guideSubsection()}
+      {modules.primalStormElemental.active && modules.primalStormElemental.guideSubsection()}
+      {modules.primalFireElemental.active && modules.primalFireElemental.guideSubsection()}
       <FlameShockSubSection {...props} />
     </Section>
   );

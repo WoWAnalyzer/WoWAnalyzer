@@ -79,7 +79,9 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.HEALING_RAIN_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.HEALING_RAIN_TALENT),
+        enabled:
+          combatant.hasTalent(TALENTS.HEALING_RAIN_TALENT) &&
+          !combatant.hasTalent(TALENTS.SURGING_TOTEM_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 10,
         timelineSortIndex: 17,
@@ -100,9 +102,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: combatant.hasTalent(TALENTS.TOTEMIC_SURGE_TALENT) ? 24 : 30,
         timelineSortIndex: 17,
-        gcd: {
-          base: 1500,
-        },
+        gcd: null,
         castEfficiency: {
           suggestion: false,
           // majorIssueEfficiency: 0.3,
@@ -555,16 +555,6 @@ class Abilities extends CoreAbilities {
         healSpellIds: [SPELLS.NATURES_GUARDIAN_HEAL.id],
       },
       {
-        spell: SPELLS.ROCKET_JUMP.id,
-        category: SPELL_CATEGORY.UTILITY,
-        timelineSortIndex: 80,
-        cooldown: 90,
-        gcd: {
-          base: 1500,
-        },
-        isUndetectable: true,
-      },
-      {
         spell: SPELLS.WATER_SHIELD.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
@@ -609,6 +599,17 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         gcd: null,
         cooldown: 60,
+      },
+      {
+        spell: SPELLS.SURGING_TOTEM.id,
+        enabled: combatant.hasTalent(TALENTS.SURGING_TOTEM_TALENT),
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: combatant.hasTalent(TALENTS.TOTEMIC_SURGE_TALENT) ? 24 : 30,
+        timelineSortIndex: 17,
+        gcd: {
+          base: 1000,
+        },
+        healSpellIds: [SPELLS.HEALING_RAIN_TOTEMIC.id],
       },
     ];
   }

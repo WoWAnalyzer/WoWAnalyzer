@@ -1,10 +1,12 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
-import { Arlie, Jonfanz, Lithix, Meldris, ToppleTheNun, dodse } from 'CONTRIBUTORS';
+import { Arlie, Jonfanz, Lithix, Meldris, ToppleTheNun, dodse, Gazh } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2024, 9, 28), <>Fix <SpellLink spell={TALENTS.SHADOW_EMBRACE_TALENT} /> error </>, Gazh),
+  change(date(2024, 9, 26), "Add support for Hero Talents", Gazh),
   change(date(2024, 8, 10), 'Made several changes for affliction in preperation for the TWW', Lithix),
   change(date(2023, 7, 31), 'Update CDR on Dark Pact and Unending Resolve', Arlie),
   change(date(2023, 7, 8), 'Update SpellLink usage.', ToppleTheNun),

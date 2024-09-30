@@ -96,11 +96,6 @@ class GuardianSpirit extends Analyzer {
         tooltip={
           <>
             <div>
-              WARNING: CLICK "Click to load" ONLY ONCE, SPAM/DOUBLE CLICKING IT BEFORE IT LOADS WILL{' '}
-              SOMETIMES DOUBLE/TRIPLE/ETC THE RESULTS. THIS IS A KNOWN BUG.
-            </div>
-            <br />
-            <div>
               <SpellLink spell={TALENTS.GUARDIAN_SPIRIT_TALENT} /> Breakdown:{' '}
             </div>
             <ItemPercentHealingDone amount={this.gsContribToothers}></ItemPercentHealingDone>

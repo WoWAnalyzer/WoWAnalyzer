@@ -1263,20 +1263,6 @@ const enchants = {
     effectId: 6904,
     craftQuality: 3,
   },
-
-  //Shaman Only
-  FLAMETONGUE_WEAPON: {
-    id: 334294,
-    name: 'Flametongue Weapon',
-    icon: 'spell_fire_flametounge',
-    effectId: 5400,
-  },
-  WINDFURY_WEAPON: {
-    id: 334302,
-    name: 'Flametongue Weapon',
-    icon: 'spell_fire_flametounge',
-    effectId: 5401,
-  },
 } satisfies Record<string, Enchant>;
 
 export default enchants;
