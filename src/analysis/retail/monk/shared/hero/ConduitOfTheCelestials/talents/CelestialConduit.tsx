@@ -227,9 +227,11 @@ class CelestialConduit extends Analyzer {
       });
     });
     const avgTargetsHit =
-      castInfo.targetsHit.reduce((prev, cur) => {
-        return prev + cur;
-      }) / castInfo.targetsHit.length;
+      castInfo.targetsHit.length > 0
+        ? castInfo.targetsHit.reduce((prev, cur) => {
+            return prev + cur;
+          }) / castInfo.targetsHit.length
+        : 0;
 
     const targetHitPerf = this.getTargetsHitPerf(avgTargetsHit);
     const targetsHitItem: CooldownExpandableItem = {
