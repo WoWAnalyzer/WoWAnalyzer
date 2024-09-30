@@ -5,6 +5,7 @@ import { Trevor, Vohrr } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date (2024, 9, 28), <>Fix crash in <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_TALENT}/> when it failed to hit any allies.</>, Trevor),
   change(date (2024, 9, 24), <>Fix <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_TALENT}/> event linking</>, Trevor),
   change(date (2024, 9, 24), <>Fix another crash condition</>, Trevor),
   change(date (2024, 9, 24), <>Fix crash again</>, Trevor),

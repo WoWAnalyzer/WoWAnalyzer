@@ -43,7 +43,7 @@ class KillingMachineEfficiency extends Analyzer {
   currentStacks = 0;
   procsWastedToResources = 0;
 
-  readonly fatalFixation = this.selectedCombatant.hasTalent(talents.FATAL_FIXATION_TALENT);
+  readonly fatalFixation = true;
 
   constructor(options: Options) {
     super(options);

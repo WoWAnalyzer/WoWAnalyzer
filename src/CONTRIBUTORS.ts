@@ -220,6 +220,19 @@ export const Khazak: Contributor = {
     },
   ],
 };
+export const Boohbah: Contributor = {
+  nickname: 'Boohbah',
+  github: 'robertdiasio',
+  avatar: avatar('Boohbah-avatar.png'),
+  discord: 'booohbah',
+  mains: [
+    {
+      name: 'Alaryion',
+      spec: SPECS.FROST_DEATH_KNIGHT,
+      link: 'https://worldofwarcraft.blizzard.com/en-us/character/us/stormrage/Alaryion',
+    },
+  ],
+};
 export const Bicepspump: Contributor = {
   nickname: 'Bicepspump',
   github: 'Bicepspump',
@@ -2401,6 +2414,19 @@ export const Zyer: Contributor = {
       name: 'Yumiblood',
       spec: SPECS.DEMONOLOGY_WARLOCK,
       link: 'https://www.warcraftlogs.com/character/id/42737929',
+    },
+  ],
+};
+
+export const Gazh: Contributor = {
+  nickname: 'Gazh',
+  github: 'gazhrot',
+  discord: 'gazh_',
+  mains: [
+    {
+      name: 'Meurthe',
+      spec: SPECS.DEMONOLOGY_WARLOCK,
+      link: 'https://www.warcraftlogs.com/character/eu/twisting-nether/meurthe',
     },
   ],
 };

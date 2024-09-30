@@ -45,6 +45,16 @@ class Abilities extends SharedAbilities {
       {
         spell: SPELLS.CORRUPTION_CAST.id,
         category: SPELL_CATEGORY.ROTATIONAL,
+        enabled: !combatant.hasTalent(TALENTS.WITHER_TALENT),
+        gcd: {
+          base: 1500,
+        },
+        buffSpellId: SPELLS.CORRUPTION_DEBUFF.id,
+      },
+      {
+        spell: SPELLS.WITHER_CAST.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        enabled: combatant.hasTalent(TALENTS.WITHER_TALENT),
         gcd: {
           base: 1500,
         },
@@ -120,6 +130,16 @@ class Abilities extends SharedAbilities {
         castEfficiency: {
           suggestion: false,
         },
+      },
+      {
+        spell: SPELLS.MALEVOLENCE.id,
+        buffSpellId: SPELLS.MALEVOLENCE.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(TALENTS.MALEVOLENCE_TALENT),
+        cooldown: 60,
       },
       // Cooldowns
       {
@@ -239,6 +259,15 @@ class Abilities extends SharedAbilities {
       {
         spell: SPELLS.CURSE_OF_WEAKNESS.id,
         category: SPELL_CATEGORY.UTILITY,
+        enabled: !combatant.hasTalent(TALENTS.CURSE_OF_THE_SATYR_TALENT),
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.CURSE_OF_THE_SATYR.id,
+        category: SPELL_CATEGORY.UTILITY,
+        enabled: combatant.hasTalent(TALENTS.CURSE_OF_THE_SATYR_TALENT),
         gcd: {
           base: 1500,
         },

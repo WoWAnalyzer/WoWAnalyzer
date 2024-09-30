@@ -1,6 +1,7 @@
 import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/warlock';
 import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
@@ -15,7 +16,13 @@ class CorruptionUptime extends Analyzer {
   protected enemies!: Enemies;
 
   get uptime() {
-    return this.enemies.getBuffUptime(SPELLS.CORRUPTION_DEBUFF.id) / this.owner.fightDuration;
+    return (
+      this.enemies.getBuffUptime(
+        this.selectedCombatant.hasTalent(TALENTS.WITHER_TALENT)
+          ? SPELLS.WITHER_DEBUFF.id
+          : SPELLS.CORRUPTION_DEBUFF.id,
+      ) / this.owner.fightDuration
+    );
   }
 
   get suggestionThresholds() {
@@ -50,11 +57,16 @@ class CorruptionUptime extends Analyzer {
   }
 
   subStatistic() {
-    const history = this.enemies.getDebuffHistory(SPELLS.CORRUPTION_DEBUFF.id);
+    const history = this.selectedCombatant.hasTalent(TALENTS.WITHER_TALENT)
+      ? this.enemies.getDebuffHistory(SPELLS.WITHER_DEBUFF.id)
+      : this.enemies.getDebuffHistory(SPELLS.CORRUPTION_DEBUFF.id);
+    const spell_icon = this.selectedCombatant.hasTalent(TALENTS.WITHER_TALENT)
+      ? SPELLS.WITHER_CAST
+      : SPELLS.CORRUPTION_CAST;
     return (
       <div className="flex">
         <div className="flex-sub icon">
-          <SpellIcon spell={SPELLS.CORRUPTION_CAST} />
+          <SpellIcon spell={spell_icon} />
         </div>
         <div className="flex-sub value" style={{ width: 140 }}>
           {formatPercentage(this.uptime, 0)} % <small>uptime</small>
