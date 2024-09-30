@@ -8,6 +8,7 @@ import {
   bwd as BlackwingDescent,
   totfw as ThroneOfTheFourWinds,
 } from 'game/raids/cata_bwd_bot_totfw';
+import Firelands from 'game/raids/cata_firelands';
 
 interface EncounterConfig {
   vantusRuneBuffId?: number;
@@ -57,6 +58,7 @@ const raids = {
   BlackwingDescent,
   BastionOfTwilight,
   ThroneOfTheFourWinds,
+  Firelands,
 };
 
 function findByDungeonBossId(id: number) {
