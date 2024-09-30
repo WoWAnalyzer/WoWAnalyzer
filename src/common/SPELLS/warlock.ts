@@ -295,7 +295,12 @@ const spells = {
     name: 'Phantom Singularity',
     icon: 'inv_enchant_voidsphere',
   },
-  SHADOW_EMBRACE_DEBUFF: {
+  SHADOW_EMBRACE_SOULDRAIN_DEBUFF: {
+    id: 32390,
+    name: 'Shadow Embrace',
+    icon: 'spell_shadow_shadowembrace',
+  },
+  SHADOW_EMBRACE_SHADOWBOLT_DEBUFF: {
     id: 453206,
     name: 'Shadow Embrace',
     icon: 'spell_shadow_shadowembrace',
