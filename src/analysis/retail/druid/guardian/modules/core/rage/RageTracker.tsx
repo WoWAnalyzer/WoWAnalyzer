@@ -5,6 +5,7 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Events, { CastEvent, DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS';
+import { inBerserk } from 'analysis/retail/druid/guardian/constants';
 
 /** Internally, all rage values are out of 1000, but player facing they are out of 100 */
 export const RAGE_SCALE_FACTOR = 0.1;
@@ -19,6 +20,17 @@ const GORY_FUR_BUFFER = 30;
 export const PERFECT_RAGE_WASTED = 0.05;
 export const GOOD_RAGE_WASTED = 0.1;
 export const OK_RAGE_WASTED = 0.2;
+export function rageWasteToPerf(rageWastePercent: number): QualitativePerformance {
+  if (rageWastePercent <= PERFECT_RAGE_WASTED) {
+    return QualitativePerformance.Perfect;
+  } else if (rageWastePercent >= GOOD_RAGE_WASTED) {
+    return QualitativePerformance.Good;
+  } else if (rageWastePercent >= OK_RAGE_WASTED) {
+    return QualitativePerformance.Ok;
+  } else {
+    return QualitativePerformance.Fail;
+  }
+}
 
 const RAW_RAGE_GAINED_FROM_MELEE = 40;
 
@@ -57,10 +69,7 @@ export default class RageTracker extends ResourceTracker {
     }
 
     const spellId = event.ability.guid;
-    if (
-      this.selectedCombatant.hasBuff(SPELLS.BERSERK.id) ||
-      this.selectedCombatant.hasBuff(TALENTS_DRUID.INCARNATION_GUARDIAN_OF_URSOC_TALENT.id)
-    ) {
+    if (inBerserk(this.selectedCombatant)) {
       if (
         this.hasBerserkUA &&
         (spellId === SPELLS.MAUL.id || spellId === TALENTS_DRUID.RAZE_TALENT.id)

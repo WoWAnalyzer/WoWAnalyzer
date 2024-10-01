@@ -34,9 +34,10 @@ export const FINISHERS: Spell[] = [
   SPELLS.MAIM,
   TALENTS_DRUID.PRIMAL_WRATH_TALENT,
 ];
+export const FINISHER_IDS: number[] = FINISHERS.map((s) => s.id);
 
-/** Druid of the Claw's 'Ravage' conditionally replaces Ferocious Bite. These are both cast and damage IDs */
-// TODO TWW - hook this in everywhere lmao
+/** Druid of the Claw's 'Ravage' conditionally replaces Ferocious Bite.
+ * These spells are for the cast, damage, and extra energy drain. */
 export const FB_SPELLS: Spell[] = [SPELLS.FEROCIOUS_BITE, SPELLS.RAVAGE_DOTC_CAT];
 
 export const FB_IDS: number[] = FB_SPELLS.map((s) => s.id);
@@ -87,7 +88,7 @@ export const SABERTOOTH_BOOSTED: Spell[] = [
 //
 
 /** Multiplier to energy costs from having Incarnation: Avatar of Ashamane active */
-export const INCARN_ENERGY_MULT = 0.8;
+export const INCARN_ENERGY_MULT = 0.75;
 
 /** Shred's energy cost (before modifiers) */
 export const SHRED_ENERGY = 40;
@@ -198,19 +199,18 @@ export const PANDEMIC_FRACTION = 0.3;
 export function cdSpell(c: Combatant): Spell {
   return c.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT)
     ? TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT
-    : SPELLS.BERSERK;
+    : SPELLS.BERSERK_CAT;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 // MISC
 //
 
-/** Minimum acceptable number of CPs to use with a finisher. */
-export function getAcceptableCps(c: Combatant): number {
-  return c.hasBuff(cdSpell(c).id) ? ACCEPTABLE_BERSERK_CPS : ACCEPTABLE_CPS;
+/** Minimum acceptable number of CPs to use with a finisher (currently always 5, leaving as function in case this changes again) */
+export function getAcceptableCps(_: Combatant): number {
+  return ACCEPTABLE_CPS;
 }
-export const ACCEPTABLE_CPS = 4;
-export const ACCEPTABLE_BERSERK_CPS = 5;
+export const ACCEPTABLE_CPS = 5;
 
 /** Effective combo points used by a Convoke'd Ferocious Bite */
 export const CONVOKE_FB_CPS = 5;

@@ -2,7 +2,6 @@ import BaseCombatLogParser, { DependenciesDefinition } from '../core/CombatLogPa
 import Abilities from '../core/modules/Abilities';
 import Auras from '../core/modules/Auras';
 import SpellTimeWaitingOnGlobalCooldown from '../shared/enhancers/SpellTimeWaitingOnGlobalCooldown';
-import AbilitiesMissing from '../shared/modules/AbilitiesMissing';
 import AbilityTracker from '../shared/modules/AbilityTracker';
 import AlwaysBeCasting from '../shared/modules/AlwaysBeCasting';
 import CastEfficiency from '../shared/modules/CastEfficiency';
@@ -41,14 +40,20 @@ import HealthstoneChecker from './modules/items/HealthstoneChecker';
 import EnchantChecker from './modules/items/EnchantChecker';
 import ManaGained from './statistic/ManaGained';
 // Engineering
-import HyperspeedAccelerators from './modules/items/engineering/HyperspeedAccelerators';
-import FragBelt from 'parser/classic/modules/items/engineering/FragBelt';
 import Bombs from 'parser/classic/modules/items/engineering/Bombs';
+import FlexweaveUnderlay from './modules/items/engineering/FlexweaveUnderlay';
+import HyperspeedAccelerators from './modules/items/engineering/HyperspeedAccelerators';
+import SynapseSprings from './modules/items/engineering/SynapseSprings';
 // Guide
 import FlaskChecker from 'parser/classic/modules/items/FlaskChecker';
 import FoodChecker from 'parser/classic/modules/items/FoodChecker';
 import PotionChecker from 'parser/classic/modules/items/PotionChecker';
-import SynapseSprings from './modules/items/engineering/SynapseSprings';
+// Racials
+import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
+import Berserking from 'parser/shared/modules/racials/troll/Berserking';
+import BloodFury from 'parser/shared/modules/racials/orc/BloodFury';
+import GiftOfTheNaaru from 'parser/shared/modules/racials/draenei/GiftOfTheNaaru';
+import Stoneform from 'parser/shared/modules/racials/dwarf/Stoneform';
 
 class CombatLogParser extends BaseCombatLogParser {
   static defaultModules: DependenciesDefinition = {
@@ -86,7 +91,6 @@ class CombatLogParser extends BaseCombatLogParser {
     filteredActiveTime: FilteredActiveTime,
     abilities: Abilities,
     buffs: Auras,
-    abilitiesMissing: AbilitiesMissing,
     castEfficiency: CastEfficiency,
     spellUsable: SpellUsable,
     spellHistory: SpellHistory,
@@ -107,15 +111,22 @@ class CombatLogParser extends BaseCombatLogParser {
     manaGained: ManaGained,
 
     // Engineering
-    hyperspeedAccelerators: HyperspeedAccelerators,
-    fragBelt: FragBelt,
     bombs: Bombs,
+    hyperspeedAccelerators: HyperspeedAccelerators,
+    flexweaveUnderlay: FlexweaveUnderlay,
     synapseSprings: SynapseSprings,
 
     // Guide
     foodChecker: FoodChecker,
     flaskChecker: FlaskChecker,
     potionChecker: PotionChecker,
+
+    // Racials
+    arcaneTorrent: ArcaneTorrent,
+    berserking: Berserking,
+    bloodFury: BloodFury,
+    giftOfTheNaaru: GiftOfTheNaaru,
+    stoneform: Stoneform,
   };
 }
 

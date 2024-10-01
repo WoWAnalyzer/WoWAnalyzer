@@ -1,33 +1,44 @@
 import Item from 'common/ITEMS/Item';
 
 const items = {
+  //Shaman Only
   //region Enhancement
+  WINDFURY_WEAPON: {
+    id: 334302,
+    name: 'Windfury Weapon',
+    icon: 'spell_shaman_unleashweapon_wind',
+    effectId: 5401,
+  },
   //endregion
   //region Elemental
+  THUNDERSTRIKE_WARD: {
+    id: 462757,
+    name: 'Thunderstrike Ward',
+    icon: 'inv_armorkit_lightning_imbued',
+    effectId: 7587,
+  },
   //endregion
   //region Restoration
-  T30_TIDEWATERS_HEAL: {
-    id: 409354,
-    name: 'Tidewaters',
-    icon: 'ability_mage_waterjet',
+  EARTHLIVING_WEAPON: {
+    id: 382021,
+    name: 'Earthliving Weapon',
+    icon: 'spell_shaman_giftearthmother',
+    effectId: 6498,
   },
-  T30_RAINSTORM_BUFF: {
-    id: 409386,
-    name: 'Rainstorm',
-    icon: 'ability_mage_waterjet',
-  },
-  T30_SWELLING_RAIN_BUFF: {
-    id: 409391,
-    name: 'Swelling Rain',
-    icon: 'spell_frost_wisp',
-  },
-  T31_TIDAL_RESERVOIR_HEAL: {
-    id: 424464,
-    name: 'Tidal Reservoir',
-    icon: 'ability_shaman_fortifyingwaters',
+  TIDECALLERS_GUARD: {
+    id: 457481,
+    name: "Tidecaller's Guard",
+    icon: 'inv_shield_1h_artifactstormfist_d_04',
+    effectId: 7528,
   },
   //endregion
   //region Shared
+  FLAMETONGUE_WEAPON: {
+    id: 334294,
+    name: 'Flametongue Weapon',
+    icon: 'spell_fire_flametounge',
+    effectId: 5400,
+  },
   //endregion
-} satisfies Record<string, Item>;
+} satisfies Record<string, Item & { effectId?: number }>;
 export default items;

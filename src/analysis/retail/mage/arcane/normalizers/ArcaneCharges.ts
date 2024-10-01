@@ -6,20 +6,30 @@ import { Options } from 'parser/core/Module';
 
 const EVENT_ORDERS: EventOrder[] = [
   {
-    beforeEventId: [
-      SPELLS.ARCANE_BLAST.id,
-      SPELLS.ARCANE_EXPLOSION.id,
-      TALENTS.TOUCH_OF_THE_MAGI_TALENT.id,
-    ],
+    beforeEventId: [SPELLS.ARCANE_BLAST.id, SPELLS.ARCANE_EXPLOSION.id, SPELLS.ARCANE_ORB.id],
     beforeEventType: EventType.Cast,
-    afterEventId: [
-      SPELLS.ARCANE_BLAST.id,
-      SPELLS.ARCANE_EXPLOSION.id,
-      TALENTS.TOUCH_OF_THE_MAGI_TALENT.id,
-    ],
+    afterEventId: [SPELLS.ARCANE_BLAST.id, SPELLS.ARCANE_EXPLOSION.id, SPELLS.ARCANE_ORB.id],
     afterEventType: EventType.ResourceChange,
     bufferMs: 50,
     anyTarget: true,
+  },
+  {
+    beforeEventId: SPELLS.ARCANE_BARRAGE.id,
+    beforeEventType: EventType.Cast,
+    afterEventId: SPELLS.ARCANE_BARRAGE_ENERGIZE.id,
+    afterEventType: EventType.ResourceChange,
+    bufferMs: 50,
+    anyTarget: true,
+    updateTimestamp: true,
+  },
+  {
+    beforeEventId: [SPELLS.TOUCH_OF_THE_MAGI_DEBUFF.id],
+    beforeEventType: EventType.ApplyDebuff,
+    afterEventId: [TALENTS.TOUCH_OF_THE_MAGI_TALENT.id],
+    afterEventType: EventType.ResourceChange,
+    bufferMs: 50,
+    anyTarget: true,
+    updateTimestamp: true,
   },
 ];
 

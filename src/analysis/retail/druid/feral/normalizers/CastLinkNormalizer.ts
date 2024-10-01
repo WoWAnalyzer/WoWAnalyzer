@@ -99,6 +99,18 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: FROM_HARDCAST,
     reverseLinkRelation: HIT_TARGET,
+    linkingEventId: SPELLS.RAVAGE_DOTC_CAT.id,
+    linkingEventType: EventType.Damage,
+    referencedEventId: SPELLS.RAVAGE_DOTC_CAT.id,
+    referencedEventType: EventType.Cast,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: AFTER_CAST_BUFFER_MS,
+    anyTarget: true,
+    isActive: (c) => c.hasTalent(TALENTS_DRUID.RAVAGE_TALENT),
+  },
+  {
+    linkRelation: FROM_HARDCAST,
+    reverseLinkRelation: HIT_TARGET,
     linkingEventId: SPELLS.SHRED.id,
     linkingEventType: EventType.Damage,
     referencedEventId: SPELLS.SHRED.id,
@@ -188,6 +200,14 @@ export function getHitCount(aoeCastEvent: CastEvent): number {
 
 export function getHits(castEvent: CastEvent): AbilityEvent<any>[] {
   return GetRelatedEvents(castEvent, HIT_TARGET, HasAbility);
+}
+
+export function getDamageHits(castEvent: CastEvent): DamageEvent[] {
+  return GetRelatedEvents(
+    castEvent,
+    HIT_TARGET,
+    (e): e is DamageEvent => e.type === EventType.Damage,
+  );
 }
 
 export default CastLinkNormalizer;

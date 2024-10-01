@@ -8,9 +8,8 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { STORMSTRIKE_CAST_SPELLS } from '../../constants';
+import { EnhancementEventLinks, STORMSTRIKE_CAST_SPELLS } from '../../constants';
 import Spell from 'common/SPELLS/Spell';
-import { STORMSTRIKE_LINK } from 'analysis/retail/shaman/enhancement/modules/normalizers/EventLinkNormalizer';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
 const MAIN_HAND_DAMAGES = [SPELLS.STORMSTRIKE_DAMAGE.id, SPELLS.WINDSTRIKE_DAMAGE.id];
@@ -59,7 +58,7 @@ class Stormflurry extends Analyzer {
       return;
     }
     const stormstrikeDamageEvents = event._linkedEvents
-      .filter((le) => le.relation === STORMSTRIKE_LINK)
+      .filter((le) => le.relation === EnhancementEventLinks.STORMSTRIKE_LINK)
       .map((le) => le.event as DamageEvent);
     if (stormstrikeDamageEvents.length <= 2) {
       return;

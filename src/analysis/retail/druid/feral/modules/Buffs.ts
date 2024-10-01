@@ -48,8 +48,8 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.BERSERK.id,
-        triggeredBySpellId: SPELLS.BERSERK.id,
+        spellId: SPELLS.BERSERK_CAT.id,
+        triggeredBySpellId: SPELLS.BERSERK_CAT.id,
         enabled: !combatant.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT),
         timelineHighlight: true,
       },

@@ -12,11 +12,6 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: SPELLS.FROST_STRIKE.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { base: 1500 },
-      },
-      {
         spell: SPELLS.BLOOD_STRIKE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
@@ -64,7 +59,7 @@ class Abilities extends CoreAbilities {
       },
       // Cooldowns
       {
-        spell: [SPELLS.UNBREAKABLE_ARMOR.id],
+        spell: [SPELLS.PILLAR_OF_FROST.id],
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: null,
         cooldown: 60,

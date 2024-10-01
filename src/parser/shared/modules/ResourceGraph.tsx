@@ -87,7 +87,7 @@ abstract class ResourceGraph extends Analyzer {
               mark: {
                 type: 'line' as const,
                 color: this.lineColor(),
-                interpolate: 'step-after' as const,
+                interpolate: 'linear' as const,
               },
             },
             // Makes a visual point if the "hover" signal defined further down is active for this point.
@@ -192,6 +192,12 @@ abstract class ResourceGraph extends Analyzer {
     const tracker = this.tracker();
     const scaleFactor = this.scaleFactor();
     tracker.resourceUpdates.forEach((u) => {
+      if (u.change) {
+        graphData.push({
+          timestamp: u.timestamp,
+          amount: (u.current - u.change) * scaleFactor,
+        });
+      }
       const data: GraphData = {
         timestamp: u.timestamp,
         amount: u.current * scaleFactor,

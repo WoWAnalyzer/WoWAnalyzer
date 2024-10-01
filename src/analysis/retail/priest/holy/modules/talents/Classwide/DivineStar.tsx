@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/priest';
+import TALENTS, { TALENTS_PRIEST } from 'common/TALENTS/priest';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, HealEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -12,9 +12,17 @@ import { SpellLink } from 'interface';
 import CastEfficiencyPanel from 'interface/guide/components/CastEfficiencyPanel';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/priest/holy/Guide';
+import EOLAttrib from '../../core/EchoOfLightAttributor';
+import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 
 // Example Log: /report/mWZ6TG9JgjPQVdbA/9-Mythic+Zek'voz+-+Kill+(7:24)/1-Allyseia`Ø
 class DivineStar extends Analyzer {
+  static dependencies = {
+    eolAttrib: EOLAttrib,
+  };
+  protected eolAttrib!: EOLAttrib;
+  eolContrib = 0;
+
   divineStarDamage = 0;
   divineStarHealing = 0;
   divineStarOverhealing = 0;
@@ -43,8 +51,9 @@ class DivineStar extends Analyzer {
   }
 
   onHeal(event: HealEvent) {
-    this.divineStarHealing += event.amount || 0;
+    this.divineStarHealing += event.amount + (event.absorbed || 0);
     this.divineStarOverhealing += event.overheal || 0;
+    this.eolContrib += this.eolAttrib.getEchoOfLightHealingAttrib(event);
   }
 
   onCast(event: CastEvent) {
@@ -82,14 +91,26 @@ class DivineStar extends Analyzer {
   statistic() {
     return (
       <Statistic
-        tooltip={`Divine Stars Cast: ${this.divineStarCasts}`}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(6)}
+        tooltip={
+          <>
+            Breakdown:{' '}
+            <div>
+              <SpellLink spell={TALENTS_PRIEST.DIVINE_STAR_SHARED_TALENT} />:{' '}
+              <ItemPercentHealingDone amount={this.divineStarHealing}></ItemPercentHealingDone>
+            </div>
+            <div>
+              <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
+              <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone>
+            </div>
+          </>
+        }
       >
         <BoringSpellValueText spell={TALENTS.DIVINE_STAR_SHARED_TALENT}>
           <>
-            <ItemHealingDone amount={this.divineStarHealing} />
+            <ItemHealingDone amount={this.divineStarHealing + this.eolContrib} />
             <br />
             <ItemDamageDone amount={this.divineStarDamage} />
           </>

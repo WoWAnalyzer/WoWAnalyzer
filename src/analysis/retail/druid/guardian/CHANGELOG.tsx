@@ -1,16 +1,14 @@
 import { change, date } from 'common/changelog';
-import { Sref, ToppleTheNun } from 'CONTRIBUTORS';
-import { TALENTS_DRUID } from 'common/TALENTS';
+import { Sref } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_DRUID } from 'common/TALENTS';
 
 export default [
-  change(date(2024, 7, 14), <>Numbers and talent changes for The War Within. Hero talent analyzers not yet implemented.</>, Sref),
-  change(date(2024, 2, 6), <>Fixed an issue where <SpellLink spell={SPELLS.MAUL} /> would show as not having a GCD when player is talented for <SpellLink spell={TALENTS_DRUID.RAZE_TALENT} /></>, Sref),
-  change(date(2024, 1, 19), <>Marked up to date for 10.2.5</>, Sref),
-  change(date(2023, 11, 11), <>Added active time graph to Guide.</>, Sref),
-  change(date(2023, 11, 9), <>Added simple spell usage stats for <SpellLink spell={SPELLS.MANGLE_BEAR} />, <SpellLink spell={SPELLS.THRASH_BEAR} />, and <SpellLink spell={SPELLS.MOONFIRE_CAST} />. Marked as updated for 10.2.</>, Sref),
-  change(date(2023, 6, 20), 'Update SpellLink usage.', ToppleTheNun),
-  change(date(2023, 4, 24), <>Fixed a bug where <SpellLink spell={TALENTS_DRUID.PULVERIZE_TALENT} /> uses weren't being correctly detected.</>, Sref),
-  change(date(2023, 4, 22), <>Reactivated Guardian analyzer! Only basic guide and modules so far, more to come.</>, Sref),
+  change(date(2024, 9, 23), <>Fixed an issue where active defensives weren't showing on the Timeline or Death Recap views. Added <SpellLink spell={TALENTS_DRUID.LUNAR_BEAM_TALENT} /> to the defensives list.</>, Sref),
+  change(date(2024, 8, 17), <>Marked updated for 11.0.2 and updated the spec's 'About' page.</>, Sref),
+  change(date(2024, 8, 14), <>Updated spells to account for 11.0.2 balance patch.</>, Sref),
+  change(date(2024, 8, 3), <>Added Offensive Cooldowns section to Guide.</>, Sref),
+  change(date(2024, 7, 29), <>Added <SpellLink spell={SPELLS.SWIPE_BEAR} /> subsection to Guide.</>, Sref),
+  change(date(2024, 7, 14), <>Activating Guardian Druid analyzer for The War Within! Hero talent analyzers not yet implemented.</>, Sref),
 ];

@@ -1,27 +1,9 @@
 import { defineMessage } from '@lingui/macro';
+import WarriorRageDetails from 'analysis/retail/warrior/shared/modules/core/RageDetails';
 import { formatPercentage } from 'common/format';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { Panel } from 'interface';
-import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
-import BoringResourceValue from 'parser/ui/BoringResourceValue';
-import Statistic from 'parser/ui/Statistic';
-import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
-import RageTracker from './RageTracker';
-
-class RageDetails extends Analyzer {
-  static dependencies = {
-    rageTracker: RageTracker,
-  };
-
-  protected rageTracker!: RageTracker;
-
-  get wastedPercent() {
-    return this.rageTracker.wasted / (this.rageTracker.wasted + this.rageTracker.generated) || 0;
-  }
-
+class RageDetails extends WarriorRageDetails {
   get efficiencySuggestionThresholds() {
     return {
       actual: 1 - this.wastedPercent,
@@ -58,36 +40,6 @@ class RageDetails extends Analyzer {
         )
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );
-  }
-
-  statistic() {
-    return (
-      <Statistic
-        position={STATISTIC_ORDER.CORE(3)}
-        size="flexible"
-        tooltip={`${this.rageTracker.wasted} out of ${
-          this.rageTracker.wasted + this.rageTracker.generated
-        } Rage wasted.`}
-      >
-        <BoringResourceValue
-          resource={RESOURCE_TYPES.RAGE}
-          value={`${formatPercentage(this.wastedPercent)} %`}
-          label="Rage wasted"
-        />
-      </Statistic>
-    );
-  }
-
-  tab() {
-    return {
-      title: 'Rage usage',
-      url: 'rage-usage',
-      render: () => (
-        <Panel>
-          <ResourceBreakdown tracker={this.rageTracker} showSpenders />
-        </Panel>
-      ),
-    };
   }
 }
 

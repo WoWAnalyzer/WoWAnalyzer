@@ -6,6 +6,8 @@ import Explanation from '../components/Explanation';
 import CooldownGraphSubsection, { Cooldown } from '../components/CooldownGraphSubSection';
 import AlertInfo from 'interface/AlertInfo';
 import { FoundationHighlight as HL } from './shared';
+import Para from '../Para';
+import { useExpansionContext } from 'interface/report/ExpansionContext';
 
 interface Props {
   cooldowns?: Cooldown[];
@@ -15,6 +17,7 @@ export function FoundationCooldownSection({
   cooldowns: manualCooldowns,
 }: Props): JSX.Element | null {
   const abilities = useInfo()?.abilities;
+  const { expansion } = useExpansionContext();
   const cooldowns = useMemo(
     () =>
       manualCooldowns ??
@@ -27,10 +30,10 @@ export function FoundationCooldownSection({
         )
         .sort((a, b) => b.cooldown - a.cooldown)
         .map((ability) => ({
-          spell: maybeGetTalentOrSpell(ability.primarySpell)!,
+          spell: maybeGetTalentOrSpell(ability.primarySpell, expansion)!,
           isActive: () => true,
         })),
-    [manualCooldowns, abilities],
+    [manualCooldowns, abilities, expansion],
   );
 
   if (!cooldowns || cooldowns.length === 0) {
@@ -40,20 +43,20 @@ export function FoundationCooldownSection({
   return (
     <SubSection title="Use Your Cooldowns">
       <Explanation>
-        <div>
+        <Para>
           Perfect cooldown usage is a combination of in-depth fight knowledge and player skill.
           However, 90% of the time you can get 90% of those results by{' '}
           <strong>making sure to use every cooldown available to you.</strong>
-        </div>
-        <div>
+        </Para>
+        <Para>
           The key idea is to <HL>use your cooldowns as many times as you can.</HL> For example, you
           can use a 2-minute cooldown <em>at most</em> 3 times in a 2m 30s boss fight. As long as
           you hit all 3 uses, it is okay to delay it for a better time.
-        </div>
+        </Para>
       </Explanation>
-      <div>
+      <Para>
         <CooldownGraphSubsection cooldowns={cooldowns} />
-      </div>
+      </Para>
       <AlertInfo>
         Getting the most out of your cooldowns requires up-to-date knowledge of your spec and the
         boss fights. We highly recommend finding a community for your class like the{' '}

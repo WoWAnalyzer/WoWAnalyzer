@@ -1,7 +1,6 @@
 import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/paladin';
 import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import DonutChart from 'parser/ui/DonutChart';
@@ -10,16 +9,13 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import StatisticGroup from 'parser/ui/StatisticGroup';
 
 import PaladinAbilityTracker from '../core/PaladinAbilityTracker';
-import MaraadsCastRatio from '../talents/MaraadsCastRatio';
 
 class CastBehavior extends Analyzer {
   static dependencies = {
     abilityTracker: PaladinAbilityTracker,
-    maraadsCastRatio: MaraadsCastRatio,
   };
 
   protected abilityTracker!: PaladinAbilityTracker;
-  protected maraadsCastRatio!: MaraadsCastRatio;
 
   get iolProcsPerHolyShockCrit() {
     return 1;
@@ -90,21 +86,16 @@ class CastBehavior extends Analyzer {
 
     const flashOfLight = getAbility(SPELLS.FLASH_OF_LIGHT.id);
     const holyLight = getAbility(SPELLS.HOLY_LIGHT.id);
-    const lightOfTheMartyr = getAbility(TALENTS.LIGHT_OF_THE_MARTYR_TALENT.id);
 
     const iolFlashOfLights = flashOfLight.healingIolHits || 0;
     const iolHolyLights = holyLight.healingIolHits || 0;
 
     const flashOfLightHeals = flashOfLight.casts || 0;
     const holyLightHeals = holyLight.casts || 0;
-    const lightOfTheMartyrHeals = lightOfTheMartyr.casts || 0;
     const fillerFlashOfLights = flashOfLightHeals - iolFlashOfLights;
     const fillerHolyLights = holyLightHeals - iolHolyLights;
-    const fillerLightOfTheMartyrHeals = this.maraadsCastRatio.active
-      ? this.maraadsCastRatio.unbuffedCasts
-      : lightOfTheMartyrHeals;
 
-    if (fillerFlashOfLights + fillerHolyLights + fillerLightOfTheMartyrHeals > 0) {
+    if (fillerFlashOfLights + fillerHolyLights > 0) {
       const items = [
         {
           color: '#FFFDE7',
@@ -117,12 +108,6 @@ class CastBehavior extends Analyzer {
           label: SPELLS.HOLY_LIGHT.name,
           spellId: SPELLS.HOLY_LIGHT.id,
           value: fillerHolyLights,
-        },
-        {
-          color: '#A93226',
-          label: TALENTS.LIGHT_OF_THE_MARTYR_TALENT.name,
-          spellId: TALENTS.LIGHT_OF_THE_MARTYR_TALENT.id,
-          value: fillerLightOfTheMartyrHeals,
         },
       ];
 

@@ -55,6 +55,9 @@ const SpellDetailsContainer = styled.div`
   }
 `;
 
+const leftPercentWide = 50;
+const leftPercentNarrow = 30;
+
 interface SpellUseDetailsProps {
   performance?: BoxRowEntry;
   spellUse?: SpellUse;
@@ -124,12 +127,14 @@ const SpellUseDetails = ({ performance, spellUse }: SpellUseDetailsProps) => {
       <div>{formatDuration(spellUse.event.timestamp - info.fightStart)}</div>
       <strong>Perf.</strong>
       <strong>Explanation</strong>
-      {spellUse.checklistItems.map((checklistItem) => (
-        <Fragment key={checklistItem.check}>
-          <PerformanceMark perf={checklistItem.performance} />
-          {checklistItem.details}
-        </Fragment>
-      ))}
+      {spellUse.checklistItems
+        .filter((it) => it.details)
+        .map((checklistItem) => (
+          <Fragment key={checklistItem.check}>
+            <PerformanceMark perf={checklistItem.performance} />
+            {checklistItem.details}
+          </Fragment>
+        ))}
       {spellUse.extraDetails ? (
         <RoundedPanel>
           <div>
@@ -186,6 +191,7 @@ const NoCastsDisplay = ({
 type SpellUsageSubSectionProps = Omit<ComponentPropsWithoutRef<typeof SubSection>, 'children'> & {
   abovePerformanceDetails?: ReactNode;
   belowPerformanceDetails?: ReactNode;
+  wideExplanation?: boolean;
   castBreakdownSmallText?: ReactNode;
   explanation: ReactNode;
   performances: BoxRowEntry[];
@@ -204,6 +210,7 @@ type SpellUsageSubSectionProps = Omit<ComponentPropsWithoutRef<typeof SubSection
 const SpellUsageSubSection = ({
   abovePerformanceDetails,
   belowPerformanceDetails,
+  wideExplanation,
   castBreakdownSmallText,
   explanation,
   performances,
@@ -243,47 +250,49 @@ const SpellUsageSubSection = ({
     return null;
   }
 
+  const spellUsageDetails = (
+    <SpellUsageDetailsContainer>
+      {abovePerformanceDetails ?? <div />}
+      <div>
+        <strong>Cast Breakdown</strong>{' '}
+        <small>
+          {castBreakdownSmallText ? (
+            castBreakdownSmallText
+          ) : (
+            <CastPerformanceDefaultCastBreakdownSmallText />
+          )}
+        </small>
+      </div>
+      <PerformanceBoxRow
+        values={performances.map((p, idx) =>
+          idx === selectedUse ? { ...p, className: 'selected' } : p,
+        )}
+        onClickBox={onClickBox}
+      />
+      {uses.length === 0 ? (
+        <NoCastsDisplay {...noCastsTexts} />
+      ) : (
+        <SpellUseDetails
+          spellUse={
+            selectedUse !== undefined && selectedUse < uses.length ? uses[selectedUse] : undefined
+          }
+          performance={
+            selectedUse !== undefined && selectedUse < performances.length
+              ? performances[selectedUse]
+              : undefined
+          }
+        />
+      )}
+      {belowPerformanceDetails}
+    </SpellUsageDetailsContainer>
+  );
+
   return (
     <SubSection style={{ paddingBottom: 20 }} {...others}>
       {warning ? <AlertWarning {...warning} /> : null}
-      <ExplanationRow>
+      <ExplanationRow leftPercent={wideExplanation ? leftPercentWide : leftPercentNarrow}>
         <Explanation>{explanation}</Explanation>
-        <SpellUsageDetailsContainer>
-          {abovePerformanceDetails ?? <div />}
-          <div>
-            <strong>Cast Breakdown</strong>{' '}
-            <small>
-              {castBreakdownSmallText ? (
-                castBreakdownSmallText
-              ) : (
-                <CastPerformanceDefaultCastBreakdownSmallText />
-              )}
-            </small>
-          </div>
-          <PerformanceBoxRow
-            values={performances.map((p, idx) =>
-              idx === selectedUse ? { ...p, className: 'selected' } : p,
-            )}
-            onClickBox={onClickBox}
-          />
-          {uses.length === 0 ? (
-            <NoCastsDisplay {...noCastsTexts} />
-          ) : (
-            <SpellUseDetails
-              spellUse={
-                selectedUse !== undefined && selectedUse < uses.length
-                  ? uses[selectedUse]
-                  : undefined
-              }
-              performance={
-                selectedUse !== undefined && selectedUse < performances.length
-                  ? performances[selectedUse]
-                  : undefined
-              }
-            />
-          )}
-          {belowPerformanceDetails}
-        </SpellUsageDetailsContainer>
+        {wideExplanation ? <RoundedPanel>{spellUsageDetails}</RoundedPanel> : spellUsageDetails}
       </ExplanationRow>
     </SubSection>
   );

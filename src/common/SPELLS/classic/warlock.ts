@@ -50,6 +50,11 @@ const spells = {
     name: 'Dark Intent',
     icon: 'spell_warlock_focusshadow.jpg',
   },
+  DARK_INTENT_HASTE: {
+    id: 85767,
+    name: 'Dark Intent',
+    icon: 'spell_warlock_focusshadow.jpg',
+  },
   DEATH_COIL: {
     id: 6789,
     name: 'Death Coil',
@@ -229,6 +234,7 @@ const spells = {
     id: 74434,
     name: 'Soulburn',
     icon: 'spell_warlock_soulburn.jpg',
+    soulShardsCost: 1,
   },
   SOULSHATTER: {
     id: 29858,
@@ -292,39 +298,49 @@ const spells = {
 
   // Affliction
   HAUNT: {
-    id: 59164,
+    id: 48181,
     name: 'Haunt',
-    icon: 'ability_warlock_haunt',
+    icon: 'ability_warlock_haunt.jpg',
   },
   ERADICATION_BUFF_6: {
     id: 64368,
     name: 'Eradication',
-    icon: 'ability_warlock_eradication',
+    icon: 'ability_warlock_eradication.jpg',
   },
   ERADICATION_BUFF_12: {
     id: 64370,
     name: 'Eradication',
-    icon: 'ability_warlock_eradication',
+    icon: 'ability_warlock_eradication.jpg',
   },
   ERADICATION_BUFF_20: {
     id: 64371,
     name: 'Eradication',
-    icon: 'ability_warlock_eradication',
+    icon: 'ability_warlock_eradication.jpg',
   },
   SHADOW_EMBRACE: {
-    id: 32394,
+    id: 32385,
     name: 'Shadow Embrace',
-    icon: 'spell_shadow_shadowembrace',
+    icon: 'spell_shadow_shadowembrace.jpg',
   },
   SHADOW_TRANCE: {
     id: 17941,
     name: 'Shadow Trance',
     icon: 'spell_shadow_twilight.jpg',
   },
+  SOUL_SWAP: {
+    id: 86121,
+    name: 'Soul Swap',
+    icon: 'ability_warlock_soulswap.jpg',
+  },
+  SOUL_SWAP_EXHALE: {
+    id: 86213,
+    name: 'Soul Swap Exhale',
+    icon: 'ability_rogue_envelopingshadows.jpg',
+  },
   UNSTABLE_AFFLICTION: {
-    id: 47843,
+    id: 30108,
     name: 'Unstable Affliction',
-    icon: 'spell_shadow_unstableaffliction_3',
+    icon: 'spell_shadow_unstableaffliction_3.jpg',
   },
 
   // Demonology

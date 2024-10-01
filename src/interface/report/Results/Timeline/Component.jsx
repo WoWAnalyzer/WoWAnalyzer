@@ -10,6 +10,7 @@ import { PureComponent } from 'react';
 import './Timeline.scss';
 import Auras from './Auras';
 import Casts, { isApplicableEvent } from './Casts';
+import { EnemyCastsTimeline } from './EnemyCasts';
 import Cooldowns from './Cooldowns';
 import TimeIndicators from './TimeIndicators';
 
@@ -35,6 +36,7 @@ export function isApplicableUpdateSpellUsableEvent(event, startTime) {
 class Timeline extends PureComponent {
   static propTypes = {
     abilities: PropTypes.instanceOf(Abilities).isRequired,
+    enemyCasts: PropTypes.array,
     auras: PropTypes.instanceOf(AurasModule).isRequired,
     movement: PropTypes.arrayOf(
       PropTypes.shape({
@@ -58,8 +60,16 @@ class Timeline extends PureComponent {
     this.state = {
       zoom: 2,
       padding: 0,
+      filteredEnemyCasts: [],
     };
     this.setContainerRef = this.setContainerRef.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
+  }
+
+  handleToggle(toggleName) {
+    this.setState((prevState) => ({
+      [toggleName]: !prevState[toggleName],
+    }));
   }
 
   get fight() {
@@ -170,6 +180,7 @@ class Timeline extends PureComponent {
     const eventsBySpellId = this.getEventsBySpellId(parser.eventHistory);
 
     const allSeparatedIds = this.props.config?.separateCastBars.flat() || [];
+
     const castEvents = [
       ...(this.props.config?.separateCastBars.map((spellIds) =>
         parser.eventHistory
@@ -197,6 +208,13 @@ class Timeline extends PureComponent {
               '--cast-bars': castEvents.length,
             }}
           >
+            <EnemyCastsTimeline
+              seconds={this.seconds}
+              start={this.start}
+              secondWidth={this.secondWidth}
+              offset={this.offset}
+              skipInterval={skipInterval}
+            />
             <Auras
               start={this.start}
               secondWidth={this.secondWidth}

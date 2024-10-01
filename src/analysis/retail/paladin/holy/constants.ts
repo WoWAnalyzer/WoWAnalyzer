@@ -8,11 +8,9 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   SPELLS.FLASH_OF_LIGHT.id,
   SPELLS.JUDGMENT_OF_LIGHT_HEAL.id,
   TALENTS.LIGHT_OF_THE_MARTYR_TALENT.id,
-  SPELLS.LIGHTS_HAMMER_HEAL.id,
   SPELLS.HOLY_PRISM_HEAL.id,
   SPELLS.HOLY_PRISM_HEAL_DIRECT.id,
   SPELLS.AURA_OF_MERCY_HEAL.id,
-  SPELLS.GLIMMER_OF_LIGHT_HEAL_TALENT.id,
   // While the following spells don't double dip in healing increases, they gain the same percentual bonus from the transfer
   SPELLS.BEACON_OF_LIGHT_HEAL.id,
   SPELLS.LEECH.id,
@@ -31,9 +29,7 @@ export const ABILITIES_AFFECTED_BY_MASTERY = [
   TALENTS.LIGHT_OF_THE_MARTYR_TALENT.id,
   SPELLS.HOLY_PRISM_HEAL.id,
   SPELLS.HOLY_PRISM_HEAL_DIRECT.id,
-  SPELLS.LIGHTS_HAMMER_HEAL.id,
   SPELLS.JUDGMENT_OF_LIGHT_HEAL.id,
-  SPELLS.GLIMMER_OF_LIGHT_HEAL_TALENT.id,
   SPELLS.WORD_OF_GLORY.id,
   SPELLS.HOLY_LIGHT.id,
   SPELLS.GOLDEN_PATH_HEAL_TALENT.id,
@@ -47,13 +43,12 @@ export const BEACON_TRANSFERING_ABILITIES = {
   [SPELLS.FLASH_OF_LIGHT.id]: 1,
   [SPELLS.HOLY_PRISM_HEAL.id]: 0.5,
   [SPELLS.HOLY_PRISM_HEAL_DIRECT.id]: 1,
-  [SPELLS.LIGHTS_HAMMER_HEAL.id]: 0.5,
   [SPELLS.AVENGING_CRUSADER_HEAL_NORMAL.id]: 1,
   [SPELLS.AVENGING_CRUSADER_HEAL_CRIT.id]: 1,
-  [SPELLS.GLIMMER_OF_LIGHT_HEAL_TALENT.id]: 0.5,
   [SPELLS.WORD_OF_GLORY.id]: 1,
-  [TALENTS.LIGHT_OF_THE_MARTYR_TALENT.id]: (player: Combatant) =>
-    player.hasBuff(SPELLS.MARAADS_DYING_BREATH_BUFF.id) ? 1 : undefined,
+  // TODO: figure out beacon healing for new LotM
+  // [TALENTS.LIGHT_OF_THE_MARTYR_TALENT.id]: (player: Combatant) =>
+  //   player.hasBuff(SPELLS.MARAADS_DYING_BREATH_BUFF.id) ? 1 : undefined,
   [SPELLS.HOLY_LIGHT.id]: 1,
   [SPELLS.GOLDEN_PATH_HEAL_TALENT.id]: 1,
   [SPELLS.SEAL_OF_MERCY_HEAL_TALENT.id]: 1,
@@ -61,6 +56,14 @@ export const BEACON_TRANSFERING_ABILITIES = {
   [SPELLS.RESPLENDENT_LIGHT_HEAL.id]: 1,
   [SPELLS.SEAL_OF_THE_CRUSADER_HEAL.id]: 1,
   [SPELLS.AURA_OF_MERCY_HEAL.id]: 1,
+  [TALENTS.ETERNAL_FLAME_TALENT.id]: 1,
+  [SPELLS.DAWNLIGHT_HEAL.id]: 0.5,
+  [SPELLS.DAWNLIGHT_AOE_HEAL.id]: 0.5,
+  [SPELLS.SUNS_AVATAR_HEAL.id]: 0.5,
+  [SPELLS.SUNS_AVATAR_HEAL_2.id]: 0.5,
+  [TALENTS.TRUTH_PREVAILS_TALENT.id]: 1,
+  [SPELLS.TRUTH_PREVAILS_HEAL.id]: 1,
+  [SPELLS.SUN_SEAR_HEAL.id]: 1,
 };
 
 export function getBeaconSpellFactor(spellID: number, player: Combatant): number | undefined {
@@ -68,11 +71,6 @@ export function getBeaconSpellFactor(spellID: number, player: Combatant): number
   if (!factor) {
     return undefined;
   }
-
-  if (typeof factor === 'function') {
-    return factor(player);
-  }
-
   return factor;
 }
 
@@ -90,3 +88,5 @@ export const BEACON_SPELL_IDS: Record<BEACON_TYPE, readonly number[]> = {
   ],
   [BEACON_TYPE.BEACON_OF_VIRTUE]: [TALENTS.BEACON_OF_VIRTUE_TALENT.id],
 } as const;
+
+export const LIGHTS_PROTECTION_DAMAGE_REDUCTION = 0.05;

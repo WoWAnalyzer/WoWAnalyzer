@@ -21,19 +21,43 @@ interface Props {
   scaleFactor?: number;
 }
 
+interface ResourceUsageRow {
+  /** Builder or spender spell id for {@link SpellLink} */
+  abilityId: number;
+  /** If supplied, will be appended to the end of the {@link SpellLink} as plain text */
+  extraDetail?: string;
+}
+
+interface GeneratedResourceRow extends ResourceUsageRow {
+  /** Total resource generated, minus any waste */
+  generated: number;
+  /** Amount of resource wasted */
+  wasted: number;
+}
+
+interface SpentResourceRow extends ResourceUsageRow {
+  /** Total resource spent */
+  spent: number;
+  /** No. of times ability was cast */
+  casts: number;
+  /** No. of casts while at resource cap */
+  maxSpendCasts: number;
+}
+
 class ResourceBreakdown extends Component<Props> {
-  prepareGenerated(tracker: ResourceTracker, scaleFactor = 1) {
+  prepareGenerated(tracker: ResourceTracker, scaleFactor = 1): GeneratedResourceRow[] {
     return Object.keys(tracker.buildersObj)
       .map((abilityId) => ({
         abilityId: Number(abilityId),
         generated: tracker.buildersObj[Number(abilityId)].generated * scaleFactor,
         wasted: tracker.buildersObj[Number(abilityId)].wasted * scaleFactor,
+        extraDetail: undefined as string | undefined,
       }))
       .sort((a, b) => b.generated - a.generated)
       .filter((ability) => ability.generated > 0 || ability.wasted);
   }
 
-  prepareSpent(tracker: ResourceTracker, scaleFactor = 1) {
+  prepareSpent(tracker: ResourceTracker, scaleFactor = 1): SpentResourceRow[] {
     return Object.keys(tracker.spendersObj)
       .map((abilityId) => ({
         abilityId: Number(abilityId),
@@ -110,10 +134,10 @@ class ResourceBreakdown extends Component<Props> {
               </tr>
             )}
             {generated &&
-              generated.map((ability) => (
-                <tr key={ability.abilityId}>
+              generated.map((ability, index) => (
+                <tr key={`${ability.abilityId}-${index}`}>
                   <td style={{ width: '30%' }}>
-                    <SpellLink spell={ability.abilityId} />
+                    <SpellLink spell={ability.abilityId} /> {ability.extraDetail}
                   </td>
                   <td style={numberColumnStyle}>
                     <TooltipElement
@@ -176,7 +200,7 @@ class ResourceBreakdown extends Component<Props> {
                 spent.map((ability) => (
                   <tr key={ability.abilityId}>
                     <td style={{ width: '30%' }}>
-                      <SpellLink spell={ability.abilityId} />
+                      <SpellLink spell={ability.abilityId} /> {ability.extraDetail}
                     </td>
                     <td style={numberColumnStyle}>
                       <TooltipElement content={`${formatPercentage(ability.spent / totalSpent)} %`}>

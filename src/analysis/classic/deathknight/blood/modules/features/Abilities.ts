@@ -47,6 +47,12 @@ class Abilities extends CoreAbilities {
       // Cooldowns
 
       {
+        spell: SPELLS.ARMY_OF_THE_DEAD.id,
+        gcd: { base: 1500 },
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 600,
+      },
+      {
         spell: SPELLS.DANCING_RUNE_WEAPON.id,
         gcd: { base: 1500 },
         category: SPELL_CATEGORY.COOLDOWNS,

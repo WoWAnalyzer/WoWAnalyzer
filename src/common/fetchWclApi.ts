@@ -33,6 +33,7 @@ const HTTP_CODES = {
   OK: 200,
   BAD_REQUEST: 400,
   UNAUTHORIZED: 401,
+  NOT_FOUND: 404,
   CLOUDFLARE: {
     UNKNOWN_ERROR: 520,
     WEB_SERVER_IS_DOWN: 521,
@@ -116,6 +117,12 @@ async function rawFetchWcl(endpoint: string, queryParams: QueryParams, noCache: 
     }
     throw new Error(message || json.error);
   }
+
+  if (response.status === HTTP_CODES.NOT_FOUND) {
+    // TODO: this doesn't handle character/guild not found
+    throw new LogNotFoundError();
+  }
+
   if (!response.ok) {
     if (json.error === WCL_API_ERROR_TEXT) {
       throw new WclApiError(`${response.status}: ${json.message}`);
@@ -261,6 +268,6 @@ export async function fetchTable<T extends WCLResponseJSON>(
   return fetchWcl(`report/tables/${tableName}/${reportCode}`, {
     start: fightStart,
     end: fightEnd,
-    sourceid: sourceId,
+    actorid: sourceId,
   });
 }

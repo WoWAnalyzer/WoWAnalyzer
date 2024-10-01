@@ -14,6 +14,18 @@ const SOLAR_ECLIPSE_COLOR = '#bb9922';
 const LUNAR_ECLIPSE_COLOR = '#1111cc';
 const CA_COLOR = '#11bbbb';
 
+/**
+ * **Eclipse**
+ * Spec Talent
+ *
+ * Casting 2 Starfire empowers Wrath for 15 sec. Casting 2 Wrath empowers Starfire for 15 sec.
+ *
+ * Eclipse (Solar)
+ * Nature spells deal 15% additional damage and Wrath damage is increased by 40%.
+ *
+ * Eclipse (Lunar)
+ * Arcane spells deal 15% additional damage and the damage Starfire deals to nearby enemies is increased by 30%.
+ */
 export default class Eclipse extends Analyzer {
   mapWithColor(uptimes: TrackedBuffEvent[], customColor: string): Uptime[] {
     return uptimes.map((uptime) => ({

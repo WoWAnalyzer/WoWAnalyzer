@@ -16,15 +16,15 @@ import { isFromExpiringLifebloom } from 'analysis/retail/druid/restoration/norma
 import Lifebloom from 'analysis/retail/druid/restoration/modules/spells/Lifebloom';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
-const PHOTOSYNTHESIS_HOT_INCREASE = 0.2;
+const PHOTOSYNTHESIS_HOT_INCREASE = 0.1;
 // Spring blossoms double dips, confirmed by Bastas
-const PHOTOSYNTHESIS_SB_INCREASE = 0.44;
+const PHOTOSYNTHESIS_SB_INCREASE = 0.21; //
 
 /**
  * **Photosynthesis**
  * Spec Talent Tier 10
  *
- * While your Lifebloom is on yourself, your periodic heals heal 20% faster.
+ * While your Lifebloom is on yourself, your periodic heals heal 10% faster.
  * While your Lifebloom is on an ally, your periodic heals on them have a 5% chance to cause it to bloom.
  */
 class Photosynthesis extends Analyzer {

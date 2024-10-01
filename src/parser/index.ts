@@ -48,6 +48,7 @@ import ClassicHunterMarksman from 'analysis/classic/hunter/marksman';
 import ClassicHunterSurvival from 'analysis/classic/hunter/survival';
 import ClassicMageArcane from 'analysis/classic/mage/arcane';
 import ClassicMageFire from 'analysis/classic/mage/fire';
+import ClassicMageFrost from 'analysis/classic/mage/frost';
 import ClassicPaladinHoly from 'analysis/classic/paladin/holy';
 import ClassicPaladinProtection from 'analysis/classic/paladin/protection';
 import ClassicPaladinRetribution from 'analysis/classic/paladin/retribution';
@@ -55,12 +56,14 @@ import ClassicPriestDiscipline from 'analysis/classic/priest/discipline';
 import ClassicPriestShadow from 'analysis/classic/priest/shadow';
 import ClassicPriestHoly from 'analysis/classic/priest/holy';
 import ClassicRogueAssassination from 'analysis/classic/rogue/assassination';
+import ClassicShamanElemental from 'analysis/classic/shaman/elemental';
 import ClassicShamanEnhancement from 'analysis/classic/shaman/enhancement';
 import ClassicShamanRestoration from 'analysis/classic/shaman/restoration';
 import ClassicWarlockAffliction from 'analysis/classic/warlock/affliction';
 import ClassicWarlockDemonology from 'analysis/classic/warlock/demonology';
 import ClassicWarlockDestruction from 'analysis/classic/warlock/destruction';
 import ClassicFuryWarrior from 'analysis/classic/warrior/fury';
+import ClassicArmsWarrior from 'analysis/classic/warrior/arms';
 
 import Config from './Config';
 
@@ -131,6 +134,7 @@ const configs: Config[] = [
 
   ClassicMageArcane,
   ClassicMageFire,
+  ClassicMageFrost,
 
   ClassicPaladinHoly,
   ClassicPaladinProtection,
@@ -142,6 +146,7 @@ const configs: Config[] = [
 
   ClassicRogueAssassination,
 
+  ClassicShamanElemental,
   ClassicShamanEnhancement,
   ClassicShamanRestoration,
 
@@ -150,6 +155,7 @@ const configs: Config[] = [
   ClassicWarlockDestruction,
 
   ClassicFuryWarrior,
+  ClassicArmsWarrior,
 ];
 
 export default configs;

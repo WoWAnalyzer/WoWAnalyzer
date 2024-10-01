@@ -14,7 +14,7 @@ class ChampionsSpear extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(TALENTS.CHAMPIONS_SPEAR_TALENT);
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SPEAR_OF_BASTION),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CHAMPIONS_SPEAR),
       this.onSpearDamage,
     );
   }

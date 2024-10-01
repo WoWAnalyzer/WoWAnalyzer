@@ -9,10 +9,10 @@ import DefensiveAndUtility from '../shared/guide/DefensiveAndUtility';
 export default function Guide(props: GuideProps<typeof CombatLogParser>) {
   return (
     <>
-      <Rotation {...props} />
       <Cooldowns {...props} />
-      <DefensiveAndUtility />
+      <Rotation {...props} />
       <MaelstromUsage {...props} />
+      <DefensiveAndUtility />
       <PreparationSection />
     </>
   );

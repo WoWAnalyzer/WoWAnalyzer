@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/paladin';
+import TALENTS, { TALENTS_PALADIN } from 'common/TALENTS/paladin';
 import { Options } from 'parser/core/Analyzer';
 import Events, { BeaconAppliedEvent, BeaconRemovedEvent } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
@@ -9,6 +9,13 @@ import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import BeaconAnalyzer from './BeaconAnalyzer';
 import BeaconTargets from './BeaconTargets';
+import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
+import { Uptime } from 'parser/ui/UptimeBar';
+import Combatants from 'parser/shared/modules/Combatants';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import { SpellLink } from 'interface';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../guide/Guide';
 
 /* ---------------------------- Log URLs for testing --------------------------
 
@@ -105,8 +112,10 @@ class BeaconUptime extends BeaconAnalyzer {
   static dependencies = {
     ...BeaconAnalyzer.dependencies,
     beaconTargets: BeaconTargets,
+    combatants: Combatants,
   };
 
+  protected combatants!: Combatants;
   protected beaconTargets!: BeaconTargets;
   prepullSuggestion = true;
 
@@ -274,6 +283,72 @@ class BeaconUptime extends BeaconAnalyzer {
         })}
       </Statistic>
     );
+  }
+
+  get guideSubsection(): JSX.Element {
+    const explanation = (
+      <p>
+        When playing{' '}
+        <b>
+          <SpellLink spell={TALENTS_PALADIN.BEACON_OF_FAITH_TALENT} />
+        </b>
+        , you have access to two permanent beacons. While it is common to place them on your tanks,
+        you actually want to place them on squishy ranged DPS players if your tanks are able to
+        sustain themselves. This is to get the bonus mastery efficiency from{' '}
+        <SpellLink spell={TALENTS_PALADIN.BEACON_OF_THE_LIGHTBRINGER_TALENT} />.
+      </p>
+    );
+
+    const data = (
+      <div>
+        <RoundedPanel>
+          <strong>
+            <SpellLink spell={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF} />{' '}
+            {this.selectedCombatant.hasTalent(TALENTS_PALADIN.BEACON_OF_FAITH_TALENT) && (
+              <>
+                and <SpellLink spell={TALENTS_PALADIN.BEACON_OF_FAITH_TALENT.id} />{' '}
+              </>
+            )}{' '}
+            Uptimes
+          </strong>
+          {this.beaconOfLightUptimeBar()}
+          {this.selectedCombatant.hasTalent(TALENTS_PALADIN.BEACON_OF_FAITH_TALENT) &&
+            this.beaconOfFaithUptimeBar()}
+        </RoundedPanel>
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
+  }
+
+  /**
+   * Stolen from Restoration Shaman's Earth Shield
+   */
+  getUptimeHistory(spellId: number) {
+    const uptimeHistory: Uptime[] = [];
+    let current: Uptime;
+    Object.values(this.combatants.players).forEach((player) => {
+      player.getBuffHistory(spellId, this.owner.playerId).forEach((trackedBuff) => {
+        const end = trackedBuff.end ? trackedBuff.end : this.owner.fight.end_time;
+        current = { start: trackedBuff.start, end: end };
+        uptimeHistory.push(current);
+      });
+    });
+    return uptimeHistory;
+  }
+
+  beaconOfLightUptimeBar() {
+    return uptimeBarSubStatistic(this.owner.fight, {
+      spells: [SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF],
+      uptimes: this.getUptimeHistory(SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id),
+    });
+  }
+
+  beaconOfFaithUptimeBar() {
+    return uptimeBarSubStatistic(this.owner.fight, {
+      spells: [TALENTS_PALADIN.BEACON_OF_FAITH_TALENT],
+      uptimes: this.getUptimeHistory(TALENTS_PALADIN.BEACON_OF_FAITH_TALENT.id),
+    });
   }
 }
 

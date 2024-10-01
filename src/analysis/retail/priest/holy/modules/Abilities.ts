@@ -3,12 +3,12 @@ import TALENTS from 'common/TALENTS/priest';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
-import { HOLY_ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../constants';
+import { HOLY_ABILITIES_AFFECTED_BY_HEALING_INCREASES_ID } from '../constants';
 
 class Abilities extends CoreAbilities {
   constructor(...args: ConstructorParameters<typeof CoreAbilities>) {
     super(...args);
-    this.abilitiesAffectedByHealingIncreases = HOLY_ABILITIES_AFFECTED_BY_HEALING_INCREASES;
+    this.abilitiesAffectedByHealingIncreases = HOLY_ABILITIES_AFFECTED_BY_HEALING_INCREASES_ID;
   }
 
   spellbook() {
@@ -150,7 +150,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.HALO_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 40,
+        cooldown: 60,
         enabled: combatant.hasTalent(TALENTS.HALO_SHARED_TALENT),
         gcd: {
           base: 1500,

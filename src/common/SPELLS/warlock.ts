@@ -295,8 +295,13 @@ const spells = {
     name: 'Phantom Singularity',
     icon: 'inv_enchant_voidsphere',
   },
-  SHADOW_EMBRACE_DEBUFF: {
+  SHADOW_EMBRACE_SOULDRAIN_DEBUFF: {
     id: 32390,
+    name: 'Shadow Embrace',
+    icon: 'spell_shadow_shadowembrace',
+  },
+  SHADOW_EMBRACE_SHADOWBOLT_DEBUFF: {
+    id: 453206,
     name: 'Shadow Embrace',
     icon: 'spell_shadow_shadowembrace',
   },
@@ -309,11 +314,6 @@ const spells = {
     id: 386931,
     name: 'Vile Taint',
     icon: 'sha_spell_shadow_shadesofdarkness_nightborne',
-  },
-  WRATH_OF_CONSUMPTION_BUFF: {
-    id: 387066,
-    name: 'Wrath of Consumption',
-    icon: 'spell_nature_drowsy',
   },
 
   // Affliction shard generating effects
@@ -464,6 +464,16 @@ const spells = {
     name: 'Headbutt',
     icon: 'inv_argusfelstalkermountgrey',
   },
+  CHARHOUND_SUMMON: {
+    id: 455476,
+    name: 'Summon Charhound',
+    icon: 'inv_felhound3_shadow_fire',
+  },
+  GLOOMHOUND_SUMMON: {
+    id: 455465,
+    name: 'Summon Gloomhound',
+    icon: 'inv_felhound3_shadow_mount',
+  },
   IMP_SINGE_MAGIC: {
     id: 119905,
     name: 'Singe Magic',
@@ -563,6 +573,65 @@ const spells = {
     icon: 'inv-felhound3-shadow-mount',
   },
 
+  // Hellcaller hero talent
+  WITHER_CAST: {
+    id: 445468,
+    name: 'Wither',
+    icon: 'inv_ability_hellcallerwarlock_wither',
+  },
+  WITHER_DEBUFF: {
+    id: 445474,
+    name: 'Wither',
+    icon: 'inv_ability_hellcallerwarlock_wither',
+  },
+  MALEVOLENCE: {
+    id: 442726,
+    name: 'Malevolence',
+    icon: 'inv_ability_hellcallerwarlock_malevolence',
+  },
+  MALEVOLENCE_DAMAGE: {
+    id: 446285,
+    name: 'Malevolence',
+    icon: 'spell_shadow_demonform',
+  },
+  CURSE_OF_THE_SATYR: {
+    id: 440057,
+    name: 'Curse of the Satyr',
+    icon: 'inv_fabric_felrag',
+  },
+
+  // Diabolist hero talent
+  INFERNAL_BOLT: {
+    id: 434506,
+    name: 'Infernal Bolt',
+    icon: 'spell_fel_firebolt',
+  },
+  RUINATION_CAST: {
+    id: 434635,
+    name: 'Ruination',
+    icon: 'spell_fire_felflamestrike',
+  },
+  RUINATION_DAMAGE: {
+    id: 434636,
+    name: 'Ruination',
+    icon: 'spell_fire_felflamestrike',
+  },
+  FELSEEKER_DAMAGE: {
+    id: 434404,
+    name: 'Felseeker',
+    icon: 'spell_fel_elementaldevastation',
+  },
+  WICKED_CLEAVE_DAMAGE: {
+    id: 432120,
+    name: 'Wicked Cleave',
+    icon: 'inv_axe_2h_felfireraid_d_01',
+  },
+  CHAOS_SALVO_DAMAGE: {
+    id: 432596,
+    name: 'Chaos Salvo',
+    icon: 'spell_fire_felpyroblast',
+  },
+
   // Demonology shard generating effects
   SHADOW_BOLT_SHARD_GEN: {
     id: 194192,
@@ -660,6 +729,21 @@ const spells = {
     id: 267986,
     name: 'Summon Prince Malchezaar',
     icon: 'achievement_boss_princemalchezaar_02',
+  },
+  MOTHER_OF_CHAOS_SUMMON: {
+    id: 428565,
+    name: 'Summon Mother of Chaos',
+    icon: 'achievement-boss-argus-shivan',
+  },
+  PIT_LORD_SUMMON: {
+    id: 434400,
+    name: 'Summon Pit Lord',
+    icon: 'Ability_bossmannoroth_empoweredmannorothsgaze',
+  },
+  OVERLORD_SUMMON: {
+    id: 428571,
+    name: 'Summon Overlord',
+    icon: 'ability_creature_felfrenzy',
   },
   // Glyphed permanent pet summons
   FEL_IMP_SUMMON: {

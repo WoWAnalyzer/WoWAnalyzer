@@ -12,6 +12,8 @@ import { GUIDE_EXPLANATION_PERCENT_WIDTH, ON_CAST_BUFF_REMOVAL_GRACE_MS } from '
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { ExplanationAndDataSubSection } from 'interface/guide/components/ExplanationRow';
 import { addEnhancedCastReason } from 'parser/core/EventMetaLib';
+import typedKeys from 'common/typedKeys';
+import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
 
 const SURGE_OF_POWER = {
   AFFECTED_CASTS: [
@@ -114,6 +116,13 @@ class SurgeOfPower extends Analyzer {
   }
 
   statistic() {
+    const buffedAbilities = typedKeys(this.sopBuffedAbilities)
+      .filter((spellId) => this.sopBuffedAbilities[spellId] > 0)
+      .reduce<Record<number, number>>((rec, spellId) => {
+        rec[spellId] = this.sopBuffedAbilities[spellId];
+        return rec;
+      }, {});
+
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
@@ -127,20 +136,20 @@ class SurgeOfPower extends Analyzer {
               </tr>
             </thead>
             <tbody>
-              {Object.keys(this.sopBuffedAbilities).map((e) => (
-                <tr key={e}>
+              {typedKeys(buffedAbilities).map((spellId) => (
+                <tr key={spellId}>
                   <th>
-                    <SpellLink spell={Number(e)} />
+                    <SpellLink spell={maybeGetTalentOrSpell(spellId)!} />
                   </th>
-                  <td>{this.sopBuffedAbilities[Number(e)]}</td>
+                  <td>{buffedAbilities[spellId]}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         }
       >
-        <BoringSpellValueText spell={TALENTS.MASTER_OF_THE_ELEMENTS_TALENT}>
-          {Object.values(this.sopBuffedAbilities).reduce((a, b) => a + b)} buffs consumed
+        <BoringSpellValueText spell={TALENTS.SURGE_OF_POWER_TALENT}>
+          {Object.values(buffedAbilities).reduce((a, b) => a + b)} buffs consumed
         </BoringSpellValueText>
       </Statistic>
     );

@@ -4,13 +4,13 @@ import { Options } from 'parser/core/Module';
 import Events, { UpdateSpellUsableEvent, UpdateSpellUsableType } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
-const MAJOR_SPELL_IDS: number[] = [
-  TALENTS_DRUID.FORCE_OF_NATURE_TALENT.id,
-  TALENTS_DRUID.CELESTIAL_ALIGNMENT_TALENT.id,
-  TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id,
-  TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT.id,
-  TALENTS_DRUID.NATURES_SWIFTNESS_TALENT.id,
-  TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT.id,
+const MAJOR_SPELLS = [
+  TALENTS_DRUID.FORCE_OF_NATURE_TALENT,
+  TALENTS_DRUID.CELESTIAL_ALIGNMENT_TALENT,
+  TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT,
+  TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT,
+  TALENTS_DRUID.NATURES_SWIFTNESS_TALENT,
+  TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT,
 ];
 
 const MAX_CDR = 15_000;
@@ -42,7 +42,7 @@ export default class ControlOfTheDream extends Analyzer.withDependencies(deps) {
     this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.CONTROL_OF_THE_DREAM_TALENT);
 
     this.addEventListener(
-      Events.UpdateSpellUsable.by(SELECTED_PLAYER).spell(MAJOR_SPELL_IDS),
+      Events.UpdateSpellUsable.by(SELECTED_PLAYER).spell(MAJOR_SPELLS),
       this.onMajorSpellCdUpdate,
     );
   }

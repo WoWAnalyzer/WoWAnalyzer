@@ -1,17 +1,12 @@
 import SPELLS from 'common/SPELLS';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import CoreAuras from 'parser/core/modules/Auras';
-import { TALENTS_MONK } from 'common/TALENTS';
 
 class Buffs extends CoreAuras {
   auras() {
     return [
       {
         spellId: SPELLS.STORM_EARTH_AND_FIRE_CAST.id,
-        timelineHighlight: true,
-      },
-      {
-        spellId: TALENTS_MONK.SERENITY_TALENT.id,
         timelineHighlight: true,
       },
       {

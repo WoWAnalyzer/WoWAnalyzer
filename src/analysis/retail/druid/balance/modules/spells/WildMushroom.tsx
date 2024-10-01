@@ -9,6 +9,17 @@ const deps = {
   castEfficiency: CastEfficiency,
 };
 
+// TODO TWW - average targets hit calc
+/**
+ * **Wild Mushroom**
+ * Spec Talent
+ *
+ * Grow a magical mushroom at the target enemy's location.
+ * After 1 sec, the mushroom detonates, dealing X Nature damage and then an additional
+ * X Nature damage over 10 sec. Affected targets are slowed by 50%.
+ *
+ * Generates up to 16 Astral Power based on targets hit.
+ */
 export default class WildMushroom extends Analyzer.withDependencies(deps) {
   constructor(options: Options) {
     super(options);

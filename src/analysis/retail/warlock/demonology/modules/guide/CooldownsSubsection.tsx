@@ -1,4 +1,5 @@
 import TALENTS from 'common/TALENTS/warlock';
+import SPELLS from 'common/SPELLS';
 import CoreCooldownGraphSubsection, {
   Cooldown,
 } from 'interface/guide/components/CooldownGraphSubSection';
@@ -34,11 +35,18 @@ const cooldowns: Cooldown[] = [
   },
   {
     spell: TALENTS.SUMMON_VILEFIEND_TALENT,
-    isActive: (c) => c.hasTalent(TALENTS.SUMMON_VILEFIEND_TALENT),
+    isActive: (c) =>
+      c.hasTalent(TALENTS.SUMMON_VILEFIEND_TALENT) &&
+      !c.hasTalent(TALENTS.MARK_OF_FHARG_TALENT) &&
+      !c.hasTalent(TALENTS.MARK_OF_SHATUG_TALENT),
   },
   {
-    spell: TALENTS.NETHER_PORTAL_TALENT,
-    isActive: (c) => c.hasTalent(TALENTS.NETHER_PORTAL_TALENT),
+    spell: SPELLS.CHARHOUND_SUMMON,
+    isActive: (c) => c.hasTalent(TALENTS.MARK_OF_FHARG_TALENT),
+  },
+  {
+    spell: SPELLS.GLOOMHOUND_SUMMON,
+    isActive: (c) => c.hasTalent(TALENTS.MARK_OF_SHATUG_TALENT),
   },
 ];
 

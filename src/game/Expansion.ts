@@ -17,7 +17,7 @@ enum ExpansionName {
   WrathOfTheLichKing = 'wotlk',
   Cataclysm = 'cataclysm',
   Dragonflight = 'dragonflight',
-  TheWarWithin = 'UNKNOWN',
+  TheWarWithin = 'the war within',
 }
 
 export const CLASSIC_EXPANSION = Expansion.Cataclysm;

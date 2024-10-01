@@ -27,11 +27,12 @@ import getResourceSpent from 'parser/core/getResourceSpent';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { SpellLink } from 'interface';
-import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
+import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { BadColor, OkColor } from 'interface/guide';
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';
+import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBreakdown';
 
 class RipUptimeAndSnapshots extends Snapshots {
   static dependencies = {
@@ -240,14 +241,12 @@ class RipUptimeAndSnapshots extends Snapshots {
           {this.subStatistic()}
         </RoundedPanel>
         <br />
-        <strong>Rip casts</strong>
-        <small>
-          {' '}
-          - Green is a good cast, Yellow is an ok cast (clipped duration but upgraded snapshot or
-          missing Tigers Fury), Red is a bad cast (clipped duration
-          {this.hasBt && ' or missing Bloodtalons'}). Mouseover for more details.
-        </small>
-        <PerformanceBoxRow values={this.castEntries} />
+        <CastSummaryAndBreakdown
+          spell={SPELLS.RIP}
+          castEntries={this.castEntries}
+          okExtraExplanation={<>clipped duration but upgraded snapshot or missing Tigers Fury</>}
+          badExtraExplanation={<>clipped duration {this.hasBt && ' or missing Bloodtalons'}</>}
+        />
       </div>
     );
 

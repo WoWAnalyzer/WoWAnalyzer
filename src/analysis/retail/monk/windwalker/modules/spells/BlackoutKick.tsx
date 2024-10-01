@@ -61,25 +61,23 @@ class BlackoutKick extends Analyzer {
     super(options);
 
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.WHIRLING_DRAGON_PUNCH_TALENT)) {
-      this.IMPORTANT_SPELLS.push(SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id);
+      this.IMPORTANT_SPELLS.push(TALENTS_MONK.WHIRLING_DRAGON_PUNCH_TALENT.id);
     }
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_KICK), this.onCast);
   }
 
-  applyCdr(spellId: number, modRate: number): [number, number] {
+  applyCdr(spellId: number): [number, number] {
     let effective = 0;
     let wasted = 0;
-    const scaledCdr = BLACKOUT_KICK_COOLDOWN_REDUCTION_MS / modRate;
+    const cdr = BLACKOUT_KICK_COOLDOWN_REDUCTION_MS;
     if (!this.spellUsable.isOnCooldown(spellId)) {
-      wasted += scaledCdr;
+      wasted += cdr;
     } else {
       const reductionMs = this.spellUsable.reduceCooldown(
         spellId,
         BLACKOUT_KICK_COOLDOWN_REDUCTION_MS,
       );
-      const scaledEffectiveMs = reductionMs / modRate;
-      effective = scaledEffectiveMs;
-      wasted = scaledCdr - scaledEffectiveMs;
+      effective += reductionMs;
     }
     return [effective, wasted];
   }
@@ -88,12 +86,6 @@ class BlackoutKick extends Analyzer {
     const availableImportantCast = this.IMPORTANT_SPELLS.filter((spellId) =>
       this.spellUsable.isAvailable(spellId),
     );
-    /**
-     * currentCooldownReductionMs is adjusted for the modRate effect of Serenity. We can use this
-     * value for direct analysis, however for calling reduceCooldown we should use the base
-     * reduction value since reduceCooldown factors in modRate on its own already.
-     */
-    const modRate = this.selectedCombatant.hasBuff(TALENTS_MONK.SERENITY_TALENT.id) ? 2 : 1;
     if (availableImportantCast.length > 0) {
       const linkList = availableImportantCast.map((spellId) => (
         <SpellLink key={spellId} spell={spellId} />
@@ -107,14 +99,11 @@ class BlackoutKick extends Analyzer {
       );
     }
 
-    const [effectiveRsk, wastedRsk] = this.applyCdr(
-      TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
-      modRate,
-    );
+    const [effectiveRsk, wastedRsk] = this.applyCdr(TALENTS_MONK.RISING_SUN_KICK_TALENT.id);
     this.effectiveRisingSunKickReductionMs += effectiveRsk;
     this.wastedRisingSunKickReductionMs += wastedRsk;
 
-    const [effectiveFoF, wastedFoF] = this.applyCdr(SPELLS.FISTS_OF_FURY_CAST.id, modRate);
+    const [effectiveFoF, wastedFoF] = this.applyCdr(SPELLS.FISTS_OF_FURY_CAST.id);
     this.effectiveFistsOfFuryReductionMs += effectiveFoF;
     this.wastedFistsOfFuryReductionMs += wastedFoF;
   }

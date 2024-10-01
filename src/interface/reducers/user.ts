@@ -9,6 +9,9 @@ type User = {
     premium?: boolean;
     expires?: string;
   };
+  patreon?: {
+    premium?: boolean;
+  };
 };
 
 export const fetchUser = createAsyncThunk<User | null>('user/fetchUser', async () => {

@@ -155,7 +155,7 @@ class TotemTracker extends Analyzer {
     this.addEventListener(Events.cast, this.totemCastEvent);
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell({ id: SPELLS.TOTEMIC_CALL.id }),
+      Events.cast.by(SELECTED_PLAYER).spell({ id: SPELLS.TOTEMIC_RECALL.id }),
       this.totemPurgeEvent,
     );
     this.addEventListener(Events.death.to(SELECTED_PLAYER), this.totemPurgeEvent);

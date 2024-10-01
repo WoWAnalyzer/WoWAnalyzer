@@ -17,7 +17,7 @@ const BUFFER_MS = 50;
  * **Rampant Ferocity**
  * Spec Talent
  *
- * Ferocious Bite hits all nearby enemies affected by your Rip for 35% of the damage dealt.
+ * Ferocious Bite also deals X damage per combo point spent to all nearby enemies affect by your Rip.
  * Damage reduced beyond 5 target.
  */
 class RampantFerocity extends Analyzer {
@@ -28,6 +28,8 @@ class RampantFerocity extends Analyzer {
   apexRfDamage: number = 0;
   convokeRfDamage: number = 0;
 
+  lastRavageHitTimestamp: number | undefined = undefined;
+
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.RAMPANT_FEROCITY_TALENT);
@@ -35,6 +37,12 @@ class RampantFerocity extends Analyzer {
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FEROCIOUS_BITE),
       this.onFbDamage,
     );
+    if (this.selectedCombatant.hasTalent(TALENTS_DRUID.RAVAGE_TALENT)) {
+      this.addEventListener(
+        Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RAVAGE_DOTC_CAT),
+        this.onRavageDamage,
+      );
+    }
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RAMPANT_FEROCITY),
       this.onRfDamage,
@@ -43,6 +51,13 @@ class RampantFerocity extends Analyzer {
 
   onFbDamage(event: DamageEvent) {
     this.totalBiteHits += 1;
+  }
+
+  onRavageDamage(event: DamageEvent) {
+    if (!this.lastRavageHitTimestamp || event.timestamp > this.lastRavageHitTimestamp + BUFFER_MS) {
+      this.totalBiteHits += 1;
+      this.lastRavageHitTimestamp = event.timestamp;
+    }
   }
 
   onRfDamage(event: DamageEvent) {

@@ -49,7 +49,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SHADOW_TRANCE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { base: 1500 },
+        gcd: null,
       },
       {
         spell: SPELLS.SOUL_FIRE.id,
@@ -88,7 +88,7 @@ class Abilities extends CoreAbilities {
         spell: [SPELLS.METAMORPHOSIS.id],
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: null,
-        cooldown: 180,
+        cooldown: 180, // CD has a chance to be reduced by Impending Doom (talent)
       },
       {
         spell: [SPELLS.SUMMON_DOOMGUARD.id],

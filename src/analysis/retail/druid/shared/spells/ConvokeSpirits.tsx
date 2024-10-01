@@ -1,6 +1,5 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
@@ -58,6 +57,7 @@ const CONVOKE_DAMAGE_SPELLS = [
   SPELLS.STARSURGE_MOONKIN,
   SPELLS.FULL_MOON,
   SPELLS.FEROCIOUS_BITE,
+  SPELLS.RAVAGE_DOTC_CAT,
   SPELLS.SHRED,
   SPELLS.MANGLE_BEAR,
   TALENTS.PULVERIZE_TALENT,
@@ -86,6 +86,7 @@ const SPELL_IDS_WITH_AOE = [
   SPELLS.MOONFIRE_DEBUFF.id,
   SPELLS.MOONFIRE_FERAL.id,
   SPELLS.FULL_MOON.id,
+  SPELLS.RAVAGE_DOTC_CAT,
   SPELLS.THRASH_BEAR_DOT.id,
   SPELLS.WILD_GROWTH.id,
   // Rejuv and Regrowth don't normally AoE, but Rampant Growth and PotA procs can make them
@@ -96,7 +97,6 @@ const SPELL_IDS_WITH_AOE = [
 ];
 
 const SPELLS_CAST = 16;
-const SPELLS_CAST_RESTO = 12;
 
 const AOE_BUFFER_MS = 100;
 const AFTER_CHANNEL_BUFFER_MS = 50;
@@ -104,7 +104,7 @@ const TRAVEL_BUFFER_MS = 2_000;
 
 /**
  * **Convoke the Spirits**
- * Covenant - Night Fae
+ * Spec Talent
  *
  * Call upon the Night Fae for an eruption of energy,
  * channeling a rapid flurry of 16 (12 for Resto) Druid spells and abilities over 4 sec.
@@ -143,10 +143,8 @@ class ConvokeSpirits extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT);
 
-    this.spellsPerCast =
-      this.selectedCombatant.specId === SPECS.RESTORATION_DRUID.id
-        ? SPELLS_CAST_RESTO
-        : SPELLS_CAST;
+    // used to be different per spec, leaving var just in case it goes back to that
+    this.spellsPerCast = SPELLS_CAST;
 
     // watch for convokes
     this.addEventListener(

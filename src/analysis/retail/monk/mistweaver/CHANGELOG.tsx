@@ -1,10 +1,29 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
-import { Vohrr } from 'CONTRIBUTORS';
+import { Trevor, Vohrr } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date (2024, 9, 28), <>Fix crash in <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_TALENT}/> when it failed to hit any allies.</>, Trevor),
+  change(date (2024, 9, 24), <>Fix <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_TALENT}/> event linking</>, Trevor),
+  change(date (2024, 9, 24), <>Fix another crash condition</>, Trevor),
+  change(date (2024, 9, 24), <>Fix crash again</>, Trevor),
+  change(date (2024, 9, 24), <>Fix crash in <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_TALENT}/> guide section when player did not cast <SpellLink spell={TALENTS_MONK.UNITY_WITHIN_TALENT}/></>, Trevor),
+  change(date (2024, 9, 22), <>Add guide section for <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_TALENT}/></>, Trevor),
+  change(date (2024, 9, 17), <>Add check for <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT}/> to <SpellLink spell={TALENTS_MONK.STRENGTH_OF_THE_BLACK_OX_TALENT}/> module</>, Trevor),
+  change(date (2024, 9, 15), <>Fix <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT}/> cooldown duration</>, Trevor),
+  change(date (2024, 9, 14), <>Add <SpellLink spell={TALENTS_MONK.JADE_BOND_TALENT}/> advice to <SpellLink spell={TALENTS_MONK.REVIVAL_TALENT}/> guide section</>, Trevor),
+  change(date (2024, 9, 11), <>Add <SpellLink spell={TALENTS_MONK.STRENGTH_OF_THE_BLACK_OX_TALENT}/> guide section</>, Trevor),
+  change(date (2024, 9, 11), <>Add <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT}/> guide section</>, Trevor),
+  change(date (2024, 9, 10), <>Change <SpellLink spell={TALENTS_MONK.REVIVAL_TALENT}/> load conditions</>, Trevor),
+  change(date (2024, 8, 1), <>Updated values from Beta tuning.</>, Vohrr),
+  change(date (2024, 7, 31), <>Added <SpellLink spell={TALENTS_MONK.MENDING_PROLIFERATION_TALENT}/>, <SpellLink spell={TALENTS_MONK.TEAR_OF_MORNING_TALENT}/>, <SpellLink spell={TALENTS_MONK.CHI_HARMONY_TALENT}/>, <SpellLink spell={TALENTS_MONK.LOTUS_INFUSION_TALENT}/>, <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT}/>, and <SpellLink spell={TALENTS_MONK.CRANE_STYLE_TALENT}/> to Talent Breakdown.</>, Vohrr),
+  change(date (2024, 7, 25), <>Logging cleanup.</>, Vohrr),
+  change(date (2024, 7, 25), <>Add procs per minute metric to <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT}/>.</>, Vohrr),
+  change(date (2024, 7, 25), <>Update <SpellLink spell={TALENTS_MONK.MENDING_PROLIFERATION_TALENT}/>.</>, Vohrr),
+  change(date (2024, 7, 24), <>Bump patch support to 11.0 and sample log.</>, Vohrr),
+  change(date (2024, 7, 23), <>Updated Talent values per July 17th tuning.</>, Vohrr),
   change(date (2024, 7, 4), <>Added <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_TALENT}/>.</>, Vohrr),
   change(date (2024, 6, 29), <>Added <SpellLink spell={TALENTS_MONK.RESTORE_BALANCE_TALENT}/> module.</>, Vohrr),
   change(date (2024, 6, 29), <>Updated <SpellLink spell={TALENTS_MONK.TEAR_OF_MORNING_TALENT}/> module</>, Vohrr),

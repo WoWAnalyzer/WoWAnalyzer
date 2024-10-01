@@ -1,14 +1,8 @@
-import { formatPercentage, formatThousands } from 'common/format';
 import TALENTS, { TALENTS_PRIEST } from 'common/TALENTS/priest';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { getPrayerOfHealingEvents } from '../../normalizers/CastLinkNormalizer';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
@@ -16,8 +10,7 @@ import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import { BadColor, OkColor, GoodColor, PerfectColor } from 'interface/guide';
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-
-const POH_MAX_TARGETS_HIT = 5;
+import { POH_MAX_TARGETS_HIT } from '../../constants';
 
 class PrayerOfHealing extends Analyzer {
   static dependencies = {
@@ -231,31 +224,6 @@ class PrayerOfHealing extends Analyzer {
     );
 
     return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
-  }
-
-  statistic() {
-    return (
-      <Statistic
-        tooltip={
-          <>
-            <SpellLink spell={TALENTS.PRAYER_OF_HEALING_TALENT} /> Casts:{' '}
-            {this.prayerOfHealingCasts}
-            <br />
-            Total Healing: {formatThousands(this.prayerOfHealingHealing)} (
-            {formatPercentage(this.overHealPercent)}% OH)
-            <br />
-            Average Targets Hit: {this.averageTargetsHit.toFixed(2)}
-          </>
-        }
-        size="flexible"
-        category={STATISTIC_CATEGORY.GENERAL}
-        position={STATISTIC_ORDER.OPTIONAL(5)}
-      >
-        <BoringSpellValueText spell={TALENTS.PRAYER_OF_HEALING_TALENT}>
-          <ItemHealingDone amount={this.prayerOfHealingHealing} />
-        </BoringSpellValueText>
-      </Statistic>
-    );
   }
 }
 

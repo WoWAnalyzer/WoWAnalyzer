@@ -1,10 +1,11 @@
 import { Section } from 'interface/guide';
-import Spell, { Enchant } from 'common/SPELLS/Spell';
+import Spell from 'common/SPELLS/Spell';
+import { Enchant } from 'common/ITEMS/Item';
 
 import EnchantmentSubSection from './EnchantmentSubSection';
 import ConsumablesSubSection from './ConsumablesSubSection';
 import EnhancementSubSection from 'interface/guide/components/Preparation/EnhancementSubSection';
-import Expansion, { isRetailExpansion } from 'game/Expansion';
+import Expansion, { isRetailExpansion, RETAIL_EXPANSION } from 'game/Expansion';
 
 interface Props {
   recommendedEnchantments?: Record<number, Enchant[]>;
@@ -18,7 +19,7 @@ const PreparationSection = ({
   recommendedFlasks,
   recommendedFoods,
   recommendedWeaponEnhancements,
-  expansion = Expansion.Dragonflight,
+  expansion = RETAIL_EXPANSION,
 }: Props) => (
   <Section title="Preparation">
     <EnchantmentSubSection recommendedEnchantments={recommendedEnchantments} />

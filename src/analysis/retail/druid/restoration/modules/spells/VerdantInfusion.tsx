@@ -12,6 +12,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import HotTrackerRestoDruid from 'analysis/retail/druid/restoration/modules/core/hottracking/HotTrackerRestoDruid';
 import { TALENTS_DRUID } from 'common/TALENTS';
+import { SpellLink } from 'interface';
 
 const HOT_EXTENSION = 8_000;
 
@@ -27,7 +28,7 @@ const HOT_ID_CONSUME_ORDER = [
  * Spec Talent Tier 8
  *
  * Swiftmend no longer consumes a heal over time effect,
- * and extends the duration of your heal over time effects on the target by 12 sec.
+ * and extends the duration of your heal over time effects on the target by 8 sec.
  */
 class VerdantInfusion extends Analyzer {
   static dependencies = {
@@ -39,6 +40,7 @@ class VerdantInfusion extends Analyzer {
   combatants!: Combatants;
 
   attribution: Attribution = HotTracker.getNewAttribution('Verdant Infusion');
+  perHotExtensions: Map<number, number> = new Map<number, number>();
   casts: number = 0;
 
   constructor(options: Options) {
@@ -68,6 +70,7 @@ class VerdantInfusion extends Analyzer {
     );
 
     hotIdsOn.forEach((hotId) => {
+      this.perHotExtensions.set(hotId, (this.perHotExtensions.get(hotId) ?? 0) + 1);
       if (hotId === hotIdThatWouldHaveBeenRemoved) {
         // register extension, but attribute the whole HoT to VI
         this.hotTracker.addExtension(null, HOT_EXTENSION, target.id, hotId);
@@ -95,14 +98,30 @@ class VerdantInfusion extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            This is the sum of the healing attributable to the HoT extensions caused by casting
-            Swiftmend with the Verdant Infusion talent. This number also accounts for the benefit of
-            not consuming a HoT.
-            <br />
-            <br />
-            Over <strong>{this.casts} Swiftmends</strong>, you averaged{' '}
-            <strong>{this.extensionsPerCast.toFixed(1)} HoTs extended</strong> and caused{' '}
-            <strong>{formatNumber(this.healingPerCast)} additional healing</strong> per cast.
+            <p>
+              This is the sum of the healing attributable to the HoT extensions caused by casting
+              Swiftmend with the Verdant Infusion talent. This number also accounts for the benefit
+              of not consuming a HoT.
+            </p>
+            <p>
+              Over <strong>{this.casts} Swiftmends</strong>, you averaged{' '}
+              <strong>{this.extensionsPerCast.toFixed(1)} HoTs extended</strong> and caused{' '}
+              <strong>{formatNumber(this.healingPerCast)} additional healing</strong> per cast.
+            </p>
+            <p>
+              A per-HoT breakdown of extensions:
+              <ul>
+                {[...this.perHotExtensions.entries()].map((keyAndVal) => {
+                  const spellId = keyAndVal[0];
+                  const procs = keyAndVal[1];
+                  return (
+                    <li key={spellId}>
+                      <SpellLink spell={spellId} />: <strong>{procs}</strong> extensions
+                    </li>
+                  );
+                })}
+              </ul>
+            </p>
           </>
         }
       >

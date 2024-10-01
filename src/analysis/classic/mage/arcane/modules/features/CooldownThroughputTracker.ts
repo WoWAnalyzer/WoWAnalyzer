@@ -10,10 +10,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       spell: SPELLS.ARCANE_POWER.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
-    {
-      spell: SPELLS.ICY_VEINS.id,
-      summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
-    },
   ];
 }
 

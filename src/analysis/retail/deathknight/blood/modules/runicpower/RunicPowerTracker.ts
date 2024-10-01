@@ -9,8 +9,8 @@ import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/Res
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
-// Vamp blood CDR per 10 RP spent by # of talent points taken
-const RED_THIRST_REDUCTION_MS: Record<number, number> = { 1: 1000, 2: 2000 };
+// Vamp blood CDR per 10 RP spent
+const RED_THIRST_REDUCTION_MS = 2000;
 
 // ms from first to last event in a waste window
 const WASTE_WINDOW_DURATION = 8000;
@@ -61,13 +61,11 @@ class RunicPowerTracker extends ResourceTracker {
       return;
     }
 
-    const rank = this.selectedCombatant.getTalentRank(TALENTS.RED_THIRST_TALENT);
-    const COOLDOWN_REDUCTION_MS = RED_THIRST_REDUCTION_MS[rank];
     this.rpSpent += cost;
 
     while (this.rpSpent > 10) {
       this.rpSpent -= 10;
-      const reduction = COOLDOWN_REDUCTION_MS;
+      const reduction = RED_THIRST_REDUCTION_MS;
       if (!this.spellUsable.isOnCooldown(TALENTS.VAMPIRIC_BLOOD_TALENT.id)) {
         this.totalCooldownReductionWasted += reduction;
       } else {

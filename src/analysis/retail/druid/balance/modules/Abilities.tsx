@@ -4,6 +4,7 @@ import { SpellLink } from 'interface';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { cdSpell } from 'analysis/retail/druid/balance/constants';
+import { hastedCooldown, normalGcd } from 'common/abilitiesConstants';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -144,9 +145,10 @@ class Abilities extends CoreAbilities {
           extraSuggestion: (
             <>
               Your <SpellLink spell={TALENTS_DRUID.NEW_MOON_TALENT} />,{' '}
-              <SpellLink spell={SPELLS.HALF_MOON} /> and <SpellLink spell={SPELLS.FULL_MOON} /> cast
-              efficiency can be improved, try keeping yourself at low Moon charges at all times; you
-              should (almost) never be at max (3) charges.
+              <SpellLink spell={TALENTS_DRUID.NEW_MOON_TALENT} /> and{' '}
+              <SpellLink spell={SPELLS.FULL_MOON} /> cast efficiency can be improved, try keeping
+              yourself at low Moon charges at all times; you should (almost) never be at max (3)
+              charges.
             </>
           ),
         },
@@ -197,6 +199,14 @@ class Abilities extends CoreAbilities {
       },
 
       //Utility
+      {
+        spell: SPELLS.FRENZIED_REGENERATION.id,
+        enabled: combatant.hasTalent(TALENTS_DRUID.FRENZIED_REGENERATION_TALENT),
+        category: SPELL_CATEGORY.DEFENSIVE,
+        cooldown: hastedCooldown(36),
+        gcd: normalGcd,
+        isDefensive: true,
+      },
       {
         spell: [
           SPELLS.WILD_CHARGE_TALENT.id,

@@ -23,10 +23,7 @@ import AstralPowerDetails from 'analysis/retail/druid/balance/modules/core/astra
 import Guide from 'analysis/retail/druid/balance/Guide';
 import AstralPowerGraph from 'analysis/retail/druid/balance/modules/core/astralpower/AstralPowerGraph';
 import WaningTwilight from './modules/spells/WaningTwilight';
-import GatheringStarstuff from 'analysis/retail/druid/balance/modules/spells/GatheringStarstuff';
-import TouchTheCosmos from './modules/spells/TouchTheCosmos';
 import Starweaver from './modules/spells/Starweaver';
-import FriendOfTheFae from './modules/spells/FriendOfTheFae';
 import SunderedFirmament from './modules/spells/SunderedFirmament';
 import Eclipse from 'analysis/retail/druid/balance/modules/spells/Eclipse';
 import SpenderUsage from 'analysis/retail/druid/balance/modules/features/SpenderUsage';
@@ -34,9 +31,14 @@ import NewMoon from 'analysis/retail/druid/balance/modules/spells/NewMoon';
 import WildMushroom from 'analysis/retail/druid/balance/modules/spells/WildMushroom';
 import CelestialAlignment from 'analysis/retail/druid/balance/modules/spells/CelestialAlignment';
 import ControlOfTheDream from 'analysis/retail/druid/shared/spells/ControlOfTheDream';
+import CastLinkNormalizer from 'analysis/retail/druid/balance/normalizers/CastLinkNormalizer';
+import Lunation from 'analysis/retail/druid/shared/spells/Lunation';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
+    //Normalizers
+    castLinkNormalizer: CastLinkNormalizer,
+
     //Core
     activeDruidForm: ActiveDruidForm,
 
@@ -68,15 +70,13 @@ class CombatLogParser extends MainCombatLogParser {
     waningTwilight: WaningTwilight,
     convokeSpiritsBalance: ConvokeSpiritsBalance,
     starweaver: Starweaver,
-    firendOfTheFae: FriendOfTheFae,
     sunderedFirmament: SunderedFirmament,
     newMoon: NewMoon,
     wildMushroom: WildMushroom,
     celestialAlignment: CelestialAlignment,
+    //Hero Talents
+    lunation: Lunation,
     controlOfTheDream: ControlOfTheDream,
-    //Tier set
-    gatheringStarstuff: GatheringStarstuff,
-    touchTheCosmos: TouchTheCosmos,
   };
 
   static guide = Guide;

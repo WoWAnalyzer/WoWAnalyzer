@@ -50,12 +50,14 @@ import {
   VIVACIOUS_VIVIFICATION,
   ZEN_PULSE_CONSUME,
   ZEN_PULSE_VIVIFY,
+  STRENGTH_OF_THE_BLACK_OX,
 } from './EventLinks/EventLinkConstants';
 import { RENEWING_MIST_EVENT_LINKS } from './EventLinks/RenewingMistEventLinks';
 import { GUST_OF_MISTS_EVENT_LINKS } from './EventLinks/GustOfMistEventLinks';
 import { MANA_TEA_EVENT_LINKS } from './EventLinks/ManaTeaEventLinks';
 import { VIVIFY_EVENT_LINKS } from './EventLinks/VivifyEventLinks';
 import { ENVELOPING_MIST_EVENT_LINKS } from './EventLinks/EnvelopingMistEventLinks';
+import { HERO_TALENT_EVENT_LINKS } from './EventLinks/HeroTalentEventLinks';
 
 const FOUND_REMS: Map<string, number | null> = new Map();
 
@@ -70,6 +72,7 @@ const EVENT_LINKS: EventLink[] = [
   ...MANA_TEA_EVENT_LINKS,
   ...VIVIFY_EVENT_LINKS,
   ...ENVELOPING_MIST_EVENT_LINKS,
+  ...HERO_TALENT_EVENT_LINKS,
   {
     linkRelation: SHEILUNS_GIFT,
     linkingEventId: [TALENTS_MONK.SHEILUNS_GIFT_TALENT.id],
@@ -291,8 +294,8 @@ export function isVivaciousVivification(event: HealEvent) {
   return GetRelatedEvent(event, VIVACIOUS_VIVIFICATION);
 }
 
-export function getZenPulseHitsPerCast(event: HealEvent) {
-  return GetRelatedEvents(event, ZEN_PULSE_VIVIFY);
+export function getZenPulseHitsPerCast(event: HealEvent): HealEvent[] {
+  return GetRelatedEvents<HealEvent>(event, ZEN_PULSE_VIVIFY);
 }
 
 export function isZenPulseConsumed(event: RemoveBuffEvent | RemoveBuffStackEvent) {
@@ -322,6 +325,11 @@ export function isMTStackFromLifeCycles(
 
 export function HasStackChange(event: RefreshBuffEvent): boolean {
   return HasRelatedEvent(event, MT_STACK_CHANGE);
+}
+
+// hero talents
+export function isStrengthOfTheBlackOxConsumed(event: RemoveBuffEvent): boolean {
+  return HasRelatedEvent(event, STRENGTH_OF_THE_BLACK_OX);
 }
 
 export default CastLinkNormalizer;

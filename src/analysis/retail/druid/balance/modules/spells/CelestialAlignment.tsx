@@ -21,6 +21,12 @@ const deps = {
   alwaysBeCasting: AlwaysBeCasting,
 };
 
+/**
+ * **Celestial Alignment**
+ * Spec Talent
+ *
+ * Celestial bodies align, maintaining both Eclipses and granting 10% haste for 15 sec.
+ */
 export default class CelestialAlignment extends Analyzer.withDependencies(deps) {
   /** Either CA or Incarnation depending on talent */
   cdSpell: Spell;

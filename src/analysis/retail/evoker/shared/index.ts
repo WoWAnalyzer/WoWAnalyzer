@@ -19,4 +19,13 @@ export { default as TwinGuardian } from './modules/MajorDefensives/TwinGuardian'
 export { default as RenewingBlaze } from './modules/MajorDefensives/RenewingBlaze';
 export { default as Engulf } from './modules/talents/hero/flameshaper/Engulf';
 export { default as Panacea } from './modules/talents/Panacea';
+export { default as ImminentDestruction } from './modules/talents/ImminentDestruction';
+export { default as MeltArmor } from './modules/talents/hero/scalecommander/MeltArmor';
+export { default as MassDisintegrate } from './modules/talents/hero/scalecommander/MassDisintegrate';
+export { default as MightOfTheBlackDragonflight } from './modules/talents/hero/scalecommander/MightOfTheBlackDragonflight';
+export { default as ExtendedBattle } from './modules/talents/hero/scalecommander/ExtendedBattle';
+export { default as DivertedPower } from './modules/talents/hero/scalecommander/DivertedPower';
+export { default as UnrelentingSiege } from './modules/talents/hero/scalecommander/UnrelentingSiege';
+export { default as Wingleader } from './modules/talents/hero/scalecommander/Wingleader';
+export { default as Slipstream } from './modules/talents/hero/scalecommander/Slipstream';
 export * from './constants';

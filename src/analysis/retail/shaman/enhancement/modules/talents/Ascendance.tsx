@@ -12,16 +12,15 @@ import Events, {
   UpdateSpellUsableType,
 } from 'parser/core/Events';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { TALENTS_SHAMAN } from 'common/TALENTS';
+import TALENTS from 'common/TALENTS/shaman';
 import MajorCooldown, { CooldownTrigger } from 'parser/core/MajorCooldowns/MajorCooldown';
 import SpellUsable from 'analysis/retail/shaman/enhancement/modules/core/SpellUsable';
 import { ChecklistUsageInfo, SpellUse, UsageInfo } from 'parser/core/SpellUsage/core';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { SpellLink } from 'interface';
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/shaman';
 import Abilities from '../Abilities';
 import Haste from 'parser/shared/modules/Haste';
-import { THORIMS_INVOCATION_LINK } from 'analysis/retail/shaman/enhancement/modules/normalizers/EventLinkNormalizer';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { formatNumber, formatPercentage } from 'common/format';
@@ -35,12 +34,35 @@ import EmbeddedTimelineContainer, {
   SpellTimeline,
 } from 'interface/report/Results/Timeline/EmbeddedTimeline';
 import Casts from 'interface/report/Results/Timeline/Casts';
+import { MaelstromWeaponTracker } from 'analysis/retail/shaman/enhancement/modules/resourcetracker';
+import { EnhancementEventLinks } from '../../constants';
+import RESOURCE_TYPES, { getResourceCost } from 'game/RESOURCE_TYPES';
+import { addEnhancedCastReason, addInefficientCastReason } from 'parser/core/EventMetaLib';
+import React from 'react';
 
-const NonMissedCastSpells = [
-  TALENTS_SHAMAN.SUNDERING_TALENT.id,
-  TALENTS_SHAMAN.DOOM_WINDS_TALENT.id,
-  TALENTS_SHAMAN.FERAL_SPIRIT_TALENT.id,
-  SPELLS.WINDSTRIKE_CAST.id,
+interface CastRule {
+  spellId: number | number[];
+  condition?: (cast: CastEvent) => boolean;
+  enhancedCastReason?: (isValidCast: boolean) => React.ReactNode | string;
+}
+
+const AscendanceCastRules: CastRule[] = [
+  { spellId: TALENTS.FERAL_SPIRIT_TALENT.id },
+  {
+    spellId: SPELLS.TEMPEST_CAST.id,
+    condition: (cast) =>
+      getResourceCost(cast.resourceCost, RESOURCE_TYPES.MAELSTROM_WEAPON.id) === 10,
+    enhancedCastReason: (isvalid) =>
+      isvalid ? (
+        <>
+          You had 10 <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} />
+        </>
+      ) : (
+        <>
+          You did not have 10 <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} />
+        </>
+      ),
+  },
 ];
 const SIMULATED_MEDIAN_CASTS_PER_DRE = 13;
 
@@ -69,11 +91,13 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
     haste: Haste,
     spellUsable: SpellUsable,
     abilities: Abilities,
+    maelstromWeaponTracker: MaelstromWeaponTracker,
   };
 
   protected haste!: Haste;
   protected spellUsable!: SpellUsable;
   protected abilities!: Abilities;
+  protected maelstromWeaponTracker!: MaelstromWeaponTracker;
 
   protected currentCooldown: AscendanceCooldownCast | null = null;
   protected windstrikeOnCooldown: boolean = true;
@@ -83,10 +107,10 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
   protected globalCooldownEnds: number = 0;
 
   constructor(options: Options) {
-    super({ spell: TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT }, options);
+    super({ spell: TALENTS.ASCENDANCE_ENHANCEMENT_TALENT }, options);
     this.active =
-      this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT) ||
-      this.selectedCombatant.hasTalent(TALENTS_SHAMAN.DEEPLY_ROOTED_ELEMENTS_TALENT);
+      this.selectedCombatant.hasTalent(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT);
     if (!this.active) {
       return;
     }
@@ -106,18 +130,18 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
       },
     });
 
-    if (this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT)) {
       this.addEventListener(
-        Events.cast.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT),
+        Events.cast.by(SELECTED_PLAYER).spell(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT),
         this.onAscendanceCast,
       );
     } else {
       this.addEventListener(
-        Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT),
+        Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT),
         this.onAscendanceCast,
       );
       this.addEventListener(
-        Events.refreshbuff.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT),
+        Events.refreshbuff.by(SELECTED_PLAYER).spell(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT),
         this.onAscendanceCast,
       );
     }
@@ -125,7 +149,7 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onGeneralCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT),
+      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT),
       this.onAscendanceEnd,
     );
     this.addEventListener(Events.fightend, this.onFightEnd);
@@ -133,11 +157,9 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
       Events.UpdateSpellUsable.by(SELECTED_PLAYER).spell(SPELLS.WINDSTRIKE_CAST),
       this.detectWindstrikeCasts,
     );
-    if (this.selectedCombatant.hasTalent(TALENTS_SHAMAN.DEEPLY_ROOTED_ELEMENTS_TALENT)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT)) {
       this.addEventListener(
-        Events.cast
-          .by(SELECTED_PLAYER)
-          .spell([TALENTS_SHAMAN.STORMSTRIKE_TALENT, SPELLS.WINDSTRIKE_CAST]),
+        Events.cast.by(SELECTED_PLAYER).spell([TALENTS.STORMSTRIKE_TALENT, SPELLS.WINDSTRIKE_CAST]),
         this.onProcEligibleCast,
       );
     }
@@ -189,15 +211,36 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
     this.lastCooldownWasteCheck = event.timestamp;
   }
 
+  isValidCastDuringAscendance(event: CastEvent): boolean {
+    const firstApplicableRule = AscendanceCastRules.find(
+      (rule) =>
+        (Array.isArray(rule.spellId) && rule.spellId.includes(event.ability.guid)) ||
+        rule.spellId === event.ability.guid,
+    );
+
+    if (firstApplicableRule) {
+      const isValidCast = !firstApplicableRule.condition || firstApplicableRule.condition(event);
+      if (firstApplicableRule.enhancedCastReason) {
+        const addReason = isValidCast ? addEnhancedCastReason : addInefficientCastReason;
+        addReason(event, firstApplicableRule.enhancedCastReason(isValidCast));
+      }
+      return !isValidCast;
+    }
+    return true;
+  }
+
   onGeneralCast(event: CastEvent) {
     if (
       !this.currentCooldown ||
-      event.ability.guid === TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id ||
+      event.ability.guid === TALENTS.ASCENDANCE_ENHANCEMENT_TALENT.id ||
       !event.globalCooldown
     ) {
       return;
     }
-    if (!NonMissedCastSpells.includes(event.ability.guid)) {
+    if (
+      event.ability.guid === SPELLS.WINDSTRIKE_CAST.id ||
+      this.isValidCastDuringAscendance(event)
+    ) {
       this.currentCooldown.hasteAdjustedWastedCooldown +=
         this.hasteAdjustedCooldownWasteSinceLastWasteCheck(event);
     }
@@ -243,24 +286,23 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
       <>
         <p>
           <strong>
-            <SpellLink spell={TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT} />
+            <SpellLink spell={TALENTS.ASCENDANCE_ENHANCEMENT_TALENT} />
           </strong>{' '}
           is a powerful{' '}
-          {this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT) ? (
+          {this.selectedCombatant.hasTalent(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT) ? (
             <>cooldow</>
           ) : (
             <>proc</>
           )}
-          , which when combined with <SpellLink spell={TALENTS_SHAMAN.STATIC_ACCUMULATION_TALENT} />{' '}
-          and
-          <SpellLink spell={TALENTS_SHAMAN.THORIMS_INVOCATION_TALENT} /> has the potential for
-          extemely high burst windows.
+          , which when combined with <SpellLink spell={TALENTS.STATIC_ACCUMULATION_TALENT} /> and
+          <SpellLink spell={TALENTS.THORIMS_INVOCATION_TALENT} /> has the potential for extemely
+          high burst windows.
         </p>
         <p>
           Prioritising the correct abilities and having{' '}
-          <SpellLink spell={TALENTS_SHAMAN.THORIMS_INVOCATION_TALENT} /> primed with{' '}
+          <SpellLink spell={TALENTS.THORIMS_INVOCATION_TALENT} /> primed with{' '}
           <SpellLink spell={SPELLS.LIGHTNING_BOLT} /> is key to getting the most out of{' '}
-          <SpellLink spell={TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT} />
+          <SpellLink spell={TALENTS.ASCENDANCE_ENHANCEMENT_TALENT} />
         </p>
       </>
     );
@@ -324,14 +366,14 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
     const thorimsInvocationFreeCasts = windstrikes.map((event) => {
       return GetRelatedEvents<DamageEvent>(
         event,
-        THORIMS_INVOCATION_LINK,
+        EnhancementEventLinks.THORIMS_INVOCATION_LINK,
         (e) => e.type === EventType.Damage,
       );
     });
 
     // casts without any maelstrom are bad casts, only relevant for elementalist builds that pick the Ascendance talent rather than storm using DRE
     const noMaelstromCasts =
-      this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT) &&
+      this.selectedCombatant.hasTalent(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT) &&
       thorimsInvocationFreeCasts.filter((fc) => !fc).length;
     if (noMaelstromCasts) {
       result.push({
@@ -354,8 +396,7 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
     const chainLightningCastsWith1Hit = thorimsInvocationFreeCasts.filter((fc) => {
       if (fc) {
         return (
-          fc.filter((de) => de.ability.guid === TALENTS_SHAMAN.CHAIN_LIGHTNING_TALENT.id).length ===
-          1
+          fc.filter((de) => de.ability.guid === TALENTS.CHAIN_LIGHTNING_TALENT.id).length === 1
         );
       }
       return false;
@@ -365,15 +406,15 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
         performance: QualitativePerformance.Ok,
         summary: (
           <div>
-            <SpellLink spell={TALENTS_SHAMAN.THORIMS_INVOCATION_TALENT} /> was primed with{' '}
-            <SpellLink spell={TALENTS_SHAMAN.CHAIN_LIGHTNING_TALENT} />
+            <SpellLink spell={TALENTS.THORIMS_INVOCATION_TALENT} /> was primed with{' '}
+            <SpellLink spell={TALENTS.CHAIN_LIGHTNING_TALENT} />
           </div>
         ),
         details: (
           <div>
-            <SpellLink spell={TALENTS_SHAMAN.THORIMS_INVOCATION_TALENT} /> cast
-            <SpellLink spell={TALENTS_SHAMAN.CHAIN_LIGHTNING_TALENT} />{' '}
-            {chainLightningCastsWith1Hit} time(s) only hitting one target.
+            <SpellLink spell={TALENTS.THORIMS_INVOCATION_TALENT} /> cast
+            <SpellLink spell={TALENTS.CHAIN_LIGHTNING_TALENT} /> {chainLightningCastsWith1Hit}{' '}
+            time(s) only hitting one target.
           </div>
         ),
       });
@@ -455,7 +496,7 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
   }
 
   statistic() {
-    if (this.selectedCombatant.hasTalent(TALENTS_SHAMAN.DEEPLY_ROOTED_ELEMENTS_TALENT)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT)) {
       // don't include casts that didn't lead to a proc in casts per proc statistic
       const castsBeforeAscendanceProc = this.castsBeforeAscendanceProc
         .filter((cast: StormstrikeCasts) => !cast.noProcBeforeEnd)
@@ -484,22 +525,21 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
             </>
           }
         >
-          <TalentSpellText talent={TALENTS_SHAMAN.DEEPLY_ROOTED_ELEMENTS_TALENT}>
+          <TalentSpellText talent={TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT}>
             <div>
               {formatNumber(median)} <small>casts per proc</small>
             </div>
             <div>
               {formatNumber(castsBeforeAscendanceProc.length)}{' '}
               <small>
-                <SpellLink spell={TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT} /> procs
+                <SpellLink spell={TALENTS.ASCENDANCE_ENHANCEMENT_TALENT} /> procs
               </small>
             </div>
             <div>
               <Uptime />{' '}
               {formatPercentage(
-                this.selectedCombatant.getBuffUptime(
-                  TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id,
-                ) / this.owner.fightDuration,
+                this.selectedCombatant.getBuffUptime(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT.id) /
+                  this.owner.fightDuration,
                 2,
               )}
               % <small>uptime</small>
@@ -517,7 +557,7 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
           <CooldownUsage
             analyzer={this}
             title={
-              this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT)
+              this.selectedCombatant.hasTalent(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT)
                 ? 'Ascendance'
                 : 'Deeply Rooted Elements'
             }

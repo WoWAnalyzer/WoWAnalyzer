@@ -1,4 +1,4 @@
-import TALENTS from 'common/TALENTS/priest';
+import TALENTS, { TALENTS_PRIEST } from 'common/TALENTS/priest';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -9,12 +9,18 @@ import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/Eve
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import { formatPercentage } from 'common/format';
 import { SpellLink } from 'interface';
-
-const HEALING_BONUS_PER_STACK = 0.05;
-const MAX_STACKS = 20;
+import { HEALING_CHORUS_BONUS_PER_STACK, HEALING_CHORUS_MAX_STACKS } from '../../../constants';
+import EOLAttrib from '../../core/EchoOfLightAttributor';
+import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 
 //Example log: /reports/w9BXrzFApPbj6LnG#fight=14&type=healing&source=19
 class HealingChorus extends Analyzer {
+  static dependencies = {
+    eolAttrib: EOLAttrib,
+  };
+  protected eolAttrib!: EOLAttrib;
+  eolContrib = 0;
+
   totalStacks = 0;
   usedStacks = 0;
   healingDoneFromTalent = 0;
@@ -51,10 +57,11 @@ class HealingChorus extends Analyzer {
       this.overhealingDoneFromTalent += calculateOverhealing(Event, this.lastHealedMultiplier);
     }
     if (this.currentStacks > 0) {
-      const multiplier = this.currentStacks * HEALING_BONUS_PER_STACK;
+      const multiplier = this.currentStacks * HEALING_CHORUS_BONUS_PER_STACK;
 
       this.healingDoneFromTalent += calculateEffectiveHealing(Event, multiplier);
       this.overhealingDoneFromTalent += calculateOverhealing(Event, multiplier);
+      this.eolContrib += this.eolAttrib.getEchoOfLightAmpAttrib(Event, multiplier);
 
       this.currentStacks = 0;
       this.lastHealedTimestamp = Event.timestamp;
@@ -67,7 +74,7 @@ class HealingChorus extends Analyzer {
 
   onBuff() {
     this.totalStacks += 1;
-    if (this.currentStacks < MAX_STACKS) {
+    if (this.currentStacks < HEALING_CHORUS_MAX_STACKS) {
       this.currentStacks += 1;
     }
   }
@@ -84,13 +91,31 @@ class HealingChorus extends Analyzer {
       <Statistic
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={`You gained ${this.totalStacks} stacks in total. ${overhealingTooltipString}% overhealing`}
+        tooltip={
+          <>
+            <div>
+              You gained {this.totalStacks} stacks in total. {overhealingTooltipString}% overhealing
+            </div>
+            <br />
+            <div>Breakdown: </div>
+            <div>
+              <SpellLink spell={TALENTS_PRIEST.HEALING_CHORUS_TALENT} />:{' '}
+              <ItemPercentHealingDone amount={this.healingDoneFromTalent}></ItemPercentHealingDone>{' '}
+            </div>
+            <div>
+              <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
+              <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone>
+            </div>
+          </>
+        }
       >
         <BoringSpellValueText spell={TALENTS.HEALING_CHORUS_TALENT}>
-          <ItemHealingDone amount={this.healingDoneFromTalent} />
+          <ItemHealingDone amount={this.healingDoneFromTalent + this.eolContrib} />
           <br />
-          {circleOfHealingPercentage}% of your total{' '}
-          <SpellLink spell={TALENTS.CIRCLE_OF_HEALING_TALENT} /> healing
+          <small>
+            {circleOfHealingPercentage}% of your total{' '}
+            <SpellLink spell={TALENTS.CIRCLE_OF_HEALING_TALENT} /> healing
+          </small>
         </BoringSpellValueText>
       </Statistic>
     );

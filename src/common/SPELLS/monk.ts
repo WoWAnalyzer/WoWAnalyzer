@@ -212,6 +212,11 @@ const spells = {
     name: 'Vivifacious Vivification',
     icon: 'ability_monk_vivify',
   },
+  MENDING_PROLIFERATION_BUFF: {
+    id: 388510,
+    name: 'Mending Proliferation',
+    icon: 'inv_shoulder_inv_leather_raidmonk_s_01',
+  },
   AT_BUFF: {
     id: 388026,
     name: 'Ancient Teachings',
@@ -329,6 +334,16 @@ const spells = {
     id: 130654,
     name: 'Chi Burst',
     icon: 'spell_arcane_arcanetorrent',
+  },
+  CHI_BURST_PROC: {
+    id: 460490,
+    name: 'Chi Burst',
+    icon: 'spell_arcane_arcanetorrent',
+  },
+  FLURRY_STRIKES_DAMAGE: {
+    id: 450615,
+    name: 'Flurry Strikes',
+    icon: 'inv-ability-shadopanmonk-flurrystrikes',
   },
   LIFECYCLES_VIVIFY_BUFF: {
     id: 197916,
@@ -455,8 +470,13 @@ const spells = {
     name: 'Uplifted Spirits',
     icon: 'monk_stance_wiseserpent',
   },
-  WHIRLING_DRAGON_PUNCH_TALENT: {
+  WHIRLING_DRAGON_PUNCH_DAMAGE: {
     id: 158221,
+    name: 'Whirling Dragon Punch',
+    icon: 'ability_monk_hurricanestrike',
+  },
+  WHIRLING_DRAGON_PUNCH_USABLE: {
+    id: 196742,
     name: 'Whirling Dragon Punch',
     icon: 'ability_monk_hurricanestrike',
   },
@@ -936,6 +956,12 @@ const spells = {
     id: 424454,
     name: 'Blackout Reinforcement',
     icon: 'inv_boots_cloth_19',
+  },
+  // TWW S1 Brewmaster 4-set
+  FLOW_OF_BATTLE_KS_BUFF: {
+    id: 457271,
+    name: 'Flow of Battle',
+    icon: 'ability_monk_energizingwine.jpg',
   },
 } satisfies Record<string, Spell>;
 

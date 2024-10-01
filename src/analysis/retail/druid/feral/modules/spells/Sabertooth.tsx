@@ -11,13 +11,13 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentDamageDone from 'parser/ui/ItemPercentDamageDone';
 import { SpellLink } from 'interface';
 import { FB_SPELLS, getBiteCps, SABERTOOTH_BOOSTED } from 'analysis/retail/druid/feral/constants';
-import Combatants from 'parser/shared/modules/Combatants';
+import Enemies from 'parser/shared/modules/Enemies';
 
 const FEROCIOUS_BITE_BOOST = 0.15;
 const DOT_BOOST_PER_CP = 0.03;
 
 const deps = {
-  combatants: Combatants,
+  enemies: Enemies,
 };
 
 /**
@@ -53,7 +53,7 @@ class Sabertooth extends Analyzer.withDependencies(deps) {
   }
 
   onDotDamage(event: DamageEvent) {
-    const target = this.deps.combatants.getEntity(event);
+    const target = this.deps.enemies.getEntity(event);
     if (target !== null && target.hasBuff(SPELLS.SABERTOOTH.id)) {
       this.dotBoostDamage += calculateEffectiveDamage(event, this.currentSbtStrength);
     }

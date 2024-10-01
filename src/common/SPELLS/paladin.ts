@@ -184,11 +184,6 @@ const spells = {
     name: 'Holy Prism',
     icon: 'spell_paladin_holyprism',
   },
-  LIGHTS_HAMMER_HEAL: {
-    id: 119952,
-    name: "Light's Hammer",
-    icon: 'spell_paladin_lightshammer',
-  },
   JUDGMENT_OF_LIGHT_HEAL: {
     id: 183811,
     name: 'Judgment of Light',
@@ -255,21 +250,6 @@ const spells = {
     name: 'Beacon of Light',
     icon: 'ability_paladin_beaconoflight',
   },
-  GLIMMER_OF_LIGHT_BUFF: {
-    id: 287280,
-    name: 'Glimmer of Light',
-    icon: 'ability_paladin_toweroflight',
-  },
-  GLIMMER_OF_LIGHT_HEAL_TALENT: {
-    id: 325983,
-    name: 'Glimmer of Light',
-    icon: 'ability_paladin_toweroflight',
-  },
-  GLIMMER_OF_LIGHT_DAMAGE_TALENT: {
-    id: 325984,
-    name: 'Glimmer of Light',
-    icon: 'ability_paladin_toweroflight',
-  },
   GOLDEN_PATH_HEAL_TALENT: {
     id: 377129,
     name: 'Golden Path',
@@ -284,11 +264,6 @@ const spells = {
     id: 387815,
     name: 'Untempered Dedication',
     icon: 'achievement_admiral_of_the_light',
-  },
-  MARAADS_DYING_BREATH_BUFF: {
-    id: 388019,
-    name: "Maraad's Dying Breath",
-    icon: 'paladin_icon_speedoflight',
   },
   BLESSING_OF_SUMMER_TALENT: {
     id: 388007,
@@ -340,11 +315,6 @@ const spells = {
     name: 'Resplendent Light',
     icon: 'ability_priest_voidshift',
   },
-  DAYBREAK_ENERGIZE: {
-    id: 414176,
-    name: 'Daybreak',
-    icon: 'spell_holy_aspiration',
-  },
   DIVINE_RESONANCE_TALENT_HOLY: {
     id: 386730,
     name: 'Divine Resonance',
@@ -365,6 +335,7 @@ const spells = {
     name: 'Shield of the Righteous',
     icon: 'ability_paladin_shieldofvengeance',
   },
+
   // Retribution Paladin:
   BLADE_OF_JUSTICE: {
     id: 184575,
@@ -603,6 +574,11 @@ const spells = {
     name: 'Redoubt',
     icon: 'ability_warrior_shieldguard',
   },
+  OVERFLOWING_LIGHT_BUFF: {
+    id: 461499,
+    name: 'Overflowing Light',
+    icon: 'spell_holy_holyguidance',
+  },
   // Bonus set tiers
   PROTECTION_PALADIN_T19_2SET_BONUS_BUFF: {
     id: 211553,
@@ -678,6 +654,22 @@ const spells = {
     name: 'Glorious Purpose',
     icon: 'spell_holy_holyprotection',
   },
+
+  // Herald of the Sun (TWW Holy + Ret)
+  DAWNLIGHT_HEAL: {
+    name: 'Dawnlight',
+    id: 431381,
+    icon: 'inv_ability_heraldofthesunpaladin_dawnlight',
+  },
+  DAWNLIGHT_AOE_HEAL: {
+    name: 'Dawnlight',
+    id: 431382,
+    icon: 'inv_ability_heraldofthesunpaladin_dawnlight',
+  },
+  SUNS_AVATAR_HEAL: { name: "Sun's Avatar", id: 431939, icon: 'ability_paladin_holyavenger' },
+  SUNS_AVATAR_HEAL_2: { name: "Sun's Avatar", id: 463074, icon: 'ability_paladin_holyavenger' },
+  SUN_SEAR_HEAL: { name: 'Sun Sear', id: 431415, icon: 'spell_priest_burningwill' },
+  TRUTH_PREVAILS_HEAL: { name: 'Truth Prevails', id: 461546, icon: 'ability_paladin_artofwar' },
 } satisfies Record<string, Spell>;
 
 export default spells;

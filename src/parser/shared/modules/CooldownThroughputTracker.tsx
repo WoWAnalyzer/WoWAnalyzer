@@ -1,5 +1,6 @@
 import { defineMessage, Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
+import CLASSIC_SPELLS from 'common/SPELLS/classic';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import { Panel } from 'interface';
 import CooldownIcon from 'interface/icons/Cooldown';
@@ -93,17 +94,22 @@ class CooldownThroughputTracker extends Analyzer {
     },
     // Classic
     {
-      spell: SPELLS.BLOODLUST.id,
+      spell: CLASSIC_SPELLS.BLOODLUST.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE, BUILT_IN_SUMMARY_TYPES.HEALING],
       branch: GameBranch.Classic,
     },
     {
-      spell: SPELLS.HEROISM.id,
+      spell: CLASSIC_SPELLS.HEROISM.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE, BUILT_IN_SUMMARY_TYPES.HEALING],
       branch: GameBranch.Classic,
     },
     {
-      spell: TALENTS_PRIEST.POWER_INFUSION_TALENT.id,
+      spell: CLASSIC_SPELLS.POWER_INFUSION.id,
+      summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE, BUILT_IN_SUMMARY_TYPES.HEALING],
+      branch: GameBranch.Classic,
+    },
+    {
+      spell: CLASSIC_SPELLS.TIME_WARP.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE, BUILT_IN_SUMMARY_TYPES.HEALING],
       branch: GameBranch.Classic,
     },

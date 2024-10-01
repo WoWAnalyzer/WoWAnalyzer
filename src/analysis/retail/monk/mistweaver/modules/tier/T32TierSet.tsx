@@ -19,9 +19,9 @@ import HotTracker, { Extension } from 'parser/shared/modules/HotTracker';
 import SpellLink from 'interface/SpellLink';
 import { TooltipElement } from 'interface/Tooltip';
 
-const ATTRIBUTION_PREFIX = 'Tier32#';
+const ATTRIBUTION_PREFIX = 'Tier32';
 const TWO_PIECE_INCREASE = 0.1;
-const EXTENSION_PER_CAST = 2000;
+const EXTENSION_PER_CAST = 3000;
 const TIER_SET_HOTS = [SPELLS.RENEWING_MIST_HEAL, talents.ENVELOPING_MIST_TALENT];
 
 class T32TierSet extends Analyzer {
@@ -130,7 +130,7 @@ class T32TierSet extends Analyzer {
       this.missedCasts += 1;
       return;
     }
-    let attrib = ATTRIBUTION_PREFIX;
+    const attrib = ATTRIBUTION_PREFIX;
 
     Object.keys(this.hotTracker.hots[targetId]).forEach((spellIdString) => {
       const spellId = Number(spellIdString);
@@ -140,17 +140,13 @@ class T32TierSet extends Analyzer {
       }
 
       const hot = this.hotTracker.hots[targetId][spellId];
-      //can only be extended twice
-      if (hot?.extensions.find((x) => x.attribution.name === ATTRIBUTION_PREFIX + '2')) {
+      //can only be extended once
+      const hasExtension = hot?.extensions.find((x) => x.attribution.name === ATTRIBUTION_PREFIX);
+      if (hasExtension) {
         return;
       }
 
-      const hasFirstExtension = hot?.extensions.find(
-        (x) => x.attribution.name === ATTRIBUTION_PREFIX + '1',
-      );
-
       //add extension
-      attrib += hasFirstExtension ? '2' : '1';
       const attribution = HotTracker.getNewAttribution(attrib);
       this.hotTracker.addExtension(
         attribution,

@@ -8,7 +8,6 @@ export const ECHO_TEMPORAL_ANOMALY = 'TemporalAnomaly'; // for linking BuffApply
 export const ECHO = 'Echo'; // for linking BuffApply/Heal to echo removal
 // END ECHO constants
 export const ESSENCE_BURST_LINK = 'EssenceBurstLink'; // link eb removal to apply
-export const ESSENCE_BURST_CONSUME = 'EssenceBurstConsumption'; // link essence cast to removing the essence burst buff
 export const DREAM_BREATH_CALL_OF_YSERA = 'DreamBreathCallOfYsera'; // link DB hit to buff removal
 export const DREAM_BREATH_CALL_OF_YSERA_HOT = 'DreamBreathCallOfYseraHoT'; // link DB hot to buff removal
 export const FIELD_OF_DREAMS_PROC = 'FromFieldOfDreams'; // link EB heal to fluttering heal
@@ -29,14 +28,18 @@ export const EB_REVERSION = 'EssenceBurstReversion';
 export const TIME_OF_NEED_HEALING = 'TimeOfNeedHealing';
 export const LIFESPARK_LIVING_FLAME = 'LifesparkLivingFlame'; //Instant living flame from Lifespark
 export const REVERSION = 'Reversion';
-export const T32_2PC = 'T32TwoPiece'; // link 2 pc heal to rev/blossom
-export const T32_4PC = 'T32FourPiece'; // link 4pc apply to buff removal
 export const EMERALD_BLOSSOM_CAST = 'EmeraldBlossomCast'; //Find first heal event from a Blossom cast
 export const DREAM_BREATH = 'DreamBreath';
 export const DREAM_BREATH_CAST = 'DreamBreathCast'; //Apply buff and Refresh buff to Cast event
 export const DREAM_BREATH_FROM_STASIS = 'DreamBreathFromStasis';
 export const FIRE_BREATH = 'FireBreath';
 export const FIRE_BREATH_CAST = 'FireBreathCast';
+export const ENGULF_DREAM_BREATH = 'EngulfDreamBreath';
+export const ENGULF_CONSUME_FLAME = 'EngulfConsumeFlame';
+export const SPIRITBLOOM_CAST = 'SpiritbloomCast';
+export const SPIRITBLOOM_FROM_STASIS = 'SpiritbloomFromStasis';
+export const TEMPORAL_COMPRESSION_REVERSION = 'TemporalCompressionReversion';
+export const LIFEBIND_HEAL_EMPOWER = 'LifebindHealEmpower'; //Lifebind heal event to the empower that caused it
 
 export enum ECHO_TYPE {
   NONE,
@@ -60,3 +63,5 @@ export const MAX_DREAM_BREATH_DURATION = 28000;
 export const MAX_FIRE_BREATH_DURATION = 36000;
 export const TITANS_GIFT_INC = 0.25;
 export const FULL_STASIS_DURATION = 60000; //Need to grab all the way from stasis release back to spells that filled it. Maybe better way?
+export const ENGULF_CONSUME_BUFFER = 500;
+export const SPIRITBLOOM_HOT_DURATION = 8000;

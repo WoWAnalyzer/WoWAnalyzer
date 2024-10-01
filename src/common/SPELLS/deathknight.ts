@@ -8,6 +8,11 @@ import Spell, { Enchant } from './Spell';
 
 const spells = {
   // Blood:
+  DEATHS_CARESS: {
+    id: 195292,
+    name: "Death's Caress",
+    icon: 'ability_deathknight_deathscaress.jpg',
+  },
 
   //Summons
   //Bloodworm summon spell by the Bloodworms talent
@@ -235,6 +240,18 @@ const spells = {
     icon: 'inv_axe_114',
   },
 
+  //exterminate is a proc? It happens directly afte reaper's mark explodes.
+  EXTERMINATE: {
+    id: 441424,
+    name: 'Exterminate',
+    icon: 'inv_polearm_2h_titanargus_d_01',
+  },
+  EXTERMINATE_TWO: {
+    id: 441426,
+    name: 'Exterminate',
+    icon: 'inv_polearm_2h_titanargus_d_01',
+  },
+
   // Unholy:
   // Spells
   APOCALYPSE: {
@@ -396,6 +413,11 @@ const spells = {
   },
 
   // Shared:
+  CHAINS_OF_ICE: {
+    id: 45524,
+    name: 'Chains of Ice',
+    icon: 'spell_frost_chainsofice',
+  },
   RUNEFORGING: {
     id: 53428,
     name: 'Runeforging',
@@ -436,6 +458,11 @@ const spells = {
     icon: 'ability_deathknight_runicimpowerment',
   },
 
+  ANTI_MAGIC_SHELL: {
+    id: 48707,
+    name: 'Anti-Magic Shell',
+    icon: 'spell_shadow_antimagicshell.jpg',
+  },
   ANTI_MAGIC_ZONE_TALENT_BUFF: {
     id: 145629,
     name: 'Anti-Magic Zone',

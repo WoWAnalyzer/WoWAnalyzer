@@ -42,9 +42,11 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {info.combatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT)
           ? modules.invokeChiJi.guideCastBreakdown
           : modules.invokeYulon.guideCastBreakdown}
-        {(info.combatant.hasTalent(TALENTS_MONK.JADE_BOND_TALENT) ||
-          info.combatant.hasTalent(TALENTS_MONK.SHAOHAOS_LESSONS_TALENT)) &&
+        {(info.combatant.hasTalent(TALENTS_MONK.SHAOHAOS_LESSONS_TALENT) ||
+          info.combatant.hasTalent(TALENTS_MONK.JADE_BOND_TALENT)) &&
           modules.revival.guideCastBreakdown}
+        {info.combatant.hasTalent(TALENTS_MONK.CELESTIAL_CONDUIT_TALENT) &&
+          modules.celestialConduit.guideCastBreakdown}
         {/* {info.combatant.hasTalent(TALENTS_MONK.MANA_TEA_TALENT) &&
           modules.manaTea.guideCastBreakdown} */}
         <HotGraphSubsection modules={modules} events={events} info={info} />
@@ -78,6 +80,10 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           modules.chiBurst.guideSubsection}
         {info.combatant.hasTalent(TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT) &&
           modules.vivaciousVivification.guideSubsection}
+        {info.combatant.hasTalent(TALENTS_MONK.ZEN_PULSE_TALENT) &&
+          modules.zenPulse.guideSubsection}
+        {info.combatant.hasTalent(TALENTS_MONK.STRENGTH_OF_THE_BLACK_OX_TALENT) &&
+          modules.strengthOfTheBlackOx.guideSubsection}
       </Section>
       <PreparationSection />
     </>

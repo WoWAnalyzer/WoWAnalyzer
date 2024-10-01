@@ -3,7 +3,6 @@ import GameBranch from 'game/GameBranch';
 import SPECS from 'game/SPECS';
 import type Config from 'parser/Config';
 import CHANGELOG from './CHANGELOG';
-import AlertWarning from 'interface/AlertWarning';
 import { SupportLevel } from 'parser/Config';
 
 const config: Config = {
@@ -12,34 +11,22 @@ const config: Config = {
   branch: GameBranch.Classic,
   // The WoW client patch this spec was last updated.
   patchCompatibility: '4.4.0',
-  // Update to false when the spec is mostly complete (and safe to use)
   supportLevel: SupportLevel.Unmaintained,
-  // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
-  // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
-  description: (
-    <>
-      Welcome! Thanks for checking out WoWAnalyzer. This guide is seeking a maintainer.
-      <br />
-      See the public GitHub repo or join our community Discord for information about contributing.
-      Thanks!
-    </>
-  ),
-  pages: {
-    overview: {
-      notes: (
-        <AlertWarning>
-          Classic Cataclysm support is still a Work in Progress. This spec guide is a stub. See the
-          "About" tab for information on contributing.
-        </AlertWarning>
-      ),
-    },
-  },
+  // You can explain the status of this spec's analysis here by uncommenting the description section if you need a custom message. Otherwise it is covered by the foundation guide.
+  // description: (
+  //   <>
+  //     Welcome! Thanks for checking out WoWAnalyzer.
+  //     <br />
+  //     <br />
+  //     Your custom message here.
+  //     <br />
+  //     See the public GitHub repo or join our community Discord for information about contributing. Thanks!
+  //   </>
+  // ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport: '/report/<UPDATE_THIS>',
   // Add spells to display separately on the timeline
-  timeline: {
-    separateCastBars: [[]],
-  },
+  timeline: { separateCastBars: [[]] },
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
   spec: SPECS.CLASSIC_PRIEST_HOLY, // UPDATE THIS
 

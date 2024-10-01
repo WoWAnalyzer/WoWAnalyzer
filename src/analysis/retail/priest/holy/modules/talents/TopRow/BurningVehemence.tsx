@@ -8,8 +8,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
-
-const DAMAGE_INCREASE_PER_RANK = [0, 0.3, 0.6];
+import { BV_DAMAGE_INCREASE_PER_RANK } from '../../../constants';
 
 class BurningVehemence extends Analyzer {
   damageBonus = 0;
@@ -19,7 +18,7 @@ class BurningVehemence extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.BURNING_VEHEMENCE_TALENT);
     this.damageBonus =
-      DAMAGE_INCREASE_PER_RANK[
+      BV_DAMAGE_INCREASE_PER_RANK[
         this.selectedCombatant.getTalentRank(TALENTS.BURNING_VEHEMENCE_TALENT)
       ];
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.HOLY_FIRE), this.onDamage);

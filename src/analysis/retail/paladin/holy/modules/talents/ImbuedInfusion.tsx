@@ -16,7 +16,7 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 // its one point right now but I already had this so w/e
-const COOLDOWN_REDUCTION_MS_PER_POINT = 2000;
+const COOLDOWN_REDUCTION_MS_PER_POINT = 1000;
 
 class ImbuedInfusion extends Analyzer {
   static dependencies = {
@@ -107,8 +107,7 @@ class ImbuedInfusion extends Analyzer {
             <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> was off cooldown.{' '}
             <SpellLink spell={TALENTS.IMBUED_INFUSIONS_TALENT} /> should be used to reduce the
             cooldown of <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> and should never be consumed
-            when <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> is available. This is a core
-            component of the <SpellLink spell={TALENTS.GLIMMER_OF_LIGHT_TALENT} />{' '}
+            when <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> is available.
             <a
               href="https://questionablyepic.com/glimmer-of-light/"
               target="_blank"

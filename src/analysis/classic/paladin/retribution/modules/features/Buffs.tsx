@@ -8,39 +8,11 @@ class Buffs extends CoreAuras {
   auras() {
     return [
       {
-        spellId: SPELLS.SEAL_OF_BLOOD.id,
-        timelineHighlight: true,
-      },
-      {
-        spellId: SPELLS.SEAL_OF_COMMAND.id,
-        timelineHighlight: true,
-      },
-      {
-        spellId: SPELLS.SEAL_OF_CORRUPTION.id,
-        timelineHighlight: true,
-      },
-      {
-        spellId: SPELLS.SEAL_OF_JUSTICE.id,
-        timelineHighlight: true,
-      },
-      {
-        spellId: SPELLS.SEAL_OF_LIGHT.id,
-        timelineHighlight: true,
-      },
-      {
-        spellId: SPELLS.SEAL_OF_RIGHTEOUSNESS.id,
-        timelineHighlight: true,
-      },
-      {
-        spellId: SPELLS.SEAL_OF_THE_MARTYR.id,
-        timelineHighlight: true,
-      },
-      {
-        spellId: SPELLS.SEAL_OF_VENGEANCE.id,
-        timelineHighlight: true,
-      },
-      {
-        spellId: SPELLS.SEAL_OF_WISDOM.id,
+        spellId: [
+          SPELLS.JUDGEMENTS_OF_THE_PURE_R1.id,
+          SPELLS.JUDGEMENTS_OF_THE_PURE_R2.id,
+          SPELLS.JUDGEMENTS_OF_THE_PURE_R3.id,
+        ],
         timelineHighlight: true,
       },
       // Do not adjust the lines below

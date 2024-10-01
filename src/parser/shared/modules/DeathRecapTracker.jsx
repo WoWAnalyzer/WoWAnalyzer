@@ -45,7 +45,7 @@ class DeathRecapTracker extends Analyzer {
     // Add additional defensive buffs/debuffs to common/DEFENSIVE_BUFFS
     DEFENSIVE_BUFFS.forEach((e) => {
       this.buffs.push({
-        id: e.spell.id,
+        id: e.spell,
       });
     });
     options.buffsModule.activeAuras.forEach((buff) => {
@@ -74,15 +74,20 @@ class DeathRecapTracker extends Analyzer {
     }));
     if (event.hitPoints > 0) {
       this.lastBuffs = this.buffs.filter((e) => {
-        const buff = this.selectedCombatant.getBuff(e.id);
-        const hasBuff = buff !== undefined;
-        if (!hasBuff) {
-          return false;
-        }
         if (e.id === TALENTS.BLESSING_OF_SACRIFICE_TALENT.id) {
-          return buff.sourceID === this.selectedCombatant.id;
+          // handle sac jank. this technically breaks when you both have given and are receiving sac, but it breaks in-game too so w/e
+          return (
+            this.selectedCombatant.hasBuff(e.id) &&
+            !this.selectedCombatant.hasBuff(
+              e.id,
+              null,
+              undefined,
+              undefined,
+              this.selectedCombatant.id,
+            )
+          );
         }
-        return true;
+        return this.selectedCombatant.hasBuff(e.id);
       });
     }
     extendedEvent.buffsUp = this.lastBuffs;

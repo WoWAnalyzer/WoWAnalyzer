@@ -23,7 +23,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       suggest(
         <span>
           Your downtime can be improved. Stay within melee range of the boss. If you need to move
-          out, used ranged abilities like <SpellLink spell={SPELLS.JUDGEMENT_OF_WISDOM} />.
+          out, used ranged abilities like <SpellLink spell={SPELLS.JUDGEMENT} />.
         </span>,
       )
         .icon('spell_mage_altertime')

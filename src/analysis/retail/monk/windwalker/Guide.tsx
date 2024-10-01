@@ -8,6 +8,7 @@ import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 import CombatLogParser from './CombatLogParser';
 import * as AplCheck from './modules/apl/AplCheck';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -18,25 +19,31 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {modules.fistsofFury.guideSubsection}
         {modules.strikeoftheWindlord.guideSubsection}
       </Section>
-      <Section title="Major cooldowns">
-        {modules.invokeXuen.guideSubsection}
-        {modules.serenity.guideSubsection}
-      </Section>
+      <Section title="Major cooldowns">{modules.invokeXuen.guideSubsection}</Section>
       <Section title="Core Rotation">
-        The current iteration of Windwalker forces multiple different playstyles based on talents
-        chosen, and whether you are inside or outside of a{' '}
-        <SpellLink spell={TALENTS_MONK.SERENITY_TALENT} /> window.
-        {info.combatant.hasTalent(TALENTS_MONK.SERENITY_TALENT) && (
-          <SubSection title="During Serenity">
-            <AplSectionData checker={AplCheck.checkSerenity} apl={AplCheck.serenityApl} />
-          </SubSection>
-        )}
-        <SubSection title="Outside of Serenity">
-          <AplSectionData checker={AplCheck.checkNonSerenity} apl={AplCheck.nonSerenityApl} />
+        <SubSection title="Overview">
+          The priority list provided here is a rough outline of actions taken, however as always you
+          must ensure not to break mastery by repeating the same spell twice. As such inter-weaving{' '}
+          <SpellLink spell={SPELLS.TIGER_PALM} /> and <SpellLink spell={SPELLS.BLACKOUT_KICK} />{' '}
+          appropritely to ensure not over-capping or starving either{' '}
+          <SpellLink spell={RESOURCE_TYPES.ENERGY} /> or <SpellLink spell={RESOURCE_TYPES.CHI} />.
+          <br />
+          <br />
+          More (and most up to date) information on the APL can be found{' '}
+          <a href="https://www.peakofserenity.com/tww/windwalker/pve-guide/#Priority_Lists">
+            on Peak of Serenity{' '}
+          </a>
+          which includes a more in-depth overview of precisely how to play Windwalker in Single
+          Target.
+          <br />
+        </SubSection>
+        <SubSection title="APL Analysis">
+          <AplSectionData checker={AplCheck.checkApl} apl={AplCheck.apl} />
         </SubSection>
       </Section>
       <Section title="Other cooldowns, buffs and procs">
-        {modules.chiBurst.guideSubsection}
+        {info.combatant.hasTalent(TALENTS_MONK.CHI_BURST_SHARED_TALENT) &&
+          modules.chiBurst.guideSubsection}
         {modules.comboBreaker.guideSubsection}
         {modules.touchOfKarma.guideSubsection}
       </Section>

@@ -1,18 +1,14 @@
 import { Spec } from 'game/SPECS';
-import { Race } from 'parser/core/Combatant';
+import { Race } from 'game/RACES';
 import PhaseConfig from 'parser/core/PhaseConfig';
 import MythicPlusSeasonOne from 'game/raids/mythicplusseasonone';
-import MythicPlusSeasonTwo from 'game/raids/mythicplusseasontwo';
-import MythicPlusSeasonThree from 'game/raids/mythicplusseasonthree';
-import MythicPlusSeasonFour from 'game/raids/mythicplusseasonfour';
-import VaultOfTheIncarnates from 'game/raids/vaultoftheincarnates';
-import Aberrus from 'game/raids/aberrus';
-import Amirdrassil from 'game/raids/amirdrassil';
+import NerubarPalace from 'game/raids/nerubarpalace';
 import {
   bot as BastionOfTwilight,
   bwd as BlackwingDescent,
   totfw as ThroneOfTheFourWinds,
 } from 'game/raids/cata_bwd_bot_totfw';
+import Firelands from 'game/raids/cata_firelands';
 
 interface EncounterConfig {
   vantusRuneBuffId?: number;
@@ -52,21 +48,17 @@ export interface Phase extends PhaseConfig {
 }
 
 const dungeons = {
-  // Dragonflight
+  // The War Within
   MythicPlusSeasonOne,
-  MythicPlusSeasonTwo,
-  MythicPlusSeasonThree,
-  MythicPlusSeasonFour,
 };
 
 const raids = {
-  VaultOfTheIncarnates, // tier 29
-  Aberrus, // tier 30
-  Amirdrassil, // tier 31
+  NerubarPalace, // TWW S1
   // Cataclysm (Classic)
   BlackwingDescent,
   BastionOfTwilight,
   ThroneOfTheFourWinds,
+  Firelands,
 };
 
 function findByDungeonBossId(id: number) {

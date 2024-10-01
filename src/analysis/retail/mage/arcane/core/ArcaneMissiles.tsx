@@ -1,70 +1,111 @@
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import Events, { CastEvent, GetRelatedEvents, DamageEvent, EventType } from 'parser/core/Events';
+import { ARCANE_MISSILES_MAX_TICKS, CLEARCASTING_MAX_STACKS } from '../../shared';
+import { ThresholdStyle } from 'parser/core/ParseResults';
+import EventHistory from 'parser/shared/modules/EventHistory';
 
-class ArcaneMissiles extends Analyzer {
+export default class ArcaneMissiles extends Analyzer {
   static dependencies = {
-    abilityTracker: AbilityTracker,
+    eventHistory: EventHistory,
   };
-  protected abilityTracker!: AbilityTracker;
 
-  castWithoutClearcasting = 0;
+  protected eventHistory!: EventHistory;
+
+  hasNetherPrecision: boolean = this.selectedCombatant.hasTalent(TALENTS.NETHER_PRECISION_TALENT);
+  hasAetherAttunement: boolean = this.selectedCombatant.hasTalent(TALENTS.AETHER_ATTUNEMENT_TALENT);
+  missileCasts: ArcaneMissilesCast[] = [];
 
   constructor(options: Options) {
     super(options);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.ARCANE_MISSILES_TALENT),
-      this.onMissilesCast,
+      this.onMissiles,
     );
+    this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
-  onMissilesCast(event: CastEvent) {
-    if (this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_ARCANE.id)) {
-      return;
-    }
-    this.castWithoutClearcasting += 1;
-  }
-
-  get missilesUtilization() {
-    return (
-      1 -
-      this.castWithoutClearcasting /
-        this.abilityTracker.getAbility(TALENTS.ARCANE_MISSILES_TALENT.id).casts
+  onMissiles(event: CastEvent) {
+    const damageTicks: DamageEvent | DamageEvent[] | undefined = GetRelatedEvents(
+      event,
+      'SpellDamage',
     );
+    const clearcasting = this.selectedCombatant.getBuff(SPELLS.CLEARCASTING_ARCANE.id);
+
+    this.missileCasts.push({
+      ordinal: this.missileCasts.length + 1,
+      cast: event,
+      ticks: damageTicks.length,
+      aetherAttunement: this.selectedCombatant.hasBuff(SPELLS.AETHER_ATTUNEMENT_PROC_BUFF.id),
+      netherPrecision: this.selectedCombatant.hasBuff(SPELLS.NETHER_PRECISION_BUFF.id),
+      clearcastingCapped:
+        clearcasting && clearcasting?.stacks === CLEARCASTING_MAX_STACKS ? true : false,
+      clearcastingProcs: clearcasting?.stacks || 0,
+      clipped: damageTicks && damageTicks.length < ARCANE_MISSILES_MAX_TICKS,
+    });
   }
 
-  get arcaneMissileUsageThresholds() {
+  onFightEnd() {
+    this.missileCasts.forEach((m) => {
+      const cast = m.cast;
+      m.gcdEnd = cast.globalCooldown && cast.timestamp + cast.globalCooldown?.duration;
+      m.channelEnd = cast.channel?.timestamp;
+
+      const nextCast = this.eventHistory.getEvents(EventType.Cast, {
+        searchBackwards: false,
+        spell: [
+          TALENTS.ARCANE_MISSILES_TALENT,
+          SPELLS.ARCANE_BLAST,
+          SPELLS.ARCANE_BARRAGE,
+          SPELLS.ARCANE_EXPLOSION,
+        ],
+        startTimestamp: cast.channel?.timestamp,
+        count: 1,
+      })[0];
+      if (m.channelEnd && nextCast && nextCast.channel?.beginChannel.timestamp) {
+        m.channelEndDelay = nextCast.channel.beginChannel.timestamp - m.channelEnd;
+      } else if (m.channelEnd && nextCast) {
+        m.channelEndDelay = nextCast.timestamp - m.channelEnd;
+      }
+    });
+  }
+
+  get averageChannelDelay() {
+    const castsWithNextCast = this.missileCasts.filter((m) => m.channelEndDelay !== undefined);
+
+    let totalDelay = 0;
+    castsWithNextCast.forEach((m) => (totalDelay += m.channelEndDelay || 0));
+    return totalDelay / castsWithNextCast.length;
+  }
+
+  get castsWithoutNextCast() {
+    return this.missileCasts.filter((m) => !m.channelEndDelay).length;
+  }
+
+  get channelDelayThresholds() {
     return {
-      actual: this.missilesUtilization,
-      isLessThan: {
-        minor: 1,
-        average: 0.95,
-        major: 0.9,
+      actual: this.averageChannelDelay,
+      isGreaterThan: {
+        minor: 50,
+        average: 150,
+        major: 300,
       },
-      style: ThresholdStyle.PERCENTAGE,
+      style: ThresholdStyle.NUMBER,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.arcaneMissileUsageThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You cast <SpellLink spell={TALENTS.ARCANE_MISSILES_TALENT} /> without{' '}
-          <SpellLink spell={SPELLS.CLEARCASTING_ARCANE} /> {this.castWithoutClearcasting} times.
-          There is no benefit from casting <SpellLink spell={TALENTS.ARCANE_MISSILES_TALENT.id} />{' '}
-          without <SpellLink spell={SPELLS.CLEARCASTING_ARCANE} />.
-        </>,
-      )
-        .icon(TALENTS.ARCANE_MISSILES_TALENT.icon)
-        .actual(`{formatPercentage(this.missilesUtilization)}% Uptime`)
-        .recommended(`${formatPercentage(recommended)}% is recommended`),
-    );
   }
 }
 
-export default ArcaneMissiles;
+export interface ArcaneMissilesCast {
+  ordinal: number;
+  cast: CastEvent;
+  ticks: number;
+  aetherAttunement: boolean;
+  netherPrecision: boolean;
+  clearcastingCapped: boolean;
+  clearcastingProcs: number;
+  clipped: boolean;
+  channelEnd?: number;
+  gcdEnd?: number;
+  channelEndDelay?: number;
+}

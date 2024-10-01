@@ -1,17 +1,10 @@
-import { fetchEvents } from 'common/fetchWclApi';
+import { WCLEventsResponse } from 'common/WCL_TYPES';
+import fetchWcl from 'common/fetchWclApi';
 import { AnyEvent } from 'parser/core/Events';
 import { WCLFight } from 'parser/core/Fight';
 import { PlayerInfo } from 'parser/core/Player';
 import Report from 'parser/core/Report';
 import { useEffect, useState } from 'react';
-
-const PAGE_SIZE = 5 * 60 * 1000;
-const FORCE_PAGES_SIZE = 15 * 60 * 1000;
-
-const fightPageCount = (fight: WCLFight) =>
-  fight.end_time - fight.start_time >= FORCE_PAGES_SIZE
-    ? Math.ceil((fight.end_time - fight.start_time) / PAGE_SIZE)
-    : 1;
 
 const useEvents = ({
   report,
@@ -23,53 +16,47 @@ const useEvents = ({
   player: PlayerInfo;
 }) => {
   const [events, setEvents] = useState<AnyEvent[] | null>(null);
-  // we manually paginate here. WCL could turn pagination back on in the WCL API but the amount loaded per page is too low
-  // for M+ to be usable without deeper changes on the WCL side.
-  const pageCount = fightPageCount(fight);
-  const [pagesLoaded, setPagesLoaded] = useState(0);
+  const [currentTime, setCurrentTime] = useState<number>(fight.start_time);
 
   useEffect(() => {
     let cancelled = false;
-    const loadPage = (startTime: number, endTime: number) =>
-      fetchEvents(report.code, startTime, endTime, player.id);
+    // we are using the raw `fetchWcl` here for greater control
+    const loadPage = (startTime: number) =>
+      fetchWcl<WCLEventsResponse>(`report/events/${report.code}`, {
+        start: startTime,
+        end: fight.end_time,
+        actorid: player.id,
+        translate: true,
+      });
 
-    const load = async () => {
-      if (fight.end_time - fight.start_time < FORCE_PAGES_SIZE) {
-        // short circuit for fights below the cutoff
-        setEvents(null);
-        const events = await loadPage(fight.start_time, fight.end_time);
-        if (cancelled) {
-          return;
-        }
-        setEvents(events);
-        setPagesLoaded(1);
+    const load = async (startTime: number): Promise<AnyEvent[]> => {
+      if (cancelled) {
+        return [];
+      }
+
+      const { events, nextPageTimestamp } = await loadPage(startTime);
+
+      if (!nextPageTimestamp) {
+        setCurrentTime(fight.end_time);
+        return events;
       } else {
-        // we need to paginate.
-        let nextStartTime = fight.start_time;
-        let partialEvents: AnyEvent[] = [];
-        while (nextStartTime < fight.end_time) {
-          const endTime = Math.min(fight.end_time, nextStartTime + PAGE_SIZE);
-          const page = await loadPage(nextStartTime, endTime);
-          if (cancelled) {
-            return;
-          }
-          partialEvents = partialEvents.concat(page);
-          setPagesLoaded((pages) => pages + 1);
-          nextStartTime += PAGE_SIZE;
-        }
+        setCurrentTime(nextPageTimestamp);
 
-        setEvents(partialEvents);
+        return events.concat(await load(nextPageTimestamp));
       }
     };
 
-    load();
+    (async () => {
+      const events = await load(fight.start_time);
+      setEvents(events);
+    })();
 
     return () => {
       cancelled = true;
     };
   }, [report, fight, player]);
 
-  return { events, pageCount, pagesLoaded };
+  return { events, currentTime };
 };
 
 export default useEvents;

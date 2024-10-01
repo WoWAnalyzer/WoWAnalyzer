@@ -8,7 +8,7 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 
-const DARK_ASCENSION_MULTIPLIER = 0.25; //gives 25% damage to non-periodic Shadow Damage.  It does this by buffing specific spells
+import { DARK_ASCENSION_MULTIPLIER } from '../../constants'; //gives damage to non-periodic Shadow Damage.  It does this by buffing specific spells
 
 class DarkAscension extends Analyzer {
   totalDamage: number = 0;
@@ -45,11 +45,7 @@ class DarkAscension extends Analyzer {
       this.onDamage,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.SHADOW_CRASH_TALENT),
-      this.onDamage,
-    );
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.MINDGAMES_TALENT),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_CRASH_TALENT_DAMAGE),
       this.onDamage,
     );
     this.addEventListener(

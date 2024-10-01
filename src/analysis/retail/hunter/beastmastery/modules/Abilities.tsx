@@ -33,8 +33,8 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.KILL_COMMAND_SHARED_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.KILL_COMMAND_SHARED_TALENT),
+        spell: TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => hastedCooldown(7.5, haste),
         charges: combatant.hasTalent(TALENTS.ALPHA_PREDATOR_TALENT) ? 2 : 1,
@@ -112,19 +112,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.STAMPEDE_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS.STAMPEDE_TALENT),
-        cooldown: 120,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.8,
-        },
-      },
-      {
         spell: TALENTS.BLOODSHED_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         enabled: combatant.hasTalent(TALENTS.BLOODSHED_TALENT),
@@ -157,19 +144,6 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
-        },
-      },
-      {
-        spell: TALENTS.STEEL_TRAP_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 30,
-        enabled: combatant.hasTalent(TALENTS.STEEL_TRAP_TALENT),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.85,
         },
       },
       {

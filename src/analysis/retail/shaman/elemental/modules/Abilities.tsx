@@ -1,30 +1,14 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
-import CoreAbilities from 'parser/core/modules/Abilities';
+import ClassAbilities from '../../shared/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
-class Abilities extends CoreAbilities {
+class Abilities extends ClassAbilities {
   spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
     return [
-      {
-        spell: TALENTS.LAVA_BURST_TALENT.id,
-        charges: combatant.hasTalent(TALENTS.ECHO_OF_THE_ELEMENTS_TALENT) ? 2 : 1,
-        enabled: combatant.hasTalent(TALENTS.LAVA_BURST_TALENT),
-        cooldown: (haste) => 8 / (1 + haste),
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.LIGHTNING_BOLT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-      },
+      ...super.spellbook(),
       {
         spell: TALENTS.LIQUID_MAGMA_TOTEM_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.LIQUID_MAGMA_TOTEM_TALENT),
@@ -39,20 +23,33 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.CHAIN_LIGHTNING_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.CHAIN_LIGHTNING_TALENT),
-        category: SPELL_CATEGORY.ROTATIONAL_AOE, // 2 / (1 + haste)
+        spell: SPELLS.PRIMORDIAL_WAVE.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 30,
+        enabled: combatant.hasTalent(TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT),
         gcd: {
           base: 1500,
         },
+        range: 40,
+      },
+      {
+        spell: SPELLS.ICEFURY.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        enabled: combatant.hasTalent(TALENTS.ICEFURY_TALENT),
+        gcd: {
+          base: 1500,
+        },
+        range: 40,
       },
       {
         spell: SPELLS.LAVA_BEAM.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
       },
       {
-        spell: TALENTS.EARTHQUAKE_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.EARTHQUAKE_TALENT),
+        spell: [TALENTS.EARTHQUAKE_1_ELEMENTAL_TALENT.id, TALENTS.EARTHQUAKE_2_ELEMENTAL_TALENT.id],
+        enabled:
+          combatant.hasTalent(TALENTS.EARTHQUAKE_1_ELEMENTAL_TALENT) ||
+          combatant.hasTalent(TALENTS.EARTHQUAKE_2_ELEMENTAL_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: {
           base: 1500,
@@ -103,14 +100,9 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.STORMKEEPER_BUFF_AND_CAST.id,
-        enabled:
-          combatant.hasTalent(TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT) ||
-          combatant.hasTalent(TALENTS.STORMKEEPER_2_ELEMENTAL_TALENT),
+        enabled: combatant.hasTalent(TALENTS.STORMKEEPER_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
-        charges: combatant.getMultipleTalentRanks(
-          TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT,
-          TALENTS.STORMKEEPER_2_ELEMENTAL_TALENT,
-        ),
+        charges: 1,
         cooldown: 60,
         gcd: {
           base: 1500,
@@ -130,41 +122,8 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
-      },
-      {
-        spell: TALENTS.EARTH_ELEMENTAL_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.EARTH_ELEMENTAL_TALENT),
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 60 * 5,
-      },
-
-      {
-        spell: SPELLS.FLAME_SHOCK.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 6,
         gcd: {
           base: 1500,
-        },
-      },
-      {
-        spell: TALENTS.FROST_SHOCK_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.FROST_SHOCK_TALENT),
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: TALENTS.ICEFURY_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.ICEFURY_TALENT),
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 30,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.8,
         },
       },
       {
@@ -176,91 +135,13 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.CAPACITOR_TOTEM_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.CAPACITOR_TOTEM_TALENT),
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: {
-          base: 1500,
-        },
-        cooldown: 60, //misses Static Charge CDR
-      },
-      {
-        spell: TALENTS.ASTRAL_SHIFT_TALENT.id,
-        buffSpellId: TALENTS.ASTRAL_SHIFT_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.ASTRAL_SHIFT_TALENT),
-        cooldown: 120 - combatant.getTalentRank(TALENTS.PLANES_TRAVELER_TALENT) * 30,
-        category: SPELL_CATEGORY.DEFENSIVE,
-      },
-      {
-        spell: TALENTS.THUNDERSTORM_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.THUNDERSTORM_TALENT),
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: {
-          base: 1000,
-        },
-        cooldown: 45,
-      },
-      {
-        spell: TALENTS.TREMOR_TOTEM_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.TREMOR_TOTEM_TALENT),
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: TALENTS.WIND_SHEAR_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.WIND_SHEAR_TALENT),
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 12,
-        gcd: null,
-      },
-      {
-        spell: TALENTS.NATURES_SWIFTNESS_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.NATURES_SWIFTNESS_TALENT),
+        spell: SPELLS.ANCESTRAL_SWIFTNESS_CAST.id,
+        enabled: combatant.hasTalent(TALENTS.ANCESTRAL_SWIFTNESS_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 60,
-        gcd: null,
-      },
-      {
-        spell: TALENTS.SPIRITWALKERS_GRACE_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.SPIRITWALKERS_GRACE_TALENT),
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown:
-          120 -
-          combatant.getTalentRank(TALENTS.GRACEFUL_SPIRIT_TALENT) * 30 -
-          combatant.getTalentRank(TALENTS.GO_WITH_THE_FLOW_TALENT) * 5,
-        gcd: null,
-      },
-      {
-        spell: TALENTS.GUST_OF_WIND_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.GUST_OF_WIND_TALENT),
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 30 - combatant.getTalentRank(TALENTS.GO_WITH_THE_FLOW_TALENT) * 5,
-        gcd: null,
-      },
-      {
-        spell: TALENTS.ANCESTRAL_GUIDANCE_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.ANCESTRAL_GUIDANCE_TALENT),
-        category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 120,
-        gcd: null,
-      },
-      {
-        spell: SPELLS.GHOST_WOLF.id,
-        category: SPELL_CATEGORY.OTHERS,
-      },
-      {
-        spell: SPELLS.BLOODLUST.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-      },
-      {
-        spell: SPELLS.HEROISM.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-      },
-      {
-        spell: SPELLS.REINCARNATION.id,
-        category: SPELL_CATEGORY.OTHERS,
+        cooldown: 30,
+        gcd: {
+          static: 0,
+        },
       },
     ];
   }

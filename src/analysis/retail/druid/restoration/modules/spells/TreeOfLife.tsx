@@ -1,5 +1,5 @@
 import { defineMessage } from '@lingui/macro';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -29,11 +29,9 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/druid/restoration/Guide';
 
-const ALL_BOOST = 0.15;
-const ALL_MULT = 1.15;
-const REJUV_BOOST = 0.5;
-const REJUV_MANA_SAVED = 0.3;
-const REJUV_MANA_COST = SPELLS.REJUVENATION.manaCost;
+const ALL_BOOST = 0.1;
+const ALL_MULT = 1 + ALL_BOOST;
+const REJUV_BOOST = 0.4;
 const WG_INCREASE = 8 / 6 - 1;
 const TOL_DURATION = 30000;
 const BUFFER = 500;
@@ -76,13 +74,11 @@ class TreeOfLife extends Analyzer {
   hardcast: TolAccumulator = {
     allBoostHealing: 0,
     rejuvBoostHealing: 0,
-    rejuvManaSaved: 0,
     extraWgsAttribution: HotTrackerRestoDruid.getNewAttribution('ToL Hardcast: Extra WGs'),
   };
   reforestation: TolAccumulator = {
     allBoostHealing: 0,
     rejuvBoostHealing: 0,
-    rejuvManaSaved: 0,
     extraWgsAttribution: HotTrackerRestoDruid.getNewAttribution(
       'ToL from Reforestation: Extra WGs',
     ),
@@ -98,10 +94,6 @@ class TreeOfLife extends Analyzer {
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT),
       this.onHardcastTol,
-    );
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.REJUVENATION),
-      this.onCastRejuv,
     );
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.WILD_GROWTH),
@@ -168,16 +160,6 @@ class TreeOfLife extends Analyzer {
     }
   }
 
-  onCastRejuv(event: CastEvent) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
-      const accumulator = this._getAccumulator(event);
-      if (!accumulator) {
-        return;
-      }
-      accumulator.rejuvManaSaved += REJUV_MANA_SAVED;
-    }
-  }
-
   onApplyWildGrowth(event: ApplyBuffEvent | RefreshBuffEvent) {
     const accumulator = this._getAccumulator(event);
     if (!accumulator) {
@@ -204,20 +186,11 @@ class TreeOfLife extends Analyzer {
     };
   }
 
-  _getManaSavedHealing(accumulator: TolAccumulator) {
-    return accumulator.rejuvManaSaved * this.rejuvenation.avgRejuvHealing;
-  }
-
-  _getManaSaved(accumulator: TolAccumulator) {
-    return accumulator.rejuvManaSaved * REJUV_MANA_COST;
-  }
-
   _getTotalHealing(accumulator: TolAccumulator) {
     return (
       accumulator.allBoostHealing +
       accumulator.rejuvBoostHealing +
-      accumulator.extraWgsAttribution.healing +
-      this._getManaSavedHealing(accumulator)
+      accumulator.extraWgsAttribution.healing
     );
   }
 
@@ -229,8 +202,9 @@ class TreeOfLife extends Analyzer {
         <strong>
           <SpellLink spell={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT} />
         </strong>{' '}
-        is a longer, lower-impact cooldown. It should be planned around periods of high sustained
-        healing.
+        is a long duration healing boost with low immediate impact. It should be planned around
+        periods of high sustained healing. Due to its long duration and Rejuvenation mana discount,
+        it should be cast at the start of your ramp.
       </p>
     );
 
@@ -291,20 +265,6 @@ class TreeOfLife extends Analyzer {
                 </strong>
               </li>
               <li>
-                Rejuv Mana Saved: <strong>{formatNumber(this._getManaSaved(this.hardcast))}</strong>{' '}
-                (assuming mana used to fill with Rejuvs:{' '}
-                <strong>
-                  ≈
-                  {formatPercentage(
-                    this.owner.getPercentageOfTotalHealingDone(
-                      this._getManaSavedHealing(this.hardcast),
-                    ),
-                  )}
-                  %
-                </strong>{' '}
-                healing)
-              </li>
-              <li>
                 Increased Wild Growths:{' '}
                 <strong>
                   {formatPercentage(
@@ -332,7 +292,6 @@ class TreeOfLife extends Analyzer {
 interface TolAccumulator {
   allBoostHealing: number;
   rejuvBoostHealing: number;
-  rejuvManaSaved: number;
   extraWgsAttribution: Attribution;
 }
 

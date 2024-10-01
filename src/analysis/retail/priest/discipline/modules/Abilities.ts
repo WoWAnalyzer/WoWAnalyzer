@@ -136,15 +136,6 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS_PRIEST.POWER_WORD_LIFE_TALENT),
       },
       {
-        spell: TALENTS_PRIEST.MINDGAMES_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 45,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS_PRIEST.MINDGAMES_TALENT),
-      },
-      {
         spell: SPELLS.SHADOWFIEND.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 180,

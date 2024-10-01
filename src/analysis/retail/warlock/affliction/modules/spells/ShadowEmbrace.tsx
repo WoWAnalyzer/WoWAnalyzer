@@ -12,12 +12,14 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import UptimeBar from 'parser/ui/UptimeBar';
+import {
+  SHADOW_DEFAULT_EMBRACE_MODIFIER,
+  SHADOW_DRAIN_SOUL_EMBRACE_MODIFIER,
+} from '../../constants';
 
-const BONUS_PER_STACK_BASE = 0.015;
 const BUFFER = 50; // for some reason, changedebuffstack triggers twice on the same timestamp for each event, ignore an event if it happened < BUFFER ms after another
 const debug = false;
 
-type ShadowEmbraceStacks = 0 | 1 | 2 | 3;
 type ShadowEmbraceUptime = {
   start: number | null;
   count: number;
@@ -30,12 +32,20 @@ class ShadowEmbrace extends Analyzer {
   };
   protected enemies!: Enemies;
 
+  SHADOW_EMBRACE_DEBUFF = this.selectedCombatant.hasTalent(TALENTS.DRAIN_SOUL_TALENT)
+    ? SPELLS.SHADOW_EMBRACE_SOULDRAIN_DEBUFF
+    : SPELLS.SHADOW_EMBRACE_SHADOWBOLT_DEBUFF;
+
+  BONUS_PER_STACK_BASE = this.selectedCombatant.hasTalent(TALENTS.DRAIN_SOUL_TALENT)
+    ? SHADOW_DRAIN_SOUL_EMBRACE_MODIFIER
+    : SHADOW_DEFAULT_EMBRACE_MODIFIER;
+
   BONUS_PER_STACK =
-    BONUS_PER_STACK_BASE * this.selectedCombatant.getTalentRank(TALENTS.SHADOW_EMBRACE_TALENT);
+    this.BONUS_PER_STACK_BASE * this.selectedCombatant.getTalentRank(TALENTS.SHADOW_EMBRACE_TALENT);
 
   damage = 0;
   private _lastEventTimestamp: number | null = null;
-  debuffs: Record<ShadowEmbraceStacks, ShadowEmbraceUptime> = {
+  debuffs: Record<number, ShadowEmbraceUptime> = {
     0: {
       // ignored, see comment in stackedUptime getter
       start: null,
@@ -57,13 +67,18 @@ class ShadowEmbrace extends Analyzer {
       count: 0,
       uptime: 0,
     },
+    4: {
+      start: null,
+      count: 0,
+      uptime: 0,
+    },
   };
 
   constructor(options: Options) {
     super(options);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
     this.addEventListener(
-      Events.changedebuffstack.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_EMBRACE_DEBUFF),
+      Events.changedebuffstack.by(SELECTED_PLAYER).spell(this.SHADOW_EMBRACE_DEBUFF),
       this.onChangeDebuffStack,
     );
     this.active = this.selectedCombatant.hasTalent(TALENTS.SHADOW_EMBRACE_TALENT);
@@ -74,7 +89,7 @@ class ShadowEmbrace extends Analyzer {
     if (!enemy) {
       return;
     }
-    const shadowEmbrace = enemy.getBuff(SPELLS.SHADOW_EMBRACE_DEBUFF.id);
+    const shadowEmbrace = enemy.getBuff(this.SHADOW_EMBRACE_DEBUFF.id);
     if (!shadowEmbrace) {
       return;
     }
@@ -101,8 +116,9 @@ class ShadowEmbrace extends Analyzer {
         )}) changedebuffstack on ${encodeTargetString(event.targetID, event.targetInstance)}`,
       );
 
-    const oldStacks = this.debuffs[event.oldStacks as ShadowEmbraceStacks];
-    const newStacks = this.debuffs[event.newStacks as ShadowEmbraceStacks];
+    const oldStacks = this.debuffs[event.oldStacks];
+    const newStacks = this.debuffs[event.newStacks];
+
     oldStacks.count = Math.max(oldStacks.count - 1, 0);
     debug && console.log(`OLD (${event.oldStacks}), count reduced to ${oldStacks.count}`);
     if (oldStacks.count === 0) {
@@ -120,7 +136,7 @@ class ShadowEmbrace extends Analyzer {
   }
 
   get totalUptimePercentage() {
-    return this.enemies.getBuffUptime(SPELLS.SHADOW_EMBRACE_DEBUFF.id) / this.owner.fightDuration;
+    return this.enemies.getBuffUptime(this.SHADOW_EMBRACE_DEBUFF.id) / this.owner.fightDuration;
   }
 
   get suggestionThresholds() {
@@ -138,12 +154,21 @@ class ShadowEmbrace extends Analyzer {
   get stackedUptime() {
     const duration = this.owner.fightDuration;
     // it's easier to calculate no stack uptime as 1 - anyStackUptimePercentage, that's why we ignore this.debuffs[0]
-    return {
-      0: 1 - this.totalUptimePercentage,
-      1: this.debuffs[1].uptime / duration,
-      2: this.debuffs[2].uptime / duration,
-      3: this.debuffs[3].uptime / duration,
-    };
+    if (this.selectedCombatant.hasTalent(TALENTS.DRAIN_SOUL_TALENT)) {
+      return {
+        0: 1 - this.totalUptimePercentage,
+        1: this.debuffs[1].uptime / duration,
+        2: this.debuffs[2].uptime / duration,
+        3: this.debuffs[3].uptime / duration,
+        4: this.debuffs[4].uptime / duration,
+      };
+    } else {
+      return {
+        0: 1 - this.totalUptimePercentage,
+        1: this.debuffs[1].uptime / duration,
+        2: this.debuffs[2].uptime / duration,
+      };
+    }
   }
 
   get dps() {
@@ -154,11 +179,11 @@ class ShadowEmbrace extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink spell={SPELLS.SHADOW_EMBRACE_DEBUFF} /> uptime can be improved. Try to pay
+          Your <SpellLink spell={this.SHADOW_EMBRACE_DEBUFF} /> uptime can be improved. Try to pay
           more attention to your Shadow Embrace on the boss, perhaps use some debuff tracker.
         </>,
       )
-        .icon(SPELLS.SHADOW_EMBRACE_DEBUFF.icon)
+        .icon(this.SHADOW_EMBRACE_DEBUFF.icon)
         .actual(
           defineMessage({
             id: 'warlock.affliction.suggestions.shadowembrace.uptime',
@@ -170,11 +195,11 @@ class ShadowEmbrace extends Analyzer {
   }
 
   subStatistic() {
-    const history = this.enemies.getDebuffHistory(SPELLS.SHADOW_EMBRACE_DEBUFF.id);
+    const history = this.enemies.getDebuffHistory(this.SHADOW_EMBRACE_DEBUFF.id);
     return (
       <div className="flex">
         <div className="flex-sub icon">
-          <SpellIcon spell={SPELLS.SHADOW_EMBRACE_DEBUFF} />
+          <SpellIcon spell={this.SHADOW_EMBRACE_DEBUFF} />
         </div>
         <div className="flex-sub value" style={{ width: 140 }}>
           {formatPercentage(this.totalUptimePercentage, 0)} % <small>uptime</small>
@@ -191,7 +216,6 @@ class ShadowEmbrace extends Analyzer {
   }
 
   statistic() {
-    const uptimes = this.stackedUptime;
     return (
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
@@ -203,9 +227,11 @@ class ShadowEmbrace extends Analyzer {
           <TooltipElement
             content={
               <>
-                No stacks: {formatPercentage(uptimes[0])} %<br />1 stack:{' '}
-                {formatPercentage(uptimes[1])} %<br />2 stacks: {formatPercentage(uptimes[2])} %
-                <br />3 stacks: {formatPercentage(uptimes[3])} %
+                {Object.values(this.stackedUptime).map((uptime, index) => (
+                  <div key={index}>
+                    {index} stack(s): {formatPercentage(uptime)} %
+                  </div>
+                ))}
               </>
             }
           >

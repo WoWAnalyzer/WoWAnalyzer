@@ -1,4 +1,4 @@
-//Renewing Mist
+// Renewing Mist
 export const APPLIED_HEAL = 'AppliedHeal';
 export const FORCE_BOUNCE = 'ForceBounce';
 export const OVERHEAL_BOUNCE = 'OverhealBounce';
@@ -12,11 +12,11 @@ export const RAPID_DIFFUSION_BUFFER_MS = 300;
 export const DANCING_MIST_BUFFER_MS = 250;
 export const MAX_REM_DURATION = 77000;
 
-//Enveloping Mist
+// Enveloping Mist
 export const FROM_MISTY_PEAKS = 'FromMistyPeaks';
 export const TFT_ENV_TOM = 'TFTEnvTom';
 
-//Mastery
+// Mastery
 export const ENVELOPING_MIST_GOM = 'EnvGOM';
 export const RENEWING_MIST_GOM = 'ReMGOM';
 export const VIVIFY_GOM = 'ViVGOM';
@@ -30,18 +30,18 @@ export const CRANE_STYLE_RSK = 'CraneStyleRSK';
 export const CRANE_STYLE_BOK = 'CraneStyleBOK';
 export const CRANE_STYLE_SCK = 'CraneStyleSCK';
 
-//Vivify
+// Vivify
 export const VIVIFY = 'Vivify';
 export const VIVACIOUS_VIVIFICATION = 'VivaciousVivification';
 export const ZEN_PULSE_VIVIFY = 'ZenPulseVivify';
 export const ZEN_PULSE_CONSUME = 'ZenPulseConsume';
 export const CHI_WAVE_VIVIFY = 'ChiWaveVivify';
 
-//Refreshing Jade Wind
+// Refreshing Jade Wind
 export const RJW_TFT = 'RefreshingJadeWindTFT';
 export const RJW_CELESTIAL = 'RefreshingJadeWindCelestial';
 
-//Mana Tea
+// Mana Tea
 export const MANA_TEA_CHANNEL = 'MTChannel';
 export const MANA_TEA_CAST_LINK = 'MTLink';
 export const MT_BUFF_REMOVAL = 'MTStack';
@@ -50,7 +50,10 @@ export const MT_STACK_CHANGE = 'MTStackChange';
 export const MAX_MT_CHANNEL = 25000;
 export const MANA_TEA_YULONS_WHISPER = 'MTYulonsWhisper';
 
-//Misc
+// Hero Talents
+export const STRENGTH_OF_THE_BLACK_OX = 'SotBO';
+
+// Misc
 export const CALMING_COALESCENCE = 'Calming Coalescence';
 export const CAST_BUFFER_MS = 100;
 export const CHI_WAVE_RSK = 'ChiWaveRSK';

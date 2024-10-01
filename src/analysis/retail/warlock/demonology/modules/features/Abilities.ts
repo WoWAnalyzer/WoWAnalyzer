@@ -29,6 +29,20 @@ class Abilities extends SharedAbilities {
         },
       },
       {
+        spell: SPELLS.RUINATION_CAST.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.INFERNAL_BOLT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
         spell: SPELLS.DEMONBOLT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
@@ -60,7 +74,36 @@ class Abilities extends SharedAbilities {
         spell: TALENTS.SUMMON_VILEFIEND_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 45,
-        enabled: combatant.hasTalent(TALENTS.SUMMON_VILEFIEND_TALENT),
+        enabled:
+          combatant.hasTalent(TALENTS.SUMMON_VILEFIEND_TALENT) &&
+          !combatant.hasTalent(TALENTS.MARK_OF_FHARG_TALENT) &&
+          !combatant.hasTalent(TALENTS.MARK_OF_SHATUG_TALENT),
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
+      },
+      {
+        spell: SPELLS.CHARHOUND_SUMMON.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: 30,
+        enabled: combatant.hasTalent(TALENTS.MARK_OF_FHARG_TALENT),
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
+      },
+      {
+        spell: SPELLS.GLOOMHOUND_SUMMON.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: 30,
+        enabled: combatant.hasTalent(TALENTS.MARK_OF_SHATUG_TALENT),
         gcd: {
           base: 1500,
         },
@@ -117,7 +160,7 @@ class Abilities extends SharedAbilities {
       {
         spell: SPELLS.SUMMON_DEMONIC_TYRANT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: combatant.hasTalent(TALENTS.GRAND_WARLOCKS_DESIGN_TALENT) ? 60 : 90,
+        cooldown: 60,
         gcd: {
           base: 1500,
         },
@@ -125,20 +168,6 @@ class Abilities extends SharedAbilities {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
-      },
-      {
-        spell: TALENTS.NETHER_PORTAL_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 180,
-        enabled: combatant.hasTalent(TALENTS.NETHER_PORTAL_TALENT),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-        buffSpellId: SPELLS.NETHER_PORTAL_BUFF.id,
       },
       {
         spell: TALENTS.POWER_SIPHON_TALENT.id,

@@ -22,7 +22,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     this.HEALING_ABILITIES_ON_GCD.push(TALENTS.LIGHT_OF_DAWN_TALENT.id);
     this.HEALING_ABILITIES_ON_GCD.push(TALENTS.HAMMER_OF_WRATH_TALENT.id);
     this.HEALING_ABILITIES_ON_GCD.push(TALENTS.HOLY_PRISM_TALENT.id);
-    this.HEALING_ABILITIES_ON_GCD.push(TALENTS.LIGHTS_HAMMER_TALENT.id);
 
     this.hasAC = this.selectedCombatant.hasTalent(TALENTS.AVENGING_CRUSADER_TALENT);
 
@@ -35,7 +34,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     }
   }
 
-  countsAsHealingAbility(event: GlobalCooldownEvent | EndChannelEvent) {
+  isHealingAbility(event: EndChannelEvent | GlobalCooldownEvent) {
     const spellId = event.ability.guid;
 
     if (event.type === EventType.GlobalCooldown) {
@@ -57,7 +56,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
       return true;
     }
 
-    return super.countsAsHealingAbility(event);
+    return super.isHealingAbility(event);
   }
 }
 

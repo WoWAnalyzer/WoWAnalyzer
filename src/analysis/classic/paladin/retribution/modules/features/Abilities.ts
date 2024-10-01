@@ -12,38 +12,38 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.JUDGEMENT_OF_WISDOM.id],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { base: 1500 },
-      },
-      {
         spell: [SPELLS.DIVINE_STORM.id],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.HAMMER_OF_WRATH.id, ...SPELLS.HAMMER_OF_WRATH.lowRanks],
+        spell: [SPELLS.HAMMER_OF_WRATH.id],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.EXORCISM.id, ...SPELLS.EXORCISM.lowRanks],
+        spell: [SPELLS.EXORCISM.id],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.HOLY_WRATH.id, ...SPELLS.HOLY_WRATH.lowRanks],
+        spell: [SPELLS.HOLY_WRATH.id],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.SEAL_OF_COMMAND_DMG.id],
+        spell: SPELLS.INQUISITION.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: SPELLS.TEMPLARS_VERDICT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
       // Rotational AOE
       {
-        spell: [SPELLS.CONSECRATION.id, ...SPELLS.CONSECRATION.lowRanks],
+        spell: [SPELLS.CONSECRATION.id],
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: { base: 1500 },
       },
@@ -60,6 +60,12 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
         cooldown: 60,
       },
+      {
+        spell: SPELLS.ZEALOTRY.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: null,
+        cooldown: 120,
+      },
       // Defensive
       {
         spell: [SPELLS.SACRED_SHIELD.id],
@@ -67,12 +73,12 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.HAMMER_OF_JUSTICE.id, ...SPELLS.HAMMER_OF_JUSTICE.lowRanks],
+        spell: [SPELLS.HAMMER_OF_JUSTICE.id],
         category: SPELL_CATEGORY.DEFENSIVE,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.LAY_ON_HANDS.id, ...SPELLS.LAY_ON_HANDS.lowRanks],
+        spell: [SPELLS.LAY_ON_HANDS.id],
         category: SPELL_CATEGORY.DEFENSIVE,
         gcd: { base: 1500 },
       },
@@ -82,7 +88,7 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.HAND_OF_PROTECTION.id, ...SPELLS.HAND_OF_PROTECTION.lowRanks],
+        spell: [SPELLS.HAND_OF_PROTECTION.id],
         category: SPELL_CATEGORY.DEFENSIVE,
         gcd: { base: 1500 },
       },
@@ -108,7 +114,7 @@ class Abilities extends CoreAbilities {
       },
       // Other spells (not apart of the normal rotation)
       {
-        spell: [SPELLS.FLASH_OF_LIGHT.id, ...SPELLS.FLASH_OF_LIGHT.lowRanks],
+        spell: [SPELLS.FLASH_OF_LIGHT.id],
         category: SPELL_CATEGORY.OTHERS,
         gcd: { base: 1500 },
       },
@@ -119,27 +125,27 @@ class Abilities extends CoreAbilities {
         gcd: null,
       },
       {
-        spell: [SPELLS.HAND_OF_RECKONING.id],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: null,
-      },
-      {
-        spell: [SPELLS.JUDGEMENT_OF_LIGHT.id],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { base: 1500 },
-      },
-      {
         spell: [SPELLS.CLEANSE.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.SEAL_OF_COMMAND.id],
+        spell: [SPELLS.DIVINE_SACRIFICE.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.SEAL_OF_VENGEANCE.id],
+        spell: [SPELLS.HAND_OF_RECKONING.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: null,
+      },
+      {
+        spell: [SPELLS.JUDGEMENT.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.SEAL_OF_TRUTH.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
@@ -154,12 +160,7 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.SEAL_OF_LIGHT.id],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { base: 1500 },
-      },
-      {
-        spell: [SPELLS.SEAL_OF_WISDOM.id],
+        spell: [SPELLS.SEAL_OF_INSIGHT.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
@@ -169,24 +170,19 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.RETRIBUTION_AURA.id, ...SPELLS.RETRIBUTION_AURA.lowRanks],
+        spell: [SPELLS.RETRIBUTION_AURA.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.FIRE_RESISTANCE_AURA.id, ...SPELLS.FIRE_RESISTANCE_AURA.lowRanks],
+        spell: [SPELLS.RESISTANCE_AURA.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.GREATER_BLESSING_OF_MIGHT.id, ...SPELLS.GREATER_BLESSING_OF_MIGHT.lowRanks],
+        spell: [SPELLS.REBUKE.id],
         category: SPELL_CATEGORY.UTILITY,
-        gcd: { base: 1500 },
-      },
-      {
-        spell: [SPELLS.DIVINE_SACRIFICE.id],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { base: 1500 },
+        gcd: null,
       },
       // Pet Related
 

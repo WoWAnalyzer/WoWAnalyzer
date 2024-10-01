@@ -1,9 +1,9 @@
-import CoreAbilities, { druidGcd } from 'analysis/retail/druid/shared/core/Abilities';
+import CoreAbilities from 'analysis/retail/druid/shared/core/Abilities';
 import SPELLS from 'common/SPELLS';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
-import { TIERS } from 'game/TIERS';
+import { fastMeleeGcd, hastedCooldown, normalGcd } from 'common/abilitiesConstants';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -37,16 +37,7 @@ class Abilities extends CoreAbilities {
         primaryCoefficient: 0.125, // damage per tick
       },
       {
-        spell: SPELLS.FEROCIOUS_BITE.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          static: 1000,
-        },
-        timelineSortIndex: 6,
-      },
-      {
-        // TODO TWW - should I just try to roll this in with Bite in the user facing view?
-        spell: SPELLS.RAVAGE_DOTC_CAT.id,
+        spell: [SPELLS.FEROCIOUS_BITE.id, SPELLS.RAVAGE_DOTC_CAT.id],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           static: 1000,
@@ -66,7 +57,7 @@ class Abilities extends CoreAbilities {
 
       {
         spell: SPELLS.THRASH_FERAL.id,
-        category: SPELL_CATEGORY.ROTATIONAL_AOE,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           static: 1000,
         },
@@ -124,7 +115,8 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 180,
+        cooldown:
+          180 - combatant.getTalentRank(TALENTS_DRUID.BERSERK_HEART_OF_THE_LION_TALENT) * 60,
         enabled: combatant.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT),
         castEfficiency: {
           suggestion: true,
@@ -139,9 +131,10 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 22,
       },
       {
-        spell: SPELLS.BERSERK.id,
+        spell: SPELLS.BERSERK_CAT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 180,
+        cooldown:
+          180 - combatant.getTalentRank(TALENTS_DRUID.BERSERK_HEART_OF_THE_LION_TALENT) * 60,
         enabled: !combatant.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT),
         castEfficiency: {
           suggestion: true,
@@ -159,9 +152,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: combatant.hasTalent(TALENTS_DRUID.ASHAMANES_GUIDANCE_TALENT) ? 60 : 120,
         enabled: combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT),
-        gcd: {
-          base: druidGcd,
-        },
+        gcd: normalGcd,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -174,9 +165,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS_DRUID.ADAPTIVE_SWARM_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 25,
-        gcd: {
-          base: druidGcd,
-        },
+        gcd: normalGcd,
         // Swarm sometimes best not to cast purely on CD in single target encounters
         castEfficiency: {
           suggestion: true,
@@ -202,10 +191,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_DRUID.FERAL_FRENZY_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         enabled: combatant.hasTalent(TALENTS_DRUID.FERAL_FRENZY_TALENT),
-        cooldown:
-          45 -
-          combatant.getTalentRank(TALENTS_DRUID.TEAR_DOWN_THE_MIGHTY_TALENT) * 5 -
-          (combatant.has4PieceByTier(TIERS.DF4) ? 15 : 0),
+        cooldown: 45 - combatant.getTalentRank(TALENTS_DRUID.TEAR_DOWN_THE_MIGHTY_TALENT) * 10,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -220,9 +206,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.REGROWTH.id,
         category: SPELL_CATEGORY.UTILITY,
-        gcd: {
-          base: druidGcd,
-        },
+        gcd: fastMeleeGcd,
         timelineSortIndex: 30,
       },
       {
@@ -233,20 +217,20 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 25,
       },
       {
-        spell: SPELLS.SHADOWMELD.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 120,
-        isUndetectable: true,
-        gcd: null,
-        timelineSortIndex: 24,
-      },
-      {
         spell: SPELLS.SURVIVAL_INSTINCTS.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 180,
         gcd: null,
         isDefensive: true,
         timelineSortIndex: 40,
+      },
+      {
+        spell: SPELLS.FRENZIED_REGENERATION.id,
+        enabled: combatant.hasTalent(TALENTS_DRUID.FRENZIED_REGENERATION_TALENT),
+        category: SPELL_CATEGORY.DEFENSIVE,
+        cooldown: hastedCooldown(36),
+        gcd: normalGcd,
+        isDefensive: true,
       },
       {
         spell: [

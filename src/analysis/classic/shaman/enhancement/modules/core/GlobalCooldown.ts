@@ -6,7 +6,7 @@ const MIN_GCD = 750;
 
 /**
  * Each stack of Maelstrom Weapon reduces the GCD by 20% for:
- * * Lightning Bolt, Chain Lightning, Lesser Healing Wave, Healing Wave, Chain Heal, or Hex
+ * * Lightning Bolt, Chain Lightning, Healing Wave, Chain Heal, or Hex
  * Min GCD is 750 ms
  */
 
@@ -16,7 +16,6 @@ class GlobalCooldown extends CoreGlobalCooldown {
     const mwSpell =
       spellId === SPELLS.LIGHTNING_BOLT.id ||
       spellId === SPELLS.CHAIN_LIGHTNING.id ||
-      spellId === SPELLS.LESSER_HEALING_WAVE.id ||
       spellId === SPELLS.HEALING_WAVE.id ||
       spellId === SPELLS.CHAIN_HEAL.id ||
       spellId === SPELLS.HEX.id;

@@ -1,36 +1,44 @@
-import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import SPELLS from 'common/SPELLS/demonhunter';
-import { CastEvent, DamageEvent, EventType, GetRelatedEvents } from 'parser/core/Events';
-import TALENTS from 'common/TALENTS/demonhunter';
+import EventOrderNormalizer, { EventOrder } from 'parser/core/EventOrderNormalizer';
+import { EventType } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
+import TALENTS from 'common/TALENTS/demonhunter';
 
-const FEL_DEVASTATION_DAMAGE_BUFFER = 3000;
-
-const FEL_DEVASTATION_DAMAGE = 'FelDevastationDamage';
-
-const EVENT_LINKS: EventLink[] = [
+const EVENT_ORDERS: EventOrder[] = [
   {
-    linkRelation: FEL_DEVASTATION_DAMAGE,
-    referencedEventId: SPELLS.FEL_DEVASTATION_DAMAGE.id,
-    referencedEventType: EventType.Damage,
-    linkingEventId: TALENTS.FEL_DEVASTATION_TALENT.id,
-    linkingEventType: EventType.Cast,
-    forwardBufferMs: FEL_DEVASTATION_DAMAGE_BUFFER,
-    backwardBufferMs: FEL_DEVASTATION_DAMAGE_BUFFER,
+    beforeEventId: TALENTS.FEL_DEVASTATION_TALENT.id,
+    beforeEventType: EventType.Cast,
+    afterEventId: SPELLS.METAMORPHOSIS_TANK.id,
+    afterEventType: EventType.ApplyBuff,
+    bufferMs: 50,
     anyTarget: true,
+    updateTimestamp: true,
+  },
+  {
+    beforeEventId: TALENTS.FEL_DEVASTATION_TALENT.id,
+    beforeEventType: EventType.Cast,
+    afterEventId: TALENTS.FEL_DEVASTATION_TALENT.id,
+    afterEventType: EventType.ApplyBuff,
+    bufferMs: 50,
+    anyTarget: true,
+    updateTimestamp: true,
+  },
+  {
+    beforeEventId: TALENTS.FEL_DEVASTATION_TALENT.id,
+    beforeEventType: EventType.ApplyBuff,
+    afterEventId: SPELLS.METAMORPHOSIS_TANK.id,
+    afterEventType: EventType.ApplyBuff,
+    bufferMs: 50,
+    updateTimestamp: true,
   },
 ];
 
-export default class FelDevastationNormalizer extends EventLinkNormalizer {
+/**
+ * The applybuff from demonic is logged before the cast of Eye Beam.
+ * This normalizes events so that the Eye Beam applybuff always comes before the Meta Havoc buff
+ **/
+export default class FelDevastationNormalizer extends EventOrderNormalizer {
   constructor(options: Options) {
-    super(options, EVENT_LINKS);
+    super(options, EVENT_ORDERS);
   }
-}
-
-export function getDamageEvents(event: CastEvent): DamageEvent[] {
-  return GetRelatedEvents(
-    event,
-    FEL_DEVASTATION_DAMAGE,
-    (e): e is DamageEvent => e.type === EventType.Damage,
-  );
 }

@@ -12,9 +12,17 @@ import CastEfficiencyPanel from 'interface/guide/components/CastEfficiencyPanel'
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/priest/holy/Guide';
 import { TALENTS_PRIEST } from 'common/TALENTS';
+import EOLAttrib from '../../core/EchoOfLightAttributor';
+import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 
 // Example Log: /report/hRd3mpK1yTQ2tDJM/1-Mythic+MOTHER+-+Kill+(2:24)/14-丶寶寶小喵
 class Halo extends Analyzer {
+  static dependencies = {
+    eolAttrib: EOLAttrib,
+  };
+  protected eolAttrib!: EOLAttrib;
+  eolContrib = 0;
+
   haloDamage = 0;
   haloHealing = 0;
   haloOverhealing = 0;
@@ -22,7 +30,10 @@ class Halo extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.HALO_SHARED_TALENT);
+    //Disable this module if Archon Hero tree is selected
+    this.active =
+      this.selectedCombatant.hasTalent(TALENTS_PRIEST.HALO_SHARED_TALENT) &&
+      !this.selectedCombatant.hasTalent(TALENTS_PRIEST.POWER_SURGE_TALENT);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.HALO_DAMAGE),
       this.onDamage,
@@ -36,8 +47,9 @@ class Halo extends Analyzer {
   }
 
   onHeal(event: HealEvent) {
-    this.haloHealing += event.amount || 0;
+    this.haloHealing += event.amount + (event.absorbed || 0);
     this.haloOverhealing += event.overheal || 0;
+    this.eolContrib += this.eolAttrib.getEchoOfLightHealingAttrib(event);
   }
 
   onCast(event: CastEvent) {
@@ -68,13 +80,25 @@ class Halo extends Analyzer {
   statistic() {
     return (
       <Statistic
-        tooltip={`Halos Cast: ${this.haloCasts}`}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(6)}
+        tooltip={
+          <>
+            Breakdown:{' '}
+            <div>
+              <SpellLink spell={TALENTS_PRIEST.HALO_SHARED_TALENT} />:{' '}
+              <ItemPercentHealingDone amount={this.haloHealing}></ItemPercentHealingDone>
+            </div>
+            <div>
+              <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
+              <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone>
+            </div>
+          </>
+        }
       >
         <BoringSpellValueText spell={SPELLS.HALO_TALENT}>
-          <ItemHealingDone amount={this.haloHealing} />
+          <ItemHealingDone amount={this.haloHealing + this.eolContrib} />
           <br />
           <ItemDamageDone amount={this.haloDamage} />
         </BoringSpellValueText>

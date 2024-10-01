@@ -1,39 +1,43 @@
+// Base files
 import BaseCombatLogParser from 'parser/classic/CombatLogParser';
 // Shared
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import Channeling from 'parser/shared/normalizers/Channeling';
-import { Haste, ColdSnap } from 'analysis/classic/mage/shared';
+import { Haste } from 'analysis/classic/mage/shared';
+import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
+import SpellManaCost from 'parser/shared/modules/SpellManaCost';
 // Core
 import GlobalCooldown from './modules/core/GlobalCooldown';
-// Features
-import Abilities from './modules/features/Abilities';
+// Modules
+import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import Buffs from './modules/features/Buffs';
+import Buffs from './modules/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import Checklist from './modules/checklist/Module';
-import PreparationRuleAnalyzer from 'parser/classic/modules/features/Checklist/PreparationRuleAnalyzer';
+import FoundationGuide from 'interface/guide/foundation/FoundationGuide';
+import CancelledCasts from 'parser/shared/modules/CancelledCasts';
 // Normalizers
 import ArcaneMissilesNormalizer from './normalizers/ArcaneMissiles';
+// Spells
+// import SpellName from './modules/spells';
 
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
     // Shared
-    abilityTracker: AbilityTracker,
-    channeling: Channeling,
-    coldSnap: ColdSnap,
     haste: Haste,
+    manaTracker: ManaTracker,
+    spellManaCost: SpellManaCost,
     // Core
     globalCooldown: GlobalCooldown,
-    // Features
+    // Modules
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
+    cancelledCasts: CancelledCasts,
     buffs: Buffs,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    checklist: Checklist,
-    preparationRuleAnalyzer: PreparationRuleAnalyzer,
     // Normalizers
     arcaneMissilesNormalizer: ArcaneMissilesNormalizer,
+    // Spells
+    // spellName: SpellName,
   };
+  static guide = FoundationGuide;
 }
 
 export default CombatLogParser;

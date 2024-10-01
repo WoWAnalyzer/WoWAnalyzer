@@ -170,12 +170,12 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.AURAS_OF_THE_RESOLUTE_TALENT),
       },
       {
-        spell: [SPELLS.RETRIBUTION_AURA.id, SPELLS.CRUSADER_AURA.id],
+        spell: [SPELLS.CRUSADER_AURA.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.AURAS_OF_SWIFT_VENGEANCE_TALENT),
+        enabled: combatant.hasTalent(TALENTS.CRUSADER_AURA_TALENT),
       },
       {
         spell: TALENTS.TURN_EVIL_TALENT.id,
@@ -317,12 +317,6 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.AURA_MASTERY_TALENT),
       },
       {
-        spell: TALENTS.DIVINE_FAVOR_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 30,
-        enabled: combatant.hasTalent(TALENTS.DIVINE_FAVOR_TALENT),
-      },
-      {
         spell: TALENTS.HAND_OF_DIVINITY_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 90,
@@ -330,27 +324,6 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         enabled: combatant.hasTalent(TALENTS.HAND_OF_DIVINITY_TALENT),
-      },
-      {
-        spell: TALENTS.LIGHT_OF_THE_MARTYR_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS.LIGHT_OF_THE_MARTYR_TALENT),
-      },
-      {
-        spell: TALENTS.LIGHTS_HAMMER_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 60,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-        },
-        healSpellIds: [SPELLS.LIGHTS_HAMMER_HEAL.id],
-        enabled: combatant.hasTalent(TALENTS.LIGHTS_HAMMER_TALENT),
       },
       {
         spell: TALENTS.HOLY_PRISM_TALENT.id,
@@ -405,18 +378,6 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.BEACON_OF_VIRTUE_TALENT),
       },
       {
-        spell: TALENTS.DAYBREAK_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 60,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-        },
-        enabled: combatant.hasTalent(TALENTS.DAYBREAK_TALENT),
-      },
-      {
         spell: [
           TALENTS.BLESSING_OF_SUMMER_TALENT.id,
           SPELLS.BLESSING_OF_AUTUMN_TALENT.id,
@@ -445,6 +406,12 @@ class Abilities extends CoreAbilities {
         },
         healSpellIds: [SPELLS.TYRS_DELIVERANCE_HEALING_INCREASE.id],
         enabled: combatant.hasTalent(TALENTS.TYRS_DELIVERANCE_TALENT),
+      },
+      {
+        spell: TALENTS.ETERNAL_FLAME_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+        enabled: combatant.hasTalent(TALENTS.ETERNAL_FLAME_TALENT),
       },
     ];
   }

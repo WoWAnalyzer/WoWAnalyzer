@@ -55,10 +55,10 @@ class KillerCobra extends Analyzer {
       return;
     }
     const killCommandIsOnCooldown = this.spellUsable.isOnCooldown(
-      TALENTS.KILL_COMMAND_SHARED_TALENT.id,
+      TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT.id,
     );
     if (killCommandIsOnCooldown) {
-      this.spellUsable.endCooldown(TALENTS.KILL_COMMAND_SHARED_TALENT.id);
+      this.spellUsable.endCooldown(TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT.id);
       this.effectiveKillCommandResets += 1;
     } else {
       this.wastedKillerCobraCobraShots += 1;
@@ -92,11 +92,11 @@ class KillerCobra extends Analyzer {
       suggest(
         <>
           Avoid casting <SpellLink spell={TALENTS.COBRA_SHOT_TALENT} /> whilst{' '}
-          <SpellLink spell={TALENTS.KILL_COMMAND_SHARED_TALENT} /> isn't on cooldown, when you have{' '}
-          <SpellLink spell={TALENTS.BESTIAL_WRATH_TALENT} /> up. Utilize the reset effect of{' '}
-          <SpellLink spell={TALENTS.KILLER_COBRA_TALENT} /> by only casting{' '}
+          <SpellLink spell={TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT} /> isn't on cooldown, when
+          you have <SpellLink spell={TALENTS.BESTIAL_WRATH_TALENT} /> up. Utilize the reset effect
+          of <SpellLink spell={TALENTS.KILLER_COBRA_TALENT} /> by only casting{' '}
           <SpellLink spell={TALENTS.COBRA_SHOT_TALENT} /> to reset{' '}
-          <SpellLink spell={TALENTS.KILL_COMMAND_SHARED_TALENT} /> when{' '}
+          <SpellLink spell={TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT} /> when{' '}
           <SpellLink spell={TALENTS.BESTIAL_WRATH_TALENT} /> is up.{' '}
         </>,
       )

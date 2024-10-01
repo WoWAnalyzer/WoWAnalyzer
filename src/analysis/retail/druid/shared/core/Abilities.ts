@@ -1,13 +1,10 @@
 import SPELLS from 'common/SPELLS';
-import Combatant from 'parser/core/Combatant';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import { TALENTS_DRUID } from 'common/TALENTS/druid';
-import { hastedCooldown } from 'common/hastedCooldown';
+import { fastMeleeGcd, normalGcd } from 'common/abilitiesConstants';
 import SPECS from 'game/SPECS';
-
-export const druidGcd = (c: Combatant) => (c.hasBuff(SPELLS.CAT_FORM.id) ? 1000 : 1500);
 
 /**
  * NON-ROTATIONAL abilities from base spell list and from class talent tree are here.
@@ -15,8 +12,8 @@ export const druidGcd = (c: Combatant) => (c.hasBuff(SPELLS.CAT_FORM.id) ? 1000 
  * Rotational abilities (even shared ones) are reserved to the spec specific Abilities list,
  * so that custom handling of category and order can be provided. The list of general abilities
  * that are omitted from this list:
- * Shred, Ferocious Bite, Rake, Thrash, Swipe, Mangle, Ironfur, Rejuvenation, Regrowth, Swiftmend,
- * Wild Growth, Wrath, Starfire, Starsurge, Moonfire, Sunfire
+ * Shred, Ferocious Bite, Rake, Thrash, Swipe, Mangle, Ironfur, Frenzied Regeneration,
+ * Rejuvenation, Regrowth, Swiftmend, Wild Growth, Wrath, Starfire, Starsurge, Moonfire, Sunfire
  */
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -28,76 +25,58 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS_DRUID.MIGHTY_BASH_TALENT),
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 60,
-        gcd: {
-          base: 1500,
-        },
+        gcd: normalGcd,
       },
       {
         spell: SPELLS.INCAPACITATING_ROAR.id,
         enabled: combatant.hasTalent(TALENTS_DRUID.INCAPACITATING_ROAR_TALENT),
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
-        gcd: {
-          base: 1500,
-        },
+        gcd: normalGcd,
       },
       {
         spell: SPELLS.CYCLONE.id,
         enabled: combatant.hasTalent(TALENTS_DRUID.CYCLONE_TALENT),
         category: SPELL_CATEGORY.UTILITY,
-        gcd: {
-          base: 1500,
-        },
+        gcd: normalGcd,
       },
       {
         spell: SPELLS.HIBERNATE.id,
         enabled: combatant.hasTalent(TALENTS_DRUID.HIBERNATE_TALENT),
         category: SPELL_CATEGORY.UTILITY,
-        gcd: {
-          base: 1500,
-        },
+        gcd: normalGcd,
       },
       {
         spell: SPELLS.TYPHOON.id,
         enabled: combatant.hasTalent(TALENTS_DRUID.TYPHOON_TALENT),
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
-        gcd: {
-          base: 1500,
-        },
+        gcd: normalGcd,
       },
       {
         spell: TALENTS_DRUID.MASS_ENTANGLEMENT_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_DRUID.MASS_ENTANGLEMENT_TALENT),
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
-        gcd: {
-          base: 1500,
-        },
+        gcd: normalGcd,
       },
       {
         spell: SPELLS.ENTANGLING_ROOTS.id,
         category: SPELL_CATEGORY.UTILITY,
-        gcd: {
-          base: 1500,
-        },
+        gcd: normalGcd,
       },
       {
         spell: SPELLS.URSOLS_VORTEX.id,
         enabled: combatant.hasTalent(TALENTS_DRUID.URSOLS_VORTEX_TALENT),
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 60,
-        gcd: {
-          base: 1500,
-        },
+        gcd: normalGcd,
       },
       {
         spell: SPELLS.SOOTHE.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 10, // TODO only on successful dispel?
-        gcd: {
-          base: 1500,
-        },
+        gcd: normalGcd,
       },
       // All-spec Utility
       {
@@ -105,7 +84,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown:
           (combatant.spec === SPECS.GUARDIAN_DRUID ? 45 : 60) *
-          (1 - combatant.getTalentRank(TALENTS_DRUID.SURVIVAL_OF_THE_FITTEST_TALENT) * 0.15),
+          (1 - combatant.getTalentRank(TALENTS_DRUID.SURVIVAL_OF_THE_FITTEST_TALENT) * 0.12),
         gcd: null,
         isDefensive: true,
       },
@@ -131,9 +110,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS_DRUID.STAMPEDING_ROAR_TALENT),
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 120 - combatant.getTalentRank(TALENTS_DRUID.IMPROVED_STAMPEDING_ROAR_TALENT) * 60,
-        gcd: {
-          base: druidGcd,
-        },
+        gcd: normalGcd,
       },
       {
         spell: TALENTS_DRUID.RENEWAL_TALENT.id,
@@ -154,9 +131,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS_DRUID.HEART_OF_THE_WILD_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 300,
-        gcd: {
-          base: druidGcd,
-        },
+        gcd: normalGcd,
       },
       {
         spell: TALENTS_DRUID.NATURES_VIGIL_TALENT.id,
@@ -182,29 +157,14 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         enabled: combatant.hasTalent(TALENTS_DRUID.REMOVE_CORRUPTION_TALENT),
         // TODO impl CD starting on successful dispel only
-        gcd: {
-          base: 1500,
-        },
+        gcd: normalGcd,
       },
       {
         spell: SPELLS.REBIRTH.id,
         category: SPELL_CATEGORY.UTILITY,
-        gcd: {
-          base: 1500,
-        },
+        gcd: normalGcd,
       },
       // Cat/Bear stuff
-      {
-        spell: SPELLS.FRENZIED_REGENERATION.id,
-        enabled: combatant.hasTalent(TALENTS_DRUID.FRENZIED_REGENERATION_TALENT),
-        category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: hastedCooldown(36),
-        gcd: {
-          base: 1500,
-        },
-        charges: 1 + combatant.getTalentRank(TALENTS_DRUID.INNATE_RESOLVE_TALENT),
-        isDefensive: true,
-      },
       {
         spell: SPELLS.GROWL.id,
         category: SPELL_CATEGORY.UTILITY,
@@ -215,9 +175,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.MAIM.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 20,
-        gcd: {
-          static: 1000,
-        },
+        gcd: fastMeleeGcd,
       },
       {
         spell: [SPELLS.SKULL_BASH.id, SPELLS.SKULL_BASH_FERAL.id],
@@ -248,31 +206,23 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.STAG_FORM.id,
         category: SPELL_CATEGORY.OTHERS,
-        gcd: {
-          base: 1500,
-        },
+        gcd: normalGcd,
       },
       {
         spell: SPELLS.TRAVEL_FORM.id,
         category: SPELL_CATEGORY.OTHERS,
-        gcd: {
-          base: 1500,
-        },
+        gcd: normalGcd,
       },
       {
         spell: SPELLS.BEAR_FORM.id,
         buffSpellId: SPELLS.BEAR_FORM.id,
         category: SPELL_CATEGORY.OTHERS,
-        gcd: {
-          base: 1500,
-        },
+        gcd: normalGcd,
       },
       {
         spell: SPELLS.CAT_FORM.id,
         category: SPELL_CATEGORY.OTHERS,
-        gcd: {
-          base: 1500,
-        },
+        gcd: normalGcd,
       },
     ];
   }

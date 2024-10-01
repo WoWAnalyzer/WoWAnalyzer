@@ -1,10 +1,6 @@
 // Base file
 import BaseCombatLogParser from 'parser/classic/CombatLogParser';
-// Core
-import Haste from './modules/core/Haste';
 // Shared
-import lowRankSpellsSuggestion from 'parser/classic/suggestions/lowRankSpells';
-import { lowRankSpells } from '../shared';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
@@ -19,13 +15,11 @@ import Checklist from './modules/checklist/Module';
 import HealingEfficiencyDetails from './modules/features/HealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/features/HealingEfficiencyTracker';
 // Spells
+import JudgmentsOfThePure from '../shared/JudgmentsOfThePure';
 
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
-    // Core
-    haste: Haste,
     // Shared
-    lowRankSpells: lowRankSpellsSuggestion(lowRankSpells),
     manaLevelChart: ManaLevelChart,
     manaTracker: ManaTracker,
     manaUsageChart: ManaUsageChart,
@@ -40,6 +34,7 @@ class CombatLogParser extends BaseCombatLogParser {
     hpmTracker: HealingEfficiencyTracker,
     hpmDetails: HealingEfficiencyDetails,
     // Spells
+    JudgmentsOfThePure,
   };
 }
 

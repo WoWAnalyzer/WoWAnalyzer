@@ -17,7 +17,7 @@ import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 /**
  * A quick shot causing Physical damage.
- * Reduces the cooldown of Kill Command by 2 sec.
+ * Reduces the cooldown of Kill Command by 1 sec.
  *
  * Example log:
  * https://www.warcraftlogs.com/reports/bf3r17Yh86VvDLdF#fight=8&type=damage-done&source=1&ability=193455
@@ -82,7 +82,7 @@ class CobraShot extends Analyzer {
 
   onCobraShotCast(event: CastEvent) {
     this.casts += 1;
-    if (!this.spellUsable.isOnCooldown(TALENTS.KILL_COMMAND_SHARED_TALENT.id)) {
+    if (!this.spellUsable.isOnCooldown(TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT.id)) {
       this.wastedCasts += 1;
       this.wastedKCReductionMs += this.cobraShotCDR;
       addInefficientCastReason(event, 'Cobra Shot cast while Kill Command is not on cooldown.');
@@ -92,12 +92,12 @@ class CobraShot extends Analyzer {
       TALENTS.COBRA_SHOT_TALENT.id,
     );
     const killCommandCooldownRemaining = this.spellUsable.cooldownRemaining(
-      TALENTS.KILL_COMMAND_SHARED_TALENT.id,
+      TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT.id,
     );
     if (killCommandCooldownRemaining < this.cobraShotCDR + globalCooldown) {
       const effectiveReductionMs = killCommandCooldownRemaining - globalCooldown;
       this.effectiveKCReductionMs += this.spellUsable.reduceCooldown(
-        TALENTS.KILL_COMMAND_SHARED_TALENT.id,
+        TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT.id,
         effectiveReductionMs,
       );
       this.wastedKCReductionMs += this.cobraShotCDR - effectiveReductionMs;
@@ -120,7 +120,7 @@ class CobraShot extends Analyzer {
       }
     } else {
       this.effectiveKCReductionMs += this.spellUsable.reduceCooldown(
-        TALENTS.KILL_COMMAND_SHARED_TALENT.id,
+        TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT.id,
         COBRA_SHOT_CDR_MS,
       );
     }
@@ -131,14 +131,14 @@ class CobraShot extends Analyzer {
       suggest(
         <>
           A crucial part of <SpellLink spell={TALENTS.COBRA_SHOT_TALENT} /> is the cooldown
-          reduction of <SpellLink spell={TALENTS.KILL_COMMAND_SHARED_TALENT} /> it provides. When
-          the cooldown of <SpellLink spell={TALENTS.KILL_COMMAND_SHARED_TALENT} /> is larger than
-          the duration of your GCD + 1s, you'll want to be casting{' '}
+          reduction of <SpellLink spell={TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT} /> it provides.
+          When the cooldown of <SpellLink spell={TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT} /> is
+          larger than the duration of your GCD + 1s, you'll want to be casting{' '}
           <SpellLink spell={TALENTS.COBRA_SHOT_TALENT} /> to maximize the amount of casts of{' '}
-          <SpellLink spell={TALENTS.KILL_COMMAND_SHARED_TALENT} />. If the cooldown of{' '}
-          <SpellLink spell={TALENTS.KILL_COMMAND_SHARED_TALENT} /> is lower than GCD + 1s, you'll
-          only want to be casting <SpellLink spell={TALENTS.COBRA_SHOT_TALENT} />, if you'd be
-          capping focus otherwise.
+          <SpellLink spell={TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT} />. If the cooldown of{' '}
+          <SpellLink spell={TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT} /> is lower than GCD + 1s,
+          you'll only want to be casting <SpellLink spell={TALENTS.COBRA_SHOT_TALENT} />, if you'd
+          be capping focus otherwise.
         </>,
       )
         .icon(TALENTS.COBRA_SHOT_TALENT.icon)
@@ -160,7 +160,7 @@ class CobraShot extends Analyzer {
       suggest(
         <>
           You should never cast <SpellLink spell={TALENTS.COBRA_SHOT_TALENT} /> when{' '}
-          <SpellLink spell={TALENTS.KILL_COMMAND_SHARED_TALENT} /> is off cooldown.
+          <SpellLink spell={TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT} /> is off cooldown.
         </>,
       )
         .icon(TALENTS.COBRA_SHOT_TALENT.icon)

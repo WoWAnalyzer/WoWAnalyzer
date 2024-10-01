@@ -578,6 +578,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [126338],
     definitionIds: [{ id: 131164, specId: 255 }],
+    focusCost: 15,
   },
   FOCUSED_AIM_TALENT: {
     id: 378767,
@@ -1034,7 +1035,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [126355],
     definitionIds: [{ id: 131181, specId: 254 }],
-    focusCost: 20,
+    focusCost: 30,
   },
   MUZZLE_TALENT: {
     id: 187707,
@@ -1741,6 +1742,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [126324],
     definitionIds: [{ id: 131150, specId: 255 }],
+    focusCost: 10,
   },
   WILDFIRE_INFUSION_TALENT: {
     id: 460198,

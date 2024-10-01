@@ -6,7 +6,6 @@ import { HideExplanationsToggle } from 'interface/guide/components/HideExplanati
 import { ResourceLink, SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
 import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/GuideDivs';
-import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 import CombatLogParser from './CombatLogParser';
@@ -113,9 +112,6 @@ function CooldownSection({ info, modules }: GuideProps<typeof CombatLogParser>) 
         <HideGoodCastsToggle id="hide-good-casts-rotation" />
         <ExperimentalKingsbaneToggle />
         <CooldownGraphSubsection />
-        {info.combatant.hasTalent(TALENTS.SEPSIS_TALENT) && (
-          <CooldownUsage analyzer={modules.sepsis} />
-        )}
         {info.combatant.hasTalent(TALENTS.KINGSBANE_TALENT) && modules.kingsbane.guideSubsection}
       </Section>
     </ExperimentalKingsbaneContextProvider>

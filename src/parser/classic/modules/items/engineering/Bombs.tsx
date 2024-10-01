@@ -1,57 +1,39 @@
-import Analyzer, { Options } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
+import Analyzer, { Options } from 'parser/core/Analyzer';
+import GEAR_SLOTS from 'game/GEAR_SLOTS';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
-import SPELLS from 'common/SPELLS/classic/engineering';
+import SPELLS from 'common/SPELLS/classic';
 
-class Bombs extends Analyzer {
-  static dependencies = {
-    abilities: Abilities,
-  };
-
-  protected abilities!: Abilities;
-
+export default class Bombs extends Analyzer.withDependencies({ abilities: Abilities }) {
   constructor(options: Options) {
     super(options);
 
     const combatant = this.selectedCombatant;
-    const belt = combatant._getGearItemBySlotId(5);
-    const boots = combatant._getGearItemBySlotId(8);
-    const gloves = combatant._getGearItemBySlotId(9);
-    const back = combatant._getGearItemBySlotId(14);
+    const belt = combatant._getGearItemBySlotId(GEAR_SLOTS.WAIST).onUseEnchant;
+    const gloves = combatant._getGearItemBySlotId(GEAR_SLOTS.HANDS).onUseEnchant;
+    const cloak = combatant._getGearItemBySlotId(GEAR_SLOTS.BACK).onUseEnchant;
     this.active =
-      belt.permanentEnchant === 3601 ||
-      boots.permanentEnchant === 3606 ||
-      gloves.permanentEnchant === 3604 ||
-      back.permanentEnchant === 3605;
+      belt === SPELLS.NITRO_BOOSTS.enchantId ||
+      gloves === SPELLS.HYPERSPEED_ACCELERATION.enchantId ||
+      gloves === SPELLS.SYNAPSE_SPRINGS.enchantId ||
+      cloak === SPELLS.FLEXWEAVE_UNDERLAY.enchantId;
 
     if (this.active) {
-      (options.abilities as Abilities).add({
+      this.deps.abilities.add({
+        spell: SPELLS.BIG_DADDY.id,
+        category: SPELL_CATEGORY.ITEMS,
+        gcd: null,
+      });
+      this.deps.abilities.add({
         spell: SPELLS.GLOBAL_THERMAL_SAPPER_CHARGE.id,
         category: SPELL_CATEGORY.ITEMS,
         gcd: null,
       });
-      (options.abilities as Abilities).add({
+      this.deps.abilities.add({
         spell: SPELLS.SARONITE_BOMB.id,
-        category: SPELL_CATEGORY.ITEMS,
-        gcd: null,
-      });
-      (options.abilities as Abilities).add({
-        spell: SPELLS.COBALT_FRAG_BOMB.id,
-        category: SPELL_CATEGORY.ITEMS,
-        gcd: null,
-      });
-      (options.abilities as Abilities).add({
-        spell: SPELLS.SUPER_SAPPER_CHARGE.id,
-        category: SPELL_CATEGORY.ITEMS,
-        gcd: null,
-      });
-      (options.abilities as Abilities).add({
-        spell: SPELLS.GOBLIN_SAPPER_CHARGE.id,
         category: SPELL_CATEGORY.ITEMS,
         gcd: null,
       });
     }
   }
 }
-
-export default Bombs;

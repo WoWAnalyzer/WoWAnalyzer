@@ -139,7 +139,7 @@ const PlayerTile = ({ player, makeUrl, config }: PlayerTileProps) => {
   }
   const spec = config?.spec;
 
-  if (!config) {
+  if (!config || !config.parser) {
     return (
       <BasicBlockLoading
         avatar={avatar}

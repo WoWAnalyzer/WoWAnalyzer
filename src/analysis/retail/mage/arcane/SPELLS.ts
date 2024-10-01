@@ -12,6 +12,11 @@ const spells = {
     name: 'Arcane Barrage',
     icon: 'ability_mage_arcanebarrage',
   },
+  ARCANE_BARRAGE_ENERGIZE: {
+    id: 321529,
+    name: 'Arcane Barrage',
+    icon: 'ability_mage_arcanebarrage',
+  },
   ARCANE_BLAST: {
     id: 30451,
     name: 'Arcane Blast',
@@ -91,6 +96,31 @@ const spells = {
     id: 384267,
     name: 'Siphon Storm',
     icon: 'ability_monk_forcesphere_arcane',
+  },
+  NETHER_PRECISION_BUFF: {
+    id: 383783,
+    name: 'Nether Precision',
+    icon: 'spell_arcane_blast_nightborne',
+  },
+  ARCANE_TEMPO_BUFF: {
+    id: 383997,
+    name: 'Arcane Tempo',
+    icon: 'ability_socererking_arcaneacceleration',
+  },
+  ARCANE_ECHO_DAMAGE: {
+    id: 342232,
+    name: 'Arcane Echo',
+    icon: 'ability_socererking_arcanewrath',
+  },
+  AETHER_ATTUNEMENT_PROC_BUFF: {
+    id: 453601,
+    name: 'Aether Attunement',
+    icon: 'inv_enchant_essencearcanelarge',
+  },
+  AETHER_ATTUNEMENT_STACK_BUFF: {
+    id: 458388,
+    name: 'Aether Attunement',
+    icon: 'spell_nature_starfall',
   },
 } satisfies Record<string, Spell>;
 

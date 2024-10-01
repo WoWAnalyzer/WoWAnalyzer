@@ -27,23 +27,16 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import HealingPerHolyPower from './modules/features/HealingPerHolyPower';
 import MasteryEffectiveness from './modules/features/MasteryEffectiveness';
 import Overhealing from './modules/features/Overhealing';
-import MightOfTheMountain from './modules/racials/MightOfTheMountain';
-import UntemperedDedication from './modules/talents/UntemperedDedication';
-import MaraadsCastRatio from './modules/talents/MaraadsCastRatio';
-import MaraadsOverheal from './modules/talents/MaraadsOverheal';
+import CritRacial from './modules/racials/CritRacial';
 import DevotionAuraDamageReduction from './modules/spells/DevotionAuraDamageReduction';
 import FillerFlashOfLight from './modules/spells/FillerFlashOfLight';
-import FillerLightOfTheMartyrs from './modules/spells/FillerLightOfTheMartyrs';
-import InefficientLightOfTheMartyrs from './modules/spells/InefficientLightOfTheMartyrs';
 import LightOfDawn from './modules/spells/LightOfDawn';
 import AvengingCrusader from './modules/talents/AvengingCrusader';
 import CrusadersMight from './modules/talents/CrusadersMight';
-import GlimmerOfLight from './modules/talents/GlimmerOfLight/GlimmerOfLight';
 import JudgmentOfLight from './modules/talents/JudgmentOfLight';
 import BeaconOfVirtueNormalizer from './normalizers/BeaconOfVirtue';
 import LightOfDawnNormalizer from './normalizers/LightOfDawn';
 import { BlessingOfTheSeasons } from './modules/talents/BlessingOfTheSeasons';
-import T30HpalTierSet from './modules/dragonflight/tier/T30TierSet';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import AverageLODDistance from './modules/spells/AverageLODDistance';
 import ImbuedInfusion from './modules/talents/ImbuedInfusion';
@@ -52,8 +45,6 @@ import ELConsumedBuffs from './modules/talents/EmpyreanLegacy/ConsumedBuffs';
 import ELPossibleBuffs from './modules/talents/EmpyreanLegacy/PossibleBuffs';
 import TirionsDevotion from './modules/talents/TirionsDevotion';
 import Reclamation from './modules/talents/Reclamation';
-import LightsProtection from './modules/talents/GlimmerOfLight/LightsProtection';
-import Daybreak from './modules/talents/GlimmerOfLight/Daybreak';
 import TyrsDeliverance from './modules/talents/TyrsDeliverance/TyrsDeliverance';
 import BoundlessSalvation from './modules/talents/TyrsDeliverance/BoundlessSalvation';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
@@ -62,6 +53,11 @@ import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart'
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
 import SpellManaCost from 'parser/shared/modules/SpellManaCost';
 import HolyPaladinHealingEfficiencyTracker from './modules/features/HolyPaladinHealingEfficiencyTracker';
+import HolyShock from './modules/talents/HolyShock';
+import BeaconOfVirtue from './modules/talents/BeaconOfVirtue';
+import HolyPowerGraph from './modules/core/HolyPowerGraph';
+import OverflowingLight from './modules/talents/OverflowingLight';
+import Guide from './guide/Guide';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -85,8 +81,6 @@ class CombatLogParser extends CoreCombatLogParser {
     beaconUptime: BeaconUptime,
     castBehavior: CastBehavior,
     overhealing: Overhealing,
-    fillerLightOfTheMartyrs: FillerLightOfTheMartyrs,
-    inefficientLightOfTheMartyrs: InefficientLightOfTheMartyrs,
     fillerFlashOfLight: FillerFlashOfLight,
     lightOfDawn: LightOfDawn,
     hammerOfWrath: HammerOfWrath,
@@ -101,7 +95,7 @@ class CombatLogParser extends CoreCombatLogParser {
     healingPerHolyPower: HealingPerHolyPower,
 
     // Racials
-    mightOfTheMountain: MightOfTheMountain,
+    critRacial: CritRacial,
 
     // Talents
     devotionAuradamageReduction: DevotionAuraDamageReduction,
@@ -109,11 +103,7 @@ class CombatLogParser extends CoreCombatLogParser {
     crusadersMight: CrusadersMight,
     avengingCrusader: AvengingCrusader,
     judgmentOfLight: JudgmentOfLight,
-    glimmerOfLight: GlimmerOfLight,
-    MaraadsCastRatio: MaraadsCastRatio,
-    MaraadsOverheal: MaraadsOverheal,
     divineToll: DivineToll,
-    UntemperedDedication: UntemperedDedication,
     blessingOfTheSeasons: BlessingOfTheSeasons,
     averageLODDistance: AverageLODDistance,
     imbuedInfusion: ImbuedInfusion,
@@ -122,15 +112,17 @@ class CombatLogParser extends CoreCombatLogParser {
     elPossibleBuffs: ELPossibleBuffs,
     tirionsDevotion: TirionsDevotion,
     reclamation: Reclamation,
-    lightsProtection: LightsProtection,
-    daybreak: Daybreak,
     tyrsDeliverance: TyrsDeliverance,
     boundlessSalvation: BoundlessSalvation,
+    holyShock: HolyShock,
+    beaconOfVirtue: BeaconOfVirtue,
+    overflowingLight: OverflowingLight,
 
     // HolyPower
     holyPowerTracker: HolyPowerTracker,
     holyPowerDetails: HolyPowerDetails,
     holyPowerPerMinute: HolyPowerPerMinute,
+    holyPowerGraph: HolyPowerGraph,
 
     // Mana Tab
     spellManaCost: SpellManaCost,
@@ -141,8 +133,8 @@ class CombatLogParser extends CoreCombatLogParser {
     hpmDetails: HealingEfficiencyDetails,
 
     // Tier Sets
-    t30TierSet: T30HpalTierSet,
   };
+  static guide = Guide;
 }
 
 export default CombatLogParser;

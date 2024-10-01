@@ -11,6 +11,12 @@ import { STARFALL_BASE_COST, STARSURGE_BASE_COST } from '../../constants';
 
 const AFFECTED_CAST = [SPELLS.STARSURGE_MOONKIN, SPELLS.STARFALL_CAST];
 
+/**
+ * **Starweaver**
+ * Spec Talent
+ *
+ * Starsurge has a 20% chance to make Starfall free. Starfall has a 40% chance to make Starsurge free.
+ */
 class Starweaver extends Analyzer {
   freeAbilities: { [key: number]: number } = {};
   savedAP = 0;

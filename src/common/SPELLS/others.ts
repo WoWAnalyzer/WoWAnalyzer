@@ -478,6 +478,11 @@ const spells = {
     name: 'Darkmoon Firework',
     icon: 'inv_misc_missilesmallcluster_green',
   },
+  BLOOD_ELF_ILLUSION: {
+    id: 160331,
+    name: 'Blood Elf Illusion',
+    icon: 'inv_mask_01.jpg',
+  },
   BIG_RED_RAYS: {
     id: 229837,
     name: 'Big Red Rays',
@@ -489,6 +494,17 @@ const spells = {
     id: 317859,
     name: 'Draconic Empowerment',
     icon: 'inv_misc_head_dragon_black',
+  },
+
+  WINDFURY_EXTRA_ATTACK_MH: {
+    id: 327941,
+    name: 'Windfury Totem',
+    icon: 'spell_nature_windfury',
+  },
+  WINDFURY_EXTRA_ATTACK_OH: {
+    id: 395496,
+    name: 'Windfury Totem',
+    icon: 'spell_nature_windfury',
   },
 } satisfies Record<string, Spell>;
 

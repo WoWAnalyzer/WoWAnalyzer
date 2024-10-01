@@ -1,4 +1,9 @@
-import { AnkhNormalizer, AstralShift, StaticCharge } from 'analysis/retail/shaman/shared';
+import {
+  AnkhNormalizer,
+  AstralShift,
+  ElementalBlast,
+  StaticCharge,
+} from 'analysis/retail/shaman/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
 import FlameShock from './modules/spells/FlameShock';
@@ -6,10 +11,8 @@ import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
 import Checklist from './modules/checklist/Module';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import WindfuryTotem from './modules/talents/WindfuryTotem';
 import ForcefulWinds from './modules/talents/ForcefulWinds';
 import Stormflurry from './modules/talents/Stormflurry';
-import ElementalBlast from './modules/talents/ElementalBlast';
 import HotHand from './modules/talents/HotHand';
 import SpiritWolf from 'analysis/retail/shaman/shared/talents/SpiritWolf';
 import EarthShield from 'analysis/retail/shaman/shared/talents/EarthShield';
@@ -30,7 +33,6 @@ import StormBlast from './modules/talents/Stormblast';
 import TempestStrikes from './modules/talents/TempestStrikes';
 import WitchDoctorsAncestry from './modules/talents/WitchDoctorsAncestry';
 import LegacyOfTheFrostWitch from './modules/talents/LegacyOfTheFrostWitch';
-import * as Tiers from './modules/dragonflight/TierSets';
 import { EventOrderNormalizer } from './modules/normalizers/EventOrderNormalizer';
 import SpellUsable from './modules/core/SpellUsable';
 import ManaSpring from '../shared/talents/ManaSpring';
@@ -38,20 +40,25 @@ import MaelstromWeaponCastNormalizer from './modules/normalizers/MaelstromWeapon
 import EventLinkNormalizer from './modules/normalizers/EventLinkNormalizer';
 import ThorimsInvocation from './modules/talents/ThorimsInvocation';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
-import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
 import AshenCatalyst from './modules/talents/AshenCatalyst';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import Ascendance from './modules/talents/Ascendance';
 import SplinteredElements from '../shared/talents/SplinteredElements';
 import SwirlingMaelstrom from './modules/talents/SwirlingMaelstrom';
-import MaelstromWeaponBuffNormalizer from './modules/normalizers/MaelstromWeaponBuffNormalizer';
-import MaelstromWeaponGeneratorLinkNormalizer from './modules/normalizers/MaelstromWeaponGeneratorLinkNormalizer';
+import MaelstromWeaponResourceNormalizer from './modules/normalizers/MaelstromWeaponResourceNormalizer';
 import {
   MaelstromWeaponDetails,
   MaelstromWeaponGraph,
   MaelstromWeaponSpenders,
   MaelstromWeaponTracker,
 } from './modules/resourcetracker';
+import MaestromRefreshBuffNormalizer from './modules/normalizers/MaelstromRefreshBuffNormalizer';
+import ElementalBlastGuide from './modules/talents/ElementalBlastGuide';
+import StaticAccumulation from './modules/talents/StaticAccumulation';
+import Tempest from '../shared/hero/stormbringer/Tempest';
+import { StormbringerTab } from '../shared/hero/stormbringer/StormbringerTab';
+import StormbringerEventLinkNormalizer from '../shared/hero/stormbringer/normalizers/StormbringerEventLinkNormalizer';
+import StormbringerEventOrderNormalizer from '../shared/hero/stormbringer/normalizers/StormbringerEventOrderNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -89,9 +96,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Enhancement Core Talents
     ascendance: Ascendance,
-    windfuryTotem: WindfuryTotem,
     forcefulWinds: ForcefulWinds,
     elementalBlast: ElementalBlast,
+    elementalBlastGuide: ElementalBlastGuide,
     stormflurry: Stormflurry,
     tempestStrikes: TempestStrikes,
     hotHand: HotHand,
@@ -109,20 +116,20 @@ class CombatLogParser extends CoreCombatLogParser {
     ashenCatalyst: AshenCatalyst,
     splinteredElements: SplinteredElements,
     swirlingMaelstrom: SwirlingMaelstrom,
+    staticAccumulation: StaticAccumulation,
 
-    // Tier
-    tier30: Tiers.T30,
-    tier31: Tiers.Season3And4Tier,
-
-    // Items
-    callToDominance: CallToDominance,
+    // hero talents
+    stormbringerTab: StormbringerTab,
+    tempest: Tempest,
+    stormbringerEventOrderNormalizer: StormbringerEventOrderNormalizer,
+    stormbringerEventLinkNormalizer: StormbringerEventLinkNormalizer,
 
     // Normalizers
-    maelstromWeaponBuffNormalizer: MaelstromWeaponBuffNormalizer,
-    maelstromWeaponGeneratorLinkNormalizer: MaelstromWeaponGeneratorLinkNormalizer,
-    eventLinkNormalizer: EventLinkNormalizer,
-    eventOrderNormalizer: EventOrderNormalizer,
-    maelstromWeaponCastNormalizer: MaelstromWeaponCastNormalizer,
+    maestromRefreshBuffNormalizer: MaestromRefreshBuffNormalizer, // removes refresh events following applybuff and applybuffstack
+    eventOrderNormalizer: EventOrderNormalizer, // correct events occur out of order
+    maelstromWeaponCastNormalizer: MaelstromWeaponCastNormalizer, // links
+    eventLinkNormalizer: EventLinkNormalizer, // links various maelstrom casts to damage events, and spells made instant via maelstrom weapon
+    maelstromWeaponResourceNormalizer: MaelstromWeaponResourceNormalizer, // converts maelstrom weapon buff stacks into resourchange events and ClassResource costs
 
     aplCheck: AplCheck,
   };

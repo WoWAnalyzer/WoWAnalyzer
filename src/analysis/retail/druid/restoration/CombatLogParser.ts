@@ -60,6 +60,8 @@ import WakingDream from 'analysis/retail/druid/restoration/modules/spells/Waking
 import GroveGuardians from 'analysis/retail/druid/restoration/modules/spells/GroveGuardians';
 import CenariusGuidanceTol from 'analysis/retail/druid/restoration/modules/spells/CenariusGuidanceTol';
 import ControlOfTheDream from 'analysis/retail/druid/shared/spells/ControlOfTheDream';
+import Germination from 'analysis/retail/druid/restoration/modules/spells/Germination';
+import ThrivingVegetation from 'analysis/retail/druid/restoration/modules/spells/ThrivingVegetation';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -126,6 +128,8 @@ class CombatLogParser extends CoreCombatLogParser {
     groveGuardians: GroveGuardians,
     cenariusGuidanceTol: CenariusGuidanceTol,
     controlOfTheDream: ControlOfTheDream,
+    germination: Germination,
+    thrivingVegetation: ThrivingVegetation,
 
     // Mana Tab
     manaTracker: ManaTracker,

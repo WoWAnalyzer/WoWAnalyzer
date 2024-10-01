@@ -1,28 +1,19 @@
-import { bdfreeman1421 } from 'CONTRIBUTORS';
+import { emallson } from 'CONTRIBUTORS';
 import GameBranch from 'game/GameBranch';
 import SPECS from 'game/SPECS';
 import Config, { SupportLevel } from 'parser/Config';
 
 import CHANGELOG from './CHANGELOG';
-import AlertInfo from 'interface/AlertInfo';
 
 const config: Config = {
   // The people that have contributed to this spec recently. People don't have to sign up to be long-time maintainers to be included in this list. If someone built a large part of the spec or contributed something recently to that spec, they can be added to the contributors list. If someone goes MIA, they may be removed after major changes or during a new expansion.
-  contributors: [bdfreeman1421],
+  contributors: [emallson],
   branch: GameBranch.Classic,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: null,
-  supportLevel: SupportLevel.Unmaintained,
-  // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
-  // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
-  description: <>Classic Cataclysm support is still a Work in Progress.</>,
-  pages: {
-    overview: {
-      notes: <AlertInfo>Classic Cataclysm support is still a Work in Progress.</AlertInfo>,
-    },
-  },
+  patchCompatibility: '4.4.0',
+  supportLevel: SupportLevel.Foundation,
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/k3FWbxt2BXjrwVfH/59-Normal+General+Vezax+-+Kill+(6:18)/Superjesse',
+  exampleReport: '/report/ADPqJfVCdQ7wxXH2/27-Heroic+Chimaeron+-+Kill+(3:25)/Marsey/standard',
 
   timeline: { separateCastBars: [[]] },
 

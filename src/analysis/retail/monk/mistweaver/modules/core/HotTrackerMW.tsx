@@ -52,7 +52,7 @@ class HotTrackerMW extends HotTracker {
     return (
       filteredHistory.filter((hot) =>
         hot.attributions.filter((attr) => attr.name === attribution),
-      )[0].attributions[0].healing / filteredHistory.length
+      )[0]?.attributions[0].healing / filteredHistory.length
     );
   }
 
@@ -145,12 +145,6 @@ class HotTrackerMW extends HotTracker {
   fromDancingMists(hot: Tracker): boolean {
     return hot.attributions.some(function (attr) {
       return attr.name === ATTRIBUTION_STRINGS.DANCING_MIST_RENEWING_MIST;
-    });
-  }
-
-  fromYuLon(hot: Tracker): boolean {
-    return hot.attributions.some(function (attr) {
-      return attr.name === ATTRIBUTION_STRINGS.YULON;
     });
   }
 

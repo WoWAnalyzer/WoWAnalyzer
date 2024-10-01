@@ -15,6 +15,7 @@ const SpecListItem = ({
   contributors,
   patchCompatibility,
   supportLevel,
+  parser,
 }: Config) => {
   const { i18n } = useLingui();
 
@@ -23,7 +24,9 @@ const SpecListItem = ({
   const displayName = [i18nSpecName, i18nClassName].filter(isDefined).join(' ');
 
   const className = classColor(spec);
-  const Component = patchCompatibility && exampleReport ? Link : 'div';
+  const isUnmaintained =
+    supportLevel === SupportLevel.Unmaintained || patchCompatibility === null || !parser;
+  const Component = !isUnmaintained && exampleReport ? Link : 'div';
 
   const maintainers = (
     <ReadableListing>
@@ -33,7 +36,6 @@ const SpecListItem = ({
     </ReadableListing>
   );
 
-  const isUnmaintained = supportLevel === SupportLevel.Unmaintained || patchCompatibility === null;
   let supportDescription;
   let maintainerDescription;
   if (isUnmaintained) {
@@ -60,7 +62,7 @@ const SpecListItem = ({
         </em>
       </small>
     );
-  } else if ((supportLevel = SupportLevel.MaintainedPartial)) {
+  } else if (supportLevel === SupportLevel.MaintainedPartial) {
     supportDescription = (
       <Trans id="interface.specListItem.partialPatchCompatability">
         Partial support for patch {patchCompatibility}
@@ -74,6 +76,9 @@ const SpecListItem = ({
       <Trans id="interface.specListItem.patchCompatability">
         Accurate for patch {patchCompatibility}
       </Trans>
+    );
+    maintainerDescription = (
+      <Trans id="interface.specListItem.maintainer">Maintained by: {maintainers}</Trans>
     );
   }
 

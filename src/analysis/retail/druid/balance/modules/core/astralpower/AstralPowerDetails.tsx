@@ -10,9 +10,7 @@ import AstralPowerTracker from 'analysis/retail/druid/balance/modules/core/astra
 import { ASTRAL_POWER_SCALE_FACTOR } from '../../../constants';
 
 /**
- * Deals with tracking Astral Power overcap issues.
- *
- * TODO how should this info be displayed Dragonflight?
+ * Tracks Astral Power usage / overcap.
  */
 class AstralPowerDetails extends Analyzer {
   static dependencies = {
@@ -38,7 +36,7 @@ class AstralPowerDetails extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(1)}
         size="small"
-        tooltip={`${this.wasted} out of ${this.total} Astral Power wasted.`}
+        tooltip={`${this.wasted * ASTRAL_POWER_SCALE_FACTOR} out of ${this.total * ASTRAL_POWER_SCALE_FACTOR} Astral Power wasted.`}
       >
         <BoringResourceValue
           resource={RESOURCE_TYPES.ASTRAL_POWER}

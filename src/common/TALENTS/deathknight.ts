@@ -261,7 +261,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [96222],
     definitionIds: [{ id: 101224, specId: 251 }],
-    runicPowerCostPerSecond: 18,
+    runicPowerCostPerSecond: 17,
   },
   BRITTLE_TALENT: {
     id: 374504,
@@ -1275,6 +1275,8 @@ const talents = {
     maxRanks: 1,
     entryIds: [96287],
     definitionIds: [{ id: 101289, specId: 252 }],
+    runesCost: 1,
+    runicPowerCost: -10,
   },
   RAISE_DEAD_SHARED_TALENT: {
     id: 46585,

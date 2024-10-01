@@ -36,6 +36,16 @@ const PETS = {
     duration: 15000,
     summonAbility: TALENTS.SUMMON_VILEFIEND_TALENT,
   },
+  CHARHOUND: {
+    guid: 226269,
+    duration: 15000,
+    summonAbility: SPELLS.CHARHOUND_SUMMON,
+  },
+  GLOOMHOUND: {
+    guid: 226268,
+    duration: 15000,
+    summonAbility: SPELLS.GLOOMHOUND_SUMMON,
+  },
   GRIMOIRE_FELGUARD: {
     guid: 17252,
     duration: 15000,
@@ -111,6 +121,21 @@ const PETS = {
     duration: INNER_DEMON_NETHER_PORTAL_DURATION,
     summonAbility: SPELLS.PRINCE_MALCHEZAAR_SUMMON,
     isRandom: true,
+  },
+  MOTHER_OF_CHAOS: {
+    guid: 428565,
+    duration: 8000,
+    summonAbility: SPELLS.MOTHER_OF_CHAOS_SUMMON,
+  },
+  PIT_LORD: {
+    guid: 434400,
+    duration: 8000,
+    summonAbility: SPELLS.PIT_LORD_SUMMON,
+  },
+  OVERLORD: {
+    guid: 428571,
+    duration: 8000,
+    summonAbility: SPELLS.OVERLORD_SUMMON,
   },
 };
 

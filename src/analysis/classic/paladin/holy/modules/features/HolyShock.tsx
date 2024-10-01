@@ -8,9 +8,7 @@ class HolyShock extends CoreAlwaysBeCastingHealing {
   static HEALING_ABILITIES_ON_GCD: number[] = [
     // List of healing spells on GCD
     SPELLS.FLASH_OF_LIGHT.id,
-    ...SPELLS.FLASH_OF_LIGHT.lowRanks,
     SPELLS.HOLY_LIGHT.id,
-    ...SPELLS.HOLY_LIGHT.lowRanks,
   ];
 
   suggestions(when: When) {

@@ -21,6 +21,9 @@ import {
   DREAM_BREATH_CAST,
   DREAM_BREATH_FROM_STASIS,
   STASIS_BUFFER,
+  SPIRITBLOOM_CAST,
+  SPIRITBLOOM_HOT_DURATION,
+  SPIRITBLOOM_FROM_STASIS,
 } from './constants';
 
 export const GREEN_EVENT_LINKS: EventLink[] = [
@@ -84,12 +87,13 @@ export const GREEN_EVENT_LINKS: EventLink[] = [
   },
   {
     linkRelation: DREAM_BREATH,
-    linkingEventId: [TALENTS_EVOKER.DREAM_BREATH_TALENT.id, SPELLS.DREAM_BREATH_ECHO.id],
+    linkingEventId: [SPELLS.DREAM_BREATH.id, SPELLS.DREAM_BREATH_ECHO.id],
     linkingEventType: EventType.Heal,
-    referencedEventId: [TALENTS_EVOKER.DREAM_BREATH_TALENT.id, SPELLS.DREAM_BREATH_ECHO.id],
+    referencedEventId: [SPELLS.DREAM_BREATH.id, SPELLS.DREAM_BREATH_ECHO.id],
     referencedEventType: [EventType.RefreshBuff, EventType.ApplyBuff],
     reverseLinkRelation: DREAM_BREATH,
     backwardBufferMs: MAX_DREAM_BREATH_DURATION,
+    anyTarget: true,
     additionalCondition(linkingEvent, referencedEvent) {
       const linkHealEvent = linkingEvent as HealEvent;
       const refBuffEvent =
@@ -104,21 +108,52 @@ export const GREEN_EVENT_LINKS: EventLink[] = [
   },
   {
     linkRelation: DREAM_BREATH_CAST,
-    linkingEventId: [SPELLS.DREAM_BREATH.id, SPELLS.DREAM_BREATH_ECHO.id],
+    linkingEventId: [
+      SPELLS.DREAM_BREATH.id,
+      SPELLS.DREAM_BREATH_FONT.id,
+      SPELLS.DREAM_BREATH_ECHO.id,
+    ],
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     referencedEventId: [TALENTS_EVOKER.DREAM_BREATH_TALENT.id, SPELLS.DREAM_BREATH_FONT.id],
     referencedEventType: EventType.EmpowerEnd,
+    reverseLinkRelation: DREAM_BREATH_CAST,
     backwardBufferMs: CAST_BUFFER_MS,
     maximumLinks: 1,
     anyTarget: true,
   },
   {
     linkRelation: DREAM_BREATH_FROM_STASIS,
-    linkingEventId: [SPELLS.DREAM_BREATH.id, SPELLS.DREAM_BREATH_ECHO.id],
+    linkingEventId: [
+      SPELLS.DREAM_BREATH.id,
+      SPELLS.DREAM_BREATH_FONT.id,
+      SPELLS.DREAM_BREATH_ECHO.id,
+    ],
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     referencedEventId: SPELLS.STASIS_BUFF.id,
     referencedEventType: EventType.RemoveBuff,
     backwardBufferMs: STASIS_BUFFER,
+    maximumLinks: 1,
+    anyTarget: true,
+  },
+  {
+    linkRelation: SPIRITBLOOM_CAST,
+    linkingEventId: [SPELLS.SPIRITBLOOM.id, SPELLS.SPIRITBLOOM_FONT.id, SPELLS.SPIRITBLOOM_HOT.id],
+    linkingEventType: EventType.Heal,
+    referencedEventId: [SPELLS.SPIRITBLOOM.id, SPELLS.SPIRITBLOOM_FONT.id],
+    referencedEventType: [EventType.EmpowerEnd, EventType.Cast],
+    reverseLinkRelation: SPIRITBLOOM_CAST,
+    backwardBufferMs: SPIRITBLOOM_HOT_DURATION,
+    forwardBufferMs: CAST_BUFFER_MS,
+    maximumLinks: 1,
+  },
+  {
+    linkRelation: SPIRITBLOOM_FROM_STASIS,
+    reverseLinkRelation: SPIRITBLOOM_FROM_STASIS,
+    linkingEventId: [SPELLS.SPIRITBLOOM.id, SPELLS.SPIRITBLOOM_FONT.id, SPELLS.SPIRITBLOOM_HOT.id],
+    linkingEventType: EventType.Heal,
+    referencedEventId: SPELLS.STASIS_BUFF.id,
+    referencedEventType: EventType.RemoveBuff,
+    backwardBufferMs: STASIS_BUFFER + SPIRITBLOOM_HOT_DURATION,
     maximumLinks: 1,
     anyTarget: true,
   },

@@ -11,7 +11,11 @@ import { explanationAndDataSubsection } from 'interface/guide/components/Explana
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
-import { GUIDE_EXPLANATION_PERCENT_WIDTH, ON_CAST_BUFF_REMOVAL_GRACE_MS } from '../../constants';
+import {
+  GUIDE_EXPLANATION_PERCENT_WIDTH,
+  ON_CAST_BUFF_REMOVAL_GRACE_MS,
+  ENABLE_MOTE_CHECKS,
+} from '../../constants';
 
 interface ActiveSpenderWindow {
   timestamp: number;
@@ -20,7 +24,6 @@ interface ActiveSpenderWindow {
 }
 
 interface FinishedSpenderWindow extends ActiveSpenderWindow {
-  elshocksPresent: boolean;
   sopUse: CastEvent;
 }
 
@@ -45,12 +48,6 @@ const WRONG_SOP_THRESHOLD: LTEThreshold = {
   perfect: 0,
   good: 0.1,
   ok: 0.15,
-};
-const MISSING_ELSHOCKS_THRESHOLD: LTEThreshold = {
-  type: 'lte',
-  perfect: 0,
-  good: 0.2,
-  ok: 0.3,
 };
 const MISSING_MOTE_THRESHOLD: LTEThreshold = {
   type: 'lte',
@@ -80,11 +77,14 @@ class SpenderWindow extends Analyzer {
   constructor(options: Options) {
     super(options);
 
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SURGE_OF_POWER_TALENT);
+    if (!this.active) {
+      return;
+    }
+
     if (this.selectedCombatant.hasTalent(TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT)) {
       this.stMSSpender = TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT;
     }
-
-    this.active = this.selectedCombatant.hasTalent(TALENTS.SURGE_OF_POWER_TALENT);
 
     /* There is no point in tracking this at all if the player doesn't have SoP */
     this.addEventListener(
@@ -132,14 +132,8 @@ class SpenderWindow extends Analyzer {
       return;
     }
 
-    const elshocksPresent =
-      this.enemies
-        .getEntity(event)
-        ?.hasBuff(SPELLS.ELECTRIFIED_SHOCKS_DEBUFF.id, event.timestamp) || false;
-
     this.spenderWindows.push({
       ...this.activeSpenderWindow,
-      elshocksPresent,
       sopUse: event,
     });
     this.activeSpenderWindow = null;
@@ -185,9 +179,12 @@ class SpenderWindow extends Analyzer {
           <small>For more information, see the written guides</small>
         </p>
         <p>
-          (<SpellIcon spell={SPELLS.FLAME_SHOCK} />
-          <SpellIcon spell={TALENTS.ELECTRIFIED_SHOCKS_TALENT} /> &rarr;)
-          <SpellIcon spell={TALENTS.LAVA_BURST_TALENT} /> &rarr;
+          {ENABLE_MOTE_CHECKS && (
+            <>
+              <SpellIcon spell={SPELLS.FLAME_SHOCK} />
+              <SpellIcon spell={TALENTS.LAVA_BURST_TALENT} /> &rarr;
+            </>
+          )}
           <SpellIcon spell={this.stMSSpender} /> &rarr;
           <SpellIcon spell={SPELLS.LIGHTNING_BOLT} />
         </p>
@@ -200,8 +197,9 @@ class SpenderWindow extends Analyzer {
       </>
     );
 
-    const hasMote = this.selectedCombatant.hasTalent(TALENTS.MASTER_OF_THE_ELEMENTS_TALENT);
-    const hasElshocks = this.selectedCombatant.hasTalent(TALENTS.ELECTRIFIED_SHOCKS_TALENT);
+    const hasMote = this.selectedCombatant.hasTalent(
+      TALENTS.MASTER_OF_THE_ELEMENTS_ELEMENTAL_TALENT,
+    );
 
     type WindowBreakdown = {
       perfect: FinishedSpenderWindow[];
@@ -226,17 +224,12 @@ class SpenderWindow extends Analyzer {
         perfect = false;
       }
 
-      if (hasElshocks && !w.elshocksPresent) {
-        windowBreakdown.missingElshocks.push(w);
-        perfect = false;
-      }
-
-      if (hasMote && !w.motePresent) {
+      if (ENABLE_MOTE_CHECKS && hasMote && !w.motePresent) {
         windowBreakdown.missingMote.push(w);
         perfect = false;
       }
 
-      if (!w.flameshockPresent) {
+      if (ENABLE_MOTE_CHECKS && !w.flameshockPresent) {
         windowBreakdown.missingFlameshock.push(w);
         perfect = false;
       }
@@ -272,30 +265,24 @@ class SpenderWindow extends Analyzer {
               </span>
             )),
         )}
-        {hasElshocks &&
-          this.spenderWindowsRow(
-            windowBreakdown.missingElshocks,
-            <>
-              <SpellLink spell={TALENTS.ELECTRIFIED_SHOCKS_TALENT} /> missing:{' '}
-            </>,
-            MISSING_ELSHOCKS_THRESHOLD,
-          )}
-        {hasMote &&
+        {ENABLE_MOTE_CHECKS &&
+          hasMote &&
           this.spenderWindowsRow(
             windowBreakdown.missingMote,
             <>
               <SpellLink spell={this.stMSSpender} /> cast without{' '}
-              <SpellLink spell={TALENTS.MASTER_OF_THE_ELEMENTS_TALENT} />:{' '}
+              <SpellLink spell={TALENTS.MASTER_OF_THE_ELEMENTS_ELEMENTAL_TALENT} />:{' '}
             </>,
             MISSING_MOTE_THRESHOLD,
           )}
-        {this.spenderWindowsRow(
-          windowBreakdown.missingFlameshock,
-          <>
-            <SpellLink spell={SPELLS.FLAME_SHOCK} /> missing:{' '}
-          </>,
-          MISSING_FLAMESHOCK_THRESHOLD,
-        )}
+        {ENABLE_MOTE_CHECKS &&
+          this.spenderWindowsRow(
+            windowBreakdown.missingFlameshock,
+            <>
+              <SpellLink spell={SPELLS.FLAME_SHOCK} /> missing:{' '}
+            </>,
+            MISSING_FLAMESHOCK_THRESHOLD,
+          )}
       </div>
     );
 

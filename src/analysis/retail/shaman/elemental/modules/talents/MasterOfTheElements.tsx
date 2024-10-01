@@ -10,13 +10,14 @@ import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { addEnhancedCastReason } from 'parser/core/EventMetaLib';
+import { ENABLE_MOTE_CHECKS } from '../../constants';
 
 const MASTER_OF_THE_ELEMENTS = {
-  INCREASE: 0.2,
+  INCREASE: 0.15,
   DURATION: 15000,
   WINDOW_DURATION: 500,
   AFFECTED_DAMAGE: [
-    TALENTS.ICEFURY_TALENT,
+    SPELLS.ICEFURY,
     SPELLS.ICEFURY_OVERLOAD,
     TALENTS.FROST_SHOCK_TALENT,
     SPELLS.LIGHTNING_BOLT,
@@ -28,8 +29,9 @@ const MASTER_OF_THE_ELEMENTS = {
     TALENTS.EARTH_SHOCK_TALENT,
   ],
   AFFECTED_CASTS: [
-    TALENTS.EARTHQUAKE_TALENT,
-    TALENTS.ICEFURY_TALENT,
+    TALENTS.EARTHQUAKE_1_ELEMENTAL_TALENT,
+    TALENTS.EARTHQUAKE_2_ELEMENTAL_TALENT,
+    SPELLS.ICEFURY,
     TALENTS.FROST_SHOCK_TALENT,
     TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT,
     TALENTS.CHAIN_LIGHTNING_TALENT,
@@ -39,7 +41,8 @@ const MASTER_OF_THE_ELEMENTS = {
   TALENTS: [
     TALENTS.ICEFURY_TALENT.id,
     TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id,
-    TALENTS.EARTHQUAKE_TALENT.id,
+    TALENTS.EARTHQUAKE_1_ELEMENTAL_TALENT.id,
+    TALENTS.EARTHQUAKE_2_ELEMENTAL_TALENT.id,
     TALENTS.ICEFURY_TALENT.id,
     TALENTS.FROST_SHOCK_TALENT.id,
     TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id,
@@ -49,14 +52,14 @@ const MASTER_OF_THE_ELEMENTS = {
 };
 
 class MasterOfTheElements extends Analyzer {
-  moteBuffedAbilities: { [key: number]: number } = {};
+  moteBuffedAbilities = new Map<number, number>();
   moteActivationTimestamp: number | null = null;
   moteConsumptionTimestamp: number | null = null;
   damageGained = 0;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.MASTER_OF_THE_ELEMENTS_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.MASTER_OF_THE_ELEMENTS_ELEMENTAL_TALENT);
     if (!this.active) {
       return;
     }
@@ -66,7 +69,7 @@ class MasterOfTheElements extends Analyzer {
         (isTalent(spell) && this.selectedCombatant.hasTalent(spell)) ||
         !MASTER_OF_THE_ELEMENTS.TALENTS.includes(spell.id)
       ) {
-        this.moteBuffedAbilities[spell.id] = 0;
+        this.moteBuffedAbilities.set(spell.id, 0);
       }
     });
 
@@ -85,14 +88,26 @@ class MasterOfTheElements extends Analyzer {
   }
 
   _onCast(event: CastEvent) {
-    if (this.moteActivationTimestamp === null) {
+    if (
+      this.moteActivationTimestamp === null ||
+      !this.moteBuffedAbilities.has(event.ability.guid)
+    ) {
       //the buff is a clusterfuck so we just track it manually
       return;
     }
     this.moteConsumptionTimestamp = event.timestamp;
     this.moteActivationTimestamp = null;
-    addEnhancedCastReason(event);
-    this.moteBuffedAbilities[event.ability.guid] += 1;
+    ENABLE_MOTE_CHECKS &&
+      addEnhancedCastReason(
+        event,
+        <>
+          Cast with <SpellLink spell={TALENTS.MASTER_OF_THE_ELEMENTS_ELEMENTAL_TALENT} />
+        </>,
+      );
+    this.moteBuffedAbilities.set(
+      event.ability.guid,
+      this.moteBuffedAbilities.get(event.ability.guid)! + 1,
+    );
   }
 
   _onLvBCast(event: CastEvent) {
@@ -127,20 +142,22 @@ class MasterOfTheElements extends Analyzer {
                 </tr>
               </thead>
               <tbody>
-                {Object.keys(this.moteBuffedAbilities).map((e) => (
-                  <tr key={e}>
-                    <th>
-                      <SpellLink spell={Number(e)} />
-                    </th>
-                    <td>{this.moteBuffedAbilities[Number(e)]}</td>
-                  </tr>
-                ))}
+                {[...this.moteBuffedAbilities.entries()]
+                  .filter(([_, casts]) => casts > 0)
+                  .map(([spellId, casts]) => (
+                    <tr key={spellId}>
+                      <td>
+                        <SpellLink spell={spellId} />
+                      </td>
+                      <td>{casts}</td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </>
         }
       >
-        <TalentSpellText talent={TALENTS.MASTER_OF_THE_ELEMENTS_TALENT}>
+        <TalentSpellText talent={TALENTS.MASTER_OF_THE_ELEMENTS_ELEMENTAL_TALENT}>
           <>
             <ItemDamageDone amount={this.damageGained} />
           </>

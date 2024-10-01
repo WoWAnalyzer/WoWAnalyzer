@@ -13,11 +13,19 @@ import {
   getReversionHealing,
   getEchoAplication,
   getHealEvents,
-  isCastFromBurst,
 } from '../../normalizers/EventLinking/helpers';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import { TITANS_GIFT_INC } from '../../normalizers/EventLinking/constants';
 import { formatPercentage } from 'common/format';
+import { isCastFromEB } from 'analysis/retail/evoker/shared/modules/normalizers/EssenceBurstCastLinkNormalizer';
+
+/**
+ * CURRENTLY DISABLED
+ * Lifebind healing is not implemented. The amount transfered by lifebind gets increased with the strength of the echo used to apply it so Titans Gift echoes do stronger lifebind,
+ * this is severly underreporting the strength of the talent for echo builds that lean heavily into lifebind at the moment.
+ * There also used to be a bug where Emerald Blossoms caused by Field of Dreams with Essence Burst active would benefit from Titans Gift, the bug was reported as fixed but needs
+ * testing. Emerald Blossoms released from a Stasis with Essence Burst active should also benefit from the talent but this isn't implemented either.
+ */
 
 class TitansGift extends Analyzer {
   //Blossom
@@ -92,7 +100,7 @@ class TitansGift extends Analyzer {
   //Track blossom healing added
   emeraldBlossomHeal(event: HealEvent) {
     const blossomCast = getBlossomCast(event);
-    if (blossomCast && isCastFromBurst(blossomCast)) {
+    if (blossomCast && isCastFromEB(blossomCast)) {
       this.buffedBlossoms += 1;
       const blossomHeals = getHealEvents(event);
       for (const blossomHeal of blossomHeals) {
@@ -104,7 +112,7 @@ class TitansGift extends Analyzer {
   //Track echo healing added
   echoHeal(event: HealEvent | ApplyBuffEvent | RefreshBuffEvent) {
     const echoApplication = getEchoAplication(event);
-    if (echoApplication && isCastFromBurst(echoApplication)) {
+    if (echoApplication && isCastFromEB(echoApplication)) {
       this.buffedEchoes += 1;
       if (event.type === EventType.Heal) {
         this.healingAddedToEcho += calculateEffectiveHealing(event, TITANS_GIFT_INC);

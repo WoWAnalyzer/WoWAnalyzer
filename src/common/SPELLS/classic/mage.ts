@@ -16,11 +16,6 @@ const spells = {
     name: 'Arcane Blast',
     icon: 'spell_arcane_blast.jpg',
   },
-  ARCANE_BLAST_DEBUFF: {
-    id: 36032,
-    name: 'Arcane Blast',
-    icon: 'spell_arcane_blast.jpg',
-  },
   ARCANE_BRILLIANCE: {
     id: 1459,
     name: 'Arcane Brilliance',
@@ -36,11 +31,6 @@ const spells = {
     name: 'Arcane Missiles',
     icon: 'spell_nature_starfall.jpg',
   },
-  ARCANE_MISSILES_CHANNELED: {
-    id: 5143,
-    name: 'Arcane Missiles',
-    icon: 'spell_nature_starfall.jpg',
-  },
   BLINK: {
     id: 1953,
     name: 'Blink',
@@ -51,13 +41,18 @@ const spells = {
     name: 'Blizzard',
     icon: 'spell_frost_icestorm.jpg',
   },
+  BLIZZARD_TICK: {
+    id: 42208,
+    name: 'Blizzard',
+    icon: 'spell_frost_icestorm.jpg',
+  },
   CONE_OF_COLD: {
     id: 120,
     name: 'Cone of Cold',
     icon: 'spell_frost_glacier.jpg',
   },
   CONJURE_MANA_GEM: {
-    id: 36799,
+    id: 759,
     name: 'Conjure Mana Gem',
     icon: 'inv_misc_gem_sapphire_02.jpg',
   },
@@ -310,6 +305,11 @@ const spells = {
     name: 'Pyroblast',
     icon: 'spell_fire_fireball02.jpg',
   },
+  PYROMANIAC: {
+    id: 83582,
+    name: 'Pyromaniac',
+    icon: 'spell_fire_burnout.jpg',
+  },
 
   // Frost
   COLD_SNAP: {
@@ -328,7 +328,7 @@ const spells = {
     icon: 'ability_mage_deepfreeze.jpg',
   },
   FROSTFIRE_ORB: {
-    id: 84714,
+    id: 92283,
     name: 'Frostfire Orb',
     icon: 'spell_firefrost-orb.jpg',
   },

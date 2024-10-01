@@ -11,6 +11,7 @@ import { combineQualitativePerformances } from 'common/combineQualitativePerform
 import ContextualSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
 import { failedEbonMightExtension } from '../normalizers/CastLinkNormalizer';
 import '../Styling.scss';
+import { BREATH_OF_EONS_SPELLS } from '../../constants';
 
 /**
  * Sands of time is an innate ability for Augmentation.
@@ -31,7 +32,11 @@ class SandsOfTime extends Analyzer {
   private extendAttempts: PossibleExtends[] = [];
 
   ebonMightActive: boolean = false;
-  trackedSpells = [TALENTS.ERUPTION_TALENT, TALENTS.BREATH_OF_EONS_TALENT];
+  trackedSpells = [
+    TALENTS.ERUPTION_TALENT,
+    ...BREATH_OF_EONS_SPELLS,
+    SPELLS.BREATH_OF_EONS_SCALECOMMANDER,
+  ];
   empowers = [SPELLS.FIRE_BREATH, SPELLS.FIRE_BREATH_FONT, SPELLS.UPHEAVAL, SPELLS.UPHEAVAL_FONT];
   constructor(options: Options) {
     super(options);

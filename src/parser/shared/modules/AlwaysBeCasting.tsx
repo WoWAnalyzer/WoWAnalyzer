@@ -3,7 +3,7 @@ import { formatPercentage } from 'common/format';
 import { Icon } from 'interface';
 import { Tooltip } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import Events, { EndChannelEvent, EventType, GlobalCooldownEvent } from 'parser/core/Events';
+import Events, { EndChannelEvent, GlobalCooldownEvent } from 'parser/core/Events';
 import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import Haste from 'parser/shared/modules/Haste';
 import Channeling from 'parser/shared/normalizers/Channeling';
@@ -14,6 +14,20 @@ import Abilities from '../../core/modules/Abilities';
 import GlobalCooldown from './GlobalCooldown';
 
 const DEBUG = false;
+
+export interface ActivitySegment {
+  start: number;
+  end: number;
+}
+
+interface ActivityEdge {
+  timestamp: number;
+  /** 1 for activity start, -1 for activity end - see checkAndGenerateActiveTimeSegments */
+  value: 1 | -1;
+  /** flag for if this ability is a healing ability - used to display healing active time vs
+   *  non-healing active time for healers. Non-healers don't need to fill this in */
+  isHealingAbility?: boolean;
+}
 
 class AlwaysBeCasting extends Analyzer {
   static dependencies = {
@@ -27,54 +41,22 @@ class AlwaysBeCasting extends Analyzer {
   protected globalCooldown!: GlobalCooldown;
   protected channeling!: Channeling;
 
-  /**
-   * The amount of milliseconds not spent casting anything or waiting for the GCD.
-   * @type {number}
-   */
-  get totalTimeWasted() {
-    return this.owner.fightDuration - this.activeTime;
-  }
-
-  get downtimePercentage() {
-    return 1 - this.activeTimePercentage;
-  }
-
-  get activeTimePercentage() {
-    return this.activeTime / this.owner.fightDuration;
-  }
-
-  /** Gets active time percentage within a specified time segment.
-   *  This will not work properly unless the current timestamp advances past the end time. */
-  getActiveTimePercentageInWindow(start: number, end: number): number {
-    const windowDuration = end - start;
-    return this.getActiveTimeMillisecondsInWindow(start, end) / windowDuration;
-  }
-
-  /** Gets active time milliseconds within a specified time segment.
-   *  This will not work properly unless the current timestamp advances past the end time. */
-  getActiveTimeMillisecondsInWindow(start: number, end: number): number {
-    let activeTime = 0;
-    for (let i = 0; i < this.activeTimeSegments.length; i += 1) {
-      const seg = this.activeTimeSegments[i];
-      if (seg.end <= start) {
-        continue;
-      } else if (seg.start >= end) {
-        break;
-      }
-      const overlapStart = Math.max(start, seg.start);
-      const overlapEnd = Math.min(end, seg.end);
-      activeTime += Math.max(0, overlapEnd - overlapStart);
-    }
-    return activeTime;
-  }
-
-  activeTime = 0;
-  _lastGlobalCooldownDuration = 0;
-
-  /** Segments of time when the player was active, populated at the same time activeTime is incremented.
-   *  Guaranteed to not overlap and to be in chronological order,
-   *  but segments may not exactly correspond to a cast or GCD */
-  activeTimeSegments: { start: number; end: number }[] = [];
+  /** Times when activity started or stopped. When an active time segment is entered, its start
+   *  time is added with value 1 and its end time with value -1.
+   *  See {@link checkAndGenerateActiveTimeSegments} for more details on the algorithm */
+  private activeTimeEdges: ActivityEdge[] = [];
+  /** Segments when the player was active, in chronological order and non-overlapping.
+   *  Access with {@link activeTimeSegments} to ensure they're fully generated */
+  private workingActiveTimeSegments: ActivitySegment[] | undefined = undefined;
+  /** Segments when the player was casting heals, in chronological order and non-overlapping.
+   *  Access with {@link activeHealingTimeSegments} to ensure they're fully generated */
+  private workingActiveHealingTimeSegments: ActivitySegment[] | undefined = undefined;
+  /** Memoized total active time (ms) */
+  private activeTimeMemo: number | undefined = 0;
+  /** Start time of memoized active segment */
+  private memoStartTime: number | undefined;
+  /** End time of memoized active time segment */
+  private memoEndTime: number | undefined;
 
   constructor(options: Options) {
     super(options);
@@ -84,56 +66,22 @@ class AlwaysBeCasting extends Analyzer {
   }
 
   onGCD(event: GlobalCooldownEvent) {
-    this._lastGlobalCooldownDuration = event.duration;
-    if (event.trigger.prepull) {
-      // Ignore prepull casts for active time since active time should only include casts during the
-      return false;
-    }
-    if (event.trigger.type === EventType.BeginChannel) {
-      // Only add active time for this channel, we do this when the channel is finished and use the highest of the GCD and channel time
-      return false;
-    }
-
-    // check if previous GCD overlaps the beginning of this one. If it does, we don't want to double-count.
-    const lastEntry = this.activeTimeSegments.at(-1);
-    if (lastEntry && lastEntry.end > event.timestamp) {
-      const overlap = lastEntry.end - event.timestamp;
-      this.activeTime -= overlap;
-      lastEntry.end = event.timestamp;
-    }
-
-    this.activeTime += event.duration;
-    this._handleNewUptimeSegment(event.timestamp, event.timestamp + event.duration);
-    DEBUG &&
-      console.log(
-        'Active Time: added ' +
-          event.duration +
-          ' from GCD for ' +
-          event.trigger.ability.name +
-          ' @ ' +
-          this.owner.formatTimestamp(event.trigger.timestamp),
-      );
+    const start = event.timestamp;
+    const end = event.timestamp + event.duration;
+    this.addNewUptime(start, end, this.isHealingAbility(event), `${event.ability.name} GCD`);
     return true;
   }
 
   onEndChannel(event: EndChannelEvent) {
-    // If the channel was shorter than the GCD then use the GCD as active time
-    let amount = event.duration;
-    if (this.globalCooldown.isOnGlobalCooldown(event.ability.guid)) {
-      amount = Math.max(amount, this._lastGlobalCooldownDuration);
-    }
-    this.activeTime += amount;
-    this._handleNewUptimeSegment(event.timestamp - amount, event.timestamp);
-    DEBUG &&
-      console.log(
-        'Active Time: added ' +
-          amount +
-          ' from Channel for ' +
-          event.ability.name +
-          ' @ ' +
-          this.owner.formatTimestamp(event.timestamp),
-      );
+    const start = event.start;
+    const end = event.timestamp;
+    this.addNewUptime(start, end, this.isHealingAbility(event), `${event.ability.name} Channel`);
     return true;
+  }
+
+  /** Override this to differentiate healing vs non-healing abilities */
+  protected isHealingAbility(event: EndChannelEvent | GlobalCooldownEvent): boolean {
+    return false;
   }
 
   onFightEnd() {
@@ -151,16 +99,166 @@ class AlwaysBeCasting extends Analyzer {
       );
   }
 
-  _handleNewUptimeSegment(start: number, end: number) {
-    this.activeTimeSegments.push({ start, end });
+  /** Validates and logs inputs, then adds to activeTimeEdges list */
+  private addNewUptime(start: number, end: number, isHealingAbility: boolean, reason: string) {
+    DEBUG &&
+      console.log(
+        `Active Time: adding from ${reason}: ${this.owner.formatTimestamp(start, 3)} to ${this.owner.formatTimestamp(end, 3)}${isHealingAbility ? ' (heal)' : ''}`,
+      );
+    if (end < start) {
+      console.error(
+        `ActiveTime: tried to add uptime with reason (${reason}) with start (${this.owner.formatTimestamp(start, 3)}) after end (${this.owner.formatTimestamp(end, 3)}). No segment will be added.`,
+      );
+      return;
+    }
+    if (start === end) {
+      // When a spell is made instant from a proc, it often shows as a zero-time channel.
+      // We can safely ignore these when calculating active time, as we'll capture the actual
+      // active time through the GCD.
+      return;
+    }
+
+    this.activeTimeEdges.push({ timestamp: start, value: 1, isHealingAbility });
+    this.activeTimeEdges.push({ timestamp: end, value: -1, isHealingAbility });
+    /*
+     * segements and total active time need to be regenerated after data is added,
+     * but won't actually be computed until queried (hopefully at end of fight)
+     */
+    this.workingActiveTimeSegments = undefined;
+    this.activeTimeMemo = undefined;
   }
+
+  /**
+   * Generates working active time segements if needed. Most likely no one queries the
+   * activeTimeSegments until after processing is complete, in which case this function will be
+   * called only once.
+   *
+   * Algorithm for turning edges into segments:
+   * activeTimeEdges represent when arbitrarily overlapping individual active time segments start
+   * or stop. If we sort them in chronological order and then step through while incrementing the
+   * counter an activity start edge and decrementing the counter on an activity end edge, we can
+   * detect inactivity time (when counter is 0) and activity time (when counter is greater than 0).
+   * Use this to generate the segment's union, which will be non-overlapping and in order.
+   */
+  private checkAndGenerateActiveTimeSegments(
+    workingSegments: ActivitySegment[] | undefined,
+    healingOnly?: boolean,
+  ): ActivitySegment[] {
+    if (workingSegments !== undefined) {
+      return workingSegments;
+    }
+
+    this.activeTimeEdges.sort((a, b) => a.timestamp - b.timestamp);
+
+    let activityCount = 0;
+    let activityStartTimestamp = 0;
+    workingSegments = [];
+    for (const e of this.activeTimeEdges) {
+      if (healingOnly && !e.isHealingAbility) {
+        continue;
+      } else if (activityCount === 0 && e.value === 1) {
+        // upwards edge - activity started
+        activityStartTimestamp = e.timestamp;
+      } else if (activityCount === 1 && e.value === -1) {
+        // downwards edge - activity ended
+        workingSegments.push({ start: activityStartTimestamp, end: e.timestamp });
+      }
+      activityCount += e.value;
+    }
+
+    return workingSegments;
+  }
+
+  /////////////////////////////////////////////////////////////////////////////
+  // PUBLIC GETTERS
+  //
+
+  get activeTimeSegments() {
+    this.workingActiveTimeSegments = this.checkAndGenerateActiveTimeSegments(
+      this.workingActiveTimeSegments,
+    );
+    return this.workingActiveTimeSegments;
+  }
+
+  get activeHealingTimeSegments() {
+    this.workingActiveHealingTimeSegments = this.checkAndGenerateActiveTimeSegments(
+      this.workingActiveHealingTimeSegments,
+      true,
+    );
+    return this.workingActiveHealingTimeSegments;
+  }
+
+  /** The active time (in ms) recorded */
+  get activeTime() {
+    if (
+      this.activeTimeMemo === undefined ||
+      this.owner.fight.start_time !== this.memoStartTime ||
+      this.owner.fight.end_time !== this.memoEndTime
+    ) {
+      this.memoStartTime = this.owner.fight.start_time;
+      this.memoEndTime = this.owner.fight.end_time;
+      this.activeTimeMemo = this.getActiveTimeMillisecondsInWindow(
+        this.memoStartTime,
+        this.memoEndTime,
+      );
+    }
+    return this.activeTimeMemo;
+  }
+
+  /** Percentage of fight time spent active */
+  get activeTimePercentage() {
+    return this.activeTime / this.owner.fightDuration;
+  }
+
+  /** The amount of milliseconds not spent casting anything or waiting for the GCD. */
+  get totalTimeWasted() {
+    return this.owner.fightDuration - this.activeTime;
+  }
+
+  /** Percentage of fight time spent not active */
+  get downtimePercentage() {
+    return 1 - this.activeTimePercentage;
+  }
+
+  /** Gets active time milliseconds within a specified time segment.
+   *  Will only see casts that have happened on or before the current timestamp. */
+  getActiveTimeMillisecondsInWindow(start: number, end: number, healingOnly?: boolean): number {
+    if (start >= end) {
+      console.warn(`ActiveTime: called getActiveTimeMillisecondsInWindow with start
+        (${this.owner.formatTimestamp(start, 3)}) after end
+        (${this.owner.formatTimestamp(end, 3)}). Returning zero.`);
+      return 0;
+    }
+
+    let activeTimeTally = 0;
+    const segments = healingOnly ? this.activeHealingTimeSegments : this.activeTimeSegments;
+    for (const seg of segments) {
+      if (seg.end <= start) {
+        continue;
+      }
+      if (seg.start >= end) {
+        break;
+      }
+      const clampedStart = Math.max(start, seg.start);
+      const clampedEnd = Math.min(end, seg.end);
+      activeTimeTally += clampedEnd - clampedStart;
+    }
+    return activeTimeTally;
+  }
+
+  /** Gets active time percentage within a specified time segment.
+   *  This will not work properly unless the current timestamp advances past the end time. */
+  getActiveTimePercentageInWindow(start: number, end: number): number {
+    const windowDuration = end - start;
+    return this.getActiveTimeMillisecondsInWindow(start, end) / windowDuration;
+  }
+
+  /////////////////////////////////////////////////////////////////////////////
+  // DEFAULT SUGGESTION + STATISTIC STUFF
+  //
 
   showStatistic = true;
   position = STATISTIC_ORDER.CORE(10);
-  static icons = {
-    activeTime: '/img/sword.png',
-    downtime: '/img/afk.png',
-  };
 
   statistic() {
     const boss = this.owner.boss;
@@ -171,7 +269,6 @@ class AlwaysBeCasting extends Analyzer {
       return null;
     }
 
-    const ctor = this.constructor as typeof AlwaysBeCasting;
     return (
       <StatisticBox
         position={this.position}
@@ -212,7 +309,7 @@ class AlwaysBeCasting extends Analyzer {
                   width: `${this.activeTimePercentage * 100}%`,
                 }}
               >
-                <img src={ctor.icons.activeTime} alt="Active time" />
+                <img src="/img/sword.png" alt="Active time" />
               </div>
             </Tooltip>
             <Tooltip
@@ -224,7 +321,7 @@ class AlwaysBeCasting extends Analyzer {
               }
             >
               <div className="remainder DeathKnight-bg">
-                <img src={ctor.icons.downtime} alt="Downtime" />
+                <img src="/img/afk.png" alt="Downtime" />
               </div>
             </Tooltip>
           </div>

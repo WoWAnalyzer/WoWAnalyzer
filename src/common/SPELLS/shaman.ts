@@ -16,10 +16,15 @@ const spells = {
     name: 'Earth Shock Overload',
     icon: 'spell_nature_earthshock',
   },
-  ELECTRIFIED_SHOCKS_DEBUFF: {
-    id: 382089,
-    name: 'Electrified Shocks',
-    icon: 'inv_offhand_1h_artifactdoomhammer_d_02',
+  FUSION_OF_THE_ELEMENTS_NATURE_BUFF: {
+    id: 462841,
+    name: 'Fusion of Elements',
+    icon: 'inv_10_enchanting2_elementalswirl_color1',
+  },
+  FUSION_OF_THE_ELEMENTS_FIRE_BUFF: {
+    id: 462843,
+    name: 'Fusion of Elements',
+    icon: 'inv_10_enchanting2_elementalswirl_color1',
   },
   PURIFY_SPIRIT: {
     id: 77130,
@@ -285,11 +290,6 @@ const spells = {
     name: 'Earthquake',
     icon: 'spell_shaman_earthquake',
   },
-  SUMMON_FIRE_ELEMENTAL: {
-    id: 263819,
-    name: 'Fire Elemental',
-    icon: 'spell_fire_elemental_totem',
-  },
   FLAME_SHOCK: {
     id: 188389,
     name: 'Flame Shock',
@@ -303,6 +303,17 @@ const spells = {
   ICEFURY_OVERLOAD: {
     id: 219271,
     name: 'Icefury Overload',
+    icon: 'spell_frost_iceshard',
+  },
+  ICEFURY: {
+    id: 210714,
+    name: 'Icefury',
+    icon: 'spell_frost_iceshard',
+  },
+  // NYI in game
+  ICEFURY_CASTABLE_BUFF: {
+    id: 462818,
+    name: 'Icefury',
     icon: 'spell_frost_iceshard',
   },
   LAVA_SURGE: {
@@ -371,6 +382,11 @@ const spells = {
     name: 'Fire Elemental Immolate',
     icon: 'spell_fire_immolation',
   },
+  FIRE_ELEMENTAL_BUFF: {
+    id: 188592,
+    name: 'Fire Elemental',
+    icon: 'spell_fire_elemental_totem',
+  },
   // Enhancement Shaman
   FERAL_SPIRIT_LIGHTNING_TIER: {
     id: 363933,
@@ -416,6 +432,11 @@ const spells = {
     id: 392375,
     name: 'Earthen Weapon',
     icon: 'spell_shaman_unleashweapon_earth',
+  },
+  SUMMON_FERAL_SPIRIT: {
+    id: 426516,
+    name: 'Feral Spirit',
+    icon: 'spell_shaman_feralspirit',
   },
   STORMSTRIKE_DAMAGE: {
     id: 32175,
@@ -478,9 +499,14 @@ const spells = {
     icon: 'spell_nature_spiritwolf',
   },
   FERAL_LUNGE: {
+    id: 196884,
+    name: 'Feral Lunge',
+    icon: 'spell_beastmaster_wolf.jpg',
+  },
+  FERAL_LUNGE_NOT_A_CAST: {
     id: 196881,
     name: 'Feral Lunge',
-    icon: 'spell_beastmaster_wolf',
+    icon: 'spell_beastmaster_wolf.jpg',
   },
   FERAL_LUNGE_DAMAGE: {
     id: 215802,
@@ -524,10 +550,10 @@ const spells = {
     name: 'Windfury Attack',
     icon: 'spell_shaman_unleashweapon_wind',
   },
-  WINDFURY_TOTEM_BUFF: {
-    id: 327942,
-    name: 'Windfury Totem',
-    icon: 'spell_nature_windfury',
+  SKYFURY: {
+    id: 462854,
+    name: 'Skyfury',
+    icon: 'achievement_raidprimalist_windelemental',
   },
   ELEMENTAL_HEALING: {
     id: 198249,
@@ -639,7 +665,7 @@ const spells = {
     id: 8004,
     name: 'Healing Surge',
     icon: 'spell_nature_healingway',
-    manaCost: 12000, // enh/ele cost is higher
+    manaCost: 110000, // enh/ele cost is higher
   },
   TIDAL_WAVES_BUFF: {
     id: 53390,
@@ -757,6 +783,16 @@ const spells = {
     name: 'High Tide',
     icon: 'spell_shaman_hightide',
   },
+  NATURES_SWIFTNESS_BUFF: {
+    id: 378081,
+    name: "Nature's Swiftness",
+    icon: 'spell_nature_ravenform',
+  },
+  SPIRITWALKERS_TIDAL_TOTEM_BUFF: {
+    id: 404523,
+    name: "Spiritwalker's Tidal Totem",
+    icon: 'spell_nature_regeneration_02',
+  },
   MANA_TIDE_TOTEM_BUFF: {
     id: 320763,
     name: 'Mana Tide Totem',
@@ -826,6 +862,104 @@ const spells = {
     id: 404551,
     name: 'Mana Spring',
     icon: 'spell_nature_manaregentotem',
+  },
+  STONE_BULWARK_CAST_BUFF: {
+    id: 114893,
+    name: 'Stone Bulwark',
+    icon: 'ability_shaman_stonebulwark',
+  },
+  STONE_BULWARK_PULSE_BUFF: {
+    id: 462844,
+    name: 'Stone Bulwark',
+    icon: 'ability_shaman_stonebulwark',
+  },
+  DOWNPOUR_ABILITY: {
+    id: 462603,
+    name: 'Downpour',
+    icon: 'ability_mage_waterjet',
+  },
+  DOWNPOUR_HEAL: {
+    id: 207778,
+    name: 'Downpour',
+    icon: 'ability_mage_waterjet',
+  },
+  HEALING_RAIN_TOTEMIC: {
+    id: 456366,
+    name: 'Healing Rain',
+    icon: 'spell_nature_giftofthewaterspirit',
+  },
+  SURGING_TOTEM: {
+    id: 444995,
+    name: 'Surging Totem',
+    icon: 'inv_ability_totemicshaman_surgingtotem',
+  },
+  WHIRLING_AIR: {
+    id: 453409,
+    name: 'Whirling Air',
+    icon: 'inv_10_elementalcombinedfoozles_air',
+  },
+  WHIRLING_EARTH: {
+    id: 453406,
+    name: 'Whirling Earth',
+    icon: 'inv_10_elementalcombinedfoozles_earth',
+  },
+  WHIRLING_WATER: {
+    id: 453407,
+    name: 'Whirling Water',
+    icon: 'inv_10_elementalcombinedfoozles_water',
+  },
+  TIDEWATERS_HEAL: {
+    id: 462425,
+    name: 'Tidewaters',
+    icon: 'ability_shawaterelemental_split',
+  },
+  /** HERO TALENTS **/
+  // Stormbringer
+  TEMPEST_CAST: {
+    id: 452201,
+    name: 'Tempest',
+    icon: 'inv_ability_stormcallershaman_tempest',
+  },
+  TEMPEST_BUFF: {
+    id: 454015,
+    name: 'Tempest',
+    icon: 'inv_ability_stormcallershaman_tempest',
+  },
+  AWAKENING_STORMS_DAMAGE: {
+    id: 455130,
+    name: 'Awakening Storms',
+    icon: 'spell_nature_stormreach',
+  },
+  AWAKENING_STORMS_BUFF: {
+    id: 462131,
+    name: 'Awakening Storms',
+    icon: 'spell_nature_stormreach',
+  },
+  // Farseer
+  ANCESTRAL_SWIFTNESS_CAST: {
+    id: 443454,
+    name: 'Ancestral Swiftness',
+    icon: 'inv_ability_farseershaman_ancestralswiftness',
+  },
+  CALL_OF_THE_ANCESTORS_SUMMON: {
+    id: 445624,
+    name: 'Call of the Ancestors',
+    icon: 'ability_racial_ancestralcall',
+  },
+  CALL_OF_THE_ANCESTORS_BUFF: {
+    id: 447244,
+    name: 'Call of the Ancestors',
+    icon: 'ability_racial_ancestralcall',
+  },
+  CALL_OF_THE_ANCESTORS_ELEMENTAL_BLAST: {
+    id: 465717,
+    name: 'Elemental Blast',
+    icon: 'shaman_talent_elementalblast',
+  },
+  CALL_OF_THE_ANCESTORS_LAVA_BURST: {
+    id: 447419,
+    name: 'Lava Burst',
+    icon: 'spell_shaman_lavaburst',
   },
 } satisfies Record<string, Spell>;
 

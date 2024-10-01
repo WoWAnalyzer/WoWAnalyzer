@@ -27,12 +27,22 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.GHOUL_FRENZY.id],
+        spell: SPELLS.FESTERING_STRIKE.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.DARK_TRANSFORMATION.id],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
       {
         spell: SPELLS.SCOURGE_STRIKE.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: SPELLS.OUTBREAK.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
@@ -49,11 +59,6 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: [SPELLS.PESTILENCE.id],
-        category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        gcd: { base: 1500 },
-      },
-      {
-        spell: SPELLS.CORPSE_EXPLOSION.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: { base: 1500 },
       },
@@ -77,10 +82,17 @@ class Abilities extends CoreAbilities {
         cooldown: 300,
       },
       {
-        spell: [SPELLS.ARMY_OF_THE_DEAD.id],
+        spell: SPELLS.ARMY_OF_THE_DEAD.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: { base: 1500 },
         cooldown: 600,
+      },
+      {
+        spell: SPELLS.UNHOLY_FRENZY.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: null,
+        cooldown: 180,
+        buffSpellIds: [SPELLS.UNHOLY_FRENZY.id],
       },
       // Defensive
       {

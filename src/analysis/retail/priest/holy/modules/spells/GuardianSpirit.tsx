@@ -1,22 +1,37 @@
 import fetchWcl from 'common/fetchWclApi';
-import { formatNumber } from 'common/format';
 import TALENTS from 'common/TALENTS/priest';
 import { WCLHealing, WCLHealingTableResponse } from 'common/WCL_TYPES';
-import { SpellIcon } from 'interface';
-import Analyzer from 'parser/core/Analyzer';
-import { EventType } from 'parser/core/Events';
+import { SpellIcon, SpellLink } from 'interface';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { EventType, HealEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import LazyLoadStatisticBox from 'parser/ui/LazyLoadStatisticBox';
-
-const GUARDIAN_SPIRIT_HEALING_INCREASE = 0.6;
+import { GUARDIAN_SPIRIT_HEALING_INCREASE } from '../../constants';
+import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
+import Combatants from 'parser/shared/modules/Combatants';
+import { Options } from 'parser/core/EventSubscriber';
+import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 
 class GuardianSpirit extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
+    combatants: Combatants,
   };
+
+  protected combatants!: Combatants;
+
+  constructor(options: Options) {
+    super(options);
+    if (this.selectedCombatant.hasTalent(TALENTS.GUARDIAN_ANGEL_TALENT)) {
+      this.active;
+    }
+
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
+  }
+
   // This is an approximation. See the reasoning below.
   totalHealingFromGSBuff = 0;
+  selfGSIncrease = 0;
   protected abilityTracker!: AbilityTracker;
 
   get totalGSCasts() {
@@ -56,21 +71,51 @@ class GuardianSpirit extends Analyzer {
     });
   }
 
+  onHeal(event: HealEvent) {
+    const target = this.combatants.getEntity(event);
+
+    if (target === null) {
+      return;
+    }
+    if (target.hasBuff(TALENTS.GUARDIAN_SPIRIT_TALENT, null, 0, 0, this.selectedCombatant.id)) {
+      this.selfGSIncrease += calculateEffectiveHealing(event, GUARDIAN_SPIRIT_HEALING_INCREASE);
+    }
+  }
+
+  get gsContribToothers() {
+    return this.totalHealingFromGSBuff - this.selfGSIncrease;
+  }
+
   statistic() {
     return (
       <LazyLoadStatisticBox
         loader={this.load.bind(this)}
         icon={<SpellIcon spell={TALENTS.GUARDIAN_SPIRIT_TALENT} />}
-        value={<ItemHealingDone amount={this.totalHealingFromGSBuff} />}
-        label="Guardian Spirit Buff Contribution"
+        value={<ItemPercentHealingDone amount={this.totalHealingFromGSBuff} />}
+        label="Guardian Spirit Contribution"
         tooltip={
           <>
-            You casted Guardian Spirit {this.totalGSCasts} times, and it contributed{' '}
-            {formatNumber(this.totalHealingFromGSBuff)} healing. This includes healing from other
-            healers.
-            <br />
-            NOTE: This metric uses an approximation to calculate contribution from the buff due to
-            technical limitations.
+            <div>
+              <SpellLink spell={TALENTS.GUARDIAN_SPIRIT_TALENT} /> Breakdown:{' '}
+            </div>
+            <ItemPercentHealingDone amount={this.gsContribToothers}></ItemPercentHealingDone>
+            {' contribution to others.'}
+            <div>
+              <ItemPercentHealingDone amount={this.selfGSIncrease}></ItemPercentHealingDone>
+              {' contribution to self.'} <br />
+            </div>
+            <div>
+              <br />
+              If this healing was attributed to you from the other healers like Augmented Healing,
+              you would have done{' '}
+              <ItemPercentHealingDone amount={this.gsContribToothers}></ItemPercentHealingDone> more
+              than your total on WCL.
+            </div>
+            <div>
+              <br />
+              NOTE: This is an approximated value due to technical limitations. If you are seeing a
+              negative number, please load the module first.
+            </div>
           </>
         }
       />

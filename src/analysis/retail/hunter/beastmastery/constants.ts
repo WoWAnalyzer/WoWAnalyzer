@@ -4,8 +4,8 @@ import TALENTS from 'common/TALENTS/hunter';
 //region Spells
 
 /** Cobra Shot */
-//Cobra Shot reduces the cooldown of Kill Command by 2 seconds by default
-export const COBRA_SHOT_CDR_MS = 2000;
+//Cobra Shot reduces the cooldown of Kill Command by 1 second by default
+export const COBRA_SHOT_CDR_MS = 1000;
 //A threshold where you can never realistically overcap on focus by waiting for AT MOST 1 GCD + 1 second.
 export const COBRA_SHOT_FOCUS_THRESHOLD_TO_WAIT = 50;
 /** Bestial Wrath */
@@ -43,7 +43,7 @@ export const AOTB_MULTIPLIER = 0.3;
 //Aspect of the Beast does not affect all pet abilities
 export const AOTB_ABILITIES_NOT_AFFECTED: number[] = [
   SPELLS.MELEE.id,
-  TALENTS.KILL_COMMAND_SHARED_TALENT.id,
+  TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT.id,
   SPELLS.STOMP_DAMAGE.id,
 ];
 /** Killer Instinct */
@@ -126,8 +126,10 @@ export const BARBED_SHOT_REGEN = 5;
 export const LIST_OF_FOCUS_SPENDERS_BM = [
   TALENTS.COBRA_SHOT_TALENT,
   TALENTS.MULTI_SHOT_BEAST_MASTERY_TALENT,
-  TALENTS.KILL_COMMAND_SHARED_TALENT,
+  TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT,
   TALENTS.KILL_SHOT_SHARED_TALENT,
-  TALENTS.A_MURDER_OF_CROWS_TALENT,
+  TALENTS.BLACK_ARROW_TALENT,
+  TALENTS.BURSTING_SHOT_TALENT,
+  SPELLS.WING_CLIP,
 ];
 //endregion
