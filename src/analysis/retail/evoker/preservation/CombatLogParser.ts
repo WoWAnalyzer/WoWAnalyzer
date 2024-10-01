@@ -71,6 +71,7 @@ import Reverberations from '../shared/modules/talents/hero/chronowarden/Reverber
 import Chronoflame from '../shared/modules/talents/hero/chronowarden/Chronoflame';
 import ThreadsOfFate from '../shared/modules/talents/hero/chronowarden/ThreadsOfFate';
 import DoubleTime from '../shared/modules/talents/hero/chronowarden/DoubleTime';
+import ConsumeFlame from './modules/talents/ConsumeFlame';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -157,6 +158,7 @@ class CombatLogParser extends CoreCombatLogParser {
     chronoflame: Chronoflame,
     threadsOfFate: ThreadsOfFate,
     doubleTime: DoubleTime,
+    consumeFlame: ConsumeFlame,
 
     // other
     t32Prevoker: T32Prevoker,
