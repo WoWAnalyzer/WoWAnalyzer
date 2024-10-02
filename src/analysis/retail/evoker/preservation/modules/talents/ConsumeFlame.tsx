@@ -125,13 +125,6 @@ class ConsumeFlame extends Analyzer {
         with a hardcasted <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> (i.e. not from{' '}
         <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} />
         ).
-        <div>
-          <br />
-          The easiest way to ensure this happens, even during{' '}
-          <SpellLink spell={TALENTS_EVOKER.STASIS_TALENT} /> windows, is to force{' '}
-          <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> on to yourself by facing it away
-          from the raid and then self-casting <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT} />.
-        </div>
       </p>
     );
 
