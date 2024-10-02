@@ -121,8 +121,8 @@ class ConsumeFlame extends Analyzer {
           </ul>
         </div>
         and make sure to always cast <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT} /> on a target
-        with a hardcasted <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> (i.e. not
-        from <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} />
+        with a hardcasted <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> (i.e. not from{' '}
+        <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} />
         ).
         <div>
           <br />
