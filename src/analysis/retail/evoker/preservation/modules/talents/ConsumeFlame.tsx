@@ -76,11 +76,11 @@ class ConsumeFlame extends Analyzer {
 
     const temporalCompressionStacks = this.selectedCombatant?.getBuffStacks(
       SPELLS.TEMPORAL_COMPRESSION_BUFF,
-      cast!.timestamp,
+      cast.timestamp,
     );
     const coyActive = this.selectedCombatant.hasBuff(
       SPELLS.CALL_OF_YSERA_BUFF.id,
-      applyBuffEvent!.timestamp,
+      applyBuffEvent.timestamp,
       CAST_BUFFER_MS,
     );
 
