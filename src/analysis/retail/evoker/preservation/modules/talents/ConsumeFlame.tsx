@@ -17,6 +17,8 @@ import { getDreamBreathCast } from '../../normalizers/EventLinking/helpers';
 import { TIERS } from 'game/TIERS';
 import ItemSetLink from 'interface/ItemSetLink';
 import { EVOKER_TWW1_ID } from 'common/ITEMS/dragonflight';
+import { CAST_BUFFER_MS } from 'analysis/retail/evoker/preservation/normalizers/EventLinking/constants';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 
 interface CastInfo {
   timestamp: number;
@@ -24,8 +26,6 @@ interface CastInfo {
   temporalCompressionStacks: number;
   dreamBreathOnTarget: boolean;
 }
-
-const GUIDE_CORE_EXPLANATION_PERCENT = 40;
 
 class ConsumeFlame extends Analyzer {
   static dependencies = {
@@ -66,21 +66,22 @@ class ConsumeFlame extends Analyzer {
     }
 
     const applyBuffEvent = target?.getBuff(SPELLS.DREAM_BREATH.id);
-
-    let cast;
-
-    if (applyBuffEvent) {
-      cast = getDreamBreathCast(applyBuffEvent, false);
+    if (!applyBuffEvent) {
+      return;
+    }
+    const cast = getDreamBreathCast(applyBuffEvent, false);
+    if (!cast) {
+      return;
     }
 
     const temporalCompressionStacks = this.selectedCombatant?.getBuffStacks(
       SPELLS.TEMPORAL_COMPRESSION_BUFF,
-      cast?.timestamp,
+      cast!.timestamp,
     );
     const coyActive = this.selectedCombatant.hasBuff(
       SPELLS.CALL_OF_YSERA_BUFF.id,
-      applyBuffEvent?.timestamp,
-      150,
+      applyBuffEvent!.timestamp,
+      CAST_BUFFER_MS,
     );
 
     this.casts.push({
@@ -193,7 +194,7 @@ class ConsumeFlame extends Analyzer {
       </div>
     );
 
-    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT); // GUIDE_CORE_EXPLANATION_PERCENT
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 }
 
