@@ -165,7 +165,7 @@ const talents = {
   CALL_OF_YSERA_TALENT: {
     id: 373834,
     name: 'Call of Ysera',
-    icon: '',
+    icon: '4096390', // blizzard is dumb
     maxRanks: 1,
     entryIds: [115554],
     definitionIds: [{ id: 120566, specId: 1468 }],

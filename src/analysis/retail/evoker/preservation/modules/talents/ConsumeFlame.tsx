@@ -6,10 +6,19 @@ import { TALENTS_EVOKER } from 'common/TALENTS';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
-import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import {
+  evaluateQualitativePerformanceByThreshold,
+  getLowestPerf,
+  QualitativePerformance,
+  QualitativePerformanceThreshold,
+} from 'parser/ui/QualitativePerformance';
 import Combatants from 'parser/shared/modules/Combatants';
 import { getDreamBreathCast } from '../../normalizers/EventLinking/helpers';
 import { TIERS } from 'game/TIERS';
+import ItemSetLink from 'interface/ItemSetLink';
+import { EVOKER_TWW1_ID } from 'common/ITEMS/dragonflight';
+import { CAST_BUFFER_MS } from 'analysis/retail/evoker/preservation/normalizers/EventLinking/constants';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 
 interface CastInfo {
   timestamp: number;
@@ -17,8 +26,6 @@ interface CastInfo {
   temporalCompressionStacks: number;
   dreamBreathOnTarget: boolean;
 }
-
-const GUIDE_CORE_EXPLANATION_PERCENT = 40;
 
 class ConsumeFlame extends Analyzer {
   static dependencies = {
@@ -59,21 +66,22 @@ class ConsumeFlame extends Analyzer {
     }
 
     const applyBuffEvent = target?.getBuff(SPELLS.DREAM_BREATH.id);
-
-    let cast;
-
-    if (applyBuffEvent) {
-      cast = getDreamBreathCast(applyBuffEvent, false);
+    if (!applyBuffEvent) {
+      return;
+    }
+    const cast = getDreamBreathCast(applyBuffEvent, false);
+    if (!cast) {
+      return;
     }
 
     const temporalCompressionStacks = this.selectedCombatant?.getBuffStacks(
       SPELLS.TEMPORAL_COMPRESSION_BUFF,
-      cast?.timestamp,
+      cast.timestamp,
     );
     const coyActive = this.selectedCombatant.hasBuff(
       SPELLS.CALL_OF_YSERA_BUFF.id,
-      applyBuffEvent?.timestamp,
-      150,
+      applyBuffEvent.timestamp,
+      CAST_BUFFER_MS,
     );
 
     this.casts.push({
@@ -100,31 +108,51 @@ class ConsumeFlame extends Analyzer {
           <SpellLink spell={TALENTS_EVOKER.CONSUME_FLAME_TALENT} />
         </b>{' '}
         benefits greatly from modifiers on <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} />.
-        Prioritize <SpellLink spell={TALENTS_EVOKER.CALL_OF_YSERA_TALENT} /> after casting{' '}
-        <SpellLink spell={TALENTS_EVOKER.VERDANT_EMBRACE_TALENT} />. Always cast{' '}
-        <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> at four stacks of{' '}
-        <SpellLink spell={TALENTS_EVOKER.TEMPORAL_COMPRESSION_TALENT} /> to get the 4pc set bonus.{' '}
-        Make sure to target non-Echo <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> for
-        maximum healing when using <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT} />.
+        Make sure to have the following buffs before casting{' '}
+        <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} />
+        <div>
+          <ul>
+            <li>
+              <SpellLink spell={TALENTS_EVOKER.CALL_OF_YSERA_TALENT} /> if talented
+            </li>
+            <li>
+              4 stacks of <SpellLink spell={TALENTS_EVOKER.TEMPORAL_COMPRESSION_TALENT} /> if you
+              have <ItemSetLink id={EVOKER_TWW1_ID} /> 4 Piece
+            </li>
+          </ul>
+        </div>
+        and make sure to always cast <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT} /> on a target
+        with a hardcasted <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> (i.e. not from{' '}
+        <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} />
+        ).
+        <div>
+          <br />
+          The easiest way to ensure this happens, even during{' '}
+          <SpellLink spell={TALENTS_EVOKER.STASIS_TALENT} /> windows, is to force{' '}
+          <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> on to yourself by facing it away
+          from the raid and then self-casting <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT} />.
+        </div>
       </p>
     );
 
     const entries: BoxRowEntry[] = [];
     this.casts.forEach((cast) => {
-      const coyActive =
-        this.selectedCombatant.hasTalent(TALENTS_EVOKER.CALL_OF_YSERA_TALENT) && cast.coyActive;
-      const temporalCompressionStacks = cast.temporalCompressionStacks;
-      const dreamBreathLanded = cast.dreamBreathOnTarget;
-
-      const conditionsMet = [dreamBreathLanded, temporalCompressionStacks > 3, coyActive].filter(
-        Boolean,
-      ).length;
-
-      let value = QualitativePerformance.Fail;
-      if (conditionsMet === 3) {
-        value = QualitativePerformance.Good;
-      } else if (conditionsMet === 2 && dreamBreathLanded) {
-        value = QualitativePerformance.Ok;
+      const perfs: QualitativePerformance[] = [
+        cast.dreamBreathOnTarget ? QualitativePerformance.Good : QualitativePerformance.Fail,
+      ];
+      if (this.selectedCombatant.has4PieceByTier(TIERS.TWW1)) {
+        const threshold: QualitativePerformanceThreshold = {
+          isGreaterThanOrEqual: {
+            good: 4,
+            ok: 3,
+            fail: 2,
+          },
+          actual: cast.temporalCompressionStacks,
+        };
+        perfs.push(evaluateQualitativePerformanceByThreshold(threshold));
+      }
+      if (this.selectedCombatant.hasTalent(TALENTS_EVOKER.CALL_OF_YSERA_TALENT)) {
+        perfs.push(cast.coyActive ? QualitativePerformance.Good : QualitativePerformance.Fail);
       }
 
       const tooltip = (
@@ -132,10 +160,11 @@ class ConsumeFlame extends Analyzer {
           <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT} /> @{' '}
           {this.owner.formatTimestamp(cast.timestamp)} <br />
           <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> on target:{' '}
-          {dreamBreathLanded ? 'Yes' : 'No'} <br />
+          {cast.dreamBreathOnTarget ? 'Yes' : 'No'} <br />
           {this.selectedCombatant.has4PieceByTier(TIERS.TWW1) && (
             <>
-              Temporal Compression stacks: {temporalCompressionStacks} <br />
+              <SpellLink spell={TALENTS_EVOKER.TEMPORAL_COMPRESSION_TALENT} /> stacks:{' '}
+              {cast.temporalCompressionStacks} <br />
             </>
           )}
           {this.selectedCombatant.hasTalent(TALENTS_EVOKER.CALL_OF_YSERA_TALENT) && (
@@ -146,6 +175,7 @@ class ConsumeFlame extends Analyzer {
           )}
         </>
       );
+      const value = getLowestPerf(perfs);
       entries.push({ value, tooltip });
     });
 
@@ -164,7 +194,7 @@ class ConsumeFlame extends Analyzer {
       </div>
     );
 
-    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT); // GUIDE_CORE_EXPLANATION_PERCENT
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 }
 
