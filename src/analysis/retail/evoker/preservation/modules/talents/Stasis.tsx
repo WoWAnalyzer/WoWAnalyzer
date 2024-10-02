@@ -108,6 +108,16 @@ class Stasis extends Analyzer {
   }
 
   getPerfForSpell(spell: number, forRamp: boolean) {
+    if (this.selectedCombatant.hasTalent(TALENTS_EVOKER.ENGULF_TALENT)) {
+      if (
+        spell === TALENTS_EVOKER.ENGULF_TALENT.id ||
+        spell === TALENTS_EVOKER.DREAM_BREATH_TALENT.id ||
+        spell === SPELLS.DREAM_BREATH_FONT.id
+      ) {
+        return QualitativePerformance.Good;
+      }
+      return QualitativePerformance.Fail;
+    }
     if (spell === TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT.id) {
       return QualitativePerformance.Good;
     } else if (spell === SPELLS.EMERALD_BLOSSOM.id) {
@@ -221,7 +231,7 @@ class Stasis extends Analyzer {
               }
             >
               <span>
-                <PassFailCheckmark pass />
+                <PassFailCheckmark pass={false} />
               </span>
             </Tooltip>
           </>
@@ -654,7 +664,7 @@ class Stasis extends Analyzer {
                 {this.owner.formatTimestamp(info.castTime)}
               </>
             );
-            const perfs = info.spells.map((spellPair, idx2) => {
+            const perfs = info.spells.map((spellPair) => {
               return this.getPerfForSpell(spellPair[0], info.forRamp);
             });
             return (
