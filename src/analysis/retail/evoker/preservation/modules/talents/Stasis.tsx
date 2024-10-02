@@ -180,8 +180,8 @@ class Stasis extends Analyzer {
                 <>
                   <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> is a perfect spell to
                   store when doing an <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT} />, especially
-                  as the first spell. Make sure to point away from the raid when consuming{' '}
-                  <SpellLink spell={TALENTS_EVOKER.STASIS_TALENT} /> to ensure it goes on yourself.
+                  as the first spell in order to setup the following{' '}
+                  <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT} /> casts.
                 </>
               }
             >
@@ -637,12 +637,10 @@ class Stasis extends Analyzer {
                 <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT} />
               </li>
             </ol>
-            Ideally try to face <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> away from
-            the raid to ensure it goes on yourself and then cast{' '}
-            <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT} /> on yourself to guarantee that the{' '}
-            <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT} /> casts triggered by{' '}
-            <SpellLink spell={TALENTS_EVOKER.STASIS_TALENT} /> at a later time will also consume{' '}
-            <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> HoTs.
+            Try to make sure to use <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT} /> on a target
+            that you can guarantee will have{' '}
+            <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> active to ensure that you proc{' '}
+            <SpellLink spell={TALENTS_EVOKER.CONSUME_FLAME_TALENT} /> healing.
           </div>
         )}
       </p>
