@@ -35,7 +35,7 @@ class StormBolt extends Analyzer {
 
   subStatistic() {
     const stormBolt = this.abilityTracker.getAbility(TALENTS.STORM_BOLT_TALENT.id);
-    const total = stormBolt.damageEffective || 0;
+    const total = stormBolt.damageVal.effective;
     return (
       <StatisticListBoxItem
         title={

@@ -83,8 +83,8 @@ class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
   getLavaBurstDamageDetails(spellInfo: SpellInfoDetails) {
     const ability = this.abilityTracker.getAbility(SPELLS.LAVA_BURST_DAMAGE.id);
     spellInfo.damageHits = ability.damageHits || 0;
-    spellInfo.damageDone = ability.damageEffective || 0;
-    spellInfo.damageAbsorbed = ability.damageAbsorbed || 0;
+    spellInfo.damageDone = ability.damageVal.regular; // FIXME should this actually be 'regular'? SpellInfo needs refactor too
+    spellInfo.damageAbsorbed = ability.damageVal.absorbed;
   }
   getHealingWaveDetails(spellInfo: SpellInfoDetails) {
     if (this.primordialWave) {

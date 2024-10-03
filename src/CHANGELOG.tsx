@@ -38,6 +38,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 10, 3), `Fixed many places where absorbed damage and healing was not counted as 'effective'`, Sref),
   change(date(2024, 9, 30), 'Add Classic Cata Firelands raid zone, headshots, and placeholder image', jazminite),
   change(date(2024, 9, 30), 'Enchant checker now detects Spellthreads', Sref),
   change(date(2024, 9, 26), "Add support for Warlock Hero Talents", Gazh),
