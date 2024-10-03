@@ -19,7 +19,7 @@ import REPORT_HISTORY_TYPES from 'interface/REPORT_HISTORY_TYPES';
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { WCLParse, WCLParsesResponse } from 'common/WCL_TYPES';
+import { isHiddenParsesResponse, WCLParse, WCLParsesResponse } from 'common/WCL_TYPES';
 import { isSupportedRegion } from 'common/regions';
 
 import './report/Results/Header.scss';
@@ -398,21 +398,20 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
       refresh,
     )
       .then((rawParses) => {
+        if (isHiddenParsesResponse(rawParses)) {
+          // WCL responds with {hidden:true} when the logs are hidden.
+          this.setState({
+            parses: [],
+            isLoading: false,
+            error: ERRORS.CHARACTER_HIDDEN,
+          });
+          return;
+        }
         if (rawParses.length === 0) {
           this.setState({
             parses: [],
             isLoading: false,
             error: ERRORS.NO_PARSES_FOR_TIER,
-          });
-          return;
-        }
-
-        // WCL responds with {hidden:true} when the logs are hidden.
-        if (rawParses?.hidden) {
-          this.setState({
-            parses: [],
-            isLoading: false,
-            error: ERRORS.CHARACTER_HIDDEN,
           });
           return;
         }

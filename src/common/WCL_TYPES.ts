@@ -188,7 +188,11 @@ export interface WCLParse {
   estimated: boolean;
 }
 
-export type WCLParsesResponse = WCLParse[];
+export type WCLParsesResponse = WCLParse[] | { hidden: true };
+
+export function isHiddenParsesResponse(data: WCLParsesResponse): data is { hidden: true } {
+  return !Array.isArray(data);
+}
 
 export type WCLResponseJSON =
   | WCLGuildReportsResponse
