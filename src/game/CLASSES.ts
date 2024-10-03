@@ -30,6 +30,22 @@ export enum CLASSES {
   WARRIOR,
 }
 
+export const CLASS_NAMES: { [classId: number]: { name: string } } = {
+  1: { name: 'Warrior' },
+  2: { name: 'Paladin' },
+  3: { name: 'Hunter' },
+  4: { name: 'Rogue' },
+  5: { name: 'Priest' },
+  6: { name: 'Death Knight' },
+  7: { name: 'Shaman' },
+  8: { name: 'Mage' },
+  9: { name: 'Warlock' },
+  10: { name: 'Monk' },
+  11: { name: 'Druid' },
+  12: { name: 'Demon Hunter' },
+  13: { name: 'Evoker' },
+};
+
 export function getClassBySpecId(specId: number) {
   if (DEATH_KNIGHT_SPECS.find((spec) => spec.id === specId)) {
     return CLASSES.DEATH_KNIGHT;

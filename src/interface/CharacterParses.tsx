@@ -22,9 +22,15 @@ import { Link } from 'react-router-dom';
 import { WCLParse, WCLParsesResponse } from 'common/WCL_TYPES';
 import { isSupportedRegion } from 'common/regions';
 
+import './report/Results/Header.scss';
 import './CharacterParses.scss';
 import ParsesList, { Parse } from './CharacterParsesList';
 import { appendReportHistory } from './reducers/reportHistory';
+import { CLASS_NAMES } from 'game/CLASSES';
+import {
+  classBackgroundImage,
+  characterBackgroundImage,
+} from 'interface/report/Results/PlayerInfo';
 
 const loadRealms = (classic: boolean) =>
   retryingPromise(() =>
@@ -100,7 +106,8 @@ interface CharacterParsesState {
   activeEncounter: number;
   sortBy: number;
   metric: string;
-  image: string | null;
+  characterImage: string | null;
+  classImage: string | null;
   avatarImage: string | null;
   parses: Parse[];
   isLoading: boolean;
@@ -123,7 +130,8 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
       activeEncounter: BOSS_DEFAULT_ALL_BOSSES,
       sortBy: ORDER_BY.DATE,
       metric: 'dps',
-      image: null,
+      characterImage: null,
+      classImage: null,
       avatarImage: null,
       parses: [],
       isLoading: true,
@@ -266,7 +274,7 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
       // Skip Blizzard API - Classic is not supported
       this.setState(
         {
-          image: FALLBACK_PICTURE,
+          characterImage: FALLBACK_PICTURE,
         },
         () => {
           this.load();
@@ -281,7 +289,7 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
     if (region === 'CN') {
       this.setState(
         {
-          image: FALLBACK_PICTURE,
+          characterImage: FALLBACK_PICTURE,
         },
         () => {
           this.load();
@@ -312,18 +320,19 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
     }
 
     const data = await response.json();
-
+    const classImageUrl = classBackgroundImage(CLASS_NAMES[data.class].name, data.region);
     const avatarUrl = data.thumbnail
       ? data.thumbnail.startsWith('https')
         ? data.thumbnail
         : `https://render-${this.props.region}.worldofwarcraft.com/character/${data.thumbnail}`
       : undefined;
-    const imageUrl = avatarUrl?.replace('avatar.jpg', 'main.jpg');
+    const characterImageUrl = characterBackgroundImage(avatarUrl, data.region);
     const role = data.role;
     const metric = role === 'HEALING' ? 'hps' : 'dps';
     this.setState(
       {
-        image: imageUrl,
+        characterImage: characterImageUrl,
+        classImage: classImageUrl,
         avatarImage: avatarUrl,
         metric: metric,
       },
@@ -397,7 +406,16 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
           });
           return;
         }
-        // hidden isn't a value on the parse response
+
+        // WCL responds with {hidden:true} when the logs are hidden.
+        if (rawParses?.hidden) {
+          this.setState({
+            parses: [],
+            isLoading: false,
+            error: ERRORS.CHARACTER_HIDDEN,
+          });
+          return;
+        }
 
         if (this.state.class !== '') {
           //only update parses when class was already parsed (since its only a metric/raid change)
@@ -593,11 +611,16 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
     return (
       <div className="results">
         <header>
-          <div className="background">
+          <div
+            className="background"
+            style={{
+              backgroundImage: `url(${this.state.classImage})`,
+            }}
+          >
             <div
               className="img"
               style={{
-                backgroundImage: `url(${this.state.image})`,
+                backgroundImage: `url(${this.state.characterImage})`,
                 backgroundPosition: 'center center',
               }}
             />
