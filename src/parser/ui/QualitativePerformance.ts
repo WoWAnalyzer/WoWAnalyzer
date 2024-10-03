@@ -67,6 +67,19 @@ export function getLowestPerf(perfs: QualitativePerformance[]): QualitativePerfo
   return order[lowestPerf];
 }
 
+export function getPerformanceExplanation(performance: QualitativePerformance): string {
+  switch (performance) {
+    case QualitativePerformance.Perfect:
+      return 'Perfect usage';
+    case QualitativePerformance.Good:
+      return 'Good usage';
+    case QualitativePerformance.Ok:
+      return 'Ok usage';
+    case QualitativePerformance.Fail:
+      return 'Bad usage';
+  }
+}
+
 export function evaluateQualitativePerformanceByThreshold(
   threshold: QualitativePerformanceThreshold,
 ): QualitativePerformance {

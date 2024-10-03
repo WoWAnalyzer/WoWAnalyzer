@@ -10,7 +10,10 @@ import Events, {
 import TALENTS from 'common/TALENTS/shaman';
 import SPELLS from 'common/SPELLS/shaman';
 import Spell from 'common/SPELLS/Spell';
-import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import {
+  evaluateQualitativePerformanceByThreshold,
+  QualitativePerformance,
+} from 'parser/ui/QualitativePerformance';
 import { ChecklistUsageInfo, SpellUse, UsageInfo } from 'parser/core/SpellUsage/core';
 import { SpellLink, Tooltip } from 'interface';
 import { plural } from '@lingui/macro';
@@ -190,15 +193,14 @@ class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
   }
 
   maelstromPerformance(cast: ElementalBlastCastDetails): UsageInfo {
-    let performance: QualitativePerformance = QualitativePerformance.Fail;
-    if (cast.maelstromUsed >= 6) {
-      performance = QualitativePerformance.Perfect;
-    } else if (cast.maelstromUsed >= 5) {
-      performance = QualitativePerformance.Ok;
-    }
-
     return {
-      performance: performance,
+      performance: evaluateQualitativePerformanceByThreshold({
+        actual: cast.maelstromUsed,
+        isGreaterThanOrEqual: {
+          perfect: 6,
+          ok: 5,
+        },
+      }),
       summary: (
         <>
           {cast.maelstromUsed} <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> used
@@ -288,12 +290,13 @@ class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
     );
 
     return {
-      performance:
-        totalElementalSpirits >= 4
-          ? QualitativePerformance.Perfect
-          : totalElementalSpirits >= 2
-            ? QualitativePerformance.Ok
-            : QualitativePerformance.Fail,
+      performance: evaluateQualitativePerformanceByThreshold({
+        actual: totalElementalSpirits,
+        isGreaterThanOrEqual: {
+          perfect: 4,
+          ok: 2,
+        },
+      }),
       summary: (
         <div>
           {totalElementalSpirits === 0 ? 'No' : totalElementalSpirits}{' '}
