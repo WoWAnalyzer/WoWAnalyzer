@@ -1,5 +1,5 @@
 import ITEMS from 'common/ITEMS/thewarwithin/trinkets';
-import Analyzer, { Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS/thewarwithin/trinkets';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
@@ -47,9 +47,18 @@ export default class SpymastersWeb extends Analyzer.withDependencies({
       cooldown: 20,
     });
 
-    this.addEventListener(Events.applybuff, this._onBuffApply);
-    this.addEventListener(Events.applybuffstack, this._onBuffApply);
-    this.addEventListener(Events.cast, this._onCast);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SPYMASTERS_REPORT),
+      this._onBuffApply,
+    );
+    this.addEventListener(
+      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.SPYMASTERS_REPORT),
+      this._onBuffApply,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SPYMASTERS_WEB),
+      this._onCast,
+    );
 
     // Calculate the primary stat bonus we'd receive per stack when the on use effect of the tricket is cast.
     this.primaryStatBonus = calculatePrimaryStat(
@@ -60,19 +69,11 @@ export default class SpymastersWeb extends Analyzer.withDependencies({
   }
 
   _onBuffApply(event: ApplyBuffStackEvent | ApplyBuffEvent) {
-    if (event.ability.guid !== SPELLS.SPYMASTERS_REPORT.id) {
-      return;
-    }
-
     // Increase the current stack report stack count.
     this.currentReportStackCount += 1;
   }
 
   _onCast(event: CastEvent) {
-    if (event.ability.guid !== SPELLS.SPYMASTERS_WEB.id) {
-      return;
-    }
-
     this.SpymastersWebCasts.push({
       timestamp: event.timestamp,
       stacks: this.currentReportStackCount,
