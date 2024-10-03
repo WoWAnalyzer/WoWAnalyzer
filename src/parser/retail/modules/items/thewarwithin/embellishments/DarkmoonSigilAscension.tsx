@@ -185,7 +185,11 @@ class DarkmoonSigilAscension extends EmbellishmentAnalyzer.withDependencies({
             const buff = BUFFS[Number(spellId)];
             const entry = aggregatedStats.get(buff.stat);
             if (!entry) {
-              return <>Didn't proc</>;
+              return (
+                <>
+                  <p key={spellId}>Didn't proc</p>
+                </>
+              );
             }
 
             const StatIcon = getIcon(buff.stat);
@@ -195,7 +199,7 @@ class DarkmoonSigilAscension extends EmbellishmentAnalyzer.withDependencies({
 
             return (
               <>
-                <p>
+                <p key={spellId}>
                   The <SpellLink spell={buff.spell} /> {statName} buff gave <StatIcon />{' '}
                   <b>{totalAmount}</b> {statName}, and had a total uptime of{' '}
                   <b>{formatDuration(entry.duration)}</b>, {formatPercentage(uptimePercentage, 1)}%
@@ -218,7 +222,7 @@ class DarkmoonSigilAscension extends EmbellishmentAnalyzer.withDependencies({
 
             return (
               <>
-                <p>
+                <p key={stat}>
                   <StatIcon /> {calculatedAverage} <small>{statName} over time</small>
                 </p>
               </>

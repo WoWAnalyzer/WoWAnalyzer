@@ -31,7 +31,10 @@ const COOLDOWNS: Cooldown[] = [
 
 function Cooldowns({ info, modules }: GuideProps<typeof CombatLogParser>) {
   return (
-    <Section title="Cooldowns">
+    <Section title="Core">
+      {modules.ascendance.guideSubsection}
+      {modules.hotHand.guideSubsection}
+      {modules.elementalBlastGuide.guideSubsection}
       <SubSection title="Cooldowns">
         <p>
           <strong>Cooldowns</strong> - this graph shows when you used your major cooldowns and how
@@ -40,9 +43,6 @@ function Cooldowns({ info, modules }: GuideProps<typeof CombatLogParser>) {
         </p>
         <CooldownGraphSubsection checklist={COOLDOWNS} />
       </SubSection>
-      {modules.ascendance.guideSubsection}
-      {modules.hotHand.guideSubsection}
-      {modules.elementalBlastGuide.guideSubsection}
     </Section>
   );
 }

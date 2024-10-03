@@ -63,3 +63,5 @@ export enum EnhancementEventLinks {
   LIGHTNING_BOLT_LINK = 'lightning-bolt',
   MAELSTROM_GENERATOR_LINK = 'maelstrom-generator',
 }
+
+export const GCD_TOLERANCE = 25;

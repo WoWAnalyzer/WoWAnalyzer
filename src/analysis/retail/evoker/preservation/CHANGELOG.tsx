@@ -1,10 +1,14 @@
 import { change, date } from 'common/changelog';
-import { Trevor, Harrek } from 'CONTRIBUTORS';
+import { Trevor, Harrek, Hana } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 
 // prettier-ignore
 export default [
+  change(date(2024, 9, 30), <>Update <SpellLink spell={TALENTS_EVOKER.CONSUME_FLAME_TALENT}/> wording</>, Trevor),
+  change(date(2024, 9, 28), <>Update <SpellLink spell={TALENTS_EVOKER.STASIS_TALENT}/> for Flameshaper</>, Trevor),
+  change(date(2024, 9, 28), <>Improve <SpellLink spell={TALENTS_EVOKER.CONSUME_FLAME_TALENT}/> guide section</>, Trevor),
+  change(date(2024, 9, 28), <>Add <SpellLink spell={TALENTS_EVOKER.CONSUME_FLAME_TALENT}/> to guide section</>, Hana),
   change(date(2024, 9, 21), <>Update <SpellLink spell={TALENTS_EVOKER.LEAPING_FLAMES_TALENT}/> to work with <SpellLink spell={TALENTS_EVOKER.CHRONO_FLAME_TALENT}/></>, Harrek),
   change(date(2024, 9, 14), <>Update <SpellLink spell={TALENTS_EVOKER.SOURCE_OF_MAGIC_TALENT}/> for TWW</>, Trevor),
   change(date(2024, 9, 14), <>Add <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT}/> to Stasis spells</>, Trevor),

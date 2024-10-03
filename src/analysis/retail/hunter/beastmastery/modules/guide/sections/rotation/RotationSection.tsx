@@ -44,13 +44,6 @@ export default function RotationSection({ modules, info }: GuideProps<typeof Com
             minimizeIcons
           />
         )}
-        {info.combatant.hasTalent(TALENTS.DEATH_CHAKRAM_TALENT) && (
-          <CastEfficiencyBar
-            spellId={TALENTS.DEATH_CHAKRAM_TALENT.id}
-            gapHighlightMode={GapHighlight.FullCooldown}
-            minimizeIcons
-          />
-        )}
         {info.combatant.hasTalent(TALENTS.DIRE_BEAST_TALENT) && (
           <CastEfficiencyBar
             spellId={TALENTS.DIRE_BEAST_TALENT.id}

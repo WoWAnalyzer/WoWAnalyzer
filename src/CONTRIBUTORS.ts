@@ -2276,7 +2276,7 @@ export const Vollmer: Contributor = {
 export const Seriousnes: Contributor = {
   nickname: 'Seriousnes',
   github: 'Seriousnes',
-  discord: 'Seriousnes#7895',
+  discord: 'seriousnes',
   avatar: avatar('seriousnes-avatar.png'),
   mains: [
     {
@@ -2414,6 +2414,19 @@ export const Zyer: Contributor = {
       name: 'Yumiblood',
       spec: SPECS.DEMONOLOGY_WARLOCK,
       link: 'https://www.warcraftlogs.com/character/id/42737929',
+    },
+  ],
+};
+
+export const Gazh: Contributor = {
+  nickname: 'Gazh',
+  github: 'gazhrot',
+  discord: 'gazh_',
+  mains: [
+    {
+      name: 'Meurthe',
+      spec: SPECS.DEMONOLOGY_WARLOCK,
+      link: 'https://www.warcraftlogs.com/character/eu/twisting-nether/meurthe',
     },
   ],
 };
