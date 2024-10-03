@@ -6,6 +6,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 10, 3), <>Updating <SpellLink spell={TALENTS.ASCENDANCE_ENHANCEMENT_TALENT}/>, <SpellLink spell={TALENTS.HOT_HAND_TALENT}/>, and <SpellLink spell={TALENTS.ELEMENTAL_BLAST_ENHANCEMENT_TALENT}/> guide sections, updating guide.</>, Seriousnes),
   change(date(2024, 9, 28), <>Updating <SpellLink spell={TALENTS.ELEMENTAL_BLAST_ENHANCEMENT_TALENT} /> analysis with suggestions and wolf breakdown</>, Seriousnes),
   change(date(2024, 9, 27), <>Consolidate and correct issues with APLs</>, Seriousnes),  
   change(date(2024, 9, 20), <>Fixing <SpellLink spell={SPELLS.WINDSTRIKE_CAST} /> and <SpellLink spell={SPELLS.LIGHTNING_BOLT} /> usage in APL</>, Seriousnes),

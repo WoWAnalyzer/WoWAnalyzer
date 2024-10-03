@@ -8,7 +8,7 @@ import Events, {
   UpdateSpellUsableType,
 } from 'parser/core/Events';
 import TALENTS from 'common/TALENTS/shaman';
-import SPELLS from 'common/SPELLS/shaman';
+import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import {
   evaluateQualitativePerformanceByThreshold,
@@ -185,9 +185,43 @@ class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
   description(): JSX.Element {
     return (
       <>
-        <SpellLink spell={TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT} /> damage is multiplicatively
-        increased for each <SpellLink spell={TALENTS.ELEMENTAL_SPIRITS_TALENT} /> that is currently
-        active.
+        <p>
+          <SpellLink spell={TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT} /> benefits from each{' '}
+          <SpellLink spell={TALENTS.ELEMENTAL_SPIRITS_TALENT} />, making its damage scale very
+          quickly the more wolves you have active.
+        </p>
+        <p>
+          When you have <strong>4 or more</strong> of any{' '}
+          <SpellLink spell={TALENTS.ELEMENTAL_SPIRITS_TALENT} /> active,{' '}
+          <SpellLink spell={TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT} /> becomes your one of your
+          most powerful <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> spenders
+          {this.selectedCombatant.hasTalent(TALENTS.TEMPEST_TALENT) ? (
+            <>
+              , only behind <SpellLink spell={TALENTS.TEMPEST_TALENT} />
+            </>
+          ) : null}
+          .
+        </p>
+        {this.selectedCombatant.hasTalent(TALENTS.TEMPEST_TALENT) ? (
+          <>
+            <p>
+              You should avoid casting{' '}
+              <SpellLink spell={TALENTS.ELEMENTAL_BLAST_ENHANCEMENT_TALENT} /> with less than 4{' '}
+              <SpellLink spell={TALENTS.ELEMENTAL_SPIRITS_TALENT} />. Prior to 4, the chance for{' '}
+              <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> refunds from
+              <SpellLink spell={TALENTS.STATIC_ACCUMULATION_TALENT} /> and{' '}
+              <SpellLink spell={TALENTS.SUPERCHARGE_TALENT} /> make{' '}
+              <SpellLink spell={SPELLS.LIGHTNING_BOLT} /> a more efficent choice.
+            </p>
+          </>
+        ) : null}
+        <p>
+          During high haste points, such as <SpellLink spell={SPELLS.HEROISM} />/
+          <SpellLink spell={SPELLS.BLOODLUST} />, it is possible to have very high counts of{' '}
+          <SpellLink spell={TALENTS.ELEMENTAL_SPIRITS_TALENT} /> active. With good planning, you can
+          sometimes cast <strong>2 or 3</strong> extremely high damage{' '}
+          <SpellLink spell={TALENTS.ELEMENTAL_BLAST_ENHANCEMENT_TALENT} />
+        </p>
       </>
     );
   }
@@ -381,7 +415,7 @@ class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
           analyzer={this}
           title={
             <>
-              <SpellLink spell={TALENTS.ELEMENTAL_BLAST_ENHANCEMENT_TALENT} /> cast breakdown
+              <SpellLink spell={TALENTS.ELEMENTAL_BLAST_ENHANCEMENT_TALENT} />
             </>
           }
           hidePotentialMissedCasts
