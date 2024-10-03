@@ -4,6 +4,7 @@ import Events, { Class, DeathEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 
 import Potion from './Potion';
+import { TALENTS_WARLOCK } from 'common/TALENTS';
 
 const ONE_HOUR_MS = 3600000; // one hour
 const COOLDOWN_MS = 60000; // one minute
@@ -19,7 +20,7 @@ class Healthstone extends Potion {
 
   protected combatants!: Combatants;
 
-  static spells = [SPELLS.HEALTHSTONE.id];
+  static spells = [SPELLS.HEALTHSTONE.id, SPELLS.DEMONIC_HEALTHSTONE.id];
   static recommendedEfficiency = 0;
   static extraAbilityInfo = {
     isDefensive: true,
@@ -32,6 +33,9 @@ class Healthstone extends Potion {
     super(options);
     this.active = this.hasWarlock(options.combatants as Combatants);
     this.addEventListener(Events.death.to(SELECTED_PLAYER), this.onDeath);
+    this.maxCasts = this.selectedCombatant.hasTalent(TALENTS_WARLOCK.PACT_OF_GLUTTONY_TALENT)
+      ? 3
+      : 1;
   }
 
   protected hasWarlock(combatants: Combatants) {

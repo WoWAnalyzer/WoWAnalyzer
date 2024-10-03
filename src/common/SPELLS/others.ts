@@ -318,6 +318,11 @@ const spells = {
     name: 'Healthstone',
     icon: 'warlock_-healthstone',
   },
+  DEMONIC_HEALTHSTONE: {
+    id: 452930,
+    name: 'Demonic Healthstone',
+    icon: 'warlock_-bloodstone',
+  },
   ANCIENT_REJUVENATION_POTION: {
     id: 188018,
     name: 'Ancient Rejuvenation Potion',
