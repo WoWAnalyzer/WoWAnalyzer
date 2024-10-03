@@ -2276,7 +2276,7 @@ export const Vollmer: Contributor = {
 export const Seriousnes: Contributor = {
   nickname: 'Seriousnes',
   github: 'Seriousnes',
-  discord: 'Seriousnes#7895',
+  discord: 'seriousnes',
   avatar: avatar('seriousnes-avatar.png'),
   mains: [
     {
