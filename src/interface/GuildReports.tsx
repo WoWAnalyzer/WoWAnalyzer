@@ -15,6 +15,7 @@ import { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { isSupportedRegion } from 'common/regions';
 
+import './report/Results/Header.scss';
 import './GuildReports.scss';
 import ReportsList from './GuildReportsList';
 import ALLIANCE_PICTURE from './images/ally_guild_banner_bwl.jpg';
@@ -431,10 +432,12 @@ class GuildReports extends Component<Props, State> {
               )}
             </div>
             <div className="player">
-              <h2>
-                {this.props.region} - {this.props.realm}
-              </h2>
-              <h1>{this.props.name}</h1>
+              <div className="details">
+                <h2>
+                  {this.props.region} - {this.props.realm}
+                </h2>
+                <h1>{this.props.name}</h1>
+              </div>
             </div>
           </div>
           <nav>

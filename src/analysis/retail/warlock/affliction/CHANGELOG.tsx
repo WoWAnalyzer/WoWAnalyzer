@@ -5,6 +5,7 @@ import { Arlie, Jonfanz, Lithix, Meldris, ToppleTheNun, dodse, Gazh } from 'CONT
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2024, 10, 1), <>Add support for <SpellLink spell={SPELLS.DEMONIC_HEALTHSTONE} /> </>, Gazh),
   change(date(2024, 9, 28), <>Fix <SpellLink spell={TALENTS.SHADOW_EMBRACE_TALENT} /> error </>, Gazh),
   change(date(2024, 9, 26), "Add support for Hero Talents", Gazh),
   change(date(2024, 8, 10), 'Made several changes for affliction in preperation for the TWW', Lithix),
