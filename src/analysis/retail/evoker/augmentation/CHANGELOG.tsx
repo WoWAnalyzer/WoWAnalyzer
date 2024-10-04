@@ -4,6 +4,7 @@ import { SpellLink } from 'interface';
 import TALENTS from 'common/TALENTS/evoker';
 
 export default [
+  change(date(2024, 10, 4), <>Fix some edgecases for <SpellLink spell={TALENTS.BREATH_OF_EONS_TALENT} /> module</>, Vollmer),
   change(date(2024, 9, 16), "Update Buff Helper note gen for Frame Glows WA", Vollmer),
   change(date(2024, 9, 10), "Update Ability Filters for Helper Modules for TWW S1", Vollmer),
   change(date(2024, 9, 6), <>Implement <SpellLink spell={TALENTS.WINGLEADER_TALENT}/> module</>, Vollmer),
