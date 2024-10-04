@@ -527,7 +527,7 @@ class BreathOfEonsRotational extends Analyzer {
           0,
         );
 
-        perfWindow.ebonMightDroppedDuration = droppedUptime;
+        perfWindow.ebonMightDroppedDuration += droppedUptime;
       }
 
       breathWindow.breathPerformance = perfWindow;
