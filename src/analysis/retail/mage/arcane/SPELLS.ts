@@ -122,6 +122,11 @@ const spells = {
     name: 'Aether Attunement',
     icon: 'spell_nature_starfall',
   },
+  ARCANE_SOUL_BUFF: {
+    id: 451038,
+    name: 'Arcane Soul',
+    icon: 'inv_soulbarrier',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;

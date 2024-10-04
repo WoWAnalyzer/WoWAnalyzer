@@ -39,6 +39,7 @@ export default class ArcaneMissiles extends Analyzer {
       ticks: damageTicks.length,
       aetherAttunement: this.selectedCombatant.hasBuff(SPELLS.AETHER_ATTUNEMENT_PROC_BUFF.id),
       netherPrecision: this.selectedCombatant.hasBuff(SPELLS.NETHER_PRECISION_BUFF.id),
+      arcaneSoul: this.selectedCombatant.hasBuff(SPELLS.ARCANE_SOUL_BUFF.id),
       clearcastingCapped:
         clearcasting && clearcasting?.stacks === CLEARCASTING_MAX_STACKS ? true : false,
       clearcastingProcs: clearcasting?.stacks || 0,
@@ -49,8 +50,13 @@ export default class ArcaneMissiles extends Analyzer {
   onFightEnd() {
     this.missileCasts.forEach((m) => {
       const cast = m.cast;
-      m.gcdEnd = cast.globalCooldown && cast.timestamp + cast.globalCooldown?.duration;
+      m.gcdEnd =
+        (cast.globalCooldown && cast.timestamp + cast.globalCooldown?.duration) ||
+        (cast.channel?.beginChannel.globalCooldown &&
+          cast.timestamp + cast.channel?.beginChannel.globalCooldown.duration);
       m.channelEnd = cast.channel?.timestamp;
+      this.log(m.channelEnd);
+      this.log(m.gcdEnd);
 
       const nextCast = this.eventHistory.getEvents(EventType.Cast, {
         searchBackwards: false,
@@ -87,9 +93,9 @@ export default class ArcaneMissiles extends Analyzer {
     return {
       actual: this.averageChannelDelay,
       isGreaterThan: {
-        minor: 50,
-        average: 150,
-        major: 300,
+        minor: 100,
+        average: 300,
+        major: 500,
       },
       style: ThresholdStyle.NUMBER,
     };
@@ -102,6 +108,7 @@ export interface ArcaneMissilesCast {
   ticks: number;
   aetherAttunement: boolean;
   netherPrecision: boolean;
+  arcaneSoul: boolean;
   clearcastingCapped: boolean;
   clearcastingProcs: number;
   clipped: boolean;
