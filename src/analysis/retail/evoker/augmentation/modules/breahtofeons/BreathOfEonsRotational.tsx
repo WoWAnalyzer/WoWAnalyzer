@@ -45,6 +45,7 @@ type BreathWindowPerformance = {
   temporalWoundsCounter: SpellTracker[];
   ebonMightDroppedDuringBreath: boolean;
   ebonMightDroppedDuration: number;
+  ebonMightDrops: number[];
   ebonMightProblems: SpellTracker[];
   possibleTrinkets: number;
   trinketUsed: number;
@@ -300,6 +301,7 @@ class BreathOfEonsRotational extends Analyzer {
         temporalWoundsCounter: [],
         ebonMightDroppedDuringBreath: false,
         ebonMightDroppedDuration: 0,
+        ebonMightDrops: [],
         possibleTrinkets: trinketReady,
         trinketUsed: trinketUsed,
         possiblePotions: potionReady,
@@ -376,8 +378,14 @@ class BreathOfEonsRotational extends Analyzer {
       event.timestamp !== this.latestEbonMightEvent.timestamp &&
       this.latestEbonMightDrop
     ) {
-      const droppedDuration = event.timestamp - this.latestEbonMightDrop.timestamp;
-      this.currentPerformanceBreathWindow.ebonMightDroppedDuration += droppedDuration;
+      const perfWindow = this.currentPerformanceBreathWindow;
+      const droppedUptime = perfWindow.ebonMightDrops.reduce(
+        (acc, timestamp) => acc + (event.timestamp - timestamp) / perfWindow.buffedPlayers.size,
+        0,
+      );
+
+      perfWindow.ebonMightDrops = [];
+      perfWindow.ebonMightDroppedDuration += droppedUptime;
     }
     this.latestEbonMightEvent = event;
     this.ebonMightCount.push({ timestamp: event.timestamp, count: this.ebonMightCounter });
@@ -398,6 +406,7 @@ class BreathOfEonsRotational extends Analyzer {
       this.latestEbonMightDrop = event;
 
       const prevProblem = perfWindow.ebonMightProblems[perfWindow.ebonMightProblems.length - 1];
+      perfWindow.ebonMightDrops.push(event.timestamp);
 
       const ebonMightProblem = {
         timestamp: event.timestamp,
@@ -491,6 +500,19 @@ class BreathOfEonsRotational extends Analyzer {
       perfWindow.successfulHits += 1;
     }
 
+    /** In 10.2 blizzard introduced *sparkles* delayed EM buffs *sparkles*
+     * so now we need to double check whether or not we actually found our buffed players */
+    if (this.currentPerformanceBreathWindow.buffedPlayers.size === 0) {
+      const currentBuffedTargets: Map<string, Combatant> = new Map();
+      const players = Object.values(this.combatants.players);
+      players.forEach((player) => {
+        if (player.hasBuff(SPELLS.EBON_MIGHT_BUFF_EXTERNAL.id)) {
+          currentBuffedTargets.set(player.name, player);
+        }
+      });
+      this.currentPerformanceBreathWindow.buffedPlayers = currentBuffedTargets;
+    }
+
     if (
       this.activeDebuffs === 0 &&
       !BREATH_OF_EONS_SPELLS.some((spell) => this.selectedCombatant.hasBuff(spell.id))
@@ -498,10 +520,13 @@ class BreathOfEonsRotational extends Analyzer {
       this.breathWindowActive = false;
 
       const ebonMightDroppedDuringBreath = perfWindow.ebonMightDroppedDuringBreath;
-      const ebonMightDroppedDuration = perfWindow.ebonMightDroppedDuration;
 
-      if (ebonMightDroppedDuringBreath && ebonMightDroppedDuration === 0) {
-        const droppedUptime = event.timestamp - this.latestEbonMightDrop.timestamp;
+      if (ebonMightDroppedDuringBreath && perfWindow.ebonMightDrops.length) {
+        const droppedUptime = perfWindow.ebonMightDrops.reduce(
+          (acc, timestamp) => acc + (event.timestamp - timestamp) / perfWindow.buffedPlayers.size,
+          0,
+        );
+
         perfWindow.ebonMightDroppedDuration = droppedUptime;
       }
 
@@ -523,19 +548,6 @@ class BreathOfEonsRotational extends Analyzer {
       const potentialDamagePerTarget = perfWindow.damage / perfWindow.successfulHits;
       perfWindow.potentialLostDamage =
         potentialDamagePerTarget * perfWindow.earlyDeaths * PRIO_MULTIPLIER;
-    }
-
-    /** In 10.2 blizzard introduced *sparkles* delayed EM buffs *sparkles*
-     * so now we need to double check whether or not we actually found our buffed players */
-    if (this.currentPerformanceBreathWindow.buffedPlayers.size === 0) {
-      const currentBuffedTargets: Map<string, Combatant> = new Map();
-      const players = Object.values(this.combatants.players);
-      players.forEach((player) => {
-        if (player.hasBuff(SPELLS.EBON_MIGHT_BUFF_EXTERNAL.id)) {
-          currentBuffedTargets.set(player.name, player);
-        }
-      });
-      this.currentPerformanceBreathWindow.buffedPlayers = currentBuffedTargets;
     }
   }
 
