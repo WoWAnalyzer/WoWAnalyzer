@@ -117,7 +117,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS_DRUID.FORCE_OF_NATURE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 60,
+        cooldown: 60 - combatant.getTalentRank(TALENTS_DRUID.EARLY_SPRING_TALENT) * 15,
         enabled: combatant.hasTalent(TALENTS_DRUID.FORCE_OF_NATURE_TALENT),
         gcd: {
           base: 1500,
