@@ -65,7 +65,12 @@ class DamageTaken extends Analyzer {
     this._total = this._total.addValues({ regular: amount, absorbed, blocked, overkill });
 
     if (this._byAbility[spellId]) {
-      this._byAbility[spellId] = this._byAbility[spellId].add(amount, absorbed, blocked, overkill);
+      this._byAbility[spellId] = this._byAbility[spellId].addValues({
+        regular: amount,
+        absorbed,
+        blocked,
+        overkill,
+      });
     } else {
       this._byAbility[spellId] = DamageValue.fromValues({
         regular: amount,
@@ -77,12 +82,12 @@ class DamageTaken extends Analyzer {
 
     const magicSchool = ability.type;
     if (this._byMagicSchool[magicSchool]) {
-      this._byMagicSchool[magicSchool] = this._byMagicSchool[magicSchool].add(
-        amount,
+      this._byMagicSchool[magicSchool] = this._byMagicSchool[magicSchool].addValues({
+        regular: amount,
         absorbed,
         blocked,
         overkill,
-      );
+      });
     } else {
       this._byMagicSchool[magicSchool] = DamageValue.fromValues({
         regular: amount,

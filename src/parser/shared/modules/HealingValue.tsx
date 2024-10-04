@@ -60,7 +60,8 @@ export default class HealingValue {
       return new HealingValue(event.amount, event.absorbed, event.overheal);
     } else if (event.type === EventType.Absorbed) {
       return new HealingValue(event.amount, 0, 0);
-    } else if (event.type === EventType.RemoveBuff) {
+    } else {
+      // RemoveBuff
       return new HealingValue(0, 0, event.absorb);
     }
   }
