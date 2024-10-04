@@ -7,8 +7,8 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import Channeling from 'parser/shared/normalizers/Channeling';
 
-import SpellUsable from './modules/core/SpellUsable';
-import Abilities from './modules/features/Abilities';
+import Abilities from './modules/core/Abilities';
+import Buffs from './modules/core/Buffs';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/features/checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
@@ -22,19 +22,17 @@ import Apocalypse from './modules/spells/Apocalypse';
 import FesteringStrikeEfficiency from './modules/spells/FesteringStrikeEfficiency';
 import ScourgeStrikeEfficiency from './modules/spells/ScourgeStrikeEfficiency';
 import VirulentPlagueEfficiency from './modules/spells/VirulentPlagueEfficiency';
-import ArmyOfTheDamned from './modules/talents/ArmyOfTheDamned';
 import SoulReaper from '../shared/talents/SoulReaper';
 import CommanderOfTheDead from './modules/talents/CommanderOfTheDead';
 import SummonGargoyleBuffs from './modules/talents/SummonGargoyleBuffs';
 import PlagueBringer from './modules/talents/PlagueBringer';
 import VileInfusion from './modules/spells/VileInfusion';
 
-// Covenants
-
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
     abilities: Abilities,
+    buffs: Buffs,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
     channeling: Channeling,
@@ -46,14 +44,12 @@ class CombatLogParser extends CoreCombatLogParser {
     apocalypse: Apocalypse,
     virulentPlagueEfficiency: VirulentPlagueEfficiency,
     woundTracker: WoundTracker,
-    spellUsable: SpellUsable,
     suddenDoom: SuddenDoom,
     unholyRuneForge: UnholyRuneForgeChecker,
     fileInfusion: VileInfusion,
 
     // Talents
     soulReaper: SoulReaper,
-    armyOfTheDamned: ArmyOfTheDamned,
     commanderOfTheDead: CommanderOfTheDead,
     summonGargoyleBuffs: SummonGargoyleBuffs,
     plagueBringer: PlagueBringer,

@@ -253,11 +253,34 @@ const spells = {
   },
 
   // Unholy:
+  DEATH_CHARGE: {
+    id: 444347,
+    name: 'Death Charge',
+    icon: 'ability_mount_steelwarhorse',
+  },
   // Spells
   APOCALYPSE: {
     id: 275699,
     name: 'Apocalypse',
     icon: 'artifactability_unholydeathknight_deathsembrace',
+  },
+
+  MOGRAINES_MIGHT: {
+    id: 444505,
+    name: "Mograine's Might",
+    icon: 'ability_warlock_improvedsoulleech',
+  },
+
+  GHOULISH_FRENZY: {
+    id: 377588,
+    name: 'Ghoulish Frenzy',
+    icon: 'ability_warlock_baneofhavoc',
+  },
+
+  UNHOLY_COMMANDER: {
+    id: 456698,
+    name: 'Unholy Commander',
+    icon: 'spell_shadow_darksummoning',
   },
 
   APOCALYPSE_RUNE_GENERATION: {
@@ -306,6 +329,8 @@ const spells = {
     id: 85948,
     name: 'Festering Strike',
     icon: 'spell_deathknight_festering_strike',
+    runesCost: 2,
+    runicPowerCost: -20,
   },
 
   FESTERING_WOUND: {
@@ -324,6 +349,8 @@ const spells = {
     id: 77575,
     name: 'Outbreak',
     icon: 'spell_deathvortex',
+    runesCost: 1,
+    runicPowerCost: -10,
   },
 
   RAISE_DEAD_UNHOLY: {
@@ -356,6 +383,8 @@ const spells = {
     id: 55090,
     name: 'Scourge Strike',
     icon: 'spell_deathknight_scourgestrike',
+    runesCost: 1,
+    runicPowerCost: -10,
   },
 
   SCOURGE_STRIKE_SHADOW_DAMAGE: {
@@ -417,6 +446,8 @@ const spells = {
     id: 45524,
     name: 'Chains of Ice',
     icon: 'spell_frost_chainsofice',
+    runesCost: 1,
+    runicPowerCost: -10,
   },
   RUNEFORGING: {
     id: 53428,
@@ -547,6 +578,7 @@ const spells = {
     id: 47541,
     name: 'Death Coil',
     icon: 'spell_shadow_deathcoil',
+    runicPowerCost: 30,
   },
 
   DEATH_COIL_DAMAGE: {
