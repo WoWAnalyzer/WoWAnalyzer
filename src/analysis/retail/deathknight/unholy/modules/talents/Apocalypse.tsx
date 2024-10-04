@@ -60,10 +60,12 @@ class Apocalypse extends Analyzer {
       .addSuggestion((suggest, actual, recommended) =>
         suggest(
           <span>
-            You are casting <SpellLink spell={TALENTS.APOCALYPSE_TALENT} /> with too few{' '}
-            <SpellLink spell={SPELLS.FESTERING_WOUND} /> on the target. When casting{' '}
-            <SpellLink spell={TALENTS.APOCALYPSE_TALENT} />, make sure to have at least 4{' '}
-            <SpellLink spell={SPELLS.FESTERING_WOUND} /> on the target.
+            You're casting <SpellLink spell={TALENTS.APOCALYPSE_TALENT} /> when there are to few
+            stacks of <SpellLink spell={SPELLS.FESTERING_WOUND} /> on the target. Ideally you should
+            cast <SpellLink spell={TALENTS.APOCALYPSE_TALENT} /> when you have 4 stacks of{' '}
+            <SpellLink spell={SPELLS.FESTERING_WOUND} />. It is more important to send it on
+            cooldown than to wait to build 4 <SpellLink spell={SPELLS.FESTERING_WOUND} />. In AoE,
+            use with 1 or more <SpellLink spell={SPELLS.FESTERING_WOUND} />.
           </span>,
         )
           .icon(TALENTS.APOCALYPSE_TALENT.icon)
