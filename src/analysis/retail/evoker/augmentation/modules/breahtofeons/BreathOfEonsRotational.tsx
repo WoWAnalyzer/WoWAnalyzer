@@ -8,6 +8,7 @@ import Events, {
   EmpowerEndEvent,
   EventType,
   GetRelatedEvents,
+  HasRelatedEvent,
   RemoveBuffEvent,
   RemoveDebuffEvent,
   UpdateSpellUsableEvent,
@@ -15,6 +16,7 @@ import Events, {
 } from 'parser/core/Events';
 import {
   BREATH_EBON_APPLY_LINK,
+  BREATH_OF_EONS_DEBUFF_LINK,
   EBON_MIGHT_BUFF_LINKS,
   ebonIsFromBreath,
   getBreathOfEonsBuffEvents,
@@ -443,7 +445,9 @@ class BreathOfEonsRotational extends Analyzer {
       this.currentBreathWindow.start = event.timestamp;
     }
 
-    this.activeDebuffs = this.activeDebuffs + 1;
+    if (HasRelatedEvent(event, BREATH_OF_EONS_DEBUFF_LINK)) {
+      this.activeDebuffs = this.activeDebuffs + 1;
+    }
 
     this.currentPerformanceBreathWindow.temporalWoundsCounter.push({
       timestamp: event.timestamp,
