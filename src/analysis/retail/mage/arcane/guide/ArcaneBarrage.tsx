@@ -179,7 +179,7 @@ class ArcaneBarrageGuide extends Analyzer {
           <ul>
             <li>
               {touchOfTheMagi} is almost available
-              {this.isSunfury ? `, You have ${arcaneSoul},` : ''} or you are out of mana.
+              {this.isSunfury ? <>, you have {arcaneSoul},</> : ''} or you're out of mana.
             </li>
             {this.isSunfury && (
               <>
