@@ -22,10 +22,11 @@ const UnholyDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: C
   return (
     <Checklist>
       <Rule
-        name="Use cooldowns as often as possible"
+        name="Use major abilities as often as possible"
         description={
           <>
-            You should aim to use your cooldowns as often as you can to maximize your damage output.
+            You should aim to use major abilities as often as you can to maximize your damage
+            output.
             <a
               href="https://www.wowhead.com/unholy-death-knight-rotation-guide#cooldown-usage"
               target="_blank"
@@ -36,7 +37,9 @@ const UnholyDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: C
           </>
         }
       >
-        <AbilityRequirement spell={SPELLS.APOCALYPSE.id} />
+        {combatant.hasTalent(TALENTS.APOCALYPSE_TALENT) && (
+          <AbilityRequirement spell={TALENTS.APOCALYPSE_TALENT.id} />
+        )}
         <AbilityRequirement spell={SPELLS.DARK_TRANSFORMATION.id} />
         {combatant.hasTalent(TALENTS.SOUL_REAPER_TALENT) && (
           <AbilityRequirement spell={TALENTS.SOUL_REAPER_TALENT.id} />
@@ -50,9 +53,10 @@ const UnholyDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: C
         {castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_RUNIC_POWER.id) && (
           <AbilityRequirement spell={SPELLS.ARCANE_TORRENT_RUNIC_POWER.id} />
         )}
-        {combatant.hasTalent(TALENTS.UNHOLY_BLIGHT_TALENT) && (
-          <AbilityRequirement spell={TALENTS.UNHOLY_BLIGHT_TALENT.id} />
-        )}
+        {combatant.hasTalent(TALENTS.UNHOLY_BLIGHT_TALENT) &&
+          !combatant.hasTalent(TALENTS.DARK_TRANSFORMATION_TALENT) && (
+            <AbilityRequirement spell={TALENTS.UNHOLY_BLIGHT_TALENT.id} />
+          )}
         {combatant.hasTalent(TALENTS.DEFILE_TALENT) && (
           <AbilityRequirement spell={TALENTS.DEFILE_TALENT.id} />
         )}

@@ -253,18 +253,19 @@ const spells = {
   },
 
   // Unholy:
+  FESTERING_SCYTHE: {
+    id: 458128,
+    name: 'Festering Scythe',
+    icon: 'inv_polearm_2h_mawnecromancerboss_d_01_darkblue',
+    runesCost: 2,
+    runicPowerCost: -20,
+  },
   DEATH_CHARGE: {
     id: 444347,
     name: 'Death Charge',
     icon: 'ability_mount_steelwarhorse',
   },
   // Spells
-  APOCALYPSE: {
-    id: 275699,
-    name: 'Apocalypse',
-    icon: 'artifactability_unholydeathknight_deathsembrace',
-  },
-
   MOGRAINES_MIGHT: {
     id: 444505,
     name: "Mograine's Might",

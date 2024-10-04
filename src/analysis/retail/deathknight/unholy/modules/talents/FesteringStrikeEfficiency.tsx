@@ -12,6 +12,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 import WoundTracker from '../features/WoundTracker';
+import { TALENTS_DEATH_KNIGHT } from 'common/TALENTS';
 
 const SAFE_WOUND_COUNT = 3;
 
@@ -24,6 +25,11 @@ class FesteringStrikeEfficiency extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEATH_KNIGHT.FESTERING_STRIKE_TALENT);
+    if (!this.active) {
+      return;
+    }
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FESTERING_STRIKE),
@@ -92,7 +98,7 @@ class FesteringStrikeEfficiency extends Analyzer {
       <Statistic
         tooltip={`${this.festeringStrikeCastsOverSafeCount} of out ${this.totalFesteringStrikeCasts} Festering Strikes were cast on a target with more than three stacks of Festering Wounds.`}
         position={STATISTIC_ORDER.CORE(4)}
-        category={STATISTIC_CATEGORY.GENERAL}
+        category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
       >
         <BoringSpellValueText spell={SPELLS.FESTERING_STRIKE}>

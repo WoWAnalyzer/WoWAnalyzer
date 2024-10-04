@@ -95,7 +95,7 @@ class ScourgeStrikeEfficiency extends Analyzer {
       <Statistic
         tooltip={`${this.zeroWoundCasts} out of ${this.totalCasts} ${this.activeSpell.name} were used with no Festering Wounds on the target.`}
         position={STATISTIC_ORDER.CORE(3)}
-        category={STATISTIC_CATEGORY.GENERAL}
+        category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
       >
         <BoringSpellValueText spell={SPELLS.SCOURGE_STRIKE}>

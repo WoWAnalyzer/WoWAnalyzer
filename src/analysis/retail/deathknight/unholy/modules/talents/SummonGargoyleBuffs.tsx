@@ -51,21 +51,22 @@ class SummonGargoyleBuffs extends Analyzer {
   }
 
   onBuffCast(event: CastEvent) {
-    if (this.gargoyleActive === true) {
-      if (event.timestamp > this.gargoyleEnd) {
-        /* Gargoyle is active and has been up for more than 25 seconds ->
-		A full Gargoyle has just ended. Add temporary Runic Power to total,
-		set gargoyleActive to false iterate number of Gargoyle casts by one
-		and reset the current Gargoyle Runic Power counter.*/
-        this.gargoyleActive = false;
-        this.totalGargoyleRunicPower += this.currentGargoyleRunicPower;
-        this.currentGargoyleRunicPower = 0;
-        this.totalGargoyleCasts += 1;
-      } else if (event.ability.guid === SPELLS.DEATH_STRIKE_HEAL.id) {
-        this.currentGargoyleRunicPower += 45;
-      } else {
-        this.currentGargoyleRunicPower += 30;
-      }
+    if (!this.gargoyleActive) {
+      return;
+    }
+    if (event.timestamp > this.gargoyleEnd) {
+      /* Gargoyle is active and has been up for more than 25 seconds ->
+  A full Gargoyle has just ended. Add temporary Runic Power to total,
+  set gargoyleActive to false iterate number of Gargoyle casts by one
+  and reset the current Gargoyle Runic Power counter.*/
+      this.gargoyleActive = false;
+      this.totalGargoyleRunicPower += this.currentGargoyleRunicPower;
+      this.currentGargoyleRunicPower = 0;
+      this.totalGargoyleCasts += 1;
+    } else if (event.ability.guid === SPELLS.DEATH_STRIKE_HEAL.id) {
+      this.currentGargoyleRunicPower += 45;
+    } else {
+      this.currentGargoyleRunicPower += 30;
     }
   }
 

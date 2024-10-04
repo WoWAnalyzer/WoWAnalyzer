@@ -79,10 +79,10 @@ class CommanderOfTheDead extends Analyzer {
             <SpellLink spell={SPELLS.DARK_TRANSFORMATION} /> when you use{' '}
             <SpellLink spell={SPELLS.ARMY_OF_THE_DEAD} />,{' '}
             <SpellLink spell={TALENTS.SUMMON_GARGOYLE_TALENT} /> and{' '}
-            <SpellLink spell={SPELLS.APOCALYPSE} />.
+            <SpellLink spell={TALENTS.APOCALYPSE_TALENT} />.
           </span>,
         )
-          .icon(SPELLS.APOCALYPSE.icon)
+          .icon(TALENTS.APOCALYPSE_TALENT.icon)
           .actual(
             defineMessage({
               id: 'deathknight.unholy.suggestions.commanderofthedead.efficiency',

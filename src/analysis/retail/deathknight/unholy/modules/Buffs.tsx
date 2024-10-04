@@ -1,15 +1,15 @@
-import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
-import CoreAuras from 'parser/core/modules/Auras';
+import CoreAuras, { AuraOptions } from 'parser/core/modules/Auras';
 import talents from 'common/TALENTS/deathknight';
 import SPELLS from 'common/SPELLS/deathknight';
 
 class Buffs extends CoreAuras {
-  auras() {
+  auras(options: AuraOptions) {
     const combatant = this.selectedCombatant;
 
     // This should include ALL buffs that can be applied by your spec.
     // This data can be used by various kinds of modules to improve their results, and modules added in the future may rely on buffs that aren't used today.
     return [
+      ...super.auras(options),
       {
         spellId: SPELLS.LICHBORNE.id,
         timelineHighlight: true,
@@ -60,10 +60,6 @@ class Buffs extends CoreAuras {
       {
         spellId: talents.ANTI_MAGIC_ZONE_TALENT.id,
         enabled: combatant.hasTalent(talents.ANTI_MAGIC_ZONE_TALENT),
-        timelineHighlight: true,
-      },
-      {
-        spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),
         timelineHighlight: true,
       },
     ];
