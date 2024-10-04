@@ -331,7 +331,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.HOLY_PRISM_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 20,
+        cooldown: 30,
         gcd: {
           base: 1500,
         },
