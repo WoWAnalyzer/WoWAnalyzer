@@ -59,6 +59,17 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: CAST_BUFFER_MS,
   },
   {
+    reverseLinkRelation: BUFF_REMOVE,
+    linkingEventId: SPELLS.BURDEN_OF_POWER_BUFF.id,
+    linkingEventType: EventType.RemoveBuff,
+    linkRelation: SPELL_CAST,
+    referencedEventId: [SPELLS.ARCANE_BLAST.id, SPELLS.ARCANE_BARRAGE.id],
+    referencedEventType: EventType.Cast,
+    anyTarget: true,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
     reverseLinkRelation: SPELL_CAST,
     linkingEventId: TALENTS.ARCANE_MISSILES_TALENT.id,
     linkingEventType: EventType.Cast,
