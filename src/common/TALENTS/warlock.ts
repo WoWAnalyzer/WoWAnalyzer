@@ -1150,7 +1150,7 @@ const talents = {
   PACT_OF_GLUTTONY_TALENT: {
     id: 386689,
     name: 'Pact of Gluttony',
-    icon: 'warlock__bloodstone',
+    icon: 'warlock_-bloodstone',
     maxRanks: 1,
     entryIds: [91434],
     definitionIds: [{ id: 96436, specId: 267 }],

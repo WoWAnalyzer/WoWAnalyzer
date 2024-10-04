@@ -7,12 +7,14 @@
     text-decoration: none;
   }
 
-  .player-background {
+  .class-background {
     background-position: center;
     background-size: cover;
   }
 
   .player-gear {
+    background-size: contain;
+    background-position: center 62.5%;
     display: grid;
     grid-template-columns: 45px 15px auto 30px 15px 45px 45px 15px 30px auto 15px 45px;
     grid-template-rows: 20px 20px 20px 20px 20px 20px 20px 20px 20px 20px 20px 20px 20px 20px 20px 20px 20px 20px;

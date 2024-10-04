@@ -38,6 +38,8 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 10, 4), <>Added simple statistics for <ItemLink id={ITEMS.SPYMASTERS_WEB.id}/>.</>, Vetyst),
+  change(date(2024, 10, 3), 'Fixed rendering of the Header on the character log browser.', Vetyst),
   change(date(2024, 9, 30), 'Add Classic Cata Firelands raid zone, headshots, and placeholder image', jazminite),
   change(date(2024, 9, 30), 'Enchant checker now detects Spellthreads', Sref),
   change(date(2024, 9, 26), "Add support for Warlock Hero Talents", Gazh),

@@ -11,6 +11,11 @@ const trinkets = {
     name: 'Signet of the Priory',
     icon: 'inv_arathordungeon_signet_color1',
   },
+  SPYMASTERS_WEB: {
+    id: 220202,
+    name: "Spymaster's Web",
+    icon: 'inv_11_0_raid_spymastersweb_purple',
+  },
 } satisfies Record<string, Item>;
 
 export default trinkets;
