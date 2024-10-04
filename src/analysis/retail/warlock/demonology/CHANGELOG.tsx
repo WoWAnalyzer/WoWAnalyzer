@@ -5,6 +5,7 @@ import { Sharrq, Zeboot, Meldris, ToppleTheNun, Jonfanz, Mae, dodse, Arlie, Putr
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2024, 10, 1), <>Add support for <SpellLink spell={SPELLS.DEMONIC_HEALTHSTONE} /> </>, Gazh),
   change(date(2024, 9, 28), <>Add support for <SpellLink spell={TALENTS_WARLOCK.MARK_OF_FHARG_TALENT}/> & <SpellLink spell={TALENTS_WARLOCK.MARK_OF_SHATUG_TALENT}/></>, Gazh),
   change(date(2024, 9, 26), "Add support for Hero Talents", Gazh),
   change(date(2024, 5, 31), <>Fixed <SpellLink spell={TALENTS_WARLOCK.POWER_SIPHON_TALENT}/> statistic</>, Zyer),

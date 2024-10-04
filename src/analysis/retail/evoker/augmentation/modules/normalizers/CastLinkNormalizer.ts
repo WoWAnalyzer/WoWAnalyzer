@@ -38,6 +38,7 @@ export const EBON_MIGHT_APPLY_REMOVE_LINK = 'ebonMightApplyRemoveLink';
 export const BREATH_OF_EONS_CAST_DEBUFF_APPLY_LINK = 'breathOfEonsCastDebuffApplyLink';
 export const BREATH_OF_EONS_CAST_BUFF_LINK = 'breathOfEonsCastBuffLink';
 export const BREATH_OF_EONS_DAMAGE_LINK = 'breathOfEonsDamageLink';
+export const BREATH_OF_EONS_DEBUFF_LINK = 'breathOfEonsDebuffLink';
 
 const ERUPTION_CAST_DAM_LINK = 'eruptionCastDamLink';
 const ERUPTION_CHITIN_LINK = 'eruptionChitinLink';
@@ -57,6 +58,7 @@ const BREATH_EBON_BUFFER = 250;
 const EBON_MIGHT_BUFFER = 150;
 const BREATH_OF_EONS_DEBUFF_APPLY_BUFFER = 8000;
 const BREATH_OF_EONS_BUFF_BUFFER = 8000;
+const BREATH_OF_EONS_DEBUFF_BUFFER = 14000;
 const BREATH_OF_EONS_DAMAGE_BUFFER = 100;
 const PUPIL_OF_ALEXSTRASZA_BUFFER = 1000;
 const UPHEAVAL_DAMAGE_BUFFER = 800;
@@ -149,6 +151,37 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: EventType.Damage,
     anyTarget: false,
     forwardBufferMs: BREATH_OF_EONS_DAMAGE_BUFFER,
+  },
+  /**
+   * So this is *slightly* cursed, but basically fixes an issue with mobs sharing HP eg. Silken Court.
+   * Essentially will just apply links backwards if no link is already present.
+   * example log:
+   * https://www.warcraftlogs.com/reports/zCvY2PKpHtd6MqAW#fight=4&type=auras&pins=0%24Separate%24%23244F4B%24damage%240%240.0.0.Any%24184027896.0.0.Evoker%24true%240.0.0.Any%24false%24409632&hostility=1&spells=debuffs&target=217&ability=409560&view=events&start=4819003&end=4837682
+   */
+  {
+    linkRelation: BREATH_OF_EONS_DAMAGE_LINK,
+    reverseLinkRelation: BREATH_OF_EONS_DAMAGE_LINK,
+    linkingEventId: SPELLS.BREATH_OF_EONS_DAMAGE.id,
+    linkingEventType: EventType.Damage,
+    referencedEventId: SPELLS.TEMPORAL_WOUND_DEBUFF.id,
+    referencedEventType: EventType.RemoveDebuff,
+    anyTarget: true,
+    maximumLinks: 1,
+    backwardBufferMs: BREATH_OF_EONS_DAMAGE_BUFFER,
+    additionalCondition(linkingEvent, _referencedEvent) {
+      return !HasRelatedEvent(linkingEvent, BREATH_OF_EONS_DAMAGE_LINK);
+    },
+  },
+  {
+    linkRelation: BREATH_OF_EONS_DEBUFF_LINK,
+    reverseLinkRelation: BREATH_OF_EONS_DEBUFF_LINK,
+    linkingEventId: SPELLS.TEMPORAL_WOUND_DEBUFF.id,
+    linkingEventType: EventType.ApplyDebuff,
+    referencedEventId: SPELLS.TEMPORAL_WOUND_DEBUFF.id,
+    referencedEventType: EventType.RemoveDebuff,
+    anyTarget: false,
+    maximumLinks: 1,
+    forwardBufferMs: BREATH_OF_EONS_DEBUFF_BUFFER,
   },
   {
     linkRelation: PUPIL_OF_ALEXSTRASZA_LINK,

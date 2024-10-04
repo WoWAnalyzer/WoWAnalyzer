@@ -82,7 +82,7 @@ class ElementalSpirits extends Analyzer {
   }
 
   get elementalSpiritCount() {
-    return this.elementalSpiritHistory.at(-1)?.value ?? 0;
+    return this.icyEdgeCount + this.moltenWeaponCount + this.cracklingSurgeCount;
   }
 
   gainMoltenWeapon(event: ApplyBuffEvent | RemoveBuffEvent) {

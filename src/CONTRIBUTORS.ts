@@ -564,14 +564,14 @@ export const HawkCorrigan: Contributor = {
 };
 export const Vetyst: Contributor = {
   nickname: 'Vetyst',
-  github: 'djanse',
-  discord: 'vetyst#0001',
+  github: 'vetyst',
+  discord: 'vetyst',
   avatar: avatar('vetyst-avatar.png'),
   mains: [
     {
-      name: 'Vetyst',
-      spec: SPECS.BALANCE_DRUID,
-      link: 'https://worldofwarcraft.com/en-gb/character/tarren-mill/vetyst',
+      name: 'Vetiest',
+      spec: SPECS.SHADOW_PRIEST,
+      link: 'https://worldofwarcraft.com/en-gb/character/ragnaros/vetiest',
     },
   ],
 };
@@ -2276,7 +2276,7 @@ export const Vollmer: Contributor = {
 export const Seriousnes: Contributor = {
   nickname: 'Seriousnes',
   github: 'Seriousnes',
-  discord: 'Seriousnes#7895',
+  discord: 'seriousnes',
   avatar: avatar('seriousnes-avatar.png'),
   mains: [
     {
