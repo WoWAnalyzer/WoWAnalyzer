@@ -51,50 +51,70 @@ export default class DamageValue {
     return this._largestHit;
   }
 
-  constructor(regular = 0, absorbed = 0, blocked = 0, overkill = 0, largestHit = null) {
-    this._regular = regular;
-    this._absorbed = absorbed;
-    this._blocked = blocked;
-    this._overkill = overkill;
-    this._largestHit = largestHit === null ? regular + absorbed + overkill : largestHit;
+  private constructor(
+    regular?: number,
+    absorbed?: number,
+    blocked?: number,
+    overkill?: number,
+    largestHit?: number,
+  ) {
+    this._regular = regular || 0;
+    this._absorbed = absorbed || 0;
+    this._blocked = blocked || 0;
+    this._overkill = overkill || 0;
+    this._largestHit = largestHit || this.raw;
   }
 
-  constructor(event: DamageEvent) {
-    this._regular = event.amount;
-    this._absorbed = event.absorbed || 0;
-    this._blocked = event.blocked || 0;
-    this._overkill = event.overkill || 0;
-    this._largestHit = this.raw;
+  /**
+   * Constructs a new DamageValue based on the values represented by an event.
+   */
+  public static fromEvent(event: DamageEvent): DamageValue {
+    return new DamageValue(event.amount, event.absorbed, event.blocked, event.overkill);
   }
 
-  /** Adds the given values to this value and returns the result.
-   *  This object will NOT be modified */
-  add(regular = 0, absorbed = 0, blocked = 0, overkill = 0) {
-    return new this.constructor(
-      this.regular + regular,
-      this.absorbed + absorbed,
-      this.blocked + blocked,
-      this.overkill + overkill,
-      Math.max(this.largestHit, regular + absorbed + blocked + overkill),
-    );
+  /** Returns a new DamageValue with explicitly specified values */
+  public static fromValues(item: DamageValueItem): DamageValue {
+    return new DamageValue(item.regular, item.absorbed, item.blocked, item.overkill);
+  }
+
+  /** Returns a new DamageValue with zeroed values */
+  public static empty(): DamageValue {
+    return new DamageValue(0, 0, 0, 0);
   }
 
   /** Adds the given values to this damage value and returns the result.
    *  This object will NOT be modified */
   add(val: DamageValue): DamageValue {
-    return this.add(val.regular, val.absorbed, val.blocked, val.overkill);
+    return new DamageValue(
+      this.regular + val.regular,
+      this.absorbed + val.absorbed,
+      this.blocked + val.blocked,
+      this.overkill + val.overkill,
+      Math.max(this.largestHit, val.largestHit),
+    );
   }
 
   /** Adds the given event to this value and returns the result.
    *  This object will NOT be modified */
-  add(event: DamageEvent) {
-    return this.add(new DamageValue(event));
+  addEvent(event: DamageEvent) {
+    return this.add(DamageValue.fromEvent(event));
   }
+
+  /** Adds the given values to this value and returns the result.
+   *  This object will NOT be modified */
+  addValues(item: DamageValueItem) {
+    return this.add(DamageValue.fromValues(item));
+  }
+}
+
+export interface DamageValueItem {
+  regular?: number;
+  absorbed?: number;
+  blocked?: number;
+  overkill?: number;
 }
 
 /** Convenience function when all you want is an event's effective damage */
 export function effectiveDamage(event: DamageEvent): number {
   return event.amount + (event.absorbed || 0);
 }
-
-export default DamageValue;

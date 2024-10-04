@@ -67,7 +67,7 @@ class DamageTaken extends Analyzer {
     if (this._byAbility[spellId]) {
       this._byAbility[spellId] = this._byAbility[spellId].add(amount, absorbed, blocked, overkill);
     } else {
-      this._byAbility[spellId] = new DamageValue(amount, absorbed, blocked, overkill);
+      this._byAbility[spellId] = new DamageValue().add(amount, absorbed, blocked, overkill);
     }
 
     const magicSchool = ability.type;
@@ -79,7 +79,7 @@ class DamageTaken extends Analyzer {
         overkill,
       );
     } else {
-      this._byMagicSchool[magicSchool] = new DamageValue(amount, absorbed, blocked, overkill);
+      this._byMagicSchool[magicSchool] = new DamageValue().add(amount, absorbed, blocked, overkill);
     }
 
     const secondsIntoFight = Math.floor((event.timestamp - this.owner.fight.start_time) / 1000);

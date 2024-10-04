@@ -1,4 +1,4 @@
-import { AbsorbedEvent, EventType, HealEvent } from 'parser/core/Events';
+import { AbsorbedEvent, EventType, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 
 /**
  * Represents the components of a healing event or events.
@@ -18,7 +18,8 @@ export default class HealingValue {
     return this._regular;
   }
 
-  /** Amount of absorbed healing. */
+  /** Amount of absorbed healing. *This tallies absorbed healing, NOT absorbed damage.
+   * Damage absorbed (from an AbsorbedEvent) is tallied as 'regular' healing.* */
   get absorbed(): number {
     return this._absorbed;
   }
@@ -30,7 +31,7 @@ export default class HealingValue {
     return this.regular + this.absorbed;
   }
 
-  /** Amount of overhealing */
+  /** Amount of overhealing. This also can include expired absorb shields. */
   get overheal(): number {
     return this._overheal;
   }
@@ -40,49 +41,70 @@ export default class HealingValue {
     return this.effective + this.overheal;
   }
 
-  constructor(regular = 0, absorbed = 0, overheal = 0) {
-    this._regular = regular;
-    this._absorbed = absorbed;
-    this._overheal = overheal;
+  private constructor(regular?: number, absorbed?: number, overheal?: number) {
+    this._regular = regular || 0;
+    this._absorbed = absorbed || 0;
+    this._overheal = overheal || 0;
   }
 
-  constructor(event: HealEvent | AbsorbedEvent) {
-    this._regular = event.amount;
+  /**
+   * Constructs a new HealingValue based on the values represented by an event.
+   * @param event
+   *   HealEvent - populates regular healing and optionally absorbed and overheal if present.
+   *   AbsorbedEvent - only includes regular healing. Damage absorbs cannot remove healing absorbs,
+   *     and expired absorbs are tallied in a future event
+   *   RemoveBuff - when a damage absorb expires, the expired amount is overheal.
+   */
+  public static fromEvent(event: HealEvent | AbsorbedEvent | RemoveBuffEvent): HealingValue {
     if (event.type === EventType.Heal) {
-      this._absorbed = event.absorbed || 0;
-      this._overheal = event.overheal || 0;
-    } else {
-      this._absorbed = 0;
-      this._overheal = 0;
+      return new HealingValue(event.amount, event.absorbed, event.overheal);
+    } else if (event.type === EventType.Absorbed) {
+      return new HealingValue(event.amount, 0, 0);
+    } else if (event.type === EventType.RemoveBuff) {
+      return new HealingValue(0, 0, event.absorb);
     }
   }
 
-  /** Adds the given values to this value and returns the result.
-   *  This object will NOT be modified */
-  add(regular = 0, absorbed = 0, overheal = 0): HealingValue {
-    return new this.constructor(
-      this.regular + regular,
-      this.absorbed + absorbed,
-      this.overheal + overheal,
-    );
+  /** Returns a new HealingValue with explicitly specified values */
+  public static fromValues(item: HealingValueItem): HealingValue {
+    return new HealingValue(item.regular, item.absorbed, item.overheal);
+  }
+
+  /** Returns a new HealingValue with zeroed values */
+  public static empty(): HealingValue {
+    return new HealingValue(0, 0, 0);
   }
 
   /** Adds the given healing value to this one and returns the result.
    *  This object will NOT be modified */
   add(val: HealingValue): HealingValue {
-    return this.add(val.regular, val.absorbed, val.overheal);
+    return new HealingValue(
+      this.regular + val.regular,
+      this.absorbed + val.absorbed,
+      this.overheal + val.overheal,
+    );
   }
 
   /** Adds the given event to this value and returns the result.
    *  This object will NOT be modified */
-  add(event: HealEvent | AbsorbedEvent): HealingValue {
-    return this.add(new HealingValue(event));
+  addEvent(event: HealEvent | AbsorbedEvent | RemoveBuffEvent): HealingValue {
+    return this.add(HealingValue.fromEvent(event));
   }
+
+  /** Adds the given values to this value and returns the result.
+   *  This object will NOT be modified */
+  addValues(item: HealingValueItem): HealingValue {
+    return this.add(HealingValue.fromValues(item));
+  }
+}
+
+export interface HealingValueItem {
+  regular?: number;
+  absorbed?: number;
+  overheal?: number;
 }
 
 /** Convenience function when all you want is an event's effective healing */
 export function effectiveHealing(event: HealEvent | AbsorbedEvent): number {
   return event.type === EventType.Heal ? event.amount + (event.absorbed || 0) : event.amount;
 }
-
-export default HealingValue;

@@ -73,7 +73,7 @@ class WildGrowth extends Analyzer {
   onHealWg(event: HealEvent) {
     const recentWgHealTracker = this.recentWgTargetHealing[event.targetID];
     if (recentWgHealTracker !== undefined) {
-      const healVal = new HealingValue(event.amount, event.absorbed, event.overheal);
+      const healVal = HealingValue.fromEvent(event);
       recentWgHealTracker.total += healVal.raw;
       recentWgHealTracker.overheal += healVal.overheal;
     }

@@ -35,44 +35,26 @@ class DamageDone extends Analyzer {
   get totalByPets() {
     return Object.keys(this._byPet)
       .map((petId) => this._byPet[parseInt(petId)])
-      .reduce(
-        (total, damageValue) =>
-          total.add(
-            damageValue.regular,
-            damageValue.absorbed,
-            damageValue.blocked,
-            damageValue.overkill,
-          ),
-        new DamageValue(),
-      );
+      .reduce((total, damageValue) => total.add(damageValue), new DamageValue());
   }
 
   bySecond: { [secondsIntoFight: number]: DamageValue } = {};
 
   onByPlayerDamage(event: DamageEvent) {
     if (!event.targetIsFriendly) {
-      this._total = this._total.add(event.amount, event.absorbed, event.blocked, event.overkill);
+      this._total = this._total.addEvent(event);
 
       const secondsIntoFight = Math.floor((event.timestamp - this.owner.fight.start_time) / 1000);
-      this.bySecond[secondsIntoFight] = (this.bySecond[secondsIntoFight] || new DamageValue()).add(
-        event.amount,
-        event.absorbed,
-        event.blocked,
-        event.overkill,
-      );
+      this.bySecond[secondsIntoFight] =
+        this.bySecond[secondsIntoFight] || DamageValue.fromEvent(event);
     }
   }
   onByPlayerPetDamage(event: DamageEvent) {
     if (!event.targetIsFriendly) {
-      this._total = this._total.add(event.amount, event.absorbed, event.blocked, event.overkill);
+      this._total = this._total.addEvent(event);
       const petId = event.sourceID;
       if (petId) {
-        this._byPet[petId] = this.byPet(petId).add(
-          event.amount,
-          event.absorbed,
-          event.blocked,
-          event.overkill,
-        );
+        this._byPet[petId] = this.byPet(petId).addEvent(event);
       }
     }
   }
