@@ -13,6 +13,7 @@ import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 import WoundTracker from '../features/WoundTracker';
 import { TALENTS_DEATH_KNIGHT } from 'common/TALENTS';
+import TALENTS from 'common/TALENTS/deathknight';
 
 const SAFE_WOUND_COUNT = 3;
 
@@ -23,6 +24,9 @@ class FesteringStrikeEfficiency extends Analyzer {
 
   protected woundTracker!: WoundTracker;
 
+  private totalFesteringStrikeCasts: number = 0;
+  private festeringStrikeCastsOverSafeCount: number = 0;
+
   constructor(options: Options) {
     super(options);
 
@@ -32,13 +36,10 @@ class FesteringStrikeEfficiency extends Analyzer {
     }
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FESTERING_STRIKE),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.FESTERING_STRIKE_TALENT),
       this.onCast,
     );
   }
-
-  totalFesteringStrikeCasts = 0;
-  festeringStrikeCastsOverSafeCount = 0;
 
   onCast(event: CastEvent) {
     this.totalFesteringStrikeCasts += 1;
@@ -75,12 +76,13 @@ class FesteringStrikeEfficiency extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You are casting <SpellLink spell={SPELLS.FESTERING_STRIKE} /> too often. When spending
-          runes remember to cast <SpellLink spell={SPELLS.SCOURGE_STRIKE} /> instead on targets with
-          more than three stacks of <SpellLink spell={SPELLS.FESTERING_WOUND} />
+          You are casting <SpellLink spell={TALENTS.FESTERING_STRIKE_TALENT} /> too often. When
+          spending runes remember to cast <SpellLink spell={TALENTS.FESTERING_STRIKE_TALENT} />{' '}
+          instead on targets with more than three stacks of{' '}
+          <SpellLink spell={SPELLS.FESTERING_WOUND} />
         </>,
       )
-        .icon(SPELLS.FESTERING_STRIKE.icon)
+        .icon(TALENTS.FESTERING_STRIKE_TALENT.icon)
         .actual(
           defineMessage({
             id: 'deathknight.unholy.suggestions.festeringStrikes.efficiency',
@@ -101,7 +103,7 @@ class FesteringStrikeEfficiency extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
       >
-        <BoringSpellValueText spell={SPELLS.FESTERING_STRIKE}>
+        <BoringSpellValueText spell={TALENTS.FESTERING_STRIKE_TALENT}>
           <>
             {formatPercentage(this.strikeEfficiency)}% <small>efficiency</small>
           </>

@@ -17,11 +17,11 @@ class SummonGargoyleBuffs extends Analyzer {
 
   protected spellUsable!: SpellUsable;
 
-  totalGargoyleCasts = 0; // Number of fully completed gargoyles used.
-  currentGargoyleRunicPower = 0; // Keeps track of Runic Power used on current active Gargoyle.
-  totalGargoyleRunicPower = 0; // Total Runic Power spend on all fully completed Gargoyles.
-  gargoyleActive = false; // Boolean to keep track of Gargoyle being active or not.
-  gargoyleEnd = 0; // Keeps track of when Gargoyle should end.
+  private totalGargoyleCasts: number = 0; // Number of fully completed gargoyles used.
+  private currentGargoyleRunicPower: number = 0; // Keeps track of Runic Power used on current active Gargoyle.
+  private totalGargoyleRunicPower: number = 0; // Total Runic Power spend on all fully completed Gargoyles.
+  private gargoyleActive: boolean = false; // Boolean to keep track of Gargoyle being active or not.
+  private gargoyleEnd: number = 0; // Keeps track of when Gargoyle should end.
 
   constructor(options: Options) {
     super(options);

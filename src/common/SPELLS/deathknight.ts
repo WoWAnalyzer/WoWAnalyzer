@@ -179,12 +179,6 @@ const spells = {
     name: 'Breath of Sindragosa',
     icon: 'spell_deathknight_breathofsindragosa',
   },
-  // Buffs
-  EMPOWER_RUNE_WEAPON: {
-    id: 47568,
-    name: 'Empower Rune Weapon',
-    icon: 'inv_sword_62',
-  },
   // Procs
   RIME: {
     id: 59052,
@@ -260,12 +254,13 @@ const spells = {
     runesCost: 2,
     runicPowerCost: -20,
   },
+
   DEATH_CHARGE: {
     id: 444347,
     name: 'Death Charge',
     icon: 'ability_mount_steelwarhorse',
   },
-  // Spells
+
   MOGRAINES_MIGHT: {
     id: 444505,
     name: "Mograine's Might",
@@ -288,12 +283,6 @@ const spells = {
     id: 343758,
     name: 'Apocalypse',
     icon: 'artifactability_unholydeathknight_deathsembrace',
-  },
-
-  ARMY_OF_THE_DEAD: {
-    id: 42650,
-    name: 'Army of the Dead',
-    icon: 'spell_deathknight_armyofthedead',
   },
 
   COMMANDER_OF_THE_DEAD_BUFF: {
@@ -320,20 +309,6 @@ const spells = {
     icon: 'spell_shadow_coneofsilence',
   },
 
-  DARK_TRANSFORMATION: {
-    id: 63560,
-    name: 'Dark Transformation',
-    icon: 'achievement_boss_festergutrotface',
-  },
-
-  FESTERING_STRIKE: {
-    id: 85948,
-    name: 'Festering Strike',
-    icon: 'spell_deathknight_festering_strike',
-    runesCost: 2,
-    runicPowerCost: -20,
-  },
-
   FESTERING_WOUND: {
     id: 194310,
     name: 'Festering Wound',
@@ -354,22 +329,10 @@ const spells = {
     runicPowerCost: -10,
   },
 
-  RAISE_DEAD_UNHOLY: {
-    id: 46584,
-    name: 'Raise Dead',
-    icon: 'spell_shadow_animatedead',
-  },
-
   RUNIC_CORRUPTION: {
     id: 51460,
     name: 'Runic Corruption',
     icon: 'spell_shadow_rune',
-  },
-
-  PESTILENT_PUSTULES: {
-    id: 220211,
-    name: 'Pestilent Pustules',
-    icon: 'spell_yorsahj_bloodboil_purpleoil',
   },
 
   PLAGUEBRINGER_BUFF: {
@@ -379,15 +342,7 @@ const spells = {
   },
 
   // scourge strike has one cast event but two damage events, the cast and physical
-  // damage happen on id 55090, the shadow damage is on id 70890
-  SCOURGE_STRIKE: {
-    id: 55090,
-    name: 'Scourge Strike',
-    icon: 'spell_deathknight_scourgestrike',
-    runesCost: 1,
-    runicPowerCost: -10,
-  },
-
+  // damage happen on id 55090 (talent), the shadow damage is on id 70890
   SCOURGE_STRIKE_SHADOW_DAMAGE: {
     id: 70890,
     name: 'Scourge Strike',
@@ -398,12 +353,6 @@ const spells = {
     id: 191587,
     name: 'Virulent Plague',
     icon: 'ability_creature_disease_02',
-  },
-
-  T29_VILE_INFUSION_BUFF: {
-    id: 394863,
-    name: 'Vile Infusion',
-    icon: 'spell_necro_deathsknell',
   },
 
   DARK_ARBITER_TALENT_GLYPH: {
@@ -434,12 +383,6 @@ const spells = {
     id: 81340,
     name: 'Sudden Doom',
     icon: 'spell_shadow_painspike',
-  },
-
-  T29_GHOULISH_INFUSION: {
-    id: 394899,
-    name: 'Ghoulish Infusion',
-    icon: 'spell_necro_deathsknell',
   },
 
   // Shared:

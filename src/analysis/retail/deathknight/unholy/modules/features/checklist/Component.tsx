@@ -37,18 +37,39 @@ const UnholyDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: C
           </>
         }
       >
+        {combatant.hasTalent(TALENTS.ABOMINATION_LIMB_TALENT) && (
+          <AbilityRequirement spell={TALENTS.ABOMINATION_LIMB_TALENT.id} />
+        )}
+        {combatant.hasTalent(TALENTS.UNHOLY_ASSAULT_TALENT) && (
+          <AbilityRequirement spell={TALENTS.UNHOLY_ASSAULT_TALENT.id} />
+        )}
+        {combatant.hasTalent(TALENTS.VILE_CONTAGION_TALENT) && (
+          <AbilityRequirement spell={TALENTS.VILE_CONTAGION_TALENT.id} />
+        )}
+        {combatant.hasTalent(TALENTS.ARMY_OF_THE_DEAD_TALENT) &&
+          !combatant.hasTalent(TALENTS.RAISE_ABOMINATION_TALENT) && (
+            <AbilityRequirement spell={TALENTS.ARMY_OF_THE_DEAD_TALENT.id} />
+          )}
+        {combatant.hasTalent(TALENTS.RAISE_ABOMINATION_TALENT) && (
+          <AbilityRequirement spell={TALENTS.RAISE_ABOMINATION_TALENT.id} />
+        )}
         {combatant.hasTalent(TALENTS.APOCALYPSE_TALENT) && (
           <AbilityRequirement spell={TALENTS.APOCALYPSE_TALENT.id} />
         )}
-        <AbilityRequirement spell={SPELLS.DARK_TRANSFORMATION.id} />
-        {combatant.hasTalent(TALENTS.SOUL_REAPER_TALENT) && (
-          <AbilityRequirement spell={TALENTS.SOUL_REAPER_TALENT.id} />
+        {combatant.hasTalent(TALENTS.DARK_TRANSFORMATION_TALENT) && (
+          <AbilityRequirement spell={TALENTS.DARK_TRANSFORMATION_TALENT.id} />
+        )}
+        {combatant.hasTalent(TALENTS.SACRIFICIAL_PACT_TALENT) && (
+          <AbilityRequirement spell={TALENTS.SACRIFICIAL_PACT_TALENT.id} />
         )}
         {combatant.hasTalent(TALENTS.SUMMON_GARGOYLE_TALENT) && (
           <AbilityRequirement spell={TALENTS.SUMMON_GARGOYLE_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.UNHOLY_ASSAULT_TALENT) && (
-          <AbilityRequirement spell={TALENTS.UNHOLY_ASSAULT_TALENT.id} />
+        {combatant.hasTalent(TALENTS.SOUL_REAPER_TALENT) && (
+          <AbilityRequirement spell={TALENTS.SOUL_REAPER_TALENT.id} />
+        )}
+        {combatant.hasTalent(TALENTS.DEFILE_TALENT) && (
+          <AbilityRequirement spell={TALENTS.DEFILE_TALENT.id} />
         )}
         {castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_RUNIC_POWER.id) && (
           <AbilityRequirement spell={SPELLS.ARCANE_TORRENT_RUNIC_POWER.id} />
@@ -57,9 +78,6 @@ const UnholyDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: C
           !combatant.hasTalent(TALENTS.DARK_TRANSFORMATION_TALENT) && (
             <AbilityRequirement spell={TALENTS.UNHOLY_BLIGHT_TALENT.id} />
           )}
-        {combatant.hasTalent(TALENTS.DEFILE_TALENT) && (
-          <AbilityRequirement spell={TALENTS.DEFILE_TALENT.id} />
-        )}
       </Rule>
       <Rule
         name="Try to avoid being inactive for a large portion of the fight"

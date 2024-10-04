@@ -18,8 +18,8 @@ class Apocalypse extends Analyzer {
 
   protected enemies!: Enemies;
 
-  totalApocalypseCasts = 0;
-  apocalypseWoundsPopped = 0;
+  private totalApocalypseCasts: number = 0;
+  private apocalypseWoundsPopped: number = 0;
 
   constructor(options: Options) {
     super(options);

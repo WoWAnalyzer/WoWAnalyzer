@@ -136,7 +136,7 @@ function CooldownsSubsection({ modules, events, info }: GuideProps<typeof Combat
       {info.combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_TALENT) && (
         <div className="flex-main chart" style={{ padding: 5 }}>
           <CastEfficiencyBar
-            spellId={spells.EMPOWER_RUNE_WEAPON.id}
+            spellId={talents.EMPOWER_RUNE_WEAPON_TALENT.id}
             gapHighlightMode={GapHighlight.FullCooldown}
             useThresholds
           />

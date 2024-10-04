@@ -7,6 +7,7 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import TALENTS from 'common/TALENTS/deathknight';
 
 const BUFF_DURATION_MS = 10000;
 
@@ -65,7 +66,7 @@ class SuddenDoom extends Analyzer {
           You are wasting procs of <SpellLink spell={SPELLS.SUDDEN_DOOM_BUFF} />. It is important to
           cast <SpellLink spell={SPELLS.DEATH_COIL} /> as soon as possible after getting a proc to
           ensure you are not losing potential cooldown reduction on{' '}
-          <SpellLink spell={SPELLS.DARK_TRANSFORMATION} />.
+          <SpellLink spell={TALENTS.DARK_TRANSFORMATION_TALENT} />.
         </>,
       )
         .icon(SPELLS.SUDDEN_DOOM_BUFF.icon)

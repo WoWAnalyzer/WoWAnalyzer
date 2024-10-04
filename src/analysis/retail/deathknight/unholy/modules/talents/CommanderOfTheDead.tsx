@@ -10,19 +10,20 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { formatPercentage } from 'common/format';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 class CommanderOfTheDead extends Analyzer {
-  commanderBuffs = 0;
-  petSummons = 0;
-  petSummonIDs = [
+  private commanderBuffs: number = 0;
+  private petSummons: number = 0;
+  private petSummonIDs: number[] = [
     SPELLS.MAGUS_SUMMON.id,
     SPELLS.APOC_SUMMON.id,
     SPELLS.ARMY_SUMMON.id,
     TALENTS.SUMMON_GARGOYLE_TALENT.id,
     SPELLS.DARK_ARBITER_TALENT_GLYPH.id,
   ];
-  buffedPets: string[] = [];
-  summonedPets: string[] = [];
+  private buffedPets: string[] = [];
+  private summonedPets: string[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -76,8 +77,8 @@ class CommanderOfTheDead extends Analyzer {
           <span>
             You are not properly buffing your pets with{' '}
             <SpellLink spell={SPELLS.COMMANDER_OF_THE_DEAD_BUFF} />. Make sure to use{' '}
-            <SpellLink spell={SPELLS.DARK_TRANSFORMATION} /> when you use{' '}
-            <SpellLink spell={SPELLS.ARMY_OF_THE_DEAD} />,{' '}
+            <SpellLink spell={TALENTS.DARK_TRANSFORMATION_TALENT} /> when you use{' '}
+            <SpellLink spell={TALENTS.ARMY_OF_THE_DEAD_TALENT} />,{' '}
             <SpellLink spell={TALENTS.SUMMON_GARGOYLE_TALENT} /> and{' '}
             <SpellLink spell={TALENTS.APOCALYPSE_TALENT} />.
           </span>,
@@ -102,6 +103,7 @@ class CommanderOfTheDead extends Analyzer {
       <Statistic
         tooltip={`You buffed ${this.commanderBuffs} out of ${this.petSummons} pets buffed with Commander of the Dead`}
         position={STATISTIC_ORDER.CORE(1)}
+        category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
       >
         <BoringSpellValueText spell={SPELLS.COMMANDER_OF_THE_DEAD_BUFF.id}>

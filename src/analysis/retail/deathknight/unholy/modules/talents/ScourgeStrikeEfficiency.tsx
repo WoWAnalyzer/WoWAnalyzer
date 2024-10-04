@@ -1,7 +1,5 @@
 import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
-import Spell from 'common/SPELLS/Spell';
 import TALENTS from 'common/TALENTS/deathknight';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -14,6 +12,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 import WoundTracker from '../features/WoundTracker';
+import { Talent } from 'common/TALENTS/types';
 
 class ScourgeStrikeEfficiency extends Analyzer {
   static dependencies = {
@@ -22,18 +21,24 @@ class ScourgeStrikeEfficiency extends Analyzer {
 
   protected woundTracker!: WoundTracker;
 
+  private readonly activeSpell: Talent;
+  private totalCasts: number = 0;
+  private zeroWoundCasts: number = 0;
+
   constructor(options: Options) {
     super(options);
+
     this.activeSpell = this.selectedCombatant.hasTalent(TALENTS.CLAWING_SHADOWS_TALENT)
       ? TALENTS.CLAWING_SHADOWS_TALENT
-      : SPELLS.SCOURGE_STRIKE;
+      : TALENTS.SCOURGE_STRIKE_TALENT;
+
+    this.active = this.selectedCombatant.hasTalent(this.activeSpell);
+    if (!this.active) {
+      return;
+    }
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.activeSpell), this.onCast);
   }
-
-  activeSpell: Spell;
-  totalCasts = 0;
-  zeroWoundCasts = 0;
 
   onCast(event: CastEvent) {
     if (!HasTarget(event)) {
@@ -98,7 +103,7 @@ class ScourgeStrikeEfficiency extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
       >
-        <BoringSpellValueText spell={SPELLS.SCOURGE_STRIKE}>
+        <BoringSpellValueText spell={this.activeSpell}>
           <>
             {formatPercentage(this.strikeEfficiency)}% <small>efficiency</small>
           </>

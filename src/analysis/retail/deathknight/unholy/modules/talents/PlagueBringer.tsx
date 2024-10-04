@@ -38,7 +38,7 @@ class PlagueBringer extends Analyzer {
         suggest(
           <span>
             You are not keeping up your <SpellLink spell={SPELLS.PLAGUEBRINGER_BUFF} /> enough.{' '}
-            Prioritise maintaining it by using <SpellLink spell={SPELLS.SCOURGE_STRIKE} />.
+            Prioritise maintaining it by using <SpellLink spell={TALENTS.SCOURGE_STRIKE_TALENT} />.
           </span>,
         )
           .icon(SPELLS.PLAGUEBRINGER_BUFF.icon)

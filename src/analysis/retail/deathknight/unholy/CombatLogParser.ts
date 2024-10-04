@@ -22,7 +22,6 @@ import Apocalypse from './modules/talents/Apocalypse';
 import FesteringStrikeEfficiency from './modules/talents/FesteringStrikeEfficiency';
 import ScourgeStrikeEfficiency from './modules/talents/ScourgeStrikeEfficiency';
 import VirulentPlagueEfficiency from './modules/abilities/VirulentPlagueEfficiency';
-// import VileInfusion from './modules/abilities/VileInfusion';
 import SoulReaper from '../shared/talents/SoulReaper';
 import CommanderOfTheDead from './modules/talents/CommanderOfTheDead';
 import SummonGargoyleBuffs from './modules/talents/SummonGargoyleBuffs';
@@ -43,7 +42,6 @@ class CombatLogParser extends CoreCombatLogParser {
     woundTracker: WoundTracker,
     suddenDoom: SuddenDoom,
     unholyRuneForge: UnholyRuneForgeChecker,
-    // fileInfusion: VileInfusion,
 
     // Talents
     apocalypse: Apocalypse,

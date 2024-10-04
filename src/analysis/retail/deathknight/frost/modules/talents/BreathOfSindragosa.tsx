@@ -1,5 +1,4 @@
 import { defineMessage } from '@lingui/macro';
-import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/deathknight';
 import { SpellLink } from 'interface';
 import CooldownExpandable, {
@@ -90,9 +89,9 @@ class BreathOfSindragosa extends Analyzer {
           <SpellLink spell={talents.BREATH_OF_SINDRAGOSA_TALENT} /> casts. A good cast is one that
           lasts {GOOD_BREATH_DURATION_MS / 1000} seconds or more. To ensure a good duration, make
           sure you have 70+ Runic Power pooled and have less than 4 Runes available before you start
-          the cast. Also make sure to use <SpellLink spell={SPELLS.EMPOWER_RUNE_WEAPON} /> within a
-          few seconds of casting Breath of Sindragosa. Pay close attention to your Runic Power and
-          make sure you are not overcapping. {this.tickingOnFinishedString}
+          the cast. Also make sure to use <SpellLink spell={talents.EMPOWER_RUNE_WEAPON_TALENT} />{' '}
+          within a few seconds of casting Breath of Sindragosa. Pay close attention to your Runic
+          Power and make sure you are not overcapping. {this.tickingOnFinishedString}
         </>,
       )
         .icon(talents.BREATH_OF_SINDRAGOSA_TALENT.icon)
