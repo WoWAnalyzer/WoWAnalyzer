@@ -123,6 +123,14 @@ const GOOD_SECONDARY_FOOD_IDS = [
   SPELLS.WELL_FED_469_VERSATILITY.id,
 ] satisfies number[];
 
+// Earthen cannot eat regular food. They have separate food buffs that are always marked as good.
+const EARTHEN_FOOD_IDS = [
+  SPELLS.EARTHEN_WELL_FED_CRIT.id,
+  SPELLS.EARTHEN_WELL_FED_VERS.id,
+  SPELLS.EARTHEN_WELL_FED_HASTE.id,
+  SPELLS.EARTHEN_WELL_FED_MASTERY.id,
+];
+
 const LOWER_FOOD_IDS = [...STAMINA, ...STAMINA_156_PRIMARY] satisfies number[];
 
 const MID_TIER_FOOD_IDS = [
@@ -138,6 +146,7 @@ const HIGHER_FOOD_IDS = [
   ...FULL_BELLY_DUAL_SECONDARY,
   SPELLS.WELL_FED_PRIMARY_FEAST.id,
   SPELLS.HEARTY_WELL_FED_PRIMARY_FEAST.id,
+  ...EARTHEN_FOOD_IDS,
 ] satisfies number[];
 
 class FoodChecker extends BaseFoodChecker {
