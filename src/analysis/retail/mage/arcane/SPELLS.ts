@@ -127,6 +127,16 @@ const spells = {
     name: 'Arcane Soul',
     icon: 'inv_soulbarrier',
   },
+  BURDEN_OF_POWER_BUFF: {
+    id: 451049,
+    name: 'Burden of Power',
+    icon: 'inv_ragnaros_heart',
+  },
+  INTUITION_BUFF: {
+    id: 455681,
+    name: 'Intuition',
+    icon: 'spell_shadow_brainwash',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;

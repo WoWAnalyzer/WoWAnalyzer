@@ -13,6 +13,7 @@ import { Options } from 'parser/core/Module';
 
 const CAST_BUFFER_MS = 75;
 
+const SPELL_PRECAST = 'SpellPrecast';
 const SPELL_CAST = 'SpellCast';
 const BARRAGE_CAST = 'BarrageCast';
 const SPELL_DAMAGE = 'SpellDamage';
@@ -44,6 +45,17 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: EventType.Damage,
     anyTarget: true,
     forwardBufferMs: 2000,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    reverseLinkRelation: SPELL_CAST,
+    linkingEventId: SPELLS.ARCANE_BARRAGE.id,
+    linkingEventType: EventType.Cast,
+    linkRelation: SPELL_PRECAST,
+    referencedEventId: SPELLS.ARCANE_BLAST.id,
+    referencedEventType: EventType.Cast,
+    anyTarget: true,
+    forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
   },
   {
