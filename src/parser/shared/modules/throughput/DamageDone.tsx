@@ -21,21 +21,21 @@ class DamageDone extends Analyzer {
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onByPlayerPetDamage);
   }
 
-  _total = new DamageValue();
+  _total = DamageValue.empty();
   get total() {
     return this._total;
   }
   _byPet: { [petId: number]: DamageValue } = {};
   byPet(petId: number) {
     if (!this._byPet[petId]) {
-      return new DamageValue();
+      return DamageValue.empty();
     }
     return this._byPet[petId];
   }
   get totalByPets() {
     return Object.keys(this._byPet)
       .map((petId) => this._byPet[parseInt(petId)])
-      .reduce((total, damageValue) => total.add(damageValue), new DamageValue());
+      .reduce((total, damageValue) => total.add(damageValue), DamageValue.empty());
   }
 
   bySecond: { [secondsIntoFight: number]: DamageValue } = {};

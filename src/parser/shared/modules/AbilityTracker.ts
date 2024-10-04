@@ -60,9 +60,9 @@ class AbilityTracker extends Analyzer {
         casts: 0,
         manaUsed: 0,
         damageHits: 0,
-        damageVal: new DamageValue(),
+        damageVal: DamageValue.empty(),
         damageCriticalHits: 0,
-        damageCriticalVal: new DamageValue(),
+        damageCriticalVal: DamageValue.empty(),
         healingHits: 0,
         healingVal: HealingValue.empty(),
         healingCriticalHits: 0,
@@ -137,9 +137,9 @@ class DamageTracker extends HealingTracker {
     const cast = this.getAbility(spellId, event.ability);
 
     cast.damageHits = cast.damageHits + 1;
-    cast.damageVal = cast.damageVal.add(event);
+    cast.damageVal = cast.damageVal.addEvent(event);
     if (event.hitType === HIT_TYPES.CRIT) {
-      cast.damageCriticalVal = cast.damageCriticalVal.add(event);
+      cast.damageCriticalVal = cast.damageCriticalVal.addEvent(event);
     }
   }
 }

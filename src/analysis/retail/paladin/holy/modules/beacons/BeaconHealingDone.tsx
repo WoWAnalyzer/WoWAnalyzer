@@ -26,11 +26,11 @@ class BeaconHealingDone extends Analyzer {
   }
 
   _onBeaconTransfer(event: BeaconHealEvent) {
-    this._totalBeaconHealing = this._totalBeaconHealing.add(
-      event.amount,
-      event.absorbed,
-      event.overheal,
-    );
+    this._totalBeaconHealing = this._totalBeaconHealing.addValues({
+      regular: event.amount,
+      absorbed: event.absorbed,
+      overheal: event.overheal,
+    });
 
     const source = event.originalHeal;
     const spellId = source.ability.guid;
