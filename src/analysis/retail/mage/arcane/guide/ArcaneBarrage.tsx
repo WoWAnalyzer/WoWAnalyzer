@@ -8,7 +8,6 @@ import ArcaneBarrage from '../core/ArcaneBarrage';
 import { ARCANE_CHARGE_MAX_STACKS } from '../../shared';
 import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import { PerformanceMark } from 'interface/guide';
-import GloriousIncandescence from '../../shared/GloriousIncandescense';
 import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBreakdown';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../Guide';
@@ -171,30 +170,34 @@ class ArcaneBarrageGuide extends Analyzer {
     const explanation = (
       <>
         <div>
-          Casting <b>{arcaneBarrage}</b> spends your {arcaneCharge}s and the associated damage and
-          mana cost increase. Since clearing {arcaneCharge} reduces your damage, refer to the below
-          for when to cast {arcaneBarrage}:
+          <b>{arcaneBarrage}</b> spends your {arcaneCharge}s and removes the associated damage and
+          mana cost increases, reducing your damage. So you should stay at 4 {arcaneCharge}s as much
+          as you can, only casting {arcaneBarrage} with 4 {arcaneCharge}s and only under the
+          following conditions.
         </div>
         <div>
           <ul>
             <li>
-              Cast {arcaneBarrage} if you have 4 {arcaneCharge}s and {arcaneSoul}, {touchOfTheMagi}{' '}
-              is about to be available, or one of the below are true:
+              {touchOfTheMagi} is almost available
+              {this.isSunfury ? `, You have ${arcaneSoul},` : ''} or you are out of mana.
             </li>
             {this.isSunfury && (
               <>
                 <li>
-                  You are casting {arcaneBlast}, have 1 stack of {netherPrecision}, and{' '}
-                  {burdenOfPower}, {gloriousIncandescence}, or {intuition}.
+                  One of the below is true and you have {burdenOfPower}, {gloriousIncandescence}, or{' '}
+                  {intuition}
                 </li>
-                <li>
-                  You are NOT casting {arcaneBlast}, have 2 stacks of {netherPrecision}, and{' '}
-                  {burdenOfPower}, {GloriousIncandescence}, or {intuition}.
-                </li>
-                <li>
-                  You are NOT casting {arcaneBlast}, do not have {netherPrecision} or {clearcasting}
-                  , and have {burdenOfPower}, {gloriousIncandescence}, or {intuition}.
-                </li>
+                <ul>
+                  <li>
+                    You are casting {arcaneBlast} with 1 stack of {netherPrecision}.
+                  </li>
+                  <li>
+                    You are NOT casting {arcaneBlast} have 2 stacks of {netherPrecision}.
+                  </li>
+                  <li>
+                    You do not have {netherPrecision} or {clearcasting}.
+                  </li>
+                </ul>
               </>
             )}
             {this.isSpellslinger && (

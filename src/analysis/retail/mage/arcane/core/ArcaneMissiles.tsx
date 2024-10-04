@@ -55,8 +55,6 @@ export default class ArcaneMissiles extends Analyzer {
         (cast.channel?.beginChannel.globalCooldown &&
           cast.timestamp + cast.channel?.beginChannel.globalCooldown.duration);
       m.channelEnd = cast.channel?.timestamp;
-      this.log(m.channelEnd);
-      this.log(m.gcdEnd);
 
       const nextCast = this.eventHistory.getEvents(EventType.Cast, {
         searchBackwards: false,
