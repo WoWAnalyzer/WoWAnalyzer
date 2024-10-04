@@ -37,6 +37,13 @@ class DefensiveNormalizer extends EventsNormalizer {
         continue;
       }
 
+      // Only normalize our own events
+      // Flameshaper Evokers can apply Renewing Blaze to us, and we don't analyze those
+      if (event.sourceID !== this.selectedCombatant.id) {
+        fixedEvents.push(event);
+        continue;
+      }
+
       const spellId = event.ability.guid;
       const castLink = DEFS_TO_NORMALIZE.get(spellId);
       if (!castLink) {
