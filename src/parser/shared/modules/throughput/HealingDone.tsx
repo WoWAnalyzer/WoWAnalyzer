@@ -65,7 +65,7 @@ class HealingDone extends Analyzer {
     absorbed = 0,
     overheal = 0,
   ) {
-    this._total = this._total.add(amount, absorbed, overheal);
+    this._total = this._total.addValues({ regular: amount, absorbed, overheal });
 
     const spellId = event.ability.guid;
     this._byAbility[spellId] =
@@ -89,10 +89,14 @@ class HealingDone extends Analyzer {
     event: AbsorbedEvent | RemoveBuffEvent,
     amount = 0,
     absorbed = 0,
-    overhealing = 0,
+    overheal = 0,
   ) {
-    this._addHealing(event, amount, absorbed, overhealing);
-    this._healingByAbsorbs = this._healingByAbsorbs.add(amount, absorbed, overhealing);
+    this._addHealing(event, amount, absorbed, overheal);
+    this._healingByAbsorbs = this._healingByAbsorbs.addValues({
+      regular: amount,
+      absorbed,
+      overheal,
+    });
   }
   _subtractHealing(event: DamageEvent, amount = 0, absorbed = 0, overheal = 0) {
     return this._addHealing(event, -amount, -absorbed, -overheal);
