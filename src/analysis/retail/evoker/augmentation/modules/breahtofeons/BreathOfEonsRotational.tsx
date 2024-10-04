@@ -24,7 +24,7 @@ import {
   getBreathOfEonsDebuffApplyEvents,
 } from '../normalizers/CastLinkNormalizer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import Spell from 'common/SPELLS/dragonflight/potions';
+import Potions from 'common/SPELLS/thewarwithin/potions';
 import BreathOfEonsSection from './BreathOfEonsSection';
 import spells from 'common/SPELLS/dragonflight/trinkets';
 import trinkets from 'common/ITEMS/dragonflight/trinkets';
@@ -139,7 +139,7 @@ class BreathOfEonsRotational extends Analyzer {
     spells.MIRROR_OF_FRACTURED_TOMORROWS,
   ];
 
-  trackedPotions = [Spell.ELEMENTAL_POTION_OF_ULTIMATE_POWER, Spell.ELEMENTAL_POTION_OF_POWER];
+  trackedPotions = [Potions.TEMPERED_POTION];
 
   foundTrinket = this.selectedCombatant.hasTrinket(trinkets.IRIDEUS_FRAGMENT.id)
     ? spells.IRIDEUS_FRAGMENT.id
@@ -262,7 +262,7 @@ class BreathOfEonsRotational extends Analyzer {
       }
     });
 
-    let potionReady = this.spellUsable.isAvailable(Spell.ELEMENTAL_POTION_OF_POWER.id) ? 1 : 0;
+    let potionReady = this.spellUsable.isAvailable(Potions.TEMPERED_POTION.id) ? 1 : 0;
     let potionUsed = 0;
     // Check if Potion was used pre-breath
     this.trackedPotions.forEach((potion) => {
