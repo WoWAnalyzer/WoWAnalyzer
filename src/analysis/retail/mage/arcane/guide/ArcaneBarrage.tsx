@@ -1,4 +1,4 @@
-import { formatPercentage } from 'common/format';
+import { formatDurationMillisMinSec, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
@@ -95,7 +95,10 @@ class ArcaneBarrageGuide extends Analyzer {
       }
 
       const badBlastWithNP =
-        (ab.blastPrecast && ab.netherPrecisionStacks !== 1 && extraBuffs) ||
+        (ab.blastPrecast &&
+          ab.netherPrecisionStacks &&
+          ab.netherPrecisionStacks !== 1 &&
+          extraBuffs) ||
         (ab.blastPrecast && ab.netherPrecisionStacks === 1 && !extraBuffs);
       if (this.isSunfury && standardChecks && badBlastWithNP) {
         tooltipItems.push({
@@ -104,31 +107,41 @@ class ArcaneBarrageGuide extends Analyzer {
         });
       }
 
-      const badNoBlastWithNP =
-        (!ab.blastPrecast && ab.netherPrecisionStacks !== 2 && extraBuffs) ||
-        (!ab.blastPrecast && ab.netherPrecisionStacks === 2 && !extraBuffs);
-      if (this.isSunfury && standardChecks && badNoBlastWithNP) {
+      const badNoBlastWithTwoNP =
+        !ab.blastPrecast &&
+        ab.netherPrecisionStacks &&
+        ab.netherPrecisionStacks !== 2 &&
+        extraBuffs;
+      const noBlastWithOneNP = !ab.blastPrecast && ab.netherPrecisionStacks === 1 && extraBuffs;
+      if (this.isSunfury && standardChecks && (badNoBlastWithTwoNP || noBlastWithOneNP)) {
         tooltipItems.push({
-          perf: QualitativePerformance.Fail,
+          perf: noBlastWithOneNP ? QualitativePerformance.Ok : QualitativePerformance.Fail,
           detail: `No Blast cast ${extraBuffs ? 'with' : 'without'} Supporting Buff and ${ab.netherPrecisionStacks} NP stack(s)`,
         });
       }
 
-      const badNoBlastWithoutNP = !ab.blastPrecast && !ab.netherPrecisionStacks && !ab.clearcasting;
-      if (this.isSunfury && standardChecks && badNoBlastWithoutNP) {
+      const badWithoutNPCC = !ab.netherPrecisionStacks && !ab.clearcasting && !extraBuffs;
+      if (this.isSunfury && standardChecks && badWithoutNPCC) {
         tooltipItems.push({
           perf: QualitativePerformance.Fail,
-          detail: `No Blast without NP/CC without Supporting Buff`,
+          detail: `No NP or CC without Supporting Buff`,
         });
       }
 
-      const tempoExpiring = ab.tempoRemaining && ab.tempoRemaining < TEMPO_REMAINING_THRESHOLD;
-      if (this.isSpellslinger && standardChecks && tempoExpiring) {
+      const tempoNotExpiring = ab.tempoRemaining && ab.tempoRemaining > TEMPO_REMAINING_THRESHOLD;
+      if (this.isSpellslinger && standardChecks && !tempoNotExpiring) {
         tooltipItems.push({ perf: QualitativePerformance.Good, detail: `Arcane Tempo Expiring` });
       }
 
+      if (this.isSpellslinger && standardChecks && tempoNotExpiring) {
+        tooltipItems.push({
+          perf: QualitativePerformance.Fail,
+          detail: `Arcane Tempo ${ab.tempoRemaining ? <>Duration Remaining: {formatDurationMillisMinSec(ab.tempoRemaining, 3)}s</> : 'Not Active'}`,
+        });
+      }
+
       const blastWithOneNP = ab.blastPrecast && ab.netherPrecisionStacks === 1;
-      if (this.isSpellslinger && standardChecks && !tempoExpiring && !blastWithOneNP) {
+      if (this.isSpellslinger && standardChecks && !blastWithOneNP) {
         tooltipItems.push({
           perf: QualitativePerformance.Fail,
           detail: `${ab.blastPrecast ? '' : 'No '}Blast Cast with ${ab.netherPrecisionStacks} NP stack(s)`,
@@ -137,11 +150,20 @@ class ArcaneBarrageGuide extends Analyzer {
 
       let overallPerf = QualitativePerformance.Fail;
       if (
-        !standardChecks ||
-        (this.isSunfury && (badBlastWithNP || badNoBlastWithNP || badNoBlastWithoutNP)) ||
-        (this.isSpellslinger && blastWithOneNP)
+        (!ab.arcaneSoul &&
+          !touchSoon &&
+          !noMana &&
+          !lowCharges &&
+          this.isSunfury &&
+          standardChecks &&
+          (badBlastWithNP || (badNoBlastWithTwoNP && !noBlastWithOneNP) || badWithoutNPCC)) ||
+        (this.isSpellslinger &&
+          standardChecks &&
+          (!ab.tempoRemaining || !tempoNotExpiring || blastWithOneNP))
       ) {
         overallPerf = QualitativePerformance.Fail;
+      } else if (!ab.arcaneSoul && !touchSoon && !noMana && !lowCharges && noBlastWithOneNP) {
+        overallPerf = QualitativePerformance.Ok;
       } else {
         overallPerf = QualitativePerformance.Good;
       }
