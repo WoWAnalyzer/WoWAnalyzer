@@ -1,7 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
-import { TIERS } from 'game/TIERS';
 import CoreAuras from 'parser/core/modules/Auras';
 
 class Buffs extends CoreAuras {
@@ -36,26 +35,6 @@ class Buffs extends CoreAuras {
         spellId: SPELLS.NETHER_PRECISION_BUFF.id,
         triggeredBySpellId: TALENTS.ARCANE_MISSILES_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.NETHER_PRECISION_TALENT),
-        timelineHighlight: true,
-      },
-      {
-        spellId: SPELLS.BURDEN_OF_POWER_BUFF.id,
-        enabled: combatant.hasTalent(TALENTS.BURDEN_OF_POWER_TALENT),
-        timelineHighlight: true,
-      },
-      {
-        spellId: SPELLS.GLORIOUS_INCANDESCENCE_BUFF.id,
-        enabled: combatant.hasTalent(TALENTS.GLORIOUS_INCANDESCENCE_TALENT),
-        timelineHighlight: true,
-      },
-      {
-        spellId: SPELLS.ARCANE_SOUL_BUFF.id,
-        enabled: combatant.hasTalent(TALENTS.MEMORY_OF_ALAR_TALENT),
-        timelineHighlight: true,
-      },
-      {
-        spellId: SPELLS.INTUITION_BUFF.id,
-        enabled: combatant.has4PieceByTier(TIERS.TWW1),
         timelineHighlight: true,
       },
       {
