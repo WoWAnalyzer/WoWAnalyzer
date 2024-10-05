@@ -3,6 +3,7 @@ import TALENTS from 'common/TALENTS/deathknight';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
+import { SpellLink } from 'interface';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -84,16 +85,17 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        // castEfficiency: {
-        //   suggestion: true,
-        //   recommendedEfficiency: 0.9,
-        //   extraSuggestion: (
-        //     <span>
-        //       Making sure to use <SpellLink spell={TALENTS.APOCALYPSE_TALENT} /> immediately after it's
-        //       cooldown is up is important, try to plan for it's use as it is coming off cooldown.
-        //     </span>
-        //   ),
-        // },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+          extraSuggestion: (
+            <span>
+              Making sure to use <SpellLink spell={TALENTS.APOCALYPSE_TALENT} /> immediately after
+              it's cooldown is up is important, try to plan for it's use as it is coming off
+              cooldown.
+            </span>
+          ),
+        },
       },
 
       {
@@ -137,16 +139,6 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: null,
         cooldown: 120,
-        // castEfficiency: {
-        //   suggestion: true,
-        //   recommendedEfficiency: combatant.hasTalent(TALENTS.SUMMON_GARGOYLE_TALENT) ? 0.65 : 0.9,
-        //   extraSuggestion: (
-        //     <>
-        //       You should use this with every <SpellLink spell={TALENTS.SUMMON_GARGOYLE_TALENT} /> if
-        //       it is talented. Otherwise, use it with your other cooldowns when it is available.
-        //     </>
-        //   ),
-        // },
         timelineSortIndex: 1,
       },
       {
