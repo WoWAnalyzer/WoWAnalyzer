@@ -176,7 +176,7 @@ export default class DeathStrike extends Analyzer {
     const healEvent = GetRelatedEvent<HealEvent>(event, DEATH_STRIKE_HEAL);
     const previousTimestamp = this.casts.at(-1)?.cast.timestamp;
     const isDoubleCast =
-      Boolean(previousTimestamp) && event.timestamp - previousTimestamp < DOUBLE_DS_WINDOW_MS;
+      previousTimestamp !== undefined && event.timestamp - previousTimestamp < DOUBLE_DS_WINDOW_MS;
 
     let cast: CastReason | undefined = undefined;
     if (healEvent) {
