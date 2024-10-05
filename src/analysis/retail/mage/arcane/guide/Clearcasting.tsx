@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
@@ -21,7 +20,7 @@ class ClearcastingGuide extends Analyzer {
 
   generateGuideTooltip(
     performance: QualitativePerformance,
-    tooltipText: ReactNode,
+    tooltipItems: { perf: QualitativePerformance; detail: string }[],
     timestamp: number,
   ) {
     const tooltip = (
@@ -30,7 +29,15 @@ class ClearcastingGuide extends Analyzer {
           <b>@ {this.owner.formatTimestamp(timestamp)}</b>
         </div>
         <div>
-          <PerformanceMark perf={performance} /> {performance}: {tooltipText}
+          <PerformanceMark perf={performance} /> {performance}
+        </div>
+        <div>
+          {tooltipItems.map((t, i) => (
+            <div key={i}>
+              <PerformanceMark perf={t.perf} /> {t.detail}
+              <br />
+            </div>
+          ))}
         </div>
       </>
     );
