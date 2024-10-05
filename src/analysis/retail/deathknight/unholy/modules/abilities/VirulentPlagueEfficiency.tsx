@@ -18,6 +18,10 @@ class VirulentPlagueEfficiency extends Analyzer {
     enemies: Enemies,
   };
 
+  protected enemies!: Enemies;
+
+  private targets: { [key: string]: number } = {};
+
   constructor(options: Options) {
     super(options);
 
@@ -30,10 +34,6 @@ class VirulentPlagueEfficiency extends Analyzer {
       this.onApply,
     );
   }
-
-  targets: { [key: string]: number } = {};
-
-  protected enemies!: Enemies;
 
   get Uptime() {
     return this.enemies.getBuffUptime(SPELLS.VIRULENT_PLAGUE.id) / this.owner.fightDuration;

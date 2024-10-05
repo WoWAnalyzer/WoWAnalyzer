@@ -9,6 +9,12 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     ...CoreCooldownThroughputTracker.cooldownSpells,
     {
       spell: TALENTS.UNHOLY_BLIGHT_TALENT.id,
+      duration: 14,
+      summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
+      branch: GameBranch.Retail,
+    },
+    {
+      spell: TALENTS.UNHOLY_ASSAULT_TALENT.id,
       duration: 20,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
       branch: GameBranch.Retail,

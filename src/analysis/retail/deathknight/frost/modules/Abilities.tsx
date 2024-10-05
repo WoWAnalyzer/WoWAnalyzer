@@ -26,8 +26,8 @@ class Abilities extends CoreAbilities {
       },
       {
         //need to modify this, EPW is no longer baseline, it is a talent
-        spell: SPELLS.EMPOWER_RUNE_WEAPON.id,
-        buffSpellId: SPELLS.EMPOWER_RUNE_WEAPON.id,
+        spell: talents.EMPOWER_RUNE_WEAPON_TALENT.id,
+        buffSpellId: talents.EMPOWER_RUNE_WEAPON_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: null,
         cooldown: 120,

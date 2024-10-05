@@ -41,7 +41,7 @@ const FrostDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: Ch
         {combatant.hasTalent(talents.BREATH_OF_SINDRAGOSA_TALENT) && (
           <AbilityRequirement spell={talents.BREATH_OF_SINDRAGOSA_TALENT.id} />
         )}
-        <AbilityRequirement spell={SPELLS.EMPOWER_RUNE_WEAPON.id} />
+        <AbilityRequirement spell={talents.EMPOWER_RUNE_WEAPON_TALENT.id} />
         {/* We can't detect race, so disable this when it has never been cast. */}
         {castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_RUNIC_POWER.id) && (
           <AbilityRequirement spell={SPELLS.ARCANE_TORRENT_RUNIC_POWER.id} />
