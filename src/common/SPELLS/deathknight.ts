@@ -252,6 +252,18 @@ const spells = {
     icon: 'inv_polearm_2h_titanargus_d_01',
   },
 
+  EXTERMINATE_BUFF_1: {
+    id: 441416,
+    name: 'Exterminate',
+    icon: 'inv_polearm_2h_titanargus_d_01',
+  },
+
+  EXTERMINATE_BUFF_2: {
+    id: 447954,
+    name: 'Exterminate',
+    icon: 'inv_polearm_2h_titanargus_d_01',
+  },
+
   // Unholy:
   // Spells
   APOCALYPSE: {
