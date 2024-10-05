@@ -1,30 +1,25 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import {
-  AMurderOfCrows,
   BindingShot,
-  BornToBeWild,
-  DeathChakrams,
   DeathTracker,
+  FocusCapTracker,
   FocusDetails,
   FocusTracker,
   KillShot,
   MasterMarksman,
   NaturalMending,
   RejuvenatingWind,
-  SerpentSting,
   SpellFocusCost,
-  SteelTrap,
   Trailblazer,
   TranquilizingShot,
 } from '../shared';
 import Abilities from './modules/Abilities';
 import AlphaPredator from './modules/talents/AlphaPredator';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import BirdOfPrey from './modules/talents/BirdOfPrey';
 import Bloodseeker from './modules/talents/Bloodseeker';
 import Buffs from './modules/Buffs';
-import ButcheryCarve from './modules/talents/ButcheryCarve';
+import Butchery from './modules/talents/Butchery';
 import Checklist from './modules/checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import CoordinatedAssault from './modules/talents/CoordinatedAssault';
@@ -35,15 +30,13 @@ import GuerrillaTactics from './modules/talents/GuerrillaTactics';
 import HydrasBite from './modules/talents/HydrasBite';
 import KillCommand from './modules/talents/KillCommand';
 import MongooseBite from './modules/talents/MongooseBite';
-import PheromoneBomb from './modules/talents/WildfireInfusion/PheromoneBomb';
 import RaptorStrike from './modules/talents/RaptorStrike';
-import ShrapnelBomb from './modules/talents/WildfireInfusion/ShrapnelBomb';
-import SurvivalFocusCapTracker from './modules/resources/SurvivalFocusCapTracker';
 import SurvivalFocusUsage from './modules/resources/SurvivalFocusUsage';
 import TipOfTheSpear from './modules/talents/TipOfTheSpear';
 import TipOfTheSpearNormalizer from './normalizers/TipOfTheSpear';
-import VolatileBomb from './modules/talents/WildfireInfusion/VolatileBomb';
 import WildfireBomb from './modules/talents/WildfireBomb';
+import FrenzyStrikes from './modules/talents/FrenzyStrikes';
+import RuthlessMarauder from 'analysis/retail/hunter/survival/modules/talents/RuthlessMarauder';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -61,7 +54,7 @@ class CombatLogParser extends CoreCombatLogParser {
     focusTracker: FocusTracker,
     focusDetails: FocusDetails,
     spellFocusCost: SpellFocusCost,
-    survivalFocusCapTracker: SurvivalFocusCapTracker,
+    focusCapTracker: FocusCapTracker,
     focus: Focus,
     survivalFocusUsage: SurvivalFocusUsage,
 
@@ -73,33 +66,26 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Spells
     alphaPredator: AlphaPredator,
-    birdOfPrey: BirdOfPrey,
     bloodseeker: Bloodseeker,
-    butcheryCarve: ButcheryCarve,
+    butchery: Butchery,
     coordinatedAssault: CoordinatedAssault,
     flankingStrike: FlankingStrike,
+    frenzyStrikes: FrenzyStrikes,
     guerrillaTactics: GuerrillaTactics,
     hydrasBite: HydrasBite,
     killCommand: KillCommand,
     mongooseBite: MongooseBite,
-    pheromoneBomb: PheromoneBomb,
     raptorStrike: RaptorStrike,
-    shrapnelBomb: ShrapnelBomb,
     tipOfTheSpear: TipOfTheSpear,
-    volatileBomb: VolatileBomb,
     wildfireBomb: WildfireBomb,
+    ruthlessMarauder: RuthlessMarauder,
 
     //Shared Talents
-    aMurderOfCrows: AMurderOfCrows,
     bindingShot: BindingShot,
-    bornToBeWild: BornToBeWild,
-    deathChakrams: DeathChakrams,
     killShot: KillShot,
     masterMarksman: MasterMarksman,
     naturalMending: NaturalMending,
     rejuvenatingWind: RejuvenatingWind,
-    serpentSting: SerpentSting,
-    steelTrap: SteelTrap,
     trailblazer: Trailblazer,
     tranquilizingShot: TranquilizingShot,
 

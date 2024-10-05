@@ -17,15 +17,18 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
  * https://www.warcraftlogs.com/reports/ayK6THQGAB4Y8h9N#fight=15&type=summary&source=1415&translate=true
  */
 class AlphaPredator extends Analyzer {
-  damage = 0;
+  private damage: number = 0;
 
   constructor(options: Options) {
     super(options);
 
     this.active = this.selectedCombatant.hasTalent(TALENTS.ALPHA_PREDATOR_TALENT);
+    if (!this.active) {
+      return;
+    }
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.KILL_COMMAND_DAMAGE_SV),
+      Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.KILL_COMMAND_SURVIVAL_DAMAGE),
       this.onPetDamage,
     );
   }

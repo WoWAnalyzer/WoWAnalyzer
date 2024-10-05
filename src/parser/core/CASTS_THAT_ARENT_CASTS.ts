@@ -61,6 +61,7 @@ const spells: number[] = [
   SPELLS.BARBED_SHOT_PET_BUFF.id, //The buff applied to BM Hunter pet when casting Barbed Shot
   SPELLS.DIRE_BEAST_SUMMON.id, //Additional cast event associated with summoning a Dire Beast
   SPELLS.DIRE_BEAST_GLYPHED.id, //Additional cast event associated with summoning a Dire Beast with Glyph of Dire Stable
+  SPELLS.COORDINATED_ASSAULT_FAKE_CAST.id, // The real cast is the Coordinated Assault Talent.
   //endregion
 
   //region Mage
