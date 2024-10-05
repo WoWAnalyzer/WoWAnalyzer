@@ -137,18 +137,18 @@ class CelestialConduit extends Analyzer {
     });
   }
 
-  private updateCastlistCooldownMap() {
+  private updateCastListCooldownMap() {
     if (!this.castInfoList.at(-1)?.cooldownMap) {
       this.castInfoList.at(-1)!.cooldownMap = this.getCooldownMap();
     }
   }
 
   private onUnityWithin(event: CastEvent | EndChannelEvent) {
-    this.updateCastlistCooldownMap();
+    this.updateCastListCooldownMap();
   }
 
   private onFightEnd(event: FightEndEvent) {
-    this.updateCastlistCooldownMap();
+    this.updateCastListCooldownMap();
   }
 
   private onChannelEnd(event: EndChannelEvent) {
