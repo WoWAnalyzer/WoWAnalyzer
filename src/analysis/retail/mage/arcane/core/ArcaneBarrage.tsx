@@ -60,7 +60,6 @@ export default class ArcaneBarrage extends Analyzer {
     const blastPrecast: CastEvent | undefined = GetRelatedEvent(event, 'SpellPrecast');
     const netherPrecision = this.selectedCombatant.getBuff(SPELLS.NETHER_PRECISION_BUFF.id);
     const charges = this.arcaneChargeTracker.current;
-    this.log(charges);
     const targetsHit = GetRelatedEvents(event, 'SpellDamage').length;
     const resource = event.classResources?.find(
       (resource) => resource.type === RESOURCE_TYPES.MANA.id,
