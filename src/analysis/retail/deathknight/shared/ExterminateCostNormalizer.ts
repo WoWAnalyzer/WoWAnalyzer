@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/deathknight';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { AnyEvent, CastEvent, HasAbility } from 'parser/core/Events';
+import { AnyEvent, CastEvent, EventType, HasAbility } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 /**
@@ -12,11 +12,11 @@ export default class ExterminateCostNormalizer extends EventsNormalizer {
     const newEvents = [];
     let activeBuff: number | undefined = undefined;
     for (let event of events) {
-      if (this.isExterminateBuff(event) && event.type === 'applybuff') {
+      if (this.isExterminateBuff(event) && event.type === EventType.ApplyBuff) {
         activeBuff = event.ability.guid;
       } else if (
         this.isExterminateBuff(event) &&
-        event.type === 'removebuff' &&
+        event.type === EventType.RemoveBuff &&
         event.ability.guid === activeBuff
       ) {
         // when going from buff 1 to buff 2 the order is apply -> remove, not remove -> apply
@@ -52,7 +52,7 @@ export default class ExterminateCostNormalizer extends EventsNormalizer {
   isExterminateConsumer(event: AnyEvent): event is CastEvent {
     return (
       HasAbility(event) &&
-      event.type === 'cast' &&
+      event.type === EventType.Cast &&
       (event.ability.guid === talents.MARROWREND_TALENT.id ||
         event.ability.guid === talents.OBLITERATE_TALENT.id)
     );
