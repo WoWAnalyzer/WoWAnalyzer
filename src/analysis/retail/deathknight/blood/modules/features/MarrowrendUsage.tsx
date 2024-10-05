@@ -94,11 +94,16 @@ class MarrowrendUsage extends Analyzer {
   }
 
   onCast(event: CastEvent) {
+    // don't count exterminate casts. you're not really casting MR, you're casting exterminate
+    const exterminateCast =
+      this.selectedCombatant.hasBuff(SPELLS.EXTERMINATE_BUFF_1) ||
+      this.selectedCombatant.hasBuff(SPELLS.EXTERMINATE_BUFF_2);
     //don't add to wasted casts if MR casts was at ~6sec left on BS duration
     const durationLeft = BS_DURATION - (event.timestamp - this.lastMarrowrendCast) / 1000;
+
     if (durationLeft <= REFRESH_AT_SECONDS) {
       this.refreshMRCasts += 1;
-    } else {
+    } else if (!exterminateCast) {
       const boneShieldStacks = this.currentBoneShieldStacks - this.currentBoneShieldBuffer;
       let badCast = '';
 

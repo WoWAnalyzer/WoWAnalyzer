@@ -50,6 +50,7 @@ import PassFailBar from 'interface/guide/components/PassFailBar';
 import CastReasonBreakdownTableContents from 'interface/guide/components/CastReasonBreakdownTableContents';
 import { TooltipElement } from 'interface/Tooltip';
 import Explanation from 'interface/guide/components/Explanation';
+import AlertWarning from 'interface/AlertWarning';
 
 const reasonLabel = (reason: DeathStrikeReason) => {
   switch (reason) {
@@ -545,6 +546,25 @@ export default function DeathStrikeUsageSubSection(): JSX.Element | null {
           renderer={DeathStrikeProblemRenderer}
         />
       </ContentRow>
+      {ds.doubleCastRate > 0.2 && (
+        <AlertWarning>
+          {formatPercentage(ds.doubleCastRate, 0)}% of your{' '}
+          <SpellLink spell={talents.DEATH_STRIKE_TALENT} /> casts were within 2 GCDs of a previous
+          cast and did not do good healing. Repeatedly casting{' '}
+          <SpellLink spell={talents.DEATH_STRIKE_TALENT} /> is highly inefficient due to the{' '}
+          <TooltipElement
+            content={
+              <>
+                Death Strike now only heals you <strong>once</strong> for each damage event in the
+                previous 5 seconds. Repeatedly casting Death Strike does usually give time for more
+                healing to accumulate.
+              </>
+            }
+          >
+            changes to <SpellLink spell={talents.DEATH_STRIKE_TALENT} />
+          </TooltipElement>
+        </AlertWarning>
+      )}
     </SubSection>
   );
 }

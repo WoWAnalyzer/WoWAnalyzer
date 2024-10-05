@@ -71,7 +71,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.LICHBORNE.id,
         enabled: combatant.hasTalent(TALENTS.UNHOLY_ENDURANCE_TALENT), //Provides 15% DR if you take this talent
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 120,
+        cooldown: 120 - combatant.getTalentRank(TALENTS.DEATHS_MESSENGER_TALENT) * 30,
         gcd: null,
         castEfficiency: {
           suggestion: true,
@@ -255,7 +255,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.RAISE_DEAD_SHARED_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.RAISE_DEAD_SHARED_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 120,
+        cooldown: 120 - combatant.getTalentRank(TALENTS.DEATHS_MESSENGER_TALENT) * 30,
       },
       {
         spell: TALENTS.BLOOD_TAP_TALENT.id,
@@ -287,7 +287,15 @@ class Abilities extends CoreAbilities {
         },
         timelineSortIndex: 10,
       },
-
+      {
+        spell: TALENTS.REAPERS_MARK_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        enabled: combatant.hasTalent(TALENTS.REAPERS_MARK_TALENT),
+        cooldown: 45 - combatant.getTalentRank(TALENTS.SWIFT_END_TALENT) * 15,
+        gcd: {
+          base: 1500,
+        },
+      },
       {
         spell: TALENTS.BONESTORM_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,

@@ -46,7 +46,7 @@ import WillOfTheNecropolis from './modules/talents/WillOfTheNecropolis';
 import RuneTracker from './modules/core/RuneTracker';
 import ResourceOrderNormalizer from './modules/core/ResourceOrderNormalizer';
 import BoneShieldOrderNormalizer from './modules/core/BoneShieldOrderNormalizer';
-import AplCheck from './modules/features/AplCheck';
+import ExterminateCostNormalizer from '../shared/ExterminateCostNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -104,13 +104,13 @@ class CombatLogParser extends CoreCombatLogParser {
     // guide stuff
     deathStrike: DeathStrike,
     bloodShield: BloodShield,
-    aplCheck: AplCheck,
 
     // normalizers
     deathStrikeNormalizer: DeathStrikeLinkNormalizer,
     bloodShieldNormalizer: BloodShieldNormalizer,
     resourceOrderNormalizer: ResourceOrderNormalizer,
     boneShieldOrderNormalizer: BoneShieldOrderNormalizer,
+    ExterminateCostNormalizer,
   };
 
   static guide = BloodGuide;
