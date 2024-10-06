@@ -19,7 +19,7 @@ class VoidSummonerBetweenCasts extends Analyzer {
   };
   protected spellUsable!: SpellUsable;
 
-  _lastCast: number = 0;
+  _castsSinceSquid: number = 0;
   _castsPerCD: {
     timestamp: number;
     casts: number;
@@ -29,10 +29,12 @@ class VoidSummonerBetweenCasts extends Analyzer {
   _currentSquid:
     | typeof talents.MINDBENDER_DISCIPLINE_TALENT
     | typeof talents.SHADOWFIEND_TALENT
-    | typeof talents.VOIDWRAITH_TALENT;
+    | typeof spells.VOIDWRAITH_CAST;
 
   constructor(options: Options) {
     super(options);
+
+    this.active = this.selectedCombatant.hasTalent(talents.VOID_SUMMONER_TALENT);
 
     this.addEventListener(
       Events.cast
@@ -48,46 +50,32 @@ class VoidSummonerBetweenCasts extends Analyzer {
     );
 
     if (this.selectedCombatant.hasTalent(talents.VOIDWRAITH_TALENT)) {
-      this._currentSquid = talents.VOIDWRAITH_TALENT;
+      this._currentSquid = spells.VOIDWRAITH_CAST;
     } else if (this.selectedCombatant.hasTalent(talents.SHADOWFIEND_TALENT)) {
-      this._currentSquid = talents.SHADOWFIEND_TALENT;
-    } else {
       this._currentSquid = talents.MINDBENDER_DISCIPLINE_TALENT;
+    } else {
+      this._currentSquid = talents.SHADOWFIEND_TALENT;
     }
 
     this.addEventListener(
-      Events.cast
-        .by(SELECTED_PLAYER)
-        .spell([
-          spells.VOIDWRAITH_CAST,
-          talents.SHADOWFIEND_TALENT,
-          talents.MINDBENDER_DISCIPLINE_TALENT,
-        ]),
+      Events.cast.by(SELECTED_PLAYER).spell(this._currentSquid),
       this.onSquidCast,
     );
   }
 
   onCDReductionCast() {
-    if (this.isSquidOnCooldown()) {
-      this._lastCast += 1;
+    if (this.spellUsable.isOnCooldown(this._currentSquid.id)) {
+      this._castsSinceSquid += 1;
     }
-  }
-
-  isSquidOnCooldown() {
-    return (
-      this.spellUsable.isOnCooldown(spells.VOIDWRAITH_CAST.id) ||
-      this.spellUsable.isOnCooldown(talents.MINDBENDER_DISCIPLINE_TALENT.id) ||
-      this.spellUsable.isOnCooldown(talents.SHADOWFIEND_TALENT.id)
-    );
   }
 
   onSquidCast(event: CastEvent) {
     this._totalSquidCasts += 1;
     this._castsPerCD.push({
       timestamp: event.timestamp,
-      casts: this._lastCast,
+      casts: this._castsSinceSquid,
     });
-    this._lastCast = 0;
+    this._castsSinceSquid = 0;
   }
 
   get guideSubsection(): JSX.Element {
@@ -124,7 +112,6 @@ class VoidSummonerBetweenCasts extends Analyzer {
         <strong>
           <SpellLink spell={talents.VOID_SUMMONER_TALENT} />
         </strong>
-        <small> </small>
         <PerformanceBoxRow values={castPerfBoxes} />
       </div>
     );

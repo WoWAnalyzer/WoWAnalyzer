@@ -13,6 +13,8 @@ class EntropicRift extends Analyzer {
   constructor(options: Options) {
     super(options);
 
+    this.active = this.selectedCombatant.hasTalent(talents.ENTROPIC_RIFT_TALENT);
+
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(spells.MIND_BLAST), this.castRift);
   }
 

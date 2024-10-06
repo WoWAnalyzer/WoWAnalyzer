@@ -121,7 +121,9 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS_PRIEST.MINDBENDER_DISCIPLINE_TALENT),
+        enabled:
+          combatant.hasTalent(TALENTS_PRIEST.MINDBENDER_DISCIPLINE_TALENT) &&
+          !combatant.hasTalent(TALENTS_PRIEST.VOIDWRAITH_TALENT),
         castEfficiency: {
           suggestion: true,
         },
@@ -154,7 +156,9 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: !combatant.hasTalent(TALENTS_PRIEST.MINDBENDER_DISCIPLINE_TALENT),
+        enabled:
+          !combatant.hasTalent(TALENTS_PRIEST.MINDBENDER_DISCIPLINE_TALENT) &&
+          !combatant.hasTalent(TALENTS_PRIEST.VOIDWRAITH_TALENT),
         castEfficiency: {
           suggestion: true,
         },
