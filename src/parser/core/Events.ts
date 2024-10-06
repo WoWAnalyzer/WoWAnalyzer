@@ -371,6 +371,8 @@ export type AnyEvent<T extends EventType = EventType> = T extends keyof MappedEv
 export interface Event<T extends string> {
   /** Event type string */
   type: T;
+  /** The fight id */
+  fight: number;
   /** Timestamp in milliseconds */
   timestamp: number;
   /** True iff the event happened before the pull. Added by WoWA */

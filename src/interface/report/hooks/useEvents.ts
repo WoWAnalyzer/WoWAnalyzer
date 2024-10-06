@@ -46,8 +46,14 @@ const useEvents = ({
       }
     };
 
+    const filterEventsToFight = (events: AnyEvent[], fightId: number): AnyEvent[] => {
+      return events.filter((event: AnyEvent) => {
+        return event.fight === fightId;
+      });
+    };
+
     (async () => {
-      const events = await load(fight.start_time);
+      const events = filterEventsToFight(await load(fight.start_time), fight.id);
       setEvents(events);
     })();
 

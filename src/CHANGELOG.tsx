@@ -38,6 +38,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 10, 6), 'Resolved a rare instance of duplicated events', Vetyst),
   change(date(2024, 10, 5), 'Fix viewing the character tab for certain regions.', Vetyst),
   change(date(2024, 10, 4), 'Added Earthen food buffs to consumable check.', emallson),
   change(date(2024, 10, 4), <>Added simple statistics for <ItemLink id={ITEMS.SPYMASTERS_WEB.id}/>.</>, Vetyst),
