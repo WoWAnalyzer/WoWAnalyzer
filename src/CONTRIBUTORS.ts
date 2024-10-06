@@ -2517,3 +2517,16 @@ export const SebShady: Contributor = {
   github: 'SebShady42',
   discord: 'SebShady',
 };
+
+export const Huijiro: Contributor = {
+  nickname: 'Huijiro',
+  github: 'huijiro',
+  discord: 'huijiro',
+  mains: [
+    {
+      name: 'Burnasan',
+      spec: SPECS.DISCIPLINE_PRIEST,
+      link: 'https://worldofwarcraft.com/en-us/character/us/azralon/burnasan',
+    },
+  ],
+};

@@ -70,6 +70,7 @@ import Amirdrassil4p from './modules/spells/Amirdrassil4p';
 import TrainOfThought from './modules/spells/TrainOfThought';
 import VoidSummoner from './modules/spells/VoidSummoner';
 import ShadowCovenant from './modules/spells/ShadowCovenant/ShadowCovenant';
+import EntropicRift from './modules/spells/EntropicRift';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -123,6 +124,7 @@ class CombatLogParser extends CoreCombatLogParser {
     sinsOfTheMany: SinsOfTheMany,
     schism: Schism,
     harshDiscipline: HarshDiscipline,
+    entropicRift: EntropicRift,
     indemnity: Indemnity,
     expiation: Expiation,
     powerWordShield: PowerWordShield,

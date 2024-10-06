@@ -20,6 +20,8 @@ export default function Guide({
           modules.purgeTheWicked.guideSubsection}
         {info.combatant.hasTalent(TALENTS_PRIEST.BINDING_HEALS_TALENT) &&
           modules.selfAtonementAnalyzer.guideSubsection}
+        {info.combatant.hasTalent(TALENTS_PRIEST.ENTROPIC_RIFT_TALENT) &&
+          modules.entropicRift.guideSubsection}
       </Section>
       <Section title="Main Ramp">
         When using effects which extend <SpellLink spell={SPELLS.ATONEMENT_BUFF} /> such as{' '}
