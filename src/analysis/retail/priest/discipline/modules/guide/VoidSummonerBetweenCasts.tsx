@@ -9,6 +9,7 @@ import SpellLink from 'interface/SpellLink';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 
+// TODO: Ask Priest guide maker about these numbers
 const CAST_THRESHOLD_OK = 5;
 const CAST_THRESHOLD_GOOD = 9;
 
@@ -67,7 +68,6 @@ class VoidSummonerBetweenCasts extends Analyzer {
   }
 
   onCDReductionCast() {
-    console.log(this.isSquidOnCooldown());
     if (this.isSquidOnCooldown()) {
       this._lastCast += 1;
     }
@@ -103,10 +103,6 @@ class VoidSummonerBetweenCasts extends Analyzer {
         <SpellLink spell={this._currentSquid} /> is on cooldown.
       </p>
     );
-
-    console.log(this._lastCast);
-    console.log(this._castsPerCD);
-    console.log(this._totalSquidCasts);
 
     const castPerfBoxes = this._castsPerCD.map((betweenCDs) => {
       let value: QualitativePerformance;
