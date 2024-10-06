@@ -127,6 +127,18 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.VOIDWRAITH_CAST.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(TALENTS_PRIEST.VOIDWRAITH_TALENT),
+        castEfficiency: {
+          suggestion: true,
+        },
+      },
+      {
         spell: TALENTS_PRIEST.POWER_WORD_LIFE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 30,

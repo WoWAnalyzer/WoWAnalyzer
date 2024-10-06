@@ -990,6 +990,11 @@ const spells = {
     name: 'Spirit Shell',
     icon: 'ability_shaman_astralshift.jpg',
   },
+  VOIDWRAITH_CAST: {
+    id: 451235,
+    name: 'Voidwraith',
+    icon: 'warlock_curse_shadow',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;

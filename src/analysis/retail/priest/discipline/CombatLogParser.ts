@@ -71,6 +71,7 @@ import TrainOfThought from './modules/spells/TrainOfThought';
 import VoidSummoner from './modules/spells/VoidSummoner';
 import ShadowCovenant from './modules/spells/ShadowCovenant/ShadowCovenant';
 import EntropicRift from './modules/spells/EntropicRift';
+import VoidSummonerBetweenCasts from './modules/guide/VoidSummonerBetweenCasts';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -151,6 +152,7 @@ class CombatLogParser extends CoreCombatLogParser {
     voidSummoner: VoidSummoner,
     translucentImage: TranslucentImage,
     shadowCovenant: ShadowCovenant,
+    voidSummonerBetweenCasts: VoidSummonerBetweenCasts,
 
     // Items:
     radiantProvidence: RadiantProvidence,
