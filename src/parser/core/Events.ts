@@ -371,8 +371,8 @@ export type AnyEvent<T extends EventType = EventType> = T extends keyof MappedEv
 export interface Event<T extends string> {
   /** Event type string */
   type: T;
-  /** The fight id */
-  fight: number;
+  /** The fight id, This not present for WoWA fabricated events */
+  fight?: number;
   /** Timestamp in milliseconds */
   timestamp: number;
   /** True iff the event happened before the pull. Added by WoWA */
@@ -720,7 +720,6 @@ export interface ExtraAttacksEvent extends Event<EventType.ExtraAttacks> {
   targetID: number;
   targetIsFriendly: boolean;
   targetMarker?: number;
-  fight: number;
   extraAttacks: number;
 }
 
@@ -1012,7 +1011,6 @@ export interface CreateEvent extends Event<EventType.Create> {
 export interface SpellstealEvent extends Event<EventType.Spellsteal> {
   ability: Ability;
   extraAbility: Ability;
-  fight: number;
   isBuff: boolean;
   sourceID: number;
   sourceIsFriendly: boolean;
