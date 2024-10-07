@@ -171,11 +171,11 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ANTI_MAGIC_SHELL.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown:
-          80 -
-          Number(combatant.hasTalent(TALENTS.ANTI_MAGIC_BARRIER_TALENT)) * 20 -
+          60 -
+          Number(combatant.hasTalent(TALENTS.ANTI_MAGIC_BARRIER_TALENT)) * 20 +
           Number(combatant.hasTalent(TALENTS.UNYIELDING_WILL_TALENT)) * 20,
         gcd: {
-          base: 1500,
+          static: 0,
         },
       },
       {
