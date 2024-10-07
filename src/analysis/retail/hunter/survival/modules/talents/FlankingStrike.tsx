@@ -18,9 +18,9 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
  */
 
 class FlankingStrike extends Analyzer {
-  damage = 0;
+  private damage: number = 0;
 
-  flankingStrikes: Array<{
+  private flankingStrikes: Array<{
     name: string;
     sourceID: number;
     damage: number;
@@ -32,6 +32,9 @@ class FlankingStrike extends Analyzer {
     super(options);
 
     this.active = this.selectedCombatant.hasTalent(TALENTS.FLANKING_STRIKE_TALENT);
+    if (!this.active) {
+      return;
+    }
 
     this.flankingStrikes.push({
       name: this.selectedCombatant.name,
