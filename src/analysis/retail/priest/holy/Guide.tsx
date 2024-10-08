@@ -20,6 +20,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {/* This section should cover effective usage of Holy's core spells */}
         {/* Divine Word Casts, idk how to explore this.  */}
         {modules.Lightweaver.guideSubsection}
+        {modules.ResonantWords.guideSubsection}
         {modules.prayerOfHealing.guideSubsection}
         {modules.prayerOfMending.guideSubsection}
         {modules.circleOfHealing.guideSubsection}

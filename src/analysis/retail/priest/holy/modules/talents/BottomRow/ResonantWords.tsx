@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS, { TALENTS_PRIEST } from 'common/TALENTS/priest';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { HealEvent } from 'parser/core/Events';
+import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
@@ -18,6 +18,9 @@ import {
 import EOLAttrib from '../../core/EchoOfLightAttributor';
 import SpellLink from 'interface/SpellLink';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../../Guide';
 
 // Example Log: /report/kVQd4LrBb9RW2h6K/9-Heroic+The+Primal+Council+-+Wipe+5+(5:04)/Delipriest/standard/statistics
 class ResonantWords extends Analyzer {
@@ -32,6 +35,8 @@ class ResonantWords extends Analyzer {
   healingDoneFromTalent = 0;
   overhealingDoneFromTalent = 0;
   healingMultiplierWhenActive = 0;
+  badConsumes = 0;
+  goodConsumes = 0;
 
   talentRank = 0;
 
@@ -81,14 +86,74 @@ class ResonantWords extends Analyzer {
     }
   }
 
-  onHealCast() {
+  onHealCast(event: CastEvent) {
     if (this.selectedCombatant.hasBuff(SPELLS.RESONANT_WORDS_TALENT_BUFF.id)) {
       this.usedResonantWords += 1;
+    }
+    if (event.ability.guid === SPELLS.FLASH_HEAL.id) {
+      if (!this.selectedCombatant.hasBuff(SPELLS.SURGE_OF_LIGHT_BUFF)) {
+        this.badConsumes += 1;
+      }
+    } else if (event.ability.guid === SPELLS.GREATER_HEAL.id) {
+      if (!this.selectedCombatant.hasBuff(SPELLS.LIGHTWEAVER_TALENT_BUFF)) {
+        this.badConsumes += 1;
+      }
+    } else {
+      this.goodConsumes += 1;
     }
   }
 
   onHolyWordCast() {
     this.totalResonantWords += 1;
+  }
+
+  get guideSubsection(): JSX.Element {
+    // if player isn't running Resonant Words, don't show guide section
+    if (!this.selectedCombatant.hasTalent(TALENTS.RESONANT_WORDS_TALENT)) {
+      return <></>;
+    }
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink spell={TALENTS.RESONANT_WORDS_TALENT} />
+        </b>{' '}
+        is a strong buff that you should be playing around to buff your{' '}
+        <SpellLink spell={SPELLS.GREATER_HEAL} /> and <SpellLink spell={SPELLS.FLASH_HEAL} /> casts.
+        Focus on casting <SpellLink spell={SPELLS.GREATER_HEAL} /> with{' '}
+        <SpellLink spell={SPELLS.LIGHTWEAVER_TALENT_BUFF} /> when it would consume{' '}
+        <SpellLink spell={TALENTS.RESONANT_WORDS_TALENT} />, and{' '}
+        <SpellLink spell={SPELLS.FLASH_HEAL} /> when it would consume{' '}
+        <SpellLink spell={TALENTS.RESONANT_WORDS_TALENT} />.
+      </p>
+    );
+
+    const goodHeals = {
+      count: this.goodConsumes,
+      label: 'Good Lightweaver-buffed Heals/Surge Of Light-buffed Flash Heals',
+    };
+
+    const badHeals = {
+      count: this.badConsumes,
+      label:
+        'Bad Casts (Either your Heal was cast without Lightweaver, or your Flash Heal was cast without Surge of Light)',
+    };
+
+    const data = (
+      <div>
+        <strong>
+          <SpellLink spell={SPELLS.GREATER_HEAL} /> cast breakdown
+        </strong>
+        <small>
+          {' '}
+          - Green is a good cast. Red is a cast without a{' '}
+          <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> buff or a{' '}
+          <SpellLink spell={SPELLS.SURGE_OF_LIGHT_BUFF} /> buff.
+        </small>
+        <GradiatedPerformanceBar good={goodHeals} bad={badHeals} />
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 
   statistic() {
