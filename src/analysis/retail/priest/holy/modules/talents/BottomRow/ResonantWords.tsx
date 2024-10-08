@@ -69,11 +69,6 @@ class ResonantWords extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(HOLY_WORD_LIST),
       this.onHolyWordCast,
     );
-
-    this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.RESONANT_WORDS_TALENT_BUFF),
-      this.onRefresh,
-    );
   }
 
   onHeal(event: HealEvent) {
@@ -124,10 +119,10 @@ class ResonantWords extends Analyzer {
 
   onHolyWordCast() {
     this.totalResonantWords += 1;
-  }
-
-  onRefresh() {
-    this.overcaps += 1;
+    if (this.selectedCombatant.hasBuff(SPELLS.RESONANT_WORDS_TALENT_BUFF.id)) {
+      // This isn't ideal, but the buff sometimes refreshes when applied for no reason so we can't listen for that
+      this.overcaps += 1;
+    }
   }
 
   get guideSubsection(): JSX.Element {
