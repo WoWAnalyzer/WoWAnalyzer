@@ -131,8 +131,8 @@ class ResonantWords extends Analyzer {
   }
 
   get guideSubsection(): JSX.Element {
-    // if player isn't running lightweaver, don't show guide section
-    if (!this.selectedCombatant.hasTalent(TALENTS.LIGHTWEAVER_TALENT)) {
+    // if player isn't running resonant words, don't show guide section
+    if (!this.selectedCombatant.hasTalent(TALENTS.RESONANT_WORDS_TALENT)) {
       return <></>;
     }
     const explanation = (
