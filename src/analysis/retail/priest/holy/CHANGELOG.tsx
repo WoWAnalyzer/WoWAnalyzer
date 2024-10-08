@@ -1,10 +1,12 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import TALENTS, { TALENTS_PRIEST } from 'common/TALENTS/priest';
-import { Arlie, Hana, Litena, Liavre, Squided, ToppleTheNun, Trevor, Saeldur } from 'CONTRIBUTORS';
+import { Arlie, Hana, Litena, Liavre, Squided, ToppleTheNun, Trevor, Saeldur, xizbow} from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2024, 10, 7), <>Added <SpellLink spell={SPELLS.RESONANT_WORDS_TALENT_BUFF} /> guide analysis.</>, xizbow),
+  change(date(2024, 10, 7), <>Properly hide Circle of Healing analysis if it isn't talented.</>, xizbow),
   change(date(2024, 9, 21), <>Changed tooltips, added crisis management, and added prismatic echoes </>, Liavre),
   change(date(2024, 9, 16), <>Implemented TWW S1 4pc </>, Liavre),
   change(date(2024, 9, 11), <>Split Divine Hymn/GS into proper attributions, fixed mana costs,
