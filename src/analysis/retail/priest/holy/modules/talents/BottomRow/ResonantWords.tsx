@@ -96,11 +96,7 @@ class ResonantWords extends Analyzer {
     }
     switch (event.ability.guid) {
       case SPELLS.FLASH_HEAL.id:
-        if (this.selectedCombatant.hasBuff(SPELLS.SURGE_OF_LIGHT_BUFF.id)) {
-          this.okConsumes += 1;
-        } else {
-          this.badConsumes += 1;
-        }
+        this.okConsumes += 1;
         break;
       case SPELLS.GREATER_HEAL.id:
         if (this.selectedCombatant.hasBuff(SPELLS.LIGHTWEAVER_TALENT_BUFF.id)) {
@@ -135,13 +131,12 @@ class ResonantWords extends Analyzer {
         <b>
           <SpellLink spell={TALENTS.RESONANT_WORDS_TALENT} />
         </b>{' '}
-        is a strong buff that you should be playing around to buff your{' '}
+        is a buff that you should be playing around to buff your{' '}
         <SpellLink spell={SPELLS.GREATER_HEAL} /> casts. You want to always consume this buff with a{' '}
         <SpellLink spell={SPELLS.LIGHTWEAVER_TALENT_BUFF} />
         -buffed <SpellLink spell={SPELLS.GREATER_HEAL} /> cast. If you consume it with a{' '}
-        <SpellLink spell={SPELLS.SURGE_OF_LIGHT_BUFF} />
-        -buffed <SpellLink spell={SPELLS.FLASH_HEAL} /> or a{' '}
-        <SpellLink spell={SPELLS.CIRCLE_OF_HEALING} /> that's ok as well.
+        <SpellLink spell={SPELLS.FLASH_HEAL} /> or a <SpellLink spell={SPELLS.CIRCLE_OF_HEALING} />{' '}
+        that's ok, but not ideal.
         <li>
           <b>Above all else, you do not want to waste the buff by casting another Holy Word.</b>
         </li>
@@ -159,33 +154,23 @@ class ResonantWords extends Analyzer {
     };
 
     const badConsumes = {
-      count: this.badConsumes,
-      label: 'Good Usages of Resonant Words',
+      count: this.badConsumes + this.overcaps,
+      label: 'Bad Usages (or wasted usages) of Resonant Words',
     };
 
     const data = (
       <div>
         <strong>
-          <SpellLink spell={SPELLS.GREATER_HEAL} /> cast breakdown
+          <SpellLink spell={SPELLS.RESONANT_WORDS_TALENT_BUFF} /> usage breakdown
         </strong>
         <small>
           {' '}
           - Green is a <SpellLink spell={SPELLS.LIGHTWEAVER_TALENT_BUFF} />
           -buffed <SpellLink spell={SPELLS.GREATER_HEAL} />. Yellow is a{' '}
-          <SpellLink spell={SPELLS.SURGE_OF_LIGHT_BUFF} />
-          -buffed <SpellLink spell={SPELLS.FLASH_HEAL} /> or a{' '}
+          <SpellLink spell={SPELLS.FLASH_HEAL} /> or a{' '}
           <SpellLink spell={SPELLS.CIRCLE_OF_HEALING} />. Red is none of those things.
         </small>
         <GradiatedPerformanceBar good={goodConsumes} ok={okConsumes} bad={badConsumes} />
-
-        <strong>
-          Wasted uses of <SpellLink spell={TALENTS.RESONANT_WORDS_TALENT} />
-        </strong>
-        <small>
-          {' '}
-          - You wasted {this.wastedResonantWords} of {this.totalResonantWords} uses of{' '}
-          <SpellLink spell={TALENTS.RESONANT_WORDS_TALENT} />
-        </small>
       </div>
     );
 
