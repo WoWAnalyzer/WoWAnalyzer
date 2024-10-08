@@ -82,9 +82,6 @@ class CircleOfHealing extends Analyzer {
   }
 
   get guideSubsection(): JSX.Element {
-    if (!this.selectedCombatant.hasTalent(TALENTS.CIRCLE_OF_HEALING_TALENT)) {
-      return <></>;
-    }
     const explanation = (
       <p>
         <b>
