@@ -1,1 +1,1 @@
-export const COALESENCE_INCREASE = 0.3;
+export const COALESENCE_INCREASE = 0.2;
