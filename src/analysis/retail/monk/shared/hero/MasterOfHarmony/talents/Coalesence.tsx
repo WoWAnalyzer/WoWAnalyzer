@@ -33,6 +33,9 @@ class Coalesence extends Analyzer {
   }
 
   private onHeal(event: HealEvent) {
+    if (event.ability.guid === SPELLS.ASPECT_OF_HARMONY_HOT.id) {
+      return;
+    }
     const target = this.combatants.getEntity(event);
     if (
       !target ||
@@ -50,6 +53,9 @@ class Coalesence extends Analyzer {
   }
 
   private onDamage(event: DamageEvent) {
+    if (event.ability.guid === SPELLS.ASPECT_OF_HARMONY_DOT.id) {
+      return;
+    }
     const target = this.enemies.getEntity(event);
     if (
       !target ||
