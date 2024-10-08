@@ -25,7 +25,10 @@ class CircleOfHealing extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS.CIRCLE_OF_HEALING_TALENT);
+    if (!this.selectedCombatant.hasTalent(TALENTS.CIRCLE_OF_HEALING_TALENT)) {
+      this.active = false;
+      return;
+    }
 
     this.orisonActive = this.selectedCombatant.hasTalent(TALENTS.ORISON_TALENT);
 
@@ -82,6 +85,9 @@ class CircleOfHealing extends Analyzer {
   }
 
   get guideSubsection(): JSX.Element {
+    if (!this.selectedCombatant.hasTalent(TALENTS.CIRCLE_OF_HEALING_TALENT)) {
+      return <></>;
+    }
     const explanation = (
       <p>
         <b>
