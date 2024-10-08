@@ -25,10 +25,7 @@ class CircleOfHealing extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    if (!this.selectedCombatant.hasTalent(TALENTS.CIRCLE_OF_HEALING_TALENT)) {
-      this.active = false;
-      return;
-    }
+    this.active = this.selectedCombatant.hasTalent(TALENTS.CIRCLE_OF_HEALING_TALENT);
 
     this.orisonActive = this.selectedCombatant.hasTalent(TALENTS.ORISON_TALENT);
 
