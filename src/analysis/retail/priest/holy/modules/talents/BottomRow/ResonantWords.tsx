@@ -46,6 +46,8 @@ class ResonantWords extends Analyzer {
     return this.totalResonantWords - this.usedResonantWords;
   }
 
+  isArchon: boolean = this.selectedCombatant.hasTalent(TALENTS_PRIEST.EMPOWERED_SURGES_TALENT);
+
   constructor(options: Options) {
     super(options);
 
@@ -96,7 +98,12 @@ class ResonantWords extends Analyzer {
     }
     switch (event.ability.guid) {
       case SPELLS.FLASH_HEAL.id:
-        this.okConsumes += 1;
+        if (this.isArchon && this.selectedCombatant.hasBuff(SPELLS.SURGE_OF_LIGHT_BUFF.id)) {
+          // Archon has a talent that makes Surge-buffed FHs 30% stronger
+          this.goodConsumes += 1;
+        } else {
+          this.okConsumes += 1;
+        }
         break;
       case SPELLS.GREATER_HEAL.id:
         if (this.selectedCombatant.hasBuff(SPELLS.LIGHTWEAVER_TALENT_BUFF.id)) {
@@ -134,9 +141,11 @@ class ResonantWords extends Analyzer {
         is a buff that you should be playing around to buff your{' '}
         <SpellLink spell={SPELLS.GREATER_HEAL} /> casts. You want to always consume this buff with a{' '}
         <SpellLink spell={SPELLS.LIGHTWEAVER_TALENT_BUFF} />
-        -buffed <SpellLink spell={SPELLS.GREATER_HEAL} /> cast. If you consume it with a{' '}
-        <SpellLink spell={SPELLS.FLASH_HEAL} /> or a <SpellLink spell={SPELLS.CIRCLE_OF_HEALING} />{' '}
-        that's ok, but not ideal.
+        -buffed <SpellLink spell={SPELLS.GREATER_HEAL} /> or a{' '}
+        <SpellLink spell={SPELLS.SURGE_OF_LIGHT_BUFF} />
+        -buffed <SpellLink spell={SPELLS.FLASH_HEAL} /> if you're playing as Archon. If you consume
+        it with a regular <SpellLink spell={SPELLS.FLASH_HEAL} /> or a{' '}
+        <SpellLink spell={SPELLS.CIRCLE_OF_HEALING} /> that's ok, but not ideal.
         <li>
           <b>Above all else, you do not want to waste the buff by casting another Holy Word.</b>
         </li>
@@ -165,8 +174,8 @@ class ResonantWords extends Analyzer {
         </strong>
         <small>
           {' '}
-          - Green is a <SpellLink spell={SPELLS.LIGHTWEAVER_TALENT_BUFF} />
-          -buffed <SpellLink spell={SPELLS.GREATER_HEAL} />. Yellow is a{' '}
+          - Green is a buffed <SpellLink spell={SPELLS.GREATER_HEAL} /> or buffed{' '}
+          <SpellLink spell={SPELLS.FLASH_HEAL} />. Yellow is a regular{' '}
           <SpellLink spell={SPELLS.FLASH_HEAL} /> or a{' '}
           <SpellLink spell={SPELLS.CIRCLE_OF_HEALING} />. Red is none of those things.
         </small>
