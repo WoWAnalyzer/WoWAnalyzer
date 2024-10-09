@@ -40,6 +40,7 @@ if (import.meta.env.VITE_SENTRY_DSN) {
     allowUrls: ['wowanalyzer.com/assets/'],
 
     beforeSend(event) {
+      // this is *an attempt* to keep sentry from sending up user info that we don't want & don't need
       if (event.user) {
         delete event.user;
       }
