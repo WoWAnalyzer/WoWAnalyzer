@@ -8,6 +8,7 @@ import Events, {
   DamageEvent,
   EndChannelEvent,
   EventType,
+  FightEndEvent,
   HealEvent,
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
@@ -100,6 +101,7 @@ class CelestialConduit extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.UNITY_WITHIN_CAST),
       this.onUnityWithin,
     );
+    this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
   private onDamage(event: DamageEvent) {
@@ -135,10 +137,18 @@ class CelestialConduit extends Analyzer {
     });
   }
 
-  private onUnityWithin(event: CastEvent | EndChannelEvent) {
+  private updateCastListCooldownMap() {
     if (!this.castInfoList.at(-1)?.cooldownMap) {
       this.castInfoList.at(-1)!.cooldownMap = this.getCooldownMap();
     }
+  }
+
+  private onUnityWithin(event: CastEvent | EndChannelEvent) {
+    this.updateCastListCooldownMap();
+  }
+
+  private onFightEnd(event: FightEndEvent) {
+    this.updateCastListCooldownMap();
   }
 
   private onChannelEnd(event: EndChannelEvent) {

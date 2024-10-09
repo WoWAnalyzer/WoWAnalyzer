@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
-import { Trevor, Vohrr } from 'CONTRIBUTORS';
+import { Trevor, Vetyst, Vohrr } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date (2024, 10, 6), <>Fix a crash in <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_TALENT}/> while it was active when fight ended.</>, Vetyst),
   change(date (2024, 10, 6), <>Add <SpellLink spell={TALENTS_MONK.COALESCENCE_TALENT}/> statistic</>, Trevor),
   change(date (2024, 9, 28), <>Fix crash in <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_TALENT}/> when it failed to hit any allies.</>, Trevor),
   change(date (2024, 9, 24), <>Fix <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_TALENT}/> event linking</>, Trevor),
