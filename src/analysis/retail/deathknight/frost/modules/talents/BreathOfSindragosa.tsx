@@ -14,7 +14,7 @@ import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { PerformanceMark } from 'interface/guide';
 
-const GOOD_BREATH_DURATION_MS = 60000;
+const GOOD_BREATH_DURATION_MS = 25000;
 
 class BreathOfSindragosa extends Analyzer {
   beginTimestamp = 0;
@@ -209,10 +209,10 @@ class BreathOfSindragosa extends Analyzer {
           });
 
           let durationPerf = QualitativePerformance.Good;
-          if (cast.duration < 60 && !cast.fightEnded) {
+          if (cast.duration * 1000 < GOOD_BREATH_DURATION_MS && !cast.fightEnded) {
             durationPerf = QualitativePerformance.Ok;
           }
-          if (cast.duration < 40 && !cast.fightEnded) {
+          if (cast.duration * 1000 < GOOD_BREATH_DURATION_MS - 5000 && !cast.fightEnded) {
             durationPerf = QualitativePerformance.Fail;
           }
           checklistItems.push({
@@ -222,7 +222,7 @@ class BreathOfSindragosa extends Analyzer {
           });
 
           const overallPerf =
-            cast.duration > 60 || cast.fightEnded
+            cast.duration * 1000 > GOOD_BREATH_DURATION_MS || cast.fightEnded
               ? QualitativePerformance.Good
               : QualitativePerformance.Fail;
 

@@ -1,8 +1,4 @@
-import {
-  RuneDetails,
-  RuneOfTheFallenCrusader,
-  RuneOfHysteria,
-} from 'analysis/retail/deathknight/shared';
+import { RuneDetails, RuneOfTheFallenCrusader } from 'analysis/retail/deathknight/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import Channeling from 'parser/shared/normalizers/Channeling';
@@ -62,7 +58,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Runes
     runeOfTheFallenCrusader: RuneOfTheFallenCrusader,
-    runeOfHysteria: RuneOfHysteria,
 
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: 0.5 }] as const,
   };

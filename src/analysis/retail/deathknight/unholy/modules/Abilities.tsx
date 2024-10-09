@@ -134,14 +134,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.EMPOWER_RUNE_WEAPON_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.EMPOWER_RUNE_WEAPON_TALENT),
-        category: SPELL_CATEGORY.COOLDOWNS,
-        gcd: null,
-        cooldown: 120,
-        timelineSortIndex: 1,
-      },
-      {
         spell: TALENTS.RAISE_ABOMINATION_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.RAISE_ABOMINATION_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
@@ -171,11 +163,11 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ANTI_MAGIC_SHELL.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown:
-          80 -
-          Number(combatant.hasTalent(TALENTS.ANTI_MAGIC_BARRIER_TALENT)) * 20 -
+          60 -
+          Number(combatant.hasTalent(TALENTS.ANTI_MAGIC_BARRIER_TALENT)) * 20 +
           Number(combatant.hasTalent(TALENTS.UNYIELDING_WILL_TALENT)) * 20,
         gcd: {
-          base: 1500,
+          static: 0,
         },
       },
       {

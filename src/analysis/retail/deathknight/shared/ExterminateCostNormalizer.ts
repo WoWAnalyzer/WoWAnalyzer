@@ -44,8 +44,8 @@ export default class ExterminateCostNormalizer extends EventsNormalizer {
   isExterminateBuff(event: AnyEvent): boolean {
     return (
       HasAbility(event) &&
-      (event.ability.guid === SPELLS.EXTERMINATE_BUFF_1.id ||
-        event.ability.guid === SPELLS.EXTERMINATE_BUFF_2.id)
+      (event.ability.guid === SPELLS.EXTERMINATE_BUFF.id ||
+        event.ability.guid === SPELLS.EXTERMINATE_PAINFUL_DEATH_BUFF.id)
     );
   }
 
@@ -59,9 +59,9 @@ export default class ExterminateCostNormalizer extends EventsNormalizer {
   }
 
   effectiveCost(event: CastEvent, activeBuff: number): number | undefined {
-    if (activeBuff === SPELLS.EXTERMINATE_BUFF_1.id) {
+    if (activeBuff === SPELLS.EXTERMINATE_BUFF.id) {
       return 0;
-    } else if (activeBuff === SPELLS.EXTERMINATE_BUFF_2.id) {
+    } else if (activeBuff === SPELLS.EXTERMINATE_PAINFUL_DEATH_BUFF.id) {
       const rawCost = event.classResources?.find(
         (res) => res.type === RESOURCE_TYPES.RUNES.id,
       )?.cost;

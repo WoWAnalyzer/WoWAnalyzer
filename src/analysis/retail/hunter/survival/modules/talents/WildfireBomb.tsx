@@ -30,23 +30,29 @@ class WildfireBomb extends Analyzer {
     globalCooldown: GlobalCooldown,
   };
 
-  acceptedCastDueToCapping = false;
-  currentGCD = 0;
-  badRefreshes = 0;
-  lastRefresh = 0;
-  casts = 0;
-  targetsHit = 0;
-
   protected enemies!: Enemies;
   protected spellUsable!: SpellUsable;
   protected globalCooldown!: GlobalCooldown;
 
+  private acceptedCastDueToCapping: boolean = false;
+  private currentGCD: number = 0;
+  private badRefreshes: number = 0;
+  private lastRefresh: number = 0;
+  private casts: number = 0;
+  private targetsHit: number = 0;
+
   constructor(options: Options) {
     super(options);
 
-    this.active = !this.selectedCombatant.hasTalent(TALENTS.WILDFIRE_INFUSION_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.WILDFIRE_BOMB_TALENT);
+    if (!this.active) {
+      return;
+    }
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.WILDFIRE_BOMB), this.onCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.WILDFIRE_BOMB_TALENT),
+      this.onCast,
+    );
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.WILDFIRE_BOMB_IMPACT),
       this.onDamage,
@@ -89,8 +95,8 @@ class WildfireBomb extends Analyzer {
     this.casts += 1;
     this.currentGCD = this.globalCooldown.getGlobalCooldownDuration(event.ability.guid);
     if (
-      !this.spellUsable.isOnCooldown(SPELLS.WILDFIRE_BOMB.id) ||
-      this.spellUsable.cooldownRemaining(SPELLS.WILDFIRE_BOMB.id) <
+      !this.spellUsable.isOnCooldown(TALENTS.WILDFIRE_BOMB_TALENT.id) ||
+      this.spellUsable.cooldownRemaining(TALENTS.WILDFIRE_BOMB_TALENT.id) <
         WILDFIRE_BOMB_LEEWAY_BUFFER + this.currentGCD
     ) {
       this.acceptedCastDueToCapping = true;
@@ -100,7 +106,7 @@ class WildfireBomb extends Analyzer {
   onDamage(event: DamageEvent) {
     if (this.casts === 0) {
       this.casts += 1;
-      this.spellUsable.beginCooldown(event, SPELLS.WILDFIRE_BOMB.id);
+      this.spellUsable.beginCooldown(event, TALENTS.WILDFIRE_BOMB_TALENT.id);
     }
     this.targetsHit += 1;
     const enemy = this.enemies.getEntity(event);
@@ -120,12 +126,12 @@ class WildfireBomb extends Analyzer {
     when(this.badWFBThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You shouldn't refresh <SpellLink spell={SPELLS.WILDFIRE_BOMB} /> since it doesn't
+          You shouldn't refresh <SpellLink spell={TALENTS.WILDFIRE_BOMB_TALENT} /> since it doesn't
           pandemic. It's generally better to cast something else and wait for the DOT to drop off
           before reapplying.
         </>,
       )
-        .icon(SPELLS.WILDFIRE_BOMB.icon)
+        .icon(TALENTS.WILDFIRE_BOMB_TALENT.icon)
         .actual(
           defineMessage({
             id: 'hunter.survival.suggestions.wildfireBomb.pandemic.efficiency',
@@ -137,11 +143,11 @@ class WildfireBomb extends Analyzer {
     when(this.uptimeThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Try and maximize your uptime on <SpellLink spell={SPELLS.WILDFIRE_BOMB} />. This is
-          achieved through not unnecessarily refreshing the debuff as it doesn't pandemic.{' '}
+          Try and maximize your uptime on <SpellLink spell={TALENTS.WILDFIRE_BOMB_TALENT} />. This
+          is achieved through not unnecessarily refreshing the debuff as it doesn't pandemic.{' '}
         </>,
       )
-        .icon(SPELLS.WILDFIRE_BOMB.icon)
+        .icon(TALENTS.WILDFIRE_BOMB_TALENT.icon)
         .actual(
           defineMessage({
             id: 'hunter.survival.suggestions.wildfireBomb.uptime',
@@ -155,11 +161,11 @@ class WildfireBomb extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(2)}
+        position={STATISTIC_ORDER.CORE(2)}
+        category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
-        category={STATISTIC_CATEGORY.GENERAL}
       >
-        <BoringSpellValueText spell={SPELLS.WILDFIRE_BOMB}>
+        <BoringSpellValueText spell={TALENTS.WILDFIRE_BOMB_TALENT}>
           <>
             {this.averageTargetsHit.toFixed(2)} <small>average targets hit</small>
             <br />

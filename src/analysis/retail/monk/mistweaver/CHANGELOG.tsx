@@ -6,6 +6,7 @@ import SpellLink from 'interface/SpellLink';
 
 export default [
   change(date (2024, 10, 6), <>Fix a crash in <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_TALENT}/> while it was active when fight ended.</>, Vetyst),
+  change(date (2024, 10, 6), <>Add <SpellLink spell={TALENTS_MONK.COALESCENCE_TALENT}/> statistic</>, Trevor),
   change(date (2024, 9, 28), <>Fix crash in <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_TALENT}/> when it failed to hit any allies.</>, Trevor),
   change(date (2024, 9, 24), <>Fix <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_TALENT}/> event linking</>, Trevor),
   change(date (2024, 9, 24), <>Fix another crash condition</>, Trevor),

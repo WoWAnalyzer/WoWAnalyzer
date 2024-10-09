@@ -22,7 +22,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {modules.Lightweaver.guideSubsection}
         {modules.prayerOfHealing.guideSubsection}
         {modules.prayerOfMending.guideSubsection}
-        {modules.circleOfHealing.guideSubsection}
+        {info.combatant.hasTalent(TALENTS_PRIEST.CIRCLE_OF_HEALING_TALENT) &&
+          modules.circleOfHealing.guideSubsection}
         {modules.DivineStar.guideSubsectionHoly}
         {modules.Halo.guideSubsectionHoly}
       </Section>

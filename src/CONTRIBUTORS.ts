@@ -1892,13 +1892,13 @@ export const Llanas: Contributor = {
 };
 export const xizbow: Contributor = {
   nickname: 'xizbow',
-  discord: 'xizbow#1856',
+  discord: 'xizbow',
   github: 'xizbow1',
   mains: [
     {
-      name: 'Greggoros',
-      spec: SPECS.HOLY_PALADIN,
-      link: 'https://worldofwarcraft.com/en-us/character/us/wyrmrest-accord/Greggoros',
+      name: 'Gregskull',
+      spec: SPECS.HOLY_PRIEST,
+      link: 'https://www.warcraftlogs.com/character/us/zuljin/gregskull',
     },
   ],
 };

@@ -963,6 +963,16 @@ const spells = {
     name: 'Flow of Battle',
     icon: 'ability_monk_energizingwine.jpg',
   },
+  ASPECT_OF_HARMONY_DOT: {
+    id: 450763,
+    name: 'Aspect of Harmony',
+    icon: 'inv-enchant-essencenethersmall',
+  },
+  ASPECT_OF_HARMONY_HOT: {
+    id: 450769,
+    name: 'Aspect of Harmony',
+    icon: 'inv_enchanting_wod_essence2',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;
