@@ -18,14 +18,11 @@ import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import { didMoteExpire } from '../../../normalizers/CastLinkNormalizer';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBreakdown';
-import { HEALING_RAIN_TARGETS } from '../../../constants';
-
-// 50 was too low, 100 was too high
-// had no issues with 85ms
-const BUFFER_MS = 85;
-const WHIRLING_AIR_ID = SPELLS.WHIRLING_AIR.id;
-const WHIRLING_EARTH_ID = SPELLS.WHIRLING_EARTH.id;
-const WHIRLING_WATER_ID = SPELLS.WHIRLING_WATER.id;
+import {
+  SURGING_TOTEM_BUFFER_MS,
+  HEALING_RAIN_TARGETS,
+  WHIRLING_ELEMENTS_MOTES,
+} from '../../../constants';
 
 interface HealingRainTickInfo {
   timestamp: number;
@@ -34,9 +31,9 @@ interface HealingRainTickInfo {
 
 type SurgingTotemCast = {
   timestamp: number;
-  WHIRLING_AIR_ID: number;
-  WHIRLING_EARTH_ID: number;
-  WHIRLING_WATER_ID: number;
+  WhirlingAir: number;
+  WhirlingEarth: number;
+  WhirlingWater: number;
 };
 
 class SurgingTotem extends Analyzer {
@@ -69,9 +66,12 @@ class SurgingTotem extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.SURGING_TOTEM_TALENT);
-
-    const whirlingMotes = [SPELLS.WHIRLING_AIR, SPELLS.WHIRLING_EARTH, SPELLS.WHIRLING_WATER];
+    this.active =
+      this.selectedCombatant.hasTalent(TALENTS.SURGING_TOTEM_TALENT) &&
+      this.selectedCombatant.hasTalent(TALENTS.WHIRLING_ELEMENTS_TALENT);
+    if (!this.active) {
+      return;
+    }
 
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HEALING_RAIN_TOTEMIC),
@@ -79,7 +79,7 @@ class SurgingTotem extends Analyzer {
     );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this._onCast);
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(whirlingMotes),
+      Events.removebuff.by(SELECTED_PLAYER).spell(WHIRLING_ELEMENTS_MOTES),
       this._onRemoveBuff,
     );
     this.addEventListener(Events.fightend, this._onFightEnd);
@@ -151,7 +151,7 @@ class SurgingTotem extends Analyzer {
     }
 
     const healingRainTick = this.healingRainTicks.find(
-      (tick) => event.timestamp - BUFFER_MS <= tick.timestamp,
+      (tick) => event.timestamp - SURGING_TOTEM_BUFFER_MS <= tick.timestamp,
     );
     if (!healingRainTick) {
       this.healingRainTicks.push({
@@ -170,9 +170,9 @@ class SurgingTotem extends Analyzer {
     if (spellId === SPELLS.SURGING_TOTEM.id) {
       this.SurgingTotemCasts.push({
         timestamp: event.timestamp,
-        WHIRLING_AIR_ID: 0,
-        WHIRLING_EARTH_ID: 0,
-        WHIRLING_WATER_ID: 0,
+        WhirlingAir: 0,
+        WhirlingEarth: 0,
+        WhirlingWater: 0,
       });
     }
 
@@ -190,16 +190,16 @@ class SurgingTotem extends Analyzer {
     } else {
       this.whirlingMotesConsumed[spellId] += 1;
       switch (event.ability.guid) {
-        case WHIRLING_AIR_ID: {
-          this.SurgingTotemCasts[this.SurgingTotemCasts.length - 1].WHIRLING_AIR_ID = 1;
+        case SPELLS.WHIRLING_AIR.id: {
+          this.SurgingTotemCasts[this.SurgingTotemCasts.length - 1].WhirlingAir = 1;
           break;
         }
-        case WHIRLING_EARTH_ID: {
-          this.SurgingTotemCasts[this.SurgingTotemCasts.length - 1].WHIRLING_EARTH_ID = 1;
+        case SPELLS.WHIRLING_EARTH.id: {
+          this.SurgingTotemCasts[this.SurgingTotemCasts.length - 1].WhirlingEarth = 1;
           break;
         }
-        case WHIRLING_WATER_ID: {
-          this.SurgingTotemCasts[this.SurgingTotemCasts.length - 1].WHIRLING_WATER_ID = 1;
+        case SPELLS.WHIRLING_WATER.id: {
+          this.SurgingTotemCasts[this.SurgingTotemCasts.length - 1].WhirlingWater = 1;
           break;
         }
         default:
@@ -339,9 +339,9 @@ class SurgingTotem extends Analyzer {
       let value = null;
 
       switch (
-        SurgingTotemCast.WHIRLING_AIR_ID +
-        SurgingTotemCast.WHIRLING_EARTH_ID +
-        SurgingTotemCast.WHIRLING_WATER_ID
+        SurgingTotemCast.WhirlingAir +
+        SurgingTotemCast.WhirlingEarth +
+        SurgingTotemCast.WhirlingWater
       ) {
         case 3:
           value = QualitativePerformance.Perfect;
@@ -361,17 +361,17 @@ class SurgingTotem extends Analyzer {
           <div>
             <strong>@ {this.owner.formatTimestamp(SurgingTotemCast.timestamp)}</strong>
           </div>
-          {!SurgingTotemCast.WHIRLING_AIR_ID && (
+          {!SurgingTotemCast.WhirlingAir && (
             <div>
               <SpellLink spell={SPELLS.WHIRLING_AIR} /> not consumed.
             </div>
           )}
-          {!SurgingTotemCast.WHIRLING_EARTH_ID && (
+          {!SurgingTotemCast.WhirlingEarth && (
             <div>
               <SpellLink spell={SPELLS.WHIRLING_EARTH} /> not consumed.
             </div>
           )}
-          {!SurgingTotemCast.WHIRLING_WATER_ID && (
+          {!SurgingTotemCast.WhirlingWater && (
             <div>
               <SpellLink spell={SPELLS.WHIRLING_WATER} /> not consumed.
             </div>
