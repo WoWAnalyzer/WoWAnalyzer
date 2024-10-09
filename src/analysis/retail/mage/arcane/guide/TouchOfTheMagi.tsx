@@ -16,6 +16,8 @@ import CooldownExpandable, {
   CooldownExpandableItem,
 } from 'interface/guide/components/CooldownExpandable';
 
+const MAX_ARCANE_CHARGES = 4;
+
 class TouchOfTheMagiGuide extends Analyzer {
   static dependencies = {
     touchOfTheMagi: TouchOfTheMagi,
@@ -47,14 +49,19 @@ class TouchOfTheMagiGuide extends Analyzer {
     const checklistItems: CooldownExpandableItem[] = [];
 
     const noCharges = cast.charges === 0;
+    const maxCharges = cast.charges === MAX_ARCANE_CHARGES;
     checklistItems.push({
       label: (
         <>
           <SpellLink spell={SPELLS.ARCANE_CHARGE} />s Before Touch
         </>
       ),
-      result: <PassFailCheckmark pass={noCharges} />,
-      details: <>{cast.charges}</>,
+      result: <PassFailCheckmark pass={noCharges || (maxCharges && cast.refundBuff)} />,
+      details: (
+        <>
+          {cast.charges} {cast.refundBuff ? '(Refund)' : ''}
+        </>
+      ),
     });
 
     const activeTime = cast.activeTime;
@@ -69,7 +76,9 @@ class TouchOfTheMagiGuide extends Analyzer {
     });
 
     const overallPerf =
-      noCharges && activeTime ? QualitativePerformance.Good : QualitativePerformance.Fail;
+      (noCharges || (maxCharges && cast.refundBuff)) && activeTime
+        ? QualitativePerformance.Good
+        : QualitativePerformance.Fail;
 
     return (
       <CooldownExpandable
@@ -92,15 +101,17 @@ class TouchOfTheMagiGuide extends Analyzer {
     const arcaneBlast = <SpellLink spell={SPELLS.ARCANE_BLAST} />;
     const arcaneSurge = <SpellLink spell={TALENTS.ARCANE_SURGE_TALENT} />;
     const presenceOfMind = <SpellLink spell={TALENTS.PRESENCE_OF_MIND_TALENT} />;
+    const burdenOfPower = <SpellLink spell={TALENTS.BURDEN_OF_POWER_TALENT} />;
+    const gloriousIncandescence = <SpellLink spell={TALENTS.GLORIOUS_INCANDESCENCE_TALENT} />;
+    const intuition = <SpellLink spell={SPELLS.INTUITION_BUFF} />;
     const touchOfTheMagiIcon = <SpellIcon spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} />;
 
     const explanation = (
       <>
         <div>
-          <b>{touchOfTheMagi}</b> is a short duration debuff and is available for each burn phase,
-          accumulating 20% of your damage. When the debuff expires it explodes dealing the
-          accumulated damage to the target and reduced damage to nearby enemies. To maximize your
-          burst, refer to the below:
+          <b>{touchOfTheMagi}</b> is a short debuff available for each burn phase and grants you 4{' '}
+          {arcaneCharge}s and accumulates 20% of your damage for the duration. When the debuff
+          expires it explodes dealing damage to the target and reduced damage to nearby targets.
         </div>
         <div>
           <ul>
@@ -109,8 +120,12 @@ class TouchOfTheMagiGuide extends Analyzer {
               until the debuff expires.
             </li>
             <li>
-              {touchOfTheMagi} gives you 4 {arcaneCharge}s, so spend them with {arcaneBarrage} and
-              cast {touchOfTheMagi} while {arcaneBarrage} is in the air.
+              Spend your {arcaneCharge}s with {arcaneBarrage} and then cast {touchOfTheMagi} while{' '}
+              {arcaneBarrage}
+              is in the air for some extra damage. cast
+              {touchOfTheMagi} while {arcaneBarrage} is in the air. This should be done even if your
+              charges will be refunded anyway via {burdenOfPower}, {gloriousIncandescence}, or{' '}
+              {intuition}.
             </li>
             <li>
               Major Burn Phase: Ensure you have {siphonStorm} and {netherPrecision}. Your cast
