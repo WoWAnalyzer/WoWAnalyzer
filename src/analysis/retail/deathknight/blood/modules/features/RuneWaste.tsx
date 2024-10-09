@@ -51,10 +51,13 @@ const ossuaryCnd = cnd.describe(
 );
 
 const exterminateCnd = cnd.describe(
-  cnd.or(cnd.buffPresent(SPELLS.EXTERMINATE_BUFF_1), cnd.buffPresent(SPELLS.EXTERMINATE_BUFF_2)),
+  cnd.or(
+    cnd.buffPresent(SPELLS.EXTERMINATE_BUFF),
+    cnd.buffPresent(SPELLS.EXTERMINATE_PAINFUL_DEATH_BUFF),
+  ),
   (tense) => (
     <>
-      <SpellLink spell={SPELLS.EXTERMINATE} /> {tenseAlt(tense, 'is', 'was')} available
+      <SpellLink spell={talents.EXTERMINATE_TALENT} /> {tenseAlt(tense, 'is', 'was')} available
     </>
   ),
 );

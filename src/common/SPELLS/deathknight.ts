@@ -7,6 +7,31 @@
 import Spell, { Enchant } from './Spell';
 
 const spells = {
+  // Hero Talents:
+  // Deathbringer:
+  EXTERMINATE_BUFF: {
+    id: 441416,
+    name: 'Exterminate',
+    icon: 'ability_argus_edgeofobliteration',
+  },
+
+  EXTERMINATE_PAINFUL_DEATH_BUFF: {
+    id: 447954,
+    name: 'Exterminate',
+    icon: 'ability_argus_edgeofobliteration',
+  },
+
+  EXTERMINATE_FIRST_HIT: {
+    id: 441424,
+    name: 'Exterminate',
+    icon: 'inv_polearm_2h_titanargus_d_01',
+  },
+  EXTERMINATE_SECOND_HIT: {
+    id: 441426,
+    name: 'Exterminate',
+    icon: 'inv_polearm_2h_titanargus_d_01',
+  },
+
   // Blood:
   DEATHS_CARESS: {
     id: 195292,
@@ -233,31 +258,6 @@ const spells = {
     name: 'Obliteration',
     icon: 'inv_axe_114',
   },
-
-  //exterminate is a proc? It happens directly afte reaper's mark explodes.
-  EXTERMINATE: {
-    id: 441424,
-    name: 'Exterminate',
-    icon: 'inv_polearm_2h_titanargus_d_01',
-  },
-  EXTERMINATE_TWO: {
-    id: 441426,
-    name: 'Exterminate',
-    icon: 'inv_polearm_2h_titanargus_d_01',
-  },
-
-  EXTERMINATE_BUFF_1: {
-    id: 441416,
-    name: 'Exterminate',
-    icon: 'inv_polearm_2h_titanargus_d_01',
-  },
-
-  EXTERMINATE_BUFF_2: {
-    id: 447954,
-    name: 'Exterminate',
-    icon: 'inv_polearm_2h_titanargus_d_01',
-  },
-
   // Unholy:
   FESTERING_SCYTHE: {
     id: 458128,
