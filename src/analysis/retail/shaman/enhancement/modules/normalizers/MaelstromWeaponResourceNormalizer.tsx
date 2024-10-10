@@ -438,7 +438,7 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
     for (let index = 0; index < events.length; index += 1) {
       const event = events[index];
       if (HasAbility(event) && event.ability.guid === SPELLS.MAELSTROM_WEAPON_BUFF.id) {
-        if (HasRelatedEvent(event, MAELSTROM_WEAPON_LINK_REVERSE)) {
+        if (!HasRelatedEvent(event, MAELSTROM_WEAPON_LINK_REVERSE)) {
           return 0;
         }
         switch (event.type) {

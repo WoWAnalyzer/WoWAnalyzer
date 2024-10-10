@@ -1,15 +1,12 @@
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
-  ApplyBuffEvent,
   CastEvent,
   DamageEvent,
-  RemoveBuffEvent,
   UpdateSpellUsableEvent,
   UpdateSpellUsableType,
 } from 'parser/core/Events';
 import TALENTS from 'common/TALENTS/shaman';
 import SPELLS from 'common/SPELLS';
-import Spell from 'common/SPELLS/Spell';
 import {
   evaluateQualitativePerformanceByThreshold,
   QualitativePerformance,
@@ -27,12 +24,6 @@ import ElementalSpirits from './ElementalSpirits';
 import typedKeys from 'common/typedKeys';
 import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
 
-const ELEMENTAL_SPIRIT_BUFFS: Spell[] = [
-  SPELLS.ELEMENTAL_SPIRITS_BUFF_MOLTEN_WEAPON,
-  SPELLS.ELEMENTAL_SPIRITS_BUFF_ICY_EDGE,
-  SPELLS.ELEMENTAL_SPIRITS_BUFF_CRACKLING_SURGE,
-];
-
 interface ElementalBlastCastDetails extends CooldownTrigger<CastEvent> {
   event: CastEvent;
   chargesBeforeCast: number;
@@ -49,7 +40,6 @@ class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
   };
 
   protected elementalSpirits!: ElementalSpirits;
-  private readonly elementalSpritsActive: Record<number, number> = {};
   private readonly maxCharges: number = 0;
   private cast: ElementalBlastCastDetails | null = null;
   private currentCharges: number = 0;
@@ -69,14 +59,6 @@ class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
       return;
     }
 
-    this.elementalSpritsActive = ELEMENTAL_SPIRIT_BUFFS.reduce(
-      (rec: Record<number, number>, spell: Spell) => {
-        rec[spell.id] = 0;
-        return rec;
-      },
-      {},
-    );
-
     this.maxCharges = this.selectedCombatant.getMultipleTalentRanks(
       TALENTS.ELEMENTAL_BLAST_ENHANCEMENT_TALENT,
       TALENTS.LAVA_BURST_TALENT,
@@ -90,14 +72,6 @@ class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT),
       this.onDamage,
-    );
-    this.addEventListener(
-      Events.applybuff.spell(ELEMENTAL_SPIRIT_BUFFS),
-      this.onApplyElementalSpiritBuff,
-    );
-    this.addEventListener(
-      Events.removebuff.spell(ELEMENTAL_SPIRIT_BUFFS),
-      this.onRemoveElementalSpiritBuff,
     );
     this.addEventListener(
       Events.UpdateSpellUsable.to(SELECTED_PLAYER).spell(TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT),
@@ -122,13 +96,12 @@ class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
     const cr = getResource(event.classResources, RESOURCE_TYPES.MAELSTROM_WEAPON.id);
     this.cast = {
       chargesBeforeCast: this.currentCharges,
-      elementalSpiritsActive: typedKeys(this.elementalSpritsActive).reduce<Record<number, number>>(
-        (r, k) => {
-          r[k] = this.elementalSpritsActive[k];
-          return r;
-        },
-        {},
-      ),
+      elementalSpiritsActive: {
+        [SPELLS.ELEMENTAL_SPIRITS_BUFF_MOLTEN_WEAPON.id]: this.elementalSpirits.moltenWeaponCount,
+        [SPELLS.ELEMENTAL_SPIRITS_BUFF_CRACKLING_SURGE.id]:
+          this.elementalSpirits.cracklingSurgeCount,
+        [SPELLS.ELEMENTAL_SPIRITS_BUFF_ICY_EDGE.id]: this.elementalSpirits.icyEdgeCount,
+      },
       maelstromUsed: cr?.cost ?? 0,
       event: event,
       bonusDamage: 0,
@@ -146,20 +119,9 @@ class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
     }
   }
 
-  onApplyElementalSpiritBuff(event: ApplyBuffEvent) {
-    this.elementalSpritsActive[event.ability.guid] += 1;
-  }
-
-  onRemoveElementalSpiritBuff(event: RemoveBuffEvent) {
-    this.elementalSpritsActive[event.ability.guid] -= 1;
-    if (this.elementalSpritsActive[event.ability.guid] < 0) {
-      this.elementalSpritsActive[event.ability.guid] = 0;
-    }
-  }
-
   getActiveElementalSpirits(activeSpirits: Record<number, number>): number {
     return typedKeys(activeSpirits).reduce(
-      (total: number, buffId: number) => (total += this.elementalSpritsActive[buffId]),
+      (total: number, buffId: number) => (total += activeSpirits[buffId]),
       0,
     );
   }
