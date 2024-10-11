@@ -4,7 +4,6 @@ import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import SPELLS from 'common/SPELLS';
 import SPECS from 'game/SPECS';
-import RACES from 'game/RACES';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -22,12 +21,6 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         gcd: null,
         enabled: faction === 'Alliance',
-      },
-      {
-        spell: SPELLS.BERSERKING.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        gcd: null,
-        enabled: combatant.race === RACES.Troll,
       },
       {
         spell: SPELLS.SKYFURY.id,
