@@ -108,6 +108,7 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
       spell: SPELLS.WINDSTRIKE_CAST.id,
       category: SPELL_CATEGORY.ROTATIONAL,
       cooldown: (haste: number) => 3 / (1 + haste),
+      charges: 1 + (this.selectedCombatant.hasTalent(TALENTS.STORMS_WRATH_TALENT) ? 1 : 0),
       gcd: {
         base: 1500,
       },
@@ -331,7 +332,7 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
           To minimise <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> waste during{' '}
           <SpellLink spell={TALENTS.ASCENDANCE_ENHANCEMENT_TALENT} />, you will most likely need to
           spend inbetween casts if <SpellLink spell={SPELLS.WINDSTRIKE_CAST} /> doesn't reset via{' '}
-          <SpellLink spell={SPELLS.STORMBRINGER} />.
+          <SpellLink spell={SPELLS.STORMSURGE} />.
         </p>
         <p>
           An example sequence may look something like this:

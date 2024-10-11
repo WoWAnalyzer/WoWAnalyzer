@@ -14,7 +14,7 @@ class Buffs extends ClassBuffs {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.STORMBRINGER_BUFF.id,
+        spellId: SPELLS.STORMSURGE_BUFF.id,
         timelineHighlight: true,
       },
       {

@@ -473,7 +473,7 @@ const spells = {
     name: 'Fire Nova',
     icon: 'spell_shaman_improvedfirenova',
   },
-  STORMBRINGER_BUFF: {
+  STORMSURGE_BUFF: {
     id: 201846,
     name: 'Stormbringer Buff',
     icon: 'spell_nature_stormreach',
@@ -615,9 +615,9 @@ const spells = {
     name: 'Hot Hand',
     icon: 'spell_fire_playingwithfire',
   },
-  STORMBRINGER: {
+  STORMSURGE: {
     id: 201845,
-    name: 'Stormbringer',
+    name: 'Stormsurge',
     icon: 'spell_nature_stormreach',
   },
   LEGACY_OF_THE_FROST_WITCH_BUFF: {
