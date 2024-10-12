@@ -14,16 +14,13 @@ const PlayerInfoTalent = ({ talentEntry }: Props) => {
   const talent = getTalentFromEntry(talentEntry);
   if (!talent) {
     return (
-      <>
+      <div className="talent-info-row">
         <div className="talent-icon">
           <Icon icon={FALLBACK_ICON} style={{ width: '2em', height: '2em' }} />
         </div>
-        <div className="talent-name">
-          <SpellLink spell={talentEntry.spellID} icon={false}>
-            Unknown talent: {talentEntry.spellID}
-          </SpellLink>
-        </div>
-      </>
+        <div className="talent-name">Unknown Talent {talentEntry.id}</div>
+        <div className="talent-level">{talentEntry.rank}</div>
+      </div>
     );
   }
 
