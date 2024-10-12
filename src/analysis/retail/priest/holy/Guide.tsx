@@ -62,6 +62,13 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
           useThresholds
         />
       )}
+      {info.combatant.hasTalent(TALENTS_PRIEST.HALO_SHARED_TALENT) && (
+        <CastEfficiencyBar
+          spellId={TALENTS_PRIEST.HALO_SHARED_TALENT.id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+          useThresholds
+        />
+      )}
     </SubSection>
   );
 }
