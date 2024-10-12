@@ -6,13 +6,13 @@ import { Talent } from 'common/TALENTS/types';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent, DamageEvent, CastEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { SpellLink } from 'interface';
+import Revival from './Revival';
 
 const UPLIFTED_SPIRITS_REDUCTION = 1000;
 const BASE_COOLDOWN = 180000; //180s
@@ -23,16 +23,17 @@ const BASE_COOLDOWN = 180000; //180s
 class UpliftedSpirits extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
-    healingDone: HealingDone,
+    revival: Revival,
   };
   cooldownReductionUsed: number = 0;
   totalRskCdr: number = 0;
   totalVivifyCdr: number = 0;
+  usHealing: number = 0;
   cooldownReductionWasted: number = 0;
   activeTalent!: Talent;
   totalCasts: number = 0;
   protected spellUsable!: SpellUsable;
-  protected healingDone!: HealingDone;
+  protected revival!: Revival;
 
   constructor(options: Options) {
     super(options);
@@ -52,6 +53,10 @@ class UpliftedSpirits extends Analyzer {
       this.vivifyHit,
     );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.activeTalent), this.onCast);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.UPLIFTED_SPIRITS_HEAL),
+      this.onUSHeal,
+    );
   }
 
   rskHit(event: DamageEvent) {
@@ -84,24 +89,21 @@ class UpliftedSpirits extends Analyzer {
     this.totalVivifyCdr += UPLIFTED_SPIRITS_REDUCTION;
   }
 
+  onUSHeal(event: HealEvent) {
+    this.usHealing += event.amount + (event.absorbed || 0);
+  }
+
   onCast(event: CastEvent) {
     this.totalCasts += 1;
   }
-  get activeTalentHealing() {
-    return this.healingDone.byAbility(this.activeTalent.id).effective;
+
+  get totalRevivalHealing() {
+    return this.revival.gustsHealing + this.revival.revivalDirectHealing;
   }
 
   get effectiveHealingIncrease() {
     const increase = BASE_COOLDOWN / (BASE_COOLDOWN - this.averageCdr);
-    return this.activeTalentHealing - this.activeTalentHealing / increase;
-  }
-
-  get usHealing() {
-    return this.healingDone.byAbility(SPELLS.UPLIFTED_SPIRITS_HEAL.id).effective;
-  }
-
-  get rsrOverHealing() {
-    return this.healingDone.byAbility(SPELLS.UPLIFTED_SPIRITS_HEAL.id).overheal;
+    return this.totalRevivalHealing - this.totalRevivalHealing / increase;
   }
 
   get averageCdr() {
@@ -113,7 +115,6 @@ class UpliftedSpirits extends Analyzer {
   }
 
   statistic() {
-    const healing = this.usHealing;
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(15)}
@@ -125,7 +126,7 @@ class UpliftedSpirits extends Analyzer {
             {formatNumber(this.effectiveHealingIncrease)}
             <br />
             <SpellLink spell={TALENTS_MONK.UPLIFTED_SPIRITS_TALENT} /> Direct Healing:{' '}
-            {formatNumber(healing)}
+            {formatNumber(this.usHealing)}
             <br />
             Effective Cooldown Reduction: {formatNumber(this.cooldownReductionUsed / 1000)} Seconds
             <br />
@@ -140,7 +141,7 @@ class UpliftedSpirits extends Analyzer {
         }
       >
         <BoringSpellValueText spell={TALENTS_MONK.UPLIFTED_SPIRITS_TALENT}>
-          <ItemHealingDone amount={healing + this.effectiveHealingIncrease} />
+          <ItemHealingDone amount={this.usHealing + this.effectiveHealingIncrease} />
           <div>
             {formatDuration(BASE_COOLDOWN - this.averageCdr)}{' '}
             <small>
