@@ -7,7 +7,7 @@ interface Props {
 }
 
 const PlayerInfoTalents = ({ talents }: Props) => {
-  if (talents.every((talent) => talent.spellID === 0)) {
+  if (talents.length === 0 || talents.every((talent) => talent.id === 0)) {
     return (
       <div className="player-details-talents">
         <h3>
