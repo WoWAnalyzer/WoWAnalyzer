@@ -38,6 +38,8 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 10, 7), <>Add the ability of <ItemLink id={ITEMS.TREACHEROUS_TRANSMITTER.id}/> to the spellbook when equipped.</>, Vetyst),
+  change(date(2024, 10, 5), 'Fix viewing the character tab for certain regions.', Vetyst),
   change(date(2024, 10, 4), `Fixed many places where absorbed damage and healing was not counted as 'effective'`, Sref),
   change(date(2024, 10, 4), 'Added Earthen food buffs to consumable check.', emallson),
   change(date(2024, 10, 4), <>Added simple statistics for <ItemLink id={ITEMS.SPYMASTERS_WEB.id}/>.</>, Vetyst),

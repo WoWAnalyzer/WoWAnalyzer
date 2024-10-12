@@ -11,7 +11,7 @@ class Abilities extends ClassAbilities {
       ...super.spellbook(),
       // Enhancement baseline
       {
-        spell: SPELLS.MAELSTROM_WEAPON.id,
+        spell: SPELLS.MAELSTROM_WEAPON_BUFF.id,
         category: SPELL_CATEGORY.HIDDEN,
       },
       {

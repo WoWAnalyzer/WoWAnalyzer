@@ -25,35 +25,38 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
  */
 
 class HydrasBite extends Analyzer {
-  casts = 0;
-  spreadDamage = 0;
-  increasedMainTargetDamage = 0;
-  extraApplications = 0;
-  mainTargets: string[] = [];
+  private casts: number = 0;
+  private spreadDamage: number = 0;
+  private increasedMainTargetDamage: number = 0;
+  private extraApplications: number = 0;
+  private mainTargets: string[] = [];
 
   constructor(options: Options) {
     super(options);
 
     this.active = this.selectedCombatant.hasTalent(TALENTS.HYDRAS_BITE_TALENT);
+    if (!this.active) {
+      return;
+    }
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SV),
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SURVIVAL),
       this.onCast,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SV),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SURVIVAL),
       this.onDamage,
     );
     this.addEventListener(
-      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SV),
+      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SURVIVAL),
       this.onDebuffApplication,
     );
     this.addEventListener(
-      Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SV),
+      Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SURVIVAL),
       this.onDebuffApplication,
     );
     this.addEventListener(
-      Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SV),
+      Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SURVIVAL),
       this.onRemoveDebuff,
     );
   }

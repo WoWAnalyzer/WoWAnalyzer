@@ -14,6 +14,7 @@ import {
 
 // prettier-ignore
 export default [
+  change(date(2024, 10, 6), <>Fix another pre-pull error with <SpellLink spell={TALENTS_SHAMAN.SURGING_TOTEM_TALENT}/>.</>, Vetyst),
   change(date(2024, 9, 26), <>Fixed <SpellLink spell={TALENTS_SHAMAN.SURGING_TOTEM_TALENT}/> when used on pre-pull.</>, Vetyst),
   change(date(2024, 9, 15), <>Fixed <SpellLink spell={TALENTS_SHAMAN.DOWNPOUR_TALENT}/> and <SpellLink spell={TALENTS_SHAMAN.UNLEASH_LIFE_TALENT}/> interaction.</>, Ypp),
   change(date(2024, 8, 27), <>Updated <SpellLink spell={TALENTS_SHAMAN.ANCESTRAL_VIGOR_TALENT}/> for The War Within : one rank for the talent, for 10% max health increase. Updated Lives saved statistic, accounting for <SpellLink spell={TALENTS_SHAMAN.DOWNPOUR_TALENT}/>.</>, Ypp),

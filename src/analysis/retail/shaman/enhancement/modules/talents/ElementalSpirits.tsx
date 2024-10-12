@@ -86,26 +86,34 @@ class ElementalSpirits extends Analyzer {
   }
 
   gainMoltenWeapon(event: ApplyBuffEvent | RemoveBuffEvent) {
-    this.elementalSpiritHistory.push({
-      value: this.moltenWeaponCount + (event.type === EventType.ApplyBuff ? 1 : -1),
-      timestamp: event.timestamp,
-      type: 'molten-weapon',
-    });
+    this.recordElementalSpirit(this.moltenWeaponCount, event, 'molten-weapon');
   }
 
   gainIcyEdge(event: ApplyBuffEvent | RemoveBuffEvent) {
-    this.elementalSpiritHistory.push({
-      value: this.icyEdgeCount + (event.type === EventType.ApplyBuff ? 1 : -1),
-      timestamp: event.timestamp,
-      type: 'icy-edge',
-    });
+    this.recordElementalSpirit(this.icyEdgeCount, event, 'icy-edge');
   }
 
   gainCracklingSurge(event: ApplyBuffEvent | RemoveBuffEvent) {
+    this.recordElementalSpirit(this.cracklingSurgeCount, event, 'crackling-surge');
+  }
+
+  private recordElementalSpirit(
+    current: number,
+    event: ApplyBuffEvent | RemoveBuffEvent,
+    type: ElementalSpiritType,
+  ) {
+    let value = current + (event.type === EventType.ApplyBuff ? 1 : -1);
+    if (value < 0) {
+      console.error(
+        `Attempt to record negative ${type} count @ ${event.timestamp} (${this.owner.formatTimestamp(event.timestamp)})`,
+      );
+      value = 0;
+    }
+
     this.elementalSpiritHistory.push({
-      value: this.cracklingSurgeCount + (event.type === EventType.ApplyBuff ? 1 : -1),
+      value: value,
       timestamp: event.timestamp,
-      type: 'crackling-surge',
+      type: type,
     });
   }
 

@@ -49,10 +49,9 @@ const DEFAULT_HASTE_BUFFS: HasteBuffMap = {
   //endregion
 
   //region Death Knight Haste Buffs
-  [SPELLS.BONE_SHIELD.id]: 0.1, // Blood BK haste buff from maintaining boneshield
-  [SPELLS.EMPOWER_RUNE_WEAPON.id]: 0.15,
+  [SPELLS.BONE_SHIELD.id]: 0.1, // Blood DK haste buff from maintaining boneshield
+  [TALENTS_DEATH_KNIGHT.EMPOWER_RUNE_WEAPON_TALENT.id]: 0.15,
   [TALENTS_DEATH_KNIGHT.UNHOLY_ASSAULT_TALENT.id]: 0.3,
-  [SPELLS.T29_GHOULISH_INFUSION.id]: 0.08,
   [SPELLS.UNHOLY_GROUND_HASTE_BUFF.id]: 0.05,
   //endregion
 

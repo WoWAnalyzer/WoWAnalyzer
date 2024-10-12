@@ -19,12 +19,15 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
  * https://www.warcraftlogs.com/reports/Kk4nL12CDJVQ6Yyf#fight=34&type=damage-done&source=799
  */
 class GuerrillaTactics extends Analyzer {
-  damage = 0;
+  private damage: number = 0;
 
   constructor(options: Options) {
     super(options);
 
     this.active = this.selectedCombatant.hasTalent(TALENTS.GUERRILLA_TACTICS_TALENT);
+    if (!this.active) {
+      return;
+    }
 
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(AFFECTED_BY_GUERRILLA_TACTICS),

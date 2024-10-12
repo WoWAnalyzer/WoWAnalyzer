@@ -320,7 +320,9 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
     }
 
     const data = await response.json();
-    const classImageUrl = classBackgroundImage(CLASS_NAMES[data.class].name, data.region);
+    const classImageUrl = data?.class
+      ? classBackgroundImage(CLASS_NAMES[data.class].name, data.region)
+      : null;
     const avatarUrl = data.thumbnail
       ? data.thumbnail.startsWith('https')
         ? data.thumbnail

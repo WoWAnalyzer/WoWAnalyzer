@@ -29,7 +29,7 @@ class MaelstromWeaponDetails extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.MAELSTROM_WEAPON}>
+        <BoringSpellValueText spell={SPELLS.MAELSTROM_WEAPON_BUFF}>
           {gainedPerSecond.toFixed(2)} <small>stacks per second</small>
         </BoringSpellValueText>
       </Statistic>

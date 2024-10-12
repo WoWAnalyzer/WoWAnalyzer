@@ -8,17 +8,9 @@ import Events, {
   RemoveBuffStackEvent,
   GetRelatedEvent,
 } from 'parser/core/Events';
-import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 
-class Clearcasting extends Analyzer {
-  clearcastingProcs: {
-    applied: number;
-    removed: number | undefined;
-    missileCast: CastEvent | undefined;
-    expired: boolean;
-    castUsage?: BoxRowEntry;
-  }[] = [];
+export default class Clearcasting extends Analyzer {
+  clearcastingProcs: ClearcastingProc[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -30,7 +22,6 @@ class Clearcasting extends Analyzer {
       Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.CLEARCASTING_ARCANE),
       this.onClearcastingApply,
     );
-    this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
   onClearcastingApply(event: ApplyBuffEvent | ApplyBuffStackEvent) {
@@ -48,36 +39,12 @@ class Clearcasting extends Analyzer {
     });
   }
 
-  onFightEnd() {
-    this.analyzeClearcasting();
-  }
-
-  analyzeClearcasting = () => {
-    const used = this.clearcastingProcs.filter((c) => !c.expired);
-    used.forEach(
-      (u) =>
-        (u.castUsage = { value: QualitativePerformance.Good, tooltip: `Clearcasting Proc Spent` }),
-    );
-
-    const expired = this.clearcastingProcs.filter((c) => c.expired);
-    expired.forEach(
-      (e) =>
-        (e.castUsage = {
-          value: QualitativePerformance.Fail,
-          tooltip: `Clearcasting Proc Expired`,
-        }),
-    );
-  };
-
-  get expiredProcs() {
-    return this.clearcastingProcs.filter((c) => !c.expired).length;
-  }
-
-  get buffUtilization() {
-    return this.expiredProcs / this.clearcastingProcs.length;
-  }
-
   //ADD STATISTIC
 }
 
-export default Clearcasting;
+export interface ClearcastingProc {
+  applied: number;
+  removed: number | undefined;
+  missileCast: CastEvent | undefined;
+  expired: boolean;
+}

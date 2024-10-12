@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
@@ -7,9 +6,10 @@ import { explanationAndDataSubsection } from 'interface/guide/components/Explana
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { PerformanceMark } from 'interface/guide';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/mage/arcane/Guide';
-import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
+import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 
 import Clearcasting from '../core/Clearcasting';
+import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBreakdown';
 
 class ClearcastingGuide extends Analyzer {
   static dependencies = {
@@ -20,7 +20,7 @@ class ClearcastingGuide extends Analyzer {
 
   generateGuideTooltip(
     performance: QualitativePerformance,
-    tooltipText: ReactNode,
+    tooltipItems: { perf: QualitativePerformance; detail: string }[],
     timestamp: number,
   ) {
     const tooltip = (
@@ -29,7 +29,15 @@ class ClearcastingGuide extends Analyzer {
           <b>@ {this.owner.formatTimestamp(timestamp)}</b>
         </div>
         <div>
-          <PerformanceMark perf={performance} /> {performance}: {tooltipText}
+          <PerformanceMark perf={performance} /> {performance}
+        </div>
+        <div>
+          {tooltipItems.map((t, i) => (
+            <div key={i}>
+              <PerformanceMark perf={t.perf} /> {t.detail}
+              <br />
+            </div>
+          ))}
         </div>
       </>
     );
@@ -39,13 +47,20 @@ class ClearcastingGuide extends Analyzer {
   get clearcastingData() {
     const data: BoxRowEntry[] = [];
     this.clearcasting.clearcastingProcs.forEach((cc) => {
-      if (cc.castUsage && cc.castUsage?.tooltip) {
-        const tooltip = this.generateGuideTooltip(
-          cc.castUsage?.value,
-          cc.castUsage?.tooltip,
-          cc.applied,
-        );
-        data.push({ value: cc.castUsage?.value, tooltip });
+      const tooltipItems: { perf: QualitativePerformance; detail: string }[] = [];
+
+      if (cc.expired) {
+        tooltipItems.push({ perf: QualitativePerformance.Fail, detail: `Clearcasting Expired` });
+      }
+
+      let overallPerf = QualitativePerformance.Fail;
+      if (!cc.expired) {
+        overallPerf = QualitativePerformance.Good;
+      }
+
+      if (tooltipItems) {
+        const tooltip = this.generateGuideTooltip(overallPerf, tooltipItems, cc.applied);
+        data.push({ value: overallPerf, tooltip });
       }
     });
     return data;
@@ -67,9 +82,10 @@ class ClearcastingGuide extends Analyzer {
       <div>
         <RoundedPanel>
           <div>
-            <strong>Clearcasting Buff Usage</strong>
-            <PerformanceBoxRow values={this.clearcastingData} />
-            <small>green (good) / red (fail) mouseover the rectangles to see more details</small>
+            <CastSummaryAndBreakdown
+              spell={SPELLS.CLEARCASTING_ARCANE}
+              castEntries={this.clearcastingData}
+            />
           </div>
         </RoundedPanel>
       </div>

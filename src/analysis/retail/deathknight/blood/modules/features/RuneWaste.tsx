@@ -18,14 +18,114 @@ import {
 } from 'interface/guide/components/Apl/violations/claims';
 import SuggestionBox from 'interface/suggestion-box/SuggestionBox';
 import { AnyEvent } from 'parser/core/Events';
-import aplCheck, { CheckResult, PlayerInfo, Violation, build } from 'parser/shared/metrics/apl';
+import aplCheck, {
+  CheckResult,
+  PlayerInfo,
+  Violation,
+  build,
+  tenseAlt,
+} from 'parser/shared/metrics/apl';
 import * as cnd from 'parser/shared/metrics/apl/conditions';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { useMemo } from 'react';
-import { runeRules } from './AplCheck';
+
 const RunicPowerColor = 'hsl(191, 60%, 50%)';
 
+const boneShieldLow = (maxStacks: number) =>
+  cnd.or(
+    cnd.buffMissing(SPELLS.BONE_SHIELD, {
+      timeRemaining: 4500,
+      duration: 30000,
+      pandemicCap: 1,
+    }),
+    cnd.buffStacks(SPELLS.BONE_SHIELD, { atMost: maxStacks }),
+  );
+
+const ossuaryCnd = cnd.describe(
+  cnd.and(boneShieldLow(4), cnd.buffMissing(SPELLS.DANCING_RUNE_WEAPON_TALENT_BUFF)),
+  (tense) => (
+    <>
+      <SpellLink spell={talents.OSSUARY_TALENT} /> {tenseAlt(tense, 'is', 'was')} inactive
+    </>
+  ),
+);
+
+const exterminateCnd = cnd.describe(
+  cnd.or(
+    cnd.buffPresent(SPELLS.EXTERMINATE_BUFF),
+    cnd.buffPresent(SPELLS.EXTERMINATE_PAINFUL_DEATH_BUFF),
+  ),
+  (tense) => (
+    <>
+      <SpellLink spell={talents.EXTERMINATE_TALENT} /> {tenseAlt(tense, 'is', 'was')} available
+    </>
+  ),
+);
+
+const runeRules = {
+  marrowrend: {
+    spell: talents.MARROWREND_TALENT,
+    condition: ossuaryCnd,
+  },
+  exterminate: {
+    spell: talents.MARROWREND_TALENT,
+    condition: exterminateCnd,
+  },
+  soulReaper: {
+    spell: talents.SOUL_REAPER_TALENT,
+    condition: cnd.inExecute(0.35), // this should really get a custom condition for the case where you cast soul reaper and then it explodes below 35%, but that can only happen 1 time per target
+  },
+  deathsCaress: {
+    spell: SPELLS.DEATHS_CARESS,
+    condition: cnd.optionalRule(ossuaryCnd), // allow optionally using DC for BS refresh. i'm not here to litigate optimality. some high end people use DC for it a ton
+  },
+  drw: {
+    soulReaper: {
+      spell: talents.SOUL_REAPER_TALENT,
+      condition: cnd.and(
+        cnd.buffPresent(SPELLS.DANCING_RUNE_WEAPON_TALENT_BUFF),
+        cnd.inExecute(0.35),
+      ),
+    },
+    marrowrend: {
+      // the guide includes this. it isn't strictly optimal under certain settings but we allow it
+      spell: talents.MARROWREND_TALENT,
+      condition: cnd.describe(
+        cnd.optionalRule(
+          cnd.and(
+            cnd.buffPresent(SPELLS.DANCING_RUNE_WEAPON_TALENT_BUFF),
+            // cheating with DRW duration because EVERYONE uses the same core talents
+            cnd.buffRemaining(SPELLS.DANCING_RUNE_WEAPON_TALENT_BUFF, 16000, { atMost: 4500 }),
+            // this condition prevents spamming it from passing muster
+            cnd.buffRemaining(SPELLS.BONE_SHIELD, 30000, { atMost: 27000 }),
+          ),
+        ),
+        (tense) => (
+          <>
+            <SpellLink spell={talents.DANCING_RUNE_WEAPON_TALENT} /> {tenseAlt(tense, 'is', 'was')}{' '}
+            about to end to refresh <SpellLink spell={SPELLS.BONE_SHIELD} /> to max stacks
+          </>
+        ),
+      ),
+    },
+
+    marrowrendMissing: {
+      spell: talents.MARROWREND_TALENT,
+      condition: cnd.describe(
+        cnd.and(cnd.buffPresent(SPELLS.DANCING_RUNE_WEAPON_TALENT_BUFF), boneShieldLow(1)),
+        () => (
+          <>
+            <SpellLink spell={SPELLS.BONE_SHIELD} /> is at 0 or 1 stacks during{' '}
+            <SpellLink spell={talents.DANCING_RUNE_WEAPON_TALENT} />
+          </>
+        ),
+      ),
+    },
+  },
+};
+
 const runePrio = build([
+  runeRules.exterminate,
   // drw prio
   runeRules.drw.marrowrend,
   runeRules.drw.soulReaper,

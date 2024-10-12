@@ -13,6 +13,7 @@ import { Options } from 'parser/core/Module';
 
 const CAST_BUFFER_MS = 75;
 
+const SPELL_PRECAST = 'SpellPrecast';
 const SPELL_CAST = 'SpellCast';
 const BARRAGE_CAST = 'BarrageCast';
 const SPELL_DAMAGE = 'SpellDamage';
@@ -22,6 +23,7 @@ const BUFF_REMOVE = 'BuffRemove';
 const DEBUFF_APPLY = 'DebuffApply';
 const DEBUFF_REMOVE = 'DebuffRemove';
 const ENERGIZE = 'Energize';
+const REFUND_CHARGE_BUFF = 'RefundBuff';
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -44,6 +46,28 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: EventType.Damage,
     anyTarget: true,
     forwardBufferMs: 2000,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    reverseLinkRelation: SPELL_CAST,
+    linkingEventId: SPELLS.ARCANE_BARRAGE.id,
+    linkingEventType: EventType.Cast,
+    linkRelation: SPELL_PRECAST,
+    referencedEventId: SPELLS.ARCANE_BLAST.id,
+    referencedEventType: EventType.Cast,
+    anyTarget: true,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    reverseLinkRelation: BUFF_REMOVE,
+    linkingEventId: SPELLS.BURDEN_OF_POWER_BUFF.id,
+    linkingEventType: EventType.RemoveBuff,
+    linkRelation: SPELL_CAST,
+    referencedEventId: [SPELLS.ARCANE_BLAST.id, SPELLS.ARCANE_BARRAGE.id],
+    referencedEventType: EventType.Cast,
+    anyTarget: true,
+    forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
   },
   {
@@ -127,6 +151,22 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    reverseLinkRelation: DEBUFF_APPLY,
+    linkingEventId: SPELLS.TOUCH_OF_THE_MAGI_DEBUFF.id,
+    linkingEventType: EventType.ApplyDebuff,
+    linkRelation: REFUND_CHARGE_BUFF,
+    referencedEventId: [
+      SPELLS.BURDEN_OF_POWER_BUFF.id,
+      SPELLS.INTUITION_BUFF.id,
+      SPELLS.GLORIOUS_INCANDESCENCE_BUFF.id,
+    ],
+    referencedEventType: EventType.RemoveBuff,
+    maximumLinks: 1,
+    anyTarget: true,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: 500,
   },
   {
     reverseLinkRelation: DEBUFF_APPLY,
@@ -275,6 +315,17 @@ const EVENT_LINKS: EventLink[] = [
     reverseLinkRelation: BUFF_APPLY,
     linkingEventId: SPELLS.NETHER_PRECISION_BUFF.id,
     linkingEventType: EventType.ApplyBuff,
+    linkRelation: BUFF_REMOVE,
+    referencedEventId: SPELLS.NETHER_PRECISION_BUFF.id,
+    referencedEventType: [EventType.RemoveBuff, EventType.RefreshBuff],
+    maximumLinks: 1,
+    forwardBufferMs: 11000,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    reverseLinkRelation: BUFF_APPLY,
+    linkingEventId: SPELLS.NETHER_PRECISION_BUFF.id,
+    linkingEventType: EventType.RefreshBuff,
     linkRelation: BUFF_REMOVE,
     referencedEventId: SPELLS.NETHER_PRECISION_BUFF.id,
     referencedEventType: EventType.RemoveBuff,

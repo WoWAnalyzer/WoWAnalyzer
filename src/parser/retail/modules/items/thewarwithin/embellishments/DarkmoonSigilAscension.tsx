@@ -164,20 +164,6 @@ class DarkmoonSigilAscension extends EmbellishmentAnalyzer.withDependencies({
       a.stat.localeCompare(b.stat),
     );
 
-    // Calculate the average for each stat
-    // const averageStats = Object.keys(aggregatedStats)
-    //   .map((stat) => {
-    //     const { sum, count, uptime } = aggregatedStats[stat];
-    //     return {
-    //       stat,
-    //       average: sum / count,
-    //       uptime: uptime / this.owner.fightDuration,
-    //       count: count,
-    //       duration: uptime,
-    //     };
-    //   })
-    //   .sort((a, b) => a.stat.localeCompare(b.stat));
-
     return {
       tooltip: (
         <>

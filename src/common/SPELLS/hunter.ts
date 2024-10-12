@@ -253,12 +253,7 @@ const spells = {
     name: 'Terms of Engagement',
     icon: 'ability_hunter_harpoon',
   },
-  KILL_COMMAND_CAST_SV: {
-    id: 259489,
-    name: 'Kill Command',
-    icon: 'ability_hunter_killcommand',
-  },
-  KILL_COMMAND_DAMAGE_SV: {
+  KILL_COMMAND_SURVIVAL_DAMAGE: {
     id: 259277,
     name: 'Kill Command',
     icon: 'ability_hunter_killcommand',
@@ -268,22 +263,12 @@ const spells = {
     name: "Flanker's Advantage",
     icon: 'ability_hunter_resistanceisfutile',
   },
-  MUZZLE: {
-    id: 187707,
-    name: 'Muzzle',
-    icon: 'ability_hunter_negate',
-  },
-  WILDFIRE_BOMB: {
-    id: 259495,
-    name: 'Wildfire Bomb',
-    icon: 'inv_wildfirebomb',
-  },
   RAPTOR_STRIKE_AOTE: {
     id: 265189,
     name: 'Raptor Strike',
     icon: 'ability_hunter_raptorstrike',
   },
-  SERPENT_STING_SV: {
+  SERPENT_STING_SURVIVAL: {
     id: 259491,
     name: 'Serpent Sting',
     icon: 'spell_hunter_exoticmunitions_poisoned',
@@ -340,61 +325,6 @@ const spells = {
     name: 'Wildfire Bomb',
     icon: 'inv_wildfirebomb',
   },
-  SHRAPNEL_BOMB_WFI: {
-    id: 270335,
-    name: 'Shrapnel Bomb',
-    icon: 'inv_wildfirebomb_shrapnel',
-  },
-  SHRAPNEL_BOMB_WFI_IMPACT: {
-    id: 270338,
-    name: 'Shrapnel Bomb',
-    icon: 'inv_wildfirebomb_shrapnel',
-  },
-  SHRAPNEL_BOMB_WFI_DOT: {
-    id: 270339,
-    name: 'Shrapnel Bomb',
-    icon: 'inv_wildfirebomb_shrapnel',
-  },
-  INTERNAL_BLEEDING_SV: {
-    id: 270343,
-    name: 'Internal Bleeding',
-    icon: 'ability_gouge',
-  },
-  VOLATILE_BOMB_WFI: {
-    id: 271045,
-    name: 'Volatile Bomb',
-    icon: 'inv_wildfirebomb_poison',
-  },
-  VOLATILE_BOMB_WFI_IMPACT: {
-    id: 271048,
-    name: 'Volatile Bomb',
-    icon: 'inv_wildfirebomb_poison',
-  },
-  VOLATILE_BOMB_WFI_DOT: {
-    id: 271049,
-    name: 'Volatile Bomb',
-    icon: 'inv_wildfirebomb_poison',
-  },
-  PHEROMONE_BOMB_WFI: {
-    id: 270323,
-    name: 'Pheromone Bomb',
-    icon: 'inv_wildfirebomb_blood',
-  },
-  PHEROMONE_BOMB_WFI_IMPACT: {
-    id: 270329,
-    name: 'Pheromone Bomb',
-    icon: 'inv_wildfirebomb_blood',
-  },
-  PHEROMONE_BOMB_WFI_DOT: {
-    id: 270332,
-    name: 'Pheromone Bomb',
-    icon: 'inv_wildfirebomb_blood',
-  },
-  CHAKRAMS_TO_MAINTARGET: {
-    id: 259398,
-    name: 'Chakrams',
-    icon: 'ability_glaivetoss',
-  },
   CHAKRAMS_BACK_FROM_MAINTARGET: {
     id: 267666,
     name: 'Chakrams',
@@ -419,6 +349,16 @@ const spells = {
     id: 269752,
     name: 'Flanking Strike',
     icon: 'ability_hunter_invigeration',
+  },
+  COORDINATED_ASSAULT_FAKE_CAST: {
+    id: 360969,
+    name: 'Coordinated Assault',
+    icon: 'ability_ardenweald_demonhunter',
+  },
+  FURY_OF_THE_EAGLE_DAMAGE: {
+    id: 203413,
+    name: 'Fury of the Eagle',
+    icon: 'inv_polearm_2h_artifacteagle_d_01',
   },
   //endregion
 
@@ -455,11 +395,6 @@ const spells = {
   },
   KILL_SHOT_MM_BM: {
     id: 53351,
-    name: 'Kill Shot',
-    icon: 'ability_hunter_assassinate2',
-  },
-  KILL_SHOT_SV: {
-    id: 320976,
     name: 'Kill Shot',
     icon: 'ability_hunter_assassinate2',
   },

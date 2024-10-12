@@ -51,23 +51,30 @@ class StaticAccumulation extends Analyzer {
           <br />
           <StaticAccumulationTable className="table-condensed">
             <tbody>
-              <tr>
-                <td>
-                  <SpellLink spell={TALENTS.ASCENDANCE_ENHANCEMENT_TALENT} /> (passive)
-                </td>
-                <td>{passive.generated + passive.wasted}</td>
-              </tr>
-              <tr>
-                <td>
-                  <SpellIcon spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> Refunded from spells
-                </td>
-                <td>{refund.generated + refund.wasted}</td>
-              </tr>
+              {passive && (
+                <tr>
+                  <td>
+                    <SpellLink spell={TALENTS.ASCENDANCE_ENHANCEMENT_TALENT} /> (passive)
+                  </td>
+                  <td>{passive.generated + passive.wasted}</td>
+                </tr>
+              )}
+              {refund && (
+                <tr>
+                  <td>
+                    <SpellIcon spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> Refunded from spells
+                  </td>
+                  <td>{refund.generated + refund.wasted}</td>
+                </tr>
+              )}
             </tbody>
             <tfoot style={{ fontStyle: 'italic' }}>
               <tr>
                 <td>Total</td>
-                <td>{passive.generated + passive.wasted + refund.generated + refund.wasted}</td>
+                <td>
+                  {(passive ? passive.generated + passive.wasted : 0) +
+                    (refund ? refund.generated + refund.wasted : 0)}
+                </td>
               </tr>
             </tfoot>
           </StaticAccumulationTable>

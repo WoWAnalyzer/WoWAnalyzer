@@ -50,11 +50,8 @@ const config: Config = {
       frontmatterType: 'guide',
       notes: (
         <AlertWarning>
-          This analysis is a Work in Progress. It was last updated just before launch and Blizzard
-          has made multiple changes since then that are yet to be implemented. Once Blizzard stops
-          changing things every week, and once the theorycrafters finish running numbers, then I
-          will update this. Apologies for the delays, I promise I am working on it. Ping me in the
-          Mage Discord if you have questions about this. <code>@Sharrq</code>
+          This has been updated for the latest Arcane Mage changes. If something is missing or
+          incorrect, please ping me (<code>@Sharrq</code>) in the Mage Discord and let me know.
         </AlertWarning>
       ),
     },

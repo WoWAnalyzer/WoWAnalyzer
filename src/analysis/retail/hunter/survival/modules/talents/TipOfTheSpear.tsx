@@ -16,27 +16,30 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 /**
- * Kill Command increases the damage of your next Raptor Strike by 20%, stacking up to 3 times.
+ * Kill Command increases the direct damage of your other spells by 15%, stacking up to 3 times.
  *
  * Example log:
- * https://www.warcraftlogs.com/reports/ZRALzNbMpqka1fTB#fight=17&type=auras&source=329&translate=true&ability=260286
+ * https://www.warcraftlogs.com/reports/btfPX81A4vnC2LaM#fight=1&type=damage-done&source=10&view=events
  */
 
 class TipOfTheSpear extends Analyzer {
-  spenderCasts = 0;
-  stacks = 0;
-  usedStacks = 0;
-  wastedStacks = 0;
-  damage = 0;
-  lastApplicationTimestamp = 0;
+  private spenderCasts: number = 0;
+  private stacks: number = 0;
+  private usedStacks: number = 0;
+  private wastedStacks: number = 0;
+  private damage: number = 0;
+  private lastApplicationTimestamp: number = 0;
 
   constructor(options: Options) {
     super(options);
 
     this.active = this.selectedCombatant.hasTalent(TALENTS.TIP_OF_THE_SPEAR_TALENT);
+    if (!this.active) {
+      return;
+    }
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.KILL_COMMAND_CAST_SV),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.KILL_COMMAND_SURVIVAL_TALENT),
       this.onKillCommandCast,
     );
     this.addEventListener(
@@ -67,8 +70,8 @@ class TipOfTheSpear extends Analyzer {
   }
 
   onDamage(event: DamageEvent) {
-    this.damage += calculateEffectiveDamage(event, TIP_DAMAGE_INCREASE * this.stacks);
-    this.usedStacks += this.stacks;
+    this.damage += calculateEffectiveDamage(event, TIP_DAMAGE_INCREASE);
+    this.usedStacks += 1;
   }
 
   onChangeBuffStack(event: ChangeBuffStackEvent) {
@@ -82,8 +85,8 @@ class TipOfTheSpear extends Analyzer {
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(3)}
-        size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
       >
         <BoringSpellValueText spell={TALENTS.TIP_OF_THE_SPEAR_TALENT}>
           <>

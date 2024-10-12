@@ -7,6 +7,7 @@ import Events, {
   RemoveDebuffEvent,
   GetRelatedEvent,
   GetRelatedEvents,
+  RemoveBuffEvent,
 } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import ArcaneChargeTracker from '../core/ArcaneChargeTracker';
@@ -45,6 +46,7 @@ export default class TouchOfTheMagi extends Analyzer {
     const ordinal = this.touchCasts.length + 1;
     const removeDebuff: RemoveDebuffEvent | undefined = GetRelatedEvent(event, 'DebuffRemove');
     const damageEvents: DamageEvent[] = GetRelatedEvents(event, 'SpellDamage');
+    const refundBuff: RemoveBuffEvent | undefined = GetRelatedEvent(event, 'RefundBuff');
     let damage = 0;
     damageEvents.forEach((d) => (damage += d.amount + (d.absorb || 0)));
 
@@ -53,6 +55,7 @@ export default class TouchOfTheMagi extends Analyzer {
       applied: event.timestamp,
       removed: removeDebuff?.timestamp || this.owner.fight.end_time,
       charges: this.chargeTracker.current,
+      refundBuff: refundBuff ? true : false,
       damage: damageEvents || [],
       totalDamage: damage,
     });
@@ -103,6 +106,7 @@ export interface TouchOfTheMagiCast {
   applied: number;
   removed: number;
   charges: number;
+  refundBuff: boolean;
   activeTime?: number;
   damage: DamageEvent[];
   totalDamage: number;

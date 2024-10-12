@@ -60,11 +60,13 @@ import ArcaneTempo from './talents/ArcaneTempo';
 //Normalizers
 import ArcaneChargesNormalizer from './normalizers/ArcaneCharges';
 import ArcaneSurgeNormalizer from './normalizers/ArcaneSurge';
+import NetherPrecisionNormalizer from './normalizers/NetherPrecision';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     //Normalizers
+    netherPrecisionNormalizer: NetherPrecisionNormalizer,
     arcaneChargesNormalizer: ArcaneChargesNormalizer,
     arcaneSurgeNormalizer: ArcaneSurgeNormalizer,
     castLinkNormalizer: CastLinkNormalizer,

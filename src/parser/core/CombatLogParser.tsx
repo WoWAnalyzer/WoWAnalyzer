@@ -111,6 +111,7 @@ import {
   StormridersFury,
 } from 'parser/retail/modules/items/thewarwithin';
 import CritRacial from 'parser/shared/modules/racials/CritRacial';
+import TreacherousTransmitter from 'parser/retail/modules/items/thewarwithin/trinkets/TreacherousTransmitter';
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
@@ -220,6 +221,7 @@ class CombatLogParser {
     authorityOfTheDepths: AuthorityOfTheDepths,
     signetOfThePriory: SignetOfThePriory,
     spymastersWeb: SpymastersWeb,
+    treacherousTransmitter: TreacherousTransmitter,
 
     // Embellishments
     darkmoonSigilAscension: DarkmoonSigilAscension,

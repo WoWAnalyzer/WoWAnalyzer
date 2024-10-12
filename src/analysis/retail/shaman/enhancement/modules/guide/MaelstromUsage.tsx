@@ -8,9 +8,9 @@ const MaelstromUsage = ({ modules }: GuideProps<typeof CombatLogParser>) => {
     <Section title="Resources">
       <SubSection title="Maelstrom Weapon">
         <p>
-          Enhancement's primary resource is <SpellLink spell={SPELLS.MAELSTROM_WEAPON} />. The chart
-          below shows your <SpellLink spell={SPELLS.MAELSTROM_WEAPON} /> over the source of the
-          encounter.
+          Enhancement's primary resource is <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} />. The
+          chart below shows your <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> over the source
+          of the encounter.
         </p>
         {modules.maelstromWeaponGraph.plot}
       </SubSection>

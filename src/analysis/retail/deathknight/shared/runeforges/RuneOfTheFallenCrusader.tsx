@@ -6,6 +6,7 @@ import Events, { HealEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 const UNHOLY_STRENGTH_STRENGTH = 0.15; // 15% Str buff while active
 
@@ -16,9 +17,8 @@ class RuneOfTheFallenCrusader extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    const active = this.selectedCombatant.hasWeaponEnchant(SPELLS.RUNE_OF_THE_FALLEN_CRUSADER);
-    this.active = active;
-    if (!active) {
+    this.active = this.selectedCombatant.hasWeaponEnchant(SPELLS.RUNE_OF_THE_FALLEN_CRUSADER);
+    if (!this.active) {
       return;
     }
 
@@ -54,6 +54,7 @@ class RuneOfTheFallenCrusader extends Analyzer {
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(2)}
+        category={STATISTIC_CATEGORY.ITEMS}
         size="flexible"
         tooltip={
           <Trans id="deathknight.shared.runeOfTheFallenCrusader.statistic.tooltip">
