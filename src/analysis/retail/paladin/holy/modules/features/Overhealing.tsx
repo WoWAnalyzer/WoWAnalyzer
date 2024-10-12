@@ -19,11 +19,11 @@ class Overhealing extends Analyzer {
   divinePurposeActive = this.selectedCombatant.hasTalent(TALENTS.DIVINE_PURPOSE_SHARED_TALENT);
 
   getRawHealing(ability: TrackedAbility) {
-    return ability.healingEffective + ability.healingAbsorbed + ability.healingOverheal;
+    return ability.healingVal.raw;
   }
   getOverhealingPercentage(spellId: number) {
     const ability = this.abilityTracker.getAbility(spellId);
-    return ability.healingOverheal / this.getRawHealing(ability);
+    return ability.healingVal.overheal / this.getRawHealing(ability);
   }
 
   get lightOfDawnOverhealing() {

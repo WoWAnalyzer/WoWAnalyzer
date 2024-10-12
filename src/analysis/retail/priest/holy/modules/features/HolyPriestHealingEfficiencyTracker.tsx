@@ -101,13 +101,13 @@ class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
     //We get the healing done from Prayer of healing and healing from renews applied by casting it
     const ability = this.abilityTracker.getAbility(spellId);
     spellInfo.healingDone =
-      (ability.healingEffective || 0) +
+      (ability.healingVal.regular || 0) +
       this.revitalizingPrayers.healingFromRevitalizingPrayersRenews;
     spellInfo.overhealingDone =
-      (ability.healingOverheal || 0) +
+      (ability.healingVal.overheal || 0) +
       this.revitalizingPrayers.overhealingFromRevitalizingPrayersRenews;
     spellInfo.healingAbsorbed =
-      (ability.healingAbsorbed || 0) +
+      (ability.healingVal.absorbed || 0) +
       this.revitalizingPrayers.absorbedHealingFromRevitalizingPrayersRenews;
     return spellInfo;
   }

@@ -61,8 +61,7 @@ class GrimoireOfSacrifice extends Analyzer {
   }
 
   statistic() {
-    const spell = this.abilityTracker.getAbility(SPELLS.GRIMOIRE_OF_SACRIFICE_DAMAGE.id);
-    const damage = spell.damageEffective + spell.damageAbsorbed;
+    const damage = this.abilityTracker.getAbilityDamage(SPELLS.GRIMOIRE_OF_SACRIFICE_DAMAGE.id);
     const dps = (damage / this.owner.fightDuration) * 1000;
     return (
       <Statistic

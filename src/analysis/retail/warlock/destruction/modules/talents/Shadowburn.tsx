@@ -46,8 +46,7 @@ class Shadowburn extends Analyzer {
   }
 
   statistic() {
-    const spell = this.abilityTracker.getAbility(SPELLS.CHAOS_BOLT.id);
-    const avg = (spell.damageEffective + spell.damageAbsorbed) / spell.casts || 0;
+    const avg = this.abilityTracker.getAbilityDamagePerCast(SPELLS.CHAOS_BOLT.id);
     const fragments = this.soulShardTracker.getGeneratedBySpell(TALENTS.SHADOWBURN_TALENT.id);
     const estimatedDamage = Math.floor(fragments / FRAGMENTS_PER_CHAOS_BOLT) * avg;
     return (
