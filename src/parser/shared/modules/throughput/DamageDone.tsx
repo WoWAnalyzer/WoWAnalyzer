@@ -45,8 +45,10 @@ class DamageDone extends Analyzer {
       this._total = this._total.addEvent(event);
 
       const secondsIntoFight = Math.floor((event.timestamp - this.owner.fight.start_time) / 1000);
-      this.bySecond[secondsIntoFight] =
-        this.bySecond[secondsIntoFight] || DamageValue.fromEvent(event);
+      if (!this.bySecond[secondsIntoFight]) {
+        this.bySecond[secondsIntoFight] = DamageValue.empty();
+      }
+      this.bySecond[secondsIntoFight] = this.bySecond[secondsIntoFight].addEvent(event);
     }
   }
   onByPlayerPetDamage(event: DamageEvent) {
