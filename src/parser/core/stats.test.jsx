@@ -66,10 +66,10 @@ describe('stats', () => {
     // https://www.wowhead.com/item=193773/spoils-of-neltharus
     const spoilsOfNeltharus = (itemLevel) => calculateSecondaryStatDefault(250, 482, itemLevel);
 
-    expect(spoilsOfNeltharus(382)).toBeWithin(2209, 1); // Normal
-    expect(spoilsOfNeltharus(402)).toBeWithin(2514, 1); // Mythic+
-    expect(spoilsOfNeltharus(441)).toBeWithin(3108, 1); // Max upgrade Mythic+
-    expect(spoilsOfNeltharus(447)).toBeWithin(3199, 1); // Vault
+    expect(spoilsOfNeltharus(382)).toBeWithin(2209.46, 1); // Normal
+    expect(spoilsOfNeltharus(402)).toBeWithin(2513.98, 1); // Mythic+
+    expect(spoilsOfNeltharus(441)).toBeWithin(3107.79, 1); // Max upgrade Mythic+
+    expect(spoilsOfNeltharus(447)).toBeWithin(3199.14, 1); // Vault
 
     // Vessel of Searing Shadows
     // https://www.wowhead.com/item=202615/vessel-of-searing-shadow
