@@ -469,7 +469,7 @@ const spells = {
   },
 
   // Talents
-  WAR_MACHINE_FURY_TALENT_BUFF: {
+  SUDDEN_DEATH_FURY_TALENT_BUFF: {
     id: 280776,
     name: 'Sudden Death',
     icon: 'ability_warrior_improveddisciplines',
