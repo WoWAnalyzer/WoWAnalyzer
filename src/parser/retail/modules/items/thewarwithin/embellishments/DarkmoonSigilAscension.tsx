@@ -169,11 +169,7 @@ class DarkmoonSigilAscension extends EmbellishmentAnalyzer.withDependencies({
         const buff = BUFFS[Number(spellId)];
         const entry = aggregatedStats.get(buff.stat);
         if (!entry) {
-          return (
-            <>
-              <p key={spellId}>Didn't proc</p>
-            </>
-          );
+          return <p key={spellId}>Didn't proc</p>;
         }
 
         const StatIcon = getIcon(buff.stat);
