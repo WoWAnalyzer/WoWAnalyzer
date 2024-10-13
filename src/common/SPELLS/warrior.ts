@@ -387,7 +387,7 @@ const spells = {
   SUDDEN_DEATH_ARMS_TALENT_BUFF: {
     id: 52437,
     name: 'Sudden Death',
-    icon: 'abilty_warrior_improveddisciplines',
+    icon: 'ability_warrior_improveddisciplines',
   },
   SECOND_WIND_TALENT_HEAL: {
     id: 202147,
@@ -472,7 +472,7 @@ const spells = {
   WAR_MACHINE_FURY_TALENT_BUFF: {
     id: 280776,
     name: 'Sudden Death',
-    icon: 'abilty_warrior_improveddisciplines',
+    icon: 'ability_warrior_improveddisciplines',
   },
   BLADESTORM_OH_DAMAGE: {
     id: 95738,
