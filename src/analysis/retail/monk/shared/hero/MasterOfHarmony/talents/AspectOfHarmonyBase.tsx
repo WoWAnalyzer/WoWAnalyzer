@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
-import Analyzer, { Options } from 'parser/core/Analyzer';
-import {
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, {
   ApplyBuffEvent,
   ApplyDebuffEvent,
   DamageEvent,
@@ -19,12 +19,22 @@ interface CastInfo {
   startTime: number;
 }
 
-class MasterOfHarmonyBaseAnalyzer extends Analyzer {
+class AspectOfHarmonyBaseAnalyzer extends Analyzer {
   castEntries: CastInfo[] = [];
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.ASPECT_OF_HARMONY_TALENT);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ASPECT_OF_HARMONY_HOT),
+      this.onPeriodicApply,
+    );
+    this.addEventListener(
+      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.ASPECT_OF_HARMONY_DOT),
+      this.onPeriodicApply,
+    );
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDmg);
   }
 
   initEntry(
@@ -84,4 +94,4 @@ class MasterOfHarmonyBaseAnalyzer extends Analyzer {
   }
 }
 
-export default MasterOfHarmonyBaseAnalyzer;
+export default AspectOfHarmonyBaseAnalyzer;
