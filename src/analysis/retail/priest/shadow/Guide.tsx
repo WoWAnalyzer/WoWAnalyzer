@@ -69,6 +69,10 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           modules.deathspeaker.guideSubsection}
       </Section>
 
+      {/* TODO:
+      <Section title="Hero Talent?"></>
+      */}
+
       <Section title="Action Priority List">
         <SubSection>Coming Soon!</SubSection>
       </Section>

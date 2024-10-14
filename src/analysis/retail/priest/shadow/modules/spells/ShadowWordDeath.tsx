@@ -6,7 +6,6 @@ import Events from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import ExecuteHelper from 'parser/shared/modules/helpers/ExecuteHelper';
-import { TIERS } from 'game/TIERS';
 import { SHADOW_WORD_DEATH_EXECUTE_RANGE } from '../../constants';
 import DeathAndMadness from '../talents/DeathAndMadness';
 import Deathspeaker from '../talents/Deathspeaker';
@@ -15,7 +14,7 @@ class ShadowWordDeath extends ExecuteHelper {
   static executeSources = SELECTED_PLAYER;
   static lowerThreshold = SHADOW_WORD_DEATH_EXECUTE_RANGE;
   static singleExecuteEnablers: Spell[] = [SPELLS.DEATHSPEAKER_TALENT_BUFF];
-  //static executeOutsideRangeEnablers: Spell[] = [TALENTS.INESCAPABLE_TORMENT_TALENT]; //Need to fabricate a buff for when Inescapable Torment(mindbender) is active.
+  //static executeOutsideRangeEnablers: Spell[] = [TALENTS.INESCAPABLE_TORMENT_TALENT]; //TODO: Need to fabricate a buff for when Inescapable Torment(mindbender) is active.
   static countCooldownAsExecuteTime = false;
 
   static dependencies = {
@@ -34,9 +33,6 @@ class ShadowWordDeath extends ExecuteHelper {
   constructor(options: Options) {
     super(options);
     this.addEventListener(Events.fightend, this.adjustMaxCasts);
-    if (this.selectedCombatant.has4PieceByTier(TIERS.DF3)) {
-      ShadowWordDeath.lowerThreshold = 1; //When shadow has its tier 31 four piece, they always use shadow word death
-    }
     const ctor = this.constructor as typeof ExecuteHelper;
     ctor.executeSpells.push(TALENTS.SHADOW_WORD_DEATH_TALENT);
 
