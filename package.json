@@ -46,6 +46,7 @@
   "devDependencies": {
     "@babel/parser": "7.24.4",
     "@babel/plugin-proposal-private-property-in-object": "7.21.11",
+    "@babel/plugin-syntax-import-attributes": "7.25.7",
     "@babel/preset-env": "7.24.4",
     "@babel/preset-react": "7.24.1",
     "@babel/preset-typescript": "7.24.1",
@@ -76,7 +77,7 @@
     "@types/react-virtualized": "^9.21.30",
     "@types/testing-library__jest-dom": "^5.14.5",
     "@vitejs/plugin-react": "^4.2.1",
-    "@vitest/ui": "^1.4.0",
+    "@vitest/ui": "^2.1.2",
     "babel-core": "^7.0.0-bridge.0",
     "babel-plugin-macros": "^3.1.0",
     "cross-env": "^7.0.3",
@@ -106,7 +107,7 @@
     "vite": "^5.2.8",
     "vite-plugin-svgr": "^4.2.0",
     "vite-tsconfig-paths": "^4.3.2",
-    "vitest": "^1.4.0"
+    "vitest": "^2.1.2"
   },
   "resolutions": {
     "@lingui/cli": "4.8.0",
