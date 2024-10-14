@@ -8,8 +8,9 @@ import Events, {
   EventType,
   HealEvent,
 } from 'parser/core/Events';
+import Combatants from 'parser/shared/modules/Combatants';
 
-interface CastInfo {
+export interface CastInfo {
   totalDamage: number;
   overkill: number;
   totalHealing: number;
@@ -20,11 +21,19 @@ interface CastInfo {
 }
 
 class AspectOfHarmonyBaseAnalyzer extends Analyzer {
+  static dependencies = {
+    combatants: Combatants,
+  };
   castEntries: CastInfo[] = [];
+  protected combatants!: Combatants;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.ASPECT_OF_HARMONY_TALENT);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ASPECT_OF_HARMONY_BUFF),
+      this.onBuffApply,
+    );
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ASPECT_OF_HARMONY_HOT),
       this.onPeriodicApply,
@@ -55,11 +64,18 @@ class AspectOfHarmonyBaseAnalyzer extends Analyzer {
     return this.castEntries.at(-1);
   }
 
+  onBuffApply(event: ApplyBuffEvent) {
+    this.initEntry(event);
+  }
+
   onPeriodicApply(event: ApplyBuffEvent | ApplyDebuffEvent) {
     const entry = this.initEntry(event);
     if (entry) {
       if (event.type === EventType.ApplyBuff) {
-        entry.numBuffs += 1;
+        // dont care about buffs on pets
+        if (this.combatants.getEntity(event)) {
+          entry.numBuffs += 1;
+        }
       } else {
         entry.numDebuffs += 1;
       }
@@ -68,7 +84,10 @@ class AspectOfHarmonyBaseAnalyzer extends Analyzer {
 
   onHeal(event: HealEvent) {
     // coalesence doesn't buff Aspect HOT
-    if (event.ability.guid === SPELLS.ASPECT_OF_HARMONY_HOT.id) {
+    if (
+      event.ability.guid === SPELLS.ASPECT_OF_HARMONY_HOT.id ||
+      !this.combatants.getEntity(event)
+    ) {
       return;
     }
     const entry = this.initEntry(event);
@@ -89,8 +108,20 @@ class AspectOfHarmonyBaseAnalyzer extends Analyzer {
     }
   }
 
-  getCastEntries(): CastInfo[] {
-    return this.castEntries;
+  get avgDots(): number {
+    return (
+      this.castEntries.reduce((prev: number, cur: CastInfo) => {
+        return prev + cur.numDebuffs;
+      }, 0) / this.castEntries.length
+    );
+  }
+
+  get avgHots(): number {
+    return (
+      this.castEntries.reduce((prev: number, cur: CastInfo) => {
+        return prev + cur.numBuffs;
+      }, 0) / this.castEntries.length
+    );
   }
 }
 
