@@ -70,15 +70,13 @@ class GeneratorFollowingVanish extends Analyzer {
 
   statistic(): React.ReactNode {
     const tableEntries: React.ReactNode[] = this.badFollowingVanishCasts.map((castPair, idx) => (
-      <>
-        <tr key={idx}>
-          <td>{this.owner.formatTimestamp(castPair[0].timestamp)}</td>
-          <td>
-            <SpellIcon spell={abilityToSpell(castPair[1].ability)} />
-          </td>
-          <td>{this.owner.formatTimestamp(castPair[1].timestamp)}</td>
-        </tr>
-      </>
+      <tr key={idx}>
+        <td>{this.owner.formatTimestamp(castPair[0].timestamp)}</td>
+        <td>
+          <SpellIcon spell={abilityToSpell(castPair[1].ability)} />
+        </td>
+        <td>{this.owner.formatTimestamp(castPair[1].timestamp)}</td>
+      </tr>
     ));
     return (
       <>

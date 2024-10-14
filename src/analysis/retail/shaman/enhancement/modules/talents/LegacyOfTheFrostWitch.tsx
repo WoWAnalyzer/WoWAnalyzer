@@ -161,12 +161,10 @@ class LegacyOfTheFrostWitch extends Analyzer {
         {typedKeys(this.buffedSpells).map((spellId) => {
           const spell = maybeGetSpell(spellId)!;
           return (
-            <>
-              <li key={spell?.id}>
-                <SpellLink spell={spell} /> -{' '}
-                <strong>{formatNumber(this.buffedSpells[spell.id])}</strong>
-              </li>
-            </>
+            <li key={spellId}>
+              <SpellLink spell={spell} /> -{' '}
+              <strong>{formatNumber(this.buffedSpells[spell.id])}</strong>
+            </li>
           );
         })}
       </>
