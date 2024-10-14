@@ -11,13 +11,13 @@ const spells = {
     id: 281265,
     name: 'Holy Nova',
     icon: 'spell_holy_holynova',
-    manaCost: 800,
+    manaCost: 40000,
   },
   POWER_WORD_FORTITUDE: {
     id: 21562,
     name: 'Power Word: Fortitude',
     icon: 'spell_holy_wordfortitude',
-    manaCost: 2000,
+    manaCost: 100000,
   },
   DESPERATE_PRAYER: {
     id: 19236,
@@ -28,22 +28,7 @@ const spells = {
     id: 453,
     name: 'Mind Soothe',
     icon: 'spell_holy_mindsooth',
-    manaCost: 500,
-  },
-  MINDGAMES_HEAL: {
-    id: 375904,
-    name: 'Mindgames',
-    icon: 'ability_revendreth_priest',
-  },
-  MINDGAMES_ABSORB: {
-    id: 375902,
-    name: 'Mindgames',
-    icon: 'ability_revendreth_priest',
-  },
-  MINDGAMES_HEAL_REVERSAL: {
-    id: 375903,
-    name: 'Mindgames',
-    icon: 'ability_revendreth_priest',
+    manaCost: 25000,
   },
   CRYSTALLINE_REFLECTION_TALENT_HEAL: {
     id: 373462,
@@ -54,6 +39,12 @@ const spells = {
     id: 390692,
     name: 'Borrowed Time',
     icon: 'spell_holy_borrowedtime',
+  },
+  RENEW_HEAL: {
+    id: 139,
+    name: 'Renew',
+    icon: 'spell_holy_renew',
+    manaCost: 45000,
   },
   // Discipline Priest:
   GRACE: {
@@ -113,7 +104,7 @@ const spells = {
     id: 17,
     name: 'Power Word: Shield',
     icon: 'spell_holy_powerwordshield',
-    manaCost: 6000,
+    manaCost: 775000,
   },
   SHIELD_OF_ABSOLUTION_BUFF: {
     id: 394624,
@@ -129,7 +120,7 @@ const spells = {
     id: 585,
     name: 'Smite',
     icon: 'spell_holy_holysmite',
-    manaCost: 1000,
+    manaCost: 5000,
   },
   SHADOW_SMITE: {
     id: 425529,
@@ -169,19 +160,19 @@ const spells = {
     id: 32375,
     name: 'Mass Dispel',
     icon: 'spell_arcane_massdispel',
-    manaCost: 4000,
+    manaCost: 200000,
   },
   LEAP_OF_FAITH: {
     id: 73325,
     name: 'Leap of Faith',
     icon: 'priest_spell_leapoffaith_a',
-    manaCost: 1300,
+    manaCost: 65000,
   },
   LEVITATE: {
     id: 1706,
     name: 'Levitate',
     icon: 'spell_holy_layonhands',
-    manaCost: 450,
+    manaCost: 22500,
   },
   LIGHTS_WRATH: {
     id: 207946,
@@ -192,7 +183,7 @@ const spells = {
     id: 605,
     name: 'Mind Control',
     icon: 'spell_shadow_shadowworddominate',
-    manaCost: 1000,
+    manaCost: 50000,
   },
   POWER_WORD_BARRIER_CAST: {
     id: 62618,
@@ -214,13 +205,13 @@ const spells = {
     id: 527,
     name: 'Purify',
     icon: 'spell_holy_dispelmagic',
-    manaCost: 650,
+    manaCost: 32500,
   },
   SHACKLE_UNDEAD: {
     id: 9484,
     name: 'Shackle Undead',
     icon: 'spell_nature_slow',
-    manaCost: 600,
+    manaCost: 30000,
   },
   SHADOWFIEND: {
     id: 34433,
@@ -407,7 +398,7 @@ const spells = {
     id: 120517,
     name: 'Halo',
     icon: 'ability_priest_halo',
-    manaCost: 1350,
+    manaCost: 67500,
   },
   EXPIATION_DAMAGE: {
     id: 390844,
@@ -424,19 +415,39 @@ const spells = {
     name: 'Words of the Pious',
     icon: 'ability_priest_clarityofwill',
   },
+  ENTROPIC_RIFT_DAMAGE_DISC: {
+    id: 447448,
+    name: 'Entropic Rift',
+    icon: 'inv_ability_voidweaverpriest_entropicrift',
+  },
+  COLLAPSING_VOID_DAMAGE_DISC: {
+    id: 448405,
+    name: 'Collapsing Void',
+    icon: 'inv_cosmicvoid_groundsate',
+  },
+  VOID_BLAST_DAMAGE_DISC: {
+    id: 450215,
+    name: 'Void Blast',
+    icon: 'inv_cosmicvoid_missile',
+  },
+  VOID_FLAY_DAMAGE_DISC: {
+    id: 451435,
+    name: 'Void Flay',
+    icon: 'spell_priest_voidsear',
+  },
 
   // Holy Priest Spells
   GREATER_HEAL: {
     id: 2060,
     name: 'Heal',
     icon: 'spell_holy_greaterheal',
-    manaCost: 6000,
+    manaCost: 60000,
   },
   FLASH_HEAL: {
     id: 2061,
     name: 'Flash Heal',
     icon: 'spell_holy_flashheal',
-    manaCost: 9000,
+    manaCost: 90000,
   },
   PRAYER_OF_MENDING_HEAL: {
     id: 33110,
@@ -477,7 +488,7 @@ const spells = {
     id: 14914,
     name: 'Holy Fire',
     icon: 'spell_holy_searinglight',
-    manaCost: 2500,
+    manaCost: 10000,
   },
   TRAIL_OF_LIGHT_TALENT_HEAL: {
     id: 234946,
@@ -489,6 +500,47 @@ const spells = {
     name: 'Cosmic Ripple Heal',
     icon: 'spell_holy_summonlightwell',
   },
+  HOLY_WORD_SERENITY: {
+    id: 2050,
+    name: 'Holy Word: Serenity',
+    icon: 'spell_holy_persuitofjustice',
+  },
+  HOLY_WORD_SANCTIFY: {
+    id: 34861,
+    name: 'Holy Word: Sanctify',
+    icon: 'spell_holy_divineprovidence',
+  },
+  HOLY_WORD_SALVATION: {
+    id: 265202,
+    name: 'Holy Word: Salvation',
+    icon: 'spell_holy_archangel',
+  },
+  CIRCLE_OF_HEALING: {
+    id: 204883,
+    name: 'Circle of Healing',
+    icon: 'spell_holy_circleofrenewal',
+  },
+  POWER_WORD_LIFE: {
+    id: 373481,
+    name: 'Power Word: Life',
+    icon: 'ability_priest_holywordlife',
+  },
+  PREMONITION_OF_CLAIRVOYANCE: {
+    id: 440725,
+    name: 'Premonition of Clairvoyance',
+    icon: 'inv_inscription_vantusrune_progenitor',
+  },
+  PREMONITION_OF_PIETY: {
+    id: 443126,
+    name: 'Premonition of Piety',
+    icon: 'inv_ability_oraclepriest_premonitionpiety',
+  },
+  ESSENCE_DEVOURER_HEAL: {
+    id: 415673,
+    name: 'Essence Devourer',
+    icon: 'achievement_raid_terraceofendlessspring04',
+  },
+
   // Buffs
   SPIRIT_OF_REDEMPTION_BUFF: {
     id: 27827,
@@ -525,22 +577,47 @@ const spells = {
     name: 'Divine Favor: Serenity',
     icon: 'priest_icon_chakra',
   },
-  // Sets
-  HOLY_PRIEST_TIER_29_2_SET_BUFF: {
-    id: 394729,
-    name: 'Prayer Focus',
-    icon: 'spell_priest_finalprayer',
+  PERFECTED_FORM_TALENT_BUFF: {
+    id: 453983,
+    name: 'Perfected Form',
+    icon: 'inv_ability_holyfire_buff',
   },
-  HOLY_PRIEST_TIER_29_4_SET_BUFF: {
-    id: 394745,
-    name: 'Seize the moment',
-    icon: 'inv_mace_1h_artifactheartofkure_d_03',
+  RESONANT_ENERGY_TALENT_BUFF: {
+    id: 453846,
+    name: 'Resonant Energy',
+    icon: 'ability_priest_halo',
   },
-  HOLY_PRIEST_TIER_30_4_SET_BUFF: {
-    id: 409479,
-    name: 'Inspired Word',
-    icon: 'ability_paladin_sacredcleansing',
+  UNCAT_ARCHON_HALO_RETURN_BUFF: {
+    id: 449840,
+    name: 'Halo',
+    icon: 'ability_priest_halo',
   },
+  PREMONITION_OF_SOLACE_DR_AND_SHIELD_BUFF: {
+    id: 443526,
+    name: 'Premonition of Solace',
+    icon: 'inv_ability_oraclepriest_premonitionsolace',
+  },
+  PREMONITION_OF_SOLACE_CASTER_BUFF: {
+    id: 428934,
+    name: 'Premonition of Solace',
+    icon: 'inv_ability_oraclepriest_premonitionsolace',
+  },
+  PREMONITION_OF_PIETY_BUFF: {
+    id: 428930,
+    name: 'Premonition of Piety',
+    icon: 'inv_ability_oraclepriest_premonitionpiety',
+  },
+  PREMONITION_OF_INSIGHT_BUFF: {
+    id: 428933,
+    name: 'Premonition of Insight',
+    icon: 'inv_ability_oraclepriest_premonitioninsight',
+  },
+  HOLY_PRIEST_TWW_4PC_DISPLAY: {
+    id: 453678,
+    name: "4PC Nerub'ar Palace",
+    icon: 'trade_engineering',
+  },
+
   // Talents
   BINDING_HEALS_TALENT_HEAL: {
     id: 368276,
@@ -572,6 +649,11 @@ const spells = {
     name: 'Blessed Light',
     icon: 'spell_holy_divineprovidence',
   },
+  DIVINE_IMAGE_TRANQUIL_LIGHT_HEAL: {
+    id: 196816,
+    name: 'Tranquil Light',
+    icon: 'spell_holy_divineprovidence',
+  },
   HOLY_WORD_CHASTISE_CENSURE_TALENT_INCAPACITATE: {
     id: 200196,
     name: 'Holy Word: Chastise',
@@ -582,7 +664,7 @@ const spells = {
     id: 200200,
     name: 'Holy Word: Chastise',
     icon: 'spell_holy_chastise',
-    manaCost: 5000,
+    manaCost: 15000,
   },
   PONTIFEX_TALENT_BUFF: {
     id: 390989,

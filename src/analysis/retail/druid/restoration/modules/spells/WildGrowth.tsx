@@ -6,7 +6,7 @@ import Events, { AnyEvent, CastEvent, EventType, HealEvent } from 'parser/core/E
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HealingValue from 'parser/shared/modules/HealingValue';
 import BoringValue from 'parser/ui/BoringValueText';
-import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
+import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
@@ -14,6 +14,7 @@ import { getHeals } from 'analysis/retail/druid/restoration/normalizers/CastLink
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBreakdown';
 
 /** Number of targets WG must effectively heal in order to be efficient */
 const RECOMMENDED_EFFECTIVE_TARGETS_THRESHOLD = 3;
@@ -73,7 +74,7 @@ class WildGrowth extends Analyzer {
   onHealWg(event: HealEvent) {
     const recentWgHealTracker = this.recentWgTargetHealing[event.targetID];
     if (recentWgHealTracker !== undefined) {
-      const healVal = new HealingValue(event.amount, event.absorbed, event.overheal);
+      const healVal = HealingValue.fromEvent(event);
       recentWgHealTracker.total += healVal.raw;
       recentWgHealTracker.overheal += healVal.overheal;
     }
@@ -142,27 +143,34 @@ class WildGrowth extends Analyzer {
   /** Guide subsection describing the proper usage of Wild Growth */
   get guideSubsection(): JSX.Element {
     const explanation = (
-      <p>
-        <b>
-          <SpellLink spell={SPELLS.WILD_GROWTH} />
-        </b>{' '}
-        is your best healing spell when multiple raiders are injured. It quickly heals a lot of
-        damage, but has a high mana cost. Use Wild Growth over Rejuvenation if there are at least 3
-        injured targets. Remember that only allies within 30 yds of the primary target can be hit -
-        don't cast this on an isolated player!
-      </p>
+      <>
+        <p>
+          <b>
+            <SpellLink spell={SPELLS.WILD_GROWTH} />
+          </b>{' '}
+          is your best healing spell when multiple raiders are injured. It quickly heals a lot, but
+          has a high mana cost. Use Wild Growth when there are at least 3 injured targets.
+        </p>
+        <p>
+          Remember that only allies within 30 yds of the primary target can be hit - don't cast this
+          on an isolated player!
+        </p>
+      </>
     );
 
     const data = (
       <div>
-        <strong>Wild Growth casts</strong>
-        <small>
-          {' '}
-          - Green is a good cast, Red was effective on fewer than three targets. A hit is considered
-          "ineffective" if over the first {(OVERHEAL_BUFFER / 1000).toFixed(0)} seconds it did more
-          than {formatPercentage(OVERHEAL_THRESHOLD, 0)}% overhealing. Mouseover boxes for details.
-        </small>
-        <PerformanceBoxRow values={this.castEntries} />
+        <CastSummaryAndBreakdown
+          spell={SPELLS.WILD_GROWTH}
+          castEntries={this.castEntries}
+          badExtraExplanation={
+            <>
+              effective on fewer than three targets. A hit is considered "ineffective" if over the
+              first {(OVERHEAL_BUFFER / 1000).toFixed(0)} seconds it did more than{' '}
+              {formatPercentage(OVERHEAL_THRESHOLD, 0)}% overhealing
+            </>
+          }
+        />
       </div>
     );
 

@@ -13,7 +13,7 @@ function isAbilityWithBuffSpellId(
   return ability.buffSpellId !== null && ability.buffSpellId !== 0;
 }
 
-type AuraOptions = Options & {
+export type AuraOptions = Options & {
   abilities: Abilities;
   haste: Haste;
 };

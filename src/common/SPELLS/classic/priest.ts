@@ -146,6 +146,11 @@ const spells = {
     name: 'Mind Sear',
     icon: 'spell_shadow_mindshear.jpg',
   },
+  MIND_SEAR_TICK: {
+    id: 49821,
+    name: 'Mind Sear',
+    icon: 'spell_shadow_mindshear.jpg',
+  },
   MIND_SOOTHE: {
     id: 453,
     name: 'Mind Soothe',
@@ -242,6 +247,11 @@ const spells = {
   },
   BORROWED_TIME_14: {
     id: 59888,
+    name: 'Borrowed Time',
+    icon: 'spell_holy_borrowedtime.jpg',
+  },
+  BORROWED_TIME_15: {
+    id: 59889,
     name: 'Borrowed Time',
     icon: 'spell_holy_borrowedtime.jpg',
   },

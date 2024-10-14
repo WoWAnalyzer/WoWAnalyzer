@@ -52,7 +52,7 @@ class Abilities extends CoreAbilities {
         healSpellIds: [SPELLS.EFFLORESCENCE_HEAL.id, SPELLS.SPRING_BLOSSOMS.id],
       },
       {
-        spell: SPELLS.REJUVENATION.id,
+        spell: [SPELLS.REJUVENATION.id, SPELLS.REJUVENATION_GERMINATION.id],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -74,6 +74,16 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        castEfficiency:
+          combatant.hasTalent(TALENTS_DRUID.SOUL_OF_THE_FOREST_RESTORATION_TALENT) ||
+          combatant.hasTalent(TALENTS_DRUID.VERDANT_INFUSION_TALENT) ||
+          combatant.hasTalent(TALENTS_DRUID.REFORESTATION_TALENT)
+            ? {
+                recommendedEfficiency: 0.8,
+                averageIssueEfficiency: 0.6,
+                majorIssueEfficiency: 0.3,
+              }
+            : undefined,
       },
       {
         spell: SPELLS.LIFEBLOOM_HOT_HEAL.id,

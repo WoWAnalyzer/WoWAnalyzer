@@ -5,6 +5,19 @@ import { TALENTS_EVOKER } from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS/evoker';
 
 export default [
+  change(date(2024, 10, 4), <>Fix an issue with external <SpellLink spell={TALENTS_EVOKER.RENEWING_BLAZE_TALENT}/> for MajorDefensive module</>, Vollmer),
+  change(date(2024, 9, 10), "Update various Modules & Guide Sections for TWW S1", Vollmer),
+  change(date(2024, 9, 6), <>Implement <SpellLink spell={TALENTS_EVOKER.WINGLEADER_TALENT}/> module</>, Vollmer),
+  change(date(2024, 9, 6), <>Update MajorDefensive module for <SpellLink spell={TALENTS_EVOKER.LIFECINDERS_TALENT}/> and <SpellLink spell={TALENTS_EVOKER.HARDENED_SCALES_TALENT}/></>, Vollmer), 
+  change(date(2024, 9, 6), <>Implement <SpellLink spell={TALENTS_EVOKER.SLIPSTREAM_TALENT}/> module</>, Vollmer), 
+  change(date(2024, 9, 6), <>Implement <SpellLink spell={TALENTS_EVOKER.EXTENDED_BATTLE_TALENT}/> module</>, Vollmer), 
+  change(date(2024, 8, 14), <>Implement <SpellLink spell={TALENTS_EVOKER.DIVERTED_POWER_TALENT}/> module</>, Vollmer), 
+  change(date(2024, 8, 14), <>Implement <SpellLink spell={TALENTS_EVOKER.UNRELENTING_SIEGE_TALENT}/> module</>, Vollmer), 
+  change(date(2024, 8, 11), <>Update <SpellLink spell={TALENTS_EVOKER.TITANIC_WRATH_TALENT}/> multiplier</>, Vollmer), 
+  change(date(2024, 8, 11), <>Implement <SpellLink spell={TALENTS_EVOKER.MELT_ARMOR_TALENT}/> module</>, Vollmer), 
+  change(date(2024, 8, 11), <>Implement <SpellLink spell={TALENTS_EVOKER.MIGHT_OF_THE_BLACK_DRAGONFLIGHT_TALENT}/> module</>, Vollmer),
+  change(date(2024, 8, 11), <>Implement <SpellLink spell={TALENTS_EVOKER.MASS_DISINTEGRATE_TALENT}/> module</>, Vollmer),
+  change(date(2024, 8, 10), <>Add Always Be Casting guide section</>, Vollmer), 
   change(date(2024, 7, 22), <>Update <SpellLink spell={TALENTS_EVOKER.HEAT_WAVE_TALENT}/> and <SpellLink spell={TALENTS_EVOKER.HONED_AGGRESSION_TALENT}/> multipliers</>, Vollmer),
   change(date(2024, 7, 21), <>Implement <SpellLink spell={TALENTS_EVOKER.SCORCHING_EMBERS_TALENT} /> module</>, Vollmer),
   change(date(2024, 7, 21), <>Implement <SpellLink spell={TALENTS_EVOKER.IMMINENT_DESTRUCTION_DEVASTATION_TALENT}/> module</>, Vollmer),

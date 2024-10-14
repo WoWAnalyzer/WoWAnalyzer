@@ -1,62 +1,58 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, { CastEvent, ResourceChangeEvent, DeathEvent } from 'parser/core/Events';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent, ResourceChangeEvent } from 'parser/core/Events';
+import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 
 const debug = false;
+const MAX_ARCANE_CHARGES = 4;
 
-class ArcaneChargeTracker extends Analyzer {
-  charges = 0;
+class ArcaneChargeTracker extends ResourceTracker {
+  static dependencies = {
+    ...ResourceTracker.dependencies,
+  };
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.resourcechange.to(SELECTED_PLAYER), this.onEnergize);
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ARCANE_BARRAGE),
-      this.onBarrage,
-    );
-    this.addEventListener(Events.death.to(SELECTED_PLAYER), this.onDeath);
+    this.resource = RESOURCE_TYPES.ARCANE_CHARGES;
+    this.maxResource = MAX_ARCANE_CHARGES;
+    this.addEventListener(Events.resourcechange.by(SELECTED_PLAYER), this.onResourceChange);
   }
 
-  onEnergize(event: ResourceChangeEvent) {
-    const resourceType = event.resourceChangeType;
-    if (resourceType !== 16) {
+  onResourceChange(event: ResourceChangeEvent) {
+    if (event.resourceChangeType !== RESOURCE_TYPES.ARCANE_CHARGES.id) {
       return;
     }
-    if (this.charges < 4) {
-      this.charges += event.resourceChange;
-      debug &&
-        this.log(
-          'Gained ' +
-            event.resourceChange +
-            ' charges from ' +
-            event.ability.name +
-            ': ' +
-            this.charges +
-            ' total charges',
-        );
-      if (this.charges > 4) {
-        debug &&
-          this.log(
-            'ERROR: Event caused overcapped charges. Adjusted charge count from ' +
-              this.charges +
-              ' to 4',
-          );
-        this.charges = 4;
-      }
-      // FIXME } else if (this.charges < 4 && event.waste === 1) {
-      //   this.charges = 4;
-      //   debug && this.log('ERROR: Auto Corrected to 4 Charges');
+
+    if (this.current !== MAX_ARCANE_CHARGES) {
+      this._applyBuilder(event.ability.guid, event.resourceChange, event.waste, event.timestamp);
+      debug && this.log('Build: ' + this.current);
     }
   }
 
-  onBarrage(event: CastEvent) {
-    debug && this.log('Arcane Barrage cast with ' + this.charges + ' charges. Reset Charges to 0');
-    this.charges = 0;
-  }
+  clearCharges(event: CastEvent) {
+    debug && this.log('Spend: ' + this.current);
+    this._applySpender(event, this.current);
 
-  onDeath(event: DeathEvent) {
-    this.charges = 0;
-    debug && this.log('Player Died. Reset Charges to 0.');
+    if (this.selectedCombatant.hasBuff(SPELLS.INTUITION_BUFF.id)) {
+      debug && this.log('Intuition Buff');
+      this._applyBuilder(event.ability.guid, MAX_ARCANE_CHARGES, 0, event.timestamp);
+    }
+
+    if (this.selectedCombatant.hasBuff(SPELLS.GLORIOUS_INCANDESCENCE_BUFF.id)) {
+      debug && this.log('Glorious Incandescence Buff');
+      this._applyBuilder(event.ability.guid, MAX_ARCANE_CHARGES, 0, event.timestamp);
+    }
+
+    if (this.selectedCombatant.hasBuff(SPELLS.BURDEN_OF_POWER_BUFF.id)) {
+      debug && this.log('Burden of Power Buff');
+      this._applyBuilder(event.ability.guid, MAX_ARCANE_CHARGES, 0, event.timestamp);
+    }
+
+    if (this.selectedCombatant.hasBuff(SPELLS.ARCANE_SOUL_BUFF.id)) {
+      debug && this.log('Arcane Soul Buff');
+      this._applyBuilder(event.ability.guid, MAX_ARCANE_CHARGES, 0, event.timestamp);
+    }
   }
 }
 

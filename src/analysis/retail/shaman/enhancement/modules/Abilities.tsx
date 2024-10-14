@@ -3,7 +3,6 @@ import TALENTS from 'common/TALENTS/shaman';
 import ClassAbilities from '../../shared/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
-import { MOLTEN_ASSAULT_SCALING } from '../constants';
 
 class Abilities extends ClassAbilities {
   spellbook(): SpellbookAbility[] {
@@ -12,7 +11,7 @@ class Abilities extends ClassAbilities {
       ...super.spellbook(),
       // Enhancement baseline
       {
-        spell: SPELLS.MAELSTROM_WEAPON.id,
+        spell: SPELLS.MAELSTROM_WEAPON_BUFF.id,
         category: SPELL_CATEGORY.HIDDEN,
       },
       {
@@ -27,8 +26,7 @@ class Abilities extends ClassAbilities {
         enabled: combatant.hasTalent(TALENTS.LAVA_LASH_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) =>
-          (18 - MOLTEN_ASSAULT_SCALING[combatant.getTalentRank(TALENTS.MOLTEN_ASSAULT_TALENT)]) /
-          (1 + haste),
+          (18 - (combatant.hasTalent(TALENTS.MOLTEN_ASSAULT_TALENT) ? 6 : 0)) / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -109,7 +107,7 @@ class Abilities extends ClassAbilities {
       {
         spell: [SPELLS.PRIMORDIAL_WAVE.id, SPELLS.PRIMORDIAL_WAVE_DAMAGE.id],
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 45,
+        cooldown: 30,
         gcd: {
           base: 1500,
         },
@@ -123,7 +121,7 @@ class Abilities extends ClassAbilities {
       {
         spell: TALENTS.DOOM_WINDS_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.DOOM_WINDS_TALENT),
-        cooldown: 90,
+        cooldown: 60,
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: {
           base: 1500,
@@ -166,6 +164,25 @@ class Abilities extends ClassAbilities {
           combatant.hasTalent(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT) ||
           combatant.hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT),
         category: SPELL_CATEGORY.HIDDEN,
+      },
+      {
+        spell: SPELLS.TEMPEST_CAST.id,
+        enabled: combatant.hasTalent(TALENTS.TEMPEST_TALENT),
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: TALENTS.HAILSTORM_TALENT.id,
+        category: SPELL_CATEGORY.HIDDEN,
+        enabled: combatant.hasTalent(TALENTS.HAILSTORM_TALENT),
+      },
+      {
+        spell: TALENTS.ASCENDANCE_ENHANCEMENT_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        enabled: combatant.hasTalent(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT),
+        cooldown: 180,
       },
     ];
   }

@@ -18,7 +18,7 @@ export const SV_KILL_COMMAND_FOCUS_GAIN = 15;
 //Serpent Sting costs 20 focus
 export const SV_SERPENT_STING_COST = 20;
 //The baseduration of Serpent Sting before any haste reduction
-export const SERPENT_STING_SV_BASE_DURATION = 12000;
+export const SERPENT_STING_SURVIVAL_BASE_DURATION = 12000;
 //endregion
 
 //region Talents
@@ -46,22 +46,17 @@ export const MONGOOSE_BITE_MAX_TRAVEL_TIME = 700;
 export const MONGOOSE_BITE_MAX_STACKS = 5;
 /** Guerilla Tactics */
 //The initial hit modifier for Guerrilla Tactics talent
-export const GUERRILLA_TACTICS_INIT_HIT_MODIFIER = 1;
+export const GUERRILLA_TACTICS_INIT_HIT_MODIFIER = 0.5;
 //Spells affected by Guerrilla Tactics talent
-export const AFFECTED_BY_GUERRILLA_TACTICS = [
-  SPELLS.WILDFIRE_BOMB_IMPACT,
-  SPELLS.VOLATILE_BOMB_WFI_IMPACT,
-  SPELLS.PHEROMONE_BOMB_WFI_IMPACT,
-  SPELLS.SHRAPNEL_BOMB_WFI_IMPACT,
-];
+export const AFFECTED_BY_GUERRILLA_TACTICS = [SPELLS.WILDFIRE_BOMB_IMPACT];
 /** Tip of the Spear */
 //Tip of the Spear damage increase
-export const TIP_DAMAGE_INCREASE = 0.25;
+export const TIP_DAMAGE_INCREASE = 0.15;
 //Tip maximum stacks
 export const TIP_MAX_STACKS = 3;
 /** Alpha Predator */
 //The damage increase from Alpha Predator
-export const ALPHA_DAMAGE_KC_MODIFIER = 0.3;
+export const ALPHA_DAMAGE_KC_MODIFIER = 0.15;
 /** Bloodseeker */
 //Attack speed gain per bleeding enemy from Bloodseeker
 export const BLOODSEEKER_ATTACK_SPEED_GAIN = 0.1;
@@ -69,12 +64,21 @@ export const BLOODSEEKER_ATTACK_SPEED_GAIN = 0.1;
 //Hydra's Bite DOT damage increase
 export const HYDRAS_BITE_DOT_MODIFIER = 0.2;
 //endregion
+/** Explosives Expert */
+// Explosives Expert cooldown reduction
+export const EXPLOSIVES_EXPERT_CDR = [0, 1, 2];
+/** Ruthless Marauder */
+// Ruthless Marauder cooldown reduction
+export const RUTHLESS_MARAUDER_CDR = [0, 0.5, 1];
+export const RUTHLESS_MARAUDER_CDR_COOLDOWN_MS = 100;
+//endregion
+// /** Ruthless Marauder */
 
 //region Resources
 export const LIST_OF_FOCUS_SPENDERS_SV = [
-  TALENTS.CARVE_TALENT,
   TALENTS.BUTCHERY_TALENT,
   TALENTS.KILL_SHOT_SURVIVAL_TALENT,
+  TALENTS.WILDFIRE_BOMB_TALENT,
   ...RAPTOR_MONGOOSE_VARIANTS,
 ];
 //endregion

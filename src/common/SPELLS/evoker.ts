@@ -478,13 +478,18 @@ const spells = {
     name: 'Breath of Eons',
     icon: 'ability_evoker_breathofeons',
   },
-  MELT_ARMOR_DAMAGE: {
+  MELT_ARMOR: {
     id: 441172,
     name: 'Melt Armor',
     icon: 'inv_10_gearupgrade_drakesshadowflameenhancedcrest',
   },
   BOMBARDMENTS_DAMAGE: {
     id: 434481,
+    name: 'Bombardments',
+    icon: 'inv_ability_scalecommanderevoker_bombardments',
+  },
+  BOMBARDMENTS_DEBUFF: {
+    id: 434473,
     name: 'Bombardments',
     icon: 'inv_ability_scalecommanderevoker_bombardments',
   },
@@ -583,6 +588,11 @@ const spells = {
     name: 'Spiritbloom',
     icon: 'ability_evoker_spiritbloom2',
   },
+  CHRONO_FLAME_CAST: {
+    id: 431443,
+    name: 'Chronoflame',
+    icon: 'inv_ability_chronowardenevoker_chronoflame',
+  },
   CHRONO_FLAME_HEAL: {
     id: 431483,
     name: 'Chronoflame',
@@ -613,6 +623,28 @@ const spells = {
     name: 'Imminent Destruction',
     icon: 'spell_burningbladeshaman_blazing_radiance',
   },
+  // region Scalecommander
+  MASS_DISINTEGRATE_BUFF: {
+    id: 436336,
+    name: 'Mass Disintegrate',
+    icon: 'ability_evoker_disintegrate',
+  },
+  MASS_ERUPTION_BUFF: {
+    id: 438588,
+    name: 'Mass Eruption',
+    icon: 'ability_evoker_eruption',
+  },
+  MASS_ERUPTION_DAMAGE: {
+    id: 438653,
+    name: 'Mass Eruption',
+    icon: 'ability_evoker_eruption',
+  },
+  UNRELENTING_SIEGE_BUFF: {
+    id: 441248,
+    name: 'Unrelenting Siege',
+    icon: 'ability_siege_engineer_superheated',
+  },
+  // endregion
 } satisfies Record<string, Spell>;
 
 export default spells;

@@ -22,7 +22,13 @@ import { PetInfo } from 'parser/core/Pet';
 import { EnemyInfo } from 'parser/core/Enemy';
 import { PlayerInfo } from 'parser/core/Player';
 
-const FILTERABLE_TYPES = {
+interface FilterableType {
+  name: string;
+  explanation?: string;
+  isFabricated?: boolean;
+}
+
+const FILTERABLE_TYPES: Record<string, FilterableType> = {
   damage: {
     name: 'Damage',
   },
@@ -126,6 +132,16 @@ const FILTERABLE_TYPES = {
     name: 'Extra Attacks',
     explanation: 'Typically triggered by Windfury Totem.',
   },
+  updatespellusable: {
+    name: 'Spell Usable',
+    explanation:
+      "Triggered when the ability's remaining cooldown is modified by an external effect",
+    isFabricated: true,
+  },
+  changebuffstack: {
+    name: 'Stacks Changed',
+    isFabricated: true,
+  },
 } as const;
 type FilterableEventType = keyof typeof FILTERABLE_TYPES;
 const filterableEventTypes = Object.keys(FILTERABLE_TYPES);
@@ -176,6 +192,10 @@ const getEventTypeExplanation = (name: string) => {
   }
   const eventType = FILTERABLE_TYPES[name];
   return 'explanation' in eventType ? eventType.explanation : undefined;
+};
+
+const getEventTypeIsFabricated = (name: string) => {
+  return FILTERABLE_TYPES[name]?.isFabricated ?? false;
 };
 
 const EntityCell = ({ entity }: { entity: PlayerInfo | PetInfo | EnemyInfo | null }) => {
@@ -280,6 +300,20 @@ const reducer = (state: State, action: Action): State => {
   }
 };
 
+const backgroundClass = (rowData: any) => {
+  const classes = [];
+  if (rowData.__modified) {
+    classes.push('modified');
+  }
+  if (rowData.__fabricated) {
+    classes.push('fabricated');
+  }
+  if (rowData.__reordered) {
+    classes.push('reordered');
+  }
+  return classes.join('-');
+};
+
 interface EventsTabFnProps {
   parser: CombatLogParser;
 }
@@ -347,16 +381,21 @@ export default function EventsTabFn({ parser }: EventsTabFnProps) {
             spellCheck="false"
           />
           <br />
-          {filterableEventTypes.filter(isFilterableEventType).map((type) => (
-            <EventTabsToggle
-              key={type}
-              checked={types[type]}
-              id={type}
-              label={getEventTypeName(type, rawNames)}
-              explanation={getEventTypeExplanation(type)}
-              onChange={() => dispatch({ type: 'toggleEventType', eventType: type })}
-            />
-          ))}
+          {filterableEventTypes.filter(isFilterableEventType).map((type) => {
+            if (!getEventTypeIsFabricated(type) || showFabricated) {
+              return (
+                <EventTabsToggle
+                  key={type}
+                  checked={types[type]}
+                  id={type}
+                  label={getEventTypeName(type, rawNames)}
+                  explanation={getEventTypeExplanation(type)}
+                  onChange={() => dispatch({ type: 'toggleEventType', eventType: type })}
+                />
+              );
+            }
+            return null;
+          })}
           <br />
           <div className="flex" style={{ paddingLeft: 5 }}>
             <button className="btn btn-link" onClick={() => dispatch({ type: 'turnAllOff' })}>
@@ -405,9 +444,7 @@ export default function EventsTabFn({ parser }: EventsTabFnProps) {
                 rowRenderer={(props) =>
                   defaultTableRowRenderer({
                     ...props,
-                    className: `${props.className} ${props.rowData.__modified ? 'modified' : ''} ${
-                      props.rowData.__fabricated ? 'fabricated' : ''
-                    } ${props.rowData.__reordered ? 'reordered' : ''}`,
+                    className: `${props.className} ${backgroundClass(props.rowData)}`,
                   })
                 }
                 onRowClick={({ rowData }) => console.log(rowData)}

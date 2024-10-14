@@ -1,22 +1,14 @@
-import { formatPercentage, formatThousands } from 'common/format';
 import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/priest/holy/Guide';
 import { getCircleOfHealingEvents } from '../../normalizers/CastLinkNormalizer';
 import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
 import { BadColor, OkColor, GoodColor } from 'interface/guide';
 import CastEfficiencyPanel from 'interface/guide/components/CastEfficiencyPanel';
-
-const OVERHEAL_THRESHOLD = 0.75;
-const COH_MAX_TARGETS_HIT = 5;
+import { COH_MAX_TARGETS_HIT, COH_OVERHEAL_THRESHOLD } from '../../constants';
 
 class CircleOfHealing extends Analyzer {
   circleOfHealingCasts = 0;
@@ -82,7 +74,7 @@ class CircleOfHealing extends Analyzer {
     const maxTargets = this.orisonActive ? COH_MAX_TARGETS_HIT + 1 : COH_MAX_TARGETS_HIT;
     if (targetsHit < maxTargets) {
       this.badCasts += 1;
-    } else if (overhealing / (healing + overhealing) >= OVERHEAL_THRESHOLD) {
+    } else if (overhealing / (healing + overhealing) >= COH_OVERHEAL_THRESHOLD) {
       this.okCasts += 1;
     } else {
       this.goodCasts += 1;
@@ -134,31 +126,6 @@ class CircleOfHealing extends Analyzer {
     );
 
     return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
-  }
-
-  statistic() {
-    return (
-      <Statistic
-        tooltip={
-          <>
-            <SpellLink spell={TALENTS.CIRCLE_OF_HEALING_TALENT} /> Casts:{' '}
-            {this.circleOfHealingCasts}
-            <br />
-            Total Healing: {formatThousands(this.circleOfHealingHealing)} (
-            {formatPercentage(this.overHealPercent)}% OH)
-            <br />
-            Average Targets Hit: {this.averageTargetsHit.toFixed(2)}
-          </>
-        }
-        size="flexible"
-        category={STATISTIC_CATEGORY.GENERAL}
-        position={STATISTIC_ORDER.OPTIONAL(5)}
-      >
-        <BoringSpellValueText spell={TALENTS.CIRCLE_OF_HEALING_TALENT}>
-          <ItemHealingDone amount={this.circleOfHealingHealing} />
-        </BoringSpellValueText>
-      </Statistic>
-    );
   }
 }
 

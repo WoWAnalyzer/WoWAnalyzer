@@ -1,152 +1,134 @@
-import { formatNumber } from 'common/format';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
-import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import Statistic from 'parser/ui/Statistic';
-import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import { Options } from 'parser/core/Analyzer';
+import { CastEvent } from 'parser/core/Events';
+import PrimalElementalist, { PrimalElementalCast } from './PrimalElementalist';
+import { ChecklistUsageInfo, SpellUse } from 'parser/core/SpellUsage/core';
+import { getLowestPerf, QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { plural } from '@lingui/macro';
+import NPCS from 'common/NPCS/shaman';
 
-const damagingCasts = [SPELLS.EYE_OF_THE_STORM, SPELLS.WIND_GUST, SPELLS.CALL_LIGHTNING];
-const CALL_LIGHTNING_BUFF_DURATION = 15000;
+const CALL_LIGHTNING_BUFF_DURATION = 20000;
 
-class PrimalStormElemental extends Analyzer {
-  eotsCasts = 0;
-  pseCasts = 0;
-  lastCLCastTimestamp = 0;
+interface StormElemental extends PrimalElementalCast {
+  lastCallLightning: number;
+  castsWithoutCallLightning: number;
+}
 
-  usedCasts: { [key: number]: boolean };
-
-  damageGained = 0;
-  maelstromGained = 0;
-  badCasts = 0;
-
+class PrimalStormElemental extends PrimalElementalist<StormElemental> {
   constructor(options: Options) {
-    super(options);
-    this.usedCasts = {
-      [SPELLS.EYE_OF_THE_STORM.id]: false,
-      [SPELLS.WIND_GUST.id]: false,
-      [SPELLS.CALL_LIGHTNING.id]: false,
-    };
-    this.active =
-      this.selectedCombatant.hasTalent(TALENTS.PRIMAL_ELEMENTALIST_TALENT) &&
-      this.selectedCombatant.hasTalent(TALENTS.STORM_ELEMENTAL_TALENT);
+    super(NPCS.PRIMAL_STORM_ELEMENTAL.id, [SPELLS.EYE_OF_THE_STORM], options);
+  }
 
-    if (!this.active) {
+  beginCooldownTrigger(event: CastEvent, spells: Map<number, number>): StormElemental {
+    return {
+      event: event,
+      spells: spells,
+      damageDone: 0,
+      end: event.timestamp + this.duration,
+      lastCallLightning: 0,
+      castsWithoutCallLightning: 0,
+    };
+  }
+
+  onElementalCast(event: CastEvent) {
+    if (!this.isPetEvent(event)) {
       return;
     }
+    super.onElementalCast(event);
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER_PET).spell(damagingCasts), this.onPetCast);
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER_PET).spell(damagingCasts),
-      this.onPetDamage,
-    );
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.STORM_ELEMENTAL_TALENT),
-      this.onPSECast,
-    );
-  }
-
-  get unusedSpells() {
-    return Object.keys(this.usedCasts).filter((spellId) => !this.usedCasts[Number(spellId)]);
-  }
-
-  get unusedSpellsSuggestionTresholds() {
-    return {
-      actual: this.unusedSpells.length,
-      isGreaterThanOrEqual: {
-        minor: 1,
-        major: 1,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
-  }
-
-  get badCastsSuggestionTresholds() {
-    return {
-      actual: this.unusedSpells.length,
-      isGreaterThanOrEqual: {
-        minor: 1,
-        major: 5,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
-  }
-
-  onPSECast(event: CastEvent) {
-    this.pseCasts += 1;
-  }
-
-  onPetCast(event: CastEvent) {
-    this.usedCasts[event.ability.guid] = true;
-  }
-
-  onPetDamage(event: DamageEvent) {
-    this.damageGained += event.amount + (event.absorbed || 0);
-
-    if (event.ability.guid !== SPELLS.CALL_LIGHTNING.id) {
-      if (event.timestamp > this.lastCLCastTimestamp + CALL_LIGHTNING_BUFF_DURATION) {
-        this.badCasts += 1;
-      }
+    switch (event.ability.guid) {
+      case SPELLS.CALL_LIGHTNING.id:
+        this.currentElemental!.lastCallLightning = event.timestamp;
+        break;
+      default:
+        if (
+          event.timestamp >
+          this.currentElemental!.lastCallLightning + CALL_LIGHTNING_BUFF_DURATION
+        ) {
+          this.currentElemental!.castsWithoutCallLightning += 1;
+        }
+        break;
     }
   }
 
-  suggestions(when: When) {
-    const unusedSpellsString = this.unusedSpells
-      .map((spellId) => SPELLS[Number(spellId)].name)
-      .join(', ');
-
-    when(this.unusedSpellsSuggestionTresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <span>
-          {' '}
-          Your Storm Elemental is not using all of it's spells. Check if Wind Gust and Call
-          Lightning are set to autocast and you are using Eye Of The Storm.
-        </span>,
-      )
-        .icon(TALENTS.STORM_ELEMENTAL_TALENT.icon)
-        .actual(
-          `${formatNumber(actual)} spells not used by your Storm Elemental (${unusedSpellsString})`,
-        )
-        .recommended(`You should be using all spells of your Storm Elemental.`),
-    );
-
-    when(this.badCastsSuggestionTresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <span>
-          You are not using <SpellLink spell={SPELLS.CALL_LIGHTNING} /> on cooldown.
-        </span>,
-      )
-        .icon(TALENTS.STORM_ELEMENTAL_TALENT.icon)
-        .actual(
-          `${formatNumber(
-            actual,
-          )} casts done by your Storm Elemental without the "Call Lightning"-Buff.}`,
-        )
-        .recommended(`You should be recasting "Call Lightning" before the buff drops off.`),
-    );
+  explainEyeOfTheStorm(cast: StormElemental): ChecklistUsageInfo {
+    return {
+      check: `used-${SPELLS.EYE_OF_THE_STORM.id}`,
+      timestamp: cast.event.timestamp,
+      performance: cast.spells ? QualitativePerformance.Perfect : QualitativePerformance.Fail,
+      summary: (
+        <div>
+          <>
+            <SpellLink spell={SPELLS.EYE_OF_THE_STORM} /> used
+          </>
+        </div>
+      ),
+      details: (
+        <div>
+          <>
+            <SpellLink spell={SPELLS.EYE_OF_THE_STORM.id} /> used
+          </>
+        </div>
+      ),
+    };
   }
 
-  statistic() {
-    return (
-      <Statistic
-        position={STATISTIC_ORDER.OPTIONAL()}
-        size="flexible"
-        tooltip={
-          <>
-            Your Storm Elemental cast {formatNumber(this.badCasts)} spells without{' '}
-            <SpellLink spell={SPELLS.CALL_LIGHTNING} />
-          </>
-        }
-      >
-        <BoringSpellValueText spell={TALENTS.STORM_ELEMENTAL_TALENT}>
-          <ItemDamageDone amount={this.damageGained} />
-        </BoringSpellValueText>
-      </Statistic>
-    );
+  explainCallLightning(cast: StormElemental): ChecklistUsageInfo {
+    const count = [...cast.spells.values()].reduce((total, value) => (total += value), 0);
+    const percentage = 1 - cast.castsWithoutCallLightning / count;
+
+    return {
+      check: 'call-lightning',
+      timestamp: cast.event.timestamp,
+      performance:
+        percentage >= 0.95
+          ? QualitativePerformance.Perfect
+          : percentage >= 0.9
+            ? QualitativePerformance.Good
+            : percentage >= 0.85
+              ? QualitativePerformance.Ok
+              : QualitativePerformance.Fail,
+      summary:
+        cast.castsWithoutCallLightning === 0 ? (
+          <div>
+            <SpellLink spell={SPELLS.CALL_LIGHTNING} /> active for all casts
+          </div>
+        ) : (
+          <div>
+            <SpellLink spell={SPELLS.CALL_LIGHTNING} /> missing for some casts
+          </div>
+        ),
+      details:
+        cast.castsWithoutCallLightning === 0 ? (
+          <div>
+            All casts buffed by <SpellLink spell={SPELLS.CALL_LIGHTNING} />
+          </div>
+        ) : (
+          <div>
+            <strong>{cast.castsWithoutCallLightning}</strong>{' '}
+            {plural(cast.castsWithoutCallLightning, { one: 'spell', other: 'spells' })} cast without{' '}
+            <SpellLink spell={SPELLS.CALL_LIGHTNING} />{' '}
+            <small>(0% recommended, actual {formatPercentage(1 - percentage)}%)</small>
+          </div>
+        ),
+    };
+  }
+
+  explainPerformance(cast: StormElemental): SpellUse {
+    const checklist: ChecklistUsageInfo[] = [
+      this.explainEyeOfTheStorm(cast),
+      this.explainCallLightning(cast),
+    ];
+
+    return {
+      checklistItems: checklist,
+      event: cast.event,
+      performance: getLowestPerf(checklist.map((usage) => usage.performance)),
+      extraDetails: null,
+      performanceExplanation: null,
+    };
   }
 }
 

@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/priest';
+import TALENTS, { TALENTS_PRIEST } from 'common/TALENTS/priest';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
@@ -10,23 +10,23 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { formatPercentage } from 'common/format';
 import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
-
-const HEALING_MULTIPLIER_BY_RANK: number[] = [0, 0.2, 0.4];
-const HOLY_WORD_LIST = [
-  TALENTS.HOLY_WORD_CHASTISE_TALENT,
-  TALENTS.HOLY_WORD_SALVATION_TALENT,
-  TALENTS.HOLY_WORD_SANCTIFY_TALENT,
-  TALENTS.HOLY_WORD_SERENITY_TALENT,
-];
-const RESONANT_WORD_WHITELIST = [
-  SPELLS.FLASH_HEAL,
-  SPELLS.GREATER_HEAL,
-  TALENTS.PRAYER_OF_HEALING_TALENT,
-  TALENTS.CIRCLE_OF_HEALING_TALENT,
-];
+import {
+  HEALING_MULTIPLIER_BY_RANK,
+  HOLY_WORD_LIST,
+  RESONANT_WORD_WHITELIST,
+} from '../../../constants';
+import EOLAttrib from '../../core/EchoOfLightAttributor';
+import SpellLink from 'interface/SpellLink';
+import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 
 // Example Log: /report/kVQd4LrBb9RW2h6K/9-Heroic+The+Primal+Council+-+Wipe+5+(5:04)/Delipriest/standard/statistics
 class ResonantWords extends Analyzer {
+  static dependencies = {
+    eolAttrib: EOLAttrib,
+  };
+  protected eolAttrib!: EOLAttrib;
+  eolContrib = 0;
+
   totalResonantWords = 0;
   usedResonantWords = 0;
   healingDoneFromTalent = 0;
@@ -74,6 +74,10 @@ class ResonantWords extends Analyzer {
         event,
         this.healingMultiplierWhenActive,
       );
+      this.eolContrib += this.eolAttrib.getEchoOfLightAmpAttrib(
+        event,
+        this.healingMultiplierWhenActive,
+      );
     }
   }
 
@@ -93,10 +97,30 @@ class ResonantWords extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={`${this.wastedResonantWords}/${this.totalResonantWords} wasted resonant word buffs.`}
+        tooltip={
+          <>
+            {this.wastedResonantWords}/{this.totalResonantWords} wasted{' '}
+            <SpellLink spell={TALENTS_PRIEST.RESONANT_WORDS_TALENT} /> buffs.
+            <br />
+            <div>Breakdown:</div>
+            <div>
+              <SpellLink spell={TALENTS_PRIEST.RESONANT_WORDS_TALENT} />:{' '}
+              <ItemPercentHealingDone amount={this.healingDoneFromTalent}></ItemPercentHealingDone>{' '}
+            </div>
+            <div>
+              <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
+              <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone>
+            </div>
+            <div>
+              Notably this module currently is missing the contributions to{' '}
+              <SpellLink spell={TALENTS_PRIEST.BINDING_HEALS_TALENT} /> and{' '}
+              <SpellLink spell={TALENTS_PRIEST.TRAIL_OF_LIGHT_TALENT} />, which can undervalue it.
+            </div>
+          </>
+        }
       >
         <TalentSpellText talent={TALENTS.RESONANT_WORDS_TALENT}>
-          <ItemHealingDone amount={this.healingDoneFromTalent} />
+          <ItemHealingDone amount={this.healingDoneFromTalent + this.eolContrib} />
           <br />
           {formatPercentage(
             this.overhealingDoneFromTalent /

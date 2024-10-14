@@ -12,17 +12,19 @@ import Events, {
   UpdateSpellUsableType,
 } from 'parser/core/Events';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { TALENTS_SHAMAN } from 'common/TALENTS';
+import TALENTS from 'common/TALENTS/shaman';
 import MajorCooldown, { CooldownTrigger } from 'parser/core/MajorCooldowns/MajorCooldown';
 import SpellUsable from 'analysis/retail/shaman/enhancement/modules/core/SpellUsable';
 import { ChecklistUsageInfo, SpellUse, UsageInfo } from 'parser/core/SpellUsage/core';
-import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { SpellLink } from 'interface';
+import {
+  evaluateQualitativePerformanceByThreshold,
+  getLowestPerf,
+  QualitativePerformance,
+} from 'parser/ui/QualitativePerformance';
+import { SpellIcon, SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
 import Abilities from '../Abilities';
 import Haste from 'parser/shared/modules/Haste';
-import { THORIMS_INVOCATION_LINK } from 'analysis/retail/shaman/enhancement/modules/normalizers/EventLinkNormalizer';
-import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { formatNumber, formatPercentage } from 'common/format';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -35,13 +37,13 @@ import EmbeddedTimelineContainer, {
   SpellTimeline,
 } from 'interface/report/Results/Timeline/EmbeddedTimeline';
 import Casts from 'interface/report/Results/Timeline/Casts';
+import { MaelstromWeaponTracker } from 'analysis/retail/shaman/enhancement/modules/resourcetracker';
+import { EnhancementEventLinks, GCD_TOLERANCE } from '../../constants';
+import RESOURCE_TYPES, { getResourceCost } from 'game/RESOURCE_TYPES';
+import { addEnhancedCastReason, addInefficientCastReason } from 'parser/core/EventMetaLib';
+import { getApplicableRules, HighPriorityAbilities } from '../../common';
+import ElementalSpirits from './ElementalSpirits';
 
-const NonMissedCastSpells = [
-  TALENTS_SHAMAN.SUNDERING_TALENT.id,
-  TALENTS_SHAMAN.DOOM_WINDS_TALENT.id,
-  TALENTS_SHAMAN.FERAL_SPIRIT_TALENT.id,
-  SPELLS.WINDSTRIKE_CAST.id,
-];
 const SIMULATED_MEDIAN_CASTS_PER_DRE = 13;
 
 interface StormstrikeCasts {
@@ -61,6 +63,8 @@ interface AscendanceCooldownCast
   extraDamage: number;
   hasteAdjustedWastedCooldown: number;
   timeline: AscendanceTimeline;
+  unusedGcdTime: number;
+  globalCooldowns: number[];
 }
 
 class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
@@ -69,24 +73,32 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
     haste: Haste,
     spellUsable: SpellUsable,
     abilities: Abilities,
+    maelstromWeaponTracker: MaelstromWeaponTracker,
+    elementalSpirits: ElementalSpirits,
   };
 
+  // dependency properties
   protected haste!: Haste;
   protected spellUsable!: SpellUsable;
   protected abilities!: Abilities;
+  protected maelstromWeaponTracker!: MaelstromWeaponTracker;
+  protected elementalSpirits!: ElementalSpirits;
 
-  protected currentCooldown: AscendanceCooldownCast | null = null;
+  protected activeWindow: AscendanceCooldownCast | null = null;
   protected windstrikeOnCooldown: boolean = true;
   protected lastCooldownWasteCheck: number = 0;
 
   protected castsBeforeAscendanceProc: StormstrikeCasts[] = [{ count: 0 }];
   protected globalCooldownEnds: number = 0;
 
+  // building these in constructor as rules need to reference msw tracker and elemental spirits
+  readonly ascendanceCastRules: HighPriorityAbilities = [];
+
   constructor(options: Options) {
-    super({ spell: TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT }, options);
+    super({ spell: TALENTS.ASCENDANCE_ENHANCEMENT_TALENT }, options);
     this.active =
-      this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT) ||
-      this.selectedCombatant.hasTalent(TALENTS_SHAMAN.DEEPLY_ROOTED_ELEMENTS_TALENT);
+      this.selectedCombatant.hasTalent(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT);
     if (!this.active) {
       return;
     }
@@ -106,26 +118,59 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
       },
     });
 
-    if (this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT)) {
+    this.ascendanceCastRules.push(
+      TALENTS.FERAL_SPIRIT_TALENT.id,
+      {
+        spellId: SPELLS.TEMPEST_CAST.id,
+        condition: (cast) =>
+          getResourceCost(cast.resourceCost, RESOURCE_TYPES.MAELSTROM_WEAPON.id) === 10,
+        enhancedCastReason: (isvalid) =>
+          isvalid && (
+            <>
+              Cast <SpellLink spell={TALENTS.TEMPEST_TALENT} /> available and at 10{' '}
+              <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> stacks
+            </>
+          ),
+      },
+      {
+        spellId: TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id,
+        condition: (cast) => {
+          const cost = getResourceCost(cast.resourceCost, RESOURCE_TYPES.MAELSTROM_WEAPON.id) ?? 0;
+          const elementalSpirits = this.elementalSpirits.elementalSpiritCount;
+          return cost >= 8 && elementalSpirits >= 6;
+        },
+        enhancedCastReason: (isValid) =>
+          isValid && (
+            <>
+              During <SpellLink spell={TALENTS.ASCENDANCE_ENHANCEMENT_TALENT} />, cast{' '}
+              <SpellLink spell={TALENTS.ELEMENTAL_BLAST_ENHANCEMENT_TALENT} /> when you have at
+              least 8 <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> and 6{' '}
+              <SpellLink spell={TALENTS.ELEMENTAL_SPIRITS_TALENT} />
+            </>
+          ),
+      },
+    );
+
+    if (this.selectedCombatant.hasTalent(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT)) {
       this.addEventListener(
-        Events.cast.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT),
+        Events.cast.by(SELECTED_PLAYER).spell(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT),
         this.onAscendanceCast,
       );
     } else {
       this.addEventListener(
-        Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT),
+        Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT),
         this.onAscendanceCast,
       );
       this.addEventListener(
-        Events.refreshbuff.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT),
+        Events.refreshbuff.by(SELECTED_PLAYER).spell(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT),
         this.onAscendanceCast,
       );
     }
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onGeneralCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT),
+      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT),
       this.onAscendanceEnd,
     );
     this.addEventListener(Events.fightend, this.onFightEnd);
@@ -133,11 +178,9 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
       Events.UpdateSpellUsable.by(SELECTED_PLAYER).spell(SPELLS.WINDSTRIKE_CAST),
       this.detectWindstrikeCasts,
     );
-    if (this.selectedCombatant.hasTalent(TALENTS_SHAMAN.DEEPLY_ROOTED_ELEMENTS_TALENT)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT)) {
       this.addEventListener(
-        Events.cast
-          .by(SELECTED_PLAYER)
-          .spell([TALENTS_SHAMAN.STORMSTRIKE_TALENT, SPELLS.WINDSTRIKE_CAST]),
+        Events.cast.by(SELECTED_PLAYER).spell([TALENTS.STORMSTRIKE_TALENT, SPELLS.WINDSTRIKE_CAST]),
         this.onProcEligibleCast,
       );
     }
@@ -146,7 +189,10 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
 
   onGlobalCooldown(event: GlobalCooldownEvent) {
     this.globalCooldownEnds = event.duration + event.timestamp;
-    this.currentCooldown?.timeline.events?.push(event);
+    if (this.activeWindow) {
+      this.activeWindow.timeline.events?.push(event);
+      this.activeWindow.globalCooldowns.push(event.duration);
+    }
   }
 
   detectWindstrikeCasts(event: UpdateSpellUsableEvent) {
@@ -177,47 +223,78 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
    */
   onAscendanceCast(event: CastEvent | ApplyBuffEvent | RefreshBuffEvent) {
     this.castsBeforeAscendanceProc.push({ count: 0 });
-    this.currentCooldown ??= {
-      event: event,
-      timeline: {
-        start: Math.max(event.timestamp, this.globalCooldownEnds),
-        events: [],
-      },
-      extraDamage: 0,
-      hasteAdjustedWastedCooldown: 0,
-    };
+    if (!this.activeWindow) {
+      this.activeWindow ??= {
+        event: event,
+        timeline: {
+          start: Math.max(event.timestamp, this.globalCooldownEnds),
+          events: [],
+        },
+        extraDamage: 0,
+        hasteAdjustedWastedCooldown: 0,
+        globalCooldowns: [],
+        unusedGcdTime: 0,
+      };
+    }
     this.lastCooldownWasteCheck = event.timestamp;
   }
 
-  onGeneralCast(event: CastEvent) {
+  isValidCastDuringAscendance(event: CastEvent): boolean {
+    const firstApplicableRule = getApplicableRules(event, this.ascendanceCastRules)?.at(0);
+
+    if (firstApplicableRule) {
+      if (typeof firstApplicableRule === 'object') {
+        const isValidCast = !firstApplicableRule.condition || firstApplicableRule.condition(event);
+        if (firstApplicableRule.enhancedCastReason) {
+          const reason = firstApplicableRule.enhancedCastReason(isValidCast);
+          if (reason) {
+            const addReason = isValidCast ? addEnhancedCastReason : addInefficientCastReason;
+            addReason(event, reason);
+          }
+        }
+        return !isValidCast;
+      } else {
+        return firstApplicableRule === event.ability.guid;
+      }
+    }
+    return true;
+  }
+
+  onCast(event: CastEvent) {
     if (
-      !this.currentCooldown ||
-      event.ability.guid === TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id ||
+      !this.activeWindow ||
+      [TALENTS.ASCENDANCE_ENHANCEMENT_TALENT.id, SPELLS.MELEE.id].includes(event.ability.guid) ||
       !event.globalCooldown
     ) {
       return;
     }
-    if (!NonMissedCastSpells.includes(event.ability.guid)) {
-      this.currentCooldown.hasteAdjustedWastedCooldown +=
+
+    this.activeWindow.unusedGcdTime += Math.max(event.timestamp - this.globalCooldownEnds, 0);
+    if (
+      (event.ability.guid !== SPELLS.WINDSTRIKE_CAST.id &&
+        !this.isValidCastDuringAscendance(event)) ||
+      this.spellUsable.isAvailable(SPELLS.WINDSTRIKE_CAST.id)
+    ) {
+      this.activeWindow.hasteAdjustedWastedCooldown +=
         this.hasteAdjustedCooldownWasteSinceLastWasteCheck(event);
     }
     this.lastCooldownWasteCheck = event.timestamp;
-    this.currentCooldown!.timeline.events.push(event);
+    this.activeWindow!.timeline.events.push(event);
   }
 
   onDamage(event: DamageEvent) {
-    if (this.currentCooldown) {
-      this.currentCooldown.extraDamage += event.amount;
+    if (this.activeWindow) {
+      this.activeWindow.extraDamage += event.amount;
     }
   }
 
   onAscendanceEnd(event: AnyEvent) {
-    if (this.currentCooldown) {
-      this.currentCooldown.timeline.end = event.timestamp;
-      this.currentCooldown.hasteAdjustedWastedCooldown +=
+    if (this.activeWindow) {
+      this.activeWindow.timeline.end = event.timestamp;
+      this.activeWindow.hasteAdjustedWastedCooldown +=
         this.hasteAdjustedCooldownWasteSinceLastWasteCheck(event);
-      this.recordCooldown(this.currentCooldown);
-      this.currentCooldown = null;
+      this.recordCooldown(this.activeWindow);
+      this.activeWindow = null;
     }
   }
 
@@ -242,25 +319,31 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
     return (
       <>
         <p>
+          During{' '}
           <strong>
-            <SpellLink spell={TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT} />
+            <SpellLink spell={TALENTS.ASCENDANCE_ENHANCEMENT_TALENT} />
           </strong>{' '}
-          is a powerful{' '}
-          {this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT) ? (
-            <>cooldow</>
-          ) : (
-            <>proc</>
-          )}
-          , which when combined with <SpellLink spell={TALENTS_SHAMAN.STATIC_ACCUMULATION_TALENT} />{' '}
-          and
-          <SpellLink spell={TALENTS_SHAMAN.THORIMS_INVOCATION_TALENT} /> has the potential for
-          extemely high burst windows.
+          <SpellLink spell={SPELLS.WINDSTRIKE_CAST} /> is top priority due to{' '}
+          <SpellLink spell={TALENTS.THORIMS_INVOCATION_TALENT} /> spending{' '}
+          <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} />.
         </p>
         <p>
-          Prioritising the correct abilities and having{' '}
-          <SpellLink spell={TALENTS_SHAMAN.THORIMS_INVOCATION_TALENT} /> primed with{' '}
-          <SpellLink spell={SPELLS.LIGHTNING_BOLT} /> is key to getting the most out of{' '}
-          <SpellLink spell={TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT} />
+          To minimise <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> waste during{' '}
+          <SpellLink spell={TALENTS.ASCENDANCE_ENHANCEMENT_TALENT} />, you will most likely need to
+          spend inbetween casts if <SpellLink spell={SPELLS.WINDSTRIKE_CAST} /> doesn't reset via{' '}
+          <SpellLink spell={SPELLS.STORMBRINGER} />.
+        </p>
+        <p>
+          An example sequence may look something like this:
+          <br />
+          <SpellIcon spell={SPELLS.WINDSTRIKE_CAST} /> &rarr;
+          <SpellIcon spell={SPELLS.WINDSTRIKE_CAST} /> &rarr;
+          <SpellIcon spell={SPELLS.LIGHTNING_BOLT} /> &rarr;
+          <SpellIcon spell={SPELLS.WINDSTRIKE_CAST} /> &rarr;
+          <SpellIcon spell={TALENTS.TEMPEST_TALENT} /> &rarr;
+          <SpellIcon spell={SPELLS.WINDSTRIKE_CAST} /> &rarr;
+          <SpellIcon spell={TALENTS.FERAL_SPIRIT_TALENT} /> &rarr;
+          <SpellIcon spell={SPELLS.WINDSTRIKE_CAST} />
         </p>
       </>
     );
@@ -270,7 +353,7 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
     return Math.floor(cast.hasteAdjustedWastedCooldown / 3000);
   }
 
-  windstrikePerformance(cast: AscendanceCooldownCast): UsageInfo {
+  windstrikePerformance(cast: AscendanceCooldownCast): ChecklistUsageInfo {
     const windstrikesCasts = cast.timeline.events.filter(
       (c) => c.type === EventType.Cast && c.ability.guid === SPELLS.WINDSTRIKE_CAST.id,
     ).length;
@@ -286,33 +369,30 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
       </div>
     );
 
-    if (missedWindstrikes === 0) {
-      return {
-        performance: QualitativePerformance.Perfect,
-        summary: windstrikeSummary,
-        details: (
+    return {
+      check: 'windstrike',
+      timestamp: cast.event.timestamp,
+      performance: evaluateQualitativePerformanceByThreshold({
+        actual: castsAsPercentageOfMax,
+        isGreaterThanOrEqual: {
+          perfect: 1,
+          good: 0.8,
+          ok: 0.6,
+        },
+      }),
+      summary: windstrikeSummary,
+      details:
+        missedWindstrikes === 0 ? (
           <div>
             You cast {windstrikesCasts} <SpellLink spell={SPELLS.WINDSTRIKE_CAST} />
             (s).
           </div>
+        ) : (
+          <div>
+            You cast {windstrikesCasts} <SpellLink spell={SPELLS.WINDSTRIKE_CAST} />
+            (s) when you could have cast {maximumNumberOfWindstrikesPossible}
+          </div>
         ),
-      };
-    }
-
-    return {
-      performance:
-        castsAsPercentageOfMax >= 0.8
-          ? QualitativePerformance.Good
-          : castsAsPercentageOfMax >= 0.6
-            ? QualitativePerformance.Ok
-            : QualitativePerformance.Fail,
-      summary: windstrikeSummary,
-      details: (
-        <div>
-          You cast {windstrikesCasts} <SpellLink spell={SPELLS.WINDSTRIKE_CAST} />
-          (s) when you could have cast {maximumNumberOfWindstrikesPossible}
-        </div>
-      ),
     };
   }
 
@@ -324,14 +404,14 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
     const thorimsInvocationFreeCasts = windstrikes.map((event) => {
       return GetRelatedEvents<DamageEvent>(
         event,
-        THORIMS_INVOCATION_LINK,
+        EnhancementEventLinks.THORIMS_INVOCATION_LINK,
         (e) => e.type === EventType.Damage,
       );
     });
 
     // casts without any maelstrom are bad casts, only relevant for elementalist builds that pick the Ascendance talent rather than storm using DRE
     const noMaelstromCasts =
-      this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT) &&
+      this.selectedCombatant.hasTalent(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT) &&
       thorimsInvocationFreeCasts.filter((fc) => !fc).length;
     if (noMaelstromCasts) {
       result.push({
@@ -354,8 +434,7 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
     const chainLightningCastsWith1Hit = thorimsInvocationFreeCasts.filter((fc) => {
       if (fc) {
         return (
-          fc.filter((de) => de.ability.guid === TALENTS_SHAMAN.CHAIN_LIGHTNING_TALENT.id).length ===
-          1
+          fc.filter((de) => de.ability.guid === TALENTS.CHAIN_LIGHTNING_TALENT.id).length === 1
         );
       }
       return false;
@@ -365,15 +444,15 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
         performance: QualitativePerformance.Ok,
         summary: (
           <div>
-            <SpellLink spell={TALENTS_SHAMAN.THORIMS_INVOCATION_TALENT} /> was primed with{' '}
-            <SpellLink spell={TALENTS_SHAMAN.CHAIN_LIGHTNING_TALENT} />
+            <SpellLink spell={TALENTS.THORIMS_INVOCATION_TALENT} /> was primed with{' '}
+            <SpellLink spell={TALENTS.CHAIN_LIGHTNING_TALENT} />
           </div>
         ),
         details: (
           <div>
-            <SpellLink spell={TALENTS_SHAMAN.THORIMS_INVOCATION_TALENT} /> cast
-            <SpellLink spell={TALENTS_SHAMAN.CHAIN_LIGHTNING_TALENT} />{' '}
-            {chainLightningCastsWith1Hit} time(s) only hitting one target.
+            <SpellLink spell={TALENTS.THORIMS_INVOCATION_TALENT} /> cast
+            <SpellLink spell={TALENTS.CHAIN_LIGHTNING_TALENT} /> {chainLightningCastsWith1Hit}{' '}
+            time(s) only hitting one target.
           </div>
         ),
       });
@@ -415,18 +494,53 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
     return { extraDetails, checklistItem };
   }
 
+  private getAverageGcdOfWindow(cast: AscendanceCooldownCast) {
+    return (
+      cast.globalCooldowns.reduce((t, gcdDuration) => (t += gcdDuration + GCD_TOLERANCE), 0) /
+      (cast.globalCooldowns.length ?? 1)
+    );
+  }
+
+  private explainGcdPerformance(cast: AscendanceCooldownCast): ChecklistUsageInfo {
+    const avgGcd = this.getAverageGcdOfWindow(cast);
+    const unsedGlobalCooldowns = Math.max(Math.floor(cast.unusedGcdTime / avgGcd), 0);
+    const estimatedPotentialCasts = (cast.timeline.end! - cast.timeline.start) / avgGcd;
+    const gcdPerfCalc = (unsedGlobalCooldowns / estimatedPotentialCasts) * 100;
+
+    return {
+      check: 'global-cooldown',
+      timestamp: cast.event.timestamp,
+      performance: evaluateQualitativePerformanceByThreshold({
+        actual: gcdPerfCalc,
+        isLessThanOrEqual: {
+          perfect: 7.5,
+          good: 15,
+          ok: 25,
+        },
+      }),
+      details: (
+        <>
+          {unsedGlobalCooldowns === 0 ? (
+            'No unused global cooldowns'
+          ) : (
+            <>{unsedGlobalCooldowns} unused global cooldowns</>
+          )}
+          .
+        </>
+      ),
+      summary: (
+        <>{cast.unusedGcdTime < 100 ? 'No unused global cooldowns' : 'Unused global cooldowns'} </>
+      ),
+    };
+  }
+
   explainPerformance(cast: AscendanceCooldownCast): SpellUse {
     const checklistItems: ChecklistUsageInfo[] = [];
 
-    const windstrikePerformance = this.windstrikePerformance(cast);
     const thorimsInvocationPerformance = this.thorimsInvocationPerformance(cast);
     const timeline = this.explainTimelineWithDetails(cast);
 
-    checklistItems.push({
-      check: 'windstrike',
-      timestamp: cast.event.timestamp,
-      ...windstrikePerformance,
-    });
+    checklistItems.push(this.windstrikePerformance(cast), this.explainGcdPerformance(cast));
 
     if (thorimsInvocationPerformance) {
       thorimsInvocationPerformance.forEach((item) => {
@@ -438,24 +552,18 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
       });
     }
 
-    const actualPerformance = combineQualitativePerformances(
-      checklistItems.map((item) => item.performance),
-    );
+    const actualPerformance = getLowestPerf(checklistItems.map((item) => item.performance));
 
     return {
       event: cast.event,
       checklistItems: checklistItems,
       performance: actualPerformance,
-      performanceExplanation:
-        actualPerformance !== QualitativePerformance.Fail
-          ? `${actualPerformance} Usage`
-          : 'Bad Usage',
       extraDetails: timeline.extraDetails,
     };
   }
 
   statistic() {
-    if (this.selectedCombatant.hasTalent(TALENTS_SHAMAN.DEEPLY_ROOTED_ELEMENTS_TALENT)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT)) {
       // don't include casts that didn't lead to a proc in casts per proc statistic
       const castsBeforeAscendanceProc = this.castsBeforeAscendanceProc
         .filter((cast: StormstrikeCasts) => !cast.noProcBeforeEnd)
@@ -484,22 +592,21 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
             </>
           }
         >
-          <TalentSpellText talent={TALENTS_SHAMAN.DEEPLY_ROOTED_ELEMENTS_TALENT}>
+          <TalentSpellText talent={TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT}>
             <div>
               {formatNumber(median)} <small>casts per proc</small>
             </div>
             <div>
               {formatNumber(castsBeforeAscendanceProc.length)}{' '}
               <small>
-                <SpellLink spell={TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT} /> procs
+                <SpellLink spell={TALENTS.ASCENDANCE_ENHANCEMENT_TALENT} /> procs
               </small>
             </div>
             <div>
               <Uptime />{' '}
               {formatPercentage(
-                this.selectedCombatant.getBuffUptime(
-                  TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id,
-                ) / this.owner.fightDuration,
+                this.selectedCombatant.getBuffUptime(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT.id) /
+                  this.owner.fightDuration,
                 2,
               )}
               % <small>uptime</small>
@@ -517,7 +624,7 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
           <CooldownUsage
             analyzer={this}
             title={
-              this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT)
+              this.selectedCombatant.hasTalent(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT)
                 ? 'Ascendance'
                 : 'Deeply Rooted Elements'
             }

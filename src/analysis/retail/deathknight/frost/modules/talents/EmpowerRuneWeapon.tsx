@@ -39,24 +39,22 @@ export default class EmpowerRuneWeapon extends Analyzer {
 
     this.currentTimestamp = 0;
 
-    this.active =
-      this.selectedCombatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_SHARED_TALENT) ||
-      this.selectedCombatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_FROST_TALENT);
+    this.active = this.selectedCombatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_TALENT);
 
     this.addEventListener(
-      Events.resourcechange.by(SELECTED_PLAYER).spell(spells.EMPOWER_RUNE_WEAPON),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(talents.EMPOWER_RUNE_WEAPON_TALENT),
       this.onResourceGain,
     );
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(spells.EMPOWER_RUNE_WEAPON),
+      Events.applybuff.by(SELECTED_PLAYER).spell(talents.EMPOWER_RUNE_WEAPON_TALENT),
       this.onErwStart,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(spells.EMPOWER_RUNE_WEAPON),
+      Events.removebuff.by(SELECTED_PLAYER).spell(talents.EMPOWER_RUNE_WEAPON_TALENT),
       this.onErwEnd,
     );
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(spells.EMPOWER_RUNE_WEAPON),
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(talents.EMPOWER_RUNE_WEAPON_TALENT),
       this.onErwEnd,
     );
     this.addEventListener(Events.fightend, this.onFightEnd);
@@ -91,7 +89,7 @@ export default class EmpowerRuneWeapon extends Analyzer {
   }
 
   onFightEnd(event: FightEndEvent) {
-    if (this.selectedCombatant.hasBuff(spells.EMPOWER_RUNE_WEAPON.id)) {
+    if (this.selectedCombatant.hasBuff(talents.EMPOWER_RUNE_WEAPON_TALENT.id)) {
       this.erwTracker.push({
         timestamp: this.currentTimestamp,
         wastedRp: this.wastedRp,
@@ -106,7 +104,7 @@ export default class EmpowerRuneWeapon extends Analyzer {
     const explanation = (
       <p>
         <strong>
-          <SpellLink spell={spells.EMPOWER_RUNE_WEAPON} />
+          <SpellLink spell={talents.EMPOWER_RUNE_WEAPON_TALENT} />
         </strong>{' '}
         is a strong resource cooldown used primarily to extend{' '}
         <SpellLink spell={talents.BREATH_OF_SINDRAGOSA_TALENT} />. It is best used to extend your
@@ -124,7 +122,7 @@ export default class EmpowerRuneWeapon extends Analyzer {
           const header = (
             <>
               @ {this.owner.formatTimestamp(cast.timestamp)} &mdash;{' '}
-              <SpellLink spell={spells.EMPOWER_RUNE_WEAPON} />
+              <SpellLink spell={talents.EMPOWER_RUNE_WEAPON_TALENT} />
             </>
           );
           const checklistItems: CooldownExpandableItem[] = [];

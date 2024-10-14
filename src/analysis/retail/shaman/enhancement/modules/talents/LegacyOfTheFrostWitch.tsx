@@ -44,7 +44,7 @@ class LegacyOfTheFrostWitch extends Analyzer {
 
   protected accumulatedSpend = 0;
   protected damageAmpPercentage = 0;
-  protected buffedSpells: Record<number, number> = [];
+  protected buffedSpells: Record<number, number> = {};
   protected stormStrikeResets = 0;
   protected windStrikeResets = 0;
   protected lastApply = 0;
@@ -161,12 +161,10 @@ class LegacyOfTheFrostWitch extends Analyzer {
         {typedKeys(this.buffedSpells).map((spellId) => {
           const spell = maybeGetSpell(spellId)!;
           return (
-            <>
-              <li key={spell?.id}>
-                <SpellLink spell={spell} /> -{' '}
-                <strong>{formatNumber(this.buffedSpells[spell.id])}</strong>
-              </li>
-            </>
+            <li key={spellId}>
+              <SpellLink spell={spell} /> -{' '}
+              <strong>{formatNumber(this.buffedSpells[spell.id])}</strong>
+            </li>
           );
         })}
       </>
@@ -183,11 +181,11 @@ class LegacyOfTheFrostWitch extends Analyzer {
           <>
             Reset breakdown:
             <ul>
-              <li key="ss_reset">
+              <li>
                 <strong>{this.stormStrikeResets}</strong>{' '}
                 <SpellLink spell={TALENTS.STORMSTRIKE_TALENT} /> resets
               </li>
-              <li key="ws_reset">
+              <li>
                 <strong>{this.windStrikeResets}</strong>{' '}
                 <SpellLink spell={SPELLS.WINDSTRIKE_CAST} /> resets
               </li>

@@ -24,10 +24,10 @@ import PrimalFireElemental from './modules/talents/PrimalFireElemental';
 import PrimalStormElemental from './modules/talents/PrimalStormElemental';
 import StormElemental from './modules/talents/StormElemental';
 import Stormkeeper from './modules/talents/Stormkeeper';
+import FlashOfLightning from './modules/talents/FlashOfLightning';
 import SurgeOfPower from './modules/talents/SurgeOfPower';
 import ElementalOrbit from '../shared/talents/ElementalOrbit';
 import EarthenHarmony from '../restoration/modules/talents/EarthenHarmony';
-import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
 import ManaSpring from 'analysis/retail/shaman/shared/talents/ManaSpring';
 import ElementalGuide from './guide/ElementalGuide';
 import SpellMaelstromCost from './modules/core/SpellMaelstromCost';
@@ -36,6 +36,14 @@ import MaelstromTracker from './modules/resources/MaelstromTracker';
 import MaelstromDetails from './modules/resources/MaelstromDetails';
 import MaelstromGraph from './modules/resources/MaelstromGraph';
 import SkybreakersFieryDemise from './modules/talents/SkybreakersFieryDemise';
+import { StormbringerTab } from '../shared/hero/stormbringer/StormbringerTab';
+import Tempest from '../shared/hero/stormbringer/Tempest';
+import StormbringerEventOrderNormalizer from '../shared/hero/stormbringer/normalizers/StormbringerEventOrderNormalizer';
+import StormbringerEventLinkNormalizer from '../shared/hero/stormbringer/normalizers/StormbringerEventLinkNormalizer';
+import EventLinkNormalizer from './modules/normalizers/EventLinkNormalizer';
+import CallOfTheAncestors from './modules/hero/farseer/CallOfTheAncestors';
+import ElementalPrepullNormalizer from './modules/normalizers/ElementalPrepullNormalizer';
+import EventOrderNormalizer from './modules/normalizers/EventOrderNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -48,6 +56,10 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     subOptimalChainLightning: SubOptimalChainLightning,
     spenderWindow: SpenderWindow,
+
+    eventLinkNormalizer: EventLinkNormalizer,
+    eventOrderNormalizer: EventOrderNormalizer,
+    elementalPrepullNormalizer: ElementalPrepullNormalizer,
 
     // Talents
     aftershock: Aftershock,
@@ -67,6 +79,15 @@ class CombatLogParser extends CoreCombatLogParser {
     ascendance: Ascendance,
     manaSpring: ManaSpring,
     skybreakersFieryDemise: SkybreakersFieryDemise,
+    flashOfLightning: FlashOfLightning,
+
+    // hero talents
+    stormbringerTab: StormbringerTab,
+    tempest: Tempest,
+    stormbringerEventOrderNormalizer: StormbringerEventOrderNormalizer,
+    stormbringerEventLinkNormalizer: StormbringerEventLinkNormalizer,
+
+    callOfTheAncestors: CallOfTheAncestors,
 
     maelstromTracker: MaelstromTracker,
     maelstromDetails: MaelstromDetails,
@@ -75,7 +96,6 @@ class CombatLogParser extends CoreCombatLogParser {
     ankhNormalizer: AnkhNormalizer,
     checklist: Checklist,
     astralShift: AstralShift,
-    callToDominance: CallToDominance,
   };
 
   static guide = ElementalGuide;

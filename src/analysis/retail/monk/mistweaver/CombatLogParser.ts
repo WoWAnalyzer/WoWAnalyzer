@@ -76,7 +76,6 @@ import RisingMistBreakdown from './modules/features/RisingMistBreakdown';
 import CalmingCoalescence from './modules/spells/CalmingCoalescence';
 import LifeCocoon from './modules/spells/LifeCocoon';
 import SecretInfusion from './modules/spells/SecretInfusion';
-import CallToDominance from '../../../../parser/retail/modules/items/dragonflight/CallToDominance';
 import MWSpellManaCost from './modules/core/SpellManaCost';
 import ManaTeaSources from './modules/spells/ManaTeaSources';
 import EnergizingBrew from './modules/spells/EnergizingBrew';
@@ -92,13 +91,15 @@ import RestoreBalance from '../shared/hero/ConduitOfTheCelestials/talents/Restor
 import ConduitOfTheCelestialsEventLinks from '../shared/hero/ConduitOfTheCelestials/normalizers/ConduitOfTheCelestialsEventLinks';
 import CelestialConduitNormalizer from '../shared/hero/ConduitOfTheCelestials/normalizers/CelestialConduitNormalizer';
 import CelestialConduit from '../shared/hero/ConduitOfTheCelestials/talents/CelestialConduit';
+import StrengthOfTheBlackOx from './modules/heroTalents/StrengthOfTheBlackOx';
+import Coalesence from '../shared/hero/MasterOfHarmony/talents/Coalesence';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Normalizer
     castLinkNormalizer: CastLinkNormalizer,
-    conduitOfTheCelestialsEventLinks: ConduitOfTheCelestialsEventLinks,
     celestialConduitNormalizer: CelestialConduitNormalizer,
+    conduitOfTheCelestialsEventLinks: ConduitOfTheCelestialsEventLinks,
     hotApplicationNormalizer: HotApplicationNormalizer,
     hotRemovalNormalizer: HotRemovalNormalizer,
 
@@ -191,21 +192,25 @@ class CombatLogParser extends CoreCombatLogParser {
     chiHarmony: ChiHarmony,
     poolOfMists: PoolOfMists,
 
-    //Hero Talents
-    //Conduit
+    // Hero Talents
+    // Conduit
     celestialConduit: CelestialConduit,
     heartOfTheJadeSerpent: HeartOfTheJadeSerpent,
     restoreBalance: RestoreBalance,
     apl: AplCheck,
+    // Harmony
+    coalesence: Coalesence,
 
     // Borrowed Power
-    callToDominance: CallToDominance,
     t32TierSet: T32TierSet,
 
     // Mana Tab
     manaTracker: ManaTracker,
     hpmDetails: MistweaverHealingEfficiencyDetails,
     hpmTracker: HealingEfficiencyTracker,
+
+    // Hero Talents
+    strengthOfTheBlackOx: StrengthOfTheBlackOx,
   };
   static guide = Guide;
 }

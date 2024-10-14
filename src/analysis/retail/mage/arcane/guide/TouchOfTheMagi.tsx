@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
@@ -7,15 +6,17 @@ import Analyzer from 'parser/core/Analyzer';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { qualitativePerformanceToColor } from 'interface/guide';
+import { PassFailCheckmark, qualitativePerformanceToColor } from 'interface/guide';
 import { PerformanceMark } from 'interface/guide';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/mage/arcane/Guide';
-import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { SpellSeq } from 'parser/ui/SpellSeq';
 
-import TouchOfTheMagi from '../talents/TouchOfTheMagi';
-import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
-import { GapHighlight } from 'parser/ui/CooldownBar';
+import TouchOfTheMagi, { TouchOfTheMagiCast } from '../talents/TouchOfTheMagi';
+import CooldownExpandable, {
+  CooldownExpandableItem,
+} from 'interface/guide/components/CooldownExpandable';
+
+const MAX_ARCANE_CHARGES = 4;
 
 class TouchOfTheMagiGuide extends Analyzer {
   static dependencies = {
@@ -24,47 +25,69 @@ class TouchOfTheMagiGuide extends Analyzer {
 
   protected touchOfTheMagi!: TouchOfTheMagi;
 
-  generateGuideTooltip(
-    performance: QualitativePerformance,
-    tooltipText: ReactNode,
-    timestamp: number,
-  ) {
-    const tooltip = (
-      <>
-        <div>
-          <b>@ {this.owner.formatTimestamp(timestamp)}</b>
-        </div>
-        <div>
-          <PerformanceMark perf={performance} /> {performance}: {tooltipText}
-        </div>
-      </>
-    );
-    return tooltip;
-  }
-
-  get activeTimeUtil() {
-    const util = this.touchOfTheMagi.touchMagiActiveTimeThresholds.actual;
+  activeTimeUtil(activePercent: number) {
     const thresholds = this.touchOfTheMagi.touchMagiActiveTimeThresholds.isLessThan;
     let performance = QualitativePerformance.Good;
-    if (util >= thresholds.minor) {
+    if (activePercent >= thresholds.minor) {
       performance = QualitativePerformance.Perfect;
-    } else if (util >= thresholds.average) {
+    } else if (activePercent >= thresholds.average) {
       performance = QualitativePerformance.Good;
-    } else if (util >= thresholds.major) {
+    } else if (activePercent >= thresholds.major) {
       performance = QualitativePerformance.Ok;
     }
     return performance;
   }
 
-  get touchMagiData() {
-    const data: BoxRowEntry[] = [];
-    this.touchOfTheMagi.touchCasts.forEach((tm) => {
-      if (tm.usage && tm.usage?.tooltip) {
-        const tooltip = this.generateGuideTooltip(tm.usage?.value, tm.usage?.tooltip, tm.applied);
-        data.push({ value: tm.usage?.value, tooltip });
-      }
+  private perCastBreakdown(cast: TouchOfTheMagiCast): React.ReactNode {
+    const header = (
+      <>
+        @ {this.owner.formatTimestamp(cast.applied)} &mdash;{' '}
+        <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} />
+      </>
+    );
+
+    const checklistItems: CooldownExpandableItem[] = [];
+
+    const noCharges = cast.charges === 0;
+    const maxCharges = cast.charges === MAX_ARCANE_CHARGES;
+    checklistItems.push({
+      label: (
+        <>
+          <SpellLink spell={SPELLS.ARCANE_CHARGE} />s Before Touch
+        </>
+      ),
+      result: <PassFailCheckmark pass={noCharges || (maxCharges && cast.refundBuff)} />,
+      details: (
+        <>
+          {cast.charges} {cast.refundBuff ? '(Refund)' : ''}
+        </>
+      ),
     });
-    return data;
+
+    const activeTime = cast.activeTime;
+    checklistItems.push({
+      label: (
+        <>
+          Active Time Percent during <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} />
+        </>
+      ),
+      result: <PerformanceMark perf={this.activeTimeUtil(activeTime || 0)} />,
+      details: <>{formatPercentage(activeTime || 0, 2)}%</>,
+    });
+
+    const overallPerf =
+      (noCharges || (maxCharges && cast.refundBuff)) && activeTime
+        ? QualitativePerformance.Good
+        : QualitativePerformance.Fail;
+
+    return (
+      <CooldownExpandable
+        header={header}
+        checklistItems={checklistItems}
+        perf={overallPerf}
+        key={cast.ordinal}
+      />
+    );
   }
 
   get guideSubsection(): JSX.Element {
@@ -78,15 +101,17 @@ class TouchOfTheMagiGuide extends Analyzer {
     const arcaneBlast = <SpellLink spell={SPELLS.ARCANE_BLAST} />;
     const arcaneSurge = <SpellLink spell={TALENTS.ARCANE_SURGE_TALENT} />;
     const presenceOfMind = <SpellLink spell={TALENTS.PRESENCE_OF_MIND_TALENT} />;
+    const burdenOfPower = <SpellLink spell={TALENTS.BURDEN_OF_POWER_TALENT} />;
+    const gloriousIncandescence = <SpellLink spell={TALENTS.GLORIOUS_INCANDESCENCE_TALENT} />;
+    const intuition = <SpellLink spell={SPELLS.INTUITION_BUFF} />;
     const touchOfTheMagiIcon = <SpellIcon spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} />;
 
     const explanation = (
       <>
         <div>
-          <b>{touchOfTheMagi}</b> is a short duration debuff and is available for each burn phase,
-          accumulating 20% of your damage. When the debuff expires it explodes dealing the
-          accumulated damage to the target and reduced damage to nearby enemies. To maximize your
-          burst, refer to the below:
+          <b>{touchOfTheMagi}</b> is a short debuff available for each burn phase and grants you 4{' '}
+          {arcaneCharge}s and accumulates 20% of your damage for the duration. When the debuff
+          expires it explodes dealing damage to the target and reduced damage to nearby targets.
         </div>
         <div>
           <ul>
@@ -95,8 +120,12 @@ class TouchOfTheMagiGuide extends Analyzer {
               until the debuff expires.
             </li>
             <li>
-              {touchOfTheMagi} gives you 4 {arcaneCharge}s, so spend them with {arcaneBarrage} and
-              cast {touchOfTheMagi} while {arcaneBarrage} is in the air.
+              Spend your {arcaneCharge}s with {arcaneBarrage} and then cast {touchOfTheMagi} while{' '}
+              {arcaneBarrage}
+              is in the air for some extra damage. cast
+              {touchOfTheMagi} while {arcaneBarrage} is in the air. This should be done even if your
+              charges will be refunded anyway via {burdenOfPower}, {gloriousIncandescence}, or{' '}
+              {intuition}.
             </li>
             <li>
               Major Burn Phase: Ensure you have {siphonStorm} and {netherPrecision}. Your cast
@@ -134,7 +163,12 @@ class TouchOfTheMagiGuide extends Analyzer {
       <div>
         <RoundedPanel>
           <div
-            style={{ color: qualitativePerformanceToColor(this.activeTimeUtil), fontSize: '20px' }}
+            style={{
+              color: qualitativePerformanceToColor(
+                this.activeTimeUtil(this.touchOfTheMagi.averageActiveTime),
+              ),
+              fontSize: '20px',
+            }}
           >
             {touchOfTheMagiIcon}{' '}
             <TooltipElement content={activeTimeTooltip}>
@@ -143,17 +177,11 @@ class TouchOfTheMagiGuide extends Analyzer {
             </TooltipElement>
           </div>
           <div>
-            <strong>Touch of the Magi Usage</strong>
-            <PerformanceBoxRow values={this.touchMagiData} />
-            <small>green (good) / red (fail) mouseover the rectangles to see more details</small>
-          </div>
-          <div>
-            <strong>Touch of the Magi Cast Efficiency</strong>
-            <CastEfficiencyBar
-              spellId={TALENTS.TOUCH_OF_THE_MAGI_TALENT.id}
-              gapHighlightMode={GapHighlight.FullCooldown}
-              useThresholds
-            />
+            <p>
+              <strong>Per-Cast Breakdown</strong>
+              <small> - click to expand</small>
+              {this.touchOfTheMagi.touchCasts.map((cast) => this.perCastBreakdown(cast))}
+            </p>
           </div>
         </RoundedPanel>
       </div>

@@ -15,7 +15,7 @@ import {
 import { Options } from 'parser/core/Module';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
-const CAST_BUFFER_MS = 65;
+const CAST_BUFFER_MS = 150;
 const TRANQ_CHANNEL_BUFFER_MS = 10_000;
 
 const APPLIED_HEAL = 'AppliedHeal';

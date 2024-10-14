@@ -1,4 +1,6 @@
 import { Trans } from '@lingui/macro';
+import ITEMS from 'common/ITEMS';
+import { Enchant as EnchantItem } from 'common/ITEMS/Item';
 import { ItemLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { Item } from 'parser/core/Events';
@@ -6,7 +8,6 @@ import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { EnchantmentBoxRowEntry } from 'interface/guide/components/Preparation/EnchantmentSubSection/EnchantmentBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { Enchant } from 'common/SPELLS/Spell';
 
 class EnchantChecker extends Analyzer {
   get EnchantableSlots(): Record<number, JSX.Element> {
@@ -100,50 +101,76 @@ class EnchantChecker extends Analyzer {
     );
   }
 
-  boxRowTooltip(item: Item, slotName: JSX.Element, recommendedEnchantments: Enchant[] | undefined) {
+  boxRowTooltip(
+    item: Item,
+    slotName: JSX.Element,
+    recommendedEnchantments: EnchantItem[] | undefined,
+  ) {
     const hasEnchant = this.hasEnchant(item);
     const hasMaxEnchant = hasEnchant && this.hasMaxEnchant(item);
-    const recommendedEnchantNames = recommendedEnchantments?.map((it) => it.name)?.join(', ');
+    const recommendedEnchantList = recommendedEnchantments
+      ?.map((enchant) => (
+        <ItemLink key={enchant.id} id={enchant.id} craftQuality={enchant.craftQuality} />
+      ))
+      .reduce((acc, x) =>
+        acc == null ? (
+          x
+        ) : (
+          <>
+            {acc}, {x}
+          </>
+        ),
+      );
     const recommendedEnchantIds = recommendedEnchantments?.map((it) => it.effectId);
+    const currentEnchant = Object.values(ITEMS).find(
+      (it): it is EnchantItem => 'effectId' in it && it.effectId === item.permanentEnchant,
+    );
+    const currentEnchantContent = currentEnchant ? (
+      <>
+        {' '}
+        (<ItemLink id={currentEnchant.id} craftQuality={currentEnchant.craftQuality} />)
+      </>
+    ) : null;
     if (hasMaxEnchant) {
       if (
         recommendedEnchantIds &&
-        recommendedEnchantNames &&
+        recommendedEnchantList &&
         !recommendedEnchantIds.includes(item.permanentEnchant ?? 0)
       ) {
         return (
           <Trans id="shared.enchantChecker.guide.strongEnchant.labelWithRecommendation">
-            Your {slotName} has a strong enchant but these are recommended:{' '}
-            {recommendedEnchantNames}
+            Your {slotName} has a strong enchant{currentEnchantContent} but these are recommended:{' '}
+            {recommendedEnchantList}
           </Trans>
         );
       }
       return (
         <Trans id="shared.enchantChecker.guide.strongEnchant.label">
-          Your {slotName} has a strong enchant. Good work!
+          Your {slotName} has a strong enchant{currentEnchantContent}. Good work!
         </Trans>
       );
     }
     if (hasEnchant) {
-      if (recommendedEnchantNames) {
+      if (recommendedEnchantList) {
         return (
           <Trans id="shared.enchantChecker.guide.weakEnchant.labelWithRecommendation">
-            Your {slotName} has a cheap enchant. Apply a stronger enchant to increase your
-            throughput. Recommended: {recommendedEnchantNames}
+            Your {slotName} has a cheap enchant{currentEnchantContent}. Apply a stronger enchant to
+            increase your throughput. Recommended: {recommendedEnchantList}
           </Trans>
         );
       }
       return (
         <Trans id="shared.enchantChecker.guide.weakEnchant.label">
-          Your {slotName} has a cheap enchant. Apply a stronger enchant to increase your throughput.
+          Your {slotName} has a cheap enchant{currentEnchantContent}. Apply a stronger enchant to
+          increase your throughput.
         </Trans>
       );
     }
-    if (recommendedEnchantNames) {
+    if (recommendedEnchantList) {
       return (
         <Trans id="shared.enchantChecker.guide.noEnchant.labelWithRecommendation">
           Your {slotName} is missing an enchant. Apply a strong enchant to increase your throughput.
-          Recommended: {recommendedEnchantNames}
+          Recommended: {recommendedEnchantList}
         </Trans>
       );
     }
@@ -175,7 +202,7 @@ class EnchantChecker extends Analyzer {
   }
 
   getEnchantmentBoxRowEntries(
-    recommendedEnchants: Record<number, Enchant[]> = {},
+    recommendedEnchants: Record<number, EnchantItem[]> = {},
   ): EnchantmentBoxRowEntry[] {
     const gear = this.EnchantableGear;
     const enchantSlots: { [key: number]: JSX.Element } = this.EnchantableSlots;

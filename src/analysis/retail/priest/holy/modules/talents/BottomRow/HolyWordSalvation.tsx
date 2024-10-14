@@ -1,6 +1,6 @@
 import PrayerOfMending from 'analysis/retail/priest/holy/modules/spells/PrayerOfMending';
 import { formatThousands } from 'common/format';
-import TALENTS from 'common/TALENTS/priest';
+import TALENTS, { TALENTS_PRIEST } from 'common/TALENTS/priest';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HasRelatedEvent, HealEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -9,6 +9,8 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { SALVATION_RENEW_HEALS } from '../../../normalizers/CastLinkNormalizer';
+import SpellLink from 'interface/SpellLink';
+import SPELLS from 'common/SPELLS';
 
 // Example Log: /report/PNYB4zgrnR86h7Lc/6-Normal+Zek'voz,+Herald+of+N'zoth/Khadaj
 class HolyWordSalvation extends Analyzer {
@@ -88,11 +90,22 @@ class HolyWordSalvation extends Analyzer {
       <Statistic
         tooltip={
           <>
-            Healing from Salv: {formatThousands(this.healingFromSalv + this.absorptionFromSalv)}
-            <br />
-            Healing from Renews: {formatThousands(this.healingFromRenew + this.absorptionFromRenew)}
-            <br />
-            Healing from PoMs: {formatThousands(this.healingFromPom + this.absorptionFromPom)}
+            <div>
+              Healing from Salv: {formatThousands(this.healingFromSalv + this.absorptionFromSalv)}
+            </div>
+            <div>
+              Healing from Renews:{' '}
+              {formatThousands(this.healingFromRenew + this.absorptionFromRenew)}
+            </div>
+            <div>
+              Healing from PoMs: {formatThousands(this.healingFromPom + this.absorptionFromPom)}
+            </div>
+            <div>
+              This talent does not account for <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} /> in
+              this module due to the nature of{' '}
+              <SpellLink spell={TALENTS_PRIEST.PRAYER_OF_MENDING_TALENT} />. Find its direct initial
+              heal contribution in the table at the top.
+            </div>
           </>
         }
         size="flexible"
@@ -100,7 +113,7 @@ class HolyWordSalvation extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(7)}
       >
         <BoringSpellValueText spell={TALENTS.HOLY_WORD_SALVATION_TALENT}>
-          <ItemHealingDone amount={this.totalHealing} />
+          <ItemHealingDone amount={this.totalHealing + this.totalAbsorbed} />
         </BoringSpellValueText>
       </Statistic>
     );

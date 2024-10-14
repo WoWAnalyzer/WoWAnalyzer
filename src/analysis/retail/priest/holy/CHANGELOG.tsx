@@ -1,10 +1,27 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import TALENTS, { TALENTS_PRIEST } from 'common/TALENTS/priest';
-import { Arlie, Hana, Litena, Squided, ToppleTheNun, Trevor, Saeldur } from 'CONTRIBUTORS';
+import { Arlie, Hana, Litena, Liavre, Squided, ToppleTheNun, Trevor, Saeldur, xizbow} from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2024, 10, 11), <>Fixed Prayer of Healing in the Guide section to not give bad advice.</>, Liavre),
+  change(date(2024, 10, 7), <>Properly hide Circle of Healing analysis if it isn't talented.</>, xizbow),
+  change(date(2024, 9, 21), <>Changed tooltips, added crisis management, and added prismatic echoes </>, Liavre),
+  change(date(2024, 9, 16), <>Implemented TWW S1 4pc </>, Liavre),
+  change(date(2024, 9, 11), <>Split Divine Hymn/GS into proper attributions, fixed mana costs,
+  and added talent check on holy word CDR. </>, Liavre),
+  change(date(2024, 9, 11), <>Fixed Salvation, Divine Star, Halo to include absorbed healing as effective healing. </>, Liavre),
+  change(date(2024, 9, 10), <>Added cast number and minor fixes to CDR module. </>, Liavre),
+  change(date(2024, 9, 10), <>Fixed lightwell and trail modules </>, Liavre),
+  change(date(2024, 9, 9), <>Implemented Echo of Light module/attribution into every other module </>, Liavre),
+  change(date(2024, 9, 6), <>Implemented 2pc, rewrote back end for Holy Word CDR and remove old modules. </>, Liavre),
+  change(date(2024, 9, 6), <>Moved all spell constants to constants file for ease of maintenance </>, Liavre),
+  change(date(2024, 8, 31), <>Implemented an Echo of Light per heal/amp attributor </>, Liavre),
+  change(date(2024, 8, 20), <>Implemented/pushed Archon </>, Liavre),
+  change(date(2024, 8, 24), <>Added Cast time hps component to lightweaver and other statistic display improvements </>, Liavre),
+  change(date(2024, 8, 20), <>Implemented both Oracle and Archon + minor fixes </>, Liavre),
+  change(date(2024, 8, 13), <>Deleted references to Mindgames (old talent) </>, Liavre),
   change(date(2024, 4, 20), <>Fix cooldown of <SpellLink spell={SPELLS.DESPERATE_PRAYER} /> when using <SpellLink spell={TALENTS_PRIEST.ANGELS_MERCY_TALENT} />.</>, Arlie),
   change(
     date(2024, 4, 18),

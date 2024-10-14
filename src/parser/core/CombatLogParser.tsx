@@ -31,7 +31,6 @@ import FoodChecker from '../retail/modules/items/FoodChecker';
 import HealthPotion from '../retail/modules/items/HealthPotion';
 import Healthstone from '../retail/modules/items/Healthstone';
 import SpellTimeWaitingOnGlobalCooldown from '../shared/enhancers/SpellTimeWaitingOnGlobalCooldown';
-import AbilitiesMissing from '../shared/modules/AbilitiesMissing';
 import AbilityTracker from '../shared/modules/AbilityTracker';
 import AlwaysBeCasting from '../shared/modules/AlwaysBeCasting';
 import CastEfficiency from '../shared/modules/CastEfficiency';
@@ -48,10 +47,10 @@ import RaidHealthTab from '../shared/modules/features/RaidHealthTab';
 import FilteredActiveTime from '../shared/modules/FilteredActiveTime';
 import GlobalCooldown from '../shared/modules/GlobalCooldown';
 import CritEffectBonus from '../shared/modules/helpers/CritEffectBonus';
+import OtherRacials from '../shared/modules/racials/OtherRacials';
 import Pets from '../shared/modules/Pets';
 import ArcaneTorrent from '../shared/modules/racials/bloodelf/ArcaneTorrent';
 import GiftOfTheNaaru from '../shared/modules/racials/draenei/GiftOfTheNaaru';
-import MightOfTheMountain from '../shared/modules/racials/dwarf/MightOfTheMountain';
 import Stoneform from '../shared/modules/racials/dwarf/Stoneform';
 import BloodFury from '../shared/modules/racials/orc/BloodFury';
 import Berserking from '../shared/modules/racials/troll/Berserking';
@@ -101,22 +100,18 @@ import SophicWrit from 'parser/retail/modules/items/dragonflight/enchants/Sophic
 import SporeTender from 'parser/retail/modules/items/dragonflight/enchants/SporeTender';
 import WaftingDevotion from 'parser/retail/modules/items/dragonflight/enchants/WaftingDevotion';
 import WaftingWrit from 'parser/retail/modules/items/dragonflight/enchants/WaftingWrit';
-import AcceleratingSandglass from 'parser/retail/modules/items/dragonflight/AcceleratingSandglass';
-import UsurpedFromBeyond from 'parser/retail/modules/items/dragonflight/UsurpedFromBeyond';
-import VoiceOfTheSilentStar from 'parser/retail/modules/items/dragonflight/VoiceOfTheSilentStar';
-import AmalgamsSeventhSpine from 'parser/retail/modules/items/dragonflight/AmalgamsSeventhSpine';
-import ElementalLariat from 'parser/retail/modules/items/dragonflight/ElementalLariat';
-import EchoingTyrstone from 'parser/retail/modules/items/dragonflight/EchoingTyrstone';
-import Fyralath from 'parser/retail/modules/items/dragonflight/Fyralath';
-import Dreambinder from 'parser/retail/modules/items/dragonflight/Dreambinder';
-import Iridal from 'parser/retail/modules/items/dragonflight/Iridal';
-import BelorrelosTheSuncaller from 'parser/retail/modules/items/dragonflight/BelorrelosTheSuncaller';
-import NymuesUnravelingSpindle from 'parser/retail/modules/items/dragonflight/NymuesUnravelingSpindle';
-import EnduringDreadplate, {
-  EnduringDreadplateEventLinkNormalizer,
-} from 'parser/retail/modules/items/dragonflight/EnduringDreadplate';
-import { FyralathNormalizer } from 'parser/shared/normalizers/FyralathNormalizer';
+import SignetOfThePriory from 'parser/retail/modules/items/thewarwithin/trinkets/SignetOfThePriory';
+import SpymastersWeb from 'parser/retail/modules/items/thewarwithin/trinkets/SpymastersWeb';
 import FriendlyCompatNormalizer from './FriendlyCompatNormalizer';
+import {
+  AuthorityOfRadiantPower,
+  AuthorityOfStorms,
+  AuthorityOfTheDepths,
+  DarkmoonSigilAscension,
+  StormridersFury,
+} from 'parser/retail/modules/items/thewarwithin';
+import CritRacial from 'parser/shared/modules/racials/CritRacial';
+import TreacherousTransmitter from 'parser/retail/modules/items/thewarwithin/trinkets/TreacherousTransmitter';
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
@@ -183,7 +178,6 @@ class CombatLogParser {
     filteredActiveTime: FilteredActiveTime,
     abilities: Abilities,
     buffs: Auras,
-    abilitiesMissing: AbilitiesMissing,
     CastEfficiency: CastEfficiency,
     spellUsable: SpellUsable,
     spellHistory: SpellHistory,
@@ -213,27 +207,24 @@ class CombatLogParser {
 
     // Racials
     arcaneTorrent: ArcaneTorrent,
+    critRacial: CritRacial,
     giftOfTheNaaru: GiftOfTheNaaru,
-    mightOfTheMountain: MightOfTheMountain,
     stoneform: Stoneform,
     berserking: Berserking,
     bloodFury: BloodFury,
+    otherRacials: OtherRacials,
 
     // Items:
-    acceleratingSandglass: AcceleratingSandglass,
-    usurpedFromBeyond: UsurpedFromBeyond,
-    voiceOfTheSilentStar: VoiceOfTheSilentStar,
-    amalgamsSeventhSpine: AmalgamsSeventhSpine,
-    elementalLariat: ElementalLariat,
-    echoingTyrstone: EchoingTyrstone,
-    fyralath: Fyralath,
-    dreambinder: Dreambinder,
-    iridal: Iridal,
-    belorrelosTheSuncaller: BelorrelosTheSuncaller,
-    nymuesUnravelingSpindle: NymuesUnravelingSpindle,
-    enduringDreadplateNormalizer: EnduringDreadplateEventLinkNormalizer,
-    enduringDreadplate: EnduringDreadplate,
-    fyralathNormalizer: FyralathNormalizer,
+    authorityOfRadiantPower: AuthorityOfRadiantPower,
+    authorityOfStorms: AuthorityOfStorms,
+    stormridersFury: StormridersFury,
+    authorityOfTheDepths: AuthorityOfTheDepths,
+    signetOfThePriory: SignetOfThePriory,
+    spymastersWeb: SpymastersWeb,
+    treacherousTransmitter: TreacherousTransmitter,
+
+    // Embellishments
+    darkmoonSigilAscension: DarkmoonSigilAscension,
 
     // Enchants
     burningDevotion: BurningDevotion,

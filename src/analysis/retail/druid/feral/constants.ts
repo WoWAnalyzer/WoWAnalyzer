@@ -88,7 +88,7 @@ export const SABERTOOTH_BOOSTED: Spell[] = [
 //
 
 /** Multiplier to energy costs from having Incarnation: Avatar of Ashamane active */
-export const INCARN_ENERGY_MULT = 0.8;
+export const INCARN_ENERGY_MULT = 0.75;
 
 /** Shred's energy cost (before modifiers) */
 export const SHRED_ENERGY = 40;
@@ -206,12 +206,11 @@ export function cdSpell(c: Combatant): Spell {
 // MISC
 //
 
-/** Minimum acceptable number of CPs to use with a finisher. */
-export function getAcceptableCps(c: Combatant): number {
-  return c.hasBuff(cdSpell(c).id) ? ACCEPTABLE_BERSERK_CPS : ACCEPTABLE_CPS;
+/** Minimum acceptable number of CPs to use with a finisher (currently always 5, leaving as function in case this changes again) */
+export function getAcceptableCps(_: Combatant): number {
+  return ACCEPTABLE_CPS;
 }
-export const ACCEPTABLE_CPS = 4;
-export const ACCEPTABLE_BERSERK_CPS = 5;
+export const ACCEPTABLE_CPS = 5;
 
 /** Effective combo points used by a Convoke'd Ferocious Bite */
 export const CONVOKE_FB_CPS = 5;

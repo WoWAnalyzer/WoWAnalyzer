@@ -1,32 +1,40 @@
 import { GuideProps, Section, SubSection, useAnalyzer, useInfo } from 'interface/guide';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import TALENTS from 'common/TALENTS/shaman';
-import { Talent } from 'common/TALENTS/types';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import CombatLogParser from 'analysis/retail/shaman/enhancement/CombatLogParser';
-import Combatant from 'parser/core/Combatant';
-import { TIERS } from 'game/TIERS';
+import { Cooldown } from 'interface/guide/components/CooldownGraphSubSection';
 
 interface Props {
-  checklist: TalentWithCondition[];
+  checklist: Cooldown[];
 }
 
-interface TalentWithCondition extends Talent {
-  condition?: (combatant: Combatant) => boolean;
-}
-
-const COOLDOWNS: TalentWithCondition[] = [
-  TALENTS.FERAL_SPIRIT_TALENT,
-  { ...TALENTS.SUNDERING_TALENT, condition: (c) => c.has4PieceByTier(TIERS.DF2) }, // sundering only considered a cooldown when using 4pc T30. Remove entirely further into 10.2
-  TALENTS.DOOM_WINDS_TALENT,
-  TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT,
-  TALENTS.ASCENDANCE_ENHANCEMENT_TALENT,
+const COOLDOWNS: Cooldown[] = [
+  {
+    spell: TALENTS.FERAL_SPIRIT_TALENT,
+    isActive: (c) => c.hasTalent(TALENTS.FERAL_SPIRIT_TALENT),
+  },
+  {
+    spell: TALENTS.DOOM_WINDS_TALENT,
+    isActive: (c) => c.hasTalent(TALENTS.DOOM_WINDS_TALENT),
+  },
+  {
+    spell: TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT,
+    isActive: (c) => c.hasTalent(TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT),
+  },
+  {
+    spell: TALENTS.ASCENDANCE_ENHANCEMENT_TALENT,
+    isActive: (c) => c.hasTalent(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT),
+  },
 ];
 
 function Cooldowns({ info, modules }: GuideProps<typeof CombatLogParser>) {
   return (
-    <Section title="Cooldowns">
+    <Section title="Core">
+      {modules.ascendance.guideSubsection}
+      {modules.hotHand.guideSubsection}
+      {modules.elementalBlastGuide.guideSubsection}
       <SubSection title="Cooldowns">
         <p>
           <strong>Cooldowns</strong> - this graph shows when you used your major cooldowns and how
@@ -35,9 +43,6 @@ function Cooldowns({ info, modules }: GuideProps<typeof CombatLogParser>) {
         </p>
         <CooldownGraphSubsection checklist={COOLDOWNS} />
       </SubSection>
-      {modules.ascendance.guideSubsection}
-      {modules.hotHand.guideSubsection}
-      {modules.elementalBlast.guideSubsection}
     </Section>
   );
 }
@@ -52,18 +57,15 @@ const CooldownGraphSubsection = ({ checklist }: Props) => {
   return (
     <SubSection>
       {checklist
-        .filter((talent) => {
-          if (talent.condition && !talent.condition(info.combatant)) {
-            return false;
-          }
-          return info.combatant.hasTalent(talent);
-        })
-        .map((talent) => (
+        .filter((cooldown) => cooldown.isActive && cooldown.isActive(info.combatant))
+        .map((cooldown) => (
           <CastEfficiencyBar
-            key={talent.id}
-            spell={talent}
+            key={cooldown.spell.id}
+            spell={cooldown.spell}
             gapHighlightMode={GapHighlight.All}
-            minimizeIcons={(castEfficiency.getCastEfficiencyForSpell(talent)?.casts ?? 0) > 10}
+            minimizeIcons={
+              (castEfficiency.getCastEfficiencyForSpell(cooldown.spell)?.casts ?? 0) > 10
+            }
             useThresholds
           />
         ))}

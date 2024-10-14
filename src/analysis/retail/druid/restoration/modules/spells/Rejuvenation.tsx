@@ -90,7 +90,7 @@ class Rejuvenation extends Analyzer {
     }
     if (isFromHardcast(event)) {
       this.totalRejuvsCasts += 1;
-      this.activeHardcastRejuvs[event.targetID] = new HealingValue();
+      this.activeHardcastRejuvs[event.targetID] = HealingValue.empty();
     }
   }
 
@@ -116,7 +116,7 @@ class Rejuvenation extends Analyzer {
       } else {
         // we only track hardcast rejuvs that weren't clipping old ones so we don't double count
         // early refreshes vs high overheal casts in the final tally
-        this.activeHardcastRejuvs[event.targetID] = new HealingValue();
+        this.activeHardcastRejuvs[event.targetID] = HealingValue.empty();
       }
     }
   }
@@ -131,11 +131,8 @@ class Rejuvenation extends Analyzer {
 
   onRejuvHeal(event: HealEvent) {
     if (this.activeHardcastRejuvs[event.targetID]) {
-      this.activeHardcastRejuvs[event.targetID] = this.activeHardcastRejuvs[event.targetID].add(
-        event.amount,
-        event.absorbed,
-        event.overheal,
-      );
+      this.activeHardcastRejuvs[event.targetID] =
+        this.activeHardcastRejuvs[event.targetID].addEvent(event);
     }
   }
 
@@ -186,16 +183,21 @@ class Rejuvenation extends Analyzer {
   /** Guide subsection describing the proper usage of Rejuvenation */
   get guideSubsection(): JSX.Element {
     const explanation = (
-      <p>
-        <b>
-          <SpellLink spell={SPELLS.REJUVENATION} />
-        </b>{' '}
-        is your primary filler spell. It can be used on injured raiders or pre-cast on full health
-        raiders when big damage is incoming. Don't spam it unmotivated - you'll run out of mana.
-        Don't cast it on targets with a high duration Rejuvenation - you'll clip duration. Some
-        high-overheal Rejuvs are unavoidable due to heal sniping, but if a large proportion of them
-        are you might be casting too much.
-      </p>
+      <>
+        <p>
+          <b>
+            <SpellLink spell={SPELLS.REJUVENATION} />
+          </b>{' '}
+          is your primary filler spell. It can be used on injured raiders or pre-cast on full health
+          raiders when ramping for incoming raid damage. Don't spam it unmotivated - you'll run out
+          of mana.
+        </p>
+        <p>
+          Don't overwrite on targets with a recent Rejuvenation - you'll clip duration. Some
+          high-overheal Rejuvs are unavoidable due to heal sniping, but if a large proportion of
+          them are you might be casting too much.
+        </p>
+      </>
     );
 
     const goodRejuvs = {

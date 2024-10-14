@@ -22,12 +22,12 @@ class Inferno extends Analyzer {
     // Rain of Fire has different spellId for cast and damage but AbilityTracker picks up both of them
     const rofDamage = this.abilityTracker.getAbility(SPELLS.RAIN_OF_FIRE_DAMAGE.id);
     const rofCast = this.abilityTracker.getAbility(SPELLS.RAIN_OF_FIRE_CAST.id);
-    return (rofDamage.damageEffective + rofDamage.damageAbsorbed) / rofCast.casts || 0;
+    return rofDamage.damageVal.effective / rofCast.casts || 0;
   }
 
   get averageChaosBoltDamage() {
     const chaosBolt = this.abilityTracker.getAbility(SPELLS.CHAOS_BOLT.id);
-    return (chaosBolt.damageEffective + chaosBolt.damageAbsorbed) / chaosBolt.casts || 0;
+    return chaosBolt.damageVal.effective / chaosBolt.casts || 0;
   }
 
   static dependencies = {

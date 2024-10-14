@@ -1,7 +1,13 @@
-import { TALENTS_SHAMAN } from 'common/TALENTS';
+import TALENTS from 'common/TALENTS/shaman';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
-import Events, { DamageEvent } from 'parser/core/Events';
+import Events, {
+  CastEvent,
+  DamageEvent,
+  EventType,
+  GetRelatedEvent,
+  ResourceChangeEvent,
+} from 'parser/core/Events';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -11,25 +17,23 @@ import { MaelstromWeaponTracker } from '../resourcetracker';
 import TalentAggregateStatisticContainer from 'parser/ui/TalentAggregateStatisticContainer';
 import { SpellLink } from 'interface';
 import TalentAggregateBars, { TalentAggregateBarSpec } from 'parser/ui/TalentAggregateStatistic';
-import SPELLS, { maybeGetSpell } from 'common/SPELLS';
+import SPELLS from 'common/SPELLS';
 import { TalentRankTooltip } from 'parser/ui/TalentSpellText';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import { MAELSTROM_WEAPON_SOURCE } from '../normalizers/constants';
+import typedKeys from 'common/typedKeys';
+import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
 
 const ELEMENTAL_ASSAULT_RANKS: Record<number, number> = {
   1: 0.1,
   2: 0.2,
 };
 
-const ELEMENTAL_ASSAULT_SPELLS: number[] = [
-  TALENTS_SHAMAN.STORMSTRIKE_TALENT.id,
-  TALENTS_SHAMAN.LAVA_LASH_TALENT.id,
-  TALENTS_SHAMAN.ICE_STRIKE_TALENT.id,
-];
-
 const BAR_COLORS: Record<number, string> = {
-  [TALENTS_SHAMAN.STORMSTRIKE_TALENT.id]: '#3b7fb0',
-  [TALENTS_SHAMAN.LAVA_LASH_TALENT.id]: '#f37735',
-  [TALENTS_SHAMAN.ICE_STRIKE_TALENT.id]: '#94d3ec',
+  [TALENTS.STORMSTRIKE_TALENT.id]: '#3b7fb0',
+  [TALENTS.LAVA_LASH_TALENT.id]: '#f37735',
+  [TALENTS.ICE_STRIKE_TALENT.id]: '#94d3ec',
+  [-1]: '#532121', // wasted
 };
 
 /**
@@ -51,69 +55,79 @@ class ElementalAssault extends Analyzer {
   protected damageGained: number = 0;
   protected talentRanks: number = 0;
 
+  protected elementalAssaultGenerators: {
+    [spellId: number]: { generated: number; wasted: number };
+  } = {};
+
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ELEMENTAL_ASSAULT_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.ELEMENTAL_ASSAULT_TALENT);
 
     if (!this.active) {
       return;
     }
 
-    this.talentRanks = this.selectedCombatant.getTalentRank(
-      TALENTS_SHAMAN.ELEMENTAL_ASSAULT_TALENT,
-    );
+    this.talentRanks = this.selectedCombatant.getTalentRank(TALENTS.ELEMENTAL_ASSAULT_TALENT);
     this.damageIncrease = ELEMENTAL_ASSAULT_RANKS[this.talentRanks];
 
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(STORMSTRIKE_DAMAGE_SPELLS),
       this.onStormstrikeDamage,
     );
+    this.addEventListener(
+      Events.resourcechange.by(SELECTED_PLAYER).spell(TALENTS.ELEMENTAL_ASSAULT_TALENT),
+      this.onResourceChange,
+    );
+  }
+
+  onResourceChange(event: ResourceChangeEvent) {
+    const cast = GetRelatedEvent<CastEvent>(
+      event,
+      MAELSTROM_WEAPON_SOURCE,
+      (e) => e.type === EventType.Cast,
+    );
+    if (cast) {
+      const spellId =
+        cast.ability.guid === SPELLS.WINDSTRIKE_CAST.id
+          ? TALENTS.STORMSTRIKE_TALENT.id
+          : cast.ability.guid;
+      if (!this.elementalAssaultGenerators[spellId]) {
+        this.elementalAssaultGenerators[spellId] = { generated: 0, wasted: 0 };
+      }
+      this.elementalAssaultGenerators[spellId].generated += 1;
+      this.elementalAssaultGenerators[spellId].wasted += event.waste;
+    }
   }
 
   onStormstrikeDamage(event: DamageEvent): void {
     this.damageGained += calculateEffectiveDamage(event, this.damageIncrease);
   }
 
-  get maelstromGenerators() {
-    const elementalAssaultBuilders = Object.keys(this.maelstromTracker.buildersObj)
-      .map((abilityId) => {
-        const id = Number(abilityId);
-        const ability = this.abilityTracker.getAbility(id);
-        return {
-          abilityId: id,
-          casts: ability.casts,
-          total:
-            this.maelstromTracker.buildersObj[id].generated +
-            this.maelstromTracker.buildersObj[id].wasted,
-        };
-      })
-      .filter((ability) => ELEMENTAL_ASSAULT_SPELLS.includes(ability.abilityId));
-
-    // if the combatant has the swirling maelstrom, assume SW generated the first stack as it's guaranteed. EA is only guaranteed with 2 points
-    if (this.selectedCombatant.hasTalent(TALENTS_SHAMAN.SWIRLING_MAELSTROM_TALENT)) {
-      const iceStrike = elementalAssaultBuilders.find(
-        (x) => x.abilityId === TALENTS_SHAMAN.ICE_STRIKE_TALENT.id,
-      );
-      if (iceStrike) {
-        iceStrike.total -= iceStrike.casts;
-      }
-    }
-    return elementalAssaultBuilders;
-  }
-
   get maelstromWeaponGained() {
-    return this.maelstromGenerators.reduce((total, ability) => (total += ability.total), 0);
+    return typedKeys(this.elementalAssaultGenerators).reduce(
+      (total, spellId) => (total += this.elementalAssaultGenerators[spellId].generated),
+      0,
+    );
   }
 
   makeBars(): TalentAggregateBarSpec[] {
-    return this.maelstromGenerators.map((generator) => {
-      const spell = maybeGetSpell(generator.abilityId);
+    return typedKeys(this.elementalAssaultGenerators).map((spellId) => {
+      const spell = maybeGetTalentOrSpell(spellId)!;
+      const builder = this.elementalAssaultGenerators[spellId];
       return {
-        spell: spell!,
-        amount: generator.total,
-        color: BAR_COLORS[generator.abilityId],
-        subSpecs: [],
+        spell: spell,
+        amount: builder.generated - builder.wasted,
+        color: BAR_COLORS[spellId],
+        tooltip: <>{builder.generated - builder.wasted}</>,
+        subSpecs: [
+          {
+            spell: spell,
+            amount: builder.wasted,
+            color: BAR_COLORS[-1],
+            tooltip: <>{builder.wasted} wasted</>,
+          },
+        ],
       };
     });
   }
@@ -124,16 +138,17 @@ class ElementalAssault extends Analyzer {
       <TalentAggregateStatisticContainer
         title={
           <>
-            <SpellLink spell={TALENTS_SHAMAN.ELEMENTAL_ASSAULT_TALENT} />
+            <SpellLink spell={TALENTS.ELEMENTAL_ASSAULT_TALENT} />
             <TalentRankTooltip rank={this.talentRanks} maxRanks={2} /> -{' '}
             <ItemDamageDone amount={this.damageGained} />
           </>
         }
         footer={
-          <>
-            Total <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} />: {totalMaelstrom}
-            {this.talentRanks === 2 ? <> ({totalMaelstrom / 2} per point)</> : null}
-          </>
+          this.talentRanks === 2 && (
+            <>
+              <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> per point: {totalMaelstrom / 2}
+            </>
+          )
         }
         smallFooter
         position={STATISTIC_ORDER.DEFAULT}

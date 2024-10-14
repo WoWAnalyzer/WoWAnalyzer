@@ -4,7 +4,7 @@ import { formatNumber } from 'common/format';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import WeaponEnchantAnalyzer from './WeaponEnchantAnalyzer';
+import WeaponEnchantAnalyzer from '../../WeaponEnchantAnalyzer';
 
 // ================ SAMPLE LOGS ================
 // Frozen Devotion R1

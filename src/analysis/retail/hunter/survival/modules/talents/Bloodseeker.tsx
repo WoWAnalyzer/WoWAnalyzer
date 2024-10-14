@@ -20,21 +20,24 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
  */
 
 class Bloodseeker extends Analyzer {
-  averageStacks: number = 0;
-  kcCastTimestamp: number = 0;
-  damage: number = 0;
+  private averageStacks: number = 0;
+  private kcCastTimestamp: number = 0;
+  private damage: number = 0;
 
   constructor(options: Options) {
     super(options);
 
     this.active = this.selectedCombatant.hasTalent(TALENTS.BLOODSEEKER_TALENT);
+    if (!this.active) {
+      return;
+    }
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.KILL_COMMAND_DAMAGE_SV),
+      Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.KILL_COMMAND_SURVIVAL_DAMAGE),
       this.onPetDamage,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.KILL_COMMAND_CAST_SV),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.KILL_COMMAND_SURVIVAL_TALENT),
       this.onCast,
     );
   }

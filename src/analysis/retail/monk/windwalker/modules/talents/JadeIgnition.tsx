@@ -69,7 +69,7 @@ class JadeIgnition extends Analyzer {
   }
 
   get damageDone() {
-    return this.abilityTracker.getAbility(SPELLS.JADE_IGNITION_DAMAGE.id).damageEffective;
+    return this.abilityTracker.getAbilityDamage(SPELLS.JADE_IGNITION_DAMAGE.id);
   }
 
   get stackUsage() {

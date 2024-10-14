@@ -13,6 +13,7 @@ import {
   CAUSALITY_PYRE_CDR_MS,
 } from 'analysis/retail/evoker/devastation/constants';
 import DonutChart from 'parser/ui/DonutChart';
+import { isMassDisintegrateTick } from '../normalizers/CastLinkNormalizer';
 
 class Causality extends Analyzer {
   static dependencies = {
@@ -117,7 +118,12 @@ class Causality extends Analyzer {
     }
   }
 
-  private disReduceCooldown() {
+  private disReduceCooldown(event: DamageEvent) {
+    // Mass Disintegrate doesn't provide CDR sadge
+    if (isMassDisintegrateTick(event)) {
+      return;
+    }
+
     this.calculateCDR(CAUSALITY_DISINTEGRATE_CDR_MS, SPELLS.DISINTEGRATE.id);
   }
 

@@ -1,8 +1,10 @@
-import SPELLS from 'common/SPELLS';
-import RACES from 'game/RACES';
-import Analyzer, { Options } from 'parser/core/Analyzer';
+import { wclGameVersionToBranch } from 'game/VERSIONS';
 import Abilities from 'parser/core/modules/Abilities';
+import Analyzer, { Options } from 'parser/core/Analyzer';
+import GameBranch from 'game/GameBranch';
+import RACES from 'game/RACES';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
+import SPELLS from 'common/SPELLS';
 
 class ArcaneTorrent extends Analyzer {
   static dependencies = {
@@ -11,14 +13,16 @@ class ArcaneTorrent extends Analyzer {
 
   gcd = 1500;
   castEfficiency = 0.8;
+  classic = false;
   extraSuggestion = null;
 
   constructor(
     options: Options & {
-      active?: boolean;
-      gcd?: number;
-      castEfficiency?: number;
       abilities: Abilities;
+      classic: boolean;
+      active?: boolean;
+      castEfficiency?: number;
+      gcd?: number;
     },
   ) {
     super(options);
@@ -28,8 +32,9 @@ class ArcaneTorrent extends Analyzer {
     if (!this.active) {
       return;
     }
-
+    this.classic = wclGameVersionToBranch(options.owner.report.gameVersion) === GameBranch.Classic;
     this.gcd = options.gcd === undefined ? this.gcd : options.gcd;
+
     this.castEfficiency =
       options.castEfficiency === undefined ? this.castEfficiency : options.castEfficiency;
 
@@ -47,9 +52,7 @@ class ArcaneTorrent extends Analyzer {
       ],
       category: SPELL_CATEGORY.DEFENSIVE,
       cooldown: 120,
-      gcd: {
-        base: this.gcd,
-      },
+      gcd: this.classic ? null : { base: this.gcd }, // Classic has no GCD
       timelineSortIndex: 35,
       castEfficiency: {
         suggestion: this.castEfficiency !== null,

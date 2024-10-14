@@ -151,10 +151,7 @@ class MasteryEffectiveness extends Analyzer {
     this.rawMasteryEffectivenessSum += masteryEffectiveness;
     this.rawMasteryEffectivenessCount += 1;
 
-    let heal = new HealingValue(event.amount, 0, 0);
-    if (event.type === EventType.Heal) {
-      heal = new HealingValue(event.amount, event.absorbed, event.overheal);
-    }
+    const heal = HealingValue.fromEvent(event);
 
     const applicableMasteryPercentage =
       this.statTracker.currentMasteryPercentage * masteryEffectiveness;

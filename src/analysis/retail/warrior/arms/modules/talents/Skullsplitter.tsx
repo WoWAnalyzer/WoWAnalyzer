@@ -34,7 +34,6 @@ class Skullsplitter extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.usesTideOfBlood = this.selectedCombatant.hasTalent(TALENTS.TIDE_OF_BLOOD_TALENT);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(TALENTS.SKULLSPLITTER_TALENT),
       this.onSkullSplitterDamage,
@@ -53,14 +52,12 @@ class Skullsplitter extends Analyzer {
   private onSkullSplitterDamage(event: DamageEvent) {
     this.totalDotDamageDone += 1;
     this.totalDotDamageDone += this.sumUpDamage(deepWoundsDamageEvents(event));
-    if (this.usesTideOfBlood) {
-      this.totalDotDamageDone += this.sumUpDamage(rendDamageEvents(event));
-    }
+    this.totalDotDamageDone += this.sumUpDamage(rendDamageEvents(event));
   }
 
   statistic() {
     const Skullsplitter = this.abilityTracker.getAbility(TALENTS.SKULLSPLITTER_TALENT.id);
-    const total = Skullsplitter.damageEffective || 0;
+    const total = Skullsplitter.damageVal.effective;
     return (
       <Statistic
         size="flexible"

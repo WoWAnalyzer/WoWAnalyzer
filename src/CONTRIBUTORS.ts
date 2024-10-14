@@ -220,6 +220,19 @@ export const Khazak: Contributor = {
     },
   ],
 };
+export const Boohbah: Contributor = {
+  nickname: 'Boohbah',
+  github: 'robertdiasio',
+  avatar: avatar('Boohbah-avatar.png'),
+  discord: 'booohbah',
+  mains: [
+    {
+      name: 'Alaryion',
+      spec: SPECS.FROST_DEATH_KNIGHT,
+      link: 'https://worldofwarcraft.blizzard.com/en-us/character/us/stormrage/Alaryion',
+    },
+  ],
+};
 export const Bicepspump: Contributor = {
   nickname: 'Bicepspump',
   github: 'Bicepspump',
@@ -551,14 +564,14 @@ export const HawkCorrigan: Contributor = {
 };
 export const Vetyst: Contributor = {
   nickname: 'Vetyst',
-  github: 'djanse',
-  discord: 'vetyst#0001',
+  github: 'vetyst',
+  discord: 'vetyst',
   avatar: avatar('vetyst-avatar.png'),
   mains: [
     {
-      name: 'Vetyst',
-      spec: SPECS.BALANCE_DRUID,
-      link: 'https://worldofwarcraft.com/en-gb/character/tarren-mill/vetyst',
+      name: 'Vetiest',
+      spec: SPECS.SHADOW_PRIEST,
+      link: 'https://worldofwarcraft.com/en-gb/character/ragnaros/vetiest',
     },
   ],
 };
@@ -1879,13 +1892,13 @@ export const Llanas: Contributor = {
 };
 export const xizbow: Contributor = {
   nickname: 'xizbow',
-  discord: 'xizbow#1856',
+  discord: 'xizbow',
   github: 'xizbow1',
   mains: [
     {
-      name: 'Greggoros',
-      spec: SPECS.HOLY_PALADIN,
-      link: 'https://worldofwarcraft.com/en-us/character/us/wyrmrest-accord/Greggoros',
+      name: 'Gregskull',
+      spec: SPECS.HOLY_PRIEST,
+      link: 'https://www.warcraftlogs.com/character/us/zuljin/gregskull',
     },
   ],
 };
@@ -2050,6 +2063,11 @@ export const Litena: Contributor = {
       link: 'https://worldofwarcraft.com/en-us/character/eu/silvermoon/Litena',
     },
   ],
+};
+
+export const manu310891: Contributor = {
+  nickname: 'manu310891',
+  github: 'manu310891',
 };
 
 export const jazminite: Contributor = {
@@ -2258,7 +2276,7 @@ export const Vollmer: Contributor = {
 export const Seriousnes: Contributor = {
   nickname: 'Seriousnes',
   github: 'Seriousnes',
-  discord: 'Seriousnes#7895',
+  discord: 'seriousnes',
   avatar: avatar('seriousnes-avatar.png'),
   mains: [
     {
@@ -2350,6 +2368,13 @@ export const Ypp: Contributor = {
   ],
 };
 
+export const Texleretour: Contributor = {
+  nickname: 'Tex',
+  github: 'Texleretour',
+  discord: 'texleretour',
+  avatar: avatar('Tex-avatar.jpg'),
+};
+
 export const LucasLevyOB: Contributor = {
   nickname: 'LucasLevyOB',
   github: 'LucasLevyOB',
@@ -2389,6 +2414,19 @@ export const Zyer: Contributor = {
       name: 'Yumiblood',
       spec: SPECS.DEMONOLOGY_WARLOCK,
       link: 'https://www.warcraftlogs.com/character/id/42737929',
+    },
+  ],
+};
+
+export const Gazh: Contributor = {
+  nickname: 'Gazh',
+  github: 'gazhrot',
+  discord: 'gazh_',
+  mains: [
+    {
+      name: 'Meurthe',
+      spec: SPECS.DEMONOLOGY_WARLOCK,
+      link: 'https://www.warcraftlogs.com/character/eu/twisting-nether/meurthe',
     },
   ],
 };
@@ -2453,4 +2491,41 @@ export const Lithix: Contributor = {
   nickname: 'Lithix',
   github: 'Yitaarli',
   discord: 'lithix#0749',
+};
+
+export const Liavre: Contributor = {
+  nickname: 'Liavre',
+  github: 'Liavre',
+  discord: 'Liavre',
+};
+
+export const Taevis: Contributor = {
+  nickname: 'Taevis',
+  github: 'JoeParrinello',
+  discord: 'EdgeCas3',
+  mains: [
+    {
+      name: 'Taevis',
+      spec: SPECS.RETRIBUTION_PALADIN,
+      link: 'https://worldofwarcraft.blizzard.com/en-us/character/us/destromath/taevis',
+    },
+  ],
+};
+
+export const SebShady: Contributor = {
+  nickname: 'SebShady',
+  github: 'SebShady42',
+  discord: 'SebShady',
+};
+
+export const PandaGoesBaa: Contributor = {
+  nickname: 'PandaGoesBaa',
+  github: 'frankyi-gh',
+  mains: [
+    {
+      name: 'PandaGoesBaa',
+      spec: SPECS.RESTORATION_SHAMAN,
+      link: 'https://worldofwarcraft.blizzard.com/en-us/character/us/illidan/pandagoesbaa',
+    },
+  ],
 };

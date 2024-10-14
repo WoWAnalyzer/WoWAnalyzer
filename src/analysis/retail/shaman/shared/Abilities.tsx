@@ -8,7 +8,20 @@ import SPECS from 'game/SPECS';
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
+    const faction = combatant._combatantInfo.faction === 1 ? 'Alliance' : 'Horde';
     return [
+      {
+        spell: SPELLS.BLOODLUST.id,
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: null,
+        enabled: faction === 'Horde',
+      },
+      {
+        spell: SPELLS.HEROISM.id,
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: null,
+        enabled: faction === 'Alliance',
+      },
       {
         spell: SPELLS.SKYFURY.id,
         category: SPELL_CATEGORY.UTILITY,
@@ -78,7 +91,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.FROST_SHOCK_TALENT.id,
-        enabled: true, // combatant.hasTalent(TALENTS.FROST_SHOCK_TALENT),
+        enabled: combatant.hasTalent(TALENTS.FROST_SHOCK_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => (combatant.spec === SPECS.ENHANCEMENT_SHAMAN ? 6 / (1 + haste) : 0),
         gcd: {
@@ -145,7 +158,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.WIND_SHEAR_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.WIND_SHEAR_TALENT),
-        category: SPELL_CATEGORY.OTHERS,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 12,
         gcd: null,
         castEfficiency: {
@@ -214,7 +227,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.ANCESTRAL_GUIDANCE_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.ANCESTRAL_GUIDANCE_TALENT),
-        category: SPELL_CATEGORY.OTHERS,
+        category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 120,
         gcd: {
           static: 0,
@@ -261,22 +274,13 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.TOTEMIC_PROJECTION_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.TOTEMIC_PROJECTION_TALENT),
-        category: SPELL_CATEGORY.OTHERS,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 10,
         gcd: {
           static: 0,
         },
         castEfficiency: {
           suggestion: false,
-        },
-      },
-      {
-        spell: TALENTS.CALL_OF_THE_ELEMENTS_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.CALL_OF_THE_ELEMENTS_TALENT),
-        category: SPELL_CATEGORY.OTHERS,
-        cooldown: combatant.hasTalent(TALENTS.CALL_OF_THE_ELEMENTS_TALENT) ? 120 : 180,
-        gcd: {
-          base: 1500,
         },
       },
       {
@@ -346,7 +350,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.POISON_CLEANSING_TOTEM_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.POISON_CLEANSING_TOTEM_TALENT),
-        category: SPELL_CATEGORY.OTHERS,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 45 - (combatant.hasTalent(TALENTS.TOTEMIC_SURGE_TALENT) ? 6 : 0),
         gcd: {
           static: 1000,
@@ -357,7 +361,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.EARTHBIND_TOTEM.id,
-        category: SPELL_CATEGORY.OTHERS,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 30 - (combatant.hasTalent(TALENTS.TOTEMIC_SURGE_TALENT) ? 6 : 0),
         gcd: {
           base: 1000,
@@ -365,6 +369,22 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: false,
         },
+      },
+      {
+        spell: TALENTS.TOTEMIC_RECALL_TALENT.id,
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown: 60 * (combatant.hasTalent(TALENTS.CALL_OF_THE_ELEMENTS_TALENT) ? 2 : 3),
+      },
+      {
+        spell: TALENTS.SPIRITWALKERS_GRACE_TALENT.id,
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown: 120 - (combatant.hasTalent(TALENTS.GRACEFUL_SPIRIT_TALENT) ? 30 : 0),
+      },
+
+      /* Hidden Spells */
+      {
+        spell: SPELLS.LIGHTNING_SHIELD.id,
+        category: SPELL_CATEGORY.HIDDEN,
       },
     ];
   }

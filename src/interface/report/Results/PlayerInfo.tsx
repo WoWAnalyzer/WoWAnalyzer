@@ -9,6 +9,7 @@ import PlayerInfoGear from './PlayerInfoGear';
 import PlayerInfoGems from './PlayerInfoGems';
 import PlayerInfoTalents from './PlayerInfoTalents';
 import GameBranch from 'game/GameBranch';
+import { CLASS_NAMES } from 'game/CLASSES';
 
 function _parseGear(gear: Item[]) {
   return gear.reduce((gearItemsBySlotId: Item[], item: Item) => gearItemsBySlotId.concat(item), []);
@@ -18,17 +19,24 @@ interface Props {
   combatant: Combatant;
 }
 
-const backgroundImage = (thumbnail?: string, region?: string): string => {
+export const characterBackgroundImage = (thumbnail?: string, region?: string): string => {
   if (thumbnail?.startsWith('https')) {
-    return thumbnail.replace('avatar.jpg', 'main.jpg');
+    return thumbnail.replace('avatar.jpg', 'main-raw.png');
   } else if (thumbnail && region) {
     return `https://render-${region}.worldofwarcraft.com/character/${thumbnail.replace(
-      'avatar',
-      'main',
+      'avatar.jpg',
+      'main-raw.png',
     )}`;
   } else {
     return '/img/fallback-character.jpg';
   }
+};
+export const classBackgroundImage = (className?: string, region?: string): string | null => {
+  if (className && region) {
+    return `https://render.worldofwarcraft.com/${region}/profile-backgrounds/v2/armory_bg_class_${className.toLowerCase().replaceAll(' ', '_')}.jpg`;
+  }
+
+  return null;
 };
 
 const PlayerInfo = ({ combatant }: Props) => {
@@ -36,15 +44,24 @@ const PlayerInfo = ({ combatant }: Props) => {
   const gear: Item[] = _parseGear(combatant._combatantInfo.gear);
   const talents = combatant._combatantInfo.talentTree;
   const averageIlvl = getAverageItemLevel(gear);
-  const background = backgroundImage(
+  console.log(combatant.characterProfile);
+  const classBackground = combatant.characterProfile?.class
+    ? classBackgroundImage(
+        CLASS_NAMES[combatant.characterProfile?.class].name,
+        combatant.characterProfile?.region,
+      )
+    : undefined;
+  const characterBackground = characterBackgroundImage(
     combatant.characterProfile?.thumbnail,
     combatant.characterProfile?.region,
   );
-
   return (
     <div className="player-info">
-      <div className="player-background" style={{ backgroundImage: `url(${background})` }}>
-        <div className="player-gear">
+      <div className="class-background" style={{ backgroundImage: `url(${classBackground})` }}>
+        <div
+          className="player-gear player-background"
+          style={{ backgroundImage: `url(${characterBackground})` }}
+        >
           <PlayerGearHeader player={combatant} averageIlvl={averageIlvl} />
           <PlayerInfoGear gear={gear} />
           <PlayerInfoGems gear={gear} />

@@ -45,7 +45,6 @@ import NozTeachings from './modules/talents/NozTeachings';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import RegenerativeMagic from '../shared/modules/talents/RegenerativeMagic';
 import AncientFlame from './modules/talents/AncientFlame';
-import TitansGift from './modules/talents/TitansGift';
 import EchoTypeBreakdown from './modules/talents/EchoTypeBreakdown';
 import {
   LivingFlameNormalizer,
@@ -72,6 +71,7 @@ import Reverberations from '../shared/modules/talents/hero/chronowarden/Reverber
 import Chronoflame from '../shared/modules/talents/hero/chronowarden/Chronoflame';
 import ThreadsOfFate from '../shared/modules/talents/hero/chronowarden/ThreadsOfFate';
 import DoubleTime from '../shared/modules/talents/hero/chronowarden/DoubleTime';
+import ConsumeFlame from './modules/talents/ConsumeFlame';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -148,7 +148,6 @@ class CombatLogParser extends CoreCombatLogParser {
     echoTypeBreakdown: EchoTypeBreakdown,
     essenceBurstSources: EssenceBurstSources,
     lifespark: Lifespark,
-    titansGift: TitansGift,
 
     // hero talents
     engulf: Engulf,
@@ -159,6 +158,7 @@ class CombatLogParser extends CoreCombatLogParser {
     chronoflame: Chronoflame,
     threadsOfFate: ThreadsOfFate,
     doubleTime: DoubleTime,
+    consumeFlame: ConsumeFlame,
 
     // other
     t32Prevoker: T32Prevoker,

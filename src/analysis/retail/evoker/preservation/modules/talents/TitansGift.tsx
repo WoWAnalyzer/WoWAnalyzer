@@ -19,6 +19,14 @@ import { TITANS_GIFT_INC } from '../../normalizers/EventLinking/constants';
 import { formatPercentage } from 'common/format';
 import { isCastFromEB } from 'analysis/retail/evoker/shared/modules/normalizers/EssenceBurstCastLinkNormalizer';
 
+/**
+ * CURRENTLY DISABLED
+ * Lifebind healing is not implemented. The amount transfered by lifebind gets increased with the strength of the echo used to apply it so Titans Gift echoes do stronger lifebind,
+ * this is severly underreporting the strength of the talent for echo builds that lean heavily into lifebind at the moment.
+ * There also used to be a bug where Emerald Blossoms caused by Field of Dreams with Essence Burst active would benefit from Titans Gift, the bug was reported as fixed but needs
+ * testing. Emerald Blossoms released from a Stasis with Essence Burst active should also benefit from the talent but this isn't implemented either.
+ */
+
 class TitansGift extends Analyzer {
   //Blossom
   healingAddedToBlossoms: number = 0;

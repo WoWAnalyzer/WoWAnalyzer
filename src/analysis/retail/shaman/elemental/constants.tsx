@@ -12,3 +12,17 @@ export const ON_CAST_BUFF_REMOVAL_GRACE_MS = 50;
 export const GUIDE_EXPLANATION_PERCENT_WIDTH = 40;
 
 export const ELECTRIFIED_SHOCKS_DURATION = 9000;
+
+/** Master of the Elements is not currently worth playing around, so it's disabled here instead of the code removed */
+export const ENABLE_MOTE_CHECKS = false;
+
+export enum NORMALIZER_ORDER {
+  EventLink = 0,
+  Prepull = 10,
+  EventOrder = 20,
+}
+
+export enum EVENT_LINKS {
+  Stormkeeper = 'stormkeeper',
+  CallOfTheAncestors = 'call-of-the-ancestor',
+}

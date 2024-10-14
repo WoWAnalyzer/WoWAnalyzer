@@ -8,12 +8,15 @@ import Events, { ApplyBuffEvent, HealEvent, RefreshBuffEvent } from 'parser/core
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Combatants from 'parser/shared/modules/Combatants';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import Statistic from 'parser/ui/Statistic';
-import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 import { ABILITIES_THAT_TRIGGER_MASTERY } from '../../constants';
+
+/**
+ * THIS MODULE IS CALLED FOR SOME BACKGROUND STUFF
+ * TODO - RESOLVE THOSE MODULES AND DELETE THIS ONE
+ *
+ * UNTIL THEN, JUST THE FRONT END IS DISABLED.
+ */
 
 const DEBUG = false;
 const CUTOFF_PERCENT = 0.01;
@@ -65,14 +68,11 @@ class EchoOfLightMastery extends Analyzer {
   }
 
   get effectiveHealing() {
-    return (
-      this.abilityTracker.getAbility(SPELLS.ECHO_OF_LIGHT_HEAL.id).healingEffective +
-      this.abilityTracker.getAbility(SPELLS.ECHO_OF_LIGHT_HEAL.id).healingAbsorbed
-    );
+    return this.abilityTracker.getAbilityHealing(SPELLS.ECHO_OF_LIGHT_HEAL.id);
   }
 
   get overHealing() {
-    return this.abilityTracker.getAbility(SPELLS.ECHO_OF_LIGHT_HEAL.id).healingOverheal;
+    return this.abilityTracker.getAbility(SPELLS.ECHO_OF_LIGHT_HEAL.id).healingVal.overheal;
   }
 
   get overHealingPercent() {
@@ -322,54 +322,6 @@ class EchoOfLightMastery extends Analyzer {
         }
       }
     }
-  }
-
-  statistic() {
-    return (
-      <Statistic
-        size="flexible"
-        position={STATISTIC_ORDER.CORE(2)}
-        tooltip={
-          <>
-            Total Healing: {formatNumber(this.effectiveHealing)} (
-            {formatPercentage(this.overHealingPercent)}% OH)
-            <br />
-            Expand for Echo of Light healing breakdown. As our mastery is often very finicky, this
-            could end up wrong in various situations. Please report any logs that seem strange to
-            @Khadaj on the WoWAnalyzer discord.
-            <br />
-            <br />
-            <strong>Please do note this may not be 100% accurate.</strong>
-            <br />
-            <br />
-            Also, a mastery value can be more than just "healing done times mastery percent" because
-            Echo of Light is based off raw healing. If the heal itself overheals, but the mastery
-            does not, it can surpass that assumed "limit". Don't use this as a reason for a "strange
-            log" unless something is absurdly higher than its effective healing.
-          </>
-        }
-        dropdown={
-          <>
-            <div>Values under 1% of total are omitted.</div>
-            <table className="table table-condensed">
-              <thead>
-                <tr>
-                  <th>Spell</th>
-                  <th>Amount</th>
-                  <th>% of Total</th>
-                  <th>% OH</th>
-                </tr>
-              </thead>
-              <tbody>{this.masteryTable}</tbody>
-            </table>
-          </>
-        }
-      >
-        <BoringSpellValueText spell={SPELLS.ECHO_OF_LIGHT_MASTERY}>
-          <ItemHealingDone amount={this.effectiveHealing} />
-        </BoringSpellValueText>
-      </Statistic>
-    );
   }
 }
 

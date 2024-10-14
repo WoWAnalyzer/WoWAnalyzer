@@ -124,6 +124,11 @@ class StatTracker extends Analyzer {
       haste: (selectedCombatant, item) =>
         calculateSecondaryStatDefault(250, 547.57, item?.itemLevel ?? selectedCombatant.ilvl),
     },
+    [SPELLS.QUICKWICK_CANDLESTICK_HASTE.id]: {
+      itemId: ITEMS.QUICKWICK_CANDLESTICK.id,
+      haste: (selectedCombatant, item) =>
+        calculateSecondaryStatDefault(400, 2365, item?.itemLevel ?? selectedCombatant.ilvl),
+    },
     // endregion
 
     // region Other
@@ -181,17 +186,17 @@ class StatTracker extends Analyzer {
     [SPELLS.MOUNTAINEER.id]: { versatility: 1.01 },
   };
 
-  //Values taken from https://github.com/simulationcraft/simc/blob/dragonflight/engine/dbc/generated/sc_scale_data.inc
+  //Values taken from https://github.com/simulationcraft/simc/blob/thewarwithin/engine/dbc/generated/sc_scale_data.inc
   statBaselineRatingPerPercent = {
     /** Secondaries */
-    [STAT.CRITICAL_STRIKE]: 180,
-    [STAT.HASTE]: 170,
-    [STAT.MASTERY]: 180,
-    [STAT.VERSATILITY]: 205,
+    [STAT.CRITICAL_STRIKE]: 700,
+    [STAT.HASTE]: 660,
+    [STAT.MASTERY]: 700,
+    [STAT.VERSATILITY]: 780,
     /** Tertiaries */
-    [STAT.AVOIDANCE]: 72,
-    [STAT.LEECH]: 148,
-    [STAT.SPEED]: 50,
+    [STAT.AVOIDANCE]: 544,
+    [STAT.LEECH]: 1020,
+    [STAT.SPEED]: 170,
   };
 
   // Values taken from https://github.com/wowsims/cata/blob/master/sim/core/base_stats_auto_gen.go
@@ -202,7 +207,7 @@ class StatTracker extends Analyzer {
   };
 
   /** Secondary stat scaling thresholds
-   * Taken from https://raw.githubusercontent.com/simulationcraft/simc/dragonflight/engine/dbc/generated/item_scaling.inc
+   * Taken from https://raw.githubusercontent.com/simulationcraft/simc/thewarwithin/engine/dbc/generated/item_scaling.inc
    * Search for 21024 in the first column for secondary stat scaling
    */
   secondaryStatPenaltyThresholds: PenaltyThreshold[] = [
@@ -218,13 +223,13 @@ class StatTracker extends Analyzer {
   ];
 
   /** Tertiary stat scaling thresholds
-   * Taken from https://raw.githubusercontent.com/simulationcraft/simc/dragonflight/engine/dbc/generated/item_scaling.inc
+   * Taken from https://raw.githubusercontent.com/simulationcraft/simc/thewarwithin/engine/dbc/generated/item_scaling.inc
    * Search for 21025 in the first column for tertiary stat scaling
    */
   tertiaryStatPenaltyThresholds: PenaltyThreshold[] = [
     /** Tertiary stat scaling thresholds */
     { base: 0, scaled: 0, penaltyAboveThis: 0 },
-    { base: 0.05, scaled: 0.05, penaltyAboveThis: 0 },
+    { base: 0.005, scaled: 0.05, penaltyAboveThis: 0 },
     { base: 0.1, scaled: 0.1, penaltyAboveThis: 0.2 },
     { base: 0.15, scaled: 0.14, penaltyAboveThis: 0.4 },
     { base: 0.2, scaled: 0.17, penaltyAboveThis: 0.6 },
@@ -584,7 +589,10 @@ class StatTracker extends Analyzer {
   get baseMasteryPercentage() {
     const spellPoints = 8; // Spellpoint is a unit of mastery, each class has 8 base Spellpoints
     let mastery = (spellPoints * (this.selectedCombatant.spec?.masteryCoefficient ?? 1)) / 100;
-    if (this.selectedCombatant.race === RACES.Dracthyr) {
+    if (
+      this.selectedCombatant.race === RACES.DracthyrAlliance ||
+      this.selectedCombatant.race === RACES.DracthyrHorde
+    ) {
       mastery += 0.018;
     }
     return mastery;
@@ -1091,7 +1099,7 @@ type BuffVal = number | ((s: Combatant, t: Item | null) => number);
  * A buff that boosts player stats.
  * 'itemId' need only be filled in for an item based buff, when we will need the ID for the BuffVal callback.
  */
-type StatBuff = Partial<Record<keyof Stats, BuffVal>> & { itemId?: number };
+export type StatBuff = Partial<Record<keyof Stats, BuffVal>> & { itemId?: number };
 
 /**
  * StatBuffs mapped by their guid

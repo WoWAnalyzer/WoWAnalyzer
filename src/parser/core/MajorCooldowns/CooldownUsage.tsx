@@ -32,6 +32,7 @@ type CooldownUsageProps<Cast extends CooldownTrigger<AnyEvent>> = Omit<
   'explanation' | 'performances' | 'uses'
 > & {
   analyzer: MajorCooldown<Cast>;
+  hidePotentialMissedCasts?: boolean;
 };
 
 /**
@@ -45,6 +46,7 @@ type CooldownUsageProps<Cast extends CooldownTrigger<AnyEvent>> = Omit<
  */
 const CooldownUsage = <Cast extends CooldownTrigger<AnyEvent>>({
   analyzer,
+  hidePotentialMissedCasts = false,
   ...others
 }: CooldownUsageProps<Cast>) => {
   const castEfficiency = useAnalyzer(CastEfficiency)?.getCastEfficiencyForSpell(analyzer.spell);
@@ -64,7 +66,7 @@ const CooldownUsage = <Cast extends CooldownTrigger<AnyEvent>>({
     for (let i = 0; i < possibleUses; i += 1) {
       performance.push(MissingCastBoxEntry);
     }
-  } else {
+  } else if (!hidePotentialMissedCasts) {
     // if they cast it at least once, have some forgiveness. up to half (rounded up)
     // of possible casts get a yellow color. any beyond that are red.
     for (let i = possibleUses; i > actualCasts; i -= 1) {

@@ -45,7 +45,7 @@ class DeathRecapTracker extends Analyzer {
     // Add additional defensive buffs/debuffs to common/DEFENSIVE_BUFFS
     DEFENSIVE_BUFFS.forEach((e) => {
       this.buffs.push({
-        id: e.spell.id,
+        id: e.spell,
       });
     });
     options.buffsModule.activeAuras.forEach((buff) => {

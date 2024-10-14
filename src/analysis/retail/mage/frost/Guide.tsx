@@ -8,6 +8,8 @@ import { SpellLink } from 'interface';
 import TALENTS from 'common/TALENTS/mage';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 import { HideExplanationsToggle } from 'interface/guide/components/HideExplanationsToggle';
+import { AplSectionData } from 'interface/guide/components/Apl';
+import * as ssApl from 'src/analysis/retail/mage/frost/apl/SpellslingerAplCheck';
 
 export const GUIDE_CORE_EXPLANATION_PERCENT = 50;
 
@@ -52,6 +54,11 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
     <>
       <Section title="Core">
         <HideExplanationsToggle id="hide-explanations-core" />
+        <SubSection title="Action Priority List (APL)">
+          {info.combatant.hasTalent(TALENTS.SPLINTERSTORM_TALENT) && (
+            <AplSectionData checker={ssApl.spellslingerCheck} apl={ssApl.spellslingerApl} />
+          )}
+        </SubSection>
         {alwaysBeCastingSubsection}
         {modules.wintersChill.guideSubsection}
         {modules.flurry.guideSubsection}

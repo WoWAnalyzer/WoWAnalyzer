@@ -99,7 +99,7 @@ class RisingMist extends Analyzer {
   }
 
   get directHealing() {
-    return this.abilityTracker.getAbility(SPELLS.RISING_MIST_HEAL.id).healingEffective;
+    return this.abilityTracker.getAbilityHealing(SPELLS.RISING_MIST_HEAL.id);
   }
 
   get totalHealing() {

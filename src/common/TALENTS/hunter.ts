@@ -578,6 +578,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [126338],
     definitionIds: [{ id: 131164, specId: 255 }],
+    focusCost: 15,
   },
   FOCUSED_AIM_TALENT: {
     id: 378767,

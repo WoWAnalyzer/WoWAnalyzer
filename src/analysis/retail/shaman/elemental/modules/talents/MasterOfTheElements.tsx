@@ -10,6 +10,7 @@ import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { addEnhancedCastReason } from 'parser/core/EventMetaLib';
+import { ENABLE_MOTE_CHECKS } from '../../constants';
 
 const MASTER_OF_THE_ELEMENTS = {
   INCREASE: 0.15,
@@ -51,7 +52,7 @@ const MASTER_OF_THE_ELEMENTS = {
 };
 
 class MasterOfTheElements extends Analyzer {
-  moteBuffedAbilities: { [key: number]: number } = {};
+  moteBuffedAbilities = new Map<number, number>();
   moteActivationTimestamp: number | null = null;
   moteConsumptionTimestamp: number | null = null;
   damageGained = 0;
@@ -68,7 +69,7 @@ class MasterOfTheElements extends Analyzer {
         (isTalent(spell) && this.selectedCombatant.hasTalent(spell)) ||
         !MASTER_OF_THE_ELEMENTS.TALENTS.includes(spell.id)
       ) {
-        this.moteBuffedAbilities[spell.id] = 0;
+        this.moteBuffedAbilities.set(spell.id, 0);
       }
     });
 
@@ -87,19 +88,26 @@ class MasterOfTheElements extends Analyzer {
   }
 
   _onCast(event: CastEvent) {
-    if (this.moteActivationTimestamp === null) {
+    if (
+      this.moteActivationTimestamp === null ||
+      !this.moteBuffedAbilities.has(event.ability.guid)
+    ) {
       //the buff is a clusterfuck so we just track it manually
       return;
     }
     this.moteConsumptionTimestamp = event.timestamp;
     this.moteActivationTimestamp = null;
-    addEnhancedCastReason(
-      event,
-      <>
-        Cast with <SpellLink spell={TALENTS.MASTER_OF_THE_ELEMENTS_ELEMENTAL_TALENT} />
-      </>,
+    ENABLE_MOTE_CHECKS &&
+      addEnhancedCastReason(
+        event,
+        <>
+          Cast with <SpellLink spell={TALENTS.MASTER_OF_THE_ELEMENTS_ELEMENTAL_TALENT} />
+        </>,
+      );
+    this.moteBuffedAbilities.set(
+      event.ability.guid,
+      this.moteBuffedAbilities.get(event.ability.guid)! + 1,
     );
-    this.moteBuffedAbilities[event.ability.guid] += 1;
   }
 
   _onLvBCast(event: CastEvent) {
@@ -134,14 +142,16 @@ class MasterOfTheElements extends Analyzer {
                 </tr>
               </thead>
               <tbody>
-                {Object.keys(this.moteBuffedAbilities).map((e) => (
-                  <tr key={e}>
-                    <th>
-                      <SpellLink spell={Number(e)} />
-                    </th>
-                    <td>{this.moteBuffedAbilities[Number(e)]}</td>
-                  </tr>
-                ))}
+                {[...this.moteBuffedAbilities.entries()]
+                  .filter(([_, casts]) => casts > 0)
+                  .map(([spellId, casts]) => (
+                    <tr key={spellId}>
+                      <td>
+                        <SpellLink spell={spellId} />
+                      </td>
+                      <td>{casts}</td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </>

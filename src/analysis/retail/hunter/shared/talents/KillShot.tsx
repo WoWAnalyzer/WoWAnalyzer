@@ -3,7 +3,6 @@ import Spell from 'common/SPELLS/Spell';
 import TALENTS from 'common/TALENTS/hunter';
 import SPECS from 'game/SPECS';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import ExecuteHelper from 'parser/shared/modules/helpers/ExecuteHelper';
@@ -40,14 +39,13 @@ class KillShot extends ExecuteHelper {
       this.selectedCombatant.hasTalent(TALENTS.KILL_SHOT_SHARED_TALENT) ||
       this.selectedCombatant.hasTalent(TALENTS.KILL_SHOT_SURVIVAL_TALENT);
 
-    this.addEventListener(Events.fightend, this.adjustMaxCasts);
     const ctor = this.constructor as typeof ExecuteHelper;
     ctor.executeSpells.push(this.activeKillShotSpell);
 
     (options.abilities as Abilities).add({
       spell: this.activeKillShotSpell.id,
       category: SPELL_CATEGORY.ROTATIONAL,
-      charges: this.selectedCombatant.hasTalent(TALENTS.DEADEYE_TALENT) ? 2 : 1,
+      charges: 1,
       cooldown: 10,
       gcd: {
         base: 1500,
@@ -62,9 +60,6 @@ class KillShot extends ExecuteHelper {
 
   adjustMaxCasts() {
     this.maxCasts += Math.ceil(this.totalExecuteDuration / 10000);
-    if (this.selectedCombatant.hasTalent(TALENTS.DEADEYE_TALENT)) {
-      this.maxCasts += 1;
-    }
     this.maxCasts += this.singleExecuteEnablerApplications;
   }
 
@@ -72,8 +67,8 @@ class KillShot extends ExecuteHelper {
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
+        category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
-        category={STATISTIC_CATEGORY.GENERAL}
       >
         <BoringSpellValueText spell={this.activeKillShotSpell}>
           <ItemDamageDone amount={this.damage} />

@@ -34,6 +34,7 @@ import PRIEST from './priest';
 import RACIALS from './racials';
 import ROGUE from './rogue';
 import DRAGONFLIGHT from './dragonflight';
+import THEWARWITHIN from './thewarwithin';
 import SHAMAN from './shaman';
 import Spell, { Enchant } from './Spell';
 import WARLOCK from './warlock';
@@ -60,6 +61,7 @@ const ABILITIES = safeMerge(
   WARLOCK,
   WARRIOR,
   DRAGONFLIGHT,
+  THEWARWITHIN,
 );
 
 const InternalSpellTable = indexById<Spell | Enchant, typeof ABILITIES>(ABILITIES);

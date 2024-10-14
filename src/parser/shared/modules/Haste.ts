@@ -1,7 +1,7 @@
 import { formatMilliseconds, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import CLASSIC_SPELLS from 'common/SPELLS/classic';
-import { TALENTS_DEATH_KNIGHT, TALENTS_MAGE, TALENTS_PRIEST } from 'common/TALENTS';
+import { TALENTS_DEATH_KNIGHT, TALENTS_MAGE, TALENTS_PRIEST, TALENTS_SHAMAN } from 'common/TALENTS';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import GameBranch from 'game/GameBranch';
 import { wclGameVersionToBranch } from 'game/VERSIONS';
@@ -39,24 +39,25 @@ const DEFAULT_HASTE_BUFFS: HasteBuffMap = {
 
   ...BLOODLUST_BUFFS,
   [SPELLS.BERSERKING.id]: 0.1,
+
+  //region Warrior
+  [SPELLS.ENRAGE.id]: 0.25,
   [SPELLS.IN_FOR_THE_KILL_TALENT_BUFF.id]: 0.1,
-  [SPELLS.REVERSE_ENTROPY_BUFF.id]: 0.15,
-  [SPELLS.ENRAGE.id]: 0.25, // Fury Warrior
+  //endregion
 
   //region Demon Hunter
   [SPELLS.METAMORPHOSIS_HAVOC_BUFF.id]: 0.25,
   [SPELLS.FURIOUS_GAZE.id]: 0.1, // Havoc DH haste buff from fully channeling a cast of Eye Beam
   //endregion
 
-  //region Death Knight Haste Buffs
-  [SPELLS.BONE_SHIELD.id]: 0.1, // Blood BK haste buff from maintaining boneshield
-  [SPELLS.EMPOWER_RUNE_WEAPON.id]: 0.15,
+  //region Death Knight
+  [SPELLS.BONE_SHIELD.id]: 0.1, // Blood DK haste buff from maintaining boneshield
+  [TALENTS_DEATH_KNIGHT.EMPOWER_RUNE_WEAPON_TALENT.id]: 0.15,
   [TALENTS_DEATH_KNIGHT.UNHOLY_ASSAULT_TALENT.id]: 0.3,
-  [SPELLS.T29_GHOULISH_INFUSION.id]: 0.08,
   [SPELLS.UNHOLY_GROUND_HASTE_BUFF.id]: 0.05,
   //endregion
 
-  //region Druid Haste Buffs
+  //region Druid
   [SPELLS.STARLORD.id]: {
     hastePerStack: 0.04,
   },
@@ -65,11 +66,11 @@ const DEFAULT_HASTE_BUFFS: HasteBuffMap = {
   [SPELLS.NATURES_GRACE.id]: 0.15,
   [SPELLS.FRANTIC_MOMENTUM.id]: 0.1,
   [SPELLS.CENARIUS_MIGHT_BUFF.id]: 0.1,
-  [SPELLS.SAVAGE_FURY_BUFF.id]: 0.08,
+  [SPELLS.SAVAGE_FURY_BUFF.id]: 0.1,
   // Guardian Berserk handled in spec module
   //endregion
 
-  //region Hunter Haste Buffs
+  //region Hunter
   [SPELLS.DIRE_BEAST_BUFF.id]: 0.05,
   [SPELLS.STEADY_FOCUS_BUFF.id]: 0.07,
   //endregion
@@ -112,16 +113,28 @@ const DEFAULT_HASTE_BUFFS: HasteBuffMap = {
 
   //region Shaman
   [SPELLS.ELEMENTAL_BLAST_HASTE.id]: 0.03,
+  [TALENTS_SHAMAN.UNLIMITED_POWER_TALENT.id]: {
+    hastePerStack: 0.01,
+  },
   //endregion
 
-  //region CLASSIC
-  // Warlock
-  [CLASSIC_SPELLS.DARK_INTENT_HASTE.id]: 0.03,
+  //region Warlock
+  [SPELLS.REVERSE_ENTROPY_BUFF.id]: 0.15,
   //endregion
 
   //region Encounter
   //Raids
   [SPELLS.ASTRAL_FLARE_BUFF.id]: { hastePerStack: 0.05 }, // Sarkareth
+  //endregion
+
+  //region CLASSIC
+  // Raids
+  [CLASSIC_SPELLS.CORRUPTION_ABSOLUTE.id]: 1, // Cho'gall
+  [CLASSIC_SPELLS.ESSENCE_OF_THE_RED.id]: 1, // Sinestra
+  // Druid
+  [CLASSIC_SPELLS.MOONKIN_AURA.id]: 0.05,
+  // Warlock
+  [CLASSIC_SPELLS.DARK_INTENT_HASTE.id]: 0.03,
   //endregion
 };
 

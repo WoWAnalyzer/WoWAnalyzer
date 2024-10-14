@@ -1,5 +1,5 @@
 import AbilityTracker from 'analysis/retail/priest/holy/modules/core/AbilityTracker';
-import { Mindgames, TranslucentImage } from 'analysis/retail/priest/shared';
+import { TranslucentImage } from 'analysis/retail/priest/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
@@ -9,8 +9,6 @@ import Abilities from './modules/Abilities';
 import Checklist from './modules/checklist/Module';
 import EchoOfLightMastery from './modules/core/EchoOfLightMastery';
 import FortitudeRaidBuff from './modules/core/FortitudeRaidBuff';
-import HolyWordsReductionBySpell from './modules/core/HolyWordsReductionBySpell';
-import HolyWordWastedAmounts from './modules/core/HolyWordWastedAmounts';
 import SpellManaCost from './modules/core/SpellManaCost';
 // Spell data
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -20,28 +18,28 @@ import HealingTargetTracker from './modules/features/HealingTargetTracker';
 import HealingEfficiencyDetails from './modules/features/HolyPriestHealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/features/HolyPriestHealingEfficiencyTracker';
 import SpellUsable from './modules/features/SpellUsable';
-import StatWeights from './modules/features/StatWeights';
 import CircleOfHealing from './modules/spells/CircleOfHealing';
 import DivineHymn from './modules/spells/DivineHymn';
 import GuardianSpirit from './modules/spells/GuardianSpirit';
 import HolyNova from './modules/spells/HolyNova';
-import HolyWordChastise from './modules/spells/holyword/HolyWordChastise';
-import HolyWordSalvationCooldown from './modules/spells/holyword/HolyWordSalvation';
-import HolyWordSanctify from './modules/spells/holyword/HolyWordSanctify';
-import HolyWordSerenity from './modules/spells/holyword/HolyWordSerenity';
 import HymnBuffBenefit from './modules/spells/HymnBuffBenefit';
 import PrayerOfMending from './modules/spells/PrayerOfMending';
 import Renew from './modules/spells/Renew';
 import SpiritOfRedemption from './modules/spells/SpiritOfRedemption';
 import Talents from './modules/talents';
-import T29TwoSet from './modules/dragonflight/tier/tier29/Tier29HolyPriest2Set';
-import T29FourSet from './modules/dragonflight/tier/tier29/Tier29HolyPriest4Set';
-import T30FourSet from './modules/dragonflight/tier/tier30/Tier30HolyPriest4Set';
 import ProtectiveLight from '../shared/ProtectiveLight';
 import PrayerOfHealing from './modules/spells/PrayerOfHealing';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import Guide from './Guide';
 import Benevolence from '../shared/Benevolence';
+import RenewTracker from './modules/talents/Oracle/OracleCore/RenewTracker';
+import RenewAttributor from './modules/talents/Oracle/OracleCore/RenewAttributor';
+import EOLAttrib from './modules/core/EchoOfLightAttributor';
+import HolyWordCDRBySpell from './modules/core/HolyWordCDRBySpell';
+import HolyWordCDR from './modules/core/HolyWordCDR';
+import EchoOfLightDisplay from './modules/core/EchoOfLightDisplay';
+import HolyTWW4pS1 from './modules/tww/HolyTWW4pcS1';
+import HolyTWW4pS1Display from './modules/tww/HolyTWW4pcS1Display';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -68,19 +66,19 @@ class CombatLogParser extends CoreCombatLogParser {
     // Core
     echoOfLightMastery: EchoOfLightMastery,
     fortitudeRaidBuff: FortitudeRaidBuff,
-    holyWordsReductionBySpell: HolyWordsReductionBySpell,
-    holyWordWastedAmounts: HolyWordWastedAmounts,
+    renewTracker: RenewTracker,
+    renewAttributor: RenewAttributor,
+    eolAttrib: EOLAttrib,
+    holyWordCDRBySpell: HolyWordCDRBySpell,
+    holyWordCDR: HolyWordCDR,
+    echoOfLightDisplay: EchoOfLightDisplay,
 
     // Spells
     divineHymn: DivineHymn,
     guardianSpirit: GuardianSpirit,
     holyNova: HolyNova,
     hymnBuffBenefit: HymnBuffBenefit,
-    holyWordSanctify: HolyWordSanctify,
-    holyWordSerenity: HolyWordSerenity,
-    holyWordChastise: HolyWordChastise,
-    holyWordSalvation: HolyWordSalvationCooldown,
-    statWeights: StatWeights,
+
     circleOfHealing: CircleOfHealing,
     prayerOfHealing: PrayerOfHealing,
     benevolence: Benevolence,
@@ -89,9 +87,11 @@ class CombatLogParser extends CoreCombatLogParser {
     renew: Renew,
     prayerOfMending: PrayerOfMending,
 
-    T29TwoSet: T29TwoSet,
-    T29FourSet: T29FourSet,
-    T30FourSet: T30FourSet,
+    // Items
+
+    holyTWW4pcS1: HolyTWW4pS1,
+    holyTWW4pS1Display: HolyTWW4pS1Display,
+
     // Talents
     Enlightenment: Talents.MiddleRow.Enlightenment,
     TrailOfLight: Talents.MiddleRow.TrailOfLight,
@@ -99,6 +99,8 @@ class CombatLogParser extends CoreCombatLogParser {
     DesperateTimes: Talents.BottomRow.DesperateTimes,
     HealingChorus: Talents.MiddleRow.HealingChorus,
     EverlastingLight: Talents.MiddleRow.EverlastingLight,
+    PrismaticEchoes: Talents.MiddleRow.PrismaticEchoes,
+    CrisisManagement: Talents.MiddleRow.CrisisManagement,
 
     BindingHeals: Talents.Classwide.BindingHeals,
     AngelsMercy: Talents.Classwide.AngelsMercy,
@@ -120,7 +122,6 @@ class CombatLogParser extends CoreCombatLogParser {
     Benediction: Talents.MiddleRow.Benediction,
     RevitalizingPrayers: Talents.MiddleRow.RevitalizingPrayers,
     DivineStar: Talents.Classwide.DivineStar,
-    Mindgames: Mindgames,
     DivineWord: Talents.BottomRow.DivineWord,
 
     HolyWordSalvation: Talents.BottomRow.HolyWordSalvation,
@@ -130,14 +131,31 @@ class CombatLogParser extends CoreCombatLogParser {
     Lightweaver: Talents.BottomRow.Lightweaver,
 
     divineImage: Talents.BottomRow.DivineImage,
-    lightOfTheNaaru: Talents.BottomRow.LightOfTheNaaru,
-    harmoniousApparatus: Talents.BottomRow.HarmoniousApparatus,
     resonantWords: Talents.BottomRow.ResonantWords,
     TranslucentImage: TranslucentImage,
     miracleWorker: Talents.BottomRow.MiracleWorker,
     Lightwell: Talents.BottomRow.Lightwell,
 
     BurningVehemence: Talents.TopRow.BurningVehemence,
+
+    // Archon Hero Talent Display
+    PerfectedFormHoly: Talents.Archon.PerfectedFormHoly,
+    ResonantEnergyHoly: Talents.Archon.ResonantEnergyHoly,
+    ManifestedPowerHoly: Talents.Archon.ManifestedPowerHoly,
+    EmpoweredSurgesHoly: Talents.Archon.EmpoweredSurgesHoly,
+    EnergyCompressionHoly: Talents.Archon.EnergyCompressionHoly,
+    PowerSurgeAndDivineHaloHoly: Talents.Archon.PowerSurgeAndDivineHaloHoly,
+
+    // Oracle Hero Talents
+    PremontitionOfSolace: Talents.Oracle.PremonitionOfSolace,
+    PremonitionOfPiety: Talents.Oracle.PremonitionOfPiety,
+    PremonitionOfInsight: Talents.Oracle.PremonitionOfInsight,
+
+    // Holy Specific Oracle Hero Talents
+    PreventiveMeasuresHoly: Talents.Oracle.PreventiveMeasuresHoly,
+    PreemptiveCareHoly: Talents.Oracle.PreemptiveCareHoly,
+    ProphetsWillHoly: Talents.Oracle.ProphetsWillHoly,
+    AssuredSafetyHoly: Talents.Oracle.AssuredSafetyHoly,
 
     // Mana Tab
     manaTracker: ManaTracker,

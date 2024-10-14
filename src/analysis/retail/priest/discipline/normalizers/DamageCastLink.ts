@@ -29,6 +29,7 @@ const EVENT_LINKS: EventLink[] = [
     reverseLinkRelation: DAMAGE,
     linkRelation: CAST,
     referencedEventId: [
+      SPELLS.VOID_BLAST_DAMAGE_DISC.id,
       SPELLS.PENANCE_CAST.id,
       SPELLS.DARK_REPRIMAND_CAST.id,
       SPELLS.SMITE.id,
@@ -41,11 +42,11 @@ const EVENT_LINKS: EventLink[] = [
       TALENTS_PRIEST.SCHISM_TALENT.id,
       TALENTS_PRIEST.HOLY_NOVA_TALENT.id,
       SPELLS.MIND_BLAST.id,
-      TALENTS_PRIEST.MINDGAMES_TALENT.id,
       TALENTS_PRIEST.SHADOW_WORD_DEATH_TALENT.id,
     ],
     referencedEventType: EventType.Cast,
     linkingEventId: [
+      SPELLS.VOID_BLAST_DAMAGE_DISC.id,
       SPELLS.SMITE.id,
       SPELLS.PENANCE.id,
       SPELLS.DARK_REPRIMAND_DAMAGE.id,
@@ -59,7 +60,6 @@ const EVENT_LINKS: EventLink[] = [
       TALENTS_PRIEST.SCHISM_TALENT.id,
       TALENTS_PRIEST.HOLY_NOVA_TALENT.id,
       SPELLS.MIND_BLAST.id,
-      TALENTS_PRIEST.MINDGAMES_TALENT.id,
       TALENTS_PRIEST.SHADOW_WORD_DEATH_TALENT.id,
     ],
     linkingEventType: EventType.Damage,

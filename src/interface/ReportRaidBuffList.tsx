@@ -70,7 +70,7 @@ const CLASSIC_RAID_BUFFS = new Map<Spell, Array<Class | object>>([
   // Intellect
   [CLASSIC_SPELLS.ARCANE_BRILLIANCE, [Class.Mage]],
   // Stats
-  [CLASSIC_SPELLS.GIFT_OF_THE_WILD, [Class.Druid]],
+  [CLASSIC_SPELLS.MARK_OF_THE_WILD, [Class.Druid]],
   // Stats %
   // Attack Power
   // MP5
@@ -84,7 +84,6 @@ const CLASSIC_RAID_BUFFS = new Map<Spell, Array<Class | object>>([
   // Strength & Agility
   [CLASSIC_SPELLS.STRENGTH_OF_EARTH_TOTEM, [Class.Shaman]],
   // Melee Haste
-  [CLASSIC_SPELLS.ICY_TALONS_BUFF, [SPECS.CLASSIC_DEATH_KNIGHT_FROST]],
   // All Damage %
   [CLASSIC_SPELLS.SANCTIFIED_RETRIBUTION, [SPECS.CLASSIC_PALADIN_RETRIBUTION]],
   // Haste %

@@ -318,6 +318,11 @@ const spells = {
     name: 'Healthstone',
     icon: 'warlock_-healthstone',
   },
+  DEMONIC_HEALTHSTONE: {
+    id: 452930,
+    name: 'Demonic Healthstone',
+    icon: 'warlock_-bloodstone',
+  },
   ANCIENT_REJUVENATION_POTION: {
     id: 188018,
     name: 'Ancient Rejuvenation Potion',
@@ -494,6 +499,17 @@ const spells = {
     id: 317859,
     name: 'Draconic Empowerment',
     icon: 'inv_misc_head_dragon_black',
+  },
+
+  WINDFURY_EXTRA_ATTACK_MH: {
+    id: 327941,
+    name: 'Windfury Totem',
+    icon: 'spell_nature_windfury',
+  },
+  WINDFURY_EXTRA_ATTACK_OH: {
+    id: 395496,
+    name: 'Windfury Totem',
+    icon: 'spell_nature_windfury',
   },
 } satisfies Record<string, Spell>;
 

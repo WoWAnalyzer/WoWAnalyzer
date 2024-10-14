@@ -1,4 +1,4 @@
-import TALENTS from 'common/TALENTS/priest';
+import TALENTS, { TALENTS_PRIEST } from 'common/TALENTS/priest';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
@@ -9,13 +9,22 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import { formatNumber, formatPercentage } from 'common/format';
-
-const PRAYERFUL_LITANY_MULTIPLIER = 1;
+import { PRAYERFUL_LITANY_MULTIPLIER } from '../../../constants';
+import EOLAttrib from '../../core/EchoOfLightAttributor';
+import SpellLink from 'interface/SpellLink';
+import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
+import SPELLS from 'common/SPELLS';
 
 /*
   Prayer of Healing heals for 30% more to the most injured ally it affects.
 */
 class PrayerfulLitany extends Analyzer {
+  static dependencies = {
+    eolAttrib: EOLAttrib,
+  };
+  protected eolAttrib!: EOLAttrib;
+  eolContrib = 0;
+
   effectiveAdditionalHealing: number = 0;
   overhealing: number = 0;
 
@@ -51,6 +60,10 @@ class PrayerfulLitany extends Analyzer {
         PRAYERFUL_LITANY_MULTIPLIER,
       );
       const overHealAmount = calculateOverhealing(buffedHealEvent, PRAYERFUL_LITANY_MULTIPLIER);
+      this.eolContrib += this.eolAttrib.getEchoOfLightAmpAttrib(
+        buffedHealEvent,
+        PRAYERFUL_LITANY_MULTIPLIER,
+      );
 
       this.effectiveAdditionalHealing += effectiveHealAmount;
       this.overhealing += overHealAmount;
@@ -75,11 +88,23 @@ class PrayerfulLitany extends Analyzer {
           <>
             Total Healing: {formatNumber(this.effectiveAdditionalHealing + this.overhealing)} (
             {formatPercentage(this.percentOverhealing)}% OH)
+            <br />
+            <div>Breakdown: </div>
+            <div>
+              <SpellLink spell={TALENTS_PRIEST.PRAYERFUL_LITANY_TALENT} />:{' '}
+              <ItemPercentHealingDone
+                amount={this.effectiveAdditionalHealing}
+              ></ItemPercentHealingDone>{' '}
+            </div>
+            <div>
+              <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
+              <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone>
+            </div>
           </>
         }
       >
         <TalentSpellText talent={TALENTS.PRAYERFUL_LITANY_TALENT}>
-          <ItemHealingDone amount={this.effectiveAdditionalHealing} />
+          <ItemHealingDone amount={this.effectiveAdditionalHealing + this.eolContrib} />
         </TalentSpellText>
       </Statistic>
     );

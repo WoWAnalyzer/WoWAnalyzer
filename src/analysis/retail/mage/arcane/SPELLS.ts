@@ -12,6 +12,11 @@ const spells = {
     name: 'Arcane Barrage',
     icon: 'ability_mage_arcanebarrage',
   },
+  ARCANE_BARRAGE_ENERGIZE: {
+    id: 321529,
+    name: 'Arcane Barrage',
+    icon: 'ability_mage_arcanebarrage',
+  },
   ARCANE_BLAST: {
     id: 30451,
     name: 'Arcane Blast',
@@ -106,6 +111,26 @@ const spells = {
     id: 342232,
     name: 'Arcane Echo',
     icon: 'ability_socererking_arcanewrath',
+  },
+  AETHER_ATTUNEMENT_PROC_BUFF: {
+    id: 453601,
+    name: 'Aether Attunement',
+    icon: 'inv_enchant_essencearcanelarge',
+  },
+  AETHER_ATTUNEMENT_STACK_BUFF: {
+    id: 458388,
+    name: 'Aether Attunement',
+    icon: 'spell_nature_starfall',
+  },
+  ARCANE_SOUL_BUFF: {
+    id: 451038,
+    name: 'Arcane Soul',
+    icon: 'inv_soulbarrier',
+  },
+  INTUITION_BUFF: {
+    id: 455681,
+    name: 'Intuition',
+    icon: 'spell_shadow_brainwash',
   },
 } satisfies Record<string, Spell>;
 

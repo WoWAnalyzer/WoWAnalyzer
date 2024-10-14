@@ -43,6 +43,8 @@ export enum EventType {
   EmpowerStart = 'empowerstart',
   EmpowerEnd = 'empowerend',
   Leech = 'leech',
+  StaggerClear = 'staggerclear',
+  StaggerPrevented = 'staggerprevented',
 
   // Fabricated:
   Event = 'event', // everything
@@ -606,6 +608,7 @@ export interface DamageEvent extends Event<EventType.Damage> {
   overkill?: number;
   blocked?: number; // does this exist?
   subtractsFromSupportedActor?: boolean;
+  supportID?: number;
 }
 
 export interface BuffEvent<T extends string> extends Event<T> {
@@ -818,7 +821,7 @@ export interface ResurrectEvent extends Event<EventType.Resurrect> {
 export interface SummonEvent extends Event<EventType.Summon> {
   sourceID: number;
   sourceIsFriendly: boolean;
-  target: PetInfo;
+  target?: PetInfo;
   targetID: number;
   targetInstance: number;
   targetIsFriendly: boolean;
@@ -1094,10 +1097,7 @@ export interface Soulbind {
 export interface TalentEntry {
   id: number;
   nodeID: number;
-  spellID: number;
   rank: number;
-  icon?: string;
-  spellType?: number;
 }
 
 export interface CombatantInfoEvent extends Event<EventType.CombatantInfo> {

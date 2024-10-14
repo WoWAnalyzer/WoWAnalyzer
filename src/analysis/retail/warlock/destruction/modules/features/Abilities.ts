@@ -17,6 +17,14 @@ class Abilities extends SharedAbilities {
         },
       },
       {
+        spell: SPELLS.RUINATION_CAST.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        enabled: combatant.hasTalent(TALENTS.DIABOLIC_RITUAL_TALENT),
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
         spell: TALENTS.CHANNEL_DEMONFIRE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 25 / (1 + haste),
@@ -78,14 +86,31 @@ class Abilities extends SharedAbilities {
       {
         spell: SPELLS.IMMOLATE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
+        enabled: !combatant.hasTalent(TALENTS.WITHER_TALENT),
         gcd: {
           base: 1500,
         },
         buffSpellId: SPELLS.IMMOLATE_DEBUFF.id,
       },
       {
+        spell: SPELLS.WITHER_CAST.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        enabled: combatant.hasTalent(TALENTS.WITHER_TALENT),
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
         spell: SPELLS.INCINERATE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.INFERNAL_BOLT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        enabled: combatant.hasTalent(TALENTS.DIABOLIC_RITUAL_TALENT),
         gcd: {
           base: 1500,
         },
@@ -232,6 +257,15 @@ class Abilities extends SharedAbilities {
       {
         spell: SPELLS.CURSE_OF_WEAKNESS.id,
         category: SPELL_CATEGORY.UTILITY,
+        enabled: !combatant.hasTalent(TALENTS.CURSE_OF_THE_SATYR_TALENT),
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.CURSE_OF_THE_SATYR.id,
+        category: SPELL_CATEGORY.UTILITY,
+        enabled: combatant.hasTalent(TALENTS.CURSE_OF_THE_SATYR_TALENT),
         gcd: {
           base: 1500,
         },

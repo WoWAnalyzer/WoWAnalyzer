@@ -20,8 +20,7 @@ class StrikeoftheWindlord extends Analyzer {
         <b>
           <SpellLink spell={TALENTS_MONK.STRIKE_OF_THE_WINDLORD_TALENT} />
         </b>{' '}
-        is one of your strongest medium-length cooldown dps abilities. When possible, it should be
-        lined up with your <SpellLink spell={TALENTS_MONK.SKYREACH_TALENT} /> window.
+        is one of your strongest medium-length cooldown dps abilities.
       </p>
     );
 

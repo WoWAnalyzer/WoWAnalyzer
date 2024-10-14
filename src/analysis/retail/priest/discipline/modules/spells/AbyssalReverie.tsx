@@ -12,7 +12,7 @@ import { getDamageEvent } from '../../normalizers/AtonementTracker';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
-const ABYSSAL_REVERIE_INCREASE = 0.1;
+const ABYSSAL_REVERIE_INCREASE = 0.05;
 
 class AbyssalReverie extends Analyzer {
   healing = 0;

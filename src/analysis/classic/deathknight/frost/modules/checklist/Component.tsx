@@ -39,7 +39,7 @@ const MeleeChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProp
         description={<>Use your cooldowns as often as possible to maximize your damage output.</>}
       >
         {/* SPELLS listed here must be in ../features/Abilities */}
-        <AbilityRequirement spell={SPELLS.UNBREAKABLE_ARMOR.id} />
+        <AbilityRequirement spell={SPELLS.PILLAR_OF_FROST.id} />
         <AbilityRequirement spell={SPELLS.EMPOWER_RUNE_WEAPON.id} />
         <AbilityRequirement spell={SPELLS.ARMY_OF_THE_DEAD.id} />
       </Rule>

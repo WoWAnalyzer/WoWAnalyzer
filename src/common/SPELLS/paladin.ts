@@ -285,6 +285,11 @@ const spells = {
     name: 'Blessing of Spring',
     icon: 'ability_ardenweald_paladin_spring',
   },
+  SACRED_WEAPON_TALENT: {
+    id: 432472,
+    name: 'Sacred Weapon',
+    icon: 'inv_ability_lightsmithpaladin_sacredweapon',
+  },
   EMPYREAN_LEGACY_BUFF: {
     id: 387178,
     name: 'Empyrean Legacy',
@@ -335,6 +340,7 @@ const spells = {
     name: 'Shield of the Righteous',
     icon: 'ability_paladin_shieldofvengeance',
   },
+
   // Retribution Paladin:
   BLADE_OF_JUSTICE: {
     id: 184575,
@@ -573,6 +579,11 @@ const spells = {
     name: 'Redoubt',
     icon: 'ability_warrior_shieldguard',
   },
+  OVERFLOWING_LIGHT_BUFF: {
+    id: 461499,
+    name: 'Overflowing Light',
+    icon: 'spell_holy_holyguidance',
+  },
   // Bonus set tiers
   PROTECTION_PALADIN_T19_2SET_BONUS_BUFF: {
     id: 211553,
@@ -648,6 +659,22 @@ const spells = {
     name: 'Glorious Purpose',
     icon: 'spell_holy_holyprotection',
   },
+
+  // Herald of the Sun (TWW Holy + Ret)
+  DAWNLIGHT_HEAL: {
+    name: 'Dawnlight',
+    id: 431381,
+    icon: 'inv_ability_heraldofthesunpaladin_dawnlight',
+  },
+  DAWNLIGHT_AOE_HEAL: {
+    name: 'Dawnlight',
+    id: 431382,
+    icon: 'inv_ability_heraldofthesunpaladin_dawnlight',
+  },
+  SUNS_AVATAR_HEAL: { name: "Sun's Avatar", id: 431939, icon: 'ability_paladin_holyavenger' },
+  SUNS_AVATAR_HEAL_2: { name: "Sun's Avatar", id: 463074, icon: 'ability_paladin_holyavenger' },
+  SUN_SEAR_HEAL: { name: 'Sun Sear', id: 431415, icon: 'spell_priest_burningwill' },
+  TRUTH_PREVAILS_HEAL: { name: 'Truth Prevails', id: 461546, icon: 'ability_paladin_artofwar' },
 } satisfies Record<string, Spell>;
 
 export default spells;

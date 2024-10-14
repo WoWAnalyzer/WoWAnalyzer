@@ -92,25 +92,25 @@ export default function BlackoutComboSection(): JSX.Element | null {
             <li>
               <div>
                 <strong>
-                  <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} />: On Multi-Target.
+                  <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} />: Sometimes.
                 </strong>
               </div>
               <div>
-                The 50% damage boost is very good, as is the extra 5% DR. This is generally the
-                default combo on trash in Mythic+.
+                The main value of comboing <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} /> is in
+                the bonus 5% damage reduction. The damage bonus only applies to a single target.{' '}
+                <em>However,</em> the extra damage reduction will be removed the next time you
+                re-apply <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} />.
               </div>
             </li>
             <li>
               <div>
                 <strong>
-                  <SpellLink spell={talents.KEG_SMASH_TALENT} />: Often.
+                  <SpellLink spell={talents.KEG_SMASH_TALENT} />: Sometimes.
                 </strong>
               </div>
               <div>
-                Purely defensive, but not bad. You can combo more often than you can use{' '}
-                <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} />, so this is often used in
-                multi-target settings where <SpellLink spell={SPELLS.TIGER_PALM} /> is less
-                valuable.
+                Purely defensive, but not bad. This is often used incidentally multi-target settings
+                where <SpellLink spell={SPELLS.TIGER_PALM} /> is less valuable.
               </div>
             </li>
             <li>

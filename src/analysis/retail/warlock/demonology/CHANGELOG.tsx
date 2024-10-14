@@ -1,10 +1,13 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_WARLOCK } from 'common/TALENTS';
-import { Sharrq, Zeboot, Meldris, ToppleTheNun, Jonfanz, Mae, dodse, Arlie, Putro, Zyer} from 'CONTRIBUTORS';
+import { Sharrq, Zeboot, Meldris, ToppleTheNun, Jonfanz, Mae, dodse, Arlie, Putro, Zyer, Gazh} from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2024, 10, 1), <>Add support for <SpellLink spell={SPELLS.DEMONIC_HEALTHSTONE} /> </>, Gazh),
+  change(date(2024, 9, 28), <>Add support for <SpellLink spell={TALENTS_WARLOCK.MARK_OF_FHARG_TALENT}/> & <SpellLink spell={TALENTS_WARLOCK.MARK_OF_SHATUG_TALENT}/></>, Gazh),
+  change(date(2024, 9, 26), "Add support for Hero Talents", Gazh),
   change(date(2024, 5, 31), <>Fixed <SpellLink spell={TALENTS_WARLOCK.POWER_SIPHON_TALENT}/> statistic</>, Zyer),
   change(date(2024, 4, 30), "Updated for DF S4", Zyer),
   change(date(2024, 3, 6), <>Added <SpellLink spell={TALENTS_WARLOCK.DARK_PACT_TALENT}/> and <SpellLink spell={SPELLS.UNENDING_RESOLVE}/> guide</>, Zyer),

@@ -56,6 +56,14 @@ export const BEACON_TRANSFERING_ABILITIES = {
   [SPELLS.RESPLENDENT_LIGHT_HEAL.id]: 1,
   [SPELLS.SEAL_OF_THE_CRUSADER_HEAL.id]: 1,
   [SPELLS.AURA_OF_MERCY_HEAL.id]: 1,
+  [TALENTS.ETERNAL_FLAME_TALENT.id]: 1,
+  [SPELLS.DAWNLIGHT_HEAL.id]: 0.5,
+  [SPELLS.DAWNLIGHT_AOE_HEAL.id]: 0.5,
+  [SPELLS.SUNS_AVATAR_HEAL.id]: 0.5,
+  [SPELLS.SUNS_AVATAR_HEAL_2.id]: 0.5,
+  [TALENTS.TRUTH_PREVAILS_TALENT.id]: 1,
+  [SPELLS.TRUTH_PREVAILS_HEAL.id]: 1,
+  [SPELLS.SUN_SEAR_HEAL.id]: 1,
 };
 
 export function getBeaconSpellFactor(spellID: number, player: Combatant): number | undefined {
@@ -80,3 +88,5 @@ export const BEACON_SPELL_IDS: Record<BEACON_TYPE, readonly number[]> = {
   ],
   [BEACON_TYPE.BEACON_OF_VIRTUE]: [TALENTS.BEACON_OF_VIRTUE_TALENT.id],
 } as const;
+
+export const LIGHTS_PROTECTION_DAMAGE_REDUCTION = 0.05;

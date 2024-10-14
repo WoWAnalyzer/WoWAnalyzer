@@ -7,6 +7,31 @@
 import Spell, { Enchant } from './Spell';
 
 const spells = {
+  // Hero Talents:
+  // Deathbringer:
+  EXTERMINATE_BUFF: {
+    id: 441416,
+    name: 'Exterminate',
+    icon: 'ability_argus_edgeofobliteration',
+  },
+
+  EXTERMINATE_PAINFUL_DEATH_BUFF: {
+    id: 447954,
+    name: 'Exterminate',
+    icon: 'ability_argus_edgeofobliteration',
+  },
+
+  EXTERMINATE_FIRST_HIT: {
+    id: 441424,
+    name: 'Exterminate',
+    icon: 'inv_polearm_2h_titanargus_d_01',
+  },
+  EXTERMINATE_SECOND_HIT: {
+    id: 441426,
+    name: 'Exterminate',
+    icon: 'inv_polearm_2h_titanargus_d_01',
+  },
+
   // Blood:
   DEATHS_CARESS: {
     id: 195292,
@@ -179,12 +204,6 @@ const spells = {
     name: 'Breath of Sindragosa',
     icon: 'spell_deathknight_breathofsindragosa',
   },
-  // Buffs
-  EMPOWER_RUNE_WEAPON: {
-    id: 47568,
-    name: 'Empower Rune Weapon',
-    icon: 'inv_sword_62',
-  },
   // Procs
   RIME: {
     id: 59052,
@@ -239,25 +258,43 @@ const spells = {
     name: 'Obliteration',
     icon: 'inv_axe_114',
   },
-
   // Unholy:
-  // Spells
-  APOCALYPSE: {
-    id: 275699,
-    name: 'Apocalypse',
-    icon: 'artifactability_unholydeathknight_deathsembrace',
+  FESTERING_SCYTHE: {
+    id: 458128,
+    name: 'Festering Scythe',
+    icon: 'inv_polearm_2h_mawnecromancerboss_d_01_darkblue',
+    runesCost: 2,
+    runicPowerCost: -20,
+  },
+
+  DEATH_CHARGE: {
+    id: 444347,
+    name: 'Death Charge',
+    icon: 'ability_mount_steelwarhorse',
+  },
+
+  MOGRAINES_MIGHT: {
+    id: 444505,
+    name: "Mograine's Might",
+    icon: 'ability_warlock_improvedsoulleech',
+  },
+
+  GHOULISH_FRENZY: {
+    id: 377588,
+    name: 'Ghoulish Frenzy',
+    icon: 'ability_warlock_baneofhavoc',
+  },
+
+  UNHOLY_COMMANDER: {
+    id: 456698,
+    name: 'Unholy Commander',
+    icon: 'spell_shadow_darksummoning',
   },
 
   APOCALYPSE_RUNE_GENERATION: {
     id: 343758,
     name: 'Apocalypse',
     icon: 'artifactability_unholydeathknight_deathsembrace',
-  },
-
-  ARMY_OF_THE_DEAD: {
-    id: 42650,
-    name: 'Army of the Dead',
-    icon: 'spell_deathknight_armyofthedead',
   },
 
   COMMANDER_OF_THE_DEAD_BUFF: {
@@ -284,18 +321,6 @@ const spells = {
     icon: 'spell_shadow_coneofsilence',
   },
 
-  DARK_TRANSFORMATION: {
-    id: 63560,
-    name: 'Dark Transformation',
-    icon: 'achievement_boss_festergutrotface',
-  },
-
-  FESTERING_STRIKE: {
-    id: 85948,
-    name: 'Festering Strike',
-    icon: 'spell_deathknight_festering_strike',
-  },
-
   FESTERING_WOUND: {
     id: 194310,
     name: 'Festering Wound',
@@ -312,24 +337,14 @@ const spells = {
     id: 77575,
     name: 'Outbreak',
     icon: 'spell_deathvortex',
-  },
-
-  RAISE_DEAD_UNHOLY: {
-    id: 46584,
-    name: 'Raise Dead',
-    icon: 'spell_shadow_animatedead',
+    runesCost: 1,
+    runicPowerCost: -10,
   },
 
   RUNIC_CORRUPTION: {
     id: 51460,
     name: 'Runic Corruption',
     icon: 'spell_shadow_rune',
-  },
-
-  PESTILENT_PUSTULES: {
-    id: 220211,
-    name: 'Pestilent Pustules',
-    icon: 'spell_yorsahj_bloodboil_purpleoil',
   },
 
   PLAGUEBRINGER_BUFF: {
@@ -339,13 +354,7 @@ const spells = {
   },
 
   // scourge strike has one cast event but two damage events, the cast and physical
-  // damage happen on id 55090, the shadow damage is on id 70890
-  SCOURGE_STRIKE: {
-    id: 55090,
-    name: 'Scourge Strike',
-    icon: 'spell_deathknight_scourgestrike',
-  },
-
+  // damage happen on id 55090 (talent), the shadow damage is on id 70890
   SCOURGE_STRIKE_SHADOW_DAMAGE: {
     id: 70890,
     name: 'Scourge Strike',
@@ -356,12 +365,6 @@ const spells = {
     id: 191587,
     name: 'Virulent Plague',
     icon: 'ability_creature_disease_02',
-  },
-
-  T29_VILE_INFUSION_BUFF: {
-    id: 394863,
-    name: 'Vile Infusion',
-    icon: 'spell_necro_deathsknell',
   },
 
   DARK_ARBITER_TALENT_GLYPH: {
@@ -394,17 +397,13 @@ const spells = {
     icon: 'spell_shadow_painspike',
   },
 
-  T29_GHOULISH_INFUSION: {
-    id: 394899,
-    name: 'Ghoulish Infusion',
-    icon: 'spell_necro_deathsknell',
-  },
-
   // Shared:
   CHAINS_OF_ICE: {
     id: 45524,
     name: 'Chains of Ice',
     icon: 'spell_frost_chainsofice',
+    runesCost: 1,
+    runicPowerCost: -10,
   },
   RUNEFORGING: {
     id: 53428,
@@ -535,6 +534,7 @@ const spells = {
     id: 47541,
     name: 'Death Coil',
     icon: 'spell_shadow_deathcoil',
+    runicPowerCost: 30,
   },
 
   DEATH_COIL_DAMAGE: {

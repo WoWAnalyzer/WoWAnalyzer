@@ -139,6 +139,13 @@ const RESOURCE_TYPES = {
     icon: 'ability_evoker_powernexus',
     url: 'essence',
   },
+  MAELSTROM_WEAPON: {
+    // Enhancement Shaman
+    id: -99,
+    name: 'Maestrom',
+    icon: 'spell_shaman_maelstromweapon',
+    url: 'maelstrom_weapon',
+  },
 } satisfies Record<string, InternalResource>;
 
 export default indexById<InternalResource, typeof RESOURCE_TYPES>(RESOURCE_TYPES);
@@ -148,4 +155,11 @@ export function getResource(classResources: ClassResources[] | undefined, type: 
     return undefined;
   }
   return classResources.find((resource) => resource.type === type);
+}
+
+export function getResourceCost(
+  resourceCosts: { [resourceType: number]: number } | undefined,
+  resourceType: number,
+): number | undefined {
+  return resourceCosts ? resourceCosts[resourceType] : undefined;
 }

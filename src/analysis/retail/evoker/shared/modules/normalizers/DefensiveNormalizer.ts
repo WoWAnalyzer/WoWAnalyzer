@@ -37,6 +37,13 @@ class DefensiveNormalizer extends EventsNormalizer {
         continue;
       }
 
+      // Only normalize our own events
+      // Flameshaper Evokers can apply Renewing Blaze to us, and we don't analyze those
+      if (event.sourceID !== this.selectedCombatant.id) {
+        fixedEvents.push(event);
+        continue;
+      }
+
       const spellId = event.ability.guid;
       const castLink = DEFS_TO_NORMALIZE.get(spellId);
       if (!castLink) {
@@ -44,6 +51,7 @@ class DefensiveNormalizer extends EventsNormalizer {
         continue;
       }
 
+      const targetID = event.targetID ?? 0; // You never know
       if (event.type === EventType.ApplyBuff) {
         // fake apply don't push
         if (!HasRelatedEvent(event, castLink)) {
@@ -51,10 +59,10 @@ class DefensiveNormalizer extends EventsNormalizer {
         }
 
         // on new "real" apply we push in our last removeBuffEvent
-        const hasStoredEnd = latestBuffRemoveEvents.get(spellId);
+        const hasStoredEnd = latestBuffRemoveEvents.get(spellId + targetID);
         if (hasStoredEnd) {
           fixedEvents.push(hasStoredEnd);
-          latestBuffRemoveEvents.delete(spellId);
+          latestBuffRemoveEvents.delete(spellId + targetID);
         }
         fixedEvents.push(event);
         continue;
@@ -62,7 +70,7 @@ class DefensiveNormalizer extends EventsNormalizer {
 
       if (event.type === EventType.RemoveBuff) {
         // store the latests event so we only push the latests one
-        latestBuffRemoveEvents.set(spellId, event);
+        latestBuffRemoveEvents.set(spellId + targetID, event);
         continue;
       }
     }

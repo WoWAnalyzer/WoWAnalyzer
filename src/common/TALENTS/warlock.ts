@@ -1150,7 +1150,7 @@ const talents = {
   PACT_OF_GLUTTONY_TALENT: {
     id: 386689,
     name: 'Pact of Gluttony',
-    icon: 'warlock__bloodstone',
+    icon: 'warlock_-bloodstone',
     maxRanks: 1,
     entryIds: [91434],
     definitionIds: [{ id: 96436, specId: 267 }],
@@ -1775,7 +1775,7 @@ const talents = {
   XALANS_CRUELTY_TALENT: {
     id: 440040,
     name: "Xalan's Cruelty",
-    icon: 'spell_fire_felrainoffire',
+    icon: 'spell_shadow_demonicempathy',
     maxRanks: 1,
     entryIds: [117442],
     definitionIds: [{ id: 122454, specId: 267 }],
@@ -1783,7 +1783,7 @@ const talents = {
   XALANS_FEROCITY_TALENT: {
     id: 440044,
     name: "Xalan's Ferocity",
-    icon: 'ability_warlock_demonicpower',
+    icon: 'spell_fire_felfire',
     maxRanks: 1,
     entryIds: [117450],
     definitionIds: [{ id: 122462, specId: 267 }],

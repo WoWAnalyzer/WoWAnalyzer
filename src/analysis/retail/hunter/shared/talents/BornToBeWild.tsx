@@ -1,4 +1,3 @@
-import { BASELINE_AOTE_CD } from 'analysis/retail/hunter/survival/constants';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/hunter';
@@ -38,11 +37,6 @@ class BornToBeWild extends Analyzer {
       effectiveCDR: 0,
       lastCast: 0,
       baseCD: BASELINE_TURTLE_CHEETAH_CD,
-    },
-    [TALENTS.ASPECT_OF_THE_EAGLE_TALENT.id]: {
-      effectiveCDR: 0,
-      lastCast: 0,
-      baseCD: BASELINE_AOTE_CD,
     },
     [TALENTS.SURVIVAL_OF_THE_FITTEST_TALENT.id]: {
       effectiveCDR: 0,
@@ -101,15 +95,6 @@ class BornToBeWild extends Analyzer {
                 )}
                 s
               </li>
-              {this.hasEagle && (
-                <li>
-                  Aspect of the Eagle:{' '}
-                  {formatNumber(
-                    this._spells[TALENTS.ASPECT_OF_THE_EAGLE_TALENT.id].effectiveCDR / 1000,
-                  )}
-                  s
-                </li>
-              )}
               <li>
                 Aspect of the Cheetah:{' '}
                 {formatNumber(this._spells[SPELLS.ASPECT_OF_THE_CHEETAH.id].effectiveCDR / 1000)}s

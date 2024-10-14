@@ -27,8 +27,8 @@ import { explanationAndDataSubsection } from 'interface/guide/components/Explana
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { isConvoking } from 'analysis/retail/druid/shared/spells/ConvokeSpirits';
 
-const HARDCAST_FLOURISH_EXTENSION = 6000;
-const CONVOKE_FLOURISH_EXTENSION = 3000;
+const HARDCAST_FLOURISH_EXTENSION = 8000;
+const CONVOKE_FLOURISH_EXTENSION = 4000;
 const FLOURISH_HEALING_INCREASE = 0.25;
 
 /**
@@ -163,12 +163,8 @@ class Flourish extends Analyzer {
             <SpellLink spell={TALENTS_DRUID.FLOURISH_TALENT} />
           </strong>{' '}
           requires a ramp more than any of your other cooldowns, as its power is based almost
-          entirely in the HoTs present when you cast it. Cast many Rejuvenations, and then a Wild
-          Growth a few seconds before you're ready to Flourish.
-        </p>
-        <p>
-          In 10.2, Flourish has a shorter cooldown and a much weaker throughput boost. Whereas
-          before it was a powerful burst healing cooldown, it should now be used more rotationally.
+          entirely in the HoTs present when cast. Cast many Rejuvenations, and then a Wild Growth a
+          few seconds before you're ready to Flourish.
         </p>
         {this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT) && (
           <p>
@@ -281,6 +277,13 @@ class Flourish extends Analyzer {
             Due to limitations in the way we do healing attribution, there may be some
             double-counting between the Extension and Increased Rate values, meaning the true amount
             attributable will be somewhat lower than listed.
+            {this.selectedCombatant.hasTalent(TALENTS_DRUID.CENARIUS_GUIDANCE_TALENT) && (
+              <>
+                <br />
+                These stats do NOT include Flourishes procced from{' '}
+                <SpellLink spell={TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT} />.
+              </>
+            )}
             <ul>
               <li>
                 Extension:{' '}

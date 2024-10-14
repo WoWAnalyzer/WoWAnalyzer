@@ -5,12 +5,11 @@ import Events, { CastEvent, DamageEvent, EventType, TargettedEvent } from 'parse
 
 import { getAdditionalEnergyUsed } from '../../normalizers/FerociousBiteDrainLinkNormalizer';
 import { TALENTS_DRUID } from 'common/TALENTS';
-import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
+import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import RipUptimeAndSnapshots from 'analysis/retail/druid/feral/modules/spells/RipUptimeAndSnapshots';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { SpellLink } from 'interface';
 import {
-  ACCEPTABLE_BERSERK_CPS,
   ACCEPTABLE_CPS,
   cdSpell,
   FB_SPELLS,
@@ -25,6 +24,7 @@ import { BadColor, OkColor } from 'interface/guide';
 import { getHits } from 'analysis/retail/druid/feral/normalizers/CastLinkNormalizer';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';
+import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBreakdown';
 
 const MIN_ACCEPTABLE_TIME_LEFT_ON_RIP_MS = 5000;
 
@@ -156,10 +156,9 @@ class FerociousBite extends Analyzer {
           <SpellLink spell={SPELLS.FEROCIOUS_BITE} />
         </strong>{' '}
         is your direct damage finisher. Use it when you've already applied Rip to enemies. Always
-        use Bite with at least {ACCEPTABLE_CPS} CPs ({ACCEPTABLE_BERSERK_CPS} during{' '}
-        <SpellLink spell={cdSpell(this.selectedCombatant)} />
-        ). Bite can consume up to {FEROCIOUS_BITE_MAX_DRAIN} extra energy to do increased damage -
-        this boost is very efficient and you should always wait until{' '}
+        use Bite with at least {ACCEPTABLE_CPS} CPs. Bite can consume up to{' '}
+        {FEROCIOUS_BITE_MAX_DRAIN} extra energy to do increased damage - this boost is very
+        efficient and you should always wait until{' '}
         {FEROCIOUS_BITE_MAX_DRAIN + FEROCIOUS_BITE_ENERGY} energy to use Bite.{' '}
         {this.hasSotf && (
           <>
@@ -182,14 +181,12 @@ class FerociousBite extends Analyzer {
             <br />
           </>
         )}
-        <strong>Ferocious Bite casts</strong>
-        <small>
-          {' '}
-          - Green is a good cast , Yellow is an questionable cast (used on target with low duration
-          Rip), Red is a bad cast (&lt;25 extra energy + not during Berserk, or low CPs). Mouseover
-          for more details.
-        </small>
-        <PerformanceBoxRow values={this.castEntries} />
+        <CastSummaryAndBreakdown
+          spell={SPELLS.FEROCIOUS_BITE}
+          castEntries={this.castEntries}
+          okExtraExplanation={<>used on target with low duration Rip</>}
+          badExtraExplanation={<>&lt;25 extra energy + not during Berserk, or low CPs</>}
+        />
       </div>
     );
 

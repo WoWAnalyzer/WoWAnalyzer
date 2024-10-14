@@ -10,6 +10,8 @@ import TALENTS from 'common/TALENTS/mage';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 
 import ManaLevelGraph from './ManaChart/TabComponent/ManaLevelGraph';
+import { GapHighlight } from 'parser/ui/CooldownBar';
+import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 
 export const GUIDE_CORE_EXPLANATION_PERCENT = 50;
 
@@ -80,13 +82,13 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
     <>
       <Section title="Preface & Disclaimers">
         <>
-          The analysis in this guide is provided in collaboration with the staff of the{' '}
-          <a href="https://discord.gg/makGfZA">Altered Time</a> Mage Discord. When reviewing this
-          information, keep in mind that WoWAnalyzer is limited to the information that is present
-          in your combat log. As a result, we have no way of knowing if you were intentionally doing
-          something suboptimal because the fight or strat required it (such as Forced Downtime or
-          holding cooldowns for a burn phase). Because of this, we recommend comparing your analysis
-          against a top 100 log for the same boss.
+          The analysis in this guide is provided in collaboration with Porom and the rest of the
+          staff of the <a href="https://discord.gg/makGfZA">Altered Time</a> Mage Discord. When
+          reviewing this information, keep in mind that WoWAnalyzer is limited to the information
+          that is present in your combat log. As a result, we have no way of knowing if you were
+          intentionally doing something suboptimal because the fight or strat required it (such as
+          Forced Downtime or holding cooldowns for a burn phase). Because of this, we recommend
+          comparing your analysis against a top 100 log for the same boss.
           <br />
           <br />
           For additional assistance in improving your gameplay, or to have someone look more in
@@ -131,10 +133,15 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           rotational abilities also contribute to your damage and, in most cases, help set you up
           for your burn phases so you can get the most out of them.
         </>
+        {modules.arcaneMissilesGuide.guideSubsection}
         {modules.arcaneBarrageGuide.guideSubsection}
         {modules.arcaneOrbGuide.guideSubsection}
+        {info.combatant.hasTalent(TALENTS.PRESENCE_OF_MIND_TALENT) &&
+          modules.presenceOfMindGuide.guideSubsection}
         {info.combatant.hasTalent(TALENTS.SHIFTING_POWER_TALENT) &&
           modules.shiftingPowerGuide.guideSubsection}
+        {info.combatant.hasTalent(TALENTS.SUPERNOVA_TALENT) &&
+          modules.supernovaGuide.guideSubsection}
       </Section>
 
       <Section title="Buffs & Procs">
@@ -149,10 +156,43 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {modules.clearcastingGuide.guideSubsection}
         {info.combatant.hasTalent(TALENTS.NETHER_PRECISION_TALENT) &&
           modules.netherPrecisionGuide.guideSubsection}
-        {info.combatant.hasTalent(TALENTS.EVOCATION_TALENT) &&
-          modules.siphonStormGuide.guideSubsection}
         {info.combatant.hasTalent(TALENTS.ARCANE_TEMPO_TALENT) &&
           modules.arcaneTempoGuide.guideSubsection}
+      </Section>
+      <Section title="Cooldowns">
+        <>
+          As is the case with most damage specs, properly utilizing your damage cooldowns will go a
+          long way towards improving your overall damage, especially{' '}
+          <SpellLink spell={TALENTS.ARCANE_SURGE_TALENT} />.
+        </>
+        <CastEfficiencyBar
+          spellId={TALENTS.ARCANE_SURGE_TALENT.id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+          useThresholds
+        />
+        <CastEfficiencyBar
+          spellId={TALENTS.TOUCH_OF_THE_MAGI_TALENT.id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+          useThresholds
+        />
+        {info.combatant.hasTalent(TALENTS.PRESENCE_OF_MIND_TALENT) && (
+          <CastEfficiencyBar
+            spellId={TALENTS.PRESENCE_OF_MIND_TALENT.id}
+            gapHighlightMode={GapHighlight.FullCooldown}
+            useThresholds
+          />
+        )}
+        {info.combatant.hasTalent(TALENTS.EVOCATION_TALENT) && (
+          <CastEfficiencyBar
+            spellId={TALENTS.EVOCATION_TALENT.id}
+            gapHighlightMode={GapHighlight.FullCooldown}
+            useThresholds
+          />
+        )}
+        <CastEfficiencyBar
+          spellId={TALENTS.SHIFTING_POWER_TALENT.id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+        />
       </Section>
       <PreparationSection />
     </>

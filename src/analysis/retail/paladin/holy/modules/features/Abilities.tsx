@@ -46,6 +46,9 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SHIELD_OF_THE_RIGHTEOUS_HOLY.id,
         category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: [SPELLS.JUDGMENT_CAST_HOLY.id, SPELLS.JUDGMENT_CAST.id],
@@ -328,7 +331,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.HOLY_PRISM_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 20,
+        cooldown: 30,
         gcd: {
           base: 1500,
         },
@@ -386,13 +389,20 @@ class Abilities extends CoreAbilities {
         ],
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 45,
-        gcd: {
-          base: 1500,
-        },
         castEfficiency: {
           suggestion: true,
         },
         enabled: combatant.hasTalent(TALENTS.BLESSING_OF_SUMMER_TALENT),
+      },
+      {
+        spell: [TALENTS.HOLY_ARMAMENTS_TALENT.id, SPELLS.SACRED_WEAPON_TALENT.id],
+        category: SPELL_CATEGORY.COOLDOWNS,
+        charges: 2,
+        cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(TALENTS.HOLY_ARMAMENTS_TALENT),
       },
       {
         spell: TALENTS.TYRS_DELIVERANCE_TALENT.id,
@@ -406,6 +416,12 @@ class Abilities extends CoreAbilities {
         },
         healSpellIds: [SPELLS.TYRS_DELIVERANCE_HEALING_INCREASE.id],
         enabled: combatant.hasTalent(TALENTS.TYRS_DELIVERANCE_TALENT),
+      },
+      {
+        spell: TALENTS.ETERNAL_FLAME_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+        enabled: combatant.hasTalent(TALENTS.ETERNAL_FLAME_TALENT),
       },
     ];
   }

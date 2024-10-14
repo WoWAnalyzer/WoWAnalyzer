@@ -10,6 +10,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 /**
  * You and your pet attack as one, increasing all damage you both deal by 20% for 20 sec.
@@ -24,15 +25,18 @@ class CoordinatedAssault extends Analyzer {
     spellUsable: SpellUsable,
   };
 
-  playerDamage = 0;
-  petDamage = 0;
-
   protected spellUsable!: SpellUsable;
+
+  private playerDamage = 0;
+  private petDamage = 0;
 
   constructor(options: Options) {
     super(options);
 
     this.active = this.selectedCombatant.hasTalent(TALENTS_HUNTER.COORDINATED_ASSAULT_TALENT);
+    if (!this.active) {
+      return;
+    }
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onPlayerDamage);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onPetDamage);
   }
@@ -65,7 +69,8 @@ class CoordinatedAssault extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(4)}
+        position={STATISTIC_ORDER.CORE(4)}
+        category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={
           <>
