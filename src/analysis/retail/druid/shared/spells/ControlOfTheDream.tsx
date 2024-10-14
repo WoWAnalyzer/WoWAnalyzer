@@ -5,6 +5,7 @@ import Events, { UpdateSpellUsableEvent, UpdateSpellUsableType } from 'parser/co
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Abilities from 'parser/core/modules/Abilities';
 import Statistic from 'parser/ui/Statistic';
+import { Fragment } from 'react';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -98,11 +99,11 @@ export default class ControlOfTheDream extends Analyzer.withDependencies({
         <BoringSpellValueText spell={TALENTS_DRUID.CONTROL_OF_THE_DREAM_TALENT}>
           <>
             {this.cdrSpellInfos.map((cdrInfo, spellId) => (
-              <>
+              <Fragment key={spellId}>
                 <SpellIcon spell={spellId} /> {(cdrInfo.totalEffectiveCdr / 1_000).toFixed(0)}s{' '}
                 <small>eff. CDR</small> / {cdrInfo.earlyCasts} <small>early casts</small>
                 <br />
-              </>
+              </Fragment>
             ))}
           </>
         </BoringSpellValueText>

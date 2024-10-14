@@ -65,25 +65,24 @@ class HealingDone extends Analyzer {
     absorbed = 0,
     overheal = 0,
   ) {
-    this._total = this._total.addValues({ regular: amount, absorbed, overheal });
+    const healVal: HealingValue = HealingValue.fromValues({
+      regular: amount,
+      absorbed,
+      overheal,
+    });
+    this._total = this._total.add(healVal);
 
     const spellId = event.ability.guid;
-    this._byAbility[spellId] =
-      this._byAbility[spellId] ||
-      HealingValue.fromValues({
-        regular: amount,
-        absorbed,
-        overheal,
-      });
+    if (!this._byAbility[spellId]) {
+      this._byAbility[spellId] = HealingValue.empty();
+    }
+    this._byAbility[spellId] = this._byAbility[spellId].add(healVal);
 
     const secondsIntoFight = Math.floor((event.timestamp - this.owner.fight.start_time) / 1000);
-    this.bySecond[secondsIntoFight] =
-      this.bySecond[secondsIntoFight] ||
-      HealingValue.fromValues({
-        regular: amount,
-        absorbed,
-        overheal,
-      });
+    if (!this.bySecond[secondsIntoFight]) {
+      this.bySecond[secondsIntoFight] = HealingValue.empty();
+    }
+    this.bySecond[secondsIntoFight] = this.bySecond[secondsIntoFight].add(healVal);
   }
   _addHealingByAbsorb(
     event: AbsorbedEvent | RemoveBuffEvent,

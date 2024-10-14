@@ -234,11 +234,9 @@ class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
               const count = cast.elementalSpiritsActive[spellId];
               const spell = maybeGetTalentOrSpell(spellId)!;
               return (
-                <>
-                  <li key={spellId}>
-                    <strong>{count}</strong> <SpellLink spell={spell} />
-                  </li>
-                </>
+                <li key={spellId}>
+                  <strong>{count}</strong> <SpellLink spell={spell} />
+                </li>
               );
             })}
         </ul>
