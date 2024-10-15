@@ -36,7 +36,8 @@ class AspectOfHarmony extends AspectOfHarmonyBaseAnalyzer {
       actual: pctRaid,
       isGreaterThanOrEqual: targetPerfRange,
     });
-    const pctOverheal = info.totalHealing / (info.totalHealing + info.overhealing);
+    const pctOverheal =
+      info.overhealing > 0 ? info.overhealing / (info.totalHealing + info.overhealing) : 0;
     const overhealPerf = evaluateQualitativePerformanceByThreshold({
       actual: pctOverheal,
       isLessThanOrEqual: overhealingPerfRange,

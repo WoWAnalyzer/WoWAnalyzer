@@ -84,10 +84,11 @@ class AspectOfHarmonyBaseAnalyzer extends Analyzer {
 
   onHeal(event: HealEvent) {
     // coalesence doesn't buff Aspect HOT
-    if (
-      event.ability.guid === SPELLS.ASPECT_OF_HARMONY_HOT.id ||
-      !this.combatants.getEntity(event)
-    ) {
+    if (event.ability.guid === SPELLS.ASPECT_OF_HARMONY_HOT.id) {
+      return;
+    }
+    const entity = this.combatants.getEntity(event);
+    if (!entity || !entity.hasBuff(SPELLS.ASPECT_OF_HARMONY_BUFF.id)) {
       return;
     }
     const entry = this.initEntry(event);
