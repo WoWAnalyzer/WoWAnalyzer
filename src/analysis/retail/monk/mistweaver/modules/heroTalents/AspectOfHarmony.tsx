@@ -45,6 +45,7 @@ class AspectOfHarmony extends AspectOfHarmonyBaseAnalyzer {
     const value = getAveragePerf([targetPerf, overhealPerf]);
     const tooltip = (
       <>
+        <div>@ {this.owner.formatTimestamp(info.startTime)}</div>
         <div>
           # of HoTs: {info.numBuffs} <PerformanceMark perf={targetPerf} />
         </div>

@@ -46,7 +46,9 @@ class AspectOfHarmonyBaseAnalyzer extends Analyzer {
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDmg);
   }
 
-  initEntry(
+  // initializes entry if Aspect buff or a pre-pull damage/heal/apply HoT/DoT event
+  // if Damage/Heal/Apply Hot/DoT and not pre-pull, then just return latest entry
+  initAndGetEntry(
     event: ApplyBuffEvent | ApplyDebuffEvent | HealEvent | DamageEvent,
   ): CastInfo | undefined {
     // normal init case is for aspect buff apply or for catching pre-pull TFT/CB
@@ -65,11 +67,11 @@ class AspectOfHarmonyBaseAnalyzer extends Analyzer {
   }
 
   onBuffApply(event: ApplyBuffEvent) {
-    this.initEntry(event);
+    this.initAndGetEntry(event);
   }
 
   onPeriodicApply(event: ApplyBuffEvent | ApplyDebuffEvent) {
-    const entry = this.initEntry(event);
+    const entry = this.initAndGetEntry(event);
     if (entry) {
       if (event.type === EventType.ApplyBuff) {
         // dont care about buffs on pets
@@ -83,15 +85,11 @@ class AspectOfHarmonyBaseAnalyzer extends Analyzer {
   }
 
   onHeal(event: HealEvent) {
-    // coalesence doesn't buff Aspect HOT
-    if (event.ability.guid === SPELLS.ASPECT_OF_HARMONY_HOT.id) {
-      return;
-    }
     const entity = this.combatants.getEntity(event);
     if (!entity || !entity.hasBuff(SPELLS.ASPECT_OF_HARMONY_BUFF.id)) {
       return;
     }
-    const entry = this.initEntry(event);
+    const entry = this.initAndGetEntry(event);
     if (entry) {
       entry.totalHealing += event.amount;
       entry.overhealing += event.overheal || 0;
@@ -99,10 +97,7 @@ class AspectOfHarmonyBaseAnalyzer extends Analyzer {
   }
 
   onDmg(event: DamageEvent) {
-    if (event.ability.guid === SPELLS.ASPECT_OF_HARMONY_DOT.id) {
-      return;
-    }
-    const entry = this.initEntry(event);
+    const entry = this.initAndGetEntry(event);
     if (entry) {
       entry.totalDamage += event.amount;
       entry.overkill += event.overkill || 0;
