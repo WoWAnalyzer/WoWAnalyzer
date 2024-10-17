@@ -9,7 +9,7 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { SpellLink } from 'interface';
 import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
-import { isCastBuffedByLightweaver, getHeal } from '../../../normalizers/CastLinkNormalizer';
+import { getHeal } from '../../../normalizers/CastLinkNormalizer';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../../Guide';
 import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
@@ -73,8 +73,7 @@ class Lightweaver extends Analyzer {
     const healEvent = getHeal(event);
     if (healEvent) {
       this.totalHealCasts += 1;
-
-      if (isCastBuffedByLightweaver(event)) {
+      if (this.selectedCombatant.hasBuff(SPELLS.LIGHTWEAVER_TALENT_BUFF)) {
         // calculate effective healing from bonus
         this.healingDoneFromTalent += calculateEffectiveHealing(healEvent, LW_HEALING_BONUS);
         this.eolContrib += this.eolAttrib.getEchoOfLightAmpAttrib(healEvent, LW_HEALING_BONUS);
