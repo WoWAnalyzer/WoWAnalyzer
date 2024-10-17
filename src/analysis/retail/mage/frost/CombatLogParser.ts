@@ -27,6 +27,9 @@ import IcyVeins from './core/IcyVeins';
 import FingersOfFrost from './core/FingersOfFrost';
 import WintersChill from './core/WintersChill';
 
+//Guide
+import FrozenOrbGuide from './guide/FrozenOrb';
+
 //Talents
 import ColdSnap from './talents/ColdSnap';
 import FrozenOrb from './talents/FrozenOrb';
@@ -71,6 +74,9 @@ class CombatLogParser extends CoreCombatLogParser {
     icyVeins: IcyVeins,
     arcaneIntellect: ArcaneIntellect,
     fingersOfFrost: FingersOfFrost,
+
+    //Guide
+    frozenOrbGuide: FrozenOrbGuide,
 
     // Talents - Frost
     boneChilling: BoneChilling,
