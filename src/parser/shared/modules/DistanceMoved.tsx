@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro';
-import { formatPercentage, formatThousands } from 'common/format';
+import { formatDurationMillisMinSec, formatPercentage, formatThousands } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, ResourceChangeEvent, HealEvent } from 'parser/core/Events';
 import FlushLineChart from 'parser/ui/FlushLineChart';
@@ -63,10 +63,24 @@ class DistanceMoved extends Analyzer {
       this.totalDistanceMoved += distance;
       const secondsIntoFight = Math.floor((newData.timestamp - this.owner.fight.start_time) / 1000);
       this.bySecond.set(secondsIntoFight, (this.bySecond.get(secondsIntoFight) || 0) + distance);
+
+      const start = this.lastPosition.timestamp;
+      const end = newData.timestamp;
+
+      if (start > end) {
+        console.warn(
+          `[DistanceMoved] ${formatDurationMillisMinSec(start - this.owner.fight.start_time, 2)} End is before start`,
+        );
+      } else if (end === start) {
+        console.warn(
+          `[DistanceMoved] ${formatDurationMillisMinSec(start - this.owner.fight.start_time, 2)} There is a distance, but end is  equal to start`,
+        );
+      }
+
       this.instances.push({
-        start: this.lastPosition.timestamp,
-        end: newData.timestamp,
-        distance: distance,
+        start,
+        end,
+        distance,
       });
     }
   }

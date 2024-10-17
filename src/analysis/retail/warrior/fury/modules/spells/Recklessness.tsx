@@ -1,7 +1,7 @@
 import RageTracker from 'analysis/retail/warrior/shared/modules/core/RageTracker';
 import { formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import talents from 'common/TALENTS/warrior';
+import TALENTS from 'common/TALENTS/warrior';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
@@ -16,7 +16,9 @@ class Recklessness extends Analyzer.withDependencies({
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(talents.RECKLESSNESS_TALENT);
+    this.active =
+      this.selectedCombatant.hasTalent(TALENTS.RECKLESSNESS_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS.BERSERKERS_TORMENT_TALENT);
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onPlayerDamage);
   }

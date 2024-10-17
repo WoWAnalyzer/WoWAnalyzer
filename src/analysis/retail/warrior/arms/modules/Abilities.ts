@@ -209,7 +209,9 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DIE_BY_THE_SWORD.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: combatant.hasTalent(TALENTS.VALOR_IN_VICTORY_TALENT) ? 90 : 120,
+        cooldown:
+          (combatant.hasTalent(TALENTS.VALOR_IN_VICTORY_TALENT) ? 90 : 120) *
+          (combatant.hasTalent(TALENTS.HONED_REFLEXES_TALENT) ? 0.95 : 1),
         gcd: null,
         castEfficiency: {
           suggestion: false,
@@ -221,7 +223,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SPELL_REFLECTION.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 25,
+        cooldown: 25 * (combatant.hasTalent(TALENTS.HONED_REFLEXES_TALENT) ? 0.95 : 1),
         gcd: null,
         castEfficiency: {
           suggestion: false,
@@ -302,9 +304,16 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.HEROIC_LEAP_TALENT),
       },
       {
+        spell: SPELLS.INTERVENE_CAST.id,
+        enabled: combatant.hasTalent(TALENTS.INTERVENE_TALENT),
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown: 30 * (combatant.hasTalent(TALENTS.HONED_REFLEXES_TALENT) ? 0.95 : 1),
+        gcd: null,
+      },
+      {
         spell: TALENTS.STORM_BOLT_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 30,
+        cooldown: 30 * (combatant.hasTalent(TALENTS.HONED_REFLEXES_TALENT) ? 0.95 : 1),
         gcd: {
           base: 1500,
         },

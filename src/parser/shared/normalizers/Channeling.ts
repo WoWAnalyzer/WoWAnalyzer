@@ -102,6 +102,7 @@ class Channeling extends EventsNormalizer {
     // Hunter
     buffChannelSpec(SPELLS.RAPID_FIRE.id),
     // Paladin
+    // Warrior
     buffChannelSpec(SPELLS.BLADESTORM.id),
 
     // CLASSIC
