@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import TALENTS, { TALENTS_PRIEST } from 'common/TALENTS/priest';
-import { Arlie, Hana, Litena, Liavre, Squided, ToppleTheNun, Trevor, Saeldur, xizbow} from 'CONTRIBUTORS';
+import { Arlie, Hana, Litena, Liavre, Squided, ToppleTheNun, Trevor, Saeldur, xizbow, fel1ne} from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2024, 10, 17), <>Fixed an issue where <SpellLink spell={SPELLS.LIGHTWEAVER_TALENT_BUFF}/> buffed heals were incorrectly flagged as a bad cast if the buff was not consumed due to a bug. </>, fel1ne),
   change(date(2024, 10, 11), <>Fixed Prayer of Healing in the Guide section to not give bad advice.</>, Liavre),
   change(date(2024, 10, 7), <>Properly hide Circle of Healing analysis if it isn't talented.</>, xizbow),
   change(date(2024, 9, 21), <>Changed tooltips, added crisis management, and added prismatic echoes </>, Liavre),

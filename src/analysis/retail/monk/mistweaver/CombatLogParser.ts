@@ -93,6 +93,7 @@ import CelestialConduitNormalizer from '../shared/hero/ConduitOfTheCelestials/no
 import CelestialConduit from '../shared/hero/ConduitOfTheCelestials/talents/CelestialConduit';
 import StrengthOfTheBlackOx from './modules/heroTalents/StrengthOfTheBlackOx';
 import Coalesence from '../shared/hero/MasterOfHarmony/talents/Coalesence';
+import AspectOfHarmony from './modules/heroTalents/AspectOfHarmony';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -211,6 +212,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Hero Talents
     strengthOfTheBlackOx: StrengthOfTheBlackOx,
+    aspectOfHarmony: AspectOfHarmony,
   };
   static guide = Guide;
 }

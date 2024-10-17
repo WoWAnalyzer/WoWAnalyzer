@@ -973,6 +973,11 @@ const spells = {
     name: 'Aspect of Harmony',
     icon: 'inv_enchanting_wod_essence2',
   },
+  ASPECT_OF_HARMONY_BUFF: {
+    id: 450711,
+    name: 'Aspect of Harmony',
+    icon: 'ability_evoker_essenceburst3',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;
