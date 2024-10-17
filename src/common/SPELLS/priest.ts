@@ -966,22 +966,10 @@ const spells = {
   },
 
   //Shadow Tier
-  SHADOW_PRIEST_TIER_29_4_SET_BUFF: {
-    id: 394963,
-    name: 'Dark Reveries',
-    icon: 'inv_mace_1h_artifactheartofkure_d_05',
-  },
-
-  SHADOW_PRIEST_TIER_30_4_SET_BUFF: {
-    id: 409502,
-    name: 'Darkflame Embers',
-    icon: 'spell_nzinsanity_panicattack',
-  },
-
-  SHADOW_PRIEST_TIER_31_4_SET_BUFF: {
-    id: 423726,
-    name: 'Deaths Torment',
-    icon: 'spell_shadow_deathsembrace',
+  SHADOW_PRIEST_TWW_TIER_1_4_SET_BUFF: {
+    id: 454638,
+    name: 'Devouring Chorus',
+    icon: 'spell_shadow_devouringplague',
   },
 
   // Disc

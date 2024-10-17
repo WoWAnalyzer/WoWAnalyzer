@@ -59,6 +59,7 @@ import MindMelt from './modules/talents/MindMelt';
 import Mastermind from './modules/talents/Mastermind';
 import DarkAscension from './modules/talents/DarkAscension';
 import Shadowform from './modules/spells/Shadowform';
+import ShadowTierTWWS1 from './modules/tier/ShadowTierTWWS1';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -131,6 +132,7 @@ class CombatLogParser extends MainCombatLogParser {
     shadowfiendNormalizer: ShadowfiendNormalizer,
 
     //Tier
+    shadowTierTWWS1: ShadowTierTWWS1,
 
     arcaneTorrent: [ArcaneTorrent, { active: false }] as const,
   };
