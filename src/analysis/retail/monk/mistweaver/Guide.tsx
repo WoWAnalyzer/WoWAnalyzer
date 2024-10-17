@@ -35,6 +35,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {info.combatant.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT) && (
           <SheilunsGraph modules={modules} events={events} info={info} />
         )}
+        {info.combatant.hasTalent(TALENTS_MONK.ASPECT_OF_HARMONY_TALENT) &&
+          modules.aspectOfHarmony.guideSubsection}
         <RemGraphSubsection modules={modules} events={events} info={info} />
       </Section>
       <Section title="Healing Cooldowns">
