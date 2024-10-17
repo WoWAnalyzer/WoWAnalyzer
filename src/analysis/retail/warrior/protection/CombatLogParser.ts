@@ -32,8 +32,8 @@ import SpellReflection from '../shared/modules/talents/SpellReflection';
 import ImpendingVictory from '../shared/modules/talents/ImpendingVictory';
 import RavagerHitCheck from './modules/spells/RavagerHitCheck';
 import RageGenerationNormalizer from './normalizers/RageGenerationNormalizer';
-import ProtTwoPiece from './modules/items/tier30/ProtTwoPiece';
-import ProtFourPiece from './modules/items/tier30/ProtFourPiece';
+// import ProtTwoPiece from './modules/items/tier30/ProtTwoPiece';
+// import ProtFourPiece from './modules/items/tier30/ProtFourPiece';
 
 //legendaries
 
@@ -81,8 +81,8 @@ class CombatLogParser extends CoreCombatLogParser {
     ravagerHitCheck: RavagerHitCheck,
 
     // Tier
-    protTwoPiece: ProtTwoPiece,
-    protFourPiece: ProtFourPiece,
+    // protTwoPiece: ProtTwoPiece,
+    // protFourPiece: ProtFourPiece,
   };
 }
 

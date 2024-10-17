@@ -11,12 +11,14 @@ class SpellUsable extends CoreSpellUsable {
     globalCooldown: GlobalCooldown,
   };
   hasDevastator: boolean;
+  hasBurstOfPower: boolean; // Next 2 Shield Slams have no cooldown
   lastPotentialTriggerForShieldSlam: CastEvent | null = null;
   protected globalCooldown!: GlobalCooldown;
 
   constructor(options: Options) {
     super(options);
     this.hasDevastator = this.selectedCombatant.hasTalent(TALENTS.DEVASTATOR_TALENT);
+    this.hasBurstOfPower = this.selectedCombatant.hasTalent(TALENTS.BURST_OF_POWER_TALENT);
   }
 
   onCast(event: CastEvent) {
@@ -27,7 +29,8 @@ class SpellUsable extends CoreSpellUsable {
     } else if (
       spellId === SPELLS.DEVASTATE.id ||
       spellId === SPELLS.THUNDER_CLAP.id ||
-      spellId === SPELLS.REVENGE.id
+      spellId === SPELLS.REVENGE.id ||
+      spellId === SPELLS.EXECUTE.id
     ) {
       this.lastPotentialTriggerForShieldSlam = { ...event };
       //reset the cooldown to after the GCD of the resetting ability

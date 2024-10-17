@@ -28,7 +28,7 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: C
         description={
           <>
             Be sure to use <SpellLink spell={SPELLS.SHIELD_SLAM} /> and{' '}
-            <SpellLink spell={TALENTS.THUNDER_CLAP_PROTECTION_TALENT} /> on cooldown to maximise
+            <SpellLink spell={TALENTS.THUNDER_CLAP_TALENT} /> on cooldown to maximise
             your <ResourceLink id={RESOURCE_TYPES.RAGE.id} /> generation and damage output.
             <br /> <SpellLink spell={SPELLS.REVENGE} /> can be used to avoid rage capping and{' '}
             <SpellLink spell={SPELLS.DEVASTATE} /> should only be used when every other spell
@@ -36,7 +36,7 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: C
           </>
         }
       >
-        <AbilityRequirement spell={TALENTS.THUNDER_CLAP_PROTECTION_TALENT.id} />
+        <AbilityRequirement spell={TALENTS.THUNDER_CLAP_TALENT.id} />
         <Requirement
           name={<SpellLink spell={SPELLS.SHIELD_SLAM} />}
           thresholds={thresholds.shieldSlam}
@@ -90,7 +90,7 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: C
             very important because it will increase your overall damage a lot and provides 10{' '}
             <ResourceLink id={RESOURCE_TYPES.RAGE.id} />.<br /> If you are also using{' '}
             <SpellLink spell={TALENTS.UNSTOPPABLE_FORCE_TALENT} /> remember that{' '}
-            <SpellLink spell={TALENTS.THUNDER_CLAP_PROTECTION_TALENT} /> will have a reduced
+            <SpellLink spell={TALENTS.THUNDER_CLAP_TALENT} /> will have a reduced
             cooldown so you can use it every other GCD.
           </>
         }
@@ -110,7 +110,7 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: C
         )}
         <TalentCastEfficiencyRequirement talent={TALENTS.SHIELD_CHARGE_TALENT} />
         <TalentCastEfficiencyRequirement talent={TALENTS.CHAMPIONS_SPEAR_TALENT} />
-        {combatant.hasTalent(TALENTS.SONIC_BOOM_TALENT) && (
+        {combatant.hasTalent(TALENTS.SHOCKWAVE_TALENT) && (
           <AbilityRequirement spell={TALENTS.SHOCKWAVE_TALENT.id} />
         )}
         {combatant.hasTalent(TALENTS.THUNDEROUS_ROAR_TALENT) && (
