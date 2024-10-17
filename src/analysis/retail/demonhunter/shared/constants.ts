@@ -7,6 +7,8 @@ export const SHATTERED_RESTORATION_SCALING = [0, 5, 10];
 
 export const UNRESTRAINED_FURY_SCALING = [0, 10, 20];
 
+export const UNTETHERED_FURY_SCALING = [0, 50];
+
 export const ERRATIC_FELHEART_SCALING = [0, 0.1, 0.2];
 
 export const PITCH_BLACK_SCALING = [0, 120];
