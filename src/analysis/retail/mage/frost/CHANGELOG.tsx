@@ -5,6 +5,7 @@ import TALENTS from 'common/TALENTS/mage';
 
 // prettier-ignore
 export default [
+  change(date(2024, 10, 17), <>Fixed Frostfire Bolt on Winters Chill module for Frostfire.</>, Earosselot),
   change(date(2024, 9, 18), <>Updated the Warning Banner explaining the current state of Frost Mage.</>, Sharrq),
   change(date(2024, 8, 25), <>Added support for <SpellLink spell={TALENTS.SPELLFROST_TEACHINGS_TALENT} />.</>, Earosselot),
   change(date(2024, 8, 23), <>Adding APL for Spellslinger Frost.</>, Earosselot),

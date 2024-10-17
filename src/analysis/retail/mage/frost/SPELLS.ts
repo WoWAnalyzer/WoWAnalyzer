@@ -137,6 +137,11 @@ const spells = {
     name: 'Spellfrost Teachings',
     icon: '70_inscription_vantus_rune_azure',
   },
+  FROSTFIRE_BOLT_DAMAGE: {
+    id: 468655,
+    name: 'Frostfire Bolt',
+    icon: 'inv_ability_frostfiremage_frostfirebolt',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;
