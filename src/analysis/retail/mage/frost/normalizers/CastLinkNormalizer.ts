@@ -39,8 +39,6 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: CAST_BUFFER_MS,
     additionalCondition: (linkingEvent, referencedEvent) => {
       const isTick = (referencedEvent as DamageEvent).tick;
-      console.log(isTick);
-      console.log(referencedEvent);
       return isTick === undefined || !isTick;
     },
   },
