@@ -22,7 +22,6 @@ import { INSIGHT_CDR_ABILITIES, SPELLS_THAT_PROC_S1_4PC_HOLY_ID } from '../const
 const CAST_BUFFER_MS = 200;
 
 const FROM_HARDCAST = 'FromHardcast'; // for linking a heal to its cast
-const LIGHTWEAVER_CONSUME = 'LightweaverConsumption'; // link heal cast to removing the lightweaver buff
 const POH_CAST = 'PrayerOfHealingCast';
 const COH_CAST = 'CircleOfHealingCast';
 const SERENITY_CAST = 'HolyWordSerenityCast';
@@ -84,21 +83,6 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
-  },
-  // Link Lightweaver remove buff to heal event.
-  {
-    linkRelation: LIGHTWEAVER_CONSUME,
-    reverseLinkRelation: LIGHTWEAVER_CONSUME,
-    linkingEventId: SPELLS.GREATER_HEAL.id,
-    linkingEventType: EventType.Cast,
-    referencedEventId: SPELLS.LIGHTWEAVER_TALENT_BUFF.id,
-    referencedEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
-    anyTarget: true,
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
-    isActive(c) {
-      return c.hasTalent(TALENTS_PRIEST.LIGHTWEAVER_TALENT);
-    },
   },
   // Link Holy Word Serenity casts to heal event
   {
@@ -382,10 +366,6 @@ export function getHealFromSurge(
     BUFFED_BY_SURGE_OF_LIGHT,
     (e): e is HealEvent => e.type === EventType.Heal,
   ).pop();
-}
-
-export function isCastBuffedByLightweaver(event: CastEvent) {
-  return HasRelatedEvent(event, LIGHTWEAVER_CONSUME);
 }
 
 export function isSurgeOfLightFromHalo(
