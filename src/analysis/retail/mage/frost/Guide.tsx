@@ -10,6 +10,7 @@ import PreparationSection from 'interface/guide/components/Preparation/Preparati
 import { HideExplanationsToggle } from 'interface/guide/components/HideExplanationsToggle';
 import { AplSectionData } from 'interface/guide/components/Apl';
 import * as ssApl from 'src/analysis/retail/mage/frost/apl/SpellslingerAplCheck';
+import * as ffApl from 'src/analysis/retail/mage/frost/apl/FrostfireAplCheck';
 
 export const GUIDE_CORE_EXPLANATION_PERCENT = 50;
 
@@ -57,6 +58,9 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         <SubSection title="Action Priority List (APL)">
           {info.combatant.hasTalent(TALENTS.SPLINTERSTORM_TALENT) && (
             <AplSectionData checker={ssApl.spellslingerCheck} apl={ssApl.spellslingerApl} />
+          )}
+          {info.combatant.hasTalent(TALENTS.FLASH_FREEZEBURN_TALENT) && (
+            <AplSectionData checker={ffApl.frostfireCheck} apl={ffApl.frostfireApl} />
           )}
         </SubSection>
         {alwaysBeCastingSubsection}

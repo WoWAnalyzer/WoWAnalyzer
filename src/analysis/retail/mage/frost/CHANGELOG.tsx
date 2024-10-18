@@ -5,6 +5,7 @@ import TALENTS from 'common/TALENTS/mage';
 
 // prettier-ignore
 export default [
+  change(date(2024, 10, 18), <>Apls: Updated for Spell Slinger and added for Frostfire for patch 11.0.5</>, Earosselot),
   change(date(2024, 9, 18), <>Updated the Warning Banner explaining the current state of Frost Mage.</>, Sharrq),
   change(date(2024, 8, 25), <>Added support for <SpellLink spell={TALENTS.SPELLFROST_TEACHINGS_TALENT} />.</>, Earosselot),
   change(date(2024, 8, 23), <>Adding APL for Spellslinger Frost.</>, Earosselot),
