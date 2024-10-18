@@ -3,22 +3,15 @@ import TALENTS from 'common/TALENTS/mage';
 import * as cnd from 'parser/shared/metrics/apl/conditions';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'interface/SpellLink';
-
-const precastFbWithThreeIcicles = cnd.and(
-  cnd.lastSpellCast(SPELLS.FROSTBOLT),
-  cnd.buffStacks(SPELLS.ICICLES_BUFF, { atLeast: 3 }),
-);
-
-const precastGlacialSpike = cnd.lastSpellCast(TALENTS.GLACIAL_SPIKE_TALENT);
-
-const fourIciclesAndNoFingersOfFrost = cnd.and(
-  cnd.buffStacks(SPELLS.ICICLES_BUFF, { atLeast: 4, atMost: 4 }),
-  cnd.buffMissing(TALENTS.FINGERS_OF_FROST_TALENT),
-);
+import * as apl from './FrostAplCommons';
 
 const flurrySsCondition = cnd.and(
   cnd.debuffMissing(SPELLS.WINTERS_CHILL),
-  cnd.or(precastFbWithThreeIcicles, precastGlacialSpike, fourIciclesAndNoFingersOfFrost),
+  cnd.or(
+    apl.precastFbWithThreeIcicles,
+    apl.precastGlacialSpike,
+    apl.fourIciclesAndNoFingersOfFrost,
+  ),
 );
 
 const flurrySsDescription = (
@@ -41,10 +34,6 @@ const flurrySsDescription = (
   </>
 );
 
-const fiveIcicles = cnd.buffStacks(SPELLS.ICICLES_BUFF, { atLeast: 5 });
-const wintersChill = cnd.debuffPresent(SPELLS.WINTERS_CHILL);
-const fingersOfFrost = cnd.buffPresent(TALENTS.FINGERS_OF_FROST_TALENT);
-
 export const spellslingerApl = build([
   {
     spell: TALENTS.FLURRY_TALENT,
@@ -52,11 +41,11 @@ export const spellslingerApl = build([
   },
   {
     spell: TALENTS.GLACIAL_SPIKE_TALENT,
-    condition: fiveIcicles,
+    condition: apl.fiveIcicles,
   },
   {
     spell: TALENTS.ICE_LANCE_TALENT,
-    condition: cnd.or(wintersChill, fingersOfFrost),
+    condition: cnd.or(apl.wintersChill, apl.fingersOfFrost),
   },
   SPELLS.FROSTBOLT,
 ]);
