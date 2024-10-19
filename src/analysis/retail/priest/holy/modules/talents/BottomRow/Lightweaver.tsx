@@ -28,7 +28,7 @@ import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
  * Stacks up to 2 times.
  */
 
-type HealingSources = 'trailHealing' | 'bindingHealing' | 'healHealing';
+type HealingSources = 'trailHealing' | 'bindingHealing' | 'healingDoneFromTalent';
 
 //Example log: /report/kVQd4LrBb9RW2h6K/9-Heroic+The+Primal+Council+-+Wipe+5+(5:04)/Delipriest/standard/statistics
 class Lightweaver extends Analyzer {
@@ -37,7 +37,7 @@ class Lightweaver extends Analyzer {
   };
   protected eolAttrib!: EOLAttrib;
 
-  healHealing = 0;
+  healingDoneFromTalent = 0;
   overhealingDoneFromTalent = 0;
 
   totalHealCasts = 0;
@@ -54,7 +54,7 @@ class Lightweaver extends Analyzer {
   eolContrib = 0;
 
   get totalHealing() {
-    return this.healHealing + this.eolContrib + this.trailHealing + this.bindingHealing;
+    return this.healingDoneFromTalent + this.eolContrib + this.trailHealing + this.bindingHealing;
   }
 
   constructor(options: Options) {
@@ -86,7 +86,7 @@ class Lightweaver extends Analyzer {
     const events: [HealingSources, HealEvent | undefined][] = [
       ['trailHealing', getTrailFromHeal(castEvent)],
       ['bindingHealing', getBindingFromHeal(castEvent)],
-      ['healHealing', healEvent],
+      ['healingDoneFromTalent', healEvent],
     ];
 
     events.forEach(([key, event]) => {
@@ -231,7 +231,7 @@ class Lightweaver extends Analyzer {
   statistic() {
     const overhealingTooltipString = formatPercentage(
       this.overhealingDoneFromTalent /
-        (this.healHealing +
+        (this.healingDoneFromTalent +
           this.trailHealing +
           this.bindingHealing +
           this.overhealingDoneFromTalent),
@@ -248,7 +248,7 @@ class Lightweaver extends Analyzer {
             <div>Breakdown:</div>
             <div>
               <SpellLink spell={TALENTS_PRIEST.LIGHTWEAVER_TALENT} />:{' '}
-              <ItemPercentHealingDone amount={this.healHealing} />{' '}
+              <ItemPercentHealingDone amount={this.healingDoneFromTalent} />{' '}
             </div>
             <div>
               <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
