@@ -276,3 +276,7 @@ export function getDreamBreathCast(
 export function getReversionHealing(event: ApplyBuffEvent | RefreshBuffEvent) {
   return GetRelatedEvents<HealEvent>(event, REVERSION);
 }
+
+export function getLifebindTargets(event: ApplyBuffEvent) {
+  return GetRelatedEvents<HealEvent>(event, LIFEBIND_APPLY);
+}
