@@ -9,7 +9,11 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { SpellLink } from 'interface';
 import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
-import { getHeal } from '../../../normalizers/CastLinkNormalizer';
+import {
+  getBindingFromHeal,
+  getHeal,
+  getTrailFromHeal,
+} from '../../../normalizers/CastLinkNormalizer';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../../Guide';
 import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
@@ -19,10 +23,12 @@ import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 
 /**
  * Flash Heal reduces the cast time of your next Heal
- * within 20 sec by 30% and increases its healing done by 15%.
+ * within 20 sec by 30% and increases its healing done by 25%.
  *
  * Stacks up to 2 times.
  */
+
+type HealingSources = 'trailHealing' | 'bindingHealing' | 'healHealing';
 
 //Example log: /report/kVQd4LrBb9RW2h6K/9-Heroic+The+Primal+Council+-+Wipe+5+(5:04)/Delipriest/standard/statistics
 class Lightweaver extends Analyzer {
@@ -30,7 +36,8 @@ class Lightweaver extends Analyzer {
     eolAttrib: EOLAttrib,
   };
   protected eolAttrib!: EOLAttrib;
-  healingDoneFromTalent = 0;
+
+  healHealing = 0;
   overhealingDoneFromTalent = 0;
 
   totalHealCasts = 0;
@@ -41,7 +48,14 @@ class Lightweaver extends Analyzer {
   wastedBuffFlashHealCasts = 0;
   highOverhealFlashHealCasts = 0;
 
+  trailHealing: number = 0;
+  bindingHealing: number = 0;
+
   eolContrib = 0;
+
+  get totalHealing() {
+    return this.healHealing + this.eolContrib + this.trailHealing + this.bindingHealing;
+  }
 
   constructor(options: Options) {
     super(options);
@@ -68,25 +82,41 @@ class Lightweaver extends Analyzer {
     return (event.overheal || 0) / rawHealing >= LW_OVERHEAL_THRESHOLD;
   }
 
+  private calculateHealing(healEvent: HealEvent, castEvent: CastEvent) {
+    const events: [HealingSources, HealEvent | undefined][] = [
+      ['trailHealing', getTrailFromHeal(castEvent)],
+      ['bindingHealing', getBindingFromHeal(castEvent)],
+      ['healHealing', healEvent],
+    ];
+
+    events.forEach(([key, event]) => {
+      if (event) {
+        this[key] += calculateEffectiveHealing(event, LW_HEALING_BONUS);
+        this.eolContrib += this.eolAttrib.getEchoOfLightAmpAttrib(event, LW_HEALING_BONUS);
+        this.overhealingDoneFromTalent += calculateOverhealing(event, LW_HEALING_BONUS);
+      }
+    });
+  }
+
   onHealCast(event: CastEvent) {
     // linked heal event exists
     const healEvent = getHeal(event);
-    if (healEvent) {
-      this.totalHealCasts += 1;
-      if (this.selectedCombatant.hasBuff(SPELLS.LIGHTWEAVER_TALENT_BUFF)) {
-        // calculate effective healing from bonus
-        this.healingDoneFromTalent += calculateEffectiveHealing(healEvent, LW_HEALING_BONUS);
-        this.eolContrib += this.eolAttrib.getEchoOfLightAmpAttrib(healEvent, LW_HEALING_BONUS);
-        this.overhealingDoneFromTalent = calculateOverhealing(healEvent, LW_HEALING_BONUS);
-      } else {
-        this.unbuffedHealCasts += 1;
-        // return early so we are not counting unbuffed heals for high overheal count
-        return;
-      }
+    if (!healEvent) {
+      return;
+    }
 
-      if (this.isHighOverheal(healEvent)) {
-        this.highOverhealHealCasts += 1;
-      }
+    this.totalHealCasts += 1;
+
+    if (!this.selectedCombatant.hasBuff(SPELLS.LIGHTWEAVER_TALENT_BUFF)) {
+      this.unbuffedHealCasts += 1;
+      // return early so we are not counting unbuffed heals for high overheal count
+      return;
+    }
+
+    this.calculateHealing(healEvent, event);
+
+    if (this.isHighOverheal(healEvent)) {
+      this.highOverhealHealCasts += 1;
     }
   }
 
@@ -201,7 +231,10 @@ class Lightweaver extends Analyzer {
   statistic() {
     const overhealingTooltipString = formatPercentage(
       this.overhealingDoneFromTalent /
-        (this.healingDoneFromTalent + this.overhealingDoneFromTalent),
+        (this.healHealing +
+          this.trailHealing +
+          this.bindingHealing +
+          this.overhealingDoneFromTalent),
     );
 
     return (
@@ -212,33 +245,32 @@ class Lightweaver extends Analyzer {
           <>
             {`${overhealingTooltipString}% overhealing`} <br />
             <br />
-            <div>Breakdown: </div>
+            <div>Breakdown:</div>
             <div>
               <SpellLink spell={TALENTS_PRIEST.LIGHTWEAVER_TALENT} />:{' '}
-              <ItemPercentHealingDone amount={this.healingDoneFromTalent}></ItemPercentHealingDone>{' '}
+              <ItemPercentHealingDone amount={this.healHealing} />{' '}
             </div>
             <div>
               <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY} />:{' '}
-              <ItemPercentHealingDone amount={this.eolContrib}></ItemPercentHealingDone> <br />
+              <ItemPercentHealingDone amount={this.eolContrib} /> <br />
             </div>
-            <br />
             <div>
-              Notably this module currently is missing the contributions to{' '}
-              <SpellLink spell={TALENTS_PRIEST.BINDING_HEALS_TALENT} /> and{' '}
-              <SpellLink spell={TALENTS_PRIEST.TRAIL_OF_LIGHT_TALENT} />, which can undervalue it.
+              <SpellLink spell={SPELLS.TRAIL_OF_LIGHT_TALENT_HEAL} />:{' '}
+              <ItemPercentHealingDone amount={this.trailHealing} /> <br />
+            </div>
+            <div>
+              <SpellLink spell={SPELLS.BINDING_HEALS_TALENT_HEAL} />:{' '}
+              <ItemPercentHealingDone amount={this.bindingHealing} /> <br />
             </div>
           </>
         }
       >
         <BoringSpellValueText spell={TALENTS.LIGHTWEAVER_TALENT}>
           <div>
-            <ItemHealingDone amount={this.healingDoneFromTalent + this.eolContrib} />{' '}
-            <small> from just the heal amp</small>
+            <ItemHealingDone amount={this.totalHealing} /> <small> from just the heal amp</small>
           </div>
           <div>
-            <ItemHealingDone
-              amount={(this.healingDoneFromTalent + this.eolContrib) / LW_CAST_TIME_DECREASE}
-            />{' '}
+            <ItemHealingDone amount={this.totalHealing / LW_CAST_TIME_DECREASE} />{' '}
             <small> from both the heal amp and doing that healing in less time</small>
           </div>
         </BoringSpellValueText>
