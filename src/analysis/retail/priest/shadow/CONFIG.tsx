@@ -39,8 +39,7 @@ const config: Config = {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport:
-    'report/tnNGvpWfbJ1wZdTX/12-Heroic+Ulgrax+the+Devourer+-+Kill+(7:36)/Doxashe/standard',
+  exampleReport: 'report/gdBvxajDfACLJNPT/1-Normal+Ulgrax+the+Devourer+-+Kill+(3:17)',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
