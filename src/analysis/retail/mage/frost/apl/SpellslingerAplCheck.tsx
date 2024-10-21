@@ -5,13 +5,15 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'interface/SpellLink';
 import * as apl from './FrostAplCommons';
 
+// 1. Flurry noWC & precasted FB / GS
+// 2. GS when can Shatter
+// 3. Frostbolt if Talent DC & IVbuff > 8 & DC < 8
+// 4. IL on 2WC or WC & BF
+// 5. Frostbolt
+
 const flurrySsCondition = cnd.and(
   cnd.debuffMissing(SPELLS.WINTERS_CHILL),
-  cnd.or(
-    apl.precastFbWithThreeIcicles,
-    apl.precastGlacialSpike,
-    apl.fourIciclesAndNoFingersOfFrost,
-  ),
+  cnd.or(apl.precastFrostbolt, apl.precastGlacialSpike),
 );
 
 const flurrySsDescription = (
@@ -22,13 +24,7 @@ const flurrySsDescription = (
         precasted <SpellLink spell={TALENTS.GLACIAL_SPIKE_TALENT} />
       </li>
       <li>
-        precasted <SpellLink spell={SPELLS.FROSTBOLT} /> and have 3+{' '}
-        <SpellLink spell={SPELLS.ICICLES_BUFF} /> or{' '}
-        <SpellLink spell={TALENTS.BRAIN_FREEZE_TALENT} />
-      </li>
-      <li>
-        have 4 <SpellLink spell={SPELLS.ICICLES_BUFF} /> and no{' '}
-        <SpellLink spell={TALENTS.FINGERS_OF_FROST_TALENT} />
+        precasted <SpellLink spell={SPELLS.FROSTBOLT} />
       </li>
     </ul>
   </>
@@ -41,11 +37,22 @@ export const spellslingerApl = build([
   },
   {
     spell: TALENTS.GLACIAL_SPIKE_TALENT,
-    condition: apl.fiveIcicles,
+    condition: cnd.and(apl.fiveIcicles, apl.canShatter),
+  },
+  {
+    spell: SPELLS.FROSTBOLT,
+    condition: cnd.and(
+      cnd.hasTalent(TALENTS.DEATHS_CHILL_TALENT),
+      cnd.buffRemaining(TALENTS.ICY_VEINS_TALENT, 30000, { atLeast: 8000 }),
+      cnd.buffStacks(TALENTS.DEATHS_CHILL_TALENT, { atMost: 8 }),
+    ),
   },
   {
     spell: TALENTS.ICE_LANCE_TALENT,
-    condition: cnd.or(apl.wintersChill, apl.fingersOfFrost),
+    condition: cnd.or(
+      cnd.debuffStacks(SPELLS.WINTERS_CHILL, { atLeast: 2 }),
+      cnd.and(apl.wintersChill, cnd.buffPresent(TALENTS.BRAIN_FREEZE_TALENT)),
+    ),
   },
   SPELLS.FROSTBOLT,
 ]);

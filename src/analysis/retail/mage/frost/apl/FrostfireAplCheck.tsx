@@ -32,16 +32,10 @@ const flurryFfDescription = (
   </>
 );
 
-const canShatter = cnd.describe(cnd.or(apl.wintersChill, apl.flurryAvailable), (tense) => (
-  <>
-    can shatter (with <SpellLink spell={SPELLS.WINTERS_CHILL} /> or{' '}
-    <SpellLink spell={TALENTS.FLURRY_TALENT} />)
-  </>
-));
 export const frostfireApl = build([
   {
     spell: TALENTS.GLACIAL_SPIKE_TALENT,
-    condition: cnd.and(apl.fiveIcicles, canShatter),
+    condition: cnd.and(apl.fiveIcicles, apl.canShatter),
   },
   {
     spell: TALENTS.FLURRY_TALENT,
