@@ -105,7 +105,10 @@ export const GUST_OF_MISTS_EVENT_LINKS: EventLink[] = [
   {
     linkRelation: CRANE_STYLE_RSK,
     reverseLinkRelation: CRANE_STYLE_RSK,
-    linkingEventId: TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
+    linkingEventId: [
+      TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
+      TALENTS_MONK.RUSHING_WIND_KICK_TALENT.id,
+    ],
     linkingEventType: [EventType.Cast],
     referencedEventId: [SPELLS.GUSTS_OF_MISTS.id],
     referencedEventType: EventType.Heal,

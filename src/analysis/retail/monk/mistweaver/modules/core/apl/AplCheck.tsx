@@ -62,7 +62,16 @@ const BLACKOUT_KICK = {
   spell: SPELLS.BLACKOUT_KICK,
   condition: cnd.optionalRule(
     cnd.describe(
-      cnd.spellCooldownRemaining(talents.RISING_SUN_KICK_TALENT, { atLeast: 3500, atMost: 12000 }),
+      cnd.or(
+        cnd.spellCooldownRemaining(talents.RISING_SUN_KICK_TALENT, {
+          atLeast: 3500,
+          atMost: 12000,
+        }),
+        cnd.spellCooldownRemaining(talents.RUSHING_WIND_KICK_TALENT, {
+          atLeast: 3500,
+          atMost: 12000,
+        }),
+      ),
       (tense) => (
         <>
           <SpellLink spell={talents.RISING_SUN_KICK_TALENT} /> has more than half its cooldown
@@ -87,7 +96,17 @@ const commonTop = [
   },
   {
     spell: talents.RISING_SUN_KICK_TALENT,
-    condition: cnd.hasTalent(TALENTS_MONK.RISING_MIST_TALENT),
+    condition: cnd.and(
+      cnd.hasTalent(TALENTS_MONK.RISING_MIST_TALENT),
+      cnd.not(cnd.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_TALENT)),
+    ),
+  },
+  {
+    spell: talents.RUSHING_WIND_KICK_TALENT,
+    condition: cnd.and(
+      cnd.hasTalent(TALENTS_MONK.RISING_MIST_TALENT),
+      cnd.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_TALENT),
+    ),
   },
   {
     spell: talents.RENEWING_MIST_TALENT,
@@ -96,7 +115,7 @@ const commonTop = [
 ];
 
 const commonBottom = [talents.CHI_WAVE_TALENT];
-const atMissingCondition = cnd.buffMissing(talents.ANCIENT_TEACHINGS_TALENT, {
+const atMissingCondition = cnd.buffMissing(talents.JADEFIRE_TEACHINGS_TALENT, {
   duration: 15000,
   timeRemaining: 1500,
 });
@@ -143,7 +162,7 @@ export enum MistweaverApl {
 
 export const chooseApl = (info: PlayerInfo): MistweaverApl => {
   if (
-    info.combatant.hasTalent(talents.ANCIENT_TEACHINGS_TALENT) &&
+    info.combatant.hasTalent(talents.JADEFIRE_TEACHINGS_TALENT) &&
     info.combatant.hasTalent(talents.RISING_MIST_TALENT) &&
     info.combatant.hasTalent(talents.SHAOHAOS_LESSONS_TALENT) &&
     info.combatant.hasTalent(talents.INVOKERS_DELIGHT_TALENT)
@@ -151,7 +170,7 @@ export const chooseApl = (info: PlayerInfo): MistweaverApl => {
     return MistweaverApl.RisingMistAncientTeachingsShaohaos;
   } else if (
     info.combatant.hasTalent(talents.AWAKENED_JADEFIRE_TALENT) &&
-    info.combatant.hasTalent(talents.ANCIENT_TEACHINGS_TALENT)
+    info.combatant.hasTalent(talents.JADEFIRE_TEACHINGS_TALENT)
   ) {
     return MistweaverApl.AwakenedFaeline;
   } else if (info.combatant.hasTalent(TALENTS_MONK.TEAR_OF_MORNING_TALENT)) {

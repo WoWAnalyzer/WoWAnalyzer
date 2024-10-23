@@ -8,7 +8,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 import Haste from 'parser/shared/modules/Haste';
-import { SPELL_COLORS, THUNDER_FOCUS_TEA_SPELLS } from '../../constants';
+import { getCurrentRSKTalent, SPELL_COLORS, THUNDER_FOCUS_TEA_SPELLS } from '../../constants';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
@@ -77,7 +77,7 @@ class ThunderFocusTea extends Analyzer {
     );
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)) {
       this.correctCapstoneSpells = [TALENTS_MONK.RENEWING_MIST_TALENT.id];
-      this.okCapstoneSpells = [TALENTS_MONK.RISING_SUN_KICK_TALENT.id];
+      this.okCapstoneSpells = [getCurrentRSKTalent(this.selectedCombatant).id];
     } else if (this.selectedCombatant.hasTalent(TALENTS_MONK.TEAR_OF_MORNING_TALENT)) {
       this.correctCapstoneSpells = [
         TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
@@ -136,7 +136,7 @@ class ThunderFocusTea extends Analyzer {
       this.castsTftViv += 1;
       debug && console.log('Viv TFT Check ', event.timestamp);
       this.castBufferTimestamp = event.timestamp;
-    } else if (TALENTS_MONK.RISING_SUN_KICK_TALENT.id === spellId) {
+    } else if (getCurrentRSKTalent(this.selectedCombatant).id === spellId) {
       this.castsUnderTft += 1;
       this.castsTftRsk += 1;
       debug && console.log('RSK TFT Check ', event.timestamp);
@@ -207,7 +207,7 @@ class ThunderFocusTea extends Analyzer {
       {
         color: SPELL_COLORS.RISING_SUN_KICK,
         label: 'Rising Sun Kick',
-        spellId: TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
+        spellId: getCurrentRSKTalent(this.selectedCombatant).id,
         value: this.castsTftRsk,
       },
       {
@@ -242,7 +242,7 @@ class ThunderFocusTea extends Analyzer {
             <SpellLink spell={TALENTS_MONK.RISING_MIST_TALENT} /> talented <Arrow /> use on{' '}
             <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> (
             <span style={{ color: 'green' }}>best</span>) or{' '}
-            <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} /> (
+            <SpellLink spell={getCurrentRSKTalent(this.selectedCombatant)} /> (
             <span style={{ color: 'yellow' }}>ok</span>)
           </li>
           <li>
@@ -273,7 +273,7 @@ class ThunderFocusTea extends Analyzer {
               <SpellLink spell={TALENTS_MONK.RISING_MIST_TALENT} /> talented <Arrow /> use on{' '}
               <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> (
               <span style={{ color: 'green' }}>best</span>) or{' '}
-              <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} /> (
+              <SpellLink spell={getCurrentRSKTalent(this.selectedCombatant)} /> (
               <span style={{ color: 'yellow' }}>ok</span>)
             </li>
           </ul>

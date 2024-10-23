@@ -17,6 +17,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import BaseCelestialAnalyzer from './BaseCelestialAnalyzer';
 import EnvelopingBreath from './EnvelopingBreath';
+import { getCurrentRSKTalent } from '../../constants';
 
 class InvokeYulon extends BaseCelestialAnalyzer {
   soothHealing: number = 0;
@@ -100,8 +101,8 @@ class InvokeYulon extends BaseCelestialAnalyzer {
         </strong>
         <br />
         Before casting <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} />, make
-        sure that <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} /> is on cooldown, and make
-        to sure cast{' '}
+        sure that <SpellLink spell={getCurrentRSKTalent(this.selectedCombatant)} /> is on cooldown,
+        and make to sure cast{' '}
         {this.selectedCombatant.hasTalent(TALENTS_MONK.GIFT_OF_THE_CELESTIALS_TALENT) ? (
           <>at least one </>
         ) : (
@@ -127,7 +128,7 @@ class InvokeYulon extends BaseCelestialAnalyzer {
         important to cast <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> on allies that
         are near other allies (e.g. not ranged players standing alone) to maximize targets hit by{' '}
         <SpellLink spell={SPELLS.ENVELOPING_BREATH_HEAL} />. Be sure to cast{' '}
-        <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} /> before your first{' '}
+        <SpellLink spell={getCurrentRSKTalent(this.selectedCombatant)} /> before your first{' '}
         <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> and{' '}
         <SpellLink spell={TALENTS_MONK.RAPID_DIFFUSION_TALENT} />{' '}
         <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> falls off to extend their duration.

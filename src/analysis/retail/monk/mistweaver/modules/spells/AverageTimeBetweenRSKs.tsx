@@ -8,6 +8,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import RisingSunKick from './RisingSunKick';
 import RisingMist from './RisingMist';
 import { SpellLink } from 'interface';
+import { getCurrentRSKTalent } from '../../constants';
 
 /*
  * Add in Statistic box to show average time between RSK casts when Rising Mist is talented.
@@ -30,7 +31,7 @@ class TimeBetweenRSKs extends Analyzer {
       return;
     }
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.RISING_SUN_KICK_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(getCurrentRSKTalent(this.selectedCombatant)),
       this.onRSK,
     );
   }

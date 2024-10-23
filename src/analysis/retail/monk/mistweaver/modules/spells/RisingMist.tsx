@@ -9,7 +9,12 @@ import Events, { HealEvent, CastEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HotTracker, { Attribution, Tracker } from 'parser/shared/modules/HotTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import { ATTRIBUTION_STRINGS, RISING_MIST_EXTENSION, SPELL_COLORS } from '../../constants';
+import {
+  ATTRIBUTION_STRINGS,
+  getCurrentRSKTalent,
+  RISING_MIST_EXTENSION,
+  SPELL_COLORS,
+} from '../../constants';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import HotTrackerMW from '../core/HotTrackerMW';
 import Vivify from './Vivify';
@@ -159,7 +164,7 @@ class RisingMist extends Analyzer {
       return;
     }
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.RISING_SUN_KICK_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(getCurrentRSKTalent(this.selectedCombatant)),
       this.extendHots,
     );
     this.addEventListener(
@@ -261,7 +266,7 @@ class RisingMist extends Analyzer {
 
   extendHots(event: CastEvent) {
     const spellId = event.ability.guid;
-    if (TALENTS_MONK.RISING_SUN_KICK_TALENT.id !== spellId) {
+    if (getCurrentRSKTalent(this.selectedCombatant).id !== spellId) {
       return;
     }
 
@@ -384,7 +389,7 @@ class RisingMist extends Analyzer {
       return <SpellIcon spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} />;
     }
     if (this.hotTracker.fromRapidDiffusionRisingSunKick(hot)) {
-      return <SpellIcon spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} />;
+      return <SpellIcon spell={getCurrentRSKTalent(this.selectedCombatant)} />;
     }
     //dm
     if (this.hotTracker.fromDancingMistRapidDiffusion(hot)) {

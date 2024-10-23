@@ -16,7 +16,7 @@ import { isFromMistyPeaks } from '../../normalizers/CastLinkNormalizer';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import TalentAggregateStatisticContainer from 'parser/ui/TalentAggregateStatisticContainer';
 import TalentAggregateBars from 'parser/ui/TalentAggregateStatistic';
-import { SPELL_COLORS } from '../../constants';
+import { getCurrentRSKTalent, SPELL_COLORS } from '../../constants';
 import DonutChart from 'parser/ui/DonutChart';
 import Spell from 'common/SPELLS/Spell';
 
@@ -173,8 +173,8 @@ class RapidDiffusion extends Analyzer {
     const items = [
       {
         color: SPELL_COLORS.RISING_SUN_KICK,
-        label: TALENTS_MONK.RISING_SUN_KICK_TALENT.name,
-        spellId: TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
+        label: getCurrentRSKTalent(this.selectedCombatant).name,
+        spellId: getCurrentRSKTalent(this.selectedCombatant).id,
         value: rskSourceHealing,
         valuePercent: false,
       },
@@ -351,7 +351,7 @@ class RapidDiffusion extends Analyzer {
               <>
                 Rapid Diffusion has an internal cooldown of 0.25 seconds, so this number may be
                 slightly lower than your total{' '}
-                <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} /> and{' '}
+                <SpellLink spell={getCurrentRSKTalent(this.selectedCombatant)} /> and{' '}
                 <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> casts.
               </>
             }

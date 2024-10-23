@@ -16,7 +16,7 @@ export type DragonflightPatchVersion = StringWithAutocompleteOptions<
   VaultPatchCycle | AberrusPatchCycle | AmirdrassilPatchCycle
 >;
 
-type NerubarPatchCycle = `11.0.${0 | 2}`;
+type NerubarPatchCycle = `11.0.${0 | 2 | 5}`;
 export type TwwPatchVersion = StringWithAutocompleteOptions<NerubarPatchCycle>;
 
 export type CataPatchVersion = StringWithAutocompleteOptions<`4.4.0`>;

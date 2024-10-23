@@ -9,7 +9,7 @@ const aplTitle = (choice: MistweaverApl) => {
       return (
         <>
           <SpellLink spell={talents.RISING_MIST_TALENT} /> /{' '}
-          <SpellLink spell={talents.ANCIENT_TEACHINGS_TALENT} /> /{' '}
+          <SpellLink spell={talents.JADEFIRE_TEACHINGS_TALENT} /> /{' '}
           <SpellLink spell={talents.SHAOHAOS_LESSONS_TALENT} />
         </>
       );
@@ -43,7 +43,7 @@ const AncientTeachingsDescription = () => {
     <>
       to heal by using your damaging abilities (<SpellLink spell={talents.RISING_SUN_KICK_TALENT} />
       , <SpellLink spell={SPELLS.BLACKOUT_KICK} />, and <SpellLink spell={SPELLS.TIGER_PALM} />) via{' '}
-      <SpellLink spell={talents.ANCIENT_TEACHINGS_TALENT} />.
+      <SpellLink spell={talents.JADEFIRE_TEACHINGS_TALENT} />.
     </>
   );
 };
@@ -77,12 +77,12 @@ const RisingMistAncientTeachingsShaohaosDescription = () => {
       </p>
       <p>
         When playing <SpellLink spell={talents.RISING_MIST_TALENT} /> and{' '}
-        <SpellLink spell={talents.ANCIENT_TEACHINGS_TALENT} /> with{' '}
+        <SpellLink spell={talents.JADEFIRE_TEACHINGS_TALENT} /> with{' '}
         <SpellLink spell={talents.SHAOHAOS_LESSONS_TALENT} />, you cast{' '}
         <SpellLink spell={talents.RENEWING_MIST_TALENT} /> and{' '}
         <SpellLink spell={talents.RISING_SUN_KICK_TALENT} /> as often as possible, and cast{' '}
         <SpellLink spell={talents.JADEFIRE_STOMP_TALENT} /> as often as necessary to maintain the{' '}
-        <SpellLink spell={talents.ANCIENT_TEACHINGS_TALENT} /> buff. <ShaohaosDescription />
+        <SpellLink spell={talents.JADEFIRE_TEACHINGS_TALENT} /> buff. <ShaohaosDescription />
         <ThunderFocusTeaREM />
       </p>
     </>

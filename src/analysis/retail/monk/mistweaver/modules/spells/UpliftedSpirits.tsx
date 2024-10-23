@@ -13,6 +13,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { SpellLink } from 'interface';
 import Revival from './Revival';
+import { getCurrentRSKTalent, getCurrentRSKTalentDamage } from '../../constants';
 
 const UPLIFTED_SPIRITS_REDUCTION = 1000;
 const BASE_COOLDOWN = 180000; //180s
@@ -45,7 +46,7 @@ class UpliftedSpirits extends Analyzer {
       ? TALENTS_MONK.REVIVAL_TALENT
       : TALENTS_MONK.RESTORAL_TALENT;
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RISING_SUN_KICK_DAMAGE),
+      Events.damage.by(SELECTED_PLAYER).spell(getCurrentRSKTalentDamage(this.selectedCombatant)),
       this.rskHit,
     );
     this.addEventListener(
@@ -135,8 +136,9 @@ class UpliftedSpirits extends Analyzer {
             Total reduction from <SpellLink spell={SPELLS.VIVIFY} />:{' '}
             {formatNumber(this.totalVivifyCdr / 1000)} Seconds
             <br />
-            Total reduction from <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} />:{' '}
-            {formatNumber(this.totalRskCdr / 1000)} Seconds
+            Total reduction from <SpellLink
+              spell={getCurrentRSKTalent(this.selectedCombatant)}
+            />: {formatNumber(this.totalRskCdr / 1000)} Seconds
           </>
         }
       >

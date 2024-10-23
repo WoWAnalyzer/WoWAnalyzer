@@ -13,7 +13,7 @@ import Events, {
   EventType,
 } from 'parser/core/Events';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { SECRET_INFUSION_BUFFS, LESSONS_BUFFS } from '../../constants';
+import { SECRET_INFUSION_BUFFS, LESSONS_BUFFS, getCurrentRSKTalent } from '../../constants';
 import { PerformanceMark } from 'interface/guide';
 import SPELLS from 'common/SPELLS';
 import { formatDurationMillisMinSec, formatNumber } from 'common/format';
@@ -120,7 +120,7 @@ class BaseCelestialAnalyzer extends Analyzer {
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onAction);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onAction);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.RISING_SUN_KICK_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(getCurrentRSKTalent(this.selectedCombatant)),
       this.onRsk,
     );
     const idealEnvmCastsUnhastedForGift = this.selectedCombatant.hasTalent(
@@ -211,7 +211,7 @@ class BaseCelestialAnalyzer extends Analyzer {
       {
         label: (
           <>
-            Cast <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} />
+            Cast <SpellLink spell={getCurrentRSKTalent(this.selectedCombatant)} />
           </>
         ),
         result: <PerformanceMark perf={castPerf} />,

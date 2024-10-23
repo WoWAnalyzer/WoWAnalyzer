@@ -26,7 +26,6 @@ import MistweaverHealingEfficiencyDetails from './modules/features/MistweaverHea
 import HealingEfficiencyTracker from './modules/features/MistweaverHealingEfficiencyTracker';
 import REMGraph from './modules/features/REMGraph';
 import JadeBond from './modules/spells/JadeBond';
-import NourishingChi from './modules/spells/NourishingChi';
 import RisingSunRevival from './modules/spells/UpliftedSpirits';
 import JadefireStompHealing from './modules/spells/JadefireStompHealing';
 import AncientTeachings from './modules/spells/AncientTeachings';
@@ -164,7 +163,6 @@ class CombatLogParser extends CoreCombatLogParser {
     manaTeaSources: ManaTeaSources,
     mistsOfLife: MistsOfLife,
     mistyPeaks: MistyPeaks,
-    nourishingCh: NourishingChi,
     refreshingJadeWind: RefreshingJadeWind,
     renewingMist: RenewingMist,
     renewingMistDuringManaTea: RenewingMistDuringManaTea,

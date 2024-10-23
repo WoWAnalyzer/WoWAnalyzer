@@ -4,7 +4,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import HotTrackerMW from '../core/HotTrackerMW';
-import { POOL_OF_MISTS_CDR } from '../../constants';
+import { getCurrentRSKTalent, POOL_OF_MISTS_CDR } from '../../constants';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import SpellLink from 'interface/SpellLink';
@@ -39,7 +39,7 @@ class PoolOfMists extends Analyzer {
   get extraRSKCasts() {
     return (
       this.rskEffective /
-      this.spellUsable.fullCooldownDuration(TALENTS_MONK.RISING_SUN_KICK_TALENT.id)
+      this.spellUsable.fullCooldownDuration(getCurrentRSKTalent(this.selectedCombatant).id)
     );
   }
 
@@ -60,7 +60,7 @@ class PoolOfMists extends Analyzer {
     );
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.RISING_SUN_KICK_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(getCurrentRSKTalent(this.selectedCombatant)),
       this.onRisingSunKick,
     );
   }
@@ -81,11 +81,11 @@ class PoolOfMists extends Analyzer {
     ) {
       this.rskCDR += POOL_OF_MISTS_CDR;
       if (
-        this.spellUsable.isOnCooldown(TALENTS_MONK.RISING_SUN_KICK_TALENT.id) &&
+        this.spellUsable.isOnCooldown(getCurrentRSKTalent(this.selectedCombatant).id) &&
         event.timestamp > this.lastTimestamp + POOL_OF_MISTS_ICD
       ) {
         const reduction = this.spellUsable.reduceCooldown(
-          TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
+          getCurrentRSKTalent(this.selectedCombatant).id,
           POOL_OF_MISTS_CDR,
         );
         this.rskEffective += reduction;
@@ -130,7 +130,7 @@ class PoolOfMists extends Analyzer {
               <li>{formatNumber(this.extraReMCasts)} additional casts</li>
             </ul>
             <li>
-              <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} /> reduction:{' '}
+              <SpellLink spell={getCurrentRSKTalent(this.selectedCombatant)} /> reduction:{' '}
               {formatDuration(this.rskCDR)} ({formatDuration(this.rskWaste)} wasted)
             </li>
             <ul>
@@ -148,7 +148,7 @@ class PoolOfMists extends Analyzer {
             <ItemCooldownReduction effective={this.remEffective} />
           </div>
           <div>
-            <SpellIcon spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} />{' '}
+            <SpellIcon spell={getCurrentRSKTalent(this.selectedCombatant)} />{' '}
             <ItemCooldownReduction effective={this.rskEffective} />
           </div>
         </TalentSpellText>

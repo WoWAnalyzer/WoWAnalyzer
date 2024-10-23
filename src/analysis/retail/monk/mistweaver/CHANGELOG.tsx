@@ -5,6 +5,7 @@ import { Trevor, Vetyst, Vohrr } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date (2024, 10, 22), <>Update MW for 11.0.5</>, Trevor),
   change(date (2024, 10, 13), <>Add <SpellLink spell={TALENTS_MONK.ASPECT_OF_HARMONY_TALENT}/> guide section</>, Trevor),
   change(date (2024, 10, 12), <>Added an average healing per cast metric to the <SpellLink spell={TALENTS_MONK.REVIVAL_TALENT}/> healing breakdown statistic.</>, Vohrr),
   change(date (2024, 10, 12), <>Fix an issue with <SpellLink spell={TALENTS_MONK.UPLIFTED_SPIRITS_TALENT}/> and updated to include additional <SpellLink spell={SPELLS.GUSTS_OF_MISTS}/> healing.</>, Vohrr),

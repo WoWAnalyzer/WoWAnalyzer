@@ -9,6 +9,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
+import { getCurrentRSKTalent } from '../../constants';
 
 const CAST_BUFFER_MS = 250;
 
@@ -28,7 +29,7 @@ class RisingSunKick extends Analyzer {
     super(options);
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.RISING_SUN_KICK_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(getCurrentRSKTalent(this.selectedCombatant)),
       this.risingSunKickCast,
     );
     this.addEventListener(
@@ -39,7 +40,7 @@ class RisingSunKick extends Analyzer {
 
   risingSunKickCast(event: CastEvent) {
     // we are fine. Regular cast
-    if (!this.spellUsable.isOnCooldown(TALENTS_MONK.RISING_SUN_KICK_TALENT.id)) {
+    if (!this.spellUsable.isOnCooldown(getCurrentRSKTalent(this.selectedCombatant).id)) {
       this.lastRSK = event.timestamp;
       return;
     }
@@ -53,7 +54,7 @@ class RisingSunKick extends Analyzer {
       //reduces the cooldown of TFT by '9s' via tooltip but is really reduced by 6 gcds
       const cdr = event.globalCooldown ? event.globalCooldown.duration * 6 : 9000;
       this.lastRSKTFT = true;
-      this.spellUsable.reduceCooldown(TALENTS_MONK.RISING_SUN_KICK_TALENT.id, cdr);
+      this.spellUsable.reduceCooldown(getCurrentRSKTalent(this.selectedCombatant).id, cdr);
     } else {
       this.lastRSKTFT = false;
     }
@@ -73,7 +74,7 @@ class RisingSunKick extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} />
+          <SpellLink spell={getCurrentRSKTalent(this.selectedCombatant)} />
         </b>{' '}
         is one of your primary damaging spells but is also you highest priority healing spell{' '}
         {'(alongside '} <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />
@@ -93,7 +94,7 @@ class RisingSunKick extends Analyzer {
       <div>
         <RoundedPanel>
           <strong>
-            <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} /> cast efficiency
+            <SpellLink spell={getCurrentRSKTalent(this.selectedCombatant)} /> cast efficiency
           </strong>
           {this.guideSubStatistic()}
         </RoundedPanel>
@@ -107,7 +108,7 @@ class RisingSunKick extends Analyzer {
   guideSubStatistic() {
     return (
       <CastEfficiencyBar
-        spellId={TALENTS_MONK.RISING_SUN_KICK_TALENT.id}
+        spellId={getCurrentRSKTalent(this.selectedCombatant).id}
         gapHighlightMode={GapHighlight.FullCooldown}
         minimizeIcons
         slimLines

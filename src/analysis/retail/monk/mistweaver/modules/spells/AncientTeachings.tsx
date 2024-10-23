@@ -18,7 +18,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentAggregateBars from 'parser/ui/TalentAggregateStatistic';
 import TalentAggregateStatisticContainer from 'parser/ui/TalentAggregateStatisticContainer';
 import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
-import { SPELL_COLORS } from '../../constants';
+import { getCurrentRSKTalent, getCurrentRSKTalentDamage, SPELL_COLORS } from '../../constants';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
@@ -37,12 +37,12 @@ class AncientTeachings extends Analyzer {
    */
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.ANCIENT_TEACHINGS_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT);
     this.addEventListener(
       Events.damage
         .by(SELECTED_PLAYER)
         .spell([
-          SPELLS.RISING_SUN_KICK_DAMAGE,
+          getCurrentRSKTalentDamage(this.selectedCombatant),
           SPELLS.BLACKOUT_KICK,
           SPELLS.BLACKOUT_KICK_TOTM,
           SPELLS.TIGER_PALM,
@@ -100,7 +100,7 @@ class AncientTeachings extends Analyzer {
     const explanation = (
       <>
         <strong>
-          <SpellLink spell={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT} />
+          <SpellLink spell={TALENTS_MONK.RISING_MIST_TALENT} />
         </strong>{' '}
         is a powerful buff that enables you to do consistent healing while doing damage, a core
         identity of Mistweaver Monk. Try to maintain your buff at all times by casting{' '}
@@ -112,7 +112,7 @@ class AncientTeachings extends Analyzer {
       <div>
         <RoundedPanel>
           <strong>
-            <SpellLink spell={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT} /> uptime
+            <SpellLink spell={TALENTS_MONK.RISING_MIST_TALENT} /> uptime
           </strong>
           {this.subStatistic()}
         </RoundedPanel>
@@ -125,7 +125,7 @@ class AncientTeachings extends Analyzer {
   talentHealingStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink spell={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT} />}
+        title={<SpellLink spell={TALENTS_MONK.RISING_MIST_TALENT} />}
         value={`${formatPercentage(
           this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
         )} %`}
@@ -135,14 +135,14 @@ class AncientTeachings extends Analyzer {
 
   subStatistic() {
     return uptimeBarSubStatistic(this.owner.fight, {
-      spells: [TALENTS_MONK.ANCIENT_TEACHINGS_TALENT],
+      spells: [TALENTS_MONK.RISING_MIST_TALENT],
       uptimes: mergeTimePeriods(this.uptimeWindows, this.owner.currentTimestamp),
       color: SPELL_COLORS.RISING_SUN_KICK,
     });
   }
 
   get rskHealing() {
-    return this.damageSpellToHealing.get(SPELLS.RISING_SUN_KICK_DAMAGE.id) || 0;
+    return this.damageSpellToHealing.get(getCurrentRSKTalentDamage(this.selectedCombatant).id) || 0;
   }
 
   get bokHealing() {
@@ -164,10 +164,10 @@ class AncientTeachings extends Analyzer {
   getAncientTeachingsDataItems() {
     const items = [
       {
-        spell: TALENTS_MONK.RISING_SUN_KICK_TALENT,
+        spell: getCurrentRSKTalent(this.selectedCombatant),
         amount: this.rskHealing,
         color: SPELL_COLORS.RISING_SUN_KICK,
-        tooltip: this.getTooltip(SPELLS.RISING_SUN_KICK_DAMAGE.id),
+        tooltip: this.getTooltip(getCurrentRSKTalentDamage(this.selectedCombatant).id),
       },
       {
         spell: SPELLS.BLACKOUT_KICK,
@@ -211,8 +211,7 @@ class AncientTeachings extends Analyzer {
           <li>
             {secondarySourceId && <SpellLink spell={secondarySourceId} />}{' '}
             <SpellLink spell={spellId} /> did damage {this.missedDamageSpells.get(spellId) || 0}{' '}
-            times without the <SpellLink spell={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT} /> buff
-            active
+            times without the <SpellLink spell={TALENTS_MONK.RISING_MIST_TALENT} /> buff active
           </li>
           <li>
             {secondarySourceId && <SpellLink spell={secondarySourceId} />}{' '}
@@ -231,7 +230,7 @@ class AncientTeachings extends Analyzer {
       <TalentAggregateStatisticContainer
         title={
           <>
-            <SpellLink spell={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT} /> -{' '}
+            <SpellLink spell={TALENTS_MONK.RISING_MIST_TALENT} /> -{' '}
             <ItemHealingDone amount={this.totalHealing} displayPercentage={false} />
           </>
         }
