@@ -1606,6 +1606,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [128221],
     definitionIds: [{ id: 133028, specId: 270 }],
+    manaCost: 62500,
   },
   SALSALABIMS_STRENGTH_TALENT: {
     id: 383697,
