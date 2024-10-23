@@ -66,7 +66,7 @@ class TimeBetweenRSKs extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.GENERAL}
       >
-        <TalentSpellText talent={TALENTS_MONK.RISING_SUN_KICK_TALENT}>
+        <TalentSpellText talent={getCurrentRSKTalent(this.selectedCombatant)}>
           <>
             {this.averageTimeBetweenRSKSeconds} <small>average time between casts</small>
           </>

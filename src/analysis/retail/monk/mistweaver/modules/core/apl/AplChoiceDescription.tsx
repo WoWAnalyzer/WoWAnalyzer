@@ -33,7 +33,8 @@ const aplTitle = (choice: MistweaverApl) => {
 const RisingMistDescription = () => {
   return (
     <>
-      <SpellLink spell={talents.RISING_SUN_KICK_TALENT} /> to extend hots and{' '}
+      <SpellLink spell={talents.RISING_SUN_KICK_TALENT} />/
+      <SpellLink spell={talents.RUSHING_WIND_KICK_TALENT} /> to extend hots and{' '}
     </>
   );
 };
@@ -42,6 +43,7 @@ const JadefireTeachingsDescription = () => {
   return (
     <>
       to heal by using your damaging abilities (<SpellLink spell={talents.RISING_SUN_KICK_TALENT} />
+      /<SpellLink spell={talents.RUSHING_WIND_KICK_TALENT} />
       , <SpellLink spell={SPELLS.BLACKOUT_KICK} />, and <SpellLink spell={SPELLS.TIGER_PALM} />) via{' '}
       <SpellLink spell={talents.JADEFIRE_TEACHINGS_TALENT} />.
     </>
@@ -80,7 +82,8 @@ const RisingMistJadefireTeachingsShaohaosDescription = () => {
         <SpellLink spell={talents.JADEFIRE_TEACHINGS_TALENT} /> with{' '}
         <SpellLink spell={talents.SHAOHAOS_LESSONS_TALENT} />, you cast{' '}
         <SpellLink spell={talents.RENEWING_MIST_TALENT} /> and{' '}
-        <SpellLink spell={talents.RISING_SUN_KICK_TALENT} /> as often as possible, and cast{' '}
+        <SpellLink spell={talents.RISING_SUN_KICK_TALENT} />/
+        <SpellLink spell={talents.RUSHING_WIND_KICK_TALENT} /> as often as possible, and cast{' '}
         <SpellLink spell={talents.JADEFIRE_STOMP_TALENT} /> as often as necessary to maintain the{' '}
         <SpellLink spell={talents.JADEFIRE_TEACHINGS_TALENT} /> buff. <ShaohaosDescription />
         <ThunderFocusTeaREM />
@@ -153,7 +156,8 @@ export default function AplChoiceDescription({
         Mistweavers have a few different variations to their core rotation, depending on your talent
         selection. The core of the rotations does not change with{' '}
         <SpellLink spell={talents.RENEWING_MIST_TALENT} />,{' '}
-        <SpellLink spell={talents.RISING_SUN_KICK_TALENT} />, and{' '}
+        <SpellLink spell={talents.RISING_SUN_KICK_TALENT} />/
+        <SpellLink spell={talents.RUSHING_WIND_KICK_TALENT} />, and{' '}
         <SpellLink spell={talents.THUNDER_FOCUS_TEA_TALENT} /> always being the top priority
         abilities.
       </p>
