@@ -22,7 +22,7 @@ import { getCurrentRSKTalent, getCurrentRSKTalentDamage, SPELL_COLORS } from '..
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
-class AncientTeachings extends Analyzer {
+class JadefireTeachings extends Analyzer {
   atSourceSpell: number = 0;
   damageSpellToHealing: Map<number, number> = new Map();
   damageSpellsCount: Map<number, number> = new Map();
@@ -33,7 +33,7 @@ class AncientTeachings extends Analyzer {
   overhealing: number = 0;
 
   /**
-   * After you cast Jadefire Stomp, Tiger Palm, Blackout Kick, and Rising Sun Kick heal an injured ally within 20 yards for 150% of the damage done. Lasts 15s.
+   * After you cast Jadefire Stomp, Tiger Palm, Blackout Kick, and Rising Sun Kick heal an injured ally within 20 yards for 140% of the damage done. Lasts 15s.
    */
   constructor(options: Options) {
     super(options);
@@ -161,7 +161,7 @@ class AncientTeachings extends Analyzer {
     return this.rskHealing + this.bokHealing + this.totmHealing + this.tpHealing;
   }
 
-  getAncientTeachingsDataItems() {
+  getJadefireTeachingsDataItems() {
     const items = [
       {
         spell: getCurrentRSKTalent(this.selectedCombatant),
@@ -247,10 +247,10 @@ class AncientTeachings extends Analyzer {
           </>
         }
       >
-        <TalentAggregateBars bars={this.getAncientTeachingsDataItems()}></TalentAggregateBars>
+        <TalentAggregateBars bars={this.getJadefireTeachingsDataItems()}></TalentAggregateBars>
       </TalentAggregateStatisticContainer>
     );
   }
 }
 
-export default AncientTeachings;
+export default JadefireTeachings;

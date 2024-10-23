@@ -32,7 +32,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {modules.thunderFocusTea.guideSubsection}
         {modules.vivify.guideSubsection}
         {info.combatant.hasTalent(TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT) &&
-          modules.ancientTeachings.guideSubsection}
+          modules.jadefireTeachings.guideSubsection}
         {info.combatant.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT) && (
           <SheilunsGraph modules={modules} events={events} info={info} />
         )}

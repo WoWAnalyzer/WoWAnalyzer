@@ -28,7 +28,7 @@ import REMGraph from './modules/features/REMGraph';
 import JadeBond from './modules/spells/JadeBond';
 import RisingSunRevival from './modules/spells/UpliftedSpirits';
 import JadefireStompHealing from './modules/spells/JadefireStompHealing';
-import AncientTeachings from './modules/spells/AncientTeachings';
+import JadefireTeachings from './modules/spells/JadefireTeachings';
 import EnvelopingBreath from './modules/spells/EnvelopingBreath';
 import EnvelopingMists from './modules/spells/EnvelopingMists';
 import ExpelHarm from './modules/spells/ExpelHarm';
@@ -146,7 +146,7 @@ class CombatLogParser extends CoreCombatLogParser {
     vivaciousVivification: VivaciousVivification,
 
     // MW Talents
-    ancientTeachings: AncientTeachings,
+    jadefireTeachings: JadefireTeachings,
     energizingBrew: EnergizingBrew,
     envelopingBreath: EnvelopingBreath,
     envelopingMists: EnvelopingMists,

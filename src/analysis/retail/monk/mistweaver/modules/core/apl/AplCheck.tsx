@@ -154,7 +154,7 @@ const rotation_rm_at_sg = build([
 const rotation_fallback = build([...commonTop, ...commonBottom]);
 
 export enum MistweaverApl {
-  RisingMistAncientTeachingsShaohaos,
+  RisingMistJadefireTeachingsShaohaos,
   AwakenedFaeline,
   TearOfMorning,
   Fallback,
@@ -167,7 +167,7 @@ export const chooseApl = (info: PlayerInfo): MistweaverApl => {
     info.combatant.hasTalent(talents.SHAOHAOS_LESSONS_TALENT) &&
     info.combatant.hasTalent(talents.INVOKERS_DELIGHT_TALENT)
   ) {
-    return MistweaverApl.RisingMistAncientTeachingsShaohaos;
+    return MistweaverApl.RisingMistJadefireTeachingsShaohaos;
   } else if (
     info.combatant.hasTalent(talents.AWAKENED_JADEFIRE_TALENT) &&
     info.combatant.hasTalent(talents.JADEFIRE_TEACHINGS_TALENT)
@@ -180,7 +180,7 @@ export const chooseApl = (info: PlayerInfo): MistweaverApl => {
 };
 
 const apls: Record<MistweaverApl, Apl> = {
-  [MistweaverApl.RisingMistAncientTeachingsShaohaos]: rotation_rm_at_sg,
+  [MistweaverApl.RisingMistJadefireTeachingsShaohaos]: rotation_rm_at_sg,
   [MistweaverApl.AwakenedFaeline]: rotation_fallback,
   [MistweaverApl.TearOfMorning]: rotation_fallback,
   [MistweaverApl.Fallback]: rotation_fallback,

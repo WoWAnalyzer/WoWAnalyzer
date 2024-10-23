@@ -5,7 +5,7 @@ import { MistweaverApl } from './AplCheck';
 
 const aplTitle = (choice: MistweaverApl) => {
   switch (choice) {
-    case MistweaverApl.RisingMistAncientTeachingsShaohaos:
+    case MistweaverApl.RisingMistJadefireTeachingsShaohaos:
       return (
         <>
           <SpellLink spell={talents.RISING_MIST_TALENT} /> /{' '}
@@ -38,7 +38,7 @@ const RisingMistDescription = () => {
   );
 };
 
-const AncientTeachingsDescription = () => {
+const JadefireTeachingsDescription = () => {
   return (
     <>
       to heal by using your damaging abilities (<SpellLink spell={talents.RISING_SUN_KICK_TALENT} />
@@ -67,13 +67,13 @@ const ThunderFocusTeaREM = () => {
   );
 };
 
-const RisingMistAncientTeachingsShaohaosDescription = () => {
+const RisingMistJadefireTeachingsShaohaosDescription = () => {
   return (
     <>
       <p>
-        The {aplTitle(MistweaverApl.RisingMistAncientTeachingsShaohaos)} rotation uses{' '}
+        The {aplTitle(MistweaverApl.RisingMistJadefireTeachingsShaohaos)} rotation uses{' '}
         <RisingMistDescription />
-        <AncientTeachingsDescription />
+        <JadefireTeachingsDescription />
       </p>
       <p>
         When playing <SpellLink spell={talents.RISING_MIST_TALENT} /> and{' '}
@@ -131,8 +131,8 @@ const FallbackDescription = () => {
 
 const Description = ({ aplChoice }: { aplChoice: MistweaverApl }) => {
   switch (aplChoice) {
-    case MistweaverApl.RisingMistAncientTeachingsShaohaos:
-      return <RisingMistAncientTeachingsShaohaosDescription />;
+    case MistweaverApl.RisingMistJadefireTeachingsShaohaos:
+      return <RisingMistJadefireTeachingsShaohaosDescription />;
     case MistweaverApl.AwakenedFaeline:
       return <CleaveBuildNotYetSupportedDescription />;
     case MistweaverApl.TearOfMorning:
