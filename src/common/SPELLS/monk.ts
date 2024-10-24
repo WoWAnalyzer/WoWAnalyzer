@@ -217,9 +217,9 @@ const spells = {
     name: 'Mending Proliferation',
     icon: 'inv_shoulder_inv_leather_raidmonk_s_01',
   },
-  AT_BUFF: {
+  JT_BUFF: {
     id: 388026,
-    name: 'Ancient Teachings',
+    name: 'Jadefire Teachings',
     icon: 'inv_misc_book_07',
   },
   AT_HEAL: {

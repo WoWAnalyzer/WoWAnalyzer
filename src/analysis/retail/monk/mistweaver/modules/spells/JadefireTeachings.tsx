@@ -22,6 +22,7 @@ import { getCurrentRSKTalent, getCurrentRSKTalentDamage, SPELL_COLORS } from '..
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import { Talent } from 'common/TALENTS/types';
+import Spell from 'common/SPELLS/Spell';
 
 class JadefireTeachings extends Analyzer {
   atSourceSpell: number = 0;
@@ -33,19 +34,22 @@ class JadefireTeachings extends Analyzer {
   uptimeWindows: OpenTimePeriod[] = [];
   overhealing: number = 0;
   currentRskTalent: Talent;
+  currentDamage: Spell;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT);
     this.currentRskTalent = getCurrentRSKTalent(this.selectedCombatant);
+    this.currentDamage = getCurrentRSKTalentDamage(this.selectedCombatant);
     this.addEventListener(
       Events.damage
         .by(SELECTED_PLAYER)
         .spell([
-          this.currentRskTalent,
+          this.currentDamage,
           SPELLS.BLACKOUT_KICK,
           SPELLS.BLACKOUT_KICK_TOTM,
           SPELLS.TIGER_PALM,
+          SPELLS.CRACKLING_JADE_LIGHTNING,
         ]),
       this.lastDamageEvent,
     );
@@ -57,9 +61,9 @@ class JadefireTeachings extends Analyzer {
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.AT_CRIT_HEAL),
       this.calculateEffectiveHealing,
     );
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.AT_BUFF), this.onApply);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.JT_BUFF), this.onApply);
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.AT_BUFF),
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.JT_BUFF),
       this.onRemove,
     );
   }
@@ -67,13 +71,13 @@ class JadefireTeachings extends Analyzer {
   lastDamageEvent(event: DamageEvent) {
     this.lastDamageSpellID = event.ability.guid;
 
-    if (!this.selectedCombatant.hasBuff(SPELLS.AT_BUFF.id)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.JT_BUFF.id)) {
       const oldMissedTotal = this.missedDamageSpells.get(this.lastDamageSpellID) || 0;
       this.missedDamageSpells.set(this.lastDamageSpellID, oldMissedTotal + 1);
-    } else {
-      if (!this.damageSpellToHealing.has(this.lastDamageSpellID)) {
-        this.damageSpellToHealing.set(this.lastDamageSpellID, 0);
-      }
+    }
+
+    if (!this.damageSpellToHealing.has(this.lastDamageSpellID)) {
+      this.damageSpellToHealing.set(this.lastDamageSpellID, 0);
     }
     const oldTotal = this.damageSpellsCount.get(this.lastDamageSpellID) || 0;
     this.damageSpellsCount.set(this.lastDamageSpellID, oldTotal + 1);
@@ -142,7 +146,7 @@ class JadefireTeachings extends Analyzer {
   }
 
   get rskHealing() {
-    return this.damageSpellToHealing.get(this.currentRskTalent.id) || 0;
+    return this.damageSpellToHealing.get(this.currentDamage.id) || 0;
   }
 
   get bokHealing() {
@@ -157,8 +161,12 @@ class JadefireTeachings extends Analyzer {
     return this.damageSpellToHealing.get(SPELLS.TIGER_PALM.id) || 0;
   }
 
+  get cjlHealing() {
+    return this.damageSpellToHealing.get(SPELLS.CRACKLING_JADE_LIGHTNING.id) || 0;
+  }
+
   get totalHealing() {
-    return this.rskHealing + this.bokHealing + this.totmHealing + this.tpHealing;
+    return this.rskHealing + this.bokHealing + this.totmHealing + this.tpHealing + this.cjlHealing;
   }
 
   getJadefireTeachingsDataItems() {
@@ -191,6 +199,12 @@ class JadefireTeachings extends Analyzer {
         color: SPELL_COLORS.TIGER_PALM,
         amount: this.tpHealing,
         tooltip: this.getTooltip(SPELLS.TIGER_PALM.id),
+      },
+      {
+        spell: SPELLS.CRACKLING_JADE_LIGHTNING,
+        color: SPELL_COLORS.DANCING_MIST,
+        amount: this.cjlHealing,
+        tooltip: this.getTooltip(SPELLS.CRACKLING_JADE_LIGHTNING.id),
       },
     ];
 
@@ -242,7 +256,7 @@ class JadefireTeachings extends Analyzer {
           <>
             {' '}
             {formatPercentage(
-              this.selectedCombatant.getBuffUptime(SPELLS.AT_BUFF.id) / this.owner.fightDuration,
+              this.selectedCombatant.getBuffUptime(SPELLS.JT_BUFF.id) / this.owner.fightDuration,
             )}
             % Uptime *
           </>
