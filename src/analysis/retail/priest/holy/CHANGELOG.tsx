@@ -5,6 +5,7 @@ import { Arlie, Hana, Litena, Liavre, Squided, ToppleTheNun, Trevor, Saeldur, xi
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2024, 10, 20), <>Implement <SpellLink spell={SPELLS.TRAIL_OF_LIGHT_TALENT_HEAL}/> and <SpellLink spell={SPELLS.BINDING_HEALS_TALENT_HEAL}/> healing to Lightweaver module.</>, fel1ne),
   change(date(2024, 10, 17), <>Fixed an issue where <SpellLink spell={SPELLS.LIGHTWEAVER_TALENT_BUFF}/> buffed heals were incorrectly flagged as a bad cast if the buff was not consumed due to a bug. </>, fel1ne),
   change(date(2024, 10, 11), <>Fixed Prayer of Healing in the Guide section to not give bad advice.</>, Liavre),
   change(date(2024, 10, 7), <>Properly hide Circle of Healing analysis if it isn't talented.</>, xizbow),
