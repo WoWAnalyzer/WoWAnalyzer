@@ -4,7 +4,7 @@ import HIT_TYPES from 'game/HIT_TYPES';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { Talent } from 'common/TALENTS/types';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { HealEvent, DamageEvent, CastEvent } from 'parser/core/Events';
+import Events, { HealEvent, CastEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
@@ -13,7 +13,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { SpellLink } from 'interface';
 import Revival from './Revival';
-import { getCurrentRSKTalent, getCurrentRSKTalentDamage } from '../../constants';
+import { getCurrentRSKTalent } from '../../constants';
 
 const UPLIFTED_SPIRITS_REDUCTION = 1000;
 const BASE_COOLDOWN = 180000; //180s
@@ -46,7 +46,7 @@ class UpliftedSpirits extends Analyzer {
       ? TALENTS_MONK.REVIVAL_TALENT
       : TALENTS_MONK.RESTORAL_TALENT;
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(getCurrentRSKTalentDamage(this.selectedCombatant)),
+      Events.cast.by(SELECTED_PLAYER).spell(getCurrentRSKTalent(this.selectedCombatant)),
       this.rskHit,
     );
     this.addEventListener(
@@ -60,7 +60,7 @@ class UpliftedSpirits extends Analyzer {
     );
   }
 
-  rskHit(event: DamageEvent) {
+  rskHit(event: CastEvent) {
     // Cooldown Reduction on Revival
     if (this.spellUsable.isOnCooldown(this.activeTalent.id)) {
       this.cooldownReductionUsed += this.spellUsable.reduceCooldown(

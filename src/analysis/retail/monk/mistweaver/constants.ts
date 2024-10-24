@@ -164,5 +164,5 @@ export function getCurrentRSKTalent(player: Combatant): Talent {
 export function getCurrentRSKTalentDamage(player: Combatant): Spell {
   return player.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_TALENT)
     ? SPELLS.RUSHING_WIND_KICK_DAMAGE
-    : SPELLS.RUSHING_WIND_KICK_DAMAGE;
+    : SPELLS.RISING_SUN_KICK_DAMAGE;
 }

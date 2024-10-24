@@ -16,7 +16,7 @@ class MistweaverHealingEfficiencyDetails extends HealingEfficiencyDetails {
             that caused the gust. <br />
             {this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT) && (
               <>
-                <SpellLink spell={TALENTS_MONK.RISING_MIST_TALENT} /> is given to{' '}
+                <SpellLink spell={TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT} /> is given to{' '}
                 <SpellLink spell={TALENTS_MONK.JADEFIRE_STOMP_TALENT} /> since it is the spell that
                 applied the buff. <br />
               </>

@@ -32,12 +32,9 @@ class JadefireTeachings extends Analyzer {
   uptimeWindows: OpenTimePeriod[] = [];
   overhealing: number = 0;
 
-  /**
-   * After you cast Jadefire Stomp, Tiger Palm, Blackout Kick, and Rising Sun Kick heal an injured ally within 20 yards for 140% of the damage done. Lasts 15s.
-   */
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT);
     this.addEventListener(
       Events.damage
         .by(SELECTED_PLAYER)
@@ -100,7 +97,7 @@ class JadefireTeachings extends Analyzer {
     const explanation = (
       <>
         <strong>
-          <SpellLink spell={TALENTS_MONK.RISING_MIST_TALENT} />
+          <SpellLink spell={TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT} />
         </strong>{' '}
         is a powerful buff that enables you to do consistent healing while doing damage, a core
         identity of Mistweaver Monk. Try to maintain your buff at all times by casting{' '}
@@ -112,7 +109,7 @@ class JadefireTeachings extends Analyzer {
       <div>
         <RoundedPanel>
           <strong>
-            <SpellLink spell={TALENTS_MONK.RISING_MIST_TALENT} /> uptime
+            <SpellLink spell={TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT} /> uptime
           </strong>
           {this.subStatistic()}
         </RoundedPanel>
@@ -125,7 +122,7 @@ class JadefireTeachings extends Analyzer {
   talentHealingStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink spell={TALENTS_MONK.RISING_MIST_TALENT} />}
+        title={<SpellLink spell={TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT} />}
         value={`${formatPercentage(
           this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
         )} %`}
@@ -135,7 +132,7 @@ class JadefireTeachings extends Analyzer {
 
   subStatistic() {
     return uptimeBarSubStatistic(this.owner.fight, {
-      spells: [TALENTS_MONK.RISING_MIST_TALENT],
+      spells: [TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT],
       uptimes: mergeTimePeriods(this.uptimeWindows, this.owner.currentTimestamp),
       color: SPELL_COLORS.RISING_SUN_KICK,
     });
@@ -211,7 +208,8 @@ class JadefireTeachings extends Analyzer {
           <li>
             {secondarySourceId && <SpellLink spell={secondarySourceId} />}{' '}
             <SpellLink spell={spellId} /> did damage {this.missedDamageSpells.get(spellId) || 0}{' '}
-            times without the <SpellLink spell={TALENTS_MONK.RISING_MIST_TALENT} /> buff active
+            times without the <SpellLink spell={TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT} /> buff
+            active
           </li>
           <li>
             {secondarySourceId && <SpellLink spell={secondarySourceId} />}{' '}
@@ -230,7 +228,7 @@ class JadefireTeachings extends Analyzer {
       <TalentAggregateStatisticContainer
         title={
           <>
-            <SpellLink spell={TALENTS_MONK.RISING_MIST_TALENT} /> -{' '}
+            <SpellLink spell={TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT} /> -{' '}
             <ItemHealingDone amount={this.totalHealing} displayPercentage={false} />
           </>
         }

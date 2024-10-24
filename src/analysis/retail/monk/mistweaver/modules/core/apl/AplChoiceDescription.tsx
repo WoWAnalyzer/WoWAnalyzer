@@ -84,7 +84,8 @@ const RisingMistJadefireTeachingsShaohaosDescription = () => {
         <SpellLink spell={talents.RENEWING_MIST_TALENT} /> and{' '}
         <SpellLink spell={talents.RISING_SUN_KICK_TALENT} />/
         <SpellLink spell={talents.RUSHING_WIND_KICK_TALENT} /> as often as possible, and cast{' '}
-        <SpellLink spell={talents.JADEFIRE_STOMP_TALENT} /> as often as necessary to maintain the{' '}
+        <SpellLink spell={talents.JADEFIRE_STOMP_TALENT} /> or{' '}
+        <SpellLink spell={talents.THUNDER_FOCUS_TEA_TALENT} /> as often as necessary to maintain the{' '}
         <SpellLink spell={talents.JADEFIRE_TEACHINGS_TALENT} /> buff. <ShaohaosDescription />
         <ThunderFocusTeaREM />
       </p>
