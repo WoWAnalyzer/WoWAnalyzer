@@ -25,7 +25,6 @@ interface CastInfo {
   coyActive: boolean;
   temporalCompressionStacks: number;
   dreamBreathOnTarget: boolean;
-  targetsHit: number;
 }
 
 class ConsumeFlame extends Analyzer {
@@ -90,13 +89,14 @@ class ConsumeFlame extends Analyzer {
       dreamBreathOnTarget: dreamBreathOnTarget,
       temporalCompressionStacks: temporalCompressionStacks,
       coyActive: coyActive,
-      targetsHit: 0,
     });
   }
 
   onHeal(event: HealEvent) {
-    const target = this.combatants.getEntity(event);
-    if (target) {
+    const players = Object.values(this.combatants.players);
+    const castTargetIsPlayer = players.find((player) => player.id === event.targetID);
+
+    if (castTargetIsPlayer) {
       this.totalHits += 1;
     }
   }
@@ -152,7 +152,6 @@ class ConsumeFlame extends Analyzer {
         <>
           <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT} /> @{' '}
           {this.owner.formatTimestamp(cast.timestamp)} <br />
-          Targets hit: {}
           <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> on target:{' '}
           {cast.dreamBreathOnTarget ? 'Yes' : 'No'} <br />
           {this.selectedCombatant.has4PieceByTier(TIERS.TWW1) && (
@@ -181,7 +180,7 @@ class ConsumeFlame extends Analyzer {
           </strong>
           <div style={{ marginLeft: '1em' }}>
             {this.averageNumTargets.toFixed(1)}
-            <small> avg players hit</small>
+            <small> avg targets hit</small>
           </div>
           <PerformanceBoxRow values={entries} />
         </RoundedPanel>
