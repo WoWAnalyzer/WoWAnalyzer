@@ -59,7 +59,7 @@ const EBON_MIGHT_BUFFER = 150;
 const BREATH_OF_EONS_DEBUFF_APPLY_BUFFER = 8000;
 const BREATH_OF_EONS_BUFF_BUFFER = 8000;
 const BREATH_OF_EONS_DEBUFF_BUFFER = 14000;
-const BREATH_OF_EONS_DAMAGE_BUFFER = 100;
+const BREATH_OF_EONS_DAMAGE_BUFFER = 300;
 const PUPIL_OF_ALEXSTRASZA_BUFFER = 1000;
 const UPHEAVAL_DAMAGE_BUFFER = 800;
 
@@ -150,6 +150,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: SPELLS.BREATH_OF_EONS_DAMAGE.id,
     referencedEventType: EventType.Damage,
     anyTarget: false,
+    backwardBufferMs: BREATH_OF_EONS_DAMAGE_BUFFER, // in 11.0.5 the damage events can now come before the removedebuff
     forwardBufferMs: BREATH_OF_EONS_DAMAGE_BUFFER,
   },
   /**
