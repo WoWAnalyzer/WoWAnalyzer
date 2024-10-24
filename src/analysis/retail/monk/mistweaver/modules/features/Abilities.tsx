@@ -334,6 +334,20 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 100,
       },
       {
+        spell: TALENTS_MONK.RUSHING_WIND_KICK_TALENT.id,
+        category: combatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)
+          ? SPELL_CATEGORY.ROTATIONAL
+          : SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
+        cooldown: (haste: number) => 12 / (1 + haste),
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: combatant.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_TALENT),
+        },
+        timelineSortIndex: 100,
+      },
+      {
         spell: SPELLS.SPINNING_CRANE_KICK.id,
         category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
         gcd: {

@@ -18,11 +18,12 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentAggregateBars from 'parser/ui/TalentAggregateStatistic';
 import TalentAggregateStatisticContainer from 'parser/ui/TalentAggregateStatisticContainer';
 import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
-import { SPELL_COLORS } from '../../constants';
+import { getCurrentRSKTalent, getCurrentRSKTalentDamage, SPELL_COLORS } from '../../constants';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
+import { Talent } from 'common/TALENTS/types';
 
-class AncientTeachings extends Analyzer {
+class JadefireTeachings extends Analyzer {
   atSourceSpell: number = 0;
   damageSpellToHealing: Map<number, number> = new Map();
   damageSpellsCount: Map<number, number> = new Map();
@@ -31,18 +32,17 @@ class AncientTeachings extends Analyzer {
   lastDamageSpellID: number = 0;
   uptimeWindows: OpenTimePeriod[] = [];
   overhealing: number = 0;
+  currentRskTalent: Talent;
 
-  /**
-   * After you cast Jadefire Stomp, Tiger Palm, Blackout Kick, and Rising Sun Kick heal an injured ally within 20 yards for 150% of the damage done. Lasts 15s.
-   */
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.ANCIENT_TEACHINGS_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT);
+    this.currentRskTalent = getCurrentRSKTalent(this.selectedCombatant);
     this.addEventListener(
       Events.damage
         .by(SELECTED_PLAYER)
         .spell([
-          SPELLS.RISING_SUN_KICK_DAMAGE,
+          this.currentRskTalent,
           SPELLS.BLACKOUT_KICK,
           SPELLS.BLACKOUT_KICK_TOTM,
           SPELLS.TIGER_PALM,
@@ -100,7 +100,7 @@ class AncientTeachings extends Analyzer {
     const explanation = (
       <>
         <strong>
-          <SpellLink spell={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT} />
+          <SpellLink spell={TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT} />
         </strong>{' '}
         is a powerful buff that enables you to do consistent healing while doing damage, a core
         identity of Mistweaver Monk. Try to maintain your buff at all times by casting{' '}
@@ -112,7 +112,7 @@ class AncientTeachings extends Analyzer {
       <div>
         <RoundedPanel>
           <strong>
-            <SpellLink spell={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT} /> uptime
+            <SpellLink spell={TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT} /> uptime
           </strong>
           {this.subStatistic()}
         </RoundedPanel>
@@ -125,7 +125,7 @@ class AncientTeachings extends Analyzer {
   talentHealingStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink spell={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT} />}
+        title={<SpellLink spell={TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT} />}
         value={`${formatPercentage(
           this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
         )} %`}
@@ -135,14 +135,14 @@ class AncientTeachings extends Analyzer {
 
   subStatistic() {
     return uptimeBarSubStatistic(this.owner.fight, {
-      spells: [TALENTS_MONK.ANCIENT_TEACHINGS_TALENT],
+      spells: [TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT],
       uptimes: mergeTimePeriods(this.uptimeWindows, this.owner.currentTimestamp),
       color: SPELL_COLORS.RISING_SUN_KICK,
     });
   }
 
   get rskHealing() {
-    return this.damageSpellToHealing.get(SPELLS.RISING_SUN_KICK_DAMAGE.id) || 0;
+    return this.damageSpellToHealing.get(this.currentRskTalent.id) || 0;
   }
 
   get bokHealing() {
@@ -161,13 +161,13 @@ class AncientTeachings extends Analyzer {
     return this.rskHealing + this.bokHealing + this.totmHealing + this.tpHealing;
   }
 
-  getAncientTeachingsDataItems() {
+  getJadefireTeachingsDataItems() {
     const items = [
       {
-        spell: TALENTS_MONK.RISING_SUN_KICK_TALENT,
+        spell: this.currentRskTalent,
         amount: this.rskHealing,
         color: SPELL_COLORS.RISING_SUN_KICK,
-        tooltip: this.getTooltip(SPELLS.RISING_SUN_KICK_DAMAGE.id),
+        tooltip: this.getTooltip(getCurrentRSKTalentDamage(this.selectedCombatant).id),
       },
       {
         spell: SPELLS.BLACKOUT_KICK,
@@ -211,7 +211,7 @@ class AncientTeachings extends Analyzer {
           <li>
             {secondarySourceId && <SpellLink spell={secondarySourceId} />}{' '}
             <SpellLink spell={spellId} /> did damage {this.missedDamageSpells.get(spellId) || 0}{' '}
-            times without the <SpellLink spell={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT} /> buff
+            times without the <SpellLink spell={TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT} /> buff
             active
           </li>
           <li>
@@ -231,7 +231,7 @@ class AncientTeachings extends Analyzer {
       <TalentAggregateStatisticContainer
         title={
           <>
-            <SpellLink spell={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT} /> -{' '}
+            <SpellLink spell={TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT} /> -{' '}
             <ItemHealingDone amount={this.totalHealing} displayPercentage={false} />
           </>
         }
@@ -248,10 +248,10 @@ class AncientTeachings extends Analyzer {
           </>
         }
       >
-        <TalentAggregateBars bars={this.getAncientTeachingsDataItems()}></TalentAggregateBars>
+        <TalentAggregateBars bars={this.getJadefireTeachingsDataItems()}></TalentAggregateBars>
       </TalentAggregateStatisticContainer>
     );
   }
 }
 
-export default AncientTeachings;
+export default JadefireTeachings;

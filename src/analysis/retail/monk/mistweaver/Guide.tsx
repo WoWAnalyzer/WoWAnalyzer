@@ -13,6 +13,7 @@ import AplChoiceDescription from './modules/core/apl/AplChoiceDescription';
 import { AplSectionData } from 'interface/guide/components/Apl';
 import { defaultExplainers } from 'interface/guide/components/Apl/violations/claims';
 import { filterCelestial } from './modules/core/apl/ExplainCelestial';
+import { getCurrentRSKTalent } from './constants';
 
 const explainers = {
   overcast: filterCelestial(defaultExplainers.overcastFillers),
@@ -30,8 +31,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           modules.risingSunKick.guideSubsection}
         {modules.thunderFocusTea.guideSubsection}
         {modules.vivify.guideSubsection}
-        {info.combatant.hasTalent(TALENTS_MONK.ANCIENT_TEACHINGS_TALENT) &&
-          modules.ancientTeachings.guideSubsection}
+        {info.combatant.hasTalent(TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT) &&
+          modules.jadefireTeachings.guideSubsection}
         {info.combatant.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT) && (
           <SheilunsGraph modules={modules} events={events} info={info} />
         )}
@@ -111,7 +112,7 @@ function RemGraphSubsection({ modules, events, info }: GuideProps<typeof CombatL
       </strong>{' '}
       - this graph shows how many <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> you have
       over the course of the fight in relation to your{' '}
-      <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} /> and{' '}
+      <SpellLink spell={getCurrentRSKTalent(info.combatant)} /> and{' '}
       <SpellLink spell={SPELLS.VIVIFY} /> casts.
       {modules.remGraph.plot}
     </SubSection>

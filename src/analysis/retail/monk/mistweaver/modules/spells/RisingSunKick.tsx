@@ -9,6 +9,8 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
+import { getCurrentRSKTalent } from '../../constants';
+import { Talent } from 'common/TALENTS/types';
 
 const CAST_BUFFER_MS = 250;
 
@@ -23,12 +25,13 @@ class RisingSunKick extends Analyzer {
   lastRSK: number = Number.MIN_SAFE_INTEGER;
   lastRSKTFT: boolean = false;
   rskResets: number = 0;
+  currentRskTalent: Talent;
 
   constructor(options: Options) {
     super(options);
-
+    this.currentRskTalent = getCurrentRSKTalent(this.selectedCombatant);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.RISING_SUN_KICK_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(this.currentRskTalent),
       this.risingSunKickCast,
     );
     this.addEventListener(
@@ -39,7 +42,7 @@ class RisingSunKick extends Analyzer {
 
   risingSunKickCast(event: CastEvent) {
     // we are fine. Regular cast
-    if (!this.spellUsable.isOnCooldown(TALENTS_MONK.RISING_SUN_KICK_TALENT.id)) {
+    if (!this.spellUsable.isOnCooldown(this.currentRskTalent.id)) {
       this.lastRSK = event.timestamp;
       return;
     }
@@ -53,7 +56,7 @@ class RisingSunKick extends Analyzer {
       //reduces the cooldown of TFT by '9s' via tooltip but is really reduced by 6 gcds
       const cdr = event.globalCooldown ? event.globalCooldown.duration * 6 : 9000;
       this.lastRSKTFT = true;
-      this.spellUsable.reduceCooldown(TALENTS_MONK.RISING_SUN_KICK_TALENT.id, cdr);
+      this.spellUsable.reduceCooldown(this.currentRskTalent.id, cdr);
     } else {
       this.lastRSKTFT = false;
     }
@@ -73,7 +76,7 @@ class RisingSunKick extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} />
+          <SpellLink spell={this.currentRskTalent} />
         </b>{' '}
         is one of your primary damaging spells but is also you highest priority healing spell{' '}
         {'(alongside '} <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />
@@ -93,7 +96,7 @@ class RisingSunKick extends Analyzer {
       <div>
         <RoundedPanel>
           <strong>
-            <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} /> cast efficiency
+            <SpellLink spell={this.currentRskTalent} /> cast efficiency
           </strong>
           {this.guideSubStatistic()}
         </RoundedPanel>
@@ -107,7 +110,7 @@ class RisingSunKick extends Analyzer {
   guideSubStatistic() {
     return (
       <CastEfficiencyBar
-        spellId={TALENTS_MONK.RISING_SUN_KICK_TALENT.id}
+        spellId={this.currentRskTalent.id}
         gapHighlightMode={GapHighlight.FullCooldown}
         minimizeIcons
         slimLines

@@ -854,6 +854,11 @@ const spells = {
     name: 'Rising Sun Kick',
     icon: 'ability_monk_risingsunkick',
   },
+  RUSHING_WIND_KICK_DAMAGE: {
+    id: 468179,
+    name: 'Rushing Wind Kick',
+    icon: 'ability_monk_ridethewind',
+  },
   HIT_COMBO_BUFF: {
     id: 196741,
     name: 'Hit Combo',

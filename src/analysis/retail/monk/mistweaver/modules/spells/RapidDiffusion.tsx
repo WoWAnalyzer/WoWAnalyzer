@@ -16,9 +16,10 @@ import { isFromMistyPeaks } from '../../normalizers/CastLinkNormalizer';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import TalentAggregateStatisticContainer from 'parser/ui/TalentAggregateStatisticContainer';
 import TalentAggregateBars from 'parser/ui/TalentAggregateStatistic';
-import { SPELL_COLORS } from '../../constants';
+import { getCurrentRSKTalent, SPELL_COLORS } from '../../constants';
 import DonutChart from 'parser/ui/DonutChart';
 import Spell from 'common/SPELLS/Spell';
+import { Talent } from 'common/TALENTS/types';
 
 class RapidDiffusion extends Analyzer {
   get totalRemThroughput() {
@@ -105,10 +106,12 @@ class RapidDiffusion extends Analyzer {
   extraMistyPeaksAbsorb: number = 0;
   mistyPeakHealingFromRskRem: number = 0;
   mistyPeakHealingFromEnvRem: number = 0;
+  currentRskTalent: Talent;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.RAPID_DIFFUSION_TALENT);
+    this.currentRskTalent = getCurrentRSKTalent(this.selectedCombatant);
     if (!this.active) {
       return;
     }
@@ -173,8 +176,8 @@ class RapidDiffusion extends Analyzer {
     const items = [
       {
         color: SPELL_COLORS.RISING_SUN_KICK,
-        label: TALENTS_MONK.RISING_SUN_KICK_TALENT.name,
-        spellId: TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
+        label: this.currentRskTalent.name,
+        spellId: this.currentRskTalent.id,
         value: rskSourceHealing,
         valuePercent: false,
       },
@@ -350,8 +353,7 @@ class RapidDiffusion extends Analyzer {
             content={
               <>
                 Rapid Diffusion has an internal cooldown of 0.25 seconds, so this number may be
-                slightly lower than your total{' '}
-                <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} /> and{' '}
+                slightly lower than your total <SpellLink spell={this.currentRskTalent} /> and{' '}
                 <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> casts.
               </>
             }
