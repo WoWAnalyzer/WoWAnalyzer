@@ -2535,3 +2535,8 @@ export const Quaarkz: Contributor = {
   github: 'Quaarkz',
   discord: 'Quaarkz',
 };
+
+export const Rzial: Contributor = {
+  nickname: 'Rzial',
+  github: 'Rzial',
+};
