@@ -46,6 +46,7 @@ import {
   DREAM_BREATH_CAST,
   DREAM_BREATH_FROM_STASIS,
   STASIS_FILLING,
+  ENGULF_CONSUME_FLAME,
 } from './constants';
 
 /** Returns true iff the given buff application or heal can be matched back to a hardcast */
@@ -275,4 +276,8 @@ export function getDreamBreathCast(
 
 export function getReversionHealing(event: ApplyBuffEvent | RefreshBuffEvent) {
   return GetRelatedEvents<HealEvent>(event, REVERSION);
+}
+
+export function getConsumeFromEngulf(event: CastEvent) {
+  return GetRelatedEvents<HealEvent>(event, ENGULF_CONSUME_FLAME);
 }
