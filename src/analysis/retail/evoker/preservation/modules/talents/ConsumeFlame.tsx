@@ -13,18 +13,20 @@ import {
   QualitativePerformanceThreshold,
 } from 'parser/ui/QualitativePerformance';
 import Combatants from 'parser/shared/modules/Combatants';
-import { getDreamBreathCast } from '../../normalizers/EventLinking/helpers';
+import { getConsumeFromEngulf, getDreamBreathCast } from '../../normalizers/EventLinking/helpers';
 import { TIERS } from 'game/TIERS';
 import ItemSetLink from 'interface/ItemSetLink';
 import { EVOKER_TWW1_ID } from 'common/ITEMS/dragonflight';
 import { CAST_BUFFER_MS } from 'analysis/retail/evoker/preservation/normalizers/EventLinking/constants';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
+import { PerformanceMark } from 'interface/guide';
 
 interface CastInfo {
   timestamp: number;
   coyActive: boolean;
   temporalCompressionStacks: number;
   dreamBreathOnTarget: boolean;
+  numPlayersHit: number;
 }
 
 class ConsumeFlame extends Analyzer {
@@ -89,14 +91,16 @@ class ConsumeFlame extends Analyzer {
       dreamBreathOnTarget: dreamBreathOnTarget,
       temporalCompressionStacks: temporalCompressionStacks,
       coyActive: coyActive,
+      numPlayersHit: getConsumeFromEngulf(event).filter((ev) => {
+        return this.combatants.getEntity(ev) !== null;
+      }).length,
     });
   }
 
   onHeal(event: HealEvent) {
-    const players = Object.values(this.combatants.players);
-    const castTargetIsPlayer = players.find((player) => player.id === event.targetID);
+    const target = this.combatants.getEntity(event);
 
-    if (castTargetIsPlayer) {
+    if (target) {
       this.totalHits += 1;
     }
   }
@@ -130,9 +134,23 @@ class ConsumeFlame extends Analyzer {
 
     const entries: BoxRowEntry[] = [];
     this.casts.forEach((cast) => {
-      const perfs: QualitativePerformance[] = [
-        cast.dreamBreathOnTarget ? QualitativePerformance.Good : QualitativePerformance.Fail,
-      ];
+      const percentHit = cast.numPlayersHit / this.combatants.playerCount;
+      const targetThreshold: QualitativePerformanceThreshold = {
+        isGreaterThanOrEqual: {
+          perfect: 1,
+          good: 0.9,
+          ok: 0.8,
+          fail: 0.7,
+        },
+        actual: percentHit,
+      };
+      const targetPerf = evaluateQualitativePerformanceByThreshold(targetThreshold);
+      const dbPerf = cast.dreamBreathOnTarget
+        ? QualitativePerformance.Good
+        : QualitativePerformance.Fail;
+      const optionalPerfs = [];
+      let tcPerf = undefined;
+      let coyPerf = undefined;
       if (this.selectedCombatant.has4PieceByTier(TIERS.TWW1)) {
         const threshold: QualitativePerformanceThreshold = {
           isGreaterThanOrEqual: {
@@ -142,33 +160,43 @@ class ConsumeFlame extends Analyzer {
           },
           actual: cast.temporalCompressionStacks,
         };
-        perfs.push(evaluateQualitativePerformanceByThreshold(threshold));
+        tcPerf = evaluateQualitativePerformanceByThreshold(threshold);
+        optionalPerfs.push(tcPerf);
       }
       if (this.selectedCombatant.hasTalent(TALENTS_EVOKER.CALL_OF_YSERA_TALENT)) {
-        perfs.push(cast.coyActive ? QualitativePerformance.Good : QualitativePerformance.Fail);
+        coyPerf = cast.coyActive ? QualitativePerformance.Good : QualitativePerformance.Fail;
+        optionalPerfs.push(coyPerf);
       }
 
       const tooltip = (
         <>
-          <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT} /> @{' '}
-          {this.owner.formatTimestamp(cast.timestamp)} <br />
-          <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> on target:{' '}
-          {cast.dreamBreathOnTarget ? 'Yes' : 'No'} <br />
+          <div>
+            <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT} /> @{' '}
+            {this.owner.formatTimestamp(cast.timestamp)}
+          </div>
+          <div>
+            Players hit: {cast.numPlayersHit} <PerformanceMark perf={targetPerf} />
+          </div>
+          <div>
+            <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> on target{' '}
+            <PerformanceMark perf={dbPerf} />
+          </div>
+
           {this.selectedCombatant.has4PieceByTier(TIERS.TWW1) && (
-            <>
+            <div>
               <SpellLink spell={TALENTS_EVOKER.TEMPORAL_COMPRESSION_TALENT} /> stacks:{' '}
-              {cast.temporalCompressionStacks} <br />
-            </>
+              {cast.temporalCompressionStacks} <PerformanceMark perf={tcPerf!} />
+            </div>
           )}
           {this.selectedCombatant.hasTalent(TALENTS_EVOKER.CALL_OF_YSERA_TALENT) && (
-            <>
-              <SpellLink spell={TALENTS_EVOKER.CALL_OF_YSERA_TALENT} /> active:{' '}
-              {cast.coyActive ? 'Yes' : 'No'}
-            </>
+            <div>
+              <SpellLink spell={TALENTS_EVOKER.CALL_OF_YSERA_TALENT} /> active{' '}
+              <PerformanceMark perf={coyPerf!} />
+            </div>
           )}
         </>
       );
-      const value = getLowestPerf(perfs);
+      const value = getLowestPerf([targetPerf, dbPerf, ...optionalPerfs]);
       entries.push({ value, tooltip });
     });
 
