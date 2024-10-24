@@ -13,6 +13,7 @@ import ItemCooldownReduction from 'parser/ui/ItemCooldownReduction';
 import Statistic from 'parser/ui/Statistic';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import SpellIcon from 'interface/SpellIcon';
+import { Talent } from 'common/TALENTS/types';
 
 const POOL_OF_MISTS_ICD = 300;
 
@@ -35,12 +36,10 @@ class PoolOfMists extends Analyzer {
   rskCDR: number = 0;
   rskWaste: number = 0;
   rskEffective: number = 0;
+  currentRskTalent: Talent;
 
   get extraRSKCasts() {
-    return (
-      this.rskEffective /
-      this.spellUsable.fullCooldownDuration(getCurrentRSKTalent(this.selectedCombatant).id)
-    );
+    return this.rskEffective / this.spellUsable.fullCooldownDuration(this.currentRskTalent.id);
   }
 
   get extraReMCasts() {
@@ -53,14 +52,14 @@ class PoolOfMists extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.POOL_OF_MISTS_TALENT);
-
+    this.currentRskTalent = getCurrentRSKTalent(this.selectedCombatant);
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RENEWING_MIST_HEAL),
       this.onApplyRem,
     );
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(getCurrentRSKTalent(this.selectedCombatant)),
+      Events.cast.by(SELECTED_PLAYER).spell(this.currentRskTalent),
       this.onRisingSunKick,
     );
   }
@@ -81,11 +80,11 @@ class PoolOfMists extends Analyzer {
     ) {
       this.rskCDR += POOL_OF_MISTS_CDR;
       if (
-        this.spellUsable.isOnCooldown(getCurrentRSKTalent(this.selectedCombatant).id) &&
+        this.spellUsable.isOnCooldown(this.currentRskTalent.id) &&
         event.timestamp > this.lastTimestamp + POOL_OF_MISTS_ICD
       ) {
         const reduction = this.spellUsable.reduceCooldown(
-          getCurrentRSKTalent(this.selectedCombatant).id,
+          this.currentRskTalent.id,
           POOL_OF_MISTS_CDR,
         );
         this.rskEffective += reduction;
@@ -130,8 +129,8 @@ class PoolOfMists extends Analyzer {
               <li>{formatNumber(this.extraReMCasts)} additional casts</li>
             </ul>
             <li>
-              <SpellLink spell={getCurrentRSKTalent(this.selectedCombatant)} /> reduction:{' '}
-              {formatDuration(this.rskCDR)} ({formatDuration(this.rskWaste)} wasted)
+              <SpellLink spell={this.currentRskTalent} /> reduction: {formatDuration(this.rskCDR)} (
+              {formatDuration(this.rskWaste)} wasted)
             </li>
             <ul>
               <li>{formatNumber(this.extraRSKCasts)} additional casts</li>
@@ -148,7 +147,7 @@ class PoolOfMists extends Analyzer {
             <ItemCooldownReduction effective={this.remEffective} />
           </div>
           <div>
-            <SpellIcon spell={getCurrentRSKTalent(this.selectedCombatant)} />{' '}
+            <SpellIcon spell={this.currentRskTalent} />{' '}
             <ItemCooldownReduction effective={this.rskEffective} />
           </div>
         </TalentSpellText>

@@ -21,6 +21,7 @@ import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
 import { getCurrentRSKTalent, getCurrentRSKTalentDamage, SPELL_COLORS } from '../../constants';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
+import { Talent } from 'common/TALENTS/types';
 
 class JadefireTeachings extends Analyzer {
   atSourceSpell: number = 0;
@@ -31,15 +32,17 @@ class JadefireTeachings extends Analyzer {
   lastDamageSpellID: number = 0;
   uptimeWindows: OpenTimePeriod[] = [];
   overhealing: number = 0;
+  currentRskTalent: Talent;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT);
+    this.currentRskTalent = getCurrentRSKTalent(this.selectedCombatant);
     this.addEventListener(
       Events.damage
         .by(SELECTED_PLAYER)
         .spell([
-          getCurrentRSKTalentDamage(this.selectedCombatant),
+          this.currentRskTalent,
           SPELLS.BLACKOUT_KICK,
           SPELLS.BLACKOUT_KICK_TOTM,
           SPELLS.TIGER_PALM,
@@ -139,7 +142,7 @@ class JadefireTeachings extends Analyzer {
   }
 
   get rskHealing() {
-    return this.damageSpellToHealing.get(getCurrentRSKTalentDamage(this.selectedCombatant).id) || 0;
+    return this.damageSpellToHealing.get(this.currentRskTalent.id) || 0;
   }
 
   get bokHealing() {
@@ -161,7 +164,7 @@ class JadefireTeachings extends Analyzer {
   getJadefireTeachingsDataItems() {
     const items = [
       {
-        spell: getCurrentRSKTalent(this.selectedCombatant),
+        spell: this.currentRskTalent,
         amount: this.rskHealing,
         color: SPELL_COLORS.RISING_SUN_KICK,
         tooltip: this.getTooltip(getCurrentRSKTalentDamage(this.selectedCombatant).id),

@@ -12,15 +12,18 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import { formatNumber } from 'common/format';
 import TalentAggregateBars from 'parser/ui/TalentAggregateStatistic';
 import DonutChart from 'parser/ui/DonutChart';
+import { Talent } from 'common/TALENTS/types';
 
 class RisingMistBreakdown extends Analyzer {
   static dependencies = {
     risingMist: RisingMist,
   };
   risingMistItems: TalentAggregateBarSpec[] = [];
+  currentRskTalent: Talent;
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(talents.RISING_MIST_TALENT);
+    this.currentRskTalent = getCurrentRSKTalent(this.selectedCombatant);
   }
   protected risingMist!: RisingMist;
 
@@ -166,15 +169,15 @@ class RisingMistBreakdown extends Analyzer {
     return (
       <>
         <SpellLink spell={talents.RISING_MIST_TALENT} /> direct healing from{' '}
-        <SpellLink spell={getCurrentRSKTalent(this.selectedCombatant)} /> casts
+        <SpellLink spell={this.currentRskTalent} /> casts
         <ul>
           <li>
             {formatNumber(this.risingMist.averageHealing)} average healing per{' '}
-            <SpellLink spell={getCurrentRSKTalent(this.selectedCombatant)} />
+            <SpellLink spell={this.currentRskTalent} />
           </li>
           <li>
             {this.risingMist.averageTargetsPerRSKCast()} average hits per{' '}
-            <SpellLink spell={getCurrentRSKTalent(this.selectedCombatant)} />
+            <SpellLink spell={this.currentRskTalent} />
           </li>
         </ul>
       </>

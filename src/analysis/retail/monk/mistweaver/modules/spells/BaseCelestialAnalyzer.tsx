@@ -21,6 +21,7 @@ import Haste from 'parser/shared/modules/Haste';
 import Pets from 'parser/shared/modules/Pets';
 import InformationIcon from 'interface/icons/Information';
 import EnvelopingBreath from './EnvelopingBreath';
+import { Talent } from 'common/TALENTS/types';
 
 export interface BaseCelestialTracker {
   lessonsDuration: number; // ms with Lessons buff
@@ -67,12 +68,14 @@ class BaseCelestialAnalyzer extends Analyzer {
   hasteDataPoints: number[] = []; // use this to estimate average haste during celestial
   idealEnvmCastsUnhasted: number = 0;
   minEfHotsBeforeCast: number = 0;
+  currentRskTalent: Talent;
 
   constructor(options: Options) {
     super(options);
     this.active =
       this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT) ||
       this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT);
+    this.currentRskTalent = getCurrentRSKTalent(this.selectedCombatant);
     this.addEventListener(
       Events.cast
         .by(SELECTED_PLAYER)
@@ -119,10 +122,7 @@ class BaseCelestialAnalyzer extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onAction);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onAction);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onAction);
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(getCurrentRSKTalent(this.selectedCombatant)),
-      this.onRsk,
-    );
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.currentRskTalent), this.onRsk);
     const idealEnvmCastsUnhastedForGift = this.selectedCombatant.hasTalent(
       TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT,
     )
@@ -211,7 +211,7 @@ class BaseCelestialAnalyzer extends Analyzer {
       {
         label: (
           <>
-            Cast <SpellLink spell={getCurrentRSKTalent(this.selectedCombatant)} />
+            Cast <SpellLink spell={this.currentRskTalent} />
           </>
         ),
         result: <PerformanceMark perf={castPerf} />,

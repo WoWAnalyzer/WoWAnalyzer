@@ -22,6 +22,7 @@ import { Section, SubSection } from 'interface/guide';
 import { CSSProperties } from 'react';
 import '../../ui/RisingMist.scss';
 import T32TierSet from '../tier/T32TierSet';
+import { Talent } from 'common/TALENTS/types';
 
 const debug = false;
 
@@ -125,6 +126,7 @@ class RisingMist extends Analyzer {
     return formatPercentage(this.vivOverhealing / (this.vivHealing + this.vivOverhealing));
   }
 
+  currentRskTalent: Talent;
   hotsBySpell = new Map<number, Tracker[]>();
   risingMistCount: number = 0;
   risingMists: Attribution[] = [];
@@ -160,11 +162,12 @@ class RisingMist extends Analyzer {
     this.envmHealingIncrease = this.selectedCombatant.hasTalent(TALENTS_MONK.MIST_WRAP_TALENT)
       ? 0.4
       : 0.3;
+    this.currentRskTalent = getCurrentRSKTalent(this.selectedCombatant);
     if (!this.active) {
       return;
     }
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(getCurrentRSKTalent(this.selectedCombatant)),
+      Events.cast.by(SELECTED_PLAYER).spell(this.currentRskTalent),
       this.extendHots,
     );
     this.addEventListener(
@@ -266,7 +269,7 @@ class RisingMist extends Analyzer {
 
   extendHots(event: CastEvent) {
     const spellId = event.ability.guid;
-    if (getCurrentRSKTalent(this.selectedCombatant).id !== spellId) {
+    if (this.currentRskTalent.id !== spellId) {
       return;
     }
 
@@ -389,7 +392,7 @@ class RisingMist extends Analyzer {
       return <SpellIcon spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} />;
     }
     if (this.hotTracker.fromRapidDiffusionRisingSunKick(hot)) {
-      return <SpellIcon spell={getCurrentRSKTalent(this.selectedCombatant)} />;
+      return <SpellIcon spell={this.currentRskTalent} />;
     }
     //dm
     if (this.hotTracker.fromDancingMistRapidDiffusion(hot)) {

@@ -33,12 +33,14 @@ class UpliftedSpirits extends Analyzer {
   cooldownReductionWasted: number = 0;
   activeTalent!: Talent;
   totalCasts: number = 0;
+  currentRskTalent: Talent;
   protected spellUsable!: SpellUsable;
   protected revival!: Revival;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.UPLIFTED_SPIRITS_TALENT);
+    this.currentRskTalent = getCurrentRSKTalent(this.selectedCombatant);
     if (!this.active) {
       return;
     }
@@ -46,7 +48,7 @@ class UpliftedSpirits extends Analyzer {
       ? TALENTS_MONK.REVIVAL_TALENT
       : TALENTS_MONK.RESTORAL_TALENT;
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(getCurrentRSKTalent(this.selectedCombatant)),
+      Events.cast.by(SELECTED_PLAYER).spell(this.currentRskTalent),
       this.rskHit,
     );
     this.addEventListener(
@@ -136,9 +138,8 @@ class UpliftedSpirits extends Analyzer {
             Total reduction from <SpellLink spell={SPELLS.VIVIFY} />:{' '}
             {formatNumber(this.totalVivifyCdr / 1000)} Seconds
             <br />
-            Total reduction from <SpellLink
-              spell={getCurrentRSKTalent(this.selectedCombatant)}
-            />: {formatNumber(this.totalRskCdr / 1000)} Seconds
+            Total reduction from <SpellLink spell={this.currentRskTalent} />:{' '}
+            {formatNumber(this.totalRskCdr / 1000)} Seconds
           </>
         }
       >
