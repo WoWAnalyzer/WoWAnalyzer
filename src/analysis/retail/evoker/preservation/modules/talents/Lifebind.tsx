@@ -57,9 +57,9 @@ class Lifebind extends Analyzer {
       const lifebindHealing = GetRelatedEvents<HealEvent>(event, LIFEBIND_ALL_HEALING);
       let totalLifebindHealing = 0;
       let totalLifebindOverheal = 0;
-      for (const Heal of lifebindHealing) {
-        totalLifebindHealing += Heal.amount + (Heal.absorbed || 0);
-        totalLifebindOverheal += Heal.overheal || 0;
+      for (const heal of lifebindHealing) {
+        totalLifebindHealing += heal.amount + (heal.absorbed || 0);
+        totalLifebindOverheal += heal.overheal || 0;
       }
       const overhealPercentage =
         (totalLifebindOverheal * 100) / (totalLifebindHealing + totalLifebindOverheal);
@@ -101,15 +101,33 @@ class Lifebind extends Analyzer {
 
   getTotalSelfHealing(window: HealEvent[]) {
     let totalSelfHealing = 0;
-    for (const Heal of window) {
-      totalSelfHealing += Heal.amount + (Heal.absorbed || 0) + (Heal.overheal || 0);
+    for (const heal of window) {
+      totalSelfHealing += heal.amount + (heal.absorbed || 0) + (heal.overheal || 0);
     }
     return totalSelfHealing;
   }
 
-  statistic() {
-    console.log(this.lifebindWindows);
+  statisticConditionalAdvice() {
+    if (this.selectedCombatant.hasTalent(TALENTS_EVOKER.ENGULF_TALENT)) {
+      return (
+        <text>
+          <SpellLink spell={TALENTS_EVOKER.LIFEBIND_TALENT} /> is not very relevant for Flameshaper
+          except when you need to deliver high healing to a small group of priority targets.
+        </text>
+      );
+    } else {
+      return (
+        <text>
+          At the moment the best way for Chronowarden to do healing via{' '}
+          <SpellLink spell={TALENTS_EVOKER.LIFEBIND_TALENT} /> is to cast a single{' '}
+          <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} /> on yourself and then a rank 2{' '}
+          <SpellLink spell={TALENTS_EVOKER.SPIRITBLOOM_TALENT} />.
+        </text>
+      );
+    }
+  }
 
+  statistic() {
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
@@ -126,10 +144,7 @@ class Lifebind extends Analyzer {
             <SpellLink spell={TALENTS_EVOKER.LIFEBIND_TALENT} />.
             <br />
             <br />
-            At the moment the best way for Chronowarden to do healing via{' '}
-            <SpellLink spell={TALENTS_EVOKER.LIFEBIND_TALENT} /> is to cast a single{' '}
-            <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} /> on yourself and then a rank 2{' '}
-            <SpellLink spell={TALENTS_EVOKER.SPIRITBLOOM_TALENT} />.
+            {this.statisticConditionalAdvice()}
             <br />
             <br />
             You should also plan to do a bigger ramp and cover more people to do{' '}
