@@ -4,109 +4,90 @@ import {
   calculateSecondaryStatJewelry,
 } from './stats';
 
+//!! IMPORTANT !!//
+// Wowhead tooltips should NOT be used for these values. ONLY USE in-game values.
+// Wowhead values can be incorrect, especially for old gear.
+
+function toBeWithin(received, expected, maxDeviation) {
+  const pass = expected >= received - maxDeviation && expected <= received + maxDeviation;
+  if (pass) {
+    return {
+      message: () =>
+        `expected ${received} not to be within ${maxDeviation} of expected ${expected}`,
+      pass: true,
+    };
+  } else {
+    return {
+      message: () => `expected ${received} to be within ${maxDeviation} of expected ${expected}`,
+      pass: false,
+    };
+  }
+}
+
 describe('stats', () => {
   expect.extend({
-    toBeWithin(received, expected, maxDeviation) {
-      const pass = expected >= received - maxDeviation && expected <= received + maxDeviation;
-      if (pass) {
-        return {
-          message: () =>
-            `expected ${received} not to be within ${maxDeviation} of expected ${expected}`,
-          pass: true,
-        };
-      } else {
-        return {
-          message: () =>
-            `expected ${received} to be within ${maxDeviation} of expected ${expected}`,
-          pass: false,
-        };
-      }
+    toBeWithinPct(received, expected, pct) {
+      return toBeWithin(received, expected, expected * pct);
     },
+    toBeWithin,
   });
 
   it('scales primary stat correctly', () => {
     // Trinket https://www.wowhead.com/item=188270/elegy-of-the-eternals?bonus=6805
-    const elegyOfTheEternals = (itemLevel) => calculatePrimaryStat(226, 73, itemLevel);
+    const elegyOfTheEternals = (itemLevel) => calculatePrimaryStat(239, 52, itemLevel);
 
-    expect(elegyOfTheEternals(239)).toBeWithin(83, 1); // LFR
-    expect(elegyOfTheEternals(252)).toBeWithin(93, 1); // Normal
-    expect(elegyOfTheEternals(265)).toBeWithin(105, 1); // Heroic
-    expect(elegyOfTheEternals(278)).toBeWithin(119, 1); // Mythic
+    expect(elegyOfTheEternals(252)).toBeWithin(66, 1); // Normal
+    expect(elegyOfTheEternals(265)).toBeWithin(84, 1); // Heroic
+    expect(elegyOfTheEternals(278)).toBeWithin(108, 1); // Mythic
 
-    // Helm https://www.wowhead.com/item=189787/dausegnes-dissonant-halo?bonus=6805
-    const dausegnesDissonantHalo = (itemLevel) => calculatePrimaryStat(226, 81, itemLevel);
+    const ceaselessSwarmgland = (ilvl) => calculatePrimaryStat(593, 2350, ilvl);
 
-    expect(dausegnesDissonantHalo(239)).toBeWithin(92, 1); // LFR
-    expect(dausegnesDissonantHalo(252)).toBeWithin(104, 1); // Normal
-    expect(dausegnesDissonantHalo(265)).toBeWithin(117, 1); // Heroic
-    expect(dausegnesDissonantHalo(278)).toBeWithin(132, 1); // Mythic
-
-    // Weapon https://www.wowhead.com/item=189853/astral-verdict?bonus=6805
-    const astralVerdict = (itemLevel) => calculatePrimaryStat(233, 87, itemLevel);
-
-    expect(astralVerdict(246)).toBeWithin(98, 1); // LFR
-    expect(astralVerdict(259)).toBeWithin(111, 1); // Normal
-    expect(astralVerdict(272)).toBeWithin(125, 1); // Heroic
-    expect(astralVerdict(285)).toBeWithin(141, 1); // Mythic
-
-    // Dungeon Item
-    // Back https://www.wowhead.com/item=185781/drape-of-titanic-dreams?bonus=6805
-    const drapeOfTitanicDreams = (itemLevel) => calculatePrimaryStat(155, 24, itemLevel);
-
-    expect(drapeOfTitanicDreams(210)).toBeWithin(39, 1); // Normal
-    expect(drapeOfTitanicDreams(223)).toBeWithin(44, 1); // Heroic
-    expect(drapeOfTitanicDreams(236)).toBeWithin(50, 1); // Mythic 0
-    expect(drapeOfTitanicDreams(246)).toBeWithin(55, 1); // Mythic +5
-    expect(drapeOfTitanicDreams(255)).toBeWithin(60, 1); // Mythic +10
-    expect(drapeOfTitanicDreams(262)).toBeWithin(64, 1); // Mythic +15
-    expect(drapeOfTitanicDreams(278)).toBeWithin(74, 1); // Mythic +15 Vault
+    expect(ceaselessSwarmgland(593)).toBeWithin(2350, 1);
+    expect(ceaselessSwarmgland(554)).toBeWithin(1634, 1);
+    expect(ceaselessSwarmgland(580)).toBeWithin(2082, 1);
+    expect(ceaselessSwarmgland(597)).toBeWithin(2439, 1);
   });
   it('scales secondary stat correctly', () => {
     // Spoils of Neltharus
     // https://www.wowhead.com/item=193773/spoils-of-neltharus
-    const spoilsOfNeltharus = (itemLevel) => calculateSecondaryStatDefault(250, 547.57, itemLevel);
+    const spoilsOfNeltharus = (itemLevel) => calculateSecondaryStatDefault(250, 482, itemLevel);
 
-    expect(spoilsOfNeltharus(382)).toBeWithin(2253.943, 1); // Normal
-    expect(spoilsOfNeltharus(402)).toBeWithin(2528.523, 1); // Mythic+
-    expect(spoilsOfNeltharus(441)).toBeWithin(3063.954, 1); // Max upgrade Mythic+
-    expect(spoilsOfNeltharus(447)).toBeWithin(3146.328, 1); // Vault
+    expect(spoilsOfNeltharus(382)).toBeWithinPct(2209, 0.001); // Normal
+    expect(spoilsOfNeltharus(402)).toBeWithinPct(2514, 0.001); // Mythic+
+    expect(spoilsOfNeltharus(441)).toBeWithinPct(3108, 0.001); // Max upgrade Mythic+
+    expect(spoilsOfNeltharus(447)).toBeWithinPct(3199, 0.001); // Vault
+    expect(spoilsOfNeltharus(460)).toBeWithinPct(3397, 0.001); // S4 Normal
+    expect(spoilsOfNeltharus(476)).toBeWithinPct(3640, 0.001); // S4 Heroic
+    expect(spoilsOfNeltharus(493)).toBeWithinPct(3899, 0.001); // S4 M0
 
     // Vessel of Searing Shadows
     // https://www.wowhead.com/item=202615/vessel-of-searing-shadow
     const unstableFlames = (itemLevel) => calculateSecondaryStatDefault(415, 89.99989, itemLevel);
 
-    expect(unstableFlames(402)).toBeWithin(84.06605, 1); // LFR
-    expect(unstableFlames(428)).toBeWithin(95.93372, 1); // Heroic
-    expect(unstableFlames(441)).toBeWithin(101.8676, 1); // Mythic
+    expect(unstableFlames(402)).toBeWithin(84, 1); // LFR
+    expect(unstableFlames(428)).toBeWithin(96, 1); // Heroic
+    expect(unstableFlames(441)).toBeWithin(102, 1); // Mythic
   });
   it('scales secondary stat for Jewelry correctly', () => {
     // Raid Item
     // Neck https://www.wowhead.com/item=204397/magmoraxs-fourth-collar
-    const magmoraxCollarVers = (itemLevel) => calculateSecondaryStatJewelry(421, 294, itemLevel);
+    const magmoraxCollarVers = (itemLevel) => calculateSecondaryStatJewelry(421, 380, itemLevel);
 
-    expect(magmoraxCollarVers(408)).toBeWithin(267, 2); // LFR
-    expect(magmoraxCollarVers(434)).toBeWithin(321, 2); // Heroic
-    expect(magmoraxCollarVers(447)).toBeWithin(348, 2); // Mythic
+    expect(magmoraxCollarVers(408)).toBeWithin(342, 1); // LFR
+    expect(magmoraxCollarVers(434)).toBeWithin(417, 1); // Heroic
+    expect(magmoraxCollarVers(447)).toBeWithin(455, 1); // Mythic
 
-    const magmoraxCollarMastery = (itemLevel) => calculateSecondaryStatJewelry(421, 916, itemLevel);
+    const magmoraxCollarMastery = (itemLevel) =>
+      calculateSecondaryStatJewelry(421, 1184, itemLevel);
 
-    expect(magmoraxCollarMastery(408)).toBeWithin(832, 2); // LFR
-    expect(magmoraxCollarMastery(434)).toBeWithin(1001, 2); // Heroic
-    expect(magmoraxCollarMastery(447)).toBeWithin(1085, 2); // Mythic
+    expect(magmoraxCollarMastery(408)).toBeWithin(1067, 1); // LFR
+    expect(magmoraxCollarMastery(434)).toBeWithin(1301, 1); // Heroic
+    expect(magmoraxCollarMastery(447)).toBeWithin(1418, 1); // Mythic
 
-    // Dungeon Item
-    // Ring https://www.wowhead.com/item=193768/scalebane-signet
-    const scalebaneSignetCrit = (itemLevel) => calculateSecondaryStatJewelry(382, 275, itemLevel);
+    const devoutZealotCrit = (ilvl) => calculateSecondaryStatJewelry(554, 2117, ilvl);
 
-    expect(scalebaneSignetCrit(389)).toBeWithin(294, 2); // Heroic
-    expect(scalebaneSignetCrit(398)).toBeWithin(318, 2); // Mythic
-    expect(scalebaneSignetCrit(402)).toBeWithin(329, 2); // Mythic+
-
-    const scalebaneSignetMastery = (itemLevel) =>
-      calculateSecondaryStatJewelry(382, 600, itemLevel);
-
-    expect(scalebaneSignetMastery(389)).toBeWithin(642, 2); // Heroic
-    expect(scalebaneSignetMastery(398)).toBeWithin(695, 2); // Mythic
-    expect(scalebaneSignetMastery(402)).toBeWithin(718, 2); // Mythic+
+    expect(devoutZealotCrit(580)).toBeWithin(2487, 1);
+    expect(devoutZealotCrit(593)).toBeWithin(2865, 1);
+    expect(devoutZealotCrit(597)).toBeWithin(2982, 1);
   });
 });

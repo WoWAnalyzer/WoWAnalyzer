@@ -652,7 +652,7 @@
   "monk.mistweaver.spells.essenceFont.statistic.tooltip": "Mastery:<0><1>{0} additional hits</1><2>{1} additional healing</2><3>Avg number of GoMs hits per triggering event (aka Essence Font Proc Ratio): {2}</3></0>{3}",
   "monk.mistweaver.suggestions.alwaysBeCasting.downtime": "{0}% downtime",
   "monk.mistweaver.suggestions.alwaysBeCasting.nonHealing": "{0}% non healing time",
-  "monk.mistweaver.suggestions.ancientTeachings.uptime": "% uptime",
+  "monk.mistweaver.suggestions.jadefireTeachings.uptime": "% uptime",
   "monk.mistweaver.suggestions.chiBurst.targetsHit": "targets hit per Chi Burst cast -",
   "monk.mistweaver.suggestions.chiBurst.targetsHitPartTwo": "% of raid hit",
   "monk.mistweaver.suggestions.envelopingBreath.averageEnvBPerEnv": "Enveloping Breaths per Enveloping Mist during Celestial",

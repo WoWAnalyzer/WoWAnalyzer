@@ -164,72 +164,42 @@ class DarkmoonSigilAscension extends EmbellishmentAnalyzer.withDependencies({
       a.stat.localeCompare(b.stat),
     );
 
-    // Calculate the average for each stat
-    // const averageStats = Object.keys(aggregatedStats)
-    //   .map((stat) => {
-    //     const { sum, count, uptime } = aggregatedStats[stat];
-    //     return {
-    //       stat,
-    //       average: sum / count,
-    //       uptime: uptime / this.owner.fightDuration,
-    //       count: count,
-    //       duration: uptime,
-    //     };
-    //   })
-    //   .sort((a, b) => a.stat.localeCompare(b.stat));
-
     return {
-      tooltip: (
-        <>
-          {Object.keys(BUFFS).map((spellId) => {
-            const buff = BUFFS[Number(spellId)];
-            const entry = aggregatedStats.get(buff.stat);
-            if (!entry) {
-              return (
-                <>
-                  <p key={spellId}>Didn't proc</p>
-                </>
-              );
-            }
+      tooltip: Object.keys(BUFFS).map((spellId) => {
+        const buff = BUFFS[Number(spellId)];
+        const entry = aggregatedStats.get(buff.stat);
+        if (!entry) {
+          return <p key={spellId}>Didn't proc</p>;
+        }
 
-            const StatIcon = getIcon(buff.stat);
-            const statName = getName(buff.stat)!.toLowerCase();
-            const uptimePercentage = entry.duration / this.owner.fightDuration;
-            const totalAmount = Math.round(entry.total / entry.procs);
+        const StatIcon = getIcon(buff.stat);
+        const statName = getName(buff.stat)!.toLowerCase();
+        const uptimePercentage = entry.duration / this.owner.fightDuration;
+        const totalAmount = Math.round(entry.total / entry.procs);
 
-            return (
-              <>
-                <p key={spellId}>
-                  The <SpellLink spell={buff.spell} /> {statName} buff gave <StatIcon />{' '}
-                  <b>{totalAmount}</b> {statName}, and had a total uptime of{' '}
-                  <b>{formatDuration(entry.duration)}</b>, {formatPercentage(uptimePercentage, 1)}%
-                  of the fight.
-                </p>
-              </>
-            );
-          })}
-        </>
-      ),
-      content: (
-        <>
-          {averageStats.map((entry) => {
-            const stat = entry.stat as STAT;
-            const StatIcon = getIcon(stat);
-            const statName = getName(stat);
-            const uptimePercentage = entry.duration / this.owner.fightDuration;
-            const totalAmount = Math.round(entry.total / entry.procs);
-            const calculatedAverage = Math.round(totalAmount * uptimePercentage);
+        return (
+          <p key={spellId}>
+            The <SpellLink spell={buff.spell} /> {statName} buff gave <StatIcon />{' '}
+            <b>{totalAmount}</b> {statName}, and had a total uptime of{' '}
+            <b>{formatDuration(entry.duration)}</b>, {formatPercentage(uptimePercentage, 1)}% of the
+            fight.
+          </p>
+        );
+      }),
+      content: averageStats.map((entry) => {
+        const stat = entry.stat as STAT;
+        const StatIcon = getIcon(stat);
+        const statName = getName(stat);
+        const uptimePercentage = entry.duration / this.owner.fightDuration;
+        const totalAmount = Math.round(entry.total / entry.procs);
+        const calculatedAverage = Math.round(totalAmount * uptimePercentage);
 
-            return (
-              <>
-                <p key={stat}>
-                  <StatIcon /> {calculatedAverage} <small>{statName} over time</small>
-                </p>
-              </>
-            );
-          })}
-        </>
-      ),
+        return (
+          <p key={stat}>
+            <StatIcon /> {calculatedAverage} <small>{statName} over time</small>
+          </p>
+        );
+      }),
     };
   }
 }

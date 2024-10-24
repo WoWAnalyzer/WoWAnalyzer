@@ -124,6 +124,11 @@ class StatTracker extends Analyzer {
       haste: (selectedCombatant, item) =>
         calculateSecondaryStatDefault(250, 547.57, item?.itemLevel ?? selectedCombatant.ilvl),
     },
+    [SPELLS.QUICKWICK_CANDLESTICK_HASTE.id]: {
+      itemId: ITEMS.QUICKWICK_CANDLESTICK.id,
+      haste: (selectedCombatant, item) =>
+        calculateSecondaryStatDefault(400, 2365, item?.itemLevel ?? selectedCombatant.ilvl),
+    },
     // endregion
 
     // region Other

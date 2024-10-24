@@ -1,5 +1,8 @@
 import SPELLS from 'common/SPELLS';
+import Spell from 'common/SPELLS/Spell';
 import { TALENTS_MONK } from 'common/TALENTS';
+import { Talent } from 'common/TALENTS/types';
+import Combatant from 'parser/core/Combatant';
 export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   // Spells
   TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
@@ -49,6 +52,7 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
 export const THUNDER_FOCUS_TEA_SPELLS = [
   SPELLS.VIVIFY,
   TALENTS_MONK.RISING_SUN_KICK_TALENT,
+  TALENTS_MONK.RUSHING_WIND_KICK_TALENT,
   TALENTS_MONK.ENVELOPING_MIST_TALENT,
   TALENTS_MONK.RENEWING_MIST_TALENT,
   SPELLS.EXPEL_HARM,
@@ -93,6 +97,7 @@ export const ZEN_PULSE_INCREASE_PER_STACK = 0.06;
 export const ZEN_PULSE_MAX_HITS_FOR_BOOST = 5;
 export const TEAR_OF_MORNING_INVIG_INCREASE = 0.1;
 export const TEAR_OF_MORNING_ENV_INCREASE = 0.12;
+export const CALMING_COALESCENCE_INCREASE = 0.8;
 
 export const ATTRIBUTION_STRINGS = {
   BOUNCED: 'Bounced',
@@ -150,3 +155,15 @@ export const SPELL_COLORS = {
   ALTERNATE_GUST_OF_MIST: '#7f7f7f',
   ZEN_PULSE: '#c6f4f5',
 };
+
+export function getCurrentRSKTalent(player: Combatant): Talent {
+  return player.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_TALENT)
+    ? TALENTS_MONK.RUSHING_WIND_KICK_TALENT
+    : TALENTS_MONK.RISING_SUN_KICK_TALENT;
+}
+
+export function getCurrentRSKTalentDamage(player: Combatant): Spell {
+  return player.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_TALENT)
+    ? SPELLS.RUSHING_WIND_KICK_DAMAGE
+    : SPELLS.RISING_SUN_KICK_DAMAGE;
+}

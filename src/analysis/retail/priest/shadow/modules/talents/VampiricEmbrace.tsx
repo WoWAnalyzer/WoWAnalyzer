@@ -21,7 +21,7 @@ class VampiricEmbrace extends Analyzer {
   }
 
   get healingDone() {
-    return this.abilityTracker.getAbility(SPELLS.VAMPIRIC_EMBRACE_HEAL.id).healingEffective;
+    return this.abilityTracker.getAbilityHealing(SPELLS.VAMPIRIC_EMBRACE_HEAL.id);
   }
 
   statistic() {

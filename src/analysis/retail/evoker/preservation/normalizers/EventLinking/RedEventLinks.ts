@@ -191,7 +191,7 @@ export const RED_EVENT_LINKS: EventLink[] = [
   },
   {
     linkRelation: ENGULF_CONSUME_FLAME,
-    linkingEventId: SPELLS.ENGULF_HEAL.id,
+    linkingEventId: TALENTS_EVOKER.ENGULF_TALENT.id,
     linkingEventType: EventType.Cast,
     referencedEventId: SPELLS.CONSUME_FLAME_HEAL.id,
     referencedEventType: EventType.Heal,
@@ -199,5 +199,8 @@ export const RED_EVENT_LINKS: EventLink[] = [
     backwardBufferMs: ENGULF_CONSUME_BUFFER,
     reverseLinkRelation: ENGULF_CONSUME_FLAME,
     anyTarget: true,
+    additionalCondition(linkingEvent, referencedEvent) {
+      return !HasRelatedEvent(referencedEvent, ENGULF_CONSUME_FLAME);
+    },
   },
 ];

@@ -11,7 +11,7 @@ import RenewingMist from '../spells/RenewingMist';
 import SoothingMist from '../spells/SoothingMist';
 import Vivify from '../spells/Vivify';
 import RefreshingJadeWind from '../spells/RefreshingJadeWind';
-import AncientTeachings from '../spells/AncientTeachings';
+import JadefireTeachings from '../spells/JadefireTeachings';
 import RapidDiffusion from '../spells/RapidDiffusion';
 import DancingMists from '../spells/DancingMists';
 import MistyPeaks from '../spells/MistyPeaks';
@@ -33,7 +33,7 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
     refreshingJadeWind: RefreshingJadeWind,
     expelHarm: ExpelHarm,
     jadefireStompHealing: JadefireStompHealing,
-    ancientTeachings: AncientTeachings,
+    jadefireTeachings: JadefireTeachings,
     rapidDiffusion: RapidDiffusion,
     dancingMists: DancingMists,
     mistyPeaks: MistyPeaks,
@@ -51,7 +51,7 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   protected refreshingJadeWind!: RefreshingJadeWind;
   protected expelHarm!: ExpelHarm;
   protected jadefireStompHealing!: JadefireStompHealing;
-  protected ancientTeachings!: AncientTeachings;
+  protected jadefireTeachings!: JadefireTeachings;
   protected rapidDiffusion!: RapidDiffusion;
   protected dancingMists!: DancingMists;
   protected mistyPeaks!: MistyPeaks;
@@ -73,7 +73,10 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
       spellInfo = this.getVivifyDetails(spellInfo);
     } else if (spellId === TALENTS_MONK.REFRESHING_JADE_WIND_TALENT.id) {
       spellInfo = this.getRefreshingJadeWindDetails(spellInfo);
-    } else if (spellId === TALENTS_MONK.RISING_SUN_KICK_TALENT.id) {
+    } else if (
+      spellId === TALENTS_MONK.RISING_SUN_KICK_TALENT.id ||
+      spellId === TALENTS_MONK.RUSHING_WIND_KICK_TALENT.id
+    ) {
       spellInfo = this.getRisingSunKickDetails(spellInfo);
     } else if (spellId === TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id) {
       spellInfo = this.getYulonDetails(spellInfo);
@@ -193,9 +196,9 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
 
   getJFSDetails(spellInfo: SpellInfoDetails) {
     spellInfo.healingDone = this.jadefireStompHealing.jfsHealing;
-    spellInfo.healingDone += this.ancientTeachings.totalHealing;
+    spellInfo.healingDone += this.jadefireTeachings.totalHealing;
     spellInfo.overhealingDone = this.jadefireStompHealing.jfsOverhealing;
-    spellInfo.overhealingDone += this.ancientTeachings.overhealing;
+    spellInfo.overhealingDone += this.jadefireTeachings.overhealing;
     return spellInfo;
   }
 

@@ -38,8 +38,13 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 10, 14), `Fixed some technical issues with rendering of lists`, nullDozzer),
+  change(date(2024, 10, 12), `Fixed an issue with the effective healing/damage patch causing the per-second damage and healing graphs to be incorrect and causing some by-ability healing and damage numbers to be too low`, Sref),
+  change(date(2024, 10, 12), <>Prevent requesting spell data for unknown spell ids.</>, emallson),
   change(date(2024, 10, 7), <>Add the ability of <ItemLink id={ITEMS.TREACHEROUS_TRANSMITTER.id}/> to the spellbook when equipped.</>, Vetyst),
+  change(date(2024, 10, 7), <>Updating item level scaling data</>, Seriousnes),
   change(date(2024, 10, 5), 'Fix viewing the character tab for certain regions.', Vetyst),
+  change(date(2024, 10, 4), `Fixed many places where absorbed damage and healing was not counted as 'effective'`, Sref),
   change(date(2024, 10, 4), 'Added Earthen food buffs to consumable check.', emallson),
   change(date(2024, 10, 4), <>Added simple statistics for <ItemLink id={ITEMS.SPYMASTERS_WEB.id}/>.</>, Vetyst),
   change(date(2024, 10, 3), 'Fixed rendering of the Header on the character log browser.', Vetyst),

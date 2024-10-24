@@ -11,25 +11,21 @@ import Events, {
 } from 'parser/core/Events';
 
 import SpellManaCost from './SpellManaCost';
+import HealingValue from 'parser/shared/modules/HealingValue';
+import DamageValue from 'parser/shared/modules/DamageValue';
 
 export interface TrackedAbility {
   ability: Ability | null;
   casts: number;
   manaUsed: number;
   damageHits: number;
-  damageEffective: number;
-  damageAbsorbed: number;
+  damageVal: DamageValue;
   damageCriticalHits: number;
-  damageCriticalEffective: number;
-  damageCriticalAbsorbed: number;
+  damageCriticalVal: DamageValue;
   healingHits: number;
-  healingEffective: number;
-  healingAbsorbed: number;
-  healingOverheal: number;
+  healingVal: HealingValue;
   healingCriticalHits: number;
-  healingCriticalEffective: number;
-  healingCriticalAbsorbed: number;
-  healingCriticalOverheal: number;
+  healingCriticalVal: HealingValue;
 }
 
 class AbilityTracker extends Analyzer {
@@ -64,19 +60,13 @@ class AbilityTracker extends Analyzer {
         casts: 0,
         manaUsed: 0,
         damageHits: 0,
-        damageEffective: 0,
-        damageAbsorbed: 0,
+        damageVal: DamageValue.empty(),
         damageCriticalHits: 0,
-        damageCriticalEffective: 0,
-        damageCriticalAbsorbed: 0,
+        damageCriticalVal: DamageValue.empty(),
         healingHits: 0,
-        healingEffective: 0,
-        healingAbsorbed: 0,
-        healingOverheal: 0,
+        healingVal: HealingValue.empty(),
         healingCriticalHits: 0,
-        healingCriticalEffective: 0,
-        healingCriticalAbsorbed: 0,
-        healingCriticalOverheal: 0,
+        healingCriticalVal: HealingValue.empty(),
       };
       this.abilities.set(spellId, ability);
     }
@@ -84,6 +74,34 @@ class AbilityTracker extends Analyzer {
       ability.ability = abilityInfo;
     }
     return ability;
+  }
+
+  /** Convenience method for getting number of times an ability hit (damage or healing) */
+  getAbilityHits(spellId: number, abilityInfo: Ability | null = null) {
+    const ability = this.getAbility(spellId, abilityInfo);
+    return ability.damageHits + ability.healingHits;
+  }
+
+  /** Convenience method for getting the amount of effective damage an ability did */
+  getAbilityDamage(spellId: number, abilityInfo: Ability | null = null) {
+    return this.getAbility(spellId, abilityInfo).damageVal.effective;
+  }
+
+  /** Convenience method for getting an abilities damage per cast */
+  getAbilityDamagePerCast(spellId: number, abilityInfo: Ability | null = null) {
+    const ability = this.getAbility(spellId, abilityInfo);
+    return ability.damageVal.effective / ability.casts || 0;
+  }
+
+  /** Convenience method for getting the amount of effective healing an ability did */
+  getAbilityHealing(spellId: number, abilityInfo: Ability | null = null) {
+    return this.getAbility(spellId, abilityInfo).healingVal.effective;
+  }
+
+  /** Convenience method for getting an abilities damage per cast */
+  getAbilityHealingPerCast(spellId: number, abilityInfo: Ability | null = null) {
+    const ability = this.getAbility(spellId, abilityInfo);
+    return ability.healingVal.effective / ability.casts || 0;
   }
 }
 
@@ -101,17 +119,9 @@ class HealingTracker extends AbilityTracker {
     const cast = this.getAbility(spellId, event.ability);
 
     cast.healingHits = cast.healingHits + 1;
-    // TODO: Use HealingValue class
-    cast.healingEffective = cast.healingEffective + (event.amount || 0);
-    if (event.type === EventType.Heal) {
-      cast.healingAbsorbed = cast.healingAbsorbed + (event.absorbed || 0);
-      cast.healingOverheal = cast.healingOverheal + (event.overheal || 0);
-      if (event.hitType === HIT_TYPES.CRIT) {
-        cast.healingCriticalHits = cast.healingCriticalHits + 1;
-        cast.healingCriticalEffective = cast.healingCriticalEffective + (event.amount || 0);
-        cast.healingCriticalAbsorbed = cast.healingCriticalAbsorbed + (event.absorbed || 0);
-        cast.healingCriticalOverheal = cast.healingCriticalOverheal + (event.overheal || 0);
-      }
+    cast.healingVal = cast.healingVal.addEvent(event);
+    if (event.type === EventType.Heal && event.hitType === HIT_TYPES.CRIT) {
+      cast.healingCriticalVal = cast.healingCriticalVal.addEvent(event);
     }
   }
 }
@@ -127,15 +137,9 @@ class DamageTracker extends HealingTracker {
     const cast = this.getAbility(spellId, event.ability);
 
     cast.damageHits = cast.damageHits + 1;
-    // TODO: Use DamageValue class
-    cast.damageEffective = cast.damageEffective + (event.amount || 0);
-    cast.damageAbsorbed = cast.damageAbsorbed + (event.absorbed || 0); // Not sure
-
-    const isCrit = event.hitType === HIT_TYPES.CRIT;
-    if (isCrit) {
-      cast.damageCriticalHits = cast.damageCriticalHits + 1;
-      cast.damageCriticalEffective = cast.damageCriticalEffective + (event.amount || 0);
-      cast.damageCriticalAbsorbed = cast.damageCriticalAbsorbed + (event.absorbed || 0); // Not sure
+    cast.damageVal = cast.damageVal.addEvent(event);
+    if (event.hitType === HIT_TYPES.CRIT) {
+      cast.damageCriticalVal = cast.damageCriticalVal.addEvent(event);
     }
   }
 }

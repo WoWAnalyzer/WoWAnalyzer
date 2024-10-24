@@ -217,9 +217,9 @@ const spells = {
     name: 'Mending Proliferation',
     icon: 'inv_shoulder_inv_leather_raidmonk_s_01',
   },
-  AT_BUFF: {
+  JT_BUFF: {
     id: 388026,
-    name: 'Ancient Teachings',
+    name: 'Jadefire Teachings',
     icon: 'inv_misc_book_07',
   },
   AT_HEAL: {
@@ -854,6 +854,11 @@ const spells = {
     name: 'Rising Sun Kick',
     icon: 'ability_monk_risingsunkick',
   },
+  RUSHING_WIND_KICK_DAMAGE: {
+    id: 468179,
+    name: 'Rushing Wind Kick',
+    icon: 'ability_monk_ridethewind',
+  },
   HIT_COMBO_BUFF: {
     id: 196741,
     name: 'Hit Combo',
@@ -972,6 +977,11 @@ const spells = {
     id: 450769,
     name: 'Aspect of Harmony',
     icon: 'inv_enchanting_wod_essence2',
+  },
+  ASPECT_OF_HARMONY_BUFF: {
+    id: 450711,
+    name: 'Aspect of Harmony',
+    icon: 'ability_evoker_essenceburst3',
   },
 } satisfies Record<string, Spell>;
 

@@ -17,7 +17,7 @@ class BeaconHealingDone extends Analyzer {
   protected beaconHealSource!: BeaconHealSource;
   protected healingDone!: HealingDone;
 
-  _totalBeaconHealing = new HealingValue();
+  _totalBeaconHealing = HealingValue.empty();
   _beaconHealingBySource: { [spellID: number]: BeaconTracking } = {};
 
   constructor(options: Options) {
@@ -26,11 +26,11 @@ class BeaconHealingDone extends Analyzer {
   }
 
   _onBeaconTransfer(event: BeaconHealEvent) {
-    this._totalBeaconHealing = this._totalBeaconHealing.add(
-      event.amount,
-      event.absorbed,
-      event.overheal,
-    );
+    this._totalBeaconHealing = this._totalBeaconHealing.addValues({
+      regular: event.amount,
+      absorbed: event.absorbed,
+      overheal: event.overheal,
+    });
 
     const source = event.originalHeal;
     const spellId = source.ability.guid;
@@ -38,10 +38,14 @@ class BeaconHealingDone extends Analyzer {
     if (!sourceHealing) {
       sourceHealing = this._beaconHealingBySource[spellId] = {
         ability: source.ability,
-        healing: new HealingValue(),
+        healing: HealingValue.empty(),
       };
     }
-    sourceHealing.healing = sourceHealing.healing.add(event.amount, event.absorbed, event.overheal);
+    sourceHealing.healing = sourceHealing.healing.addValues({
+      regular: event.amount,
+      absorbed: event.absorbed,
+      overheal: event.overheal,
+    });
   }
 
   statistic() {

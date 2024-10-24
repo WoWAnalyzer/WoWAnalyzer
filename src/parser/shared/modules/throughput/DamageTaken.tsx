@@ -22,7 +22,7 @@ class DamageTaken extends Analyzer {
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onToPlayerDamage);
   }
 
-  _total = new DamageValue(); // consider this "protected", so don't change this from other modules. If you want special behavior you must add that code to an extended version of this module.
+  _total = DamageValue.empty(); // consider this "protected", so don't change this from other modules. If you want special behavior you must add that code to an extended version of this module.
   get total() {
     return this._total;
   }
@@ -32,7 +32,7 @@ class DamageTaken extends Analyzer {
   _byAbility: { [spellId: number]: DamageValue } = {};
   byAbility(spellId: number) {
     if (!this._byAbility[spellId]) {
-      return new DamageValue();
+      return DamageValue.empty();
     }
     return this._byAbility[spellId];
   }
@@ -40,7 +40,7 @@ class DamageTaken extends Analyzer {
   _byMagicSchool: { [magicSchool: number]: DamageValue } = {};
   byMagicSchool(magicSchool: number) {
     if (!this._byMagicSchool[magicSchool]) {
-      return new DamageValue();
+      return DamageValue.empty();
     }
     return this._byMagicSchool[magicSchool];
   }
@@ -62,33 +62,45 @@ class DamageTaken extends Analyzer {
       // Some player abilities (mostly of healers) cause damage as a side-effect, these shouldn't be included in the damage taken.
       return;
     }
-    this._total = this._total.add(amount, absorbed, blocked, overkill);
+    this._total = this._total.addValues({ regular: amount, absorbed, blocked, overkill });
 
     if (this._byAbility[spellId]) {
-      this._byAbility[spellId] = this._byAbility[spellId].add(amount, absorbed, blocked, overkill);
+      this._byAbility[spellId] = this._byAbility[spellId].addValues({
+        regular: amount,
+        absorbed,
+        blocked,
+        overkill,
+      });
     } else {
-      this._byAbility[spellId] = new DamageValue(amount, absorbed, blocked, overkill);
+      this._byAbility[spellId] = DamageValue.fromValues({
+        regular: amount,
+        absorbed,
+        blocked,
+        overkill,
+      });
     }
 
     const magicSchool = ability.type;
     if (this._byMagicSchool[magicSchool]) {
-      this._byMagicSchool[magicSchool] = this._byMagicSchool[magicSchool].add(
-        amount,
+      this._byMagicSchool[magicSchool] = this._byMagicSchool[magicSchool].addValues({
+        regular: amount,
         absorbed,
         blocked,
         overkill,
-      );
+      });
     } else {
-      this._byMagicSchool[magicSchool] = new DamageValue(amount, absorbed, blocked, overkill);
+      this._byMagicSchool[magicSchool] = DamageValue.fromValues({
+        regular: amount,
+        absorbed,
+        blocked,
+        overkill,
+      });
     }
 
     const secondsIntoFight = Math.floor((event.timestamp - this.owner.fight.start_time) / 1000);
-    this.bySecond[secondsIntoFight] = (this.bySecond[secondsIntoFight] || new DamageValue()).add(
-      amount,
-      absorbed,
-      blocked,
-      overkill,
-    );
+    this.bySecond[secondsIntoFight] =
+      this.bySecond[secondsIntoFight] ||
+      DamageValue.fromValues({ regular: amount, absorbed, blocked, overkill });
   }
   _subtractDamage(
     event: DamageEvent | AbsorbedEvent,

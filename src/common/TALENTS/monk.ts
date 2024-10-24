@@ -26,22 +26,6 @@ const talents = {
     entryIds: [124983],
     definitionIds: [{ id: 129821, specId: 270 }],
   },
-  ANCIENT_CONCORDANCE_TALENT: {
-    id: 388740,
-    name: 'Ancient Concordance',
-    icon: 'spell_animaardenweald_beam',
-    maxRanks: 1,
-    entryIds: [124886],
-    definitionIds: [{ id: 129724, specId: 270 }],
-  },
-  ANCIENT_TEACHINGS_TALENT: {
-    id: 388023,
-    name: 'Ancient Teachings',
-    icon: 'inv_misc_book_07',
-    maxRanks: 1,
-    entryIds: [124882],
-    definitionIds: [{ id: 129720, specId: 270 }],
-  },
   ANVIL__STAVE_TALENT: {
     id: 386937,
     name: 'Anvil & Stave',
@@ -173,7 +157,7 @@ const talents = {
   CALL_TO_ARMS_TALENT: {
     id: 397251,
     name: 'Call to Arms',
-    icon: 'ability_bastion_monk',
+    icon: 'inv_ability_monk_jadefirestomp',
     maxRanks: 1,
     entryIds: [124995],
     definitionIds: [{ id: 129833, specId: 268 }],
@@ -183,8 +167,8 @@ const talents = {
     name: 'Calming Coalescence',
     icon: 'ability_monk_healthsphere',
     maxRanks: 1,
-    entryIds: [124873],
-    definitionIds: [{ id: 129711, specId: 270 }],
+    entryIds: [124874],
+    definitionIds: [{ id: 129712, specId: 270 }],
   },
   CALMING_PRESENCE_TALENT: {
     id: 388664,
@@ -1012,7 +996,7 @@ const talents = {
   JADEFIRE_STOMP_TALENT: {
     id: 388193,
     name: 'Jadefire Stomp',
-    icon: 'ability_ardenweald_monk',
+    icon: 'inv_ability_monk_jadefirestomp',
     maxRanks: 1,
     entryIds: [126026, 124881],
     definitionIds: [
@@ -1021,6 +1005,14 @@ const talents = {
     ],
     manaCost: 100000,
   },
+  JADEFIRE_TEACHINGS_TALENT: {
+    id: 467293,
+    name: 'Jadefire Teachings',
+    icon: 'inv_misc_book_07',
+    maxRanks: 1,
+    entryIds: [124882],
+    definitionIds: [{ id: 129720, specId: 270 }],
+  },
   JADE_BOND_TALENT: {
     id: 388031,
     name: 'Jade Bond',
@@ -1028,6 +1020,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [124895],
     definitionIds: [{ id: 129733, specId: 270 }],
+  },
+  JADE_EMPOWERMENT_TALENT: {
+    id: 467316,
+    name: 'Jade Empowerment',
+    icon: 'ability_monk_cracklingjadelightning',
+    maxRanks: 1,
+    entryIds: [128220],
+    definitionIds: [{ id: 133027, specId: 270 }],
   },
   JADE_IGNITION_TALENT: {
     id: 392979,
@@ -1256,14 +1256,6 @@ const talents = {
     entryIds: [125057],
     definitionIds: [{ id: 129889, specId: 270 }],
   },
-  NOURISHING_CHI_TALENT: {
-    id: 387765,
-    name: 'Nourishing Chi',
-    icon: 'inv_misc_gem_pearl_06',
-    maxRanks: 1,
-    entryIds: [124874],
-    definitionIds: [{ id: 129712, specId: 270 }],
-  },
   ONE_VERSUS_MANY_TALENT: {
     id: 450988,
     name: 'One Versus Many',
@@ -1481,6 +1473,14 @@ const talents = {
     entryIds: [124870],
     definitionIds: [{ id: 129708, specId: 270 }],
   },
+  REFRESHMENT_TALENT: {
+    id: 467270,
+    name: 'Refreshment',
+    icon: 'inv_misc_gem_pearl_06',
+    maxRanks: 1,
+    entryIds: [124873],
+    definitionIds: [{ id: 129711, specId: 270 }],
+  },
   RENEWING_MIST_TALENT: {
     id: 115151,
     name: 'Renewing Mist',
@@ -1598,6 +1598,15 @@ const talents = {
     maxRanks: 1,
     entryIds: [124946],
     definitionIds: [{ id: 129784, specId: 270 }],
+  },
+  RUSHING_WIND_KICK_TALENT: {
+    id: 467307,
+    name: 'Rushing Wind Kick',
+    icon: 'ability_monk_ridethewind',
+    maxRanks: 1,
+    entryIds: [128221],
+    definitionIds: [{ id: 133028, specId: 270 }],
+    manaCost: 62500,
   },
   SALSALABIMS_STRENGTH_TALENT: {
     id: 383697,
@@ -2046,7 +2055,7 @@ const talents = {
   WEAPONS_OF_ORDER_TALENT: {
     id: 387184,
     name: 'Weapons of Order',
-    icon: 'ability_bastion_monk',
+    icon: 'inv_ability_monk_weaponsoforder',
     maxRanks: 1,
     entryIds: [124996],
     definitionIds: [{ id: 129834, specId: 268 }],

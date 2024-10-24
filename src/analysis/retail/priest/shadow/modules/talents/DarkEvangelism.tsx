@@ -10,6 +10,11 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
+import { SpellLink } from 'interface';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import UptimeIcon from 'interface/icons/Uptime';
+import { formatPercentage } from 'common/format';
 
 import { DARK_EVANGELISM_DAMAGE_PER_RANK } from '../../constants';
 
@@ -94,6 +99,9 @@ class DarkEvangelism extends Analyzer {
           <div>
             <ItemDamageDone amount={this.damage} />
           </div>
+          <div>
+            <UptimeIcon /> {formatPercentage(this.uptime, 0)} % <small>uptime</small>{' '}
+          </div>
         </BoringSpellValueText>
       </Statistic>
     );
@@ -175,6 +183,20 @@ class DarkEvangelism extends Analyzer {
       uptimes: this.uptimeHistory,
       color: BAR_COLOR,
     });
+  }
+
+  //this is unused for now, but remains in case DE uptime is important
+  get guideSubsectionDE() {
+    const explanation = (
+      <p>
+        This is the uptime of <SpellLink spell={SPELLS.DARK_EVANGELISM_TALENT_BUFF} />. You should
+        not adjust your rotation to maintain this buff.
+      </p>
+    );
+
+    const data = <RoundedPanel>{this.subStatistic()}</RoundedPanel>;
+
+    return explanationAndDataSubsection(explanation, data);
   }
 }
 

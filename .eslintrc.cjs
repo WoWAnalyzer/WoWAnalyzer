@@ -241,6 +241,17 @@ module.exports = {
 
     // "only" filter for tests are commonly used during development and rarely desired in git (use .skip instead)
     'no-only-tests/no-only-tests': 'error',
+
+    // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-key.md
+    // Ensure that the key attribute is always used in a list of elements.
+    'react/jsx-key': [
+      'error',
+      {
+        checkFragmentShorthand: true,
+        checkKeyMustBeforeSpread: true,
+        warnOnDuplicates: true,
+      },
+    ],
   },
   overrides: [
     // Disable some rules for .js files to not have to update all old files in one go

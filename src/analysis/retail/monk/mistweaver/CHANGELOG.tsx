@@ -5,6 +5,11 @@ import { Trevor, Vetyst, Vohrr } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date (2024, 10, 24), <>Fixed <SpellLink spell={TALENTS_MONK.CALMING_COALESCENCE_TALENT}/> module and updated <SpellLink spell={TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT}/> to include <SpellLink spell={SPELLS.CRACKLING_JADE_LIGHTNING}/>.</>, Vohrr),
+  change(date (2024, 10, 22), <>Update MW for 11.0.5</>, Trevor),
+  change(date (2024, 10, 13), <>Add <SpellLink spell={TALENTS_MONK.ASPECT_OF_HARMONY_TALENT}/> guide section</>, Trevor),
+  change(date (2024, 10, 12), <>Added an average healing per cast metric to the <SpellLink spell={TALENTS_MONK.REVIVAL_TALENT}/> healing breakdown statistic.</>, Vohrr),
+  change(date (2024, 10, 12), <>Fix an issue with <SpellLink spell={TALENTS_MONK.UPLIFTED_SPIRITS_TALENT}/> and updated to include additional <SpellLink spell={SPELLS.GUSTS_OF_MISTS}/> healing.</>, Vohrr),
   change(date (2024, 10, 6), <>Fix a crash in <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_TALENT}/> while it was active when fight ended.</>, Vetyst),
   change(date (2024, 10, 6), <>Add <SpellLink spell={TALENTS_MONK.COALESCENCE_TALENT}/> statistic</>, Trevor),
   change(date (2024, 9, 28), <>Fix crash in <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_TALENT}/> when it failed to hit any allies.</>, Trevor),

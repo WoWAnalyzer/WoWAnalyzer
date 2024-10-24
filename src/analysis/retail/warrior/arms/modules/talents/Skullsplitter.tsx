@@ -57,7 +57,7 @@ class Skullsplitter extends Analyzer {
 
   statistic() {
     const Skullsplitter = this.abilityTracker.getAbility(TALENTS.SKULLSPLITTER_TALENT.id);
-    const total = Skullsplitter.damageEffective || 0;
+    const total = Skullsplitter.damageVal.effective;
     return (
       <Statistic
         size="flexible"

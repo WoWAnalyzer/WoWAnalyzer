@@ -2517,3 +2517,21 @@ export const SebShady: Contributor = {
   github: 'SebShady42',
   discord: 'SebShady',
 };
+
+export const PandaGoesBaa: Contributor = {
+  nickname: 'PandaGoesBaa',
+  github: 'frankyi-gh',
+  mains: [
+    {
+      name: 'PandaGoesBaa',
+      spec: SPECS.RESTORATION_SHAMAN,
+      link: 'https://worldofwarcraft.blizzard.com/en-us/character/us/illidan/pandagoesbaa',
+    },
+  ],
+};
+
+export const Quaarkz: Contributor = {
+  nickname: 'Quaarkz',
+  github: 'Quaarkz',
+  discord: 'Quaarkz',
+};
