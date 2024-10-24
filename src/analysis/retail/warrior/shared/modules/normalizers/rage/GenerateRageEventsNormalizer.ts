@@ -375,10 +375,19 @@ export default class GenerateRageEventsNormalizer extends EventsNormalizer {
       attackPower: event.attackPower!,
       spellPower: event.spellPower!,
       armor: event.armor!,
-      x: event.x!,
-      y: event.y!,
-      facing: event.facing!,
-      mapID: event.mapID!,
+      ...(event.type === EventType.Cast
+        ? {
+            x: event.x!,
+            y: event.y!,
+            facing: event.facing!,
+            mapID: event.mapID!,
+          }
+        : {
+            x: undefined!,
+            y: undefined!,
+            facing: undefined!,
+            mapID: undefined!,
+          }),
       itemLevel: event.itemLevel!,
       timestamp: event.timestamp,
       resourceChange: 0,

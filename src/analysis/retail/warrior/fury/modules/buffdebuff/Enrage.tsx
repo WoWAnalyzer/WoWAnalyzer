@@ -1,12 +1,14 @@
 import { defineMessage } from '@lingui/macro';
+import SPELLS from 'common/SPELLS/warrior';
+import TALENTS from 'common/TALENTS/warrior';
 import { formatNumber, formatPercentage, formatThousands } from 'common/format';
-import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import Haste from 'parser/shared/modules/Haste';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -14,13 +16,29 @@ import Statistic from 'parser/ui/Statistic';
 class Enrage extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
+    haste: Haste,
   };
   totalDamage: number = 0;
   damage: number = 0;
   protected statTracker!: StatTracker;
+  protected haste!: Haste;
 
-  constructor(options: Options) {
+  constructor(options: Options & { haste: Haste; statTracker: StatTracker }) {
     super(options);
+
+    this.active =
+      this.selectedCombatant.hasTalent(TALENTS.BLOODTHIRST_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS.RAMPAGE_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS.ONSLAUGHT_TALENT);
+
+    if (!this.active) {
+      return;
+    }
+
+    if (this.selectedCombatant.hasTalent(TALENTS.FRENZIED_ENRAGE_TALENT)) {
+      // Inform the haste module that if we have enrage, we have 15% haste
+      options.haste.addHasteBuff(SPELLS.ENRAGE.id, 0.15);
+    }
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onPlayerDamage);
   }

@@ -7,6 +7,8 @@ import RageCountDebugger from '../shared/modules/debuggers/RageCountDebugger';
 import GenerateRageEventsNormalizer from '../shared/modules/normalizers/rage/GenerateRageEventsNormalizer';
 import RageAttributeNormalizer from '../shared/modules/normalizers/rage/RageAttributeNormalizer';
 import ResourceChangeNormalizer from '../shared/modules/normalizers/rage/ResourceChangeNormalizer';
+import ChampionsMight from '../shared/modules/talents/ChampionsMight';
+import ChampionsSpear from '../shared/modules/talents/ChampionsSpear';
 import Abilities from './modules/Abilities';
 import Checklist from './modules/checklist/Module';
 import AplCheck from './modules/core/AplCheck';
@@ -113,6 +115,8 @@ class CombatLogParser extends CoreCombatLogParser {
     avatar: Avatar,
     spellReflection: SpellReflection,
     fatalMark: FatalMark,
+    ChampionsSpear: ChampionsSpear,
+    ChampionsMight: ChampionsMight,
 
     // Debuggers
     rageCountDebugger: RageCountDebugger,
