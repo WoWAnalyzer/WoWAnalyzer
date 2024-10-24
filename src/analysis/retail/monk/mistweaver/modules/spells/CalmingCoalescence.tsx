@@ -5,7 +5,6 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   AbsorbedEvent,
   ApplyBuffEvent,
-  ApplyBuffStackEvent,
   CastEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
@@ -15,28 +14,16 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Statistic from 'parser/ui/Statistic';
-import { isFromLifeCocoon } from '../../normalizers/CastLinkNormalizer';
-
-const BUFF_AMOUNT_PER_STACK = 0.03;
+import { CALMING_COALESCENCE_INCREASE } from '../../constants';
 
 class CalmingCoalescence extends Analyzer {
   casts: number = 0;
-  stacks: number = 0;
-  totalStacks: number = 0;
   shieldSize: number = 0;
   currentShieldAbsorbed: number = 0;
   totalShieldSize: number = 0;
   baseShield: number = 0;
   healing: number = 0;
   wasted: number = 0;
-
-  get averageStacks() {
-    return this.totalStacks / this.casts;
-  }
-
-  get averageShieldSize() {
-    return this.totalShieldSize / this.casts;
-  }
 
   constructor(options: Options) {
     super(options);
@@ -58,14 +45,6 @@ class CalmingCoalescence extends Analyzer {
       Events.removebuff.by(SELECTED_PLAYER).spell(talents.LIFE_COCOON_TALENT),
       this.onRemoveLifeCocoon,
     );
-    this.addEventListener(
-      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.CALMING_COALESCENCE_BUFF),
-      this.onApplyCCBuffStack,
-    );
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.CALMING_COALESCENCE_BUFF),
-      this.onRemoveCCBuff,
-    );
   }
 
   onCast(event: CastEvent) {
@@ -75,7 +54,7 @@ class CalmingCoalescence extends Analyzer {
   onApplyLifeCocoon(event: ApplyBuffEvent) {
     this.totalShieldSize += event.absorb || 0;
     this.shieldSize = event.absorb || 0;
-    this.baseShield = this.stacks > 0 ? this.calculateBaseShield(event.absorb!) : this.shieldSize;
+    this.baseShield = this.calculateBaseShield(event.absorb!);
     this.currentShieldAbsorbed = 0;
   }
 
@@ -89,19 +68,8 @@ class CalmingCoalescence extends Analyzer {
     this.shieldSize = 0;
   }
 
-  onApplyCCBuffStack(event: ApplyBuffStackEvent) {
-    this.stacks = event.stack;
-  }
-
-  onRemoveCCBuff(event: RemoveBuffEvent) {
-    if (!isFromLifeCocoon(event)) {
-      return;
-    }
-    this.totalStacks += this.stacks;
-  }
-
   private calculateBaseShield(absorb: number): number {
-    return absorb / (1 + BUFF_AMOUNT_PER_STACK * this.stacks);
+    return absorb / (1 + CALMING_COALESCENCE_INCREASE);
   }
 
   statistic() {
@@ -112,8 +80,6 @@ class CalmingCoalescence extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <ul>
-            <li>Average Stacks: {formatNumber(this.averageStacks)}</li>
-            <li>Average Shield Size: {formatNumber(this.averageShieldSize)}</li>
             <li>Total wasted Shield: {formatNumber(this.wasted)}</li>
           </ul>
         }
