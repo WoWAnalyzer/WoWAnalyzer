@@ -30,6 +30,20 @@ const EVENT_LINKS: EventLink[] = [
   },
   {
     reverseLinkRelation: SPELL_CAST,
+    linkingEventId: TALENTS.FROSTFIRE_BOLT_TALENT.id,
+    linkingEventType: EventType.Cast,
+    linkRelation: SPELL_DAMAGE,
+    referencedEventId: SPELLS.FROSTFIRE_BOLT_DAMAGE.id,
+    referencedEventType: EventType.Damage,
+    forwardBufferMs: 3000,
+    backwardBufferMs: CAST_BUFFER_MS,
+    additionalCondition: (linkingEvent, referencedEvent) => {
+      const isTick = (referencedEvent as DamageEvent).tick;
+      return isTick === undefined || !isTick;
+    },
+  },
+  {
+    reverseLinkRelation: SPELL_CAST,
     linkingEventId: TALENTS.GLACIAL_SPIKE_TALENT.id,
     linkingEventType: EventType.Cast,
     linkRelation: SPELL_DAMAGE,
@@ -149,7 +163,11 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventId: SPELLS.WINTERS_CHILL.id,
     linkingEventType: EventType.ApplyDebuff,
     linkRelation: PRE_CAST,
-    referencedEventId: [SPELLS.FROSTBOLT.id, TALENTS.GLACIAL_SPIKE_TALENT.id],
+    referencedEventId: [
+      SPELLS.FROSTBOLT.id,
+      TALENTS.GLACIAL_SPIKE_TALENT.id,
+      TALENTS.FROSTFIRE_BOLT_TALENT.id,
+    ],
     referencedEventType: EventType.Cast,
     anyTarget: true,
     maximumLinks: 1,
