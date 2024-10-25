@@ -281,3 +281,7 @@ export function getReversionHealing(event: ApplyBuffEvent | RefreshBuffEvent) {
 export function getConsumeFromEngulf(event: CastEvent) {
   return GetRelatedEvents<HealEvent>(event, ENGULF_CONSUME_FLAME);
 }
+
+export function getLifebindTargets(event: ApplyBuffEvent) {
+  return GetRelatedEvents<HealEvent>(event, LIFEBIND_APPLY);
+}

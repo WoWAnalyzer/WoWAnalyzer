@@ -5,6 +5,7 @@ import { TALENTS_EVOKER } from 'common/TALENTS';
 
 // prettier-ignore
 export default [
+  change(date(2024, 10, 24), <>Update <SpellLink spell={TALENTS_EVOKER.LIFEBIND_TALENT}/> module</>, Harrek),
   change(date(2024, 10, 24), <>Bump to 11.0.5</>, Trevor),
   change(date(2024, 10, 23), <>Improve <SpellLink spell={TALENTS_EVOKER.CONSUME_FLAME_TALENT}/> module</>, Trevor),
   change(date(2024, 9, 30), <>Update <SpellLink spell={TALENTS_EVOKER.CONSUME_FLAME_TALENT}/> wording</>, Trevor),
