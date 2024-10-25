@@ -7,9 +7,12 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import RisingSunKick from './RisingSunKick';
 import RisingMist from './RisingMist';
-import { SpellLink } from 'interface';
+import { SpellLink, TooltipElement } from 'interface';
 import { getCurrentRSKTalent } from '../../constants';
 import { Talent } from 'common/TALENTS/types';
+import RushingWindKick from './RushingWindKick';
+import SPELLS from 'common/SPELLS';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
 
 /*
  * Add in Statistic box to show average time between RSK casts when Rising Mist is talented.
@@ -18,10 +21,13 @@ class TimeBetweenRSKs extends Analyzer {
   static dependencies = {
     risingSunKick: RisingSunKick,
     risingMist: RisingMist,
+    rushingWindKick: RushingWindKick,
   };
 
   protected risingMist!: RisingMist;
   protected risingSunKick!: RisingSunKick;
+  protected rushingWindKick!: RushingWindKick;
+
   totalRSKCasts: number = 0;
   firstRSKTimestamp: number = 0;
   lastRSKTimestamp: number = 0;
@@ -67,18 +73,29 @@ class TimeBetweenRSKs extends Analyzer {
         category={STATISTIC_CATEGORY.GENERAL}
       >
         <TalentSpellText talent={this.currentRskTalent}>
-          <>
+          <div>
             {this.averageTimeBetweenRSKSeconds} <small>average time between casts</small>
-          </>
-          <br />
-          <>
+          </div>
+          <div>
             {this.risingMist.averageTargetsPerRSKCast()}{' '}
             <small>
               average <SpellLink spell={TALENTS_MONK.RISING_MIST_TALENT} /> hits per cast
             </small>
-          </>
-          <br />
-          <>{this.risingSunKick.subStatistic()}</>
+          </div>
+          <div>{this.risingSunKick.subStatistic()}</div>
+          {this.selectedCombatant.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_TALENT) && (
+            <div>
+              <TooltipElement
+                content={
+                  <>
+                    Increased <SpellLink spell={SPELLS.RENEWING_MIST_HEAL} /> healing
+                  </>
+                }
+              >
+                <ItemHealingDone amount={this.rushingWindKick.healing} />
+              </TooltipElement>
+            </div>
+          )}
         </TalentSpellText>
       </Statistic>
     );
