@@ -652,7 +652,7 @@
   "monk.mistweaver.spells.essenceFont.statistic.tooltip": "",
   "monk.mistweaver.suggestions.alwaysBeCasting.downtime": "{0}% downtime",
   "monk.mistweaver.suggestions.alwaysBeCasting.nonHealing": "{0}% non healing time",
-  "monk.mistweaver.suggestions.ancientTeachings.uptime": "",
+  "monk.mistweaver.suggestions.jadefireTeachings.uptime": "",
   "monk.mistweaver.suggestions.chiBurst.targetsHit": "targets hit per Chi Burst cast - ",
   "monk.mistweaver.suggestions.chiBurst.targetsHitPartTwo": "% of raid hit",
   "monk.mistweaver.suggestions.envelopingBreath.averageEnvBPerEnv": " Enveloping Breaths per Enveloping Mist during Celestial",

@@ -22,7 +22,6 @@ import { INSIGHT_CDR_ABILITIES, SPELLS_THAT_PROC_S1_4PC_HOLY_ID } from '../const
 const CAST_BUFFER_MS = 200;
 
 const FROM_HARDCAST = 'FromHardcast'; // for linking a heal to its cast
-const LIGHTWEAVER_CONSUME = 'LightweaverConsumption'; // link heal cast to removing the lightweaver buff
 const POH_CAST = 'PrayerOfHealingCast';
 const COH_CAST = 'CircleOfHealingCast';
 const SERENITY_CAST = 'HolyWordSerenityCast';
@@ -48,6 +47,8 @@ export const BENEDICTION_RENEW_HEALS = 'BenedictionRenewHeal';
 export const REVIT_PRAYER_RENEW = 'RevitalizingPrayersRenew';
 export const HARDCAST_RENEW = 'HardCastRenew';
 export const HOLY_TWW_S1_4PC = 'HolyTwwS14pc';
+export const HEAL_TRAIL = 'LightweaverTrail';
+export const HEAL_BINDING = 'LightweaverBinding';
 
 const EVENT_LINKS: EventLink[] = [
   // Link single target heal casts to their heal events.
@@ -84,21 +85,6 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
-  },
-  // Link Lightweaver remove buff to heal event.
-  {
-    linkRelation: LIGHTWEAVER_CONSUME,
-    reverseLinkRelation: LIGHTWEAVER_CONSUME,
-    linkingEventId: SPELLS.GREATER_HEAL.id,
-    linkingEventType: EventType.Cast,
-    referencedEventId: SPELLS.LIGHTWEAVER_TALENT_BUFF.id,
-    referencedEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
-    anyTarget: true,
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
-    isActive(c) {
-      return c.hasTalent(TALENTS_PRIEST.LIGHTWEAVER_TALENT);
-    },
   },
   // Link Holy Word Serenity casts to heal event
   {
@@ -330,6 +316,26 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
   },
+  // link heals to trail
+  {
+    linkRelation: HEAL_TRAIL,
+    linkingEventId: SPELLS.GREATER_HEAL.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.TRAIL_OF_LIGHT_TALENT_HEAL.id,
+    referencedEventType: EventType.Heal,
+    forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+  },
+  // link lightweaver heals to binding heal
+  {
+    linkRelation: HEAL_BINDING,
+    linkingEventId: SPELLS.GREATER_HEAL.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.BINDING_HEALS_TALENT_HEAL.id,
+    referencedEventType: EventType.Heal,
+    forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+  },
 ];
 
 class CastLinkNormalizer extends EventLinkNormalizer {
@@ -384,10 +390,6 @@ export function getHealFromSurge(
   ).pop();
 }
 
-export function isCastBuffedByLightweaver(event: CastEvent) {
-  return HasRelatedEvent(event, LIGHTWEAVER_CONSUME);
-}
-
 export function isSurgeOfLightFromHalo(
   event: ApplyBuffStackEvent | ApplyBuffEvent | RefreshBuffEvent,
 ) {
@@ -418,6 +420,14 @@ export function getSOLFlashCast(
     BUFFED_BY_SURGE_OF_LIGHT_CAST,
     (e): e is CastEvent => e.type === EventType.Cast,
   ).pop();
+}
+
+export function getTrailFromHeal(event: CastEvent): HealEvent | undefined {
+  return GetRelatedEvent(event, HEAL_TRAIL);
+}
+
+export function getBindingFromHeal(event: CastEvent): HealEvent | undefined {
+  return GetRelatedEvent(event, HEAL_BINDING);
 }
 
 export default CastLinkNormalizer;

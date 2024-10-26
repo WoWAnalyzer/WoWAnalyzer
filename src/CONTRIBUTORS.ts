@@ -2529,3 +2529,9 @@ export const PandaGoesBaa: Contributor = {
     },
   ],
 };
+
+export const Quaarkz: Contributor = {
+  nickname: 'Quaarkz',
+  github: 'Quaarkz',
+  discord: 'Quaarkz',
+};

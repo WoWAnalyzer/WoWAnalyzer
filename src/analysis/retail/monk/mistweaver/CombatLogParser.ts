@@ -26,10 +26,9 @@ import MistweaverHealingEfficiencyDetails from './modules/features/MistweaverHea
 import HealingEfficiencyTracker from './modules/features/MistweaverHealingEfficiencyTracker';
 import REMGraph from './modules/features/REMGraph';
 import JadeBond from './modules/spells/JadeBond';
-import NourishingChi from './modules/spells/NourishingChi';
 import RisingSunRevival from './modules/spells/UpliftedSpirits';
 import JadefireStompHealing from './modules/spells/JadefireStompHealing';
-import AncientTeachings from './modules/spells/AncientTeachings';
+import JadefireTeachings from './modules/spells/JadefireTeachings';
 import EnvelopingBreath from './modules/spells/EnvelopingBreath';
 import EnvelopingMists from './modules/spells/EnvelopingMists';
 import ExpelHarm from './modules/spells/ExpelHarm';
@@ -93,6 +92,8 @@ import CelestialConduitNormalizer from '../shared/hero/ConduitOfTheCelestials/no
 import CelestialConduit from '../shared/hero/ConduitOfTheCelestials/talents/CelestialConduit';
 import StrengthOfTheBlackOx from './modules/heroTalents/StrengthOfTheBlackOx';
 import Coalesence from '../shared/hero/MasterOfHarmony/talents/Coalesence';
+import AspectOfHarmony from './modules/heroTalents/AspectOfHarmony';
+import RushingWindKick from './modules/spells/RushingWindKick';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -146,7 +147,7 @@ class CombatLogParser extends CoreCombatLogParser {
     vivaciousVivification: VivaciousVivification,
 
     // MW Talents
-    ancientTeachings: AncientTeachings,
+    jadefireTeachings: JadefireTeachings,
     energizingBrew: EnergizingBrew,
     envelopingBreath: EnvelopingBreath,
     envelopingMists: EnvelopingMists,
@@ -163,7 +164,6 @@ class CombatLogParser extends CoreCombatLogParser {
     manaTeaSources: ManaTeaSources,
     mistsOfLife: MistsOfLife,
     mistyPeaks: MistyPeaks,
-    nourishingCh: NourishingChi,
     refreshingJadeWind: RefreshingJadeWind,
     renewingMist: RenewingMist,
     renewingMistDuringManaTea: RenewingMistDuringManaTea,
@@ -191,6 +191,7 @@ class CombatLogParser extends CoreCombatLogParser {
     zenPulse: ZenPulse,
     chiHarmony: ChiHarmony,
     poolOfMists: PoolOfMists,
+    rushingWindKick: RushingWindKick,
 
     // Hero Talents
     // Conduit
@@ -211,6 +212,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Hero Talents
     strengthOfTheBlackOx: StrengthOfTheBlackOx,
+    aspectOfHarmony: AspectOfHarmony,
   };
   static guide = Guide;
 }

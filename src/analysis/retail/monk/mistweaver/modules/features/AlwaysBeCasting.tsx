@@ -12,6 +12,7 @@ import Events, {
 } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHealing';
+import { getCurrentRSKTalent } from '../../constants';
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   HEALING_ABILITIES_ON_GCD: number[] = [
@@ -35,10 +36,11 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)) {
       this.HEALING_ABILITIES_ON_GCD.push(TALENTS_MONK.RISING_SUN_KICK_TALENT.id);
       this.HEALING_ABILITIES_ON_GCD.push(SPELLS.RISING_SUN_KICK_DAMAGE.id);
+      this.HEALING_ABILITIES_ON_GCD.push(TALENTS_MONK.RUSHING_WIND_KICK_TALENT.id);
     }
     if (
       this.selectedCombatant.hasTalent(TALENTS_MONK.COURAGE_OF_THE_WHITE_TIGER_TALENT) ||
-      this.selectedCombatant.hasTalent(TALENTS_MONK.ANCIENT_TEACHINGS_TALENT)
+      this.selectedCombatant.hasTalent(TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT)
     ) {
       this.HEALING_ABILITIES_ON_GCD.push(SPELLS.TIGER_PALM.id);
     }
@@ -49,10 +51,11 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
       );
       this.addEventListener(Events.death.to(SELECTED_PLAYER_PET), this.handleChijiDeath);
     }
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.ANCIENT_TEACHINGS_TALENT)) {
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT)) {
       this.HEALING_ABILITIES_ON_GCD.push(TALENTS_MONK.RISING_SUN_KICK_TALENT.id);
       this.HEALING_ABILITIES_ON_GCD.push(SPELLS.RISING_SUN_KICK_DAMAGE.id);
       this.HEALING_ABILITIES_ON_GCD.push(SPELLS.BLACKOUT_KICK.id);
+      this.HEALING_ABILITIES_ON_GCD.push(TALENTS_MONK.RUSHING_WIND_KICK_TALENT.id);
     }
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.AWAKENED_JADEFIRE_TALENT)) {
       this.HEALING_ABILITIES_ON_GCD.push(SPELLS.SPINNING_CRANE_KICK.id);
@@ -67,6 +70,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   handleChijiStart(event: CastEvent) {
     this.HEALING_ABILITIES_ON_GCD.push(SPELLS.TIGER_PALM.id);
     this.HEALING_ABILITIES_ON_GCD.push(TALENTS_MONK.RISING_SUN_KICK_TALENT.id);
+    this.HEALING_ABILITIES_ON_GCD.push(TALENTS_MONK.RUSHING_WIND_KICK_TALENT.id);
     this.HEALING_ABILITIES_ON_GCD.push(SPELLS.RISING_SUN_KICK_DAMAGE.id);
     this.HEALING_ABILITIES_ON_GCD.push(SPELLS.BLACKOUT_KICK.id);
     this.HEALING_ABILITIES_ON_GCD.push(SPELLS.SPINNING_CRANE_KICK.id);
@@ -75,7 +79,9 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
 
   handleChijiDeath(event: DeathEvent) {
     const tpSpot = this.HEALING_ABILITIES_ON_GCD.indexOf(SPELLS.TIGER_PALM.id);
-    const rskSpot = this.HEALING_ABILITIES_ON_GCD.indexOf(TALENTS_MONK.RISING_SUN_KICK_TALENT.id);
+    const rskSpot = this.HEALING_ABILITIES_ON_GCD.indexOf(
+      getCurrentRSKTalent(this.selectedCombatant).id,
+    );
     const rskTwoSpot = this.HEALING_ABILITIES_ON_GCD.indexOf(SPELLS.RISING_SUN_KICK_DAMAGE.id);
     const bokSpot = this.HEALING_ABILITIES_ON_GCD.indexOf(SPELLS.BLACKOUT_KICK.id);
     const sckSpot = this.HEALING_ABILITIES_ON_GCD.indexOf(SPELLS.SPINNING_CRANE_KICK.id);

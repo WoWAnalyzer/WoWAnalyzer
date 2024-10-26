@@ -39,6 +39,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         </Section>
         <Section title="Major Cooldowns">
           <CooldownGraphSubsection.LongCooldownsGraph />
+          {/*TODO*/}
+          {/*info.combatant.hasTalent(TALENTS.POWER_SURGE_TALENT) && modules.halo.guideSubsection*/}
           {info.combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT) &&
             modules.voidform.guideSubsection}
           {info.combatant.hasTalent(TALENTS.INESCAPABLE_TORMENT_TALENT) &&
@@ -66,6 +68,10 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {info.combatant.hasTalent(TALENTS.DEATHSPEAKER_TALENT) &&
           modules.deathspeaker.guideSubsection}
       </Section>
+
+      {/* TODO:
+      <Section title="Hero Talent?"></>
+      */}
 
       <Section title="Action Priority List">
         <SubSection>Coming Soon!</SubSection>
