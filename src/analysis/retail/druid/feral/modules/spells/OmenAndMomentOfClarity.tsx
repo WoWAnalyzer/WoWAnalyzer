@@ -49,7 +49,7 @@ export default class OmenAndMomentOfClarity extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.OMEN_OF_CLARITY_FERAL_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.OMEN_OF_CLARITY_TALENT);
     this.hasMoc = this.selectedCombatant.hasTalent(TALENTS_DRUID.MOMENT_OF_CLARITY_TALENT);
 
     this.addEventListener(
@@ -124,7 +124,7 @@ export default class OmenAndMomentOfClarity extends Analyzer {
       >
         <div className="pad boring-text">
           <label>
-            <SpellLink spell={TALENTS_DRUID.OMEN_OF_CLARITY_FERAL_TALENT} />{' '}
+            <SpellLink spell={TALENTS_DRUID.OMEN_OF_CLARITY_TALENT} />{' '}
             {this.hasMoc && (
               <>
                 {' '}
