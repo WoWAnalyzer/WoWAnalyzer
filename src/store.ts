@@ -1,5 +1,4 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { createReduxEnhancer as sentryCreateReduxEnhancer } from '@sentry/react';
 import internetExplorerReducer from 'interface/reducers/internetExplorer';
 import userReducer from 'interface/reducers/user';
 import combatantsReducer from 'interface/reducers/combatants';
@@ -10,7 +9,6 @@ import openModalsReducer from 'interface/reducers/openModals';
 import charactersByIdReducer from 'interface/reducers/charactersById';
 import reportCodesIgnoredPreviousPatchWarningReducer from 'interface/reducers/reportCodesIgnoredPreviousPatchWarning';
 import tooltipsReducer from 'interface/reducers/tooltips';
-import { isPresent } from 'common/typeGuards';
 
 import { reducer as navigationReducer } from './interface/reducers/navigation';
 
@@ -35,9 +33,6 @@ const rootReducer = combineReducers({
 
 export const store = configureStore({
   reducer: rootReducer,
-  enhancers: [import.meta.env.VITE_SENTRY_DSN ? sentryCreateReduxEnhancer({}) : null].filter(
-    isPresent,
-  ),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

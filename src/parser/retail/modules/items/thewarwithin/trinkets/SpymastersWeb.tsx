@@ -64,7 +64,7 @@ export default class SpymastersWeb extends Analyzer.withDependencies({
     this.primaryStatBonus = calculatePrimaryStat(
       SPYMASTERS_WEB_BASE_ILVL,
       SPYMASTERS_WEB_BASE_GAIN,
-      this.selectedCombatant.getTrinket(ITEMS.SPYMASTERS_WEB.id)?.itemLevel,
+      this.selectedCombatant.getTrinket(ITEMS.SPYMASTERS_WEB.id)!.itemLevel,
     );
   }
 

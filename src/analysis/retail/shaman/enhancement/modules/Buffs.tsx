@@ -50,19 +50,8 @@ class Buffs extends ClassBuffs {
         triggeredBySpellId: TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT.id,
       },
       {
-        spellId: SPELLS.FERAL_SPIRIT_BUFF_EARTHEN_WEAPON.id,
-        enabled:
-          combatant.hasTalent(TALENTS.FERAL_SPIRIT_TALENT) &&
-          !combatant.hasTalent(TALENTS.ELEMENTAL_SPIRITS_TALENT),
-        triggeredBySpellId: TALENTS.FERAL_SPIRIT_TALENT.id,
-      },
-      {
-        spellId: [
-          SPELLS.ELEMENTAL_SPIRITS_BUFF_MOLTEN_WEAPON.id,
-          SPELLS.ELEMENTAL_SPIRITS_BUFF_ICY_EDGE.id,
-          SPELLS.ELEMENTAL_SPIRITS_BUFF_CRACKLING_SURGE.id,
-        ],
-        enabled: combatant.hasTalent(TALENTS.ELEMENTAL_SPIRITS_TALENT),
+        spellId: SPELLS.FERAL_SPIRIT_MAELSTROM_BUFF.id,
+        enabled: combatant.hasTalent(TALENTS.FERAL_SPIRIT_TALENT),
         triggeredBySpellId: TALENTS.FERAL_SPIRIT_TALENT.id,
       },
     ];

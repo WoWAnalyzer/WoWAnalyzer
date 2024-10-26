@@ -30,7 +30,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           <SpellLink spell={SPELLS.CLEARCASTING_BUFF} /> procs. While some encounters have forced
           downtime, which WoWAnalyzer does not account for, anything you can do to minimize your
           downtime will help your damage. Additionally, to better contextualize your downtime, we
-          recommend comparing your downtime to another Fire Mage that did better than you on the
+          recommend comparing your downtime to another Arcane Mage that did better than you on the
           same encounter with roughly the same kill time. If you have less downtime than them, then
           maybe there is something you can do to improve.
         </>

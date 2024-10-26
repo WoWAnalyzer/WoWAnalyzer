@@ -15,7 +15,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: talents.PILLAR_OF_FROST_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: null,
-        cooldown: 60,
+        cooldown: combatant.hasTalent(talents.ICECAP_TALENT) ? 45 : 60,
         enabled: combatant.hasTalent(talents.PILLAR_OF_FROST_TALENT),
         castEfficiency: {
           suggestion: true,
@@ -25,16 +25,11 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 0,
       },
       {
-        //need to modify this, EPW is no longer baseline, it is a talent
         spell: talents.EMPOWER_RUNE_WEAPON_TALENT.id,
         buffSpellId: talents.EMPOWER_RUNE_WEAPON_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: null,
         cooldown: 120,
-        // EmpRW no longer has these talents
-        // charges:
-        //   Number(combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_SHARED_TALENT)) +
-        //   Number(combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_FROST_TALENT)),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.8,
@@ -47,10 +42,6 @@ class Abilities extends CoreAbilities {
           ),
         },
         timelineSortIndex: 1,
-        //EmpRW no longer has these talents
-        // enabled:
-        //   combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_SHARED_TALENT) ||
-        //   combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_FROST_TALENT),
       },
       {
         spell: talents.HORN_OF_WINTER_TALENT.id,
@@ -104,7 +95,7 @@ class Abilities extends CoreAbilities {
         spell: talents.RAISE_DEAD_SHARED_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: null,
-        cooldown: 120,
+        cooldown: combatant.hasTalent(talents.DEATHS_MESSENGER_TALENT) ? 90 : 120,
       },
       {
         spell: talents.CHILL_STREAK_TALENT.id,
@@ -152,8 +143,8 @@ class Abilities extends CoreAbilities {
         },
         cooldown: 20,
         castEfficiency: {
-          suggestion: false,
-          recommendedEfficiency: 0.9,
+          suggestion: true,
+          recommendedEfficiency: 0.85,
         },
       },
       {
@@ -173,6 +164,11 @@ class Abilities extends CoreAbilities {
       {
         spell: talents.FROSTSCYTHE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
+        cooldown: 30,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.75,
+        },
         gcd: {
           base: 1500,
         },
@@ -195,13 +191,16 @@ class Abilities extends CoreAbilities {
         },
         enabled: combatant.hasTalent(talents.SACRIFICIAL_PACT_TALENT),
       },
-      //NEED TO MAKE SURE RM IS PROPERLY ADDED
       {
         spell: talents.REAPERS_MARK_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 45,
+        cooldown: combatant.hasTalent(talents.SWIFT_END_TALENT) ? 30 : 45,
         gcd: {
           base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
         },
         enabled: combatant.hasTalent(talents.REAPERS_MARK_TALENT),
       },
@@ -212,15 +211,20 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ANTI_MAGIC_SHELL.id,
         buffSpellId: SPELLS.ANTI_MAGIC_SHELL.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: combatant.hasTalent(talents.ANTI_MAGIC_BARRIER_TALENT) ? 40 : 60,
+        cooldown:
+          60 -
+          Number(combatant.hasTalent(talents.ANTI_MAGIC_BARRIER_TALENT)) * 20 +
+          Number(combatant.hasTalent(talents.UNYIELDING_WILL_TALENT)) * 20,
+        gcd: null,
         timelineSortIndex: 10,
+        isDefensive: true,
       },
       {
         spell: talents.ICEBOUND_FORTITUDE_TALENT.id,
         buffSpellId: talents.ICEBOUND_FORTITUDE_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         gcd: null,
-        cooldown: 180,
+        cooldown: 120,
         isDefensive: true,
         enabled: combatant.hasTalent(talents.ICEBOUND_FORTITUDE_TALENT),
       },
@@ -246,7 +250,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.LICHBORNE.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         gcd: null,
-        cooldown: 120,
+        cooldown: combatant.hasTalent(talents.DEATHS_MESSENGER_TALENT) ? 90 : 120,
         isDefensive: true,
       },
       // UTILITY
@@ -258,22 +262,11 @@ class Abilities extends CoreAbilities {
         },
         charges: combatant.hasTalent(talents.DEATHS_ECHO_TALENT) ? 2 : 1,
       },
-
-      //CoI is no longer a talent, it is a baseline ability.
-      //Keeping this code blocked out for reference
-      //will need to figure out the cold heart section though
-      /*       {
-        spell: talents.CHAINS_OF_ICE_TALENT.id,
+      {
+        spell: SPELLS.CHAINS_OF_ICE.id,
         category: combatant.hasTalent(talents.COLD_HEART_TALENT)
           ? SPELL_CATEGORY.ROTATIONAL
           : SPELL_CATEGORY.UTILITY,
-        gcd: {
-          base: 1500,
-        },
-      }, */
-      {
-        spell: SPELLS.CHAINS_OF_ICE.id,
-        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
@@ -351,7 +344,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 30,
+        cooldown: combatant.hasTalent(talents.MAWSWORN_MENACE_TALENT) ? 20 : 30,
         enabled: !false,
       },
       {

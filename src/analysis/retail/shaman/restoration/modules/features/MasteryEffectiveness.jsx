@@ -37,7 +37,7 @@ class MasteryEffectiveness extends Analyzer {
   }
 
   onHeal(event) {
-    const heal = new HealingValue(event.amount, event.absorbed, event.overheal);
+    const heal = HealingValue.fromEvent(event);
     const healthBeforeHeal = event.hitPoints - event.amount;
     const masteryEffectiveness = Math.max(0, 1 - healthBeforeHeal / event.maxHitPoints);
 

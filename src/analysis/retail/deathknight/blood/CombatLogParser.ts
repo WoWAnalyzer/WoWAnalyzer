@@ -1,8 +1,4 @@
-import {
-  RuneDetails,
-  RuneOfTheFallenCrusader,
-  RuneOfHysteria,
-} from 'analysis/retail/deathknight/shared';
+import { RuneDetails, RuneOfTheFallenCrusader } from 'analysis/retail/deathknight/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import Channeling from 'parser/shared/normalizers/Channeling';
 
@@ -99,7 +95,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Runes
     runeForgeChecker: RuneForgeChecker,
     runeOfTheFallenCrusader: RuneOfTheFallenCrusader,
-    runeOfHysteria: RuneOfHysteria,
 
     // guide stuff
     deathStrike: DeathStrike,

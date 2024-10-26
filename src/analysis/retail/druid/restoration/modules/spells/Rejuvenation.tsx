@@ -90,7 +90,7 @@ class Rejuvenation extends Analyzer {
     }
     if (isFromHardcast(event)) {
       this.totalRejuvsCasts += 1;
-      this.activeHardcastRejuvs[event.targetID] = new HealingValue();
+      this.activeHardcastRejuvs[event.targetID] = HealingValue.empty();
     }
   }
 
@@ -116,7 +116,7 @@ class Rejuvenation extends Analyzer {
       } else {
         // we only track hardcast rejuvs that weren't clipping old ones so we don't double count
         // early refreshes vs high overheal casts in the final tally
-        this.activeHardcastRejuvs[event.targetID] = new HealingValue();
+        this.activeHardcastRejuvs[event.targetID] = HealingValue.empty();
       }
     }
   }
@@ -131,11 +131,8 @@ class Rejuvenation extends Analyzer {
 
   onRejuvHeal(event: HealEvent) {
     if (this.activeHardcastRejuvs[event.targetID]) {
-      this.activeHardcastRejuvs[event.targetID] = this.activeHardcastRejuvs[event.targetID].add(
-        event.amount,
-        event.absorbed,
-        event.overheal,
-      );
+      this.activeHardcastRejuvs[event.targetID] =
+        this.activeHardcastRejuvs[event.targetID].addEvent(event);
     }
   }
 

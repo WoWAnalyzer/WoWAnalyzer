@@ -2,6 +2,7 @@ import { SpellLink } from 'interface';
 
 import type { Tense, CheckResult, InternalRule, Violation } from './index';
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';
+import { Fragment } from 'react';
 
 export function ConditionDescription({
   tense,
@@ -37,10 +38,10 @@ function InefficientCastAnnotation({ violation }: { violation: Violation }) {
   return (
     <>
       {violation.expectedCast.map((spell, index) => (
-        <>
+        <Fragment key={spell.id}>
           {index > 0 ? ' and ' : ''}
-          <SpellLink key={spell.id} spell={spell.id} />
-        </>
+          <SpellLink spell={spell.id} />
+        </Fragment>
       ))}{' '}
       {violation.expectedCast.length > 1 ? 'were' : 'was'} available and higher priority
       <ConditionDescription rule={violation.rule} />.

@@ -9,7 +9,12 @@ import Events, { HealEvent, CastEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HotTracker, { Attribution, Tracker } from 'parser/shared/modules/HotTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import { ATTRIBUTION_STRINGS, RISING_MIST_EXTENSION, SPELL_COLORS } from '../../constants';
+import {
+  ATTRIBUTION_STRINGS,
+  getCurrentRSKTalent,
+  RISING_MIST_EXTENSION,
+  SPELL_COLORS,
+} from '../../constants';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import HotTrackerMW from '../core/HotTrackerMW';
 import Vivify from './Vivify';
@@ -17,6 +22,7 @@ import { Section, SubSection } from 'interface/guide';
 import { CSSProperties } from 'react';
 import '../../ui/RisingMist.scss';
 import T32TierSet from '../tier/T32TierSet';
+import { Talent } from 'common/TALENTS/types';
 
 const debug = false;
 
@@ -99,7 +105,7 @@ class RisingMist extends Analyzer {
   }
 
   get directHealing() {
-    return this.abilityTracker.getAbility(SPELLS.RISING_MIST_HEAL.id).healingEffective;
+    return this.abilityTracker.getAbilityHealing(SPELLS.RISING_MIST_HEAL.id);
   }
 
   get totalHealing() {
@@ -120,6 +126,7 @@ class RisingMist extends Analyzer {
     return formatPercentage(this.vivOverhealing / (this.vivHealing + this.vivOverhealing));
   }
 
+  currentRskTalent: Talent;
   hotsBySpell = new Map<number, Tracker[]>();
   risingMistCount: number = 0;
   risingMists: Attribution[] = [];
@@ -155,11 +162,12 @@ class RisingMist extends Analyzer {
     this.envmHealingIncrease = this.selectedCombatant.hasTalent(TALENTS_MONK.MIST_WRAP_TALENT)
       ? 0.4
       : 0.3;
+    this.currentRskTalent = getCurrentRSKTalent(this.selectedCombatant);
     if (!this.active) {
       return;
     }
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.RISING_SUN_KICK_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(this.currentRskTalent),
       this.extendHots,
     );
     this.addEventListener(
@@ -261,7 +269,7 @@ class RisingMist extends Analyzer {
 
   extendHots(event: CastEvent) {
     const spellId = event.ability.guid;
-    if (TALENTS_MONK.RISING_SUN_KICK_TALENT.id !== spellId) {
+    if (this.currentRskTalent.id !== spellId) {
       return;
     }
 
@@ -384,7 +392,7 @@ class RisingMist extends Analyzer {
       return <SpellIcon spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} />;
     }
     if (this.hotTracker.fromRapidDiffusionRisingSunKick(hot)) {
-      return <SpellIcon spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} />;
+      return <SpellIcon spell={this.currentRskTalent} />;
     }
     //dm
     if (this.hotTracker.fromDancingMistRapidDiffusion(hot)) {

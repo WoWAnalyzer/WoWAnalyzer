@@ -76,7 +76,7 @@ class Mastery extends Analyzer {
   onHeal(event: HealEvent): void {
     const spellId = event.ability.guid;
     const target = this.combatants.getEntity(event);
-    const healVal = new HealingValue(event.amount, event.absorbed, event.overheal);
+    const healVal = HealingValue.fromEvent(event);
 
     if (target === null) {
       return;
@@ -269,7 +269,7 @@ class Mastery extends Analyzer {
     if (target === null) {
       return null;
     }
-    const healVal = new HealingValue(event.amount, event.absorbed, event.overheal);
+    const healVal = HealingValue.fromEvent(event);
     return this._decompHeal(healVal, this.getHotCount(target));
   }
 

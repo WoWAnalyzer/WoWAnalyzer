@@ -28,12 +28,10 @@ class SoulFire extends Analyzer {
   statistic() {
     const fragments = this.soulShardTracker.getGeneratedBySpell(TALENTS.SOUL_FIRE_TALENT.id);
 
-    const chaosBolt = this.abilityTracker.getAbility(SPELLS.CHAOS_BOLT.id);
-    const avg = (chaosBolt.damageEffective + chaosBolt.damageAbsorbed) / chaosBolt.casts || 0;
+    const avg = this.abilityTracker.getAbilityDamagePerCast(SPELLS.CHAOS_BOLT.id);
     const estimatedDamage = Math.floor(fragments / FRAGMENTS_PER_CHAOS_BOLT) * avg;
 
-    const spell = this.abilityTracker.getAbility(TALENTS.SOUL_FIRE_TALENT.id);
-    const damage = spell.damageEffective + spell.damageAbsorbed;
+    const damage = this.abilityTracker.getAbilityDamage(TALENTS.SOUL_FIRE_TALENT.id);
     const dps = (damage / this.owner.fightDuration) * 1000;
 
     return (

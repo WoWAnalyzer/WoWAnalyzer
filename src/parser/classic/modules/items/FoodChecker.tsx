@@ -5,6 +5,7 @@ import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import { ItemLink } from 'interface';
 import BaseFoodChecker from 'parser/shared/modules/items/FoodChecker';
+import { Fragment } from 'react';
 import items from 'common/ITEMS/classic/cooking';
 
 const BAKED_ROCKFISH = items.BAKED_ROCKFISH.id; // https://www.wowhead.com/cata/item=62661
@@ -104,10 +105,10 @@ const RecommendedFoodList = ({ spellId }: { spellId: number }) => {
   return (
     <>
       {foodInfo.recommendedFood.map((higherFoodId: number, index: number) => (
-        <>
+        <Fragment key={higherFoodId}>
           <ItemLink id={higherFoodId} key={index} />
           &nbsp;
-        </>
+        </Fragment>
       ))}
     </>
   );
@@ -118,12 +119,12 @@ const DebugText = () => {
     <>
       {Object.keys(FOOD_MAPPINGS).map((spellId: string, index: number) => {
         return (
-          <>
+          <Fragment key={spellId}>
             <hr />
             <ItemLink id={FOOD_MAPPINGS[Number(spellId)].itemId} key={index} />
             <br />
             <RecommendedFoodList spellId={Number(spellId)} />
-          </>
+          </Fragment>
         );
       })}
     </>

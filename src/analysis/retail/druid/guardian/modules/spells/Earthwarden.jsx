@@ -22,7 +22,7 @@ const ABILITIES_THAT_CONSUME_EW = [
 
 class Earthwarden extends Analyzer {
   get hps() {
-    const healingDone = this.abilityTracker.getAbility(SPELLS.EARTHWARDEN_BUFF.id).healingEffective;
+    const healingDone = this.abilityTracker.getAbilityHealing(SPELLS.EARTHWARDEN_BUFF.id);
     const fightLengthSec = this.owner.fightDuration / 1000;
     return healingDone / fightLengthSec;
   }

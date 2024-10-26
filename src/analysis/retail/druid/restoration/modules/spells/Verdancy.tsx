@@ -95,7 +95,7 @@ class Verdancy extends Analyzer {
       >
         <BoringSpellValueText spell={TALENTS_DRUID.VERDANCY_TALENT}>
           <ItemPercentHealingDone
-            amount={this.abilityTracker.getAbility(SPELLS.VERDANCY.id).healingEffective}
+            amount={this.abilityTracker.getAbilityHealing(SPELLS.VERDANCY.id)}
           />
           <br />
         </BoringSpellValueText>

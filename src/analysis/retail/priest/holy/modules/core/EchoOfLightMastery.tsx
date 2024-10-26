@@ -68,14 +68,11 @@ class EchoOfLightMastery extends Analyzer {
   }
 
   get effectiveHealing() {
-    return (
-      this.abilityTracker.getAbility(SPELLS.ECHO_OF_LIGHT_HEAL.id).healingEffective +
-      this.abilityTracker.getAbility(SPELLS.ECHO_OF_LIGHT_HEAL.id).healingAbsorbed
-    );
+    return this.abilityTracker.getAbilityHealing(SPELLS.ECHO_OF_LIGHT_HEAL.id);
   }
 
   get overHealing() {
-    return this.abilityTracker.getAbility(SPELLS.ECHO_OF_LIGHT_HEAL.id).healingOverheal;
+    return this.abilityTracker.getAbility(SPELLS.ECHO_OF_LIGHT_HEAL.id).healingVal.overheal;
   }
 
   get overHealingPercent() {

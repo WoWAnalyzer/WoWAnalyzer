@@ -59,9 +59,13 @@ const EBON_MIGHT_BUFFER = 150;
 const BREATH_OF_EONS_DEBUFF_APPLY_BUFFER = 8000;
 const BREATH_OF_EONS_BUFF_BUFFER = 8000;
 const BREATH_OF_EONS_DEBUFF_BUFFER = 14000;
-const BREATH_OF_EONS_DAMAGE_BUFFER = 100;
+const BREATH_OF_EONS_DAMAGE_BUFFER = 300;
 const PUPIL_OF_ALEXSTRASZA_BUFFER = 1000;
 const UPHEAVAL_DAMAGE_BUFFER = 800;
+
+// In 11.0.5 Blizzard introduces a potential 1ms delay
+// https://www.warcraftlogs.com/reports/L48YR6WBjaXtTkMd/#fight=57&type=auras&pins=0%24Separate%24%23244F4B%24casts%240%240.0.0.Any%24176484645.0.0.Evoker%24true%240.0.0.Any%24false%24363916&target=8&ability=395152&start=10450757&end=10509380&view=events
+const EBON_MIGHT_APPLY_REMOVE_BUFFER = 1;
 
 // Tier
 // No clue why but this gets very weirdly staggered/delayed
@@ -119,6 +123,8 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: SPELLS.EBON_MIGHT_BUFF_EXTERNAL.id,
     referencedEventType: [EventType.RemoveBuff],
     anyTarget: false,
+    forwardBufferMs: EBON_MIGHT_APPLY_REMOVE_BUFFER,
+    backwardBufferMs: EBON_MIGHT_APPLY_REMOVE_BUFFER,
   },
   {
     linkRelation: BREATH_OF_EONS_CAST_DEBUFF_APPLY_LINK,
@@ -150,6 +156,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: SPELLS.BREATH_OF_EONS_DAMAGE.id,
     referencedEventType: EventType.Damage,
     anyTarget: false,
+    backwardBufferMs: BREATH_OF_EONS_DAMAGE_BUFFER, // in 11.0.5 the damage events can now come before the removedebuff
     forwardBufferMs: BREATH_OF_EONS_DAMAGE_BUFFER,
   },
   /**

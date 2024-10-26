@@ -16,6 +16,16 @@ const trinkets = {
     name: "Spymaster's Web",
     icon: 'inv_11_0_raid_spymastersweb_purple',
   },
+  QUICKWICK_CANDLESTICK: {
+    id: 225649,
+    name: 'Quickwick Candlestick',
+    icon: 'trade_archaeology_candlestub',
+  },
+  TREACHEROUS_TRANSMITTER: {
+    id: 221023,
+    name: 'Treacherous Transmitter',
+    icon: 'inv_etherealraid_communicator_color1',
+  },
 } satisfies Record<string, Item>;
 
 export default trinkets;

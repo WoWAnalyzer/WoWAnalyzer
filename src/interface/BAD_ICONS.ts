@@ -14,4 +14,5 @@ export const ICON_RENAME: Record<string, string> = {
   spell_priest_shadow_mend: 'spell_priest_shadow-mend',
   spell_priest_void_blast: 'spell_priest_void-blast',
   spell_frost_piercing_chill: 'spell_frost_piercing-chill',
+  spell_frost_ice_shards: 'spell_frost_ice-shards',
 };

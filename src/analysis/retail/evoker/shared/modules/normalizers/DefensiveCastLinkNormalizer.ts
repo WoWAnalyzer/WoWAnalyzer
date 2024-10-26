@@ -9,7 +9,7 @@ export const RENEWING_BLAZE = 'renewingBlaze'; // links cast to buff apply
 export const RENEWING_BLAZE_HEAL = 'renewingBlazeHeal'; // links heal buff and healing
 const TWIN_GUARDIAN_PARTNER = 'twinGuardianPartner'; // links external and personal buffs
 
-const CAST_BUFFER = 25;
+const CAST_BUFFER = 50;
 /** Heal buff can get applied immediately on use, and keeps getting refreshed on damage until
  * main acc buff runs out, so we set this high to make sure we catch all. */
 const RENEWING_BLAZE_DURATION = 25_000;

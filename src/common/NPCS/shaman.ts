@@ -26,6 +26,11 @@ const npcs = {
     name: 'Ancestor',
     type: 'Pet',
   },
+  SURGING_TOTEM: {
+    id: 225409,
+    name: 'Surging Totem',
+    type: 'Pet',
+  },
 } satisfies Record<string, NPC>;
 
 export default npcs;

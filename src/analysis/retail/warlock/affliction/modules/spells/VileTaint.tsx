@@ -39,8 +39,7 @@ class VileTaint extends Analyzer {
   }
 
   statistic() {
-    const debuff = this.abilityTracker.getAbility(SPELLS.VILE_TAINT_DEBUFF.id);
-    const damage = debuff.damageEffective + debuff.damageAbsorbed;
+    const damage = this.abilityTracker.getAbilityDamage(SPELLS.VILE_TAINT_DEBUFF.id);
     const averageTargetsHit = this.hits / this.casts;
     const dps = (damage / this.owner.fightDuration) * 1000;
     return (

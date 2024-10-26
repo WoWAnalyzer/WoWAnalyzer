@@ -1,8 +1,8 @@
-import { formatThousands } from 'common/format';
+import { formatNumber, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { Talent } from 'common/TALENTS/types';
 import { TALENTS_MONK } from 'common/TALENTS';
-import { SpellLink, Tooltip } from 'interface';
+import { SpellLink, Tooltip, TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import DonutChart from 'parser/ui/DonutChart';
@@ -10,7 +10,6 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { LESSONS_BUFFS, SPELL_COLORS } from '../../constants';
-import UpliftedSpirits from './UpliftedSpirits';
 import { isFromRevival } from '../../normalizers/CastLinkNormalizer';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { getLowestPerf, QualitativePerformance } from 'parser/ui/QualitativePerformance';
@@ -30,19 +29,20 @@ interface RevivalCastTracker {
 
 class Revival extends Analyzer {
   static dependencies = {
-    upliftedSpirits: UpliftedSpirits,
     shaohaos: ShaohaosLessons,
     spellUsable: SpellUsable,
   };
 
   protected spellUsable!: SpellUsable;
-  protected upliftedSpirits!: UpliftedSpirits;
   protected shaohaos!: ShaohaosLessons;
   castTracker: RevivalCastTracker[] = [];
 
   activeTalent!: Talent;
   revivalDirectHealing: number = 0;
   revivalDirectOverHealing: number = 0;
+  upliftedSpiritsActive: boolean = false;
+  usHealing: number = 0;
+  usOverhealing: number = 0;
 
   gustsHealing: number = 0;
   gustOverHealing: number = 0;
@@ -57,6 +57,9 @@ class Revival extends Analyzer {
     if (!this.active) {
       return;
     }
+    this.upliftedSpiritsActive = this.selectedCombatant.hasTalent(
+      TALENTS_MONK.UPLIFTED_SPIRITS_TALENT,
+    );
     this.activeTalent = this.getRevivalTalent();
     this.addEventListener(
       Events.cast
@@ -78,6 +81,13 @@ class Revival extends Analyzer {
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS),
       this.handleGustsOfMists,
     );
+
+    if (this.upliftedSpiritsActive) {
+      this.addEventListener(
+        Events.heal.by(SELECTED_PLAYER).spell(SPELLS.UPLIFTED_SPIRITS_HEAL),
+        this.handleUsHeal,
+      );
+    }
   }
 
   getRevivalTalent() {
@@ -112,6 +122,11 @@ class Revival extends Analyzer {
     }
   }
 
+  handleUsHeal(event: HealEvent) {
+    this.usHealing += event.amount + (event.absorbed || 0);
+    this.usOverhealing += event.overheal || 0;
+  }
+
   renderRevivalChart() {
     const items = [
       {
@@ -135,12 +150,30 @@ class Revival extends Analyzer {
         color: SPELL_COLORS.UPLIFTED_SPIRITS,
         label: 'Uplifted Spirits',
         spellId: TALENTS_MONK.UPLIFTED_SPIRITS_TALENT.id,
-        value: this.upliftedSpirits.usHealing,
-        valueTooltip: formatThousands(this.upliftedSpirits.usHealing),
+        value: this.usHealing,
+        valueTooltip: formatThousands(this.usHealing),
       });
     }
 
     return <DonutChart items={items} />;
+  }
+
+  get totalHealing() {
+    return this.gustsHealing + this.revivalDirectHealing + this.usHealing;
+  }
+
+  get avgHealingPerCast() {
+    return this.totalHealing / this.castTracker.length;
+  }
+
+  get avgRawPerCast() {
+    return (
+      (this.totalHealing +
+        this.gustOverHealing +
+        this.revivalDirectOverHealing +
+        this.usOverhealing) /
+      this.castTracker.length
+    );
   }
 
   get guideCastBreakdown() {
@@ -262,6 +295,16 @@ class Revival extends Analyzer {
             <SpellLink spell={this.activeTalent}>{this.activeTalent.name}</SpellLink> breakdown
           </label>
           {this.renderRevivalChart()}
+          <hr />
+          <TooltipElement
+            content={
+              <>
+                {formatNumber(this.avgRawPerCast)} <small>raw healing per cast</small>
+              </>
+            }
+          >
+            {formatNumber(this.avgHealingPerCast)} average Healing Per Cast
+          </TooltipElement>
         </div>
       </Statistic>
     );

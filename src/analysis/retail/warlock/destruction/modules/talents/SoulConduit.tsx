@@ -15,8 +15,7 @@ const SC_PROC_CHANCE_BASE = 0.05;
 
 class SoulConduit extends Analyzer {
   get averageChaosBoltDamage() {
-    const chaosBolt = this.abilityTracker.getAbility(SPELLS.CHAOS_BOLT.id);
-    return (chaosBolt.damageEffective + chaosBolt.damageAbsorbed) / chaosBolt.casts || 0;
+    return this.abilityTracker.getAbilityDamagePerCast(SPELLS.CHAOS_BOLT.id);
   }
 
   static dependencies = {

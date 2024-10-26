@@ -342,22 +342,20 @@ class CallOfTheAncestors extends MajorCooldown<CallAncestor> {
           <ul>
             {[...ancestorSpells].map(([id, spells], index) => {
               return (
-                <>
-                  <div>
-                    <li key={`ancestor-${id}`}>
-                      <span>Ancestor {index + 1}</span>
-                      <ul>
-                        {[...spells.entries()].map(([spellId, damage]) => {
-                          return (
-                            <li key={`ancestor-${id}-${spellId}`}>
-                              <SpellLink spell={spellId} />: {formatNumber(damage)}
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    </li>
-                  </div>
-                </>
+                <div key={`ancestor-${id}`}>
+                  <li>
+                    <span>Ancestor {index + 1}</span>
+                    <ul>
+                      {[...spells.entries()].map(([spellId, damage]) => {
+                        return (
+                          <li key={`ancestor-${id}-${spellId}`}>
+                            <SpellLink spell={spellId} />: {formatNumber(damage)}
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </li>
+                </div>
               );
             })}
           </ul>

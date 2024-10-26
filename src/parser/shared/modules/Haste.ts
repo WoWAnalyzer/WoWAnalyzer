@@ -39,23 +39,25 @@ const DEFAULT_HASTE_BUFFS: HasteBuffMap = {
 
   ...BLOODLUST_BUFFS,
   [SPELLS.BERSERKING.id]: 0.1,
+
+  //region Warrior
+  [SPELLS.ENRAGE.id]: 0.25,
   [SPELLS.IN_FOR_THE_KILL_TALENT_BUFF.id]: 0.1,
-  [SPELLS.REVERSE_ENTROPY_BUFF.id]: 0.15,
-  [SPELLS.ENRAGE.id]: 0.25, // Fury Warrior
+  //endregion
 
   //region Demon Hunter
   [SPELLS.METAMORPHOSIS_HAVOC_BUFF.id]: 0.25,
   [SPELLS.FURIOUS_GAZE.id]: 0.1, // Havoc DH haste buff from fully channeling a cast of Eye Beam
   //endregion
 
-  //region Death Knight Haste Buffs
+  //region Death Knight
   [SPELLS.BONE_SHIELD.id]: 0.1, // Blood DK haste buff from maintaining boneshield
   [TALENTS_DEATH_KNIGHT.EMPOWER_RUNE_WEAPON_TALENT.id]: 0.15,
   [TALENTS_DEATH_KNIGHT.UNHOLY_ASSAULT_TALENT.id]: 0.3,
   [SPELLS.UNHOLY_GROUND_HASTE_BUFF.id]: 0.05,
   //endregion
 
-  //region Druid Haste Buffs
+  //region Druid
   [SPELLS.STARLORD.id]: {
     hastePerStack: 0.04,
   },
@@ -68,7 +70,7 @@ const DEFAULT_HASTE_BUFFS: HasteBuffMap = {
   // Guardian Berserk handled in spec module
   //endregion
 
-  //region Hunter Haste Buffs
+  //region Hunter
   [SPELLS.DIRE_BEAST_BUFF.id]: 0.05,
   [SPELLS.STEADY_FOCUS_BUFF.id]: 0.07,
   //endregion
@@ -82,7 +84,6 @@ const DEFAULT_HASTE_BUFFS: HasteBuffMap = {
   //region Priest
   [TALENTS_PRIEST.POWER_INFUSION_TALENT.id]: 0.2,
   [SPELLS.BORROWED_TIME_BUFF.id]: 0.08,
-  [SPELLS.SHADOW_PRIEST_TIER_29_4_SET_BUFF.id]: 0.04,
   //endregion
 
   //region Mage
@@ -114,6 +115,10 @@ const DEFAULT_HASTE_BUFFS: HasteBuffMap = {
   [TALENTS_SHAMAN.UNLIMITED_POWER_TALENT.id]: {
     hastePerStack: 0.01,
   },
+  //endregion
+
+  //region Warlock
+  [SPELLS.REVERSE_ENTROPY_BUFF.id]: 0.15,
   //endregion
 
   //region Encounter

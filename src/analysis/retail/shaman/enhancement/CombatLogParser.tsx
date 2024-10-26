@@ -59,6 +59,7 @@ import Tempest from '../shared/hero/stormbringer/Tempest';
 import { StormbringerTab } from '../shared/hero/stormbringer/StormbringerTab';
 import StormbringerEventLinkNormalizer from '../shared/hero/stormbringer/normalizers/StormbringerEventLinkNormalizer';
 import StormbringerEventOrderNormalizer from '../shared/hero/stormbringer/normalizers/StormbringerEventOrderNormalizer';
+import ElementalSpiritsPrepullNormalizer from './modules/normalizers/ElementalSpiritsPrepullNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -130,6 +131,7 @@ class CombatLogParser extends CoreCombatLogParser {
     maelstromWeaponCastNormalizer: MaelstromWeaponCastNormalizer, // links
     eventLinkNormalizer: EventLinkNormalizer, // links various maelstrom casts to damage events, and spells made instant via maelstrom weapon
     maelstromWeaponResourceNormalizer: MaelstromWeaponResourceNormalizer, // converts maelstrom weapon buff stacks into resourchange events and ClassResource costs
+    elementalSpiritsPrepullNormalizer: ElementalSpiritsPrepullNormalizer,
 
     aplCheck: AplCheck,
   };

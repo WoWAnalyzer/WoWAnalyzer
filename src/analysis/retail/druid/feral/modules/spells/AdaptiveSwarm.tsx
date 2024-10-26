@@ -141,7 +141,7 @@ class AdaptiveSwarm extends Analyzer {
 
   /** The total healing done directly by Adaptive Swarm (this includes the boost to itself) */
   get directHealing(): number {
-    return this.abilityTracker.getAbility(SPELLS.ADAPTIVE_SWARM_HEAL.id).healingEffective;
+    return this.abilityTracker.getAbilityHealing(SPELLS.ADAPTIVE_SWARM_HEAL.id);
   }
 
   /** The total healing done due to Adaptive Swarm's boost to other periodic effects */
@@ -156,7 +156,7 @@ class AdaptiveSwarm extends Analyzer {
 
   /** The total damage done directly by Adaptive Swarm (this includes the boost to itself) */
   get directDamage(): number {
-    return this.abilityTracker.getAbility(SPELLS.ADAPTIVE_SWARM_DAMAGE.id).damageEffective;
+    return this.abilityTracker.getAbilityDamage(SPELLS.ADAPTIVE_SWARM_DAMAGE.id);
   }
 
   /** The total damage done due to Adaptive Swarm's boost to other periodic effects */

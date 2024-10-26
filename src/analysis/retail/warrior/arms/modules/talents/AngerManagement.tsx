@@ -7,6 +7,7 @@ import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
+import { Fragment } from 'react';
 
 /**
  * Every 20 Rage you spend reduces the remaining cooldown on Colossus Smash and Bladestorm by 1 sec.
@@ -45,11 +46,11 @@ class AngerManagement extends Analyzer {
 
   get tooltip() {
     return this.cooldownsAffected.map((id) => (
-      <>
+      <Fragment key={id}>
         {SPELLS[id].name}: {formatDuration(this.effectiveReduction.get(id) || 0)} reduction (
         {formatDuration(this.wastedReduction.get(id) || 0)} wasted)
         <br />
-      </>
+      </Fragment>
     ));
   }
 

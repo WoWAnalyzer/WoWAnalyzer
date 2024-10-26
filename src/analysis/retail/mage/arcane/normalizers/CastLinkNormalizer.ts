@@ -23,6 +23,7 @@ const BUFF_REMOVE = 'BuffRemove';
 const DEBUFF_APPLY = 'DebuffApply';
 const DEBUFF_REMOVE = 'DebuffRemove';
 const ENERGIZE = 'Energize';
+const REFUND_CHARGE_BUFF = 'RefundBuff';
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -150,6 +151,22 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    reverseLinkRelation: DEBUFF_APPLY,
+    linkingEventId: SPELLS.TOUCH_OF_THE_MAGI_DEBUFF.id,
+    linkingEventType: EventType.ApplyDebuff,
+    linkRelation: REFUND_CHARGE_BUFF,
+    referencedEventId: [
+      SPELLS.BURDEN_OF_POWER_BUFF.id,
+      SPELLS.INTUITION_BUFF.id,
+      SPELLS.GLORIOUS_INCANDESCENCE_BUFF.id,
+    ],
+    referencedEventType: EventType.RemoveBuff,
+    maximumLinks: 1,
+    anyTarget: true,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: 500,
   },
   {
     reverseLinkRelation: DEBUFF_APPLY,

@@ -217,9 +217,9 @@ const spells = {
     name: 'Mending Proliferation',
     icon: 'inv_shoulder_inv_leather_raidmonk_s_01',
   },
-  AT_BUFF: {
+  JT_BUFF: {
     id: 388026,
-    name: 'Ancient Teachings',
+    name: 'Jadefire Teachings',
     icon: 'inv_misc_book_07',
   },
   AT_HEAL: {
@@ -509,11 +509,6 @@ const spells = {
     id: 388203,
     name: 'Faeline Stomp',
     icon: 'ability_ardenweald_monk',
-  },
-  NOURISHING_CHI_BUFF: {
-    id: 387766,
-    name: 'Nourishing Chi',
-    icon: 'inv_misc_gem_pearl_06',
   },
   CALMING_COALESCENCE_BUFF: {
     id: 388220,
@@ -854,6 +849,16 @@ const spells = {
     name: 'Rising Sun Kick',
     icon: 'ability_monk_risingsunkick',
   },
+  RUSHING_WIND_KICK_DAMAGE: {
+    id: 468179,
+    name: 'Rushing Wind Kick',
+    icon: 'ability_monk_ridethewind',
+  },
+  RUSHING_WINDS_BUFF: {
+    id: 467341,
+    name: 'Rushing Winds',
+    icon: 'ability_monk_ridethewind',
+  },
   HIT_COMBO_BUFF: {
     id: 196741,
     name: 'Hit Combo',
@@ -962,6 +967,21 @@ const spells = {
     id: 457271,
     name: 'Flow of Battle',
     icon: 'ability_monk_energizingwine.jpg',
+  },
+  ASPECT_OF_HARMONY_DOT: {
+    id: 450763,
+    name: 'Aspect of Harmony',
+    icon: 'inv-enchant-essencenethersmall',
+  },
+  ASPECT_OF_HARMONY_HOT: {
+    id: 450769,
+    name: 'Aspect of Harmony',
+    icon: 'inv_enchanting_wod_essence2',
+  },
+  ASPECT_OF_HARMONY_BUFF: {
+    id: 450711,
+    name: 'Aspect of Harmony',
+    icon: 'ability_evoker_essenceburst3',
   },
 } satisfies Record<string, Spell>;
 

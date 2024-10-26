@@ -21,58 +21,42 @@ class DamageDone extends Analyzer {
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onByPlayerPetDamage);
   }
 
-  _total = new DamageValue();
+  _total = DamageValue.empty();
   get total() {
     return this._total;
   }
   _byPet: { [petId: number]: DamageValue } = {};
   byPet(petId: number) {
     if (!this._byPet[petId]) {
-      return new DamageValue();
+      return DamageValue.empty();
     }
     return this._byPet[petId];
   }
   get totalByPets() {
     return Object.keys(this._byPet)
       .map((petId) => this._byPet[parseInt(petId)])
-      .reduce(
-        (total, damageValue) =>
-          total.add(
-            damageValue.regular,
-            damageValue.absorbed,
-            damageValue.blocked,
-            damageValue.overkill,
-          ),
-        new DamageValue(),
-      );
+      .reduce((total, damageValue) => total.add(damageValue), DamageValue.empty());
   }
 
   bySecond: { [secondsIntoFight: number]: DamageValue } = {};
 
   onByPlayerDamage(event: DamageEvent) {
     if (!event.targetIsFriendly) {
-      this._total = this._total.add(event.amount, event.absorbed, event.blocked, event.overkill);
+      this._total = this._total.addEvent(event);
 
       const secondsIntoFight = Math.floor((event.timestamp - this.owner.fight.start_time) / 1000);
-      this.bySecond[secondsIntoFight] = (this.bySecond[secondsIntoFight] || new DamageValue()).add(
-        event.amount,
-        event.absorbed,
-        event.blocked,
-        event.overkill,
-      );
+      if (!this.bySecond[secondsIntoFight]) {
+        this.bySecond[secondsIntoFight] = DamageValue.empty();
+      }
+      this.bySecond[secondsIntoFight] = this.bySecond[secondsIntoFight].addEvent(event);
     }
   }
   onByPlayerPetDamage(event: DamageEvent) {
     if (!event.targetIsFriendly) {
-      this._total = this._total.add(event.amount, event.absorbed, event.blocked, event.overkill);
+      this._total = this._total.addEvent(event);
       const petId = event.sourceID;
       if (petId) {
-        this._byPet[petId] = this.byPet(petId).add(
-          event.amount,
-          event.absorbed,
-          event.blocked,
-          event.overkill,
-        );
+        this._byPet[petId] = this.byPet(petId).addEvent(event);
       }
     }
   }

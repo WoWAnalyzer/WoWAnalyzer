@@ -134,14 +134,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.EMPOWER_RUNE_WEAPON_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.EMPOWER_RUNE_WEAPON_TALENT),
-        category: SPELL_CATEGORY.COOLDOWNS,
-        gcd: null,
-        cooldown: 120,
-        timelineSortIndex: 1,
-      },
-      {
         spell: TALENTS.RAISE_ABOMINATION_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.RAISE_ABOMINATION_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,

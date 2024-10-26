@@ -1892,13 +1892,13 @@ export const Llanas: Contributor = {
 };
 export const xizbow: Contributor = {
   nickname: 'xizbow',
-  discord: 'xizbow#1856',
+  discord: 'xizbow',
   github: 'xizbow1',
   mains: [
     {
-      name: 'Greggoros',
-      spec: SPECS.HOLY_PALADIN,
-      link: 'https://worldofwarcraft.com/en-us/character/us/wyrmrest-accord/Greggoros',
+      name: 'Gregskull',
+      spec: SPECS.HOLY_PRIEST,
+      link: 'https://www.warcraftlogs.com/character/us/zuljin/gregskull',
     },
   ],
 };
@@ -2516,4 +2516,22 @@ export const SebShady: Contributor = {
   nickname: 'SebShady',
   github: 'SebShady42',
   discord: 'SebShady',
+};
+
+export const PandaGoesBaa: Contributor = {
+  nickname: 'PandaGoesBaa',
+  github: 'frankyi-gh',
+  mains: [
+    {
+      name: 'PandaGoesBaa',
+      spec: SPECS.RESTORATION_SHAMAN,
+      link: 'https://worldofwarcraft.blizzard.com/en-us/character/us/illidan/pandagoesbaa',
+    },
+  ],
+};
+
+export const Quaarkz: Contributor = {
+  nickname: 'Quaarkz',
+  github: 'Quaarkz',
+  discord: 'Quaarkz',
 };
