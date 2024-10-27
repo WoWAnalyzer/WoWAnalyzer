@@ -22,7 +22,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_DRUID.CENARION_WARD_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_DRUID.CENARION_WARD_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 30,
+        cooldown: combatant.hasTalent(TALENTS_DRUID.WILDWOOD_ROOTS_TALENT) ? 20 : 30,
         gcd: {
           base: 1500,
         },
@@ -155,6 +155,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60 - combatant.getTalentRank(TALENTS_DRUID.PASSING_SEASONS_TALENT) * 12,
         gcd: null,
+        charges: combatant.hasTalent(TALENTS_DRUID.TWINLEAF_TALENT) ? 2 : 1,
       },
       {
         spell: TALENTS_DRUID.OVERGROWTH_TALENT.id,
