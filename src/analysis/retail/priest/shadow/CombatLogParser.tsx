@@ -63,6 +63,8 @@ import PerfectedForm from './modules/talents/Archon/PerfectedForm';
 import EnergyCompression from './modules/talents/Archon/EnergyCompression';
 import EmpoweredSurges from './modules/talents/Archon/EmpoweredSurges';
 import ResonantEnergy from './modules/talents/Archon/ResonantEnergy';
+import EnergyCycle from './modules/talents/Archon/EnergyCycle';
+import ConcentratedInfusion from './modules/talents/Archon/Concentrated Infusion';
 import ShadowTierTWWS1 from './modules/tier/ShadowTierTWWS1';
 
 class CombatLogParser extends MainCombatLogParser {
@@ -137,6 +139,8 @@ class CombatLogParser extends MainCombatLogParser {
     energyCompression: EnergyCompression,
     empoweredSurges: EmpoweredSurges,
     resonantEnergy: ResonantEnergy,
+    energyCycle: EnergyCycle,
+    concentratedInfusion: ConcentratedInfusion,
 
     // normalizers:
     channeling: Channeling,
