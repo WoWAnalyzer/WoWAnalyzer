@@ -34,14 +34,12 @@ class ResonantEnergy extends Analyzer {
   checkAmpDamage(event: DamageEvent) {
     //Damage from Resonant Energy
     const target = this.enemies.getEntity(event);
-    console.log(target);
     if (!target) {
       return;
     }
     const ampRE =
       target.getBuffStacks(SPELLS.SHADOW_PRIEST_ARCHON_RESONANT_ENERGY_DEBUFF.id) *
       ARCHON_RESONANT_ENERGY_MULTIPLIER;
-    console.log(ampRE);
     this.damageResonantEnergy += calculateEffectiveDamage(event, ampRE);
   }
 
