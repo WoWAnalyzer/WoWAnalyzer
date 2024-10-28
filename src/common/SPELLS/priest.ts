@@ -972,6 +972,12 @@ const spells = {
     icon: 'ability_priest_halo',
   },
 
+  SHADOW_PRIEST_ARCHON_SUSTAINED_POTENCY_BUFF: {
+    id: 454002,
+    name: 'Sustained Potency',
+    icon: 'ability_priest_ascension',
+  },
+
   //Shadow Tier
   SHADOW_PRIEST_TWW_TIER_1_4_SET_BUFF: {
     id: 454638,
