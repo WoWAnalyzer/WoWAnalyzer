@@ -28,6 +28,7 @@ class MindFlayInsanity extends Analyzer {
   insanityGained = 0;
   casts = 0;
   secondCast = false; //This is for finding the overcaped procs, as it is only every other DP cast that causes the buff
+  lastCastHalo = false; //Was the most recent cause of a proc Halo
 
   procsGained: number = 0; //Total gained Procs(including refreshed) (Should be equal to number of cast DP)
   procsExpired: number = 0; //procs lost to time
@@ -49,6 +50,10 @@ class MindFlayInsanity extends Analyzer {
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MIND_SPIKE_INSANITY_TALENT_DAMAGE),
       this.onDamage,
+    );
+    this.addEventListener(
+      Events.resourcechange.by(SELECTED_PLAYER).spell(TALENTS.HALO_SHADOW_TALENT),
+      this.onCastHalo,
     );
     this.addEventListener(
       Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.MIND_SPIKE_INSANITY_TALENT_DAMAGE),
@@ -80,21 +85,46 @@ class MindFlayInsanity extends Analyzer {
     return this.procsExpired + this.procsOver;
   }
 
+  onCastHalo(event: ResourceChangeEvent) {
+    //Archon Hero Talent Manifested Power causes halo to give Surge of Insanity
+    //Every cast of halo causes 2 additional halos that do not have a cast event
+    //So we use their resource generation event to track them.
+
+    if (this.selectedCombatant.hasTalent(TALENTS.MANIFESTED_POWER_TALENT)) {
+      //Halo Occurs before Buff change, so we don't have to check the timestamp
+      if (this.currentStacks === 4) {
+        this.procsGained += 1;
+        this.procsOver += 1;
+        this.lastProcTime = event.timestamp; //since the proc duration is refreshed when overwritten
+      }
+      this.lastCastHalo = true;
+    }
+  }
+
   onCastDP(event: CastEvent) {
     //DP cast occurs after the Buff is Applied but at the same timestamp
     //If at 4 stacks and this DP isn't at the same time we reach 4 stacks, then it might be an overwritten proc
     //Since it is ever other DP that gives a stack of the buff, we check if this is the second time DP is cast while we have been at 2 stacks.
     //This is only necesary because this buff does not have a refresh event.
     const compare: number = event.timestamp - this.lastCastTime; //Somtimes the DP timestamp is slightly delayed.
-    if (this.currentStacks === 4 && compare >= 50) {
-      if (this.secondCast) {
-        this.procsGained += 1;
-        this.procsOver += 1;
-        this.lastProcTime = event.timestamp; //since the proc duration is refreshed when overwritten
-        this.secondCast = false; //this way a third cast will not give an additional proc
-      } else {
-        this.secondCast = true; //The first time a DP is cast while at 2 stacks (and not the cause of getting to 2 stacks), this will be set to true.
-      }
+
+    //If the currents Stacks are 4,
+    //And if the Last Cast of DP that caused a Buff Event was not with 50 ms (meaning that it caused the buff stacks to increase)
+    //And the current DP is the second cast which would cause the buff
+    //Then we have wasted a Proc.
+
+    if (this.currentStacks === 4 && compare >= 50 && this.secondCast) {
+      this.procsGained += 1;
+      this.procsOver += 1;
+      this.lastProcTime = event.timestamp; //since the proc duration is refreshed when overwritten
+    }
+
+    //every cast of DP alternates between giving the proc and not giving the proc.
+
+    if (this.secondCast === true) {
+      this.secondCast = false;
+    } else {
+      this.secondCast = true;
     }
   }
 
@@ -103,27 +133,34 @@ class MindFlayInsanity extends Analyzer {
     this.currentStacks = 1;
     this.procsGained += 1;
     this.lastProcTime = event.timestamp;
-    this.lastCastTime = event.timestamp;
+    if (this.lastCastHalo === false) {
+      //LastCastTime is only procs caused by DP.  If the last Cast was Halo, this proc was caused by Halo not DP
+      this.lastCastTime = event.timestamp;
+    }
+    this.lastCastHalo = false;
   }
 
   onBuffStack(event: ApplyBuffStackEvent) {
     this.procsGained += 1;
     this.lastProcTime = event.timestamp;
-    this.lastCastTime = event.timestamp;
+    if (this.lastCastHalo === false) {
+      //LastCastTime is only procs caused by DP.  If the last Cast was Halo, this proc was caused by Halo not DP
+      this.lastCastTime = event.timestamp;
+    }
+    this.lastCastHalo = false;
     this.currentStacks = event.stack;
   }
 
   onRemove(event: RemoveBuffEvent) {
-    this.secondCast = false;
     this.currentStacks = 0;
     const durationHeld = event.timestamp - this.lastProcTime;
     if (durationHeld > BUFF_DURATION_MS - 20) {
-      this.procsExpired += 1;
+      this.procsExpired += this.currentStacks; //Since all stacks that are held are lost
     }
+    this.currentStacks = 0;
   }
 
   onRemoveStack(event: RemoveBuffStackEvent) {
-    this.secondCast = false;
     this.currentStacks = event.stack;
   }
 
