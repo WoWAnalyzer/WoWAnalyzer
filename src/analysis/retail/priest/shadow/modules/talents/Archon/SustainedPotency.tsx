@@ -47,12 +47,6 @@ class SustainedPotency extends Analyzer {
 
   onCD(event: CastEvent) {
     const buffer = 100;
-    console.log(
-      'onCD',
-      this.selectedCombatant.getBuffStacks(SPELLS.SHADOW_PRIEST_ARCHON_SUSTAINED_POTENCY_BUFF.id),
-      event.timestamp,
-      buffer,
-    );
     this.durationSustainedPotency += this.selectedCombatant.getBuffStacks(
       SPELLS.SHADOW_PRIEST_ARCHON_SUSTAINED_POTENCY_BUFF.id,
       event.timestamp,
@@ -61,14 +55,10 @@ class SustainedPotency extends Analyzer {
   }
 
   onHalo() {
-    console.log('onHALO', this.selectedCombatant.hasBuff(TALENTS.DARK_ASCENSION_TALENT.id));
-    console.log('onHALO', this.selectedCombatant.hasBuff(SPELLS.VOIDFORM_BUFF.id));
-
     if (
       this.selectedCombatant.hasBuff(TALENTS.DARK_ASCENSION_TALENT.id) ||
       this.selectedCombatant.hasBuff(SPELLS.VOIDFORM_BUFF.id)
     ) {
-      console.log('true');
       this.durationSustainedPotency += 1;
     }
   }
