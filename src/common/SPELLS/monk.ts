@@ -510,11 +510,6 @@ const spells = {
     name: 'Faeline Stomp',
     icon: 'ability_ardenweald_monk',
   },
-  NOURISHING_CHI_BUFF: {
-    id: 387766,
-    name: 'Nourishing Chi',
-    icon: 'inv_misc_gem_pearl_06',
-  },
   CALMING_COALESCENCE_BUFF: {
     id: 388220,
     name: 'Calming Coalescence',
@@ -857,6 +852,11 @@ const spells = {
   RUSHING_WIND_KICK_DAMAGE: {
     id: 468179,
     name: 'Rushing Wind Kick',
+    icon: 'ability_monk_ridethewind',
+  },
+  RUSHING_WINDS_BUFF: {
+    id: 467341,
+    name: 'Rushing Winds',
     icon: 'ability_monk_ridethewind',
   },
   HIT_COMBO_BUFF: {

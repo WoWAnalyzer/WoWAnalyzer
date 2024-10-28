@@ -93,6 +93,7 @@ import CelestialConduit from '../shared/hero/ConduitOfTheCelestials/talents/Cele
 import StrengthOfTheBlackOx from './modules/heroTalents/StrengthOfTheBlackOx';
 import Coalesence from '../shared/hero/MasterOfHarmony/talents/Coalesence';
 import AspectOfHarmony from './modules/heroTalents/AspectOfHarmony';
+import RushingWindKick from './modules/spells/RushingWindKick';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -190,6 +191,7 @@ class CombatLogParser extends CoreCombatLogParser {
     zenPulse: ZenPulse,
     chiHarmony: ChiHarmony,
     poolOfMists: PoolOfMists,
+    rushingWindKick: RushingWindKick,
 
     // Hero Talents
     // Conduit

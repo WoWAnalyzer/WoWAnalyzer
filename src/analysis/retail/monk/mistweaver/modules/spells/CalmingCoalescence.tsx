@@ -1,5 +1,4 @@
-import SPELLS from 'common/SPELLS';
-import talents from 'common/TALENTS/monk';
+import talents, { TALENTS_MONK } from 'common/TALENTS/monk';
 import { formatNumber } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
@@ -84,7 +83,7 @@ class CalmingCoalescence extends Analyzer {
           </ul>
         }
       >
-        <BoringSpellValueText spell={SPELLS.CALMING_COALESCENCE_BUFF}>
+        <BoringSpellValueText spell={TALENTS_MONK.CALMING_COALESCENCE_TALENT}>
           <ItemHealingDone amount={this.healing} />
         </BoringSpellValueText>
       </Statistic>

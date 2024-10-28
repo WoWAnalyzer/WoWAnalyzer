@@ -30,6 +30,9 @@ import {
   ENGULF_CONSUME_FLAME,
   ENGULF_CONSUME_BUFFER,
   LIFEBIND_HEAL_EMPOWER,
+  LIFEBIND_ALL_HEALING,
+  LIFEBIND_DURATION,
+  LIFEBIND_BATCHING,
 } from './constants';
 
 export const RED_EVENT_LINKS: EventLink[] = [
@@ -83,6 +86,16 @@ export const RED_EVENT_LINKS: EventLink[] = [
     referencedEventType: EventType.Heal,
     backwardBufferMs: CAST_BUFFER_MS,
     forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+  },
+  {
+    linkRelation: LIFEBIND_ALL_HEALING,
+    linkingEventId: SPELLS.LIFEBIND_BUFF.id,
+    linkingEventType: EventType.ApplyBuff,
+    referencedEventId: SPELLS.LIFEBIND_HEAL.id,
+    referencedEventType: EventType.Heal,
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: LIFEBIND_DURATION + LIFEBIND_BATCHING,
     anyTarget: true,
   },
   {

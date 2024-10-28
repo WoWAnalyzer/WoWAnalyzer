@@ -2,29 +2,57 @@ import aplCheck, { build } from 'parser/shared/metrics/apl';
 import TALENTS from 'common/TALENTS/mage';
 import * as cnd from 'parser/shared/metrics/apl/conditions';
 import SPELLS from 'common/SPELLS';
+import SpellLink from 'interface/SpellLink';
+import * as apl from './FrostAplCommons';
+
+// 1. Flurry noWC & precasted FB / GS
+// 2. GS when can Shatter
+// 3. Frostbolt if Talent DC & IVbuff > 8 & DC < 8
+// 4. IL on 2WC or WC & BF
+// 5. Frostbolt
+
+const flurrySsCondition = cnd.and(
+  cnd.debuffMissing(SPELLS.WINTERS_CHILL),
+  cnd.or(apl.precastFrostbolt, apl.precastGlacialSpike),
+);
+
+const flurrySsDescription = (
+  <>
+    no <SpellLink spell={SPELLS.WINTERS_CHILL} /> on target and one of:
+    <ul>
+      <li>
+        precasted <SpellLink spell={TALENTS.GLACIAL_SPIKE_TALENT} />
+      </li>
+      <li>
+        precasted <SpellLink spell={SPELLS.FROSTBOLT} />
+      </li>
+    </ul>
+  </>
+);
 
 export const spellslingerApl = build([
   {
     spell: TALENTS.FLURRY_TALENT,
+    condition: cnd.describe(flurrySsCondition, (tense) => flurrySsDescription),
+  },
+  {
+    spell: TALENTS.GLACIAL_SPIKE_TALENT,
+    condition: cnd.and(apl.fiveIcicles, apl.canShatter),
+  },
+  {
+    spell: SPELLS.FROSTBOLT,
     condition: cnd.and(
-      cnd.debuffMissing(SPELLS.WINTERS_CHILL),
-      cnd.or(cnd.lastSpellCast(SPELLS.FROSTBOLT), cnd.lastSpellCast(TALENTS.GLACIAL_SPIKE_TALENT)),
+      cnd.hasTalent(TALENTS.DEATHS_CHILL_TALENT),
+      cnd.buffRemaining(TALENTS.ICY_VEINS_TALENT, 30000, { atLeast: 8000 }),
+      cnd.buffStacks(TALENTS.DEATHS_CHILL_TALENT, { atMost: 8 }),
     ),
   },
   {
     spell: TALENTS.ICE_LANCE_TALENT,
     condition: cnd.or(
-      cnd.debuffPresent(SPELLS.WINTERS_CHILL),
-      cnd.buffPresent(TALENTS.FINGERS_OF_FROST_TALENT),
+      cnd.debuffStacks(SPELLS.WINTERS_CHILL, { atLeast: 2 }),
+      cnd.and(apl.wintersChill, cnd.buffPresent(TALENTS.BRAIN_FREEZE_TALENT)),
     ),
-  },
-  {
-    spell: TALENTS.GLACIAL_SPIKE_TALENT,
-    condition: cnd.buffStacks(SPELLS.ICICLES_BUFF, { atLeast: 5 }),
-  },
-  {
-    spell: TALENTS.FLURRY_TALENT,
-    condition: cnd.buffPresent(TALENTS.ICY_VEINS_TALENT),
   },
   SPELLS.FROSTBOLT,
 ]);

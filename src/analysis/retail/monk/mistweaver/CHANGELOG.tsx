@@ -5,6 +5,7 @@ import { Trevor, Vetyst, Vohrr } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date (2024, 10, 24), <>Added analysis for <SpellLink spell={TALENTS_MONK.RUSHING_WIND_KICK_TALENT}/>.</>, Vohrr),
   change(date (2024, 10, 24), <>Fixed <SpellLink spell={TALENTS_MONK.CALMING_COALESCENCE_TALENT}/> module and updated <SpellLink spell={TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT}/> to include <SpellLink spell={SPELLS.CRACKLING_JADE_LIGHTNING}/>.</>, Vohrr),
   change(date (2024, 10, 22), <>Update MW for 11.0.5</>, Trevor),
   change(date (2024, 10, 13), <>Add <SpellLink spell={TALENTS_MONK.ASPECT_OF_HARMONY_TALENT}/> guide section</>, Trevor),

@@ -98,6 +98,7 @@ export const ZEN_PULSE_MAX_HITS_FOR_BOOST = 5;
 export const TEAR_OF_MORNING_INVIG_INCREASE = 0.1;
 export const TEAR_OF_MORNING_ENV_INCREASE = 0.12;
 export const CALMING_COALESCENCE_INCREASE = 0.8;
+export const RUSHING_WIND_KICK_INCREASE = 0.5;
 
 export const ATTRIBUTION_STRINGS = {
   BOUNCED: 'Bounced',
