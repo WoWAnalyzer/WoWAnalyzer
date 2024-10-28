@@ -20,6 +20,7 @@ import {
   nullDozzer,
   Pilsung,
   Putro,
+  Rzial,
   Seriousnes,
   Sref,
   Taevis,
@@ -38,6 +39,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 10, 28), `Updated annotation list rendering for the annotation debugger`, Rzial),
   change(date(2024, 10, 14), `Fixed some technical issues with rendering of lists`, nullDozzer),
   change(date(2024, 10, 12), `Fixed an issue with the effective healing/damage patch causing the per-second damage and healing graphs to be incorrect and causing some by-ability healing and damage numbers to be too low`, Sref),
   change(date(2024, 10, 12), <>Prevent requesting spell data for unknown spell ids.</>, emallson),
