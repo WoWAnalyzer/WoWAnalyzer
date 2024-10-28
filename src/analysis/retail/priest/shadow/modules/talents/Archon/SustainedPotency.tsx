@@ -22,8 +22,8 @@ class SustainedPotency extends Analyzer {
 
   //When DA/VF is active, casting Halo extends its duration by 1 second.
   //When DA/VF is not active, casting Halo gives a buff, that causes the next DA/VF to be longer.
-  //Every 1 Halo cast causes 3 Halos that aren't casts.
-  //However, they do have a resource change event, so we use that to track the events during cooldowns
+  //Every 1 Halo cast causes 2 additional Halos that aren't casts.
+  //However, they all have a resource change event, so we use that to track the events during cooldowns
 
   constructor(options: Options) {
     super(options);
