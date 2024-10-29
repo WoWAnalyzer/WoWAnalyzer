@@ -5,6 +5,7 @@ import { Trevor, Vetyst, Vohrr } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date (2024, 10, 29), <>Added <SpellLink spell={TALENTS_MONK.RUSHING_WIND_KICK_TALENT}/> to the Talent Healing Breakdown</>, Vohrr),
   change(date (2024, 10, 28), <>Updated <SpellLink spell={TALENTS_MONK.RUSHING_WIND_KICK_TALENT}/> for October 29 buffs.</>, Vohrr),
   change(date (2024, 10, 24), <>Added analysis for <SpellLink spell={TALENTS_MONK.RUSHING_WIND_KICK_TALENT}/>.</>, Vohrr),
   change(date (2024, 10, 24), <>Fixed <SpellLink spell={TALENTS_MONK.CALMING_COALESCENCE_TALENT}/> module and updated <SpellLink spell={TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT}/> to include <SpellLink spell={SPELLS.CRACKLING_JADE_LIGHTNING}/>.</>, Vohrr),
