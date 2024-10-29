@@ -20,7 +20,6 @@ import AlwaysBeCasting from './core/AlwaysBeCasting';
 import Buffs from './core/Buffs';
 import CooldownThroughputTracker from './core/CooldownThroughputTracker';
 import Combustion from './core/Combustion';
-import CombustionActiveTime from './core/CombustionActiveTime';
 import HeatingUp from './core/HeatingUp';
 import HotStreak from './core/HotStreak';
 
@@ -88,7 +87,6 @@ class CombatLogParser extends CoreCombatLogParser {
     heatingUp: HeatingUp,
     hotStreak: HotStreak,
     combustion: Combustion,
-    combustionActiveTime: CombustionActiveTime,
 
     //Talents - Fire
     phoenixFlames: PhoenixFlames,
