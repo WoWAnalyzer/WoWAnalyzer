@@ -66,6 +66,7 @@ import ResonantEnergy from './modules/talents/Archon/ResonantEnergy';
 import EnergyCycle from './modules/talents/Archon/EnergyCycle';
 import ConcentratedInfusion from './modules/talents/Archon/Concentrated Infusion';
 import SustainedPotency from './modules/talents/Archon/SustainedPotency';
+import ManifestedPower from './modules/talents/Archon/ManifestedPower';
 import ShadowTierTWWS1 from './modules/tier/ShadowTierTWWS1';
 
 class CombatLogParser extends MainCombatLogParser {
@@ -143,6 +144,7 @@ class CombatLogParser extends MainCombatLogParser {
     energyCycle: EnergyCycle,
     concentratedInfusion: ConcentratedInfusion,
     sustainedPotency: SustainedPotency,
+    manifestedPower: ManifestedPower,
 
     // normalizers:
     channeling: Channeling,
