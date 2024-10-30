@@ -654,6 +654,13 @@ const spells = {
     icon: 'ability_criticalstrike',
   },
 
+  // T31 2p buff
+  EXPERT_STRATEGIST_BUFF: {
+    id: 455499,
+    name: 'Expert Strategist',
+    icon: 'ability_warrior_vigilance',
+  },
+
   // Talent in here so SpellLink doesn't return Unknown
   IMPENETRABLE_WALL_TALENT: {
     id: 384072,

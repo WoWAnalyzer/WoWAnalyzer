@@ -209,7 +209,8 @@ export function isFromRapidDiffusionRisingSunKick(event: ApplyBuffEvent | Refres
   const rdSourceEvent = GetRelatedEvent(event, FROM_RAPID_DIFFUSION)!;
   return (
     rdSourceEvent.type === EventType.Cast &&
-    rdSourceEvent.ability.guid === TALENTS_MONK.RISING_SUN_KICK_TALENT.id
+    (rdSourceEvent.ability.guid === TALENTS_MONK.RISING_SUN_KICK_TALENT.id ||
+      rdSourceEvent.ability.guid === TALENTS_MONK.RUSHING_WIND_KICK_TALENT.id)
   );
 }
 

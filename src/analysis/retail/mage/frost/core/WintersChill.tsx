@@ -48,6 +48,7 @@ class WintersChill extends Analyzer {
         .spell([
           SPELLS.FROSTBOLT_DAMAGE,
           SPELLS.GLACIAL_SPIKE_DAMAGE,
+          SPELLS.FROSTFIRE_BOLT_DAMAGE,
           SPELLS.ICE_LANCE_DAMAGE,
           TALENTS.RAY_OF_FROST_TALENT,
         ]),
@@ -88,6 +89,10 @@ class WintersChill extends Analyzer {
         d.apply.timestamp <= event.timestamp && d.remove && d.remove.timestamp >= event.timestamp,
     );
     if (wintersChillDebuff === -1) {
+      return;
+    }
+    const isTick = event.tick;
+    if (isTick !== undefined && isTick) {
       return;
     }
     this.wintersChill[wintersChillDebuff].damageEvents?.push(event);

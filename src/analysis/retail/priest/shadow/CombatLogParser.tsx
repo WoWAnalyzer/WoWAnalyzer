@@ -152,6 +152,7 @@ class CombatLogParser extends MainCombatLogParser {
 
     //Tier
     shadowTierTWWS1: ShadowTierTWWS1,
+    shadowTierTWWS1: ShadowTierTWWS1,
 
     arcaneTorrent: [ArcaneTorrent, { active: false }] as const,
   };

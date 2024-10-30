@@ -47,6 +47,8 @@ export const BENEDICTION_RENEW_HEALS = 'BenedictionRenewHeal';
 export const REVIT_PRAYER_RENEW = 'RevitalizingPrayersRenew';
 export const HARDCAST_RENEW = 'HardCastRenew';
 export const HOLY_TWW_S1_4PC = 'HolyTwwS14pc';
+export const HEAL_TRAIL = 'LightweaverTrail';
+export const HEAL_BINDING = 'LightweaverBinding';
 
 const EVENT_LINKS: EventLink[] = [
   // Link single target heal casts to their heal events.
@@ -314,6 +316,26 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
   },
+  // link heals to trail
+  {
+    linkRelation: HEAL_TRAIL,
+    linkingEventId: SPELLS.GREATER_HEAL.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.TRAIL_OF_LIGHT_TALENT_HEAL.id,
+    referencedEventType: EventType.Heal,
+    forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+  },
+  // link lightweaver heals to binding heal
+  {
+    linkRelation: HEAL_BINDING,
+    linkingEventId: SPELLS.GREATER_HEAL.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.BINDING_HEALS_TALENT_HEAL.id,
+    referencedEventType: EventType.Heal,
+    forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+  },
 ];
 
 class CastLinkNormalizer extends EventLinkNormalizer {
@@ -398,6 +420,14 @@ export function getSOLFlashCast(
     BUFFED_BY_SURGE_OF_LIGHT_CAST,
     (e): e is CastEvent => e.type === EventType.Cast,
   ).pop();
+}
+
+export function getTrailFromHeal(event: CastEvent): HealEvent | undefined {
+  return GetRelatedEvent(event, HEAL_TRAIL);
+}
+
+export function getBindingFromHeal(event: CastEvent): HealEvent | undefined {
+  return GetRelatedEvent(event, HEAL_BINDING);
 }
 
 export default CastLinkNormalizer;

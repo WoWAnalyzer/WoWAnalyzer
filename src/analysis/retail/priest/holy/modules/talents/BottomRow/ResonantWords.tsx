@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS, { TALENTS_PRIEST } from 'common/TALENTS/priest';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { HealEvent } from 'parser/core/Events';
+import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
@@ -18,6 +18,9 @@ import {
 import EOLAttrib from '../../core/EchoOfLightAttributor';
 import SpellLink from 'interface/SpellLink';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../../Guide';
 
 // Example Log: /report/kVQd4LrBb9RW2h6K/9-Heroic+The+Primal+Council+-+Wipe+5+(5:04)/Delipriest/standard/statistics
 class ResonantWords extends Analyzer {
@@ -32,12 +35,18 @@ class ResonantWords extends Analyzer {
   healingDoneFromTalent = 0;
   overhealingDoneFromTalent = 0;
   healingMultiplierWhenActive = 0;
+  badConsumes = 0;
+  okConsumes = 0;
+  goodConsumes = 0;
+  overcaps = 0;
 
   talentRank = 0;
 
   get wastedResonantWords() {
     return this.totalResonantWords - this.usedResonantWords;
   }
+
+  isArchon: boolean = this.selectedCombatant.hasTalent(TALENTS_PRIEST.EMPOWERED_SURGES_TALENT);
 
   constructor(options: Options) {
     super(options);
@@ -81,14 +90,100 @@ class ResonantWords extends Analyzer {
     }
   }
 
-  onHealCast() {
-    if (this.selectedCombatant.hasBuff(SPELLS.RESONANT_WORDS_TALENT_BUFF.id)) {
-      this.usedResonantWords += 1;
+  onHealCast(event: CastEvent) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.RESONANT_WORDS_TALENT_BUFF.id)) {
+      return;
+    } else {
+      this.usedResonantWords += 1; // For statistics
+    }
+    switch (event.ability.guid) {
+      case SPELLS.FLASH_HEAL.id:
+        if (this.isArchon && this.selectedCombatant.hasBuff(SPELLS.SURGE_OF_LIGHT_BUFF.id)) {
+          // Archon has a talent that makes Surge-buffed FHs 30% stronger
+          this.goodConsumes += 1;
+        } else {
+          this.okConsumes += 1;
+        }
+        break;
+      case SPELLS.GREATER_HEAL.id:
+        if (this.selectedCombatant.hasBuff(SPELLS.LIGHTWEAVER_TALENT_BUFF.id)) {
+          this.goodConsumes += 1;
+        } else {
+          this.badConsumes += 1;
+        }
+        break;
+      case SPELLS.CIRCLE_OF_HEALING.id:
+        this.okConsumes += 1;
+        break;
+      default:
+        this.badConsumes += 1;
     }
   }
 
   onHolyWordCast() {
     this.totalResonantWords += 1;
+    if (this.selectedCombatant.hasBuff(SPELLS.RESONANT_WORDS_TALENT_BUFF.id)) {
+      // This isn't ideal, but the buff sometimes refreshes when applied for no reason so we can't listen for that
+      this.overcaps += 1;
+    }
+  }
+
+  get guideSubsection(): JSX.Element {
+    // if player isn't running resonant words, don't show guide section
+    if (!this.selectedCombatant.hasTalent(TALENTS.RESONANT_WORDS_TALENT)) {
+      return <></>;
+    }
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink spell={TALENTS.RESONANT_WORDS_TALENT} />
+        </b>{' '}
+        is a buff that you should be playing around to buff your{' '}
+        <SpellLink spell={SPELLS.GREATER_HEAL} /> casts. You want to always consume this buff with a{' '}
+        <SpellLink spell={SPELLS.LIGHTWEAVER_TALENT_BUFF} />
+        -buffed <SpellLink spell={SPELLS.GREATER_HEAL} /> or a{' '}
+        <SpellLink spell={SPELLS.SURGE_OF_LIGHT_BUFF} />
+        -buffed <SpellLink spell={SPELLS.FLASH_HEAL} /> if you're playing as Archon. If you consume
+        it with a regular <SpellLink spell={SPELLS.FLASH_HEAL} /> or a{' '}
+        <SpellLink spell={SPELLS.CIRCLE_OF_HEALING} /> that's ok, but not ideal.
+        <li>
+          <b>Above all else, you do not want to waste the buff by casting another Holy Word.</b>
+        </li>
+      </p>
+    );
+
+    const goodConsumes = {
+      count: this.goodConsumes,
+      label: 'Good Usages of Resonant Words',
+    };
+
+    const okConsumes = {
+      count: this.okConsumes,
+      label: 'OK Usages of Resonant Words',
+    };
+
+    const badConsumes = {
+      count: this.badConsumes + this.overcaps,
+      label: 'Bad Usages (or wasted usages) of Resonant Words',
+    };
+
+    const data = (
+      <div>
+        <strong>
+          <SpellLink spell={SPELLS.RESONANT_WORDS_TALENT_BUFF} /> usage breakdown
+        </strong>
+        <small>
+          {' '}
+          - Green is a buffed <SpellLink spell={SPELLS.GREATER_HEAL} /> or buffed{' '}
+          <SpellLink spell={SPELLS.FLASH_HEAL} />. Yellow is a regular{' '}
+          <SpellLink spell={SPELLS.FLASH_HEAL} /> or a{' '}
+          <SpellLink spell={SPELLS.CIRCLE_OF_HEALING} />. Red is none of those things.
+        </small>
+        <GradiatedPerformanceBar good={goodConsumes} ok={okConsumes} bad={badConsumes} />
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 
   statistic() {

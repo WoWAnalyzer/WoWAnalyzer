@@ -476,7 +476,7 @@ const spells = {
   },
   // 'Swiftmend' cast by Grove Guardians
   GROVE_GUARDIANS_SWIFTMEND: {
-    id: 422094,
+    id: 142421,
     name: 'Swiftmend',
     icon: 'inv_relics_idolofrejuvenation',
   },

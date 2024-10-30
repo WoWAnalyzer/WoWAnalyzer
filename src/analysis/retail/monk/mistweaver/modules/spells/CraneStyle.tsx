@@ -15,6 +15,7 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import SpellLink from 'interface/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
+import { getCurrentRSKTalent } from '../../constants';
 
 class CraneStyle extends Analyzer {
   gomHealing: number = 0;
@@ -74,7 +75,7 @@ class CraneStyle extends Analyzer {
             <ul>
               <li>
                 {formatNumber(this.rskHealing)} from{' '}
-                <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} />
+                <SpellLink spell={getCurrentRSKTalent(this.selectedCombatant)} />
               </li>
               <li>
                 {formatNumber(this.bokHealing)} from <SpellLink spell={SPELLS.BLACKOUT_KICK} />
