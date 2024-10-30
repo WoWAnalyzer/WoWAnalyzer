@@ -29,7 +29,7 @@ class PerfectedForm extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS.POWER_SURGE_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.PERFECTED_FORM_TALENT);
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.checkAmpDamage);
   }

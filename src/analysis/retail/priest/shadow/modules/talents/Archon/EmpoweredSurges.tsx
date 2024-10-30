@@ -26,7 +26,7 @@ class EmpoweredSurges extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS.POWER_SURGE_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.EMPOWERED_SURGES_TALENT);
 
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE),

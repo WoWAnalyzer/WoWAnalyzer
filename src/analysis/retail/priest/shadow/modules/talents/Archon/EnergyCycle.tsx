@@ -22,7 +22,7 @@ class EnergyCycle extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS.POWER_SURGE_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.ENERGY_CYCLE_TALENT);
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE),

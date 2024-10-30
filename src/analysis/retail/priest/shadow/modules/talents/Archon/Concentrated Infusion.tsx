@@ -16,7 +16,7 @@ class ConcentratedInfusion extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS.POWER_SURGE_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.CONCENTRATED_INFUSION_TALENT);
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.POWER_INFUSION_TALENT),
