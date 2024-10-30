@@ -46,10 +46,13 @@ class SustainedPotency extends Analyzer {
   }
 
   onCD(event: CastEvent) {
-    const buffer = 100;
+    const buffer = 50;
+    //For some reason, the buffer does not work properly?
+    //So we look 10ms backwards to see how many stacks we had at that time.
+    //Usually, the buff falls off 1-3ms after the voidform cast finishes, but 1-3ms before the voidform buff starts.
     this.durationSustainedPotency += this.selectedCombatant.getBuffStacks(
       SPELLS.SHADOW_PRIEST_ARCHON_SUSTAINED_POTENCY_BUFF.id,
-      event.timestamp,
+      event.timestamp - 10,
       buffer,
     );
   }
