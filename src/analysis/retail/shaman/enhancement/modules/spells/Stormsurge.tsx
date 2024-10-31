@@ -46,7 +46,7 @@ class Stormsurge extends Analyzer.withDependencies({
             event.timestamp
           } (${this.owner.formatTimestamp(event.timestamp, 3)})`,
         );
-      this.deps.spellUsable.endCooldown(TALENTS.STORMSTRIKE_TALENT.id, event.timestamp, true, true);
+      this.deps.spellUsable.endCooldown(TALENTS.STORMSTRIKE_TALENT.id, event.timestamp);
       if (!this.selectedCombatant.hasBuff(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT.id)) {
         this.stormStrikeResets += 1;
         used = true;
@@ -60,7 +60,7 @@ class Stormsurge extends Analyzer.withDependencies({
             event.timestamp
           } (${this.owner.formatTimestamp(event.timestamp, 3)})`,
         );
-      this.deps.spellUsable.endCooldown(SPELLS.WINDSTRIKE_CAST.id, event.timestamp, true, true);
+      this.deps.spellUsable.endCooldown(SPELLS.WINDSTRIKE_CAST.id, event.timestamp);
       if (this.selectedCombatant.hasBuff(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT.id)) {
         this.windStrikeResets += 1;
         used = true;

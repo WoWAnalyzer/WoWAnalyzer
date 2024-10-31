@@ -108,7 +108,7 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
       spell: SPELLS.WINDSTRIKE_CAST.id,
       category: SPELL_CATEGORY.ROTATIONAL,
       cooldown: (haste: number) => 3 / (1 + haste),
-      charges: 1 + (this.selectedCombatant.hasTalent(TALENTS.STORMS_WRATH_TALENT) ? 1 : 0),
+      charges: 1 + (this.selectedCombatant.hasTalent(TALENTS.STORMBLAST_TALENT) ? 1 : 0),
       gcd: {
         base: 1500,
       },
