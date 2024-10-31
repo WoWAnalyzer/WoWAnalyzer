@@ -7,6 +7,13 @@ import { and, buffPresent, debuffMissing, describe } from 'parser/shared/metrics
 import { MaxStacksMSW, getSpenderBlock } from './Conditions';
 
 export function stormbringer(combatant: Combatant): Apl {
+  const iceStrikeRule = combatant.hasTalent(TALENTS.ICE_STRIKE_1_ENHANCEMENT_TALENT)
+    ? {
+        spell: SPELLS.ICE_STRIKE_1_CAST,
+        condition: buffPresent(SPELLS.ICE_STRIKE_1_USABLE_BUFF),
+      }
+    : TALENTS.ICE_STRIKE_2_ENHANCEMENT_TALENT;
+
   const rules: Rule[] = [
     /** Tempest with 10 MSW */
     {
@@ -45,7 +52,11 @@ export function stormbringer(combatant: Combatant): Apl {
         spell: TALENTS.LAVA_LASH_TALENT,
         condition: buffPresent(SPELLS.HOT_HAND_BUFF),
       },
-      TALENTS.ICE_STRIKE_TALENT,
+      {
+        spell: SPELLS.VOLTAIC_BLAZE_CAST,
+        condition: describe(buffPresent(SPELLS.VOLTAIC_BLAZE_BUFF), () => <></>, ''),
+      },
+      iceStrikeRule,
       {
         spell: TALENTS.FROST_SHOCK_TALENT,
         condition: buffPresent(SPELLS.HAILSTORM_BUFF),
@@ -56,7 +67,11 @@ export function stormbringer(combatant: Combatant): Apl {
   } else {
     rules.push(
       TALENTS.STORMSTRIKE_TALENT,
-      TALENTS.ICE_STRIKE_TALENT,
+      {
+        spell: SPELLS.VOLTAIC_BLAZE_CAST,
+        condition: describe(buffPresent(SPELLS.VOLTAIC_BLAZE_BUFF), () => <></>, ''),
+      },
+      iceStrikeRule,
       {
         spell: TALENTS.FROST_SHOCK_TALENT,
         condition: buffPresent(SPELLS.HAILSTORM_BUFF),

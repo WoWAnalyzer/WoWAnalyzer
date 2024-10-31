@@ -197,6 +197,11 @@ class Abilities extends ClassAbilities {
         cooldown:
           180 - (this.selectedCombatant.hasTalent(TALENTS.THORIMS_INVOCATION_TALENT) ? 60 : 0),
       },
+      {
+        spell: SPELLS.VOLTAIC_BLAZE_CAST.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        enabled: combatant.hasTalent(TALENTS.VOLTAIC_BLAZE_TALENT),
+      },
     ];
   }
 }

@@ -102,6 +102,8 @@ const spells: number[] = [
   TALENTS_SHAMAN.SPIRITWALKERS_GRACE_TALENT.id,
   SPELLS.FERAL_LUNGE_NOT_A_CAST.id, // duplicate event of regular Feral Lunge cast
   SPELLS.HEALING_RAIN_TOTEMIC.id,
+  SPELLS.DOOM_WINDS_TICK.id,
+  SPELLS.FLAME_SHOCK_DUPLICATE.id,
   //endregion
 
   //region warlock

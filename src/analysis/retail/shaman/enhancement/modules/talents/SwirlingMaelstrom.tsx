@@ -20,7 +20,8 @@ import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
 const BAR_COLORS: Record<number, string> = {
   [TALENTS.FROST_SHOCK_TALENT.id]: '#3b7fb0',
   [TALENTS.FIRE_NOVA_TALENT.id]: '#f37735', // placeholder for when fire nova is implemented
-  [TALENTS.ICE_STRIKE_TALENT.id]: '#94d3ec',
+  [TALENTS.ICE_STRIKE_1_ENHANCEMENT_TALENT.id]: '#94d3ec',
+  [TALENTS.ICE_STRIKE_2_ENHANCEMENT_TALENT.id]: '#94d3ec',
   [-1]: '#532121', // wasted
 };
 

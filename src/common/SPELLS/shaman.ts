@@ -295,6 +295,11 @@ const spells = {
     name: 'Flame Shock',
     icon: 'spell_fire_flameshock',
   },
+  FLAME_SHOCK_DUPLICATE: {
+    id: 470411,
+    name: 'Flame Shock',
+    icon: 'spell_fire_flameshock',
+  },
   FROST_SHOCK_ENERGIZE: {
     icon: 'spell_frost_frostshock',
     id: 289439,
@@ -478,6 +483,31 @@ const spells = {
     name: 'Stormbringer Buff',
     icon: 'spell_nature_stormreach',
   },
+  VOLTAIC_BLAZE_CAST: {
+    id: 470057,
+    name: 'Voltaic Blaze',
+    icon: 'inv_10_dungeonjewelry_primalist_trinket_1ragingelement_fire',
+  },
+  VOLTAIC_BLAZE_BUFF: {
+    id: 470058,
+    name: 'Voltaic Blaze',
+    icon: 'inv_10_dungeonjewelry_primalist_trinket_1ragingelement_fire',
+  },
+  ICE_STRIKE_FROST_SHOCK_BUFF: {
+    id: 384357,
+    name: 'Ice Strike',
+    icon: 'spell_frost_frostbolt',
+  },
+  ICE_STRIKE_1_CAST: {
+    id: 342240,
+    name: 'Ice Strike',
+    icon: 'spell_frost_frostbolt',
+  },
+  ICE_STRIKE_1_USABLE_BUFF: {
+    id: 466469,
+    name: 'Ice Strike',
+    icon: 'spell_frost_frostbolt',
+  },
   MAELSTROM_WEAPON: {
     id: 187890,
     name: 'Maelstrom Weapon',
@@ -487,6 +517,11 @@ const spells = {
     id: 344179,
     name: 'Maelstrom Weapon',
     icon: 'spell_shaman_maelstromweapon',
+  },
+  DOOM_WINDS_TICK: {
+    id: 469270,
+    name: 'Doom Winds',
+    icon: 'ability_ironmaidens_swirlingvortex.jpg',
   },
   DOOM_VORTEX: {
     id: 199116,

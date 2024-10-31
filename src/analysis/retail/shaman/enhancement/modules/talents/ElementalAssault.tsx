@@ -32,7 +32,8 @@ const ELEMENTAL_ASSAULT_RANKS: Record<number, number> = {
 const BAR_COLORS: Record<number, string> = {
   [TALENTS.STORMSTRIKE_TALENT.id]: '#3b7fb0',
   [TALENTS.LAVA_LASH_TALENT.id]: '#f37735',
-  [TALENTS.ICE_STRIKE_TALENT.id]: '#94d3ec',
+  [TALENTS.ICE_STRIKE_1_ENHANCEMENT_TALENT.id]: '#94d3ec',
+  [TALENTS.ICE_STRIKE_2_ENHANCEMENT_TALENT.id]: '#94d3ec',
   [-1]: '#532121', // wasted
 };
 

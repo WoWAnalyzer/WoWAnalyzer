@@ -29,7 +29,7 @@ export function getSpenderBlock(combatant: Combatant): Rule[] {
     {
       spell: SPELLS.TEMPEST_CAST,
       condition: describe(
-        and(buffPresent(SPELLS.TEMPEST_BUFF), minimumMaelstromWeaponStacks(6)),
+        and(buffPresent(SPELLS.TEMPEST_BUFF), minimumMaelstromWeaponStacks(5)),
         () => (
           <>
             available and at least 6 <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> stacks
@@ -40,7 +40,7 @@ export function getSpenderBlock(combatant: Combatant): Rule[] {
     {
       spell: TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT,
       condition: and(
-        minimumMaelstromWeaponStacks(6),
+        minimumMaelstromWeaponStacks(5),
         repeatableBuffPresent(
           [
             SPELLS.ELEMENTAL_SPIRITS_BUFF_MOLTEN_WEAPON,
@@ -53,11 +53,14 @@ export function getSpenderBlock(combatant: Combatant): Rule[] {
     },
     {
       spell: SPELLS.LIGHTNING_BOLT,
-      condition: describe(and(AtLeastFiveMSW, not(buffPresent(SPELLS.TEMPEST_BUFF))), () => (
-        <>
-          you have at least 5 <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> stacks
-        </>
-      )),
+      condition: describe(
+        and(minimumMaelstromWeaponStacks(5), not(buffPresent(SPELLS.TEMPEST_BUFF))),
+        () => (
+          <>
+            you have at least 5 <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> stacks
+          </>
+        ),
+      ),
     },
   ];
 }
