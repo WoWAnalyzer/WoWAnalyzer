@@ -291,7 +291,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.REAPERS_MARK_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         enabled: combatant.hasTalent(TALENTS.REAPERS_MARK_TALENT),
-        cooldown: 45 - combatant.getTalentRank(TALENTS.SWIFT_END_TALENT) * 15,
+        cooldown: combatant.hasTalent(TALENTS.REAPERS_ONSLAUGHT_TALENT) ? 30 : 45,
         gcd: {
           base: 1500,
         },

@@ -194,7 +194,7 @@ class Abilities extends CoreAbilities {
       {
         spell: talents.REAPERS_MARK_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: combatant.hasTalent(talents.SWIFT_END_TALENT) ? 30 : 45,
+        cooldown: combatant.hasTalent(talents.REAPERS_ONSLAUGHT_TALENT) ? 30 : 45,
         gcd: {
           base: 1500,
         },
