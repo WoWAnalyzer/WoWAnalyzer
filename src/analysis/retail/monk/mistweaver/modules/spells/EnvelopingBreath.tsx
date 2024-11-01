@@ -9,19 +9,26 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import HotTrackerMW from '../core/HotTrackerMW';
+import {
+  ABILITIES_AFFECTED_BY_HEALING_INCREASES,
+  ENVELOPING_BREATH_INCREASE,
+} from '../../constants';
 
-const ENVELOPING_BREATH_INCREASE = 0.1;
+const UNAFFECTED_SPELLS: number[] = [SPELLS.ENVELOPING_BREATH_HEAL.id];
 const debug = false;
 
 class EnvelopingBreath extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    hotTracker: HotTrackerMW,
   };
   envsDuringCelestial: number = 0;
   envBreathsApplied: number = 0;
   chijiActive: boolean = false;
   envBIncrease: number = 0;
   protected combatants!: Combatants;
+  protected hotTracker!: HotTrackerMW;
 
   constructor(options: Options) {
     super(options);
@@ -49,21 +56,23 @@ class EnvelopingBreath extends Analyzer {
 
   handleEnvelopingBreathHeal(event: HealEvent) {
     const targetId = event.targetID;
-    const sourceId = event.sourceID;
+    const spellId = event.ability.guid;
 
-    if (this.combatants.players[targetId]) {
-      if (
-        this.combatants.players[targetId].hasBuff(
-          SPELLS.ENVELOPING_BREATH_HEAL.id,
-          event.timestamp,
-          0,
-          0,
-          sourceId,
-        )
-      ) {
-        this.envBIncrease += calculateEffectiveHealing(event, ENVELOPING_BREATH_INCREASE);
-      }
+    if (
+      UNAFFECTED_SPELLS.includes(spellId) ||
+      !ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(event.ability.guid)
+    ) {
+      return;
     }
+
+    if (
+      !this.hotTracker.hots[targetId] ||
+      !this.hotTracker.hots[targetId][SPELLS.ENVELOPING_BREATH_HEAL.id]
+    ) {
+      return;
+    }
+
+    this.envBIncrease += calculateEffectiveHealing(event, ENVELOPING_BREATH_INCREASE);
   }
 
   handleEnvelopingMist(event: CastEvent) {

@@ -86,6 +86,7 @@ export const DANCING_MIST_CHANCE = 0.08;
 export const RAPID_DIFFUSION_DURATION = 3000; // per rank
 export const RISING_MIST_EXTENSION = 4000;
 export const ENVELOPING_MIST_INCREASE = 0.3;
+export const ENVELOPING_BREATH_INCREASE = 0.1;
 export const MISTWRAP_INCREASE = 0.1;
 export const YULON_REDUCTION = 0.5;
 export const ANCIENT_ARTS_LEG_SWEEP = 5;
