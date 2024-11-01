@@ -48,7 +48,7 @@ const config: Config = {
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport:
-    '/report/XkW7R9AMYfH3B1TV/9-Mythic+Sennarth,+The+Cold+Breath+-+Kill+(6:26)/Etikim/standard',
+    '/report/JctQZYdP3FCWpRz8/54-Heroic+The+Silken+Court+-+Kill+(6:05)/Amoreal/standard/overview',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

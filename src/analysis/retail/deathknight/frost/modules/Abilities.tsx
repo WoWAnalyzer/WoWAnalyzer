@@ -242,7 +242,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.ANTI_MAGIC_ZONE_TALENT_BUFF.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         gcd: null,
-        cooldown: 120,
+        cooldown: combatant.hasTalent(talents.ASSIMILATION_TALENT) ? 90 : 120,
         isDefensive: true,
       },
       {
