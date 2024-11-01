@@ -114,8 +114,6 @@ class HotStreakGuide extends Analyzer {
     const pyroblast = <SpellLink spell={TALENTS.PYROBLAST_TALENT} />;
     const flamestrike = <SpellLink spell={SPELLS.FLAMESTRIKE} />;
     const ignite = <SpellLink spell={SPELLS.IGNITE} />;
-    const firestarter = <SpellLink spell={TALENTS.FIRESTARTER_TALENT} />;
-    const hyperthermia = <SpellLink spell={TALENTS.HYPERTHERMIA_TALENT} />;
     const sunKingsBlessing = <SpellLink spell={TALENTS.SUN_KINGS_BLESSING_TALENT} />;
 
     const hotStreakIcon = <SpellIcon spell={SPELLS.HOT_STREAK} />;
@@ -135,11 +133,9 @@ class HotStreakGuide extends Analyzer {
               quickly to avoid a wasted crit that could have given you a {heatingUp}.
             </li>
             <li>
-              If you are low on charges and not guaranteed to crit via {combustion}, {firestarter},
-              {hyperthermia}, etc, spend {hotStreak} at the end of a cast like {fireball} or
-              {pyroblast} (with {sunKingsBlessing}). If both crit you get a new {hotStreak}, if only
-              one crits you still get a {heatingUp} regardless of which one crit or the order they
-              landed.
+              If low on charges outside of {combustion} you can cast {fireball}, or {pyroblast} with
+              {sunKingsBlessing}, immediately before spending {hotStreak} to get an increased chance
+              of fishing for {heatingUp} or {hotStreak}.
             </li>
           </ul>
         </div>

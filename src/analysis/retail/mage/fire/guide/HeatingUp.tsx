@@ -149,6 +149,7 @@ class HeatingUpGuide extends Analyzer {
     const searingTouch = <SpellLink spell={TALENTS.SCORCH_TALENT} />;
     const hyperthermia = <SpellLink spell={TALENTS.HYPERTHERMIA_TALENT} />;
     const alexstraszasFury = <SpellLink spell={TALENTS.ALEXSTRASZAS_FURY_TALENT} />;
+    const flamesFury = <SpellLink spell={SPELLS.FLAMES_FURY_BUFF} />;
 
     const fireBlastIcon = <SpellIcon spell={SPELLS.FIRE_BLAST} />;
     const phoenixFlamesIcon = <SpellIcon spell={TALENTS.PHOENIX_FLAMES_TALENT} />;
@@ -168,8 +169,13 @@ class HeatingUpGuide extends Analyzer {
             </li>
             <li>
               Unless you are guaranteed to crit ({combustion}, {firestarter}, {searingTouch}),{' '}
-              {hyperthermia}, or are capped on charges, don't use your guaranteed crit abilities
+              {hyperthermia}, or are capped or about to cap on charges, don't use {fireBlast}
               without {heatingUp}.
+            </li>
+            <li>
+              Outside of {combustion} you can use {phoenixFlames} without {heatingUp}, and then
+              convert that into {hotStreak} with {fireBlast}, especially if you have {flamesFury}{' '}
+              procs.
             </li>
           </ul>
         </div>

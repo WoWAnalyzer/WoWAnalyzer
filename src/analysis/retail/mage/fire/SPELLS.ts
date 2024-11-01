@@ -133,6 +133,11 @@ const spells = {
     name: 'Cauterized',
     icon: 'spell_fire_rune',
   },
+  FLAMES_FURY_BUFF: {
+    id: 409964,
+    name: "Flame's Fury",
+    icon: 'inv_misc_volatilefire',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;
