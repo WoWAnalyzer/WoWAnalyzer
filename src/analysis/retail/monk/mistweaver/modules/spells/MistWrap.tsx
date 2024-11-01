@@ -144,7 +144,7 @@ class MistWrap extends Analyzer {
     const hasMendingProliferation =
       combatant && combatant.hasBuff(SPELLS.MENDING_PROLIFERATION_BUFF.id);
 
-    //mending proliferation gets the additiona 10% bonus as well, this bonus stacks with the regular env bonus
+    //mending proliferation gets the additional 10% bonus as well, this bonus stacks with the regular env bonus
     if (hasMendingProliferation) {
       this.mendingProliferationBoost += calculateEffectiveHealing(event, MISTWRAP_INCREASE);
     }
