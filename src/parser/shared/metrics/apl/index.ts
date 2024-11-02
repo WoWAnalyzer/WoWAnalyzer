@@ -506,7 +506,7 @@ export class AplChecker {
 
     this.assertLookaheadCompat();
 
-    this.lastTimestamp = info.combatant.owner.fight.start_time;
+    this.lastTimestamp = info.combatant?.owner.fight.start_time ?? -1;
     this.lastSeenHostileTargetID = -1;
 
     // rules for spells that aren't known are automatically ignored
