@@ -86,7 +86,7 @@ export function evaluateQualitativePerformanceByThreshold(
   return new QualitativePerformanceAssertion(threshold)._getPerformance();
 }
 
-type QualitativePerformanceThresholdRange = {
+export type QualitativePerformanceThresholdRange = {
   fail?: number;
   ok?: number;
   good?: number;

@@ -53,12 +53,17 @@ class UnfurlingDarkness extends Analyzer {
     return this.procsGained - this.procsWasted;
   }
 
+  getMaxProcs() {
+    return Math.floor(this.owner.fightDuration / 15000); //Proc can only occur every 15 seconds.
+  }
+
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
         <BoringSpellValueText spell={SPELLS.UNFURLING_DARKNESS_BUFF}>
           <>
-            {this.getProcsUsed()}/{this.procsGained} <small>Procs Used</small>
+            {this.getProcsUsed()}/{this.procsGained}{' '}
+            <small>Procs out of {this.getMaxProcs()} possible </small>
           </>
         </BoringSpellValueText>
       </Statistic>
@@ -76,12 +81,17 @@ class UnfurlingDarkness extends Analyzer {
       label: 'Unfurling Darkness procs wasted',
     };
 
+    const missedUD = {
+      count: this.getMaxProcs(),
+      label: 'Unfurling Darkness possible procs',
+    };
+
     const explanation = (
       <p>
         <b>
           <SpellLink spell={TALENTS.UNFURLING_DARKNESS_TALENT} />
         </b>{' '}
-        is gained by casting <SpellLink spell={SPELLS.VAMPIRIC_TOUCH} />.<br />
+        can be gained every 15 seconds by casting <SpellLink spell={SPELLS.VAMPIRIC_TOUCH} />.<br />
         Cast <SpellLink spell={SPELLS.VAMPIRIC_TOUCH} /> while the buff is active to avoid wasting
         procs.
       </p>
@@ -89,8 +99,10 @@ class UnfurlingDarkness extends Analyzer {
 
     const data = (
       <div>
-        <strong>Unfurling Darkness breakdown</strong>
+        <strong>Unfurling Darkness Usage</strong>
         <GradiatedPerformanceBar good={goodUD} bad={badUD} />
+        <strong>Unfurling Darkness Procs</strong>
+        <GradiatedPerformanceBar good={goodUD} ok={missedUD} />
       </div>
     );
     return explanationAndDataSubsection(explanation, data, 50);

@@ -7,7 +7,7 @@ import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 import Panel from 'parser/ui/Panel';
 import { VisualizationSpec } from 'react-vega';
 import AutoSizer from 'react-virtualized-auto-sizer';
-import { SPELL_COLORS } from '../../constants';
+import { getCurrentRSKTalent, SPELL_COLORS } from '../../constants';
 
 type SpellTracker = {
   timestamp: number;
@@ -26,7 +26,7 @@ class REMGraph extends Analyzer {
     super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.vivifyCast);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.RISING_SUN_KICK_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(getCurrentRSKTalent(this.selectedCombatant)),
       this.rskCast,
     );
 

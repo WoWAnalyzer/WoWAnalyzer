@@ -50,8 +50,9 @@ const config: Config = {
       frontmatterType: 'guide',
       notes: (
         <AlertWarning>
-          This has been updated for the latest Arcane Mage changes. If something is missing or
-          incorrect, please ping me (<code>@Sharrq</code>) in the Mage Discord and let me know.
+          This has not been updated for 11.0.5. Once APL stuff gets resolved following the last
+          minute Arcane nerfs, I will get this updated. If you have questions about this, ping me in
+          the Altered Time Mage Discord <code>@Sharrq</code>
         </AlertWarning>
       ),
     },

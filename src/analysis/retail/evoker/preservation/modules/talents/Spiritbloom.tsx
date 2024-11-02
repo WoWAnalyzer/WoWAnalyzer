@@ -11,6 +11,7 @@ import { GUIDE_CORE_EXPLANATION_PERCENT, GuideContainer } from '../../Guide';
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import SPELLS from 'common/SPELLS/evoker';
+import React from 'react';
 
 interface CastInfo {
   timestamp: number;
@@ -47,31 +48,107 @@ class Spiritbloom extends Analyzer {
   }
 
   get guideSubsection(): JSX.Element {
-    const explanation = (
-      <p>
-        <b>
-          <SpellLink spell={TALENTS_EVOKER.SPIRITBLOOM_TALENT} />
-        </b>{' '}
-        is one of your empowered abilities and a very strong AoE triage heal. You should try to use
-        this ability at maximum Empowerment level whenever it is not on cooldown.{' '}
-        <SpellLink spell={TALENTS_EVOKER.SPIRITBLOOM_TALENT} /> is a strong candidate to consume{' '}
-        <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} />.
-      </p>
-    );
+    let explanation;
+    if (this.selectedCombatant.hasTalent(TALENTS_EVOKER.ENGULF_TALENT)) {
+      explanation = (
+        <div>
+          <p>
+            <b>
+              <SpellLink spell={TALENTS_EVOKER.SPIRITBLOOM_TALENT} />
+            </b>{' '}
+            is one of your empowered abilities and a very strong AoE triage heal. You should try to
+            use this ability whenever it is not on cooldown.{' '}
+          </p>
+          <p>
+            As Flameshaper, <SpellLink spell={TALENTS_EVOKER.SPIRITBLOOM_TALENT} /> is a filler
+            spell to do strong healing to few targets and shouldn't be prioritized when consuming{' '}
+            <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} />
+            es.
+          </p>
+          <p>You should always cast it at maximum empowerment level</p>
+        </div>
+      );
+    } else {
+      explanation = (
+        <div>
+          <p>
+            <b>
+              <SpellLink spell={TALENTS_EVOKER.SPIRITBLOOM_TALENT} />
+            </b>{' '}
+            is one of your empowered abilities and a very strong AoE triage heal. You should try to
+            use this ability whenever it is not on cooldown.{' '}
+          </p>
+          <p>
+            As Chronowarden, your best tool to do group healing is to spread{' '}
+            <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} />
+            es on your group, consume them with{' '}
+            <SpellLink spell={TALENTS_EVOKER.VERDANT_EMBRACE_TALENT} /> to apply{' '}
+            <SpellLink spell={TALENTS_EVOKER.LIFEBIND_TALENT} />, apply another single{' '}
+            <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} /> on yourself and then cast a{' '}
+            <b>rank 2</b> <SpellLink spell={TALENTS_EVOKER.SPIRITBLOOM_TALENT} /> on yourself
+          </p>
+          <p>
+            This maximizes the healing you do from{' '}
+            <SpellLink spell={TALENTS_EVOKER.SPIRITBLOOM_TALENT} /> and{' '}
+            <SpellLink spell={TALENTS_EVOKER.AFTERIMAGE_TALENT} /> to transfer via the{' '}
+            <SpellLink spell={TALENTS_EVOKER.LIFEBIND_TALENT} />.
+          </p>
+        </div>
+      );
+    }
 
     const entries: BoxRowEntry[] = [];
     this.casts.forEach((cast) => {
-      const value =
-        cast.empowerment === this.maxEmpowerLevel
-          ? QualitativePerformance.Good
-          : QualitativePerformance.Fail;
-      const tooltip = (
-        <>
+      let value = QualitativePerformance.Fail;
+      const tooltip = [
+        <React.Fragment key="1">
           <SpellLink spell={TALENTS_EVOKER.SPIRITBLOOM_TALENT} /> @{' '}
-          {this.owner.formatTimestamp(cast.timestamp)}
+        </React.Fragment>,
+        <React.Fragment key="2">{this.owner.formatTimestamp(cast.timestamp)}</React.Fragment>,
+        <React.Fragment key="3">
           <br /> Empowerment level: {cast.empowerment}
-        </>
-      );
+        </React.Fragment>,
+      ];
+
+      if (this.selectedCombatant.hasTalent(TALENTS_EVOKER.ENGULF_TALENT)) {
+        if (cast.empowerment === this.maxEmpowerLevel) {
+          value = QualitativePerformance.Good;
+        }
+      } else {
+        const hasLifebind = this.selectedCombatant.getBuff(SPELLS.LIFEBIND_BUFF.id, cast.timestamp);
+        if (hasLifebind) {
+          tooltip.push(
+            <React.Fragment key="4">
+              <br />
+              <SpellLink spell={TALENTS_EVOKER.LIFEBIND_TALENT} /> active
+            </React.Fragment>,
+          );
+          const hasEcho = this.selectedCombatant.getBuff(
+            TALENTS_EVOKER.ECHO_TALENT.id,
+            cast.timestamp,
+          );
+          if (hasEcho) {
+            tooltip.push(
+              <React.Fragment key="5">
+                <br />
+                <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} /> on yourself
+              </React.Fragment>,
+            );
+            if (cast.empowerment === 2) {
+              value = QualitativePerformance.Perfect;
+            } else if (cast.empowerment === 1) {
+              value = QualitativePerformance.Good;
+            } else if (cast.empowerment === this.maxEmpowerLevel) {
+              value = QualitativePerformance.Ok;
+            }
+          } else if (cast.empowerment === this.maxEmpowerLevel) {
+            value = QualitativePerformance.Good;
+          }
+        } else if (cast.empowerment === this.maxEmpowerLevel) {
+          value = QualitativePerformance.Good;
+        }
+      }
+
       entries.push({ value, tooltip });
     });
 

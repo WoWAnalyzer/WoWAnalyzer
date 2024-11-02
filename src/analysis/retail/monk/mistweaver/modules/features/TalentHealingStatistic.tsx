@@ -19,13 +19,14 @@ import SheilunsGift from '../spells/SheilunsGift';
 import ShaohaosLessons from '../spells/ShaohaosLessons';
 import VeilOfPride from '../spells/VeilOfPride';
 import LegacyOfWisdom from '../spells/LegacyOfWisdom';
-import AncientTeachings from '../spells/AncientTeachings';
+import JadefireTeachings from '../spells/JadefireTeachings';
 import TearOfMorning from '../spells/TearOfMorning';
 import ChiHarmony from '../spells/ChiHarmony';
 import LotusInfusion from '../spells/LotusInfusion';
 import MendingProliferation from '../spells/MendingProliferation';
 import CraneStyle from '../spells/CraneStyle';
 import ZenPulse from '../spells/ZenPulse';
+import AverageTimeBetweenRSKs from '../spells/AverageTimeBetweenRSKs';
 
 class TalentHealingStatistic extends Analyzer {
   static dependencies = {
@@ -43,7 +44,7 @@ class TalentHealingStatistic extends Analyzer {
     shaohaos: ShaohaosLessons,
     veilOfPride: VeilOfPride,
     legacyOfWisdom: LegacyOfWisdom,
-    ancientTeachings: AncientTeachings,
+    jadefireTeachings: JadefireTeachings,
     jadefireStomp: JadefireStomp,
     tearOfMorning: TearOfMorning,
     chiHarmony: ChiHarmony,
@@ -51,6 +52,7 @@ class TalentHealingStatistic extends Analyzer {
     mendingProliferation: MendingProliferation,
     craneStyle: CraneStyle,
     zenPulse: ZenPulse,
+    rushingWindKick: AverageTimeBetweenRSKs,
   };
 
   protected risingMist!: RisingMist;
@@ -67,7 +69,7 @@ class TalentHealingStatistic extends Analyzer {
   protected shaohaos!: ShaohaosLessons;
   protected veilOfPride!: VeilOfPride;
   protected legacyOfWisdom!: LegacyOfWisdom;
-  protected ancientTeachings!: AncientTeachings;
+  protected jadefireTeachings!: JadefireTeachings;
   protected jadefireStomp!: JadefireStomp;
 
   protected tearOfMorning!: TearOfMorning;
@@ -76,6 +78,7 @@ class TalentHealingStatistic extends Analyzer {
   protected mendingProliferation!: MendingProliferation;
   protected craneStyle!: CraneStyle;
   protected zenPulse!: ZenPulse;
+  protected rushingWindKick!: AverageTimeBetweenRSKs;
 
   buildTalentList() {
     const talentList = [];
@@ -121,8 +124,8 @@ class TalentHealingStatistic extends Analyzer {
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.LEGACY_OF_WISDOM_TALENT)) {
       talentList.push(this.legacyOfWisdom.subStatistic());
     }
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.ANCIENT_TEACHINGS_TALENT)) {
-      talentList.push(this.ancientTeachings.talentHealingStatistic());
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT)) {
+      talentList.push(this.jadefireTeachings.talentHealingStatistic());
     }
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.JADEFIRE_STOMP_TALENT)) {
       talentList.push(this.jadefireStomp.talentHealingStatistic());
@@ -144,6 +147,9 @@ class TalentHealingStatistic extends Analyzer {
     }
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.ZEN_PULSE_TALENT)) {
       talentList.push(this.zenPulse.subStatistic());
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_TALENT)) {
+      talentList.push(this.rushingWindKick.substatistic());
     }
 
     const sortedTalentList = talentList.sort(

@@ -54,6 +54,5 @@ export const MANA_TEA_YULONS_WHISPER = 'MTYulonsWhisper';
 export const STRENGTH_OF_THE_BLACK_OX = 'SotBO';
 
 // Misc
-export const CALMING_COALESCENCE = 'Calming Coalescence';
 export const CAST_BUFFER_MS = 100;
 export const CHI_WAVE_RSK = 'ChiWaveRSK';

@@ -50,18 +50,16 @@ class AtonementHealingDone extends Analyzer {
 
   // FIXME: 'byAbility()' added to HealingDone, this should no longer require custom code
   _addHealing(source: DamageEvent, amount = 0, absorbed = 0, overheal = 0) {
-    const ability = source.ability;
+    const { ability } = source;
     const spellId = ability.guid;
+
     this._totalAtonement = this._totalAtonement.addValues({ regular: amount, absorbed, overheal });
-    this.bySource[spellId] = this.bySource[spellId] || {};
-    this.bySource[spellId].ability = ability;
-    this.bySource[spellId].healing =
-      this.bySource[spellId].healing ||
-      HealingValue.fromValues({
-        regular: amount,
-        absorbed,
-        overheal,
-      });
+    if (!this.bySource[spellId]) {
+      this.bySource[spellId] = { ability, healing: HealingValue.empty() };
+    }
+    this.bySource[spellId].healing = this.bySource[spellId].healing.add(
+      HealingValue.fromValues({ regular: amount, absorbed, overheal }),
+    );
   }
 
   statistic() {

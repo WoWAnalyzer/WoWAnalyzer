@@ -89,6 +89,7 @@ export const RENEWING_MIST_EVENT_LINKS: EventLink[] = [
     referencedEventId: [
       TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
       TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
+      TALENTS_MONK.RUSHING_WIND_KICK_TALENT.id,
     ],
     referencedEventType: [EventType.Cast],
     backwardBufferMs: RAPID_DIFFUSION_BUFFER_MS,

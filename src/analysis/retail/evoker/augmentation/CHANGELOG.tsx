@@ -4,6 +4,7 @@ import { SpellLink } from 'interface';
 import TALENTS from 'common/TALENTS/evoker';
 
 export default [
+  change(date(2024, 10, 24), <>Fix event issues with <SpellLink spell={TALENTS.BREATH_OF_EONS_TALENT} /> & MajorDefensives modules</>, Vollmer),
   change(date(2024, 10, 4), <>Fix an issue with external <SpellLink spell={TALENTS.RENEWING_BLAZE_TALENT}/> for MajorDefensive module</>, Vollmer),
   change(date(2024, 10, 4), <>Fix some edgecases for <SpellLink spell={TALENTS.BREATH_OF_EONS_TALENT} /> module</>, Vollmer),
   change(date(2024, 9, 16), "Update Buff Helper note gen for Frame Glows WA", Vollmer),

@@ -7,6 +7,7 @@ import { explanationAndDataSubsection } from 'interface/guide/components/Explana
 import { currentEclipse } from 'analysis/retail/druid/balance/constants';
 import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';
+import { TALENTS_DRUID } from 'common/TALENTS';
 
 // TODO TWW - look at these numbers again after TWW talent changes / sims
 const MIN_STARFIRE_TARGETS_LUNAR = 3;
@@ -24,9 +25,15 @@ export default class FillerUsage extends Analyzer {
   lowTargetStarfires: number = 0;
   /** Starfire hardcasts during Solar Eclipse */
   solarStarfires: number = 0;
+  /** Starefire casts w/ Lunar Calling outside of Eclipse (must wrath to enter Eclipse) */
+  noEclipseLcStarfires: number = 0;
+
+  hasLunarCalling: boolean;
 
   constructor(options: Options) {
     super(options);
+
+    this.hasLunarCalling = this.selectedCombatant.hasTalent(TALENTS_DRUID.LUNAR_CALLING_TALENT);
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.STARFIRE), this.onStarfire);
     this.addEventListener(
@@ -46,7 +53,7 @@ export default class FillerUsage extends Analyzer {
         `Use Wrath instead of Starfire in Solar Eclipse, regardless of target count`,
       );
       this.solarStarfires += 1;
-    } else if (eclipse === 'lunar') {
+    } else if (eclipse === 'lunar' && !this.hasLunarCalling) {
       if (targetsHit < MIN_STARFIRE_TARGETS_LUNAR) {
         addInefficientCastReason(
           event,
@@ -54,7 +61,7 @@ export default class FillerUsage extends Analyzer {
         );
         this.lowTargetStarfires += 1;
       }
-    } else if (eclipse === 'both') {
+    } else if (eclipse === 'both' && !this.hasLunarCalling) {
       if (targetsHit < MIN_STARFIRE_TARGETS_CA) {
         addInefficientCastReason(
           event,
@@ -62,6 +69,11 @@ export default class FillerUsage extends Analyzer {
         );
         this.lowTargetStarfires += 1;
       }
+    } else if (eclipse === 'none' && this.hasLunarCalling) {
+      addInefficientCastReason(
+        event,
+        `You cast Starfire while not in eclipse. Because you took Lunar Calling, you need to use Wrath to reenter eclipse.`,
+      );
     }
   }
 
@@ -87,7 +99,7 @@ export default class FillerUsage extends Analyzer {
   }
 
   get badFillers() {
-    return this.lowTargetStarfires + this.solarStarfires;
+    return this.lowTargetStarfires + this.solarStarfires + this.noEclipseLcStarfires;
   }
 
   get percentGoodFillers() {
@@ -109,20 +121,29 @@ export default class FillerUsage extends Analyzer {
           .
         </p>
         <p>
-          They are spammable direct damage spells that generate Astral Power. You should generally
-          use <SpellLink spell={SPELLS.WRATH} />, but against {MIN_STARFIRE_TARGETS_LUNAR} stacked
-          targets in Lunar Eclipse or {MIN_STARFIRE_TARGETS_CA} stacked targets in Celestial
-          Alignment you should swap to <SpellLink spell={SPELLS.STARFIRE} />.
+          They are spammable and generate Astral Power. Use <SpellLink spell={SPELLS.WRATH} /> in
+          single target and <SpellLink spell={SPELLS.STARFIRE} /> against multiple stacked targets.
         </p>
         <p>
           Your fillers are greatly buffed by their corresponding{' '}
           <SpellLink spell={SPELLS.ECLIPSE} /> - aim to enter an Eclipse that matches your current
           target count.
         </p>
-        <p>
-          If you make a mistake and find yourself in Lunar Eclipse with no stacked targets or in
-          Solar Eclipse with stacked targets, you should use <SpellLink spell={SPELLS.WRATH} />.
-        </p>
+        {this.hasLunarCalling && (
+          <p>
+            <i>
+              However, because you took <SpellLink spell={TALENTS_DRUID.LUNAR_CALLING_TALENT} />,
+              you can only enter Lunar Eclipse. When Eclipse drops you must use Wrath to reenter
+              Eclipse.
+            </i>
+          </p>
+        )}
+        {!this.hasLunarCalling && (
+          <p>
+            If you make a mistake and find yourself in Lunar Eclipse with no stacked targets or in
+            Solar Eclipse with stacked targets, you should use <SpellLink spell={SPELLS.WRATH} />.
+          </p>
+        )}
       </>
     );
 
@@ -136,7 +157,9 @@ export default class FillerUsage extends Analyzer {
     };
     const badFillerData = {
       count: this.badFillers,
-      label: 'Starfires during Solar Eclipse or that hit too few targets',
+      label: this.hasLunarCalling
+        ? 'Starfire when out of Eclipse (with Lunar Calling, you must Wrath to enter eclipse)'
+        : 'Starfires during Solar Eclipse or that hit too few targets',
     };
 
     const data = (
@@ -144,8 +167,8 @@ export default class FillerUsage extends Analyzer {
         <strong>Filler cast breakdown</strong>
         <small>
           {' '}
-          - Green is a good cast, Yellow is a Wrath during Lunar Eclipse, Red is a Starfire on too
-          few targets or during Solar Eclipse. Mouseover for more details.
+          - Green is a good cast, Yellow is a Wrath during Lunar Eclipse, Red is a bad Starfire.
+          Mouseover for more details.
         </small>
         <GradiatedPerformanceBar good={goodFillerData} ok={okFillerData} bad={badFillerData} />
       </div>

@@ -99,7 +99,7 @@ export default class HornOfWinter extends Analyzer {
           checklistItems.push({
             label: 'Runic Power Gained',
             result: <PerformanceMark perf={runicPowerPerf} />,
-            details: <>{cast.gainedRp - cast.wastedRp}</>,
+            details: <>{Math.max(0, cast.gainedRp - cast.wastedRp)}</>,
           });
 
           const runesPerf = cast.wastedRunes

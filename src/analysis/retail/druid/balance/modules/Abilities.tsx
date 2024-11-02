@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import { TALENTS_DRUID } from 'common/TALENTS';
-import { cdSpell } from 'analysis/retail/druid/balance/constants';
+import { cdCooldown, cdSpell } from 'analysis/retail/druid/balance/constants';
 import { hastedCooldown, normalGcd } from 'common/abilitiesConstants';
 
 class Abilities extends CoreAbilities {
@@ -78,12 +78,13 @@ class Abilities extends CoreAbilities {
         spell: cdSpell(combatant).id,
         buffSpellId: SPELLS.INCARNATION_CHOSEN_OF_ELUNE.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: combatant.hasTalent(TALENTS_DRUID.ORBITAL_STRIKE_TALENT) ? 120 : 180,
+        cooldown: cdCooldown(combatant),
         enabled: combatant.hasTalent(TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.8,
         },
+        charges: combatant.hasTalent(TALENTS_DRUID.WHIRLING_STARS_TALENT) ? 2 : 1,
         gcd: combatant.hasTalent(TALENTS_DRUID.ORBITAL_STRIKE_TALENT) ? { base: 1500 } : null,
         timelineSortIndex: 9,
       },
@@ -91,7 +92,7 @@ class Abilities extends CoreAbilities {
         spell: cdSpell(combatant).id,
         buffSpellId: SPELLS.CELESTIAL_ALIGNMENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: combatant.hasTalent(TALENTS_DRUID.ORBITAL_STRIKE_TALENT) ? 120 : 180,
+        cooldown: cdCooldown(combatant),
         enabled:
           combatant.hasTalent(TALENTS_DRUID.CELESTIAL_ALIGNMENT_TALENT) &&
           !combatant.hasTalent(TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT),
@@ -99,6 +100,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.8,
         },
+        charges: combatant.hasTalent(TALENTS_DRUID.WHIRLING_STARS_TALENT) ? 2 : 1,
         gcd: combatant.hasTalent(TALENTS_DRUID.ORBITAL_STRIKE_TALENT) ? { base: 1500 } : null,
         timelineSortIndex: 9,
       },

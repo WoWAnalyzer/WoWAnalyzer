@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 import Events, { CastEvent } from 'parser/core/Events';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { UNRESTRAINED_FURY_SCALING } from 'analysis/retail/demonhunter/shared';
+import { UNTETHERED_FURY_SCALING } from 'analysis/retail/demonhunter/shared';
 import { TIERS } from 'game/TIERS';
 import {
   ChecklistUsageInfo,
@@ -65,17 +66,21 @@ export default class Fracture extends Analyzer {
       BASE_FURY +
       UNRESTRAINED_FURY_SCALING[
         this.selectedCombatant.getTalentRank(TALENTS.UNRESTRAINED_FURY_TALENT)
-      ];
+      ] +
+      UNTETHERED_FURY_SCALING[this.selectedCombatant.getTalentRank(TALENTS.UNTETHERED_FURY_TALENT)];
+
     this.inMetaFuryLimit =
       getMetaInitialFuryLimit(hasT292Pc) +
       UNRESTRAINED_FURY_SCALING[
         this.selectedCombatant.getTalentRank(TALENTS.UNRESTRAINED_FURY_TALENT)
-      ];
+      ] +
+      UNTETHERED_FURY_SCALING[this.selectedCombatant.getTalentRank(TALENTS.UNTETHERED_FURY_TALENT)];
     this.notMetaFuryLimit =
       getNonMetaInitialFuryLimit(hasT292Pc) +
       UNRESTRAINED_FURY_SCALING[
         this.selectedCombatant.getTalentRank(TALENTS.UNRESTRAINED_FURY_TALENT)
-      ];
+      ] +
+      UNTETHERED_FURY_SCALING[this.selectedCombatant.getTalentRank(TALENTS.UNTETHERED_FURY_TALENT)];
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.FRACTURE_TALENT),

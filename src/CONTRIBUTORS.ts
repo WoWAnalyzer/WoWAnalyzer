@@ -709,15 +709,8 @@ export const Khadaj: Contributor = {
 export const fel1ne: Contributor = {
   nickname: 'fel1ne',
   github: 'fel1n3',
-  discord: 'Dr. fel1ne#5614',
+  discord: 'fel1ne',
   avatar: avatar('fel1ne-avatar.png'),
-  mains: [
-    {
-      name: 'Felerai',
-      spec: SPECS.RESTORATION_DRUID,
-      link: 'https://www.worldofwarcraft.com/en-us/character/khazgoroth/Felerai',
-    },
-  ],
 };
 export const Dambroda: Contributor = {
   nickname: 'Dambroda',
@@ -2528,4 +2521,15 @@ export const PandaGoesBaa: Contributor = {
       link: 'https://worldofwarcraft.blizzard.com/en-us/character/us/illidan/pandagoesbaa',
     },
   ],
+};
+
+export const Quaarkz: Contributor = {
+  nickname: 'Quaarkz',
+  github: 'Quaarkz',
+  discord: 'Quaarkz',
+};
+
+export const Rzial: Contributor = {
+  nickname: 'Rzial',
+  github: 'Rzial',
 };

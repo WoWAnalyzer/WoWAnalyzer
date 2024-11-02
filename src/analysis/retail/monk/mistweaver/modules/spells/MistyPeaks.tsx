@@ -13,6 +13,11 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import SpellLink from 'interface/SpellLink';
 import Combatants from 'parser/shared/modules/Combatants';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
+import {
+  ABILITIES_AFFECTED_BY_HEALING_INCREASES,
+  ENVELOPING_MIST_INCREASE,
+  MISTWRAP_INCREASE,
+} from '../../constants';
 
 const UNAFFECTED_SPELLS = [TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
 
@@ -43,8 +48,8 @@ class MistyPeaks extends Analyzer {
       return;
     }
     this.envmHealingIncrease = this.selectedCombatant.hasTalent(TALENTS_MONK.MIST_WRAP_TALENT)
-      ? 0.4
-      : 0.3;
+      ? ENVELOPING_MIST_INCREASE + MISTWRAP_INCREASE
+      : ENVELOPING_MIST_INCREASE;
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell([TALENTS_MONK.ENVELOPING_MIST_TALENT]),
       this.handleEnvApply,
@@ -88,6 +93,7 @@ class MistyPeaks extends Analyzer {
     const spellId = event.ability.guid;
     if (
       UNAFFECTED_SPELLS.includes(spellId) ||
+      !ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(spellId) ||
       !this.hotTracker.hots[targetId] ||
       !this.hotTracker.hots[targetId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id]
     ) {

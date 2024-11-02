@@ -70,7 +70,7 @@ function CoreSection({ modules, events, info }: GuideProps<typeof CombatLogParse
           Your primary resource is <ResourceLink id={RESOURCE_TYPES.ASTRAL_POWER.id} />. Most of
           your spells generate Astral Power, which can be spent to cast{' '}
           <SpellLink spell={TALENTS_DRUID.STARSURGE_SHARED_TALENT} /> or{' '}
-          <SpellLink spell={TALENTS_DRUID.STARFALL_TALENT} />. Avoid capping Astral Power!
+          <SpellLink spell={SPELLS.STARFALL_CAST} />. Avoid capping Astral Power!
         </p>
         The chart below shows your Astral Power over the course of the encounter. You wasted{' '}
         <PerformancePercentage

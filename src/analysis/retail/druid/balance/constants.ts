@@ -35,11 +35,29 @@ export function cdSpell(c: Combatant): Spell {
 
 const CA_DURATION = 15_000;
 const INCARN_DURATION = 20_000;
+const WHIRLING_STARS_MULT = 0.8;
 /** Returns the duration of Balance Druid's primary cooldown spell, which changes based on talent */
 export function cdDuration(c: Combatant): number {
-  return c.hasTalent(TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT)
+  const baseDuration = c.hasTalent(TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT)
     ? INCARN_DURATION
     : CA_DURATION;
+  return (
+    baseDuration * (c.hasTalent(TALENTS_DRUID.WHIRLING_STARS_TALENT) ? WHIRLING_STARS_MULT : 1)
+  );
+}
+
+const BASE_CD = 180;
+const ORBITAL_STRIKE_CD = 120;
+const WHIRLING_STARS_CD = 100;
+/** Returns the cooldown of Balance Druid's primary cooldown spell, which changes based on talent */
+export function cdCooldown(c: Combatant): number {
+  if (c.hasTalent(TALENTS_DRUID.ORBITAL_STRIKE_TALENT)) {
+    return ORBITAL_STRIKE_CD;
+  } else if (c.hasTalent(TALENTS_DRUID.WHIRLING_STARS_TALENT)) {
+    return WHIRLING_STARS_CD;
+  } else {
+    return BASE_CD;
+  }
 }
 
 /** Helper for checking if player has solar eclipse */
