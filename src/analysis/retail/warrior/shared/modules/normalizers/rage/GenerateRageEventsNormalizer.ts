@@ -188,7 +188,7 @@ export default class GenerateRageEventsNormalizer extends EventsNormalizer {
         let rageWasted = isMax ? expectedGeneration - generated : 0;
 
         if (rageWasted < 0) {
-          console.error(
+          console.warn(
             'Rage wasted is negative. This means generated rage is higher than expected',
             {
               expectedGeneration,
@@ -200,7 +200,7 @@ export default class GenerateRageEventsNormalizer extends EventsNormalizer {
         }
 
         if ((isMax ? expectedGeneration : generated) % 1 !== 0) {
-          console.error('Rage generation is not an integer');
+          console.warn('Rage generation is not an integer');
         }
 
         if (extraAttack) {
