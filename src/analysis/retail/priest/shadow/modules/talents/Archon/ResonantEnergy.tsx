@@ -37,6 +37,8 @@ class ResonantEnergy extends Analyzer {
     if (!target) {
       return;
     }
+
+    //Potential Performance issue due to the following:
     const ampRE =
       target.getBuffStacks(SPELLS.SHADOW_PRIEST_ARCHON_RESONANT_ENERGY_DEBUFF.id) *
       ARCHON_RESONANT_ENERGY_MULTIPLIER;
