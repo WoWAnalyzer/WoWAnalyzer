@@ -96,10 +96,10 @@ class Voidform extends Analyzer {
       </>
     );
     let value = QualitativePerformance.Good;
-    if (extension <= 15.1) {
+    if (extension <= 15) {
       value = QualitativePerformance.Ok;
     }
-    if (extension <= 10.1) {
+    if (extension <= 10) {
       value = QualitativePerformance.Fail;
     }
     this.VFExtension.push({ value, tooltip });
