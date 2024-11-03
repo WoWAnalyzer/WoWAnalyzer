@@ -118,7 +118,7 @@ const spells = {
   BATTLE_TRANCE: {
     id: 12964,
     name: 'Battle Trance',
-    icon: 'inv_helmet_06',
+    icon: 'inv_helmet_06.jpg',
   },
   PUMMEL: {
     id: 6552,
