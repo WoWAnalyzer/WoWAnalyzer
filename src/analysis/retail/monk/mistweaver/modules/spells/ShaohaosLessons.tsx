@@ -28,6 +28,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import Spell from 'common/SPELLS/Spell';
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../constants';
 
 const DESPAIR_CRIT_INCREASE = 0.3;
 const DOUBT_INCREASE = 0.4;
@@ -127,7 +128,10 @@ class ShaohaosLessons extends Analyzer {
   }
 
   handleHealDoubt(event: HealEvent) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.LESSON_OF_DOUBT_BUFF.id)) {
+    if (
+      !ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(event.ability.guid) ||
+      !this.selectedCombatant.hasBuff(SPELLS.LESSON_OF_DOUBT_BUFF.id)
+    ) {
       return;
     }
     const targetPlayerHealthPercent = (event.hitPoints - event.amount) / event.maxHitPoints;

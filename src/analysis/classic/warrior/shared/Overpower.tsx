@@ -20,7 +20,7 @@ export default class Overpower extends ExecuteHelper.withDependencies({ abilitie
     this.deps.abilities.add({
       spell: SPELLS.OVERPOWER.id,
       category: SPELL_CATEGORY.ROTATIONAL,
-      gcd: { base: 1500 },
+      gcd: { static: 1500 },
       castEfficiency: {
         suggestion: false,
         maxCasts: () => this.maxCasts,

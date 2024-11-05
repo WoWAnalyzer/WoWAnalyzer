@@ -4,6 +4,7 @@ import {
   BeginChannelEvent,
   CastEvent,
   EventType,
+  HasTarget,
   UpdateSpellUsableEvent,
   UpdateSpellUsableType,
 } from 'parser/core/Events';
@@ -273,11 +274,11 @@ export const spells = (rule: InternalRule): Spell[] =>
   rule.spell.type === TargetType.SpellList ? rule.spell.target : [rule.spell.target];
 
 export function lookaheadSlice(
-  events: AnyEvent[],
+  events: AnyEvent[] | undefined,
   startIx: number,
   duration: number | undefined,
 ): AnyEvent[] {
-  if (!duration) {
+  if (!events || !duration) {
     return [];
   }
 
@@ -305,11 +306,11 @@ function ruleApplies(
   rule: InternalRule,
   abilities: Set<number>,
   result: CheckState,
-  events: AnyEvent[],
+  event: AnyEvent,
+  events: AnyEvent[] | undefined,
   eventIndex: number,
   requireCooldownAvailable: boolean = false,
 ): Spell[] | false {
-  const event = events[eventIndex];
   if (event.type !== EventType.Cast && event.type !== EventType.BeginChannel) {
     console.error('attempted to apply APL rule to non-cast event, ignoring', event);
     return false;
@@ -334,6 +335,12 @@ function ruleApplies(
       console.warn(
         `APL: Spell was cast but we thought it was out of range: ${spell.id} (${spell.name})`,
         event,
+      );
+    }
+
+    if (!events && rule.condition?.lookahead) {
+      throw new Error(
+        'attempted to use lookahead rule without full event list. lookahead rules are deprecated. please switch to using EventLinkNormalizer',
       );
     }
 
@@ -371,7 +378,8 @@ function applicableRule(
   apl: Apl,
   abilities: Set<number>,
   result: CheckState,
-  events: AnyEvent[],
+  event: AnyEvent,
+  events: AnyEvent[] | undefined,
   eventIndex: number,
   requireCooldownAvailable: boolean = false,
 ): ApplicableRule | undefined {
@@ -380,6 +388,7 @@ function applicableRule(
       rule,
       abilities,
       result,
+      event,
       events,
       eventIndex,
       requireCooldownAvailable,
@@ -472,6 +481,195 @@ function updateCheckState(result: CheckState, apl: Apl, event: AnyEvent): CheckS
   return result;
 }
 
+/**
+ * The main driver for an APL's state. Individual events are processed via `processEvent`. Most consumers will use `getResult()` after processing all events to retrieve a summary of successes / violations.
+ *
+ * This class is currently in an in-between state where it is usable with *most* APLs within an Analyzer, but some APL features (notably: lookaheads) are not supported.
+ */
+export class AplChecker {
+  private apl: Apl;
+  private info: PlayerInfo;
+  private abilities;
+  private applicableSpells;
+
+  private state: CheckState;
+  private events?: AnyEvent[];
+
+  private lastSeenHostileTargetID: number;
+  private lastSeenHostileTargetInstance: number | undefined = undefined;
+  private lastTimestamp: number;
+
+  constructor(apl: Apl, info: PlayerInfo, events?: AnyEvent[]) {
+    this.apl = apl;
+    this.info = info;
+    this.events = events;
+
+    this.assertLookaheadCompat();
+
+    this.lastTimestamp = info.combatant?.owner.fight.start_time ?? -1;
+    this.lastSeenHostileTargetID = -1;
+
+    // rules for spells that aren't known are automatically ignored
+    const { abilities, applicableSpells } = knownSpells(apl, info);
+    this.abilities = abilities;
+    this.applicableSpells = applicableSpells;
+
+    this.state = {
+      successes: [],
+      violations: [],
+      abilityState: {},
+      conditionState: initState(apl, info),
+      locationState: initLocationState(info),
+    };
+  }
+
+  /**
+   * Assert that either we can process lookaheads, or there are no lookaheads.
+   * Lookaheads are (unofficially?) deprecated in favor of EventLinkNormalizer.
+   */
+  private assertLookaheadCompat() {
+    if (!this.apl.conditions) {
+      return; // no conditions = no lookahead conditions
+    }
+
+    if (this.events) {
+      return; // events present = we can do lookaheads
+    }
+
+    for (const condition of this.apl.conditions) {
+      if (condition.lookahead) {
+        throw new Error(
+          `Unable to process lookahead condition ${condition.key}, no events present`,
+        );
+      }
+    }
+  }
+
+  /**
+   * Retrieve the summary of results from checking the APL against events.
+   */
+  getResult(): CheckResult {
+    return this.state;
+  }
+
+  /**
+   * Process the event list that was passed to the constructor. If no event list was passed to the constructor, does nothing.
+   */
+  processAll(): void {
+    if (!this.events) {
+      return;
+    }
+    for (let i = 0; i < this.events.length; i += 1) {
+      this.processEvent(this.events[i], i);
+    }
+  }
+
+  /**
+   * Process a single event, returning the outcome.
+   */
+  processEvent(event: AnyEvent, eventIndex?: number): Success | Violation | undefined {
+    const [nextState, outcome] = this.processEventInternal(this.state, event, eventIndex ?? -1);
+    this.state = nextState;
+
+    if (HasTarget(event) && !event.targetIsFriendly && event.targetID) {
+      this.lastSeenHostileTargetID = event.targetID;
+      this.lastSeenHostileTargetInstance = event.targetInstance;
+    }
+
+    this.lastTimestamp = event.timestamp;
+
+    return outcome;
+  }
+
+  /**
+   * Get the expected cast in the current state, or undefined if no rules apply.
+   *
+   * This works by fabricating a dummy cast event for ability in the bottom-most rule and then checking what the expected cast *actually* is.
+   *
+   * This does not update the state of the checker---it is a pure function of the inputs and the current state.
+   *
+   * By default, the last seen hostile target is used. If you want to handle casts against specific targets, supply the `targetID` and `targetInstance` parameters.
+   */
+  expectedCast(targetID?: number, targetInstance?: number): Spell[] | undefined {
+    const bottomSpells = spells(this.apl.rules.at(-1)!);
+
+    const dummyEvent: CastEvent = {
+      type: EventType.Cast,
+      timestamp: this.lastTimestamp,
+      sourceID: this.info.playerId,
+      sourceIsFriendly: true,
+      targetID: targetID ?? this.lastSeenHostileTargetID,
+      targetInstance: targetInstance ?? this.lastSeenHostileTargetInstance,
+      targetIsFriendly: false,
+      ability: {
+        guid: bottomSpells[0].id,
+        name: '',
+        type: 0,
+        abilityIcon: '',
+      },
+    };
+
+    const rule = applicableRule(this.apl, this.abilities, this.state, dummyEvent, undefined, -1);
+    return rule?.availableSpells;
+  }
+
+  private processEventInternal(
+    result: CheckState,
+    event: AnyEvent,
+    eventIndex: number,
+  ): [CheckState, Success | Violation | undefined] {
+    let outcome: Success | Violation | undefined = undefined;
+    if (aplProcessesEvent(event, result, this.applicableSpells, this.info.playerId)) {
+      const applicable = applicableRule(
+        this.apl,
+        this.abilities,
+        result,
+        event,
+        this.events,
+        eventIndex,
+      );
+      if (applicable) {
+        const { rule, availableSpells } = applicable;
+
+        if (
+          spells(rule).every(
+            (spell) =>
+              result.abilityState[spell.id] !== undefined &&
+              !result.abilityState[spell.id].isAvailable,
+          ) &&
+          import.meta.env.DEV
+        ) {
+          console.warn(
+            'inconsistent ability state in APL checker:',
+            spells(rule).map((spell) => result.abilityState[spell.id]),
+            rule,
+            event,
+          );
+        }
+        if (spells(rule).some((spell) => spell.id === event.ability.guid)) {
+          // the player cast the correct spell
+          outcome = { rule, actualCast: event, kind: ResultKind.Success };
+          result.successes.push(outcome);
+        } else if (
+          this.info.combatant === undefined ||
+          event.timestamp >= this.info.combatant.owner.fight.start_time
+        ) {
+          // condition prevents punishing precast spells
+          outcome = {
+            kind: ResultKind.Violation,
+            rule,
+            expectedCast: availableSpells,
+            actualCast: event,
+          };
+          result.violations.push(outcome);
+        }
+      }
+    }
+
+    return [updateCheckState(result, this.apl, event), outcome];
+  }
+}
+
 const aplCheck = (apl: Apl) =>
   metric<[PlayerInfo], CheckResult>((events, info) => {
     // sort event history. this is a workaround for event dispatch happening
@@ -499,59 +697,10 @@ const aplCheck = (apl: Apl) =>
       }
     });
 
-    // rules for spells that aren't known are automatically ignored
-    const { abilities, applicableSpells } = knownSpells(apl, info);
+    const checker = new AplChecker(apl, info, events);
+    checker.processAll();
 
-    return events.reduce<CheckState>(
-      (result, event, eventIndex) => {
-        if (aplProcessesEvent(event, result, applicableSpells, info.playerId)) {
-          const applicable = applicableRule(apl, abilities, result, events, eventIndex);
-          if (applicable) {
-            const { rule, availableSpells } = applicable;
-
-            if (
-              spells(rule).every(
-                (spell) =>
-                  result.abilityState[spell.id] !== undefined &&
-                  !result.abilityState[spell.id].isAvailable,
-              ) &&
-              import.meta.env.DEV
-            ) {
-              console.warn(
-                'inconsistent ability state in APL checker:',
-                spells(rule).map((spell) => result.abilityState[spell.id]),
-                rule,
-                event,
-              );
-            }
-            if (spells(rule).some((spell) => spell.id === event.ability.guid)) {
-              // the player cast the correct spell
-              result.successes.push({ rule, actualCast: event, kind: ResultKind.Success });
-            } else if (
-              info.combatant === undefined ||
-              event.timestamp >= info.combatant.owner.fight.start_time
-            ) {
-              // condition prevents punishing precast spells
-              result.violations.push({
-                kind: ResultKind.Violation,
-                rule,
-                expectedCast: availableSpells,
-                actualCast: event,
-              });
-            }
-          }
-        }
-
-        return updateCheckState(result, apl, event);
-      },
-      {
-        successes: [],
-        violations: [],
-        abilityState: {},
-        conditionState: initState(apl, info),
-        locationState: initLocationState(info),
-      },
-    );
+    return checker.getResult();
   });
 
 export default aplCheck;

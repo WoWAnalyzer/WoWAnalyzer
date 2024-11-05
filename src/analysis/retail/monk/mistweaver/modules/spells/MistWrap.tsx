@@ -12,18 +12,24 @@ import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import { ENVELOPING_MIST_INCREASE, MISTWRAP_INCREASE } from '../../constants';
+import {
+  ABILITIES_AFFECTED_BY_HEALING_INCREASES,
+  ENVELOPING_BREATH_INCREASE,
+  ENVELOPING_MIST_INCREASE,
+  MISTWRAP_INCREASE,
+} from '../../constants';
 import HotTrackerMW from '../core/HotTrackerMW';
+import { Tracker } from 'parser/shared/modules/HotTracker';
 
 const ENVELOPING_BASE_DURATION = 6000;
 
 class MistWrap extends Analyzer {
-  hotInfo: Map<string, HotInfo> = new Map<string, HotInfo>();
-
   effectiveHealing: number = 0;
   overHealing: number = 0;
   envMistHealingBoost: number = 0;
   envBreathHealingBoost: number = 0;
+  mendingProliferationBoost: number = 0;
+  mendingProliferationActive: boolean = false;
 
   static dependencies = {
     hotTracker: HotTrackerMW,
@@ -38,6 +44,9 @@ class MistWrap extends Analyzer {
     if (!this.active) {
       return;
     }
+    this.mendingProliferationActive = this.selectedCombatant.hasTalent(
+      TALENTS_MONK.MENDING_PROLIFERATION_TALENT,
+    );
     this.addEventListener(
       Events.heal
         .by(SELECTED_PLAYER)
@@ -60,10 +69,7 @@ class MistWrap extends Analyzer {
         this.effectiveHealing += event.amount + (event.absorbed || 0);
         this.overHealing += event.overheal || 0;
       } else {
-        let totalExtension = 0;
-        Object.keys(hot.extensions).forEach((idx, index) => {
-          totalExtension += hot.extensions[index].amount;
-        });
+        const totalExtension = hot.extensions.reduce((sum, cur) => sum + cur.amount, 0);
         if (hot.start + ENVELOPING_BASE_DURATION + totalExtension < event.timestamp) {
           this.effectiveHealing += event.amount + (event.absorbed || 0);
           this.overHealing += event.overheal || 0;
@@ -73,20 +79,40 @@ class MistWrap extends Analyzer {
   }
 
   genericHeal(event: HealEvent) {
-    const targetId = event.targetID;
     const spellId = event.ability.guid;
-    if (
-      !this.hotTracker.hots[targetId] ||
-      !this.hotTracker.hots[targetId][SPELLS.ENVELOPING_BREATH_HEAL.id] ||
-      !this.hotTracker.hots[targetId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id]
-    ) {
+
+    if (!ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(event.ability.guid)) {
       return;
     }
 
-    const envMistHot = this.hotTracker.hots[targetId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
-    const envBreathHot = this.hotTracker.hots[targetId][SPELLS.ENVELOPING_BREATH_HEAL.id];
-    //handle envelop mist bonus healing
-    if (envMistHot && spellId !== TALENTS_MONK.ENVELOPING_MIST_TALENT.id) {
+    //enveloping mist is only increased by enveloping breath
+    if (spellId === TALENTS_MONK.ENVELOPING_MIST_TALENT.id) {
+      this.calculateEnvelopingBreath(event);
+      return;
+    }
+
+    //enveloping breath is not increased by itself
+    if (spellId === SPELLS.ENVELOPING_BREATH_HEAL.id) {
+      this.calculateEnvelopingMist(event);
+      this.calculateMendingProliferation(event);
+      return;
+    }
+
+    this.calculateEnvelopingBreath(event);
+    this.calculateEnvelopingMist(event);
+    this.calculateMendingProliferation(event);
+  }
+
+  private calculateEnvelopingBreath(event: HealEvent) {
+    const envBreathHot = this.getHot(event, SPELLS.ENVELOPING_BREATH_HEAL.id);
+    if (envBreathHot && envBreathHot.start + ENVELOPING_BASE_DURATION < event.timestamp) {
+      this.envBreathHealingBoost += calculateEffectiveHealing(event, ENVELOPING_BREATH_INCREASE);
+    }
+  }
+
+  private calculateEnvelopingMist(event: HealEvent) {
+    const envMistHot = this.getHot(event, TALENTS_MONK.ENVELOPING_MIST_TALENT.id);
+    if (envMistHot) {
       //check for extensions
       if (envMistHot.extensions?.length === 0) {
         //bonus healing is 40% from additional time or 10% from additional healing based on timestamp
@@ -96,29 +122,47 @@ class MistWrap extends Analyzer {
             : calculateEffectiveHealing(event, MISTWRAP_INCREASE);
       } else {
         //get total extensions and apply bonus healing
-        let totalExtension = 0;
-        Object.keys(envMistHot.extensions).forEach((idx, index) => {
-          totalExtension += envMistHot.extensions[index].amount;
-        });
-        //bonus healing is 40% from additional time or 10% from additional healing based on timestamp
-        this.envMistHealingBoost +=
-          envMistHot.start + ENVELOPING_BASE_DURATION + totalExtension < event.timestamp
-            ? calculateEffectiveHealing(event, ENVELOPING_MIST_INCREASE + MISTWRAP_INCREASE)
-            : calculateEffectiveHealing(event, MISTWRAP_INCREASE);
+        //This whole block is a necessary bandaid because misty peaks procs silently extend the duration
+        //and reset the extension cap on existing enveloping mist without a refresh event
+        const totalExtension = envMistHot.extensions.reduce((sum, cur) => sum + cur.amount, 0);
+        const totalDuration = event.timestamp - envMistHot.start;
+
+        if (totalDuration > Number(envMistHot.maxDuration)) {
+          this.envMistHealingBoost += calculateEffectiveHealing(event, MISTWRAP_INCREASE);
+        } else {
+          this.envMistHealingBoost +=
+            envMistHot.start + ENVELOPING_BASE_DURATION + totalExtension < event.timestamp
+              ? calculateEffectiveHealing(event, ENVELOPING_MIST_INCREASE + MISTWRAP_INCREASE)
+              : calculateEffectiveHealing(event, MISTWRAP_INCREASE);
+        }
       }
-    }
-    //handle envelop breath bonus healing
-    if (
-      envBreathHot &&
-      envBreathHot.start + ENVELOPING_BASE_DURATION < event.timestamp &&
-      spellId !== SPELLS.ENVELOPING_BREATH_HEAL.id
-    ) {
-      this.envBreathHealingBoost += calculateEffectiveHealing(event, MISTWRAP_INCREASE);
     }
   }
 
+  private calculateMendingProliferation(event: HealEvent) {
+    const combatant = this.combatants.getEntity(event);
+    const hasMendingProliferation =
+      combatant && combatant.hasBuff(SPELLS.MENDING_PROLIFERATION_BUFF.id);
+
+    //mending proliferation gets the additional 10% bonus as well, this bonus stacks with the regular env bonus
+    if (hasMendingProliferation) {
+      this.mendingProliferationBoost += calculateEffectiveHealing(event, MISTWRAP_INCREASE);
+    }
+  }
+
+  private getHot(event: HealEvent, spellId: number): Tracker | undefined {
+    return this.hotTracker.hots[event.targetID]
+      ? this.hotTracker.hots[event.targetID][spellId] || undefined
+      : undefined;
+  }
+
   get totalHealing() {
-    return this.envBreathHealingBoost + this.envMistHealingBoost + this.effectiveHealing;
+    return (
+      this.envBreathHealingBoost +
+      this.envMistHealingBoost +
+      this.mendingProliferationBoost +
+      this.effectiveHealing
+    );
   }
 
   subStatistic() {
@@ -140,9 +184,9 @@ class MistWrap extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            Effective Healing: {formatNumber(this.effectiveHealing)}
+            Effective HoT Healing: {formatNumber(this.effectiveHealing)}
             <br />
-            Overhealing: {formatNumber(this.overHealing)}
+            HoT Overhealing: {formatNumber(this.overHealing)}
             <br />
             Bonus Healing from extra <SpellLink
               spell={SPELLS.ENVELOPING_BREATH_HEAL}
@@ -150,6 +194,14 @@ class MistWrap extends Analyzer {
             <br />
             Bonus Healing from extra <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} />{' '}
             duration: {formatNumber(this.envMistHealingBoost)}
+            {this.mendingProliferationActive && (
+              <>
+                <br />
+                Bonus Healing from <SpellLink
+                  spell={TALENTS_MONK.MENDING_PROLIFERATION_TALENT}
+                /> : {formatNumber(this.mendingProliferationBoost)}
+              </>
+            )}
           </>
         }
       >
@@ -162,9 +214,3 @@ class MistWrap extends Analyzer {
 }
 
 export default MistWrap;
-
-type HotInfo = {
-  applyTimeStamp: number;
-  playerAppliedTo: string;
-  spellId: number;
-};

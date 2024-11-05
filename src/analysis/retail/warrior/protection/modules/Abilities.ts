@@ -140,7 +140,7 @@ class Abilities extends CoreAbilities {
         spell: [TALENTS.INTERVENE_TALENT.id, SPELLS.INTERVENE_BUFF.id, SPELLS.INTERVENE_CHARGE.id],
         enabled: combatant.hasTalent(TALENTS.INTERVENE_TALENT),
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 30,
+        cooldown: 30 * (combatant.hasTalent(TALENTS.HONED_REFLEXES_TALENT) ? 0.95 : 1),
       },
       {
         spell: TALENTS.RALLYING_CRY_TALENT.id,
@@ -172,7 +172,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.SPELL_REFLECTION_TALENT),
 
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 20,
+        cooldown: 20 * (combatant.hasTalent(TALENTS.HONED_REFLEXES_TALENT) ? 0.95 : 1),
       },
       {
         spell: TALENTS.HEROIC_LEAP_TALENT.id,
@@ -233,7 +233,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 30,
+        cooldown: 30 * (combatant.hasTalent(TALENTS.HONED_REFLEXES_TALENT) ? 0.95 : 1),
       },
       {
         spell: TALENTS.BITTER_IMMUNITY_TALENT.id,
@@ -255,7 +255,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 90 - (combatant.hasTalent(TALENTS.UPROAR_TALENT) ? 30 : 0),
+        cooldown: 90 - (combatant.hasTalent(TALENTS.UPROAR_TALENT) ? 45 : 0),
       },
       {
         spell: TALENTS.CHAMPIONS_SPEAR_TALENT.id,
@@ -340,7 +340,9 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.SHIELD_WALL_TALENT),
 
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 210 - (combatant.hasTalent(TALENTS.DEFENDERS_AEGIS_TALENT) ? 30 : 0),
+        cooldown:
+          (210 - (combatant.hasTalent(TALENTS.DEFENDERS_AEGIS_TALENT) ? 30 : 0)) *
+          (combatant.hasTalent(TALENTS.HONED_REFLEXES_TALENT) ? 0.95 : 1),
         charges: 1 + (combatant.hasTalent(TALENTS.DEFENDERS_AEGIS_TALENT) ? 1 : 0),
       },
       {

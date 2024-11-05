@@ -9,19 +9,26 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { ENVELOPING_MIST_INCREASE, MISTWRAP_INCREASE } from '../../constants';
+import {
+  ABILITIES_AFFECTED_BY_HEALING_INCREASES,
+  ENVELOPING_MIST_INCREASE,
+  MISTWRAP_INCREASE,
+} from '../../constants';
 import { isFromEnvelopingMist } from '../../normalizers/CastLinkNormalizer';
+import HotTrackerMW from '../core/HotTrackerMW';
 
 const UNAFFECTED_SPELLS: number[] = [TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
 
 class EnvelopingMists extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    hotTracker: HotTrackerMW,
   };
   healingIncrease: number = 0;
   evmHealingIncrease: number = 0;
   gustsHealing: number = 0;
   protected combatants!: Combatants;
+  protected hotTracker!: HotTrackerMW;
 
   constructor(options: Options) {
     super(options);
@@ -45,25 +52,22 @@ class EnvelopingMists extends Analyzer {
   handleEnvelopingMist(event: HealEvent) {
     const targetId = event.targetID;
     const spellId = event.ability.guid;
-    const sourceId = event.sourceID;
 
-    if (UNAFFECTED_SPELLS.includes(spellId)) {
+    if (
+      UNAFFECTED_SPELLS.includes(spellId) ||
+      !ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(event.ability.guid)
+    ) {
       return;
     }
 
-    if (this.combatants.players[targetId]) {
-      if (
-        this.combatants.players[targetId].hasBuff(
-          TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
-          event.timestamp,
-          0,
-          0,
-          sourceId,
-        )
-      ) {
-        this.healingIncrease += calculateEffectiveHealing(event, this.evmHealingIncrease);
-      }
+    if (
+      !this.hotTracker.hots[targetId] ||
+      !this.hotTracker.hots[targetId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id]
+    ) {
+      return;
     }
+
+    this.healingIncrease += calculateEffectiveHealing(event, this.evmHealingIncrease);
   }
 
   statistic() {

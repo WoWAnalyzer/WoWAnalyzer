@@ -11,7 +11,7 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.LIGHTWEAVE_BUFF.id,
+        spellId: SPELLS.LIGHTWEAVE_BUFF_RANK_2.id,
         timelineHighlight: true,
       },
       // Do not adjust the lines below

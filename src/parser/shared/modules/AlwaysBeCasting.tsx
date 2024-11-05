@@ -100,7 +100,7 @@ class AlwaysBeCasting extends Analyzer {
   }
 
   /** Validates and logs inputs, then adds to activeTimeEdges list */
-  private addNewUptime(start: number, end: number, isHealingAbility: boolean, reason: string) {
+  protected addNewUptime(start: number, end: number, isHealingAbility: boolean, reason: string) {
     DEBUG &&
       console.log(
         `Active Time: adding from ${reason}: ${this.owner.formatTimestamp(start, 3)} to ${this.owner.formatTimestamp(end, 3)}${isHealingAbility ? ' (heal)' : ''}`,

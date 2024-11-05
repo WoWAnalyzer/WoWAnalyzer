@@ -17,7 +17,7 @@ export default class Execute extends ExecuteHelper.withDependencies({ abilities:
     this.deps.abilities.add({
       spell: SPELLS.EXECUTE.id,
       category: SPELL_CATEGORY.ROTATIONAL,
-      gcd: { base: 1500 },
+      gcd: { static: 1500 },
     });
   }
 }
