@@ -36,7 +36,7 @@ class EnergyCompression extends Analyzer {
   }
 
   onHalo(event: DamageEvent) {
-    this.damageHalo += event.amount;
+    this.damageHalo += event.amount + (event.absorbed || 0);
 
     //Damage from Energy Compression
     if (this.selectedCombatant.hasTalent(TALENTS.ENERGY_COMPRESSION_TALENT)) {
