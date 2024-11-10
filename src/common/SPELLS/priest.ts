@@ -980,6 +980,13 @@ const spells = {
     icon: 'ability_priest_ascension',
   },
 
+  //Shadow Voidweaver
+  SHADOW_PRIEST_VOIDWEAVER_VOID_BLAST: {
+    id: 450983,
+    name: 'Void Blast',
+    icon: 'inv_cosmicvoid_missile',
+  },
+
   //Shadow Tier
   SHADOW_PRIEST_TWW_TIER_1_4_SET_BUFF: {
     id: 454638,
