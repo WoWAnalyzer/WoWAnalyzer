@@ -415,12 +415,14 @@ const spells = {
     name: 'Words of the Pious',
     icon: 'ability_priest_clarityofwill',
   },
-  ENTROPIC_RIFT_DAMAGE_DISC: {
+
+  //Voidweaver
+  ENTROPIC_RIFT_DAMAGE: {
     id: 447448,
     name: 'Entropic Rift',
     icon: 'inv_ability_voidweaverpriest_entropicrift',
   },
-  COLLAPSING_VOID_DAMAGE_DISC: {
+  COLLAPSING_VOID_DAMAGE: {
     id: 448405,
     name: 'Collapsing Void',
     icon: 'inv_cosmicvoid_groundsate',
