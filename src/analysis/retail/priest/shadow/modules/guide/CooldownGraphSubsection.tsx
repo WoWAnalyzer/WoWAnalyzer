@@ -22,13 +22,15 @@ type SpellCooldown = {
   activeWindows?: CooldownWindow[];
 };
 
+//you can't push Spells to Cooldowns later on without adding it multiple times when changing tabs, so we just use a different list for each combination
+//I can't find a better way to do this, but need to find one as talent choices make for many different possibilites.
+
 //Core Cooldowns
 const coreCooldowns: SpellCooldown[] = [
   { spell: SPELLS.MIND_BLAST },
   //{ spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
 ];
 const coreCooldownsVB: SpellCooldown[] = [
-  //you can't push VoidBolt to coreCooldowns later on without adding it multiple times when changing tabs, so we just use a different list
   { spell: SPELLS.MIND_BLAST },
   //{ spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
   { spell: SPELLS.VOID_BOLT },
@@ -53,6 +55,18 @@ const longCooldownsSF: Cooldown[] = [
   { talent: TALENTS.DARK_ASCENSION_TALENT },
   { talent: TALENTS.VOID_ERUPTION_TALENT },
   { talent: TALENTS.SHADOWFIEND_TALENT },
+];
+
+//we can only pass tlanets into short and long cooldowns.
+//But Voidwraith's talent id is not the same as its cast, so we have to change it to match its cast.
+const voidwraith = TALENTS.VOIDWRAITH_TALENT;
+voidwraith.id = 451235;
+
+const longCooldownsVW: Cooldown[] = [
+  { talent: TALENTS.POWER_INFUSION_TALENT },
+  { talent: TALENTS.DARK_ASCENSION_TALENT },
+  { talent: TALENTS.VOID_ERUPTION_TALENT },
+  { talent: voidwraith },
 ];
 
 const longCooldownsMBARC: Cooldown[] = [
@@ -194,6 +208,7 @@ const ShortCooldownsGraph = () => {
 
 const LongCooldownsGraph = () => {
   const info = useInfo();
+  //The Long Cooldowns used depends on talent choices.
   let longCooldowns = longCooldownsSF;
   if (info!.combatant.hasTalent(TALENTS.POWER_SURGE_TALENT)) {
     longCooldowns = longCooldownsSFARC;
@@ -203,6 +218,9 @@ const LongCooldownsGraph = () => {
     if (info!.combatant.hasTalent(TALENTS.POWER_SURGE_TALENT)) {
       longCooldowns = longCooldownsMBARC;
     }
+  }
+  if (info!.combatant.hasTalent(TALENTS.VOIDWRAITH_TALENT)) {
+    longCooldowns = longCooldownsVW;
   }
 
   const message = (

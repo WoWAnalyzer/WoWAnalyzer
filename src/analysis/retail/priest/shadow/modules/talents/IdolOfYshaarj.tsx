@@ -23,6 +23,10 @@ class IdolOfYshaarj extends Analyzer {
       this.onCast,
     );
     this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_PRIEST_VOIDWEAVER_VOIDWRAITH_CAST),
+      this.onCast,
+    );
+    this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.IDOL_OF_YSHAARJ_BUFF_PRIDE),
       this.onBuffPride,
     );

@@ -57,6 +57,10 @@ class DarkAscension extends Analyzer {
       this.onDamage,
     );
     this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.VOIDWRAITH_TALENT),
+      this.onDamage,
+    );
+    this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.INESCAPABLE_TORMENT_TALENT_DAMAGE),
       this.onDamage,
     );

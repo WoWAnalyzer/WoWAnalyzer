@@ -986,6 +986,11 @@ const spells = {
     name: 'Void Blast',
     icon: 'inv_cosmicvoid_missile',
   },
+  SHADOW_PRIEST_VOIDWEAVER_VOIDWRAITH_CAST: {
+    id: 451235,
+    name: 'Voidwraith',
+    icon: 'warlock_curse_shadow',
+  },
 
   //Shadow Tier
   SHADOW_PRIEST_TWW_TIER_1_4_SET_BUFF: {

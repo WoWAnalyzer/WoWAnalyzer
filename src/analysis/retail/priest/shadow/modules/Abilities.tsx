@@ -190,7 +190,22 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.MINDBENDER_SHADOW_TALENT),
+        enabled:
+          combatant.hasTalent(TALENTS.MINDBENDER_SHADOW_TALENT) &&
+          !combatant.hasTalent(TALENTS.VOIDWRAITH_TALENT),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
+      },
+      {
+        spell: SPELLS.SHADOW_PRIEST_VOIDWEAVER_VOIDWRAITH_CAST.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 120 - (combatant.hasTalent(TALENTS.MINDBENDER_SHADOW_TALENT) ? 60 : 0), //mindbender reduces the CD of Voidwraith by 1 minute
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(TALENTS.VOIDWRAITH_TALENT),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
