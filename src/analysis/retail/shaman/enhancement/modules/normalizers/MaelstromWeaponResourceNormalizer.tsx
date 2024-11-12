@@ -556,7 +556,10 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
     // if not debugging remove all maelstrom weapon buff events
     if (!DEBUG) {
       return events.filter(
-        (event) => !HasAbility(event) || event.ability.guid !== SPELLS.MAELSTROM_WEAPON_BUFF.id,
+        (event) =>
+          !HasAbility(event) ||
+          event.ability.guid !== SPELLS.MAELSTROM_WEAPON_BUFF.id ||
+          event.type === EventType.ResourceChange,
       );
     }
     return events;
@@ -894,7 +897,7 @@ const MAELSTROM_ABILITIES = {
     requiresExact: true,
   },
   VOLTAIC_BLAZE: {
-    spellId: TALENTS.VOLTAIC_BLAZE_TALENT.id, // TODO: Add voltaic blaze spell id
+    spellId: SPELLS.VOLTAIC_BLAZE_CAST.id, // TODO: Add voltaic blaze spell id
     linkFromEventType: EventType.Cast,
     linkToEventType: GAIN_EVENT_TYPES,
     searchDirection: SearchDirection.ForwardsFirst,

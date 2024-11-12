@@ -36,6 +36,11 @@ const trinkets = {
     name: "Mad Queen's Mandate",
     icon: 'Inv_raid_abyssaleffigy_purple',
   },
+  SKARDYNS_GRACE: {
+    id: 133282,
+    name: "Skardyn's Grace",
+    icon: 'inv_misc_coin_08',
+  },
 } satisfies Record<string, Item>;
 
 export default trinkets;
