@@ -8,6 +8,7 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { CooldownWindow, fromExecuteRange, GapHighlight } from 'parser/ui/CooldownBar';
 import Voidbolt from '../spells/Voidbolt';
+import VoidBlast from '../talents/Voidweaver/VoidBlast';
 //import ShadowWordDeath from '../spells/ShadowWordDeath';
 //import ItemSetLink from 'interface/ItemSetLink';
 //import { TIERS } from 'game/TIERS';
@@ -30,8 +31,19 @@ const coreCooldowns: SpellCooldown[] = [
   { spell: SPELLS.MIND_BLAST },
   //{ spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
 ];
+const coreCooldownsVW: SpellCooldown[] = [
+  { spell: SPELLS.MIND_BLAST },
+  { spell: SPELLS.SHADOW_PRIEST_VOIDWEAVER_VOID_BLAST },
+  //{ spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
+];
 const coreCooldownsVB: SpellCooldown[] = [
   { spell: SPELLS.MIND_BLAST },
+  //{ spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
+  { spell: SPELLS.VOID_BOLT },
+];
+const coreCooldownsVWVB: SpellCooldown[] = [
+  { spell: SPELLS.MIND_BLAST },
+  { spell: SPELLS.SHADOW_PRIEST_VOIDWEAVER_VOID_BLAST },
   //{ spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
   { spell: SPELLS.VOID_BOLT },
 ];
@@ -86,7 +98,9 @@ const longCooldownsSFARC: Cooldown[] = [
 
 const CoreCooldownsGraph = () => {
   const VoidboltAnalyzer = useAnalyzer(Voidbolt);
+  const VoidBlastAnalyzer = useAnalyzer(VoidBlast);
   //const ShadowWordDeathAnalyzer = useAnalyzer(ShadowWordDeath);
+
   const info = useInfo();
   let coreCooldown = coreCooldowns;
 
@@ -117,6 +131,17 @@ const CoreCooldownsGraph = () => {
       </>
       <br />
       */}
+      {info!.combatant.hasTalent(TALENTS.VOID_BLAST_TALENT) && (
+        <>
+          <strong>
+            {' '}
+            <SpellLink spell={SPELLS.SHADOW_PRIEST_VOIDWEAVER_VOID_BLAST} />{' '}
+          </strong>{' '}
+          is a powerful spell that should be cast on cooldown while you have access to it while{' '}
+          <SpellLink spell={SPELLS.SHADOW_PRIEST_VOIDWEAVER_ENTROPIC_RIFT_BUFF} /> is active.
+          <br />
+        </>
+      )}
       {info!.combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT) && (
         <>
           <strong>
@@ -131,11 +156,24 @@ const CoreCooldownsGraph = () => {
     </p>
   );
 
+  if (info!.combatant.hasTalent(TALENTS.VOID_BLAST_TALENT)) {
+    coreCooldown = coreCooldownsVW;
+  }
   if (info!.combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT)) {
     coreCooldown = coreCooldownsVB;
+    if (info!.combatant.hasTalent(TALENTS.VOID_BLAST_TALENT)) {
+      coreCooldown = coreCooldownsVWVB;
+    }
+    //For voidbolt in guide view:
     // not the prettiest solution, but functional
     coreCooldown.find((cd) => cd.spell.id === SPELLS.VOID_BOLT.id)!.activeWindows =
       VoidboltAnalyzer?.executeRanges.map(fromExecuteRange);
+  }
+
+  if (info!.combatant.hasTalent(TALENTS.VOID_BLAST_TALENT)) {
+    coreCooldown.find(
+      (cd) => cd.spell.id === SPELLS.SHADOW_PRIEST_VOIDWEAVER_VOID_BLAST.id,
+    )!.activeWindows = VoidBlastAnalyzer?.executeRanges.map(fromExecuteRange);
   }
 
   /*

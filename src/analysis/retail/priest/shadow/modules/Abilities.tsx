@@ -9,21 +9,9 @@ class Abilities extends CoreAbilities {
     return [
       //Voidbolt is added through Voidform module.
       //SW:D is added through Shadow Word: Death module
+      //VoidBlast is added through VoidBlast module.
       {
         spell: SPELLS.MIND_BLAST.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste: number) => 9 / (1 + haste),
-        gcd: {
-          base: 1500,
-        },
-        charges: 1 + (combatant.hasTalent(TALENTS.THOUGHT_HARVESTER_TALENT) ? 1 : 0),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.85,
-        },
-      },
-      {
-        spell: SPELLS.SHADOW_PRIEST_VOIDWEAVER_VOID_BLAST.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste: number) => 9 / (1 + haste),
         gcd: {

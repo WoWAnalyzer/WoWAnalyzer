@@ -986,6 +986,11 @@ const spells = {
     name: 'Void Blast',
     icon: 'inv_cosmicvoid_missile',
   },
+  SHADOW_PRIEST_VOIDWEAVER_ENTROPIC_RIFT_BUFF: {
+    id: 450193,
+    name: 'Entropic Rift',
+    icon: 'inv_ability_voidweaverpriest_entropicrift',
+  },
   SHADOW_PRIEST_VOIDWEAVER_VOIDWRAITH_CAST: {
     id: 451235,
     name: 'Voidwraith',
