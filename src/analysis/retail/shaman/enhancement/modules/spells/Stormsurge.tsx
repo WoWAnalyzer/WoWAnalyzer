@@ -2,7 +2,12 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
 import { formatNumber } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, ApplyBuffStackEvent, RefreshBuffEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  ApplyBuffStackEvent,
+  RefreshBuffEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
 import UptimeIcon from 'interface/icons/Uptime';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -10,8 +15,6 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { SpellLink } from 'interface';
 import SpellUsable from 'analysis/retail/shaman/enhancement/modules/core/SpellUsable';
-
-const debug = false;
 
 class Stormsurge extends Analyzer.withDependencies({
   spellUsable: SpellUsable,
@@ -28,53 +31,42 @@ class Stormsurge extends Analyzer.withDependencies({
 
     this.hasMoltenThunder = this.selectedCombatant.hasTalent(TALENTS.MOLTEN_THUNDER_TALENT);
 
-    [Events.applybuff, Events.applybuffstack, Events.refreshbuff].forEach(
-      (filter) => filter.by(SELECTED_PLAYER).spell(SPELLS.STORMSURGE_BUFF),
-      this.onStormsurgeApplied,
+    [Events.applybuff, Events.applybuffstack, Events.refreshbuff].forEach((filter) =>
+      this.addEventListener(
+        filter.by(SELECTED_PLAYER).spell(SPELLS.STORMSURGE_BUFF),
+        this.onStormsurgeApplied,
+      ),
+    );
+
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT),
+      this.onAscendanceEnd,
     );
   }
 
   onStormsurgeApplied(event: ApplyBuffEvent | ApplyBuffStackEvent | RefreshBuffEvent) {
     let used = false;
-    if (
-      this.deps.spellUsable.isOnCooldown(TALENTS.STORMSTRIKE_TALENT.id) &&
-      !this.selectedCombatant.hasBuff(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT.id)
-    ) {
-      debug &&
-        console.log(
-          `Stormstrike reset by stormbringer at timestamp: ${
-            event.timestamp
-          } (${this.owner.formatTimestamp(event.timestamp, 3)})`,
-        );
-      this.deps.spellUsable.endCooldown(TALENTS.STORMSTRIKE_TALENT.id, event.timestamp);
-      if (!this.selectedCombatant.hasBuff(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT.id)) {
+    if (this.selectedCombatant.hasBuff(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT.id)) {
+      if (this.deps.spellUsable.isOnCooldown(SPELLS.WINDSTRIKE_CAST.id)) {
+        this.deps.spellUsable.endCooldown(SPELLS.WINDSTRIKE_CAST.id, event.timestamp);
+        this.windStrikeResets += 1;
+        used = true;
+      }
+    } else {
+      if (this.deps.spellUsable.isOnCooldown(TALENTS.STORMSTRIKE_TALENT.id)) {
+        this.deps.spellUsable.endCooldown(TALENTS.STORMSTRIKE_TALENT.id, event.timestamp);
         this.stormStrikeResets += 1;
         used = true;
       }
     }
 
-    if (this.deps.spellUsable.isOnCooldown(SPELLS.WINDSTRIKE_CAST.id)) {
-      debug &&
-        console.log(
-          `Windstrike reset by stormbringer at timestamp: ${
-            event.timestamp
-          } (${this.owner.formatTimestamp(event.timestamp, 3)})`,
-        );
-      this.deps.spellUsable.endCooldown(SPELLS.WINDSTRIKE_CAST.id, event.timestamp);
-      if (this.selectedCombatant.hasBuff(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT.id)) {
-        this.windStrikeResets += 1;
-        used = true;
-      }
-    }
-
-    if (this.hasMoltenThunder && this.deps.spellUsable.isOnCooldown(TALENTS.SUNDERING_TALENT.id)) {
-      this.deps.spellUsable.endCooldown(SPELLS.WINDSTRIKE_CAST.id, event.timestamp);
-      this.sunderingResets += 1;
-    }
-
     if (!used) {
       this.wasted += 1;
     }
+  }
+
+  onAscendanceEnd(event: RemoveBuffEvent) {
+    this.deps.spellUsable.endCooldown(TALENTS.STORMSTRIKE_TALENT.id, event.timestamp, true, true);
   }
 
   statistic() {

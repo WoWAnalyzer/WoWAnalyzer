@@ -47,6 +47,12 @@ const spells = {
     name: 'Speed of Thought',
     icon: 'ability_mage_studentofthemind',
   },
+  // Skardyn's Grace
+  SPEED_OF_THOUGHT: {
+    id: 92099,
+    name: 'Speed of Thought',
+    icon: 'ability_mage_studentofthemind',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;
