@@ -33,12 +33,14 @@ import {
   ZiayaKens,
   Zyer,
   Gazh,
+  Yellot
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 11, 9), `Added Ovinax Egg and Mad Queens Mandate - Trinkets & Spells`, Yellot),
   change(date(2024, 10, 28), `Updated annotation list rendering for the annotation debugger`, Rzial),
   change(date(2024, 10, 14), `Fixed some technical issues with rendering of lists`, nullDozzer),
   change(date(2024, 10, 12), `Fixed an issue with the effective healing/damage patch causing the per-second damage and healing graphs to be incorrect and causing some by-ability healing and damage numbers to be too low`, Sref),

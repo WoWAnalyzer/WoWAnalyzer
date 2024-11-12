@@ -26,6 +26,16 @@ const trinkets = {
     name: 'Treacherous Transmitter',
     icon: 'inv_etherealraid_communicator_color1',
   },
+  OVINAXS_MERCURIAL_EGG: {
+    id: 220305,
+    name: "Ovi'nax's Mercurial Egg",
+    icon: 'Inv_raid_mercurialegg_purple',
+  },
+  MAD_QUEENS_MANDATE: {
+    id: 212454,
+    name: "Mad Queen's Mandate",
+    icon: 'Inv_raid_abyssaleffigy_purple',
+  },
 } satisfies Record<string, Item>;
 
 export default trinkets;

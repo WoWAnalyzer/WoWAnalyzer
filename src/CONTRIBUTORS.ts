@@ -2533,3 +2533,15 @@ export const Rzial: Contributor = {
   nickname: 'Rzial',
   github: 'Rzial',
 };
+
+export const Yellot: Contributor = {
+  nickname: 'Yellot',
+  github: 'mcheung7272',
+  mains: [
+    {
+      name: 'Yellot',
+      spec: SPECS.MARKSMANSHIP_HUNTER,
+      link: 'https://prod.worldofwarcraft.blizzard.com/en-us/character/us/area-52/yellot',
+    },
+  ],
+};
