@@ -1,4 +1,3 @@
-import SPELLS from 'common/SPELLS';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import { Options } from 'parser/core/Module';
 import { TALENTS_MONK } from 'common/TALENTS';
@@ -30,7 +29,6 @@ import {
   REVIVAL_GOM,
   VIVIFY,
   SHEILUNS_GIFT,
-  CALMING_COALESCENCE,
   MANA_TEA_CHANNEL,
   MANA_TEA_CAST_LINK,
   MT_BUFF_REMOVAL,
@@ -87,19 +85,6 @@ const EVENT_LINKS: EventLink[] = [
     },
     maximumLinks(c) {
       return c.hasTalent(TALENTS_MONK.LEGACY_OF_WISDOM_TALENT) ? 5 : 3;
-    },
-  },
-  {
-    linkRelation: CALMING_COALESCENCE,
-    linkingEventId: [SPELLS.CALMING_COALESCENCE_BUFF.id],
-    linkingEventType: [EventType.RemoveBuff],
-    referencedEventId: [TALENTS_MONK.LIFE_COCOON_TALENT.id],
-    referencedEventType: [EventType.Cast],
-    backwardBufferMs: CAST_BUFFER_MS,
-    forwardBufferMs: CAST_BUFFER_MS,
-    anyTarget: true,
-    isActive(c) {
-      return c.hasTalent(TALENTS_MONK.CALMING_COALESCENCE_TALENT);
     },
   },
 ];
@@ -276,10 +261,6 @@ export function isFromCraneStyleBok(event: HealEvent) {
 
 export function isFromCraneStyleSCK(event: HealEvent) {
   return HasRelatedEvent(event, CRANE_STYLE_SCK);
-}
-
-export function isFromLifeCocoon(event: RemoveBuffEvent) {
-  return HasRelatedEvent(event, CALMING_COALESCENCE);
 }
 
 export function getSheilunsGiftHits(event: CastEvent): HealEvent[] {

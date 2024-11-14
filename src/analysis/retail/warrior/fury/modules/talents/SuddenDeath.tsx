@@ -56,11 +56,11 @@ class SuddenDeath extends Analyzer {
       this.onExecuteDamage,
     );
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.WAR_MACHINE_FURY_TALENT_BUFF),
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SUDDEN_DEATH_FURY_TALENT_BUFF),
       this.onSuddenDeathProc,
     );
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.WAR_MACHINE_FURY_TALENT_BUFF),
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.SUDDEN_DEATH_FURY_TALENT_BUFF),
       this.onSuddenDeathProc,
     );
   }
@@ -93,7 +93,7 @@ class SuddenDeath extends Analyzer {
   }
 
   onExecuteCast(event: CastEvent) {
-    if (this.selectedCombatant.hasBuff(SPELLS.WAR_MACHINE_FURY_TALENT_BUFF.id)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.SUDDEN_DEATH_FURY_TALENT_BUFF.id)) {
       this.lastSuddenDeathExecuteCast = event.timestamp;
       this.suddenDeathProcsUsed += 1;
       this.lastSuddenDeathTargetID = event.targetID;

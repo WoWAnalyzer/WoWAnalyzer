@@ -294,11 +294,6 @@ const spells = {
     name: "Champion's Spear",
     icon: 'ability_bastion_warrior',
   },
-  CHAMPIONS_MIGHT: {
-    id: 386286,
-    name: "Champion's Might",
-    icon: 'ability_bastion_warrior',
-  },
   WILD_STRIKES: {
     id: 392778,
     name: 'Wild Strikes',
@@ -392,7 +387,7 @@ const spells = {
   SUDDEN_DEATH_ARMS_TALENT_BUFF: {
     id: 52437,
     name: 'Sudden Death',
-    icon: 'abilty_warrior_improveddisciplines',
+    icon: 'ability_warrior_improveddisciplines',
   },
   SECOND_WIND_TALENT_HEAL: {
     id: 202147,
@@ -474,10 +469,10 @@ const spells = {
   },
 
   // Talents
-  WAR_MACHINE_FURY_TALENT_BUFF: {
+  SUDDEN_DEATH_FURY_TALENT_BUFF: {
     id: 280776,
     name: 'Sudden Death',
-    icon: 'abilty_warrior_improveddisciplines',
+    icon: 'ability_warrior_improveddisciplines',
   },
   BLADESTORM_OH_DAMAGE: {
     id: 95738,
@@ -657,6 +652,13 @@ const spells = {
     id: 394173,
     name: 'Strike Vulnerabilities',
     icon: 'ability_criticalstrike',
+  },
+
+  // T31 2p buff
+  EXPERT_STRATEGIST_BUFF: {
+    id: 455499,
+    name: 'Expert Strategist',
+    icon: 'ability_warrior_vigilance',
   },
 
   // Talent in here so SpellLink doesn't return Unknown

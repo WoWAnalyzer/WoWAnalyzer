@@ -118,7 +118,9 @@ class CelestialConduit extends Analyzer {
     const result = new Map<number, number>();
     const spellList =
       this.selectedCombatant.spec === SPECS.MISTWEAVER_MONK
-        ? MISTWEAVER_HEART_SPELLS
+        ? MISTWEAVER_HEART_SPELLS(
+            this.selectedCombatant.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_TALENT),
+          )
         : WINDWALKER_HEART_SPELLS;
     spellList.forEach((spellId) => {
       result.set(spellId, this.spellUsable.cooldownRemaining(spellId));

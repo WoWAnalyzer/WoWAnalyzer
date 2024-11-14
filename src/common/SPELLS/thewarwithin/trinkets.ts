@@ -29,6 +29,18 @@ const spells = {
     name: 'Cryptic Instructions',
     icon: 'inv_etherealraid_communicator_color1',
   },
+  // Ovinax Mercurial Egg
+  SUSPENDED_INCUBATION: {
+    id: 445560,
+    name: 'Suspended Incubation',
+    icon: 'inv_raid_mercurialegg_purple',
+  },
+  //Mad Queen's Mandate
+  ABYSSAL_GLUTTONY: {
+    id: 443124,
+    name: 'Abyssal Gluttony',
+    icon: 'Ability_creature_poison_01_purple',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;

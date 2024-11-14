@@ -146,7 +146,8 @@ class HotTrackerRestoDruid extends HotTracker {
       },
       {
         spell: SPELLS.CENARION_WARD_HEAL,
-        duration: 8000,
+        duration:
+          8000 + this.selectedCombatant.getTalentRank(TALENTS_DRUID.WILDWOOD_ROOTS_TALENT) * 2000,
         tickPeriod: 2000,
       },
       {

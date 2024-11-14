@@ -8,7 +8,7 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { CooldownWindow, fromExecuteRange, GapHighlight } from 'parser/ui/CooldownBar';
 import Voidbolt from '../spells/Voidbolt';
-import ShadowWordDeath from '../spells/ShadowWordDeath';
+//import ShadowWordDeath from '../spells/ShadowWordDeath';
 //import ItemSetLink from 'interface/ItemSetLink';
 //import { TIERS } from 'game/TIERS';
 
@@ -25,12 +25,12 @@ type SpellCooldown = {
 //Core Cooldowns
 const coreCooldowns: SpellCooldown[] = [
   { spell: SPELLS.MIND_BLAST },
-  { spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
+  //{ spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
 ];
 const coreCooldownsVB: SpellCooldown[] = [
   //you can't push VoidBolt to coreCooldowns later on without adding it multiple times when changing tabs, so we just use a different list
   { spell: SPELLS.MIND_BLAST },
-  { spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
+  //{ spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
   { spell: SPELLS.VOID_BOLT },
 ];
 
@@ -72,7 +72,7 @@ const longCooldownsSFARC: Cooldown[] = [
 
 const CoreCooldownsGraph = () => {
   const VoidboltAnalyzer = useAnalyzer(Voidbolt);
-  const ShadowWordDeathAnalyzer = useAnalyzer(ShadowWordDeath);
+  //const ShadowWordDeathAnalyzer = useAnalyzer(ShadowWordDeath);
   const info = useInfo();
   let coreCooldown = coreCooldowns;
 
@@ -83,6 +83,7 @@ const CoreCooldownsGraph = () => {
       </strong>{' '}
       is a core spell that should be keept on cooldown as much as possible.
       <br />
+      {/*
       <strong>
         <SpellLink spell={TALENTS.SHADOW_WORD_DEATH_TALENT} />
       </strong>{' '}
@@ -101,6 +102,7 @@ const CoreCooldownsGraph = () => {
         )}
       </>
       <br />
+      */}
       {info!.combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT) && (
         <>
           <strong>
@@ -122,6 +124,7 @@ const CoreCooldownsGraph = () => {
       VoidboltAnalyzer?.executeRanges.map(fromExecuteRange);
   }
 
+  /*
   coreCooldown.find((cd) => cd.spell.id === TALENTS.SHADOW_WORD_DEATH_TALENT.id)!.activeWindows =
     ShadowWordDeathAnalyzer?.executeRanges.map(fromExecuteRange);
 
@@ -151,6 +154,8 @@ const CoreCooldownsGraph = () => {
     }
     coreCooldown[cdIndex].activeWindows = combined;
   }
+
+  */
   return CoreCooldownGraphSubsection(coreCooldown, message);
 };
 

@@ -965,6 +965,19 @@ const spells = {
     icon: 'ability_priest_psychiclink',
   },
 
+  //Shadow Archon
+  SHADOW_PRIEST_ARCHON_RESONANT_ENERGY_DEBUFF: {
+    id: 453850,
+    name: 'Resonant Energy',
+    icon: 'ability_priest_halo',
+  },
+
+  SHADOW_PRIEST_ARCHON_SUSTAINED_POTENCY_BUFF: {
+    id: 454002,
+    name: 'Sustained Potency',
+    icon: 'ability_priest_ascension',
+  },
+
   //Shadow Tier
   SHADOW_PRIEST_TWW_TIER_1_4_SET_BUFF: {
     id: 454638,

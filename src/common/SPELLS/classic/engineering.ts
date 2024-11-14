@@ -40,6 +40,12 @@ const spells = {
     icon: 'spell_shaman_elementaloath.jpg',
     enchantId: 4179,
   },
+  SYNAPSE_SPRINGS_INTEL_BUFF: {
+    id: 96230,
+    name: 'Synapse Springs',
+    icon: 'spell_shaman_elementaloath.jpg',
+    enchantId: 4179,
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;

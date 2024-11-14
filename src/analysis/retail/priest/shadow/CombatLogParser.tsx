@@ -59,6 +59,14 @@ import MindMelt from './modules/talents/MindMelt';
 import Mastermind from './modules/talents/Mastermind';
 import DarkAscension from './modules/talents/DarkAscension';
 import Shadowform from './modules/spells/Shadowform';
+import PerfectedForm from './modules/talents/Archon/PerfectedForm';
+import EnergyCompression from './modules/talents/Archon/EnergyCompression';
+import EmpoweredSurges from './modules/talents/Archon/EmpoweredSurges';
+import ResonantEnergy from './modules/talents/Archon/ResonantEnergy';
+import EnergyCycle from './modules/talents/Archon/EnergyCycle';
+import ConcentratedInfusion from './modules/talents/Archon/Concentrated Infusion';
+import SustainedPotency from './modules/talents/Archon/SustainedPotency';
+import ManifestedPower from './modules/talents/Archon/ManifestedPower';
 import ShadowTierTWWS1 from './modules/tier/ShadowTierTWWS1';
 
 class CombatLogParser extends MainCombatLogParser {
@@ -126,6 +134,17 @@ class CombatLogParser extends MainCombatLogParser {
     twinsOfTheSunPriestess: TwinsOfTheSunPriestess,
     twistOfFate: TwistOfFate,
     vampiricEmbrace: VampiricEmbrace,
+
+    // Hero Talents
+    //Archon
+    perfectedForm: PerfectedForm,
+    energyCompression: EnergyCompression,
+    empoweredSurges: EmpoweredSurges,
+    resonantEnergy: ResonantEnergy,
+    energyCycle: EnergyCycle,
+    concentratedInfusion: ConcentratedInfusion,
+    sustainedPotency: SustainedPotency,
+    manifestedPower: ManifestedPower,
 
     // normalizers:
     channeling: Channeling,
