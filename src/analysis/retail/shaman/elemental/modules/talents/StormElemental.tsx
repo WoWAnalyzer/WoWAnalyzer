@@ -1,32 +1,35 @@
-import { defineMessage } from '@lingui/macro';
-import { formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import Statistic from 'parser/ui/Statistic';
 
 import Abilities from '../Abilities';
+import { UptimeIcon } from 'interface/icons';
+import TalentSpellText from 'parser/ui/TalentSpellText';
+import typedKeys from 'common/typedKeys';
+import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
 
 class StormElemental extends Analyzer {
   static dependencies = {
     abilities: Abilities,
     enemies: Enemies,
   };
+  stormElementalEndTime: number = 0;
   badFS = 0;
-  justEnteredSE = false;
   checkDelay = 0;
-  numCasts = {
+  numCasts: Record<number, number> = {
     [TALENTS.STORM_ELEMENTAL_TALENT.id]: 0,
     [SPELLS.LIGHTNING_BOLT.id]: 0,
     [TALENTS.CHAIN_LIGHTNING_TALENT.id]: 0,
     [TALENTS.EARTH_SHOCK_TALENT.id]: 0,
     [TALENTS.EARTHQUAKE_1_ELEMENTAL_TALENT.id]: 0,
     [TALENTS.EARTHQUAKE_2_ELEMENTAL_TALENT.id]: 0,
-    others: 0,
+    [SPELLS.TEMPEST_CAST.id]: 0,
+    [TALENTS.LAVA_BURST_TALENT.id]: 0,
   };
   protected enemies!: Enemies;
   protected abilities!: Abilities;
@@ -41,7 +44,7 @@ class StormElemental extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.STORM_ELEMENTAL_TALENT),
       this.onSECast,
     );
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onSECast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
   }
 
   get stormEleUptime() {
@@ -64,72 +67,57 @@ class StormElemental extends Analyzer {
     );
   }
 
-  get suggestionThresholds() {
-    return {
-      actual: this.numCasts.others,
-      isGreaterThan: {
-        major: 1,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
-  }
-
   onSECast(event: CastEvent) {
-    this.justEnteredSE = true;
     this.numCasts[TALENTS.STORM_ELEMENTAL_TALENT.id] += 1;
+    this.stormElementalEndTime =
+      event.timestamp +
+      20000 *
+        (1 + (this.selectedCombatant.hasTalent(TALENTS.EVERLASTING_ELEMENTS_TALENT) ? 0.2 : 0));
   }
 
   onCast(event: CastEvent) {
-    const spellId = event.ability.guid;
-
-    if (this.numCasts[spellId] !== undefined) {
-      this.numCasts[spellId] += 1;
-    } else {
-      this.numCasts.others += 1;
+    if (event.timestamp <= this.stormElementalEndTime) {
+      const spellId = event.ability.guid;
+      if (this.numCasts[spellId] !== undefined) {
+        this.numCasts[spellId] += 1;
+      }
     }
   }
 
   statistic() {
     return (
       <Statistic
+        size="flexible"
         tooltip={
           <>
             With a uptime of: {formatPercentage(this.stormEleUptime)} %<br />
             Casts while Storm Elemental was up:
             <ul>
-              <li>Earth Shock: {this.numCasts[TALENTS.EARTH_SHOCK_TALENT.id]}</li>
-              <li>Lightning Bolt: {this.numCasts[SPELLS.LIGHTNING_BOLT.id]}</li>
-              <li>
-                Earthquake:{' '}
-                {this.numCasts[TALENTS.EARTHQUAKE_1_ELEMENTAL_TALENT.id] +
-                  this.numCasts[TALENTS.EARTHQUAKE_2_ELEMENTAL_TALENT.id]}
-              </li>
-              <li>Chain Lightning: {this.numCasts[TALENTS.CHAIN_LIGHTNING_TALENT.id]}</li>
-              <li>Other Spells: {this.numCasts.others}</li>
+              {typedKeys(this.numCasts)
+                .filter((spellId) => this.numCasts[spellId] > 0)
+                .map((spellId) => {
+                  const ability = maybeGetTalentOrSpell(spellId)!;
+                  return (
+                    <li key={spellId}>
+                      <SpellLink spell={ability} />: {this.numCasts[spellId]}
+                    </li>
+                  );
+                })}
             </ul>
           </>
         }
       >
-        <>
-          You cast <SpellLink spell={SPELLS.LIGHTNING_BOLT} /> {this.averageLightningBoltCasts}{' '}
-          times per <SpellLink spell={TALENTS.STORM_ELEMENTAL_TALENT} />
-        </>
+        <TalentSpellText talent={TALENTS.STORM_ELEMENTAL_TALENT}>
+          <div style={{ fontSize: 22 }}>
+            <UptimeIcon /> {formatNumber(this.averageLightningBoltCasts)}{' '}
+            <SpellLink spell={SPELLS.LIGHTNING_BOLT} />
+            <br />
+            <small>
+              average casts per <SpellLink spell={TALENTS.STORM_ELEMENTAL_TALENT} />
+            </small>
+          </div>
+        </TalentSpellText>
       </Statistic>
-    );
-  }
-
-  suggestions(when: When) {
-    const abilities = `Lightning Bolt/Chain Lightning and Earth Shock/Earthquake`;
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(<span>Maximize your damage during Storm Elemental by only using {abilities}.</span>)
-        .icon(TALENTS.STORM_ELEMENTAL_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'shaman.elemental.suggestions.stormElemental.badCasts',
-            message: `${actual} other casts with Storm Elemental up`,
-          }),
-        )
-        .recommended(`Only cast ${abilities} while Storm Elemental is up.`),
     );
   }
 }

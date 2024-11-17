@@ -122,7 +122,7 @@ class Abilities extends CoreAbilities {
             ? combatant.hasTalent(TALENTS.LAVA_BURST_TALENT) &&
               !combatant.hasTalent(TALENTS.ELEMENTAL_BLAST_ENHANCEMENT_TALENT)
             : combatant.hasTalent(TALENTS.LAVA_BURST_TALENT),
-        cooldown: (_) => (combatant.hasBuff(TALENTS.ASCENDANCE_ELEMENTAL_TALENT.id) ? 0 : 8),
+        cooldown: 8,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
