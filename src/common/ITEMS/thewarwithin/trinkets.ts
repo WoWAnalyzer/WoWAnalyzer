@@ -41,11 +41,6 @@ const trinkets = {
     name: "Skardyn's Grace",
     icon: 'inv_misc_coin_08',
   },
-  SKARDYNS_GRACE: {
-    id: 133282,
-    name: "Skardyn's Grace",
-    icon: 'inv_misc_coin_08',
-  },
 } satisfies Record<string, Item>;
 
 export default trinkets;
