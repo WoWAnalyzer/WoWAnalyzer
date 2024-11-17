@@ -71,7 +71,7 @@ class Abilities extends ClassAbilities {
         spell: TALENTS.ASCENDANCE_ELEMENTAL_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.ASCENDANCE_ELEMENTAL_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 180,
+        cooldown: 180 - (combatant.hasTalent(TALENTS.FIRST_ASCENDANT_TALENT) ? 60 : 0),
         gcd: {
           base: 1500,
         },
@@ -141,6 +141,14 @@ class Abilities extends ClassAbilities {
         cooldown: 30,
         gcd: {
           static: 0,
+        },
+      },
+      {
+        spell: SPELLS.TEMPEST_CAST.id,
+        enabled: combatant.hasTalent(TALENTS.TEMPEST_TALENT),
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
         },
       },
     ];

@@ -181,7 +181,9 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
     );
     if (this.selectedCombatant.hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT)) {
       this.addEventListener(
-        Events.cast.by(SELECTED_PLAYER).spell([TALENTS.STORMSTRIKE_TALENT, SPELLS.WINDSTRIKE_CAST]),
+        Events.cast
+          .by(SELECTED_PLAYER)
+          .spell([SPELLS.LIGHTNING_BOLT, TALENTS.CHAIN_LIGHTNING_TALENT, SPELLS.TEMPEST_CAST]),
         this.onProcEligibleCast,
       );
     }

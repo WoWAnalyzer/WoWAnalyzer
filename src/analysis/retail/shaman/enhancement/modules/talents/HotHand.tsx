@@ -292,7 +292,7 @@ class HotHand extends MajorCooldown<HotHandProc> {
           An example sequence may look something like this:
           <br />
           <SpellIcon spell={TALENTS.LAVA_LASH_TALENT} /> &rarr;
-          <SpellIcon spell={TALENTS.ICE_STRIKE_TALENT} /> &rarr;
+          <SpellIcon spell={TALENTS.ICE_STRIKE_2_ENHANCEMENT_TALENT} /> &rarr;
           <SpellIcon spell={TALENTS.LAVA_LASH_TALENT} /> &rarr;
           <SpellIcon spell={SPELLS.LIGHTNING_BOLT} /> &rarr;
           <SpellIcon spell={TALENTS.LAVA_LASH_TALENT} /> &rarr;
