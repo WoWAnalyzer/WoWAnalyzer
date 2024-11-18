@@ -1074,7 +1074,7 @@ const talents = {
   SIGIL_OF_SPITE_TALENT: {
     id: 390163,
     name: 'Sigil of Spite',
-    icon: 'ability_bastion_demonhunter',
+    icon: 'inv_ability_demonhunter_elysiandecree',
     maxRanks: 1,
     entryIds: [117755],
     definitionIds: [{ id: 122767, specId: 581 }],
@@ -1187,7 +1187,7 @@ const talents = {
   THE_HUNT_TALENT: {
     id: 370965,
     name: 'The Hunt',
-    icon: 'ability_ardenweald_demonhunter',
+    icon: 'inv_ability_demonhunter_thehunt',
     maxRanks: 1,
     entryIds: [112837],
     definitionIds: [{ id: 117842, specId: 581 }],

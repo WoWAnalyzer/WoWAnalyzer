@@ -889,14 +889,6 @@ const talents = {
     entryIds: [126480],
     definitionIds: [{ id: 131306, specId: 255 }],
   },
-  KINDRED_SPIRITS_TALENT: {
-    id: 56315,
-    name: 'Kindred Spirits',
-    icon: 'ability_hunter_separationanxiety',
-    maxRanks: 2,
-    entryIds: [126421],
-    definitionIds: [{ id: 131247, specId: 253 }],
-  },
   LACERATION_TALENT: {
     id: 459552,
     name: 'Laceration',

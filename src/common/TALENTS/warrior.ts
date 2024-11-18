@@ -360,7 +360,7 @@ const talents = {
   CHAMPIONS_SPEAR_TALENT: {
     id: 376079,
     name: "Champion's Spear",
-    icon: 'ability_bastion_warrior',
+    icon: 'inv_ability_warrior_championsspear',
     maxRanks: 1,
     entryIds: [112247],
     definitionIds: [{ id: 117252, specId: 73 }],

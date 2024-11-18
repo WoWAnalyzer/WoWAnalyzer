@@ -1150,7 +1150,7 @@ const talents = {
   PACT_OF_GLUTTONY_TALENT: {
     id: 386689,
     name: 'Pact of Gluttony',
-    icon: 'warlock_-bloodstone',
+    icon: 'warlock__bloodstone',
     maxRanks: 1,
     entryIds: [91434],
     definitionIds: [{ id: 96436, specId: 267 }],
@@ -1542,7 +1542,7 @@ const talents = {
   SOUL_ROT_TALENT: {
     id: 386997,
     name: 'Soul Rot',
-    icon: 'ability_ardenweald_warlock',
+    icon: 'inv_ability_warlock_soulrot',
     maxRanks: 1,
     entryIds: [91578],
     definitionIds: [{ id: 96580, specId: 265 }],

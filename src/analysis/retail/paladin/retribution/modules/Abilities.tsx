@@ -42,8 +42,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.AVENGING_WRATH.id,
         cooldown: 60,
         enabled:
-          (combatant.hasTalent(TALENTS.AVENGING_WRATH_TALENT) ||
-            combatant.hasTalent(TALENTS.AVENGING_WRATH_MIGHT_TALENT)) &&
+          combatant.hasTalent(TALENTS.AVENGING_WRATH_TALENT) &&
           !combatant.hasTalent(TALENTS.CRUSADE_TALENT),
         castEfficiency: {
           suggestion: true,
@@ -128,7 +127,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste: number) => 7.5 / (1 + haste),
         enabled: combatant.hasTalent(TALENTS.HAMMER_OF_WRATH_TALENT),
-        charges: 1 + combatant.getTalentRank(TALENTS.VANGUARDS_MOMENTUM_RETRIBUTION_TALENT),
+        charges: 1,
         gcd: {
           base: 1500,
         },
@@ -140,10 +139,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.JUDGMENT_CAST.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste: number) =>
-          (12 -
-            combatant.getTalentRank(TALENTS.SEAL_OF_ALACRITY_TALENT) * 0.5 -
-            combatant.getTalentRank(TALENTS.SWIFT_JUSTICE_TALENT) * 2.0) /
-          (1 + haste),
+          (12 - combatant.getTalentRank(TALENTS.SWIFT_JUSTICE_TALENT) * 2.0) / (1 + haste),
         gcd: {
           base: 1500,
         },

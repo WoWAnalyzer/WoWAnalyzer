@@ -10,6 +10,14 @@ const talents = {
     entryIds: [80149],
     definitionIds: [{ id: 85152, specId: 64 }],
   },
+  AETHERVISION_TALENT: {
+    id: 467633,
+    name: 'Aethervision',
+    icon: 'sha_ability_rogue_bloodyeye_nightborne',
+    maxRanks: 1,
+    entryIds: [126518],
+    definitionIds: [{ id: 131344, specId: 62 }],
+  },
   AETHER_ATTUNEMENT_TALENT: {
     id: 453600,
     name: 'Aether Attunement',
@@ -293,8 +301,8 @@ const talents = {
     name: "Consortium's Bauble",
     icon: 'inv_6_2raid_trinket_1b',
     maxRanks: 1,
-    entryIds: [126518],
-    definitionIds: [{ id: 131344, specId: 62 }],
+    entryIds: [126545],
+    definitionIds: [{ id: 131371, specId: 62 }],
   },
   CONTROLLED_DESTRUCTION_TALENT: {
     id: 383669,
@@ -1401,14 +1409,6 @@ const talents = {
     entryIds: [126507],
     definitionIds: [{ id: 131333, specId: 62 }],
   },
-  RESONANT_ORBS_TALENT: {
-    id: 461453,
-    name: 'Resonant Orbs',
-    icon: 'spell_mage_flameorb_purple',
-    maxRanks: 1,
-    entryIds: [126523],
-    definitionIds: [{ id: 131349, specId: 62 }],
-  },
   REVERBERATE_TALENT: {
     id: 281482,
     name: 'Reverberate',
@@ -1486,7 +1486,7 @@ const talents = {
   SHIFTING_POWER_TALENT: {
     id: 382440,
     name: 'Shifting Power',
-    icon: 'ability_ardenweald_mage',
+    icon: 'inv_ability_mage_shiftingpower',
     maxRanks: 1,
     entryIds: [80171],
     definitionIds: [{ id: 85174, specId: 64 }],
@@ -1508,6 +1508,14 @@ const talents = {
     entryIds: [80163],
     definitionIds: [{ id: 85166, specId: 64 }],
     manaCost: 50000,
+  },
+  SIGNATURE_SPELL_TALENT: {
+    id: 470021,
+    name: 'Signature Spell',
+    icon: 'inv_enchanting_815_drustwand',
+    maxRanks: 1,
+    entryIds: [128267],
+    definitionIds: [{ id: 133074, specId: 64 }],
   },
   SLICK_ICE_TALENT: {
     id: 382144,
@@ -1636,8 +1644,8 @@ const talents = {
     name: 'Static Cloud',
     icon: 'inv_misc_stormlordsfavor',
     maxRanks: 1,
-    entryIds: [126545],
-    definitionIds: [{ id: 131371, specId: 62 }],
+    entryIds: [126523],
+    definitionIds: [{ id: 131349, specId: 62 }],
   },
   SUBZERO_TALENT: {
     id: 380154,

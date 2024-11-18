@@ -165,7 +165,7 @@ const talents = {
   CALL_OF_YSERA_TALENT: {
     id: 373834,
     name: 'Call of Ysera',
-    icon: '4096390', // blizzard is dumb
+    icon: '',
     maxRanks: 1,
     entryIds: [115554],
     definitionIds: [{ id: 120566, specId: 1468 }],
@@ -224,8 +224,8 @@ const talents = {
     name: 'Clobbering Sweep',
     icon: 'ability_racial_tailswipe',
     maxRanks: 1,
-    entryIds: [115604],
-    definitionIds: [{ id: 120616, specId: 1473 }],
+    entryIds: [128217],
+    definitionIds: [{ id: 133024, specId: 1473 }],
   },
   CONDUIT_OF_FLAME_TALENT: {
     id: 444843,
@@ -724,8 +724,8 @@ const talents = {
     name: 'Heavy Wingbeats',
     icon: 'ability_racial_wingbuffet',
     maxRanks: 1,
-    entryIds: [115605],
-    definitionIds: [{ id: 120617, specId: 1473 }],
+    entryIds: [128216],
+    definitionIds: [{ id: 133023, specId: 1473 }],
   },
   HOARDED_POWER_TALENT: {
     id: 375796,
@@ -1128,14 +1128,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [115537],
     definitionIds: [{ id: 120549, specId: 1473 }],
-  },
-  PERMEATING_CHILL_TALENT: {
-    id: 370897,
-    name: 'Permeating Chill',
-    icon: 'spell_frost_coldhearted',
-    maxRanks: 1,
-    entryIds: [115612],
-    definitionIds: [{ id: 120624, specId: 1473 }],
   },
   PLOT_THE_FUTURE_TALENT: {
     id: 407866,

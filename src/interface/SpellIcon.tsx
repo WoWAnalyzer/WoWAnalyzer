@@ -4,6 +4,7 @@ import Icon from './Icon';
 import SpellLink from './SpellLink';
 import useSpellInfo from './useSpellInfo';
 import Spell from 'common/SPELLS/Spell';
+import { SPELL_ICON_OVERRIDES } from './BAD_ICONS';
 
 interface Props extends Omit<React.ComponentProps<typeof Icon>, 'id' | 'icon'> {
   spell: number | Spell;
@@ -21,15 +22,11 @@ const SpellIcon = ({ spell, noLink, alt, ilvl, ...others }: Props) => {
     icon: 'inv_misc_questionmark',
   };
 
-  const icon = (
-    <Icon
-      icon={spellWithFallback.icon}
-      alt={alt !== '' ? spellWithFallback.name : ''}
-      {...others}
-    />
-  );
-
   const spellId = typeof spell === 'number' ? spell : spell.id;
+
+  const iconName = SPELL_ICON_OVERRIDES[spellId] ?? spellWithFallback.icon;
+
+  const icon = <Icon icon={iconName} alt={alt !== '' ? spellWithFallback.name : ''} {...others} />;
 
   if (noLink || spellId <= 1) {
     return icon;
