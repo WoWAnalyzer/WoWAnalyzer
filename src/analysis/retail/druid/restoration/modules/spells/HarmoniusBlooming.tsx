@@ -8,11 +8,15 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 
+export const HB_EXTRA_STACKS = 2;
+
 /**
+ *
+ *
  * **Harmonius Blooming**
  * Spec Talent
  *
- * Lifebloom counts for (2 / 3) stacks of Mastery: Harmony
+ * Lifebloom counts for 3 stacks of Mastery: Harmony
  */
 class HarmoniusBlooming extends Analyzer {
   static dependencies = {
@@ -21,12 +25,9 @@ class HarmoniusBlooming extends Analyzer {
 
   protected mastery!: Mastery;
 
-  ranks: number;
-
   constructor(options: Options) {
     super(options);
-    this.ranks = this.selectedCombatant.getTalentRank(TALENTS_DRUID.HARMONIOUS_BLOOMING_TALENT);
-    this.active = this.ranks > 0;
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.HARMONIOUS_BLOOMING_TALENT);
   }
 
   /**
@@ -38,7 +39,7 @@ class HarmoniusBlooming extends Analyzer {
     const totalMasteryHealing =
       this.mastery.getMasteryHealing(SPELLS.LIFEBLOOM_HOT_HEAL.id) +
       this.mastery.getMasteryHealing(SPELLS.LIFEBLOOM_UNDERGROWTH_HOT_HEAL.id);
-    const portionFromExtraStacks = this.ranks / (this.ranks + 1);
+    const portionFromExtraStacks = HB_EXTRA_STACKS / (HB_EXTRA_STACKS + 1);
     return totalMasteryHealing * portionFromExtraStacks;
   }
 
@@ -50,8 +51,8 @@ class HarmoniusBlooming extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            This is the healing enabled by the extra {this.ranks}{' '}
-            {this.ranks > 1 ? 'stacks' : 'stack'} of Mastery from Harmonius Blooming.
+            This is the healing enabled by the extra {HB_EXTRA_STACKS} stacks of Mastery from
+            Harmonius Blooming.
           </>
         }
       >
