@@ -7,8 +7,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
-
-export const HB_EXTRA_STACKS = 2;
+import { HARMONIUS_BLOOMING_EXTRA_STACKS } from 'analysis/retail/druid/restoration/constants';
 
 /**
  *
@@ -39,7 +38,8 @@ class HarmoniusBlooming extends Analyzer {
     const totalMasteryHealing =
       this.mastery.getMasteryHealing(SPELLS.LIFEBLOOM_HOT_HEAL.id) +
       this.mastery.getMasteryHealing(SPELLS.LIFEBLOOM_UNDERGROWTH_HOT_HEAL.id);
-    const portionFromExtraStacks = HB_EXTRA_STACKS / (HB_EXTRA_STACKS + 1);
+    const portionFromExtraStacks =
+      HARMONIUS_BLOOMING_EXTRA_STACKS / (HARMONIUS_BLOOMING_EXTRA_STACKS + 1);
     return totalMasteryHealing * portionFromExtraStacks;
   }
 
@@ -51,8 +51,8 @@ class HarmoniusBlooming extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            This is the healing enabled by the extra {HB_EXTRA_STACKS} stacks of Mastery from
-            Harmonius Blooming.
+            This is the healing enabled by the extra {HARMONIUS_BLOOMING_EXTRA_STACKS} stacks of
+            Mastery from Harmonius Blooming.
           </>
         }
       >

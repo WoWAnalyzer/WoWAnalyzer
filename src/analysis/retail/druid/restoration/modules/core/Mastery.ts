@@ -11,10 +11,10 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS';
 import {
   ABILITIES_AFFECTED_BY_HEALING_INCREASES,
+  HARMONIUS_BLOOMING_EXTRA_STACKS,
   MASTERY_STACK_BUFF_IDS,
   TRIPLE_MASTERY_BENEFIT_IDS,
 } from 'analysis/retail/druid/restoration/constants';
-import { HB_EXTRA_STACKS } from 'analysis/retail/druid/restoration/modules/spells/HarmoniusBlooming';
 
 const DEBUG = false;
 
@@ -56,7 +56,7 @@ class Mastery extends Analyzer {
     super(options);
 
     this.extraLbStacks = this.selectedCombatant.hasTalent(TALENTS_DRUID.HARMONIOUS_BLOOMING_TALENT)
-      ? HB_EXTRA_STACKS
+      ? HARMONIUS_BLOOMING_EXTRA_STACKS
       : 0;
     this.lbBuffId = this.selectedCombatant.hasTalent(TALENTS_DRUID.UNDERGROWTH_TALENT)
       ? SPELLS.LIFEBLOOM_UNDERGROWTH_HOT_HEAL.id
