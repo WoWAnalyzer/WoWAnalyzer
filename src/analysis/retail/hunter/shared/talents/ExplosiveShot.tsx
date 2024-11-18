@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import { TALENTS_HUNTER } from 'common/TALENTS';
+import TALENTS from 'common/TALENTS/hunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import AverageTargetsHit from 'parser/ui/AverageTargetsHit';
@@ -10,8 +10,10 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 /**
- * Fires a slow-moving munition directly forward.
- * Activating this ability a second time detonates the Shot, dealing up to (1000% of Attack power) Fire damage to all enemies within 8 yds, damage based on proximity.
+ * Cost: 20 focus, 40 yd range. 30 Second cooldown.
+ * Fires an explosive shot at your target. After 3 sec, the shot will explode, dealing (291% of Attack power) Fire damage to all enemies within 8 yds. Deals reduced damage beyond 5 targets.
+ *
+ * Existing Explosive Shot explodes on the target if a new application occurs.
  *
  * Example log:
  * https://www.warcraftlogs.com/reports/Rn9XxCYLm1q7KFNW#fight=3&type=damage-done&source=15&ability=212680
@@ -24,9 +26,9 @@ class ExplosiveShot extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_HUNTER.EXPLOSIVE_SHOT_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.EXPLOSIVE_SHOT_TALENT);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_HUNTER.EXPLOSIVE_SHOT_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.EXPLOSIVE_SHOT_TALENT),
       this.onCast,
     );
     this.addEventListener(
@@ -51,7 +53,7 @@ class ExplosiveShot extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={TALENTS_HUNTER.EXPLOSIVE_SHOT_TALENT}>
+        <BoringSpellValueText spell={TALENTS.EXPLOSIVE_SHOT_TALENT}>
           <>
             <ItemDamageDone amount={this.damage} />
             <br />

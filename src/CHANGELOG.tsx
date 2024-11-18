@@ -33,7 +33,7 @@ import {
   ZiayaKens,
   Zyer,
   Gazh,
-  Yellot
+  Yellot,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';

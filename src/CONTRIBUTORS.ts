@@ -2545,3 +2545,14 @@ export const Yellot: Contributor = {
     },
   ],
 };
+export const Kivlov: Contributor = {
+  nickname: 'Kivlov',
+  github: 'Kivlov',
+  mains: [
+    {
+      name: 'Percival',
+      spec: SPECS.SURVIVAL_HUNTER,
+      link: 'https://worldofwarcraft.blizzard.com/en-us/character/us/firetree/percival',
+    },
+  ],
+};

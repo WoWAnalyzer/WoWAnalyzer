@@ -47,7 +47,7 @@ import SteadyFocus from './modules/talents/SteadyFocus';
 import Streamline from './modules/talents/Streamline';
 import Volley from './modules/talents/Volley';
 import AimedShotPrepullNormalizer from './normalizers/AimedShotPrepullNormalizer';
-import Deathblow from './modules/talents/Deathblow';
+import Deathblow from '../shared/talents/Deathblow';
 import MMTier2P from './modules/items/MMTier2P';
 import MMTier4P from './modules/items/MMTier4P';
 import FoundationGuide from 'interface/guide/foundation/FoundationGuide';

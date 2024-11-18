@@ -13,13 +13,13 @@ class Buffs extends CoreAuras {
         triggeredBySpellId: TALENTS.KILL_COMMAND_SURVIVAL_TALENT.id,
       },
       {
-        spellId: SPELLS.VIPERS_VENOM_BUFF.id,
-        timelineHighlight: true, //to show users of the Vipers Venom talent when they were casting Serpent Sting with Viper's Venom active in the timeline
-        triggeredBySpellId: SPELLS.SERPENT_STING_SURVIVAL.id,
-      },
-      {
         spellId: TALENTS.COORDINATED_ASSAULT_TALENT.id,
         timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.TIP_OF_THE_SPEAR_CAST.id,
+        timelineHighlight: true,
+        triggeredBySpellId: [TALENTS.KILL_COMMAND_SURVIVAL_TALENT.id],
       },
       {
         spellId: SPELLS.ASPECT_OF_THE_TURTLE.id,

@@ -1,6 +1,9 @@
 import { defineMessage } from '@lingui/macro';
-import { MS_BUFFER_100 } from 'analysis/retail/hunter/shared/constants';
-import { WILDFIRE_BOMB_LEEWAY_BUFFER } from 'analysis/retail/hunter/survival/constants';
+import {
+  JUGGLER_CDR,
+  WILDFIRE_BOMB_LEEWAY_BUFFER,
+  COVERING_FIRE_CDR,
+} from 'analysis/retail/hunter/survival/constants';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/hunter';
@@ -36,11 +39,14 @@ class WildfireBomb extends Analyzer {
 
   private acceptedCastDueToCapping: boolean = false;
   private currentGCD: number = 0;
-  private badRefreshes: number = 0;
-  private lastRefresh: number = 0;
   private casts: number = 0;
   private targetsHit: number = 0;
-
+  // Travel time of Wildfire Bomb can allow you to consume a tip with the following GCD and so tippedCasts should = tippedDamage
+  private tippedCast: number = 0;
+  private tippedDamage: number = 0;
+  private goodCast: number = 0;
+  private effectiveReductionMs: number = 0;
+  private wastedReductionMs: number = 0;
   constructor(options: Options) {
     super(options);
 
@@ -63,18 +69,6 @@ class WildfireBomb extends Analyzer {
     return this.enemies.getBuffUptime(SPELLS.WILDFIRE_BOMB_DOT.id) / this.owner.fightDuration;
   }
 
-  get badWFBThresholds() {
-    return {
-      actual: this.badRefreshes,
-      isGreaterThan: {
-        minor: 2,
-        average: 4,
-        major: 6,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
-  }
-
   get uptimeThresholds() {
     return {
       actual: this.uptimePercentage,
@@ -86,11 +80,27 @@ class WildfireBomb extends Analyzer {
       style: ThresholdStyle.PERCENTAGE,
     };
   }
+  get tippedThresholds() {
+    return {
+      actual: this.untippedCastPercentage,
+      isLessThan: {
+        minor: 0.95,
+        average: 0.85,
+        major: 0.75,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
 
   get averageTargetsHit() {
     return this.targetsHit / this.casts;
   }
-
+  get untippedDamagePercentage() {
+    return this.tippedCast / this.casts;
+  }
+  get untippedCastPercentage() {
+    return this.goodCast / this.casts;
+  }
   onCast(event: CastEvent) {
     this.casts += 1;
     this.currentGCD = this.globalCooldown.getGlobalCooldownDuration(event.ability.guid);
@@ -101,8 +111,39 @@ class WildfireBomb extends Analyzer {
     ) {
       this.acceptedCastDueToCapping = true;
     }
+
+    // Pack Leader - Covering Fire Talent Cooldown Reduction for Butchery
+    if (this.selectedCombatant.hasTalent(TALENTS.COVERING_FIRE_TALENT)) {
+      if (this.spellUsable.isOnCooldown(TALENTS.BUTCHERY_TALENT.id)) {
+        this.checkCooldown(TALENTS.BUTCHERY_TALENT.id);
+      } else {
+        this.wastedReductionMs += JUGGLER_CDR;
+      }
+    }
+
+    // Good or Bad Cast Checking Tip, CA is almost up, or capped are good casts of bomb.
+    if (this.selectedCombatant.hasOwnBuff(SPELLS.TIP_OF_THE_SPEAR_CAST.id)) {
+      this.tippedCast += 1;
+      this.goodCast += 1;
+    } else if (
+      !this.spellUsable.isOnCooldown(TALENTS.COORDINATED_ASSAULT_TALENT.id) ||
+      this.spellUsable.cooldownRemaining(TALENTS.COORDINATED_ASSAULT_TALENT.id) < 4000
+    ) {
+      this.goodCast += 1;
+    } else if (this.acceptedCastDueToCapping) {
+      this.goodCast += 1;
+    }
   }
 
+  checkCooldown(spellId: number) {
+    if (this.spellUsable.cooldownRemaining(spellId) < COVERING_FIRE_CDR) {
+      const effectiveReductionMs = this.spellUsable.reduceCooldown(spellId, COVERING_FIRE_CDR);
+      this.effectiveReductionMs += effectiveReductionMs;
+      this.wastedReductionMs += COVERING_FIRE_CDR - effectiveReductionMs;
+    } else {
+      this.effectiveReductionMs += this.spellUsable.reduceCooldown(spellId, COVERING_FIRE_CDR);
+    }
+  }
   onDamage(event: DamageEvent) {
     if (this.casts === 0) {
       this.casts += 1;
@@ -110,35 +151,30 @@ class WildfireBomb extends Analyzer {
     }
     this.targetsHit += 1;
     const enemy = this.enemies.getEntity(event);
+    if (this.selectedCombatant.hasOwnBuff(SPELLS.TIP_OF_THE_SPEAR_CAST.id)) {
+      this.tippedDamage += 1;
+    }
     if (this.acceptedCastDueToCapping || !enemy) {
       return;
-    }
-    if (
-      enemy.hasBuff(SPELLS.WILDFIRE_BOMB_DOT.id) &&
-      event.timestamp > this.lastRefresh + MS_BUFFER_100
-    ) {
-      this.badRefreshes += 1;
-      this.lastRefresh = event.timestamp;
     }
   }
 
   suggestions(when: When) {
-    when(this.badWFBThresholds).addSuggestion((suggest, actual, recommended) =>
+    when(this.tippedThresholds).addSuggestion((suggest, actual, recommend) =>
       suggest(
         <>
-          You shouldn't refresh <SpellLink spell={TALENTS.WILDFIRE_BOMB_TALENT} /> since it doesn't
-          pandemic. It's generally better to cast something else and wait for the DOT to drop off
-          before reapplying.
+          Try to ensure your <SpellLink spell={TALENTS.WILDFIRE_BOMB_TALENT} /> is affected by{' '}
+          <SpellLink spell={TALENTS.TIP_OF_THE_SPEAR_TALENT} />
         </>,
       )
         .icon(TALENTS.WILDFIRE_BOMB_TALENT.icon)
         .actual(
           defineMessage({
-            id: 'hunter.survival.suggestions.wildfireBomb.pandemic.efficiency',
-            message: `${actual} casts unnecessarily refreshed WFB`,
+            id: 'hunter.survival.suggestions.wildfireBomb.tipped',
+            message: `${formatPercentage(actual)}% tipped`,
           }),
         )
-        .recommended(`<${recommended} is recommended`),
+        .recommended(`>${formatPercentage(recommend)}% is recommended`),
     );
     when(this.uptimeThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
@@ -161,7 +197,7 @@ class WildfireBomb extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.CORE(2)}
+        position={STATISTIC_ORDER.CORE(0)}
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
       >
@@ -169,7 +205,21 @@ class WildfireBomb extends Analyzer {
           <>
             {this.averageTargetsHit.toFixed(2)} <small>average targets hit</small>
             <br />
-            {formatPercentage(this.uptimePercentage)}% <small> DoT uptime</small>
+            {formatPercentage(this.uptimePercentage, 1)}% <small> DoT uptime</small>
+            <br />
+            {formatPercentage(this.untippedDamagePercentage, 1)}%{' '}
+            <small> average tipped hits.</small>
+            <br />
+            {formatPercentage(this.untippedCastPercentage, 1)}%{' '}
+            <small> average tipped casts.</small>
+            <br />
+            {this.casts} <small> Wildfire Bomb casts.</small>
+            <br />
+            {this.tippedCast} <small> Tipped Wildfire Bomb casts.</small>
+            <br />
+            {this.goodCast} <small> Good Wildfire Bomb casts.</small>
+            <br />
+            {this.tippedDamage} <small> Tipped Wildfire Bomb Damage.</small>
           </>
         </BoringSpellValueText>
       </Statistic>

@@ -14,13 +14,13 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 /**
- * Attack all nearby enemies in a flurry of strikes, inflicting Physical damage to each. Deals reduced damage beyond 5 targets.
+ * Attack all nearby enemies in cone in front of you in a flurry of strikes, inflicting Physical damage to each. Deals reduced damage beyond 5 targets.
  *
  * Example log:
  * https://www.warcraftlogs.com/reports/GcyfdwP1XTJrR3h7#fight=15&source=8&type=damage-done&ability=212436
  */
 
-class Butchery extends Analyzer {
+class FuryOfTheEagle extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
   };
@@ -30,30 +30,24 @@ class Butchery extends Analyzer {
   private targetsHit: number = 0;
   private casts: number = 0;
   private damage: number = 0;
-  private mercilessDamage: number = 0;
 
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS.BUTCHERY_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.FURY_OF_THE_EAGLE_TALENT);
     if (!this.active) {
       return;
     }
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.BUTCHERY_TALENT),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FURY_OF_THE_EAGLE_DAMAGE),
       this.onDamage,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.BUTCHERY_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.FURY_OF_THE_EAGLE_TALENT),
       this.onCast,
     );
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MERCILESS_BLOW_DAMAGE),
-      this.onMercilessDamage,
-    );
   }
-  // This should be adjusted to monitor if we hit the target at all rather than calculating an average target hit due to the MERB change.
   get avgTargetsHitThreshold() {
     return {
       actual: Number((this.targetsHit / this.casts).toFixed(1)),
@@ -75,17 +69,14 @@ class Butchery extends Analyzer {
     this.damage += event.amount + (event.absorbed || 0);
   }
 
-  onMercilessDamage(event: DamageEvent) {
-    this.mercilessDamage += event.amount + (event.absorbed || 0);
-  }
-
   suggestions(when: When) {
     when(this.avgTargetsHitThreshold).addSuggestion(
       (suggest, actual, recommended) =>
         suggest(
           <>
-            You should aim to hit the target with <SpellLink spell={TALENTS.BUTCHERY_TALENT} />.
-            Butchery does not require you to be in range to cast and so it can miss.
+            You should aim to hit the target with{' '}
+            <SpellLink spell={TALENTS.FURY_OF_THE_EAGLE_TALENT} />. Butchery does not require you to
+            be in range to cast and so it can miss.
           </>,
         )
           .icon(TALENTS.BUTCHERY_TALENT.icon)
@@ -102,22 +93,18 @@ class Butchery extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.CORE(3)}
+        position={STATISTIC_ORDER.OPTIONAL(3)}
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
       >
-        <BoringSpellValueText spell={TALENTS.BUTCHERY_TALENT}>
+        <BoringSpellValueText spell={TALENTS.FURY_OF_THE_EAGLE_TALENT}>
           <ItemDamageDone amount={this.damage} />
           <br />
           <AverageTargetsHit casts={this.casts} hits={this.targetsHit} />
-        </BoringSpellValueText>
-
-        <BoringSpellValueText spell={TALENTS.MERCILESS_BLOW_TALENT}>
-          <ItemDamageDone amount={this.mercilessDamage} />
         </BoringSpellValueText>
       </Statistic>
     );
   }
 }
 
-export default Butchery;
+export default FuryOfTheEagle;

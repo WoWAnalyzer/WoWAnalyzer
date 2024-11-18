@@ -10,8 +10,10 @@ export const hastedCooldown = (baseCD: number, haste: number) => baseCD / (1 + h
 export const MS_BUFFER_100 = 100;
 //Whenever we need to use 250ms buffers
 export const MS_BUFFER_250 = 250;
-//Whenever we ned to use 1 second buffers
+//Whenever we need to use 1 second buffers
 export const ONE_SECOND_IN_MS = 1000;
+//Whenever we need to use 500ms buffers
+export const MS_BUFFER_500 = 500;
 /** Death Tracker */
 //The override we use in the hunter version of the Death Tracker that allows for a hunter to be dead for 0.25% of an encounter without it counting towards death time as it could just be Feign Death
 export const TIME_SPENT_DEAD_THRESHOLD = 0.0025; //0.25%
