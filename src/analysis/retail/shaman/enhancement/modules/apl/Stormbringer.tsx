@@ -112,7 +112,6 @@ export function stormbringer(combatant: Combatant): Apl {
           spell: TALENTS.FROST_SHOCK_TALENT,
           condition: buffPresent(SPELLS.HAILSTORM_BUFF),
         },
-        TALENTS.CRASH_LIGHTNING_TALENT,
       );
     }
 

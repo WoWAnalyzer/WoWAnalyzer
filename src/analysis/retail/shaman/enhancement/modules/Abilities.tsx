@@ -201,6 +201,9 @@ class Abilities extends ClassAbilities {
         spell: SPELLS.VOLTAIC_BLAZE_CAST.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         enabled: combatant.hasTalent(TALENTS.VOLTAIC_BLAZE_TALENT),
+        gcd: {
+          base: 1500,
+        },
       },
     ];
   }
