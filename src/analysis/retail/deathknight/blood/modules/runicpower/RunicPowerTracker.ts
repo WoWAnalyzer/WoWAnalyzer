@@ -173,8 +173,6 @@ class RunicPowerTracker extends ResourceTracker {
           return true;
         }
 
-        console.log(problems);
-
         const last = problems[ix - 1];
         return last.range.end < w.range.start || last.range.start > w.range.end;
       })

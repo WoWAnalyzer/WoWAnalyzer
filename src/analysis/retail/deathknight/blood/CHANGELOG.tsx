@@ -5,6 +5,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 11, 20), <>Add basic support for San'layn abilities.</>, emallson),
   change(date(2024, 10, 5), <>Added warning about repeated <SpellLink spell={talents.DEATH_STRIKE_TALENT} /> casts.</>, emallson),
   change(date(2024, 10, 5), <>Removed Dragonflight rotational analysis.</>, emallson),
   change(date(2024, 10, 5), <>Fixed handling of <SpellLink spell={talents.EXTERMINATE_TALENT} /> cost reduction and Deathbringer cooldown reduction effects.</>, emallson),

@@ -158,6 +158,7 @@ const heartStrikeSpells = [
   talents.HEART_STRIKE_TALENT,
   SPELLS.HEARTBREAKER_ENERGIZE,
   SPELLS.BLOOD_STRIKE,
+  SPELLS.VAMPIRIC_STRIKE,
 ];
 
 const abilityGroups = [

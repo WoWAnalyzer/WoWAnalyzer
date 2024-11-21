@@ -79,6 +79,10 @@ const runeRules = {
     spell: SPELLS.DEATHS_CARESS,
     condition: cnd.optionalRule(ossuaryCnd), // allow optionally using DC for BS refresh. i'm not here to litigate optimality. some high end people use DC for it a ton
   },
+  vampiricStrike: {
+    spell: SPELLS.VAMPIRIC_STRIKE,
+    condition: cnd.buffPresent(SPELLS.VAMPIRIC_STRIKE_TRIGGER_BUFF),
+  },
   drw: {
     soulReaper: {
       spell: talents.SOUL_REAPER_TALENT,
@@ -121,6 +125,10 @@ const runeRules = {
         ),
       ),
     },
+    vampiricStrike: {
+      spell: SPELLS.VAMPIRIC_STRIKE,
+      condition: cnd.buffPresent(SPELLS.GIFT_OF_THE_SANLAYN_BUFF),
+    },
   },
 };
 
@@ -130,6 +138,7 @@ const runePrio = build([
   runeRules.drw.marrowrend,
   runeRules.drw.soulReaper,
   runeRules.drw.marrowrendMissing,
+  runeRules.drw.vampiricStrike,
   {
     spell: talents.HEART_STRIKE_TALENT,
     condition: cnd.buffPresent(SPELLS.DANCING_RUNE_WEAPON_TALENT_BUFF),
@@ -137,6 +146,7 @@ const runePrio = build([
   // basic prio
   runeRules.deathsCaress,
   runeRules.marrowrend,
+  runeRules.vampiricStrike,
   runeRules.soulReaper,
   talents.HEART_STRIKE_TALENT,
   SPELLS.DEATHS_CARESS,
