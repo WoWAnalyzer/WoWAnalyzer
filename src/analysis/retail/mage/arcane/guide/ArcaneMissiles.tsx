@@ -116,10 +116,10 @@ class ArcaneMissilesGuide extends Analyzer {
         });
       }
 
-      if (am.channelEndDelay) {
+      if (am.channelEndDelay !== undefined && am.nextCast) {
         tooltipItems.push({
           perf: this.channelDelayUtil(am.channelEndDelay),
-          detail: `Delay Until Next Cast (${formatDurationMillisMinSec(am.channelEndDelay, 3)}s)`,
+          detail: `${formatDurationMillisMinSec(am.channelEndDelay, 3)} Delay Until Next Cast (${am.nextCast.ability.name})`,
         });
       } else {
         tooltipItems.push({ perf: QualitativePerformance.Fail, detail: 'Next Cast Not Found' });
@@ -155,21 +155,20 @@ class ArcaneMissilesGuide extends Analyzer {
     const explanation = (
       <>
         <div>
-          <b>{arcaneMissiles}</b> primarily is your {clearcasting} spender but also increases damage
-          via procs such as {netherPrecision}, {aetherAttunement}, and {highVoltage}. Refer to these
-          guidelines to take advantage of these procs without conflicting with your other procs and
-          buffs.
+          <b>{arcaneMissiles}</b> is your {clearcasting} spender and increases damage via procs such
+          as {netherPrecision}, {aetherAttunement}, and {highVoltage}. The below guidelines take
+          advantage of these procs without conflicting with other procs and buffs.
           <ul>
             <li>
-              If capped on {clearcasting} charges, cast {arcaneMissiles} immediately, regardless of
-              any of the below items, to avoid munching procs (gaining a charge when capped).
+              Cast {arcaneMissiles} immediately if capped on {clearcasting} charges, ignoring any of
+              the below items, to avoid munching procs (gaining a charge while capped).
             </li>
             <li>
               Do not cast {arcaneMissiles} if you have {netherPrecision}.
             </li>
             <li>
-              If you have {aetherAttunement} fully channel {arcaneMissiles}. If you don't, then you
-              can optionally cancel your channel immediately after the GCD ends.
+              If you don't have {aetherAttunement}, you can optionally clip your {arcaneMissiles}{' '}
+              cast once the GCD ends for a small damage boost.
             </li>
           </ul>
         </div>
