@@ -146,6 +146,19 @@ export const Sref: Contributor = {
   discord: 'Sref#1337',
   avatar: avatar('sref-avatar.jpg'),
 };
+
+export const Soulmerlin: Contributor = {
+  nickname: 'Soulmerlin',
+  github: 'Soulhealer95',
+  mains: [
+    {
+      name: 'Soulmerlin',
+      spec: SPECS.FROST_MAGE,
+      link: 'https://www.warcraftlogs.com/character/us/sargeras/soulmerlin',
+    },
+  ],
+};
+
 export const Iskalla: Contributor = {
   nickname: 'Iskalla',
   github: 'Iskalla',
