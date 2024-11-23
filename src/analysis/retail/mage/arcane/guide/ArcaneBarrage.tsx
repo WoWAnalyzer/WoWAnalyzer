@@ -1,4 +1,4 @@
-import { formatDurationMillisMinSec, formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
@@ -15,6 +15,9 @@ import { GUIDE_CORE_EXPLANATION_PERCENT } from '../Guide';
 const TEMPO_REMAINING_THRESHOLD = 5000;
 const TOUCH_CD_THRESHOLD = 6000;
 const NO_MANA_THRESHOLD = 0.1;
+const LOW_MANA_THRESHOLD = 0.7;
+const EXECUTE_HEALTH_PERCENT = 0.35;
+const AETHERVISION_STACK_THRESHOLD = 2;
 
 class ArcaneBarrageGuide extends Analyzer {
   static dependencies = {
@@ -65,16 +68,46 @@ class ArcaneBarrageGuide extends Analyzer {
         });
       }
 
+      if (ab.arcaneSoul) {
+        tooltipItems.push({ perf: QualitativePerformance.Good, detail: `Had Arcane Soul` });
+      }
+
+      if (ab.gloriousIncandescence) {
+        tooltipItems.push({
+          perf: QualitativePerformance.Good,
+          detail: `Had Glorious Incandescence`,
+        });
+      }
+
+      if (ab.intuition) {
+        tooltipItems.push({ perf: QualitativePerformance.Good, detail: `Had Intuition` });
+      }
+
+      const aethervisionStacks =
+        ab.aethervision && ab.aethervision.stacks >= AETHERVISION_STACK_THRESHOLD;
+      if (aethervisionStacks) {
+        tooltipItems.push({
+          perf: QualitativePerformance.Good,
+          detail: `Had ${AETHERVISION_STACK_THRESHOLD} Stacks of Aethervision`,
+        });
+      }
+
       const noMana = ab.mana && ab.mana < NO_MANA_THRESHOLD;
       if (ab.mana && noMana) {
         tooltipItems.push({
           perf: QualitativePerformance.Good,
-          detail: `Barrage with Low Mana (${formatPercentage(ab.mana, 2)}%)`,
+          detail: `Barrage with No Mana (${formatPercentage(ab.mana, 2)}%)`,
         });
       }
 
-      if (ab.arcaneSoul) {
-        tooltipItems.push({ perf: QualitativePerformance.Good, detail: `Had Arcane Soul` });
+      const lowMana = ab.mana && ab.mana < LOW_MANA_THRESHOLD;
+      if (this.isSpellslinger && (ab.intuition || aethervisionStacks) && lowMana) {
+        tooltipItems.push({ perf: QualitativePerformance.Good, detail: `Below 70% Mana` });
+      }
+
+      const lowHealth = ab.health && ab.health < EXECUTE_HEALTH_PERCENT;
+      if (this.isSpellslinger && (ab.intuition || aethervisionStacks) && lowHealth) {
+        tooltipItems.push({ perf: QualitativePerformance.Good, detail: `Target Below 35% Health` });
       }
 
       const touchSoon = ab.touchCD < TOUCH_CD_THRESHOLD;
@@ -85,86 +118,66 @@ class ArcaneBarrageGuide extends Analyzer {
         });
       }
 
-      const standardChecks = !lowCharges && !noMana && !touchSoon && !ab.arcaneSoul;
-      const extraBuffs = ab.burdenOfPower || ab.gloriousIncandescence || ab.intuition;
-      if (this.isSunfury && standardChecks && !extraBuffs) {
-        tooltipItems.push({
-          perf: QualitativePerformance.Fail,
-          detail: `Missing Supporting Buff (Burden, Incandescence, Intuition)`,
-        });
-      }
-
-      const badBlastWithNP =
-        (ab.blastPrecast &&
-          ab.netherPrecisionStacks &&
-          ab.netherPrecisionStacks !== 1 &&
-          extraBuffs) ||
-        (ab.blastPrecast && ab.netherPrecisionStacks === 1 && !extraBuffs);
-      if (this.isSunfury && standardChecks && badBlastWithNP) {
-        tooltipItems.push({
-          perf: QualitativePerformance.Fail,
-          detail: `Blast cast ${extraBuffs ? 'with' : 'without'} Supporting Buff and ${ab.netherPrecisionStacks} NP stack(s)`,
-        });
-      }
-
-      const badNoBlastWithTwoNP =
-        !ab.blastPrecast &&
-        ab.netherPrecisionStacks &&
-        ab.netherPrecisionStacks !== 2 &&
-        extraBuffs;
-      const noBlastWithOneNP = !ab.blastPrecast && ab.netherPrecisionStacks === 1 && extraBuffs;
-      if (this.isSunfury && standardChecks && (badNoBlastWithTwoNP || noBlastWithOneNP)) {
-        tooltipItems.push({
-          perf: noBlastWithOneNP ? QualitativePerformance.Ok : QualitativePerformance.Fail,
-          detail: `No Blast cast ${extraBuffs ? 'with' : 'without'} Supporting Buff and ${ab.netherPrecisionStacks} NP stack(s)`,
-        });
-      }
-
-      const badWithoutNPCC = !ab.netherPrecisionStacks && !ab.clearcasting && !extraBuffs;
-      if (this.isSunfury && standardChecks && badWithoutNPCC) {
-        tooltipItems.push({
-          perf: QualitativePerformance.Fail,
-          detail: `No NP or CC without Supporting Buff`,
-        });
-      }
-
-      const tempoNotExpiring = ab.tempoRemaining && ab.tempoRemaining > TEMPO_REMAINING_THRESHOLD;
-      if (this.isSpellslinger && standardChecks && !tempoNotExpiring) {
+      const tempoExpiring = ab.tempoRemaining && ab.tempoRemaining <= TEMPO_REMAINING_THRESHOLD;
+      if (this.isSpellslinger && tempoExpiring) {
         tooltipItems.push({ perf: QualitativePerformance.Good, detail: `Arcane Tempo Expiring` });
       }
 
-      if (this.isSpellslinger && standardChecks && tempoNotExpiring) {
-        tooltipItems.push({
-          perf: QualitativePerformance.Fail,
-          detail: `Arcane Tempo ${ab.tempoRemaining ? <>Duration Remaining: {formatDurationMillisMinSec(ab.tempoRemaining, 3)}s</> : 'Not Active'}`,
-        });
-      }
-
-      const blastWithOneNP = ab.blastPrecast && ab.netherPrecisionStacks === 1;
-      if (this.isSpellslinger && standardChecks && !blastWithOneNP) {
-        tooltipItems.push({
-          perf: QualitativePerformance.Fail,
-          detail: `${ab.blastPrecast ? '' : 'No '}Blast Cast with ${ab.netherPrecisionStacks} NP stack(s)`,
-        });
+      const hasOrbWithCharges = ab.arcaneOrb && !lowCharges;
+      if (this.isSpellslinger) {
+        if ((ab.intuition || aethervisionStacks) && ab.netherPrecisionStacks) {
+          tooltipItems.push({ perf: QualitativePerformance.Good, detail: `Had Nether Precision` });
+        } else if ((ab.intuition || aethervisionStacks) && !ab.clearcasting) {
+          tooltipItems.push({
+            perf: QualitativePerformance.Good,
+            detail: `Didn't Have Clearcasting`,
+          });
+        } else if (!ab.netherPrecisionStacks && !ab.clearcasting && hasOrbWithCharges) {
+          tooltipItems.push({
+            perf: QualitativePerformance.Good,
+            detail: `Had Arcane Orb without Nether Precision or Clearcasting`,
+          });
+        }
+      } else if (this.isSunfury && ab.netherPrecisionStacks) {
+        if (ab.gloriousIncandescence) {
+          tooltipItems.push({ perf: QualitativePerformance.Good, detail: `Had Nether Precision` });
+        } else if ((ab.intuition || aethervisionStacks) && lowHealth) {
+          tooltipItems.push({
+            perf: QualitativePerformance.Good,
+            detail: `Target had ${ab.health && formatPercentage(ab.health, 2)}% Health`,
+          });
+        } else if ((ab.intuition || aethervisionStacks) && lowMana) {
+          tooltipItems.push({
+            perf: QualitativePerformance.Good,
+            detail: `Had ${ab.mana && formatPercentage(ab.mana, 2)}% Mana`,
+          });
+        }
       }
 
       let overallPerf = QualitativePerformance.Fail;
       if (
-        (!ab.arcaneSoul &&
-          !touchSoon &&
-          !noMana &&
-          !lowCharges &&
-          this.isSunfury &&
-          standardChecks &&
-          (badBlastWithNP || (badNoBlastWithTwoNP && !noBlastWithOneNP) || badWithoutNPCC)) ||
-        (this.isSpellslinger &&
-          standardChecks &&
-          (!ab.tempoRemaining || !tempoNotExpiring || blastWithOneNP))
+        this.isSunfury &&
+        (ab.netherPrecisionStacks || !ab.clearcasting) &&
+        (ab.gloriousIncandescence ||
+          ((ab.intuition || aethervisionStacks) && (lowHealth || lowMana)))
       ) {
-        overallPerf = QualitativePerformance.Fail;
-      } else if (!ab.arcaneSoul && !touchSoon && !noMana && !lowCharges && noBlastWithOneNP) {
-        overallPerf = QualitativePerformance.Ok;
-      } else {
+        overallPerf = QualitativePerformance.Perfect;
+      } else if (
+        this.isSpellslinger &&
+        (tempoExpiring ||
+          ((ab.intuition || aethervisionStacks) &&
+            (ab.netherPrecisionStacks || !ab.clearcasting)) ||
+          (!ab.netherPrecisionStacks && !ab.clearcasting && ab.arcaneOrb && !lowCharges))
+      ) {
+        overallPerf = QualitativePerformance.Perfect;
+      } else if (touchSoon || noMana) {
+        overallPerf = QualitativePerformance.Good;
+      } else if (
+        this.isSunfury &&
+        (ab.arcaneSoul || ab.gloriousIncandescence || ab.intuition || aethervisionStacks)
+      ) {
+        overallPerf = QualitativePerformance.Good;
+      } else if (this.isSpellslinger && (ab.intuition || aethervisionStacks)) {
         overallPerf = QualitativePerformance.Good;
       }
 
@@ -177,59 +190,71 @@ class ArcaneBarrageGuide extends Analyzer {
   }
 
   get guideSubsection(): JSX.Element {
+    const clearcasting = <SpellLink spell={SPELLS.CLEARCASTING_ARCANE} />;
     const arcaneCharge = <SpellLink spell={SPELLS.ARCANE_CHARGE} />;
-    const netherPrecision = <SpellLink spell={TALENTS.NETHER_PRECISION_TALENT} />;
-    const arcaneTempo = <SpellLink spell={TALENTS.ARCANE_TEMPO_TALENT} />;
     const touchOfTheMagi = <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} />;
     const arcaneSoul = <SpellLink spell={SPELLS.ARCANE_SOUL_BUFF} />;
-    const arcaneBlast = <SpellLink spell={SPELLS.ARCANE_BLAST} />;
+    const arcaneTempo = <SpellLink spell={TALENTS.ARCANE_TEMPO_TALENT} />;
+    const netherPrecision = <SpellLink spell={TALENTS.NETHER_PRECISION_TALENT} />;
     const arcaneBarrage = <SpellLink spell={SPELLS.ARCANE_BARRAGE} />;
-    const clearcasting = <SpellLink spell={SPELLS.CLEARCASTING_ARCANE} />;
-    const burdenOfPower = <SpellLink spell={TALENTS.BURDEN_OF_POWER_TALENT} />;
+    const arcaneOrb = <SpellLink spell={SPELLS.ARCANE_ORB} />;
     const gloriousIncandescence = <SpellLink spell={TALENTS.GLORIOUS_INCANDESCENCE_TALENT} />;
+    const aethervision = <SpellLink spell={SPELLS.AETHERVISION_BUFF} />;
     const intuition = <SpellLink spell={SPELLS.INTUITION_BUFF} />;
 
     const explanation = (
       <>
         <div>
-          <b>{arcaneBarrage}</b> spends your {arcaneCharge}s and removes the associated damage and
-          mana cost increases, reducing your damage. So you should stay at 4 {arcaneCharge}s as much
-          as you can, only casting {arcaneBarrage} with 4 {arcaneCharge}s and only under the
-          following conditions.
+          <b>{arcaneBarrage}</b> is your {arcaneCharge} spender, removing the associated increased
+          mana costs and damage. Only cast {arcaneBarrage} under one of the below conditions to
+          maintain the damage increase for as long as possible.
         </div>
         <div>
           <ul>
-            <li>
-              {touchOfTheMagi} is almost available
-              {this.isSunfury ? <>, you have {arcaneSoul},</> : ''} or you're out of mana.
-            </li>
+            <li>{touchOfTheMagi} is almost available or you are out of mana.</li>
             {this.isSunfury && (
-              <>
-                <li>
-                  One of the below is true and you have {burdenOfPower}, {gloriousIncandescence}, or{' '}
-                  {intuition}
-                </li>
-                <ul>
-                  <li>
-                    You are casting {arcaneBlast} with 1 stack of {netherPrecision}.
-                  </li>
-                  <li>
-                    You are NOT casting {arcaneBlast} have 2 stacks of {netherPrecision}.
-                  </li>
-                  <li>
-                    You do not have {netherPrecision} or {clearcasting}.
-                  </li>
-                </ul>
-              </>
+              <li>
+                You have {arcaneSoul}, {gloriousIncandescence}, {intuition}, or two stacks of{' '}
+                {aethervision}.
+              </li>
             )}
             {this.isSpellslinger && (
-              <>
-                <li>{arcaneTempo} is about to expire</li>
-                <li>You have 1 stack of {netherPrecision}</li>
-              </>
+              <li>
+                You have {intuition} or two stacks of {aethervision}.
+              </li>
             )}
           </ul>
         </div>
+        {this.isSunfury && (
+          <div>
+            Additionally if you have {netherPrecision} or don't have {clearcasting}, and one of the
+            below is also true, then you can include these more advanced conditions for a small
+            damage boost:
+            <ul>
+              <li>
+                You have {intuition} or two stacks of {aethervision}, and the target is below 35%
+                health or you are below 70% mana.
+              </li>
+              <li>You have {gloriousIncandescence}.</li>
+            </ul>
+          </div>
+        )}
+        {this.isSpellslinger && (
+          <div>
+            Additionally, you can include these more advanced conditions for a small damage boost:
+            <ul>
+              <li>{arcaneTempo} is about to expire.</li>
+              <li>
+                You have {intuition} or two stacks of {aethervision}, and also have{' '}
+                {netherPrecision} or don't have {clearcasting}.
+              </li>
+              <li>
+                You don't have {netherPrecision} or {clearcasting}, but do have {arcaneOrb} and four{' '}
+                {arcaneCharge}s.
+              </li>
+            </ul>
+          </div>
+        )}
       </>
     );
     const data = (

@@ -132,6 +132,11 @@ const spells = {
     name: 'Intuition',
     icon: 'spell_shadow_brainwash',
   },
+  AETHERVISION_BUFF: {
+    id: 467634,
+    name: 'Aethervision',
+    icon: 'sha_ability_rogue_bloodyeye_nightborne',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;
