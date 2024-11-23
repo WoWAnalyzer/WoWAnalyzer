@@ -147,8 +147,8 @@ export const Sref: Contributor = {
   avatar: avatar('sref-avatar.jpg'),
 };
 
-export const Soulmerlin: Contributor = {
-  nickname: 'Soulmerlin',
+export const Soulhealer95: Contributor = {
+  nickname: 'Soul',
   github: 'Soulhealer95',
   mains: [
     {
@@ -171,10 +171,6 @@ export const enragednuke: Contributor = {
 export const Skamer: Contributor = {
   nickname: 'Skamer',
   github: 'Skamer',
-};
-export const Soulhealer95: Contributor = {
-  nickname: 'Soulhealer',
-  github: 'Soulhealer95',
 };
 export const Salarissia: Contributor = {
   nickname: 'Salarissia',
