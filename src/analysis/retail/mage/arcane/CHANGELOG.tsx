@@ -5,6 +5,7 @@ import { change, date } from 'common/changelog';
 import { Sharrq, Sref } from 'CONTRIBUTORS';
 
 export default [
+  change(date(2024, 11, 23), <>Updated Spec Support to 11.0.5 and updated Warning.</>, Sharrq),
   change(date(2024, 11, 23), <>Fixed an issue that was preventing the Cast Delay from showing if <SpellLink spell={TALENTS.ARCANE_MISSILES_TALENT} /> ended at the exact same timestamp as the next cast (0 Delay).</>, Sharrq),
   change(date(2024, 11, 23), <>Updated <SpellLink spell={TALENTS.ARCANE_MISSILES_TALENT} /> guide wording.</>, Sharrq),
   change(date(2024, 11, 23), <>Updated <SpellLink spell={SPELLS.ARCANE_BARRAGE} /> for 11.0.5.</>, Sharrq),
