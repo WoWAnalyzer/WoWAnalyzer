@@ -63,7 +63,7 @@ class MoltenEmbers extends Analyzer {
   moltenEmbersDamageSources: DamageSources = {};
 
   hasFontOfMagic = false;
-  perfectMoltenEmbersRank = 3;
+  perfectFireBreathRank = 3;
 
   moltenEmbersAmplifiers = MOLTEN_EMBERS_MULTIPLIER_NO_BLAST_FURNACE;
 
@@ -95,7 +95,7 @@ class MoltenEmbers extends Analyzer {
       TALENTS.FONT_OF_MAGIC_AUGMENTATION_TALENT,
     );
     if (this.hasFontOfMagic) {
-      this.perfectMoltenEmbersRank = 4;
+      this.perfectFireBreathRank = 4;
     }
 
     if (this.selectedCombatant.hasTalent(TALENTS.BLAST_FURNACE_TALENT)) {
@@ -184,7 +184,7 @@ class MoltenEmbers extends Analyzer {
         <SpellLink spell={SPELLS.FIRE_BREATH} /> upranked
       </div>
     );
-    if (this.perfectMoltenEmbersRank === upheavalCast.fireBreathRank) {
+    if (this.perfectFireBreathRank === upheavalCast.fireBreathRank) {
       return {
         performance: QualitativePerformance.Perfect,
         summary: summary,
@@ -204,7 +204,7 @@ class MoltenEmbers extends Analyzer {
         <div>
           <SpellLink spell={SPELLS.FIRE_BREATH} /> cast at rank {upheavalCast.fireBreathRank}. You
           should try to uprank <SpellLink spell={SPELLS.FIRE_BREATH} /> as high as possible (
-          {this.perfectMoltenEmbersRank}).
+          {this.perfectFireBreathRank}).
         </div>
       ),
     };
