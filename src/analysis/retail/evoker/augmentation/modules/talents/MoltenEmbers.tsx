@@ -139,7 +139,6 @@ class MoltenEmbers extends Analyzer {
 
   private finalize() {
     // finalize performances
-    console.log(this.upheavalCasts);
     this.uses = this.upheavalCasts.map((upheavalCast) => this.upheavalUsage(upheavalCast));
   }
 
