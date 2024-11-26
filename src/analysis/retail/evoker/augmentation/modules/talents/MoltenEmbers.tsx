@@ -181,7 +181,7 @@ class MoltenEmbers extends Analyzer {
   private getFireBreathRankPerformance(upheavalCast: UpheavalCast) {
     const summary = (
       <div>
-        Upranked <SpellLink spell={SPELLS.FIRE_BREATH} /> DoT
+        <SpellLink spell={SPELLS.FIRE_BREATH} /> upranked
       </div>
     );
     if (this.perfectMoltenEmbersRank === upheavalCast.fireBreathRank) {
@@ -190,8 +190,8 @@ class MoltenEmbers extends Analyzer {
         summary: summary,
         details: (
           <div>
-            <SpellLink spell={SPELLS.FIRE_BREATH} /> DoT active at max rank (
-            {upheavalCast.fireBreathRank}). Good job!
+            <SpellLink spell={SPELLS.FIRE_BREATH} /> cast at max rank ({upheavalCast.fireBreathRank}
+            ). Good job!
           </div>
         ),
       };
@@ -202,8 +202,8 @@ class MoltenEmbers extends Analyzer {
       summary: summary,
       details: (
         <div>
-          <SpellLink spell={SPELLS.FIRE_BREATH} /> DoT active at rank {upheavalCast.fireBreathRank}.
-          You should try to uprank <SpellLink spell={SPELLS.FIRE_BREATH} /> as high as possible (
+          <SpellLink spell={SPELLS.FIRE_BREATH} /> cast at rank {upheavalCast.fireBreathRank}. You
+          should try to uprank <SpellLink spell={SPELLS.FIRE_BREATH} /> as high as possible (
           {this.perfectMoltenEmbersRank}).
         </div>
       ),
