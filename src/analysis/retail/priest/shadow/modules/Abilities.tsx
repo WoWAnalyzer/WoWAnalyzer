@@ -225,7 +225,10 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.95,
         },
-        enabled: combatant.hasTalent(TALENTS.POWER_INFUSION_TALENT),
+        //With Twins of the Sun Priestess, PI is added through the TwinsOftheSunPriestess module
+        enabled:
+          combatant.hasTalent(TALENTS.POWER_INFUSION_TALENT) &&
+          !combatant.hasTalent(TALENTS.TWINS_OF_THE_SUN_PRIESTESS_TALENT),
       },
 
       // Utility

@@ -12,13 +12,23 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import Abilities from 'parser/core/modules/Abilities';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
+
+const BUFFER = 100;
 
 class TwinsOfTheSunPriestess extends Analyzer {
   // More could probably be done with this to analyze what the person you used it on did.
   // this is at least a base of making sure they're using PI on other players and not wasting it on themself.
+  static dependencies = {
+    abilities: Abilities,
+  };
+  protected abilities!: Abilities;
 
+  maxCasts = 0;
   goodCasts = 0;
   badCasts = 0;
+  lastCast = 0;
 
   constructor(options: Options) {
     super(options);
@@ -29,6 +39,20 @@ class TwinsOfTheSunPriestess extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_PRIEST.POWER_INFUSION_TALENT),
       this.onCast,
     );
+    this.addEventListener(Events.fightend, this.adjustMaxCasts);
+
+    (options.abilities as Abilities).add({
+      spell: TALENTS.POWER_INFUSION_TALENT.id,
+      category: SPELL_CATEGORY.COOLDOWNS,
+      cooldown: 120,
+      gcd: null,
+      castEfficiency: {
+        suggestion: true,
+        recommendedEfficiency: 0.95,
+        maxCasts: () => this.maxCasts,
+        casts: () => this.totalCasts,
+      },
+    });
   }
 
   get totalCasts() {
@@ -36,11 +60,30 @@ class TwinsOfTheSunPriestess extends Analyzer {
   }
 
   onCast(event: CastEvent) {
-    if (event.targetID === event.sourceID) {
-      this.badCasts += 1;
-    } else {
-      this.goodCasts += 1;
+    //It seems that their are two casts of PI for every cast of PI.
+    //If cast on an ally, that occurs first, followed shortly by a cast on yourself.
+
+    console.log('PI CAST', this.owner.formatTimestamp(event.timestamp), event.timestamp);
+
+    if (event.timestamp - this.lastCast >= BUFFER) {
+      if (event.targetID === event.sourceID) {
+        this.badCasts += 1;
+        console.log('bad');
+      } else {
+        this.goodCasts += 1;
+        console.log('good');
+      }
     }
+
+    this.lastCast = event.timestamp;
+  }
+
+  adjustMaxCasts() {
+    //PI casts twice when cast
+    //To fix this, we calcuate the number of casts of SW:D
+
+    const cooldown = this.abilities.getAbility(TALENTS.POWER_INFUSION_TALENT.id)!.cooldown * 1000;
+    this.maxCasts = Math.ceil(this.owner.fightDuration / cooldown);
   }
 
   get suggestionThresholds() {
