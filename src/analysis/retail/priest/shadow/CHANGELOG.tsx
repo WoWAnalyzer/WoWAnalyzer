@@ -5,7 +5,7 @@ import { DoxAshe } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
-  change(date(2024, 12, 6),  <>Fix cast effiency for <SpellLink spell={TALENTS.POWER_INFUSION_TALENT}/> with <SpellLink spell={TALENTS.TWINS_OF_THE_SUN_PRIESTESS_TALENT}/> talented</>,DoxAshe),
+  change(date(2024, 12, 6),  <>Fix cast efficiency for <SpellLink spell={TALENTS.POWER_INFUSION_TALENT}/> with <SpellLink spell={TALENTS.TWINS_OF_THE_SUN_PRIESTESS_TALENT}/> talented</>,DoxAshe),
   change(date(2024, 11, 5),  <>Add support for spells added by Shadow's Voidweaver Hero Talent Tree </>,DoxAshe),
   change(date(2024, 11, 5),  <>Remove <SpellLink spell={TALENTS.SHADOW_WORD_DEATH_TALENT}/> suggestions from guide view </>,DoxAshe),
   change(date(2024, 10, 30),  <>Add support and statistic for Shadow's Archon Hero Talent tree</>,DoxAshe),
