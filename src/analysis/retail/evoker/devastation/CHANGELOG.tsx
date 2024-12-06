@@ -5,6 +5,7 @@ import { TALENTS_EVOKER } from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS/evoker';
 
 export default [
+  change(date(2024, 11, 18), <>Update <SpellLink spell={TALENTS_EVOKER.SHATTERING_STAR_TALENT}/> & <SpellLink spell={TALENTS_EVOKER.ETERNITY_SURGE_TALENT}/> cooldown when using TWW1 4pc</>, Vollmer),
   change(date(2024, 10, 4), <>Fix an issue with external <SpellLink spell={TALENTS_EVOKER.RENEWING_BLAZE_TALENT}/> for MajorDefensive module</>, Vollmer),
   change(date(2024, 9, 10), "Update various Modules & Guide Sections for TWW S1", Vollmer),
   change(date(2024, 9, 6), <>Implement <SpellLink spell={TALENTS_EVOKER.WINGLEADER_TALENT}/> module</>, Vollmer),

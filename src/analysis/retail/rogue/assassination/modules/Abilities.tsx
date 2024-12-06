@@ -100,10 +100,10 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.SHADOWSTEP_TALENT.id,
+        spell: SPELLS.SHADOW_STEP.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
-        enabled: combatant.hasTalent(TALENTS.SHADOWSTEP_TALENT),
+        charges: 1 + combatant.getTalentRank(TALENTS.THRILL_SEEKING_TALENT),
       },
       {
         spell: TALENTS.THISTLE_TEA_TALENT.id,

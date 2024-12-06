@@ -72,7 +72,7 @@ const DEFAULT_HASTE_BUFFS: HasteBuffMap = {
 
   //region Hunter
   [SPELLS.DIRE_BEAST_BUFF.id]: 0.05,
-  [SPELLS.STEADY_FOCUS_BUFF.id]: 0.07,
+  [SPELLS.STEADY_FOCUS_BUFF.id]: 0.08,
   //endregion
 
   //region Paladin
@@ -201,6 +201,53 @@ class Haste extends Analyzer {
     haste: number | HasteBuff,
   ): void {
     this.hasteBuffOverrides[spellId] = haste;
+  }
+
+  /**
+   * Update the amount of haste that a buff provides mid-combat. This may trigger `changehaste` events etc.
+   *
+   * This is an exceptionally rare effect.
+   */
+  updateHasteBuff(event: AnyEvent, spellId: number, newHaste: number | HasteBuff): void {
+    const currentHasteBuff = this.hasteBuffOverrides[spellId];
+
+    // first, apply the haste loss of the current buff value
+    const stackCount = this.selectedCombatant.getOwnBuffStacks(spellId);
+    if (!currentHasteBuff || stackCount === 0) {
+      // no active buff, just update the haste buff override
+      this.hasteBuffOverrides[spellId] = newHaste;
+    } else if (typeof currentHasteBuff === 'number' || currentHasteBuff.haste) {
+      const baseHaste = this._getBaseHasteGain(spellId);
+      if (baseHaste) {
+        this._applyHasteLoss(event, baseHaste);
+      }
+    } else if (typeof currentHasteBuff === 'object' && currentHasteBuff.hastePerStack) {
+      const perStackHaste = this._getHastePerStackGain(spellId);
+
+      if (perStackHaste) {
+        const effectiveHaste = stackCount * perStackHaste;
+        this._applyHasteLoss(event, effectiveHaste);
+      }
+    }
+
+    // second, update the haste buff value and apply the gain
+    this.hasteBuffOverrides[spellId] = newHaste;
+    if (stackCount === 0) {
+      // no buff, we're done
+      return;
+    } else if (typeof newHaste === 'number' || newHaste.haste) {
+      const baseHaste = this._getBaseHasteGain(spellId);
+      if (baseHaste) {
+        this._applyHasteGain(event, baseHaste);
+      }
+    } else if (typeof newHaste === 'object' && newHaste.hastePerStack) {
+      const perStackHaste = this._getHastePerStackGain(spellId);
+
+      if (perStackHaste) {
+        const effectiveHaste = stackCount * perStackHaste;
+        this._applyHasteGain(event, effectiveHaste);
+      }
+    }
   }
 
   onApplyBuff(event: ApplyBuffEvent) {

@@ -28,6 +28,7 @@ import BoomingVoice from './modules/spells/BoomingVoice';
 import HeavyRepercussions from './modules/spells/HeavyRepercussions';
 import IntoTheFray from './modules/spells/IntoTheFray';
 import Punish from './modules/spells/Punish';
+import BurstOfPower from './modules/talents/BurstOfPower';
 import SpellReflection from '../shared/modules/talents/SpellReflection';
 import ImpendingVictory from '../shared/modules/talents/ImpendingVictory';
 import RavagerHitCheck from './modules/spells/RavagerHitCheck';
@@ -76,6 +77,12 @@ class CombatLogParser extends CoreCombatLogParser {
     spellReflection: SpellReflection,
     impendingVictory: ImpendingVictory,
     ravagerHitCheck: RavagerHitCheck,
+
+    // Colossus Hero Talents
+    // TODO
+
+    // Mountain Thane Hero Talents
+    BurstOfPower,
 
     // Tier
     WarWithin2PS1TierSet,

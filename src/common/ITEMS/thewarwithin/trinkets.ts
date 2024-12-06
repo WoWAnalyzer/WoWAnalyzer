@@ -29,12 +29,17 @@ const trinkets = {
   OVINAXS_MERCURIAL_EGG: {
     id: 220305,
     name: "Ovi'nax's Mercurial Egg",
-    icon: 'Inv_raid_mercurialegg_purple',
+    icon: 'inv_raid_mercurialegg_purple',
   },
   MAD_QUEENS_MANDATE: {
     id: 212454,
     name: "Mad Queen's Mandate",
-    icon: 'Inv_raid_abyssaleffigy_purple',
+    icon: 'inv_raid_abyssaleffigy_purple',
+  },
+  SKARDYNS_GRACE: {
+    id: 133282,
+    name: "Skardyn's Grace",
+    icon: 'inv_misc_coin_08',
   },
 } satisfies Record<string, Item>;
 

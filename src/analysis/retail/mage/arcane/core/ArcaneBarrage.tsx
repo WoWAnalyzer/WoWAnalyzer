@@ -8,10 +8,14 @@ import Events, {
   ApplyBuffEvent,
   ApplyBuffStackEvent,
   RefreshBuffEvent,
+  HasTarget,
+  HasHitpoints,
 } from 'parser/core/Events';
 import ArcaneChargeTracker from './ArcaneChargeTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { TrackedBuffEvent } from 'parser/core/Entity';
+import { encodeTargetString } from 'parser/shared/modules/Enemies';
 
 const TEMPO_DURATION = 12000;
 
@@ -65,6 +69,20 @@ export default class ArcaneBarrage extends Analyzer {
       (resource) => resource.type === RESOURCE_TYPES.MANA.id,
     );
     const manaPercent = resource && resource.amount / resource.max;
+    const castTarget = HasTarget(event) && encodeTargetString(event.targetID, event.targetInstance);
+    const damage = GetRelatedEvents(event, 'SpellDamage');
+    const targetHit = damage.find(
+      (d) => HasTarget(d) && castTarget === encodeTargetString(d.targetID, d.targetInstance),
+    );
+    const damageTarget =
+      targetHit &&
+      HasTarget(targetHit) &&
+      encodeTargetString(targetHit.targetID, targetHit.targetInstance);
+    const healthPercent =
+      targetHit &&
+      castTarget === damageTarget &&
+      HasHitpoints(targetHit) &&
+      targetHit.hitPoints / targetHit.maxHitPoints;
 
     this.barrageCasts.push({
       cast: event,
@@ -78,15 +96,18 @@ export default class ArcaneBarrage extends Analyzer {
         SPELLS.CLEARCASTING_ARCANE.id,
         event.timestamp - 10,
       ),
+      arcaneOrb: this.spellUsable.isAvailable(SPELLS.ARCANE_ORB.id),
       arcaneSoul: this.selectedCombatant.hasBuff(SPELLS.ARCANE_SOUL_BUFF.id),
       burdenOfPower: this.selectedCombatant.hasBuff(SPELLS.BURDEN_OF_POWER_BUFF.id),
       gloriousIncandescence: this.selectedCombatant.hasBuff(
         TALENTS.GLORIOUS_INCANDESCENCE_TALENT.id,
       ),
       intuition: this.selectedCombatant.hasBuff(SPELLS.INTUITION_BUFF.id),
+      aethervision: this.selectedCombatant.getBuff(SPELLS.AETHERVISION_BUFF.id),
       charges,
       targetsHit: targetsHit || 0,
       mana: manaPercent,
+      health: healthPercent || undefined,
     });
 
     this.arcaneChargeTracker.clearCharges(event);
@@ -100,11 +121,14 @@ export interface ArcaneBarrageCast {
   touchCD: number;
   tempoRemaining?: number;
   clearcasting: boolean;
+  arcaneOrb: boolean;
   arcaneSoul: boolean;
   burdenOfPower: boolean;
   gloriousIncandescence: boolean;
   intuition: boolean;
+  aethervision?: TrackedBuffEvent;
   charges: number;
   targetsHit: number;
   mana?: number;
+  health?: number;
 }

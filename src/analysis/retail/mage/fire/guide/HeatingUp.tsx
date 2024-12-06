@@ -6,9 +6,13 @@ import Analyzer from 'parser/core/Analyzer';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { qualitativePerformanceToColor } from 'interface/guide';
+import { PerformanceMark, qualitativePerformanceToColor } from 'interface/guide';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/mage/fire/Guide';
 import HeatingUp from '../core/HeatingUp';
+import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBreakdown';
+import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
+
+const CAPPED_MS_THRESHOLD = 7000;
 
 class HeatingUpGuide extends Analyzer {
   static dependencies = {
@@ -16,6 +20,35 @@ class HeatingUpGuide extends Analyzer {
   };
 
   protected heatingUp!: HeatingUp;
+
+  hasFlameOn: boolean = this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT);
+  hasCallOfSunKing: boolean = this.selectedCombatant.hasTalent(TALENTS.CALL_OF_THE_SUN_KING_TALENT);
+
+  generateGuideTooltip(
+    performance: QualitativePerformance,
+    tooltipItems: { perf: QualitativePerformance; detail: string }[],
+    timestamp: number,
+  ) {
+    const tooltip = (
+      <>
+        <div>
+          <b>@ {this.owner.formatTimestamp(timestamp)}</b>
+        </div>
+        <div>
+          <PerformanceMark perf={performance} /> {performance}
+        </div>
+        <div>
+          {tooltipItems.map((t, i) => (
+            <div key={i}>
+              <PerformanceMark perf={t.perf} /> {t.detail}
+              <br />
+            </div>
+          ))}
+        </div>
+      </>
+    );
+    return tooltip;
+  }
 
   get fireBlastUtil() {
     const util = this.heatingUp.fireBlastUtilSuggestionThresholds.actual;
@@ -45,6 +78,67 @@ class HeatingUpGuide extends Analyzer {
     return performance;
   }
 
+  get heatingUpData() {
+    const data: BoxRowEntry[] = [];
+    this.heatingUp.heatingUpCrits.forEach((hu) => {
+      const tooltipItems: { perf: QualitativePerformance; detail: string }[] = [];
+
+      const fireBlastCapped =
+        hu.cast.ability.guid === SPELLS.FIRE_BLAST.id &&
+        hu.charges >= (this.hasFlameOn ? 3 : 1) - 1 &&
+        hu.timeTillCapped < CAPPED_MS_THRESHOLD;
+      const phoenixFlamesCapped =
+        hu.cast.ability.guid === TALENTS.PHOENIX_FLAMES_TALENT.id &&
+        hu.charges >= (this.hasCallOfSunKing ? 3 : 2) - 1 &&
+        hu.timeTillCapped < CAPPED_MS_THRESHOLD;
+      const cappedCharges = fireBlastCapped || phoenixFlamesCapped;
+      if (fireBlastCapped) {
+        tooltipItems.push({
+          perf: QualitativePerformance.Good,
+          detail: `Fire Blast cast while capped`,
+        });
+      } else if (phoenixFlamesCapped) {
+        tooltipItems.push({
+          perf: QualitativePerformance.Good,
+          detail: `Phoenix Flames cast while capped`,
+        });
+      }
+
+      if (!cappedCharges && hu.hasHotStreak) {
+        tooltipItems.push({
+          perf: QualitativePerformance.Fail,
+          detail: `${hu.cast.ability.name} Cast with Hot Streak`,
+        });
+      }
+
+      if (!cappedCharges && hu.critBuff.active && hu.critBuff.buffId) {
+        tooltipItems.push({
+          perf: QualitativePerformance.Good,
+          detail: `${hu.cast.ability.name} Cast with ${SPELLS[hu.critBuff.buffId].name}`,
+        });
+      }
+
+      const castWithoutHeatingUp = !hu.critBuff.active && !hu.hasHotStreak && !hu.hasHeatingUp;
+      if (!cappedCharges && castWithoutHeatingUp) {
+        tooltipItems.push({
+          perf: QualitativePerformance.Fail,
+          detail: `${hu.cast.ability.name} Cast without Heating Up or crit buff`,
+        });
+      }
+
+      let overallPerf = QualitativePerformance.Fail;
+      if (cappedCharges || !castWithoutHeatingUp) {
+        overallPerf = QualitativePerformance.Good;
+      }
+
+      if (tooltipItems) {
+        const tooltip = this.generateGuideTooltip(overallPerf, tooltipItems, hu.cast.timestamp);
+        data.push({ value: overallPerf, tooltip });
+      }
+    });
+    return data;
+  }
+
   get guideSubsection(): JSX.Element {
     const fireBlast = <SpellLink spell={SPELLS.FIRE_BLAST} />;
     const phoenixFlames = <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} />;
@@ -53,7 +147,9 @@ class HeatingUpGuide extends Analyzer {
     const hotStreak = <SpellLink spell={SPELLS.HOT_STREAK} />;
     const firestarter = <SpellLink spell={TALENTS.FIRESTARTER_TALENT} />;
     const searingTouch = <SpellLink spell={TALENTS.SCORCH_TALENT} />;
+    const hyperthermia = <SpellLink spell={TALENTS.HYPERTHERMIA_TALENT} />;
     const alexstraszasFury = <SpellLink spell={TALENTS.ALEXSTRASZAS_FURY_TALENT} />;
+    const flamesFury = <SpellLink spell={SPELLS.FLAMES_FURY_BUFF} />;
 
     const fireBlastIcon = <SpellIcon spell={SPELLS.FIRE_BLAST} />;
     const phoenixFlamesIcon = <SpellIcon spell={TALENTS.PHOENIX_FLAMES_TALENT} />;
@@ -66,15 +162,20 @@ class HeatingUpGuide extends Analyzer {
           fight.
         </div>
         <div>
-          To accomplish this, you should refer to the below rules and guidelines:
           <ul>
             <li>
               Use guaranteed crit abilities like {fireBlast} or {phoenixFlames} (with{' '}
               {alexstraszasFury}) to convert {heatingUp} to {hotStreak}
             </li>
             <li>
-              Unless you are guaranteed to crit ({combustion}, {firestarter}, {searingTouch}), or
-              are capped on charges, don't use your guaranteed crit abilities without {heatingUp}.
+              Unless you are guaranteed to crit ({combustion}, {firestarter}, {searingTouch}),{' '}
+              {hyperthermia}, or are capped or about to cap on charges, don't use {fireBlast}
+              without {heatingUp}.
+            </li>
+            <li>
+              Outside of {combustion} you can use {phoenixFlames} without {heatingUp}, and then
+              convert that into {hotStreak} with {fireBlast}, especially if you have {flamesFury}{' '}
+              procs.
             </li>
           </ul>
         </div>
@@ -113,6 +214,10 @@ class HeatingUpGuide extends Analyzer {
               {formatPercentage(this.heatingUp.phoenixFlamesUtilPercent, 0)} %{' '}
               <small>Phoenix Flames Utilization</small>
             </TooltipElement>
+          </div>
+          <div>
+            <br />
+            <CastSummaryAndBreakdown spell={SPELLS.HEATING_UP} castEntries={this.heatingUpData} />
           </div>
         </RoundedPanel>
       </div>

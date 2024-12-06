@@ -18,10 +18,11 @@ import RESOURCE_TYPES, { getResource } from 'game/RESOURCE_TYPES';
 import typedKeys from 'common/typedKeys';
 import { EnhancementEventLinks } from '../../constants';
 
-/** Lightning Bolt and Chain Lightning damage increased by 20%.
+/** Lightning Bolt and Chain Lightning damage increased by 20% and reduces the cooldown of Ascendance
+ * by 60 sec, and causes Deeply Rooted Elements to last 2 sec longer.
  *
  * While Ascendance is active, Windstrike automatically consumes up to 5 Maelstrom Weapon stacks to
- * discharge a Lightning Bolt or Chain Lightning at your enemy, whichever you most recently used. */
+ * discharge a Lightning Bolt or Chain Lightning at 100% effectiveness at your enemy, whichever you most recently used. */
 
 interface ThorimsInvocationProc {
   casts: number;

@@ -130,5 +130,5 @@ const Container = styled.div`
 
 function spellCanGenerateRP(id: number): boolean {
   const spell = maybeGetTalentOrSpell(id);
-  return spell?.runicPowerCost !== undefined;
+  return spell?.runicPowerCost !== undefined && spell.runicPowerCost < 0;
 }

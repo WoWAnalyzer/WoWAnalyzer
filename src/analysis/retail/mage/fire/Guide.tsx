@@ -84,6 +84,20 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       {modules.heatingUpGuide.guideSubsection}
       {modules.hotStreakGuide.guideSubsection}
 
+      <Section title="Buffs & Procs">
+        <>
+          Fire Mage has several buffs and procs that need to be managed properly in order to get the
+          most out of them and maximize your damage. <SpellLink spell={SPELLS.HOT_STREAK} /> and
+          <SpellLink spell={SPELLS.HEATING_UP} /> are your most important procs, but others such as
+          <SpellLink spell={TALENTS.FEEL_THE_BURN_TALENT} /> and{' '}
+          <SpellLink spell={TALENTS.IMPROVED_SCORCH_TALENT} />
+          also increase your damage in other ways which will play a large part in maximizing your
+          overall and burst damage.
+        </>
+        {info.combatant.hasTalent(TALENTS.FEEL_THE_BURN_TALENT) &&
+          modules.feelTheBurnGuide.guideSubsection}
+      </Section>
+
       <Section title="Cooldowns"></Section>
       <>
         As is the case with most damage specs, properly utilizing your damage cooldowns will go a

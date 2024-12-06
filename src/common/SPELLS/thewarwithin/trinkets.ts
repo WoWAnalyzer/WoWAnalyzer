@@ -39,7 +39,13 @@ const spells = {
   ABYSSAL_GLUTTONY: {
     id: 443124,
     name: 'Abyssal Gluttony',
-    icon: 'Ability_creature_poison_01_purple',
+    icon: 'ability_creature_poison_01_purple',
+  },
+  //Skardyns Grace
+  SPEED_OF_THOUGHT: {
+    id: 92099,
+    name: 'Speed of Thought',
+    icon: 'ability_mage_studentofthemind',
   },
 } satisfies Record<string, Spell>;
 

@@ -1,13 +1,13 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Enemies from 'parser/shared/modules/Enemies';
 import TALENTS from 'common/TALENTS/demonhunter';
 import SPELLS from 'common/SPELLS/demonhunter';
 import { SpellLink } from 'interface';
 import Events, { CastEvent } from 'parser/core/Events';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { UNRESTRAINED_FURY_SCALING } from 'analysis/retail/demonhunter/shared';
-import { UNTETHERED_FURY_SCALING } from 'analysis/retail/demonhunter/shared';
-import { TIERS } from 'game/TIERS';
+import {
+  UNRESTRAINED_FURY_SCALING,
+  UNTETHERED_FURY_SCALING,
+} from 'analysis/retail/demonhunter/shared';
 import {
   ChecklistUsageInfo,
   SpellUse,
@@ -21,37 +21,25 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import CastPerformanceSummary from 'analysis/retail/demonhunter/shared/guide/CastPerformanceSummary';
 import ContextualSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
 import { getResourceChange } from 'analysis/retail/demonhunter/vengeance/normalizers/ShearFractureNormalizer';
+import Combatant from 'parser/core/Combatant';
 
-const BASE_FURY = 100;
-
-// Fracture fury gen (no T29): 25
-// Metamorphosis Fracture fury gen (no T29): 45
-// Fracture fury gen (w/ T29): 30
-// Metamorphosis Fracture fury gen (w/ T29): 54
 const DEFAULT_IN_META_FURY_LIMIT = 55;
 const DEFAULT_NOT_META_FURY_LIMIT = 75;
-const T29_IN_META_FURY_LIMIT = 46;
-const T29_NOT_META_FURY_LIMIT = 70;
 
 const IN_META_SOUL_FRAGMENTS_LIMIT = 3;
 const NOT_META_SOUL_FRAGMENTS_LIMIT = 4;
 
-const getMetaInitialFuryLimit = (hasT292Pc: boolean) =>
-  hasT292Pc ? T29_IN_META_FURY_LIMIT : DEFAULT_IN_META_FURY_LIMIT;
-const getNonMetaInitialFuryLimit = (hasT292Pc: boolean) =>
-  hasT292Pc ? T29_NOT_META_FURY_LIMIT : DEFAULT_NOT_META_FURY_LIMIT;
+function getTalentMaxFuryIncreases(combatant: Combatant) {
+  return (
+    UNRESTRAINED_FURY_SCALING[combatant.getTalentRank(TALENTS.UNRESTRAINED_FURY_TALENT)] +
+    UNTETHERED_FURY_SCALING[combatant.getTalentRank(TALENTS.UNTETHERED_FURY_TALENT)]
+  );
+}
 
 export default class Fracture extends Analyzer {
-  static dependencies = {
-    enemies: Enemies,
-  };
-
-  private cooldownUses: SpellUse[] = [];
-  private inMetaFuryLimit = getMetaInitialFuryLimit(false);
-  private notMetaFuryLimit = getNonMetaInitialFuryLimit(false);
-  private maximumFury = BASE_FURY;
-
-  protected enemies!: Enemies;
+  #cooldownUses: SpellUse[] = [];
+  #inMetaFuryLimit = DEFAULT_IN_META_FURY_LIMIT;
+  #notMetaFuryLimit = DEFAULT_NOT_META_FURY_LIMIT;
 
   constructor(options: Options) {
     super(options);
@@ -60,27 +48,10 @@ export default class Fracture extends Analyzer {
       return;
     }
 
-    const hasT292Pc = this.selectedCombatant.has2PieceByTier(TIERS.DF1);
-
-    this.maximumFury =
-      BASE_FURY +
-      UNRESTRAINED_FURY_SCALING[
-        this.selectedCombatant.getTalentRank(TALENTS.UNRESTRAINED_FURY_TALENT)
-      ] +
-      UNTETHERED_FURY_SCALING[this.selectedCombatant.getTalentRank(TALENTS.UNTETHERED_FURY_TALENT)];
-
-    this.inMetaFuryLimit =
-      getMetaInitialFuryLimit(hasT292Pc) +
-      UNRESTRAINED_FURY_SCALING[
-        this.selectedCombatant.getTalentRank(TALENTS.UNRESTRAINED_FURY_TALENT)
-      ] +
-      UNTETHERED_FURY_SCALING[this.selectedCombatant.getTalentRank(TALENTS.UNTETHERED_FURY_TALENT)];
-    this.notMetaFuryLimit =
-      getNonMetaInitialFuryLimit(hasT292Pc) +
-      UNRESTRAINED_FURY_SCALING[
-        this.selectedCombatant.getTalentRank(TALENTS.UNRESTRAINED_FURY_TALENT)
-      ] +
-      UNTETHERED_FURY_SCALING[this.selectedCombatant.getTalentRank(TALENTS.UNTETHERED_FURY_TALENT)];
+    this.#inMetaFuryLimit =
+      DEFAULT_IN_META_FURY_LIMIT + getTalentMaxFuryIncreases(this.selectedCombatant);
+    this.#notMetaFuryLimit =
+      DEFAULT_NOT_META_FURY_LIMIT + getTalentMaxFuryIncreases(this.selectedCombatant);
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.FRACTURE_TALENT),
@@ -97,14 +68,14 @@ export default class Fracture extends Analyzer {
         is your primary <strong>builder</strong> for <ResourceLink id={RESOURCE_TYPES.FURY.id} />{' '}
         and <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />
         s. Cast it when you have less than 4 <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />s and
-        less than {this.notMetaFuryLimit} <ResourceLink id={RESOURCE_TYPES.FURY.id} />. In{' '}
+        less than {this.#notMetaFuryLimit} <ResourceLink id={RESOURCE_TYPES.FURY.id} />. In{' '}
         <SpellLink spell={SPELLS.METAMORPHOSIS_TANK} />, cast it when you have less than 3{' '}
-        <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />s and less than {this.inMetaFuryLimit}{' '}
+        <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />s and less than {this.#inMetaFuryLimit}{' '}
         <ResourceLink id={RESOURCE_TYPES.FURY.id} />.
       </p>
     );
 
-    const performances = this.cooldownUses.map((it) =>
+    const performances = this.#cooldownUses.map((it) =>
       spellUseToBoxRowEntry(it, this.owner.fight.start_time),
     );
 
@@ -114,7 +85,7 @@ export default class Fracture extends Analyzer {
     return (
       <ContextualSpellUsageSubSection
         explanation={explanation}
-        uses={this.cooldownUses}
+        uses={this.#cooldownUses}
         castBreakdownSmallText={<> - Green is a good cast, Red is a bad cast.</>}
         onPerformanceBoxClick={logSpellUseEvent}
         abovePerformanceDetails={
@@ -137,9 +108,8 @@ export default class Fracture extends Analyzer {
       SPELLS.METAMORPHOSIS_TANK.id,
       event.timestamp,
     );
-    const hasT292Piece = this.selectedCombatant.has2PieceByTier(TIERS.DF1);
 
-    const hasExtraDetails = hasMetamorphosis || hasT292Piece;
+    const hasExtraDetails = hasMetamorphosis;
     const extraDetails = (
       <div>
         {hasMetamorphosis && (
@@ -148,7 +118,6 @@ export default class Fracture extends Analyzer {
             Fragment generation
           </p>
         )}
-        {hasT292Piece && <p>Wearing T29 2-piece, increasing Fury Gen by 20%</p>}
       </div>
     );
 
@@ -163,7 +132,7 @@ export default class Fracture extends Analyzer {
     const actualPerformance = combineQualitativePerformances(
       checklistItems.map((item) => item.performance),
     );
-    this.cooldownUses.push({
+    this.#cooldownUses.push({
       event,
       performance: actualPerformance,
       checklistItems,
@@ -183,9 +152,9 @@ export default class Fracture extends Analyzer {
     const resourceChange = getResourceChange(event);
 
     const inMetamorphosisSummary = (
-      <div>Cast at &lt; {this.inMetaFuryLimit} Fury during Metamorphosis</div>
+      <div>Cast at &lt; {this.#inMetaFuryLimit} Fury during Metamorphosis</div>
     );
-    const nonMetamorphosisSummary = <div>Cast at &lt; {this.notMetaFuryLimit} Fury</div>;
+    const nonMetamorphosisSummary = <div>Cast at &lt; {this.#notMetaFuryLimit} Fury</div>;
 
     if (!resourceChange) {
       return {
@@ -208,7 +177,7 @@ export default class Fracture extends Analyzer {
     const amountOfFury = amountOfFuryAfterChange - amountNotWasted;
 
     if (hasMetamorphosis) {
-      if (amountOfFury < this.inMetaFuryLimit) {
+      if (amountOfFury < this.#inMetaFuryLimit) {
         return {
           performance: QualitativePerformance.Good,
           summary: inMetamorphosisSummary,
@@ -216,7 +185,7 @@ export default class Fracture extends Analyzer {
             <div>
               You cast <SpellLink spell={TALENTS.FRACTURE_TALENT} /> at {amountOfFury}{' '}
               <ResourceLink id={RESOURCE_TYPES.FURY.id} /> when the recommended amount is less than{' '}
-              {this.inMetaFuryLimit} during <SpellLink spell={SPELLS.METAMORPHOSIS_TANK} />. Good
+              {this.#inMetaFuryLimit} during <SpellLink spell={SPELLS.METAMORPHOSIS_TANK} />. Good
               job!
             </div>
           ),
@@ -229,14 +198,14 @@ export default class Fracture extends Analyzer {
           <div>
             You cast <SpellLink spell={TALENTS.FRACTURE_TALENT} /> at {amountOfFury}{' '}
             <ResourceLink id={RESOURCE_TYPES.FURY.id} /> when the recommended amount is less than{' '}
-            {this.inMetaFuryLimit} during <SpellLink spell={SPELLS.METAMORPHOSIS_TANK} />. Work on
+            {this.#inMetaFuryLimit} during <SpellLink spell={SPELLS.METAMORPHOSIS_TANK} />. Work on
             spending your <ResourceLink id={RESOURCE_TYPES.FURY.id} /> before pressing{' '}
             <SpellLink spell={TALENTS.FRACTURE_TALENT} />.
           </div>
         ),
       };
     }
-    if (amountOfFury < this.notMetaFuryLimit) {
+    if (amountOfFury < this.#notMetaFuryLimit) {
       return {
         performance: QualitativePerformance.Good,
         summary: nonMetamorphosisSummary,
@@ -244,7 +213,7 @@ export default class Fracture extends Analyzer {
           <div>
             You cast <SpellLink spell={TALENTS.FRACTURE_TALENT} /> at {amountOfFury}{' '}
             <ResourceLink id={RESOURCE_TYPES.FURY.id} /> when the recommended amount is less than{' '}
-            {this.notMetaFuryLimit}. Good job!
+            {this.#notMetaFuryLimit}. Good job!
           </div>
         ),
       };
@@ -256,7 +225,7 @@ export default class Fracture extends Analyzer {
         <div>
           You cast <SpellLink spell={TALENTS.FRACTURE_TALENT} /> at {amountOfFury}{' '}
           <ResourceLink id={RESOURCE_TYPES.FURY.id} /> when the recommended amount is less than{' '}
-          {this.notMetaFuryLimit}. Work on spending your{' '}
+          {this.#notMetaFuryLimit}. Work on spending your{' '}
           <ResourceLink id={RESOURCE_TYPES.FURY.id} /> before pressing{' '}
           <SpellLink spell={TALENTS.FRACTURE_TALENT} />.
         </div>

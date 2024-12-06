@@ -10,6 +10,9 @@ export const LIFEBLOOM_BUFFS: Spell[] = [
   SPELLS.LIFEBLOOM_UNDERGROWTH_HOT_HEAL,
 ];
 
+/** Additional mastery stacks granted by Harmonius Blooming talent */
+export const HARMONIUS_BLOOMING_EXTRA_STACKS = 2;
+
 export function lifebloomSpell(c: Combatant): Spell {
   return c.hasTalent(TALENTS_DRUID.UNDERGROWTH_TALENT)
     ? SPELLS.LIFEBLOOM_UNDERGROWTH_HOT_HEAL

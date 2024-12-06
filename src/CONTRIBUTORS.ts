@@ -146,6 +146,19 @@ export const Sref: Contributor = {
   discord: 'Sref#1337',
   avatar: avatar('sref-avatar.jpg'),
 };
+
+export const Soulhealer95: Contributor = {
+  nickname: 'Soul',
+  github: 'Soulhealer95',
+  mains: [
+    {
+      name: 'Soulmerlin',
+      spec: SPECS.FROST_MAGE,
+      link: 'https://www.warcraftlogs.com/character/us/sargeras/soulmerlin',
+    },
+  ],
+};
+
 export const Iskalla: Contributor = {
   nickname: 'Iskalla',
   github: 'Iskalla',
@@ -158,10 +171,6 @@ export const enragednuke: Contributor = {
 export const Skamer: Contributor = {
   nickname: 'Skamer',
   github: 'Skamer',
-};
-export const Soulhealer95: Contributor = {
-  nickname: 'Soulhealer',
-  github: 'Soulhealer95',
 };
 export const Salarissia: Contributor = {
   nickname: 'Salarissia',
@@ -2536,12 +2545,23 @@ export const Rzial: Contributor = {
 
 export const Yellot: Contributor = {
   nickname: 'Yellot',
-  github: 'mcheung7272',
+  github: 'Mcheung7272',
   mains: [
     {
       name: 'Yellot',
       spec: SPECS.MARKSMANSHIP_HUNTER,
       link: 'https://prod.worldofwarcraft.blizzard.com/en-us/character/us/area-52/yellot',
+    },
+  ],
+};
+export const Kivlov: Contributor = {
+  nickname: 'Kivlov',
+  github: 'Kivlov',
+  mains: [
+    {
+      name: 'Percival',
+      spec: SPECS.SURVIVAL_HUNTER,
+      link: 'https://worldofwarcraft.blizzard.com/en-us/character/us/firetree/percival',
     },
   ],
 };

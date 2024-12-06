@@ -62,6 +62,7 @@ class Abilities extends ClassAbilities {
         spell: TALENTS.STORMSTRIKE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 7.5 / (1 + haste),
+        charges: 1 + (this.selectedCombatant.hasTalent(TALENTS.STORMS_WRATH_TALENT) ? 1 : 0),
         gcd: {
           base: 1500,
         },
@@ -83,7 +84,7 @@ class Abilities extends ClassAbilities {
           base: 1500,
         },
         enabled: combatant.hasTalent(TALENTS.SUNDERING_TALENT),
-        cooldown: 40,
+        cooldown: 40 - (this.selectedCombatant.hasTalent(TALENTS.MOLTEN_THUNDER_TALENT) ? 10 : 0),
       },
       {
         spell: TALENTS.FIRE_NOVA_TALENT.id,
@@ -94,13 +95,24 @@ class Abilities extends ClassAbilities {
         enabled: combatant.hasTalent(TALENTS.FIRE_NOVA_TALENT),
         cooldown: (haste) => 15 / (1 + haste),
       },
+      /** This version procs on spending maelstrom, has no cooldown, and has a 40 yard range */
       {
-        spell: TALENTS.ICE_STRIKE_TALENT.id,
+        spell: TALENTS.ICE_STRIKE_1_ENHANCEMENT_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.ICE_STRIKE_TALENT),
+        enabled: combatant.hasTalent(TALENTS.ICE_STRIKE_1_ENHANCEMENT_TALENT),
+        range: 40,
+      },
+      /** This version has a 15 sec cooldown and is melee range */
+      {
+        spell: TALENTS.ICE_STRIKE_2_ENHANCEMENT_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(TALENTS.ICE_STRIKE_2_ENHANCEMENT_TALENT),
         cooldown: (haste) => 15 / (1 + haste),
         range: 5,
       },
@@ -182,7 +194,16 @@ class Abilities extends ClassAbilities {
         spell: TALENTS.ASCENDANCE_ENHANCEMENT_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         enabled: combatant.hasTalent(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT),
-        cooldown: 180,
+        cooldown:
+          180 - (this.selectedCombatant.hasTalent(TALENTS.THORIMS_INVOCATION_TALENT) ? 60 : 0),
+      },
+      {
+        spell: SPELLS.VOLTAIC_BLAZE_CAST.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        enabled: combatant.hasTalent(TALENTS.VOLTAIC_BLAZE_TALENT),
+        gcd: {
+          base: 1500,
+        },
       },
     ];
   }

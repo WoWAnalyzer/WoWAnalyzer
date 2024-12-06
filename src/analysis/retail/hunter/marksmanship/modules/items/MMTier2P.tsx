@@ -8,27 +8,35 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Events, { DamageEvent } from 'parser/core/Events';
 
 /**
- * Arcane Shot and Multi-Shot critical hits cause your next Aimed Shot to cause the target to bleed for 40% of damage dealt over 6 sec.
+ * Arcane Shot and Multi-Shot damage increased by 20%
  */
-export default class T29MMTier2P extends Analyzer {
+export default class MMTier2P extends Analyzer {
   totalDamage: number = 0;
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.has2PieceByTier(TIERS.DF1);
+    this.active = this.selectedCombatant.has2PieceByTier(TIERS.TWW1);
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.HIT_THE_MARK),
-      this.onHitTheMarkDamage,
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ARCANE_SHOT),
+      this.onArcaneShotDamage,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MULTISHOT_MM),
+      this.onArcaneShotDamage,
     );
   }
 
-  onHitTheMarkDamage(event: DamageEvent) {
-    this.totalDamage += event.amount + (event.absorbed || 0);
+  onArcaneShotDamage(event: DamageEvent) {
+    this.totalDamage += event.amount + event.amount * 0.2 + (event.absorbed || 0);
+  }
+
+  onMultishotDamage(event: DamageEvent) {
+    this.totalDamage += event.amount + event.amount * 0.2 + (event.absorbed || 0);
   }
 
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.ITEMS} size="flexible">
-        <BoringSpellValueText spell={SPELLS.T29_2P_BONUS_MARKSMANSHIP}>
+        <BoringSpellValueText spell={SPELLS.TWW_LIGHTLESS_2P_MM}>
           <ItemDamageDone amount={this.totalDamage} />
         </BoringSpellValueText>
       </Statistic>

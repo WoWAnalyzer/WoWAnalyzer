@@ -3,19 +3,38 @@ import { Apl, build, Rule } from 'parser/shared/metrics/apl';
 import SPELLS from 'common/SPELLS/shaman';
 import TALENTS from 'common/TALENTS/shaman';
 import SpellLink from 'interface/SpellLink';
-import { and, buffPresent, debuffMissing, describe } from 'parser/shared/metrics/apl/conditions';
-import { MaxStacksMSW, getSpenderBlock } from './Conditions';
+import {
+  and,
+  buffPresent,
+  buffStacks,
+  debuffMissing,
+  describe,
+  not,
+  or,
+  spellCharges,
+} from 'parser/shared/metrics/apl/conditions';
+import { getSpenderBlock, minimumMaelstromWeaponStacks } from './Conditions';
 
 export function stormbringer(combatant: Combatant): Apl {
+  const iceStrikeRule = combatant.hasTalent(TALENTS.ICE_STRIKE_1_ENHANCEMENT_TALENT)
+    ? {
+        spell: SPELLS.ICE_STRIKE_1_CAST,
+        condition: buffPresent(SPELLS.ICE_STRIKE_1_USABLE_BUFF),
+      }
+    : TALENTS.ICE_STRIKE_2_ENHANCEMENT_TALENT;
+
   const rules: Rule[] = [
-    /** Tempest with 10 MSW */
+    /** Tempest with 8 MSW */
     {
       spell: SPELLS.TEMPEST_CAST,
-      condition: describe(and(buffPresent(SPELLS.TEMPEST_BUFF), MaxStacksMSW), () => (
-        <>
-          available and at 10 <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> stacks
-        </>
-      )),
+      condition: describe(
+        and(buffPresent(SPELLS.TEMPEST_BUFF), minimumMaelstromWeaponStacks(8)),
+        () => (
+          <>
+            available and at least 8 <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> stacks
+          </>
+        ),
+      ),
     },
     /** Windstrike during ascendance */
     {
@@ -36,30 +55,77 @@ export function stormbringer(combatant: Combatant): Apl {
 
   /** For Lava Lash/Hot Hand builds, have higher priority for  */
   if (combatant.hasTalent(TALENTS.HOT_HAND_TALENT)) {
+    rules.push({
+      spell: TALENTS.LAVA_LASH_TALENT,
+      condition: or(
+        buffPresent(SPELLS.HOT_HAND_BUFF),
+        buffStacks(SPELLS.ASHEN_CATALYST_BUFF, { atLeast: 7 }),
+      ),
+    });
+    combatant.hasTalent(TALENTS.STORMBLAST_TALENT) && rules.push(TALENTS.STORMSTRIKE_TALENT);
     rules.push(
       {
-        spell: SPELLS.FLAME_SHOCK,
-        condition: debuffMissing(SPELLS.FLAME_SHOCK),
+        spell: SPELLS.VOLTAIC_BLAZE_CAST,
+        condition: describe(buffPresent(SPELLS.VOLTAIC_BLAZE_BUFF), () => <></>, ''),
       },
-      {
-        spell: TALENTS.LAVA_LASH_TALENT,
-        condition: buffPresent(SPELLS.HOT_HAND_BUFF),
-      },
-      TALENTS.ICE_STRIKE_TALENT,
+      iceStrikeRule,
       {
         spell: TALENTS.FROST_SHOCK_TALENT,
         condition: buffPresent(SPELLS.HAILSTORM_BUFF),
       },
       TALENTS.LAVA_LASH_TALENT,
-      TALENTS.STORMSTRIKE_TALENT,
     );
+    !combatant.hasTalent(TALENTS.STORMBLAST_TALENT) && rules.push(TALENTS.STORMSTRIKE_TALENT);
+    rules.push({
+      spell: SPELLS.LIGHTNING_BOLT,
+      condition: describe(
+        and(minimumMaelstromWeaponStacks(5), not(buffPresent(SPELLS.TEMPEST_BUFF))),
+        () => (
+          <>
+            you have at least 5 <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> stacks
+          </>
+        ),
+      ),
+    });
   } else {
+    rules.push({
+      spell: TALENTS.STORMSTRIKE_TALENT,
+      condition: spellCharges(TALENTS.STORMSTRIKE_TALENT, { atLeast: 2, atMost: 2 }),
+    });
+    if (combatant.hasTalent(TALENTS.FLOWING_SPIRITS_TALENT)) {
+      rules.push(
+        {
+          spell: SPELLS.VOLTAIC_BLAZE_CAST,
+          condition: describe(buffPresent(SPELLS.VOLTAIC_BLAZE_BUFF), () => <></>, ''),
+        },
+        TALENTS.STORMSTRIKE_TALENT,
+      );
+    } else {
+      rules.push(
+        {
+          spell: SPELLS.VOLTAIC_BLAZE_CAST,
+          condition: describe(buffPresent(SPELLS.VOLTAIC_BLAZE_BUFF), () => <></>, ''),
+        },
+        iceStrikeRule,
+        TALENTS.STORMSTRIKE_TALENT,
+        {
+          spell: TALENTS.FROST_SHOCK_TALENT,
+          condition: buffPresent(SPELLS.HAILSTORM_BUFF),
+        },
+      );
+    }
+
     rules.push(
-      TALENTS.STORMSTRIKE_TALENT,
-      TALENTS.ICE_STRIKE_TALENT,
       {
-        spell: TALENTS.FROST_SHOCK_TALENT,
-        condition: buffPresent(SPELLS.HAILSTORM_BUFF),
+        spell: SPELLS.LIGHTNING_BOLT,
+        condition: describe(
+          and(minimumMaelstromWeaponStacks(5), not(buffPresent(SPELLS.TEMPEST_BUFF))),
+          () => (
+            <>
+              you have at least 5 <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> stacks
+            </>
+          ),
+        ),
       },
       {
         spell: SPELLS.FLAME_SHOCK,
@@ -67,7 +133,6 @@ export function stormbringer(combatant: Combatant): Apl {
       },
       TALENTS.LAVA_LASH_TALENT,
       TALENTS.CRASH_LIGHTNING_TALENT,
-      SPELLS.FLAME_SHOCK,
     );
   }
 

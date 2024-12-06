@@ -43,6 +43,8 @@ import RuneTracker from './modules/core/RuneTracker';
 import ResourceOrderNormalizer from './modules/core/ResourceOrderNormalizer';
 import BoneShieldOrderNormalizer from './modules/core/BoneShieldOrderNormalizer';
 import ExterminateCostNormalizer from '../shared/ExterminateCostNormalizer';
+import VampiricStrike from './modules/talents/VampiricStrike';
+import EssenceOfTheBloodQueen from './modules/talents/EssenceOfTheBloodQueen';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -91,6 +93,8 @@ class CombatLogParser extends CoreCombatLogParser {
     ossuary: Ossuary,
     consumption: Consumption,
     relishInBlood: RelishInBlood,
+    VampiricStrike,
+    EssenceOfTheBloodQueen,
 
     // Runes
     runeForgeChecker: RuneForgeChecker,

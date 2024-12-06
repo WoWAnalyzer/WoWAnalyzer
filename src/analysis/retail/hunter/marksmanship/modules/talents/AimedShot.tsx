@@ -62,6 +62,13 @@ class AimedShot extends Analyzer {
     );
   }
 
+  //Pin Cushion reduces the cooldown of Aimed Shot by 2 seconds
+  onSteadyShot(event: CastEvent) {
+    if (this.selectedCombatant.hasTalent(TALENTS_HUNTER.PIN_CUSHION_TALENT)) {
+      this.spellUsable.reduceCooldown(TALENTS_HUNTER.AIMED_SHOT_TALENT.id, 2000);
+    }
+  }
+
   onEvent(event: AnyEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id)) {
       return;

@@ -53,7 +53,7 @@ class Abilities extends CoreAbilities {
       {
         spell: [SPELLS.JUDGMENT_CAST_HOLY.id, SPELLS.JUDGMENT_CAST.id],
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: hasted(12 - combatant.getTalentRank(TALENTS.SEAL_OF_ALACRITY_TALENT) * 0.5),
+        cooldown: hasted(12),
         gcd: {
           base: 1500,
         },
@@ -178,7 +178,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.CRUSADER_AURA_TALENT),
+        enabled: combatant.hasTalent(TALENTS.AURAS_OF_THE_RESOLUTE_TALENT),
       },
       {
         spell: TALENTS.TURN_EVIL_TALENT.id,

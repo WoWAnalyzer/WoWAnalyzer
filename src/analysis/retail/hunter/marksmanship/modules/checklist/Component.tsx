@@ -67,29 +67,6 @@ const MarksmanshipChecklist = (props: ChecklistProps) => {
           thresholds={thresholds.preciseShotsThresholds}
         />
 
-        {combatant.hasTalent(TALENTS_HUNTER.SERPENT_STING_TALENT) && (
-          <Requirement
-            name={
-              <>
-                <SpellLink spell={TALENTS_HUNTER.SERPENT_STING_TALENT} /> uptime
-              </>
-            }
-            thresholds={thresholds.serpentStingUptimeThresholds}
-          />
-        )}
-
-        {combatant.hasTalent(TALENTS_HUNTER.SERPENT_STING_TALENT) && (
-          <Requirement
-            name={
-              <>
-                Refreshes of <SpellLink spell={TALENTS_HUNTER.SERPENT_STING_TALENT} /> that didn't
-                pandemic{' '}
-              </>
-            }
-            thresholds={thresholds.serpentStingNonPandemicThresholds}
-          />
-        )}
-
         {combatant.hasTalent(TALENTS_HUNTER.CALLING_THE_SHOTS_TALENT) && (
           <Requirement
             name={

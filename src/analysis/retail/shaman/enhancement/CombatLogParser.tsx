@@ -22,7 +22,7 @@ import NaturesGuardian from './modules/talents/NaturesGuardian';
 import Sundering from './modules/talents/Sundering';
 import ElementalSpirits from './modules/talents/ElementalSpirits';
 import ElementalAssault from './modules/talents/ElementalAssault';
-import Stormbringer from './modules/spells/Stormbringer';
+import Stormsurge from './modules/spells/Stormsurge';
 import FeralSpirit from './modules/talents/FeralSpirit';
 import ChainLightning from './modules/talents/ChainLightning';
 import AplCheck from './modules/apl/AplCheck';
@@ -111,7 +111,7 @@ class CombatLogParser extends CoreCombatLogParser {
     elementalSpirits: ElementalSpirits,
     witchDoctorsAncestry: WitchDoctorsAncestry,
     feralSpirit: FeralSpirit,
-    stormbringer: Stormbringer,
+    stormbringer: Stormsurge,
     legacyOfTheFrostWitch: LegacyOfTheFrostWitch,
     thorimsInvocation: ThorimsInvocation,
     ashenCatalyst: AshenCatalyst,

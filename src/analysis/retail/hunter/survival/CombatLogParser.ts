@@ -2,7 +2,9 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import {
   BindingShot,
+  Deathblow,
   DeathTracker,
+  ExplosiveShot,
   FocusCapTracker,
   FocusDetails,
   FocusTracker,
@@ -15,7 +17,6 @@ import {
   TranquilizingShot,
 } from '../shared';
 import Abilities from './modules/Abilities';
-import AlphaPredator from './modules/talents/AlphaPredator';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Bloodseeker from './modules/talents/Bloodseeker';
 import Buffs from './modules/Buffs';
@@ -26,8 +27,6 @@ import CoordinatedAssault from './modules/talents/CoordinatedAssault';
 import FlankingStrike from './modules/talents/FlankingStrike';
 import Focus from './modules/resources/Focus';
 import GlobalCooldown from './modules/core/GlobalCooldown';
-import GuerrillaTactics from './modules/talents/GuerrillaTactics';
-import HydrasBite from './modules/talents/HydrasBite';
 import KillCommand from './modules/talents/KillCommand';
 import MongooseBite from './modules/talents/MongooseBite';
 import RaptorStrike from './modules/talents/RaptorStrike';
@@ -36,9 +35,18 @@ import TipOfTheSpear from './modules/talents/TipOfTheSpear';
 import TipOfTheSpearNormalizer from './normalizers/TipOfTheSpear';
 import WildfireBomb from './modules/talents/WildfireBomb';
 import FrenzyStrikes from './modules/talents/FrenzyStrikes';
-import RuthlessMarauder from 'analysis/retail/hunter/survival/modules/talents/RuthlessMarauder';
+import Lunge from './modules/talents/Lunge';
+import GrenadeJuggler from './modules/talents/GrenadeJuggler';
+import VipersVenom from './modules/talents/VipersVenom';
+import FuryOfTheEagle from './modules/talents/FuryOfTheEagle';
+import FocusGraph from './modules/guide/sections/resources/FocusGraph';
+import Guide from './modules/guide/Guide';
+import SurvivalOfTheFittest from '../shared/talents/SurvivalOfTheFittest';
+import ExhilarationTiming from './modules/guide/sections/defensives/Exhiliration';
+import HowlOfThePack from '../shared/HowlOfThePack';
 
 class CombatLogParser extends CoreCombatLogParser {
+  static guide = Guide;
   static specModules = {
     // Core statistics
     abilities: Abilities,
@@ -58,6 +66,10 @@ class CombatLogParser extends CoreCombatLogParser {
     focus: Focus,
     survivalFocusUsage: SurvivalFocusUsage,
 
+    //Guide
+    focusGraph: FocusGraph,
+    exhilarationTiming: ExhilarationTiming,
+
     //Normalizers
     tipOfTheSpearNormalizer: TipOfTheSpearNormalizer,
 
@@ -65,29 +77,33 @@ class CombatLogParser extends CoreCombatLogParser {
     deathTracker: DeathTracker,
 
     //Spells
-    alphaPredator: AlphaPredator,
     bloodseeker: Bloodseeker,
     butchery: Butchery,
     coordinatedAssault: CoordinatedAssault,
     flankingStrike: FlankingStrike,
     frenzyStrikes: FrenzyStrikes,
-    guerrillaTactics: GuerrillaTactics,
-    hydrasBite: HydrasBite,
     killCommand: KillCommand,
     mongooseBite: MongooseBite,
     raptorStrike: RaptorStrike,
     tipOfTheSpear: TipOfTheSpear,
     wildfireBomb: WildfireBomb,
-    ruthlessMarauder: RuthlessMarauder,
+    lunge: Lunge,
+    grenadeJuggler: GrenadeJuggler,
+    vipersVenom: VipersVenom,
+    furyOfTheEagle: FuryOfTheEagle,
+    howlOfThePack: HowlOfThePack,
 
     //Shared Talents
     bindingShot: BindingShot,
+    deathBlow: Deathblow,
+    explosiveShot: ExplosiveShot,
     killShot: KillShot,
     masterMarksman: MasterMarksman,
     naturalMending: NaturalMending,
     rejuvenatingWind: RejuvenatingWind,
     trailblazer: Trailblazer,
     tranquilizingShot: TranquilizingShot,
+    SurvivalOfTheFittest: SurvivalOfTheFittest,
 
     // Survival's throughput benefit isn't as big as for other classes
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: 0.5 }] as const,

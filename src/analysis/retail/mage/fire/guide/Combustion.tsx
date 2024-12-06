@@ -1,35 +1,34 @@
-import { ReactNode } from 'react';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellIcon, SpellLink, TooltipElement } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
-import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
+import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { qualitativePerformanceToColor } from 'interface/guide';
 import { PerformanceMark } from 'interface/guide';
-import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
-import { GapHighlight } from 'parser/ui/CooldownBar';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/mage/fire/Guide';
-import CombustionActiveTime from '../core/CombustionActiveTime';
 import CombustionCasts from '../core/Combustion';
-import FeelTheBurn from '../talents/FeelTheBurn';
+import { formatDurationMillisMinSec, formatPercentage } from 'common/format';
+import { GetRelatedEvent } from 'parser/core/Events';
+import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBreakdown';
 
 class CombustionGuide extends Analyzer {
   static dependencies = {
-    combustionActiveTime: CombustionActiveTime,
     combustion: CombustionCasts,
-    feelTheBurn: FeelTheBurn,
   };
 
-  protected combustionActiveTime!: CombustionActiveTime;
   protected combustion!: CombustionCasts;
-  protected feelTheBurn!: FeelTheBurn;
+
+  hasFlameAccelerant: boolean = this.selectedCombatant.hasTalent(TALENTS.FLAME_ACCELERANT_TALENT);
+  hasSunKingsBlessing: boolean = this.selectedCombatant.hasTalent(
+    TALENTS.SUN_KINGS_BLESSING_TALENT,
+  );
 
   generateGuideTooltip(
     performance: QualitativePerformance,
-    tooltipText: ReactNode,
+    tooltipItems: { perf: QualitativePerformance; detail: string }[],
     timestamp: number,
   ) {
     const tooltip = (
@@ -38,81 +37,117 @@ class CombustionGuide extends Analyzer {
           <b>@ {this.owner.formatTimestamp(timestamp)}</b>
         </div>
         <div>
-          <PerformanceMark perf={performance} /> {performance}: {tooltipText}
+          <PerformanceMark perf={performance} /> {performance}
+        </div>
+        <div>
+          {tooltipItems.map((t, i) => (
+            <div key={i}>
+              <PerformanceMark perf={t.perf} /> {t.detail}
+              <br />
+            </div>
+          ))}
         </div>
       </>
     );
     return tooltip;
   }
 
-  get castDelay() {
-    const castDelay = this.combustion.combustionCastDelayThresholds.actual;
+  activeTimeUtil(activePercent: number) {
+    const thresholds = this.combustion.activeTimeThresholds.isLessThan;
+    let performance = QualitativePerformance.Fail;
+    if (activePercent >= thresholds.minor) {
+      performance = QualitativePerformance.Perfect;
+    } else if (activePercent >= thresholds.average) {
+      performance = QualitativePerformance.Good;
+    } else if (activePercent >= thresholds.major) {
+      performance = QualitativePerformance.Ok;
+    }
+    return performance;
+  }
+
+  castDelayUtil(delay: number) {
     const thresholds = this.combustion.combustionCastDelayThresholds.isGreaterThan;
     let performance = QualitativePerformance.Fail;
-    if (castDelay < thresholds.minor) {
+    if (delay <= thresholds.minor) {
       performance = QualitativePerformance.Perfect;
-    } else if (castDelay < thresholds.average) {
+    } else if (delay <= thresholds.average) {
       performance = QualitativePerformance.Good;
-    } else if (castDelay < thresholds.major) {
+    } else if (delay <= thresholds.major) {
       performance = QualitativePerformance.Ok;
     }
     return performance;
   }
 
-  get fireballCasts() {
-    const fireballs = this.combustion.fireballCastsDuringCombustion();
-    const thresholds = this.combustion.fireballDuringCombustionThresholds.isGreaterThan;
-    let performance = QualitativePerformance.Fail;
-    if (fireballs <= thresholds.minor) {
-      performance = QualitativePerformance.Perfect;
-    } else if (fireballs <= thresholds.average) {
-      performance = QualitativePerformance.Good;
-    } else if (fireballs <= thresholds.major) {
-      performance = QualitativePerformance.Ok;
-    }
-    return performance;
-  }
-
-  get activeTimeData() {
+  get combustionData() {
     const data: BoxRowEntry[] = [];
-    this.combustionActiveTime.activeTime.forEach((cb) => {
-      if (cb.analysis && cb.analysis.tooltip) {
-        const tooltip = this.generateGuideTooltip(
-          cb.analysis.value,
-          cb.analysis.tooltip,
-          cb.buffStart,
+    this.combustion.combustCasts.forEach((cb) => {
+      const tooltipItems: { perf: QualitativePerformance; detail: string }[] = [];
+
+      const combustDuration = cb.remove - cb.cast.timestamp;
+      const activeTimePercent = cb.activeTime / combustDuration;
+      const activeUtil = this.activeTimeUtil(activeTimePercent);
+      tooltipItems.push({
+        perf: activeUtil,
+        detail: `Active Time: ${formatDurationMillisMinSec(cb.activeTime, 2)} / ${formatDurationMillisMinSec(cb.remove - cb.cast.timestamp, 2)} (${formatPercentage(activeTimePercent, 2)}%)`,
+      });
+
+      const fireballCasts = cb.spellCasts.filter((sc) => {
+        if (sc.ability.guid !== SPELLS.FIREBALL.id) {
+          return false;
+        }
+        const beginCast = GetRelatedEvent(sc, 'CastBegin');
+        const hasAccelerantBuff = this.selectedCombatant.hasBuff(
+          SPELLS.FLAME_ACCELERANT_BUFF.id,
+          sc.timestamp,
         );
-        data.push({ value: cb.analysis.value, tooltip });
+        if (
+          this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id, beginCast?.timestamp) &&
+          !hasAccelerantBuff
+        ) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+      if (fireballCasts.length > 0) {
+        tooltipItems.push({
+          perf: QualitativePerformance.Fail,
+          detail: `Fireballs During Combust: ${fireballCasts}`,
+        });
+      }
+
+      const delayUtil = this.castDelayUtil(cb.castDelay);
+      tooltipItems.push({
+        perf: delayUtil,
+        detail: `Combustion Cast Delay: ${formatDurationMillisMinSec(cb.castDelay, 3)}`,
+      });
+
+      const perfect = [QualitativePerformance.Perfect];
+      const good = [...perfect, QualitativePerformance.Good];
+      const ok = [...good, QualitativePerformance.Ok];
+
+      let overallPerf = QualitativePerformance.Fail;
+      if (fireballCasts.length > 0) {
+        overallPerf = QualitativePerformance.Fail;
+      } else if (perfect.includes(activeUtil) && perfect.includes(delayUtil)) {
+        overallPerf = QualitativePerformance.Perfect;
+      } else if (good.includes(activeUtil) && good.includes(delayUtil)) {
+        overallPerf = QualitativePerformance.Good;
+      } else if (ok.includes(activeUtil) && ok.includes(delayUtil)) {
+        overallPerf = QualitativePerformance.Ok;
+      } else if (
+        activeUtil === QualitativePerformance.Fail ||
+        delayUtil === QualitativePerformance.Fail
+      ) {
+        overallPerf = QualitativePerformance.Fail;
+      }
+
+      if (tooltipItems) {
+        const tooltip = this.generateGuideTooltip(overallPerf, tooltipItems, cb.cast.timestamp);
+        data.push({ value: overallPerf, tooltip });
       }
     });
     return data;
-  }
-
-  get feelTheBurnData() {
-    const data: BoxRowEntry[] = [];
-    this.feelTheBurn.stackUptime.forEach((ftb) => {
-      if (ftb.analysis && ftb.analysis.tooltip) {
-        const tooltip = this.generateGuideTooltip(
-          ftb.analysis.value,
-          ftb.analysis.tooltip,
-          ftb.buffStart,
-        );
-        data.push({ value: ftb.analysis.value, tooltip });
-      }
-    });
-    return data;
-  }
-
-  combustionEfficiency() {
-    return (
-      <CastEfficiencyBar
-        spellId={TALENTS.COMBUSTION_TALENT.id}
-        gapHighlightMode={GapHighlight.FullCooldown}
-        minimizeIcons
-        slimLines
-        useThresholds
-      />
-    );
   }
 
   get guideSubsection(): JSX.Element {
@@ -129,46 +164,44 @@ class CombustionGuide extends Analyzer {
     const feelTheBurn = <SpellLink spell={TALENTS.FEEL_THE_BURN_TALENT} />;
 
     const combustionIcon = <SpellIcon spell={TALENTS.COMBUSTION_TALENT} />;
-    const fireballIcon = <SpellIcon spell={SPELLS.FIREBALL} />;
 
     const explanation = (
       <>
         <div>
-          <b>{combustion}</b> is one of the largest contributors to your overall damage and has a
-          short duration. When you combine that with the number of instant casts that Fire Mage has
-          access to, your {combustion}s will typically involve stuffing as many instant casts into
-          that window as possible to get as many {pyroblast} or {flamestrike} casts as possible
-          before the buff ends.
+          <b>{combustion}</b> is a very strong burst cooldown with a short duration. So, to maximize
+          your burst when {combustion} is active, you should try to use as many instant casts as
+          possible before {combustion} ends to maximize the number of {hotStreak}s you can gain and
+          spend before
+          {combustion} ends.
         </div>
         <div>
-          To get the most out of this cooldown, you should refer to the below rules and guidelines:
           <ul>
             <li>
               Don't leave {combustion} off cooldown for too long, unless the fight or strat requires
               it.
             </li>
             <li>
-              Combustion can be cast while casting, so you should activate it as close to the end of
-              your hardcast as possible to avoid wasting any of the buff duration (We call this Cast
+              Combustion can be cast while casting, so you activate it as close to the end of your
+              hardcast as possible to avoid wasting any of the buff duration (We call this Cast
               Delay).
             </li>
             <li>
-              If {combustion} is close to being available, start pooling your {fireBlast} and{' '}
-              {phoenixFlames} charges so you have enough to last {combustion}s duration.
+              If {combustion} is almost available, start pooling {fireBlast} and {phoenixFlames}{' '}
+              charges so you have enough to last {combustion}s duration.
             </li>
             <li>
-              Eliminate as much downtime as possible while {combustion} is active to get as many{' '}
-              {hotStreak}s and {pyroblast}s/{flamestrike}s as possible.
+              Spend as many {hotStreak}s as possible during {combustion} and avoid any downtime.
             </li>
             <li>
-              Don't hardcast longer abilities like {fireball} (unless you have {flameAccelerant} or{' '}
-              {'>'} 100% Haste) or {pyroblast}/{flamestrike} (Unless you have {sunKingsBlessing}).
-              You can weave some {scorch} casts in to make your instant casts last longer.
+              Don't hardcast abilities like {fireball} (
+              {this.hasFlameAccelerant ? `without ${flameAccelerant} or ` : `with > 100% Haste`}) or{' '}
+              {pyroblast}/{flamestrike}
+              {this.hasSunKingsBlessing ? ` (without ${sunKingsBlessing})` : ``}. You can cast{' '}
+              {scorch} if running low on charges.
             </li>
             {this.selectedCombatant.hasTalent(TALENTS.FEEL_THE_BURN_TALENT) && (
               <li>
-                Quickly stack {feelTheBurn} to max stacks and keep the buff up for {combustion}s
-                entire duration.
+                Get max stacks of {feelTheBurn} and maintain it for {combustion}'s duration.
               </li>
             )}
           </ul>
@@ -176,42 +209,49 @@ class CombustionGuide extends Analyzer {
       </>
     );
     const castDelayTooltip = (
-      <>
-        {this.combustion.combustionCastDelayThresholds.actual.toFixed(2)} Average Combustion
-        Pre-Cast Delay
-      </>
+      <>{this.combustion.averageCastDelay.toFixed(2)}s Average Combustion Pre-Cast Delay</>
     );
-    const fireballCastTooltip = (
-      <>{this.combustion.fireballCastsDuringCombustion()} Fireball Casts during Combustion</>
+    const activeTimeTooltip = (
+      <>
+        {formatDurationMillisMinSec(this.combustion.totalActiveTime)} Active of{' '}
+        {formatDurationMillisMinSec(this.combustion.totalCombustDuration)}
+      </>
     );
     const data = (
       <div>
         <RoundedPanel>
-          <div>
-            <strong>Combustion Active Time</strong>
-            <PerformanceBoxRow values={this.activeTimeData} />
-            <small>green (good) / red (fail) mouseover the rectangles to see more details</small>
-          </div>
-          <div>
-            <strong>Feel the Burn Max Stack Uptime</strong>
-            <PerformanceBoxRow values={this.feelTheBurnData} />
-            <small>green (good) / red (fail) mouseover the rectangles to see more details</small>
-          </div>
-          <div style={{ color: qualitativePerformanceToColor(this.castDelay), fontSize: '20px' }}>
+          <div
+            style={{
+              color: qualitativePerformanceToColor(
+                this.activeTimeUtil(this.combustion.overallActivePercent),
+              ),
+              fontSize: '20px',
+            }}
+          >
             {combustionIcon}{' '}
-            <TooltipElement content={castDelayTooltip}>
-              {this.combustion.combustionCastDelayThresholds.actual.toFixed(2)}s{' '}
-              <small>Average Cast Delay</small>
+            <TooltipElement content={activeTimeTooltip}>
+              {this.combustion.overallActivePercent.toFixed(2)}s{' '}
+              <small>Overall Combustion Active Time</small>
             </TooltipElement>
           </div>
           <div
-            style={{ color: qualitativePerformanceToColor(this.fireballCasts), fontSize: '20px' }}
+            style={{
+              color: qualitativePerformanceToColor(
+                this.castDelayUtil(this.combustion.averageCastDelay),
+              ),
+              fontSize: '20px',
+            }}
           >
-            {fireballIcon}{' '}
-            <TooltipElement content={fireballCastTooltip}>
-              {this.combustion.fireballCastsDuringCombustion()}{' '}
-              <small>Fireballs Cast During Combustion</small>
+            {combustionIcon}{' '}
+            <TooltipElement content={castDelayTooltip}>
+              {this.combustion.averageCastDelay.toFixed(2)}s <small>Average Cast Delay</small>
             </TooltipElement>
+          </div>
+          <div>
+            <CastSummaryAndBreakdown
+              spell={TALENTS.COMBUSTION_TALENT}
+              castEntries={this.combustionData}
+            />
           </div>
         </RoundedPanel>
       </div>

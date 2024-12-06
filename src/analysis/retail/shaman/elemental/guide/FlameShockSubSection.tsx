@@ -48,7 +48,7 @@ export const FlameShockSubSection = ({
           {formatPercentage((modules.flameShock as FlameShock).uptime)}% <small>uptime</small>
           <div
             style={{
-              height: '40px' /* UptimeStackBar floats and doesn't have an intrinsic height */,
+              height: '24px' /* UptimeStackBar floats and doesn't have an intrinsic height */,
             }}
           >
             {
@@ -59,7 +59,7 @@ export const FlameShockSubSection = ({
             <UptimeStackBar
               start={info.fightStart}
               end={info.fightEnd}
-              barColor="#ac1f39"
+              barColor="#4ec04e"
               timeTooltip
               {...modules.flameShock.getDebuffStackHistory()}
             />

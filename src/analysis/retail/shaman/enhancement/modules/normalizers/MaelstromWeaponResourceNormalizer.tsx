@@ -79,8 +79,7 @@ enum MatchMode {
  * Maelstrom gained from these sources are capped at the values provided
  */
 const MAXIMUM_MAELSTROM_PER_EVENT = {
-  [TALENTS.STORM_SWELL_TALENT.id]: 3,
-  [TALENTS.SUPERCHARGE_TALENT.id]: 3,
+  [TALENTS.SUPERCHARGE_TALENT.id]: 2,
   [TALENTS.STATIC_ACCUMULATION_TALENT.id]: 10,
 };
 
@@ -557,7 +556,10 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
     // if not debugging remove all maelstrom weapon buff events
     if (!DEBUG) {
       return events.filter(
-        (event) => !HasAbility(event) || event.ability.guid !== SPELLS.MAELSTROM_WEAPON_BUFF.id,
+        (event) =>
+          !HasAbility(event) ||
+          event.ability.guid !== SPELLS.MAELSTROM_WEAPON_BUFF.id ||
+          event.type === EventType.ResourceChange,
       );
     }
     return events;
@@ -846,19 +848,6 @@ const MAELSTROM_ABILITIES = {
     linkToEventType: SPEND_EVENT_TYPES,
     searchDirection: SearchDirection.ForwardsFirst,
   },
-  STORM_SWELL: {
-    spellId: SPELLS.TEMPEST_CAST.id,
-    enabled: (c) => c.hasTalent(TALENTS.STORM_SWELL_TALENT),
-    linkFromEventType: EventType.Damage,
-    spellIdOverride: TALENTS.STORM_SWELL_TALENT.id,
-    maximum: MAXIMUM_MAELSTROM_PER_EVENT[TALENTS.STORM_SWELL_TALENT.id],
-    requiresExact: true,
-    backwardsBufferMs: BufferMs.Cast,
-    forwardBufferMs: 5,
-    linkToEventType: GAIN_EVENT_TYPES,
-    searchDirection: SearchDirection.ForwardsFirst,
-    matchMode: MatchMode.MatchFirst,
-  },
   SUPERCHARGE: {
     spellId: [
       SPELLS.LIGHTNING_BOLT.id,
@@ -907,9 +896,21 @@ const MAELSTROM_ABILITIES = {
     maximum: 1,
     requiresExact: true,
   },
+  VOLTAIC_BLAZE: {
+    spellId: SPELLS.VOLTAIC_BLAZE_CAST.id, // TODO: Add voltaic blaze spell id
+    linkFromEventType: EventType.Cast,
+    linkToEventType: GAIN_EVENT_TYPES,
+    searchDirection: SearchDirection.ForwardsFirst,
+    maximum: 1,
+    requiresExact: true,
+  },
   // Swirling maelstrom has higher priority than Elemental Assault, as the later can be a chance if 1 of 2 talents invested
   SWIRLING_MAELSTROM: {
-    spellId: [TALENTS.ICE_STRIKE_TALENT.id, TALENTS.FROST_SHOCK_TALENT.id],
+    spellId: [
+      TALENTS.ICE_STRIKE_1_ENHANCEMENT_TALENT.id,
+      TALENTS.ICE_STRIKE_2_ENHANCEMENT_TALENT.id,
+      TALENTS.FROST_SHOCK_TALENT.id,
+    ],
     enabled: (c) => c.hasTalent(TALENTS.SWIRLING_MAELSTROM_TALENT),
     linkFromEventType: EventType.Cast,
     spellIdOverride: TALENTS.SWIRLING_MAELSTROM_TALENT.id,
@@ -924,7 +925,8 @@ const MAELSTROM_ABILITIES = {
       TALENTS.STORMSTRIKE_TALENT.id,
       SPELLS.WINDSTRIKE_CAST.id,
       TALENTS.LAVA_LASH_TALENT.id,
-      TALENTS.ICE_STRIKE_TALENT.id,
+      TALENTS.ICE_STRIKE_1_ENHANCEMENT_TALENT.id,
+      TALENTS.ICE_STRIKE_2_ENHANCEMENT_TALENT.id,
     ],
     linkFromEventType: EventType.Cast,
     enabled: (c) => c.hasTalent(TALENTS.ELEMENTAL_ASSAULT_TALENT),
@@ -985,7 +987,8 @@ const MAELSTROM_ABILITIES = {
   MELEE_WEAPON_ATTACK: {
     // anything classified as a melee hit goes here
     spellId: [
-      TALENTS.ICE_STRIKE_TALENT.id,
+      TALENTS.ICE_STRIKE_1_ENHANCEMENT_TALENT.id,
+      TALENTS.ICE_STRIKE_2_ENHANCEMENT_TALENT.id,
       TALENTS.LAVA_LASH_TALENT.id,
       TALENTS.CRASH_LIGHTNING_TALENT.id,
       SPELLS.CRASH_LIGHTNING_BUFF.id,

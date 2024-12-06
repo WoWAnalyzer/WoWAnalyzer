@@ -79,6 +79,11 @@ interface StormkeeperCast extends CooldownTrigger<BeginCastEvent | ApplyBuffEven
   prepull: boolean;
 }
 
+interface MaelstromGenerator {
+  base: number;
+  overload: number;
+}
+
 // Spells that must have SOP if cast within the SK window
 const SPELLS_SOP_BUFF_REQUIRED = [SPELLS.LIGHTNING_BOLT.id, TALENTS.CHAIN_LIGHTNING_TALENT.id];
 /** The performance to set the timeline to if the user missed SoP on one of
@@ -123,7 +128,11 @@ class Stormkeeper extends MajorCooldown<StormkeeperCast> {
       base: 8,
       overload: 3,
     },
-  };
+    iceFury: {
+      base: 12,
+      overload: 4,
+    },
+  } satisfies Record<string, MaelstromGenerator>;
 
   constructor(options: Options) {
     super({ spell: TALENTS.STORMKEEPER_TALENT }, options);
@@ -142,11 +151,6 @@ class Stormkeeper extends MajorCooldown<StormkeeperCast> {
     }
     if (!this.active) {
       return;
-    }
-
-    if (this.selectedCombatant.hasTalent(TALENTS.FLOW_OF_POWER_TALENT)) {
-      this.maelstromGeneration.lavaBurst.base += 2;
-      this.maelstromGeneration.lightningBolt.base += 2;
     }
 
     [Events.begincast, Events.applybuff].forEach((filter) =>
@@ -340,13 +344,14 @@ class Stormkeeper extends MajorCooldown<StormkeeperCast> {
           </>,
         );
       } else {
-        addInefficientCastReason(
-          event,
-          <>
-            <SpellLink spell={TALENTS.LAVA_BURST_TALENT} /> should only be cast to consume{' '}
-            <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT} />
-          </>,
-        );
+        false &&
+          addInefficientCastReason(
+            event,
+            <>
+              <SpellLink spell={TALENTS.LAVA_BURST_TALENT} /> should only be cast to consume{' '}
+              <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT} />
+            </>,
+          );
       }
     }
   }
@@ -640,8 +645,10 @@ class Stormkeeper extends MajorCooldown<StormkeeperCast> {
     );
   }
 
-  guideSubsection(): JSX.Element {
-    return <CooldownUsage analyzer={this} title="Stormkeeper" />;
+  guideSubsection() {
+    return this.selectedCombatant.hasTalent(TALENTS.SURGE_OF_POWER_TALENT) ? (
+      <CooldownUsage analyzer={this} title="Stormkeeper" />
+    ) : null;
   }
 }
 

@@ -1,3 +1,4 @@
+import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/hunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, HasTarget, RemoveDebuffEvent } from 'parser/core/Events';
@@ -23,7 +24,7 @@ class SerpentstalkersTrickery extends Analyzer {
       return;
     }
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.SERPENT_STING_TALENT),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_MM),
       this.onSerpentStingDamage,
     );
     this.addEventListener(
@@ -31,7 +32,7 @@ class SerpentstalkersTrickery extends Analyzer {
       this.onAimedShotCast,
     );
     this.addEventListener(
-      Events.removedebuff.by(SELECTED_PLAYER).spell(TALENTS.SERPENT_STING_TALENT),
+      Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_MM),
       this.onStingRemoval,
     );
   }

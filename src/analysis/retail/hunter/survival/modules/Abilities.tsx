@@ -100,10 +100,13 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.BUTCHERY_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         enabled: combatant.hasTalent(TALENTS.BUTCHERY_TALENT),
-        charges: 3,
-        cooldown: (haste) => hastedCooldown(9, haste),
+        cooldown: (haste) => hastedCooldown(15, haste),
         gcd: {
           base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
         },
       },
       {

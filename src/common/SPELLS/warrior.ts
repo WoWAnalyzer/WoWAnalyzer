@@ -600,6 +600,11 @@ const spells = {
     name: 'Unnerving Focus',
     icon: 'rogue_shadowfocus',
   },
+  BURST_OF_POWER_BUFF: {
+    id: 437121,
+    name: 'BURST_OF_POWER',
+    icon: 'shaman_pvp_thundercharge',
+  },
 
   //Passives
   DEEP_WOUNDS: {
