@@ -16,6 +16,7 @@ class MaestromRefreshBuffNormalizer extends EventsNormalizer {
     for (let index = 0; index < events.length; index += 1) {
       const event = events[index];
       if (
+        index > 0 &&
         event.type === EventType.RefreshBuff &&
         event.ability.guid === SPELLS.MAELSTROM_WEAPON_BUFF.id
       ) {
