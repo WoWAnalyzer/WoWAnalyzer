@@ -209,7 +209,7 @@ class Vivify extends Analyzer {
             <small>
               Blue is a perfect cast - high rem count and low overheal. Green is a good cast - high
               rem count and moderate overheal OR moderate rem count and low overheal. Yellow is an
-              ok cast - at least 5 rems and low overheal. Mouseover to see details about each cast.
+              ok cast - at least 5 rems or low overheal. Mouseover to see details about each cast.
             </small>
             <PerformanceBoxRow values={this.castEntries} />
           </div>
@@ -341,7 +341,6 @@ class Vivify extends Analyzer {
     const percentOverheal = overhealPerCast / (healingPerCast + overhealPerCast);
 
     let value = QualitativePerformance.Fail;
-    //TODO: update this for TWW rem averages (pool of mists / heart of the jade serpent)
     const rmConst =
       this.selectedCombatant.getTalentRank(TALENTS_MONK.RISING_MIST_TALENT) * RM_AVG_REM_DIFF;
     if (rems >= 8 + rmConst && percentOverheal <= 0.6) {
