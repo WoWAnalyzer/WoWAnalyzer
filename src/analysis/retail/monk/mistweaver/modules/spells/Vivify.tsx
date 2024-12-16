@@ -94,7 +94,6 @@ class Vivify extends Analyzer {
     return this.cleaveHits / this.casts || 0;
   }
 
-  //TODO: update for pool of mists / heart of the jade serpent
   get estimatedAverageReMs() {
     if (this.risingMistActive) {
       this.expectedAverageReMs = BASE_AVERAGE_REMS * 2;
@@ -207,7 +206,11 @@ class Vivify extends Analyzer {
             <strong>
               <SpellLink spell={SPELLS.VIVIFY} /> casts
             </strong>{' '}
-            <small> GUIDANCE COMING SOON. Mouseover to see details about each cast.</small>
+            <small>
+              Blue is a perfect cast - high rem count and low overheal. Green is a good cast - high
+              rem count and moderate overheal OR moderate rem count and low overheal. Yellow is an
+              ok cast - at least 5 rems and low overheal. Mouseover to see details about each cast.
+            </small>
             <PerformanceBoxRow values={this.castEntries} />
           </div>
           <div style={styleObj}>
@@ -347,7 +350,7 @@ class Vivify extends Analyzer {
       value = QualitativePerformance.Good;
     } else if (rems >= 4 + rmConst && percentOverheal <= 0.7) {
       value = QualitativePerformance.Good;
-    } else if (fullOverhealHits <= 3 + rmConst || percentOverheal <= 0.3) {
+    } else if (fullOverhealHits <= 2 + rmConst || percentOverheal <= 0.3) {
       value = QualitativePerformance.Ok;
     }
 
