@@ -2565,3 +2565,8 @@ export const Kivlov: Contributor = {
     },
   ],
 };
+
+export const Nevdok: Contributor = {
+  nickname: 'Nevdok',
+  github: 'GeoffreyBalshaw',
+};

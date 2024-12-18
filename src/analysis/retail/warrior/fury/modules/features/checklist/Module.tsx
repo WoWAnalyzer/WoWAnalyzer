@@ -5,6 +5,9 @@ import Combatants from 'parser/shared/modules/Combatants';
 import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 
 import RageDetails from '../../core/RageDetails';
+import CrushingBlow from '../../spells/CrushingBlow';
+import Bloodbath from '../../spells/Bloodbath';
+import SlayerExecute from '../../spells/SlayerExecute';
 import MissedRampage from '../../spells/MissedRampage';
 import WhirlWind from '../../spells/Whirlwind';
 import AlwaysBeCasting from '../AlwaysBeCasting';
@@ -21,6 +24,9 @@ class Checklist extends BaseChecklist {
     missedRampage: MissedRampage,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
     whirlWind: WhirlWind,
+    crushingBlow: CrushingBlow,
+    bloodbath: Bloodbath,
+    slayerExecute: SlayerExecute,
   };
 
   // Core
@@ -31,6 +37,9 @@ class Checklist extends BaseChecklist {
 
   // Spells
   protected whirlWind!: WhirlWind;
+  protected crushingBlow!: CrushingBlow;
+  protected bloodbath!: Bloodbath;
+  protected slayerExecute!: SlayerExecute;
 
   // Resources
   protected rageDetails!: RageDetails;
@@ -47,6 +56,9 @@ class Checklist extends BaseChecklist {
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
           missedRampage: this.missedRampage.suggestionThresholds,
           whirlWind: this.whirlWind.suggestionThresholds,
+          crushingBlow: this.crushingBlow.suggestionThresholds,
+          bloodbath: this.bloodbath.suggestionThresholds,
+          slayerExecute: this.slayerExecute.suggestionThresholds,
         }}
       />
     );

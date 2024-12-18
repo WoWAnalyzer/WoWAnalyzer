@@ -2,30 +2,60 @@ import { defineMessage } from '@lingui/macro';
 import WarriorRageDetails from 'analysis/retail/warrior/shared/modules/core/RageDetails';
 import { formatPercentage } from 'common/format';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { TALENTS_WARRIOR } from 'common/TALENTS';
 
 class RageDetails extends WarriorRageDetails {
+  hasRecklessAbandon: boolean = this.selectedCombatant.hasTalent(
+    TALENTS_WARRIOR.RECKLESS_ABANDON_TALENT,
+  );
+
   get efficiencySuggestionThresholds() {
-    return {
-      actual: 1 - this.wastedPercent,
-      isLessThan: {
-        minor: 0.95,
-        average: 0.9,
-        major: 0.85,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
+    // Reckless Abandon cares much less about wasting rage than Anger Management does
+    if (this.hasRecklessAbandon) {
+      return {
+        actual: this.wastedPercent,
+        isGreaterThan: {
+          minor: 0.75,
+          average: 0.7,
+          major: 0.65,
+        },
+        style: ThresholdStyle.PERCENTAGE,
+      };
+    } else {
+      return {
+        actual: 1 - this.wastedPercent,
+        isLessThan: {
+          minor: 0.95,
+          average: 0.9,
+          major: 0.85,
+        },
+        style: ThresholdStyle.PERCENTAGE,
+      };
+    }
   }
 
   get suggestionThresholds() {
-    return {
-      actual: this.wastedPercent,
-      isGreaterThan: {
-        minor: 0.05,
-        average: 0.1,
-        major: 0.15,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
+    if (this.hasRecklessAbandon) {
+      return {
+        actual: this.wastedPercent,
+        isGreaterThan: {
+          minor: 0.25,
+          average: 0.3,
+          major: 0.35,
+        },
+        style: ThresholdStyle.PERCENTAGE,
+      };
+    } else {
+      return {
+        actual: this.wastedPercent,
+        isGreaterThan: {
+          minor: 0.05,
+          average: 0.1,
+          major: 0.15,
+        },
+        style: ThresholdStyle.PERCENTAGE,
+      };
+    }
   }
 
   suggestions(when: When) {
