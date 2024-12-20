@@ -114,6 +114,7 @@ import CritRacial from 'parser/shared/modules/racials/CritRacial';
 import TreacherousTransmitter from 'parser/retail/modules/items/thewarwithin/trinkets/TreacherousTransmitter';
 import MadQueensMandate from 'parser/retail/modules/items/thewarwithin/trinkets/MadQueensMandate';
 import SkardynsGrace from 'parser/retail/modules/items/thewarwithin/trinkets/SkardynsGrace';
+import MereldarsToll from 'parser/retail/modules/items/thewarwithin/trinkets/MereldarsToll';
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
 const MAX_DI_ITERATIONS = 100;
@@ -225,6 +226,7 @@ class CombatLogParser {
     treacherousTransmitter: TreacherousTransmitter,
     madQueensMandate: MadQueensMandate,
     skardynsGrace: SkardynsGrace,
+    mereldarsToll: MereldarsToll,
 
     // Embellishments
     darkmoonSigilAscension: DarkmoonSigilAscension,

@@ -41,6 +41,11 @@ const trinkets = {
     name: "Skardyn's Grace",
     icon: 'inv_misc_coin_08',
   },
+  MERELDARS_TOLL: {
+    id: 219313,
+    name: "Mereldar's Toll",
+    icon: 'inv_arathordungeon_bell_color1',
+  },
 } satisfies Record<string, Item>;
 
 export default trinkets;

@@ -47,6 +47,16 @@ const spells = {
     name: 'Speed of Thought',
     icon: 'ability_mage_studentofthemind',
   },
+  MERELDARS_TOLL_USE: {
+    id: 450561,
+    name: "Mereldar's Toll",
+    icon: 'inv_arathordungeon_bell_color1',
+  },
+  MERELDARS_TOLL_VERS: {
+    id: 450551,
+    name: "Mereldar's Toll",
+    icon: 'inv_arathordungeon_bell_color1',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;
