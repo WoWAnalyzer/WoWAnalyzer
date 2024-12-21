@@ -62,7 +62,7 @@ export default class MereldarsToll extends Analyzer.withDependencies({
     const externalUptimeTotal = players.reduce((acc, player) => {
       return acc + player.getBuffUptime(SPELLS.MERELDARS_TOLL_VERS.id);
     }, 0);
-    const externalUptimeTotalPercentage = this.externalUptimeTotal / this.owner.fightDuration;
+    const externalUptimeTotalPercentage = externalUptimeTotal / this.owner.fightDuration;
     const versBuff = calculateSecondaryStatDefault(
       MERELDARS_TOLL_BASE_ILVL,
       MERELDARS_TOLL_BASE_GAIN,
