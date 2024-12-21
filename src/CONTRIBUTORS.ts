@@ -2565,3 +2565,15 @@ export const Kivlov: Contributor = {
     },
   ],
 };
+export const KYZ: Contributor = {
+  nickname: 'KYZ',
+  github: 'KYZ124',
+  discord: 'kyz123',
+  mains: [
+    {
+      name: 'IYAIYA',
+      spec: SPECS.AUGMENTATION_EVOKER,
+      link: 'https://worldofwarcraft.blizzard.com/en-gb/character/eu/silvermoon/iyaiya',
+    },
+  ],
+};

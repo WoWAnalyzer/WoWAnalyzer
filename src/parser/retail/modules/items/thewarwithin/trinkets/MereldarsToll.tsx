@@ -9,15 +9,27 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import BoringItemValueText from 'parser/ui/BoringItemValueText';
 import { formatPercentage, formatNumber } from 'common/format';
-import { DamageIcon } from 'interface/icons';
-import VersatilityIcon from 'interface/icons/Versatility';
+import { DamageIcon, VersatilityIcon, InformationIcon } from 'interface/icons';
 import Combatants from 'parser/shared/modules/Combatants';
+import { calculateSecondaryStatDefault } from 'parser/core/stats';
+
+
+/**
+ * Based on the stats provided on wowhead.
+ *
+ * https://www.wowhead.com/item=219313/mereldars-toll
+ */
+ const MERELDARS_TOLL_BASE_ILVL = 437;
+ const MERELDARS_TOLL_BASE_GAIN = 658;
+
 
 export default class MereldarsToll extends Analyzer.withDependencies({
   abilities: Abilities,
   combatants: Combatants,
 }) {
+
     protected damage: number = 0;
+    protected externalUptimeTotal: number = 0;
 
     constructor(options: Options) {
         super(options);
@@ -45,20 +57,35 @@ export default class MereldarsToll extends Analyzer.withDependencies({
     }
 
     statistic() {
-        const externalUptime = this.deps.combatants.getBuffUptime(SPELLS.MERELDARS_TOLL_VERS.id)
-        const externalUptimePercentage = externalUptime / this.owner.fightDuration;
-        return (
-          <Statistic
-            position={STATISTIC_ORDER.OPTIONAL(99)}
-            category={STATISTIC_CATEGORY.ITEMS}
-            size="flexible"
-          >
-          <BoringItemValueText item={ITEMS.MERELDARS_TOLL}>
-            <DamageIcon /> {formatNumber(this.owner.getPerSecond(this.damage))} <small>direct DPS</small>
-            <p></p>
-            <VersatilityIcon /> {formatPercentage(externalUptimePercentage, 1)}% <small>Versatility buff uptime</small>
-          </BoringItemValueText>
-      </Statistic>
+      const externalUptime = this.deps.combatants.getBuffUptime(SPELLS.MERELDARS_TOLL_VERS.id)
+      const externalUptimePercentage = externalUptime / this.owner.fightDuration;
+      const players = Object.values(this.deps.combatants.players);
+      this.externalUptimeTotal = 0
+      players.forEach((player) => {
+        this.externalUptimeTotal += player.getBuffUptime(SPELLS.MERELDARS_TOLL_VERS.id)
+      });
+      const externalUptimeTotalPercentage = this.externalUptimeTotal / this.owner.fightDuration;
+      const versBuff: number = calculateSecondaryStatDefault(
+        MERELDARS_TOLL_BASE_ILVL,
+        MERELDARS_TOLL_BASE_GAIN,
+        this.selectedCombatant.getTrinket(ITEMS.MERELDARS_TOLL.id)!.itemLevel,
+      );
+      const averageVers: number = versBuff * externalUptimeTotalPercentage
+
+      return (
+        <Statistic
+          position={STATISTIC_ORDER.OPTIONAL(99)}
+          category={STATISTIC_CATEGORY.ITEMS}
+          size="flexible"
+        >
+        <BoringItemValueText item={ITEMS.MERELDARS_TOLL}>
+          <DamageIcon /> {formatNumber(this.owner.getPerSecond(this.damage))} <small>direct DPS</small>
+          <p></p>
+          <VersatilityIcon /> {formatNumber(averageVers)} <small>average Versatility granted</small>
+          <p></p>
+          <InformationIcon />  {formatPercentage(externalUptimePercentage, 1)}% <small>Versatility buff uptime</small>
+        </BoringItemValueText>
+    </Statistic>
         );
       }
 }
