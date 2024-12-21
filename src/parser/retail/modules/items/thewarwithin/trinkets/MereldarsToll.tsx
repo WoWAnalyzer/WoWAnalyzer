@@ -69,7 +69,7 @@ export default class MereldarsToll extends Analyzer.withDependencies({
       MERELDARS_TOLL_BASE_GAIN,
       this.selectedCombatant.getTrinket(ITEMS.MERELDARS_TOLL.id)?.itemLevel,
     );
-    const averageVers: number = versBuff * externalUptimeTotalPercentage;
+    const averageVers = versBuff * externalUptimeTotalPercentage;
 
     return (
       <Statistic
