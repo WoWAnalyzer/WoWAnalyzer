@@ -52,6 +52,11 @@ const spells = {
     name: "Mereldar's Toll",
     icon: 'inv_arathordungeon_bell_color1',
   },
+  MERELDARS_TOLL_DAMAGE: {
+    id: 443539,
+    name: "Mereldar's Toll",
+    icon: 'inv_arathordungeon_bell_color1',
+  },
   MERELDARS_TOLL_VERS: {
     id: 450551,
     name: "Mereldar's Toll",
