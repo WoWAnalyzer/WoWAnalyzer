@@ -11,9 +11,11 @@ import BoringItemValueText from 'parser/ui/BoringItemValueText';
 import { formatPercentage, formatNumber } from 'common/format';
 import { DamageIcon } from 'interface/icons';
 import VersatilityIcon from 'interface/icons/Versatility';
+import Combatants from 'parser/shared/modules/Combatants';
 
 export default class MereldarsToll extends Analyzer.withDependencies({
   abilities: Abilities,
+  combatants: Combatants,
 }) {
     protected damage: number = 0;
 
@@ -43,8 +45,8 @@ export default class MereldarsToll extends Analyzer.withDependencies({
     }
 
     statistic() {
-        const uptime = this.selectedCombatant.getBuffUptime(SPELLS.MERELDARS_TOLL_VERS.id, this.owner.playerId);
-        const uptimePercentage = uptime / this.owner.fightDuration;
+        const externalUptime = this.deps.combatants.getBuffUptime(SPELLS.MERELDARS_TOLL_VERS.id)
+        const externalUptimePercentage = externalUptime / this.owner.fightDuration;
         return (
           <Statistic
             position={STATISTIC_ORDER.OPTIONAL(99)}
@@ -54,7 +56,7 @@ export default class MereldarsToll extends Analyzer.withDependencies({
           <BoringItemValueText item={ITEMS.MERELDARS_TOLL}>
             <DamageIcon /> {formatNumber(this.owner.getPerSecond(this.damage))} <small>direct DPS</small>
             <p></p>
-            <VersatilityIcon /> {formatPercentage(uptimePercentage, 1)}% <small>personal Versatility uptime</small>
+            <VersatilityIcon /> {formatPercentage(externalUptimePercentage, 1)}% <small>Versatility buff uptime</small>
           </BoringItemValueText>
       </Statistic>
         );
