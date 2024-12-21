@@ -2554,6 +2554,13 @@ export const Yellot: Contributor = {
     },
   ],
 };
+
+export const Faultygaming: Contributor = {
+  nickname: 'Faulty',
+  github: 'Faultygaming',
+  discord: 'faultygaming',
+};
+
 export const Kivlov: Contributor = {
   nickname: 'Kivlov',
   github: 'Kivlov',
