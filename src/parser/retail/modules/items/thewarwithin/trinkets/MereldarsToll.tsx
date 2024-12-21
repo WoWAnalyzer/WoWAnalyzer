@@ -8,7 +8,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import BoringItemValueText from 'parser/ui/BoringItemValueText';
-import { formatDuration, formatNumber } from 'common/format';
+import { formatPercentage, formatNumber } from 'common/format';
 import { DamageIcon } from 'interface/icons';
 
 export default class MereldarsToll extends Analyzer.withDependencies({
@@ -50,6 +50,9 @@ export default class MereldarsToll extends Analyzer.withDependencies({
           >
           <BoringItemValueText item={ITEMS.MERELDARS_TOLL}>
             <DamageIcon /> {formatNumber(this.owner.getPerSecond(this.damage))} direct DPS{' '}
+            <small>
+              {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))}%
+            </small>
           </BoringItemValueText>
       </Statistic>
         );
