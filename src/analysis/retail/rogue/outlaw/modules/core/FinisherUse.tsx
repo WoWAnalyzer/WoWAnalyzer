@@ -348,8 +348,7 @@ export default class FinisherUse extends Analyzer {
           {formatDurationMillisMinSec(bteDebuffRemainingTime)} left on the debuff, since you aren't
           playing <SpellLink spell={TALENTS_ROGUE.GREENSKINS_WICKERS_TALENT} /> talent, you do not
           need to refresh the debuff this early, try to instead keep the cooldown ready in case of
-          target swapping for example. Refreshing the debuff early before a{' '}
-          <SpellLink spell={TALENTS_ROGUE.SHADOW_DANCE_TALENT} /> window is however fine.
+          target swapping for example.
         </div>
       );
     } else if (bteDebuffRemainingTime === 0) {

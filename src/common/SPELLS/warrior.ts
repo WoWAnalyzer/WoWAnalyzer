@@ -495,9 +495,19 @@ const spells = {
     name: 'Crushing Blow',
     icon: 'ability_hunter_swiftstrike',
   },
+  CRUSHING_BLOW_BUFF: {
+    id: 396752,
+    name: 'Crushing Blow',
+    icon: 'ability_hunter_swiftstrike',
+  },
   // spell replacement for bloodthirst when using reckless abondon
   BLOODBATH: {
     id: 335096,
+    name: 'Bloodbath',
+    icon: 'ability_warrior_bloodbath',
+  },
+  BLOODBATH_BUFF: {
+    id: 461288,
     name: 'Bloodbath',
     icon: 'ability_warrior_bloodbath',
   },
@@ -525,6 +535,21 @@ const spells = {
     id: 335082,
     name: 'Frenzy',
     icon: 'ability_rogue_bloodyeye',
+  },
+  BLOODCRAZE: {
+    id: 393951,
+    name: 'Bloodcraze',
+    icon: 'ability_creature_cursed_02',
+  },
+  MARKED_FOR_EXECUTION: {
+    id: 445584,
+    name: 'Marked For Execution',
+    icon: 'ability_blackhand_marked4death',
+  },
+  ASHEN_JUGGERNAUT: {
+    id: 392537,
+    name: 'Ashen Juggernaut',
+    icon: 'warrior_talent_icon_skirmisher',
   },
 
   // Protection:

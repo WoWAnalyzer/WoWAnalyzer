@@ -106,12 +106,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.SHADOW_DANCE_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 60,
-        enabled: combatant.hasTalent(TALENTS.SHADOW_DANCE_TALENT),
-      },
-      {
         spell: TALENTS.THISTLE_TEA_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60,
@@ -306,45 +300,6 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SAP.id,
         category: SPELL_CATEGORY.UTILITY,
-      },
-      // Covenant Abilities
-      {
-        spell: TALENTS.SERRATED_BONE_SPIKE_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: false,
-        charges: 3,
-        cooldown: 30,
-        gcd: {
-          static: standardGcd,
-        },
-      },
-      {
-        spell: TALENTS.SEPSIS_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: false,
-        cooldown: 90,
-        gcd: {
-          static: standardGcd,
-        },
-        castEfficiency: {
-          suggestion: true,
-        },
-      },
-      {
-        spell: TALENTS.ECHOING_REPRIMAND_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: false,
-        gcd: {
-          static: standardGcd,
-        },
-      },
-      {
-        spell: TALENTS.FLAGELLATION_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: false,
-        gcd: {
-          static: standardGcd,
-        },
       },
     ];
   }
