@@ -30,4 +30,5 @@ export { default as Wingleader } from './modules/talents/hero/scalecommander/Win
 export { default as Slipstream } from './modules/talents/hero/scalecommander/Slipstream';
 export { default as Chronoflame } from './modules/talents/hero/chronowarden/Chronoflame';
 export { default as ThreadsOfFate } from './modules/talents/hero/chronowarden/ThreadsOfFate';
+export { default as Reverberations } from './modules/talents/hero/chronowarden/Reverberations';
 export * from './constants';
