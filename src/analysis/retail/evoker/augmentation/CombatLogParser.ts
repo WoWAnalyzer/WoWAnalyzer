@@ -66,6 +66,8 @@ import {
   Wingleader,
   Slipstream,
 } from 'analysis/retail/evoker/shared';
+import Chronoflame from '../shared/modules/talents/hero/chronowarden/Chronoflame';
+import ThreadsOfFate from '../shared/modules/talents/hero/chronowarden/ThreadsOfFate';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -134,6 +136,8 @@ class CombatLogParser extends MainCombatLogParser {
     unrelentingSiege: UnrelentingSiege,
     wingLeader: Wingleader,
     slipstream: Slipstream,
+    chronoflame: Chronoflame,
+    threadsOfFate: ThreadsOfFate,
 
     // Features
     buffTrackerGraph: BuffTrackerGraph,
