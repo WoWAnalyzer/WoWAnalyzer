@@ -1,11 +1,12 @@
 import { change, date } from 'common/changelog';
-import { Anty, ToppleTheNun, zac, Faultygaming } from 'CONTRIBUTORS';
+import { Anty, ToppleTheNun, zac, Faultygaming, Vollmer } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 import TALENTS from 'common/TALENTS/rogue';
 import SHARED_CHANGELOG from 'analysis/retail/rogue/shared/CHANGELOG';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  change(date(2024, 12, 22), <>Remove Sepsis and adjust Grappling Hook ability. </>, Vollmer),
   change(date(2024, 11, 17), <>Enabling Spec for The War Within. </>, Faultygaming),
   change(date(2023, 7, 8), 'Update SpellLink usage.', ToppleTheNun),
   change(date(2023, 3, 12), <>Add core rotation section with finishers subsection.</>, zac),
