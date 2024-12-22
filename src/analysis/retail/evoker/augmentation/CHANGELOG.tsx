@@ -4,6 +4,7 @@ import { SpellLink } from 'interface';
 import TALENTS from 'common/TALENTS/evoker';
 
 export default [
+  change(date(2024, 12, 22), <>Implement <SpellLink spell={TALENTS.REVERBERATIONS_TALENT}/> module</>, KYZ),
   change(date(2024, 12, 22), <>Enable <SpellLink spell={TALENTS.CHRONO_FLAME_TALENT}/> and <SpellLink spell={TALENTS.THREADS_OF_FATE_TALENT}/> modules</>, KYZ),
   change(date(2024, 11, 26), <>Update multipliers for <SpellLink spell={TALENTS.MOLTEN_EMBERS_TALENT} /> module & add guide section</>, Vollmer),
   change(date(2024, 11, 18), <>Fix issue with <SpellLink spell={TALENTS.BREATH_OF_EONS_TALENT} /> module when buff targets don't have proper combatant info</>, Vollmer),
