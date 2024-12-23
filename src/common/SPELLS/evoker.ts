@@ -618,6 +618,11 @@ const spells = {
     name: 'Threads of Fate',
     icon: 'ability_evoker_sandsoftime',
   },
+  PRIMACY_BUFF: {
+    id: 431654,
+    name: 'Primacy',
+    icon: 'Inv_misc_pocketwatch_01',
+  },
   IMMINENT_DESTRUCTION_DEV_BUFF: {
     id: 411055,
     name: 'Imminent Destruction',
@@ -648,6 +653,11 @@ const spells = {
     id: 441248,
     name: 'Unrelenting Siege',
     icon: 'ability_siege_engineer_superheated',
+  },
+  MOMENTUM_SHIFT_BUFF: {
+    id: 408005,
+    name: 'Momentum Shift',
+    icon: 'ability_priest_voidshift',
   },
   // endregion
 } satisfies Record<string, Spell>;

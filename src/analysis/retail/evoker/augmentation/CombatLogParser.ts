@@ -22,6 +22,7 @@ import Volcanism from './modules/talents/Volcanism';
 import BlisteringScales from './modules/talents/BlisteringScales';
 import MoltenEmbers from './modules/talents/MoltenEmbers';
 import RumblingEarth from './modules/talents/RumblingEarth';
+import MomentumShift from './modules/talents/MomentumShift';
 
 import BuffTrackerGraph from './modules/features/BuffTrackerGraph';
 import BuffTargetHelper from './modules/features/BuffTargetHelper/BuffTargetHelper';
@@ -68,6 +69,7 @@ import {
   Chronoflame,
   ThreadsOfFate,
   Reverberations,
+  Primacy,
 } from 'analysis/retail/evoker/shared';
 
 class CombatLogParser extends MainCombatLogParser {
@@ -128,6 +130,7 @@ class CombatLogParser extends MainCombatLogParser {
     blisteringScales: BlisteringScales,
     moltenEmbers: MoltenEmbers,
     rumblingEarth: RumblingEarth,
+    momentumShift: MomentumShift,
 
     // hero talents
     mightOfTheBlackDragonflight: MightOfTheBlackDragonflight,
@@ -140,6 +143,7 @@ class CombatLogParser extends MainCombatLogParser {
     chronoflame: Chronoflame,
     threadsOfFate: ThreadsOfFate,
     reverberations: Reverberations,
+    primacy: Primacy,
 
     // Features
     buffTrackerGraph: BuffTrackerGraph,
