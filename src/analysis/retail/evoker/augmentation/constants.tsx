@@ -30,6 +30,7 @@ export const ANACHRONISM_ESSENCE_CHANCE = 0.35;
 export const SYMBIOTIC_HEALING_INCREASE = 0.03;
 export const MOLTEN_EMBERS_MULTIPLIER = [0.1, 0.13, 0.2, 0.4];
 export const MOLTEN_EMBERS_MULTIPLIER_NO_BLAST_FURNACE = [0.12, 0.17, 0.3, 1.2];
+export const MOMENTUM_SHIFT_INTELLECT_PER_STACK = 5;
 
 // Breath of Eons multiplier
 export const BREATH_OF_EONS_MULTIPLIER = 0.1;

@@ -7,6 +7,7 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import SPELLS from 'common/SPELLS';
 import { HasteIcon, InformationIcon } from 'interface/icons';
 import { formatPercentage } from 'common/format';
+import { PRIMACY_HASTE_PER_STACK } from 'analysis/retail/evoker/shared/constants';
 
 class Primacy extends Analyzer {
   constructor(options: Options) {
@@ -19,7 +20,8 @@ class Primacy extends Analyzer {
       this.selectedCombatant.getBuffUptime(SPELLS.PRIMACY_BUFF.id) / this.owner.fightDuration;
     const stackBuffUptimes = this.selectedCombatant.getStackBuffUptimes(SPELLS.PRIMACY_BUFF.id);
     const hasteBuffPercentage =
-      (3 * stackBuffUptimes[1] + 6 * stackBuffUptimes[2] + 9 * stackBuffUptimes[3]) /
+      (PRIMACY_HASTE_PER_STACK *
+        (stackBuffUptimes[1] + 2 * stackBuffUptimes[2] + 3 * stackBuffUptimes[3])) /
       this.owner.fightDuration;
     return (
       <Statistic

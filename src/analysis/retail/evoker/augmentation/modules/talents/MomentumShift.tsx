@@ -7,6 +7,7 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import SPELLS from 'common/SPELLS';
 import { IntellectIcon, InformationIcon } from 'interface/icons';
 import { formatPercentage } from 'common/format';
+import { MOMENTUM_SHIFT_INTELLECT_PER_STACK } from '../../constants';
 
 class MomentumShift extends Analyzer {
   constructor(options: Options) {
@@ -22,7 +23,8 @@ class MomentumShift extends Analyzer {
       SPELLS.MOMENTUM_SHIFT_BUFF.id,
     );
     const intellectBuffPercentage =
-      (5 * stackBuffUptimes[1] + 10 * stackBuffUptimes[2]) / this.owner.fightDuration;
+      (MOMENTUM_SHIFT_INTELLECT_PER_STACK * (stackBuffUptimes[1] + 2 * stackBuffUptimes[2])) /
+      this.owner.fightDuration;
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
