@@ -36,6 +36,7 @@ class VoidSummoner extends Analyzer {
           SPELLS.MIND_BLAST,
           SPELLS.PENANCE_CAST,
           SPELLS.DARK_REPRIMAND_CAST,
+          SPELLS.VOID_BLAST_DAMAGE_DISC,
         ]),
       this.onCdrCast,
     );

@@ -7,7 +7,6 @@ import { FoundationHighlight as HL } from 'interface/guide/foundation/shared';
 import Explanation from 'interface/guide/components/Explanation';
 import ResourceLink from 'interface/ResourceLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { TooltipElement } from 'interface/Tooltip';
 import PerformanceStrong from 'interface/PerformanceStrong';
 import { formatPercentage } from 'common/format';
 import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
@@ -46,12 +45,8 @@ function ArmsDowntimeSection() {
         </Para>
         <Para>
           In Cataclysm, Arms Warrior does not have enough abilities or{' '}
-          <ResourceLink id={RESOURCE_TYPES.RAGE.id} /> to fill every GCD. This means that you will
-          have lower{' '}
-          <TooltipElement content={<>The percentage of time spent using spells and abilities.</>}>
-            Active Time
-          </TooltipElement>{' '}
-          than other specs.
+          <ResourceLink id={RESOURCE_TYPES.RAGE.id} /> to fill every GCD. GCDs that are empty
+          because no abilities are usable are also counted as Active Time.
         </Para>
         <Para>
           With practice, you can keep active <em>and</em> pick the right spells for each moment, but
@@ -75,7 +70,7 @@ function ArmsDowntimeSection() {
       <Para>
         As a general guideline,{' '}
         <HL>
-          you should have <strong>70%+</strong> active time during normal phases of a boss fight.
+          you should have <strong>80%+</strong> active time during normal phases of a boss fight.
         </HL>{' '}
         Exceptional players will often hit <em>nearly 100%</em> during these periods.
       </Para>

@@ -277,6 +277,13 @@ class Flourish extends Analyzer {
             Due to limitations in the way we do healing attribution, there may be some
             double-counting between the Extension and Increased Rate values, meaning the true amount
             attributable will be somewhat lower than listed.
+            {this.selectedCombatant.hasTalent(TALENTS_DRUID.CENARIUS_GUIDANCE_TALENT) && (
+              <>
+                <br />
+                These stats do NOT include Flourishes procced from{' '}
+                <SpellLink spell={TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT} />.
+              </>
+            )}
             <ul>
               <li>
                 Extension:{' '}

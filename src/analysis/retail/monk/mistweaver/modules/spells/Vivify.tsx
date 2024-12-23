@@ -13,7 +13,11 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import { DANCING_MIST_CHANCE, RAPID_DIFFUSION_DURATION } from '../../constants';
+import {
+  DANCING_MIST_CHANCE,
+  getCurrentRSKTalent,
+  RAPID_DIFFUSION_DURATION,
+} from '../../constants';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import { getInvigHitsPerCast, isFromVivify } from '../../normalizers/CastLinkNormalizer';
 import UpliftedSpirits from './UpliftedSpirits';
@@ -21,6 +25,7 @@ import UpliftedSpirits from './UpliftedSpirits';
 const RAPID_DIFFUSION_SPELLS = [
   TALENTS_MONK.ENVELOPING_MIST_TALENT,
   TALENTS_MONK.RISING_SUN_KICK_TALENT,
+  TALENTS_MONK.RUSHING_WIND_KICK_TALENT,
 ];
 const BASE_AVERAGE_REMS = 2.22;
 const RM_AVG_REM_DIFF = 3;
@@ -89,7 +94,6 @@ class Vivify extends Analyzer {
     return this.cleaveHits / this.casts || 0;
   }
 
-  //TODO: update for pool of mists / heart of the jade serpent
   get estimatedAverageReMs() {
     if (this.risingMistActive) {
       this.expectedAverageReMs = BASE_AVERAGE_REMS * 2;
@@ -184,7 +188,7 @@ class Vivify extends Analyzer {
         <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> count - the more you have out at a
         given time, the more healing and better mana efficiency this spell has. This further
         emphasizes the importance of casting your rotational abilities in{' '}
-        <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} /> and{' '}
+        <SpellLink spell={getCurrentRSKTalent(this.selectedCombatant)} /> and{' '}
         <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> as often as possible.{' '}
         <strong>
           Now that square-root scaling is applied to{' '}
@@ -202,7 +206,11 @@ class Vivify extends Analyzer {
             <strong>
               <SpellLink spell={SPELLS.VIVIFY} /> casts
             </strong>{' '}
-            <small> GUIDANCE COMING SOON. Mouseover to see details about each cast.</small>
+            <small>
+              Blue is a perfect cast - high rem count and low overheal. Green is a good cast - high
+              rem count and moderate overheal OR moderate rem count and low overheal. Yellow is an
+              ok cast - at least 5 rems or low overheal. Mouseover to see details about each cast.
+            </small>
             <PerformanceBoxRow values={this.castEntries} />
           </div>
           <div style={styleObj}>
@@ -333,7 +341,6 @@ class Vivify extends Analyzer {
     const percentOverheal = overhealPerCast / (healingPerCast + overhealPerCast);
 
     let value = QualitativePerformance.Fail;
-    //TODO: update this for TWW rem averages (pool of mists / heart of the jade serpent)
     const rmConst =
       this.selectedCombatant.getTalentRank(TALENTS_MONK.RISING_MIST_TALENT) * RM_AVG_REM_DIFF;
     if (rems >= 8 + rmConst && percentOverheal <= 0.6) {
@@ -342,7 +349,7 @@ class Vivify extends Analyzer {
       value = QualitativePerformance.Good;
     } else if (rems >= 4 + rmConst && percentOverheal <= 0.7) {
       value = QualitativePerformance.Good;
-    } else if (fullOverhealHits <= 3 + rmConst || percentOverheal <= 0.3) {
+    } else if (fullOverhealHits <= 2 + rmConst || percentOverheal <= 0.3) {
       value = QualitativePerformance.Ok;
     }
 

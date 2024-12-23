@@ -11,6 +11,7 @@ import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 
 import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBreakdown';
 import CometStorm from '../talents/CometStorm';
+import { highlightInefficientCast } from 'interface/report/Results/Timeline/Casts';
 
 const AOE_THRESHOLD = 3;
 const MIN_SHATTERED_PROJECTILES_PER_CAST = 4;
@@ -60,6 +61,10 @@ class CometStormGuide extends Analyzer {
 
       if (noHits) {
         tooltipItems.push({ perf: QualitativePerformance.Fail, detail: 'No Enemies Hit' });
+        highlightInefficientCast(
+          cs.cast,
+          `This Comet Storm was not shattered and did not hit multiple enemies.`,
+        );
       } else if (AOE) {
         tooltipItems.push({
           perf: QualitativePerformance.Good,
@@ -72,6 +77,10 @@ class CometStormGuide extends Analyzer {
           perf: QualitativePerformance.Fail,
           detail: `${cs.shatteredHits} Projectiles Shattered (ST/Cleave)`,
         });
+        highlightInefficientCast(
+          cs.cast,
+          `Only ${cs.shatteredHits} Comets were Shattered in ST/Cleave.`,
+        );
       }
 
       let overallPerf = QualitativePerformance.Good;

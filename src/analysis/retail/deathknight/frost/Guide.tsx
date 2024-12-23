@@ -45,8 +45,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
               wasting any of the resources granted.
               {info.combatant.hasTalent(talents.HORN_OF_WINTER_TALENT) &&
                 modules.hornOfWinter.guideCastBreakdown}
-              {(info.combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_SHARED_TALENT) ||
-                info.combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_FROST_TALENT)) &&
+              {info.combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_TALENT) &&
                 modules.empowerRuneWeapon.guideCastBreakdown}
             </span>
           </SubSection>
@@ -78,6 +77,15 @@ function CooldownsSubsection({ modules, events, info }: GuideProps<typeof Combat
         <div className="flex-main chart" style={{ padding: 5 }}>
           <CastEfficiencyBar
             spellId={talents.PILLAR_OF_FROST_TALENT.id}
+            gapHighlightMode={GapHighlight.FullCooldown}
+          />
+        </div>
+      )}
+      {/* adding reapers mark talent */}
+      {info.combatant.hasTalent(talents.REAPERS_MARK_TALENT) && (
+        <div className="flex-main chart" style={{ padding: 5 }}>
+          <CastEfficiencyBar
+            spellId={talents.REAPERS_MARK_TALENT.id}
             gapHighlightMode={GapHighlight.FullCooldown}
           />
         </div>
@@ -125,11 +133,10 @@ function CooldownsSubsection({ modules, events, info }: GuideProps<typeof Combat
           />
         </div>
       )}
-      {(info.combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_FROST_TALENT) ||
-        info.combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_SHARED_TALENT)) && (
+      {info.combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_TALENT) && (
         <div className="flex-main chart" style={{ padding: 5 }}>
           <CastEfficiencyBar
-            spellId={spells.EMPOWER_RUNE_WEAPON.id}
+            spellId={talents.EMPOWER_RUNE_WEAPON_TALENT.id}
             gapHighlightMode={GapHighlight.FullCooldown}
             useThresholds
           />

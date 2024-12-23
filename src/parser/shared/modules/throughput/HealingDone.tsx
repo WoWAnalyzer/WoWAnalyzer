@@ -28,11 +28,11 @@ class HealingDone extends Analyzer {
     );
   }
 
-  _total = new HealingValue();
+  _total = HealingValue.empty();
   get total() {
     return this._total;
   }
-  _healingByAbsorbs = new HealingValue();
+  _healingByAbsorbs = HealingValue.empty();
   get healingByAbsorbs() {
     return this._healingByAbsorbs;
   }
@@ -42,7 +42,7 @@ class HealingDone extends Analyzer {
   _byAbility: { [spellId: number]: HealingValue } = {};
   byAbility(spellId: number) {
     if (!this._byAbility[spellId]) {
-      return new HealingValue();
+      return HealingValue.empty();
     }
     return this._byAbility[spellId];
   }
@@ -65,30 +65,37 @@ class HealingDone extends Analyzer {
     absorbed = 0,
     overheal = 0,
   ) {
-    this._total = this._total.add(amount, absorbed, overheal);
+    const healVal: HealingValue = HealingValue.fromValues({
+      regular: amount,
+      absorbed,
+      overheal,
+    });
+    this._total = this._total.add(healVal);
 
     const spellId = event.ability.guid;
-    this._byAbility[spellId] = (this._byAbility[spellId] || new HealingValue()).add(
-      amount,
-      absorbed,
-      overheal,
-    );
+    if (!this._byAbility[spellId]) {
+      this._byAbility[spellId] = HealingValue.empty();
+    }
+    this._byAbility[spellId] = this._byAbility[spellId].add(healVal);
 
     const secondsIntoFight = Math.floor((event.timestamp - this.owner.fight.start_time) / 1000);
-    this.bySecond[secondsIntoFight] = (this.bySecond[secondsIntoFight] || new HealingValue()).add(
-      amount,
-      absorbed,
-      overheal,
-    );
+    if (!this.bySecond[secondsIntoFight]) {
+      this.bySecond[secondsIntoFight] = HealingValue.empty();
+    }
+    this.bySecond[secondsIntoFight] = this.bySecond[secondsIntoFight].add(healVal);
   }
   _addHealingByAbsorb(
     event: AbsorbedEvent | RemoveBuffEvent,
     amount = 0,
     absorbed = 0,
-    overhealing = 0,
+    overheal = 0,
   ) {
-    this._addHealing(event, amount, absorbed, overhealing);
-    this._healingByAbsorbs = this._healingByAbsorbs.add(amount, absorbed, overhealing);
+    this._addHealing(event, amount, absorbed, overheal);
+    this._healingByAbsorbs = this._healingByAbsorbs.addValues({
+      regular: amount,
+      absorbed,
+      overheal,
+    });
   }
   _subtractHealing(event: DamageEvent, amount = 0, absorbed = 0, overheal = 0) {
     return this._addHealing(event, -amount, -absorbed, -overheal);

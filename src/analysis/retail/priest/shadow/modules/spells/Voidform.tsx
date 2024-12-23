@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, RemoveBuffEvent, ResourceChangeEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
@@ -25,6 +25,7 @@ class Voidform extends Analyzer {
   VFExtensionTotal = 0;
   VFtime = 0;
   mindblast = 0; //number of mindblasts gained by entering voidform
+  durationSustainedPotency = 0;
 
   constructor(options: Options) {
     super(options);
@@ -40,6 +41,21 @@ class Voidform extends Analyzer {
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.VOIDFORM_BUFF),
       this.leaveVoidform,
     );
+
+    this.addEventListener(
+      Events.resourcechange.by(SELECTED_PLAYER).spell(TALENTS.HALO_SHADOW_TALENT),
+      this.onHalo,
+    );
+  }
+
+  onHalo(event: ResourceChangeEvent) {
+    //When Halo occurs during voidform, it extends it's duration by 1 second.
+    //We do not want this included later in its extension
+    //console.log("HALO")
+
+    if (this.selectedCombatant.hasBuff(SPELLS.VOIDFORM_BUFF.id)) {
+      this.durationSustainedPotency += 1;
+    }
   }
 
   enterVoidform(event: ApplyBuffEvent) {
@@ -48,10 +64,30 @@ class Voidform extends Analyzer {
     this.casts += 1;
     this.mindblast += 2 - this.spellUsable.chargesAvailable(SPELLS.MIND_BLAST.id);
     this.spellUsable.endCooldown(SPELLS.MIND_BLAST.id, event.timestamp, true, true);
+
+    //Voidform gains extension from Archon talent Sustained Potencey, which we do not want to include in the extension later
+
+    //For some reason, the buffer does not get the stacks of this buff if it falls off before voidform starts, even at high values.
+    //So we jsut look 10ms before the event to see how many stacks we had at that time.
+    //Usually, the buff falls off 1-3ms after the voidform cast finishes, but 1-3ms before the voidform buff starts, so 10ms is plenty.
+    this.durationSustainedPotency += this.selectedCombatant.getBuffStacks(
+      SPELLS.SHADOW_PRIEST_ARCHON_SUSTAINED_POTENCY_BUFF.id,
+      event.timestamp - 10,
+      50,
+      0,
+    );
+    //console.log("sustained start", this.durationSustainedPotency)
   }
 
   leaveVoidform(event: RemoveBuffEvent) {
-    const extension = (event.timestamp - this.VFtime) / 1000 - VOID_FORM_DURATION;
+    let extension = (event.timestamp - this.VFtime) / 1000 - VOID_FORM_DURATION;
+
+    if (this.selectedCombatant.hasTalent(TALENTS.SUSTAINED_POTENCY_TALENT)) {
+      //If the character has Sustained Potency, we reduce the extension by the amount it gave
+      extension = extension - this.durationSustainedPotency;
+      this.durationSustainedPotency = 0;
+    }
+
     this.VFExtensionTotal += extension;
     const tooltip = (
       <>

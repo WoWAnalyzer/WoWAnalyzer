@@ -74,6 +74,7 @@ import ElementalOrbit from '../shared/talents/ElementalOrbit';
 import Guide from './Guide';
 import Riptide from './modules/talents/Riptide';
 import ManaSpring from 'analysis/retail/shaman/shared/talents/ManaSpring';
+import SurgingTotemPrePullNormalizer from 'analysis/retail/shaman/restoration/normalizers/SurgingTotemPrePullNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -151,6 +152,7 @@ class CombatLogParser extends CoreCombatLogParser {
     stoneBulwarkTotem: StoneBulwarkTotem,
 
     // Normalizers
+    surgingTotemPrePullNormalizer: SurgingTotemPrePullNormalizer,
     cloudburstNormalizer: CloudburstNormalizer,
     riptideNormalizer: RiptideNormalizer,
     castLinkNormalizer: CastLinkNormalizer,

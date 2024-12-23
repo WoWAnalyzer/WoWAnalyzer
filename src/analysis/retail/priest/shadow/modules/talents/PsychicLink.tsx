@@ -71,36 +71,36 @@ class PsychicLink extends Analyzer {
   }
 
   onLink(event: DamageEvent) {
-    this.damageTotal += event.amount;
+    this.damageTotal += event.amount + (event.absorbed || 0);
     this.totalHits += 1;
 
     switch (this.recentSpell) {
       case SPELLS.MIND_BLAST.name:
-        this.damageMB += event.amount;
+        this.damageMB += event.amount + (event.absorbed || 0);
         break;
       case TALENTS.SHADOW_WORD_DEATH_TALENT.name:
-        this.damageSWD += event.amount;
+        this.damageSWD += event.amount + (event.absorbed || 0);
         break;
       case TALENTS.DEVOURING_PLAGUE_TALENT.name:
-        this.damageDP += event.amount;
+        this.damageDP += event.amount + (event.absorbed || 0);
         break;
       case TALENTS.MIND_SPIKE_TALENT.name:
-        this.damageMS += event.amount;
+        this.damageMS += event.amount + (event.absorbed || 0);
         break;
       case SPELLS.MIND_SPIKE_INSANITY_TALENT_DAMAGE.name:
-        this.damageMSI += event.amount;
+        this.damageMSI += event.amount + (event.absorbed || 0);
         break;
       case SPELLS.MIND_FLAY.name:
-        this.damageMF += event.amount;
+        this.damageMF += event.amount + (event.absorbed || 0);
         break;
       case SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE.name:
-        this.damageMFI += event.amount;
+        this.damageMFI += event.amount + (event.absorbed || 0);
         break;
       case TALENTS.VOID_TORRENT_TALENT.name:
-        this.damageVT += event.amount;
+        this.damageVT += event.amount + (event.absorbed || 0);
         break;
       case SPELLS.VOID_BOLT.name:
-        this.damageVB += event.amount;
+        this.damageVB += event.amount + (event.absorbed || 0);
         break;
       default:
         break;

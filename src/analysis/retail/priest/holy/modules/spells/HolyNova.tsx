@@ -21,14 +21,11 @@ class HolyNova extends Analyzer {
   }
 
   get effectiveHealing() {
-    return (
-      this.abilityTracker.getAbility(SPELLS.HOLY_NOVA_HEAL.id).healingEffective +
-      this.abilityTracker.getAbility(SPELLS.HOLY_NOVA_HEAL.id).healingAbsorbed
-    );
+    return this.abilityTracker.getAbilityHealing(SPELLS.HOLY_NOVA_HEAL.id);
   }
 
   get overHealing() {
-    return this.abilityTracker.getAbility(SPELLS.HOLY_NOVA_HEAL.id).healingOverheal;
+    return this.abilityTracker.getAbility(SPELLS.HOLY_NOVA_HEAL.id).healingVal.overheal;
   }
 
   get overhealPercent() {
@@ -40,7 +37,7 @@ class HolyNova extends Analyzer {
   }
 
   get damageDone() {
-    return this.abilityTracker.getAbility(TALENTS.HOLY_NOVA_TALENT.id).damageEffective;
+    return this.abilityTracker.getAbilityDamage(TALENTS.HOLY_NOVA_TALENT.id);
   }
 
   get averageFriendlyTargetsHit() {

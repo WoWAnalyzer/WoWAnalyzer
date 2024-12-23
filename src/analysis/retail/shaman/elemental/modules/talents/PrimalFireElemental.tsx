@@ -1,156 +1,61 @@
-import { defineMessage } from '@lingui/macro';
-import { formatNumber } from 'common/format';
+import { plural } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
-import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import Statistic from 'parser/ui/Statistic';
-import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import { Options } from 'parser/core/Analyzer';
+import { CastEvent } from 'parser/core/Events';
+import PrimalElementalist, { PrimalElementalCast } from './PrimalElementalist';
+import { ChecklistUsageInfo, SpellUse } from 'parser/core/SpellUsage/core';
+import { getLowestPerf, QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import NPCS from 'common/NPCS/shaman';
 
-const damagingCasts = [
-  SPELLS.FIRE_ELEMENTAL_METEOR,
-  SPELLS.FIRE_ELEMENTAL_IMMOLATE,
-  SPELLS.FIRE_ELEMENTAL_FIRE_BLAST,
-];
-
-class PrimalFireElemental extends Analyzer {
-  meteorCasts = 0;
-  PFEcasts = 0;
-
-  usedCasts: { [key: number]: boolean };
-
-  damageGained = 0;
-  maelstromGained = 0;
-
+class PrimalFireElemental extends PrimalElementalist<PrimalElementalCast> {
   constructor(options: Options) {
-    super(options);
-    this.usedCasts = {
-      [SPELLS.FIRE_ELEMENTAL_METEOR.id]: false,
-      [SPELLS.FIRE_ELEMENTAL_IMMOLATE.id]: false,
-      [SPELLS.FIRE_ELEMENTAL_FIRE_BLAST.id]: false,
-    };
-    this.active =
-      this.selectedCombatant.hasTalent(TALENTS.PRIMAL_ELEMENTALIST_TALENT) &&
-      !this.selectedCombatant.hasTalent(TALENTS.STORM_ELEMENTAL_TALENT);
-
-    if (!this.active) {
-      return;
-    }
-
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER_PET).spell(damagingCasts),
-      this.onDamage,
-    );
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.FIRE_ELEMENTAL_TALENT),
-      this.onFECast,
-    );
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER_PET).spell(damagingCasts),
-      this.onDamagingCast,
+    super(
+      NPCS.PRIMAL_FIRE_ELEMENTAL.id,
+      [
+        SPELLS.FIRE_ELEMENTAL_METEOR,
+        SPELLS.FIRE_ELEMENTAL_IMMOLATE,
+        SPELLS.FIRE_ELEMENTAL_FIRE_BLAST,
+      ],
+      options,
     );
   }
 
-  get missedMeteorCasts() {
-    return this.PFEcasts - this.meteorCasts;
-  }
-
-  onDamage(event: DamageEvent) {
-    this.damageGained += event.amount + (event.absorbed || 0);
-  }
-
-  onFECast(event: CastEvent) {
-    this.PFEcasts += 1;
-  }
-
-  onDamagingCast(event: CastEvent) {
-    this.usedCasts[event.ability.guid] = true;
-  }
-
-  get unusedSpells() {
-    return Object.keys(this.usedCasts).filter((spellId) => !this.usedCasts[Number(spellId)]);
-  }
-
-  get unusedSpellsSuggestionTresholds() {
+  beginCooldownTrigger(event: CastEvent, spells: Map<number, number>): PrimalElementalCast {
     return {
-      actual: this.unusedSpells.length,
-      isGreaterThanOrEqual: {
-        major: 1,
-      },
-      style: ThresholdStyle.NUMBER,
+      event: event,
+      spells: spells,
+      damageDone: 0,
+      end: event.timestamp + this.duration,
     };
   }
 
-  get missedMeteorSuggestionTresholds() {
+  explainPerformance(cast: PrimalElementalCast): SpellUse {
+    const checklist: ChecklistUsageInfo[] = [...cast.spells.entries()].map(([spellId, count]) => {
+      return {
+        check: `spell-${spellId}`,
+        timestamp: cast.event.timestamp,
+        performance: count > 0 ? QualitativePerformance.Perfect : QualitativePerformance.Fail,
+        summary: (
+          <div>
+            <SpellLink spell={spellId} /> cast {plural(count, { one: 'time', other: 'times' })}
+          </div>
+        ),
+        details: (
+          <div>
+            <SpellLink spell={spellId} /> cast {plural(count, { one: 'time', other: 'times' })}
+          </div>
+        ),
+      };
+    });
+
     return {
-      actual: this.unusedSpells.length,
-      isGreaterThanOrEqual: {
-        major: 1,
-      },
-      style: ThresholdStyle.NUMBER,
+      checklistItems: checklist,
+      event: cast.event,
+      performance: getLowestPerf(checklist.map((usage) => usage.performance)),
+      extraDetails: null,
+      performanceExplanation: null,
     };
-  }
-
-  suggestions(when: When) {
-    const unusedSpellsString = this.unusedSpells
-      .map((spellId) => SPELLS[Number(spellId)].name)
-      .join(', ');
-    when(this.unusedSpellsSuggestionTresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <span>
-          {' '}
-          Your Fire Elemental is not using all of it's spells. Check if immolate and Fire Blast are
-          set to autocast and you are using Meteor.
-        </span>,
-      )
-        .icon(TALENTS.FIRE_ELEMENTAL_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'shaman.elemental.suggestions.primalFireElemental.unusedSpells',
-            message: `${formatNumber(
-              this.unusedSpells.length,
-            )} spell/-s not used by your Fire Elemental (${unusedSpellsString})`,
-          }),
-        )
-        .recommended(`You should be using all spells of your Fire Elemental.`)
-        .major(recommended + 1),
-    );
-
-    when(this.missedMeteorSuggestionTresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <span>
-          You are not using <SpellLink spell={SPELLS.FIRE_ELEMENTAL_METEOR} /> every time you cast{' '}
-          <SpellLink spell={TALENTS.FIRE_ELEMENTAL_TALENT} /> if you are using{' '}
-          <SpellLink spell={TALENTS.PRIMAL_ELEMENTALIST_TALENT} />. Only wait with casting meteor if
-          you wait for adds to spawn.
-        </span>,
-      )
-        .icon(TALENTS.FIRE_ELEMENTAL_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'shaman.elemental.suggestions.primalFireElemental.meteorCastsMissed',
-            message: `${formatNumber(this.missedMeteorCasts)} missed Meteor Casts.`,
-          }),
-        )
-        .recommended(`You should cast Meteor every time you summon your Fire Elemental `)
-        .major(recommended + 1),
-    );
-  }
-
-  statistic() {
-    return (
-      <Statistic position={STATISTIC_ORDER.OPTIONAL()} size="flexible">
-        <>
-          <BoringSpellValueText spell={TALENTS.FIRE_ELEMENTAL_TALENT}>
-            <ItemDamageDone amount={this.damageGained} />
-          </BoringSpellValueText>
-        </>
-      </Statistic>
-    );
   }
 }
 

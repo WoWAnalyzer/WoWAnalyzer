@@ -40,14 +40,19 @@ function ModuleDebugAnnotations({ module, annotations }: ModuleAnnotations) {
       <DotContainer>
         {intoRows(annotations, parser.fight.start_time).map((row, index) => (
           <Row key={index}>
-            {row.map((props, index) => (
-              <AnnotationDot
-                {...props}
-                key={index}
-                onClick={() => setSelected((current) => (current === props ? null : props))}
-                selected={selected === props}
-              />
-            ))}
+            <RowTimestamp>
+              {`${index}:00`} - {row.length} events
+            </RowTimestamp>
+            <RowContent>
+              {row.map((props, index) => (
+                <AnnotationDot
+                  {...props}
+                  key={index}
+                  onClick={() => setSelected((current) => (current === props ? null : props))}
+                  selected={selected === props}
+                />
+              ))}
+            </RowContent>
           </Row>
         ))}
       </DotContainer>
@@ -192,15 +197,33 @@ const Dot = styled('div')<{ color: string; selected?: boolean }>`
 
 const DotContainer = styled.div`
   display: flex;
+  margin-top: 0.5em;
   flex-direction: column;
-  gap: 2px;
+  flex-wrap: wrap;
 
-  font-size: 75%;
+  gap: 4px;
+
+  // Originally 70% (10.5px)
+  // This aims to have a pixel perfect value so Dots doesn't get deformed
+  // by navigator rendering interpolations.
+  font-size: 71.4288%;
 `;
 
 const Row = styled.div`
+  border-left: 1px solid #eee;
+  padding-left: 4px;
+`;
+
+const RowTimestamp = styled.div`
+  display: inline-block;
+  margin-bottom: 2px;
+`;
+
+const RowContent = styled.div`
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+
   gap: 2px;
 `;
 

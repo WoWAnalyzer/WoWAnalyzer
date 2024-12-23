@@ -58,11 +58,11 @@ class Cataclysm extends Analyzer {
   }
 
   statistic() {
-    const spell = this.abilityTracker.getAbility(TALENTS.CATACLYSM_TALENT.id);
-    const damage = spell.damageEffective + spell.damageAbsorbed;
+    const ability = this.abilityTracker.getAbility(TALENTS.CATACLYSM_TALENT.id);
+    const damage = ability.damageVal.effective;
     const dps = (damage / this.owner.fightDuration) * 1000;
     const averageTargetsHit =
-      this.casts.reduce((total, current) => total + current, 0) / spell.casts || 0;
+      this.casts.reduce((total, current) => total + current, 0) / ability.casts || 0;
     debug && this.log('Casts array at fight end: ', JSON.parse(JSON.stringify(this.casts)));
 
     return (

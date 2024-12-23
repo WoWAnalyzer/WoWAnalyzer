@@ -105,6 +105,11 @@ const spells = {
     name: 'Demonic Circle: Teleport',
     icon: 'spell_shadow_demoniccircleteleport.jpg',
   },
+  DOOM_BOLT: {
+    id: 85692,
+    name: 'Doom Bolt',
+    icon: 'spell_shadow_shadowbolt.jpg',
+  },
   DRAIN_LIFE: {
     id: 689,
     name: 'Drain Life',
@@ -246,6 +251,11 @@ const spells = {
     name: 'Create Soulstone',
     icon: 'inv_misc_orb_04.jpg',
   },
+  SOUL_HARVEST: {
+    id: 79268,
+    name: 'Soul Harvest',
+    icon: 'ability_mage_potentspirit.jpg',
+  },
   SUBJUGATE_DEMON: {
     id: 1098,
     name: 'Subjugate Demon',
@@ -254,7 +264,7 @@ const spells = {
   SUMMON_DOOMGUARD: {
     id: 18540,
     name: 'Summon Doomguard',
-    icon: 'warlock_summon_doomguard.jpg',
+    icon: 'achievement_boss_kiljaedan.jpg',
   },
   SUMMON_FELHUNTER: {
     id: 691,
@@ -273,7 +283,7 @@ const spells = {
   },
   SUMMON_INFERNO: {
     id: 1122,
-    name: 'Inferno',
+    name: 'Summon Infernal',
     icon: 'spell_shadow_summoninfernal.jpg',
   },
   SUMMON_SUCCUBUS: {
@@ -395,6 +405,11 @@ const spells = {
     id: 30146,
     name: 'Summon Felguard',
     icon: 'spell_shadow_summonfelguard.jpg',
+  },
+  ANCIENT_GRIMOIRE: {
+    id: 85110,
+    name: 'Ancient Grimoire',
+    icon: 'ability_warlock_ancientgrimoire.jpg',
   },
 
   // Destruction

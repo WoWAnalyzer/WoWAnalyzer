@@ -19,11 +19,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
       branch: GameBranch.Retail,
     },
-    {
-      spell: talents.OBLITERATION_TALENT.id,
-      summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
-      branch: GameBranch.Retail,
-    },
   ];
 
   static ignoredSpells = [

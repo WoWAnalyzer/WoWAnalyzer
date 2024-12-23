@@ -24,7 +24,7 @@ class AtonementHealingDone extends Analyzer {
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
   }
 
-  _totalAtonement = new HealingValue();
+  _totalAtonement = HealingValue.empty();
 
   get totalAtonement() {
     return this._totalAtonement;
@@ -50,15 +50,15 @@ class AtonementHealingDone extends Analyzer {
 
   // FIXME: 'byAbility()' added to HealingDone, this should no longer require custom code
   _addHealing(source: DamageEvent, amount = 0, absorbed = 0, overheal = 0) {
-    const ability = source.ability;
+    const { ability } = source;
     const spellId = ability.guid;
-    this._totalAtonement = this._totalAtonement.add(amount, absorbed, overheal);
-    this.bySource[spellId] = this.bySource[spellId] || {};
-    this.bySource[spellId].ability = ability;
-    this.bySource[spellId].healing = (this.bySource[spellId].healing || new HealingValue()).add(
-      amount,
-      absorbed,
-      overheal,
+
+    this._totalAtonement = this._totalAtonement.addValues({ regular: amount, absorbed, overheal });
+    if (!this.bySource[spellId]) {
+      this.bySource[spellId] = { ability, healing: HealingValue.empty() };
+    }
+    this.bySource[spellId].healing = this.bySource[spellId].healing.add(
+      HealingValue.fromValues({ regular: amount, absorbed, overheal }),
     );
   }
 

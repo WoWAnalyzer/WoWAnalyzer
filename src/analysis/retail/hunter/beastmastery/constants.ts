@@ -4,8 +4,8 @@ import TALENTS from 'common/TALENTS/hunter';
 //region Spells
 
 /** Cobra Shot */
-//Cobra Shot reduces the cooldown of Kill Command by 2 seconds by default
-export const COBRA_SHOT_CDR_MS = 2000;
+//Cobra Shot reduces the cooldown of Kill Command by 1 second by default
+export const COBRA_SHOT_CDR_MS = 1000;
 //A threshold where you can never realistically overcap on focus by waiting for AT MOST 1 GCD + 1 second.
 export const COBRA_SHOT_FOCUS_THRESHOLD_TO_WAIT = 50;
 /** Bestial Wrath */
@@ -22,8 +22,6 @@ export const MAX_FRENZY_STACKS = 3;
 export const ORIGINAL_FRENZY_DURATION = 8000;
 //Frenzy lasts 10 seconds with Savagery talent
 export const SAVAGERY_FRENZY_DURATION = 10000;
-/** Kindred Spirits */
-export const KINDRED_SPIRITS_FOCUS_INCREASE = [0, 10, 20];
 /** Pack Tactics */
 export const PACK_TACTICS_FOCUS_REGEN_INCREASE = 2;
 /** Bloodshed */
@@ -128,6 +126,8 @@ export const LIST_OF_FOCUS_SPENDERS_BM = [
   TALENTS.MULTI_SHOT_BEAST_MASTERY_TALENT,
   TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT,
   TALENTS.KILL_SHOT_SHARED_TALENT,
-  TALENTS.A_MURDER_OF_CROWS_TALENT,
+  TALENTS.BLACK_ARROW_TALENT,
+  TALENTS.BURSTING_SHOT_TALENT,
+  SPELLS.WING_CLIP,
 ];
 //endregion

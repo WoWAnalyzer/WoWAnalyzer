@@ -42,7 +42,9 @@ const SurvivalChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
           </>
         }
       >
-        <AbilityRequirement spell={SPELLS.KILL_COMMAND_CAST_SV.id} />
+        {combatant.hasTalent(TALENTS.KILL_COMMAND_SURVIVAL_TALENT) && (
+          <AbilityRequirement spell={TALENTS.KILL_COMMAND_SURVIVAL_TALENT.id} />
+        )}
         {combatant.hasTalent(TALENTS.COORDINATED_ASSAULT_TALENT) && (
           <AbilityRequirement spell={TALENTS.COORDINATED_ASSAULT_TALENT.id} />
         )}
@@ -52,14 +54,12 @@ const SurvivalChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
         {combatant.hasTalent(TALENTS.A_MURDER_OF_CROWS_TALENT) && (
           <AbilityRequirement spell={TALENTS.A_MURDER_OF_CROWS_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.WILDFIRE_INFUSION_TALENT) ? (
-          <AbilityRequirement spell={TALENTS.WILDFIRE_INFUSION_TALENT.id} />
-        ) : (
-          <AbilityRequirement spell={SPELLS.WILDFIRE_BOMB.id} />
+        {combatant.hasTalent(TALENTS.WILDFIRE_BOMB_TALENT) && (
+          <AbilityRequirement spell={TALENTS.WILDFIRE_BOMB_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.DEATH_CHAKRAM_TALENT) && (
-          <AbilityRequirement spell={TALENTS.DEATH_CHAKRAM_TALENT.id} />
-        )}
+        {/*{combatant.hasTalent(TALENTS.DEATH_CHAKRAM_TALENT) && (*/}
+        {/*  <AbilityRequirement spell={TALENTS.DEATH_CHAKRAM_TALENT.id} />*/}
+        {/*)}*/}
       </Rule>
 
       {combatant.hasTalent(TALENTS.MONGOOSE_BITE_TALENT) ? (
@@ -96,27 +96,27 @@ const SurvivalChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
         </Rule>
       ) : null}
 
-      <Rule
-        name="Talent, cooldown and spell efficiency"
-        description={
-          <>
-            You want to be using your baseline spells as efficiently as possible, as well as
-            choosing the right talents for the given scenario. If a talent isn't being used
-            optimally for the encounter, you should consider swapping to a different talent.
-          </>
-        }
-      >
-        {combatant.hasTalent(TALENTS.BIRDS_OF_PREY_TALENT) ? (
-          <Requirement
-            name={
-              <>
-                <SpellLink spell={TALENTS.BIRDS_OF_PREY_TALENT} /> Effectiveness{' '}
-              </>
-            }
-            thresholds={thresholds.birdPercentEffectiveness}
-          />
-        ) : null}
-      </Rule>
+      {/*<Rule*/}
+      {/*  name="Talent, cooldown and spell efficiency"*/}
+      {/*  description={*/}
+      {/*    <>*/}
+      {/*      You want to be using your baseline spells as efficiently as possible, as well as*/}
+      {/*      choosing the right talents for the given scenario. If a talent isn't being used*/}
+      {/*      optimally for the encounter, you should consider swapping to a different talent.*/}
+      {/*    </>*/}
+      {/*  }*/}
+      {/*>*/}
+      {/*  {combatant.hasTalent(TALENTS.BIRDS_OF_PREY_TALENT) ? (*/}
+      {/*    <Requirement*/}
+      {/*      name={*/}
+      {/*        <>*/}
+      {/*          <SpellLink spell={TALENTS.BIRDS_OF_PREY_TALENT} /> Effectiveness{' '}*/}
+      {/*        </>*/}
+      {/*      }*/}
+      {/*      thresholds={thresholds.birdPercentEffectiveness}*/}
+      {/*    />*/}
+      {/*  ) : null}*/}
+      {/*</Rule>*/}
       <Rule
         name={
           <>

@@ -294,11 +294,6 @@ const spells = {
     name: "Champion's Spear",
     icon: 'ability_bastion_warrior',
   },
-  CHAMPIONS_MIGHT: {
-    id: 386286,
-    name: "Champion's Might",
-    icon: 'ability_bastion_warrior',
-  },
   WILD_STRIKES: {
     id: 392778,
     name: 'Wild Strikes',
@@ -392,7 +387,7 @@ const spells = {
   SUDDEN_DEATH_ARMS_TALENT_BUFF: {
     id: 52437,
     name: 'Sudden Death',
-    icon: 'abilty_warrior_improveddisciplines',
+    icon: 'ability_warrior_improveddisciplines',
   },
   SECOND_WIND_TALENT_HEAL: {
     id: 202147,
@@ -474,10 +469,10 @@ const spells = {
   },
 
   // Talents
-  WAR_MACHINE_FURY_TALENT_BUFF: {
+  SUDDEN_DEATH_FURY_TALENT_BUFF: {
     id: 280776,
     name: 'Sudden Death',
-    icon: 'abilty_warrior_improveddisciplines',
+    icon: 'ability_warrior_improveddisciplines',
   },
   BLADESTORM_OH_DAMAGE: {
     id: 95738,
@@ -500,9 +495,19 @@ const spells = {
     name: 'Crushing Blow',
     icon: 'ability_hunter_swiftstrike',
   },
+  CRUSHING_BLOW_BUFF: {
+    id: 396752,
+    name: 'Crushing Blow',
+    icon: 'ability_hunter_swiftstrike',
+  },
   // spell replacement for bloodthirst when using reckless abondon
   BLOODBATH: {
     id: 335096,
+    name: 'Bloodbath',
+    icon: 'ability_warrior_bloodbath',
+  },
+  BLOODBATH_BUFF: {
+    id: 461288,
     name: 'Bloodbath',
     icon: 'ability_warrior_bloodbath',
   },
@@ -530,6 +535,21 @@ const spells = {
     id: 335082,
     name: 'Frenzy',
     icon: 'ability_rogue_bloodyeye',
+  },
+  BLOODCRAZE: {
+    id: 393951,
+    name: 'Bloodcraze',
+    icon: 'ability_creature_cursed_02',
+  },
+  MARKED_FOR_EXECUTION: {
+    id: 445584,
+    name: 'Marked For Execution',
+    icon: 'ability_blackhand_marked4death',
+  },
+  ASHEN_JUGGERNAUT: {
+    id: 392537,
+    name: 'Ashen Juggernaut',
+    icon: 'warrior_talent_icon_skirmisher',
   },
 
   // Protection:
@@ -605,6 +625,11 @@ const spells = {
     name: 'Unnerving Focus',
     icon: 'rogue_shadowfocus',
   },
+  BURST_OF_POWER_BUFF: {
+    id: 437121,
+    name: 'BURST_OF_POWER',
+    icon: 'shaman_pvp_thundercharge',
+  },
 
   //Passives
   DEEP_WOUNDS: {
@@ -652,6 +677,13 @@ const spells = {
     id: 394173,
     name: 'Strike Vulnerabilities',
     icon: 'ability_criticalstrike',
+  },
+
+  // T31 2p buff
+  EXPERT_STRATEGIST_BUFF: {
+    id: 455499,
+    name: 'Expert Strategist',
+    icon: 'ability_warrior_vigilance',
   },
 
   // Talent in here so SpellLink doesn't return Unknown

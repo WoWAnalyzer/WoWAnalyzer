@@ -22,7 +22,7 @@ import NaturesGuardian from './modules/talents/NaturesGuardian';
 import Sundering from './modules/talents/Sundering';
 import ElementalSpirits from './modules/talents/ElementalSpirits';
 import ElementalAssault from './modules/talents/ElementalAssault';
-import Stormbringer from './modules/spells/Stormbringer';
+import Stormsurge from './modules/spells/Stormsurge';
 import FeralSpirit from './modules/talents/FeralSpirit';
 import ChainLightning from './modules/talents/ChainLightning';
 import AplCheck from './modules/apl/AplCheck';
@@ -59,6 +59,7 @@ import Tempest from '../shared/hero/stormbringer/Tempest';
 import { StormbringerTab } from '../shared/hero/stormbringer/StormbringerTab';
 import StormbringerEventLinkNormalizer from '../shared/hero/stormbringer/normalizers/StormbringerEventLinkNormalizer';
 import StormbringerEventOrderNormalizer from '../shared/hero/stormbringer/normalizers/StormbringerEventOrderNormalizer';
+import ElementalSpiritsPrepullNormalizer from './modules/normalizers/ElementalSpiritsPrepullNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -110,7 +111,7 @@ class CombatLogParser extends CoreCombatLogParser {
     elementalSpirits: ElementalSpirits,
     witchDoctorsAncestry: WitchDoctorsAncestry,
     feralSpirit: FeralSpirit,
-    stormbringer: Stormbringer,
+    stormbringer: Stormsurge,
     legacyOfTheFrostWitch: LegacyOfTheFrostWitch,
     thorimsInvocation: ThorimsInvocation,
     ashenCatalyst: AshenCatalyst,
@@ -130,6 +131,7 @@ class CombatLogParser extends CoreCombatLogParser {
     maelstromWeaponCastNormalizer: MaelstromWeaponCastNormalizer, // links
     eventLinkNormalizer: EventLinkNormalizer, // links various maelstrom casts to damage events, and spells made instant via maelstrom weapon
     maelstromWeaponResourceNormalizer: MaelstromWeaponResourceNormalizer, // converts maelstrom weapon buff stacks into resourchange events and ClassResource costs
+    elementalSpiritsPrepullNormalizer: ElementalSpiritsPrepullNormalizer,
 
     aplCheck: AplCheck,
   };

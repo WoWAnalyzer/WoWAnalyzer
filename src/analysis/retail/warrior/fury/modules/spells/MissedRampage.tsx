@@ -1,6 +1,6 @@
 import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
-import talents from 'common/TALENTS/warrior';
+import talents, { TALENTS_WARRIOR } from 'common/TALENTS/warrior';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -12,20 +12,26 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
  */
 
 const RAGE_GENERATORS = [
+  SPELLS.CRUSHING_BLOW,
+  SPELLS.BLOODBATH,
   SPELLS.RAGING_BLOW,
   SPELLS.BLOODTHIRST,
   SPELLS.EXECUTE_FURY,
   SPELLS.WHIRLWIND_FURY_CAST,
 ];
 
-// This whole module is kind of messed up on the theorycrafting level. As of 8.3 there are a lot of times that Rampage isn't the top priority if you have to keep Bloodthirst up for gushing wounds or cast whirlwind before rampage to cleave. TBD in shadowlands
+// Rework this module for TWW
 class MissedRampage extends Analyzer {
   missedRampages: number = 0;
   hasFB: boolean = false;
+  hasAngerManagement: boolean = false;
+  hasRecklessAbandon: boolean = false;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(talents.RAMPAGE_TALENT);
+    this.hasAngerManagement = this.selectedCombatant.hasTalent(talents.ANGER_MANAGEMENT_TALENT);
+    this.hasRecklessAbandon = this.selectedCombatant.hasTalent(talents.RECKLESS_ABANDON_TALENT);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([...RAGE_GENERATORS]), this.onCast);
   }
 
@@ -65,8 +71,23 @@ class MissedRampage extends Analyzer {
     }
 
     const rage = event.classResources[0].amount / 10;
-    if (rage >= 90) {
+
+    if (this.hasAngerManagement && rage >= 90) {
       this.missedRampages += 1;
+    } else if (this.hasRecklessAbandon) {
+      // RA is okay with overcapping on rage in a lot of cases
+      // Mostly to use Crushing Blow/Bloodbath charges
+      // Naiively only checking for Raging Blow here
+      // since Unhinged Bladestorm triggers a few Bloodthirsts that will
+      // easily overcap rage
+      if (
+        rage >= 115 &&
+        !this.selectedCombatant.hasBuff(SPELLS.CRUSHING_BLOW_BUFF) &&
+        !this.selectedCombatant.hasBuff(SPELLS.BLOODBATH_BUFF) &&
+        event.ability.guid === SPELLS.RAGING_BLOW.id
+      ) {
+        this.missedRampages += 1;
+      }
     }
   }
 
@@ -75,12 +96,10 @@ class MissedRampage extends Analyzer {
       suggest(
         <>
           There were {actual} times you casted a rage generating ability when you should have cast{' '}
-          <SpellLink spell={SPELLS.RAMPAGE} />.
-          <SpellLink spell={SPELLS.RAMPAGE} /> is your 2nd highest damage ability behind{' '}
-          <SpellLink spell={SPELLS.EXECUTE_FURY} /> and causes you to{' '}
-          <SpellLink spell={SPELLS.ENRAGE} />, increasing all of your damage done. You should never
-          hold a <SpellLink spell={SPELLS.RAMPAGE} />, unless you are casting{' '}
-          <SpellLink spell={SPELLS.WHIRLWIND_FURY_CAST} /> to cleave it.
+          <SpellLink spell={SPELLS.RAMPAGE} />. <SpellLink spell={SPELLS.RAMPAGE} /> activates both
+          the <SpellLink spell={TALENTS_WARRIOR.RECKLESS_ABANDON_TALENT} /> and{' '}
+          <SpellLink spell={TALENTS_WARRIOR.ANGER_MANAGEMENT_TALENT} /> talents, and causes you to{' '}
+          <SpellLink spell={SPELLS.ENRAGE} />, increasing all of your damage done.
         </>,
       )
         .icon(SPELLS.RAMPAGE.icon)

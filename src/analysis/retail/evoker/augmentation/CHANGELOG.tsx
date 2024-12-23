@@ -1,9 +1,16 @@
 import { change, date } from 'common/changelog';
-import { Vollmer } from 'CONTRIBUTORS';
+import { Vollmer, KYZ } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 import TALENTS from 'common/TALENTS/evoker';
 
 export default [
+  change(date(2024, 12, 22), <>Implement <SpellLink spell={TALENTS.REVERBERATIONS_TALENT}/> module</>, KYZ),
+  change(date(2024, 12, 22), <>Enable <SpellLink spell={TALENTS.CHRONO_FLAME_TALENT}/> and <SpellLink spell={TALENTS.THREADS_OF_FATE_TALENT}/> modules</>, KYZ),
+  change(date(2024, 11, 26), <>Update multipliers for <SpellLink spell={TALENTS.MOLTEN_EMBERS_TALENT} /> module & add guide section</>, Vollmer),
+  change(date(2024, 11, 18), <>Fix issue with <SpellLink spell={TALENTS.BREATH_OF_EONS_TALENT} /> module when buff targets don't have proper combatant info</>, Vollmer),
+  change(date(2024, 10, 24), <>Fix event issues with <SpellLink spell={TALENTS.BREATH_OF_EONS_TALENT} /> & MajorDefensives modules</>, Vollmer),
+  change(date(2024, 10, 4), <>Fix an issue with external <SpellLink spell={TALENTS.RENEWING_BLAZE_TALENT}/> for MajorDefensive module</>, Vollmer),
+  change(date(2024, 10, 4), <>Fix some edgecases for <SpellLink spell={TALENTS.BREATH_OF_EONS_TALENT} /> module</>, Vollmer),
   change(date(2024, 9, 16), "Update Buff Helper note gen for Frame Glows WA", Vollmer),
   change(date(2024, 9, 10), "Update Ability Filters for Helper Modules for TWW S1", Vollmer),
   change(date(2024, 9, 6), <>Implement <SpellLink spell={TALENTS.WINGLEADER_TALENT}/> module</>, Vollmer),

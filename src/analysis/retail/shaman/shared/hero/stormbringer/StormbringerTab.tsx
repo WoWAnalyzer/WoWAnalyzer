@@ -25,7 +25,7 @@ export const StormbringerTabContent = (props: props) => {
       ability: (
         <>
           {props.parser.selectedCombatant.spec === SPECS.ENHANCEMENT_SHAMAN ? (
-            <SpellLink spell={SPELLS.MAELSTROM_WEAPON} />
+            <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} />
           ) : (
             <ResourceLink id={RESOURCE_TYPES.MAELSTROM.id} />
           )}{' '}
@@ -56,7 +56,7 @@ export const StormbringerTabContent = (props: props) => {
           {props.parser.selectedCombatant.spec === SPECS.ENHANCEMENT_SHAMAN ? (
             <>
               <p>
-                Cycling <SpellLink spell={SPELLS.MAELSTROM_WEAPON} /> as quickly as possible to
+                Cycling <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> as quickly as possible to
                 trigger <SpellLink spell={TALENTS.TEMPEST_TALENT} />, then spending quickly to avoid
                 wasting follow-up procs from <SpellLink spell={TALENTS.AWAKENING_STORMS_TALENT} />{' '}
                 is extremely important to performing well with Stormbringer.
@@ -69,7 +69,7 @@ export const StormbringerTabContent = (props: props) => {
             The graph below shows the progress towards the next{' '}
             <SpellLink spell={TALENTS.TEMPEST_TALENT} /> from both spending{' '}
             {props.parser.selectedCombatant.spec === SPECS.ENHANCEMENT_SHAMAN ? (
-              <SpellLink spell={SPELLS.MAELSTROM_WEAPON} />
+              <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} />
             ) : (
               <ResourceLink id={RESOURCE_TYPES.MAELSTROM.id} />
             )}{' '}

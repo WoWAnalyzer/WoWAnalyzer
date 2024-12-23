@@ -39,6 +39,15 @@ if (import.meta.env.VITE_SENTRY_DSN) {
     environment: import.meta.env.VITE_ENVIRONMENT_NAME,
     allowUrls: ['wowanalyzer.com/assets/'],
 
+    beforeSend(event) {
+      // this is *an attempt* to keep sentry from sending up user info that we don't want & don't need
+      if (event.user) {
+        delete event.user;
+      }
+
+      return event;
+    },
+
     // Set tracesSampleRate to 1.0 to capture 100%
     // of transactions for performance monitoring.
     tracesSampleRate: 1.0,
@@ -48,6 +57,8 @@ if (import.meta.env.VITE_SENTRY_DSN) {
 
     ignoreErrors: [/TypeError: Failed to fetch/, /Failed to fetch/],
   });
+
+  Sentry.setUser(null);
 }
 
 render(<Root />, document.getElementById('app-mount'));

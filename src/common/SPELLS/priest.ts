@@ -415,12 +415,14 @@ const spells = {
     name: 'Words of the Pious',
     icon: 'ability_priest_clarityofwill',
   },
-  ENTROPIC_RIFT_DAMAGE_DISC: {
+
+  //Voidweaver
+  ENTROPIC_RIFT_DAMAGE: {
     id: 447448,
     name: 'Entropic Rift',
     icon: 'inv_ability_voidweaverpriest_entropicrift',
   },
-  COLLAPSING_VOID_DAMAGE_DISC: {
+  COLLAPSING_VOID_DAMAGE: {
     id: 448405,
     name: 'Collapsing Void',
     icon: 'inv_cosmicvoid_groundsate',
@@ -965,23 +967,41 @@ const spells = {
     icon: 'ability_priest_psychiclink',
   },
 
+  //Shadow Archon
+  SHADOW_PRIEST_ARCHON_RESONANT_ENERGY_DEBUFF: {
+    id: 453850,
+    name: 'Resonant Energy',
+    icon: 'ability_priest_halo',
+  },
+
+  SHADOW_PRIEST_ARCHON_SUSTAINED_POTENCY_BUFF: {
+    id: 454002,
+    name: 'Sustained Potency',
+    icon: 'ability_priest_ascension',
+  },
+
+  //Shadow Voidweaver
+  SHADOW_PRIEST_VOIDWEAVER_VOID_BLAST: {
+    id: 450983,
+    name: 'Void Blast',
+    icon: 'inv_cosmicvoid_missile',
+  },
+  SHADOW_PRIEST_VOIDWEAVER_ENTROPIC_RIFT_BUFF: {
+    id: 450193,
+    name: 'Entropic Rift',
+    icon: 'inv_ability_voidweaverpriest_entropicrift',
+  },
+  SHADOW_PRIEST_VOIDWEAVER_VOIDWRAITH_CAST: {
+    id: 451235,
+    name: 'Voidwraith',
+    icon: 'warlock_curse_shadow',
+  },
+
   //Shadow Tier
-  SHADOW_PRIEST_TIER_29_4_SET_BUFF: {
-    id: 394963,
-    name: 'Dark Reveries',
-    icon: 'inv_mace_1h_artifactheartofkure_d_05',
-  },
-
-  SHADOW_PRIEST_TIER_30_4_SET_BUFF: {
-    id: 409502,
-    name: 'Darkflame Embers',
-    icon: 'spell_nzinsanity_panicattack',
-  },
-
-  SHADOW_PRIEST_TIER_31_4_SET_BUFF: {
-    id: 423726,
-    name: 'Deaths Torment',
-    icon: 'spell_shadow_deathsembrace',
+  SHADOW_PRIEST_TWW_TIER_1_4_SET_BUFF: {
+    id: 454638,
+    name: 'Devouring Chorus',
+    icon: 'spell_shadow_devouringplague',
   },
 
   // Disc

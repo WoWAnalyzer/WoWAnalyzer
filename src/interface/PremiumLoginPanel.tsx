@@ -4,13 +4,14 @@ import GitHubMarkIcon from 'interface/icons/GitHubMarkLarge';
 import LogoutIcon from 'interface/icons/Logout';
 import PatreonIcon from 'interface/icons/PatreonTiny';
 import { Textfit } from 'react-textfit';
-import { TransitionGroup } from 'react-transition-group';
 import { useWaDispatch } from 'interface/utils/useWaDispatch';
 import { useWaSelector } from 'interface/utils/useWaSelector';
-import { MouseEvent } from 'react';
+import { MouseEvent, useRef } from 'react';
 
 import './PremiumLoginPanel.scss';
 import { logout } from './reducers/user';
+import { CSSTransition } from 'react-transition-group';
+import React from 'react';
 
 const INITIAL_BACKGROUNDS = [
   '7TqE3VIAU2odkmneHU', // human salute https://giphy.com/gifs/warcraft-video-games-7TqE3VIAU2odkmneHU
@@ -35,7 +36,7 @@ const INITIAL_BACKGROUNDS = [
 //   '4a4w6CzSj1t2Hl6gYy', // orc please https://giphy.com/gifs/warcraft-video-games-4a4w6CzSj1t2Hl6gYy
 // ];
 
-const LoggedIn = () => {
+const LoggedIn = React.forwardRef<HTMLDivElement, unknown>((props, ref) => {
   const dispatch = useWaDispatch();
   const user = useWaSelector((state) => state.user);
 
@@ -54,7 +55,7 @@ const LoggedIn = () => {
   };
 
   return (
-    <div className={`logged-in ${platform}`}>
+    <div className={`logged-in ${platform}`} ref={ref}>
       <div>
         <div className="logo">
           {platform === 'github' && <GitHubMarkIcon style={{ marginTop: 0 }} />}
@@ -91,16 +92,23 @@ const LoggedIn = () => {
       </div>
     </div>
   );
-};
+});
 
 const PremiumLoginPanel = () => {
   const user = useWaSelector((state) => state.user);
+  const ref = useRef<HTMLDivElement>(null);
   return (
     <div className="panel">
       <div className="panel-body" style={{ padding: '0 15px', position: 'relative' }}>
-        <TransitionGroup classNames="logged-in" timeout={1000}>
-          {user && <LoggedIn />}
-        </TransitionGroup>
+        <CSSTransition
+          nodeRef={ref}
+          in={Boolean(user)}
+          timeout={1000}
+          classNames="logged-in"
+          onEnter={(...args) => console.log(...args)}
+        >
+          <LoggedIn ref={ref} />
+        </CSSTransition>
 
         <div
           className="row image-background"

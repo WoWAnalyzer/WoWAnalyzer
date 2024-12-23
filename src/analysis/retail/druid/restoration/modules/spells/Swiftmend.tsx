@@ -16,6 +16,7 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import { calculateHealTargetHealthPercent } from 'parser/core/EventCalculateLib';
+import { Fragment } from 'react';
 import { formatPercentage } from 'common/format';
 import { abilityToSpell } from 'common/abilityToSpell';
 import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBreakdown';
@@ -129,9 +130,9 @@ class Swiftmend extends Analyzer {
             extended{' '}
             <strong>
               {extendedHotIds.map((id, index) => (
-                <>
+                <Fragment key={id}>
                   <SpellLink key={id} spell={id} />{' '}
-                </>
+                </Fragment>
               ))}
             </strong>
           </>

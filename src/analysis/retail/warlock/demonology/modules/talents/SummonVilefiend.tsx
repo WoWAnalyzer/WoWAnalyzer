@@ -22,15 +22,31 @@ class SummonVilefiend extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(TALENTS.SUMMON_VILEFIEND_TALENT);
   }
 
+  getCurrentPetGUID() {
+    return this.selectedCombatant.hasTalent(TALENTS.MARK_OF_FHARG_TALENT)
+      ? PETS.CHARHOUND.guid
+      : this.selectedCombatant.hasTalent(TALENTS.MARK_OF_SHATUG_TALENT)
+        ? PETS.GLOOMHOUND.guid
+        : PETS.VILEFIEND.guid;
+  }
+
+  getCurrentTalentUsed() {
+    return this.selectedCombatant.hasTalent(TALENTS.MARK_OF_FHARG_TALENT)
+      ? TALENTS.MARK_OF_FHARG_TALENT
+      : this.selectedCombatant.hasTalent(TALENTS.MARK_OF_SHATUG_TALENT)
+        ? TALENTS.MARK_OF_SHATUG_TALENT
+        : TALENTS.SUMMON_VILEFIEND_TALENT;
+  }
+
   statistic() {
-    const damage = this.demoPets.getPetDamage(PETS.VILEFIEND.guid);
+    const damage = this.demoPets.getPetDamage(this.getCurrentPetGUID());
     return (
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={`${formatThousands(damage)} damage`}
       >
-        <BoringSpellValueText spell={TALENTS.SUMMON_VILEFIEND_TALENT}>
+        <BoringSpellValueText spell={this.getCurrentTalentUsed()}>
           <ItemDamageDone amount={damage} />
         </BoringSpellValueText>
       </Statistic>

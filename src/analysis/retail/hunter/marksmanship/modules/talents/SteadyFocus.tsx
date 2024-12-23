@@ -13,7 +13,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 /**
- * Using Steady Shot twice in a row increases your Haste by 7% for 15 sec.
+ * Using Steady Shot twice in a row increases your Haste by 8% for 15 sec.
  *
  * Example log:
  *

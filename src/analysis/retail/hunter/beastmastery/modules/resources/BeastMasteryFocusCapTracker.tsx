@@ -4,7 +4,6 @@ import { TALENTS_HUNTER } from 'common/TALENTS';
 import {
   BASE_BM_FOCUS_MAX,
   BASE_BM_FOCUS_REGEN,
-  KINDRED_SPIRITS_FOCUS_INCREASE,
   PACK_TACTICS_FOCUS_REGEN_INCREASE,
 } from '../../constants';
 
@@ -16,11 +15,7 @@ class BeastMasteryFocusCapTracker extends FocusCapTracker {
   }
 
   currentMaxResource() {
-    const kindredSpiritsRank = this.selectedCombatant.getTalentRank(
-      TALENTS_HUNTER.KINDRED_SPIRITS_TALENT,
-    );
-    const increasedFocus = KINDRED_SPIRITS_FOCUS_INCREASE[kindredSpiritsRank];
-    return BASE_BM_FOCUS_MAX + increasedFocus;
+    return BASE_BM_FOCUS_MAX;
   }
 }
 

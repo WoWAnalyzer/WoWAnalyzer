@@ -2,6 +2,8 @@ import { Trans } from '@lingui/macro';
 import ITEMS from 'common/ITEMS';
 import { Enchant as EnchantItem } from 'common/ITEMS/Item';
 import { Enchant } from 'common/SPELLS/Spell';
+import { TALENTS_SHAMAN } from 'common/TALENTS';
+import SPECS from 'game/SPECS';
 import { ItemLink } from 'interface';
 import { EnhancementBoxRowEntry } from 'interface/guide/components/Preparation/EnhancementSubSection/EnhancementBoxRow';
 import Analyzer from 'parser/core/Analyzer';
@@ -28,13 +30,24 @@ class WeaponEnhancementChecker extends Analyzer {
   }
 
   get enhanceableWeapons() {
+    // totemic resto shamans can enchant a shield
+    const includeShield =
+      (this.selectedCombatant.spec === SPECS.ELEMENTAL_SHAMAN &&
+        this.selectedCombatant.hasTalent(TALENTS_SHAMAN.THUNDERSTRIKE_WARD_TALENT)) ||
+      (this.selectedCombatant.spec === SPECS.RESTORATION_SHAMAN &&
+        this.selectedCombatant.hasTalent(TALENTS_SHAMAN.SUPPORTIVE_IMBUEMENTS_TALENT));
+
     return Object.keys(this.WeaponSlots).reduce((obj: { [key: number]: Item }, slot) => {
       const item = this.selectedCombatant._getGearItemBySlotId(Number(slot));
 
       // If there is no offhand, disregard the item.
       // If the icon has `offhand` in the name, we know it's not a weapon and doesn't need an enhancement.
       // This is not an ideal way to determine if an offhand is a weapon.
-      if (item.id === 0 || item.icon.includes('offhand') || item.icon.includes('shield')) {
+      if (
+        item.id === 0 ||
+        item.icon.includes('offhand') ||
+        (!includeShield && item.icon.includes('shield'))
+      ) {
         return obj;
       }
       obj[Number(slot)] = this.selectedCombatant._getGearItemBySlotId(Number(slot));

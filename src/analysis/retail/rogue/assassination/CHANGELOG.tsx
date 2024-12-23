@@ -1,11 +1,13 @@
 import { change, date } from 'common/changelog';
-import { Bigsxy, ToppleTheNun, Whispyr, SebShady } from 'CONTRIBUTORS';
+import { Bigsxy, ToppleTheNun, Whispyr, SebShady, emallson } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 import SPELLS from 'common/SPELLS/rogue';
 import TALENTS from 'common/TALENTS/rogue';
 import SHARED_CHANGELOG from 'analysis/retail/rogue/shared/CHANGELOG';
 
+// prettier-ignore
 export default [
+  change(date(2024, 11, 18), 'Remove Sepsis and adjust other spells updated in 11.0.5', emallson),
   change(date(2024, 9, 22), 'TWW initial compatibility update.', SebShady),
   change(date(2024, 5, 22), 'Fix spelling of Ravenholdt.', ToppleTheNun),
   change(date(2023, 12, 10), <>Add experimental <SpellLink spell={TALENTS.KINGSBANE_TALENT} /> support behind a toggle.</>, ToppleTheNun),

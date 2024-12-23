@@ -10,7 +10,10 @@ class Shadowfiend extends Pet {
 
   constructor(options: Options) {
     super(options);
-    this.active = !this.selectedCombatant.hasTalent(TALENTS.MINDBENDER_SHADOW_TALENT);
+    this.active = !(
+      this.selectedCombatant.hasTalent(TALENTS.MINDBENDER_SHADOW_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS.VOIDWRAITH_TALENT)
+    );
   }
 }
 

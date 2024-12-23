@@ -99,6 +99,8 @@ class CombatLogParser extends CoreCombatLogParser {
     DesperateTimes: Talents.BottomRow.DesperateTimes,
     HealingChorus: Talents.MiddleRow.HealingChorus,
     EverlastingLight: Talents.MiddleRow.EverlastingLight,
+    PrismaticEchoes: Talents.MiddleRow.PrismaticEchoes,
+    CrisisManagement: Talents.MiddleRow.CrisisManagement,
 
     BindingHeals: Talents.Classwide.BindingHeals,
     AngelsMercy: Talents.Classwide.AngelsMercy,

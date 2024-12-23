@@ -6,21 +6,77 @@ import REGION_CODES from './REGION_CODES';
 import Tooltip from './Tooltip';
 import './ReportSelecter.css';
 
+interface ReportSelection {
+  code: string;
+  fight?: number;
+  source?: number;
+}
+
+const REPORT_CODE_RE = /^(a:)?([a-zA-Z0-9]{16})$/;
+
+function getReportSelection(input: string): ReportSelection | null {
+  if (REPORT_CODE_RE.test(input)) {
+    // raw report code
+    return {
+      code: input,
+    };
+  }
+
+  try {
+    const url = new URL(input);
+    const [, directory, maybeReportCode] = url.pathname.split('/');
+    if (directory !== 'reports' || !REPORT_CODE_RE.test(maybeReportCode)) {
+      return null;
+    }
+    // definitely a report, try to find the fight/source data
+    let fight: number | undefined = undefined;
+    let source: number | undefined = undefined;
+    // check the hash (old style urls) first
+    if (url.hash) {
+      const hashComponents = Object.fromEntries(
+        url.hash
+          .substring(1)
+          .split('&')
+          .map((component) => component.split('=')),
+      );
+      if (hashComponents.fight) {
+        fight = Number.parseInt(hashComponents.fight);
+      }
+      if (hashComponents.source) {
+        source = Number.parseInt(hashComponents.source);
+      }
+    }
+
+    // now check the query params (new style urls)
+    if (url.searchParams) {
+      if (url.searchParams.has('fight')) {
+        fight = Number.parseInt(url.searchParams.get('fight')!);
+      }
+      if (url.searchParams.has('source')) {
+        source = Number.parseInt(url.searchParams.get('source')!);
+      }
+    }
+
+    return {
+      code: maybeReportCode,
+      fight,
+      source,
+    };
+  } catch {
+    return null;
+  }
+}
+
 export function getReportCode(input: string) {
-  const match = input
-    .trim()
-    .match(/^(.*reports\/)?((?:[a:]{2})([a-zA-Z0-9]{16})|([a-zA-Z0-9]{16}))\/?(#.*)?$/);
-  return match && match[2];
+  return getReportSelection(input)?.code;
 }
 
 function getFight(input: string) {
-  const match = input.trim().match(/fight=([^&]*)/);
-  return match && match[1];
+  return getReportSelection(input)?.fight;
 }
 
 function getPlayer(input: string) {
-  const match = input.trim().match(/source=([^&]*)/);
-  return match && match[1];
+  return getReportSelection(input)?.source;
 }
 
 function getCharacterFromWCLUrl(input: string) {

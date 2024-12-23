@@ -19,7 +19,9 @@ class TrainOfThought extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(TALENTS.TRAIN_OF_THOUGHT_TALENT);
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.SMITE, SPELLS.SHADOW_SMITE]),
+      Events.cast
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.SMITE, SPELLS.SHADOW_SMITE, SPELLS.VOID_BLAST_DAMAGE_DISC]),
       this.onCdrCast,
     );
   }

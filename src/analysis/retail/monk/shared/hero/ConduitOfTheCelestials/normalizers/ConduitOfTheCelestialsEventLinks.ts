@@ -40,7 +40,6 @@ const CELESTIAL_CONDUIT_LINKS: EventLink[] = [
   //grouping damage and heal events on tick
   {
     linkRelation: CELESTIAL_CONDUIT,
-    reverseLinkRelation: CELESTIAL_CONDUIT,
     linkingEventId: [SPELLS.CELESTIAL_CONDUIT_HEAL.id, SPELLS.CELESTIAL_CONDUIT_DAMAGE.id],
     linkingEventType: [EventType.Heal, EventType.Damage],
     referencedEventId: [SPELLS.CELESTIAL_CONDUIT_HEAL.id, SPELLS.CELESTIAL_CONDUIT_DAMAGE.id],

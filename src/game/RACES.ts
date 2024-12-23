@@ -7,9 +7,7 @@ export interface Race {
   name: string;
 }
 
-const RACES: {
-  [key: string]: Race;
-} = {
+const RACES = {
   Human: {
     id: 1,
     mask: 1,
@@ -178,6 +176,6 @@ const RACES: {
     name: 'Earthen',
     side: 'alliance',
   },
-};
+} satisfies Record<string, Race>;
 
 export default RACES;

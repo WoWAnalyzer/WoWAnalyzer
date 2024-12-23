@@ -198,14 +198,6 @@ const talents = {
     entryIds: [126298],
     definitionIds: [{ id: 131124, specId: 250 }],
   },
-  BLOOD_FEVER_TALENT: {
-    id: 440002,
-    name: 'Blood Fever',
-    icon: 'ability_ironmaidens_corruptedblood',
-    maxRanks: 1,
-    entryIds: [117655],
-    definitionIds: [{ id: 122667, specId: 251 }],
-  },
   BLOOD_SCENT_TALENT: {
     id: 374030,
     name: 'Blood Scent',
@@ -557,8 +549,8 @@ const talents = {
     name: 'Expelling Shield',
     icon: 'spell_shadow_antimagicshell',
     maxRanks: 1,
-    entryIds: [119140],
-    definitionIds: [{ id: 124040, specId: 251 }],
+    entryIds: [128234],
+    definitionIds: [{ id: 133041, specId: 251 }],
   },
   EXTERMINATE_TALENT: {
     id: 441378,
@@ -1188,14 +1180,6 @@ const talents = {
     entryIds: [117652],
     definitionIds: [{ id: 122664, specId: 252 }],
   },
-  PAINFUL_DEATH_TALENT: {
-    id: 443564,
-    name: 'Painful Death',
-    icon: 'ability_domination_rune12',
-    maxRanks: 1,
-    entryIds: [123337],
-    definitionIds: [{ id: 128199, specId: 251 }],
-  },
   PERMAFROST_TALENT: {
     id: 207200,
     name: 'Permafrost',
@@ -1310,6 +1294,22 @@ const talents = {
     entryIds: [117659],
     definitionIds: [{ id: 122671, specId: 251 }],
     runesCost: 2,
+  },
+  REAPERS_ONSLAUGHT_TALENT: {
+    id: 469870,
+    name: "Reaper's Onslaught",
+    icon: 'ability_demonhunter_soulcleave2',
+    maxRanks: 1,
+    entryIds: [128266],
+    definitionIds: [{ id: 133073, specId: 251 }],
+  },
+  REAPER_OF_SOULS_TALENT: {
+    id: 440002,
+    name: 'Reaper of Souls',
+    icon: 'pvp_soulrip',
+    maxRanks: 1,
+    entryIds: [128235],
+    definitionIds: [{ id: 133042, specId: 251 }],
   },
   REAPING_TALENT: {
     id: 377514,
@@ -1550,9 +1550,9 @@ const talents = {
     entryIds: [96216],
     definitionIds: [{ id: 101218, specId: 252 }],
   },
-  SWIFT_END_TALENT: {
+  SWIFT_AND_PAINFUL_TALENT: {
     id: 443560,
-    name: 'Swift End',
+    name: 'Swift and Painful',
     icon: 'ability_domination_rune02',
     maxRanks: 1,
     entryIds: [117629],
@@ -1780,8 +1780,8 @@ const talents = {
     name: 'Wither Away',
     icon: 'sha_spell_warlock_demonsoul',
     maxRanks: 1,
-    entryIds: [121984],
-    definitionIds: [{ id: 126884, specId: 251 }],
+    entryIds: [117655],
+    definitionIds: [{ id: 122667, specId: 251 }],
   },
   WRAITH_WALK_TALENT: {
     id: 212552,

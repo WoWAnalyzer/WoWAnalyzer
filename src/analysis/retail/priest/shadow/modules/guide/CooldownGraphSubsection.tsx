@@ -8,10 +8,10 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { CooldownWindow, fromExecuteRange, GapHighlight } from 'parser/ui/CooldownBar';
 import Voidbolt from '../spells/Voidbolt';
-import ShadowWordDeath from '../spells/ShadowWordDeath';
-import ItemSetLink from 'interface/ItemSetLink';
-import { TIERS } from 'game/TIERS';
-import { PRIEST_DF3_ID } from 'common/ITEMS/dragonflight';
+import VoidBlast from '../talents/Voidweaver/VoidBlast';
+//import ShadowWordDeath from '../spells/ShadowWordDeath';
+//import ItemSetLink from 'interface/ItemSetLink';
+//import { TIERS } from 'game/TIERS';
 
 type Cooldown = {
   talent: Talent;
@@ -23,24 +23,39 @@ type SpellCooldown = {
   activeWindows?: CooldownWindow[];
 };
 
+//you can't push Spells to Cooldowns later on without adding it multiple times when changing tabs, so we just use a different list for each combination
+//I can't find a better way to do this, but need to find one as talent choices make for many different possibilites.
+
+//Core Cooldowns
 const coreCooldowns: SpellCooldown[] = [
   { spell: SPELLS.MIND_BLAST },
-  { spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
+  //{ spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
 ];
-
-const coreCooldownsVB: SpellCooldown[] = [
-  //you can't push VoidBolt to coreCooldowns later on without adding it multiple times when changing tabs, so we just use a different list
+const coreCooldownsVW: SpellCooldown[] = [
   { spell: SPELLS.MIND_BLAST },
-  { spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
+  { spell: SPELLS.SHADOW_PRIEST_VOIDWEAVER_VOID_BLAST },
+  //{ spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
+];
+const coreCooldownsVB: SpellCooldown[] = [
+  { spell: SPELLS.MIND_BLAST },
+  //{ spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
+  { spell: SPELLS.VOID_BOLT },
+];
+const coreCooldownsVWVB: SpellCooldown[] = [
+  { spell: SPELLS.MIND_BLAST },
+  { spell: SPELLS.SHADOW_PRIEST_VOIDWEAVER_VOID_BLAST },
+  //{ spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
   { spell: SPELLS.VOID_BOLT },
 ];
 
+//Short Cooldowns
 const shortCooldowns: Cooldown[] = [
   { talent: TALENTS.VOID_TORRENT_TALENT },
   { talent: TALENTS.SHADOW_CRASH_1_SHADOW_TALENT },
   { talent: TALENTS.SHADOW_CRASH_2_SHADOW_TALENT },
 ];
 
+//Long Cooldowns
 const longCooldownsMB: Cooldown[] = [
   { talent: TALENTS.POWER_INFUSION_TALENT },
   { talent: TALENTS.DARK_ASCENSION_TALENT },
@@ -54,9 +69,38 @@ const longCooldownsSF: Cooldown[] = [
   { talent: TALENTS.SHADOWFIEND_TALENT },
 ];
 
+//we can only pass tlanets into short and long cooldowns.
+//But Voidwraith's talent id is not the same as its cast, so we have to change it to match its cast.
+const voidwraith = TALENTS.VOIDWRAITH_TALENT;
+voidwraith.id = 451235;
+
+const longCooldownsVW: Cooldown[] = [
+  { talent: TALENTS.POWER_INFUSION_TALENT },
+  { talent: TALENTS.DARK_ASCENSION_TALENT },
+  { talent: TALENTS.VOID_ERUPTION_TALENT },
+  { talent: voidwraith },
+];
+
+const longCooldownsMBARC: Cooldown[] = [
+  { talent: TALENTS.POWER_INFUSION_TALENT },
+  { talent: TALENTS.DARK_ASCENSION_TALENT },
+  { talent: TALENTS.HALO_SHADOW_TALENT },
+  { talent: TALENTS.VOID_ERUPTION_TALENT },
+  { talent: TALENTS.MINDBENDER_SHADOW_TALENT },
+];
+const longCooldownsSFARC: Cooldown[] = [
+  { talent: TALENTS.POWER_INFUSION_TALENT },
+  { talent: TALENTS.DARK_ASCENSION_TALENT },
+  { talent: TALENTS.HALO_SHADOW_TALENT },
+  { talent: TALENTS.VOID_ERUPTION_TALENT },
+  { talent: TALENTS.SHADOWFIEND_TALENT },
+];
+
 const CoreCooldownsGraph = () => {
   const VoidboltAnalyzer = useAnalyzer(Voidbolt);
-  const ShadowWordDeathAnalyzer = useAnalyzer(ShadowWordDeath);
+  const VoidBlastAnalyzer = useAnalyzer(VoidBlast);
+  //const ShadowWordDeathAnalyzer = useAnalyzer(ShadowWordDeath);
+
   const info = useInfo();
   let coreCooldown = coreCooldowns;
 
@@ -67,32 +111,37 @@ const CoreCooldownsGraph = () => {
       </strong>{' '}
       is a core spell that should be keept on cooldown as much as possible.
       <br />
+      {/*
       <strong>
         <SpellLink spell={TALENTS.SHADOW_WORD_DEATH_TALENT} />
       </strong>{' '}
-      {info!.combatant.has4PieceByTier(TIERS.DF3) && (
-        <>
-          should always be used on cooldown with{' '}
-          <ItemSetLink id={PRIEST_DF3_ID}> Amirdrassil 4 Piece</ItemSetLink> equppied.
-        </>
-      )}
-      {!info!.combatant.has4PieceByTier(TIERS.DF3) && (
-        <>
-          should be used during execute,{' '}
-          {info!.combatant.hasTalent(TALENTS.DEATHSPEAKER_TALENT) && (
-            <>
-              and with <SpellLink spell={TALENTS.DEATHSPEAKER_TALENT} /> procs,{' '}
-            </>
-          )}
-          {info!.combatant.hasTalent(TALENTS.INESCAPABLE_TORMENT_TALENT) && (
-            <>
-              and during <SpellLink spell={TALENTS.MINDBENDER_SHADOW_TALENT} /> with{' '}
-              <SpellLink spell={TALENTS.INESCAPABLE_TORMENT_TALENT} /> talented.
-            </>
-          )}
-        </>
-      )}
+      <>
+        should be used during execute,{' '}
+        {info!.combatant.hasTalent(TALENTS.DEATHSPEAKER_TALENT) && (
+          <>
+            and with <SpellLink spell={TALENTS.DEATHSPEAKER_TALENT} /> procs,{' '}
+          </>
+        )}
+        {info!.combatant.hasTalent(TALENTS.INESCAPABLE_TORMENT_TALENT) && (
+          <>
+            and during <SpellLink spell={TALENTS.MINDBENDER_SHADOW_TALENT} /> with{' '}
+            <SpellLink spell={TALENTS.INESCAPABLE_TORMENT_TALENT} /> talented.
+          </>
+        )}
+      </>
       <br />
+      */}
+      {info!.combatant.hasTalent(TALENTS.VOID_BLAST_TALENT) && (
+        <>
+          <strong>
+            {' '}
+            <SpellLink spell={SPELLS.SHADOW_PRIEST_VOIDWEAVER_VOID_BLAST} />{' '}
+          </strong>{' '}
+          is a powerful spell that should be cast on cooldown while you have access to it while{' '}
+          <SpellLink spell={SPELLS.SHADOW_PRIEST_VOIDWEAVER_ENTROPIC_RIFT_BUFF} /> is active.
+          <br />
+        </>
+      )}
       {info!.combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT) && (
         <>
           <strong>
@@ -107,13 +156,27 @@ const CoreCooldownsGraph = () => {
     </p>
   );
 
+  if (info!.combatant.hasTalent(TALENTS.VOID_BLAST_TALENT)) {
+    coreCooldown = coreCooldownsVW;
+  }
   if (info!.combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT)) {
     coreCooldown = coreCooldownsVB;
+    if (info!.combatant.hasTalent(TALENTS.VOID_BLAST_TALENT)) {
+      coreCooldown = coreCooldownsVWVB;
+    }
+    //For voidbolt in guide view:
     // not the prettiest solution, but functional
     coreCooldown.find((cd) => cd.spell.id === SPELLS.VOID_BOLT.id)!.activeWindows =
       VoidboltAnalyzer?.executeRanges.map(fromExecuteRange);
   }
 
+  if (info!.combatant.hasTalent(TALENTS.VOID_BLAST_TALENT)) {
+    coreCooldown.find(
+      (cd) => cd.spell.id === SPELLS.SHADOW_PRIEST_VOIDWEAVER_VOID_BLAST.id,
+    )!.activeWindows = VoidBlastAnalyzer?.executeRanges.map(fromExecuteRange);
+  }
+
+  /*
   coreCooldown.find((cd) => cd.spell.id === TALENTS.SHADOW_WORD_DEATH_TALENT.id)!.activeWindows =
     ShadowWordDeathAnalyzer?.executeRanges.map(fromExecuteRange);
 
@@ -143,6 +206,8 @@ const CoreCooldownsGraph = () => {
     }
     coreCooldown[cdIndex].activeWindows = combined;
   }
+
+  */
   return CoreCooldownGraphSubsection(coreCooldown, message);
 };
 
@@ -181,9 +246,19 @@ const ShortCooldownsGraph = () => {
 
 const LongCooldownsGraph = () => {
   const info = useInfo();
+  //The Long Cooldowns used depends on talent choices.
   let longCooldowns = longCooldownsSF;
+  if (info!.combatant.hasTalent(TALENTS.POWER_SURGE_TALENT)) {
+    longCooldowns = longCooldownsSFARC;
+  }
   if (info!.combatant.hasTalent(TALENTS.MINDBENDER_SHADOW_TALENT)) {
     longCooldowns = longCooldownsMB;
+    if (info!.combatant.hasTalent(TALENTS.POWER_SURGE_TALENT)) {
+      longCooldowns = longCooldownsMBARC;
+    }
+  }
+  if (info!.combatant.hasTalent(TALENTS.VOIDWRAITH_TALENT)) {
+    longCooldowns = longCooldownsVW;
   }
 
   const message = (

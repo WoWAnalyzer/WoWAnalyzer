@@ -69,28 +69,37 @@ class ArcaneOrbGuide extends Analyzer {
       </>
     );
     const orbTargetTooltip = <>{this.arcaneOrb.missedOrbs} Arcane Orb casts with no targets hit.</>;
-    const data = (
-      <RoundedPanel>
-        <div>
-          <span
-            style={{ color: qualitativePerformanceToColor(this.orbTargetUtil), fontSize: '18px' }}
-          >
-            {arcaneOrbIcon}{' '}
-            <TooltipElement content={orbTargetTooltip}>
-              {this.arcaneOrb.averageHitsPerCast.toFixed(2)} <small>avg targets hit</small>
-            </TooltipElement>
-          </span>
-          {' / '}
-          <CastEfficiencyStatElement spell={SPELLS.ARCANE_ORB} useThresholds />
-        </div>
-        <div>
-          <strong>Arcane Orb Usage</strong>
-          <PerformanceBoxRow values={this.arcaneOrbData} />
-          <small>green (good) / red (fail) mouseover the rectangles to see more details</small>
-        </div>
-        <CastEfficiencyBarElement spell={SPELLS.ARCANE_ORB} />
-      </RoundedPanel>
-    );
+    const data =
+      this.arcaneOrb.orbCasts.length > 0 ? (
+        <RoundedPanel>
+          <div>
+            <span
+              style={{ color: qualitativePerformanceToColor(this.orbTargetUtil), fontSize: '18px' }}
+            >
+              {arcaneOrbIcon}{' '}
+              <TooltipElement content={orbTargetTooltip}>
+                {this.arcaneOrb.averageHitsPerCast.toFixed(2)} <small>avg targets hit</small>
+              </TooltipElement>
+            </span>
+            {' / '}
+            <CastEfficiencyStatElement spell={SPELLS.ARCANE_ORB} useThresholds />
+          </div>
+          <div>
+            <strong>Arcane Orb Usage</strong>
+            <PerformanceBoxRow values={this.arcaneOrbData} />
+            <small>green (good) / red (fail) mouseover the rectangles to see more details</small>
+          </div>
+          <CastEfficiencyBarElement spell={SPELLS.ARCANE_ORB} />
+        </RoundedPanel>
+      ) : (
+        <RoundedPanel>
+          <div style={{ textAlign: 'center', fontSize: '20px' }}>
+            <p>
+              <strong>Player did not cast {arcaneOrb}</strong>
+            </p>
+          </div>
+        </RoundedPanel>
+      );
 
     return explanationAndDataSubsection(
       explanation,

@@ -1,18 +1,18 @@
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
-  ApplyBuffEvent,
   CastEvent,
   DamageEvent,
-  RemoveBuffEvent,
   UpdateSpellUsableEvent,
   UpdateSpellUsableType,
 } from 'parser/core/Events';
 import TALENTS from 'common/TALENTS/shaman';
-import SPELLS from 'common/SPELLS/shaman';
-import Spell from 'common/SPELLS/Spell';
-import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import SPELLS from 'common/SPELLS';
+import {
+  evaluateQualitativePerformanceByThreshold,
+  QualitativePerformance,
+} from 'parser/ui/QualitativePerformance';
 import { ChecklistUsageInfo, SpellUse, UsageInfo } from 'parser/core/SpellUsage/core';
-import { SpellLink } from 'interface';
+import { SpellLink, Tooltip } from 'interface';
 import { plural } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import MajorCooldown, { CooldownTrigger } from 'parser/core/MajorCooldowns/MajorCooldown';
@@ -21,17 +21,13 @@ import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { DamageIcon } from 'interface/icons';
 import RESOURCE_TYPES, { getResource } from 'game/RESOURCE_TYPES';
 import ElementalSpirits from './ElementalSpirits';
-
-const ELEMENTAL_SPIRIT_BUFFS: Spell[] = [
-  SPELLS.ELEMENTAL_SPIRITS_BUFF_MOLTEN_WEAPON,
-  SPELLS.ELEMENTAL_SPIRITS_BUFF_ICY_EDGE,
-  SPELLS.ELEMENTAL_SPIRITS_BUFF_CRACKLING_SURGE,
-];
+import typedKeys from 'common/typedKeys';
+import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
 
 interface ElementalBlastCastDetails extends CooldownTrigger<CastEvent> {
   event: CastEvent;
   chargesBeforeCast: number;
-  elementalSpiritsActive: number;
+  elementalSpiritsActive: Record<number, number>;
   maelstromUsed: number;
   bonusDamage: number;
   baseDamage: number;
@@ -44,7 +40,6 @@ class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
   };
 
   protected elementalSpirits!: ElementalSpirits;
-  private readonly elementalSpritsActive: Record<number, number> = {};
   private readonly maxCharges: number = 0;
   private cast: ElementalBlastCastDetails | null = null;
   private currentCharges: number = 0;
@@ -64,14 +59,6 @@ class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
       return;
     }
 
-    this.elementalSpritsActive = ELEMENTAL_SPIRIT_BUFFS.reduce(
-      (rec: Record<number, number>, spell: Spell) => {
-        rec[spell.id] = 0;
-        return rec;
-      },
-      {},
-    );
-
     this.maxCharges = this.selectedCombatant.getMultipleTalentRanks(
       TALENTS.ELEMENTAL_BLAST_ENHANCEMENT_TALENT,
       TALENTS.LAVA_BURST_TALENT,
@@ -87,14 +74,6 @@ class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
       this.onDamage,
     );
     this.addEventListener(
-      Events.applybuff.spell(ELEMENTAL_SPIRIT_BUFFS),
-      this.onApplyElementalSpiritBuff,
-    );
-    this.addEventListener(
-      Events.removebuff.spell(ELEMENTAL_SPIRIT_BUFFS),
-      this.onRemoveElementalSpiritBuff,
-    );
-    this.addEventListener(
       Events.UpdateSpellUsable.to(SELECTED_PLAYER).spell(TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT),
       this.onUpdateSpellUsable,
     );
@@ -103,10 +82,10 @@ class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
   onDamage(event: DamageEvent) {
     if (this.cast) {
       const totalDamage = event.amount + (event.absorbed || 0);
-      this.cast.bonusDamage =
-        this.cast.elementalSpiritsActive > 0
-          ? calculateEffectiveDamage(event, Math.pow(1.2, this.cast.elementalSpiritsActive) - 1)
-          : 0;
+      const activeSpirits = this.getActiveElementalSpirits(this.cast.elementalSpiritsActive);
+      this.cast.bonusDamage = activeSpirits
+        ? calculateEffectiveDamage(event, Math.pow(1.2, activeSpirits) - 1)
+        : 0;
       this.cast.baseDamage = totalDamage - this.cast.bonusDamage;
       this.recordCooldown(this.cast!);
       this.cast = null;
@@ -117,7 +96,12 @@ class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
     const cr = getResource(event.classResources, RESOURCE_TYPES.MAELSTROM_WEAPON.id);
     this.cast = {
       chargesBeforeCast: this.currentCharges,
-      elementalSpiritsActive: this.activeElementalSpirits,
+      elementalSpiritsActive: {
+        [SPELLS.ELEMENTAL_SPIRITS_BUFF_MOLTEN_WEAPON.id]: this.elementalSpirits.moltenWeaponCount,
+        [SPELLS.ELEMENTAL_SPIRITS_BUFF_CRACKLING_SURGE.id]:
+          this.elementalSpirits.cracklingSurgeCount,
+        [SPELLS.ELEMENTAL_SPIRITS_BUFF_ICY_EDGE.id]: this.elementalSpirits.icyEdgeCount,
+      },
       maelstromUsed: cr?.cost ?? 0,
       event: event,
       bonusDamage: 0,
@@ -135,85 +119,127 @@ class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
     }
   }
 
-  onApplyElementalSpiritBuff(event: ApplyBuffEvent) {
-    this.elementalSpritsActive[event.ability.guid] += 1;
-  }
-
-  onRemoveElementalSpiritBuff(event: RemoveBuffEvent) {
-    this.elementalSpritsActive[event.ability.guid] -= 1;
-    if (this.elementalSpritsActive[event.ability.guid] < 0) {
-      this.elementalSpritsActive[event.ability.guid] = 0;
-    }
-  }
-
-  get activeElementalSpirits(): number {
-    return Object.keys(this.elementalSpritsActive).reduce(
-      (total: number, buffId: string) => (total += this.elementalSpritsActive[Number(buffId)]),
+  getActiveElementalSpirits(activeSpirits: Record<number, number>): number {
+    return typedKeys(activeSpirits).reduce(
+      (total: number, buffId: number) => (total += activeSpirits[buffId]),
       0,
     );
   }
 
   getOverallCastPerformance(cast: ElementalBlastCastDetails) {
-    if (cast.chargesBeforeCast === 2 && cast.maelstromUsed >= 5) {
-      return QualitativePerformance.Perfect;
-    } else {
-      switch (cast.elementalSpiritsActive) {
-        case 0:
-          /** elemental blast should not be cast without elemental spirits if uncapped on charges */
-          return QualitativePerformance.Fail;
-        case 1:
-          return cast.maelstromUsed === 10
-            ? QualitativePerformance.Good
-            : QualitativePerformance.Ok;
-        default:
-          return cast.maelstromUsed >= 8
-            ? QualitativePerformance.Perfect
-            : QualitativePerformance.Good;
+    const activeSpirits = this.getActiveElementalSpirits(cast.elementalSpiritsActive);
+
+    if (cast.maelstromUsed >= 5) {
+      if (activeSpirits >= 4) {
+        return QualitativePerformance.Perfect;
+      } else if (activeSpirits > 0) {
+        return activeSpirits >= 3
+          ? QualitativePerformance.Good
+          : activeSpirits >= 2
+            ? QualitativePerformance.Ok
+            : QualitativePerformance.Fail;
       }
     }
+    return QualitativePerformance.Fail;
   }
 
   description(): JSX.Element {
     return (
       <>
-        <SpellLink spell={TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT} /> damage is multiplicatively
-        increased for each <SpellLink spell={TALENTS.ELEMENTAL_SPIRITS_TALENT} /> that is currently
-        active.
+        <p>
+          <SpellLink spell={TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT} /> benefits from each{' '}
+          <SpellLink spell={TALENTS.ELEMENTAL_SPIRITS_TALENT} />, making its damage scale very
+          quickly the more wolves you have active.
+        </p>
+        <p>
+          When you have <strong>4 or more</strong> of any{' '}
+          <SpellLink spell={TALENTS.ELEMENTAL_SPIRITS_TALENT} /> active,{' '}
+          <SpellLink spell={TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT} /> becomes your one of your
+          most powerful <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> spenders
+          {this.selectedCombatant.hasTalent(TALENTS.TEMPEST_TALENT) ? (
+            <>
+              , only behind <SpellLink spell={TALENTS.TEMPEST_TALENT} />
+            </>
+          ) : null}
+          .
+        </p>
+        {this.selectedCombatant.hasTalent(TALENTS.TEMPEST_TALENT) ? (
+          <>
+            <p>
+              You should avoid casting{' '}
+              <SpellLink spell={TALENTS.ELEMENTAL_BLAST_ENHANCEMENT_TALENT} /> with less than 4{' '}
+              <SpellLink spell={TALENTS.ELEMENTAL_SPIRITS_TALENT} />. Prior to 4, the chance for{' '}
+              <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> refunds from
+              <SpellLink spell={TALENTS.STATIC_ACCUMULATION_TALENT} /> and{' '}
+              <SpellLink spell={TALENTS.SUPERCHARGE_TALENT} /> make{' '}
+              <SpellLink spell={SPELLS.LIGHTNING_BOLT} /> a more efficent choice.
+            </p>
+          </>
+        ) : null}
+        <p>
+          During high haste points, such as <SpellLink spell={SPELLS.HEROISM} />/
+          <SpellLink spell={SPELLS.BLOODLUST} />, it is possible to have very high counts of{' '}
+          <SpellLink spell={TALENTS.ELEMENTAL_SPIRITS_TALENT} /> active. With good planning, you can
+          sometimes cast <strong>2 or 3</strong> extremely high damage{' '}
+          <SpellLink spell={TALENTS.ELEMENTAL_BLAST_ENHANCEMENT_TALENT} />
+        </p>
       </>
     );
   }
 
   maelstromPerformance(cast: ElementalBlastCastDetails): UsageInfo {
-    let performance: QualitativePerformance = QualitativePerformance.Fail;
-    if (cast.maelstromUsed === 10) {
-      performance = QualitativePerformance.Perfect;
-    } else if (cast.maelstromUsed >= 8) {
-      performance = QualitativePerformance.Good;
-    } else if (cast.maelstromUsed >= 5) {
-      performance = QualitativePerformance.Ok;
-    }
-
     return {
-      performance: performance,
+      performance: evaluateQualitativePerformanceByThreshold({
+        actual: cast.maelstromUsed,
+        isGreaterThanOrEqual: {
+          perfect: 5,
+        },
+      }),
       summary: (
-        <div>
+        <>
           {cast.maelstromUsed} <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> used
+        </>
+      ),
+      details: (
+        <div>
+          {cast.maelstromUsed} <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> used.
+          {cast.maelstromUsed < 5 ? (
+            <>
+              {' '}
+              You should never cast your maelstrom spells with less than 5{' '}
+              <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} />
+            </>
+          ) : null}
         </div>
       ),
-      details: null,
     };
   }
 
   elementalSpiritPerformance(cast: ElementalBlastCastDetails): UsageInfo {
-    const hadWolvesExplanation = (
+    const totalElementalSpirits = this.getActiveElementalSpirits(cast.elementalSpiritsActive);
+
+    const tooltip = (
       <>
+        Active wolves:
+        <ul>
+          {typedKeys(cast.elementalSpiritsActive)
+            .filter((spellId) => cast.elementalSpiritsActive[spellId] > 0)
+            .map((spellId) => {
+              const count = cast.elementalSpiritsActive[spellId];
+              const spell = maybeGetTalentOrSpell(spellId)!;
+              return (
+                <li key={spellId}>
+                  <strong>{count}</strong> <SpellLink spell={spell} />
+                </li>
+              );
+            })}
+        </ul>
+        <hr />
         <div>
-          You had <strong>{cast.elementalSpiritsActive}</strong>{' '}
-          <SpellLink spell={TALENTS.ELEMENTAL_SPIRITS_TALENT} /> active, increasing{' '}
-          <SpellLink spell={TALENTS.ELEMENTAL_BLAST_ENHANCEMENT_TALENT} /> damage from{' '}
+          <SpellLink spell={TALENTS.ELEMENTAL_BLAST_ENHANCEMENT_TALENT} /> damage increased from{' '}
           <DamageIcon /> {formatNumber(cast.baseDamage)} &rarr; <DamageIcon />{' '}
           {formatNumber(cast.bonusDamage + cast.baseDamage)}, for an increase of{' '}
-          {formatPercentage(Math.pow(1.2, cast.elementalSpiritsActive) - 1, 0)}% (
+          {formatPercentage(Math.pow(1.2, totalElementalSpirits) - 1, 0)}% (
           <i>
             <DamageIcon /> {formatNumber(cast.bonusDamage)} bonus damage
           </i>
@@ -221,44 +247,69 @@ class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
         </div>
       </>
     );
+
+    const hadWolvesExplanation = (
+      <>
+        <div>
+          You had{' '}
+          <Tooltip content={<div>{tooltip}</div>} hoverable direction="up">
+            <dfn>
+              <strong>{totalElementalSpirits}</strong>
+            </dfn>
+          </Tooltip>{' '}
+          <SpellLink spell={TALENTS.ELEMENTAL_SPIRITS_TALENT} /> active.
+          {totalElementalSpirits < 4 ? (
+            <>
+              {' '}
+              <SpellLink spell={TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT} /> should be cast with{' '}
+              <strong>4 or more</strong> <SpellLink spell={TALENTS.ELEMENTAL_SPIRITS_TALENT} />{' '}
+              active.
+            </>
+          ) : null}
+        </div>
+      </>
+    );
     const noWolvesExplanation = (
       <>
-        You did not have any <SpellLink spell={TALENTS.ELEMENTAL_SPIRITS_TALENT} /> active.
+        <div>
+          You did not have any <SpellLink spell={TALENTS.ELEMENTAL_SPIRITS_TALENT} /> active.
+        </div>
       </>
     );
 
     return {
-      performance:
-        cast.elementalSpiritsActive >= 3
-          ? QualitativePerformance.Perfect
-          : cast.elementalSpiritsActive >= 2
-            ? QualitativePerformance.Good
-            : cast.elementalSpiritsActive >= 1
-              ? QualitativePerformance.Ok
-              : QualitativePerformance.Fail,
+      performance: evaluateQualitativePerformanceByThreshold({
+        actual: totalElementalSpirits,
+        isGreaterThanOrEqual: {
+          perfect: 4,
+          ok: 2,
+        },
+      }),
       summary: (
         <div>
-          {cast.elementalSpiritsActive === 0 ? 'No' : cast.elementalSpiritsActive}{' '}
+          {totalElementalSpirits === 0 ? 'No' : totalElementalSpirits}{' '}
           <SpellLink spell={TALENTS.ELEMENTAL_SPIRITS_TALENT} /> active
         </div>
       ),
-      details: <>{cast.elementalSpiritsActive > 0 ? hadWolvesExplanation : noWolvesExplanation}</>,
+      details: <>{totalElementalSpirits > 0 ? hadWolvesExplanation : noWolvesExplanation}</>,
     };
   }
 
   chargePerformance(cast: ElementalBlastCastDetails): UsageInfo {
+    const totalElementalSpirits = this.getActiveElementalSpirits(cast.elementalSpiritsActive);
     let performance = QualitativePerformance.Fail;
     if (cast.maelstromUsed < 5) {
       performance = QualitativePerformance.Fail;
     }
     if (cast.chargesBeforeCast === 2) {
-      performance = QualitativePerformance.Perfect;
-    }
-    if (cast.elementalSpiritsActive > 0) {
       performance =
-        cast.elementalSpiritsActive >= 2
+        totalElementalSpirits >= 4 ? QualitativePerformance.Perfect : QualitativePerformance.Fail;
+    }
+    if (totalElementalSpirits > 0) {
+      performance =
+        totalElementalSpirits >= 2
           ? QualitativePerformance.Perfect
-          : cast.elementalSpiritsActive >= 1
+          : totalElementalSpirits >= 1
             ? QualitativePerformance.Good
             : QualitativePerformance.Ok;
     }
@@ -318,7 +369,7 @@ class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
           analyzer={this}
           title={
             <>
-              <SpellLink spell={TALENTS.ELEMENTAL_BLAST_ENHANCEMENT_TALENT} /> cast breakdown
+              <SpellLink spell={TALENTS.ELEMENTAL_BLAST_ENHANCEMENT_TALENT} />
             </>
           }
           hidePotentialMissedCasts
@@ -326,26 +377,6 @@ class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
         {this.elementalSpirits.graph}
       </>
     );
-  }
-
-  getCastPerformance(cast: ElementalBlastCastDetails): QualitativePerformance {
-    if (cast.chargesBeforeCast === 2 && cast.maelstromUsed >= 5) {
-      return QualitativePerformance.Perfect;
-    }
-
-    if (cast.elementalSpiritsActive > 0) {
-      return cast.maelstromUsed >= 8
-        ? cast.elementalSpiritsActive > 1
-          ? QualitativePerformance.Perfect
-          : QualitativePerformance.Good
-        : cast.maelstromUsed >= 5
-          ? cast.elementalSpiritsActive > 1
-            ? QualitativePerformance.Good
-            : QualitativePerformance.Ok
-          : QualitativePerformance.Fail;
-    }
-
-    return cast.maelstromUsed >= 5 ? QualitativePerformance.Ok : QualitativePerformance.Fail;
   }
 }
 

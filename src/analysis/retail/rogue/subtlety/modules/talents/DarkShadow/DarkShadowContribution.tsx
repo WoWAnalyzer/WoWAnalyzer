@@ -24,7 +24,7 @@ class DarkShadowContribution extends DarkShadow {
       (Object.keys(this.danceDamageTracker.abilities)
         .map(
           (abilityId) =>
-            this.danceDamageTracker.abilities.get(parseInt(abilityId))?.damageEffective || 0,
+            this.danceDamageTracker.abilities.get(parseInt(abilityId))?.damageVal.effective || 0,
         )
         .reduce((a, b) => a + b, 0) *
         this.darkShadowDamageFactor) /

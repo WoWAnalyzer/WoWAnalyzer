@@ -48,6 +48,10 @@ const spells: number[] = [
   SPELLS.ABOMINATION_LIMB_TICK.id,
   SPELLS.ABOMINATION_LIMB_GRIP_TICK.id,
   SPELLS.COMMANDER_OF_THE_DEAD_BUFF.id,
+  SPELLS.EXTERMINATE_FIRST_HIT.id,
+  SPELLS.EXTERMINATE_SECOND_HIT.id,
+  SPELLS.INFLICTION_OF_SORROW.id,
+
   //endregion
 
   //region Evoker
@@ -58,6 +62,7 @@ const spells: number[] = [
   SPELLS.BARBED_SHOT_PET_BUFF.id, //The buff applied to BM Hunter pet when casting Barbed Shot
   SPELLS.DIRE_BEAST_SUMMON.id, //Additional cast event associated with summoning a Dire Beast
   SPELLS.DIRE_BEAST_GLYPHED.id, //Additional cast event associated with summoning a Dire Beast with Glyph of Dire Stable
+  SPELLS.COORDINATED_ASSAULT_FAKE_CAST.id, // The real cast is the Coordinated Assault Talent.
   //endregion
 
   //region Mage
@@ -97,6 +102,9 @@ const spells: number[] = [
   SPELLS.CLOUDBURST_TOTEM_RECALL.id, // Cloudburst reactivation
   TALENTS_SHAMAN.SPIRITWALKERS_GRACE_TALENT.id,
   SPELLS.FERAL_LUNGE_NOT_A_CAST.id, // duplicate event of regular Feral Lunge cast
+  SPELLS.HEALING_RAIN_TOTEMIC.id,
+  SPELLS.DOOM_WINDS_TICK.id,
+  SPELLS.FLAME_SHOCK_DUPLICATE.id,
   //endregion
 
   //region warlock

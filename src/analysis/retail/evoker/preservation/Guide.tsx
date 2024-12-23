@@ -24,6 +24,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
   return (
     <>
       <Section title="Core Spells and Buffs">
+        {info.combatant.hasTalent(TALENTS_EVOKER.ENGULF_TALENT) &&
+          modules.consumeFlame.guideSubsection}
         {modules.dreamBreath.guideSubsection}
         {modules.spiritBloom.guideSubsection}
         {modules.essenceBurst.guideSubsection}

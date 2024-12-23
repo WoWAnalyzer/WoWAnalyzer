@@ -148,12 +148,13 @@ class RimeEfficiency extends Analyzer {
     const explanation = (
       <p>
         <strong>
-          <SpellLink spell={talents.RIME_TALENT} />
+          <SpellLink spell={SPELLS.RIME} />
         </strong>{' '}
         turns <SpellLink spell={talents.HOWLING_BLAST_TALENT} /> from a weak ability you only use to
         apply Frost Fever to a powerful spell that jumps to the top of the priority list. This is
         especially true if <SpellLink spell={talents.AVALANCHE_TALENT} /> or{' '}
-        <SpellLink spell={talents.ICEBREAKER_TALENT} /> are talented. Rime has a chance to proc
+        <SpellLink spell={talents.ICEBREAKER_TALENT} /> or{' '}
+        <SpellLink spell={talents.IMPROVED_RIME_TALENT} /> are talented. Rime has a chance to proc
         whenever you cast <SpellLink spell={talents.OBLITERATE_TALENT} /> and you prevent wasting
         the proc by making sure to consume Rime before casting Obliterate. You should aim to consume
         as many Rimes as you can. However, there are times when other spells take priority such as

@@ -34,11 +34,11 @@ export default class ArcaneMissiles extends Analyzer {
     const clearcasting = this.selectedCombatant.getBuff(SPELLS.CLEARCASTING_ARCANE.id);
 
     this.missileCasts.push({
-      ordinal: this.missileCasts.length + 1,
       cast: event,
       ticks: damageTicks.length,
       aetherAttunement: this.selectedCombatant.hasBuff(SPELLS.AETHER_ATTUNEMENT_PROC_BUFF.id),
       netherPrecision: this.selectedCombatant.hasBuff(SPELLS.NETHER_PRECISION_BUFF.id),
+      arcaneSoul: this.selectedCombatant.hasBuff(SPELLS.ARCANE_SOUL_BUFF.id),
       clearcastingCapped:
         clearcasting && clearcasting?.stacks === CLEARCASTING_MAX_STACKS ? true : false,
       clearcastingProcs: clearcasting?.stacks || 0,
@@ -49,7 +49,10 @@ export default class ArcaneMissiles extends Analyzer {
   onFightEnd() {
     this.missileCasts.forEach((m) => {
       const cast = m.cast;
-      m.gcdEnd = cast.globalCooldown && cast.timestamp + cast.globalCooldown?.duration;
+      m.gcdEnd =
+        (cast.globalCooldown && cast.timestamp + cast.globalCooldown?.duration) ||
+        (cast.channel?.beginChannel.globalCooldown &&
+          cast.timestamp + cast.channel?.beginChannel.globalCooldown.duration);
       m.channelEnd = cast.channel?.timestamp;
 
       const nextCast = this.eventHistory.getEvents(EventType.Cast, {
@@ -59,14 +62,17 @@ export default class ArcaneMissiles extends Analyzer {
           SPELLS.ARCANE_BLAST,
           SPELLS.ARCANE_BARRAGE,
           SPELLS.ARCANE_EXPLOSION,
+          TALENTS.ARCANE_SURGE_TALENT,
         ],
-        startTimestamp: cast.channel?.timestamp,
+        startTimestamp: m.channelEnd,
         count: 1,
       })[0];
-      if (m.channelEnd && nextCast && nextCast.channel?.beginChannel.timestamp) {
+      if (m.channelEnd && nextCast && nextCast.channel) {
         m.channelEndDelay = nextCast.channel.beginChannel.timestamp - m.channelEnd;
+        m.nextCast = nextCast;
       } else if (m.channelEnd && nextCast) {
         m.channelEndDelay = nextCast.timestamp - m.channelEnd;
+        m.nextCast = nextCast;
       }
     });
   }
@@ -87,9 +93,9 @@ export default class ArcaneMissiles extends Analyzer {
     return {
       actual: this.averageChannelDelay,
       isGreaterThan: {
-        minor: 50,
-        average: 150,
-        major: 300,
+        minor: 100,
+        average: 300,
+        major: 500,
       },
       style: ThresholdStyle.NUMBER,
     };
@@ -97,15 +103,16 @@ export default class ArcaneMissiles extends Analyzer {
 }
 
 export interface ArcaneMissilesCast {
-  ordinal: number;
   cast: CastEvent;
   ticks: number;
   aetherAttunement: boolean;
   netherPrecision: boolean;
+  arcaneSoul: boolean;
   clearcastingCapped: boolean;
   clearcastingProcs: number;
   clipped: boolean;
   channelEnd?: number;
   gcdEnd?: number;
   channelEndDelay?: number;
+  nextCast?: CastEvent;
 }

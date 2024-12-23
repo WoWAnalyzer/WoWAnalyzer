@@ -11,6 +11,7 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS';
 import {
   ABILITIES_AFFECTED_BY_HEALING_INCREASES,
+  HARMONIUS_BLOOMING_EXTRA_STACKS,
   MASTERY_STACK_BUFF_IDS,
   TRIPLE_MASTERY_BENEFIT_IDS,
 } from 'analysis/retail/druid/restoration/constants';
@@ -54,9 +55,9 @@ class Mastery extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.extraLbStacks = this.selectedCombatant.getTalentRank(
-      TALENTS_DRUID.HARMONIOUS_BLOOMING_TALENT,
-    );
+    this.extraLbStacks = this.selectedCombatant.hasTalent(TALENTS_DRUID.HARMONIOUS_BLOOMING_TALENT)
+      ? HARMONIUS_BLOOMING_EXTRA_STACKS
+      : 0;
     this.lbBuffId = this.selectedCombatant.hasTalent(TALENTS_DRUID.UNDERGROWTH_TALENT)
       ? SPELLS.LIFEBLOOM_UNDERGROWTH_HOT_HEAL.id
       : SPELLS.LIFEBLOOM_HOT_HEAL.id;
@@ -76,7 +77,7 @@ class Mastery extends Analyzer {
   onHeal(event: HealEvent): void {
     const spellId = event.ability.guid;
     const target = this.combatants.getEntity(event);
-    const healVal = new HealingValue(event.amount, event.absorbed, event.overheal);
+    const healVal = HealingValue.fromEvent(event);
 
     if (target === null) {
       return;
@@ -269,7 +270,7 @@ class Mastery extends Analyzer {
     if (target === null) {
       return null;
     }
-    const healVal = new HealingValue(event.amount, event.absorbed, event.overheal);
+    const healVal = HealingValue.fromEvent(event);
     return this._decompHeal(healVal, this.getHotCount(target));
   }
 

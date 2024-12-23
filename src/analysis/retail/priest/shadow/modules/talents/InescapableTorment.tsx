@@ -41,6 +41,10 @@ class InescapableTorment extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.MINDBENDER_SHADOW_TALENT),
       this.onCast,
     );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_PRIEST_VOIDWEAVER_VOIDWRAITH_CAST),
+      this.onCast,
+    );
     this.has2Piece &&
       this.addEventListener(
         Events.cast.by(SELECTED_PLAYER).spell(TALENTS.SHADOW_WORD_DEATH_TALENT),

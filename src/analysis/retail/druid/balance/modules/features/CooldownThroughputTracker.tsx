@@ -17,6 +17,16 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
       branch: GameBranch.Retail,
     },
+    {
+      spell: SPELLS.INCARNATION_ORBITAL_STRIKE.id,
+      summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
+      branch: GameBranch.Retail,
+    },
+    {
+      spell: SPELLS.CELESTIAL_ALIGNMENT_ORBITAL_STRIKE.id,
+      summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
+      branch: GameBranch.Retail,
+    },
   ];
 }
 

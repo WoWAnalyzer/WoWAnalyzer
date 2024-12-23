@@ -120,7 +120,7 @@ class Berserk extends Analyzer {
   }
 
   get totalDotDamage() {
-    return this.abilityTracker.getAbility(SPELLS.FRENZIED_ASSAULT.id).damageEffective;
+    return this.abilityTracker.getAbilityDamage(SPELLS.FRENZIED_ASSAULT.id);
   }
 
   private getPercentAtCapPerf(percentAtCap: number): QualitativePerformance {

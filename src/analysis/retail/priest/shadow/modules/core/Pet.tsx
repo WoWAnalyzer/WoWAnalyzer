@@ -32,7 +32,7 @@ class Pet extends Analyzer {
 
   onPetDamage(event: DamageEvent) {
     if (this._sourceId !== undefined && event.sourceID === this._sourceId) {
-      this._damageDone += event.amount;
+      this._damageDone += event.amount + (event.absorbed || 0);
     }
   }
 

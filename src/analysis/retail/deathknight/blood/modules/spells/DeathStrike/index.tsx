@@ -34,11 +34,14 @@ function isMeleeAttack(event: DamageEvent): boolean {
 }
 
 const GOOD_HIT_THRESHOLD = 0.2;
-const LOW_HP_THRESHOLD = 0.5; // BDK gets a pretty high low hp threshold because of low mitigation.
+const LOW_HP_THRESHOLD = 0.35;
 const FOLLOWUP_WINDOW = 6000;
 // 1 rp = 10 in the event.
 export const DUMP_RP_THRESHOLD = 850;
 export const BLOOD_SHIELD_THRESHOLD = 0.7;
+
+// double death strike checks
+const DOUBLE_DS_WINDOW_MS = 3000;
 
 type CastReason = {
   reason: DeathStrikeReason;
@@ -46,6 +49,7 @@ type CastReason = {
   followupDamageTaken?: number;
   followupAbsorbedDamage?: number;
   hasFollowupMelee?: boolean;
+  isDoubleCast: boolean;
 };
 
 type BSQueueEntry = {
@@ -116,6 +120,13 @@ export default class DeathStrike extends Analyzer {
     return this._totalHealing;
   }
 
+  get doubleCastRate(): number {
+    return (
+      this.casts.filter((v) => v.isDoubleCast && v.reason !== DeathStrikeReason.GoodHealing)
+        .length / this.casts.length
+    );
+  }
+
   get problems(): DeathStrikeProblem[] {
     return this.casts
       .filter((cast) => cast.reason === DeathStrikeReason.Other)
@@ -163,6 +174,9 @@ export default class DeathStrike extends Analyzer {
 
   private onCast(event: CastEvent) {
     const healEvent = GetRelatedEvent<HealEvent>(event, DEATH_STRIKE_HEAL);
+    const previousTimestamp = this.casts.at(-1)?.cast.timestamp;
+    const isDoubleCast =
+      previousTimestamp !== undefined && event.timestamp - previousTimestamp < DOUBLE_DS_WINDOW_MS;
 
     let cast: CastReason | undefined = undefined;
     if (healEvent) {
@@ -174,22 +188,26 @@ export default class DeathStrike extends Analyzer {
         cast = {
           reason: DeathStrikeReason.LowHealth,
           cast: event,
+          isDoubleCast,
         };
       } else if (healingPct >= GOOD_HIT_THRESHOLD) {
         cast = {
           reason: DeathStrikeReason.GoodHealing,
           cast: event,
+          isDoubleCast,
         };
       } else if ((this.rp.getResource(event)?.amount ?? 0) >= DUMP_RP_THRESHOLD) {
         cast = {
           reason: DeathStrikeReason.DumpRP,
           cast: event,
+          isDoubleCast,
         };
       } else {
         // blood shield is handled via references + mutability. yay
         cast = {
           reason: DeathStrikeReason.Other,
           cast: event,
+          isDoubleCast,
         };
       }
     } else {
@@ -197,6 +215,7 @@ export default class DeathStrike extends Analyzer {
       cast = {
         reason: DeathStrikeReason.Other,
         cast: event,
+        isDoubleCast,
       };
     }
 

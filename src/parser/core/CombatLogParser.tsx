@@ -47,10 +47,10 @@ import RaidHealthTab from '../shared/modules/features/RaidHealthTab';
 import FilteredActiveTime from '../shared/modules/FilteredActiveTime';
 import GlobalCooldown from '../shared/modules/GlobalCooldown';
 import CritEffectBonus from '../shared/modules/helpers/CritEffectBonus';
+import OtherRacials from '../shared/modules/racials/OtherRacials';
 import Pets from '../shared/modules/Pets';
 import ArcaneTorrent from '../shared/modules/racials/bloodelf/ArcaneTorrent';
 import GiftOfTheNaaru from '../shared/modules/racials/draenei/GiftOfTheNaaru';
-import MightOfTheMountain from '../shared/modules/racials/dwarf/MightOfTheMountain';
 import Stoneform from '../shared/modules/racials/dwarf/Stoneform';
 import BloodFury from '../shared/modules/racials/orc/BloodFury';
 import Berserking from '../shared/modules/racials/troll/Berserking';
@@ -101,6 +101,7 @@ import SporeTender from 'parser/retail/modules/items/dragonflight/enchants/Spore
 import WaftingDevotion from 'parser/retail/modules/items/dragonflight/enchants/WaftingDevotion';
 import WaftingWrit from 'parser/retail/modules/items/dragonflight/enchants/WaftingWrit';
 import SignetOfThePriory from 'parser/retail/modules/items/thewarwithin/trinkets/SignetOfThePriory';
+import SpymastersWeb from 'parser/retail/modules/items/thewarwithin/trinkets/SpymastersWeb';
 import FriendlyCompatNormalizer from './FriendlyCompatNormalizer';
 import {
   AuthorityOfRadiantPower,
@@ -109,7 +110,11 @@ import {
   DarkmoonSigilAscension,
   StormridersFury,
 } from 'parser/retail/modules/items/thewarwithin';
-
+import CritRacial from 'parser/shared/modules/racials/CritRacial';
+import TreacherousTransmitter from 'parser/retail/modules/items/thewarwithin/trinkets/TreacherousTransmitter';
+import MadQueensMandate from 'parser/retail/modules/items/thewarwithin/trinkets/MadQueensMandate';
+import SkardynsGrace from 'parser/retail/modules/items/thewarwithin/trinkets/SkardynsGrace';
+import MereldarsToll from 'parser/retail/modules/items/thewarwithin/trinkets/MereldarsToll';
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
 const MAX_DI_ITERATIONS = 100;
@@ -204,11 +209,12 @@ class CombatLogParser {
 
     // Racials
     arcaneTorrent: ArcaneTorrent,
+    critRacial: CritRacial,
     giftOfTheNaaru: GiftOfTheNaaru,
-    mightOfTheMountain: MightOfTheMountain,
     stoneform: Stoneform,
     berserking: Berserking,
     bloodFury: BloodFury,
+    otherRacials: OtherRacials,
 
     // Items:
     authorityOfRadiantPower: AuthorityOfRadiantPower,
@@ -216,6 +222,11 @@ class CombatLogParser {
     stormridersFury: StormridersFury,
     authorityOfTheDepths: AuthorityOfTheDepths,
     signetOfThePriory: SignetOfThePriory,
+    spymastersWeb: SpymastersWeb,
+    treacherousTransmitter: TreacherousTransmitter,
+    madQueensMandate: MadQueensMandate,
+    skardynsGrace: SkardynsGrace,
+    mereldarsToll: MereldarsToll,
 
     // Embellishments
     darkmoonSigilAscension: DarkmoonSigilAscension,

@@ -1,5 +1,4 @@
 import { defineMessage } from '@lingui/macro';
-import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/deathknight';
 import { SpellLink } from 'interface';
 import CooldownExpandable, {
@@ -15,7 +14,7 @@ import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { PerformanceMark } from 'interface/guide';
 
-const GOOD_BREATH_DURATION_MS = 60000;
+const GOOD_BREATH_DURATION_MS = 25000;
 
 class BreathOfSindragosa extends Analyzer {
   beginTimestamp = 0;
@@ -90,9 +89,9 @@ class BreathOfSindragosa extends Analyzer {
           <SpellLink spell={talents.BREATH_OF_SINDRAGOSA_TALENT} /> casts. A good cast is one that
           lasts {GOOD_BREATH_DURATION_MS / 1000} seconds or more. To ensure a good duration, make
           sure you have 70+ Runic Power pooled and have less than 4 Runes available before you start
-          the cast. Also make sure to use <SpellLink spell={SPELLS.EMPOWER_RUNE_WEAPON} /> within a
-          few seconds of casting Breath of Sindragosa. Pay close attention to your Runic Power and
-          make sure you are not overcapping. {this.tickingOnFinishedString}
+          the cast. Also make sure to use <SpellLink spell={talents.EMPOWER_RUNE_WEAPON_TALENT} />{' '}
+          within a few seconds of casting Breath of Sindragosa. Pay close attention to your Runic
+          Power and make sure you are not overcapping. {this.tickingOnFinishedString}
         </>,
       )
         .icon(talents.BREATH_OF_SINDRAGOSA_TALENT.icon)
@@ -210,10 +209,10 @@ class BreathOfSindragosa extends Analyzer {
           });
 
           let durationPerf = QualitativePerformance.Good;
-          if (cast.duration < 60 && !cast.fightEnded) {
+          if (cast.duration * 1000 < GOOD_BREATH_DURATION_MS && !cast.fightEnded) {
             durationPerf = QualitativePerformance.Ok;
           }
-          if (cast.duration < 40 && !cast.fightEnded) {
+          if (cast.duration * 1000 < GOOD_BREATH_DURATION_MS - 5000 && !cast.fightEnded) {
             durationPerf = QualitativePerformance.Fail;
           }
           checklistItems.push({
@@ -223,7 +222,7 @@ class BreathOfSindragosa extends Analyzer {
           });
 
           const overallPerf =
-            cast.duration > 60 || cast.fightEnded
+            cast.duration * 1000 > GOOD_BREATH_DURATION_MS || cast.fightEnded
               ? QualitativePerformance.Good
               : QualitativePerformance.Fail;
 

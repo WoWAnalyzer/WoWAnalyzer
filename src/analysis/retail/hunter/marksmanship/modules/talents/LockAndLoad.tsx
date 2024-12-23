@@ -77,15 +77,7 @@ class LockAndLoad extends Analyzer {
     this.totalProcs += 1;
     this.hasLnLBuff = true;
     if (this.spellUsable.isOnCooldown(TALENTS_HUNTER.AIMED_SHOT_TALENT.id)) {
-      const expectedCooldownDuration = this.abilities.getExpectedCooldownDuration(
-        TALENTS_HUNTER.AIMED_SHOT_TALENT.id,
-      );
-      if (expectedCooldownDuration) {
-        const newChargeCDR =
-          expectedCooldownDuration -
-          this.spellUsable.cooldownRemaining(TALENTS_HUNTER.AIMED_SHOT_TALENT.id);
-        this.spellUsable.reduceCooldown(TALENTS_HUNTER.AIMED_SHOT_TALENT.id, newChargeCDR);
-      }
+      this.spellUsable.endCooldown(TALENTS_HUNTER.AIMED_SHOT_TALENT.id, event.timestamp);
     }
   }
 

@@ -1,10 +1,29 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
-import { Trevor, Vohrr } from 'CONTRIBUTORS';
+import { Trevor, Vetyst, Vohrr } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date (2024, 12, 16), <>Got rid of TODO in <SpellLink spell={SPELLS.VIVIFY}/> cast performance breakdown.</>, Vohrr),
+  change(date (2024, 11, 6), <>Fixed some missed <SpellLink spell={TALENTS_MONK.RUSHING_WIND_KICK_TALENT}/> checks in Celestial Conduit modules.</>, Vohrr),
+  change(date (2024, 10, 31), <>Rewrote <SpellLink spell={TALENTS_MONK.MIST_WRAP_TALENT}/> for accuracy and to include value gained from <SpellLink spell={TALENTS_MONK.MENDING_PROLIFERATION_TALENT}/>. Updated several other modules to filter out healing that is not affected by healing increases.</>, Vohrr),
+  change(date (2024, 10, 29), <>Added <SpellLink spell={TALENTS_MONK.RUSHING_WIND_KICK_TALENT}/> to the Talent Healing Breakdown</>, Vohrr),
+  change(date (2024, 10, 28), <>Updated <SpellLink spell={TALENTS_MONK.RUSHING_WIND_KICK_TALENT}/> for October 29 buffs.</>, Vohrr),
+  change(date (2024, 10, 24), <>Added analysis for <SpellLink spell={TALENTS_MONK.RUSHING_WIND_KICK_TALENT}/>.</>, Vohrr),
+  change(date (2024, 10, 24), <>Fixed <SpellLink spell={TALENTS_MONK.CALMING_COALESCENCE_TALENT}/> module and updated <SpellLink spell={TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT}/> to include <SpellLink spell={SPELLS.CRACKLING_JADE_LIGHTNING}/>.</>, Vohrr),
+  change(date (2024, 10, 22), <>Update MW for 11.0.5</>, Trevor),
+  change(date (2024, 10, 13), <>Add <SpellLink spell={TALENTS_MONK.ASPECT_OF_HARMONY_TALENT}/> guide section</>, Trevor),
+  change(date (2024, 10, 12), <>Added an average healing per cast metric to the <SpellLink spell={TALENTS_MONK.REVIVAL_TALENT}/> healing breakdown statistic.</>, Vohrr),
+  change(date (2024, 10, 12), <>Fix an issue with <SpellLink spell={TALENTS_MONK.UPLIFTED_SPIRITS_TALENT}/> and updated to include additional <SpellLink spell={SPELLS.GUSTS_OF_MISTS}/> healing.</>, Vohrr),
+  change(date (2024, 10, 6), <>Fix a crash in <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_TALENT}/> while it was active when fight ended.</>, Vetyst),
+  change(date (2024, 10, 6), <>Add <SpellLink spell={TALENTS_MONK.COALESCENCE_TALENT}/> statistic</>, Trevor),
+  change(date (2024, 9, 28), <>Fix crash in <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_TALENT}/> when it failed to hit any allies.</>, Trevor),
+  change(date (2024, 9, 24), <>Fix <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_TALENT}/> event linking</>, Trevor),
+  change(date (2024, 9, 24), <>Fix another crash condition</>, Trevor),
+  change(date (2024, 9, 24), <>Fix crash again</>, Trevor),
+  change(date (2024, 9, 24), <>Fix crash in <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_TALENT}/> guide section when player did not cast <SpellLink spell={TALENTS_MONK.UNITY_WITHIN_TALENT}/></>, Trevor),
+  change(date (2024, 9, 22), <>Add guide section for <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_TALENT}/></>, Trevor),
   change(date (2024, 9, 17), <>Add check for <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT}/> to <SpellLink spell={TALENTS_MONK.STRENGTH_OF_THE_BLACK_OX_TALENT}/> module</>, Trevor),
   change(date (2024, 9, 15), <>Fix <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT}/> cooldown duration</>, Trevor),
   change(date (2024, 9, 14), <>Add <SpellLink spell={TALENTS_MONK.JADE_BOND_TALENT}/> advice to <SpellLink spell={TALENTS_MONK.REVIVAL_TALENT}/> guide section</>, Trevor),

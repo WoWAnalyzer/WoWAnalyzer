@@ -14,7 +14,6 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { PIETY_AMP } from '../../../constants';
 import { PIETY_OVERHEAL_MISDIRECT } from '../../../constants';
 import { FATEBENDER_SCALER } from '../../../constants';
-import SpellLink from 'interface/SpellLink';
 
 class PremonitionOfPiety extends Analyzer {
   static dependencies = {
@@ -90,15 +89,6 @@ class PremonitionOfPiety extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(99)}
         size="flexible"
         category={STATISTIC_CATEGORY.HERO_TALENTS}
-        tooltip={
-          <>
-            This module doesn't account for{' '}
-            <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY}></SpellLink> yet, so it is doing
-            slightly more. Notably the overheal redistribution does NOT contribute to{' '}
-            <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY}></SpellLink>, but it does redistribute
-            any <SpellLink spell={SPELLS.ECHO_OF_LIGHT_MASTERY}></SpellLink> that overheals.
-          </>
-        }
       >
         <BoringSpellValueText spell={SPELLS.PREMONITION_OF_PIETY}>
           <ItemPercentHealingDone amount={this.totalHealingFromPietyAmp} />

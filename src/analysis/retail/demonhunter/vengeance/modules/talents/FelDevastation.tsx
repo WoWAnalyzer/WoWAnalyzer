@@ -15,7 +15,7 @@ import MajorCooldown, {
   createChecklistItem,
   createSpellUse,
 } from 'parser/core/MajorCooldowns/MajorCooldown';
-import { getDamageEvents } from 'analysis/retail/demonhunter/vengeance/normalizers/FelDevastationNormalizer';
+import { getDamageEvents } from 'analysis/retail/demonhunter/vengeance/normalizers/FelDevastationLinkNormalizer';
 import { isDefined } from 'common/typeGuards';
 
 const PERFECT_FRAILTY_STACKS = 3;

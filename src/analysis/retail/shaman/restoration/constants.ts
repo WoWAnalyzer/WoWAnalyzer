@@ -21,6 +21,10 @@ export const DOWNPOUR = 'Downpour';
 export const HIGH_TIDE = 'HighTide';
 //event link ms settings
 export const CAST_BUFFER_MS = 100;
+// 50 was too low, 100 was too high
+// had no issues with 85ms
+export const SURGING_TOTEM_BUFFER_MS = 85;
+
 export const PWAVE_TRAVEL_MS = 1100;
 export const UNLEASH_LIFE_REMOVE_MS = 400;
 //healing increases
@@ -123,3 +127,10 @@ export const FLASH_FLOOD_CAST_SPEED_MODIFIER = 0.1; // per rank
 export const HEALING_RAIN_DURATION = 10000;
 export const RIPTIDE_BASE_DURATION = 18000;
 export const WAVESPEAKERS_BLESSING = 3000;
+export const SURGING_TOTEM_DURATION = 24000;
+
+export const WHIRLING_ELEMENTS_MOTES = [
+  SPELLS.WHIRLING_AIR,
+  SPELLS.WHIRLING_EARTH,
+  SPELLS.WHIRLING_WATER,
+];

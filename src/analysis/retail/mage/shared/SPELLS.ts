@@ -212,6 +212,11 @@ const spells = {
     icon: 'spell_mage_arcaneorb',
     manaCost: 25000,
   },
+  BURDEN_OF_POWER_BUFF: {
+    id: 451049,
+    name: 'Burden of Power',
+    icon: 'inv_ragnaros_heart',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;

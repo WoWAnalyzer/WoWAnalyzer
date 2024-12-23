@@ -27,6 +27,7 @@ const thorimsInvocationCastLink: EventLink = {
   referencedEventType: [EventType.Damage],
   forwardBufferMs: EventLinkBuffers.MaelstromWeapon,
   anyTarget: true,
+  isActive: (c) => c.hasTalent(TALENTS.THORIMS_INVOCATION_TALENT),
 };
 const stormStrikeLink: EventLink = {
   linkRelation: EnhancementEventLinks.STORMSTRIKE_LINK,
@@ -36,6 +37,7 @@ const stormStrikeLink: EventLink = {
   referencedEventType: EventType.Damage,
   forwardBufferMs: EventLinkBuffers.Stormstrike,
   anyTarget: true,
+  isActive: (c) => c.hasTalent(TALENTS.STORMFLURRY_TALENT),
 };
 const chainLightningDamageLink: EventLink = {
   linkRelation: EnhancementEventLinks.CHAIN_LIGHTNING_LINK,
@@ -46,6 +48,16 @@ const chainLightningDamageLink: EventLink = {
   forwardBufferMs: EventLinkBuffers.CAST_DAMAGE_BUFFER,
   anyTarget: true,
 };
+const crashLightningDamageLink: EventLink = {
+  linkRelation: EnhancementEventLinks.CRASH_LIGHTNING_LINK,
+  linkingEventId: TALENTS.CRASH_LIGHTNING_TALENT.id,
+  linkingEventType: EventType.Cast,
+  referencedEventId: TALENTS.CRASH_LIGHTNING_TALENT.id,
+  referencedEventType: EventType.Damage,
+  forwardBufferMs: EventLinkBuffers.CAST_DAMAGE_BUFFER,
+  anyTarget: true,
+  isActive: (c) => c.hasTalent(TALENTS.UNRELENTING_STORMS_TALENT),
+};
 const tempestDamageLink: EventLink = {
   linkRelation: EnhancementEventLinks.TEMPEST_LINK,
   linkingEventId: SPELLS.TEMPEST_CAST.id,
@@ -54,6 +66,7 @@ const tempestDamageLink: EventLink = {
   referencedEventType: EventType.Damage,
   forwardBufferMs: EventLinkBuffers.CAST_DAMAGE_BUFFER,
   anyTarget: true,
+  isActive: (c) => c.hasTalent(TALENTS.TEMPEST_TALENT),
 };
 const primordialWaveLink: EventLink = {
   linkRelation: PRIMORDIAL_WAVE_LINK,
@@ -65,6 +78,7 @@ const primordialWaveLink: EventLink = {
   forwardBufferMs: EventLinkBuffers.PrimordialWave,
   maximumLinks: 1,
   reverseLinkRelation: PRIMORDIAL_WAVE_LINK,
+  isActive: (c) => c.hasTalent(TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT),
 };
 const splinteredElements: EventLink = {
   linkRelation: SPLINTERED_ELEMENTS_LINK,
@@ -75,6 +89,7 @@ const splinteredElements: EventLink = {
   anyTarget: true,
   forwardBufferMs: EventLinkBuffers.SPLINTERED_ELEMENTS_BUFFER,
   maximumLinks: 1,
+  isActive: (c) => c.hasTalent(TALENTS.SPLINTERED_ELEMENTS_TALENT),
 };
 const lightningBoltLink: EventLink = {
   linkRelation: EnhancementEventLinks.LIGHTNING_BOLT_LINK,
@@ -92,6 +107,7 @@ class EventLinkNormalizer extends BaseEventLinkNormalizer {
       thorimsInvocationCastLink,
       stormStrikeLink,
       chainLightningDamageLink,
+      crashLightningDamageLink,
       tempestDamageLink,
       primordialWaveLink,
       splinteredElements,

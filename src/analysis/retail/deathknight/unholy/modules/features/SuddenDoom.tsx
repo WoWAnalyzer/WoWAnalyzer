@@ -1,9 +1,8 @@
 import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/deathknight';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -43,7 +42,7 @@ class SuddenDoom extends Analyzer {
     }
   }
 
-  onRefreshBuff(event: RefreshBuffEvent) {
+  onRefreshBuff() {
     this.wastedProcs += 1;
   }
 
@@ -59,24 +58,12 @@ class SuddenDoom extends Analyzer {
     };
   }
 
-  get optionalSuggestion() {
-    return this.selectedCombatant.hasTalent(TALENTS.ARMY_OF_THE_DAMNED_TALENT) ? (
-      <>
-        , <SpellLink spell={SPELLS.ARMY_OF_THE_DEAD} />, and <SpellLink spell={SPELLS.APOCALYPSE} />
-      </>
-    ) : (
-      ''
-    );
-  }
-
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You are wasting procs of <SpellLink spell={SPELLS.SUDDEN_DOOM_BUFF} />. It is important to
-          cast <SpellLink spell={SPELLS.DEATH_COIL} /> as soon as possible after getting a proc to
-          ensure you are not losing potential cooldown reduction on{' '}
-          <SpellLink spell={SPELLS.DARK_TRANSFORMATION} /> {this.optionalSuggestion}.
+          You are wasting <SpellLink spell={SPELLS.SUDDEN_DOOM_BUFF} /> procs. It is important to
+          cast <SpellLink spell={SPELLS.DEATH_COIL} />.
         </>,
       )
         .icon(SPELLS.SUDDEN_DOOM_BUFF.icon)

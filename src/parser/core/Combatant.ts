@@ -2,7 +2,7 @@ import { Enchant } from 'common/ITEMS/Item';
 import { TIER_BY_CLASSES } from 'common/ITEMS/dragonflight';
 import { getClassBySpecId } from 'game/CLASSES';
 import GEAR_SLOTS from 'game/GEAR_SLOTS';
-import RACES from 'game/RACES';
+import RACES, { Race } from 'game/RACES';
 import { findByBossId } from 'game/raids';
 import SPECS, { Spec } from 'game/SPECS';
 import CombatLogParser from 'parser/core/CombatLogParser';
@@ -21,13 +21,6 @@ export interface CombatantInfo extends CombatantInfoEvent {
 
 type Spell = {
   id: number;
-};
-
-export type Race = {
-  id: number;
-  mask?: number;
-  side: string;
-  name: string;
 };
 
 class Combatant extends Entity {
@@ -82,7 +75,7 @@ class Combatant extends Entity {
     if (boss && boss.fight.raceTranslation) {
       race = boss.fight.raceTranslation(race, this.spec);
     }
-    return race;
+    return race ?? null;
   }
 
   get characterProfile() {

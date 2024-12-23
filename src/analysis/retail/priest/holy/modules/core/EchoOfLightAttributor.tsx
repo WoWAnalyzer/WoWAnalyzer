@@ -1,18 +1,15 @@
 import Analyzer from 'parser/core/Analyzer';
 import { GetRelatedEvents, HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
-import Combatants from 'parser/shared/modules/Combatants';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import { ECHO_OF_LIGHT_ATTRIB_EVENT } from '../../normalizers/CastLinkNormalizer';
 import { ABILITIES_THAT_DONT_TRIGGER_MASTERY, PRISMATIC_ECHOES_PER_RANK } from '../../constants';
 import StatTracker from 'parser/shared/modules/StatTracker';
 class EOLAttrib extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     statTracker: StatTracker,
   };
 
-  protected combatants!: Combatants;
   protected statTracker!: StatTracker;
   private masteryScaler = 1;
 

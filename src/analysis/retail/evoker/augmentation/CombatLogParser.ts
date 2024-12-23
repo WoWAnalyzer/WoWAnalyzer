@@ -65,6 +65,9 @@ import {
   UnrelentingSiege,
   Wingleader,
   Slipstream,
+  Chronoflame,
+  ThreadsOfFate,
+  Reverberations,
 } from 'analysis/retail/evoker/shared';
 
 class CombatLogParser extends MainCombatLogParser {
@@ -134,6 +137,9 @@ class CombatLogParser extends MainCombatLogParser {
     unrelentingSiege: UnrelentingSiege,
     wingLeader: Wingleader,
     slipstream: Slipstream,
+    chronoflame: Chronoflame,
+    threadsOfFate: ThreadsOfFate,
+    reverberations: Reverberations,
 
     // Features
     buffTrackerGraph: BuffTrackerGraph,

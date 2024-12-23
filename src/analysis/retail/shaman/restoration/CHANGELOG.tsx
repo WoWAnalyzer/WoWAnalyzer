@@ -8,11 +8,16 @@ import {
   Seriousnes,
   Ypp,
   Texleretour,
+  Vetyst,
+  PandaGoesBaa,
 } from 'CONTRIBUTORS';
 
 
 // prettier-ignore
 export default [
+  change(date(2024, 10, 12), <>Fixed cooldowns for totems, <SpellLink spell={TALENTS_SHAMAN.TOTEMIC_RECALL_TALENT}/>, and <SpellLink spell={TALENTS_SHAMAN.ASCENDANCE_RESTORATION_TALENT}/> not properly accounting for cooldown reduction talents like <SpellLink spell={TALENTS_SHAMAN.FIRST_ASCENDANT_TALENT}/>.</>, PandaGoesBaa),
+  change(date(2024, 10, 6), <>Fix another pre-pull error with <SpellLink spell={TALENTS_SHAMAN.SURGING_TOTEM_TALENT}/>.</>, Vetyst),
+  change(date(2024, 9, 26), <>Fixed <SpellLink spell={TALENTS_SHAMAN.SURGING_TOTEM_TALENT}/> when used on pre-pull.</>, Vetyst),
   change(date(2024, 9, 15), <>Fixed <SpellLink spell={TALENTS_SHAMAN.DOWNPOUR_TALENT}/> and <SpellLink spell={TALENTS_SHAMAN.UNLEASH_LIFE_TALENT}/> interaction.</>, Ypp),
   change(date(2024, 8, 27), <>Updated <SpellLink spell={TALENTS_SHAMAN.ANCESTRAL_VIGOR_TALENT}/> for The War Within : one rank for the talent, for 10% max health increase. Updated Lives saved statistic, accounting for <SpellLink spell={TALENTS_SHAMAN.DOWNPOUR_TALENT}/>.</>, Ypp),
   change(date(2024, 8, 27), <>Updated <SpellLink spell={TALENTS_SHAMAN.DOWNPOUR_TALENT}/> mechanics for The War Within : no more cooldown, target cap lowered to 5 and new buff for 10% max health increase. Added <SpellLink spell={TALENTS_SHAMAN.DOWNPOUR_TALENT}/> to the healing contribution.</>, Ypp),

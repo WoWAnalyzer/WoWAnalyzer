@@ -1,5 +1,6 @@
 // Base files
 import BaseCombatLogParser from 'parser/classic/CombatLogParser';
+import Guide from './Guide';
 // Shared
 import { Haste } from '../shared';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
@@ -9,10 +10,10 @@ import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Buffs from './modules/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import FoundationGuide from 'interface/guide/foundation/FoundationGuide';
 import CancelledCasts from 'parser/shared/modules/CancelledCasts';
 // Spells
 import Metamorphosis from './modules/spells/Metamorphosis';
+import Doomguard from './modules/spells/Doomguard';
 
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
@@ -28,8 +29,9 @@ class CombatLogParser extends BaseCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     // Spells
     metamorphosis: Metamorphosis,
+    doomguard: Doomguard,
   };
-  static guide = FoundationGuide;
+  static guide = Guide;
 }
 
 export default CombatLogParser;

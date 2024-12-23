@@ -1,4 +1,4 @@
-import ITEMS from 'common/ITEMS/thewarwithin/enchants';
+import ITEMS from 'common/ITEMS';
 import BaseWeaponEnhancementChecker from 'parser/shared/modules/items/WeaponEnhancementChecker';
 
 // Example logs with missing enhancement:
@@ -24,6 +24,12 @@ const MAX_ENHANCEMENT_IDS = [
   ITEMS.BUBBLING_WAX.effectId,
   ITEMS.IRONCLAW_WEIGHSTONE_R3.effectId,
   ITEMS.IRONCLAW_WHETSTONE_R3.effectId,
+  // shaman effects
+  ITEMS.WINDFURY_WEAPON.effectId,
+  ITEMS.FLAMETONGUE_WEAPON.effectId,
+  ITEMS.EARTHLIVING_WEAPON.effectId,
+  ITEMS.TIDECALLERS_GUARD.effectId,
+  ITEMS.THUNDERSTRIKE_WARD.effectId,
 ] as const satisfies number[];
 
 class WeaponEnhancementChecker extends BaseWeaponEnhancementChecker {

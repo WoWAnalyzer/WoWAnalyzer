@@ -124,6 +124,11 @@ class StatTracker extends Analyzer {
       haste: (selectedCombatant, item) =>
         calculateSecondaryStatDefault(250, 547.57, item?.itemLevel ?? selectedCombatant.ilvl),
     },
+    [SPELLS.QUICKWICK_CANDLESTICK_HASTE.id]: {
+      itemId: ITEMS.QUICKWICK_CANDLESTICK.id,
+      haste: (selectedCombatant, item) =>
+        calculateSecondaryStatDefault(400, 2365, item?.itemLevel ?? selectedCombatant.ilvl),
+    },
     // endregion
 
     // region Other
@@ -584,7 +589,10 @@ class StatTracker extends Analyzer {
   get baseMasteryPercentage() {
     const spellPoints = 8; // Spellpoint is a unit of mastery, each class has 8 base Spellpoints
     let mastery = (spellPoints * (this.selectedCombatant.spec?.masteryCoefficient ?? 1)) / 100;
-    if (this.selectedCombatant.race === RACES.Dracthyr) {
+    if (
+      this.selectedCombatant.race === RACES.DracthyrAlliance ||
+      this.selectedCombatant.race === RACES.DracthyrHorde
+    ) {
       mastery += 0.018;
     }
     return mastery;

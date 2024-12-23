@@ -4,7 +4,7 @@ import Casts, { isApplicableEvent } from 'interface/report/Results/Timeline/Cast
 import EmbeddedTimelineContainer, {
   SpellTimeline,
 } from 'interface/report/Results/Timeline/EmbeddedTimeline';
-import { useEffect, useMemo, useState } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 import { RageWindowCounter } from '../abilities/DragonRage';
 import { AnyEvent } from 'parser/core/Events';
 import { Info } from 'parser/core/metric';
@@ -37,11 +37,11 @@ export function DragonRageWindowSection({
         windowDurations.push(duration);
 
         if (relevantEvents.length === 0) {
-          return <>No events in this window.</>;
+          return 'No events in this window';
         }
 
         return (
-          <>
+          <Fragment key={`${window.start}_${window.end}`}>
             {window.fightEndDuringDR && <>Fight ended during Dragonrage.</>}
             <ExplanationAndDataSubSection
               explanationPercent={30}
@@ -63,7 +63,7 @@ export function DragonRageWindowSection({
                 </div>
               }
             />
-          </>
+          </Fragment>
         );
       }),
     [rageWindows, windowDurations, events, info],

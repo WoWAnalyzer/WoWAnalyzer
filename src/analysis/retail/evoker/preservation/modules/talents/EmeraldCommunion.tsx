@@ -82,11 +82,11 @@ class EmeraldCommunion extends Analyzer {
   onCast(event: ApplyBuffEvent) {
     this.numCasts += 1;
     const possibleTargets = this.getPotentialTargets(event.timestamp);
-    this.percentCovered.push(this.lifebind.curNumLifebinds / possibleTargets);
+    this.percentCovered.push(this.lifebind.lifebindWindows.at(-1)?.targets || 0 / possibleTargets);
     this.potentialEchoTargets.clear();
     this.casts.push({
       timestamp: event.timestamp,
-      numLifebinds: this.lifebind.curNumLifebinds,
+      numLifebinds: this.lifebind.lifebindWindows.at(-1)?.targets || 0,
       possibleTargets: possibleTargets,
       endChannelTime: 0,
     });

@@ -10,19 +10,19 @@ import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
 
 const fetcher = (...args: Parameters<typeof fetch>) => fetch(...args).then((res) => res.json());
 
-const useSpellInfo = (spell: number | Spell) => {
+const useSpellInfo = (spell: number | Spell | undefined) => {
   const { expansion } = useExpansionContext();
-  const spellId = getSpellId(spell);
+  const spellId = spell ? getSpellId(spell) : null;
   const argumentAsSpell =
-    typeof spell === 'number' ? maybeGetTalentOrSpell(spellId, expansion) : spell;
+    typeof spell === 'number' ? maybeGetTalentOrSpell(spell, expansion) : spell;
 
-  const { data, error } = useSWR<Spell>(makeApiUrl(`spell/${spellId}`), {
+  const { data, error } = useSWR<Spell>(spellId ? makeApiUrl(`spell/${spellId}`) : null, {
     fetcher,
     isPaused: () => argumentAsSpell !== undefined,
   });
 
   useEffect(() => {
-    if (data) {
+    if (spellId && data) {
       SPELLS[spellId] = data;
     }
   }, [data, spellId]);

@@ -4,6 +4,7 @@ import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import SPELLS from 'common/SPELLS';
 import { BASE_EVOKER_RANGE, EMPOWER_BASE_GCD, EMPOWER_MINIMUM_GCD } from '../../shared';
+import { TIERS } from 'game/TIERS';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -38,7 +39,9 @@ class Abilities extends CoreAbilities {
           ? SPELLS.ETERNITY_SURGE_FONT.id
           : SPELLS.ETERNITY_SURGE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: combatant.hasTalent(TALENTS.EVENT_HORIZON_TALENT) ? 27 : 30,
+        cooldown:
+          (combatant.hasTalent(TALENTS.EVENT_HORIZON_TALENT) ? 27 : 30) -
+          (combatant.has4PieceByTier(TIERS.TWW1) ? 4 : 0),
         gcd: {
           base: EMPOWER_BASE_GCD,
           minimum: EMPOWER_MINIMUM_GCD,
@@ -53,7 +56,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.SHATTERING_STAR_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 20,
+        cooldown: 20 - (combatant.has4PieceByTier(TIERS.TWW1) ? 4 : 0),
         gcd: {
           base: 1500,
         },

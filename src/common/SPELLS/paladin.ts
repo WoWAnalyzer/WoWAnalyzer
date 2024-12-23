@@ -285,6 +285,11 @@ const spells = {
     name: 'Blessing of Spring',
     icon: 'ability_ardenweald_paladin_spring',
   },
+  SACRED_WEAPON_TALENT: {
+    id: 432472,
+    name: 'Sacred Weapon',
+    icon: 'inv_ability_lightsmithpaladin_sacredweapon',
+  },
   EMPYREAN_LEGACY_BUFF: {
     id: 387178,
     name: 'Empyrean Legacy',

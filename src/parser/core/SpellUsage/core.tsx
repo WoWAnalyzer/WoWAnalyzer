@@ -1,4 +1,7 @@
-import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import {
+  getPerformanceExplanation,
+  QualitativePerformance,
+} from 'parser/ui/QualitativePerformance';
 import { createContext, ReactNode, useContext } from 'react';
 import { AnyEvent } from 'parser/core/Events';
 import styled from '@emotion/styled';
@@ -83,7 +86,8 @@ export const spellUseToBoxRowEntry = (
         <strong>Time:</strong> {formatDuration(event.timestamp - fightStart)}
       </div>
       <PerformanceUsageRow>
-        <PerformanceMark perf={performance} /> {performanceExplanation ?? 'Good Usage'}
+        <PerformanceMark perf={performance} />{' '}
+        {performanceExplanation ?? getPerformanceExplanation(performance)}
       </PerformanceUsageRow>
       {checklistItems.length > 0 ? (
         <SpellTooltipBody>

@@ -43,7 +43,7 @@ class KillingMachineEfficiency extends Analyzer {
   currentStacks = 0;
   procsWastedToResources = 0;
 
-  readonly fatalFixation = this.selectedCombatant.hasTalent(talents.FATAL_FIXATION_TALENT);
+  readonly fatalFixation = true;
 
   constructor(options: Options) {
     super(options);
@@ -157,8 +157,7 @@ class KillingMachineEfficiency extends Analyzer {
         <Fragment>
           {' '}
           You wasted <SpellLink spell={SPELLS.KILLING_MACHINE} /> procs. You should be casting{' '}
-          <SpellLink spell={talents.OBLITERATE_TALENT} /> or{' '}
-          <SpellLink spell={talents.FROSTSCYTHE_TALENT} /> within 1 or 2 GCDs of gaining a Killing
+          <SpellLink spell={talents.OBLITERATE_TALENT} /> within 1 or 2 GCDs of gaining a Killing
           Machine proc to avoid wasting it. See one of the guides on the About tab for more
           information on when another ability takes precedence over spending Killing Machine
         </Fragment>,

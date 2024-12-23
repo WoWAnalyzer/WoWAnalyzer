@@ -63,7 +63,7 @@ export default defineConfig((env) => ({
     tsconfigPaths(),
     react({
       babel: {
-        plugins: ['macros', '@emotion/babel-plugin'],
+        plugins: ['macros', '@emotion/babel-plugin', '@babel/plugin-syntax-import-attributes'],
       },
     }),
     {

@@ -24,7 +24,7 @@ class Cleave extends Analyzer {
 
   subStatistic() {
     const Cleave = this.abilityTracker.getAbility(TALENTS.CLEAVE_TALENT.id);
-    const total = Cleave.damageEffective || 0;
+    const total = Cleave.damageVal.effective;
     const avg = total / (Cleave.casts || 1);
     return (
       <StatisticListBoxItem

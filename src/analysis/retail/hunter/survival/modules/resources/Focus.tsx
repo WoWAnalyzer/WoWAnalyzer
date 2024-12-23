@@ -1,5 +1,4 @@
 import { FocusTracker } from 'analysis/retail/hunter/shared';
-import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/hunter';
 import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
@@ -14,6 +13,9 @@ class Focus extends Analyzer {
   protected focusTracker!: FocusTracker;
 
   suggestions(when: When) {
+    const raptorStrikeSpell = this.selectedCombatant.hasTalent(TALENTS.MONGOOSE_BITE_TALENT)
+      ? TALENTS.MONGOOSE_BITE_TALENT
+      : TALENTS.RAPTOR_STRIKE_TALENT;
     resourceSuggest(when, this.focusTracker, {
       spell: TALENTS.KILL_COMMAND_SURVIVAL_TALENT,
       minor: 0.05,
@@ -21,9 +23,7 @@ class Focus extends Analyzer {
       major: 0.1,
       extraSuggestion: (
         <>
-          Try to keep focus below max by using <SpellLink spell={SPELLS.SERPENT_STING_SV} />,{' '}
-          <SpellLink spell={TALENTS.MONGOOSE_BITE_TALENT} /> or{' '}
-          <SpellLink spell={TALENTS.RAPTOR_STRIKE_TALENT} />.
+          Try to keep focus below max by using <SpellLink spell={raptorStrikeSpell} />.
         </>
       ),
     });

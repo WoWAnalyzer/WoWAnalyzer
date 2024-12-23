@@ -82,30 +82,38 @@ class ElementalSpirits extends Analyzer {
   }
 
   get elementalSpiritCount() {
-    return this.elementalSpiritHistory.at(-1)?.value ?? 0;
+    return this.icyEdgeCount + this.moltenWeaponCount + this.cracklingSurgeCount;
   }
 
   gainMoltenWeapon(event: ApplyBuffEvent | RemoveBuffEvent) {
-    this.elementalSpiritHistory.push({
-      value: this.moltenWeaponCount + (event.type === EventType.ApplyBuff ? 1 : -1),
-      timestamp: event.timestamp,
-      type: 'molten-weapon',
-    });
+    this.recordElementalSpirit(this.moltenWeaponCount, event, 'molten-weapon');
   }
 
   gainIcyEdge(event: ApplyBuffEvent | RemoveBuffEvent) {
-    this.elementalSpiritHistory.push({
-      value: this.icyEdgeCount + (event.type === EventType.ApplyBuff ? 1 : -1),
-      timestamp: event.timestamp,
-      type: 'icy-edge',
-    });
+    this.recordElementalSpirit(this.icyEdgeCount, event, 'icy-edge');
   }
 
   gainCracklingSurge(event: ApplyBuffEvent | RemoveBuffEvent) {
+    this.recordElementalSpirit(this.cracklingSurgeCount, event, 'crackling-surge');
+  }
+
+  private recordElementalSpirit(
+    current: number,
+    event: ApplyBuffEvent | RemoveBuffEvent,
+    type: ElementalSpiritType,
+  ) {
+    let value = current + (event.type === EventType.ApplyBuff ? 1 : -1);
+    if (value < 0) {
+      console.error(
+        `Attempt to record negative ${type} count @ ${event.timestamp} (${this.owner.formatTimestamp(event.timestamp)})`,
+      );
+      value = 0;
+    }
+
     this.elementalSpiritHistory.push({
-      value: this.cracklingSurgeCount + (event.type === EventType.ApplyBuff ? 1 : -1),
+      value: value,
       timestamp: event.timestamp,
-      type: 'crackling-surge',
+      type: type,
     });
   }
 
@@ -268,19 +276,25 @@ class ElementalSpirits extends Analyzer {
         color: '#f37735',
         label: <>Molten Weapon</>,
         spellId: SPELLS.ELEMENTAL_SPIRITS_BUFF_MOLTEN_WEAPON.id,
-        value: this.moltenWeaponCount,
+        value: this.selectedCombatant.getBuffTriggerCount(
+          SPELLS.ELEMENTAL_SPIRITS_BUFF_MOLTEN_WEAPON.id,
+        ),
       },
       {
         color: '#94d3ec',
         label: <>Icy Edge</>,
         spellId: SPELLS.ELEMENTAL_SPIRITS_BUFF_ICY_EDGE.id,
-        value: this.icyEdgeCount,
+        value: this.selectedCombatant.getBuffTriggerCount(
+          SPELLS.ELEMENTAL_SPIRITS_BUFF_ICY_EDGE.id,
+        ),
       },
       {
         color: '#3b7fb0',
         label: <>Crackling Surge</>,
         spellId: SPELLS.ELEMENTAL_SPIRITS_BUFF_CRACKLING_SURGE.id,
-        value: this.cracklingSurgeCount,
+        value: this.selectedCombatant.getBuffTriggerCount(
+          SPELLS.ELEMENTAL_SPIRITS_BUFF_CRACKLING_SURGE.id,
+        ),
       },
     ];
 

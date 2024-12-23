@@ -1542,7 +1542,7 @@ const talents = {
   SOUL_ROT_TALENT: {
     id: 386997,
     name: 'Soul Rot',
-    icon: 'ability_ardenweald_warlock',
+    icon: 'inv_ability_warlock_soulrot',
     maxRanks: 1,
     entryIds: [91578],
     definitionIds: [{ id: 96580, specId: 265 }],

@@ -34,9 +34,9 @@ export default class ThrivingVegetation extends Analyzer.withDependencies({
   statistic() {
     const extraDurationHealing =
       this.deps.hotTracker.getAttribution(THRIVING_VEG_ATT_NAME)?.healing || 0;
-    const instantRejuvHealing = this.deps.abilityTracker.getAbility(
+    const instantRejuvHealing = this.deps.abilityTracker.getAbilityHealing(
       SPELLS.THRIVING_VEGETATION.id,
-    ).healingEffective;
+    );
     return (
       <Statistic
         size="flexible"

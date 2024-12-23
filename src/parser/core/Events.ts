@@ -1097,10 +1097,7 @@ export interface Soulbind {
 export interface TalentEntry {
   id: number;
   nodeID: number;
-  spellID: number;
   rank: number;
-  icon?: string;
-  spellType?: number;
 }
 
 export interface CombatantInfoEvent extends Event<EventType.CombatantInfo> {

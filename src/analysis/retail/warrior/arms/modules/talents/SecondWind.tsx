@@ -23,8 +23,7 @@ class SecondWind extends Analyzer {
   }
 
   subStatistic() {
-    const secondWind = this.abilityTracker.getAbility(SPELLS.SECOND_WIND_TALENT_HEAL.id);
-    const heal = secondWind.healingEffective || 0;
+    const heal = this.abilityTracker.getAbilityHealing(SPELLS.SECOND_WIND_TALENT_HEAL.id);
     return (
       <StatisticListBoxItem
         title={

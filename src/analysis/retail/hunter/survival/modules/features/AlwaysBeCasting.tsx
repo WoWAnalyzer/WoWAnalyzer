@@ -19,13 +19,15 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   }
 
   suggestions(when: When) {
+    const raptorStrikeSpell = this.selectedCombatant.hasTalent(TALENTS.MONGOOSE_BITE_TALENT)
+      ? TALENTS.MONGOOSE_BITE_TALENT
+      : TALENTS.RAPTOR_STRIKE_TALENT;
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
           Your downtime can be improved. Try to reduce the delay between casting spells. If
-          everything is on cooldown, try and use <SpellLink spell={TALENTS.RAPTOR_STRIKE_TALENT} />{' '}
-          (or <SpellLink spell={TALENTS.MONGOOSE_BITE_TALENT} /> if selected) to stay off the focus
-          cap and do some damage.
+          everything is on cooldown, try and use <SpellLink spell={raptorStrikeSpell} /> to stay off
+          the focus cap and do some damage.
         </>,
       )
         .icon('spell_mage_altertime')

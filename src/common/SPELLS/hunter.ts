@@ -135,16 +135,6 @@ const spells = {
     name: 'Bursting Shot',
     icon: 'ability_hunter_burstingshot',
   },
-  EXPLOSIVE_SHOT_DETONATION: {
-    id: 212679,
-    name: 'Explosive Shot: Detonate!',
-    icon: '6bf_explosive_shard',
-  },
-  EXPLOSIVE_SHOT_DAMAGE: {
-    id: 212680,
-    name: 'Explosive Shot',
-    icon: '6bf_explosive_shard',
-  },
   RAPID_FIRE: {
     id: 257044,
     name: 'Rapid Fire',
@@ -230,9 +220,19 @@ const spells = {
     name: 'Deathblow',
     icon: 'ability_hunter_runningshot',
   },
+  SERPENT_STING_MM: {
+    id: 271788,
+    name: 'Serpent Sting',
+    icon: 'spell_hunter_exoticmunitions_poisoned',
+  },
   //endregion
 
   //region Survival
+  FURIOUS_ASSAULT_BUFF_SV: {
+    id: 448814,
+    name: 'Furious Assault',
+    icon: 'spell_druid_feralchargecat',
+  },
   ASPECT_OF_THE_EAGLE: {
     id: 186289,
     name: 'Aspect of the Eagle',
@@ -253,12 +253,7 @@ const spells = {
     name: 'Terms of Engagement',
     icon: 'ability_hunter_harpoon',
   },
-  KILL_COMMAND_CAST_SV: {
-    id: 259489,
-    name: 'Kill Command',
-    icon: 'ability_hunter_killcommand',
-  },
-  KILL_COMMAND_DAMAGE_SV: {
+  KILL_COMMAND_SURVIVAL_DAMAGE: {
     id: 259277,
     name: 'Kill Command',
     icon: 'ability_hunter_killcommand',
@@ -268,22 +263,12 @@ const spells = {
     name: "Flanker's Advantage",
     icon: 'ability_hunter_resistanceisfutile',
   },
-  MUZZLE: {
-    id: 187707,
-    name: 'Muzzle',
-    icon: 'ability_hunter_negate',
-  },
-  WILDFIRE_BOMB: {
-    id: 259495,
-    name: 'Wildfire Bomb',
-    icon: 'inv_wildfirebomb',
-  },
   RAPTOR_STRIKE_AOTE: {
     id: 265189,
     name: 'Raptor Strike',
     icon: 'ability_hunter_raptorstrike',
   },
-  SERPENT_STING_SV: {
+  SERPENT_STING_SURVIVAL: {
     id: 259491,
     name: 'Serpent Sting',
     icon: 'spell_hunter_exoticmunitions_poisoned',
@@ -298,6 +283,11 @@ const spells = {
     id: 190927,
     name: 'Harpoon',
     icon: 'ability_hunter_harpoon',
+  },
+  GRENADE_JUGGLER_BUFF: {
+    id: 470488,
+    name: 'Grenade Juggler',
+    icon: 'inv_misc_mohawkgrenade',
   },
   WING_CLIP: {
     id: 195645,
@@ -340,61 +330,6 @@ const spells = {
     name: 'Wildfire Bomb',
     icon: 'inv_wildfirebomb',
   },
-  SHRAPNEL_BOMB_WFI: {
-    id: 270335,
-    name: 'Shrapnel Bomb',
-    icon: 'inv_wildfirebomb_shrapnel',
-  },
-  SHRAPNEL_BOMB_WFI_IMPACT: {
-    id: 270338,
-    name: 'Shrapnel Bomb',
-    icon: 'inv_wildfirebomb_shrapnel',
-  },
-  SHRAPNEL_BOMB_WFI_DOT: {
-    id: 270339,
-    name: 'Shrapnel Bomb',
-    icon: 'inv_wildfirebomb_shrapnel',
-  },
-  INTERNAL_BLEEDING_SV: {
-    id: 270343,
-    name: 'Internal Bleeding',
-    icon: 'ability_gouge',
-  },
-  VOLATILE_BOMB_WFI: {
-    id: 271045,
-    name: 'Volatile Bomb',
-    icon: 'inv_wildfirebomb_poison',
-  },
-  VOLATILE_BOMB_WFI_IMPACT: {
-    id: 271048,
-    name: 'Volatile Bomb',
-    icon: 'inv_wildfirebomb_poison',
-  },
-  VOLATILE_BOMB_WFI_DOT: {
-    id: 271049,
-    name: 'Volatile Bomb',
-    icon: 'inv_wildfirebomb_poison',
-  },
-  PHEROMONE_BOMB_WFI: {
-    id: 270323,
-    name: 'Pheromone Bomb',
-    icon: 'inv_wildfirebomb_blood',
-  },
-  PHEROMONE_BOMB_WFI_IMPACT: {
-    id: 270329,
-    name: 'Pheromone Bomb',
-    icon: 'inv_wildfirebomb_blood',
-  },
-  PHEROMONE_BOMB_WFI_DOT: {
-    id: 270332,
-    name: 'Pheromone Bomb',
-    icon: 'inv_wildfirebomb_blood',
-  },
-  CHAKRAMS_TO_MAINTARGET: {
-    id: 259398,
-    name: 'Chakrams',
-    icon: 'ability_glaivetoss',
-  },
   CHAKRAMS_BACK_FROM_MAINTARGET: {
     id: 267666,
     name: 'Chakrams',
@@ -420,9 +355,44 @@ const spells = {
     name: 'Flanking Strike',
     icon: 'ability_hunter_invigeration',
   },
+  COORDINATED_ASSAULT_FAKE_CAST: {
+    id: 360969,
+    name: 'Coordinated Assault',
+    icon: 'ability_ardenweald_demonhunter',
+  },
+  COORDINATED_ASSAULT_BUFF: {
+    id: 360952,
+    name: 'Coordinated Assault',
+    icon: 'inv_coordinatedassault',
+  },
+  SPEARHEAD_DAMAGE: {
+    id: 378957,
+    name: 'Spearhead',
+    icon: 'ability_hunter_spearhead',
+  },
+  FURY_OF_THE_EAGLE_DAMAGE: {
+    id: 203413,
+    name: 'Fury of the Eagle',
+    icon: 'inv_polearm_2h_artifacteagle_d_01',
+  },
+  MERCILESS_BLOW_DAMAGE: {
+    id: 459870,
+    name: 'Merciless Blow',
+    icon: 'ability_hunter_swiftstrike',
+  },
   //endregion
 
   //region Shared
+  HOWL_OF_THE_PACK_BUFF: {
+    id: 462515,
+    name: 'Howl of the Pack',
+    icon: 'spell_hunter_lonewolf',
+  },
+  EXPLOSIVE_SHOT_DAMAGE: {
+    id: 212680,
+    name: 'Explosive Shot',
+    icon: '6bf_explosive_shard',
+  },
   KILL_COMMAND_SHARED_DAMAGE: {
     id: 83381,
     name: 'Kill Command',
@@ -573,6 +543,26 @@ const spells = {
     name: 'Wailing Arrow',
     icon: 'ability_theblackarrow',
   },
+  WAILING_ARROW_DAMAGE_FOCUS: {
+    id: 392060,
+    name: 'Wailing Arrow',
+    icon: 'ability_theblackarrow',
+  },
+  BLACK_ARROW_DAMAGE: {
+    id: 466930,
+    name: 'Black Arrow',
+    icon: 'inv_ability_darkrangerhunter_blackarrow',
+  },
+  BLACK_ARROW_DAMAGE_2: {
+    id: 468037,
+    name: 'Black Arrow',
+    icon: 'inv_ability_darkrangerhunter_blackarrow',
+  },
+  BLACK_ARROW_DAMAGE_3: {
+    id: 468572,
+    name: 'Black Arrow',
+    icon: 'inv_ability_darkrangerhunter_blackarrow',
+  },
   //endregion
 
   //region Pets
@@ -652,7 +642,7 @@ const spells = {
     icon: 'ability_hunter_masterscall',
   },
   FORTITUDE_OF_THE_BEAR: {
-    id: 272679,
+    id: 392956,
     name: 'Fortitude of the Bear',
     icon: 'spell_druid_bearhug',
   },
@@ -747,6 +737,21 @@ const spells = {
     name: 'T30 4P',
     icon: 'ability_druid_ferociousbite',
   },
+
+  //TWW Lightless 2p
+  TWW_LIGHTLESS_2P_MM: {
+    id: 453648,
+    name: 'Hunter MM Lightless 2 Piece Set',
+    icon: 'trade_engineering',
+  },
+
+  //TWW Lightless 4p
+  TWW_LIGHTLESS_4P_MM: {
+    id: 453650,
+    name: 'Hunter MM Lightless 4 Piece Set',
+    icon: 'trade_engineering',
+  },
+
   //endregion
 } satisfies Record<string, Spell>;
 

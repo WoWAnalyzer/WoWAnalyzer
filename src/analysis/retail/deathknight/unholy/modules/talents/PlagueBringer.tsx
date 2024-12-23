@@ -8,6 +8,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { formatPercentage } from 'common/format';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 class PlagueBringer extends Analyzer {
   constructor(options: Options) {
@@ -37,7 +38,7 @@ class PlagueBringer extends Analyzer {
         suggest(
           <span>
             You are not keeping up your <SpellLink spell={SPELLS.PLAGUEBRINGER_BUFF} /> enough.{' '}
-            Prioritise maintaining it by using <SpellLink spell={SPELLS.SCOURGE_STRIKE} />.
+            Prioritise maintaining it by using <SpellLink spell={TALENTS.SCOURGE_STRIKE_TALENT} />.
           </span>,
         )
           .icon(SPELLS.PLAGUEBRINGER_BUFF.icon)
@@ -62,6 +63,7 @@ class PlagueBringer extends Analyzer {
           this.owner.fightDuration / 1000,
         )} seconds`}
         position={STATISTIC_ORDER.CORE(1)}
+        category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
       >
         <BoringSpellValueText spell={TALENTS.PLAGUEBRINGER_TALENT}>

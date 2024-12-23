@@ -80,6 +80,9 @@ const AfflictionWarlockChecklist = ({ combatant, castEfficiency, thresholds }: C
             <SpellLink spell={TALENTS.BURNING_RUSH_TALENT} icon /> or mitigate incoming damage with{' '}
             <SpellLink spell={SPELLS.UNENDING_RESOLVE} icon />/
             <SpellLink spell={TALENTS.DARK_PACT_TALENT} icon />.<br />
+            You can use 3 <SpellLink spell={SPELLS.DEMONIC_HEALTHSTONE} icon /> if you have{' '}
+            <SpellLink spell={TALENTS.PACT_OF_GLUTTONY_TALENT} icon /> talented.
+            <br />
             While you shouldn't cast these defensives on cooldown, be aware of them and use them
             whenever effective. Not using them at all indicates you might not be aware of them or
             not using them optimally.
@@ -90,6 +93,9 @@ const AfflictionWarlockChecklist = ({ combatant, castEfficiency, thresholds }: C
           <AbilityRequirement spell={TALENTS.DARK_PACT_TALENT.id} />
         )}
         <AbilityRequirement spell={SPELLS.UNENDING_RESOLVE.id} />
+        {combatant.hasTalent(TALENTS.PACT_OF_GLUTTONY_TALENT) && (
+          <AbilityRequirement spell={SPELLS.DEMONIC_HEALTHSTONE.id} />
+        )}
       </Rule>
       <Rule
         name="Always be casting"

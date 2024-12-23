@@ -18,8 +18,7 @@ class PhantomSingularity extends Analyzer {
   }
 
   statistic() {
-    const spell = this.abilityTracker.getAbility(TALENTS.PHANTOM_SINGULARITY_TALENT.id);
-    const damage = spell.damageEffective + spell.damageAbsorbed;
+    const damage = this.abilityTracker.getAbilityDamage(TALENTS.PHANTOM_SINGULARITY_TALENT.id);
     const dps = (damage / this.owner.fightDuration) * 1000;
     return (
       <Statistic
