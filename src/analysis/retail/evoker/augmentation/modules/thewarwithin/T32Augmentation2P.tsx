@@ -27,7 +27,9 @@ class TectonicLocus extends Analyzer {
     this.active = this.selectedCombatant.has4PieceByTier(TIERS.TWW1);
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell([SPELLS.UPHEAVAL_DAM, TALENTS.ERUPTION_TALENT]),
+      Events.damage
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.UPHEAVAL_DAM, SPELLS.UPHEAVAL_DOT, TALENTS.ERUPTION_TALENT]),
       this.onDamage,
     );
   }
@@ -36,6 +38,10 @@ class TectonicLocus extends Analyzer {
     const effAmount = calculateEffectiveDamage(event, VOLCANIC_UPSURGE_MULTIPLIER);
     switch (event.ability.guid) {
       case SPELLS.UPHEAVAL_DAM.id: {
+        this.upheavalDamageIncrease += effAmount;
+        break;
+      }
+      case SPELLS.UPHEAVAL_DOT.id: {
         this.upheavalDamageIncrease += effAmount;
         break;
       }
