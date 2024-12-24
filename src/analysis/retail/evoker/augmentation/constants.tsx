@@ -38,6 +38,7 @@ export const BREATH_OF_EONS_MULTIPLIER = 0.1;
 // Tier
 export const TREMBLING_EARTH_EXTENSION_MS = 200;
 export const TREMBLING_EARTH_STACK_LIMIT = 5;
+export const VOLCANIC_UPSURGE_MULTIPLIER = 0.3;
 
 // Scalecommander changes ID for breath of eons
 export const BREATH_OF_EONS_SPELLS = [

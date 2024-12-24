@@ -659,6 +659,11 @@ const spells = {
     name: 'Momentum Shift',
     icon: 'ability_priest_voidshift',
   },
+  VOLCANIC_UPSURGE: {
+    id: 456142,
+    name: 'Volcanic Upsurge',
+    icon: 'ability_evoker_earthensky',
+  },
   // endregion
 } satisfies Record<string, Spell>;
 

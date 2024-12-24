@@ -2,9 +2,10 @@ import { change, date } from 'common/changelog';
 import { Vollmer, KYZ } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 import TALENTS from 'common/TALENTS/evoker';
+import SPELLS from 'common/SPELLS';
 
 export default [
-  change(date(2024, 12, 23), <>Implement <SpellLink spell={TALENTS.MOMENTUM_SHIFT_TALENT}/> and <SpellLink spell={TALENTS.PRIMACY_TALENT}/> modules</>, KYZ),
+  change(date(2024, 12, 24), <>Implement <SpellLink spell={TALENTS.MOMENTUM_SHIFT_TALENT}/>, <SpellLink spell={TALENTS.PRIMACY_TALENT}/> and <SpellLink spell={SPELLS.VOLCANIC_UPSURGE}/> modules</>, KYZ),
   change(date(2024, 12, 22), <>Implement <SpellLink spell={TALENTS.REVERBERATIONS_TALENT}/> module</>, KYZ),
   change(date(2024, 12, 22), <>Enable <SpellLink spell={TALENTS.CHRONO_FLAME_TALENT}/> and <SpellLink spell={TALENTS.THREADS_OF_FATE_TALENT}/> modules</>, KYZ),
   change(date(2024, 11, 26), <>Update multipliers for <SpellLink spell={TALENTS.MOLTEN_EMBERS_TALENT} /> module & add guide section</>, Vollmer),

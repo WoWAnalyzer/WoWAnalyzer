@@ -35,6 +35,7 @@ import EbonMightNormalizer from './modules/normalizers/EbonMightNormalizer';
 
 // Tier
 import T31Augmentation4P from './modules/dragonflight/T31Augmentation4P';
+import T32Augmentation2P from './modules/thewarwithin/T32Augmentation2P';
 
 //Shared
 import {
@@ -151,6 +152,7 @@ class CombatLogParser extends MainCombatLogParser {
 
     // Tier
     t31Augmentation4P: T31Augmentation4P,
+    t32Augmentation2P: T32Augmentation2P,
   };
   static guide = Guide;
 }
