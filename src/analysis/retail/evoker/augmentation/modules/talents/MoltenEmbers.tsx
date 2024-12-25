@@ -101,13 +101,7 @@ class MoltenEmbers extends Analyzer {
     if (this.hasFontOfMagic) {
       this.perfectFireBreathRank = 4;
     }
-    if (this.selectedCombatant.hasTalent(TALENTS.REVERBERATIONS_TALENT)) {
-      this.hasReverberations = true;
-      this.moltenEmbersDamageSources[TALENTS.REVERBERATIONS_TALENT.id] = {
-        amount: 0,
-        spell: TALENTS.REVERBERATIONS_TALENT,
-      };
-    }
+    this.hasReverberations = this.selectedCombatant.hasTalent(TALENTS.REVERBERATIONS_TALENT);
 
     if (this.selectedCombatant.hasTalent(TALENTS.BLAST_FURNACE_TALENT)) {
       this.moltenEmbersAmplifiers = MOLTEN_EMBERS_MULTIPLIER;
@@ -155,7 +149,7 @@ class MoltenEmbers extends Analyzer {
           this.moltenEmbersAmplifiers[this.previousFireBreathRank - 1],
         );
 
-        this.moltenEmbersDamageSources[TALENTS.REVERBERATIONS_TALENT.id].amount += effAmount;
+        this.moltenEmbersDamageSources[SPELLS.UPHEAVAL_DAM.id].amount += effAmount;
         this.totalMoltenEmbersDamage += effAmount;
       });
     }
