@@ -52,6 +52,9 @@ export const MASS_ERUPTION_DAM_LINK = 'massEruptionDamLink';
 export const MASS_ERUPTION_CONSUME = 'massEruptionConsume';
 const MASS_ERUPTION_DAMAGE_BUFFER = 1000; // These have very spooky delay
 
+export const UPHEAVAL_REVERBERATION_DAM_LINK = 'upheavalReverberationDamLink';
+export const UPHEAVAL_REVERBERATION_BUFFER = 12_000; // This DoT last a very long while
+
 const PRESCIENCE_BUFFER = 150;
 const CAST_BUFFER_MS = 100;
 const BREATH_EBON_BUFFER = 250;
@@ -285,6 +288,17 @@ const EVENT_LINKS: EventLink[] = [
     additionalCondition(linkingEvent, referencedEvent) {
       return upheavalHitIsUnique(linkingEvent as EmpowerEndEvent, referencedEvent as DamageEvent);
     },
+  },
+  {
+    linkRelation: UPHEAVAL_REVERBERATION_DAM_LINK,
+    reverseLinkRelation: UPHEAVAL_REVERBERATION_DAM_LINK,
+    linkingEventId: [TALENTS.UPHEAVAL_TALENT.id, SPELLS.UPHEAVAL_FONT.id],
+    linkingEventType: EventType.EmpowerEnd,
+    referencedEventId: SPELLS.UPHEAVAL_DOT.id,
+    referencedEventType: EventType.Damage,
+    anyTarget: true,
+    forwardBufferMs: UPHEAVAL_REVERBERATION_BUFFER,
+    isActive: (c) => c.hasTalent(TALENTS.REVERBERATIONS_TALENT),
   },
   {
     linkRelation: UPHEAVAL_RUMBLING_EARTH_LINK,
