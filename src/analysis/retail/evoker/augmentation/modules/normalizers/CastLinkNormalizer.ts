@@ -20,6 +20,7 @@ import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
 import PrePullCooldowns from 'parser/shared/normalizers/PrePullCooldowns';
 import { LEAPING_FLAMES_HITS } from 'analysis/retail/evoker/shared/modules/normalizers/LeapingFlamesNormalizer';
 import { BREATH_OF_EONS_SPELL_IDS } from '../../constants';
+import { TIERS } from 'game/TIERS';
 
 /** So sometimes when Ebon Might should be extended
  * it just kinda doesn't? This messes with our analysis so
@@ -54,6 +55,8 @@ const MASS_ERUPTION_DAMAGE_BUFFER = 1000; // These have very spooky delay
 
 export const UPHEAVAL_REVERBERATION_DAM_LINK = 'upheavalReverberationDamLink';
 export const UPHEAVAL_REVERBERATION_BUFFER = 12_000; // This DoT last a very long while
+
+export const VOLCANIC_UPSURGE_CONSUME = 'volcanicUpsurgeConsume';
 
 const PRESCIENCE_BUFFER = 150;
 const CAST_BUFFER_MS = 100;
@@ -274,6 +277,7 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true,
     forwardBufferMs: TREMBLING_EARTH_BUFFER,
     backwardBufferMs: TREMBLING_EARTH_BUFFER,
+    isActive: (C) => C.has4PieceByTier(TIERS.DF3),
   },
   {
     linkRelation: UPHEAVAL_CAST_DAM_LINK,
@@ -337,6 +341,19 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true,
     forwardBufferMs: MASS_ERUPTION_DAMAGE_BUFFER,
     isActive: (C) => C.hasTalent(TALENTS.MASS_ERUPTION_TALENT),
+  },
+  {
+    linkRelation: VOLCANIC_UPSURGE_CONSUME,
+    reverseLinkRelation: VOLCANIC_UPSURGE_CONSUME,
+    linkingEventId: TALENTS.ERUPTION_TALENT.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.VOLCANIC_UPSURGE.id,
+    referencedEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
+    anyTarget: true,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+    isActive: (C) => C.has4PieceByTier(TIERS.TWW1),
+    maximumLinks: 1,
   },
 ];
 
@@ -438,6 +455,10 @@ export function getMassEruptionDamageEvents(event: CastEvent): DamageEvent[] {
     MASS_ERUPTION_DAM_LINK,
     (e): e is DamageEvent => e.type === EventType.Damage,
   );
+}
+
+export function isVolcanicUpsurgeEruption(event: CastEvent) {
+  return HasRelatedEvent(event, VOLCANIC_UPSURGE_CONSUME);
 }
 
 export default CastLinkNormalizer;

@@ -3,7 +3,7 @@ import TALENTS from 'common/TALENTS/evoker';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import Events, { DamageEvent } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { VOLCANIC_UPSURGE_MULTIPLIER } from '../../constants';
 
@@ -14,6 +14,10 @@ import { TIERS } from 'game/TIERS';
 import { formatNumber } from 'common/format';
 import DonutChart from 'parser/ui/DonutChart';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import {
+  getEruptionDamageEvents,
+  isVolcanicUpsurgeEruption,
+} from '../normalizers/CastLinkNormalizer';
 
 /**
  * (4) Set Augmentation: Upheaval deals 30% increased damage and increases the damage of your next 2 Eruption casts by 30%.
@@ -27,10 +31,12 @@ class TectonicLocus extends Analyzer {
     this.active = this.selectedCombatant.has4PieceByTier(TIERS.TWW1);
 
     this.addEventListener(
-      Events.damage
-        .by(SELECTED_PLAYER)
-        .spell([SPELLS.UPHEAVAL_DAM, SPELLS.UPHEAVAL_DOT, TALENTS.ERUPTION_TALENT]),
+      Events.damage.by(SELECTED_PLAYER).spell([SPELLS.UPHEAVAL_DAM, SPELLS.UPHEAVAL_DOT]),
       this.onDamage,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.ERUPTION_TALENT),
+      this.onEruptionCast,
     );
   }
 
@@ -45,13 +51,20 @@ class TectonicLocus extends Analyzer {
         this.upheavalDamageIncrease += effAmount;
         break;
       }
-      case TALENTS.ERUPTION_TALENT.id: {
-        if (this.selectedCombatant.hasBuff(SPELLS.VOLCANIC_UPSURGE.id)) {
-          this.volcanicUpsurgeDamage += effAmount;
-        }
-        break;
-      }
     }
+  }
+
+  onEruptionCast(event: CastEvent) {
+    if (!isVolcanicUpsurgeEruption(event)) {
+      return;
+    }
+    const eruptionDamageEvents = getEruptionDamageEvents(event);
+    eruptionDamageEvents.forEach((damageEvent) => {
+      this.volcanicUpsurgeDamage += calculateEffectiveDamage(
+        damageEvent,
+        VOLCANIC_UPSURGE_MULTIPLIER,
+      );
+    });
   }
 
   statistic() {
