@@ -41,6 +41,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 12, 23), 'Update Classic Guild image for Reports page', jazminite),
   change(date(2024, 12, 21), <>Added <ItemLink id={ITEMS.MERELDARS_TOLL.id}/></>, KYZ),
   change(date(2024, 12, 11), 'Added support for new style of WCL URLs.', emallson),
   change(date(2024, 11, 13), <>Updated common hunter spells and talents with script</>, Yellot),

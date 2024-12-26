@@ -21,7 +21,10 @@ import { Talent } from 'common/TALENTS/types';
 import Spell from 'common/SPELLS/Spell';
 import DonutChart from 'parser/ui/DonutChart';
 import { ChecklistUsageInfo, SpellUse } from 'parser/core/SpellUsage/core';
-import { UPHEAVAL_CAST_DAM_LINK } from '../normalizers/CastLinkNormalizer';
+import {
+  UPHEAVAL_CAST_DAM_LINK,
+  UPHEAVAL_REVERBERATION_DAM_LINK,
+} from '../normalizers/CastLinkNormalizer';
 import SpellLink from 'interface/SpellLink';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
@@ -63,6 +66,7 @@ class MoltenEmbers extends Analyzer {
   moltenEmbersDamageSources: DamageSources = {};
 
   hasFontOfMagic = false;
+  hasReverberations = false;
   perfectFireBreathRank = 3;
 
   moltenEmbersAmplifiers = MOLTEN_EMBERS_MULTIPLIER_NO_BLAST_FURNACE;
@@ -97,6 +101,7 @@ class MoltenEmbers extends Analyzer {
     if (this.hasFontOfMagic) {
       this.perfectFireBreathRank = 4;
     }
+    this.hasReverberations = this.selectedCombatant.hasTalent(TALENTS.REVERBERATIONS_TALENT);
 
     if (this.selectedCombatant.hasTalent(TALENTS.BLAST_FURNACE_TALENT)) {
       this.moltenEmbersAmplifiers = MOLTEN_EMBERS_MULTIPLIER;
@@ -104,6 +109,11 @@ class MoltenEmbers extends Analyzer {
   }
 
   onDamage(event: DamageEvent) {
+    // Calculate Reverberations on Cast since it is snapshot
+    if (event.ability.guid === SPELLS.UPHEAVAL_DOT.id) {
+      return;
+    }
+
     const enemy = this.enemies.getEntity(event);
 
     if (!enemy || !enemy.getBuff(SPELLS.FIRE_BREATH_DOT.id)) {
@@ -129,6 +139,20 @@ class MoltenEmbers extends Analyzer {
       const enemy = this.enemies.getEntity(e);
       return enemy && enemy.getBuff(SPELLS.FIRE_BREATH_DOT.id);
     });
+
+    if (this.hasReverberations && fireBreathActive) {
+      const reverbEvents = GetRelatedEvents<DamageEvent>(event, UPHEAVAL_REVERBERATION_DAM_LINK);
+
+      reverbEvents.forEach((reverbEvent) => {
+        const effAmount = calculateEffectiveDamage(
+          reverbEvent,
+          this.moltenEmbersAmplifiers[this.previousFireBreathRank - 1],
+        );
+
+        this.moltenEmbersDamageSources[SPELLS.UPHEAVAL_DAM.id].amount += effAmount;
+        this.totalMoltenEmbersDamage += effAmount;
+      });
+    }
 
     this.upheavalCasts.push({
       event,

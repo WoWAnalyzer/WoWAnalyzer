@@ -20,7 +20,7 @@ import './GuildReports.scss';
 import ReportsList from './GuildReportsList';
 import ALLIANCE_PICTURE from './images/ally_guild_banner_bwl.jpg';
 import HORDE_PICTURE from './images/horde_guild_banner_onyx.jpg';
-import CLASSIC_PICTURE from './images/classic_guild_banner_lich_king.jpg';
+import CLASSIC_PICTURE from './images/classic_guild_banner.jpg';
 
 const loadRealms = (classic: boolean) =>
   retryingPromise(() =>
