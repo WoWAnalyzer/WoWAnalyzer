@@ -8,7 +8,9 @@ import SPELLS from 'common/SPELLS';
 import { IntellectIcon, InformationIcon } from 'interface/icons';
 import { formatPercentage } from 'common/format';
 import { MOMENTUM_SHIFT_INTELLECT_PER_STACK } from '../../constants';
-
+/**
+ * Consuming Essence Burst grants 5% Intellect for 6 seconds, stacking up to 2 times.
+ */
 class MomentumShift extends Analyzer {
   constructor(options: Options) {
     super(options);
@@ -22,9 +24,12 @@ class MomentumShift extends Analyzer {
     const stackBuffUptimes = this.selectedCombatant.getStackBuffUptimes(
       SPELLS.MOMENTUM_SHIFT_BUFF.id,
     );
+    const weightedStackUptime = Object.values(stackBuffUptimes).reduce(
+      (acc, val, idx) => acc + val * idx,
+      0,
+    );
     const intellectBuffPercentage =
-      (MOMENTUM_SHIFT_INTELLECT_PER_STACK * (stackBuffUptimes[1] + 2 * stackBuffUptimes[2])) /
-      this.owner.fightDuration;
+      (MOMENTUM_SHIFT_INTELLECT_PER_STACK * weightedStackUptime) / this.owner.fightDuration;
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}

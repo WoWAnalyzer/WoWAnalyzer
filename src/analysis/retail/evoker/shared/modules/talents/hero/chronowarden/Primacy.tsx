@@ -8,7 +8,9 @@ import SPELLS from 'common/SPELLS';
 import { HasteIcon, InformationIcon } from 'interface/icons';
 import { formatPercentage } from 'common/format';
 import { PRIMACY_HASTE_PER_STACK } from 'analysis/retail/evoker/shared/constants';
-
+/**
+ * Each Reverberations DoT/HoT applied grants 3% Haste for 8 seconds, stacking up to 3 times.
+ */
 class Primacy extends Analyzer {
   constructor(options: Options) {
     super(options);
@@ -19,10 +21,12 @@ class Primacy extends Analyzer {
     const buffUptime =
       this.selectedCombatant.getBuffUptime(SPELLS.PRIMACY_BUFF.id) / this.owner.fightDuration;
     const stackBuffUptimes = this.selectedCombatant.getStackBuffUptimes(SPELLS.PRIMACY_BUFF.id);
+    const weightedStackUptime = Object.values(stackBuffUptimes).reduce(
+      (acc, val, idx) => acc + val * idx,
+      0,
+    );
     const hasteBuffPercentage =
-      (PRIMACY_HASTE_PER_STACK *
-        (stackBuffUptimes[1] + 2 * stackBuffUptimes[2] + 3 * stackBuffUptimes[3])) /
-      this.owner.fightDuration;
+      (PRIMACY_HASTE_PER_STACK * weightedStackUptime) / this.owner.fightDuration;
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
