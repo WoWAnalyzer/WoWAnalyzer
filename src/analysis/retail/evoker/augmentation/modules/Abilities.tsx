@@ -130,9 +130,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.TREMBLING_EARTH_BUFF.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: null,
-        enabled:
-          this.selectedCombatant.has4PieceByTier(TIERS.DF3) ||
-          this.selectedCombatant.has4PieceByTier(TIERS.DF4),
+        enabled: combatant.has4PieceByTier(TIERS.DF3) || combatant.has4PieceByTier(TIERS.DF4),
       },
       //endregion
       ...super.spellbook(),
