@@ -28,9 +28,9 @@ export function CoreRotationSection({ modules, events, info }: GuideProps<typeof
         <SpellLink spell={SPELLS.LIVING_FLAME_CAST} /> to fill in the gaps.
         <br />
         Your main cooldown, <SpellLink spell={TALENTS_EVOKER.BREATH_OF_EONS_TALENT} />, should be
-        used alongside your other DPS players' major cooldowns, since it amplifies their damage. As
+        used alongside your other DPS players' major cooldowns, since it amplifies their damage. {info.combatant.hasTalent(TALENTS_EVOKER.MASS_ERUPTION_TALENT) && (As
         Scalecommander, it should instead be used as often as possible where mobs will survive the
-        full duration.
+        full duration.)}
         <br />
         Using <SpellLink spell={TALENTS_EVOKER.TIME_SKIP_TALENT} /> on every other{' '}
         <SpellLink spell={TALENTS_EVOKER.BREATH_OF_EONS_TALENT} /> to further amplify the burst
