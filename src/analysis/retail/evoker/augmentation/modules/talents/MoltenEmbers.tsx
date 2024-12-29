@@ -273,8 +273,8 @@ class MoltenEmbers extends Analyzer {
         <strong>
           <SpellLink spell={TALENTS.MOLTEN_EMBERS_TALENT} />
         </strong>{' '}
-        amplifies the damage of your Black Spells eg. <SpellLink spell={SPELLS.UPHEAVAL} />, based
-        on the rank of <SpellLink spell={SPELLS.FIRE_BREATH} /> that is active on the target.
+        amplifies the damage of your Black Spells such as <SpellLink spell={SPELLS.UPHEAVAL} />,
+        based on the rank of <SpellLink spell={SPELLS.FIRE_BREATH} /> that is active on the target.
         Ideally you should try to line up both these empowers, whilst making sure to use{' '}
         <SpellLink spell={SPELLS.FIRE_BREATH} /> at as high rank as possible.
       </section>

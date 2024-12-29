@@ -5,6 +5,7 @@ import TALENTS from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  change(date(2024, 12, 29), "Update guide section", KYZ),
   change(date(2024, 12, 27), <>Implement <SpellLink spell={TALENTS.MOMENTUM_SHIFT_TALENT}/>, <SpellLink spell={TALENTS.PRIMACY_TALENT}/> and <SpellLink spell={SPELLS.VOLCANIC_UPSURGE}/> modules</>, KYZ),
   change(date(2024, 12, 25), <>Add <SpellLink spell={TALENTS.REVERBERATIONS_TALENT}/> damage to <SpellLink spell={TALENTS.MOLTEN_EMBERS_TALENT} /> statistics</>, Vollmer),
   change(date(2024, 12, 22), <>Implement <SpellLink spell={TALENTS.REVERBERATIONS_TALENT}/> module</>, KYZ),

@@ -4,6 +4,7 @@ import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import SPELLS from 'common/SPELLS/evoker';
 import { EMPOWER_BASE_GCD, EMPOWER_MINIMUM_GCD } from '../../shared';
+import { TIERS } from 'game/TIERS';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -129,6 +130,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.TREMBLING_EARTH_BUFF.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: null,
+        enabled:
+          this.selectedCombatant.has4PieceByTier(TIERS.DF3) ||
+          this.selectedCombatant.has4PieceByTier(TIERS.DF4),
       },
       //endregion
       ...super.spellbook(),

@@ -489,7 +489,7 @@ class EbonMight extends Analyzer {
         <strong>
           <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} />
         </strong>{' '}
-        Is one of the most important spells in your entire kit. It provides 4 allies with a
+        is one of the most important spells in your entire kit. It provides 4 allies with a
         percentage of your mainstat, along with making them priority targets for{' '}
         <SpellLink spell={SPELLS.SHIFTING_SANDS_BUFF} />.{' '}
         <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> prefers targets with{' '}
