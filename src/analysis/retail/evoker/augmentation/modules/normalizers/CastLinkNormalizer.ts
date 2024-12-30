@@ -46,8 +46,6 @@ const ERUPTION_CHITIN_LINK = 'eruptionChitinLink';
 const PUPIL_OF_ALEXSTRASZA_LINK = 'pupilOfAlexstraszaLink';
 export const UPHEAVAL_CAST_DAM_LINK = 'upheavalCastDamLink';
 export const UPHEAVAL_RUMBLING_EARTH_LINK = 'upheavalRumblingEarthLink';
-// Tier
-export const TREMBLING_EARTH_DAM_LINK = 'tremblingEarthDamLink';
 
 export const MASS_ERUPTION_DAM_LINK = 'massEruptionDamLink';
 export const MASS_ERUPTION_CONSUME = 'massEruptionConsume';
@@ -72,10 +70,6 @@ const UPHEAVAL_DAMAGE_BUFFER = 800;
 // In 11.0.5 Blizzard introduces a potential 1ms delay
 // https://www.warcraftlogs.com/reports/L48YR6WBjaXtTkMd/#fight=57&type=auras&pins=0%24Separate%24%23244F4B%24casts%240%240.0.0.Any%24176484645.0.0.Evoker%24true%240.0.0.Any%24false%24363916&target=8&ability=395152&start=10450757&end=10509380&view=events
 const EBON_MIGHT_APPLY_REMOVE_BUFFER = 1;
-
-// Tier
-// No clue why but this gets very weirdly staggered/delayed
-const TREMBLING_EARTH_BUFFER = 500;
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -265,19 +259,6 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
-  },
-  // Tier
-  {
-    linkRelation: TREMBLING_EARTH_DAM_LINK,
-    reverseLinkRelation: TREMBLING_EARTH_DAM_LINK,
-    linkingEventId: SPELLS.TREMBLING_EARTH_BUFF.id,
-    linkingEventType: EventType.RemoveBuff,
-    referencedEventId: SPELLS.TREMBLING_EARTH_DAM.id,
-    referencedEventType: EventType.Damage,
-    anyTarget: true,
-    forwardBufferMs: TREMBLING_EARTH_BUFFER,
-    backwardBufferMs: TREMBLING_EARTH_BUFFER,
-    isActive: (C) => C.has4PieceByTier(TIERS.DF3),
   },
   {
     linkRelation: UPHEAVAL_CAST_DAM_LINK,
