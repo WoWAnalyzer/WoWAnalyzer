@@ -379,10 +379,30 @@ const spells = {
   },
 
   // Arm Talents
+  EXECUTIONERS_PRECISION_DEBUFF: {
+    id: 386633, // ID for the debuff is different from the talent
+    name: "Executioner's Precision",
+    icon: 'inv_sword_48',
+  },
+  FIERCE_FOLLOWTHROUGH_BUFF: {
+    id: 458689,
+    name: 'Fierce Followthrough',
+    icon: 'spell_deathknight_butcher2',
+  },
   IN_FOR_THE_KILL_TALENT_BUFF: {
     id: 248622,
     name: 'In For The Kill',
     icon: 'ability_blackhand_marked4death',
+  },
+  JUGGERNAUT: {
+    id: 383290,
+    name: 'Juggernaut',
+    icon: 'warrior_talent_icon_skirmisher',
+  },
+  OPPORTUNIST: {
+    id: 456120,
+    name: 'Opportunist',
+    icon: 'ability_warrior_weaponmastery',
   },
   SUDDEN_DEATH_ARMS_TALENT_BUFF: {
     id: 52437,
@@ -653,6 +673,11 @@ const spells = {
     id: 410219,
     name: 'Earthen Smash',
     icon: 'inv_misc_head_dragon_red',
+  },
+  LETHAL_BLOWS_BUFF: {
+    id: 455485,
+    name: 'Lethal Blows',
+    icon: 'spell_warrior_sharpenblade',
   },
 
   //Fatality talent is split into 3 IDs, the talent (703), and these two.
