@@ -189,6 +189,15 @@ class SurgingTotem extends Analyzer {
       this.whirlingMotesExpired[spellId] += 1;
     } else {
       this.whirlingMotesConsumed[spellId] += 1;
+      if (this.SurgingTotemCasts.length === 0) {
+        // it is possible to have one of the buffs pre-pull. make up a cast at 0 if that occurred
+        this.SurgingTotemCasts.push({
+          timestamp: 0,
+          WhirlingAir: 0,
+          WhirlingEarth: 0,
+          WhirlingWater: 0,
+        });
+      }
       switch (event.ability.guid) {
         case SPELLS.WHIRLING_AIR.id: {
           this.SurgingTotemCasts[this.SurgingTotemCasts.length - 1].WhirlingAir = 1;
