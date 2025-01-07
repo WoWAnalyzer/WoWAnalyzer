@@ -2,6 +2,7 @@ import { Nevdok, nullDozzer } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2025, 1, 7), 'Add inefficient cast alerts to timeline', Nevdok),
   change(date(2024, 12, 17), 'Update years-old Fury theorycrafting and APL logic', Nevdok),
   change(date(2024, 10, 13), 'Many improvements to cooldown and haste tracking.', nullDozzer),
   change(date(2024, 9, 18), 'Fix various rage bugs! Add some missing spells to spellbook.', nullDozzer),
