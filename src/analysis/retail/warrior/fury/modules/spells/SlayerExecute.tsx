@@ -18,6 +18,7 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
 import SpellUsable from '../features/SpellUsable';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 /*  Example log:
  *  https://www.warcraftlogs.com/reports/vM8zdCPFhZkxfW3y?fight=45&type=casts&source=13
@@ -165,6 +166,10 @@ class SlayerExecute extends Analyzer {
       (this.rbWasAvailable || this.ramWasAvailable)
     ) {
       this.overusedExecutes += 1;
+      addInefficientCastReason(
+        event,
+        'Execute was used without 3 stacks of Marked for Execution, or when neither Ashen Juggernaut or Sudden Death were near expiring',
+      );
     }
   }
 

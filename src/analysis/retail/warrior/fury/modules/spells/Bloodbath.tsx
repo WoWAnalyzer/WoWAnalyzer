@@ -3,7 +3,8 @@ import SPELLS from 'common/SPELLS';
 import talents, { TALENTS_WARRIOR } from 'common/TALENTS/warrior';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { DamageEvent } from 'parser/core/Events';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 /*  Example log:
@@ -51,7 +52,7 @@ class Bloodbath extends Analyzer {
     }
   }
 
-  onRampageCast() {
+  onRampageCast(event: CastEvent) {
     if (this.selectedCombatant.hasBuff(SPELLS.BLOODBATH_BUFF)) {
       const bloodcrazeStacks = this.selectedCombatant.getBuffStacks(SPELLS.BLOODCRAZE.id);
 
@@ -63,6 +64,7 @@ class Bloodbath extends Analyzer {
         bloodcrazeStacks >= 3
       ) {
         this.missedBloodbaths += 1;
+        addInefficientCastReason(event, 'Rampage was used before using Bloodbath');
       }
     }
   }

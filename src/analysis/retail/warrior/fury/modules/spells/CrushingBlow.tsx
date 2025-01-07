@@ -3,7 +3,8 @@ import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/warrior';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
+import Events, { CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 /*  Example log:
@@ -36,9 +37,10 @@ class CrushingBlow extends Analyzer {
     };
   }
 
-  onRampageCast() {
+  onRampageCast(event: CastEvent) {
     if (this.selectedCombatant.hasBuff(SPELLS.CRUSHING_BLOW_BUFF)) {
       this.cbBuffRefreshCount += 1;
+      addInefficientCastReason(event, 'Rampage was used before using Crushing Blow');
     }
   }
 
