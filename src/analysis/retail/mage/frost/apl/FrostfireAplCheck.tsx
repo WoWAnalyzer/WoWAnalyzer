@@ -6,7 +6,7 @@ import SpellLink from 'interface/SpellLink';
 import * as apl from './FrostAplCommons';
 
 const precastFrostfireBolt = cnd.lastSpellCast(TALENTS.FROSTFIRE_BOLT_TALENT);
-const excessFrost = cnd.buffPresent(TALENTS.EXCESS_FROST_TALENT);
+const excessFrost = cnd.buffPresent(SPELLS.EXCESS_FROST_BUFF);
 
 const flurryFfCondition = cnd.or(
   cnd.and(
@@ -35,7 +35,7 @@ const flurryFfDescription = (
 export const frostfireApl = build([
   {
     spell: TALENTS.GLACIAL_SPIKE_TALENT,
-    condition: cnd.and(apl.fiveIcicles, apl.canShatter),
+    condition: cnd.and(apl.fiveIcicles),
   },
   {
     spell: TALENTS.FLURRY_TALENT,
@@ -49,3 +49,27 @@ export const frostfireApl = build([
 ]);
 
 export const frostfireCheck = aplCheck(frostfireApl);
+
+export const boltspamFrostfireApl = build([
+  {
+    spell: TALENTS.GLACIAL_SPIKE_TALENT,
+    condition: cnd.and(apl.fiveIcicles),
+  },
+  {
+    spell: TALENTS.FLURRY_TALENT,
+    condition: cnd.and(
+      cnd.buffStacks(SPELLS.ICICLES_BUFF, { atMost: 4 }),
+      cnd.debuffMissing(SPELLS.WINTERS_CHILL),
+    ),
+  },
+  {
+    spell: TALENTS.ICE_LANCE_TALENT,
+    condition: cnd.and(
+      cnd.buffPresent(SPELLS.EXCESS_FIRE_BUFF),
+      cnd.buffMissing(SPELLS.BRAIN_FREEZE_BUFF),
+    ),
+  },
+  TALENTS.FROSTFIRE_BOLT_TALENT,
+]);
+
+export const boltspamFrostfireCheck = aplCheck(boltspamFrostfireApl);
