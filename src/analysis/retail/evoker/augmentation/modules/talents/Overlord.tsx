@@ -9,6 +9,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { VersatilityIcon } from 'interface/icons';
 import { SpellLink } from 'interface';
+import { hasEruptionCastLink } from '../normalizers/CastLinkNormalizer';
 
 /**
  * Triggers an Eruption at the first 3 enemies hit by Breath of Eons / Deep Breath. These Eruptions are guaranteed to spawn a Mote of Possibility.
@@ -50,6 +51,16 @@ class Overlord extends Analyzer {
       this.selectedCombatant.hasBuff(TALENTS.BREATH_OF_EONS_TALENT) ||
       this.selectedCombatant.hasBuff(SPELLS.BREATH_OF_EONS_SCALECOMMANDER)
     ) {
+      this.overlordDamage += event.amount;
+    } else if (
+      (this.selectedCombatant.hasBuff(SPELLS.DEEP_BREATH, null, 500) ||
+        this.selectedCombatant.hasBuff(TALENTS.BREATH_OF_EONS_TALENT, null, 500) ||
+        this.selectedCombatant.hasBuff(SPELLS.BREATH_OF_EONS_SCALECOMMANDER, null, 500)) &&
+      !hasEruptionCastLink(event)
+    ) {
+      //With precise timing, it is possible to have an Overlord Eruption deal damage after Eons is cancelled.
+      //This is fairly unlikely to happen unless there's something to gain from doing so (i.e. a bug).
+      //But it's checked for anyway.
       this.overlordDamage += event.amount;
     }
   }

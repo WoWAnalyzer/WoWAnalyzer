@@ -19,7 +19,6 @@ import {
   DREAM_OF_SPRINGS_EXTENSION_MS,
   BREATH_OF_EONS_SPELL_IDS,
   BREATH_OF_EONS_SPELLS,
-  TIMEWALKER_EXTENSION_MULTIPLIER,
 } from 'analysis/retail/evoker/augmentation/constants';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { ChecklistUsageInfo, SpellUse } from 'parser/core/SpellUsage/core';
@@ -291,9 +290,7 @@ class EbonMight extends Analyzer {
     const oldDuration = ebonMightCooldownCast.oldBuffRemainder;
     const ebonMightPandemicAmount =
       EBON_MIGHT_BASE_DURATION_MS *
-      (1 +
-        TIMEWALKER_BASE_EXTENSION +
-        ebonMightCooldownCast.currentMastery * TIMEWALKER_EXTENSION_MULTIPLIER) *
+      (1 + TIMEWALKER_BASE_EXTENSION + ebonMightCooldownCast.currentMastery) *
       PANDEMIC_WINDOW;
     const hasT31 =
       this.selectedCombatant.has2PieceByTier(TIERS.DF3) ||

@@ -14,7 +14,7 @@ export const BASE_EVOKER_RANGE = 25;
 export const CLOBBERING_SWEEP_CDR = 45;
 export const HEAVY_WINGBEATS_CDR = 45;
 
-export const TIME_SPIRAL_BASE_DURATION = 10;
+export const TIME_SPIRAL_BASE_DURATION_MS = 10_000;
 
 export const EMPOWER_BASE_GCD = 1500;
 export const EMPOWER_CANCELED_GCD = 750;
@@ -74,7 +74,7 @@ export const FAN_THE_FLAMES_INCREASE = 1;
 export const RED_HOT_INCREASE = 0.2;
 
 export const PRIMACY_HASTE_PER_STACK = 3;
-export const THREAD_OF_FATE_BASE_DURATION = 10;
+export const THREAD_OF_FATE_BASE_DURATION_MS = 10_000;
 
 // Scalecommander changes ID for deep breath
 export const DEEP_BREATH_SPELLS = [SPELLS.DEEP_BREATH, SPELLS.DEEP_BREATH_SCALECOMMANDER];

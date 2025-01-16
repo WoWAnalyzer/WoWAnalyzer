@@ -7,7 +7,6 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import {
   PRESCIENCE_BASE_DURATION_MS,
   TIMEWALKER_BASE_EXTENSION,
-  TIMEWALKER_EXTENSION_MULTIPLIER,
 } from 'analysis/retail/evoker/augmentation/constants';
 
 /** This normalizer removes the applybuff and removebuff from unwanted target
@@ -55,9 +54,7 @@ class PrescienceNormalizer extends EventsNormalizer {
              * We need this event for more accurate analysis */
             const prescienceBuffDuration =
               PRESCIENCE_BASE_DURATION_MS *
-              (1 +
-                TIMEWALKER_BASE_EXTENSION +
-                this.stats.currentMasteryPercentage * TIMEWALKER_EXTENSION_MULTIPLIER);
+              (1 + TIMEWALKER_BASE_EXTENSION + this.stats.currentMasteryPercentage);
             if (event.timestamp < this.owner.fight.start_time + prescienceBuffDuration) {
               const fabricatedCastEvent = {
                 ...event,

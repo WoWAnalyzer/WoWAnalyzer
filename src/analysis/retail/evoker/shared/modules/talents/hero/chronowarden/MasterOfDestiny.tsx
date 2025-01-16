@@ -12,8 +12,8 @@ import Events, {
   RemoveBuffEvent,
 } from 'parser/core/Events';
 import { formatNumber } from 'common/format';
-import { THREAD_OF_FATE_BASE_DURATION } from 'analysis/retail/evoker/shared/constants';
-import { DamageIcon, InformationIcon } from 'interface/icons';
+import { THREAD_OF_FATE_BASE_DURATION_MS } from 'analysis/retail/evoker/shared/constants';
+import { UptimeIcon, InformationIcon } from 'interface/icons';
 
 /**
  * Using certain abilities with a 45 second or longer base cooldown grants 5% Intellect for 15 sec. Essence abilities extend the duration by 1 sec.
@@ -74,7 +74,7 @@ class MasterOfDestiny extends Analyzer {
     const threadDuration = (timestamp - this.threadApplyTimestamps[targetID]) / 1000;
     this.totalThreadDuration += threadDuration;
     this.totalThreadsApplied += 1;
-    const extensionValue = threadDuration - THREAD_OF_FATE_BASE_DURATION;
+    const extensionValue = threadDuration - THREAD_OF_FATE_BASE_DURATION_MS / 1000;
     if (extensionValue > 0) {
       this.totalThreadExtension += extensionValue;
     }
@@ -91,10 +91,10 @@ class MasterOfDestiny extends Analyzer {
       >
         <TalentSpellText talent={TALENTS_EVOKER.MASTER_OF_DESTINY_TALENT}>
           <div>
-            <DamageIcon /> {formatNumber(this.totalThreadExtension)} sec
+            <InformationIcon /> {formatNumber(this.totalThreadExtension)} sec
             <small> extra duration granted</small>
             <br />
-            <InformationIcon /> {formatNumber(averageThreadDuration)} sec
+            <UptimeIcon /> {formatNumber(averageThreadDuration)} sec
             <small> average buff duration</small>
           </div>
         </TalentSpellText>

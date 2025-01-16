@@ -15,7 +15,6 @@ import { formatNumber } from 'common/format';
 import {
   PRESCIENCE_BASE_DURATION_MS,
   TIMEWALKER_BASE_EXTENSION,
-  TIMEWALKER_EXTENSION_MULTIPLIER,
 } from 'analysis/retail/evoker/augmentation/constants';
 import { isGoldenOpportunityPrescience } from 'analysis/retail/evoker/augmentation/modules/normalizers/CastLinkNormalizer';
 import StatTracker from 'parser/shared/modules/StatTracker';
@@ -94,9 +93,7 @@ class GoldenOpportunity extends Analyzer {
     const prescienceDuration = (timestamp - this.goldenPrescienceApplyTimestamps[targetID]) / 1000;
     const basePrescienceDuration =
       (PRESCIENCE_BASE_DURATION_MS *
-        (1 +
-          TIMEWALKER_BASE_EXTENSION +
-          this.masteryAtPrescienceApplication[targetID] * TIMEWALKER_EXTENSION_MULTIPLIER)) /
+        (1 + TIMEWALKER_BASE_EXTENSION + this.masteryAtPrescienceApplication[targetID])) /
       1000;
     if (!fightEnd && prescienceDuration >= basePrescienceDuration * 1.9) {
       // Use 1.9 as a threshold to account for variations in timestamps.

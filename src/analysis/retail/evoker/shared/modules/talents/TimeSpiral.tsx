@@ -12,11 +12,8 @@ import Events, {
   RemoveBuffEvent,
 } from 'parser/core/Events';
 import { InformationIcon, SoupIcon, WarningIcon } from 'interface/icons';
-import { TIME_SPIRAL_BASE_DURATION } from '../../constants';
-import {
-  TIMEWALKER_BASE_EXTENSION,
-  TIMEWALKER_EXTENSION_MULTIPLIER,
-} from 'analysis/retail/evoker/augmentation/constants';
+import { TIME_SPIRAL_BASE_DURATION_MS } from '../../constants';
+import { TIMEWALKER_BASE_EXTENSION } from 'analysis/retail/evoker/augmentation/constants';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import SPECS from 'game/SPECS';
 import {
@@ -121,13 +118,11 @@ class TimeSpiral extends Analyzer {
 
   calculateTimeSpiralBuffDuration() {
     if (this.selectedCombatant.spec !== SPECS.AUGMENTATION_EVOKER) {
-      return TIME_SPIRAL_BASE_DURATION;
+      return TIME_SPIRAL_BASE_DURATION_MS / 1000;
     } else {
       return (
-        TIME_SPIRAL_BASE_DURATION *
-        (1 +
-          TIMEWALKER_BASE_EXTENSION +
-          this.stats.currentMasteryPercentage * TIMEWALKER_EXTENSION_MULTIPLIER)
+        (TIME_SPIRAL_BASE_DURATION_MS / 1000) *
+        (1 + TIMEWALKER_BASE_EXTENSION + this.stats.currentMasteryPercentage)
       );
     }
   }

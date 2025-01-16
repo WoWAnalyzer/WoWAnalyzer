@@ -7,10 +7,11 @@ export const ACCRETION_CDR_MS = 1000;
 // Ebon Might
 export const EBON_MIGHT_BASE_DURATION_MS = 10000;
 
+// Mastery Versatility buff
+export const SHIFTING_SANDS_MASTERY_COEFFICIENT = 0.34;
 // Mastery aura extension
 export const TIMEWALKER_BASE_EXTENSION = 0.04;
-// Multiplier for Sands coefficient to get the extension coefficient
-export const TIMEWALKER_EXTENSION_MULTIPLIER = 0.5 / 0.34;
+export const TIMEWALKER_MASTERY_COEFFICIENT = 0.5;
 
 // Sands of Time
 export const ERUPTION_EXTENSION_MS = 1000;

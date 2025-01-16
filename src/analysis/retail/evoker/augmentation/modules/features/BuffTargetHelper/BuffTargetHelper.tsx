@@ -13,11 +13,7 @@ import '../../Styling.scss';
 import { SubSection } from 'interface/guide';
 import { SpellLink } from 'interface';
 import LazyLoadGuideSection from 'analysis/retail/evoker/shared/modules/components/LazyLoadGuideSection';
-import {
-  PRESCIENCE_BASE_DURATION_MS,
-  TIMEWALKER_BASE_EXTENSION,
-  TIMEWALKER_EXTENSION_MULTIPLIER,
-} from '../../../constants';
+import { PRESCIENCE_BASE_DURATION_MS, TIMEWALKER_BASE_EXTENSION } from '../../../constants';
 import BuffTargetHelperWarningLabel from './BuffTargetHelperWarningLabel';
 import Toggle from 'react-toggle';
 import { TIERS } from 'game/TIERS';
@@ -420,9 +416,7 @@ class BuffTargetHelper extends Analyzer {
 
     const prescienceDuration =
       PRESCIENCE_BASE_DURATION_MS *
-      (1 +
-        TIMEWALKER_BASE_EXTENSION +
-        this.stats.currentMasteryPercentage * TIMEWALKER_EXTENSION_MULTIPLIER);
+      (1 + TIMEWALKER_BASE_EXTENSION + this.stats.currentMasteryPercentage);
 
     /** Playername, expiration time */
     const prescienceMap = new Map<string, number>();

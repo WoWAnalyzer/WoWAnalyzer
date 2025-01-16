@@ -496,4 +496,8 @@ export function dreamConsumedEssenceBurst(event: CastEvent) {
   return HasRelatedEvent(event, DREAM_ESSENCE_BURST_CONSUME);
 }
 
+export function hasEruptionCastLink(event: DamageEvent) {
+  return HasRelatedEvent(event, ERUPTION_CAST_DAM_LINK);
+}
+
 export default CastLinkNormalizer;
