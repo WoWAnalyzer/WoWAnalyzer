@@ -5,7 +5,7 @@ import { TALENTS_EVOKER } from 'common/TALENTS';
 
 // prettier-ignore
 export default [
-  change(date(2025, 1, 2),  <>Implement <SpellLink spell={TALENTS_EVOKER.TIME_SPIRAL_TALENT}/>, <SpellLink spell={TALENTS_EVOKER.TIME_CONVERGENCE_TALENT}/>, <SpellLink spell={TALENTS_EVOKER.MASTER_OF_DESTINY_TALENT}/>, and <SpellLink spell={TALENTS_EVOKER.MOTES_OF_ACCELERATION_TALENT}/> modules</>, KYZ),
+  change(date(2025, 1, 16),  <>Implement <SpellLink spell={TALENTS_EVOKER.TIME_SPIRAL_TALENT}/>, <SpellLink spell={TALENTS_EVOKER.TIME_CONVERGENCE_TALENT}/>, <SpellLink spell={TALENTS_EVOKER.MASTER_OF_DESTINY_TALENT}/>, and <SpellLink spell={TALENTS_EVOKER.MOTES_OF_ACCELERATION_TALENT}/> modules</>, KYZ),
   change(date(2024, 12, 27), <>Implement <SpellLink spell={TALENTS_EVOKER.PRIMACY_TALENT}/> module</>, KYZ),
   change(date(2024, 10, 28), <>Updated <SpellLink spell={TALENTS_EVOKER.SPIRITBLOOM_TALENT} /> guide section</>, Harrek),
   change(date(2024, 10, 24), <>Update <SpellLink spell={TALENTS_EVOKER.LIFEBIND_TALENT}/> module</>, Harrek),
