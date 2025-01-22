@@ -41,7 +41,7 @@ const UptimeBar = ({
   barColor,
   timeTooltip,
   ...others
-}: Props) => {
+}: Props & React.ComponentProps<'div'>) => {
   const fightDuration = fightEnd - fightStart;
   return (
     <div className="uptime-bar" {...others}>
