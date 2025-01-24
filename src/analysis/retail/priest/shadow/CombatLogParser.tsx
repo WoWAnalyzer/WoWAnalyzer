@@ -70,6 +70,7 @@ import ManifestedPower from './modules/talents/Archon/ManifestedPower';
 import EntropicRift from './modules/talents/Voidweaver/EntropicRift';
 import VoidBlast from './modules/talents/Voidweaver/VoidBlast';
 import InnerQuietus from './modules/talents/Voidweaver/InnerQuietus';
+import Voidheart from './modules/talents/Voidweaver/VoidHeart';
 import ShadowTierTWWS1 from './modules/tier/ShadowTierTWWS1';
 
 class CombatLogParser extends MainCombatLogParser {
@@ -153,6 +154,7 @@ class CombatLogParser extends MainCombatLogParser {
     entropicRift: EntropicRift,
     voidBlast: VoidBlast,
     innerQuietus: InnerQuietus,
+    voidheart: Voidheart,
 
     // normalizers:
     channeling: Channeling,
