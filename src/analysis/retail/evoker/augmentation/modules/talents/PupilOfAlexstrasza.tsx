@@ -23,7 +23,7 @@ class PupilOfAlexstrasza extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(TALENTS.PUPIL_OF_ALEXSTRASZA_TALENT);
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.LIVING_FLAME_CAST),
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.LIVING_FLAME_CAST, SPELLS.CHRONO_FLAME_CAST]),
       this.onCast,
     );
   }

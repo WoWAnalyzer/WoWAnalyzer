@@ -6,6 +6,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 12, 9), <>Mythic+ fix for maelstrom normalizer</>, Seriousnes),
   change(date(2024, 11, 19), <>Fixing incorrect placement of <SpellLink spell={TALENTS.CRASH_LIGHTNING_TALENT}/> in APL.</>, Seriousnes),
   change(date(2024, 11, 13), <>Updating to 11.0.5</>, Seriousnes),
   change(date(2024, 10, 8), <>Fixing prepull casts of <SpellLink spell={TALENTS.FERAL_SPIRIT_TALENT} /> and non-zero starting <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF}/></>, Seriousnes),

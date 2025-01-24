@@ -53,6 +53,7 @@ import {
   ObsidianScales,
   DefensiveNormalizer,
   DefensiveCastLinkNormalizer,
+  MobilityCastLinkNormalizer,
   TwinGuardian,
   RenewingBlaze,
   Engulf,
@@ -65,10 +66,11 @@ import {
   UnrelentingSiege,
   Wingleader,
   Slipstream,
+  ExpandedLungs,
+  FanTheFlames,
+  RedHot,
+  TimeSpiral,
 } from 'analysis/retail/evoker/shared';
-import ExpandedLungs from '../shared/modules/talents/hero/flameshaper/ExpandedLungs';
-import FanTheFlames from '../shared/modules/talents/hero/flameshaper/FanTheFlames';
-import RedHot from '../shared/modules/talents/hero/flameshaper/RedHot';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -94,8 +96,10 @@ class CombatLogParser extends MainCombatLogParser {
     obsidianScales: ObsidianScales,
     defensiveCastLinkNormalizer: DefensiveCastLinkNormalizer,
     defensiveNormalizer: DefensiveNormalizer,
+    mobilityCastLinkNormalizer: MobilityCastLinkNormalizer,
     twinGuardian: TwinGuardian,
     renewingBlaze: RenewingBlaze,
+    timeSpiral: TimeSpiral,
 
     // Core
     abilities: Abilities,

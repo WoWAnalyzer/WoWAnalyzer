@@ -106,12 +106,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.SHADOW_DANCE_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 60,
-        enabled: combatant.hasTalent(TALENTS.SHADOW_DANCE_TALENT),
-      },
-      {
         spell: TALENTS.THISTLE_TEA_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60,
@@ -230,15 +224,9 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.GRAPPLING_HOOK.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 60 - (combatant.hasTalent(TALENTS.RETRACTABLE_HOOK_TALENT) ? 30 : 0),
+        cooldown: 45 - (combatant.hasTalent(TALENTS.RETRACTABLE_HOOK_TALENT) ? 15 : 0),
+        charges: combatant.hasTalent(TALENTS.THRILL_SEEKING_TALENT) ? 2 : 1,
         gcd: null,
-      },
-      {
-        spell: TALENTS.SHADOWSTEP_TALENT.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 30,
-        gcd: null,
-        enabled: combatant.hasTalent(TALENTS.SHADOWSTEP_TALENT),
       },
       {
         spell: SPELLS.SPRINT.id,
@@ -306,45 +294,6 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SAP.id,
         category: SPELL_CATEGORY.UTILITY,
-      },
-      // Covenant Abilities
-      {
-        spell: TALENTS.SERRATED_BONE_SPIKE_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: false,
-        charges: 3,
-        cooldown: 30,
-        gcd: {
-          static: standardGcd,
-        },
-      },
-      {
-        spell: TALENTS.SEPSIS_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: false,
-        cooldown: 90,
-        gcd: {
-          static: standardGcd,
-        },
-        castEfficiency: {
-          suggestion: true,
-        },
-      },
-      {
-        spell: TALENTS.ECHOING_REPRIMAND_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: false,
-        gcd: {
-          static: standardGcd,
-        },
-      },
-      {
-        spell: TALENTS.FLAGELLATION_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: false,
-        gcd: {
-          static: standardGcd,
-        },
       },
     ];
   }

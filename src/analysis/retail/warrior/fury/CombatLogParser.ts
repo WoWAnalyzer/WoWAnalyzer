@@ -22,6 +22,9 @@ import Checklist from './modules/features/checklist/Module';
 import ColdSteelHotBloodNormalizer from './modules/normalizers/ColdSteelHotBlood';
 import EnrageBeforeBloodthirst from './modules/normalizers/EnrageBeforeBloodthirst';
 import EnrageRefreshNormalizer from './modules/normalizers/EnrageRefresh';
+import CrushingBlow from './modules/spells/CrushingBlow';
+import Bloodbath from './modules/spells/Bloodbath';
+import SlayerExecute from './modules/spells/SlayerExecute';
 import MissedRampage from './modules/spells/MissedRampage';
 import Recklessness from './modules/spells/Recklessness';
 import WhirlWind from './modules/spells/Whirlwind';
@@ -63,6 +66,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     enrageUptime: Enrage,
 
+    crushingBlow: CrushingBlow,
+    bloodbath: Bloodbath,
+    slayerExecute: SlayerExecute,
     missedRampage: MissedRampage,
     recklessness: Recklessness,
 

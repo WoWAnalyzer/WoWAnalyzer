@@ -34,12 +34,17 @@ import {
   Zyer,
   Gazh,
   Yellot,
+  KYZ,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2025, 1, 16), <>Added <ItemLink id={ITEMS.CIRRAL_CONCOCTORY.id}/></>, KYZ),
+  change(date(2024, 12, 23), 'Update Classic Guild image for Reports page', jazminite),
+  change(date(2024, 12, 21), <>Added <ItemLink id={ITEMS.MERELDARS_TOLL.id}/></>, KYZ),
+  change(date(2024, 12, 11), 'Added support for new style of WCL URLs.', emallson),
   change(date(2024, 11, 13), <>Updated common hunter spells and talents with script</>, Yellot),
   change(date(2024, 11, 10), <>Added <ItemLink id={ITEMS.SKARDYNS_GRACE.id}/></>, Yellot),
   change(date(2024, 11, 9),  <>Added <ItemLink id={ITEMS.MAD_QUEENS_MANDATE.id}/> and <ItemLink id={ITEMS.OVINAXS_MERCURIAL_EGG.id}/></>, Yellot),

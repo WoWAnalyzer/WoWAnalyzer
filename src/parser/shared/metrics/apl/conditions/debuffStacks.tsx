@@ -38,7 +38,7 @@ export default function debuffStacks(spell: Spell, range: Range): Condition<numb
       state >= (range.atLeast || 0) && (range.atMost === undefined || state <= range.atMost),
     describe: (tense) => (
       <>
-        enemie {tenseAlt(tense, 'have', 'had')} {formatRange(range)}{' '}
+        enemies {tenseAlt(tense, 'have', 'had')} {formatRange(range)}{' '}
         <SpellLink spell={spell.id} icon /> stacks
       </>
     ),

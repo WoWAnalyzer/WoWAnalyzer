@@ -29,7 +29,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     },
     {
       spell: TALENTS.COLOSSUS_SMASH_TALENT.id,
-      duration: 10,
+      duration: 13, // blunt instruments talent
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
   ];

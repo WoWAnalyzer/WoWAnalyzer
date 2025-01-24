@@ -245,20 +245,34 @@ class Prescience extends MajorCooldown<PrescienceCooldownCast> {
   private getRefreshPerformance(cast: PrescienceCooldownCast) {
     if (cast.event._linkedEvents) {
       if (cast.event._linkedEvents[0].event.type === EventType.RefreshBuff) {
-        const refreshPerformance = {
-          performance: QualitativePerformance.Ok,
-          summary: <div>Target already had Prescience</div>,
-          details: (
-            <div>
-              Target already had <SpellLink spell={TALENTS.PRESCIENCE_TALENT} /> active, since{' '}
-              <SpellLink spell={TALENTS.PRESCIENCE_TALENT} /> doesn't pandemic you should always try
-              to cast on a new target so you can keep more{' '}
-              <SpellLink spell={TALENTS.PRESCIENCE_TALENT} /> active.
-            </div>
-          ),
-        };
+        if (!isMythicPlus(this.owner.fight)) {
+          const refreshPerformance = {
+            performance: QualitativePerformance.Ok,
+            summary: <div>Target already had Prescience</div>,
+            details: (
+              <div>
+                Target already had <SpellLink spell={TALENTS.PRESCIENCE_TALENT} /> active, since{' '}
+                <SpellLink spell={TALENTS.PRESCIENCE_TALENT} /> doesn't pandemic you should always
+                try to cast on a new target so you can keep more{' '}
+                <SpellLink spell={TALENTS.PRESCIENCE_TALENT} /> active.
+              </div>
+            ),
+          };
+          return refreshPerformance;
+        } else {
+          const refreshPerformance = {
+            performance: QualitativePerformance.Good,
+            summary: <div>Target already had Prescience</div>,
+            details: (
+              <div>
+                Target already had <SpellLink spell={TALENTS.PRESCIENCE_TALENT} /> active. This is
+                acceptable in Mythic+, since there's only two other DPS in the group.
+              </div>
+            ),
+          };
 
-        return refreshPerformance;
+          return refreshPerformance;
+        }
       }
     }
   }

@@ -4,11 +4,8 @@ import {
   EnergyDetails,
   EnergyTracker,
   Flagellation,
-  SerratedBoneSpike,
   SpellEnergyCost,
   InstantPoison,
-  Sepsis,
-  StealthAbilityFollowingSepsis,
   ThistleTeaCastLinkNormalizer,
 } from 'analysis/retail/rogue/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
@@ -99,11 +96,8 @@ class CombatLogParser extends CoreCombatLogParser {
     sliceAndDiceUptime: SliceAndDiceUptime,
     //Talents
     bladeRush: BladeRush,
-    serratedBoneSpike: SerratedBoneSpike,
     echoingReprimand: EchoingReprimand,
     flagellation: Flagellation,
-    sepsis: Sepsis,
-    stealthAbilityFollowingSepsis: StealthAbilityFollowingSepsis,
 
     // Outlaw's throughput benefit isn't as big as for other classes since we don't have a lot of free gcds to use
     arcaneTorrent: [

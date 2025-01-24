@@ -12,6 +12,7 @@ import classColor from 'game/classColor';
 import ROLES from 'game/ROLES';
 import Combatant from 'parser/core/Combatant';
 import SPECS from 'game/SPECS';
+import { TALENTS_EVOKER } from 'common/TALENTS';
 
 interface ShiftingSandsApplications {
   event: ApplyBuffEvent;
@@ -233,18 +234,38 @@ class ShiftingSands extends Analyzer {
       return null;
     }
 
-    const explanation = (
+    let explanation = (
       <section>
         <strong>
           <SpellLink spell={SPELLS.SHIFTING_SANDS_BUFF} />
         </strong>{' '}
-        gives a Versatility buff to one of your allies when you cast your empowers:{' '}
+        gives a Versatility buff to one of your allies when you cast your empowers,{' '}
         <SpellLink spell={SPELLS.UPHEAVAL} /> and <SpellLink spell={SPELLS.FIRE_BREATH} />,
         preferring targets with <SpellLink spell={SPELLS.EBON_MIGHT_BUFF_EXTERNAL} /> active.
         Ideally you should try to buff targets that also have{' '}
         <SpellLink spell={SPELLS.PRESCIENCE_BUFF} /> active.
       </section>
     );
+
+    if (this.selectedCombatant.hasTalent(TALENTS_EVOKER.MOTES_OF_POSSIBILITY_TALENT)) {
+      explanation = (
+        <section>
+          <strong>
+            <SpellLink spell={SPELLS.SHIFTING_SANDS_BUFF} />
+          </strong>{' '}
+          gives a Versatility buff to one of your allies when you cast your empowers,{' '}
+          <SpellLink spell={SPELLS.UPHEAVAL} /> and <SpellLink spell={SPELLS.FIRE_BREATH} />,
+          preferring targets with <SpellLink spell={SPELLS.EBON_MIGHT_BUFF_EXTERNAL} /> active.
+          <br />
+          <SpellLink spell={TALENTS_EVOKER.MOTES_OF_POSSIBILITY_TALENT} /> also have a 33% chance to
+          give <SpellLink spell={SPELLS.SHIFTING_SANDS_BUFF} /> to players who consume them. If you
+          personally consume a mote, it will instead apply as if you had cast an empower.
+          <br />
+          Ideally you should try to buff targets that also have{' '}
+          <SpellLink spell={SPELLS.PRESCIENCE_BUFF} /> active.
+        </section>
+      );
+    }
 
     return (
       <ContextualSpellUsageSubSection

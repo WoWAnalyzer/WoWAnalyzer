@@ -1,12 +1,11 @@
 import { change, date } from 'common/changelog';
 import TALENTS from 'common/TALENTS/shaman';
-import {
-  Seriousnes,
-} from 'CONTRIBUTORS';
+import { emallson, Seriousnes } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2025, 1, 6), <>Fix crash in <SpellLink spell={TALENTS.ASCENDANCE_ELEMENTAL_TALENT} /> analysis when <SpellLink spell={TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT} /> is used and <SpellLink spell={TALENTS.ASCENDANCE_ELEMENTAL_TALENT} /> is not cast.</>, emallson),
   change(date(2024, 11, 17), <>Initial support for 11.0.5</>, Seriousnes),
   change(date(2024, 9, 28), <>Fixed <SpellLink spell={TALENTS.SURGE_OF_POWER_TALENT} /> statistic incorrectly showing as <SpellLink spell={TALENTS.MASTER_OF_THE_ELEMENTS_ELEMENTAL_TALENT} /></>, Seriousnes),
   change(date(2024, 9, 28), <>Updating <SpellLink spell={TALENTS.STORMKEEPER_TALENT} /> analysis</>, Seriousnes),

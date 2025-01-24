@@ -88,7 +88,10 @@ class Accretion extends Analyzer {
   }
 
   onDamage(event: DamageEvent) {
-    if (event.ability.guid === SPELLS.UPHEAVAL_DAM.id) {
+    if (
+      event.ability.guid === SPELLS.UPHEAVAL_DAM.id ||
+      event.ability.guid === SPELLS.UPHEAVAL_DOT.id
+    ) {
       this.totalUpheavalDamage += event.amount + (event.absorbed ?? 0);
     }
     if (event.ability.guid === TALENTS.EBON_MIGHT_TALENT.id) {

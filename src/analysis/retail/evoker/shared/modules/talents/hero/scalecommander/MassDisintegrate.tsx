@@ -50,7 +50,7 @@ class MassDisintegrate extends Analyzer {
     super(options);
     this.active =
       this.selectedCombatant.hasTalent(TALENTS.MASS_DISINTEGRATE_TALENT) ||
-      this.selectedCombatant.hasTalent(TALENTS.ERUPTION_TALENT);
+      this.selectedCombatant.hasTalent(TALENTS.MASS_ERUPTION_TALENT);
     this.isDevastation = this.selectedCombatant.hasTalent(TALENTS.MASS_DISINTEGRATE_TALENT);
 
     this.addEventListener(

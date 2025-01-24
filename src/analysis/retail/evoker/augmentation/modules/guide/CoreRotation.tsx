@@ -28,7 +28,11 @@ export function CoreRotationSection({ modules, events, info }: GuideProps<typeof
         <SpellLink spell={SPELLS.LIVING_FLAME_CAST} /> to fill in the gaps.
         <br />
         Your main cooldown, <SpellLink spell={TALENTS_EVOKER.BREATH_OF_EONS_TALENT} />, should be
-        used alongside your other DPS players' major cooldowns, since it amplifies their damage.
+        used alongside your other DPS players' major cooldowns, since it amplifies their damage.{' '}
+        {info.combatant.hasTalent(TALENTS_EVOKER.WINGLEADER_TALENT)
+          ? 'As Scalecommander, it should instead be used as often as possible where mobs will survive the full duration.'
+          : ''}
+        <br />
         Using <SpellLink spell={TALENTS_EVOKER.TIME_SKIP_TALENT} /> on every other{' '}
         <SpellLink spell={TALENTS_EVOKER.BREATH_OF_EONS_TALENT} /> to further amplify the burst
         window.
@@ -71,11 +75,8 @@ function BlisteringScalesSection({ modules }: GuideProps<typeof CombatLogParser>
           <strong>
             <SpellLink spell={TALENTS_EVOKER.BLISTERING_SCALES_TALENT} />
           </strong>{' '}
-          provides your target with 30% of your armor. <br />
+          provides your target with 20% of your armor. <br />
           This should be kept up on the currently actively tanking player.
-          <br />
-          You can also use it as a powerful external with the talent{' '}
-          <SpellLink spell={TALENTS_EVOKER.MOLTEN_BLOOD_TALENT} />.
         </Explanation>
         <RoundedPanel>
           <p>

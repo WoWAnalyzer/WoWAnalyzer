@@ -132,6 +132,8 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
     this.addEventListener(Events.any.by(SELECTED_PLAYER), this.onCast);
 
     if (this.selectedCombatant.hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT)) {
+      // initialize the ascendance proc counter in case the player cast a proc-eligible spell before casting ascendance
+      this.castsBeforeAscendanceProc.push({ count: 0 });
       this.addEventListener(
         Events.cast
           .by(SELECTED_PLAYER)
