@@ -33,7 +33,9 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           {info.combatant.hasTalent(TALENTS.VOID_TORRENT_TALENT) &&
             modules.voidTorrent.guideSubsection}
           {info.combatant.hasTalent(TALENTS.COLLAPSING_VOID_TALENT) &&
-            modules.entropicRift.guideSubsection}
+            modules.entropicRift.guideSubsectionCollapsingVoid}
+          {info.combatant.hasTalent(TALENTS.DARKENING_HORIZON_TALENT) &&
+            modules.entropicRift.guideSubsectionDarkeningHorizon}
           {info.combatant.hasTalent(TALENTS.SHADOW_CRASH_1_SHADOW_TALENT) &&
             modules.shadowCrash.guideSubsection}
           {info.combatant.hasTalent(TALENTS.SHADOW_CRASH_2_SHADOW_TALENT) &&

@@ -10,6 +10,7 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { SpellLink } from 'interface';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { formatNumber } from 'common/format';
+import UptimeIcon from 'interface/icons/Uptime';
 
 import TALENTS from 'common/TALENTS/priest';
 import SPELLS from 'common/SPELLS';
@@ -19,7 +20,7 @@ import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 
 import { COLLAPSING_VOID_DEVOURING_PLAGUE_MULTIPLIER } from '../../../constants';
 
-//This is for Entropic Rift and Collapsing Void
+//This is for Entropic Rift and Collapsing Void, and Darkening Horizon
 
 class EntropicRift extends Analyzer {
   static dependencies = {
@@ -28,12 +29,19 @@ class EntropicRift extends Analyzer {
 
   protected enemies!: Enemies;
 
+  //Collapsing Rift
   RiftDamageIncrease: BoxRowEntry[] = [];
   currentDP = 0;
   totalDP = 0;
   damageAmp = 0;
   damageAmpTotal = 0;
+
   castTime = 0;
+
+  //darking Horizon
+  RiftDurationIncrease: BoxRowEntry[] = [];
+  currentVB = 0;
+  totalVB = 0;
 
   damageRift = 0;
   damageCollapse = 0;
@@ -54,6 +62,11 @@ class EntropicRift extends Analyzer {
     );
 
     this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_PRIEST_VOIDWEAVER_VOID_BLAST),
+      this.onVB,
+    );
+
+    this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.COLLAPSING_VOID_DAMAGE),
       this.onCollapse,
     );
@@ -66,7 +79,12 @@ class EntropicRift extends Analyzer {
   onDP() {
     if (this.selectedCombatant.hasBuff(SPELLS.SHADOW_PRIEST_VOIDWEAVER_ENTROPIC_RIFT_BUFF)) {
       this.currentDP += 1;
-      this.totalDP += 1;
+    }
+  }
+
+  onVB() {
+    if (this.selectedCombatant.hasBuff(SPELLS.SHADOW_PRIEST_VOIDWEAVER_ENTROPIC_RIFT_BUFF)) {
+      this.currentVB += 1;
     }
   }
 
@@ -82,12 +100,21 @@ class EntropicRift extends Analyzer {
     //Since the collapse hits multiple targets, each collapse has multiple damage events but we only want one per cast.
     if (event.timestamp - this.castTime >= 100) {
       this.castTime = event.timestamp;
-      this.finalizeRift();
+
+      this.totalDP += this.currentDP;
+      this.finalizeRiftDamage();
       this.currentDP = 0;
+
+      if (this.currentVB > 3) {
+        this.currentVB = 3;
+      } //VB can only give 3 seconds of extension
+      this.totalVB += this.currentVB;
+      this.finalizeRiftTime();
+      this.currentVB = 0;
     }
   }
 
-  private finalizeRift() {
+  private finalizeRiftDamage() {
     if (this.castTime !== 0) {
       const tooltip = (
         <>
@@ -105,6 +132,27 @@ class EntropicRift extends Analyzer {
       }
 
       this.RiftDamageIncrease.push({ value, tooltip });
+    }
+  }
+
+  private finalizeRiftTime() {
+    if (this.castTime !== 0) {
+      const tooltip = (
+        <>
+          @<strong>{this.owner.formatTimestamp(this.castTime)}</strong>,{' '}
+          <strong>{this.currentVB}</strong> sec of increased duration
+        </>
+      );
+
+      let value = QualitativePerformance.Good;
+      if (this.currentVB <= 2) {
+        value = QualitativePerformance.Ok;
+      }
+      if (this.currentVB <= 1) {
+        value = QualitativePerformance.Fail;
+      }
+
+      this.RiftDurationIncrease.push({ value, tooltip });
     }
   }
 
@@ -126,11 +174,16 @@ class EntropicRift extends Analyzer {
         <BoringSpellValueText spell={TALENTS.COLLAPSING_VOID_TALENT}>
           <ItemDamageDone amount={this.damageCollapse} />
         </BoringSpellValueText>
+        {this.selectedCombatant.hasTalent(TALENTS.DARKENING_HORIZON_TALENT) && (
+          <BoringSpellValueText spell={TALENTS.DARKENING_HORIZON_TALENT}>
+            <UptimeIcon /> {this.totalVB.toFixed(1)}s <small>of rift extension</small>{' '}
+          </BoringSpellValueText>
+        )}
       </Statistic>
     );
   }
 
-  get guideSubsection(): JSX.Element {
+  get guideSubsectionCollapsingVoid(): JSX.Element {
     const explanation = (
       <p>
         <b>
@@ -150,6 +203,30 @@ class EntropicRift extends Analyzer {
         <strong>Rift Damage Amp</strong>
         <br />
         <PerformanceBoxRow values={this.RiftDamageIncrease} />
+      </div>
+    );
+    return explanationAndDataSubsection(explanation, data, 50);
+  }
+
+  get guideSubsectionDarkeningHorizon(): JSX.Element {
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink spell={TALENTS.DARKENING_HORIZON_TALENT} />
+        </b>{' '}
+        increases the duration of <SpellLink spell={TALENTS.ENTROPIC_RIFT_TALENT} />.
+        <br />
+        The duration is increased by 1 second per cast of{' '}
+        <SpellLink spell={TALENTS.VOID_BLAST_TALENT} />, up to 3 seconds.
+        <br />
+      </p>
+    );
+
+    const data = (
+      <div>
+        <strong>Rift Duration Increase</strong>
+        <br />
+        <PerformanceBoxRow values={this.RiftDurationIncrease} />
       </div>
     );
     return explanationAndDataSubsection(explanation, data, 50);
