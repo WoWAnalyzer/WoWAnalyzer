@@ -40,6 +40,7 @@ export const VOID_TOUCHED_MULTIPLIER = 0.06;
 //VoidWeaver Constants
 export const INNER_QUIETUS_MULTIPLIER = 0.25;
 export const VOIDHEART_MULTIPLIER = 0.1;
+export const COLLAPSING_VOID_DEVOURING_PLAGUE_MULTIPLIER = 0.2;
 
 //Archon Constants
 export const ARCHON_RESONANT_ENERGY_MULTIPLIER = 0.02;
