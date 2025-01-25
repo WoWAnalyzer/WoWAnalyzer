@@ -63,15 +63,15 @@ class TwinsOfTheSunPriestess extends Analyzer {
     //It seems that their are two casts of PI for every cast of PI.
     //If cast on an ally, that occurs first, followed shortly by a cast on yourself.
 
-    console.log('PI CAST', this.owner.formatTimestamp(event.timestamp), event.timestamp);
+    //console.log('PI CAST', this.owner.formatTimestamp(event.timestamp), event.timestamp);
 
     if (event.timestamp - this.lastCast >= BUFFER) {
       if (event.targetID === event.sourceID) {
         this.badCasts += 1;
-        console.log('bad');
+        //console.log('bad');
       } else {
         this.goodCasts += 1;
-        console.log('good');
+        //console.log('good');
       }
     }
 

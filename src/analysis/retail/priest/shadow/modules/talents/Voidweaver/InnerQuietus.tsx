@@ -13,7 +13,6 @@ import { INNER_QUIETUS_MULTIPLIER } from '../../../constants';
 
 class InnerQuietus extends Analyzer {
   damage = 0;
-  insanityGained = 0;
 
   constructor(options: Options) {
     super(options);

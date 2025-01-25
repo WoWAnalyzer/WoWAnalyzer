@@ -71,6 +71,7 @@ import EntropicRift from './modules/talents/Voidweaver/EntropicRift';
 import VoidBlast from './modules/talents/Voidweaver/VoidBlast';
 import InnerQuietus from './modules/talents/Voidweaver/InnerQuietus';
 import Voidheart from './modules/talents/Voidweaver/VoidHeart';
+import DevourMatter from './modules/talents/Voidweaver/DevourMatter';
 import ShadowTierTWWS1 from './modules/tier/ShadowTierTWWS1';
 
 class CombatLogParser extends MainCombatLogParser {
@@ -155,6 +156,7 @@ class CombatLogParser extends MainCombatLogParser {
     voidBlast: VoidBlast,
     innerQuietus: InnerQuietus,
     voidheart: Voidheart,
+    devourMatter: DevourMatter,
 
     // normalizers:
     channeling: Channeling,

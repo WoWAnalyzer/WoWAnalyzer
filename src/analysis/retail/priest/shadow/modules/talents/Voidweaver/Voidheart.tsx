@@ -13,7 +13,6 @@ import { VOIDHEART_MULTIPLIER } from '../../../constants';
 
 class Voidheart extends Analyzer {
   damage = 0;
-  insanityGained = 0;
 
   constructor(options: Options) {
     super(options);
