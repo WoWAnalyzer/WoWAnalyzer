@@ -17,6 +17,7 @@ export const ICON_RENAME: Record<string, string> = {
   spell_priest_void_blast: 'spell_priest_void-blast',
   spell_frost_piercing_chill: 'spell_frost_piercing-chill',
   spell_frost_ice_shards: 'spell_frost_ice-shards',
+  warlock_summon__voidlord: 'warlock_summon_-voidlord',
 };
 
 export const SPELL_ICON_OVERRIDES: Record<number, string> = {
