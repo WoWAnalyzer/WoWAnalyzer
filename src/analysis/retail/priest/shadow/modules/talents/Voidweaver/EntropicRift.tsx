@@ -101,10 +101,12 @@ class EntropicRift extends Analyzer {
     if (event.timestamp - this.castTime >= 100) {
       this.castTime = event.timestamp;
 
+      //Collapsing void
       this.totalDP += this.currentDP;
       this.finalizeRiftDamage();
       this.currentDP = 0;
 
+      //Darkening Horizon
       if (this.currentVB > 3) {
         this.currentVB = 3;
       } //VB can only give 3 seconds of extension

@@ -62,7 +62,14 @@ class DepthOfShadows extends Analyzer {
           <div>
             {this.petsSummoned - this.casts}{' '}
             <small>
-              extra <SpellLink spell={TALENTS.SHADOWFIEND_TALENT} /> summoned
+              extra{' '}
+              {this.owner.selectedCombatant.hasTalent(TALENTS.MINDBENDER_SHADOW_TALENT) && (
+                <SpellLink spell={TALENTS.MINDBENDER_SHADOW_TALENT} />
+              )}
+              {!this.owner.selectedCombatant.hasTalent(TALENTS.MINDBENDER_SHADOW_TALENT) && (
+                <SpellLink spell={TALENTS.SHADOWFIEND_TALENT} />
+              )}{' '}
+              summoned
             </small>{' '}
           </div>
         </BoringSpellValueText>
