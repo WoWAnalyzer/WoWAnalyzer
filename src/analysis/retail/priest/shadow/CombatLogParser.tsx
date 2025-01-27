@@ -73,6 +73,7 @@ import InnerQuietus from './modules/talents/Voidweaver/InnerQuietus';
 import Voidheart from './modules/talents/Voidweaver/Voidheart';
 import DevourMatter from './modules/talents/Voidweaver/DevourMatter';
 import VoidEmpowerment from './modules/talents/Voidweaver/VoidEmpowerment';
+import DepthOfShadows from './modules/talents/Voidweaver/DepthOfShadows';
 import ShadowTierTWWS1 from './modules/tier/ShadowTierTWWS1';
 
 class CombatLogParser extends MainCombatLogParser {
@@ -159,6 +160,7 @@ class CombatLogParser extends MainCombatLogParser {
     voidheart: Voidheart,
     devourMatter: DevourMatter,
     voidEmpowerment: VoidEmpowerment,
+    depthsOfShadows: DepthOfShadows,
 
     // normalizers:
     channeling: Channeling,

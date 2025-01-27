@@ -18,7 +18,6 @@ class VoidEmpowerment extends Analyzer {
 
   protected enemies!: Enemies;
 
-  //Void Empowerment
   buffGained = 0;
   buffWasted = 0;
 
@@ -27,7 +26,6 @@ class VoidEmpowerment extends Analyzer {
 
     this.active = this.selectedCombatant.hasTalent(TALENTS.VOID_EMPOWERMENT_TALENT);
 
-    //Void Empowerment
     this.addEventListener(
       Events.applybuff
         .by(SELECTED_PLAYER)
@@ -54,11 +52,15 @@ class VoidEmpowerment extends Analyzer {
         <BoringSpellValueText spell={TALENTS.VOID_EMPOWERMENT_TALENT}>
           <div>
             {this.buffGained}{' '}
-            <small>Buffs of <SpellLink spell={SPELLS.MIND_DEVOURER_TALENT_BUFF} /> Gained</small>{' '}
+            <small>
+              Buffs of <SpellLink spell={SPELLS.MIND_DEVOURER_TALENT_BUFF} /> Gained
+            </small>{' '}
           </div>
           <div>
             {this.buffWasted}{' '}
-            <small>Buffs of <SpellLink spell={SPELLS.MIND_DEVOURER_TALENT_BUFF} /> Wasted</small>
+            <small>
+              Buffs of <SpellLink spell={SPELLS.MIND_DEVOURER_TALENT_BUFF} /> Wasted
+            </small>
           </div>
         </BoringSpellValueText>
       </Statistic>
