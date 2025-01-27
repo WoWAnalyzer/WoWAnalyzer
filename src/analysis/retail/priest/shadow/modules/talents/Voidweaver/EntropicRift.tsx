@@ -200,7 +200,7 @@ class EntropicRift extends Analyzer {
 
     const data = (
       <div>
-        <strong>Rift Damage Amp</strong>
+        <strong>Rift Damage Increase</strong>
         <br />
         <PerformanceBoxRow values={this.RiftDamageIncrease} />
       </div>
