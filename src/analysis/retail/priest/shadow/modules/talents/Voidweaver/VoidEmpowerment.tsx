@@ -37,7 +37,7 @@ class VoidEmpowerment extends Analyzer {
   onBuffApplied(event: ApplyBuffEvent) {
     //With Void Empowerment, every Entropic Rift grants Mind Devourer
     //If you had Mind Devourer before this buff, then the proc would be wasted.
-    // So if the buff was active for some time before
+    // So if the buff was active for some time before, then the buff would have been wasted
 
     if (this.selectedCombatant.hasBuff(SPELLS.MIND_DEVOURER_TALENT_BUFF, event.timestamp, 0, 100)) {
       this.buffWasted += 1;
