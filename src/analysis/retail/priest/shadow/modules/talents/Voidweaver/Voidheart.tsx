@@ -8,6 +8,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import MAGIC_SCHOOLS, { isMatchingDamageType } from 'game/MAGIC_SCHOOLS';
 
 import { VOIDHEART_MULTIPLIER } from '../../../constants';
 
@@ -24,9 +25,9 @@ class Voidheart extends Analyzer {
     if (this.selectedCombatant.hasBuff(SPELLS.SHADOW_PRIEST_VOIDWEAVER_ENTROPIC_RIFT_BUFF)) {
       //console.log(event.ability.name,"Spell of type", event.ability.type)
       //During Entropic Rift, if the ability that caused the damage event is a shadow spell, we have a damage increase.
-      //shadow damage is type 32.
-      //the multi school spells with shadow should also be increased, but the only one this spec has access to is shadowfrost (48)
-      if (event.ability.type === 32 || event.ability.type === 48) {
+      //If there are spells that change types, it would not be reflected in the logs (like with Ret).
+      //Currently, shadow has no spells that do this.
+      if (isMatchingDamageType(event.ability.type, MAGIC_SCHOOLS.ids.SHADOW)) {
         this.damage += calculateEffectiveDamage(event, VOIDHEART_MULTIPLIER);
       }
     }

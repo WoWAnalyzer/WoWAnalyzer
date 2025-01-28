@@ -98,6 +98,7 @@ class EntropicRift extends Analyzer {
     this.damageAmpTotal += this.damageAmp;
 
     //Since the collapse hits multiple targets, each collapse has multiple damage events but we only want one per cast.
+    //TODO: Use eventlink instead of checking timestamps.
     if (event.timestamp - this.castTime >= 100) {
       this.castTime = event.timestamp;
 
