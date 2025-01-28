@@ -41,8 +41,9 @@ const PERIODIC_HEALS: SpellInfo[] = [
 
 const PERIODIC_DAMAGE: SpellInfo[] = [
   SPELLS.RIP,
-  SPELLS.RAKE, // adaptive swarm also boosts the direct damage, so no need for 'tick' differentiation
-  SPELLS.THRASH_FERAL, // even thrashes direct is "bleed damage"
+  SPELLS.RAKE, // swarm boosts rake direct damage for some reason
+  SPELLS.RAKE_BLEED,
+  SPELLS.THRASH_FERAL, // swarm boosts thrash direct damage for some reason
   SPELLS.THRASH_FERAL_BLEED,
   SPELLS.MOONFIRE_FERAL,
   SPELLS.MOONFIRE_DEBUFF,
@@ -50,15 +51,13 @@ const PERIODIC_DAMAGE: SpellInfo[] = [
   SPELLS.THRASH_BEAR_DOT,
   TALENTS.FERAL_FRENZY_TALENT,
   SPELLS.FERAL_FRENZY_DEBUFF,
+  SPELLS.DREADFUL_WOUND, // not in the spell data list, but confirmed in game it's boosted (1/20/25)
   // deliberately doesn't include Adaptive Swarm itself to avoid double count
 ];
 
 /**
- * This module performs calculations for Adaptive Swarm, but does not
- * display any of it. Spec specific modules should take care of display.
- *
  * **Adaptive Swarm**
- * Talent - (Feral / Restoration)
+ * Spec Talent
  *
  * Command a swarm that heals (157.5% of Spell power) or deals (150% of Spell power) Shadow damage
  * over 12 sec to a target, and increases the effectiveness of your periodic effects on them by 25%.
