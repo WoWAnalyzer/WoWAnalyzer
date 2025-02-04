@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
-import { Squided, Texleretour } from 'CONTRIBUTORS';
+import { Texleretour } from 'CONTRIBUTORS';
 import GameBranch from 'game/GameBranch';
 import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
@@ -9,7 +9,7 @@ import Config, { SupportLevel } from 'parser/Config';
 import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
-  contributors: [Texleretour, Squided],
+  contributors: [Texleretour],
   branch: GameBranch.Retail,
   patchCompatibility: '11.0.2',
   supportLevel: SupportLevel.MaintainedPartial,
