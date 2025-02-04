@@ -47,7 +47,7 @@ import Wellspring from './modules/talents/Wellspring';
 import Undercurrent from './modules/talents/Undercurrent';
 import NaturesSwiftness from './modules/talents/NaturesSwiftness';
 import SpiritwalkersTidalTotem from './modules/talents/SpiritwalkersTidalTotem';
-import Tidewaters from './modules/talents/Tidewaters';
+import WhiteWater from './modules/talents/WhiteWater';
 // Hero talents
 import SurgingTotem from './modules/talents/totemic/SurgingTotem';
 // Spells
@@ -126,7 +126,7 @@ class CombatLogParser extends CoreCombatLogParser {
     manaSpring: ManaSpring,
     naturesSwiftness: NaturesSwiftness,
     spiritwalkersTidalTotem: SpiritwalkersTidalTotem,
-    tidewaters: Tidewaters,
+    whiteWater: WhiteWater,
 
     // Hero talents
     surgingTotem: SurgingTotem,
