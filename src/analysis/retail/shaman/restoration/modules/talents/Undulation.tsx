@@ -1,17 +1,20 @@
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
+import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
 import Events, { HealEvent } from 'parser/core/Events';
-import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import TalentSpellText from 'parser/ui/TalentSpellText';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import { formatNumber } from 'common/format';
 
 const UNDULATION_HEALING_INCREASE = 0.5;
 const BUFFER_MS = 300;
 
 class Undulation extends Analyzer {
   healing = 0;
+  overHealing = 0;
 
   constructor(options: Options) {
     super(options);
@@ -32,15 +35,28 @@ class Undulation extends Analyzer {
 
     if (hasUndulation) {
       this.healing += calculateEffectiveHealing(event, UNDULATION_HEALING_INCREASE);
+      this.overHealing += calculateOverhealing(event, UNDULATION_HEALING_INCREASE);
     }
   }
 
-  subStatistic() {
+  statistic() {
     return (
-      <StatisticListBoxItem
-        title={<SpellLink spell={TALENTS.UNDULATION_TALENT} />}
-        value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
-      />
+      <Statistic
+        size="flexible"
+        category={STATISTIC_CATEGORY.TALENTS}
+        tooltip={
+          <>
+            <strong>{formatNumber(this.healing)}</strong> bonus healing (
+            {formatNumber(this.overHealing)} overhealing)
+          </>
+        }
+      >
+        <TalentSpellText talent={TALENTS.UNDULATION_TALENT}>
+          <div>
+            <ItemHealingDone amount={this.healing} />{' '}
+          </div>
+        </TalentSpellText>
+      </Statistic>
     );
   }
 }

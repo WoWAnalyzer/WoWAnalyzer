@@ -1,6 +1,6 @@
 import TALENTS from 'common/TALENTS/shaman';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
+import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
 import Events, { HealEvent } from 'parser/core/Events';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -31,7 +31,7 @@ class Torrent extends Analyzer {
     }
 
     this.healing += calculateEffectiveHealing(event, this.torrentIncrease);
-    this.overHealing += calculateEffectiveHealing(event, this.torrentIncrease);
+    this.overHealing += calculateOverhealing(event, this.torrentIncrease);
   }
 
   statistic() {
