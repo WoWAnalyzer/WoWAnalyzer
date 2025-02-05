@@ -10,7 +10,6 @@ import Downpour from '../talents/Downpour';
 import EarthenWallTotem from '../talents/EarthenWallTotem';
 import HighTide from '../talents/HighTide';
 import NaturesGuardian from '../talents/NaturesGuardian';
-import Torrent from '../talents/Torrent';
 import Undulation from '../talents/Undulation';
 import UnleashLife from '../talents/UnleashLife';
 import Wellspring from '../talents/Wellspring';
@@ -22,7 +21,6 @@ import AncestralReach from '../talents/AncestralReach';
 
 class TalentStatisticBox extends Analyzer {
   static dependencies = {
-    torrent: Torrent,
     unleashLife: UnleashLife,
     undulation: Undulation,
     deluge: Deluge,
@@ -40,7 +38,6 @@ class TalentStatisticBox extends Analyzer {
     ancestralReach: AncestralReach,
   };
 
-  protected torrent!: Torrent;
   protected unleashLife!: UnleashLife;
   protected undulation!: Undulation;
   protected deluge!: Deluge;
@@ -59,9 +56,6 @@ class TalentStatisticBox extends Analyzer {
 
   buildTalentList() {
     const talentList = [];
-    if (this.selectedCombatant.hasTalent(TALENTS.TORRENT_TALENT)) {
-      talentList.push(this.torrent.subStatistic());
-    }
     if (this.selectedCombatant.hasTalent(TALENTS.UNLEASH_LIFE_TALENT)) {
       talentList.push(this.unleashLife.subStatistic());
     }
