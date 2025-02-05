@@ -7,6 +7,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import { formatNumber } from 'common/format';
 
 // 215% instead of 200% is a 7.5% increase
 const WHITE_WATER_BUFF = 0.075;
@@ -37,7 +38,16 @@ export default class WhiteWater extends Analyzer {
 
   statistic() {
     return (
-      <Statistic size="flexible" category={STATISTIC_CATEGORY.TALENTS}>
+      <Statistic
+        size="flexible"
+        category={STATISTIC_CATEGORY.TALENTS}
+        tooltip={
+          <>
+            <strong>{formatNumber(this.healingDoneFromTalent)}</strong> bonus healing (
+            {formatNumber(this.overhealingDoneFromTalent)} overhealing)
+          </>
+        }
+      >
         <TalentSpellText talent={TALENTS.WHITE_WATER_TALENT}>
           <div>
             <ItemHealingDone amount={this.healingDoneFromTalent} />{' '}
