@@ -5,6 +5,7 @@ import { Trevor, Vetyst, Vohrr } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date (2025, 2, 4), <>Added <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT}/> to list of correct <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT}/></>, Vohrr),
   change(date (2024, 12, 16), <>Got rid of TODO in <SpellLink spell={SPELLS.VIVIFY}/> cast performance breakdown.</>, Vohrr),
   change(date (2024, 11, 6), <>Fixed some missed <SpellLink spell={TALENTS_MONK.RUSHING_WIND_KICK_TALENT}/> checks in Celestial Conduit modules.</>, Vohrr),
   change(date (2024, 10, 31), <>Rewrote <SpellLink spell={TALENTS_MONK.MIST_WRAP_TALENT}/> for accuracy and to include value gained from <SpellLink spell={TALENTS_MONK.MENDING_PROLIFERATION_TALENT}/>. Updated several other modules to filter out healing that is not affected by healing increases.</>, Vohrr),
