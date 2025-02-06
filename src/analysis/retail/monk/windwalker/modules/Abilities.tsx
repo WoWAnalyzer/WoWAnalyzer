@@ -290,10 +290,10 @@ class Abilities extends CoreAbilities {
       },
       // Defensives
       {
-        spell: TALENTS_MONK.FORTIFYING_BREW_TALENT.id,
-        buffSpellId: TALENTS_MONK.FORTIFYING_BREW_TALENT.id,
+        spell: SPELLS.FORTIFYING_BREW_CAST.id,
+        buffSpellId: SPELLS.FORTIFYING_BREW_BUFF.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: combatant.hasTalent(TALENTS_MONK.IRONSHELL_BREW_TALENT) ? 240 : 360,
+        cooldown: 120 - 30 * combatant.getTalentRank(TALENTS_MONK.EXPEDITIOUS_FORTIFICATION_TALENT),
         enabled: combatant.hasTalent(TALENTS_MONK.FORTIFYING_BREW_TALENT),
         gcd: null,
       },

@@ -177,8 +177,8 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.FORTIFYING_BREW_BRM.id,
-        buffSpellId: SPELLS.FORTIFYING_BREW_BRM_BUFF.id,
+        spell: SPELLS.FORTIFYING_BREW_CAST.id,
+        buffSpellId: SPELLS.FORTIFYING_BREW_BUFF.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: combatant.hasTalent(talents.EXPEDITIOUS_FORTIFICATION_TALENT) ? 240 : 360,
         gcd: null,
