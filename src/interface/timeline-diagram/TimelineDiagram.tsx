@@ -42,6 +42,7 @@ export const useTimelinePosition = () => useContext(ctx);
  * SVG doesn't have flexbox and pulling in a flexbox-in-JS library is massive overkill for what we need. Explicitly specifying desired height allows a simple automatic layout with minimal extra work.
  */
 export interface TimelineTrack {
+  zIndex?: number;
   height: number;
   /**
    * Render the track at `y` pixels offset from the container.
@@ -67,6 +68,11 @@ export default function TimelineDiagram({ info, children, overlays }: Props): JS
   const zoomEvent = useRef<React.SyntheticEvent | null>(null);
 
   const el = useRef<SVGSVGElement | null>(null);
+
+  const pxPerMs = useMemo(() => {
+    const ms = zoom ? zoom.end - zoom.start : info.fightDuration;
+    return elementWidth / ms;
+  }, [zoom, info, elementWidth]);
 
   useEffect(() => {
     // reset zoom when `info` changes
@@ -94,12 +100,9 @@ export default function TimelineDiagram({ info, children, overlays }: Props): JS
 
   const x = useCallback(
     (time: number) => {
-      const startTime = zoom?.start ?? info.fightStart;
-      const duration = zoom ? zoom.end - zoom.start : info.fightDuration;
-
-      return Math.floor(((time - startTime) / duration) * elementWidth);
+      return (time - info.fightStart) * pxPerMs;
     },
-    [info, elementWidth, zoom],
+    [info, pxPerMs],
   );
   const width = useCallback((start: number, end: number) => x(end) - x(start), [x]);
 
@@ -122,18 +125,30 @@ export default function TimelineDiagram({ info, children, overlays }: Props): JS
   const [renderedTracks, trackHeight] = useMemo(() => {
     const tracks = Array.isArray(children) ? children : [children];
     let totalHeight = 0;
-    const output = tracks.map(({ height, element: render, hidden }, i) => {
-      if (!hidden?.(x)) {
-        const result = (
-          <svg x={0} y={totalHeight} width="100%" height={height} key={i}>
-            {render}
-          </svg>
-        );
-        totalHeight += height;
-        return result;
-      }
-      return null;
-    });
+    const unLayeredOutput = tracks
+      .map(({ height, element: render, hidden, zIndex }, i) => {
+        if (!hidden?.(x)) {
+          const result = (
+            <svg
+              x={0}
+              y={totalHeight}
+              width="100%"
+              height={height}
+              key={i}
+              style={{ overflowY: 'visible' }}
+            >
+              {render}
+            </svg>
+          );
+          totalHeight += height;
+          return [zIndex ?? 0, result];
+        }
+        return null;
+      })
+      .filter((v): v is [number, JSX.Element] => v !== null);
+
+    unLayeredOutput.sort(([zA], [zB]) => zA - zB);
+    const output = unLayeredOutput.map(([_, el]) => el);
 
     output.push(<Timestamps key="timestamps" topOffset={totalHeight} info={info} />);
 
@@ -146,14 +161,15 @@ export default function TimelineDiagram({ info, children, overlays }: Props): JS
         return; // someone else already adjusted zoom for this
       }
       setZoom((zoom) => {
+        if (zoom) {
+          return zoom;
+        }
         if (event.currentTarget || el.current) {
           // x = (time - start) / duration * width
           // x / width * duration + start = time
           const rect = (event.currentTarget ?? el.current).getBoundingClientRect();
           const clickPx = event.clientX - rect.left;
-          const start = zoom?.start ?? info.fightStart;
-          const duration = zoom ? zoom.end - zoom.start : info.fightDuration;
-          const clickTime = (clickPx / rect.width) * duration + start;
+          const clickTime = (clickPx / rect.width) * info.fightDuration + info.fightStart;
           return {
             start: Math.max(clickTime - 30000, info.fightStart),
             end: Math.min(clickTime + 30000, info.fightEnd),
@@ -164,6 +180,72 @@ export default function TimelineDiagram({ info, children, overlays }: Props): JS
     [info],
   );
 
+  const isMouseDown = useRef(false);
+  const mouseStart = useRef<{ x: number } | undefined>();
+  const beginScroll = useCallback((event: React.MouseEvent<SVGSVGElement>) => {
+    isMouseDown.current = true;
+    mouseStart.current = {
+      x: event.screenX,
+    };
+  }, []);
+
+  const zoomOrEndScroll = useCallback(
+    (event: React.MouseEvent<SVGSVGElement>) => {
+      isMouseDown.current = false;
+      zoomAny(event);
+    },
+    [zoomAny],
+  );
+
+  const doScroll = useCallback(
+    (event: React.MouseEvent<SVGSVGElement>) => {
+      if (!isMouseDown.current) {
+        return;
+      }
+      const { x } = mouseStart.current!;
+      const deltaX = event.screenX - x;
+      mouseStart.current = { x: event.screenX };
+
+      setZoom((zoom) => {
+        if (!zoom) {
+          return undefined;
+        }
+
+        const rect = (event.currentTarget ?? el.current).getBoundingClientRect();
+        const duration = zoom.end - zoom.start;
+        const deltaMs = (deltaX / rect.width) * duration;
+
+        const result = {
+          start: zoom.start - deltaMs,
+          end: zoom.end - deltaMs,
+        };
+
+        if (result.start < info.fightStart) {
+          return {
+            start: info.fightStart,
+            end: info.fightStart + duration,
+          };
+        } else if (result.end > info.fightEnd) {
+          return {
+            start: info.fightEnd - duration,
+            end: info.fightEnd,
+          };
+        } else {
+          return result;
+        }
+      });
+    },
+    [info],
+  );
+
+  const clearScrollState = useCallback((event: React.MouseEvent<unknown>) => {
+    if (event.buttons === 0) {
+      // no buttons are pushed, clear scroll state
+      isMouseDown.current = false;
+      mouseStart.current = undefined;
+    }
+  }, []);
+
   return (
     <ctx.Provider value={contextValue}>
       <div>
@@ -172,13 +254,23 @@ export default function TimelineDiagram({ info, children, overlays }: Props): JS
           height={trackHeight + PhaseHeader.HEIGHT}
           width="100%"
           preserveAspectRatio="none"
-          onClick={zoomAny}
+          onMouseDown={beginScroll}
+          onMouseUp={zoomOrEndScroll}
+          onMouseMove={doScroll}
+          onMouseEnter={clearScrollState}
           onDoubleClick={() => setZoom(undefined)}
         >
-          <PhaseHeader />
-          <svg x={0} y={PhaseHeader.HEIGHT} width="100%" height="100%">
-            {renderedTracks}
-            {overlays}
+          <svg
+            x={zoom ? -pxPerMs * (zoom?.start - info.fightStart) : 0}
+            y={0}
+            width={pxPerMs * info.fightDuration}
+            height="100%"
+          >
+            <PhaseHeader />
+            <svg x={0} y={PhaseHeader.HEIGHT} width="100%" height="100%">
+              {renderedTracks}
+              {overlays}
+            </svg>
           </svg>
         </svg>
         <ZoomText isZoomed={Boolean(zoom)} />
@@ -235,7 +327,7 @@ function PhaseHeader(): JSX.Element {
             x={x(segment.start) + width(segment.start, segment.end) / 2}
             y={16}
             fill="#f3eded"
-            style={{ pointerEvents: 'none' }}
+            style={{ pointerEvents: 'none', userSelect: 'none' }}
           >
             {segment.name.split(':')[0]}
           </text>
@@ -268,7 +360,7 @@ function Timestamps({ topOffset, info }: { topOffset: number; info: Info }): JSX
                 fill="#ccc"
                 fontSize={10}
                 textAnchor="middle"
-                style={{ pointerEvents: 'none' }}
+                style={{ pointerEvents: 'none', userSelect: 'none' }}
               >
                 {minuteIndex}m
               </text>

@@ -22,20 +22,14 @@ import { Info } from 'parser/core/metric';
 import Spell from 'common/SPELLS/Spell';
 import Tooltip, { TooltipElement } from 'interface/Tooltip';
 import PerformanceStrong from 'interface/PerformanceStrong';
-import SuggestionBox from 'interface/suggestion-box/SuggestionBox';
 import { ByRole, Role } from './ByRole';
-import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { useFight } from 'interface/report/context/FightContext';
-import { useResults } from 'interface/report/Results/ResultsContext';
-import { useConfig } from 'interface/report/ConfigContext';
 import { EncounterTimelineAbility, findByBossId } from 'game/raids';
-import ExplanationRow from '../components/ExplanationRow';
 import Para from '../Para';
-import { InfoIcon } from 'interface/icons';
 import styled from '@emotion/styled';
 import Suggestion from 'interface/report/Results/Suggestion';
-import Suggestions from '../components/Suggestions/Suggestions';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
+import React from 'react';
 
 export default function FoundationDowntimeSectionV2(): JSX.Element | null {
   const info = useInfo();
@@ -225,12 +219,23 @@ function ComplexUptimeDisplay({
       {
         height: 25,
         element: (
-          <SegmentTimeline fgColor="#222" bgColor={BadColor} segments={uptimeHistory} info={info} />
+          <SegmentTimeline
+            fgColor="#222"
+            bgColor={BadColor}
+            segments={uptimeHistory}
+            info={info}
+            containerProps={{
+              style: {
+                filter: 'drop-shadow(0 1px 1px rgba(0, 0, 0, 0.25))',
+              },
+            }}
+          />
         ),
       },
       // this stacks the melee uptime segment timelines on top of each other.
       {
         height: 10,
+        zIndex: -1,
         element: (
           <>
             {meleeGaps && (
@@ -258,6 +263,13 @@ function ComplexUptimeDisplay({
         ),
       },
       {
+        height: 2,
+        element: null,
+        hidden(x) {
+          return x(info.fightStart + 1000) - x(info.fightStart) < 16;
+        },
+      },
+      {
         height: 16,
         element: <PlayerAbilityTimeline info={info} />,
         hidden(x) {
@@ -281,7 +293,7 @@ function ComplexUptimeDisplay({
   );
 }
 
-function PlayerAbilityTimeline({ info }: { info: Info }) {
+const PlayerAbilityTimeline = React.memo(({ info }: { info: Info }) => {
   const playerTimeline = usePlayerGcdSegments();
   const { width } = useTimelinePosition();
 
@@ -304,7 +316,7 @@ function PlayerAbilityTimeline({ info }: { info: Info }) {
       segmentProps={{ height: '60%', y: '20%' }}
     />
   );
-}
+});
 
 function BossAbilityOverlay({ info }: { info?: Info }) {
   const { fight } = useFight();
@@ -348,90 +360,94 @@ interface SegmentTimelineProps {
   segments: DisplaySegment[];
   info: Info;
   segmentProps?: React.ComponentProps<'rect'>;
+  containerProps?: React.ComponentProps<'svg'>;
   disableMerging?: boolean;
 }
 
-function SegmentTimeline({
-  bgColor,
-  fgColor,
-  segments,
-  info,
-  fgStroke,
-  segmentProps,
-  disableMerging,
-}: SegmentTimelineProps): JSX.Element {
-  const { x, width } = useTimelinePosition();
-  // merge segments that would have sub-pixel gaps between them to avoid render artifacts
-  const mergedSegments = useMemo(() => {
-    if (disableMerging) {
-      return segments;
-    }
-    const result = [];
-    let currentSegment = undefined;
-    for (const segment of segments) {
-      if (!currentSegment) {
-        currentSegment = { ...segment };
-        continue;
+const SegmentTimeline = React.memo(
+  ({
+    bgColor,
+    fgColor,
+    segments,
+    info,
+    fgStroke,
+    segmentProps,
+    containerProps,
+    disableMerging,
+  }: SegmentTimelineProps): JSX.Element => {
+    const { x, width } = useTimelinePosition();
+    // merge segments that would have sub-pixel gaps between them to avoid render artifacts
+    const mergedSegments = useMemo(() => {
+      if (disableMerging) {
+        return segments;
+      }
+      const result = [];
+      let currentSegment = undefined;
+      for (const segment of segments) {
+        if (!currentSegment) {
+          currentSegment = { ...segment };
+          continue;
+        }
+
+        if (
+          width(currentSegment.end, segment.start) < 1 ||
+          segment.start - currentSegment.end < 100
+        ) {
+          currentSegment.end = segment.end;
+        } else {
+          result.push(currentSegment);
+          currentSegment = { ...segment };
+        }
       }
 
-      if (
-        width(currentSegment.end, segment.start) < 1 ||
-        segment.start - currentSegment.end < 100
-      ) {
-        currentSegment.end = segment.end;
-      } else {
+      if (currentSegment) {
         result.push(currentSegment);
-        currentSegment = { ...segment };
       }
-    }
+      return result;
+    }, [segments, width, disableMerging]);
 
-    if (currentSegment) {
-      result.push(currentSegment);
-    }
-    return result;
-  }, [segments, width, disableMerging]);
-
-  return (
-    <>
-      {bgColor && <rect x={0} y={0} height="100%" width="100%" fill={bgColor} />}
-      <g>
-        {mergedSegments.map((segment, i) => (
-          <g key={i}>
-            <rect
-              x={x(segment.start)}
-              width={width(segment.start, segment.end)}
-              y={0}
-              height="100%"
-              fill={segment.color ?? fgColor}
-              stroke={fgStroke}
-              {...segmentProps}
-            >
-              <title>
-                {formatDuration(segment.start - info.fightStart, 3)} -{' '}
-                {formatDuration(segment.end - info.fightStart, 3)}
-              </title>
-            </rect>
-            {segment.tooltip && (
-              <foreignObject
+    return (
+      <svg width="100%" height="100%" {...containerProps}>
+        {bgColor && <rect x={0} y={0} height="100%" width="100%" fill={bgColor} />}
+        <g>
+          {mergedSegments.map((segment, i) => (
+            <g key={i}>
+              <rect
                 x={x(segment.start)}
                 width={width(segment.start, segment.end)}
                 y={0}
                 height="100%"
+                fill={segment.color ?? fgColor}
+                stroke={fgStroke}
+                {...segmentProps}
               >
-                <Tooltip content={segment.tooltip}>
-                  <div style={{ width: '100%', height: '100%' }} />
-                </Tooltip>
-              </foreignObject>
-            )}
-            {segment.abilityId && (
-              <TimelineAbility y={0} x={x(segment.start)} size={16} spell={segment.abilityId} />
-            )}
-          </g>
-        ))}
-      </g>
-    </>
-  );
-}
+                <title>
+                  {formatDuration(segment.start - info.fightStart, 3)} -{' '}
+                  {formatDuration(segment.end - info.fightStart, 3)}
+                </title>
+              </rect>
+              {segment.tooltip && (
+                <foreignObject
+                  x={x(segment.start)}
+                  width={width(segment.start, segment.end)}
+                  y={0}
+                  height="100%"
+                >
+                  <Tooltip content={segment.tooltip}>
+                    <div style={{ width: '100%', height: '100%' }} />
+                  </Tooltip>
+                </foreignObject>
+              )}
+              {segment.abilityId && (
+                <TimelineAbility y={0} x={x(segment.start)} size={16} spell={segment.abilityId} />
+              )}
+            </g>
+          ))}
+        </g>
+      </svg>
+    );
+  },
+);
 
 function TimelineAbility({
   x,
@@ -446,7 +462,7 @@ function TimelineAbility({
 }): JSX.Element | null {
   return (
     <foreignObject x={x} y={y} width={1} height={1} style={{ overflow: 'visible' }}>
-      <div style={{ lineHeight: `${size}px` }}>
+      <div style={{ lineHeight: `${size}px`, userSelect: 'none' }}>
         <SpellIcon
           spell={spell}
           style={{ border: '1px solid #555', borderRadius: 'unset', width: size, height: size }}
