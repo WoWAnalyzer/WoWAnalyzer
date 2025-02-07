@@ -178,6 +178,49 @@ class NaturesSwiftness extends Analyzer {
 
     return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
+
+  get farseerGuideSubsection(): JSX.Element {
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink spell={TALENTS_SHAMAN.ANCESTRAL_SWIFTNESS_TALENT} />
+        </b>{' '}
+        is a crucial spell for Farseer Shamans. You should aim to cast this on cooldown to maximize
+        your Ancestor uptime through{' '}
+        <SpellLink spell={TALENTS_SHAMAN.CALL_OF_THE_ANCESTORS_TALENT} /> . You should aim to use it
+        on your most expensive spells, like <SpellLink spell={TALENTS_SHAMAN.CHAIN_HEAL_TALENT} />{' '}
+        or sometimes <SpellLink spell={SPELLS.HEALING_SURGE} />. Avoid using it with{' '}
+        <SpellLink spell={TALENTS_SHAMAN.HEALING_WAVE_TALENT} /> or DPS spells.
+      </p>
+    );
+
+    const data = (
+      <div>
+        <RoundedPanel>
+          <strong>
+            <SpellLink spell={TALENTS_SHAMAN.ANCESTRAL_SWIFTNESS_TALENT} /> cast efficiency
+          </strong>
+          <div className="flex-main chart" style={{ padding: 15 }}>
+            <CastEfficiencyBar
+              spell={SPELLS.ANCESTRAL_SWIFTNESS_CAST}
+              useThresholds
+              gapHighlightMode={GapHighlight.FullCooldown}
+            />{' '}
+            <br />
+            <strong>Casts </strong>
+            <small>
+              - Green indicates a good use of the{' '}
+              <SpellLink spell={TALENTS_SHAMAN.ANCESTRAL_SWIFTNESS_TALENT} /> buff, Yellow indicates
+              an ok use, and Red is an incorrect use or the buff expired.
+            </small>
+            <PerformanceBoxRow values={this.castEntries} />
+          </div>
+        </RoundedPanel>
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
+  }
 }
 
 export default NaturesSwiftness;
