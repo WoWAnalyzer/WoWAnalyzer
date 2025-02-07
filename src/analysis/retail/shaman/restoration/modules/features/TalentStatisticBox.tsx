@@ -56,12 +56,6 @@ class TalentStatisticBox extends Analyzer {
 
   buildTalentList() {
     const talentList = [];
-    if (this.selectedCombatant.hasTalent(TALENTS.DELUGE_TALENT)) {
-      talentList.push(this.deluge.subStatistic());
-    }
-    if (this.selectedCombatant.hasTalent(TALENTS.EARTHEN_WALL_TOTEM_TALENT)) {
-      talentList.push(this.earthenWallTotem.subStatistic());
-    }
     if (this.selectedCombatant.hasTalent(TALENTS.NATURES_GUARDIAN_TALENT)) {
       talentList.push(this.naturesGuardian.subStatistic());
     }
