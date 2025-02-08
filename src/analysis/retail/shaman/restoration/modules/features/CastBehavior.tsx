@@ -116,14 +116,6 @@ class CastBehavior extends Analyzer {
             {this.twUsageRatioChart}
           </div>
         </Statistic>
-        <Statistic ultrawide>
-          <div className="pad">
-            <label>
-              <Trans id="shaman.restoration.castBehaviour.statistic.fillers">Fillers</Trans>
-            </label>
-            {this.fillerCastRatioChart}
-          </div>
-        </Statistic>
       </StatisticGroup>
     );
   }
