@@ -124,8 +124,6 @@ class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
   }
   getSurgingTotemDetails(spellInfo: SpellInfoDetails) {
     if (this.surgingTotem) {
-      console.log('surgingTotem');
-      console.log(this.surgingTotem.totalHealingDone);
       spellInfo.healingDone += this.surgingTotem.totalHealingDone;
     }
   }

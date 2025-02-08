@@ -163,7 +163,6 @@ class SurgingTotem extends Analyzer {
       // dirty fix for partial ticks happening at the same time as a real tick
       healingRainTick.hits = Math.min(this.maxTargets, healingRainTick.hits + 1);
     }
-    console.log(event.amount);
     this.totalHealingDone += event.amount;
   }
 

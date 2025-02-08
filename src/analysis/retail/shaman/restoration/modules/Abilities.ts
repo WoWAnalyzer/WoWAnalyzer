@@ -138,7 +138,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: TALENTS.CLOUDBURST_TOTEM_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         charges: combatant.hasTalent(TALENTS.ECHO_OF_THE_ELEMENTS_TALENT) ? 2 : 1,
-        cooldown: 30 - totemCDR,
+        cooldown: 45 - totemCDR,
         timelineSortIndex: 16,
         gcd: {
           static: totemGCD,
