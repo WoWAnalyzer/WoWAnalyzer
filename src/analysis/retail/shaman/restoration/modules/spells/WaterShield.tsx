@@ -92,7 +92,7 @@ class WaterShield extends Analyzer {
         }
       >
         <BoringSpellValueText spell={SPELLS.WATER_SHIELD}>
-          <ItemManaGained amount={this.manaGain + this.regenOnPlayer} />
+          <ItemManaGained amount={this.manaGain + this.regenOnPlayer} useAbbrev />
         </BoringSpellValueText>
       </Statistic>
     );

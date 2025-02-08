@@ -351,6 +351,11 @@ const spells = {
     name: 'Stormkeeper',
     icon: 'ability_thunderking_lightningwhip',
   },
+  COALESCING_WATER_BUFF: {
+    id: 470077,
+    name: 'Coalescing Water',
+    icon: 'inv_helm_mail_raidshamanmythic_s_01',
+  },
   // Elemental Pet Spells
   WIND_GUST: {
     id: 157331,

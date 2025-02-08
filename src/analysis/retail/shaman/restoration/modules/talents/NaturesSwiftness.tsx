@@ -78,8 +78,15 @@ class NaturesSwiftness extends Analyzer {
 
     const baseCost = event.resourceCost[RESOURCE_TYPES.MANA.id];
 
-    // Nature's Switness removes the mana cost of the spell entirely
-    this.manaSaved += baseCost;
+    if (
+      event.ability.guid === TALENTS_SHAMAN.CHAIN_HEAL_TALENT.id &&
+      this.selectedCombatant.hasTalent(TALENTS_SHAMAN.COALESCING_WATER_TALENT)
+    ) {
+      // Coalescing Water reduces the mana cost of Chain Heal by 10%
+      this.manaSaved += baseCost - baseCost * 0.1;
+    } else {
+      this.manaSaved += baseCost;
+    }
   }
 
   onApplyBuff(event: ApplyBuffEvent) {

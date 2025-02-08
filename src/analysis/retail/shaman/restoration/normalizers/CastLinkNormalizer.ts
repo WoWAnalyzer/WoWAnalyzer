@@ -33,8 +33,10 @@ import {
   WHIRLINGAIR_HEAL,
   WHIRLINGEARTH_HEAL,
   WHIRLINGWATER_HEAL,
+  LIVELY_TOTEMS_CHAIN_HEAL,
 } from '../constants';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 
 /*
   This file is for attributing the various sources of spell applications to their respective abilities and talents.
@@ -325,6 +327,28 @@ const EVENT_LINKS: EventLink[] = [
       return c.hasTalent(talents.WHIRLING_ELEMENTS_TALENT);
     },
   },
+  // Lively Totems : When you summon a Healing Tide Totem, Healing Stream Totem, Cloudburst Totem, Mana Tide Totem, or Spirit Link Totem you cast a free instant Chain Heal at 100% effectiveness.
+  {
+    linkRelation: LIVELY_TOTEMS_CHAIN_HEAL,
+    reverseLinkRelation: LIVELY_TOTEMS_CHAIN_HEAL,
+    linkingEventId: [TALENTS.CHAIN_HEAL_TALENT.id],
+    linkingEventType: [EventType.Cast],
+    referencedEventId: [
+      talents.HEALING_TIDE_TOTEM_TALENT.id,
+      talents.HEALING_STREAM_TOTEM_SHARED_TALENT.id,
+      talents.HEALING_STREAM_TOTEM_RESTORATION_TALENT.id,
+      talents.CLOUDBURST_TOTEM_TALENT.id,
+      talents.MANA_TIDE_TOTEM_TALENT.id,
+      talents.SPIRIT_LINK_TOTEM_TALENT.id,
+    ],
+    referencedEventType: [EventType.Cast],
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+    isActive(c) {
+      return c.hasTalent(talents.LIVELY_TOTEMS_TALENT);
+    },
+  },
 ];
 
 class CastLinkNormalizer extends EventLinkNormalizer {
@@ -395,6 +419,10 @@ export function didMoteExpire(event: RemoveBuffEvent) {
       return !HasRelatedEvent(event, WHIRLINGWATER_HEAL);
     }
   }
+}
+
+export function isLivelyTotemsChainHeal(event: CastEvent) {
+  return HasRelatedEvent(event, LIVELY_TOTEMS_CHAIN_HEAL);
 }
 
 export default CastLinkNormalizer;
