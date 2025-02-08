@@ -8,7 +8,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import ItemManaGained from 'parser/ui/ItemManaGained';
-import { isLivelyTotemsChainHeal } from '../../normalizers/CastLinkNormalizer';
+import { isLivelyTotemsChainHealCast } from '../../normalizers/CastLinkNormalizer';
 import { formatNumber } from 'common/format';
 
 // 10% mana cost reduction on chain heal
@@ -56,7 +56,7 @@ export default class CoalescingWater extends Analyzer {
   }
 
   onChainHealCast(event: CastEvent) {
-    if (!isLivelyTotemsChainHeal(event)) {
+    if (isLivelyTotemsChainHealCast(event)) {
       return;
     }
     this.chainHealCasts += 1;

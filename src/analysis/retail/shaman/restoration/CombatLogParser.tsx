@@ -50,6 +50,7 @@ import WhiteWater from './modules/talents/WhiteWater';
 import CoalescingWater from './modules/talents/CoalescingWater';
 // Hero talents
 import SurgingTotem from './modules/talents/totemic/SurgingTotem';
+import LivelyTotems from './modules/talents/totemic/LivelyTotems';
 // Spells
 // Tiers
 import TWW1TierSet from './modules/tier/TWW1TierSet';
@@ -130,6 +131,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Hero talents
     surgingTotem: SurgingTotem,
+    livelyTotems: LivelyTotems,
 
     // Spells
     riptide: Riptide,

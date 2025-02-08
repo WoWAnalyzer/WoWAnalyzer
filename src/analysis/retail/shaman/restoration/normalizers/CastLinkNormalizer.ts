@@ -332,7 +332,7 @@ const EVENT_LINKS: EventLink[] = [
     linkRelation: LIVELY_TOTEMS_CHAIN_HEAL,
     reverseLinkRelation: LIVELY_TOTEMS_CHAIN_HEAL,
     linkingEventId: [TALENTS.CHAIN_HEAL_TALENT.id],
-    linkingEventType: [EventType.Cast],
+    linkingEventType: [EventType.Cast, EventType.Heal],
     referencedEventId: [
       talents.HEALING_TIDE_TOTEM_TALENT.id,
       talents.HEALING_STREAM_TOTEM_SHARED_TALENT.id,
@@ -341,7 +341,7 @@ const EVENT_LINKS: EventLink[] = [
       talents.MANA_TIDE_TOTEM_TALENT.id,
       talents.SPIRIT_LINK_TOTEM_TALENT.id,
     ],
-    referencedEventType: [EventType.Cast],
+    referencedEventType: [EventType.Cast, EventType.Heal],
     backwardBufferMs: CAST_BUFFER_MS,
     forwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
@@ -421,7 +421,11 @@ export function didMoteExpire(event: RemoveBuffEvent) {
   }
 }
 
-export function isLivelyTotemsChainHeal(event: CastEvent) {
+export function isLivelyTotemsChainHealCast(event: CastEvent) {
+  return HasRelatedEvent(event, LIVELY_TOTEMS_CHAIN_HEAL);
+}
+
+export function isLivelyTotemsChainHeal(event: HealEvent) {
   return HasRelatedEvent(event, LIVELY_TOTEMS_CHAIN_HEAL);
 }
 
