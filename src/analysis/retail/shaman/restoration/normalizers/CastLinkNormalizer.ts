@@ -34,6 +34,7 @@ import {
   WHIRLINGEARTH_HEAL,
   WHIRLINGWATER_HEAL,
   LIVELY_TOTEMS_CHAIN_HEAL,
+  REACTIVITY,
 } from '../constants';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
@@ -349,6 +350,20 @@ const EVENT_LINKS: EventLink[] = [
       return c.hasTalent(talents.LIVELY_TOTEMS_TALENT);
     },
   },
+  // Reactivity: Your Healing Stream Totems now also heals a second ally at 50% effectiveness. Cloudburst Totem stores 25% additional healing.
+  {
+    linkRelation: REACTIVITY,
+    linkingEventId: [SPELLS.HEALING_STREAM_TOTEM_HEAL.id],
+    linkingEventType: [EventType.Heal],
+    referencedEventId: [SPELLS.HEALING_STREAM_TOTEM_HEAL.id],
+    referencedEventType: [EventType.Heal],
+    backwardBufferMs: 5,
+    forwardBufferMs: 5,
+    anyTarget: true,
+    isActive(c) {
+      return c.hasTalent(talents.REACTIVITY_TALENT);
+    },
+  },
 ];
 
 class CastLinkNormalizer extends EventLinkNormalizer {
@@ -427,6 +442,10 @@ export function isLivelyTotemsChainHealCast(event: CastEvent) {
 
 export function isLivelyTotemsChainHeal(event: HealEvent) {
   return HasRelatedEvent(event, LIVELY_TOTEMS_CHAIN_HEAL);
+}
+
+export function isReactivityHeal(event: HealEvent) {
+  return HasRelatedEvent(event, REACTIVITY);
 }
 
 export default CastLinkNormalizer;
