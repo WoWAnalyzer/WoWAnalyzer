@@ -24,7 +24,7 @@ interface EncounterConfig {
   disableDowntimeStatistic?: boolean;
   timeline?: {
     abilities?: EncounterTimelineAbility[];
-    debuffs?: EncounterTimelineDebuffs[];
+    debuffs?: EncounterTimelineDebuff[];
   };
 }
 
@@ -34,8 +34,12 @@ export interface EncounterTimelineAbility {
   bossOnly?: boolean;
 }
 
-interface EncounterTimelineDebuffs {
+export interface EncounterTimelineDebuff {
   id: number;
+  /**
+   * Whether this logs as a buff or debuff. Default is `debuff`.
+   */
+  type?: 'debuff' | 'buff';
 }
 
 interface Encounter {

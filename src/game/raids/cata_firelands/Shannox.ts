@@ -10,7 +10,28 @@ const Shannox: Boss = {
   background: Background,
   headshot: Headshot,
   icon: 'achievement_boss_shannox.jpg',
-  fight: {},
+  fight: {
+    timeline: {
+      abilities: [
+        {
+          // Face Rage
+          id: 99947,
+          type: 'cast',
+        },
+        {
+          // Magma Rupture
+          id: 100003,
+          type: 'cast',
+        },
+      ],
+      debuffs: [
+        {
+          // Face Rage (stun)
+          id: 99947,
+        },
+      ],
+    },
+  },
 };
 
 export default Shannox;

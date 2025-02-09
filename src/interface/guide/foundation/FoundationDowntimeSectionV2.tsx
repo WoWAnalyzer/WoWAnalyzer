@@ -5,9 +5,11 @@ import { Highlight } from 'interface/Highlight';
 import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import {
   AnyEvent,
+  ApplyBuffEvent,
   ApplyDebuffEvent,
   CastEvent,
   EventType,
+  RemoveBuffEvent,
   RemoveDebuffEvent,
 } from 'parser/core/Events';
 import { useEffect, useMemo, useState } from 'react';
@@ -25,7 +27,7 @@ import Tooltip, { TooltipElement } from 'interface/Tooltip';
 import PerformanceStrong from 'interface/PerformanceStrong';
 import { ByRole, Role } from './ByRole';
 import { useFight } from 'interface/report/context/FightContext';
-import { EncounterTimelineAbility, findByBossId } from 'game/raids';
+import { EncounterTimelineAbility, EncounterTimelineDebuff, findByBossId } from 'game/raids';
 import Para from '../Para';
 import styled from '@emotion/styled';
 import Suggestion from 'interface/report/Results/Suggestion';
@@ -581,18 +583,26 @@ function useBossAbilities(
   return useReportEvents(reportCode, startTime, endTime, filter) as CastEvent[] | undefined;
 }
 
-function useBossDebuffs(playerId: number | undefined, debuffs: { id: number }[]) {
+// TODO: this should be an analyzer
+function useBossDebuffs(playerId: number | undefined, debuffs: EncounterTimelineDebuff[]) {
   const info = useInfo();
   const allEvents = useEvents();
   const debuffEvents = useMemo(() => {
-    const debuffIds = debuffs.map((entry) => entry.id);
-    return allEvents.filter((event): event is ApplyDebuffEvent | RemoveDebuffEvent => {
-      return (
-        (event.type === EventType.ApplyDebuff || event.type === EventType.RemoveDebuff) &&
-        event.targetID === playerId &&
-        debuffIds.includes(event.ability.guid)
-      );
-    });
+    const debuffIds = debuffs
+      .filter((entry) => entry.type === undefined || entry.type === 'debuff')
+      .map((entry) => entry.id);
+    const buffIds = debuffs.filter((entry) => entry.type === 'buff').map((entry) => entry.id);
+    return allEvents.filter(
+      (event): event is ApplyDebuffEvent | RemoveDebuffEvent | ApplyBuffEvent | RemoveBuffEvent => {
+        const isMatchingDebuff =
+          (event.type === EventType.ApplyDebuff || event.type === EventType.RemoveDebuff) &&
+          debuffIds.includes(event.ability.guid);
+        const isMatchingBuff =
+          (event.type === EventType.ApplyBuff || event.type === EventType.RemoveBuff) &&
+          buffIds.includes(event.ability.guid);
+        return (isMatchingBuff || isMatchingDebuff) && event.targetID === playerId;
+      },
+    );
   }, [allEvents, debuffs, playerId]);
 
   const debuffSegments = useMemo(() => {
