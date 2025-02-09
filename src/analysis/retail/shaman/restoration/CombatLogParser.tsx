@@ -55,6 +55,7 @@ import TotemicRebound from './modules/talents/totemic/TotemicRebound';
 import AmplificationCore from './modules/talents/totemic/AmplificationCore';
 import Oversurge from './modules/talents/totemic/Oversurge';
 import Reactivity from './modules/talents/totemic/Reactivity';
+import ImbuementMastery from './modules/talents/totemic/ImbuementMastery';
 // Spells
 // Tiers
 import TWW1TierSet from './modules/tier/TWW1TierSet';
@@ -140,6 +141,7 @@ class CombatLogParser extends CoreCombatLogParser {
     amplificationCore: AmplificationCore,
     oversurge: Oversurge,
     reactivity: Reactivity,
+    imbuementMastery: ImbuementMastery,
 
     // Spells
     riptide: Riptide,
