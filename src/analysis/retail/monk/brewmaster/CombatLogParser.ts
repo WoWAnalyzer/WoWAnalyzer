@@ -54,8 +54,6 @@ import SpinningCraneKickLinkNormalizer from './normalizers/SpinningCraneKick';
 import PressTheAdvantage from './modules/talents/PressTheAdvantage';
 import PressTheAdvantageNormalizer from './modules/talents/PressTheAdvantage/normalizer';
 import WarWithinS1TierSet from './modules/items/WarWithinS1TierSet';
-import { DowntimeDebuffAnalyzer } from 'interface/guide/foundation/analyzers/DowntimeDebuffAnalyzer';
-import { MeleeUptimeAnalyzer } from 'interface/guide/foundation/analyzers/MeleeUptimeAnalyzer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -129,10 +127,6 @@ class CombatLogParser extends CoreCombatLogParser {
     purifyProblems: PurifyingBrewProblems,
     invokeNiuzao: InvokeNiuzao,
     stompOrder: StompOrderNormalizer,
-
-    /// experimental stuff
-    MeleeUptimeAnalyzer,
-    DowntimeDebuffAnalyzer,
   };
 
   static guide = Guide;

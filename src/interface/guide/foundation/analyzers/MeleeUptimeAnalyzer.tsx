@@ -4,6 +4,8 @@ import SPELLS from 'common/SPELLS';
 import Haste from 'parser/shared/modules/Haste';
 import Spell from 'common/SPELLS/Spell';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import ROLES from 'game/ROLES';
+import SPECS, { Spec } from 'game/SPECS';
 
 interface MeleeCast {
   event: CastEvent;
@@ -12,6 +14,7 @@ interface MeleeCast {
 
 const MAX_MELEE_TIMER = 4000;
 const MIN_MELEE_TIMER = 800;
+const MELEE_HEALERS = [SPECS.MISTWEAVER_MONK.id, SPECS.HOLY_PALADIN.id];
 
 export class MeleeUptimeAnalyzer extends Analyzer.withDependencies({ haste: Haste }) {
   private recentMelees: MeleeCast[] = [];
@@ -27,8 +30,19 @@ export class MeleeUptimeAnalyzer extends Analyzer.withDependencies({ haste: Hast
     };
   }
 
+  static isMeleeSpec(spec: Spec): boolean {
+    return (
+      spec.role === ROLES.DPS.MELEE || spec.role === ROLES.TANK || MELEE_HEALERS.includes(spec.id)
+    );
+  }
+
   constructor(options: Options, meleeAbility?: Spell) {
     super(options);
+
+    if (!MeleeUptimeAnalyzer.isMeleeSpec(options.owner.config.spec)) {
+      this.active = false;
+      return;
+    }
 
     this.addEventListener(
       Events.cast

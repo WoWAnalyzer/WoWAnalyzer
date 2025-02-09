@@ -45,8 +45,6 @@ import BoneShieldOrderNormalizer from './modules/core/BoneShieldOrderNormalizer'
 import ExterminateCostNormalizer from '../shared/ExterminateCostNormalizer';
 import VampiricStrike from './modules/talents/VampiricStrike';
 import EssenceOfTheBloodQueen from './modules/talents/EssenceOfTheBloodQueen';
-import { DowntimeDebuffAnalyzer } from 'interface/guide/foundation/analyzers/DowntimeDebuffAnalyzer';
-import { MeleeUptimeAnalyzer } from 'interface/guide/foundation/analyzers/MeleeUptimeAnalyzer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -112,10 +110,6 @@ class CombatLogParser extends CoreCombatLogParser {
     resourceOrderNormalizer: ResourceOrderNormalizer,
     boneShieldOrderNormalizer: BoneShieldOrderNormalizer,
     ExterminateCostNormalizer,
-
-    // experimental stuff
-    MeleeUptimeAnalyzer,
-    DowntimeDebuffAnalyzer,
   };
 
   static guide = BloodGuide;

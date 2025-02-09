@@ -19,14 +19,14 @@ import BlackoutComboSection from './modules/spells/BlackoutCombo/BlackoutComboSe
 import ActiveTimeGraph from 'parser/ui/ActiveTimeGraph';
 import { formatPercentage } from 'common/format';
 import PerformanceStrong from 'interface/PerformanceStrong';
-import FoundationDowntimeSectionV2 from 'interface/guide/foundation/FoundationDowntimeSectionV2';
 import { FoundationDowntimeSection } from 'interface/guide/foundation/FoundationDowntimeSection';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
-      <FoundationDowntimeSectionV2 />
-      <FoundationDowntimeSection />
+      <Section title="Core Skills">
+        <FoundationDowntimeSection />
+      </Section>
       <Section title="Stagger Management">
         <p>
           Brewmaster's core defensive loop uses <SpellLink spell={SPELLS.STAGGER} /> plus{' '}

@@ -15,12 +15,10 @@ import SpellLink from 'interface/SpellLink';
 import CooldownGraphSubsection, {
   Cooldown,
 } from 'interface/guide/components/CooldownGraphSubSection';
-import FoundationDowntimeSectionV2 from 'interface/guide/foundation/FoundationDowntimeSectionV2';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
-      <FoundationDowntimeSectionV2 />
       <ResourceUsageSection modules={modules} events={events} info={info} />
       <CooldownSection />
       <PreparationSection />

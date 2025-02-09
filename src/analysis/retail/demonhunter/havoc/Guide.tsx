@@ -19,7 +19,6 @@ import { HideGoodCastsToggle } from 'interface/guide/components/HideGoodCastsTog
 import { PerformanceStrong } from 'analysis/retail/priest/shadow/modules/guide/ExtraComponents';
 import { formatPercentage } from 'common/format';
 import ActiveTimeGraph from 'parser/ui/ActiveTimeGraph';
-import FoundationDowntimeSectionV2 from 'interface/guide/foundation/FoundationDowntimeSectionV2';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -38,7 +37,6 @@ function ResourceUsageSection({ info, modules }: GuideProps<typeof CombatLogPars
   const furyWasted = modules.furyTracker.wasted;
   return (
     <Section title="Core">
-      <FoundationDowntimeSectionV2 />
       <SubSection title="Fury">
         <p>
           Havoc's primary resource is <ResourceLink id={RESOURCE_TYPES.FURY.id} />. You should avoid

@@ -1,5 +1,5 @@
 import { Uptime } from 'parser/ui/UptimeBar';
-import { BadColor, OkColor, Section, SubSection, useAnalyzer, useEvents, useInfo } from '../index';
+import { BadColor, OkColor, SubSection, useAnalyzer, useEvents, useInfo } from '../index';
 import { FoundationHighlight as HL } from './shared';
 import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import {
@@ -59,7 +59,7 @@ export default function FoundationDowntimeSectionV2(): JSX.Element | null {
   // intentionally not including the "hide explanation" options for right now
 
   return (
-    <Section title="Always Be Casting (v2)">
+    <>
       <div
         style={{
           display: 'flex',
@@ -132,7 +132,7 @@ export default function FoundationDowntimeSectionV2(): JSX.Element | null {
           <SmallGapsSuggestion />
         </ul>
       </SubSection>
-    </Section>
+    </>
   );
 }
 

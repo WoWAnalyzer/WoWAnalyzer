@@ -25,7 +25,6 @@ import Crusade from './modules/talents/Crusade';
 import EmpyreanPower from './modules/talents/EmpyreanPower';
 import BuilderUse from './modules/core/BuilderUse';
 import Guide from './Guide';
-import { DowntimeDebuffAnalyzer } from 'interface/guide/foundation/analyzers/DowntimeDebuffAnalyzer';
 import { MeleeUptimeAnalyzer } from 'interface/guide/foundation/analyzers/MeleeUptimeAnalyzer';
 import SPELLS from 'common/SPELLS';
 
@@ -66,9 +65,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Items
     finalVerdict: FinalVerdict,
 
-    // experimental stuff
     meleeUptime: MeleeUptimeAnalyzer.withMeleeAbility(SPELLS.CRUSADING_STRIKES),
-    DowntimeDebuffAnalyzer,
   };
 }
 
