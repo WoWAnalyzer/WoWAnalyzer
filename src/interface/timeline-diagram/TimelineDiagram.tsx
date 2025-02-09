@@ -42,12 +42,21 @@ export const useTimelinePosition = () => useContext(ctx);
  * SVG doesn't have flexbox and pulling in a flexbox-in-JS library is massive overkill for what we need. Explicitly specifying desired height allows a simple automatic layout with minimal extra work.
  */
 export interface TimelineTrack {
+  /**
+   * Same as CSS z-index. Default is 0.
+   */
   zIndex?: number;
+  /**
+   * The height (in logical px) of the track. Keep in mind that the entire diagram may be re-scaled, so relying on this matching pixels outside the diagram is not safe.
+   */
   height: number;
   /**
-   * Render the track at `y` pixels offset from the container.
+   * Render the track. This is rendered inside an `<svg />` that has the correct position and size set.
    */
   element: JSX.Element | null;
+  /**
+   * Whether to entirely hide the track. This causes the height to not be consumed at all.
+   */
   hidden?: (x: (timestamp: number) => number) => boolean;
 }
 
@@ -246,6 +255,8 @@ export default function TimelineDiagram({ info, children, overlays }: Props): JS
     }
   }, []);
 
+  const phases = usePhaseSegments();
+
   return (
     <ctx.Provider value={contextValue}>
       <div>
@@ -266,8 +277,8 @@ export default function TimelineDiagram({ info, children, overlays }: Props): JS
             width={pxPerMs * info.fightDuration}
             height="100%"
           >
-            <PhaseHeader />
-            <svg x={0} y={PhaseHeader.HEIGHT} width="100%" height="100%">
+            {phases.length && <PhaseHeader />}
+            <svg x={0} y={phases.length ? PhaseHeader.HEIGHT : 0} width="100%" height="100%">
               {renderedTracks}
               {overlays}
             </svg>

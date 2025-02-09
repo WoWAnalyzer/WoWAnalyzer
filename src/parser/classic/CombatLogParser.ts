@@ -54,6 +54,7 @@ import Berserking from 'parser/shared/modules/racials/troll/Berserking';
 import BloodFury from 'parser/shared/modules/racials/orc/BloodFury';
 import GiftOfTheNaaru from 'parser/shared/modules/racials/draenei/GiftOfTheNaaru';
 import Stoneform from 'parser/shared/modules/racials/dwarf/Stoneform';
+import { MeleeUptimeAnalyzer } from 'interface/guide/foundation/analyzers/MeleeUptimeAnalyzer';
 
 class CombatLogParser extends BaseCombatLogParser {
   static defaultModules: DependenciesDefinition = {
@@ -88,6 +89,7 @@ class CombatLogParser extends BaseCombatLogParser {
     haste: Haste,
     statTracker: StatTracker,
     alwaysBeCasting: AlwaysBeCasting,
+    meleeUptime: MeleeUptimeAnalyzer,
     filteredActiveTime: FilteredActiveTime,
     abilities: Abilities,
     buffs: Auras,

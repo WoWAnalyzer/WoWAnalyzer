@@ -1,6 +1,7 @@
 import { Uptime } from 'parser/ui/UptimeBar';
 import { BadColor, OkColor, SubSection, useAnalyzer, useEvents, useInfo } from '../index';
 import { FoundationHighlight as HL } from './shared';
+import { Highlight } from 'interface/Highlight';
 import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import {
   AnyEvent,
@@ -111,7 +112,12 @@ export default function FoundationDowntimeSectionV2(): JSX.Element | null {
               <Role.Caster>
                 There should be no gaps between the end of one spell cast and the start of the next.
               </Role.Caster>
-            </ByRole>
+            </ByRole>{' '}
+            This diagram shows gaps in your uptime in{' '}
+            <Highlight color={BadColor} textColor="white">
+              red
+            </Highlight>
+            .
           </Para>
           <Para>
             With practice, you will be able to maintain uptime <em>and</em> pick the right abilities
@@ -202,6 +208,9 @@ function ComplexUptimeDisplay({
       {
         height: 24,
         element: null,
+        hidden() {
+          return (boss?.fight.timeline?.abilities?.length ?? 0) === 0;
+        },
       },
       {
         height: 16,
@@ -215,6 +224,9 @@ function ComplexUptimeDisplay({
             disableMerging
           />
         ),
+        hidden() {
+          return (boss?.fight.timeline?.debuffs?.length ?? 0) === 0;
+        },
       },
       {
         height: 25,
@@ -277,7 +289,7 @@ function ComplexUptimeDisplay({
         },
       },
     ];
-  }, [debuffSegments, uptimeHistory, info, meleeGaps, globalMeleeGaps]);
+  }, [debuffSegments, uptimeHistory, info, meleeGaps, globalMeleeGaps, boss?.fight]);
 
   if (!info) {
     return null;
