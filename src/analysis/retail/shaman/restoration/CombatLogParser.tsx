@@ -51,6 +51,7 @@ import CoalescingWater from './modules/talents/CoalescingWater';
 // Hero talents
 import SurgingTotem from './modules/talents/totemic/SurgingTotem';
 import LivelyTotems from './modules/talents/totemic/LivelyTotems';
+import TotemicRebound from './modules/talents/totemic/TotemicRebound';
 // Spells
 // Tiers
 import TWW1TierSet from './modules/tier/TWW1TierSet';
@@ -132,6 +133,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Hero talents
     surgingTotem: SurgingTotem,
     livelyTotems: LivelyTotems,
+    totemicRebound: TotemicRebound,
 
     // Spells
     riptide: Riptide,

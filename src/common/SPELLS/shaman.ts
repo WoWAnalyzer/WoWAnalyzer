@@ -1001,6 +1001,12 @@ const spells = {
     name: 'Lava Burst',
     icon: 'spell_shaman_lavaburst',
   },
+  // Totemic
+  TOTEMIC_REBOUND_CHAIN_HEAL: {
+    id: 458357,
+    name: 'Chain Heal',
+    icon: 'spell_nature_healingwavegreater',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;

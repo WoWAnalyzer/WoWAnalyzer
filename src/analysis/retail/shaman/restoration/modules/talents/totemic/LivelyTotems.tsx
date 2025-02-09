@@ -64,7 +64,7 @@ export default class LivelyTotems extends Analyzer {
     return (
       <Statistic
         size="flexible"
-        category={STATISTIC_CATEGORY.TALENTS}
+        category={STATISTIC_CATEGORY.HERO_TALENTS}
         tooltip={
           <>
             <strong>{formatNumber(this.healingDoneFromTalent)}</strong> bonus healing (
