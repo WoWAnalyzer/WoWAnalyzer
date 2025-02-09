@@ -953,6 +953,11 @@ const spells = {
     name: 'Tidewaters',
     icon: 'ability_shawaterelemental_split',
   },
+  ACID_RAIN_DAMAGE: {
+    id: 378597,
+    name: 'Acid Rain',
+    icon: 'spell_nature_acid_01',
+  },
   /** HERO TALENTS **/
   // Stormbringer
   TEMPEST_CAST: {

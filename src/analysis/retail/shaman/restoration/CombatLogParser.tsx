@@ -53,6 +53,7 @@ import SurgingTotem from './modules/talents/totemic/SurgingTotem';
 import LivelyTotems from './modules/talents/totemic/LivelyTotems';
 import TotemicRebound from './modules/talents/totemic/TotemicRebound';
 import AmplificationCore from './modules/talents/totemic/AmplificationCore';
+import Oversurge from './modules/talents/totemic/Oversurge';
 // Spells
 // Tiers
 import TWW1TierSet from './modules/tier/TWW1TierSet';
@@ -136,6 +137,7 @@ class CombatLogParser extends CoreCombatLogParser {
     livelyTotems: LivelyTotems,
     totemicRebound: TotemicRebound,
     amplificationCore: AmplificationCore,
+    oversurge: Oversurge,
 
     // Spells
     riptide: Riptide,
