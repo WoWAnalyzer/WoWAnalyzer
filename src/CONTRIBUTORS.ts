@@ -2088,10 +2088,11 @@ export const Anty: Contributor = {
   nickname: 'Anty',
   github: 'jsucupira',
 };
-export const Squided: Contributor = {
-  nickname: 'Squided',
+export const squided: Contributor = {
+  nickname: 'squided',
   github: 'foobartles',
-  discord: 'squided#0001',
+  discord: 'squided',
+  avatar: avatar('squided.png'),
 };
 
 export const AlexanderJKremer: Contributor = {

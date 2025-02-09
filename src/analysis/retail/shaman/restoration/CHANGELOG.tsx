@@ -4,10 +4,11 @@ import SPELLS from 'common/SPELLS';
 import { change, date } from 'common/changelog';
 import { SHAMAN_TWW1_ID } from 'common/ITEMS/dragonflight';
 import ItemSetLink from 'interface/ItemSetLink';
-import { Seriousnes, Ypp, Texleretour, Vetyst, PandaGoesBaa, emallson } from 'CONTRIBUTORS';
+import { Seriousnes, Ypp, Texleretour, Vetyst, PandaGoesBaa, emallson, squided } from 'CONTRIBUTORS';
 
 // prettier-ignore
 export default [
+  change(date(2025, 2, 8), <>Update incorrect modules and guide sections. Add missing modules for 11.0.7 talents. More totemic modules.</>, squided),
   change(date(2025, 1, 6), <>Fix crash in <SpellLink spell={TALENTS_SHAMAN.SURGING_TOTEM_TALENT} /> analysis when cast pre-pull.</>, emallson),
   change(date(2024, 10, 12), <>Fixed cooldowns for totems, <SpellLink spell={TALENTS_SHAMAN.TOTEMIC_RECALL_TALENT}/>, and <SpellLink spell={TALENTS_SHAMAN.ASCENDANCE_RESTORATION_TALENT}/> not properly accounting for cooldown reduction talents like <SpellLink spell={TALENTS_SHAMAN.FIRST_ASCENDANT_TALENT}/>.</>, PandaGoesBaa),
   change(date(2024, 10, 6), <>Fix another pre-pull error with <SpellLink spell={TALENTS_SHAMAN.SURGING_TOTEM_TALENT}/>.</>, Vetyst),
