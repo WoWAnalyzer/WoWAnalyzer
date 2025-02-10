@@ -27,11 +27,13 @@ import SegmentTimeline, {
   TimelineAbility,
 } from 'interface/timeline-diagram/SegmentTimeline';
 import useReportEvents from '../hooks/useReportEvents';
+import DowntimeDebuffAnalyzer from './analyzers/DowntimeDebuffAnalyzer';
 
 export default function FoundationDowntimeSectionV2(): JSX.Element | null {
   const info = useInfo();
   const abc = useAnalyzer(AlwaysBeCasting);
   const melee = useAnalyzer(MeleeUptimeAnalyzer);
+  const debuffs = useAnalyzer(DowntimeDebuffAnalyzer);
 
   const globalMeleeEvents = useReportEvents(
     info?.reportCode,
@@ -127,6 +129,7 @@ export default function FoundationDowntimeSectionV2(): JSX.Element | null {
           uptimeHistory={uptimeHistory}
           meleeGaps={melee?.meleeUptimeGaps}
           globalMeleeGaps={globalMeleeUptime}
+          debuffSegments={debuffs?.debuffSegments}
         />
       </SubSection>
       <SubSection>
