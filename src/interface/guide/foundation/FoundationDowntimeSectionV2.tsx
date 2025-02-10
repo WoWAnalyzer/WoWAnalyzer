@@ -3,36 +3,30 @@ import { BadColor, OkColor, SubSection, useAnalyzer, useEvents, useInfo } from '
 import { FoundationHighlight as HL } from './shared';
 import { Highlight } from 'interface/Highlight';
 import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
-import {
-  AnyEvent,
-  ApplyBuffEvent,
-  ApplyDebuffEvent,
-  CastEvent,
-  EventType,
-  RemoveBuffEvent,
-  RemoveDebuffEvent,
-} from 'parser/core/Events';
-import { useEffect, useMemo, useState } from 'react';
-import { fetchEvents } from 'common/fetchWclApi';
+import { CastEvent, EventType } from 'parser/core/Events';
+import { useMemo } from 'react';
 import { MeleeUptimeAnalyzer } from './analyzers/MeleeUptimeAnalyzer';
-import SpellIcon from 'interface/SpellIcon';
-import { formatDuration, formatNumber, formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import TimelineDiagram, {
   TimelineTrack,
   useTimelinePosition,
 } from 'interface/timeline-diagram/TimelineDiagram';
 import { Info } from 'parser/core/metric';
-import Spell from 'common/SPELLS/Spell';
-import Tooltip, { TooltipElement } from 'interface/Tooltip';
+import { TooltipElement } from 'interface/Tooltip';
 import PerformanceStrong from 'interface/PerformanceStrong';
 import { ByRole, Role } from './ByRole';
 import { useFight } from 'interface/report/context/FightContext';
-import { EncounterTimelineAbility, EncounterTimelineDebuff, findByBossId } from 'game/raids';
+import { EncounterTimelineAbility, findByBossId } from 'game/raids';
 import Para from '../Para';
 import styled from '@emotion/styled';
 import Suggestion from 'interface/report/Results/Suggestion';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import React from 'react';
+import SegmentTimeline, {
+  DisplaySegment,
+  TimelineAbility,
+} from 'interface/timeline-diagram/SegmentTimeline';
+import useReportEvents from '../hooks/useReportEvents';
 
 export default function FoundationDowntimeSectionV2(): JSX.Element | null {
   const info = useInfo();
@@ -148,26 +142,12 @@ interface Props {
   uptimeHistory: Segment[];
   meleeGaps?: Array<Segment>;
   globalMeleeGaps?: Array<Segment>;
+  debuffSegments?: Array<DisplaySegment>;
 }
 
 interface Segment {
   start: number;
   end: number;
-}
-
-interface DisplaySegment extends Segment {
-  /**
-   * If set, show an ability icon at the start of the segment.
-   */
-  abilityId?: number;
-  /**
-   * If set, override the segment default foreground color.
-   */
-  color?: string;
-  /**
-   * If set, show this as the tooltip on hovering the segment.
-   */
-  tooltip?: React.ReactNode;
 }
 
 const UptimeStatistics = styled.dl`
@@ -193,12 +173,16 @@ function ComplexUptimeDisplay({
   uptimeHistory,
   meleeGaps,
   globalMeleeGaps,
+  debuffSegments: rawDebuffSegments,
 }: Props): JSX.Element | null {
   const info = useInfo();
   const { fight } = useFight();
 
   const boss = findByBossId(fight.boss);
-  const debuffSegments = useBossDebuffs(info?.playerId, boss?.fight.timeline?.debuffs ?? []);
+  const debuffSegments = useMemo(
+    () => rawDebuffSegments?.filter((segment) => segment.end - segment.start >= 4000) ?? [],
+    [rawDebuffSegments],
+  );
 
   const tracks: TimelineTrack[] = useMemo(() => {
     if (!info) {
@@ -367,125 +351,6 @@ function BossAbilityOverlay({ info }: { info?: Info }) {
   );
 }
 
-interface SegmentTimelineProps {
-  bgColor?: string;
-  fgColor: string;
-  fgStroke?: string;
-  segments: DisplaySegment[];
-  info: Info;
-  segmentProps?: React.ComponentProps<'rect'>;
-  containerProps?: React.ComponentProps<'svg'>;
-  disableMerging?: boolean;
-}
-
-const SegmentTimeline = React.memo(
-  ({
-    bgColor,
-    fgColor,
-    segments,
-    info,
-    fgStroke,
-    segmentProps,
-    containerProps,
-    disableMerging,
-  }: SegmentTimelineProps): JSX.Element => {
-    const { x, width } = useTimelinePosition();
-    // merge segments that would have sub-pixel gaps between them to avoid render artifacts
-    const mergedSegments = useMemo(() => {
-      if (disableMerging) {
-        return segments;
-      }
-      const result = [];
-      let currentSegment = undefined;
-      for (const segment of segments) {
-        if (!currentSegment) {
-          currentSegment = { ...segment };
-          continue;
-        }
-
-        if (
-          width(currentSegment.end, segment.start) < 1 ||
-          segment.start - currentSegment.end < 100
-        ) {
-          currentSegment.end = segment.end;
-        } else {
-          result.push(currentSegment);
-          currentSegment = { ...segment };
-        }
-      }
-
-      if (currentSegment) {
-        result.push(currentSegment);
-      }
-      return result;
-    }, [segments, width, disableMerging]);
-
-    return (
-      <svg width="100%" height="100%" {...containerProps}>
-        {bgColor && <rect x={0} y={0} height="100%" width="100%" fill={bgColor} />}
-        <g>
-          {mergedSegments.map((segment, i) => (
-            <g key={i}>
-              <rect
-                x={x(segment.start)}
-                width={width(segment.start, segment.end)}
-                y={0}
-                height="100%"
-                fill={segment.color ?? fgColor}
-                stroke={fgStroke}
-                {...segmentProps}
-              >
-                <title>
-                  {formatDuration(segment.start - info.fightStart, 3)} -{' '}
-                  {formatDuration(segment.end - info.fightStart, 3)}
-                </title>
-              </rect>
-              {segment.tooltip && (
-                <foreignObject
-                  x={x(segment.start)}
-                  width={width(segment.start, segment.end)}
-                  y={0}
-                  height="100%"
-                >
-                  <Tooltip content={segment.tooltip}>
-                    <div style={{ width: '100%', height: '100%' }} />
-                  </Tooltip>
-                </foreignObject>
-              )}
-              {segment.abilityId && (
-                <TimelineAbility y={0} x={x(segment.start)} size={16} spell={segment.abilityId} />
-              )}
-            </g>
-          ))}
-        </g>
-      </svg>
-    );
-  },
-);
-
-function TimelineAbility({
-  x,
-  y,
-  spell,
-  size,
-}: {
-  x: number;
-  y: number;
-  size: number;
-  spell: number | Spell;
-}): JSX.Element | null {
-  return (
-    <foreignObject x={x} y={y} width={1} height={1} style={{ overflow: 'visible' }}>
-      <div style={{ lineHeight: `${size}px`, userSelect: 'none' }}>
-        <SpellIcon
-          spell={spell}
-          style={{ border: '1px solid #555', borderRadius: 'unset', width: size, height: size }}
-        />
-      </div>
-    </foreignObject>
-  );
-}
-
 /**
  * Estimate global melee uptime, i.e. the ability of a melee player to hit *something* at each point in time. While `MeleeUptimeAnalyzer` does this in detail for a player, this takes a large-scale view and tries to identify large downtime spans (like transition phases) rather than individual gaps in melee hits per player.
  *
@@ -519,42 +384,6 @@ function estimateGlobalMeleeUptime(
 
 const MIN_GLOBAL_GAP = 3000;
 
-function useReportEvents(
-  reportCode: string | undefined,
-  startTime: number | undefined,
-  endTime: number | undefined,
-  filter: string,
-): AnyEvent[] | undefined {
-  const [data, setData] = useState<AnyEvent[] | undefined>();
-
-  useEffect(() => {
-    if (!reportCode || !startTime || !endTime) {
-      return;
-    }
-    if (filter.length === 0) {
-      console.error('attempted useReportEvents with no filter');
-      return;
-    }
-    let cancelled = false;
-
-    const run = async () => {
-      const events = await fetchEvents(reportCode, startTime, endTime, undefined, filter);
-
-      if (!cancelled) {
-        setData(events);
-      }
-    };
-
-    run();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [reportCode, startTime, endTime, filter]);
-
-  return data;
-}
-
 function useBossAbilities(
   reportCode: string | undefined,
   startTime: number | undefined,
@@ -582,63 +411,6 @@ function useBossAbilities(
   }, [abilities]);
   return useReportEvents(reportCode, startTime, endTime, filter) as CastEvent[] | undefined;
 }
-
-// TODO: this should be an analyzer
-function useBossDebuffs(playerId: number | undefined, debuffs: EncounterTimelineDebuff[]) {
-  const info = useInfo();
-  const allEvents = useEvents();
-  const debuffEvents = useMemo(() => {
-    const debuffIds = debuffs
-      .filter((entry) => entry.type === undefined || entry.type === 'debuff')
-      .map((entry) => entry.id);
-    const buffIds = debuffs.filter((entry) => entry.type === 'buff').map((entry) => entry.id);
-    return allEvents.filter(
-      (event): event is ApplyDebuffEvent | RemoveDebuffEvent | ApplyBuffEvent | RemoveBuffEvent => {
-        const isMatchingDebuff =
-          (event.type === EventType.ApplyDebuff || event.type === EventType.RemoveDebuff) &&
-          debuffIds.includes(event.ability.guid);
-        const isMatchingBuff =
-          (event.type === EventType.ApplyBuff || event.type === EventType.RemoveBuff) &&
-          buffIds.includes(event.ability.guid);
-        return (isMatchingBuff || isMatchingDebuff) && event.targetID === playerId;
-      },
-    );
-  }, [allEvents, debuffs, playerId]);
-
-  const debuffSegments = useMemo(() => {
-    const pendingDebuffs: Map<number, number> = new Map();
-    const result = [];
-    for (const event of debuffEvents) {
-      if (event.type === EventType.ApplyDebuff) {
-        pendingDebuffs.set(event.ability.guid, event.timestamp);
-      } else if (event.type === EventType.RemoveDebuff) {
-        const startTime = pendingDebuffs.get(event.ability.guid) ?? info?.fightStart ?? 0;
-        pendingDebuffs.delete(event.ability.guid);
-        result.push({
-          start: startTime,
-          end: event.timestamp,
-          abilityId: event.ability.guid,
-        });
-      }
-    }
-
-    // deal with any that didn't expire before fight end
-    if (info) {
-      for (const [abilityId, startTime] of pendingDebuffs) {
-        result.push({
-          start: startTime,
-          end: info.fightEnd,
-          abilityId,
-        });
-      }
-    }
-
-    return result.filter((segment) => segment.end - segment.start >= 4000);
-  }, [debuffEvents, info]);
-
-  return debuffSegments;
-}
-
 function usePlayerGcdSegments() {
   const events = useEvents();
 
