@@ -247,6 +247,37 @@ export default function TimelineDiagram({ info, children, overlays }: Props): JS
     [info],
   );
 
+  const doWheelScroll = useCallback((event: React.WheelEvent<SVGSVGElement>) => {
+    setZoom((zoom) => {
+      if (!zoom) {
+        return undefined;
+      }
+
+      const rect = (event.currentTarget ?? el.current).getBoundingClientRect();
+      const duration = zoom.end - zoom.start;
+      const deltaMs = (event.deltaX / rect.width) * duration;
+
+      const result = {
+        start: zoom.start - deltaMs,
+        end: zoom.end - deltaMs,
+      };
+
+      if (result.start < info.fightStart) {
+        return {
+          start: info.fightStart,
+          end: info.fightStart + duration,
+        };
+      } else if (result.end > info.fightEnd) {
+        return {
+          start: info.fightEnd - duration,
+          end: info.fightEnd,
+        };
+      } else {
+        return result;
+      }
+    });
+  }, []);
+
   const clearScrollState = useCallback((event: React.MouseEvent<unknown>) => {
     if (event.buttons === 0) {
       // no buttons are pushed, clear scroll state
@@ -262,7 +293,7 @@ export default function TimelineDiagram({ info, children, overlays }: Props): JS
       <div>
         <svg
           ref={watchWidth}
-          height={trackHeight + PhaseHeader.HEIGHT}
+          height={trackHeight + (phases.length ? PhaseHeader.HEIGHT : 0)}
           width="100%"
           preserveAspectRatio="none"
           onMouseDown={beginScroll}
@@ -270,6 +301,7 @@ export default function TimelineDiagram({ info, children, overlays }: Props): JS
           onMouseMove={doScroll}
           onMouseEnter={clearScrollState}
           onDoubleClick={() => setZoom(undefined)}
+          onWheel={doWheelScroll}
         >
           <svg
             x={zoom ? -pxPerMs * (zoom?.start - info.fightStart) : 0}
