@@ -247,36 +247,39 @@ export default function TimelineDiagram({ info, children, overlays }: Props): JS
     [info],
   );
 
-  const doWheelScroll = useCallback((event: React.WheelEvent<SVGSVGElement>) => {
-    setZoom((zoom) => {
-      if (!zoom) {
-        return undefined;
-      }
+  const doWheelScroll = useCallback(
+    (event: React.WheelEvent<SVGSVGElement>) => {
+      setZoom((zoom) => {
+        if (!zoom) {
+          return undefined;
+        }
 
-      const rect = (event.currentTarget ?? el.current).getBoundingClientRect();
-      const duration = zoom.end - zoom.start;
-      const deltaMs = (event.deltaX / rect.width) * duration;
+        const rect = (event.currentTarget ?? el.current).getBoundingClientRect();
+        const duration = zoom.end - zoom.start;
+        const deltaMs = (event.deltaX / rect.width) * duration;
 
-      const result = {
-        start: zoom.start - deltaMs,
-        end: zoom.end - deltaMs,
-      };
-
-      if (result.start < info.fightStart) {
-        return {
-          start: info.fightStart,
-          end: info.fightStart + duration,
+        const result = {
+          start: zoom.start - deltaMs,
+          end: zoom.end - deltaMs,
         };
-      } else if (result.end > info.fightEnd) {
-        return {
-          start: info.fightEnd - duration,
-          end: info.fightEnd,
-        };
-      } else {
-        return result;
-      }
-    });
-  }, []);
+
+        if (result.start < info.fightStart) {
+          return {
+            start: info.fightStart,
+            end: info.fightStart + duration,
+          };
+        } else if (result.end > info.fightEnd) {
+          return {
+            start: info.fightEnd - duration,
+            end: info.fightEnd,
+          };
+        } else {
+          return result;
+        }
+      });
+    },
+    [info],
+  );
 
   const clearScrollState = useCallback((event: React.MouseEvent<unknown>) => {
     if (event.buttons === 0) {
