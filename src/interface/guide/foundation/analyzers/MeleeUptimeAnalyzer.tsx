@@ -30,7 +30,11 @@ export class MeleeUptimeAnalyzer extends Analyzer.withDependencies({ haste: Hast
     };
   }
 
-  static isMeleeSpec(spec: Spec): boolean {
+  static isMeleeSpec(spec?: Spec): boolean {
+    if (!spec) {
+      return false;
+    }
+
     return (
       spec.role === ROLES.DPS.MELEE || spec.role === ROLES.TANK || MELEE_HEALERS.includes(spec.id)
     );
