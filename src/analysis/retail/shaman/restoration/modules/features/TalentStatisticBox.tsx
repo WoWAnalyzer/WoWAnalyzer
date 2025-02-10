@@ -74,12 +74,6 @@ class TalentStatisticBox extends Analyzer {
     if (this.selectedCombatant.hasTalent(TALENTS.PRIMORDIAL_WAVE_RESTORATION_TALENT)) {
       talentList.push(this.primordialWave.subStatistic());
     }
-    if (this.selectedCombatant.hasTalent(TALENTS.PRIMAL_TIDE_CORE_TALENT)) {
-      talentList.push(this.primalTideCore.subStatistic());
-    }
-    if (this.selectedCombatant.hasTalent(TALENTS.EARTH_SHIELD_TALENT)) {
-      talentList.push(this.earthShield.subStatistic());
-    }
     if (this.selectedCombatant.hasTalent(TALENTS.WAVESPEAKERS_BLESSING_TALENT)) {
       talentList.push(this.wavespeakersBlessing.subStatistic());
     }

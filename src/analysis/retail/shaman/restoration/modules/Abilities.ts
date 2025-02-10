@@ -30,8 +30,8 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.RIPTIDE_TALENT),
         charges:
           1 +
-          (combatant.hasTalent(TALENTS.ECHO_OF_THE_ELEMENTS_TALENT) ? 1 : 0) +
-          (combatant.hasTalent(TALENTS.ELEMENTAL_REVERB_TALENT) ? 1 : 0),
+          combatant.getTalentRank(TALENTS.ECHO_OF_THE_ELEMENTS_TALENT) +
+          combatant.getTalentRank(TALENTS.ELEMENTAL_REVERB_TALENT),
         cooldown: 6,
         timelineSortIndex: 11,
         gcd: {

@@ -2093,6 +2093,13 @@ export const squided: Contributor = {
   github: 'foobartles',
   discord: 'squided',
   avatar: avatar('squided.png'),
+  mains: [
+    {
+      name: 'Squided',
+      spec: SPECS.RESTORATION_SHAMAN,
+      link: 'https://worldofwarcraft.com/en-us/character/us/area-52/squided',
+    },
+  ],
 };
 
 export const AlexanderJKremer: Contributor = {
