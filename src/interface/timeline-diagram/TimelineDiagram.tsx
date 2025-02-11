@@ -66,43 +66,40 @@ interface Props {
   overlays: React.ReactNode[];
 }
 
-interface Segment {
-  start: number;
-  end: number;
-}
-
 export default function TimelineDiagram({ info, children, overlays }: Props): JSX.Element | null {
-  const [elementWidth, setWidth] = useState(0);
-  const [zoom, setZoom] = useState<Segment | undefined>(undefined);
+  // track the width of the container element to use for display calculations.
+  // setting this does NOT resize the container
+  const [containerElementWidth, recordContainerElementWidth] = useState(0);
+  // set the number of milliseconds that should be displayed at once. if undefined, the whole fight is shown.
+  // the use of undefined to mean "the whole fight" is simply to make the zoom control logic simpler (since `undefined` = no zoom)
+  const [displayMs, setDisplayMs] = useState<number | undefined>(undefined);
+  // ref to track the current zoom event. this is used to paper over some issues that seem like react bugs with `event.currentTarget` / `event.target`?
   const zoomEvent = useRef<React.SyntheticEvent | null>(null);
 
-  const el = useRef<SVGSVGElement | null>(null);
+  const containerElement = useRef<HTMLDivElement | null>(null);
 
-  const pxPerMs = useMemo(() => {
-    const ms = zoom ? zoom.end - zoom.start : info.fightDuration;
-    return elementWidth / ms;
-  }, [zoom, info, elementWidth]);
+  const pxPerMs = containerElementWidth / (displayMs ?? info.fightDuration);
 
   useEffect(() => {
     // reset zoom when `info` changes
-    setZoom(undefined);
+    setDisplayMs(undefined);
   }, [info]);
 
   const observer = useRef(
     new ResizeObserver((entries) => {
       for (const entry of entries) {
         const rect = entry.target.getBoundingClientRect();
-        setWidth(rect.width);
+        recordContainerElementWidth(rect.width);
       }
     }),
   );
 
-  const watchWidth = useCallback((element: SVGSVGElement | null) => {
+  const watchWidth = useCallback((element: HTMLDivElement | null) => {
     if (element) {
-      el.current = element;
+      containerElement.current = element;
       observer.current.observe(element);
     } else {
-      el.current = null;
+      containerElement.current = null;
       observer.current.disconnect();
     }
   }, []);
@@ -115,20 +112,28 @@ export default function TimelineDiagram({ info, children, overlays }: Props): JS
   );
   const width = useCallback((start: number, end: number) => x(end) - x(start), [x]);
 
+  const setScrollLeft = useCallback(
+    (timestamp: number) => {
+      containerElement.current?.scroll(x(timestamp), 0);
+    },
+    [x],
+  );
+
   const contextValue = useMemo(
     (): TimelineContext => ({
       x,
       width,
       zoom(event, start, end) {
         zoomEvent.current = event;
-        setZoom({ start: Math.max(info.fightStart, start), end: Math.min(info.fightEnd, end) });
+        setDisplayMs(Math.min(info.fightDuration, end - start));
+        setScrollLeft(start);
       },
       resetZoom(event) {
         zoomEvent.current = event;
-        setZoom(undefined);
+        setDisplayMs(undefined);
       },
     }),
-    [x, width, info],
+    [x, width, info, setScrollLeft],
   );
 
   const [renderedTracks, trackHeight] = useMemo(() => {
@@ -164,154 +169,62 @@ export default function TimelineDiagram({ info, children, overlays }: Props): JS
     return [output, totalHeight + Timestamps.HEIGHT];
   }, [children, info, x]);
 
-  const zoomAny = useCallback(
+  const zoomOnClick = useCallback(
     (event: React.MouseEvent<SVGSVGElement>) => {
       if (event === zoomEvent.current) {
         return; // someone else already adjusted zoom for this
       }
-      setZoom((zoom) => {
-        if (zoom) {
-          return zoom;
+      setDisplayMs((displayMs) => {
+        if (displayMs) {
+          return displayMs;
         }
-        if (event.currentTarget || el.current) {
-          // x = (time - start) / duration * width
-          // x / width * duration + start = time
-          const rect = (event.currentTarget ?? el.current).getBoundingClientRect();
+        if (event.currentTarget || containerElement.current) {
+          // first, calculate the desired timescale
+          const rect = (event.currentTarget ?? containerElement.current).getBoundingClientRect();
+          const targetDuration = rect.width / ZOOM_DISPLAY_PX_PER_MS;
+          // then, calculate the click position on the original timescale
           const clickPx = event.clientX - rect.left;
-          const clickTime = (clickPx / rect.width) * info.fightDuration + info.fightStart;
-          return {
-            start: Math.max(clickTime - 30000, info.fightStart),
-            end: Math.min(clickTime + 30000, info.fightEnd),
-          };
+          const clickPct = clickPx / rect.width;
+          const clickTimestamp = clickPct * info.fightDuration;
+          // then, adjust the position to be of the left edge of the display instead of the center
+          const scrollTimestamp = Math.max(0, clickTimestamp - targetDuration / 2);
+          const scrollPct = scrollTimestamp / info.fightDuration;
+          // finally, apply the scroll position and timescale. setTimeout(..., 0) is used to adjust the scroll position *after* the next render (we hope)
+          setTimeout(() => {
+            containerElement.current?.scroll(
+              scrollPct * (containerElement?.current.scrollWidth ?? 0),
+              0,
+            );
+          }, 0);
+          // we don't use the `x` helper to prevent rerender cascades
+          return targetDuration;
         }
       });
     },
     [info],
   );
-
-  const isMouseDown = useRef(false);
-  const mouseStart = useRef<{ x: number } | undefined>();
-  const beginScroll = useCallback((event: React.MouseEvent<SVGSVGElement>) => {
-    isMouseDown.current = true;
-    mouseStart.current = {
-      x: event.screenX,
-    };
-  }, []);
-
-  const zoomOrEndScroll = useCallback(
-    (event: React.MouseEvent<SVGSVGElement>) => {
-      isMouseDown.current = false;
-      zoomAny(event);
-    },
-    [zoomAny],
-  );
-
-  const doScroll = useCallback(
-    (event: React.MouseEvent<SVGSVGElement>) => {
-      if (!isMouseDown.current) {
-        return;
-      }
-      const { x } = mouseStart.current!;
-      const deltaX = event.screenX - x;
-      mouseStart.current = { x: event.screenX };
-
-      setZoom((zoom) => {
-        if (!zoom) {
-          return undefined;
-        }
-
-        const rect = (event.currentTarget ?? el.current).getBoundingClientRect();
-        const duration = zoom.end - zoom.start;
-        const deltaMs = (deltaX / rect.width) * duration;
-
-        const result = {
-          start: zoom.start - deltaMs,
-          end: zoom.end - deltaMs,
-        };
-
-        if (result.start < info.fightStart) {
-          return {
-            start: info.fightStart,
-            end: info.fightStart + duration,
-          };
-        } else if (result.end > info.fightEnd) {
-          return {
-            start: info.fightEnd - duration,
-            end: info.fightEnd,
-          };
-        } else {
-          return result;
-        }
-      });
-    },
-    [info],
-  );
-
-  const doWheelScroll = useCallback(
-    (event: React.WheelEvent<SVGSVGElement>) => {
-      setZoom((zoom) => {
-        if (!zoom) {
-          return undefined;
-        }
-
-        const rect = (event.currentTarget ?? el.current).getBoundingClientRect();
-        const duration = zoom.end - zoom.start;
-        const deltaMs = (event.deltaX / rect.width) * duration;
-
-        const result = {
-          start: zoom.start - deltaMs,
-          end: zoom.end - deltaMs,
-        };
-
-        if (result.start < info.fightStart) {
-          return {
-            start: info.fightStart,
-            end: info.fightStart + duration,
-          };
-        } else if (result.end > info.fightEnd) {
-          return {
-            start: info.fightEnd - duration,
-            end: info.fightEnd,
-          };
-        } else {
-          return result;
-        }
-      });
-    },
-    [info],
-  );
-
-  const clearScrollState = useCallback((event: React.MouseEvent<unknown>) => {
-    if (event.buttons === 0) {
-      // no buttons are pushed, clear scroll state
-      isMouseDown.current = false;
-      mouseStart.current = undefined;
-    }
-  }, []);
 
   const phases = usePhaseSegments();
 
   return (
     <ctx.Provider value={contextValue}>
-      <div>
+      <div
+        ref={watchWidth}
+        style={{
+          overflowX: 'scroll',
+          overflowY: 'clip',
+          width: '100%',
+          height: 'max-content',
+        }}
+      >
         <svg
-          ref={watchWidth}
           height={trackHeight + (phases.length ? PhaseHeader.HEIGHT : 0)}
-          width="100%"
+          width={pxPerMs * info.fightDuration}
           preserveAspectRatio="none"
-          onMouseDown={beginScroll}
-          onMouseUp={zoomOrEndScroll}
-          onMouseMove={doScroll}
-          onMouseEnter={clearScrollState}
-          onDoubleClick={() => setZoom(undefined)}
-          onWheel={doWheelScroll}
+          onDoubleClick={() => setDisplayMs(undefined)}
+          onClick={zoomOnClick}
         >
-          <svg
-            x={zoom ? -pxPerMs * (zoom?.start - info.fightStart) : 0}
-            y={0}
-            width={pxPerMs * info.fightDuration}
-            height="100%"
-          >
+          <svg x={0} y={0} width="100%" height="100%">
             {phases.length && <PhaseHeader />}
             <svg x={0} y={phases.length ? PhaseHeader.HEIGHT : 0} width="100%" height="100%">
               {renderedTracks}
@@ -319,7 +232,7 @@ export default function TimelineDiagram({ info, children, overlays }: Props): JS
             </svg>
           </svg>
         </svg>
-        <ZoomText isZoomed={Boolean(zoom)} />
+        <ZoomText isZoomed={Boolean(displayMs)} />
       </div>
     </ctx.Provider>
   );
@@ -451,4 +364,7 @@ const ResetZoomButton = styled.button`
 const ZoomTextContainer = styled.div`
   line-height: 1;
   margin-top: -0.3em;
+  margin-bottom: 0.5em;
 `;
+
+const ZOOM_DISPLAY_PX_PER_MS = 16 / 1000;
