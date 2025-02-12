@@ -208,30 +208,32 @@ export default function TimelineDiagram({ info, children, overlays }: Props): JS
 
   return (
     <ctx.Provider value={contextValue}>
-      <div
-        ref={watchWidth}
-        style={{
-          overflowX: 'scroll',
-          overflowY: 'clip',
-          width: '100%',
-          height: 'max-content',
-        }}
-      >
-        <svg
-          height={trackHeight + (phases.length ? PhaseHeader.HEIGHT : 0)}
-          width={pxPerMs * info.fightDuration}
-          preserveAspectRatio="none"
-          onDoubleClick={() => setDisplayMs(undefined)}
-          onClick={zoomOnClick}
+      <div>
+        <div
+          ref={watchWidth}
+          style={{
+            overflowX: 'scroll',
+            overflowY: 'clip',
+            width: '100%',
+            height: 'max-content',
+          }}
         >
-          <svg x={0} y={0} width="100%" height="100%">
-            {phases.length && <PhaseHeader />}
-            <svg x={0} y={phases.length ? PhaseHeader.HEIGHT : 0} width="100%" height="100%">
-              {renderedTracks}
-              {overlays}
+          <svg
+            height={trackHeight + (phases.length ? PhaseHeader.HEIGHT : 0)}
+            width={pxPerMs * info.fightDuration}
+            preserveAspectRatio="none"
+            onDoubleClick={() => setDisplayMs(undefined)}
+            onClick={zoomOnClick}
+          >
+            <svg x={0} y={0} width="100%" height="100%">
+              {phases.length && <PhaseHeader />}
+              <svg x={0} y={phases.length ? PhaseHeader.HEIGHT : 0} width="100%" height="100%">
+                {renderedTracks}
+                {overlays}
+              </svg>
             </svg>
           </svg>
-        </svg>
+        </div>
         <ZoomText isZoomed={Boolean(displayMs)} />
       </div>
     </ctx.Provider>
@@ -363,7 +365,6 @@ const ResetZoomButton = styled.button`
 
 const ZoomTextContainer = styled.div`
   line-height: 1;
-  margin-top: -0.3em;
   margin-bottom: 0.5em;
 `;
 
