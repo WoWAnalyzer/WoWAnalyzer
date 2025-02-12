@@ -35,8 +35,8 @@ class Buffs extends ClassBuffs {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.PRIMORDIAL_WAVE_BUFF.id,
-        enabled: combatant.hasTalent(TALENTS.PRIMORDIAL_WAVE_TALENT),
+        spellId: SPELLS.PRIMORDIAL_STORM_USABLE.id,
+        enabled: combatant.hasTalent(TALENTS.PRIMORDIAL_STORM_TALENT),
         triggeredBySpellId: TALENTS.PRIMORDIAL_WAVE_TALENT.id,
       },
       {

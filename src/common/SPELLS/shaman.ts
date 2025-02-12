@@ -454,6 +454,11 @@ const spells = {
     name: 'Feral Spirit',
     icon: 'spell_shaman_feralspirit',
   },
+  STORMSTRIKE_CAST: {
+    id: 17364,
+    name: 'Stormstrike',
+    icon: 'ability_shaman_stormstrike',
+  },
   STORMSTRIKE_DAMAGE: {
     id: 32175,
     name: 'Stormstrike',
@@ -718,6 +723,12 @@ const spells = {
     icon: 'spell_nature_healingway',
     manaCost: 110000, // enh/ele cost is higher
   },
+  HEALING_WAVE: {
+    id: 77472,
+    name: 'Healing Wave',
+    icon: 'spell_nature_healingwavelesser',
+    manaCost: 75000,
+  },
   TIDAL_WAVES_BUFF: {
     id: 53390,
     name: 'Tidal Waves',
@@ -844,9 +855,9 @@ const spells = {
     name: "Spiritwalker's Tidal Totem",
     icon: 'spell_nature_regeneration_02',
   },
-  MANA_TIDE_TOTEM_BUFF: {
+  MANA_TIDE_BUFF: {
     id: 320763,
-    name: 'Mana Tide Totem',
+    name: 'Mana Tide',
     icon: 'spell_frost_summonwaterelemental',
   },
   WATER_SHIELD_ENERGIZE: {
@@ -878,6 +889,26 @@ const spells = {
     id: 382024,
     name: 'Earthliving Weapon',
     icon: 'spell_shaman_giftearthmother',
+  },
+  PRIMORDIAL_STORM_USABLE: {
+    id: 1218125,
+    name: 'Primordial Storm',
+    icon: 'ability_shaman_ascendance',
+  },
+  PRIMORDIAL_FIRE: {
+    id: 1218113,
+    name: 'Primordial Fire',
+    icon: 'ability_shaman_ascendance',
+  },
+  PRIMORDIAL_LIGHTNING: {
+    id: 1218118,
+    name: 'Primordial Lightning',
+    icon: 'ability_shaman_ascendance',
+  },
+  PRIMORDIAL_FROST: {
+    id: 1218116,
+    name: 'Primordial Frost',
+    icon: 'ability_shaman_ascendance',
   },
   PRIMORDIAL_WAVE: {
     id: 375982,

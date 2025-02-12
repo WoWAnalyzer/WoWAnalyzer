@@ -53,8 +53,8 @@ class Stormsurge extends Analyzer.withDependencies({
         used = true;
       }
     } else {
-      if (this.deps.spellUsable.isOnCooldown(SPELLS.STORMSTRIKE.id)) {
-        this.deps.spellUsable.endCooldown(SPELLS.STORMSTRIKE.id, event.timestamp);
+      if (this.deps.spellUsable.isOnCooldown(SPELLS.STORMSTRIKE_CAST.id)) {
+        this.deps.spellUsable.endCooldown(SPELLS.STORMSTRIKE_CAST.id, event.timestamp);
         this.stormStrikeResets += 1;
         used = true;
       }
@@ -66,7 +66,7 @@ class Stormsurge extends Analyzer.withDependencies({
   }
 
   onAscendanceEnd(event: RemoveBuffEvent) {
-    this.deps.spellUsable.endCooldown(SPELLS.STORMSTRIKE.id, event.timestamp, true, true);
+    this.deps.spellUsable.endCooldown(SPELLS.STORMSTRIKE_CAST.id, event.timestamp, true, true);
   }
 
   statistic() {
@@ -85,7 +85,7 @@ class Stormsurge extends Analyzer.withDependencies({
                   <ul>
                     <li>
                       <strong>{this.stormStrikeResets}</strong>{' '}
-                      <SpellLink spell={SPELLS.STORMSTRIKE} /> resets
+                      <SpellLink spell={SPELLS.STORMSTRIKE_CAST} /> resets
                     </li>
                     <li>
                       <strong>{this.windStrikeResets}</strong>{' '}
@@ -101,8 +101,8 @@ class Stormsurge extends Analyzer.withDependencies({
                 </>
               ) : (
                 <>
-                  <strong>{this.stormStrikeResets}</strong> <SpellLink spell={SPELLS.STORMSTRIKE} />{' '}
-                  resets
+                  <strong>{this.stormStrikeResets}</strong>{' '}
+                  <SpellLink spell={SPELLS.STORMSTRIKE_CAST} /> resets
                 </>
               )}
             </div>
@@ -118,7 +118,7 @@ class Stormsurge extends Analyzer.withDependencies({
           <>
             <UptimeIcon /> {formatNumber(this.stormStrikeResets + this.windStrikeResets)}{' '}
             <small>
-              <SpellLink spell={SPELLS.STORMSTRIKE} /> resets
+              <SpellLink spell={SPELLS.STORMSTRIKE_CAST} /> resets
             </small>
           </>
         </BoringSpellValueText>

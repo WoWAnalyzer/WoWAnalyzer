@@ -840,6 +840,7 @@ const MAELSTROM_ABILITIES = {
       SPELLS.HEALING_SURGE.id,
       TALENTS.CHAIN_HEAL_TALENT.id,
       TALENTS.LAVA_BURST_TALENT.id,
+      TALENTS.PRIMORDIAL_STORM_TALENT.id,
     ],
     type: MaelstromAbilityType.Spender,
     linkFromEventType: [EventType.Cast, EventType.FreeCast],
@@ -922,7 +923,7 @@ const MAELSTROM_ABILITIES = {
   },
   ELEMENTAL_ASSAULT: {
     spellId: [
-      SPELLS.STORMSTRIKE.id,
+      SPELLS.STORMSTRIKE_CAST.id,
       SPELLS.WINDSTRIKE_CAST.id,
       TALENTS.LAVA_LASH_TALENT.id,
       TALENTS.ICE_STRIKE_1_ENHANCEMENT_TALENT.id,
@@ -936,7 +937,16 @@ const MAELSTROM_ABILITIES = {
     searchDirection: SearchDirection.ForwardsOnly,
     matchMode: MatchMode.MatchFirst,
   },
-
+  PRIMORDIAL_WAVE: {
+    spellId: TALENTS.PRIMORDIAL_WAVE_TALENT.id,
+    linkFromEventType: EventType.Cast,
+    forwardBufferMs: BufferMs.OnSameTimestamp,
+    backwardsBufferMs: BufferMs.PrimordialWave,
+    maximum: 5,
+    linkToEventType: GAIN_EVENT_TYPES,
+    searchDirection: SearchDirection.BackwardsOnly,
+    matchMode: MatchMode.MatchLast,
+  },
   ASCENDANCE_PERIODIC_GAIN: {
     spellId: [TALENTS.ASCENDANCE_ENHANCEMENT_TALENT.id],
     linkFromEventType: [EventType.ResourceChange, ...GAIN_EVENT_TYPES],
@@ -968,7 +978,7 @@ const MAELSTROM_ABILITIES = {
       SPELLS.WINDSTRIKE_DAMAGE.id,
       SPELLS.WINDSTRIKE_DAMAGE_OFFHAND.id,
     ],
-    spellIdOverride: SPELLS.STORMSTRIKE.id,
+    spellIdOverride: SPELLS.STORMSTRIKE_CAST.id,
     forwardBufferMs: BufferMs.Damage,
     linkFromEventType: EventType.Damage,
     linkToEventType: GAIN_EVENT_TYPES,

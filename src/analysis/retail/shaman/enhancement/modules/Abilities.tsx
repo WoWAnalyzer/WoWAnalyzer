@@ -59,7 +59,7 @@ class Abilities extends ClassAbilities {
         range: 40,
       },
       {
-        spell: SPELLS.STORMSTRIKE.id,
+        spell: SPELLS.STORMSTRIKE_CAST.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 7.5 / (1 + haste),
         charges: 1 + (this.selectedCombatant.hasTalent(TALENTS.STORMS_WRATH_TALENT) ? 1 : 0),
@@ -155,6 +155,7 @@ class Abilities extends ClassAbilities {
       },
       {
         spell: [SPELLS.STORMSTRIKE_DAMAGE.id, SPELLS.STORMSTRIKE_DAMAGE_OFFHAND.id],
+        enabled: true,
         category: SPELL_CATEGORY.HIDDEN,
       },
       {

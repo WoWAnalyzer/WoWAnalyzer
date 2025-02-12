@@ -18,7 +18,7 @@ class SpellUsable extends CoreSpellUsable {
 
   public isAvailable(spellId: number): boolean {
     switch (spellId) {
-      case SPELLS.STORMSTRIKE.id:
+      case SPELLS.STORMSTRIKE_CAST.id:
         return (
           !this.selectedCombatant.hasBuff(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT) &&
           super.isAvailable(spellId)
