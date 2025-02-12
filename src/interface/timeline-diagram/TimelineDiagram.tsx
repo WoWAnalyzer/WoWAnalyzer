@@ -204,6 +204,35 @@ export default function TimelineDiagram({ info, children, overlays }: Props): JS
     [info],
   );
 
+  // enable mouse panning for desktop users. laptop users can do horizontal scrolling relatively easily.
+  // on desktop, this requires knowing shift+mousewheel does it, and is not as nice
+  const panStartPosition = useRef<{ cursor: number; scroll: number } | undefined>(undefined);
+  const startPanning = useCallback((event: React.MouseEvent<unknown>) => {
+    const container = containerElement.current;
+    if (container) {
+      panStartPosition.current = {
+        cursor: event.clientX,
+        scroll: container.scrollLeft,
+      };
+    }
+  }, []);
+  const stopPanning = useCallback((event: React.MouseEvent<unknown>) => {
+    panStartPosition.current = undefined;
+  }, []);
+
+  const mouseMovePan = useCallback(
+    (event: React.MouseEvent<unknown>) => {
+      const startPos = panStartPosition.current;
+      const container = containerElement.current;
+      if (!displayMs || !startPos || event.buttons === 0 || !container) {
+        return;
+      }
+
+      container.scrollLeft = startPos.scroll - (event.clientX - startPos.cursor);
+    },
+    [displayMs],
+  );
+
   const phases = usePhaseSegments();
 
   return (
@@ -224,6 +253,9 @@ export default function TimelineDiagram({ info, children, overlays }: Props): JS
             preserveAspectRatio="none"
             onDoubleClick={() => setDisplayMs(undefined)}
             onClick={zoomOnClick}
+            onMouseDown={startPanning}
+            onMouseUp={stopPanning}
+            onMouseMove={mouseMovePan}
           >
             <svg x={0} y={0} width="100%" height="100%">
               {phases.length && <PhaseHeader />}
