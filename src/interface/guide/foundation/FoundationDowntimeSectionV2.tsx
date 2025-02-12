@@ -6,7 +6,7 @@ import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import { CastEvent, EventType } from 'parser/core/Events';
 import { useMemo } from 'react';
 import { MeleeUptimeAnalyzer } from './analyzers/MeleeUptimeAnalyzer';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import TimelineDiagram, {
   TimelineTrack,
   useTimelinePosition,
@@ -300,8 +300,12 @@ const PlayerAbilityTimeline = React.memo(({ info }: { info: Info }) => {
 
   const segments = useMemo(
     () =>
-      playerTimeline.map((segment) => ({ ...segment, color: segment.channel ? 'yellow' : '#666' })),
-    [playerTimeline],
+      playerTimeline.map((segment) => ({
+        ...segment,
+        color: segment.channel ? 'hsl(44 60% 60%)' : '#666',
+        tooltip: `${segment.channel ? 'Cast' : 'GCD'} from ${formatDuration(segment.start - info.fightStart, 1)} to ${formatDuration(segment.end - info.fightStart, 1)}`,
+      })),
+    [playerTimeline, info.fightStart],
   );
 
   if (width(info.fightStart, info.fightStart + 1000) < 16) {

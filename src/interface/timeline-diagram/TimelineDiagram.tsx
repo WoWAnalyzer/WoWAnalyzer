@@ -182,6 +182,9 @@ export default function TimelineDiagram({ info, children, overlays }: Props): JS
           // first, calculate the desired timescale
           const rect = (event.currentTarget ?? containerElement.current).getBoundingClientRect();
           const targetDuration = rect.width / ZOOM_DISPLAY_PX_PER_MS;
+          if (targetDuration > info.fightDuration) {
+            return undefined; // don't zoom if we are viewing a smaller segment already. this can happen with short intermissions
+          }
           // then, calculate the click position on the original timescale
           const clickPx = event.clientX - rect.left;
           const clickPct = clickPx / rect.width;
