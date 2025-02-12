@@ -69,11 +69,11 @@ class SpellUsable extends Analyzer {
 
   /** Trackers for currently active cooldowns.
    *  Spells that aren't on cooldown won't have an entry in this mapping */
-  private _currentCooldowns: { [spellId: number]: CooldownInfo } = {};
+  protected _currentCooldowns: { [spellId: number]: CooldownInfo } = {};
   /** A global multiplier for the cooldown rate, also known as the 'modRate' */
-  private _globalModRate: number = 1;
+  protected _globalModRate: number = 1;
   /** Per-spell multipliers for the cooldown rate, also knowns as the 'modRate' */
-  private _spellModRates: { [spellId: number]: number } = {};
+  protected _spellModRates: { [spellId: number]: number } = {};
 
   constructor(options: Options) {
     super(options);

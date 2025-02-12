@@ -372,6 +372,14 @@ class Abilities extends CoreAbilities {
         cooldown: 120 - (combatant.hasTalent(TALENTS.GRACEFUL_SPIRIT_TALENT) ? 30 : 0),
       },
 
+      /* Hero Talents */
+      {
+        spell: SPELLS.SURGING_TOTEM_RECALL.id,
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown: 6,
+        gcd: null,
+      },
+
       /* Hidden Spells */
       {
         spell: SPELLS.LIGHTNING_SHIELD.id,

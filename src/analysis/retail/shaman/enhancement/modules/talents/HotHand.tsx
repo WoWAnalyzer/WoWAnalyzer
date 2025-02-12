@@ -2,13 +2,14 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
 import { SpellIcon, SpellLink } from 'interface';
-import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, {
   AnyEvent,
   ApplyBuffEvent,
   CastEvent,
   DamageEvent,
+  DeathEvent,
   EventType,
   FightEndEvent,
   GlobalCooldownEvent,
@@ -43,6 +44,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { getApplicableRules, HighPriorityAbilities } from '../../common';
 import { GCD_TOLERANCE } from '../../constants';
 import { addEnhancedCastReason, addInefficientCastReason } from 'parser/core/EventMetaLib';
+import NPCS from 'common/NPCS';
 
 class HotHandRank {
   modRate: number;
@@ -59,8 +61,8 @@ class HotHandRank {
 }
 
 const HOT_HAND: Record<number, HotHandRank> = {
-  1: new HotHandRank(0.6, 0.4),
-  2: new HotHandRank(0.75, 0.6),
+  1: new HotHandRank(0.6, 0.2),
+  2: new HotHandRank(0.75, 0.4),
 };
 
 /**
@@ -126,6 +128,9 @@ class HotHand extends MajorCooldown<HotHandProc> {
   private lavaLashOnCooldown: boolean = true;
   private lastCooldownWasteCheck: number = 0;
 
+  protected hasReactivity: boolean = false;
+  protected surgingTotemActive: boolean = false;
+
   constructor(options: Options) {
     super({ spell: TALENTS.HOT_HAND_TALENT }, options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.HOT_HAND_TALENT);
@@ -133,6 +138,7 @@ class HotHand extends MajorCooldown<HotHandProc> {
       return;
     }
 
+    this.hasReactivity = this.selectedCombatant.hasTalent(TALENTS.REACTIVITY_TALENT);
     this.hotHand = HOT_HAND[this.selectedCombatant.getTalentRank(TALENTS.HOT_HAND_TALENT)];
 
     this.addEventListener(
@@ -158,6 +164,25 @@ class HotHand extends MajorCooldown<HotHandProc> {
       Events.UpdateSpellUsable.by(SELECTED_PLAYER).spell(TALENTS.LAVA_LASH_TALENT),
       this.detectLavaLashCasts,
     );
+    if (this.hasReactivity) {
+      const surgingTotemNpcId = this.owner.playerPets.find(
+        (x) => x.guid === NPCS.SURGING_TOTEM.id,
+      )?.id;
+
+      this.addEventListener(
+        Events.cast.by(SELECTED_PLAYER).spell(TALENTS.LAVA_LASH_TALENT),
+        this.onLavaLashCast,
+      );
+      this.addEventListener(
+        Events.summon.by(SELECTED_PLAYER).spell(SPELLS.SURGING_TOTEM),
+        () => (this.surgingTotemActive = true),
+      );
+      this.addEventListener(Events.death.to(SELECTED_PLAYER_PET), (event: DeathEvent) => {
+        if (event.targetID === surgingTotemNpcId) {
+          this.surgingTotemActive = false;
+        }
+      });
+    }
   }
 
   detectLavaLashCasts(event: UpdateSpellUsableEvent) {
@@ -260,6 +285,17 @@ class HotHand extends MajorCooldown<HotHandProc> {
     this.buffedLavaLashDamage += calculateEffectiveDamage(event, this.hotHand.increase);
   }
 
+  onLavaLashCast(event: CastEvent) {
+    if (this.selectedCombatant.hasBuff(SPELLS.HOT_HAND_BUFF) && !this.surgingTotemActive) {
+      addInefficientCastReason(
+        event,
+        <>
+          <SpellLink spell={TALENTS.SURGING_TOTEM_TALENT} /> was not active!
+        </>,
+      );
+    }
+  }
+
   get timePercentageHotHandsActive() {
     return this.hotHandActive.totalDuration / this.owner.fightDuration;
   }
@@ -269,34 +305,43 @@ class HotHand extends MajorCooldown<HotHandProc> {
   }
 
   description(): ReactNode {
+    const hh = <SpellLink spell={TALENTS.HOT_HAND_TALENT} />;
+    const ll = <SpellLink spell={TALENTS.LAVA_LASH_TALENT} />;
     return (
       <>
         <p>
-          When{' '}
-          <strong>
-            <SpellLink spell={TALENTS.HOT_HAND_TALENT} />
-          </strong>{' '}
-          triggers, you can cast <SpellLink spell={TALENTS.LAVA_LASH_TALENT} /> as every other
-          ability.
+          When <strong>{hh}</strong> triggers, you can cast {ll} as every other ability.
           <br />
-          The section to the right shows breakdown of each time{' '}
-          <SpellLink spell={TALENTS.HOT_HAND_TALENT} /> procced, and how well you utilised the
-          window.
+          The section to the right shows breakdown of each time {hh} procced, and how well you
+          utilised the window.
         </p>
-        <p>
-          Your <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> spending abilities are still cast
-          first, however during a <SpellLink spell={TALENTS.HOT_HAND_TALENT} /> window,{' '}
-          <SpellLink spell={TALENTS.LAVA_LASH_TALENT} /> becomes your primary filler ability.
-        </p>
+        {this.selectedCombatant.hasTalent(TALENTS.REACTIVITY_TALENT) && (
+          <>
+            <p>
+              With <SpellLink spell={TALENTS.REACTIVITY_TALENT} /> talented, each {ll} cast while{' '}
+              {hh} is active will cast a <SpellLink spell={TALENTS.SUNDERING_TALENT} /> forward , so
+              aiming is important, and your <SpellLink spell={TALENTS.SURGING_TOTEM_TALENT} /> will
+              trigger an <SpellLink spell={TALENTS.EARTHSURGE_TALENT} />.
+            </p>
+            <p>
+              For this reason, it is absolutely{' '}
+              <i>
+                <strong>critical</strong>
+              </i>{' '}
+              you have <SpellLink spell={TALENTS.SURGING_TOTEM_TALENT} /> active and near your
+              target.
+            </p>
+          </>
+        )}
         <p>
           An example sequence may look something like this:
           <br />
           <SpellIcon spell={TALENTS.LAVA_LASH_TALENT} /> &rarr;
-          <SpellIcon spell={TALENTS.ICE_STRIKE_2_ENHANCEMENT_TALENT} /> &rarr;
-          <SpellIcon spell={TALENTS.LAVA_LASH_TALENT} /> &rarr;
           <SpellIcon spell={SPELLS.LIGHTNING_BOLT} /> &rarr;
           <SpellIcon spell={TALENTS.LAVA_LASH_TALENT} /> &rarr;
-          <SpellIcon spell={TALENTS.FROST_SHOCK_TALENT} /> &rarr;
+          <SpellIcon spell={SPELLS.STORMSTRIKE_CAST} /> &rarr;
+          <SpellIcon spell={TALENTS.LAVA_LASH_TALENT} /> &rarr;
+          <SpellIcon spell={TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT} /> &rarr;
           <SpellIcon spell={TALENTS.LAVA_LASH_TALENT} />
         </p>
         {this.selectedCombatant.hasTalent(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT) ||
@@ -494,7 +539,15 @@ class HotHand extends MajorCooldown<HotHandProc> {
     return (
       this.active && (
         <>
-          <CooldownUsage analyzer={this} title="Hot Hand" castBreakdownSmallText />
+          <CooldownUsage
+            analyzer={this}
+            title={
+              <>
+                <SpellLink spell={TALENTS.HOT_HAND_TALENT} />
+              </>
+            }
+            castBreakdownSmallText
+          />
         </>
       )
     );

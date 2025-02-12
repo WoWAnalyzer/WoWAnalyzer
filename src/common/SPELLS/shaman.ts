@@ -184,7 +184,7 @@ const spells = {
     id: 188196,
     name: 'Lightning Bolt',
     icon: 'spell_nature_lightning',
-    manaCost: 500,
+    manaCost: 5000,
   },
   LIGHTNING_BOLT_INSTANT: {
     id: 214815,
@@ -534,10 +534,15 @@ const spells = {
     name: 'Maelstrom Weapon',
     icon: 'spell_shaman_maelstromweapon',
   },
+  DOOM_WINDS_BUFF: {
+    id: 466772,
+    name: 'Doom Winds',
+    icon: 'ability_ironmaidens_swirlingvortex',
+  },
   DOOM_WINDS_TICK: {
     id: 469270,
     name: 'Doom Winds',
-    icon: 'ability_ironmaidens_swirlingvortex.jpg',
+    icon: 'ability_ironmaidens_swirlingvortex',
   },
   DOOM_VORTEX: {
     id: 199116,
@@ -890,6 +895,11 @@ const spells = {
     name: 'Earthliving Weapon',
     icon: 'spell_shaman_giftearthmother',
   },
+  PRIMORDIAL_STORM_CAST: {
+    id: 1218090,
+    name: 'Primordial Storm',
+    icon: 'ability_shaman_ascendance',
+  },
   PRIMORDIAL_STORM_USABLE: {
     id: 1218125,
     name: 'Primordial Storm',
@@ -913,22 +923,22 @@ const spells = {
   PRIMORDIAL_WAVE: {
     id: 375982,
     name: 'Primordial Wave',
-    icon: 'ability_maldraxxus_shaman',
+    icon: 'inv_ability_shaman_primordialwave',
   },
   PRIMORDIAL_WAVE_DAMAGE: {
     id: 375984,
     name: 'Primordial Wave',
-    icon: 'ability_maldraxxus_shaman',
+    icon: 'inv_ability_shaman_primordialwave',
   },
   PRIMORDIAL_WAVE_BUFF: {
     id: 375986,
     name: 'Primordial Wave',
-    icon: 'ability_maldraxxus_shaman',
+    icon: 'inv_ability_shaman_primordialwave',
   },
   PRIMORDIAL_WAVE_HEAL: {
     id: 375985,
     name: 'Primordial Wave',
-    icon: 'ability_maldraxxus_shaman',
+    icon: 'inv_ability_shaman_primordialwave',
   },
   SPLINTERED_ELEMENTS_BUFF: {
     id: 382043,
@@ -984,6 +994,11 @@ const spells = {
     id: 453407,
     name: 'Whirling Water',
     icon: 'inv_10_elementalcombinedfoozles_water',
+  },
+  WHIRLING_FIRE: {
+    id: 453405,
+    name: 'Whirling Fire',
+    icon: 'inv_10_elementalcombinedfoozles_fire',
   },
   TIDEWATERS_HEAL: {
     id: 462425,
@@ -1044,10 +1059,27 @@ const spells = {
     icon: 'spell_shaman_lavaburst',
   },
   // Totemic
+  SURGING_TOTEM_RECALL: {
+    id: 1221348,
+    name: 'Surging Totem Recall',
+    icon: 'spell_shaman_totemrecall',
+  },
   TOTEMIC_REBOUND_CHAIN_HEAL: {
     id: 458357,
     name: 'Chain Heal',
     icon: 'spell_nature_healingwavegreater',
+  },
+  SUNDERING_REACTIVITY: {
+    id: 467283,
+    name: 'Sundering',
+    icon: 'ability_rhyolith_lavapool',
+  },
+
+  // Tier sets
+  TWW_S2_ELECTROSTATIC_WAGER: {
+    id: 1223332,
+    name: 'Electrostatic Wager',
+    icon: 'shaman_pvp_staticcling',
   },
 } satisfies Record<string, Spell>;
 

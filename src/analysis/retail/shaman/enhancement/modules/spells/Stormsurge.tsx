@@ -21,15 +21,10 @@ class Stormsurge extends Analyzer.withDependencies({
 }) {
   protected stormStrikeResets: number = 0;
   protected windStrikeResets: number = 0;
-  protected sunderingResets: number = 0;
   protected wasted: number = 0;
-
-  protected hasMoltenThunder: boolean = false;
 
   constructor(options: Options) {
     super(options);
-
-    this.hasMoltenThunder = this.selectedCombatant.hasTalent(TALENTS.MOLTEN_THUNDER_TALENT);
 
     [Events.applybuff, Events.applybuffstack, Events.refreshbuff].forEach((filter) =>
       this.addEventListener(
@@ -91,12 +86,6 @@ class Stormsurge extends Analyzer.withDependencies({
                       <strong>{this.windStrikeResets}</strong>{' '}
                       <SpellLink spell={SPELLS.WINDSTRIKE_CAST} /> resets
                     </li>
-                    {this.hasMoltenThunder && (
-                      <li>
-                        <strong>{this.sunderingResets}</strong>{' '}
-                        <SpellLink spell={TALENTS.SUNDERING_TALENT} /> resets
-                      </li>
-                    )}
                   </ul>
                 </>
               ) : (
@@ -122,16 +111,6 @@ class Stormsurge extends Analyzer.withDependencies({
             </small>
           </>
         </BoringSpellValueText>
-        {this.hasMoltenThunder && (
-          <BoringSpellValueText spell={TALENTS.MOLTEN_THUNDER_TALENT}>
-            <>
-              <UptimeIcon /> {formatNumber(this.sunderingResets)}{' '}
-              <small>
-                <SpellLink spell={TALENTS.SUNDERING_TALENT} /> resets
-              </small>
-            </>
-          </BoringSpellValueText>
-        )}
       </Statistic>
     );
   }

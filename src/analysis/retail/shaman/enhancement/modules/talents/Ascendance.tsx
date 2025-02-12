@@ -522,14 +522,14 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
         },
       }),
       details: (
-        <>
+        <div>
           {unsedGlobalCooldowns === 0 ? (
             'No unused global cooldowns'
           ) : (
             <>{unsedGlobalCooldowns} unused global cooldowns</>
           )}
           .
-        </>
+        </div>
       ),
       summary: (
         <>{cast.unusedGcdTime < 100 ? 'No unused global cooldowns' : 'Unused global cooldowns'} </>
@@ -627,9 +627,15 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
           <CooldownUsage
             analyzer={this}
             title={
-              this.selectedCombatant.hasTalent(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT)
-                ? 'Ascendance'
-                : 'Deeply Rooted Elements'
+              this.selectedCombatant.hasTalent(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT) ? (
+                <>
+                  <SpellLink spell={TALENTS.ASCENDANCE_ENHANCEMENT_TALENT} />
+                </>
+              ) : (
+                <>
+                  <SpellLink spell={TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT} />
+                </>
+              )
             }
           />
         </>

@@ -43,7 +43,7 @@ import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import AshenCatalyst from './modules/talents/AshenCatalyst';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import Ascendance from './modules/talents/Ascendance';
-import SplinteredElements from '../shared/talents/SplinteredElements';
+import SplinteredElements from './modules/talents/SplinteredElements';
 import SwirlingMaelstrom from './modules/talents/SwirlingMaelstrom';
 import MaelstromWeaponResourceNormalizer from './modules/normalizers/MaelstromWeaponResourceNormalizer';
 import {
@@ -60,6 +60,7 @@ import { StormbringerTab } from '../shared/hero/stormbringer/StormbringerTab';
 import StormbringerEventLinkNormalizer from '../shared/hero/stormbringer/normalizers/StormbringerEventLinkNormalizer';
 import StormbringerEventOrderNormalizer from '../shared/hero/stormbringer/normalizers/StormbringerEventOrderNormalizer';
 import ElementalSpiritsPrepullNormalizer from './modules/normalizers/ElementalSpiritsPrepullNormalizer';
+import PrimordialStorm from './modules/talents/PrimordialStorm';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -118,6 +119,7 @@ class CombatLogParser extends CoreCombatLogParser {
     splinteredElements: SplinteredElements,
     swirlingMaelstrom: SwirlingMaelstrom,
     staticAccumulation: StaticAccumulation,
+    primordialStorm: PrimordialStorm,
 
     // hero talents
     stormbringerTab: StormbringerTab,

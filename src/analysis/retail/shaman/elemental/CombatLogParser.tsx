@@ -42,6 +42,7 @@ import EventLinkNormalizer from './modules/normalizers/EventLinkNormalizer';
 import CallOfTheAncestors from './modules/hero/farseer/CallOfTheAncestors';
 import ElementalPrepullNormalizer from './modules/normalizers/ElementalPrepullNormalizer';
 import EventOrderNormalizer from './modules/normalizers/EventOrderNormalizer';
+import SplinteredElements from './modules/talents/SplinteredElements';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -76,6 +77,7 @@ class CombatLogParser extends CoreCombatLogParser {
     stormkeeper: Stormkeeper,
     ascendance: Ascendance,
     manaSpring: ManaSpring,
+    splinteredElements: SplinteredElements,
 
     // hero talents
     stormbringerTab: StormbringerTab,
