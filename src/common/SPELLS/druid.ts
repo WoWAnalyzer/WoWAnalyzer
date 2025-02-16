@@ -1254,6 +1254,18 @@ const spells = {
     name: 'Smoldering Frenzy',
     icon: 'inv_staff_99',
   },
+  // Buff from Feral Druid TWW S2 tier set 2pc.
+  FERAL_DRUID_WINNING_STREAK: {
+    id: 1217236,
+    name: 'Winning Streak!',
+    icon: 'ability_rogue_keepitrolling',
+  },
+  // Damage and Buff from Feral Druid TWW S2 tier set 4pc.
+  FERAL_DRUID_BIG_WINNER: {
+    id: 1217245,
+    name: 'Big Winner!!!',
+    icon: 'ability_rogue_keepitrolling',
+  },
 
   /////////////////////////////////////////////////////////////////////////////
   // WILDSTALKER
