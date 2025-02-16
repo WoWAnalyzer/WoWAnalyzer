@@ -223,6 +223,7 @@ const spells = {
   /////////////////////////////////////////////////////////////////////////////
   // RESTO
   //
+
   MASTERY_HARMONY: {
     id: 77495,
     name: 'Mastery: Harmony',
@@ -503,6 +504,19 @@ const spells = {
     id: 423618,
     name: 'Nourish',
     icon: 'ability_druid_nourish',
+  },
+
+  // HoT (heal and buff) from Resto Druid TWW S2 tier set.
+  RESTO_DRUID_INSURANCE_HOT: {
+    id: 1215515,
+    name: 'Insurance!',
+    icon: 'inv_10_inscription2_scroll2_color5',
+  },
+  // low health proc (heal) from Resto Druid TWW S2 tier set.
+  RESTO_DRUID_INSURANCE_PROC: {
+    id: 1215518,
+    name: 'Insurance!',
+    icon: 'inv_10_inscription2_scroll2_color5',
   },
 
   /////////////////////////////////////////////////////////////////////////////
