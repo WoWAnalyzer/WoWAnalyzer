@@ -25,7 +25,7 @@ import { DRUID_TWW2_ID } from 'common/ITEMS/dragonflight';
 import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
 
-const DEBUG = true;
+const DEBUG = false;
 
 const PROCCED_HOTS = [
   SPELLS.REJUVENATION,
