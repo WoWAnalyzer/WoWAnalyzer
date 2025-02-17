@@ -567,12 +567,12 @@ const spells = {
     name: 'Breath of Fire',
     icon: 'ability_monk_breathoffire',
   },
-  FORTIFYING_BREW_BRM: {
+  FORTIFYING_BREW_CAST: {
     id: 115203,
     name: 'Fortifying Brew',
     icon: 'ability_monk_fortifyingale_new',
   },
-  FORTIFYING_BREW_BRM_BUFF: {
+  FORTIFYING_BREW_BUFF: {
     id: 120954,
     name: 'Fortifying Brew',
     icon: 'ability_monk_fortifyingale_new',

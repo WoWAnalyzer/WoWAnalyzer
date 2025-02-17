@@ -140,6 +140,10 @@ class CelestialConduit extends Analyzer {
   }
 
   private updateCastListCooldownMap() {
+    if (this.castInfoList.length === 0) {
+      return; // no casts, no cooldown maps
+    }
+
     if (!this.castInfoList.at(-1)?.cooldownMap) {
       this.castInfoList.at(-1)!.cooldownMap = this.getCooldownMap();
     }

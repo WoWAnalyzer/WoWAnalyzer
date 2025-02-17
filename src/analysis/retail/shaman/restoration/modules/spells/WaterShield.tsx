@@ -12,7 +12,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 // just gonna steal my mtt formatting
 import './ManaTideTotem.scss';
 
-const WATER_SHIELD_MANA_REGEN_PER_SECOND = 239 / 5;
+const WATER_SHIELD_MANA_REGEN_PER_SECOND = 2015 / 5;
 
 class WaterShield extends Analyzer {
   manaGain = 0;
@@ -42,13 +42,12 @@ class WaterShield extends Analyzer {
   }
 
   get regenOnPlayer() {
-    let uptime =
-      this.selectedCombatant.getBuffUptime(SPELLS.WATER_SHIELD.id) / this.owner.fightDuration;
-    if (uptime === 0) {
-      uptime = 1; // quick fix for water shield not being in logs
+    let uptimePercent = this.uptimePercent;
+    if (uptimePercent === 0) {
+      uptimePercent = 1; // quick fix for water shield not being in logs
     }
 
-    return (this.owner.fightDuration / 1000) * WATER_SHIELD_MANA_REGEN_PER_SECOND * uptime;
+    return (this.owner.fightDuration / 1000) * WATER_SHIELD_MANA_REGEN_PER_SECOND * uptimePercent;
   }
 
   get uptime() {
@@ -93,7 +92,7 @@ class WaterShield extends Analyzer {
         }
       >
         <BoringSpellValueText spell={SPELLS.WATER_SHIELD}>
-          <ItemManaGained amount={this.manaGain + this.regenOnPlayer} />
+          <ItemManaGained amount={this.manaGain + this.regenOnPlayer} useAbbrev />
         </BoringSpellValueText>
       </Statistic>
     );

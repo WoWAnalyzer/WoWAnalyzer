@@ -39,7 +39,6 @@ import Downpour from './modules/talents/Downpour';
 import EarthenWallTotem from './modules/talents/EarthenWallTotem';
 import HighTide from './modules/talents/HighTide';
 import NaturesGuardian from './modules/talents/NaturesGuardian';
-import TalentStatisticBox from './modules/features/TalentStatisticBox';
 import Torrent from './modules/talents/Torrent';
 import Undulation from './modules/talents/Undulation';
 import UnleashLife from './modules/talents/UnleashLife';
@@ -47,9 +46,16 @@ import Wellspring from './modules/talents/Wellspring';
 import Undercurrent from './modules/talents/Undercurrent';
 import NaturesSwiftness from './modules/talents/NaturesSwiftness';
 import SpiritwalkersTidalTotem from './modules/talents/SpiritwalkersTidalTotem';
-import Tidewaters from './modules/talents/Tidewaters';
+import WhiteWater from './modules/talents/WhiteWater';
+import CoalescingWater from './modules/talents/CoalescingWater';
 // Hero talents
 import SurgingTotem from './modules/talents/totemic/SurgingTotem';
+import LivelyTotems from './modules/talents/totemic/LivelyTotems';
+import TotemicRebound from './modules/talents/totemic/TotemicRebound';
+import AmplificationCore from './modules/talents/totemic/AmplificationCore';
+import Oversurge from './modules/talents/totemic/Oversurge';
+import Reactivity from './modules/talents/totemic/Reactivity';
+import ImbuementMastery from './modules/talents/totemic/ImbuementMastery';
 // Spells
 // Tiers
 import TWW1TierSet from './modules/tier/TWW1TierSet';
@@ -115,7 +121,6 @@ class CombatLogParser extends CoreCombatLogParser {
     highTide: HighTide,
     naturesGuardian: NaturesGuardian,
     ancestralProtectionTotem: AncestralProtectionTotem,
-    talentStatisticBox: TalentStatisticBox,
     primordialWave: PrimordialWave,
     undercurrent: Undercurrent,
     primalTideCore: PrimalTideCore,
@@ -126,10 +131,17 @@ class CombatLogParser extends CoreCombatLogParser {
     manaSpring: ManaSpring,
     naturesSwiftness: NaturesSwiftness,
     spiritwalkersTidalTotem: SpiritwalkersTidalTotem,
-    tidewaters: Tidewaters,
+    whiteWater: WhiteWater,
+    coalescingWater: CoalescingWater,
 
     // Hero talents
     surgingTotem: SurgingTotem,
+    livelyTotems: LivelyTotems,
+    totemicRebound: TotemicRebound,
+    amplificationCore: AmplificationCore,
+    oversurge: Oversurge,
+    reactivity: Reactivity,
+    imbuementMastery: ImbuementMastery,
 
     // Spells
     riptide: Riptide,

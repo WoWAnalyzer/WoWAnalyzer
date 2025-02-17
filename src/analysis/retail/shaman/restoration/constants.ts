@@ -19,6 +19,8 @@ export const CHAIN_HEAL_GROUPING = 'ChainHealGrouping';
 export const FLOW_OF_THE_TIDES = 'FlowOfTheTides';
 export const DOWNPOUR = 'Downpour';
 export const HIGH_TIDE = 'HighTide';
+export const LIVELY_TOTEMS_CHAIN_HEAL = 'LivelyTotemsChainHeal';
+export const REACTIVITY = 'Reactivity';
 //event link ms settings
 export const CAST_BUFFER_MS = 100;
 // 50 was too low, 100 was too high

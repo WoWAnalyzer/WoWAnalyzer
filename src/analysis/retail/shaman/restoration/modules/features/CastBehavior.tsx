@@ -64,7 +64,7 @@ class CastBehavior extends Analyzer {
           <Trans id="shaman.restoration.castBehaviour.unusedTW.tooltip">
             The amount of Tidal Waves you did not use out of the total available. You cast{' '}
             {riptideCasts} Riptides which gave you {totalTwGenerated} Tidal Waves charges, of which
-            you used ${totalTwUsed}.
+            you used {totalTwUsed}.
           </Trans>
         ),
         value: unusedTw,
@@ -114,14 +114,6 @@ class CastBehavior extends Analyzer {
               </Trans>
             </label>
             {this.twUsageRatioChart}
-          </div>
-        </Statistic>
-        <Statistic ultrawide>
-          <div className="pad">
-            <label>
-              <Trans id="shaman.restoration.castBehaviour.statistic.fillers">Fillers</Trans>
-            </label>
-            {this.fillerCastRatioChart}
           </div>
         </Statistic>
       </StatisticGroup>

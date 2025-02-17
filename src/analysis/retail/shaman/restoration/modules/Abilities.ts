@@ -28,7 +28,10 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.RIPTIDE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         enabled: combatant.hasTalent(TALENTS.RIPTIDE_TALENT),
-        charges: combatant.hasTalent(TALENTS.ECHO_OF_THE_ELEMENTS_TALENT) ? 2 : 1,
+        charges:
+          1 +
+          combatant.getTalentRank(TALENTS.ECHO_OF_THE_ELEMENTS_TALENT) +
+          combatant.getTalentRank(TALENTS.ELEMENTAL_REVERB_TALENT),
         cooldown: 6,
         timelineSortIndex: 11,
         gcd: {
@@ -135,7 +138,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: TALENTS.CLOUDBURST_TOTEM_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         charges: combatant.hasTalent(TALENTS.ECHO_OF_THE_ELEMENTS_TALENT) ? 2 : 1,
-        cooldown: 30 - totemCDR,
+        cooldown: 45 - totemCDR,
         timelineSortIndex: 16,
         gcd: {
           static: totemGCD,
@@ -395,6 +398,14 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 81,
       },
       {
+        spell: TALENTS.SPIRIT_WALK_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.SPIRIT_WALK_TALENT),
+        buffSpellId: TALENTS.SPIRIT_WALK_TALENT.id,
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown: 60,
+        timelineSortIndex: 81,
+      },
+      {
         spell: SPELLS.EARTHBIND_TOTEM.id,
         category: SPELL_CATEGORY.UTILITY,
         timelineSortIndex: 80,
@@ -509,10 +520,10 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 80,
       },
       {
-        spell: TALENTS.DOWNPOUR_TALENT.id,
+        spell: SPELLS.DOWNPOUR_ABILITY.id,
         enabled: combatant.hasTalent(TALENTS.DOWNPOUR_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 35, // CD changes depending on amount of effective targets hit (0 = 5s, 6 = 35s)
+        cooldown: combatant.hasTalent(TALENTS.SURGING_TOTEM_TALENT) ? 30 - totemCDR : 10,
         gcd: {
           base: 1500,
         },
@@ -602,6 +613,13 @@ class Abilities extends CoreAbilities {
         cooldown: 60,
       },
       {
+        spell: SPELLS.ANCESTRAL_SWIFTNESS_CAST.id,
+        enabled: combatant.hasTalent(TALENTS.ANCESTRAL_SWIFTNESS_TALENT),
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: null,
+        cooldown: 30,
+      },
+      {
         spell: SPELLS.SURGING_TOTEM.id,
         enabled: combatant.hasTalent(TALENTS.SURGING_TOTEM_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
@@ -611,6 +629,24 @@ class Abilities extends CoreAbilities {
           base: 1000,
         },
         healSpellIds: [SPELLS.HEALING_RAIN_TOTEMIC.id],
+      },
+      {
+        spell: SPELLS.SKYFURY.id,
+        enabled: true,
+        category: SPELL_CATEGORY.OTHERS,
+        cooldown: 0,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: TALENTS.TOTEMIC_PROJECTION_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.TOTEMIC_PROJECTION_TALENT),
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown: 10,
+        gcd: {
+          base: 1500,
+        },
       },
     ];
   }

@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
@@ -16,7 +16,6 @@ import Events, {
 import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 
 import {
@@ -205,6 +204,9 @@ class UnleashLife extends Analyzer {
       this.goodSpells.push(TALENTS.CHAIN_HEAL_TALENT.id);
     } else {
       this.okSpells.push(TALENTS.CHAIN_HEAL_TALENT.id);
+    }
+    if (this.downpourActive) {
+      this.goodSpells.push(SPELLS.DOWNPOUR_ABILITY.id);
     }
   }
   //necessary because riptide can be spellqued into the spell that actually consumed UL and event linking will match both
@@ -724,25 +726,6 @@ class UnleashLife extends Analyzer {
       );
     }
     this.castEntries.push({ value, tooltip });
-  }
-
-  subStatistic() {
-    return (
-      <StatisticListBoxItem
-        title={<SpellLink spell={TALENTS.UNLEASH_LIFE_TALENT} />}
-        value={`${formatPercentage(
-          this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
-        )} %`}
-        valueTooltip={
-          <Trans id="shaman.restoration.unleashLife.statistic.tooltip">
-            {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.directHealing))}% from
-            Unleash Life and{' '}
-            {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalBuffedHealing))}%
-            from the healing buff.
-          </Trans>
-        }
-      />
-    );
   }
 }
 

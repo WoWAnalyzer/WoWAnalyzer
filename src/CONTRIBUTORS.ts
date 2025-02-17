@@ -2088,20 +2088,16 @@ export const Anty: Contributor = {
   nickname: 'Anty',
   github: 'jsucupira',
 };
-export const Squided: Contributor = {
-  nickname: 'Squided',
+export const squided: Contributor = {
+  nickname: 'squided',
   github: 'foobartles',
-  discord: 'squided#0001',
+  discord: 'squided',
+  avatar: avatar('squided.png'),
   mains: [
     {
       name: 'Squided',
-      spec: SPECS.HOLY_PALADIN,
-      link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Squided',
-    },
-    {
-      name: 'Squidkid',
-      spec: SPECS.HOLY_PRIEST,
-      link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Squidkid',
+      spec: SPECS.RESTORATION_SHAMAN,
+      link: 'https://worldofwarcraft.com/en-us/character/us/area-52/squided',
     },
   ],
 };

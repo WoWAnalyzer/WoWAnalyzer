@@ -6,7 +6,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 const BREWS = [
   talents.BLACK_OX_BREW_TALENT,
-  SPELLS.FORTIFYING_BREW_BRM,
+  SPELLS.FORTIFYING_BREW_CAST,
   talents.CELESTIAL_BREW_TALENT,
   talents.PURIFYING_BREW_TALENT,
 ];

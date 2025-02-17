@@ -41,6 +41,9 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2025, 2, 13), 'Add The War Within Season 2 set IDs.', Putro),
+  change(date(2025, 2, 12), 'Fix display issues in dungeon pull selection', emallson),
+  change(date(2025, 2, 8), <>Fixed display error in mana usage chart.</>, emallson),
   change(date(2025, 1, 25), <>Added internal support for new <SpellLink spell={SPELLS.SPELL_REFLECTION} /> events</>, emallson),
   change(date(2025, 1, 16), <>Added <ItemLink id={ITEMS.CIRRAL_CONCOCTORY.id}/></>, KYZ),
   change(date(2024, 12, 23), 'Update Classic Guild image for Reports page', jazminite),
