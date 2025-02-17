@@ -90,6 +90,14 @@ const talents = {
     entryIds: [115600],
     definitionIds: [{ id: 120612, specId: 1473 }],
   },
+  AZURE_CELERITY_TALENT: {
+    id: 1219723,
+    name: 'Azure Celerity',
+    icon: 'ability_evoker_masterylifebinder_blue',
+    maxRanks: 1,
+    entryIds: [115637],
+    definitionIds: [{ id: 120649, specId: 1467 }],
+  },
   AZURE_ESSENCE_BURST_TALENT: {
     id: 375721,
     name: 'Azure Essence Burst',
@@ -165,7 +173,7 @@ const talents = {
   CALL_OF_YSERA_TALENT: {
     id: 373834,
     name: 'Call of Ysera',
-    icon: '',
+    icon: 'inv_drakemountemerald',
     maxRanks: 1,
     entryIds: [115554],
     definitionIds: [{ id: 120566, specId: 1468 }],
@@ -523,8 +531,8 @@ const talents = {
     name: 'Expanded Lungs',
     icon: 'inv_fyrakk_dragonbreath',
     maxRanks: 1,
-    entryIds: [123767],
-    definitionIds: [{ id: 128605, specId: 1468 }],
+    entryIds: [128713],
+    definitionIds: [{ id: 133515, specId: 1468 }],
   },
   EXPUNGE_TALENT: {
     id: 365585,
@@ -567,14 +575,6 @@ const talents = {
     entryIds: [115630],
     definitionIds: [{ id: 120642, specId: 1467 }],
   },
-  FAN_THE_FLAMES_TALENT: {
-    id: 444318,
-    name: 'Fan the Flames',
-    icon: 'ability_evoker_oppressingroar2',
-    maxRanks: 1,
-    entryIds: [117520],
-    definitionIds: [{ id: 122532, specId: 1468 }],
-  },
   FATE_MIRROR_TALENT: {
     id: 412774,
     name: 'Fate Mirror',
@@ -614,6 +614,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [115659],
     definitionIds: [{ id: 120671, specId: 1473 }],
+  },
+  FLAME_SIPHON_TALENT: {
+    id: 444140,
+    name: 'Flame Siphon',
+    icon: 'ability_evoker_infernosblessing',
+    maxRanks: 1,
+    entryIds: [123416],
+    definitionIds: [{ id: 128254, specId: 1468 }],
   },
   FLOW_STATE_TALENT: {
     id: 385696,
@@ -679,6 +687,14 @@ const talents = {
     entryIds: [115576],
     definitionIds: [{ id: 120588, specId: 1473 }],
   },
+  FULMINOUS_ROAR_TALENT: {
+    id: 1218447,
+    name: 'Fulminous Roar',
+    icon: 'ability_evoker_oppressingroar2',
+    maxRanks: 1,
+    entryIds: [117520],
+    definitionIds: [{ id: 122532, specId: 1468 }],
+  },
   GOLDEN_HOUR_TALENT: {
     id: 378196,
     name: 'Golden Hour',
@@ -732,11 +748,8 @@ const talents = {
     name: 'Hoarded Power',
     icon: 'ability_evoker_innatemagic2',
     maxRanks: 1,
-    entryIds: [115637, 115512],
-    definitionIds: [
-      { id: 120649, specId: 1467 },
-      { id: 120524, specId: 1473 },
-    ],
+    entryIds: [115512],
+    definitionIds: [{ id: 120524, specId: 1473 }],
   },
   HONED_AGGRESSION_TALENT: {
     id: 371038,
@@ -1336,6 +1349,14 @@ const talents = {
     entryIds: [115507],
     definitionIds: [{ id: 120519, specId: 1473 }],
   },
+  ROCKFALL_TALENT: {
+    id: 1219236,
+    name: 'Rockfall',
+    icon: 'ability_evoker_earthensky',
+    maxRanks: 1,
+    entryIds: [115688],
+    definitionIds: [{ id: 120700, specId: 1473 }],
+  },
   RUBY_EMBERS_TALENT: {
     id: 365937,
     name: 'Ruby Embers',
@@ -1391,14 +1412,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [115622],
     definitionIds: [{ id: 120634, specId: 1467 }],
-  },
-  SEISMIC_SLAM_TALENT: {
-    id: 408543,
-    name: 'Seismic Slam',
-    icon: 'ability_evoker_seismicslam',
-    maxRanks: 1,
-    entryIds: [115688],
-    definitionIds: [{ id: 120700, specId: 1473 }],
   },
   SHAPE_OF_FLAME_TALENT: {
     id: 445074,
@@ -1700,14 +1713,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [117534],
     definitionIds: [{ id: 122546, specId: 1468 }],
-  },
-  TRAVELING_FLAME_TALENT: {
-    id: 444140,
-    name: 'Traveling Flame',
-    icon: 'ability_evoker_infernosblessing',
-    maxRanks: 1,
-    entryIds: [123416],
-    definitionIds: [{ id: 128254, specId: 1468 }],
   },
   TWIN_GUARDIAN_TALENT: {
     id: 370888,
