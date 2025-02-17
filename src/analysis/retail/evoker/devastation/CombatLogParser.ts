@@ -67,7 +67,6 @@ import {
   Wingleader,
   Slipstream,
   ExpandedLungs,
-  FanTheFlames,
   RedHot,
   TimeSpiral,
 } from 'analysis/retail/evoker/shared';
@@ -136,7 +135,6 @@ class CombatLogParser extends MainCombatLogParser {
     // hero talents
     engulf: Engulf,
     expandedLungs: ExpandedLungs,
-    fanTheFlames: FanTheFlames,
     redHot: RedHot,
     meltArmor: MeltArmor,
     massDisintegrate: MassDisintegrate,
