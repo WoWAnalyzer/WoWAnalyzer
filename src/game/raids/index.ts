@@ -9,6 +9,7 @@ import {
   totfw as ThroneOfTheFourWinds,
 } from 'game/raids/cata_bwd_bot_totfw';
 import Firelands from 'game/raids/cata_firelands';
+import DragonSoul from 'game/raids/cata_dragon_soul';
 
 interface EncounterConfig {
   vantusRuneBuffId?: number;
@@ -59,6 +60,7 @@ const raids = {
   BastionOfTwilight,
   ThroneOfTheFourWinds,
   Firelands,
+  DragonSoul,
 };
 
 function findByDungeonBossId(id: number) {
