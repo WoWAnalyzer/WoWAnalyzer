@@ -91,8 +91,8 @@ export default React.memo(function SegmentTimeline({
               {...segmentProps}
             >
               <title>
-                {formatDuration(segment.start - info.fightStart, 3)} -{' '}
-                {formatDuration(segment.end - info.fightStart, 3)}
+                {formatDuration(segment.start - info.fightStart, 1)} -{' '}
+                {formatDuration(segment.end - info.fightStart, 1)}
               </title>
             </rect>
             {segment.tooltip && (
