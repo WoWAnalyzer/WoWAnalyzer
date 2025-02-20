@@ -176,16 +176,12 @@ function ComplexUptimeDisplay({
   uptimeHistory,
   meleeGaps,
   globalMeleeGaps,
-  debuffSegments: rawDebuffSegments,
+  debuffSegments,
 }: Props): JSX.Element | null {
   const info = useInfo();
   const { fight } = useFight();
 
   const boss = findByBossId(fight.boss);
-  const debuffSegments = useMemo(
-    () => rawDebuffSegments?.filter((segment) => segment.end - segment.start >= 4000) ?? [],
-    [rawDebuffSegments],
-  );
 
   const tracks: TimelineTrack[] = useMemo(() => {
     if (!info) {
@@ -207,7 +203,7 @@ function ComplexUptimeDisplay({
           <SegmentTimeline
             fgColor="purple"
             fgStroke="black"
-            segments={debuffSegments}
+            segments={debuffSegments ?? []}
             info={info}
             segmentProps={{ height: 12, y: 4 }}
             disableMerging
@@ -266,16 +262,12 @@ function ComplexUptimeDisplay({
       {
         height: 2,
         element: null,
-        hidden(x) {
-          return x(info.fightStart + 1000) - x(info.fightStart) < 16;
-        },
+        hidden: whenSecondWidthLT(info.fightStart, MIN_ABILITY_TIMELINE_SECOND_WIDTH),
       },
       {
         height: 16,
         element: <PlayerAbilityTimeline info={info} />,
-        hidden(x) {
-          return x(info.fightStart + 1000) - x(info.fightStart) < 16;
-        },
+        hidden: whenSecondWidthLT(info.fightStart, MIN_ABILITY_TIMELINE_SECOND_WIDTH),
       },
     ];
   }, [debuffSegments, uptimeHistory, info, meleeGaps, globalMeleeGaps, boss?.fight]);
@@ -293,6 +285,21 @@ function ComplexUptimeDisplay({
     </TimelineDiagram>
   );
 }
+
+// how wide a second needs to be (in pixels) before the player ability timeline is shown. at sizes smaller than this, the icons start to overlap.
+const MIN_ABILITY_TIMELINE_SECOND_WIDTH = 16;
+
+/**
+ * Check how wide a second is (in pixels) according to the `x` position helper from the `TimelineDiagram`.
+ *
+ * This requires the `fightStart` to be specified to make sure weirdness doesn't happen due to large negative
+ * numbers being produced by `x`. It is calculated by the difference in position from 1 second after the
+ * start time and the start time itself.
+ */
+const whenSecondWidthLT =
+  (fightStart: number, minSecondWidthPx: number): ((x: (timestamp: number) => number) => boolean) =>
+  (x) =>
+    x(fightStart + 1000) - x(fightStart) < minSecondWidthPx;
 
 const PlayerAbilityTimeline = React.memo(({ info }: { info: Info }) => {
   const playerTimeline = usePlayerGcdSegments();
