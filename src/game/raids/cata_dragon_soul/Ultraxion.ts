@@ -1,8 +1,7 @@
 import type { Boss } from 'game/raids';
 
 import Headshot from './images/UltraxionHeadshot.jpg';
-// import Background from './images/Ultraxion.jpg';
-import Background from './images/DeathwingWallpaper.jpg';
+import Background from './images/Ultraxion.jpg';
 
 const Ultraxion: Boss = {
   id: 1297,

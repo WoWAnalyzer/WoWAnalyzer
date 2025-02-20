@@ -1,8 +1,7 @@
 import type { Boss } from 'game/raids';
 
 import Headshot from './images/BlackhornHeadshot.jpg';
-// import Background from './images/Blackhorn.jpg';
-import Background from './images/DeathwingWallpaper.jpg';
+import Background from './images/Blackhorn.jpg';
 
 const Blackhorn: Boss = {
   id: 1298,

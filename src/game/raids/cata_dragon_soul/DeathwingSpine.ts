@@ -1,8 +1,7 @@
 import type { Boss } from 'game/raids';
 
 import Headshot from './images/DeathwingSpineHeadshot.jpg';
-// import Background from './images/DeathwingSpine.jpg';
-import Background from './images/DeathwingWallpaper.jpg';
+import Background from './images/Spine.jpg';
 
 const DeathwingSpine: Boss = {
   id: 1291,

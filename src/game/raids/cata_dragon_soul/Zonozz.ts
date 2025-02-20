@@ -1,8 +1,7 @@
 import type { Boss } from 'game/raids';
 
 import Headshot from './images/ZonozzHeadshot.jpg';
-// import Background from './images/Zonozz.jpg';
-import Background from './images/DeathwingWallpaper.jpg';
+import Background from './images/Zonozz.jpg';
 
 const Zonozz: Boss = {
   id: 1294,

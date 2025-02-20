@@ -1,8 +1,7 @@
 import type { Boss } from 'game/raids';
 
 import Headshot from './images/YorsahjHeadshot.jpg';
-// import Background from './images/Yorsahj.jpg';
-import Background from './images/DeathwingWallpaper.jpg';
+import Background from './images/Yorsahj.jpg';
 
 const Yorsahj: Boss = {
   id: 1295,

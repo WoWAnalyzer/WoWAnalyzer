@@ -1,8 +1,7 @@
 import type { Boss } from 'game/raids';
 
 import Headshot from './images/MorchokHeadshot.jpg';
-// import Background from './images/Morchok.jpg';
-import Background from './images/DeathwingWallpaper.jpg';
+import Background from './images/Morchok.jpg';
 
 const Morchok: Boss = {
   id: 1292,

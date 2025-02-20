@@ -1,8 +1,7 @@
 import type { Boss } from 'game/raids';
 
 import Headshot from './images/HagaraHeadshot.jpg';
-// import Background from './images/Hagara.jpg';
-import Background from './images/DeathwingWallpaper.jpg';
+import Background from './images/Hagara.jpg';
 
 const Hagara: Boss = {
   id: 1296,
