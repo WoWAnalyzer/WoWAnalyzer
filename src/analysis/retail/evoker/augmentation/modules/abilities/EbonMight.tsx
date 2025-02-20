@@ -46,6 +46,8 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import { formatNumber } from 'common/format';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { UPHEAVAL_REVERBERATION_DAM_LINK } from '../normalizers/CastLinkNormalizer';
+import { InformationIcon } from 'interface/icons';
+import { formatPercentage } from 'common/format';
 
 const PANDEMIC_WINDOW = 0.3;
 
@@ -87,8 +89,8 @@ class EbonMight extends Analyzer {
   private prescienceCasts: PrescienceBuffs[] = [];
 
   private personalDamageAmp = isMythicPlus(this.owner.fight)
-    ? EBON_MIGHT_PERSONAL_DAMAGE_AMP
-    : EBON_MIGHT_PERSONAL_DAMAGE_AMP * CLOSE_AS_CLUTCHMATES_MOD;
+    ? EBON_MIGHT_PERSONAL_DAMAGE_AMP * CLOSE_AS_CLUTCHMATES_MOD
+    : EBON_MIGHT_PERSONAL_DAMAGE_AMP;
 
   ebonMightActive: boolean = false;
   currentEbonMightDuration: number = 0;
@@ -569,6 +571,9 @@ class EbonMight extends Analyzer {
   }
 
   statistic() {
+    const buffUptime =
+      this.selectedCombatant.getBuffUptime(SPELLS.EBON_MIGHT_BUFF_PERSONAL.id) /
+      this.owner.fightDuration;
     const damageSources = [
       {
         color: 'rgb(212, 81, 19)',
@@ -592,6 +597,8 @@ class EbonMight extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
       >
         <TalentSpellText talent={TALENTS.EBON_MIGHT_TALENT}>
+          <InformationIcon /> {formatPercentage(buffUptime, 2)}%<small> buff uptime</small>
+          <br />
           <ItemDamageDone amount={this.personalEbonMightDamage + this.externalEbonMightDamage} />
         </TalentSpellText>
         <div className="pad">

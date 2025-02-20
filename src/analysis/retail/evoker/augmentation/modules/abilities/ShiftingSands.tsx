@@ -32,6 +32,7 @@ class ShiftingSands extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    this.active = !this.selectedCombatant.hasTalent(TALENTS_EVOKER.MOTES_OF_POSSIBILITY_TALENT);
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SHIFTING_SANDS_BUFF),
