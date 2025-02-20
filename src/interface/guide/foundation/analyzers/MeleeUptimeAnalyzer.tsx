@@ -3,7 +3,10 @@ import Events, { AnyEvent, CastEvent, EndChannelEvent, FightEndEvent } from 'par
 import SPELLS from 'common/SPELLS';
 import Haste from 'parser/shared/modules/Haste';
 import Spell from 'common/SPELLS/Spell';
-import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import {
+  QualitativePerformance,
+  evaluateQualitativePerformanceByThreshold,
+} from 'parser/ui/QualitativePerformance';
 import ROLES from 'game/ROLES';
 import SPECS, { Spec } from 'game/SPECS';
 
@@ -69,15 +72,15 @@ export class MeleeUptimeAnalyzer extends Analyzer.withDependencies({ haste: Hast
 
   public get meleeUptimePerformance(): QualitativePerformance {
     const uptime = this.meleeUptimePercentage;
-    if (uptime >= 1) {
-      return QualitativePerformance.Perfect;
-    } else if (uptime >= 0.9) {
-      return QualitativePerformance.Good;
-    } else if (uptime >= 0.8) {
-      return QualitativePerformance.Ok;
-    } else {
-      return QualitativePerformance.Fail;
-    }
+    return evaluateQualitativePerformanceByThreshold({
+      actual: uptime,
+      isGreaterThanOrEqual: {
+        perfect: 1,
+        good: 0.9,
+        ok: 0.8,
+      },
+      max: 1,
+    });
   }
 
   private onMeleeCast(event: CastEvent) {
