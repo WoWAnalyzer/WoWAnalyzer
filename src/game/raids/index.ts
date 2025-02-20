@@ -84,7 +84,7 @@ export function findByBossId(id: number) {
 }
 
 export function findZoneByBossId(id: number): Raid | undefined {
-  return Object.values(raids)
-    .concat(Object.values(dungeons))
+  return Object.values(raids as Record<string, Raid>)
+    .concat(Object.values(dungeons as Record<string, Raid>))
     .find((zone) => Object.values(zone.bosses).some((boss) => boss.id === id));
 }
