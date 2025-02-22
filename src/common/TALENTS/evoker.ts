@@ -1820,6 +1820,14 @@ const talents = {
     entryIds: [115661],
     definitionIds: [{ id: 120673, specId: 1473 }],
   },
+  FAN_THE_FLAMES_TALENT: {
+    id: 444318,
+    name: 'Fan the Flames',
+    icon: 'ability_evoker_oppressingroar2',
+    maxRanks: 1,
+    entryIds: [117520],
+    definitionIds: [{ id: 122532, specId: 1468 }],
+  },
 } satisfies Record<string, Talent>;
 
 export default talents;
