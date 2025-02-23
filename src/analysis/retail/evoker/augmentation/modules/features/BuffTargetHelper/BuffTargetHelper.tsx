@@ -1,12 +1,13 @@
 import TALENTS from 'common/TALENTS/evoker';
+import SPELLS from 'common/SPELLS/evoker';
 import { WCLDamageDoneTableResponse } from 'common/WCL_TYPES';
 import fetchWcl from 'common/fetchWclApi';
 import { formatDuration, formatMilliseconds, formatNumber } from 'common/format';
 import classColor from 'game/classColor';
 import ROLES from 'game/ROLES';
 import SPECS from 'game/SPECS';
-import Analyzer, { Options } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import { isMythicPlus } from 'common/isMythicPlus';
 import '../../Styling.scss';
@@ -114,11 +115,26 @@ class BuffTargetHelper extends Analyzer {
   abilityBlacklist: string = [...ABILITY_BLACKLIST].join(', ');
   abilityFilter = [...ABILITY_NO_BOE_SCALING].join(', ');
 
+  ebonApplyTimestamps: number[] = [];
+  ebonRemoveTimestamps: number[] = [];
+
   constructor(options: Options) {
     super(options);
     /** No need to show this in dungeon runs, for obvious reasons */
     this.active = !isMythicPlus(this.owner.fight);
 
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.EBON_MIGHT_BUFF_PERSONAL),
+      this.onEbonApply,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.EBON_MIGHT_BUFF_PERSONAL),
+      this.onEbonRefresh,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.EBON_MIGHT_BUFF_PERSONAL),
+      this.onEbonRemove,
+    );
     /** Populate our whitelist */
     this.addEventListener(Events.fightend, () => {
       const players = Object.values(this.combatants.players);
@@ -138,6 +154,20 @@ class BuffTargetHelper extends Analyzer {
       });
     });
   }
+
+  onEbonApply(event: ApplyBuffEvent) {
+    this.ebonApplyTimestamps.push(event.timestamp);
+  }
+
+  onEbonRefresh(event: RefreshBuffEvent) {
+    this.ebonRemoveTimestamps.push(event.timestamp);
+    this.ebonApplyTimestamps.push(event.timestamp);
+  }
+
+  onEbonRemove(event: RemoveBuffEvent) {
+    this.ebonRemoveTimestamps.push(event.timestamp);
+  }
+
   /** Generate filter based on our ability filters */
   getFilter(noEbonScaling: boolean) {
     let filter = `(not ability.id in(${this.abilityBlacklist})) 
@@ -171,12 +201,14 @@ class BuffTargetHelper extends Analyzer {
 
     // Start 4 seconds in since you start the fight with 2x Prescience -> Ebon Might
     // This will also show MUCH better value targets
-    let currentTime = this.fightStart + this.fightStartDelay;
+    let index = 0;
+    let currentTime = this.ebonApplyTimestamps[index];
 
     const fetchPromises: Promise<DamageTables>[] = [];
     while (currentTime < this.fightEnd) {
       fetchPromises.push(this.getDamage(currentTime));
-      currentTime += this.interval;
+      index += 1;
+      currentTime = this.ebonApplyTimestamps[index];
     }
 
     const result = await Promise.all(fetchPromises);
@@ -318,10 +350,8 @@ class BuffTargetHelper extends Analyzer {
     );
 
     for (let i = 0; i < topPumpersData.length; i += 1) {
-      const intervalStart = formatDuration(i * this.interval + this.fightStartDelay);
-      const intervalEnd = formatDuration(
-        Math.min((i + 1) * this.interval + this.fightStartDelay, this.fightEnd - this.fightStart),
-      );
+      const intervalStart = this.owner.formatTimestamp(this.ebonApplyTimestamps[i]);
+      const intervalEnd = this.owner.formatTimestamp(this.ebonApplyTimestamps[i] + this.interval);
 
       const formattedEntriesTable = top4PumpersData[i].map(([name, values]) => (
         <td key={name}>
