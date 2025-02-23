@@ -7,7 +7,12 @@ import classColor from 'game/classColor';
 import ROLES from 'game/ROLES';
 import SPECS from 'game/SPECS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  FightEndEvent,
+  RefreshBuffEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import { isMythicPlus } from 'common/isMythicPlus';
 import '../../Styling.scss';
@@ -135,6 +140,7 @@ class BuffTargetHelper extends Analyzer {
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.EBON_MIGHT_BUFF_PERSONAL),
       this.onEbonRemove,
     );
+    this.addEventListener(Events.fightend, this.onEbonRemoveFightEnd);
     /** Populate our whitelist */
     this.addEventListener(Events.fightend, () => {
       const players = Object.values(this.combatants.players);
@@ -165,6 +171,10 @@ class BuffTargetHelper extends Analyzer {
   }
 
   onEbonRemove(event: RemoveBuffEvent) {
+    this.ebonRemoveTimestamps.push(event.timestamp);
+  }
+
+  onEbonRemoveFightEnd(event: FightEndEvent) {
     this.ebonRemoveTimestamps.push(event.timestamp);
   }
 
@@ -351,7 +361,7 @@ class BuffTargetHelper extends Analyzer {
 
     for (let i = 0; i < topPumpersData.length; i += 1) {
       const intervalStart = this.owner.formatTimestamp(this.ebonApplyTimestamps[i]);
-      const intervalEnd = this.owner.formatTimestamp(this.ebonApplyTimestamps[i] + this.interval);
+      const intervalEnd = this.owner.formatTimestamp(this.ebonRemoveTimestamps[i]);
 
       const formattedEntriesTable = top4PumpersData[i].map(([name, values]) => (
         <td key={name}>
@@ -394,14 +404,14 @@ class BuffTargetHelper extends Analyzer {
             </tbody>
           </table>
         </div>
-        <div className="button-container">
+        {/*         <div className="button-container">
           <button className="button" onClick={this.handlePrescienceHelperCopyClick}>
             Copy Prescience Helper MRT note
           </button>
           <button className="button" onClick={this.handleFourTargetCopyClick}>
             Copy Frame Glow MRT note
           </button>
-        </div>
+        </div> */}
       </div>
     );
   }
@@ -590,15 +600,13 @@ class BuffTargetHelper extends Analyzer {
               This module will help you with finding the optimal buff targets for{' '}
               <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> and{' '}
               <SpellLink spell={TALENTS.PRESCIENCE_TALENT} />. It will show you the top 4 DPS for
-              each 30 second interval (27 with{' '}
-              <SpellLink spell={TALENTS.INTERWOVEN_THREADS_TALENT} /> talented)
+              each of your Ebon Might windows. Refreshing Ebon Might is counted as a new window.
             </p>
             <p>
               Damage events that doesn't get amplified by your buffs will be ignored. <br />
               Tanks, Healers and other Augmentations are not included. <br />
-              Phases are also not accounted for for now.
             </p>
-            <p>
+            {/*             <p>
               This module will also produce a note for{' '}
               <a href="https://www.curseforge.com/wow/addons/method-raid-tools">
                 Method Raid Tools
@@ -609,7 +617,7 @@ class BuffTargetHelper extends Analyzer {
               <a href="https://wago.io/yrmx6ZQSG">Prescience Helper</a> WeakAura made by{' '}
               <b>HenryG</b> or the <a href="https://wago.io/KP-BlDV58">Frame Glows</a> WeakAura made
               by <b>Zephy</b> based on which Weak Aura you use.
-            </p>
+            </p> */}
 
             {this.has4Pc && <BuffTargetHelperInfoLabel />}
           </div>
