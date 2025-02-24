@@ -1,7 +1,22 @@
 import SPELLS from 'common/SPELLS/evoker';
+import TALENTS from 'common/TALENTS/evoker';
+import Combatant from 'parser/core/Combatant';
 
 export const DISINTEGRATE_TICKS = 4;
 export const DISINTEGRATE_CHAINED_TICKS = 5;
+export const AZURE_CELERITY_TICKS = 1;
+
+export const GetDisintegrateTicks = (combatant: Combatant) => {
+  const hasAzureCelerity = combatant.hasTalent(TALENTS.AZURE_CELERITY_TALENT);
+  const disintegrateTicks = hasAzureCelerity
+    ? DISINTEGRATE_TICKS + AZURE_CELERITY_TICKS
+    : DISINTEGRATE_TICKS;
+  const disintegrateChainedTicks = hasAzureCelerity
+    ? DISINTEGRATE_CHAINED_TICKS + AZURE_CELERITY_TICKS
+    : DISINTEGRATE_CHAINED_TICKS;
+
+  return { disintegrateTicks, disintegrateChainedTicks };
+};
 
 export const OPTIMAL_EMPOWER_DRAGONRAGE_GAP_ST_MS = 13000;
 

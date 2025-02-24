@@ -29,12 +29,11 @@ import {
 import { isMythicPlus } from 'common/isMythicPlus';
 import { InformationIcon } from 'interface/icons';
 import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
+import { GetDisintegrateTicks } from '../../constants';
 
 const { DISINTEGRATE } = SPELLS;
 
 const { DRAGONRAGE_TALENT } = TALENTS;
-
-const TICKS_PER_DISINTEGRATE = 4;
 
 /**
  * Disintegrate is Devastation's ST spender, it is one of the primary focus points of your rotation.
@@ -103,6 +102,9 @@ class Disintegrate extends Analyzer {
   problemPoints: SpellTracker[] = [];
   dragonrageBuffCounter: SpellTracker[] = [];
 
+  ticksPerDisintegrate = 0;
+  ticksPerChainedDisintegrate = 0;
+
   constructor(options: Options) {
     super(options);
 
@@ -154,12 +156,17 @@ class Disintegrate extends Analyzer {
       console.log(this.totalMassDisintegrateTicks); */
       this.pushToGraphData();
     });
+
+    this.ticksPerDisintegrate = GetDisintegrateTicks(this.selectedCombatant).disintegrateTicks;
+    this.ticksPerChainedDisintegrate = GetDisintegrateTicks(
+      this.selectedCombatant,
+    ).disintegrateChainedTicks;
   }
 
   onApplyDragonrage(event: ApplyBuffEvent) {
     this.dragonrageBuffCounter.push({
       timestamp: event.timestamp,
-      count: 5,
+      count: this.ticksPerChainedDisintegrate,
       tooltip: '',
     });
     this.inDragonRageWindow = true;
@@ -212,12 +219,12 @@ class Disintegrate extends Analyzer {
   get tickData() {
     const regularTicks = this.totalTicks - this.dragonRageTicks;
     const totalPossibleRegularTicks =
-      (this.totalCasts - this.dragonRageCasts) * TICKS_PER_DISINTEGRATE;
+      (this.totalCasts - this.dragonRageCasts) * this.ticksPerDisintegrate;
     const dragonRageTicks = this.dragonRageTicks;
-    const totalPossibleDragonRageTicks = this.dragonRageCasts * TICKS_PER_DISINTEGRATE;
+    const totalPossibleDragonRageTicks = this.dragonRageCasts * this.ticksPerDisintegrate;
 
     const totalPossibleMassDisintegrateTicks =
-      this.totalMassDisintegrateTargets * TICKS_PER_DISINTEGRATE;
+      this.totalMassDisintegrateTargets * this.ticksPerDisintegrate;
 
     return {
       regularTicks,
@@ -244,7 +251,7 @@ class Disintegrate extends Analyzer {
 
     this.currentMainTarget = encodeEventTargetString(event);
 
-    this.currentRemainingTicks = TICKS_PER_DISINTEGRATE;
+    this.currentRemainingTicks = this.ticksPerDisintegrate;
     this.isCurrentCastChained = false;
     this.disintegrateClipSpell = undefined;
 
@@ -297,7 +304,8 @@ class Disintegrate extends Analyzer {
 
     this.isCurrentCastChained = true;
     /** Chained Disintegrate moves over one tick from current cast (Pandemic) */
-    this.currentRemainingTicks = TICKS_PER_DISINTEGRATE + Math.min(this.currentRemainingTicks, 1);
+    this.currentRemainingTicks =
+      this.ticksPerDisintegrate + Math.min(this.currentRemainingTicks, 1);
 
     this.disintegrateTicksCounter.push({
       timestamp: event.timestamp,
