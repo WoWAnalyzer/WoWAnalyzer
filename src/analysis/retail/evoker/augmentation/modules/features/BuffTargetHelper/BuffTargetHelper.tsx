@@ -175,7 +175,9 @@ class BuffTargetHelper extends Analyzer {
   }
 
   onEbonRemoveFightEnd(event: FightEndEvent) {
-    this.ebonRemoveTimestamps.push(event.timestamp);
+    if (this.selectedCombatant.hasBuff(SPELLS.EBON_MIGHT_BUFF_PERSONAL)) {
+      this.ebonRemoveTimestamps.push(event.timestamp);
+    }
   }
 
   /** Generate filter based on our ability filters */
