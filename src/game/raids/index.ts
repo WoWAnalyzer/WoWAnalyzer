@@ -2,6 +2,7 @@ import { Spec } from 'game/SPECS';
 import { Race } from 'game/RACES';
 import PhaseConfig from 'parser/core/PhaseConfig';
 import MythicPlusSeasonOne from 'game/raids/mythicplusseasonone';
+import MythicPlusSeasonTwo from 'game/raids/mythicplusseasontwo';
 import NerubarPalace from 'game/raids/nerubarpalace';
 import {
   bot as BastionOfTwilight,
@@ -9,6 +10,8 @@ import {
   totfw as ThroneOfTheFourWinds,
 } from 'game/raids/cata_bwd_bot_totfw';
 import Firelands from 'game/raids/cata_firelands';
+import DragonSoul from 'game/raids/cata_dragon_soul';
+import Undermine from 'game/raids/undermine';
 
 interface EncounterConfig {
   vantusRuneBuffId?: number;
@@ -50,15 +53,18 @@ export interface Phase extends PhaseConfig {
 const dungeons = {
   // The War Within
   MythicPlusSeasonOne,
+  MythicPlusSeasonTwo,
 };
 
 const raids = {
   NerubarPalace, // TWW S1
+  Undermine, // TWW S2
   // Cataclysm (Classic)
   BlackwingDescent,
   BastionOfTwilight,
   ThroneOfTheFourWinds,
   Firelands,
+  DragonSoul,
 };
 
 function findByDungeonBossId(id: number) {
@@ -75,4 +81,10 @@ function findByRaidBossId(id: number) {
 
 export function findByBossId(id: number) {
   return findByRaidBossId(id) ?? findByDungeonBossId(id) ?? null;
+}
+
+export function findZoneByBossId(id: number): Raid | undefined {
+  return Object.values(raids as Record<string, Raid>)
+    .concat(Object.values(dungeons as Record<string, Raid>))
+    .find((zone) => Object.values(zone.bosses).some((boss) => boss.id === id));
 }

@@ -18,8 +18,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import {
   IRIDESCENCE_MULTIPLIER,
-  DISINTEGRATE_CHAINED_TICKS,
-  DISINTEGRATE_TICKS,
+  GetDisintegrateTicks,
 } from 'analysis/retail/evoker/devastation/constants';
 import { SpellLink } from 'interface';
 import {
@@ -66,6 +65,9 @@ class Iridescence extends Analyzer {
 
   iridescenceSpells = [IRIDESCENCE_BLUE, IRIDESCENCE_RED];
 
+  ticksPerDisintegrate = 0;
+  ticksPerChainedDisintegrate = 0;
+
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.IRIDESCENCE_TALENT);
@@ -96,15 +98,20 @@ class Iridescence extends Analyzer {
     );
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(this.trackedSpells), this.onHit);
+
+    this.ticksPerDisintegrate = GetDisintegrateTicks(this.selectedCombatant).disintegrateTicks;
+    this.ticksPerChainedDisintegrate = GetDisintegrateTicks(
+      this.selectedCombatant,
+    ).disintegrateChainedTicks;
   }
 
   onBuffRemove(event: RemoveBuffEvent) {
     if (HasRelatedEvent(event, IRIDESCENCE_BLUE_CONSUME)) {
       this.trackBlueDamage = true;
       if (this.ticksToCount > 0) {
-        this.ticksToCount = DISINTEGRATE_CHAINED_TICKS;
+        this.ticksToCount = this.ticksPerChainedDisintegrate;
       } else {
-        this.ticksToCount = DISINTEGRATE_TICKS;
+        this.ticksToCount = this.ticksPerDisintegrate;
       }
     } else if (HasRelatedEvent(event, IRIDESCENCE_RED_CONSUME)) {
       this.trackRedDamage = true;
@@ -115,9 +122,9 @@ class Iridescence extends Analyzer {
     if (event.ability.name === IRIDESCENCE_BLUE.name) {
       this.trackBlueDamage = true;
       if (this.ticksToCount > 0) {
-        this.ticksToCount = DISINTEGRATE_CHAINED_TICKS;
+        this.ticksToCount = this.ticksPerChainedDisintegrate;
       } else {
-        this.ticksToCount = DISINTEGRATE_TICKS;
+        this.ticksToCount = this.ticksPerDisintegrate;
       }
     } else if (HasRelatedEvent(event, IRIDESCENCE_RED_CONSUME)) {
       this.trackRedDamage = true;
