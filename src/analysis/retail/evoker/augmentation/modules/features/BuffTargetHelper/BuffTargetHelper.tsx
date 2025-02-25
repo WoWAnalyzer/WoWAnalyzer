@@ -218,7 +218,9 @@ class BuffTargetHelper extends Analyzer {
 
     const fetchPromises: Promise<DamageTables>[] = [];
     while (currentTime < this.fightEnd) {
-      fetchPromises.push(this.getDamage(currentTime));
+      if (this.ebonRemoveTimestamps[index]) {
+        fetchPromises.push(this.getDamage(currentTime, this.ebonRemoveTimestamps[index]));
+      }
       index += 1;
       currentTime = this.ebonApplyTimestamps[index];
     }
@@ -272,12 +274,12 @@ class BuffTargetHelper extends Analyzer {
     });
   }
 
-  async getDamage(currentTime: number): Promise<DamageTables> {
+  async getDamage(currentTime: number, endTime: number): Promise<DamageTables> {
     const normalDamage = await fetchWcl<WCLDamageDoneTableResponse>(
       `report/tables/damage-done/${this.owner.report.code}`,
       {
         start: currentTime,
-        end: currentTime + this.interval,
+        end: endTime,
         filter: this.getFilter(false),
       },
     );
@@ -285,7 +287,7 @@ class BuffTargetHelper extends Analyzer {
       `report/tables/damage-done/${this.owner.report.code}`,
       {
         start: currentTime,
-        end: currentTime + this.interval,
+        end: endTime,
         filter: this.getFilter(true),
       },
     );
