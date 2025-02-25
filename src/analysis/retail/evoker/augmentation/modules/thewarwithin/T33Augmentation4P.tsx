@@ -15,7 +15,7 @@ type UpheavalCast = {
   essenceBurstStacks: number;
 };
 /**
- * (4) Set Augmentation: Upheaval deals 30% increased damage and increases the damage of your next 2 Eruption casts by 30%.
+ * (4) Set Augmentation: Upheavals have a 50% chance to grant Essence Burst. Essence Burst Eruptions deal 25% increased damage..
  */
 class T33Augmentation4P extends Analyzer {
   private uses: SpellUse[] = [];
