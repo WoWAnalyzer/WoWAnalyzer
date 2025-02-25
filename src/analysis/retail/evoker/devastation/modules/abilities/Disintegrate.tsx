@@ -77,6 +77,8 @@ class Disintegrate extends Analyzer {
   fightStartTime: number = 0;
   fightEndTime: number = 0;
 
+  isCurrentCastMassDisintegrate = false;
+
   /** Spells that you can/should clip with
    * Any other spell used to clip Disintegrate
    * is counted as a cancelled cast
@@ -97,6 +99,7 @@ class Disintegrate extends Analyzer {
 
   disintegrateTicksCounter: SpellTracker[] = [];
   disintegrateCasts: SpellTracker[] = [];
+  massDisintegrateCasts: SpellTracker[] = [];
   disintegrateChainCasts: SpellTracker[] = [];
   disintegrateClips: SpellTracker[] = [];
   problemPoints: SpellTracker[] = [];
@@ -187,9 +190,13 @@ class Disintegrate extends Analyzer {
       return;
     }
 
-    this.totalTicks += 1;
-    if (this.inDragonRageWindow) {
-      this.dragonRageTicks += 1;
+    if (this.isCurrentCastMassDisintegrate) {
+      this.totalMassDisintegrateTicks += 1;
+    } else {
+      this.totalTicks += 1;
+      if (this.inDragonRageWindow) {
+        this.dragonRageTicks += 1;
+      }
     }
 
     // This should not happen but w/e
@@ -206,13 +213,16 @@ class Disintegrate extends Analyzer {
   }
 
   onDisintegrateCast(event: CastEvent) {
-    if (isFromMassDisintegrate(event)) {
-      this.totalMassDisintegrateTargets += getDisintegrateTargetCount(event) - 1;
-    }
+    const isMassDisintegrate = isFromMassDisintegrate(event);
+    this.isCurrentCastMassDisintegrate = isMassDisintegrate;
 
-    this.totalCasts += 1;
-    if (this.inDragonRageWindow) {
-      this.dragonRageCasts += 1;
+    if (isMassDisintegrate) {
+      this.totalMassDisintegrateTargets += getDisintegrateTargetCount(event);
+    } else {
+      this.totalCasts += 1;
+      if (this.inDragonRageWindow) {
+        this.dragonRageCasts += 1;
+      }
     }
   }
 
@@ -261,11 +271,19 @@ class Disintegrate extends Analyzer {
       tooltip: '',
     });
 
-    this.disintegrateCasts.push({
-      timestamp: event.timestamp,
-      count: this.currentRemainingTicks,
-      tooltip: 'Cast',
-    });
+    if (this.isCurrentCastMassDisintegrate) {
+      this.massDisintegrateCasts.push({
+        timestamp: event.timestamp,
+        count: this.currentRemainingTicks,
+        tooltip: 'Mass Disintegrate Cast',
+      });
+    } else {
+      this.disintegrateCasts.push({
+        timestamp: event.timestamp,
+        count: this.currentRemainingTicks,
+        tooltip: 'Cast',
+      });
+    }
   }
 
   onRefreshDebuff(event: RefreshDebuffEvent | ApplyDebuffEvent) {
@@ -292,14 +310,25 @@ class Disintegrate extends Analyzer {
       });
     }  */
     else {
-      this.disintegrateChainCasts.push({
-        timestamp: event.timestamp,
-        count: this.currentRemainingTicks,
-        tooltip:
-          this.currentRemainingTicks === 2
-            ? 'Good Chain, you clipped: ' + (this.currentRemainingTicks - 1) + ` tick(s)`
-            : 'Good Chain',
-      });
+      if (this.isCurrentCastMassDisintegrate) {
+        this.massDisintegrateCasts.push({
+          timestamp: event.timestamp,
+          count: this.currentRemainingTicks,
+          tooltip:
+            this.currentRemainingTicks === 2
+              ? 'Good Chain, you clipped: ' + (this.currentRemainingTicks - 1) + ` tick(s)`
+              : 'Good Chain',
+        });
+      } else {
+        this.disintegrateChainCasts.push({
+          timestamp: event.timestamp,
+          count: this.currentRemainingTicks,
+          tooltip:
+            this.currentRemainingTicks === 2
+              ? 'Good Chain, you clipped: ' + (this.currentRemainingTicks - 1) + ` tick(s)`
+              : 'Good Chain',
+        });
+      }
     }
 
     this.isCurrentCastChained = true;
@@ -416,6 +445,12 @@ class Disintegrate extends Analyzer {
         label: 'Disintegrate Casts',
       },
       {
+        spellTracker: this.massDisintegrateCasts,
+        type: 'point',
+        color: '#aa774f',
+        label: 'Mass Disintegrate Casts',
+      },
+      {
         spellTracker: this.disintegrateChainCasts,
         type: 'point',
         color: 'orange',
@@ -477,6 +512,14 @@ class Disintegrate extends Analyzer {
             <li>
               Casts are highlighted in <span style={{ color: '#2ecc71' }}>green</span>
             </li>
+            {this.massDisintegrateCasts.length > 0 && (
+              <>
+                <li>
+                  Mass Disintegrate Casts are highlighted in{' '}
+                  <span style={{ color: '#aa774f' }}>brown</span>
+                </li>
+              </>
+            )}
             <li>
               Chained casts are highlighted in <span style={{ color: 'orange' }}>orange</span>
             </li>
