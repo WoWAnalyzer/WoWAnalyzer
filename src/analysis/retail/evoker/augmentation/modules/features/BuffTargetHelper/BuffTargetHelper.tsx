@@ -213,16 +213,13 @@ class BuffTargetHelper extends Analyzer {
 
     // Start 4 seconds in since you start the fight with 2x Prescience -> Ebon Might
     // This will also show MUCH better value targets
-    let index = 0;
-    let currentTime = this.ebonApplyTimestamps[index];
-
     const fetchPromises: Promise<DamageTables>[] = [];
-    while (currentTime < this.fightEnd) {
-      if (this.ebonRemoveTimestamps[index]) {
-        fetchPromises.push(this.getDamage(currentTime, this.ebonRemoveTimestamps[index]));
+    for (let i = 0; i < this.ebonApplyTimestamps.length; i += 1) {
+      if (this.ebonApplyTimestamps[i] && this.ebonRemoveTimestamps[i]) {
+        fetchPromises.push(
+          this.getDamage(this.ebonApplyTimestamps[i], this.ebonRemoveTimestamps[i]),
+        );
       }
-      index += 1;
-      currentTime = this.ebonApplyTimestamps[index];
     }
 
     const result = await Promise.all(fetchPromises);
