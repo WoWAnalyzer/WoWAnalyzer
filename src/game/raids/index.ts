@@ -33,7 +33,7 @@ interface EncounterConfig {
 
 export interface EncounterTimelineAbility {
   id: number;
-  type: 'begincast' | 'cast';
+  type: 'begincast' | 'cast' | 'summon';
   bossOnly?: boolean;
 }
 

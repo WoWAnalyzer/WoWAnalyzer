@@ -9,7 +9,14 @@ const Zonozz: Boss = {
   background: Background,
   headshot: Headshot,
   icon: 'achievment_boss_zonozz.jpg',
-  fight: {},
+  fight: {
+    timeline: {
+      abilities: [
+        // Black Blood of Go'rath
+        { id: 104378, type: 'cast' },
+      ],
+    },
+  },
 };
 
 export default Zonozz;

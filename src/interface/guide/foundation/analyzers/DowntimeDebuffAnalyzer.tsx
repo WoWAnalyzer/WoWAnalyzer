@@ -32,34 +32,64 @@ export default class DowntimeDebuffAnalyzer extends Analyzer {
     this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
-  private pendingDebuffs: Map<number, number> = new Map();
+  private pendingDebuffs: Map<number, PendingDebuff[]> = new Map();
   private segments: Array<{ start: number; end: number; abilityId: number }> = [];
 
   onApply(event: ApplyBuffEvent | ApplyDebuffEvent): void {
-    this.pendingDebuffs.set(event.ability.guid, event.timestamp);
+    if (!this.pendingDebuffs.has(event.ability.guid)) {
+      this.pendingDebuffs.set(event.ability.guid, []);
+    }
+    this.pendingDebuffs.get(event.ability.guid)!.push({
+      sourceID: event.sourceID,
+      sourceInstance: event.sourceInstance,
+      timestamp: event.timestamp,
+    });
   }
+
   onRemove(event: RemoveBuffEvent | RemoveDebuffEvent): void {
-    const startTime = this.pendingDebuffs.get(event.ability.guid) ?? this.owner.fight.start_time;
-    this.pendingDebuffs.delete(event.ability.guid);
+    const pending = this.pendingDebuffs.get(event.ability.guid) ?? [];
+    const startTime = pending.find(
+      (debuff) =>
+        debuff.sourceID === event.sourceID && debuff.sourceInstance === event.sourceInstance,
+    )?.timestamp;
+
+    // if we found a start event, remove it from the list.
+    if (startTime) {
+      this.pendingDebuffs.set(
+        event.ability.guid,
+        pending.filter(
+          (debuff) =>
+            debuff.sourceID !== event.sourceID || debuff.sourceInstance !== event.sourceInstance,
+        ),
+      );
+    }
 
     this.segments.push({
-      start: startTime,
+      start: startTime ?? this.owner.fight.start_time,
       end: event.timestamp,
       abilityId: event.ability.guid,
     });
   }
 
   onFightEnd(event: FightEndEvent): void {
-    for (const [abilityId, startTime] of this.pendingDebuffs) {
-      this.segments.push({
-        start: startTime,
-        end: event.timestamp,
-        abilityId,
-      });
+    for (const [abilityId, pendingDebuffs] of this.pendingDebuffs) {
+      for (const pending of pendingDebuffs) {
+        this.segments.push({
+          start: pending.timestamp,
+          end: event.timestamp,
+          abilityId,
+        });
+      }
     }
   }
 
   get debuffSegments() {
     return this.segments;
   }
+}
+
+interface PendingDebuff {
+  sourceID?: number;
+  sourceInstance?: number;
+  timestamp: number;
 }

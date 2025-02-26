@@ -405,26 +405,43 @@ function useBossAbilities(
   abilities: EncounterTimelineAbility[],
 ): CastEvent[] | undefined {
   const filter = useMemo(() => {
-    const casts = abilities
-      .filter((def) => def.type === 'cast' && !def.bossOnly)
-      .map((def) => def.id)
-      .join(',');
-    const begins = abilities
-      .filter((def) => def.type === 'begincast' && !def.bossOnly)
-      .map((def) => def.id)
-      .join(',');
+    const byType = abilities.reduce((byType: Record<string, number[]>, def) => {
+      if (def.bossOnly) {
+        return byType; // don't handle boss-only mechanics here
+      }
+      if (!byType[def.type]) {
+        byType[def.type] = [];
+      }
+      byType[def.type].push(def.id);
+      return byType;
+    }, {});
 
     const bossOnly = abilities
       .filter((def) => def.bossOnly)
       .map((def) => `(type='${def.type}' and ability.id = ${def.id} and source.role = 'Boss')`)
       .join(' and ');
 
-    const bossSuffix = bossOnly ? ' or ' + bossOnly : '';
+    const anyNpc = Object.entries(byType)
+      .map(([type, abilities]) => `(type='${type}' and ability.id in (${abilities.join(',')}))`)
+      .join(' or ');
 
-    return `(type='cast' and ability.id in (${casts})) or (type='begincast' and ability.id in (${begins})) ${bossSuffix}`;
+    const bossSuffix = bossOnly ? `or ${bossOnly}` : '';
+
+    return `${anyNpc} ${bossSuffix}`;
   }, [abilities]);
-  return useReportEvents(reportCode, startTime, endTime, filter) as CastEvent[] | undefined;
+  const events = useReportEvents(reportCode, startTime, endTime, filter) as CastEvent[] | undefined;
+
+  // remove adjacent duplicates. this comes up on a few classic bosses
+  return events?.filter(
+    (event, index, list) =>
+      event.ability?.guid !== list[index - 1]?.ability.guid ||
+      event.type !== list[index - 1]?.type ||
+      event.timestamp > (list[index - 1]?.timestamp ?? 0) + BOSS_ABILITY_MIN_GAP,
+  );
 }
+
+const BOSS_ABILITY_MIN_GAP = 500;
+
 function usePlayerGcdSegments() {
   const events = useEvents();
 
