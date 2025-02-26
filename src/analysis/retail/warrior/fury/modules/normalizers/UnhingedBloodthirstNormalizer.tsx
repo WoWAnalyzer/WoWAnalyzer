@@ -10,7 +10,7 @@ const BLADESTORM_DAMAGE_BUFFER_MS = 100; // bloodthirst cast is anywhere from ~5
 const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: UNHINGED_BLOODTHIRST,
-    linkingEventId: SPELLS.BLOODBATH.id,
+    linkingEventId: [SPELLS.BLOODBATH.id, SPELLS.BLOODTHIRST.id],
     linkingEventType: EventType.Cast,
     referencedEventId: SPELLS.RAVAGER_DAMAGE.id,
     referencedEventType: EventType.Damage,
@@ -20,27 +20,7 @@ const EVENT_LINKS: EventLink[] = [
   },
   {
     linkRelation: UNHINGED_BLOODTHIRST,
-    linkingEventId: SPELLS.BLOODTHIRST.id,
-    linkingEventType: EventType.Cast,
-    referencedEventId: SPELLS.RAVAGER_DAMAGE.id,
-    referencedEventType: EventType.Damage,
-    forwardBufferMs: RAVAGER_DAMAGE_BUFFER_MS,
-    backwardBufferMs: RAVAGER_DAMAGE_BUFFER_MS,
-    anyTarget: true,
-  },
-  {
-    linkRelation: UNHINGED_BLOODTHIRST,
-    linkingEventId: SPELLS.BLOODBATH.id,
-    linkingEventType: EventType.Cast,
-    referencedEventId: SPELLS.BLADESTORM_DAMAGE.id,
-    referencedEventType: EventType.Damage,
-    forwardBufferMs: BLADESTORM_DAMAGE_BUFFER_MS,
-    backwardBufferMs: BLADESTORM_DAMAGE_BUFFER_MS,
-    anyTarget: true,
-  },
-  {
-    linkRelation: UNHINGED_BLOODTHIRST,
-    linkingEventId: SPELLS.BLOODTHIRST.id,
+    linkingEventId: [SPELLS.BLOODBATH.id, SPELLS.BLOODTHIRST.id],
     linkingEventType: EventType.Cast,
     referencedEventId: SPELLS.BLADESTORM_DAMAGE.id,
     referencedEventType: EventType.Damage,

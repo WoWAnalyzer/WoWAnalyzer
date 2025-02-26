@@ -21,6 +21,7 @@ import SpellUsable from './modules/features/SpellUsable';
 import Checklist from './modules/features/checklist/Module';
 import ColdSteelHotBloodNormalizer from './modules/normalizers/ColdSteelHotBlood';
 import UnhingedBloodthirstNormalizer from './modules/normalizers/UnhingedBloodthirstNormalizer';
+import RageGenerationEventLinkNormalizer from './modules/normalizers/RageGenerationEventLinkNormalizer';
 import EnrageBeforeBloodthirst from './modules/normalizers/EnrageBeforeBloodthirst';
 import EnrageRefreshNormalizer from './modules/normalizers/EnrageRefresh';
 import CrushingBlow from './modules/spells/CrushingBlow';
@@ -44,6 +45,7 @@ class CombatLogParser extends CoreCombatLogParser {
     generateRageEventsNormalizer: GenerateRageEventsNormalizer,
     rageAttributeNormalizer: RageAttributeNormalizer,
     coldSteelHotBloodNormalizer: ColdSteelHotBloodNormalizer,
+    rageGenerationEventLinkNormalizer: RageGenerationEventLinkNormalizer,
     unhingedBloodthirstNormalizer: UnhingedBloodthirstNormalizer,
 
     enrageRefreshNormalizer: EnrageRefreshNormalizer,
