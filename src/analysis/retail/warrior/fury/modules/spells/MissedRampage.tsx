@@ -4,6 +4,7 @@ import talents, { TALENTS_WARRIOR } from 'common/TALENTS/warrior';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 import Events, { CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
@@ -72,21 +73,38 @@ class MissedRampage extends Analyzer {
 
     const rage = event.classResources[0].amount / 10;
 
-    if (this.hasAngerManagement && rage >= 90) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.ENRAGE) && rage >= 80) {
       this.missedRampages += 1;
-    } else if (this.hasRecklessAbandon) {
-      // RA is okay with overcapping on rage in a lot of cases
-      // Mostly to use Crushing Blow/Bloodbath charges
-      // Naiively only checking for Raging Blow here
-      // since Unhinged Bladestorm triggers a few Bloodthirsts that will
-      // easily overcap rage
-      if (
-        rage >= 115 &&
-        !this.selectedCombatant.hasBuff(SPELLS.CRUSHING_BLOW_BUFF) &&
-        !this.selectedCombatant.hasBuff(SPELLS.BLOODBATH_BUFF) &&
-        event.ability.guid === SPELLS.RAGING_BLOW.id
-      ) {
+      addInefficientCastReason(
+        event,
+        'A rage generating ability while not enraged, when Rampage was available',
+      );
+    }
+
+    if (
+      // with Brutal Finish, it's okay to overcap on rage a bit to stack Slaughtering Strikes before Rampaging
+      this.selectedCombatant.hasBuff(SPELLS.ENRAGE) &&
+      !(
+        event.ability.guid === SPELLS.RAGING_BLOW.id &&
+        this.selectedCombatant.getBuffStacks(SPELLS.SLAUGHTERING_STRIKES_BUFF) < 5 &&
+        this.selectedCombatant.hasBuff(SPELLS.BRUTAL_FINISH_BUFF)
+      )
+    ) {
+      if (this.hasAngerManagement && rage >= 100) {
         this.missedRampages += 1;
+        addInefficientCastReason(
+          event,
+          'A rage generating ability was cast when Rampage would have been better',
+        );
+      } else if (this.hasRecklessAbandon) {
+        // RA is okay with overcapping on rage during reck to use crushing blow/bloodbath
+        if (rage >= 120 && !this.selectedCombatant.hasBuff(SPELLS.RECKLESSNESS)) {
+          this.missedRampages += 1;
+          addInefficientCastReason(
+            event,
+            'A rage generating ability was cast when Rampage would have been better',
+          );
+        }
       }
     }
   }
