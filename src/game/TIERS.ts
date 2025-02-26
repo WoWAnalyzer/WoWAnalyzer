@@ -13,4 +13,6 @@ export enum TIERS {
   DF4,
   // Nerubar Palace
   TWW1,
+  // Liberation of Undermine
+  TWW2,
 }

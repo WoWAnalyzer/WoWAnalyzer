@@ -19,8 +19,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import {
   TITANIC_WRATH_MULTIPLIER,
-  DISINTEGRATE_CHAINED_TICKS,
-  DISINTEGRATE_TICKS,
+  GetDisintegrateTicks,
 } from 'analysis/retail/evoker/devastation/constants';
 import { SpellLink } from 'interface';
 import TalentSpellText from 'parser/ui/TalentSpellText';
@@ -40,6 +39,9 @@ class TitanicWrath extends Analyzer {
 
   trackDamage: boolean = false;
   trackedSpells = [DISINTEGRATE, PYRE];
+
+  ticksPerDisintegrate = 0;
+  ticksPerChainedDisintegrate = 0;
 
   constructor(options: Options) {
     super(options);
@@ -63,15 +65,20 @@ class TitanicWrath extends Analyzer {
       Events.removedebuff.by(SELECTED_PLAYER).spell(DISINTEGRATE),
       this.removeDebuff,
     );
+
+    this.ticksPerDisintegrate = GetDisintegrateTicks(this.selectedCombatant).disintegrateTicks;
+    this.ticksPerChainedDisintegrate = GetDisintegrateTicks(
+      this.selectedCombatant,
+    ).disintegrateChainedTicks;
   }
 
   onBuffRemove(event: RemoveBuffEvent) {
     if (HasRelatedEvent(event, ESSENCE_BURST_CONSUME)) {
       this.trackDamage = true;
       if (this.ticksToCount > 0) {
-        this.ticksToCount = DISINTEGRATE_CHAINED_TICKS;
+        this.ticksToCount = this.ticksPerChainedDisintegrate;
       } else {
-        this.ticksToCount = DISINTEGRATE_TICKS;
+        this.ticksToCount = this.ticksPerDisintegrate;
       }
     }
   }
@@ -80,9 +87,9 @@ class TitanicWrath extends Analyzer {
     if (HasRelatedEvent(event, ESSENCE_BURST_CONSUME)) {
       this.trackDamage = true;
       if (this.ticksToCount > 0) {
-        this.ticksToCount = DISINTEGRATE_CHAINED_TICKS;
+        this.ticksToCount = this.ticksPerChainedDisintegrate;
       } else {
-        this.ticksToCount = DISINTEGRATE_TICKS;
+        this.ticksToCount = this.ticksPerDisintegrate;
       }
     }
   }

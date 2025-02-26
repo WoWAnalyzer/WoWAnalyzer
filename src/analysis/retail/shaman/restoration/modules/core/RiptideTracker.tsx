@@ -1,5 +1,6 @@
 import { Options } from 'parser/core/Module';
 import talents, { TALENTS_SHAMAN } from 'common/TALENTS/shaman';
+import SPELLS from 'common/SPELLS';
 import HotTracker, { HotInfo, Tracker } from 'parser/shared/modules/HotTracker';
 import {
   PRIMAL_TIDE_CORE,
@@ -10,6 +11,9 @@ import {
   UNLEASH_LIFE,
 } from '../../constants';
 import Combatant from 'parser/core/Combatant';
+
+export const IMBUEMENT_MASTERY_ATT_NAME = 'Imbuement Mastery Earthliving Extension';
+export const WAVESPEAKERS_BLESSING_ATT_NAME = 'Wavespeakers Blessing Riptide Extension';
 
 class RiptideTracker extends HotTracker {
   riptideActive: boolean;
@@ -51,12 +55,35 @@ class RiptideTracker extends HotTracker {
   }
 
   _generateHotInfo(): HotInfo[] {
+    const isTotemic = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.IMBUEMENT_MASTERY_TALENT);
+    const wavespeakersBlessingRank = this.selectedCombatant.getTalentRank(
+      TALENTS_SHAMAN.WAVESPEAKERS_BLESSING_TALENT,
+    );
+
+    const imbuementMasteryAttribution = HotTracker.getNewAttribution(IMBUEMENT_MASTERY_ATT_NAME);
+    const wavespeakersBlessingAttribution = HotTracker.getNewAttribution(
+      WAVESPEAKERS_BLESSING_ATT_NAME,
+    );
     return [
       {
         spell: talents.RIPTIDE_TALENT,
         duration: this._getRiptideDuration,
         tickPeriod: 2000,
+        baseExtensions: [
+          {
+            attribution: wavespeakersBlessingAttribution,
+            amount: wavespeakersBlessingRank * WAVESPEAKERS_BLESSING,
+          },
+        ],
         maxDuration: this._getRiptideDuration,
+      },
+      {
+        spell: SPELLS.EARTHLIVING_WEAPON_HEAL,
+        duration: 6000,
+        tickPeriod: 2000,
+        baseExtensions: [
+          { attribution: imbuementMasteryAttribution, amount: isTotemic ? 3000 : 0 },
+        ],
       },
     ];
   }

@@ -238,6 +238,11 @@ const spells = {
     name: 'Onslaught',
     icon: 'ability_warrior_trauma',
   },
+  WINNING_STREAK_BUFF_FURY: {
+    id: 1216561,
+    name: 'Winning Streak!',
+    icon: 'ability_rogue_keepitrolling',
+  },
 
   // Arms/Fury:
   PIERCING_HOWL: {
@@ -391,6 +396,11 @@ const spells = {
     id: 262115,
     name: 'Deep Wounds',
     icon: 'ability_backstab',
+  },
+  WINNING_STREAK_BUFF_ARMS: {
+    id: 1216552,
+    name: 'Winning Streak!',
+    icon: 'ability_rogue_keepitrolling',
   },
 
   // Arm Talents

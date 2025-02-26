@@ -16,6 +16,7 @@ import annotateTimeline from 'parser/shared/metrics/apl/annotate';
 import * as cnd from 'parser/shared/metrics/apl/conditions';
 
 const JUGGERNAUT_DURATION = 12000;
+const SUDDEN_DEATH_DURATION = 12000;
 export const MASSACRE_EXECUTE_THRESHOLD = 0.35;
 export const DEFAULT_EXECUTE_THRESHOLD = 0.2;
 
@@ -57,9 +58,13 @@ export const buildSlayerApl = (
       condition: cnd.and(
         executeUsable,
         cnd.or(
-          cnd.debuffStacks(SPELLS.MARKED_FOR_EXECUTION, { atLeast: 3, atMost: 3 }),
-          cnd.buffStacks(SPELLS.SUDDEN_DEATH_ARMS_TALENT_BUFF, { atLeast: 2, atMost: 2 }),
+          cnd.buffRemaining(SPELLS.SUDDEN_DEATH_ARMS_TALENT_BUFF, SUDDEN_DEATH_DURATION, {
+            atMost: 3000,
+          }), // TODO sudden death does wacky things with its duration and apply/refresh events,
+          // would prodbably be best to handle with a normalizer in a later update
           cnd.buffRemaining(SPELLS.JUGGERNAUT, JUGGERNAUT_DURATION, { atMost: 3000 }),
+          cnd.buffStacks(SPELLS.SUDDEN_DEATH_ARMS_TALENT_BUFF, { atLeast: 2, atMost: 2 }),
+          cnd.debuffStacks(SPELLS.MARKED_FOR_EXECUTION, { atLeast: 3, atMost: 3 }),
         ),
       ),
       description: (
@@ -70,10 +75,40 @@ export const buildSlayerApl = (
               Your target has 3 stacks of <SpellLink spell={SPELLS.MARKED_FOR_EXECUTION} />
             </li>
             <li>
-              You have 2 stacks of <SpellLink spell={SPELLS.SUDDEN_DEATH_ARMS_TALENT_BUFF} />
+              Your <SpellLink spell={SPELLS.JUGGERNAUT} /> is about to expire
             </li>
             <li>
-              Your <SpellLink spell={SPELLS.JUGGERNAUT} /> is about to expire
+              Your <SpellLink spell={SPELLS.SUDDEN_DEATH_ARMS_TALENT_BUFF} /> is about to expire
+            </li>
+            <li>
+              You have 2 stacks of <SpellLink spell={SPELLS.SUDDEN_DEATH_ARMS_TALENT_BUFF} />
+            </li>
+          </ul>
+        </>
+      ),
+    },
+
+    // OP inside execute with Opp
+    {
+      spell: SPELLS.OVERPOWER,
+      condition: cnd.and(
+        cnd.buffPresent(SPELLS.OPPORTUNIST),
+        cnd.buffStacks(TALENTS.OVERPOWER_TALENT, { atMost: 1 }), // Martial Prowess buff
+        cnd.hasResource(RESOURCE_TYPES.RAGE, { atMost: 850 }),
+        cnd.inExecute(executeThreshold),
+      ),
+      description: (
+        <>
+          Cast <SpellLink spell={SPELLS.OVERPOWER} /> while in execute range with the following
+          conditions:
+          <ul>
+            <li>
+              You have the <SpellLink spell={SPELLS.OPPORTUNIST} /> buff
+            </li>
+            <li>You are below 85 rage</li>
+            <li>
+              You have fewer than 2 stacks of{' '}
+              <SpellLink spell={TALENTS.OVERPOWER_TALENT}> Martial Prowess</SpellLink>{' '}
             </li>
           </ul>
         </>
@@ -85,59 +120,30 @@ export const buildSlayerApl = (
       spell: TALENTS.SKULLSPLITTER_TALENT,
       condition: cnd.optionalRule(
         cnd.and(
-          cnd.hasResource(RESOURCE_TYPES.RAGE, { atMost: 850 }), // rage is logged 10x higher than the player's "real" value
+          cnd.hasResource(RESOURCE_TYPES.RAGE, { atMost: 400 }), // rage is logged 10x higher than the player's "real" value
           cnd.inExecute(executeThreshold),
         ),
       ),
       description: (
         <>
-          (Optional) Cast <SpellLink spell={TALENTS.SKULLSPLITTER_TALENT} /> while below 85 rage and
+          (Optional) Cast <SpellLink spell={TALENTS.SKULLSPLITTER_TALENT} /> while below 40 rage and
           in execute range. You can gamble on getting enough rage from other sources, but on average
           it's best to avoid that.
         </>
       ),
     },
 
-    // MS inside execute
+    // MS w 2xEP inside execute
     {
       spell: SPELLS.MORTAL_STRIKE,
       condition: cnd.and(
         cnd.debuffStacks(SPELLS.EXECUTIONERS_PRECISION_DEBUFF, { atLeast: 2 }),
-        cnd.buffStacks(SPELLS.LETHAL_BLOWS_BUFF, { atLeast: 1 }),
         cnd.inExecute(executeThreshold),
       ),
       description: (
         <>
           Cast <SpellLink spell={SPELLS.MORTAL_STRIKE} /> while in execute range with 2 stacks of{' '}
-          <SpellLink spell={SPELLS.EXECUTIONERS_PRECISION_DEBUFF} /> and{' '}
-          <SpellLink spell={SPELLS.LETHAL_BLOWS_BUFF} /> (Nerub-ar Palace tier set buff)
-        </>
-      ),
-    },
-
-    // OP inside execute with Opp
-    {
-      spell: SPELLS.OVERPOWER,
-      condition: cnd.and(
-        cnd.buffPresent(SPELLS.OPPORTUNIST),
-        cnd.buffStacks(TALENTS.OVERPOWER_TALENT, { atMost: 1 }), // Martial Prowess buff
-        cnd.hasResource(RESOURCE_TYPES.RAGE, { atMost: 800 }),
-        cnd.inExecute(executeThreshold),
-      ),
-      description: (
-        <>
-          Cast <SpellLink spell={SPELLS.OVERPOWER} /> while in execute range with the following
-          conditions:
-          <ul>
-            <li>
-              You have the <SpellLink spell={SPELLS.OPPORTUNIST} /> buff
-            </li>
-            <li>You are below 80 rage</li>
-            <li>
-              You have fewer than 2 stacks of{' '}
-              <SpellLink spell={TALENTS.OVERPOWER_TALENT}> Martial Prowess</SpellLink>{' '}
-            </li>
-          </ul>
+          <SpellLink spell={SPELLS.EXECUTIONERS_PRECISION_DEBUFF} />
         </>
       ),
     },
@@ -183,11 +189,13 @@ export const buildSlayerApl = (
       condition: cnd.and(
         cnd.hasTalent(TALENTS.FIERCE_FOLLOWTHROUGH_TALENT),
         cnd.spellCharges(SPELLS.OVERPOWER, { atLeast: 2 }),
+        cnd.buffPresent(SPELLS.WINNING_STREAK_BUFF_ARMS),
         cnd.not(cnd.inExecute(executeThreshold)),
       ),
       description: (
         <>
-          Cast <SpellLink spell={SPELLS.OVERPOWER} /> when you have 2 charges available
+          Cast <SpellLink spell={SPELLS.OVERPOWER} /> when you have 2 charges available and have the{' '}
+          <SpellLink spell={SPELLS.WINNING_STREAK_BUFF_ARMS} /> buff
         </>
       ),
     },
@@ -229,17 +237,6 @@ export const buildSlayerApl = (
       ),
     },
 
-    // filler execute
-    {
-      spell: executeSpell,
-      condition: cnd.and(executeUsable, cnd.not(cnd.inExecute(executeThreshold))),
-      description: (
-        <>
-          Cast <SpellLink spell={executeSpell} />
-        </>
-      ),
-    },
-
     // OP
     {
       spell: SPELLS.OVERPOWER,
@@ -270,6 +267,21 @@ export const buildColossusApl = (
   executeSpell: Spell,
 ): Apl => {
   return build([
+    // Exe to refresh Jugg
+    {
+      spell: executeSpell,
+      condition: cnd.and(
+        executeUsable,
+        cnd.buffRemaining(SPELLS.JUGGERNAUT, JUGGERNAUT_DURATION, { atMost: 3000 }),
+      ),
+      description: (
+        <>
+          Cast <SpellLink spell={executeSpell} /> when your <SpellLink spell={SPELLS.JUGGERNAUT} />{' '}
+          is about to expire
+        </>
+      ),
+    },
+
     // SkS in exe below 85
     {
       spell: TALENTS.SKULLSPLITTER_TALENT,
@@ -288,29 +300,14 @@ export const buildColossusApl = (
       ),
     },
 
-    // MS in exe with 2xEP 2xLB (no battlelord)
+    // MS in exe with 2xEP
+    // Technically should also check that ravager isn't out
+    // but there's no logged buff for it
+    // so probably want to add a normalizer later
     {
       spell: SPELLS.MORTAL_STRIKE,
       condition: cnd.and(
         cnd.debuffStacks(SPELLS.EXECUTIONERS_PRECISION_DEBUFF, { atLeast: 2 }),
-        cnd.buffStacks(SPELLS.LETHAL_BLOWS_BUFF, { atLeast: 2 }),
-        cnd.inExecute(executeThreshold),
-      ),
-      description: (
-        <>
-          Cast <SpellLink spell={SPELLS.MORTAL_STRIKE} /> while in execute range with 2 stacks of{' '}
-          <SpellLink spell={SPELLS.EXECUTIONERS_PRECISION_DEBUFF} /> and{' '}
-          <SpellLink spell={SPELLS.LETHAL_BLOWS_BUFF} />
-        </>
-      ),
-    },
-
-    // MS in exe with 2xEP (battlelord)
-    {
-      spell: SPELLS.MORTAL_STRIKE,
-      condition: cnd.and(
-        cnd.debuffStacks(SPELLS.EXECUTIONERS_PRECISION_DEBUFF, { atLeast: 2 }),
-        cnd.hasTalent(TALENTS.BATTLELORD_TALENT),
         cnd.inExecute(executeThreshold),
       ),
       description: (
@@ -321,19 +318,16 @@ export const buildColossusApl = (
       ),
     },
 
-    // OP in exe with BL, 2 charges, <90 rage
+    // OP in exe
     {
       spell: SPELLS.OVERPOWER,
       condition: cnd.and(
-        cnd.hasTalent(TALENTS.BATTLELORD_TALENT),
-        cnd.spellCharges(SPELLS.OVERPOWER, { atLeast: 2 }),
-        cnd.hasResource(RESOURCE_TYPES.RAGE, { atMost: 900 }),
+        cnd.hasResource(RESOURCE_TYPES.RAGE, { atMost: 500 }),
         cnd.inExecute(executeThreshold),
       ),
       description: (
         <>
-          Cast <SpellLink spell={SPELLS.OVERPOWER} /> in execute range when you have 2 charges
-          available and are below 90 rage
+          Cast <SpellLink spell={SPELLS.OVERPOWER} /> in execute range when you are below 50 rage
         </>
       ),
     },
@@ -415,20 +409,6 @@ export const buildColossusApl = (
       description: (
         <>
           Cast <SpellLink spell={TALENTS.SKULLSPLITTER_TALENT} />
-        </>
-      ),
-    },
-
-    // 2op no exe
-    {
-      spell: SPELLS.OVERPOWER,
-      condition: cnd.and(
-        cnd.spellCharges(SPELLS.OVERPOWER, { atLeast: 2 }),
-        cnd.not(cnd.inExecute(executeThreshold)),
-      ),
-      description: (
-        <>
-          Cast <SpellLink spell={SPELLS.OVERPOWER} /> with 2 charges available
         </>
       ),
     },

@@ -14,7 +14,6 @@ import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 
 const RECOMMENDED_EFFICIENCY = 0.8;
@@ -237,22 +236,6 @@ class EarthenWallTotem extends Analyzer {
           </tbody>
         </table>
       </StatisticBox>
-    );
-  }
-
-  subStatistic() {
-    return (
-      <StatisticListBoxItem
-        title={<SpellLink spell={TALENTS.EARTHEN_WALL_TOTEM_TALENT} />}
-        value={`${formatPercentage(
-          this.owner.getPercentageOfTotalHealingDone(this.totalEffectiveHealing),
-        )} %`}
-        valueTooltip={
-          <Trans id="shaman.restoration.ewt.statisticlist.tooltip">
-            Pet healing is filtered out
-          </Trans>
-        }
-      />
     );
   }
 

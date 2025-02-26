@@ -63,6 +63,7 @@ export default class TWW1TierSet extends Analyzer {
 
   onHeal(event: HealEvent) {
     // Check if player has been under Tidal Waves for at least 100ms to prevent misattributions in case of a Riptide at the end of a cast
+    // Ignore ticks of healing
     if (
       !this.selectedCombatant.hasBuff(
         SPELLS.TIDAL_WAVES_BUFF.id,
@@ -77,18 +78,9 @@ export default class TWW1TierSet extends Analyzer {
     // If the caster is under Tidal Waves, tally the amount attributed to the 2pc bonus
     this.tidalWaves2pcBonusHealing += calculateEffectiveHealing(event, TWW1_TIER_2PC_BONUS);
     this.tidalWaves2pcOverHealing += calculateOverhealing(event, TWW1_TIER_2PC_BONUS);
-    this.tidalWavesBuffedCastNumber += 1;
   }
 
   onCast(event: CastEvent) {
-    if (this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
-      return;
-    }
-
-    if (!event.resourceCost) {
-      return;
-    }
-
     // Check if player has been under Tidal Waves for at least 100ms to prevent misattributions in case of a Riptide at the end of a cast
     if (
       !this.selectedCombatant.hasBuff(
@@ -98,6 +90,16 @@ export default class TWW1TierSet extends Analyzer {
         TIDAL_WAVES_BUFF_MINIMAL_ACTIVE_TIME,
       )
     ) {
+      return;
+    }
+
+    this.tidalWavesBuffedCastNumber += 1;
+
+    if (this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
+      return;
+    }
+
+    if (!event.resourceCost) {
       return;
     }
 

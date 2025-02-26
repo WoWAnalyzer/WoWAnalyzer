@@ -5,6 +5,8 @@ import { TALENTS_EVOKER } from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS/evoker';
 
 export default [
+  change(date(2025, 2, 25), <>Update various modules & abilities for 11.1</>, Vollmer),
+  change(date(2025, 2, 25), <>Update handling of <SpellLink spell={TALENTS_EVOKER.MASS_DISINTEGRATE_TALENT}/> ticks</>, Vollmer),
   change(date(2025, 1, 16), <>Implement <SpellLink spell={TALENTS_EVOKER.TIME_SPIRAL_TALENT}/> module</>, KYZ),
   change(date(2024, 11, 18), <>Update <SpellLink spell={TALENTS_EVOKER.SHATTERING_STAR_TALENT}/> & <SpellLink spell={TALENTS_EVOKER.ETERNITY_SURGE_TALENT}/> cooldown when using TWW1 4pc</>, Vollmer),
   change(date(2024, 10, 4), <>Fix an issue with external <SpellLink spell={TALENTS_EVOKER.RENEWING_BLAZE_TALENT}/> for MajorDefensive module</>, Vollmer),
@@ -27,7 +29,7 @@ export default [
   change(date(2024, 6, 30), <>Update periodic IDs for <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT} /> module</>, Vollmer),
   change(date(2024, 6, 22), <>Add <SpellLink spell={TALENTS_EVOKER.RED_HOT_TALENT} /> module</>, Trevor),
   change(date(2024, 6, 20), <>Integrate <SpellLink spell={TALENTS_EVOKER.CONSUME_FLAME_TALENT}/> into <SpellLink spell={TALENTS_EVOKER.EXPANDED_LUNGS_TALENT}/> module</>, Trevor),
-  change(date(2024, 6, 19), <>Add <SpellLink spell={TALENTS_EVOKER.FAN_THE_FLAMES_TALENT}/> module</>, Trevor),
+  change(date(2024, 6, 19), <>Add Fan The Flames module</>, Trevor),
   change(date(2024, 6, 19), <>Implement <SpellLink spell={TALENTS_EVOKER.EXPANDED_LUNGS_TALENT}/> module</>, Trevor),
   change(date(2024, 6, 16), <>Implement <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT}/> module</>, Trevor),
 ];

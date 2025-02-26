@@ -236,6 +236,53 @@ export const TWW1_TIER_BY_CLASSES: Record<number, TWW1_TIER_GEAR_IDS> = {
 };
 // endregion
 
+//region TWW2
+export const DEATH_KNIGHT_TWW2_ID = 1867;
+export const DEMON_HUNTER_TWW2_ID = 1868;
+export const DRUID_TWW2_ID = 1869;
+export const EVOKER_TWW2_ID = 1870;
+export const HUNTER_TWW2_ID = 1871;
+export const MAGE_TWW2_ID = 1872;
+export const MONK_TWW2_ID = 1873;
+export const PALADIN_TWW2_ID = 1874;
+export const PRIEST_TWW2_ID = 1875;
+export const ROGUE_TWW2_ID = 1876;
+export const SHAMAN_TWW2_ID = 1877;
+export const WARLOCK_TWW2_ID = 1878;
+export const WARRIOR_TWW2_ID = 1879;
+
+type TWW2_TIER_GEAR_IDS =
+  | typeof DEATH_KNIGHT_TWW2_ID
+  | typeof DEMON_HUNTER_TWW2_ID
+  | typeof DRUID_TWW2_ID
+  | typeof EVOKER_TWW2_ID
+  | typeof HUNTER_TWW2_ID
+  | typeof MAGE_TWW2_ID
+  | typeof MONK_TWW2_ID
+  | typeof PALADIN_TWW2_ID
+  | typeof PRIEST_TWW2_ID
+  | typeof ROGUE_TWW2_ID
+  | typeof SHAMAN_TWW2_ID
+  | typeof WARLOCK_TWW2_ID
+  | typeof WARRIOR_TWW2_ID;
+
+export const TWW2_TIER_BY_CLASSES: Record<number, TWW2_TIER_GEAR_IDS> = {
+  [CLASSES.DEATH_KNIGHT]: DEATH_KNIGHT_TWW2_ID,
+  [CLASSES.DEMON_HUNTER]: DEMON_HUNTER_TWW2_ID,
+  [CLASSES.DRUID]: DRUID_TWW2_ID,
+  [CLASSES.EVOKER]: EVOKER_TWW2_ID,
+  [CLASSES.HUNTER]: HUNTER_TWW2_ID,
+  [CLASSES.MAGE]: MAGE_TWW2_ID,
+  [CLASSES.MONK]: MONK_TWW2_ID,
+  [CLASSES.PALADIN]: PALADIN_TWW2_ID,
+  [CLASSES.PRIEST]: PRIEST_TWW2_ID,
+  [CLASSES.ROGUE]: ROGUE_TWW2_ID,
+  [CLASSES.SHAMAN]: SHAMAN_TWW2_ID,
+  [CLASSES.WARLOCK]: WARLOCK_TWW2_ID,
+  [CLASSES.WARRIOR]: WARRIOR_TWW2_ID,
+};
+// endregion
+
 // region Common
 export const TIER_BY_CLASSES: Record<number, Record<number, number>> = {
   [TIERS.DF1]: DF1_TIER_BY_CLASSES,
@@ -243,6 +290,7 @@ export const TIER_BY_CLASSES: Record<number, Record<number, number>> = {
   [TIERS.DF3]: DF3_TIER_BY_CLASSES,
   [TIERS.DF4]: DF4_TIER_BY_CLASSES,
   [TIERS.TWW1]: TWW1_TIER_BY_CLASSES,
+  [TIERS.TWW2]: TWW2_TIER_BY_CLASSES,
 };
 
 export type TIER_GEAR_IDS =
@@ -250,5 +298,6 @@ export type TIER_GEAR_IDS =
   | DF2_TIER_GEAR_IDS
   | DF3_TIER_GEAR_IDS
   | DF4_TIER_GEAR_IDS
-  | TWW1_TIER_GEAR_IDS;
+  | TWW1_TIER_GEAR_IDS
+  | TWW2_TIER_GEAR_IDS;
 // endregion

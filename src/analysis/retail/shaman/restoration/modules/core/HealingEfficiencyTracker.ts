@@ -11,6 +11,8 @@ import Resurgence from '../spells/Resurgence';
 import UnleashLife from '../talents/UnleashLife';
 import HealingDone from './HealingDone';
 import RestorationAbilityTracker from './RestorationAbilityTracker';
+import Downpour from '../talents/Downpour';
+import SurgingTotem from '../talents/totemic/SurgingTotem';
 
 class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
   static dependencies = {
@@ -22,6 +24,8 @@ class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
     unleashLife: UnleashLife,
     earthShield: EarthShield,
     primordialWave: PrimordialWave,
+    downpour: Downpour,
+    surgingTotem: SurgingTotem,
   };
 
   protected declare abilityTracker: RestorationAbilityTracker;
@@ -31,6 +35,8 @@ class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
   protected unleashLife!: UnleashLife;
   protected earthShield!: EarthShield;
   protected primordialWave!: PrimordialWave;
+  protected downpour!: Downpour;
+  protected surgingTotem!: SurgingTotem;
 
   getCustomSpellStats(spellInfo: SpellInfoDetails, spellId: number) {
     if (this.resurgence.resurgence[spellId]) {
@@ -52,6 +58,13 @@ class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
       this.getRiptideDetails(spellInfo);
     } else if (spellId === TALENTS.PRIMORDIAL_WAVE_RESTORATION_TALENT.id) {
       this.getPrimordialWaveDetails(spellInfo);
+    }
+
+    if (spellId === SPELLS.DOWNPOUR_ABILITY.id) {
+      this.getDownpourDetails(spellInfo);
+    }
+    if (spellId === SPELLS.SURGING_TOTEM.id) {
+      this.getSurgingTotemDetails(spellInfo);
     }
 
     return spellInfo;
@@ -102,6 +115,16 @@ class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
       spellInfo.healingDone += this.primordialWave.riptideHealing + this.primordialWave.waveHealing;
       spellInfo.overhealingDone +=
         this.primordialWave.riptideOverHealing + this.primordialWave.waveOverHealing;
+    }
+  }
+  getDownpourDetails(spellInfo: SpellInfoDetails) {
+    if (this.downpour) {
+      spellInfo.healingDone += this.downpour.downpourHealing;
+    }
+  }
+  getSurgingTotemDetails(spellInfo: SpellInfoDetails) {
+    if (this.surgingTotem) {
+      spellInfo.healingDone += this.surgingTotem.totalHealingDone;
     }
   }
 }

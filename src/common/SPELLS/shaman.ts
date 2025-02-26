@@ -351,6 +351,11 @@ const spells = {
     name: 'Stormkeeper',
     icon: 'ability_thunderking_lightningwhip',
   },
+  COALESCING_WATER_BUFF: {
+    id: 470077,
+    name: 'Coalescing Water',
+    icon: 'inv_helm_mail_raidshamanmythic_s_01',
+  },
   // Elemental Pet Spells
   WIND_GUST: {
     id: 157331,
@@ -948,6 +953,11 @@ const spells = {
     name: 'Tidewaters',
     icon: 'ability_shawaterelemental_split',
   },
+  ACID_RAIN_DAMAGE: {
+    id: 378597,
+    name: 'Acid Rain',
+    icon: 'spell_nature_acid_01',
+  },
   /** HERO TALENTS **/
   // Stormbringer
   TEMPEST_CAST: {
@@ -995,6 +1005,12 @@ const spells = {
     id: 447419,
     name: 'Lava Burst',
     icon: 'spell_shaman_lavaburst',
+  },
+  // Totemic
+  TOTEMIC_REBOUND_CHAIN_HEAL: {
+    id: 458357,
+    name: 'Chain Heal',
+    icon: 'spell_nature_healingwavegreater',
   },
 } satisfies Record<string, Spell>;
 

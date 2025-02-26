@@ -10,7 +10,6 @@ import Downpour from '../talents/Downpour';
 import EarthenWallTotem from '../talents/EarthenWallTotem';
 import HighTide from '../talents/HighTide';
 import NaturesGuardian from '../talents/NaturesGuardian';
-import Torrent from '../talents/Torrent';
 import Undulation from '../talents/Undulation';
 import UnleashLife from '../talents/UnleashLife';
 import Wellspring from '../talents/Wellspring';
@@ -19,11 +18,9 @@ import PrimalTideCore from '../talents/PrimalTideCore';
 import { EarthShield } from 'analysis/retail/shaman/shared';
 import WavespeakersBlessing from '../talents/WavespeakersBlessing';
 import AncestralReach from '../talents/AncestralReach';
-import Tidewaters from '../talents/Tidewaters';
 
 class TalentStatisticBox extends Analyzer {
   static dependencies = {
-    torrent: Torrent,
     unleashLife: UnleashLife,
     undulation: Undulation,
     deluge: Deluge,
@@ -39,10 +36,8 @@ class TalentStatisticBox extends Analyzer {
     earthShield: EarthShield,
     wavespeakersBlessing: WavespeakersBlessing,
     ancestralReach: AncestralReach,
-    tidewaters: Tidewaters,
   };
 
-  protected torrent!: Torrent;
   protected unleashLife!: UnleashLife;
   protected undulation!: Undulation;
   protected deluge!: Deluge;
@@ -58,25 +53,9 @@ class TalentStatisticBox extends Analyzer {
   protected earthShield!: EarthShield;
   protected wavespeakersBlessing!: WavespeakersBlessing;
   protected ancestralReach!: AncestralReach;
-  protected tidewaters!: Tidewaters;
 
   buildTalentList() {
     const talentList = [];
-    if (this.selectedCombatant.hasTalent(TALENTS.TORRENT_TALENT)) {
-      talentList.push(this.torrent.subStatistic());
-    }
-    if (this.selectedCombatant.hasTalent(TALENTS.UNLEASH_LIFE_TALENT)) {
-      talentList.push(this.unleashLife.subStatistic());
-    }
-    if (this.selectedCombatant.hasTalent(TALENTS.UNDULATION_TALENT)) {
-      talentList.push(this.undulation.subStatistic());
-    }
-    if (this.selectedCombatant.hasTalent(TALENTS.DELUGE_TALENT)) {
-      talentList.push(this.deluge.subStatistic());
-    }
-    if (this.selectedCombatant.hasTalent(TALENTS.EARTHEN_WALL_TOTEM_TALENT)) {
-      talentList.push(this.earthenWallTotem.subStatistic());
-    }
     if (this.selectedCombatant.hasTalent(TALENTS.NATURES_GUARDIAN_TALENT)) {
       talentList.push(this.naturesGuardian.subStatistic());
     }
@@ -95,20 +74,11 @@ class TalentStatisticBox extends Analyzer {
     if (this.selectedCombatant.hasTalent(TALENTS.PRIMORDIAL_WAVE_RESTORATION_TALENT)) {
       talentList.push(this.primordialWave.subStatistic());
     }
-    if (this.selectedCombatant.hasTalent(TALENTS.PRIMAL_TIDE_CORE_TALENT)) {
-      talentList.push(this.primalTideCore.subStatistic());
-    }
-    if (this.selectedCombatant.hasTalent(TALENTS.EARTH_SHIELD_TALENT)) {
-      talentList.push(this.earthShield.subStatistic());
-    }
     if (this.selectedCombatant.hasTalent(TALENTS.WAVESPEAKERS_BLESSING_TALENT)) {
       talentList.push(this.wavespeakersBlessing.subStatistic());
     }
     if (this.selectedCombatant.hasTalent(TALENTS.ANCESTRAL_REACH_TALENT)) {
       talentList.push(this.ancestralReach.subStatistic());
-    }
-    if (this.selectedCombatant.hasTalent(TALENTS.TIDEWATERS_TALENT)) {
-      talentList.push(this.tidewaters.subStatistic());
     }
     if (this.selectedCombatant.hasTalent(TALENTS.DOWNPOUR_TALENT)) {
       talentList.push(this.downpour.subStatistic());

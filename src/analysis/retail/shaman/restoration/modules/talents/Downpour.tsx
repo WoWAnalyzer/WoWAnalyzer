@@ -10,13 +10,16 @@ import SPELLS from 'common/SPELLS';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import SpellLink from 'interface/SpellLink';
+import SurgingTotem from './totemic/SurgingTotem';
 
 class Downpour extends Analyzer {
   static dependencies = {
     healingRain: HealingRain,
+    surgingTotem: SurgingTotem,
   };
 
   protected healingRain!: HealingRain;
+  protected surgingTotem!: SurgingTotem;
 
   downpourCasts = 0;
   downpourHits = 0;
@@ -45,12 +48,16 @@ class Downpour extends Analyzer {
     this.downpourHealing += event.amount;
   }
 
+  get availableDownpourCasts() {
+    return this.healingRain.casts + this.surgingTotem.casts;
+  }
+
   get wastedDownpourCasts() {
-    return this.healingRain.casts - this.downpourCasts;
+    return this.availableDownpourCasts - this.downpourCasts;
   }
 
   get wastedDownpourCastsPercent() {
-    return 1 - this.downpourCasts / this.healingRain.casts;
+    return 1 - this.downpourCasts / this.availableDownpourCasts;
   }
 
   get averageTargetsHit() {

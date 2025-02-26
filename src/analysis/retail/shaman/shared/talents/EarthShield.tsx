@@ -1,4 +1,4 @@
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 import { SpellLink } from 'interface';
@@ -8,7 +8,6 @@ import Events, { HealEvent } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import Combatants from 'parser/shared/modules/Combatants';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import ElementalOrbit from './ElementalOrbit';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
@@ -104,17 +103,6 @@ class EarthShield extends Analyzer {
     if (combatant && combatant.hasBuff(TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id, event.timestamp)) {
       this.buffHealing += calculateEffectiveHealing(event, this.earthShieldHealingIncrease);
     }
-  }
-
-  subStatistic() {
-    return (
-      <StatisticListBoxItem
-        title={<SpellLink spell={TALENTS_SHAMAN.EARTH_SHIELD_TALENT} />}
-        value={`${formatPercentage(
-          this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
-        )} %`}
-      />
-    );
   }
 
   /** Guide subsection describing the proper usage of Earth Shield */
