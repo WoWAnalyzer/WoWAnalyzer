@@ -63,7 +63,6 @@ import {
   Engulf,
   Panacea,
   ExpandedLungs,
-  FanTheFlames,
   RedHot,
   Reverberations,
   Chronoflame,
@@ -160,7 +159,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // hero talents
     engulf: Engulf,
     expandedLungs: ExpandedLungs,
-    FanTheFlames: FanTheFlames,
     redHot: RedHot,
     reverberations: Reverberations,
     chronoflame: Chronoflame,

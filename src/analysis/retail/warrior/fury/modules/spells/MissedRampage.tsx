@@ -114,10 +114,10 @@ class MissedRampage extends Analyzer {
       suggest(
         <>
           There were {actual} times you casted a rage generating ability when you should have cast{' '}
-          <SpellLink spell={SPELLS.RAMPAGE} />. <SpellLink spell={SPELLS.RAMPAGE} /> activates both
-          the <SpellLink spell={TALENTS_WARRIOR.RECKLESS_ABANDON_TALENT} /> and{' '}
-          <SpellLink spell={TALENTS_WARRIOR.ANGER_MANAGEMENT_TALENT} /> talents, and causes you to{' '}
-          <SpellLink spell={SPELLS.ENRAGE} />, increasing all of your damage done.
+          <SpellLink spell={SPELLS.RAMPAGE} />. <SpellLink spell={SPELLS.RAMPAGE} /> does high
+          damage, activates the <SpellLink spell={TALENTS_WARRIOR.ANGER_MANAGEMENT_TALENT} />{' '}
+          talent, and causes you to <SpellLink spell={SPELLS.ENRAGE} />, increasing all of your
+          damage done.
         </>,
       )
         .icon(SPELLS.RAMPAGE.icon)
