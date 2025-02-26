@@ -434,7 +434,7 @@ function useBossAbilities(
   // remove adjacent duplicates. this comes up on a few classic bosses
   return events?.filter(
     (event, index, list) =>
-      event.ability?.guid !== list[index - 1]?.ability.guid ||
+      event.ability?.guid !== list[index - 1]?.ability?.guid ||
       event.type !== list[index - 1]?.type ||
       event.timestamp > (list[index - 1]?.timestamp ?? 0) + BOSS_ABILITY_MIN_GAP,
   );
