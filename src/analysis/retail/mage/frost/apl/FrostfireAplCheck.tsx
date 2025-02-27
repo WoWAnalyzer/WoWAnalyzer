@@ -11,8 +11,6 @@ const excessFrostTwoStacks = cnd.buffStacks(SPELLS.EXCESS_FROST_BUFF, { atLeast:
 const excessFire = cnd.buffPresent(SPELLS.EXCESS_FIRE_BUFF);
 const brainFreeze = cnd.buffPresent(SPELLS.BRAIN_FREEZE_BUFF);
 
-const flurryGSCondition = cnd.and(cnd.debuffMissing(SPELLS.WINTERS_CHILL), apl.precastGlacialSpike);
-
 const flurryFfbCsCondition = cnd.and(
   lessThanFourIcicles,
   cnd.debuffMissing(SPELLS.WINTERS_CHILL),
@@ -30,7 +28,7 @@ const FlurryExFireCondition = cnd.and(excessFire, brainFreeze);
 export const frostfireApl = build([
   {
     spell: TALENTS.FLURRY_TALENT,
-    condition: flurryGSCondition,
+    condition: apl.precastGlacialSpikeAndNoWintersChill,
   },
   {
     spell: TALENTS.FLURRY_TALENT,

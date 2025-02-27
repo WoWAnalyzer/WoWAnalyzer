@@ -5,12 +5,6 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'interface/SpellLink';
 import * as apl from './FrostAplCommons';
 
-// 1. Flurry noWC & precasted FB / GS
-// 2. GS when can Shatter
-// 3. Frostbolt if Talent DC & IVbuff > 8 & DC < 8
-// 4. IL on 2WC or WC & BF
-// 5. Frostbolt
-
 const flurrySsCondition = cnd.and(
   cnd.debuffMissing(SPELLS.WINTERS_CHILL),
   cnd.or(apl.precastFrostbolt, apl.precastGlacialSpike),
