@@ -19,7 +19,10 @@ class CrushingBlow extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(talents.RECKLESS_ABANDON_TALENT);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CRUSHING_BLOW), this.onCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CRUSHING_BLOW),
+      this.onCrushingBlowCast,
+    );
   }
 
   get suggestionThresholds() {
@@ -34,7 +37,7 @@ class CrushingBlow extends Analyzer {
     };
   }
 
-  onCast(event: CastEvent) {
+  onCrushingBlowCast(event: CastEvent) {
     const slaughteringStrikesStacks = this.selectedCombatant.getBuffStacks(
       SPELLS.SLAUGHTERING_STRIKES_BUFF,
     );

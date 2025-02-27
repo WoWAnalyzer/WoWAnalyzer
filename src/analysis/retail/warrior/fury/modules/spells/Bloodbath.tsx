@@ -19,7 +19,10 @@ class Bloodbath extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(talents.RECKLESS_ABANDON_TALENT);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BLOODBATH), this.onCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BLOODBATH),
+      this.onBloodbathCast,
+    );
   }
 
   get suggestionThresholds() {
@@ -34,28 +37,26 @@ class Bloodbath extends Analyzer {
     };
   }
 
-  onCast(event: CastEvent) {
-    if (this.selectedCombatant.hasBuff(SPELLS.BLOODBATH_BUFF)) {
-      const bloodcrazeStacks = this.selectedCombatant.getBuffStacks(SPELLS.BLOODCRAZE.id);
-      const slaughteringStrikesStacks = this.selectedCombatant.getBuffStacks(
-        SPELLS.SLAUGHTERING_STRIKES_BUFF,
-      );
-      const enraged = this.selectedCombatant.hasBuff(SPELLS.ENRAGE);
+  onBloodbathCast(event: CastEvent) {
+    const bloodcrazeStacks = this.selectedCombatant.getBuffStacks(SPELLS.BLOODCRAZE.id);
+    const slaughteringStrikesStacks = this.selectedCombatant.getBuffStacks(
+      SPELLS.SLAUGHTERING_STRIKES_BUFF,
+    );
+    const enraged = this.selectedCombatant.hasBuff(SPELLS.ENRAGE);
 
-      if (!enraged) {
-        this.unenragedCount += 1;
-        this.badBloodbaths += 1;
-        addInefficientCastReason(event, 'Bloodbath was used while not enraged');
-      } else if (bloodcrazeStacks < 1) {
-        this.badBloodbaths += 1;
-        addInefficientCastReason(event, 'Bloodbath was used without any Bloodcraze stacks');
-      } else if (slaughteringStrikesStacks >= 3) {
-        this.badBloodbaths += 1;
-        addInefficientCastReason(
-          event,
-          'With at least 3 stacks of Slaughtering Strikes, Rampage should be used before Bloodbath',
-        );
-      }
+    if (!enraged) {
+      this.unenragedCount += 1;
+      this.badBloodbaths += 1;
+      addInefficientCastReason(event, 'Bloodbath was used while not enraged');
+    } else if (bloodcrazeStacks < 1) {
+      this.badBloodbaths += 1;
+      addInefficientCastReason(event, 'Bloodbath was used without any Bloodcraze stacks');
+    } else if (slaughteringStrikesStacks >= 3) {
+      this.badBloodbaths += 1;
+      addInefficientCastReason(
+        event,
+        'With at least 3 stacks of Slaughtering Strikes, Rampage should be used before Bloodbath',
+      );
     }
   }
 
