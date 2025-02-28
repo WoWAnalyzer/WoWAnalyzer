@@ -202,6 +202,15 @@ $npc-content-offset: 8em;
         box-shadow: 0 0 11px rgb(173, 173, 173);
         border-radius: 2px;
       }
+
+      &.additional img {
+        border: 2px solid #dbb031;
+        box-sizing: content-box;
+        margin-left: -1px;
+        margin-top: -1px;
+        box-shadow: 0 0 11px #dbb031;
+        border-radius: 2px;
+      }
     }
 
     .gcd {

@@ -47,7 +47,7 @@ class ThorimsInvocation extends Analyzer {
   protected procs: Record<number, ThorimsInvocationProc> = {
     [SPELLS.LIGHTNING_BOLT.id]: { casts: 0, damage: 0 },
     [TALENTS.CHAIN_LIGHTNING_TALENT.id]: { casts: 0, hits: 0, damage: 0 },
-    [SPELLS.TEMPEST_CAST.id]: { casts: 0, hits: 0, damage: 0 },
+    [SPELLS.TEMPEST.id]: { casts: 0, hits: 0, damage: 0 },
   };
   protected increaseDamage = 0;
   protected lastSpellCast: number | null = null;
@@ -78,7 +78,7 @@ class ThorimsInvocation extends Analyzer {
     this.addEventListener(
       Events.damage
         .by(SELECTED_PLAYER)
-        .spell([SPELLS.LIGHTNING_BOLT, TALENTS.CHAIN_LIGHTNING_TALENT, SPELLS.TEMPEST_CAST]),
+        .spell([SPELLS.LIGHTNING_BOLT, TALENTS.CHAIN_LIGHTNING_TALENT, SPELLS.TEMPEST]),
       this.onDamage,
     );
   }
@@ -197,10 +197,10 @@ class ThorimsInvocation extends Analyzer {
   }
 
   get tempestStatisticTooltip() {
-    const proc = this.procs[SPELLS.TEMPEST_CAST.id];
+    const proc = this.procs[SPELLS.TEMPEST.id];
     const castComponent = (
       <>
-        <SpellLink spell={SPELLS.TEMPEST_CAST} />
+        <SpellLink spell={SPELLS.TEMPEST} />
         {': '}
         <strong>{formatNumber(proc.casts)}</strong> {proc.casts === 1 ? 'cast' : 'casts'}
       </>

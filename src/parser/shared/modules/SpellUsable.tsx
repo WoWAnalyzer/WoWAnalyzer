@@ -117,6 +117,33 @@ class SpellUsable extends Analyzer {
   }
 
   /**
+   * The number of charges of the spell currently available, including partial charges.
+   * For an available spell without charges, this will always be one.
+   * For a spell that is on cooldown, this will be the number of charges available
+   * plus the fractional progress towards the next charge.
+   * @param spellId the spell's ID
+   */
+  public fractionalChargesAvailable(spellId: number): number {
+    const cdSpellId = this._getCanonicalId(spellId);
+    const cdInfo = this._currentCooldowns[cdSpellId];
+
+    if (!cdInfo) {
+      return this.abilities.getMaxCharges(cdSpellId) || 1;
+    }
+
+    if (cdInfo.chargesAvailable === cdInfo.maxCharges) {
+      return cdInfo.chargesAvailable;
+    }
+
+    const fractionalCharge = this.isOnCooldown(spellId)
+      ? (this.fullCooldownDuration(cdSpellId) - this.cooldownRemaining(cdSpellId)) /
+        this.fullCooldownDuration(cdSpellId)
+      : 0;
+
+    return cdInfo.chargesAvailable + fractionalCharge;
+  }
+
+  /**
    * The number of charges of the spell currently available.
    * For an available spell without charges, this will always be one.
    * @param spellId the spell's ID

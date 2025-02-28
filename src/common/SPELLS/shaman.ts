@@ -201,6 +201,11 @@ const spells = {
     name: 'Lightning Bolt Overload',
     icon: 'spell_nature_lightning',
   },
+  ECHOES_OF_GREAT_SUNDERING_BUFF: {
+    id: 384088,
+    name: 'Echoes of Great Sundering',
+    icon: 'spell_shaman_earthquake',
+  },
   ELEMENTAL_BLAST: {
     id: 117014,
     name: 'Elemental Blast',
@@ -231,9 +236,14 @@ const spells = {
     name: 'Totem Mastery: Tailwind Totem',
     icon: 'spell_nature_invisibilitytotem',
   },
-  LIQUID_MAGMA_TOTEM_DAMAGE: {
+  LIQUID_MAGMA: {
     id: 192231,
-    name: 'Liquid Magma Totem Damage',
+    name: 'Liquid Magma',
+    icon: 'spell_shaman_spewlava',
+  },
+  MAGMA_ERRUPTION: {
+    id: 383061,
+    name: 'Liquid Magma',
     icon: 'spell_shaman_spewlava',
   },
   EARTHEN_RAGE_DAMAGE: {
@@ -256,29 +266,14 @@ const spells = {
     name: 'Chain Lightning Overload',
     icon: 'spell_nature_chainlightning',
   },
-  LAVA_BEAM: {
-    id: 114074,
-    name: 'Lava Beam',
-    icon: 'ability_mage_firestarter',
-  },
-  LAVA_BEAM_OVERLOAD: {
-    id: 114738,
-    name: 'Lava Beam Overload',
-    icon: 'spell_fire_soulburn',
-  },
-  LAVA_BEAM_INSTANT: {
-    id: 217891,
-    name: 'Lava Beam',
-    icon: 'ability_mage_firestarter',
-  },
-  LAVA_BEAM_OVERLOAD_INSTANT: {
-    id: 218559,
-    name: 'Lava Beam Overload',
-    icon: 'spell_fire_soulburn',
-  },
   EARTHQUAKE_DAMAGE: {
     id: 77478,
     name: 'Earthquake',
+    icon: 'spell_shaman_earthquake',
+  },
+  EARTHQUAKE_OVERLOAD: {
+    id: 298765,
+    name: 'Earthquake Overload',
     icon: 'spell_shaman_earthquake',
   },
   EARTHQUAKE_SEISMIC_LIGHTNING: {
@@ -316,12 +311,11 @@ const spells = {
     name: 'Icefury Overload',
     icon: 'spell_frost_iceshard',
   },
-  ICEFURY: {
+  ICEFURY_CAST: {
     id: 210714,
     name: 'Icefury',
     icon: 'spell_frost_iceshard',
   },
-  // NYI in game
   ICEFURY_CASTABLE_BUFF: {
     id: 462818,
     name: 'Icefury',
@@ -1012,9 +1006,14 @@ const spells = {
   },
   /** HERO TALENTS **/
   // Stormbringer
-  TEMPEST_CAST: {
+  TEMPEST: {
     id: 452201,
     name: 'Tempest',
+    icon: 'inv_ability_stormcallershaman_tempest',
+  },
+  TEMPEST_OVERLOAD: {
+    id: 463351,
+    name: 'Tempest Overload',
     icon: 'inv_ability_stormcallershaman_tempest',
   },
   TEMPEST_BUFF: {

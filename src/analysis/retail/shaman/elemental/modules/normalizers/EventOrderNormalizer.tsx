@@ -19,6 +19,18 @@ class EventOrderNormalizer extends BaseEventOrderNormalizer {
         updateTimestamp: true,
         maxMatches: 1,
       },
+      // Master of the Elements buff needs to be present for the cast
+      {
+        beforeEventId: null,
+        beforeEventType: EventType.Cast,
+        afterEventId: SPELLS.MASTER_OF_THE_ELEMENTS_BUFF.id,
+        afterEventType: EventType.RemoveBuff,
+        anySource: true,
+        anyTarget: true,
+        bufferMs: 25,
+        updateTimestamp: true,
+        maxMatches: 1,
+      },
     ]);
 
     this.priority = NORMALIZER_ORDER.EventOrder;

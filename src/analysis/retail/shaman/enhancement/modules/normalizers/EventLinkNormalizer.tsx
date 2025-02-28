@@ -19,7 +19,7 @@ const thorimsInvocationCastLink: EventLink = {
   referencedEventId: [
     SPELLS.LIGHTNING_BOLT.id,
     TALENTS.CHAIN_LIGHTNING_TALENT.id,
-    SPELLS.TEMPEST_CAST.id,
+    SPELLS.TEMPEST.id,
   ],
   referencedEventType: [EventType.Damage],
   forwardBufferMs: EventLinkBuffers.MaelstromWeapon,
@@ -58,9 +58,9 @@ const crashLightningDamageLink: EventLink = {
 };
 const tempestDamageLink: EventLink = {
   linkRelation: EnhancementEventLinks.TEMPEST_LINK,
-  linkingEventId: SPELLS.TEMPEST_CAST.id,
+  linkingEventId: SPELLS.TEMPEST.id,
   linkingEventType: [EventType.Cast, EventType.FreeCast],
-  referencedEventId: SPELLS.TEMPEST_CAST.id,
+  referencedEventId: SPELLS.TEMPEST.id,
   referencedEventType: EventType.Damage,
   forwardBufferMs: EventLinkBuffers.CAST_DAMAGE_BUFFER,
   anyTarget: true,
