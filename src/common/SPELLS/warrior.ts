@@ -17,6 +17,11 @@ const spells = {
     name: 'Berserker Rage',
     icon: 'spell_nature_ancestralguardian',
   },
+  BRUTAL_FINISH_BUFF: {
+    id: 446918,
+    name: 'Brutal Finish',
+    icon: 'ability_revendreth_warrior',
+  },
   CHALLENGING_SHOUT: {
     id: 1161,
     name: 'Challenging Shout',
@@ -163,6 +168,11 @@ const spells = {
     name: 'Slam',
     icon: 'ability_warrior_decisivestrike',
   },
+  SLAUGHTERING_STRIKES_BUFF: {
+    id: 393931,
+    name: 'Slaughtering Strikes',
+    icon: 'inv_axe_2h_orcwarrior_c_01',
+  },
   SPELL_REFLECTION: {
     id: 23920,
     name: 'Spell Reflection',
@@ -237,6 +247,11 @@ const spells = {
     id: 315720,
     name: 'Onslaught',
     icon: 'ability_warrior_trauma',
+  },
+  WINNING_STREAK_BUFF_FURY: {
+    id: 1216561,
+    name: 'Winning Streak!',
+    icon: 'ability_rogue_keepitrolling',
   },
 
   // Arms/Fury:
@@ -391,6 +406,11 @@ const spells = {
     id: 262115,
     name: 'Deep Wounds',
     icon: 'ability_backstab',
+  },
+  WINNING_STREAK_BUFF_ARMS: {
+    id: 1216552,
+    name: 'Winning Streak!',
+    icon: 'ability_rogue_keepitrolling',
   },
 
   // Arm Talents

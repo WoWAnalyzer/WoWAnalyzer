@@ -198,13 +198,13 @@ const EVENT_LINKS: EventLink[] = [
     linkRelation: MASS_DISINTEGRATE_TICK,
     reverseLinkRelation: MASS_DISINTEGRATE_TICK,
     linkingEventId: SPELLS.DISINTEGRATE.id,
-    linkingEventType: EventType.Cast,
+    linkingEventType: EventType.Damage,
     referencedEventId: SPELLS.DISINTEGRATE.id,
-    referencedEventType: EventType.Damage,
+    referencedEventType: EventType.Cast,
     anyTarget: true,
-    forwardBufferMs: 4_000,
+    backwardBufferMs: 4_000,
     isActive: (C) => C.hasTalent(TALENTS.MASS_DISINTEGRATE_TALENT),
-    maximumLinks: 10,
+    maximumLinks: 1,
     additionalCondition(linkingEvent, referencedEvent) {
       return encodeEventTargetString(linkingEvent) !== encodeEventTargetString(referencedEvent);
     },
@@ -298,7 +298,7 @@ export function getDisintegrateDamageEvents(event: CastEvent): DamageEvent[] {
   const damageEvents = debuffEvents.map((debuffEvent) =>
     GetRelatedEvents<DamageEvent>(debuffEvent, DISINTEGRATE_DEBUFF_TICK_LINK),
   );
-  return damageEvents.flat();
+  return damageEvents.flat().sort((a, b) => a.timestamp - b.timestamp);
 }
 
 export function isFromMassDisintegrate(event: CastEvent) {

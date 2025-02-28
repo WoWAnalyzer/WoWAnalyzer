@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import getBossName from 'common/getBossName';
 import { getLabel as getDifficultyLabel } from 'game/DIFFICULTIES';
-import { Boss, Phase } from 'game/raids';
+import { Boss, Phase, findZoneByBossId } from 'game/raids';
 import Ad, { AdErrorBoundary, Location } from 'interface/Ad';
 import Config from 'parser/Config';
 import { ParseResultsTab } from 'parser/core/Analyzer';
@@ -68,10 +68,11 @@ const Header = ({
   }
 
   const expansion = currentExpansion(branch);
+  const raid = boss ? findZoneByBossId(boss.id) : undefined;
 
   return (
     <header>
-      <HeaderBackground boss={boss} expansion={expansion} />
+      <HeaderBackground boss={boss} expansion={expansion} raid={raid} />
 
       <AdErrorBoundary>
         <Ad location={Location.Top} />

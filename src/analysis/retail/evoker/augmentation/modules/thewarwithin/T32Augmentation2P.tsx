@@ -22,13 +22,13 @@ import {
 /**
  * (4) Set Augmentation: Upheaval deals 30% increased damage and increases the damage of your next 2 Eruption casts by 30%.
  */
-class TectonicLocus extends Analyzer {
+class T32Augmentation2P extends Analyzer {
   upheavalDamageIncrease = 0;
   volcanicUpsurgeDamage = 0;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.has4PieceByTier(TIERS.TWW1);
+    this.active = this.selectedCombatant.has2PieceByTier(TIERS.TWW1);
 
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell([SPELLS.UPHEAVAL_DAM, SPELLS.UPHEAVAL_DOT]),
@@ -103,4 +103,4 @@ class TectonicLocus extends Analyzer {
   }
 }
 
-export default TectonicLocus;
+export default T32Augmentation2P;

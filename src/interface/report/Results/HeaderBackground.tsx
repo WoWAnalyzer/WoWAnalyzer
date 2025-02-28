@@ -1,4 +1,5 @@
 import Expansion from 'game/Expansion';
+import { type Raid } from 'game/raids';
 
 interface Props {
   boss:
@@ -8,6 +9,7 @@ interface Props {
       }
     | undefined
     | null;
+  raid?: Raid;
   expansion: Expansion;
 }
 
@@ -20,8 +22,8 @@ const getFallbackImage = (expansion: Expansion) => {
   }
 };
 
-const HeaderBackground = ({ boss, expansion }: Props) => {
-  const backgroundImage = boss?.background ?? getFallbackImage(expansion);
+const HeaderBackground = ({ boss, expansion, raid }: Props) => {
+  const backgroundImage = boss?.background ?? raid?.background ?? getFallbackImage(expansion);
   const backgroundPosition = boss?.backgroundPosition ?? 'center';
 
   return (

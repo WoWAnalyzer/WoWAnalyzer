@@ -62,6 +62,8 @@ export function CoreRotationSection({ modules, events, info }: GuideProps<typeof
 
       {modules.shiftingSands.guideSubsection()}
 
+      {modules.t33Augmentation4P.guideSubsection()}
+
       {modules.moltenEmbers.guideSubsection()}
     </Section>
   );

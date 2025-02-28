@@ -49,9 +49,9 @@ class RageDetails extends WarriorRageDetails {
       return {
         actual: this.wastedPercent,
         isGreaterThan: {
-          minor: 0.05,
-          average: 0.1,
-          major: 0.15,
+          minor: 0.08,
+          average: 0.15,
+          major: 0.25,
         },
         style: ThresholdStyle.PERCENTAGE,
       };
