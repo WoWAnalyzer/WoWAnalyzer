@@ -38,7 +38,7 @@ export const MIND_MELT_CRIT = 0.2; //per stack of buff
 export const VOID_TOUCHED_MULTIPLIER = 0.06;
 
 //VoidWeaver Constants
-export const INNER_QUIETUS_MULTIPLIER = 0.25;
+export const INNER_QUIETUS_MULTIPLIER = 0.35;
 export const VOIDHEART_MULTIPLIER = 0.1;
 export const COLLAPSING_VOID_DEVOURING_PLAGUE_MULTIPLIER = 0.2;
 
