@@ -77,7 +77,7 @@ class Abilities extends CoreAbilities {
           suggestion: false,
         },
         gcd: {
-          static: 1000,
+          base: 1000,
         },
       },
       {
