@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
 export default [
+  change(date(2025, 3, 1), <>Updated Mastery calculations to account for 11.1 changes. Marked as updated for 11.1.0.</>, Sref),
   change(date(2025, 2, 16), <>Added support for the Liberation of Undermine tier set.</>, Sref),
   change(date(2024, 11, 18), <>Fixed an issue where <SpellLink spell={TALENTS_DRUID.HARMONIOUS_BLOOMING_TALENT} /> was counted as only 1 mastery stack.</>, Sref),
   change(date(2024, 10, 27), <>Updated for 11.0.5, handling added / changed talents and added statistics module for <SpellLink spell={TALENTS_DRUID.RENEWING_SURGE_TALENT} />. Fixed an issue where a cast efficiency bar would show for <SpellLink spell={TALENTS_DRUID.TRANQUILITY_TALENT} /> and <SpellLink spell={TALENTS_DRUID.INNERVATE_TALENT} /> even when player didn't take the talents. Fixed an issue where Grove Guardian Swiftmend healing wasn't registering.</>, Sref),

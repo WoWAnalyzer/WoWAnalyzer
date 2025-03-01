@@ -9,7 +9,30 @@ const DeathwingSpine: Boss = {
   background: Background,
   headshot: Headshot,
   icon: 'achievment_boss_spineofdeathwing.jpg',
-  fight: {},
+  fight: {
+    timeline: {
+      debuffs: [
+        {
+          // Grasping Tendrils
+          id: 105563,
+          type: 'debuff',
+        },
+        {
+          // Fiery Grip
+          id: 105490,
+          type: 'debuff',
+        },
+      ],
+      abilities: [
+        {
+          // Nuclear Blast
+          id: 105845,
+          type: 'cast',
+        },
+        // Barrel Roll doesn't seem to log
+      ],
+    },
+  },
 };
 
 export default DeathwingSpine;

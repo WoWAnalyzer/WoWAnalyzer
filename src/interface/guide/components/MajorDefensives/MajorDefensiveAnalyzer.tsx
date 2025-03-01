@@ -118,7 +118,7 @@ export function absoluteMitigation(event: DamageEvent, mitPct: number): number {
  */
 export const MitigationRowContainer = styled.div`
   display: grid;
-  grid-template-columns: 2em 2em 100px;
+  grid-template-columns: 2em min-content 100px;
   gap: 1em;
   align-items: center;
 

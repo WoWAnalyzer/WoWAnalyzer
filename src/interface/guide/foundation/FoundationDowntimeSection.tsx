@@ -9,6 +9,8 @@ import { formatPercentage } from 'common/format';
 import { FoundationHighlight as HL } from './shared';
 import { ByRole, Role } from './ByRole';
 import Para from '../Para';
+import FoundationDowntimeSectionV2 from './FoundationDowntimeSectionV2';
+import ROLES from 'game/ROLES';
 
 export function FoundationDowntimeSection(): JSX.Element | null {
   const alwaysBeCasting = useAnalyzer(AlwaysBeCasting);
@@ -20,60 +22,70 @@ export function FoundationDowntimeSection(): JSX.Element | null {
 
   return (
     <SubSection title="Always Be Casting">
-      <Explanation>
-        <Para>
-          The foundation of good play in <em>World of Warcraft</em> is having low downtime. The
-          first step is to <strong>Always Be Casting</strong>.{' '}
-          <HL>
+      <ByRole>
+        <Role.Melee>
+          <FoundationDowntimeSectionV2 />
+        </Role.Melee>
+        <Role roles={[ROLES.HEALER, ROLES.DPS.RANGED]}>
+          <Explanation>
+            <Para>
+              The foundation of good play in <em>World of Warcraft</em> is having low downtime. The
+              first step is to <strong>Always Be Casting</strong>.{' '}
+              <HL>
+                <ByRole>
+                  <Role.Melee>
+                    There should be no gaps between the end of one <GCD /> and the start of the
+                    next.
+                  </Role.Melee>
+                  <Role.Caster>
+                    There should be no gaps between the end of one spell cast and the start of the
+                    next.
+                  </Role.Caster>
+                </ByRole>
+              </HL>{' '}
+              It is better to use the wrong spell and keep going than it is to stop and think
+              between each cast&mdash;using nothing does no damage or healing, but using anything
+              (even if it isn't the <em>best</em> choice) will at least do <em>something.</em>
+            </Para>
+            <Para>
+              With practice, you can keep active <em>and</em> pick the right spells for each moment,
+              but remember that <strong>doing something is better than doing nothing</strong>.
+            </Para>
+          </Explanation>
+
+          <Para>
+            Active Time:{' '}
+            <PerformanceStrong performance={alwaysBeCasting.DowntimePerformance}>
+              {formatPercentage(alwaysBeCasting.activeTimePercentage, 1)}%
+            </PerformanceStrong>{' '}
             <ByRole>
-              <Role.Melee>
-                There should be no gaps between the end of one <GCD /> and the start of the next.
-              </Role.Melee>
               <Role.Caster>
-                There should be no gaps between the end of one spell cast and the start of the next.
+                Cancelled Casts:{' '}
+                {cancelledCasts /* need to check this because the parameters are evaluated even for melee */ && (
+                  <PerformanceStrong performance={cancelledCasts.CancelledPerformance}>
+                    {formatPercentage(cancelledCasts.cancelledPercentage, 1)}%
+                  </PerformanceStrong>
+                )}
               </Role.Caster>
             </ByRole>
-          </HL>{' '}
-          It is better to use the wrong spell and keep going than it is to stop and think between
-          each cast&mdash;using nothing does no damage or healing, but using anything (even if it
-          isn't the <em>best</em> choice) will at least do <em>something.</em>
-        </Para>
-        <Para>
-          With practice, you can keep active <em>and</em> pick the right spells for each moment, but
-          remember that <strong>doing something is better than doing nothing</strong>.
-        </Para>
-      </Explanation>
-
-      <Para>
-        Active Time:{' '}
-        <PerformanceStrong performance={alwaysBeCasting.DowntimePerformance}>
-          {formatPercentage(alwaysBeCasting.activeTimePercentage, 1)}%
-        </PerformanceStrong>{' '}
-        <ByRole>
-          <Role.Caster>
-            Cancelled Casts:{' '}
-            {cancelledCasts /* need to check this because the parameters are evaluated even for melee */ && (
-              <PerformanceStrong performance={cancelledCasts.CancelledPerformance}>
-                {formatPercentage(cancelledCasts.cancelledPercentage, 1)}%
-              </PerformanceStrong>
-            )}
-          </Role.Caster>
-        </ByRole>
-      </Para>
-      <Para>
-        <ActiveTimeGraph
-          activeTimeSegments={alwaysBeCasting.activeTimeSegments}
-          fightStart={info!.fightStart}
-          fightEnd={info!.fightEnd}
-        />
-      </Para>
-      <Para>
-        As a general guideline,{' '}
-        <HL>
-          you should have <strong>80%+</strong> active time during normal phases of a boss fight.
-        </HL>{' '}
-        Exceptional players will often hit <em>nearly 100%</em> during these periods.
-      </Para>
+          </Para>
+          <Para>
+            <ActiveTimeGraph
+              activeTimeSegments={alwaysBeCasting.activeTimeSegments}
+              fightStart={info!.fightStart}
+              fightEnd={info!.fightEnd}
+            />
+          </Para>
+          <Para>
+            As a general guideline,{' '}
+            <HL>
+              you should have <strong>80%+</strong> active time during normal phases of a boss
+              fight.
+            </HL>{' '}
+            Exceptional players will often hit <em>nearly 100%</em> during these periods.
+          </Para>
+        </Role>
+      </ByRole>
     </SubSection>
   );
 }
