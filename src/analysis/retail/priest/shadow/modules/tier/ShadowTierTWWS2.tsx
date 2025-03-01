@@ -25,7 +25,6 @@ const SHADOW_TWW_TIER_2_DAMAGE_MULTIPLIER_4P = 0.1; //10% damage increase during
 //The PI does have a cast event, and its the same as a normal PI cast.
 //We can just track the voidbolts without casts, and use that for everything.
 //To do so, we can use an Event Normalizer, to link VB cast events to VB damage events, then check each damage event for the relationship.
-//Or I could have just counted the difference between number of damage and cast events of VB, but I didn't think of that until I finished the normalizer.
 
 //Also, duing PI you gain 10% increased damage to VB and MB
 
