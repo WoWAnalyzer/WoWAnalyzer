@@ -3,14 +3,9 @@ import Para from 'interface/guide/Para';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 import { FoundationCooldownSection } from 'interface/guide/foundation/FoundationCooldownSection';
 import { useExpansionContext } from 'interface/report/ExpansionContext';
-import { FoundationHighlight as HL } from 'interface/guide/foundation/shared';
-import Explanation from 'interface/guide/components/Explanation';
 import ResourceLink from 'interface/ResourceLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import PerformanceStrong from 'interface/PerformanceStrong';
-import { formatPercentage } from 'common/format';
 import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
-import ActiveTimeGraph from 'parser/ui/ActiveTimeGraph';
 import FoundationDowntimeSectionV2 from 'interface/guide/foundation/FoundationDowntimeSectionV2';
 
 export default function Guide(): JSX.Element {
