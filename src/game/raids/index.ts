@@ -25,6 +25,24 @@ interface EncounterConfig {
   disableDeathSuggestion?: boolean;
   disableDowntimeSuggestion?: boolean;
   disableDowntimeStatistic?: boolean;
+  timeline?: {
+    abilities?: EncounterTimelineAbility[];
+    debuffs?: EncounterTimelineDebuff[];
+  };
+}
+
+export interface EncounterTimelineAbility {
+  id: number;
+  type: 'begincast' | 'cast' | 'summon';
+  bossOnly?: boolean;
+}
+
+export interface EncounterTimelineDebuff {
+  id: number;
+  /**
+   * Whether this logs as a buff or debuff. Default is `debuff`.
+   */
+  type?: 'debuff' | 'buff';
 }
 
 interface Encounter {

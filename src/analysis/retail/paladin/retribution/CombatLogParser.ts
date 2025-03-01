@@ -25,6 +25,8 @@ import Crusade from './modules/talents/Crusade';
 import EmpyreanPower from './modules/talents/EmpyreanPower';
 import BuilderUse from './modules/core/BuilderUse';
 import Guide from './Guide';
+import { MeleeUptimeAnalyzer } from 'interface/guide/foundation/analyzers/MeleeUptimeAnalyzer';
+import SPELLS from 'common/SPELLS';
 
 class CombatLogParser extends CoreCombatLogParser {
   static guide = Guide;
@@ -62,6 +64,8 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Items
     finalVerdict: FinalVerdict,
+
+    meleeUptime: MeleeUptimeAnalyzer.withMeleeAbility(SPELLS.CRUSADING_STRIKES),
   };
 }
 

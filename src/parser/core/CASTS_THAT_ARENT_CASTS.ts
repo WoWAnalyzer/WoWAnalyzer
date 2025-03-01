@@ -23,6 +23,7 @@ const spells: number[] = [
   SPELLS.DIVINE_HYMN_HEAL.id, //The heal component of divine hymn
   SPELLS.CHARGE_2.id, // The damage component of charge
   SPELLS.BLOOD_ELF_ILLUSION.id, // Orb of the Sin'dorei
+  SPELLS.CHI_SURGE_DEBUFF.id,
 
   //region Boss abilities
   SPELLS.RIONTHUS_DISINTEGRATE.id, // targeted player is shown as 'casting' this spell

@@ -116,6 +116,8 @@ import MadQueensMandate from 'parser/retail/modules/items/thewarwithin/trinkets/
 import SkardynsGrace from 'parser/retail/modules/items/thewarwithin/trinkets/SkardynsGrace';
 import MereldarsToll from 'parser/retail/modules/items/thewarwithin/trinkets/MereldarsToll';
 import CirralConcoctory from 'parser/retail/modules/items/thewarwithin/trinkets/CirralConcotory';
+import { MeleeUptimeAnalyzer } from 'interface/guide/foundation/analyzers/MeleeUptimeAnalyzer';
+import DowntimeDebuffAnalyzer from 'interface/guide/foundation/analyzers/DowntimeDebuffAnalyzer';
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
 const MAX_DI_ITERATIONS = 100;
@@ -178,6 +180,8 @@ class CombatLogParser {
     haste: Haste,
     statTracker: StatTracker,
     alwaysBeCasting: AlwaysBeCasting,
+    meleeUptime: MeleeUptimeAnalyzer,
+    downtimeDebuffs: DowntimeDebuffAnalyzer,
     filteredActiveTime: FilteredActiveTime,
     abilities: Abilities,
     buffs: Auras,

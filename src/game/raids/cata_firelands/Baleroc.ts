@@ -10,7 +10,27 @@ const Baleroc: Boss = {
   background: Background,
   headshot: Headshot,
   icon: 'achievement_firelandsraid_balorocthegatekeeper.jpg',
-  fight: {},
+  fight: {
+    timeline: {
+      abilities: [
+        {
+          // Shards of Torment
+          id: 99259,
+          type: 'cast',
+        },
+      ],
+      debuffs: [
+        {
+          // Torment (soaking Shards)
+          id: 99256,
+        },
+        {
+          // Countdown
+          id: 99516,
+        },
+      ],
+    },
+  },
 };
 
 export default Baleroc;

@@ -5,7 +5,7 @@ import { Trans } from '@lingui/macro';
 import Suggestion from 'interface/report/Results/Suggestion';
 
 interface SuggestionsProps {
-  parseResults: ParseResults;
+  parseResults: Pick<ParseResults, 'issues'>;
   showMinorIssues: boolean;
 }
 const Suggestions = ({ parseResults, showMinorIssues }: SuggestionsProps) => (
