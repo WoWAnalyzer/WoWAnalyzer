@@ -22,7 +22,7 @@ const SHADOW_TWW_TIER_2_DAMAGE_MULTIPLIER_4P = 0.1; //10% damage increase during
 //Hitting a jackpot! does 2 things.  Launches a void bolt, and gives 5 seconds of PI.
 //This special voidbolt does not have a cast event, but does have a damage event.
 //So we look for voidbolt damage events that don't have cast event connected.
-//The PI does have a cast event, and its the same as a normal PI cast.
+//The PI sometimes has a cast event, and its the same as a normal PI cast.
 //We can just track the voidbolts without casts, and use that for everything.
 //To do so, we can use an Event Normalizer, to link VB cast events to VB damage events, then check each damage event for the relationship.
 
