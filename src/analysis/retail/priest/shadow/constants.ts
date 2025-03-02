@@ -37,6 +37,12 @@ export const MIND_MELT_CRIT = 0.2; //per stack of buff
 
 export const VOID_TOUCHED_MULTIPLIER = 0.06;
 
+//VoidWeaver Constants
+export const INNER_QUIETUS_MULTIPLIER = 0.25;
+export const VOIDHEART_MULTIPLIER = 0.1;
+export const COLLAPSING_VOID_DEVOURING_PLAGUE_MULTIPLIER = 0.2;
+
+//Archon Constants
 export const ARCHON_RESONANT_ENERGY_MULTIPLIER = 0.02;
 export const ARCHON_PERFECTED_FORM_DARK_ASCENSION_MULTIPLIER = 0.12;
 export const ARCHON_PERFECTED_FORM_VOID_FORM_MULTIPLIER = 0.2;

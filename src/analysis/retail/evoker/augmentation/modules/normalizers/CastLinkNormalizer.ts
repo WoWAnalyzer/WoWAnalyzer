@@ -20,6 +20,7 @@ import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
 import PrePullCooldowns from 'parser/shared/normalizers/PrePullCooldowns';
 import { LEAPING_FLAMES_HITS } from 'analysis/retail/evoker/shared/modules/normalizers/LeapingFlamesNormalizer';
 import { BREATH_OF_EONS_SPELL_IDS } from '../../constants';
+import { TIERS } from 'game/TIERS';
 
 /** So sometimes when Ebon Might should be extended
  * it just kinda doesn't? This messes with our analysis so
@@ -45,12 +46,20 @@ const ERUPTION_CHITIN_LINK = 'eruptionChitinLink';
 const PUPIL_OF_ALEXSTRASZA_LINK = 'pupilOfAlexstraszaLink';
 export const UPHEAVAL_CAST_DAM_LINK = 'upheavalCastDamLink';
 export const UPHEAVAL_RUMBLING_EARTH_LINK = 'upheavalRumblingEarthLink';
-// Tier
-export const TREMBLING_EARTH_DAM_LINK = 'tremblingEarthDamLink';
 
 export const MASS_ERUPTION_DAM_LINK = 'massEruptionDamLink';
 export const MASS_ERUPTION_CONSUME = 'massEruptionConsume';
 const MASS_ERUPTION_DAMAGE_BUFFER = 1000; // These have very spooky delay
+
+export const UPHEAVAL_REVERBERATION_DAM_LINK = 'upheavalReverberationDamLink';
+export const UPHEAVAL_REVERBERATION_BUFFER = 12_000; // This DoT last a very long while
+
+const VOLCANIC_UPSURGE_CONSUME = 'volcanicUpsurgeConsume';
+
+const GOLDEN_OPPORTUNITY_CONSUME = 'goldenOpportunityConsume';
+
+const ERUPTION_ESSENCE_BURST_CONSUME = 'eruptionEssenceBurstConsume';
+const DREAM_ESSENCE_BURST_CONSUME = 'dreamEssenceBurstConsume';
 
 const PRESCIENCE_BUFFER = 150;
 const CAST_BUFFER_MS = 100;
@@ -66,10 +75,6 @@ const UPHEAVAL_DAMAGE_BUFFER = 800;
 // In 11.0.5 Blizzard introduces a potential 1ms delay
 // https://www.warcraftlogs.com/reports/L48YR6WBjaXtTkMd/#fight=57&type=auras&pins=0%24Separate%24%23244F4B%24casts%240%240.0.0.Any%24176484645.0.0.Evoker%24true%240.0.0.Any%24false%24363916&target=8&ability=395152&start=10450757&end=10509380&view=events
 const EBON_MIGHT_APPLY_REMOVE_BUFFER = 1;
-
-// Tier
-// No clue why but this gets very weirdly staggered/delayed
-const TREMBLING_EARTH_BUFFER = 500;
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -193,9 +198,9 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: PUPIL_OF_ALEXSTRASZA_LINK,
     reverseLinkRelation: PUPIL_OF_ALEXSTRASZA_LINK,
-    linkingEventId: SPELLS.LIVING_FLAME_CAST.id,
+    linkingEventId: [SPELLS.LIVING_FLAME_CAST.id, SPELLS.CHRONO_FLAME_CAST.id],
     linkingEventType: EventType.Cast,
-    referencedEventId: SPELLS.LIVING_FLAME_DAMAGE.id,
+    referencedEventId: [SPELLS.LIVING_FLAME_DAMAGE.id, SPELLS.CHRONO_FLAME_DAMAGE.id],
     referencedEventType: EventType.Damage,
     anyTarget: true,
     maximumLinks: 1,
@@ -260,18 +265,6 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
   },
-  // Tier
-  {
-    linkRelation: TREMBLING_EARTH_DAM_LINK,
-    reverseLinkRelation: TREMBLING_EARTH_DAM_LINK,
-    linkingEventId: SPELLS.TREMBLING_EARTH_BUFF.id,
-    linkingEventType: EventType.RemoveBuff,
-    referencedEventId: SPELLS.TREMBLING_EARTH_DAM.id,
-    referencedEventType: EventType.Damage,
-    anyTarget: true,
-    forwardBufferMs: TREMBLING_EARTH_BUFFER,
-    backwardBufferMs: TREMBLING_EARTH_BUFFER,
-  },
   {
     linkRelation: UPHEAVAL_CAST_DAM_LINK,
     reverseLinkRelation: UPHEAVAL_CAST_DAM_LINK,
@@ -285,6 +278,17 @@ const EVENT_LINKS: EventLink[] = [
     additionalCondition(linkingEvent, referencedEvent) {
       return upheavalHitIsUnique(linkingEvent as EmpowerEndEvent, referencedEvent as DamageEvent);
     },
+  },
+  {
+    linkRelation: UPHEAVAL_REVERBERATION_DAM_LINK,
+    reverseLinkRelation: UPHEAVAL_REVERBERATION_DAM_LINK,
+    linkingEventId: [TALENTS.UPHEAVAL_TALENT.id, SPELLS.UPHEAVAL_FONT.id],
+    linkingEventType: EventType.EmpowerEnd,
+    referencedEventId: SPELLS.UPHEAVAL_DOT.id,
+    referencedEventType: EventType.Damage,
+    anyTarget: true,
+    forwardBufferMs: UPHEAVAL_REVERBERATION_BUFFER,
+    isActive: (c) => c.hasTalent(TALENTS.REVERBERATIONS_TALENT),
   },
   {
     linkRelation: UPHEAVAL_RUMBLING_EARTH_LINK,
@@ -323,6 +327,56 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true,
     forwardBufferMs: MASS_ERUPTION_DAMAGE_BUFFER,
     isActive: (C) => C.hasTalent(TALENTS.MASS_ERUPTION_TALENT),
+  },
+  {
+    linkRelation: VOLCANIC_UPSURGE_CONSUME,
+    reverseLinkRelation: VOLCANIC_UPSURGE_CONSUME,
+    linkingEventId: TALENTS.ERUPTION_TALENT.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.VOLCANIC_UPSURGE.id,
+    referencedEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
+    anyTarget: true,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+    isActive: (C) => C.has4PieceByTier(TIERS.TWW1),
+    maximumLinks: 1,
+  },
+  {
+    linkRelation: GOLDEN_OPPORTUNITY_CONSUME,
+    reverseLinkRelation: GOLDEN_OPPORTUNITY_CONSUME,
+    linkingEventId: SPELLS.PRESCIENCE_BUFF.id,
+    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    referencedEventId: SPELLS.GOLDEN_OPPORTUNITY_BUFF.id,
+    referencedEventType: EventType.RemoveBuff,
+    anyTarget: true,
+    // Same buffer as Prescience casts
+    forwardBufferMs: PRESCIENCE_BUFFER,
+    backwardBufferMs: PRESCIENCE_BUFFER,
+  },
+  {
+    linkRelation: ERUPTION_ESSENCE_BURST_CONSUME,
+    reverseLinkRelation: ERUPTION_ESSENCE_BURST_CONSUME,
+    linkingEventId: TALENTS.ERUPTION_TALENT.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.ESSENCE_BURST_AUGMENTATION_BUFF.id,
+    referencedEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
+    anyTarget: true,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+    maximumLinks: 1,
+  },
+  {
+    linkRelation: DREAM_ESSENCE_BURST_CONSUME,
+    reverseLinkRelation: DREAM_ESSENCE_BURST_CONSUME,
+    linkingEventId: SPELLS.EMERALD_BLOSSOM.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.ESSENCE_BURST_AUGMENTATION_BUFF.id,
+    referencedEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
+    anyTarget: true,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+    isActive: (C) => C.hasTalent(TALENTS.DREAM_OF_SPRING_TALENT),
+    maximumLinks: 1,
   },
 ];
 
@@ -424,6 +478,26 @@ export function getMassEruptionDamageEvents(event: CastEvent): DamageEvent[] {
     MASS_ERUPTION_DAM_LINK,
     (e): e is DamageEvent => e.type === EventType.Damage,
   );
+}
+
+export function isVolcanicUpsurgeEruption(event: CastEvent) {
+  return HasRelatedEvent(event, VOLCANIC_UPSURGE_CONSUME);
+}
+
+export function isGoldenOpportunityPrescience(event: ApplyBuffEvent | RefreshBuffEvent) {
+  return HasRelatedEvent(event, GOLDEN_OPPORTUNITY_CONSUME);
+}
+
+export function eruptionConsumedEssenceBurst(event: CastEvent) {
+  return HasRelatedEvent(event, ERUPTION_ESSENCE_BURST_CONSUME);
+}
+
+export function dreamConsumedEssenceBurst(event: CastEvent) {
+  return HasRelatedEvent(event, DREAM_ESSENCE_BURST_CONSUME);
+}
+
+export function hasEruptionCastLink(event: DamageEvent) {
+  return HasRelatedEvent(event, ERUPTION_CAST_DAM_LINK);
 }
 
 export default CastLinkNormalizer;

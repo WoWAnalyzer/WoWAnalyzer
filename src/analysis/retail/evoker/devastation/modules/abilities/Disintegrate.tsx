@@ -29,12 +29,11 @@ import {
 import { isMythicPlus } from 'common/isMythicPlus';
 import { InformationIcon } from 'interface/icons';
 import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
+import { GetDisintegrateTicks } from '../../constants';
 
 const { DISINTEGRATE } = SPELLS;
 
 const { DRAGONRAGE_TALENT } = TALENTS;
-
-const TICKS_PER_DISINTEGRATE = 4;
 
 /**
  * Disintegrate is Devastation's ST spender, it is one of the primary focus points of your rotation.
@@ -78,6 +77,8 @@ class Disintegrate extends Analyzer {
   fightStartTime: number = 0;
   fightEndTime: number = 0;
 
+  isCurrentCastMassDisintegrate = false;
+
   /** Spells that you can/should clip with
    * Any other spell used to clip Disintegrate
    * is counted as a cancelled cast
@@ -92,16 +93,24 @@ class Disintegrate extends Analyzer {
     SPELLS.AZURE_STRIKE,
     TALENTS.SHATTERING_STAR_TALENT,
     TALENTS.PYRE_TALENT,
+    TALENTS.ENGULF_TALENT,
+    TALENTS.DRAGONRAGE_TALENT,
+    SPELLS.DEEP_BREATH,
+    SPELLS.DEEP_BREATH_SCALECOMMANDER,
   ];
 
   graphData: GraphData[] = [];
 
   disintegrateTicksCounter: SpellTracker[] = [];
   disintegrateCasts: SpellTracker[] = [];
+  massDisintegrateCasts: SpellTracker[] = [];
   disintegrateChainCasts: SpellTracker[] = [];
   disintegrateClips: SpellTracker[] = [];
   problemPoints: SpellTracker[] = [];
   dragonrageBuffCounter: SpellTracker[] = [];
+
+  ticksPerDisintegrate = 0;
+  ticksPerChainedDisintegrate = 0;
 
   constructor(options: Options) {
     super(options);
@@ -154,12 +163,17 @@ class Disintegrate extends Analyzer {
       console.log(this.totalMassDisintegrateTicks); */
       this.pushToGraphData();
     });
+
+    this.ticksPerDisintegrate = GetDisintegrateTicks(this.selectedCombatant).disintegrateTicks;
+    this.ticksPerChainedDisintegrate = GetDisintegrateTicks(
+      this.selectedCombatant,
+    ).disintegrateChainedTicks;
   }
 
   onApplyDragonrage(event: ApplyBuffEvent) {
     this.dragonrageBuffCounter.push({
       timestamp: event.timestamp,
-      count: 5,
+      count: this.ticksPerChainedDisintegrate,
       tooltip: '',
     });
     this.inDragonRageWindow = true;
@@ -180,9 +194,13 @@ class Disintegrate extends Analyzer {
       return;
     }
 
-    this.totalTicks += 1;
-    if (this.inDragonRageWindow) {
-      this.dragonRageTicks += 1;
+    if (this.isCurrentCastMassDisintegrate) {
+      this.totalMassDisintegrateTicks += 1;
+    } else {
+      this.totalTicks += 1;
+      if (this.inDragonRageWindow) {
+        this.dragonRageTicks += 1;
+      }
     }
 
     // This should not happen but w/e
@@ -199,25 +217,28 @@ class Disintegrate extends Analyzer {
   }
 
   onDisintegrateCast(event: CastEvent) {
-    if (isFromMassDisintegrate(event)) {
-      this.totalMassDisintegrateTargets += getDisintegrateTargetCount(event) - 1;
-    }
+    const isMassDisintegrate = isFromMassDisintegrate(event);
+    this.isCurrentCastMassDisintegrate = isMassDisintegrate;
 
-    this.totalCasts += 1;
-    if (this.inDragonRageWindow) {
-      this.dragonRageCasts += 1;
+    if (isMassDisintegrate) {
+      this.totalMassDisintegrateTargets += getDisintegrateTargetCount(event);
+    } else {
+      this.totalCasts += 1;
+      if (this.inDragonRageWindow) {
+        this.dragonRageCasts += 1;
+      }
     }
   }
 
   get tickData() {
     const regularTicks = this.totalTicks - this.dragonRageTicks;
     const totalPossibleRegularTicks =
-      (this.totalCasts - this.dragonRageCasts) * TICKS_PER_DISINTEGRATE;
+      (this.totalCasts - this.dragonRageCasts) * this.ticksPerDisintegrate;
     const dragonRageTicks = this.dragonRageTicks;
-    const totalPossibleDragonRageTicks = this.dragonRageCasts * TICKS_PER_DISINTEGRATE;
+    const totalPossibleDragonRageTicks = this.dragonRageCasts * this.ticksPerDisintegrate;
 
     const totalPossibleMassDisintegrateTicks =
-      this.totalMassDisintegrateTargets * TICKS_PER_DISINTEGRATE;
+      this.totalMassDisintegrateTargets * this.ticksPerDisintegrate;
 
     return {
       regularTicks,
@@ -244,7 +265,7 @@ class Disintegrate extends Analyzer {
 
     this.currentMainTarget = encodeEventTargetString(event);
 
-    this.currentRemainingTicks = TICKS_PER_DISINTEGRATE;
+    this.currentRemainingTicks = this.ticksPerDisintegrate;
     this.isCurrentCastChained = false;
     this.disintegrateClipSpell = undefined;
 
@@ -254,11 +275,19 @@ class Disintegrate extends Analyzer {
       tooltip: '',
     });
 
-    this.disintegrateCasts.push({
-      timestamp: event.timestamp,
-      count: this.currentRemainingTicks,
-      tooltip: 'Cast',
-    });
+    if (this.isCurrentCastMassDisintegrate) {
+      this.massDisintegrateCasts.push({
+        timestamp: event.timestamp,
+        count: this.currentRemainingTicks,
+        tooltip: 'Mass Disintegrate Cast',
+      });
+    } else {
+      this.disintegrateCasts.push({
+        timestamp: event.timestamp,
+        count: this.currentRemainingTicks,
+        tooltip: 'Cast',
+      });
+    }
   }
 
   onRefreshDebuff(event: RefreshDebuffEvent | ApplyDebuffEvent) {
@@ -285,19 +314,31 @@ class Disintegrate extends Analyzer {
       });
     }  */
     else {
-      this.disintegrateChainCasts.push({
-        timestamp: event.timestamp,
-        count: this.currentRemainingTicks,
-        tooltip:
-          this.currentRemainingTicks === 2
-            ? 'Good Chain, you clipped: ' + (this.currentRemainingTicks - 1) + ` tick(s)`
-            : 'Good Chain',
-      });
+      if (this.isCurrentCastMassDisintegrate) {
+        this.massDisintegrateCasts.push({
+          timestamp: event.timestamp,
+          count: this.currentRemainingTicks,
+          tooltip:
+            this.currentRemainingTicks === 2
+              ? 'Good Chain, you clipped: ' + (this.currentRemainingTicks - 1) + ` tick(s)`
+              : 'Good Chain',
+        });
+      } else {
+        this.disintegrateChainCasts.push({
+          timestamp: event.timestamp,
+          count: this.currentRemainingTicks,
+          tooltip:
+            this.currentRemainingTicks === 2
+              ? 'Good Chain, you clipped: ' + (this.currentRemainingTicks - 1) + ` tick(s)`
+              : 'Good Chain',
+        });
+      }
     }
 
     this.isCurrentCastChained = true;
     /** Chained Disintegrate moves over one tick from current cast (Pandemic) */
-    this.currentRemainingTicks = TICKS_PER_DISINTEGRATE + Math.min(this.currentRemainingTicks, 1);
+    this.currentRemainingTicks =
+      this.ticksPerDisintegrate + Math.min(this.currentRemainingTicks, 1);
 
     this.disintegrateTicksCounter.push({
       timestamp: event.timestamp,
@@ -408,6 +449,12 @@ class Disintegrate extends Analyzer {
         label: 'Disintegrate Casts',
       },
       {
+        spellTracker: this.massDisintegrateCasts,
+        type: 'point',
+        color: '#aa774f',
+        label: 'Mass Disintegrate Casts',
+      },
+      {
         spellTracker: this.disintegrateChainCasts,
         type: 'point',
         color: 'orange',
@@ -469,6 +516,14 @@ class Disintegrate extends Analyzer {
             <li>
               Casts are highlighted in <span style={{ color: '#2ecc71' }}>green</span>
             </li>
+            {this.massDisintegrateCasts.length > 0 && (
+              <>
+                <li>
+                  Mass Disintegrate Casts are highlighted in{' '}
+                  <span style={{ color: '#aa774f' }}>brown</span>
+                </li>
+              </>
+            )}
             <li>
               Chained casts are highlighted in <span style={{ color: 'orange' }}>orange</span>
             </li>

@@ -54,6 +54,9 @@ import SpinningCraneKickLinkNormalizer from './normalizers/SpinningCraneKick';
 import PressTheAdvantage from './modules/talents/PressTheAdvantage';
 import PressTheAdvantageNormalizer from './modules/talents/PressTheAdvantage/normalizer';
 import WarWithinS1TierSet from './modules/items/WarWithinS1TierSet';
+import VeteransEye from '../shared/hero/ShadoPan/VeteransEye';
+import WarWithinS2TierSet from './modules/items/WarWithinS2TierSet';
+import EfficientTraining from '../shared/hero/ShadoPan/EfficientTraining';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -98,6 +101,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Items
     WarWithinS1TierSet,
+    WarWithinS2TierSet,
 
     // normalizers
     gotoxNorm: GiftOfTheOx,
@@ -120,6 +124,8 @@ class CombatLogParser extends CoreCombatLogParser {
     chiSurge: ChiSurge,
     pta: PressTheAdvantage,
     stormstoutsLastKeg: StormtoutsLastKeg,
+    veteransEye: VeteransEye,
+    efficientTraining: EfficientTraining,
 
     apl: AplCheck,
 

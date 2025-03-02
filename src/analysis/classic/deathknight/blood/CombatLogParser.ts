@@ -8,6 +8,7 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import FoundationGuide from 'interface/guide/foundation/FoundationGuide';
 // Spells
 import ArmyOfTheDead from '../shared/ArmyOfTheDead';
+import { GlobalCooldown } from '../shared';
 
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
@@ -16,6 +17,7 @@ class CombatLogParser extends BaseCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     buffs: Buffs,
     cooldownThroughputTracker: CooldownThroughputTracker,
+    globalCooldown: GlobalCooldown,
     // Spells
     ArmyOfTheDead,
   };

@@ -1,10 +1,12 @@
 import { change, date } from 'common/changelog';
-import { Trevor, Harrek, Hana } from 'CONTRIBUTORS';
+import { Trevor, Harrek, Hana, KYZ } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 
 // prettier-ignore
 export default [
+  change(date(2025, 1, 16),  <>Implement <SpellLink spell={TALENTS_EVOKER.TIME_SPIRAL_TALENT}/>, <SpellLink spell={TALENTS_EVOKER.TIME_CONVERGENCE_TALENT}/>, <SpellLink spell={TALENTS_EVOKER.MASTER_OF_DESTINY_TALENT}/>, and <SpellLink spell={TALENTS_EVOKER.MOTES_OF_ACCELERATION_TALENT}/> modules</>, KYZ),
+  change(date(2024, 12, 27), <>Implement <SpellLink spell={TALENTS_EVOKER.PRIMACY_TALENT}/> module</>, KYZ),
   change(date(2024, 10, 28), <>Updated <SpellLink spell={TALENTS_EVOKER.SPIRITBLOOM_TALENT} /> guide section</>, Harrek),
   change(date(2024, 10, 24), <>Update <SpellLink spell={TALENTS_EVOKER.LIFEBIND_TALENT}/> module</>, Harrek),
   change(date(2024, 10, 24), <>Bump to 11.0.5</>, Trevor),
@@ -24,7 +26,7 @@ export default [
   change(date(2024, 6, 20), <>Integrate <SpellLink spell={TALENTS_EVOKER.CONSUME_FLAME_TALENT}/> into <SpellLink spell={TALENTS_EVOKER.EXPANDED_LUNGS_TALENT}/> module</>, Trevor),
   change(date(2024, 6, 20), <>Add <SpellLink spell={TALENTS_EVOKER.TITANS_GIFT_TALENT} /> module</>, Harrek),
   change(date(2024, 6, 20), <>Update <SpellLink spell={TALENTS_EVOKER.CYCLE_OF_LIFE_TALENT}/> spells for Flameshaper</>, Trevor),
-  change(date(2024, 6, 19), <>Add <SpellLink spell={TALENTS_EVOKER.FAN_THE_FLAMES_TALENT}/> module</>, Trevor),
+  change(date(2024, 6, 19), <>Add Fan The Flames module</>, Trevor),
   change(date(2024, 6, 19), <>Add <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT}/> to <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT}/> modules</>, Trevor),
   change(date(2024, 6, 19), <>Implement <SpellLink spell={TALENTS_EVOKER.EXPANDED_LUNGS_TALENT}/> module</>, Trevor),
   change(date(2024, 6, 19), <>Remove <SpellLink spell={TALENTS_EVOKER.REWIND_TALENT}/> from <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT}/> module</>, Trevor),

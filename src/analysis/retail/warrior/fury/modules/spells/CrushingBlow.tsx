@@ -3,42 +3,56 @@ import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/warrior';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
+import Events, { CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 /*  Example log:
  *  https://www.warcraftlogs.com/reports/vM8zdCPFhZkxfW3y?fight=45&type=casts&source=13
  */
 
-// Track how many times Rampage was used before using the charge of Crushing Blow it provides
+// Track how many times Crushing Blow was used when another ability would have been preferred
 class CrushingBlow extends Analyzer {
-  cbBuffRefreshCount: number = 0;
+  badCrushingBlows: number = 0;
   unenragedCount: number = 0;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(talents.RECKLESS_ABANDON_TALENT);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RAMPAGE),
-      this.onRampageCast,
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CRUSHING_BLOW),
+      this.onCrushingBlowCast,
     );
   }
 
   get suggestionThresholds() {
     return {
-      actual: this.cbBuffRefreshCount,
+      actual: this.badCrushingBlows,
       isGreaterThan: {
         minor: 0,
-        average: 4,
-        major: 8,
+        average: 2,
+        major: 4,
       },
       style: ThresholdStyle.NUMBER,
     };
   }
 
-  onRampageCast() {
-    if (this.selectedCombatant.hasBuff(SPELLS.CRUSHING_BLOW_BUFF)) {
-      this.cbBuffRefreshCount += 1;
+  onCrushingBlowCast(event: CastEvent) {
+    const slaughteringStrikesStacks = this.selectedCombatant.getBuffStacks(
+      SPELLS.SLAUGHTERING_STRIKES_BUFF,
+    );
+    const enraged = this.selectedCombatant.hasBuff(SPELLS.ENRAGE);
+
+    if (!enraged) {
+      this.unenragedCount += 1;
+      this.badCrushingBlows += 1;
+      addInefficientCastReason(event, 'Crushing Blow was used while not enraged');
+    } else if (slaughteringStrikesStacks >= 3) {
+      this.badCrushingBlows += 1;
+      addInefficientCastReason(
+        event,
+        'With at least 3 stacks of Slaughtering Strikes, Rampage should be used before Crushing Blow',
+      );
     }
   }
 
@@ -46,17 +60,17 @@ class CrushingBlow extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          There were {actual} times you used <SpellLink spell={SPELLS.RAMPAGE} /> before using your
-          charge of <SpellLink spell={SPELLS.CRUSHING_BLOW} />.{' '}
-          <SpellLink spell={SPELLS.CRUSHING_BLOW} /> is your highest damage ability, and should be
-          used every time it is available, as long as you are already enraged.
+          There were {actual} times you used <SpellLink spell={SPELLS.CRUSHING_BLOW} /> when another
+          ability would have been preferred. <SpellLink spell={SPELLS.CRUSHING_BLOW} /> was used
+          while not Enraged {this.unenragedCount} times. Refer to Wowhead or Maxroll guides for a
+          full description of when to best use <SpellLink spell={SPELLS.CRUSHING_BLOW} /> .
         </>,
       )
         .icon(SPELLS.CRUSHING_BLOW.icon)
         .actual(
           defineMessage({
-            id: 'warrior.fury.suggestions.crushingblows.missed',
-            message: `${actual} missed Crushing Blows.`,
+            id: 'warrior.fury.suggestions.crushingblows.bad',
+            message: `${actual} bad Crushing Blows.`,
           }),
         )
         .recommended(`${recommended} is recommended.`),

@@ -43,8 +43,11 @@ export enum EventType {
   EmpowerStart = 'empowerstart',
   EmpowerEnd = 'empowerend',
   Leech = 'leech',
+  // added in 11.0
   StaggerClear = 'staggerclear',
   StaggerPrevented = 'staggerprevented',
+  // added in 11.0.7
+  Reflect = 'reflect',
 
   // Fabricated:
   Event = 'event', // everything

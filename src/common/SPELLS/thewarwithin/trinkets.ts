@@ -62,6 +62,41 @@ const spells = {
     name: "Mereldar's Toll",
     icon: 'inv_arathordungeon_bell_color1',
   },
+  STRAND_OF_THE_ASCENDED: {
+    id: 452337,
+    name: 'Strand of the Ascended',
+    icon: 'inv_11_0_dungeon_tentaclevial_red',
+  },
+  STRAND_OF_THE_LORD: {
+    id: 452288,
+    name: 'Strand of the Lord',
+    icon: 'inv_11_0_dungeon_tentaclevial_red',
+  },
+  STRAND_OF_THE_QUEEN: {
+    id: 452360,
+    name: 'Strand of the Queen',
+    icon: 'inv_11_0_dungeon_tentaclevial_red',
+  },
+  STRAND_OF_THE_SAGE: {
+    id: 452367,
+    name: 'Strand of the Sage',
+    icon: 'inv_11_0_dungeon_tentaclevial_red',
+  },
+  STRAND_OF_THE_SUNDERED_TANK_BUFF: {
+    id: 452361,
+    name: 'Strand of the Sundered',
+    icon: 'inv_11_0_dungeon_tentaclevial_red',
+  },
+  STRAND_OF_THE_SUNDERED_DPS_BUFF: {
+    id: 452365,
+    name: 'Strand of the Sundered',
+    icon: 'inv_11_0_dungeon_tentaclevial_red',
+  },
+  STRAND_OF_THE_SUNDERED_HEALER_BUFF: {
+    id: 452366,
+    name: 'Strand of the Sundered',
+    icon: 'inv_11_0_dungeon_tentaclevial_red',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;

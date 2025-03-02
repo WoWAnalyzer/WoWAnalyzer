@@ -47,6 +47,7 @@ class SurgingTotem extends Analyzer {
   maxTargets = HEALING_RAIN_TARGETS;
   totalMaxTargets = 0;
   casts = 0;
+  totalHealingDone = 0;
 
   //SurgingTotemCasts: Cast[] = [];
   SurgingTotemCasts: SurgingTotemCast[] = [];
@@ -74,7 +75,7 @@ class SurgingTotem extends Analyzer {
     }
 
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HEALING_RAIN_TOTEMIC),
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HEALING_RAIN_HEAL),
       this.onHealingRainHeal,
     );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this._onCast);
@@ -162,6 +163,7 @@ class SurgingTotem extends Analyzer {
       // dirty fix for partial ticks happening at the same time as a real tick
       healingRainTick.hits = Math.min(this.maxTargets, healingRainTick.hits + 1);
     }
+    this.totalHealingDone += event.amount;
   }
 
   _onCast(event: CastEvent) {
@@ -189,6 +191,15 @@ class SurgingTotem extends Analyzer {
       this.whirlingMotesExpired[spellId] += 1;
     } else {
       this.whirlingMotesConsumed[spellId] += 1;
+      if (this.SurgingTotemCasts.length === 0) {
+        // it is possible to have one of the buffs pre-pull. make up a cast at 0 if that occurred
+        this.SurgingTotemCasts.push({
+          timestamp: 0,
+          WhirlingAir: 0,
+          WhirlingEarth: 0,
+          WhirlingWater: 0,
+        });
+      }
       switch (event.ability.guid) {
         case SPELLS.WHIRLING_AIR.id: {
           this.SurgingTotemCasts[this.SurgingTotemCasts.length - 1].WhirlingAir = 1;

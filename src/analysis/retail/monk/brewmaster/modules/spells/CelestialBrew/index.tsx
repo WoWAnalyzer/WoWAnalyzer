@@ -26,13 +26,13 @@ import { ReactNode } from 'react';
 import CountsAsBrew from '../../components/CountsAsBrew';
 import { damageEvent } from './normalizer';
 
-const PURIFIED_CHI_PCT = 0.2;
+const PURIFIED_CHI_PCT = 0.35;
 const PURIFIED_CHI_WINDOW = 150;
 
 /**
  * The number of stacks needed to get a 100% bonus to the shield.
  */
-const PURIFIED_CHI_STACKS_PER_100 = 5;
+const PURIFIED_CHI_STACKS_PER_100 = Math.ceil(1 / PURIFIED_CHI_PCT);
 const WASTED_THRESHOLD = 0.75;
 
 type AbsorbExtras = {
@@ -118,9 +118,13 @@ class CelestialBrew extends MajorDefensiveBuff {
       <div>
         <p>
           <SpellLink spell={talents.CELESTIAL_BREW_TALENT} /> provides a low-cooldown shield for
-          30-100% of your health bar. <CountsAsBrew baseCooldown={60} lightBrewing /> To use it
-          effectively, you need to balance two goals: using it to <em>cover major damage events</em>
-          , and using it <em>often</em>.
+          30-100% of your health bar.{' '}
+          <CountsAsBrew
+            baseCooldown={60}
+            lightBrewing={this.selectedCombatant.hasTalent(talents.LIGHT_BREWING_TALENT)}
+          />{' '}
+          To use it effectively, you need to balance two goals: using it to{' '}
+          <em>cover major damage events</em>, and using it <em>often</em>.
         </p>
       </div>
     );

@@ -15,6 +15,10 @@ import GlobalCooldown from './GlobalCooldown';
 
 const DEBUG = false;
 
+// settings for what counts as a "small" gap between abilities. the minimum value exists to help deal with latency
+const SMALL_GAP_MIN_MS = 100;
+const SMALL_GAP_MAX_MS = 2250;
+
 export interface ActivitySegment {
   start: number;
   end: number;
@@ -159,9 +163,11 @@ class AlwaysBeCasting extends Analyzer {
       } else if (activityCount === 0 && e.value === 1) {
         // upwards edge - activity started
         activityStartTimestamp = e.timestamp;
+        DEBUG && console.log(`Starting segment at ${this.owner.formatTimestamp(e.timestamp, 3)}`);
       } else if (activityCount === 1 && e.value === -1) {
         // downwards edge - activity ended
         workingSegments.push({ start: activityStartTimestamp, end: e.timestamp });
+        DEBUG && console.log(`Ending segment at ${this.owner.formatTimestamp(e.timestamp, 3)}`);
       }
       activityCount += e.value;
     }
@@ -330,6 +336,45 @@ class AlwaysBeCasting extends Analyzer {
     );
   }
 
+  /**
+   * Suggestion threshold for gaps between GCDs. The scale is gaps per minute.
+   */
+  get smallGapsSuggestionThreshold(): IsGreaterThanThreshold {
+    return {
+      actual: this.smallGapsPerMinute,
+      isGreaterThan: {
+        minor: 8,
+        average: 10,
+        major: 12,
+      },
+      style: ThresholdStyle.NUMBER,
+    };
+  }
+
+  get smallGapsPerMinute(): number {
+    return this.smallGaps.length / (this.owner.fightDuration / 60000);
+  }
+
+  get smallGaps(): ActivitySegment[] {
+    const gaps = [];
+    let previousSegment = undefined;
+    for (const segment of this.activeTimeSegments) {
+      if (previousSegment) {
+        const gapTime = segment.start - previousSegment.end;
+        if (gapTime > SMALL_GAP_MIN_MS && gapTime < SMALL_GAP_MAX_MS) {
+          gaps.push({
+            start: previousSegment.end,
+            end: segment.start,
+          });
+        }
+      }
+
+      previousSegment = segment;
+    }
+
+    return gaps;
+  }
+
   get downtimeSuggestionThresholds(): NumberThreshold {
     return {
       actual: this.downtimePercentage,
@@ -391,3 +436,5 @@ class AlwaysBeCasting extends Analyzer {
 }
 
 export default AlwaysBeCasting;
+
+type IsGreaterThanThreshold = Pick<NumberThreshold, 'actual' | 'isGreaterThan' | 'style'>;

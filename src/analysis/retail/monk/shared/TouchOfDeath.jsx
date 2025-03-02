@@ -28,7 +28,7 @@ class TouchOfDeath extends ExecuteHelper {
     options.abilities.add({
       spell: SPELLS.TOUCH_OF_DEATH.id,
       category: SPELL_CATEGORY.COOLDOWNS,
-      cooldown: 180 - 45 * this.selectedCombatant.getTalentRank(TALENTS_MONK.FATAL_TOUCH_TALENT),
+      cooldown: 180 - 90 * this.selectedCombatant.getTalentRank(TALENTS_MONK.FATAL_TOUCH_TALENT),
       gcd:
         this.selectedCombatant.specId === SPECS.MISTWEAVER_MONK ? { base: 1500 } : { static: 1000 },
       castEfficiency: {

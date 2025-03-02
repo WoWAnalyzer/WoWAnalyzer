@@ -567,12 +567,12 @@ const spells = {
     name: 'Breath of Fire',
     icon: 'ability_monk_breathoffire',
   },
-  FORTIFYING_BREW_BRM: {
+  FORTIFYING_BREW_CAST: {
     id: 115203,
     name: 'Fortifying Brew',
     icon: 'ability_monk_fortifyingale_new',
   },
-  FORTIFYING_BREW_BRM_BUFF: {
+  FORTIFYING_BREW_BUFF: {
     id: 120954,
     name: 'Fortifying Brew',
     icon: 'ability_monk_fortifyingale_new',
@@ -968,6 +968,13 @@ const spells = {
     name: 'Flow of Battle',
     icon: 'ability_monk_energizingwine.jpg',
   },
+  // TWW S2 Brewmaster 4-set
+  OPPORTUNISTIC_STRIKE_BUFF: {
+    id: 1217999,
+    name: 'Opportunistic Strike',
+    icon: '70_inscription_deck_dominion.jpg',
+  },
+  // Master of Harmony
   ASPECT_OF_HARMONY_DOT: {
     id: 450763,
     name: 'Aspect of Harmony',
@@ -982,6 +989,12 @@ const spells = {
     id: 450711,
     name: 'Aspect of Harmony',
     icon: 'ability_evoker_essenceburst3',
+  },
+  // Shado-Pan
+  VETERANS_EYE_BUFF: {
+    id: 451085,
+    name: "Veteran's Eye",
+    icon: 'ability_monk_provoke.jpg',
   },
 } satisfies Record<string, Spell>;
 

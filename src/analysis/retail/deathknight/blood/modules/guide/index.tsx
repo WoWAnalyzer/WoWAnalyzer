@@ -8,6 +8,7 @@ import DRAGONFLIGHT_OTHERS_SPELLS from 'common/SPELLS/dragonflight/others';
 import DRAGONFLIGHT_OTHERS_ITEMS from 'common/ITEMS/dragonflight/others';
 import { GuideProps, Section } from 'interface/guide';
 import DeathStrikeSection from '../spells/DeathStrike/DeathStrikeSection';
+import { FoundationDowntimeSection } from 'interface/guide/foundation/FoundationDowntimeSection';
 
 export default function BloodGuide(props: GuideProps<typeof CombatLogParser>): JSX.Element {
   const cooldowns: Cooldown[] = [
@@ -31,6 +32,9 @@ export default function BloodGuide(props: GuideProps<typeof CombatLogParser>): J
 
   return (
     <>
+      <Section title="Core Skills">
+        <FoundationDowntimeSection />
+      </Section>
       <Section title="Death Strike">
         <DeathStrikeSection />
         {props.modules.deathStrikeTiming.guideSubsection}

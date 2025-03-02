@@ -80,6 +80,19 @@ class Abilities extends CoreAbilities {
         },
         enabled: !false,
       },
+      {
+        spell: TALENTS.DEMOLISH_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: 45,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
+        enabled: combatant.hasTalent(TALENTS.DEMOLISH_TALENT),
+      },
       // Rotational AOE
       {
         spell: TALENTS.WARBREAKER_TALENT.id,

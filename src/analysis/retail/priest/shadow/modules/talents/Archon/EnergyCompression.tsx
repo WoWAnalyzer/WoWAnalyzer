@@ -14,6 +14,8 @@ import Events, { DamageEvent } from 'parser/core/Events';
 
 import { ARCHON_ENERGY_COMPRESSION_MULTIPLIER } from '../../../constants';
 
+//This also does the statistics for Halo when Energy Compression is not talented.
+
 class EnergyCompression extends Analyzer {
   static dependencies = {
     enemies: Enemies,
@@ -23,11 +25,19 @@ class EnergyCompression extends Analyzer {
 
   damageHalo = 0;
   insanityHalo = 0;
+  category = STATISTIC_CATEGORY.TALENTS; //By default, Halo is a talent.
 
   damageEnergyCompression = 0;
 
   constructor(options: Options) {
     super(options);
+
+    this.active = this.selectedCombatant.hasTalent(TALENTS.HALO_SHADOW_TALENT);
+
+    // In archon, it should be considered a hero talent.
+    if (this.selectedCombatant.hasTalent(TALENTS.POWER_SURGE_TALENT)) {
+      this.category = STATISTIC_CATEGORY.HERO_TALENTS;
+    }
 
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_HALO_DAMAGE),
@@ -49,7 +59,7 @@ class EnergyCompression extends Analyzer {
 
   statistic() {
     return (
-      <Statistic size="flexible" category={STATISTIC_CATEGORY.HERO_TALENTS}>
+      <Statistic size="flexible" category={this.category}>
         <BoringSpellValueText spell={TALENTS.HALO_SHADOW_TALENT}>
           <ItemDamageDone amount={this.damageHalo} />
         </BoringSpellValueText>

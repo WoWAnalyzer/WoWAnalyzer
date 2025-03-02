@@ -22,14 +22,17 @@ import { SYMBIOTIC_HEALING_INCREASE } from '../../constants';
 class SymbioticBloom extends Analyzer {
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.SYMBIOTIC_BLOOM_TALENT);
+    this.active =
+      this.selectedCombatant.hasTalent(TALENTS.SYMBIOTIC_BLOOM_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS.MOTES_OF_POSSIBILITY_TALENT);
   }
   // This is an approximation. See the reasoning below.
   totalHealingFromSymbioticBloomBuff = 0;
 
-  symbioticBloomHealIncrease =
-    SYMBIOTIC_HEALING_INCREASE *
-    this.selectedCombatant.getTalentRank(TALENTS.SYMBIOTIC_BLOOM_TALENT);
+  symbioticBloomHealIncrease = this.selectedCombatant.hasTalent(TALENTS.SYMBIOTIC_BLOOM_TALENT)
+    ? SYMBIOTIC_HEALING_INCREASE *
+      this.selectedCombatant.getTalentRank(TALENTS.SYMBIOTIC_BLOOM_TALENT)
+    : SYMBIOTIC_HEALING_INCREASE * 2;
 
   get filter() {
     return `
@@ -77,7 +80,11 @@ class SymbioticBloom extends Analyzer {
             displayPercentage={false}
           />
         }
-        label="Symbiotic Bloom Buff Contribution"
+        label={
+          this.selectedCombatant.hasTalent(TALENTS.SYMBIOTIC_BLOOM_TALENT)
+            ? 'Symbiotic Bloom Buff Contribution'
+            : 'Symbiotic Bloom Buff Contribution (Motes of Possibility)'
+        }
         tooltip={
           <>
             <SpellLink spell={TALENTS.SYMBIOTIC_BLOOM_TALENT} /> contributed{' '}

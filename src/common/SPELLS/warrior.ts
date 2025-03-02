@@ -17,6 +17,11 @@ const spells = {
     name: 'Berserker Rage',
     icon: 'spell_nature_ancestralguardian',
   },
+  BRUTAL_FINISH_BUFF: {
+    id: 446918,
+    name: 'Brutal Finish',
+    icon: 'ability_revendreth_warrior',
+  },
   CHALLENGING_SHOUT: {
     id: 1161,
     name: 'Challenging Shout',
@@ -163,6 +168,11 @@ const spells = {
     name: 'Slam',
     icon: 'ability_warrior_decisivestrike',
   },
+  SLAUGHTERING_STRIKES_BUFF: {
+    id: 393931,
+    name: 'Slaughtering Strikes',
+    icon: 'inv_axe_2h_orcwarrior_c_01',
+  },
   SPELL_REFLECTION: {
     id: 23920,
     name: 'Spell Reflection',
@@ -237,6 +247,11 @@ const spells = {
     id: 315720,
     name: 'Onslaught',
     icon: 'ability_warrior_trauma',
+  },
+  WINNING_STREAK_BUFF_FURY: {
+    id: 1216561,
+    name: 'Winning Streak!',
+    icon: 'ability_rogue_keepitrolling',
   },
 
   // Arms/Fury:
@@ -321,6 +336,11 @@ const spells = {
     name: 'Bladestorm',
     icon: 'ability_warrior_bladestorm',
   },
+  COLOSSAL_MIGHT: {
+    id: 440989,
+    name: 'Colossal Might',
+    icon: 'ability_warrior_strengthofarms',
+  },
   COLOSSUS_SMASH: {
     id: 167105,
     name: 'Colossus Smash',
@@ -330,6 +350,16 @@ const spells = {
     id: 208086,
     name: 'Colossus Smash',
     icon: 'ability_warrior_colossussmash',
+  },
+  DEMOLISH: {
+    id: 436358,
+    name: 'Demolish',
+    icon: 'inv_ability_colossuswarrior_demolish',
+  },
+  DEMOLISH_DAMAGE: {
+    id: 440884,
+    name: 'Demolish',
+    icon: 'inv_ability_colossuswarrior_demolish',
   },
   DIE_BY_THE_SWORD: {
     id: 118038,
@@ -377,12 +407,37 @@ const spells = {
     name: 'Deep Wounds',
     icon: 'ability_backstab',
   },
+  WINNING_STREAK_BUFF_ARMS: {
+    id: 1216552,
+    name: 'Winning Streak!',
+    icon: 'ability_rogue_keepitrolling',
+  },
 
   // Arm Talents
+  EXECUTIONERS_PRECISION_DEBUFF: {
+    id: 386633, // ID for the debuff is different from the talent
+    name: "Executioner's Precision",
+    icon: 'inv_sword_48',
+  },
+  FIERCE_FOLLOWTHROUGH_BUFF: {
+    id: 458689,
+    name: 'Fierce Followthrough',
+    icon: 'spell_deathknight_butcher2',
+  },
   IN_FOR_THE_KILL_TALENT_BUFF: {
     id: 248622,
     name: 'In For The Kill',
     icon: 'ability_blackhand_marked4death',
+  },
+  JUGGERNAUT: {
+    id: 383290,
+    name: 'Juggernaut',
+    icon: 'warrior_talent_icon_skirmisher',
+  },
+  OPPORTUNIST: {
+    id: 456120,
+    name: 'Opportunist',
+    icon: 'ability_warrior_weaponmastery',
   },
   SUDDEN_DEATH_ARMS_TALENT_BUFF: {
     id: 52437,
@@ -653,6 +708,11 @@ const spells = {
     id: 410219,
     name: 'Earthen Smash',
     icon: 'inv_misc_head_dragon_red',
+  },
+  LETHAL_BLOWS_BUFF: {
+    id: 455485,
+    name: 'Lethal Blows',
+    icon: 'spell_warrior_sharpenblade',
   },
 
   //Fatality talent is split into 3 IDs, the talent (703), and these two.

@@ -22,6 +22,9 @@ import Volcanism from './modules/talents/Volcanism';
 import BlisteringScales from './modules/talents/BlisteringScales';
 import MoltenEmbers from './modules/talents/MoltenEmbers';
 import RumblingEarth from './modules/talents/RumblingEarth';
+import MomentumShift from './modules/talents/MomentumShift';
+import Overlord from './modules/talents/Overlord';
+import HoardedPower from './modules/talents/HoardedPower';
 
 import BuffTrackerGraph from './modules/features/BuffTrackerGraph';
 import BuffTargetHelper from './modules/features/BuffTargetHelper/BuffTargetHelper';
@@ -33,7 +36,8 @@ import CastLinkNormalizer from './modules/normalizers/CastLinkNormalizer';
 import EbonMightNormalizer from './modules/normalizers/EbonMightNormalizer';
 
 // Tier
-import T31Augmentation4P from './modules/dragonflight/T31Augmentation4P';
+import T32Augmentation2P from './modules/thewarwithin/T32Augmentation2P';
+import T33Augmentation4P from './modules/thewarwithin/T33Augmentation4P';
 
 //Shared
 import {
@@ -54,6 +58,7 @@ import {
   ObsidianScales,
   DefensiveNormalizer,
   DefensiveCastLinkNormalizer,
+  MobilityCastLinkNormalizer,
   TwinGuardian,
   RenewingBlaze,
   ImminentDestruction,
@@ -68,6 +73,12 @@ import {
   Chronoflame,
   ThreadsOfFate,
   Reverberations,
+  Primacy,
+  TimeConvergence,
+  MasterOfDestiny,
+  GoldenOpportunity,
+  MotesOfAcceleration,
+  TimeSpiral,
 } from 'analysis/retail/evoker/shared';
 
 class CombatLogParser extends MainCombatLogParser {
@@ -93,9 +104,11 @@ class CombatLogParser extends MainCombatLogParser {
 
     obsidianScales: ObsidianScales,
     defensiveCastLinkNormalizer: DefensiveCastLinkNormalizer,
+    mobilityCastLinkNormalizer: MobilityCastLinkNormalizer,
     defensiveNormalizer: DefensiveNormalizer,
     twinGuardian: TwinGuardian,
     renewingBlaze: RenewingBlaze,
+    timeSpiral: TimeSpiral,
     massDisintegrate: MassDisintegrate,
 
     // Normalizers
@@ -128,6 +141,9 @@ class CombatLogParser extends MainCombatLogParser {
     blisteringScales: BlisteringScales,
     moltenEmbers: MoltenEmbers,
     rumblingEarth: RumblingEarth,
+    momentumShift: MomentumShift,
+    overlord: Overlord,
+    hoardedPower: HoardedPower,
 
     // hero talents
     mightOfTheBlackDragonflight: MightOfTheBlackDragonflight,
@@ -140,13 +156,19 @@ class CombatLogParser extends MainCombatLogParser {
     chronoflame: Chronoflame,
     threadsOfFate: ThreadsOfFate,
     reverberations: Reverberations,
+    primacy: Primacy,
+    timeConvergence: TimeConvergence,
+    masterOfDestiny: MasterOfDestiny,
+    goldenOpportunity: GoldenOpportunity,
+    motesOfAcceleration: MotesOfAcceleration,
 
     // Features
     buffTrackerGraph: BuffTrackerGraph,
     buffTargetHelper: BuffTargetHelper,
 
     // Tier
-    t31Augmentation4P: T31Augmentation4P,
+    t32Augmentation2P: T32Augmentation2P,
+    t33Augmentation4P: T33Augmentation4P,
   };
   static guide = Guide;
 }

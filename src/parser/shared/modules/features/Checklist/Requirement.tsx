@@ -80,7 +80,7 @@ class Requirement extends React.PureComponent<Props> {
         <div className="flex">
           <div className="flex-main">{name}</div>
           {tooltip && (
-            <div className="flex-sub" style={{ marginLeft: 10 }}>
+            <div className="flex-sub content-middle" style={{ marginLeft: 10 }}>
               <Tooltip content={tooltip}>
                 <div>
                   <InformationIcon />

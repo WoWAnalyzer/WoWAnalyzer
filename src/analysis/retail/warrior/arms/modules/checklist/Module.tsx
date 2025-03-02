@@ -11,6 +11,7 @@ import MortalStrike from '../core/Execute/MortalStrike';
 import SweepingStrikes from '../core/SweepingStrikes';
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import Component from './Component';
+import Demolish from '../talents/Demolish';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -24,6 +25,7 @@ class Checklist extends BaseChecklist {
     mortalStrike: MortalStrike,
     sweepingStrikes: SweepingStrikes,
     bladestorm: Bladestorm,
+    demolish: Demolish,
   };
   protected combatants!: Combatants;
   protected castEfficiency!: CastEfficiency;
@@ -34,12 +36,13 @@ class Checklist extends BaseChecklist {
   protected mortalStrike!: MortalStrike;
   protected sweepingStrikes!: SweepingStrikes;
   protected bladestorm!: Bladestorm;
+  protected demolish!: Demolish;
 
   render() {
     const checkResults = aplCheck(this.owner.eventHistory, this.owner.info);
     return (
       <Component
-        apl={apl}
+        apl={apl(this.owner.info)}
         checkResults={checkResults}
         combatant={this.combatants.selected}
         castEfficiency={this.castEfficiency}
@@ -52,6 +55,7 @@ class Checklist extends BaseChecklist {
           mortalStrikeUsage: this.mortalStrike.mortalStrikeUsageThresholds,
           badSweepingStrikes: this.sweepingStrikes.suggestionThresholds,
           badBladestorms: this.bladestorm.suggestionThresholds,
+          badDemolishes: this.demolish.suggestionThresholds,
         }}
       />
     );

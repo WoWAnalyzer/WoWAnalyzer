@@ -30,7 +30,7 @@ import LayWaste from './modules/talents/LayWaste';
 import Iridescence from './modules/talents/Iridescence';
 import Pyre from './modules/abilities/Pyre';
 import EternitySurgeNormalizer from './modules/normalizers/EternitySurgeNormalizer';
-import ScorchingEmbers from './modules/talents/ScorchingEmbers';
+//import ScorchingEmbers from './modules/talents/ScorchingEmbers';
 import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import CancelledCasts from 'parser/shared/modules/CancelledCasts';
 
@@ -53,6 +53,7 @@ import {
   ObsidianScales,
   DefensiveNormalizer,
   DefensiveCastLinkNormalizer,
+  MobilityCastLinkNormalizer,
   TwinGuardian,
   RenewingBlaze,
   Engulf,
@@ -65,10 +66,10 @@ import {
   UnrelentingSiege,
   Wingleader,
   Slipstream,
+  ExpandedLungs,
+  RedHot,
+  TimeSpiral,
 } from 'analysis/retail/evoker/shared';
-import ExpandedLungs from '../shared/modules/talents/hero/flameshaper/ExpandedLungs';
-import FanTheFlames from '../shared/modules/talents/hero/flameshaper/FanTheFlames';
-import RedHot from '../shared/modules/talents/hero/flameshaper/RedHot';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -94,8 +95,10 @@ class CombatLogParser extends MainCombatLogParser {
     obsidianScales: ObsidianScales,
     defensiveCastLinkNormalizer: DefensiveCastLinkNormalizer,
     defensiveNormalizer: DefensiveNormalizer,
+    mobilityCastLinkNormalizer: MobilityCastLinkNormalizer,
     twinGuardian: TwinGuardian,
     renewingBlaze: RenewingBlaze,
+    timeSpiral: TimeSpiral,
 
     // Core
     abilities: Abilities,
@@ -127,12 +130,11 @@ class CombatLogParser extends MainCombatLogParser {
     engulfingBlaze: EngulfingBlaze,
     layWaste: LayWaste,
     iridescence: Iridescence,
-    scorchingEmbers: ScorchingEmbers,
+    //scorchingEmbers: ScorchingEmbers,
 
     // hero talents
     engulf: Engulf,
     expandedLungs: ExpandedLungs,
-    fanTheFlames: FanTheFlames,
     redHot: RedHot,
     meltArmor: MeltArmor,
     massDisintegrate: MassDisintegrate,

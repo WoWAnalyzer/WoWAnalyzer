@@ -10,7 +10,22 @@ const Ragnaros: Boss = {
   background: Background,
   headshot: Headshot,
   icon: 'achievement_firelands-raid_ragnaros.jpg',
-  fight: {},
+  fight: {
+    timeline: {
+      abilities: [
+        {
+          // World in Flames
+          id: 100171,
+          type: 'cast',
+        },
+        {
+          // Sulfuras Smash
+          id: 98710,
+          type: 'cast',
+        },
+      ],
+    },
+  },
 };
 
 export default Ragnaros;

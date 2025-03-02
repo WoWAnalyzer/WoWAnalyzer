@@ -16,7 +16,10 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 
 import './ManaTideTotem.scss';
 
-export const MANA_REGEN_PER_SECOND = 10000 / 5;
+// Base Mana Regen per second is 20,000(100,000 MP5)
+export const MANA_REGEN_PER_SECOND = 100_000 / 5;
+// Mana Tide Totem buffs mana regen by 80% for 8 seconds
+const BUFFED_MANA_REGEN_PER_SECOND = 36_000;
 
 class ManaTideTotem extends Analyzer {
   static dependencies = {
@@ -33,11 +36,11 @@ class ManaTideTotem extends Analyzer {
 
     this.addEventListener(
       Events.summon.by(SELECTED_PLAYER).spell(TALENTS.MANA_TIDE_TOTEM_TALENT),
-      this.mAnATiDeTotEm,
+      this.manaTideTotem,
     );
   }
 
-  mAnATiDeTotEm(event: SummonEvent) {
+  manaTideTotem(event: SummonEvent) {
     this.sourceID = event.targetID;
   }
 
@@ -62,7 +65,7 @@ class ManaTideTotem extends Analyzer {
   }
 
   regenFromUptime(value: number) {
-    return (value / 1000) * MANA_REGEN_PER_SECOND;
+    return (value / 1000) * BUFFED_MANA_REGEN_PER_SECOND;
   }
 
   statistic() {

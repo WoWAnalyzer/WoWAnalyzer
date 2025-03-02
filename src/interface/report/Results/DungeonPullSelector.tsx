@@ -1,7 +1,8 @@
 import Fight from 'parser/core/Fight';
-import { ChangeEventHandler } from 'react';
+import { ChangeEventHandler, useCallback } from 'react';
 import { SELECTION_ALL_PHASES, SELECTION_CUSTOM_PHASE } from 'interface/report/hooks/usePhases';
 import { formatDuration } from 'common/format';
+import { useFight } from '../context/FightContext';
 
 interface DungeonPullSelectorProps {
   fight: Fight;
@@ -16,19 +17,25 @@ const DungeonPullSelector = ({
   isLoading,
   selectedPull,
 }: DungeonPullSelectorProps) => {
-  const dungeonPulls = fight.dungeonPulls ?? [];
-
-  const handleChange: ChangeEventHandler<HTMLSelectElement> = (event) => {
-    const pullById = dungeonPulls.find((pull) => String(pull.id) === event.target.value);
-    if (pullById) {
-      handlePullSelection(String(pullById.id));
-    } else {
-      handlePullSelection(SELECTION_ALL_PHASES);
-    }
-  };
+  // we use the raw fight to get fight start time *without* the pull selection modification.
+  // without this, a pull "Abc (1:23)" gets displayed as "Abc (0:00)" after you select it.
+  const { fight: rawFight } = useFight();
+  const handleChange: ChangeEventHandler<HTMLSelectElement> = useCallback(
+    (event) => {
+      const pullById = (fight.dungeonPulls ?? []).find(
+        (pull) => String(pull.id) === event.target.value,
+      );
+      if (pullById) {
+        handlePullSelection(String(pullById.id));
+      } else {
+        handlePullSelection(SELECTION_ALL_PHASES);
+      }
+    },
+    [fight, handlePullSelection],
+  );
 
   let currentValue: string;
-  if (fight.filtered && !fight.phase) {
+  if (fight.filtered && !selectedPull) {
     currentValue = SELECTION_CUSTOM_PHASE;
   } else if (selectedPull === SELECTION_ALL_PHASES) {
     currentValue = SELECTION_ALL_PHASES;
@@ -43,7 +50,7 @@ const DungeonPullSelector = ({
       onChange={handleChange}
       value={currentValue}
     >
-      {fight.filtered && !fight.phase && (
+      {fight.filtered && !selectedPull && (
         <option key={SELECTION_CUSTOM_PHASE} value={SELECTION_CUSTOM_PHASE}>
           Custom
         </option>
@@ -51,9 +58,9 @@ const DungeonPullSelector = ({
       <option key={SELECTION_ALL_PHASES} value={SELECTION_ALL_PHASES}>
         All Pulls
       </option>
-      {dungeonPulls.map((pull) => (
+      {fight.dungeonPulls?.map((pull) => (
         <option key={pull.id} value={`${pull.id}`}>
-          {pull.name} ({formatDuration(pull.start_time - fight.start_time)})
+          {pull.name} ({formatDuration(pull.start_time - rawFight.start_time)})
         </option>
       ))}
     </select>

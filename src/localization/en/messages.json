@@ -873,7 +873,7 @@
   "shaman.restoration.castBehaviour.statistic.fillers": "Fillers",
   "shaman.restoration.castBehaviour.statistic.tidalWaves": "<0/> usage",
   "shaman.restoration.castBehaviour.unusedTW": "Unused Tidal Waves",
-  "shaman.restoration.castBehaviour.unusedTW.tooltip": "The amount of Tidal Waves you did not use out of the total available. You cast {riptideCasts} Riptides which gave you {totalTwGenerated} Tidal Waves charges, of which you used ${totalTwUsed}.",
+  "shaman.restoration.castBehaviour.unusedTW.tooltip": "The amount of Tidal Waves you did not use out of the total available. You cast {riptideCasts} Riptides which gave you {totalTwGenerated} Tidal Waves charges, of which you used {totalTwUsed}.",
   "shaman.restoration.chainHeal.averageTargets": "Average Chain Heal targets",
   "shaman.restoration.chainHeal.averageTargets.title": "Below are the casts that only hit the initial target. A large list indicates that target selection is an area for improvement.",
   "shaman.restoration.chainHeal.averageTargets.tooltip": "The average number of targets healed by Chain Heal out of the maximum amount of targets. You cast a total of {0} Chain Heals, which healed an average of {1} out of {2} targets. Keep in mind, that Unleash Life can increase the maximum number of targets by 1.",

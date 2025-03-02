@@ -134,7 +134,7 @@ export default class PurifyingBrewProblems extends Analyzer {
 
   get bigHitThreshold() {
     if (this.maxHpEventCount === 0) {
-      return 25000;
+      return 2_500_000;
     }
     return this.totalSeenMaxHp / this.maxHpEventCount / 4;
   }

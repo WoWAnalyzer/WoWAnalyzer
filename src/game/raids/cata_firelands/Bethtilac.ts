@@ -10,7 +10,27 @@ const Bethtilac: Boss = {
   background: Background,
   headshot: Headshot,
   icon: 'achievement_boss_broodmotheraranae.jpg',
-  fight: {},
+  fight: {
+    timeline: {
+      abilities: [
+        {
+          // Smoldering Devastation
+          id: 99052,
+          type: 'cast',
+        },
+      ],
+      debuffs: [
+        {
+          // Fixate
+          id: 99526,
+        },
+        {
+          // Widow's Kiss
+          id: 99506,
+        },
+      ],
+    },
+  },
 };
 
 export default Bethtilac;

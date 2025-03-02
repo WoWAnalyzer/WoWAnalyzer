@@ -13,6 +13,7 @@ import {
   ABILITIES_AFFECTED_BY_HEALING_INCREASES,
   HARMONIUS_BLOOMING_EXTRA_STACKS,
   MASTERY_STACK_BUFF_IDS,
+  masteryHotCountToMult,
   TRIPLE_MASTERY_BENEFIT_IDS,
 } from 'analysis/retail/druid/restoration/constants';
 
@@ -107,13 +108,13 @@ class Mastery extends Analyzer {
             0,
           )}) // Mastery: ${this.statTracker.currentMasteryPercentage.toFixed(
             2,
-          )} Hots: ${numHotsOn} EffHots: ${decomposedHeal.effectiveStackBenefit}`,
+          )} Hots: ${numHotsOn} EffMult: ${decomposedHeal.effectiveStackMult}`,
         );
       }
 
       this.totalNoMasteryHealing += decomposedHeal.noMastery;
       this.druidSpellNoMasteryHealing += decomposedHeal.noMastery;
-      this.masteryTimesHealing += decomposedHeal.noMastery * decomposedHeal.effectiveStackBenefit;
+      this.masteryTimesHealing += decomposedHeal.noMastery * decomposedHeal.effectiveStackMult;
 
       // tally benefits for spells
       hotsOn
@@ -214,18 +215,22 @@ class Mastery extends Analyzer {
   }
 
   /**
-   * This is the average number of mastery stacks the player's heals benefitted from, weighted by healing done.
-   * Heals and absorbs that don't benefit from mastery are counted as zero mastery stack heals.
+   * This is the average multiple of player's mastery bonus the player's heals benefitted from, weighted by effective healing done.
+   * Heals and absorbs that don't benefit from mastery are factored into the weighting.
+   * Because as of patch 11.1 mastery stacks have diminishing returns, this will NOT be equivalent to average stacks.
+   * For example, if player's mastery is 10% and their calculated weighted average bonus is 17%, this will return 1.7.
    */
-  getAverageTotalMasteryStacks() {
+  getAverageMasteryBonusMult() {
     return this.masteryTimesHealing / this.totalNoMasteryHealing;
   }
 
   /**
-   * This is the average number of mastery stacks the player's heals benefitted from, weighted by healing done.
-   * Only heals that benefit from mastery are counted.
+   * This is the average multiple of player's mastery bonus the player's heals benefitted from, weighted by effective healing done.
+   * This ONLY counts heals that actually benefit from mastery.
+   * Because as of patch 11.1 mastery stacks have diminishing returns, this will NOT be equivalent to average stacks.
+   * For example, if player's mastery is 10% and their calculated weighted average bonus is 17%, this will return 1.7.
    */
-  getAverageDruidSpellMasteryStacks() {
+  getAverageDruidSpellMasteryBonusMult() {
     return this.masteryTimesHealing / this.druidSpellNoMasteryHealing;
   }
 
@@ -280,8 +285,11 @@ class Mastery extends Analyzer {
    * @param hotCount the number of HoTs present on the target which provide Mastery boost
    */
   _decompHeal(healVal: HealingValue, hotCount: number): DecomposedHeal {
+    // mastery diminishing returns with more HoTs on - do the table lookup and get overall bonus
+    const hotMult = masteryHotCountToMult(hotCount);
     const masteryBonus = this.statTracker.currentMasteryPercentage;
-    const healMasteryMult = 1 + hotCount * masteryBonus;
+    const healBonus = hotMult * masteryBonus;
+    const healMasteryMult = 1 + healBonus;
     // the raw healing this spell would have done if it benefitted from zero mastery stacks
     const rawNoMasteryHealing = healVal.raw / healMasteryMult;
     // effective healing spell would have done if it benefitted from zero mastery stacks
@@ -293,9 +301,8 @@ class Mastery extends Analyzer {
     const oneStackMasteryHealingEffective = effectiveMasteryHealing / hotCount;
 
     const oneStackMasteryHealingRaw = rawNoMasteryHealing * masteryBonus;
-    // the number of mastery stacks that we actually benefitted from once overheal is considered.
-    // if this heal didn't overheal at all, will be the same as hotCount
-    const effectiveStackBenefit = effectiveMasteryHealing / oneStackMasteryHealingRaw;
+    // the multiplier of mastery that we actually benefitted from once overheal is considered.
+    const effectiveStackMult = effectiveMasteryHealing / oneStackMasteryHealingRaw;
 
     const relativeBuffBenefit = (buffRating: number) => {
       const buffBonus =
@@ -311,7 +318,7 @@ class Mastery extends Analyzer {
     return {
       noMastery: noMasteryHealing,
       oneStack: oneStackMasteryHealingEffective,
-      effectiveStackBenefit,
+      effectiveStackMult,
       relativeBuffBenefit,
     };
   }
@@ -369,8 +376,8 @@ interface DecomposedHeal {
   noMastery: number;
   /** The amount of effective heal added per stack of mastery */
   oneStack: number;
-  /** Number of mastery stacks that we actually benefitted from once overheal is considered */
-  effectiveStackBenefit: number;
+  /** Multiplier of our mastery that we actually benefitted from once overheal is considered */
+  effectiveStackMult: number;
   /** Function from mastery buff rating to heal attributable to that buff */
   relativeBuffBenefit: (rating: number) => number;
 }
