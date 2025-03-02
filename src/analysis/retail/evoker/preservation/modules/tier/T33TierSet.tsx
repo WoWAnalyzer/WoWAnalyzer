@@ -16,6 +16,7 @@ class T33Prevoker extends Analyzer {
   insurance2pProcHealing: number = 0;
   insurance4pHotHealing: number = 0;
   insurance4pProcHealing: number = 0;
+  ins4pOverheal: number = 0;
 
   constructor(options: Options) {
     super(options);
@@ -35,17 +36,16 @@ class T33Prevoker extends Analyzer {
 
   onInsuranceHeal(event: HealEvent) {
     if (this.has4Piece && isInsuranceFromVe(event)) {
+      this.ins4pOverheal += event.overheal || 0;
       if (event.ability.guid === SPELLS.INSURANCE_HOT.id) {
         this.insurance4pHotHealing += event.amount + (event.absorbed || 0);
       } else if (event.ability.guid === SPELLS.INSURANCE_PROC.id) {
-        console.log(this.owner.formatTimestamp(event.timestamp), event);
         this.insurance4pProcHealing += event.amount + (event.absorbed || 0);
       }
     } else {
       if (event.ability.guid === SPELLS.INSURANCE_HOT.id) {
         this.insurance2pHotHealing += event.amount + (event.absorbed || 0);
       } else if (event.ability.guid === SPELLS.INSURANCE_PROC.id) {
-        console.log(this.owner.formatTimestamp(event.timestamp), event);
         this.insurance2pProcHealing += event.amount + (event.absorbed || 0);
       }
     }
@@ -78,6 +78,8 @@ class T33Prevoker extends Analyzer {
           Proc activation
           <br />
           <ItemHealingDone amount={this.insurance4pProcHealing} />
+          <br />
+          {this.ins4pOverheal}{' '}
         </div>
       </Statistic>
     );

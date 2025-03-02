@@ -15,6 +15,7 @@ export const TIER_EVENT_LINKS: EventLink[] = [
     referencedEventId: SPELLS.VERDANT_EMBRACE_HEAL.id,
     referencedEventType: EventType.Heal,
     reverseLinkRelation: VERDANT_EMBRACE_INSURANCE,
+    backwardBufferMs: 10,
   },
   {
     linkRelation: INSURANCE_APPLICATION,
