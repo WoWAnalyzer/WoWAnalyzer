@@ -30,6 +30,7 @@ import WintersChill from './core/WintersChill';
 //Guide
 import FrozenOrbGuide from './guide/FrozenOrb';
 import CometStormGuide from './guide/CometStorm';
+import WintersChillGuide from './guide/WintersChill';
 
 //Talents
 import ColdSnap from './talents/ColdSnap';
@@ -79,6 +80,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Guide
     frozenOrbGuide: FrozenOrbGuide,
     cometStormGuide: CometStormGuide,
+    wintersChillGuide: WintersChillGuide,
 
     // Talents - Frost
     boneChilling: BoneChilling,

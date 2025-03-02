@@ -60,17 +60,17 @@ class GlacialSpike extends Analyzer {
   }
 
   onFightEnd(event: FightEndEvent) {
-    this.amendShatters();
+    //this.amendShatters();
     this.analyzeGlacialSpikes();
   }
 
-  amendShatters() {
+  /*   amendShatters() {
     this.glacialSpike.forEach((glacialSpike) => {
       if (glacialSpike.shattered !== this.wintersChill.wasShattered(glacialSpike.damage)) {
         glacialSpike.shattered = this.wintersChill.wasShattered(glacialSpike.damage);
       }
     });
-  }
+  } */
 
   analyzeGlacialSpikes() {
     this.glacialSpike.forEach((glacialSpike) => {

@@ -1,7 +1,15 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
-import { CastEvent, DamageEvent, EventType, HasRelatedEvent, HasTarget } from 'parser/core/Events';
+import {
+  AnyEvent,
+  CastEvent,
+  DamageEvent,
+  EventType,
+  GetRelatedEvent,
+  HasRelatedEvent,
+  HasTarget,
+} from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import { encodeTargetString } from 'parser/shared/modules/Enemies';
 
@@ -11,6 +19,7 @@ const BUFF_APPLY = 'BuffApply';
 const BUFF_REMOVE = 'BuffRemove';
 const BUFF_REFRESH = 'BuffRefresh';
 const DEBUFF_APPLY = 'DebuffApply';
+const DEBUFF_REFRESH = 'DebuffRefresh';
 const DEBUFF_REMOVE = 'DebuffRemove';
 const SPELL_CAST = 'SpellCast';
 const PRE_CAST = 'PreCast';
@@ -172,6 +181,19 @@ const EVENT_LINKS: EventLink[] = [
     reverseLinkRelation: DEBUFF_APPLY,
     linkingEventId: SPELLS.WINTERS_CHILL.id,
     linkingEventType: EventType.ApplyDebuff,
+    linkRelation: DEBUFF_REFRESH,
+    referencedEventId: SPELLS.WINTERS_CHILL.id,
+    referencedEventType: EventType.RefreshDebuff,
+    additionalCondition(linkingEvent, referencedEvent): boolean {
+      return !isDurationEnded(linkingEvent, referencedEvent, DEBUFF_REMOVE);
+    },
+    forwardBufferMs: 7000,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    reverseLinkRelation: DEBUFF_APPLY,
+    linkingEventId: SPELLS.WINTERS_CHILL.id,
+    linkingEventType: EventType.ApplyDebuff,
     linkRelation: SPELL_CAST,
     referencedEventId: TALENTS.FLURRY_TALENT.id,
     referencedEventType: EventType.Cast,
@@ -194,6 +216,27 @@ const EVENT_LINKS: EventLink[] = [
     maximumLinks: 1,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: 1000,
+  },
+  {
+    reverseLinkRelation: DEBUFF_APPLY,
+    linkingEventId: SPELLS.WINTERS_CHILL.id,
+    linkingEventType: EventType.ApplyDebuff,
+    linkRelation: SPELL_DAMAGE,
+    referencedEventId: [
+      SPELLS.FROSTBOLT_DAMAGE.id,
+      SPELLS.GLACIAL_SPIKE_DAMAGE.id,
+      SPELLS.ICE_LANCE_DAMAGE.id,
+      SPELLS.COMET_STORM_DAMAGE.id,
+      TALENTS.RAY_OF_FROST_TALENT.id,
+      TALENTS.ICE_NOVA_TALENT.id,
+      SPELLS.FROSTFIRE_BOLT_DAMAGE.id,
+    ],
+    referencedEventType: EventType.Damage,
+    additionalCondition(linkingEvent, referencedEvent): boolean {
+      return !isDurationEnded(linkingEvent, referencedEvent, DEBUFF_REMOVE);
+    },
+    forwardBufferMs: 7000,
+    backwardBufferMs: CAST_BUFFER_MS,
   },
   {
     reverseLinkRelation: BUFF_APPLY,
@@ -345,6 +388,15 @@ function isCleaveDamage(castEvent: CastEvent, damageEvent: DamageEvent): boolean
   const damageTarget =
     HasTarget(damageEvent) && encodeTargetString(damageEvent.targetID, damageEvent.targetInstance);
   return castTarget !== damageTarget;
+}
+
+function isDurationEnded(
+  startEvent: AnyEvent,
+  checkEvent: AnyEvent,
+  eventEndType: string,
+): boolean {
+  const endEvent = GetRelatedEvent(startEvent, eventEndType);
+  return !endEvent || checkEvent.timestamp > endEvent.timestamp;
 }
 
 export default CastLinkNormalizer;

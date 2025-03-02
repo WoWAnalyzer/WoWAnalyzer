@@ -1,40 +1,53 @@
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
-import { SpellIcon, SpellLink, TooltipElement } from 'interface';
+import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyDebuffEvent,
+  RefreshDebuffEvent,
   CastEvent,
   DamageEvent,
-  FightEndEvent,
   GetRelatedEvent,
   RemoveDebuffEvent,
+  GetRelatedEvents,
 } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { RoundedPanel } from 'interface/guide/components/GuideDivs';
-import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
-import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
-import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/mage/frost/Guide';
-import WintersChillEvent from 'analysis/retail/mage/frost/core/WintersChillEvent';
-import { PerformanceMark, qualitativePerformanceToColor } from 'interface/guide';
-import { SpellSeq } from 'parser/ui/SpellSeq';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
-class WintersChill extends Analyzer {
+const STACK_SPENDERS = [
+  SPELLS.FROSTBOLT_DAMAGE.id,
+  SPELLS.FROSTFIRE_BOLT_DAMAGE.id,
+  SPELLS.GLACIAL_SPIKE_DAMAGE.id,
+  SPELLS.ICE_LANCE_DAMAGE.id,
+  SPELLS.COMET_STORM_DAMAGE.id,
+  TALENTS.RAY_OF_FROST_TALENT.id,
+  TALENTS.ICE_NOVA_TALENT.id,
+];
+
+const FREE_SPENDERS = [SPELLS.COMET_STORM_DAMAGE.id, TALENTS.RAY_OF_FROST_TALENT.id];
+
+export interface WintersChillStacks {
+  spellId: number;
+  stacks: number;
+  hits: number;
+}
+export default class WintersChill extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
+
   protected enemies!: Enemies;
 
   hasRayOfFrost: boolean = this.selectedCombatant.hasTalent(TALENTS.RAY_OF_FROST_TALENT);
   hasGlacialSpike: boolean = this.selectedCombatant.hasTalent(TALENTS.GLACIAL_SPIKE_TALENT);
-  wintersChill: WintersChillEvent[] = [];
-  castEntries: BoxRowEntry[] = [];
+  hasCometStorm: boolean = this.selectedCombatant.hasTalent(TALENTS.COMET_STORM_TALENT);
+
+  chillDebuffs: WintersChillDebuff[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -42,120 +55,72 @@ class WintersChill extends Analyzer {
       Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.WINTERS_CHILL),
       this.onWintersChill,
     );
-    this.addEventListener(
-      Events.damage
-        .by(SELECTED_PLAYER)
-        .spell([
-          SPELLS.FROSTBOLT_DAMAGE,
-          SPELLS.GLACIAL_SPIKE_DAMAGE,
-          SPELLS.FROSTFIRE_BOLT_DAMAGE,
-          SPELLS.ICE_LANCE_DAMAGE,
-          TALENTS.RAY_OF_FROST_TALENT,
-        ]),
-      this.onDamage,
-    );
-    this.addEventListener(Events.fightend, this.analyzeCasts);
-  }
-
-  wasShattered(event: DamageEvent | undefined): boolean {
-    if (event === undefined) {
-      return false;
-    }
-    return this.wintersChill.some((wintersChillEvent) =>
-      wintersChillEvent.damageEvents.includes(event),
-    );
   }
 
   onWintersChill(event: ApplyDebuffEvent) {
+    const refreshes: RefreshDebuffEvent[] = GetRelatedEvents(event, 'DebuffRefresh') || [];
     const remove: RemoveDebuffEvent | undefined = GetRelatedEvent(event, 'DebuffRemove');
-    const flurry: CastEvent | undefined = GetRelatedEvent(event, 'SpellCast');
+    const flurryCast: CastEvent | undefined = GetRelatedEvent(event, 'SpellCast');
     const precast: CastEvent | undefined = GetRelatedEvent(event, 'PreCast');
-    const currentTimestamp = flurry !== undefined ? flurry.timestamp : this.owner.currentTimestamp;
-    const precastIcicles = this.selectedCombatant.getBuffStacks(
-      SPELLS.ICICLES_BUFF.id,
-      currentTimestamp - 100,
-    );
-    const wintersChillEvent = new WintersChillEvent(event, remove, precast, precastIcicles, flurry);
-    this.wintersChill.push(wintersChillEvent);
+    const damage: DamageEvent[] = GetRelatedEvents(event, 'SpellDamage') || [];
+    const spenders = damage.filter((d) => {
+      const precastDamage = precast && GetRelatedEvent(precast, 'SpellDamage');
+      if (
+        STACK_SPENDERS.includes(d.ability.guid) &&
+        (!precastDamage || precastDamage.timestamp !== d.timestamp)
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    const icicleBuff = this.selectedCombatant.getBuff(SPELLS.ICICLES_BUFF.id, event.timestamp - 10);
+
+    this.chillDebuffs.push({
+      apply: event,
+      refreshes,
+      remove,
+      flurryCast,
+      damage,
+      spentStacks: this.checkSpentStacks(spenders),
+      precast,
+      icicles: icicleBuff?.stacks || 0,
+    });
   }
 
-  onDamage(event: DamageEvent) {
-    const enemy = this.enemies.getEntity(event);
-    if (!enemy || !enemy.hasBuff(SPELLS.WINTERS_CHILL.id)) {
-      return;
-    }
-    const wintersChillDebuff: number | undefined = this.wintersChill.findIndex(
-      (d) =>
-        d.apply.timestamp <= event.timestamp && d.remove && d.remove.timestamp >= event.timestamp,
-    );
-    if (wintersChillDebuff === -1) {
-      return;
-    }
-    const isTick = event.tick;
-    if (isTick !== undefined && isTick) {
-      return;
-    }
-    this.wintersChill[wintersChillDebuff].damageEvents?.push(event);
-  }
-
-  wintersChillFromFlurry = () => {
-    return this.wintersChill.filter((wc) => wc.comesFromFlurry());
-  };
-
-  missedPreCasts = () => {
-    return this.wintersChillFromFlurry().filter(
-      (wc) => wc.getPrecastPerformance() === QualitativePerformance.Fail,
-    ).length;
-  };
-
-  missedShatters = () => {
-    return this.wintersChillFromFlurry().filter(
-      (wc) => wc.getShatterPerformance() === QualitativePerformance.Fail,
-    ).length;
-  };
-
-  get totalProcsFromFlurry() {
-    return this.wintersChillFromFlurry().length;
-  }
-
-  get shatterPercent() {
-    return 1 - this.missedShatters() / this.totalProcsFromFlurry;
+  checkSpentStacks(spenders: DamageEvent[]) {
+    const spentStacks: WintersChillStacks[] = [];
+    spenders.forEach((s) => {
+      const debuff = this.enemies.getEntity(s)?.getBuff(SPELLS.WINTERS_CHILL.id, s.timestamp);
+      if (FREE_SPENDERS.includes(s.ability.guid)) {
+        const hits = spenders.filter((h) => h.ability.guid === s.ability.guid);
+        spentStacks.push({
+          spellId: s.ability.guid,
+          stacks: debuff?.stacks || 0,
+          hits: hits.length,
+        });
+      } else {
+        spentStacks.push({
+          spellId: s.ability.guid,
+          stacks: debuff?.stacks || 0,
+          hits: 1,
+        });
+      }
+    });
+    return spentStacks;
   }
 
   get preCastPercent() {
-    return 1 - this.missedPreCasts() / this.totalProcsFromFlurry;
+    const chillsWithPrecast = this.chillDebuffs.filter((c) => c.precast).length;
+    return chillsWithPrecast / this.chillDebuffs.length;
   }
 
-  analyzeCasts(event: FightEndEvent) {
-    // this module is only analizyng flurry winter's chill applications
-    this.wintersChill
-      .filter((wintersChillEvent) => wintersChillEvent.applier)
-      .forEach((winterChill) => {
-        const tooltip = (
-          <div>
-            <div>
-              <b>
-                @ {this.owner.formatTimestamp(winterChill.apply.timestamp)} -{' '}
-                {winterChill.remove && this.owner.formatTimestamp(winterChill.remove.timestamp)}
-              </b>
-            </div>
-            <div>
-              <b>
-                <PerformanceMark perf={winterChill.getPerformance()} />{' '}
-                {winterChill.getPerformance()}
-              </b>
-            </div>
-            <div>
-              <b>Perf. Details</b>
-              <div>{winterChill.getPerformanceDetails()}</div>
-            </div>
-          </div>
-        );
-        this.castEntries.push({
-          value: winterChill.getPerformance(),
-          tooltip,
-        });
-      });
+  get shatterPercent() {
+    const shatters = [];
+    this.chillDebuffs.forEach((s) =>
+      shatters.push(s.damage.filter((d) => !FREE_SPENDERS.includes(d.ability.guid))),
+    );
+    return shatters.length / (this.chillDebuffs.length * 2);
   }
 
   // less strict than the ice lance suggestion both because it's less important,
@@ -182,56 +147,6 @@ class WintersChill extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    when(this.wintersChillShatterThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You failed to properly take advantage of <SpellLink spell={SPELLS.WINTERS_CHILL} /> on
-          your target {this.missedShatters()} times ({formatPercentage(1 - actual)}%). After
-          debuffing the target via <SpellLink spell={TALENTS.BRAIN_FREEZE_TALENT} /> and{' '}
-          <SpellLink spell={TALENTS.FLURRY_TALENT} />, you should ensure that you hit the target
-          with{' '}
-          {this.hasGlacialSpike ? (
-            <>
-              a <SpellLink spell={TALENTS.GLACIAL_SPIKE_TALENT} /> and an{' '}
-              <SpellLink spell={TALENTS.ICE_LANCE_TALENT} /> (If Glacial Spike is available), or{' '}
-            </>
-          ) : (
-            ''
-          )}{' '}
-          two <SpellLink spell={TALENTS.ICE_LANCE_TALENT} />s before the{' '}
-          <SpellLink spell={SPELLS.WINTERS_CHILL} /> debuff expires to get the most out of{' '}
-          <SpellLink spell={TALENTS.SHATTER_TALENT} />.
-        </>,
-      )
-        .icon(TALENTS.ICE_LANCE_TALENT.icon)
-        .actual(`${formatPercentage(1 - actual)}% Winter's Chill not shattered with Ice Lance`)
-        .recommended(`${formatPercentage(1 - recommended)}% is recommended`),
-    );
-    when(this.wintersChillPreCastThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You failed to use a pre-cast ability before <SpellLink spell={TALENTS.FLURRY_TALENT} />{' '}
-          {this.missedPreCasts()} times ({formatPercentage(1 - actual)}%). Because of the travel
-          time of <SpellLink spell={TALENTS.FLURRY_TALENT} />, you should cast a damaging ability
-          such as <SpellLink spell={SPELLS.FROSTBOLT} /> immediately before using{' '}
-          <SpellLink spell={TALENTS.FLURRY_TALENT} />. Doing this will allow your pre-cast ability
-          to hit the target after <SpellLink spell={TALENTS.FLURRY_TALENT} /> (unless you are
-          standing too close to the target) allowing it to benefit from{' '}
-          <SpellLink spell={TALENTS.SHATTER_TALENT} />. If you have 4 Icicles, it can be acceptable
-          to use <SpellLink spell={TALENTS.FLURRY_TALENT} /> without a pre-cast.
-        </>,
-      )
-        .icon(SPELLS.FROSTBOLT.icon)
-        .actual(
-          `${formatPercentage(
-            1 - actual,
-          )}% Winter's Chill not shattered with Frostbolt or Glacial Spike`,
-        )
-        .recommended(`${formatPercentage(1 - recommended)}% is recommended`),
-    );
   }
 
   statistic() {
@@ -283,134 +198,15 @@ class WintersChill extends Analyzer {
 
     return performance;
   }
-
-  get guideSubsection(): JSX.Element {
-    const cooldown = {
-      id: -1,
-      name: 'Cooldown',
-      icon: 'inv_misc_questionmark',
-    };
-
-    const wintersChill = <SpellLink spell={SPELLS.WINTERS_CHILL} />;
-    const flurry = <SpellLink spell={TALENTS.FLURRY_TALENT} />;
-    const frostbolt = <SpellLink spell={SPELLS.FROSTBOLT} />;
-    const glacialSpike = <SpellLink spell={TALENTS.GLACIAL_SPIKE_TALENT} />;
-    const iceLance = <SpellLink spell={TALENTS.ICE_LANCE_TALENT} />;
-    const rayOfFrost = <SpellLink spell={TALENTS.RAY_OF_FROST_TALENT} />;
-
-    const cooldownIcon = <SpellIcon spell={cooldown} />;
-    const glacialSpikeIcon = <SpellIcon spell={TALENTS.GLACIAL_SPIKE_TALENT} />;
-    const iceLanceIcon = <SpellIcon spell={TALENTS.ICE_LANCE_TALENT} />;
-    const rayOfFrostIcon = <SpellIcon spell={TALENTS.RAY_OF_FROST_TALENT} />;
-    const wintersChillIcon = <SpellIcon spell={SPELLS.WINTERS_CHILL} />;
-
-    const explanation = (
-      <>
-        <div>
-          <b>{wintersChill}</b> is an extremely important part of playing Frost effectively.
-        </div>
-        <div>
-          There are 2 main rules to follow:
-          <ul>
-            <li>
-              <b>Precast</b>
-              <div>
-                You should cast {this.hasGlacialSpike ? <>{glacialSpike} or </> : ''}
-                {frostbolt} before {flurry}.
-              </div>
-              {this.hasGlacialSpike && (
-                <div>
-                  At 4 <SpellLink spell={SPELLS.MASTERY_ICICLES} /> you can cast {flurry} without
-                  precast.
-                  <div>
-                    <small>
-                      Precast priority order: {glacialSpike} {frostbolt}{' '}
-                    </small>
-                  </div>
-                </div>
-              )}
-            </li>
-            <li>
-              <b>{wintersChill} stacks</b>
-              <div>
-                Consume both {wintersChill} stacks with{' '}
-                {this.hasGlacialSpike && <>{glacialSpike} or </>}
-                {iceLance}.
-              </div>
-              {this.hasRayOfFrost && (
-                <div>
-                  If {rayOfFrost} is available, use it at 1 stack of {wintersChill}.
-                </div>
-              )}
-              <div>
-                <small>
-                  Priority order: {this.hasRayOfFrost && <>{rayOfFrost} </>}
-                  {this.hasGlacialSpike && <>{glacialSpike} </>}
-                  {iceLance}
-                </small>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div>
-          <div>Your rotations should look like this:</div>
-          <div>
-            <SpellSeq spells={[SPELLS.FROSTBOLT, TALENTS.FLURRY_TALENT, cooldown, cooldown]} />
-          </div>
-          <div>
-            <SpellSeq
-              spells={[TALENTS.GLACIAL_SPIKE_TALENT, TALENTS.FLURRY_TALENT, cooldown, cooldown]}
-            />
-          </div>
-          <div>
-            filling the {cooldownIcon}s with {this.hasGlacialSpike && <>{glacialSpikeIcon}, </>}
-            {iceLanceIcon} or
-            {this.hasRayOfFrost && <>{rayOfFrostIcon} </>} following the rules and priorities above.
-          </div>
-        </div>
-      </>
-    );
-    const data = (
-      <div>
-        <RoundedPanel>
-          <strong>Overall Performance</strong>
-          <div
-            style={{
-              color: qualitativePerformanceToColor(this.wintersChillPrecastPerformance),
-              fontSize: '20px',
-            }}
-          >
-            {wintersChillIcon}{' '}
-            <TooltipElement content="Precast shattered or Flurry on 4 icicles">
-              {formatPercentage(this.preCastPercent, 0)} % <small>Precast utilization</small>
-            </TooltipElement>
-          </div>
-          <div
-            style={{
-              color: qualitativePerformanceToColor(this.wintersChillShatterPerformance),
-              fontSize: '20px',
-            }}
-          >
-            {wintersChillIcon}{' '}
-            <TooltipElement content="2 Winter's Chill stacks used or 1 stack and Ray of Frost">
-              {formatPercentage(this.shatterPercent, 0)} % <small>Winter's Chill utilization</small>
-            </TooltipElement>
-          </div>
-
-          <strong>Cast details</strong>
-          <PerformanceBoxRow values={this.castEntries} />
-          <small>green (good) / red (fail) mouseover the rectangles to see more details</small>
-        </RoundedPanel>
-      </div>
-    );
-
-    return explanationAndDataSubsection(
-      explanation,
-      data,
-      GUIDE_CORE_EXPLANATION_PERCENT,
-      "Winter's Chill",
-    );
-  }
 }
 
-export default WintersChill;
+export interface WintersChillDebuff {
+  apply: ApplyDebuffEvent;
+  refreshes: RefreshDebuffEvent[];
+  remove?: RemoveDebuffEvent;
+  flurryCast?: CastEvent;
+  damage: DamageEvent[];
+  spentStacks: WintersChillStacks[];
+  precast?: CastEvent;
+  icicles: number;
+}
