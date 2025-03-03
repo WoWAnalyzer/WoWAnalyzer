@@ -168,7 +168,7 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
 
   getYulonDetails(spellInfo: SpellInfoDetails) {
     const soob = this.healingDone.byAbility(SPELLS.SOOTHING_BREATH.id);
-    const chiCocoon = this.healingDone.byAbility(SPELLS.CHI_COCOON_HEAL_YULON.id);
+    const chiCocoon = this.healingDone.byAbility(SPELLS.CHI_COCOON_BUFF_YULON.id);
     const envBreath = this.healingDone.byAbility(SPELLS.ENVELOPING_BREATH_HEAL.id);
 
     spellInfo.healingDone = soob.effective + chiCocoon.effective + envBreath.effective;

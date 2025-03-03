@@ -79,7 +79,7 @@ export const SHEILUNS_GIFT_TARGETS = 3;
 export const MAX_CHIJI_STACKS = 3;
 export const MANA_TEA_MAX_STACKS = 20;
 export const MANA_TEA_REDUCTION = 0.3;
-export const JADE_BOND_INC = 0.6;
+export const JADE_BOND_INC = 0.2;
 export const JADE_BOND_SOOB_INC = 5;
 export const NOURISHING_CHI_INC = 0.2;
 export const DANCING_MIST_CHANCE = 0.08;
@@ -102,6 +102,7 @@ export const RUSHING_WIND_KICK_INCREASE = 0.5;
 
 export const ATTRIBUTION_STRINGS = {
   BOUNCED: 'Bounced',
+  JADE_BOND_ENVELOPING_MIST: 'Jade Bond Enveloping Mist',
   HARDCAST_ENVELOPING_MIST: 'Enveloping Mist Hardcast',
   MISTY_PEAKS_ENVELOPING_MIST: 'Enveloping Mist Misty Peaks Proc',
   HARDCAST_RENEWING_MIST: 'Renewing Mist Hardcast',

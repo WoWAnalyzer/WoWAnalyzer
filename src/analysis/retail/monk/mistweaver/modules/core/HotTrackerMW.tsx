@@ -112,6 +112,12 @@ class HotTrackerMW extends HotTracker {
     });
   }
 
+  fromJadeBond(hot: Tracker): boolean {
+    return hot.attributions.some(function (attr) {
+      return attr.name === ATTRIBUTION_STRINGS.JADE_BOND_ENVELOPING_MIST;
+    });
+  }
+
   fromMistyPeaks(hot: Tracker): boolean {
     return hot.attributions.some(function (attr) {
       return attr.name === ATTRIBUTION_STRINGS.MISTY_PEAKS_ENVELOPING_MIST;

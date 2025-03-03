@@ -8,6 +8,7 @@ import {
   APPLIED_HEAL,
   CAST_BUFFER_MS,
   TFT_ENV_TOM,
+  JADE_BOND_ENVM,
 } from './EventLinkConstants';
 
 export const ENVELOPING_MIST_EVENT_LINKS: EventLink[] = [
@@ -49,6 +50,18 @@ export const ENVELOPING_MIST_EVENT_LINKS: EventLink[] = [
     anyTarget: true,
     isActive(c) {
       return c.hasTalent(TALENTS_MONK.TEAR_OF_MORNING_TALENT);
+    },
+  },
+  // Jade Bond Envm from Chi Cocoon expiring
+  {
+    linkRelation: JADE_BOND_ENVM,
+    linkingEventId: [TALENTS_MONK.ENVELOPING_MIST_TALENT.id],
+    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    referencedEventId: [SPELLS.CHI_COCOON_BUFF_YULON.id, SPELLS.CHI_COCOON_BUFF_CHIJI.id],
+    referencedEventType: [EventType.RemoveBuff],
+    backwardBufferMs: CAST_BUFFER_MS,
+    isActive(c) {
+      return c.hasTalent(TALENTS_MONK.JADE_BOND_TALENT);
     },
   },
 ];

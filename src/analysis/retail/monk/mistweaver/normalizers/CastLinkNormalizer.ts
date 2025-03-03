@@ -51,6 +51,7 @@ import {
   ZEN_PULSE_CONSUME,
   ZEN_PULSE_VIVIFY,
   STRENGTH_OF_THE_BLACK_OX,
+  JADE_BOND_ENVM,
 } from './EventLinks/EventLinkConstants';
 import { RENEWING_MIST_EVENT_LINKS } from './EventLinks/RenewingMistEventLinks';
 import { GUST_OF_MISTS_EVENT_LINKS } from './EventLinks/GustOfMistEventLinks';
@@ -181,6 +182,10 @@ export function isBounceTick(event: HealEvent) {
 
 export function isFromMistyPeaks(event: ApplyBuffEvent | RefreshBuffEvent) {
   return HasRelatedEvent(event, FROM_MISTY_PEAKS);
+}
+
+export function isFromJadeBond(event: ApplyBuffEvent | RefreshBuffEvent) {
+  return HasRelatedEvent(event, JADE_BOND_ENVM);
 }
 
 export function isFromRapidDiffusion(event: ApplyBuffEvent | RefreshBuffEvent) {

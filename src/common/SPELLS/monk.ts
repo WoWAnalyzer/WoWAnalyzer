@@ -445,12 +445,12 @@ const spells = {
     name: "Invoke Yu'lon, the Jade Serpent",
     icon: 'ability_monk_dragonkick',
   },
-  CHI_COCOON_HEAL_CHIIJI: {
+  CHI_COCOON_BUFF_CHIJI: {
     id: 406220,
     name: 'Chi Cocoon',
     icon: 'inv_pet_crane',
   },
-  CHI_COCOON_HEAL_YULON: {
+  CHI_COCOON_BUFF_YULON: {
     id: 406139,
     name: 'Chi Cocoon',
     icon: 'ability_monk_chiexplosion',

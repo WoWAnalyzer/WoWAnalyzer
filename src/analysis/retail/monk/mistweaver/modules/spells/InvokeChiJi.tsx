@@ -82,7 +82,7 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
       this.handleEnvelopingBreath,
     );
     this.addEventListener(
-      Events.absorbed.by(SELECTED_PLAYER).spell(SPELLS.CHI_COCOON_HEAL_CHIIJI),
+      Events.absorbed.by(SELECTED_PLAYER).spell(SPELLS.CHI_COCOON_BUFF_CHIJI),
       this.handleChiCocoon,
     );
     this.addEventListener(
@@ -410,7 +410,7 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
               </li>
               <li>
                 {formatNumber(this.chiCocoonHealing)}{' '}
-                <SpellLink spell={SPELLS.CHI_COCOON_HEAL_CHIIJI} /> healing from{' '}
+                <SpellLink spell={SPELLS.CHI_COCOON_BUFF_CHIJI} /> healing from{' '}
                 <SpellLink spell={TALENTS_MONK.CELESTIAL_HARMONY_TALENT} />.
               </li>
             </ul>
