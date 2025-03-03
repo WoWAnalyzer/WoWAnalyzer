@@ -739,6 +739,11 @@ const spells = {
     name: 'Time Spiral',
     icon: 'ability_evoker_timespiral',
   },
+  JACKPOT_BUFF: {
+    id: 1217769,
+    name: 'Jackpot!',
+    icon: 'inv_10_fishing_dragonislescoins_gold',
+  },
   // endregion
 } satisfies Record<string, Spell>;
 
