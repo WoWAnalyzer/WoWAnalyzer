@@ -5,6 +5,7 @@ import { TALENTS_EVOKER } from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS/evoker';
 
 export default [
+  change(date(2025, 3, 3), <>Implement TWW S2 4pc module</>, Vollmer),
   change(date(2025, 2, 25), <>Update various modules & abilities for 11.1</>, Vollmer),
   change(date(2025, 2, 25), <>Update handling of <SpellLink spell={TALENTS_EVOKER.MASS_DISINTEGRATE_TALENT}/> ticks</>, Vollmer),
   change(date(2025, 1, 16), <>Implement <SpellLink spell={TALENTS_EVOKER.TIME_SPIRAL_TALENT}/> module</>, KYZ),
