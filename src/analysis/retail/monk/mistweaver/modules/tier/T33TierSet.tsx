@@ -9,6 +9,9 @@ import Statistic from 'parser/ui/Statistic';
 import SPELLS from 'common/SPELLS';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import { isInsuranceFromHardcast } from '../../normalizers/CastLinkNormalizer';
+import { SPELL_COLORS } from '../../constants';
+import { formatNumber } from 'common/format';
+import DonutChart from 'parser/ui/DonutChart';
 
 class T33MW extends Analyzer {
   has4Piece: boolean = false;
@@ -51,6 +54,26 @@ class T33MW extends Analyzer {
     }
   }
 
+  private renderDonutChart(hotHealing: number, procHealing: number) {
+    const items = [
+      {
+        color: SPELL_COLORS.RENEWING_MIST,
+        label: 'HoT',
+        spellId: SPELLS.INSURANCE_HOT_MONK,
+        value: hotHealing,
+        valueTooltip: formatNumber(hotHealing),
+      },
+      {
+        color: SPELL_COLORS.ENVELOPING_MIST,
+        label: 'Proc',
+        spellId: SPELLS.INSURANCE_PROC_MONK,
+        value: procHealing,
+        valueTooltip: formatNumber(procHealing),
+      },
+    ];
+    return <DonutChart items={items} />;
+  }
+
   statistic() {
     return (
       <Statistic
@@ -61,21 +84,11 @@ class T33MW extends Analyzer {
         <div className="pad">
           <ItemSetLink id={MONK_TWW2_ID}>Ageless Serpent's Foresight</ItemSetLink> (T33 tier){' '}
           <h4>2 Piece</h4>
-          Heal over time
-          <br />
-          <ItemHealingDone amount={this.insurance2pHotHealing} />
-          <br />
-          Proc activation
-          <br />
-          <ItemHealingDone amount={this.insurance2pProcHealing} />
+          <ItemHealingDone amount={this.insurance2pHotHealing + this.insurance2pProcHealing} />
+          {this.renderDonutChart(this.insurance2pHotHealing, this.insurance2pProcHealing)}
           <h4>4 piece</h4>
-          Heal over time
-          <br />
-          <ItemHealingDone amount={this.insurance4pHotHealing} />
-          <br />
-          Proc activation
-          <br />
-          <ItemHealingDone amount={this.insurance4pProcHealing} />
+          <ItemHealingDone amount={this.insurance4pHotHealing + this.insurance4pProcHealing} />
+          {this.renderDonutChart(this.insurance4pHotHealing, this.insurance4pProcHealing)}
         </div>
       </Statistic>
     );
