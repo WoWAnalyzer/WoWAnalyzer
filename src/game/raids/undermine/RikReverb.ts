@@ -1,7 +1,9 @@
 import { buildBoss } from '../builders';
+import background from './backgrounds/Rik Reverb.jpg';
 
 export default buildBoss({
   id: 3011,
+  background,
   name: 'Rik Reverb',
   timeline: {
     abilities: [
