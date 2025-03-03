@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
+import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
 import Events, { ApplyBuffEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
@@ -12,6 +12,15 @@ import { JADE_BOND_INC, JADE_BOND_SOOB_INC } from '../../constants';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { isFromJadeBond } from '../../normalizers/CastLinkNormalizer';
 import HotTrackerMW from '../core/HotTrackerMW';
+import SpellLink from 'interface/SpellLink';
+import { formatNumber } from 'common/format';
+import {
+  ABILITIES_AFFECTED_BY_HEALING_INCREASES,
+  ENVELOPING_MIST_INCREASE,
+  MISTWRAP_INCREASE,
+} from '../../constants';
+
+const UNAFFECTED_SPELLS = [TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
 
 class JadeBond extends Analyzer {
   static dependencies = {
@@ -23,6 +32,9 @@ class JadeBond extends Analyzer {
   envmHealing: number = 0;
   envmHits: number = 0;
   envmOverhealing: number = 0;
+  envmHealingIncrease: number = 0;
+  extraEnvBonusHealing: number = 0;
+  extraEnvBonusOverhealing: number = 0;
 
   boostAmount: number = JADE_BOND_INC;
   numHots: number = 0;
@@ -40,6 +52,27 @@ class JadeBond extends Analyzer {
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT)) {
       this.boostAmount = JADE_BOND_SOOB_INC;
     }
+
+    this.envmHealingIncrease = this.selectedCombatant.hasTalent(TALENTS_MONK.MIST_WRAP_TALENT)
+      ? ENVELOPING_MIST_INCREASE + MISTWRAP_INCREASE
+      : ENVELOPING_MIST_INCREASE;
+
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS_MONK.ENVELOPING_MIST_TALENT),
+      this.handleEnvApply,
+    );
+
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(TALENTS_MONK.ENVELOPING_MIST_TALENT),
+      this.handleEnvApply,
+    );
+
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(TALENTS_MONK.ENVELOPING_MIST_TALENT),
+      this.handleEnvHeal,
+    );
+
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.handleHeal);
 
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT)) {
       this.addEventListener(
@@ -80,15 +113,58 @@ class JadeBond extends Analyzer {
     }
   }
 
+  handleHeal(event: HealEvent) {
+    const targetId = event.targetID;
+    const spellId = event.ability.guid;
+    if (
+      UNAFFECTED_SPELLS.includes(spellId) ||
+      !ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(spellId) ||
+      !this.hotTracker.hots[targetId] ||
+      !this.hotTracker.hots[targetId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id]
+    ) {
+      return;
+    }
+
+    const hot = this.hotTracker.hots[targetId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
+    if (!this.hotTracker.fromJadeBond(hot)) {
+      return;
+    }
+    this.extraEnvBonusHealing += calculateEffectiveHealing(event, this.envmHealingIncrease);
+    this.extraEnvBonusOverhealing += calculateOverhealing(event, this.envmHealingIncrease);
+  }
+
+  get totalHealing() {
+    return this.healing + this.envmHealing + this.extraEnvBonusHealing;
+  }
+
   statistic() {
     return (
       <Statistic
         position={STATISTIC_ORDER.UNIMPORTANT(0)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
+        tooltip={
+          <ul>
+            <li>
+              <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> HoTs: {this.numHots}
+            </li>
+            <li>
+              <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> extra hits: {this.envmHits}
+            </li>
+            <li>
+              Extra <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> direct healing:{' '}
+              {formatNumber(this.envmHealing)} ({formatNumber(this.envmOverhealing)} overheal)
+            </li>
+            <li>
+              Bonus healing from <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> buff:{' '}
+              {formatNumber(this.extraEnvBonusHealing)} (
+              {formatNumber(this.extraEnvBonusOverhealing)} overheal)
+            </li>
+          </ul>
+        }
       >
         <TalentSpellText talent={TALENTS_MONK.JADE_BOND_TALENT}>
-          <ItemHealingDone amount={this.healing} />
+          <ItemHealingDone amount={this.totalHealing} />
         </TalentSpellText>
       </Statistic>
     );

@@ -165,12 +165,12 @@ export function isBounceTick(event: HealEvent) {
   return HasRelatedEvent(event, OVERHEAL_BOUNCE);
 }
 
-export function isFromMistyPeaks(event: ApplyBuffEvent | RefreshBuffEvent) {
-  return HasRelatedEvent(event, FROM_MISTY_PEAKS);
-}
-
 export function isFromJadeBond(event: ApplyBuffEvent | RefreshBuffEvent) {
   return HasRelatedEvent(event, JADE_BOND_ENVM);
+}
+
+export function isFromMistyPeaks(event: ApplyBuffEvent | RefreshBuffEvent) {
+  return HasRelatedEvent(event, FROM_MISTY_PEAKS);
 }
 
 export function isFromRapidDiffusion(event: ApplyBuffEvent | RefreshBuffEvent) {

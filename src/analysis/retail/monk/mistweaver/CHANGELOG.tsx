@@ -5,6 +5,7 @@ import { emallson, Trevor, Vetyst, Vohrr } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2025, 3, 3), <>Update <SpellLink spell={TALENTS_MONK.JADE_BOND_TALENT}/> for 11.1</>, Trevor),
   change(date(2025, 2, 6), <>Fix crash in <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_TALENT} /> analysis when no casts have occurred.</>, emallson),
   change(date (2025, 2, 4), <>Added <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT}/> to list of correct <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT}/></>, Vohrr),
   change(date (2024, 12, 16), <>Got rid of TODO in <SpellLink spell={SPELLS.VIVIFY}/> cast performance breakdown.</>, Vohrr),
