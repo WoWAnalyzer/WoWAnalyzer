@@ -130,7 +130,7 @@ class TWW2TierSet extends Analyzer {
       summary: <>Buff consumed at {jackpotConsume.stacks} stack(s)</>,
       details: (
         <div key="jackpot-consumed">
-          Buff consumed at {jackpotConsume.stacks} stack(s). Good job!
+          Buff was consumed at {jackpotConsume.stacks} stack(s). Good job!
         </div>
       ),
     };
