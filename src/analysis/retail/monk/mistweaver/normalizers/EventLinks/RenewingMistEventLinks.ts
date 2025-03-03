@@ -22,7 +22,9 @@ import {
   SOURCE_APPLY,
   DANCING_MIST_BUFFER_MS,
   FROM_MISTS_OF_LIFE,
+  INSURANCE_FROM_REM,
 } from './EventLinkConstants';
+import { TIERS } from 'game/TIERS';
 
 export const RENEWING_MIST_EVENT_LINKS: EventLink[] = [
   // link renewing mist apply to its CastEvent
@@ -142,6 +144,20 @@ export const RENEWING_MIST_EVENT_LINKS: EventLink[] = [
     },
     isActive: (c) => {
       return c.hasTalent(TALENTS_MONK.MISTS_OF_LIFE_TALENT);
+    },
+  },
+  // Insurance from Rem hardcast
+  {
+    linkRelation: INSURANCE_FROM_REM,
+    linkingEventId: SPELLS.INSURANCE_HOT_MONK.id,
+    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    referencedEventId: TALENTS_MONK.RENEWING_MIST_TALENT.id,
+    referencedEventType: [EventType.Cast],
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    maximumLinks: 1,
+    isActive: (c) => {
+      return c.has4PieceByTier(TIERS.TWW2);
     },
   },
 ];

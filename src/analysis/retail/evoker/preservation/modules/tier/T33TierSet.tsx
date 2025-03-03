@@ -24,12 +24,12 @@ class T33Prevoker extends Analyzer {
     this.has4Piece = this.selectedCombatant.has4PieceByTier(TIERS.TWW2);
 
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.INSURANCE_HOT),
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.INSURANCE_HOT_EVOKER),
       this.onInsuranceHeal,
     );
 
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.INSURANCE_PROC),
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.INSURANCE_PROC_EVOKER),
       this.onInsuranceHeal,
     );
   }
@@ -37,15 +37,15 @@ class T33Prevoker extends Analyzer {
   onInsuranceHeal(event: HealEvent) {
     if (this.has4Piece && isInsuranceFromVe(event)) {
       this.ins4pOverheal += event.overheal || 0;
-      if (event.ability.guid === SPELLS.INSURANCE_HOT.id) {
+      if (event.ability.guid === SPELLS.INSURANCE_HOT_EVOKER.id) {
         this.insurance4pHotHealing += event.amount + (event.absorbed || 0);
-      } else if (event.ability.guid === SPELLS.INSURANCE_PROC.id) {
+      } else if (event.ability.guid === SPELLS.INSURANCE_PROC_EVOKER.id) {
         this.insurance4pProcHealing += event.amount + (event.absorbed || 0);
       }
     } else {
-      if (event.ability.guid === SPELLS.INSURANCE_HOT.id) {
+      if (event.ability.guid === SPELLS.INSURANCE_HOT_EVOKER.id) {
         this.insurance2pHotHealing += event.amount + (event.absorbed || 0);
-      } else if (event.ability.guid === SPELLS.INSURANCE_PROC.id) {
+      } else if (event.ability.guid === SPELLS.INSURANCE_PROC_EVOKER.id) {
         this.insurance2pProcHealing += event.amount + (event.absorbed || 0);
       }
     }

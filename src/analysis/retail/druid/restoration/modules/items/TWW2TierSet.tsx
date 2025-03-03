@@ -83,7 +83,7 @@ export default class TWW2TierSet extends Analyzer.withDependencies({
     this.has4pc = this.selectedCombatant.has4PieceByTier(TIERS.TWW2);
 
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RESTO_DRUID_INSURANCE_HOT),
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.NSURANCE_HOT_DRUID),
       this.onInsuranceHotHeal,
     );
     this.addEventListener(
@@ -101,15 +101,15 @@ export default class TWW2TierSet extends Analyzer.withDependencies({
     );
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RESTO_DRUID_INSURANCE_HOT),
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.NSURANCE_HOT_DRUID),
       this.onInsuranceApply,
     );
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.RESTO_DRUID_INSURANCE_HOT),
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.NSURANCE_HOT_DRUID),
       this.onInsuranceRefresh,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.RESTO_DRUID_INSURANCE_HOT),
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.NSURANCE_HOT_DRUID),
       this.onInsuranceRemove,
     );
     this.addEventListener(Events.fightend, this.onFightEnd);

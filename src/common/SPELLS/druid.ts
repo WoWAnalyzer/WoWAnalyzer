@@ -507,7 +507,7 @@ const spells = {
   },
 
   // HoT (heal and buff) from Resto Druid TWW S2 tier set.
-  RESTO_DRUID_INSURANCE_HOT: {
+  NSURANCE_HOT_DRUID: {
     id: 1215515,
     name: 'Insurance!',
     icon: 'inv_10_inscription2_scroll2_color5',

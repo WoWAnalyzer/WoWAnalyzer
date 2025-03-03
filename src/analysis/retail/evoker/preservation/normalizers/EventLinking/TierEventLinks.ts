@@ -10,7 +10,7 @@ import {
 export const TIER_EVENT_LINKS: EventLink[] = [
   {
     linkRelation: VERDANT_EMBRACE_INSURANCE,
-    linkingEventId: SPELLS.INSURANCE_HOT.id,
+    linkingEventId: SPELLS.INSURANCE_HOT_EVOKER.id,
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     referencedEventId: SPELLS.VERDANT_EMBRACE_HEAL.id,
     referencedEventType: EventType.Heal,
@@ -19,9 +19,9 @@ export const TIER_EVENT_LINKS: EventLink[] = [
   },
   {
     linkRelation: INSURANCE_APPLICATION,
-    linkingEventId: [SPELLS.INSURANCE_HOT.id, SPELLS.INSURANCE_PROC.id],
+    linkingEventId: [SPELLS.INSURANCE_HOT_EVOKER.id, SPELLS.INSURANCE_PROC_EVOKER.id],
     linkingEventType: EventType.Heal,
-    referencedEventId: SPELLS.INSURANCE_HOT.id,
+    referencedEventId: SPELLS.INSURANCE_HOT_EVOKER.id,
     referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     backwardBufferMs: INSURANCE_MAX_DURATION,
   },

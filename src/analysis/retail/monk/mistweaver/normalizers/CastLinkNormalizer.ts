@@ -50,6 +50,8 @@ import {
   ZEN_PULSE_VIVIFY,
   STRENGTH_OF_THE_BLACK_OX,
   JADE_BOND_ENVM,
+  INSURANCE_FROM_REM,
+  INSURANCE,
 } from './EventLinks/EventLinkConstants';
 import { RENEWING_MIST_EVENT_LINKS } from './EventLinks/RenewingMistEventLinks';
 import { GUST_OF_MISTS_EVENT_LINKS } from './EventLinks/GustOfMistEventLinks';
@@ -57,6 +59,7 @@ import { MANA_TEA_EVENT_LINKS } from './EventLinks/ManaTeaEventLinks';
 import { VIVIFY_EVENT_LINKS } from './EventLinks/VivifyEventLinks';
 import { ENVELOPING_MIST_EVENT_LINKS } from './EventLinks/EnvelopingMistEventLinks';
 import { HERO_TALENT_EVENT_LINKS } from './EventLinks/HeroTalentEventLinks';
+import { TIER_EVENT_LINKS } from './EventLinks/TierEventLinks';
 
 const FOUND_REMS: Map<string, number | null> = new Map();
 
@@ -72,6 +75,7 @@ const EVENT_LINKS: EventLink[] = [
   ...VIVIFY_EVENT_LINKS,
   ...ENVELOPING_MIST_EVENT_LINKS,
   ...HERO_TALENT_EVENT_LINKS,
+  ...TIER_EVENT_LINKS,
   {
     linkRelation: SHEILUNS_GIFT,
     linkingEventId: [TALENTS_MONK.SHEILUNS_GIFT_TALENT.id],
@@ -317,6 +321,18 @@ export function HasStackChange(event: RefreshBuffEvent): boolean {
 // hero talents
 export function isStrengthOfTheBlackOxConsumed(event: RemoveBuffEvent): boolean {
   return HasRelatedEvent(event, STRENGTH_OF_THE_BLACK_OX);
+}
+
+// tier
+export function isInsuranceFromHardcast(event: ApplyBuffEvent | RefreshBuffEvent | HealEvent) {
+  if (event.type === EventType.Heal) {
+    const source = GetRelatedEvents(event, INSURANCE);
+    if (!source.length) {
+      return false;
+    }
+    return HasRelatedEvent(source[0], INSURANCE_FROM_REM);
+  }
+  return HasRelatedEvent(event, INSURANCE_FROM_REM);
 }
 
 export default CastLinkNormalizer;

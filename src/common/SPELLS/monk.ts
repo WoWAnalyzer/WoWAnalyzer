@@ -525,11 +525,21 @@ const spells = {
     name: 'Overflowing Mists',
     icon: 'inv_legion_faction_dreamweavers',
   },
-  //Invigorating Mist Heal
   INVIGORATING_MISTS_HEAL: {
     id: 425804,
     name: 'Invigorating Mists',
     icon: 'ability_monk_vivify',
+  },
+  // Tier
+  INSURANCE_HOT_MONK: {
+    id: 1215544,
+    name: 'Insurance',
+    icon: 'inv_10_inscription2_scroll2_color5',
+  },
+  INSURANCE_PROC_MONK: {
+    id: 1215545,
+    name: 'Insurance',
+    icon: 'inv_10_inscription2_scroll2_color5',
   },
   // Brewmaster
   NIUZAO_STOMP_DAMAGE: {
