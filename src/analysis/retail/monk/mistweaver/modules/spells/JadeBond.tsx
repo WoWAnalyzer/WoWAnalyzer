@@ -30,7 +30,7 @@ class JadeBond extends Analyzer {
   protected hotTracker!: HotTrackerMW;
   healing: number = 0;
   envmHealing: number = 0;
-  envmHits: number = 0;
+  envmTicks: number = 0;
   envmOverhealing: number = 0;
   envmHealingIncrease: number = 0;
   extraEnvBonusHealing: number = 0;
@@ -98,16 +98,16 @@ class JadeBond extends Analyzer {
   }
 
   handleEnvHeal(event: HealEvent) {
-    const playerId = event.targetID;
+    const targetID = event.targetID;
     if (
-      !this.hotTracker.hots[playerId] ||
-      !this.hotTracker.hots[playerId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id]
+      !this.hotTracker.hots[targetID] ||
+      !this.hotTracker.hots[targetID][TALENTS_MONK.ENVELOPING_MIST_TALENT.id]
     ) {
       return;
     }
-    const hot = this.hotTracker.hots[playerId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
+    const hot = this.hotTracker.hots[targetID][TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
     if (this.hotTracker.fromJadeBond(hot)) {
-      this.envmHits += 1;
+      this.envmTicks += 1;
       this.envmHealing += event.amount + (event.absorbed ?? 0);
       this.envmOverhealing += event.overheal ?? 0;
     }
@@ -149,7 +149,8 @@ class JadeBond extends Analyzer {
               <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> HoTs: {this.numHots}
             </li>
             <li>
-              <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> extra hits: {this.envmHits}
+              <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> extra ticks:{' '}
+              {this.envmTicks}
             </li>
             <li>
               Extra <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> direct healing:{' '}
