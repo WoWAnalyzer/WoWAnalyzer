@@ -1,7 +1,9 @@
 import { buildBoss } from '../builders';
+import background from './backgrounds/One-Armed Bandit.jpg';
 
 export default buildBoss({
   id: 3014,
+  background,
   name: 'One-Armed Bandit',
   timeline: {
     abilities: [

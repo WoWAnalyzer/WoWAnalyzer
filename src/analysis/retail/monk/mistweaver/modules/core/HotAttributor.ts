@@ -19,6 +19,7 @@ import {
   getSourceRem,
   isFromRapidDiffusionEnvelopingMist,
   isFromRapidDiffusionRisingSunKick,
+  isFromJadeBond,
 } from '../../normalizers/CastLinkNormalizer';
 import HotTrackerMW from '../core/HotTrackerMW';
 
@@ -36,6 +37,7 @@ class HotAttributor extends Analyzer {
   protected combatants!: Combatants;
   protected hotTracker!: HotTrackerMW;
   bouncedAttrib = HotTracker.getNewAttribution(ATTRIBUTION_STRINGS.BOUNCED);
+  jadeBondAttrib = HotTracker.getNewAttribution(ATTRIBUTION_STRINGS.JADE_BOND_ENVELOPING_MIST);
   envMistHardcastAttrib = HotTracker.getNewAttribution(
     ATTRIBUTION_STRINGS.HARDCAST_ENVELOPING_MIST,
   );
@@ -140,6 +142,14 @@ class HotAttributor extends Analyzer {
           'on ' + this.combatants.getEntity(event)?.name,
         );
       this.hotTracker.addAttributionFromApply(this.MistsOfLifeAttrib, event);
+    } else if (isFromJadeBond(event)) {
+      debug &&
+        console.log(
+          'Attributed Enveloping Mist from Jade Bond at ' +
+            this.owner.formatTimestamp(event.timestamp),
+          'on ' + this.combatants.getEntity(event)?.name,
+        );
+      this.hotTracker.addAttributionFromApply(this.jadeBondAttrib, event);
     } else if (event.prepull || isFromHardcast(event)) {
       this.hotTracker.addAttributionFromApply(this.envMistHardcastAttrib, event);
       debug &&

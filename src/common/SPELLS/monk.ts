@@ -445,12 +445,12 @@ const spells = {
     name: "Invoke Yu'lon, the Jade Serpent",
     icon: 'ability_monk_dragonkick',
   },
-  CHI_COCOON_HEAL_CHIIJI: {
+  CHI_COCOON_BUFF_CHIJI: {
     id: 406220,
     name: 'Chi Cocoon',
     icon: 'inv_pet_crane',
   },
-  CHI_COCOON_HEAL_YULON: {
+  CHI_COCOON_BUFF_YULON: {
     id: 406139,
     name: 'Chi Cocoon',
     icon: 'ability_monk_chiexplosion',
@@ -525,11 +525,21 @@ const spells = {
     name: 'Overflowing Mists',
     icon: 'inv_legion_faction_dreamweavers',
   },
-  //Invigorating Mist Heal
   INVIGORATING_MISTS_HEAL: {
     id: 425804,
     name: 'Invigorating Mists',
     icon: 'ability_monk_vivify',
+  },
+  // Tier
+  INSURANCE_HOT_MONK: {
+    id: 1215544,
+    name: 'Insurance',
+    icon: 'inv_10_inscription2_scroll2_color5',
+  },
+  INSURANCE_PROC_MONK: {
+    id: 1215545,
+    name: 'Insurance',
+    icon: 'inv_10_inscription2_scroll2_color5',
   },
   // Brewmaster
   NIUZAO_STOMP_DAMAGE: {

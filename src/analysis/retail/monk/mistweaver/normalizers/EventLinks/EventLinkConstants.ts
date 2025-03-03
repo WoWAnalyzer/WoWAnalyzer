@@ -8,6 +8,8 @@ export const SOURCE_APPLY = 'SourceApply';
 export const FROM_HARDCAST = 'FromHardcast';
 export const FROM_RAPID_DIFFUSION = 'FromRD'; // can be linked to env mist or rsk cast
 export const FROM_MISTS_OF_LIFE = 'FromMOL';
+export const INSURANCE_FROM_REM = 'InsuranceFromRem'; // Insurance proc'd by rem hardcast
+export const INSURANCE = 'Insurance'; // link insurance heal to apply
 export const RAPID_DIFFUSION_BUFFER_MS = 300;
 export const DANCING_MIST_BUFFER_MS = 250;
 export const MAX_REM_DURATION = 77000;
@@ -15,6 +17,7 @@ export const MAX_REM_DURATION = 77000;
 // Enveloping Mist
 export const FROM_MISTY_PEAKS = 'FromMistyPeaks';
 export const TFT_ENV_TOM = 'TFTEnvTom';
+export const JADE_BOND_ENVM = 'JadeBondEvnm';
 
 // Mastery
 export const ENVELOPING_MIST_GOM = 'EnvGOM';
@@ -56,3 +59,6 @@ export const STRENGTH_OF_THE_BLACK_OX = 'SotBO';
 // Misc
 export const CAST_BUFFER_MS = 100;
 export const CHI_WAVE_RSK = 'ChiWaveRSK';
+
+// Tier
+export const INSURANCE_DURATION = 15000;

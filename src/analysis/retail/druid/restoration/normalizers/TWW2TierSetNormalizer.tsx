@@ -11,7 +11,7 @@ const HOT_FROM_INSURANCE = 'HoT from Insurance';
 const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: INSURANCE_FROM_BLOOM,
-    linkingEventId: SPELLS.RESTO_DRUID_INSURANCE_HOT.id,
+    linkingEventId: SPELLS.INSURANCE_HOT_DRUID.id,
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     referencedEventId: SPELLS.LIFEBLOOM_BLOOM_HEAL.id,
     referencedEventType: EventType.Heal,
@@ -27,7 +27,7 @@ const EVENT_LINKS: EventLink[] = [
       SPELLS.WILD_GROWTH.id,
     ],
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
-    referencedEventId: SPELLS.RESTO_DRUID_INSURANCE_HOT.id,
+    referencedEventId: SPELLS.INSURANCE_HOT_DRUID.id,
     referencedEventType: [EventType.RemoveBuff, EventType.RefreshBuff],
     forwardBufferMs: BUFFER_MS,
     backwardBufferMs: BUFFER_MS,

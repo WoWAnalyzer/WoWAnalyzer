@@ -315,12 +315,12 @@ const spells = {
     name: 'Stasis',
     icon: 'ability_evoker_stasis',
   },
-  INSURANCE_HOT: {
+  INSURANCE_HOT_EVOKER: {
     id: 1215550,
     name: 'Insurance',
     icon: 'inv_10_inscription2_scroll2_color5',
   },
-  INSURANCE_PROC: {
+  INSURANCE_PROC_EVOKER: {
     id: 1215553,
     name: 'Insurance',
     icon: 'inv_10_inscription2_scroll2_color5',
