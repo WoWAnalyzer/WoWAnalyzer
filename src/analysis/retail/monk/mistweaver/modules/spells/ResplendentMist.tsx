@@ -44,11 +44,7 @@ class ResplendentMists extends Analyzer {
       this.selectedCombatant.getTalentRank(TALENTS_MONK.RESPLENDENT_MIST_TALENT);
 
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS),
-      this.onHeal,
-    );
-    this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUST_OF_MISTS_CHIJI),
+      Events.heal.by(SELECTED_PLAYER).spell([SPELLS.GUSTS_OF_MISTS, SPELLS.GUST_OF_MISTS_CHIJI]),
       this.onHeal,
     );
   }
@@ -71,7 +67,7 @@ class ResplendentMists extends Analyzer {
     return (
       <Statistic
         size="flexible"
-        position={STATISTIC_ORDER.CORE(0)}
+        position={STATISTIC_ORDER.OPTIONAL(5)}
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
