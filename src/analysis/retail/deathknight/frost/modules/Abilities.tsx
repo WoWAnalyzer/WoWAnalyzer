@@ -194,7 +194,7 @@ class Abilities extends CoreAbilities {
       {
         spell: talents.REAPERS_MARK_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: combatant.hasTalent(talents.SWIFT_END_TALENT) ? 30 : 45,
+        cooldown: combatant.hasTalent(talents.REAPERS_ONSLAUGHT_TALENT) ? 30 : 45,
         gcd: {
           base: 1500,
         },
@@ -242,7 +242,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.ANTI_MAGIC_ZONE_TALENT_BUFF.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         gcd: null,
-        cooldown: 120,
+        cooldown: combatant.hasTalent(talents.ASSIMILATION_TALENT) ? 90 : 120,
         isDefensive: true,
       },
       {

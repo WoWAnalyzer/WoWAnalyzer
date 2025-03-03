@@ -51,6 +51,11 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
     </SubSection>
   );
 
+  const isBoltspamBuild =
+    info.combatant.hasTalent(TALENTS.DEEP_SHATTER_TALENT) &&
+    info.combatant.hasTalent(TALENTS.DEATHS_CHILL_TALENT) &&
+    info.combatant.hasTalent(TALENTS.SLICK_ICE_TALENT);
+
   return (
     <>
       <Section title="Core">
@@ -59,9 +64,15 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           {info.combatant.hasTalent(TALENTS.SPLINTERSTORM_TALENT) && (
             <AplSectionData checker={ssApl.spellslingerCheck} apl={ssApl.spellslingerApl} />
           )}
-          {info.combatant.hasTalent(TALENTS.FLASH_FREEZEBURN_TALENT) && (
-            <AplSectionData checker={ffApl.frostfireCheck} apl={ffApl.frostfireApl} />
-          )}
+          {info.combatant.hasTalent(TALENTS.FLASH_FREEZEBURN_TALENT) &&
+            (isBoltspamBuild ? (
+              <AplSectionData
+                checker={ffApl.boltspamFrostfireCheck}
+                apl={ffApl.boltspamFrostfireApl}
+              />
+            ) : (
+              <AplSectionData checker={ffApl.frostfireCheck} apl={ffApl.frostfireApl} />
+            ))}
         </SubSection>
         {alwaysBeCastingSubsection}
         {modules.wintersChill.guideSubsection}

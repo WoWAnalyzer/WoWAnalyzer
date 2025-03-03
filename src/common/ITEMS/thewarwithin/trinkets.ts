@@ -26,6 +26,31 @@ const trinkets = {
     name: 'Treacherous Transmitter',
     icon: 'inv_etherealraid_communicator_color1',
   },
+  OVINAXS_MERCURIAL_EGG: {
+    id: 220305,
+    name: "Ovi'nax's Mercurial Egg",
+    icon: 'inv_raid_mercurialegg_purple',
+  },
+  MAD_QUEENS_MANDATE: {
+    id: 212454,
+    name: "Mad Queen's Mandate",
+    icon: 'inv_raid_abyssaleffigy_purple',
+  },
+  SKARDYNS_GRACE: {
+    id: 133282,
+    name: "Skardyn's Grace",
+    icon: 'inv_misc_coin_08',
+  },
+  MERELDARS_TOLL: {
+    id: 219313,
+    name: "Mereldar's Toll",
+    icon: 'inv_arathordungeon_bell_color1',
+  },
+  CIRRAL_CONCOCTORY: {
+    id: 219321,
+    name: 'Cirral Concoctory',
+    icon: 'inv_11_0_dungeon_tentaclevial_red',
+  },
 } satisfies Record<string, Item>;
 
 export default trinkets;

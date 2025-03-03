@@ -6,7 +6,7 @@ import Auras from 'parser/core/modules/Auras';
 
 export const MAJOR_DEFENSIVES: Array<[Talent, Spell | null]> = [
   [talents.CELESTIAL_BREW_TALENT, null],
-  [talents.FORTIFYING_BREW_TALENT, SPELLS.FORTIFYING_BREW_BRM_BUFF],
+  [talents.FORTIFYING_BREW_TALENT, SPELLS.FORTIFYING_BREW_BUFF],
   [talents.DAMPEN_HARM_TALENT, null],
   [talents.DIFFUSE_MAGIC_TALENT, null],
   [talents.ZEN_MEDITATION_TALENT, null],

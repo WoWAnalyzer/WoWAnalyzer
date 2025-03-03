@@ -17,6 +17,11 @@ const spells = {
     name: 'Berserker Rage',
     icon: 'spell_nature_ancestralguardian',
   },
+  BRUTAL_FINISH_BUFF: {
+    id: 446918,
+    name: 'Brutal Finish',
+    icon: 'ability_revendreth_warrior',
+  },
   CHALLENGING_SHOUT: {
     id: 1161,
     name: 'Challenging Shout',
@@ -163,6 +168,11 @@ const spells = {
     name: 'Slam',
     icon: 'ability_warrior_decisivestrike',
   },
+  SLAUGHTERING_STRIKES_BUFF: {
+    id: 393931,
+    name: 'Slaughtering Strikes',
+    icon: 'inv_axe_2h_orcwarrior_c_01',
+  },
   SPELL_REFLECTION: {
     id: 23920,
     name: 'Spell Reflection',
@@ -238,6 +248,11 @@ const spells = {
     name: 'Onslaught',
     icon: 'ability_warrior_trauma',
   },
+  WINNING_STREAK_BUFF_FURY: {
+    id: 1216561,
+    name: 'Winning Streak!',
+    icon: 'ability_rogue_keepitrolling',
+  },
 
   // Arms/Fury:
   PIERCING_HOWL: {
@@ -294,11 +309,6 @@ const spells = {
     name: "Champion's Spear",
     icon: 'ability_bastion_warrior',
   },
-  CHAMPIONS_MIGHT: {
-    id: 386286,
-    name: "Champion's Might",
-    icon: 'ability_bastion_warrior',
-  },
   WILD_STRIKES: {
     id: 392778,
     name: 'Wild Strikes',
@@ -326,6 +336,11 @@ const spells = {
     name: 'Bladestorm',
     icon: 'ability_warrior_bladestorm',
   },
+  COLOSSAL_MIGHT: {
+    id: 440989,
+    name: 'Colossal Might',
+    icon: 'ability_warrior_strengthofarms',
+  },
   COLOSSUS_SMASH: {
     id: 167105,
     name: 'Colossus Smash',
@@ -335,6 +350,16 @@ const spells = {
     id: 208086,
     name: 'Colossus Smash',
     icon: 'ability_warrior_colossussmash',
+  },
+  DEMOLISH: {
+    id: 436358,
+    name: 'Demolish',
+    icon: 'inv_ability_colossuswarrior_demolish',
+  },
+  DEMOLISH_DAMAGE: {
+    id: 440884,
+    name: 'Demolish',
+    icon: 'inv_ability_colossuswarrior_demolish',
   },
   DIE_BY_THE_SWORD: {
     id: 118038,
@@ -382,17 +407,42 @@ const spells = {
     name: 'Deep Wounds',
     icon: 'ability_backstab',
   },
+  WINNING_STREAK_BUFF_ARMS: {
+    id: 1216552,
+    name: 'Winning Streak!',
+    icon: 'ability_rogue_keepitrolling',
+  },
 
   // Arm Talents
+  EXECUTIONERS_PRECISION_DEBUFF: {
+    id: 386633, // ID for the debuff is different from the talent
+    name: "Executioner's Precision",
+    icon: 'inv_sword_48',
+  },
+  FIERCE_FOLLOWTHROUGH_BUFF: {
+    id: 458689,
+    name: 'Fierce Followthrough',
+    icon: 'spell_deathknight_butcher2',
+  },
   IN_FOR_THE_KILL_TALENT_BUFF: {
     id: 248622,
     name: 'In For The Kill',
     icon: 'ability_blackhand_marked4death',
   },
+  JUGGERNAUT: {
+    id: 383290,
+    name: 'Juggernaut',
+    icon: 'warrior_talent_icon_skirmisher',
+  },
+  OPPORTUNIST: {
+    id: 456120,
+    name: 'Opportunist',
+    icon: 'ability_warrior_weaponmastery',
+  },
   SUDDEN_DEATH_ARMS_TALENT_BUFF: {
     id: 52437,
     name: 'Sudden Death',
-    icon: 'abilty_warrior_improveddisciplines',
+    icon: 'ability_warrior_improveddisciplines',
   },
   SECOND_WIND_TALENT_HEAL: {
     id: 202147,
@@ -474,10 +524,10 @@ const spells = {
   },
 
   // Talents
-  WAR_MACHINE_FURY_TALENT_BUFF: {
+  SUDDEN_DEATH_FURY_TALENT_BUFF: {
     id: 280776,
     name: 'Sudden Death',
-    icon: 'abilty_warrior_improveddisciplines',
+    icon: 'ability_warrior_improveddisciplines',
   },
   BLADESTORM_OH_DAMAGE: {
     id: 95738,
@@ -500,9 +550,19 @@ const spells = {
     name: 'Crushing Blow',
     icon: 'ability_hunter_swiftstrike',
   },
+  CRUSHING_BLOW_BUFF: {
+    id: 396752,
+    name: 'Crushing Blow',
+    icon: 'ability_hunter_swiftstrike',
+  },
   // spell replacement for bloodthirst when using reckless abondon
   BLOODBATH: {
     id: 335096,
+    name: 'Bloodbath',
+    icon: 'ability_warrior_bloodbath',
+  },
+  BLOODBATH_BUFF: {
+    id: 461288,
     name: 'Bloodbath',
     icon: 'ability_warrior_bloodbath',
   },
@@ -530,6 +590,21 @@ const spells = {
     id: 335082,
     name: 'Frenzy',
     icon: 'ability_rogue_bloodyeye',
+  },
+  BLOODCRAZE: {
+    id: 393951,
+    name: 'Bloodcraze',
+    icon: 'ability_creature_cursed_02',
+  },
+  MARKED_FOR_EXECUTION: {
+    id: 445584,
+    name: 'Marked For Execution',
+    icon: 'ability_blackhand_marked4death',
+  },
+  ASHEN_JUGGERNAUT: {
+    id: 392537,
+    name: 'Ashen Juggernaut',
+    icon: 'warrior_talent_icon_skirmisher',
   },
 
   // Protection:
@@ -605,6 +680,11 @@ const spells = {
     name: 'Unnerving Focus',
     icon: 'rogue_shadowfocus',
   },
+  BURST_OF_POWER_BUFF: {
+    id: 437121,
+    name: 'BURST_OF_POWER',
+    icon: 'shaman_pvp_thundercharge',
+  },
 
   //Passives
   DEEP_WOUNDS: {
@@ -629,6 +709,11 @@ const spells = {
     name: 'Earthen Smash',
     icon: 'inv_misc_head_dragon_red',
   },
+  LETHAL_BLOWS_BUFF: {
+    id: 455485,
+    name: 'Lethal Blows',
+    icon: 'spell_warrior_sharpenblade',
+  },
 
   //Fatality talent is split into 3 IDs, the talent (703), and these two.
   FATAL_MARK_DEBUFF: {
@@ -652,6 +737,13 @@ const spells = {
     id: 394173,
     name: 'Strike Vulnerabilities',
     icon: 'ability_criticalstrike',
+  },
+
+  // T31 2p buff
+  EXPERT_STRATEGIST_BUFF: {
+    id: 455499,
+    name: 'Expert Strategist',
+    icon: 'ability_warrior_vigilance',
   },
 
   // Talent in here so SpellLink doesn't return Unknown

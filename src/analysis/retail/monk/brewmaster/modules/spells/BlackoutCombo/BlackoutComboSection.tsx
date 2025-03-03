@@ -97,9 +97,10 @@ export default function BlackoutComboSection(): JSX.Element | null {
               </div>
               <div>
                 The main value of comboing <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} /> is in
-                the bonus 5% damage reduction. The damage bonus only applies to a single target.{' '}
-                <em>However,</em> the extra damage reduction will be removed the next time you
-                re-apply <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} />.
+                the bonus 5% damage reduction. The damage bonus applies to the initial hit and to{' '}
+                <em>one</em> DoT on an enemy target, while the damage reduction applies to all
+                targets. <em>However,</em> the extra damage reduction will be removed the next time
+                you re-apply <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} />.
               </div>
             </li>
             <li>
@@ -126,7 +127,7 @@ export default function BlackoutComboSection(): JSX.Element | null {
                   content={
                     <>
                       These are stacks of <SpellLink spell={SPELLS.PURIFIED_CHI} />, which is
-                      limited to 10 stacks total (including the 3 bonus from{' '}
+                      limited to 6 stacks total (including the 3 bonus from{' '}
                       <SpellLink spell={talents.BLACKOUT_COMBO_TALENT} />
                       ).
                     </>

@@ -1,5 +1,7 @@
-import { ONE_SECOND_IN_MS } from 'analysis/retail/hunter/shared/constants';
-import { BUTCHERY_CARVE_MAX_TARGETS_HIT } from 'analysis/retail/hunter/survival/constants';
+import {
+  BUTCHERY_CARVE_MAX_TARGETS_HIT,
+  FRENZIED_STRIKES_CDR,
+} from 'analysis/retail/hunter/survival/constants';
 import TALENTS from 'common/TALENTS/hunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
@@ -11,7 +13,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { formatDurationMillisMinSec } from 'common/format';
 
 /**
- * Butchery reduces the remaining cooldown on Wildfire Bomb by 1.0 sec for each target hit, up to 5.
+ * Butchery reduces the remaining cooldown on Wildfire Bomb by 3.0 sec for each target hit, up to 5 targets for 15s of cooldown.
  *
  * Example logs:
  * https://www.warcraftlogs.com/reports/GcyfdwP1XTJrR3h7#fight=15&source=8&type=damage-done&ability=212436
@@ -58,24 +60,24 @@ class Butchery extends Analyzer {
     if (this.spellUsable.isOnCooldown(TALENTS.WILDFIRE_BOMB_TALENT.id)) {
       this.checkCooldown(TALENTS.WILDFIRE_BOMB_TALENT.id);
     } else {
-      this.wastedReductionMs += ONE_SECOND_IN_MS;
+      this.wastedReductionMs += FRENZIED_STRIKES_CDR;
     }
   }
 
   checkCooldown(spellId: number) {
-    if (this.spellUsable.cooldownRemaining(spellId) < ONE_SECOND_IN_MS) {
-      const effectiveReductionMs = this.spellUsable.reduceCooldown(spellId, ONE_SECOND_IN_MS);
+    if (this.spellUsable.cooldownRemaining(spellId) < FRENZIED_STRIKES_CDR) {
+      const effectiveReductionMs = this.spellUsable.reduceCooldown(spellId, FRENZIED_STRIKES_CDR);
       this.effectiveReductionMs += effectiveReductionMs;
-      this.wastedReductionMs += ONE_SECOND_IN_MS - effectiveReductionMs;
+      this.wastedReductionMs += FRENZIED_STRIKES_CDR - effectiveReductionMs;
     } else {
-      this.effectiveReductionMs += this.spellUsable.reduceCooldown(spellId, ONE_SECOND_IN_MS);
+      this.effectiveReductionMs += this.spellUsable.reduceCooldown(spellId, FRENZIED_STRIKES_CDR);
     }
   }
 
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(5)}
+        position={STATISTIC_ORDER.CORE(2)}
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
       >

@@ -89,7 +89,7 @@ class MaelstromWeaponSpenders extends Analyzer {
           (e) => e.type === EventType.Damage,
         );
         if (damageEvents.length > 1) {
-          const spellId = TALENTS_SHAMAN.PRIMORDIAL_WAVE_SPEC_TALENT.id;
+          const spellId = TALENTS_SHAMAN.PRIMORDIAL_WAVE_TALENT.id;
           // the first lightning bolt is a regular bolt
           damageEvents?.splice(0, 1);
           this.spenderValues[spellId] =
@@ -142,7 +142,7 @@ class MaelstromWeaponSpenders extends Analyzer {
               const spell = maybeGetSpell(spellId);
 
               let spender = this.maelstromWeaponTracker.spendersObj[spellId];
-              if (!spender && spellId === TALENTS_SHAMAN.PRIMORDIAL_WAVE_SPEC_TALENT.id) {
+              if (!spender && spellId === TALENTS_SHAMAN.PRIMORDIAL_WAVE_TALENT.id) {
                 spender = {
                   casts: this.abilityTracker.getAbility(spellId)?.casts ?? 0,
                   spent: this.maelstromSpendWithPrimordialWave,
@@ -156,7 +156,7 @@ class MaelstromWeaponSpenders extends Analyzer {
                   <tr key={spellId}>
                     <td>
                       <SpellLink spell={spell} />
-                      {spellId === TALENTS_SHAMAN.PRIMORDIAL_WAVE_SPEC_TALENT.id && (
+                      {spellId === TALENTS_SHAMAN.PRIMORDIAL_WAVE_TALENT.id && (
                         <>
                           {' '}
                           buffed <SpellLink spell={SPELLS.LIGHTNING_BOLT} />

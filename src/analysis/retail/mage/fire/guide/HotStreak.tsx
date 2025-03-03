@@ -1,17 +1,18 @@
-import { ReactNode } from 'react';
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellIcon, SpellLink, TooltipElement } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
-import { RoundedPanel } from 'interface/guide/components/GuideDivs';
-import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
+import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { qualitativePerformanceToColor } from 'interface/guide';
 import { PerformanceMark } from 'interface/guide';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/mage/fire/Guide';
 import HotStreak from '../core/HotStreak';
+import CastSummaryAndBreakdown from 'interface/guide/components/CastSummaryAndBreakdown';
+
+const LOW_BLAST_CHARGES = 1;
+const LOW_PHOENIX_CHARGES = 1;
 
 class HotStreakGuide extends Analyzer {
   static dependencies = {
@@ -20,9 +21,12 @@ class HotStreakGuide extends Analyzer {
 
   protected hotStreak!: HotStreak;
 
+  hasFlameOn: boolean = this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT);
+  hasCallOfSunKing: boolean = this.selectedCombatant.hasTalent(TALENTS.CALL_OF_THE_SUN_KING_TALENT);
+
   generateGuideTooltip(
     performance: QualitativePerformance,
-    tooltipText: ReactNode,
+    tooltipItems: { perf: QualitativePerformance; detail: string }[],
     timestamp: number,
   ) {
     const tooltip = (
@@ -31,25 +35,19 @@ class HotStreakGuide extends Analyzer {
           <b>@ {this.owner.formatTimestamp(timestamp)}</b>
         </div>
         <div>
-          <PerformanceMark perf={performance} /> {performance}: {tooltipText}
+          <PerformanceMark perf={performance} /> {performance}
+        </div>
+        <div>
+          {tooltipItems.map((t, i) => (
+            <div key={i}>
+              <PerformanceMark perf={t.perf} /> {t.detail}
+              <br />
+            </div>
+          ))}
         </div>
       </>
     );
     return tooltip;
-  }
-
-  get procUtilization() {
-    const utilPercent = this.hotStreak.badUsePercent;
-    const thresholds = this.hotStreak.castBeforeHotStreakThresholds.isLessThan;
-    let performance = QualitativePerformance.Fail;
-    if (utilPercent > thresholds.minor) {
-      performance = QualitativePerformance.Perfect;
-    } else if (utilPercent > thresholds.average) {
-      performance = QualitativePerformance.Good;
-    } else if (utilPercent > thresholds.major) {
-      performance = QualitativePerformance.Ok;
-    }
-    return performance;
   }
 
   get wastedCritsPerMinute() {
@@ -66,16 +64,43 @@ class HotStreakGuide extends Analyzer {
     return performance;
   }
 
-  get preCastData() {
+  get hotStreakData() {
     const data: BoxRowEntry[] = [];
     this.hotStreak.hotStreaks.forEach((hs) => {
-      if (hs.preCastMissing && hs.preCastMissing.tooltip) {
-        const tooltip = this.generateGuideTooltip(
-          hs.preCastMissing.value,
-          hs.preCastMissing.tooltip,
-          hs.remove.timestamp,
-        );
-        data.push({ value: hs.preCastMissing.value, tooltip });
+      const tooltipItems: { perf: QualitativePerformance; detail: string }[] = [];
+
+      if (hs.expired) {
+        tooltipItems.push({ perf: QualitativePerformance.Fail, detail: `Hot Streak Proc Expired` });
+      }
+
+      const lowBlastCharges = hs.blastCharges <= LOW_BLAST_CHARGES;
+      const lowPhoenixCharges = hs.phoenixCharges <= LOW_PHOENIX_CHARGES;
+      if (hs.precast && (!lowBlastCharges || !lowPhoenixCharges)) {
+        tooltipItems.push({
+          perf: QualitativePerformance.Ok,
+          detail: `Precast Found with Fire Blast or Phoenix Flames Charges Available`,
+        });
+      }
+
+      if (hs.critBuff.active && hs.critBuff.buffId) {
+        tooltipItems.push({
+          perf: QualitativePerformance.Good,
+          detail: `Had Guaranteed Crit Buff: ${hs.critBuff.buffId === TALENTS.SCORCH_TALENT.id ? 'Searing Touch' : SPELLS[hs.critBuff.buffId].name}`,
+        });
+      }
+
+      let overallPerf = QualitativePerformance.Fail;
+      if (hs.expired) {
+        overallPerf = QualitativePerformance.Fail;
+      } else if (hs.precast && (!lowBlastCharges || !lowPhoenixCharges)) {
+        overallPerf = QualitativePerformance.Ok;
+      } else if (!hs.precast || (hs.precast && lowBlastCharges && lowBlastCharges)) {
+        overallPerf = QualitativePerformance.Good;
+      }
+
+      if (tooltipItems) {
+        const tooltip = this.generateGuideTooltip(overallPerf, tooltipItems, hs.remove.timestamp);
+        data.push({ value: overallPerf, tooltip });
       }
     });
     return data;
@@ -89,8 +114,6 @@ class HotStreakGuide extends Analyzer {
     const pyroblast = <SpellLink spell={TALENTS.PYROBLAST_TALENT} />;
     const flamestrike = <SpellLink spell={SPELLS.FLAMESTRIKE} />;
     const ignite = <SpellLink spell={SPELLS.IGNITE} />;
-    const firestarter = <SpellLink spell={TALENTS.FIRESTARTER_TALENT} />;
-    const searingTouch = <SpellLink spell={TALENTS.SCORCH_TALENT} />;
     const sunKingsBlessing = <SpellLink spell={TALENTS.SUN_KINGS_BLESSING_TALENT} />;
 
     const hotStreakIcon = <SpellIcon spell={SPELLS.HOT_STREAK} />;
@@ -98,13 +121,11 @@ class HotStreakGuide extends Analyzer {
     const explanation = (
       <>
         <div>
-          <b>{hotStreak}</b> is the more important of the two procs, in that it allows you to make
-          your next {pyroblast} or {flamestrike} instant cast. These spells are the primary source
-          of your direct damage as well as a major contributor towards your ticking {ignite} damage,
-          so you want to ensure you are generating as many of them as possible.
+          <b>{hotStreak}</b> makes your next {pyroblast} or {flamestrike} instant cast, making it a
+          large contributor to your direct damage and your ticking {ignite} damage. Because of this,
+          the majority of your rotation revolves around getting as many of these procs as possible,
         </div>
         <div>
-          To accomplish this, you should refer to the below rules and guidelines:
           <ul>
             <li>Use your procs and don't let them expire.</li>
             <li>
@@ -112,49 +133,33 @@ class HotStreakGuide extends Analyzer {
               quickly to avoid a wasted crit that could have given you a {heatingUp}.
             </li>
             <li>
-              Unless you are guaranteed to crit ({combustion}, {firestarter}, {searingTouch}), spend{' '}
-              {hotStreak} at the end of a cast like {fireball} or {pyroblast} (with{' '}
-              {sunKingsBlessing}). If both crit you get a new {hotStreak}, if only one crits you
-              still get a {heatingUp} regardless of which one crit or the order they landed.
+              If low on charges outside of {combustion} you can cast {fireball}, or {pyroblast} with
+              {sunKingsBlessing}, immediately before spending {hotStreak} to get an increased chance
+              of fishing for {heatingUp} or {hotStreak}.
             </li>
           </ul>
         </div>
       </>
     );
-    const utilizationTooltip = (
-      <>
-        {this.hotStreak.expiredProcs()} Expired Procs.
-        <br />
-        {this.hotStreak.missingPreCasts} Missing Pre Cast
-      </>
-    );
-    const wastedCritTooltip = <>{this.hotStreak.wastedCrits()} Wasted Crits</>;
+    const wastedCritTooltip = <>{this.hotStreak.wastedCrits} Wasted Crits</>;
     const data = (
       <div>
-        <RoundedPanel>
-          <div
-            style={{ color: qualitativePerformanceToColor(this.procUtilization), fontSize: '20px' }}
-          >
-            {hotStreakIcon}{' '}
-            <TooltipElement content={utilizationTooltip}>
-              {formatPercentage(this.hotStreak.badUsePercent, 0)} % <small>utilization</small>
-            </TooltipElement>
-          </div>
-          <div
-            style={{ color: qualitativePerformanceToColor(this.procUtilization), fontSize: '20px' }}
-          >
-            {hotStreakIcon}{' '}
-            <TooltipElement content={wastedCritTooltip}>
-              {this.hotStreak.wastedCritsThresholds.actual.toFixed(2)}{' '}
-              <small>Wasted Crits Per Minute</small>
-            </TooltipElement>
-          </div>
-          <div>
-            <strong>Hot Streak Details</strong>
-            <PerformanceBoxRow values={this.preCastData} />
-            <small>green (good) / red (fail) mouseover the rectangles to see more details</small>
-          </div>
-        </RoundedPanel>
+        <span
+          style={{
+            color: qualitativePerformanceToColor(this.wastedCritsPerMinute),
+            fontSize: '18px',
+          }}
+        >
+          {hotStreakIcon}{' '}
+          <TooltipElement content={wastedCritTooltip}>
+            {this.hotStreak.wastedCritsThresholds.actual.toFixed(2)}{' '}
+            <small>wasted crits per minute</small>
+          </TooltipElement>
+        </span>
+        <div>
+          <br />
+          <CastSummaryAndBreakdown spell={SPELLS.HOT_STREAK} castEntries={this.hotStreakData} />
+        </div>
       </div>
     );
 

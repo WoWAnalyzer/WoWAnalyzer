@@ -15,7 +15,6 @@ import {
   HOLY_ENERGY_CYCLE_PROC,
   HOLY_TWW_S1_4PC_CDR,
   LIGHT_OF_THE_NAARU_REDUCTION_PER_RANK,
-  salvationHWCDR,
   sanctifyHWCDR,
   serenityHWCDR,
   TWW_S1_HOLY_4PC_CDR_PROC,
@@ -73,10 +72,6 @@ class HolyWordCDR extends Analyzer {
     if (this.selectedCombatant.hasTalent(TALENTS_PRIEST.HOLY_WORD_SANCTIFY_TALENT)) {
       this.sanctifyActive = true;
     }
-    if (this.selectedCombatant.hasTalent(TALENTS_PRIEST.HOLY_WORD_SALVATION_TALENT)) {
-      this.salvationActive = true;
-    }
-
     this.baseHolyWordCDR = this.lotnMult * this.twwS1TierMult;
   }
 
@@ -124,12 +119,6 @@ class HolyWordCDR extends Analyzer {
       return this.handleCDR(
         serenityHWCDR.get(event.ability.guid),
         TALENTS.HOLY_WORD_SERENITY_TALENT.id,
-      );
-    }
-    if (salvationHWCDR.has(event.ability.guid) && this.salvationActive) {
-      return this.handleCDR(
-        salvationHWCDR.get(event.ability.guid),
-        TALENTS.HOLY_WORD_SALVATION_TALENT.id,
       );
     }
   }

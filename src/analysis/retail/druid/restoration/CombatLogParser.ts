@@ -62,6 +62,9 @@ import CenariusGuidanceTol from 'analysis/retail/druid/restoration/modules/spell
 import ControlOfTheDream from 'analysis/retail/druid/shared/spells/ControlOfTheDream';
 import Germination from 'analysis/retail/druid/restoration/modules/spells/Germination';
 import ThrivingVegetation from 'analysis/retail/druid/restoration/modules/spells/ThrivingVegetation';
+import RenewingSurge from 'analysis/retail/druid/restoration/modules/spells/RenewingSurge';
+import TWW2TierSetNormalizer from 'analysis/retail/druid/restoration/normalizers/TWW2TierSetNormalizer';
+import TWW2TierSet from 'analysis/retail/druid/restoration/modules/items/TWW2TierSet';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -130,6 +133,7 @@ class CombatLogParser extends CoreCombatLogParser {
     controlOfTheDream: ControlOfTheDream,
     germination: Germination,
     thrivingVegetation: ThrivingVegetation,
+    renewingSurge: RenewingSurge,
 
     // Mana Tab
     manaTracker: ManaTracker,
@@ -137,6 +141,8 @@ class CombatLogParser extends CoreCombatLogParser {
     hpmTracker: HealingEfficiencyTracker,
 
     //Tier
+    tww2TierSetNormalizer: TWW2TierSetNormalizer,
+    tww2TierSet: TWW2TierSet,
   };
 
   static guide = Guide;

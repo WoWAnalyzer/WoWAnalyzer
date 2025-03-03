@@ -23,6 +23,7 @@ const spells: number[] = [
   SPELLS.DIVINE_HYMN_HEAL.id, //The heal component of divine hymn
   SPELLS.CHARGE_2.id, // The damage component of charge
   SPELLS.BLOOD_ELF_ILLUSION.id, // Orb of the Sin'dorei
+  SPELLS.CHI_SURGE_DEBUFF.id,
 
   //region Boss abilities
   SPELLS.RIONTHUS_DISINTEGRATE.id, // targeted player is shown as 'casting' this spell
@@ -50,6 +51,7 @@ const spells: number[] = [
   SPELLS.COMMANDER_OF_THE_DEAD_BUFF.id,
   SPELLS.EXTERMINATE_FIRST_HIT.id,
   SPELLS.EXTERMINATE_SECOND_HIT.id,
+  SPELLS.INFLICTION_OF_SORROW.id,
 
   //endregion
 
@@ -102,6 +104,8 @@ const spells: number[] = [
   TALENTS_SHAMAN.SPIRITWALKERS_GRACE_TALENT.id,
   SPELLS.FERAL_LUNGE_NOT_A_CAST.id, // duplicate event of regular Feral Lunge cast
   SPELLS.HEALING_RAIN_TOTEMIC.id,
+  SPELLS.DOOM_WINDS_TICK.id,
+  SPELLS.FLAME_SHOCK_DUPLICATE.id,
   //endregion
 
   //region warlock

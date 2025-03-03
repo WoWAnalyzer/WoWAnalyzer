@@ -20,8 +20,8 @@ const COOLDOWNS: Cooldown[] = [
     isActive: (c) => c.hasTalent(TALENTS.DOOM_WINDS_TALENT),
   },
   {
-    spell: TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT,
-    isActive: (c) => c.hasTalent(TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT),
+    spell: TALENTS.PRIMORDIAL_WAVE_TALENT,
+    isActive: (c) => c.hasTalent(TALENTS.PRIMORDIAL_WAVE_TALENT),
   },
   {
     spell: TALENTS.ASCENDANCE_ENHANCEMENT_TALENT,

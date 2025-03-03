@@ -1,40 +1,35 @@
-import { formatNumber, formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import { formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/mage';
-import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import { SpellLink } from 'interface';
-import { highlightInefficientCast } from 'interface/report/Results/Timeline/Casts';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   CastEvent,
   BeginCastEvent,
+  RemoveBuffEvent,
   GetRelatedEvent,
   HasRelatedEvent,
+  FightEndEvent,
 } from 'parser/core/Events';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 
-class CombustionCasts extends Analyzer {
+export default class CombustionCasts extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
+    alwaysBeCasting: AlwaysBeCasting,
   };
   protected abilityTracker!: AbilityTracker;
+  protected alwaysBeCasting!: AlwaysBeCasting;
 
   hasFlameOn: boolean = this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT);
   hasFlameAccelerant: boolean = this.selectedCombatant.hasTalent(TALENTS.FLAME_ACCELERANT_TALENT);
 
-  combustionCasts: { cast: CastEvent; precast: CastEvent | undefined; delay: number }[] = [];
-  combustionCastEvents: CastEvent[] = [];
-  fireballs: {
-    beginCast: BeginCastEvent;
-    cast: CastEvent | undefined;
-    startedDuringCombust: boolean;
-    finishedDuringCombust: boolean;
-  }[] = [];
+  combustCasts: CombustionCast[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -43,14 +38,16 @@ class CombustionCasts extends Analyzer {
       this.onCombust,
     );
     this.addEventListener(
-      Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.FIREBALL),
-      this.onFireballBegins,
+      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.COMBUSTION_TALENT),
+      this.onCombustEnd,
     );
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onSpellCast);
+    this.addEventListener(Events.fightend, this.onFightEnd);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
   }
 
   onCombust(event: CastEvent) {
     const precast: CastEvent | undefined = GetRelatedEvent(event, 'PreCast');
+    const removeBuff: RemoveBuffEvent | undefined = GetRelatedEvent(event, 'BuffRemove');
 
     let castDelay = 0;
     if (precast && HasRelatedEvent(precast, 'SpellCast')) {
@@ -61,212 +58,109 @@ class CombustionCasts extends Analyzer {
           : 0;
     }
 
-    this.combustionCasts[event.timestamp] = { cast: event, precast: precast, delay: castDelay };
-  }
-
-  onFireballBegins(event: BeginCastEvent) {
-    const cast: CastEvent | undefined = GetRelatedEvent(event, 'SpellCast');
-    this.fireballs.push({
-      beginCast: event,
-      cast: cast,
-      startedDuringCombust: this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id),
-      finishedDuringCombust: cast
-        ? this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id, cast.timestamp)
-        : false,
+    this.combustCasts.push({
+      cast: event,
+      remove: removeBuff?.timestamp || this.owner.fight.end_time,
+      activeTime: 0,
+      precast,
+      castDelay,
+      spellCasts: [],
     });
   }
 
-  onSpellCast(event: CastEvent) {
+  onCombustEnd(event: RemoveBuffEvent) {
+    const cast: CastEvent | undefined = GetRelatedEvent(event, 'SpellCast');
+    const index = this.combustCasts.findIndex((c) => c.cast.timestamp === cast?.timestamp);
+    if (cast && index >= 0) {
+      this.combustCasts[index].activeTime = this.alwaysBeCasting.getActiveTimeMillisecondsInWindow(
+        cast?.timestamp,
+        event.timestamp,
+      );
+    }
+  }
+
+  onFightEnd(event: FightEndEvent) {
+    if (!this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id, event.timestamp - 10)) {
+      return;
+    }
+    const cast = this.combustCasts[this.combustCasts.length - 1].cast.timestamp;
+    this.combustCasts[this.combustCasts.length - 1].activeTime =
+      this.alwaysBeCasting.getActiveTimeMillisecondsInWindow(cast, event.timestamp);
+  }
+
+  onCast(event: CastEvent) {
     if (
       !this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id) ||
       CASTS_THAT_ARENT_CASTS.includes(event.ability.guid)
     ) {
       return;
     }
-    this.combustionCastEvents.push(event);
-  }
-
-  //Removing this check for now as it is not relevant, but might become relevant again in the future
-  //So just commenting it out for now.
-  /*
-  lowFireBlastCharges = () => {
-    const maxFireBlastCharges = 1 + this.selectedCombatant.getTalentRank(TALENTS.FLAME_ON_TALENT);
-    let casts = this.eventHistory.getEvents(EventType.Cast, {
-      spell: TALENTS.COMBUSTION_TALENT,
-    });
-
-    //Filter out casts where the player was capped or almost capped on charges
-    casts = casts.filter(
-      (cast) =>
-        this.cooldownHistory.chargesAvailable(TALENTS.FIRE_BLAST_TALENT.id, cast.timestamp) <
-        maxFireBlastCharges - 1,
+    const index = this.combustCasts.findIndex(
+      (c) => event.timestamp >= c.cast.timestamp && event.timestamp <= c.remove,
     );
-
-    //Highlight bad casts
-    const tooltip = 'This Combustion was cast with a low amount of Fire Blast charges.';
-    casts.forEach((cast) => highlightInefficientCast(cast, tooltip));
-
-    return casts.length;
-  };
-  */
-
-  // prettier-ignore
-  fireballCastsDuringCombustion = () => {
-    let fireballCasts = this.fireballs.filter(e => e.cast && e.finishedDuringCombust)
-
-    //If the Begin Cast event was before Combustion started, then disregard it.
-    fireballCasts = fireballCasts.filter(e => e.startedDuringCombust)
-
-    //If the player has Double Lust running, then diregard it.
-    fireballCasts = fireballCasts.filter((f) => {
-      let activeBuffs = 0;
-      Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)).forEach(lust => activeBuffs += this.selectedCombatant.hasBuff(lust, f.cast?.timestamp) ? 1 : 0)
-      return activeBuffs < 2 ? true : false;
-    })
-
-    //If the player had a Flame Accelerant proc, disregard it.
-    if (this.hasFlameAccelerant) {
-      fireballCasts = fireballCasts.filter(f => this.selectedCombatant.hasBuff(SPELLS.FLAME_ACCELERANT_BUFF.id, f.cast?.timestamp, -10));
-    }
-
-    const tooltip = `This Fireball was cast during Combustion. Since Combustion has a short duration, you are better off using your instant abilities to get as many instant/free Pyroblasts as possible. If you run out of instant abilities, cast Scorch instead unless you have >100% Haste (Double Lust) or you have a Flame Accelerant proc`;
-    fireballCasts.forEach(e => e.cast && highlightInefficientCast(e.cast, tooltip));
-
-    return fireballCasts.length;
+    index >= 0 && this.combustCasts[index].spellCasts.push(event);
   }
-
-  /*
-  get fireBlastChargeUtil() {
-    return (
-      1 -
-      this.lowFireBlastCharges() /
-        this.abilityTracker.getAbility(TALENTS.COMBUSTION_TALENT.id).casts
-    );
-  }
-  */
 
   get totalPreCastDelay() {
-    let total = 0;
-    this.combustionCasts.forEach((cast) => (total += cast.delay));
-    return total;
+    let delay = 0;
+    this.combustCasts.forEach((c) => (delay += c.castDelay));
+    return delay;
   }
 
-  get totalCombustionCasts() {
-    return this.abilityTracker.getAbility(TALENTS.COMBUSTION_TALENT.id).casts;
+  get totalCombustDuration() {
+    let duration = 0;
+    this.combustCasts.forEach((c) => (duration += c.remove - c.cast.timestamp));
+    return duration;
+  }
+
+  get totalActiveTime() {
+    let active = 0;
+    this.combustCasts.forEach((c) => (active += c.activeTime));
+    return active;
+  }
+
+  get averageCastDelay() {
+    return this.totalPreCastDelay / this.combustCasts.length;
+  }
+
+  get overallActivePercent() {
+    return this.totalActiveTime / this.totalCombustDuration;
   }
 
   get castBreakdown() {
     const castArray: number[][] = [];
-    this.combustionCastEvents &&
-      this.combustionCastEvents.forEach((c: CastEvent) => {
-        const index = castArray.findIndex((arr) => arr.includes(c.ability.guid));
+    this.combustCasts &&
+      this.combustCasts.forEach((c) => {
+        const index = castArray.findIndex((arr) => arr.includes(c.cast.ability.guid));
         if (index !== -1) {
           castArray[index][1] += 1;
         } else {
-          castArray.push([c.ability.guid, 1]);
+          castArray.push([c.cast.ability.guid, 1]);
         }
       });
     return castArray;
   }
 
-  /*
-  get fireBlastThresholds() {
+  get activeTimeThresholds() {
     return {
-      actual: this.fireBlastChargeUtil,
       isLessThan: {
-        minor: 1,
-        average: 0.65,
-        major: 0.45,
+        minor: 0.95,
+        average: 0.9,
+        major: 0.8,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
   }
-  */
 
   get combustionCastDelayThresholds() {
     return {
-      actual: this.totalPreCastDelay / this.totalCombustionCasts / 1000,
       isGreaterThan: {
-        minor: 0.7,
-        average: 1,
-        major: 1.5,
-      },
-      style: ThresholdStyle.DECIMAL,
-    };
-  }
-
-  get fireballDuringCombustionThresholds() {
-    return {
-      actual: this.fireballCastsDuringCombustion() / this.totalCombustionCasts,
-      isGreaterThan: {
-        minor: 0,
-        average: 0.5,
-        major: 1,
+        minor: 700,
+        average: 1000,
+        major: 1500,
       },
       style: ThresholdStyle.NUMBER,
     };
-  }
-
-  suggestions(when: When) {
-    /*
-    when(this.fireBlastThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You cast <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> {this.lowFireBlastCharges()}{' '}
-          times with less than{' '}
-          {this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT) ? '2' : '1'} charges of{' '}
-          <SpellLink spell={SPELLS.FIRE_BLAST} />. Make sure you are saving at least{' '}
-          {this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT) ? '2' : '1'} charges while
-          Combustion is on cooldown so you can get as many <SpellLink spell={SPELLS.HOT_STREAK} />{' '}
-          procs as possible before Combustion ends.
-        </>,
-      )
-        .icon(TALENTS.COMBUSTION_TALENT.icon)
-        .actual(
-          <Trans id="mage.fire.suggestions.combustionCharges.flameOn.utilization">
-            {formatPercentage(this.fireBlastChargeUtil)}% Utilization
-          </Trans>,
-        )
-        .recommended(`${formatPercentage(recommended)} is recommended`),
-    );
-    */
-    when(this.combustionCastDelayThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          On average, you used <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> with{' '}
-          {formatNumber(actual)} seconds left on your pre-cast ability (The spell you were casting
-          when you used <SpellLink spell={TALENTS.COMBUSTION_TALENT} />
-          ). In order to maximize the number of casts you can get in during{' '}
-          <SpellLink spell={TALENTS.COMBUSTION_TALENT} />, it is recommended that you are activating{' '}
-          <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> closer to the end of your pre-cast
-          (preferably within {recommended} seconds of the cast completing).
-        </>,
-      )
-        .icon(TALENTS.COMBUSTION_TALENT.icon)
-        .actual(`${formatNumber(actual)}s Avg. Pre-Cast Delay`)
-        .recommended(`${recommended} is recommended`),
-    );
-    when(this.fireballDuringCombustionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          On average, you cast <SpellLink spell={SPELLS.FIREBALL} />{' '}
-          {this.fireballCastsDuringCombustion()} times ({actual.toFixed(2)} per Combustion), during{' '}
-          <SpellLink spell={TALENTS.COMBUSTION_TALENT} />. In order to get the most casts (and{' '}
-          <SpellLink spell={SPELLS.HOT_STREAK} />
-          s) as possible before Combustion ends, you should use your instant abilities like
-          <SpellLink spell={SPELLS.FIRE_BLAST} /> or{' '}
-          <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} />. If you are running low on charges of
-          those spells, or need to conserve charges to make it to the end of the Combustion buff,
-          you should cast <SpellLink spell={SPELLS.SCORCH} /> instead of Fireball since it has a
-          shorter cast time. The only exception to this is if you have 100% Haste (such as during
-          Double Lust), or if you have a proc of{' '}
-          <SpellLink spell={TALENTS.FLAME_ACCELERANT_TALENT} />.
-        </>,
-      )
-        .icon(TALENTS.COMBUSTION_TALENT.icon)
-        .actual(`${actual.toFixed(2)} Casts Per Combustion`)
-        .recommended(`${formatNumber(recommended)} is recommended`),
-    );
   }
 
   statistic() {
@@ -310,7 +204,7 @@ class CombustionCasts extends Analyzer {
                       </td>
                       <td style={{ textAlign: 'center' }}>{spell[1]}</td>
                       <td style={{ textAlign: 'center' }}>
-                        {formatPercentage(spell[1] / this.combustionCastEvents.length || 0)}%
+                        {formatPercentage(spell[1] / this.combustCasts.length || 0)}%
                       </td>
                     </tr>
                   ))}
@@ -323,4 +217,11 @@ class CombustionCasts extends Analyzer {
   }
 }
 
-export default CombustionCasts;
+export interface CombustionCast {
+  cast: CastEvent;
+  remove: number;
+  activeTime: number;
+  precast?: CastEvent;
+  castDelay: number;
+  spellCasts: CastEvent[];
+}

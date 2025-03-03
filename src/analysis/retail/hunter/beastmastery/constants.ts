@@ -22,8 +22,6 @@ export const MAX_FRENZY_STACKS = 3;
 export const ORIGINAL_FRENZY_DURATION = 8000;
 //Frenzy lasts 10 seconds with Savagery talent
 export const SAVAGERY_FRENZY_DURATION = 10000;
-/** Kindred Spirits */
-export const KINDRED_SPIRITS_FOCUS_INCREASE = [0, 10, 20];
 /** Pack Tactics */
 export const PACK_TACTICS_FOCUS_REGEN_INCREASE = 2;
 /** Bloodshed */
@@ -125,7 +123,7 @@ export const BARBED_SHOT_REGEN = 5;
 /** Focus Spenders specific to BM */
 export const LIST_OF_FOCUS_SPENDERS_BM = [
   TALENTS.COBRA_SHOT_TALENT,
-  TALENTS.MULTI_SHOT_BEAST_MASTERY_TALENT,
+  SPELLS.MULTI_SHOT,
   TALENTS.KILL_COMMAND_BEAST_MASTERY_TALENT,
   TALENTS.KILL_SHOT_SHARED_TALENT,
   TALENTS.BLACK_ARROW_TALENT,

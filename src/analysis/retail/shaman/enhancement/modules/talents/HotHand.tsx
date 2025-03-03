@@ -68,7 +68,7 @@ const HOT_HAND: Record<number, HotHandRank> = {
  * a Hot Hand window so we don't want to unfairly punish the performance if
  * any of these are used  */
 const HIGH_PRIORITY_ABILITIES: HighPriorityAbilities = [
-  TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT.id,
+  TALENTS.PRIMORDIAL_WAVE_TALENT.id,
   TALENTS.FERAL_SPIRIT_TALENT.id,
   {
     spellId: [TALENTS.TEMPEST_TALENT.id, TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id],
@@ -292,7 +292,7 @@ class HotHand extends MajorCooldown<HotHandProc> {
           An example sequence may look something like this:
           <br />
           <SpellIcon spell={TALENTS.LAVA_LASH_TALENT} /> &rarr;
-          <SpellIcon spell={TALENTS.ICE_STRIKE_TALENT} /> &rarr;
+          <SpellIcon spell={TALENTS.ICE_STRIKE_2_ENHANCEMENT_TALENT} /> &rarr;
           <SpellIcon spell={TALENTS.LAVA_LASH_TALENT} /> &rarr;
           <SpellIcon spell={SPELLS.LIGHTNING_BOLT} /> &rarr;
           <SpellIcon spell={TALENTS.LAVA_LASH_TALENT} /> &rarr;

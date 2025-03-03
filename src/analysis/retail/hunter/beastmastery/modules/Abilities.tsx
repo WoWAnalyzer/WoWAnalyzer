@@ -57,8 +57,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.MULTI_SHOT_BEAST_MASTERY_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.MULTI_SHOT_BEAST_MASTERY_TALENT),
+        spell: SPELLS.MULTI_SHOT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: {
           base: 1500,
@@ -131,19 +130,6 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.CAMOUFLAGE_TALENT),
         gcd: {
           base: 1500,
-        },
-      },
-      {
-        spell: TALENTS.WAILING_ARROW_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS.WAILING_ARROW_TALENT),
-        gcd: {
-          base: 1500,
-        },
-        cooldown: 60,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
         },
       },
       {

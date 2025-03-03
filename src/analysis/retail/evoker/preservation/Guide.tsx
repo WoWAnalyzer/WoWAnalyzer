@@ -26,10 +26,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       <Section title="Core Spells and Buffs">
         {info.combatant.hasTalent(TALENTS_EVOKER.ENGULF_TALENT) &&
           modules.consumeFlame.guideSubsection}
-        {!info.combatant.hasTalent(TALENTS_EVOKER.ENGULF_TALENT) &&
-          modules.dreamBreath.guideSubsection}
-        {!info.combatant.hasTalent(TALENTS_EVOKER.ENGULF_TALENT) &&
-          modules.spiritBloom.guideSubsection}
+        {modules.dreamBreath.guideSubsection}
+        {modules.spiritBloom.guideSubsection}
         {modules.essenceBurst.guideSubsection}
         {info.combatant.hasTalent(TALENTS_EVOKER.RESONATING_SPHERE_TALENT) &&
           !isEbBuild &&

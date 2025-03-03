@@ -1,17 +1,18 @@
-import { FLANKING_STRIKE_FOCUS_GAIN } from 'analysis/retail/hunter/survival/constants';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/hunter';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Events, { DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
+import Events, { DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-
+import SpellLink from 'interface/SpellLink';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import CastEfficiencyPanel from 'interface/guide/components/CastEfficiencyPanel';
 /**
  * You and your pet leap to the target and strike it as one, dealing a total of X Physical damage.
- * Generates 30 Focus for you and your pet.
+ * Deals Damage and generates 2 stacks of Tip of the Spear.
  *
  * Example log:
  * https://www.warcraftlogs.com/reports/QMJcFAdTXKhgpnbx#fight=2&type=damage-done&source=16&ability=259516
@@ -51,14 +52,6 @@ class FlankingStrike extends Analyzer {
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FLANKING_STRIKE_PLAYER),
       this.onPlayerDamage,
-    );
-    this.addEventListener(
-      Events.resourcechange.by(SELECTED_PLAYER_PET).spell(SPELLS.FLANKING_STRIKE_PET),
-      this.onPetEnergize,
-    );
-    this.addEventListener(
-      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.FLANKING_STRIKE_PLAYER),
-      this.onPlayerEnergize,
     );
   }
 
@@ -103,22 +96,6 @@ class FlankingStrike extends Analyzer {
 
   onPlayerDamage(event: DamageEvent) {
     this.flankingStrikesPlayer.damage += event.amount + (event.absorbed || 0);
-  }
-
-  onPetEnergize(event: ResourceChangeEvent) {
-    const effectiveFocus = event.resourceChange - event.waste || 0;
-    const pet = this.getOrInitializePet(event.sourceID);
-    if (!pet) {
-      return;
-    }
-    pet.effectiveFocus += effectiveFocus;
-    pet.possibleFocus += FLANKING_STRIKE_FOCUS_GAIN;
-  }
-
-  onPlayerEnergize(event: ResourceChangeEvent) {
-    const foundPlayer = this.flankingStrikesPlayer;
-    foundPlayer.effectiveFocus += event.resourceChange - event.waste || 0;
-    foundPlayer.possibleFocus += FLANKING_STRIKE_FOCUS_GAIN;
   }
 
   statistic() {
@@ -175,6 +152,30 @@ class FlankingStrike extends Analyzer {
         </BoringSpellValueText>
       </Statistic>
     );
+  }
+
+  get guideSubsection() {
+    const explanation = (
+      <p>
+        <strong>
+          <SpellLink spell={TALENTS.FLANKING_STRIKE_TALENT} />
+        </strong>{' '}
+        generates 2 and consumes 1 <SpellLink spell={TALENTS.TIP_OF_THE_SPEAR_TALENT} /> stack and
+        15 focus. Always use it on cooldown with a{' '}
+        <SpellLink spell={TALENTS.TIP_OF_THE_SPEAR_TALENT} />. Take care when using it when further
+        than 5 yds from your target as it acts as a gap closer and can move you into deadly
+        mechanics.
+        <br></br>
+        There is a slight delay on generation of{' '}
+        <SpellLink spell={TALENTS.TIP_OF_THE_SPEAR_TALENT} /> stacks and so when used from further
+        than 5 yds, it will generate then consume and in melee it will consume then generate.{' '}
+        <strong> Be aware of this to avoid avoid waste.</strong>
+      </p>
+    );
+
+    const data = <CastEfficiencyPanel spell={TALENTS.FLANKING_STRIKE_TALENT} useThresholds />;
+
+    return explanationAndDataSubsection(explanation, data);
   }
 }
 

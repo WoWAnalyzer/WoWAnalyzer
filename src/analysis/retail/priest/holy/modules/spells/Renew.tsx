@@ -51,7 +51,6 @@ class Renew extends Analyzer {
   protected spellUsable!: SpellUsable;
   protected haste!: Haste;
 
-  revitalizingPrayersActive = false;
   renewsFromRevitalizingPrayers = 0;
   revitalizingPrayersRenewFraction = 0.4;
   timestampOfLastPrayerCast = -1;
@@ -62,10 +61,6 @@ class Renew extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-
-    if (this.selectedCombatant.hasTalent(TALENTS.REVITALIZING_PRAYERS_TALENT)) {
-      this.revitalizingPrayersActive = true;
-    }
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(TALENTS.RENEW_TALENT), this.onHeal);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
@@ -78,13 +73,6 @@ class Renew extends Analyzer {
       this.onRefreshBuff,
     );
     this.addEventListener(Events.GlobalCooldown.by(SELECTED_PLAYER), this.onGCD);
-
-    if (this.revitalizingPrayersActive) {
-      this.addEventListener(
-        Events.heal.by(SELECTED_PLAYER).spell(TALENTS.PRAYER_OF_HEALING_TALENT),
-        this.onPrayerCast,
-      );
-    }
   }
 
   get badRenews() {
@@ -200,14 +188,11 @@ class Renew extends Analyzer {
       const serenityOnCooldown =
         this.selectedCombatant.hasTalent(TALENTS.HOLY_WORD_SERENITY_TALENT) &&
         this.spellUsable.isOnCooldown(TALENTS.HOLY_WORD_SERENITY_TALENT.id);
-      const cohOnCooldown =
-        this.selectedCombatant.hasTalent(TALENTS.CIRCLE_OF_HEALING_TALENT) &&
-        this.spellUsable.isOnCooldown(TALENTS.CIRCLE_OF_HEALING_TALENT.id);
       const pomOnCooldown =
         this.selectedCombatant.hasTalent(TALENTS.PRAYER_OF_MENDING_TALENT) &&
         this.spellUsable.isOnCooldown(TALENTS.PRAYER_OF_MENDING_TALENT.id);
 
-      if (sanctifyOnCooldown && serenityOnCooldown && cohOnCooldown && pomOnCooldown) {
+      if (sanctifyOnCooldown && serenityOnCooldown && pomOnCooldown) {
         this.goodRenews += 1;
       } else {
         this.badRenewReason.betterspell = (this.badRenewReason.betterspell || 0) + 1;

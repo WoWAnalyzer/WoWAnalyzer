@@ -2,7 +2,6 @@ import Abilities from 'analysis/retail/priest/holy/modules/Abilities';
 import EchoOfLightMastery from 'analysis/retail/priest/holy/modules/core/EchoOfLightMastery';
 import PrayerOfMending from 'analysis/retail/priest/holy/modules/spells/PrayerOfMending';
 import Renew from 'analysis/retail/priest/holy/modules/spells/Renew';
-import HolyWordSalvation from 'analysis/retail/priest/holy/modules/talents/BottomRow/HolyWordSalvation';
 import TALENTS from 'common/TALENTS/priest';
 import HealingEfficiencyTracker from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
@@ -13,7 +12,6 @@ import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import Halo from 'analysis/retail/priest/holy/modules/talents/Classwide/Halo';
 import DivineStar from 'analysis/retail/priest/holy/modules/talents/Classwide/DivineStar';
 import Benediction from 'analysis/retail/priest/holy/modules/talents/MiddleRow/Benediction';
-import RevitalizingPrayers from 'analysis/retail/priest/holy/modules/talents/MiddleRow/RevitalizingPrayers';
 
 class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
   static dependencies = {
@@ -26,24 +24,20 @@ class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
 
     // Custom dependencies
     abilities: Abilities,
-    salvation: HolyWordSalvation,
     renew: Renew,
     prayerOfMending: PrayerOfMending,
     echoOfLight: EchoOfLightMastery,
     halo: Halo,
     divineStar: DivineStar,
     benediction: Benediction,
-    revitalizingPrayers: RevitalizingPrayers,
   };
   includeEchoOfLight = false;
-  protected salvation!: HolyWordSalvation;
   protected renew!: Renew;
   protected prayerOfMending!: PrayerOfMending;
   protected echoOfLight!: EchoOfLightMastery;
   protected halo!: Halo;
   protected divineStar!: DivineStar;
   protected benediction!: Benediction;
-  protected revitalizingPrayers!: RevitalizingPrayers;
 
   getCustomSpellStats(spellInfo: any, spellId: number, healingSpellIds: number[]) {
     // If we have a spell that has custom logic for the healing/damage numbers, do that before the rest of our calculations.
@@ -51,19 +45,11 @@ class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
       spellInfo = this.getRenewDetails(spellInfo);
     } else if (spellId === TALENTS.PRAYER_OF_MENDING_TALENT.id) {
       spellInfo = this.getPomDetails(spellInfo);
-    } else if (spellId === TALENTS.HOLY_WORD_SALVATION_TALENT.id) {
-      spellInfo = this.getSalvationDetails(spellInfo);
     } else if (spellId === TALENTS.HALO_SHARED_TALENT.id) {
       spellInfo = this.getHaloDetails(spellInfo);
     } else if (spellId === TALENTS.DIVINE_STAR_SHARED_TALENT.id) {
       spellInfo = this.getDivineStarDetails(spellInfo);
-    } else if (
-      spellId === TALENTS.PRAYER_OF_HEALING_TALENT.id &&
-      this.renew.revitalizingPrayersActive
-    ) {
-      spellInfo = this.getPrayerOfHealingDetails(spellInfo, spellId);
     }
-
     if (this.includeEchoOfLight) {
       spellInfo = this.addEcho(spellInfo, healingSpellIds);
     } //This is slightly wrong/bugged since it counts mastery for each spell and not according to the healing disttribution
@@ -100,15 +86,9 @@ class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
   getPrayerOfHealingDetails(spellInfo: any, spellId: number) {
     //We get the healing done from Prayer of healing and healing from renews applied by casting it
     const ability = this.abilityTracker.getAbility(spellId);
-    spellInfo.healingDone =
-      (ability.healingVal.regular || 0) +
-      this.revitalizingPrayers.healingFromRevitalizingPrayersRenews;
-    spellInfo.overhealingDone =
-      (ability.healingVal.overheal || 0) +
-      this.revitalizingPrayers.overhealingFromRevitalizingPrayersRenews;
-    spellInfo.healingAbsorbed =
-      (ability.healingVal.absorbed || 0) +
-      this.revitalizingPrayers.absorbedHealingFromRevitalizingPrayersRenews;
+    spellInfo.healingDone = ability.healingVal.regular || 0;
+    spellInfo.overhealingDone = ability.healingVal.overheal || 0;
+    spellInfo.healingAbsorbed = ability.healingVal.absorbed || 0;
     return spellInfo;
   }
 
@@ -127,14 +107,6 @@ class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
     spellInfo.healingAbsorbed =
       pomTicksWithoutSalv * this.prayerOfMending.averagePomTickHeal +
       this.benediction.absorptionFromRenew;
-    return spellInfo;
-  }
-
-  getSalvationDetails(spellInfo: any) {
-    spellInfo.healingDone = this.salvation.totalHealing;
-    spellInfo.overhealingDone = this.salvation.totalOverHealing;
-    spellInfo.healingAbsorbed = this.salvation.totalAbsorbed;
-
     return spellInfo;
   }
 

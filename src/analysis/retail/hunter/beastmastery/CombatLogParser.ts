@@ -10,8 +10,6 @@ import {
   FocusTracker,
   FocusDetails,
   SpellFocusCost,
-  WailingArrow,
-  WailingArrowPrepullNormalizer,
   TranquilizingShot,
 } from '../shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
@@ -76,7 +74,6 @@ class CombatLogParser extends CoreCombatLogParser {
     beastMasteryFocusUsage: BeastMasteryFocusUsage,
 
     //Normalizers
-    wailingArrowPrepullNormalizer: WailingArrowPrepullNormalizer,
     direCommandNormalizer: DireCommandNormalizer,
     barbedShotNormalizer: BarbedShotNormalizer,
 
@@ -108,7 +105,6 @@ class CombatLogParser extends CoreCombatLogParser {
     bindingShot: BindingShot,
     animalCompanion: AnimalCompanion,
     direCommand: DireCommand,
-    wailingArrow: WailingArrow,
     masterMarksman: MasterMarksman,
     bloodshed: Bloodshed,
     tranquilizingShot: TranquilizingShot,

@@ -9,12 +9,12 @@ import CHANGELOG from './CHANGELOG';
 const config: Config = {
   contributors: [Seriousnes],
   branch: GameBranch.Retail,
-  patchCompatibility: '11.0.2',
+  patchCompatibility: '11.0.5',
   supportLevel: SupportLevel.MaintainedFull,
   description: (
     <>
       <AlertWarning>
-        Analytics are being developed for a level 70 dragonflight character on beta. Right now the
+        Analytics are being developed for a level 80 The War Within character on beta. Right now the
         Enhancement Analyzer is a work-in-progress, and only holds very basic functionality.
       </AlertWarning>
       <br />
@@ -23,7 +23,8 @@ const config: Config = {
       the GitHub repo.
     </>
   ),
-  exampleReport: '/report/DCyQGgBxP3R8MaN9/28-Heroic+Smolderon+-+Kill+(3:46)/Seriousnes/standard',
+  exampleReport:
+    "/report/fPAk1jwMBC6Ym4aV/33-Mythic+Nexus-Princess+Ky'veza+-+Kill+(6:17)/Seriousnes/standard",
   spec: SPECS.ENHANCEMENT_SHAMAN,
   changelog: CHANGELOG,
   parser: () =>

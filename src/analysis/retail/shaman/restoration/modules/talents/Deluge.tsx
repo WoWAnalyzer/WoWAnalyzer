@@ -1,4 +1,4 @@
-import { formatPercentage, formatThousands } from 'common/format';
+import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
@@ -8,7 +8,6 @@ import Events, { HealEvent, BeginCastEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
-import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
@@ -44,7 +43,7 @@ class Deluge extends Analyzer {
     this.addEventListener(
       Events.heal
         .by(SELECTED_PLAYER)
-        .spell([TALENTS.CHAIN_HEAL_TALENT, TALENTS.HEALING_WAVE_TALENT, SPELLS.HEALING_SURGE]),
+        .spell([TALENTS.CHAIN_HEAL_TALENT, SPELLS.HEALING_WAVE, SPELLS.HEALING_SURGE]),
       this._onHeal,
     );
     this.addEventListener(
@@ -100,15 +99,6 @@ class Deluge extends Analyzer {
     this.fromHealingRainHealing += this.healingRainLocation.processHealingRain(
       this.eventsDuringRain,
       DELUGE_HEALING_INCREASE,
-    );
-  }
-
-  subStatistic() {
-    return (
-      <StatisticListBoxItem
-        title={<SpellLink spell={TALENTS.DELUGE_TALENT} />}
-        value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
-      />
     );
   }
 

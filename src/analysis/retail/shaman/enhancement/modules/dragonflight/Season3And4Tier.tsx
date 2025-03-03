@@ -33,7 +33,7 @@ class Season3And4Tier extends Analyzer {
     this.active =
       (this.selectedCombatant.has4PieceByTier(TIERS.DF3) ||
         this.selectedCombatant.has4PieceByTier(TIERS.DF4)) &&
-      this.selectedCombatant.hasTalent(TALENTS_SHAMAN.PRIMORDIAL_WAVE_SPEC_TALENT);
+      this.selectedCombatant.hasTalent(TALENTS_SHAMAN.PRIMORDIAL_WAVE_TALENT);
     if (!this.active) {
       return;
     }
@@ -43,7 +43,7 @@ class Season3And4Tier extends Analyzer {
       (e) => this.onFeralSpiritSummoned(e.timestamp, 2),
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.PRIMORDIAL_WAVE_SPEC_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.PRIMORDIAL_WAVE_TALENT),
       this.onPrimordialWaveCast,
     );
   }
@@ -56,7 +56,7 @@ class Season3And4Tier extends Analyzer {
   onFeralSpiritSummoned(timestamp: number, count: number) {
     this.primordialWaveTotalCooldownReduction += PRIMORDIAL_WAVE_COOLDOWN_PER_SUMMON * count;
     this.primordialWaveCooldownEffectiveReduction += this.spellUsable.reduceCooldown(
-      TALENTS_SHAMAN.PRIMORDIAL_WAVE_SPEC_TALENT.id,
+      TALENTS_SHAMAN.PRIMORDIAL_WAVE_TALENT.id,
       PRIMORDIAL_WAVE_COOLDOWN_PER_SUMMON * count,
       timestamp,
     );
@@ -110,7 +110,7 @@ class Season3And4Tier extends Analyzer {
           </label>
         </div>
         <div className="value">
-          <TalentSpellText talent={TALENTS_SHAMAN.PRIMORDIAL_WAVE_SPEC_TALENT}>
+          <TalentSpellText talent={TALENTS_SHAMAN.PRIMORDIAL_WAVE_TALENT}>
             <>
               <UptimeIcon /> {formatNumber(this.averageReduction)} sec{' '}
               <small>average reduction</small>

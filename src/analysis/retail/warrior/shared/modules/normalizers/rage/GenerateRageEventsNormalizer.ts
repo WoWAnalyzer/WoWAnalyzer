@@ -188,7 +188,7 @@ export default class GenerateRageEventsNormalizer extends EventsNormalizer {
         let rageWasted = isMax ? expectedGeneration - generated : 0;
 
         if (rageWasted < 0) {
-          console.error(
+          console.warn(
             'Rage wasted is negative. This means generated rage is higher than expected',
             {
               expectedGeneration,
@@ -200,7 +200,7 @@ export default class GenerateRageEventsNormalizer extends EventsNormalizer {
         }
 
         if ((isMax ? expectedGeneration : generated) % 1 !== 0) {
-          console.error('Rage generation is not an integer');
+          console.warn('Rage generation is not an integer');
         }
 
         if (extraAttack) {
@@ -304,11 +304,20 @@ export default class GenerateRageEventsNormalizer extends EventsNormalizer {
   private calculateUnbuffedRagePerSwing(rawRagePerSwing: number) {
     let unbuffedRagePerSwing = rawRagePerSwing;
 
-    if (this.selectedCombatant.hasTalent(TALENTS.WAR_MACHINE_FURY_TALENT)) {
+    if (
+      this.selectedCombatant.hasTalent(TALENTS.WAR_MACHINE_TALENT) &&
+      this.owner.config.spec.id === SPECS.FURY_WARRIOR.id
+    ) {
       unbuffedRagePerSwing += unbuffedRagePerSwing * WARMACHINE_FURY_INCREASE;
-    } else if (this.selectedCombatant.hasTalent(TALENTS.WAR_MACHINE_ARMS_TALENT)) {
+    } else if (
+      this.selectedCombatant.hasTalent(TALENTS.WAR_MACHINE_TALENT) &&
+      this.owner.config.spec.id === SPECS.ARMS_WARRIOR.id
+    ) {
       unbuffedRagePerSwing += unbuffedRagePerSwing * WARMACHINE_ARMS_INCREASE;
-    } else if (this.selectedCombatant.hasTalent(TALENTS.WAR_MACHINE_PROTECTION_TALENT)) {
+    } else if (
+      this.selectedCombatant.hasTalent(TALENTS.WAR_MACHINE_TALENT) &&
+      this.owner.config.spec.id === SPECS.PROTECTION_WARRIOR.id
+    ) {
       unbuffedRagePerSwing += unbuffedRagePerSwing * WARMACHINE_PROT_INCREASE;
     }
 
@@ -375,10 +384,19 @@ export default class GenerateRageEventsNormalizer extends EventsNormalizer {
       attackPower: event.attackPower!,
       spellPower: event.spellPower!,
       armor: event.armor!,
-      x: event.x!,
-      y: event.y!,
-      facing: event.facing!,
-      mapID: event.mapID!,
+      ...(event.type === EventType.Cast
+        ? {
+            x: event.x!,
+            y: event.y!,
+            facing: event.facing!,
+            mapID: event.mapID!,
+          }
+        : {
+            x: undefined!,
+            y: undefined!,
+            facing: undefined!,
+            mapID: undefined!,
+          }),
       itemLevel: event.itemLevel!,
       timestamp: event.timestamp,
       resourceChange: 0,

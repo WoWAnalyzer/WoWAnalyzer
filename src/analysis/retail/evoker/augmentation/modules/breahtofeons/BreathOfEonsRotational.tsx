@@ -281,6 +281,11 @@ class BreathOfEonsRotational extends Analyzer {
         GetRelatedEvents(relatedEvent, EBON_MIGHT_BUFF_LINKS).forEach((ebonMightEvent) => {
           if (ebonMightEvent.type === EventType.ApplyBuff) {
             const buffTarget = this.combatants.players[ebonMightEvent.targetID];
+
+            if (!buffTarget) {
+              return;
+            }
+
             currentBuffedTargets.set(buffTarget.name, buffTarget);
           }
         });

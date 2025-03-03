@@ -12,6 +12,13 @@ import SPELLS from 'common/SPELLS';
 import { getDamageEvent } from '../../normalizers/AtonementTracker';
 
 const WORDS_OF_THE_PIOUS_INCREASE = 0.1;
+const WORDS_OF_THE_PIOUS_SPELLS = [
+  SPELLS.SMITE,
+  SPELLS.SHADOW_SMITE,
+  TALENTS_PRIEST.HOLY_NOVA_TALENT,
+  SPELLS.VOID_BLAST_DAMAGE_DISC,
+];
+const WORDS_OF_THE_PIOUS_SPELL_IDS = WORDS_OF_THE_PIOUS_SPELLS.map((spell) => spell.id);
 
 class WordsOfThePious extends Analyzer {
   healing = 0;
@@ -21,9 +28,7 @@ class WordsOfThePious extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.WORDS_OF_THE_PIOUS_TALENT);
     this.addEventListener(
-      Events.damage
-        .by(SELECTED_PLAYER)
-        .spell([SPELLS.SMITE, SPELLS.SHADOW_SMITE, TALENTS_PRIEST.HOLY_NOVA_TALENT]),
+      Events.damage.by(SELECTED_PLAYER).spell(WORDS_OF_THE_PIOUS_SPELLS),
       this.onDamage,
     );
     this.addEventListener(
@@ -49,13 +54,10 @@ class WordsOfThePious extends Analyzer {
       return;
     }
 
-    if (
-      damageEvent.ability.guid !== TALENTS_PRIEST.HOLY_NOVA_TALENT.id &&
-      damageEvent.ability.guid !== SPELLS.SMITE.id &&
-      damageEvent.ability.guid !== SPELLS.SHADOW_SMITE.id
-    ) {
+    if (!WORDS_OF_THE_PIOUS_SPELL_IDS.includes(damageEvent.ability.guid)) {
       return;
     }
+
     this.healing += calculateEffectiveHealing(event, WORDS_OF_THE_PIOUS_INCREASE);
   }
 

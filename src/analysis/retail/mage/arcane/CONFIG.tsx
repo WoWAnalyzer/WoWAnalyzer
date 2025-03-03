@@ -11,7 +11,7 @@ const config: Config = {
   contributors: [Sharrq, Sref],
   branch: GameBranch.Retail,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '11.0.2',
+  patchCompatibility: '11.0.5',
   supportLevel: SupportLevel.MaintainedFull,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
@@ -50,15 +50,15 @@ const config: Config = {
       frontmatterType: 'guide',
       notes: (
         <AlertWarning>
-          This has not been updated for 11.0.5. Once APL stuff gets resolved following the last
-          minute Arcane nerfs, I will get this updated. If you have questions about this, ping me in
-          the Altered Time Mage Discord <code>@Sharrq</code>
+          This is now updated for 11.0.5. If you notice any issues or if something is missing, ping
+          me in the Altered Time Mage Discord <code>@Sharrq</code>
         </AlertWarning>
       ),
     },
   },
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/x3ZYqgMm6VPHXkyc/2-Mythic+Eranog+-+Kill+(2:49)/Bthread/standard',
+  exampleReport:
+    '/report/YG9R3NkhwmBDv871/28-Heroic+Sikran,+Captain+of+the+Sureki+-+Kill+(3:37)/Coeus/standard',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

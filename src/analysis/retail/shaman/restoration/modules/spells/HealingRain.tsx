@@ -42,7 +42,7 @@ class HealingRain extends Analyzer {
   unleashLifeSpells = {
     [TALENTS.RIPTIDE_TALENT.id]: {},
     [TALENTS.CHAIN_HEAL_TALENT.id]: {},
-    [TALENTS.HEALING_WAVE_TALENT.id]: {},
+    [SPELLS.HEALING_WAVE.id]: {},
     [SPELLS.HEALING_SURGE.id]: {},
     [TALENTS.WELLSPRING_TALENT.id]: {},
     [TALENTS.HEALING_RAIN_TALENT.id]: {},
@@ -173,7 +173,7 @@ class HealingRain extends Analyzer {
         through <SpellLink spell={TALENTS.OVERFLOWING_SHORES_TALENT} />, more damage through{' '}
         <SpellLink spell={TALENTS.ACID_RAIN_TALENT} />, and can hit additional targets through{' '}
         <SpellLink spell={TALENTS.UNLEASH_LIFE_TALENT} />. Aside from being strong throughput, this{' '}
-        spell also buffs <SpellLink spell={TALENTS.HEALING_WAVE_TALENT} />,{' '}
+        spell also buffs <SpellLink spell={SPELLS.HEALING_WAVE} />,{' '}
         <SpellLink spell={SPELLS.HEALING_SURGE} /> and{' '}
         <SpellLink spell={TALENTS.CHAIN_HEAL_TALENT} /> through{' '}
         <SpellLink spell={TALENTS.DELUGE_TALENT} />

@@ -67,10 +67,6 @@ const rtbCondition = () => {
           and(buffMissing(SPELLS.SKULL_AND_CROSSBONES), buffMissing(SPELLS.BROADSIDE)),
         ),
         // allow not rerolling during dance window
-        or(
-          buffMissing(SPELLS.SHADOW_DANCE_BUFF),
-          optionalRule(buffPresent(SPELLS.SHADOW_DANCE_BUFF)),
-        ),
         // allow not rerolling during subterfuge window
         or(buffMissing(SPELLS.SUBTERFUGE_BUFF), optionalRule(buffPresent(SPELLS.SUBTERFUGE_BUFF))),
         // same for vanish buff
@@ -89,7 +85,6 @@ const rtbCondition = () => {
 const notInStealthCondition = () => {
   return describe(
     and(
-      buffMissing(SPELLS.SHADOW_DANCE_BUFF),
       buffMissing(SPELLS.SUBTERFUGE_BUFF),
       buffMissing(SPELLS.STEALTH_BUFF),
       buffMissing(SPELLS.VANISH_BUFF),
@@ -149,25 +144,6 @@ const COMMON_COOLDOWN: Rule[] = [
       ),
     ),
   },
-  {
-    spell: TALENTS.SHADOW_DANCE_TALENT,
-    condition: describe(
-      and(
-        buffMissing(SPELLS.AUDACITY_TALENT_BUFF),
-        buffMissing(SPELLS.OPPORTUNITY),
-        //This is a given no point displaying it
-        notInStealthCondition(),
-        //We want to allow the user to press dance at max cp, but that is not a requirement
-        or(not(hasFinisherCondition()), optionalRule(hasFinisherCondition())),
-      ),
-      (tense) => (
-        <>
-          <SpellLink spell={SPELLS.AUDACITY_TALENT_BUFF} /> and{' '}
-          <SpellLink spell={SPELLS.OPPORTUNITY} /> {tenseAlt(tense, 'are', 'were')} missing
-        </>
-      ),
-    ),
-  },
 ];
 
 const COMMON_FINISHER: Rule[] = [
@@ -196,10 +172,6 @@ const COMMON_FINISHER: Rule[] = [
         and(
           hasFinisherCondition(),
           //We allow the user to not press BtE when in dance
-          or(
-            buffMissing(SPELLS.SHADOW_DANCE_BUFF),
-            optionalRule(buffPresent(SPELLS.SHADOW_DANCE_BUFF)),
-          ),
         ),
         (tense) => <>the finisher condition {tenseAlt(tense, 'is', 'was')} met</>,
       ),
@@ -271,7 +243,6 @@ const COMMON_BUILDER: Rule[] = [
       buffPresent(SPELLS.AUDACITY_TALENT_BUFF, 100),
       describe(
         or(
-          buffPresent(SPELLS.SHADOW_DANCE_BUFF),
           buffPresent(SPELLS.SUBTERFUGE_BUFF),
           buffPresent(SPELLS.STEALTH_BUFF),
           buffPresent(SPELLS.VANISH_BUFF),

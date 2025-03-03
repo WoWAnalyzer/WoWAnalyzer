@@ -142,7 +142,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.AVATAR_SHARED.id,
-        enabled: combatant.hasTalent(TALENTS.AVATAR_SHARED_TALENT),
+        enabled: combatant.hasTalent(TALENTS.AVATAR_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 90,
         gcd: null,

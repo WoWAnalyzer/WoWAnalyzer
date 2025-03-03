@@ -17,11 +17,11 @@ class ThreadsOfFate extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.THREADS_OF_FATE_TALENT);
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.THREADS_OF_FATE_HEALING),
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.THREAD_OF_FATE_HEALING),
       this.onThreadHeal,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.THREADS_OF_FATE_DAMAGE),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.THREAD_OF_FATE_DAMAGE),
       this.onThreadDamage,
     );
   }

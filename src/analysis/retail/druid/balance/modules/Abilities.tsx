@@ -76,7 +76,7 @@ class Abilities extends CoreAbilities {
       // Cooldowns
       {
         spell: cdSpell(combatant).id,
-        buffSpellId: SPELLS.INCARNATION_CHOSEN_OF_ELUNE.id,
+        buffSpellId: cdSpell(combatant).id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: cdCooldown(combatant),
         enabled: combatant.hasTalent(TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT),
@@ -90,7 +90,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: cdSpell(combatant).id,
-        buffSpellId: SPELLS.CELESTIAL_ALIGNMENT.id,
+        buffSpellId: cdSpell(combatant).id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: cdCooldown(combatant),
         enabled:

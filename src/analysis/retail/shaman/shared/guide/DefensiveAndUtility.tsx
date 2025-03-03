@@ -17,10 +17,6 @@ const defensiveTalents: Cooldown[] = [
       !c.hasTalent(TALENTS.ANCESTRAL_SWIFTNESS_TALENT),
   },
   {
-    spell: TALENTS.ANCESTRAL_GUIDANCE_TALENT,
-    isActive: (c) => c.hasTalent(TALENTS.ANCESTRAL_GUIDANCE_TALENT),
-  },
-  {
     spell: TALENTS.EARTHEN_WALL_TOTEM_TALENT,
     isActive: (c) => c.hasTalent(TALENTS.EARTHEN_WALL_TOTEM_TALENT),
   },

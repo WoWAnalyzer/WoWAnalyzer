@@ -13,6 +13,8 @@ import { Talent } from 'common/TALENTS/types';
 import RushingWindKick from './RushingWindKick';
 import SPELLS from 'common/SPELLS';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
+import { formatPercentage } from 'common/format';
 
 /*
  * Add in Statistic box to show average time between RSK casts when Rising Mist is talented.
@@ -63,6 +65,15 @@ class TimeBetweenRSKs extends Analyzer {
       this.lastRSKTimestamp = event.timestamp;
     }
     this.totalRSKCasts += 1;
+  }
+
+  substatistic() {
+    return (
+      <StatisticListBoxItem
+        title={<SpellLink spell={TALENTS_MONK.RUSHING_WIND_KICK_TALENT} />}
+        value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.rushingWindKick.healing))} %`}
+      />
+    );
   }
 
   statistic() {

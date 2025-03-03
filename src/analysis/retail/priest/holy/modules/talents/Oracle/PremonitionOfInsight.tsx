@@ -70,10 +70,7 @@ class PremonitionOfInsight extends Analyzer {
     const remainingCDx = this.spellUsable.cooldownRemaining(spellId) / 1000 - effectiveCDRx;
 
     // Haste variable CD spells like circle/PoM mess the math up
-    if (
-      spellId === TALENTS_PRIEST.PRAYER_OF_MENDING_TALENT.id ||
-      spellId === TALENTS_PRIEST.CIRCLE_OF_HEALING_TALENT.id
-    ) {
+    if (spellId === TALENTS_PRIEST.PRAYER_OF_MENDING_TALENT.id) {
       effectiveCDRx += remainingCDx;
       this.insightReducBySpell[spellId] += effectiveCDRx;
     } else {

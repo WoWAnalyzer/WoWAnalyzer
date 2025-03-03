@@ -32,7 +32,7 @@ class ShieldBlock extends Analyzer {
     super(options);
     this.lastCast = this.owner.fight.start_time / 1000;
 
-    this.baseCd = this.selectedCombatant.hasTalent(TALENTS.AVATAR_PROTECTION_TALENT) ? 8 : 9;
+    this.baseCd = this.selectedCombatant.hasTalent(TALENTS.AVATAR_TALENT) ? 8 : 9;
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_SLAM),

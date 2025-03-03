@@ -4,6 +4,7 @@ import SpellLink from 'interface/SpellLink';
 import SPELLS from 'common/SPELLS/classic/warlock';
 
 export default [
+  change(date(2024, 10, 28), <>Add a <SpellLink spell={SPELLS.SUMMON_DOOMGUARD} /> section, with snapshot report.</>,Bhahlou),
   change(date(2024, 7, 6), 'Resolve various Haste / GCD issues and set guide to foundation status', jazminite),
   change(date(2024, 7, 15), <>Now supports prepull <SpellLink spell={SPELLS.METAMORPHOSIS} /> and <SpellLink spell={SPELLS.DEMON_SOUL_FELGUARD_BUFF} /> in cooldown section.</>, Bhahlou),
   change(date(2024, 7, 6), 'Add Always Be Casting module.', jazminite),

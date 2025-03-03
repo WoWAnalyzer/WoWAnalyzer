@@ -38,6 +38,18 @@ const EVENT_LINKS: EventLink[] = [
     reverseLinkRelation: SPELL_CAST,
     linkingEventId: TALENTS.COMBUSTION_TALENT.id,
     linkingEventType: EventType.Cast,
+    linkRelation: BUFF_REMOVE,
+    referencedEventId: TALENTS.COMBUSTION_TALENT.id,
+    referencedEventType: EventType.RemoveBuff,
+    anyTarget: true,
+    maximumLinks: 1,
+    forwardBufferMs: 60_000, //Combustion can be extended multiple times, so 60s to be safe
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    reverseLinkRelation: SPELL_CAST,
+    linkingEventId: TALENTS.COMBUSTION_TALENT.id,
+    linkingEventType: EventType.Cast,
     linkRelation: BUFF_APPLY,
     referencedEventId: TALENTS.COMBUSTION_TALENT.id,
     referencedEventType: EventType.ApplyBuff,

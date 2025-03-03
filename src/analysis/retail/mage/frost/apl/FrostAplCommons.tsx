@@ -5,6 +5,11 @@ import SpellLink from 'interface/SpellLink';
 import { tenseAlt } from 'parser/shared/metrics/apl';
 
 export const precastGlacialSpike = cnd.lastSpellCast(TALENTS.GLACIAL_SPIKE_TALENT);
+export const precastGlacialSpikeAndNoWintersChill = cnd.and(
+  cnd.debuffMissing(SPELLS.WINTERS_CHILL),
+  precastGlacialSpike,
+);
+
 export const fiveIcicles = cnd.describe(
   cnd.and(cnd.buffStacks(SPELLS.ICICLES_BUFF, { atLeast: 5 }), cnd.not(precastGlacialSpike)),
   (tense) => (

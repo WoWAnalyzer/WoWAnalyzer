@@ -4,7 +4,7 @@ import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHea
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   HEALING_ABILITIES_ON_GCD = [
-    TALENTS.HEALING_WAVE_TALENT.id,
+    SPELLS.HEALING_WAVE.id,
     TALENTS.CHAIN_HEAL_TALENT.id,
     SPELLS.HEALING_SURGE.id,
     TALENTS.RIPTIDE_TALENT.id,
@@ -18,8 +18,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     TALENTS.UNLEASH_LIFE_TALENT.id,
     TALENTS.EARTH_SHIELD_TALENT.id,
     TALENTS.DOWNPOUR_TALENT.id,
-    TALENTS.MANA_TIDE_TOTEM_TALENT.id,
-    TALENTS.PRIMORDIAL_WAVE_RESTORATION_TALENT.id,
   ];
 }
 

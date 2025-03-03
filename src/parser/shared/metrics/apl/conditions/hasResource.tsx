@@ -8,9 +8,12 @@ import { Range, formatRange } from './index';
 const castResource = (resource: Resource, event: AplTriggerEvent): ClassResources | undefined =>
   event.classResources?.find(({ type }) => type === resource.id);
 
-const rangeSatisfied = (actualAmount: number, range: Range): boolean =>
-  actualAmount >= (range.atLeast || 0) &&
-  (range.atMost === undefined || actualAmount <= range.atMost);
+const rangeSatisfied = (actualAmount: number, range: Range): boolean => {
+  return (
+    actualAmount >= (range.atLeast || 0) &&
+    (range.atMost === undefined || actualAmount <= range.atMost)
+  );
+};
 
 // NOTE: this doesn't explicitly model natural regen (mana, energy, focus) but
 // when the classResources are present it does use those as the main source of

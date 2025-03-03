@@ -115,6 +115,11 @@ const spells = {
     name: 'Taste for Blood',
     icon: 'ability_rogue_hungerforblood.jpg.jpg',
   },
+  BATTLE_TRANCE: {
+    id: 12964,
+    name: 'Battle Trance',
+    icon: 'inv_helmet_06.jpg',
+  },
   PUMMEL: {
     id: 6552,
     name: 'Pummel',
@@ -127,6 +132,11 @@ const spells = {
   },
   REND: {
     id: 772,
+    name: 'Rend',
+    icon: 'ability_gouge.jpg',
+  },
+  REND_DEBUFF: {
+    id: 94009,
     name: 'Rend',
     icon: 'ability_gouge.jpg',
   },

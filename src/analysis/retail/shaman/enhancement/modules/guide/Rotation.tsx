@@ -33,7 +33,7 @@ export default function Rotation({ modules, info }: GuideProps<typeof CombatLogP
       <p>
         This list does not include cooldowns (e.g. <SpellLink spell={TALENTS.FERAL_SPIRIT_TALENT} />
         , <SpellLink spell={TALENTS.ASCENDANCE_ENHANCEMENT_TALENT} />,{' '}
-        <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT} />,{' '}
+        <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_TALENT} />,{' '}
         <SpellLink spell={TALENTS.SUNDERING_TALENT} />, etc). Cooldowns may often be held for fight
         mechanics, and appear as common problems which interfere with rotation analysis.
       </p>

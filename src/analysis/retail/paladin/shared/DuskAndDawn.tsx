@@ -35,7 +35,7 @@ export class DuskAndDawn extends Analyzer {
       this.selectedCombatant.hasTalent(TALENTS.OF_DUSK_AND_DAWN_HOLY_TALENT) ||
       this.selectedCombatant.hasTalent(TALENTS.OF_DUSK_AND_DAWN_PROTECTION_TALENT) ||
       this.selectedCombatant.hasTalent(TALENTS.OF_DUSK_AND_DAWN_RETRIBUTION_TALENT);
-    this.hasSealOfOrder = this.selectedCombatant.hasTalent(TALENTS.SEAL_OF_ORDER_TALENT);
+    this.hasSealOfOrder = false; // talent was removed. future maintainers can remove the related code
     this.active = this.hasDuskAndDawn;
 
     if (!this.active) {

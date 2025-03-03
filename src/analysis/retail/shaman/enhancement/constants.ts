@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import TALENTS from 'common/TALENTS/shaman';
 
-export const STORMSTRIKE_CAST_SPELLS = [TALENTS.STORMSTRIKE_TALENT, SPELLS.WINDSTRIKE_CAST];
+export const STORMSTRIKE_CAST_SPELLS = [SPELLS.STORMSTRIKE, SPELLS.WINDSTRIKE_CAST];
 
 export const STORMSTRIKE_DAMAGE_SPELLS = [
   SPELLS.STORMSTRIKE_DAMAGE,
@@ -21,7 +21,7 @@ export const MERGE_SPELLS = [
   },
   {
     SpellIds: [SPELLS.STORMSTRIKE_DAMAGE.id, SPELLS.STORMSTRIKE_DAMAGE_OFFHAND.id],
-    NewSpell: TALENTS.STORMSTRIKE_TALENT.id,
+    NewSpell: SPELLS.STORMSTRIKE.id,
   },
   {
     SpellIds: [SPELLS.WINDSTRIKE_DAMAGE.id, SPELLS.WINDSTRIKE_DAMAGE_OFFHAND.id],
@@ -62,6 +62,7 @@ export enum EnhancementEventLinks {
   MAELSTROM_SPENDER_LINK = 'maelstrom-spender',
   LIGHTNING_BOLT_LINK = 'lightning-bolt',
   MAELSTROM_GENERATOR_LINK = 'maelstrom-generator',
+  CRASH_LIGHTNING_LINK = 'crash-lightning',
 }
 
 export const GCD_TOLERANCE = 25;

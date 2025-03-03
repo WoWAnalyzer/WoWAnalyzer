@@ -13,7 +13,7 @@ export default class BlademastersTormentNormalizer extends EventsNormalizer {
     const fixedEvents: AnyEvent[] = [];
 
     const bladestormId = TALENTS.BLADESTORM_TALENT.id;
-    const avatarId = TALENTS.AVATAR_SHARED_TALENT.id;
+    const avatarId = TALENTS.AVATAR_TALENT.id;
     const relevantIds = [bladestormId, avatarId];
     const bufferMs = 50;
 

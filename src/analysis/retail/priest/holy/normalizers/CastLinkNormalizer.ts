@@ -74,18 +74,6 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
   },
-  // Link circle of healing casts to their multiple heal events.
-  {
-    linkRelation: COH_CAST,
-    reverseLinkRelation: COH_CAST,
-    linkingEventId: TALENTS_PRIEST.CIRCLE_OF_HEALING_TALENT.id,
-    linkingEventType: EventType.Cast,
-    referencedEventId: TALENTS_PRIEST.CIRCLE_OF_HEALING_TALENT.id,
-    referencedEventType: EventType.Heal,
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
-    anyTarget: true,
-  },
   // Link Holy Word Serenity casts to heal event
   {
     linkRelation: SERENITY_CAST,
@@ -104,18 +92,6 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventId: TALENTS_PRIEST.HOLY_WORD_SANCTIFY_TALENT.id,
     linkingEventType: EventType.Cast,
     referencedEventId: TALENTS_PRIEST.HOLY_WORD_SANCTIFY_TALENT.id,
-    referencedEventType: EventType.Heal,
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
-    anyTarget: true,
-  },
-  // Link Holy Word Salvation casts to heal events
-  {
-    linkRelation: SALVATION_CAST,
-    reverseLinkRelation: SALVATION_CAST,
-    linkingEventId: TALENTS_PRIEST.HOLY_WORD_SALVATION_TALENT.id,
-    linkingEventType: EventType.Cast,
-    referencedEventId: TALENTS_PRIEST.HOLY_WORD_SALVATION_TALENT.id,
     referencedEventType: EventType.Heal,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
@@ -143,16 +119,6 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: false,
   },
   {
-    linkRelation: SALVATION_RENEW_HEALS,
-    reverseLinkRelation: SALVATION_RENEW_HEALS,
-    linkingEventId: TALENTS_PRIEST.HOLY_WORD_SALVATION_TALENT.id,
-    linkingEventType: EventType.Heal,
-    referencedEventId: TALENTS_PRIEST.RENEW_TALENT.id,
-    referencedEventType: EventType.Heal,
-    forwardBufferMs: 15000 + CAST_BUFFER_MS,
-    anyTarget: false,
-  },
-  {
     linkRelation: LIGHTWELL_RENEW,
     reverseLinkRelation: LIGHTWELL_RENEW,
     linkingEventId: SPELLS.LIGHTWELL_TALENT_HEAL.id,
@@ -160,17 +126,6 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: TALENTS_PRIEST.RENEW_TALENT.id,
     referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     forwardBufferMs: CAST_BUFFER_MS,
-    anyTarget: false,
-  },
-  {
-    linkRelation: SALVATION_RENEW,
-    reverseLinkRelation: SALVATION_RENEW,
-    linkingEventId: TALENTS_PRIEST.HOLY_WORD_SALVATION_TALENT.id,
-    linkingEventType: EventType.Heal,
-    referencedEventId: TALENTS_PRIEST.RENEW_TALENT.id,
-    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
     anyTarget: false,
   },
   {
@@ -182,19 +137,6 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     forwardBufferMs: CAST_BUFFER_MS,
     anyTarget: false,
-  },
-  {
-    linkRelation: REVIT_PRAYER_RENEW,
-    reverseLinkRelation: REVIT_PRAYER_RENEW,
-    linkingEventId: TALENTS_PRIEST.PRAYER_OF_HEALING_TALENT.id,
-    linkingEventType: EventType.Heal,
-    referencedEventId: TALENTS_PRIEST.RENEW_TALENT.id,
-    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
-    forwardBufferMs: CAST_BUFFER_MS,
-    anyTarget: false,
-    isActive(c) {
-      return c.hasTalent(TALENTS_PRIEST.REVITALIZING_PRAYERS_TALENT);
-    },
   },
   {
     linkRelation: HARDCAST_RENEW,
@@ -217,7 +159,6 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: CAST_BUFFER_MS,
     anyTarget: false,
   },
-
   {
     linkRelation: POWER_WORD_SHIELD_ABSORB,
     reverseLinkRelation: POWER_WORD_SHIELD_ABSORB,

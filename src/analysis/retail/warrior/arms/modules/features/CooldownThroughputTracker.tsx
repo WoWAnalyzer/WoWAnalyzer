@@ -14,7 +14,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       branch: GameBranch.Retail,
     },
     {
-      spell: TALENTS.AVATAR_SHARED_TALENT.id,
+      spell: TALENTS.AVATAR_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
       branch: GameBranch.Retail,
     },
@@ -29,7 +29,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     },
     {
       spell: TALENTS.COLOSSUS_SMASH_TALENT.id,
-      duration: 10,
+      duration: 13, // blunt instruments talent
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
   ];

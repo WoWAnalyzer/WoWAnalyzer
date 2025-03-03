@@ -9,16 +9,16 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.RUNE_STRIKE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { base: 1500 },
+        gcd: { static: 1500 },
       },
       {
         spell: SPELLS.DEATH_STRIKE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { base: 1500 },
+        gcd: { static: 1500 },
       },
       {
         spell: SPELLS.HEART_STRIKE.id,
-        gcd: { base: 1500 },
+        gcd: { static: 1500 },
         category: SPELL_CATEGORY.ROTATIONAL,
       },
       {
@@ -40,7 +40,7 @@ class Abilities extends CoreAbilities {
       // Rotational AOE
       {
         spell: SPELLS.DEATH_AND_DECAY.id,
-        gcd: { base: 1500 },
+        gcd: { static: 1500 },
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: 30,
       },
@@ -48,7 +48,7 @@ class Abilities extends CoreAbilities {
 
       {
         spell: SPELLS.ARMY_OF_THE_DEAD.id,
-        gcd: { base: 1500 },
+        gcd: { static: 1500 },
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 600,
       },
@@ -84,7 +84,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.PLAGUE_STRIKE.id,
-        gcd: { base: 1500 },
+        gcd: { static: 1500 },
         category: SPELL_CATEGORY.ROTATIONAL,
       },
 
@@ -123,7 +123,7 @@ class Abilities extends CoreAbilities {
       // Other spells (not apart of the normal rotation)
       {
         spell: SPELLS.DARK_COMMAND.id,
-        gcd: { base: 1500 },
+        gcd: null,
         category: SPELL_CATEGORY.OTHERS,
         cooldown: 8,
       },
@@ -134,7 +134,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DEATH_COIL_DK.id,
-        gcd: { base: 1500 },
+        gcd: { static: 1500 },
         category: SPELL_CATEGORY.OTHERS,
       },
       {

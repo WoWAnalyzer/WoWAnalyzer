@@ -154,9 +154,6 @@ const OutlawRogueChecklist = ({
           <AbilityRequirement spell={TALENTS.KILLING_SPREE_TALENT.id} />
         )}
         <AbilityRequirement spell={SPELLS.VANISH.id} />
-        {combatant.hasTalent(TALENTS.SEPSIS_TALENT) && (
-          <AbilityRequirement spell={TALENTS.SEPSIS_TALENT.id} />
-        )}
       </Rule>
       <PreparationRule thresholds={thresholds} />
     </Checklist>

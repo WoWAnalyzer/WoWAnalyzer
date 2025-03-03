@@ -20,6 +20,7 @@ import {
   nullDozzer,
   Pilsung,
   Putro,
+  Rzial,
   Seriousnes,
   Sref,
   Taevis,
@@ -32,12 +33,28 @@ import {
   ZiayaKens,
   Zyer,
   Gazh,
+  Yellot,
+  KYZ,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2025, 2, 26), <>Revised Foundation downtime section for melee specs.</>, emallson),
+  change(date(2025, 2, 18), 'Add Classic Cata Dragon Soul raid zone, headshots, and placeholder image', jazminite),
+  change(date(2025, 2, 13), 'Add The War Within Season 2 set IDs.', Putro),
+  change(date(2025, 2, 12), 'Fix display issues in dungeon pull selection', emallson),
+  change(date(2025, 2, 8), <>Fixed display error in mana usage chart.</>, emallson),
+  change(date(2025, 1, 25), <>Added internal support for new <SpellLink spell={SPELLS.SPELL_REFLECTION} /> events</>, emallson),
+  change(date(2025, 1, 16), <>Added <ItemLink id={ITEMS.CIRRAL_CONCOCTORY.id}/></>, KYZ),
+  change(date(2024, 12, 23), 'Update Classic Guild image for Reports page', jazminite),
+  change(date(2024, 12, 21), <>Added <ItemLink id={ITEMS.MERELDARS_TOLL.id}/></>, KYZ),
+  change(date(2024, 12, 11), 'Added support for new style of WCL URLs.', emallson),
+  change(date(2024, 11, 13), <>Updated common hunter spells and talents with script</>, Yellot),
+  change(date(2024, 11, 10), <>Added <ItemLink id={ITEMS.SKARDYNS_GRACE.id}/></>, Yellot),
+  change(date(2024, 11, 9),  <>Added <ItemLink id={ITEMS.MAD_QUEENS_MANDATE.id}/> and <ItemLink id={ITEMS.OVINAXS_MERCURIAL_EGG.id}/></>, Yellot),
+  change(date(2024, 10, 28), `Updated annotation list rendering for the annotation debugger`, Rzial),
   change(date(2024, 10, 14), `Fixed some technical issues with rendering of lists`, nullDozzer),
   change(date(2024, 10, 12), `Fixed an issue with the effective healing/damage patch causing the per-second damage and healing graphs to be incorrect and causing some by-ability healing and damage numbers to be too low`, Sref),
   change(date(2024, 10, 12), <>Prevent requesting spell data for unknown spell ids.</>, emallson),

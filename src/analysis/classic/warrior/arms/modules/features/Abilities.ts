@@ -10,7 +10,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.REND.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { base: 1500 },
+        gcd: { static: 1500 },
       },
       {
         spell: SPELLS.HEROIC_STRIKE.id,
@@ -28,24 +28,24 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.MORTAL_STRIKE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { base: 1500 },
+        gcd: { static: 1500 },
         cooldown: 4.5,
       },
       {
         spell: SPELLS.SLAM.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { base: 1500 },
+        gcd: { static: 1500 },
       },
       {
         spell: SPELLS.COLOSSUS_SMASH.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { base: 1500 },
+        gcd: { static: 1500 },
         cooldown: 20,
       },
       {
         spell: SPELLS.WHIRLWIND.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        gcd: { base: 1500 },
+        gcd: { static: 1500 },
       },
       // Execute and Overpower are handled in separate modules
       // Rotational AOE

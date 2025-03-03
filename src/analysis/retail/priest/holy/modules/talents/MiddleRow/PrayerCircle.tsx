@@ -29,8 +29,8 @@ class PrayerCircle extends Analyzer {
 
     if (this.active) {
       this.addEventListener(
-        Events.cast.by(SELECTED_PLAYER).spell(TALENTS.CIRCLE_OF_HEALING_TALENT),
-        this.cohCast,
+        Events.cast.by(SELECTED_PLAYER).spell(TALENTS.HOLY_WORD_SANCTIFY_TALENT),
+        this.sanctifyCast,
       );
       this.addEventListener(
         Events.begincast.by(SELECTED_PLAYER).spell(TALENTS.PRAYER_OF_HEALING_TALENT),
@@ -50,7 +50,7 @@ class PrayerCircle extends Analyzer {
     );
   }
 
-  cohCast(event: CastEvent) {
+  sanctifyCast(event: CastEvent) {
     this.lastCohCastAt = event.timestamp;
   }
 

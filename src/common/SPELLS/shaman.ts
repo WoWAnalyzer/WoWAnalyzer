@@ -6,6 +6,12 @@
 import Spell from 'common/SPELLS/Spell';
 
 const spells = {
+  HEALING_WAVE: {
+    id: 77472,
+    name: 'Healing Wave',
+    icon: 'spell_nature_healingwavelesser',
+    manaCost: 75000,
+  },
   WATER_SHIELD: {
     id: 52127,
     name: 'Water Shield',
@@ -295,6 +301,11 @@ const spells = {
     name: 'Flame Shock',
     icon: 'spell_fire_flameshock',
   },
+  FLAME_SHOCK_DUPLICATE: {
+    id: 470411,
+    name: 'Flame Shock',
+    icon: 'spell_fire_flameshock',
+  },
   FROST_SHOCK_ENERGIZE: {
     icon: 'spell_frost_frostshock',
     id: 289439,
@@ -345,6 +356,11 @@ const spells = {
     id: 191634,
     name: 'Stormkeeper',
     icon: 'ability_thunderking_lightningwhip',
+  },
+  COALESCING_WATER_BUFF: {
+    id: 470077,
+    name: 'Coalescing Water',
+    icon: 'inv_helm_mail_raidshamanmythic_s_01',
   },
   // Elemental Pet Spells
   WIND_GUST: {
@@ -473,10 +489,35 @@ const spells = {
     name: 'Fire Nova',
     icon: 'spell_shaman_improvedfirenova',
   },
-  STORMBRINGER_BUFF: {
+  STORMSURGE_BUFF: {
     id: 201846,
     name: 'Stormbringer Buff',
     icon: 'spell_nature_stormreach',
+  },
+  VOLTAIC_BLAZE_CAST: {
+    id: 470057,
+    name: 'Voltaic Blaze',
+    icon: 'inv_10_dungeonjewelry_primalist_trinket_1ragingelement_fire',
+  },
+  VOLTAIC_BLAZE_BUFF: {
+    id: 470058,
+    name: 'Voltaic Blaze',
+    icon: 'inv_10_dungeonjewelry_primalist_trinket_1ragingelement_fire',
+  },
+  ICE_STRIKE_FROST_SHOCK_BUFF: {
+    id: 384357,
+    name: 'Ice Strike',
+    icon: 'spell_frost_frostbolt',
+  },
+  ICE_STRIKE_1_CAST: {
+    id: 342240,
+    name: 'Ice Strike',
+    icon: 'spell_frost_frostbolt',
+  },
+  ICE_STRIKE_1_USABLE_BUFF: {
+    id: 466469,
+    name: 'Ice Strike',
+    icon: 'spell_frost_frostbolt',
   },
   MAELSTROM_WEAPON: {
     id: 187890,
@@ -487,6 +528,11 @@ const spells = {
     id: 344179,
     name: 'Maelstrom Weapon',
     icon: 'spell_shaman_maelstromweapon',
+  },
+  DOOM_WINDS_TICK: {
+    id: 469270,
+    name: 'Doom Winds',
+    icon: 'ability_ironmaidens_swirlingvortex.jpg',
   },
   DOOM_VORTEX: {
     id: 199116,
@@ -529,6 +575,11 @@ const spells = {
     id: 21169,
     name: 'Reincarnation',
     icon: 'spell_shaman_improvedreincarnation',
+  },
+  STORMSTRIKE: {
+    id: 17364,
+    name: 'Stormstrike',
+    icon: 'ability_shaman_stormstrike',
   },
   WINDLASH: {
     id: 114089,
@@ -615,9 +666,9 @@ const spells = {
     name: 'Hot Hand',
     icon: 'spell_fire_playingwithfire',
   },
-  STORMBRINGER: {
+  STORMSURGE: {
     id: 201845,
-    name: 'Stormbringer',
+    name: 'Stormsurge',
     icon: 'spell_nature_stormreach',
   },
   LEGACY_OF_THE_FROST_WITCH_BUFF: {
@@ -813,11 +864,6 @@ const spells = {
     name: 'Undercurrent',
     icon: 'spell_fire_bluehellfire',
   },
-  ANCESTRAL_GUIDANCE_HEAL: {
-    id: 114911,
-    name: 'Ancestral Guidance',
-    icon: 'ability_shaman_ancestralguidance',
-  },
   ANCESTRAL_AWAKENING_HEAL: {
     id: 382311,
     name: 'Ancestral Awakening',
@@ -913,6 +959,11 @@ const spells = {
     name: 'Tidewaters',
     icon: 'ability_shawaterelemental_split',
   },
+  ACID_RAIN_DAMAGE: {
+    id: 378597,
+    name: 'Acid Rain',
+    icon: 'spell_nature_acid_01',
+  },
   /** HERO TALENTS **/
   // Stormbringer
   TEMPEST_CAST: {
@@ -960,6 +1011,12 @@ const spells = {
     id: 447419,
     name: 'Lava Burst',
     icon: 'spell_shaman_lavaburst',
+  },
+  // Totemic
+  TOTEMIC_REBOUND_CHAIN_HEAL: {
+    id: 458357,
+    name: 'Chain Heal',
+    icon: 'spell_nature_healingwavegreater',
   },
 } satisfies Record<string, Spell>;
 

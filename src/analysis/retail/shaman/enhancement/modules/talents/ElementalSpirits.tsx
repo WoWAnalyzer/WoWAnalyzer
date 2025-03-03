@@ -276,19 +276,25 @@ class ElementalSpirits extends Analyzer {
         color: '#f37735',
         label: <>Molten Weapon</>,
         spellId: SPELLS.ELEMENTAL_SPIRITS_BUFF_MOLTEN_WEAPON.id,
-        value: this.moltenWeaponCount,
+        value: this.selectedCombatant.getBuffTriggerCount(
+          SPELLS.ELEMENTAL_SPIRITS_BUFF_MOLTEN_WEAPON.id,
+        ),
       },
       {
         color: '#94d3ec',
         label: <>Icy Edge</>,
         spellId: SPELLS.ELEMENTAL_SPIRITS_BUFF_ICY_EDGE.id,
-        value: this.icyEdgeCount,
+        value: this.selectedCombatant.getBuffTriggerCount(
+          SPELLS.ELEMENTAL_SPIRITS_BUFF_ICY_EDGE.id,
+        ),
       },
       {
         color: '#3b7fb0',
         label: <>Crackling Surge</>,
         spellId: SPELLS.ELEMENTAL_SPIRITS_BUFF_CRACKLING_SURGE.id,
-        value: this.cracklingSurgeCount,
+        value: this.selectedCombatant.getBuffTriggerCount(
+          SPELLS.ELEMENTAL_SPIRITS_BUFF_CRACKLING_SURGE.id,
+        ),
       },
     ];
 

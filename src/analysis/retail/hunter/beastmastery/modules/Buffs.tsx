@@ -25,7 +25,7 @@ class Buffs extends CoreAuras {
       {
         spellId: SPELLS.BEAST_CLEAVE_BUFF.id,
         timelineHighlight: true,
-        triggeredBySpellId: TALENTS.MULTI_SHOT_BEAST_MASTERY_TALENT.id,
+        triggeredBySpellId: SPELLS.MULTI_SHOT.id,
       },
       {
         spellId: SPELLS.ASPECT_OF_THE_TURTLE.id,

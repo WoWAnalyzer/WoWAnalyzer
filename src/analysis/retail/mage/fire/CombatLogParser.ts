@@ -14,16 +14,12 @@ import {
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
-//Checklist
-import Checklist from './Checklist/Module';
-
 //Core
 import Abilities from './core/Abilities';
 import AlwaysBeCasting from './core/AlwaysBeCasting';
 import Buffs from './core/Buffs';
 import CooldownThroughputTracker from './core/CooldownThroughputTracker';
 import Combustion from './core/Combustion';
-import CombustionActiveTime from './core/CombustionActiveTime';
 import HeatingUp from './core/HeatingUp';
 import HotStreak from './core/HotStreak';
 
@@ -47,6 +43,14 @@ import ExcessFrost from '../shared/ExcessFrost';
 import FlameAndFrost from '../shared/FlameAndFrost';
 import GloriousIncandescence from '../shared/GloriousIncandescense';
 
+//Guide
+import Guide from './Guide';
+import HotStreakGuide from './guide/HotStreak';
+import HeatingUpGuide from './guide/HeatingUp';
+import CombustionGuide from './guide/Combustion';
+import SunKingsBlessingGuide from './guide/SunKingsBlessing';
+import FeelTheBurnGuide from './guide/FeelTheBurn';
+
 //Items
 
 //Normalizers
@@ -55,11 +59,6 @@ import FlamestrikeNormalizer from './normalizers/Flamestrike';
 import ScorchNormalizer from './normalizers/Scorch';
 import SunKingsBlessingNormalizer from './normalizers/SunKingsBlessingBuffs';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
-import Guide from './Guide';
-import HotStreakGuide from './guide/HotStreak';
-import HeatingUpGuide from './guide/HeatingUp';
-import CombustionGuide from './guide/Combustion';
-import SunKingsBlessingGuide from './guide/SunKingsBlessing';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -70,14 +69,12 @@ class CombatLogParser extends CoreCombatLogParser {
     combustionNormalizer: CombustionNormalizer,
     sunKingsBlessingNormalizer: SunKingsBlessingNormalizer,
 
-    //Checklist
-    checklist: Checklist,
-
     //Guide
     hotStreakGuide: HotStreakGuide,
     heatingUpGuide: HeatingUpGuide,
     combustionGuide: CombustionGuide,
     sunKingsBlessingGuide: SunKingsBlessingGuide,
+    feelTheBurnGuide: FeelTheBurnGuide,
 
     //Core
     buffs: Buffs,
@@ -90,7 +87,6 @@ class CombatLogParser extends CoreCombatLogParser {
     heatingUp: HeatingUp,
     hotStreak: HotStreak,
     combustion: Combustion,
-    combustionActiveTime: CombustionActiveTime,
 
     //Talents - Fire
     phoenixFlames: PhoenixFlames,

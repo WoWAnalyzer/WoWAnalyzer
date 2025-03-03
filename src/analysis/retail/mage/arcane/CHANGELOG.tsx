@@ -5,6 +5,10 @@ import { change, date } from 'common/changelog';
 import { Sharrq, Sref } from 'CONTRIBUTORS';
 
 export default [
+  change(date(2024, 11, 23), <>Updated Spec Support to 11.0.5 and updated Warning.</>, Sharrq),
+  change(date(2024, 11, 23), <>Fixed an issue that was preventing the Cast Delay from showing if <SpellLink spell={TALENTS.ARCANE_MISSILES_TALENT} /> ended at the exact same timestamp as the next cast (0 Delay).</>, Sharrq),
+  change(date(2024, 11, 23), <>Updated <SpellLink spell={TALENTS.ARCANE_MISSILES_TALENT} /> guide wording.</>, Sharrq),
+  change(date(2024, 11, 23), <>Updated <SpellLink spell={SPELLS.ARCANE_BARRAGE} /> for 11.0.5.</>, Sharrq),
   change(date(2024, 10, 22), <>Updated the Warning banner to reflect the current status of Arcane's analysis. Fixed a typo in the guide.</>, Sharrq),
   change(date(2024, 10, 9), <>Adjusted <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} /> to account for <SpellLink spell={SPELLS.BURDEN_OF_POWER_BUFF} />, <SpellLink spell={SPELLS.GLORIOUS_INCANDESCENCE_BUFF} />, and <SpellLink spell={SPELLS.INTUITION_BUFF} /> when evaluating <SpellLink spell={SPELLS.ARCANE_CHARGE} />s.</>, Sharrq),
   change(date(2024, 10, 9), <>Fixed an issue that caused <SpellLink spell={TALENTS.ARCANE_MISSILES_TALENT} /> to sometimes incorrectly claim the player had <SpellLink spell={SPELLS.NETHER_PRECISION_BUFF} /> due to incorrect event ordering in the log.</>, Sharrq),

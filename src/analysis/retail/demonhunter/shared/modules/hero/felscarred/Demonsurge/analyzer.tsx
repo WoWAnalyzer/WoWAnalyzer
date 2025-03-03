@@ -62,7 +62,7 @@ export default class Demonsurge extends Analyzer {
     // listen for events
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(this.#metamorphosisBuff),
-      this.onMetamorphosisEnd,
+      this.#onMetamorphosisEnd,
     );
     console.log('[Demonsurge] adding listener for metamorphosis hardcast', this.active);
     this.addEventListener(
@@ -73,11 +73,11 @@ export default class Demonsurge extends Analyzer {
             ? SPELLS.METAMORPHOSIS_HAVOC
             : SPELLS.METAMORPHOSIS_TANK,
         ),
-      this.onMetamorphosisHardcast,
+      this.#onMetamorphosisHardcast,
     );
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(this.#triggers),
-      this.onDemonsurgeTriggerCast,
+      this.#onDemonsurgeTriggerCast,
     );
     if (this.selectedCombatant.hasTalent(TALENTS.DEMONIC_TALENT)) {
       this.addEventListener(
@@ -88,7 +88,7 @@ export default class Demonsurge extends Analyzer {
               ? TALENTS.EYE_BEAM_TALENT
               : TALENTS.FEL_DEVASTATION_TALENT,
           ),
-        this.onDemonicAbilityCast,
+        this.#onDemonicAbilityCast,
       );
     }
   }
@@ -142,39 +142,39 @@ export default class Demonsurge extends Analyzer {
     );
   }
 
-  private onMetamorphosisEnd(event: RemoveBuffEvent) {
-    this.markAvailableTriggersAsWasted(event);
-    this.clearAvailableTriggers();
+  #onMetamorphosisEnd(event: RemoveBuffEvent) {
+    this.#markAvailableTriggersAsWasted(event);
+    this.#clearAvailableTriggers();
   }
 
-  private onMetamorphosisHardcast(event: CastEvent) {
-    this.markAvailableTriggersAsWasted(event);
-    this.clearAvailableTriggers();
-    this.enableHardcastTriggers(event);
+  #onMetamorphosisHardcast(event: CastEvent) {
+    this.#markAvailableTriggersAsWasted(event);
+    this.#clearAvailableTriggers();
+    this.#enableHardcastTriggers(event);
   }
 
-  private onDemonicAbilityCast(event: CastEvent) {
+  #onDemonicAbilityCast(event: CastEvent) {
     // if Demonic is re-triggered while the player is already in Meta, no new Demonsurges
     // become available.
     if (this.selectedCombatant.hasBuff(this.#metamorphosisBuff, event.timestamp)) {
       return;
     }
-    this.enableDemonicTriggers(event);
+    this.#enableDemonicTriggers(event);
   }
 
-  private onDemonsurgeTriggerCast(event: CastEvent) {
+  #onDemonsurgeTriggerCast(event: CastEvent) {
     // if no Demonsurge trigger available, we do nothing
-    if (!this.isTriggerAvailable(event.ability.guid)) {
+    if (!this.#isTriggerAvailable(event.ability.guid)) {
       return;
     }
-    this.consumeTrigger(event);
+    this.#consumeTrigger(event);
   }
 
-  private isTriggerAvailable(triggerId: number) {
+  #isTriggerAvailable(triggerId: number) {
     return this.#availableTriggers.has(triggerId);
   }
 
-  private consumeTrigger(trigger: CastEvent) {
+  #consumeTrigger(trigger: CastEvent) {
     this.#availableTriggers.delete(trigger.ability.guid);
 
     const previouslyConsumedTriggers = this.#consumedTriggers.get(trigger.ability.guid) ?? 0;
@@ -188,7 +188,7 @@ export default class Demonsurge extends Analyzer {
     });
   }
 
-  private enableDemonicTriggers(event: CastEvent) {
+  #enableDemonicTriggers(event: CastEvent) {
     for (const trigger of this.#demonicTriggers) {
       this.#availableTriggers.add(trigger.id);
     }
@@ -210,7 +210,7 @@ export default class Demonsurge extends Analyzer {
     });
   }
 
-  private enableHardcastTriggers(event: CastEvent) {
+  #enableHardcastTriggers(event: CastEvent) {
     for (const trigger of this.#hardcastTriggers) {
       this.#availableTriggers.add(trigger.id);
     }
@@ -232,13 +232,13 @@ export default class Demonsurge extends Analyzer {
     });
   }
 
-  private clearAvailableTriggers() {
+  #clearAvailableTriggers() {
     this.#availableTriggers.clear();
   }
 
-  private markAvailableTriggersAsWasted(event: AnyEvent) {
+  #markAvailableTriggersAsWasted(event: AnyEvent) {
     for (const availableTrigger of this.#availableTriggers) {
-      const previouslyWastedTriggers = this.#consumedTriggers.get(availableTrigger) ?? 0;
+      const previouslyWastedTriggers = this.#wastedTriggers.get(availableTrigger) ?? 0;
       this.#wastedTriggers.set(availableTrigger, previouslyWastedTriggers + 1);
       this.addDebugAnnotation(event, {
         color: BadColor,

@@ -1,7 +1,5 @@
 import PreciseShots from 'analysis/retail/hunter/marksmanship/modules/spells/PreciseShots';
 import CallingTheShots from 'analysis/retail/hunter/marksmanship/modules/talents/CallingTheShots';
-import SerpentSting from 'analysis/retail/hunter/shared/talents/SerpentSting';
-import SteadyFocus from 'analysis/retail/hunter/marksmanship/modules/talents/SteadyFocus';
 import { FocusDetails, FocusCapTracker, CancelledCasts } from 'analysis/retail/hunter/shared';
 import PreparationRuleAnalyzer from 'parser/retail/modules/features/Checklist/PreparationRuleAnalyzer';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
@@ -10,6 +8,8 @@ import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import Component from './Component';
+import MMTier2P from '../items/MMTier2P';
+import MMTier4P from '../items/MMTier4P';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -28,8 +28,6 @@ class Checklist extends BaseChecklist {
     //endregion
 
     //region Talents
-    steadyFocus: SteadyFocus,
-    serpentSting: SerpentSting,
     callingTheShots: CallingTheShots,
     //endregion
 
@@ -37,6 +35,9 @@ class Checklist extends BaseChecklist {
     focusGeneratorDetails: FocusDetails,
     focusCapTracker: FocusCapTracker,
     //endregion
+
+    mmTier2P: MMTier2P,
+    mmTier4P: MMTier4P,
   };
 
   //region Core
@@ -52,8 +53,6 @@ class Checklist extends BaseChecklist {
   //endregion
 
   //region Talents
-  protected steadyFocus!: SteadyFocus;
-  protected serpentSting!: SerpentSting;
   protected callingTheShots!: CallingTheShots;
   //endregion
 
@@ -80,9 +79,6 @@ class Checklist extends BaseChecklist {
           //endregion
 
           //region Talents
-          steadyFocusThresholds: this.steadyFocus.uptimeThresholds,
-          serpentStingUptimeThresholds: this.serpentSting.uptimeThreshold,
-          serpentStingNonPandemicThresholds: this.serpentSting.nonPandemicThreshold,
           callingTheShotsThresholds: this.callingTheShots.callingTheShotsEfficacyThresholds,
           //endregion
 

@@ -26,10 +26,7 @@ class EventLinkNormalizer extends BaseEventLinkNormalizer {
         linkRelation: EVENT_LINKS.CallOfTheAncestors,
         linkingEventId: SPELLS.CALL_OF_THE_ANCESTORS_SUMMON.id,
         linkingEventType: EventType.Summon,
-        referencedEventId: [
-          TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT.id,
-          SPELLS.ANCESTRAL_SWIFTNESS_CAST.id,
-        ],
+        referencedEventId: [TALENTS.PRIMORDIAL_WAVE_TALENT.id, SPELLS.ANCESTRAL_SWIFTNESS_CAST.id],
         referencedEventType: EventType.Cast,
         forwardBufferMs: -1, // only look backwards
         backwardBufferMs: 5,

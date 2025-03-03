@@ -38,6 +38,10 @@ export const EB_FROM_PRESCIENCE = 'ebFromPrescience';
 export const EB_FROM_ARCANE_VIGOR = 'ebFromArcaneVigor';
 export const EB_FROM_LF_CAST = 'ebFromLFCast';
 export const EB_FROM_LF_HEAL = 'ebFromLFHeal'; // Specifically used for Leaping Flames analysis
+export const EB_FROM_ROCKFALL = 'ebFromRockfall';
+export const EB_FROM_AUG_UNDERMINE_4PC = 'ebFromAugUndermine4pc';
+export const EB_FROM_ROCKFALL_EONS = 'ebFromRockfallEons';
+export const EB_FROM_AUG_UNDERMINE_4PC_EONS = 'ebFromAugUndermine4pcEons';
 const ESSENCE_BURST_BUFFER = 40; // Sometimes the EB comes a bit early/late
 const EB_LF_CAST_BUFFER = 1_000;
 const EMERALD_TRANCE_BUFFER = 5_000;
@@ -78,6 +82,58 @@ const EVENT_LINKS: EventLink[] = [
     isActive(c) {
       return c.hasTalent(TALENTS.ARCANE_VIGOR_TALENT);
     },
+  },
+  {
+    linkRelation: EB_FROM_ROCKFALL,
+    reverseLinkRelation: EB_FROM_ROCKFALL,
+    linkingEventId: [TALENTS.UPHEAVAL_TALENT.id, SPELLS.UPHEAVAL_FONT.id],
+    linkingEventType: EventType.EmpowerEnd,
+    referencedEventId: EB_BUFF_IDS,
+    referencedEventType: EB_GENERATION_EVENT_TYPES,
+    anyTarget: true,
+    forwardBufferMs: ESSENCE_BURST_BUFFER,
+    backwardBufferMs: ESSENCE_BURST_BUFFER,
+    maximumLinks: 1,
+    isActive: (c) => c.hasTalent(TALENTS.ROCKFALL_TALENT),
+  },
+  {
+    linkRelation: EB_FROM_ROCKFALL_EONS,
+    reverseLinkRelation: EB_FROM_ROCKFALL_EONS,
+    linkingEventId: [TALENTS.BREATH_OF_EONS_TALENT.id, SPELLS.BREATH_OF_EONS_SCALECOMMANDER.id],
+    linkingEventType: EventType.Cast,
+    referencedEventId: EB_BUFF_IDS,
+    referencedEventType: EB_GENERATION_EVENT_TYPES,
+    anyTarget: true,
+    forwardBufferMs: ESSENCE_BURST_BUFFER,
+    backwardBufferMs: ESSENCE_BURST_BUFFER,
+    maximumLinks: 1,
+    isActive: (c) => c.hasTalent(TALENTS.ROCKFALL_TALENT) && c.has2PieceByTier(TIERS.TWW2),
+  },
+  {
+    linkRelation: EB_FROM_AUG_UNDERMINE_4PC,
+    reverseLinkRelation: EB_FROM_AUG_UNDERMINE_4PC,
+    linkingEventId: [TALENTS.UPHEAVAL_TALENT.id, SPELLS.UPHEAVAL_FONT.id],
+    linkingEventType: EventType.EmpowerEnd,
+    referencedEventId: EB_BUFF_IDS,
+    referencedEventType: EB_GENERATION_EVENT_TYPES,
+    anyTarget: true,
+    forwardBufferMs: ESSENCE_BURST_BUFFER,
+    backwardBufferMs: ESSENCE_BURST_BUFFER,
+    maximumLinks: 1,
+    isActive: (c) => c.has4PieceByTier(TIERS.TWW2),
+  },
+  {
+    linkRelation: EB_FROM_AUG_UNDERMINE_4PC_EONS,
+    reverseLinkRelation: EB_FROM_AUG_UNDERMINE_4PC_EONS,
+    linkingEventId: [TALENTS.BREATH_OF_EONS_TALENT.id, SPELLS.BREATH_OF_EONS_SCALECOMMANDER.id],
+    linkingEventType: EventType.Cast,
+    referencedEventId: EB_BUFF_IDS,
+    referencedEventType: EB_GENERATION_EVENT_TYPES,
+    anyTarget: true,
+    forwardBufferMs: ESSENCE_BURST_BUFFER,
+    backwardBufferMs: ESSENCE_BURST_BUFFER,
+    maximumLinks: 1,
+    isActive: (c) => c.has4PieceByTier(TIERS.TWW2),
   },
   {
     linkRelation: EB_FROM_PRESCIENCE,

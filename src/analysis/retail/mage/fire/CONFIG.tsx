@@ -11,8 +11,8 @@ const config: Config = {
   contributors: [Sharrq],
   branch: GameBranch.Retail,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '10.2.7',
-  supportLevel: SupportLevel.MaintainedFull,
+  patchCompatibility: '11.0.5',
+  supportLevel: SupportLevel.MaintainedPartial,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
@@ -38,11 +38,10 @@ const config: Config = {
       frontmatterType: 'guide',
       notes: (
         <AlertWarning>
-          This analysis is a Work in Progress. I have done some minor updates to Fire, but there are
-          still things that have yet to be implemented or added. Once Blizzard stops changing things
-          every week, and once the theorycrafters finish running numbers, then I will update this.
-          Apologies for the delays, I promise I am working on it. Ping me in the Mage Discord if you
-          have questions about this. <code>@Sharrq</code>
+          This analysis is a Work in Progress. I have made some initial updates for Combustion, Hot
+          Streak, Heating Up, and Feel the Burn, but there is more to do. Apologies for the delays,
+          I promise I am working on it. Ping me in the Mage Discord if you have questions about
+          this. <code>@Sharrq</code>
         </AlertWarning>
       ),
     },

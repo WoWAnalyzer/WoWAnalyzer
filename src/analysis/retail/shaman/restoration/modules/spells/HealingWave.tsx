@@ -22,14 +22,12 @@ class HealingWave extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.HEALING_WAVE_TALENT);
-
     this.addEventListener(
-      Events.begincast.by(SELECTED_PLAYER).spell(TALENTS.HEALING_WAVE_TALENT),
+      Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.HEALING_WAVE),
       this.onHealingWaveBegincast,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.HEALING_WAVE_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HEALING_WAVE),
       this.onHealingWaveCast,
     );
   }
@@ -83,7 +81,7 @@ class HealingWave extends Analyzer {
   }
 
   get suggestedThreshold() {
-    const healingWave = this.abilityTracker.getAbility(TALENTS.HEALING_WAVE_TALENT.id);
+    const healingWave = this.abilityTracker.getAbility(SPELLS.HEALING_WAVE.id);
 
     const twHealingWaves = healingWave.healingTwHits || 0;
     const healingWaveCasts = healingWave.casts || 0;
@@ -108,13 +106,13 @@ class HealingWave extends Analyzer {
       .addSuggestion((suggest) =>
         suggest(
           <span>
-            Casting <SpellLink spell={TALENTS.HEALING_WAVE_TALENT} /> without{' '}
+            Casting <SpellLink spell={SPELLS.HEALING_WAVE} /> without{' '}
             <SpellLink spell={SPELLS.TIDAL_WAVES_BUFF} icon /> is slow and generally inefficient.
             Consider casting a riptide first to generate{' '}
             <SpellLink spell={SPELLS.TIDAL_WAVES_BUFF} icon />
           </span>,
         )
-          .icon(TALENTS.HEALING_WAVE_TALENT.icon)
+          .icon(SPELLS.HEALING_WAVE.icon)
           .actual(
             defineMessage({
               id: 'shaman.restoration.suggestions.healingWave.unbuffed',

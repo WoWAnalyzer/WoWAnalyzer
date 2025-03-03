@@ -315,6 +315,16 @@ const spells = {
     name: 'Stasis',
     icon: 'ability_evoker_stasis',
   },
+  INSURANCE_HOT: {
+    id: 1215550,
+    name: 'Insurance',
+    icon: 'inv_10_inscription2_scroll2_color5',
+  },
+  INSURANCE_PROC: {
+    id: 1215553,
+    name: 'Insurance',
+    icon: 'inv_10_inscription2_scroll2_color5',
+  },
   GIANT_SLAYER_MASTERY: {
     id: 362980,
     name: 'Mastery: Giantkiller',
@@ -513,16 +523,6 @@ const spells = {
     name: 'Symbiotic Bloom',
     icon: 'inv_10_herb_seed_magiccolor5',
   },
-  TREMBLING_EARTH_BUFF: {
-    id: 424368,
-    name: 'Trembling Earth',
-    icon: 'ability_evoker_eruption',
-  },
-  TREMBLING_EARTH_DAM: {
-    id: 424428,
-    name: 'Trembling Earth',
-    icon: 'ability_evoker_eruption',
-  },
   TIME_OF_NEED_LIVING_FLAME: {
     id: 401382,
     name: 'Living Flame (Past Self)',
@@ -588,6 +588,11 @@ const spells = {
     name: 'Spiritbloom',
     icon: 'ability_evoker_spiritbloom2',
   },
+  UPHEAVAL_DOT: {
+    id: 431620,
+    name: 'Upheaval',
+    icon: 'ability_evoker_upheaval',
+  },
   CHRONO_FLAME_CAST: {
     id: 431443,
     name: 'Chronoflame',
@@ -603,15 +608,30 @@ const spells = {
     name: 'Chronoflame',
     icon: 'inv_ability_chronowardenevoker_chronoflame',
   },
-  THREADS_OF_FATE_HEALING: {
-    id: 432896,
-    name: 'Threads of Fate',
+  THREAD_OF_FATE_BUFF: {
+    id: 431716,
+    name: 'Thread of Fate',
     icon: 'ability_evoker_sandsoftime',
   },
-  THREADS_OF_FATE_DAMAGE: {
-    id: 432895,
-    name: 'Threads of Fate',
+  THREAD_OF_FATE_HEALING: {
+    id: 432896,
+    name: 'Thread of Fate',
     icon: 'ability_evoker_sandsoftime',
+  },
+  THREAD_OF_FATE_DAMAGE: {
+    id: 432895,
+    name: 'Thread of Fate',
+    icon: 'ability_evoker_sandsoftime',
+  },
+  PRIMACY_BUFF: {
+    id: 431654,
+    name: 'Primacy',
+    icon: 'Inv_misc_pocketwatch_01',
+  },
+  TIME_CONVERGENCE_BUFF: {
+    id: 431991,
+    name: 'Time Convergence',
+    icon: 'ability_evoker_plotthefuture',
   },
   IMMINENT_DESTRUCTION_DEV_BUFF: {
     id: 411055,
@@ -643,6 +663,96 @@ const spells = {
     id: 441248,
     name: 'Unrelenting Siege',
     icon: 'ability_siege_engineer_superheated',
+  },
+  MOMENTUM_SHIFT_BUFF: {
+    id: 408005,
+    name: 'Momentum Shift',
+    icon: 'ability_priest_voidshift',
+  },
+  VOLCANIC_UPSURGE: {
+    id: 456142,
+    name: 'Volcanic Upsurge',
+    icon: 'ability_evoker_earthensky',
+  },
+  GOLDEN_OPPORTUNITY_BUFF: {
+    id: 459878,
+    name: 'Golden Opportunity',
+    icon: 'achievement_faction_goldenlotus',
+  },
+  MOTES_OF_ACCELERATION_BUFF: {
+    id: 432061,
+    name: 'Motes of Acceleration',
+    icon: 'item_timemote_icon',
+  },
+  TIME_SPIRAL_DEATH_KNIGHT_BUFF: {
+    id: 375226,
+    name: 'Time Spiral',
+    icon: 'ability_evoker_timespiral',
+  },
+  TIME_SPIRAL_DEMON_HUNTER_BUFF: {
+    id: 375229,
+    name: 'Time Spiral',
+    icon: 'ability_evoker_timespiral',
+  },
+  TIME_SPIRAL_DRUID_BUFF: {
+    id: 375230,
+    name: 'Time Spiral',
+    icon: 'ability_evoker_timespiral',
+  },
+  TIME_SPIRAL_EVOKER_BUFF: {
+    id: 375234,
+    name: 'Time Spiral',
+    icon: 'ability_evoker_timespiral',
+  },
+  TIME_SPIRAL_HUNTER_BUFF: {
+    id: 375238,
+    name: 'Time Spiral',
+    icon: 'ability_evoker_timespiral',
+  },
+  TIME_SPIRAL_MAGE_BUFF: {
+    id: 375240,
+    name: 'Time Spiral',
+    icon: 'ability_evoker_timespiral',
+  },
+  TIME_SPIRAL_MONK_BUFF: {
+    id: 375252,
+    name: 'Time Spiral',
+    icon: 'ability_evoker_timespiral',
+  },
+  TIME_SPIRAL_PALADIN_BUFF: {
+    id: 375253,
+    name: 'Time Spiral',
+    icon: 'ability_evoker_timespiral',
+  },
+  TIME_SPIRAL_PRIEST_BUFF: {
+    id: 375254,
+    name: 'Time Spiral',
+    icon: 'ability_evoker_timespiral',
+  },
+  TIME_SPIRAL_ROGUE_BUFF: {
+    id: 375255,
+    name: 'Time Spiral',
+    icon: 'ability_evoker_timespiral',
+  },
+  TIME_SPIRAL_SHAMAN_BUFF: {
+    id: 375256,
+    name: 'Time Spiral',
+    icon: 'ability_evoker_timespiral',
+  },
+  TIME_SPIRAL_WARLOCK_BUFF: {
+    id: 375257,
+    name: 'Time Spiral',
+    icon: 'ability_evoker_timespiral',
+  },
+  TIME_SPIRAL_WARRIOR_BUFF: {
+    id: 375258,
+    name: 'Time Spiral',
+    icon: 'ability_evoker_timespiral',
+  },
+  JACKPOT_BUFF: {
+    id: 1217769,
+    name: 'Jackpot!',
+    icon: 'inv_10_fishing_dragonislescoins_gold',
   },
   // endregion
 } satisfies Record<string, Spell>;

@@ -19,6 +19,8 @@ export const CHAIN_HEAL_GROUPING = 'ChainHealGrouping';
 export const FLOW_OF_THE_TIDES = 'FlowOfTheTides';
 export const DOWNPOUR = 'Downpour';
 export const HIGH_TIDE = 'HighTide';
+export const LIVELY_TOTEMS_CHAIN_HEAL = 'LivelyTotemsChainHeal';
+export const REACTIVITY = 'Reactivity';
 //event link ms settings
 export const CAST_BUFFER_MS = 100;
 // 50 was too low, 100 was too high
@@ -76,7 +78,7 @@ export const HIGH_TIDE_COEFFICIENT = 2.541;
 const SHAMAN_BASE_ABILITIES = [
   SPELLS.HEALING_SURGE,
   SPELLS.PRIMORDIAL_WAVE_HEAL,
-  TALENTS.HEALING_WAVE_TALENT,
+  SPELLS.HEALING_WAVE,
   TALENTS.CHAIN_HEAL_TALENT,
   SPELLS.HEALING_SURGE,
   TALENTS.RIPTIDE_TALENT,
@@ -101,7 +103,6 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
 
   // While the following spells don't double dip in healing increases, they gain the same percentual bonus from the transfer
   SPELLS.ANCESTRAL_AWAKENING_HEAL, // double check interactions
-  SPELLS.ANCESTRAL_GUIDANCE_HEAL,
   SPELLS.CLOUDBURST_TOTEM_HEAL,
   SPELLS.ASCENDANCE_HEAL,
   SPELLS.LEECH,
@@ -116,7 +117,6 @@ export const ABILITIES_AFFECTED_BY_MASTERY = [
   ...BASE_ABILITIES_AFFECTED_BY_MASTERY,
   // While the following spells don't double dip in healing increases, they gain the same percentual bonus from the transfer
   SPELLS.ANCESTRAL_AWAKENING_HEAL,
-  SPELLS.ANCESTRAL_GUIDANCE_HEAL,
   SPELLS.CLOUDBURST_TOTEM_HEAL,
   SPELLS.ASCENDANCE_HEAL,
   SPELLS.LEECH,

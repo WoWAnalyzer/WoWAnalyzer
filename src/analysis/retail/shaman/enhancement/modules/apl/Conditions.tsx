@@ -25,22 +25,13 @@ export function minimumMaelstromWeaponStacks(minStacks: number): Condition<numbe
 }
 
 export function getSpenderBlock(combatant: Combatant): Rule[] {
-  return [
-    {
-      spell: SPELLS.TEMPEST_CAST,
-      condition: describe(
-        and(buffPresent(SPELLS.TEMPEST_BUFF), minimumMaelstromWeaponStacks(6)),
-        () => (
-          <>
-            available and at least 6 <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> stacks
-          </>
-        ),
-      ),
-    },
-    {
+  const rules: Rule[] = [];
+
+  if (combatant.hasTalent(TALENTS.ELEMENTAL_SPIRITS_TALENT)) {
+    rules.push({
       spell: TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT,
       condition: and(
-        minimumMaelstromWeaponStacks(6),
+        minimumMaelstromWeaponStacks(8),
         repeatableBuffPresent(
           [
             SPELLS.ELEMENTAL_SPIRITS_BUFF_MOLTEN_WEAPON,
@@ -50,14 +41,20 @@ export function getSpenderBlock(combatant: Combatant): Rule[] {
           { atLeast: 4 },
         ),
       ),
-    },
-    {
-      spell: SPELLS.LIGHTNING_BOLT,
-      condition: describe(and(AtLeastFiveMSW, not(buffPresent(SPELLS.TEMPEST_BUFF))), () => (
+    });
+  }
+
+  rules.push({
+    spell: SPELLS.LIGHTNING_BOLT,
+    condition: describe(
+      and(minimumMaelstromWeaponStacks(8), not(buffPresent(SPELLS.TEMPEST_BUFF))),
+      () => (
         <>
-          you have at least 5 <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> stacks
+          you have at least 8 <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> stacks
         </>
-      )),
-    },
-  ];
+      ),
+    ),
+  });
+
+  return rules;
 }

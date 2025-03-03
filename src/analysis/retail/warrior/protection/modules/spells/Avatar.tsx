@@ -18,7 +18,7 @@ class Avatar extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.AVATAR_PROTECTION_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.AVATAR_TALENT);
     if (!this.active) {
       return;
     }
@@ -27,13 +27,12 @@ class Avatar extends Analyzer {
 
   get uptime() {
     return (
-      this.selectedCombatant.getBuffUptime(TALENTS.AVATAR_PROTECTION_TALENT.id) /
-      this.owner.fightDuration
+      this.selectedCombatant.getBuffUptime(TALENTS.AVATAR_TALENT.id) / this.owner.fightDuration
     );
   }
 
   handleDamage(event: DamageEvent) {
-    if (!this.selectedCombatant.hasBuff(TALENTS.AVATAR_PROTECTION_TALENT.id)) {
+    if (!this.selectedCombatant.hasBuff(TALENTS.AVATAR_TALENT.id)) {
       return;
     }
 
@@ -57,7 +56,7 @@ class Avatar extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellIcon spell={TALENTS.AVATAR_PROTECTION_TALENT} /> Damage Contributed
+              <SpellIcon spell={TALENTS.AVATAR_TALENT} /> Damage Contributed
             </>
           }
         >

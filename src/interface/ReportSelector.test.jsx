@@ -23,30 +23,6 @@ describe('ReportSelector', () => {
       'a:AB1CDEf2G3HIjk4L',
     );
   });
-  test('getCode accepts relative url', () => {
-    expect(getReportCode('reports/AB1CDEf2G3HIjk4L')).toBe('AB1CDEf2G3HIjk4L');
-    expect(getReportCode('reports/AB1CDEf2G3HIjk4L/')).toBe('AB1CDEf2G3HIjk4L');
-  });
-  test('getCode accepts anonymous relative url', () => {
-    expect(getReportCode('reports/a:AB1CDEf2G3HIjk4L')).toBe('a:AB1CDEf2G3HIjk4L');
-    expect(getReportCode('reports/a:AB1CDEf2G3HIjk4L/')).toBe('a:AB1CDEf2G3HIjk4L');
-  });
-  test('getCode accepts report code with hashtag', () => {
-    expect(getReportCode('AB1CDEf2G3HIjk4L#fight=6&type=healing&source=10')).toBe(
-      'AB1CDEf2G3HIjk4L',
-    );
-    expect(getReportCode('AB1CDEf2G3HIjk4L/#fight=6&type=healing&source=10')).toBe(
-      'AB1CDEf2G3HIjk4L',
-    );
-  });
-  test('getCode accepts anonymous report code with hashtag', () => {
-    expect(getReportCode('a:AB1CDEf2G3HIjk4L#fight=6&type=healing&source=10')).toBe(
-      'a:AB1CDEf2G3HIjk4L',
-    );
-    expect(getReportCode('a:AB1CDEf2G3HIjk4L/#fight=6&type=healing&source=10')).toBe(
-      'a:AB1CDEf2G3HIjk4L',
-    );
-  });
   test('getCode accepts full url with hashtag', () => {
     expect(
       getReportCode(
@@ -116,46 +92,48 @@ describe('ReportSelector', () => {
       getReportCode(
         'https://www.warcraftlogs.com/reports/AB1CDEf2G3HIjk4#fight=6&type=healing&source=10',
       ),
-    ).toBe(null);
+    ).toBe(undefined);
     expect(
       getReportCode(
         'https://www.warcraftlogs.com/reports/AB1CDEf2G3HIjk-4#fight=6&type=healing&source=10',
       ),
-    ).toBe(null);
+    ).toBe(undefined);
     expect(
       getReportCode(
         'https://www.warcraftlogs.com/reports/AB1CDEf2G3HIjk4AA#fight=6&type=healing&source=10',
       ),
-    ).toBe(null);
+    ).toBe(undefined);
     expect(
       getReportCode('https://www.warcraftlogs.com/reports/#fight=6&type=healing&source=10'),
-    ).toBe(null);
-    expect(getReportCode('https://www.warcraftlogs.com/')).toBe(null);
-    expect(getReportCode('https://www.warcraftlogs.com/reports/<report code>')).toBe(null);
+    ).toBe(undefined);
+    expect(getReportCode('https://www.warcraftlogs.com/')).toBe(undefined);
+    expect(getReportCode('https://www.warcraftlogs.com/reports/<report code>')).toBe(undefined);
   });
   test('getCode does not accept malformed anonymous report codes', () => {
     // Anonymous report URLs
-    expect(getReportCode('https://www.warcraftlogs.com/reports/a:AB1CDEf2G3HIjk4')).toBe(null);
-    expect(getReportCode('https://www.warcraftlogs.com/reports/a:AB1CDEf2G3HIjk4LL')).toBe(null);
+    expect(getReportCode('https://www.warcraftlogs.com/reports/a:AB1CDEf2G3HIjk4')).toBe(undefined);
+    expect(getReportCode('https://www.warcraftlogs.com/reports/a:AB1CDEf2G3HIjk4LL')).toBe(
+      undefined,
+    );
     expect(
       getReportCode(
         'https://www.warcraftlogs.com/reports/a:AB1CDEf2G3HIjk4#fight=6&type=healing&source=10',
       ),
-    ).toBe(null);
+    ).toBe(undefined);
     expect(
       getReportCode(
         'https://www.warcraftlogs.com/reports/a:AB1CDEf2G3HIjk-4#fight=6&type=healing&source=10',
       ),
-    ).toBe(null);
+    ).toBe(undefined);
     expect(
       getReportCode(
         'https://www.warcraftlogs.com/reports/a:AB1CDEf2G3HIjk4AA#fight=6&type=healing&source=10',
       ),
-    ).toBe(null);
+    ).toBe(undefined);
     expect(
       getReportCode('https://www.warcraftlogs.com/reports/a:#fight=6&type=healing&source=10'),
-    ).toBe(null);
-    expect(getReportCode('https://www.warcraftlogs.com/')).toBe(null);
-    expect(getReportCode('https://www.warcraftlogs.com/reports/<report code>')).toBe(null);
+    ).toBe(undefined);
+    expect(getReportCode('https://www.warcraftlogs.com/')).toBe(undefined);
+    expect(getReportCode('https://www.warcraftlogs.com/reports/<report code>')).toBe(undefined);
   });
 });

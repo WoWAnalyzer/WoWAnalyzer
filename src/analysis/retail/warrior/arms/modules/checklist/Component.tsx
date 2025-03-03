@@ -25,7 +25,6 @@ const ArmsWarriorChecklist = ({
       {...props}
     />
   );
-
   return (
     <Checklist>
       <AplRule
@@ -33,12 +32,20 @@ const ArmsWarriorChecklist = ({
         checkResults={checkResults}
         castEfficiency={castEfficiency}
         name="Rotation Efficiency"
-        cooldowns={[SPELLS.COLOSSUS_SMASH, TALENTS.WARBREAKER_TALENT, TALENTS.AVATAR_SHARED_TALENT]}
+        cooldowns={[
+          SPELLS.COLOSSUS_SMASH,
+          TALENTS.WARBREAKER_TALENT,
+          TALENTS.AVATAR_TALENT,
+          TALENTS.THUNDEROUS_ROAR_TALENT,
+          SPELLS.BLADESTORM,
+          SPELLS.DEMOLISH,
+        ]}
         description={
           <div style={{ color: 'white' }}>
             Warrior has a simple rotation. That does not mean the class is trivial to play. Small
             mistakes will compound themselves and result in a large final DPS loss. Use the graphic
             below to see if you are making small rotational mistakes.
+            <br />
             <strong> NOTE:</strong> The priority list below does not include{' '}
             <SpellLink spell={TALENTS.REND_ARMS_TALENT} icon />
             <br />
@@ -57,9 +64,7 @@ const ArmsWarriorChecklist = ({
               Try to use as many <SpellLink spell={SPELLS.MORTAL_STRIKE} icon /> as possible. It is
               generally your strongest hitting ability, unless you are in{' '}
               <SpellLink spell={SPELLS.EXECUTE} /> range and do not have the{' '}
-              <SpellLink spell={TALENTS.EXECUTIONERS_PRECISION_TALENT} /> talent. Especially with
-              the 4-set bonus in Season 1 of Dragonflight, where keeping up your buff up is
-              important.
+              <SpellLink spell={TALENTS.EXECUTIONERS_PRECISION_TALENT} /> talent.
             </>
           }
         >

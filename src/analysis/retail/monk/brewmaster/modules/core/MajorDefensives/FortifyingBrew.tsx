@@ -28,7 +28,7 @@ export class FortifyingBrew extends MajorDefensiveBuff {
   private hasGaiPlins = false;
 
   constructor(options: Options) {
-    super(SPELLS.FORTIFYING_BREW_BRM, buff(SPELLS.FORTIFYING_BREW_BRM_BUFF), options);
+    super(SPELLS.FORTIFYING_BREW_CAST, buff(SPELLS.FORTIFYING_BREW_BUFF), options);
 
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.recordDamage);
 

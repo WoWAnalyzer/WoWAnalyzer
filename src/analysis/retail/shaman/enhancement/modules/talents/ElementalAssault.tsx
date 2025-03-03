@@ -30,9 +30,10 @@ const ELEMENTAL_ASSAULT_RANKS: Record<number, number> = {
 };
 
 const BAR_COLORS: Record<number, string> = {
-  [TALENTS.STORMSTRIKE_TALENT.id]: '#3b7fb0',
+  [SPELLS.STORMSTRIKE.id]: '#3b7fb0',
   [TALENTS.LAVA_LASH_TALENT.id]: '#f37735',
-  [TALENTS.ICE_STRIKE_TALENT.id]: '#94d3ec',
+  [TALENTS.ICE_STRIKE_1_ENHANCEMENT_TALENT.id]: '#94d3ec',
+  [TALENTS.ICE_STRIKE_2_ENHANCEMENT_TALENT.id]: '#94d3ec',
   [-1]: '#532121', // wasted
 };
 
@@ -89,9 +90,7 @@ class ElementalAssault extends Analyzer {
     );
     if (cast) {
       const spellId =
-        cast.ability.guid === SPELLS.WINDSTRIKE_CAST.id
-          ? TALENTS.STORMSTRIKE_TALENT.id
-          : cast.ability.guid;
+        cast.ability.guid === SPELLS.WINDSTRIKE_CAST.id ? SPELLS.STORMSTRIKE.id : cast.ability.guid;
       if (!this.elementalAssaultGenerators[spellId]) {
         this.elementalAssaultGenerators[spellId] = { generated: 0, wasted: 0 };
       }

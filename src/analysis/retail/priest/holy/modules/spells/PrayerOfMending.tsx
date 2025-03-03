@@ -28,15 +28,11 @@ class PrayerOfMending extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.addEventListener(
-      Events.cast
-        .by(SELECTED_PLAYER)
-        .spell([TALENTS.PRAYER_OF_MENDING_TALENT, TALENTS.HOLY_WORD_SALVATION_TALENT]),
+      Events.cast.by(SELECTED_PLAYER).spell([TALENTS.PRAYER_OF_MENDING_TALENT]),
       this.onCast,
     );
     this.addEventListener(
-      Events.heal
-        .by(SELECTED_PLAYER)
-        .spell([SPELLS.PRAYER_OF_MENDING_HEAL, TALENTS.HOLY_WORD_SALVATION_TALENT]),
+      Events.heal.by(SELECTED_PLAYER).spell([SPELLS.PRAYER_OF_MENDING_HEAL]),
       this.onHeal,
     );
     this.addEventListener(
@@ -71,10 +67,6 @@ class PrayerOfMending extends Analyzer {
     if (spellId === TALENTS.PRAYER_OF_MENDING_TALENT.id) {
       this.pomCasts += 1;
     }
-    if (spellId === TALENTS.HOLY_WORD_SALVATION_TALENT.id) {
-      this.lastSalvCastTime = event.timestamp;
-      this.salvCasts += 1;
-    }
   }
 
   onHeal(event: HealEvent) {
@@ -85,9 +77,6 @@ class PrayerOfMending extends Analyzer {
       this.totalPoMHealing += event.amount || 0;
       this.totalPoMOverhealing += event.overheal || 0;
       this.totalPoMAbsorption += event.absorbed || 0;
-    }
-    if (spellId === TALENTS.HOLY_WORD_SALVATION_TALENT.id) {
-      this.pomTicksFromSalv += 2;
     }
   }
 

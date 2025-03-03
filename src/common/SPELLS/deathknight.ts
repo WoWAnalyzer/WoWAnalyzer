@@ -582,6 +582,34 @@ const spells = {
     name: 'Runic Power',
     icon: 'inv_sword_62',
   },
+
+  VAMPIRIC_STRIKE: {
+    id: 433895,
+    name: 'Vampiric Strike',
+    icon: 'inv_ability_sanlayndeathknight_vampiricstrike',
+    runesCost: 1,
+    runicPowerCost: -10, // Blood DK has 15 RP due to Heart Strike modifiers. Unholy does not. we don't currently use this except to detect generators, so it being slightly wrong for blood is okay
+  },
+  VAMPIRIC_STRIKE_TRIGGER_BUFF: {
+    id: 433899,
+    name: 'Vampiric Strike',
+    icon: 'inv_ability_sanlayndeathknight_vampiricstrike.jpg',
+  },
+  GIFT_OF_THE_SANLAYN_BUFF: {
+    id: 434153,
+    name: "Gift of the San'layn",
+    icon: 'spell_deathknight_bloodtap.jpg',
+  },
+  INFLICTION_OF_SORROW: {
+    id: 434144,
+    name: 'Infliction of Sorrow',
+    icon: 'ability_warrior_bloodbath.jpg',
+  },
+  ESSENCE_OF_THE_BLOOD_QUEEN_BUFF: {
+    id: 433925,
+    name: 'Essence of the Blood Queen',
+    icon: 'inv_misc_herb_talandrasrose',
+  },
 } satisfies Record<string, Spell>;
 
 const runeforges = {

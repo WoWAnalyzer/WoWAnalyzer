@@ -59,8 +59,8 @@ class Buffs extends CoreAuras {
       },
       {
         spellId: SPELLS.PRIMORDIAL_WAVE_BUFF.id,
-        enabled: combatant.hasTalent(TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT),
-        triggeredBySpellId: TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.PRIMORDIAL_WAVE_TALENT),
+        triggeredBySpellId: TALENTS.PRIMORDIAL_WAVE_TALENT.id,
       },
       {
         spellId: SPELLS.ANCESTRAL_SWIFTNESS_CAST.id,
@@ -70,10 +70,7 @@ class Buffs extends CoreAuras {
       {
         spellId: SPELLS.CALL_OF_THE_ANCESTORS_BUFF.id,
         enabled: combatant.hasTalent(TALENTS.CALL_OF_THE_ANCESTORS_TALENT),
-        triggeredBySpellId: [
-          TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT.id,
-          SPELLS.ANCESTRAL_SWIFTNESS_CAST.id,
-        ],
+        triggeredBySpellId: [TALENTS.PRIMORDIAL_WAVE_TALENT.id, SPELLS.ANCESTRAL_SWIFTNESS_CAST.id],
         timelineHighlight: true,
       },
     ];

@@ -79,7 +79,10 @@ class ThunderFocusTea extends Analyzer {
       this.buffedCast,
     );
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)) {
-      this.correctCapstoneSpells = [TALENTS_MONK.RENEWING_MIST_TALENT.id];
+      this.correctCapstoneSpells = [
+        TALENTS_MONK.RENEWING_MIST_TALENT.id,
+        TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
+      ];
       this.okCapstoneSpells = [this.currentRskTalent.id];
     } else if (this.selectedCombatant.hasTalent(TALENTS_MONK.TEAR_OF_MORNING_TALENT)) {
       this.correctCapstoneSpells = [
@@ -91,7 +94,10 @@ class ThunderFocusTea extends Analyzer {
         TALENTS_MONK.RENEWING_MIST_TALENT.id,
       ];
     } else {
-      this.correctCapstoneSpells = [TALENTS_MONK.RENEWING_MIST_TALENT.id];
+      this.correctCapstoneSpells = [
+        TALENTS_MONK.RENEWING_MIST_TALENT.id,
+        TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
+      ];
     }
   }
 
@@ -112,7 +118,7 @@ class ThunderFocusTea extends Analyzer {
     } else if (this.selectedCombatant.hasTalent(TALENTS_MONK.SECRET_INFUSION_TALENT)) {
       return isOk && this.selectedCombatant.hasTalent(TALENTS_MONK.TEAR_OF_MORNING_TALENT)
         ? spellId === TALENTS_MONK.ENVELOPING_MIST_TALENT.id
-        : spellId === TALENTS_MONK.RENEWING_MIST_TALENT.id;
+        : spellMap.includes(spellId);
     } else {
       return spellMap.includes(spellId);
     }

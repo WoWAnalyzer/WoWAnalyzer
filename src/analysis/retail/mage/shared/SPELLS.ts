@@ -186,6 +186,11 @@ const spells = {
     name: 'Excess Frost',
     icon: 'spell_deathknight_iceboundfortitude',
   },
+  EXCESS_FIRE_BUFF: {
+    id: 438624,
+    name: 'Excess Fire',
+    icon: 'ability_mage_fierypayback',
+  },
   MANA_ADDICTION_BUFF_FIRE: {
     id: 449314,
     name: 'Mana Addiction',

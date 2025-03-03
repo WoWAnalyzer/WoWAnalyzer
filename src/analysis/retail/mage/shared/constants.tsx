@@ -15,6 +15,8 @@ export const SHATTER_DEBUFFS = [
 ];
 
 //Fire
+export const FEEL_THE_BURN_MAX_STACKS = 3;
+export const IMPROVED_SCORCH_MAX_STACKS = 2;
 export const FIRESTARTER_THRESHOLD = 0.9;
 export const SEARING_TOUCH_THRESHOLD = 0.3;
 export const COMBUSTION_END_BUFFER = 3000;

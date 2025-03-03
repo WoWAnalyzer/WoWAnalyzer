@@ -26,10 +26,10 @@ import Checklist from './modules/features/Checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import PowerWordBarrier from './modules/features/PowerWordBarrier';
 import PowerWordShieldWasted from './modules/features/PowerWordShieldWasted';
-import PurgeTheWicked from './modules/features/PurgeTheWicked';
+import EncroachingShadows from './modules/features/EncroachingShadows';
 import Atonement from './modules/spells/Atonement';
 import Castigation from './modules/spells/Castigation';
-import Contrition from './modules/spells/Contrition';
+
 import Evangelism from './modules/spells/Evangelism';
 import Grace from './modules/spells/Grace';
 import Lenience from './modules/spells/Lenience';
@@ -53,21 +53,20 @@ import BlazeOfLight from './modules/spells/BlazeOfLight/BlazeOfLight';
 import SelfAtonementAnalyzer from './modules/guide/SelfAtonementAnalysis';
 import ProtectiveLight from '../shared/ProtectiveLight';
 import TwilightEquilibrium from './modules/spells/TwilightEquilibrium/TwilightEquilibrium';
-import RaptureAnalysis from './modules/guide/RaptureAnalysis';
 import AtonementNormalizer from './normalizers/AtonementTracker';
 import AbyssalReverie from './modules/spells/AbyssalReverie';
 import TwilightEquilibriumNormalizer from './normalizers/TwilightEquilibriumNormalizer';
 import DamageCastLink from './normalizers/DamageCastLink';
 import WealAndWoe from './modules/spells/WealAndWoe';
-import Aberrus2p from './modules/spells/Aberrus2p';
+
 import RadiantProvidence from './modules/spells/RadiantProvidence';
 import { SurgeOfLight } from '../holy/modules/talents/Classwide';
-import AegisOfWrath from './modules/spells/AegisOfWrath';
+import EternalBarrier from './modules/spells/EternalBarrier';
 import Benevolence from '../shared/Benevolence';
 import WordsOfThePious from './modules/spells/WordsOfThePious';
-import HeavensWrath from './modules/spells/HeavensWrath';
+
 import Amirdrassil4p from './modules/spells/Amirdrassil4p';
-import TrainOfThought from './modules/spells/TrainOfThought';
+
 import VoidSummoner from './modules/spells/VoidSummoner';
 import ShadowCovenant from './modules/spells/ShadowCovenant/ShadowCovenant';
 
@@ -106,7 +105,7 @@ class CombatLogParser extends CoreCombatLogParser {
     atonementHealingDone: AtonementHealingDone,
     powerWordBarrier: PowerWordBarrier,
     lenience: Lenience,
-    purgeTheWicked: PurgeTheWicked,
+    purgeTheWicked: EncroachingShadows,
     atonementApplicatorBreakdown: AtonementApplicatorBreakdown,
     enduringLuminescense: EnduringLuminescense,
     crystallineReflection: CrystallineReflection,
@@ -118,7 +117,7 @@ class CombatLogParser extends CoreCombatLogParser {
     atonement: Atonement,
     evangelism: Evangelism,
     desperatePrayer: DesperatePrayer,
-    contrition: Contrition,
+
     grace: Grace,
     sinsOfTheMany: SinsOfTheMany,
     schism: Schism,
@@ -135,17 +134,16 @@ class CombatLogParser extends CoreCombatLogParser {
     blazeOfLight: BlazeOfLight,
     selfAtonementAnalyzer: SelfAtonementAnalyzer,
     protectiveLight: ProtectiveLight,
-    raptureAnalysis: RaptureAnalysis,
     abyssalReverie: AbyssalReverie,
     wealAndWoe: WealAndWoe,
-    aegisOfWrath: AegisOfWrath,
+    aegisOfWrath: EternalBarrier,
     SurgeOfLight: SurgeOfLight,
-    aberrus2p: Aberrus2p,
+
     benevolence: Benevolence,
     wordsOfThePious: WordsOfThePious,
-    heavensWrath: HeavensWrath,
+
     amirdrassil4p: Amirdrassil4p,
-    trainOfThought: TrainOfThought,
+
     voidSummoner: VoidSummoner,
     translucentImage: TranslucentImage,
     shadowCovenant: ShadowCovenant,

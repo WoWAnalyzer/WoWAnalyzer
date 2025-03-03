@@ -34,7 +34,6 @@ export default class ArcaneMissiles extends Analyzer {
     const clearcasting = this.selectedCombatant.getBuff(SPELLS.CLEARCASTING_ARCANE.id);
 
     this.missileCasts.push({
-      ordinal: this.missileCasts.length + 1,
       cast: event,
       ticks: damageTicks.length,
       aetherAttunement: this.selectedCombatant.hasBuff(SPELLS.AETHER_ATTUNEMENT_PROC_BUFF.id),
@@ -63,14 +62,17 @@ export default class ArcaneMissiles extends Analyzer {
           SPELLS.ARCANE_BLAST,
           SPELLS.ARCANE_BARRAGE,
           SPELLS.ARCANE_EXPLOSION,
+          TALENTS.ARCANE_SURGE_TALENT,
         ],
-        startTimestamp: cast.channel?.timestamp,
+        startTimestamp: m.channelEnd,
         count: 1,
       })[0];
-      if (m.channelEnd && nextCast && nextCast.channel?.beginChannel.timestamp) {
+      if (m.channelEnd && nextCast && nextCast.channel) {
         m.channelEndDelay = nextCast.channel.beginChannel.timestamp - m.channelEnd;
+        m.nextCast = nextCast;
       } else if (m.channelEnd && nextCast) {
         m.channelEndDelay = nextCast.timestamp - m.channelEnd;
+        m.nextCast = nextCast;
       }
     });
   }
@@ -101,7 +103,6 @@ export default class ArcaneMissiles extends Analyzer {
 }
 
 export interface ArcaneMissilesCast {
-  ordinal: number;
   cast: CastEvent;
   ticks: number;
   aetherAttunement: boolean;
@@ -113,4 +114,5 @@ export interface ArcaneMissilesCast {
   channelEnd?: number;
   gcdEnd?: number;
   channelEndDelay?: number;
+  nextCast?: CastEvent;
 }

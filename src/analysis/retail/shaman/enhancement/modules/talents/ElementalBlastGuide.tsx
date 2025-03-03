@@ -129,18 +129,17 @@ class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
   getOverallCastPerformance(cast: ElementalBlastCastDetails) {
     const activeSpirits = this.getActiveElementalSpirits(cast.elementalSpiritsActive);
 
-    if (activeSpirits >= 4 && cast.maelstromUsed >= 6) {
-      return QualitativePerformance.Perfect;
+    if (cast.maelstromUsed >= 5) {
+      if (activeSpirits >= 4) {
+        return QualitativePerformance.Perfect;
+      } else if (activeSpirits > 0) {
+        return activeSpirits >= 3
+          ? QualitativePerformance.Good
+          : activeSpirits >= 2
+            ? QualitativePerformance.Ok
+            : QualitativePerformance.Fail;
+      }
     }
-
-    if (activeSpirits > 0 && cast.maelstromUsed >= 5) {
-      return activeSpirits >= 3
-        ? QualitativePerformance.Good
-        : activeSpirits >= 2
-          ? QualitativePerformance.Ok
-          : QualitativePerformance.Fail;
-    }
-
     return QualitativePerformance.Fail;
   }
 
@@ -193,8 +192,7 @@ class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
       performance: evaluateQualitativePerformanceByThreshold({
         actual: cast.maelstromUsed,
         isGreaterThanOrEqual: {
-          perfect: 6,
-          ok: 5,
+          perfect: 5,
         },
       }),
       summary: (
@@ -207,13 +205,9 @@ class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
           {cast.maelstromUsed} <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> used.
           {cast.maelstromUsed < 5 ? (
             <>
+              {' '}
               You should never cast your maelstrom spells with less than 5{' '}
               <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} />
-            </>
-          ) : cast.maelstromUsed < 6 ? (
-            <>
-              Try to cast with <strong>6 or more</strong>{' '}
-              <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} />.
             </>
           ) : null}
         </div>

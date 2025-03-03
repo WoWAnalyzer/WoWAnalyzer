@@ -20,15 +20,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static castCooldowns = [
     ...CoreCooldownThroughputTracker.castCooldowns,
     {
-      spell: TALENTS.ANCESTRAL_GUIDANCE_TALENT.id,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.HEALING,
-        BUILT_IN_SUMMARY_TYPES.OVERHEALING,
-        BUILT_IN_SUMMARY_TYPES.MANA,
-      ],
-      branch: GameBranch.Retail,
-    },
-    {
       spell: TALENTS.ASCENDANCE_RESTORATION_TALENT.id,
       summary: [
         BUILT_IN_SUMMARY_TYPES.HEALING,

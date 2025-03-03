@@ -1,7 +1,6 @@
 import SPELLS from 'common/SPELLS';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { TALENTS_WARRIOR } from 'common/TALENTS';
 import { SpellLink } from 'interface';
-import { ResourceLink } from 'interface';
 import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import {
@@ -46,15 +45,16 @@ const FuryWarriorChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
           <>
             Using <SpellLink spell={SPELLS.RAMPAGE} /> is an important part of the Fury rotation. If
             you aren't Enraged, <SpellLink spell={SPELLS.RAMPAGE} /> should be used as soon as you
-            have enough rage. Also, use <SpellLink spell={SPELLS.RAMPAGE} /> if you would reach
-            maximum rage otherwise.
+            have enough rage. Efficient use of <SpellLink spell={SPELLS.RAMPAGE} /> is especially
+            important with the
+            <SpellLink spell={TALENTS_WARRIOR.ANGER_MANAGEMENT_TALENT} /> talent.
           </>
         }
       >
         <Requirement
           name={
             <>
-              Number of missed <SpellLink spell={SPELLS.RAMPAGE} /> casts
+              Number of times a builder was used instead of <SpellLink spell={SPELLS.RAMPAGE} />
             </>
           }
           thresholds={thresholds.missedRampage}
@@ -79,18 +79,6 @@ const FuryWarriorChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
         }
       >
         <Requirement name="Downtime" thresholds={thresholds.downtimeSuggestionThresholds} />
-      </Rule>
-      <Rule
-        name="Don't get too angry"
-        description={
-          <>
-            Minimizing your wasted <ResourceLink id={RESOURCE_TYPES.RAGE.id} /> should be top
-            priority as a Fury Warrior, so be sure to use <SpellLink spell={SPELLS.RAMPAGE} /> to
-            avoid this.
-          </>
-        }
-      >
-        <Requirement name="Lost Rage" thresholds={thresholds.rageDetails} />
       </Rule>
 
       <PreparationRule thresholds={thresholds} />
