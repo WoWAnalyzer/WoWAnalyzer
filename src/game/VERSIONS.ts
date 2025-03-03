@@ -4,7 +4,7 @@ import GameBranch from './GameBranch';
 // The current version of the game. Used to check spec patch compatibility and as a caching key.
 const VERSIONS: { [branch in GameBranch]: string } = {
   [GameBranch.Classic]: '4.4.0',
-  [GameBranch.Retail]: '11.0.2',
+  [GameBranch.Retail]: '11.1.0',
 };
 
 export default VERSIONS;

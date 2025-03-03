@@ -1,12 +1,18 @@
 import TALENTS from 'common/TALENTS/evoker';
+import SPELLS from 'common/SPELLS/evoker';
 import { WCLDamageDoneTableResponse } from 'common/WCL_TYPES';
 import fetchWcl from 'common/fetchWclApi';
 import { formatDuration, formatMilliseconds, formatNumber } from 'common/format';
 import classColor from 'game/classColor';
 import ROLES from 'game/ROLES';
 import SPECS from 'game/SPECS';
-import Analyzer, { Options } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, {
+  ApplyBuffEvent,
+  FightEndEvent,
+  RefreshBuffEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import { isMythicPlus } from 'common/isMythicPlus';
 import '../../Styling.scss';
@@ -114,11 +120,27 @@ class BuffTargetHelper extends Analyzer {
   abilityBlacklist: string = [...ABILITY_BLACKLIST].join(', ');
   abilityFilter = [...ABILITY_NO_BOE_SCALING].join(', ');
 
+  ebonApplyTimestamps: number[] = [];
+  ebonRemoveTimestamps: number[] = [];
+
   constructor(options: Options) {
     super(options);
     /** No need to show this in dungeon runs, for obvious reasons */
     this.active = !isMythicPlus(this.owner.fight);
 
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.EBON_MIGHT_BUFF_PERSONAL),
+      this.onEbonApply,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.EBON_MIGHT_BUFF_PERSONAL),
+      this.onEbonRefresh,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.EBON_MIGHT_BUFF_PERSONAL),
+      this.onEbonRemove,
+    );
+    this.addEventListener(Events.fightend, this.onEbonRemoveFightEnd);
     /** Populate our whitelist */
     this.addEventListener(Events.fightend, () => {
       const players = Object.values(this.combatants.players);
@@ -138,6 +160,26 @@ class BuffTargetHelper extends Analyzer {
       });
     });
   }
+
+  onEbonApply(event: ApplyBuffEvent) {
+    this.ebonApplyTimestamps.push(event.timestamp);
+  }
+
+  onEbonRefresh(event: RefreshBuffEvent) {
+    this.ebonRemoveTimestamps.push(event.timestamp);
+    this.ebonApplyTimestamps.push(event.timestamp);
+  }
+
+  onEbonRemove(event: RemoveBuffEvent) {
+    this.ebonRemoveTimestamps.push(event.timestamp);
+  }
+
+  onEbonRemoveFightEnd(event: FightEndEvent) {
+    if (this.selectedCombatant.hasBuff(SPELLS.EBON_MIGHT_BUFF_PERSONAL)) {
+      this.ebonRemoveTimestamps.push(event.timestamp);
+    }
+  }
+
   /** Generate filter based on our ability filters */
   getFilter(noEbonScaling: boolean) {
     let filter = `(not ability.id in(${this.abilityBlacklist})) 
@@ -171,12 +213,13 @@ class BuffTargetHelper extends Analyzer {
 
     // Start 4 seconds in since you start the fight with 2x Prescience -> Ebon Might
     // This will also show MUCH better value targets
-    let currentTime = this.fightStart + this.fightStartDelay;
-
     const fetchPromises: Promise<DamageTables>[] = [];
-    while (currentTime < this.fightEnd) {
-      fetchPromises.push(this.getDamage(currentTime));
-      currentTime += this.interval;
+    for (let i = 0; i < this.ebonApplyTimestamps.length; i += 1) {
+      if (this.ebonApplyTimestamps[i] && this.ebonRemoveTimestamps[i]) {
+        fetchPromises.push(
+          this.getDamage(this.ebonApplyTimestamps[i], this.ebonRemoveTimestamps[i]),
+        );
+      }
     }
 
     const result = await Promise.all(fetchPromises);
@@ -228,12 +271,12 @@ class BuffTargetHelper extends Analyzer {
     });
   }
 
-  async getDamage(currentTime: number): Promise<DamageTables> {
+  async getDamage(currentTime: number, endTime: number): Promise<DamageTables> {
     const normalDamage = await fetchWcl<WCLDamageDoneTableResponse>(
       `report/tables/damage-done/${this.owner.report.code}`,
       {
         start: currentTime,
-        end: currentTime + this.interval,
+        end: endTime,
         filter: this.getFilter(false),
       },
     );
@@ -241,7 +284,7 @@ class BuffTargetHelper extends Analyzer {
       `report/tables/damage-done/${this.owner.report.code}`,
       {
         start: currentTime,
-        end: currentTime + this.interval,
+        end: endTime,
         filter: this.getFilter(true),
       },
     );
@@ -318,10 +361,8 @@ class BuffTargetHelper extends Analyzer {
     );
 
     for (let i = 0; i < topPumpersData.length; i += 1) {
-      const intervalStart = formatDuration(i * this.interval + this.fightStartDelay);
-      const intervalEnd = formatDuration(
-        Math.min((i + 1) * this.interval + this.fightStartDelay, this.fightEnd - this.fightStart),
-      );
+      const intervalStart = this.owner.formatTimestamp(this.ebonApplyTimestamps[i]);
+      const intervalEnd = this.owner.formatTimestamp(this.ebonRemoveTimestamps[i]);
 
       const formattedEntriesTable = top4PumpersData[i].map(([name, values]) => (
         <td key={name}>
@@ -364,14 +405,14 @@ class BuffTargetHelper extends Analyzer {
             </tbody>
           </table>
         </div>
-        <div className="button-container">
+        {/*         <div className="button-container">
           <button className="button" onClick={this.handlePrescienceHelperCopyClick}>
             Copy Prescience Helper MRT note
           </button>
           <button className="button" onClick={this.handleFourTargetCopyClick}>
             Copy Frame Glow MRT note
           </button>
-        </div>
+        </div> */}
       </div>
     );
   }
@@ -560,15 +601,13 @@ class BuffTargetHelper extends Analyzer {
               This module will help you with finding the optimal buff targets for{' '}
               <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> and{' '}
               <SpellLink spell={TALENTS.PRESCIENCE_TALENT} />. It will show you the top 4 DPS for
-              each 30 second interval (27 with{' '}
-              <SpellLink spell={TALENTS.INTERWOVEN_THREADS_TALENT} /> talented)
+              each of your Ebon Might windows. Refreshing Ebon Might is counted as a new window.
             </p>
             <p>
               Damage events that doesn't get amplified by your buffs will be ignored. <br />
               Tanks, Healers and other Augmentations are not included. <br />
-              Phases are also not accounted for for now.
             </p>
-            <p>
+            {/*             <p>
               This module will also produce a note for{' '}
               <a href="https://www.curseforge.com/wow/addons/method-raid-tools">
                 Method Raid Tools
@@ -579,7 +618,7 @@ class BuffTargetHelper extends Analyzer {
               <a href="https://wago.io/yrmx6ZQSG">Prescience Helper</a> WeakAura made by{' '}
               <b>HenryG</b> or the <a href="https://wago.io/KP-BlDV58">Frame Glows</a> WeakAura made
               by <b>Zephy</b> based on which Weak Aura you use.
-            </p>
+            </p> */}
 
             {this.has4Pc && <BuffTargetHelperInfoLabel />}
           </div>

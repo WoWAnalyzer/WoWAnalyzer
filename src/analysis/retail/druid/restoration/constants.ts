@@ -10,6 +10,27 @@ export const LIFEBLOOM_BUFFS: Spell[] = [
   SPELLS.LIFEBLOOM_UNDERGROWTH_HOT_HEAL,
 ];
 
+/** Given count of Druid HoTs on target, gets the multiplier against mastery val to apply */
+export function masteryHotCountToMult(hotsOn: number): number {
+  if (hotsOn > 10) {
+    return 3.65;
+  }
+  return MASTERY_HOT_COUNT_TO_MULT_TABLE[hotsOn];
+}
+const MASTERY_HOT_COUNT_TO_MULT_TABLE = [
+  0,
+  1,
+  1.7,
+  2.3,
+  2.8,
+  3.2,
+  3.5,
+  3.7,
+  3.8,
+  3.85,
+  3.65, // loses value here, probably a bug
+];
+
 /** Additional mastery stacks granted by Harmonius Blooming talent */
 export const HARMONIUS_BLOOMING_EXTRA_STACKS = 2;
 

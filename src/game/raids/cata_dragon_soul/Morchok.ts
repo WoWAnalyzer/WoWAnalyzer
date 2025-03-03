@@ -9,7 +9,17 @@ const Morchok: Boss = {
   background: Background,
   headshot: Headshot,
   icon: 'achievment_boss_morchok.jpg',
-  fight: {},
+  fight: {
+    timeline: {
+      abilities: [
+        {
+          // Summon Resonating Crystal -- there is no cast event for this.
+          id: 103639,
+          type: 'summon',
+        },
+      ],
+    },
+  },
 };
 
 export default Morchok;

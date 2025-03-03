@@ -41,6 +41,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2025, 2, 26), <>Revised Foundation downtime section for melee specs.</>, emallson),
   change(date(2025, 2, 18), 'Add Classic Cata Dragon Soul raid zone, headshots, and placeholder image', jazminite),
   change(date(2025, 2, 13), 'Add The War Within Season 2 set IDs.', Putro),
   change(date(2025, 2, 12), 'Fix display issues in dungeon pull selection', emallson),

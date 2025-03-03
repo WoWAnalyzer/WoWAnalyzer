@@ -111,8 +111,11 @@ class Lifebind extends Analyzer {
     if (this.selectedCombatant.hasTalent(TALENTS_EVOKER.ENGULF_TALENT)) {
       return (
         <text>
-          <SpellLink spell={TALENTS_EVOKER.LIFEBIND_TALENT} /> is not very relevant for Flameshaper
-          except when you need to deliver high healing to a small group of priority targets.
+          The ideal gameplay for Flameshaper is to apply{' '}
+          <SpellLink spell={TALENTS_EVOKER.LIFEBIND_TALENT} /> to the group before casting{' '}
+          <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> and{' '}
+          <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT} /> to transfer a part of the{' '}
+          <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT} /> healing to the group.
         </text>
       );
     } else {

@@ -5,6 +5,7 @@ import TALENTS from 'common/TALENTS/mage';
 
 // prettier-ignore
 export default [
+  change(date(2025, 2, 27), <>Apls: Updated for Spell Slinger and Frostfire for patch 11.1</>, Earosselot),
   change(date(2024, 11, 22), <>Fixed a typo in the comet storm hit description</>, Soulhealer95),
   change(date(2024, 10, 18), <>Apls: Updated for Spell Slinger and added for Frostfire for patch 11.0.5</>, Earosselot),
   change(date(2024, 10, 17), <>Fixed Frostfire Bolt on Winters Chill module for Frostfire.</>, Earosselot),

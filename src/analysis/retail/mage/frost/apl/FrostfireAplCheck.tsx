@@ -2,44 +2,49 @@ import aplCheck, { build } from 'parser/shared/metrics/apl';
 import TALENTS from 'common/TALENTS/mage';
 import * as cnd from 'parser/shared/metrics/apl/conditions';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'interface/SpellLink';
 import * as apl from './FrostAplCommons';
 
+const lessThanFourIcicles = cnd.buffStacks(SPELLS.ICICLES_BUFF, { atMost: 4 });
 const precastFrostfireBolt = cnd.lastSpellCast(TALENTS.FROSTFIRE_BOLT_TALENT);
-const excessFrost = cnd.buffPresent(SPELLS.EXCESS_FROST_BUFF);
+const precastCommetStorm = cnd.lastSpellCast(TALENTS.COMET_STORM_TALENT);
+const excessFrostTwoStacks = cnd.buffStacks(SPELLS.EXCESS_FROST_BUFF, { atLeast: 2 });
+const excessFire = cnd.buffPresent(SPELLS.EXCESS_FIRE_BUFF);
+const brainFreeze = cnd.buffPresent(SPELLS.BRAIN_FREEZE_BUFF);
 
-const flurryFfCondition = cnd.or(
-  cnd.and(
-    cnd.debuffMissing(SPELLS.WINTERS_CHILL),
-    cnd.or(precastFrostfireBolt, apl.precastGlacialSpike),
-  ),
-  excessFrost,
+const flurryFfbCsCondition = cnd.and(
+  lessThanFourIcicles,
+  cnd.debuffMissing(SPELLS.WINTERS_CHILL),
+  cnd.or(precastFrostfireBolt, precastCommetStorm),
 );
 
-const flurryFfDescription = (
-  <>
-    either:
-    <ul>
-      <li>
-        no <SpellLink spell={SPELLS.WINTERS_CHILL} /> on target and precasted (
-        <SpellLink spell={TALENTS.FROSTFIRE_BOLT_TALENT} /> or{' '}
-        <SpellLink spell={TALENTS.GLACIAL_SPIKE_TALENT} />)
-      </li>
-      <li>
-        have <SpellLink spell={TALENTS.EXCESS_FROST_TALENT} />
-      </li>
-    </ul>
-  </>
+const flurryExFrostCondition = cnd.and(
+  lessThanFourIcicles,
+  cnd.debuffMissing(SPELLS.WINTERS_CHILL),
+  excessFrostTwoStacks,
 );
+
+const FlurryExFireCondition = cnd.and(excessFire, brainFreeze);
 
 export const frostfireApl = build([
   {
-    spell: TALENTS.GLACIAL_SPIKE_TALENT,
-    condition: cnd.and(apl.fiveIcicles),
+    spell: TALENTS.FLURRY_TALENT,
+    condition: apl.precastGlacialSpikeAndNoWintersChill,
   },
   {
     spell: TALENTS.FLURRY_TALENT,
-    condition: cnd.describe(flurryFfCondition, (tense) => flurryFfDescription),
+    condition: flurryFfbCsCondition,
+  },
+  {
+    spell: TALENTS.FLURRY_TALENT,
+    condition: flurryExFrostCondition,
+  },
+  {
+    spell: TALENTS.FLURRY_TALENT,
+    condition: FlurryExFireCondition,
+  },
+  {
+    spell: TALENTS.GLACIAL_SPIKE_TALENT,
+    condition: cnd.and(apl.fiveIcicles),
   },
   {
     spell: TALENTS.ICE_LANCE_TALENT,

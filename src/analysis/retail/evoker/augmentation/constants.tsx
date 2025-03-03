@@ -22,9 +22,7 @@ export const DREAM_OF_SPRINGS_EXTENSION_MS = 1000;
 export const SANDS_OF_TIME_CRIT_MOD = 0.5;
 
 //Close as Clutchmates
-export const CLOSE_AS_CLUTCHMATES_MOD = 1.0;
-//Change to below on 11.1 release
-//export const CLOSE_AS_CLUTCHMATES_MOD = 1.25;
+export const CLOSE_AS_CLUTCHMATES_MOD = 1.1;
 
 // Prescience
 export const PRESCIENCE_BASE_DURATION_MS = 18000;

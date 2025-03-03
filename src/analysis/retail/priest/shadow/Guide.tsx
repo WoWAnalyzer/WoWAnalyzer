@@ -49,8 +49,6 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
             modules.voidform.guideSubsection}
           {info.combatant.hasTalent(TALENTS.INESCAPABLE_TORMENT_TALENT) &&
             modules.inescapableTorment.guideSubsection}
-          {info.combatant.hasTalent(TALENTS.TWINS_OF_THE_SUN_PRIESTESS_TALENT) &&
-            modules.twinsOfTheSunPriestess.guideSubsection}
         </Section>
       </Section>
 

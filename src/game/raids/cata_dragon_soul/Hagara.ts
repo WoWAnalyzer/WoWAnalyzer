@@ -9,7 +9,34 @@ const Hagara: Boss = {
   background: Background,
   headshot: Headshot,
   icon: 'achievment_boss_hagara.jpg',
-  fight: {},
+  fight: {
+    timeline: {
+      abilities: [
+        {
+          // Water Shield
+          id: 105409,
+          type: 'cast',
+        },
+        {
+          // Frozen Tempest
+          id: 105256,
+          type: 'cast',
+        },
+        {
+          // Ice Tomb
+          id: 104448,
+          type: 'cast',
+        },
+      ],
+      debuffs: [
+        {
+          // Ice Tomb
+          id: 104451,
+          type: 'debuff',
+        },
+      ],
+    },
+  },
 };
 
 export default Hagara;

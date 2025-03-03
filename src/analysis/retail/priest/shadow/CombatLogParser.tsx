@@ -75,6 +75,8 @@ import DevourMatter from './modules/talents/Voidweaver/DevourMatter';
 import VoidEmpowerment from './modules/talents/Voidweaver/VoidEmpowerment';
 import DepthOfShadows from './modules/talents/Voidweaver/DepthOfShadows';
 import ShadowTierTWWS1 from './modules/tier/ShadowTierTWWS1';
+import ShadowTierTWWS2 from './modules/tier/ShadowTierTWWS2';
+import ShadowTierTWWS2Normalizer from './modules/tier/ShadowTierTWWS2Normalizer';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -168,6 +170,8 @@ class CombatLogParser extends MainCombatLogParser {
 
     //Tier
     shadowTierTWWS1: ShadowTierTWWS1,
+    shadowTierTWWS2: ShadowTierTWWS2,
+    shadowTierTWWS2Normalizer: ShadowTierTWWS2Normalizer,
 
     arcaneTorrent: [ArcaneTorrent, { active: false }] as const,
   };

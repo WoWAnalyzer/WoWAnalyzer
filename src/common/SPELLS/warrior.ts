@@ -17,6 +17,11 @@ const spells = {
     name: 'Berserker Rage',
     icon: 'spell_nature_ancestralguardian',
   },
+  BRUTAL_FINISH_BUFF: {
+    id: 446918,
+    name: 'Brutal Finish',
+    icon: 'ability_revendreth_warrior',
+  },
   CHALLENGING_SHOUT: {
     id: 1161,
     name: 'Challenging Shout',
@@ -162,6 +167,11 @@ const spells = {
     id: 1464,
     name: 'Slam',
     icon: 'ability_warrior_decisivestrike',
+  },
+  SLAUGHTERING_STRIKES_BUFF: {
+    id: 393931,
+    name: 'Slaughtering Strikes',
+    icon: 'inv_axe_2h_orcwarrior_c_01',
   },
   SPELL_REFLECTION: {
     id: 23920,
