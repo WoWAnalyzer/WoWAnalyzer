@@ -11,9 +11,9 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import { isInsuranceFromHardcast } from '../../normalizers/CastLinkNormalizer';
 import { SPELL_COLORS } from '../../constants';
 import { formatNumber } from 'common/format';
-import DonutChart from 'parser/ui/DonutChart';
+import DonutChart, { Item } from 'parser/ui/DonutChart';
 
-class T33MW extends Analyzer {
+class T33TierSet extends Analyzer {
   has4Piece: boolean = false;
   insurance2pHotHealing: number = 0;
   insurance2pProcHealing: number = 0;
@@ -55,18 +55,18 @@ class T33MW extends Analyzer {
   }
 
   private renderDonutChart(hotHealing: number, procHealing: number) {
-    const items = [
+    const items: Item[] = [
       {
         color: SPELL_COLORS.RENEWING_MIST,
         label: 'HoT',
-        spellId: SPELLS.INSURANCE_HOT_MONK,
+        spellId: SPELLS.INSURANCE_HOT_MONK.id,
         value: hotHealing,
         valueTooltip: formatNumber(hotHealing),
       },
       {
         color: SPELL_COLORS.ENVELOPING_MIST,
         label: 'Proc',
-        spellId: SPELLS.INSURANCE_PROC_MONK,
+        spellId: SPELLS.INSURANCE_PROC_MONK.id,
         value: procHealing,
         valueTooltip: formatNumber(procHealing),
       },
@@ -95,4 +95,4 @@ class T33MW extends Analyzer {
   }
 }
 
-export default T33MW;
+export default T33TierSet;
