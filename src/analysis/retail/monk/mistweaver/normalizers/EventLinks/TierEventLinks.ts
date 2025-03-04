@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import { TALENTS_MONK } from 'common/TALENTS';
 import { EventLink } from 'parser/core/EventLinkNormalizer';
 import { EventType } from 'parser/core/Events';
 import {
@@ -16,8 +15,8 @@ export const TIER_EVENT_LINKS: EventLink[] = [
     linkRelation: INSURANCE_FROM_REM,
     linkingEventId: SPELLS.INSURANCE_HOT_MONK.id,
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
-    referencedEventId: TALENTS_MONK.RENEWING_MIST_TALENT.id,
-    referencedEventType: [EventType.Cast],
+    referencedEventId: SPELLS.RENEWING_MIST_HEAL.id,
+    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     backwardBufferMs: CAST_BUFFER_MS,
     forwardBufferMs: CAST_BUFFER_MS,
     maximumLinks: 1,
