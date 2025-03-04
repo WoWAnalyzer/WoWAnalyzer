@@ -5,6 +5,7 @@ import { Durpn, emallson } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2025, 3, 3), <>Add <SpellLink spell={SPELLS.HEART_OF_THE_JADE_SERPENT_BUFF} /> tracking</>, Durpn),
   change(date(2025, 2, 6), <>Correct spell data for <SpellLink spell={SPELLS.FORTIFYING_BREW_CAST} /></>, emallson),
   change(date(2024, 10, 26), <>Drop Mastery tracking for <SpellLink spell={SPELLS.FLYING_SERPENT_KICK} /></>, Durpn),
   change(date(2024, 10, 26), <>Fix Mastery tracking for <SpellLink spell={TALENTS_MONK.WHIRLING_DRAGON_PUNCH_TALENT} /> and <SpellLink spell={TALENTS_MONK.STORM_EARTH_AND_FIRE_TALENT} /></>, Durpn),
