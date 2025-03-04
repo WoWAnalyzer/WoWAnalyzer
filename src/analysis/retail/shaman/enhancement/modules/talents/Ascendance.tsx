@@ -122,7 +122,7 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
     this.ascendanceCastRules.push(
       TALENTS.FERAL_SPIRIT_TALENT.id,
       {
-        spellId: SPELLS.TEMPEST_CAST.id,
+        spellId: SPELLS.TEMPEST.id,
         condition: (cast) =>
           getResourceCost(cast.resourceCost, RESOURCE_TYPES.MAELSTROM_WEAPON.id) === 10,
         enhancedCastReason: (isvalid) =>
@@ -183,7 +183,7 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
       this.addEventListener(
         Events.cast
           .by(SELECTED_PLAYER)
-          .spell([SPELLS.LIGHTNING_BOLT, TALENTS.CHAIN_LIGHTNING_TALENT, SPELLS.TEMPEST_CAST]),
+          .spell([SPELLS.LIGHTNING_BOLT, TALENTS.CHAIN_LIGHTNING_TALENT, SPELLS.TEMPEST]),
         this.onProcEligibleCast,
       );
     }

@@ -59,6 +59,21 @@ export function addEnhancedCastReason(
   );
 }
 
+export function addAdditionalCastInformation(
+  event: BeginChannelEvent | CastEvent,
+  reason?: ReactNode | MessageDescriptor,
+) {
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing_assignment
+  event.meta ??= {};
+  event.meta.isAdditionalCastInfo = true;
+  if (!reason) {
+    return;
+  }
+  event.meta.additionalCastInfo = (
+    <MetaCastReason originalReason={event.meta.additionalCastInfo} reason={reason} />
+  );
+}
+
 export function replace(event: BeginChannelEvent | CastEvent, meta: EventMeta) {
   event.meta = meta;
 }

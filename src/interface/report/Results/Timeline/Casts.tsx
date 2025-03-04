@@ -10,6 +10,7 @@ import {
   BeginChannelEvent,
   CastEvent,
   EndChannelEvent,
+  EventMeta,
   EventType,
   FreeCastEvent,
   GlobalCooldownEvent,
@@ -180,6 +181,8 @@ const Casts = ({ start, windowStart, secondWidth, events, movement, ...others }:
         className += ' inefficient';
       } else if (meta.isEnhancedCast) {
         className += ' enhanced';
+      } else if (meta.isAdditionalCastInfo) {
+        className += ' additional';
       }
     }
 
@@ -221,6 +224,8 @@ const Casts = ({ start, windowStart, secondWidth, events, movement, ...others }:
         className += ' inefficient';
       } else if (meta.isEnhancedCast) {
         className += ' enhanced';
+      } else if (meta.isAdditionalCastInfo) {
+        className += ' additional';
       }
     }
 
@@ -375,12 +380,7 @@ const Casts = ({ start, windowStart, secondWidth, events, movement, ...others }:
   );
 };
 
-const generateTooltip = (meta?: {
-  isInefficientCast?: boolean;
-  inefficientCastReason?: React.ReactNode;
-  isEnhancedCast?: boolean;
-  enhancedCastReason?: React.ReactNode;
-}) => {
+const generateTooltip = (meta?: EventMeta) => {
   let castReason: React.ReactNode;
   if (meta) {
     if (meta.inefficientCastReason) {
@@ -402,6 +402,20 @@ const generateTooltip = (meta?: {
           ) : null}
           <h3>Enhanced Cast Reasons</h3>
           {meta.enhancedCastReason}
+        </>
+      );
+    }
+    if (meta.isAdditionalCastInfo && meta.additionalCastInfo) {
+      castReason = (
+        <>
+          {castReason ? (
+            <>
+              {castReason}
+              <br />
+            </>
+          ) : null}
+          <h3>Additional Cast Information</h3>
+          {meta.additionalCastInfo}
         </>
       );
     }

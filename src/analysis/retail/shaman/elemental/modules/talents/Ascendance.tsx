@@ -69,6 +69,8 @@ const maelstromSpenders: number[] = [
   TALENTS.EARTHQUAKE_2_ELEMENTAL_TALENT.id,
 ];
 
+const DISABLE_DRE_CALCULATIONS = true;
+
 class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
   static dependencies = {
     ...MajorCooldown.dependencies,
@@ -236,7 +238,10 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
   }
 
   statistic() {
-    if (this.selectedCombatant.hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT)) {
+    if (
+      !DISABLE_DRE_CALCULATIONS &&
+      this.selectedCombatant.hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT)
+    ) {
       // don't include casts that didn't lead to a proc in casts per proc statistic
       const castsBeforeAscendanceProc = this.castsBeforeAscendanceProc
         .filter((cast: SpenderCasts) => !cast.noProcBeforeEnd && cast.count > 0)

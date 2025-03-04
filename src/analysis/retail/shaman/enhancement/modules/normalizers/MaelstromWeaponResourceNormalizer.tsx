@@ -834,7 +834,7 @@ const MAELSTROM_ABILITIES = {
     spellId: [
       SPELLS.LIGHTNING_BOLT.id,
       TALENTS.CHAIN_LIGHTNING_TALENT.id,
-      SPELLS.TEMPEST_CAST.id,
+      SPELLS.TEMPEST.id,
       TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id,
       TALENTS.LAVA_BURST_TALENT.id,
       SPELLS.HEALING_SURGE.id,
@@ -853,7 +853,7 @@ const MAELSTROM_ABILITIES = {
     spellId: [
       SPELLS.LIGHTNING_BOLT.id,
       TALENTS.CHAIN_LIGHTNING_TALENT.id,
-      SPELLS.TEMPEST_CAST.id,
+      SPELLS.TEMPEST.id,
       /**
        * Currently any maelstrom spender can proc supercharge, once bug is fixed remove any abilities below this comment
        */
@@ -874,7 +874,7 @@ const MAELSTROM_ABILITIES = {
     matchMode: MatchMode.MatchLast,
   },
   STATIC_ACCUMULATION: {
-    spellId: [SPELLS.LIGHTNING_BOLT.id, TALENTS.CHAIN_LIGHTNING_TALENT.id, SPELLS.TEMPEST_CAST.id],
+    spellId: [SPELLS.LIGHTNING_BOLT.id, TALENTS.CHAIN_LIGHTNING_TALENT.id, SPELLS.TEMPEST.id],
     type: MaelstromAbilityType.Builder,
     enabled: (c) => c.hasTalent(TALENTS.STATIC_ACCUMULATION_TALENT),
     maximum: -1,
