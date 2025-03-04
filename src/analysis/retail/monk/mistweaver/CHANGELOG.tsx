@@ -5,6 +5,7 @@ import { emallson, Trevor, Vetyst, Vohrr } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2025, 3, 4), <>Updated <SpellLink spell={TALENTS_MONK.RUSHING_WIND_KICK_TALENT}/> increase value.</>, Vohrr),
   change(date(2025, 3, 3), <>Fix 11.1 tier set module</>, Trevor),
   change(date(2025, 3, 3), <>Add 11.1 tier set module and other fixups</>, Trevor),
   change(date(2025, 3, 3), <>Add <SpellLink spell={TALENTS_MONK.RESPLENDENT_MIST_TALENT}/> module</>, Trevor),
