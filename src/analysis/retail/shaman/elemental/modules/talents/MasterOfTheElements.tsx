@@ -41,7 +41,7 @@ const MASTER_OF_THE_ELEMENTS_CONFIG: Record<string, MasterOfTheElementsSpellConf
     castSpell: TALENTS.CHAIN_LIGHTNING_TALENT,
   },
   TEMPEST: {
-    castSpell: SPELLS.TEMPEST,
+    castSpell: SPELLS.TEMPEST_CAST,
   },
   ELEMENTAL_BLAST: {
     castSpell: TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT,

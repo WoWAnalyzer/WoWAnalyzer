@@ -45,6 +45,7 @@ import { getApplicableRules, HighPriorityAbilities } from '../../common';
 import { GCD_TOLERANCE } from '../../constants';
 import { addEnhancedCastReason, addInefficientCastReason } from 'parser/core/EventMetaLib';
 import NPCS from 'common/NPCS';
+import Reactivity from '../hero/totemic/Reactivity';
 
 class HotHandRank {
   modRate: number;
@@ -71,6 +72,7 @@ const HOT_HAND: Record<number, HotHandRank> = {
  * any of these are used  */
 const HIGH_PRIORITY_ABILITIES: HighPriorityAbilities = [
   TALENTS.PRIMORDIAL_WAVE_TALENT.id,
+  TALENTS.PRIMORDIAL_STORM_TALENT.id,
   TALENTS.FERAL_SPIRIT_TALENT.id,
   {
     spellId: [TALENTS.TEMPEST_TALENT.id, TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id],
@@ -112,10 +114,12 @@ class HotHand extends MajorCooldown<HotHandProc> {
     spellUsable: SpellUsable,
     haste: Haste,
     abilities: Abilities,
+    reactivity: Reactivity,
   };
   protected spellUsable!: SpellUsable;
   protected haste!: Haste;
   protected abilities!: Abilities;
+  protected reactivity!: Reactivity;
 
   activeWindow: HotHandProc | null = null;
   globalCooldownEnds: number = 0;
@@ -364,7 +368,10 @@ class HotHand extends MajorCooldown<HotHandProc> {
     return (event.timestamp - this.lastCooldownWasteCheck) * (1 + currentHaste);
   }
 
-  private explainTimelineWithDetails(cast: HotHandProc) {
+  private explainTimelineWithDetails(cast: HotHandProc): {
+    extraDetails: ReactNode;
+    checklistItem: ChecklistUsageInfo;
+  } {
     const checklistItem = {
       performance: QualitativePerformance.Perfect,
       summary: null,
@@ -432,18 +439,23 @@ class HotHand extends MajorCooldown<HotHandProc> {
         },
       }),
       summary: lavaLashSummary,
-      details:
-        missedLavaLashes === 0 ? (
+      details: (
+        <>
           <div>
-            You cast {lavaLashCasts} <SpellLink spell={TALENTS.LAVA_LASH_TALENT} />
-            (s).
+            {missedLavaLashes === 0 ? (
+              <>
+                You cast {lavaLashCasts} <SpellLink spell={TALENTS.LAVA_LASH_TALENT} />
+                (s).
+              </>
+            ) : (
+              <>
+                You cast {lavaLashCasts} <SpellLink spell={TALENTS.LAVA_LASH_TALENT} />
+                (s) when you could have cast {maximumNumberOfLavaLashesPossible}
+              </>
+            )}
           </div>
-        ) : (
-          <div>
-            You cast {lavaLashCasts} <SpellLink spell={TALENTS.LAVA_LASH_TALENT} />
-            (s) when you could have cast {maximumNumberOfLavaLashesPossible}
-          </div>
-        ),
+        </>
+      ),
     };
   }
 
@@ -473,12 +485,14 @@ class HotHand extends MajorCooldown<HotHandProc> {
       }),
       details: (
         <>
-          {unsedGlobalCooldowns === 0 ? (
-            'No unused global cooldowns'
-          ) : (
-            <>{unsedGlobalCooldowns} unused global cooldowns</>
-          )}
-          .
+          <div>
+            {unsedGlobalCooldowns === 0 ? (
+              'No unused global cooldowns'
+            ) : (
+              <>{unsedGlobalCooldowns} unused global cooldowns</>
+            )}
+            .
+          </div>
         </>
       ),
       summary: (
@@ -489,17 +503,56 @@ class HotHand extends MajorCooldown<HotHandProc> {
 
   explainPerformance(cast: HotHandProc): SpellUse {
     const timeline = this.explainTimelineWithDetails(cast);
-    const usage = this.explainUsagePerformance(cast);
-    const gcd = this.explainGcdPerformance(cast);
+
+    const checklistItems = [
+      timeline.checklistItem,
+      this.explainUsagePerformance(cast),
+      this.explainGcdPerformance(cast),
+    ];
+    if (this.selectedCombatant.hasTalent(TALENTS.REACTIVITY_TALENT)) {
+      const inefficientLavaLashes = cast.timeline.events.filter(
+        (event) =>
+          event.type === EventType.Cast &&
+          event.ability.guid === TALENTS.LAVA_LASH_TALENT.id &&
+          this.reactivity.isInefficientLavaLashCast(event),
+      ).length;
+
+      if (inefficientLavaLashes > 0) {
+        checklistItems.push({
+          check: 'reactivity',
+          timestamp: cast.event.timestamp,
+          performance: evaluateQualitativePerformanceByThreshold({
+            actual: inefficientLavaLashes,
+            isLessThanOrEqual: {
+              perfect: 0,
+              ok: 1,
+            },
+          }),
+          summary: (
+            <>
+              One or more missed <SpellLink spell={TALENTS.REACTIVITY_TALENT} />{' '}
+              <SpellLink spell={TALENTS.SUNDERING_TALENT} />
+              's missed.
+            </>
+          ),
+          details: (
+            <>
+              <div>
+                You were not facing at your target {inefficientLavaLashes} time
+                {inefficientLavaLashes > 1 && 's'} when casting{' '}
+                <SpellLink spell={TALENTS.LAVA_LASH_TALENT} /> causing{' '}
+                <SpellLink spell={TALENTS.SUNDERING_TALENT} /> to miss.
+              </div>
+            </>
+          ),
+        });
+      }
+    }
 
     return {
       event: cast.event,
-      performance: getLowestPerf([
-        usage.performance,
-        timeline.checklistItem.performance,
-        gcd.performance,
-      ]),
-      checklistItems: [usage, gcd, timeline.checklistItem],
+      performance: getLowestPerf(checklistItems.map((x) => x.performance)),
+      checklistItems: checklistItems,
       extraDetails: timeline.extraDetails,
     };
   }

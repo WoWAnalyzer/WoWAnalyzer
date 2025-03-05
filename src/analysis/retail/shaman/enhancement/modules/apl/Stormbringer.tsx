@@ -26,7 +26,7 @@ export function stormbringer(combatant: Combatant): Apl {
   const rules: Rule[] = [
     /** Tempest with 8 MSW */
     {
-      spell: SPELLS.TEMPEST,
+      spell: SPELLS.TEMPEST_CAST,
       condition: describe(
         and(buffPresent(SPELLS.TEMPEST_BUFF), minimumMaelstromWeaponStacks(8)),
         () => (

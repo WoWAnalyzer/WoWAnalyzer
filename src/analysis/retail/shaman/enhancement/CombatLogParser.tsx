@@ -61,6 +61,7 @@ import StormbringerEventLinkNormalizer from '../shared/hero/stormbringer/normali
 import StormbringerEventOrderNormalizer from '../shared/hero/stormbringer/normalizers/StormbringerEventOrderNormalizer';
 import ElementalSpiritsPrepullNormalizer from './modules/normalizers/ElementalSpiritsPrepullNormalizer';
 import PrimordialStorm from './modules/talents/PrimordialStorm';
+import Reactivity from './modules/hero/totemic/Reactivity';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -126,6 +127,7 @@ class CombatLogParser extends CoreCombatLogParser {
     tempest: Tempest,
     stormbringerEventOrderNormalizer: StormbringerEventOrderNormalizer,
     stormbringerEventLinkNormalizer: StormbringerEventLinkNormalizer,
+    reactivity: Reactivity,
 
     // Normalizers
     maestromRefreshBuffNormalizer: MaestromRefreshBuffNormalizer, // removes refresh events following applybuff and applybuffstack

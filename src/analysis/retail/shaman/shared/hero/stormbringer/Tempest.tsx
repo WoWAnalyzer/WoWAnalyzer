@@ -82,7 +82,7 @@ class Tempest extends Analyzer {
 
     this.addEventListener(Events.SpendResource.by(SELECTED_PLAYER), this.onSpendMaelstrom);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.TEMPEST),
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.TEMPEST_CAST),
       this.onTempestCast,
     );
     [Events.applybuff, Events.applybuffstack, Events.refreshbuff].forEach((filter) =>

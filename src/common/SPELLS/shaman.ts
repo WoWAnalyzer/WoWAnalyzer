@@ -580,11 +580,6 @@ const spells = {
     name: 'Reincarnation',
     icon: 'spell_shaman_improvedreincarnation',
   },
-  STORMSTRIKE: {
-    id: 17364,
-    name: 'Stormstrike',
-    icon: 'ability_shaman_stormstrike',
-  },
   WINDLASH: {
     id: 114089,
     name: 'Windlash',
@@ -721,12 +716,6 @@ const spells = {
     name: 'Healing Surge',
     icon: 'spell_nature_healingway',
     manaCost: 110000, // enh/ele cost is higher
-  },
-  HEALING_WAVE: {
-    id: 77472,
-    name: 'Healing Wave',
-    icon: 'spell_nature_healingwavelesser',
-    manaCost: 75000,
   },
   TIDAL_WAVES_BUFF: {
     id: 53390,
@@ -974,6 +963,11 @@ const spells = {
     name: 'Surging Totem',
     icon: 'inv_ability_totemicshaman_surgingtotem',
   },
+  SURGING_TOTEM_DAMAGE: {
+    id: 455622,
+    name: 'Surging Totem',
+    icon: 'spell_nature_earthquake',
+  },
   WHIRLING_AIR: {
     id: 453409,
     name: 'Whirling Air',
@@ -1006,7 +1000,7 @@ const spells = {
   },
   /** HERO TALENTS **/
   // Stormbringer
-  TEMPEST: {
+  TEMPEST_CAST: {
     id: 452201,
     name: 'Tempest',
     icon: 'inv_ability_stormcallershaman_tempest',

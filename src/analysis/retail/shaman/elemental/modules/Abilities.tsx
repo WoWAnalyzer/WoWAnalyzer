@@ -140,7 +140,7 @@ class Abilities extends ClassAbilities {
         },
       },
       {
-        spell: SPELLS.TEMPEST.id,
+        spell: SPELLS.TEMPEST_CAST.id,
         enabled: combatant.hasTalent(TALENTS.TEMPEST_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {

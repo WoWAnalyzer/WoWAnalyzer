@@ -19,7 +19,7 @@ const HASTE: Record<number, HastePerRank> = {
 };
 
 export default class SplinteredElements extends BaseSplinteredElements {
-  protected rank: number;
+  protected rank!: number;
 
   constructor(options: Options) {
     super(options);
@@ -28,7 +28,8 @@ export default class SplinteredElements extends BaseSplinteredElements {
   }
 
   isActive(): boolean {
-    return this.rank >= this.selectedCombatant.getTalentRank(TALENTS.SPLINTERED_ELEMENTS_TALENT);
+    this.rank = this.selectedCombatant.getTalentRank(TALENTS.SPLINTERED_ELEMENTS_TALENT);
+    return this.rank > 0;
   }
 
   getGainedHaste(hitCount: number): number {

@@ -28,7 +28,7 @@ class HeraldOfTheStorms extends Analyzer.withDependencies({
     this.addEventListener(
       Events.cast
         .by(SELECTED_PLAYER)
-        .spell([SPELLS.LIGHTNING_BOLT, TALENTS.CHAIN_LIGHTNING_TALENT, SPELLS.TEMPEST]),
+        .spell([SPELLS.LIGHTNING_BOLT, TALENTS.CHAIN_LIGHTNING_TALENT, SPELLS.TEMPEST_CAST]),
       this.onCast,
     );
   }

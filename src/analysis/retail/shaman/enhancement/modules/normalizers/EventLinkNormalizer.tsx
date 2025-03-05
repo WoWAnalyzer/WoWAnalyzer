@@ -19,7 +19,7 @@ const thorimsInvocationCastLink: EventLink = {
   referencedEventId: [
     SPELLS.LIGHTNING_BOLT.id,
     TALENTS.CHAIN_LIGHTNING_TALENT.id,
-    SPELLS.TEMPEST.id,
+    SPELLS.TEMPEST_CAST.id,
   ],
   referencedEventType: [EventType.Damage],
   forwardBufferMs: EventLinkBuffers.MaelstromWeapon,
@@ -58,9 +58,9 @@ const crashLightningDamageLink: EventLink = {
 };
 const tempestDamageLink: EventLink = {
   linkRelation: EnhancementEventLinks.TEMPEST_LINK,
-  linkingEventId: SPELLS.TEMPEST.id,
+  linkingEventId: SPELLS.TEMPEST_CAST.id,
   linkingEventType: [EventType.Cast, EventType.FreeCast],
-  referencedEventId: SPELLS.TEMPEST.id,
+  referencedEventId: SPELLS.TEMPEST_CAST.id,
   referencedEventType: EventType.Damage,
   forwardBufferMs: EventLinkBuffers.CAST_DAMAGE_BUFFER,
   anyTarget: true,
@@ -98,6 +98,26 @@ const splinteredElementsDamageLink: EventLink = {
   isActive: (c) => c.hasTalent(TALENTS.SPLINTERED_ELEMENTS_TALENT),
   reverseLinkRelation: SPLINTERED_ELEMENTS_LINK,
 };
+const reactivityLink: EventLink = {
+  linkRelation: EnhancementEventLinks.REACTIVITY_LINK,
+  linkingEventId: TALENTS.LAVA_LASH_TALENT.id,
+  linkingEventType: EventType.Cast,
+  referencedEventId: SPELLS.SUNDERING_REACTIVITY.id,
+  referencedEventType: EventType.Cast,
+  forwardBufferMs: EventLinkBuffers.CAST_DAMAGE_BUFFER,
+  backwardBufferMs: 5,
+  anyTarget: true,
+};
+const sunderingDamageLink: EventLink = {
+  linkRelation: EnhancementEventLinks.SUNDERING_LINK,
+  linkingEventId: [TALENTS.SUNDERING_TALENT.id, SPELLS.SUNDERING_REACTIVITY.id],
+  linkingEventType: EventType.Cast,
+  referencedEventId: [TALENTS.SUNDERING_TALENT.id, SPELLS.SUNDERING_REACTIVITY.id],
+  referencedEventType: EventType.Damage,
+  forwardBufferMs: EventLinkBuffers.CAST_DAMAGE_BUFFER,
+  anyTarget: true,
+  isActive: (c) => c.hasTalent(TALENTS.REACTIVITY_TALENT) || c.hasTalent(TALENTS.SUNDERING_TALENT),
+};
 
 class EventLinkNormalizer extends BaseEventLinkNormalizer {
   constructor(options: Options) {
@@ -110,6 +130,8 @@ class EventLinkNormalizer extends BaseEventLinkNormalizer {
       lightningBoltLink,
       splinteredElementsBuffLink,
       splinteredElementsDamageLink,
+      reactivityLink,
+      sunderingDamageLink,
     ]);
 
     this.priority = NormalizerOrder.EventLinkNormalizer;

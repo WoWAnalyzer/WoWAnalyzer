@@ -5,61 +5,11 @@ import MaelstromUsage from './modules/guide/MaelstromUsage';
 import Rotation from './modules/guide/Rotation';
 import Cooldowns from './modules/guide/Cooldowns';
 import DefensiveAndUtility from '../shared/guide/DefensiveAndUtility';
-import SpellLink from 'interface/SpellLink';
-import SPELLS from 'common/SPELLS/shaman';
-import TALENTS from 'common/TALENTS/shaman';
-import Explanation from 'interface/guide/components/Explanation';
-import PerformanceStrong from 'interface/PerformanceStrong';
-import { formatPercentage } from 'common/format';
-import ActiveTimeGraph from 'parser/ui/ActiveTimeGraph';
 import { Seriousnes } from 'CONTRIBUTORS';
 import Contributor from 'interface/ContributorButton';
+import FoundationDowntimeSectionV2 from 'interface/guide/foundation/FoundationDowntimeSectionV2';
 
 export default function Guide(props: GuideProps<typeof CombatLogParser>) {
-  const alwaysBeCastingSubsection = (
-    <Section title="Active Time">
-      <Explanation>
-        <>
-          <p>
-            Time not spent active is lost damage. Despite being melee, Enhancement has many ways to
-            continue to deal damage while out of melee range or moving, such as instant cast spells
-            via <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} />,{' '}
-            <SpellLink spell={TALENTS.FROST_SHOCK_TALENT} />, or{' '}
-            <SpellLink spell={SPELLS.FLAME_SHOCK} />. If you are stuck out of melee for an extended
-            period of time, hard casting <SpellLink spell={SPELLS.LIGHTNING_BOLT} /> is a DPS gain
-            over doing nothing.
-          </p>
-          <p>
-            Enhancement has a number of movement abilities, such as
-            <SpellLink spell={SPELLS.FERAL_LUNGE} />,{' '}
-            <SpellLink spell={TALENTS.SPIRIT_WALK_TALENT} />
-            , and <SpellLink spell={SPELLS.GHOST_WOLF} /> which can be used to quickly get back to
-            your target.
-          </p>
-          <p>
-            While some encounters have forced downtime, which WoWAnalyzer does not account for,
-            anything you can do to minimize your downtime will help your damage. Additionally, to
-            better contextualize your downtime, we recommend comparing your downtime to another
-            Enhancement Shaman that did better than you on the same encounter with roughly the same
-            kill time. If you have less downtime than them, then maybe there is something you can do
-            to improve.
-          </p>
-        </>
-      </Explanation>
-      <p>
-        Active Time:{' '}
-        <PerformanceStrong performance={props.modules.alwaysBeCasting.DowntimePerformance}>
-          {formatPercentage(props.modules.alwaysBeCasting.activeTimePercentage, 1)}%
-        </PerformanceStrong>{' '}
-      </p>
-      <ActiveTimeGraph
-        activeTimeSegments={props.modules.alwaysBeCasting.activeTimeSegments}
-        fightStart={props.info.fightStart}
-        fightEnd={props.info.fightEnd}
-      />
-    </Section>
-  );
-
   return (
     <>
       <Section title="Preface & Disclaimers">
@@ -83,8 +33,10 @@ export default function Guide(props: GuideProps<typeof CombatLogParser>) {
           <a href="https://discord.gg/earthshrine">Earthshrine</a> discord.
         </>
       </Section>
-      {alwaysBeCastingSubsection}
       <Cooldowns {...props} />
+      <Section title="Always Be Casting">
+        <FoundationDowntimeSectionV2 />
+      </Section>
       <Rotation {...props} />
       <MaelstromUsage {...props} />
       <DefensiveAndUtility />

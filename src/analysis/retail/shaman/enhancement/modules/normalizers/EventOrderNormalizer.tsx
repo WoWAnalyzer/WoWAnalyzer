@@ -14,7 +14,11 @@ import { EventLinkBuffers } from '../../constants';
 const thorimsInvocationSpellAfterWindstrike: EventOrder = {
   beforeEventId: SPELLS.WINDSTRIKE_CAST.id,
   beforeEventType: EventType.Cast,
-  afterEventId: [SPELLS.LIGHTNING_BOLT.id, TALENTS.CHAIN_LIGHTNING_TALENT.id, SPELLS.TEMPEST.id],
+  afterEventId: [
+    SPELLS.LIGHTNING_BOLT.id,
+    TALENTS.CHAIN_LIGHTNING_TALENT.id,
+    SPELLS.TEMPEST_CAST.id,
+  ],
   afterEventType: EventType.Cast,
   bufferMs: EventLinkBuffers.MaelstromWeapon,
   anyTarget: true,
@@ -23,7 +27,11 @@ const thorimsInvocationSpellAfterWindstrike: EventOrder = {
 };
 
 const thorimsInvocationBuffAfterSpell: EventOrder = {
-  beforeEventId: [SPELLS.LIGHTNING_BOLT.id, TALENTS.CHAIN_LIGHTNING_TALENT.id, SPELLS.TEMPEST.id],
+  beforeEventId: [
+    SPELLS.LIGHTNING_BOLT.id,
+    TALENTS.CHAIN_LIGHTNING_TALENT.id,
+    SPELLS.TEMPEST_CAST.id,
+  ],
   beforeEventType: EventType.Cast,
   afterEventId: SPELLS.MAELSTROM_WEAPON_BUFF.id,
   afterEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
@@ -82,7 +90,7 @@ export class EventOrderNormalizer extends BaseEventOrderNormalizer {
     const thorimsInvocationCastIds: number[] = [
       SPELLS.LIGHTNING_BOLT.id,
       TALENTS.CHAIN_LIGHTNING_TALENT.id,
-      SPELLS.TEMPEST.id,
+      SPELLS.TEMPEST_CAST.id,
     ];
     const windstrikeId = SPELLS.WINDSTRIKE_CAST.id;
     const skipEvents = new Set<AnyEvent>();
@@ -129,7 +137,7 @@ export class EventOrderNormalizer extends BaseEventOrderNormalizer {
        * with this is when a feral spirit is summoned, it also immediately generates 1 stack of msw, but because this
        * appearing after, we need to move it back. a traditional order normalizer doesn't move the events correctly */
       //return;
-      if (this.hasRollingThunder && spellId === SPELLS.TEMPEST.id) {
+      if (this.hasRollingThunder && spellId === SPELLS.TEMPEST_CAST.id) {
         const eventsToMoveBack: AnyEvent[] = [];
         for (let forwardIndex = idx + 1; forwardIndex < events.length; forwardIndex += 1) {
           const forwardEvent = events[forwardIndex];
