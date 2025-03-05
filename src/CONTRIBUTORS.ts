@@ -2585,3 +2585,9 @@ export const KYZ: Contributor = {
     },
   ],
 };
+
+export const Jordan: Contributor = {
+  nickname: 'Jordan',
+  github: 'jordantoine',
+  discord: 'jordannonumbers',
+};
