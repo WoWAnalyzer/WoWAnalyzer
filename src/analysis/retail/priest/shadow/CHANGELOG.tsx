@@ -2,6 +2,7 @@ import { change, date } from 'common/changelog';
 //import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import { DoxAshe } from 'CONTRIBUTORS';
+import { Jordan } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
