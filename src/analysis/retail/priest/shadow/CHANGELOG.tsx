@@ -5,6 +5,7 @@ import { DoxAshe } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2025, 3, 7),  <>Fix <SpellLink spell={TALENTS.POWER_INFUSION_TALENT}/> without TWW season 2 four piece </>,DoxAshe),
   change(date(2025, 3, 3),  <>Fix <SpellLink spell={TALENTS.POWER_INFUSION_TALENT}/> with TWW season 2 four piece </>,DoxAshe),
   change(date(2025, 3, 2),  <>Update shadow for 11.1 changes and add support for TWW season 2 tier set </>,DoxAshe),
   change(date(2025, 1, 27),  <>Add support and statistics for Shadow's Voidweaver Hero Talent Tree  </>,DoxAshe),
