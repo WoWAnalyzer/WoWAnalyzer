@@ -1,11 +1,4 @@
-import {
-  and,
-  buffPresent,
-  describe,
-  hasResource,
-  not,
-  repeatableBuffPresent,
-} from 'parser/shared/metrics/apl/conditions';
+import { and, buffPresent, describe, hasResource, not } from 'parser/shared/metrics/apl/conditions';
 import { Condition, Rule } from 'parser/shared/metrics/apl';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Combatant from 'parser/core/Combatant';
@@ -17,6 +10,8 @@ export const AtLeastFiveMSW = hasResource(RESOURCE_TYPES.MAELSTROM_WEAPON, { atL
 export const MaxStacksMSW = hasResource(RESOURCE_TYPES.MAELSTROM_WEAPON, {
   atLeast: 10,
 });
+
+export const MINIMUM_MAELSTROM_WEAPON_SPEND_STACKS = 9;
 
 export function minimumMaelstromWeaponStacks(minStacks: number): Condition<number> {
   return hasResource(RESOURCE_TYPES.MAELSTROM_WEAPON, {
@@ -30,27 +25,21 @@ export function getSpenderBlock(combatant: Combatant): Rule[] {
   if (combatant.hasTalent(TALENTS.ELEMENTAL_SPIRITS_TALENT)) {
     rules.push({
       spell: TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT,
-      condition: and(
-        minimumMaelstromWeaponStacks(8),
-        repeatableBuffPresent(
-          [
-            SPELLS.ELEMENTAL_SPIRITS_BUFF_MOLTEN_WEAPON,
-            SPELLS.ELEMENTAL_SPIRITS_BUFF_ICY_EDGE,
-            SPELLS.ELEMENTAL_SPIRITS_BUFF_CRACKLING_SURGE,
-          ],
-          { atLeast: 4 },
-        ),
-      ),
+      condition: minimumMaelstromWeaponStacks(MINIMUM_MAELSTROM_WEAPON_SPEND_STACKS),
     });
   }
 
   rules.push({
     spell: SPELLS.LIGHTNING_BOLT,
     condition: describe(
-      and(minimumMaelstromWeaponStacks(8), not(buffPresent(SPELLS.TEMPEST_BUFF))),
+      and(
+        minimumMaelstromWeaponStacks(MINIMUM_MAELSTROM_WEAPON_SPEND_STACKS),
+        not(buffPresent(SPELLS.TEMPEST_BUFF)),
+      ),
       () => (
         <>
-          you have at least 8 <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> stacks
+          you have at least {MINIMUM_MAELSTROM_WEAPON_SPEND_STACKS}{' '}
+          <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> stacks
         </>
       ),
     ),
@@ -58,3 +47,11 @@ export function getSpenderBlock(combatant: Combatant): Rule[] {
 
   return rules;
 }
+
+export const iceStrikeRule = (combatant: Combatant) =>
+  combatant.hasTalent(TALENTS.ICE_STRIKE_1_ENHANCEMENT_TALENT)
+    ? {
+        spell: SPELLS.ICE_STRIKE_1_CAST,
+        condition: buffPresent(SPELLS.ICE_STRIKE_1_USABLE_BUFF),
+      }
+    : TALENTS.ICE_STRIKE_2_ENHANCEMENT_TALENT;

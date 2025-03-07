@@ -2,15 +2,11 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import RiptideTracker from './RiptideTracker';
 import talents from 'common/TALENTS/shaman';
-import { PRIMAL_TIDE_CORE, HARDCAST, RIPTIDE_PWAVE, UNLEASH_LIFE } from '../../constants';
+import { PRIMAL_TIDE_CORE, HARDCAST, UNLEASH_LIFE } from '../../constants';
 import HotTracker from 'parser/shared/modules/HotTracker';
 import Events, { ApplyBuffEvent, RefreshBuffEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
-import {
-  isFromHardcast,
-  isFromPrimalTideCore,
-  isRiptideFromPrimordialWave,
-} from '../../normalizers/CastLinkNormalizer';
+import { isFromHardcast, isFromPrimalTideCore } from '../../normalizers/CastLinkNormalizer';
 import UnleashLife from '../talents/UnleashLife';
 
 class RiptideAttributor extends Analyzer {
@@ -26,7 +22,6 @@ class RiptideAttributor extends Analyzer {
 
   hardcastAttrib = HotTracker.getNewAttribution(HARDCAST);
   ptcAttrib = HotTracker.getNewAttribution(PRIMAL_TIDE_CORE);
-  pwaveAttrib = HotTracker.getNewAttribution(RIPTIDE_PWAVE);
   uLAttrib = HotTracker.getNewAttribution(UNLEASH_LIFE);
 
   constructor(options: Options) {
@@ -47,8 +42,6 @@ class RiptideAttributor extends Analyzer {
     this._checkForUnleashLife(event);
     if (event.prepull || isFromHardcast(event)) {
       this.riptideTracker.addAttributionFromApply(this.hardcastAttrib, event);
-    } else if (isRiptideFromPrimordialWave(event)) {
-      this.riptideTracker.addAttributionFromApply(this.pwaveAttrib, event);
     } else if (isFromPrimalTideCore(event as ApplyBuffEvent)) {
       this.riptideTracker.addAttributionFromApply(this.ptcAttrib, event);
     }

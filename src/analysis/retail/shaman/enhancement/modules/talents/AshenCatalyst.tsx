@@ -13,7 +13,7 @@ import { formatNumber } from 'common/format';
 import UptimeIcon from 'interface/icons/Uptime';
 
 const ASHEN_CATALYST_COOLDOWN_REDUCTION_MS = 500;
-const DAMAGE_AMP_PER_STACK = 0.12;
+const DAMAGE_AMP_PER_STACK = 0.08;
 
 class AshenCatalyst extends Analyzer {
   static dependencies = {

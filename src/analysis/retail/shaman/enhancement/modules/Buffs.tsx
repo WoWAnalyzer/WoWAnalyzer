@@ -15,7 +15,6 @@ class Buffs extends ClassBuffs {
       },
       {
         spellId: SPELLS.STORMSURGE_BUFF.id,
-        timelineHighlight: true,
       },
       {
         spellId: SPELLS.HOT_HAND_BUFF.id,
@@ -35,8 +34,8 @@ class Buffs extends ClassBuffs {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.PRIMORDIAL_WAVE_BUFF.id,
-        enabled: combatant.hasTalent(TALENTS.PRIMORDIAL_WAVE_TALENT),
+        spellId: SPELLS.PRIMORDIAL_STORM_USABLE.id,
+        enabled: combatant.hasTalent(TALENTS.PRIMORDIAL_STORM_TALENT),
         triggeredBySpellId: TALENTS.PRIMORDIAL_WAVE_TALENT.id,
       },
       {
@@ -53,6 +52,16 @@ class Buffs extends ClassBuffs {
         spellId: SPELLS.FERAL_SPIRIT_MAELSTROM_BUFF.id,
         enabled: combatant.hasTalent(TALENTS.FERAL_SPIRIT_TALENT),
         triggeredBySpellId: TALENTS.FERAL_SPIRIT_TALENT.id,
+      },
+      {
+        spellId: [SPELLS.WHIRLING_AIR.id, SPELLS.WHIRLING_EARTH.id, SPELLS.WHIRLING_FIRE.id],
+        enabled: combatant.hasTalent(TALENTS.WHIRLING_ELEMENTS_TALENT),
+        triggeredBySpellId: TALENTS.SURGING_TOTEM_TALENT.id,
+        timelineHighlight: true,
+      },
+      {
+        spellId: TALENTS.VOLTAIC_BLAZE_TALENT.id,
+        timelineHighlight: true,
       },
     ];
   }

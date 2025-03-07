@@ -324,15 +324,16 @@ export function isStrengthOfTheBlackOxConsumed(event: RemoveBuffEvent): boolean 
 }
 
 // tier
-export function isInsuranceFromHardcast(event: ApplyBuffEvent | RefreshBuffEvent | HealEvent) {
-  if (event.type === EventType.Heal) {
-    const source = GetRelatedEvents(event, INSURANCE);
-    if (!source.length) {
-      return false;
-    }
-    return HasRelatedEvent(source[0], INSURANCE_FROM_REM);
+export function isInsuranceFromHardcast(event: HealEvent) {
+  const source = GetRelatedEvent(event, INSURANCE);
+  if (!source) {
+    return false;
   }
-  return HasRelatedEvent(event, INSURANCE_FROM_REM);
+  const remApply = GetRelatedEvent<RefreshBuffEvent | ApplyBuffEvent>(source, INSURANCE_FROM_REM);
+  if (!remApply) {
+    return false;
+  }
+  return isFromHardcast(remApply) || isFromRapidDiffusion(remApply);
 }
 
 export default CastLinkNormalizer;

@@ -49,7 +49,7 @@ interface ExplanationAndDataSubSectionProps {
   explanation: ReactNode;
   data: ReactNode;
   explanationPercent?: number;
-  title?: string;
+  title?: string | ReactNode;
 }
 export function ExplanationAndDataSubSection({
   explanation,

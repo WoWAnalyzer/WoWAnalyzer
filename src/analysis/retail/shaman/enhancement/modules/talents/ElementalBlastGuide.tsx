@@ -23,9 +23,9 @@ import RESOURCE_TYPES, { getResource } from 'game/RESOURCE_TYPES';
 import ElementalSpirits from './ElementalSpirits';
 import typedKeys from 'common/typedKeys';
 import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
+import { ELEMENTAL_SPIRIT_DAMAGE_AMP_PERCENTAGE } from '../../constants';
 
 interface ElementalBlastCastDetails extends CooldownTrigger<CastEvent> {
-  event: CastEvent;
   chargesBeforeCast: number;
   elementalSpiritsActive: Record<number, number>;
   maelstromUsed: number;
@@ -239,7 +239,11 @@ class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
           <SpellLink spell={TALENTS.ELEMENTAL_BLAST_ENHANCEMENT_TALENT} /> damage increased from{' '}
           <DamageIcon /> {formatNumber(cast.baseDamage)} &rarr; <DamageIcon />{' '}
           {formatNumber(cast.bonusDamage + cast.baseDamage)}, for an increase of{' '}
-          {formatPercentage(Math.pow(1.2, totalElementalSpirits) - 1, 0)}% (
+          {formatPercentage(
+            Math.pow(1 + ELEMENTAL_SPIRIT_DAMAGE_AMP_PERCENTAGE, totalElementalSpirits) - 1,
+            0,
+          )}
+          % (
           <i>
             <DamageIcon /> {formatNumber(cast.bonusDamage)} bonus damage
           </i>

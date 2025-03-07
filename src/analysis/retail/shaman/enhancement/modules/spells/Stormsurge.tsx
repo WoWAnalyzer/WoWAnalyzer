@@ -21,15 +21,10 @@ class Stormsurge extends Analyzer.withDependencies({
 }) {
   protected stormStrikeResets: number = 0;
   protected windStrikeResets: number = 0;
-  protected sunderingResets: number = 0;
   protected wasted: number = 0;
-
-  protected hasMoltenThunder: boolean = false;
 
   constructor(options: Options) {
     super(options);
-
-    this.hasMoltenThunder = this.selectedCombatant.hasTalent(TALENTS.MOLTEN_THUNDER_TALENT);
 
     [Events.applybuff, Events.applybuffstack, Events.refreshbuff].forEach((filter) =>
       this.addEventListener(
@@ -53,8 +48,8 @@ class Stormsurge extends Analyzer.withDependencies({
         used = true;
       }
     } else {
-      if (this.deps.spellUsable.isOnCooldown(SPELLS.STORMSTRIKE.id)) {
-        this.deps.spellUsable.endCooldown(SPELLS.STORMSTRIKE.id, event.timestamp);
+      if (this.deps.spellUsable.isOnCooldown(SPELLS.STORMSTRIKE_CAST.id)) {
+        this.deps.spellUsable.endCooldown(SPELLS.STORMSTRIKE_CAST.id, event.timestamp);
         this.stormStrikeResets += 1;
         used = true;
       }
@@ -66,7 +61,7 @@ class Stormsurge extends Analyzer.withDependencies({
   }
 
   onAscendanceEnd(event: RemoveBuffEvent) {
-    this.deps.spellUsable.endCooldown(SPELLS.STORMSTRIKE.id, event.timestamp, true, true);
+    this.deps.spellUsable.endCooldown(SPELLS.STORMSTRIKE_CAST.id, event.timestamp, true, true);
   }
 
   statistic() {
@@ -85,24 +80,18 @@ class Stormsurge extends Analyzer.withDependencies({
                   <ul>
                     <li>
                       <strong>{this.stormStrikeResets}</strong>{' '}
-                      <SpellLink spell={SPELLS.STORMSTRIKE} /> resets
+                      <SpellLink spell={SPELLS.STORMSTRIKE_CAST} /> resets
                     </li>
                     <li>
                       <strong>{this.windStrikeResets}</strong>{' '}
                       <SpellLink spell={SPELLS.WINDSTRIKE_CAST} /> resets
                     </li>
-                    {this.hasMoltenThunder && (
-                      <li>
-                        <strong>{this.sunderingResets}</strong>{' '}
-                        <SpellLink spell={TALENTS.SUNDERING_TALENT} /> resets
-                      </li>
-                    )}
                   </ul>
                 </>
               ) : (
                 <>
-                  <strong>{this.stormStrikeResets}</strong> <SpellLink spell={SPELLS.STORMSTRIKE} />{' '}
-                  resets
+                  <strong>{this.stormStrikeResets}</strong>{' '}
+                  <SpellLink spell={SPELLS.STORMSTRIKE_CAST} /> resets
                 </>
               )}
             </div>
@@ -118,20 +107,10 @@ class Stormsurge extends Analyzer.withDependencies({
           <>
             <UptimeIcon /> {formatNumber(this.stormStrikeResets + this.windStrikeResets)}{' '}
             <small>
-              <SpellLink spell={SPELLS.STORMSTRIKE} /> resets
+              <SpellLink spell={SPELLS.STORMSTRIKE_CAST} /> resets
             </small>
           </>
         </BoringSpellValueText>
-        {this.hasMoltenThunder && (
-          <BoringSpellValueText spell={TALENTS.MOLTEN_THUNDER_TALENT}>
-            <>
-              <UptimeIcon /> {formatNumber(this.sunderingResets)}{' '}
-              <small>
-                <SpellLink spell={TALENTS.SUNDERING_TALENT} /> resets
-              </small>
-            </>
-          </BoringSpellValueText>
-        )}
       </Statistic>
     );
   }
