@@ -85,8 +85,10 @@ export default class ShadowTierTWWS2Normalizer extends EventLinkNormalizer {
     const events = super.normalize(rawEvents);
     for (const event of events) {
       if (
+        //This is true for a Cast Event of Power Infusion when the character has TWWS2 Four Piece and the event is a Free Cast of PI
         event.type === EventType.Cast &&
         event.ability.guid === TALENTS.POWER_INFUSION_TALENT.id &&
+        this.selectedCombatant.has4PieceByTier(TIERS.TWW2) &&
         isFreePI(event)
       ) {
         (event as AnyEvent).type = EventType.FreeCast;
