@@ -234,24 +234,9 @@ class Abilities extends CoreAbilities {
           // recommendedEfficiency: 0.6,
         },
       },
+
       {
-        spell: TALENTS.MANA_TIDE_TOTEM_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.MANA_TIDE_TOTEM_TALENT),
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 180 - totemCDR,
-        gcd: {
-          static: totemGCD,
-        },
-        castEfficiency: {
-          suggestion: false,
-          // majorIssueEfficiency: 0.2,
-          // averageIssueEfficiency: 0.4,
-          // recommendedEfficiency: 0.6,
-        },
-      },
-      {
-        spell: TALENTS.HEALING_WAVE_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.HEALING_WAVE_TALENT),
+        spell: SPELLS.HEALING_WAVE.id,
         timelineSortIndex: 13,
         gcd: {
           base: 1500,
@@ -263,12 +248,11 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.HEALING_WAVE_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.HEALING_WAVE_TALENT),
+        spell: SPELLS.HEALING_WAVE.id,
         name: i18n._(
           defineMessage({
             id: 'shaman.restoration.abilities.buffedByTidalWave',
-            message: `Tidal Waved ${TALENTS.HEALING_WAVE_TALENT.name}`,
+            message: `Tidal Waved ${SPELLS.HEALING_WAVE.name}`,
           }),
         ),
         timelineSortIndex: 13,
@@ -319,19 +303,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
-      {
-        spell: TALENTS.PRIMORDIAL_WAVE_RESTORATION_TALENT.id,
-        buffSpellId: SPELLS.PRIMORDIAL_WAVE_BUFF.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        timelineSortIndex: 12,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS.PRIMORDIAL_WAVE_RESTORATION_TALENT),
-        cooldown: 45,
-        // Cannot find any logs with the heal
-        // healSpellIds: [SPELLS.PRIMORDIAL_WAVE_HEAL.id],
-      },
+
       {
         spell: SPELLS.PURIFY_SPIRIT.id,
         category: SPELL_CATEGORY.UTILITY,
@@ -597,13 +569,6 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         cooldown: combatant.hasTalent(TALENTS.CALL_OF_THE_ELEMENTS_TALENT) ? 120 : 180,
-      },
-      {
-        spell: TALENTS.ANCESTRAL_GUIDANCE_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.ANCESTRAL_GUIDANCE_TALENT),
-        category: SPELL_CATEGORY.COOLDOWNS,
-        gcd: null,
-        cooldown: 120,
       },
       {
         spell: TALENTS.NATURES_SWIFTNESS_TALENT.id,

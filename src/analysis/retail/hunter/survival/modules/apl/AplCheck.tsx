@@ -115,16 +115,6 @@ export const apl = build([
   //Explosive goes tipless now thanks to grenade juggler rework in .5
   TALENTS.EXPLOSIVE_SHOT_TALENT,
   {
-    spell: TALENTS.RAPTOR_STRIKE_TALENT,
-    condition: cnd.describe(
-      cnd.and(
-        cnd.hasTalent(TALENTS.FURIOUS_ASSAULT_TALENT),
-        cnd.buffPresent(SPELLS.FURIOUS_ASSAULT_BUFF_SV),
-      ),
-      (tense) => <>Furious Assault is up.</>,
-    ),
-  },
-  {
     spell: TALENTS.KILL_COMMAND_SURVIVAL_TALENT,
     condition: cnd.describe(
       cnd.or(

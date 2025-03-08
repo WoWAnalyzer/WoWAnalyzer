@@ -4,7 +4,6 @@ import TALENTS from 'common/TALENTS/hunter';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
-import { TACTICAL_RELOAD_CDR_REDUCTION } from '../constants';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -23,9 +22,6 @@ class Abilities extends CoreAbilities {
         enabled: this.selectedCombatant.hasTalent(TALENTS.AIMED_SHOT_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste: number) => {
-          if (this.selectedCombatant.hasTalent(TALENTS.TACTICAL_RELOAD_TALENT)) {
-            return (12 * (1 - TACTICAL_RELOAD_CDR_REDUCTION)) / (1 + haste);
-          }
           return 12 / (1 + haste);
         },
         charges: 2,
@@ -54,7 +50,6 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.PRECISE_SHOTS.id,
         category: SPELL_CATEGORY.ROTATIONAL,
 
-        enabled: !combatant.hasTalent(TALENTS.CHIMAERA_SHOT_TALENT),
         gcd: {
           base: 1500,
         },
@@ -88,32 +83,9 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.95,
         },
       },
-      {
-        spell: SPELLS.WAILING_ARROW_DAMAGE.id,
-        enabled: combatant.hasTalent(TALENTS.WAILING_ARROW_TALENT),
-        category: SPELL_CATEGORY.ROTATIONAL,
-      },
-      {
-        spell: SPELLS.WAILING_ARROW_DAMAGE_FOCUS.id,
-        enabled: combatant.hasTalent(TALENTS.WAILING_ARROW_TALENT),
-        category: SPELL_CATEGORY.ROTATIONAL,
-      },
       //endregion
 
       //region Talents
-      {
-        spell: TALENTS.WAILING_ARROW_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.WAILING_ARROW_TALENT),
-        category: SPELL_CATEGORY.ROTATIONAL,
-      },
-      {
-        spell: TALENTS.CHIMAERA_SHOT_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS.CHIMAERA_SHOT_TALENT),
-        gcd: {
-          base: 1500,
-        },
-      },
       {
         spell: TALENTS.EXPLOSIVE_SHOT_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
@@ -126,14 +98,6 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
-        },
-      },
-      {
-        spell: SPELLS.SERPENT_STING_MM.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS.SERPENTSTALKERS_TRICKERY_TALENT),
-        gcd: {
-          base: 1500,
         },
       },
       {

@@ -201,7 +201,7 @@ class Abilities extends CoreAbilities {
       },
       // Cooldowns
       {
-        spell: TALENTS.AVATAR_SHARED_TALENT.id,
+        spell: TALENTS.AVATAR_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 90,
         gcd: null,
@@ -209,7 +209,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
-        enabled: combatant.hasTalent(TALENTS.AVATAR_SHARED_TALENT),
+        enabled: combatant.hasTalent(TALENTS.AVATAR_TALENT),
       },
       // Defensive
       {

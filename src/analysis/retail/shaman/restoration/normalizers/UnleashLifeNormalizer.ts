@@ -16,7 +16,6 @@ import {
   UNLEASH_LIFE_HEALING_WAVE,
   UNLEASH_LIFE_REMOVE,
   CAST_BUFFER_MS,
-  PWAVE_TRAVEL_MS,
   HARDCAST,
 } from '../constants';
 import SPELLS from 'common/SPELLS';
@@ -34,7 +33,7 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventType: [EventType.RemoveBuff],
     referencedEventId: [
       talents.RIPTIDE_TALENT.id,
-      talents.HEALING_WAVE_TALENT.id,
+      SPELLS.HEALING_WAVE.id,
       SPELLS.HEALING_SURGE.id,
       talents.CHAIN_HEAL_TALENT.id,
       talents.HEALING_RAIN_TALENT.id,
@@ -86,11 +85,11 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: UNLEASH_LIFE_HEALING_WAVE,
     reverseLinkRelation: UNLEASH_LIFE_HEALING_WAVE,
-    linkingEventId: [talents.HEALING_WAVE_TALENT.id],
+    linkingEventId: [SPELLS.HEALING_WAVE.id],
     linkingEventType: [EventType.Heal],
-    referencedEventId: [talents.HEALING_WAVE_TALENT.id],
+    referencedEventId: [SPELLS.HEALING_WAVE.id],
     referencedEventType: [EventType.Cast],
-    backwardBufferMs: PWAVE_TRAVEL_MS,
+    backwardBufferMs: 1100,
     forwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
     isActive(c) {

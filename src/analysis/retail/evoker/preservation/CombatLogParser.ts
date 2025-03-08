@@ -76,6 +76,7 @@ import {
   MobilityCastLinkNormalizer,
 } from '../shared';
 import T32Prevoker from './modules/tier/T32TierSet';
+import T33Prevoker from './modules/tier/T33TierSet';
 import ConsumeFlame from './modules/talents/ConsumeFlame';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -172,6 +173,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // other
     t32Prevoker: T32Prevoker,
+    t33Prevoker: T33Prevoker,
   };
   static guide = Guide;
 }

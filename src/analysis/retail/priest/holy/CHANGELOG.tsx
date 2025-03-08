@@ -31,13 +31,13 @@ export default [
     date(2024, 4, 18),
     <>
       Partially updated for patch 10.2.6. Implementation still may be lacking. {' '}
-      Update <SpellLink spell={TALENTS_PRIEST.PONTIFEX_TALENT} />, {' '}
+      Update Pontifex, {' '}
       Implement <SpellLink spell={TALENTS_PRIEST.LIGHTWELL_TALENT} />, {' '}
-      Update <SpellLink spell={TALENTS_PRIEST.HOLY_WORD_SALVATION_TALENT} /> to better claim Renew healing, {' '}
+      Update Holy Word: Salvation to better claim Renew healing, {' '}
       Update <SpellLink spell={TALENTS_PRIEST.BENEVOLENCE_TALENT} /> to better claim Renew healing, {' '}
       Update <SpellLink spell={TALENTS_PRIEST.RESONANT_WORDS_TALENT} />, {' '}
       Update <SpellLink spell={TALENTS_PRIEST.DIVINE_WORD_TALENT} />, {' '}
-      Update <SpellLink spell={TALENTS_PRIEST.HEALING_CHORUS_TALENT} />, and{' '}
+      Update Healing Chorus, and{' '}
       Update <SpellLink spell={TALENTS_PRIEST.PRAYERFUL_LITANY_TALENT} />
     </>,
     Saeldur,
@@ -76,7 +76,7 @@ export default [
   change(
     date(2022, 11, 28),
     <>
-      Added support for <SpellLink spell={TALENTS_PRIEST.PONTIFEX_TALENT} />,{' '}
+      Added support for Pontifex,{' '}
       Rapid Recovery,{' '}
       Empowered Renew, and{' '}
       <SpellLink spell={TALENTS_PRIEST.MIRACLE_WORKER_TALENT} />.
@@ -94,7 +94,7 @@ export default [
     date(2022, 11, 10),
     <>
       Added support for
-      <SpellLink spell={TALENTS_PRIEST.SANCTIFIED_PRAYERS_TALENT} />,{' '}
+      Sanctified Prayers,{' '}
       <SpellLink spell={TALENTS_PRIEST.EVERLASTING_LIGHT_TALENT} />, and{' '}
       <SpellLink spell={TALENTS_PRIEST.BURNING_VEHEMENCE_TALENT} />.
     </>,
@@ -118,7 +118,7 @@ export default [
     date(2022, 10, 22),
     <>
       Updated 'Mana efficiency tab' and added support for{' '}
-      <SpellLink spell={TALENTS.REVITALIZING_PRAYERS_TALENT} />.
+      Revitalizing Prayers.
     </>,
     Litena,
   ),
@@ -126,9 +126,9 @@ export default [
   change(
     date(2022, 10, 12),
     <>
-      Cooldown view now shows <SpellLink spell={TALENTS.HOLY_WORD_SALVATION_TALENT} /> and{' '}
+      Cooldown view now shows Holy Word: Salvation and{' '}
       <SpellLink spell={TALENTS.APOTHEOSIS_TALENT} /> also added support for{' '}
-      <SpellLink spell={TALENTS.HEALING_CHORUS_TALENT} />.
+      Healing Chorus.
     </>,
     Litena,
   ),

@@ -22,15 +22,14 @@ import {
   TalentNode,
 } from './talent-tree-types';
 
-const LIVE_WOW_BUILD_NUMBER = '11.0.5.57534';
+const LIVE_WOW_BUILD_NUMBER = '11.1.0.59347';
 const LIVE_TALENT_DATA_URL = 'https://www.raidbots.com/static/data/live/talents.json';
 const LIVE_SPELLPOWER_DATA_URL = `https://wago.tools/db2/SpellPower/csv?build=${LIVE_WOW_BUILD_NUMBER}`;
-const PTR_WOW_BUILD_NUMBER = '11.1.0.59184';
+const PTR_WOW_BUILD_NUMBER = LIVE_WOW_BUILD_NUMBER;
 const PTR_TALENT_DATA_URL = `https://www.raidbots.com/static/data/${PTR_WOW_BUILD_NUMBER}/talents.json`;
 const PTR_SPELLPOWER_DATA_URL = `https://wago.tools/db2/SpellPower/csv?build=${PTR_WOW_BUILD_NUMBER}`;
 
 const classes: { [classId: number]: { name: string; baseMaxResource: number } } = {
-  //TODO Non Mana users verification
   1: { name: 'Warrior', baseMaxResource: 1000 },
   2: { name: 'Paladin', baseMaxResource: 2500000 },
   3: { name: 'Hunter', baseMaxResource: 100 },

@@ -1,6 +1,5 @@
 import PreciseShots from 'analysis/retail/hunter/marksmanship/modules/spells/PreciseShots';
 import CallingTheShots from 'analysis/retail/hunter/marksmanship/modules/talents/CallingTheShots';
-import SteadyFocus from 'analysis/retail/hunter/marksmanship/modules/talents/SteadyFocus';
 import { FocusDetails, FocusCapTracker, CancelledCasts } from 'analysis/retail/hunter/shared';
 import PreparationRuleAnalyzer from 'parser/retail/modules/features/Checklist/PreparationRuleAnalyzer';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
@@ -29,7 +28,6 @@ class Checklist extends BaseChecklist {
     //endregion
 
     //region Talents
-    steadyFocus: SteadyFocus,
     callingTheShots: CallingTheShots,
     //endregion
 
@@ -55,7 +53,6 @@ class Checklist extends BaseChecklist {
   //endregion
 
   //region Talents
-  protected steadyFocus!: SteadyFocus;
   protected callingTheShots!: CallingTheShots;
   //endregion
 
@@ -82,7 +79,6 @@ class Checklist extends BaseChecklist {
           //endregion
 
           //region Talents
-          steadyFocusThresholds: this.steadyFocus.uptimeThresholds,
           callingTheShotsThresholds: this.callingTheShots.callingTheShotsEfficacyThresholds,
           //endregion
 

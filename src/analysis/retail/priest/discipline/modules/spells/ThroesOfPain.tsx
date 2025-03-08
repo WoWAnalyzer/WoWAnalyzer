@@ -9,7 +9,7 @@ import AtonementAnalyzer, { AtonementAnalyzerEvent } from '../core/AtonementAnal
 import { calculateEffectiveDamage, calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import PurgeTheWicked from '../features/PurgeTheWicked';
+import PurgeTheWicked from '../features/EncroachingShadows';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 

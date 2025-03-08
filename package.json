@@ -132,7 +132,8 @@
     "e2e:setup": "node scripts/e2e/generate-configs-bootstrap.cjs",
     "e2e": "pnpm run e2e:setup && playwright test",
     "e2e:codegen": "playwright codegen http://localhost:3000",
-    "e2e:report": "playwright show-report"
+    "e2e:report": "playwright show-report",
+    "generate-talents": "npx tsx ./scripts/talents/generate-talents.ts && prettier -w src/common/TALENTS/*.ts"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx,cjs,mjs,json,md,mdx,yml,graphql,scss,css}": [

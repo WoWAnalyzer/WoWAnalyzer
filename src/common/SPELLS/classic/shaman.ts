@@ -395,10 +395,10 @@ const spells = {
   },
   MANA_TIDE_TOTEM: {
     id: 16190,
-    name: 'Mana Tide Totem',
+    name: 'Mana Tide',
     icon: 'spell_frost_summonwaterelemental.jpg',
   },
-  MANA_TIDE_TOTEM_BUFF: {
+  MANA_TIDE_BUFF: {
     id: 16191,
     name: 'Mana Tide',
     icon: 'spell_frost_summonwaterelemental.jpg',

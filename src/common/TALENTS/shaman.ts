@@ -42,14 +42,6 @@ const talents = {
     entryIds: [101927],
     definitionIds: [{ id: 106914, specId: 264 }],
   },
-  ANCESTRAL_GUIDANCE_TALENT: {
-    id: 108281,
-    name: 'Ancestral Guidance',
-    icon: 'ability_shaman_ancestralguidance',
-    maxRanks: 1,
-    entryIds: [128116],
-    definitionIds: [{ id: 132925, specId: 264 }],
-  },
   ANCESTRAL_PROTECTION_TOTEM_TALENT: {
     id: 207399,
     name: 'Ancestral Protection Totem',
@@ -79,7 +71,7 @@ const talents = {
     id: 207401,
     name: 'Ancestral Vigor',
     icon: 'spell_shaman_blessingoftheeternals',
-    maxRanks: 1,
+    maxRanks: 2,
     entryIds: [127673],
     definitionIds: [{ id: 132482, specId: 264 }],
   },
@@ -843,15 +835,6 @@ const talents = {
     definitionIds: [{ id: 106942, specId: 264 }],
     manaCost: 28000,
   },
-  HEALING_WAVE_TALENT: {
-    id: 77472,
-    name: 'Healing Wave',
-    icon: 'spell_nature_healingwavelesser',
-    maxRanks: 1,
-    entryIds: [101904],
-    definitionIds: [{ id: 106918, specId: 264 }],
-    manaCost: 75000,
-  },
   HEED_MY_CALL_TALENT: {
     id: 443444,
     name: 'Heed My Call',
@@ -944,7 +927,7 @@ const talents = {
   IMPROVED_MAELSTROM_WEAPON_TALENT: {
     id: 383303,
     name: 'Improved Maelstrom Weapon',
-    icon: 'spell_shaman_maelstromweapon',
+    icon: 'inv_magic_swirl_color3',
     maxRanks: 1,
     entryIds: [101822],
     definitionIds: [{ id: 106865, specId: 263 }],
@@ -968,7 +951,7 @@ const talents = {
   LASHING_FLAMES_TALENT: {
     id: 334046,
     name: 'Lashing Flames',
-    icon: 'spell_shaman_improvelavalash',
+    icon: 'spell_shaman_shockinglava',
     maxRanks: 1,
     entryIds: [101812],
     definitionIds: [{ id: 106896, specId: 263 }],
@@ -1069,6 +1052,14 @@ const talents = {
     entryIds: [117480],
     definitionIds: [{ id: 122492, specId: 264 }],
   },
+  MAELSTROM_WEAPON_TALENT: {
+    id: 187880,
+    name: 'Maelstrom Weapon',
+    icon: 'spell_shaman_maelstromweapon',
+    maxRanks: 1,
+    entryIds: [101804],
+    definitionIds: [{ id: 106862, specId: 263 }],
+  },
   MAGMA_CHAMBER_TALENT: {
     id: 381932,
     name: 'Magma Chamber',
@@ -1085,9 +1076,9 @@ const talents = {
     entryIds: [127860],
     definitionIds: [{ id: 132669, specId: 264 }],
   },
-  MANA_TIDE_TOTEM_TALENT: {
-    id: 16191,
-    name: 'Mana Tide Totem',
+  MANA_TIDE_TALENT: {
+    id: 1217525,
+    name: 'Mana Tide',
     icon: 'ability_shaman_manatidetotem',
     maxRanks: 1,
     entryIds: [101929],
@@ -1112,7 +1103,7 @@ const talents = {
   MOLTEN_ASSAULT_TALENT: {
     id: 334033,
     name: 'Molten Assault',
-    icon: 'spell_shaman_improvelavalash',
+    icon: 'spell_fire_ragnaros_lavabolt',
     maxRanks: 1,
     entryIds: [101806],
     definitionIds: [{ id: 106863, specId: 263 }],
@@ -1184,7 +1175,7 @@ const talents = {
   OVERFLOWING_MAELSTROM_TALENT: {
     id: 384149,
     name: 'Overflowing Maelstrom',
-    icon: 'spell_shaman_maelstromweapon',
+    icon: 'spell_nature_elementalabsorption',
     maxRanks: 1,
     entryIds: [101801],
     definitionIds: [{ id: 106880, specId: 263 }],
@@ -1256,14 +1247,6 @@ const talents = {
     entryIds: [127914],
     definitionIds: [{ id: 132723, specId: 262 }],
   },
-  PRIMAL_MAELSTROM_TALENT: {
-    id: 384405,
-    name: 'Primal Maelstrom',
-    icon: 'shaman_talent_unleashedfury',
-    maxRanks: 2,
-    entryIds: [101829],
-    definitionIds: [{ id: 106884, specId: 263 }],
-  },
   PRIMAL_TIDE_CORE_TALENT: {
     id: 382045,
     name: 'Primal Tide Core',
@@ -1296,15 +1279,15 @@ const talents = {
     entryIds: [127920],
     definitionIds: [{ id: 132729, specId: 262 }],
   },
-  PRIMORDIAL_WAVE_RESTORATION_TALENT: {
-    id: 428332,
-    name: 'Primordial Wave',
-    icon: 'ability_maldraxxus_shaman',
+  PRIMORDIAL_STORM_TALENT: {
+    id: 1218047,
+    name: 'Primordial Storm',
+    icon: 'ability_shaman_ascendance',
     maxRanks: 1,
-    entryIds: [101917],
-    definitionIds: [{ id: 106905, specId: 264 }],
+    entryIds: [101828],
+    definitionIds: [{ id: 106883, specId: 263 }],
   },
-  PRIMORDIAL_WAVE_SPEC_TALENT: {
+  PRIMORDIAL_WAVE_TALENT: {
     id: 375982,
     name: 'Primordial Wave',
     icon: 'inv_ability_shaman_primordialwave',
@@ -1345,8 +1328,8 @@ const talents = {
     name: 'Reactive Warding',
     icon: 'inv_10_elementalcombinedfoozles_water',
     maxRanks: 1,
-    entryIds: [127681],
-    definitionIds: [{ id: 132490, specId: 264 }],
+    entryIds: [128702],
+    definitionIds: [{ id: 133504, specId: 264 }],
   },
   REACTIVITY_TALENT: {
     id: 445035,
@@ -1443,8 +1426,8 @@ const talents = {
     name: "Spiritwalker's Tidal Totem",
     icon: 'spell_nature_regeneration_02',
     maxRanks: 1,
-    entryIds: [114817],
-    definitionIds: [{ id: 119824, specId: 264 }],
+    entryIds: [128704],
+    definitionIds: [{ id: 133506, specId: 264 }],
   },
   SPIRIT_LINK_TOTEM_TALENT: {
     id: 98008,
@@ -1476,10 +1459,10 @@ const talents = {
     name: 'Splintered Elements',
     icon: 'spell_nature_elementalprecision_1',
     maxRanks: 1,
-    entryIds: [101844, 101828],
+    entryIds: [101844, 101829],
     definitionIds: [
       { id: 106856, specId: 262 },
-      { id: 106883, specId: 263 },
+      { id: 106884, specId: 263 },
     ],
   },
   SPOUTING_SPIRITS_TALENT: {
@@ -1546,14 +1529,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [101859],
     definitionIds: [{ id: 106819, specId: 262 }],
-  },
-  STORMSTRIKE_TALENT: {
-    id: 17364,
-    name: 'Stormstrike',
-    icon: 'ability_shaman_stormstrike',
-    maxRanks: 1,
-    entryIds: [101804],
-    definitionIds: [{ id: 106862, specId: 263 }],
   },
   STORMS_WRATH_TALENT: {
     id: 392352,
@@ -1676,6 +1651,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [117489],
     definitionIds: [{ id: 122501, specId: 263 }],
+  },
+  THERAZANES_RESILIENCE_TALENT: {
+    id: 1217622,
+    name: "Therazane's Resilience",
+    icon: 'shaman_pvp_rockshield',
+    maxRanks: 1,
+    entryIds: [127681],
+    definitionIds: [{ id: 132490, specId: 264 }],
   },
   THORIMS_INVOCATION_TALENT: {
     id: 384444,
@@ -1925,6 +1908,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [117476],
     definitionIds: [{ id: 122488, specId: 264 }],
+  },
+  WHISPERING_WAVES_TALENT: {
+    id: 1217598,
+    name: 'Whispering Waves',
+    icon: 'shaman_pvp_ripplingwaters',
+    maxRanks: 1,
+    entryIds: [128703],
+    definitionIds: [{ id: 133505, specId: 264 }],
   },
   WHITE_WATER_TALENT: {
     id: 462587,

@@ -47,6 +47,8 @@ import {
   DREAM_BREATH_FROM_STASIS,
   STASIS_FILLING,
   ENGULF_CONSUME_FLAME,
+  VERDANT_EMBRACE_INSURANCE,
+  INSURANCE_APPLICATION,
 } from './constants';
 
 /** Returns true iff the given buff application or heal can be matched back to a hardcast */
@@ -284,4 +286,11 @@ export function getConsumeFromEngulf(event: CastEvent) {
 
 export function getLifebindTargets(event: ApplyBuffEvent) {
   return GetRelatedEvents<HealEvent>(event, LIFEBIND_APPLY);
+}
+
+export function isInsuranceFromVe(event: HealEvent) {
+  const insuranceApplication = GetRelatedEvent(event, INSURANCE_APPLICATION);
+  if (insuranceApplication) {
+    return HasRelatedEvent(insuranceApplication, VERDANT_EMBRACE_INSURANCE);
+  }
 }

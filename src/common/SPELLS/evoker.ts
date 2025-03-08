@@ -315,6 +315,16 @@ const spells = {
     name: 'Stasis',
     icon: 'ability_evoker_stasis',
   },
+  INSURANCE_HOT_EVOKER: {
+    id: 1215550,
+    name: 'Insurance',
+    icon: 'inv_10_inscription2_scroll2_color5',
+  },
+  INSURANCE_PROC_EVOKER: {
+    id: 1215553,
+    name: 'Insurance',
+    icon: 'inv_10_inscription2_scroll2_color5',
+  },
   GIANT_SLAYER_MASTERY: {
     id: 362980,
     name: 'Mastery: Giantkiller',
@@ -738,6 +748,11 @@ const spells = {
     id: 375258,
     name: 'Time Spiral',
     icon: 'ability_evoker_timespiral',
+  },
+  JACKPOT_BUFF: {
+    id: 1217769,
+    name: 'Jackpot!',
+    icon: 'inv_10_fishing_dragonislescoins_gold',
   },
   // endregion
 } satisfies Record<string, Spell>;

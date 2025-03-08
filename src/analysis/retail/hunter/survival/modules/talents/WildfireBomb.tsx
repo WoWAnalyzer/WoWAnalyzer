@@ -1,6 +1,5 @@
 import { defineMessage } from '@lingui/macro';
 import {
-  JUGGLER_CDR,
   WILDFIRE_BOMB_LEEWAY_BUFFER,
   COVERING_FIRE_CDR,
 } from 'analysis/retail/hunter/survival/constants';
@@ -119,15 +118,6 @@ class WildfireBomb extends Analyzer {
         WILDFIRE_BOMB_LEEWAY_BUFFER + this.currentGCD
     ) {
       castAtCap = true;
-    }
-
-    // Pack Leader - Covering Fire Talent Cooldown Reduction for Butchery
-    if (this.selectedCombatant.hasTalent(TALENTS.COVERING_FIRE_TALENT)) {
-      if (this.spellUsable.isOnCooldown(TALENTS.BUTCHERY_TALENT.id)) {
-        this.checkCooldown(TALENTS.BUTCHERY_TALENT.id);
-      } else {
-        this.wastedReductionMs += JUGGLER_CDR;
-      }
     }
 
     // Good or Bad Cast Checking Tip, CA is almost up, or capped are good casts of bomb.

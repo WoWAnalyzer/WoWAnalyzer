@@ -12,6 +12,7 @@ import {
   RefreshDebuffEvent,
 } from 'parser/core/Events';
 import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
+import { TIERS } from 'game/TIERS';
 
 const BURNOUT_CONSUME = 'BurnoutConsumption';
 const SNAPFIRE_CONSUME = 'SnapfireConsumption';
@@ -26,6 +27,7 @@ export const DISINTEGRATE_DEBUFF_TICK_LINK = 'DisintegrateDebuffTickLink';
 export const MASS_DISINTEGRATE_CONSUME = 'MassDisintegrateConsume';
 export const MASS_DISINTEGRATE_TICK = 'MassDisintegrateTick';
 export const MASS_DISINTEGRATE_DEBUFF = 'MassDisintegrateDebuff';
+export const JACKPOT_CONSUME = 'JackpotConsume';
 
 export const PYRE_MIN_TRAVEL_TIME = 950;
 export const PYRE_MAX_TRAVEL_TIME = 1_050;
@@ -223,6 +225,24 @@ const EVENT_LINKS: EventLink[] = [
     additionalCondition(linkingEvent, referencedEvent) {
       return encodeEventTargetString(linkingEvent) !== encodeEventTargetString(referencedEvent);
     },
+  },
+  {
+    linkRelation: JACKPOT_CONSUME,
+    reverseLinkRelation: JACKPOT_CONSUME,
+    linkingEventId: [
+      SPELLS.FIRE_BREATH.id,
+      SPELLS.FIRE_BREATH_FONT.id,
+      SPELLS.ETERNITY_SURGE.id,
+      SPELLS.ETERNITY_SURGE_FONT.id,
+    ],
+    linkingEventType: EventType.EmpowerEnd,
+    referencedEventId: SPELLS.JACKPOT_BUFF.id,
+    referencedEventType: EventType.RemoveBuff,
+    anyTarget: true,
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    isActive: (C) => C.has4PieceByTier(TIERS.TWW2),
+    maximumLinks: 1,
   },
 ];
 

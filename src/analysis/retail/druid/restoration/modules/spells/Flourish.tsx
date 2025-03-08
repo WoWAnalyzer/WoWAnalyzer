@@ -26,9 +26,10 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { isConvoking } from 'analysis/retail/druid/shared/spells/ConvokeSpirits';
+import { effectiveHealing } from 'parser/shared/modules/HealingValue';
 
-const HARDCAST_FLOURISH_EXTENSION = 8000;
-const CONVOKE_FLOURISH_EXTENSION = 4000;
+const HARDCAST_FLOURISH_EXTENSION = 6000;
+const CONVOKE_FLOURISH_EXTENSION = 3000;
 const FLOURISH_HEALING_INCREASE = 0.25;
 
 /**
@@ -36,7 +37,8 @@ const FLOURISH_HEALING_INCREASE = 0.25;
  * Spec Talent Tier 8
  *
  * Extends the duration of all of your heal over time effects on friendly targets within 60 yards by 6 sec,
- * and increases the rate of your heal over time effects by 25% for 6 sec.
+ * and increases the rate of your heal over time effects by 25% for 8 sec.
+ * Affected allies are healed for X, split evenly among them.
  *
  * (Flourishes that proc from Convoke the Spirits are half duration)
  */
@@ -51,6 +53,7 @@ class Flourish extends Analyzer {
   abilityTracker!: AbilityTracker;
   convokeSpirits!: ConvokeSpiritsResto;
 
+  directHealing: number = 0;
   extensionAttributions: Attribution[] = [];
   rateAttributions: MutableAmount[] = [];
   rampTrackers: FlourishTracker[] = [];
@@ -78,6 +81,10 @@ class Flourish extends Analyzer {
       Events.refreshbuff.by(SELECTED_PLAYER).spell(TALENTS_DRUID.FLOURISH_TALENT),
       this.onFlourishApplyBuff,
     );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.FLOURISH_HEAL),
+      this.onFlourishHeal,
+    );
   }
 
   get totalExtensionHealing() {
@@ -89,7 +96,7 @@ class Flourish extends Analyzer {
   }
 
   get totalHealing() {
-    return this.totalExtensionHealing + this.totalRateHealing;
+    return this.totalExtensionHealing + this.totalRateHealing + this.directHealing;
   }
 
   get casts() {
@@ -107,6 +114,10 @@ class Flourish extends Analyzer {
         FLOURISH_HEALING_INCREASE,
       );
     }
+  }
+
+  onFlourishHeal(event: HealEvent) {
+    this.directHealing += effectiveHealing(event);
   }
 
   onFlourishApplyBuff(event: ApplyBuffEvent | RefreshBuffEvent) {
@@ -273,10 +284,10 @@ class Flourish extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            This is the sum of the healing enabled by the HoT extension and the HoT rate increase.
-            Due to limitations in the way we do healing attribution, there may be some
-            double-counting between the Extension and Increased Rate values, meaning the true amount
-            attributable will be somewhat lower than listed.
+            This is the sum of the healing enabled by the HoT extension, the HoT rate increase, and
+            the direct heal. Due to limitations in the way we do healing attribution, there may be
+            some double-counting between the Extension and Increased Rate values, meaning the true
+            amount attributable will be somewhat lower than listed.
             {this.selectedCombatant.hasTalent(TALENTS_DRUID.CENARIUS_GUIDANCE_TALENT) && (
               <>
                 <br />
@@ -292,6 +303,9 @@ class Flourish extends Analyzer {
               <li>
                 Increased Rate:{' '}
                 <strong>{this.owner.formatItemHealingDone(this.totalRateHealing)}</strong>
+              </li>
+              <li>
+                Direct Heal: <strong>{this.owner.formatItemHealingDone(this.directHealing)}</strong>
               </li>
               <li>
                 Wild Growths Casts Extended:{' '}

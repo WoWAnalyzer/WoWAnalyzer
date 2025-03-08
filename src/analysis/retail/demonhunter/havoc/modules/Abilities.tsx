@@ -123,28 +123,17 @@ class Abilities extends SharedAbilities {
 
       // Movement
       {
-        spell: SPELLS.FEL_RUSH_CAST.id, //Becomes a rotational ability with the Momentum talent
-        category: combatant.hasTalent(TALENTS.MOMENTUM_TALENT)
-          ? SPELL_CATEGORY.ROTATIONAL
-          : SPELL_CATEGORY.UTILITY,
+        spell: SPELLS.FEL_RUSH_CAST.id,
+        category: SPELL_CATEGORY.UTILITY,
         charges: 1 + (combatant.hasTalent(TALENTS.BLAZING_PATH_TALENT) ? 1 : 0),
         cooldown: getFelRushCooldown(combatant),
         gcd: {
           static: 500,
         },
-        castEfficiency: {
-          suggestion: combatant.hasTalent(TALENTS.MOMENTUM_TALENT),
-          recommendedEfficiency: 0.95,
-          extraSuggestion: (
-            <>
-              Use it to keep your <SpellLink spell={TALENTS.MOMENTUM_TALENT} /> buff going.
-            </>
-          ),
-        },
       },
       {
         spell: TALENTS.VENGEFUL_RETREAT_TALENT.id, // Becomes a rotational ability with the Momentum talent
-        category: combatant.hasTalent(TALENTS.MOMENTUM_TALENT)
+        category: combatant.hasTalent(TALENTS.EXERGY_TALENT)
           ? SPELL_CATEGORY.ROTATIONAL
           : SPELL_CATEGORY.UTILITY,
         cooldown: combatant.hasTalent(TALENTS.TACTICAL_RETREAT_TALENT) ? 20 : 25,

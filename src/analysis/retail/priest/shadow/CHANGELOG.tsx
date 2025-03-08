@@ -2,9 +2,14 @@ import { change, date } from 'common/changelog';
 //import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import { DoxAshe } from 'CONTRIBUTORS';
+import { Jordan } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2025, 3, 7),  <>Fix <SpellLink spell={TALENTS.POWER_INFUSION_TALENT}/> without TWW season 2 four piece </>,DoxAshe),
+  change(date(2025, 3, 5), <>Fix typo in <SpellLink spell={TALENTS.VOID_TORRENT_TALENT}/> section of Short Cooldowns</>,Jordan),
+  change(date(2025, 3, 3),  <>Fix <SpellLink spell={TALENTS.POWER_INFUSION_TALENT}/> with TWW season 2 four piece </>,DoxAshe),
+  change(date(2025, 3, 2),  <>Update shadow for 11.1 changes and add support for TWW season 2 tier set </>,DoxAshe),
   change(date(2025, 1, 27),  <>Add support and statistics for Shadow's Voidweaver Hero Talent Tree  </>,DoxAshe),
   change(date(2024, 12, 6),  <>Fix cast efficiency for <SpellLink spell={TALENTS.POWER_INFUSION_TALENT}/> with <SpellLink spell={TALENTS.TWINS_OF_THE_SUN_PRIESTESS_TALENT}/> talented</>,DoxAshe),
   change(date(2024, 11, 13),  <>Add support for spells added by Shadow's Voidweaver Hero Talent Tree </>,DoxAshe),

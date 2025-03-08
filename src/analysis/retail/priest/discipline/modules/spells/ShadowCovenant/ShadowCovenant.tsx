@@ -50,7 +50,7 @@ class ShadowCovenant extends Analyzer {
       this.onHeal,
     );
 
-    this.hasPtw = this.selectedCombatant.hasTalent(TALENTS_PRIEST.PURGE_THE_WICKED_TALENT);
+    this.hasPtw = false;
   }
 
   calculateBonus() {

@@ -349,7 +349,7 @@ const talents = {
   COMMUNION_WITH_WIND_TALENT: {
     id: 451576,
     name: 'Communion With Wind',
-    icon: 'ability_skyreach_wind_wall',
+    icon: 'ability_skyreach_four_wind',
     maxRanks: 1,
     entryIds: [124812],
     definitionIds: [{ id: 129650, specId: 269 }],
@@ -453,14 +453,6 @@ const talents = {
     entryIds: [124893],
     definitionIds: [{ id: 129731, specId: 270 }],
   },
-  DARTING_HURRICANE_TALENT: {
-    id: 459839,
-    name: 'Darting Hurricane',
-    icon: 'ability_skyreach_four_wind',
-    maxRanks: 1,
-    entryIds: [126307],
-    definitionIds: [{ id: 131133, specId: 269 }],
-  },
   DEEP_CLARITY_TALENT: {
     id: 446345,
     name: 'Deep Clarity',
@@ -553,6 +545,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [124934],
     definitionIds: [{ id: 129772, specId: 270 }],
+  },
+  EMPERORS_FAVOR_TALENT: {
+    id: 471761,
+    name: "Emperor's Favor",
+    icon: 'inv_leather_raidmonkt2_d_01_helm',
+    maxRanks: 1,
+    entryIds: [128344],
+    definitionIds: [{ id: 133150, specId: 270 }],
   },
   ENDLESS_DRAUGHT_TALENT: {
     id: 450892,
@@ -1075,8 +1075,8 @@ const talents = {
     name: "Last Emperor's Capacitor",
     icon: 'ability_warrior_unrelentingassault',
     maxRanks: 1,
-    entryIds: [124832],
-    definitionIds: [{ id: 129670, specId: 269 }],
+    entryIds: [128712],
+    definitionIds: [{ id: 133514, specId: 269 }],
   },
   LEAD_FROM_THE_FRONT_TALENT: {
     id: 450985,
@@ -1366,8 +1366,8 @@ const talents = {
     name: 'Power of the Thunder King',
     icon: 'ability_thunderking_thunderstruck',
     maxRanks: 1,
-    entryIds: [126309],
-    definitionIds: [{ id: 131135, specId: 269 }],
+    entryIds: [128711],
+    definitionIds: [{ id: 133513, specId: 269 }],
   },
   PREDICTIVE_TRAINING_TALENT: {
     id: 450992,
@@ -1696,6 +1696,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [124814],
     definitionIds: [{ id: 129652, specId: 269 }],
+  },
+  SLICING_WINDS_TALENT: {
+    id: 1217413,
+    name: 'Slicing Winds',
+    icon: 'ability_skyreach_wind_wall',
+    maxRanks: 1,
+    entryIds: [126307],
+    definitionIds: [{ id: 131133, specId: 269 }],
   },
   SONG_OF_CHI_JI_TALENT: {
     id: 198898,

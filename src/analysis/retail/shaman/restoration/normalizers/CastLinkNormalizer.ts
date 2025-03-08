@@ -13,14 +13,12 @@ import {
 import { Options } from 'parser/core/Module';
 import talents from 'common/TALENTS/shaman';
 import {
-  APPLIED_HEAL,
   PRIMAL_TIDE_CORE,
   HARDCAST,
   RIPTIDE_PWAVE,
   HEALING_WAVE_PWAVE,
   PWAVE_REMOVAL,
   CAST_BUFFER_MS,
-  PWAVE_TRAVEL_MS,
   HEALING_RAIN_DURATION,
   HEALING_RAIN,
   OVERFLOWING_SHORES,
@@ -41,7 +39,7 @@ import TALENTS from 'common/TALENTS/shaman';
 
 /*
   This file is for attributing the various sources of spell applications to their respective abilities and talents.
-  It is needed because there are certain abilities that can have multiple sources based on talents, 
+  It is needed because there are certain abilities that can have multiple sources based on talents,
   i.e. riptide -> primorial wave & primal tide core
 */
 const EVENT_LINKS: EventLink[] = [
@@ -57,22 +55,6 @@ const EVENT_LINKS: EventLink[] = [
     isActive(c) {
       //extremely unlikely but you never know
       return c.hasTalent(talents.RIPTIDE_TALENT);
-    },
-  },
-  {
-    linkRelation: RIPTIDE_PWAVE,
-    reverseLinkRelation: APPLIED_HEAL,
-    linkingEventId: [talents.RIPTIDE_TALENT.id],
-    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff, EventType.Heal],
-    referencedEventId: [talents.PRIMORDIAL_WAVE_RESTORATION_TALENT.id],
-    referencedEventType: [EventType.Cast],
-    forwardBufferMs: PWAVE_TRAVEL_MS,
-    backwardBufferMs: PWAVE_TRAVEL_MS,
-    additionalCondition(referencedEvent) {
-      return (referencedEvent as CastEvent).targetIsFriendly;
-    },
-    isActive(c) {
-      return c.hasTalent(talents.PRIMORDIAL_WAVE_RESTORATION_TALENT);
     },
   },
   {
@@ -103,46 +85,15 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: HARDCAST,
     reverseLinkRelation: HARDCAST,
-    linkingEventId: [talents.HEALING_WAVE_TALENT.id],
+    linkingEventId: [SPELLS.HEALING_WAVE.id],
     linkingEventType: [EventType.Heal],
-    referencedEventId: [talents.HEALING_WAVE_TALENT.id],
+    referencedEventId: [SPELLS.HEALING_WAVE.id],
     referencedEventType: [EventType.Cast],
     maximumLinks: 1,
     backwardBufferMs: CAST_BUFFER_MS,
     forwardBufferMs: CAST_BUFFER_MS,
   },
-  {
-    linkRelation: HEALING_WAVE_PWAVE,
-    linkingEventId: [talents.HEALING_WAVE_TALENT.id],
-    linkingEventType: [EventType.Heal],
-    referencedEventId: [talents.HEALING_WAVE_TALENT.id],
-    referencedEventType: [EventType.Cast],
-    anyTarget: true,
-    backwardBufferMs: PWAVE_TRAVEL_MS,
-    forwardBufferMs: PWAVE_TRAVEL_MS,
-    additionalCondition(linkingEvent, referencedEvent) {
-      return (
-        !HasRelatedEvent(linkingEvent, HARDCAST) &&
-        (linkingEvent as HealEvent).sourceID === (referencedEvent as CastEvent).sourceID
-      );
-    },
-    isActive(c) {
-      return c.hasTalent(talents.PRIMORDIAL_WAVE_RESTORATION_TALENT);
-    },
-  },
-  {
-    linkRelation: PWAVE_REMOVAL,
-    linkingEventId: [SPELLS.PRIMORDIAL_WAVE_BUFF.id],
-    linkingEventType: [EventType.RemoveBuff],
-    referencedEventId: [talents.HEALING_WAVE_TALENT.id],
-    referencedEventType: [EventType.Cast],
-    backwardBufferMs: CAST_BUFFER_MS,
-    forwardBufferMs: CAST_BUFFER_MS,
-    anyTarget: true,
-    isActive(c) {
-      return c.hasTalent(talents.PRIMORDIAL_WAVE_RESTORATION_TALENT);
-    },
-  },
+
   //healing rain linking
   {
     linkRelation: HEALING_RAIN,
@@ -285,7 +236,7 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventId: [SPELLS.WHIRLING_AIR.id],
     linkingEventType: [EventType.RemoveBuff],
     referencedEventId: [
-      talents.HEALING_WAVE_TALENT.id,
+      SPELLS.HEALING_WAVE.id,
       SPELLS.HEALING_SURGE.id,
       talents.CHAIN_HEAL_TALENT.id,
       talents.WELLSPRING_TALENT.id,
@@ -319,7 +270,7 @@ const EVENT_LINKS: EventLink[] = [
     reverseLinkRelation: WHIRLINGWATER_HEAL,
     linkingEventId: [SPELLS.WHIRLING_WATER.id],
     linkingEventType: [EventType.RemoveBuff],
-    referencedEventId: [talents.HEALING_WAVE_TALENT.id, SPELLS.HEALING_SURGE.id],
+    referencedEventId: [SPELLS.HEALING_WAVE.id, SPELLS.HEALING_SURGE.id],
     referencedEventType: [EventType.Cast],
     backwardBufferMs: CAST_BUFFER_MS,
     forwardBufferMs: CAST_BUFFER_MS,
@@ -339,7 +290,6 @@ const EVENT_LINKS: EventLink[] = [
       talents.HEALING_STREAM_TOTEM_SHARED_TALENT.id,
       talents.HEALING_STREAM_TOTEM_RESTORATION_TALENT.id,
       talents.CLOUDBURST_TOTEM_TALENT.id,
-      talents.MANA_TIDE_TOTEM_TALENT.id,
       talents.SPIRIT_LINK_TOTEM_TALENT.id,
     ],
     referencedEventType: [EventType.Cast, EventType.Heal],

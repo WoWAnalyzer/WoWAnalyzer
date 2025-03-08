@@ -33,7 +33,6 @@ import {
   getHealingRainEvents,
   getHealingRainHealEventsForTick,
   getOverflowingShoresEvents,
-  isHealingWaveFromPrimordialWave,
   getDownPourEvents,
 } from '../../normalizers/CastLinkNormalizer';
 import {
@@ -97,7 +96,7 @@ class UnleashLife extends Analyzer {
       amount: 0,
       casts: 0,
     },
-    [TALENTS.HEALING_WAVE_TALENT.id]: {
+    [SPELLS.HEALING_WAVE.id]: {
       amount: 0,
       casts: 0,
     },
@@ -123,8 +122,6 @@ class UnleashLife extends Analyzer {
 
   //healing wave
   healingWaveHealing: number = 0;
-  pwaveActive: boolean;
-  pwaveHealingWaveHealing: number = 0;
 
   //chain heal
   chainHealHealing: number = 0;
@@ -158,14 +155,14 @@ class UnleashLife extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.UNLEASH_LIFE_TALENT);
-    this.pwaveActive = this.selectedCombatant.hasTalent(TALENTS.PRIMORDIAL_WAVE_RESTORATION_TALENT);
+
     this.overflowingShoresActive = this.selectedCombatant.hasTalent(
       TALENTS.OVERFLOWING_SHORES_TALENT,
     );
     this.downpourActive = this.selectedCombatant.hasTalent(TALENTS.DOWNPOUR_TALENT);
     const spellFilter = [
       TALENTS.CHAIN_HEAL_TALENT,
-      TALENTS.HEALING_WAVE_TALENT,
+      SPELLS.HEALING_WAVE,
       SPELLS.HEALING_SURGE,
       TALENTS.WELLSPRING_TALENT,
       TALENTS.HEALING_RAIN_TALENT,
@@ -197,9 +194,7 @@ class UnleashLife extends Analyzer {
       this._onRemoveUL,
     );
     this.goodSpells.push(TALENTS.HEALING_RAIN_TALENT.id);
-    if (this.pwaveActive) {
-      this.goodSpells.push(TALENTS.HEALING_WAVE_TALENT.id);
-    }
+
     if (this.selectedCombatant.hasTalent(TALENTS.HIGH_TIDE_TALENT)) {
       this.goodSpells.push(TALENTS.CHAIN_HEAL_TALENT.id);
     } else {
@@ -243,7 +238,7 @@ class UnleashLife extends Analyzer {
           event,
         );
       switch (spellId) {
-        case TALENTS.HEALING_WAVE_TALENT.id:
+        case SPELLS.HEALING_WAVE.id:
           this._onHealingWave(event);
           break;
         case TALENTS.HEALING_RAIN_TALENT.id:
@@ -359,21 +354,6 @@ class UnleashLife extends Analyzer {
     const spellId = event.ability.guid;
     const ulHealingWaves = getUnleashLifeHealingWaves(event);
     if (ulHealingWaves.length > 0) {
-      //if used in combo with pwave, tally healing separately
-      if (this.pwaveActive) {
-        const pwHealingWaves = ulHealingWaves.filter((event) =>
-          isHealingWaveFromPrimordialWave(event),
-        );
-        this.pwaveHealingWaveHealing += this._tallyHealingIncrease(
-          pwHealingWaves,
-          UNLEASH_LIFE_HEALING_INCREASE,
-        );
-        this.healingWaveHealing += this._tallyHealingIncrease(
-          ulHealingWaves.filter((event) => !isHealingWaveFromPrimordialWave(event)),
-          UNLEASH_LIFE_HEALING_INCREASE,
-        );
-      }
-      //tally subtotal regardless
       this.healingMap[spellId].amount += this._tallyHealingIncrease(
         ulHealingWaves,
         UNLEASH_LIFE_HEALING_INCREASE,
@@ -545,20 +525,13 @@ class UnleashLife extends Analyzer {
       {
         color: RESTORATION_COLORS.HEALING_WAVE,
         label: <Trans id="shaman.restoration.spell.healingWave">Healing Wave</Trans>,
-        spellId: TALENTS.HEALING_WAVE_TALENT.id,
-        value: this.healingMap[TALENTS.HEALING_WAVE_TALENT.id].amount,
-        valueTooltip: this._tooltip(
-          {
-            spellId: TALENTS.HEALING_WAVE_TALENT.id,
-            amount: this.healingWaveHealing,
-            active: true,
-          },
-          {
-            spellId: TALENTS.PRIMORDIAL_WAVE_RESTORATION_TALENT.id,
-            amount: this.pwaveHealingWaveHealing,
-            active: this.pwaveActive,
-          },
-        ),
+        spellId: SPELLS.HEALING_WAVE.id,
+        value: this.healingMap[SPELLS.HEALING_WAVE.id].amount,
+        valueTooltip: this._tooltip({
+          spellId: SPELLS.HEALING_WAVE.id,
+          amount: this.healingWaveHealing,
+          active: true,
+        }),
       },
       {
         color: RESTORATION_COLORS.HEALING_RAIN,
@@ -652,9 +625,7 @@ class UnleashLife extends Analyzer {
         from the potent buff it provides that can be consumed by a number of different abilities.
         This spell is best used in preparation for incoming damage to combo with one of your
         stronger abilities like a <SpellLink spell={TALENTS.HIGH_TIDE_TALENT} />
-        -buffed <SpellLink spell={TALENTS.CHAIN_HEAL_TALENT} />, a{' '}
-        <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_RESTORATION_TALENT} />
-        -buffed <SpellLink spell={TALENTS.HEALING_WAVE_TALENT} />, or{' '}
+        -buffed <SpellLink spell={TALENTS.CHAIN_HEAL_TALENT} />, or{' '}
         <SpellLink spell={TALENTS.HEALING_RAIN_TALENT} />
       </p>
     );

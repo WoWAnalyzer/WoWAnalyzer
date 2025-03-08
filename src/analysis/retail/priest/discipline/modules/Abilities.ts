@@ -176,15 +176,6 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SHADOW_WORD_PAIN.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: !combatant.hasTalent(TALENTS.PURGE_THE_WICKED_TALENT),
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.PURGE_THE_WICKED_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS.PURGE_THE_WICKED_TALENT),
         gcd: {
           base: 1500,
         },

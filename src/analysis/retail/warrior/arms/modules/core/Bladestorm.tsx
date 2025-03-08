@@ -117,7 +117,7 @@ class Bladestorm extends Analyzer {
       suggest(
         <>
           It is worth delaying your <SpellLink spell={SPELLS.BLADESTORM} /> for up to 5 seconds to
-          align with cooldowns such as <SpellLink spell={TALENTS.AVATAR_SHARED_TALENT} /> and{' '}
+          align with cooldowns such as <SpellLink spell={TALENTS.AVATAR_TALENT} /> and{' '}
           <SpellLink spell={SPELLS.COLOSSUS_SMASH} />, but it otherwise should be used as often as
           possible.
         </>,

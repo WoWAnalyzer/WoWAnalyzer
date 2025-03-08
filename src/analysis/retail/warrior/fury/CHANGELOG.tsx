@@ -2,6 +2,7 @@ import { Nevdok, nullDozzer } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2025, 3, 1), 'Update config to reflect 11.1 support', Nevdok),
   change(date(2025, 2, 25), 'Update rotation recommendations for 11.1', Nevdok),
   change(date(2025, 1, 7), 'Add inefficient cast alerts to timeline', Nevdok),
   change(date(2024, 12, 17), 'Update years-old Fury theorycrafting and APL logic', Nevdok),

@@ -49,7 +49,7 @@ class CrystallineReflection extends Analyzer {
     const aegisDetails = {
       color: '#fcba03',
       label: 'Aegis of Wrath',
-      spellId: TALENTS_PRIEST.AEGIS_OF_WRATH_TALENT.id,
+      spellId: TALENTS_PRIEST.ETERNAL_BARRIER_TALENT.id,
       value: this.powerWordShield.aegisOfWrathValue * this.crIncrease,
       valueTooltip: `${formatThousands(
         ((this.powerWordShield.aegisOfWrathValue * this.crIncrease) / this.owner.fightDuration) *
@@ -73,7 +73,7 @@ class CrystallineReflection extends Analyzer {
       items.push(wealDetails);
     }
 
-    if (this.selectedCombatant.hasTalent(TALENTS_PRIEST.AEGIS_OF_WRATH_TALENT)) {
+    if (this.selectedCombatant.hasTalent(TALENTS_PRIEST.ETERNAL_BARRIER_TALENT)) {
       items.push(aegisDetails);
     }
 

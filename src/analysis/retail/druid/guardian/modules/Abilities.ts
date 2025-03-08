@@ -97,10 +97,7 @@ class Abilities extends CoreAbilities {
         cooldown: (haste) =>
           inBerserk(combatant) && combatant.hasTalent(TALENTS_DRUID.BERSERK_PERSISTENCE_TALENT)
             ? 0
-            : hasted(
-                36 * (1 - 0.2 * combatant.getTalentRank(TALENTS_DRUID.REINVIGORATION_TALENT)),
-                haste,
-              ), // TODO TWW change this to 0.10 per rank in 11.0.2
+            : hasted(36, haste),
         gcd: normalGcd,
         charges: 1 + combatant.getTalentRank(TALENTS_DRUID.INNATE_RESOLVE_TALENT),
         isDefensive: true,

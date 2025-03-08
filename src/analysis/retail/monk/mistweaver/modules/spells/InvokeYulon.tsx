@@ -49,7 +49,7 @@ class InvokeYulon extends BaseCelestialAnalyzer {
       this.handleSoothingBreath,
     );
     this.addEventListener(
-      Events.absorbed.by(SELECTED_PLAYER).spell(SPELLS.CHI_COCOON_HEAL_YULON),
+      Events.absorbed.by(SELECTED_PLAYER).spell(SPELLS.CHI_COCOON_BUFF_YULON),
       this.handleChiCocoon,
     );
     this.addEventListener(
@@ -200,7 +200,7 @@ class InvokeYulon extends BaseCelestialAnalyzer {
               </li>
               <li>
                 {formatNumber(this.chiCocoonHealing)}{' '}
-                <SpellLink spell={SPELLS.CHI_COCOON_HEAL_YULON} /> healing from{' '}
+                <SpellLink spell={SPELLS.CHI_COCOON_BUFF_YULON} /> healing from{' '}
                 <SpellLink spell={TALENTS_MONK.CELESTIAL_HARMONY_TALENT} />.
               </li>
               <li>

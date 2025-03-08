@@ -77,17 +77,6 @@ const MarksmanshipChecklist = (props: ChecklistProps) => {
             thresholds={thresholds.callingTheShotsThresholds}
           />
         )}
-
-        {combatant.hasTalent(TALENTS_HUNTER.STEADY_FOCUS_TALENT) && (
-          <Requirement
-            name={
-              <>
-                <SpellLink spell={TALENTS_HUNTER.STEADY_FOCUS_TALENT} /> buff uptime
-              </>
-            }
-            thresholds={thresholds.steadyFocusThresholds}
-          />
-        )}
       </Rule>
 
       <Rule
@@ -110,13 +99,7 @@ const MarksmanshipChecklist = (props: ChecklistProps) => {
         description={
           <>
             Capping on Focus is a loss of potential DPS, as you could've used that Focus for a
-            damaging ability at a later point. If everything is on cooldown, try and use{' '}
-            {combatant.hasTalent(TALENTS_HUNTER.CHIMAERA_SHOT_TALENT) ? (
-              <SpellLink spell={TALENTS_HUNTER.CHIMAERA_SHOT_TALENT} />
-            ) : (
-              <SpellLink spell={SPELLS.ARCANE_SHOT} />
-            )}{' '}
-            to stay off the focus cap and do some damage.
+            damaging ability at a later point.{' '}
           </>
         }
       >

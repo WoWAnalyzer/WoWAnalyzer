@@ -5,6 +5,7 @@ import { TALENTS_DRUID } from 'common/TALENTS/druid';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  change(date(2025, 3, 4), <>Marked as updated for 11.1.0.</>, Sref),
   change(date(2025, 2, 16), <>Added support for the Liberation of Undermine tier set.</>, Sref),
   change(date(2025, 1, 20), <>Fixed an issue where <SpellLink spell={SPELLS.RAKE_BLEED}/> bleed and <SpellLink spell={SPELLS.DREADFUL_WOUND}/> damage was not being counted in <SpellLink spell={TALENTS_DRUID.ADAPTIVE_SWARM_TALENT}/> boost</>, Sref),
   change(date(2024, 10, 27), <>Updated patch compatibility to 11.0.5.</>, Sref),

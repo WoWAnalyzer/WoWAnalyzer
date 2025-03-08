@@ -87,21 +87,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.HOLY_WORD_SALVATION_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 720, // reduced by Sanctify and Serenity
-        enabled: combatant.hasTalent(TALENTS.HOLY_WORD_SALVATION_TALENT),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.3,
-          averageIssueEfficiency: 0.1,
-          majorIssueEfficiency: 0,
-        },
-      },
-      {
         spell: TALENTS.HOLY_WORD_SANCTIFY_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         charges: combatant.hasTalent(TALENTS.MIRACLE_WORKER_TALENT) ? 2 : 1,
@@ -162,21 +147,6 @@ class Abilities extends CoreAbilities {
           majorIssueEfficiency: 0.4,
         },
         healSpellIds: [SPELLS.HALO_HEAL.id],
-      },
-      {
-        spell: TALENTS.CIRCLE_OF_HEALING_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste: number) =>
-          (combatant.hasTalent(TALENTS.ORISON_TALENT) ? 12 : 15) / (1 + haste),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.8,
-          averageIssueEfficiency: 0.6,
-          majorIssueEfficiency: 0.4,
-        },
       },
       {
         spell: TALENTS.RENEW_TALENT.id,

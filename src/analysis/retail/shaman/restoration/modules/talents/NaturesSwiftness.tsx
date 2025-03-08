@@ -23,7 +23,7 @@ class NaturesSwiftness extends Analyzer {
     SPELLS.LIGHTNING_BOLT,
     TALENTS_SHAMAN.CHAIN_HEAL_TALENT,
     TALENTS_SHAMAN.HEALING_RAIN_TALENT,
-    TALENTS_SHAMAN.HEALING_WAVE_TALENT,
+    SPELLS.HEALING_WAVE,
     TALENTS_SHAMAN.CHAIN_LIGHTNING_TALENT,
     TALENTS_SHAMAN.WELLSPRING_TALENT,
     TALENTS_SHAMAN.DOWNPOUR_TALENT,
@@ -154,7 +154,7 @@ class NaturesSwiftness extends Analyzer {
         mana over the course of a fight. You should aim to use it on your most expensive spells,
         like <SpellLink spell={TALENTS_SHAMAN.CHAIN_HEAL_TALENT} /> or sometimes{' '}
         <SpellLink spell={SPELLS.HEALING_SURGE} />. Avoid using it with{' '}
-        <SpellLink spell={TALENTS_SHAMAN.HEALING_WAVE_TALENT} /> or DPS spells.
+        <SpellLink spell={SPELLS.HEALING_WAVE} /> or DPS spells.
       </p>
     );
 
@@ -197,7 +197,7 @@ class NaturesSwiftness extends Analyzer {
         <SpellLink spell={TALENTS_SHAMAN.CALL_OF_THE_ANCESTORS_TALENT} /> . You should aim to use it
         on your most expensive spells, like <SpellLink spell={TALENTS_SHAMAN.CHAIN_HEAL_TALENT} />{' '}
         or sometimes <SpellLink spell={SPELLS.HEALING_SURGE} />. Avoid using it with{' '}
-        <SpellLink spell={TALENTS_SHAMAN.HEALING_WAVE_TALENT} /> or DPS spells.
+        <SpellLink spell={SPELLS.HEALING_WAVE} /> or DPS spells.
       </p>
     );
 

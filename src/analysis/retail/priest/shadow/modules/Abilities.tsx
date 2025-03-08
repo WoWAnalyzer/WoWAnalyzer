@@ -189,7 +189,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SHADOW_PRIEST_VOIDWEAVER_VOIDWRAITH_CAST.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 120 - (combatant.hasTalent(TALENTS.MINDBENDER_SHADOW_TALENT) ? 60 : 0), //mindbender reduces the CD of Voidwraith by 1 minute
+        cooldown: 180 - (combatant.hasTalent(TALENTS.MINDBENDER_SHADOW_TALENT) ? 120 : 0), //mindbender reduces the CD of Voidwraith by 2 minutes
         gcd: {
           base: 1500,
         },

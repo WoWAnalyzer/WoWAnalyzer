@@ -1,7 +1,12 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, CastEvent, DamageEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  CastEvent,
+  DamageEvent,
+  GetRelatedEvent,
+} from 'parser/core/Events';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -99,15 +104,27 @@ class ThorimsInvocation extends Analyzer {
     this.lastSpellCast = spellId;
 
     if (spellId === TALENTS.CHAIN_LIGHTNING_TALENT.id) {
-      const cr = getResource(event.classResources, RESOURCE_TYPES.MAELSTROM_WEAPON.id);
+      // get linked event
+      const chainLightningDamageEvent = GetRelatedEvent(
+        event,
+        EnhancementEventLinks.THORIMS_INVOCATION_LINK,
+      )!;
+      const chainLightningCastEvent = GetRelatedEvent<CastEvent>(
+        chainLightningDamageEvent,
+        EnhancementEventLinks.CHAIN_LIGHTNING_LINK,
+      )!;
+      const cr = getResource(
+        chainLightningCastEvent.classResources,
+        RESOURCE_TYPES.MAELSTROM_WEAPON.id,
+      );
+      if (cr && cr.cost && cr.cost > 5) {
+        cr.cost = 5;
+      }
       const mswStacks = cr?.cost ?? 0;
       const remainingAscendance = this.ascendanceEndTimestamp - event.timestamp;
-      const cracklingThunder = this.selectedCombatant.hasBuff(
-        SPELLS.CRACKLING_THUNDER_TIER_BUFF.id,
-      );
       if (
+        hits < 2 &&
         mswStacks >= 5 &&
-        !cracklingThunder &&
         remainingAscendance >
           this.spellUsable.cooldownRemaining(SPELLS.WINDSTRIKE_CAST.id) +
             this.gcd.getGlobalCooldownDuration(event.ability.guid)
@@ -119,7 +136,7 @@ class ThorimsInvocation extends Analyzer {
             casting <SpellLink spell={SPELLS.LIGHTNING_BOLT} />
           </>,
         );
-      } else if (!cracklingThunder && hits < 2) {
+      } else if (hits < 2) {
         addInefficientCastReason(
           event,
           <>

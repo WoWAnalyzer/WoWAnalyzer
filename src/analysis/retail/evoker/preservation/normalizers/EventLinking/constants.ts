@@ -41,6 +41,8 @@ export const SPIRITBLOOM_CAST = 'SpiritbloomCast';
 export const SPIRITBLOOM_FROM_STASIS = 'SpiritbloomFromStasis';
 export const TEMPORAL_COMPRESSION_REVERSION = 'TemporalCompressionReversion';
 export const LIFEBIND_HEAL_EMPOWER = 'LifebindHealEmpower'; //Lifebind heal event to the empower that caused it
+export const VERDANT_EMBRACE_INSURANCE = 'VerdantEmbraceInsurance'; //Verdant Embrace heal event to the insurance that it applied
+export const INSURANCE_APPLICATION = 'InsuranceApplication';
 
 export enum ECHO_TYPE {
   NONE,
@@ -68,3 +70,4 @@ export const ENGULF_CONSUME_BUFFER = 500;
 export const SPIRITBLOOM_HOT_DURATION = 8000;
 export const LIFEBIND_DURATION = 5000;
 export const LIFEBIND_BATCHING = 200;
+export const INSURANCE_MAX_DURATION = 15000;

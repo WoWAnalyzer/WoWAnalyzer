@@ -34,7 +34,7 @@ export default class TWW1TierSet extends Analyzer {
   static AFFECTED_SPELLS = [
     SPELLS.HEALING_SURGE,
     TALENTS_SHAMAN.CHAIN_HEAL_TALENT,
-    TALENTS_SHAMAN.HEALING_WAVE_TALENT,
+    SPELLS.HEALING_WAVE,
   ];
   protected combatants!: Combatants;
   has4pc: boolean;
@@ -128,9 +128,9 @@ export default class TWW1TierSet extends Analyzer {
             <p>
               The 4-piece bonus also reduces further the cast time of your next{' '}
               <SpellLink spell={TALENTS_SHAMAN.CHAIN_HEAL_TALENT} /> or{' '}
-              <SpellLink spell={TALENTS_SHAMAN.HEALING_WAVE_TALENT} /> and improves the critical
-              rate of your next <SpellLink spell={SPELLS.HEALING_SURGE} /> but these bonuses are not
-              yet accounted for.
+              <SpellLink spell={SPELLS.HEALING_WAVE} /> and improves the critical rate of your next{' '}
+              <SpellLink spell={SPELLS.HEALING_SURGE} /> but these bonuses are not yet accounted
+              for.
             </p>
           </>
         }

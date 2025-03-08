@@ -25,7 +25,7 @@ class TidalWaves extends Analyzer {
       this._onHealingSurge,
     );
     this.addEventListener(
-      Events.begincast.by(SELECTED_PLAYER).spell(TALENTS.HEALING_WAVE_TALENT),
+      Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.HEALING_WAVE),
       this._onHealingWave,
     );
     this.addEventListener(
@@ -85,8 +85,8 @@ class TidalWaves extends Analyzer {
         suggest(
           <Trans id="shaman.restoration.suggestions.tidalWaves.label">
             <SpellLink spell={SPELLS.TIDAL_WAVES_BUFF} /> buffed{' '}
-            <SpellLink spell={TALENTS.HEALING_WAVE_TALENT} /> can make for some very efficient
-            healing, consider casting more of them if you are running into mana issues (
+            <SpellLink spell={SPELLS.HEALING_WAVE} /> can make for some very efficient healing,
+            consider casting more of them if you are running into mana issues (
             {formatPercentage(suggestedThresholds.actual)}% unused Tidal Waves).
           </Trans>,
         )
@@ -109,7 +109,7 @@ class TidalWaves extends Analyzer {
 
   get suggestionThresholds() {
     const riptide = this.abilityTracker.getAbility(TALENTS.RIPTIDE_TALENT.id);
-    const healingWave = this.abilityTracker.getAbility(TALENTS.HEALING_WAVE_TALENT.id);
+    const healingWave = this.abilityTracker.getAbility(SPELLS.HEALING_WAVE.id);
     const healingSurge = this.abilityTracker.getAbility(SPELLS.HEALING_SURGE.id);
     const chainHeal = this.abilityTracker.getAbility(TALENTS.CHAIN_HEAL_TALENT.id);
 

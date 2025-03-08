@@ -1004,6 +1004,18 @@ const spells = {
     icon: 'spell_shadow_devouringplague',
   },
 
+  SHADOW_PRIEST_TWW_TIER_2_4_SET: {
+    id: 1215703,
+    name: 'Priest Shadow 11.1 Class Set 4pc',
+    icon: 'trade_engineering',
+  },
+
+  SHADOW_PRIEST_TWW_TIER_2_2_SET: {
+    id: 1215702,
+    name: 'Priest Shadow 11.1 Class Set 2pc',
+    icon: 'trade_engineering',
+  },
+
   // Disc
   SPIRIT_SHELL_TALENT_BUFF: {
     id: 114908,

@@ -14,7 +14,7 @@ class RageTracker extends ResourceTracker {
   constructor(options: Options) {
     super(options);
     this.resource = RESOURCE_TYPES.RAGE;
-    if (this.selectedCombatant.hasTalent(TALENTS.WAR_MACHINE_PROTECTION_TALENT)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.WAR_MACHINE_TALENT)) {
       this.ragePerMeleeHit += 1;
     }
   }

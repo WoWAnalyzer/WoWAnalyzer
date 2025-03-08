@@ -17,8 +17,8 @@ const COOLDOWNS: Cooldown[] = [
     isActive: (c) => c.hasTalent(TALENTS.ASCENDANCE_ELEMENTAL_TALENT),
   },
   {
-    spell: TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT,
-    isActive: (c) => c.hasTalent(TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT),
+    spell: TALENTS.PRIMORDIAL_WAVE_TALENT,
+    isActive: (c) => c.hasTalent(TALENTS.PRIMORDIAL_WAVE_TALENT),
   },
   {
     spell: SPELLS.ANCESTRAL_SWIFTNESS_CAST,

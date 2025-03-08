@@ -20,7 +20,7 @@ example report: https://www.warcraftlogs.com/reports/1HRhNZa2cCkgK9AV/#fight=48&
 class Momentum extends Analyzer {
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.MOMENTUM_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.EXERGY_TALENT);
   }
 
   get buffUptime() {
@@ -55,11 +55,11 @@ class Momentum extends Analyzer {
     const explanation = (
       <section>
         <strong>
-          <SpellLink spell={TALENTS.MOMENTUM_TALENT} />
+          <SpellLink spell={TALENTS.EXERGY_TALENT} />
         </strong>{' '}
         provides an{' '}
         {formatPercentage(
-          MOMENTUM_SCALING[this.selectedCombatant.getTalentRank(TALENTS.MOMENTUM_TALENT)],
+          MOMENTUM_SCALING[this.selectedCombatant.getTalentRank(TALENTS.EXERGY_TALENT)],
           0,
         )}
         % damage increase for 5 seconds after casting <SpellLink spell={SPELLS.FEL_RUSH_CAST} />,{' '}
@@ -72,7 +72,7 @@ class Momentum extends Analyzer {
       <RoundedPanel>
         <p>
           <strong>
-            <SpellLink spell={TALENTS.MOMENTUM_TALENT} />
+            <SpellLink spell={TALENTS.EXERGY_TALENT} />
           </strong>{' '}
           uptime
         </p>
@@ -93,10 +93,10 @@ class Momentum extends Analyzer {
       suggest(
         <>
           {' '}
-          Maintain the <SpellLink spell={TALENTS.MOMENTUM_TALENT} /> buff to maximize damage.
+          Maintain the <SpellLink spell={TALENTS.EXERGY_TALENT} /> buff to maximize damage.
         </>,
       )
-        .icon(TALENTS.MOMENTUM_TALENT.icon)
+        .icon(TALENTS.EXERGY_TALENT.icon)
         .actual(`${formatPercentage(actual)}% buff uptime`)
         .recommended(`${formatPercentage(recommended)}% is recommended.`),
     );
@@ -109,7 +109,7 @@ class Momentum extends Analyzer {
         size="flexible"
         tooltip={`The Momentum buff total uptime was ${formatDuration(this.buffDuration)}.`}
       >
-        <TalentSpellText talent={TALENTS.MOMENTUM_TALENT}>
+        <TalentSpellText talent={TALENTS.EXERGY_TALENT}>
           <UptimeIcon /> {formatPercentage(this.buffUptime)}% <small>uptime</small>
         </TalentSpellText>
       </Statistic>

@@ -23,8 +23,6 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {modules.resonantWords.guideSubsection}
         {modules.prayerOfHealing.guideSubsection}
         {modules.prayerOfMending.guideSubsection}
-        {info.combatant.hasTalent(TALENTS_PRIEST.CIRCLE_OF_HEALING_TALENT) &&
-          modules.circleOfHealing.guideSubsection}
         {modules.DivineStar.guideSubsectionHoly}
         {modules.Halo.guideSubsectionHoly}
       </Section>
@@ -52,13 +50,6 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
       {info.combatant.hasTalent(TALENTS_PRIEST.APOTHEOSIS_TALENT) && (
         <CastEfficiencyBar
           spellId={TALENTS_PRIEST.APOTHEOSIS_TALENT.id}
-          gapHighlightMode={GapHighlight.FullCooldown}
-          useThresholds
-        />
-      )}
-      {info.combatant.hasTalent(TALENTS_PRIEST.HOLY_WORD_SALVATION_TALENT) && (
-        <CastEfficiencyBar
-          spellId={TALENTS_PRIEST.HOLY_WORD_SALVATION_TALENT.id}
           gapHighlightMode={GapHighlight.FullCooldown}
           useThresholds
         />

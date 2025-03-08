@@ -242,7 +242,7 @@ class SurgingTotem extends Analyzer {
           It can be augmented to do more healing through{' '}
           <SpellLink spell={TALENTS.OVERFLOWING_SHORES_TALENT} /> and more damage through{' '}
           <SpellLink spell={TALENTS.ACID_RAIN_TALENT} />. Aside from being strong throughput, this
-          spell also buffs <SpellLink spell={TALENTS.HEALING_WAVE_TALENT} />,{' '}
+          spell also buffs <SpellLink spell={SPELLS.HEALING_WAVE} />,{' '}
           <SpellLink spell={SPELLS.HEALING_SURGE} /> and{' '}
           <SpellLink spell={TALENTS.CHAIN_HEAL_TALENT} /> through{' '}
           <SpellLink spell={TALENTS.DELUGE_TALENT} />.

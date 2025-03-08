@@ -17,5 +17,3 @@ export { default as RejuvenatingWind } from './talents/RejuvenatingWind';
 export { default as SpellFocusCost } from './SpellFocusCost';
 export { default as Trailblazer } from './talents/Trailblazer';
 export { default as TranquilizingShot } from './talents/TranquilizingShot';
-export { default as WailingArrow } from './talents/WailingArrow';
-export { default as WailingArrowPrepullNormalizer } from './talents/WailingArrowPrepullNormalizer';

@@ -68,9 +68,7 @@ export default function CooldownSection({ modules, info }: GuideProps<typeof Com
         {info.combatant.hasTrinket(ITEMS.MAD_QUEENS_MANDATE.id) && (
           <>
             <p>
-              Queen's Mandate should be used with 3 stacks of{' '}
-              <SpellLink spell={TALENTS.HOWL_OF_THE_PACK_TALENT} /> when playing Pack Leader, or
-              when the target us under the 10% Damage from{' '}
+              Queen's Mandate should be used when the target us under the 10% Damage from{' '}
               <SpellLink spell={TALENTS.LUNAR_STORM_TALENT} />. The last cast in a fight should
               occur as late as possible to maximise the execute damage.
             </p>

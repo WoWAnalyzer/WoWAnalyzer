@@ -9,7 +9,22 @@ const Blackhorn: Boss = {
   background: Background,
   headshot: Headshot,
   icon: 'achievment_boss_blackhorn.jpg',
-  fight: {},
+  fight: {
+    timeline: {
+      abilities: [
+        {
+          // Twilight Onslaught
+          id: 107588,
+          type: 'begincast',
+        },
+        {
+          // Disrupting Roar
+          id: 108044,
+          type: 'cast',
+        },
+      ],
+    },
+  },
 };
 
 export default Blackhorn;

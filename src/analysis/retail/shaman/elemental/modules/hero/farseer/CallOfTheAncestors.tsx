@@ -49,7 +49,7 @@ interface CallAncestor extends CooldownTrigger<CastEvent | SummonEvent> {
 }
 
 const SUMMON_ANCESTOR_SPELLS = [
-  TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT.id,
+  TALENTS.PRIMORDIAL_WAVE_TALENT.id,
   SPELLS.ANCESTRAL_SWIFTNESS_CAST.id,
 ];
 
@@ -268,7 +268,7 @@ class CallOfTheAncestors extends MajorCooldown<CallAncestor> {
         </>
       ) : (
         <>
-          <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT} /> or{' '}
+          <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_TALENT} /> or{' '}
           <SpellLink spell={TALENTS.ANCESTRAL_SWIFTNESS_TALENT} />
         </>
       );

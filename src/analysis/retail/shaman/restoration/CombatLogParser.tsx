@@ -19,14 +19,13 @@ import MasteryEffectiveness from './modules/features/MasteryEffectiveness';
 import SpellUsable from './modules/features/SpellUsable';
 import TidalWaves from './modules/features/TidalWaves';
 // Talents
-import PrimordialWave from './modules/talents/PrimordialWave';
 import ChainHeal from './modules/spells/ChainHeal';
 import EarthShield from './modules/spells/EarthShield'; // technically shared
 import HealingRain from './modules/spells/HealingRain';
 import HealingSurge from './modules/spells/HealingSurge';
 import HealingWave from './modules/spells/HealingWave';
 import LavaSurge from './modules/spells/LavaSurge';
-import ManaTideTotem from './modules/spells/ManaTideTotem';
+
 import Resurgence from './modules/spells/Resurgence';
 import SpiritLinkDamageReduction from './modules/spells/SpiritLinkDamageReduction';
 import WaterShield from './modules/spells/WaterShield';
@@ -121,7 +120,6 @@ class CombatLogParser extends CoreCombatLogParser {
     highTide: HighTide,
     naturesGuardian: NaturesGuardian,
     ancestralProtectionTotem: AncestralProtectionTotem,
-    primordialWave: PrimordialWave,
     undercurrent: Undercurrent,
     primalTideCore: PrimalTideCore,
     wavespeakersBlessing: WavespeakersBlessing,
@@ -151,7 +149,7 @@ class CombatLogParser extends CoreCombatLogParser {
     healingWave: HealingWave,
     lavaSurge: LavaSurge,
     resurgence: Resurgence,
-    manaTideTotem: ManaTideTotem,
+
     waterShield: WaterShield,
     spiritLinkDamageReduction: SpiritLinkDamageReduction,
 

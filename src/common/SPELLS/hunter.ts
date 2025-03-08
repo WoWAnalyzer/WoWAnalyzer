@@ -6,6 +6,12 @@
 import Spell from 'common/SPELLS/Spell';
 
 const spells = {
+  MULTI_SHOT: {
+    id: 2643,
+    name: 'Multi-Shot',
+    icon: 'ability_upgrademoonglaive',
+    focusCost: 40,
+  },
   //region Beast Mastery
   BEAST_CLEAVE_DAMAGE: {
     id: 118459,

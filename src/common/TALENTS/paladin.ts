@@ -178,7 +178,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [102532],
     definitionIds: [{ id: 107537, specId: 65 }],
-    manaCost: 125000,
+    manaCost: 112500,
   },
   BESTOW_LIGHT_TALENT: {
     id: 448040,
@@ -514,7 +514,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [115016],
     definitionIds: [{ id: 120023, specId: 70 }],
-    holyPowerCostPerSecond: 1,
+    holyPowerCost: 3,
   },
   DIVINE_INSPIRATION_TALENT: {
     id: 432964,

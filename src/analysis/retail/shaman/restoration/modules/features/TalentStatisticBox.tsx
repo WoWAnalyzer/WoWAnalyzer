@@ -13,7 +13,6 @@ import NaturesGuardian from '../talents/NaturesGuardian';
 import Undulation from '../talents/Undulation';
 import UnleashLife from '../talents/UnleashLife';
 import Wellspring from '../talents/Wellspring';
-import PrimordialWave from '../talents/PrimordialWave';
 import PrimalTideCore from '../talents/PrimalTideCore';
 import { EarthShield } from 'analysis/retail/shaman/shared';
 import WavespeakersBlessing from '../talents/WavespeakersBlessing';
@@ -31,7 +30,6 @@ class TalentStatisticBox extends Analyzer {
     ascendance: Ascendance,
     wellspring: Wellspring,
     highTide: HighTide,
-    primordialWave: PrimordialWave,
     primalTideCore: PrimalTideCore,
     earthShield: EarthShield,
     wavespeakersBlessing: WavespeakersBlessing,
@@ -48,7 +46,6 @@ class TalentStatisticBox extends Analyzer {
   protected ascendance!: Ascendance;
   protected wellspring!: Wellspring;
   protected highTide!: HighTide;
-  protected primordialWave!: PrimordialWave;
   protected primalTideCore!: PrimalTideCore;
   protected earthShield!: EarthShield;
   protected wavespeakersBlessing!: WavespeakersBlessing;
@@ -71,9 +68,7 @@ class TalentStatisticBox extends Analyzer {
     if (this.selectedCombatant.hasTalent(TALENTS.ASCENDANCE_RESTORATION_TALENT)) {
       talentList.push(this.ascendance.subStatistic());
     }
-    if (this.selectedCombatant.hasTalent(TALENTS.PRIMORDIAL_WAVE_RESTORATION_TALENT)) {
-      talentList.push(this.primordialWave.subStatistic());
-    }
+
     if (this.selectedCombatant.hasTalent(TALENTS.WAVESPEAKERS_BLESSING_TALENT)) {
       talentList.push(this.wavespeakersBlessing.subStatistic());
     }

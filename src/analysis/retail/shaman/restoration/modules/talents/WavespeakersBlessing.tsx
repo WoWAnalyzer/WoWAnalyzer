@@ -23,13 +23,11 @@ class WavespeakersBlessing extends Analyzer {
   healingFromPTCRiptide: number = 0;
   healingFromHardcast: number = 0;
   healing: number = 0;
-  pwaveActive: boolean;
   ptcActive: boolean;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(talents.WAVESPEAKERS_BLESSING_TALENT);
-    this.pwaveActive = this.selectedCombatant.hasTalent(talents.PRIMORDIAL_WAVE_RESTORATION_TALENT);
     this.ptcActive = this.selectedCombatant.hasTalent(talents.PRIMAL_TIDE_CORE_TALENT);
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(talents.RIPTIDE_TALENT),
@@ -50,9 +48,6 @@ class WavespeakersBlessing extends Analyzer {
     this.healing += event.amount + (event.absorbed || 0);
     if (this.riptideTracker.fromHardcast(riptide)) {
       this.healingFromHardcast += event.amount + (event.absorbed || 0);
-    }
-    if (this.pwaveActive && this.riptideTracker.fromPrimordialWave(riptide)) {
-      this.healingFromPWaveRiptide += event.amount + (event.absorbed || 0);
     }
     if (this.ptcActive && this.riptideTracker.fromPrimalTideCore(riptide)) {
       this.healingFromPTCRiptide += event.amount + (event.absorbed || 0);
@@ -81,13 +76,6 @@ class WavespeakersBlessing extends Analyzer {
                 {formatNumber(this.healingFromHardcast)} from hardcast{' '}
                 <SpellLink spell={talents.RIPTIDE_TALENT} />
               </li>
-              {this.pwaveActive && (
-                <li>
-                  {formatNumber(this.healingFromPWaveRiptide)} from{' '}
-                  <SpellLink spell={talents.PRIMORDIAL_WAVE_RESTORATION_TALENT} />{' '}
-                  <SpellLink spell={talents.RIPTIDE_TALENT} />
-                </li>
-              )}
               {this.ptcActive && (
                 <li>
                   {formatNumber(this.healingFromPTCRiptide)} from{' '}

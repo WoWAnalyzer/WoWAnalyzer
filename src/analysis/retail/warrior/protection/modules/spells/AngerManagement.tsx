@@ -31,7 +31,7 @@ class AngerManagement extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.ANGER_MANAGEMENT_TALENT);
-    this.hasAvatar = this.selectedCombatant.hasTalent(TALENTS.AVATAR_PROTECTION_TALENT);
+    this.hasAvatar = this.selectedCombatant.hasTalent(TALENTS.AVATAR_TALENT);
     this.hasShieldWall = this.selectedCombatant.hasTalent(TALENTS.SHIELD_WALL_TALENT);
 
     if (!this.active) {
@@ -49,11 +49,11 @@ class AngerManagement extends Analyzer {
     const reduction = (rageSpend / RAGE_NEEDED_FOR_A_PROC) * CDR_PER_PROC;
 
     if (this.hasAvatar) {
-      if (!this.spellUsable.isOnCooldown(TALENTS.AVATAR_PROTECTION_TALENT.id)) {
+      if (!this.spellUsable.isOnCooldown(TALENTS.AVATAR_TALENT.id)) {
         this.avatarWastedCDR += reduction;
       } else {
         const effectiveReduction = this.spellUsable.reduceCooldown(
-          TALENTS.AVATAR_PROTECTION_TALENT.id,
+          TALENTS.AVATAR_TALENT.id,
           reduction,
         );
         this.avatarEffectiveCDR += effectiveReduction;
@@ -89,7 +89,7 @@ class AngerManagement extends Analyzer {
             </>
           }
         >
-          <SpellIcon spell={TALENTS.AVATAR_PROTECTION_TALENT} />{' '}
+          <SpellIcon spell={TALENTS.AVATAR_TALENT} />{' '}
           <ItemCooldownReduction effective={this.avatarEffectiveCDR} waste={this.avatarWastedCDR} />
           <br />
           <SpellIcon spell={TALENTS.SHIELD_WALL_TALENT} />{' '}

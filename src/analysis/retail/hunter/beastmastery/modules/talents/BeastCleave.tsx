@@ -119,14 +119,13 @@ class BeastCleave extends Analyzer {
       when(this.beastCleavesWithoutHits).addSuggestion((suggest, actual, recommended) =>
         suggest(
           <>
-            You cast <SpellLink spell={TALENTS.MULTI_SHOT_BEAST_MASTERY_TALENT} /> {actual}{' '}
+            You cast <SpellLink spell={SPELLS.MULTI_SHOT} /> {actual}{' '}
             {actual === 1 ? 'time' : 'times'} without your pets doing any{' '}
             <SpellLink spell={SPELLS.BEAST_CLEAVE_PET_BUFF} /> damage onto additional targets. On
-            single-target situations, avoid using{' '}
-            <SpellLink spell={TALENTS.MULTI_SHOT_BEAST_MASTERY_TALENT} />.
+            single-target situations, avoid using <SpellLink spell={SPELLS.MULTI_SHOT} />.
           </>,
         )
-          .icon(TALENTS.MULTI_SHOT_BEAST_MASTERY_TALENT.icon)
+          .icon(SPELLS.MULTI_SHOT.icon)
           .actual(
             <Trans id="hunter.beastmastery.suggestions.beastCleave.efficiency">
               {actual} {actual === 1 ? 'cast' : 'casts'} without any Beast Cleave damage{' '}

@@ -147,22 +147,6 @@ export default {
     mastery: false,
     vers: true,
   },
-  [TALENTS.CIRCLE_OF_HEALING_TALENT.id]: {
-    int: true,
-    crit: true,
-    hasteHpm: false,
-    hasteHpct: true,
-    mastery: false,
-    vers: true,
-  },
-  [TALENTS.HOLY_WORD_SALVATION_TALENT.id]: {
-    int: true,
-    crit: true,
-    hasteHpm: false,
-    hasteHpct: true,
-    mastery: false,
-    vers: true,
-  },
   [SPELLS.HALO_HEAL.id]: {
     int: true,
     crit: true,

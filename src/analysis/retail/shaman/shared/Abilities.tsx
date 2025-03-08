@@ -225,18 +225,11 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.ANCESTRAL_GUIDANCE_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.ANCESTRAL_GUIDANCE_TALENT),
-        category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 120,
-        gcd: {
-          static: 0,
-        },
-      },
-      {
         spell: TALENTS.NATURES_SWIFTNESS_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.NATURES_SWIFTNESS_TALENT),
-        category: SPELL_CATEGORY.COOLDOWNS,
+        enabled:
+          combatant.hasTalent(TALENTS.NATURES_SWIFTNESS_TALENT) &&
+          !combatant.hasTalent(TALENTS.ANCESTRAL_SWIFTNESS_TALENT),
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 60,
         gcd: {
           static: 0,
@@ -245,7 +238,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.THUNDERSTORM_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.THUNDERSTORM_TALENT),
-        category: SPELL_CATEGORY.ROTATIONAL_AOE,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: combatant.hasTalent(TALENTS.THUNDERSHOCK_TALENT) ? 25 : 30,
         gcd: {
           base: 1500,
@@ -254,7 +247,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.LIGHTNING_LASSO_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.LIGHTNING_LASSO_TALENT),
-        category: SPELL_CATEGORY.ROTATIONAL_AOE,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 45,
         gcd: {
           base: 1500,
@@ -375,10 +368,13 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 60 * (combatant.hasTalent(TALENTS.CALL_OF_THE_ELEMENTS_TALENT) ? 2 : 3),
       },
+
+      /* Hero Talents */
       {
-        spell: TALENTS.SPIRITWALKERS_GRACE_TALENT.id,
+        spell: SPELLS.SURGING_TOTEM_RECALL.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 120 - (combatant.hasTalent(TALENTS.GRACEFUL_SPIRIT_TALENT) ? 30 : 0),
+        cooldown: 6,
+        gcd: null,
       },
 
       /* Hidden Spells */

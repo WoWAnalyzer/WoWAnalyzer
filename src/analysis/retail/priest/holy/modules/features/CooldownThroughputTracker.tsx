@@ -4,8 +4,6 @@ import CoreCooldownThroughputTracker, {
   BUILT_IN_SUMMARY_TYPES,
 } from 'parser/shared/modules/CooldownThroughputTracker';
 
-const SALVATION_COOLDOWN_WINDOW = 15; //Renew is 15 seconds and does not trigger mastery so this timeframe will have almost all the healing provided by the cast
-
 class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
     ...CoreCooldownThroughputTracker.cooldownSpells,
@@ -26,18 +24,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
         BUILT_IN_SUMMARY_TYPES.MANA,
       ],
       branch: GameBranch.Retail,
-    },
-  ];
-  static castCooldowns = [
-    ...CoreCooldownThroughputTracker.castCooldowns,
-    {
-      spell: TALENTS.HOLY_WORD_SALVATION_TALENT.id,
-      duration: SALVATION_COOLDOWN_WINDOW,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.HEALING,
-        BUILT_IN_SUMMARY_TYPES.OVERHEALING,
-        BUILT_IN_SUMMARY_TYPES.MANA,
-      ],
     },
   ];
 }

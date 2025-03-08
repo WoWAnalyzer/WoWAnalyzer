@@ -19,9 +19,7 @@ import {
   RECKLESSNESS_INCREASE,
   STORM_OF_STEEL_INCREASE,
   WARLORDS_TORMENT_RECKLESSNESS_INCREASE,
-  WARMACHINE_ARMS_INCREASE,
-  WARMACHINE_FURY_INCREASE,
-  WARMACHINE_PROT_INCREASE,
+  WARMACHINE_INCREASE,
 } from './constants';
 
 const DEBUG = false;
@@ -34,12 +32,12 @@ const DEBUG = false;
  */
 export default class RageAttributeNormalizer extends EventsNormalizer {
   normalize(events: AnyEvent[]): AnyEvent[] {
-    const hasFuryWM = this.selectedCombatant.hasTalent(TALENTS.WAR_MACHINE_FURY_TALENT);
-    const hasArmsWM = this.selectedCombatant.hasTalent(TALENTS.WAR_MACHINE_ARMS_TALENT);
-    const hasProtWM = this.selectedCombatant.hasTalent(TALENTS.WAR_MACHINE_PROTECTION_TALENT);
+    const hasWM = this.selectedCombatant.hasTalent(TALENTS.WAR_MACHINE_TALENT);
     const hasPC = this.selectedCombatant.hasTalent(TALENTS.PIERCING_CHALLENGE_TALENT);
     const hasSoS = this.selectedCombatant.hasTalent(TALENTS.STORM_OF_STEEL_TALENT);
     const hasRA = this.selectedCombatant.hasTalent(TALENTS.RECKLESS_ABANDON_TALENT);
+
+    const WM_INCREASE = WARMACHINE_INCREASE[this.selectedCombatant.specId];
 
     let recklessnessBuff = false;
     const updatedEvents: AnyEvent[] = [];
@@ -113,24 +111,10 @@ export default class RageAttributeNormalizer extends EventsNormalizer {
 
       if (event.ability.guid === SPELLS.MELEE.id || event.ability.guid === SPELLS.SKYFURY.id) {
         // War Machines
-        if (hasFuryWM) {
+        if (hasWM) {
           const newEvent = this.removeMultiplicitiveIncrease(
             event,
-            WARMACHINE_FURY_INCREASE,
-            SPELLS.WAR_MACHINE_TALENT_BUFF,
-          );
-          additions.push(newEvent);
-        } else if (hasArmsWM) {
-          const newEvent = this.removeMultiplicitiveIncrease(
-            event,
-            WARMACHINE_ARMS_INCREASE,
-            SPELLS.WAR_MACHINE_TALENT_BUFF,
-          );
-          additions.push(newEvent);
-        } else if (hasProtWM) {
-          const newEvent = this.removeMultiplicitiveIncrease(
-            event,
-            WARMACHINE_PROT_INCREASE,
+            WM_INCREASE,
             SPELLS.WAR_MACHINE_TALENT_BUFF,
           );
           additions.push(newEvent);

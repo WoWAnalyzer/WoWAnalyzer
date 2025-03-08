@@ -18,7 +18,7 @@ import HealingTargetTracker from './modules/features/HealingTargetTracker';
 import HealingEfficiencyDetails from './modules/features/HolyPriestHealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/features/HolyPriestHealingEfficiencyTracker';
 import SpellUsable from './modules/features/SpellUsable';
-import CircleOfHealing from './modules/spells/CircleOfHealing';
+
 import DivineHymn from './modules/spells/DivineHymn';
 import GuardianSpirit from './modules/spells/GuardianSpirit';
 import HolyNova from './modules/spells/HolyNova';
@@ -79,7 +79,6 @@ class CombatLogParser extends CoreCombatLogParser {
     holyNova: HolyNova,
     hymnBuffBenefit: HymnBuffBenefit,
 
-    circleOfHealing: CircleOfHealing,
     prayerOfHealing: PrayerOfHealing,
     benevolence: Benevolence,
 
@@ -97,7 +96,6 @@ class CombatLogParser extends CoreCombatLogParser {
     TrailOfLight: Talents.MiddleRow.TrailOfLight,
     RenewedFaith: Talents.TopRow.RenewedFaith,
     DesperateTimes: Talents.BottomRow.DesperateTimes,
-    HealingChorus: Talents.MiddleRow.HealingChorus,
     EverlastingLight: Talents.MiddleRow.EverlastingLight,
     PrismaticEchoes: Talents.MiddleRow.PrismaticEchoes,
     CrisisManagement: Talents.MiddleRow.CrisisManagement,
@@ -115,19 +113,14 @@ class CombatLogParser extends CoreCombatLogParser {
     ProtectiveLight: ProtectiveLight,
     SurgeOfLight: Talents.Classwide.SurgeOfLight,
     PrayerCircle: Talents.MiddleRow.PrayerCircle,
-    SanctifiedPrayers: Talents.TopRow.SanctifiedPrayers,
     PrayerfulLitany: Talents.MiddleRow.PrayerfulLitany,
 
     Halo: Talents.Classwide.Halo,
     Benediction: Talents.MiddleRow.Benediction,
-    RevitalizingPrayers: Talents.MiddleRow.RevitalizingPrayers,
     DivineStar: Talents.Classwide.DivineStar,
     DivineWord: Talents.BottomRow.DivineWord,
-
-    HolyWordSalvation: Talents.BottomRow.HolyWordSalvation,
     Apotheosis: Talents.BottomRow.Apotheosis,
     AnsweredPrayers: Talents.BottomRow.AnsweredPrayers,
-    Pontifex: Talents.BottomRow.Pontifex,
     Lightweaver: Talents.BottomRow.Lightweaver,
 
     divineImage: Talents.BottomRow.DivineImage,

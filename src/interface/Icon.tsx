@@ -13,10 +13,7 @@ export interface IconProps extends React.HTMLAttributes<HTMLImageElement> {
   alt?: string;
 }
 
-const Icon = ({ icon, className, alt = '', ...others }: IconProps) => {
-  if (!icon) {
-    return null;
-  }
+export function iconUrl(icon: string): string {
   icon = icon.replace('.jpg', '');
 
   if (ICON_RENAME[icon]) {
@@ -28,13 +25,16 @@ const Icon = ({ icon, className, alt = '', ...others }: IconProps) => {
     baseURL = `/img/Icons`;
   }
 
+  return `${baseURL}/${icon}.jpg`;
+}
+
+const Icon = ({ icon, className, alt = '', ...others }: IconProps) => {
+  if (!icon) {
+    return null;
+  }
+
   return (
-    <img
-      src={`${baseURL}/${icon}.jpg`}
-      alt={alt}
-      className={`icon game ${className || ''}`}
-      {...others}
-    />
+    <img src={iconUrl(icon)} alt={alt} className={`icon game ${className || ''}`} {...others} />
   );
 };
 

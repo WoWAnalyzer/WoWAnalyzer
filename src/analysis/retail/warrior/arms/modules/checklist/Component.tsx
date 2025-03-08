@@ -35,7 +35,7 @@ const ArmsWarriorChecklist = ({
         cooldowns={[
           SPELLS.COLOSSUS_SMASH,
           TALENTS.WARBREAKER_TALENT,
-          TALENTS.AVATAR_SHARED_TALENT,
+          TALENTS.AVATAR_TALENT,
           TALENTS.THUNDEROUS_ROAR_TALENT,
           SPELLS.BLADESTORM,
           SPELLS.DEMOLISH,

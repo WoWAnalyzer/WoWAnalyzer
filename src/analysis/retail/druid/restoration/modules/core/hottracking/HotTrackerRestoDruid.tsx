@@ -91,7 +91,7 @@ class HotTrackerRestoDruid extends HotTracker {
 
   _generateHotInfo(): HotInfo[] {
     const impRejuvRank = this.selectedCombatant.getTalentRank(
-      TALENTS_DRUID.IMPROVED_REJUVENATION_TALENT,
+      TALENTS_DRUID.LINGERING_HEALING_TALENT,
     );
     const germinationRank = this.selectedCombatant.getTalentRank(TALENTS_DRUID.GERMINATION_TALENT);
     const thrivingVegetationRank = this.selectedCombatant.getTalentRank(

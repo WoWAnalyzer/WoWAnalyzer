@@ -48,8 +48,6 @@ export default function RotationSection({
         {modules.killShot.guideSubsectionSV}
         {info.combatant.hasTalent(TALENTS.FURY_OF_THE_EAGLE_TALENT) &&
           modules.furyOfTheEagle.guideSubsection}
-        {info.combatant.hasTalent(TALENTS.HOWL_OF_THE_PACK_TALENT) &&
-          modules.howlOfThePack.guideSubsection}
       </SubSection>
       <SubSection title="APL Analysis">
         <AplSectionData checker={AplCheck.checkApl} apl={AplCheck.apl} />

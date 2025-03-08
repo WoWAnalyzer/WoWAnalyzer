@@ -304,11 +304,20 @@ export default class GenerateRageEventsNormalizer extends EventsNormalizer {
   private calculateUnbuffedRagePerSwing(rawRagePerSwing: number) {
     let unbuffedRagePerSwing = rawRagePerSwing;
 
-    if (this.selectedCombatant.hasTalent(TALENTS.WAR_MACHINE_FURY_TALENT)) {
+    if (
+      this.selectedCombatant.hasTalent(TALENTS.WAR_MACHINE_TALENT) &&
+      this.owner.config.spec.id === SPECS.FURY_WARRIOR.id
+    ) {
       unbuffedRagePerSwing += unbuffedRagePerSwing * WARMACHINE_FURY_INCREASE;
-    } else if (this.selectedCombatant.hasTalent(TALENTS.WAR_MACHINE_ARMS_TALENT)) {
+    } else if (
+      this.selectedCombatant.hasTalent(TALENTS.WAR_MACHINE_TALENT) &&
+      this.owner.config.spec.id === SPECS.ARMS_WARRIOR.id
+    ) {
       unbuffedRagePerSwing += unbuffedRagePerSwing * WARMACHINE_ARMS_INCREASE;
-    } else if (this.selectedCombatant.hasTalent(TALENTS.WAR_MACHINE_PROTECTION_TALENT)) {
+    } else if (
+      this.selectedCombatant.hasTalent(TALENTS.WAR_MACHINE_TALENT) &&
+      this.owner.config.spec.id === SPECS.PROTECTION_WARRIOR.id
+    ) {
       unbuffedRagePerSwing += unbuffedRagePerSwing * WARMACHINE_PROT_INCREASE;
     }
 

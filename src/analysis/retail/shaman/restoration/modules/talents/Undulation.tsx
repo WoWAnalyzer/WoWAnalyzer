@@ -21,7 +21,7 @@ class Undulation extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(TALENTS.UNDULATION_TALENT);
 
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell([TALENTS.HEALING_WAVE_TALENT, SPELLS.HEALING_SURGE]),
+      Events.heal.by(SELECTED_PLAYER).spell([SPELLS.HEALING_WAVE, SPELLS.HEALING_SURGE]),
       this._onHeal,
     );
   }

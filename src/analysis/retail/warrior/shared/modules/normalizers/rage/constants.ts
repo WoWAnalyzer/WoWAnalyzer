@@ -1,3 +1,6 @@
+import type { Spec } from 'game/SPECS';
+import SPECS from 'game/SPECS';
+
 /**
  * All rage values in events, _except_ "resourceChange" and "waste" values,
  * are x10 scaled. This factor is used to get back to the display value,
@@ -8,6 +11,12 @@ export const RAGE_SCALE_FACTOR = 0.1;
 export const WARMACHINE_FURY_INCREASE = 0.2;
 export const WARMACHINE_ARMS_INCREASE = 0.1;
 export const WARMACHINE_PROT_INCREASE = 0.5;
+
+export const WARMACHINE_INCREASE: Record<Spec['id'], number> = {
+  [SPECS.FURY_WARRIOR.id]: WARMACHINE_FURY_INCREASE,
+  [SPECS.ARMS_WARRIOR.id]: WARMACHINE_ARMS_INCREASE,
+  [SPECS.PROTECTION_WARRIOR.id]: WARMACHINE_PROT_INCREASE,
+};
 
 export const SEASONED_SOLDIER_RAGE_INCREASE = 0.1;
 

@@ -43,7 +43,7 @@ class Deluge extends Analyzer {
     this.addEventListener(
       Events.heal
         .by(SELECTED_PLAYER)
-        .spell([TALENTS.CHAIN_HEAL_TALENT, TALENTS.HEALING_WAVE_TALENT, SPELLS.HEALING_SURGE]),
+        .spell([TALENTS.CHAIN_HEAL_TALENT, SPELLS.HEALING_WAVE, SPELLS.HEALING_SURGE]),
       this._onHeal,
     );
     this.addEventListener(

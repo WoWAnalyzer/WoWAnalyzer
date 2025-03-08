@@ -21,7 +21,7 @@ class WarMachine extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.WAR_MACHINE_ARMS_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.WAR_MACHINE_TALENT);
   }
 
   subStatistic() {
@@ -29,7 +29,7 @@ class WarMachine extends Analyzer {
       <StatisticListBoxItem
         title={
           <>
-            <SpellLink spell={TALENTS.WAR_MACHINE_ARMS_TALENT} /> uptime
+            <SpellLink spell={TALENTS.WAR_MACHINE_TALENT} /> uptime
           </>
         }
         value={`${formatPercentage(this.uptime)} %`}

@@ -27,8 +27,6 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {info.combatant.hasTalent(talents.CLOUDBURST_TOTEM_TALENT) &&
           modules.cloudburstTotem.guideSubsection}
         {info.combatant.hasTalent(talents.WELLSPRING_TALENT) && modules.wellspring.guideSubsection}
-        {info.combatant.hasTalent(talents.PRIMORDIAL_WAVE_RESTORATION_TALENT) &&
-          modules.primordialWave.guideSubsection}
         {info.combatant.hasTalent(talents.EARTHEN_WALL_TOTEM_TALENT) &&
           modules.earthenWallTotem.guideSubsection}
       </Section>
@@ -70,20 +68,6 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
       {info.combatant.hasTalent(talents.ASCENDANCE_RESTORATION_TALENT) && (
         <CastEfficiencyBar
           spellId={talents.ASCENDANCE_RESTORATION_TALENT.id}
-          gapHighlightMode={GapHighlight.FullCooldown}
-          useThresholds
-        />
-      )}
-      {info.combatant.hasTalent(talents.ANCESTRAL_GUIDANCE_TALENT) && (
-        <CastEfficiencyBar
-          spellId={talents.ANCESTRAL_GUIDANCE_TALENT.id}
-          gapHighlightMode={GapHighlight.FullCooldown}
-          useThresholds
-        />
-      )}
-      {info.combatant.hasTalent(talents.SPIRITWALKERS_TIDAL_TOTEM_TALENT) && (
-        <CastEfficiencyBar
-          spellId={talents.MANA_TIDE_TOTEM_TALENT.id}
           gapHighlightMode={GapHighlight.FullCooldown}
           useThresholds
         />

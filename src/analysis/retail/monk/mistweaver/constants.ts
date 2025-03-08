@@ -71,7 +71,7 @@ export const MISTWRAP = 1000;
 export const MISTY_PEAKS_DURATION = 2000;
 export const RISING_MIST = 2;
 export const LOTUS_INFUSION_DURATION = 2000;
-export const LOTUS_INFUSION_BOOST = 0.08;
+export const LOTUS_INFUSION_BOOST = 0.1;
 export const CHI_HARMONY_BOOST = 0.5;
 export const CHI_HARMONY_DURATION = 8000;
 export const LEGACY_OF_WISDOM_TARGETS = 2;
@@ -79,7 +79,7 @@ export const SHEILUNS_GIFT_TARGETS = 3;
 export const MAX_CHIJI_STACKS = 3;
 export const MANA_TEA_MAX_STACKS = 20;
 export const MANA_TEA_REDUCTION = 0.3;
-export const JADE_BOND_INC = 0.6;
+export const JADE_BOND_INC = 0.2;
 export const JADE_BOND_SOOB_INC = 5;
 export const NOURISHING_CHI_INC = 0.2;
 export const DANCING_MIST_CHANCE = 0.08;
@@ -99,10 +99,12 @@ export const ZEN_PULSE_MAX_HITS_FOR_BOOST = 5;
 export const TEAR_OF_MORNING_INVIG_INCREASE = 0.1;
 export const TEAR_OF_MORNING_ENV_INCREASE = 0.12;
 export const CALMING_COALESCENCE_INCREASE = 0.8;
-export const RUSHING_WIND_KICK_INCREASE = 1.0;
+export const RUSHING_WIND_KICK_INCREASE = 1.5;
+export const RESPLENDENT_MISTS_INC = 0.6;
 
 export const ATTRIBUTION_STRINGS = {
   BOUNCED: 'Bounced',
+  JADE_BOND_ENVELOPING_MIST: 'Jade Bond Enveloping Mist',
   HARDCAST_ENVELOPING_MIST: 'Enveloping Mist Hardcast',
   MISTY_PEAKS_ENVELOPING_MIST: 'Enveloping Mist Misty Peaks Proc',
   HARDCAST_RENEWING_MIST: 'Renewing Mist Hardcast',

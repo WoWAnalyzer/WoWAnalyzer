@@ -64,7 +64,7 @@ const Overview = ({ guide: GuideComponent, checklist, issues }: Props) => {
   }, []);
 
   return guideMode && GuideComponent ? (
-    <div className="container" style={{ display: 'grid' }}>
+    <div className="container" style={{ display: 'grid', gridTemplateColumns: '100%' }}>
       {checklist && (
         <PrototypeSwitcher
           defaultGuide={configDefaultFrontmatter === 'guide'}
@@ -76,7 +76,7 @@ const Overview = ({ guide: GuideComponent, checklist, issues }: Props) => {
       <GuideComponent />
     </div>
   ) : (
-    <div className="container" style={{ display: 'grid' }}>
+    <div className="container" style={{ display: 'grid', gridTemplateColumns: '100%' }}>
       {GuideComponent && (
         <PrototypeSwitcher
           defaultGuide={configDefaultFrontmatter === 'guide'}

@@ -22,14 +22,14 @@ class Avatar extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.AVATAR_SHARED_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.AVATAR_TALENT);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this._onDamage);
   }
 
   _onDamage(event: DamageEvent) {
     if (
       event.targetIsFriendly ||
-      !this.selectedCombatant.hasBuff(TALENTS.AVATAR_SHARED_TALENT.id, event.timestamp)
+      !this.selectedCombatant.hasBuff(TALENTS.AVATAR_TALENT.id, event.timestamp)
     ) {
       return;
     }
@@ -41,7 +41,7 @@ class Avatar extends Analyzer {
       <StatisticListBoxItem
         title={
           <>
-            <SpellLink spell={TALENTS.AVATAR_SHARED_TALENT} /> bonus damage
+            <SpellLink spell={TALENTS.AVATAR_TALENT} /> bonus damage
           </>
         }
         value={`${formatThousands(this.dps)} DPS`}

@@ -427,6 +427,12 @@ const spells = {
     name: 'Thriving Vegetation',
     icon: 'spell_nature_rejuvenation',
   },
+  // direct heal from Flourish talent
+  FLOURISH_HEAL: {
+    id: 473901,
+    name: 'Flourish',
+    icon: 'spell_druid_wildburst',
+  },
   // Sets/Items:
   ASTRAL_HARMONY: {
     // 2pc T19
@@ -507,13 +513,13 @@ const spells = {
   },
 
   // HoT (heal and buff) from Resto Druid TWW S2 tier set.
-  RESTO_DRUID_INSURANCE_HOT: {
+  INSURANCE_HOT_DRUID: {
     id: 1215515,
     name: 'Insurance!',
     icon: 'inv_10_inscription2_scroll2_color5',
   },
   // low health proc (heal) from Resto Druid TWW S2 tier set.
-  RESTO_DRUID_INSURANCE_PROC: {
+  INSURANCE_PROC_DRUID: {
     id: 1215518,
     name: 'Insurance!',
     icon: 'inv_10_inscription2_scroll2_color5',

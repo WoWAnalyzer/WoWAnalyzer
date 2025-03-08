@@ -48,7 +48,6 @@ import Initiative from './modules/talents/Initiative';
 import EyeBeamNormalizer from './normalizers/EyeBeamNormalizer';
 import Ragefire from './modules/talents/Ragefire';
 import InnerDemon from './modules/talents/InnerDemon';
-import AnyMeansNecessary from './modules/talents/AnyMeansNecessary';
 import Soulscar from './modules/talents/Soulscar';
 import GrowingInferno from './modules/talents/GrowingInferno';
 import BurningHatred from './modules/talents/BurningHatred';
@@ -119,7 +118,6 @@ class CombatLogParser extends CoreCombatLogParser {
     initiative: Initiative,
     ragefire: Ragefire,
     innerDemon: InnerDemon,
-    anyMeansNecessary: AnyMeansNecessary,
     soulscar: Soulscar,
     furiousGaze: FuriousGaze,
     charredWarblades: CharredWarblades,

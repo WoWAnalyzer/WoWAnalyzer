@@ -83,7 +83,7 @@ class PowerWordShield extends Analyzer {
       event: event,
       healing: 0,
       wealStacks: this.selectedCombatant.getBuffStacks(SPELLS.WEAL_AND_WOE_BUFF.id),
-      rapture: this.selectedCombatant.hasBuff(TALENTS_PRIEST.RAPTURE_TALENT.id),
+      rapture: false,
     });
     this.shieldOfAbsolutionValue = 0;
   }

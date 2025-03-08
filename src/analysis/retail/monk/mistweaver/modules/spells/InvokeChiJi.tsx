@@ -82,7 +82,7 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
       this.handleEnvelopingBreath,
     );
     this.addEventListener(
-      Events.absorbed.by(SELECTED_PLAYER).spell(SPELLS.CHI_COCOON_HEAL_CHIIJI),
+      Events.absorbed.by(SELECTED_PLAYER).spell(SPELLS.CHI_COCOON_BUFF_CHIJI),
       this.handleChiCocoon,
     );
     this.addEventListener(
@@ -300,6 +300,15 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
         healing comes from. It is important to avoid overcapping on{' '}
         <SpellLink spell={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> and{' '}
         <SpellLink spell={SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF} /> stacks.
+        <div>
+          <br />
+          Generally, you should try to alternate between <SpellLink spell={SPELLS.TIGER_PALM} />/
+          <SpellLink spell={getCurrentRSKTalent(this.selectedCombatant)} /> (if available) and{' '}
+          <SpellLink spell={SPELLS.BLACKOUT_KICK} /> as you only get 3{' '}
+          <SpellLink spell={SPELLS.GUST_OF_MISTS_CHIJI} /> events per{' '}
+          <SpellLink spell={SPELLS.BLACKOUT_KICK} /> cast, regardless of{' '}
+          <SpellLink spell={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> stacks.
+        </div>
       </p>
     );
 
@@ -410,7 +419,7 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
               </li>
               <li>
                 {formatNumber(this.chiCocoonHealing)}{' '}
-                <SpellLink spell={SPELLS.CHI_COCOON_HEAL_CHIIJI} /> healing from{' '}
+                <SpellLink spell={SPELLS.CHI_COCOON_BUFF_CHIJI} /> healing from{' '}
                 <SpellLink spell={TALENTS_MONK.CELESTIAL_HARMONY_TALENT} />.
               </li>
             </ul>
