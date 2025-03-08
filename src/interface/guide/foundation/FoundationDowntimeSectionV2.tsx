@@ -28,12 +28,16 @@ import SegmentTimeline, {
 } from 'interface/timeline-diagram/SegmentTimeline';
 import useReportEvents from '../hooks/useReportEvents';
 import DowntimeDebuffAnalyzer from './analyzers/DowntimeDebuffAnalyzer';
+import CancelledCasts, { CancelGap } from 'parser/shared/modules/CancelledCasts';
+import ROLES from 'game/ROLES';
+import SpellLink from 'interface/SpellLink';
 
 export default function FoundationDowntimeSectionV2(): JSX.Element | null {
   const info = useInfo();
   const abc = useAnalyzer(AlwaysBeCasting);
   const melee = useAnalyzer(MeleeUptimeAnalyzer);
   const debuffs = useAnalyzer(DowntimeDebuffAnalyzer);
+  const cancelledCasts = useAnalyzer(CancelledCasts);
 
   const globalMeleeEvents = useReportEvents(
     info?.reportCode,
@@ -84,20 +88,40 @@ export default function FoundationDowntimeSectionV2(): JSX.Element | null {
                 Ability Uptime
               </TooltipElement>
             </dd>
-            {melee && (
-              <>
-                <dt>
-                  <PerformanceStrong performance={melee.meleeUptimePerformance}>
-                    {formatPercentage(melee.meleeUptimePercentage, 1)}%
-                  </PerformanceStrong>{' '}
-                </dt>
-                <dd>
-                  <TooltipElement content="The percentage of time that your basic melee swings were active, excluding time spent casting.">
-                    Melee Uptime
-                  </TooltipElement>
-                </dd>
-              </>
-            )}
+            <ByRole>
+              <Role.Melee>
+                {melee && (
+                  <>
+                    <dt>
+                      <PerformanceStrong performance={melee.meleeUptimePerformance}>
+                        {formatPercentage(melee.meleeUptimePercentage, 1)}%
+                      </PerformanceStrong>
+                    </dt>
+                    <dd>
+                      <TooltipElement content="The percentage of time that your basic melee swings were active, excluding time spent casting.">
+                        Melee Uptime
+                      </TooltipElement>
+                    </dd>
+                  </>
+                )}
+              </Role.Melee>
+              <Role roles={[ROLES.HEALER, ROLES.DPS.RANGED]}>
+                {cancelledCasts && (
+                  <>
+                    <dt>
+                      <PerformanceStrong performance={cancelledCasts.CancelledPerformance}>
+                        {formatPercentage(cancelledCasts.cancelledPercentage, 1)}%
+                      </PerformanceStrong>
+                    </dt>
+                    <dd>
+                      <TooltipElement content="The percentage of casts that you cancelled before finishing.">
+                        Cancelled Casts
+                      </TooltipElement>
+                    </dd>
+                  </>
+                )}
+              </Role>
+            </ByRole>
           </UptimeStatistics>
         </div>
         <div>
@@ -128,6 +152,7 @@ export default function FoundationDowntimeSectionV2(): JSX.Element | null {
         <ComplexUptimeDisplay
           uptimeHistory={uptimeHistory}
           meleeGaps={melee?.meleeUptimeGaps}
+          cancelGaps={cancelledCasts?.cancelGaps}
           globalMeleeGaps={globalMeleeUptime}
           debuffSegments={debuffs?.debuffSegments}
         />
@@ -144,6 +169,7 @@ export default function FoundationDowntimeSectionV2(): JSX.Element | null {
 interface Props {
   uptimeHistory: Segment[];
   meleeGaps?: Array<Segment>;
+  cancelGaps?: Array<CancelGap>;
   globalMeleeGaps?: Array<Segment>;
   debuffSegments?: Array<DisplaySegment>;
 }
@@ -175,6 +201,7 @@ const UptimeStatistics = styled.dl`
 function ComplexUptimeDisplay({
   uptimeHistory,
   meleeGaps,
+  cancelGaps,
   globalMeleeGaps,
   debuffSegments,
 }: Props): JSX.Element | null {
@@ -246,12 +273,33 @@ function ComplexUptimeDisplay({
                 }}
               />
             )}
+            {cancelGaps && (
+              <SegmentTimeline
+                bgColor="#1a1a1a"
+                fgColor={BadColor}
+                segments={cancelGaps.map((gap) => ({
+                  ...gap,
+                  abilityId: undefined,
+                  tooltip: (
+                    <>
+                      <SpellLink spell={gap.abilityId} /> cast started at{' '}
+                      {formatDuration(gap.start - info.fightStart, 1)}, cancelled at{' '}
+                      {gap.capped ? '~' : ''}
+                      {formatDuration(gap.end - info.fightStart, 1)}
+                    </>
+                  ),
+                }))}
+                info={info}
+                segmentProps={{ opacity: 0.9 }}
+              />
+            )}
             {globalMeleeGaps && (
               <SegmentTimeline
                 fgColor={OkColor}
                 segments={globalMeleeGaps.map((segment) => ({
                   ...segment,
-                  tooltip: 'All melee had downtime here',
+                  tooltip:
+                    'All melee had downtime here, which probably means that no enemies were attackable.',
                 }))}
                 info={info}
               />

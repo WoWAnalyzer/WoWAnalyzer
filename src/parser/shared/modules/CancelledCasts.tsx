@@ -25,6 +25,8 @@ class CancelledCasts extends Analyzer {
       amount: number;
     };
   } = {};
+
+  cancelGaps: CancelGap[] = [];
   IGNORED_ABILITIES: number[] = [];
 
   constructor(options: Options) {
@@ -49,7 +51,7 @@ class CancelledCasts extends Analyzer {
       event.timestamp - this.beginCastSpell.timestamp > MS_BUFFER
     ) {
       this.castsCancelled += 1;
-      this.addToCancelledList();
+      this.addToCancelledList(event.timestamp);
     }
     this.beginCastSpell = event;
     this.wasCastStarted = true;
@@ -68,7 +70,7 @@ class CancelledCasts extends Analyzer {
     }
     if (beginCastAbility.guid !== spellId && this.wasCastStarted) {
       this.castsCancelled += 1;
-      this.addToCancelledList();
+      this.addToCancelledList(event.timestamp);
     }
     if (beginCastAbility.guid === spellId && this.wasCastStarted) {
       this.castsFinished += 1;
@@ -76,7 +78,7 @@ class CancelledCasts extends Analyzer {
     this.wasCastStarted = false;
   }
 
-  addToCancelledList() {
+  addToCancelledList(timestamp: number) {
     if (!this.beginCastSpell) {
       return;
     }
@@ -90,6 +92,15 @@ class CancelledCasts extends Analyzer {
       this.cancelledSpellList[beginCastAbility.guid].amount += 1;
     }
     debug && this.log(beginCastAbility.name + ' cast cancelled');
+
+    const endTimestamp = Math.min(timestamp, this.beginCastSpell.timestamp + MAX_CAST_TIME_GUESS);
+
+    this.cancelGaps.push({
+      start: this.beginCastSpell.timestamp,
+      end: endTimestamp,
+      abilityId: beginCastAbility.guid,
+      capped: endTimestamp - this.beginCastSpell.timestamp >= MAX_CAST_TIME_GUESS,
+    });
   }
   get totalCasts() {
     return this.castsCancelled + this.castsFinished;
@@ -166,3 +177,15 @@ class CancelledCasts extends Analyzer {
 }
 
 export default CancelledCasts;
+
+export interface CancelGap {
+  start: number;
+  end: number;
+  abilityId: number;
+  /**
+   * Whether the max cast time for guesses was used to cap the gap time.
+   */
+  capped: boolean;
+}
+
+const MAX_CAST_TIME_GUESS = 2000;
