@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS/shaman';
+import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
 import Spell from 'common/SPELLS/Spell';
 import { spellToAbility } from 'common/spellToAbility';
@@ -104,10 +104,7 @@ class FusionOfElementsNormalizer extends EventsNormalizer {
               type: EventType.RemoveBuff,
               sourceID: this.selectedCombatant.id,
               targetID: this.selectedCombatant.id,
-              ability: spellToAbility(
-                SPELLS[spellId as keyof typeof SPELLS],
-                MAGIC_SCHOOLS.ids.PHYSICAL,
-              ),
+              ability: spellToAbility(SPELLS[Number(spellId)], MAGIC_SCHOOLS.ids.PHYSICAL),
               targetIsFriendly: true,
               sourceIsFriendly: true,
             });

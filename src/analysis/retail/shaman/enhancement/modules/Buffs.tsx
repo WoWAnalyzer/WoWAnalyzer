@@ -56,7 +56,7 @@ class Buffs extends ClassBuffs {
       {
         spellId: [SPELLS.WHIRLING_AIR.id, SPELLS.WHIRLING_EARTH.id, SPELLS.WHIRLING_FIRE.id],
         enabled: combatant.hasTalent(TALENTS.WHIRLING_ELEMENTS_TALENT),
-        triggeredBySpellId: TALENTS.SURGING_TOTEM_TALENT.id,
+        triggeredBySpellId: SPELLS.SURGING_TOTEM.id,
         timelineHighlight: true,
       },
       {
