@@ -40,7 +40,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           <br />
         </SubSection>
         <SubSection title="APL Analysis">
-          <AplSectionData checker={AplCheck.checkApl} apl={AplCheck.apl} />
+          <AplSectionData checker={AplCheck.check} apl={AplCheck.apl(info)} />
         </SubSection>
       </Section>
       <Section title="Other cooldowns, buffs and procs">

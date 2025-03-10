@@ -101,14 +101,16 @@ class HeartOfTheJadeSerpent extends HotJS {
         )}
         {this.currentSotwl !== 0 && (
           <>
+            <br />
             <SpellLink spell={TALENTS_MONK.STRIKE_OF_THE_WINDLORD_TALENT} /> should not be used
             within the window
           </>
         )}
         {this.currentUnityWithin !== 0 && (
           <>
-            <SpellLink spell={TALENTS_MONK.STRIKE_OF_THE_WINDLORD_TALENT} /> should not be used
-            within the window
+            <br />
+            <SpellLink spell={TALENTS_MONK.UNITY_WITHIN_TALENT} /> should not be used within the
+            window
           </>
         )}
       </>
