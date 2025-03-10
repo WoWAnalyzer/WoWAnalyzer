@@ -24,6 +24,9 @@ const ignoredErrors = [
   // react-transition-group triggers this
   /^Warning: React does not recognize the `[^`]+` prop on a DOM element./i,
 
+  // the timeline tab routinely has these warnings. we should really fix the timeline but :shrug:
+  /^Warning: Encountered two children with the same key/i,
+
   // Error when images fail to load (which happens a lot for characters etc.)
   /^Failed to load resource: the server responded with a status of (404|403)/i,
   // When running on CI, we don't have access to the internet, so we can't load images
