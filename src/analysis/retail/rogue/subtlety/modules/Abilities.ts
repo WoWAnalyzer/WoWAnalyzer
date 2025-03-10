@@ -66,6 +66,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL,
         buffSpellId: SPELLS.SYMBOLS_OF_DEATH.id,
         cooldown: 30,
+        charges: 1 + (combatant.hasTalent(TALENTS.DEATH_PERCEPTION_TALENT) ? 2 : 0),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
@@ -91,7 +92,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.SHADOW_BLADES_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         buffSpellId: TALENTS.SHADOW_BLADES_TALENT.id,
-        cooldown: 180,
+        cooldown: 90,
         gcd: {
           base: 1000,
         },
@@ -101,23 +102,11 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.SEPSIS_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS.SEPSIS_TALENT),
-        cooldown: 90,
-        gcd: {
-          base: 1000,
-        },
-        castEfficiency: {
-          suggestion: true,
-        },
-      },
-      {
         spell: SPELLS.SHADOW_DANCE.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         buffSpellId: SPELLS.SHADOW_DANCE_BUFF.id,
         cooldown: 60,
-        charges: 1 + (combatant.hasTalent(TALENTS.SHADOW_DANCE_TALENT) ? 1 : 0),
+        charges: 1 + (combatant.hasTalent(TALENTS.DOUBLE_DANCE_TALENT) ? 1 : 0),
         gcd: null,
         castEfficiency: {
           suggestion: true,
@@ -203,7 +192,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SHADOW_STEP.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
-        charges: combatant.hasTalent(TALENTS.SHADOWSTEP_TALENT) ? 2 : 1,
+        charges: 1 + (combatant.hasTalent(TALENTS.THRILL_SEEKING_TALENT) ? 1 : 0),
         gcd: null,
       },
       {

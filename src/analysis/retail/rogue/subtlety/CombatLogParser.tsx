@@ -7,14 +7,14 @@ import {
   EnergyDetails,
   EnergyTracker,
   InvigoratingShadowdust,
-  Sepsis,
-  StealthAbilityFollowingSepsis,
   SpellEnergyCost,
   StealthDamageTracker,
   InstantPoison,
 } from 'analysis/retail/rogue/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
+// import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
+import ComboPointGraph from 'analysis/retail/rogue/shared/ComboPointGraph';
+import EnergyGraph from 'analysis/retail/rogue/shared/EnergyGraph';
 
 import Abilities from './modules/Abilities';
 import BlackPowder from './modules/core/BlackPowder';
@@ -35,8 +35,6 @@ import TheRotten from './modules/talents/TheRotten';
 import DarkShadowContribution from './modules/talents/DarkShadow/DarkShadowContribution';
 import ShurikenStormNormalizer from './normalizers/ShurikenStormNormalizer';
 import Flagellation from 'analysis/retail/rogue/shared/talents/Flagellation';
-import InvigoratingShadowdustTalent from 'analysis/retail/rogue/subtlety/modules/talents/InvigoratingShadowdustTalent';
-
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     //Core
@@ -50,10 +48,12 @@ class CombatLogParser extends CoreCombatLogParser {
     //Resource
     comboPointTracker: ComboPointTracker,
     comboPointDetails: ComboPointDetails,
+    comboPointGraph: ComboPointGraph,
     comboPoints: ComboPoints,
     energyTracker: EnergyTracker,
     energyCapTracker: EnergyCapTracker,
     energyDetails: EnergyDetails,
+    energyGraph: EnergyGraph,
     energy: Energy,
     spellEnergyCost: SpellEnergyCost,
 
@@ -82,16 +82,13 @@ class CombatLogParser extends CoreCombatLogParser {
     darkShadowContribution: DarkShadowContribution,
     theRotten: TheRotten,
     deeperDaggers: DeeperDaggers,
-    invigoratingShadowdustTalent: InvigoratingShadowdustTalent,
-    sepsis: Sepsis,
-    stealthAbilityFollowingSepsis: StealthAbilityFollowingSepsis,
     echoingReprimand: EchoingReprimand,
     flagellation: Flagellation,
 
     // Covenants
 
     // Racials
-    arcaneTorrent: [ArcaneTorrent, { gcd: 1000 }] as const,
+    // arcaneTorrent: [ArcaneTorrent, { gcd: 1000 }] as const,
   };
 }
 
