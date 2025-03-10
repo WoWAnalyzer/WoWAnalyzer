@@ -6,6 +6,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2025, 3, 10), <>Update APL for Undermine, simplify <SpellLink spell={talents.FACE_PALM_TALENT} /> tracking.</>, emallson),
   change(date(2025, 3, 1), <>Added support for the Undermine tier set, <SpellLink spell={talents.EFFICIENT_TRAINING_TALENT} />, and updated <SpellLink spell={SPELLS.PURIFIED_CHI} /> stack tracking.</>, emallson),
   change(date(2024, 11, 20), <>Updated text for <SpellLink spell={talents.BLACKOUT_COMBO_TALENT} /> section (again).</>, emallson),
   change(date(2024, 10, 13), <>Updated text for <SpellLink spell={talents.BLACKOUT_COMBO_TALENT} /> section.</>, emallson),

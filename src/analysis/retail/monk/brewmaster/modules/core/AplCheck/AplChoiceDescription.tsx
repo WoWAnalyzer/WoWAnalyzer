@@ -1,9 +1,12 @@
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
-import { AlertWarning, SpellIcon, SpellLink } from 'interface';
-import { useInfo } from 'interface/guide';
-import { BrewmasterApl } from '../AplCheck';
+import { SpellIcon, SpellLink } from 'interface';
+import { SubSection, useInfo } from 'interface/guide';
+import * as AplCheck from '../AplCheck';
 import { SpellSeq } from 'parser/ui/SpellSeq';
+
+import { AplSectionData } from 'interface/guide/components/Apl';
+import { useMemo } from 'react';
 
 const blank = {
   id: -1,
@@ -86,33 +89,29 @@ const StandardDescription = () => {
   return <></>;
 };
 
-const PTADescription = () => (
-  <>
-    <AlertWarning>
-      Using <SpellLink spell={talents.PRESS_THE_ADVANTAGE_TALENT} /> will result in many empty GCDs.
-      While it may be tempting to use <SpellLink spell={SPELLS.SPINNING_CRANE_KICK_BRM} /> to fill
-      them, SCK can prevent you from getting stacks of{' '}
-      <SpellLink spell={talents.PRESS_THE_ADVANTAGE_TALENT} />! If you are not playing around your
-      swing timer, you should avoid casting <SpellLink spell={SPELLS.SPINNING_CRANE_KICK_BRM} /> on
-      single target!
-    </AlertWarning>
-  </>
-);
-
-const Description = ({ aplChoice }: { aplChoice: BrewmasterApl }) => {
+const Description = ({ aplChoice }: { aplChoice: AplCheck.BrewmasterApl }) => {
   switch (aplChoice) {
-    case BrewmasterApl.Standard:
+    case AplCheck.BrewmasterApl.Standard:
       return <StandardDescription />;
-    case BrewmasterApl.PTA:
-      return <PTADescription />;
   }
 };
 
-export default function AplChoiceDescription({
-  aplChoice,
-}: {
-  aplChoice: BrewmasterApl;
-}): JSX.Element {
+export default function AplChoiceDescription(): JSX.Element {
+  const info = useInfo();
+  const aplChoice = useMemo(() => (info ? AplCheck.chooseApl(info) : undefined), [info]);
+  if (aplChoice === undefined || !info) {
+    return <></>;
+  }
+
+  if (info.combatant.hasTalent(talents.PRESS_THE_ADVANTAGE_TALENT)) {
+    return (
+      <>
+        Analysis of the <SpellLink spell={talents.PRESS_THE_ADVANTAGE_TALENT} /> rotation has
+        limited support.
+      </>
+    );
+  }
+
   return (
     <>
       <p>
@@ -131,6 +130,9 @@ export default function AplChoiceDescription({
         <SpellLink spell={talents.RISING_SUN_KICK_TALENT} /> as often as possible.
       </p>
       <Description aplChoice={aplChoice} />
+      <SubSection>
+        <AplSectionData checker={AplCheck.check} apl={AplCheck.apl(info)} />
+      </SubSection>
     </>
   );
 }
