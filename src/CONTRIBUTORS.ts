@@ -2592,15 +2592,8 @@ export const Jordan: Contributor = {
   discord: 'jordannonumbers',
 };
 
-export const dboisvert: Contributor = {
+export const Dboisvert: Contributor = {
   nickname: 'dangerous',
   github: 'dboisvert',
   discord: '@dangerousrn',
-  mains: [
-    {
-      name: 'Venenare',
-      spec: SPECS.SUBTLETY_ROGUE,
-      link: 'https://www.warcraftlogs.com/character/id/86465556',
-    },
-  ],
 };
