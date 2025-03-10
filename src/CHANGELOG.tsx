@@ -35,12 +35,14 @@ import {
   Gazh,
   Yellot,
   KYZ,
+  dboisvert,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2025, 3, 10), 'Added support for sublety rogue 11.1.0', dboisvert),
   change(date(2025, 3, 10), 'Added ability data for Mug\'Zee and Gallywix to the Foundation downtime section', emallson),
   change(date(2025, 3, 8), 'Add missing patch 11.1.0 details.', ToppleTheNun),
   change(date(2025, 2, 26), <>Revised Foundation downtime section for melee specs.</>, emallson),
