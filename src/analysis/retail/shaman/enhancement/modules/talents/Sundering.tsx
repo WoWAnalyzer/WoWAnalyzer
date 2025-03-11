@@ -1,8 +1,13 @@
-import { formatPercentage } from 'common/format';
-import { TALENTS_SHAMAN } from 'common/TALENTS';
+import { formatNumber, formatPercentage } from 'common/format';
+import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
+import Events, {
+  CastEvent,
+  DamageEvent,
+  UpdateSpellUsableEvent,
+  UpdateSpellUsableType,
+} from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AverageTargetsHit from 'parser/ui/AverageTargetsHit';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -11,6 +16,9 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';
+import SpellUsable from '../core/SpellUsable';
+import { UptimeIcon } from 'interface/icons';
+import Abilities from 'parser/core/modules/Abilities';
 
 /**
  * This can be quite a large gap since the cooldown of Sundering is `only` 40 seconds.
@@ -24,10 +32,16 @@ const CAST_TO_DAMAGE_LATENCY = 1500;
  *
  * Example Log: https://www.warcraftlogs.com/reports/kAjvaxWdPbpnf8cK#fight=1&type=damage-done&source=12&ability=197214
  */
-class Sundering extends Analyzer {
+class Sundering extends Analyzer.withDependencies({
+  spellUsable: SpellUsable,
+  abilities: Abilities,
+}) {
+  protected cooldown = this.deps.abilities.getAbility(TALENTS.SUNDERING_TALENT.id);
   protected damageGained: number = 0;
   protected casts: number = 0;
   protected hits: number = 0;
+  protected resets: number = 0;
+  protected expectedCooldownEnd: number = 0;
 
   /**
    * Store the casts and remove them when damage occours within {CAST_TO_DAMAGE_INTERVAL} seconds.
@@ -38,23 +52,39 @@ class Sundering extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.SUNDERING_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SUNDERING_TALENT);
 
     if (!this.active) {
       return;
     }
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.SUNDERING_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.SUNDERING_TALENT),
       this.onCast,
     );
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.SUNDERING_TALENT),
+      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.SUNDERING_TALENT),
       this.onDamage,
     );
 
+    if (this.selectedCombatant.hasTalent(TALENTS.MOLTEN_THUNDER_TALENT)) {
+      this.addEventListener(
+        Events.UpdateSpellUsable.by(SELECTED_PLAYER).spell(TALENTS.SUNDERING_TALENT),
+        this.onMoltenThunderReset,
+      );
+    }
+
     this.addEventListener(Events.fightend, this.markBadCasts);
+  }
+
+  onMoltenThunderReset(event: UpdateSpellUsableEvent) {
+    if (event.updateType !== UpdateSpellUsableType.EndCooldown) {
+      return;
+    }
+    if (event.timestamp < this.expectedCooldownEnd) {
+      this.resets += 1;
+    }
   }
 
   onDamage(event: DamageEvent) {
@@ -79,7 +109,6 @@ class Sundering extends Analyzer {
 
   onCast(event: CastEvent) {
     this.casts += 1;
-
     this.missedCasts.push(event);
   }
 
@@ -93,8 +122,9 @@ class Sundering extends Analyzer {
   }
 
   statistic() {
-    return (
+    return [
       <Statistic
+        key="missed-hits"
         position={STATISTIC_ORDER.OPTIONAL()}
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
@@ -104,15 +134,29 @@ class Sundering extends Analyzer {
         }
         size="flexible"
       >
-        <BoringSpellValueText spell={TALENTS_SHAMAN.SUNDERING_TALENT}>
+        <BoringSpellValueText spell={TALENTS.SUNDERING_TALENT}>
           <>
             <ItemDamageDone amount={this.damageGained} />
             <br />
             <AverageTargetsHit casts={this.casts} hits={this.hits} />
           </>
         </BoringSpellValueText>
-      </Statistic>
-    );
+      </Statistic>,
+      <Statistic
+        key="molten-thunder"
+        position={STATISTIC_ORDER.OPTIONAL()}
+        category={STATISTIC_CATEGORY.TALENTS}
+      >
+        <BoringSpellValueText spell={TALENTS.MOLTEN_THUNDER_TALENT}>
+          <>
+            <UptimeIcon /> {formatNumber(0)}{' '}
+            <small>
+              <SpellLink spell={TALENTS.SUNDERING_TALENT} /> resets
+            </small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>,
+    ];
   }
 
   get misses() {
@@ -140,10 +184,10 @@ class Sundering extends Analyzer {
       suggest(
         <>
           Consider the amount of enemies in the direction you're facing when casting{' '}
-          <SpellLink spell={TALENTS_SHAMAN.SUNDERING_TALENT} /> to avoid missing it.
+          <SpellLink spell={TALENTS.SUNDERING_TALENT} /> to avoid missing it.
         </>,
       )
-        .icon(TALENTS_SHAMAN.SUNDERING_TALENT.icon)
+        .icon(TALENTS.SUNDERING_TALENT.icon)
         .actual(<>You missed {formatPercentage(actual)}% of cast(s)</>)
         .recommended(<>less than {formatPercentage(recommended)} is recommended</>),
     );

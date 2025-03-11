@@ -70,17 +70,21 @@ export class MeleeUptimeAnalyzer extends Analyzer.withDependencies({ haste: Hast
     return (this.owner.fightDuration - downtime) / this.owner.fightDuration;
   }
 
-  public get meleeUptimePerformance(): QualitativePerformance {
+  get meleeUptimeSuggestionThreshold() {
     const uptime = this.meleeUptimePercentage;
-    return evaluateQualitativePerformanceByThreshold({
+    return {
       actual: uptime,
       isGreaterThanOrEqual: {
-        perfect: 1,
+        perfect: 0.98,
         good: 0.9,
         ok: 0.8,
       },
       max: 1,
-    });
+    };
+  }
+
+  public get meleeUptimePerformance(): QualitativePerformance {
+    return evaluateQualitativePerformanceByThreshold(this.meleeUptimeSuggestionThreshold);
   }
 
   private onMeleeCast(event: CastEvent) {

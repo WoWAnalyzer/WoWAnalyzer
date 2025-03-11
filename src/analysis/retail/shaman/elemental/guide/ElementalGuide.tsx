@@ -7,8 +7,6 @@ import CooldownGraphSubsection, {
   Cooldown,
 } from 'interface/guide/components/CooldownGraphSubSection';
 import SPELLS from 'common/SPELLS';
-import { AplSectionData } from 'interface/guide/components/Apl';
-import * as AplCheck from 'analysis/retail/shaman/elemental/apl/AplCheck';
 import Cooldowns from 'analysis/retail/shaman/elemental/guide/Cooldowns';
 import DefensiveAndUtility from '../../shared/guide/DefensiveAndUtility';
 
@@ -54,24 +52,13 @@ const CoreSection = (props: GuideProps<typeof CombatLogParser>) => {
         modules.stormkeeper.guideSubsection()}
       {info.combatant.hasTalent(TALENTS.CALL_OF_THE_ANCESTORS_TALENT) &&
         modules.callOfTheAncestors.guideSubsection()}
+      {modules.maelstromSpenders.guideSubsection()}
       {modules.spenderWindow.active && modules.spenderWindow.guideSubsection()}
       {modules.primalStormElemental.active && modules.primalStormElemental.guideSubsection()}
       {modules.primalFireElemental.active && modules.primalFireElemental.guideSubsection()}
+      {modules.fusionOfElements && modules.fusionOfElements.guideSubsection()}
       <FlameShockSubSection {...props} />
     </Section>
-  );
-};
-
-const enableRotation = false; // currently disabled due to unlogged Icefury buffs. Hidden buff to enable Icefury is not logged, so unable to check if Icefury is castable.
-
-const RotationSection = ({ modules, info }: GuideProps<typeof CombatLogParser>) => {
-  return (
-    (enableRotation && (
-      <Section title="Single Target Rotation">
-        <AplSectionData checker={AplCheck.check} apl={AplCheck.apl(info)} />
-      </Section>
-    )) ||
-    null
   );
 };
 
@@ -108,7 +95,6 @@ export default function ElementalGuide(props: GuideProps<typeof CombatLogParser>
         <CooldownGraphSubsection cooldowns={cooldownTalents} />
       </Section>
       <CoreSection {...props} />
-      <RotationSection {...props} />
       <DefensiveAndUtility />
       <PreparationSection />
     </>

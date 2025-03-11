@@ -36,7 +36,7 @@ class ManaTideTotem extends Analyzer {
     );
 
     this.addEventListener(
-      Events.resourcechange.spell({ id: SPELLS.MANA_TIDE_TOTEM_BUFF.id }),
+      Events.resourcechange.spell({ id: SPELLS.MANA_TIDE_BUFF.id }),
       this.manaTideTick,
     );
   }

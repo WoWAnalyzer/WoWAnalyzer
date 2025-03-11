@@ -25,8 +25,6 @@ export interface PrimalElementalCast extends CooldownTrigger<CastEvent> {
   end: number;
 }
 
-const EVERLASTING_ELEMENTS_DURATION_INCREASE = 1.2;
-
 abstract class PrimalElementalist<T extends PrimalElementalCast> extends MajorCooldown<T> {
   protected currentElemental: T | null = null;
   protected duration: number = 30000;
@@ -53,10 +51,6 @@ abstract class PrimalElementalist<T extends PrimalElementalCast> extends MajorCo
     if (!this.active) {
       return;
     }
-    this.duration *= this.selectedCombatant.hasTalent(TALENTS.EVERLASTING_ELEMENTS_TALENT)
-      ? EVERLASTING_ELEMENTS_DURATION_INCREASE
-      : 1;
-
     this.addEventListener(
       Events.cast
         .by(SELECTED_PLAYER)
@@ -70,6 +64,10 @@ abstract class PrimalElementalist<T extends PrimalElementalCast> extends MajorCo
     this.addEventListener(Events.cast.by(SELECTED_PLAYER_PET), this.onElementalCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onElementalDamage);
     this.addEventListener(Events.any.by(SELECTED_PLAYER), this.onElementalEnd);
+  }
+
+  get activeElemental() {
+    return this.currentElemental;
   }
 
   isPetEvent<T extends EventType>(event: Event<T>): event is SourcedEvent<T> {

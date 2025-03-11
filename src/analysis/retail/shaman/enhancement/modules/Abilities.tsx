@@ -59,10 +59,10 @@ class Abilities extends ClassAbilities {
         range: 40,
       },
       {
-        spell: SPELLS.STORMSTRIKE.id,
+        spell: SPELLS.STORMSTRIKE_CAST.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 7.5 / (1 + haste),
-        charges: 1 + (this.selectedCombatant.hasTalent(TALENTS.STORMS_WRATH_TALENT) ? 1 : 0),
+        charges: 1 + (combatant.hasTalent(TALENTS.STORMS_WRATH_TALENT) ? 1 : 0),
         gcd: {
           base: 1500,
         },
@@ -81,10 +81,10 @@ class Abilities extends ClassAbilities {
         spell: TALENTS.SUNDERING_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
-          base: 1500,
+          base: 1500 - (combatant.hasTalent(TALENTS.MOLTEN_THUNDER_TALENT) ? 250 : 0),
         },
         enabled: combatant.hasTalent(TALENTS.SUNDERING_TALENT),
-        cooldown: 40 - (this.selectedCombatant.hasTalent(TALENTS.MOLTEN_THUNDER_TALENT) ? 10 : 0),
+        cooldown: 40 - (combatant.hasTalent(TALENTS.MOLTEN_THUNDER_TALENT) ? 10 : 0),
       },
       {
         spell: TALENTS.FIRE_NOVA_TALENT.id,
@@ -131,6 +131,14 @@ class Abilities extends ClassAbilities {
         range: 40,
       },
       {
+        spell: SPELLS.PRIMORDIAL_STORM_CAST.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: {
+          base: 150,
+        },
+        enabled: combatant.hasTalent(TALENTS.PRIMORDIAL_STORM_TALENT),
+      },
+      {
         spell: TALENTS.DOOM_WINDS_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.DOOM_WINDS_TALENT),
         cooldown: 60,
@@ -155,6 +163,7 @@ class Abilities extends ClassAbilities {
       },
       {
         spell: [SPELLS.STORMSTRIKE_DAMAGE.id, SPELLS.STORMSTRIKE_DAMAGE_OFFHAND.id],
+        enabled: true,
         category: SPELL_CATEGORY.HIDDEN,
       },
       {
@@ -177,14 +186,6 @@ class Abilities extends ClassAbilities {
         category: SPELL_CATEGORY.HIDDEN,
       },
       {
-        spell: SPELLS.TEMPEST_CAST.id,
-        enabled: combatant.hasTalent(TALENTS.TEMPEST_TALENT),
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
         spell: TALENTS.HAILSTORM_TALENT.id,
         category: SPELL_CATEGORY.HIDDEN,
         enabled: combatant.hasTalent(TALENTS.HAILSTORM_TALENT),
@@ -193,8 +194,7 @@ class Abilities extends ClassAbilities {
         spell: TALENTS.ASCENDANCE_ENHANCEMENT_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         enabled: combatant.hasTalent(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT),
-        cooldown:
-          180 - (this.selectedCombatant.hasTalent(TALENTS.THORIMS_INVOCATION_TALENT) ? 60 : 0),
+        cooldown: 180 - (combatant.hasTalent(TALENTS.THORIMS_INVOCATION_TALENT) ? 60 : 0),
       },
       {
         spell: SPELLS.VOLTAIC_BLAZE_CAST.id,
@@ -203,6 +203,31 @@ class Abilities extends ClassAbilities {
         gcd: {
           base: 1500,
         },
+      },
+
+      // Hero talents
+      {
+        spell: SPELLS.TEMPEST_CAST.id,
+        enabled: combatant.hasTalent(TALENTS.TEMPEST_TALENT),
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.SURGING_TOTEM.id,
+        enabled: combatant.hasTalent(TALENTS.SURGING_TOTEM_TALENT),
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: 24,
+        gcd: {
+          base: 1000,
+        },
+      },
+      {
+        spell: SPELLS.SUNDERING_REACTIVITY.id,
+        enabled: combatant.hasTalent(TALENTS.REACTIVITY_TALENT),
+        category: SPELL_CATEGORY.HIDDEN,
+        gcd: null,
       },
     ];
   }

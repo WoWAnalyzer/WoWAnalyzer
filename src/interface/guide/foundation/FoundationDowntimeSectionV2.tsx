@@ -160,6 +160,8 @@ export default function FoundationDowntimeSectionV2(): JSX.Element | null {
       <SubSection>
         <ul className="list issues">
           <SmallGapsSuggestion />
+          <MeleeUptimeSuggestion />
+          <CancelledCastsSuggestion />
         </ul>
       </SubSection>
     </>
@@ -299,7 +301,7 @@ function ComplexUptimeDisplay({
                 segments={globalMeleeGaps.map((segment) => ({
                   ...segment,
                   tooltip:
-                    'All melee had downtime here, which probably means that no enemies were attackable.',
+                    'All melee had downtime here, which may mean that no enemies were attackable.',
                 }))}
                 info={info}
               />
@@ -318,7 +320,7 @@ function ComplexUptimeDisplay({
         hidden: whenSecondWidthLT(info.fightStart, MIN_ABILITY_TIMELINE_SECOND_WIDTH),
       },
     ];
-  }, [debuffSegments, uptimeHistory, info, meleeGaps, globalMeleeGaps, boss?.fight]);
+  }, [debuffSegments, uptimeHistory, info, meleeGaps, globalMeleeGaps, cancelGaps, boss?.fight]);
 
   if (!info) {
     return null;
@@ -580,6 +582,82 @@ function SmallGapsSuggestion(): JSX.Element | null {
         queue
       </TooltipElement>{' '}
       up your next ability while your current one finishes.
+    </Suggestion>
+  );
+}
+
+function CancelledCastsSuggestion() {
+  const cancelledCasts = useAnalyzer(CancelledCasts);
+  const threshold = useMemo(
+    () => cancelledCasts?.cancelledCastSuggestionThresholds,
+    [cancelledCasts],
+  );
+  if (!threshold || !threshold.isGreaterThan || typeof threshold.isGreaterThan !== 'object') {
+    return null;
+  }
+
+  if (threshold.actual <= (threshold.isGreaterThan.minor ?? 0)) {
+    return null;
+  }
+
+  const importance =
+    threshold.actual <= (threshold.isGreaterThan.major ?? 0)
+      ? ISSUE_IMPORTANCE.REGULAR
+      : ISSUE_IMPORTANCE.MAJOR;
+
+  return (
+    <Suggestion
+      icon="ability_kick"
+      importance={importance}
+      stat={
+        <>
+          {formatPercentage(threshold.actual)}% of casts cancelled (&lt;
+          {formatPercentage(threshold.isGreaterThan.minor)}% is recommended)
+        </>
+      }
+    >
+      You are cancelling a large percentage of your casts. While casting the wrong spell is worse
+      than casting the right one, it is often better than casting nothing!
+    </Suggestion>
+  );
+}
+
+function MeleeUptimeSuggestion() {
+  const meleeUptime = useAnalyzer(MeleeUptimeAnalyzer);
+  const threshold = useMemo(() => meleeUptime?.meleeUptimeSuggestionThreshold, [meleeUptime]);
+  if (
+    !threshold ||
+    !threshold.isGreaterThanOrEqual ||
+    typeof threshold.isGreaterThanOrEqual !== 'object'
+  ) {
+    return null;
+  }
+
+  if (threshold.actual >= (threshold.isGreaterThanOrEqual.perfect ?? 0)) {
+    return null;
+  }
+
+  let importance;
+  if (threshold.actual >= threshold.isGreaterThanOrEqual.good) {
+    importance = ISSUE_IMPORTANCE.MINOR;
+  } else if (threshold.actual >= threshold.isGreaterThanOrEqual.ok) {
+    importance = ISSUE_IMPORTANCE.REGULAR;
+  } else {
+    importance = ISSUE_IMPORTANCE.MAJOR;
+  }
+  return (
+    <Suggestion
+      icon="inv_axe_02"
+      importance={importance}
+      stat={
+        <>
+          {formatPercentage(threshold.actual)}% melee uptime (&gt;
+          {formatPercentage(threshold.isGreaterThanOrEqual.good)}% is recommended)
+        </>
+      }
+    >
+      You are spending a lot of time out of melee range, which prevents using most of your
+      abilities.
     </Suggestion>
   );
 }

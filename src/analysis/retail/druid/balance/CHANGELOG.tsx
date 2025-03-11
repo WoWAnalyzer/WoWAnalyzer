@@ -4,6 +4,7 @@ import { SpellLink } from 'interface';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
 export default [
+  change(date(2025, 3, 4), <>Marked as updated for 11.1.0.</>, Sref),
   change(date(2024, 11, 18), <>Fixed an issue where <SpellLink spell={TALENTS_DRUID.CELESTIAL_ALIGNMENT_TALENT} /> wouldn't show in cooldowns tab when <SpellLink spell={TALENTS_DRUID.ORBITAL_STRIKE_TALENT} /> talent is chosen.</>, Sref),
   change(date(2024, 10, 26), <>Update underlying talent data for 11.0.5. Fixed cooldown display with <SpellLink spell={TALENTS_DRUID.WHIRLING_STARS_TALENT} />. Added support for <SpellLink spell={TALENTS_DRUID.LUNAR_CALLING_TALENT} /> in Guide text. Fixed an issue where Mushroom cooldown graph would be shown when player takes <SpellLink spell={TALENTS_DRUID.SUNSEEKER_MUSHROOM_TALENT} />. </>, Sref),
   change(date(2024, 10, 1), <>Updated cooldown graph / tracking to handle <SpellLink spell={TALENTS_DRUID.CONTROL_OF_THE_DREAM_TALENT} /></>, Sref),

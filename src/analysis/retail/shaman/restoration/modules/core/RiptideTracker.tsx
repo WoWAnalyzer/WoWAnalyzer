@@ -5,7 +5,6 @@ import HotTracker, { HotInfo, Tracker } from 'parser/shared/modules/HotTracker';
 import {
   PRIMAL_TIDE_CORE,
   HARDCAST,
-  RIPTIDE_PWAVE,
   RIPTIDE_BASE_DURATION,
   WAVESPEAKERS_BLESSING,
   UNLEASH_LIFE,
@@ -38,12 +37,6 @@ class RiptideTracker extends HotTracker {
   fromPrimalTideCore(hot: Tracker): boolean {
     return hot.attributions.some(function (attr) {
       return attr.name === PRIMAL_TIDE_CORE;
-    });
-  }
-
-  fromPrimordialWave(hot: Tracker): boolean {
-    return hot.attributions.some(function (attr) {
-      return attr.name === RIPTIDE_PWAVE;
     });
   }
 

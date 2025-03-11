@@ -15,6 +15,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
     <>
       <Section title="Core Spells and Buffs">
         <MasteryGraph modules={modules} events={events} info={info} />
+        {info.combatant.hasTalent(TALENTS_MONK.CELESTIAL_CONDUIT_TALENT) &&
+          modules.heartOfTheJadeSerpent.guideSubsection}
         {modules.risingSunKick.guideSubsection}
         {modules.fistsofFury.guideSubsection}
         {modules.strikeoftheWindlord.guideSubsection}
