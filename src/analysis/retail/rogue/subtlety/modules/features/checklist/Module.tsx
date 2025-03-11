@@ -60,8 +60,10 @@ class Checklist extends BaseChecklist {
           //Base
           castsInShadowDance: this.castsInShadowDance.castsInStealthThresholds,
           backstabInShadowDance: this.castsInShadowDance.danceBackstabThresholds,
+          shadowstrikeInShadowDance: this.castsInShadowDance.danceShadowstrikeThresholds,
           castsInStealth: this.castsInStealth.castsInStealthThresholds,
           backstabInStealth: this.castsInStealth.stealthBackstabThresholds,
+          shadowstrikeInStealth: this.castsInStealth.stealthShadowstrikeThresholds,
         }}
       />
     );

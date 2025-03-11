@@ -1,5 +1,4 @@
 import { formatNumber } from 'common/format';
-import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/rogue';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateMaxCasts } from 'parser/core/EventCalculateLib';
@@ -34,11 +33,9 @@ class Flagellation extends Analyzer {
       Events.damage.by(SELECTED_PLAYER).spell(TALENTS.FLAGELLATION_TALENT),
       this.onDamage,
     );
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FLAGELLATION_LASH),
-      this.onLashDamage,
-    );
+
     this.addEventListener(Events.fightend, this.adjustMaxCasts);
+
     (options.abilities as Abilities).add({
       spell: TALENTS.FLAGELLATION_TALENT.id,
       category: SPELL_CATEGORY.COOLDOWNS,
@@ -63,16 +60,11 @@ class Flagellation extends Analyzer {
 
   onDamage(event: DamageEvent) {
     this.damage += event.amount + (event.absorbed || 0);
-    this.casts = this.casts + 1;
-  }
-
-  onLashDamage(event: DamageEvent) {
-    this.damage += event.amount + (event.absorbed || 0);
-    this.lashDamage += event.amount + (event.absorbed || 0);
+    this.casts += 1;
   }
 
   get efficiency() {
-    return this.casts / this.maxCasts;
+    return this.maxCasts > 0 ? (this.casts / this.maxCasts) * 100 : 0;
   }
 
   get suggestionThresholds() {
@@ -87,6 +79,24 @@ class Flagellation extends Analyzer {
     };
   }
 
+  get dps() {
+    if (this.casts === 0) {
+      return 0;
+    }
+
+    const activeTime = this.casts * 12;
+
+    return activeTime > 0 ? this.damage / activeTime : 0;
+  }
+
+  get totalDamage() {
+    return this.damage + this.lashDamage;
+  }
+
+  get flagellationDPS() {
+    return this.damage / (this.owner.fightDuration / 1000);
+  }
+
   statistic() {
     return (
       <Statistic
@@ -94,15 +104,12 @@ class Flagellation extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <ul>
-            <li>{formatNumber(this.lashDamage)} damage done by flagellation lashes</li>
-            <li>{formatNumber(this.damage)} damage done by flagellation</li>
+            <li>{formatNumber(this.damage)} damage done by Flagellation</li>
           </ul>
         }
       >
         <BoringSpellValueText spell={TALENTS.FLAGELLATION_TALENT}>
-          <>
-            <ItemDamageDone amount={this.damage} />
-          </>
+          <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>
     );

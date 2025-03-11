@@ -35,6 +35,10 @@ class CastsInStealth extends CastsInStealthBase {
     );
   }
 
+  get stealthShadowstrikeThresholds() {
+    return this.createWrongCastThresholds(this.shadowstrikeSpell, this.stealthDamageTracker);
+  }
+
   get stealthBackstabThresholds() {
     return this.createWrongCastThresholds(this.backstabSpell, this.stealthDamageTracker);
   }

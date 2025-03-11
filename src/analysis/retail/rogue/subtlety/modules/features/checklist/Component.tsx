@@ -93,22 +93,22 @@ const SubRogueChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
         <Requirement
           name={
             <>
-              <SpellLink spell={SPELLS.BACKSTAB} /> used from{' '}
+              <SpellLink spell={SPELLS.SHADOWSTRIKE} /> used from{' '}
               <SpellLink spell={SPELLS.SHADOW_DANCE} />
             </>
           }
-          thresholds={thresholds.backstabInShadowDance}
+          thresholds={thresholds.castsInStealth}
         />
         <Requirement
           name={
             <>
-              <SpellLink spell={SPELLS.BACKSTAB} />{' '}
+              <SpellLink spell={SPELLS.SHADOWSTRIKE} />{' '}
               <TooltipElement content="Includes Vanish and Subterfuge if talented">
                 used from Stealth*
               </TooltipElement>
             </>
           }
-          thresholds={thresholds.backstabInStealth}
+          thresholds={thresholds.castsInStealth}
         />
       </Rule>
       <PreparationRule thresholds={thresholds} />

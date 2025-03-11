@@ -204,10 +204,10 @@ const spells = {
     name: 'Symbols of Death',
     icon: 'spell_shadow_rune',
   },
-  FLAGELLATION_LASH: {
-    id: 394757,
+  FLAGELLATION: {
+    id: 384631,
     name: 'Flagellation',
-    icon: 'ability_revendreth_rogue',
+    icon: 'inv_ability_rogue_flagellation',
   },
   SHADOW_STEP: {
     id: 36554,
