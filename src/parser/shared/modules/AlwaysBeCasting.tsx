@@ -55,6 +55,9 @@ class AlwaysBeCasting extends Analyzer {
   /** Segments when the player was casting heals, in chronological order and non-overlapping.
    *  Access with {@link activeHealingTimeSegments} to ensure they're fully generated */
   private workingActiveHealingTimeSegments: ActivitySegment[] | undefined = undefined;
+  /** Segments when the player was casting non-healing spells, in chronological order and non-overlapping.
+   *  Access with {@link activeNonHealingTimeSegments} to ensure they're fully generated */
+  private workingActiveNonHealingTimeSegments: ActivitySegment[] | undefined = undefined;
   /** Memoized total active time (ms) */
   private activeTimeMemo: number | undefined = 0;
   /** Start time of memoized active segment */
@@ -143,10 +146,12 @@ class AlwaysBeCasting extends Analyzer {
    * counter an activity start edge and decrementing the counter on an activity end edge, we can
    * detect inactivity time (when counter is 0) and activity time (when counter is greater than 0).
    * Use this to generate the segment's union, which will be non-overlapping and in order.
+   *
+   * @param {boolean|undefined} isHealingAbility The required value of `isHealingAbility` in the activity edges. If undefined, any value is allowed.
    */
   private checkAndGenerateActiveTimeSegments(
     workingSegments: ActivitySegment[] | undefined,
-    healingOnly?: boolean,
+    isHealingAbility?: boolean,
   ): ActivitySegment[] {
     if (workingSegments !== undefined) {
       return workingSegments;
@@ -158,7 +163,7 @@ class AlwaysBeCasting extends Analyzer {
     let activityStartTimestamp = 0;
     workingSegments = [];
     for (const e of this.activeTimeEdges) {
-      if (healingOnly && !e.isHealingAbility) {
+      if (isHealingAbility !== undefined && Boolean(e.isHealingAbility) !== isHealingAbility) {
         continue;
       } else if (activityCount === 0 && e.value === 1) {
         // upwards edge - activity started
@@ -194,6 +199,14 @@ class AlwaysBeCasting extends Analyzer {
     return this.workingActiveHealingTimeSegments;
   }
 
+  get activeNonHealingTimeSegments() {
+    this.workingActiveNonHealingTimeSegments = this.checkAndGenerateActiveTimeSegments(
+      this.workingActiveNonHealingTimeSegments,
+      false,
+    );
+    return this.workingActiveNonHealingTimeSegments;
+  }
+
   /** The active time (in ms) recorded */
   get activeTime() {
     if (
@@ -214,6 +227,18 @@ class AlwaysBeCasting extends Analyzer {
   /** Percentage of fight time spent active */
   get activeTimePercentage() {
     return this.activeTime / this.owner.fightDuration;
+  }
+
+  /** Percentage of fight time spent actively healing. Unlike `activeTime`, this is NOT memoized! */
+  get activeHealingTimePercentage() {
+    return (
+      this.getActiveTimeMillisecondsInWindow(
+        this.owner.fight.start_time,
+        this.owner.fight.end_time,
+        true,
+      ) /
+      (this.owner.fight.end_time - this.owner.fight.start_time)
+    );
   }
 
   /** The amount of milliseconds not spent casting anything or waiting for the GCD. */

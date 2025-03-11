@@ -1,5 +1,13 @@
 import { Uptime } from 'parser/ui/UptimeBar';
-import { BadColor, OkColor, SubSection, useAnalyzer, useEvents, useInfo } from '../index';
+import {
+  BadColor,
+  OkColor,
+  PerfectColor,
+  SubSection,
+  useAnalyzer,
+  useEvents,
+  useInfo,
+} from '../index';
 import { FoundationHighlight as HL } from './shared';
 import { Highlight } from 'interface/Highlight';
 import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
@@ -31,6 +39,7 @@ import DowntimeDebuffAnalyzer from './analyzers/DowntimeDebuffAnalyzer';
 import CancelledCasts, { CancelGap } from 'parser/shared/modules/CancelledCasts';
 import ROLES from 'game/ROLES';
 import SpellLink from 'interface/SpellLink';
+import { evaluateQualitativePerformanceByThreshold } from 'parser/ui/QualitativePerformance';
 
 export default function FoundationDowntimeSectionV2(): JSX.Element | null {
   const info = useInfo();
@@ -53,11 +62,29 @@ export default function FoundationDowntimeSectionV2(): JSX.Element | null {
     [info, globalMeleeEvents],
   );
 
+  const healingUptime = useMemo(() => {
+    const uptime = abc?.activeHealingTimePercentage ?? 0.0;
+    // extremely lax "performance" value is just used for icon/stat value.
+    const perf = evaluateQualitativePerformanceByThreshold({
+      actual: uptime,
+      max: 1,
+      isGreaterThanOrEqual: {
+        good: 0.7 * (abc?.activeTimePercentage ?? 0.8),
+        ok: 0.0,
+      },
+    });
+    return {
+      uptime,
+      perf,
+    };
+  }, [abc, info?.fightStart, info?.fightEnd]);
+
   if (!info || !abc) {
     return null;
   }
 
   const uptimeHistory = abc.activeTimeSegments;
+  const nonHealingUptimeHistory = abc.activeNonHealingTimeSegments;
 
   // intentionally not including the "hide explanation" options for right now
 
@@ -105,6 +132,20 @@ export default function FoundationDowntimeSectionV2(): JSX.Element | null {
                   </>
                 )}
               </Role.Melee>
+              <Role.Healer>
+                <>
+                  <dt>
+                    <PerformanceStrong performance={healingUptime.perf}>
+                      {formatPercentage(healingUptime.uptime, 1)}%
+                    </PerformanceStrong>
+                  </dt>
+                  <dd>
+                    <TooltipElement content="The percentage of time that you spent actively healing. A low percentage with high ability uptime might mean that you are over-healing and should have some healers play DPS instead.">
+                      Healing Uptime
+                    </TooltipElement>
+                  </dd>
+                </>
+              </Role.Healer>
               <Role roles={[ROLES.HEALER, ROLES.DPS.RANGED]}>
                 {cancelledCasts && (
                   <>
@@ -126,20 +167,27 @@ export default function FoundationDowntimeSectionV2(): JSX.Element | null {
         </div>
         <div>
           <Para>
-            The foundation of good play in <em>WoW</em> is having good <HL>uptime.</HL>{' '}
             <ByRole>
+              The foundation of good play in <em>WoW</em> is having good <HL>uptime.</HL>{' '}
               <Role.Melee>
                 There should be no gaps between the end of one <GCD /> and the start of the next.
               </Role.Melee>
               <Role.Caster>
                 There should be no gaps between the end of one spell cast and the start of the next.
-              </Role.Caster>
-            </ByRole>{' '}
-            This diagram shows gaps in your uptime in{' '}
-            <Highlight color={BadColor} textColor="white">
-              red
-            </Highlight>
-            .
+              </Role.Caster>{' '}
+              This diagram shows gaps in your uptime in{' '}
+              <Highlight color={BadColor} textColor="white">
+                red
+              </Highlight>
+              <Role.Healer>
+                {' '}
+                and non-healing uptime in{' '}
+                <Highlight color={PerfectColor} textColor="black">
+                  blue
+                </Highlight>
+              </Role.Healer>
+              .
+            </ByRole>
           </Para>
           <Para>
             With practice, you will be able to maintain uptime <em>and</em> pick the right abilities
@@ -151,6 +199,7 @@ export default function FoundationDowntimeSectionV2(): JSX.Element | null {
       <SubSection>
         <ComplexUptimeDisplay
           uptimeHistory={uptimeHistory}
+          nonHealingUptimeHistory={nonHealingUptimeHistory}
           meleeGaps={melee?.meleeUptimeGaps}
           cancelGaps={cancelledCasts?.cancelGaps}
           globalMeleeGaps={globalMeleeUptime}
@@ -170,6 +219,7 @@ export default function FoundationDowntimeSectionV2(): JSX.Element | null {
 
 interface Props {
   uptimeHistory: Segment[];
+  nonHealingUptimeHistory?: Segment[];
   meleeGaps?: Array<Segment>;
   cancelGaps?: Array<CancelGap>;
   globalMeleeGaps?: Array<Segment>;
@@ -202,6 +252,7 @@ const UptimeStatistics = styled.dl`
 
 function ComplexUptimeDisplay({
   uptimeHistory,
+  nonHealingUptimeHistory,
   meleeGaps,
   cancelGaps,
   globalMeleeGaps,
@@ -212,12 +263,104 @@ function ComplexUptimeDisplay({
 
   const boss = findByBossId(fight.boss);
 
+  const isHealer = info?.combatant.owner.config.spec.role === ROLES.HEALER;
+
   const tracks: TimelineTrack[] = useMemo(() => {
     if (!info) {
       return [];
     }
 
-    return [
+    const subline: TimelineTrack = isHealer
+      ? {
+          height: 10,
+          zIndex: -1,
+          element: nonHealingUptimeHistory ? (
+            <>
+              <SegmentTimeline
+                bgColor="#1a1a1a"
+                fgColor={PerfectColor}
+                segments={nonHealingUptimeHistory.map((segment) => ({
+                  ...segment,
+                  tooltip: 'Non-Healing uptime',
+                }))}
+                info={info}
+                segmentProps={{ opacity: 0.9 }}
+              />
+              {cancelGaps && (
+                <SegmentTimeline
+                  fgColor={BadColor}
+                  segments={cancelGaps.map((gap) => ({
+                    ...gap,
+                    abilityId: undefined,
+                    tooltip: (
+                      <>
+                        <SpellLink spell={gap.abilityId} /> cast started at{' '}
+                        {formatDuration(gap.start - info.fightStart, 1)}, cancelled at{' '}
+                        {gap.capped ? '~' : ''}
+                        {formatDuration(gap.end - info.fightStart, 1)}
+                      </>
+                    ),
+                  }))}
+                  info={info}
+                  segmentProps={{ opacity: 0.9 }}
+                />
+              )}
+            </>
+          ) : null,
+        }
+      : {
+          height: 10,
+          zIndex: -1,
+          // this stacks the melee uptime segment timelines on top of each other.
+          element: (
+            <>
+              {meleeGaps && (
+                <SegmentTimeline
+                  bgColor="#1a1a1a"
+                  fgColor={BadColor}
+                  segments={meleeGaps}
+                  info={info}
+                  segmentProps={{
+                    opacity: 0.9,
+                  }}
+                />
+              )}
+              {cancelGaps && (
+                <SegmentTimeline
+                  bgColor="#1a1a1a"
+                  fgColor={BadColor}
+                  segments={cancelGaps.map((gap) => ({
+                    ...gap,
+                    abilityId: undefined,
+                    tooltip: (
+                      <>
+                        <SpellLink spell={gap.abilityId} /> cast started at{' '}
+                        {formatDuration(gap.start - info.fightStart, 1)}, cancelled at{' '}
+                        {gap.capped ? '~' : ''}
+                        {formatDuration(gap.end - info.fightStart, 1)}
+                      </>
+                    ),
+                  }))}
+                  info={info}
+                  segmentProps={{ opacity: 0.9 }}
+                />
+              )}
+              {globalMeleeGaps && (
+                <SegmentTimeline
+                  fgColor={OkColor}
+                  segments={globalMeleeGaps.map((segment) => ({
+                    ...segment,
+                    tooltip:
+                      'All melee had downtime here, which may mean that no enemies were attackable.',
+                  }))}
+                  info={info}
+                />
+              )}
+            </>
+          ),
+        };
+
+    const base = [
       // reserve space for boss abilities overlay
       {
         height: 24,
@@ -258,57 +401,7 @@ function ComplexUptimeDisplay({
           />
         ),
       },
-      // this stacks the melee uptime segment timelines on top of each other.
-      {
-        height: 10,
-        zIndex: -1,
-        element: (
-          <>
-            {meleeGaps && (
-              <SegmentTimeline
-                bgColor="#1a1a1a"
-                fgColor={BadColor}
-                segments={meleeGaps}
-                info={info}
-                segmentProps={{
-                  opacity: 0.9,
-                }}
-              />
-            )}
-            {cancelGaps && (
-              <SegmentTimeline
-                bgColor="#1a1a1a"
-                fgColor={BadColor}
-                segments={cancelGaps.map((gap) => ({
-                  ...gap,
-                  abilityId: undefined,
-                  tooltip: (
-                    <>
-                      <SpellLink spell={gap.abilityId} /> cast started at{' '}
-                      {formatDuration(gap.start - info.fightStart, 1)}, cancelled at{' '}
-                      {gap.capped ? '~' : ''}
-                      {formatDuration(gap.end - info.fightStart, 1)}
-                    </>
-                  ),
-                }))}
-                info={info}
-                segmentProps={{ opacity: 0.9 }}
-              />
-            )}
-            {globalMeleeGaps && (
-              <SegmentTimeline
-                fgColor={OkColor}
-                segments={globalMeleeGaps.map((segment) => ({
-                  ...segment,
-                  tooltip:
-                    'All melee had downtime here, which may mean that no enemies were attackable.',
-                }))}
-                info={info}
-              />
-            )}
-          </>
-        ),
-      },
+      subline,
       {
         height: 2,
         element: null,
@@ -320,7 +413,20 @@ function ComplexUptimeDisplay({
         hidden: whenSecondWidthLT(info.fightStart, MIN_ABILITY_TIMELINE_SECOND_WIDTH),
       },
     ];
-  }, [debuffSegments, uptimeHistory, info, meleeGaps, globalMeleeGaps, cancelGaps, boss?.fight]);
+
+    return base;
+  }, [
+    info,
+    isHealer,
+    nonHealingUptimeHistory,
+    meleeGaps,
+    cancelGaps,
+    globalMeleeGaps,
+    debuffSegments,
+    uptimeHistory,
+    boss?.fight.timeline?.abilities?.length,
+    boss?.fight.timeline?.debuffs?.length,
+  ]);
 
   if (!info) {
     return null;
