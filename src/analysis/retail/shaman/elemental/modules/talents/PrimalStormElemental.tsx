@@ -5,7 +5,11 @@ import { Options } from 'parser/core/Analyzer';
 import { CastEvent } from 'parser/core/Events';
 import PrimalElementalist, { PrimalElementalCast } from './PrimalElementalist';
 import { ChecklistUsageInfo, SpellUse } from 'parser/core/SpellUsage/core';
-import { getLowestPerf, QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import {
+  evaluateQualitativePerformanceByThreshold,
+  getLowestPerf,
+  QualitativePerformance,
+} from 'parser/ui/QualitativePerformance';
 import { plural } from '@lingui/macro';
 import NPCS from 'common/NPCS/shaman';
 
@@ -57,7 +61,9 @@ class PrimalStormElemental extends PrimalElementalist<StormElemental> {
     return {
       check: `used-${SPELLS.EYE_OF_THE_STORM.id}`,
       timestamp: cast.event.timestamp,
-      performance: cast.spells ? QualitativePerformance.Perfect : QualitativePerformance.Fail,
+      performance: cast.spells.has(SPELLS.EYE_OF_THE_STORM.id)
+        ? QualitativePerformance.Perfect
+        : QualitativePerformance.Fail,
       summary: (
         <div>
           <>
@@ -82,18 +88,18 @@ class PrimalStormElemental extends PrimalElementalist<StormElemental> {
     return {
       check: 'call-lightning',
       timestamp: cast.event.timestamp,
-      performance:
-        percentage >= 0.95
-          ? QualitativePerformance.Perfect
-          : percentage >= 0.9
-            ? QualitativePerformance.Good
-            : percentage >= 0.85
-              ? QualitativePerformance.Ok
-              : QualitativePerformance.Fail,
+      performance: evaluateQualitativePerformanceByThreshold({
+        actual: cast.castsWithoutCallLightning,
+        isLessThanOrEqual: {
+          perfect: 1,
+          good: 2,
+          ok: 3,
+        },
+      }),
       summary:
-        cast.castsWithoutCallLightning === 0 ? (
+        cast.castsWithoutCallLightning <= 1 ? (
           <div>
-            <SpellLink spell={SPELLS.CALL_LIGHTNING} /> active for all casts
+            <SpellLink spell={SPELLS.CALL_LIGHTNING} /> active for maximum possible casts
           </div>
         ) : (
           <div>
@@ -101,16 +107,16 @@ class PrimalStormElemental extends PrimalElementalist<StormElemental> {
           </div>
         ),
       details:
-        cast.castsWithoutCallLightning === 0 ? (
+        cast.castsWithoutCallLightning <= 1 ? (
           <div>
-            All casts buffed by <SpellLink spell={SPELLS.CALL_LIGHTNING} />
+            All possible casts buffed by <SpellLink spell={SPELLS.CALL_LIGHTNING} />
           </div>
         ) : (
           <div>
             <strong>{cast.castsWithoutCallLightning}</strong>{' '}
             {plural(cast.castsWithoutCallLightning, { one: 'spell', other: 'spells' })} cast without{' '}
             <SpellLink spell={SPELLS.CALL_LIGHTNING} />{' '}
-            <small>(0% recommended, actual {formatPercentage(1 - percentage)}%)</small>
+            <small>(&lt;5% recommended, actual {formatPercentage(1 - percentage)}%)</small>
           </div>
         ),
     };

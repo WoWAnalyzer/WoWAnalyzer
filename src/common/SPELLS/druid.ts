@@ -427,6 +427,12 @@ const spells = {
     name: 'Thriving Vegetation',
     icon: 'spell_nature_rejuvenation',
   },
+  // direct heal from Flourish talent
+  FLOURISH_HEAL: {
+    id: 473901,
+    name: 'Flourish',
+    icon: 'spell_druid_wildburst',
+  },
   // Sets/Items:
   ASTRAL_HARMONY: {
     // 2pc T19

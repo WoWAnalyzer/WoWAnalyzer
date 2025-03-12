@@ -7,7 +7,7 @@ import TALENTS from 'common/TALENTS/priest';
 import { TIERS } from 'game/TIERS';
 
 const VB = 'VoidBolt';
-const PI = 'PowerInfusionCast';
+const PI = 'PowerInfusionCastWithAnotherTarget';
 const castVB = 'VoidBoltDamageEventWithCast';
 
 const PI_BUFFER_MS = 50;
@@ -71,8 +71,8 @@ function otherTarget(event: AnyEvent) {
   return false;
 }
 
-function isFreePI(event: CastEvent): boolean {
-  //Is a free PI if it has not been cast on another target.
+function isUnpairedPI(event: CastEvent): boolean {
+  //Is an unpaired PI if it has not been cast on another target.
   return !HasRelatedEvent(event, PI);
 }
 
@@ -85,9 +85,11 @@ export default class ShadowTierTWWS2Normalizer extends EventLinkNormalizer {
     const events = super.normalize(rawEvents);
     for (const event of events) {
       if (
+        //This is true for a Cast Event of Power Infusion when the character has TWWS2 Four Piece and the event is an unpaired cast of PI
         event.type === EventType.Cast &&
         event.ability.guid === TALENTS.POWER_INFUSION_TALENT.id &&
-        isFreePI(event)
+        this.selectedCombatant.has4PieceByTier(TIERS.TWW2) &&
+        isUnpairedPI(event)
       ) {
         (event as AnyEvent).type = EventType.FreeCast;
         event.__modified = true;

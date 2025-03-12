@@ -16,7 +16,6 @@ import {
   UNLEASH_LIFE_HEALING_WAVE,
   UNLEASH_LIFE_REMOVE,
   CAST_BUFFER_MS,
-  PWAVE_TRAVEL_MS,
   HARDCAST,
 } from '../constants';
 import SPELLS from 'common/SPELLS';
@@ -90,7 +89,7 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventType: [EventType.Heal],
     referencedEventId: [SPELLS.HEALING_WAVE.id],
     referencedEventType: [EventType.Cast],
-    backwardBufferMs: PWAVE_TRAVEL_MS,
+    backwardBufferMs: 1100,
     forwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
     isActive(c) {

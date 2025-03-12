@@ -50,6 +50,7 @@ class BrewCDR extends Analyzer.withDependencies(deps) {
     totalCDR += ks.bocCDR;
     // ...and TP...
     totalCDR += tp.cdr;
+    totalCDR += tp.fpCdr;
     // ...and BoB...
     totalCDR += bob.cdr[talents.PURIFYING_BREW_TALENT.id];
     totalCDR += anvilStave.cdr;
@@ -64,6 +65,7 @@ class BrewCDR extends Analyzer.withDependencies(deps) {
       ks.wastedCDR +
       ks.wastedBocCDR +
       tp.wastedCDR +
+      tp.wastedFpCdr +
       bob.wastedCDR[talents.PURIFYING_BREW_TALENT.id] +
       pta.wastedBrewCDR +
       this.totalCDR
@@ -120,10 +122,19 @@ class BrewCDR extends Analyzer.withDependencies(deps) {
                 </li>
               )}
               {!pta.active && (
-                <li>
-                  {tp.totalCasts} Tiger Palm hits — <strong>{(tp.cdr / 1000).toFixed(2)}s</strong> (
-                  <strong>{(tp.wastedCDR / 1000).toFixed(2)}s</strong> wasted)
-                </li>
+                <>
+                  <li>
+                    {tp.totalCasts} Tiger Palm hits — <strong>{(tp.cdr / 1000).toFixed(2)}s</strong>{' '}
+                    (<strong>{(tp.wastedCDR / 1000).toFixed(2)}s</strong> wasted)
+                  </li>
+                  {this.selectedCombatant.hasTalent(talents.FACE_PALM_TALENT) && (
+                    <li>
+                      ~{(tp.totalCasts / 2).toFixed(0)} Face Palm procs —{' '}
+                      <strong>{(tp.fpCdr / 1000).toFixed(2)}s</strong> (
+                      <strong>{(tp.wastedFpCdr / 1000).toFixed(2)}s</strong> wasted)
+                    </li>
+                  )}
+                </>
               )}
               {bob.active && (
                 <li>

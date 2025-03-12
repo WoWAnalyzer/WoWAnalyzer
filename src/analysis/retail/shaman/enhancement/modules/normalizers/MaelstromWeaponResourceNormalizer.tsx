@@ -840,6 +840,7 @@ const MAELSTROM_ABILITIES = {
       SPELLS.HEALING_SURGE.id,
       TALENTS.CHAIN_HEAL_TALENT.id,
       TALENTS.LAVA_BURST_TALENT.id,
+      SPELLS.PRIMORDIAL_STORM_CAST.id,
     ],
     type: MaelstromAbilityType.Spender,
     linkFromEventType: [EventType.Cast, EventType.FreeCast],
@@ -904,13 +905,8 @@ const MAELSTROM_ABILITIES = {
     maximum: 1,
     requiresExact: true,
   },
-  // Swirling maelstrom has higher priority than Elemental Assault, as the later can be a chance if 1 of 2 talents invested
   SWIRLING_MAELSTROM: {
-    spellId: [
-      TALENTS.ICE_STRIKE_1_ENHANCEMENT_TALENT.id,
-      TALENTS.ICE_STRIKE_2_ENHANCEMENT_TALENT.id,
-      TALENTS.FROST_SHOCK_TALENT.id,
-    ],
+    spellId: [TALENTS.FROST_SHOCK_TALENT.id, TALENTS.FIRE_NOVA_TALENT.id],
     enabled: (c) => c.hasTalent(TALENTS.SWIRLING_MAELSTROM_TALENT),
     linkFromEventType: EventType.Cast,
     spellIdOverride: TALENTS.SWIRLING_MAELSTROM_TALENT.id,
@@ -922,7 +918,7 @@ const MAELSTROM_ABILITIES = {
   },
   ELEMENTAL_ASSAULT: {
     spellId: [
-      SPELLS.STORMSTRIKE.id,
+      SPELLS.STORMSTRIKE_CAST.id,
       SPELLS.WINDSTRIKE_CAST.id,
       TALENTS.LAVA_LASH_TALENT.id,
       TALENTS.ICE_STRIKE_1_ENHANCEMENT_TALENT.id,
@@ -936,7 +932,16 @@ const MAELSTROM_ABILITIES = {
     searchDirection: SearchDirection.ForwardsOnly,
     matchMode: MatchMode.MatchFirst,
   },
-
+  PRIMORDIAL_WAVE: {
+    spellId: TALENTS.PRIMORDIAL_WAVE_TALENT.id,
+    linkFromEventType: EventType.Cast,
+    forwardBufferMs: BufferMs.OnSameTimestamp,
+    backwardsBufferMs: BufferMs.PrimordialWave,
+    maximum: 5,
+    linkToEventType: GAIN_EVENT_TYPES,
+    searchDirection: SearchDirection.BackwardsOnly,
+    matchMode: MatchMode.MatchLast,
+  },
   ASCENDANCE_PERIODIC_GAIN: {
     spellId: [TALENTS.ASCENDANCE_ENHANCEMENT_TALENT.id],
     linkFromEventType: [EventType.ResourceChange, ...GAIN_EVENT_TYPES],
@@ -968,9 +973,23 @@ const MAELSTROM_ABILITIES = {
       SPELLS.WINDSTRIKE_DAMAGE.id,
       SPELLS.WINDSTRIKE_DAMAGE_OFFHAND.id,
     ],
-    spellIdOverride: SPELLS.STORMSTRIKE.id,
+    spellIdOverride: SPELLS.STORMSTRIKE_CAST.id,
     forwardBufferMs: BufferMs.Damage,
     linkFromEventType: EventType.Damage,
+    linkToEventType: GAIN_EVENT_TYPES,
+    searchDirection: SearchDirection.ForwardsOnly,
+    matchMode: MatchMode.MatchFirst,
+  },
+  ICE_STRIKE: {
+    spellId: [
+      TALENTS.ICE_STRIKE_1_ENHANCEMENT_TALENT.id,
+      TALENTS.ICE_STRIKE_2_ENHANCEMENT_TALENT.id,
+    ],
+    linkFromEventType: EventType.Cast,
+    enabled: (c) =>
+      c.hasTalent(TALENTS.ICE_STRIKE_1_ENHANCEMENT_TALENT) ||
+      c.hasTalent(TALENTS.ICE_STRIKE_2_ENHANCEMENT_TALENT),
+    forwardBufferMs: BufferMs.Cast,
     linkToEventType: GAIN_EVENT_TYPES,
     searchDirection: SearchDirection.ForwardsOnly,
     matchMode: MatchMode.MatchFirst,

@@ -1,61 +1,67 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
-import { isTalent } from 'common/TALENTS/types';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
-import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Events, { CastEvent } from 'parser/core/Events';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import { addEnhancedCastReason } from 'parser/core/EventMetaLib';
-import { ENABLE_MOTE_CHECKS } from '../../constants';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import Combatant from 'parser/core/Combatant';
+import Spell from 'common/SPELLS/Spell';
+import { addAdditionalCastInformation } from 'parser/core/EventMetaLib';
+import styled from '@emotion/styled';
 
-const MASTER_OF_THE_ELEMENTS = {
-  INCREASE: 0.15,
-  DURATION: 15000,
-  WINDOW_DURATION: 500,
-  AFFECTED_DAMAGE: [
-    SPELLS.ICEFURY,
-    SPELLS.ICEFURY_OVERLOAD,
-    TALENTS.FROST_SHOCK_TALENT,
-    SPELLS.LIGHTNING_BOLT,
-    SPELLS.LIGHTNING_BOLT_OVERLOAD,
-    TALENTS.CHAIN_LIGHTNING_TALENT,
-    SPELLS.CHAIN_LIGHTNING_OVERLOAD,
-    TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT,
-    SPELLS.ELEMENTAL_BLAST_OVERLOAD,
-    TALENTS.EARTH_SHOCK_TALENT,
-  ],
-  AFFECTED_CASTS: [
-    TALENTS.EARTHQUAKE_1_ELEMENTAL_TALENT,
-    TALENTS.EARTHQUAKE_2_ELEMENTAL_TALENT,
-    SPELLS.ICEFURY,
-    TALENTS.FROST_SHOCK_TALENT,
-    TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT,
-    TALENTS.CHAIN_LIGHTNING_TALENT,
-    TALENTS.EARTH_SHOCK_TALENT,
-    SPELLS.LIGHTNING_BOLT,
-  ],
-  TALENTS: [
-    TALENTS.ICEFURY_TALENT.id,
-    TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id,
-    TALENTS.EARTHQUAKE_1_ELEMENTAL_TALENT.id,
-    TALENTS.EARTHQUAKE_2_ELEMENTAL_TALENT.id,
-    TALENTS.ICEFURY_TALENT.id,
-    TALENTS.FROST_SHOCK_TALENT.id,
-    TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id,
-    TALENTS.CHAIN_LIGHTNING_TALENT.id,
-    TALENTS.EARTH_SHOCK_TALENT.id,
-  ],
+interface MasterOfTheElementsSpellConfig {
+  castSpell: Spell | Spell[];
+  condition?: ((c: Combatant) => boolean) | boolean | undefined;
+}
+
+const MasterOfTheElementsTable = styled.table`
+  font-size: 16px;
+  tr td:nth-child(2) {
+    text-align: right;
+  }
+  width: 100%;
+`;
+
+const MASTER_OF_THE_ELEMENTS_CONFIG: Record<string, MasterOfTheElementsSpellConfig> = {
+  ICEFURY: {
+    castSpell: SPELLS.ICEFURY_CAST,
+    condition: (c) => c.hasTalent(TALENTS.ICEFURY_TALENT),
+  },
+  FROST_SHOCK: {
+    castSpell: TALENTS.FROST_SHOCK_TALENT,
+    condition: (c) => c.hasTalent(TALENTS.FROST_SHOCK_TALENT),
+  },
+  LIGHTNING_BOLT: {
+    castSpell: SPELLS.LIGHTNING_BOLT,
+  },
+  CHAIN_LIGHTNING: {
+    castSpell: TALENTS.CHAIN_LIGHTNING_TALENT,
+  },
+  TEMPEST: {
+    castSpell: SPELLS.TEMPEST_CAST,
+  },
+  ELEMENTAL_BLAST: {
+    castSpell: TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT,
+    condition: (c) => c.hasTalent(TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT),
+  },
+  EARTH_SHOCK: {
+    castSpell: TALENTS.EARTH_SHOCK_TALENT,
+    condition: (c) => c.hasTalent(TALENTS.EARTH_SHOCK_TALENT),
+  },
+  EARTHQUAKE: {
+    castSpell: [TALENTS.EARTHQUAKE_1_ELEMENTAL_TALENT, TALENTS.EARTHQUAKE_2_ELEMENTAL_TALENT],
+    condition: (c) =>
+      c.hasTalent(TALENTS.EARTHQUAKE_1_ELEMENTAL_TALENT) ||
+      c.hasTalent(TALENTS.EARTHQUAKE_2_ELEMENTAL_TALENT),
+  },
 };
 
 class MasterOfTheElements extends Analyzer {
   moteBuffedAbilities = new Map<number, number>();
-  moteActivationTimestamp: number | null = null;
-  moteConsumptionTimestamp: number | null = null;
-  damageGained = 0;
+  moteSpellIds: number[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -64,76 +70,51 @@ class MasterOfTheElements extends Analyzer {
       return;
     }
 
-    Object.values(MASTER_OF_THE_ELEMENTS.AFFECTED_CASTS).forEach((spell) => {
+    const castSpellFilter: Spell[] = [];
+
+    Object.keys(MASTER_OF_THE_ELEMENTS_CONFIG).forEach((spell) => {
+      const config = MASTER_OF_THE_ELEMENTS_CONFIG[spell];
       if (
-        (isTalent(spell) && this.selectedCombatant.hasTalent(spell)) ||
-        !MASTER_OF_THE_ELEMENTS.TALENTS.includes(spell.id)
+        !config.condition ||
+        (typeof config.condition === 'boolean' && config.condition) ||
+        config.condition(this.selectedCombatant)
       ) {
-        this.moteBuffedAbilities.set(spell.id, 0);
+        const castSpells = Array.isArray(config.castSpell) ? config.castSpell : [config.castSpell];
+        castSpellFilter.push(...castSpells);
+        this.moteSpellIds.push(...castSpells.map((s) => s.id));
       }
     });
 
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(MASTER_OF_THE_ELEMENTS.AFFECTED_CASTS),
-      this._onCast,
-    );
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.LAVA_BURST_TALENT),
-      this._onLvBCast,
-    );
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(MASTER_OF_THE_ELEMENTS.AFFECTED_DAMAGE),
-      this._onDamage,
-    );
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(castSpellFilter), this.onCast);
   }
 
-  _onCast(event: CastEvent) {
+  onCast(event: CastEvent) {
     if (
-      this.moteActivationTimestamp === null ||
-      !this.moteBuffedAbilities.has(event.ability.guid)
+      this.moteSpellIds.includes(event.ability.guid) &&
+      this.selectedCombatant.hasBuff(SPELLS.MASTER_OF_THE_ELEMENTS_BUFF, event.timestamp)
     ) {
-      //the buff is a clusterfuck so we just track it manually
-      return;
-    }
-    this.moteConsumptionTimestamp = event.timestamp;
-    this.moteActivationTimestamp = null;
-    ENABLE_MOTE_CHECKS &&
-      addEnhancedCastReason(
+      this.moteBuffedAbilities.set(
+        event.ability.guid,
+        (this.moteBuffedAbilities.get(event.ability.guid) || 0) + 1,
+      );
+      addAdditionalCastInformation(
         event,
         <>
-          Cast with <SpellLink spell={TALENTS.MASTER_OF_THE_ELEMENTS_ELEMENTAL_TALENT} />
+          Cast was buffed by <SpellLink spell={TALENTS.MASTER_OF_THE_ELEMENTS_ELEMENTAL_TALENT} />
         </>,
       );
-    this.moteBuffedAbilities.set(
-      event.ability.guid,
-      this.moteBuffedAbilities.get(event.ability.guid)! + 1,
-    );
-  }
-
-  _onLvBCast(event: CastEvent) {
-    this.moteActivationTimestamp = event.timestamp;
-  }
-
-  _onDamage(event: DamageEvent) {
-    if (event.timestamp < (this.moteConsumptionTimestamp || 0)) {
-      return;
     }
-    if (
-      event.timestamp >
-      (this.moteConsumptionTimestamp || Infinity) + MASTER_OF_THE_ELEMENTS.WINDOW_DURATION
-    ) {
-      return;
-    }
-    this.damageGained += calculateEffectiveDamage(event, MASTER_OF_THE_ELEMENTS.INCREASE);
   }
 
   statistic() {
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
+        category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
-        dropdown={
-          <>
+      >
+        <TalentSpellText talent={TALENTS.MASTER_OF_THE_ELEMENTS_ELEMENTAL_TALENT}>
+          <MasterOfTheElementsTable>
             <table className="table table-condensed">
               <thead>
                 <tr>
@@ -143,6 +124,7 @@ class MasterOfTheElements extends Analyzer {
               </thead>
               <tbody>
                 {[...this.moteBuffedAbilities.entries()]
+                  .sort((a, b) => b[1] - a[1])
                   .filter(([_, casts]) => casts > 0)
                   .map(([spellId, casts]) => (
                     <tr key={spellId}>
@@ -154,13 +136,7 @@ class MasterOfTheElements extends Analyzer {
                   ))}
               </tbody>
             </table>
-          </>
-        }
-      >
-        <TalentSpellText talent={TALENTS.MASTER_OF_THE_ELEMENTS_ELEMENTAL_TALENT}>
-          <>
-            <ItemDamageDone amount={this.damageGained} />
-          </>
+          </MasterOfTheElementsTable>
         </TalentSpellText>
       </Statistic>
     );

@@ -170,6 +170,19 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.95,
         },
       },
+      {
+        spell: TALENTS_MONK.CELESTIAL_CONDUIT_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 90,
+        gcd: {
+          static: 1000,
+        },
+        enabled: combatant.hasTalent(TALENTS_MONK.CELESTIAL_CONDUIT_TALENT),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.95,
+        },
+      },
       // Utility
       {
         spell: TALENTS_MONK.RING_OF_PEACE_TALENT.id,

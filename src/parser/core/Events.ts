@@ -263,6 +263,8 @@ export interface EventMeta {
   inefficientCastReason?: React.ReactNode;
   isEnhancedCast?: boolean;
   enhancedCastReason?: React.ReactNode;
+  isAdditionalCastInfo?: boolean;
+  additionalCastInfo?: React.ReactNode;
 }
 
 export type AbilityEvent<T extends string> = Event<T> & { ability: Ability };

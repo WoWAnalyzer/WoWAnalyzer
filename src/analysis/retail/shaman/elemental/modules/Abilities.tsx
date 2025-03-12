@@ -16,7 +16,7 @@ class Abilities extends ClassAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 60,
+        cooldown: 30,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -33,17 +33,13 @@ class Abilities extends ClassAbilities {
         range: 40,
       },
       {
-        spell: SPELLS.ICEFURY.id,
+        spell: SPELLS.ICEFURY_CAST.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         enabled: combatant.hasTalent(TALENTS.ICEFURY_TALENT),
         gcd: {
           base: 1500,
         },
         range: 40,
-      },
-      {
-        spell: SPELLS.LAVA_BEAM.id,
-        category: SPELL_CATEGORY.ROTATIONAL_AOE,
       },
       {
         spell: [TALENTS.EARTHQUAKE_1_ELEMENTAL_TALENT.id, TALENTS.EARTHQUAKE_2_ELEMENTAL_TALENT.id],

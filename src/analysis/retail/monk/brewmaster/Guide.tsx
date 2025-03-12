@@ -6,8 +6,7 @@ import CombatLogParser from './CombatLogParser';
 import { GuideProps, Section, SubSection } from 'interface/guide';
 import { PurifySection } from './modules/problems/PurifyingBrew';
 import talents from 'common/TALENTS/monk';
-import * as AplCheck from './modules/core/AplCheck';
-import { AplSectionData } from 'interface/guide/components/Apl';
+
 import { ImprovedInvokeNiuzaoSection } from './modules/problems/InvokeNiuzao';
 import MajorDefensivesSection from './modules/core/MajorDefensives';
 import AplChoiceDescription from './modules/core/AplCheck/AplChoiceDescription';
@@ -42,10 +41,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       </Section>
       <MajorDefensivesSection />
       <Section title="Core Rotation">
-        <AplChoiceDescription aplChoice={AplCheck.chooseApl(info)} />
-        <SubSection>
-          <AplSectionData checker={AplCheck.check} apl={AplCheck.apl(info)} />
-        </SubSection>
+        <AplChoiceDescription />
         <BlackoutComboSection />
         <SubSection title="Major Cooldowns">
           <Explanation>
