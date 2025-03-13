@@ -60,6 +60,9 @@ const GOLDEN_OPPORTUNITY_CONSUME = 'goldenOpportunityConsume';
 
 const ERUPTION_ESSENCE_BURST_CONSUME = 'eruptionEssenceBurstConsume';
 const DREAM_ESSENCE_BURST_CONSUME = 'dreamEssenceBurstConsume';
+export const EMPOWER_SANDS_APPLY = 'empowerSandsApply';
+export const FIRE_BREATH_INFERNOS_APPLY = 'fireBreathInfernosApply';
+export const EMERALD_BLOSSOM_SYMBIOTIC_APPLY = 'emeraldBlossomSymbioticApply';
 
 const PRESCIENCE_BUFFER = 150;
 const CAST_BUFFER_MS = 100;
@@ -377,6 +380,46 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: CAST_BUFFER_MS,
     isActive: (C) => C.hasTalent(TALENTS.DREAM_OF_SPRING_TALENT),
     maximumLinks: 1,
+  },
+  {
+    linkRelation: EMPOWER_SANDS_APPLY,
+    reverseLinkRelation: EMPOWER_SANDS_APPLY,
+    linkingEventId: [
+      TALENTS.UPHEAVAL_TALENT.id,
+      SPELLS.UPHEAVAL_FONT.id,
+      SPELLS.FIRE_BREATH.id,
+      SPELLS.FIRE_BREATH_FONT.id,
+    ],
+    linkingEventType: EventType.EmpowerEnd,
+    referencedEventId: SPELLS.SHIFTING_SANDS_BUFF.id,
+    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    anyTarget: true,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    linkRelation: FIRE_BREATH_INFERNOS_APPLY,
+    reverseLinkRelation: FIRE_BREATH_INFERNOS_APPLY,
+    linkingEventId: [SPELLS.FIRE_BREATH.id, SPELLS.FIRE_BREATH_FONT.id],
+    linkingEventType: EventType.EmpowerEnd,
+    referencedEventId: SPELLS.INFERNOS_BLESSING_BUFF.id,
+    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    anyTarget: true,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+    isActive: (C) => C.hasTalent(TALENTS.INFERNOS_BLESSING_TALENT),
+  },
+  {
+    linkRelation: EMERALD_BLOSSOM_SYMBIOTIC_APPLY,
+    reverseLinkRelation: EMERALD_BLOSSOM_SYMBIOTIC_APPLY,
+    linkingEventId: SPELLS.EMERALD_BLOSSOM.id,
+    linkingEventType: EventType.Heal,
+    referencedEventId: SPELLS.SYMBIOTIC_BLOOM_BUFF.id,
+    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    anyTarget: false,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+    isActive: (C) => C.hasTalent(TALENTS.SYMBIOTIC_BLOOM_TALENT),
   },
 ];
 
