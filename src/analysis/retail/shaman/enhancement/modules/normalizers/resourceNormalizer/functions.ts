@@ -57,10 +57,9 @@ export function spellsMatch(ability: number | number[], spellId: number): boolea
  * checks the event type is one of the types specified by {@link eventType}
  */
 export function eventTypesMatch(eventType: EventType | EventType[], event: AnyEvent) {
-  if (Array.isArray(eventType)) {
-    return eventType.some((s) => s === event.type);
-  }
-  return eventType === event.type;
+  return Array.isArray(eventType)
+    ? eventType.some((s) => s === event.type)
+    : eventType === event.type;
 }
 
 /**
@@ -124,7 +123,7 @@ export function sourceCheck(event: AnyEvent, sourceID: number): boolean {
  * @param currentIndex current position of the index through {@link arr}
  * @param arr events being normalized
  * @param skipTheseEvents any event present in this {@link Set} of events is assumed to have already been associated with a resource gain/spend event
- * @param maximumMaelstromSpent the maximum number of maelstrom stacks that can be spent
+ * @param maximumMaelstromStacksConsumed the maximum number of maelstrom stacks that can be consumed
  * @returns related maelstrom buff events
  */
 export function lookBehind(
@@ -132,7 +131,7 @@ export function lookBehind(
   currentIndex: number,
   arr: AnyEvent[],
   skipTheseEvents: Set<AnyEvent>,
-  maximumMaelstromSpent: number,
+  maximumMaelstromStacksConsumed: number,
 ): SearchResult | undefined {
   const event = arr[currentIndex];
   let current: SearchResult = { index: 0, timestamp: 0, events: [] };
@@ -187,7 +186,7 @@ export function lookBehind(
     const results: (SearchResult | undefined)[] = matches.map((m) => {
       const events = m.events;
       if ((ability.maximum as number) < 0) {
-        return events.length > 0 && events.length <= maximumMaelstromSpent ? m : undefined;
+        return events.length > 0 && events.length <= maximumMaelstromStacksConsumed ? m : undefined;
       }
 
       // select no. of events from end
@@ -219,7 +218,7 @@ export function lookBehind(
  * @param currentIndex current position of the index through {@link arr}
  * @param arr events being normalized
  * @param skipTheseEvents any event present in this {@link Set} of events is assumed to have already been associated with a resource gain/spend event
- * @param maximumMaelstromSpent the maximum number of maelstrom stacks that can be spent
+ * @param maximumMaelstromStacksConsumed the maximum number of maelstrom stacks that can be consumed in a single event
  * @returns related maelstrom buff events, or undefined if an unexpected number of events are found
  */
 export function lookAhead(
@@ -227,7 +226,7 @@ export function lookAhead(
   currentIndex: number,
   arr: AnyEvent[],
   skipTheseEvents: Set<AnyEvent>,
-  maximumMaelstromSpent: number,
+  maximumMaelstromStacksConsumed: number,
 ): SearchResult | undefined {
   const event = arr[currentIndex];
 
@@ -278,7 +277,7 @@ export function lookAhead(
     const results: (SearchResult | undefined)[] = matches.map((m) => {
       const events = m.events;
       if ((ability.maximum as number) < 0) {
-        return events.length > 0 && events.length <= maximumMaelstromSpent ? m : undefined;
+        return events.length > 0 && events.length <= maximumMaelstromStacksConsumed ? m : undefined;
       }
 
       // select no. of events from end

@@ -29,6 +29,7 @@ import {
   SPEND_EVENT_TYPES,
   GAIN_EVENT_TYPES,
   PERIODIC_SPELLS,
+  MAELSTROM_SPENDER_SPELLIDS,
 } from './resourceNormalizer/constants';
 import { SearchDirection, MaelstromAbilityType } from './resourceNormalizer/enums';
 import {
@@ -387,7 +388,7 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
         }
       } else if (
         (event.type === EventType.Cast || event.type === EventType.FreeCast) &&
-        MAELSTROM_ABILITIES.SPENDERS.spellId.includes(event.ability.guid)
+        MAELSTROM_SPENDER_SPELLIDS.includes(event.ability.guid)
       ) {
         // get the classResource associated with the cast
         const cr = getMaelstromClassResources(event, this.maxResource);

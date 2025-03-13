@@ -20,7 +20,7 @@ export const GAIN_EVENT_TYPES = [
 
 export const SPEND_EVENT_TYPES = [EventType.RemoveBuff, EventType.RemoveBuffStack];
 
-export const MAELSTROM_ABILITIES = {
+export const MAELSTROM_ABILITIES: Record<string, MaelstromAbility> = {
   SPENDERS: {
     spellId: [
       // Primordial Storm must be listed first as it casts a "free" Lightning Bolt or Chain Lightning
@@ -228,7 +228,12 @@ export const MAELSTROM_ABILITIES = {
     linkFromEventType: GAIN_EVENT_TYPES,
     searchDirection: SearchDirection.ForwardsFirst,
   },
-} satisfies Record<string, MaelstromAbility>;
+};
+
+export const MAELSTROM_SPENDER_SPELLIDS =
+  typeof MAELSTROM_ABILITIES.SPENDERS.spellId === 'number'
+    ? [MAELSTROM_ABILITIES.SPENDERS.spellId]
+    : MAELSTROM_ABILITIES.SPENDERS.spellId;
 
 /**
  * Specification of periodic gain effects.
