@@ -132,7 +132,7 @@ const SpellUseDetails = ({ performance, spellUse }: SpellUseDetailsProps) => {
         .map((checklistItem) => (
           <Fragment key={checklistItem.check}>
             <PerformanceMark perf={checklistItem.performance} />
-            {checklistItem.details}
+            <div>{checklistItem.details}</div>
           </Fragment>
         ))}
       {spellUse.extraDetails ? (
