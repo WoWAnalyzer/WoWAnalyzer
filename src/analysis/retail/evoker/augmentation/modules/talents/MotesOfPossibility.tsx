@@ -18,7 +18,7 @@ import { SpellLink } from 'interface';
 /**
  * Essence Burst has a 20% chance not to be consumed.
  */
-class HoardedPower extends Analyzer {
+class MotesOfPossibility extends Analyzer {
   sandsMotes = 0;
   infernoMotes = 0;
   blossomMotes = 0;
@@ -151,4 +151,4 @@ class HoardedPower extends Analyzer {
   }
 }
 
-export default HoardedPower;
+export default MotesOfPossibility;
