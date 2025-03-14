@@ -16,7 +16,7 @@ import { VersatilityIcon } from 'interface/icons';
 import DonutChart from 'parser/ui/DonutChart';
 import { SpellLink } from 'interface';
 /**
- * Essence Burst has a 20% chance not to be consumed.
+ * Eruption has a 25% chance to create a Mote of Possibility. Motes of Possibility can be consumed to grant a player Shifting Sands, Inferno's Blessing, or Symbiotic Bloom at random.
  */
 class MotesOfPossibility extends Analyzer {
   sandsMotes = 0;

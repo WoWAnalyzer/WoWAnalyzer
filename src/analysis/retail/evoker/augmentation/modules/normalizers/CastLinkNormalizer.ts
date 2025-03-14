@@ -396,6 +396,7 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
+    maximumLinks: 1,
   },
   {
     linkRelation: FIRE_BREATH_INFERNOS_APPLY,
@@ -408,6 +409,7 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
     isActive: (C) => C.hasTalent(TALENTS.INFERNOS_BLESSING_TALENT),
+    maximumLinks: 5,
   },
   {
     linkRelation: EMERALD_BLOSSOM_SYMBIOTIC_APPLY,
@@ -420,6 +422,7 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
     isActive: (C) => C.hasTalent(TALENTS.SYMBIOTIC_BLOOM_TALENT),
+    maximumLinks: 1,
   },
 ];
 
