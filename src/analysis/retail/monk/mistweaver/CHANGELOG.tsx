@@ -5,6 +5,7 @@ import { emallson, Trevor, Vetyst, Vohrr } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2025, 3, 14), <>Bump sample report</>, Vohrr),
   change(date(2025, 3, 12), <>Delete <SpellLink spell={TALENTS_MONK.RESPLENDENT_MIST_TALENT}/> module</>, Trevor),
   change(date(2025, 3, 12), <>Remove <SpellLink spell={TALENTS_MONK.JADE_BOND_TALENT}/> checks from <SpellLink spell={TALENTS_MONK.REVIVAL_TALENT}/> module</>, Trevor),
   change(date(2025, 3, 4), <>Updated <SpellLink spell={TALENTS_MONK.RUSHING_WIND_KICK_TALENT}/> increase value.</>, Vohrr),
