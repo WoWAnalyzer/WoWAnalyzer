@@ -2592,6 +2592,19 @@ export const Jordan: Contributor = {
   discord: 'jordannonumbers',
 };
 
+export const Dboisvert: Contributor = {
+  nickname: 'dangerous',
+  github: 'dboisvert',
+  discord: '@dangerousrn',
+  mains: [
+    {
+      name: 'Venenare',
+      spec: SPECS.SUBTLETY_ROGUE,
+      link: 'https://worldofwarcraft.blizzard.com/en-us/character/us/wyrmrest-accord/venenare/',
+    },
+  ],
+};
+
 export const SamuelMaverick: Contributor = {
   nickname: 'SamuelMaverick',
   github: 'samuelmaverick',

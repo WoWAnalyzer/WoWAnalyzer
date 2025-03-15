@@ -74,6 +74,19 @@ class Abilities extends CoreAbilities {
           static: 1000,
         },
       },
+      {
+        spell: SPELLS.SYMBOLS_OF_DEATH.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        buffSpellId: SPELLS.SYMBOLS_OF_DEATH.id,
+        cooldown: 30,
+        charges: 1 + (combatant.hasTalent(TALENTS.DEATH_PERCEPTION_TALENT) ? 2 : 0),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.95,
+          extraSuggestion:
+            'This is the most important rotational ability, try to always use it on cooldown.',
+        },
+      },
       // Rotational AOE
       {
         spell: SPELLS.SHURIKEN_STORM.id,
@@ -87,13 +100,26 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.SHADOW_BLADES_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         buffSpellId: TALENTS.SHADOW_BLADES_TALENT.id,
-        cooldown: 180,
+        cooldown: 90,
         gcd: {
           base: 1000,
         },
         castEfficiency: {
           suggestion: true,
           extraSuggestion: 'In most cases should be used on cooldown.',
+        },
+      },
+      {
+        spell: SPELLS.SHADOW_DANCE.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        buffSpellId: SPELLS.SHADOW_DANCE_BUFF.id,
+        cooldown: 60,
+        charges: 1 + (combatant.hasTalent(TALENTS.DOUBLE_DANCE_TALENT) ? 1 : 0),
+        gcd: null,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.95,
+          extraSuggestion: 'Use Shadow Dance before it reaches maximum charges.',
         },
       },
       {
@@ -190,6 +216,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SHADOW_STEP.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
+        charges: 1 + (combatant.hasTalent(TALENTS.THRILL_SEEKING_TALENT) ? 1 : 0),
         gcd: null,
       },
       {

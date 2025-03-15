@@ -11,7 +11,8 @@ import {
   InstantPoison,
 } from 'analysis/retail/rogue/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
+// import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
+import ComboPointGraph from 'analysis/retail/rogue/shared/ComboPointGraph';
 import Abilities from './modules/Abilities';
 import BlackPowder from './modules/core/BlackPowder';
 import CastsInShadowDance from './modules/core/CastsInShadowDance';
@@ -59,10 +60,12 @@ class CombatLogParser extends CoreCombatLogParser {
     //Resource
     comboPointTracker: ComboPointTracker,
     comboPointDetails: ComboPointDetails,
+    comboPointGraph: ComboPointGraph,
     comboPoints: ComboPoints,
     energyTracker: EnergyTracker,
     energyCapTracker: EnergyCapTracker,
     energyDetails: EnergyDetails,
+    energyGraph: EnergyGraph,
     energy: Energy,
     spellEnergyCost: SpellEnergyCost,
     energyGraph: EnergyGraph,
@@ -101,7 +104,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Covenants
 
     // Racials
-    arcaneTorrent: [ArcaneTorrent, { gcd: 1000 }] as const,
+    // arcaneTorrent: [ArcaneTorrent, { gcd: 1000 }] as const,
   };
   static guide = Guide;
 }
