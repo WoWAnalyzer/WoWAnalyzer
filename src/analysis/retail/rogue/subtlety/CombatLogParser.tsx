@@ -44,6 +44,7 @@ import RuptureUptime from './modules/spells/Rupture';
 import FlagellationAnalysis from './modules/spells/Flagellation';
 import { Flagellation } from 'analysis/retail/rogue/shared';
 import ShadowBlades from './modules/spells/ShadowBlades';
+import { ColdBlood } from 'analysis/retail/rogue/shared';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -84,6 +85,7 @@ class CombatLogParser extends CoreCombatLogParser {
     flagellationAnalysis: FlagellationAnalysis,
     shadowBlades: ShadowBlades,
     flagellation: Flagellation,
+    coldBlood: ColdBlood,
 
     //Casts
     symbolsOfDeathUptime: SymbolsOfDeathUptime,

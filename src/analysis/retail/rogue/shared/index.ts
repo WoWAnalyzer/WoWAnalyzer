@@ -13,4 +13,5 @@ export * from './constants';
 export { default as DeeperDaggers } from './DeeperDaggers';
 export { default as EchoingReprimand } from './talents/EchoingReprimand';
 export { default as Flagellation } from './talents/Flagellation';
+export { default as ColdBlood } from './talents/ColdBlood';
 export { default as ThistleTeaCastLinkNormalizer } from './talents/ThistleTeaCastLinkNormalizer';
