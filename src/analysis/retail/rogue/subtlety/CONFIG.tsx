@@ -55,8 +55,6 @@ const config: Config = {
 
   changelog: CHANGELOG,
 
-  // The contents of your changelog.
-  changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
   parser: () =>
     import('./CombatLogParser' /* webpackChunkName: "SubtletyRogue" */).then(

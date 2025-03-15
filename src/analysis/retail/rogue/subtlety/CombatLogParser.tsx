@@ -45,7 +45,6 @@ import FlagellationAnalysis from './modules/spells/Flagellation';
 import { Flagellation } from 'analysis/retail/rogue/shared';
 import ShadowBlades from './modules/spells/ShadowBlades';
 
-
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     //Core
