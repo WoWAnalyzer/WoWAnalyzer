@@ -182,6 +182,11 @@ const spells = {
     name: 'Black Powder',
     icon: 'spell_priest_divinestar_shadow',
   },
+  SECRET_TECHNIQUE: {
+    id: 280719,
+    name: 'Secret Technique',
+    icon: 'ability_rogue_sinistercalling',
+  },
   // Shadowed Finishers
   BLACK_POWDER_SHADOW: {
     id: 319190,
