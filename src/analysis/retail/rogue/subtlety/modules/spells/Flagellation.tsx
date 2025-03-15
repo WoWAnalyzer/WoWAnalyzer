@@ -12,7 +12,7 @@ import CastPerformanceSummary from 'analysis/retail/demonhunter/shared/guide/Cas
 import ComboPointTracker from 'analysis/retail/rogue/shared/ComboPointTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
-export default class Flagellation extends Analyzer {
+export default class FlagellationAnalysis extends Analyzer {
   static dependencies = {
     comboPointTracker: ComboPointTracker,
     spellUsable: SpellUsable,

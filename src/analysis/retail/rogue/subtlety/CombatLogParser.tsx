@@ -41,8 +41,11 @@ import BuilderUse from './modules/core/BuilderUse';
 import FinisherUse from './modules/core/FinisherUse';
 import ShadowDance from './modules/spells/ShadowDance';
 import RuptureUptime from './modules/spells/Rupture';
-import Flagellation from './modules/spells/Flagellation';
+import FlagellationAnalysis from './modules/spells/Flagellation';
+import { Flagellation } from 'analysis/retail/rogue/shared';
 import ShadowBlades from './modules/spells/ShadowBlades';
+import ColdBlood from 'analysis/retail/rogue/shared';
+
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -68,7 +71,6 @@ class CombatLogParser extends CoreCombatLogParser {
     energyGraph: EnergyGraph,
     energy: Energy,
     spellEnergyCost: SpellEnergyCost,
-    energyGraph: EnergyGraph,
 
     //Trackers
     symbolsDamageTracker: SymbolsDamageTracker,
@@ -81,8 +83,9 @@ class CombatLogParser extends CoreCombatLogParser {
     backstab: Backstab,
     eviscerate: Eviscerate,
     shadowDance: ShadowDance,
-    flagellation: Flagellation,
+    flagellationAnalysis: FlagellationAnalysis,
     shadowBlades: ShadowBlades,
+    flagellation: Flagellation,
 
     //Casts
     symbolsOfDeathUptime: SymbolsOfDeathUptime,
