@@ -24,7 +24,10 @@ export default class ShadowBlades extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(TALENTS.SHADOW_BLADES_TALENT), this.onCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.SHADOW_BLADES_TALENT),
+      this.onCast,
+    );
   }
 
   get guideSubsection(): JSX.Element {
@@ -88,7 +91,6 @@ export default class ShadowBlades extends Analyzer {
     hasShadowDanceBuff: boolean,
     hasFlagellationBuff: boolean,
   ): ChecklistUsageInfo | undefined {
-
     let performance: QualitativePerformance;
     if (hasShadowDanceBuff && hasFlagellationBuff) {
       performance = QualitativePerformance.Perfect;
@@ -105,27 +107,27 @@ export default class ShadowBlades extends Analyzer {
         performance,
         summary: <div>Buff Alignment</div>,
         details: (
-            <div>
+          <div>
             {hasShadowDanceBuff ? (
               <>
-              ✔ <SpellLink spell={SPELLS.SHADOW_DANCE} /> buff was present.
+                ✔ <SpellLink spell={SPELLS.SHADOW_DANCE} /> buff was present.
               </>
             ) : (
               <>
-              <SpellLink spell={SPELLS.SHADOW_DANCE} />  buff was not present.
+                <SpellLink spell={SPELLS.SHADOW_DANCE} /> buff was not present.
               </>
             )}
             <br />
             {hasFlagellationBuff ? (
               <>
-              ✔ <SpellLink spell={SPELLS.FLAGELLATION} /> buff was present.
+                ✔ <SpellLink spell={SPELLS.FLAGELLATION} /> buff was present.
               </>
             ) : (
               <>
-              <SpellLink spell={SPELLS.FLAGELLATION} /> buff was not present.
+                <SpellLink spell={SPELLS.FLAGELLATION} /> buff was not present.
               </>
             )}
-            </div>
+          </div>
         ),
       },
     );

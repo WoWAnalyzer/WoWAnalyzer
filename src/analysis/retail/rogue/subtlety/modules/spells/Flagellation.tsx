@@ -75,9 +75,15 @@ export default class FlagellationAnalysis extends Analyzer {
 
   private onCast(event: CastEvent) {
     const comboPointsAtCast = this.comboPointTracker.current;
-    const hasBladesAvailable = (this.spellUsable.isAvailable(TALENTS.SHADOW_BLADES_TALENT.id));
-    const hasSymbolsAvailable = (this.spellUsable.chargesAvailable(SPELLS.SYMBOLS_OF_DEATH.id) === 1 && (this.spellUsable.cooldownRemaining(SPELLS.SYMBOLS_OF_DEATH.id, event.timestamp) < 10)) || (this.spellUsable.chargesAvailable(SPELLS.SYMBOLS_OF_DEATH.id) >= 2);
-    const hasShadowDanceAvailable = (this.spellUsable.chargesAvailable(SPELLS.SHADOW_DANCE.id) === 1 && (this.spellUsable.cooldownRemaining(SPELLS.SHADOW_DANCE.id, event.timestamp) < 40)) || (this.spellUsable.chargesAvailable(SPELLS.SHADOW_DANCE.id) === 2);
+    const hasBladesAvailable = this.spellUsable.isAvailable(TALENTS.SHADOW_BLADES_TALENT.id);
+    const hasSymbolsAvailable =
+      (this.spellUsable.chargesAvailable(SPELLS.SYMBOLS_OF_DEATH.id) === 1 &&
+        this.spellUsable.cooldownRemaining(SPELLS.SYMBOLS_OF_DEATH.id, event.timestamp) < 10) ||
+      this.spellUsable.chargesAvailable(SPELLS.SYMBOLS_OF_DEATH.id) >= 2;
+    const hasShadowDanceAvailable =
+      (this.spellUsable.chargesAvailable(SPELLS.SHADOW_DANCE.id) === 1 &&
+        this.spellUsable.cooldownRemaining(SPELLS.SHADOW_DANCE.id, event.timestamp) < 40) ||
+      this.spellUsable.chargesAvailable(SPELLS.SHADOW_DANCE.id) === 2;
     // const hasSecretTechniqueAvailable = true;
     const hasSecretTechniqueAvailable = this.spellUsable.isAvailable(SPELLS.SECRET_TECHNIQUE.id);
 
@@ -85,7 +91,13 @@ export default class FlagellationAnalysis extends Analyzer {
       createSpellUse({ event }, [
         // this.energyPerformance(event, energyAtCast),
         this.comboPointPerformance(event, comboPointsAtCast),
-        this.cooldownAlignmentPerformance(event, hasBladesAvailable, hasSymbolsAvailable, hasShadowDanceAvailable, hasSecretTechniqueAvailable),
+        this.cooldownAlignmentPerformance(
+          event,
+          hasBladesAvailable,
+          hasSymbolsAvailable,
+          hasShadowDanceAvailable,
+          hasSecretTechniqueAvailable,
+        ),
       ]),
     );
   }
@@ -124,9 +136,13 @@ export default class FlagellationAnalysis extends Analyzer {
     hasShadowDanceAvailable: boolean,
     hasSecretTechniqueAvailable: boolean,
   ): ChecklistUsageInfo | undefined {
-
     let performance: QualitativePerformance;
-    if (hasBladesAvailable && hasSymbolsAvailable && hasShadowDanceAvailable && hasSecretTechniqueAvailable) {
+    if (
+      hasBladesAvailable &&
+      hasSymbolsAvailable &&
+      hasShadowDanceAvailable &&
+      hasSecretTechniqueAvailable
+    ) {
       performance = QualitativePerformance.Perfect;
     } else if (hasBladesAvailable && hasSymbolsAvailable && hasShadowDanceAvailable) {
       performance = QualitativePerformance.Ok;
@@ -143,47 +159,49 @@ export default class FlagellationAnalysis extends Analyzer {
         performance,
         summary: <div>Flagellation Cooldown Window</div>,
         details: (
-            <div>
+          <div>
             {hasBladesAvailable ? (
               <>
-              ✔ <SpellLink spell={TALENTS.SHADOW_BLADES_TALENT} /> cooldown was available.
+                ✔ <SpellLink spell={TALENTS.SHADOW_BLADES_TALENT} /> cooldown was available.
               </>
             ) : (
               <>
-              <SpellLink spell={TALENTS.SHADOW_BLADES_TALENT} /> cooldown was not available.
+                <SpellLink spell={TALENTS.SHADOW_BLADES_TALENT} /> cooldown was not available.
               </>
             )}
             <br />
             {hasSymbolsAvailable ? (
               <>
-              ✔ <SpellLink spell={SPELLS.SYMBOLS_OF_DEATH} /> has at least, one charge and less than 10 seconds left on the second charge.
+                ✔ <SpellLink spell={SPELLS.SYMBOLS_OF_DEATH} /> has at least, one charge and less
+                than 10 seconds left on the second charge.
               </>
             ) : (
               <>
-              <SpellLink spell={SPELLS.SYMBOLS_OF_DEATH} /> did not have enough charges available.
+                <SpellLink spell={SPELLS.SYMBOLS_OF_DEATH} /> did not have enough charges available.
               </>
             )}
             <br />
             {hasShadowDanceAvailable ? (
               <>
-              ✔ <SpellLink spell={SPELLS.SHADOW_DANCE} /> has at least, one charge and less than 40 seconds left on the second charge.
+                ✔ <SpellLink spell={SPELLS.SHADOW_DANCE} /> has at least, one charge and less than
+                40 seconds left on the second charge.
               </>
             ) : (
               <>
-              <SpellLink spell={SPELLS.SHADOW_DANCE} /> did not have enough charges available.
+                <SpellLink spell={SPELLS.SHADOW_DANCE} /> did not have enough charges available.
               </>
             )}
             <br />
             {hasSecretTechniqueAvailable ? (
               <>
-              ✔ <SpellLink spell={SPELLS.SECRET_TECHNIQUE} /> cooldown was available.
+                ✔ <SpellLink spell={SPELLS.SECRET_TECHNIQUE} /> cooldown was available.
               </>
             ) : (
               <>
-              <SpellLink spell={SPELLS.SECRET_TECHNIQUE} /> cooldown was not available.
+                <SpellLink spell={SPELLS.SECRET_TECHNIQUE} /> cooldown was not available.
               </>
             )}
-            </div>
+          </div>
         ),
       },
     );
