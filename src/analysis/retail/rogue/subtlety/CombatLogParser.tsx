@@ -30,7 +30,6 @@ import VanishFindWeakness from './modules/features/VanishFindWeakness';
 import TheRotten from './modules/talents/TheRotten';
 import DarkShadowContribution from './modules/talents/DarkShadow/DarkShadowContribution';
 import ShurikenStormNormalizer from './normalizers/ShurikenStormNormalizer';
-import Flagellation from 'analysis/retail/rogue/shared/talents/Flagellation';
 import Guide from './Guide';
 import Shadowstrike from './modules/spells/Shadowstrike';
 import SymbolsOfDeath from './modules/spells/SymbolsOfDeath';
@@ -41,6 +40,8 @@ import BuilderUse from './modules/core/BuilderUse';
 import FinisherUse from './modules/core/FinisherUse';
 import ShadowDance from './modules/spells/ShadowDance';
 import RuptureUptime from './modules/spells/Rupture';
+import Flagellation from './modules/spells/Flagellation';
+import ShadowBlades from './modules/spells/ShadowBlades';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -77,6 +78,8 @@ class CombatLogParser extends CoreCombatLogParser {
     backstab: Backstab,
     eviscerate: Eviscerate,
     shadowDance: ShadowDance,
+    flagellation: Flagellation,
+    shadowBlades: ShadowBlades,
 
     //Casts
     symbolsOfDeathUptime: SymbolsOfDeathUptime,
@@ -94,7 +97,6 @@ class CombatLogParser extends CoreCombatLogParser {
     theRotten: TheRotten,
     deeperDaggers: DeeperDaggers,
     echoingReprimand: EchoingReprimand,
-    flagellation: Flagellation,
 
     // Covenants
 
