@@ -11,11 +11,6 @@ class Buffs extends CoreAuras {
     // This data can be used by various kinds of modules to improve their results, and modules added in the future may rely on buffs that aren't used today.
     return [
       {
-        spellId: SPELLS.ICEFURY.id,
-        enabled: combatant.hasTalent(TALENTS.ICEFURY_TALENT),
-        timelineHighlight: true,
-      },
-      {
         spellId: SPELLS.ICEFURY_CASTABLE_BUFF.id,
         enabled: combatant.hasTalent(TALENTS.ICEFURY_TALENT),
         timelineHighlight: true,
@@ -71,6 +66,27 @@ class Buffs extends CoreAuras {
         spellId: SPELLS.CALL_OF_THE_ANCESTORS_BUFF.id,
         enabled: combatant.hasTalent(TALENTS.CALL_OF_THE_ANCESTORS_TALENT),
         triggeredBySpellId: [TALENTS.PRIMORDIAL_WAVE_TALENT.id, SPELLS.ANCESTRAL_SWIFTNESS_CAST.id],
+        timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.ECHOES_OF_GREAT_SUNDERING_BUFF.id,
+        enabled: combatant.hasTalent(TALENTS.ECHOES_OF_GREAT_SUNDERING_TALENT),
+        triggeredBySpellId: [
+          TALENTS.EARTH_SHOCK_TALENT.id,
+          TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id,
+        ],
+        timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.FUSION_OF_THE_ELEMENTS_FIRE_BUFF.id,
+        enabled: combatant.hasTalent(TALENTS.FUSION_OF_ELEMENTS_TALENT),
+        triggeredBySpellId: SPELLS.ICEFURY_CAST.id,
+        timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.FUSION_OF_THE_ELEMENTS_NATURE_BUFF.id,
+        enabled: combatant.hasTalent(TALENTS.FUSION_OF_ELEMENTS_TALENT),
+        triggeredBySpellId: SPELLS.ICEFURY_CAST.id,
         timelineHighlight: true,
       },
     ];

@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import TALENTS from 'common/TALENTS/shaman';
 
-export const STORMSTRIKE_CAST_SPELLS = [SPELLS.STORMSTRIKE, SPELLS.WINDSTRIKE_CAST];
+export const STORMSTRIKE_CAST_SPELLS = [SPELLS.STORMSTRIKE_CAST, SPELLS.WINDSTRIKE_CAST];
 
 export const STORMSTRIKE_DAMAGE_SPELLS = [
   SPELLS.STORMSTRIKE_DAMAGE,
@@ -14,18 +14,30 @@ export const STORMSTRIKE_DAMAGE_SPELLS = [
 export const STORMSTRIKE_SPELL_IDS = STORMSTRIKE_CAST_SPELLS.map((spell) => spell.id);
 export const STORMSTRIKE_DAMAGE_IDS = STORMSTRIKE_DAMAGE_SPELLS.map((spell) => spell.id);
 
-export const MERGE_SPELLS = [
+export const MERGE_SPELLS: { spellIds: number[]; mergeInto: number }[] = [
   {
-    SpellIds: [SPELLS.MELEE.id, SPELLS.WINDLASH.id, SPELLS.WINDLASH_OFFHAND.id],
-    NewSpell: SPELLS.MELEE.id,
+    spellIds: [SPELLS.MELEE.id, SPELLS.WINDLASH.id, SPELLS.WINDLASH_OFFHAND.id],
+    mergeInto: SPELLS.MELEE.id,
   },
   {
-    SpellIds: [SPELLS.STORMSTRIKE_DAMAGE.id, SPELLS.STORMSTRIKE_DAMAGE_OFFHAND.id],
-    NewSpell: SPELLS.STORMSTRIKE.id,
+    spellIds: [SPELLS.STORMSTRIKE_DAMAGE.id, SPELLS.STORMSTRIKE_DAMAGE_OFFHAND.id],
+    mergeInto: SPELLS.STORMSTRIKE_CAST.id,
   },
   {
-    SpellIds: [SPELLS.WINDSTRIKE_DAMAGE.id, SPELLS.WINDSTRIKE_DAMAGE_OFFHAND.id],
-    NewSpell: SPELLS.WINDSTRIKE_CAST.id,
+    spellIds: [SPELLS.WINDSTRIKE_DAMAGE.id, SPELLS.WINDSTRIKE_DAMAGE_OFFHAND.id],
+    mergeInto: SPELLS.WINDSTRIKE_CAST.id,
+  },
+  {
+    spellIds: [TALENTS.SUNDERING_TALENT.id, SPELLS.SUNDERING_REACTIVITY.id],
+    mergeInto: TALENTS.SUNDERING_TALENT.id,
+  },
+  {
+    spellIds: [
+      SPELLS.PRIMORDIAL_FIRE.id,
+      SPELLS.PRIMORDIAL_LIGHTNING.id,
+      SPELLS.PRIMORDIAL_FROST.id,
+    ],
+    mergeInto: SPELLS.PRIMORDIAL_STORM_CAST.id,
   },
 ];
 
@@ -39,6 +51,10 @@ export const MAELSTROM_WEAPON_ELIGIBLE_SPELLS: Spell[] = [
   TALENTS.CHAIN_HEAL_TALENT,
   SPELLS.HEALING_SURGE,
   SPELLS.TEMPEST_CAST,
+  SPELLS.PRIMORDIAL_STORM_CAST,
+  SPELLS.PRIMORDIAL_FIRE,
+  SPELLS.PRIMORDIAL_LIGHTNING,
+  SPELLS.PRIMORDIAL_FROST,
 ];
 
 export const MAELSTROM_WEAPON_ELIGIBLE_SPELL_IDS = MAELSTROM_WEAPON_ELIGIBLE_SPELLS.map(
@@ -50,8 +66,9 @@ export enum EventLinkBuffers {
   PrimordialWave = 15500,
   Stormstrike = 900,
   CAST_DAMAGE_BUFFER = 100,
-  SPLINTERED_ELEMENTS_BUFFER = 20,
+  SPLINTERED_ELEMENTS_BUFFER = 250,
   LIGHTNING_BOLT_BUFFER = 150,
+  PRIMORDIAL_WAVE_DAMAGE_BUFFER = 500,
 }
 
 export enum EnhancementEventLinks {
@@ -63,6 +80,12 @@ export enum EnhancementEventLinks {
   LIGHTNING_BOLT_LINK = 'lightning-bolt',
   MAELSTROM_GENERATOR_LINK = 'maelstrom-generator',
   CRASH_LIGHTNING_LINK = 'crash-lightning',
+  SUNDERING_LINK = 'sundering',
+  REACTIVITY_LINK = 'reactivity',
 }
 
 export const GCD_TOLERANCE = 25;
+
+export const LOTFW_DAMAGE_AMP_PERCENTAGE: Record<number, number> = { 1: 0.15, 2: 0.25 };
+
+export const ELEMENTAL_SPIRIT_DAMAGE_AMP_PERCENTAGE = 0.1;

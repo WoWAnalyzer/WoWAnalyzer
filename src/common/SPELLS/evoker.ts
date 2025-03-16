@@ -754,6 +754,11 @@ const spells = {
     name: 'Jackpot!',
     icon: 'inv_10_fishing_dragonislescoins_gold',
   },
+  INFERNOS_BLESSING_BUFF: {
+    id: 410263,
+    name: "Inferno's Blessing",
+    icon: 'ability_evoker_infernosblessing',
+  },
   // endregion
 } satisfies Record<string, Spell>;
 

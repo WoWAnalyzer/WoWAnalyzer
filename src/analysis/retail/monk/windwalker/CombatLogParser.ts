@@ -48,6 +48,7 @@ import {
   FistsOfFuryLinkNormalizer,
   FistsOfFuryNormalizer,
 } from './normalizers/FistsOfFuryNormalizer';
+import HeartOfTheJadeSerpent from './modules/spells/HeartOfTheJadeSerpent';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -79,6 +80,7 @@ class CombatLogParser extends CoreCombatLogParser {
     hitCombo: HitCombo,
     strikeoftheWindlord: StrikeoftheWindlord,
     chiBurst: ChiBurst,
+    heartOfTheJadeSerpent: HeartOfTheJadeSerpent,
 
     // Guide helpers
     hitComboTracker: HitComboTracker,

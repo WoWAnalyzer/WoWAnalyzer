@@ -69,11 +69,11 @@ class SpellUsable extends Analyzer {
 
   /** Trackers for currently active cooldowns.
    *  Spells that aren't on cooldown won't have an entry in this mapping */
-  private _currentCooldowns: { [spellId: number]: CooldownInfo } = {};
+  protected _currentCooldowns: { [spellId: number]: CooldownInfo } = {};
   /** A global multiplier for the cooldown rate, also known as the 'modRate' */
-  private _globalModRate: number = 1;
+  protected _globalModRate: number = 1;
   /** Per-spell multipliers for the cooldown rate, also knowns as the 'modRate' */
-  private _spellModRates: { [spellId: number]: number } = {};
+  protected _spellModRates: { [spellId: number]: number } = {};
 
   constructor(options: Options) {
     super(options);
@@ -114,6 +114,33 @@ class SpellUsable extends Analyzer {
   public isOnCooldown(spellId: number): boolean {
     // a cooldown info exists iff the spell is on cooldown
     return Boolean(this._currentCooldowns[this._getCanonicalId(spellId)]);
+  }
+
+  /**
+   * The number of charges of the spell currently available, including partial charges.
+   * For an available spell without charges, this will always be one.
+   * For a spell that is on cooldown, this will be the number of charges available
+   * plus the fractional progress towards the next charge.
+   * @param spellId the spell's ID
+   */
+  public fractionalChargesAvailable(spellId: number): number {
+    const cdSpellId = this._getCanonicalId(spellId);
+    const cdInfo = this._currentCooldowns[cdSpellId];
+
+    if (!cdInfo) {
+      return this.abilities.getMaxCharges(cdSpellId) || 1;
+    }
+
+    if (cdInfo.chargesAvailable === cdInfo.maxCharges) {
+      return cdInfo.chargesAvailable;
+    }
+
+    const fractionalCharge = this.isOnCooldown(spellId)
+      ? (this.fullCooldownDuration(cdSpellId) - this.cooldownRemaining(cdSpellId)) /
+        this.fullCooldownDuration(cdSpellId)
+      : 0;
+
+    return cdInfo.chargesAvailable + fractionalCharge;
   }
 
   /**

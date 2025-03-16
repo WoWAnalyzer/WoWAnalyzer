@@ -17,7 +17,11 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import { ON_CAST_BUFF_REMOVAL_GRACE_MS, ENABLE_MOTE_CHECKS } from '../../constants';
+import {
+  ON_CAST_BUFF_REMOVAL_GRACE_MS,
+  ENABLE_MOTE_CHECKS,
+  ENABLE_SOP_CHECKS,
+} from '../../constants';
 import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
 import MajorCooldown, { CooldownTrigger } from 'parser/core/MajorCooldowns/MajorCooldown';
 import {
@@ -43,6 +47,7 @@ import { PerformanceMark } from 'interface/guide';
 import SpellMaelstromCost from '../core/SpellMaelstromCost';
 import MaelstromTracker from '../resources/MaelstromTracker';
 import { addEnhancedCastReason, addInefficientCastReason } from 'parser/core/EventMetaLib';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 const SK_DAMAGE_AFFECTED_ABILITIES = [
   SPELLS.LIGHTNING_BOLT_OVERLOAD,
@@ -291,6 +296,7 @@ class Stormkeeper extends MajorCooldown<StormkeeperCast> {
             .filter((e) => SPELLS_SOP_BUFF_REQUIRED.includes(e)).length === 0;
 
         if (
+          ENABLE_SOP_CHECKS &&
           SPELLS_SOP_BUFF_REQUIRED.includes(event.ability.guid) &&
           !this.selectedCombatant.hasBuff(
             SPELLS.SURGE_OF_POWER_BUFF.id,
@@ -608,7 +614,11 @@ class Stormkeeper extends MajorCooldown<StormkeeperCast> {
 
   statistic() {
     return (
-      <Statistic position={STATISTIC_ORDER.OPTIONAL()} size="flexible">
+      <Statistic
+        category={STATISTIC_CATEGORY.TALENTS}
+        position={STATISTIC_ORDER.OPTIONAL()}
+        size="flexible"
+      >
         <BoringSpellValueText spell={TALENTS.STORMKEEPER_TALENT}>
           <>
             <ItemDamageDone amount={this.damageDoneByBuffedCasts} />

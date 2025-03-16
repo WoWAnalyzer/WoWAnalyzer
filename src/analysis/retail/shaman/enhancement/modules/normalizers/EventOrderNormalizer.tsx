@@ -54,15 +54,15 @@ const healingOrder: EventOrder = {
   updateTimestamp: true,
 };
 
-/** The primordial wave buff is consumed before the lightning bolt it buffs is cast. The APL requires
- * the buff to be present when checking for the lightning bolt casts */
-const primordialWaveEventOrder: EventOrder = {
-  afterEventId: SPELLS.PRIMORDIAL_WAVE_BUFF.id,
-  afterEventType: EventType.RemoveBuff,
-  beforeEventId: SPELLS.LIGHTNING_BOLT.id,
-  beforeEventType: EventType.Cast,
+/** When primordial storm is cast with 10 maelstrom weapon, legacy of the frost witch applies after the cast
+ * Re-order to apply before the cast for easier analysis later */
+const primordialStormEventOrder: EventOrder = {
+  afterEventId: SPELLS.PRIMORDIAL_STORM_CAST.id,
+  afterEventType: EventType.Cast,
+  beforeEventId: SPELLS.LEGACY_OF_THE_FROST_WITCH_BUFF.id,
+  beforeEventType: EventType.ApplyBuff,
   anyTarget: true,
-  bufferMs: 100,
+  bufferMs: 5,
   updateTimestamp: true,
 };
 
@@ -73,7 +73,7 @@ export class EventOrderNormalizer extends BaseEventOrderNormalizer {
       thorimsInvocationSpellAfterWindstrike,
       thorimsInvocationBuffAfterSpell,
       healingOrder,
-      primordialWaveEventOrder,
+      primordialStormEventOrder,
     ]);
 
     this.priority = NormalizerOrder.EventOrderNormalizer;

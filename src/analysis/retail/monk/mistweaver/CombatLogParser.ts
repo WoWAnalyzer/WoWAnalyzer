@@ -94,7 +94,6 @@ import StrengthOfTheBlackOx from './modules/heroTalents/StrengthOfTheBlackOx';
 import Coalesence from '../shared/hero/MasterOfHarmony/talents/Coalesence';
 import AspectOfHarmony from './modules/heroTalents/AspectOfHarmony';
 import RushingWindKick from './modules/spells/RushingWindKick';
-import ResplendentMists from './modules/spells/ResplendentMist';
 import T33TierSet from './modules/tier/T33TierSet';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -194,7 +193,6 @@ class CombatLogParser extends CoreCombatLogParser {
     chiHarmony: ChiHarmony,
     poolOfMists: PoolOfMists,
     rushingWindKick: RushingWindKick,
-    resplendentMists: ResplendentMists,
 
     // Hero Talents
     // Conduit

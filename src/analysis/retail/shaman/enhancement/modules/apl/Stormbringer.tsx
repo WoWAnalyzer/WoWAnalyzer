@@ -62,7 +62,7 @@ export function stormbringer(combatant: Combatant): Apl {
         buffStacks(SPELLS.ASHEN_CATALYST_BUFF, { atLeast: 7 }),
       ),
     });
-    combatant.hasTalent(TALENTS.STORMBLAST_TALENT) && rules.push(SPELLS.STORMSTRIKE);
+    combatant.hasTalent(TALENTS.STORMBLAST_TALENT) && rules.push(SPELLS.STORMSTRIKE_CAST);
     rules.push(
       {
         spell: SPELLS.VOLTAIC_BLAZE_CAST,
@@ -75,7 +75,7 @@ export function stormbringer(combatant: Combatant): Apl {
       },
       TALENTS.LAVA_LASH_TALENT,
     );
-    !combatant.hasTalent(TALENTS.STORMBLAST_TALENT) && rules.push(SPELLS.STORMSTRIKE);
+    !combatant.hasTalent(TALENTS.STORMBLAST_TALENT) && rules.push(SPELLS.STORMSTRIKE_CAST);
     rules.push({
       spell: SPELLS.LIGHTNING_BOLT,
       condition: describe(
@@ -89,8 +89,8 @@ export function stormbringer(combatant: Combatant): Apl {
     });
   } else {
     rules.push({
-      spell: SPELLS.STORMSTRIKE,
-      condition: spellCharges(SPELLS.STORMSTRIKE, { atLeast: 2, atMost: 2 }),
+      spell: SPELLS.STORMSTRIKE_CAST,
+      condition: spellCharges(SPELLS.STORMSTRIKE_CAST, { atLeast: 2, atMost: 2 }),
     });
     if (combatant.hasTalent(TALENTS.FLOWING_SPIRITS_TALENT)) {
       rules.push(
@@ -98,7 +98,7 @@ export function stormbringer(combatant: Combatant): Apl {
           spell: SPELLS.VOLTAIC_BLAZE_CAST,
           condition: describe(buffPresent(SPELLS.VOLTAIC_BLAZE_BUFF), () => <></>, ''),
         },
-        SPELLS.STORMSTRIKE,
+        SPELLS.STORMSTRIKE_CAST,
       );
     } else {
       rules.push(
@@ -107,7 +107,7 @@ export function stormbringer(combatant: Combatant): Apl {
           condition: describe(buffPresent(SPELLS.VOLTAIC_BLAZE_BUFF), () => <></>, ''),
         },
         iceStrikeRule,
-        SPELLS.STORMSTRIKE,
+        SPELLS.STORMSTRIKE_CAST,
         {
           spell: TALENTS.FROST_SHOCK_TALENT,
           condition: buffPresent(SPELLS.HAILSTORM_BUFF),

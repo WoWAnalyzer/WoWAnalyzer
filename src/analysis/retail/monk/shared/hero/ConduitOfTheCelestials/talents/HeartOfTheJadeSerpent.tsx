@@ -19,10 +19,9 @@ class HeartOfTheJadeSerpent extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+
     this.isMW = this.selectedCombatant.specId === SPECS.MISTWEAVER_MONK.id;
-    //only enabling for mistweaver for now until support comes for Windwalker
-    this.active =
-      this.selectedCombatant.hasTalent(TALENTS_MONK.HEART_OF_THE_JADE_SERPENT_TALENT) && this.isMW;
+    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.HEART_OF_THE_JADE_SERPENT_TALENT);
 
     this.addEventListener(
       Events.applybuff

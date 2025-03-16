@@ -53,6 +53,30 @@ const PATCHES: Patch[] = [
     name: '11.0.2 pre-launch',
     timestamp: 1723586400000, // GMT: Tuesday, 13 August 2024 22:00:00
     urlPrefix: '',
+    isCurrent: false,
+    gameVersion: 1, // retail
+    expansion: Expansion.TheWarWithin,
+  },
+  {
+    name: '11.0.5',
+    timestamp: 1729634400000, // GMT: Tuesday, 22 October 2024 22:00:00
+    urlPrefix: '',
+    isCurrent: false,
+    gameVersion: 1, // retail
+    expansion: Expansion.TheWarWithin,
+  },
+  {
+    name: '11.0.5',
+    timestamp: 1734472800000, // GMT: Tuesday, 17 December 2024 22:00:00
+    urlPrefix: '',
+    isCurrent: false,
+    gameVersion: 1, // retail
+    expansion: Expansion.TheWarWithin,
+  },
+  {
+    name: '11.1.0',
+    timestamp: 1741125600000, // GMT: Tuesday, 4 March 2025 22:00:00
+    urlPrefix: '',
     isCurrent: true,
     gameVersion: 1, // retail
     expansion: Expansion.TheWarWithin,
