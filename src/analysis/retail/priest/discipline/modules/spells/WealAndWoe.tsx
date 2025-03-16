@@ -60,7 +60,12 @@ class WealAndWoe extends Analyzer {
       return;
     }
 
-    const castEvent = getCastAbility(event)!;
+    const castEvent = getCastAbility(event);
+
+    if (!castEvent) {
+      return;
+    }
+
     const WEAL_AND_WOE_STACKS = this.selectedCombatant.getBuffStacks(
       SPELLS.WEAL_AND_WOE_BUFF.id,
       castEvent.timestamp,
@@ -85,7 +90,11 @@ class WealAndWoe extends Analyzer {
       return;
     }
 
-    const castEvent = getCastAbility(damageEvent)!;
+    const castEvent = getCastAbility(damageEvent);
+    if (!castEvent) {
+      return;
+    }
+
     const WEAL_AND_WOE_STACKS = this.selectedCombatant.getBuffStacks(
       SPELLS.WEAL_AND_WOE_BUFF.id,
       castEvent.timestamp,
