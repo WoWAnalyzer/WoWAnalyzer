@@ -83,6 +83,18 @@ export const SABERTOOTH_BOOSTED: Spell[] = [
   SPELLS.ADAPTIVE_SWARM_DAMAGE,
 ];
 
+export const BLEEDS: Spell[] = [
+  SPELLS.RIP,
+  SPELLS.RAKE_BLEED,
+  SPELLS.THRASH_FERAL_BLEED,
+  SPELLS.TEAR,
+  SPELLS.FERAL_FRENZY_DEBUFF,
+  SPELLS.FRENZIED_ASSAULT,
+  SPELLS.DREADFUL_WOUND,
+  SPELLS.BLOODSEEKER_VINES,
+];
+export const BLEED_IDS: number[] = BLEEDS.map((s) => s.id);
+
 ///////////////////////////////////////////////////////////////////////////////
 // ENERGY STUFF
 //

@@ -46,7 +46,7 @@ const INCARN_HARDCAST_DURATION = 20_000;
  * Spec Talent
  *
  * During Berserk (or Incarnation) your combo-point generating abilites bleed the target for
- * an additional 135% of their damage over 8 seconds.
+ * an additional 150% of their damage over 8 seconds.
  */
 class Berserk extends Analyzer {
   static dependencies = {
