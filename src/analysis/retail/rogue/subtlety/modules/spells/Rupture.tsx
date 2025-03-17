@@ -1,8 +1,6 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-  RefreshDebuffEvent,
 import Events, { CastEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS/rogue';
-import TALENTS from 'common/TALENTS/rogue';
 import { SpellLink } from 'interface';
 import { SpellUse, ChecklistUsageInfo } from 'parser/core/SpellUsage/core';
 import { createChecklistItem, createSpellUse } from 'parser/core/MajorCooldowns/MajorCooldown';
