@@ -22,8 +22,8 @@ export default class Eviscerate extends Analyzer {
         <strong>
           <SpellLink spell={SPELLS.EVISCERATE} />
         </strong>{' '}
-        is your primary single-target finisher. Always aim to cast it at **5+ Combo Points** to
-        maximize damage efficiency.
+        is your primary single-target finisher. Always aim to cast it at{' '}
+        <strong>5+ Combo Points</strong> to maximize damage efficiency.
       </p>
     );
 

@@ -106,9 +106,10 @@ export default class SymbolsOfDeath extends Analyzer {
       summary = <div>Major Energy Waste</div>;
       details = (
         <div>
-          You used <SpellLink spell={SPELLS.SYMBOLS_OF_DEATH} /> at **{energyAtCast}** energy
-          without **Secret Technique**. This means you **wasted {wastedEnergy} energy**. Try using
-          abilities before activating Symbols of Death!
+          You used <SpellLink spell={SPELLS.SYMBOLS_OF_DEATH} /> at <strong>{energyAtCast}</strong>{' '}
+          energy without <strong>Secret Technique</strong>. This means you{' '}
+          <strong>wasted {wastedEnergy} energy</strong>. Try using abilities before activating
+          Symbols of Death!
         </div>
       );
     } else if (isEnergyWasted) {
@@ -116,9 +117,10 @@ export default class SymbolsOfDeath extends Analyzer {
       summary = <div>Energy Usage Could Be Improved</div>;
       details = (
         <div>
-          You used <SpellLink spell={SPELLS.SYMBOLS_OF_DEATH} /> with **{energyAtCast} energy**,
-          resulting in some wasted energy ({wastedEnergy}). Try to use abilities before activating
-          Symbols of Death to **optimize energy gain**.
+          You used <SpellLink spell={SPELLS.SYMBOLS_OF_DEATH} /> with{' '}
+          <strong>{energyAtCast} energy</strong>, resulting in some wasted energy ({wastedEnergy}).
+          Try to use abilities before activating Symbols of Death to{' '}
+          <strong>optimize energy gain</strong>.
         </div>
       );
     } else {
@@ -126,8 +128,8 @@ export default class SymbolsOfDeath extends Analyzer {
       summary = <div>Perfect Energy Management</div>;
       details = (
         <div>
-          You activated <SpellLink spell={SPELLS.SYMBOLS_OF_DEATH} /> with **optimal energy
-          management** ({energyAtCast}). Well played!
+          You activated <SpellLink spell={SPELLS.SYMBOLS_OF_DEATH} /> with{' '}
+          <strong>optimal energy management</strong> ({energyAtCast}). Well played!
         </div>
       );
     }
@@ -154,9 +156,9 @@ export default class SymbolsOfDeath extends Analyzer {
       summary = <div>Perfect Symbols of Death</div>;
       details = (
         <div>
-          You used <SpellLink spell={SPELLS.SYMBOLS_OF_DEATH} /> **with**{' '}
-          <SpellLink spell={TALENTS.SECRET_TECHNIQUE_TALENT} /> and had **
-          {this.energyTracker.current} energy**. Excellent job!
+          You used <SpellLink spell={SPELLS.SYMBOLS_OF_DEATH} /> <strong>with</strong>{' '}
+          <SpellLink spell={TALENTS.SECRET_TECHNIQUE_TALENT} /> and had{' '}
+          <strong>{this.energyTracker.current} energy</strong>. Excellent job!
         </div>
       );
     } else if (hasSecretTechnique || isGoodEnergy) {
@@ -167,7 +169,7 @@ export default class SymbolsOfDeath extends Analyzer {
           You used <SpellLink spell={SPELLS.SYMBOLS_OF_DEATH} />, but{' '}
           {!hasSecretTechnique && 'missed Secret Technique.'}
           {!isGoodEnergy && `you had only ${this.energyTracker.current} energy.`}
-          Try to optimize both for **maximum burst damage**.
+          Try to optimize both for <strong>maximum burst damage</strong>.
         </div>
       );
     } else {
@@ -175,9 +177,9 @@ export default class SymbolsOfDeath extends Analyzer {
       summary = <div>Poor Symbols of Death Usage</div>;
       details = (
         <div>
-          You used <SpellLink spell={SPELLS.SYMBOLS_OF_DEATH} /> without **Secret Technique** and
-          with **low energy**. Try to align them and have at least 60 energy before using Symbols of
-          Death.
+          You used <SpellLink spell={SPELLS.SYMBOLS_OF_DEATH} /> without{' '}
+          <strong>Secret Technique</strong> and with <strong>low energy</strong>. Try to align them
+          and have at least 60 energy before using Symbols of Death.
         </div>
       );
     }

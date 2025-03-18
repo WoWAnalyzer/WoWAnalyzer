@@ -11,7 +11,7 @@ import {
   InstantPoison,
 } from 'analysis/retail/rogue/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-// import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
+import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import ComboPointGraph from 'analysis/retail/rogue/shared/ComboPointGraph';
 import Abilities from './modules/Abilities';
 import BlackPowder from './modules/core/BlackPowder';
@@ -35,7 +35,7 @@ import Guide from './Guide';
 import Shadowstrike from './modules/spells/Shadowstrike';
 import SymbolsOfDeath from './modules/spells/SymbolsOfDeath';
 import Backstab from './modules/spells/Backstab';
-import Eviscerate from './modules/spells/Eviscrate';
+import Eviscerate from './modules/spells/Eviscerate';
 import EnergyGraph from 'analysis/retail/rogue/shared/EnergyGraph';
 import BuilderUse from './modules/core/BuilderUse';
 import FinisherUse from './modules/core/FinisherUse';
@@ -107,7 +107,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Covenants
 
     // Racials
-    // arcaneTorrent: [ArcaneTorrent, { gcd: 1000 }] as const,
+    arcaneTorrent: [ArcaneTorrent, { gcd: 1000 }] as const,
   };
   static guide = Guide;
 }

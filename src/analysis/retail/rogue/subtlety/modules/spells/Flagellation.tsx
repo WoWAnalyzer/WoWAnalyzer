@@ -84,14 +84,13 @@ export default class FlagellationAnalysis extends Analyzer {
       (this.spellUsable.chargesAvailable(SPELLS.SHADOW_DANCE.id) === 1 &&
         this.spellUsable.cooldownRemaining(SPELLS.SHADOW_DANCE.id, event.timestamp) < 40) ||
       this.spellUsable.chargesAvailable(SPELLS.SHADOW_DANCE.id) === 2;
-    // const hasSecretTechniqueAvailable = true;
     const hasSecretTechniqueAvailable = this.spellUsable.isAvailable(SPELLS.SECRET_TECHNIQUE.id);
 
     this.cooldownUses.push(
       createSpellUse({ event }, [
         // this.energyPerformance(event, energyAtCast),
         this.comboPointPerformance(event, comboPointsAtCast),
-        this.cooldownAlignmentPerformance(
+        ...this.cooldownAlignmentPerformance(
           event,
           hasBladesAvailable,
           hasSymbolsAvailable,
@@ -116,13 +115,14 @@ export default class FlagellationAnalysis extends Analyzer {
         summary: <div>Combo Point Management</div>,
         details: isGoodCP ? (
           <div>
-            You used <SpellLink spell={SPELLS.FLAGELLATION} /> optimally with {comboPointsAtCast}{' '}
-            combo points.
+            You used <SpellLink spell={SPELLS.FLAGELLATION} /> optimally with{' '}
+            <strong>{comboPointsAtCast}</strong> combo points.
           </div>
         ) : (
           <div>
-            You used <SpellLink spell={SPELLS.FLAGELLATION} /> at {comboPointsAtCast} combo points.
-            Try to use it at 6 or more CP for a finisher**.
+            You used <SpellLink spell={SPELLS.FLAGELLATION} /> at{' '}
+            <strong>{comboPointsAtCast}</strong> combo points. Try to use it at{' '}
+            <strong>6 or more</strong> CP for a finisher.
           </div>
         ),
       },
@@ -135,72 +135,103 @@ export default class FlagellationAnalysis extends Analyzer {
     hasSymbolsAvailable: boolean,
     hasShadowDanceAvailable: boolean,
     hasSecretTechniqueAvailable: boolean,
-  ): ChecklistUsageInfo | undefined {
-    let performance: QualitativePerformance;
-    if (
-      hasBladesAvailable &&
-      hasSymbolsAvailable &&
-      hasShadowDanceAvailable &&
-      hasSecretTechniqueAvailable
-    ) {
-      performance = QualitativePerformance.Perfect;
-    } else if (hasBladesAvailable && hasSymbolsAvailable && hasShadowDanceAvailable) {
-      performance = QualitativePerformance.Ok;
-    } else if (hasShadowDanceAvailable && hasSymbolsAvailable) {
-      performance = QualitativePerformance.Good;
-    } else {
-      performance = QualitativePerformance.Fail;
-    }
+  ): ChecklistUsageInfo[] {
+    return [
+      this.bladesPerformance(event, hasBladesAvailable),
+      this.symbolsPerformance(event, hasSymbolsAvailable),
+      this.shadowDancePerformance(event, hasShadowDanceAvailable),
+      this.secretTechniquePerformance(event, hasSecretTechniqueAvailable),
+    ].filter(Boolean) as ChecklistUsageInfo[];
+  }
 
+  private bladesPerformance(event: CastEvent, hasBladesAvailable: boolean): ChecklistUsageInfo {
     return createChecklistItem(
-      'flagellation_alignment',
+      'flagellation_blades',
       { event },
       {
-        performance,
-        summary: <div>Flagellation Cooldown Window</div>,
-        details: (
+        performance: hasBladesAvailable ? QualitativePerformance.Good : QualitativePerformance.Fail,
+        summary: <div>Shadow Blades Cooldown</div>,
+        details: hasBladesAvailable ? (
           <div>
-            {hasBladesAvailable ? (
-              <>
-                ✔ <SpellLink spell={TALENTS.SHADOW_BLADES_TALENT} /> cooldown was available.
-              </>
-            ) : (
-              <>
-                <SpellLink spell={TALENTS.SHADOW_BLADES_TALENT} /> cooldown was not available.
-              </>
-            )}
-            <br />
-            {hasSymbolsAvailable ? (
-              <>
-                ✔ <SpellLink spell={SPELLS.SYMBOLS_OF_DEATH} /> has at least, one charge and less
-                than 10 seconds left on the second charge.
-              </>
-            ) : (
-              <>
-                <SpellLink spell={SPELLS.SYMBOLS_OF_DEATH} /> did not have enough charges available.
-              </>
-            )}
-            <br />
-            {hasShadowDanceAvailable ? (
-              <>
-                ✔ <SpellLink spell={SPELLS.SHADOW_DANCE} /> has at least, one charge and less than
-                40 seconds left on the second charge.
-              </>
-            ) : (
-              <>
-                <SpellLink spell={SPELLS.SHADOW_DANCE} /> did not have enough charges available.
-              </>
-            )}
-            <br />
-            {hasSecretTechniqueAvailable ? (
-              <>
-                ✔ <SpellLink spell={SPELLS.SECRET_TECHNIQUE} /> cooldown was available.
-              </>
-            ) : (
-              <>
-                <SpellLink spell={SPELLS.SECRET_TECHNIQUE} /> cooldown was not available.
-              </>
-            )}
+            <SpellLink spell={TALENTS.SHADOW_BLADES_TALENT} /> cooldown was available.
+          </div>
+        ) : (
+          <div>
+            <SpellLink spell={TALENTS.SHADOW_BLADES_TALENT} /> cooldown was not available.
+          </div>
+        ),
+      },
+    );
+  }
+
+  private symbolsPerformance(event: CastEvent, hasSymbolsAvailable: boolean): ChecklistUsageInfo {
+    return createChecklistItem(
+      'flagellation_symbols',
+      { event },
+      {
+        performance: hasSymbolsAvailable
+          ? QualitativePerformance.Good
+          : QualitativePerformance.Fail,
+        summary: <div>Symbols of Death Cooldown</div>,
+        details: hasSymbolsAvailable ? (
+          <div>
+            <SpellLink spell={SPELLS.SYMBOLS_OF_DEATH} /> has at least one charge and less than 10
+            seconds left on the second charge.
+          </div>
+        ) : (
+          <div>
+            <SpellLink spell={SPELLS.SYMBOLS_OF_DEATH} /> did not have enough charges available.
+          </div>
+        ),
+      },
+    );
+  }
+
+  private shadowDancePerformance(
+    event: CastEvent,
+    hasShadowDanceAvailable: boolean,
+  ): ChecklistUsageInfo {
+    return createChecklistItem(
+      'flagellation_shadow_dance',
+      { event },
+      {
+        performance: hasShadowDanceAvailable
+          ? QualitativePerformance.Good
+          : QualitativePerformance.Fail,
+        summary: <div>Shadow Dance Cooldown</div>,
+        details: hasShadowDanceAvailable ? (
+          <div>
+            <SpellLink spell={SPELLS.SHADOW_DANCE} /> has at least one charge and less than 40
+            seconds left on the second charge.
+          </div>
+        ) : (
+          <div>
+            <SpellLink spell={SPELLS.SHADOW_DANCE} /> did not have enough charges available.
+          </div>
+        ),
+      },
+    );
+  }
+
+  private secretTechniquePerformance(
+    event: CastEvent,
+    hasSecretTechniqueAvailable: boolean,
+  ): ChecklistUsageInfo {
+    return createChecklistItem(
+      'flagellation_secret_technique',
+      { event },
+      {
+        performance: hasSecretTechniqueAvailable
+          ? QualitativePerformance.Good
+          : QualitativePerformance.Fail,
+        summary: <div>Secret Technique Cooldown</div>,
+        details: hasSecretTechniqueAvailable ? (
+          <div>
+            <SpellLink spell={SPELLS.SECRET_TECHNIQUE} /> cooldown was available.
+          </div>
+        ) : (
+          <div>
+            <SpellLink spell={SPELLS.SECRET_TECHNIQUE} /> cooldown was not available.
           </div>
         ),
       },

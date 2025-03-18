@@ -74,53 +74,68 @@ export default class ShadowBlades extends Analyzer {
       />
     );
   }
-
   private onCast(event: CastEvent) {
     const hasShadowDanceBuff = this.selectedCombatant.hasBuff(SPELLS.SHADOW_DANCE.id);
     const hasFlagellationBuff = this.selectedCombatant.hasBuff(SPELLS.FLAGELLATION.id);
 
     this.cooldownUses.push(
       createSpellUse({ event }, [
-        this.buffAlignmentPerformance(event, hasShadowDanceBuff, hasFlagellationBuff),
+        this.shadowDanceBuff(event, hasShadowDanceBuff),
+        this.flagellationBuff(event, hasFlagellationBuff),
       ]),
     );
   }
 
-  private buffAlignmentPerformance(
+  private shadowDanceBuff(
     event: CastEvent,
     hasShadowDanceBuff: boolean,
-    hasFlagellationBuff: boolean,
   ): ChecklistUsageInfo | undefined {
-    let performance: QualitativePerformance;
-    if (hasShadowDanceBuff && hasFlagellationBuff) {
-      performance = QualitativePerformance.Perfect;
-    } else if (hasShadowDanceBuff || hasFlagellationBuff) {
-      performance = QualitativePerformance.Ok;
-    } else {
-      performance = QualitativePerformance.Fail;
-    }
+    const performance = hasShadowDanceBuff
+      ? QualitativePerformance.Perfect
+      : QualitativePerformance.Fail;
 
     return createChecklistItem(
-      'flagellation_alignment',
+      'shadow_dance_alignment',
       { event },
       {
         performance,
-        summary: <div>Buff Alignment</div>,
+        summary: <div>Shadow Dance Buff Alignment</div>,
         details: (
           <div>
             {hasShadowDanceBuff ? (
               <>
-                ✔ <SpellLink spell={SPELLS.SHADOW_DANCE} /> buff was present.
+                <SpellLink spell={SPELLS.SHADOW_DANCE} /> buff was present.
               </>
             ) : (
               <>
                 <SpellLink spell={SPELLS.SHADOW_DANCE} /> buff was not present.
               </>
             )}
-            <br />
+          </div>
+        ),
+      },
+    );
+  }
+
+  private flagellationBuff(
+    event: CastEvent,
+    hasFlagellationBuff: boolean,
+  ): ChecklistUsageInfo | undefined {
+    const performance = hasFlagellationBuff
+      ? QualitativePerformance.Perfect
+      : QualitativePerformance.Fail;
+
+    return createChecklistItem(
+      'flagellation_alignment',
+      { event },
+      {
+        performance,
+        summary: <div>Flagellation Buff Alignment</div>,
+        details: (
+          <div>
             {hasFlagellationBuff ? (
               <>
-                ✔ <SpellLink spell={SPELLS.FLAGELLATION} /> buff was present.
+                <SpellLink spell={SPELLS.FLAGELLATION} /> buff was present.
               </>
             ) : (
               <>

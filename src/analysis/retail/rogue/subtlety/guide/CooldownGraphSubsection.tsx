@@ -60,8 +60,8 @@ const CooldownGraphSubsection = () => {
             <strong>Red segments</strong> highlight areas where an extra cooldown could have fit.
           </li>
         </ul>
-        For Subtlety, **Symbols of Death** and **Shadow Dance** usage is crucial, as they define
-        your burst windows.
+        For Subtlety, <strong>Symbols of Death</strong> and <strong>Shadow Dance</strong> usage is
+        crucial, as they define your burst windows.
       </p>
       {cooldowns.map((cooldownCheck) => (
         <CastEfficiencyBar

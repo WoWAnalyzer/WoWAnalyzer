@@ -3,6 +3,7 @@ import { Anty, Chizu, ToppleTheNun, SamuelMaverick } from 'CONTRIBUTORS';
 import SHARED_CHANGELOG from 'analysis/retail/rogue/shared/CHANGELOG';
 
 export default [
+  change(date(2025, 3, 10), 'Added support for sublety rogue 11.1.0 with SamuelMaverick', Dboisvert),
   change(date(2025, 3, 12), 'Added new features, such as the Guide UI for Subtlety Rogue, and performed some code refactoring.', SamuelMaverick),
   change(date(2025, 3, 9), 'Update subtlety rogue for 11.1', SamuelMaverick),
   change(date(2023, 7, 8), 'Update SpellLink usage.', ToppleTheNun),

@@ -44,12 +44,11 @@ class ColdBlood extends Analyzer {
         static: 1000,
       },
       castEfficiency: {
-        maxCasts: () => this.maxCasts,
         suggestion: true,
         recommendedEfficiency: 0.9,
         averageIssueEfficiency: 0.8,
         majorIssueEfficiency: 0.7,
-        extraSuggestion: 'Cast before finisher moves to maximize haste buff and lashing damage',
+        extraSuggestion: 'Cast before second Secret Technique',
       },
     });
   }
