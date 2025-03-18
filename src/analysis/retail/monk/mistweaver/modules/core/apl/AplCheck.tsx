@@ -156,7 +156,7 @@ const commonBottom = [
   },
 ];
 
-const atMissingCondition = cnd.buffMissing(talents.JADEFIRE_TEACHINGS_TALENT, {
+const atMissingCondition = cnd.buffMissing(SPELLS.JT_BUFF, {
   duration: 15000,
   timeRemaining: 1500,
 });
@@ -166,11 +166,18 @@ const JFS_AT = {
   condition: atMissingCondition,
 };
 
-const RM_AT_CORE = [ZP_VIVIFY_5_REMS, JFS_AT, VIVIFY_8_REMS];
+const JE_JFS = {
+  spell: SPELLS.CRACKLING_JADE_LIGHTNING,
+  condition: cnd.optionalRule(
+    cnd.and(cnd.buffPresent(SPELLS.JT_BUFF), cnd.buffPresent(SPELLS.JADE_EMPOWERMENT_BUFF)),
+  ),
+};
+
+const RM_AT_CORE = [JE_JFS, ZP_VIVIFY_5_REMS, JFS_AT, VIVIFY_8_REMS];
 
 const rotation_rm_at_sg = build([
   {
-    spell: talents.RENEWING_MIST_TALENT,
+    spell: [talents.RENEWING_MIST_TALENT, talents.RISING_SUN_KICK_TALENT],
     condition: cnd.describe(cnd.lastSpellCast(talents.THUNDER_FOCUS_TEA_TALENT), (tense) => (
       <>
         {' '}

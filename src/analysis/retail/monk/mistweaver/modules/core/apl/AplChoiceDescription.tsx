@@ -128,7 +128,7 @@ const RisingMistRushingWindKickShaohaosDescription = () => {
       <SpellLink spell={talents.RUSHING_WIND_KICK_TALENT} /> and{' '}
       <SpellLink spell={talents.SHAOHAOS_LESSONS_TALENT} />, keep{' '}
       <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> on cooldown and cast{' '}
-      <SpellLink spell={talents.RUSHING_WIND_KICK_TALENT} /> as often as possible.
+      <SpellLink spell={talents.RUSHING_WIND_KICK_TALENT} /> as often as possible.{' '}
       <ShaohaosDescription />
       <ThunderFocusTeaRem />
     </>
