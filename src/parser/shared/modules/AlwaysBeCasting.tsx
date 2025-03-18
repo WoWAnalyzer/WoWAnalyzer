@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/macro';
-import { formatPercentage } from 'common/format';
-import { Icon } from 'interface';
+import { formatNumber, formatPercentage } from 'common/format';
+import { Icon, TooltipElement } from 'interface';
 import { Tooltip } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events, { EndChannelEvent, GlobalCooldownEvent } from 'parser/core/Events';
@@ -364,7 +364,7 @@ class AlwaysBeCasting extends Analyzer {
   /**
    * Suggestion threshold for gaps between GCDs. The scale is gaps per minute.
    */
-  get smallGapsSuggestionThreshold(): IsGreaterThanThreshold {
+  get smallGapsSuggestionThreshold() {
     return {
       actual: this.smallGapsPerMinute,
       isGreaterThan: {
@@ -457,9 +457,36 @@ class AlwaysBeCasting extends Analyzer {
           </Trans>,
         ),
     );
+
+    when(this.smallGapsSuggestionThreshold).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You have a large number of small gaps between your abilities. Make sure to{' '}
+          <TooltipElement
+            content={
+              <>
+                <p>
+                  WoW has a <em>spell queue</em> system built-in. If you push an ability during the{' '}
+                  <em>queue window</em>, it will immediately begin casting when your current ability
+                  finishes&mdash;faster than you could cast it yourself because of network latency.
+                </p>
+                <p>
+                  The default queue window begins <strong>400ms</strong> before your next ability
+                  could be used and should generally not be changed.
+                </p>
+              </>
+            }
+          >
+            queue
+          </TooltipElement>{' '}
+          up your next ability while your current one finishes.
+        </>,
+      )
+        .recommended(<>&lt; {recommended} is recommended</>)
+        .actual(<>{formatNumber(actual)} small gaps per minute</>)
+        .icon('inv_misc_key_12'),
+    );
   }
 }
 
 export default AlwaysBeCasting;
-
-type IsGreaterThanThreshold = Pick<NumberThreshold, 'actual' | 'isGreaterThan' | 'style'>;
