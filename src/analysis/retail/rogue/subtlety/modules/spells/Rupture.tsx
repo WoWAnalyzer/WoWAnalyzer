@@ -119,13 +119,13 @@ export default class RuptureUptime extends Analyzer {
     event: CastEvent,
     buffHistory: TrackedBuffEvent[],
   ): ChecklistUsageInfo | undefined {
-    let performance: QualitativePerformance;
     const fightStartTime = this.owner.fight.start_time;
+    const beginningRupture = this.firstRupture;
+    let performance: QualitativePerformance;
     let refresh = false;
     let refreshTime = 0;
     let timeToFirstRupture = 0;
     let gap = false;
-    const beginningRupture = this.firstRupture;
 
     if (this.firstRupture) {
       timeToFirstRupture = (event.timestamp - fightStartTime) / 1000;
@@ -139,38 +139,13 @@ export default class RuptureUptime extends Analyzer {
       refresh = true;
     }
 
-    if (refreshTime < 9 && refreshTime > 0 && refresh) {
-      // Rupture was refreshed with less than 9 seconds remaining
-      performance = QualitativePerformance.Perfect;
-    } else if (this.firstRupture && timeToFirstRupture < 10) {
-      // First Rupture was cast within 10 seconds of the fight starting
-      performance = QualitativePerformance.Perfect;
-      this.firstRupture = false;
-    } else if (refreshTime < 16 && refreshTime > 0 && refresh) {
-      // Rupture was refreshed with less than 16 seconds remaining
-      performance = QualitativePerformance.Good;
-    } else if (this.firstRupture && timeToFirstRupture < 15) {
-      // First Rupture was cast within 15 seconds of the fight starting
-      performance = QualitativePerformance.Good;
-      this.firstRupture = false;
-    } else if (refreshTime < 0 && refreshTime > -10) {
-      // Rupture was missing for less than 10 seconds
-      performance = QualitativePerformance.Good;
-      gap = true;
-    } else if (refreshTime < 20 && refreshTime > 0 && refresh) {
-      // Rupture was refreshed with less than 20 seconds remaining
-      performance = QualitativePerformance.Ok;
-    } else if (this.firstRupture && timeToFirstRupture < 20) {
-      // First Rupture was cast within 20 seconds of the fight starting
-      performance = QualitativePerformance.Ok;
-      this.firstRupture = false;
-    } else if (refreshTime < 0 && refreshTime > -15) {
-      // Rupture was missing for less than 15 seconds
-      performance = QualitativePerformance.Ok;
-      gap = true;
-    } else {
-      performance = QualitativePerformance.Fail;
-    }
+    performance = this.determinePerformance(
+      refresh,
+      refreshTime,
+      timeToFirstRupture,
+      beginningRupture,
+      gap,
+    );
 
     return createChecklistItem(
       'rupture_performance',
@@ -178,56 +153,111 @@ export default class RuptureUptime extends Analyzer {
       {
         performance,
         summary: <div>Rupture Usage</div>,
-        details: (
-          <div>
-            {performance === QualitativePerformance.Perfect && beginningRupture ? (
-              <>
-                ✔ The first cast of <SpellLink spell={SPELLS.RUPTURE} /> was within 10 seconds of
-                the fight starting.
-              </>
-            ) : performance === QualitativePerformance.Perfect ? (
-              <>
-                <SpellLink spell={SPELLS.RUPTURE} /> uptime was perfect with no significant gaps or
-                premature refreshes.
-              </>
-            ) : performance === QualitativePerformance.Good && beginningRupture ? (
-              <>
-                The first cast of <SpellLink spell={SPELLS.RUPTURE} /> took more than 10 seconds
-                into the fight. It should be cast within 10 seconds of the fight starting.
-              </>
-            ) : performance === QualitativePerformance.Good && gap ? (
-              <>
-                <SpellLink spell={SPELLS.RUPTURE} /> was missing for less than 10 seconds. Try to
-                minimize gaps in uptime.
-              </>
-            ) : performance === QualitativePerformance.Good ? (
-              <>
-                <SpellLink spell={SPELLS.RUPTURE} /> was refreshed with less than 16 seconds
-                remaining. It should be refreshed with less than 9 seconds remaining.
-              </>
-            ) : performance === QualitativePerformance.Ok && beginningRupture ? (
-              <>
-                The first cast of <SpellLink spell={SPELLS.RUPTURE} /> took more than 15 seconds
-                into the fight. It should be cast within 10 seconds of the fight starting.
-              </>
-            ) : performance === QualitativePerformance.Ok && gap ? (
-              <>
-                <SpellLink spell={SPELLS.RUPTURE} /> was missing for less than 15 seconds. Try to
-                minimize gaps in uptime.
-              </>
-            ) : performance === QualitativePerformance.Ok ? (
-              <>
-                <SpellLink spell={SPELLS.RUPTURE} /> was refreshed with less than 20 seconds
-                remaining. It should be refreshed with less than 9 seconds remaining.
-              </>
-            ) : (
-              <>
-                <SpellLink spell={SPELLS.RUPTURE} /> usage was poor. Try to maintain better uptime.
-              </>
-            )}
-          </div>
-        ),
+        details: this.getPerformanceDetails(performance, beginningRupture, gap),
       },
     );
+  }
+
+  private determinePerformance(
+    refresh: boolean,
+    refreshTime: number,
+    timeToFirstRupture: number,
+    beginningRupture: boolean,
+    gap: boolean,
+  ): QualitativePerformance {
+    if (refreshTime < 9 && refreshTime > 0 && refresh) {
+      return QualitativePerformance.Perfect;
+    } else if (beginningRupture && timeToFirstRupture < 10) {
+      this.firstRupture = false;
+      return QualitativePerformance.Perfect;
+    } else if (refreshTime < 16 && refreshTime > 0 && refresh) {
+      return QualitativePerformance.Good;
+    } else if (beginningRupture && timeToFirstRupture < 15) {
+      this.firstRupture = false;
+      return QualitativePerformance.Good;
+    } else if (refreshTime < 0 && refreshTime > -10) {
+      gap = true;
+      return QualitativePerformance.Good;
+    } else if (refreshTime < 20 && refreshTime > 0 && refresh) {
+      return QualitativePerformance.Ok;
+    } else if (beginningRupture && timeToFirstRupture < 20) {
+      this.firstRupture = false;
+      return QualitativePerformance.Ok;
+    } else if (refreshTime < 0 && refreshTime > -15) {
+      gap = true;
+      return QualitativePerformance.Ok;
+    } else {
+      return QualitativePerformance.Fail;
+    }
+  }
+
+  private getPerformanceDetails(
+    performance: QualitativePerformance,
+    beginningRupture: boolean,
+    gap: boolean,
+  ): JSX.Element {
+    if (performance === QualitativePerformance.Perfect && beginningRupture) {
+      return (
+        <>
+          ✔ The first cast of <SpellLink spell={SPELLS.RUPTURE} /> was within 10 seconds of the
+          fight starting.
+        </>
+      );
+    } else if (performance === QualitativePerformance.Perfect) {
+      return (
+        <>
+          <SpellLink spell={SPELLS.RUPTURE} /> uptime was perfect with no significant gaps or
+          premature refreshes.
+        </>
+      );
+    } else if (performance === QualitativePerformance.Good && beginningRupture) {
+      return (
+        <>
+          The first cast of <SpellLink spell={SPELLS.RUPTURE} /> took more than 10 seconds into the
+          fight. It should be cast within 10 seconds of the fight starting.
+        </>
+      );
+    } else if (performance === QualitativePerformance.Good && gap) {
+      return (
+        <>
+          <SpellLink spell={SPELLS.RUPTURE} /> was missing for less than 10 seconds. Try to minimize
+          gaps in uptime.
+        </>
+      );
+    } else if (performance === QualitativePerformance.Good) {
+      return (
+        <>
+          <SpellLink spell={SPELLS.RUPTURE} /> was refreshed with less than 16 seconds remaining. It
+          should be refreshed with less than 9 seconds remaining.
+        </>
+      );
+    } else if (performance === QualitativePerformance.Ok && beginningRupture) {
+      return (
+        <>
+          The first cast of <SpellLink spell={SPELLS.RUPTURE} /> took more than 15 seconds into the
+          fight. It should be cast within 10 seconds of the fight starting.
+        </>
+      );
+    } else if (performance === QualitativePerformance.Ok && gap) {
+      return (
+        <>
+          <SpellLink spell={SPELLS.RUPTURE} /> was missing for less than 15 seconds. Try to minimize
+          gaps in uptime.
+        </>
+      );
+    } else if (performance === QualitativePerformance.Ok) {
+      return (
+        <>
+          <SpellLink spell={SPELLS.RUPTURE} /> was refreshed with less than 20 seconds remaining. It
+          should be refreshed with less than 9 seconds remaining.
+        </>
+      );
+    } else {
+      return (
+        <>
+          <SpellLink spell={SPELLS.RUPTURE} /> usage was poor. Try to maintain better uptime.
+        </>
+      );
+    }
   }
 }

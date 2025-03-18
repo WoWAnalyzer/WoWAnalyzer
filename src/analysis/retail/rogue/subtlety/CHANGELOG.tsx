@@ -1,5 +1,5 @@
 import { change, date } from 'common/changelog';
-import { Anty, Chizu, ToppleTheNun, SamuelMaverick } from 'CONTRIBUTORS';
+import { Anty, Chizu, ToppleTheNun, SamuelMaverick, Dboisvert } from 'CONTRIBUTORS';
 import SHARED_CHANGELOG from 'analysis/retail/rogue/shared/CHANGELOG';
 
 export default [
