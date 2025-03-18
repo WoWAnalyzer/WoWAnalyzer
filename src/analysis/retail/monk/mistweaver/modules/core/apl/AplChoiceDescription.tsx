@@ -38,15 +38,6 @@ const aplTitle = (choice: MistweaverApl) => {
   }
 };
 
-// const RisingMistDescription = () => {
-//   return (
-//     <>
-//       <SpellLink spell={talents.RISING_SUN_KICK_TALENT} />/
-//       <SpellLink spell={talents.RUSHING_WIND_KICK_TALENT} /> to extend hots and{' '}
-//     </>
-//   );
-// };
-
 const JadefireTeachingsDescription = () => {
   return (
     <>
