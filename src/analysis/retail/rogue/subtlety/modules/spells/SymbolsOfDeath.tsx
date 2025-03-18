@@ -58,11 +58,7 @@ export default class SymbolsOfDeath extends Analyzer {
             <CastPerformanceSummary
               spell={SPELLS.SYMBOLS_OF_DEATH}
               casts={goodCasts}
-              performance={
-                this.cooldownUses.length > 0
-                  ? this.cooldownUses[0].performance
-                  : QualitativePerformance.Fail
-              }
+              performance={QualitativePerformance.Good}
               totalCasts={totalCasts}
             />
           </div>

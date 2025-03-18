@@ -57,11 +57,7 @@ export default class ShadowDance extends Analyzer {
             <CastPerformanceSummary
               spell={SPELLS.SHADOW_DANCE}
               casts={goodCasts}
-              performance={
-                this.cooldownUses.length > 0
-                  ? this.cooldownUses[0].performance
-                  : QualitativePerformance.Fail
-              }
+              performance={QualitativePerformance.Good}
               totalCasts={totalCasts}
             />
           </div>

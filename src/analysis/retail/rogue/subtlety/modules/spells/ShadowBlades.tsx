@@ -59,11 +59,7 @@ export default class ShadowBlades extends Analyzer {
             <CastPerformanceSummary
               spell={TALENTS.SHADOW_BLADES_TALENT}
               casts={goodCasts}
-              performance={
-                this.cooldownUses.length > 0
-                  ? this.cooldownUses[0].performance
-                  : QualitativePerformance.Fail
-              }
+              performance={QualitativePerformance.Good}
               totalCasts={totalCasts}
             />
           </div>

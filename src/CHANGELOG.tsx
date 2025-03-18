@@ -35,7 +35,6 @@ import {
   Gazh,
   Yellot,
   KYZ,
-  Dboisvert,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
