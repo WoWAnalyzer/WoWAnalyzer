@@ -113,20 +113,13 @@ class DreamBreath extends Analyzer {
     this.casts.forEach((cast) => {
       let value = QualitativePerformance.Fail;
       const groupSize = Object.keys(this.combatants.getEntities()).length;
+      const maxTargets = groupSize > 5 ? 6 : 5;
       const coyActive =
         this.selectedCombatant.hasTalent(TALENTS_EVOKER.CALL_OF_YSERA_TALENT) && cast.coyActive;
-      if (groupSize > 5) {
-        if (cast.targetsHit >= 6) {
-          value = QualitativePerformance.Good;
-        } else if (cast.targetsHit === 5) {
-          value = QualitativePerformance.Ok;
-        }
-      } else {
-        if (coyActive && cast.targetsHit >= 5) {
-          value = QualitativePerformance.Good;
-        } else if (coyActive && cast.targetsHit === 4) {
-          value = QualitativePerformance.Ok;
-        }
+      if (coyActive && cast.targetsHit >= maxTargets) {
+        value = QualitativePerformance.Good;
+      } else if (coyActive && cast.targetsHit >= maxTargets - 1) {
+        value = QualitativePerformance.Ok;
       }
       const tooltip = (
         <>
