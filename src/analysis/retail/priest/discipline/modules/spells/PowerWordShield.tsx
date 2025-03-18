@@ -167,22 +167,22 @@ class PowerWordShield extends Analyzer {
     let baseAmount = totalShieldAmount;
 
     if (this.hasEternalBarrier) {
-      baseAmount = baseAmount / (1 + ETERNAL_BARRIER_INCREASE);
+      baseAmount /= 1 + ETERNAL_BARRIER_INCREASE;
     }
 
     if (this.selectedCombatant.hasTalent(TALENTS_PRIEST.WEAL_AND_WOE_TALENT)) {
       const wealStacks = info.wealStacks;
       if (wealStacks > 0) {
-        baseAmount = baseAmount / (1 + wealStacks * WEAL_AND_WOE_BUFF_PER_STACK);
+        baseAmount /= 1 + wealStacks * WEAL_AND_WOE_BUFF_PER_STACK;
       }
     }
 
     if (this.selectedCombatant.hasTalent(TALENTS_PRIEST.PREVENTIVE_MEASURES_TALENT)) {
-      baseAmount = baseAmount / (1 + PREVENTATIVE_MEASURES_INCREASE);
+      baseAmount /= 1 + PREVENTATIVE_MEASURES_INCREASE;
     }
 
     if (this.selectedCombatant.hasTalent(TALENTS_PRIEST.INNER_QUIETUS_TALENT)) {
-      baseAmount = baseAmount / (1 + INNER_QUIETUS_INCREASE);
+      baseAmount /= 1 + INNER_QUIETUS_INCREASE;
     }
 
     return baseAmount;

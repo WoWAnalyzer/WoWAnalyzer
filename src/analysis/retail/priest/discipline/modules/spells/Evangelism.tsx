@@ -89,9 +89,11 @@ class Evangelism extends Analyzer {
     }
   }
 
-  statistic() {
-    const evangelismStatistics = this.evangelismStatistics;
+  get extensionHealing() {
+    return this.evangelismStatistics.reduce((p, c) => p + c.healing, 0);
+  }
 
+  statistic() {
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(0)}
@@ -103,7 +105,7 @@ class Evangelism extends Analyzer {
             {formatNumber(this.evangelismActiveHealing)}
             <br />
             <SpellLink spell={SPELLS.ATONEMENT_HEAL_NON_CRIT} /> extension healing:{' '}
-            {formatNumber(evangelismStatistics.reduce((p, c) => p + c.healing, 0))}
+            {formatNumber(this.extensionHealing)}
           </>
         }
         dropdown={
@@ -130,11 +132,7 @@ class Evangelism extends Analyzer {
         }
       >
         <BoringSpellValueText spell={TALENTS_PRIEST.EVANGELISM_TALENT}>
-          <ItemHealingDone
-            amount={
-              evangelismStatistics.reduce((p, c) => p + c.healing, 0) + this.evangelismActiveHealing
-            }
-          />
+          <ItemHealingDone amount={this.evangelismActiveHealing + this.extensionHealing} />
         </BoringSpellValueText>
       </Statistic>
     );
