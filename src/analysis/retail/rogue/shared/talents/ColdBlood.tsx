@@ -41,7 +41,7 @@ class ColdBlood extends Analyzer {
       category: SPELL_CATEGORY.COOLDOWNS,
       cooldown: this.cooldown,
       gcd: {
-        base: 1000,
+        static: 1000,
       },
       castEfficiency: {
         maxCasts: () => this.maxCasts,
