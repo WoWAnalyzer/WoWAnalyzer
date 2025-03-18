@@ -11,7 +11,7 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
-class Flagellation extends Analyzer {
+class ColdBlood extends Analyzer {
   static dependencies = {
     abilities: Abilities,
   };
@@ -24,32 +24,31 @@ class Flagellation extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.FLAGELLATION_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.COLD_BLOOD_TALENT);
     if (!this.active) {
       return;
     }
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.FLAGELLATION_TALENT),
+      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.COLD_BLOOD_TALENT),
       this.onDamage,
     );
 
     this.addEventListener(Events.fightend, this.adjustMaxCasts);
 
     (options.abilities as Abilities).add({
-      spell: TALENTS.FLAGELLATION_TALENT.id,
+      spell: TALENTS.COLD_BLOOD_TALENT.id,
       category: SPELL_CATEGORY.COOLDOWNS,
       cooldown: this.cooldown,
       gcd: {
-        base: 1000,
+        static: 1000,
       },
       castEfficiency: {
-        maxCasts: () => this.maxCasts,
         suggestion: true,
         recommendedEfficiency: 0.9,
         averageIssueEfficiency: 0.8,
         majorIssueEfficiency: 0.7,
-        extraSuggestion: 'Cast before finisher moves to maximize haste buff and lashing damage',
+        extraSuggestion: 'Cast before second Secret Technique',
       },
     });
   }
@@ -94,11 +93,11 @@ class Flagellation extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <ul>
-            <li>{formatNumber(this.damage)} damage done by Flagellation</li>
+            <li>{formatNumber(this.damage)} damage done by Cold Blood</li>
           </ul>
         }
       >
-        <BoringSpellValueText spell={TALENTS.FLAGELLATION_TALENT}>
+        <BoringSpellValueText spell={TALENTS.COLD_BLOOD_TALENT}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>
@@ -106,4 +105,4 @@ class Flagellation extends Analyzer {
   }
 }
 
-export default Flagellation;
+export default ColdBlood;

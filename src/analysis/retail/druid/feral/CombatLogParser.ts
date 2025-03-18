@@ -46,6 +46,7 @@ import SaberJaws from 'analysis/retail/druid/feral/modules/spells/SaberJaws';
 import AdaptiveSwarm from 'analysis/retail/druid/feral/modules/spells/AdaptiveSwarm';
 import SoulOfTheForestLinkNormalizer from 'analysis/retail/druid/feral/normalizers/SoulOfTheForestLinkNormalizer';
 import TWW2TierSet from 'analysis/retail/druid/feral/modules/items/TWW2TierSet';
+import MercilessClaws from 'analysis/retail/druid/feral/modules/spells/MercilessClaws';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -108,6 +109,7 @@ class CombatLogParser extends CoreCombatLogParser {
     omenAndMomentOfClarity: OmenAndMomentOfClarity,
     feralFrenzy: FeralFrenzy,
     saberJaws: SaberJaws,
+    mercilessClaws: MercilessClaws,
     // TODO TWW - might actually want a Tiger's Tenacity module now
 
     // tier

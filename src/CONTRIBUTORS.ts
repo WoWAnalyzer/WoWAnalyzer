@@ -2596,3 +2596,29 @@ export const Capybara: Contributor = {
   nickname: 'Capybara',
   github: 'Don-Osipov',
 };
+
+export const Dboisvert: Contributor = {
+  nickname: 'dangerous',
+  github: 'dboisvert',
+  discord: '@dangerousrn',
+  mains: [
+    {
+      name: 'Venenare',
+      spec: SPECS.SUBTLETY_ROGUE,
+      link: 'https://worldofwarcraft.blizzard.com/en-us/character/us/wyrmrest-accord/venenare/',
+    },
+  ],
+};
+
+export const SamuelMaverick: Contributor = {
+  nickname: 'SamuelMaverick',
+  github: 'samuelmaverick',
+  discord: 'samuel_maverick',
+  mains: [
+    {
+      name: 'Mäveríck',
+      spec: SPECS.SUBTLETY_ROGUE,
+      link: 'https://worldofwarcraft.blizzard.com/en-gb/character/eu/ragnaros/m%C3%A4ver%C3%ADck/',
+    },
+  ],
+};
