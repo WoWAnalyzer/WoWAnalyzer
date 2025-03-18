@@ -249,25 +249,35 @@ export default function ViolationProblemList<T = unknown>({
     [DescribeViolation, result, apl, orientation, secondsShown],
   );
 
+  const beforeRatio = 5 / 12;
+
+  const problems = useMemo(() => {
+    const result = deduplicate(claimData.claims).map(
+      (violation): Problem<Violation> => ({
+        range: {
+          start: violation.actualCast.timestamp,
+          end: violation.actualCast.timestamp,
+        },
+        context: {
+          before: beforeRatio * secondsShown * 1000,
+          after: (1 - beforeRatio) * secondsShown * 1000,
+        },
+        data: violation,
+      }),
+    );
+
+    const openerGraceWindowEnd = (info?.fightStart ?? 0) + OPENER_GRACE_PERIOD_MS;
+    // try not to show problems at the very start of the fight, as these are often false positives because of openers.
+    if (result.some((problem) => problem.range.start >= openerGraceWindowEnd)) {
+      return result.filter((problem) => problem.range.start >= openerGraceWindowEnd);
+    } else {
+      return result;
+    }
+  }, [claimData.claims, beforeRatio, secondsShown, info?.fightStart]);
+
   if (!info) {
     return null;
   }
-
-  const beforeRatio = 5 / 12;
-
-  const problems = deduplicate(claimData.claims).map(
-    (violation): Problem<Violation> => ({
-      range: {
-        start: violation.actualCast.timestamp,
-        end: violation.actualCast.timestamp,
-      },
-      context: {
-        before: beforeRatio * secondsShown * 1000,
-        after: (1 - beforeRatio) * secondsShown * 1000,
-      },
-      data: violation,
-    }),
-  );
 
   return (
     <AplViolationTimelineContainer>
@@ -281,3 +291,5 @@ export default function ViolationProblemList<T = unknown>({
     </AplViolationTimelineContainer>
   );
 }
+
+const OPENER_GRACE_PERIOD_MS = 10_000;

@@ -1016,11 +1016,10 @@ const spells = {
     icon: 'trade_engineering',
   },
 
-  // Disc
-  SPIRIT_SHELL_TALENT_BUFF: {
-    id: 114908,
-    name: 'Spirit Shell',
-    icon: 'ability_shaman_astralshift.jpg',
+  EVANGELISM_HEAL: {
+    id: 472433,
+    name: 'Evangelism',
+    icon: 'spell_holy_divineillumination',
   },
 } satisfies Record<string, Spell>;
 

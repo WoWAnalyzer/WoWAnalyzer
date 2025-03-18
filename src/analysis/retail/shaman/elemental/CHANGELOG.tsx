@@ -5,6 +5,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2025, 3, 9), <>Fix crash when processing Fusion of Elements data.</>, emallson),
   change(date(2025, 3, 4), <>Elemental Shaman update for TWW S2</>, Seriousnes),
   change(date(2025, 1, 6), <>Fix crash in <SpellLink spell={TALENTS.ASCENDANCE_ELEMENTAL_TALENT} /> analysis when <SpellLink spell={TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT} /> is used and <SpellLink spell={TALENTS.ASCENDANCE_ELEMENTAL_TALENT} /> is not cast.</>, emallson),
   change(date(2024, 11, 17), <>Initial support for 11.0.5</>, Seriousnes),

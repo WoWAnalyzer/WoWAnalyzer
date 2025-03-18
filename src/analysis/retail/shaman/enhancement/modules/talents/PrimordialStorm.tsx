@@ -19,7 +19,7 @@ import { formatPercentage } from 'common/format';
 
 interface PrimordialWaveCast extends CooldownTrigger<CastEvent> {
   hits: number;
-  feralSpiritActive: boolean;
+  elementalSpiritsActive: boolean;
   primordialStorm?: CastEvent;
   primordialStormDetails?: {
     maelstromUsed: number;
@@ -42,6 +42,7 @@ class PrimordialStorm extends MajorCooldown<PrimordialWaveCast> {
   primordialWaveCast: PrimordialWaveCast | null = null;
   doomWindsAlternater: boolean = false;
   hasWitchDoctorsAncestry: boolean = false;
+  hasElementalSpirits: boolean = false;
 
   constructor(options: Options) {
     super({ spell: TALENTS.PRIMORDIAL_WAVE_TALENT }, options);
@@ -54,6 +55,7 @@ class PrimordialStorm extends MajorCooldown<PrimordialWaveCast> {
     this.hasWitchDoctorsAncestry = this.selectedCombatant.hasTalent(
       TALENTS.WITCH_DOCTORS_ANCESTRY_TALENT,
     );
+    this.hasElementalSpirits = this.selectedCombatant.hasTalent(TALENTS.ELEMENTAL_SPIRITS_TALENT);
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.PRIMORDIAL_WAVE_TALENT),
@@ -187,7 +189,7 @@ class PrimordialStorm extends MajorCooldown<PrimordialWaveCast> {
   }
 
   explainPerformance(cast: PrimordialWaveCast): SpellUse {
-    if (cast.primordialStormDetails === null || cast.primordialStormDetails === undefined) {
+    if (cast.primordialStormDetails === undefined) {
       return {
         event: cast.event,
         checklistItems: [
@@ -214,7 +216,7 @@ class PrimordialStorm extends MajorCooldown<PrimordialWaveCast> {
         extraDetails: (
           <>
             <div>
-              <SpellLink spell={TALENTS.PRIMORDIAL_STORM_TALENT} /> is a significant DPS coooldown.
+              <SpellLink spell={TALENTS.PRIMORDIAL_STORM_TALENT} /> is a significant DPS cooldown.
               You should always ensure to cast it after every{' '}
               <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_TALENT} />.
             </div>
@@ -223,141 +225,76 @@ class PrimordialStorm extends MajorCooldown<PrimordialWaveCast> {
       };
     }
 
-    const maelstromUsed = cast.primordialStormDetails?.maelstromUsed ?? 0;
-    const lotfwActive = cast.primordialStormDetails?.legacyOfTheFrostWitch ?? false;
-    const hadDoomwinds = cast.primordialStormDetails?.hadDoomwinds ?? false;
-    const shouldHaveHadDoomwinds = cast.primordialStormDetails?.shouldHaveHadDoomwinds ?? false;
+    const details = cast.primordialStormDetails;
 
-    const checklistItems: ChecklistUsageInfo[] = [
-      {
-        check: 'legacy-of-the-frost-witch',
-        timestamp: cast.event.timestamp,
-        performance: lotfwActive ? QualitativePerformance.Perfect : QualitativePerformance.Fail,
-        summary: (
-          <>
-            <SpellLink spell={TALENTS.LEGACY_OF_THE_FROST_WITCH_TALENT} />{' '}
-            {lotfwActive ? '' : 'not'} active.
-          </>
-        ),
-        details: (
-          <div>
-            <SpellLink spell={TALENTS.LEGACY_OF_THE_FROST_WITCH_TALENT} />{' '}
-            {lotfwActive ? '' : 'not'} active.
-            {!lotfwActive && (
-              <> This is a significant damage increase, aim to have it active for every cast.</>
-            )}
-          </div>
-        ),
-      },
-      {
-        check: 'maelstrom-weapon',
-        timestamp: cast.event.timestamp,
-        performance: evaluateQualitativePerformanceByThreshold({
-          actual: maelstromUsed,
-          isGreaterThanOrEqual: {
-            perfect: 10,
-            good: 8,
-            ok: 5,
-          },
-        }),
-        summary: (
-          <>
-            <SpellLink spell={TALENTS.MAELSTROM_WEAPON_TALENT} /> usage
-          </>
-        ),
-        details: (
-          <div>
-            <strong>{maelstromUsed}</strong> <SpellLink spell={TALENTS.MAELSTROM_WEAPON_TALENT} />{' '}
-            used.
-          </div>
-        ),
-      },
-    ];
-
-    if (shouldHaveHadDoomwinds) {
-      checklistItems.push({
-        check: 'doomwinds',
-        timestamp: cast.event.timestamp,
-        performance: hadDoomwinds ? QualitativePerformance.Perfect : QualitativePerformance.Fail,
-        summary: (
-          <>
-            <SpellLink spell={TALENTS.DOOM_WINDS_TALENT} /> {hadDoomwinds ? '' : 'not'} active
-          </>
-        ),
-        details: (
-          <div>
-            <SpellLink spell={TALENTS.DOOM_WINDS_TALENT} /> {hadDoomwinds ? '' : 'not'} active
-          </div>
-        ),
-      });
-    }
-
-    // Add Witch Doctor's Ancestry check if the talent is selected
-    if (this.hasWitchDoctorsAncestry) {
-      const feralSpiritState =
-        cast.feralSpiritActive && (cast.primordialStormDetails?.feralSpiritActive ?? false)
-          ? 2
-          : cast.feralSpiritActive || (cast.primordialStormDetails?.feralSpiritActive ?? false)
-            ? 1
-            : 0;
-
-      checklistItems.push({
-        check: 'feral-spirit',
-        timestamp: cast.event.timestamp,
-        performance: evaluateQualitativePerformanceByThreshold({
-          actual: feralSpiritState,
-          isGreaterThanOrEqual: {
-            perfect: 2,
-            ok: 1,
-          },
-        }),
-        summary: (
-          <>
-            <SpellLink spell={TALENTS.FERAL_SPIRIT_TALENT} />{' '}
-            {feralSpiritState === 1 && 'partially'} {feralSpiritState > 0 ? 'active' : 'missing'}
-          </>
-        ),
-        details: (
-          <div>
-            {feralSpiritState === 2 && (
-              <>
-                <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_TALENT} /> and{' '}
-                <SpellLink spell={TALENTS.PRIMORDIAL_STORM_TALENT} />{' '}
-              </>
-            )}
-            {!cast.feralSpiritActive && (
-              <>
-                <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_TALENT} />{' '}
-              </>
-            )}
-            {feralSpiritState === 0 && 'and '}
-            {!(cast.primordialStormDetails?.feralSpiritActive ?? false) && (
-              <>
-                <SpellLink spell={TALENTS.PRIMORDIAL_STORM_TALENT} />{' '}
-              </>
-            )}
-            {feralSpiritState !== 1 ? 'were' : 'was '} {feralSpiritState !== 2 && 'not '} buffed by{' '}
-            <SpellLink spell={TALENTS.FERAL_SPIRIT_TALENT} />.
-          </div>
-        ),
-      });
-    }
-
-    // splintered elements hit count and haste gained
-    const hits = cast.hits;
+    const maelstromUsed = details.maelstromUsed ?? 0;
+    const lotfwActive = details.legacyOfTheFrostWitch ?? false;
+    const hadDoomwinds = details.hadDoomwinds ?? false;
+    const shouldHaveHadDoomwinds = details.shouldHaveHadDoomwinds ?? false;
 
     const issues: ReactNode[] = [];
-    if (shouldHaveHadDoomwinds && !hadDoomwinds) {
+    const checklistItems: ChecklistUsageInfo[] = [];
+
+    /**
+     * Legacy of the Frost Witch
+     */
+    checklistItems.push({
+      check: 'legacy-of-the-frost-witch',
+      timestamp: cast.event.timestamp,
+      performance: lotfwActive ? QualitativePerformance.Perfect : QualitativePerformance.Fail,
+      summary: (
+        <>
+          <SpellLink spell={TALENTS.LEGACY_OF_THE_FROST_WITCH_TALENT} /> {lotfwActive ? '' : 'not'}{' '}
+          active.
+        </>
+      ),
+      details: (
+        <div>
+          <SpellLink spell={TALENTS.LEGACY_OF_THE_FROST_WITCH_TALENT} /> {lotfwActive ? '' : 'not'}{' '}
+          active.
+          {!lotfwActive && (
+            <> This is a significant damage increase, aim to have it active for every cast.</>
+          )}
+        </div>
+      ),
+    });
+    if (!lotfwActive) {
       issues.push(
         <>
-          <li key="doom-winds">
-            <SpellLink spell={TALENTS.DOOM_WINDS_TALENT} /> should be active for every second cast.
-            If the previous cast didn't have <SpellLink spell={TALENTS.DOOM_WINDS_TALENT} /> active,
-            this one should have.
+          <li key="lotfw">
+            <SpellLink spell={TALENTS.LEGACY_OF_THE_FROST_WITCH_TALENT} /> should be active for
+            every cast.
           </li>
         </>,
       );
     }
+
+    /**
+     * Maelstrom Used
+     */
+    checklistItems.push({
+      check: 'maelstrom-weapon',
+      timestamp: cast.event.timestamp,
+      performance: evaluateQualitativePerformanceByThreshold({
+        actual: maelstromUsed,
+        isGreaterThanOrEqual: {
+          perfect: 10,
+          good: 8,
+          ok: 5,
+        },
+      }),
+      summary: (
+        <>
+          <SpellLink spell={TALENTS.MAELSTROM_WEAPON_TALENT} /> usage
+        </>
+      ),
+      details: (
+        <div>
+          <strong>{maelstromUsed}</strong> <SpellLink spell={TALENTS.MAELSTROM_WEAPON_TALENT} />{' '}
+          used.
+        </div>
+      ),
+    });
     if (maelstromUsed < 10) {
       issues.push(
         <>
@@ -368,32 +305,136 @@ class PrimordialStorm extends MajorCooldown<PrimordialWaveCast> {
         </>,
       );
     }
-    if (
-      this.hasWitchDoctorsAncestry &&
-      (!cast.feralSpiritActive || !(cast.primordialStormDetails?.feralSpiritActive ?? false))
-    ) {
-      issues.push(
-        <>
-          <li key="feral-spirit">
-            With <SpellLink spell={TALENTS.WITCH_DOCTORS_ANCESTRY_TALENT} />, you should aim to have{' '}
-            <SpellLink spell={TALENTS.FERAL_SPIRIT_TALENT} /> active for every cast of{' '}
-            <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_TALENT} /> and{' '}
-            <SpellLink spell={TALENTS.PRIMORDIAL_STORM_TALENT} />.
-          </li>
-        </>,
-      );
+
+    /**
+     * Doom Winds
+     */
+    if (shouldHaveHadDoomwinds) {
+      checklistItems.push({
+        check: 'doom-winds',
+        timestamp: cast.event.timestamp,
+        performance: hadDoomwinds ? QualitativePerformance.Perfect : QualitativePerformance.Fail,
+        summary: (
+          <>
+            <SpellLink spell={TALENTS.DOOM_WINDS_TALENT} /> {hadDoomwinds ? '' : 'not'} active
+          </>
+        ),
+        details: (
+          <div>
+            <SpellLink spell={TALENTS.DOOM_WINDS_TALENT} /> {hadDoomwinds ? '' : 'not'} active.
+          </div>
+        ),
+      });
+
+      if (!hadDoomwinds) {
+        issues.push(
+          <>
+            <li key="doom-winds">
+              <SpellLink spell={TALENTS.DOOM_WINDS_TALENT} /> should be active for every second
+              cast. If the previous cast didn't have <SpellLink spell={TALENTS.DOOM_WINDS_TALENT} />{' '}
+              active, this one should have.
+            </li>
+          </>,
+        );
+      }
+    }
+
+    /**
+     * Primordial Wave / Elemental Spirits check
+     */
+    if (this.hasElementalSpirits) {
+      checklistItems.push({
+        check: 'pwave',
+        timestamp: cast.event.timestamp,
+        performance: cast.elementalSpiritsActive
+          ? QualitativePerformance.Perfect
+          : QualitativePerformance.Ok,
+        summary: (
+          <>
+            <SpellLink spell={TALENTS.ELEMENTAL_SPIRITS_TALENT} />{' '}
+            {cast.elementalSpiritsActive ? 'active' : 'missing'} for
+            <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_TALENT} />
+          </>
+        ),
+        details: (
+          <div>
+            <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_TALENT} /> was{' '}
+            {cast.elementalSpiritsActive ? '' : 'not'} buffed by{' '}
+            <SpellLink spell={TALENTS.ELEMENTAL_SPIRITS_TALENT} />.
+          </div>
+        ),
+      });
+    }
+
+    /**
+     * Primordial Storm / Feral Spirit check
+     */
+    if (this.hasWitchDoctorsAncestry) {
+      // Separate checklist item for Primordial Storm
+      checklistItems.push({
+        check: 'pstorm',
+        timestamp: cast.event.timestamp,
+        performance: details.feralSpiritActive
+          ? QualitativePerformance.Perfect
+          : QualitativePerformance.Fail,
+        summary: (
+          <>
+            {this.hasElementalSpirits ? (
+              <SpellLink spell={TALENTS.ELEMENTAL_SPIRITS_TALENT} />
+            ) : (
+              <SpellLink spell={TALENTS.FERAL_SPIRIT_TALENT} />
+            )}{' '}
+            {details.feralSpiritActive ? 'active' : 'missing'} for
+            <SpellLink spell={TALENTS.PRIMORDIAL_STORM_TALENT} />
+          </>
+        ),
+        details: (
+          <div>
+            <SpellLink spell={TALENTS.PRIMORDIAL_STORM_TALENT} /> was{' '}
+            {details.feralSpiritActive ? '' : 'not'} buffed by{' '}
+            <SpellLink spell={TALENTS.FERAL_SPIRIT_TALENT} />.
+          </div>
+        ),
+      });
+    }
+
+    if (this.hasElementalSpirits) {
+      if (!(details.feralSpiritActive && cast.elementalSpiritsActive)) {
+        issues.push(
+          <>
+            <li key="pstorm">
+              With <SpellLink spell={TALENTS.ELEMENTAL_SPIRITS_TALENT} /> talented, you should aim
+              to have them active for <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_TALENT} />.
+            </li>
+          </>,
+        );
+      }
+    } else if (this.hasWitchDoctorsAncestry) {
+      if (!details.feralSpiritActive) {
+        issues.push(
+          <>
+            <li key="pstorm">
+              With <SpellLink spell={TALENTS.WITCH_DOCTORS_ANCESTRY_TALENT} />, the cooldown of{' '}
+              <SpellLink spell={TALENTS.FERAL_SPIRIT_TALENT} /> is approximately 30 seconds and
+              should be synchronized with every cast of{' '}
+              <SpellLink spell={TALENTS.PRIMORDIAL_STORM_TALENT} />.
+            </li>
+          </>,
+        );
+      }
     }
 
     const extraDetails = (
       <div>
         <ul>
           <li>
-            <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_TALENT} /> hit <strong>{hits}</strong> target
-            {hits > 1 ? 's' : ''}.
+            <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_TALENT} /> hit <strong>{cast.hits}</strong>{' '}
+            target
+            {cast.hits > 1 ? 's' : ''}.
           </li>
           <li>
             <SpellLink spell={TALENTS.SPLINTERED_ELEMENTS_TALENT} /> granted{' '}
-            <strong>{formatPercentage(this.splinteredElements.getGainedHaste(hits))}%</strong>{' '}
+            <strong>{formatPercentage(this.splinteredElements.getGainedHaste(cast.hits))}%</strong>{' '}
             haste.
           </li>
         </ul>
@@ -430,8 +471,8 @@ class PrimordialStorm extends MajorCooldown<PrimordialWaveCast> {
     this.primordialWaveCast = {
       event: event,
       hits: 0,
-      feralSpiritActive:
-        this.hasWitchDoctorsAncestry &&
+      elementalSpiritsActive:
+        this.hasElementalSpirits &&
         this.selectedCombatant.hasBuff(SPELLS.FERAL_SPIRIT_MAELSTROM_BUFF),
     };
   }

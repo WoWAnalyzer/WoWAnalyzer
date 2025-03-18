@@ -27,7 +27,6 @@ import MendingProliferation from '../spells/MendingProliferation';
 import CraneStyle from '../spells/CraneStyle';
 import ZenPulse from '../spells/ZenPulse';
 import AverageTimeBetweenRSKs from '../spells/AverageTimeBetweenRSKs';
-import ResplendentMists from '../spells/ResplendentMist';
 
 class TalentHealingStatistic extends Analyzer {
   static dependencies = {
@@ -54,7 +53,6 @@ class TalentHealingStatistic extends Analyzer {
     craneStyle: CraneStyle,
     zenPulse: ZenPulse,
     rushingWindKick: AverageTimeBetweenRSKs,
-    resplendentMists: ResplendentMists,
   };
 
   protected risingMist!: RisingMist;
@@ -81,7 +79,6 @@ class TalentHealingStatistic extends Analyzer {
   protected craneStyle!: CraneStyle;
   protected zenPulse!: ZenPulse;
   protected rushingWindKick!: AverageTimeBetweenRSKs;
-  protected resplendentMists!: ResplendentMists;
 
   buildTalentList() {
     const talentList = [];
@@ -153,9 +150,6 @@ class TalentHealingStatistic extends Analyzer {
     }
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_TALENT)) {
       talentList.push(this.rushingWindKick.substatistic());
-    }
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.RESPLENDENT_MIST_TALENT)) {
-      talentList.push(this.resplendentMists.subStatistic());
     }
 
     const sortedTalentList = talentList.sort(
