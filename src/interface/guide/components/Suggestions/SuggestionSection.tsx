@@ -11,7 +11,9 @@ interface SuggestionSectionProps<T extends typeof Analyzer> {
   analyzers?: T[];
 }
 
-export function useParseResults(analyzerInstances: (Analyzer | undefined)[]): ParseResults {
+export function useSuggestions(
+  analyzerInstances: (Analyzer | undefined)[],
+): ParseResults['issues'] {
   return useMemo(() => {
     const results = new ParseResults();
     analyzerInstances
@@ -23,7 +25,7 @@ export function useParseResults(analyzerInstances: (Analyzer | undefined)[]): Pa
           maybeResult.forEach((issue) => results.addIssue(issue));
         }
       });
-    return results;
+    return results.issues;
   }, [analyzerInstances]);
 }
 
@@ -40,7 +42,7 @@ export function useParseResults(analyzerInstances: (Analyzer | undefined)[]): Pa
 const SuggestionSection = <T extends typeof Analyzer>({ analyzers }: SuggestionSectionProps<T>) => {
   const [showMinorIssues, setShowMinorIssues] = useState(false);
   const analyzerInstances = useAnalyzers(analyzers ?? []);
-  const parseResults = useParseResults(analyzerInstances);
+  const suggestions = useSuggestions(analyzerInstances);
 
   return (
     <Section
@@ -75,7 +77,7 @@ const SuggestionSection = <T extends typeof Analyzer>({ analyzers }: SuggestionS
         </div>
       </div>
       <div className="flex" style={{ paddingTop: 10, paddingBottom: 10 }}>
-        <Suggestions parseResults={parseResults} showMinorIssues={showMinorIssues} />
+        <Suggestions parseResults={{ issues: suggestions }} showMinorIssues={showMinorIssues} />
       </div>
       <div className="flex">
         <small>
