@@ -368,9 +368,9 @@ class AlwaysBeCasting extends Analyzer {
     return {
       actual: this.smallGapsPerMinute,
       isGreaterThan: {
-        minor: 8,
-        average: 10,
-        major: 12,
+        minor: 6,
+        average: 8,
+        major: 10,
       },
       style: ThresholdStyle.NUMBER,
     };

@@ -165,19 +165,7 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
         )
         .recommended(`>${formatPercentage(1 - recommended)}% is recommended`),
     );
-    when(this.downtimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        "Your active time can be improved. Try to reduce your downtime, for example by reducing the delay between casting spells and when you're not healing try to contribute some damage.",
-      )
-        .icon('spell_mage_altertime')
-        .actual(
-          defineMessage({
-            id: 'shared.suggestions.alwaysBeCasting.activeTime',
-            message: `${formatPercentage(1 - actual)}% active time`,
-          }),
-        )
-        .recommended(`>${formatPercentage(1 - recommended)}% is recommended`),
-    );
+    super.suggestions(when);
   }
 }
 

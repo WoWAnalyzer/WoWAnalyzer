@@ -182,6 +182,7 @@ export class MeleeUptimeAnalyzer extends Analyzer.withDependencies({ haste: Hast
           abilities.
         </>,
       )
+        .icon('inv_axe_02')
         .actual(<>{formatPercentage(actual)}% melee uptime</>)
         .recommended(<>&gt; {formatPercentage(recommended)}% is recommended</>),
     );
