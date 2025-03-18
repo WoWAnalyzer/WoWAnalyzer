@@ -141,10 +141,13 @@ export default class FlagellationAnalysis extends Analyzer {
       this.symbolsPerformance(event, hasSymbolsAvailable),
       this.shadowDancePerformance(event, hasShadowDanceAvailable),
       this.secretTechniquePerformance(event, hasSecretTechniqueAvailable),
-    ].filter(Boolean) as ChecklistUsageInfo[];
+    ].filter((performance): performance is ChecklistUsageInfo => performance !== undefined);
   }
 
-  private bladesPerformance(event: CastEvent, hasBladesAvailable: boolean): ChecklistUsageInfo {
+  private bladesPerformance(
+    event: CastEvent,
+    hasBladesAvailable: boolean,
+  ): ChecklistUsageInfo | undefined {
     return createChecklistItem(
       'flagellation_blades',
       { event },
@@ -164,7 +167,10 @@ export default class FlagellationAnalysis extends Analyzer {
     );
   }
 
-  private symbolsPerformance(event: CastEvent, hasSymbolsAvailable: boolean): ChecklistUsageInfo {
+  private symbolsPerformance(
+    event: CastEvent,
+    hasSymbolsAvailable: boolean,
+  ): ChecklistUsageInfo | undefined {
     return createChecklistItem(
       'flagellation_symbols',
       { event },
@@ -190,7 +196,7 @@ export default class FlagellationAnalysis extends Analyzer {
   private shadowDancePerformance(
     event: CastEvent,
     hasShadowDanceAvailable: boolean,
-  ): ChecklistUsageInfo {
+  ): ChecklistUsageInfo | undefined {
     return createChecklistItem(
       'flagellation_shadow_dance',
       { event },
@@ -216,7 +222,7 @@ export default class FlagellationAnalysis extends Analyzer {
   private secretTechniquePerformance(
     event: CastEvent,
     hasSecretTechniqueAvailable: boolean,
-  ): ChecklistUsageInfo {
+  ): ChecklistUsageInfo | undefined {
     return createChecklistItem(
       'flagellation_secret_technique',
       { event },

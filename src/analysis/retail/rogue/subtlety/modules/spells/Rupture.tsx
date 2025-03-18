@@ -121,11 +121,10 @@ export default class RuptureUptime extends Analyzer {
   ): ChecklistUsageInfo | undefined {
     const fightStartTime = this.owner.fight.start_time;
     const beginningRupture = this.firstRupture;
-    let performance: QualitativePerformance;
     let refresh = false;
     let refreshTime = 0;
     let timeToFirstRupture = 0;
-    let gap = false;
+    const gap = false;
 
     if (this.firstRupture) {
       timeToFirstRupture = (event.timestamp - fightStartTime) / 1000;
@@ -139,7 +138,7 @@ export default class RuptureUptime extends Analyzer {
       refresh = true;
     }
 
-    performance = this.determinePerformance(
+    const performance = this.determinePerformance(
       refresh,
       refreshTime,
       timeToFirstRupture,

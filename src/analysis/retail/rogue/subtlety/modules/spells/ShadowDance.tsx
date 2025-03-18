@@ -174,31 +174,4 @@ export default class ShadowDance extends Analyzer {
       },
     );
   }
-
-  private energyPerformance(
-    event: CastEvent,
-    energyAtCast: number,
-  ): ChecklistUsageInfo | undefined {
-    const isGoodEnergy = energyAtCast >= 60;
-
-    return createChecklistItem(
-      'shadow_dance_energy',
-      { event },
-      {
-        performance: isGoodEnergy ? QualitativePerformance.Perfect : QualitativePerformance.Good,
-        summary: <div>Energy Management</div>,
-        details: isGoodEnergy ? (
-          <div>
-            You activated <SpellLink spell={SPELLS.SHADOW_DANCE} /> with sufficient energy (
-            {energyAtCast}). Well played!
-          </div>
-        ) : (
-          <div>
-            You activated <SpellLink spell={SPELLS.SHADOW_DANCE} /> with only {energyAtCast} energy.
-            Try to start with at least 60 energy for maximum burst potential.
-          </div>
-        ),
-      },
-    );
-  }
 }
