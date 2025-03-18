@@ -248,6 +248,8 @@ export default function TimelineDiagram({ info, children, overlays }: Props): JS
             overflowY: 'clip',
             width: '100%',
             height: 'max-content',
+            scrollbarWidth: 'thin',
+            scrollbarColor: '#1a1a1a transparent',
           }}
         >
           <svg
