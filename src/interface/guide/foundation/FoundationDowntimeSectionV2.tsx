@@ -27,8 +27,6 @@ import { useFight } from 'interface/report/context/FightContext';
 import { EncounterTimelineAbility, findByBossId } from 'game/raids';
 import Para from '../Para';
 import styled from '@emotion/styled';
-import Suggestion from 'interface/report/Results/Suggestion';
-import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import React from 'react';
 import SegmentTimeline, {
   DisplaySegment,
@@ -40,6 +38,11 @@ import CancelledCasts, { CancelGap } from 'parser/shared/modules/CancelledCasts'
 import ROLES from 'game/ROLES';
 import SpellLink from 'interface/SpellLink';
 import { evaluateQualitativePerformanceByThreshold } from 'parser/ui/QualitativePerformance';
+import Suggestions from '../components/Suggestions/Suggestions';
+import {
+  SuggestionImportance,
+  type Suggestion as SuggestionData,
+} from 'parser/core/CombatLogParser';
 
 export default function FoundationDowntimeSectionV2(): JSX.Element | null {
   const info = useInfo();
@@ -78,6 +81,8 @@ export default function FoundationDowntimeSectionV2(): JSX.Element | null {
       perf,
     };
   }, [abc, info?.fightStart, info?.fightEnd]);
+
+  const suggestions = useSuggestions();
 
   if (!info || !abc) {
     return null;
@@ -207,11 +212,11 @@ export default function FoundationDowntimeSectionV2(): JSX.Element | null {
         />
       </SubSection>
       <SubSection>
-        <ul className="list issues">
-          <SmallGapsSuggestion />
-          <MeleeUptimeSuggestion />
-          <CancelledCastsSuggestion />
-        </ul>
+        <Suggestions
+          parseResults={{ issues: suggestions }}
+          showMinorIssues={false}
+          hideNoMajorText
+        />
       </SubSection>
     </>
   );
@@ -642,7 +647,16 @@ const GCD = () => (
   </TooltipElement>
 );
 
-function SmallGapsSuggestion(): JSX.Element | null {
+function useSuggestions(): SuggestionData[] {
+  const results = [
+    useSmallGapsSuggestion(),
+    useCancelledCastsSuggestion(),
+    useMeleeUptimeSuggestion(),
+  ];
+  return results.filter((suggestion): suggestion is SuggestionData => suggestion !== null);
+}
+
+function useSmallGapsSuggestion(): SuggestionData | null {
   const abc = useAnalyzer(AlwaysBeCasting);
   const threshold = useMemo(() => abc?.smallGapsSuggestionThreshold, [abc]);
   if (!threshold || !threshold.isGreaterThan || typeof threshold.isGreaterThan !== 'object') {
@@ -655,44 +669,41 @@ function SmallGapsSuggestion(): JSX.Element | null {
 
   const importance =
     threshold.actual <= (threshold.isGreaterThan.major ?? 0)
-      ? ISSUE_IMPORTANCE.REGULAR
-      : ISSUE_IMPORTANCE.MAJOR;
+      ? SuggestionImportance.Regular
+      : SuggestionImportance.Major;
 
-  return (
-    <Suggestion
-      icon="inv_misc_key_12"
-      importance={importance}
-      stat={
-        <>
-          {formatNumber(threshold.actual)} small gaps per minute (&lt;{' '}
-          {threshold.isGreaterThan.minor} is recommended)
-        </>
-      }
-    >
-      You have a large number of small gaps between your abilities. Make sure to{' '}
-      <TooltipElement
-        content={
-          <>
-            <p>
-              WoW has a <em>spell queue</em> system built-in. If you push an ability during the{' '}
-              <em>queue window</em>, it will immediately begin casting when your current ability
-              finishes&mdash;faster than you could cast it yourself because of network latency.
-            </p>
-            <p>
-              The default queue window begins <strong>400ms</strong> before your next ability could
-              be used and should generally not be changed.
-            </p>
-          </>
-        }
-      >
-        queue
-      </TooltipElement>{' '}
-      up your next ability while your current one finishes.
-    </Suggestion>
-  );
+  return {
+    icon: 'inv_misc_key_12',
+    importance,
+    actual: <>{formatNumber(threshold.actual)} small gaps per minute</>,
+    recommended: <>&lt; {threshold.isGreaterThan.minor} is recommended</>,
+    text: (
+      <>
+        You have a large number of small gaps between your abilities. Make sure to{' '}
+        <TooltipElement
+          content={
+            <>
+              <p>
+                WoW has a <em>spell queue</em> system built-in. If you push an ability during the{' '}
+                <em>queue window</em>, it will immediately begin casting when your current ability
+                finishes&mdash;faster than you could cast it yourself because of network latency.
+              </p>
+              <p>
+                The default queue window begins <strong>400ms</strong> before your next ability
+                could be used and should generally not be changed.
+              </p>
+            </>
+          }
+        >
+          queue
+        </TooltipElement>{' '}
+        up your next ability while your current one finishes.
+      </>
+    ),
+  };
 }
 
-function CancelledCastsSuggestion() {
+function useCancelledCastsSuggestion(): SuggestionData | null {
   const cancelledCasts = useAnalyzer(CancelledCasts);
   const threshold = useMemo(
     () => cancelledCasts?.cancelledCastSuggestionThresholds,
@@ -708,27 +719,24 @@ function CancelledCastsSuggestion() {
 
   const importance =
     threshold.actual <= (threshold.isGreaterThan.major ?? 0)
-      ? ISSUE_IMPORTANCE.REGULAR
-      : ISSUE_IMPORTANCE.MAJOR;
+      ? SuggestionImportance.Regular
+      : SuggestionImportance.Major;
 
-  return (
-    <Suggestion
-      icon="ability_kick"
-      importance={importance}
-      stat={
-        <>
-          {formatPercentage(threshold.actual)}% of casts cancelled (&lt;
-          {formatPercentage(threshold.isGreaterThan.minor)}% is recommended)
-        </>
-      }
-    >
-      You are cancelling a large percentage of your casts. While casting the wrong spell is worse
-      than casting the right one, it is often better than casting nothing!
-    </Suggestion>
-  );
+  return {
+    icon: 'ability_kick',
+    importance,
+    actual: <>{formatPercentage(threshold.actual)}% of casts cancelled</>,
+    recommended: <>&lt; {formatPercentage(threshold.isGreaterThan.minor)}% is recommended</>,
+    text: (
+      <>
+        You are cancelling a large percentage of your casts. While casting the wrong spell is worse
+        than casting the right one, it is often better than casting nothing!
+      </>
+    ),
+  };
 }
 
-function MeleeUptimeSuggestion() {
+function useMeleeUptimeSuggestion(): SuggestionData | null {
   const meleeUptime = useAnalyzer(MeleeUptimeAnalyzer);
   const threshold = useMemo(() => meleeUptime?.meleeUptimeSuggestionThreshold, [meleeUptime]);
   if (
@@ -745,25 +753,23 @@ function MeleeUptimeSuggestion() {
 
   let importance;
   if (threshold.actual >= threshold.isGreaterThanOrEqual.good) {
-    importance = ISSUE_IMPORTANCE.MINOR;
+    importance = SuggestionImportance.Minor;
   } else if (threshold.actual >= threshold.isGreaterThanOrEqual.ok) {
-    importance = ISSUE_IMPORTANCE.REGULAR;
+    importance = SuggestionImportance.Regular;
   } else {
-    importance = ISSUE_IMPORTANCE.MAJOR;
+    importance = SuggestionImportance.Major;
   }
-  return (
-    <Suggestion
-      icon="inv_axe_02"
-      importance={importance}
-      stat={
-        <>
-          {formatPercentage(threshold.actual)}% melee uptime (&gt;
-          {formatPercentage(threshold.isGreaterThanOrEqual.good)}% is recommended)
-        </>
-      }
-    >
-      You are spending a lot of time out of melee range, which prevents using most of your
-      abilities.
-    </Suggestion>
-  );
+
+  return {
+    icon: 'inv_axe_02',
+    importance,
+    actual: <>{formatPercentage(threshold.actual)}% melee uptime</>,
+    recommended: <>&gt; {formatPercentage(threshold.isGreaterThanOrEqual.good)}% is recommended</>,
+    text: (
+      <>
+        You are spending a lot of time out of melee range, which prevents using most of your
+        abilities.
+      </>
+    ),
+  };
 }

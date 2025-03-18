@@ -7,21 +7,23 @@ import Suggestion from 'interface/report/Results/Suggestion';
 interface SuggestionsProps {
   parseResults: Pick<ParseResults, 'issues'>;
   showMinorIssues: boolean;
+  hideNoMajorText?: boolean;
 }
-const Suggestions = ({ parseResults, showMinorIssues }: SuggestionsProps) => (
+const Suggestions = ({ parseResults, showMinorIssues, hideNoMajorText }: SuggestionsProps) => (
   <ul className="list issues">
-    {!parseResults.issues.find((issue) => issue.importance === ISSUE_IMPORTANCE.MAJOR) && (
-      <li className="item major" style={{ color: '#25ff00' }}>
-        <div className="icon">
-          <Icon icon="thumbsup" alt="Thumbsup" />
-        </div>
-        <div className="suggestion">
-          <Trans id="interface.report.results.overview.suggestions.noMajorIssues">
-            There are no major issues in this fight. Good job!
-          </Trans>
-        </div>
-      </li>
-    )}
+    {!hideNoMajorText &&
+      !parseResults.issues.find((issue) => issue.importance === ISSUE_IMPORTANCE.MAJOR) && (
+        <li className="item major" style={{ color: '#25ff00' }}>
+          <div className="icon">
+            <Icon icon="thumbsup" alt="Thumbsup" />
+          </div>
+          <div className="suggestion">
+            <Trans id="interface.report.results.overview.suggestions.noMajorIssues">
+              There are no major issues in this fight. Good job!
+            </Trans>
+          </div>
+        </li>
+      )}
     {parseResults.issues
       .filter((issue) => showMinorIssues || issue.importance !== ISSUE_IMPORTANCE.MINOR)
       .map((issue, i) =>
