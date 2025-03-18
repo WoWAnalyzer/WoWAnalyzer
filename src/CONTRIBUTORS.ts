@@ -2591,3 +2591,8 @@ export const Jordan: Contributor = {
   github: 'jordantoine',
   discord: 'jordannonumbers',
 };
+
+export const Capybara: Contributor = {
+  nickname: 'Capybara',
+  github: 'Don-Osipov',
+};
