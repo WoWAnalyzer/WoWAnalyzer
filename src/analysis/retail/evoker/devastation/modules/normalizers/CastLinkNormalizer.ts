@@ -34,6 +34,7 @@ export const MASS_DISINTEGRATE_TICK = 'MassDisintegrateTick';
 export const MASS_DISINTEGRATE_DEBUFF = 'MassDisintegrateDebuff';
 export const JACKPOT_CONSUME = 'JackpotConsume';
 export const JACKPOT_APPLY_REMOVE_LINK = 'JackpotApplyRemoveLink';
+export const FIRE_BREATH_DEBUFF = 'FireBreathDebuff';
 
 export const PYRE_MIN_TRAVEL_TIME = 950;
 export const PYRE_MAX_TRAVEL_TIME = 1_050;
@@ -261,6 +262,16 @@ const EVENT_LINKS: EventLink[] = [
     maximumLinks: 1,
     backwardBufferMs: JACK_APPLY_REMOVE_BUFFER,
     isActive: (C) => C.has4PieceByTier(TIERS.TWW2),
+  },
+  {
+    linkRelation: FIRE_BREATH_DEBUFF,
+    reverseLinkRelation: FIRE_BREATH_DEBUFF,
+    linkingEventId: [SPELLS.FIRE_BREATH.id, SPELLS.FIRE_BREATH_FONT.id],
+    linkingEventType: EventType.EmpowerEnd,
+    referencedEventId: SPELLS.FIRE_BREATH_DOT.id,
+    referencedEventType: [EventType.ApplyDebuff, EventType.RefreshDebuff],
+    forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
   },
 ];
 
