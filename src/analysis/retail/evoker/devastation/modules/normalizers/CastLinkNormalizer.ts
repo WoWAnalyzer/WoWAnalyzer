@@ -77,11 +77,17 @@ const EVENT_LINKS: EventLink[] = [
     reverseLinkRelation: IRIDESCENCE_RED_CONSUME,
     linkingEventId: [SPELLS.IRIDESCENCE_RED.id],
     linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
-    referencedEventId: [SPELLS.PYRE.id, SPELLS.PYRE_DENSE_TALENT.id, SPELLS.LIVING_FLAME_CAST.id],
+    referencedEventId: [
+      SPELLS.PYRE.id,
+      SPELLS.PYRE_DENSE_TALENT.id,
+      SPELLS.LIVING_FLAME_CAST.id,
+      TALENTS.ENGULF_TALENT.id,
+    ],
     referencedEventType: EventType.Cast,
     anyTarget: true,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
+    maximumLinks: 1,
     isActive(c) {
       return c.hasTalent(TALENTS.IRIDESCENCE_TALENT);
     },
