@@ -3,13 +3,18 @@ import TALENTS from 'common/TALENTS/evoker';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import { Options } from 'parser/core/Module';
 import {
+  ApplyBuffEvent,
+  ApplyBuffStackEvent,
   ApplyDebuffEvent,
   CastEvent,
   DamageEvent,
+  EmpowerEndEvent,
   EventType,
+  GetRelatedEvent,
   GetRelatedEvents,
   HasRelatedEvent,
   RefreshDebuffEvent,
+  RemoveBuffEvent,
 } from 'parser/core/Events';
 import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
 import { TIERS } from 'game/TIERS';
@@ -344,6 +349,36 @@ export function isMassDisintegrateTick(event: DamageEvent) {
 
 export function isMassDisintegrateDebuff(event: ApplyDebuffEvent | RefreshDebuffEvent) {
   return HasRelatedEvent(event, MASS_DISINTEGRATE_DEBUFF);
+}
+
+/** Returns the number of stacks consumed by a Jackpot! remove event or empower end event
+ * will return 0 if the event didn't consume Jackpot! */
+export function getConsumedJackpotStacks(event: EmpowerEndEvent | RemoveBuffEvent) {
+  if (event.type === EventType.EmpowerEnd) {
+    const maybeConsumeEvent = GetRelatedEvent<RemoveBuffEvent>(event, JACKPOT_CONSUME);
+
+    if (maybeConsumeEvent) {
+      event = maybeConsumeEvent;
+    }
+  }
+
+  if (event.ability.guid === SPELLS.JACKPOT_BUFF.id && event.type === EventType.RemoveBuff) {
+    const applyEvent = GetRelatedEvent<ApplyBuffEvent | ApplyBuffStackEvent>(
+      event,
+      JACKPOT_APPLY_REMOVE_LINK,
+    );
+
+    switch (applyEvent?.type) {
+      case EventType.ApplyBuff:
+        return 1;
+      case EventType.ApplyBuffStack:
+        return applyEvent.stack ?? 2;
+      default:
+        return 0;
+    }
+  }
+
+  return 0;
 }
 
 export default CastLinkNormalizer;
