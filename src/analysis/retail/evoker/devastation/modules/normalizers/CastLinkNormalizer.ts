@@ -28,11 +28,13 @@ export const MASS_DISINTEGRATE_CONSUME = 'MassDisintegrateConsume';
 export const MASS_DISINTEGRATE_TICK = 'MassDisintegrateTick';
 export const MASS_DISINTEGRATE_DEBUFF = 'MassDisintegrateDebuff';
 export const JACKPOT_CONSUME = 'JackpotConsume';
+export const JACKPOT_APPLY_REMOVE_LINK = 'JackpotApplyRemoveLink';
 
 export const PYRE_MIN_TRAVEL_TIME = 950;
 export const PYRE_MAX_TRAVEL_TIME = 1_050;
 const CAST_BUFFER_MS = 100;
 const DISINTEGRATE_TICK_BUFFER = 4_000; // Haste dependant
+const JACK_APPLY_REMOVE_BUFFER = 30_000; // Realistically it will never be this long, but we hate edgecases
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -243,6 +245,17 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: CAST_BUFFER_MS,
     isActive: (C) => C.has4PieceByTier(TIERS.TWW2),
     maximumLinks: 1,
+  },
+  {
+    linkRelation: JACKPOT_APPLY_REMOVE_LINK,
+    reverseLinkRelation: JACKPOT_APPLY_REMOVE_LINK,
+    linkingEventId: SPELLS.JACKPOT_BUFF.id,
+    linkingEventType: EventType.RemoveBuff,
+    referencedEventId: SPELLS.JACKPOT_BUFF.id,
+    referencedEventType: [EventType.ApplyBuff, EventType.ApplyBuffStack],
+    maximumLinks: 1,
+    backwardBufferMs: JACK_APPLY_REMOVE_BUFFER,
+    isActive: (C) => C.has4PieceByTier(TIERS.TWW2),
   },
 ];
 
