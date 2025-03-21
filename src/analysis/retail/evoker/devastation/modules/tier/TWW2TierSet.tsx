@@ -2,21 +2,14 @@ import SPELLS from 'common/SPELLS/evoker';
 import TALENTS from 'common/TALENTS/evoker';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, {
-  ApplyBuffEvent,
-  ApplyBuffStackEvent,
-  EmpowerEndEvent,
-  EventType,
-  GetRelatedEvent,
-  RemoveBuffEvent,
-} from 'parser/core/Events';
+import Events, { EmpowerEndEvent, GetRelatedEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { TIERS } from 'game/TIERS';
 import { ChecklistUsageInfo, SpellUse } from 'parser/core/SpellUsage/core';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import ContextualSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
 import SpellLink from 'interface/SpellLink';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
-import { JACKPOT_CONSUME } from '../normalizers/CastLinkNormalizer';
+import { getConsumedJackpotStacks, JACKPOT_CONSUME } from '../normalizers/CastLinkNormalizer';
 type JackpotConsume = {
   event: RemoveBuffEvent;
   stacks: number;
@@ -31,7 +24,6 @@ class TWW2TierSet extends Analyzer {
   private uses: SpellUse[] = [];
   private jackpotConsumes: JackpotConsume[] = [];
 
-  activeStacks = 0;
   isFlameshaper = false;
 
   constructor(options: Options) {
@@ -43,20 +35,9 @@ class TWW2TierSet extends Analyzer {
       this.onJackpotRemove,
     );
 
-    [Events.applybuff, Events.applybuffstack].forEach((event) =>
-      this.addEventListener(
-        event.by(SELECTED_PLAYER).spell(SPELLS.JACKPOT_BUFF),
-        this.onJackpotApply,
-      ),
-    );
-
     this.addEventListener(Events.fightend, this.finalize);
 
     this.isFlameshaper = this.selectedCombatant.hasTalent(TALENTS.ENGULF_TALENT);
-  }
-
-  onJackpotApply(event: ApplyBuffEvent | ApplyBuffStackEvent) {
-    this.activeStacks = event.type === EventType.ApplyBuff ? 1 : event.stack;
   }
 
   onJackpotRemove(event: RemoveBuffEvent) {
@@ -64,11 +45,9 @@ class TWW2TierSet extends Analyzer {
 
     this.jackpotConsumes.push({
       event,
-      stacks: this.activeStacks,
+      stacks: getConsumedJackpotStacks(event),
       empowerEvent: empowerEvent,
     });
-
-    this.activeStacks = 0;
   }
 
   private finalize() {
