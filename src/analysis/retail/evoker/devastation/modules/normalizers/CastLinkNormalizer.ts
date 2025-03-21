@@ -35,12 +35,15 @@ export const MASS_DISINTEGRATE_DEBUFF = 'MassDisintegrateDebuff';
 export const JACKPOT_CONSUME = 'JackpotConsume';
 export const JACKPOT_APPLY_REMOVE_LINK = 'JackpotApplyRemoveLink';
 export const FIRE_BREATH_DEBUFF = 'FireBreathDebuff';
+export const ENGULF_DAMAGE = 'EngulfDamage';
+export const ENGULF_CONSUME_FLAME = 'EngulfConsumeFlame';
 
 export const PYRE_MIN_TRAVEL_TIME = 950;
 export const PYRE_MAX_TRAVEL_TIME = 1_050;
 const CAST_BUFFER_MS = 100;
 const DISINTEGRATE_TICK_BUFFER = 4_000; // Haste dependant
 const JACK_APPLY_REMOVE_BUFFER = 30_000; // Realistically it will never be this long, but we hate edgecases
+const ENGULF_TRAVEL_TIME_MS = 500;
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -278,6 +281,34 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: [EventType.ApplyDebuff, EventType.RefreshDebuff],
     forwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
+  },
+  {
+    linkRelation: ENGULF_DAMAGE,
+    reverseLinkRelation: ENGULF_DAMAGE,
+    linkingEventId: TALENTS.ENGULF_TALENT.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.ENGULF_DAMAGE.id,
+    referencedEventType: EventType.Damage,
+    anyTarget: true,
+    forwardBufferMs: ENGULF_TRAVEL_TIME_MS,
+    maximumLinks: 1,
+    isActive(c) {
+      return c.hasTalent(TALENTS.ENGULF_TALENT);
+    },
+  },
+  {
+    linkRelation: ENGULF_CONSUME_FLAME,
+    reverseLinkRelation: ENGULF_CONSUME_FLAME,
+    linkingEventId: SPELLS.CONSUME_FLAME_DAMAGE.id,
+    linkingEventType: EventType.Damage,
+    referencedEventId: TALENTS.ENGULF_TALENT.id,
+    referencedEventType: EventType.Cast,
+    anyTarget: true,
+    maximumLinks: 1,
+    backwardBufferMs: ENGULF_TRAVEL_TIME_MS,
+    isActive(c) {
+      return c.hasTalent(TALENTS.CONSUME_FLAME_TALENT);
+    },
   },
 ];
 
