@@ -55,6 +55,7 @@ import {
   CracklingJadeLightningLinkNormalizer,
   CracklingJadeLightningNormalizer,
 } from './normalizers/CracklingJadeLightningNormalizer';
+import CelestialConduit from './modules/talents/CelestialConduit';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -89,6 +90,7 @@ class CombatLogParser extends CoreCombatLogParser {
     strikeoftheWindlord: StrikeoftheWindlord,
     chiBurst: ChiBurst,
     heartOfTheJadeSerpent: HeartOfTheJadeSerpent,
+    celestialConduit: CelestialConduit,
 
     // Guide helpers
     hitComboTracker: HitComboTracker,

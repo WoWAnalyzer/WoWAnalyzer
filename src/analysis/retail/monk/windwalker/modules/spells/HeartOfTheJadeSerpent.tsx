@@ -85,6 +85,10 @@ class HeartOfTheJadeSerpent extends HotJS {
       mistakes += 1;
     }
 
+    if (this.currentUnityWithin !== 0) {
+      mistakes += 1;
+    }
+
     let value = QualitativePerformance.Fail;
     if (mistakes === 0) {
       value = QualitativePerformance.Perfect;
@@ -140,7 +144,7 @@ class HeartOfTheJadeSerpent extends HotJS {
     }
   }
 
-  get guideSubsection(): JSX.Element {
+  guideSubsection(conduitClipAnalysis: JSX.Element): JSX.Element {
     const explanation = (
       <p>
         <strong>
@@ -185,6 +189,7 @@ class HeartOfTheJadeSerpent extends HotJS {
             <PerformanceBoxRow values={this.castEntries} />
           </div>
         </RoundedPanel>
+        <RoundedPanel style={{ marginTop: '1rem' }}>{conduitClipAnalysis}</RoundedPanel>
       </div>
     );
     return explanationAndDataSubsection(explanation, data);
