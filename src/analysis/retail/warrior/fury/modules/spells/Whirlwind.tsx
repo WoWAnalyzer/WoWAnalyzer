@@ -24,9 +24,7 @@ class Whirlwind extends Analyzer {
     super(options);
 
     this.addEventListener(
-      Events.cast
-        .by(SELECTED_PLAYER)
-        .spell([SPELLS.WHIRLWIND_FURY_CAST, SPELLS.THUNDER_CLAP, SPELLS.THUNDER_BLAST]),
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.WHIRLWIND_FURY_CAST, SPELLS.THUNDER_CLAP]),
       this.onCast,
     );
   }
