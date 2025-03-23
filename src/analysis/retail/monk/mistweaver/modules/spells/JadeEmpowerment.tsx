@@ -73,6 +73,12 @@ class JadeEmpowerment extends Analyzer {
         .
       </p>
     );
+    const styleObj = {
+      fontSize: 20,
+    };
+    const styleObjInner = {
+      fontSize: 15,
+    };
     const data = (
       <div>
         <RoundedPanel>
@@ -80,10 +86,15 @@ class JadeEmpowerment extends Analyzer {
             <SpellLink spell={TALENTS_MONK.JADE_EMPOWERMENT_TALENT} /> buff efficiency
           </strong>
           <div>
+            <div style={styleObj}>
+              <b>{this.wastedCharges}</b> <small style={styleObjInner}>wasted buffs</small>
+            </div>
             <strong>Casts </strong>
             <small>
-              - Green indicates an unwasted stack while red indicates you wasted a stack when
-              casting <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} />
+              - Green indicates an unwasted stack while red indicates you wasted a stack by casting{' '}
+              <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> when already at 2 charges
+              of <SpellLink spell={SPELLS.JADE_EMPOWERMENT_BUFF} />
+              {}
             </small>
             <PerformanceBoxRow values={this.castEntries} />
           </div>
