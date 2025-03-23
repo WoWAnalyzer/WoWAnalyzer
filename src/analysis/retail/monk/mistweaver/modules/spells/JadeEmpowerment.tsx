@@ -89,9 +89,8 @@ class JadeEmpowerment extends Analyzer {
             <div style={styleObj}>
               <b>{this.wastedCharges}</b> <small style={styleObjInner}>wasted buffs</small>
             </div>
-            <strong>Casts </strong>
             <small>
-              - Green indicates an unwasted stack while red indicates you wasted a stack by casting{' '}
+              Green indicates an unwasted stack while red indicates you wasted a stack by casting{' '}
               <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> when already at 2 charges
               of <SpellLink spell={SPELLS.JADE_EMPOWERMENT_BUFF} />
               {}
