@@ -530,6 +530,16 @@ const spells = {
     name: 'Invigorating Mists',
     icon: 'ability_monk_vivify',
   },
+  JADE_EMPOWERMENT_BUFF: {
+    id: 467317,
+    name: 'Jade Empowerment',
+    icon: 'ability_thunderking_thunderstruck',
+  },
+  ANCIENT_TEACHINGS: {
+    id: 388023,
+    name: 'Ancient Teachings',
+    icon: 'inv_misc_book_07',
+  },
   // Tier
   INSURANCE_HOT_MONK: {
     id: 1215544,
