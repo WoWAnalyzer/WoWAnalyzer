@@ -6,6 +6,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2025, 3, 13), <>Fix crash when the only <SpellLink spell={SPELLS.LIGHTNING_BOLT} /> and <SpellLink spell={TALENTS.CHAIN_LIGHTNING_TALENT} /> casts are from <SpellLink spell={TALENTS.PRIMORDIAL_STORM_TALENT} />.</>, Seriousnes),
   change(date(2025, 3, 9), <>Fix crash when using Surging Totem pre-pull.</>, emallson),
   change(date(2025, 3, 1), <>Compatibility update for 11.1</>, Seriousnes),
   change(date(2024, 12, 9), <>Mythic+ fix for maelstrom normalizer</>, Seriousnes),

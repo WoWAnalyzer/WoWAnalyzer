@@ -20,6 +20,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {modules.risingSunKick.guideSubsection}
         {modules.fistsofFury.guideSubsection}
         {modules.strikeoftheWindlord.guideSubsection}
+        {info.combatant.hasTalent(TALENTS_MONK.LAST_EMPERORS_CAPACITOR_TALENT) &&
+          modules.lastEmperorsCapacitor.guideSubsection(modules.lastEmperorsCapacitorGraph.plot)}
       </Section>
       <Section title="Major cooldowns">{modules.invokeXuen.guideSubsection}</Section>
       <Section title="Core Rotation">
@@ -40,7 +42,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           <br />
         </SubSection>
         <SubSection title="APL Analysis">
-          <AplSectionData checker={AplCheck.checkApl} apl={AplCheck.apl} />
+          <AplSectionData checker={AplCheck.check} apl={AplCheck.apl(info)} />
         </SubSection>
       </Section>
       <Section title="Other cooldowns, buffs and procs">

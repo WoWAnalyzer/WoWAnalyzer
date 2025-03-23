@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
-import { Trevor, Harrek, Hana, KYZ } from 'CONTRIBUTORS';
+import { Trevor, Harrek, Hana, KYZ, Capybara} from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 
 // prettier-ignore
 export default [
+  change(date(2025, 3, 18), <>Updated DB target count for 6+ targets </>, Capybara),
   change(date(2025, 3, 2), <>Bump to 11.1.0</>, Harrek),
   change(date(2025, 3, 2), <>Implemented T33 Tierset module</>, Harrek),
   change(date(2025, 1, 16),  <>Implement <SpellLink spell={TALENTS_EVOKER.TIME_SPIRAL_TALENT}/>, <SpellLink spell={TALENTS_EVOKER.TIME_CONVERGENCE_TALENT}/>, <SpellLink spell={TALENTS_EVOKER.MASTER_OF_DESTINY_TALENT}/>, and <SpellLink spell={TALENTS_EVOKER.MOTES_OF_ACCELERATION_TALENT}/> modules</>, KYZ),

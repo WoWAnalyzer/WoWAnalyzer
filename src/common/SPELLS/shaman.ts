@@ -742,6 +742,11 @@ const spells = {
     name: 'Healing Tide Totem',
     icon: 'ability_shaman_healingtide',
   },
+  ASCENDANCE_ELEMENTAL_BUFF: {
+    id: 1219480,
+    name: 'Ascendance',
+    icon: 'spell_fire_elementaldevastation',
+  },
   ASCENDANCE_HEAL: {
     id: 114083,
     name: 'Ascendance',

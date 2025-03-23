@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import talents from 'common/TALENTS/monk';
+import talents, { TALENTS_MONK } from 'common/TALENTS/monk';
 import { SpellLink } from 'interface';
 import { MistweaverApl } from './AplCheck';
 
@@ -10,6 +10,14 @@ const aplTitle = (choice: MistweaverApl) => {
         <>
           <SpellLink spell={talents.RISING_MIST_TALENT} /> /{' '}
           <SpellLink spell={talents.JADEFIRE_TEACHINGS_TALENT} /> /{' '}
+          <SpellLink spell={talents.SHAOHAOS_LESSONS_TALENT} />
+        </>
+      );
+    case MistweaverApl.RisingMistRushingWindKickShaohaos:
+      return (
+        <>
+          <SpellLink spell={talents.RISING_MIST_TALENT} /> /{' '}
+          <SpellLink spell={talents.RUSHING_WIND_KICK_TALENT} /> /{' '}
           <SpellLink spell={talents.SHAOHAOS_LESSONS_TALENT} />
         </>
       );
@@ -30,22 +38,22 @@ const aplTitle = (choice: MistweaverApl) => {
   }
 };
 
-const RisingMistDescription = () => {
+const JadefireTeachingsDescription = () => {
   return (
     <>
-      <SpellLink spell={talents.RISING_SUN_KICK_TALENT} />/
-      <SpellLink spell={talents.RUSHING_WIND_KICK_TALENT} /> to extend hots and{' '}
+      <SpellLink spell={talents.RISING_SUN_KICK_TALENT} /> to extend hots and convert damage to
+      healing through <SpellLink spell={talents.RISING_SUN_KICK_TALENT} />
+      , <SpellLink spell={SPELLS.BLACKOUT_KICK} />, <SpellLink spell={SPELLS.TIGER_PALM} />, and{' '}
+      <SpellLink spell={SPELLS.CRACKLING_JADE_LIGHTNING} />.
     </>
   );
 };
 
-const JadefireTeachingsDescription = () => {
+const RushingWindKickDescription = () => {
   return (
     <>
-      to heal by using your damaging abilities (<SpellLink spell={talents.RISING_SUN_KICK_TALENT} />
-      /<SpellLink spell={talents.RUSHING_WIND_KICK_TALENT} />
-      , <SpellLink spell={SPELLS.BLACKOUT_KICK} />, and <SpellLink spell={SPELLS.TIGER_PALM} />) via{' '}
-      <SpellLink spell={talents.JADEFIRE_TEACHINGS_TALENT} />.
+      <SpellLink spell={talents.RUSHING_WIND_KICK_TALENT} /> to extend hots to accrue high counts of{' '}
+      <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> and amplify their healing.
     </>
   );
 };
@@ -60,11 +68,21 @@ const ShaohaosDescription = () => {
   );
 };
 
-const ThunderFocusTeaREM = () => {
+const ThunderFocusTeaRem = () => {
   return (
     <>
       <SpellLink spell={talents.THUNDER_FOCUS_TEA_TALENT} /> is primarily used on{' '}
       <SpellLink spell={talents.RENEWING_MIST_TALENT} /> with this build.
+    </>
+  );
+};
+
+const ThunderFocusTeaRemRsk = () => {
+  return (
+    <>
+      <SpellLink spell={talents.THUNDER_FOCUS_TEA_TALENT} /> can be used with both{' '}
+      <SpellLink spell={talents.RENEWING_MIST_TALENT} /> and{' '}
+      <SpellLink spell={talents.RISING_SUN_KICK_TALENT} /> with this build.
     </>
   );
 };
@@ -74,21 +92,36 @@ const RisingMistJadefireTeachingsShaohaosDescription = () => {
     <>
       <p>
         The {aplTitle(MistweaverApl.RisingMistJadefireTeachingsShaohaos)} rotation uses{' '}
-        <RisingMistDescription />
         <JadefireTeachingsDescription />
       </p>
       <p>
         When playing <SpellLink spell={talents.RISING_MIST_TALENT} /> and{' '}
         <SpellLink spell={talents.JADEFIRE_TEACHINGS_TALENT} /> with{' '}
-        <SpellLink spell={talents.SHAOHAOS_LESSONS_TALENT} />, you cast{' '}
-        <SpellLink spell={talents.RENEWING_MIST_TALENT} /> and{' '}
-        <SpellLink spell={talents.RISING_SUN_KICK_TALENT} />/
-        <SpellLink spell={talents.RUSHING_WIND_KICK_TALENT} /> as often as possible, and cast{' '}
+        <SpellLink spell={talents.SHAOHAOS_LESSONS_TALENT} />, cast{' '}
+        <SpellLink spell={talents.RISING_SUN_KICK_TALENT} /> as often as possible, and cast{' '}
         <SpellLink spell={talents.JADEFIRE_STOMP_TALENT} /> or{' '}
         <SpellLink spell={talents.THUNDER_FOCUS_TEA_TALENT} /> as often as necessary to maintain the{' '}
         <SpellLink spell={talents.JADEFIRE_TEACHINGS_TALENT} /> buff. <ShaohaosDescription />
-        <ThunderFocusTeaREM />
+        <ThunderFocusTeaRemRsk />
       </p>
+    </>
+  );
+};
+
+const RisingMistRushingWindKickShaohaosDescription = () => {
+  return (
+    <>
+      <p>
+        The {aplTitle(MistweaverApl.RisingMistRushingWindKickShaohaos)} rotation uses{' '}
+        <RushingWindKickDescription />
+      </p>
+      When playing <SpellLink spell={talents.RISING_MIST_TALENT} /> with{' '}
+      <SpellLink spell={talents.RUSHING_WIND_KICK_TALENT} /> and{' '}
+      <SpellLink spell={talents.SHAOHAOS_LESSONS_TALENT} />, keep{' '}
+      <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> on cooldown and cast{' '}
+      <SpellLink spell={talents.RUSHING_WIND_KICK_TALENT} /> as often as possible.{' '}
+      <ShaohaosDescription />
+      <ThunderFocusTeaRem />
     </>
   );
 };
@@ -137,6 +170,8 @@ const Description = ({ aplChoice }: { aplChoice: MistweaverApl }) => {
   switch (aplChoice) {
     case MistweaverApl.RisingMistJadefireTeachingsShaohaos:
       return <RisingMistJadefireTeachingsShaohaosDescription />;
+    case MistweaverApl.RisingMistRushingWindKickShaohaos:
+      return <RisingMistRushingWindKickShaohaosDescription />;
     case MistweaverApl.AwakenedFaeline:
       return <CleaveBuildNotYetSupportedDescription />;
     case MistweaverApl.TearOfMorning:

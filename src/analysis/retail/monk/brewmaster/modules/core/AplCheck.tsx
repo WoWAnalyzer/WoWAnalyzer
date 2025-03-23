@@ -1,23 +1,13 @@
 import SPELLS from 'common/SPELLS';
 import { suggestion } from 'parser/core/Analyzer';
-import aplCheck, {
-  Apl,
-  build,
-  CheckResult,
-  Condition,
-  PlayerInfo,
-  tenseAlt,
-} from 'parser/shared/metrics/apl';
+import aplCheck, { Apl, build, CheckResult, PlayerInfo, tenseAlt } from 'parser/shared/metrics/apl';
 import annotateTimeline from 'parser/shared/metrics/apl/annotate';
 import * as cnd from 'parser/shared/metrics/apl/conditions';
 import talents from 'common/TALENTS/monk';
-import { AnyEvent, GetRelatedEvents } from 'parser/core/Events';
+import { AnyEvent } from 'parser/core/Events';
 import { SpellLink } from 'interface';
-import { KS_DAMAGE, PTA_TRIGGER_BUFF } from '../talents/PressTheAdvantage/normalizer';
-import { BOF_TARGET_HIT } from '../spells/BreathOfFire/normalizer';
 
 const withCombo = cnd.buffPresent(SPELLS.BLACKOUT_COMBO_BUFF);
-const bofInAOE = cnd.targetsHit({ atLeast: 3 }, { targetLinkRelation: BOF_TARGET_HIT });
 
 const SCK_AOE = {
   spell: SPELLS.SPINNING_CRANE_KICK_BRM,
@@ -27,21 +17,6 @@ const SCK_AOE = {
       targetSpell: SPELLS.SPINNING_CRANE_KICK_DAMAGE,
     },
   ),
-};
-
-const spendPtaCondition: Condition<null> = {
-  key: 'pta-trigger',
-  init: () => null,
-  update: () => null,
-  describe: (tense) => (
-    <>
-      you {tenseAlt(tense, <>have</>, <>had</>)} 10 stacks of{' '}
-      <SpellLink spell={talents.PRESS_THE_ADVANTAGE_TALENT} />
-    </>
-  ),
-  validate: (_state, event, _spell) => {
-    return GetRelatedEvents(event, PTA_TRIGGER_BUFF).length > 0;
-  },
 };
 
 const standardApl = build([
@@ -65,78 +40,49 @@ const standardApl = build([
     ),
   },
   {
-    spell: talents.BREATH_OF_FIRE_TALENT,
-    condition: cnd.and(withCombo, bofInAOE),
-  },
-  {
     spell: SPELLS.TIGER_PALM,
     condition: withCombo,
   },
   talents.KEG_SMASH_TALENT,
-  talents.BREATH_OF_FIRE_TALENT,
+  {
+    spell: talents.BREATH_OF_FIRE_TALENT,
+    condition: cnd.describe(
+      cnd.and(
+        cnd.not(withCombo),
+        cnd.hasTalent(talents.CHARRED_PASSIONS_TALENT),
+        cnd.hasTalent(talents.SALSALABIMS_STRENGTH_TALENT),
+        cnd.buffMissing(SPELLS.CHARRED_PASSIONS_BUFF, {
+          duration: 8000,
+          timeRemaining: 2000,
+          pandemicCap: 1,
+        }),
+      ),
+      (tense) => (
+        <>
+          you {tenseAlt(tense, 'are', 'were')} missing the{' '}
+          <SpellLink spell={SPELLS.CHARRED_PASSIONS_BUFF} /> buff
+        </>
+      ),
+    ),
+  },
   talents.RISING_SUN_KICK_TALENT,
   talents.CHI_BURST_SHARED_TALENT,
+  talents.BREATH_OF_FIRE_TALENT,
   talents.RUSHING_JADE_WIND_BREWMASTER_TALENT,
   SCK_AOE,
   SPELLS.TIGER_PALM,
 ]);
 
-const ptaApl = build([
-  {
-    spell: talents.BREATH_OF_FIRE_TALENT,
-    condition: cnd.and(
-      cnd.buffPresent(SPELLS.BLACKOUT_COMBO_BUFF),
-      cnd.spellCooldownRemaining(SPELLS.BLACKOUT_KICK_BRM, { atMost: 2000 }),
-      bofInAOE,
-    ),
-    description: (
-      <>
-        Cast <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} /> to spend{' '}
-        <SpellLink spell={SPELLS.BLACKOUT_COMBO_BUFF} /> if{' '}
-        <SpellLink spell={SPELLS.BLACKOUT_KICK_BRM} /> is about to come off cooldown.
-      </>
-    ),
-  },
-  SPELLS.BLACKOUT_KICK_BRM,
-
-  {
-    spell: talents.KEG_SMASH_TALENT,
-    condition: cnd.or(
-      cnd.not(spendPtaCondition),
-      cnd.targetsHit(
-        { atLeast: 4 },
-        {
-          targetLinkRelation: KS_DAMAGE,
-        },
-      ),
-    ),
-  },
-  {
-    spell: talents.RISING_SUN_KICK_TALENT,
-    condition: spendPtaCondition,
-  },
-  talents.RISING_SUN_KICK_TALENT,
-  talents.CHI_BURST_SHARED_TALENT,
-  talents.RUSHING_JADE_WIND_BREWMASTER_TALENT,
-  SCK_AOE,
-]);
-
 export enum BrewmasterApl {
   Standard,
-  PTA,
 }
 
 export const chooseApl = (info: PlayerInfo): BrewmasterApl => {
-  if (!info.combatant.hasTalent(talents.PRESS_THE_ADVANTAGE_TALENT)) {
-    return BrewmasterApl.Standard;
-  } else {
-    return BrewmasterApl.PTA;
-  }
+  return BrewmasterApl.Standard;
 };
 
-const apls = {
+const apls: Record<BrewmasterApl, Apl> = {
   [BrewmasterApl.Standard]: standardApl,
-  [BrewmasterApl.PTA]: ptaApl,
 };
 
 export const apl = (info: PlayerInfo): Apl => {

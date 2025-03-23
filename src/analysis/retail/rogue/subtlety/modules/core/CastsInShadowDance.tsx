@@ -44,6 +44,10 @@ class CastsInShadowDance extends CastsInStealthBase {
     );
   }
 
+  get danceShadowstrikeThresholds() {
+    return this.createWrongCastThresholds(this.shadowstrikeSpell, this.danceDamageTracker);
+  }
+
   get danceBackstabThresholds() {
     return this.createWrongCastThresholds(this.backstabSpell, this.danceDamageTracker);
   }
@@ -61,7 +65,7 @@ class CastsInShadowDance extends CastsInStealthBase {
   }
 
   suggestions(when: When) {
-    this.suggestWrongCast(when, this.backstabSpell, this.danceBackstabThresholds);
+    this.suggestWrongCast(when, this.backstabSpell, this.danceShadowstrikeThresholds);
     this.suggestAvgCasts(when, SPELLS.SHADOW_DANCE);
   }
 

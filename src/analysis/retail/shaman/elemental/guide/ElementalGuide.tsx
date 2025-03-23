@@ -3,10 +3,6 @@ import TALENTS, { TALENTS_SHAMAN } from 'common/TALENTS/shaman';
 import CombatLogParser from '../CombatLogParser';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 import { FlameShockSubSection } from './FlameShockSubSection';
-import CooldownGraphSubsection, {
-  Cooldown,
-} from 'interface/guide/components/CooldownGraphSubSection';
-import SPELLS from 'common/SPELLS';
 import Cooldowns from 'analysis/retail/shaman/elemental/guide/Cooldowns';
 import DefensiveAndUtility from '../../shared/guide/DefensiveAndUtility';
 
@@ -54,32 +50,11 @@ const CoreSection = (props: GuideProps<typeof CombatLogParser>) => {
         modules.callOfTheAncestors.guideSubsection()}
       {modules.maelstromSpenders.guideSubsection()}
       {modules.spenderWindow.active && modules.spenderWindow.guideSubsection()}
-      {modules.primalStormElemental.active && modules.primalStormElemental.guideSubsection()}
-      {modules.primalFireElemental.active && modules.primalFireElemental.guideSubsection()}
       {modules.fusionOfElements && modules.fusionOfElements.guideSubsection()}
       <FlameShockSubSection {...props} />
     </Section>
   );
 };
-
-const cooldownTalents: Cooldown[] = [
-  {
-    spell: SPELLS.STORMKEEPER_BUFF_AND_CAST,
-    isActive: (c) => c.hasTalent(TALENTS.STORMKEEPER_TALENT),
-  },
-  {
-    spell: TALENTS.LIQUID_MAGMA_TOTEM_TALENT,
-    isActive: (c) => c.hasTalent(TALENTS.LIQUID_MAGMA_TOTEM_TALENT),
-  },
-  {
-    spell: TALENTS.STORM_ELEMENTAL_TALENT,
-    isActive: (c) => c.hasTalent(TALENTS.STORM_ELEMENTAL_TALENT),
-  },
-  {
-    spell: TALENTS.FIRE_ELEMENTAL_TALENT,
-    isActive: (c) => c.hasTalent(TALENTS.FIRE_ELEMENTAL_TALENT),
-  },
-];
 
 /**
  */
@@ -89,12 +64,11 @@ export default function ElementalGuide(props: GuideProps<typeof CombatLogParser>
   return (
     <>
       <PrefaceSection />
-      <ResourcesSection {...props} />
-      <Section title="Cooldown">
+      <Section title="Cooldowns">
         <Cooldowns {...props} />
-        <CooldownGraphSubsection cooldowns={cooldownTalents} />
       </Section>
       <CoreSection {...props} />
+      <ResourcesSection {...props} />
       <DefensiveAndUtility />
       <PreparationSection />
     </>

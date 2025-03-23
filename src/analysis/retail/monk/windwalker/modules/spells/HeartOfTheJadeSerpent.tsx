@@ -101,14 +101,16 @@ class HeartOfTheJadeSerpent extends HotJS {
         )}
         {this.currentSotwl !== 0 && (
           <>
+            <br />
             <SpellLink spell={TALENTS_MONK.STRIKE_OF_THE_WINDLORD_TALENT} /> should not be used
             within the window
           </>
         )}
         {this.currentUnityWithin !== 0 && (
           <>
-            <SpellLink spell={TALENTS_MONK.STRIKE_OF_THE_WINDLORD_TALENT} /> should not be used
-            within the window
+            <br />
+            <SpellLink spell={TALENTS_MONK.UNITY_WITHIN_TALENT} /> should not be used within the
+            window
           </>
         )}
       </>
@@ -155,6 +157,11 @@ class HeartOfTheJadeSerpent extends HotJS {
         window short, casting either of them while{' '}
         <SpellLink spell={TALENTS_MONK.HEART_OF_THE_JADE_SERPENT_TALENT} /> is active should be
         avoided.
+        <br />
+        <br />
+        While active, muliple major abilities have massively hastened cooldowns. These can easily
+        reset atleast once during the duration with high enough haste, or with help from{' '}
+        <SpellLink spell={spells.BLACKOUT_KICK} />.
       </p>
     );
 

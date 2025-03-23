@@ -46,13 +46,13 @@ class CrystallineReflection extends Analyzer {
       )} DPS`,
     };
 
-    const aegisDetails = {
+    const eternalBarrierDetails = {
       color: '#fcba03',
-      label: 'Aegis of Wrath',
+      label: 'Eternal Barrier',
       spellId: TALENTS_PRIEST.ETERNAL_BARRIER_TALENT.id,
-      value: this.powerWordShield.aegisOfWrathValue * this.crIncrease,
+      value: this.powerWordShield.eternalBarrierValue * this.crIncrease,
       valueTooltip: `${formatThousands(
-        ((this.powerWordShield.aegisOfWrathValue * this.crIncrease) / this.owner.fightDuration) *
+        ((this.powerWordShield.eternalBarrierValue * this.crIncrease) / this.owner.fightDuration) *
           1000,
       )} DPS`,
     };
@@ -74,7 +74,7 @@ class CrystallineReflection extends Analyzer {
     }
 
     if (this.selectedCombatant.hasTalent(TALENTS_PRIEST.ETERNAL_BARRIER_TALENT)) {
-      items.push(aegisDetails);
+      items.push(eternalBarrierDetails);
     }
 
     return <DonutChart items={items} />;
