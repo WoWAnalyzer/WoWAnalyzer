@@ -441,19 +441,17 @@ class HotHand extends MajorCooldown<HotHandProc> {
       summary: lavaLashSummary,
       details: (
         <>
-          <div>
-            {missedLavaLashes === 0 ? (
-              <>
-                You cast {lavaLashCasts} <SpellLink spell={TALENTS.LAVA_LASH_TALENT} />
-                (s).
-              </>
-            ) : (
-              <>
-                You cast {lavaLashCasts} <SpellLink spell={TALENTS.LAVA_LASH_TALENT} />
-                (s) when you could have cast {maximumNumberOfLavaLashesPossible}
-              </>
-            )}
-          </div>
+          {missedLavaLashes === 0 ? (
+            <>
+              You cast {lavaLashCasts} <SpellLink spell={TALENTS.LAVA_LASH_TALENT} />
+              (s).
+            </>
+          ) : (
+            <>
+              You cast {lavaLashCasts} <SpellLink spell={TALENTS.LAVA_LASH_TALENT} />
+              (s) when you could have cast {maximumNumberOfLavaLashesPossible}
+            </>
+          )}
         </>
       ),
     };
@@ -468,9 +466,9 @@ class HotHand extends MajorCooldown<HotHandProc> {
 
   private explainGcdPerformance(cast: HotHandProc): ChecklistUsageInfo {
     const avgGcd = this.getAverageGcdOfWindow(cast);
-    const unsedGlobalCooldowns = Math.max(Math.floor(cast.unusedGcdTime / avgGcd), 0);
+    const unusedGlobalCooldowns = Math.max(Math.floor(cast.unusedGcdTime / avgGcd), 0);
     const estimatedPotentialCasts = (cast.timeline.end! - cast.timeline.start) / avgGcd;
-    const gcdPerfCalc = (unsedGlobalCooldowns / estimatedPotentialCasts) * 100;
+    const gcdPerfCalc = (unusedGlobalCooldowns / estimatedPotentialCasts) * 100;
 
     return {
       check: 'global-cooldown',
@@ -486,10 +484,12 @@ class HotHand extends MajorCooldown<HotHandProc> {
       details: (
         <>
           <div>
-            {unsedGlobalCooldowns === 0 ? (
+            {unusedGlobalCooldowns === 0 ? (
               'No unused global cooldowns'
             ) : (
-              <>{unsedGlobalCooldowns} unused global cooldowns</>
+              <>
+                <strong>{unusedGlobalCooldowns}</strong> unused global cooldowns
+              </>
             )}
             .
           </div>
@@ -510,19 +510,19 @@ class HotHand extends MajorCooldown<HotHandProc> {
       this.explainGcdPerformance(cast),
     ];
     if (this.selectedCombatant.hasTalent(TALENTS.REACTIVITY_TALENT)) {
-      const inefficientLavaLashes = cast.timeline.events.filter(
+      const reactivityMissedSunderings = cast.timeline.events.filter(
         (event) =>
           event.type === EventType.Cast &&
           event.ability.guid === TALENTS.LAVA_LASH_TALENT.id &&
           this.reactivity.isInefficientLavaLashCast(event),
       ).length;
 
-      if (inefficientLavaLashes > 0) {
+      if (reactivityMissedSunderings > 0) {
         checklistItems.push({
           check: 'reactivity',
           timestamp: cast.event.timestamp,
           performance: evaluateQualitativePerformanceByThreshold({
-            actual: inefficientLavaLashes,
+            actual: reactivityMissedSunderings,
             isLessThanOrEqual: {
               perfect: 0,
               ok: 1,
@@ -538,10 +538,10 @@ class HotHand extends MajorCooldown<HotHandProc> {
           details: (
             <>
               <div>
-                You were not facing at your target {inefficientLavaLashes} time
-                {inefficientLavaLashes > 1 && 's'} when casting{' '}
-                <SpellLink spell={TALENTS.LAVA_LASH_TALENT} /> causing{' '}
-                <SpellLink spell={TALENTS.SUNDERING_TALENT} /> to miss.
+                <strong>{reactivityMissedSunderings}</strong>{' '}
+                <SpellLink spell={TALENTS.SUNDERING_TALENT} /> failed to hit any targets. Make sure
+                you are facing the target when you cast{' '}
+                <SpellLink spell={TALENTS.LAVA_LASH_TALENT} />.
               </div>
             </>
           ),

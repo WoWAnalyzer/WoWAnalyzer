@@ -135,7 +135,7 @@ abstract class PrimalElementalist<T extends PrimalElementalCast> extends MajorCo
     );
   }
 
-  guideSubsection(): JSX.Element {
+  get guideSubsection(): JSX.Element {
     return <CooldownUsage analyzer={this} title={`Primal ${this.spell.name}`} />;
   }
 

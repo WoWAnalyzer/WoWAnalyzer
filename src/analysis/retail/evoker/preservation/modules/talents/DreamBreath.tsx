@@ -12,6 +12,7 @@ import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import Combatants from 'parser/shared/modules/Combatants';
 
 interface CastInfo {
   timestamp: number;
@@ -21,6 +22,10 @@ interface CastInfo {
 }
 
 class DreamBreath extends Analyzer {
+  static dependencies = {
+    combatants: Combatants,
+  };
+  protected combatants!: Combatants;
   totalBreaths: number = 0;
   totalApplications: number = 0;
   processedEvents: Set<ApplyBuffEvent> = new Set<ApplyBuffEvent>();
@@ -107,11 +112,13 @@ class DreamBreath extends Analyzer {
     const entries: BoxRowEntry[] = [];
     this.casts.forEach((cast) => {
       let value = QualitativePerformance.Fail;
+      const groupSize = Object.keys(this.combatants.getEntities()).length;
+      const maxTargets = groupSize > 5 ? 6 : 5;
       const coyActive =
         this.selectedCombatant.hasTalent(TALENTS_EVOKER.CALL_OF_YSERA_TALENT) && cast.coyActive;
-      if (coyActive && cast.targetsHit === 5) {
+      if (coyActive && cast.targetsHit >= maxTargets) {
         value = QualitativePerformance.Good;
-      } else if (coyActive && cast.targetsHit === 4) {
+      } else if (coyActive && cast.targetsHit >= maxTargets - 1) {
         value = QualitativePerformance.Ok;
       }
       const tooltip = (

@@ -6,7 +6,9 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import PowerWordShield from './PowerWordShield';
-import { TIERS } from 'game/TIERS';
+import { formatNumber } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import SpellIcon from 'interface/SpellIcon';
 
 class EternalBarrier extends Analyzer {
   static dependencies = {
@@ -17,15 +19,7 @@ class EternalBarrier extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-
-    // The math with the Vault of the Incarnates 4p bonus makes the calculation of this module innacurate.
-    this.active =
-      this.selectedCombatant.hasTalent(TALENTS_PRIEST.ETERNAL_BARRIER_TALENT) &&
-      !this.selectedCombatant.has4PieceByTier(TIERS.DF1);
-
-    if (!this.active) {
-      return;
-    }
+    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.ETERNAL_BARRIER_TALENT);
   }
 
   statistic() {
@@ -34,10 +28,31 @@ class EternalBarrier extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
+        tooltip={
+          <>
+            Healing Breakdown:
+            <ul>
+              <li>
+                <SpellIcon spell={SPELLS.POWER_WORD_SHIELD} /> Shield Strength Increase:{' '}
+                {formatNumber(this.powerWordShield.eternalBarrierValue)}
+              </li>
+              <li>
+                <SpellIcon spell={SPELLS.POWER_WORD_SHIELD} /> Extended Duration Healing:{' '}
+                {formatNumber(this.powerWordShield.eternalBarrierExtensionHealing)}
+              </li>
+            </ul>
+          </>
+        }
       >
         <>
           <BoringSpellValueText spell={TALENTS_PRIEST.ETERNAL_BARRIER_TALENT}>
-            <ItemHealingDone amount={this.powerWordShield.aegisOfWrathValue} /> <br />
+            <ItemHealingDone
+              amount={
+                this.powerWordShield.eternalBarrierValue +
+                this.powerWordShield.eternalBarrierExtensionHealing
+              }
+            />{' '}
+            <br />
           </BoringSpellValueText>
         </>
       </Statistic>

@@ -40,9 +40,6 @@ const SubRogueChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
         {combatant.hasTalent(TALENTS.SECRET_TECHNIQUE_TALENT) && (
           <AbilityRequirement spell={TALENTS.SECRET_TECHNIQUE_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.SEPSIS_TALENT) && (
-          <AbilityRequirement spell={TALENTS.SEPSIS_TALENT.id} />
-        )}
         {combatant.hasTalent(TALENTS.FLAGELLATION_TALENT) && (
           <AbilityRequirement spell={TALENTS.FLAGELLATION_TALENT.id} />
         )}
@@ -96,22 +93,22 @@ const SubRogueChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
         <Requirement
           name={
             <>
-              <SpellLink spell={SPELLS.BACKSTAB} /> used from{' '}
+              <SpellLink spell={SPELLS.SHADOWSTRIKE} /> used from{' '}
               <SpellLink spell={SPELLS.SHADOW_DANCE} />
             </>
           }
-          thresholds={thresholds.backstabInShadowDance}
+          thresholds={thresholds.castsInStealth}
         />
         <Requirement
           name={
             <>
-              <SpellLink spell={SPELLS.BACKSTAB} />{' '}
+              <SpellLink spell={SPELLS.SHADOWSTRIKE} />{' '}
               <TooltipElement content="Includes Vanish and Subterfuge if talented">
                 used from Stealth*
               </TooltipElement>
             </>
           }
-          thresholds={thresholds.backstabInStealth}
+          thresholds={thresholds.castsInStealth}
         />
       </Rule>
       <PreparationRule thresholds={thresholds} />

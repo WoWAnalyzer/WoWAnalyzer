@@ -355,6 +355,11 @@ const spells = {
     name: 'Lifecycles (Enveloping Mist)',
     icon: 'spell_monk_envelopingmist',
   },
+  JADE_EMPOWERMENT_BUFF: {
+    id: 467317,
+    name: 'Jade Empowerment',
+    icon: 'ability_thunderking_thunderstruck',
+  },
   SHEILUN_CLOUD_BUFF: {
     id: 399510,
     name: "Sheilun's Gift",

@@ -8,6 +8,7 @@ import { SuggestionFactory, ThresholdStyle, When } from 'parser/core/ParseResult
 
 class CastsInStealthBase extends Analyzer {
   backstabSpell: Spell;
+  shadowstrikeSpell: Spell;
   badStealthSpells: Spell[] = [];
   stealthCondition = '';
   maxCastsPerStealth = 0;
@@ -26,7 +27,10 @@ class CastsInStealthBase extends Analyzer {
     this.backstabSpell = this.selectedCombatant.hasTalent(TALENTS.GLOOMBLADE_TALENT)
       ? TALENTS.GLOOMBLADE_TALENT
       : SPELLS.BACKSTAB;
-    this.badStealthSpells = [this.backstabSpell];
+
+    this.shadowstrikeSpell = SPELLS.SHADOWSTRIKE;
+
+    this.badStealthSpells = [this.shadowstrikeSpell, this.backstabSpell];
   }
 
   get stealthMaxCasts() {

@@ -11,7 +11,6 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
-import Checklist from './modules/checklist/Module';
 import LavaSurge from './modules/core/LavaSurge';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CancelledCasts from './modules/features/CancelledCasts';
@@ -98,7 +97,6 @@ class CombatLogParser extends CoreCombatLogParser {
     maelstromGraph: MaelstromGraph,
     spellMaelstromCost: SpellMaelstromCost,
     ankhNormalizer: AnkhNormalizer,
-    checklist: Checklist,
     astralShift: AstralShift,
   };
 

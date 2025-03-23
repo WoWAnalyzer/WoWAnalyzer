@@ -1,183 +1,58 @@
 import {
-  Ability,
-  AbilityEvent,
   AddRelatedEvent,
   AnyEvent,
   ApplyBuffEvent,
   ApplyBuffStackEvent,
-  BaseCastEvent,
   EventType,
   GetRelatedEvent,
   GetRelatedEvents,
   HasAbility,
   HasRelatedEvent,
-  HasSource,
   RefreshBuffEvent,
   RemoveBuffEvent,
   RemoveBuffStackEvent,
-  ResourceActor,
   ResourceChangeEvent,
 } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
-import RESOURCE_TYPES, { getResource } from 'game/RESOURCE_TYPES';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Options } from 'parser/core/Analyzer';
-import Spell from 'common/SPELLS/Spell';
-import typedKeys from 'common/typedKeys';
 import {
   MAELSTROM_WEAPON_LINK,
   MAELSTROM_WEAPON_LINK_REVERSE,
   MAELSTROM_WEAPON_SOURCE,
   NormalizerOrder,
 } from './constants';
-import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
-import Combatant from 'parser/core/Combatant';
+import {
+  MAELSTROM_ABILITIES,
+  SPEND_EVENT_TYPES,
+  GAIN_EVENT_TYPES,
+  PERIODIC_SPELLS,
+  MAELSTROM_SPENDER_SPELLIDS,
+} from './resourceNormalizer/constants';
+import { SearchDirection, MaelstromAbilityType } from './resourceNormalizer/enums';
+import {
+  lookAhead,
+  lookBehind,
+  sourceCheck,
+  buildEnergizeEvent,
+  linkEnergizeEvent,
+  eventTypeAndSpellMatch,
+  getMaelstromClassResources,
+  startPeriodicGain,
+  getSpellId as getMaelstromAbilitySpellId,
+} from './resourceNormalizer/functions';
+import {
+  MaelstromAbility,
+  SearchResult,
+  ActivePeriodicGainEffect,
+  SearchFunctions,
+} from './resourceNormalizer/types';
 
-const DEBUG = false;
-
-const GAIN_EVENT_TYPES = [EventType.ApplyBuff, EventType.ApplyBuffStack, EventType.RefreshBuff];
-const SPEND_EVENT_TYPES = [EventType.RemoveBuff, EventType.RemoveBuffStack];
+const DEBUG = true;
 
 const SPEND_EVENT_PLACEHOLDER_COST = -1;
-
-enum MaelstromAbilityType {
-  Builder = 1,
-  Spender = 2,
-}
-
-enum BufferMs {
-  Disabled = -1,
-  OnSameTimestamp = 0,
-  MinimumDamageBuffer = 5,
-  Cast = 20,
-  Ticks = 40,
-  Damage = 55,
-  SpendBackward = 25,
-  PrimordialWave = 100,
-  StaticAccumulation = 185,
-}
-
-enum SearchDirection {
-  ForwardsOnly,
-  BackwardsOnly,
-  ForwardsFirst,
-  BackwardsFirst,
-}
-
-/**
- * When maelstrom gains, MatchFirst will select from the beginning of the found events
- * while MatchLast will select from the end. Most relevant for maelstrom gains where total is fixed
- * and often overlaps with other gains
- */
-enum MatchMode {
-  MatchFirst,
-  MatchLast,
-}
-
-/**
- * Maelstrom gained from these sources are capped at the values provided
- */
-const MAXIMUM_MAELSTROM_PER_EVENT = {
-  [TALENTS.SUPERCHARGE_TALENT.id]: 2,
-  [TALENTS.STATIC_ACCUMULATION_TALENT.id]: 10,
-};
-
-/**
- * The specification of an ability that either generates maelstrom weapon stacks or consumes them.
- */
-interface MaelstromAbility {
-  /** REQUIRED The ability id or ids of the events that can generate or spend maelstrom weapon stacks */
-  spellId: number | number[];
-  /** The spell id or {@link SpellOverride} array to use instead of the value in {@link spellId}.
-   *  Example use cases are Tempest damage generating 3 maelstrom stacks from the talent Storm Swell */
-  spellIdOverride?: number | SpellOverride[];
-  /** REQUIRED The type or types of events that can generate or spend maelstrom weapon stacks {@link spellId} */
-  linkFromEventType: EventType | EventType[];
-  /** REQUIRED One of {@link GAIN_EVENT_TYPES} or {@link SPEND_EVENT_TYPES}, depending on the value of {@link type} */
-  linkToEventType: EventType | EventType[];
-  /** If defined, this predicate will be called with the selected combatant if the combatant has the required talents or abilties.
-   * Defaults to true when omitted */
-  enabled?: ((c: Combatant) => boolean) | undefined;
-  /** If defined, this ability can spend or generate at most the given number of maelstrom weapon stacks.
-   * Defaults to 1 when omitted */
-  maximum?: ((combatant: Combatant) => number) | number | undefined;
-  /** The maximum allowed timestamp difference *forward in time between the from and to events.
-   * Defaults 0 ms when omitted. Some events may appear on the same timestamp but backwards in the list, so use
-   * {@link BufferMs.Disabled} to disable forward searching entirely */
-  forwardBufferMs?: number;
-  /** The maximum allowed timestamp difference *backwards in time between the from and to events.
-   * Defaults 0 ms when omitted. Some events may appear on the same timestamp but backwards in the list, so use
-   * {@link BufferMs.Disabled} to disable backwards searching entirely */
-  backwardsBufferMs?: number;
-  /** The minimum allowed timestamp difference between the from and to events, both forward and backwards.
-   * Some refund sources never occur before a minimum period, so this can be useful to prevent incorrect matches.
-   * An example is the refunds from Static Accumulation and Supercharge. The former has a minimum 50ms delay, while the latter
-   * occurs much faster.
-   * Defaults to 0 ms when omitted*/
-  minimumBuffer?: number;
-  /** If defined, this ability requires an exact match, such as Supercharge requiring exactly 3 maelstrom weapon stack events in a row.
-   * Defaults to false when omitted
-   */
-  requiresExact?: boolean;
-  /** One of {@link MaelstromAbilityType.Spender} or {@link MaelstromAbilityType.Builder}.
-   * Defaults to {@link MaelstromAbilityType.Spender} when omitted */
-  type?: MaelstromAbilityType;
-  /** REQUIRED The searching pattern to use. Many abilities have distinct patterns they follow, and this is used to define how to look for
-   * related maelstrom weapon stack events. */
-  searchDirection: SearchDirection;
-  /** The matching mode to use. In cases where there are multiple possible matches, this value determines how the events should be selected
-   * from a list of possible candidates. */
-  matchMode?: MatchMode;
-  /** If defined, a matching {@link linkFromEventType} will be reordered to to the first {@link linkToEventType} match,
-   * and its timestamp will be updated accordingly.
-   * Defaults to false when omitted */
-  updateExistingEvent?: boolean;
-}
-
-interface SpellOverride {
-  /** spell id or ids that will match an event's ability guid */
-  spellId: number | number[];
-  /** the spell id to use instead of the events ability guid */
-  replaceWithSpellId: number;
-}
-
-/** The specification of an ability that generates maelstrom weapon stacks
- * at a set frequency but unrelated to other combatlog events.
- * Currently the only two sources are:
- * - Feral Spirit: Generates 1 maelstrom weapon stack every 3 seconds
- * - Ascendance with the Static Accumulation talent: Generates 1/2 stacks per second (depending on talent rank)
- */
-interface PeriodicGainEffect {
-  /** spell id of the initial ability that starts this periodic gain effect */
-  spellId: number;
-  /** interval in milliseconds between "ticks" */
-  frequencyMs: number;
-  /** spell id to use for `resourcechange` events */
-  spellIdOverride: number;
-}
-
-/** Extends {@link PeriodicGainEffect} with details of an active occurance. */
-interface ActivePeriodicGainEffect extends PeriodicGainEffect {
-  /** The next time an instance of this periodic effect is expected to occur */
-  nextExpectedGain: number;
-  /** The timestamp when this effect ends */
-  end: number;
-}
-
-/** The result of a call to lookAhead or lookBehind */
-interface SearchResult {
-  /** The index to be associated with a generated `resourchange` event, or the cost of a `cast` event.
-   *  This has complex logic associated, depending on if its set by lookAhead or lookBehind.
-   *  If the search is for a gain, will specify where the `resourchange` should be inserted
-   *  in the returned events array.
-   */
-  index: number;
-  /** The timestamp associated with the generated {@link ResourceChangeEvent} */
-  timestamp: number;
-  /** The maelstrom weapon stack events found by the search */
-  events: AnyEvent[];
-}
 
 /**
  * This EventsNormalizer has two main objectives:
@@ -196,22 +71,12 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
   private readonly maxSpend: number;
 
   /** The four possible search functions mapped to the {@link SearchDirection} enum values */
-  private readonly searchFunctions = {
-    [SearchDirection.ForwardsOnly]: (...args) => this._lookAhead(...args),
-    [SearchDirection.BackwardsOnly]: (...args) => this._lookBehind(...args),
-    [SearchDirection.ForwardsFirst]: (...args) =>
-      this._lookAhead(...args) ?? this._lookBehind(...args),
-    [SearchDirection.BackwardsFirst]: (...args) =>
-      this._lookBehind(...args) ?? this._lookAhead(...args),
-  } satisfies Record<
-    SearchDirection,
-    (
-      ability: MaelstromAbility,
-      index: number,
-      events: AnyEvent[],
-      skip: Set<AnyEvent>,
-    ) => SearchResult | undefined
-  >;
+  private readonly searchFunctions: SearchFunctions = {
+    [SearchDirection.ForwardsOnly]: (...args) => lookAhead(...args),
+    [SearchDirection.BackwardsOnly]: (...args) => lookBehind(...args),
+    [SearchDirection.ForwardsFirst]: (...args) => lookAhead(...args) ?? lookBehind(...args),
+    [SearchDirection.BackwardsFirst]: (...args) => lookBehind(...args) ?? lookAhead(...args),
+  };
 
   constructor(options: Options) {
     super(options);
@@ -235,8 +100,9 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
      */
     events = this._generatePeriodicGainEvents(events, skip);
 
-    typedKeys(MAELSTROM_ABILITIES).forEach((key) => {
-      const ability: MaelstromAbility = MAELSTROM_ABILITIES[key];
+    Object.keys(MAELSTROM_ABILITIES).forEach((key) => {
+      const ability: MaelstromAbility =
+        MAELSTROM_ABILITIES[key as keyof typeof MAELSTROM_ABILITIES];
       if (!(ability.enabled === undefined || ability.enabled(this.selectedCombatant))) {
         return;
       }
@@ -262,15 +128,12 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
         if (
           HasAbility(event) &&
           eventTypeAndSpellMatch(ability.spellId, ability.linkFromEventType, event) &&
-          this._sourceCheck(event)
+          sourceCheck(event, this.selectedCombatant.id)
         ) {
           // use the specified search to find related maelstrom weapon buff events
-          const searchResult = this.searchFunctions[ability.searchDirection](
-            ability,
-            index,
-            events,
-            skip,
-          );
+          const searchResult: SearchResult | undefined = this.searchFunctions[
+            ability.searchDirection
+          ](ability, index, events, skip, this.maxSpend);
 
           if (!searchResult) {
             continue;
@@ -279,16 +142,18 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
           const foundEvents = searchResult.events;
           if (ability.type === undefined || ability.type === MaelstromAbilityType.Builder) {
             // get the spell id to use for the resourcechange event
-            const spellId = getSpellId(ability, event)!;
+            const spellId = getMaelstromAbilitySpellId(ability, event)!;
             // build a resource change event unless the current event is already a resource change
             const resourcChangeEvent: ResourceChangeEvent =
-              event.type === EventType.ResourceChange ? event : this._buildEnergizeEvent(spellId);
+              event.type === EventType.ResourceChange
+                ? event
+                : buildEnergizeEvent(spellId, this.selectedCombatant.id);
             // set the timestamp to the timestamp of the first maelstrom weapon gain
             resourcChangeEvent.timestamp = foundEvents[0].timestamp;
             // the resource changed by the number of maelstrom weapon buff events
             resourcChangeEvent.resourceChange = foundEvents.length;
             // link the new/existing resourcechange event to the maelstrom weapon buff events
-            this._linkEnergizeEvent(resourcChangeEvent, ...foundEvents);
+            linkEnergizeEvent(resourcChangeEvent, ...foundEvents);
 
             const isExisting = resourcChangeEvent === event;
             if (isExisting && ability.updateExistingEvent) {
@@ -332,7 +197,7 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
             }
 
             // get a classResource object for this event
-            const cr = this.getMaelstromClassResources(event);
+            const cr = getMaelstromClassResources(event, this.maxResource);
             // This is the expected amount AFTER the event, a removebuff typically spends all and a removebuffstack event can spend up to 5 (but not all, otherwise it'd be a removebuff)
             cr.amount = spend.type === EventType.RemoveBuff ? 0 : spend.stack;
             // placeholder value to indicate it's a spend event
@@ -396,8 +261,9 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
             for (let forwardIndex = index + 1; forwardIndex < events.length; forwardIndex += 1) {
               const forwardEvent = events[forwardIndex];
               if (forwardEvent.timestamp > activePeriodicEffect.nextExpectedGain) {
-                const periodicResourceChange = this._buildEnergizeEvent(
+                const periodicResourceChange = buildEnergizeEvent(
                   activePeriodicEffect.spellIdOverride ?? activePeriodicEffect.spellId,
+                  this.selectedCombatant.id,
                 );
                 periodicResourceChange.timestamp = activePeriodicEffect.nextExpectedGain;
                 events.splice(forwardIndex, 0, periodicResourceChange);
@@ -426,10 +292,10 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
    */
   private _getInitialMaelstrom(events: AnyEvent[]) {
     const buildInitialMaelstromEvent = (value: number, event: AnyEvent) => {
-      const initial = this._buildEnergizeEvent(SPELLS.MAELSTROM_WEAPON_BUFF);
+      const initial = buildEnergizeEvent(SPELLS.MAELSTROM_WEAPON_BUFF, this.selectedCombatant.id);
       initial.timestamp = 0;
       initial.resourceChange = value;
-      this._linkEnergizeEvent(initial, event);
+      linkEnergizeEvent(initial, event);
       return initial;
     };
 
@@ -441,6 +307,8 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
           return 0;
         }
         switch (event.type) {
+          case EventType.ApplyBuff:
+            return 0;
           case EventType.ApplyBuffStack:
           case EventType.RemoveBuffStack:
             events.splice(0, 0, buildInitialMaelstromEvent(event.stack, event));
@@ -465,7 +333,7 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
   private _doResourceCalculations(events: AnyEvent[]) {
     // find the initial value, which should be zero in most cases
     let current: number = this._getInitialMaelstrom(events);
-    events.forEach((event) => {
+    events.forEach((event, index) => {
       // resourcechange events have been created for all gains, all thats needed here is to calculate the waste
       if (
         event.type === EventType.ResourceChange &&
@@ -477,7 +345,6 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
           MAELSTROM_WEAPON_LINK,
           (e) => GAIN_EVENT_TYPES.includes(e.type),
         );
-        const fromEvent = GetRelatedEvent(event, MAELSTROM_WEAPON_SOURCE);
 
         // failsafe in case a resourcechange was somehow created with nothing related to it
         if (buffs.length === 0) {
@@ -489,7 +356,7 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
         current = Math.min(current, this.maxResource);
 
         // add (or update) a classResource event with the current resource value. no cost is associated with energize events/gain.
-        const resource = this.getMaelstromClassResources(event);
+        const resource = getMaelstromClassResources(event, this.maxResource);
         resource.amount = current;
 
         if (DEBUG) {
@@ -506,9 +373,10 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
               ? 1
               : lastBuff.type === EventType.ApplyBuffStack
                 ? lastBuff.stack
-                : 10;
+                : this.maxResource;
           const expectedWaste = buffs.filter((b) => b.type === EventType.RefreshBuff);
           if (current !== expectedCurrent || event.waste !== expectedWaste.length) {
+            const fromEvent = GetRelatedEvent(event, MAELSTROM_WEAPON_SOURCE);
             console.log(
               `${event.timestamp} (${this.owner.formatTimestamp(event.timestamp, 3)}): expected maelstrom: ${expectedCurrent}/${expectedWaste.length}, calculated: ${current}/${event.waste}`,
               fromEvent,
@@ -518,9 +386,12 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
             );
           }
         }
-      } else if (event.type === EventType.Cast || event.type === EventType.FreeCast) {
+      } else if (
+        (event.type === EventType.Cast || event.type === EventType.FreeCast) &&
+        MAELSTROM_SPENDER_SPELLIDS.includes(event.ability.guid)
+      ) {
         // get the classResource associated with the cast
-        const cr = this.getMaelstromClassResources(event);
+        const cr = getMaelstromClassResources(event, this.maxResource);
         // if the cost=0 it has just been created, as it was set to a placeholder value of -1
         if (cr.cost !== 0) {
           const buff = GetRelatedEvent<RemoveBuffEvent | RemoveBuffStackEvent>(
@@ -528,7 +399,21 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
             MAELSTROM_WEAPON_LINK,
             (e) => SPEND_EVENT_TYPES.includes(e.type),
           );
-          cr.cost = current - cr.amount;
+
+          let cost = current - cr.amount;
+          // if the event type is a free-cast, look at the previous event. if the previous event is a windstrike, cap the cost at 5
+          if (event.type === EventType.FreeCast) {
+            const previousCast = events[index - 1];
+            if (
+              HasAbility(previousCast) &&
+              previousCast.ability.guid === SPELLS.WINDSTRIKE_CAST.id &&
+              cost > 5
+            ) {
+              cost = 5;
+            }
+          }
+
+          cr.cost = cost;
           cr.amount = current;
 
           event.resourceCost ??= {};
@@ -564,600 +449,6 @@ class MaelstromWeaponResourceNormalizer extends EventsNormalizer {
     }
     return events;
   }
-
-  private _sourceCheck(event: AnyEvent): boolean {
-    return HasSource(event) && event.sourceID === this.selectedCombatant.id;
-  }
-
-  /**
-   * Search backwards through {@link arr} from the {@link currentIndex} for an ability
-   * that matches {@link ability}
-   * @param ability the {@link MaelstromAbility} to find matches for
-   * @param currentIndex current position of the index through {@link arr}
-   * @param arr events being normalized
-   * @param skipTheseEvents any event present in this {@link Set} of events is assumed to have already been associated with a resource gain/spend event
-   * @returns related maelstrom buff events
-   */
-  private _lookBehind(
-    ability: MaelstromAbility,
-    currentIndex: number,
-    arr: AnyEvent[],
-    skipTheseEvents: Set<AnyEvent>,
-  ): SearchResult | undefined {
-    const event = arr[currentIndex];
-    let current: SearchResult = { index: 0, timestamp: 0, events: [] };
-    const matches: SearchResult[] = [current];
-
-    for (let index = currentIndex - 1; index >= 0; index -= 1) {
-      const backwardsEvent = arr[index];
-      if (timestampCheck(event, backwardsEvent, ability.backwardsBufferMs ?? 0)) {
-        break;
-      }
-      if (Math.abs(event.timestamp - backwardsEvent.timestamp) < (ability.minimumBuffer ?? 0)) {
-        continue;
-      }
-      if (
-        current.events.length > 0 &&
-        !eventTypeAndSpellMatch(
-          SPELLS.MAELSTROM_WEAPON_BUFF.id,
-          ability.linkToEventType,
-          backwardsEvent,
-        )
-      ) {
-        if (
-          backwardsEvent.type === EventType.ResourceChange &&
-          backwardsEvent.resourceChangeType === RESOURCE_TYPES.MAELSTROM_WEAPON.id &&
-          backwardsEvent.resourceChange === 0
-        ) {
-          continue;
-        }
-        current = { index: 0, timestamp: 0, events: [] };
-        matches.push(current);
-        continue;
-      }
-      if (
-        eventTypeAndSpellMatch(
-          SPELLS.MAELSTROM_WEAPON_BUFF.id,
-          ability.linkToEventType,
-          backwardsEvent,
-        )
-      ) {
-        if (skipTheseEvents.has(backwardsEvent)) {
-          continue;
-        }
-        current.index = index;
-        current.timestamp =
-          backwardsEvent.timestamp > current.timestamp
-            ? backwardsEvent.timestamp
-            : current.timestamp; // whatever is closest to the timestamp of the current event
-        current.events.splice(0, 0, backwardsEvent);
-      }
-    }
-
-    if (matches.length > 0) {
-      // apply matching rules to each group
-      const results: (SearchResult | undefined)[] = matches.map((m) => {
-        const events = m.events;
-        if ((ability.maximum as number) < 0) {
-          return events.length > 0 && events.length <= this.maxSpend ? m : undefined;
-        }
-
-        // select no. of events from end
-        const truncatedEvents =
-          ability.matchMode === MatchMode.MatchFirst
-            ? events.slice(-(ability.maximum as number))
-            : events.slice(0, ability.maximum as number);
-        if (ability.requiresExact && truncatedEvents.length !== ability.maximum) {
-          return undefined;
-        }
-        if (truncatedEvents.length > 0) {
-          return { index: m.index, timestamp: m.timestamp, events: truncatedEvents };
-        }
-
-        return undefined;
-      });
-
-      return results
-        .filter((r) => r !== undefined)
-        .sort((a, _) => event.timestamp - a!.timestamp)
-        .at(0);
-    }
-  }
-
-  /**
-   * Search forward through {@link arr} from the {@link currentIndex} for an ability
-   * that matches {@link ability}
-   * @param ability the {@link MaelstromAbility} to find matches for
-   * @param currentIndex current position of the index through {@link arr}
-   * @param arr events being normalized
-   * @param skipTheseEvents any event present in this {@link Set} of events is assumed to have already been associated with a resource gain/spend event
-   * @returns related maelstrom buff events, or undefined if an unexpected number of events are found
-   */
-  private _lookAhead(
-    ability: MaelstromAbility,
-    currentIndex: number,
-    arr: AnyEvent[],
-    skipTheseEvents: Set<AnyEvent>,
-  ): SearchResult | undefined {
-    const event = arr[currentIndex];
-
-    let current: SearchResult = { index: 0, timestamp: 0, events: [] };
-    const matches: SearchResult[] = [current];
-
-    for (let index = currentIndex + 1; index < arr.length; index += 1) {
-      const forwardEvent = arr[index];
-      if (timestampCheck(forwardEvent, event, ability.forwardBufferMs ?? 0)) {
-        break;
-      }
-      if (Math.abs(event.timestamp - forwardEvent.timestamp) < (ability.minimumBuffer ?? 0)) {
-        continue;
-      }
-      if (
-        current.events.length > 0 &&
-        !eventTypeAndSpellMatch(
-          SPELLS.MAELSTROM_WEAPON_BUFF.id,
-          ability.linkToEventType,
-          forwardEvent,
-        )
-      ) {
-        if (
-          forwardEvent.type === EventType.ResourceChange &&
-          forwardEvent.resourceChangeType === RESOURCE_TYPES.MAELSTROM_WEAPON.id &&
-          forwardEvent.resourceChange === 0
-        ) {
-          continue;
-        }
-        current = { index: 0, timestamp: 0, events: [] };
-        matches.push(current);
-        continue;
-      }
-      if (
-        eventTypeAndSpellMatch(
-          SPELLS.MAELSTROM_WEAPON_BUFF.id,
-          ability.linkToEventType,
-          forwardEvent,
-        )
-      ) {
-        if (skipTheseEvents.has(forwardEvent)) {
-          continue;
-        }
-        current.index = current.index === 0 ? index : current.index;
-        current.timestamp = current.timestamp === 0 ? forwardEvent.timestamp : current.timestamp;
-        current.events.push(forwardEvent);
-      }
-    }
-
-    if (matches.length > 0) {
-      // apply matching rules to each group
-      const results: (SearchResult | undefined)[] = matches.map((m) => {
-        const events = m.events;
-        if ((ability.maximum as number) < 0) {
-          return events.length > 0 && events.length <= this.maxSpend ? m : undefined;
-        }
-
-        // select no. of events from end
-        const truncatedEvents =
-          ability.matchMode === MatchMode.MatchFirst
-            ? events.slice(0, ability.maximum as number)
-            : events.slice(-(ability.maximum as number));
-        if (ability.requiresExact && truncatedEvents.length !== ability.maximum) {
-          return undefined;
-        }
-        if (truncatedEvents.length > 0) {
-          return { index: m.index, timestamp: m.timestamp, events: truncatedEvents };
-        }
-
-        return undefined;
-      });
-
-      return results
-        .filter((r) => r !== undefined)
-        .sort((a, _) => a!.timestamp - event.timestamp)
-        .at(0);
-    }
-  }
-
-  /**
-   * Creates a {@link ResourceChangeEvent} from the given spell, and optionally links the event to an array of {@link AnyEvent}
-   * @param spell spellId or {@link Spell} object
-   * @param gain amount of resources gained
-   * @param timestamp timestamp for the event
-   * @param linkToEvent array of {@link AnyEvent} to link to the returned {@link ResourceChangeEvent}
-   * @returns a {@link ResourceChangeEvent}
-   */
-  private _buildEnergizeEvent(spell: number | Spell): ResourceChangeEvent {
-    const resourceChange: ResourceChangeEvent = {
-      timestamp: 0,
-      type: EventType.ResourceChange,
-      sourceID: this.selectedCombatant.id,
-      targetID: this.selectedCombatant.id,
-      ability: spellToAbility(spell)!,
-      resourceChangeType: RESOURCE_TYPES.MAELSTROM_WEAPON.id,
-      /** timestamp will be updated when this is associated with maelstrom stacks */
-      resourceChange: 0,
-      waste: 0,
-      otherResourceChange: 0,
-      resourceActor: ResourceActor.Source,
-      sourceIsFriendly: true,
-      targetIsFriendly: true,
-      // don't care about these values
-      classResources: [],
-      hitPoints: 0,
-      maxHitPoints: 0,
-      attackPower: 0,
-      spellPower: 0,
-      armor: 0,
-      x: 0,
-      y: 0,
-      facing: 0,
-      mapID: 0,
-      itemLevel: 0,
-    };
-
-    return resourceChange;
-  }
-
-  private _linkEnergizeEvent(event: ResourceChangeEvent, ...linkToEvent: AnyEvent[]) {
-    linkToEvent.forEach((linkedEvent) => {
-      AddRelatedEvent(event, MAELSTROM_WEAPON_LINK, linkedEvent);
-      AddRelatedEvent(linkedEvent, MAELSTROM_WEAPON_LINK_REVERSE, event);
-    });
-  }
-
-  /**
-   * For a given `cast` or `resourcechange` event, find or create a `ClassResource`
-   * @param event the event needing a `classResource` value for Maelstrom Weapon
-   * @returns a reference to the `ClassResource` object for the {@link event}
-   */
-  private getMaelstromClassResources<T extends string>(
-    event: BaseCastEvent<T> | ResourceChangeEvent,
-  ) {
-    event.classResources ??= [];
-    let resource = getResource(event.classResources, RESOURCE_TYPES.MAELSTROM_WEAPON.id);
-    if (!resource) {
-      resource = {
-        amount: 0,
-        max: this.maxResource,
-        type: RESOURCE_TYPES.MAELSTROM_WEAPON.id,
-      };
-      event.classResources.push({
-        ...resource,
-        cost: 0,
-      });
-    }
-    return getResource(event.classResources, RESOURCE_TYPES.MAELSTROM_WEAPON.id)!;
-  }
-}
-
-const MAELSTROM_ABILITIES = {
-  SPENDERS: {
-    spellId: [
-      SPELLS.LIGHTNING_BOLT.id,
-      TALENTS.CHAIN_LIGHTNING_TALENT.id,
-      SPELLS.TEMPEST_CAST.id,
-      TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id,
-      TALENTS.LAVA_BURST_TALENT.id,
-      SPELLS.HEALING_SURGE.id,
-      TALENTS.CHAIN_HEAL_TALENT.id,
-      TALENTS.LAVA_BURST_TALENT.id,
-      SPELLS.PRIMORDIAL_STORM_CAST.id,
-    ],
-    type: MaelstromAbilityType.Spender,
-    linkFromEventType: [EventType.Cast, EventType.FreeCast],
-    forwardBufferMs: BufferMs.Damage,
-    backwardsBufferMs: BufferMs.SpendBackward,
-    linkToEventType: SPEND_EVENT_TYPES,
-    searchDirection: SearchDirection.ForwardsFirst,
-  },
-  SUPERCHARGE: {
-    spellId: [
-      SPELLS.LIGHTNING_BOLT.id,
-      TALENTS.CHAIN_LIGHTNING_TALENT.id,
-      SPELLS.TEMPEST_CAST.id,
-      /**
-       * Currently any maelstrom spender can proc supercharge, once bug is fixed remove any abilities below this comment
-       */
-      TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id,
-      TALENTS.CHAIN_HEAL_TALENT.id,
-      SPELLS.HEALING_SURGE.id,
-      TALENTS.LAVA_BURST_TALENT.id,
-    ],
-    type: MaelstromAbilityType.Builder,
-    enabled: (c) => c.hasTalent(TALENTS.SUPERCHARGE_TALENT),
-    maximum: MAXIMUM_MAELSTROM_PER_EVENT[TALENTS.SUPERCHARGE_TALENT.id],
-    requiresExact: true,
-    linkFromEventType: [EventType.Cast, EventType.FreeCast],
-    forwardBufferMs: BufferMs.Damage,
-    spellIdOverride: TALENTS.SUPERCHARGE_TALENT.id,
-    linkToEventType: GAIN_EVENT_TYPES,
-    searchDirection: SearchDirection.ForwardsOnly,
-    matchMode: MatchMode.MatchLast,
-  },
-  STATIC_ACCUMULATION: {
-    spellId: [SPELLS.LIGHTNING_BOLT.id, TALENTS.CHAIN_LIGHTNING_TALENT.id, SPELLS.TEMPEST_CAST.id],
-    type: MaelstromAbilityType.Builder,
-    enabled: (c) => c.hasTalent(TALENTS.STATIC_ACCUMULATION_TALENT),
-    maximum: -1,
-    linkFromEventType: [EventType.Cast, EventType.FreeCast],
-    forwardBufferMs: BufferMs.StaticAccumulation,
-    spellIdOverride: TALENTS.STATIC_ACCUMULATION_TALENT.id,
-    minimumBuffer: 50,
-    linkToEventType: GAIN_EVENT_TYPES,
-    searchDirection: SearchDirection.ForwardsOnly,
-    matchMode: MatchMode.MatchLast,
-  },
-  FERAL_SPIRIT_SUMMONED: {
-    spellId: SPELLS.FERAL_SPIRIT_MAELSTROM_BUFF.id,
-    spellIdOverride: TALENTS.FERAL_SPIRIT_TALENT.id,
-    linkFromEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
-    linkToEventType: GAIN_EVENT_TYPES,
-    searchDirection: SearchDirection.BackwardsFirst,
-    forwardBufferMs: 5,
-    backwardsBufferMs: 5,
-    maximum: 1,
-    requiresExact: true,
-  },
-  VOLTAIC_BLAZE: {
-    spellId: SPELLS.VOLTAIC_BLAZE_CAST.id, // TODO: Add voltaic blaze spell id
-    linkFromEventType: EventType.Cast,
-    linkToEventType: GAIN_EVENT_TYPES,
-    searchDirection: SearchDirection.ForwardsFirst,
-    maximum: 1,
-    requiresExact: true,
-  },
-  SWIRLING_MAELSTROM: {
-    spellId: [TALENTS.FROST_SHOCK_TALENT.id, TALENTS.FIRE_NOVA_TALENT.id],
-    enabled: (c) => c.hasTalent(TALENTS.SWIRLING_MAELSTROM_TALENT),
-    linkFromEventType: EventType.Cast,
-    spellIdOverride: TALENTS.SWIRLING_MAELSTROM_TALENT.id,
-    forwardBufferMs: BufferMs.Cast,
-    backwardsBufferMs: 5, // backwards buffer seems to only occur for frost shock
-    linkToEventType: GAIN_EVENT_TYPES,
-    searchDirection: SearchDirection.ForwardsFirst,
-    matchMode: MatchMode.MatchFirst,
-  },
-  ELEMENTAL_ASSAULT: {
-    spellId: [
-      SPELLS.STORMSTRIKE_CAST.id,
-      SPELLS.WINDSTRIKE_CAST.id,
-      TALENTS.LAVA_LASH_TALENT.id,
-      TALENTS.ICE_STRIKE_1_ENHANCEMENT_TALENT.id,
-      TALENTS.ICE_STRIKE_2_ENHANCEMENT_TALENT.id,
-    ],
-    linkFromEventType: EventType.Cast,
-    enabled: (c) => c.hasTalent(TALENTS.ELEMENTAL_ASSAULT_TALENT),
-    spellIdOverride: TALENTS.ELEMENTAL_ASSAULT_TALENT.id,
-    forwardBufferMs: BufferMs.Cast,
-    linkToEventType: GAIN_EVENT_TYPES,
-    searchDirection: SearchDirection.ForwardsOnly,
-    matchMode: MatchMode.MatchFirst,
-  },
-  PRIMORDIAL_WAVE: {
-    spellId: TALENTS.PRIMORDIAL_WAVE_TALENT.id,
-    linkFromEventType: EventType.Cast,
-    forwardBufferMs: BufferMs.OnSameTimestamp,
-    backwardsBufferMs: BufferMs.PrimordialWave,
-    maximum: 5,
-    linkToEventType: GAIN_EVENT_TYPES,
-    searchDirection: SearchDirection.BackwardsOnly,
-    matchMode: MatchMode.MatchLast,
-  },
-  ASCENDANCE_PERIODIC_GAIN: {
-    spellId: [TALENTS.ASCENDANCE_ENHANCEMENT_TALENT.id],
-    linkFromEventType: [EventType.ResourceChange, ...GAIN_EVENT_TYPES],
-    linkToEventType: GAIN_EVENT_TYPES,
-    forwardBufferMs: BufferMs.Ticks,
-    backwardsBufferMs: BufferMs.Ticks,
-    searchDirection: SearchDirection.ForwardsFirst,
-    maximum: (c) => c.getTalentRank(TALENTS.STATIC_ACCUMULATION_TALENT),
-    requiresExact: true,
-    updateExistingEvent: true,
-  },
-  FERAL_SPIRIT_PERIODIC_GAIN: {
-    spellId: [SPELLS.FERAL_SPIRIT_MAELSTROM_BUFF.id, TALENTS.FERAL_SPIRIT_TALENT.id],
-    spellIdOverride: TALENTS.FERAL_SPIRIT_TALENT.id,
-    linkFromEventType: [EventType.ResourceChange],
-    linkToEventType: GAIN_EVENT_TYPES,
-    forwardBufferMs: BufferMs.Ticks,
-    backwardsBufferMs: BufferMs.Ticks,
-    searchDirection: SearchDirection.ForwardsFirst,
-    maximum: 1,
-    requiresExact: true,
-    updateExistingEvent: true,
-  },
-  // Melee weapon attacks have a lower priority than other cast and special interaction damage events
-  STORMSTRIKE: {
-    spellId: [
-      SPELLS.STORMSTRIKE_DAMAGE.id,
-      SPELLS.STORMSTRIKE_DAMAGE_OFFHAND.id,
-      SPELLS.WINDSTRIKE_DAMAGE.id,
-      SPELLS.WINDSTRIKE_DAMAGE_OFFHAND.id,
-    ],
-    spellIdOverride: SPELLS.STORMSTRIKE_CAST.id,
-    forwardBufferMs: BufferMs.Damage,
-    linkFromEventType: EventType.Damage,
-    linkToEventType: GAIN_EVENT_TYPES,
-    searchDirection: SearchDirection.ForwardsOnly,
-    matchMode: MatchMode.MatchFirst,
-  },
-  ICE_STRIKE: {
-    spellId: [
-      TALENTS.ICE_STRIKE_1_ENHANCEMENT_TALENT.id,
-      TALENTS.ICE_STRIKE_2_ENHANCEMENT_TALENT.id,
-    ],
-    linkFromEventType: EventType.Cast,
-    enabled: (c) =>
-      c.hasTalent(TALENTS.ICE_STRIKE_1_ENHANCEMENT_TALENT) ||
-      c.hasTalent(TALENTS.ICE_STRIKE_2_ENHANCEMENT_TALENT),
-    forwardBufferMs: BufferMs.Cast,
-    linkToEventType: GAIN_EVENT_TYPES,
-    searchDirection: SearchDirection.ForwardsOnly,
-    matchMode: MatchMode.MatchFirst,
-  },
-  MELEE_WEAPON_ATTACK: {
-    // anything classified as a melee hit goes here
-    spellId: [
-      TALENTS.ICE_STRIKE_1_ENHANCEMENT_TALENT.id,
-      TALENTS.ICE_STRIKE_2_ENHANCEMENT_TALENT.id,
-      TALENTS.LAVA_LASH_TALENT.id,
-      TALENTS.CRASH_LIGHTNING_TALENT.id,
-      SPELLS.CRASH_LIGHTNING_BUFF.id,
-      TALENTS.DOOM_WINDS_TALENT.id,
-      TALENTS.SUNDERING_TALENT.id,
-      SPELLS.WINDFURY_ATTACK.id,
-      SPELLS.MELEE.id,
-      SPELLS.WINDLASH.id,
-      SPELLS.WINDLASH_OFFHAND.id,
-    ],
-    spellIdOverride: [
-      {
-        replaceWithSpellId: SPELLS.MELEE.id,
-        spellId: [SPELLS.WINDLASH.id, SPELLS.WINDLASH_OFFHAND.id],
-      },
-      {
-        replaceWithSpellId: TALENTS.CRASH_LIGHTNING_TALENT.id,
-        spellId: SPELLS.CRASH_LIGHTNING_BUFF.id,
-      },
-    ],
-    forwardBufferMs: BufferMs.Damage,
-    linkFromEventType: EventType.Damage,
-    minimumBuffer: BufferMs.MinimumDamageBuffer,
-    linkToEventType: GAIN_EVENT_TYPES,
-    searchDirection: SearchDirection.ForwardsOnly,
-    matchMode: MatchMode.MatchFirst,
-  },
-  UNKNOWN: {
-    spellId: SPELLS.MAELSTROM_WEAPON_BUFF.id,
-    forwardBufferMs: 0,
-    backwardsBufferMs: BufferMs.Disabled,
-    linkToEventType: GAIN_EVENT_TYPES,
-    linkFromEventType: GAIN_EVENT_TYPES,
-    searchDirection: SearchDirection.ForwardsFirst,
-  },
-} satisfies Record<string, MaelstromAbility>;
-
-/**
- * Specification of periodic gain effects.
- */
-const PERIODIC_SPELLS: PeriodicGainEffect[] = [
-  {
-    spellId: SPELLS.FERAL_SPIRIT_MAELSTROM_BUFF.id,
-    frequencyMs: 3000,
-    spellIdOverride: TALENTS.FERAL_SPIRIT_TALENT.id,
-  },
-  {
-    spellId: TALENTS.ASCENDANCE_ENHANCEMENT_TALENT.id,
-    frequencyMs: 1000,
-    spellIdOverride: TALENTS.ASCENDANCE_ENHANCEMENT_TALENT.id,
-  },
-];
-
-/**
- * Start a new instance of a periodic gain effect
- * @param start timestamp where the periodic gain started, i.e. buff was applied and *not* the first time the gain should occur
- * @param spec the specifications for this periodic gain effect
- * @returns {@link ActivePeriodicGainEffect}
- */
-function startPeriodicGain(start: number, spec: PeriodicGainEffect): ActivePeriodicGainEffect {
-  return {
-    ...spec,
-    nextExpectedGain: start + spec.frequencyMs,
-    end: 0,
-  };
-}
-
-/**
- * Converts the given spell value to an ability
- * @param spell a {@link Spell} object or number
- * @returns a new {@link Ability} or undefined if no spell or talent could be found
- */
-function spellToAbility(spell: Spell | number): Ability | undefined {
-  if (typeof spell === 'number') {
-    spell = maybeGetTalentOrSpell(spell)!;
-  }
-  if (typeof spell === 'undefined') {
-    return undefined;
-  }
-  return {
-    guid: spell.id,
-    name: spell.name,
-    abilityIcon: `${spell.icon}.jpg`,
-    type: 0,
-  };
-}
-
-function timestampCheck(a: AnyEvent, b: AnyEvent, bufferMs: number) {
-  return a.timestamp - b.timestamp > bufferMs;
-}
-
-/**
- * checks the event is an ability event with the same id as {@link spellId}
- */
-function spellsMatch(ability: number | number[], spellId: number): boolean {
-  if (Array.isArray(ability)) {
-    return ability.some((s) => s === spellId);
-  }
-  return spellId === ability;
-}
-
-/**
- * checks the event type is one of the types specified by {@link eventType}
- */
-function eventTypesMatch(eventType: EventType | EventType[], event: AnyEvent) {
-  if (Array.isArray(eventType)) {
-    return eventType.some((s) => s === event.type);
-  }
-  return eventType === event.type;
-}
-
-/**
- * Checks the event is an ability event with the same id as {@link spellId} and
- * the event type is one of the types specified by {@link eventType}.
- * Shorthand for {@link eventTypesMatch} and {@link spellsMatch}.
- */
-function eventTypeAndSpellMatch(
-  spellId: number | number[],
-  eventType: EventType | EventType[],
-  event: AnyEvent,
-) {
-  return (
-    HasAbility(event) &&
-    spellsMatch(spellId, event.ability.guid) &&
-    eventTypesMatch(eventType, event)
-  );
-}
-
-/**
- * Gets the spell id to use for a `resourechange` event. The value returned is determined by
- * the configuration of {@link ability} and the ability id of {@link event}
- */
-function getSpellId<T extends string>(
-  ability: MaelstromAbility,
-  event: AbilityEvent<T>,
-): number | undefined {
-  if (ability.spellIdOverride) {
-    /**
-     * if the ability spec has a spell override, use the specified value or calculate it
-     * from the the SpellOverride spellId
-     */
-    if (typeof ability.spellIdOverride === 'number') {
-      return ability.spellIdOverride;
-    }
-
-    const spellOverride = ability.spellIdOverride.find((override) => {
-      if (typeof override.spellId === 'number') {
-        return override.spellId === event.ability.guid;
-      }
-      return override.spellId.includes(event.ability.guid);
-    });
-
-    // if no replacement is set, just use the exsting event ability id
-    return spellOverride?.replaceWithSpellId ?? event.ability.guid;
-  }
-  if (typeof ability.spellId === 'number') {
-    return ability.spellId === event.ability.guid ? ability.spellId : undefined;
-  }
-  return ability.spellId.find((s) => s === event.ability.guid);
 }
 
 export default MaelstromWeaponResourceNormalizer;

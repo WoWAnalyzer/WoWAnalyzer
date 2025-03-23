@@ -15,6 +15,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 import AtonementDamageSource from '../features/AtonementDamageSource';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import SPELLS from 'common/SPELLS';
 
 class MaliciousIntent extends Analyzer {
   protected enemies!: Enemies;
@@ -37,7 +38,7 @@ class MaliciousIntent extends Analyzer {
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_PRIEST.SCHISM_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MIND_BLAST),
       this.onSchismCast,
     );
     this.addEventListener(AtonementAnalyzer.atonementEventFilter, this.onAtonement);

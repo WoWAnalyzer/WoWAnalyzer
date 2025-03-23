@@ -25,6 +25,7 @@ import RumblingEarth from './modules/talents/RumblingEarth';
 import MomentumShift from './modules/talents/MomentumShift';
 import Overlord from './modules/talents/Overlord';
 import HoardedPower from './modules/talents/HoardedPower';
+import MotesOfPossibility from './modules/talents/MotesOfPossibility';
 
 import BuffTrackerGraph from './modules/features/BuffTrackerGraph';
 import BuffTargetHelper from './modules/features/BuffTargetHelper/BuffTargetHelper';
@@ -144,6 +145,7 @@ class CombatLogParser extends MainCombatLogParser {
     momentumShift: MomentumShift,
     overlord: Overlord,
     hoardedPower: HoardedPower,
+    motesOfPossibility: MotesOfPossibility,
 
     // hero talents
     mightOfTheBlackDragonflight: MightOfTheBlackDragonflight,

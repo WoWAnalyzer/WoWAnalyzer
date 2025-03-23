@@ -10,6 +10,8 @@ import isAtonement from '../core/isAtonement';
 import Atonement from './Atonement';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import SPELLS from 'common/SPELLS';
+import SpellLink from 'interface/SpellLink';
 
 const EVANGELISM_DURATION = 6;
 const EVANGELISM_DURATION_MS = EVANGELISM_DURATION * 1000;
@@ -20,6 +22,7 @@ class Evangelism extends Analyzer {
   };
   _previousEvangelismCast: CastEvent | null = null;
   protected atonementModule!: Atonement;
+  evangelismActiveHealing = 0;
 
   constructor(options: Options) {
     super(options);
@@ -29,6 +32,10 @@ class Evangelism extends Analyzer {
       this.onCast,
     );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.EVANGELISM_HEAL),
+      this.onEvangelismHeal,
+    );
   }
 
   _evangelismStatistics: {
@@ -43,6 +50,10 @@ class Evangelism extends Analyzer {
     return Object.keys(this._evangelismStatistics)
       .map(Number)
       .map((key: number) => this._evangelismStatistics[key]);
+  }
+
+  onEvangelismHeal(event: HealEvent) {
+    this.evangelismActiveHealing += event.amount + (event.absorbed || 0);
   }
 
   onCast(event: CastEvent) {
@@ -78,14 +89,25 @@ class Evangelism extends Analyzer {
     }
   }
 
-  statistic() {
-    const evangelismStatistics = this.evangelismStatistics;
+  get extensionHealing() {
+    return this.evangelismStatistics.reduce((p, c) => p + c.healing, 0);
+  }
 
+  statistic() {
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(0)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
+        tooltip={
+          <>
+            <SpellLink spell={TALENTS_PRIEST.EVANGELISM_TALENT} /> Active Healing:{' '}
+            {formatNumber(this.evangelismActiveHealing)}
+            <br />
+            <SpellLink spell={SPELLS.ATONEMENT_HEAL_NON_CRIT} /> extension healing:{' '}
+            {formatNumber(this.extensionHealing)}
+          </>
+        }
         dropdown={
           <table className="table table-condensed">
             <thead>
@@ -110,7 +132,7 @@ class Evangelism extends Analyzer {
         }
       >
         <BoringSpellValueText spell={TALENTS_PRIEST.EVANGELISM_TALENT}>
-          <ItemHealingDone amount={evangelismStatistics.reduce((p, c) => p + c.healing, 0)} />
+          <ItemHealingDone amount={this.evangelismActiveHealing + this.extensionHealing} />
         </BoringSpellValueText>
       </Statistic>
     );

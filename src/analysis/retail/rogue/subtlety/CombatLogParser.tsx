@@ -6,16 +6,13 @@ import {
   EnergyCapTracker,
   EnergyDetails,
   EnergyTracker,
-  InvigoratingShadowdust,
-  Sepsis,
-  StealthAbilityFollowingSepsis,
   SpellEnergyCost,
   StealthDamageTracker,
   InstantPoison,
 } from 'analysis/retail/rogue/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
-
+import ComboPointGraph from 'analysis/retail/rogue/shared/ComboPointGraph';
 import Abilities from './modules/Abilities';
 import BlackPowder from './modules/core/BlackPowder';
 import CastsInShadowDance from './modules/core/CastsInShadowDance';
@@ -34,8 +31,20 @@ import VanishFindWeakness from './modules/features/VanishFindWeakness';
 import TheRotten from './modules/talents/TheRotten';
 import DarkShadowContribution from './modules/talents/DarkShadow/DarkShadowContribution';
 import ShurikenStormNormalizer from './normalizers/ShurikenStormNormalizer';
-import Flagellation from 'analysis/retail/rogue/shared/talents/Flagellation';
-import InvigoratingShadowdustTalent from 'analysis/retail/rogue/subtlety/modules/talents/InvigoratingShadowdustTalent';
+import Guide from './Guide';
+import Shadowstrike from './modules/spells/Shadowstrike';
+import SymbolsOfDeath from './modules/spells/SymbolsOfDeath';
+import Backstab from './modules/spells/Backstab';
+import Eviscerate from './modules/spells/Eviscerate';
+import EnergyGraph from 'analysis/retail/rogue/shared/EnergyGraph';
+import BuilderUse from './modules/core/BuilderUse';
+import FinisherUse from './modules/core/FinisherUse';
+import ShadowDance from './modules/spells/ShadowDance';
+import RuptureUptime from './modules/spells/Rupture';
+import FlagellationAnalysis from './modules/spells/Flagellation';
+import { Flagellation } from 'analysis/retail/rogue/shared';
+import ShadowBlades from './modules/spells/ShadowBlades';
+import { ColdBlood } from 'analysis/retail/rogue/shared';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -43,6 +52,9 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     checklist: Checklist,
     alwaysBeCasting: AlwaysBeCasting,
+    danceCooldownReduction: DeepeningShadows,
+    builderUse: BuilderUse,
+    finisherUse: FinisherUse,
 
     //Normalizers
     shurikenStormNormalizer: ShurikenStormNormalizer,
@@ -50,10 +62,12 @@ class CombatLogParser extends CoreCombatLogParser {
     //Resource
     comboPointTracker: ComboPointTracker,
     comboPointDetails: ComboPointDetails,
+    comboPointGraph: ComboPointGraph,
     comboPoints: ComboPoints,
     energyTracker: EnergyTracker,
     energyCapTracker: EnergyCapTracker,
     energyDetails: EnergyDetails,
+    energyGraph: EnergyGraph,
     energy: Energy,
     spellEnergyCost: SpellEnergyCost,
 
@@ -62,11 +76,16 @@ class CombatLogParser extends CoreCombatLogParser {
     danceDamageTracker: DanceDamageTracker,
     stealthDamageTracker: StealthDamageTracker,
 
-    //Legendaries
-    invigoratingShadowdust: InvigoratingShadowdust,
-
-    //Core
-    danceCooldownReduction: DeepeningShadows,
+    //Spells
+    shadowstrike: Shadowstrike,
+    symbolsOfDeath: SymbolsOfDeath,
+    backstab: Backstab,
+    eviscerate: Eviscerate,
+    shadowDance: ShadowDance,
+    flagellationAnalysis: FlagellationAnalysis,
+    shadowBlades: ShadowBlades,
+    flagellation: Flagellation,
+    coldBlood: ColdBlood,
 
     //Casts
     symbolsOfDeathUptime: SymbolsOfDeathUptime,
@@ -76,23 +95,21 @@ class CombatLogParser extends CoreCombatLogParser {
     vanishFindWeakness: VanishFindWeakness,
     generatorFollowingVanish: GeneratorFollowingVanish,
     instantPoison: InstantPoison,
+    ruptureUptime: RuptureUptime,
 
     //Talents
     blackPowder: BlackPowder,
     darkShadowContribution: DarkShadowContribution,
     theRotten: TheRotten,
     deeperDaggers: DeeperDaggers,
-    invigoratingShadowdustTalent: InvigoratingShadowdustTalent,
-    sepsis: Sepsis,
-    stealthAbilityFollowingSepsis: StealthAbilityFollowingSepsis,
     echoingReprimand: EchoingReprimand,
-    flagellation: Flagellation,
 
     // Covenants
 
     // Racials
     arcaneTorrent: [ArcaneTorrent, { gcd: 1000 }] as const,
   };
+  static guide = Guide;
 }
 
 export default CombatLogParser;
