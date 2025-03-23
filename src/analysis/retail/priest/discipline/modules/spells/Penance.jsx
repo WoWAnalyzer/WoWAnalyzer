@@ -29,6 +29,10 @@ class Penance extends Analyzer {
         this.selectedCombatant.getTalentRank(TALENTS_PRIEST.HARSH_DISCIPLINE_TALENT)
       ];
 
+    this.twinsightBolts = this.selectedCombatant.hasTalent(TALENTS_PRIEST.TWINSIGHT_TALENT) ? 3 : 0;
+
+    this._defaultBolts += this.twinsightBolts;
+
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell([SPELLS.PENANCE_CAST, SPELLS.DARK_REPRIMAND_CAST]),
       this.onCast,

@@ -18,7 +18,9 @@ class EnergyCapTracker extends Analyzer {
   protected energyTracker!: EnergyTracker;
 
   get wastedPercent() {
-    return this.energyTracker.rateWaste / 1; //this.naturalRegen || 0;
+    return this.energyTracker.generated > 0
+      ? this.energyTracker.rateWaste / this.energyTracker.generated
+      : 0;
   }
 
   get suggestionThresholds() {

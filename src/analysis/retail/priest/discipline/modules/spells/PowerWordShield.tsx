@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_PRIEST } from 'common/TALENTS';
-import { TIERS } from 'game/TIERS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   AbsorbedEvent,
@@ -10,15 +9,18 @@ import Events, {
 } from 'parser/core/Events';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
-const POWER_WORD_SHIELD_DURATION_MS = 15000;
+const POWER_WORD_SHIELD_DURATION_MS_BASE = 15000;
+const ETERNAL_BARRIER_DURATION_MS_BASE = 5000;
 const WEAL_AND_WOE_BUFF_PER_STACK = 0.05;
-const AEGIS_OF_WRATH_INCREASE = 0.3;
+const ETERNAL_BARRIER_INCREASE = 0.2;
+const PREVENTATIVE_MEASURES_INCREASE = 0.4;
+const INNER_QUIETUS_INCREASE = 0.2;
 
 type ShieldInfo = {
   event: ApplyBuffEvent | RefreshBuffEvent;
   healing: number;
   wealStacks: number | 0;
-  rapture: boolean;
+  eternalBarrierExtensionHealing: number; // Track healing that happens during the extended duration (15-20s)
 };
 
 // when removebuff happens, clear out the entry in the map
@@ -34,23 +36,30 @@ class PowerWordShield extends Analyzer {
 
   decayedShields = 0;
   private shieldApplications: Map<number, ShieldInfo | null> = new Map();
-  shieldOfAbsolutionValue = 0;
   critCount = 0;
   pwsValue = 0;
   wealValue = 0;
-  aegisOfWrathValue = 0;
-  hasVault4p = false;
   hasWeal = false;
+  pwsDuration = 0;
+  eternalBarrierValue = 0;
+  eternalBarrierExtensionHealing = 0; // Value from the extended duration (15-20s)
+  hasEternalBarrier = false;
+  innerQuietusValue = 0;
+  preventativeMeasuresValue = 0;
 
   constructor(options: Options) {
     super(options);
 
+    this.hasEternalBarrier = this.selectedCombatant.hasTalent(
+      TALENTS_PRIEST.ETERNAL_BARRIER_TALENT,
+    );
+
+    this.pwsDuration =
+      POWER_WORD_SHIELD_DURATION_MS_BASE +
+      this.selectedCombatant.getTalentRank(TALENTS_PRIEST.ETERNAL_BARRIER_TALENT) *
+        ETERNAL_BARRIER_DURATION_MS_BASE;
+
     this.hasWeal = this.selectedCombatant.hasTalent(TALENTS_PRIEST.WEAL_AND_WOE_TALENT);
-
-    // This math does not work with the Vault 4p bonus
-    this.hasVault4p = this.selectedCombatant.has4PieceByTier(TIERS.DF1);
-
-    this.active = !this.hasVault4p;
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.POWER_WORD_SHIELD),
@@ -83,9 +92,8 @@ class PowerWordShield extends Analyzer {
       event: event,
       healing: 0,
       wealStacks: this.selectedCombatant.getBuffStacks(SPELLS.WEAL_AND_WOE_BUFF.id),
-      rapture: false,
+      eternalBarrierExtensionHealing: 0,
     });
-    this.shieldOfAbsolutionValue = 0;
   }
 
   onShieldExpiry(event: RemoveBuffEvent) {
@@ -103,54 +111,100 @@ class PowerWordShield extends Analyzer {
     if (
       !info ||
       info.event.timestamp > event.timestamp ||
-      info.event.timestamp + POWER_WORD_SHIELD_DURATION_MS < event.timestamp
+      info.event.timestamp + this.pwsDuration < event.timestamp
     ) {
       return;
     }
-    const initialShieldAmount = info.event.absorb || 0; // the initial amount, from the ApplyBuffEvent/
 
-    const wealBonus =
-      initialShieldAmount -
-      initialShieldAmount / (1 + info.wealStacks * WEAL_AND_WOE_BUFF_PER_STACK);
+    const initialShieldAmount = info.event.absorb || 0;
+    const totalAbsorbed = info.healing;
+    const overAbsorb = event.absorb || 0;
 
-    const aegisOfWrathBonus =
-      initialShieldAmount - initialShieldAmount / (1 + AEGIS_OF_WRATH_INCREASE);
+    const baseShieldAmount = this.calculateBaseShieldAmount(initialShieldAmount, info);
 
-    // the amount that pws absorbed on its own, without buffs
-    const basePowerWordShieldAmount = initialShieldAmount - wealBonus - aegisOfWrathBonus;
+    if (this.hasEternalBarrier) {
+      const ebEffectiveAbsorption = this.calculateEffectiveAbsorption(
+        initialShieldAmount,
+        baseShieldAmount,
+        totalAbsorbed,
+        overAbsorb,
+        ETERNAL_BARRIER_INCREASE,
+      );
+      this.eternalBarrierValue += ebEffectiveAbsorption;
 
-    let totalShielded = info.healing; // this is the amount of healing the shield did
-
-    // If PWS was completely consumed, then we just attribute the entire base shield to PWS (For crystalline reflection module)
-    // Otherwise, just add everything to base PWS (As the shield wasn't consumed enough for any bonus effects to get benefit.)
-
-    const overHeal = event.absorb || 0;
-
-    const didPwsConsume =
-      totalShielded - basePowerWordShieldAmount > 0 ? basePowerWordShieldAmount : totalShielded;
-
-    this.pwsValue += didPwsConsume;
-
-    // this is what's left for (As of 05.05.2023) Weal and Woe and Aegis of Wrath
-    totalShielded -= didPwsConsume;
-
-    const wealValue = (totalShielded: number) =>
-      totalShielded >= wealBonus ? wealBonus : totalShielded;
-
-    let wealIncrease = 0;
-
-    if (totalShielded > 0) {
-      wealIncrease = Math.max(0, wealValue(totalShielded) - overHeal);
-      this.wealValue += wealIncrease;
-      totalShielded -= wealValue(totalShielded);
+      this.eternalBarrierExtensionHealing += info.eternalBarrierExtensionHealing;
     }
 
-    if (overHeal === 0) {
-      this.aegisOfWrathValue += Math.min(aegisOfWrathBonus, totalShielded);
+    if (
+      this.selectedCombatant.hasTalent(TALENTS_PRIEST.WEAL_AND_WOE_TALENT) &&
+      info.wealStacks > 0
+    ) {
+      const wealIncrease = info.wealStacks * WEAL_AND_WOE_BUFF_PER_STACK;
+      const wealEffectiveAbsorption = this.calculateEffectiveAbsorption(
+        initialShieldAmount,
+        baseShieldAmount,
+        totalAbsorbed,
+        overAbsorb,
+        wealIncrease,
+      );
+      this.wealValue += wealEffectiveAbsorption;
     }
+
+    this.pwsValue += Math.max(
+      0,
+      totalAbsorbed -
+        overAbsorb -
+        this.eternalBarrierValue -
+        this.wealValue -
+        this.innerQuietusValue -
+        this.preventativeMeasuresValue,
+    );
 
     this.shieldApplications.set(event.targetID, null);
-    return;
+  }
+
+  private calculateBaseShieldAmount(totalShieldAmount: number, info: ShieldInfo): number {
+    let baseAmount = totalShieldAmount;
+
+    if (this.hasEternalBarrier) {
+      baseAmount /= 1 + ETERNAL_BARRIER_INCREASE;
+    }
+
+    if (this.selectedCombatant.hasTalent(TALENTS_PRIEST.WEAL_AND_WOE_TALENT)) {
+      const wealStacks = info.wealStacks;
+      if (wealStacks > 0) {
+        baseAmount /= 1 + wealStacks * WEAL_AND_WOE_BUFF_PER_STACK;
+      }
+    }
+
+    if (this.selectedCombatant.hasTalent(TALENTS_PRIEST.PREVENTIVE_MEASURES_TALENT)) {
+      baseAmount /= 1 + PREVENTATIVE_MEASURES_INCREASE;
+    }
+
+    if (this.selectedCombatant.hasTalent(TALENTS_PRIEST.INNER_QUIETUS_TALENT)) {
+      baseAmount /= 1 + INNER_QUIETUS_INCREASE;
+    }
+
+    return baseAmount;
+  }
+
+  /**
+   * Calculates the effective absorption attributable to a specific buff
+   * Similar to calculateEffectiveHealing but for shields
+   */
+  private calculateEffectiveAbsorption(
+    totalShieldAmount: number,
+    baseShieldAmount: number,
+    totalAbsorbed: number,
+    overAbsorb: number,
+    relativeIncrease: number,
+  ): number {
+    // calculate the raw amount added by this buff
+    const buffedAmount = totalShieldAmount - baseShieldAmount;
+
+    const effectiveAbsorption = Math.max(0, buffedAmount - overAbsorb);
+
+    return Math.min(effectiveAbsorption, totalAbsorbed);
   }
 
   onPWSAbsorb(event: AbsorbedEvent) {
@@ -158,11 +212,20 @@ class PowerWordShield extends Analyzer {
     if (
       !info ||
       info.event.timestamp > event.timestamp || // not sure how this happens? fabrication stuff?
-      info.event.timestamp + POWER_WORD_SHIELD_DURATION_MS < event.timestamp
+      info.event.timestamp + this.pwsDuration < event.timestamp
     ) {
       return;
     }
-    info.healing += event.amount;
+
+    // If this absorption happened during the extended duration provided by Eternal Barrier, it gets all attribution for that.
+    if (
+      this.hasEternalBarrier &&
+      event.timestamp > info.event.timestamp + POWER_WORD_SHIELD_DURATION_MS_BASE
+    ) {
+      info.eternalBarrierExtensionHealing += event.amount;
+    } else {
+      info.healing += event.amount;
+    }
   }
 }
 

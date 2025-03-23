@@ -26,16 +26,19 @@ class MaelstromWeaponSpenders extends Analyzer {
     abilityTracker: AbilityTracker,
   };
 
-  protected abilities!: Abilities;
-  protected abilityTracker!: AbilityTracker;
-  protected maelstromWeaponTracker!: MaelstromWeaponTracker;
-  protected spenderValues = new Map<number, number>();
-  protected recordNextSpenderAmount: boolean = false;
-  protected primordialStormBreakdown = {
+  private abilities!: Abilities;
+  private abilityTracker!: AbilityTracker;
+  private maelstromWeaponTracker!: MaelstromWeaponTracker;
+  private spenderValues = new Map<number, number>();
+  private recordNextSpenderAmount: boolean = false;
+  private primordialStormBreakdown = {
     [SPELLS.PRIMORDIAL_FIRE.id]: 0,
     [SPELLS.PRIMORDIAL_LIGHTNING.id]: 0,
     [SPELLS.PRIMORDIAL_FROST.id]: 0,
+    [SPELLS.LIGHTNING_BOLT.id]: 0,
+    [TALENTS.CHAIN_LIGHTNING_TALENT.id]: 0,
   };
+  private isPrimordialStormRelatedDamage: boolean = false;
 
   constructor(options: Options) {
     super(options);
@@ -55,6 +58,7 @@ class MaelstromWeaponSpenders extends Analyzer {
 
   onCast(event: CastEvent) {
     this.recordNextSpenderAmount = true;
+    this.isPrimordialStormRelatedDamage = event.ability.guid === SPELLS.PRIMORDIAL_STORM_CAST.id;
     if (event.ability.guid === TALENTS.CHAIN_LIGHTNING_TALENT.id) {
       const damageEvents = GetRelatedEvents<DamageEvent>(
         event,
@@ -79,13 +83,7 @@ class MaelstromWeaponSpenders extends Analyzer {
     if (spellId === SPELLS.LAVA_BURST_DAMAGE.id) {
       spellId = TALENTS.LAVA_BURST_TALENT.id;
     }
-    if (
-      [
-        SPELLS.PRIMORDIAL_FIRE.id,
-        SPELLS.PRIMORDIAL_LIGHTNING.id,
-        SPELLS.PRIMORDIAL_FROST.id,
-      ].includes(spellId)
-    ) {
+    if (this.isPrimordialStormRelatedDamage) {
       this.primordialStormBreakdown[spellId] += event.amount + (event.absorbed ?? 0);
       spellId = SPELLS.PRIMORDIAL_STORM_CAST.id;
     }
@@ -126,6 +124,9 @@ class MaelstromWeaponSpenders extends Analyzer {
               const spell = maybeGetTalentOrSpell(spellId);
 
               const spender = this.maelstromWeaponTracker.spendersObj[spellId];
+              if (!(spender && spell)) {
+                return null;
+              }
               const amount = this.spenderValues.get(spellId)!;
               const avg = formatThousands(amount / spender.casts);
 
@@ -134,8 +135,9 @@ class MaelstromWeaponSpenders extends Analyzer {
                 const tooltip = (
                   <>
                     {Object.keys(this.primordialStormBreakdown).map((x) => {
-                      return (
-                        <div key={x}>
+                      const damage = this.primordialStormBreakdown[Number(x)];
+                      return damage === 0 ? null : (
+                        <div key={`pstorm-${x}`}>
                           <SpellLink spell={Number(x)} />: <DamageIcon />{' '}
                           {formatThousands(
                             this.primordialStormBreakdown[Number(x)] / spender.casts,
@@ -157,7 +159,6 @@ class MaelstromWeaponSpenders extends Analyzer {
               }
 
               return (
-                spender &&
                 spell && (
                   <tr key={spellId}>
                     <td>

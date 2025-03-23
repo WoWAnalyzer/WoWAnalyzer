@@ -72,7 +72,7 @@ class FusionOfElementsNormalizer extends EventsNormalizer {
             ability: spellToAbility(
               SPELLS.FUSION_OF_THE_ELEMENTS_FIRE_BUFF,
               MAGIC_SCHOOLS.ids.PHYSICAL,
-            ),
+            )!,
           });
           activeFusionBuffs[SPELLS.FUSION_OF_THE_ELEMENTS_FIRE_BUFF.id] = 0;
         }
@@ -90,7 +90,7 @@ class FusionOfElementsNormalizer extends EventsNormalizer {
             ability: spellToAbility(
               SPELLS.FUSION_OF_THE_ELEMENTS_NATURE_BUFF,
               MAGIC_SCHOOLS.ids.PHYSICAL,
-            ),
+            )!,
           });
           activeFusionBuffs[SPELLS.FUSION_OF_THE_ELEMENTS_NATURE_BUFF.id] = 0;
         }
@@ -104,7 +104,7 @@ class FusionOfElementsNormalizer extends EventsNormalizer {
               type: EventType.RemoveBuff,
               sourceID: this.selectedCombatant.id,
               targetID: this.selectedCombatant.id,
-              ability: spellToAbility(SPELLS[Number(spellId)], MAGIC_SCHOOLS.ids.PHYSICAL),
+              ability: spellToAbility(SPELLS[Number(spellId)], MAGIC_SCHOOLS.ids.PHYSICAL)!,
               targetIsFriendly: true,
               sourceIsFriendly: true,
             });
@@ -130,7 +130,7 @@ class FusionOfElementsNormalizer extends EventsNormalizer {
       sourceIsFriendly: true,
       type: isRefresh ? EventType.RefreshBuff : EventType.ApplyBuff,
       timestamp: timestamp,
-      ability: spellToAbility(spell, MAGIC_SCHOOLS.ids.PHYSICAL),
+      ability: spellToAbility(spell, MAGIC_SCHOOLS.ids.PHYSICAL)!,
     };
   }
 }

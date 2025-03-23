@@ -1,11 +1,21 @@
 import type Spell from 'common/SPELLS/Spell';
-import { EventType, GetRelatedEvents, CastEvent } from 'parser/core/Events';
+import { TALENTS_MONK } from 'common/TALENTS';
+import SpellLink from 'interface/SpellLink';
+import { EventType, GetRelatedEvents, HasAbility, HasTarget } from 'parser/core/Events';
 import { Condition, tenseAlt } from 'parser/shared/metrics/apl';
-import { Range, formatRange } from 'parser/shared/metrics/apl/conditions';
+import { Range } from 'parser/shared/metrics/apl/conditions';
+import { encodeFriendlyEventTargetString } from 'parser/shared/modules/Entities';
 
 interface Options {
+  lookahead: number;
   targetType: EventType;
   targetSpell: Spell;
+  /**
+   * Use a link relation to get the target count. See `EventLinkNormalizer` for details.
+   *
+   * Takes precedence over other options.
+   */
+  targetLinkRelation: string;
 }
 
 /**
@@ -22,13 +32,20 @@ interface Options {
  *
  **/
 export default function targetsHealed(range: Range, options?: Partial<Options>): Condition<void> {
-  const { targetType: type, targetSpell } = {
+  const {
+    lookahead,
+    targetType: type,
+    targetSpell,
+    targetLinkRelation,
+  } = {
+    lookahead: 100,
     targetType: EventType.Heal,
     ...options,
   };
 
   return {
     key: `targets-healed-${range.atLeast}-${range.atMost}-${type}-${targetSpell?.id || 'default'}`,
+    lookahead: targetLinkRelation ? undefined : lookahead,
     init: () => {}, // eslint-disable-line @typescript-eslint/no-empty-function
     update: () => {}, // eslint-disable-line @typescript-eslint/no-empty-function
     validate: (_state, event, spell, lookahead) => {
@@ -36,25 +53,38 @@ export default function targetsHealed(range: Range, options?: Partial<Options>):
         return false;
       }
       const targets = new Set();
-      const targetSpellId = targetSpell ? targetSpell.id : spell.id;
-      let related = GetRelatedEvents(event as CastEvent, event.ability.name);
-      if (
-        related?.length === 0 &&
-        event.type === EventType.BeginChannel &&
-        event.trigger?.type === EventType.BeginCast &&
-        event.trigger.castEvent
-      ) {
-        related = GetRelatedEvents(event.trigger.castEvent, event.ability.name);
-      }
-      if (event.ability.guid === targetSpellId && related.length > 0) {
-        for (const linkedEvent of related) {
-          targets.add(linkedEvent);
+      if (targetLinkRelation) {
+        const events = GetRelatedEvents(event, targetLinkRelation);
+        for (const linkedEvent of events) {
+          targets.add(encodeFriendlyEventTargetString(linkedEvent));
+        }
+      } else {
+        const targetSpellId = targetSpell ? targetSpell.id : spell.id;
+        for (const fwdEvent of lookahead) {
+          if (
+            fwdEvent.type === type &&
+            HasAbility(fwdEvent) &&
+            HasTarget(fwdEvent) &&
+            fwdEvent.ability.guid === targetSpellId
+          ) {
+            if (fwdEvent.targetIsFriendly) {
+              targets.add(encodeFriendlyEventTargetString(fwdEvent));
+            }
+          }
         }
       }
+
+      console.log(targets);
       return (
         targets.size >= (range.atLeast || 0) && (!range.atMost || targets.size <= range.atMost)
       );
     },
-    describe: (tense) => `it ${tenseAlt(tense, 'would', 'will')} hit ${formatRange(range)} targets`,
+    describe: (tense) => (
+      <>
+        you {tenseAlt(tense, 'have', 'had')} {range.atLeast} active{' '}
+        <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />
+        s.
+      </>
+    ),
   };
 }

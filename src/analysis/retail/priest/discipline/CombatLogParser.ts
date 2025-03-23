@@ -67,7 +67,6 @@ import WordsOfThePious from './modules/spells/WordsOfThePious';
 
 import Amirdrassil4p from './modules/spells/Amirdrassil4p';
 
-import VoidSummoner from './modules/spells/VoidSummoner';
 import ShadowCovenant from './modules/spells/ShadowCovenant/ShadowCovenant';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -144,7 +143,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     amirdrassil4p: Amirdrassil4p,
 
-    voidSummoner: VoidSummoner,
     translucentImage: TranslucentImage,
     shadowCovenant: ShadowCovenant,
 

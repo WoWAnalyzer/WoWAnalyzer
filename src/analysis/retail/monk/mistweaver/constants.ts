@@ -100,7 +100,6 @@ export const TEAR_OF_MORNING_INVIG_INCREASE = 0.1;
 export const TEAR_OF_MORNING_ENV_INCREASE = 0.12;
 export const CALMING_COALESCENCE_INCREASE = 0.8;
 export const RUSHING_WIND_KICK_INCREASE = 1.5;
-export const RESPLENDENT_MISTS_INC = 0.6;
 
 export const ATTRIBUTION_STRINGS = {
   BOUNCED: 'Bounced',

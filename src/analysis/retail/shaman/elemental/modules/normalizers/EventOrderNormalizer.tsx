@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS/shaman';
+import TALENTS from 'common/TALENTS/shaman';
 import { Options } from 'parser/core/Analyzer';
 import BaseEventOrderNormalizer from 'parser/core/EventOrderNormalizer';
 import { EventType } from 'parser/core/Events';
@@ -28,6 +29,18 @@ class EventOrderNormalizer extends BaseEventOrderNormalizer {
         anySource: true,
         anyTarget: true,
         bufferMs: 25,
+        updateTimestamp: true,
+        maxMatches: 1,
+      },
+      // Ascendance cast needs to occur before the buff is applied
+      {
+        beforeEventId: TALENTS.ASCENDANCE_ELEMENTAL_TALENT.id,
+        beforeEventType: EventType.Cast,
+        afterEventId: SPELLS.ASCENDANCE_ELEMENTAL_BUFF.id,
+        afterEventType: EventType.ApplyBuff,
+        anySource: true,
+        anyTarget: true,
+        bufferMs: 5,
         updateTimestamp: true,
         maxMatches: 1,
       },
