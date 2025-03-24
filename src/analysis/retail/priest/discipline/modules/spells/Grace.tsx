@@ -55,10 +55,6 @@ class Grace extends Analyzer {
   onAbsorb(event: AbsorbedEvent) {
     const spellId = event.ability.guid;
 
-    if (event.ability.guid === SPELLS.SPIRIT_SHELL_TALENT_BUFF.id) {
-      return;
-    }
-
     if (!PRIEST_WHITELIST.includes(spellId)) {
       this.healingUnaffectedByMastery += event.amount;
       return;

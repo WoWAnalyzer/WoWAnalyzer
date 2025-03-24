@@ -49,6 +49,13 @@ import {
   FistsOfFuryNormalizer,
 } from './normalizers/FistsOfFuryNormalizer';
 import HeartOfTheJadeSerpent from './modules/spells/HeartOfTheJadeSerpent';
+import LastEmperorsCapacitorGraph from './modules/talents/LastEmperorsCapacitorGraph';
+import LastEmperorsCapacitorTracker from './modules/talents/LastEmperorsCapacitorTracker';
+import {
+  CracklingJadeLightningLinkNormalizer,
+  CracklingJadeLightningNormalizer,
+} from './normalizers/CracklingJadeLightningNormalizer';
+import CelestialConduit from './modules/talents/CelestialConduit';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -60,6 +67,8 @@ class CombatLogParser extends CoreCombatLogParser {
     chiJiNormalizer: DanceOfChiJiNormalizer,
     fofNormalizer: FistsOfFuryNormalizer,
     fofLinkNormalizer: FistsOfFuryLinkNormalizer,
+    cracklingJadeLightningNormalizer: CracklingJadeLightningNormalizer,
+    cracklingJadeLightningLinkNormalizer: CracklingJadeLightningLinkNormalizer,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -81,10 +90,13 @@ class CombatLogParser extends CoreCombatLogParser {
     strikeoftheWindlord: StrikeoftheWindlord,
     chiBurst: ChiBurst,
     heartOfTheJadeSerpent: HeartOfTheJadeSerpent,
+    celestialConduit: CelestialConduit,
 
     // Guide helpers
     hitComboTracker: HitComboTracker,
     hitComboGraph: HitComboGraph,
+    lastEmperorsCapacitorTracker: LastEmperorsCapacitorTracker,
+    lastEmperorsCapacitorGraph: LastEmperorsCapacitorGraph,
 
     // Spells;
     comboBreaker: ComboBreaker,

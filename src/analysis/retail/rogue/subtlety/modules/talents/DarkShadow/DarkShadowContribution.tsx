@@ -16,16 +16,17 @@ class DarkShadowContribution extends DarkShadow {
   protected danceDamageTracker!: DanceDamageTracker;
 
   get darkShadowDamageFactor() {
-    return this.selectedCombatant.getTalentRank(TALENTS.DARK_SHADOW_TALENT) * 0.15;
+    const factor = this.selectedCombatant.getTalentRank(TALENTS.DARK_SHADOW_TALENT) * 0.15;
+    return factor;
   }
 
   statistic() {
     const danceDamage =
-      (Object.keys(this.danceDamageTracker.abilities)
-        .map(
-          (abilityId) =>
-            this.danceDamageTracker.abilities.get(parseInt(abilityId))?.damageVal.effective || 0,
-        )
+      (Array.from(this.danceDamageTracker.abilities.values())
+        .map((ability) => {
+          const damage = ability.damageVal.effective || 0;
+          return damage;
+        })
         .reduce((a, b) => a + b, 0) *
         this.darkShadowDamageFactor) /
       (1 + this.darkShadowDamageFactor);

@@ -1,7 +1,7 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/shaman';
+import SPELLS from 'common/SPELLS/shaman';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -21,6 +21,7 @@ import Events, {
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import {
   evaluateQualitativePerformanceByThreshold,
+  getAveragePerf,
   QualitativePerformance,
 } from 'parser/ui/QualitativePerformance';
 import MajorCooldown, { CooldownTrigger } from 'parser/core/MajorCooldowns/MajorCooldown';
@@ -117,7 +118,7 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
     );
     if (this.selectedCombatant.hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT)) {
       this.addEventListener(
-        Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.ASCENDANCE_ELEMENTAL_TALENT),
+        Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ASCENDANCE_ELEMENTAL_BUFF),
         this.onApplyAscendance,
       );
       this.addEventListener(
@@ -126,7 +127,7 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
       );
     }
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.ASCENDANCE_ELEMENTAL_TALENT),
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.ASCENDANCE_ELEMENTAL_BUFF),
       this.onAscendanceEnd,
     );
     this.addEventListener(Events.fightend, this.onFightEnd);
@@ -222,19 +223,6 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
     return this.casts.flatMap((c) =>
       c.timeline.events.filter((e) => e.type === EventType.BeginCast),
     ) as BeginCastEvent[];
-  }
-
-  get suggestionThresholds() {
-    const otherCasts = this.spellCasts.filter(
-      (e) => ![TALENTS.LAVA_BURST_TALENT.id, ...maelstromSpenders].includes(e.ability.guid),
-    ).length;
-    return {
-      actual: otherCasts,
-      isGreaterThan: {
-        major: 0,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
   }
 
   statistic() {
@@ -350,7 +338,7 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
     return {
       event: cast.event,
       checklistItems: checklistItems,
-      performance: QualitativePerformance.Perfect,
+      performance: getAveragePerf(checklistItems.map((i) => i.performance)),
       performanceExplanation: 'Usage',
       extraDetails: timeline,
     };
@@ -361,14 +349,17 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
   }
 
   explainEndingMaelstrom(cast: AscendanceCooldownCast): ChecklistUsageInfo {
+    const missedSpenders = Math.floor(cast.endingMaelstrom / this.spenderCost);
+
     return {
       check: 'ending-maelstrom',
       timestamp: cast.event.timestamp,
       performance: evaluateQualitativePerformanceByThreshold({
-        actual: cast.endingMaelstrom,
-        isLessThan: {
-          perfect: this.spenderCost,
-          ok: this.spenderCost + 1,
+        actual: missedSpenders,
+        isLessThanOrEqual: {
+          perfect: 0,
+          good: 1,
+          ok: 2,
         },
       }),
       summary: (
@@ -382,8 +373,7 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
           {cast.endingMaelstrom} <ResourceLink id={RESOURCE_TYPES.MAELSTROM.id} />.{' '}
           {cast.endingMaelstrom > this.spenderCost ? (
             <>
-              You could have cast {Math.floor(cast.endingMaelstrom / this.spenderCost)} more{' '}
-              <SpellLink spell={this.spender.spell} />
+              You could have cast {missedSpenders} more <SpellLink spell={this.spender.spell} />
               's
             </>
           ) : null}
@@ -394,7 +384,7 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
 
   explainSpenderPerformance(cast: AscendanceCooldownCast) {
     const spendersCast = cast.timeline.events.filter(
-      (e) => e.type === EventType.BeginCast && maelstromSpenders.includes(e.ability.guid),
+      (e) => e.type === EventType.Cast && maelstromSpenders.includes(e.ability.guid),
     ).length;
     return {
       check: 'spender-casts',
@@ -412,20 +402,6 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
           <CooldownUsage analyzer={this} title="Ascendance" />
         </>
       )
-    );
-  }
-
-  suggestions(when: When) {
-    const abilities = `Lava Burst and ${
-      this.selectedCombatant.hasTalent(TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT)
-        ? ` Elemental Blast `
-        : ` Earth Shock`
-    }`;
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(<span>Maximize your damage during ascendance by only using {abilities}.</span>)
-        .icon(TALENTS.ASCENDANCE_ELEMENTAL_TALENT.icon)
-        .actual(`${actual} other casts during Ascendence`)
-        .recommended(`Only cast ${abilities} during Ascendence.`),
     );
   }
 }

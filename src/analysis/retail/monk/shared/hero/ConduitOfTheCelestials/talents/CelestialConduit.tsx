@@ -38,7 +38,7 @@ import SpellLink from 'interface/SpellLink';
 import { PerformanceMark } from 'interface/guide';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 
-interface CastInfo {
+export interface CastInfo {
   cancelled: boolean;
   timestamp: number;
   // map talent to remaining cd before cast (-1 if not on cd)
@@ -72,9 +72,7 @@ class CelestialConduit extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active =
-      this.selectedCombatant.hasTalent(TALENTS_MONK.CELESTIAL_CONDUIT_TALENT) &&
-      this.selectedCombatant.spec === SPECS.MISTWEAVER_MONK;
+    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.CELESTIAL_CONDUIT_TALENT);
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS_MONK.CELESTIAL_CONDUIT_TALENT),
@@ -201,7 +199,7 @@ class CelestialConduit extends Analyzer {
     return QualitativePerformance.Fail;
   }
 
-  private getChecklistForCast(castInfo: CastInfo): {
+  protected getChecklistForCast(castInfo: CastInfo): {
     perf: QualitativePerformance;
     items: CooldownExpandableItem[];
   } {
