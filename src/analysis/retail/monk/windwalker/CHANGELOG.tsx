@@ -5,6 +5,7 @@ import { Durpn, emallson } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2025, 3, 21), <>Fix incorrect counting of hit <SpellLink spell={SPELLS.CRACKLING_JADE_LIGHTNING} /> ticks in cleave situations</>, Durpn),
   change(date(2025, 3, 21), <>Add <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_TALENT} /> clip analysis</>, Durpn),
   change(date(2025, 3, 21), <>Add <SpellLink spell={TALENTS_MONK.LAST_EMPERORS_CAPACITOR_TALENT} /> tracking</>, Durpn),
   change(date(2025, 3, 20), <>Update cooldowns of <SpellLink spell={TALENTS_MONK.INVOKE_XUEN_THE_WHITE_TIGER_TALENT} /> and <SpellLink spell={TALENTS_MONK.STRIKE_OF_THE_WINDLORD_TALENT} /> based on talents</>, Durpn),
