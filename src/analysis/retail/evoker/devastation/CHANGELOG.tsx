@@ -5,6 +5,7 @@ import { TALENTS_EVOKER } from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS/evoker';
 
 export default [
+  change(date(2025, 3, 25), <>Implement <SpellLink spell={TALENTS_EVOKER.FLAME_SIPHON_TALENT}/> module</>, Vollmer), 
   change(date(2025, 3, 24), <>Add a Guide Section for <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT}/></>, Vollmer),
   change(date(2025, 3, 3), <>Implement TWW S2 4pc module</>, Vollmer),
   change(date(2025, 2, 25), <>Update various modules & abilities for 11.1</>, Vollmer),
