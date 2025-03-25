@@ -1,6 +1,7 @@
 import { FLAME_SIPHON_CDR_MS } from 'analysis/retail/evoker/shared/constants';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/evoker';
+import SPECS from 'game/SPECS';
 import SpellLink from 'interface/SpellLink';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
@@ -11,21 +12,30 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-/** Engulf reduces the cooldown of Fire Breath by 6 sec. */
+/** Engulf reduces the cooldown of Fire Breath and Dream Breath by 6 sec. */
 class FlameSiphon extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
   };
   protected spellUsable!: SpellUsable;
 
-  totalEffectiveCDR = 0;
-  totalWastedCDR = 0;
+  totalEffectiveFireBreathCDR = 0;
+  totalWastedFireBreathCDR = 0;
+
+  totalEffectiveDreamBreathCDR = 0;
+  totalWastedDreamBreathCDR = 0;
 
   fireBreathSpell =
     this.selectedCombatant.hasTalent(TALENTS.FONT_OF_MAGIC_DEVASTATION_TALENT) ||
     this.selectedCombatant.hasTalent(TALENTS.FONT_OF_MAGIC_PRESERVATION_TALENT)
       ? SPELLS.FIRE_BREATH_FONT
       : SPELLS.FIRE_BREATH;
+
+  dreamBreathSpell =
+    this.selectedCombatant.specId === SPECS.PRESERVATION_EVOKER.id &&
+    (this.selectedCombatant.hasTalent(TALENTS.FONT_OF_MAGIC_PRESERVATION_TALENT)
+      ? SPELLS.DREAM_BREATH_FONT
+      : TALENTS.DREAM_BREATH_TALENT);
 
   constructor(options: Options) {
     super(options);
@@ -38,29 +48,57 @@ class FlameSiphon extends Analyzer {
   }
 
   onCast(event: CastEvent) {
-    const effectiveCDR = this.spellUsable.reduceCooldown(
+    const effectiveFireBreathCDR = this.spellUsable.reduceCooldown(
       this.fireBreathSpell.id,
       FLAME_SIPHON_CDR_MS,
     );
-    const wastedCDR = FLAME_SIPHON_CDR_MS - effectiveCDR;
+    const wastedFireBreathCDR = FLAME_SIPHON_CDR_MS - effectiveFireBreathCDR;
 
-    this.totalEffectiveCDR += effectiveCDR / 1_000;
-    this.totalWastedCDR += wastedCDR / 1_000;
+    this.totalEffectiveFireBreathCDR += effectiveFireBreathCDR / 1_000;
+    this.totalWastedFireBreathCDR += wastedFireBreathCDR / 1_000;
+
+    if (!this.dreamBreathSpell) {
+      return;
+    }
+
+    const effectiveDreamBreathCDR = this.spellUsable.reduceCooldown(
+      this.dreamBreathSpell.id,
+      FLAME_SIPHON_CDR_MS,
+    );
+    const wastedDreamBreathCDR = FLAME_SIPHON_CDR_MS - effectiveDreamBreathCDR;
+
+    this.totalEffectiveDreamBreathCDR += effectiveDreamBreathCDR / 1_000;
+    this.totalWastedDreamBreathCDR += wastedDreamBreathCDR / 1_000;
   }
 
   statistic() {
-    const effectiveCDRItems = [
+    const effectiveFireBreathCDRItems = [
       {
         color: 'rgb(123,188,93)',
         label: 'Effective CDR',
-        valueTooltip: this.totalEffectiveCDR.toFixed(2) + 's effective CDR',
-        value: this.totalEffectiveCDR,
+        valueTooltip: this.totalEffectiveFireBreathCDR.toFixed(2) + 's effective CDR',
+        value: this.totalEffectiveFireBreathCDR,
       },
       {
         color: 'rgb(216,59,59)',
         label: 'Wasted CDR',
-        valueTooltip: this.totalWastedCDR.toFixed(2) + 's CDR wasted',
-        value: this.totalWastedCDR,
+        valueTooltip: this.totalWastedFireBreathCDR.toFixed(2) + 's CDR wasted',
+        value: this.totalWastedFireBreathCDR,
+      },
+    ];
+
+    const effectiveDreamBreathCDRItems = this.dreamBreathSpell && [
+      {
+        color: 'rgb(123,188,93)',
+        label: 'Effective CDR',
+        valueTooltip: this.totalEffectiveDreamBreathCDR.toFixed(2) + 's effective CDR',
+        value: this.totalEffectiveDreamBreathCDR,
+      },
+      {
+        color: 'rgb(216,59,59)',
+        label: 'Wasted CDR',
+        valueTooltip: this.totalWastedDreamBreathCDR.toFixed(2) + 's CDR wasted',
+        value: this.totalWastedDreamBreathCDR,
       },
     ];
 
@@ -74,9 +112,15 @@ class FlameSiphon extends Analyzer {
           <label>
             <SpellLink spell={TALENTS.FLAME_SIPHON_TALENT} />
           </label>
-          <strong>CDR efficiency:</strong>
-          <DonutChart items={effectiveCDRItems} />
+          <SpellLink spell={SPELLS.FIRE_BREATH} /> CDR:
+          <DonutChart items={effectiveFireBreathCDRItems} />
         </div>
+        {effectiveDreamBreathCDRItems && (
+          <div className="pad">
+            <SpellLink spell={SPELLS.DREAM_BREATH} /> CDR:
+            <DonutChart items={effectiveDreamBreathCDRItems} />
+          </div>
+        )}
       </Statistic>
     );
   }
