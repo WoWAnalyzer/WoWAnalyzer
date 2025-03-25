@@ -4,6 +4,7 @@ import { change, date } from 'common/changelog';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2025, 3, 22), 'Update APL with support for Ravager Slayer', Nevdok),
   change(date(2025, 3, 1), 'Update config to reflect 11.1 support', Nevdok),
   change(date(2025, 2, 24), 'Update Arms APL for 11.1', Nevdok),
   change(date(2025, 1, 9), 'Add support for Colossus hero spec', Nevdok),

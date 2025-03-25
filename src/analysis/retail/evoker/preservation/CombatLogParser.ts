@@ -74,6 +74,7 @@ import {
   MotesOfAcceleration,
   TimeSpiral,
   MobilityCastLinkNormalizer,
+  FlameSiphon,
 } from '../shared';
 import T32Prevoker from './modules/tier/T32TierSet';
 import T33Prevoker from './modules/tier/T33TierSet';
@@ -170,6 +171,7 @@ class CombatLogParser extends CoreCombatLogParser {
     timeConvergence: TimeConvergence,
     masterOfDestiny: MasterOfDestiny,
     motesOfAcceleration: MotesOfAcceleration,
+    flameSiphon: FlameSiphon,
 
     // other
     t32Prevoker: T32Prevoker,

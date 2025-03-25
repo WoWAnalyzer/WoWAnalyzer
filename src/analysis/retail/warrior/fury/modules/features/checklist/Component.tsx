@@ -26,14 +26,9 @@ const FuryWarriorChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
         description="Your cooldowns are an important contributor to your damage throughput. Try to get in as many efficient casts as the fight allows."
       >
         <AbilityRequirement spell={SPELLS.RECKLESSNESS.id} />
-        <Requirement
-          name={
-            <>
-              <SpellLink spell={SPELLS.WHIRLWIND_FURY_CAST} />{' '}
-            </>
-          }
-          thresholds={thresholds.whirlWind}
-        />
+        {castEfficiency.getCastEfficiencyForSpellId(SPELLS.BLADESTORM.id) && (
+          <AbilityRequirement spell={SPELLS.BLADESTORM.id} />
+        )}
         {/* We can't detect race, so disable this when it has never been cast. */}
         {castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_RAGE.id) && (
           <AbilityRequirement spell={SPELLS.ARCANE_TORRENT_RAGE.id} />
