@@ -5,7 +5,7 @@ import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHea
 import SPELLS from 'common/SPELLS/classic/paladin';
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
-  static HEALING_ABILITIES_ON_GCD: number[] = [
+  HEALING_ABILITIES_ON_GCD: number[] = [
     // List of healing spells on GCD
     SPELLS.FLASH_OF_LIGHT.id,
     SPELLS.HOLY_LIGHT.id,

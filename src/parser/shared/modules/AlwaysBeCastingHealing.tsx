@@ -9,14 +9,11 @@ import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 const DEBUG = false;
 
-interface HealingAbilityList {
-  HEALING_ABILITIES_ON_GCD: number[];
-}
-
 class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
-  HEALING_ABILITIES_ON_GCD: number[] = [
-    // Extend this class and override this property in your spec class to implement this module.
-  ];
+  /**
+   * A list of healing spell IDs that are on the GCD. Override this property to allow the computation of healing uptime.
+   */
+  HEALING_ABILITIES_ON_GCD: number[] = [];
 
   /** Memoized total active time (ms) */
   private activeHealingTimeMemo: number | undefined = 0;
@@ -26,10 +23,7 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
   private memoHealingEndTime: number | undefined;
 
   isHealingAbility(event: EndChannelEvent | GlobalCooldownEvent): boolean {
-    // TODO: fix this typecasting. can just be an instance method overridden by subclasses to avoid type nonsense
-    return (this.constructor as unknown as HealingAbilityList).HEALING_ABILITIES_ON_GCD.includes(
-      event.ability.guid,
-    );
+    return this.HEALING_ABILITIES_ON_GCD.includes(event.ability.guid);
   }
 
   onFightEnd() {
