@@ -95,6 +95,7 @@ import Coalesence from '../shared/hero/MasterOfHarmony/talents/Coalesence';
 import AspectOfHarmony from './modules/heroTalents/AspectOfHarmony';
 import RushingWindKick from './modules/spells/RushingWindKick';
 import T33TierSet from './modules/tier/T33TierSet';
+import JadeEmpowerment from './modules/spells/JadeEmpowerment';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -193,6 +194,7 @@ class CombatLogParser extends CoreCombatLogParser {
     chiHarmony: ChiHarmony,
     poolOfMists: PoolOfMists,
     rushingWindKick: RushingWindKick,
+    jadeEmpowerment: JadeEmpowerment,
 
     // Hero Talents
     // Conduit
