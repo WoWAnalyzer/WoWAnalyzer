@@ -16,10 +16,12 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       <Section title="Core Spells and Buffs">
         <MasteryGraph modules={modules} events={events} info={info} />
         {info.combatant.hasTalent(TALENTS_MONK.CELESTIAL_CONDUIT_TALENT) &&
-          modules.heartOfTheJadeSerpent.guideSubsection}
+          modules.heartOfTheJadeSerpent.guideSubsection(modules.celestialConduit.clipAnalysis)}
         {modules.risingSunKick.guideSubsection}
         {modules.fistsofFury.guideSubsection}
         {modules.strikeoftheWindlord.guideSubsection}
+        {info.combatant.hasTalent(TALENTS_MONK.LAST_EMPERORS_CAPACITOR_TALENT) &&
+          modules.lastEmperorsCapacitor.guideSubsection(modules.lastEmperorsCapacitorGraph.plot)}
       </Section>
       <Section title="Major cooldowns">{modules.invokeXuen.guideSubsection}</Section>
       <Section title="Core Rotation">

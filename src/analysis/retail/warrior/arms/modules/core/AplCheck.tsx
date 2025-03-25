@@ -88,33 +88,6 @@ export const buildSlayerApl = (
       ),
     },
 
-    // OP inside execute with Opp
-    {
-      spell: SPELLS.OVERPOWER,
-      condition: cnd.and(
-        cnd.buffPresent(SPELLS.OPPORTUNIST),
-        cnd.buffStacks(TALENTS.OVERPOWER_TALENT, { atMost: 1 }), // Martial Prowess buff
-        cnd.hasResource(RESOURCE_TYPES.RAGE, { atMost: 850 }),
-        cnd.inExecute(executeThreshold),
-      ),
-      description: (
-        <>
-          Cast <SpellLink spell={SPELLS.OVERPOWER} /> while in execute range with the following
-          conditions:
-          <ul>
-            <li>
-              You have the <SpellLink spell={SPELLS.OPPORTUNIST} /> buff
-            </li>
-            <li>You are below 85 rage</li>
-            <li>
-              You have fewer than 2 stacks of{' '}
-              <SpellLink spell={TALENTS.OVERPOWER_TALENT}> Martial Prowess</SpellLink>{' '}
-            </li>
-          </ul>
-        </>
-      ),
-    },
-
     // SkS inside execute
     {
       spell: TALENTS.SKULLSPLITTER_TALENT,
@@ -129,6 +102,70 @@ export const buildSlayerApl = (
           (Optional) Cast <SpellLink spell={TALENTS.SKULLSPLITTER_TALENT} /> while below 40 rage and
           in execute range. You can gamble on getting enough rage from other sources, but on average
           it's best to avoid that.
+        </>
+      ),
+    },
+
+    // OP inside execute with Opp (no rav)
+    {
+      spell: SPELLS.OVERPOWER,
+      condition: cnd.and(
+        cnd.buffPresent(SPELLS.OPPORTUNIST),
+        cnd.buffStacks(TALENTS.OVERPOWER_TALENT, { atMost: 1 }), // Martial Prowess buff
+        cnd.inExecute(executeThreshold),
+        cnd.not(cnd.hasTalent(TALENTS.RAVAGER_TALENT)),
+      ),
+      description: (
+        <>
+          Cast <SpellLink spell={SPELLS.OVERPOWER} /> while in execute range with the following
+          conditions:
+          <ul>
+            <li>
+              You have the <SpellLink spell={SPELLS.OPPORTUNIST} /> buff
+            </li>
+            <li>
+              You have fewer than 2 stacks of{' '}
+              <SpellLink spell={TALENTS.OVERPOWER_TALENT}> Martial Prowess</SpellLink>{' '}
+            </li>
+            <li>
+              You are below 85 rage, if playing the <SpellLink spell={TALENTS.RAVAGER_TALENT} />{' '}
+              variant of Slayer
+            </li>
+          </ul>
+        </>
+      ),
+    },
+
+    // OP inside execute with Opp (no rav)
+    {
+      spell: SPELLS.OVERPOWER,
+      condition: cnd.and(
+        cnd.buffPresent(SPELLS.OPPORTUNIST),
+        cnd.buffStacks(TALENTS.OVERPOWER_TALENT, { atMost: 1 }), // Martial Prowess buff
+        cnd.inExecute(executeThreshold),
+        cnd.and(
+          cnd.hasTalent(TALENTS.RAVAGER_TALENT),
+          cnd.hasResource(RESOURCE_TYPES.RAGE, { atMost: 850 }),
+        ),
+      ),
+      description: (
+        <>
+          Cast <SpellLink spell={SPELLS.OVERPOWER} /> while in execute range with the following
+          conditions:
+          <ul>
+            <li>
+              You have the <SpellLink spell={SPELLS.OPPORTUNIST} /> buff
+            </li>
+
+            <li>
+              You have fewer than 2 stacks of{' '}
+              <SpellLink spell={TALENTS.OVERPOWER_TALENT}> Martial Prowess</SpellLink>{' '}
+            </li>
+            <li>
+              You are below 85 rage, if playing the <SpellLink spell={TALENTS.RAVAGER_TALENT} />{' '}
+              variant of Slayer
+            </li>
+          </ul>
         </>
       ),
     },
@@ -179,23 +216,6 @@ export const buildSlayerApl = (
       description: (
         <>
           Cast <SpellLink spell={executeSpell} /> while in execute range
-        </>
-      ),
-    },
-
-    // OP with FF outside execute
-    {
-      spell: SPELLS.OVERPOWER,
-      condition: cnd.and(
-        cnd.hasTalent(TALENTS.FIERCE_FOLLOWTHROUGH_TALENT),
-        cnd.spellCharges(SPELLS.OVERPOWER, { atLeast: 2 }),
-        cnd.buffPresent(SPELLS.WINNING_STREAK_BUFF_ARMS),
-        cnd.not(cnd.inExecute(executeThreshold)),
-      ),
-      description: (
-        <>
-          Cast <SpellLink spell={SPELLS.OVERPOWER} /> when you have 2 charges available and have the{' '}
-          <SpellLink spell={SPELLS.WINNING_STREAK_BUFF_ARMS} /> buff
         </>
       ),
     },
@@ -287,13 +307,13 @@ export const buildColossusApl = (
       spell: TALENTS.SKULLSPLITTER_TALENT,
       condition: cnd.optionalRule(
         cnd.and(
-          cnd.hasResource(RESOURCE_TYPES.RAGE, { atMost: 850 }), // rage is logged 10x higher than the player's "real" value
+          cnd.hasResource(RESOURCE_TYPES.RAGE, { atMost: 400 }), // rage is logged 10x higher than the player's "real" value
           cnd.inExecute(executeThreshold),
         ),
       ),
       description: (
         <>
-          (Optional) Cast <SpellLink spell={TALENTS.SKULLSPLITTER_TALENT} /> while below 85 rage and
+          (Optional) Cast <SpellLink spell={TALENTS.SKULLSPLITTER_TALENT} /> while below 40 rage and
           in execute range. You can gamble on getting enough rage from other sources, but on average
           it's best to avoid that.
         </>
@@ -318,16 +338,47 @@ export const buildColossusApl = (
       ),
     },
 
+    // MS in exe with BL, 1+ EP
+    {
+      spell: SPELLS.MORTAL_STRIKE,
+      condition: cnd.and(
+        cnd.debuffStacks(SPELLS.EXECUTIONERS_PRECISION_DEBUFF, { atLeast: 1 }),
+        cnd.inExecute(executeThreshold),
+        cnd.hasTalent(TALENTS.BATTLELORD_TALENT),
+      ),
+      description: (
+        <>
+          Cast <SpellLink spell={SPELLS.MORTAL_STRIKE} /> while in execute range with at least 1
+          stack of <SpellLink spell={SPELLS.EXECUTIONERS_PRECISION_DEBUFF} /> if you have the{' '}
+          <SpellLink spell={TALENTS.BATTLELORD_TALENT} /> talent
+        </>
+      ),
+    },
+
+    // MS in exe without EP
+    {
+      spell: SPELLS.MORTAL_STRIKE,
+      condition: cnd.and(
+        cnd.inExecute(executeThreshold),
+        cnd.not(cnd.hasTalent(TALENTS.EXECUTIONERS_PRECISION_TALENT)),
+      ),
+      description: (
+        <>
+          Cast <SpellLink spell={SPELLS.MORTAL_STRIKE} /> in execute range
+        </>
+      ),
+    },
+
     // OP in exe
     {
       spell: SPELLS.OVERPOWER,
       condition: cnd.and(
-        cnd.hasResource(RESOURCE_TYPES.RAGE, { atMost: 500 }),
+        cnd.hasResource(RESOURCE_TYPES.RAGE, { atMost: 900 }),
         cnd.inExecute(executeThreshold),
       ),
       description: (
         <>
-          Cast <SpellLink spell={SPELLS.OVERPOWER} /> in execute range when you are below 50 rage
+          Cast <SpellLink spell={SPELLS.OVERPOWER} /> in execute range when you are below 90 rage
         </>
       ),
     },
@@ -343,17 +394,6 @@ export const buildColossusApl = (
       description: (
         <>
           Cast <SpellLink spell={executeSpell} /> while above 40 rage in execute range
-        </>
-      ),
-    },
-
-    // SkS (in exe)
-    {
-      spell: TALENTS.SKULLSPLITTER_TALENT,
-      condition: cnd.inExecute(executeThreshold),
-      description: (
-        <>
-          Cast <SpellLink spell={TALENTS.SKULLSPLITTER_TALENT} /> in execute range
         </>
       ),
     },
@@ -376,17 +416,6 @@ export const buildColossusApl = (
       description: (
         <>
           Cast <SpellLink spell={executeSpell} /> in execute range
-        </>
-      ),
-    },
-
-    // MS in exe
-    {
-      spell: SPELLS.MORTAL_STRIKE,
-      condition: cnd.inExecute(executeThreshold),
-      description: (
-        <>
-          Cast <SpellLink spell={SPELLS.MORTAL_STRIKE} /> in execute range
         </>
       ),
     },

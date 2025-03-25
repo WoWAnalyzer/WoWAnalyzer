@@ -147,7 +147,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS_MONK.INVOKE_XUEN_THE_WHITE_TIGER_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 120,
+        cooldown: combatant.hasTalent(TALENTS_MONK.XUENS_BOND_TALENT) ? 90 : 120,
         gcd: {
           base: 1000,
           minimum: 750,
@@ -160,7 +160,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS_MONK.STRIKE_OF_THE_WINDLORD_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 40,
+        cooldown: combatant.hasTalent(TALENTS_MONK.COMMUNION_WITH_WIND_TALENT) ? 30 : 40,
         gcd: {
           static: 1000,
         },

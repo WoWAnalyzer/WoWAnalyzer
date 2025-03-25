@@ -3,13 +3,18 @@ import TALENTS from 'common/TALENTS/evoker';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import { Options } from 'parser/core/Module';
 import {
+  ApplyBuffEvent,
+  ApplyBuffStackEvent,
   ApplyDebuffEvent,
   CastEvent,
   DamageEvent,
+  EmpowerEndEvent,
   EventType,
+  GetRelatedEvent,
   GetRelatedEvents,
   HasRelatedEvent,
   RefreshDebuffEvent,
+  RemoveBuffEvent,
 } from 'parser/core/Events';
 import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
 import { TIERS } from 'game/TIERS';
@@ -28,11 +33,17 @@ export const MASS_DISINTEGRATE_CONSUME = 'MassDisintegrateConsume';
 export const MASS_DISINTEGRATE_TICK = 'MassDisintegrateTick';
 export const MASS_DISINTEGRATE_DEBUFF = 'MassDisintegrateDebuff';
 export const JACKPOT_CONSUME = 'JackpotConsume';
+export const JACKPOT_APPLY_REMOVE_LINK = 'JackpotApplyRemoveLink';
+export const FIRE_BREATH_DEBUFF = 'FireBreathDebuff';
+export const ENGULF_DAMAGE = 'EngulfDamage';
+export const ENGULF_CONSUME_FLAME = 'EngulfConsumeFlame';
 
 export const PYRE_MIN_TRAVEL_TIME = 950;
 export const PYRE_MAX_TRAVEL_TIME = 1_050;
 const CAST_BUFFER_MS = 100;
 const DISINTEGRATE_TICK_BUFFER = 4_000; // Haste dependant
+const JACK_APPLY_REMOVE_BUFFER = 30_000; // Realistically it will never be this long, but we hate edgecases
+const ENGULF_TRAVEL_TIME_MS = 500;
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -69,11 +80,17 @@ const EVENT_LINKS: EventLink[] = [
     reverseLinkRelation: IRIDESCENCE_RED_CONSUME,
     linkingEventId: [SPELLS.IRIDESCENCE_RED.id],
     linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
-    referencedEventId: [SPELLS.PYRE.id, SPELLS.PYRE_DENSE_TALENT.id, SPELLS.LIVING_FLAME_CAST.id],
+    referencedEventId: [
+      SPELLS.PYRE.id,
+      SPELLS.PYRE_DENSE_TALENT.id,
+      SPELLS.LIVING_FLAME_CAST.id,
+      TALENTS.ENGULF_TALENT.id,
+    ],
     referencedEventType: EventType.Cast,
     anyTarget: true,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
+    maximumLinks: 1,
     isActive(c) {
       return c.hasTalent(TALENTS.IRIDESCENCE_TALENT);
     },
@@ -244,6 +261,55 @@ const EVENT_LINKS: EventLink[] = [
     isActive: (C) => C.has4PieceByTier(TIERS.TWW2),
     maximumLinks: 1,
   },
+  {
+    linkRelation: JACKPOT_APPLY_REMOVE_LINK,
+    reverseLinkRelation: JACKPOT_APPLY_REMOVE_LINK,
+    linkingEventId: SPELLS.JACKPOT_BUFF.id,
+    linkingEventType: EventType.RemoveBuff,
+    referencedEventId: SPELLS.JACKPOT_BUFF.id,
+    referencedEventType: [EventType.ApplyBuff, EventType.ApplyBuffStack],
+    maximumLinks: 1,
+    backwardBufferMs: JACK_APPLY_REMOVE_BUFFER,
+    isActive: (C) => C.has4PieceByTier(TIERS.TWW2),
+  },
+  {
+    linkRelation: FIRE_BREATH_DEBUFF,
+    reverseLinkRelation: FIRE_BREATH_DEBUFF,
+    linkingEventId: [SPELLS.FIRE_BREATH.id, SPELLS.FIRE_BREATH_FONT.id],
+    linkingEventType: EventType.EmpowerEnd,
+    referencedEventId: SPELLS.FIRE_BREATH_DOT.id,
+    referencedEventType: [EventType.ApplyDebuff, EventType.RefreshDebuff],
+    forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+  },
+  {
+    linkRelation: ENGULF_DAMAGE,
+    reverseLinkRelation: ENGULF_DAMAGE,
+    linkingEventId: TALENTS.ENGULF_TALENT.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.ENGULF_DAMAGE.id,
+    referencedEventType: EventType.Damage,
+    anyTarget: true,
+    forwardBufferMs: ENGULF_TRAVEL_TIME_MS,
+    maximumLinks: 1,
+    isActive(c) {
+      return c.hasTalent(TALENTS.ENGULF_TALENT);
+    },
+  },
+  {
+    linkRelation: ENGULF_CONSUME_FLAME,
+    reverseLinkRelation: ENGULF_CONSUME_FLAME,
+    linkingEventId: SPELLS.CONSUME_FLAME_DAMAGE.id,
+    linkingEventType: EventType.Damage,
+    referencedEventId: TALENTS.ENGULF_TALENT.id,
+    referencedEventType: EventType.Cast,
+    anyTarget: true,
+    maximumLinks: 1,
+    backwardBufferMs: ENGULF_TRAVEL_TIME_MS,
+    isActive(c) {
+      return c.hasTalent(TALENTS.CONSUME_FLAME_TALENT);
+    },
+  },
 ];
 
 class CastLinkNormalizer extends EventLinkNormalizer {
@@ -331,6 +397,36 @@ export function isMassDisintegrateTick(event: DamageEvent) {
 
 export function isMassDisintegrateDebuff(event: ApplyDebuffEvent | RefreshDebuffEvent) {
   return HasRelatedEvent(event, MASS_DISINTEGRATE_DEBUFF);
+}
+
+/** Returns the number of stacks consumed by a Jackpot! remove event or empower end event
+ * will return 0 if the event didn't consume Jackpot! */
+export function getConsumedJackpotStacks(event: EmpowerEndEvent | RemoveBuffEvent) {
+  if (event.type === EventType.EmpowerEnd) {
+    const maybeConsumeEvent = GetRelatedEvent<RemoveBuffEvent>(event, JACKPOT_CONSUME);
+
+    if (maybeConsumeEvent) {
+      event = maybeConsumeEvent;
+    }
+  }
+
+  if (event.ability.guid === SPELLS.JACKPOT_BUFF.id && event.type === EventType.RemoveBuff) {
+    const applyEvent = GetRelatedEvent<ApplyBuffEvent | ApplyBuffStackEvent>(
+      event,
+      JACKPOT_APPLY_REMOVE_LINK,
+    );
+
+    switch (applyEvent?.type) {
+      case EventType.ApplyBuff:
+        return 1;
+      case EventType.ApplyBuffStack:
+        return applyEvent.stack ?? 2;
+      default:
+        return 0;
+    }
+  }
+
+  return 0;
 }
 
 export default CastLinkNormalizer;

@@ -87,6 +87,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           modules.zenPulse.guideSubsection}
         {info.combatant.hasTalent(TALENTS_MONK.STRENGTH_OF_THE_BLACK_OX_TALENT) &&
           modules.strengthOfTheBlackOx.guideSubsection}
+        {info.combatant.hasTalent(TALENTS_MONK.JADE_EMPOWERMENT_TALENT) &&
+          modules.jadeEmpowerment.guideSubsection}
       </Section>
       <PreparationSection />
     </>

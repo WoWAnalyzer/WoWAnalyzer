@@ -623,6 +623,11 @@ const spells = {
     name: 'Revenge!',
     icon: 'ability_warrior_revenge',
   },
+  THUNDER_BLAST: {
+    id: 435222,
+    name: 'Thunder Blast',
+    icon: 'warrior_talent_icon_bloodandthunder',
+  },
   THUNDER_CLAP: {
     id: 6343,
     name: 'Thunder Clap',
