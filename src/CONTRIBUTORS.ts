@@ -2622,3 +2622,9 @@ export const SamuelMaverick: Contributor = {
     },
   ],
 };
+
+export const Spruudel: Contributor = {
+  nickname: 'spruudel',
+  github: 'Spruudel',
+  discord: 'spruuudel',
+};
