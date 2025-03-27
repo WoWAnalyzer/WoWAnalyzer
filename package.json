@@ -40,7 +40,7 @@
     "spin-delay": "2.0.0",
     "swr": "^2.2.5",
     "universal-cookie": "^4.0.4",
-    "vega": "~5.23.0",
+    "vega": "~5.32.0",
     "vega-lite": "^5.6.0"
   },
   "devDependencies": {
