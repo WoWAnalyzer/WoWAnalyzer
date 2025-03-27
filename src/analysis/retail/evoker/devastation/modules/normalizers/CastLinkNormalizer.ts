@@ -86,6 +86,7 @@ const EVENT_LINKS: EventLink[] = [
       SPELLS.PYRE_DENSE_TALENT.id,
       SPELLS.LIVING_FLAME_CAST.id,
       TALENTS.ENGULF_TALENT.id,
+      TALENTS.FIRESTORM_TALENT.id,
     ],
     referencedEventType: EventType.Cast,
     anyTarget: true,
