@@ -98,6 +98,7 @@ class Disintegrate extends Analyzer {
     TALENTS.DRAGONRAGE_TALENT,
     SPELLS.DEEP_BREATH,
     SPELLS.DEEP_BREATH_SCALECOMMANDER,
+    TALENTS.FIRESTORM_TALENT,
   ];
 
   graphData: GraphData[] = [];
