@@ -5,6 +5,7 @@ import { TALENTS_EVOKER } from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS/evoker';
 
 export default [
+  change(date(2025, 3, 27), <>Fix some issues for <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT}/> & <SpellLink spell={SPELLS.DISINTEGRATE}/> module</>, Vollmer),
   change(date(2025, 3, 25), <>Update Empower performance evaluation for <SpellLink spell={SPELLS.JACKPOT_BUFF}/> module</>, Vollmer),
   change(date(2025, 3, 25), <>Implement <SpellLink spell={TALENTS_EVOKER.FLAME_SIPHON_TALENT}/> module</>, Vollmer), 
   change(date(2025, 3, 24), <>Add a Guide Section for <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT}/></>, Vollmer),
