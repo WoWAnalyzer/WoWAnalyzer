@@ -299,7 +299,12 @@ class Disintegrate extends Analyzer {
       return;
     }
     // Clipped before GCD, very bad
-    if (this.currentRemainingTicks >= (this.isCurrentCastChained ? 3 : 2)) {
+    if (
+      this.currentRemainingTicks >=
+      (this.isCurrentCastChained
+        ? this.ticksPerChainedDisintegrate - 2
+        : this.ticksPerDisintegrate - 2)
+    ) {
       this.problemPoints.push({
         timestamp: event.timestamp,
         count: this.currentRemainingTicks,
@@ -323,8 +328,8 @@ class Disintegrate extends Analyzer {
           timestamp: event.timestamp,
           count: this.currentRemainingTicks,
           tooltip:
-            this.currentRemainingTicks === 2
-              ? 'Good Chain, you clipped: ' + (this.currentRemainingTicks - 1) + ` tick(s)`
+            this.currentRemainingTicks >= 2
+              ? 'Good Chain, you clipped: ' + this.currentRemainingTicks + ` tick(s)`
               : 'Good Chain',
         });
       } else {
@@ -332,8 +337,8 @@ class Disintegrate extends Analyzer {
           timestamp: event.timestamp,
           count: this.currentRemainingTicks,
           tooltip:
-            this.currentRemainingTicks === 2
-              ? 'Good Chain, you clipped: ' + (this.currentRemainingTicks - 1) + ` tick(s)`
+            this.currentRemainingTicks >= 2
+              ? 'Good Chain, you clipped: ' + this.currentRemainingTicks + ` tick(s)`
               : 'Good Chain',
         });
       }
@@ -372,7 +377,12 @@ class Disintegrate extends Analyzer {
      */
     if (this.disintegrateClipSpell /*  && this.inDragonRageWindow */) {
       // Clipped before GCD, very bad
-      if (this.currentRemainingTicks > (this.isCurrentCastChained ? 3 : 2)) {
+      if (
+        this.currentRemainingTicks >
+        (this.isCurrentCastChained
+          ? this.ticksPerChainedDisintegrate - 2
+          : this.ticksPerDisintegrate - 2)
+      ) {
         this.problemPoints.push({
           timestamp: event.timestamp,
           count: this.currentRemainingTicks,
