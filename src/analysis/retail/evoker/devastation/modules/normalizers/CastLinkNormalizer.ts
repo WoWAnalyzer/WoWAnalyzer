@@ -41,6 +41,7 @@ export const ENGULF_CONSUME_FLAME = 'EngulfConsumeFlame';
 export const PYRE_MIN_TRAVEL_TIME = 950;
 export const PYRE_MAX_TRAVEL_TIME = 1_050;
 const CAST_BUFFER_MS = 100;
+const IRIDESCENCE_RED_BACKWARDS_BUFFER_MS = 500;
 const DISINTEGRATE_TICK_BUFFER = 4_000; // Haste dependant
 const JACK_APPLY_REMOVE_BUFFER = 30_000; // Realistically it will never be this long, but we hate edgecases
 const ENGULF_TRAVEL_TIME_MS = 500;
@@ -89,7 +90,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: EventType.Cast,
     anyTarget: true,
     forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: IRIDESCENCE_RED_BACKWARDS_BUFFER_MS,
     maximumLinks: 1,
     isActive(c) {
       return c.hasTalent(TALENTS.IRIDESCENCE_TALENT);
