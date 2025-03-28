@@ -12,6 +12,7 @@ import Events, {
   DeathEvent,
   EventType,
   FightEndEvent,
+  GetRelatedEvent,
   GlobalCooldownEvent,
   RefreshBuffEvent,
   RemoveBuffEvent,
@@ -42,7 +43,7 @@ import Casts from 'interface/report/Results/Timeline/Casts';
 import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { getApplicableRules, HighPriorityAbilities } from '../../common';
-import { GCD_TOLERANCE } from '../../constants';
+import { EnhancementEventLinks, GCD_TOLERANCE } from '../../constants';
 import { addEnhancedCastReason, addInefficientCastReason } from 'parser/core/EventMetaLib';
 import NPCS from 'common/NPCS';
 import Reactivity from '../hero/totemic/Reactivity';
@@ -207,8 +208,17 @@ class HotHand extends MajorCooldown<HotHandProc> {
   }
 
   startOrRefreshWindow(event: ApplyBuffEvent | RefreshBuffEvent) {
-    // on application both resets the CD and applies a mod rate
-    this.spellUsable.endCooldown(TALENTS.LAVA_LASH_TALENT.id, event.timestamp);
+    // on application applies a mod rate and also resets CD if proc was natural
+
+    const whirlingFireRemovedEvent = GetRelatedEvent<RemoveBuffEvent>(
+      event,
+      EnhancementEventLinks.WHIRLING_FIRE_LINK,
+    );
+
+    // cooldown isn't reset if the hot hand stems from whirling fire
+    if (!whirlingFireRemovedEvent) {
+      this.spellUsable.endCooldown(TALENTS.LAVA_LASH_TALENT.id, event.timestamp);
+    }
 
     if (!this.activeWindow) {
       this.spellUsable.applyCooldownRateChange(TALENTS.LAVA_LASH_TALENT.id, this.hotHand.rate);

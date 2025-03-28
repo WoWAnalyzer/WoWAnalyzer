@@ -118,6 +118,14 @@ const sunderingDamageLink: EventLink = {
   anyTarget: true,
   isActive: (c) => c.hasTalent(TALENTS.REACTIVITY_TALENT) || c.hasTalent(TALENTS.SUNDERING_TALENT),
 };
+const whirlingFireLink: EventLink = {
+  linkRelation: EnhancementEventLinks.WHIRLING_FIRE_LINK,
+  linkingEventId: SPELLS.HOT_HAND_BUFF.id,
+  linkingEventType: EventType.ApplyBuff,
+  referencedEventId: SPELLS.WHIRLING_FIRE.id,
+  referencedEventType: EventType.RemoveBuff,
+  forwardBufferMs: EventLinkBuffers.WHIRLING_FIRE_BUFFER,
+};
 
 class EventLinkNormalizer extends BaseEventLinkNormalizer {
   constructor(options: Options) {
@@ -132,6 +140,7 @@ class EventLinkNormalizer extends BaseEventLinkNormalizer {
       splinteredElementsDamageLink,
       reactivityLink,
       sunderingDamageLink,
+      whirlingFireLink,
     ]);
 
     this.priority = NormalizerOrder.EventLinkNormalizer;
