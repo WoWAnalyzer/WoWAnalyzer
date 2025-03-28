@@ -128,7 +128,12 @@ class CastEfficiency extends Analyzer {
       ? 0
       : this.owner.currentTimestamp - Math.max(lastRechargeTimestamp, this.owner.fight.start_time);
 
-    const castEvents = history.filter((event) => event.type === EventType.Cast);
+    /** Empower Abilities trigger Cast event on start of channel therefore
+     * EmpowerEnd event is the proper event to track instead */
+    const isEmpowerAbility = history.some((event) => event.type === EventType.EmpowerEnd);
+    const castEvents = isEmpowerAbility
+      ? history.filter((event) => event.type === EventType.EmpowerEnd)
+      : history.filter((event) => event.type === EventType.Cast);
     const casts = castEvents.length;
     const castTimestamps = castEvents.map((event) => event.timestamp - this.owner.fight.start_time);
 
