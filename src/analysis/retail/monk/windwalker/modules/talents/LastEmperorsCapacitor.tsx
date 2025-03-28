@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { DamageEvent, EndChannelEvent } from 'parser/core/Events';
+import Events, { BeginChannelEvent, DamageEvent, EndChannelEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import { CHI_SPENDERS } from '../../constants';
@@ -33,6 +33,9 @@ class LastEmperorsCapacitor extends Analyzer {
   totalCasts = 0;
   totalTicks = 0;
   inChannel = false;
+  inChannelTarget: number | undefined = undefined;
+  inChannelTargetInst: number | undefined = undefined;
+  inChannelSource: number | undefined = undefined;
   currentChannelTicks = 0;
   ticksHit = [0, 0, 0, 0, 0];
   colors = ['#666', '#1eff00', '#0070ff', '#a435ee', '#ff8000'];
@@ -66,7 +69,7 @@ class LastEmperorsCapacitor extends Analyzer {
     );
   }
 
-  onChannelBegin() {
+  onChannelBegin(channel: BeginChannelEvent) {
     this.inChannel = true;
   }
 
@@ -74,6 +77,9 @@ class LastEmperorsCapacitor extends Analyzer {
     this.inChannel = false;
     this.ticksHit[this.currentChannelTicks - 1] += 1;
     this.currentChannelTicks = 0;
+    this.inChannelTarget = undefined;
+    this.inChannelTargetInst = undefined;
+    this.inChannelSource = undefined;
   }
 
   applyBuff() {
@@ -103,6 +109,20 @@ class LastEmperorsCapacitor extends Analyzer {
   }
 
   cracklingJadeLightningDamage(event: DamageEvent) {
+    if (this.inChannelTarget === undefined) {
+      this.inChannelTarget = event.targetID;
+      this.inChannelTargetInst = event.targetInstance;
+      this.inChannelSource = event.sourceID;
+    }
+
+    if (
+      event.targetID !== this.inChannelTarget ||
+      event.targetInstance !== this.inChannelTargetInst ||
+      event.sourceID !== this.inChannelSource
+    ) {
+      return; // we don't want to track any of the other hits on cleave
+    }
+
     if (this.buffedCast) {
       this.damage += event.amount + (event.absorbed || 0);
       this.buffedCast = false;

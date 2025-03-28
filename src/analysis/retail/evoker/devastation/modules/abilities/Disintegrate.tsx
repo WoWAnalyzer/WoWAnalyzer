@@ -5,6 +5,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
   ApplyDebuffEvent,
+  BeginCastEvent,
   CastEvent,
   DamageEvent,
   HasRelatedEvent,
@@ -71,7 +72,7 @@ class Disintegrate extends Analyzer {
   /** Variables used for graph */
   currentRemainingTicks: number = 0;
   isCurrentCastChained: boolean = false;
-  disintegrateClipSpell: CastEvent | undefined = undefined;
+  disintegrateClipSpell: CastEvent | BeginCastEvent | undefined = undefined;
   inFightWithDungeonBoss: boolean = false;
 
   fightStartTime: number = 0;
@@ -97,6 +98,7 @@ class Disintegrate extends Analyzer {
     TALENTS.DRAGONRAGE_TALENT,
     SPELLS.DEEP_BREATH,
     SPELLS.DEEP_BREATH_SCALECOMMANDER,
+    TALENTS.FIRESTORM_TALENT,
   ];
 
   graphData: GraphData[] = [];
@@ -152,11 +154,13 @@ class Disintegrate extends Analyzer {
     );
     /** Grab the spell we clipped with - this event always happens before the debuffRemove event
      * (Atleast for all the logs I've looked at so far) */
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.trackedSpells), (event) => {
-      if (this.currentRemainingTicks > 0) {
-        this.disintegrateClipSpell = event;
-      }
-    });
+    [Events.cast, Events.begincast].forEach((type) =>
+      this.addEventListener(type.by(SELECTED_PLAYER).spell(this.trackedSpells), (event) => {
+        if (this.currentRemainingTicks > 0) {
+          this.disintegrateClipSpell = event;
+        }
+      }),
+    );
 
     this.addEventListener(Events.fightend, () => {
       /* console.log(this.totalMassDisintegrateTargets);
@@ -295,7 +299,12 @@ class Disintegrate extends Analyzer {
       return;
     }
     // Clipped before GCD, very bad
-    if (this.currentRemainingTicks >= (this.isCurrentCastChained ? 3 : 2)) {
+    if (
+      this.currentRemainingTicks >=
+      (this.isCurrentCastChained
+        ? this.ticksPerChainedDisintegrate - 2
+        : this.ticksPerDisintegrate - 2)
+    ) {
       this.problemPoints.push({
         timestamp: event.timestamp,
         count: this.currentRemainingTicks,
@@ -319,8 +328,8 @@ class Disintegrate extends Analyzer {
           timestamp: event.timestamp,
           count: this.currentRemainingTicks,
           tooltip:
-            this.currentRemainingTicks === 2
-              ? 'Good Chain, you clipped: ' + (this.currentRemainingTicks - 1) + ` tick(s)`
+            this.currentRemainingTicks >= 2
+              ? 'Good Chain, you clipped: ' + this.currentRemainingTicks + ` tick(s)`
               : 'Good Chain',
         });
       } else {
@@ -328,8 +337,8 @@ class Disintegrate extends Analyzer {
           timestamp: event.timestamp,
           count: this.currentRemainingTicks,
           tooltip:
-            this.currentRemainingTicks === 2
-              ? 'Good Chain, you clipped: ' + (this.currentRemainingTicks - 1) + ` tick(s)`
+            this.currentRemainingTicks >= 2
+              ? 'Good Chain, you clipped: ' + this.currentRemainingTicks + ` tick(s)`
               : 'Good Chain',
         });
       }
@@ -368,7 +377,12 @@ class Disintegrate extends Analyzer {
      */
     if (this.disintegrateClipSpell /*  && this.inDragonRageWindow */) {
       // Clipped before GCD, very bad
-      if (this.currentRemainingTicks > (this.isCurrentCastChained ? 3 : 2)) {
+      if (
+        this.currentRemainingTicks >
+        (this.isCurrentCastChained
+          ? this.ticksPerChainedDisintegrate - 2
+          : this.ticksPerDisintegrate - 2)
+      ) {
         this.problemPoints.push({
           timestamp: event.timestamp,
           count: this.currentRemainingTicks,

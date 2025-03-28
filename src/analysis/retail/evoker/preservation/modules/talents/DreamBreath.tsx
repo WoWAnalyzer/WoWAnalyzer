@@ -65,8 +65,10 @@ class DreamBreath extends Analyzer {
     const info = this.casts.at(-1)!;
     events.forEach((ev) => {
       this.processedEvents.add(ev);
+      // check that target is a player and not pet
+      const target = this.combatants.getEntity(ev);
       // make sure its not a stasis DB
-      if (info && !info.counted) {
+      if (info && !info.counted && target !== null) {
         this.casts.at(-1)!.targetsHit += 1;
       }
     });

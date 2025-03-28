@@ -1,6 +1,7 @@
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import { CastEvent, EventType, GetRelatedEvent, ResourceChangeEvent } from 'parser/core/Events';
-import TALENTS from 'common/TALENTS/rogue';
+// import TALENTS from 'common/TALENTS/rogue';
+import SPELLS from 'common/SPELLS/rogue';
 import { Options } from 'parser/core/Module';
 
 const CAST_BUFFER_MS = 50;
@@ -12,9 +13,9 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: FROM_HARDCAST,
     reverseLinkRelation: RESOURCE_CHANGE,
-    linkingEventId: TALENTS.THISTLE_TEA_TALENT.id,
+    linkingEventId: SPELLS.THISTLE_TEA.id,
     linkingEventType: EventType.ResourceChange,
-    referencedEventId: TALENTS.THISTLE_TEA_TALENT.id,
+    referencedEventId: SPELLS.THISTLE_TEA.id,
     referencedEventType: EventType.Cast,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,

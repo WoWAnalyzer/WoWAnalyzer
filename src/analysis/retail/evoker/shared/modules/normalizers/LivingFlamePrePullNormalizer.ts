@@ -1,6 +1,7 @@
 import { isFromBurnout } from 'analysis/retail/evoker/devastation/modules/normalizers/CastLinkNormalizer';
 import SPELLS from 'common/SPELLS/evoker';
-import { AnyEvent, BeginCastEvent, EventType } from 'parser/core/Events';
+import TALENTS from 'common/TALENTS/evoker';
+import { AnyEvent, ApplyDebuffEvent, BeginCastEvent, EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import Haste from 'parser/shared/modules/Haste';
 import { isRealCast } from 'parser/shared/normalizers/Channeling';
@@ -75,6 +76,56 @@ class LivingFlamePrePullNormalizer extends EventsNormalizer {
         };
 
         fixedEvents.splice(eventIdx, 0, beginCastEvent);
+        break;
+      }
+    }
+
+    /** When playing Ruby Embers and pre-casting Living Flame
+     * there won't be an ApplyDebuff event, so we need to fabricate one */
+    if (this.selectedCombatant.hasTalent(TALENTS.RUBY_EMBERS_TALENT)) {
+      const rubyEmbersDotDuration = 12_000;
+
+      for (let eventIdx = 0; eventIdx < fixedEvents.length; eventIdx += 1) {
+        const event = fixedEvents[eventIdx];
+        if (event.timestamp - rubyEmbersDotDuration * 1.1 > this.owner.fight.start_time) {
+          break;
+        }
+
+        if (
+          (event.type !== EventType.ApplyDebuff &&
+            event.type !== EventType.ApplyDebuffStack &&
+            event.type !== EventType.RefreshDebuff &&
+            event.type !== EventType.RemoveDebuff) ||
+          event.sourceID !== this.owner.selectedCombatant.id ||
+          event.ability.guid !== SPELLS.LIVING_FLAME_DAMAGE.id
+        ) {
+          continue;
+        }
+
+        // First event is ApplyDebuff so no need to fabricate
+        if (event.type === EventType.ApplyDebuff) {
+          break;
+        }
+
+        // Fabricate the ApplyDebuff event
+        const startTime = Math.max(
+          event.timestamp - rubyEmbersDotDuration,
+          this.owner.fight.start_time,
+        );
+
+        const applyDebuffEvent: ApplyDebuffEvent = {
+          ability: event.ability,
+          type: EventType.ApplyDebuff,
+          timestamp: startTime,
+          sourceID: event.sourceID,
+          sourceIsFriendly: event.sourceIsFriendly,
+          targetID: event.targetID,
+          targetIsFriendly: event.targetIsFriendly,
+          __fabricated: true,
+          prepull: true,
+        };
+
+        fixedEvents.splice(eventIdx, 0, applyDebuffEvent);
         break;
       }
     }
