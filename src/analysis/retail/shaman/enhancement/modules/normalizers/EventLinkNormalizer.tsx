@@ -122,9 +122,11 @@ const whirlingFireLink: EventLink = {
   linkRelation: EnhancementEventLinks.WHIRLING_FIRE_LINK,
   linkingEventId: SPELLS.HOT_HAND_BUFF.id,
   linkingEventType: EventType.ApplyBuff,
-  referencedEventId: SPELLS.WHIRLING_FIRE.id,
-  referencedEventType: EventType.RemoveBuff,
-  forwardBufferMs: EventLinkBuffers.WHIRLING_FIRE_BUFFER,
+  referencedEventId: [SPELLS.WHIRLING_FIRE.id, TALENTS.LAVA_LASH_TALENT.id],
+  referencedEventType: [EventType.RemoveBuff, EventType.Cast],
+  forwardBufferMs: 5,
+  backwardBufferMs: EventLinkBuffers.CAST_DAMAGE_BUFFER,
+  anyTarget: true,
 };
 
 class EventLinkNormalizer extends BaseEventLinkNormalizer {

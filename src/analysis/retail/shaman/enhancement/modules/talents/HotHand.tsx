@@ -213,9 +213,10 @@ class HotHand extends MajorCooldown<HotHandProc> {
     const whirlingFireRemovedEvent = GetRelatedEvent<RemoveBuffEvent>(
       event,
       EnhancementEventLinks.WHIRLING_FIRE_LINK,
+      (e) => e.type === EventType.RemoveBuff,
     );
 
-    // cooldown isn't reset if the hot hand stems from whirling fire
+    // cooldown isn't reset if the Hot Hands stems from Whirling Fire
     if (!whirlingFireRemovedEvent) {
       this.spellUsable.endCooldown(TALENTS.LAVA_LASH_TALENT.id, event.timestamp);
     }
@@ -224,12 +225,24 @@ class HotHand extends MajorCooldown<HotHandProc> {
       this.spellUsable.applyCooldownRateChange(TALENTS.LAVA_LASH_TALENT.id, this.hotHand.rate);
       this.hotHandActive.startInterval(event.timestamp);
 
+      // make sure to include first Lava Lash of the window, when triggered by Whirling Fire
+      let lavaLashCastEvent: CastEvent | undefined;
+      if (whirlingFireRemovedEvent) {
+        lavaLashCastEvent = GetRelatedEvent<CastEvent>(
+          event,
+          EnhancementEventLinks.WHIRLING_FIRE_LINK,
+          (e) => e.type === EventType.Cast,
+        );
+      }
+
       this.activeWindow = {
         event: event,
         timeline: {
-          start: Math.max(event.timestamp, this.globalCooldownEnds),
+          start: lavaLashCastEvent
+            ? lavaLashCastEvent.timestamp
+            : Math.max(event.timestamp, this.globalCooldownEnds),
           end: -1,
-          events: [],
+          events: lavaLashCastEvent ? [lavaLashCastEvent, lavaLashCastEvent.globalCooldown!] : [],
         },
         unusedGcdTime: 0,
         globalCooldowns: [],

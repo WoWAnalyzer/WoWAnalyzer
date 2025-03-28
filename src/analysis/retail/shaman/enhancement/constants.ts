@@ -69,7 +69,6 @@ export enum EventLinkBuffers {
   SPLINTERED_ELEMENTS_BUFFER = 250,
   LIGHTNING_BOLT_BUFFER = 150,
   PRIMORDIAL_WAVE_DAMAGE_BUFFER = 500,
-  WHIRLING_FIRE_BUFFER = 5,
 }
 
 export enum EnhancementEventLinks {

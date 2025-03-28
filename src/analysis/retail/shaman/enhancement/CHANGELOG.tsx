@@ -6,7 +6,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
-  change(date(2025, 3, 28), <>Fixed the CD of <SpellLink spell={TALENTS.LAVA_LASH_TALENT} /> being incorrectly reset when the <SpellLink spell={TALENTS.HOT_HAND_TALENT} /> is from <SpellLink spell={SPELLS.WHIRLING_FIRE} /></>, Spruudel),
+  change(date(2025, 3, 28), <>Fixed some inaccuracies with how <SpellLink spell={SPELLS.WHIRLING_FIRE} /> is handled</>, Spruudel),
   change(date(2025, 3, 26), <>Fixed <SpellLink spell={TALENTS.DOOM_WINDS_TALENT} /> to display on the timeline and in the cooldown throughput tracker</>, Spruudel),
   change(date(2025, 3, 13), <>Fix crash when the only <SpellLink spell={SPELLS.LIGHTNING_BOLT} /> and <SpellLink spell={TALENTS.CHAIN_LIGHTNING_TALENT} /> casts are from <SpellLink spell={TALENTS.PRIMORDIAL_STORM_TALENT} />.</>, Seriousnes),
   change(date(2025, 3, 9), <>Fix crash when using Surging Totem pre-pull.</>, emallson),
