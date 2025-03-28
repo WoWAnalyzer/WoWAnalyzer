@@ -152,13 +152,17 @@ class CastEfficiency extends Analyzer {
       // spell either never been cast, or not in abilities list
       return 0;
     }
+    const isEmpowerAbility = history.some((event) => event.type === EventType.EmpowerEnd);
 
     let beginCastTimestamp: number | undefined;
     const timeSpentCasting = history.reduce((acc, event) => {
-      if (event.type === EventType.BeginCast) {
+      if (event.type === EventType.BeginCast || event.type === EventType.EmpowerStart) {
         beginCastTimestamp = event.timestamp;
         return acc;
-      } else if (event.type === EventType.Cast) {
+      } else if (
+        (event.type === EventType.Cast && !isEmpowerAbility) ||
+        event.type === EventType.EmpowerEnd
+      ) {
         //limit by start time in case of pre phase events
         const castTime = beginCastTimestamp
           ? event.timestamp - Math.max(beginCastTimestamp, this.owner.fight.start_time)
