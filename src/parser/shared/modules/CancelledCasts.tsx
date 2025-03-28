@@ -8,8 +8,13 @@ import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-
-import Events, { CastEvent, BeginCastEvent } from '../../core/Events';
+import Events, {
+  CastEvent,
+  BeginCastEvent,
+  EmpowerStartEvent,
+  EmpowerEndEvent,
+  EventType,
+} from '../../core/Events';
 import { Suggestion } from 'parser/core/CombatLogParser';
 
 const debug = false;
@@ -18,7 +23,7 @@ const MS_BUFFER = 100;
 class CancelledCasts extends Analyzer {
   castsCancelled = 0;
   castsFinished = 0;
-  beginCastSpell: BeginCastEvent | undefined = undefined;
+  beginCastSpell: BeginCastEvent | EmpowerStartEvent | undefined = undefined;
   wasCastStarted: boolean = false;
   cancelledSpellList: {
     [key: number]: {
@@ -33,11 +38,13 @@ class CancelledCasts extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.addEventListener(Events.begincast.by(SELECTED_PLAYER), this.onBeginCast);
+    this.addEventListener(Events.empowerStart.by(SELECTED_PLAYER), this.onBeginCast);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+    this.addEventListener(Events.empowerEnd.by(SELECTED_PLAYER), this.onCast);
     this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
-  onBeginCast(event: BeginCastEvent) {
+  onBeginCast(event: BeginCastEvent | EmpowerStartEvent) {
     const spellId = event.ability.guid;
     if (
       this.IGNORED_ABILITIES.includes(spellId) ||
@@ -58,7 +65,7 @@ class CancelledCasts extends Analyzer {
     this.wasCastStarted = true;
   }
 
-  onCast(event: CastEvent) {
+  onCast(event: CastEvent | EmpowerEndEvent) {
     const spellId = event.ability.guid;
     const beginCastAbility = this.beginCastSpell && this.beginCastSpell.ability;
     if (
@@ -66,6 +73,12 @@ class CancelledCasts extends Analyzer {
       CASTS_THAT_ARENT_CASTS.includes(spellId) ||
       CASTABLE_WHILE_CASTING_SPELLS.includes(spellId) ||
       !beginCastAbility
+    ) {
+      return;
+    }
+    if (
+      this.beginCastSpell?.type === EventType.EmpowerStart &&
+      event.type !== EventType.EmpowerEnd
     ) {
       return;
     }

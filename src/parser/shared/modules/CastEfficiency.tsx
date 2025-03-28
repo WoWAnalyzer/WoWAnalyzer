@@ -128,7 +128,12 @@ class CastEfficiency extends Analyzer {
       ? 0
       : this.owner.currentTimestamp - Math.max(lastRechargeTimestamp, this.owner.fight.start_time);
 
-    const castEvents = history.filter((event) => event.type === EventType.Cast);
+    /** Empower Abilities trigger Cast event on start of channel therefore
+     * EmpowerEnd event is the proper event to track instead */
+    const isEmpowerAbility = history.some((event) => event.type === EventType.EmpowerEnd);
+    const castEvents = isEmpowerAbility
+      ? history.filter((event) => event.type === EventType.EmpowerEnd)
+      : history.filter((event) => event.type === EventType.Cast);
     const casts = castEvents.length;
     const castTimestamps = castEvents.map((event) => event.timestamp - this.owner.fight.start_time);
 
@@ -147,13 +152,17 @@ class CastEfficiency extends Analyzer {
       // spell either never been cast, or not in abilities list
       return 0;
     }
+    const isEmpowerAbility = history.some((event) => event.type === EventType.EmpowerEnd);
 
     let beginCastTimestamp: number | undefined;
     const timeSpentCasting = history.reduce((acc, event) => {
-      if (event.type === EventType.BeginCast) {
+      if (event.type === EventType.BeginCast || event.type === EventType.EmpowerStart) {
         beginCastTimestamp = event.timestamp;
         return acc;
-      } else if (event.type === EventType.Cast) {
+      } else if (
+        (event.type === EventType.Cast && !isEmpowerAbility) ||
+        event.type === EventType.EmpowerEnd
+      ) {
         //limit by start time in case of pre phase events
         const castTime = beginCastTimestamp
           ? event.timestamp - Math.max(beginCastTimestamp, this.owner.fight.start_time)
