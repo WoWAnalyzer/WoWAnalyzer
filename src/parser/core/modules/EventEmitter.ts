@@ -39,6 +39,12 @@ class EventEmitter extends Module {
     if (!import.meta.env.PROD) {
       this.eventTypes = new Set<string>(Object.values(EventType));
     }
+
+    Object.values(EventType)
+      .filter((eventType) => eventType !== CATCH_ALL_EVENT)
+      .forEach((eventType) => {
+        this._eventListenersByEventType[eventType] = [];
+      });
   }
 
   _eventListenersByEventType: { [eventType: string]: Array<BoundListener<any, any>> } = {};
@@ -54,12 +60,20 @@ class EventEmitter extends Module {
     module: Module,
   ) {
     const eventType = eventFilter instanceof EventFilter ? eventFilter.eventType : eventFilter;
-    this._eventListenersByEventType[eventType] = this._eventListenersByEventType[eventType] || [];
-    this._eventListenersByEventType[eventType].push({
-      eventFilter,
-      module, // used when the listener throws an exception to disable the related module
-      listener: this._compileListener(eventFilter, listener, module),
-    });
+    if (eventType === CATCH_ALL_EVENT) {
+      Object.keys(this._eventListenersByEventType).forEach((e) => {
+        this.addEventListener(e as EventType, listener as any, module);
+      });
+    } else {
+      this._eventListenersByEventType[eventType].push({
+        eventFilter,
+        module, // used when the listener throws an exception to disable the related module
+        listener: this._compileListener(eventFilter, listener, module),
+      });
+      this._eventListenersByEventType[eventType].sort(
+        (a, b) => a.module.priority - b.module.priority,
+      );
+    }
     this.numEventListeners += 1;
   }
   _compileListener<ET extends EventType, E extends AnyEvent<ET>>(
