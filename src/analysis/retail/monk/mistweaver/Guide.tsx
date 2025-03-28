@@ -98,9 +98,9 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
 function HotGraphSubsection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <SubSection>
-      <strong>HoT Graph</strong> - This graph shows the number of non-Renewing Mist HoTs you had
-      active over the course of the encounter. It can help you evaluate how effective you were at
-      prepping and executing your cooldowns.
+      <strong>Healing Amp Graph</strong> - This graph shows the number of non-Renewing Mist healing
+      amps you had active over the course of the encounter. It can help you evaluate how effective
+      you were at prepping and executing your cooldowns.
       {modules.hotCountGraph.plot}
     </SubSection>
   );
