@@ -144,6 +144,11 @@ const spells = {
     name: 'Echoing Reprimand',
     icon: 'ability_bastion_rogue',
   },
+  ECHOING_REPRIMAND: {
+    id: 385616,
+    name: 'Echoing Reprimand',
+    icon: 'inv_ability_rogue_echoingreprimand',
+  },
   // Subtlety spells
   // Combo point generating damage ability
   BACKSTAB: {
@@ -252,7 +257,11 @@ const spells = {
     name: 'Master of Shadows',
     icon: 'spell_shadow_charm',
   },
-
+  THISTLE_TEA: {
+    id: 381623,
+    name: 'Thistle Tea',
+    icon: 'inv_drink_milk_05',
+  },
   //Buffs
   MASTER_ASSASSINS_INITIATIVE_BUFF: {
     id: 235027,

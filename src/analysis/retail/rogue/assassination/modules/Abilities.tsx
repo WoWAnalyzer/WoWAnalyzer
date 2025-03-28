@@ -67,13 +67,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.AMBUSH_PROC.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          base: 1000,
-        },
-      },
-      {
         spell: SPELLS.FAN_OF_KNIVES.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
@@ -106,7 +99,7 @@ class Abilities extends CoreAbilities {
         charges: 1 + combatant.getTalentRank(TALENTS.THRILL_SEEKING_TALENT),
       },
       {
-        spell: TALENTS.THISTLE_TEA_TALENT.id,
+        spell: SPELLS.THISTLE_TEA.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 1,
         charges: 3,
@@ -155,7 +148,7 @@ class Abilities extends CoreAbilities {
 
       // region Cooldowns
       {
-        spell: TALENTS.ECHOING_REPRIMAND_TALENT.id,
+        spell: SPELLS.ECHOING_REPRIMAND.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 45,
         enabled: combatant.hasTalent(TALENTS.ECHOING_REPRIMAND_TALENT),

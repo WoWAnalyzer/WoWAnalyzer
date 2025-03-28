@@ -55,7 +55,6 @@ class Checklist extends BaseChecklist {
           rageDetails: this.rageDetails.suggestionThresholds,
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
           missedRampage: this.missedRampage.suggestionThresholds,
-          whirlWind: this.whirlWind.suggestionThresholds,
           crushingBlow: this.crushingBlow.suggestionThresholds,
           bloodbath: this.bloodbath.suggestionThresholds,
           slayerExecute: this.slayerExecute.suggestionThresholds,
