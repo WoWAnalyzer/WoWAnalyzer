@@ -120,7 +120,7 @@
     "test:interface": "pnpm run test --exclude \"src/parser/**/*\"",
     "test:parser": "pnpm run test ./src/parser",
     "typecheck": "tsc",
-    "lint-uncached": "eslint --format stylish --max-warnings 0 --no-warn-ignored --plugin progress --rule \"progress/activate: 1\"",
+    "lint-uncached": "eslint --format stylish --max-warnings 0 --no-warn-ignored",
     "lint": "pnpm run lint-uncached --cache .",
     "lint:fix": "pnpm run lint --fix",
     "extract": "lingui extract --overwrite --clean",

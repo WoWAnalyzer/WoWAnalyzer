@@ -1,13 +1,15 @@
 import js from '@eslint/js';
-import globals from 'globals';
 import react from '@eslint-react/eslint-plugin';
-import tseslint from 'typescript-eslint';
-import wowanalyzer from 'eslint-plugin-wowanalyzer';
+// @ts-expect-error -- No types exist for this plugin
+import progress from 'eslint-plugin-progress';
 import vitest from 'eslint-plugin-vitest';
+import wowanalyzer from 'eslint-plugin-wowanalyzer';
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
 
 // replacement for .eslintignore
 const ignores = tseslint.config({
-  name: 'wowanalyzer-ignores',
+  name: '@wowanalyzer/ignores',
   ignores: [
     '**/node_modules/**',
     '**/build/**',
@@ -32,7 +34,7 @@ const ignores = tseslint.config({
 });
 
 const base = tseslint.config({
-  name: 'wowanalyzer-base',
+  name: '@wowanalyzer/base',
   languageOptions: {
     ecmaVersion: 2022,
     globals: {
@@ -57,6 +59,17 @@ const base = tseslint.config({
   },
 });
 
+// progress plugin if we're using a TTY
+const progressConfig = tseslint.config({
+  name: '@wowanalyzer/progress',
+  plugins: {
+    progress,
+  },
+  rules: {
+    'progress/activate': progress.stdout.isTTY ? 1 : 0,
+  },
+});
+
 const tests = tseslint.config({
   name: 'tests',
   plugins: { vitest },
@@ -73,7 +86,7 @@ const tests = tseslint.config({
 
 // JS file configs
 const javascript = tseslint.config({
-  name: 'wowanalyzer-javascript',
+  name: '@wowanalyzer/js',
   files: ['**/*.{js,jsx,cjs,mjs}'],
   extends: [js.configs.recommended, react.configs.recommended, wowanalyzer.configs.recommended],
   rules: {
@@ -92,7 +105,7 @@ const javascript = tseslint.config({
 
 // TS file configs
 const typescript = tseslint.config({
-  name: 'wowanalyzer-typescript',
+  name: '@wowanalyzer/ts',
   files: ['**/*.{ts,tsx,cts,mts}'],
   extends: [
     js.configs.recommended,
@@ -122,4 +135,4 @@ const typescript = tseslint.config({
   },
 });
 
-export default tseslint.config(ignores, base, javascript, typescript, tests);
+export default tseslint.config(ignores, base, javascript, typescript, tests, progressConfig);
