@@ -77,8 +77,8 @@ importers:
         specifier: ^6.22.3
         version: 6.22.3(react-dom@17.0.2(react@17.0.2))(react@17.0.2)
       react-select-search:
-        specifier: ^4.1.7
-        version: 4.1.7(prop-types@15.8.1)(react-dom@17.0.2(react@17.0.2))(react@17.0.2)
+        specifier: ^4.1.8
+        version: 4.1.8(prop-types@15.8.1)(react-dom@17.0.2(react@17.0.2))(react@17.0.2)
       react-textfit:
         specifier: ^1.1.1
         version: 1.1.1(react-dom@17.0.2(react@17.0.2))(react@17.0.2)
@@ -4089,8 +4089,8 @@ packages:
     peerDependencies:
       react: '>=16.8'
 
-  react-select-search@4.1.7:
-    resolution: {integrity: sha512-pU7ONAdK+bmz2tbhBWYQv9m5mnXOn8yImuiy+5UhimIG80d5iKv3nSYJIjJWjDbdrrdoXiCRwQm8xbA8llTjmQ==}
+  react-select-search@4.1.8:
+    resolution: {integrity: sha512-mzHhYzpaAJ3iYDjayydfb+grvvP59VWlLUWLqP26Trvm4xj2rzLnksopWZdkwWORB3dhAneqmXos3RWOMjFOxQ==}
     peerDependencies:
       prop-types: ^15.8.1
       react: ^18.0.1 || ^17.0.1
@@ -9063,7 +9063,7 @@ snapshots:
       '@remix-run/router': 1.15.3
       react: 17.0.2
 
-  react-select-search@4.1.7(prop-types@15.8.1)(react-dom@17.0.2(react@17.0.2))(react@17.0.2):
+  react-select-search@4.1.8(prop-types@15.8.1)(react-dom@17.0.2(react@17.0.2))(react@17.0.2):
     dependencies:
       prop-types: 15.8.1
       react: 17.0.2
