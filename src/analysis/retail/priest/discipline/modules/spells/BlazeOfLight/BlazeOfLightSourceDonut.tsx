@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 import { formatThousands } from 'common/format';
 import { Ability } from 'parser/core/Events';
 import DonutChart from 'parser/ui/DonutChart';
+import { getAbilityNameReporting } from '../../features/AtonementHealingBreakdown';
 
 interface BlazeOfLightSourceDonutProps {
   abilityMap: Map<number, Ability>;
@@ -35,7 +36,7 @@ function generateHealingItems(
     return {
       color: `${COLORS[ability.guid]}`,
       spellId: ability.guid,
-      label: ability.name,
+      label: getAbilityNameReporting(ability),
       value: healingDone,
       valueTooltip: formatThousands(healingDone),
     };

@@ -28,7 +28,10 @@ class ThroesOfPain extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.THROES_OF_PAIN_TALENT);
     this.addEventListener(AtonementAnalyzer.atonementEventFilter, this.onAtonement);
-    this.addEventListener(Events.resourcechange.by(SELECTED_PLAYER), this.onManaGain);
+    this.addEventListener(
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.THROES_OF_PAIN_TALENT_RESOURCE_GAIN),
+      this.onManaGain,
+    );
     this.addEventListener(
       Events.damage
         .by(SELECTED_PLAYER)

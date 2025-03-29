@@ -46,6 +46,12 @@ const spells = {
     icon: 'spell_holy_renew',
     manaCost: 45000,
   },
+  THROES_OF_PAIN_TALENT_RESOURCE_GAIN: {
+    id: 377427,
+    name: 'Throes of Pain',
+    icon: 'spell_shadow_haunting',
+    manaCost: 0,
+  },
   // Discipline Priest:
   GRACE: {
     id: 271534,

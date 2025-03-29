@@ -109,23 +109,23 @@ class EncroachingShadows extends Analyzer {
     };
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.PURGE_THE_WICKED_TALENT]),
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.SHADOW_WORD_PAIN]),
       this.onDotCast,
     );
     this.addEventListener(
-      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.PURGE_THE_WICKED_BUFF),
+      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_WORD_PAIN),
       this.onDotApply,
     );
     this.addEventListener(
-      Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.PURGE_THE_WICKED_BUFF),
+      Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_WORD_PAIN),
       this.onDotApply,
     );
     this.addEventListener(
-      Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.PURGE_THE_WICKED_BUFF),
+      Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_WORD_PAIN),
       this.onDotRemove,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.PURGE_THE_WICKED_BUFF),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_WORD_PAIN),
       this.onDotDamage,
     );
   }
@@ -147,7 +147,7 @@ class EncroachingShadows extends Analyzer {
 
   onDotApply(event: ApplyDebuffEvent | RefreshDebuffEvent) {
     this.ptwApplications += 1;
-    this.ptwUptimes.push({ start: event.timestamp, end: event.timestamp + 15000 });
+    this.ptwUptimes.push({ start: event.timestamp, end: event.timestamp + 16000 });
     if (event.targetID !== this.lastCastTarget) {
       this.ptwCleaveTracker[event.targetID] = 1;
     }

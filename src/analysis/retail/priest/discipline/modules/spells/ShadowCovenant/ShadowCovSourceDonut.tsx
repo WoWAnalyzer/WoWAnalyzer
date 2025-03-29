@@ -3,23 +3,12 @@ import { TALENTS_PRIEST } from 'common/TALENTS';
 import { formatThousands } from 'common/format';
 import { Ability } from 'parser/core/Events';
 import DonutChart from 'parser/ui/DonutChart';
+import { getAbilityNameReporting } from '../../features/AtonementHealingBreakdown';
 
 interface ScovSourceDonutProps {
   abilityMap: Map<number, Ability>;
   healingMap: Map<number, number>;
 }
-
-const ABILITY_NAME_REPORTING_MAP = {
-  [SPELLS.DARK_REPRIMAND_TWINSIGHT_DAMAGE.id]: SPELLS.DARK_REPRIMAND_TWINSIGHT_DAMAGE.name,
-};
-
-const getAbilityNameReporting = (ability: Ability) => {
-  if (ability.guid in ABILITY_NAME_REPORTING_MAP) {
-    return ABILITY_NAME_REPORTING_MAP[ability.guid];
-  }
-
-  return ability.name;
-};
 
 interface ScovSourceGraphItem {
   color: string;

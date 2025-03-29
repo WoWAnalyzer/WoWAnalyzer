@@ -20,7 +20,7 @@ const ABILITY_NAME_REPORTING_MAP = {
   [SPELLS.DARK_REPRIMAND_TWINSIGHT_DAMAGE.id]: SPELLS.DARK_REPRIMAND_TWINSIGHT_DAMAGE.name,
 };
 
-const getAbilityNameReporting = (ability: Ability) => {
+export const getAbilityNameReporting = (ability: Ability) => {
   if (ability.guid in ABILITY_NAME_REPORTING_MAP) {
     return ABILITY_NAME_REPORTING_MAP[ability.guid];
   }
