@@ -38,11 +38,25 @@ class Penance extends Analyzer {
       this.onCast,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell([SPELLS.PENANCE, SPELLS.DARK_REPRIMAND_DAMAGE]),
+      Events.damage
+        .by(SELECTED_PLAYER)
+        .spell([
+          SPELLS.PENANCE,
+          SPELLS.DARK_REPRIMAND_DAMAGE,
+          SPELLS.PENANCE_TWINSIGHT_DAMAGE,
+          SPELLS.DARK_REPRIMAND_TWINSIGHT_DAMAGE,
+        ]),
       this.onDamage,
     );
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell([SPELLS.PENANCE_HEAL, SPELLS.DARK_REPRIMAND_HEAL]),
+      Events.heal
+        .by(SELECTED_PLAYER)
+        .spell([
+          SPELLS.PENANCE_HEAL,
+          SPELLS.DARK_REPRIMAND_HEAL,
+          SPELLS.PENANCE_TWINSIGHT_HEALING,
+          SPELLS.DARK_REPRIMAND_TWINSIGHT_HEALING,
+        ]),
       this.onHeal,
     );
   }
@@ -53,7 +67,11 @@ class Penance extends Analyzer {
     spellId === SPELLS.PENANCE_HEAL.id ||
     spellId === SPELLS.DARK_REPRIMAND_HEAL.id ||
     spellId === SPELLS.PENANCE_CAST.id ||
-    spellId === SPELLS.DARK_REPRIMAND_CAST.id;
+    spellId === SPELLS.DARK_REPRIMAND_CAST.id ||
+    spellId === SPELLS.PENANCE_TWINSIGHT_DAMAGE.id ||
+    spellId === SPELLS.PENANCE_TWINSIGHT_HEALING.id ||
+    spellId === SPELLS.DARK_REPRIMAND_TWINSIGHT_DAMAGE.id ||
+    spellId === SPELLS.DARK_REPRIMAND_TWINSIGHT_HEALING.id;
 
   onDamage(event) {
     event.penanceBoltNumber = this._boltCount;

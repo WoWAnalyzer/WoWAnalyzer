@@ -7,7 +7,7 @@ import { EventType } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import LazyLoadStatisticBox from 'parser/ui/LazyLoadStatisticBox';
 import { TALENTS_PRIEST } from 'common/TALENTS';
-const LENIENCE_DR = 0.03;
+const LENIENCE_DR = 0.02;
 
 class Lenience extends Analyzer {
   totalDamageTakenDuringAtonement = 0;

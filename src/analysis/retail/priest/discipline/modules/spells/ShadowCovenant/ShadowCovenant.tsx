@@ -21,6 +21,7 @@ const SHADOW_BUFFED_HEALS = [
   SPELLS.SHADOW_HALO_HEAL.id,
   SPELLS.SHADOW_DIVINE_STAR_HEAL.id,
   TALENTS_PRIEST.VAMPIRIC_EMBRACE_TALENT.id,
+  SPELLS.DARK_REPRIMAND_TWINSIGHT_HEALING.id,
 ];
 
 class ShadowCovenant extends Analyzer {
@@ -56,15 +57,9 @@ class ShadowCovenant extends Analyzer {
   calculateBonus() {
     let bonus;
 
-    // Check for VOIDWRAITH_TALENT first, since it overrides the initial bonus
-    if (this.selectedCombatant.hasTalent(TALENTS_PRIEST.VOIDWRAITH_TALENT)) {
-      bonus = 0.25;
-    } else {
-      // voidwraith is not present
-      bonus = this.selectedCombatant.hasTalent(TALENTS_PRIEST.MINDBENDER_DISCIPLINE_TALENT)
-        ? 0.1
-        : 0.25;
-    }
+    bonus = this.selectedCombatant.hasTalent(TALENTS_PRIEST.MINDBENDER_DISCIPLINE_TALENT)
+      ? 0.1
+      : 0.25;
 
     if (this.selectedCombatant.hasTalent(TALENTS_PRIEST.TWILIGHT_CORRUPTION_TALENT)) {
       bonus += 0.1;
@@ -155,9 +150,7 @@ class ShadowCovenant extends Analyzer {
             This value includes the healing from bonus atonement healing caused by the damage amped
             and bonus healing to spells which do shadow healing. This number represents the{' '}
             {this.selectedCombatant.hasTalent(TALENTS_PRIEST.MINDBENDER_DISCIPLINE_TALENT)
-              ? this.selectedCombatant.hasTalent(TALENTS_PRIEST.VOIDWRAITH_TALENT)
-                ? 25
-                : 10
+              ? 10
               : 25}
             % amp from <SpellLink spell={TALENTS_PRIEST.SHADOW_COVENANT_TALENT} />, and the extra
             10% amp from <SpellLink spell={TALENTS_PRIEST.TWILIGHT_CORRUPTION_TALENT} /> if it is
