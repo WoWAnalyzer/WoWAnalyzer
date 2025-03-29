@@ -1,3 +1,4 @@
+import { i18n } from '@lingui/core';
 import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
@@ -26,9 +27,9 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       )
         .icon('spell_mage_altertime')
         .actual(
-          <Trans id="shared.suggestions.alwaysBeCasting.downtime">
-            {formatPercentage(1 - actual)}% downtime
-          </Trans>,
+          i18n._('shared.suggestions.alwaysBeCasting.downtime', {
+            0: formatPercentage(1 - actual),
+          }),
         )
         .recommended(`<${formatPercentage(1 - recommended)}% is recommended`),
     );
