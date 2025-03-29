@@ -21,7 +21,9 @@ const ABILITY_NAME_REPORTING_MAP = {
 };
 
 const getAbilityNameReporting = (ability: Ability) => {
-  if (ability.guid in ABILITY_NAME_REPORTING_MAP) {return ABILITY_NAME_REPORTING_MAP[ability.guid];}
+  if (ability.guid in ABILITY_NAME_REPORTING_MAP) {
+    return ABILITY_NAME_REPORTING_MAP[ability.guid];
+  }
 
   return ability.name;
 };
