@@ -202,6 +202,8 @@ const NameSearch = ({ type }: Props) => {
           id: 'interface.nameSearch.realm',
           message: `Realm`,
         })}
+        onBlur={() => {}}
+        onFocus={() => {}}
       />
       <input
         type="text"
