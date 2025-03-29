@@ -233,6 +233,13 @@ class HotHand extends MajorCooldown<HotHandProc> {
           EnhancementEventLinks.WHIRLING_FIRE_LINK,
           (e) => e.type === EventType.Cast,
         );
+        lavaLashCastEvent && addAdditionalCastInformation(
+          lavaLashCastEvent,
+          <>
+            <SpellLink spell={TALENTS.HOT_HAND_TALENT} /> was applied by{' '}
+            <SpellLink spell={SPELLS.WHIRLING_FIRE} />
+          </>,
+        );
       }
 
       this.activeWindow = {
