@@ -5,6 +5,7 @@ import CORE_CHANGELOG from './CHANGELOG';
 import { i18n } from '@lingui/core';
 
 describe('CHANGELOG', () => {
+  i18n.activate('en');
   const allChangelogs = AVAILABLE_CONFIGS.reduce<{ [specName: string]: ChangelogEntry[] }>(
     (obj, config) => {
       const specName = `${config.spec.specName ? i18n._(config.spec.specName) : null} ${i18n._(
