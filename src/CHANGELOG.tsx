@@ -41,6 +41,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2025, 3, 29), 'Update internal dependencies', emallson),
   change(date(2025, 3, 28), 'Expanded new Foundation downtime section to caster and healer specs.', emallson),
   change(date(2025, 3, 28), <>Add Empower ability handling for Cast Efficiency & Cancelled Casts modules</>, Vollmer),
   change(date(2025, 3, 28), <>Fixed internal ordering of event listener handling</>, Seriousnes),
