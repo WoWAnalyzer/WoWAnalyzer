@@ -1,4 +1,4 @@
-import { defineMessage } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
 import {
   WILDFIRE_BOMB_LEEWAY_BUFFER,
   COVERING_FIRE_CDR,

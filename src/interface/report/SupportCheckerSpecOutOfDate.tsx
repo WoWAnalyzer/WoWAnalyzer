@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import VERSIONS from 'game/VERSIONS';
 import Config from 'parser/Config';
 import { WCLFight } from 'parser/core/Fight';

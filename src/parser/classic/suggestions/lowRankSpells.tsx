@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { maybeGetSpell } from 'common/SPELLS';
 import SpellLink from 'interface/SpellLink';
 import { suggestion } from 'parser/core/Analyzer';

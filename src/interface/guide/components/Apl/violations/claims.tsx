@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import Spell from 'common/SPELLS/Spell';
 import { SpellLink } from 'interface';
 import { useAnalyzer, useInfo } from 'interface/guide';

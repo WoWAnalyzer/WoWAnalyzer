@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import DiscordButton from 'interface/DiscordButton';
 import GitHubButton from 'interface/GitHubButton';
 import Icon from 'interface/Icon';

@@ -1,5 +1,5 @@
-import { defineMessage } from '@lingui/macro';
-import { Trans } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { formatNth, formatDuration } from 'common/format';
 import { SpellLink, SpecIcon } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';

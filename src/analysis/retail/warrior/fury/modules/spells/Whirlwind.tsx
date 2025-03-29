@@ -1,4 +1,4 @@
-import { defineMessage } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
 import RageTracker from 'analysis/retail/warrior/shared/modules/core/RageTracker';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';

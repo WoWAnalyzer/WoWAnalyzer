@@ -1,4 +1,4 @@
-import { defineMessage } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
 import {
   MONGOOSE_BITE_MAX_STACKS,
   MONGOOSE_BITE_MAX_TRAVEL_TIME,

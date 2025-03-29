@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import ITEMS from 'common/ITEMS/thewarwithin/enchants';
 import SPELLS from 'common/SPELLS/deathknight';
 import { PRIMARY_STAT } from 'parser/shared/modules/features/STAT';

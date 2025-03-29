@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import Changelog from 'interface/Changelog';
 import Contributor from 'interface/ContributorButton';
 import Icon from 'interface/Icon';

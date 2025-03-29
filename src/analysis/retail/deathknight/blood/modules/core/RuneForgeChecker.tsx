@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { RuneForgeChecker } from 'analysis/retail/deathknight/shared';
 import SPELLS from 'common/SPELLS';
 import { isMythicPlus } from 'common/isMythicPlus';

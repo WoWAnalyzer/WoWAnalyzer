@@ -1,4 +1,4 @@
-import { defineMessage } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
 import { WCLFight } from 'parser/core/Fight';
 
 import { formatDuration } from './format';

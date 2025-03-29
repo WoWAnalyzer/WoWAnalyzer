@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { formatDuration } from 'common/format';
 import getFightName from 'common/getFightName';
 import getWipeCount from 'common/getWipeCount';

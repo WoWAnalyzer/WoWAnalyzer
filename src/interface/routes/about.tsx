@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import DiscordBotGif from 'interface/images/discord-bot.gif';
 import ChangelogPanel from 'interface/ChangelogPanel';
 import DiscordButton from 'interface/DiscordButton';

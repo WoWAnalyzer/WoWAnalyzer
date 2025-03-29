@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import AboutIcon from 'interface/icons/About';
 import ArmorIcon from 'interface/icons/Armor';
 import ChecklistIcon from 'interface/icons/Checklist';

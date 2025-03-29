@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import ITEMS from 'common/ITEMS';
 import { Enchant as EnchantItem } from 'common/ITEMS/Item';
 import { Enchant } from 'common/SPELLS/Spell';

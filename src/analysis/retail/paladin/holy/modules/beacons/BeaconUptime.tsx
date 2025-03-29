@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS, { TALENTS_PALADIN } from 'common/TALENTS/paladin';
 import { Options } from 'parser/core/Analyzer';

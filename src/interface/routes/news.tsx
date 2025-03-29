@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import DocumentTitle from 'interface/DocumentTitle';
 import TwitterIcon from 'interface/icons/Twitter';
 

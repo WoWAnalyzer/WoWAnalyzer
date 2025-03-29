@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import makeCharacterPageUrl from 'common/makeCharacterPageUrl';
 import { makePlainUrl } from 'interface/makeAnalyzerUrl';
 import REPORT_HISTORY_TYPES from 'interface/REPORT_HISTORY_TYPES';

@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import AgilityIcon from 'interface/icons/Agility';
 import ArmorIcon from 'interface/icons/Armor';
 import AvoidanceIcon from 'interface/icons/Avoidance';

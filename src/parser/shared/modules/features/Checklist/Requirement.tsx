@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import colorForPerformance from 'common/colorForPerformance';
 import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 import { Tooltip, TooltipElement } from 'interface';

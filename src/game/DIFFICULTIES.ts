@@ -1,4 +1,4 @@
-import { defineMessage } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
 import { i18n } from '@lingui/core';
 
 const DIFFICULTIES = {

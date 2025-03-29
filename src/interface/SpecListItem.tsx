@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import classColor from 'game/classColor';
 import Contributor from 'interface/ContributorButton';
 import ReadableListing from 'interface/ReadableListing';

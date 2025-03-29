@@ -1,4 +1,4 @@
-import { defineMessage } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage, formatThousands } from 'common/format';
 import TALENTS from 'common/TALENTS/warlock';
 import { SpellLink } from 'interface';

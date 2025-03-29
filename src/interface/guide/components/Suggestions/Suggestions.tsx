@@ -1,7 +1,7 @@
 import ParseResults from 'parser/core/ParseResults';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import Icon from 'interface/Icon';
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import Suggestion from 'interface/report/Results/Suggestion';
 
 interface SuggestionsProps {

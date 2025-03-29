@@ -13,7 +13,7 @@
   font-weight: 600;
 
   &:hover {
-    background-color: color.adjust($color: #fab700, $lightness: -7);
+    background-color: color.adjust($color: #fab700, $lightness: -7%);
   }
 }
 

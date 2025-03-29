@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { formatPercentage } from 'common/format';
 import Spell from 'common/SPELLS/Spell';
 import { SpellLink } from 'interface';

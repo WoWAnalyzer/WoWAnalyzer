@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { Ability, BeaconHealEvent } from 'parser/core/Events';
 import HealingValue from 'parser/shared/modules/HealingValue';

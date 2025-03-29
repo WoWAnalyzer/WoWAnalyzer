@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import BaseEnchantChecker from 'parser/shared/modules/items/EnchantChecker';
 
 const ENCHANTABLE_SLOTS = {

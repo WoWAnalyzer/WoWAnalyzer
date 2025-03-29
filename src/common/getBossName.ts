@@ -1,4 +1,4 @@
-import { defineMessage } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
 import { getLabel } from 'game/DIFFICULTIES';
 import { WCLFight } from 'parser/core/Fight';
 import { i18n } from '@lingui/core';

@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { formatNumber } from 'common/format';
 import indexByProperty from 'common/indexByProperty';
 import { TooltipElement } from 'interface';

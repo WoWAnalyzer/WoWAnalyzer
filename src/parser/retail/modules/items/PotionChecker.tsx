@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import ITEMS from 'common/ITEMS/thewarwithin/potions';
 import SPELLS from 'common/SPELLS/thewarwithin/potions';
 import ALCHEMY from 'common/SPELLS/dragonflight/crafted/alchemy';

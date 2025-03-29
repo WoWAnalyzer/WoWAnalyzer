@@ -1,4 +1,4 @@
-import { defineMessage } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
 import { HolyPowerTracker } from 'analysis/retail/paladin/shared';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';

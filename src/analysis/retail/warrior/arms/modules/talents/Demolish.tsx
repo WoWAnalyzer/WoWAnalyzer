@@ -12,7 +12,7 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 import { DEMOLISH_DAMAGE_CAST } from '../../normalizers/DemolishNormalizer';
 import SpellLink from 'interface/SpellLink';
-import { defineMessage } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
 import { DEFAULT_EXECUTE_THRESHOLD, MASSACRE_EXECUTE_THRESHOLD } from '../core/AplCheck';
 
 const COLOSSAL_MIGHT_MAX_STACKS = 10;
