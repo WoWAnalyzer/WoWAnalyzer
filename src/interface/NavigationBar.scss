@@ -1,4 +1,4 @@
-@import 'interface/Theme.scss';
+@use 'interface/Theme.scss';
 
 nav.global {
   position: absolute;
@@ -38,7 +38,7 @@ nav.global {
     padding-right: 0;
   }
   .menu-item a:hover {
-    color: $primaryColor;
+    color: Theme.$primaryColor;
     text-decoration: none;
   }
   .menu-item img,

@@ -1,4 +1,4 @@
-@import '../../Theme';
+@use '../../Theme';
 
 .list.issues .item {
   display: flex;
@@ -11,8 +11,8 @@
 .list.issues .item > .icon img {
   height: 40px;
   border-radius: 50%;
-  border: 1px solid $primaryColor;
-  box-shadow: 0 0 3px $primaryColor;
+  border: 1px solid Theme.$primaryColor;
+  box-shadow: 0 0 3px Theme.$primaryColor;
   margin: 0;
 }
 .list.issues .item > .suggestion {
@@ -40,5 +40,5 @@
   color: #5b9cff;
 }
 .list.issues .major .importance {
-  color: $red;
+  color: Theme.$red;
 }

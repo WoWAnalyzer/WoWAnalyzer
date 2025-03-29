@@ -1,4 +1,4 @@
-@import 'interface/Theme.scss';
+@use 'interface/Theme.scss';
 
 .app > main > section:first-of-type {
   margin-top: 0;
@@ -40,7 +40,7 @@ section header h1 {
 
       li {
         position: relative;
-        background: $panelColor;
+        background: Theme.$panelColor;
 
         &:last-of-type {
           border-right: 0;
@@ -65,7 +65,7 @@ section header h1 {
           background-image: radial-gradient(closest-side, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0));
         }
         a:hover {
-          border: 2px solid $primaryColor;
+          border: 2px solid Theme.$primaryColor;
           background: rgba(0, 0, 0, 0.1);
           text-decoration: none;
         }
@@ -75,10 +75,10 @@ section header h1 {
         svg {
           margin: 0 10px 0 0;
           font-size: 24px;
-          color: $primaryColor;
+          color: Theme.$primaryColor;
         }
         &.active a {
-          background-color: $primaryColor;
+          background-color: Theme.$primaryColor;
           color: #211510;
           text-shadow: none;
 

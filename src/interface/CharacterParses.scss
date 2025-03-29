@@ -1,4 +1,4 @@
-@import './Theme.scss';
+@use 'Theme.scss';
 
 .charparse .filter {
   margin: 0;
@@ -14,7 +14,7 @@
 }
 
 .charparse .form-control.selected {
-  background-color: $primaryColor;
+  background-color: Theme.$primaryColor;
 }
 
 .charparse .row.filter {
@@ -35,7 +35,7 @@
 
       img.spec-icon {
         border-radius: 50%;
-        border: 1px solid $primaryColor;
+        border: 1px solid Theme.$primaryColor;
         margin-right: 20px;
         height: 36px;
         margin-top: -2px;
@@ -112,7 +112,7 @@
 }
 
 .character-filter.selected {
-  background-color: $primaryColor;
+  background-color: Theme.$primaryColor;
   color: #211510;
 }
 

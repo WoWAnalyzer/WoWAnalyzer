@@ -1,4 +1,4 @@
-@import 'interface/Theme.scss';
+@use 'interface/Theme.scss';
 
 .raid-composition {
   align-content: center;
@@ -17,7 +17,7 @@
     font-size: 22px;
     line-height: 1;
     border-radius: 3px;
-    background: $panelColor;
+    background: Theme.$panelColor;
   }
   .bar .flex > .icon {
     img {
@@ -68,7 +68,7 @@
       color: #fff;
       flex-direction: column;
       padding: 0;
-      background: $panelColor;
+      background: Theme.$panelColor;
 
       > .avatar {
         flex: 0 0 auto;

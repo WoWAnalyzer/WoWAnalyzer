@@ -1,7 +1,7 @@
-@import 'interface/Theme.scss';
+@use 'interface/Theme.scss';
 
 .form-control.phase > option {
-  background-color: $backgroundColor;
+  background-color: Theme.$backgroundColor;
 }
 
 .form-control.phase[disabled] {

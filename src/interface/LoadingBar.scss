@@ -1,4 +1,4 @@
-@import 'interface/Theme.scss';
+@use 'interface/Theme.scss';
 
 .LoadingBar {
   height: 12px;
@@ -22,5 +22,5 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: $primaryColor;
+  background: Theme.$primaryColor;
 }
