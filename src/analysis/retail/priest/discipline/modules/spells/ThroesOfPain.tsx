@@ -9,16 +9,16 @@ import AtonementAnalyzer, { AtonementAnalyzerEvent } from '../core/AtonementAnal
 import { calculateEffectiveDamage, calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import PurgeTheWicked from '../features/EncroachingShadows';
+import EncroachingShadows from '../features/EncroachingShadows';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 
 class ThroesOfPain extends Analyzer {
   static dependencies = {
-    purgeTheWicked: PurgeTheWicked,
+    encroachingShadows: EncroachingShadows,
   };
 
-  protected purgeTheWicked!: PurgeTheWicked;
+  protected encroachingShadows!: EncroachingShadows;
 
   healing = 0;
   damage = 0;
@@ -48,11 +48,14 @@ class ThroesOfPain extends Analyzer {
       return;
     }
 
-    this.healing += calculateEffectiveHealing(healEvent, this.purgeTheWicked.throesOfPainIncrease);
+    this.healing += calculateEffectiveHealing(
+      healEvent,
+      this.encroachingShadows.throesOfPainIncrease,
+    );
   }
 
   onDamage(event: DamageEvent) {
-    this.damage += calculateEffectiveDamage(event, this.purgeTheWicked.throesOfPainIncrease);
+    this.damage += calculateEffectiveDamage(event, this.encroachingShadows.throesOfPainIncrease);
   }
 
   onManaGain(event: ResourceChangeEvent) {
