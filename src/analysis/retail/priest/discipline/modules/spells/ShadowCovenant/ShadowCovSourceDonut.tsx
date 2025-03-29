@@ -9,6 +9,18 @@ interface ScovSourceDonutProps {
   healingMap: Map<number, number>;
 }
 
+const ABILITY_NAME_REPORTING_MAP = {
+  [SPELLS.DARK_REPRIMAND_TWINSIGHT_DAMAGE.id]: SPELLS.DARK_REPRIMAND_TWINSIGHT_DAMAGE.name,
+};
+
+const getAbilityNameReporting = (ability: Ability) => {
+  if (ability.guid in ABILITY_NAME_REPORTING_MAP) {
+    return ABILITY_NAME_REPORTING_MAP[ability.guid];
+  }
+
+  return ability.name;
+};
+
 interface ScovSourceGraphItem {
   color: string;
   spellId: number;
@@ -46,7 +58,7 @@ function generateHealingItems(
     return {
       color: `${COLORS[ability.guid] || randomColor()}`,
       spellId: ability.guid,
-      label: ability.name,
+      label: getAbilityNameReporting(ability),
       value: healingDone,
       valueTooltip: formatThousands(healingDone),
     };
