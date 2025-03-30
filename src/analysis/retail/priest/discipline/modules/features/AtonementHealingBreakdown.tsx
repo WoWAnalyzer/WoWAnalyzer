@@ -1,10 +1,9 @@
 import AtonementHealingDone from 'analysis/retail/priest/discipline/modules/features/AtonementHealingDone';
 import { formatNumber, formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import SPELLS, { maybeGetSpell } from 'common/SPELLS';
 import { Icon } from 'interface';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
-import { Ability } from 'parser/core/Events';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import Toggle from 'react-toggle';
@@ -14,19 +13,6 @@ interface Props {
   analyzer: AtonementHealingDone;
   owner: CombatLogParser;
 }
-
-const ABILITY_NAME_REPORTING_MAP = {
-  [SPELLS.PENANCE_TWINSIGHT_DAMAGE.id]: SPELLS.PENANCE_TWINSIGHT_DAMAGE.name,
-  [SPELLS.DARK_REPRIMAND_TWINSIGHT_DAMAGE.id]: SPELLS.DARK_REPRIMAND_TWINSIGHT_DAMAGE.name,
-};
-
-export const getAbilityNameReporting = (ability: Ability) => {
-  if (ability.guid in ABILITY_NAME_REPORTING_MAP) {
-    return ABILITY_NAME_REPORTING_MAP[ability.guid];
-  }
-
-  return ability.name;
-};
 
 const getReason = (spellId: string) => {
   switch (Number(spellId)) {
@@ -67,7 +53,8 @@ const AtonementHealingBreakdown = ({
                 <tr key={ability.guid}>
                   <td style={{ width: '30%' }}>
                     <SpellLink spell={abilityToSpell(ability)} icon={false}>
-                      <Icon icon={ability.abilityIcon} /> {getAbilityNameReporting(ability)}
+                      <Icon icon={ability.abilityIcon} />{' '}
+                      {maybeGetSpell(ability.guid)?.name || ability.name}
                     </SpellLink>
                     {reason && <> ({reason})</>}
                   </td>

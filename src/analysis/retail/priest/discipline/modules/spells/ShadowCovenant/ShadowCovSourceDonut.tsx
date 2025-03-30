@@ -1,9 +1,8 @@
-import SPELLS from 'common/SPELLS';
+import SPELLS, { maybeGetSpell } from 'common/SPELLS';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import { formatThousands } from 'common/format';
 import { Ability } from 'parser/core/Events';
 import DonutChart from 'parser/ui/DonutChart';
-import { getAbilityNameReporting } from '../../features/AtonementHealingBreakdown';
 
 interface ScovSourceDonutProps {
   abilityMap: Map<number, Ability>;
@@ -47,7 +46,7 @@ function generateHealingItems(
     return {
       color: `${COLORS[ability.guid] || randomColor()}`,
       spellId: ability.guid,
-      label: getAbilityNameReporting(ability),
+      label: maybeGetSpell(ability.guid)?.name || ability.name,
       value: healingDone,
       valueTooltip: formatThousands(healingDone),
     };
