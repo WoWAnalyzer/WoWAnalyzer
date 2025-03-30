@@ -44,7 +44,11 @@ import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { getApplicableRules, HighPriorityAbilities } from '../../common';
 import { EnhancementEventLinks, GCD_TOLERANCE } from '../../constants';
-import { addEnhancedCastReason, addInefficientCastReason } from 'parser/core/EventMetaLib';
+import {
+  addAdditionalCastInformation,
+  addEnhancedCastReason,
+  addInefficientCastReason,
+} from 'parser/core/EventMetaLib';
 import NPCS from 'common/NPCS';
 import Reactivity from '../hero/totemic/Reactivity';
 
@@ -229,32 +233,40 @@ class HotHand extends MajorCooldown<HotHandProc> {
       let lavaLashCastEvent: CastEvent | undefined;
       if (whirlingFireRemovedEvent) {
         lavaLashCastEvent = GetRelatedEvent<CastEvent>(
-          event,
+          whirlingFireRemovedEvent,
           EnhancementEventLinks.WHIRLING_FIRE_LINK,
           (e) => e.type === EventType.Cast,
         );
-        lavaLashCastEvent && addAdditionalCastInformation(
-          lavaLashCastEvent,
-          <>
-            <SpellLink spell={TALENTS.HOT_HAND_TALENT} /> was applied by{' '}
-            <SpellLink spell={SPELLS.WHIRLING_FIRE} />
-          </>,
-        );
+        lavaLashCastEvent &&
+          addAdditionalCastInformation(
+            lavaLashCastEvent,
+            <>
+              <SpellLink spell={TALENTS.HOT_HAND_TALENT} /> was applied by{' '}
+              <SpellLink spell={SPELLS.WHIRLING_FIRE} />
+            </>,
+          );
       }
 
       this.activeWindow = {
         event: event,
         timeline: {
-          start: lavaLashCastEvent
-            ? lavaLashCastEvent.timestamp
-            : Math.max(event.timestamp, this.globalCooldownEnds),
+          start: Math.max(event.timestamp, this.globalCooldownEnds),
           end: -1,
-          events: lavaLashCastEvent ? [lavaLashCastEvent, lavaLashCastEvent.globalCooldown!] : [],
+          events: [],
         },
         unusedGcdTime: 0,
         globalCooldowns: [],
         hasteAdjustedWastedCooldown: 0,
       };
+
+      if (lavaLashCastEvent) {
+        this.activeWindow.timeline.start = lavaLashCastEvent.timestamp;
+        this.activeWindow.timeline.events.push(
+          lavaLashCastEvent,
+          lavaLashCastEvent.globalCooldown!,
+        );
+        this.activeWindow.globalCooldowns.push(lavaLashCastEvent.globalCooldown!.duration);
+      }
     }
     this.lastCooldownWasteCheck = event.timestamp;
   }
