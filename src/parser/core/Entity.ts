@@ -2,7 +2,10 @@ import CombatLogParser from 'parser/core/CombatLogParser';
 import { BuffEvent, HasSource } from 'parser/core/Events';
 import Spell from 'common/SPELLS/Spell';
 
-interface StackHistoryElement { stacks: number; timestamp: number }
+interface StackHistoryElement {
+  stacks: number;
+  timestamp: number;
+}
 export interface TrackedBuffEvent extends BuffEvent<any> {
   start: number;
   end: number | null;
@@ -95,11 +98,7 @@ class Entity {
    * @param {number} minimalActiveTime - Time (in ms) the buff must have been active before timestamp for it to be included.
    * @returns {boolean} - Whether the buff is present with the given specifications.
    */
-  hasOwnBuff(
-    spell: number | Spell,
-    bufferTime = 0,
-    minimalActiveTime = 0,
-  ): boolean {
+  hasOwnBuff(spell: number | Spell, bufferTime = 0, minimalActiveTime = 0): boolean {
     return this.hasBuff(
       spell,
       null,
@@ -197,11 +196,7 @@ class Entity {
    * @param {number} minimalActiveTime - Time (in ms) the buff must have been active before timestamp for it to be included.
    * @return {number} - The number of stacks of the buff or 0 if the buff isn't present.
    */
-  getOwnBuffStacks(
-    spell: number | Spell,
-    bufferTime = 0,
-    minimalActiveTime = 0,
-  ): number {
+  getOwnBuffStacks(spell: number | Spell, bufferTime = 0, minimalActiveTime = 0): number {
     return this.getBuffStacks(
       spell,
       null,

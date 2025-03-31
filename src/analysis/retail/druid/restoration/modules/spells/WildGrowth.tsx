@@ -35,7 +35,10 @@ class WildGrowth extends Analyzer {
 
   recentWgTimestamp = 0;
   /** Tracker for the overhealing on targets hit by a recent hardcast Wild Growth, indexed by targetID */
-  recentWgTargetHealing: Record<number, { appliedTimestamp: number; total: number; overheal: number }> = {};
+  recentWgTargetHealing: Record<
+    number,
+    { appliedTimestamp: number; total: number; overheal: number }
+  > = {};
 
   /** Total Wild Growth hardcasts (not tallied until the rest of the fields) */
   totalCasts = 0;

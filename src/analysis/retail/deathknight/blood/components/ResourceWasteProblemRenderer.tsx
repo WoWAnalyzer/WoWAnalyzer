@@ -64,7 +64,7 @@ export function ResourceWasteProblemRenderer({
         event.ability.guid === SPELLS.RUNIC_ATTENUATION_RP_GAIN.id
       ) {
         // eslint thinks that we can just use const x: Y here but we have to use `as Y` anyway for TS
-         
+
         const newEvent: CastEvent = {
           ...event,
           type: EventType.Cast,

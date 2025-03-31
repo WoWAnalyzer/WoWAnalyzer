@@ -186,10 +186,7 @@ export function calculateEffectiveDamageFromCritIncrease(
  * @return the target's health percent *before* the heal, in range 0 to 1. Note that if `includeHealAbsorbs` is true,
  * targets with a large heal absorb could report as having 0 health.
  */
-export function calculateHealTargetHealthPercent(
-  event: HealEvent,
-  includeHealAbsorbs = false,
-) {
+export function calculateHealTargetHealthPercent(event: HealEvent, includeHealAbsorbs = false) {
   let healing = event.amount;
   if (includeHealAbsorbs) {
     healing += event.absorbed || 0;

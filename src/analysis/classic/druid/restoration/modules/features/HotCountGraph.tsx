@@ -13,7 +13,6 @@ class HotCountGraph extends BuffCountGraph {
     ...BuffCountGraph.dependencies,
   };
 
-   
   constructor(options: Options) {
     super(options);
   }

@@ -57,7 +57,10 @@ export type ProblemData =
 const CAP_CUTOFF = 4000;
 const CHI_REFRESH_CUTOFF = 7500;
 
-interface PurifiedHit { hit: AddStaggerEvent; ratio: number }
+interface PurifiedHit {
+  hit: AddStaggerEvent;
+  ratio: number;
+}
 
 function staggerDuration(bnw: boolean): number {
   return bnw ? 13000 : 10000;

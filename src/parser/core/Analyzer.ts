@@ -30,7 +30,7 @@ class Analyzer extends EventSubscriber {
    * initialized. Use this method to toggle the module on/off based on having
    * items equipped, talents selected, etc.
    */
-   
+
   constructor(options: Options) {
     super(options);
   }
@@ -167,9 +167,7 @@ function buildFunctionalAnalyzer<Deps extends Dependencies, Result = any>(
   eventFilter: FunctionalEventFilter = Events.any,
   dependencies?: Deps,
 ) {
-  const eventFilters: EventFilter<any>[] = Array.isArray(eventFilter)
-    ? eventFilter
-    : [eventFilter];
+  const eventFilters: EventFilter<any>[] = Array.isArray(eventFilter) ? eventFilter : [eventFilter];
 
   const deps = dependencies ?? {};
 

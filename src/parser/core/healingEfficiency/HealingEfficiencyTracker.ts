@@ -97,11 +97,14 @@ class HealingEfficiencyTracker extends Analyzer {
     spellInfo.damageHits = ability.damageHits || 0;
     spellInfo.damageDone = ability.damageVal.effective;
 
-    const spenders = this.manaTracker.spendersObj as Record<number, {
+    const spenders = this.manaTracker.spendersObj as Record<
+      number,
+      {
         spent: number;
         spentByCast: number[];
         casts: number;
-      }>;
+      }
+    >;
 
     spellInfo.manaSpent = spenders[spellId] ? spenders[spellId].spent : 0;
     const timeSpentCasting = this.castEfficiency.getTimeSpentCasting(spellId);

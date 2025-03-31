@@ -91,7 +91,7 @@ const ReportStatistics = ({
 
   return (
     <div className="container">
-      { }
+      {}
       {(Object.keys(groups) as STATISTIC_CATEGORY[])
         .sort((a, b) => categoryByIndex.indexOf(a) - categoryByIndex.indexOf(b))
         .map((name) => {

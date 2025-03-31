@@ -43,9 +43,9 @@ export interface Fight extends WCLFight {
   filtered?: boolean;
   phase?: string;
   instance?: number;
-   
+
   offset_time: number;
-   
+
   original_end_time?: number;
 }
 

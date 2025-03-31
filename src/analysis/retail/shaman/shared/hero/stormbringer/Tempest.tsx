@@ -39,7 +39,10 @@ const SPEC_OPTIONS = {
   },
 } satisfies Record<number, SpecOptions>;
 
-interface Point { timestamp: number; value: number }
+interface Point {
+  timestamp: number;
+  value: number;
+}
 type PointWithRange = Point & { min: number; max: number };
 type XPoint = Pick<Point, 'timestamp'>;
 

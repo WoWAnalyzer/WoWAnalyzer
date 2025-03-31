@@ -5,7 +5,6 @@ import SPELLS from 'common/SPELLS/demonhunter';
 export default class SoulFragmentBuffStackTracker extends BuffStackTracker {
   static trackedBuff = SPELLS.SOUL_FRAGMENT_STACK;
 
-   
   constructor(options: Options) {
     super(options);
   }

@@ -96,7 +96,7 @@ class DampenHarm extends MajorDefensiveBuff {
 
   private get spec() {
     const scale = 0.025;
-     
+
     const spec = {
       layer: [
         {

@@ -8,7 +8,6 @@ import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 
 class Riptide extends Analyzer {
-   
   constructor(options: Options) {
     super(options);
   }

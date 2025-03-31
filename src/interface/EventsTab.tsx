@@ -150,12 +150,12 @@ const isFilterableEventType = (str: string): str is FilterableEventType =>
 
 const allFiltersOn = Object.entries(FILTERABLE_TYPES).reduce(
   (acc, [k]) => ({ ...acc, [k]: true }),
-   
+
   {} as Record<FilterableEventType, boolean>,
 );
 const allFiltersOff = Object.entries(FILTERABLE_TYPES).reduce(
   (acc, [k]) => ({ ...acc, [k]: false }),
-   
+
   {} as Record<FilterableEventType, boolean>,
 );
 

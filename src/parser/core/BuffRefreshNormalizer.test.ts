@@ -3,7 +3,6 @@ import BuffRefreshNormalizer from './BuffRefreshNormalizer';
 import { AnyEvent, EventType } from './Events';
 
 function fakeEvent(timestamp: number, type: EventType, abilityId: number, __modified?: boolean) {
-   
   return {
     type,
     timestamp,
@@ -16,12 +15,7 @@ function fakeEvent(timestamp: number, type: EventType, abilityId: number, __modi
 
 class T extends BuffRefreshNormalizer {
   constructor(abiltities: number | readonly number[], bufferMs?: number) {
-    super(
-       
-      {} as Options,
-      abiltities,
-      bufferMs,
-    );
+    super({} as Options, abiltities, bufferMs);
   }
 }
 

@@ -6,7 +6,6 @@ export default class SheilunsGiftCloudTracker extends BuffStackTracker {
   static trackPets = false;
   static trackedBuff = SPELLS.SHEILUN_CLOUD_BUFF;
 
-   
   constructor(options: Options) {
     super(options);
   }

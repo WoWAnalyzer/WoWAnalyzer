@@ -38,11 +38,14 @@ class Evangelism extends Analyzer {
     );
   }
 
-  _evangelismStatistics: Record<number, {
+  _evangelismStatistics: Record<
+    number,
+    {
       count: number;
       atonementSeconds: number;
       healing: number;
-    }> = {};
+    }
+  > = {};
 
   get evangelismStatistics() {
     return Object.keys(this._evangelismStatistics)

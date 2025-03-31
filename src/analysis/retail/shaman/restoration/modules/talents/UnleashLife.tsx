@@ -57,10 +57,13 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 const debug = false;
 
-type HealingMap = Record<number, {
+type HealingMap = Record<
+  number,
+  {
     amount: number;
     casts: number;
-  }>;
+  }
+>;
 
 interface TooltipData {
   spellId: number;

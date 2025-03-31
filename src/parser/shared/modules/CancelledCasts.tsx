@@ -25,10 +25,13 @@ class CancelledCasts extends Analyzer {
   castsFinished = 0;
   beginCastSpell: BeginCastEvent | EmpowerStartEvent | undefined = undefined;
   wasCastStarted = false;
-  cancelledSpellList: Record<number, {
+  cancelledSpellList: Record<
+    number,
+    {
       spellName: string;
       amount: number;
-    }> = {};
+    }
+  > = {};
 
   cancelGaps: CancelGap[] = [];
   IGNORED_ABILITIES: number[] = [];

@@ -167,7 +167,10 @@ export function potentialStaggerEvents(
   let staggerPool = stagger[ix].newPooledDamage - stagger[ix].amount;
 
   const events = (
-    stagger as Pick<AddStaggerEvent | RemoveStaggerEvent, 'type' | 'amount' | 'timestamp' | 'trigger'>[]
+    stagger as Pick<
+      AddStaggerEvent | RemoveStaggerEvent,
+      'type' | 'amount' | 'timestamp' | 'trigger'
+    >[]
   )
     .slice(ix)
     .concat(

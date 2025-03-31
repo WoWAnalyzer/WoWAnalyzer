@@ -16,7 +16,6 @@ function debuff<T extends DebuffEventType>(
   targetID: number,
   targetInstance?: number,
 ): AnyEvent<T> {
-   
   return {
     timestamp,
     type,

@@ -157,7 +157,6 @@ const ReportSelecter = () => {
     e.preventDefault();
 
     if (!reportCode) {
-       
       alert('Enter a report first.');
       return;
     }

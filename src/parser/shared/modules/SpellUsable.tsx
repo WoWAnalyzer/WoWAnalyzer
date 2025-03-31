@@ -577,10 +577,7 @@ class SpellUsable extends Analyzer {
    * @param forceCheckAbilites iff true, cooldown will be pulled from Abilities even if there
    *     is a cached value in cdInfo
    */
-  private _getExpectedCooldown(
-    canonicalSpellId: number,
-    forceCheckAbilites = false,
-  ): number {
+  private _getExpectedCooldown(canonicalSpellId: number, forceCheckAbilites = false): number {
     const cdInfo = this._currentCooldowns[canonicalSpellId];
     if (cdInfo && !forceCheckAbilites) {
       // cdInfo always kept up to date

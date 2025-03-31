@@ -12,7 +12,6 @@ function fakeEvent(abilityId, type, timestamp, sourceID, targetID) {
 }
 
 class ConcreteEventOrderNormalizer extends EventOrderNormalizer {
-   
   constructor(options, eventOrders) {
     super(options, eventOrders);
   }
@@ -349,7 +348,7 @@ describe('EventOrderNormalizer unit tests', () => {
       const parser = new ConcreteEventOrderNormalizer({}, test.eventOrders);
 
       // mark events with their original index
-       
+
       for (let i = 0; i < test.events.length; i++) {
         test.events[i].__testId = i;
       }
