@@ -41,6 +41,7 @@ const useSessionState = (
       window.sessionStorage.setItem(key, initialValue);
     }
     // intentionally omitting initialValue to avoid accidental overwrites
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key]);
 
   const setSessionValue = useCallback(
@@ -167,6 +168,7 @@ const ReportLoader = ({ children }: Props) => {
       loadReport(reportCode, refresh);
     }
     // intentionally omit refresh-related state from this effect's deps to avoid triggering another load after a force refresh
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loadReport, reportCode]);
 
   if (error) {

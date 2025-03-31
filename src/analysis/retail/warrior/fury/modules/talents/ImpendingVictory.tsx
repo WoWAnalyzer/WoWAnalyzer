@@ -9,8 +9,8 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 // Example Log: https://www.warcraftlogs.com/reports/NcRzTFqvyxaYDMBb#fight=8&type=healing&source=7
 class ImpendingVicory extends Analyzer {
-  totalDamage: number = 0;
-  totalHeal: number = 0;
+  totalDamage = 0;
+  totalHeal = 0;
 
   constructor(options: Options) {
     super(options);
