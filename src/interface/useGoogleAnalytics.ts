@@ -44,6 +44,5 @@ export function usePageView(componentName: string, key?: unknown) {
     if (window.gtag) {
       window.gtag('event', 'page_view', props);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key]);
 }

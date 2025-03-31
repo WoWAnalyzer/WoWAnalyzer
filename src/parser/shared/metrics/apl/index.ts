@@ -9,7 +9,7 @@ import {
   UpdateSpellUsableType,
 } from 'parser/core/Events';
 import metric, { Info } from 'parser/core/metric';
-import { ReactChild } from 'react';
+import { ReactChild, ReactNode } from 'react';
 import { initLocationState, isInRange, LocationState, updateLocationState } from './range';
 
 const debug = false;
@@ -85,7 +85,7 @@ type AplTarget = SpellTarget | SpellListTarget;
 export interface InternalRule {
   spell: AplTarget;
   condition?: Condition<any>;
-  description?: React.ReactNode;
+  description?: ReactNode;
 }
 
 interface ConditionalRule {
@@ -94,7 +94,7 @@ interface ConditionalRule {
   /**
    * Completely overrides the description of the rule. This will prevent the automatic display of conditions!
    */
-  description?: React.ReactNode;
+  description?: ReactNode;
 }
 
 interface LabelRule {
@@ -102,7 +102,7 @@ interface LabelRule {
   /**
    * Completely overrides the description of the rule. This will prevent the automatic display of conditions!
    */
-  description: React.ReactNode;
+  description: ReactNode;
 }
 
 export type Rule = Spell | Spell[] | ConditionalRule | LabelRule;

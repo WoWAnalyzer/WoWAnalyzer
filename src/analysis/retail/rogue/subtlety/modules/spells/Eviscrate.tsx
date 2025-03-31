@@ -7,9 +7,10 @@ import { HideGoodCastsSpellUsageSubSection } from 'parser/core/SpellUsage/HideGo
 import { logSpellUseEvent } from 'parser/core/SpellUsage/SpellUsageSubSection';
 import CastPerformanceSummary from 'analysis/retail/demonhunter/shared/guide/CastPerformanceSummary';
 import { createSpellUse } from 'parser/core/MajorCooldowns/MajorCooldown';
+import { SpellUse } from 'parser/core/SpellUsage/core';
 
 export default class Eviscerate extends Analyzer {
-  private cooldownUses: any[] = [];
+  private cooldownUses: SpellUse[] = [];
 
   constructor(options: Options) {
     super(options);

@@ -25,9 +25,9 @@ describe('CHANGELOG', () => {
       changelog.forEach((entry, index) => {
         try {
           test(entry);
-        } catch (error) {
+        } catch {
           // Custom fail handling so that we can point to the proper changelog without poluting the Jest log with all spec names
-           
+
           fail(
             `Changelog entry #${index} of the ${name} changelog does not meet this requirement.`,
           );

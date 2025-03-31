@@ -6,8 +6,10 @@ interface Props extends React.VideoHTMLAttributes<HTMLVideoElement> {
   randomValue?: number;
 }
 
-const CyclingVideo = ({ videos, randomValue = Math.random(), ...otherProps }: Props) => {
-  const [currentIndex, setCurrentIndex] = useState(Math.floor(randomValue * videos.length));
+const CyclingVideo = ({ videos, randomValue, ...otherProps }: Props) => {
+  const [currentIndex, setCurrentIndex] = useState(
+    Math.floor((randomValue ?? Math.random()) * videos.length),
+  );
   const currentVideo = videos[currentIndex];
 
   const handleEnded = () => {

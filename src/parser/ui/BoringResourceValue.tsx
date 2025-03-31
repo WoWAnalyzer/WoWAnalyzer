@@ -3,13 +3,9 @@
  */
 import { ResourceIcon } from 'interface';
 import * as React from 'react';
+import { Resource } from 'game/RESOURCE_TYPES';
 
 import './BoringValue.scss';
-
-interface Resource {
-  id: number;
-  [others: string]: any;
-}
 
 interface Props {
   resource: Resource;

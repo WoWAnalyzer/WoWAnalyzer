@@ -31,7 +31,7 @@ export const fetchUser = createAsyncThunk<User | null>('user/fetchUser', async (
 
     const data = await response.json();
     return data satisfies User;
-  } catch (err: any) {
+  } catch (err: unknown) {
     captureException(err, {
       extra: {
         location: 'user',
@@ -46,7 +46,7 @@ export const logout = createAsyncThunk('user/logout', async () => {
     await fetch(`${import.meta.env.VITE_SERVER_BASE}logout`, {
       credentials: 'include',
     });
-  } catch (err: any) {
+  } catch (err: unknown) {
     captureException(err);
     console.error(err);
     // fail silently since this only enhances the experience, if we're shortly down it shouldn't *kill* the experience.

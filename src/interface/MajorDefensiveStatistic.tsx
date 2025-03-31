@@ -7,12 +7,14 @@ import MajorDefensive, {
 } from './guide/components/MajorDefensives/MajorDefensiveAnalyzer';
 import { useFight } from './report/context/FightContext';
 import SpellLink from './SpellLink';
+import { ComponentProps } from 'react';
+import { EventType } from 'parser/core/Events';
 
-export default function MajorDefensiveStatistic({
+export default function MajorDefensiveStatistic<Apply extends EventType, Remove extends EventType>({
   analyzer,
   ...props
-}: { analyzer: MajorDefensive<any, any> } & Omit<
-  React.ComponentProps<typeof Statistic>,
+}: { analyzer: MajorDefensive<Apply, Remove> } & Omit<
+  ComponentProps<typeof Statistic>,
   'children'
 >): JSX.Element {
   const { fight } = useFight();

@@ -53,7 +53,7 @@ function fixSpellNameEscaping(text: string) {
   // WCL fails to escape spell names when using translate=true, leading to invalid JSON.
   // this fixes these logs by removing those
   const regex = /"name": ?"(.+?)",/g;
-   
+
   while (true) {
     const match = regex.exec(text);
     if (match === null) {
@@ -77,7 +77,7 @@ export async function toJson(response: string | Response) {
         text = fixControlCharacters(text);
         text = fixSpellNameEscaping(text);
         return JSON.parse(text);
-      } catch (asciiFixError) {
+      } catch {
         // Ignore the error since we're more interested in the original error.
       }
     }
@@ -223,9 +223,8 @@ export async function fetchEvents(
 
   let events: AnyEvent[] = [];
   let page = 0;
-   
+
   while (true) {
-     
     const json = await rawFetchEventsPage(
       reportCode,
       pageStartTimestamp,

@@ -8,13 +8,14 @@ import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { EnchantmentBoxRowEntry } from 'interface/guide/components/Preparation/EnchantmentSubSection/EnchantmentBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { JSX } from 'react';
 
 class EnchantChecker extends Analyzer {
   get EnchantableSlots(): Record<number, JSX.Element> {
     return {};
   }
 
-  get EnchantableGear(): any {
+  get EnchantableGear(): Record<number, Item> {
     const enchantSlots = this.EnchantableSlots;
     return Object.keys(enchantSlots).reduce<Record<number, Item>>((obj, slot) => {
       const item = this.selectedCombatant._getGearItemBySlotId(Number(slot));

@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import { Event, EventType } from 'parser/core/Events';
 
 class OpportunityDamageTracker extends FilteredDamageTracker {
-  shouldProcessEvent(event: Event<EventType.Event>): boolean {
+  shouldProcessEvent(event: never): boolean {
     return this.selectedCombatant.hasBuff(SPELLS.OPPORTUNITY.id);
   }
 }

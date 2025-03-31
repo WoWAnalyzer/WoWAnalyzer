@@ -4,7 +4,8 @@ import Spell from 'common/SPELLS/Spell';
 import TALENTS from 'common/TALENTS/rogue';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import { SuggestionFactory, ThresholdStyle, When } from 'parser/core/ParseResults';
+import { NumberThreshold, SuggestionFactory, ThresholdStyle, When } from 'parser/core/ParseResults';
+import FilteredDamageTracker from 'analysis/retail/rogue/shared/FilteredDamageTracker';
 
 class CastsInStealthBase extends Analyzer {
   backstabSpell: Spell;
@@ -53,7 +54,10 @@ class CastsInStealthBase extends Analyzer {
     };
   }
 
-  createWrongCastThresholds(spell: Spell, tracker: any) {
+  createWrongCastThresholds<T extends FilteredDamageTracker>(
+    spell: Spell,
+    tracker: T,
+  ): NumberThreshold {
     return {
       actual: tracker.getAbility(spell.id).casts,
       isGreaterThan: {
@@ -65,7 +69,7 @@ class CastsInStealthBase extends Analyzer {
     };
   }
 
-  suggestWrongCast(when: When, spell: Spell, thresholds: any) {
+  suggestWrongCast(when: When, spell: Spell, thresholds: NumberThreshold) {
     when(thresholds).addSuggestion(
       (suggest: SuggestionFactory, actual: number | boolean, recommended: number | boolean) =>
         suggest(

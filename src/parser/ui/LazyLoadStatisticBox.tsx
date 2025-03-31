@@ -7,7 +7,7 @@ import { useResults } from 'interface/report/Results/ResultsContext';
 export { STATISTIC_ORDER } from './StatisticBox';
 
 interface Props {
-  loader: () => Promise<any>;
+  loader: () => Promise<unknown>;
   label?: ReactNode;
   value: ReactNode;
   category?: STATISTIC_CATEGORY;

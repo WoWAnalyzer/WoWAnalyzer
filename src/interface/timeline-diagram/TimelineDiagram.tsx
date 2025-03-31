@@ -27,8 +27,12 @@ const ctx = React.createContext<TimelineContext>({
   width() {
     return 0;
   },
-  zoom(start, end) {},
-  resetZoom() {},
+  zoom(start, end) {
+    // do nothing
+  },
+  resetZoom() {
+    // do nothing
+  },
 });
 
 export const useTimelinePosition = () => useContext(ctx);

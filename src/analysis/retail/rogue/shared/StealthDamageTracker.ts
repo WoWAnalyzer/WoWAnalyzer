@@ -17,7 +17,7 @@ class StealthDamageTracker extends FilteredDamageTracker {
     }
   }
 
-  shouldProcessEvent(event: any) {
+  shouldProcessEvent(event: never) {
     return isStealth(this.selectedCombatant, this.delayWindow);
   }
 }

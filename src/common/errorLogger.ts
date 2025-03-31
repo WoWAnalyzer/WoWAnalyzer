@@ -1,7 +1,7 @@
 import { captureException as sentryCaptureException, withScope } from '@sentry/react';
 
 export function captureException(
-  exception: Error,
+  exception: unknown,
   options?: {
     extra?: Record<string, unknown>;
     contexts?: { react: { componentStack: unknown } };

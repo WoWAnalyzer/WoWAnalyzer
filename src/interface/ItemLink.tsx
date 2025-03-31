@@ -1,15 +1,15 @@
 import getItemQualityLabel from 'common/getItemQualityLabel';
 import ITEMS from 'common/ITEMS';
-import * as React from 'react';
-import { AnchorHTMLAttributes } from 'react';
+import { ComponentPropsWithoutRef, ReactNode } from 'react';
+import { isPresent } from 'common/typeGuards';
 
 import ItemIcon from './ItemIcon';
 import QualityIcon from './QualityIcon';
 import useTooltip from './useTooltip';
 
-interface Props extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'id'> {
+interface Props extends Omit<ComponentPropsWithoutRef<'a'>, 'id'> {
   id: number;
-  children?: React.ReactNode;
+  children?: ReactNode;
   details?: {
     itemLevel: number;
     quality: number;
@@ -20,22 +20,26 @@ interface Props extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'id'> {
 }
 export const EPIC_ITEMS_ILVL = 184;
 
-const ItemLink = (props: Props) => {
+const ItemLink = ({
+  id,
+  children,
+  details,
+  craftQuality,
+  quality,
+  icon = true,
+  ...others
+}: Props) => {
   const { item: itemTooltip } = useTooltip();
-
-  const { id, children, details, ...others } = props;
-  delete others.icon;
-  delete others.quality;
 
   if (import.meta.env.DEV && !children && !ITEMS[id]) {
     throw new Error(`Unknown item: ${id}`);
   }
 
-  let quality;
-  if (props.quality !== undefined && props.quality !== null) {
-    quality = props.quality;
-  } else if (props.details) {
-    quality = Math.max(props.details.itemLevel >= EPIC_ITEMS_ILVL ? 4 : 3, props.details.quality);
+  let qual;
+  if (isPresent(quality)) {
+    qual = quality;
+  } else if (details) {
+    qual = Math.max(details.itemLevel >= EPIC_ITEMS_ILVL ? 4 : 3, details.quality);
   }
 
   return (
@@ -43,20 +47,18 @@ const ItemLink = (props: Props) => {
       href={itemTooltip(id, details)}
       target="_blank"
       rel="noopener noreferrer"
-      className={getItemQualityLabel(quality) + 'item-link-text'}
+      className={getItemQualityLabel(qual) + 'item-link-text'}
       {...others}
     >
-      {props.icon && (
+      {icon && (
         <>
           <ItemIcon id={id} noLink />{' '}
         </>
       )}
       {children || ITEMS[id].name}
-      {props.craftQuality ? <QualityIcon quality={props.craftQuality} /> : null}
+      {craftQuality ? <QualityIcon quality={craftQuality} /> : null}
     </a>
   );
 };
-
-ItemLink.defaultProps = { icon: true };
 
 export default ItemLink;

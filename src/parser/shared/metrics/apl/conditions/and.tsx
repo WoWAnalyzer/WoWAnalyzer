@@ -7,7 +7,7 @@ export default function and(...conditions: Condition<any>[]): Condition<any> {
   const key = `and-${conditions.map((cnd) => cnd.key).join('-')}`;
   if (!import.meta.env.PROD && conditions.some(containsOptionalCondition)) {
     console.warn(
-      `APL rule ${key} contains optional rules. Nesting optionalRule inside of and can produce confusing behavior and is discouraged.`,
+      `APL rule ${key} contains optional rules. Nesting optionalRule inside of 'and' can produce confusing behavior and is discouraged.`,
       conditions,
     );
   }

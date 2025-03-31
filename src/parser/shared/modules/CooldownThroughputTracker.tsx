@@ -1,4 +1,5 @@
-import { defineMessage, Trans } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import SPELLS from 'common/SPELLS';
 import CLASSIC_SPELLS from 'common/SPELLS/classic';
 import { TALENTS_PRIEST } from 'common/TALENTS';
@@ -146,10 +147,7 @@ class CooldownThroughputTracker extends Analyzer {
     this.addEventListener(Events.death.to(SELECTED_PLAYER_PET), this.onPetDeath);
   }
 
-  startCooldown(
-    event: CastEvent | ApplyBuffEvent | ApplyDebuffEvent,
-    isCastCooldown = false,
-  ) {
+  startCooldown(event: CastEvent | ApplyBuffEvent | ApplyDebuffEvent, isCastCooldown = false) {
     const branch = this.owner.config.branch;
     const spellId = event.ability.guid;
     const ctor = this.constructor as typeof CooldownThroughputTracker;

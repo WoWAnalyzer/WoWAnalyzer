@@ -92,7 +92,7 @@ class GiftOfTheGoldenValkyr extends Analyzer {
   guardianReduction(spellId: number): number {
     try {
       return this.spellUsable.reduceCooldown(spellId, this.reductionTime);
-    } catch (e) {
+    } catch {
       return 0;
     }
   }

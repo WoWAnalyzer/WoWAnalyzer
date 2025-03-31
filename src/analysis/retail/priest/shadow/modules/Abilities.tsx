@@ -263,7 +263,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.POWER_WORD_SHIELD.id,
         isDefensive: true,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: (haste: any) => 7.5 / (1 + haste),
+        cooldown: (haste: number) => 7.5 / (1 + haste),
         gcd: {
           base: 1500,
         },

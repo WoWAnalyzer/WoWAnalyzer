@@ -20,7 +20,7 @@ const useSessionFeatureFlag = (featureFlag: string, featureFlagDefault = false) 
         joinArrayToString(['wowa-ff', featureFlag], '-'),
         String(value),
       );
-    } catch (e) {
+    } catch {
       // ignore it
     }
     setSessionFeatureFlagState(value);

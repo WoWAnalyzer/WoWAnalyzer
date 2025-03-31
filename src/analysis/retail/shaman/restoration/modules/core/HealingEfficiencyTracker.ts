@@ -93,9 +93,15 @@ class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
     spellInfo.damageHits = ability.damageHits || 0;
     spellInfo.damageDone = ability.damageVal.effective;
   }
-  getHealingWaveDetails(spellInfo: SpellInfoDetails) {}
-  getRiptideDetails(spellInfo: SpellInfoDetails) {}
-  getPrimordialWaveDetails(spellInfo: SpellInfoDetails) {}
+  getHealingWaveDetails(spellInfo: SpellInfoDetails) {
+    // do something eventually, maybe
+  }
+  getRiptideDetails(spellInfo: SpellInfoDetails) {
+    // do something eventually, maybe
+  }
+  getPrimordialWaveDetails(spellInfo: SpellInfoDetails) {
+    // do something eventually, maybe
+  }
   getDownpourDetails(spellInfo: SpellInfoDetails) {
     if (this.downpour) {
       spellInfo.healingDone += this.downpour.downpourHealing;

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { formatNumber } from 'common/format';
 import Tooltip from 'interface/Tooltip';
-import { ReactNode } from 'react';
+import { CSSProperties, ReactNode } from 'react';
 
 export interface MitigationSegment {
   amount: number;
@@ -57,7 +57,7 @@ export const MitigationSegments = ({
   maxValue: number;
   className?: string;
   rounded?: boolean;
-  style?: React.CSSProperties;
+  style?: CSSProperties;
 }) => (
   <MitigationSegmentContainer rounded={rounded} className={className} style={style}>
     {segments

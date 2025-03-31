@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import getBossName from 'common/getBossName';
 import { getLabel as getDifficultyLabel } from 'game/DIFFICULTIES';
 import { Boss, Phase, findZoneByBossId } from 'game/raids';

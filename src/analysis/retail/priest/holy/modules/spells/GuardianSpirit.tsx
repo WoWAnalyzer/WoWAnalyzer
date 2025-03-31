@@ -23,7 +23,7 @@ class GuardianSpirit extends Analyzer {
   constructor(options: Options) {
     super(options);
     if (this.selectedCombatant.hasTalent(TALENTS.GUARDIAN_ANGEL_TALENT)) {
-      this.active;
+      // this.active;
     }
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);

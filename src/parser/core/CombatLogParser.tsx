@@ -262,7 +262,7 @@ class CombatLogParser {
   static specModules: DependenciesDefinition = {};
 
   applyTimeFilter = (start: number, end: number) => null; //dummy function gets filled in by event parser
-  applyPhaseFilter = (phase: string, instance: any) => null; //dummy function gets filled in by event parser
+  applyPhaseFilter = (phase: string, instance: number) => null; //dummy function gets filled in by event parser
 
   config: Config;
   report: Report;
@@ -380,7 +380,7 @@ class CombatLogParser {
   }
   _resolveDependencies(dependencies: Record<string, typeof Module>) {
     const availableDependencies: Record<string, Module> = {};
-    const missingDependencies: typeof Module[] = [];
+    const missingDependencies: (typeof Module)[] = [];
     if (dependencies) {
       Object.keys(dependencies).forEach((desiredDependencyName) => {
         const dependencyClass = dependencies[desiredDependencyName];
@@ -409,7 +409,7 @@ class CombatLogParser {
       ...options,
       owner: this,
     };
-     
+
     const module = new moduleClass(fullOptions);
     Module.applyDependencies(fullOptions, module);
     module.key = desiredModuleName;
@@ -528,7 +528,9 @@ class CombatLogParser {
     // Executed when module initialization is complete
   }
   _moduleCache = new Map();
-  getOptionalModule<T extends Module, O extends Options>(type: new (options: O) => T): T | undefined {
+  getOptionalModule<T extends Module, O extends Options>(
+    type: new (options: O) => T,
+  ): T | undefined {
     // We need to use a cache and can't just set this on initialization because we sometimes search by the inheritance chain.
     const cacheEntry = this._moduleCache.get(type);
     if (cacheEntry !== undefined) {

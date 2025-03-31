@@ -19,7 +19,7 @@ class DegradedExperience extends Component {
   }
 
   toggleDetails() {
-    this.setState({ expanded: !this.state.expanded });
+    this.setState((state) => ({ expanded: !state.expanded }));
   }
 
   get firstError() {

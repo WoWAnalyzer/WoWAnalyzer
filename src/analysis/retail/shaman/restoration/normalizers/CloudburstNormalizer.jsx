@@ -58,7 +58,6 @@ class CloudburstNormalizer extends EventsNormalizer {
                   : recallTimestamp)) ||
               event.timestamp + CBT_DELAY;
 
-            // eslint-disable-next-line @typescript-eslint/no-unused-expressions -- Intentional conditional behavior
             debug &&
               this.log(
                 `No Cloudburst heal found for cast at ${this.owner.formatTimestamp(

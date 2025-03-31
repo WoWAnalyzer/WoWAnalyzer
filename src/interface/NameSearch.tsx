@@ -1,4 +1,5 @@
-import { defineMessage, t, Trans } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { makeCharacterApiUrl, makeGuildApiUrl } from 'common/makeApiUrl';
 import makeCharacterPageUrl from 'common/makeCharacterPageUrl';
 import makeGuildPageUrl from 'common/makeGuildPageUrl';
@@ -198,12 +199,18 @@ const NameSearch = ({ type }: Props) => {
             setCurrentRealm(value);
           }
         }}
-        placeholder={t({
-          id: 'interface.nameSearch.realm',
-          message: `Realm`,
-        })}
-        onBlur={() => {}}
-        onFocus={() => {}}
+        placeholder={i18n._(
+          defineMessage({
+            id: 'interface.nameSearch.realm',
+            message: `Realm`,
+          }),
+        )}
+        onBlur={() => {
+          // do nothing
+        }}
+        onFocus={() => {
+          // do nothing
+        }}
       />
       <input
         type="text"

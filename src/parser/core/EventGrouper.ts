@@ -19,9 +19,10 @@ export default class EventGrouper {
   }
 
   [Symbol.iterator]() {
+    // ignore this because eslint gets mad when prettier formats it
+    // prettier-ignore
     return Object.entries(this.cache)
-      .map((item) => item[1])
-      [Symbol.iterator]();
+      .map((item) => item[1])[Symbol.iterator]();
   }
 
   processEvent(event: AnyEvent) {

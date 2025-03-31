@@ -350,14 +350,14 @@ class Stormkeeper extends MajorCooldown<StormkeeperCast> {
           </>,
         );
       } else {
-        false &&
-          addInefficientCastReason(
-            event,
-            <>
-              <SpellLink spell={TALENTS.LAVA_BURST_TALENT} /> should only be cast to consume{' '}
-              <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_TALENT} />
-            </>,
-          );
+        // false &&
+        //   addInefficientCastReason(
+        //     event,
+        //     <>
+        //       <SpellLink spell={TALENTS.LAVA_BURST_TALENT} /> should only be cast to consume{' '}
+        //       <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_TALENT} />
+        //     </>,
+        //   );
       }
     }
   }

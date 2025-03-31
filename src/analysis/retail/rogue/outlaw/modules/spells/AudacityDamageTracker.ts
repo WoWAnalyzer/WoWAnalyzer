@@ -1,11 +1,10 @@
 import { FilteredDamageTracker } from 'analysis/retail/rogue/shared';
 import SPELLS from 'common/SPELLS';
-import { Event, EventType } from 'parser/core/Events';
 
 //--TODO: "minimalActiveTime" should be rogue current gcd, if the value is possible to get from somewhere, instead of a raw number
 
 class AudacityDamageTracker extends FilteredDamageTracker {
-  shouldProcessEvent(event: Event<EventType.Event>): boolean {
+  shouldProcessEvent(event: never): boolean {
     return this.selectedCombatant.hasBuff(SPELLS.AUDACITY_TALENT_BUFF.id, null, 0, 800);
   }
 }

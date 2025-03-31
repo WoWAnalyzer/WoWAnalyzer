@@ -14,8 +14,7 @@ interface Props {
   className?: string;
 }
 
-const isEventsItem = (item: EventsItem | ItemsItem): item is EventsItem =>
-  Boolean((item as any).quality);
+const isEventsItem = (item: EventsItem | ItemsItem): item is EventsItem => 'quality' in item;
 
 const BoringItemValueText = ({ item, children, className }: Props) => {
   const itemLinkProps = {

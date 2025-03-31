@@ -275,6 +275,11 @@ class StatTracker extends Analyzer {
     }
   }
 
+  baseVersatilityPercentage = 0;
+  baseAvoidancePercentage = 0;
+  baseLeechPercentage = 0;
+  baseSpeedPercentage = 0;
+
   constructor(options: Options) {
     super(options);
     // TODO: Use combatantinfo event directly
@@ -602,22 +607,6 @@ class StatTracker extends Analyzer {
     return this.selectedCombatant.spec !== undefined && isRetailSpec(this.selectedCombatant.spec);
   }
 
-  get baseVersatilityPercentage() {
-    return 0;
-  }
-
-  get baseAvoidancePercentage() {
-    return 0;
-  }
-
-  get baseLeechPercentage() {
-    return 0;
-  }
-
-  get baseSpeedPercentage() {
-    return 0;
-  }
-
   /*
    * For percentage stats, the current stat percentage gained from stat ratings.
    */
@@ -665,7 +654,7 @@ class StatTracker extends Analyzer {
     }
     // TODO surely there's a prettier way than an indexed for loop
     //Loop through each of our penaltythresholds until we find the first one where we have more baseline stats than that curvepoint
-     
+
     for (let idx = 0; idx < penaltyThresholds.length; idx++) {
       //If we have a higher percent than the baseline, we can move on immediately
       if (baselinePercent >= penaltyThresholds[idx].base) {

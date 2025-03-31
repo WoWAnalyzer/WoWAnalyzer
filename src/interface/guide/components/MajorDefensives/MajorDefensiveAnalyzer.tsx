@@ -7,17 +7,17 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import EventFilter from 'parser/core/EventFilter';
 import Events, {
   AbilityEvent,
-  HasSource,
-  HasTarget,
   AnyEvent,
   DamageEvent,
-  FightEndEvent,
-  ResourceActor,
   EventType,
+  FightEndEvent,
+  HasSource,
+  HasTarget,
+  ResourceActor,
 } from 'parser/core/Events';
 import { PerformanceUsageRow } from 'parser/core/SpellUsage/core';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { ReactNode } from 'react';
+import { ComponentType, ReactNode } from 'react';
 import { BoxRowEntry } from '../PerformanceBoxRow';
 import { MitigationSegment, MitigationSegments } from './MitigationSegments';
 import { PerformanceMark } from 'interface/guide';
@@ -139,7 +139,7 @@ export const MitigationRow = ({
   maxValue,
   fightStart,
 }: {
-  mitigation: Mitigation<any, any>;
+  mitigation: Mitigation;
   segments: MitigationSegment[];
   maxValue: number;
   fightStart: number;
@@ -309,9 +309,7 @@ export default class MajorDefensive<
     this.currentMitigations.clear();
   }
 
-  get cooldownDetailsComponent():
-    | ((props: CooldownDetailsProps) => JSX.Element | null)
-    | undefined {
+  get cooldownDetailsComponent(): ComponentType<CooldownDetailsProps<Apply, Remove>> | undefined {
     return undefined;
   }
 
@@ -431,6 +429,10 @@ export default class MajorDefensive<
  * @see MajorDefensive for full documentation
  */
 export class MajorDefensiveBuff extends MajorDefensive<EventType.ApplyBuff, EventType.RemoveBuff> {}
+export type CooldownDetailsBuffProps = CooldownDetailsProps<
+  EventType.ApplyBuff,
+  EventType.RemoveBuff
+>;
 
 /**
  * `MajorDefensive` that has types pre-set for handling debuffs.
@@ -441,3 +443,7 @@ export class MajorDefensiveDebuff extends MajorDefensive<
   EventType.ApplyDebuff,
   EventType.RemoveDebuff
 > {}
+export type CooldownDetailsDebuffProps = CooldownDetailsProps<
+  EventType.ApplyDebuff,
+  EventType.RemoveDebuff
+>;

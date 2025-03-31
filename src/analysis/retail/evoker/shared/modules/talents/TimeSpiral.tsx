@@ -75,7 +75,9 @@ class TimeSpiral extends Analyzer {
     );
   }
 
-  onHoverCast(event: CastEvent) {}
+  onHoverCast(event: CastEvent) {
+    // do something at some point maybe?
+  }
 
   onApplyRefreshBuff(event: ApplyBuffEvent | RefreshBuffEvent) {
     if (!hasTimeSpiralCastEvent(event) && event.targetID !== this.selectedCombatant.id) {

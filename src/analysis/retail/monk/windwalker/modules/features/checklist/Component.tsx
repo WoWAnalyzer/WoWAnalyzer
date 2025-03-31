@@ -72,16 +72,6 @@ const WindwalkerMonkChecklist = (props: ChecklistProps & WWAplProps) => {
           }
           thresholds={thresholds.fistsofFury}
         />
-        {false && (
-          <Requirement
-            name={
-              <>
-                <SpellLink spell={SPELLS.JADE_IGNITION_BUFF} /> stacks used
-              </>
-            }
-            thresholds={thresholds.jadeIgnition}
-          />
-        )}
       </Rule>
       <Rule
         name="Use your cooldowns effectively"
@@ -160,61 +150,6 @@ const WindwalkerMonkChecklist = (props: ChecklistProps & WWAplProps) => {
           />
         )}
       </Rule>
-      {false && (
-        <Rule
-          name={
-            <>
-              Utilize <SpellLink spell={TALENTS_MONK.LAST_EMPERORS_CAPACITOR_TALENT} /> effectively
-            </>
-          }
-          description={
-            <>
-              Use <SpellLink spell={SPELLS.CRACKLING_JADE_LIGHTNING} /> with high stacks and avoid
-              wasting stacks by using Chi spenders at cap
-            </>
-          }
-        >
-          <Requirement
-            name={
-              <>
-                Average stacks used per <SpellLink spell={SPELLS.CRACKLING_JADE_LIGHTNING} /> cast{' '}
-              </>
-            }
-            thresholds={thresholds.lastEmperorsCapacitorAverageStacks}
-          />
-          <Requirement
-            name="Stacks wasted per minute"
-            thresholds={thresholds.lastEmperorsCapacitorWastedStacks}
-          />
-        </Rule>
-      )}
-      {/*{false && !combatant.hasTalent(TALENTS_MONK.SERENITY_TALENT) && (*/}
-      {/*  <Rule*/}
-      {/*    name={*/}
-      {/*      <>*/}
-      {/*        Fixate spirits to benefit from <SpellLink spell={SPELLS.COORDINATED_OFFENSIVE.id} />*/}
-      {/*      </>*/}
-      {/*    }*/}
-      {/*    description={*/}
-      {/*      <>*/}
-      {/*        If you choose to use the <SpellLink spell={SPELLS.COORDINATED_OFFENSIVE.id} /> conduit,*/}
-      {/*        you need to use <SpellLink spell={SPELLS.STORM_EARTH_AND_FIRE_FIXATE.id} /> to gain the*/}
-      {/*        damage bonus, even if there is only one target. You should fixate as soon as you have*/}
-      {/*        5 stacks of <SpellLink spell={SPELLS.MARK_OF_THE_CRANE.id} /> or when all targets are*/}
-      {/*        marked.*/}
-      {/*      </>*/}
-      {/*    }*/}
-      {/*  >*/}
-      {/*    <Requirement*/}
-      {/*      name={*/}
-      {/*        <>*/}
-      {/*          Percentage of possible <SpellLink spell={SPELLS.COORDINATED_OFFENSIVE.id} /> damage*/}
-      {/*        </>*/}
-      {/*      }*/}
-      {/*      thresholds={thresholds.coordinatedOffensiveDamageBenefit}*/}
-      {/*    />*/}
-      {/*  </Rule>*/}
-      {/*)}*/}
       <Rule
         name="Use your defensive cooldowns effectively"
         description={

@@ -71,7 +71,7 @@ const progressConfig = tseslint.config({
 });
 
 const tests = tseslint.config({
-  name: 'tests',
+  name: '@wowanalyzer/tests',
   plugins: { vitest },
   files: ['**/*.test.{js,jsx,ts,tsx}'],
   extends: [vitest.configs.recommended],

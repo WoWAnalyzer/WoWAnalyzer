@@ -5,7 +5,7 @@ import { Condition } from '../index';
 /**
  * Check if the provided condition uses `optional` in it. Used for warnings in `and` / `or` combinators.
  */
-export function containsOptionalCondition(cnd: Condition<any>): boolean {
+export function containsOptionalCondition<T>(cnd: Condition<T>): boolean {
   return cnd.key.includes('optional-');
 }
 

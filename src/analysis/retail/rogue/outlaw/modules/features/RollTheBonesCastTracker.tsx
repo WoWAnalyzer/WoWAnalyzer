@@ -70,7 +70,7 @@ class RollTheBonesCastTracker extends Analyzer {
 
   rolltheBonesCastEvents: RTBCast[] = [];
   rolltheBonesCastValues = Object.values(ROLL_THE_BONES_CATEGORIES).reduce(
-    (map: any, label: string) => {
+    (map: Record<string, RTBCast[]>, label: string) => {
       map[label] = [];
       return map;
     },

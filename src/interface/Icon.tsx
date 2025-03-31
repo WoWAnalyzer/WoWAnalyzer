@@ -13,6 +13,11 @@ export interface IconProps extends React.HTMLAttributes<HTMLImageElement> {
   alt?: string;
 }
 
+export type SvgIconProps = Omit<
+  React.ComponentPropsWithoutRef<'svg'>,
+  'xmlns' | 'version' | 'viewBox' | 'className'
+>;
+
 export function iconUrl(icon: string): string {
   icon = icon.replace('.jpg', '');
 
