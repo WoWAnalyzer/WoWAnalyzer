@@ -1,8 +1,9 @@
 import js from '@eslint/js';
 import react from '@eslint-react/eslint-plugin';
+import reactHooks from 'eslint-plugin-react-hooks';
 // @ts-expect-error -- No types exist for this plugin
 import progress from 'eslint-plugin-progress';
-import vitest from 'eslint-plugin-vitest';
+import vitest from '@vitest/eslint-plugin';
 import wowanalyzer from 'eslint-plugin-wowanalyzer';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
@@ -72,7 +73,6 @@ const progressConfig = tseslint.config({
 
 const tests = tseslint.config({
   name: '@wowanalyzer/tests',
-  plugins: { vitest },
   files: ['**/*.test.{js,jsx,ts,tsx}'],
   extends: [vitest.configs.recommended],
 
@@ -88,7 +88,12 @@ const tests = tseslint.config({
 const javascript = tseslint.config({
   name: '@wowanalyzer/js',
   files: ['**/*.{js,jsx,cjs,mjs}'],
-  extends: [js.configs.recommended, react.configs.recommended, wowanalyzer.configs.recommended],
+  extends: [
+    js.configs.recommended,
+    react.configs.recommended,
+    reactHooks.configs['recommended-latest'],
+    wowanalyzer.configs.recommended,
+  ],
   rules: {
     // Enforce default clauses in switch statements to be last
     'default-case-last': 'warn',
@@ -112,6 +117,7 @@ const typescript = tseslint.config({
     tseslint.configs.recommended,
     tseslint.configs.stylistic,
     react.configs['recommended-typescript'],
+    reactHooks.configs['recommended-latest'],
     wowanalyzer.configs.recommended,
   ],
   languageOptions: {
