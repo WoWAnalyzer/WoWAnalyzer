@@ -66,7 +66,7 @@ const progressConfig = tseslint.config({
     progress,
   },
   rules: {
-    'progress/activate': progress.stdout.isTTY ? 1 : 0,
+    'progress/activate': process.stdout.isTTY ? 1 : 0,
   },
 });
 
