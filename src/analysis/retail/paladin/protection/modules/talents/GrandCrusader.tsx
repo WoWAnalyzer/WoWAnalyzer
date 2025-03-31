@@ -25,10 +25,10 @@ class GrandCrusader extends Analyzer {
     abilities: Abilities,
     protPaladinT304p: ProtPaladinT304P,
   };
-  totalResets: number = 0;
-  exactResets: number = 0;
-  resetChances: number = 0;
-  gcProcs: number = 0;
+  totalResets = 0;
+  exactResets = 0;
+  resetChances = 0;
+  gcProcs = 0;
   abilities!: Abilities;
   normalizer!: MyAbilityNormalizer;
   protPaladinT304p!: ProtPaladinT304P;

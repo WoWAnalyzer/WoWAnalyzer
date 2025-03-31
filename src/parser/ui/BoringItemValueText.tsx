@@ -8,11 +8,11 @@ import { ItemLink } from 'interface';
 import { Item as EventsItem } from 'parser/core/Events';
 import * as React from 'react';
 
-type Props = {
+interface Props {
   item: EventsItem | ItemsItem;
   children: React.ReactNode;
   className?: string;
-};
+}
 
 const isEventsItem = (item: EventsItem | ItemsItem): item is EventsItem =>
   Boolean((item as any).quality);

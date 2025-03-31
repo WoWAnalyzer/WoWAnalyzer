@@ -6,7 +6,7 @@ import { isStealth } from './IsStealth';
 
 class StealthDamageTracker extends FilteredDamageTracker {
   // Workaround for stealth getting removed "before" the cast.
-  delayWindow: number = 100;
+  delayWindow = 100;
 
   constructor(options: Options) {
     super(options);

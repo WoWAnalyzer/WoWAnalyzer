@@ -34,7 +34,7 @@ class Renew extends Analyzer {
   totalRenewOverhealing = 0;
   totalRenewAbsorbs = 0;
   totalRenewTicks = 0;
-  lastRenewCast: number = 0;
+  lastRenewCast = 0;
   renewsCast = 0;
   goodRenews = 0;
   // A list of the reasons that a renew is listed as "bad". I may expand upon this later in a card.

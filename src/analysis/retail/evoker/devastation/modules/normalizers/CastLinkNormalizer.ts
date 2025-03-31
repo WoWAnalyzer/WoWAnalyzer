@@ -352,7 +352,7 @@ export function getPyreEvents(event: CastEvent): DamageEvent[] {
 function pyreHitIsUnique(
   castEvent: CastEvent,
   damageEvent: DamageEvent,
-  maxHitsAllowed: number = 1,
+  maxHitsAllowed = 1,
 ) {
   /** Since Pyre can only hit a target once per cast
    * we need to check if it's the same target

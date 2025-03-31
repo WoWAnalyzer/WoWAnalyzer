@@ -16,13 +16,13 @@ import Statistic from 'parser/ui/Statistic';
 import { CALMING_COALESCENCE_INCREASE } from '../../constants';
 
 class CalmingCoalescence extends Analyzer {
-  casts: number = 0;
-  shieldSize: number = 0;
-  currentShieldAbsorbed: number = 0;
-  totalShieldSize: number = 0;
-  baseShield: number = 0;
-  healing: number = 0;
-  wasted: number = 0;
+  casts = 0;
+  shieldSize = 0;
+  currentShieldAbsorbed = 0;
+  totalShieldSize = 0;
+  baseShield = 0;
+  healing = 0;
+  wasted = 0;
 
   constructor(options: Options) {
     super(options);

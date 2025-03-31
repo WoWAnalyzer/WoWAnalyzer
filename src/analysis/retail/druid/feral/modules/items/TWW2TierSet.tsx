@@ -56,13 +56,13 @@ const BIG_WINNER_BUFFED_SPELLS: Spell[] = [
 export default class TWW2TierSet extends Analyzer {
   has4pc: boolean;
 
-  winningStreakBuffDamage: number = 0;
-  bigWinnerDirectDamage: number = 0;
-  bigWinnerBuffDamage: number = 0;
+  winningStreakBuffDamage = 0;
+  bigWinnerDirectDamage = 0;
+  bigWinnerBuffDamage = 0;
 
   // for calculating damage weighted avg stacks
-  totalBaseWinningStreakDamageTimesStacks: number = 0;
-  totalBaseWinningStreakDamage: number = 0;
+  totalBaseWinningStreakDamageTimesStacks = 0;
+  totalBaseWinningStreakDamage = 0;
 
   constructor(options: Options) {
     super(options);

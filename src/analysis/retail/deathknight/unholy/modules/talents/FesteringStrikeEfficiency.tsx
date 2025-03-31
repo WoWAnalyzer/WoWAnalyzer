@@ -24,8 +24,8 @@ class FesteringStrikeEfficiency extends Analyzer {
 
   protected woundTracker!: WoundTracker;
 
-  private totalFesteringStrikeCasts: number = 0;
-  private festeringStrikeCastsOverSafeCount: number = 0;
+  private totalFesteringStrikeCasts = 0;
+  private festeringStrikeCastsOverSafeCount = 0;
 
   constructor(options: Options) {
     super(options);

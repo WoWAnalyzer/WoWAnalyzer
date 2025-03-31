@@ -30,20 +30,20 @@ class ThunderFocusTea extends Analyzer {
   protected haste!: Haste;
 
   castEntries: BoxRowEntry[] = [];
-  castsTftRsk: number = 0;
-  castsTftViv: number = 0;
-  castsTftEnm: number = 0;
-  castsTftRem: number = 0;
-  castsTftEh: number = 0;
+  castsTftRsk = 0;
+  castsTftViv = 0;
+  castsTftEnm = 0;
+  castsTftRem = 0;
+  castsTftEh = 0;
   //add EH
 
-  castsTft: number = 0;
-  castsUnderTft: number = 0;
+  castsTft = 0;
+  castsUnderTft = 0;
 
-  correctCasts: number = 0;
+  correctCasts = 0;
 
-  castBufferTimestamp: number = 0;
-  ftActive: boolean = false;
+  castBufferTimestamp = 0;
+  ftActive = false;
   correctCapstoneSpells: number[] = [];
   okCapstoneSpells: number[] = [];
   currentRskTalent: Talent;

@@ -14,8 +14,8 @@ class VileTaint extends Analyzer {
   };
   protected abilityTracker!: AbilityTracker;
 
-  hits: number = 0;
-  casts: number = 0;
+  hits = 0;
+  casts = 0;
 
   constructor(options: Options) {
     super(options);

@@ -3,7 +3,7 @@ import Statistic from './Statistic';
 import STATISTIC_CATEGORY from './STATISTIC_CATEGORY';
 import './TalentAggregateStatistic.scss';
 
-type Props = {
+interface Props {
   children: ReactNode;
   title: ReactNode;
   smallTitle?: boolean;
@@ -16,7 +16,7 @@ type Props = {
   category?: STATISTIC_CATEGORY;
   position?: number;
   tooltip?: ReactNode | string;
-};
+}
 
 /**Statistic container for the collection of SourceContributionBarSubStatistics */
 const TalentAggregateStatisticContainer = ({

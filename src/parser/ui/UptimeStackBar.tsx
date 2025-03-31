@@ -5,16 +5,16 @@ import { Uptime } from 'parser/ui/UptimeBar';
 import * as React from 'react';
 import { TrackedBuffEvent } from 'parser/core/Entity';
 
-type StackUptime = {
+interface StackUptime {
   /** Timestamp in milliseconds of the uptime start */
   start: number;
   /** Timestamp in milliseconds of the uptime end */
   end: number;
   /** The number of stacks active during this time */
   stacks: number;
-};
+}
 
-type Props = {
+interface Props {
   /** Uptimes to render, including number of active stacks */
   stackUptimeHistory: StackUptime[];
   /** Starting timestamp */
@@ -31,7 +31,7 @@ type Props = {
   backgroundBarColor?: string;
   /** If true, the background bars will have tooltips indicating their time range */
   timeTooltip?: boolean;
-};
+}
 
 /** Helper function to convert a selection of entity buff history into StackUptimes consumed by this component */
 export function getStackUptimesFromBuffHistory(

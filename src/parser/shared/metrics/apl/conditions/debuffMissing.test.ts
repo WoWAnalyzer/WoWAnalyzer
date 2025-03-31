@@ -16,7 +16,7 @@ function debuff<T extends DebuffEventType>(
   targetID: number,
   targetInstance?: number,
 ): AnyEvent<T> {
-  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+   
   return {
     timestamp,
     type,

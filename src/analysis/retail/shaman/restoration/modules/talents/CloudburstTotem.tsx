@@ -24,10 +24,10 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 const DELAY_MS = 200;
 
-type Cast = {
+interface Cast {
   healingDone: number;
   overhealingDone: number;
-};
+}
 
 /**
  * Cloudburst Totem has no buff events in the combatlog, so we're fabricating it on cast and

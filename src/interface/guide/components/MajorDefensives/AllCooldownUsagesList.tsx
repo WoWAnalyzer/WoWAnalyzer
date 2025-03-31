@@ -104,10 +104,10 @@ export const CooldownDetailsContainer = styled.div`
   }
 `;
 
-export type CooldownDetailsProps = {
+export interface CooldownDetailsProps {
   analyzer: MajorDefensive<any, any>;
   mit?: Mitigation;
-};
+}
 
 const CooldownDetails = ({ analyzer, mit }: CooldownDetailsProps) => {
   if (!mit) {
@@ -357,10 +357,10 @@ const CooldownUsage = ({
   );
 };
 
-type Props = {
+interface Props {
   analyzers: readonly MajorDefensive<any, any>[];
   showTitles?: boolean;
-};
+}
 
 const AllCooldownUsageList = ({ analyzers, showTitles }: Props) => {
   const maxValue = useMaxMitigationValue(analyzers);

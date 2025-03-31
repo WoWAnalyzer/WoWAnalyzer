@@ -16,7 +16,7 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 const { DISINTEGRATE } = SPELLS;
 
 class ArcaneIntensity extends Analyzer {
-  arcaneIntensityDamage: number = 0;
+  arcaneIntensityDamage = 0;
   arcaneIntensityMultiplier: number = ARCANE_INTENSITY_MULTIPLIER;
 
   constructor(options: Options) {

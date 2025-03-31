@@ -18,7 +18,7 @@ class FeelTheBurn extends Analyzer {
    *  Index is stack count, value is accumulated time at that stack count */
   timeAtStackCount: number[];
   lastStackChangeTime: number = this.owner.fight.start_time;
-  lastStackCount: number = 0;
+  lastStackCount = 0;
 
   constructor(options: Options) {
     super(options);

@@ -13,12 +13,12 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 const MAX_BOOST = 0.5;
 
 class Reclamation extends Analyzer {
-  lastCast: number = 0;
+  lastCast = 0;
 
-  healing: number = 0;
+  healing = 0;
 
   resourceGained: Map<number, number> = new Map<number, number>();
-  damageDone: number = 0;
+  damageDone = 0;
 
   constructor(options: Options) {
     super(options);

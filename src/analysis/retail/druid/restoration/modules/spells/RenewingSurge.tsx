@@ -24,11 +24,11 @@ const MAX_CDR = 6_000; // 15 second cooldown * 40% CDR
  */
 export default class RenewingSurge extends Analyzer.withDependencies({ spellUsable: SpellUsable }) {
   /** Total times Swiftmend cast */
-  totalCasts: number = 0;
+  totalCasts = 0;
   /** Total CDR applied */
-  totalCdrMs: number = 0;
+  totalCdrMs = 0;
   /** Total health percent of Swiftmend targets (divide by total casts for average target health) */
-  totalHealthPercent: number = 0;
+  totalHealthPercent = 0;
 
   constructor(options: Options) {
     super(options);

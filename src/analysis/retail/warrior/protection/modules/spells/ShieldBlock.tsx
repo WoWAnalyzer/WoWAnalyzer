@@ -254,16 +254,16 @@ class ShieldBlock extends Analyzer {
   }
 }
 
-type OffensiveData = {
+interface OffensiveData {
   shieldBlock: number;
   shieldSlamCasts: number;
   bonusDamage: number;
   timeStamp: number;
   good: boolean;
   event: CastEvent;
-};
+}
 
-type DefensiveData = {
+interface DefensiveData {
   shieldBlock: number;
   blockAbleEvents: number;
   blockedDamage: number;
@@ -271,11 +271,11 @@ type DefensiveData = {
   eventName: Set<string>;
   eventSpellId: Set<number>;
   good: boolean;
-};
+}
 
-type OverallData = {
+interface OverallData {
   shieldBlock: number;
   good: boolean;
-};
+}
 
 export default ShieldBlock;

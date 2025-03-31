@@ -11,8 +11,8 @@ class LavaSurge extends Analyzer {
 
   protected spellUsable!: SpellUsable;
 
-  private lavaSurgeDuringLvB: boolean = false;
-  private isCastingLvB: boolean = false;
+  private lavaSurgeDuringLvB = false;
+  private isCastingLvB = false;
 
   constructor(options: Options) {
     super(options);

@@ -70,23 +70,23 @@ export enum TargetType {
   SpellList,
 }
 
-type SpellTarget = {
+interface SpellTarget {
   type: TargetType.Spell;
   target: Spell;
-};
+}
 
-type SpellListTarget = {
+interface SpellListTarget {
   type: TargetType.SpellList;
   target: Spell[];
-};
+}
 
 type AplTarget = SpellTarget | SpellListTarget;
 
-export type InternalRule = {
+export interface InternalRule {
   spell: AplTarget;
   condition?: Condition<any>;
   description?: React.ReactNode;
-};
+}
 
 interface ConditionalRule {
   spell: Spell | Spell[];
@@ -108,7 +108,7 @@ interface LabelRule {
 export type Rule = Spell | Spell[] | ConditionalRule | LabelRule;
 
 export interface Apl {
-  conditions?: Array<Condition<any>>;
+  conditions?: Condition<any>[];
   rules: InternalRule[];
 }
 
@@ -199,7 +199,7 @@ export function build(rules: Rule[]): Apl {
   const conditionMap = rules
     .filter((rule) => 'condition' in rule)
     .map((rule) => (rule as ConditionalRule).condition)
-    .reduce((cnds: { [k: string]: Condition<any> }, cnd) => {
+    .reduce((cnds: Record<string, Condition<any>>, cnd) => {
       cnds[cnd.key] = cnd;
       return cnds;
     }, {});
@@ -225,8 +225,8 @@ export interface Violation {
   rule: InternalRule;
 }
 
-type ConditionState = { [key: string]: any };
-type AbilityState = { [spellId: number]: UpdateSpellUsableEvent };
+type ConditionState = Record<string, any>;
+type AbilityState = Record<number, UpdateSpellUsableEvent>;
 
 interface Success {
   kind: ResultKind.Success;
@@ -309,7 +309,7 @@ function ruleApplies(
   event: AnyEvent,
   events: AnyEvent[] | undefined,
   eventIndex: number,
-  requireCooldownAvailable: boolean = false,
+  requireCooldownAvailable = false,
 ): Spell[] | false {
   if (event.type !== EventType.Cast && event.type !== EventType.BeginChannel) {
     console.error('attempted to apply APL rule to non-cast event, ignoring', event);
@@ -366,10 +366,10 @@ function ruleApplies(
   return availableSpells;
 }
 
-type ApplicableRule = {
+interface ApplicableRule {
   rule: InternalRule;
   availableSpells: Spell[];
-};
+}
 
 /**
  * Find the first applicable rule. See also: `ruleApplies`
@@ -381,7 +381,7 @@ function applicableRule(
   event: AnyEvent,
   events: AnyEvent[] | undefined,
   eventIndex: number,
-  requireCooldownAvailable: boolean = false,
+  requireCooldownAvailable = false,
 ): ApplicableRule | undefined {
   for (const rule of apl.rules) {
     const availableSpells = ruleApplies(

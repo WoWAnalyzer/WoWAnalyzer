@@ -205,7 +205,7 @@ class EnchantChecker extends Analyzer {
     recommendedEnchants: Record<number, EnchantItem[]> = {},
   ): EnchantmentBoxRowEntry[] {
     const gear = this.EnchantableGear;
-    const enchantSlots: { [key: number]: JSX.Element } = this.EnchantableSlots;
+    const enchantSlots: Record<number, JSX.Element> = this.EnchantableSlots;
 
     return Object.keys(gear).map<EnchantmentBoxRowEntry>((slot) => {
       const slotNumber = Number(slot);
@@ -226,7 +226,7 @@ class EnchantChecker extends Analyzer {
 
   suggestions(when: When) {
     const gear = this.EnchantableGear;
-    const enchantSlots: { [key: number]: JSX.Element } = this.EnchantableSlots;
+    const enchantSlots: Record<number, JSX.Element> = this.EnchantableSlots;
 
     Object.keys(gear).forEach((slot) => {
       const item = gear[Number(slot)];

@@ -43,20 +43,20 @@ export const BLOOD_SHIELD_THRESHOLD = 0.7;
 // double death strike checks
 const DOUBLE_DS_WINDOW_MS = 3000;
 
-type CastReason = {
+interface CastReason {
   reason: DeathStrikeReason;
   cast: CastEvent;
   followupDamageTaken?: number;
   followupAbsorbedDamage?: number;
   hasFollowupMelee?: boolean;
   isDoubleCast: boolean;
-};
+}
 
-type BSQueueEntry = {
+interface BSQueueEntry {
   cast: CastReason;
   absorbGenerated: number;
   absorbRemaining: number;
-};
+}
 
 type WithAmount<T> = T & {
   amount: number;
@@ -94,7 +94,7 @@ export default class DeathStrike extends Analyzer {
 
   readonly casts: CastReason[] = [];
 
-  private _totalHealing: number = 0;
+  private _totalHealing = 0;
 
   private bloodShieldQueue: BSQueueEntry[] = [];
   private lastKnownMaxHp: number | undefined = undefined;

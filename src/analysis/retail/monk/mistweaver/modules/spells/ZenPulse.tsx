@@ -35,13 +35,13 @@ class ZenPulse extends Analyzer {
   };
 
   protected abilities!: Abilities;
-  zenPulseHits: number = 0;
-  healing: number = 0;
-  overhealing: number = 0;
-  wastedBuffs: number = 0;
-  currentBuffs: number = 0;
-  consumedBuffs: number = 0;
-  badCasts: number = 0;
+  zenPulseHits = 0;
+  healing = 0;
+  overhealing = 0;
+  wastedBuffs = 0;
+  currentBuffs = 0;
+  consumedBuffs = 0;
+  badCasts = 0;
   castIncreases: number[] = [];
   entries: BoxRowEntry[] = [];
 

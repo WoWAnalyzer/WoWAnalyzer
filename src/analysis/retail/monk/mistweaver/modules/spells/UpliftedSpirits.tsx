@@ -26,13 +26,13 @@ class UpliftedSpirits extends Analyzer {
     spellUsable: SpellUsable,
     revival: Revival,
   };
-  cooldownReductionUsed: number = 0;
-  totalRskCdr: number = 0;
-  totalVivifyCdr: number = 0;
-  usHealing: number = 0;
-  cooldownReductionWasted: number = 0;
+  cooldownReductionUsed = 0;
+  totalRskCdr = 0;
+  totalVivifyCdr = 0;
+  usHealing = 0;
+  cooldownReductionWasted = 0;
   activeTalent!: Talent;
-  totalCasts: number = 0;
+  totalCasts = 0;
   currentRskTalent: Talent;
   protected spellUsable!: SpellUsable;
   protected revival!: Revival;

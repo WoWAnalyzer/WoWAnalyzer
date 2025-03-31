@@ -34,17 +34,13 @@ class EchoOfLightMastery extends Analyzer {
   // All healing done by spells that can proc mastery
   masteryHealingBySpell: any = {};
   // The eol pools currently on a target
-  targetMasteryPool: {
-    [targetId: number]: {
+  targetMasteryPool: Record<number, {
       pendingHealingTotal: number;
-      pendingHealingBySpell: {
-        [spellId: number]: number;
-      };
+      pendingHealingBySpell: Record<number, number>;
       remainingTicks: number;
       applicationTime: number;
       pendingCritTotal: number;
-    };
-  } = {};
+    }> = {};
   // The test value so we can see how accurate our EoL values are
   testValues = {
     effectiveHealing: 0,

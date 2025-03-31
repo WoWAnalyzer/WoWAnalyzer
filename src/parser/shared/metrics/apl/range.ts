@@ -76,7 +76,7 @@ function spellRange(spellId: number, info: PlayerInfo, explicitOnly?: boolean): 
   return ability?.range ?? info.defaultRange;
 }
 
-export type LocationState = {
+export interface LocationState {
   info: PlayerInfo;
   /**
    * Record the locations of every entity seen.
@@ -86,7 +86,7 @@ export type LocationState = {
    * Record the least hitbox size that could be viable given observed ability usage.
    */
   minHitboxes: Record<string, number>;
-};
+}
 
 function HasResourceActor(event: AnyEvent): event is AnyEvent & { resourceActor: ResourceActor } {
   return 'resourceActor' in event;

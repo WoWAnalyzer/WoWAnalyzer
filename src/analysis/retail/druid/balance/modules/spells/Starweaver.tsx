@@ -18,7 +18,7 @@ const AFFECTED_CAST = [SPELLS.STARSURGE_MOONKIN, SPELLS.STARFALL_CAST];
  * Starsurge has a 20% chance to make Starfall free. Starfall has a 40% chance to make Starsurge free.
  */
 class Starweaver extends Analyzer {
-  freeAbilities: { [key: number]: number } = {};
+  freeAbilities: Record<number, number> = {};
   savedAP = 0;
 
   constructor(options: Options) {

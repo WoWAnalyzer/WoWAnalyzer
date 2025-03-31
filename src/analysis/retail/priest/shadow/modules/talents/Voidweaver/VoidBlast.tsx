@@ -33,7 +33,7 @@ class VoidBlast extends ExecuteHelper {
     abilities: Abilities,
   };
 
-  maxCasts: number = 0;
+  maxCasts = 0;
   castVB = 0; //casts of Voidblast
   missVB = 0; //missed possible casts of Void Blast
   lostCharges = 0; //previous events charges of Void Blast

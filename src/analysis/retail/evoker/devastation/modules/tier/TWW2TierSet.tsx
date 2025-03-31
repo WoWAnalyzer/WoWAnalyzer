@@ -11,13 +11,13 @@ import SpellLink from 'interface/SpellLink';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 import { getConsumedJackpotStacks, JACKPOT_CONSUME } from '../normalizers/CastLinkNormalizer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-type JackpotConsume = {
+interface JackpotConsume {
   event: RemoveBuffEvent;
   stacks: number;
   remainingFireBreathCooldown: number;
   engulfChargesAvailable: number;
   empowerEvent?: EmpowerEndEvent;
-};
+}
 
 const MIN_FB_CD_FOR_ES_CONSUME_MS = 10_000;
 

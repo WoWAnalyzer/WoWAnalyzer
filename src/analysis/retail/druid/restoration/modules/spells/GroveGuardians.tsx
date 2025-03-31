@@ -37,13 +37,13 @@ export default class GroveGuardians extends Analyzer.withDependencies(deps) {
   hasTolCenariusGuidance: boolean;
 
   /** Total healing done by hardcast GG's swiftmend */
-  hardcastSwiftmendHealing: number = 0;
+  hardcastSwiftmendHealing = 0;
   /** Total healing done by hardcast GG's nourish */
-  hardcastNourishHealing: number = 0;
+  hardcastNourishHealing = 0;
   /** Total healing done by hardcast GG's wild growth */
-  hardcastWildGrowthHealing: number = 0;
+  hardcastWildGrowthHealing = 0;
   /** Total healing done by GGs summoned by Cenarius Guidance (all spells) */
-  cgHealing: number = 0;
+  cgHealing = 0;
 
   /** Set of GG instance numbers that were hardcast. If not in the set, we presume it was summoned by CG. */
   hardcastInstances: Set<number> = new Set<number>();

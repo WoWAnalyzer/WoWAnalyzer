@@ -10,7 +10,7 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 const debug = false;
 
-type WeakPotions = { [key: number]: { useId: number; useIcon: string } };
+type WeakPotions = Record<number, { useId: number; useIcon: string }>;
 
 const weakPotion = {
   useId: ITEMS.POTION_OF_THE_COBRA.id,

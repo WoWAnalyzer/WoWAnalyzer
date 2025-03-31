@@ -62,9 +62,6 @@ class DegradedExperience extends Component {
       return null;
     }
 
-    /* eslint-disable no-script-url */
-    /* eslint-disable jsx-a11y/anchor-is-valid */
-
     return (
       <div className="container">
         <AlertDanger style={{ marginBottom: 30 }}>

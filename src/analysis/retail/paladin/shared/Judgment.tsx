@@ -26,7 +26,7 @@ class Judgment extends Analyzer {
   };
   private enemies!: Enemies;
 
-  DAMAGE_MODIFIER: number = 0.25;
+  DAMAGE_MODIFIER = 0.25;
 
   retHolyPowerAbilities: Spell[] = HOLY_POWER_FINISHERS;
 
@@ -40,10 +40,10 @@ class Judgment extends Analyzer {
 
   spellCastMap: Map<Spell, number> = new Map<Spell, number>();
   spellDamageMap: Map<Spell, number> = new Map<Spell, number>();
-  totalJudgmentConsumptions: number = 0;
-  totalJudgmentCasts: number = 0;
+  totalJudgmentConsumptions = 0;
+  totalJudgmentCasts = 0;
 
-  suggest: boolean = true;
+  suggest = true;
 
   constructor(options: Options) {
     super(options);

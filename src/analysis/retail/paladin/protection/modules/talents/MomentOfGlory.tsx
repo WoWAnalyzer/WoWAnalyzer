@@ -12,8 +12,8 @@ import * as React from 'react';
 const DAMAGE_MODIFIER = 0.2;
 
 class MomentOfGlory extends Analyzer {
-  damageBoostedHits: number = 0;
-  totalExtraDamage: number = 0;
+  damageBoostedHits = 0;
+  totalExtraDamage = 0;
 
   constructor(options: Options) {
     super(options);

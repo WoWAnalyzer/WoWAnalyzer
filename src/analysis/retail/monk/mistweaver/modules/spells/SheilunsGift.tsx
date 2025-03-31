@@ -14,15 +14,15 @@ import { getSheilunsGiftHits, isFromSheilunsGift } from '../../normalizers/CastL
 import { SHEILUNS_GIFT_TARGETS } from '../../constants';
 
 class SheilunsGift extends Analyzer {
-  numCasts: number = 0;
-  totalStacks: number = 0;
-  baseHealing: number = 0;
-  gomHealing: number = 0;
-  cloudsLost: number = 0;
-  cloudsLostSinceLastCast: number = 0;
-  curClouds: number = 0;
-  overhealing: number = 0;
-  legacyOfWisdomActive: boolean = false;
+  numCasts = 0;
+  totalStacks = 0;
+  baseHealing = 0;
+  gomHealing = 0;
+  cloudsLost = 0;
+  cloudsLostSinceLastCast = 0;
+  curClouds = 0;
+  overhealing = 0;
+  legacyOfWisdomActive = false;
 
   constructor(options: Options) {
     super(options);

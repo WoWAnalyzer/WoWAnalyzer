@@ -4,12 +4,12 @@ import { Item } from 'parser/core/Events';
 import Icon from './Icon';
 import ItemLink from './ItemLink';
 
-type Props = {
+interface Props {
   id: number;
   noLink?: boolean;
   details?: Item;
   className?: string;
-};
+}
 
 const ItemIcon = ({ id, noLink, details, className }: Props) => {
   const icon = (

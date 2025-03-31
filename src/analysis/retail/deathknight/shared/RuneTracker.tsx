@@ -48,7 +48,7 @@ class RuneTracker extends ResourceTracker {
   protected castEfficiency!: CastEfficiency;
   protected abilities!: Abilities;
 
-  runesReady: Array<{ x: number; y: number }> = []; //{x, y} points of {time, runeCount} for the chart
+  runesReady: { x: number; y: number }[] = []; //{x, y} points of {time, runeCount} for the chart
   _runesReadySum; //time spent at each rune. _runesReadySum[1] is time spent at one rune available.
   _lastTimestamp; //used to find time since last rune change for the _runesReadySum
   _fightend = false; //fightend, avoid wierd graph by not adding later runes

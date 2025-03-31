@@ -10,13 +10,13 @@ export interface Options {
 }
 
 class Module {
-  static dependencies: { [desiredPropName: string]: typeof Module } = {};
+  static dependencies: Record<string, typeof Module> = {};
 
   protected readonly owner!: CombatLogParser;
   /** Whether or not this module is active, usually depends on specific items or talents. */
-  active: boolean = true;
+  active = true;
   /** This module's execution priority, this makes sure dependencies are executed before modules that depend on them. */
-  priority: number = 0;
+  priority = 0;
   /** This module's given name by the parser, sometimes auto generated and sometimes requested. */
   key!: string;
   get selectedCombatant(): Combatant {

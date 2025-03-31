@@ -12,21 +12,21 @@ import Panel from 'parser/ui/Panel';
 import { VisualizationSpec } from 'react-vega';
 import AutoSizer from 'react-virtualized-auto-sizer';
 
-type SpellTracker = {
+interface SpellTracker {
   timestamp: number;
   motcCount: number;
   motcAverage: number;
   bdbCount: number;
-};
+}
 
 class MoTCGraph extends Analyzer {
-  currentBDB: number = 0;
+  currentBDB = 0;
 
   motcStacks: SpellTracker[] = [];
   normalSCKCasts: SpellTracker[] = [];
   docjSCKCasts: SpellTracker[] = [];
 
-  currentMOTC: number = 0;
+  currentMOTC = 0;
 
   constructor(options: Options) {
     super(options);

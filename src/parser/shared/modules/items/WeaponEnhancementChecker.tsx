@@ -37,7 +37,7 @@ class WeaponEnhancementChecker extends Analyzer {
       (this.selectedCombatant.spec === SPECS.RESTORATION_SHAMAN &&
         this.selectedCombatant.hasTalent(TALENTS_SHAMAN.SUPPORTIVE_IMBUEMENTS_TALENT));
 
-    return Object.keys(this.WeaponSlots).reduce((obj: { [key: number]: Item }, slot) => {
+    return Object.keys(this.WeaponSlots).reduce((obj: Record<number, Item>, slot) => {
       const item = this.selectedCombatant._getGearItemBySlotId(Number(slot));
 
       // If there is no offhand, disregard the item.
@@ -238,7 +238,7 @@ class WeaponEnhancementChecker extends Analyzer {
     recommendedWeaponEnhancements: Record<number, Enchant[]> = {},
   ): EnhancementBoxRowEntry[] {
     const gear = this.enhanceableWeapons;
-    const enchantSlots: { [key: number]: JSX.Element } = this.WeaponSlots;
+    const enchantSlots: Record<number, JSX.Element> = this.WeaponSlots;
 
     return Object.keys(gear).map<EnhancementBoxRowEntry>((slot) => {
       const slotNumber = Number(slot);
@@ -259,7 +259,7 @@ class WeaponEnhancementChecker extends Analyzer {
 
   suggestions(when: When) {
     const gear = this.enhanceableWeapons;
-    const weaponSlots: { [key: number]: JSX.Element } = this.WeaponSlots;
+    const weaponSlots: Record<number, JSX.Element> = this.WeaponSlots;
     // iterating with keys instead of value because the values don't store what slot is being looked at
     Object.keys(gear).forEach((slot) => {
       const item = gear[Number(slot)];

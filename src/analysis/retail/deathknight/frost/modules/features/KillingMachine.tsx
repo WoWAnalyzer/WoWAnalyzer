@@ -34,10 +34,10 @@ class KillingMachineEfficiency extends Analyzer {
   protected abilityTracker!: AbilityTracker;
   protected runeTracker!: RuneTracker;
 
-  kmProcs: number = 0;
-  lastGCDTime: number = 0;
-  lastGCDDuration: number = 0;
-  lastProcTime: number = 0;
+  kmProcs = 0;
+  lastGCDTime = 0;
+  lastGCDDuration = 0;
+  lastProcTime = 0;
   refreshedKMProcs = 0;
   expiredKMProcs = 0;
   currentStacks = 0;

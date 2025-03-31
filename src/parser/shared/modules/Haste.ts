@@ -32,7 +32,7 @@ interface HasteBuff {
   haste?: number;
 }
 
-type HasteBuffMap = { [spellId: number]: number | HasteBuff };
+type HasteBuffMap = Record<number, number | HasteBuff>;
 
 const DEFAULT_HASTE_BUFFS: HasteBuffMap = {
   // HASTE RATING BUFFS ARE HANDLED BY THE STATTRACKER MODULE

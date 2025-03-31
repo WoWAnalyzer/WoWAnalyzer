@@ -13,11 +13,11 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 const debug = false;
 
-type Target = {
+interface Target {
   timestamp: number;
   targetID: CastEvent['targetID'];
   targetInstance: CastEvent['targetInstance'];
-};
+}
 
 class FireAndBrimstone extends Analyzer {
   get dps() {

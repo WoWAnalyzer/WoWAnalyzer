@@ -21,12 +21,12 @@ const BUFFER_MS = 50;
  * Damage reduced beyond 5 target.
  */
 class RampantFerocity extends Analyzer {
-  totalBiteHits: number = 0;
-  totalRampantFerocityHits: number = 0;
+  totalBiteHits = 0;
+  totalRampantFerocityHits = 0;
 
-  hardcastRfDamage: number = 0;
-  apexRfDamage: number = 0;
-  convokeRfDamage: number = 0;
+  hardcastRfDamage = 0;
+  apexRfDamage = 0;
+  convokeRfDamage = 0;
 
   lastRavageHitTimestamp: number | undefined = undefined;
 

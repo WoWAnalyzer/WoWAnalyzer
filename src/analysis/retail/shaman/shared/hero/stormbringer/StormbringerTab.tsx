@@ -11,10 +11,10 @@ import { formatPercentage } from 'common/format';
 import ResourceLink from 'interface/ResourceLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
-type props = {
+interface props {
   parser: CombatLogParser;
   tempest: Tempest;
-};
+}
 
 const numberColumnStyle = { width: 50, paddingRight: 5, textAlign: 'center' } as const;
 

@@ -17,17 +17,17 @@ class EarthenHarmony extends Analyzer {
   };
 
   protected combatants!: Combatants;
-  eSApply: number = -1;
-  eOESApply: number = -1;
-  firstESBuffDone: boolean = false;
-  firstEOESBuffDone: boolean = false;
+  eSApply = -1;
+  eOESApply = -1;
+  firstESBuffDone = false;
+  firstEOESBuffDone = false;
   damageReduction;
-  damageTakenWithEarthShield: number = 0;
-  damageTakenWithElementalOrbitEarthShield: number = 0;
+  damageTakenWithEarthShield = 0;
+  damageTakenWithElementalOrbitEarthShield = 0;
   healingIncrease;
-  earthShieldHealing: number = 0;
-  elementalOrbitEarthShieldHealing: number = 0;
-  elementalOrbitActive: boolean = false;
+  earthShieldHealing = 0;
+  elementalOrbitEarthShieldHealing = 0;
+  elementalOrbitActive = false;
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(talents.EARTHEN_HARMONY_TALENT);

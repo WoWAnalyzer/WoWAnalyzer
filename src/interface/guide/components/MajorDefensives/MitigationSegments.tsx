@@ -3,11 +3,11 @@ import { formatNumber } from 'common/format';
 import Tooltip from 'interface/Tooltip';
 import { ReactNode } from 'react';
 
-export type MitigationSegment = {
+export interface MitigationSegment {
   amount: number;
   color: string;
   description: ReactNode;
-};
+}
 
 const roundedContainerStyles = `
   border-radius: 2px;

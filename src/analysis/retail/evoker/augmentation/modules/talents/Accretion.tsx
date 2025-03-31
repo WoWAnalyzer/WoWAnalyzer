@@ -33,19 +33,19 @@ class Accretion extends Analyzer {
     ? SPELLS.UPHEAVAL_FONT
     : SPELLS.UPHEAVAL;
 
-  totalEbonMightDamage: number = 0;
-  totalEruptionCasts: number = 0;
-  totalDamageDone: number = 0;
-  totalShiftingSandsDamage: number = 0;
-  totalShiftingSandsApplications: number = 0;
-  totalUpheavalDamage: number = 0;
-  totalUpheavalCasts: number = 0;
-  effectiveUpheavalCDR: number = 0;
-  ebonMightUpheavalExtension: number = 0;
+  totalEbonMightDamage = 0;
+  totalEruptionCasts = 0;
+  totalDamageDone = 0;
+  totalShiftingSandsDamage = 0;
+  totalShiftingSandsApplications = 0;
+  totalUpheavalDamage = 0;
+  totalUpheavalCasts = 0;
+  effectiveUpheavalCDR = 0;
+  ebonMightUpheavalExtension = 0;
 
-  accretionEbonMight: number = 0;
-  accretionShiftingSands: number = 0;
-  accretionUpheaval: number = 0;
+  accretionEbonMight = 0;
+  accretionShiftingSands = 0;
+  accretionUpheaval = 0;
 
   constructor(options: Options) {
     super(options);

@@ -22,11 +22,11 @@ const TRIGGER_SPELLS = [
 
 class RestoreBalance extends Analyzer {
   spell: Spell;
-  casts: number = 0;
-  healing: number = 0;
-  overheal: number = 0;
+  casts = 0;
+  healing = 0;
+  overheal = 0;
 
-  damage: number = 0;
+  damage = 0;
 
   constructor(options: Options) {
     super(options);

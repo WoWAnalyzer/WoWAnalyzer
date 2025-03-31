@@ -8,7 +8,7 @@ class SpellUsable extends CoreSpellUsable {
     ...CoreSpellUsable.dependencies,
     gc: GrandCrusader,
   };
-  _hasCJ: boolean = false;
+  _hasCJ = false;
   gc!: GrandCrusader;
   constructor(options: Options) {
     super(options);

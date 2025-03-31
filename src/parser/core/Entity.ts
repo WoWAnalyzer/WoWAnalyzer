@@ -2,11 +2,11 @@ import CombatLogParser from 'parser/core/CombatLogParser';
 import { BuffEvent, HasSource } from 'parser/core/Events';
 import Spell from 'common/SPELLS/Spell';
 
-type StackHistoryElement = { stacks: number; timestamp: number };
+interface StackHistoryElement { stacks: number; timestamp: number }
 export interface TrackedBuffEvent extends BuffEvent<any> {
   start: number;
   end: number | null;
-  stackHistory: Array<StackHistoryElement>;
+  stackHistory: StackHistoryElement[];
   refreshHistory: number[];
   stacks: number;
 }
@@ -22,7 +22,7 @@ class Entity {
    */
   buffs: TrackedBuffEvent[] = [];
 
-  private activeBuffSet: Map<number, Set<number>> = new Map();
+  private activeBuffSet = new Map<number, Set<number>>();
 
   /**
    * @param {number} timestamp - Timestamp (in ms) to be considered, or the current timestamp if null. Won't work right for timestamps after the currentTimestamp.
@@ -97,8 +97,8 @@ class Entity {
    */
   hasOwnBuff(
     spell: number | Spell,
-    bufferTime: number = 0,
-    minimalActiveTime: number = 0,
+    bufferTime = 0,
+    minimalActiveTime = 0,
   ): boolean {
     return this.hasBuff(
       spell,
@@ -143,8 +143,8 @@ class Entity {
    */
   getOwnBuff(
     spell: number | Spell,
-    bufferTime: number = 0,
-    minimalActiveTime: number = 0,
+    bufferTime = 0,
+    minimalActiveTime = 0,
   ): TrackedBuffEvent | undefined {
     return this.getBuff(
       spell,
@@ -166,8 +166,8 @@ class Entity {
   getBuffStacks(
     spell: number | Spell,
     forTimestamp: number | null = null,
-    bufferTime: number = 0,
-    minimalActiveTime: number = 0,
+    bufferTime = 0,
+    minimalActiveTime = 0,
     sourceID: number | null = null,
   ): number {
     const spellId = typeof spell === 'number' ? spell : spell.id;
@@ -199,8 +199,8 @@ class Entity {
    */
   getOwnBuffStacks(
     spell: number | Spell,
-    bufferTime: number = 0,
-    minimalActiveTime: number = 0,
+    bufferTime = 0,
+    minimalActiveTime = 0,
   ): number {
     return this.getBuffStacks(
       spell,
@@ -253,9 +253,9 @@ class Entity {
   getStackBuffUptimes(
     spell: number | Spell,
     sourceID: number | null = null,
-  ): { [stack: number]: number } {
+  ): Record<number, number> {
     const spellId = typeof spell === 'number' ? spell : spell.id;
-    const stackUptimes: { [key: number]: number } = { 0: this.owner.fightDuration };
+    const stackUptimes: Record<number, number> = { 0: this.owner.fightDuration };
     this.getBuffHistory(spellId, sourceID).forEach((buff, idx, arr) => {
       let startTime: number;
       let startStacks: number;

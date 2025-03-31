@@ -3,11 +3,11 @@ import { specificGearSets } from 'interface/report/CombatantInfoFakerGearsets';
 
 const debugGear = false;
 
-type FakeInfo = {
+interface FakeInfo {
   legendaryInfo: { slotId: number; bonusId: number }; //slotId 0 would be head slot, and bonusID is the bonusID that is added to an item with the given legendary effect
-};
+}
 
-const SPEC_CONFIGS: { [specId: number]: FakeInfo } = {
+const SPEC_CONFIGS: Record<number, FakeInfo> = {
   [SPECS.MARKSMANSHIP_HUNTER.id]: {
     legendaryInfo: { slotId: 0, bonusId: 7003 },
   },

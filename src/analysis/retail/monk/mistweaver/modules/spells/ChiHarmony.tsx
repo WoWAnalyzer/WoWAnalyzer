@@ -30,8 +30,8 @@ class ChiHarmony extends Analyzer {
   protected combatants!: Combatants;
   protected hotTracker!: HotTrackerMW;
 
-  healing: number = 0;
-  overheal: number = 0;
+  healing = 0;
+  overheal = 0;
 
   constructor(options: Options) {
     super(options);

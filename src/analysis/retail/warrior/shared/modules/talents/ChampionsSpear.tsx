@@ -18,7 +18,7 @@ class ChampionsSpear extends Analyzer {
 
   protected championsMight!: ChampionsMight;
 
-  private championsSpearDamage: number = 0;
+  private championsSpearDamage = 0;
 
   constructor(options: Options) {
     super(options);

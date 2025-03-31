@@ -6,7 +6,7 @@ import { i18n } from '@lingui/core';
 
 describe('CHANGELOG', () => {
   i18n.activate('en');
-  const allChangelogs = AVAILABLE_CONFIGS.reduce<{ [specName: string]: ChangelogEntry[] }>(
+  const allChangelogs = AVAILABLE_CONFIGS.reduce<Record<string, ChangelogEntry[]>>(
     (obj, config) => {
       const specName = `${config.spec.specName ? i18n._(config.spec.specName) : null} ${i18n._(
         config.spec.className,
@@ -27,7 +27,7 @@ describe('CHANGELOG', () => {
           test(entry);
         } catch (error) {
           // Custom fail handling so that we can point to the proper changelog without poluting the Jest log with all spec names
-          // eslint-disable-next-line no-undef
+           
           fail(
             `Changelog entry #${index} of the ${name} changelog does not meet this requirement.`,
           );

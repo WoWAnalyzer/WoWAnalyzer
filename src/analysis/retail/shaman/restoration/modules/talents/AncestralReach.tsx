@@ -32,12 +32,12 @@ class AncestralReach extends Analyzer {
   protected unleashLife!: UnleashLife;
 
   maxTargets = CHAIN_HEAL_TARGETS + ANCESTRAL_REACH_TARGET;
-  currentCastBuffedByUL: boolean = false;
+  currentCastBuffedByUL = false;
   ulActive: boolean;
-  healing: number = 0;
-  bonusHealing: number = 0;
-  extraJumps: number = 0;
-  missedJumps: number = 0;
+  healing = 0;
+  bonusHealing = 0;
+  extraJumps = 0;
+  missedJumps = 0;
 
   constructor(options: Options) {
     super(options);

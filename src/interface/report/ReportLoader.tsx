@@ -120,7 +120,7 @@ const ReportLoader = ({ children }: Props) => {
   const resetState = useCallback(() => updateState(null, null), [updateState]);
 
   const loadReport = useCallback(
-    async (code: string, refresh: boolean = false) => {
+    async (code: string, refresh = false) => {
       const isAnonymous = code.startsWith('a:');
       try {
         resetState();

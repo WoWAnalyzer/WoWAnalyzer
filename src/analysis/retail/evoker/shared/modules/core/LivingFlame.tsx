@@ -9,9 +9,9 @@ class LivingFlame extends Analyzer {
   };
   protected abilityTracker!: AbilityTracker;
 
-  livingFlameHealing: number = 0;
-  livingFlameDamage: number = 0;
-  numCasts: number = 0;
+  livingFlameHealing = 0;
+  livingFlameDamage = 0;
+  numCasts = 0;
 
   constructor(options: Options) {
     super(options);

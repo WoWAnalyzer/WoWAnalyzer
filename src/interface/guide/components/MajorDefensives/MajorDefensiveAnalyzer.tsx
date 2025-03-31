@@ -29,12 +29,12 @@ import { CooldownDetailsProps } from './AllCooldownUsagesList';
  * instead of using this yourself, but if you have a weirdo defensive that doesn't use
  * buffs/debuffs then you may need this.
  */
-type DefensiveTrigger<Apply extends EventType, Remove extends EventType> = {
+interface DefensiveTrigger<Apply extends EventType, Remove extends EventType> {
   applyTrigger: EventFilter<Apply>;
   removeTrigger: EventFilter<Remove>;
   trackOn: ResourceActor;
   isMatchingApply: (event: AbilityEvent<any>) => boolean;
-};
+}
 
 /**
  * Construct the trigger settings for a `MajorDefensiveBuff`.
@@ -72,10 +72,10 @@ export const debuff = (
  * A mitigated event. Typically the `event` field will be a `DamageEvent`, but
  * sometimes it makes sense to use other things (like `AbsorbedEvent` or `HealEvent`).
  */
-export type MitigatedEvent = {
+export interface MitigatedEvent {
   event: AnyEvent;
   mitigatedAmount: number;
-};
+}
 
 /**
  * A single mitigation window. May be buff/debuff (or other?). Holds the total
@@ -85,7 +85,7 @@ export type MitigatedEvent = {
  * since it pops up a lot and you *almost never* need to know the start/end types
  * (typically, you only need the timestamps).
  */
-export type Mitigation<Apply extends EventType = any, Remove extends EventType = any> = {
+export interface Mitigation<Apply extends EventType = any, Remove extends EventType = any> {
   start: AnyEvent<Apply>;
   end: AnyEvent<Remove> | FightEndEvent;
   mitigated: MitigatedEvent[];
@@ -94,7 +94,7 @@ export type Mitigation<Apply extends EventType = any, Remove extends EventType =
    * For effects that have a maximum mitigation amount (like absorbs), this represents the total possible amount mitigated. If there is no max (like most DR effects), this should be omitted.
    */
   maxAmount?: number;
-};
+}
 
 type InProgressMitigation<Apply extends EventType, Remove extends EventType> = Pick<
   Mitigation<Apply, Remove>,

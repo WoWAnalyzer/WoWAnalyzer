@@ -41,11 +41,11 @@ class Lifebloom extends Analyzer {
   protected hotTracker!: HotTrackerRestoDruid;
   clearcastAttrib = HotTrackerRestoDruid.getNewAttribution('Clearcast');
   combatants!: Combatants;
-  activeLifeblooms: number = 0;
-  manaFromLifebloom: number = 0;
+  activeLifeblooms = 0;
+  manaFromLifebloom = 0;
   /** Box row entry for each Lifebloom cast */
   castEntries: BoxRowEntry[] = [];
-  lifeBloomPerPlayer: { [playerId: number]: { casts: number; clearcastCount: number } } = {};
+  lifeBloomPerPlayer: Record<number, { casts: number; clearcastCount: number }> = {};
 
   get mp5FromLifebloom(): number {
     return (this.manaFromLifebloom / (this.owner.fightDuration / 1000)) * 5;

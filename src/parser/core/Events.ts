@@ -131,7 +131,7 @@ export interface RemoveStaggerEvent extends Event<EventType.RemoveStagger> {
   sourceBreakdown?: { base: number } & Record<number, number>;
 }
 
-type MappedEventTypes = {
+interface MappedEventTypes {
   [EventType.Event]: Event<EventType.Event>;
   [EventType.FreeCast]: FreeCastEvent;
   [EventType.Heal]: HealEvent;
@@ -189,7 +189,7 @@ type MappedEventTypes = {
   // Time Filtering:
   [EventType.FilterCooldownInfo]: FilterCooldownInfoEvent;
   [EventType.FilterBuffInfo]: FilterBuffInfoEvent;
-};
+}
 
 export interface Ability {
   /** The ability's name */
@@ -433,7 +433,7 @@ export interface BeginChannelEvent extends Event<EventType.BeginChannel> {
   targetInstance?: number;
   sourceIsFriendly: boolean;
   targetIsFriendly: boolean;
-  classResources?: Array<ClassResources & { cost: number }>;
+  classResources?: (ClassResources & { cost: number })[];
   // Added by any module, used in the timeline
   meta?: EventMeta;
   trigger?: AnyEvent;
@@ -455,7 +455,7 @@ export interface BaseCastEvent<T extends string> extends Event<T> {
   armor?: number;
   attackPower?: number;
   channel?: EndChannelEvent;
-  classResources?: Array<ClassResources & { cost: number }>;
+  classResources?: (ClassResources & { cost: number })[];
   facing?: number;
   hitPoints?: number;
   itemLevel?: number;
@@ -474,12 +474,8 @@ export interface BaseCastEvent<T extends string> extends Event<T> {
   y?: number;
 
   // Added by the SpellResourceCost module if active
-  rawResourceCost?: {
-    [resourceType: number]: number;
-  };
-  resourceCost?: {
-    [resourceType: number]: number;
-  };
+  rawResourceCost?: Record<number, number>;
+  resourceCost?: Record<number, number>;
   // Added by the GlobalCooldown module
   globalCooldown?: GlobalCooldownEvent;
   // Added by any module, used in the timeline

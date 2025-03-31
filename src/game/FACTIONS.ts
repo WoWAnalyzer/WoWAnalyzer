@@ -1,6 +1,4 @@
-const FACTIONS: {
-  [key: string]: 'ALLIANCE' | 'HORDE';
-} = {
+const FACTIONS: Record<string, 'ALLIANCE' | 'HORDE'> = {
   ALLIANCE: 'ALLIANCE',
   HORDE: 'HORDE',
 };

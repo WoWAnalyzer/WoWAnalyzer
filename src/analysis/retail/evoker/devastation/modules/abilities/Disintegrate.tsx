@@ -58,11 +58,11 @@ const { DRAGONRAGE_TALENT } = TALENTS;
 
 class Disintegrate extends Analyzer {
   /** Variables used for Clipping/Chaining efficiency */
-  totalCasts: number = 0;
-  totalTicks: number = 0;
-  dragonRageTicks: number = 0;
-  dragonRageCasts: number = 0;
-  inDragonRageWindow: boolean = false;
+  totalCasts = 0;
+  totalTicks = 0;
+  dragonRageTicks = 0;
+  dragonRageCasts = 0;
+  inDragonRageWindow = false;
 
   totalMassDisintegrateTargets = 0;
   totalMassDisintegrateTicks = 0;
@@ -70,13 +70,13 @@ class Disintegrate extends Analyzer {
   currentMainTarget = '';
 
   /** Variables used for graph */
-  currentRemainingTicks: number = 0;
-  isCurrentCastChained: boolean = false;
+  currentRemainingTicks = 0;
+  isCurrentCastChained = false;
   disintegrateClipSpell: CastEvent | BeginCastEvent | undefined = undefined;
-  inFightWithDungeonBoss: boolean = false;
+  inFightWithDungeonBoss = false;
 
-  fightStartTime: number = 0;
-  fightEndTime: number = 0;
+  fightStartTime = 0;
+  fightEndTime = 0;
 
   isCurrentCastMassDisintegrate = false;
 

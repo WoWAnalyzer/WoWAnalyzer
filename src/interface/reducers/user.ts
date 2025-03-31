@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { captureException } from 'common/errorLogger';
 
-type User = {
+interface User {
   name: string;
   avatar?: string;
   premium: boolean;
@@ -12,7 +12,7 @@ type User = {
   patreon?: {
     premium?: boolean;
   };
-};
+}
 
 export const fetchUser = createAsyncThunk<User | null>('user/fetchUser', async () => {
   try {

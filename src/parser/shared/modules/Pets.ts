@@ -6,7 +6,7 @@ import Entities from './Entities';
 const debug = false;
 
 class Pets extends Entities<Pet> {
-  pets: { [petId: number]: Pet } = {};
+  pets: Record<number, Pet> = {};
 
   getEntities() {
     return this.pets;

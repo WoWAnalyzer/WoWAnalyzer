@@ -37,11 +37,11 @@ class Sundering extends Analyzer.withDependencies({
   abilities: Abilities,
 }) {
   protected cooldown = this.deps.abilities.getAbility(TALENTS.SUNDERING_TALENT.id);
-  protected damageGained: number = 0;
-  protected casts: number = 0;
-  protected hits: number = 0;
-  protected resets: number = 0;
-  protected expectedCooldownEnd: number = 0;
+  protected damageGained = 0;
+  protected casts = 0;
+  protected hits = 0;
+  protected resets = 0;
+  protected expectedCooldownEnd = 0;
 
   /**
    * Store the casts and remove them when damage occours within {CAST_TO_DAMAGE_INTERVAL} seconds.

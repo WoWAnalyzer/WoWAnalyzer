@@ -85,7 +85,7 @@ type ConstructedModules<T> = {
   [Key in keyof T]: Constructed<T[Key]>;
 };
 
-type HasSpecModules<Deps> = { specModules: Deps };
+interface HasSpecModules<Deps> { specModules: Deps }
 
 /**
  * Construct a type representing the *constructed* modules for a given
@@ -115,11 +115,11 @@ export type ModulesOf<T extends typeof CombatLogParser> = ConstructedModules<
  * }
  * ```
  */
-export type GuideProps<T extends typeof CombatLogParser> = {
+export interface GuideProps<T extends typeof CombatLogParser> {
   modules: ModulesOf<T>;
   events: AnyEvent[];
   info: Info;
-};
+}
 
 /**
  * Shortcut type for guide components. Make sure to specify your spec's
@@ -273,7 +273,7 @@ type ModuleList<T> = {
  * }
  * ```
  */
-export function useAnalyzers<Arr extends { [Key: number]: typeof Module }>(
+export function useAnalyzers<Arr extends Record<number, typeof Module>>(
   values: Arr,
 ): ModuleList<Arr> {
   const ctx = useContext(GuideContext);

@@ -53,7 +53,7 @@ abstract class Entities<T extends Entity> extends Analyzer {
     this.addEventListener(Events.removedebuffstack, this.updateBuffStack);
   }
 
-  abstract getEntities(): { [entityId: number]: T };
+  abstract getEntities(): Record<number, T>;
 
   abstract getEntity(event: AnyEvent): T | null;
 
@@ -241,7 +241,7 @@ abstract class Entities<T extends Entity> extends Analyzer {
 
   // Surely this can be done with a couple less loops???
   getBuffUptime(spellId: number, sourceID = this.owner.playerId) {
-    const events: Array<{ timestamp: number; type: string; buff: TrackedBuffEvent }> = [];
+    const events: { timestamp: number; type: string; buff: TrackedBuffEvent }[] = [];
 
     const entities = this.getEntities();
     Object.values(entities).forEach((enemy) => {

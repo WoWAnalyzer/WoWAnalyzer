@@ -7,9 +7,9 @@ import { Condition, tenseAlt } from 'parser/shared/metrics/apl/index';
 
 export function buffsCount(
   spells: Spell[],
-  count: number = 1,
+  count = 1,
   comparison: 'atLeast' | 'lessThan' = 'atLeast',
-): Condition<{ [key: number]: number }> {
+): Condition<Record<number, number>> {
   return {
     key: `buffsCount-${spells.map((spell) => spell.id).join('-')}-${count}`,
     init: () => ({}),

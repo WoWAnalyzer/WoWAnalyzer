@@ -9,7 +9,7 @@ import Events, {
   RemoveBuffStackEvent,
 } from 'parser/core/Events';
 
-type BuffStackUpdate = {
+interface BuffStackUpdate {
   /** What triggered this update */
   type: string;
   /** This update's timestamp */
@@ -19,7 +19,7 @@ type BuffStackUpdate = {
   change: number;
   /** Amount of resource the player has AFTER the change */
   current: number;
-};
+}
 
 const DEBUG = false;
 

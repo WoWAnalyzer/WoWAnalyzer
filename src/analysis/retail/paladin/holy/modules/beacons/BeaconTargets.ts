@@ -19,7 +19,7 @@ class BeaconTargets extends BeaconAnalyzer {
   protected combatants!: Combatants;
 
   currentBeaconTargets: number[] = [];
-  currentBeaconTargetsByBeaconId: { [beaconId: number]: number[] } = {};
+  currentBeaconTargetsByBeaconId: Record<number, number[]> = {};
   maxBeacons = 1;
 
   hasBeacon(playerId: number) {

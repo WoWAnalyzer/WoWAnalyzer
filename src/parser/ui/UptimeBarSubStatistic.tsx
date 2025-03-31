@@ -10,7 +10,7 @@ import * as React from 'react';
 import './UptimeBarSubStatistic.scss';
 
 /** Specifies what should be rendered in the uptime bar */
-export type UptimeBarSpec = {
+export interface UptimeBarSpec {
   /** Title spell or spells */
   spells: Spell[];
   /** Uptime periods to render */
@@ -18,7 +18,7 @@ export type UptimeBarSpec = {
   /** Color to render the bars, in format '#rrggbb'. If omitted, UptimeBar's default color will be used. */
   color?: string;
   perf?: QualitativePerformance;
-};
+}
 
 export enum SubPercentageStyle {
   ABSOLUTE = 'absolute',
@@ -46,8 +46,8 @@ export default function uptimeBarSubStatistic(
   primaryBar: UptimeBarSpec,
   subBars: UptimeBarSpec[] = [],
   subPercentageStyle: SubPercentageStyle = SubPercentageStyle.RELATIVE,
-  subIncludeUptimeText: boolean = false,
-  statText: string = 'uptime',
+  subIncludeUptimeText = false,
+  statText = 'uptime',
 ): React.ReactNode {
   const primaryUptime = getCombinedUptime(primaryBar.uptimes);
   const totalFightTime = fight.end_time - fight.start_time;

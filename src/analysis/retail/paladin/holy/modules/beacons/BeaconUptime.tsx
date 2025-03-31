@@ -131,14 +131,14 @@ class BeaconUptime extends BeaconAnalyzer {
     }
   }
 
-  missingPrepull: { [buffId: number]: boolean } = {};
+  missingPrepull: Record<number, boolean> = {};
 
   fightStart = this.owner.fight.start_time;
   fightEnd = this.owner.fight.end_time;
   fightLength = this.fightEnd - this.fightStart;
 
-  lastApplied: { [buffId: number]: number } = {};
-  uptime: { [buffId: number]: number } = {};
+  lastApplied: Record<number, number> = {};
+  uptime: Record<number, number> = {};
 
   // BoL is placed on a new target before it is removed from old target
   // so if the count is 2 then it will not set missingBoL to true

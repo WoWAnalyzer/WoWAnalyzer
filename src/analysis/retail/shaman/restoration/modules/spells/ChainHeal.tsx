@@ -36,7 +36,7 @@ class ChainHeal extends Analyzer {
   protected abilityTracker!: RestorationAbilityTracker;
   protected combatants!: Combatants;
 
-  buffer: Array<HealEvent | CastEvent> = [];
+  buffer: (HealEvent | CastEvent)[] = [];
   chainHealHistory: ChainHealInfo[] = [];
   castIndex = 0;
   chainHealTimestamp = 0;

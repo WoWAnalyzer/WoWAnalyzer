@@ -54,16 +54,16 @@ class ManaTea extends Analyzer {
   protected renewingMistDuringManaTea!: RenewingMistDuringManaTea;
   protected haste!: Haste;
 
-  manaSavedMT: number = 0;
-  manaRestoredMT: number = 0;
-  manateaCount: number = 0;
+  manaSavedMT = 0;
+  manaRestoredMT = 0;
+  manateaCount = 0;
   casts: Map<string, number> = new Map<string, number>();
   castTrackers: ManaTeaTracker[] = [];
-  effectiveHealing: number = 0;
-  manaPerManaTeaGoal: number = 0;
-  overhealing: number = 0;
-  stacksWasted: number = 0;
-  manaRestoredSinceLastApply: number = 0;
+  effectiveHealing = 0;
+  manaPerManaTeaGoal = 0;
+  overhealing = 0;
+  stacksWasted = 0;
+  manaRestoredSinceLastApply = 0;
   protected abilityTracker!: AbilityTracker;
 
   constructor(options: Options) {

@@ -44,7 +44,7 @@ interface PassedProps {
   parser: CombatLogParser;
   characterProfile: CharacterProfile;
   makeTabUrl: (tab: string, build?: string) => string;
-  phases: { [key: string]: Phase } | null;
+  phases: Record<string, Phase> | null;
   selectedPhase: string;
   selectedInstance: number;
   handlePhaseSelection: (phase: string, instance: number) => void;

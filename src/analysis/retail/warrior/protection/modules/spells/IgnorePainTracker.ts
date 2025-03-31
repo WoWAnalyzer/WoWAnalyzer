@@ -13,8 +13,8 @@ import Events, {
  * Ignore Pain (IP) grants a buff that is a shield. If the buff expires you just lose all the shield. This just tracks that
  */
 class IgnorePainTracker extends Analyzer {
-  totalIgnorePainGained: number = 0;
-  currentIgnorePain: number = 0;
+  totalIgnorePainGained = 0;
+  currentIgnorePain = 0;
 
   constructor(options: Options) {
     super(options);

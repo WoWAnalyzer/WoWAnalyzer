@@ -29,8 +29,8 @@ const TRANQ_MAX_BOOST_PER_RANK = 0.15;
  */
 class Regenesis extends Analyzer {
   ranks: number;
-  rejuvBoostHealing: number = 0;
-  tranqBoostHealing: number = 0;
+  rejuvBoostHealing = 0;
+  tranqBoostHealing = 0;
 
   constructor(options: Options) {
     super(options);

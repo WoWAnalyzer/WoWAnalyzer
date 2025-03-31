@@ -4,11 +4,11 @@ import { DamageEvent, HealEvent, ResourceChangeEvent } from 'parser/core/Events'
  * This should honestly be done away with but there are so many unique Events/Sub-Events that call the calculateEffectiveHealing fucntions
  * that this is just easier to do than go modify all the callers.
  */
-type LightWeightHealingEvent = {
+interface LightWeightHealingEvent {
   amount: number;
   absorbed?: number;
   overheal?: number;
-};
+}
 
 /**
  * Calculates the effective healing attributable to a percent healing buff.
@@ -53,7 +53,7 @@ export function calculateEffectiveHealingFromCritIncrease(
   event: LightWeightHealingEvent,
   currentCrit: number,
   percentCritIncrease: number,
-  critHealMultiplier: number = 2,
+  critHealMultiplier = 2,
 ) {
   const amount = event.amount;
   const absorbed = event.absorbed || 0;
@@ -188,7 +188,7 @@ export function calculateEffectiveDamageFromCritIncrease(
  */
 export function calculateHealTargetHealthPercent(
   event: HealEvent,
-  includeHealAbsorbs: boolean = false,
+  includeHealAbsorbs = false,
 ) {
   let healing = event.amount;
   if (includeHealAbsorbs) {

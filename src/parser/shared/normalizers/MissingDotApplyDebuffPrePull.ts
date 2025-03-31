@@ -28,7 +28,7 @@ class MissingDotApplyDebuffPrePull extends EventsNormalizer {
     const fightStartTimestamp = this.owner.fight.start_time;
     const cutoff = fightStartTimestamp + CUTOFF;
 
-    const dotStatusesMap: { [index: number]: DotStatus } = ctor.dots.reduce((map, debuff) => {
+    const dotStatusesMap: Record<number, DotStatus> = ctor.dots.reduce((map, debuff) => {
       map[debuff.debuffId] = {
         debuffId: debuff.debuffId,
         handled: false,

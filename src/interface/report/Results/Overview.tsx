@@ -9,7 +9,7 @@ import Suggestions from './Suggestions';
 
 interface Props {
   checklist?: React.ReactNode;
-  issues: Array<Issue | Suggestion>;
+  issues: (Issue | Suggestion)[];
   guide?: React.FC;
 }
 

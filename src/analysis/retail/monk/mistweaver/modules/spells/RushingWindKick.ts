@@ -6,7 +6,7 @@ import Events, { HealEvent } from 'parser/core/Events';
 import { RUSHING_WIND_KICK_INCREASE } from '../../constants';
 
 class RushingWindKick extends Analyzer {
-  healing: number = 0;
+  healing = 0;
 
   constructor(options: Options) {
     super(options);

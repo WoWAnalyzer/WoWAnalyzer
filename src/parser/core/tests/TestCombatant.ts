@@ -4,7 +4,7 @@ import { Talent } from 'common/TALENTS/types';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import { Buff, CombatantInfoEvent, Item } from 'parser/core/Events';
 
-// eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+ 
 const defaultCombatantInfoEvent = {
   gear: [] as Item[],
   auras: [] as Buff[],

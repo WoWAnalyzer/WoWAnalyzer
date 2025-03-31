@@ -18,12 +18,12 @@ const MAX_TRAVEL_TIME = 3000; // Chaos Bolt being the slowest, takes around 2 se
 const ERADICATION_DAMAGE_BONUS_BASE = 0.05;
 const debug = false;
 
-type Spell = {
+interface Spell {
   timestamp: number;
   spellId: CastEvent['ability']['guid'];
   targetID: CastEvent['targetID'];
   targetInstance: CastEvent['targetInstance'];
-};
+}
 
 /*
   Eradication - Chaos Bolt increases the damage you deal to the target by 10% for 7 sec

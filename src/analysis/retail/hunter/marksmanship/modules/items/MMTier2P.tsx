@@ -11,7 +11,7 @@ import Events, { DamageEvent } from 'parser/core/Events';
  * Arcane Shot and Multi-Shot damage increased by 20%
  */
 export default class MMTier2P extends Analyzer {
-  totalDamage: number = 0;
+  totalDamage = 0;
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.has2PieceByTier(TIERS.TWW1);

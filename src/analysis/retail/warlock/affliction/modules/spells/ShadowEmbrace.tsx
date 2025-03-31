@@ -20,11 +20,11 @@ import {
 const BUFFER = 50; // for some reason, changedebuffstack triggers twice on the same timestamp for each event, ignore an event if it happened < BUFFER ms after another
 const debug = false;
 
-type ShadowEmbraceUptime = {
+interface ShadowEmbraceUptime {
   start: number | null;
   count: number;
   uptime: number;
-};
+}
 
 class ShadowEmbrace extends Analyzer {
   static dependencies = {

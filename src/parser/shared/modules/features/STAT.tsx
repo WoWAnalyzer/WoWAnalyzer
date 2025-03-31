@@ -43,7 +43,7 @@ enum OTHER_STAT {
 
 type STAT = PRIMARY_STAT | SECONDARY_STAT | OTHER_STAT;
 
-// eslint-disable-next-line @typescript-eslint/no-redeclare
+ 
 const STAT = {
   ...PRIMARY_STAT,
   ...SECONDARY_STAT,

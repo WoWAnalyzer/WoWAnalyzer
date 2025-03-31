@@ -34,12 +34,12 @@ class CallOfYsera extends Analyzer {
   protected hotTracker!: HotTrackerPrevoker;
   protected dreamBreath!: DreamBreath;
   protected livingFlame!: LivingFlame;
-  buffedDreamBreaths: number = 0;
-  extraBreathHealing: number = 0;
-  extraBreathHoTHealing: number = 0;
-  buffedLivingFlames: number = 0;
-  extraLivingFlameHealing: number = 0;
-  empoweredDbCasts: number = 0;
+  buffedDreamBreaths = 0;
+  extraBreathHealing = 0;
+  extraBreathHoTHealing = 0;
+  buffedLivingFlames = 0;
+  extraLivingFlameHealing = 0;
+  empoweredDbCasts = 0;
 
   get totalBreathHealing() {
     return this.extraBreathHealing + this.extraBreathHoTHealing;

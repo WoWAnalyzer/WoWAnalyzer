@@ -27,7 +27,7 @@ class DesperatePrayer extends Analyzer {
   protected spellUsable!: SpellUsable;
 
   desperatePrayerUsages: DesperatePrayerUsage[] = [];
-  deathsWithDPReady: number = 0;
+  deathsWithDPReady = 0;
 
   constructor(options: Options) {
     super(options);

@@ -19,7 +19,7 @@ class Efflorescence extends Analyzer {
   /** list of time periods when efflo was active */
   effloUptimes: OpenTimePeriod[] = [];
   /** true iff we've seen at least one Efflo cast */
-  hasCast: boolean = false;
+  hasCast = false;
 
   /** a chronological listing of timestamps when efflo healed, and how many targets it healed */
   effloTimes: EffloTime[] = [];
@@ -186,22 +186,22 @@ class Efflorescence extends Analyzer {
  * and the last tick happens at roughly the same time as the despawn,
  * so when applying time periods for each tick we will extend backwards from when it happened.
  */
-type EffloTime = {
+interface EffloTime {
   /** The time of this event in milliseconds */
   timestamp: number;
   /** The number of targets hit by this event (or zero for a start event) */
   targets: number;
   /** True iff this event represents the start of an efflo */
   start?: boolean;
-};
+}
 
-type StackTimePeriod = {
+interface StackTimePeriod {
   /** Timestamp in milliseconds of the time period start */
   start: number;
   /** Timestamp in milliseconds of the time period end */
   end: number;
   /** Number of stacks present during this time period */
   stacks: number;
-};
+}
 
 export default Efflorescence;

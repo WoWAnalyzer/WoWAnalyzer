@@ -19,7 +19,7 @@ import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
  * Black spells deal 20% increased damage.
  */
 class MightOfTheBlackDragonflight extends Analyzer {
-  extraDamage: number = 0;
+  extraDamage = 0;
 
   constructor(options: Options) {
     super(options);

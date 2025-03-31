@@ -30,9 +30,9 @@ class TimeSpiral extends Analyzer {
     stats: StatTracker,
   };
   protected stats!: StatTracker;
-  timeSpiralApplyTimestamps: { [key: number]: number } = {};
-  timeSpiralTimestampExists: { [key: number]: boolean } = {};
-  timeSpiralDuration: { [key: number]: number } = {};
+  timeSpiralApplyTimestamps: Record<number, number> = {};
+  timeSpiralTimestampExists: Record<number, boolean> = {};
+  timeSpiralDuration: Record<number, number> = {};
   externalBuffsApplied = 0;
   externalBuffsUsed = 0;
   personalBuffsApplied = 0;

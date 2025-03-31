@@ -1,9 +1,9 @@
 import type { Condition } from '../index';
 import { containsOptionalCondition } from './optionalRule';
 
-type ConditionMap = { [k: string]: Condition<any> };
+type ConditionMap = Record<string, Condition<any>>;
 
-export default function and(...conditions: Array<Condition<any>>): Condition<any> {
+export default function and(...conditions: Condition<any>[]): Condition<any> {
   const key = `and-${conditions.map((cnd) => cnd.key).join('-')}`;
   if (!import.meta.env.PROD && conditions.some(containsOptionalCondition)) {
     console.warn(

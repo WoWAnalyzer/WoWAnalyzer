@@ -36,12 +36,12 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { ReactNode } from 'react';
 import { RENEWING_BLAZE_HEAL } from '../normalizers/DefensiveCastLinkNormalizer';
 
-type RenewingBlazeHealBuff = {
+interface RenewingBlazeHealBuff {
   start: ApplyBuffEvent;
   amount: number;
   overheal: number;
   partnerAmount: number;
-};
+}
 
 class RenewingBlaze extends MajorDefensiveBuff {
   renewingBlazeHealBuffs: RenewingBlazeHealBuff[] = [];

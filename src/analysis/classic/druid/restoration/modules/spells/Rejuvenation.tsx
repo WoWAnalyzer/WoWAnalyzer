@@ -39,10 +39,10 @@ class Rejuvenation extends Analyzer {
   protected hotTracker!: HotTrackerRestoDruid;
 
   /** Healing stats for active hardcast rejuvenations, indexed by targetID */
-  activeHardcastRejuvs: { [key: number]: HealingValue } = {};
+  activeHardcastRejuvs: Record<number, HealingValue> = {};
   /** Latch to check if refresh callback has been registered with HotTracker.
    *  (we can't just do it during constructor due to load order */
-  hasCallbackRegistered: boolean = false;
+  hasCallbackRegistered = false;
 
   /** Total casts of rejuvenation */
   totalRejuvsCasts = 0;

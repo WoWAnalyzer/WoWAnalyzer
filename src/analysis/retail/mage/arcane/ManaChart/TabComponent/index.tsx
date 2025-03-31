@@ -4,9 +4,9 @@ import ManaValues from 'parser/shared/modules/ManaValues';
 
 import ManaLevelGraph from './ManaLevelGraph';
 
-type props = {
+interface props {
   parser: CombatLogParser;
-};
+}
 
 const Mana = ({ parser }: props) => (
   <Panel style={{ padding: '15px 22px' }}>

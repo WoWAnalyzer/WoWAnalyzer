@@ -13,9 +13,9 @@ import { formatNumber } from 'common/format';
 const FONT_SPLIT_TARGETS = 3; // level 4 empower sb = 3 additional targets
 
 class FontOfMagic extends Analyzer {
-  totalHits: number = 0;
-  totalHealing: number = 0;
-  totalOverhealing: number = 0;
+  totalHits = 0;
+  totalHealing = 0;
+  totalOverhealing = 0;
   countedTimestamps: Set<number> = new Set<number>();
 
   constructor(options: Options) {

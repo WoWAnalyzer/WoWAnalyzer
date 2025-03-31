@@ -118,11 +118,11 @@ class DarkEvangelism extends Analyzer {
   // By doing so, I can pass this into the same uptime bar that I do for my debuffs.
   // This seems like it would be very useful for many specs, but I couldn't find a function that does exactly this.
   get uptimeHistory() {
-    type TempBuffInfo = {
+    interface TempBuffInfo {
       timestamp: number;
       type: 'apply' | 'remove';
       buff: TrackedBuffEvent;
-    };
+    }
     const events: TempBuffInfo[] = [];
 
     const buffHistory = this.selectedCombatant.getBuffHistory(
@@ -141,10 +141,10 @@ class DarkEvangelism extends Analyzer {
       });
     });
 
-    type PlayerBuffHistory = {
+    interface PlayerBuffHistory {
       start: number;
       end: number;
-    };
+    }
 
     const history: PlayerBuffHistory[] = [];
     let current: PlayerBuffHistory | null = null;

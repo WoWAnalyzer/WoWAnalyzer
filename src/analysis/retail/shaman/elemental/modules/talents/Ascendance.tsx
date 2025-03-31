@@ -88,8 +88,8 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
 
   protected castsBeforeAscendanceProc: SpenderCasts[] = [];
   protected currentCooldown: AscendanceCooldownCast | null = null;
-  protected globalCooldownEnds: number = 0;
-  protected ascendanceWasCast: boolean = false;
+  protected globalCooldownEnds = 0;
+  protected ascendanceWasCast = false;
   protected spender: Spender = {
     spell: TALENTS.EARTH_SHOCK_TALENT,
     costReduction: this.selectedCombatant.hasTalent(TALENTS.EYE_OF_THE_STORM_TALENT) ? 5 : 0,

@@ -25,7 +25,7 @@ const FRENZY_MULTIPLIER = 2.5;
  */
 export default class MercilessClaws extends Analyzer.withDependencies({ enemies: Enemies }) {
   /** Total damage added by Merciless Claws */
-  damage: number = 0;
+  damage = 0;
 
   hasBerserkFrenzy: boolean;
 

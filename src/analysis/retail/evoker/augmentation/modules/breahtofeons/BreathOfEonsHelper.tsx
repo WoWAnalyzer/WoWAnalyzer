@@ -20,35 +20,35 @@ import { DamageEvent } from 'parser/core/Events';
 import { BREATH_OF_EONS_MULTIPLIER } from '../../constants';
 import { ABILITY_BLACKLIST, ABILITY_NO_BOE_SCALING } from '../util/abilityFilter';
 
-type Props = {
+interface Props {
   windows: BreathOfEonsWindows[];
   fightStartTime: number;
   fightEndTime: number;
   owner: CombatLogParser;
-};
+}
 
 const debug = false;
 
-type DamageWindow = {
+interface DamageWindow {
   start: number;
   end: number;
   sum: number;
   startFormat: string;
   endFormat: string;
   sumSources: DamageSources[];
-};
+}
 
-type DamageSources = {
+interface DamageSources {
   sourceID: number;
   damage: number;
   lostDamage: number;
-};
+}
 
-type WindowResponse = {
+interface WindowResponse {
   events: DamageEvent[];
   start: number;
   end: number;
-};
+}
 
 const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEndTime, owner }) => {
   const damageTables: {

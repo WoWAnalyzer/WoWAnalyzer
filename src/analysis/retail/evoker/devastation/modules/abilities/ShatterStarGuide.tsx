@@ -12,19 +12,19 @@ import ItemLink from 'interface/ItemLink';
 import ContextualSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
 import Analyzer from 'parser/core/Analyzer';
 
-const WEAK_CASTS_IDS: Set<number> = new Set([SPELLS.AZURE_STRIKE.id, TALENTS.FIRESTORM_TALENT.id]);
+const WEAK_CASTS_IDS = new Set<number>([SPELLS.AZURE_STRIKE.id, TALENTS.FIRESTORM_TALENT.id]);
 
-type CastInfo = {
+interface CastInfo {
   amountOfPowerfulCasts: number;
   amountOfWeakCasts: number;
   strongCastInfo: JSX.Element[];
   weakCastInfo: JSX.Element[];
-};
+}
 
-type CastPerformanceCheck = {
+interface CastPerformanceCheck {
   strongCast: UsageInfo;
   weakCast?: UsageInfo;
-};
+}
 
 class ShatteringStarGuide extends Analyzer {
   static dependencies = {

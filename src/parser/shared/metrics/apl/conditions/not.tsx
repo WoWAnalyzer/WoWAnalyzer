@@ -1,6 +1,6 @@
 import type { Condition } from '../index';
 
-export default function not(cnd: Condition<any>, showDont: boolean = true): Condition<any> {
+export default function not(cnd: Condition<any>, showDont = true): Condition<any> {
   return {
     ...cnd,
     key: `not-${cnd.key}`,

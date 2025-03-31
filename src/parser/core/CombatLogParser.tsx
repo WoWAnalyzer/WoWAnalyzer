@@ -123,8 +123,8 @@ const debugDependencyInjection = false;
 const MAX_DI_ITERATIONS = 100;
 const isMinified = import.meta.env.PROD;
 
-type DependencyDefinition = typeof Module | readonly [typeof Module, { [option: string]: any }];
-export type DependenciesDefinition = { [desiredName: string]: DependencyDefinition };
+type DependencyDefinition = typeof Module | readonly [typeof Module, Record<string, any>];
+export type DependenciesDefinition = Record<string, DependencyDefinition>;
 
 export enum SuggestionImportance {
   Major = 'major',
@@ -276,14 +276,14 @@ class CombatLogParser {
   combatantInfoEvents: CombatantInfoEvent[];
 
   //Disabled Modules
-  disabledModules!: { [state in ModuleError]: any[] };
+  disabledModules!: Record<ModuleError, any[]>;
 
   adjustForDowntime = false;
   get hasDowntime() {
     return this.getModule(TotalDowntime).totalBaseDowntime > 0;
   }
 
-  _modules: { [name: string]: Module } = {};
+  _modules: Record<string, Module> = {};
   get activeModules() {
     return Object.values(this._modules).filter((module) => module.active);
   }
@@ -378,9 +378,9 @@ class CombatLogParser {
     }
     return [moduleClass, options];
   }
-  _resolveDependencies(dependencies: { [desiredName: string]: typeof Module }) {
-    const availableDependencies: { [name: string]: Module } = {};
-    const missingDependencies: Array<typeof Module> = [];
+  _resolveDependencies(dependencies: Record<string, typeof Module>) {
+    const availableDependencies: Record<string, Module> = {};
+    const missingDependencies: typeof Module[] = [];
     if (dependencies) {
       Object.keys(dependencies).forEach((desiredDependencyName) => {
         const dependencyClass = dependencies[desiredDependencyName];
@@ -409,7 +409,7 @@ class CombatLogParser {
       ...options,
       owner: this,
     };
-    // eslint-disable-next-line new-cap
+     
     const module = new moduleClass(fullOptions);
     Module.applyDependencies(fullOptions, module);
     module.key = desiredModuleName;
@@ -528,9 +528,7 @@ class CombatLogParser {
     // Executed when module initialization is complete
   }
   _moduleCache = new Map();
-  getOptionalModule<T extends Module, O extends Options>(type: {
-    new (options: O): T;
-  }): T | undefined {
+  getOptionalModule<T extends Module, O extends Options>(type: new (options: O) => T): T | undefined {
     // We need to use a cache and can't just set this on initialization because we sometimes search by the inheritance chain.
     const cacheEntry = this._moduleCache.get(type);
     if (cacheEntry !== undefined) {
@@ -541,7 +539,7 @@ class CombatLogParser {
     this._moduleCache.set(type, module);
     return module as T;
   }
-  getModule<T extends Module, O extends Options>(type: { new (options: O): T }): T {
+  getModule<T extends Module, O extends Options>(type: new (options: O) => T): T {
     const module = this.getOptionalModule(type);
     if (module === undefined) {
       throw new Error(`Module not found: ${type.name}`);

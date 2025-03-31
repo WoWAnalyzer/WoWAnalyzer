@@ -76,7 +76,7 @@ export const highlightInefficientCast = (
   }
 };
 
-type MovementInstance = { start: number; end: number; distance: number };
+interface MovementInstance { start: number; end: number; distance: number }
 interface Props extends HTMLAttributes<HTMLDivElement> {
   start: number;
   windowStart?: number;

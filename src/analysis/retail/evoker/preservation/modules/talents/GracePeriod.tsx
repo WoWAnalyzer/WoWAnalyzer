@@ -20,11 +20,11 @@ class GracePeriod extends Analyzer {
     hotTracker: HotTrackerPrevoker,
   };
   protected hotTracker!: HotTrackerPrevoker;
-  gracePeriodIncrease: number = 0;
-  healingFromIncrease: number = 0;
-  overhealFromIncrease: number = 0;
-  lifebindIncrease: number = 0;
-  lifebindOverheal: number = 0;
+  gracePeriodIncrease = 0;
+  healingFromIncrease = 0;
+  overhealFromIncrease = 0;
+  lifebindIncrease = 0;
+  lifebindOverheal = 0;
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.GRACE_PERIOD_TALENT);

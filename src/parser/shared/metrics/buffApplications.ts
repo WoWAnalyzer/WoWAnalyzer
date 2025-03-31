@@ -29,16 +29,12 @@ function findLast<T>(
  * directly in configs, but only internally by other shared stats.
  */
 const buffApplications = (events: AnyEvent[]) =>
-  events.reduce<{
-    [spellId: number]: {
-      [sourceId: number]: Array<{
+  events.reduce<Record<number, Record<number, {
         targetId: number;
         targetInstance?: number;
         start?: number;
         end?: number;
-      }>;
-    };
-  }>((obj, event) => {
+      }[]>>>((obj, event) => {
     if (
       event.type !== EventType.ApplyBuff &&
       event.type !== EventType.RemoveBuff &&

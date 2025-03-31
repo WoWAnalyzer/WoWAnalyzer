@@ -15,8 +15,8 @@ const COOLDOWN_REDUCTION_PER_CAST = 2000;
 class HeraldOfTheStorms extends Analyzer.withDependencies({
   spellUsable: SpellUsable,
 }) {
-  totalCooldownReduction: number = 0;
-  effectiveCooldownReduction: number = 0;
+  totalCooldownReduction = 0;
+  effectiveCooldownReduction = 0;
 
   constructor(options: Options) {
     super(options);

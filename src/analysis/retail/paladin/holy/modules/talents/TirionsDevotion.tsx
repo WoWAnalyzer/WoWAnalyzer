@@ -17,8 +17,8 @@ class TirionsDevotion extends Analyzer {
 
   protected spellUsable!: SpellUsable;
 
-  wastedCDR: number = 0;
-  effectiveCDR: number = 0;
+  wastedCDR = 0;
+  effectiveCDR = 0;
 
   constructor(options: Options) {
     super(options);

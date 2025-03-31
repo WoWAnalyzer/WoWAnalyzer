@@ -5,7 +5,7 @@ import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 const PENANCE_MINIMUM_RECAST_TIME = 3500; // Minimum duration from one Penance to Another
 
 class SpellUsable extends CoreSpellUsable {
-  _previousPenanceTimestamp: number = 0;
+  _previousPenanceTimestamp = 0;
 
   onCast(event: CastEvent) {
     const spellId = event.ability.guid;

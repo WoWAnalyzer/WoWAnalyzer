@@ -8,9 +8,9 @@ import { DISPERSION_BASE_CD, DISPERSION_UPTIME_MS } from '../../constants';
 
 class Disperion extends Analyzer {
   _previousDispersionCast: any;
-  dispersionUptime: number = 0;
-  maxDispersionTime: number = 0;
-  dispersedTime: number = 0;
+  dispersionUptime = 0;
+  maxDispersionTime = 0;
+  dispersedTime = 0;
 
   constructor(options: Options) {
     super(options);

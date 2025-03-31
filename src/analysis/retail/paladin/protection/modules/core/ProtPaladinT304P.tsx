@@ -20,12 +20,12 @@ import Abilities from '../Abilities';
 const JUDGM_PROC_CHANCE = 0.5;
 
 class ProtPaladinT304P extends Analyzer {
-  gcJudgmentCrits: number = 0;
+  gcJudgmentCrits = 0;
 
   static dependencies = {
     abilities: Abilities,
   };
-  jResetChances: number = 0;
+  jResetChances = 0;
   abilities!: Abilities;
   constructor(options: Options) {
     super(options);

@@ -31,7 +31,7 @@ class FlashOfClarity extends Analyzer {
   protected hotTracker!: HotTrackerRestoDruid;
 
   hotBoostAttribution: Attribution = HotTrackerRestoDruid.getNewAttribution('FoC Regrowth');
-  directBoostHealing: number = 0;
+  directBoostHealing = 0;
 
   constructor(options: Options) {
     super(options);

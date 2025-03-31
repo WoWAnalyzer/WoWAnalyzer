@@ -38,7 +38,7 @@ class Swiftmend extends Analyzer {
   combatants!: Combatants;
 
   /** Hardcast healing only so we can get mana effic without Convoke messing with us */
-  hardcastSwiftmendHealing: number = 0;
+  hardcastSwiftmendHealing = 0;
   /** Box row entry for each Swiftmend cast */
   castEntries: BoxRowEntry[] = [];
 

@@ -18,7 +18,7 @@ export type Rules = {
 
 const noOvercapDescription = (
   tense: Tense | undefined,
-  includeEssence: boolean = true,
+  includeEssence = true,
 ): JSX.Element => {
   return (
     <>

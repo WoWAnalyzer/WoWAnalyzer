@@ -12,7 +12,7 @@ import { TALENTS_HUNTER } from 'common/TALENTS';
  * Consuming Precise Shot increases the damage of your next Aimed Shot by 20%
  */
 export default class MMTier4P extends Analyzer {
-  totalDamage: number = 0;
+  totalDamage = 0;
   buffNextAimedShot = false;
 
   constructor(options: Options) {

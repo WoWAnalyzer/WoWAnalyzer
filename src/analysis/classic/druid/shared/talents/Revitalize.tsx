@@ -14,15 +14,13 @@ import LazyLoadStatisticBox from 'parser/ui/LazyLoadStatisticBox';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SPELLS from 'common/SPELLS/classic/druid';
 
-interface ResourcesByPlayer {
-  [playerId: number]: {
+type ResourcesByPlayer = Record<number, {
     count: number;
     mana: number;
     energy: number;
     rage: number;
     runicPower: number;
-  };
-}
+  }>;
 
 const TIMESTAMP_TOLERANCE = 40;
 
@@ -58,7 +56,7 @@ class Revitalize extends Analyzer {
 
   protected combatants!: Combatants;
   resourcesByPlayer: ResourcesByPlayer = {};
-  eligibleCasts: { [playerId: number]: HealEvent[] } = {};
+  eligibleCasts: Record<number, HealEvent[]> = {};
 
   constructor(options: Options) {
     super(options);
@@ -88,13 +86,11 @@ class Revitalize extends Analyzer {
     );
   }
 
-  get resourcesPerPlayer(): {
-    [playerId: number]: {
+  get resourcesPerPlayer(): Record<number, {
       player: Combatant;
       count: number;
       power: { mana: number; energy: number; rage: number; runicPower: number };
-    };
-  } {
+    }> {
     return Object.assign(
       {},
       ...Object.values(this.combatants.players).map((player) => ({

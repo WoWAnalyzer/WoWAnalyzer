@@ -27,7 +27,7 @@ interface Props {
   handleDungeonPullSelection: (dungeonPull: string) => void;
   handlePhaseSelection: (phase: string, instance: number) => void;
   applyFilter: (start: number, end: number) => void;
-  phases: { [key: string]: Phase } | null;
+  phases: Record<string, Phase> | null;
   selectedPhase: string;
   selectedInstance: number;
   selectedDungeonPull: string;

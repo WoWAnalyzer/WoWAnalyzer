@@ -17,7 +17,7 @@ class RollTheBonesCounter extends Analyzer {
     const castTracker = this.rollTheBonesCastTracker;
 
     const distributionObj = castTracker.rolltheBonesCastEvents.reduce(
-      (buffLevel: { [index: number]: number }, cast: RTBCast) => {
+      (buffLevel: Record<number, number>, cast: RTBCast) => {
         buffLevel[cast.appliedBuffs.length] = (buffLevel[cast.appliedBuffs.length] || 0) + 1;
         return buffLevel;
       },

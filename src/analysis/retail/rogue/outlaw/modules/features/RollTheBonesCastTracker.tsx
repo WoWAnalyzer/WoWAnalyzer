@@ -16,9 +16,7 @@ interface CastValue {
   base: number;
 }
 
-interface BuffValueMap {
-  [index: number]: CastValue;
-}
+type BuffValueMap = Record<number, CastValue>;
 
 export interface RTBCast extends CastEvent {
   appliedBuffs: Spell[];

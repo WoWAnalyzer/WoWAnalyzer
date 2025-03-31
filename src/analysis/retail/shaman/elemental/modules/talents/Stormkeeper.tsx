@@ -117,7 +117,7 @@ class Stormkeeper extends MajorCooldown<StormkeeperCast> {
   enemies!: Enemies;
   spellUsable!: SpellUsable;
 
-  nextCastStartsWindow: boolean = false;
+  nextCastStartsWindow = false;
   stormkeeperCast: BeginCastEvent | null = null;
 
   activeWindow: StormkeeperCast | null = null;

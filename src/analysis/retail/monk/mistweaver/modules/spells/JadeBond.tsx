@@ -28,16 +28,16 @@ class JadeBond extends Analyzer {
     hotTracker: HotTrackerMW,
   };
   protected hotTracker!: HotTrackerMW;
-  healing: number = 0;
-  envmHealing: number = 0;
-  envmTicks: number = 0;
-  envmOverhealing: number = 0;
-  envmHealingIncrease: number = 0;
-  extraEnvBonusHealing: number = 0;
-  extraEnvBonusOverhealing: number = 0;
+  healing = 0;
+  envmHealing = 0;
+  envmTicks = 0;
+  envmOverhealing = 0;
+  envmHealingIncrease = 0;
+  extraEnvBonusHealing = 0;
+  extraEnvBonusOverhealing = 0;
 
   boostAmount: number = JADE_BOND_INC;
-  numHots: number = 0;
+  numHots = 0;
 
   /**
    * Chi Cocoons now apply Enveloping Mist for 4 seconds when they expire or are consumed,

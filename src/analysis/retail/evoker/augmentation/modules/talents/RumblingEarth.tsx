@@ -14,7 +14,7 @@ import { UPHEAVAL_RUMBLING_EARTH_LINK } from '../normalizers/CastLinkNormalizer'
  * Upheaval causes an aftershock at its location, dealing 50% of its damage 2 additional time.
  */
 class RumblingEarth extends Analyzer {
-  totalRumblingEarthDamage: number = 0;
+  totalRumblingEarthDamage = 0;
 
   constructor(options: Options) {
     super(options);

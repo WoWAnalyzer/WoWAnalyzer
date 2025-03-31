@@ -25,7 +25,7 @@ class HymnBuffBenefit extends Analyzer {
   selfDivineHymnIncrease = 0;
 
   divineHymnTotalHealingIncreasePerStack = 0;
-  filter(stackCount: number = 1) {
+  filter(stackCount = 1) {
     // The first stack is an apply buff event, not an apply buff stack event
     if (stackCount === 1) {
       return `IN RANGE

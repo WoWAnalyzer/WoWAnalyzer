@@ -382,7 +382,7 @@ class StatTracker extends Analyzer {
   /**
    * Adds a stat multiplier to tracking
    */
-  addStatMultiplier(statMult: StatMultiplier, changeCurrentStats: boolean = false): void {
+  addStatMultiplier(statMult: StatMultiplier, changeCurrentStats = false): void {
     const delta: StatBuff = {};
     Object.entries(statMult).forEach(([stat, multiplier]: [string, number | undefined]) => {
       if (multiplier === undefined) {
@@ -412,7 +412,7 @@ class StatTracker extends Analyzer {
   /**
    * Removes a stat multiplier from tracking
    */
-  removeStatMultiplier(statMult: StatMultiplier, changeCurrentStats: boolean = false): void {
+  removeStatMultiplier(statMult: StatMultiplier, changeCurrentStats = false): void {
     const delta: StatBuff = {};
     Object.entries(statMult).forEach(([stat, multiplier]: [string, number | undefined]) => {
       if (multiplier === undefined) {
@@ -636,9 +636,9 @@ class StatTracker extends Analyzer {
   calculateStatPercentage(
     rating: number,
     baselineRatingPerPercent: number,
-    returnRatingForNextPercent: boolean = false,
-    isSecondary: boolean = true,
-    coef: number = 1,
+    returnRatingForNextPercent = false,
+    isSecondary = true,
+    coef = 1,
   ): number {
     //Which penalty thresholds we should use based on type of stat
     const penaltyThresholds = isSecondary
@@ -665,7 +665,7 @@ class StatTracker extends Analyzer {
     }
     // TODO surely there's a prettier way than an indexed for loop
     //Loop through each of our penaltythresholds until we find the first one where we have more baseline stats than that curvepoint
-    // eslint-disable-next-line no-plusplus
+     
     for (let idx = 0; idx < penaltyThresholds.length; idx++) {
       //If we have a higher percent than the baseline, we can move on immediately
       if (baselinePercent >= penaltyThresholds[idx].base) {
@@ -703,8 +703,8 @@ class StatTracker extends Analyzer {
   ratingNeededForNextPercentage(
     rating: number,
     baselineRatingPerPercent: number,
-    coef: number = 1,
-    isSecondary: boolean = true,
+    coef = 1,
+    isSecondary = true,
   ) {
     return this.calculateStatPercentage(rating, baselineRatingPerPercent, true, isSecondary, coef);
   }
@@ -795,7 +795,7 @@ class StatTracker extends Analyzer {
     );
   }
 
-  speedPercentage(rating: number, withBase: boolean = false): number {
+  speedPercentage(rating: number, withBase = false): number {
     if (this.isClassic) {
       return 0; // Classic does not have this stat
     }
@@ -957,7 +957,7 @@ class StatTracker extends Analyzer {
   }
 
   // withoutMultipliers should be a rare exception where you have already buffed values
-  _changeStats(change: StatBuff, factor: number, withoutMultipliers: boolean = false): PlayerStats {
+  _changeStats(change: StatBuff, factor: number, withoutMultipliers = false): PlayerStats {
     const delta = {
       strength: this.getBuffValue(change, change.strength) * factor,
       agility: this.getBuffValue(change, change.agility) * factor,
@@ -1104,7 +1104,7 @@ export type StatBuff = Partial<Record<keyof Stats, BuffVal>> & { itemId?: number
 /**
  * StatBuffs mapped by their guid
  */
-type StatBuffsByGuid = { [key: string]: StatBuff };
+type StatBuffsByGuid = Record<string, StatBuff>;
 
 /**
  * A buff or effect that multiplies stats (as opposed to adding)
@@ -1114,6 +1114,6 @@ type StatMultiplier = Partial<Stats>;
 /**
  * StatMultipliers mapped by their guid
  */
-type StatMultipliersByGuid = { [key: string]: StatMultiplier };
+type StatMultipliersByGuid = Record<string, StatMultiplier>;
 
 export default StatTracker;

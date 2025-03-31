@@ -33,10 +33,10 @@ class AngerManagement extends Analyzer.withDependencies({
     wasted: 0,
   };
 
-  private talentAngerManagement: boolean = false;
-  private talentRecklessness: boolean = false;
-  private talentRavager: boolean = false;
-  private talentBladestorm: boolean = false;
+  private talentAngerManagement = false;
+  private talentRecklessness = false;
+  private talentRavager = false;
+  private talentBladestorm = false;
 
   constructor(options: Options) {
     super(options);

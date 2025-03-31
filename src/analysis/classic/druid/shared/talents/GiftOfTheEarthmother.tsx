@@ -12,7 +12,7 @@ class GiftOfTheEarthmother extends Analyzer {
   };
   protected haste!: Haste;
 
-  goteHaste: number = 0.1;
+  goteHaste = 0.1;
 
   constructor(options: Options) {
     super(options);

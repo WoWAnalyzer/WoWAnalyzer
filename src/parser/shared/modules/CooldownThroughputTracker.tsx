@@ -38,15 +38,15 @@ export enum BUILT_IN_SUMMARY_TYPES {
 
 export type TrackedEvent = CastEvent | HealEvent | AbsorbedEvent | DamageEvent | ApplyBuffEvent;
 
-export type SummaryDef = {
+export interface SummaryDef {
   label: string;
   tooltip: string;
   value: number | string;
-};
+}
 
-export type CooldownSpell = {
+export interface CooldownSpell {
   spell: number;
-  summary: Array<BUILT_IN_SUMMARY_TYPES | SummaryDef>;
+  summary: (BUILT_IN_SUMMARY_TYPES | SummaryDef)[];
   startBufferFilter?: EventFilter<any>;
   startBufferMS?: number;
   startBufferEvents?: number;
@@ -54,7 +54,7 @@ export type CooldownSpell = {
   duration?: number;
   branch?: GameBranch;
   durationTooltip?: ReactNode;
-};
+}
 
 type BuffCooldownSpell = CooldownSpell & {
   branch: GameBranch;
@@ -148,7 +148,7 @@ class CooldownThroughputTracker extends Analyzer {
 
   startCooldown(
     event: CastEvent | ApplyBuffEvent | ApplyDebuffEvent,
-    isCastCooldown: boolean = false,
+    isCastCooldown = false,
   ) {
     const branch = this.owner.config.branch;
     const spellId = event.ability.guid;

@@ -27,9 +27,9 @@ class DamageTaken extends Analyzer {
     return this._total;
   }
 
-  bySecond: { [secondsIntoFight: number]: DamageValue } = {};
+  bySecond: Record<number, DamageValue> = {};
 
-  _byAbility: { [spellId: number]: DamageValue } = {};
+  _byAbility: Record<number, DamageValue> = {};
   byAbility(spellId: number) {
     if (!this._byAbility[spellId]) {
       return DamageValue.empty();
@@ -37,7 +37,7 @@ class DamageTaken extends Analyzer {
     return this._byAbility[spellId];
   }
 
-  _byMagicSchool: { [magicSchool: number]: DamageValue } = {};
+  _byMagicSchool: Record<number, DamageValue> = {};
   byMagicSchool(magicSchool: number) {
     if (!this._byMagicSchool[magicSchool]) {
       return DamageValue.empty();

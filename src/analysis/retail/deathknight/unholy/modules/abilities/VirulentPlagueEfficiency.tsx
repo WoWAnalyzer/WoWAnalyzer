@@ -20,7 +20,7 @@ class VirulentPlagueEfficiency extends Analyzer {
 
   protected enemies!: Enemies;
 
-  private targets: { [key: string]: number } = {};
+  private targets: Record<string, number> = {};
 
   constructor(options: Options) {
     super(options);

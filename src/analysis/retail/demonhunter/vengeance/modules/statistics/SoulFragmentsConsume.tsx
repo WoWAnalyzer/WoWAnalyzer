@@ -19,12 +19,10 @@ class SoulFragmentsConsume extends Analyzer {
   castTimestamp?: number;
   trackedSpell?: number;
   totalSoulsConsumedBySpells = 0;
-  soulsConsumedBySpell: {
-    [spellId: number]: {
+  soulsConsumedBySpell: Record<number, {
       name: string;
       souls: number;
-    };
-  } = {};
+    }> = {};
   protected soulFragmentsTracker!: SoulFragmentsTracker;
   protected eventEmitter!: EventEmitter;
 

@@ -30,9 +30,7 @@ import { combineQualitativePerformances } from 'common/combineQualitativePerform
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import ContextualSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
 
-type DamageSources = {
-  [key: number]: { amount: number; spell: Spell | Talent };
-};
+type DamageSources = Record<number, { amount: number; spell: Spell | Talent }>;
 
 const COLORS = [
   '#813405',
@@ -43,11 +41,11 @@ const COLORS = [
   'rgb(255, 206, 86)',
 ];
 
-type UpheavalCast = {
+interface UpheavalCast {
   event: EmpowerEndEvent;
   fireBreathActive: boolean;
   fireBreathRank: number;
-};
+}
 
 /**
  * Fire Breath causes enemies to take up to 40% increased damage from your Black spells, increased based on its empower level.
@@ -62,7 +60,7 @@ class MoltenEmbers extends Analyzer {
   private upheavalCasts: UpheavalCast[] = [];
 
   previousFireBreathRank = 0;
-  totalMoltenEmbersDamage: number = 0;
+  totalMoltenEmbersDamage = 0;
   moltenEmbersDamageSources: DamageSources = {};
 
   hasFontOfMagic = false;

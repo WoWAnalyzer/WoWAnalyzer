@@ -22,7 +22,7 @@ class AoESpellEfficiency extends Analyzer {
 
   ability!: Spell;
   bonusDmg = 0;
-  casts: Array<{ timestamp: number; hits: number }> = [];
+  casts: { timestamp: number; hits: number }[] = [];
 
   constructor(options: Options) {
     super(options);

@@ -9,7 +9,7 @@ class RageTracker extends ResourceTracker {
 
   maxResource = 100;
 
-  ragePerMeleeHit: number = 2;
+  ragePerMeleeHit = 2;
 
   constructor(options: Options) {
     super(options);

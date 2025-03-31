@@ -24,7 +24,7 @@ import { ReactNode } from 'react';
 import CountsAsBrew, { brewCooldownDisplay } from '../../components/CountsAsBrew';
 
 export class FortifyingBrew extends MajorDefensiveBuff {
-  private fortBrewStaggerPool: number = 0;
+  private fortBrewStaggerPool = 0;
   private hasGaiPlins = false;
 
   constructor(options: Options) {

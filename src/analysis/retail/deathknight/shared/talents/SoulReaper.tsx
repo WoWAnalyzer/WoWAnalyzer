@@ -23,7 +23,7 @@ class SoulReaper extends ExecuteHelper {
     abilities: Abilities,
   };
 
-  maxCasts: number = 0;
+  maxCasts = 0;
 
   protected abilities!: Abilities;
 

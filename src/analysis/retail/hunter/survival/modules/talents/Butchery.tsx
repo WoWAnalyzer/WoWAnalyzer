@@ -28,10 +28,10 @@ class Butchery extends Analyzer {
 
   protected spellUsable!: SpellUsable;
 
-  private targetsHit: number = 0;
-  private casts: number = 0;
-  private damage: number = 0;
-  private mercilessDamage: number = 0;
+  private targetsHit = 0;
+  private casts = 0;
+  private damage = 0;
+  private mercilessDamage = 0;
 
   constructor(options: Options) {
     super(options);

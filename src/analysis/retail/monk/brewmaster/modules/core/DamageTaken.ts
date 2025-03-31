@@ -4,7 +4,7 @@ import Events, { AbsorbedEvent } from 'parser/core/Events';
 import CoreDamageTaken from 'parser/shared/modules/throughput/DamageTaken';
 
 class DamageTaken extends CoreDamageTaken {
-  _staggeredDamage: { [guid: number]: number } = {};
+  _staggeredDamage: Record<number, number> = {};
 
   constructor(options: Options) {
     super(options);

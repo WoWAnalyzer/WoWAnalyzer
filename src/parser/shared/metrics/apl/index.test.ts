@@ -35,7 +35,7 @@ const info: PlayerInfo = {
   ],
 } as unknown as PlayerInfo;
 
-/* eslint-disable @typescript-eslint/consistent-type-assertions */
+ 
 
 // Generate a cast event, along with cooldown start and end events.
 //
@@ -104,7 +104,7 @@ const applybuff = (timestamp: number, duration: number, spell: Spell): AnyEvent[
   } as RemoveBuffEvent,
 ];
 
-/* eslint-enable */
+ 
 
 describe('Basic APL Check', () => {
   const apl: Apl = build([SHORT_CD, FILLER]);

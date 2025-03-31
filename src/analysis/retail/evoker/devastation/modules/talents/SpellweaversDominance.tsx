@@ -16,7 +16,7 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import { DEEP_BREATH_SPELLS } from 'analysis/retail/evoker/shared';
 
 class SpellweaversDominance extends Analyzer {
-  SpellweaversDominanceDamage: number = 0;
+  SpellweaversDominanceDamage = 0;
   heatWaveDamageCritMultiplier: number = SPELLWEAVERS_DOMINANCE_CRIT_MULTIPLIER;
   spellsToTrack = [
     SPELLS.DISINTEGRATE,

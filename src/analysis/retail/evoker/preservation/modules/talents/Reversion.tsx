@@ -29,14 +29,14 @@ class Reversion extends Analyzer {
   protected haste!: Haste;
   hotTracker!: HotTrackerPrevoker;
   combatants!: Combatants;
-  totalExtensionTime: number = 0;
-  reversionCritCount: number = 0;
+  totalExtensionTime = 0;
+  reversionCritCount = 0;
   reversionExtensions: Attribution[] = [];
-  additionalHealing: number = 0;
-  additionalAbsorbed: number = 0;
-  healing: number = 0;
-  absorbedHealing: number = 0;
-  buffCount: number = 0;
+  additionalHealing = 0;
+  additionalAbsorbed = 0;
+  healing = 0;
+  absorbedHealing = 0;
+  buffCount = 0;
 
   constructor(options: Options) {
     super(options);

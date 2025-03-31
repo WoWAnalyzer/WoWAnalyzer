@@ -75,7 +75,7 @@ export const DamageMitigationChart = React.memo(
 
     const data = {
       buffs: buffData,
-      events: (physicalData as Array<Pick<DamageEvent, 'amount' | 'timestamp'> & { key: string }>)
+      events: (physicalData as (Pick<DamageEvent, 'amount' | 'timestamp'> & { key: string })[])
         .concat(magicData)
         .concat(mitigationData),
     };

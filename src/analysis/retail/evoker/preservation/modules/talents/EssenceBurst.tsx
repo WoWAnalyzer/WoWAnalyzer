@@ -29,7 +29,7 @@ import { GapHighlight } from 'parser/ui/CooldownBar';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 
-export const ESSENCE_COSTS: { [name: string]: number } = {
+export const ESSENCE_COSTS: Record<string, number> = {
   'Emerald Blossom': 3,
   Echo: 2,
   Disintegrate: 3,
@@ -42,7 +42,7 @@ enum EB_SOURCE {
   NONE,
 }
 
-export const MANA_COSTS: { [name: string]: number } = {
+export const MANA_COSTS: Record<string, number> = {
   'Emerald Blossom': SPELLS.EMERALD_BLOSSOM_CAST.manaCost,
   Echo: TALENTS_EVOKER.ECHO_TALENT.manaCost,
   Disintegrate: 0,
@@ -57,12 +57,12 @@ interface CastInfo {
 }
 
 class EssenceBurst extends Analyzer {
-  totalConsumed: number = 0;
-  totalExpired: number = 0;
-  essenceSaved: number = 0;
-  manaSaved: number = 0;
+  totalConsumed = 0;
+  totalExpired = 0;
+  essenceSaved = 0;
+  manaSaved = 0;
   casts: CastInfo[] = [];
-  consumptionCount: { [name: string]: number } = { 'Emerald Blossom': 0, Echo: 0, Disintegrate: 0 };
+  consumptionCount: Record<string, number> = { 'Emerald Blossom': 0, Echo: 0, Disintegrate: 0 };
 
   constructor(options: Options) {
     super(options);

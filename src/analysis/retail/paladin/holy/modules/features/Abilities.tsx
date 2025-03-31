@@ -21,7 +21,7 @@ class Abilities extends CoreAbilities {
     this.abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
   }
 
-  spellbook(): Array<SpellbookAbility<TrackedPaladinAbility>> {
+  spellbook(): SpellbookAbility<TrackedPaladinAbility>[] {
     const combatant = this.selectedCombatant;
     const hasSanctifiedWrath = combatant.hasTalent(TALENTS.SANCTIFIED_WRATH_TALENT);
     const hasUnbreakable = combatant.hasTalent(TALENTS.UNBREAKABLE_SPIRIT_TALENT);

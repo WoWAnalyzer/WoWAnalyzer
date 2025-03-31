@@ -256,8 +256,8 @@ class GlobalCooldown extends Analyzer {
    */
   static calculateGlobalCooldown(
     haste: number,
-    baseGcd: number = 1500,
-    minGcd: number = 750,
+    baseGcd = 1500,
+    minGcd = 750,
   ): number {
     const gcd = baseGcd / (1 + haste);
     // Global cooldowns can't normally drop below a certain threshold

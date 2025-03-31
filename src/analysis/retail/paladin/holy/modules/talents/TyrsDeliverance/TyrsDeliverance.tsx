@@ -31,12 +31,12 @@ class TyrsDeliverance extends Analyzer {
 
   protected combatants!: Combatants;
 
-  casts: number = 0;
-  duration: number = 0;
-  lastApply: number = 0;
+  casts = 0;
+  duration = 0;
+  lastApply = 0;
 
-  healing: number = 0;
-  overhealing: number = 0;
+  healing = 0;
+  overhealing = 0;
 
   incHealing: Record<number, number> = {};
   incOverhealing: Record<number, number> = {};

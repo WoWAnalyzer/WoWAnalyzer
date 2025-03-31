@@ -3,6 +3,7 @@ import globals from 'globals';
 import react from '@eslint-react/eslint-plugin';
 import tseslint from 'typescript-eslint';
 import wowanalyzer from 'eslint-plugin-wowanalyzer';
+import vitest from 'eslint-plugin-vitest';
 
 // replacement for .eslintignore
 const ignores = tseslint.config({
@@ -56,6 +57,20 @@ const base = tseslint.config({
   },
 });
 
+const tests = tseslint.config({
+  name: 'tests',
+  plugins: { vitest },
+  files: ['**/*.test.{js,jsx,ts,tsx}'],
+  extends: [vitest.configs.recommended],
+
+  languageOptions: {
+    globals: {
+      ...vitest.environments.env.globals,
+      jest: 'readable',
+    },
+  },
+});
+
 // JS file configs
 const javascript = tseslint.config({
   name: 'wowanalyzer-javascript',
@@ -69,7 +84,9 @@ const javascript = tseslint.config({
     // Prefer the arrow callback of ES6 where possible
     'prefer-arrow-callback': 'warn',
     // don't allow unused expressions
-    'no-unused-expressions': 'warn',
+    'no-unused-expressions': ['error', { allowTernary: true, allowShortCircuit: true }],
+    // don't warn about legacy proptypes use. we'll get to the last few js files eventually
+    '@eslint-react/no-prop-types': 'off',
   },
 });
 
@@ -89,6 +106,20 @@ const typescript = tseslint.config({
       projectService: true,
     },
   },
+  rules: {
+    '@eslint-react/dom/no-missing-button-type': 'error',
+    '@typescript-eslint/no-explicit-any': 'warn',
+    '@typescript-eslint/no-unused-expressions': [
+      'error',
+      { allowShortCircuit: true, allowTernary: true },
+    ],
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      {
+        args: 'none',
+      },
+    ],
+  },
 });
 
-export default tseslint.config(ignores, base, javascript, typescript);
+export default tseslint.config(ignores, base, javascript, typescript, tests);

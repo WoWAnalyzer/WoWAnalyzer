@@ -14,8 +14,8 @@ const DAMAGE_MODIFIER = 1;
 const STORM_EARTH_AND_FIRE_CAST_BUFFER = 200;
 
 class DANCE_OF_CHI_JI extends Analyzer {
-  buffedCast: boolean = false;
-  damageGain: number = 0;
+  buffedCast = false;
+  damageGain = 0;
 
   constructor(options: Options) {
     super(options);

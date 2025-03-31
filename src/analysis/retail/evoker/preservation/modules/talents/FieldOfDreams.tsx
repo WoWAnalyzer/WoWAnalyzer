@@ -13,9 +13,9 @@ import { getHealEvents, isFromFieldOfDreams } from '../../normalizers/EventLinki
 
 class FieldOfDreams extends Analyzer {
   countedTimestamps: Set<number> = new Set<number>();
-  numProcs: number = 0;
-  totalHealing: number = 0;
-  totalOverhealing: number = 0;
+  numProcs = 0;
+  totalHealing = 0;
+  totalOverhealing = 0;
 
   constructor(options: Options) {
     super(options);

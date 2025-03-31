@@ -27,11 +27,11 @@ export interface PrimalElementalCast extends CooldownTrigger<CastEvent> {
 
 abstract class PrimalElementalist<T extends PrimalElementalCast> extends MajorCooldown<T> {
   protected currentElemental: T | null = null;
-  protected duration: number = 30000;
+  protected duration = 30000;
   protected selectedElemental?: number;
 
   private readonly elementalSpells: Spell[];
-  private damageGained: number = 0;
+  private damageGained = 0;
 
   constructor(elementalId: number, elementalSpells: Spell[], options: Options) {
     super(

@@ -1,4 +1,4 @@
-export const specificGearSets: { [key: number]: unknown } = {
+export const specificGearSets: Record<number, unknown> = {
   62: [
     //Arcane Mage
     {

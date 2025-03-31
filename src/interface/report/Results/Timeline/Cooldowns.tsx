@@ -31,7 +31,7 @@ class Cooldowns extends PureComponent<Props> {
   }
 
   renderLanes(eventsBySpellId: Map<number, AnyEvent[]>, growUp: boolean) {
-    const entries: Array<[number, AnyEvent[]]> =
+    const entries: [number, AnyEvent[]][] =
       this.props.exactlySpells?.map((spell) => [spell.id, eventsBySpellId.get(spell.id) ?? []]) ??
       Array.from(eventsBySpellId);
     return entries

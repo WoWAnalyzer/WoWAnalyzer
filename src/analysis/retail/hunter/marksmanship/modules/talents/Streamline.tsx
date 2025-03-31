@@ -29,8 +29,8 @@ class Streamline extends Analyzer {
     haste: Haste,
   };
 
-  damage: number = 0;
-  aimedShotCastTimeSaved: number = 0;
+  damage = 0;
+  aimedShotCastTimeSaved = 0;
 
   protected haste!: Haste;
 

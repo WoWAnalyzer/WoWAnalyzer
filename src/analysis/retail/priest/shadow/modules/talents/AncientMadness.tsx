@@ -18,8 +18,8 @@ class AncientMadness extends Analyzer {
     statTracker: StatTracker,
   };
 
-  totalDamage: number = 0;
-  startTime: number = 0;
+  totalDamage = 0;
+  startTime = 0;
 
   protected statTracker!: StatTracker;
 

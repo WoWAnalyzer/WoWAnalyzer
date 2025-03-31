@@ -21,8 +21,8 @@ class Coalesence extends Analyzer {
   };
   protected combatants!: Combatants;
   protected enemies!: Enemies;
-  totalDmg: number = 0;
-  totalHealing: number = 0;
+  totalDmg = 0;
+  totalHealing = 0;
 
   constructor(options: Options) {
     super(options);

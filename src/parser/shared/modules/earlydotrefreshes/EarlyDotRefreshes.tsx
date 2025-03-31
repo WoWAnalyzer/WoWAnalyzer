@@ -46,13 +46,11 @@ class EarlyDotRefreshes extends Analyzer {
   lastCastGoodExtension = false;
   lastCastMinWaste = Number.MAX_SAFE_INTEGER;
   lastCastMaxEffect = 0;
-  casts: {
-    [key: number]: {
+  casts: Record<number, {
       badCasts: number;
       addedDuration: number;
       wastedDuration: number;
-    };
-  } = {};
+    }> = {};
 
   constructor(options: Options) {
     super(options);
@@ -238,7 +236,7 @@ class EarlyDotRefreshes extends Analyzer {
   }
 }
 
-type DotsById = { [key: number]: DotsByTarget };
-type DotsByTarget = { [key: string]: number };
+type DotsById = Record<number, DotsByTarget>;
+type DotsByTarget = Record<string, number>;
 
 export default EarlyDotRefreshes;

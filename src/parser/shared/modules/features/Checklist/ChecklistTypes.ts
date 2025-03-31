@@ -7,7 +7,7 @@ import Spell from 'common/SPELLS/Spell';
 export interface ChecklistProps {
   combatant: Combatant;
   castEfficiency: CastEfficiency;
-  thresholds: { [name: string]: RequirementThresholds };
+  thresholds: Record<string, RequirementThresholds>;
 }
 
 export interface AbilityRequirementProps {

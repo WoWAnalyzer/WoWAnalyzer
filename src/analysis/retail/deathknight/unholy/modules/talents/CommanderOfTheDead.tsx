@@ -13,14 +13,14 @@ import { formatPercentage } from 'common/format';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import Spell from 'common/SPELLS/Spell';
 
-type supportedSpell = {
+interface supportedSpell {
   enabled: boolean;
   spell: Spell;
-};
+}
 
 class CommanderOfTheDead extends Analyzer {
-  private commanderBuffs: number = 0;
-  private petSummons: number = 0;
+  private commanderBuffs = 0;
+  private petSummons = 0;
   private petSummonIDs: number[] = [
     SPELLS.MAGUS_SUMMON.id,
     SPELLS.APOC_SUMMON.id,

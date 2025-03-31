@@ -20,7 +20,7 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
  * Eruption deals 30% more damage per enemy struck, up to 150%.
  */
 class RicochetingPyroclast extends Analyzer {
-  ricochetingPyroclastDamage: number = 0;
+  ricochetingPyroclastDamage = 0;
 
   constructor(options: Options) {
     super(options);

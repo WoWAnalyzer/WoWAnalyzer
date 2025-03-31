@@ -28,8 +28,8 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     TALENTS_PRIEST.EVANGELISM_TALENT.id,
   ];
 
-  lastPenanceStartTimestamp: number = 0;
-  _lastCastFinishedTimestamp: number = 0;
+  lastPenanceStartTimestamp = 0;
+  _lastCastFinishedTimestamp = 0;
 
   // TODO: Fix me
   recordCastTime(

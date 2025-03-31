@@ -29,7 +29,7 @@ interface Props {
   signalListeners?: VegaLiteProps['signalListeners'];
 }
 
-export function formatTime(field: string = 'datum.timestamp') {
+export function formatTime(field = 'datum.timestamp') {
   return `if(${field} / 1000 >= 60, toString(floor(${field} / 60000)) + 'm ', '') + toString(floor(${field} / 1000) % 60) + 's'`;
 }
 

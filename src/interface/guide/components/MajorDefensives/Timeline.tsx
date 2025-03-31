@@ -24,9 +24,9 @@ import MajorDefensive, {
 } from 'interface/guide/components/MajorDefensives/MajorDefensiveAnalyzer';
 import Spell from 'common/SPELLS/Spell';
 
-type HoverKey = {
+interface HoverKey {
   startTime: number;
-};
+}
 
 const BuffBar = styled.div<{ start: number; end: number; fightDuration: number }>`
   position: absolute;
@@ -234,10 +234,10 @@ const BuffTimelineContainer = styled.div`
   margin-left: 48px;
 `;
 
-type Props = {
+interface Props {
   analyzers: readonly MajorDefensive<any, any>[];
   yScale?: number;
-};
+}
 
 export default function Timeline({ analyzers, yScale }: Props): JSX.Element | null {
   const info = useInfo();

@@ -25,7 +25,7 @@ class DamageDone extends Analyzer {
   get total() {
     return this._total;
   }
-  _byPet: { [petId: number]: DamageValue } = {};
+  _byPet: Record<number, DamageValue> = {};
   byPet(petId: number) {
     if (!this._byPet[petId]) {
       return DamageValue.empty();
@@ -38,7 +38,7 @@ class DamageDone extends Analyzer {
       .reduce((total, damageValue) => total.add(damageValue), DamageValue.empty());
   }
 
-  bySecond: { [secondsIntoFight: number]: DamageValue } = {};
+  bySecond: Record<number, DamageValue> = {};
 
   onByPlayerDamage(event: DamageEvent) {
     if (!event.targetIsFriendly) {

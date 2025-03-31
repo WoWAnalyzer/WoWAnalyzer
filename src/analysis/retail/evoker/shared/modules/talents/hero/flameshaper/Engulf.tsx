@@ -38,7 +38,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
-type EngulfCast = {
+interface EngulfCast {
   event: CastEvent;
   fireBreathActiveOnCast: boolean;
   fireBreathActiveAfterConsume: boolean;
@@ -49,7 +49,7 @@ type EngulfCast = {
   consumeFlameTargetCount: number;
   castOnFriendly?: string;
   castOnUnknown?: boolean;
-};
+}
 
 class Engulf extends Analyzer {
   static dependencies = {
@@ -69,10 +69,10 @@ class Engulf extends Analyzer {
 
   damagePeriodicCounts: number[] = [];
   healingPeriodicCounts: number[] = [];
-  totalDamage: number = 0;
-  totalHealing: number = 0;
-  damageFromInc: number = 0;
-  healingFromInc: number = 0;
+  totalDamage = 0;
+  totalHealing = 0;
+  damageFromInc = 0;
+  healingFromInc = 0;
   protected combatants!: Combatants;
   protected enemies!: Enemies;
   constructor(options: Options) {

@@ -21,8 +21,8 @@ class GeneratorFollowingVanish extends Analyzer {
   ];
 
   lastCastPtr: CastEvent | null = null;
-  badFollowingVanishCasts: Array<[CastEvent, CastEvent]> = [];
-  goodFollowingVanishCasts: Array<[CastEvent, CastEvent]> = [];
+  badFollowingVanishCasts: [CastEvent, CastEvent][] = [];
+  goodFollowingVanishCasts: [CastEvent, CastEvent][] = [];
 
   constructor(options: Options) {
     super(options);
