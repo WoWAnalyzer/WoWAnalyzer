@@ -172,6 +172,9 @@ const MIN_ENCHANT_IDS = [
   ITEMS.STONEBOUND_ARTISTRY_R1.effectId,
   ITEMS.STONEBOUND_ARTISTRY_R2.effectId,
   ITEMS.STONEBOUND_ARTISTRY_R3.effectId,
+  ITEMS.STORMRIDERS_FURY_R1.effectId,
+  ITEMS.STORMRIDERS_FURY_R2.effectId,
+  ITEMS.STORMRIDERS_FURY_R3.effectId,
   // #endregion
 ] as const satisfies number[];
 

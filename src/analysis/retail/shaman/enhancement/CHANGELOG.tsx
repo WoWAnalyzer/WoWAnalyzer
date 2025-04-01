@@ -3,9 +3,11 @@ import TALENTS from 'common/TALENTS/shaman';
 import SPELLS from 'common/SPELLS/shaman';
 import { Seriousnes, Spruudel, emallson } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
+import ITEMS from 'common/ITEMS';
 
 // prettier-ignore
 export default [
+  change(date(2025, 4, 2), <><SpellLink spell={ITEMS.STONEBOUND_ARTISTRY_R3.effectId} /> and <SpellLink spell={ITEMS.STORMRIDERS_FURY_R3.effectId} /> are considered strong enchants.</>, Seriousnes),
   change(date(2025, 3, 28), <>Fixed some inaccuracies with how <SpellLink spell={SPELLS.WHIRLING_FIRE} /> is handled</>, Spruudel),
   change(date(2025, 3, 26), <>Fixed <SpellLink spell={TALENTS.DOOM_WINDS_TALENT} /> to display on the timeline and in the cooldown throughput tracker</>, Spruudel),
   change(date(2025, 3, 13), <>Fix crash when the only <SpellLink spell={SPELLS.LIGHTNING_BOLT} /> and <SpellLink spell={TALENTS.CHAIN_LIGHTNING_TALENT} /> casts are from <SpellLink spell={TALENTS.PRIMORDIAL_STORM_TALENT} />.</>, Seriousnes),
