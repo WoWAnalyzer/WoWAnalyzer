@@ -787,6 +787,10 @@ const spells = {
     ...talents.PRESS_THE_ADVANTAGE_TALENT,
     id: 418360,
   },
+  WEAPONS_OF_ORDER_DEBUFF: {
+    ...talents.WEAPONS_OF_ORDER_TALENT,
+    id: 387179,
+  },
 
   // Windwalker Spells
   COMBO_STRIKES: {
