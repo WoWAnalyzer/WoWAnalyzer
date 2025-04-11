@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import talents from 'common/TALENTS/paladin';
 import { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, CastEvent } from 'parser/core/Events';
+import Events, { CastEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import Abilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';

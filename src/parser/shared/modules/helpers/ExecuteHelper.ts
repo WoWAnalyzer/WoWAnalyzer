@@ -9,7 +9,6 @@ import Events, {
   ApplyBuffEvent,
   DamageEvent,
   FightEndEvent,
-  RefreshBuffEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';

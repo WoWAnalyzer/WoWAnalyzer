@@ -1,5 +1,4 @@
-import TALENTS from 'common/TALENTS/paladin';
-import { emallson, Hordehobbs, Heisenburger, Woliance } from 'CONTRIBUTORS';
+import { emallson, Woliance } from 'CONTRIBUTORS';
 import GameBranch from 'game/GameBranch';
 import SPECS from 'game/SPECS';
 
