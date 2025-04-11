@@ -24,6 +24,9 @@ const AFFECTED_ABILITIES: number[] = [
   SPELLS.BLADE_FLURRY.id,
 ];
 
+const FLOAT_LIKE_A_BUTTERFLY_ABILITIES: number[] = [SPELLS.FEINT.id, TALENTS.EVASION_TALENT.id];
+
+const FLOAT_LIKE_A_BUTTERFLY_CDR = 500;
 const RESTLESS_BLADES_BASE_CDR = 1000;
 const TRUE_BEARING_CDR = 500;
 
@@ -32,6 +35,8 @@ class RestlessBlades extends Analyzer {
     spellUsable: SpellUsable,
   };
   protected spellUsable!: SpellUsable;
+
+  hasFloatLikeAButterfly = this.selectedCombatant.hasTalent(TALENTS.FLOAT_LIKE_A_BUTTERFLY_TALENT);
 
   constructor(options: Options) {
     super(options);
@@ -44,13 +49,21 @@ class RestlessBlades extends Analyzer {
       return;
     }
 
-    const cdr =
-      RESTLESS_BLADES_BASE_CDR +
-      (this.selectedCombatant.hasBuff(SPELLS.TRUE_BEARING.id) ? TRUE_BEARING_CDR : 0);
+    const trueBearingCDR = this.selectedCombatant.hasBuff(SPELLS.TRUE_BEARING.id)
+      ? TRUE_BEARING_CDR
+      : 0;
 
-    const amount = cdr * spent;
+    const cdrAmount = (RESTLESS_BLADES_BASE_CDR + trueBearingCDR) * spent;
 
-    AFFECTED_ABILITIES.forEach((spell) => this.reduceCooldown(spell, amount));
+    AFFECTED_ABILITIES.forEach((spell) => this.reduceCooldown(spell, cdrAmount));
+
+    if (this.hasFloatLikeAButterfly) {
+      const butterflyCDRAmount = (FLOAT_LIKE_A_BUTTERFLY_CDR + trueBearingCDR) * spent;
+
+      FLOAT_LIKE_A_BUTTERFLY_ABILITIES.forEach((spell) =>
+        this.reduceCooldown(spell, butterflyCDRAmount),
+      );
+    }
   }
 
   reduceCooldown(spellId: number, amount: number) {
