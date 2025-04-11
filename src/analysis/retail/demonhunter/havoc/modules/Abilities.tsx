@@ -132,7 +132,7 @@ class Abilities extends SharedAbilities {
         },
       },
       {
-        spell: TALENTS.VENGEFUL_RETREAT_TALENT.id, // Becomes a rotational ability with the Momentum talent
+        spell: TALENTS.VENGEFUL_RETREAT_TALENT.id, // Becomes a rotational ability with the Exergy talent
         category: combatant.hasTalent(TALENTS.EXERGY_TALENT)
           ? SPELL_CATEGORY.ROTATIONAL
           : SPELL_CATEGORY.UTILITY,
