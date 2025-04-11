@@ -68,7 +68,7 @@ function DisintegrateSubsection({ modules, info }: GuideProps<typeof CombatLogPa
       </p>
       <p>
         See{' '}
-        <a href="https://www.wowhead.com/guide/classes/evoker/devastation/rotation-cooldowns-pve-dps#chaining-disintegrate-casts">
+        <a href="https://www.wowhead.com/guide/classes/evoker/devastation/rotation-cooldowns-pve-dps#chaining-disintegrate">
           Chaining Disintegrate casts
         </a>{' '}
         section on wowhead for a more in-depth explanation.
@@ -81,17 +81,14 @@ function DisintegrateSubsection({ modules, info }: GuideProps<typeof CombatLogPa
               <SpellLink spell={SPELLS.DISINTEGRATE} /> efficiency outside of{' '}
               <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT} />
             </p>
-            <p>
-              Currently it is optimal to always clip ticks, even outside of{' '}
-              <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT} />
-            </p>
+            <p>You should not be dropping any ticks here.</p>
           </div>
         }
         data={
           <PassFail
             value={tickData.regularTicks}
             total={tickData.totalPossibleRegularTicks}
-            passed={tickData.regularTickRatio > 0.8}
+            passed={tickData.regularTickRatio > 0.95}
           />
         }
       />
