@@ -1,4 +1,4 @@
-import { GoodColor, SubSection, useAnalyzers } from 'interface/guide';
+import { GoodColor, SubSection, useAnalyzers, useInfo } from 'interface/guide';
 import Explanation from 'interface/guide/components/Explanation';
 import { TooltipElement } from 'interface';
 import { HideExplanationsToggle } from 'interface/guide/components/HideExplanationsToggle';
@@ -8,8 +8,10 @@ import AllCooldownUsagesList from 'interface/guide/components/MajorDefensives/Al
 import { MAJOR_ANALYZERS } from './config';
 
 const MajorDefensives = () => {
-  const timelineAnalyzers = useAnalyzers(MAJOR_ANALYZERS);
-  const cdAnalyzers = useAnalyzers(MAJOR_ANALYZERS);
+  const info = useInfo();
+  const analyzers = info?.combatant ? MAJOR_ANALYZERS(info.combatant) : [];
+  const timelineAnalyzers = useAnalyzers(analyzers);
+  const cdAnalyzers = useAnalyzers(analyzers);
   return (
     <>
       <HideExplanationsToggle id="hide-explanations-major-defensives" />

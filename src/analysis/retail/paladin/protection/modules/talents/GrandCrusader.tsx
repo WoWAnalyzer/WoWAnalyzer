@@ -9,32 +9,36 @@ import Events, {
   DamageEvent,
   RefreshBuffEvent,
 } from 'parser/core/Events';
+import Abilities from 'parser/core/modules/Abilities';
 import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import MyAbilityNormalizer from '../CastLinkNormalizer';
-
-import Abilities from '../Abilities';
-import ProtPaladinT304P from '../core/ProtPaladinT304P';
 
 const BASE_PROC_CHANCE = 0.15;
+const IV_PROC_CHANCE = 0.2;
 
-class GrandCrusader extends Analyzer {
-  static dependencies = {
-    abilities: Abilities,
-    protPaladinT304p: ProtPaladinT304P,
-  };
+const BASE_CDR_AMOUNT = 3000;
+const CJ_CDR_AMOUNT = 3000;
+
+class GrandCrusader extends Analyzer.withDependencies({
+  abilities: Abilities,
+  spellUsable: SpellUsable,
+}) {
   totalResets: number = 0;
   exactResets: number = 0;
   resetChances: number = 0;
   gcProcs: number = 0;
-  abilities!: Abilities;
-  normalizer!: MyAbilityNormalizer;
-  protPaladinT304p!: ProtPaladinT304P;
+
+  procChance = BASE_PROC_CHANCE;
+  cdrAmount = BASE_CDR_AMOUNT;
 
   constructor(options: Options) {
     super(options);
+
+    this.active = this.selectedCombatant.hasTalent(TALENTS.GRAND_CRUSADER_TALENT);
+
     this.addEventListener(
       Events.cast
         .by(SELECTED_PLAYER)
@@ -50,6 +54,14 @@ class GrandCrusader extends Analyzer {
       Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.GRAND_CRUSADER_BUFF),
       this.trackGrandCrusaderProcs,
     );
+
+    if (this.selectedCombatant.hasTalent(TALENTS.CRUSADERS_JUDGMENT_TALENT)) {
+      this.cdrAmount += CJ_CDR_AMOUNT;
+    }
+
+    if (this.selectedCombatant.hasTalent(TALENTS.INSPIRING_VANGUARD_TALENT)) {
+      this.procChance = IV_PROC_CHANCE;
+    }
   }
 
   lastResetSource: CastEvent | DamageEvent | null = null;
@@ -73,19 +85,17 @@ class GrandCrusader extends Analyzer {
     this.lastResetSource = event;
   }
 
-  get procChance(): number {
-    if (TALENTS.INSPIRING_VANGUARD_TALENT) {
-      return BASE_PROC_CHANCE + 0.05;
-    } else {
-      return BASE_PROC_CHANCE;
-    }
-  }
   trackGrandCrusaderProcs(event: ApplyBuffEvent | RefreshBuffEvent) {
     this.gcProcs += 1;
+    this.deps.spellUsable.reduceCooldown(
+      SPELLS.JUDGMENT_CAST_PROTECTION.id,
+      this.cdrAmount,
+      event.timestamp,
+    );
+    this.deps.spellUsable.endCooldown(TALENTS.AVENGERS_SHIELD_TALENT.id, event.timestamp);
   }
 
   statistic() {
-    const gcJProcs = this.protPaladinT304p.gcJudgmentCrits;
     //As we use a different formula than the standard one for XAxis, we send it along as a parameter
     const binomChartXAxis = {
       title: 'Reset %',
@@ -100,7 +110,7 @@ class GrandCrusader extends Analyzer {
         size="flexible"
         tooltip={
           <>
-            Grand Crusader reset the cooldown of Avenger's Shield {this.gcProcs - gcJProcs} times.
+            Grand Crusader reset the cooldown of Avenger's Shield {this.gcProcs} times.
             <br />
             You had {this.resetChances} chances for Grand Crusader to trigger with a{' '}
             {formatPercentage(this.procChance, 0)}% chance to trigger.
@@ -109,7 +119,7 @@ class GrandCrusader extends Analyzer {
         dropdown={
           <div style={{ padding: '8px' }}>
             {plotOneVariableBinomChart(
-              this.gcProcs - gcJProcs,
+              this.gcProcs,
               this.resetChances,
               this.procChance,
               'Reset %',
@@ -125,7 +135,7 @@ class GrandCrusader extends Analyzer {
       >
         <BoringSpellValue
           spell={TALENTS.GRAND_CRUSADER_TALENT.id}
-          value={`${this.gcProcs - gcJProcs} Resets`}
+          value={`${this.gcProcs} Resets`}
           label="Grand Crusader"
         />
       </Statistic>

@@ -16,12 +16,17 @@ import SPELLS from 'common/SPELLS/paladin';
 import SpellLink from 'interface/SpellLink';
 import MajorDefensives from './modules/core/Defensives';
 import ActiveMitgation from './modules/core/Defensives/ActiveMitigation';
+import { FoundationDowntimeSection } from 'interface/guide/foundation/FoundationDowntimeSection';
+import { FoundationCooldownSection } from 'interface/guide/foundation/FoundationCooldownSection';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
+      <Section title="Core Skills">
+        <FoundationDowntimeSection />
+        <FoundationCooldownSection />
+      </Section>
       <ResourceUsageSection modules={modules} events={events} info={info} />
-      <CooldownSection />
       <MitigationSection />
       <ActiveMitigationSection />
       <PreparationSection />

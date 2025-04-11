@@ -8,10 +8,12 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import * as React from 'react';
+import SpellUsable from '../features/SpellUsable';
 
 const DAMAGE_MODIFIER = 0.2;
+const MOG_CDR = 15000 * 0.75;
 
-class MomentOfGlory extends Analyzer {
+class MomentOfGlory extends Analyzer.withDependencies({ spellUsable: SpellUsable }) {
   damageBoostedHits: number = 0;
   totalExtraDamage: number = 0;
 
@@ -26,6 +28,16 @@ class MomentOfGlory extends Analyzer {
       Events.damage.by(SELECTED_PLAYER).spell(TALENTS.AVENGERS_SHIELD_TALENT),
       this.trackASDamage,
     );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.AVENGERS_SHIELD_TALENT),
+      this.reduceCooldown,
+    );
+  }
+
+  private reduceCooldown() {
+    if (this.selectedCombatant.hasBuff(TALENTS.MOMENT_OF_GLORY_TALENT.id)) {
+      this.deps.spellUsable.reduceCooldown(TALENTS.AVENGERS_SHIELD_TALENT.id, MOG_CDR);
+    }
   }
 
   trackASDamage(event: DamageEvent): void {
