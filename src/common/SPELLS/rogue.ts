@@ -635,6 +635,23 @@ const spells = {
     name: 'Vicious Follow-up',
     icon: 'spell_shadow_ritualofsacrifice',
   },
+
+  // TWW Hero Talents
+  COUP_DE_GRACE_CAST: {
+    id: 441776,
+    name: 'Coup de Grace',
+    icon: 'inv_ability_tricksterrogue_coupdegrace',
+  },
+  COUP_DE_GRACE_DAMAGE: {
+    id: 462140, // Also has 462239 maybe OH?
+    name: 'Coup de Grace',
+    icon: 'inv_ability_tricksterrogue_coupdegrace',
+  },
+  DISPATCH_COUP_DE_GRACE: {
+    id: 467059,
+    name: 'Dispatch',
+    icon: 'ability_rogue_waylay',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;
