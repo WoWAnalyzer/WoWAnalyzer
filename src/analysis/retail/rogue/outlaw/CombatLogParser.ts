@@ -43,6 +43,8 @@ import FinisherUse from './modules/core/FinisherUse';
 import AplCheck from './modules/apl/AplCheck';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 
+import SpellUsable from './modules/features/SpellUsable';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     //Feature
@@ -50,6 +52,7 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     buffs: Buffs,
     checklist: Checklist,
+    spellUsable: SpellUsable,
 
     //Normalizers
     castLinkNormalizer: CastLinkNormalizer,
