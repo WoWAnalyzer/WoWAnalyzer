@@ -1,4 +1,4 @@
-import { GuideProps, Section, SubSection } from 'interface/guide';
+import { GuideProps, Section, SubSection, useAnalyzer } from 'interface/guide';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 import { t, Trans } from '@lingui/macro';
 import EnergyCapWaste from 'analysis/retail/rogue/shared/guide/EnergyCapWaste';
@@ -11,6 +11,11 @@ import CombatLogParser from './CombatLogParser';
 import { AplSectionData } from 'interface/guide/components/Apl';
 import * as AplCheck from './modules/apl/AplCheck';
 import { FoundationDowntimeSection } from 'interface/guide/foundation/FoundationDowntimeSection';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
+import { GapHighlight } from 'parser/ui/CooldownBar';
+import { isTalent } from 'common/TALENTS/types';
+import { Cooldown } from '../subtlety/guide/CooldownGraphSubsection';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -22,6 +27,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       <ResourceUsageSection modules={modules} events={events} info={info} />
       <CoreRotationSection modules={modules} events={events} info={info} />
       <ActionPriorityList modules={modules} events={events} info={info} />
+      <CooldownSection modules={modules} events={events} info={info} />
       <PreparationSection />
     </>
   );
@@ -151,6 +157,66 @@ function ActionPriorityList({ modules, info }: GuideProps<typeof CombatLogParser
         </ul>
       </p>
       <p>You can use the accuracy here as a reference point to compare to other logs.</p>
+    </Section>
+  );
+}
+
+const cooldownsToCheck: Cooldown[] = [
+  { spell: TALENTS.ADRENALINE_RUSH_TALENT },
+  { spell: SPELLS.VANISH },
+  { spell: TALENTS.KILLING_SPREE_TALENT },
+  { spell: TALENTS.KEEP_IT_ROLLING_TALENT },
+];
+
+function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
+  const castEfficiency = useAnalyzer(CastEfficiency);
+  if (!info || !castEfficiency) {
+    return null;
+  }
+
+  const cooldowns = cooldownsToCheck.filter((cooldown) => {
+    const hasTalent = !isTalent(cooldown.spell) || info.combatant.hasTalent(cooldown.spell);
+    const hasExtraTalents =
+      cooldown.extraTalents?.reduce(
+        (acc, talent) => acc && info.combatant.hasTalent(talent),
+        true,
+      ) ?? true;
+    return hasTalent && hasExtraTalents;
+  });
+
+  const hasTooManyCasts = cooldowns.some((cooldown) => {
+    const casts = castEfficiency.getCastEfficiencyForSpell(cooldown.spell)?.casts ?? 0;
+    return casts >= 10;
+  });
+
+  return (
+    <Section title="Cooldowns">
+      <p>
+        <strong>Cooldown Graph</strong> - This graph visualizes the usage of your cooldowns and
+        highlights areas where optimizations can be made.
+        <ul>
+          <li>
+            <strong>Grey segments</strong> indicate availability.
+          </li>
+          <li>
+            <strong>Yellow segments</strong> indicate cooldown time.
+          </li>
+          <li>
+            <strong>Red segments</strong> highlight areas where an extra cooldown could have fit.
+          </li>
+        </ul>
+        {/* For Subtlety, <strong>Symbols of Death</strong> and <strong>Shadow Dance</strong> usage is
+        crucial, as they define your burst windows. */}
+      </p>
+      {cooldowns.map((cooldownCheck) => (
+        <CastEfficiencyBar
+          key={cooldownCheck.spell.id}
+          spellId={cooldownCheck.spell.id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+          minimizeIcons={hasTooManyCasts}
+          useThresholds
+        />
+      ))}
     </Section>
   );
 }
