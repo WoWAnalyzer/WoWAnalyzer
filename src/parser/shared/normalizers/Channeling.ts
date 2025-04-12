@@ -1,6 +1,13 @@
 import SPELLS from 'common/SPELLS';
 import CLASSIC_SPELLS from 'common/SPELLS/classic';
-import { TALENTS_EVOKER, TALENTS_MAGE, TALENTS_MONK } from 'common/TALENTS';
+import {
+  TALENTS_EVOKER,
+  TALENTS_MAGE,
+  TALENTS_MONK,
+  TALENTS_ROGUE,
+  TALENTS_PRIEST,
+  TALENTS_DEMON_HUNTER,
+} from 'common/TALENTS';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import {
   AnyEvent,
@@ -15,8 +22,6 @@ import {
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import InsertableEventsWrapper from 'parser/core/InsertableEventsWrapper';
 import { Options } from 'parser/core/Module';
-import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
-import { TALENTS_PRIEST } from 'common/TALENTS';
 import {
   getEmpowerEndEvent,
   isFromTipTheScales,
@@ -88,6 +93,7 @@ class Channeling extends EventsNormalizer {
     buffChannelSpec(SPELLS.DEEP_BREATH.id),
     buffChannelSpec(SPELLS.DEEP_BREATH_SCALECOMMANDER.id),
     // Rogue
+    buffChannelSpec(TALENTS_ROGUE.KILLING_SPREE_TALENT.id),
     // Druid
     buffChannelSpec(SPELLS.CONVOKE_SPIRITS.id),
     // Monk
