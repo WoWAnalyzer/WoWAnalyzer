@@ -242,54 +242,17 @@ class ThunderFocusTea extends Analyzer {
         adhere to the following priority list
         <ol>
           <li>
-            {' '}
-            <SpellLink spell={TALENTS_MONK.SECRET_INFUSION_TALENT} /> talented <Arrow /> use on{' '}
-            <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />
-          </li>
-          <li>
-            {' '}
-            <SpellLink spell={TALENTS_MONK.RISING_MIST_TALENT} /> talented <Arrow /> use on{' '}
-            <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> (
-            <span style={{ color: 'green' }}>best</span>) or{' '}
-            <SpellLink spell={this.currentRskTalent} /> (<span style={{ color: 'yellow' }}>ok</span>
-            )
-          </li>
-          <li>
-            {' '}
-            <SpellLink spell={TALENTS_MONK.TEAR_OF_MORNING_TALENT} /> talented <Arrow /> use on{' '}
-            <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> (
+            <SpellLink spell={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT} /> talented <Arrow />{' '}
+            use on <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> (
             <span style={{ color: 'green' }}>best</span>) or{' '}
             <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> (
             <span style={{ color: 'yellow' }}>ok</span>)
           </li>
-        </ol>
-        If talented into <SpellLink spell={TALENTS_MONK.FOCUSED_THUNDER_TALENT} />, the priority
-        slightly changes for the 2nd buffed cast depending on talents
-        <ol>
           <li>
             {' '}
-            <SpellLink spell={TALENTS_MONK.SECRET_INFUSION_TALENT} /> talented
-          </li>
-          <ul>
-            <li>
-              <SpellLink spell={TALENTS_MONK.TEAR_OF_MORNING_TALENT} /> talented <Arrow /> use on{' '}
-              <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> (
-              <span style={{ color: 'green' }}>best</span>) or{' '}
-              <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> (
-              <span style={{ color: 'yellow' }}>ok</span>)
-            </li>
-            <li>
-              <SpellLink spell={TALENTS_MONK.RISING_MIST_TALENT} /> talented <Arrow /> use on{' '}
-              <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> (
-              <span style={{ color: 'green' }}>best</span>) or{' '}
-              <SpellLink spell={this.currentRskTalent} /> (
-              <span style={{ color: 'yellow' }}>ok</span>)
-            </li>
-          </ul>
-          <li>
-            {' '}
-            <SpellLink spell={TALENTS_MONK.SECRET_INFUSION_TALENT} /> not talented <Arrow /> same
-            spell as first buffed cast
+            <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} /> talented{' '}
+            <Arrow /> use on <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> or{' '}
+            <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} />
           </li>
         </ol>
       </p>
