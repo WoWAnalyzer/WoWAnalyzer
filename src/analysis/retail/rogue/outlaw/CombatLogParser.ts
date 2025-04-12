@@ -42,6 +42,7 @@ import BuilderUse from './modules/core/BuilderUse';
 import FinisherUse from './modules/core/FinisherUse';
 import AplCheck from './modules/apl/AplCheck';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
+import OpportunityRefreshNormalizer from './normalizers/OpportunityRefreshNormalizer';
 
 import SpellUsable from './modules/features/SpellUsable';
 
@@ -58,6 +59,7 @@ class CombatLogParser extends CoreCombatLogParser {
     castLinkNormalizer: CastLinkNormalizer,
     thistleTeaCastLinkNormalizer: ThistleTeaCastLinkNormalizer,
     fanTheHammerNormalizer: FanTheHammerNormalizer,
+    opportunityRefreshNormalizer: OpportunityRefreshNormalizer,
 
     //Resource
     comboPointTracker: OutlawComboPointTracker,
