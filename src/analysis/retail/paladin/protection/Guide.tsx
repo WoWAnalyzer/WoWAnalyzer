@@ -4,16 +4,10 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import CombatLogParser from 'analysis/retail/paladin/protection/CombatLogParser';
 import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/GuideDivs';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
-import { HideExplanationsToggle } from 'interface/guide/components/HideExplanationsToggle';
-import { HideGoodCastsToggle } from 'interface/guide/components/HideGoodCastsToggle';
-import CooldownGraphSubsection, {
-  Cooldown,
-} from 'interface/guide/components/CooldownGraphSubSection';
+
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import PerformancePercentage from 'analysis/retail/demonhunter/shared/guide/PerformancePercentage';
-import TALENTS from 'common/TALENTS/paladin';
-import SPELLS from 'common/SPELLS/paladin';
-import SpellLink from 'interface/SpellLink';
+
 import MajorDefensives from './modules/core/Defensives';
 import ActiveMitgation from './modules/core/Defensives/ActiveMitigation';
 import { FoundationDowntimeSection } from 'interface/guide/foundation/FoundationDowntimeSection';
