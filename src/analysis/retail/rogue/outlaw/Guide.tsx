@@ -17,6 +17,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
     <>
       <Section title="Core Skills">
         <FoundationDowntimeSection />
+        {modules.rollTheBonesBuffs.guideSubsection}
       </Section>
       <ResourceUsageSection modules={modules} events={events} info={info} />
       <CoreRotationSection modules={modules} events={events} info={info} />

@@ -533,6 +533,11 @@ const spells = {
     name: 'Roll the Bones',
     icon: 'ability_rogue_rollthebones',
   },
+  RESTLESS_BLADES_TALENT: {
+    id: 79096,
+    name: 'Restless Blades',
+    icon: 'ability_rogue_restlessblades',
+  },
 
   //CDs
 
