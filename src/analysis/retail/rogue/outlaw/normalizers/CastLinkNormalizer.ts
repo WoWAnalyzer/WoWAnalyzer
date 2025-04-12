@@ -6,7 +6,10 @@ import {
   DamageEvent,
   EventType,
   GetRelatedEvent,
+  HasRelatedEvent,
   RefreshDebuffEvent,
+  RemoveBuffEvent,
+  RemoveBuffStackEvent,
 } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS/rogue';
 
@@ -14,6 +17,7 @@ const CAST_BUFFER_MS = 400;
 
 const FROM_HARDCAST = 'FromHardcast';
 const HIT_TARGET = 'HitTarget';
+const OPPORTUNITY_CONSUME = 'OpportunityConsume';
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -36,6 +40,18 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
   },
+  {
+    linkRelation: OPPORTUNITY_CONSUME,
+    reverseLinkRelation: OPPORTUNITY_CONSUME,
+    linkingEventId: SPELLS.PISTOL_SHOT.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.OPPORTUNITY.id,
+    referencedEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+    maximumLinks: 1,
+    anyTarget: true,
+  },
 ];
 
 /**
@@ -57,4 +73,10 @@ export function getHardcast(
   event: ApplyDebuffEvent | RefreshDebuffEvent | DamageEvent,
 ): CastEvent | undefined {
   return GetRelatedEvent(event, FROM_HARDCAST);
+}
+
+export function consumedOpportunity(
+  event: CastEvent | RemoveBuffEvent | RemoveBuffStackEvent,
+): boolean {
+  return HasRelatedEvent(event, OPPORTUNITY_CONSUME);
 }
