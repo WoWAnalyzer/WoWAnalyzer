@@ -61,9 +61,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.GHOSTLY_STRIKE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 35,
-        gcd: {
-          static: standardGcd,
-        },
+        gcd: null,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
