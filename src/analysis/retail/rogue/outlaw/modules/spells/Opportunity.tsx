@@ -36,7 +36,7 @@ class Opportunity extends Analyzer {
   protected damageTracker!: DamageTracker;
   protected opportunityDamageTracker!: OpportunityDamageTracker;
 
-  constructor(options: Options & { opportunityDamageTracker: OpportunityDamageTracker }) {
+  constructor(options: Options) {
     super(options);
 
     [Events.applybuff, Events.applybuffstack, Events.refreshbuff].forEach((event) =>
@@ -44,11 +44,6 @@ class Opportunity extends Analyzer {
     );
     [Events.removebuff, Events.removebuffstack].forEach((event) =>
       this.addEventListener(event.by(SELECTED_PLAYER).spell(SPELLS.OPPORTUNITY), this.onRemoveBuff),
-    );
-
-    options.opportunityDamageTracker.subscribeInefficientCast(
-      [SPELLS.SINISTER_STRIKE],
-      () => `Pistol Shot should be used as your builder during Opportunity`,
     );
   }
 
