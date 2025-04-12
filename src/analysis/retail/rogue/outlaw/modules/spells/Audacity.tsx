@@ -3,7 +3,7 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/rogue';
 import { SpellLink } from 'interface';
-import Analyzer, { Options } from 'parser/core/Analyzer';
+import Analyzer from 'parser/core/Analyzer';
 import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
 
@@ -37,19 +37,6 @@ class Audacity extends Analyzer {
   };
   protected damageTracker!: DamageTracker;
   protected audacityDamageTracker!: AudacityDamageTracker;
-
-  constructor(options: Options & { audacityDamageTracker: AudacityDamageTracker }) {
-    super(options);
-
-    options.audacityDamageTracker.subscribeInefficientCast(
-      [SPELLS.SINISTER_STRIKE],
-      () => `Ambush should be used as your builder when audacity proc is up`,
-    );
-    options.audacityDamageTracker.subscribeInefficientCast(
-      [SPELLS.PISTOL_SHOT],
-      () => `Ambush should be used as your builder when audacity proc is up`,
-    );
-  }
 
   suggestions(when: When) {
     when(this.thresholds).addSuggestion((suggest, actual, recommended) =>
