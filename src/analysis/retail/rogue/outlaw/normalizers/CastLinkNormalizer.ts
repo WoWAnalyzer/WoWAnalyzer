@@ -18,6 +18,7 @@ const CAST_BUFFER_MS = 400;
 const FROM_HARDCAST = 'FromHardcast';
 const HIT_TARGET = 'HitTarget';
 const OPPORTUNITY_CONSUME = 'OpportunityConsume';
+const AUDACITY_CONSUME = 'AudacityConsume';
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -52,6 +53,18 @@ const EVENT_LINKS: EventLink[] = [
     maximumLinks: 1,
     anyTarget: true,
   },
+  {
+    linkRelation: AUDACITY_CONSUME,
+    reverseLinkRelation: AUDACITY_CONSUME,
+    linkingEventId: [SPELLS.AMBUSH.id, SPELLS.AMBUSH_PROC.id],
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.AUDACITY_TALENT_BUFF.id,
+    referencedEventType: EventType.RemoveBuff,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+    maximumLinks: 1,
+    anyTarget: true,
+  },
 ];
 
 /**
@@ -79,4 +92,8 @@ export function consumedOpportunity(
   event: CastEvent | RemoveBuffEvent | RemoveBuffStackEvent,
 ): boolean {
   return HasRelatedEvent(event, OPPORTUNITY_CONSUME);
+}
+
+export function consumedAudacity(event: CastEvent | RemoveBuffEvent): boolean {
+  return HasRelatedEvent(event, AUDACITY_CONSUME);
 }
