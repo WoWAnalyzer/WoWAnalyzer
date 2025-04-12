@@ -557,6 +557,11 @@ const spells = {
     name: 'Grappling Hook',
     icon: 'ability_rogue_grapplinghook',
   },
+  IMPROVED_ADRENALINE_RUSH_RESOURCE: {
+    id: 395424,
+    name: 'Improved Adrenaline Rush',
+    icon: 'spell_shadow_shadowworddominate',
+  },
 
   //Buffs
   SKULL_AND_CROSSBONES: {

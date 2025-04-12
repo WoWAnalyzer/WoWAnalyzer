@@ -10,8 +10,10 @@ import {
   RefreshDebuffEvent,
   RemoveBuffEvent,
   RemoveBuffStackEvent,
+  ResourceChangeEvent,
 } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS/rogue';
+import TALENTS from 'common/TALENTS/rogue';
 
 const CAST_BUFFER_MS = 400;
 
@@ -19,6 +21,7 @@ const FROM_HARDCAST = 'FromHardcast';
 const HIT_TARGET = 'HitTarget';
 const OPPORTUNITY_CONSUME = 'OpportunityConsume';
 const AUDACITY_CONSUME = 'AudacityConsume';
+const IMPROVED_ADRENALINE_RUSH = 'ImprovedAdrenalineRush';
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -65,6 +68,17 @@ const EVENT_LINKS: EventLink[] = [
     maximumLinks: 1,
     anyTarget: true,
   },
+  {
+    linkRelation: IMPROVED_ADRENALINE_RUSH,
+    reverseLinkRelation: IMPROVED_ADRENALINE_RUSH,
+    linkingEventId: TALENTS.ADRENALINE_RUSH_TALENT.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.IMPROVED_ADRENALINE_RUSH_RESOURCE.id,
+    referencedEventType: EventType.ResourceChange,
+    backwardBufferMs: CAST_BUFFER_MS,
+    maximumLinks: 1,
+    anyTarget: true,
+  },
 ];
 
 /**
@@ -96,4 +110,13 @@ export function consumedOpportunity(
 
 export function consumedAudacity(event: CastEvent | RemoveBuffEvent): boolean {
   return HasRelatedEvent(event, AUDACITY_CONSUME);
+}
+
+export function getGeneratedAdrenalineRushComboPoints(event: CastEvent): number {
+  const resourceEvent = GetRelatedEvent<ResourceChangeEvent>(event, IMPROVED_ADRENALINE_RUSH);
+  if (!resourceEvent) {
+    return 0;
+  }
+
+  return resourceEvent.resourceChange - resourceEvent.waste;
 }
