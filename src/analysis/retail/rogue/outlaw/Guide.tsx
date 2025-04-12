@@ -109,6 +109,7 @@ function CoreRotationSection({ modules, info }: GuideProps<typeof CombatLogParse
       })}
     >
       {modules.finisherUse.guide}
+      {modules.adrenalineRush.guideSubsection}
     </Section>
   );
 }

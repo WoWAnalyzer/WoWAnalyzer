@@ -45,6 +45,7 @@ import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import OpportunityRefreshNormalizer from './normalizers/OpportunityRefreshNormalizer';
 
 import SpellUsable from './modules/features/SpellUsable';
+import AdrenalineRush from './modules/talents/AdrenalineRush';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -99,6 +100,7 @@ class CombatLogParser extends CoreCombatLogParser {
     bladeRush: BladeRush,
     echoingReprimand: EchoingReprimand,
     flagellation: Flagellation,
+    adrenalineRush: AdrenalineRush,
 
     // Outlaw's throughput benefit isn't as big as for other classes since we don't have a lot of free gcds to use
     arcaneTorrent: [
