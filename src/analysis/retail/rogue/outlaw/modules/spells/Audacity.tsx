@@ -3,16 +3,21 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/rogue';
 import { SpellLink } from 'interface';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
 
 import AudacityDamageTracker from './AudacityDamageTracker';
+import Events, { RemoveBuffEvent } from 'parser/core/Events';
+import { consumedAudacity } from '../../normalizers/CastLinkNormalizer';
 
 //--TODO: maybe a better way to display the delayed/potentially overwritten casts than percentage?
 //        maybe separate ss overwrite than ps since ps is much more problematic than ss
 
 class Audacity extends Analyzer {
+  procs: number = 0;
+  consumedProcs: number = 0;
+
   get thresholds(): NumberThreshold {
     const totalSinister = this.damageTracker.getAbility(SPELLS.SINISTER_STRIKE.id);
     const totalPistol = this.damageTracker.getAbility(SPELLS.PISTOL_SHOT.id);
@@ -37,6 +42,35 @@ class Audacity extends Analyzer {
   };
   protected damageTracker!: DamageTracker;
   protected audacityDamageTracker!: AudacityDamageTracker;
+
+  constructor(options: Options) {
+    super(options);
+
+    [Events.applybuff, Events.refreshbuff].forEach((event) =>
+      this.addEventListener(
+        event.by(SELECTED_PLAYER).spell(SPELLS.AUDACITY_TALENT_BUFF),
+        this.onApplyBuff,
+      ),
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.AUDACITY_TALENT_BUFF),
+      this.onRemoveBuff,
+    );
+  }
+
+  private onApplyBuff() {
+    this.procs += 1;
+  }
+
+  private onRemoveBuff(event: RemoveBuffEvent) {
+    if (consumedAudacity(event)) {
+      this.consumedProcs += 1;
+    }
+  }
+
+  get wastedProcs() {
+    return this.procs - this.consumedProcs;
+  }
 
   suggestions(when: When) {
     when(this.thresholds).addSuggestion((suggest, actual, recommended) =>
