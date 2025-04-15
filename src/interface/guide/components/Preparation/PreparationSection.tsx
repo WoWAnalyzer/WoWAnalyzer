@@ -6,6 +6,7 @@ import EnchantmentSubSection from './EnchantmentSubSection';
 import ConsumablesSubSection from './ConsumablesSubSection';
 import EnhancementSubSection from 'interface/guide/components/Preparation/EnhancementSubSection';
 import Expansion, { isRetailExpansion, RETAIL_EXPANSION } from 'game/Expansion';
+//import GemSubSection from './GemSubSection' //Will be used later intermediate commit
 
 interface Props {
   recommendedEnchantments?: Record<number, Enchant[]>;
