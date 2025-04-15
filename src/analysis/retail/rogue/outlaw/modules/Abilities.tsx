@@ -29,7 +29,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: [SPELLS.DISPATCH.id, SPELLS.DISPATCH_COUP_DE_GRACE.id],
+        spell: SPELLS.DISPATCH.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           static: standardGcd,
