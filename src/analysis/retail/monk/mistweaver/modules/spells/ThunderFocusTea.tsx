@@ -80,7 +80,11 @@ class ThunderFocusTea extends Analyzer {
     );
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT)) {
       this.correctCapstoneSpells = [TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
-      this.okCapstoneSpells = [TALENTS_MONK.RENEWING_MIST_TALENT.id];
+      this.okCapstoneSpells = [
+        TALENTS_MONK.RENEWING_MIST_TALENT.id,
+        getCurrentRSKTalent(this.selectedCombatant).id,
+        SPELLS.EXPEL_HARM.id,
+      ];
     } else {
       this.correctCapstoneSpells = [
         TALENTS_MONK.RENEWING_MIST_TALENT.id,
