@@ -18,9 +18,11 @@ import {
   or,
   describe,
   buffStacks,
-  not,
   optionalRule,
   hasTalent,
+  lastSpellCast,
+  always,
+  buffSoonPresent,
 } from 'parser/shared/metrics/apl/conditions';
 
 import { AnyEvent } from 'parser/core/Events';
@@ -30,55 +32,31 @@ import { ROLL_THE_BONES_BUFFS } from '../../constants';
 import { buffsCount } from './buffsCount';
 import { betweenTheEyesMissing } from './betweenTheEyesMissing';
 
-//--TODO: GS can't work for now until I finish working on gs debuff eventFabricator
-//        Add support for KiR builds
-//        BtE and SnD having variable duration depending on cp spent make their conditions innacurate for now
-//        SnD condition being rarely met it sometimes don't show in the apl if the user never casted the spell
-//        Add an optional rule to allow use of Ambush at 6cp with 2p and if bte isnt going to be pressed, not sure if fully possible (0.1% minmax)
-//        Thistle tea seems to not work with the energy condition as the cast happens after the energy gain
-//        Fix cto + rtb edge case
+/*
+ * TODO:
+ * Due to how resource events are batched, eg. you press a builder, you get the resource event,
+ * before the cast event, cp ruling can be a bit off sometimes.
+ * Ideally we'd just grab the proper values using this.comboPointTracker.resourceUpdates.at(-1)
+ * but until APLCheck is turned into a proper analyzer, we can't do that.
+ */
 
-const hasFinisherCondition = () => {
+const hasFinisherCondition = (usePrevAmount?: boolean) => {
   //             this should be using: finishers.recommendedFinisherPoints()
-  return describe(hasResource(RESOURCE_TYPES.COMBO_POINTS, { atLeast: 6 }), (tense) => (
-    <>the finisher condition {tenseAlt(tense, 'is', 'was')} met</>
-  ));
-};
-
-//  /!\ Not sure this is working
-//  minEnergyThreshold will be the hard enforced energy rule while maxEnergyThreshold is the leeway accorded to the user
-const energyCondition = (minEnergyThreshold: number, maxEnergyThreshold: number) => {
-  return or(
-    hasResource(RESOURCE_TYPES.ENERGY, { atMost: minEnergyThreshold }),
-    optionalRule(hasResource(RESOURCE_TYPES.ENERGY, { atMost: maxEnergyThreshold })),
+  return describe(
+    hasResource(RESOURCE_TYPES.COMBO_POINTS, { atLeast: 6 }, undefined, usePrevAmount),
+    (tense) => <>the finisher condition {tenseAlt(tense, 'is', 'was')} met</>,
   );
 };
 
-//  if snc is down and rtbBuffCount < 2 should reroll, we are allowing the user to also keep a single Broadside as it is barely worse
 const rtbCondition = () => {
-  const rtbBuffsToCheck = ROLL_THE_BONES_BUFFS.filter((spell) => spell !== SPELLS.GRAND_MELEE);
-  return and(
-    describe(
-      and(
-        or(
-          // allow rerolling if you're missing either SnC or BS, but don't require it
-          optionalRule(or(buffMissing(SPELLS.SKULL_AND_CROSSBONES), buffMissing(SPELLS.BROADSIDE))),
-          // require rerolling if you're missing both SnC and BS
-          and(buffMissing(SPELLS.SKULL_AND_CROSSBONES), buffMissing(SPELLS.BROADSIDE)),
-        ),
-        // allow not rerolling during dance window
-        // allow not rerolling during subterfuge window
-        or(buffMissing(SPELLS.SUBTERFUGE_BUFF), optionalRule(buffPresent(SPELLS.SUBTERFUGE_BUFF))),
-        // same for vanish buff
-        or(buffMissing(SPELLS.VANISH_BUFF), optionalRule(buffPresent(SPELLS.VANISH_BUFF))),
-      ),
-      (tense) => (
-        <>
-          <SpellLink spell={SPELLS.SKULL_AND_CROSSBONES} /> {tenseAlt(tense, 'is', 'was')} missing
-        </>
-      ),
-    ),
-    buffsCount(rtbBuffsToCheck, 2, 'lessThan'),
+  return buffsCount(ROLL_THE_BONES_BUFFS, 5, 'lessThan');
+};
+
+const rtbKirCondition = () => {
+  return or(
+    buffsCount(ROLL_THE_BONES_BUFFS, 3, 'lessThan'),
+    // Could be cast another cast over due to OGCD spells etc, so we we just wrap it in always
+    always(lastSpellCast(TALENTS.KEEP_IT_ROLLING_TALENT)),
   );
 };
 
@@ -101,47 +79,50 @@ const COMMON_COOLDOWN: Rule[] = [
   //     <>you {tenseAlt(tense, 'are', 'were')} under 50 energy</>
   //   )),
   // },
-  {
+  TALENTS.ADRENALINE_RUSH_TALENT,
+  //TALENTS.GHOSTLY_STRIKE_TALENT,
+  /* {
     spell: TALENTS.BLADE_RUSH_TALENT,
     condition: describe(energyCondition(60, 85), (tense) => (
       <>you {tenseAlt(tense, 'are', 'were')} under ~70/80 energy</>
     )),
-  },
+  }, */
   {
     spell: TALENTS.KILLING_SPREE_TALENT,
-    condition: describe(and(energyCondition(40, 65), notInStealthCondition()), (tense) => (
-      <>you {tenseAlt(tense, 'are', 'were')} under ~50/60 energy</>
-    )),
+    condition: and(
+      hasFinisherCondition(true),
+      describe(
+        and(
+          buffSoonPresent(SPELLS.SUBTERFUGE_BUFF, { atLeast: 1_000 }),
+          buffMissing(SPELLS.SUBTERFUGE_BUFF),
+        ),
+        (tense) => (
+          <>
+            <SpellLink spell={SPELLS.SUBTERFUGE_BUFF} /> {tenseAlt(tense, 'is', 'was')} missing
+          </>
+        ),
+      ),
+    ),
   },
   {
-    spell: SPELLS.ROLL_THE_BONES,
-    condition: rtbCondition(),
+    spell: SPELLS.COUP_DE_GRACE_CAST,
+    condition: and(
+      describe(
+        and(
+          buffStacks(SPELLS.COUP_DE_GRACE_BUFF, { atLeast: 4 }),
+          hasResource(RESOURCE_TYPES.COMBO_POINTS, { atLeast: 5 }, undefined, true),
+        ),
+        (tense) => <>you {tenseAlt(tense, 'have', 'had')} at least 5 combo points</>,
+      ),
+      buffMissing(SPELLS.SUBTERFUGE_BUFF),
+    ),
   },
   {
     spell: SPELLS.VANISH,
     condition: and(
-      buffMissing(SPELLS.AUDACITY_TALENT_BUFF),
-      describe(
-        and(
-          //The real rule is to vanish whenever you have less than max stacks of opp, however
-          //since its barely behind we also allow the user to only use vanish when opp is missing
-          or(
-            optionalRule(buffStacks(SPELLS.OPPORTUNITY, { atMost: 3 })),
-            buffMissing(SPELLS.OPPORTUNITY),
-          ),
-          //This is a given no point displaying it
-          notInStealthCondition(),
-          //We want to allow the user to press vanish at max cp, but that is not a requirement
-          or(not(hasFinisherCondition()), optionalRule(hasFinisherCondition())),
-        ),
-        (tense) => (
-          <>
-            {' '}
-            you {tenseAlt(tense, 'have', 'had')} less than max stacks of{' '}
-            <SpellLink spell={SPELLS.OPPORTUNITY} />
-          </>
-        ),
-      ),
+      buffPresent(TALENTS.ADRENALINE_RUSH_TALENT),
+      hasFinisherCondition(),
+      notInStealthCondition(),
     ),
   },
 ];
@@ -150,7 +131,7 @@ const COMMON_FINISHER: Rule[] = [
   {
     spell: SPELLS.BETWEEN_THE_EYES,
     condition: and(
-      hasFinisherCondition(),
+      hasFinisherCondition(true),
       describe(
         and(
           buffMissing(TALENTS.GREENSKINS_WICKERS_TALENT),
@@ -168,14 +149,21 @@ const COMMON_FINISHER: Rule[] = [
   {
     spell: SPELLS.BETWEEN_THE_EYES,
     condition: and(
+      buffPresent(SPELLS.SUBTERFUGE_BUFF),
+      hasResource(RESOURCE_TYPES.COMBO_POINTS, { atLeast: 5 }, undefined, true),
+    ),
+  },
+  {
+    spell: SPELLS.BETWEEN_THE_EYES,
+    condition: and(
       describe(
         and(
-          hasFinisherCondition(),
+          hasFinisherCondition(true),
           //We allow the user to not press BtE when in dance
         ),
         (tense) => <>the finisher condition {tenseAlt(tense, 'is', 'was')} met</>,
       ),
-      betweenTheEyesMissing(),
+      or(buffPresent(SPELLS.RUTHLESS_PRECISION), betweenTheEyesMissing()),
     ),
   },
   {
@@ -183,7 +171,7 @@ const COMMON_FINISHER: Rule[] = [
     condition: and(
       describe(
         and(
-          hasFinisherCondition(),
+          hasFinisherCondition(true),
           //We allow the user to not press SnD when GM buff is present
           or(buffMissing(SPELLS.GRAND_MELEE), optionalRule(buffPresent(SPELLS.GRAND_MELEE))),
         ),
@@ -199,43 +187,56 @@ const COMMON_FINISHER: Rule[] = [
   },
   {
     spell: SPELLS.DISPATCH,
-    condition: hasFinisherCondition(),
+    condition: hasFinisherCondition(true),
   },
 ];
 
-const COMMON_BUILDER: Rule[] = [
-  // Commented for now as GS doesn't have an associated applyDebuff and removeDebuff event
-  // {
-  //   spell: TALENTS.GHOSTLY_STRIKE_TALENT,
-  //   condition: and(
-  //     debuffMissing(TALENTS.GHOSTLY_STRIKE_TALENT, {
-  //       timeRemaining: 3000,
-  //       duration: 10000,
-  //       pandemicCap: 0,
-  //     }),
-  //     notInStealthCondition(),
-  //   ),
-  // },
+const keep_it_rolling_rotation = build([
+  {
+    spell: TALENTS.KEEP_IT_ROLLING_TALENT,
+    condition: buffsCount(ROLL_THE_BONES_BUFFS, 4, 'atLeast'),
+  },
+  {
+    spell: SPELLS.ROLL_THE_BONES,
+    condition: rtbKirCondition(),
+  },
 
-  //This seems to not function correctly
+  ...COMMON_COOLDOWN,
+  ...COMMON_FINISHER,
+
   {
     spell: SPELLS.PISTOL_SHOT,
-    condition: describe(
-      optionalRule(
+    condition: and(
+      buffPresent(SPELLS.OPPORTUNITY),
+      describe(
         and(
-          buffStacks(SPELLS.OPPORTUNITY, { atLeast: 6 }),
-          not(hasTalent(TALENTS.COUNT_THE_ODDS_TALENT)),
+          buffMissing(SPELLS.BROADSIDE),
+          hasResource(RESOURCE_TYPES.COMBO_POINTS, { atMost: 3 }, undefined, true),
         ),
-      ),
-      (tense) => (
-        <>
-          {' '}
-          you {tenseAlt(tense, 'have', 'had')} max stacks of{' '}
-          <SpellLink spell={SPELLS.OPPORTUNITY} />
-        </>
+        (tense) => <>you {tenseAlt(tense, 'have', 'had')} at most 3 combo points</>,
       ),
     ),
   },
+  {
+    spell: SPELLS.PISTOL_SHOT,
+    condition: and(
+      buffPresent(SPELLS.OPPORTUNITY),
+      buffPresent(SPELLS.BROADSIDE),
+      hasResource(RESOURCE_TYPES.COMBO_POINTS, { atMost: 1 }, undefined, true),
+    ),
+  },
+  SPELLS.SINISTER_STRIKE,
+]);
+
+const hidden_opportunity_rotation = build([
+  {
+    spell: SPELLS.ROLL_THE_BONES,
+    condition: rtbCondition(),
+  },
+
+  ...COMMON_COOLDOWN,
+  ...COMMON_FINISHER,
+
   {
     spell: SPELLS.AMBUSH,
     condition: or(
@@ -251,25 +252,28 @@ const COMMON_BUILDER: Rule[] = [
       ),
     ),
   },
+
   {
     spell: SPELLS.PISTOL_SHOT,
     condition: buffPresent(SPELLS.OPPORTUNITY),
   },
   SPELLS.SINISTER_STRIKE,
-];
-
-const hidden_opportunity_rotation = build([
-  ...COMMON_COOLDOWN,
-  ...COMMON_FINISHER,
-  ...COMMON_BUILDER,
 ]);
 
-export const apl = (): Apl => {
+export const apl = (info: PlayerInfo): Apl => {
+  if (!info) {
+    return hidden_opportunity_rotation;
+  }
+
+  if (info.combatant.hasTalent(TALENTS.KEEP_IT_ROLLING_TALENT)) {
+    return keep_it_rolling_rotation;
+  }
+
   return hidden_opportunity_rotation;
 };
 
 export const check = (events: AnyEvent[], info: PlayerInfo): CheckResult => {
-  const check = aplCheck(apl());
+  const check = aplCheck(apl(info));
   return check(events, info);
 };
 

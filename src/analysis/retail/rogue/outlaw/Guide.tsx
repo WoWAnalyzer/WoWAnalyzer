@@ -134,7 +134,7 @@ function ActionPriorityList({ modules, info }: GuideProps<typeof CombatLogParser
         </a>
         .
       </p>
-      <AplSectionData checker={AplCheck.check} apl={AplCheck.apl()} />
+      <AplSectionData checker={AplCheck.check} apl={AplCheck.apl(info)} />
       <hr />
       <p>
         <strong>Disclaimer:</strong> (Currently unsuported spells/talents)

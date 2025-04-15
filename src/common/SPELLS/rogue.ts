@@ -657,6 +657,11 @@ const spells = {
     name: 'Coup de Grace',
     icon: 'inv_ability_tricksterrogue_coupdegrace',
   },
+  COUP_DE_GRACE_BUFF: {
+    id: 441786,
+    name: 'Coup de Grace',
+    icon: 'inv_ability_tricksterrogue_coupdegrace',
+  },
   DISPATCH_COUP_DE_GRACE: {
     id: 467059,
     name: 'Dispatch',
