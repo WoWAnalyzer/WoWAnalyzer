@@ -78,20 +78,12 @@ class ThunderFocusTea extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(THUNDER_FOCUS_TEA_SPELLS),
       this.buffedCast,
     );
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)) {
-      this.correctCapstoneSpells = [
-        TALENTS_MONK.RENEWING_MIST_TALENT.id,
-        TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
-      ];
-      this.okCapstoneSpells = [this.currentRskTalent.id];
-    } else if (this.selectedCombatant.hasTalent(TALENTS_MONK.TEAR_OF_MORNING_TALENT)) {
-      this.correctCapstoneSpells = [
-        TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
-        TALENTS_MONK.RENEWING_MIST_TALENT.id,
-      ];
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT)) {
+      this.correctCapstoneSpells = [TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
       this.okCapstoneSpells = [
-        TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
         TALENTS_MONK.RENEWING_MIST_TALENT.id,
+        getCurrentRSKTalent(this.selectedCombatant).id,
+        SPELLS.EXPEL_HARM.id,
       ];
     } else {
       this.correctCapstoneSpells = [
@@ -105,23 +97,10 @@ class ThunderFocusTea extends Analyzer {
     return this.castsUnderTft - this.correctCasts;
   }
 
-  isCorrect(event: CastEvent, isFTCast: boolean, isOk: boolean): boolean {
+  isCorrect(event: CastEvent, isOk: boolean): boolean {
     const spellId: number = event.ability.guid;
     const spellMap = isOk ? this.okCapstoneSpells : this.correctCapstoneSpells;
-    debug && console.log('Checking for correctness', spellId, isFTCast, isOk);
-    if (isFTCast) {
-      if (this.selectedCombatant.hasTalent(TALENTS_MONK.SECRET_INFUSION_TALENT)) {
-        return spellMap.includes(spellId);
-      } else {
-        return this.isCorrect(event, false /* isFTCast */, isOk); // same as 1st spell logic
-      }
-    } else if (this.selectedCombatant.hasTalent(TALENTS_MONK.SECRET_INFUSION_TALENT)) {
-      return isOk && this.selectedCombatant.hasTalent(TALENTS_MONK.TEAR_OF_MORNING_TALENT)
-        ? spellId === TALENTS_MONK.ENVELOPING_MIST_TALENT.id
-        : spellMap.includes(spellId);
-    } else {
-      return spellMap.includes(spellId);
-    }
+    return spellMap.includes(spellId);
   }
 
   tftCast(event: CastEvent) {
@@ -166,8 +145,7 @@ class ThunderFocusTea extends Analyzer {
     }
     let tooltip = null;
     let value = null;
-    const isFTCast = this.ftActive && this.castsUnderTft % 2 === 0;
-    if (this.isCorrect(event, isFTCast, false /* isOk */)) {
+    if (this.isCorrect(event, false /* isOk */)) {
       value = QualitativePerformance.Good;
       tooltip = (
         <>
@@ -175,7 +153,7 @@ class ThunderFocusTea extends Analyzer {
         </>
       );
       this.correctCasts += 1;
-    } else if (this.isCorrect(event, isFTCast, true /* isOk */)) {
+    } else if (this.isCorrect(event, true /* isOk */)) {
       value = QualitativePerformance.Ok;
       tooltip = (
         <>
@@ -242,54 +220,17 @@ class ThunderFocusTea extends Analyzer {
         adhere to the following priority list
         <ol>
           <li>
-            {' '}
-            <SpellLink spell={TALENTS_MONK.SECRET_INFUSION_TALENT} /> talented <Arrow /> use on{' '}
-            <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />
-          </li>
-          <li>
-            {' '}
-            <SpellLink spell={TALENTS_MONK.RISING_MIST_TALENT} /> talented <Arrow /> use on{' '}
-            <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> (
-            <span style={{ color: 'green' }}>best</span>) or{' '}
-            <SpellLink spell={this.currentRskTalent} /> (<span style={{ color: 'yellow' }}>ok</span>
-            )
-          </li>
-          <li>
-            {' '}
-            <SpellLink spell={TALENTS_MONK.TEAR_OF_MORNING_TALENT} /> talented <Arrow /> use on{' '}
-            <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> (
+            <SpellLink spell={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT} /> talented <Arrow />{' '}
+            use on <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> (
             <span style={{ color: 'green' }}>best</span>) or{' '}
             <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> (
             <span style={{ color: 'yellow' }}>ok</span>)
           </li>
-        </ol>
-        If talented into <SpellLink spell={TALENTS_MONK.FOCUSED_THUNDER_TALENT} />, the priority
-        slightly changes for the 2nd buffed cast depending on talents
-        <ol>
           <li>
             {' '}
-            <SpellLink spell={TALENTS_MONK.SECRET_INFUSION_TALENT} /> talented
-          </li>
-          <ul>
-            <li>
-              <SpellLink spell={TALENTS_MONK.TEAR_OF_MORNING_TALENT} /> talented <Arrow /> use on{' '}
-              <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> (
-              <span style={{ color: 'green' }}>best</span>) or{' '}
-              <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> (
-              <span style={{ color: 'yellow' }}>ok</span>)
-            </li>
-            <li>
-              <SpellLink spell={TALENTS_MONK.RISING_MIST_TALENT} /> talented <Arrow /> use on{' '}
-              <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> (
-              <span style={{ color: 'green' }}>best</span>) or{' '}
-              <SpellLink spell={this.currentRskTalent} /> (
-              <span style={{ color: 'yellow' }}>ok</span>)
-            </li>
-          </ul>
-          <li>
-            {' '}
-            <SpellLink spell={TALENTS_MONK.SECRET_INFUSION_TALENT} /> not talented <Arrow /> same
-            spell as first buffed cast
+            <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} /> talented{' '}
+            <Arrow /> use on <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> or{' '}
+            <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} />
           </li>
         </ol>
       </p>
