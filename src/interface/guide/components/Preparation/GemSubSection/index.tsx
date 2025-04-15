@@ -1,26 +1,24 @@
 import { SubSection, useAnalyzer, useInfo } from 'interface/guide/index';
-import EnchantChecker from 'parser/shared/modules/items/EnchantChecker';
-import EnchantmentBoxRow from 'interface/guide/components/Preparation/EnchantmentSubSection/EnchantmentBoxRow';
-import { Enchant } from 'common/ITEMS/Item';
+import GemChecker from 'parser/shared/modules/items/GemChecker';
+import GemBoxRow from 'interface/guide/components/Preparation/GemSubSection/GemBoxRow';
+import { Gem } from 'common/ITEMS/Item';
 
 interface Props {
-  recommendedEnchantments?: Record<number, Enchant[]>;
+  recommendedGems?: Record<number, Gem[]>;
 }
-const EnchantmentSubSection = ({ recommendedEnchantments }: Props) => {
-  const enchantChecker = useAnalyzer(EnchantChecker);
+const GemSubSection = ({ recommendedGems }: Props) => {
+  const gemChecker = useAnalyzer(GemChecker);
   const info = useInfo();
-  if (!enchantChecker || !info) {
+  if (!gemChecker || !info) {
     return null;
   }
 
   return (
-    <SubSection title="Enchants">
-      <p>Enchantments are easy ways to improve your throughput.</p>
-      <EnchantmentBoxRow
-        values={enchantChecker.getEnchantmentBoxRowEntries(recommendedEnchantments)}
-      />
+    <SubSection title="Gems">
+      <p>Gems are easy ways to improve your throughput.</p>
+      <GemBoxRow values={gemChecker.getGemBoxRowEntries(recommendedGems)} />
     </SubSection>
   );
 };
 
-export default EnchantmentSubSection;
+export default GemSubSection;

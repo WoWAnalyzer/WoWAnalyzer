@@ -1,4 +1,4 @@
-import styles from './EnchantmentBoxRow.module.scss';
+import styles from './GemBoxRow.module.scss';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import { CSSProperties, ReactNode } from 'react';
@@ -19,24 +19,24 @@ const getBlockClassName = (value: BoxRowEntry) => {
   }
 };
 
-export interface EnchantmentBoxRowEntry {
+export interface GemBoxRowEntry {
   item: Item;
   slotName: JSX.Element;
   value: QualitativePerformance;
   tooltip?: ReactNode; // TODO default tooltip
 }
 
-interface EnchantmentBoxRowProps {
-  values: EnchantmentBoxRowEntry[];
+interface GemBoxRowProps {
+  values: GemBoxRowEntry[];
   style?: CSSProperties;
 }
-const EnchantmentBoxRow = ({ values }: EnchantmentBoxRowProps) => {
+const GemBoxRow = ({ values }: GemBoxRowProps) => {
   return (
-    <div className={styles['enchantment-block-row']}>
+    <div className={styles['gem-block-row']}>
       {values.map((value, ix) => (
-        <div className={styles['enchantment-block-column']} key={ix}>
+        <div className={styles['gem-block-column']} key={ix}>
           <Tooltip content={value.tooltip}>
-            <div className={styles['enchantment-block'] + ' ' + getBlockClassName(value)}>
+            <div className={styles['gem-block'] + ' ' + getBlockClassName(value)}>
               <Icon icon={value.item.icon} />
             </div>
           </Tooltip>
@@ -47,4 +47,4 @@ const EnchantmentBoxRow = ({ values }: EnchantmentBoxRowProps) => {
   );
 };
 
-export default EnchantmentBoxRow;
+export default GemBoxRow;

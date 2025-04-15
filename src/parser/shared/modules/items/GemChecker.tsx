@@ -12,10 +12,16 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import GEAR_SLOTS from 'game/GEAR_SLOTS';
 
 class GemChecker extends Analyzer {
+  //Which slots can have a gem slots added
+  static twoSlots = [GEAR_SLOTS.NECK, GEAR_SLOTS.FINGER1, GEAR_SLOTS.FINGER2];
+  static oneSlot = [GEAR_SLOTS.HEAD, GEAR_SLOTS.WAIST, GEAR_SLOTS.WRISTS];
+
   get GemableSlots(): Record<number, JSX.Element> {
     return {};
   }
+
   //Figure out who slot is not a number to begin with...
+
   get GemableGear(): any {
     const gemSlots = this.GemableSlots;
     return Object.keys(gemSlots).reduce<Record<number, Item>>((obj, slot) => {
@@ -41,7 +47,7 @@ class GemChecker extends Analyzer {
 
   get slotsMissingEnchant() {
     const gear = this.GemableGear;
-    return Object.keys(gear).filter((slot) => !this.hasGem(gear[Number(slot)]));
+    return Object.keys(gear).filter((slot) => !this.hasMaxGems(gear[Number(slot)], Number(slot)));
   }
 
   get numSlotsMissingEnchant() {
@@ -52,8 +58,7 @@ class GemChecker extends Analyzer {
     const gear = this.GemableGear;
     return Object.keys(gear).filter(
       (slot) =>
-        this.hasGem(gear[Number(slot)]) &&
-        this.hasMaxGems(gear[Number(slot)], Number(slot).valueOf()),
+        this.hasGem(gear[Number(slot)]) && this.hasMaxGems(gear[Number(slot)], Number(slot)),
     );
   }
 
@@ -74,14 +79,11 @@ class GemChecker extends Analyzer {
   }
 
   hasMaxGems(item: Item, slot: number) {
-    const twoSlots = [GEAR_SLOTS.NECK, GEAR_SLOTS.FINGER1, GEAR_SLOTS.FINGER2];
-    const oneSlot = [GEAR_SLOTS.HEAD, GEAR_SLOTS.WAIST, GEAR_SLOTS.WRISTS];
-
     //If Neck or Ring then min 2 gems - Slotted from Settings
-    if (twoSlots.includes(slot)) {
+    if (GemChecker.twoSlots.includes(slot)) {
       return (item.gems?.length ?? 0) >= 2;
     } //If Helm, Bracer, or Belt min 1 - Slotted from Vault Coins
-    else if (oneSlot.includes(slot)) {
+    else if (GemChecker.oneSlot.includes(slot)) {
       return this.hasGem(item);
     }
     /*else if(false) //Check if Gem Slot is empty (however you do that.)
@@ -220,7 +222,7 @@ class GemChecker extends Analyzer {
     };
   }
 
-  getEnchantmentBoxRowEntries(
+  getGemBoxRowEntries(
     recommendedEnchants: Record<number, EnchantItem[]> = {},
   ): EnchantmentBoxRowEntry[] {
     const gear = this.GemableGear;
