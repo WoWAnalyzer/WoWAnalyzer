@@ -5,6 +5,7 @@ import { emallson, Trevor, Vetyst, Vohrr } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2025, 4, 15), <>Add buff uptime to <SpellLink spell={TALENTS_MONK.RUSHING_WIND_KICK_TALENT}/> guide module</>, Trevor),
   change(date(2025, 4, 15), <>Update <SpellLink spell={TALENTS_MONK.RUSHING_WIND_KICK_TALENT}/> value per hotfixes.</>, Vohrr),
   change(date(2025, 4, 12), <>Simplify <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT}/> module</>, Trevor),
   change(date(2025, 3, 28), <>Added <SpellLink spell={TALENTS_MONK.MENDING_PROLIFERATION_TALENT}/> to the other hots graph, renamed other hots graph to healing amps graph.</>, Vohrr),
