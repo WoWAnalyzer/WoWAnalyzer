@@ -298,54 +298,55 @@ class GemChecker extends Analyzer {
     const enchantSlots: { [key: number]: JSX.Element } = this.GemableSlots;
 
     //Let's try to filter out the ones that don't have a way to have a gem.
-    Object.keys(gear).filter((slot) => {
-      const slotNumber = Number(slot);
-      const item = gear[slotNumber];
-      return (
-        this.hasGem(item) ||
-        GemChecker.twoSlots.includes(slotNumber) ||
-        GemChecker.oneSlot.includes(slotNumber)
-      );
-    });
-
-    Object.keys(gear).forEach((slot) => {
-      const item = gear[Number(slot)];
-      const slotName = enchantSlots[Number(slot)];
-      const hasEnchant = this.hasGem(item);
-
-      when(hasEnchant)
-        .isFalse()
-        .addSuggestion((suggest, actual, recommended) =>
-          suggest(
-            <Trans id="shared.enchantChecker.suggestions.noEnchant.label">
-              Your{' '}
-              <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>
-                {slotName}
-              </ItemLink>{' '}
-              is missing an enchant. Apply a strong enchant to increase your throughput.
-            </Trans>,
-          )
-            .icon(item.icon)
-            .staticImportance(SUGGESTION_IMPORTANCE.MAJOR),
+    Object.keys(gear)
+      .filter((slot) => {
+        const slotNumber = Number(slot);
+        const item = gear[slotNumber];
+        return (
+          this.hasGem(item) ||
+          GemChecker.twoSlots.includes(slotNumber) ||
+          GemChecker.oneSlot.includes(slotNumber)
         );
+      })
+      .forEach((slot) => {
+        const slotNumber = Number(slot);
+        const item = gear[slotNumber];
+        const slotName = enchantSlots[slotNumber];
+        const hasGem = this.hasGem(item);
 
-      const noMaxEnchant = hasEnchant && !this.hasMaxEnchant(item);
-      when(noMaxEnchant)
-        .isTrue()
-        .addSuggestion((suggest, actual, recommended) =>
-          suggest(
-            <Trans id="shared.enchantChecker.suggestions.weakEnchant.label">
-              Your{' '}
-              <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>
-                {slotName}
-              </ItemLink>{' '}
-              has a cheap enchant. Apply a stronger enchant to increase your throughput.
-            </Trans>,
-          )
-            .icon(item.icon)
-            .staticImportance(SUGGESTION_IMPORTANCE.MINOR),
-        );
-    });
+        when(hasGem)
+          .isFalse()
+          .addSuggestion((suggest, actual, recommended) =>
+            suggest(
+              <Trans id="shared.enchantChecker.suggestions.noEnchant.label">
+                Your{' '}
+                <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>
+                  {slotName}
+                </ItemLink>{' '}
+                is missing a gem or a gem slot and a gem.
+              </Trans>,
+            )
+              .icon(item.icon)
+              .staticImportance(SUGGESTION_IMPORTANCE.MAJOR),
+          );
+
+        const noMaxGem = this.hasMaxGems(item, slotNumber);
+        when(noMaxGem)
+          .isFalse()
+          .addSuggestion((suggest, actual, recommended) =>
+            suggest(
+              <Trans id="shared.enchantChecker.suggestions.weakEnchant.label">
+                Your{' '}
+                <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>
+                  {slotName}
+                </ItemLink>{' '}
+                does not have all possible gem slots or not all gems slots are filled.
+              </Trans>,
+            )
+              .icon(item.icon)
+              .staticImportance(SUGGESTION_IMPORTANCE.MINOR),
+          );
+      });
   }
 }
 
