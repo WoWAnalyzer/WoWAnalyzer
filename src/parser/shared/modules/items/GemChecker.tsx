@@ -8,7 +8,7 @@ import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { EnchantmentBoxRowEntry } from 'interface/guide/components/Preparation/EnchantmentSubSection/EnchantmentBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-//import gem from 'src/common/ITEMS/thewarwithin/gems'; //Will be used later intermediate commit
+import { gemById } from 'common/ITEMS/thewarwithin/gems'; //Will be used later intermediate commit
 import GEAR_SLOTS from 'game/GEAR_SLOTS';
 
 class GemChecker extends Analyzer {
@@ -19,6 +19,8 @@ class GemChecker extends Analyzer {
   //Set a Default for the Gemable Slots
   get GemableSlots(): Record<number, JSX.Element> {
     return {
+      0: <Trans id="common.slots.head">Head</Trans>,
+      1: <Trans id="common.slots.neck">Neck</Trans>,
       4: <Trans id="common.slots.chest">Chest</Trans>,
       5: <Trans id="common.slots.belt">Belt</Trans>,
       6: <Trans id="common.slots.legs">Legs</Trans>,
@@ -107,23 +109,44 @@ class GemChecker extends Analyzer {
     }
   }
 
-  boxRowPerformance(item: Item, recommendedEnchantments: number[] | undefined) {
-    const hasEnchant = this.hasGem(item);
-    const hasMaxEnchant = hasEnchant && this.hasMaxEnchant(item);
-    const recommendedEnchantmentExists = recommendedEnchantments !== undefined;
-    if (hasMaxEnchant) {
-      if (
-        recommendedEnchantmentExists &&
-        recommendedEnchantments.includes(item.permanentEnchant ?? 0)
-      ) {
-        return QualitativePerformance.Perfect;
-      }
-      return QualitativePerformance.Good;
+  boxRowPerformance(item: Item, recommendedEnchantments: number[] | undefined, slot: number) {
+    const hasGem = this.hasGem(item);
+    const hasMaxGem = hasGem && this.hasMaxGems(item, slot);
+    let qualitativePerformance = QualitativePerformance.Fail;
+    if (hasMaxGem && item.gems !== undefined && item.gems.length > 0) {
+      item.gems.forEach((gem) => {
+        const lookupGem = gemById[gem.id];
+        let tempQP = QualitativePerformance.Fail;
+        if (lookupGem) {
+          switch (lookupGem.craftQuality) {
+            case 3:
+              tempQP = QualitativePerformance.Perfect;
+              break;
+            case 2:
+              tempQP = QualitativePerformance.Good;
+              break;
+            case 1:
+              tempQP = QualitativePerformance.Ok;
+              break;
+            default:
+              tempQP = QualitativePerformance.Fail;
+          }
+        }
+
+        if (lookupGem === undefined && qualitativePerformance !== QualitativePerformance.Fail) {
+          qualitativePerformance = QualitativePerformance.Ok;
+        } else if (
+          tempQP !== qualitativePerformance &&
+          qualitativePerformance !== QualitativePerformance.Fail
+        ) {
+          qualitativePerformance = QualitativePerformance.Good;
+        } else {
+          qualitativePerformance = tempQP;
+        }
+      });
+
+      return qualitativePerformance;
     }
-    if (hasEnchant) {
-      return QualitativePerformance.Ok;
-    }
-    return QualitativePerformance.Fail;
   }
 
   boxRowItemLink(item: Item, slotName: JSX.Element) {
@@ -238,28 +261,52 @@ class GemChecker extends Analyzer {
     recommendedEnchants: Record<number, EnchantItem[]> = {},
   ): EnchantmentBoxRowEntry[] {
     const gear = this.GemableGear;
-    const enchantSlots: { [key: number]: JSX.Element } = this.GemableSlots;
+    const gemSlots: { [key: number]: JSX.Element } = this.GemableSlots;
 
-    return Object.keys(gear).map<EnchantmentBoxRowEntry>((slot) => {
-      const slotNumber = Number(slot);
-      const item = gear[slotNumber];
-      const slotName = enchantSlots[slotNumber];
-      const recommendedEnchantments = recommendedEnchants[slotNumber];
-      return {
-        item,
-        slotName: this.boxRowItemLink(item, slotName),
-        value: this.boxRowPerformance(
+    //Let's try to filter out the ones that don't have a way to have a gem.
+    return Object.keys(gear)
+      .filter((slot) => {
+        const slotNumber = Number(slot);
+        const item = gear[slotNumber];
+        return (
+          this.hasGem(item) ||
+          GemChecker.twoSlots.includes(slotNumber) ||
+          GemChecker.oneSlot.includes(slotNumber)
+        );
+      })
+      .map<EnchantmentBoxRowEntry>((slot) => {
+        const slotNumber = Number(slot);
+        const item = gear[slotNumber];
+        const slotName = gemSlots[slotNumber];
+        const recommendedEnchantments = recommendedEnchants[slotNumber];
+        return {
           item,
-          recommendedEnchantments?.map((it) => it.effectId),
-        ),
-        tooltip: this.boxRowTooltip(item, slotName, recommendedEnchantments),
-      };
-    });
+          slotName: this.boxRowItemLink(item, slotName),
+          value:
+            this.boxRowPerformance(
+              item,
+              recommendedEnchantments?.map((it) => it.effectId),
+              slotNumber,
+            ) ?? QualitativePerformance.Fail,
+          tooltip: this.boxRowTooltip(item, slotName, recommendedEnchantments),
+        };
+      });
   }
 
   suggestions(when: When) {
     const gear = this.GemableGear;
     const enchantSlots: { [key: number]: JSX.Element } = this.GemableSlots;
+
+    //Let's try to filter out the ones that don't have a way to have a gem.
+    Object.keys(gear).filter((slot) => {
+      const slotNumber = Number(slot);
+      const item = gear[slotNumber];
+      return (
+        this.hasGem(item) ||
+        GemChecker.twoSlots.includes(slotNumber) ||
+        GemChecker.oneSlot.includes(slotNumber)
+      );
+    });
 
     Object.keys(gear).forEach((slot) => {
       const item = gear[Number(slot)];
