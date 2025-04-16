@@ -47,7 +47,9 @@ class GemChecker extends Analyzer {
 
   get slotsMissingEnchant() {
     const gear = this.GemableGear;
-    return Object.keys(gear).filter((slot) => !this.hasMaxGems(gear[Number(slot)], Number(slot)));
+    return Object.keys(gear).filter(
+      (slot) => !this.hasMaxGemCount(gear[Number(slot)], Number(slot)),
+    );
   }
 
   get numSlotsMissingEnchant() {
@@ -58,7 +60,7 @@ class GemChecker extends Analyzer {
     const gear = this.GemableGear;
     return Object.keys(gear).filter(
       (slot) =>
-        this.hasGem(gear[Number(slot)]) && this.hasMaxGems(gear[Number(slot)], Number(slot)),
+        this.hasGem(gear[Number(slot)]) && this.hasMaxGemCount(gear[Number(slot)], Number(slot)),
     );
   }
 
@@ -78,54 +80,77 @@ class GemChecker extends Analyzer {
     return false;
   }
 
-  hasMaxGems(item: Item, slot: number) {
-    //If Neck or Ring then min 2 gems - Slotted from Settings
-    if (GemChecker.twoSlots.includes(slot)) {
-      return (item.gems?.length ?? 0) >= 2;
-    } //If Helm, Bracer, or Belt min 1 - Slotted from Vault Coins
-    else if (GemChecker.oneSlot.includes(slot)) {
-      return this.hasGem(item);
+  hasMaxGemCount(item: Item, slot: number) {
+    //BonusID for sockets is 10878, 10879, 10880 (1, 2, 3 respectively)
+    if (item.bonusIDs === undefined) {
+      return true;
     }
-    /*else if(false) //Check if Gem Slot is empty (however you do that.)
-    {
-        
-    }*/ //If you here you have no slot at all so you have to have max gems of none
-    else {
+
+    if (
+      (Array.isArray(item.bonusIDs) && item.bonusIDs.includes(10880)) ||
+      item.bonusIDs === 10880
+    ) {
+      return (item.gems?.length ?? 0) >= 3;
+    } else if (
+      GemChecker.twoSlots.includes(slot) ||
+      (Array.isArray(item.bonusIDs) && item.bonusIDs.includes(10879)) ||
+      item.bonusIDs === 10879
+    ) {
+      return (item.gems?.length ?? 0) >= 2;
+    } else if (
+      GemChecker.oneSlot.includes(slot) ||
+      (Array.isArray(item.bonusIDs) && item.bonusIDs.includes(10878)) ||
+      item.bonusIDs === 10878
+    ) {
+      return this.hasGem(item);
+    } else {
       return true;
     }
   }
 
+  //Add a row for the actual Gem in the future to evaluate each
   boxRowPerformance(item: Item, recommendedEnchantments: number[] | undefined, slot: number) {
-    const hasGem = this.hasGem(item);
-    const hasMaxGem = hasGem && this.hasMaxGems(item, slot);
+    const hasMaxGem = this.hasMaxGemCount(item, slot);
     let qualitativePerformance = QualitativePerformance.Fail;
-    if (hasMaxGem && item.gems !== undefined && item.gems.length > 0) {
+    if (hasMaxGem) {
+      qualitativePerformance = QualitativePerformance.Good;
+    }
+
+    let maxGem = true;
+
+    if (item.gems !== undefined && item.gems.length > 0) {
       item.gems.forEach((gem) => {
         const lookupGem = gemById[gem.id];
         let tempQP = QualitativePerformance.Fail;
-        if (lookupGem) {
-          switch (lookupGem.craftQuality) {
-            case 3:
-              tempQP = QualitativePerformance.Perfect;
-              break;
-            case 2:
-              tempQP = QualitativePerformance.Good;
-              break;
-            case 1:
-              tempQP = QualitativePerformance.Ok;
-              break;
-            default:
-              tempQP = QualitativePerformance.Fail;
-          }
+
+        switch (lookupGem?.craftQuality) {
+          case 3:
+            tempQP = QualitativePerformance.Perfect;
+            break;
+          case 2:
+            tempQP = QualitativePerformance.Good;
+            maxGem = false;
+            break;
+          case 1:
+            tempQP = QualitativePerformance.Ok;
+            maxGem = false;
+            break;
+          case undefined: //Consider Item Level when there isn't a lookup.
+            tempQP = QualitativePerformance.Ok;
+            maxGem = false;
+            break;
+          default:
+            tempQP = QualitativePerformance.Fail;
+            maxGem = false;
+            break;
         }
 
-        if (lookupGem === undefined && qualitativePerformance !== QualitativePerformance.Fail) {
-          qualitativePerformance = QualitativePerformance.Ok;
-        } else if (
-          tempQP !== qualitativePerformance &&
-          qualitativePerformance !== QualitativePerformance.Fail
-        ) {
+        if (hasMaxGem && maxGem) {
+          qualitativePerformance = QualitativePerformance.Perfect;
+        } else if (hasMaxGem && !maxGem) {
           qualitativePerformance = QualitativePerformance.Good;
+        } else if (!hasMaxGem) {
+          qualitativePerformance = QualitativePerformance.Ok;
         } else {
           qualitativePerformance = tempQP;
         }
@@ -316,7 +341,7 @@ class GemChecker extends Analyzer {
               .staticImportance(SUGGESTION_IMPORTANCE.MAJOR),
           );
 
-        const noMaxGem = this.hasMaxGems(item, slotNumber);
+        const noMaxGem = this.hasMaxGemCount(item, slotNumber);
         when(noMaxGem)
           .isFalse()
           .addSuggestion((suggest, actual, recommended) =>
