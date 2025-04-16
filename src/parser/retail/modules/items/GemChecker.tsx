@@ -1,42 +1,15 @@
 import { Trans } from '@lingui/react/macro';
 import ITEMS from 'common/ITEMS/thewarwithin/enchants';
 import SPELLS from 'common/SPELLS/deathknight';
-import { PRIMARY_STAT } from 'parser/shared/modules/features/STAT';
 import BaseGemChecker from 'parser/shared/modules/items/GemChecker';
 
 //TODO: Figure this all out for Gems.  Just trying to get this working right now.
 // Example logs with missing enchants:
 // https://www.warcraftlogs.com/reports/ydxavfGq1mBrM9Vc/#fight=1&source=14
 
-const AGI_ENCHANTABLE_SLOTS = {
+const GEMABLE_SLOTS = {
   4: <Trans id="common.slots.chest">Chest</Trans>,
-  // 5: <Trans id="common.slots.belt">Belt</Trans>,
-  6: <Trans id="common.slots.legs">Legs</Trans>,
-  7: <Trans id="common.slots.boots">Boots</Trans>,
-  8: <Trans id="common.slots.bracers">Bracers</Trans>,
-  10: <Trans id="common.slots.ring">Ring</Trans>,
-  11: <Trans id="common.slots.ring">Ring</Trans>,
-  14: <Trans id="common.slots.cloak">Cloak</Trans>,
-  15: <Trans id="common.slots.weapon">Weapon</Trans>,
-  16: <Trans id="common.slots.offhand">OffHand</Trans>,
-};
-
-const STR_ENCHANTABLE_SLOTS = {
-  4: <Trans id="common.slots.chest">Chest</Trans>,
-  // 5: <Trans id="common.slots.belt">Belt</Trans>,
-  6: <Trans id="common.slots.legs">Legs</Trans>,
-  7: <Trans id="common.slots.boots">Boots</Trans>,
-  8: <Trans id="common.slots.bracers">Bracers</Trans>,
-  10: <Trans id="common.slots.ring">Ring</Trans>,
-  11: <Trans id="common.slots.ring">Ring</Trans>,
-  14: <Trans id="common.slots.cloak">Cloak</Trans>,
-  15: <Trans id="common.slots.weapon">Weapon</Trans>,
-  16: <Trans id="common.slots.offhand">OffHand</Trans>,
-};
-
-const INT_ENCHANTABLE_SLOTS = {
-  4: <Trans id="common.slots.chest">Chest</Trans>,
-  // 5: <Trans id="common.slots.belt">Belt</Trans>,
+  5: <Trans id="common.slots.belt">Belt</Trans>,
   6: <Trans id="common.slots.legs">Legs</Trans>,
   7: <Trans id="common.slots.boots">Boots</Trans>,
   8: <Trans id="common.slots.bracers">Bracers</Trans>,
@@ -243,11 +216,7 @@ const MAX_ENCHANT_IDS = [
 
 class GemChecker extends BaseGemChecker {
   get GemableSlotsSlots(): Record<number, JSX.Element> {
-    return this.selectedCombatant.spec?.primaryStat === PRIMARY_STAT.AGILITY
-      ? AGI_ENCHANTABLE_SLOTS
-      : this.selectedCombatant.spec?.primaryStat === PRIMARY_STAT.STRENGTH
-        ? STR_ENCHANTABLE_SLOTS
-        : INT_ENCHANTABLE_SLOTS;
+    return GEMABLE_SLOTS;
   }
 
   get MinEnchantIds(): number[] {

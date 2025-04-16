@@ -204,7 +204,7 @@ class CombatLogParser {
 
     potionChecker: PotionChecker,
     enchantChecker: EnchantChecker,
-    gemChekcer: GemChecker,
+    gemChecker: GemChecker,
     flaskChecker: FlaskChecker,
     foodChecker: FoodChecker,
     augmentRuneChecker: AugmentRuneChecker,
