@@ -8,6 +8,8 @@ import BaseGemChecker from 'parser/shared/modules/items/GemChecker';
 // https://www.warcraftlogs.com/reports/ydxavfGq1mBrM9Vc/#fight=1&source=14
 
 const GEMABLE_SLOTS = {
+  0: <Trans id="common.slots.head">Head</Trans>,
+  1: <Trans id="common.slots.neck">Neck</Trans>,
   4: <Trans id="common.slots.chest">Chest</Trans>,
   5: <Trans id="common.slots.belt">Belt</Trans>,
   6: <Trans id="common.slots.legs">Legs</Trans>,
@@ -215,7 +217,7 @@ const MAX_ENCHANT_IDS = [
 ] as const satisfies number[];
 
 class GemChecker extends BaseGemChecker {
-  get GemableSlotsSlots(): Record<number, JSX.Element> {
+  get GemableSlots(): Record<number, JSX.Element> {
     return GEMABLE_SLOTS;
   }
 

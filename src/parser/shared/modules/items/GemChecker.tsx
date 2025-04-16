@@ -16,22 +16,8 @@ class GemChecker extends Analyzer {
   static twoSlots = [GEAR_SLOTS.NECK, GEAR_SLOTS.FINGER1, GEAR_SLOTS.FINGER2];
   static oneSlot = [GEAR_SLOTS.HEAD, GEAR_SLOTS.WAIST, GEAR_SLOTS.WRISTS];
 
-  //Set a Default for the Gemable Slots
   get GemableSlots(): Record<number, JSX.Element> {
-    return {
-      0: <Trans id="common.slots.head">Head</Trans>,
-      1: <Trans id="common.slots.neck">Neck</Trans>,
-      4: <Trans id="common.slots.chest">Chest</Trans>,
-      5: <Trans id="common.slots.belt">Belt</Trans>,
-      6: <Trans id="common.slots.legs">Legs</Trans>,
-      7: <Trans id="common.slots.boots">Boots</Trans>,
-      8: <Trans id="common.slots.bracers">Bracers</Trans>,
-      10: <Trans id="common.slots.ring">Ring</Trans>,
-      11: <Trans id="common.slots.ring">Ring</Trans>,
-      14: <Trans id="common.slots.cloak">Cloak</Trans>,
-      15: <Trans id="common.slots.weapon">Weapon</Trans>,
-      16: <Trans id="common.slots.offhand">OffHand</Trans>,
-    };
+    return {}; //Keeping form with EnchantChecker and having the user override this
   }
 
   //Figure out who slot is not a number to begin with...
