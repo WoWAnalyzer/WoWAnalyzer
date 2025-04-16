@@ -4,6 +4,7 @@ import { Enchant as EnchantItem } from 'common/ITEMS/Item';
 import { ItemLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { Item } from 'parser/core/Events';
+import { ItemHelper } from 'parser/core/itemHelper';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { EnchantmentBoxRowEntry } from 'interface/guide/components/Preparation/EnchantmentSubSection/EnchantmentBoxRow';
@@ -86,22 +87,11 @@ class GemChecker extends Analyzer {
       return true;
     }
 
-    if (
-      (Array.isArray(item.bonusIDs) && item.bonusIDs.includes(10880)) ||
-      item.bonusIDs === 10880
-    ) {
+    if (Array.isArray(item.bonusIDs) && ItemHelper.hasBonusId(item, 10880)) {
       return (item.gems?.length ?? 0) >= 3;
-    } else if (
-      GemChecker.twoSlots.includes(slot) ||
-      (Array.isArray(item.bonusIDs) && item.bonusIDs.includes(10879)) ||
-      item.bonusIDs === 10879
-    ) {
+    } else if (GemChecker.twoSlots.includes(slot) || ItemHelper.hasBonusId(item, 10879)) {
       return (item.gems?.length ?? 0) >= 2;
-    } else if (
-      GemChecker.oneSlot.includes(slot) ||
-      (Array.isArray(item.bonusIDs) && item.bonusIDs.includes(10878)) ||
-      item.bonusIDs === 10878
-    ) {
+    } else if (GemChecker.oneSlot.includes(slot) || ItemHelper.hasBonusId(item, 10878)) {
       return this.hasGem(item);
     } else {
       return true;
