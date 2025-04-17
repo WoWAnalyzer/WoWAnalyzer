@@ -5,7 +5,7 @@ import { SpellLink } from 'interface';
 import DonutChart from 'parser/ui/DonutChart';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import getResourceSpent from 'parser/core/getResourceSpent';
-import { FINISHERS, getMaxComboPoints } from '../../constants';
+import { FINISHERS } from '../../constants';
 import Finishers from '../features/Finishers';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/rogue';
@@ -50,9 +50,6 @@ export default class FinisherUse extends Analyzer {
         color: GoodColor,
         label: 'Max CP Finishers',
         value: this.maxCpFinishers,
-        tooltip: (
-          <>This includes finishers cast at {getMaxComboPoints(this.selectedCombatant) - 1} CPs.</>
-        ),
       },
       {
         color: BadColor,
