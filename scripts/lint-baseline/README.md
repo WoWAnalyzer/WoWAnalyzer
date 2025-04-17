@@ -2,7 +2,7 @@
 
 Simple helper to establish a lint error baseline for CI.
 
-The reason this exists is to help us migrate ESLint configs, and not get stuck needing to fix *every* new warning / error. Many involve old TS ports or old JS code that
+The reason this exists is to help us migrate ESLint configs, and not get stuck needing to fix _every_ new warning / error. Many involve old TS ports or old JS code that
 just hasn't been updated yet.
 
 ### Usage

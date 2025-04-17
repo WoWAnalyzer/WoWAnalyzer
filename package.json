@@ -135,8 +135,12 @@
     "generate-talents": "npx tsx ./scripts/talents/generate-talents.ts && prettier -w src/common/TALENTS/*.ts"
   },
   "lint-staged": {
-    "*.{ts,tsx,js,jsx,cjs,mjs,json,md,mdx,yml,graphql,scss,css}": ["prettier --write"],
-    "*.{ts,tsx,js,jsx}": ["pnpm run lint-uncached --fix"]
+    "*.{ts,tsx,js,jsx,cjs,mjs,json,md,mdx,yml,graphql,scss,css}": [
+      "prettier --write"
+    ],
+    "*.{ts,tsx,js,jsx}": [
+      "pnpm run lint-uncached --fix"
+    ]
   },
   "packageManager": "pnpm@9.5.0",
   "pnpm": {
