@@ -80,9 +80,10 @@ function ResourceUsageSection({ modules, info }: GuideProps<typeof CombatLogPars
       >
         <p>
           Most of your abilities either <strong>build</strong> or <strong>spend</strong>{' '}
-          <ResourceLink id={RESOURCE_TYPES.COMBO_POINTS.id} />. Never use a builder at 6 or 7 CPs.{' '}
-          <strong>Spenders</strong> should typically be used at <strong>6 or more</strong> combo
-          points, but at <strong>5 or more</strong> if <SpellLink spell={SPELLS.SUBTERFUGE_BUFF} />
+          <ResourceLink id={RESOURCE_TYPES.COMBO_POINTS.id} />. Never use a builder at{' '}
+          <strong>6 or 7</strong> combo points. <strong>Spenders</strong> should typically be used
+          at <strong>6 or more</strong> combo points, but at <strong>5 or more</strong> if{' '}
+          <SpellLink spell={SPELLS.SUBTERFUGE_BUFF} />
           {info.combatant.hasTalent(TALENTS.HIDDEN_OPPORTUNITY_TALENT) && (
             <>
               , <SpellLink spell={SPELLS.AUDACITY_TALENT_BUFF} /> or{' '}
