@@ -6,10 +6,10 @@ import { SpellUse, ChecklistUsageInfo } from 'parser/core/SpellUsage/core';
 import { createChecklistItem, createSpellUse } from 'parser/core/MajorCooldowns/MajorCooldown';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { HideGoodCastsSpellUsageSubSection } from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
-import { logSpellUseEvent } from 'parser/core/SpellUsage/SpellUsageSubSection';
 import CastPerformanceSummary from 'analysis/retail/demonhunter/shared/guide/CastPerformanceSummary';
 import ComboPointTracker from 'analysis/retail/rogue/shared/ComboPointTracker';
 import { getGeneratedAdrenalineRushComboPoints } from '../../normalizers/CastLinkNormalizer';
+import uptimeBarSubStatistic, { UptimeBarSpec } from 'parser/ui/UptimeBarSubStatistic';
 
 const MAX_GOOD_CP = 2;
 
@@ -60,15 +60,25 @@ export default class AdrenalineRush extends Analyzer {
     ).length;
     const totalCasts = this.cooldownUses.length;
 
+    const adrenalineRushBarSpec: UptimeBarSpec = {
+      spells: [TALENTS.ADRENALINE_RUSH_TALENT],
+      uptimes: this.selectedCombatant
+        .getBuffHistory(TALENTS.ADRENALINE_RUSH_TALENT)
+        .map((buff) => ({
+          start: buff.start,
+          end: buff.end ?? this.owner.currentTimestamp,
+        })),
+    };
+
     return (
       <HideGoodCastsSpellUsageSubSection
         hideGoodCasts={false}
         explanation={explanation}
         uses={this.cooldownUses}
         castBreakdownSmallText={<> - Red indicates bad Adrenaline Rush usage.</>}
-        onPerformanceBoxClick={logSpellUseEvent}
         abovePerformanceDetails={
           <div style={{ marginBottom: 10 }}>
+            {uptimeBarSubStatistic(this.owner.fight, adrenalineRushBarSpec)}
             <CastPerformanceSummary
               spell={TALENTS.ADRENALINE_RUSH_TALENT}
               casts={goodCasts}
