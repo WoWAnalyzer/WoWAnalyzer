@@ -137,7 +137,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.KILLING_SPREE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 120 * (combatant.hasTalent(TALENTS.DISORIENTING_STRIKES_TALENT) ? 0.9 : 1),
+        cooldown: 90 * (combatant.hasTalent(TALENTS.DISORIENTING_STRIKES_TALENT) ? 0.9 : 1),
         gcd: {
           static: standardGcd,
         },
@@ -180,9 +180,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.FEINT.id,
         cooldown: 15,
         charges: combatant.hasTalent(TALENTS.GRACEFUL_GUILE_TALENT) ? 2 : 1,
-        gcd: {
-          static: standardGcd,
-        },
+        gcd: null,
       },
       {
         spell: TALENTS.EVASION_TALENT.id,
