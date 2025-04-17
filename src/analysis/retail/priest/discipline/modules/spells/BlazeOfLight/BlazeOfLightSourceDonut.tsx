@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import SPELLS, { maybeGetSpell } from 'common/SPELLS';
 import { formatThousands } from 'common/format';
 import { Ability } from 'parser/core/Events';
 import DonutChart from 'parser/ui/DonutChart';
@@ -21,6 +21,8 @@ const COLORS = {
   [SPELLS.VOID_BLAST_DAMAGE_DISC.id]: '#8d4499',
   [SPELLS.PENANCE.id]: '#0cd368',
   [SPELLS.DARK_REPRIMAND_DAMAGE.id]: '#3C79F5',
+  [SPELLS.PENANCE_TWINSIGHT_DAMAGE.id]: '#3aff95',
+  [SPELLS.DARK_REPRIMAND_TWINSIGHT_DAMAGE.id]: '#82a9f8',
 };
 
 function generateHealingItems(
@@ -33,7 +35,7 @@ function generateHealingItems(
     return {
       color: `${COLORS[ability.guid]}`,
       spellId: ability.guid,
-      label: ability.name,
+      label: maybeGetSpell(ability.guid)?.name || ability.name,
       value: healingDone,
       valueTooltip: formatThousands(healingDone),
     };

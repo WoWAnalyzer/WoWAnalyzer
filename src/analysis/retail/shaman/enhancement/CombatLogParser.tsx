@@ -62,8 +62,13 @@ import StormbringerEventOrderNormalizer from '../shared/hero/stormbringer/normal
 import ElementalSpiritsPrepullNormalizer from './modules/normalizers/ElementalSpiritsPrepullNormalizer';
 import PrimordialStorm from './modules/talents/PrimordialStorm';
 import Reactivity from './modules/hero/totemic/Reactivity';
+import EnchantChecker from './modules/core/EnchantChecker';
 
 class CombatLogParser extends CoreCombatLogParser {
+  static defaultModules = {
+    ...CoreCombatLogParser.defaultModules,
+    enchantChecker: EnchantChecker,
+  };
   static specModules = {
     spellUsable: SpellUsable,
     globalCooldown: GlobalCooldown,

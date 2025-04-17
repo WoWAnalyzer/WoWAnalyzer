@@ -23,7 +23,7 @@ class Abilities extends CoreAbilities {
           SPELLS.DARK_REPRIMAND_DAMAGE.id,
         ],
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 9,
+        cooldown: (haste) => 9 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -82,6 +82,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.POWER_WORD_SHIELD.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         isDefensive: true,
+        cooldown: (haste) => 7.5 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -272,7 +273,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 24,
+        cooldown: (haste) => 24 / (1 + haste),
       },
       {
         spell: SPELLS.MIND_SOOTHE.id,

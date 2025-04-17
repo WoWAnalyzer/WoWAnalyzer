@@ -80,6 +80,7 @@ const DEFAULT_HASTE_BUFFS: HasteBuffMap = {
     hastePerStack: 0.01,
   },
   [SPELLS.RUSH_OF_LIGHT.id]: 0.05,
+  [SPELLS.UNDISPUTED_RULING_BUFF.id]: 0.12,
 
   //region Priest
   [TALENTS_PRIEST.POWER_INFUSION_TALENT.id]: 0.2,

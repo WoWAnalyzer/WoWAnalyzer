@@ -11,6 +11,7 @@ import { GapHighlight } from 'parser/ui/CooldownBar';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import { getCurrentRSKTalent } from '../../constants';
 import { Talent } from 'common/TALENTS/types';
+import { formatPercentage } from 'common/format';
 
 const CAST_BUFFER_MS = 250;
 
@@ -99,11 +100,30 @@ class RisingSunKick extends Analyzer {
             <SpellLink spell={this.currentRskTalent} /> cast efficiency
           </strong>
           {this.guideSubStatistic()}
+          {this.rwkUptime()}
         </RoundedPanel>
       </div>
     );
 
     return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
+  }
+
+  rwkUptime() {
+    if (!this.selectedCombatant.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_TALENT)) {
+      return <></>;
+    }
+
+    return (
+      <>
+        <div style={{ fontSize: 20 }}>
+          {formatPercentage(
+            this.selectedCombatant.getBuffUptime(SPELLS.RUSHING_WINDS_BUFF) /
+              this.owner.fightDuration,
+          )}
+          % <small> buff uptime</small>
+        </div>
+      </>
+    );
   }
 
   /** Guide subsection describing the proper usage of Rejuvenation */

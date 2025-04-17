@@ -1,4 +1,4 @@
-import { GoodColor, SubSection, useAnalyzers } from 'interface/guide';
+import { GoodColor, SubSection, useAnalyzers, useInfo } from 'interface/guide';
 import Explanation from 'interface/guide/components/Explanation';
 import { TooltipElement } from 'interface';
 import { HideExplanationsToggle } from 'interface/guide/components/HideExplanationsToggle';
@@ -6,10 +6,13 @@ import { Highlight } from 'interface/Highlight';
 import Timeline from 'interface/guide/components/MajorDefensives/Timeline';
 import AllCooldownUsagesList from 'interface/guide/components/MajorDefensives/AllCooldownUsagesList';
 import { MAJOR_ANALYZERS } from './config';
+import MajorDefensive from 'interface/guide/components/MajorDefensives/MajorDefensiveAnalyzer';
 
 const MajorDefensives = () => {
-  const timelineAnalyzers = useAnalyzers(MAJOR_ANALYZERS);
-  const cdAnalyzers = useAnalyzers(MAJOR_ANALYZERS);
+  const info = useInfo();
+  const analyzers = info?.combatant ? MAJOR_ANALYZERS(info.combatant) : [];
+  // we do the cast here because writing "constructor of a subclass of T" is hard
+  const analyzerInstances = useAnalyzers(analyzers) as MajorDefensive<any, any>[];
   return (
     <>
       <HideExplanationsToggle id="hide-explanations-major-defensives" />
@@ -59,9 +62,9 @@ const MajorDefensives = () => {
         </Explanation>
       </SubSection>
       <SubSection title="Timeline">
-        <Timeline analyzers={timelineAnalyzers} />
+        <Timeline analyzers={analyzerInstances} />
       </SubSection>
-      <AllCooldownUsagesList analyzers={cdAnalyzers} />
+      <AllCooldownUsagesList analyzers={analyzerInstances} />
     </>
   );
 };

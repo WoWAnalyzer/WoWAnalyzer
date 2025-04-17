@@ -12,6 +12,7 @@ import Events, {
   DeathEvent,
   EventType,
   FightEndEvent,
+  GetRelatedEvent,
   GlobalCooldownEvent,
   RefreshBuffEvent,
   RemoveBuffEvent,
@@ -42,8 +43,12 @@ import Casts from 'interface/report/Results/Timeline/Casts';
 import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { getApplicableRules, HighPriorityAbilities } from '../../common';
-import { GCD_TOLERANCE } from '../../constants';
-import { addEnhancedCastReason, addInefficientCastReason } from 'parser/core/EventMetaLib';
+import { EnhancementEventLinks, GCD_TOLERANCE } from '../../constants';
+import {
+  addAdditionalCastInformation,
+  addEnhancedCastReason,
+  addInefficientCastReason,
+} from 'parser/core/EventMetaLib';
 import NPCS from 'common/NPCS';
 import Reactivity from '../hero/totemic/Reactivity';
 
@@ -207,12 +212,40 @@ class HotHand extends MajorCooldown<HotHandProc> {
   }
 
   startOrRefreshWindow(event: ApplyBuffEvent | RefreshBuffEvent) {
-    // on application both resets the CD and applies a mod rate
-    this.spellUsable.endCooldown(TALENTS.LAVA_LASH_TALENT.id, event.timestamp);
+    // on application applies a mod rate and also resets CD if proc was natural
+
+    const whirlingFireRemovedEvent = GetRelatedEvent<RemoveBuffEvent>(
+      event,
+      EnhancementEventLinks.WHIRLING_FIRE_LINK,
+      (e) => e.type === EventType.RemoveBuff,
+    );
+
+    // cooldown isn't reset if the Hot Hands stems from Whirling Fire
+    if (!whirlingFireRemovedEvent) {
+      this.spellUsable.endCooldown(TALENTS.LAVA_LASH_TALENT.id, event.timestamp);
+    }
 
     if (!this.activeWindow) {
       this.spellUsable.applyCooldownRateChange(TALENTS.LAVA_LASH_TALENT.id, this.hotHand.rate);
       this.hotHandActive.startInterval(event.timestamp);
+
+      // make sure to include first Lava Lash of the window, when triggered by Whirling Fire
+      let lavaLashCastEvent: CastEvent | undefined;
+      if (whirlingFireRemovedEvent) {
+        lavaLashCastEvent = GetRelatedEvent<CastEvent>(
+          whirlingFireRemovedEvent,
+          EnhancementEventLinks.WHIRLING_FIRE_LINK,
+          (e) => e.type === EventType.Cast,
+        );
+        lavaLashCastEvent &&
+          addAdditionalCastInformation(
+            lavaLashCastEvent,
+            <>
+              <SpellLink spell={TALENTS.HOT_HAND_TALENT} /> was applied by{' '}
+              <SpellLink spell={SPELLS.WHIRLING_FIRE} />
+            </>,
+          );
+      }
 
       this.activeWindow = {
         event: event,
@@ -225,6 +258,15 @@ class HotHand extends MajorCooldown<HotHandProc> {
         globalCooldowns: [],
         hasteAdjustedWastedCooldown: 0,
       };
+
+      if (lavaLashCastEvent) {
+        this.activeWindow.timeline.start = lavaLashCastEvent.timestamp;
+        this.activeWindow.timeline.events.push(
+          lavaLashCastEvent,
+          lavaLashCastEvent.globalCooldown!,
+        );
+        this.activeWindow.globalCooldowns.push(lavaLashCastEvent.globalCooldown!.duration);
+      }
     }
     this.lastCooldownWasteCheck = event.timestamp;
   }

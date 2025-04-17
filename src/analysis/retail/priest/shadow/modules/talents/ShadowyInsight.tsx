@@ -50,6 +50,12 @@ class ShadowyInsight extends Analyzer {
 
   onBuffApplied(event: ApplyBuffEvent) {
     this.spellUsable.endCooldown(SPELLS.MIND_BLAST.id, event.timestamp, false, false);
+    this.spellUsable.endCooldown(
+      SPELLS.SHADOW_PRIEST_VOIDWEAVER_VOID_BLAST.id,
+      event.timestamp,
+      false,
+      false,
+    );
     this.procsGained += 1;
   }
 

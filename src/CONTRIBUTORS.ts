@@ -2628,3 +2628,9 @@ export const Spruudel: Contributor = {
   github: 'Spruudel',
   discord: 'spruuudel',
 };
+
+export const oneunreadmail: Contributor = {
+  nickname: 'oneunreadmail',
+  github: 'oneunreadmail',
+  discord: 'oneunreadmail',
+};

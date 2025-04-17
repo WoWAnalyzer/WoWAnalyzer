@@ -4,11 +4,11 @@ import Analyzer, { Options } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, {
   Ability,
+  AbilityEvent,
   AnyEvent,
   ApplyBuffEvent,
   DamageEvent,
   FightEndEvent,
-  RefreshBuffEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -427,7 +427,7 @@ class ExecuteHelper extends Analyzer {
     }
   }
 
-  applySingleExecuteEnablerBuff(event: ApplyBuffEvent) {
+  applySingleExecuteEnablerBuff(event: AbilityEvent<any>) {
     this.singleExecuteEnablerApplications += 1;
 
     const ability = event.ability;
@@ -441,11 +441,11 @@ class ExecuteHelper extends Analyzer {
     });
   }
 
-  refreshSingleExecuteEnablerBuff(event: RefreshBuffEvent) {
+  refreshSingleExecuteEnablerBuff(event: AbilityEvent<any>) {
     this.singleExecuteEnablerApplications += 1;
   }
 
-  removeSingleExecuteEnablerBuff(event: RemoveBuffEvent) {
+  removeSingleExecuteEnablerBuff(event: AbilityEvent<any>) {
     const range = this.currentBuffRanges.get(event.ability.guid);
     this.currentBuffRanges.delete(event.ability.guid);
 

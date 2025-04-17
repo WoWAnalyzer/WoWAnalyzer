@@ -4,6 +4,7 @@ import {
   HolyPowerDetails,
   DivineToll,
   HolyPowerPerMinute,
+  DuskAndDawn,
 } from 'analysis/retail/paladin/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
@@ -13,7 +14,6 @@ import AplCheck from './modules/core/AplCheck';
 import GrandCrusader from './modules/talents/GrandCrusader';
 import Haste from './modules/core/Haste';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import Checklist from './modules/features/Checklist/Module';
 import MitigationCheck from './modules/features/MitigationCheck';
 import NoDamageShieldOfTheRighteous from './modules/features/NoDamageShieldOfTheRighteous';
 import OvercapShieldOfTheRighteous from './modules/features/OvercapShieldOfTheRighteous';
@@ -33,7 +33,6 @@ import RighteousProtector from './modules/talents/RighteousProtector';
 import ResoluteDefender from './modules/talents/ResoluteDefender';
 import GiftOfTheGoldenValkyr from './modules/talents/GiftOfTheGoldenValkyr';
 import SanctifiedWrathProtJudgement from './modules/talents/SanctifiedWrathProtJudgement';
-import ProtPaladinT304P from './modules/core/ProtPaladinT304P';
 import CastLinkNormalizer from './modules/CastLinkNormalizer';
 import GuardianOfAncientQueens from './normalizers/GuardianOfAncientQueens';
 import DefensiveBuffLinkNormalizer from './modules/core/Defensives/DefensiveBuffLinkNormalizer';
@@ -44,6 +43,8 @@ import EyeOfTyr from './modules/core/Defensives/EyeOfTyr';
 import ConsecrationDefensives from './modules/core/Defensives/ConsecrationDefensives';
 import Guide from './Guide';
 import DefensiveBuffs from './modules/core/Defensives/Defensivebuffs';
+import HammerOfLight from '../shared/HammerOfLight';
+import Valiance from './modules/talents/Valiance';
 
 class CombatLogParser extends CoreCombatLogParser {
   static guide = Guide;
@@ -52,7 +53,6 @@ class CombatLogParser extends CoreCombatLogParser {
     builderUse: BuilderUse,
     grandCrusader: GrandCrusader,
     haste: Haste,
-    protPaladinT304P: ProtPaladinT304P,
 
     //Normalizers
     guardianOfAncientQueens: GuardianOfAncientQueens,
@@ -64,12 +64,12 @@ class CombatLogParser extends CoreCombatLogParser {
     hotr: HammerOfTheRighteous,
     wordOfGlory: WordOfGlory,
     judgment: Judgment,
+    hammerOfLight: HammerOfLight,
 
     // Features
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
     spellUsable: SpellUsable,
-    checklist: Checklist,
     wogTiming: WordOfGloryTiming,
     shieldOfTheRighteous: ShieldOfTheRighteous,
     consecration: Consecration,
@@ -95,6 +95,8 @@ class CombatLogParser extends CoreCombatLogParser {
     firstAvenger: FirstAvenger,
     momentOfGlory: MomentOfGlory,
     divineToll: DivineToll,
+    duskAndDawn: DuskAndDawn,
+    valiance: Valiance,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

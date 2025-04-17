@@ -39,8 +39,7 @@ const config: Config = {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport:
-    'report/gdBvxajDfACLJNPT/2-Normal+The+Bloodbound+Horror+-+Kill+(2:58)/Doxashe/standard',
+  exampleReport: 'report/zwv3NrB1jx7C9DaJ/5-Normal+Rik+Reverb+-+Kill+(5:17)/Doxashe/standard',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

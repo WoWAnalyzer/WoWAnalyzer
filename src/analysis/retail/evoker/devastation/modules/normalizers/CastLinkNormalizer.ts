@@ -45,6 +45,7 @@ const IRIDESCENCE_RED_BACKWARDS_BUFFER_MS = 500;
 const DISINTEGRATE_TICK_BUFFER = 4_000; // Haste dependant
 const JACK_APPLY_REMOVE_BUFFER = 30_000; // Realistically it will never be this long, but we hate edgecases
 const ENGULF_TRAVEL_TIME_MS = 500;
+const JACKPOT_CONSUME_FORWARD_BUFFER_MS = 300;
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -259,7 +260,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: EventType.RemoveBuff,
     anyTarget: true,
     backwardBufferMs: CAST_BUFFER_MS,
-    forwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: JACKPOT_CONSUME_FORWARD_BUFFER_MS,
     isActive: (C) => C.has4PieceByTier(TIERS.TWW2),
     maximumLinks: 1,
   },

@@ -5,6 +5,7 @@ import TALENTS from 'common/TALENTS/mage';
 
 // prettier-ignore
 export default [
+  change(date(2025, 4, 11), <>Fixed <SpellLink spell={TALENTS.GLACIAL_SPIKE_TALENT} /> shattered evaluation</>, Earosselot),
   change(date(2025, 3, 18), <> Frostfire APL: Updated to new simplified 11.1</>, Earosselot),
   change(date(2025, 2, 27), <>Apls: Updated for Spell Slinger and Frostfire for patch 11.1</>, Earosselot),
   change(date(2024, 11, 22), <>Fixed a typo in the comet storm hit description</>, Soulhealer95),

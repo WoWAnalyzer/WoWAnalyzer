@@ -1,11 +1,12 @@
 import { change, date } from 'common/changelog';
-//import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import { DoxAshe } from 'CONTRIBUTORS';
 import { Jordan } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2025, 3, 31),  <>Fix <SpellLink spell={SPELLS.MIND_BLAST}/> and <SpellLink spell={SPELLS.SHADOW_PRIEST_VOIDWEAVER_VOID_BLAST}/> cast efficiency for the Voidweaver Hero Talent Tree </>,DoxAshe),
   change(date(2025, 3, 7),  <>Fix <SpellLink spell={TALENTS.POWER_INFUSION_TALENT}/> without TWW season 2 four piece </>,DoxAshe),
   change(date(2025, 3, 5), <>Fix typo in <SpellLink spell={TALENTS.VOID_TORRENT_TALENT}/> section of Short Cooldowns</>,Jordan),
   change(date(2025, 3, 3),  <>Fix <SpellLink spell={TALENTS.POWER_INFUSION_TALENT}/> with TWW season 2 four piece </>,DoxAshe),
