@@ -30,6 +30,10 @@ const FLOAT_LIKE_A_BUTTERFLY_CDR = 500;
 const RESTLESS_BLADES_BASE_CDR = 1000;
 const TRUE_BEARING_CDR = 500;
 
+const SUPER_CHARGED_COMBO_POINT_WORTH = 2;
+const FORCED_INDUCTION_COMBO_POINT_WORTH = 1;
+const COUP_DE_GRACE_EXTRA_COMBO_POINT_WORTH = 5;
+
 class RestlessBlades extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
@@ -37,16 +41,48 @@ class RestlessBlades extends Analyzer {
   protected spellUsable!: SpellUsable;
 
   hasFloatLikeAButterfly = this.selectedCombatant.hasTalent(TALENTS.FLOAT_LIKE_A_BUTTERFLY_TALENT);
+  hasSuperCharger = this.selectedCombatant.hasTalent(TALENTS.SUPERCHARGER_TALENT);
+  hasForcedInduction = this.selectedCombatant.hasTalent(TALENTS.FORCED_INDUCTION_TALENT);
+
+  currentSuperChargedComboPoints = 0;
 
   constructor(options: Options) {
     super(options);
     this.addEventListener(Events.SpendResource.by(SELECTED_PLAYER), this.onSpendResource);
+
+    if (this.hasSuperCharger) {
+      this.addEventListener(
+        Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ROLL_THE_BONES),
+        this.onCast,
+      );
+    }
   }
 
-  onSpendResource(event: SpendResourceEvent) {
-    const spent = event.resourceChange;
+  private onCast() {
+    this.currentSuperChargedComboPoints = 2;
+  }
+
+  private useSuperChargedComboPoint() {
+    if (this.currentSuperChargedComboPoints === 0) {
+      return 0;
+    }
+
+    this.currentSuperChargedComboPoints -= 1;
+
+    return (
+      SUPER_CHARGED_COMBO_POINT_WORTH +
+      (this.hasForcedInduction ? FORCED_INDUCTION_COMBO_POINT_WORTH : 0)
+    );
+  }
+
+  private onSpendResource(event: SpendResourceEvent) {
     if (event.resourceChangeType !== RESOURCE_TYPES.COMBO_POINTS.id) {
       return;
+    }
+
+    let spent = (event.resourceChange += this.useSuperChargedComboPoint());
+    if (event.ability.guid === SPELLS.COUP_DE_GRACE_CAST.id) {
+      spent += COUP_DE_GRACE_EXTRA_COMBO_POINT_WORTH;
     }
 
     const trueBearingCDR = this.selectedCombatant.hasBuff(SPELLS.TRUE_BEARING.id)
@@ -66,7 +102,7 @@ class RestlessBlades extends Analyzer {
     }
   }
 
-  reduceCooldown(spellId: number, amount: number) {
+  private reduceCooldown(spellId: number, amount: number) {
     if (this.spellUsable.isOnCooldown(spellId)) {
       this.spellUsable.reduceCooldown(spellId, amount);
     }
