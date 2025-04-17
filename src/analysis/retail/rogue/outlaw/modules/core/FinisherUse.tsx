@@ -270,8 +270,8 @@ export default class FinisherUse extends Analyzer {
           points.{' '}
           {this.selectedCombatant.hasTalent(TALENTS.SUBTERFUGE_TALENT) && (
             <>
-              When inside of <SpellLink spell={SPELLS.SUBTERFUGE_BUFF} /> <strong>Finishers</strong>{' '}
-              should be used at <strong>5 or more</strong> combo points.
+              When inside of <SpellLink spell={SPELLS.SUBTERFUGE_BUFF} />,{' '}
+              <strong>Finishers</strong> should be used at <strong>5 or more</strong> combo points.
             </>
           )}
         </p>
