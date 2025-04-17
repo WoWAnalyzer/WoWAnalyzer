@@ -102,7 +102,7 @@ export default class FinisherUse extends Analyzer {
     const isInStealth = this.finishers.isInStealth();
 
     if (shouldBeInStealth) {
-      createChecklistItem(
+      return createChecklistItem(
         `${event.ability.name}_stealth`,
         { event },
         {
