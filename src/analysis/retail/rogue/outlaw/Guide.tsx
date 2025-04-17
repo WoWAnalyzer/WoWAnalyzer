@@ -129,7 +129,7 @@ function ActionPriorityList({ modules, info }: GuideProps<typeof CombatLogParser
         priority list:
         <ol>
           <li>Cooldowns, according to the priorities below.</li>
-          <li>Finishers, if you are at 6cp or higher, according to the priorities below.</li>
+          <li>Finishers, according to the priorities below.</li>
           <li>Builders, according to the priorities below.</li>
         </ol>
       </p>
