@@ -124,6 +124,7 @@
     "lint-uncached": "eslint --format stylish --max-warnings 0 --no-warn-ignored",
     "lint": "pnpm run lint-uncached --cache .",
     "lint:fix": "pnpm run lint --fix",
+    "lint-baseline": "node --experimental-strip-types scripts/lint-baseline/baseline.ts",
     "extract": "lingui extract --overwrite --clean",
     "script": "set NODE_ENV=development&&babel-node",
     "prepare": "is-ci || husky",
@@ -134,12 +135,8 @@
     "generate-talents": "npx tsx ./scripts/talents/generate-talents.ts && prettier -w src/common/TALENTS/*.ts"
   },
   "lint-staged": {
-    "*.{ts,tsx,js,jsx,cjs,mjs,json,md,mdx,yml,graphql,scss,css}": [
-      "prettier --write"
-    ],
-    "*.{ts,tsx,js,jsx}": [
-      "pnpm run lint-uncached --fix"
-    ]
+    "*.{ts,tsx,js,jsx,cjs,mjs,json,md,mdx,yml,graphql,scss,css}": ["prettier --write"],
+    "*.{ts,tsx,js,jsx}": ["pnpm run lint-uncached --fix"]
   },
   "packageManager": "pnpm@9.5.0",
   "pnpm": {
