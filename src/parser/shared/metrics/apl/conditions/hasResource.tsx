@@ -5,7 +5,7 @@ import { ClassResources, EventType } from 'parser/core/Events';
 import { AplTriggerEvent, Condition, tenseAlt } from '../index';
 import { Range, formatRange } from './index';
 
-type ResourceInformation = {
+export type ResourceInformation = {
   current: number;
   previous: number;
 };

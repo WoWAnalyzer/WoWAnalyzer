@@ -5,6 +5,7 @@ import Combatant from 'parser/core/Combatant';
 import TALENTS from 'common/TALENTS/shaman';
 import SPELLS from 'common/SPELLS/shaman';
 import SpellLink from 'interface/SpellLink';
+import { ResourceInformation } from 'parser/shared/metrics/apl/conditions/hasResource';
 
 export const AtLeastFiveMSW = hasResource(RESOURCE_TYPES.MAELSTROM_WEAPON, { atLeast: 5 });
 export const MaxStacksMSW = hasResource(RESOURCE_TYPES.MAELSTROM_WEAPON, {
@@ -13,7 +14,7 @@ export const MaxStacksMSW = hasResource(RESOURCE_TYPES.MAELSTROM_WEAPON, {
 
 export const MINIMUM_MAELSTROM_WEAPON_SPEND_STACKS = 9;
 
-export function minimumMaelstromWeaponStacks(minStacks: number): Condition<number> {
+export function minimumMaelstromWeaponStacks(minStacks: number): Condition<ResourceInformation> {
   return hasResource(RESOURCE_TYPES.MAELSTROM_WEAPON, {
     atLeast: minStacks,
   });
