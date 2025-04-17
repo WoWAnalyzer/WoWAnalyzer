@@ -1,13 +1,13 @@
 import { Trans } from '@lingui/react/macro';
-import ITEMS from 'common/ITEMS';
-import { Enchant as EnchantItem } from 'common/ITEMS/Item';
+//import ITEMS from 'common/ITEMS';
+import { Gem as GemItem } from 'common/ITEMS/Item';
 import { ItemLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
-import { Item } from 'parser/core/Events';
+import { Item, Gem as EventGem } from 'parser/core/Events';
 import { ItemHelper } from 'parser/core/itemHelper';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import { EnchantmentBoxRowEntry } from 'interface/guide/components/Preparation/EnchantmentSubSection/EnchantmentBoxRow';
+import { GemBoxRowEntry } from 'interface/guide/components/Preparation/GemSubSection/GemBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { gemById } from 'common/ITEMS/thewarwithin/gems'; //Will be used later intermediate commit
 import GEAR_SLOTS from 'game/GEAR_SLOTS';
@@ -99,7 +99,7 @@ class GemChecker extends Analyzer {
   }
 
   //Add a row for the actual Gem in the future to evaluate each
-  boxRowPerformance(item: Item, recommendedEnchantments: number[] | undefined, slot: number) {
+  boxRowPerformance(item: Item, recommendedGems: number[] | undefined, slot: number) {
     const hasMaxGem = this.hasMaxGemCount(item, slot);
     let qualitativePerformance = QualitativePerformance.Fail;
     if (hasMaxGem) {
@@ -107,10 +107,12 @@ class GemChecker extends Analyzer {
     }
 
     let maxGem = true;
+    const gemRank: { qualitativePerformance: QualitativePerformance; gem: EventGem }[] = [];
 
-    if (item.gems !== undefined && item.gems.length > 0) {
-      item.gems.forEach((gem) => {
-        const lookupGem = gemById[gem.id];
+    if ((item.gems ?? []).length > 0) {
+      item.gems!.forEach((iGem) => {
+        const lookupGem = gemById[iGem.id];
+
         let tempQP = QualitativePerformance.Fail;
 
         switch (lookupGem?.craftQuality) {
@@ -135,6 +137,11 @@ class GemChecker extends Analyzer {
             break;
         }
 
+        gemRank.push({
+          qualitativePerformance: tempQP,
+          gem: iGem,
+        });
+
         if (hasMaxGem && maxGem) {
           qualitativePerformance = QualitativePerformance.Perfect;
         } else if (hasMaxGem && !maxGem) {
@@ -146,7 +153,7 @@ class GemChecker extends Analyzer {
         }
       });
 
-      return qualitativePerformance;
+      return { qualitativePerformance, gemRank };
     }
   }
 
@@ -158,12 +165,8 @@ class GemChecker extends Analyzer {
     );
   }
 
-  boxRowTooltip(
-    item: Item,
-    slotName: JSX.Element,
-    recommendedEnchantments: EnchantItem[] | undefined,
-  ) {
-    const hasEnchant = this.hasGem(item);
+  boxRowTooltip(item: Item, slotName: JSX.Element, recommendedEnchantments: GemItem[] | undefined) {
+    /*const hasEnchant = this.hasGem(item);
     const hasMaxEnchant = hasEnchant && this.hasMaxEnchant(item);
     const recommendedEnchantList = recommendedEnchantments
       ?.map((enchant) => (
@@ -178,9 +181,9 @@ class GemChecker extends Analyzer {
           </>
         ),
       );
-    const recommendedEnchantIds = recommendedEnchantments?.map((it) => it.effectId);
+    const recommendedEnchantIds = recommendedEnchantments?.map((it) => it.it);
     const currentEnchant = Object.values(ITEMS).find(
-      (it): it is EnchantItem => 'effectId' in it && it.effectId === item.permanentEnchant,
+      (it): it is GemItem => 'Id' in it && it.effectId === item.permanentEnchant,
     );
     const currentEnchantContent = currentEnchant ? (
       <>
@@ -230,7 +233,7 @@ class GemChecker extends Analyzer {
           Recommended: {recommendedEnchantList}
         </Trans>
       );
-    }
+    }*/
     return (
       <Trans id="shared.enchantChecker.guide.noEnchant.label">
         Your {slotName} is missing an enchant. Apply a strong enchant to increase your throughput.
@@ -258,37 +261,46 @@ class GemChecker extends Analyzer {
     };
   }
 
-  getGemBoxRowEntries(
-    recommendedEnchants: Record<number, EnchantItem[]> = {},
-  ): EnchantmentBoxRowEntry[] {
+  getGemBoxRowEntries(recommendedGems: Record<number, GemItem[]> = {}): GemBoxRowEntry[] {
     const gear = this.GemableGear;
     const gemSlots: { [key: number]: JSX.Element } = this.GemableSlots;
 
-    //Let's try to filter out the ones that don't have a way to have a gem.
+    // Filter out items that cannot have gems
     return Object.keys(gear)
       .filter((slot) => {
         const slotNumber = Number(slot);
         const item = gear[slotNumber];
         return (
-          this.hasGem(item) ||
+          ItemHelper.hasBonusId(item, 10878) ||
+          ItemHelper.hasBonusId(item, 10879) ||
+          ItemHelper.hasBonusId(item, 10880) ||
           GemChecker.twoSlots.includes(slotNumber) ||
           GemChecker.oneSlot.includes(slotNumber)
         );
       })
-      .map<EnchantmentBoxRowEntry>((slot) => {
+      .map<GemBoxRowEntry>((slot) => {
         const slotNumber = Number(slot);
         const item = gear[slotNumber];
         const slotName = gemSlots[slotNumber];
-        const recommendedEnchantments = recommendedEnchants[slotNumber];
+        const recommendedEnchantments = recommendedGems[slotNumber];
+
+        // Use boxRowPerformance to calculate the value
+        const performance = this.boxRowPerformance(
+          item,
+          recommendedEnchantments?.map((it) => it.id),
+          slotNumber,
+        );
+
         return {
           item,
           slotName: this.boxRowItemLink(item, slotName),
-          value:
-            this.boxRowPerformance(
-              item,
-              recommendedEnchantments?.map((it) => it.effectId),
-              slotNumber,
-            ) ?? QualitativePerformance.Fail,
+          value: {
+            itemQP: performance?.qualitativePerformance ?? QualitativePerformance.Fail,
+            gems: (performance?.gemRank ?? []).map((gem) => ({
+              gemQP: gem.qualitativePerformance,
+              gem: gem.gem,
+            })),
+          },
           tooltip: this.boxRowTooltip(item, slotName, recommendedEnchantments),
         };
       });

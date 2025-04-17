@@ -20,7 +20,7 @@ $shadow: 0 0 0px 1px hsla(45, 100%, 60%, 0.7);
       justify-content: center;
       display: flex;
       flex: 1 1 auto;
-      height: 2em;
+      height: 100%;
 
       &:hover {
         box-shadow: $shadow;
@@ -48,4 +48,25 @@ $shadow: 0 0 0px 1px hsla(45, 100%, 60%, 0.7);
   .bad-block {
     background-color: Guide.$bad-perf-color;
   }
+
+  .perfect-gem {
+    border: 4px solid Guide.$perfect-perf-color;
+  }
+
+  .good-gem {
+    border: 4px solid Guide.$good-perf-color;
+  }
+
+  .ok-gem {
+    border: 4px solid Guide.$ok-perf-color;
+  }
+
+  .fail-gem {
+    border: 4px solid Guide.$bad-perf-color;
+  }
+}
+
+.gem-icons {
+  display: flex; /* Use flexbox */
+  flex-direction: row; /* Align items horizontally */
 }

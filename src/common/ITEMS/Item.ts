@@ -26,8 +26,8 @@ export interface Enchant extends Item {
 }
 
 export interface Gem extends Item {
-  effectId: number;
-  craftQuality?: 1 | 2 | 3 | 4 | 5;
+  Id: number;
+  craftQuality?: 1 | 2 | 3;
 }
 
 export interface ItemList<T extends Item = Item> {
