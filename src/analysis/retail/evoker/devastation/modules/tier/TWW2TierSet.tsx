@@ -19,8 +19,6 @@ type JackpotConsume = {
   empowerEvent?: EmpowerEndEvent;
 };
 
-const MIN_FB_CD_FOR_ES_CONSUME_MS = 10_000;
-
 /**
  * (4) Set Devastation: Casting Shattering Star or hitting a Jackpot!
  * increases the damage of your next empower spell by 20%, stacking up to 2 times.
@@ -136,90 +134,20 @@ class TWW2TierSet extends Analyzer {
       return;
     }
 
-    const summary = (
-      <>
-        Buff consumed by <SpellLink spell={jackpotConsume.empowerEvent.ability.guid} />
-      </>
-    );
-
-    // Fire Breath is always a perfect consume
-    if (jackpotConsume.empowerEvent.ability.guid === this.fireBreathSpell.id) {
-      return {
-        performance: QualitativePerformance.Perfect,
-        summary,
-        details: (
-          <div key="jackpot-empower">
-            Buff was consumed by <SpellLink spell={jackpotConsume.empowerEvent.ability.guid} />.
-            Good job!
-          </div>
-        ),
-      };
-    }
-
-    // SC Eternity Surge - Always good
-    if (!this.isFlameshaper) {
-      return {
-        performance: QualitativePerformance.Good,
-        summary,
-        details: (
-          <div key="jackpot-empower">
-            Buff was consumed by <SpellLink spell={jackpotConsume.empowerEvent.ability.guid} />.
-            Good job!
-          </div>
-        ),
-      };
-    }
-
-    // FS Eternity Surge - Only good under certain conditions
-    if (
-      jackpotConsume.remainingFireBreathCooldown >= MIN_FB_CD_FOR_ES_CONSUME_MS &&
-      jackpotConsume.engulfChargesAvailable === 0
-    ) {
-      return {
-        performance: QualitativePerformance.Good,
-        summary,
-        details: (
-          <div key="jackpot-empower">
-            Buff was consumed by <SpellLink spell={jackpotConsume.empowerEvent.ability.guid} /> when{' '}
-            <SpellLink spell={SPELLS.FIRE_BREATH} />
-            's cooldown had {(jackpotConsume.remainingFireBreathCooldown / 1_000).toFixed(1)}{' '}
-            seconds remaining, and no <SpellLink spell={TALENTS.ENGULF_TALENT} /> charges were
-            available. Good job!
-          </div>
-        ),
-      };
-    }
-
-    let failExplanation;
-    if (jackpotConsume.remainingFireBreathCooldown <= MIN_FB_CD_FOR_ES_CONSUME_MS) {
-      failExplanation = (
-        <>
-          <SpellLink spell={SPELLS.FIRE_BREATH} /> had{' '}
-          {(jackpotConsume.remainingFireBreathCooldown / 1_000).toFixed(1)} seconds remaining on its
-          cooldown.
-        </>
-      );
-    }
-
-    if (jackpotConsume.engulfChargesAvailable > 0) {
-      failExplanation = (
-        <>
-          {failExplanation ? <>{failExplanation} And </> : null}
-          <SpellLink spell={TALENTS.ENGULF_TALENT} /> had {jackpotConsume.engulfChargesAvailable}{' '}
-          charge(s) available.
-        </>
-      );
-    }
-
     return {
-      performance: QualitativePerformance.Fail,
-      summary,
+      performance:
+        jackpotConsume.empowerEvent.ability.guid === this.fireBreathSpell.id
+          ? QualitativePerformance.Perfect
+          : QualitativePerformance.Good,
+      summary: (
+        <>
+          Buff consumed by <SpellLink spell={jackpotConsume.empowerEvent.ability.guid} />
+        </>
+      ),
       details: (
         <div key="jackpot-empower">
-          Buff was consumed by <SpellLink spell={jackpotConsume.empowerEvent.ability.guid} /> when
-          it should have been consumed by <SpellLink spell={SPELLS.FIRE_BREATH} /> because:
-          <br />
-          {failExplanation}
+          Buff was consumed by <SpellLink spell={jackpotConsume.empowerEvent.ability.guid} />. Good
+          job!
         </div>
       ),
     };
@@ -238,30 +166,8 @@ class TWW2TierSet extends Analyzer {
         </strong>{' '}
         buff.
         <br />
-        {this.isFlameshaper ? (
-          <>
-            Flameshaper should always consume <SpellLink spell={SPELLS.JACKPOT_BUFF} /> with{' '}
-            <SpellLink spell={SPELLS.FIRE_BREATH} />.
-            {this.selectedCombatant.hasTalent(TALENTS.FLAME_SIPHON_TALENT) && (
-              <>
-                <br />
-                However, with the cooldown reduction from{' '}
-                <SpellLink spell={TALENTS.FLAME_SIPHON_TALENT} />, your empowers can quickly get
-                desynced. Therefore it's acceptable to consume{' '}
-                <SpellLink spell={SPELLS.JACKPOT_BUFF} /> with{' '}
-                <SpellLink spell={SPELLS.ETERNITY_SURGE} /> when{' '}
-                <SpellLink spell={SPELLS.FIRE_BREATH} />
-                's cooldown is greater than {(MIN_FB_CD_FOR_ES_CONSUME_MS / 1_000).toFixed(0)}{' '}
-                seconds, and no <SpellLink spell={TALENTS.ENGULF_TALENT} /> charges are available.
-              </>
-            )}
-          </>
-        ) : (
-          <>
-            It should be consumed using either <SpellLink spell={SPELLS.FIRE_BREATH} /> or{' '}
-            <SpellLink spell={SPELLS.ETERNITY_SURGE} />.
-          </>
-        )}
+        It should be consumed using either <SpellLink spell={SPELLS.FIRE_BREATH} /> or{' '}
+        <SpellLink spell={SPELLS.ETERNITY_SURGE} />.
       </section>
     );
 
