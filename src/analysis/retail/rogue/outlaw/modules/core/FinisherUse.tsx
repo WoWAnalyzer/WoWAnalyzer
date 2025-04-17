@@ -193,7 +193,7 @@ export default class FinisherUse extends Analyzer {
       } else {
         castSummary = (
           <>
-            You spent {cpsSpent} CPs casting <SpellLink spell={event.ability.guid} /> in stealth
+            You spent {cpsSpent} CPs casting <SpellLink spell={event.ability.guid} /> in stealth.
           </>
         );
         badCastExplanation = <>in stealth</>;

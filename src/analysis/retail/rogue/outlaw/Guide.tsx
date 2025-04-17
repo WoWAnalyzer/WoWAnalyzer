@@ -135,7 +135,7 @@ function ActionPriorityList({ modules, info }: GuideProps<typeof CombatLogParser
       </p>
       <p>
         This Action Priority List (APL) is a simplified version off the simc APL that can be found{' '}
-        <a href="https://github.com/simulationcraft/simc/blob/dragonflight/engine/class_modules/apl/rogue/outlaw_df.simc">
+        <a href="https://github.com/simulationcraft/simc/blob/thewarwithin/engine/class_modules/apl/rogue/outlaw.simc">
           here
         </a>
         .
@@ -143,7 +143,7 @@ function ActionPriorityList({ modules, info }: GuideProps<typeof CombatLogParser
       <AplSectionData checker={AplCheck.check} apl={AplCheck.apl(info)} />
       <hr />
       <p>
-        <strong>Disclaimer:</strong> (Currently unsuported spells/talents)
+        <strong>Disclaimer:</strong> (Currently unsupported spells/talents)
         <ul>
           <li>
             {' '}
@@ -152,10 +152,6 @@ function ActionPriorityList({ modules, info }: GuideProps<typeof CombatLogParser
           <li>
             {' '}
             <SpellLink spell={TALENTS.THISTLE_TEA_TALENT} />
-          </li>
-          <li>
-            {' '}
-            <SpellLink spell={TALENTS.KEEP_IT_ROLLING_TALENT} /> builds
           </li>
           <li>
             {' '}
