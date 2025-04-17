@@ -86,7 +86,7 @@ export default class BuilderUse extends Analyzer {
     return cpAtCast <= 4;
   }
 
-  private ambushShotUsage(cpAtCast: number) {
+  private ambushUsage(cpAtCast: number) {
     if (this.hasHiddenOpportunity) {
       return (
         this.selectedCombatant.hasBuff(SPELLS.AUDACITY_TALENT_BUFF) ||
@@ -129,7 +129,7 @@ export default class BuilderUse extends Analyzer {
         return cpAtCast <= 5;
       case SPELLS.AMBUSH.id:
       case SPELLS.AMBUSH_PROC.id:
-        return this.ambushShotUsage(cpAtCast);
+        return this.ambushUsage(cpAtCast);
       case talents.GHOSTLY_STRIKE_TALENT.id:
         return true;
     }
