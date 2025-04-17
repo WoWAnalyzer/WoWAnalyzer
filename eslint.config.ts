@@ -8,10 +8,6 @@ import wowanalyzer from 'eslint-plugin-wowanalyzer';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
-// we are turning off some warnings in CI as a kind of "baseline" since eslint doesn't really have baseline files
-const isCI = process.env.CI === 'true';
-const ignoreInCI = isCI ? 'off' : 'warn';
-
 // replacement for .eslintignore
 const ignores = tseslint.config({
   name: '@wowanalyzer/ignores',
@@ -109,10 +105,6 @@ const javascript = tseslint.config({
     'no-unused-expressions': ['error', { allowTernary: true, allowShortCircuit: true }],
     // don't warn about legacy proptypes use. we'll get to the last few js files eventually
     '@eslint-react/no-prop-types': 'off',
-    // we have many array-index-as-keys in this project that we can slowly migrate
-    '@eslint-react/no-array-index-key': ignoreInCI,
-    // this rule has too many false positives
-    '@eslint-react/hooks-extra/no-direct-set-state-in-use-effect': 'off',
   },
 });
 
@@ -135,8 +127,7 @@ const typescript = tseslint.config({
   },
   rules: {
     '@eslint-react/dom/no-missing-button-type': 'error',
-    // old ported JS has a lot of `any` still
-    '@typescript-eslint/no-explicit-any': ignoreInCI,
+    '@typescript-eslint/no-explicit-any': 'warn',
     '@typescript-eslint/no-unused-expressions': [
       'error',
       { allowShortCircuit: true, allowTernary: true },
@@ -147,10 +138,6 @@ const typescript = tseslint.config({
         args: 'none',
       },
     ],
-    // we have many array-index-as-keys in this project that we can slowly migrate
-    '@eslint-react/no-array-index-key': ignoreInCI,
-    // this rule has too many false positives
-    '@eslint-react/hooks-extra/no-direct-set-state-in-use-effect': 'off',
   },
 });
 
