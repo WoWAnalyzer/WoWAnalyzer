@@ -4,6 +4,7 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 import Spell from 'common/SPELLS/Spell';
+import talents from 'common/TALENTS/paladin';
 
 const spells = {
   // Paladin:
@@ -437,6 +438,7 @@ const spells = {
     name: 'Lay on Hands',
     icon: 'spell_holy_layonhands',
   },
+  LAY_ON_HANDS_PROTECTION: { id: 471195, name: 'Lay on Hands', icon: 'spell_holy_layonhands.jpg' },
   ART_OF_WAR: {
     id: 406086,
     name: 'Art of War',
@@ -675,6 +677,30 @@ const spells = {
   SUNS_AVATAR_HEAL_2: { name: "Sun's Avatar", id: 463074, icon: 'ability_paladin_holyavenger' },
   SUN_SEAR_HEAL: { name: 'Sun Sear', id: 431415, icon: 'spell_priest_burningwill' },
   TRUTH_PREVAILS_HEAL: { name: 'Truth Prevails', id: 461546, icon: 'ability_paladin_artofwar' },
+  HAMMER_OF_LIGHT: {
+    id: 427453,
+    name: 'Hammer of Light',
+    icon: 'inv_mace_1h_gryphonrider_d_02_silver.jpg',
+  },
+  LIGHTS_DELIVERANCE_FREE_CAST_BUFF: {
+    ...talents.LIGHTS_DELIVERANCE_TALENT,
+    id: 433732,
+  },
+  EMPYREAN_HAMMER: {
+    id: 431398,
+    name: 'Empyrean Hammer',
+    icon: 'ability_paladin_judgementofthepure.jpg',
+  },
+  SACROSANCT_CRUSADE_BUFF: {
+    id: 461867,
+    name: 'Sacrosanct Crusade',
+    icon: 'inv_plate_raidpaladinprimalist_d_01_cape.jpg',
+  },
+  INTERCESSION: { id: 391054, name: 'Intercession', icon: 'ability_paladin_intercession.jpg' },
+  UNDISPUTED_RULING_BUFF: {
+    ...talents.UNDISPUTED_RULING_TALENT,
+    id: 432629,
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;

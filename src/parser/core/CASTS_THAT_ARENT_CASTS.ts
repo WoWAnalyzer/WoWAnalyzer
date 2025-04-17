@@ -97,6 +97,8 @@ const spells: number[] = [
 
   //region paladin
   SPELLS.RECLAMATION_CAST.id,
+  SPELLS.SACROSANCT_CRUSADE_BUFF.id,
+  SPELLS.EMPYREAN_HAMMER.id,
   //endregion
 
   //region shaman

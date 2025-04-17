@@ -4,4 +4,4 @@ export const CYCLE_OF_HATRED_SCALING = [0, 0.5, 1];
 
 export const GROWING_INFERNO_SCALING = [0, 0.08, 0.15];
 
-export const MOMENTUM_SCALING = [0, 0.08];
+export const EXERGY_SCALING = [0, 0.08];

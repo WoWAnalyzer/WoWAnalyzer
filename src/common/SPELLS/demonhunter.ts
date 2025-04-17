@@ -505,9 +505,9 @@ const spells = {
     name: 'Demonic Appetite',
     icon: 'spell_misc_zandalari_council_soulswap',
   },
-  MOMENTUM_BUFF: {
+  EXERGY_BUFF: {
     id: 208628,
-    name: 'Momentum',
+    name: 'Exergy',
     icon: 'ability_foundryraid_demolition',
   },
   TRAIL_OF_RUIN_DAMAGE: {

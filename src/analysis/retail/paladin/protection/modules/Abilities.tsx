@@ -20,7 +20,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.BLESSED_HAMMER_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste: number) => 6 / (1 + haste),
+        cooldown: (haste: number) => 5 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -43,9 +43,6 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.9,
         },
       },
-      // Probably useless to try to count the number of casts
-      //Note by yajinni: Since this is thier main source of damage mitigation, without it they get hit like by a truck.
-      //And a main source of damage, it should be tracked somewhat. Keeping it at 80% for now.
       {
         spell: SPELLS.SHIELD_OF_THE_RIGHTEOUS.id,
         buffSpellId: SPELLS.SHIELD_OF_THE_RIGHTEOUS_BUFF.id,
@@ -54,10 +51,15 @@ class Abilities extends CoreAbilities {
         gcd: null,
       },
       {
+        spell: SPELLS.WORD_OF_GLORY.id,
+        category: SPELL_CATEGORY.DEFENSIVE,
+        gcd: { base: 1500 },
+      },
+      {
         // T15: Holy Shield
         spell: TALENTS.HAMMER_OF_THE_RIGHTEOUS_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste: number) => 6 / (1 + haste),
+        cooldown: (haste: number) => 5 / (1 + haste),
         charges: 2,
         gcd: {
           base: 1500,
@@ -70,7 +72,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.JUDGMENT_CAST_PROTECTION.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste: number) => 6 / (1 + haste),
+        cooldown: (haste: number) => 5 / (1 + haste),
         charges: combatant.hasTalent(TALENTS.CRUSADERS_JUDGMENT_TALENT) ? 2 : 1,
         gcd: {
           base: 1500,
@@ -81,6 +83,16 @@ class Abilities extends CoreAbilities {
       },
       //COOLDOWNS
       {
+        spell: [TALENTS.HOLY_ARMAMENTS_TALENT.id, SPELLS.SACRED_WEAPON_TALENT.id],
+        charges: 2,
+        enabled: combatant.hasTalent(TALENTS.HOLY_ARMAMENTS_TALENT),
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 60 - combatant.getTalentRank(TALENTS.FOREWARNING_TALENT) * 12,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
         spell: TALENTS.ARDENT_DEFENDER_TALENT.id,
         buffSpellId: TALENTS.ARDENT_DEFENDER_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.ARDENT_DEFENDER_TALENT),
@@ -89,6 +101,13 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
         },
+      },
+      {
+        spell: TALENTS.BASTION_OF_LIGHT_TALENT.id,
+        buffSpellId: TALENTS.BASTION_OF_LIGHT_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.BASTION_OF_LIGHT_TALENT),
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 120,
       },
       {
         spell: [
@@ -130,9 +149,9 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.SENTINEL_TALENT),
       },
       {
-        spell: TALENTS.LAY_ON_HANDS_TALENT.id,
+        spell: SPELLS.LAY_ON_HANDS_PROTECTION.id,
         isDefensive: true,
-        category: SPELL_CATEGORY.COOLDOWNS,
+        category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 600,
         castEfficiency: {
           suggestion: true,
@@ -151,9 +170,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 45,
         charges: combatant.hasTalent(TALENTS.CAVALIER_TALENT) ? 2 : 1,
-        gcd: {
-          base: 1500,
-        },
+        gcd: null,
       },
       {
         spell: TALENTS.BLESSING_OF_FREEDOM_TALENT.id,
@@ -175,7 +192,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.BLESSING_OF_SPELLWARDING_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
+        category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 180,
         gcd: {
           base: 1500,
@@ -251,7 +268,17 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.FINAL_STAND_TALENT),
+      },
+      {
+        spell: SPELLS.LAY_ON_HANDS.id,
+        category: SPELL_CATEGORY.DEFENSIVE,
+        cooldown: 600,
+        gcd: null,
+      },
+      {
+        spell: SPELLS.INTERCESSION.id,
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
       },
       {
         spell: TALENTS.DIVINE_TOLL_TALENT.id,
@@ -279,7 +306,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.EYE_OF_TYR_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 60 * (combatant.hasTalent(TALENTS.INMOST_LIGHT_TALENT) ? 0.75 : 1),
+        cooldown: combatant.hasTalent(TALENTS.INMOST_LIGHT_TALENT) ? 40 : 60,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
