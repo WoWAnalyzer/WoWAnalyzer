@@ -28,11 +28,21 @@ class Finishers extends FinisherTracker {
       this.selectedCombatant.hasBuff(
         SPELLS.SUBTERFUGE_BUFF.id,
         null,
-        0,
+        undefined,
         BUFF_REACTION_TIME_LATENCY,
       ) ||
-      this.selectedCombatant.hasBuff(SPELLS.STEALTH_BUFF.id, null, 0, BUFF_REACTION_TIME_LATENCY) ||
-      this.selectedCombatant.hasBuff(SPELLS.VANISH_BUFF.id, null, 0, BUFF_REACTION_TIME_LATENCY)
+      this.selectedCombatant.hasBuff(
+        SPELLS.STEALTH_BUFF.id,
+        null,
+        undefined,
+        BUFF_REACTION_TIME_LATENCY,
+      ) ||
+      this.selectedCombatant.hasBuff(
+        SPELLS.VANISH_BUFF.id,
+        null,
+        undefined,
+        BUFF_REACTION_TIME_LATENCY,
+      )
     );
   }
 
@@ -42,10 +52,15 @@ class Finishers extends FinisherTracker {
       this.selectedCombatant.hasBuff(
         SPELLS.AUDACITY_TALENT_BUFF.id,
         null,
-        0,
+        undefined,
         BUFF_REACTION_TIME_LATENCY,
       ) ||
-      this.selectedCombatant.hasBuff(SPELLS.OPPORTUNITY.id, null, 0, BUFF_REACTION_TIME_LATENCY)
+      this.selectedCombatant.hasBuff(
+        SPELLS.OPPORTUNITY.id,
+        null,
+        undefined,
+        BUFF_REACTION_TIME_LATENCY,
+      )
     );
   }
 
