@@ -74,17 +74,6 @@ export default class FinisherUse extends Analyzer {
     // TODO: Finisher choice performance
     // Determine if the proper finisher was used according to a priority list
     // Can mostly just rely on the APLCheck for that for now
-    /* const checklistFinisherChoice: ChecklistUsageInfo = {
-      check: 'finisher choice',
-      timestamp: event.timestamp,
-      performance: QualitativePerformance.Good,
-      summary: <></>,
-      details: (
-        <>
-          You cast <SpellLink spell={spellId} />{' '}
-        </>
-      ),
-    }; */
 
     const comboPointPerformance = this.comboPointPerformance(
       event,

@@ -96,12 +96,6 @@ function ResourceUsageSection({ modules, info }: GuideProps<typeof CombatLogPars
           <RoundedPanel>{modules.builderUse.chart}</RoundedPanel>
           <RoundedPanel>{modules.finisherUse.chart}</RoundedPanel>
         </SideBySidePanels>
-        <p></p>
-        {/* <p>
-          <Trans id="guide.rogue.outlaw.sections.resources.comboPoints.buildersBreakdown">
-            -- WIP section -- Higlight which builders the user is commonly overcapping with.
-          </Trans>
-        </p> */}
       </SubSection>
     </Section>
   );
@@ -209,8 +203,6 @@ function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
             <strong>Red segments</strong> highlight areas where an extra cooldown could have fit.
           </li>
         </ul>
-        {/* For Subtlety, <strong>Symbols of Death</strong> and <strong>Shadow Dance</strong> usage is
-        crucial, as they define your burst windows. */}
       </p>
       {cooldowns.map((cooldownCheck) => (
         <CastEfficiencyBar

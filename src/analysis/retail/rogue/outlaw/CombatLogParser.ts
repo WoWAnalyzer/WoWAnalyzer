@@ -21,7 +21,6 @@ import OutlawComboPointTracker from './modules/core/OutlawComboPointTracker';
 import OutlawEnergyCapTracker from './modules/core/OutlawEnergyCapTracker';
 import RestlessBlades from './modules/core/RestlessBlades';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-//import Checklist from './modules/features/Checklist/Module';
 import Finishers from './modules/features/Finishers';
 import RollTheBonesCastTracker from './modules/features/RollTheBonesCastTracker';
 import BetweenTheEyes from './modules/spells/BetweenTheEyes';
@@ -53,7 +52,6 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
     buffs: Buffs,
-    //checklist: Checklist,
     spellUsable: SpellUsable,
 
     //Normalizers
