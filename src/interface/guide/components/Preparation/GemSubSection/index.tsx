@@ -16,9 +16,8 @@ const GemSubSection = ({ recommendedGems }: Props) => {
   return (
     <SubSection title="Gems">
       <p>
-        Gems can increase your secondary stats. At the moment this checker indicates gear where you
-        are missing Settings or don't have the highest crafted gems. Spec specific gem
-        recommendations are not currently supported.
+        Gems can increase a variety of stats. This indicates gear where you are missing Gem Slots or
+        don't have the highest crafted gems.
       </p>
       <GemBoxRow values={gemChecker.getGemBoxRowEntries(recommendedGems)} />
     </SubSection>

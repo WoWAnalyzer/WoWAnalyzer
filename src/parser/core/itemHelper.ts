@@ -1,6 +1,13 @@
 import { Item } from 'parser/core/Events';
 
+/**
+ * Helper class for item-related operations that do not fit into the other classes.
+ */
 export class ItemHelper {
+  static SINGLE_GEM_BONUS_ID = 10878;
+  static DOUBLE_GEM_BONUS_ID = 10879;
+  static TRIPLE_GEM_BONUS_ID = 10880;
+
   /**
    * Check if the item has a specific bonusId.
    * @param item The item to check.

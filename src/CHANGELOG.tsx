@@ -36,12 +36,14 @@ import {
   Yellot,
   KYZ,
   oneunreadmail,
+  Ceric
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2025, 4, 18), 'Added Gems to Preparation Section with generic recommendations.', Ceric),
   change(date(2025, 4, 12), 'Changed Momentum talent to Exergy for Havoc', oneunreadmail),
   change(date(2025, 3, 29), 'Update internal dependencies', emallson),
   change(date(2025, 3, 28), 'Expanded new Foundation downtime section to caster and healer specs.', emallson),
