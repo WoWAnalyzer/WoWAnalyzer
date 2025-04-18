@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/react/macro';
-//import ITEMS from 'common/ITEMS';
 import { Gem as GemItem } from 'common/ITEMS/Item';
 import { ItemLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
@@ -114,27 +113,37 @@ class GemChecker extends Analyzer {
         const lookupGem = gemById[iGem.id];
 
         let tempQP = QualitativePerformance.Fail;
+        const gemRec = recommendedGems?.includes(iGem.id);
 
-        switch (lookupGem?.craftQuality) {
-          case 3:
-            tempQP = QualitativePerformance.Perfect;
-            break;
-          case 2:
-            tempQP = QualitativePerformance.Good;
-            maxGem = false;
-            break;
-          case 1:
-            tempQP = QualitativePerformance.Ok;
-            maxGem = false;
-            break;
-          case undefined: //Consider Item Level when there isn't a lookup.
-            tempQP = QualitativePerformance.Ok;
-            maxGem = false;
-            break;
-          default:
-            tempQP = QualitativePerformance.Fail;
-            maxGem = false;
-            break;
+        if (gemRec) {
+          tempQP = QualitativePerformance.Perfect;
+        } else {
+          switch (lookupGem?.craftQuality) {
+            case 3:
+              if (recommendedGems !== undefined && !gemRec) {
+                tempQP = QualitativePerformance.Good;
+                maxGem = false;
+              } else {
+                tempQP = QualitativePerformance.Perfect;
+              }
+              break;
+            case 2:
+              tempQP = QualitativePerformance.Good;
+              maxGem = false;
+              break;
+            case 1:
+              tempQP = QualitativePerformance.Ok;
+              maxGem = false;
+              break;
+            case undefined: //Consider Item Level when there isn't a lookup.
+              tempQP = QualitativePerformance.Ok;
+              maxGem = false;
+              break;
+            default:
+              tempQP = QualitativePerformance.Fail;
+              maxGem = false;
+              break;
+          }
         }
 
         gemRank.push({
@@ -165,79 +174,95 @@ class GemChecker extends Analyzer {
     );
   }
 
-  boxRowTooltip(item: Item, slotName: JSX.Element, recommendedEnchantments: GemItem[] | undefined) {
-    /*const hasEnchant = this.hasGem(item);
-    const hasMaxEnchant = hasEnchant && this.hasMaxEnchant(item);
-    const recommendedEnchantList = recommendedEnchantments
-      ?.map((enchant) => (
-        <ItemLink key={enchant.id} id={enchant.id} craftQuality={enchant.craftQuality} />
-      ))
-      .reduce((acc, x) =>
-        acc == null ? (
-          x
-        ) : (
-          <>
-            {acc}, {x}
-          </>
-        ),
-      );
-    const recommendedEnchantIds = recommendedEnchantments?.map((it) => it.it);
-    const currentEnchant = Object.values(ITEMS).find(
-      (it): it is GemItem => 'Id' in it && it.effectId === item.permanentEnchant,
-    );
-    const currentEnchantContent = currentEnchant ? (
-      <>
-        {' '}
-        (<ItemLink id={currentEnchant.id} craftQuality={currentEnchant.craftQuality} />)
-      </>
-    ) : null;
-    if (hasMaxEnchant) {
-      if (
-        recommendedEnchantIds &&
-        recommendedEnchantList &&
-        !recommendedEnchantIds.includes(item.permanentEnchant ?? 0)
-      ) {
-        return (
-          <Trans id="shared.enchantChecker.guide.strongEnchant.labelWithRecommendation">
-            Your {slotName} has a strong enchant{currentEnchantContent} but these are recommended:{' '}
-            {recommendedEnchantList}
-          </Trans>
-        );
-      }
+  boxRowTooltip(
+    item: Item,
+    slotName: JSX.Element,
+    slotNumber: number,
+    recommendedGems: GemItem[] | undefined,
+  ) {
+    const tooltipContent: JSX.Element[] = [];
+    //#region Cyrce's Circlet has different iLevels making the item id less reliable.
+    if (item.icon === 'inv_siren_isle_ring.jpg') {
       return (
-        <Trans id="shared.enchantChecker.guide.strongEnchant.label">
-          Your {slotName} has a strong enchant{currentEnchantContent}. Good work!
+        <Trans>
+          Cyrce's Circlet is a special case. Please see your class guides for best usage.
         </Trans>
       );
     }
-    if (hasEnchant) {
-      if (recommendedEnchantList) {
-        return (
-          <Trans id="shared.enchantChecker.guide.weakEnchant.labelWithRecommendation">
-            Your {slotName} has a cheap enchant{currentEnchantContent}. Apply a stronger enchant to
-            increase your throughput. Recommended: {recommendedEnchantList}
-          </Trans>
-        );
-      }
-      return (
-        <Trans id="shared.enchantChecker.guide.weakEnchant.label">
-          Your {slotName} has a cheap enchant{currentEnchantContent}. Apply a stronger enchant to
-          increase your throughput.
-        </Trans>
-      );
+    //#endregion
+
+    //Not Gemable
+    if (
+      item.bonusIDs === undefined &&
+      !ItemHelper.hasBonusId(item, 10878) &&
+      !ItemHelper.hasBonusId(item, 10879) &&
+      !ItemHelper.hasBonusId(item, 10880) &&
+      !GemChecker.twoSlots.includes(slotNumber) &&
+      !GemChecker.oneSlot.includes(slotNumber)
+    ) {
+      return <Trans>Your {slotName} cannot take a gem.</Trans>;
     }
-    if (recommendedEnchantList) {
-      return (
-        <Trans id="shared.enchantChecker.guide.noEnchant.labelWithRecommendation">
-          Your {slotName} is missing an enchant. Apply a strong enchant to increase your throughput.
-          Recommended: {recommendedEnchantList}
-        </Trans>
-      );
-    }*/
+
+    //X gems Missing
+    if (ItemHelper.hasBonusId(item, 10880)) {
+      const missingGems = 3 - (item.gems?.length ?? 0);
+      if (missingGems > 0) {
+        tooltipContent.push(
+          <Trans>
+            You are missing {missingGems} gems on your {slotName}.
+          </Trans>,
+        );
+      } else {
+        return <Trans>{slotName} slots are fully gemmed!</Trans>;
+      }
+    } else if (ItemHelper.hasBonusId(item, 10879)) {
+      const missingGems = 2 - (item.gems?.length ?? 0);
+      if (missingGems > 0) {
+        tooltipContent.push(
+          <Trans>
+            You are missing {missingGems} gems on your {slotName}.
+          </Trans>,
+        );
+      } else {
+        tooltipContent.push(<Trans>{slotName} slots are fully gemmed!</Trans>);
+      }
+    } else if (ItemHelper.hasBonusId(item, 10878)) {
+      if ((item.gems?.length ?? 0) !== 1) {
+        tooltipContent.push(<Trans>You are missing a gem on your {slotName}.</Trans>);
+      } else {
+        tooltipContent.push(<Trans>{slotName} slots are fully gemmed!</Trans>);
+      }
+    }
+
+    //X Missing Setting
+    if (GemChecker.twoSlots.includes(slotNumber)) {
+      const missingGems = 2 - (item.gems?.length ?? 0);
+      if (missingGems > 0) {
+        tooltipContent.push(
+          <Trans>
+            You are missing {missingGems} possible slot on your {slotName}.<br />
+            Craft/Buy Magnificent Jeweler's Setting to add a slot per.
+          </Trans>,
+        ); //ItemLink in the future when I figure out they work
+      }
+    } else if (GemChecker.oneSlot.includes(slotNumber)) {
+      if ((item.gems?.length ?? 0) !== 1) {
+        tooltipContent.push(
+          <Trans>
+            You are missing a possible slot on your {slotName}. <br />6 Algari Token of Merit for
+            S.A.D. to add a slot.
+          </Trans>,
+        ); //ItemLink in the future when I figure out they work
+      }
+    }
+
+    // Combine all tooltip content into a single section
     return (
-      <Trans id="shared.enchantChecker.guide.noEnchant.label">
-        Your {slotName} is missing an enchant. Apply a strong enchant to increase your throughput.
-      </Trans>
+      <div>
+        {tooltipContent.map((content, index) => (
+          <div key={index}>{content}</div>
+        ))}
+      </div>
     );
   }
 
@@ -282,12 +307,12 @@ class GemChecker extends Analyzer {
         const slotNumber = Number(slot);
         const item = gear[slotNumber];
         const slotName = gemSlots[slotNumber];
-        const recommendedEnchantments = recommendedGems[slotNumber];
+        const gemRecommendations = recommendedGems[slotNumber];
 
         // Use boxRowPerformance to calculate the value
         const performance = this.boxRowPerformance(
           item,
-          recommendedEnchantments?.map((it) => it.id),
+          gemRecommendations?.map((it) => it.id),
           slotNumber,
         );
 
@@ -301,7 +326,7 @@ class GemChecker extends Analyzer {
               gem: gem.gem,
             })),
           },
-          tooltip: this.boxRowTooltip(item, slotName, recommendedEnchantments),
+          tooltip: this.boxRowTooltip(item, slotName, slotNumber, gemRecommendations),
         };
       });
   }
