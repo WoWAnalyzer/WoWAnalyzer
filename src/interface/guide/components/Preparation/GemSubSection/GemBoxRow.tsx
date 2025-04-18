@@ -1,6 +1,5 @@
 import styles from './GemBoxRow.module.scss';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-//import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import { CSSProperties, ReactNode } from 'react';
 import { Tooltip } from 'interface/index';
 import Item from 'common/ITEMS/Item';
