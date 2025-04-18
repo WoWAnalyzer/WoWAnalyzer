@@ -38,7 +38,7 @@ const config: Config = {
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport:
-    '/report/LhkrfWGw2vZj96yV/10-Mythic+Ulgrax+the+Devourer+-+Wipe+9+(5:41)/Katebrew/standard',
+    '/report/1rWwRTKVBmDfHFhJ/15-Mythic+One-Armed+Bandit+-+Kill+(6:56)/Katebrew/standard',
   // These are multipliers to the stats applied *on pull* that are not
   // included in the stats reported by WCL. These are *baked in* and do
   // not multiply temporary buffs.
