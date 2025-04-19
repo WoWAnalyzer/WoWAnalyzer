@@ -1,33 +1,33 @@
 import styles from './GemBoxRow.module.scss';
-import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { EquipmentPerformance } from 'parser/ui/EquipmentPerformance';
 import { CSSProperties, ReactNode } from 'react';
 import { Tooltip } from 'interface/index';
 import { Item as EventItem, Gem as EventGem } from 'parser/core/Events';
 import Icon from 'interface/Icon';
 
-const getBlockClassName = (value: QualitativePerformance) => {
+const getBlockClassName = (value: EquipmentPerformance) => {
   switch (value) {
-    case QualitativePerformance.Perfect:
+    case EquipmentPerformance.Perfect:
       return styles['perfect-block'];
-    case QualitativePerformance.Good:
+    case EquipmentPerformance.Good:
       return styles['good-block'];
-    case QualitativePerformance.Ok:
+    case EquipmentPerformance.Ok:
       return styles['ok-block'];
-    case QualitativePerformance.Fail:
+    case EquipmentPerformance.Fail:
       return styles['bad-block'];
   }
 };
 
-// Helper function to get the color based on QualitativePerformance
-const getPerformanceColor = (performance: QualitativePerformance): string => {
+// Helper function to get the color based on EquipmentPerformance
+const getPerformanceColor = (performance: EquipmentPerformance): string => {
   switch (performance) {
-    case QualitativePerformance.Perfect:
+    case EquipmentPerformance.Perfect:
       return styles['perfect-gem'];
-    case QualitativePerformance.Good:
+    case EquipmentPerformance.Good:
       return styles['good-gem'];
-    case QualitativePerformance.Ok:
+    case EquipmentPerformance.Ok:
       return styles['ok-gem'];
-    case QualitativePerformance.Fail:
+    case EquipmentPerformance.Fail:
       return styles['fail-gem'];
     default:
       return 'gray';
@@ -38,9 +38,9 @@ export interface GemBoxRowEntry {
   item: EventItem;
   slotName: JSX.Element;
   value: {
-    itemQP: QualitativePerformance;
+    itemQP: EquipmentPerformance;
     gems: {
-      gemQP: QualitativePerformance;
+      gemQP: EquipmentPerformance;
       gem: EventGem;
     }[];
   };
@@ -60,7 +60,7 @@ const GemBoxRow = ({ values }: GemBoxRowProps) => {
           <Tooltip content={value.tooltip}>
             <div className={styles['gem-block'] + ' ' + getBlockClassName(value.value.itemQP)}>
               {value.value.gems.map(
-                (gem: { gemQP: QualitativePerformance; gem: EventGem }, gemIndex: number) => (
+                (gem: { gemQP: EquipmentPerformance; gem: EventGem }, gemIndex: number) => (
                   <div
                     key={gemIndex}
                     className={styles['gem-icon'] + ' ' + getPerformanceColor(gem.gemQP)}

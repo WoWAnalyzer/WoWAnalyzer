@@ -865,7 +865,7 @@
   "shared.GemChecker.guide.NotGemable": "Your {slotName} cannot take a gem.",
   "shared.GemChecker.guide.MissingGemsMultiple": "You are missing {missingGems} gems on your {slotName}.",
   "shared.GemChecker.MissingGemsSingle": "You are missing a gem on your {slotName}.",
-  "shared.GemChecker.guide.FullyGemmed": "{slotName} slots are fully gemmed!",
+  "shared.GemChecker.guide.FullyGemmed": "{slotName} sockets are fully gemmed!",
   "shared.GemChecker.MissingSlotsCraftable": "You are missing {missingGems} possible slot on your {slotName}. Craft/Buy Magnificent Jeweler's Setting to add a slot per.",
   "shared.GemChecker.MissingSlotsVault": "You are missing a possible slot on your {slotName}. 6 Algari Token of Merit for S.A.D. to add a slot.",
   "shared.healerStatValues.statistic.qeLink": "<0/> Open Questionably Epic Live",

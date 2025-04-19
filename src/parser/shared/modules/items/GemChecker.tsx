@@ -10,7 +10,7 @@ import {
   SINGLE_GEM_BONUS_ID,
 } from 'parser/core/itemHelper';
 import { GemBoxRowEntry } from 'interface/guide/components/Preparation/GemSubSection/GemBoxRow';
-import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { EquipmentPerformance } from 'parser/ui/EquipmentPerformance';
 import ITEMS from 'common/ITEMS';
 import GEAR_SLOTS from 'game/GEAR_SLOTS';
 
@@ -58,69 +58,69 @@ class GemChecker extends Analyzer {
   //Add a row for the actual Gem in the future to evaluate each
   boxRowPerformance(item: EventItem, recommendedGems: number[] | undefined, slot: number) {
     const hasMaxGem = this.hasMaxGemCount(item, slot);
-    let qualitativePerformance = QualitativePerformance.Fail;
+    let equipmentPerformance = EquipmentPerformance.Fail;
     if (hasMaxGem) {
-      qualitativePerformance = QualitativePerformance.Good;
+      equipmentPerformance = EquipmentPerformance.Good;
     }
 
     let maxGem = true;
-    const gemRank: { qualitativePerformance: QualitativePerformance; gem: EventGem }[] = [];
+    const gemRank: { equipmentPerformance: EquipmentPerformance; gem: EventGem }[] = [];
 
     if ((item.gems ?? []).length > 0) {
       item.gems!.forEach((iGem) => {
         const lookupGem = ITEMS[iGem.id] as CraftedItem | undefined;
 
-        let tempQP = QualitativePerformance.Fail;
+        let tempQP = EquipmentPerformance.Fail;
         const gemRec = recommendedGems?.includes(iGem.id);
 
         if (gemRec) {
-          tempQP = QualitativePerformance.Perfect;
+          tempQP = EquipmentPerformance.Perfect;
         } else {
           switch (lookupGem?.craftQuality) {
             case 3:
               if (recommendedGems !== undefined && !gemRec) {
-                tempQP = QualitativePerformance.Good;
+                tempQP = EquipmentPerformance.Good;
                 maxGem = false;
               } else {
-                tempQP = QualitativePerformance.Perfect;
+                tempQP = EquipmentPerformance.Perfect;
               }
               break;
             case 2:
-              tempQP = QualitativePerformance.Good;
+              tempQP = EquipmentPerformance.Good;
               maxGem = false;
               break;
             case 1:
-              tempQP = QualitativePerformance.Ok;
+              tempQP = EquipmentPerformance.Ok;
               maxGem = false;
               break;
             case undefined: //Consider Item Level when there isn't a lookup.
-              tempQP = QualitativePerformance.Ok;
+              tempQP = EquipmentPerformance.Ok;
               maxGem = false;
               break;
             default:
-              tempQP = QualitativePerformance.Fail;
+              tempQP = EquipmentPerformance.Fail;
               maxGem = false;
               break;
           }
         }
 
         gemRank.push({
-          qualitativePerformance: tempQP,
+          equipmentPerformance: tempQP,
           gem: iGem,
         });
 
         if (hasMaxGem && maxGem) {
-          qualitativePerformance = QualitativePerformance.Perfect;
+          equipmentPerformance = EquipmentPerformance.Perfect;
         } else if (hasMaxGem && !maxGem) {
-          qualitativePerformance = QualitativePerformance.Good;
+          equipmentPerformance = EquipmentPerformance.Good;
         } else if (!hasMaxGem) {
-          qualitativePerformance = QualitativePerformance.Ok;
+          equipmentPerformance = EquipmentPerformance.Ok;
         } else {
-          qualitativePerformance = tempQP;
+          equipmentPerformance = tempQP;
         }
       });
 
-      return { qualitativePerformance, gemRank };
+      return { equipmentPerformance, gemRank };
     }
   }
 
@@ -140,7 +140,7 @@ class GemChecker extends Analyzer {
   ) {
     const tooltipContent: JSX.Element[] = [];
 
-    //Note for Future me: <Trans id="..."> the text comes from locales/<Localization Code>/messages.json
+    //Note for Future me: <Trans id="..."> the text comes from locales/<Locale Code>/messages.json
 
     //#region Special Cases
     if (item.id === ITEMS.CYRCES_CIRCLET.id) {
@@ -158,60 +158,41 @@ class GemChecker extends Analyzer {
       !hasBonusId(item, DOUBLE_GEM_BONUS_ID) &&
       !hasBonusId(item, TRIPLE_GEM_BONUS_ID) &&
       !GemChecker.twoAddableGemSlots.includes(slotNumber) &&
-      !GemChecker.oneAddableGemSlot.includes(slotNumber)
+      !GemChecker.oneAddableGemSlot.includes(slotNumber) &&
+      item.gems?.length === 0
     ) {
       return <Trans id="shared.GemChecker.NotGemable">Your {slotName} cannot take a gem.</Trans>;
     }
     //#endregion
 
-    //X gems Missing
+    // computing `maxGems` could be replaced with a method
+    let maxGems = 0;
+
     if (hasBonusId(item, TRIPLE_GEM_BONUS_ID)) {
-      const missingGems = 3 - (item.gems?.length ?? 0);
-      if (missingGems > 0) {
-        tooltipContent.push(
-          <Trans id="shared.GemChecker.MissingGemsMultiple">
-            You are missing {missingGems} gems on your {slotName}.
-          </Trans>,
-        );
-      } else {
-        tooltipContent.push(
-          <Trans id="shared.GemChecker.guide.FullyGemmed">
-            {slotName} slots are fully gemmed!
-          </Trans>,
-        );
-      }
+      maxGems = 3;
     } else if (hasBonusId(item, DOUBLE_GEM_BONUS_ID)) {
-      const missingGems = 2 - (item.gems?.length ?? 0);
-      if (missingGems > 0) {
-        tooltipContent.push(
-          <Trans id="shared.GemChecker.MissingGemsMultiple">
-            You are missing {missingGems} gems on your {slotName}.
-          </Trans>,
-        );
-      } else {
-        tooltipContent.push(
-          <Trans id="shared.GemChecker.guide.FullyGemmed">
-            {slotName} slots are fully gemmed!
-          </Trans>,
-        );
-      }
+      maxGems = 2;
     } else if (hasBonusId(item, SINGLE_GEM_BONUS_ID)) {
-      if ((item.gems?.length ?? 0) !== 1) {
-        tooltipContent.push(
-          <Trans id="shared.GemChecker.MissingGemsSingle">
-            You are missing a gem on your {slotName}.
-          </Trans>,
-        );
-      } else {
-        tooltipContent.push(
-          <Trans id="shared.GemChecker.guide.FullyGemmed">
-            {slotName} slots are fully gemmed!
-          </Trans>,
-        );
-      }
+      maxGems = 1;
     }
 
-    //X Missing Setting
+    const missingGems = maxGems - (item.gems?.length ?? 0);
+
+    if (missingGems > 0) {
+      tooltipContent.push(
+        <Trans id="shared.GemChecker.MissingGemsMultiple">
+          You are missing {missingGems} gems on your {slotName}.
+        </Trans>,
+      );
+    } else {
+      tooltipContent.push(
+        <Trans id="shared.GemChecker.guide.FullyGemmed">
+          {slotName} sockets are fully gemmed!
+        </Trans>,
+      );
+    }
+
+    //X Missing Socket
     if (GemChecker.twoAddableGemSlots.includes(slotNumber)) {
       const missingGems = 2 - (item.gems?.length ?? 0);
       if (missingGems > 0) {
@@ -225,7 +206,7 @@ class GemChecker extends Analyzer {
               Craft/Buy <ItemLink id={ITEMS.MAGNIFICENT_JEWELERS_SETTING.id} /> to add a gem socket.
             </div>
           </Trans>,
-        ); //ItemLink Doesn't currently work as there is no MAGNIFICENT_JEWELERS_SETTING <ItemLink id={ITEMS.MAGNIFICENT_JEWELERS_SETTING.id} />
+        );
       }
     } else if (GemChecker.oneAddableGemSlot.includes(slotNumber)) {
       if ((item.gems?.length ?? 0) !== 1) {
@@ -237,7 +218,7 @@ class GemChecker extends Analyzer {
             of them for <ItemLink id={ITEMS.SAD_SOCKET_ADDING_DEVICE.id} /> at the nearby vendor to
             add a gem socket.
           </Trans>,
-        ); //ItemLink in the future when I figure out how they work
+        );
       }
     }
 
@@ -285,9 +266,9 @@ class GemChecker extends Analyzer {
           item,
           slotName: this.boxRowItemLink(item, slotName),
           value: {
-            itemQP: performance?.qualitativePerformance ?? QualitativePerformance.Fail,
+            itemQP: performance?.equipmentPerformance ?? EquipmentPerformance.Fail,
             gems: (performance?.gemRank ?? []).map((gem) => ({
-              gemQP: gem.qualitativePerformance,
+              gemQP: gem.equipmentPerformance,
               gem: gem.gem,
             })),
           },
