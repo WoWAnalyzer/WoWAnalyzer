@@ -18,7 +18,7 @@ class GemChecker extends Analyzer {
     return {}; //Keeping form with EnchantChecker and having the user override this
   }
 
-  get GemableGear(): any {
+  get GemableGear(): Record<number, Item> {
     const gemSlots = this.GemableSlots;
     return Object.keys(gemSlots).reduce<Record<number, Item>>((obj, slot) => {
       const innerSlot = Number(slot);
