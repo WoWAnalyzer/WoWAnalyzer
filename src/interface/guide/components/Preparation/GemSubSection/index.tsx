@@ -15,10 +15,10 @@ const GemSubSection = ({ recommendedGems }: Props) => {
 
   return (
     <SubSection title="Gems">
-      <p>
+      <div>
         Gems can increase a variety of stats. This indicates gear where you are missing Gem Slots or
         don't have the highest crafted gems.
-      </p>
+      </div>
       <GemBoxRow values={gemChecker.getGemBoxRowEntries(recommendedGems)} />
     </SubSection>
   );
