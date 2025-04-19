@@ -7,7 +7,7 @@ import SPELLS from 'common/SPELLS/rogue';
 import TALENTS from 'common/TALENTS/rogue';
 import Spell from 'common/SPELLS/Spell';
 
-type Cooldown = {
+export type Cooldown = {
   spell: Spell;
   extraTalents?: Talent[];
 };

@@ -21,8 +21,11 @@ test.skip('report selection', async ({ page, homePage, fightSelectionPage }) => 
   await expect(page).toHaveTitle(reportTitle);
 });
 
-test('fight selection', async ({ page, fightSelectionPage, playerSelectionPage }) => {
+test('fight selection', async ({ page, fightSelectionPage, playerSelectionPage, reportPage }) => {
   await fightSelectionPage.goto(reportCode);
+
+  await reportPage.handleReportChecker();
+  await fightSelectionPage.expectFightSelectionHeaderToBeVisible();
 
   await page.getByRole('link', { name: fightLinkName }).click();
 
@@ -33,6 +36,9 @@ test('fight selection', async ({ page, fightSelectionPage, playerSelectionPage }
 
 test('player selection', async ({ page, playerSelectionPage, reportPage }) => {
   await playerSelectionPage.goto(reportCode, fightUrlPart);
+
+  await reportPage.handleReportChecker();
+  await playerSelectionPage.expectPlayerSelectionHeaderToBeVisible();
 
   await page.getByRole('link', { name: playerLinkName }).click();
 
@@ -93,18 +99,24 @@ test.describe('tab selection', () => {
   });
 });
 
-test('perform analysis', async ({ page }) => {
+test('perform analysis', async ({
+  page,
+  homePage,
+  playerSelectionPage,
+  fightSelectionPage,
+  reportPage,
+}) => {
   await page.goto('./');
 
-  await page.getByPlaceholder('https://www.warcraftlogs.com/reports/<report code>').click();
-  await page
-    .getByPlaceholder('https://www.warcraftlogs.com/reports/<report code>')
-    .fill(`https://www.warcraftlogs.com/reports/${reportCode}`);
-  await page.getByRole('heading', { name: 'Fight selection' }).waitFor();
-  await page.getByRole('link', { name: fightLinkName }).click();
-  await page.getByRole('heading', { name: 'Player selection' }).waitFor();
-  await page.getByRole('link', { name: playerLinkName }).click();
-  await page.getByText(bossDifficultyAndName).waitFor();
+  await homePage.fillInReportInputWithCode(reportCode);
 
+  await reportPage.handleReportChecker();
+  await fightSelectionPage.expectFightSelectionHeaderToBeVisible();
+  await page.getByRole('link', { name: fightLinkName }).click();
+
+  await playerSelectionPage.expectPlayerSelectionHeaderToBeVisible();
+  await page.getByRole('link', { name: playerLinkName }).click();
+
+  await page.getByText(bossDifficultyAndName).waitFor();
   await expect(page).toHaveURL(`/report/${reportCode}/${fightUrlPart}/${playerName}/standard`);
 });

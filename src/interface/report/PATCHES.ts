@@ -77,6 +77,14 @@ const PATCHES: Patch[] = [
     name: '11.1.0',
     timestamp: 1741125600000, // GMT: Tuesday, 4 March 2025 22:00:00
     urlPrefix: '',
+    isCurrent: false,
+    gameVersion: 1, // retail
+    expansion: Expansion.TheWarWithin,
+  },
+  {
+    name: '11.1.5',
+    timestamp: 1745359200000, // GMT: Tuesday, 22 April 2025 22:00:00
+    urlPrefix: '',
     isCurrent: true,
     gameVersion: 1, // retail
     expansion: Expansion.TheWarWithin,

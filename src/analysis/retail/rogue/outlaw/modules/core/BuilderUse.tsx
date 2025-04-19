@@ -1,7 +1,7 @@
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import { BadColor, GoodColor } from 'interface/guide';
-import { ResourceLink, SpellLink } from 'interface';
+import { ResourceLink } from 'interface';
 import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
@@ -12,6 +12,8 @@ import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/rogue';
 import Enemies from 'parser/shared/modules/Enemies';
 import ComboPointTracker from 'analysis/retail/rogue/shared/ComboPointTracker';
+
+// TODO: Add a section to show commonly builders that were used poorly
 
 export default class BuilderUse extends Analyzer {
   static dependencies = {
@@ -25,6 +27,9 @@ export default class BuilderUse extends Analyzer {
 
   totalBuilderCasts = 0;
   wastedBuilderCasts = 0;
+
+  hasKeepItRolling = this.selectedCombatant.hasTalent(talents.KEEP_IT_ROLLING_TALENT);
+  hasHiddenOpportunity = this.selectedCombatant.hasTalent(talents.HIDDEN_OPPORTUNITY_TALENT);
 
   constructor(options: Options) {
     super(options);
@@ -46,29 +51,6 @@ export default class BuilderUse extends Analyzer {
         color: BadColor,
         label: 'Wasted Builders',
         value: this.wastedBuilderCasts,
-        tooltip: (
-          <div>
-            Builders casted at or above {this.finishers.recommendedFinisherPoints()} CPs, this
-            doesn't include:
-            <ul>
-              <li>
-                {' '}
-                <SpellLink spell={SPELLS.SINISTER_STRIKE} /> casted at 6cp without{' '}
-                <SpellLink spell={SPELLS.BROADSIDE} /> buff up
-              </li>
-              <li>
-                {' '}
-                <SpellLink spell={SPELLS.AMBUSH} /> casted at 6cp with{' '}
-                <SpellLink spell={SPELLS.OUTLAW_ROGUE_TIER_28_2P_SET_BONUS} /> buff up
-              </li>
-              <li>
-                {' '}
-                <SpellLink spell={talents.GHOSTLY_STRIKE_TALENT} /> casted at 6cp without{' '}
-                <SpellLink spell={SPELLS.BROADSIDE} /> buff up
-              </li>
-            </ul>
-          </div>
-        ),
       },
     ];
 
@@ -96,6 +78,25 @@ export default class BuilderUse extends Analyzer {
     }
   }
 
+  private pistolShotUsage(cpAtCast: number) {
+    if (this.hasKeepItRolling) {
+      return (this.selectedCombatant.hasBuff(SPELLS.BROADSIDE) && cpAtCast <= 1) || cpAtCast <= 3;
+    }
+
+    return cpAtCast <= 4;
+  }
+
+  private ambushUsage(cpAtCast: number) {
+    if (this.hasHiddenOpportunity) {
+      return (
+        this.selectedCombatant.hasBuff(SPELLS.AUDACITY_TALENT_BUFF) ||
+        (this.selectedCombatant.hasBuff(SPELLS.SUBTERFUGE_BUFF) && cpAtCast <= 4)
+      );
+    }
+
+    return cpAtCast <= this.finishers.recommendedFinisherPoints();
+  }
+
   private IsBuilderCPEfficient(event: CastEvent) {
     const cpUpdate = this.comboPointTracker.resourceUpdates.at(-1);
     const spellID = event.ability.guid;
@@ -112,29 +113,27 @@ export default class BuilderUse extends Analyzer {
     }
 
     const cpAtCast = this.comboPointTracker.current - cpUpdate.change;
+    /* console.log(
+      'At',
+      this.owner.formatTimestamp(event.timestamp, 3),
+      ' Cast at',
+      cpAtCast,
+      ' cp ',
+      event.ability.name,
+    ); */
 
-    if (cpAtCast > this.finishers.recommendedFinisherPoints()) {
-      //console.log('At', this.owner.formatTimestamp(event.timestamp, 1), ' Cast at max cp ', event.ability.name);
-      return false;
-    } else if (cpAtCast === this.finishers.recommendedFinisherPoints()) {
-      //this is neutral
-      if (
-        !(
-          spellID === SPELLS.SINISTER_STRIKE.id &&
-          !this.selectedCombatant.hasBuff(SPELLS.BROADSIDE.id)
-        ) &&
-        // Ambushes at 6cp with tier are correct
-        !(
-          spellID === SPELLS.AMBUSH.id &&
-          this.selectedCombatant.hasBuff(SPELLS.OUTLAW_ROGUE_TIER_28_2P_SET_BONUS.id, null, 200)
-        ) &&
-        // GS debuff maintainance is more important than cp overcap if the debuff is down
-        spellID !== talents.GHOSTLY_STRIKE_TALENT.id //try to find a way to make this work at some point: && target.getRemainingBuffTimeAtTimestamp(talents.GHOSTLY_STRIKE_TALENT.id, 10000, 13000,event.timestamp)<=1))
-      ) {
-        //console.log('At', this.owner.formatTimestamp(event.timestamp, 1),' Cast at 6 cp ', event.ability.name);
-        return false;
-      }
+    switch (spellID) {
+      case SPELLS.PISTOL_SHOT.id:
+        return this.pistolShotUsage(cpAtCast);
+      case SPELLS.SINISTER_STRIKE.id:
+        return cpAtCast <= 5;
+      case SPELLS.AMBUSH.id:
+      case SPELLS.AMBUSH_PROC.id:
+        return this.ambushUsage(cpAtCast);
+      case talents.GHOSTLY_STRIKE_TALENT.id:
+        return true;
     }
-    return true;
+
+    return cpAtCast <= this.finishers.recommendedFinisherPoints();
   }
 }

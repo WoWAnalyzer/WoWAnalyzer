@@ -22,7 +22,7 @@ class Abilities extends CoreAbilities {
       },
       // Rotational
       {
-        spell: SPELLS.AMBUSH.id,
+        spell: [SPELLS.AMBUSH.id, SPELLS.AMBUSH_PROC.id],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           static: standardGcd,
@@ -61,9 +61,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.GHOSTLY_STRIKE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 35,
-        gcd: {
-          static: standardGcd,
-        },
+        gcd: null,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
@@ -139,7 +137,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.KILLING_SPREE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 120,
+        cooldown: 90 * (combatant.hasTalent(TALENTS.DISORIENTING_STRIKES_TALENT) ? 0.9 : 1),
         gcd: {
           static: standardGcd,
         },
@@ -181,9 +179,8 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.DEFENSIVE,
         buffSpellId: SPELLS.FEINT.id,
         cooldown: 15,
-        gcd: {
-          static: standardGcd,
-        },
+        charges: combatant.hasTalent(TALENTS.GRACEFUL_GUILE_TALENT) ? 2 : 1,
+        gcd: null,
       },
       {
         spell: TALENTS.EVASION_TALENT.id,
@@ -191,6 +188,15 @@ class Abilities extends CoreAbilities {
         buffSpellId: TALENTS.EVASION_TALENT.id,
         cooldown: 120,
         gcd: null,
+      },
+      // TWW Hero Talents
+      {
+        spell: SPELLS.COUP_DE_GRACE_CAST.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        enabled: combatant.hasTalent(TALENTS.COUP_DE_GRACE_TALENT),
+        gcd: {
+          static: standardGcd,
+        },
       },
       // Others
       {
@@ -208,6 +214,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 120,
         gcd: null,
+        charges: combatant.hasTalent(TALENTS.WITHOUT_A_TRACE_TALENT) ? 2 : 1,
         castEfficiency: {
           suggestion: true,
           extraSuggestion: (
@@ -224,7 +231,10 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.GRAPPLING_HOOK.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 45 - (combatant.hasTalent(TALENTS.RETRACTABLE_HOOK_TALENT) ? 15 : 0),
+        cooldown:
+          45 -
+          (combatant.hasTalent(TALENTS.RETRACTABLE_HOOK_TALENT) ? 15 : 0) +
+          (combatant.hasTalent(TALENTS.DEATHS_ARRIVAL_TALENT) ? 5 : 0),
         charges: combatant.hasTalent(TALENTS.THRILL_SEEKING_TALENT) ? 2 : 1,
         gcd: null,
       },

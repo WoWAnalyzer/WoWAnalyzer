@@ -125,6 +125,10 @@ const spells: number[] = [
   SPELLS.WRATH_AND_FURY.id,
   //endregion
 
+  //region Rogue
+  SPELLS.DISPATCH_COUP_DE_GRACE.id,
+  //endregion
+
   //region classic druid
   CLASSIC_SPELLS.ECLIPSE_LUNAR.id,
   CLASSIC_SPELLS.ECLIPSE_SOLAR.id,
