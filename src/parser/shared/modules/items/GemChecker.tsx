@@ -1,12 +1,17 @@
 import { Trans } from '@lingui/react/macro';
-import { Gem as GemItem } from 'common/ITEMS/Item';
+import { CraftedItem, Gem as GemItem } from 'common/ITEMS/Item';
 import { ItemLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
-import { Item, Gem as EventGem } from 'parser/core/Events';
-import { ItemHelper } from 'parser/core/itemHelper';
+import { Item as EventItem, Gem as EventGem } from 'parser/core/Events';
+import {
+  hasBonusId,
+  TRIPLE_GEM_BONUS_ID,
+  DOUBLE_GEM_BONUS_ID,
+  SINGLE_GEM_BONUS_ID,
+} from 'parser/core/itemHelper';
 import { GemBoxRowEntry } from 'interface/guide/components/Preparation/GemSubSection/GemBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { gemById } from 'common/ITEMS/thewarwithin/gems';
+import ITEMS from 'common/ITEMS';
 import GEAR_SLOTS from 'game/GEAR_SLOTS';
 
 class GemChecker extends Analyzer {
@@ -18,9 +23,9 @@ class GemChecker extends Analyzer {
     return {}; //Keeping form with EnchantChecker and having the user override this
   }
 
-  get GemableGear(): Record<number, Item> {
+  get GemableGear(): Record<number, EventItem> {
     const gemSlots = this.GemableSlots;
-    return Object.keys(gemSlots).reduce<Record<number, Item>>((obj, slot) => {
+    return Object.keys(gemSlots).reduce<Record<number, EventItem>>((obj, slot) => {
       const innerSlot = Number(slot);
 
       obj[innerSlot] = this.selectedCombatant._getGearItemBySlotId(innerSlot);
@@ -29,19 +34,19 @@ class GemChecker extends Analyzer {
     }, {});
   }
 
-  hasMaxGemCount(item: Item, slot: number) {
+  hasMaxGemCount(item: EventItem, slot: number) {
     //BonusID for sockets is 10878, 10879, 10880 (1, 2, 3 respectively)
 
-    if (ItemHelper.hasBonusId(item, ItemHelper.TRIPLE_GEM_BONUS_ID)) {
+    if (hasBonusId(item, TRIPLE_GEM_BONUS_ID)) {
       return (item.gems?.length ?? 0) >= 3;
     } else if (
       GemChecker.twoAddableGemSlots.includes(slot) ||
-      ItemHelper.hasBonusId(item, ItemHelper.DOUBLE_GEM_BONUS_ID)
+      hasBonusId(item, DOUBLE_GEM_BONUS_ID)
     ) {
       return (item.gems?.length ?? 0) >= 2;
     } else if (
       GemChecker.oneAddableGemSlot.includes(slot) ||
-      ItemHelper.hasBonusId(item, ItemHelper.SINGLE_GEM_BONUS_ID)
+      hasBonusId(item, SINGLE_GEM_BONUS_ID)
     ) {
       return (item.gems?.length ?? 0) >= 1;
     }
@@ -51,7 +56,7 @@ class GemChecker extends Analyzer {
 
   //#region UI
   //Add a row for the actual Gem in the future to evaluate each
-  boxRowPerformance(item: Item, recommendedGems: number[] | undefined, slot: number) {
+  boxRowPerformance(item: EventItem, recommendedGems: number[] | undefined, slot: number) {
     const hasMaxGem = this.hasMaxGemCount(item, slot);
     let qualitativePerformance = QualitativePerformance.Fail;
     if (hasMaxGem) {
@@ -63,7 +68,7 @@ class GemChecker extends Analyzer {
 
     if ((item.gems ?? []).length > 0) {
       item.gems!.forEach((iGem) => {
-        const lookupGem = gemById[iGem.id];
+        const lookupGem = ITEMS[iGem.id] as CraftedItem | undefined;
 
         let tempQP = QualitativePerformance.Fail;
         const gemRec = recommendedGems?.includes(iGem.id);
@@ -119,7 +124,7 @@ class GemChecker extends Analyzer {
     }
   }
 
-  boxRowItemLink(item: Item, slotName: JSX.Element) {
+  boxRowItemLink(item: EventItem, slotName: JSX.Element) {
     return (
       <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>
         {slotName}
@@ -128,7 +133,7 @@ class GemChecker extends Analyzer {
   }
 
   boxRowTooltip(
-    item: Item,
+    item: EventItem,
     slotName: JSX.Element,
     slotNumber: number,
     recommendedGems: GemItem[] | undefined,
@@ -138,7 +143,7 @@ class GemChecker extends Analyzer {
     //Note for Future me: <Trans id="..."> the text comes from locales/<Localization Code>/messages.json
 
     //#region Special Cases
-    if (item.icon === 'inv_siren_isle_ring.jpg') {
+    if (item.id === ITEMS.CYRCES_CIRCLET.id) {
       return (
         <Trans id="shared.GemChecker.CyrceSpecialCase">
           Cyrce's Circlet is a special case. Please see your class guides for best usage.
@@ -149,9 +154,9 @@ class GemChecker extends Analyzer {
     //Not Gemable
     if (
       item.bonusIDs === undefined &&
-      !ItemHelper.hasBonusId(item, ItemHelper.SINGLE_GEM_BONUS_ID) &&
-      !ItemHelper.hasBonusId(item, ItemHelper.DOUBLE_GEM_BONUS_ID) &&
-      !ItemHelper.hasBonusId(item, ItemHelper.TRIPLE_GEM_BONUS_ID) &&
+      !hasBonusId(item, SINGLE_GEM_BONUS_ID) &&
+      !hasBonusId(item, DOUBLE_GEM_BONUS_ID) &&
+      !hasBonusId(item, TRIPLE_GEM_BONUS_ID) &&
       !GemChecker.twoAddableGemSlots.includes(slotNumber) &&
       !GemChecker.oneAddableGemSlot.includes(slotNumber)
     ) {
@@ -160,7 +165,7 @@ class GemChecker extends Analyzer {
     //#endregion
 
     //X gems Missing
-    if (ItemHelper.hasBonusId(item, ItemHelper.TRIPLE_GEM_BONUS_ID)) {
+    if (hasBonusId(item, TRIPLE_GEM_BONUS_ID)) {
       const missingGems = 3 - (item.gems?.length ?? 0);
       if (missingGems > 0) {
         tooltipContent.push(
@@ -175,7 +180,7 @@ class GemChecker extends Analyzer {
           </Trans>,
         );
       }
-    } else if (ItemHelper.hasBonusId(item, ItemHelper.DOUBLE_GEM_BONUS_ID)) {
+    } else if (hasBonusId(item, DOUBLE_GEM_BONUS_ID)) {
       const missingGems = 2 - (item.gems?.length ?? 0);
       if (missingGems > 0) {
         tooltipContent.push(
@@ -190,7 +195,7 @@ class GemChecker extends Analyzer {
           </Trans>,
         );
       }
-    } else if (ItemHelper.hasBonusId(item, ItemHelper.SINGLE_GEM_BONUS_ID)) {
+    } else if (hasBonusId(item, SINGLE_GEM_BONUS_ID)) {
       if ((item.gems?.length ?? 0) !== 1) {
         tooltipContent.push(
           <Trans id="shared.GemChecker.MissingGemsSingle">
@@ -210,19 +215,27 @@ class GemChecker extends Analyzer {
     if (GemChecker.twoAddableGemSlots.includes(slotNumber)) {
       const missingGems = 2 - (item.gems?.length ?? 0);
       if (missingGems > 0) {
+        //id="shared.GemChecker.MissingSlotsCraftable"
         tooltipContent.push(
-          <Trans id="shared.GemChecker.MissingSlotsCraftable">
-            <p>You are missing {missingGems} possible slot on your {slotName}.</p>
-            <p>Craft/Buy <ItemLink id={ITEMS.MAGNIFICENT_JEWELERS_SETTING.id} /> to add slots.</p>
+          <Trans>
+            <div>
+              You are missing {missingGems} possible gem socket on your {slotName}.
+            </div>
+            <div>
+              Craft/Buy <ItemLink id={ITEMS.MAGNIFICENT_JEWELERS_SETTING.id} /> to add a gem socket.
+            </div>
           </Trans>,
-        ); //ItemLink in the future when I figure out how they work
+        ); //ItemLink Doesn't currently work as there is no MAGNIFICENT_JEWELERS_SETTING <ItemLink id={ITEMS.MAGNIFICENT_JEWELERS_SETTING.id} />
       }
     } else if (GemChecker.oneAddableGemSlot.includes(slotNumber)) {
       if ((item.gems?.length ?? 0) !== 1) {
+        //id="shared.GemChecker.MissingSlotsVault"
         tooltipContent.push(
-          <Trans id="shared.GemChecker.MissingSlotsVault">
-            You are missing a possible slot on your {slotName}. <br />6 Algari Token of Merit for
-            S.A.D. to add a slot.
+          <Trans>
+            You do not have a gem socket on your {slotName}. If you don't have good items in your
+            Vault, you can get <ItemLink id={ITEMS.ALGARI_TOKEN_OF_MERIT.id} /> instead and trade 6
+            of them for <ItemLink id={ITEMS.SAD_SOCKET_ADDING_DEVICE.id} /> at the nearby vendor to
+            add a gem socket.
           </Trans>,
         ); //ItemLink in the future when I figure out how they work
       }
@@ -248,9 +261,9 @@ class GemChecker extends Analyzer {
         const slotNumber = Number(slot);
         const item = gear[slotNumber];
         return (
-          ItemHelper.hasBonusId(item, ItemHelper.SINGLE_GEM_BONUS_ID) ||
-          ItemHelper.hasBonusId(item, ItemHelper.DOUBLE_GEM_BONUS_ID) ||
-          ItemHelper.hasBonusId(item, ItemHelper.TRIPLE_GEM_BONUS_ID) ||
+          hasBonusId(item, SINGLE_GEM_BONUS_ID) ||
+          hasBonusId(item, DOUBLE_GEM_BONUS_ID) ||
+          hasBonusId(item, TRIPLE_GEM_BONUS_ID) ||
           GemChecker.twoAddableGemSlots.includes(slotNumber) ||
           GemChecker.oneAddableGemSlot.includes(slotNumber)
         );

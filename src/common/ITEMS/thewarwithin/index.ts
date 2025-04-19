@@ -3,8 +3,9 @@ import Enchants from './enchants';
 import Potions from './potions';
 import Trinkets from './trinkets';
 import Embellishments from './embellishments';
-import Gems from 'common/ITEMS/thewarwithin/gems';
+import Gems from './gems';
+import others from './others';
 
-const items = safeMerge(Enchants, Gems, Potions, Trinkets, Embellishments);
+const items = safeMerge(Enchants, Gems, Potions, Trinkets, Embellishments, others);
 
 export default items;

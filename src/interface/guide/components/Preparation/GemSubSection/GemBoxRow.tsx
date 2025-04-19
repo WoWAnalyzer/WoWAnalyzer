@@ -2,9 +2,8 @@ import styles from './GemBoxRow.module.scss';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { CSSProperties, ReactNode } from 'react';
 import { Tooltip } from 'interface/index';
-import Item from 'common/ITEMS/Item';
+import { Item as EventItem, Gem as EventGem } from 'parser/core/Events';
 import Icon from 'interface/Icon';
-import { Gem as EventGem } from 'parser/core/Events';
 
 const getBlockClassName = (value: QualitativePerformance) => {
   switch (value) {
@@ -36,7 +35,7 @@ const getPerformanceColor = (performance: QualitativePerformance): string => {
 };
 
 export interface GemBoxRowEntry {
-  item: Item;
+  item: EventItem;
   slotName: JSX.Element;
   value: {
     itemQP: QualitativePerformance;

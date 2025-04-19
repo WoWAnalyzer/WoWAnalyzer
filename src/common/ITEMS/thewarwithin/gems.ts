@@ -555,6 +555,4 @@ const gems = {
   },
 } satisfies Record<string, CraftedItem>;
 
-export const gemById = Object.fromEntries(Object.values(gems).map((gem) => [gem.id, gem]));
-
 export default gems;
