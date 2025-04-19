@@ -1,10 +1,10 @@
 import { SubSection, useAnalyzer, useInfo } from 'interface/guide/index';
 import GemChecker from 'parser/shared/modules/items/GemChecker';
 import GemBoxRow from 'interface/guide/components/Preparation/GemSubSection/GemBoxRow';
-import { Gem } from 'common/ITEMS/Item';
+import { CraftedItem } from 'common/ITEMS/Item';
 
 interface Props {
-  recommendedGems?: Record<number, Gem[]>;
+  recommendedGems?: Record<number, CraftedItem[]>;
 }
 const GemSubSection = ({ recommendedGems }: Props) => {
   const gemChecker = useAnalyzer(GemChecker);
