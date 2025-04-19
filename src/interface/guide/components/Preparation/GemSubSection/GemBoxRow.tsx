@@ -15,6 +15,10 @@ const getBlockClassName = (value: EquipmentPerformance) => {
       return styles['ok-block'];
     case EquipmentPerformance.Fail:
       return styles['bad-block'];
+    case EquipmentPerformance.Potential:
+      return styles['potential-block'];
+    default:
+      return 'background-color: brown';
   }
 };
 

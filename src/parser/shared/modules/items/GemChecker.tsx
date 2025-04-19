@@ -58,48 +58,40 @@ class GemChecker extends Analyzer {
   //Add a row for the actual Gem in the future to evaluate each
   boxRowPerformance(item: EventItem, recommendedGems: number[] | undefined, slot: number) {
     const hasMaxGem = this.hasMaxGemCount(item, slot);
-    let equipmentPerformance = EquipmentPerformance.Fail;
+    let equipmentPerformance = EquipmentPerformance.Potential;
     if (hasMaxGem) {
       equipmentPerformance = EquipmentPerformance.Good;
     }
 
-    let maxGem = true;
+    let allRecommendedGem = true;
     const gemRank: { equipmentPerformance: EquipmentPerformance; gem: EventGem }[] = [];
 
     if ((item.gems ?? []).length > 0) {
       item.gems!.forEach((iGem) => {
         const lookupGem = ITEMS[iGem.id] as CraftedItem | undefined;
 
-        let tempQP = EquipmentPerformance.Fail;
+        let tempQP = EquipmentPerformance.Potential;
         const gemRec = recommendedGems?.includes(iGem.id);
 
         if (gemRec) {
           tempQP = EquipmentPerformance.Perfect;
         } else {
+          allRecommendedGem = false;
           switch (lookupGem?.craftQuality) {
             case 3:
-              if (recommendedGems !== undefined && !gemRec) {
-                tempQP = EquipmentPerformance.Good;
-                maxGem = false;
-              } else {
-                tempQP = EquipmentPerformance.Perfect;
-              }
+              tempQP = EquipmentPerformance.Good;
               break;
             case 2:
               tempQP = EquipmentPerformance.Good;
-              maxGem = false;
               break;
             case 1:
               tempQP = EquipmentPerformance.Ok;
-              maxGem = false;
               break;
-            case undefined: //Consider Item Level when there isn't a lookup.
+            case undefined: //In Futuer Consider Item Level when there isn't a lookup return.
               tempQP = EquipmentPerformance.Ok;
-              maxGem = false;
               break;
             default:
-              tempQP = EquipmentPerformance.Fail;
-              maxGem = false;
+              tempQP = EquipmentPerformance.Fail; //Should never get here
               break;
           }
         }
@@ -109,9 +101,9 @@ class GemChecker extends Analyzer {
           gem: iGem,
         });
 
-        if (hasMaxGem && maxGem) {
+        if (hasMaxGem && allRecommendedGem) {
           equipmentPerformance = EquipmentPerformance.Perfect;
-        } else if (hasMaxGem && !maxGem) {
+        } else if (hasMaxGem && !allRecommendedGem) {
           equipmentPerformance = EquipmentPerformance.Good;
         } else if (!hasMaxGem) {
           equipmentPerformance = EquipmentPerformance.Ok;
@@ -119,9 +111,9 @@ class GemChecker extends Analyzer {
           equipmentPerformance = tempQP;
         }
       });
-
-      return { equipmentPerformance, gemRank };
     }
+
+    return { equipmentPerformance, gemRank };
   }
 
   boxRowItemLink(item: EventItem, slotName: JSX.Element) {
@@ -139,6 +131,7 @@ class GemChecker extends Analyzer {
     recommendedGems: GemItem[] | undefined,
   ) {
     const tooltipContent: JSX.Element[] = [];
+    const gemArrayLength = item.gems?.length ?? 0;
 
     //Note for Future me: <Trans id="..."> the text comes from locales/<Locale Code>/messages.json
 
@@ -151,7 +144,7 @@ class GemChecker extends Analyzer {
       );
     }
 
-    //Not Gemable
+    //Not Gemable (This is more a safety check in case we make it here and the original filter didn't work.)
     if (
       item.bonusIDs === undefined &&
       !hasBonusId(item, SINGLE_GEM_BONUS_ID) &&
@@ -176,7 +169,7 @@ class GemChecker extends Analyzer {
       maxGems = 1;
     }
 
-    const missingGems = maxGems - (item.gems?.length ?? 0);
+    const missingGems = maxGems - gemArrayLength;
 
     if (missingGems > 0) {
       tooltipContent.push(
@@ -184,7 +177,7 @@ class GemChecker extends Analyzer {
           You are missing {missingGems} gems on your {slotName}.
         </Trans>,
       );
-    } else {
+    } else if (gemArrayLength > 0) {
       tooltipContent.push(
         <Trans id="shared.GemChecker.guide.FullyGemmed">
           {slotName} sockets are fully gemmed!
@@ -194,7 +187,7 @@ class GemChecker extends Analyzer {
 
     //X Missing Socket
     if (GemChecker.twoAddableGemSlots.includes(slotNumber)) {
-      const missingGems = 2 - (item.gems?.length ?? 0);
+      const missingGems = 2 - gemArrayLength;
       if (missingGems > 0) {
         //id="shared.GemChecker.MissingSlotsCraftable"
         tooltipContent.push(
@@ -209,7 +202,7 @@ class GemChecker extends Analyzer {
         );
       }
     } else if (GemChecker.oneAddableGemSlot.includes(slotNumber)) {
-      if ((item.gems?.length ?? 0) !== 1) {
+      if (gemArrayLength !== 1) {
         //id="shared.GemChecker.MissingSlotsVault"
         tooltipContent.push(
           <Trans>
