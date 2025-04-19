@@ -1,8 +1,9 @@
 import { Trans } from '@lingui/react/macro';
-import { CraftedItem, Gem as GemItem } from 'common/ITEMS/Item';
+import ITEMS from 'common/ITEMS'; //This is the main item index for the Gem Lookup and ItemLinks
+import { CraftedItem } from 'common/ITEMS/Item'; //This is the Crafted Item that has the quality one items doesn't have
+import { Item as EventItem, Gem as EventGem } from 'parser/core/Events'; //This is the event item which is different then the inventory items one.
 import { ItemLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
-import { Item as EventItem, Gem as EventGem } from 'parser/core/Events';
 import {
   hasBonusId,
   TRIPLE_GEM_BONUS_ID,
@@ -11,7 +12,6 @@ import {
 } from 'parser/core/itemHelper';
 import { GemBoxRowEntry } from 'interface/guide/components/Preparation/GemSubSection/GemBoxRow';
 import { EquipmentPerformance } from 'parser/ui/EquipmentPerformance';
-import ITEMS from 'common/ITEMS';
 import GEAR_SLOTS from 'game/GEAR_SLOTS';
 
 class GemChecker extends Analyzer {
@@ -128,7 +128,7 @@ class GemChecker extends Analyzer {
     item: EventItem,
     slotName: JSX.Element,
     slotNumber: number,
-    recommendedGems: GemItem[] | undefined,
+    recommendedGems: CraftedItem[] | undefined,
   ) {
     const tooltipContent: JSX.Element[] = [];
     const gemArrayLength = item.gems?.length ?? 0;
@@ -225,7 +225,7 @@ class GemChecker extends Analyzer {
     );
   }
 
-  getGemBoxRowEntries(recommendedGems: Record<number, GemItem[]> = {}): GemBoxRowEntry[] {
+  getGemBoxRowEntries(recommendedGems: Record<number, CraftedItem[]> = {}): GemBoxRowEntry[] {
     const gear = this.GemableGear;
     const gemSlots: { [key: number]: JSX.Element } = this.GemableSlots;
 
