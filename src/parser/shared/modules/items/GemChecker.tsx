@@ -212,8 +212,8 @@ class GemChecker extends Analyzer {
       if (missingGems > 0) {
         tooltipContent.push(
           <Trans id="shared.GemChecker.MissingSlotsCraftable">
-            You are missing {missingGems} possible slot on your {slotName}.<br />
-            Craft/Buy Magnificent Jeweler's Setting to add a slot per.
+            <p>You are missing {missingGems} possible slot on your {slotName}.</p>
+            <p>Craft/Buy <ItemLink id={ITEMS.MAGNIFICENT_JEWELERS_SETTING.id} /> to add slots.</p>
           </Trans>,
         ); //ItemLink in the future when I figure out how they work
       }
