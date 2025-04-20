@@ -166,7 +166,7 @@ class GemChecker extends Analyzer {
       if (missingGems === 0) {
         equipmentPerformance = EquipmentPerformance.Good;
       } else {
-        equipmentPerformance = EquipmentPerformance.Good;
+        equipmentPerformance = EquipmentPerformance.Fail;
       }
 
       tooltip = (
