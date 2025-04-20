@@ -91,7 +91,7 @@ class GemChecker extends Analyzer {
               tempQP = EquipmentPerformance.Good;
               break;
             case 2:
-              tempQP = EquipmentPerformance.Good;
+              tempQP = EquipmentPerformance.Ok;
               break;
             case 1:
               tempQP = EquipmentPerformance.Ok;
