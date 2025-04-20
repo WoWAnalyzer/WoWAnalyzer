@@ -96,8 +96,8 @@ class GemChecker extends Analyzer {
             case 1:
               tempQP = EquipmentPerformance.Ok;
               break;
-            case undefined: //In Futuer Consider Item Level when there isn't a lookup return.
-              tempQP = EquipmentPerformance.Ok;
+            case undefined: 
+              tempQP = EquipmentPerformance.Fail;
               break;
             default:
               tempQP = EquipmentPerformance.Fail; //Should never get here
