@@ -24,7 +24,7 @@ class IceCold extends MajorDefensiveBuff {
   protected abilityTracker!: AbilityTracker;
 
   constructor(options: Options) {
-    super(TALENTS.ICE_COLD_TALENT, buff(SPELLS.ICE_COLD), options);
+    super(SPELLS.ICE_COLD, buff(SPELLS.ICE_COLD), options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.ICE_COLD_TALENT);
 
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
