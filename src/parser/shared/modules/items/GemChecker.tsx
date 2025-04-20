@@ -132,7 +132,12 @@ class GemChecker extends Analyzer {
       equipmentPerformance = EquipmentPerformance.Ok;
       //Revisit this when I figure out socket count on non-special cases
       if (GemChecker.twoAddableGemSlots.includes(slotNumber) && missingGems <= 2) {
-        equipmentPerformance = EquipmentPerformance.Potential;
+        if (missingGems === 1) {
+          equipmentPerformance = EquipmentPerformance.Ok;
+        } else {
+          equipmentPerformance = EquipmentPerformance.Potential;
+        }
+
         tooltipContent.push(
           <Trans id="shared.GemChecker.MissingSlotsCraftable">
             <div>
@@ -158,6 +163,12 @@ class GemChecker extends Analyzer {
 
     //#region Special Cases
     if (item.id === ITEMS.CYRCES_CIRCLET.id) {
+      if (missingGems === 0) {
+        equipmentPerformance = EquipmentPerformance.Good;
+      } else {
+        equipmentPerformance = EquipmentPerformance.Good;
+      }
+
       tooltip = (
         <Trans id="shared.GemChecker.CyrceSpecialCase">
           Cyrce's Circlet is a special case. Please see your class guides for best usage.
