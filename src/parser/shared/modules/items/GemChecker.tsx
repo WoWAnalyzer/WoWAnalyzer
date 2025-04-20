@@ -117,7 +117,7 @@ class GemChecker extends Analyzer {
     if (missingGems === 0 && allRecommendedGem) {
       equipmentPerformance = EquipmentPerformance.Perfect;
       tooltipContent.push(
-        <Trans id="shared.GemChecker.guide.FullyGemmed">
+        <Trans id="shared.GemChecker.guide.FullyGemmedRecommended">
           {slotName} sockets are fully gemmed with recommended gems!
         </Trans>,
       );

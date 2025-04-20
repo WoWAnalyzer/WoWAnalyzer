@@ -867,6 +867,7 @@
   "shared.GemChecker.guide.MissingGemsMultiple": "You are missing {missingGems} gems on your {slotName}.",
   "shared.GemChecker.MissingGemsSingle": "You are missing a gem on your {slotName}.",
   "shared.GemChecker.guide.FullyGemmed": "{slotName} sockets are fully gemmed!",
+  "shared.GemChecker.guide.FullyGemmedRecommended": "{slotName} sockets are fully gemmed with recommended gems!",
   "shared.GemChecker.MissingSlotsCraftable": "<div>You are missing {missingGems} possible gem socket on your {slotName}.</div><div>Craft/Buy <ItemLink id={ITEMS.MAGNIFICENT_JEWELERS_SETTING.id} /> to add a gem socket.</div>",
   "shared.GemChecker.MissingSlotsVault": "<Trans>You do not have a gem socket on your {slotName}. If you don't have good items in your Vault, you can get <ItemLink id={ITEMS.ALGARI_TOKEN_OF_MERIT.id} /> instead and trade 6 of them for <ItemLink id={ITEMS.SAD_SOCKET_ADDING_DEVICE.id} /> at the nearby vendor to add a gem socket.          </Trans>",
   "shared.healerStatValues.statistic.qeLink": "<0/> Open Questionably Epic Live",
