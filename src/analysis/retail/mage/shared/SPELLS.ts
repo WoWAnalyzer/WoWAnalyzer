@@ -13,7 +13,7 @@ const spells = {
     icon: 'spell_frost_glacier',
   },
   GREATER_INVISIBILITY_BUFF: {
-    id: 110960,
+    id: 113862,
     name: 'Greater Invisibility',
     icon: 'ability_mage_greaterinvisibility',
   },
