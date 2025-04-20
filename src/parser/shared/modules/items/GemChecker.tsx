@@ -2,14 +2,12 @@ import { Trans } from '@lingui/react/macro';
 import ITEMS from 'common/ITEMS'; //This is the main item index for the Gem Lookup and ItemLinks
 import { CraftedItem } from 'common/ITEMS/Item'; //This is the Crafted Item that has the quality one items doesn't have
 import { Item as EventItem, Gem as EventGem } from 'parser/core/Events'; //This is the event item which is different then the inventory items one.
+import {
+  eventItemGemSocketCount,
+  eventItemHasGemSocket,
+} from 'common/ITEMS/thewarwithin/socketBonusId';
 import { ItemLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
-import {
-  hasBonusId,
-  TRIPLE_GEM_BONUS_ID,
-  DOUBLE_GEM_BONUS_ID,
-  SINGLE_GEM_BONUS_ID,
-} from 'parser/core/itemHelper';
 import { GemBoxRowEntry } from 'interface/guide/components/Preparation/GemSubSection/GemBoxRow';
 import { EquipmentPerformance } from 'parser/ui/EquipmentPerformance';
 import GEAR_SLOTS from 'game/GEAR_SLOTS';
@@ -35,27 +33,18 @@ class GemChecker extends Analyzer {
   }
 
   missingGemCount(item: EventItem, slot: number) {
-    //BonusID for sockets is 10878, 10879, 10880 (1, 2, 3 respectively) for Jewelery
     const gemArrayLength: number = item.gems?.length ?? 0;
+    const socketCount = eventItemGemSocketCount(item);
 
-    if (hasBonusId(item, TRIPLE_GEM_BONUS_ID)) {
-      return 3 - gemArrayLength;
-    } else if (
-      GemChecker.twoAddableGemSlots.includes(slot) ||
-      hasBonusId(item, DOUBLE_GEM_BONUS_ID)
-    ) {
+    if (GemChecker.twoAddableGemSlots.includes(slot) && socketCount < 2) {
       return 2 - gemArrayLength;
-    } else if (
-      GemChecker.oneAddableGemSlot.includes(slot) ||
-      hasBonusId(item, SINGLE_GEM_BONUS_ID)
-    ) {
+    } else if (GemChecker.oneAddableGemSlot.includes(slot) && socketCount < 1) {
       return 1 - gemArrayLength;
+    } else if (gemArrayLength > socketCount) {
+      return 0;
+    } else {
+      return socketCount - gemArrayLength;
     }
-
-    //Need to expand this for the socket cases...
-
-    //Don't know the total number of sockets if we are here.
-    return 0;
   }
 
   //#region UI
@@ -74,13 +63,11 @@ class GemChecker extends Analyzer {
 
     //Something made it that shouldn't.  Throw a filter here for those without gem or gem potential
     if (
-      item.bonusIDs === undefined &&
-      !hasBonusId(item, SINGLE_GEM_BONUS_ID) &&
-      !hasBonusId(item, DOUBLE_GEM_BONUS_ID) &&
-      !hasBonusId(item, TRIPLE_GEM_BONUS_ID) &&
-      !GemChecker.twoAddableGemSlots.includes(slotNumber) &&
-      !GemChecker.oneAddableGemSlot.includes(slotNumber) &&
-      gemArrayLength === 0
+      (item.bonusIDs === undefined && gemArrayLength === 0) ||
+      (!eventItemHasGemSocket(item) &&
+        !GemChecker.twoAddableGemSlots.includes(slotNumber) &&
+        !GemChecker.oneAddableGemSlot.includes(slotNumber) &&
+        gemArrayLength === 0)
     ) {
       tooltip = <Trans id="shared.GemChecker.NotGemable">Your {slotName} cannot take a gem.</Trans>;
       return { equipmentPerformance, gemRank, tooltip };
@@ -146,6 +133,7 @@ class GemChecker extends Analyzer {
       //Revisit this when I figure out socket count on non-special cases
       if (GemChecker.twoAddableGemSlots.includes(slotNumber) && missingGems <= 2) {
         //id="shared.GemChecker.MissingSlotsCraftable"
+        equipmentPerformance = EquipmentPerformance.Potential;
         tooltipContent.push(
           <Trans>
             <div>
@@ -158,6 +146,7 @@ class GemChecker extends Analyzer {
         );
       } else if (GemChecker.oneAddableGemSlot.includes(slotNumber) && missingGems === 1) {
         //id="shared.GemChecker.MissingSlotsVault"
+        equipmentPerformance = EquipmentPerformance.Potential;
         tooltipContent.push(
           <Trans>
             You do not have a gem socket on your {slotName}. If you don't have good items in your
@@ -197,107 +186,6 @@ class GemChecker extends Analyzer {
     );
   }
 
-  boxRowTooltip(
-    item: EventItem,
-    slotName: JSX.Element,
-    slotNumber: number,
-    recommendedGems: CraftedItem[] | undefined,
-  ) {
-    const tooltipContent: JSX.Element[] = [];
-    const gemArrayLength = item.gems?.length ?? 0;
-
-    //Note for Future me: <Trans id="..."> the text comes from locales/<Locale Code>/messages.json
-
-    //#region Special Cases
-    if (item.id === ITEMS.CYRCES_CIRCLET.id) {
-      return (
-        <Trans id="shared.GemChecker.CyrceSpecialCase">
-          Cyrce's Circlet is a special case. Please see your class guides for best usage.
-        </Trans>
-      );
-    }
-
-    //Not Gemable (This is more a safety check in case we make it here and the original filter didn't work.)
-    if (
-      item.bonusIDs === undefined &&
-      !hasBonusId(item, SINGLE_GEM_BONUS_ID) &&
-      !hasBonusId(item, DOUBLE_GEM_BONUS_ID) &&
-      !hasBonusId(item, TRIPLE_GEM_BONUS_ID) &&
-      !GemChecker.twoAddableGemSlots.includes(slotNumber) &&
-      !GemChecker.oneAddableGemSlot.includes(slotNumber) &&
-      gemArrayLength === 0
-    ) {
-      return <Trans id="shared.GemChecker.NotGemable">Your {slotName} cannot take a gem.</Trans>;
-    }
-    //#endregion
-
-    // computing `maxGems` could be replaced with a method
-    let maxGems = 0;
-
-    if (hasBonusId(item, TRIPLE_GEM_BONUS_ID)) {
-      maxGems = 3;
-    } else if (hasBonusId(item, DOUBLE_GEM_BONUS_ID)) {
-      maxGems = 2;
-    } else if (hasBonusId(item, SINGLE_GEM_BONUS_ID)) {
-      maxGems = 1;
-    }
-
-    const missingGems = maxGems - gemArrayLength;
-
-    if (missingGems > 0) {
-      tooltipContent.push(
-        <Trans id="shared.GemChecker.MissingGemsMultiple">
-          You are missing {missingGems} gems on your {slotName}.
-        </Trans>,
-      );
-    } else if (gemArrayLength > 0) {
-      tooltipContent.push(
-        <Trans id="shared.GemChecker.guide.FullyGemmed">
-          {slotName} sockets are fully gemmed!
-        </Trans>,
-      );
-    }
-
-    //X Missing Socket
-    if (GemChecker.twoAddableGemSlots.includes(slotNumber)) {
-      const missingGems = 2 - gemArrayLength;
-      if (missingGems > 0) {
-        //id="shared.GemChecker.MissingSlotsCraftable"
-        tooltipContent.push(
-          <Trans>
-            <div>
-              You are missing {missingGems} possible gem socket on your {slotName}.
-            </div>
-            <div>
-              Craft/Buy <ItemLink id={ITEMS.MAGNIFICENT_JEWELERS_SETTING.id} /> to add a gem socket.
-            </div>
-          </Trans>,
-        );
-      }
-    } else if (GemChecker.oneAddableGemSlot.includes(slotNumber)) {
-      if (gemArrayLength !== 1) {
-        //id="shared.GemChecker.MissingSlotsVault"
-        tooltipContent.push(
-          <Trans>
-            You do not have a gem socket on your {slotName}. If you don't have good items in your
-            Vault, you can get <ItemLink id={ITEMS.ALGARI_TOKEN_OF_MERIT.id} /> instead and trade 6
-            of them for <ItemLink id={ITEMS.SAD_SOCKET_ADDING_DEVICE.id} /> at the nearby vendor to
-            add a gem socket.
-          </Trans>,
-        );
-      }
-    }
-
-    // Combine all tooltip content into a single section
-    return (
-      <div>
-        {tooltipContent.map((content, index) => (
-          <div key={index}>{content}</div>
-        ))}
-      </div>
-    );
-  }
-
   getGemBoxRowEntries(recommendedGems: Record<number, CraftedItem[]> = {}): GemBoxRowEntry[] {
     const gear = this.GemableGear;
     const gemSlots: { [key: number]: JSX.Element } = this.GemableSlots;
@@ -308,11 +196,10 @@ class GemChecker extends Analyzer {
         const slotNumber = Number(slot);
         const item = gear[slotNumber];
         return (
-          hasBonusId(item, SINGLE_GEM_BONUS_ID) ||
-          hasBonusId(item, DOUBLE_GEM_BONUS_ID) ||
-          hasBonusId(item, TRIPLE_GEM_BONUS_ID) ||
+          eventItemHasGemSocket(item) ||
           GemChecker.twoAddableGemSlots.includes(slotNumber) ||
-          GemChecker.oneAddableGemSlot.includes(slotNumber)
+          GemChecker.oneAddableGemSlot.includes(slotNumber) ||
+          (item.gems && item.gems.length > 0) // Check if the item has gems
         );
       })
       .map<GemBoxRowEntry>((slot) => {
