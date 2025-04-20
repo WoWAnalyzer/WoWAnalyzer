@@ -90,13 +90,13 @@ class GemChecker extends Analyzer {
             case 3:
               tempQP = EquipmentPerformance.Good;
               break;
-            case 2:
+            case 2: //Talking with the maintainers, gems are considered cheap enough that really should be quality 3
               tempQP = EquipmentPerformance.Ok;
               break;
             case 1:
               tempQP = EquipmentPerformance.Ok;
               break;
-            case undefined: 
+            case undefined: //Current Consensus is that if the gem isn't found it should fail.
               tempQP = EquipmentPerformance.Fail;
               break;
             default:
@@ -111,6 +111,18 @@ class GemChecker extends Analyzer {
         });
       });
     }
+
+    const magnificentJewelersSetting: EventGem = {
+      id: ITEMS.MAGNIFICENT_JEWELERS_SETTING.id,
+      icon: ITEMS.MAGNIFICENT_JEWELERS_SETTING.icon,
+      itemLevel: 642, //Minimum unique Season 2 level
+    };
+
+    const socketAddingDevice: EventGem = {
+      id: ITEMS.SAD_SOCKET_ADDING_DEVICE.id,
+      icon: ITEMS.SAD_SOCKET_ADDING_DEVICE.icon,
+      itemLevel: 642, //Minimum unique Season 2 level
+    };
 
     const missingGems = this.missingGemCount(item, slotNumber);
 
@@ -128,13 +140,21 @@ class GemChecker extends Analyzer {
           {slotName} sockets are fully gemmed!
         </Trans>,
       );
-    } else if (!(missingGems === 0)) {
+    } else if (!(missingGems === 0) && item.id !== ITEMS.CYRCES_CIRCLET.id) {
       equipmentPerformance = EquipmentPerformance.Ok;
-      //Revisit this when I figure out socket count on non-special cases
+
       if (GemChecker.twoAddableGemSlots.includes(slotNumber) && missingGems <= 2) {
+        gemRank.push({
+          gemPerformance: EquipmentPerformance.Potential,
+          gem: magnificentJewelersSetting,
+        });
         if (missingGems === 1) {
           equipmentPerformance = EquipmentPerformance.Ok;
         } else {
+          gemRank.push({
+            gemPerformance: EquipmentPerformance.Potential,
+            gem: magnificentJewelersSetting,
+          });
           equipmentPerformance = EquipmentPerformance.Potential;
         }
 
@@ -144,18 +164,22 @@ class GemChecker extends Analyzer {
               You are missing {missingGems} possible gem socket on your {slotName}.
             </div>
             <div>
-              Craft/Buy <ItemLink id={ITEMS.MAGNIFICENT_JEWELERS_SETTING.id} /> to add a gem socket.
+              Craft/Buy <ItemLink id={magnificentJewelersSetting.id} /> to add a gem socket.
             </div>
           </Trans>,
         );
       } else if (GemChecker.oneAddableGemSlot.includes(slotNumber) && missingGems === 1) {
         equipmentPerformance = EquipmentPerformance.Potential;
+        gemRank.push({
+          gemPerformance: EquipmentPerformance.Potential,
+          gem: socketAddingDevice,
+        });
         tooltipContent.push(
           <Trans id="shared.GemChecker.MissingSlotsVault">
             You do not have a gem socket on your {slotName}. If you don't have good items in your
             Vault, you can get <ItemLink id={ITEMS.ALGARI_TOKEN_OF_MERIT.id} /> instead and trade 6
-            of them for <ItemLink id={ITEMS.SAD_SOCKET_ADDING_DEVICE.id} /> at the nearby vendor to
-            add a gem socket.
+            of them for <ItemLink id={socketAddingDevice.id} /> at the nearby vendor to add a gem
+            socket.
           </Trans>,
         );
       }
@@ -164,6 +188,7 @@ class GemChecker extends Analyzer {
     //#region Special Cases
     if (item.id === ITEMS.CYRCES_CIRCLET.id) {
       if (missingGems === 0) {
+        //For some reason Cyrces is not showing gems
         equipmentPerformance = EquipmentPerformance.Good;
       } else {
         equipmentPerformance = EquipmentPerformance.Fail;

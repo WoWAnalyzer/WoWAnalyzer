@@ -33,6 +33,8 @@ const getPerformanceColor = (performance: EquipmentPerformance): string => {
       return styles['ok-gem'];
     case EquipmentPerformance.Fail:
       return styles['fail-gem'];
+    case EquipmentPerformance.Potential:
+      return styles['potential-gem'];
     default:
       return 'gray';
   }
