@@ -132,10 +132,9 @@ class GemChecker extends Analyzer {
       equipmentPerformance = EquipmentPerformance.Ok;
       //Revisit this when I figure out socket count on non-special cases
       if (GemChecker.twoAddableGemSlots.includes(slotNumber) && missingGems <= 2) {
-        //id="shared.GemChecker.MissingSlotsCraftable"
         equipmentPerformance = EquipmentPerformance.Potential;
         tooltipContent.push(
-          <Trans>
+          <Trans id="shared.GemChecker.MissingSlotsCraftable">
             <div>
               You are missing {missingGems} possible gem socket on your {slotName}.
             </div>
@@ -145,10 +144,9 @@ class GemChecker extends Analyzer {
           </Trans>,
         );
       } else if (GemChecker.oneAddableGemSlot.includes(slotNumber) && missingGems === 1) {
-        //id="shared.GemChecker.MissingSlotsVault"
         equipmentPerformance = EquipmentPerformance.Potential;
         tooltipContent.push(
-          <Trans>
+          <Trans id="shared.GemChecker.MissingSlotsVault">
             You do not have a gem socket on your {slotName}. If you don't have good items in your
             Vault, you can get <ItemLink id={ITEMS.ALGARI_TOKEN_OF_MERIT.id} /> instead and trade 6
             of them for <ItemLink id={ITEMS.SAD_SOCKET_ADDING_DEVICE.id} /> at the nearby vendor to

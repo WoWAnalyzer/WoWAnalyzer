@@ -2,6 +2,7 @@ import { SubSection, useAnalyzer, useInfo } from 'interface/guide/index';
 import GemChecker from 'parser/shared/modules/items/GemChecker';
 import GemBoxRow from 'interface/guide/components/Preparation/GemSubSection/GemBoxRow';
 import { CraftedItem } from 'common/ITEMS/Item';
+import { Trans } from '@lingui/react/macro';
 
 interface Props {
   recommendedGems?: Record<number, CraftedItem[]>;
@@ -15,10 +16,10 @@ const GemSubSection = ({ recommendedGems }: Props) => {
 
   return (
     <SubSection title="Gems">
-      <div>
-        Gems can increase a variety of stats. This indicates gear where you are missing Gem Slots or
-        don't have the highest crafted gems.
-      </div>
+      <Trans id="interface.guide.preparation.gems.description">
+        Gems can increase a variety of stats. This indicates gear where you are missing Gem Sockets,
+        don't have the highest crafted gems, or have empty sockets.
+      </Trans>
       <GemBoxRow values={gemChecker.getGemBoxRowEntries(recommendedGems)} />
     </SubSection>
   );
