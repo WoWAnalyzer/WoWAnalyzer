@@ -1,4 +1,4 @@
-import { GuideProps, Section, SubSection } from 'interface/guide';
+import { GuideProps, Section, SubSection, useAnalyzer } from 'interface/guide';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 import { t, Trans } from '@lingui/macro';
 import EnergyCapWaste from 'analysis/retail/rogue/shared/guide/EnergyCapWaste';
@@ -10,13 +10,24 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import CombatLogParser from './CombatLogParser';
 import { AplSectionData } from 'interface/guide/components/Apl';
 import * as AplCheck from './modules/apl/AplCheck';
+import { FoundationDowntimeSection } from 'interface/guide/foundation/FoundationDowntimeSection';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
+import { GapHighlight } from 'parser/ui/CooldownBar';
+import { isTalent } from 'common/TALENTS/types';
+import { Cooldown } from '../subtlety/guide/CooldownGraphSubsection';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
+      <Section title="Core Skills">
+        <FoundationDowntimeSection />
+        {modules.rollTheBonesBuffs.guideSubsection}
+      </Section>
       <ResourceUsageSection modules={modules} events={events} info={info} />
       <CoreRotationSection modules={modules} events={events} info={info} />
       <ActionPriorityList modules={modules} events={events} info={info} />
+      <CooldownSection modules={modules} events={events} info={info} />
       <PreparationSection />
     </>
   );
@@ -68,22 +79,23 @@ function ResourceUsageSection({ modules, info }: GuideProps<typeof CombatLogPars
         })}
       >
         <p>
-          <Trans id="guide.rogue.outlaw.sections.resources.comboPoints.summary">
-            Most of your abilities either <strong>build</strong> or <strong>spend</strong>{' '}
-            <ResourceLink id={RESOURCE_TYPES.COMBO_POINTS.id} />. Never use a builder at 6 or 7 CPs,
-            and always wait until 6 or more cps to use a spender.
-          </Trans>
+          Most of your abilities either <strong>build</strong> or <strong>spend</strong>{' '}
+          <ResourceLink id={RESOURCE_TYPES.COMBO_POINTS.id} />. Never use a builder at{' '}
+          <strong>6 or 7</strong> combo points. <strong>Spenders</strong> should typically be used
+          at <strong>6 or more</strong> combo points, but at <strong>5 or more</strong> if{' '}
+          <SpellLink spell={SPELLS.SUBTERFUGE_BUFF} />
+          {info.combatant.hasTalent(TALENTS.HIDDEN_OPPORTUNITY_TALENT) && (
+            <>
+              , <SpellLink spell={SPELLS.AUDACITY_TALENT_BUFF} /> or{' '}
+              <SpellLink spell={SPELLS.OPPORTUNITY} />
+            </>
+          )}{' '}
+          is active.
         </p>
         <SideBySidePanels>
           <RoundedPanel>{modules.builderUse.chart}</RoundedPanel>
           <RoundedPanel>{modules.finisherUse.chart}</RoundedPanel>
         </SideBySidePanels>
-        <p></p>
-        <p>
-          <Trans id="guide.rogue.outlaw.sections.resources.comboPoints.buildersBreakdown">
-            -- WIP section -- Higlight which builders the user is commonly overcapping with.
-          </Trans>
-        </p>
       </SubSection>
     </Section>
   );
@@ -98,6 +110,7 @@ function CoreRotationSection({ modules, info }: GuideProps<typeof CombatLogParse
       })}
     >
       {modules.finisherUse.guide}
+      {modules.adrenalineRush.guideSubsection}
     </Section>
   );
 }
@@ -111,21 +124,21 @@ function ActionPriorityList({ modules, info }: GuideProps<typeof CombatLogParser
         priority list:
         <ol>
           <li>Cooldowns, according to the priorities below.</li>
-          <li>Finishers, if you are at 6cp or higher, according to the priorities below.</li>
+          <li>Finishers, according to the priorities below.</li>
           <li>Builders, according to the priorities below.</li>
         </ol>
       </p>
       <p>
         This Action Priority List (APL) is a simplified version off the simc APL that can be found{' '}
-        <a href="https://github.com/simulationcraft/simc/blob/dragonflight/engine/class_modules/apl/rogue/outlaw_df.simc">
+        <a href="https://github.com/simulationcraft/simc/blob/thewarwithin/engine/class_modules/apl/rogue/outlaw.simc">
           here
         </a>
         .
       </p>
-      <AplSectionData checker={AplCheck.check} apl={AplCheck.apl()} />
+      <AplSectionData checker={AplCheck.check} apl={AplCheck.apl(info)} />
       <hr />
       <p>
-        <strong>Disclaimer:</strong> (Currently unsuported spells/talents)
+        <strong>Disclaimer:</strong> (Currently unsupported spells/talents)
         <ul>
           <li>
             {' '}
@@ -137,15 +150,69 @@ function ActionPriorityList({ modules, info }: GuideProps<typeof CombatLogParser
           </li>
           <li>
             {' '}
-            <SpellLink spell={TALENTS.KEEP_IT_ROLLING_TALENT} /> builds
-          </li>
-          <li>
-            {' '}
             <SpellLink spell={SPELLS.BLADE_FLURRY} />
           </li>
         </ul>
       </p>
       <p>You can use the accuracy here as a reference point to compare to other logs.</p>
+    </Section>
+  );
+}
+
+const cooldownsToCheck: Cooldown[] = [
+  { spell: TALENTS.ADRENALINE_RUSH_TALENT },
+  { spell: SPELLS.VANISH },
+  { spell: TALENTS.KILLING_SPREE_TALENT },
+  { spell: TALENTS.KEEP_IT_ROLLING_TALENT },
+];
+
+function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
+  const castEfficiency = useAnalyzer(CastEfficiency);
+  if (!info || !castEfficiency) {
+    return null;
+  }
+
+  const cooldowns = cooldownsToCheck.filter((cooldown) => {
+    const hasTalent = !isTalent(cooldown.spell) || info.combatant.hasTalent(cooldown.spell);
+    const hasExtraTalents =
+      cooldown.extraTalents?.reduce(
+        (acc, talent) => acc && info.combatant.hasTalent(talent),
+        true,
+      ) ?? true;
+    return hasTalent && hasExtraTalents;
+  });
+
+  const hasTooManyCasts = cooldowns.some((cooldown) => {
+    const casts = castEfficiency.getCastEfficiencyForSpell(cooldown.spell)?.casts ?? 0;
+    return casts >= 10;
+  });
+
+  return (
+    <Section title="Cooldowns">
+      <p>
+        <strong>Cooldown Graph</strong> - This graph visualizes the usage of your cooldowns and
+        highlights areas where optimizations can be made.
+        <ul>
+          <li>
+            <strong>Grey segments</strong> indicate availability.
+          </li>
+          <li>
+            <strong>Yellow segments</strong> indicate cooldown time.
+          </li>
+          <li>
+            <strong>Red segments</strong> highlight areas where an extra cooldown could have fit.
+          </li>
+        </ul>
+      </p>
+      {cooldowns.map((cooldownCheck) => (
+        <CastEfficiencyBar
+          key={cooldownCheck.spell.id}
+          spellId={cooldownCheck.spell.id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+          minimizeIcons={hasTooManyCasts}
+          useThresholds
+        />
+      ))}
     </Section>
   );
 }

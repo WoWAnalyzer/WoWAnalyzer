@@ -40,7 +40,7 @@ import EssenceBreak from './modules/talents/EssenceBreak';
 import FelBarrage from './modules/talents/FelBarrage';
 import FelEruption from './modules/talents/FelEruption';
 import GlaiveTempest from './modules/talents/GlaiveTempest';
-import Momentum from './modules/talents/Momentum';
+import Exergy from './modules/talents/Exergy';
 import Netherwalk from './modules/talents/Netherwalk';
 import TrailofRuin from './modules/talents/TrailofRuin';
 import TacticalRetreat from './modules/talents/TacticalRetreat';
@@ -102,7 +102,7 @@ class CombatLogParser extends CoreCombatLogParser {
     demonBlades: DemonBlades,
     trailofRuin: TrailofRuin,
     felBarrage: FelBarrage,
-    momentum: Momentum,
+    exergy: Exergy,
     netherwalk: Netherwalk,
     felEruption: FelEruption,
     masterOfTheGlaive: MasterOfTheGlaive,

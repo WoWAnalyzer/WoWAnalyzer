@@ -1,14 +1,19 @@
 import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/rogue';
 import { SpellLink } from 'interface';
-import Analyzer, { Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
 
 import OpportunityDamageTracker from './OpportunityDamageTracker';
+import Events, { RemoveBuffEvent, RemoveBuffStackEvent } from 'parser/core/Events';
+import { consumedOpportunity } from '../../normalizers/CastLinkNormalizer';
 
 class Opportunity extends Analyzer {
+  procs: number = 0;
+  consumedProcs: number = 0;
+
   get thresholds(): NumberThreshold {
     const total = this.damageTracker.getAbility(SPELLS.SINISTER_STRIKE.id);
     const filtered = this.opportunityDamageTracker.getAbility(SPELLS.SINISTER_STRIKE.id);
@@ -31,13 +36,29 @@ class Opportunity extends Analyzer {
   protected damageTracker!: DamageTracker;
   protected opportunityDamageTracker!: OpportunityDamageTracker;
 
-  constructor(options: Options & { opportunityDamageTracker: OpportunityDamageTracker }) {
+  constructor(options: Options) {
     super(options);
 
-    options.opportunityDamageTracker.subscribeInefficientCast(
-      [SPELLS.SINISTER_STRIKE],
-      () => `Pistol Shot should be used as your builder during Opportunity`,
+    [Events.applybuff, Events.applybuffstack, Events.refreshbuff].forEach((event) =>
+      this.addEventListener(event.by(SELECTED_PLAYER).spell(SPELLS.OPPORTUNITY), this.onApplyBuff),
     );
+    [Events.removebuff, Events.removebuffstack].forEach((event) =>
+      this.addEventListener(event.by(SELECTED_PLAYER).spell(SPELLS.OPPORTUNITY), this.onRemoveBuff),
+    );
+  }
+
+  private onApplyBuff() {
+    this.procs += 1;
+  }
+
+  private onRemoveBuff(event: RemoveBuffEvent | RemoveBuffStackEvent) {
+    if (consumedOpportunity(event)) {
+      this.consumedProcs += 1;
+    }
+  }
+
+  get wastedProcs() {
+    return this.procs - this.consumedProcs;
   }
 
   suggestions(when: When) {

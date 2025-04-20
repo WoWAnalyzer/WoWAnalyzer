@@ -97,6 +97,8 @@ const spells: number[] = [
 
   //region paladin
   SPELLS.RECLAMATION_CAST.id,
+  SPELLS.SACROSANCT_CRUSADE_BUFF.id,
+  SPELLS.EMPYREAN_HAMMER.id,
   //endregion
 
   //region shaman
@@ -121,6 +123,10 @@ const spells: number[] = [
   SPELLS.ODYNS_FURY_3.id,
   SPELLS.HACK_AND_SLASH.id,
   SPELLS.WRATH_AND_FURY.id,
+  //endregion
+
+  //region Rogue
+  SPELLS.DISPATCH_COUP_DE_GRACE.id,
   //endregion
 
   //region classic druid

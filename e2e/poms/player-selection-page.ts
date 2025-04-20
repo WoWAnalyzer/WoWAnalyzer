@@ -11,7 +11,6 @@ export class PlayerSelectionPage {
 
   async goto(reportCode: string, fightCode: string) {
     await this.page.goto(`/report/${reportCode}/${fightCode}`);
-    await this.expectPlayerSelectionHeaderToBeVisible();
   }
 
   async expectPlayerSelectionHeaderToBeVisible() {
