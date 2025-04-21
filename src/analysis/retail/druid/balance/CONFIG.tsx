@@ -50,7 +50,8 @@ const config: Config = {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/XJytz49PfbYL6mvR/14-Mythic+Smolderon+-+Kill+(3:45)/Zulyd/standard',
+  exampleReport:
+    '/report/9KT74WFLZabdph8k/13-Mythic+One-Armed+Bandit+-+Kill+(6:55)/Clecia/standard',
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
   spec: SPECS.BALANCE_DRUID,

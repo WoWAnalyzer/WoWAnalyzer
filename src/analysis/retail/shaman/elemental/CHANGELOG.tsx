@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
 import TALENTS from 'common/TALENTS/shaman';
-import { emallson, Seriousnes } from 'CONTRIBUTORS';
+import { emallson, Seriousnes, Vollmer } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2025, 4, 21), <>Update example log.</>, Vollmer),
   change(date(2025, 3, 22), <>Remove "Old Version" view, guide cleanup, fixed <SpellLink spell={TALENTS.ASCENDANCE_ELEMENTAL_TALENT} /> cooldown analyzer.</>, Seriousnes),
   change(date(2025, 3, 9), <>Fix crash when processing Fusion of Elements data.</>, emallson),
   change(date(2025, 3, 4), <>Elemental Shaman update for TWW S2</>, Seriousnes),

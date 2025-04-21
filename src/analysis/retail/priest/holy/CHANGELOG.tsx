@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import TALENTS, { TALENTS_PRIEST } from 'common/TALENTS/priest';
-import { Arlie, Hana, Litena, Liavre, squided, ToppleTheNun, Trevor, Saeldur, xizbow, fel1ne} from 'CONTRIBUTORS';
+import { Arlie, Hana, Litena, Liavre, squided, ToppleTheNun, Trevor, Saeldur, xizbow, fel1ne, Vollmer} from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2025, 4, 21), <>Update example log.</>, Vollmer),
   change(date(2024, 11, 14), <>Updated Holy to 11.0.7</>, Liavre),
   change(date(2024, 10, 26), <>Added <SpellLink spell={SPELLS.RESONANT_WORDS_TALENT_BUFF} /> guide analysis.</>, xizbow),
   change(date(2024, 10, 20), <>Implement <SpellLink spell={SPELLS.TRAIL_OF_LIGHT_TALENT_HEAL}/> and <SpellLink spell={SPELLS.BINDING_HEALS_TALENT_HEAL}/> healing to Lightweaver module.</>, fel1ne),
