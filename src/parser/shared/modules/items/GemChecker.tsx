@@ -126,6 +126,15 @@ class GemChecker extends Analyzer {
 
     const missingGems = this.missingGemCount(item, slotNumber);
 
+    /*Future Me: Some unit tests be cool to allow me to do this without a log and a hack like this.  Investigate that later.
+    let missingGems = this.missingGemCount(item, slotNumber);
+
+    
+    if(slotNumber === GEAR_SLOTS.HEAD){
+      missingGems = 3;
+    }
+    */
+
     if (missingGems === 0 && allRecommendedGem) {
       equipmentPerformance = EquipmentPerformance.Perfect;
       tooltipContent.push(
@@ -142,6 +151,8 @@ class GemChecker extends Analyzer {
       );
     } else if (!(missingGems === 0) && item.id !== ITEMS.CYRCES_CIRCLET.id) {
       equipmentPerformance = EquipmentPerformance.Ok;
+
+      //I need to check socket count too....
 
       if (GemChecker.twoAddableGemSlots.includes(slotNumber) && missingGems <= 2) {
         gemRank.push({
@@ -183,6 +194,16 @@ class GemChecker extends Analyzer {
           </Trans>,
         );
       } else {
+        equipmentPerformance = EquipmentPerformance.Fail;
+
+        tooltipContent.push(
+          <Trans id="shared.GemChecker.MissingGems">
+            <div>
+              You are missing {missingGems} gems in your {slotName}.
+            </div>
+          </Trans>,
+        );
+
         for (let i = 0; i < missingGems; i = i + 1) {
           gemRank.push({
             gemPerformance: EquipmentPerformance.Fail,
