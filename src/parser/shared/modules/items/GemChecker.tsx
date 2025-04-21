@@ -182,6 +182,17 @@ class GemChecker extends Analyzer {
             socket.
           </Trans>,
         );
+      } else {
+        for (let i = 0; i < missingGems; i = i + 1) {
+          gemRank.push({
+            gemPerformance: EquipmentPerformance.Fail,
+            gem: {
+              id: 0,
+              icon: 'equipment_empty_gem_socket',
+              itemLevel: 0,
+            },
+          });
+        }
       }
     }
 
