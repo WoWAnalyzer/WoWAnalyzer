@@ -36,12 +36,12 @@ class GemChecker extends Analyzer {
     const gemArrayLength: number = item.gems?.length ?? 0;
     const socketCount = eventItemGemSocketCount(item);
 
-    if (GemChecker.twoAddableGemSlots.includes(slot) && socketCount < 2) {
+    if (gemArrayLength > socketCount) {
+      return 0;
+    } else if (GemChecker.twoAddableGemSlots.includes(slot) && socketCount < 2) {
       return 2 - gemArrayLength;
     } else if (GemChecker.oneAddableGemSlot.includes(slot) && socketCount < 1) {
       return 1 - gemArrayLength;
-    } else if (gemArrayLength > socketCount) {
-      return 0;
     } else {
       return socketCount - gemArrayLength;
     }
@@ -193,6 +193,11 @@ class GemChecker extends Analyzer {
       } else {
         equipmentPerformance = EquipmentPerformance.Fail;
       }
+
+      //Set all of the gems to good for Cyrces Circlet as it's such a special case
+      gemRank.forEach((gem) => {
+        gem.gemPerformance = EquipmentPerformance.Good;
+      });
 
       tooltip = (
         <Trans id="shared.GemChecker.CyrceSpecialCase">
