@@ -53,7 +53,7 @@ export default {
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport:
-    '/report/L1R2zVKY8ZDxCTNb/15-Mythic+Scalecommander+Sarkareth+-+Kill+(7:21)/Nerdshockz/standard',
+    '/report/69CV1RFzhry3jWGH/30-Mythic+One-Armed+Bandit+-+Kill+(6:51)/Sheffy/standard',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

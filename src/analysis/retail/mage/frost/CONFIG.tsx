@@ -54,7 +54,7 @@ const config: Config = {
     },
   },
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/RJ1MXnb2zymgQ8pF/49/20',
+  exampleReport: '/report/H4VLKcxWnwpA9PbN/56-Mythic+One-Armed+Bandit+-+Kill+(6:46)/Kitzu/standard',
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
   spec: SPECS.FROST_MAGE,

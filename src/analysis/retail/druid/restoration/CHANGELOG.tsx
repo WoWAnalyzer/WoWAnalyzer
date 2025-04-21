@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
-import { Sref } from 'CONTRIBUTORS';
+import { Sref, Vollmer } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
 export default [
+  change(date(2025, 4, 21), <>Update example log.</>, Vollmer),
   change(date(2025, 3, 24), <>Fixed an issue where HoTs procced by the Liberation of Undermine 4 set might not be properly attributed when Insurance! is refreshed.</>, Sref),
   change(date(2025, 3, 4), <>Updated <SpellLink spell={TALENTS_DRUID.NATURES_SWIFTNESS_TALENT} /> and added <SpellLink spell={TALENTS_DRUID.FLOURISH_TALENT} /> direct healing to account for 11.1.0 changes. Fixed an issue where <SpellLink spell={TALENTS_DRUID.FLOURISH_TALENT} /> was incorrectly assuming 8 seconds of HoT extension instead of 6.</>, Sref),
   change(date(2025, 3, 1), <>Updated Mastery calculations to account for 11.1 changes. Marked as updated for 11.1.0.</>, Sref),
