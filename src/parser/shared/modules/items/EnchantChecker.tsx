@@ -8,6 +8,7 @@ import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { EnchantmentBoxRowEntry } from 'interface/guide/components/Preparation/EnchantmentSubSection/EnchantmentBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { GEAR_SLOT_NAMES } from 'game/GEAR_SLOTS';
 
 class EnchantChecker extends Analyzer {
   get EnchantableSlots(): Record<number, JSX.Element> {
@@ -214,7 +215,7 @@ class EnchantChecker extends Analyzer {
       const recommendedEnchantments = recommendedEnchants[slotNumber];
       return {
         item,
-        slotName: this.boxRowItemLink(item, slotName),
+        slotName: this.boxRowItemLink(item, slotName ?? GEAR_SLOT_NAMES[slotNumber]),
         value: this.boxRowPerformance(
           item,
           recommendedEnchantments?.map((it) => it.effectId),

@@ -2,6 +2,8 @@
 
 $shadow: 0 0 0px 1px hsla(45, 100%, 60%, 0.7);
 
+$potential-perf-color: hsl(329, 10%, 23%);
+
 .gem-block-row {
   display: flex;
   flex-direction: row;
@@ -50,27 +52,11 @@ $shadow: 0 0 0px 1px hsla(45, 100%, 60%, 0.7);
   }
 
   .potential-block {
-    background-color: Guide.$potential-perf-color;
+    background-color: $potential-perf-color;
   }
 
-  .perfect-gem {
-    border: 4px solid Guide.$perfect-perf-color;
-  }
-
-  .good-gem {
-    border: 4px solid Guide.$good-perf-color;
-  }
-
-  .ok-gem {
-    border: 4px solid Guide.$ok-perf-color;
-  }
-
-  .fail-gem {
-    border: 4px solid Guide.$bad-perf-color;
-  }
-
-  .potential-gem {
-    border: 4px solid Guide.$potential-perf-color;
+  .gem-icon {
+    padding: 4px;
   }
 }
 
