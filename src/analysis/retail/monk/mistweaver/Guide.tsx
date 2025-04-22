@@ -90,10 +90,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {info.combatant.hasTalent(TALENTS_MONK.JADE_EMPOWERMENT_TALENT) &&
           modules.jadeEmpowerment.guideSubsection}
       </Section>
-      <PreparationSection
-        recommendedEnchantments={RECOMMENDED_ENCHANTMENTS}
-        recommendedGems={RECOMMENDED_GEMS}
-      />
+      <PreparationSection />
     </>
   );
 }
