@@ -43,6 +43,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [  
+  change(date(2025, 4, 22), 'Streamlined Recommended Gems for Gem Checker', Ceric),
   change(date(2025, 4, 22), 'Added Gems to Preparation Section with general recommendations.', [emallson,Ceric]),
   change(date(2025, 4, 17), 'Add patch 11.1.5.', Vollmer),
   change(date(2025, 4, 12), 'Changed Momentum talent to Exergy for Havoc', oneunreadmail),

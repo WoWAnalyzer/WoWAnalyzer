@@ -13,7 +13,7 @@ import AplChoiceDescription from './modules/core/apl/AplChoiceDescription';
 import { AplSectionData } from 'interface/guide/components/Apl';
 import { defaultExplainers } from 'interface/guide/components/Apl/violations/claims';
 import { filterCelestial } from './modules/core/apl/ExplainCelestial';
-import { getCurrentRSKTalent, RECOMMENDED_ENCHANTMENTS, RECOMMENDED_GEMS } from './constants';
+import { getCurrentRSKTalent } from './constants';
 
 const explainers = {
   overcast: filterCelestial(defaultExplainers.overcastFillers),
