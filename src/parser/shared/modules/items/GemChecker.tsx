@@ -30,10 +30,6 @@ export interface GemmableSlotConfig {
 }
 
 class GemChecker extends Analyzer {
-  constructor(options: Options) {
-    super(options);
-  }
-
   get GemableSlots(): Record<number, GemmableSlotConfig> {
     return {};
   }
@@ -224,7 +220,7 @@ class GemChecker extends Analyzer {
 
     const result = [];
     let i = 0;
-    for (i = 0; i < actualSocketCount; i++) {
+    for (i = 0; i < actualSocketCount; i += 1) {
       result.push({
         gem: {
           id: 0,
@@ -234,7 +230,7 @@ class GemChecker extends Analyzer {
       });
     }
 
-    for (; i < maxSockets; i++) {
+    for (; i < maxSockets; i += 1) {
       result.push({
         gem: {
           id: socketAddingItemId ?? 0,
