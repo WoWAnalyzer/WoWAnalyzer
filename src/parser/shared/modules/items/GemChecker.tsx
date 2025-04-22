@@ -7,7 +7,7 @@ import {
   eventItemHasGemSocket,
 } from 'common/ITEMS/thewarwithin/socketBonusId';
 import { ItemLink } from 'interface';
-import Analyzer, { Options } from 'parser/core/Analyzer';
+import Analyzer from 'parser/core/Analyzer';
 import { GemBoxRowEntry } from 'interface/guide/components/Preparation/GemSubSection/GemBoxRow';
 import { GEAR_SLOT_NAMES } from 'game/GEAR_SLOTS';
 import { getLowestPerf, QualitativePerformance } from 'parser/ui/QualitativePerformance';
