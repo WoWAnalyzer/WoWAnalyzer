@@ -2639,6 +2639,7 @@ export const Ceric: Contributor = {
   nickname: 'Ceric',
   github: 'CericME',
   discord: 'cericme',
+  avatar: avatar('ceric-avatar.jpg'),
   about:
     'Found out I could have more Gems and nothing told me about it.  Been a Developer for 20 years and have not gotten to code at work much lately so I thought "Hey Why not?" and here I am.',
   mains: [
