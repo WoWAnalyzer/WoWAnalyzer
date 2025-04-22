@@ -13,6 +13,10 @@ import { GEAR_SLOT_NAMES } from 'game/GEAR_SLOTS';
 import { getLowestPerf, QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { PerformanceMark } from 'interface/guide';
 
+/*
+src\parser\retail\modules\items\GemChecker.tsx is the sister that implements the stub functions
+*/
+
 /**
  * Represents a potential upgrade that is available, but only as a randomized or time-gated upgrade.
  * This is currently used for gem upgrades in Retail on Helm/Belt/Bracers, which are available either as random procs or as an alternative reward from the Great Vault.
@@ -219,8 +223,8 @@ class GemChecker extends Analyzer {
     const socketAddingItemId = this.GemableSlots[slotNumber]?.socketingItemId;
 
     const result = [];
-    let i = 0;
-    for (i = 0; i < actualSocketCount; i += 1) {
+    let i = item.gems?.length ?? 0;
+    for (; i < actualSocketCount; i += 1) {
       result.push({
         gem: {
           id: 0,
