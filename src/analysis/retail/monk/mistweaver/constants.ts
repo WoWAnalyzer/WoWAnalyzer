@@ -3,6 +3,11 @@ import Spell from 'common/SPELLS/Spell';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { Talent } from 'common/TALENTS/types';
 import Combatant from 'parser/core/Combatant';
+import Enchants from 'common/ITEMS/thewarwithin/enchants';
+import gems from 'common/ITEMS/thewarwithin/gems';
+import { Enchant as EnchantItem } from 'common/ITEMS/Item';
+import GEAR_SLOTS from 'game/GEAR_SLOTS';
+
 export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   // Spells
   TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
@@ -158,6 +163,19 @@ export const SPELL_COLORS = {
   ALTERNATE_GUST_OF_MIST: '#7f7f7f',
   ZEN_PULSE: '#c6f4f5',
 };
+
+export const RECOMMENDED_ENCHANTMENTS: Record<number, EnchantItem[]> = {
+  [GEAR_SLOTS.MAINHAND]: [Enchants.STORMRIDERS_FURY_R3],
+  [GEAR_SLOTS.WRISTS]: [Enchants.CHANT_OF_ARMORED_LEECH_R3],
+  [GEAR_SLOTS.CHEST]: [Enchants.CRYSTALLINE_RADIANCE_R3],
+  [GEAR_SLOTS.BACK]: [Enchants.CHANT_OF_LEECHING_FANGS_R3],
+  [GEAR_SLOTS.LEGS]: [Enchants.SUNSET_SPELLTHREAD_R3],
+  [GEAR_SLOTS.FEET]: [Enchants.DEFENDERS_MARCH_R3],
+  [GEAR_SLOTS.FINGER1]: [Enchants.RADIANT_HASTE_R3, Enchants.CURSED_VERSATILITY_R3],
+  [GEAR_SLOTS.FINGER2]: [Enchants.RADIANT_HASTE_R3, Enchants.CURSED_VERSATILITY_R3],
+};
+
+export const RECOMMENDED_GEMS: number[] = [gems.ELUSIVE_BLASPHEMITE_R3.id, gems.DEADLY_AMBER_R3.id];
 
 export function getCurrentRSKTalent(player: Combatant): Talent {
   return player.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_TALENT)
