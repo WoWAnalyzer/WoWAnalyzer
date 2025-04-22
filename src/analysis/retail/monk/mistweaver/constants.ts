@@ -175,7 +175,10 @@ export const RECOMMENDED_ENCHANTMENTS: Record<number, EnchantItem[]> = {
   [GEAR_SLOTS.FINGER2]: [Enchants.RADIANT_HASTE_R3, Enchants.CURSED_VERSATILITY_R3],
 };
 
-export const RECOMMENDED_GEMS: number[] = [gems.ELUSIVE_BLASPHEMITE_R3.id, gems.DEADLY_AMBER_R3.id];
+export const RECOMMENDED_GEMS: number[] = [
+  gems.ELUSIVE_BLASPHEMITE_R3.id,
+  gems.DEADLY_EMERALD_R3.id,
+];
 
 export function getCurrentRSKTalent(player: Combatant): Talent {
   return player.hasTalent(TALENTS_MONK.RUSHING_WIND_KICK_TALENT)

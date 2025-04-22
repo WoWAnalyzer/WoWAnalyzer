@@ -13,7 +13,7 @@ import AplChoiceDescription from './modules/core/apl/AplChoiceDescription';
 import { AplSectionData } from 'interface/guide/components/Apl';
 import { defaultExplainers } from 'interface/guide/components/Apl/violations/claims';
 import { filterCelestial } from './modules/core/apl/ExplainCelestial';
-import { getCurrentRSKTalent, RECOMMENDED_ENCHANTMENTS } from './constants';
+import { getCurrentRSKTalent, RECOMMENDED_ENCHANTMENTS, RECOMMENDED_GEMS } from './constants';
 
 const explainers = {
   overcast: filterCelestial(defaultExplainers.overcastFillers),
@@ -90,7 +90,10 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {info.combatant.hasTalent(TALENTS_MONK.JADE_EMPOWERMENT_TALENT) &&
           modules.jadeEmpowerment.guideSubsection}
       </Section>
-      <PreparationSection recommendedEnchantments={RECOMMENDED_ENCHANTMENTS} />
+      <PreparationSection
+        recommendedEnchantments={RECOMMENDED_ENCHANTMENTS}
+        recommendedGems={RECOMMENDED_GEMS}
+      />
     </>
   );
 }

@@ -34,6 +34,8 @@ export interface GemmableSlotConfig {
 }
 
 class GemChecker extends Analyzer {
+  private recommendedGems: number[] | undefined;
+
   get GemableSlots(): Record<number, GemmableSlotConfig> {
     return {};
   }
@@ -98,12 +100,7 @@ class GemChecker extends Analyzer {
 
   //#region UI
   //Add a row for the actual Gem in the future to evaluate each
-  boxRowPerformance(
-    item: EventItem,
-    recommendedGems: number[] | undefined,
-    slotNumber: number,
-    slotName: JSX.Element,
-  ) {
+  boxRowPerformance(item: EventItem, slotNumber: number, slotName: JSX.Element) {
     if (this.isSpecialItem(item.id)) {
       const { perf, explanation } = this.specialItemPerformance(item);
       return {
@@ -135,7 +132,7 @@ class GemChecker extends Analyzer {
 
         let tempQP = QualitativePerformance.Fail;
         // TODO: recommended gems bypass quality checks.
-        const gemRec = recommendedGems?.includes(iGem.id);
+        const gemRec = this.recommendedGems?.includes(iGem.id);
 
         if (gemRec) {
           tempQP = QualitativePerformance.Perfect;
@@ -255,8 +252,9 @@ class GemChecker extends Analyzer {
     );
   }
 
-  getGemBoxRowEntries(recommendedGems: Record<number, CraftedItem[]> = {}): GemBoxRowEntry[] {
+  getGemBoxRowEntries(recommendedGems: number[] = []): GemBoxRowEntry[] {
     const gear = this.GemableGear;
+    this.recommendedGems = recommendedGems;
 
     // Filter out items that cannot have gems
     return Object.keys(gear)
@@ -273,15 +271,9 @@ class GemChecker extends Analyzer {
         const slotNumber = Number(slot);
         const item = gear[slotNumber];
         const slotName = GEAR_SLOT_NAMES[slotNumber];
-        const gemRecommendations = recommendedGems[slotNumber];
 
         // Use boxRowPerformance to calculate the value
-        const performance = this.boxRowPerformance(
-          item,
-          gemRecommendations?.map((it) => it.id),
-          slotNumber,
-          slotName,
-        );
+        const performance = this.boxRowPerformance(item, slotNumber, slotName);
 
         return {
           item,

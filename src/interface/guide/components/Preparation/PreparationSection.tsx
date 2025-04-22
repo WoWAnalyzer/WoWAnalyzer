@@ -1,7 +1,6 @@
 import { Section } from 'interface/guide';
 import Spell from 'common/SPELLS/Spell';
-import { Enchant, CraftedItem } from 'common/ITEMS/Item';
-
+import { Enchant } from 'common/ITEMS/Item';
 import EnchantmentSubSection from './EnchantmentSubSection';
 import ConsumablesSubSection from './ConsumablesSubSection';
 import EnhancementSubSection from 'interface/guide/components/Preparation/EnhancementSubSection';
@@ -14,7 +13,7 @@ interface Props {
   recommendedFoods?: Spell[];
   recommendedWeaponEnhancements?: Record<number, Enchant[]>;
   expansion?: Expansion;
-  recommendedGems?: Record<number, CraftedItem[]>;
+  recommendedGems?: number[];
 }
 const PreparationSection = ({
   recommendedEnchantments,
