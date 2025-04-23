@@ -7,7 +7,7 @@ import EVOKER_TALENTS from 'common/TALENTS/evoker';
 // or https://media-azeroth.cursecdn.com/wow/icons/large/????????.jpg
 // some icons have in their corners lighter pixels, might require some photoshop-skills
 
-const BAD_ICONS: string[] = [];
+const BAD_ICONS: string[] = ['equipment_empty_gem_socket'];
 export default BAD_ICONS;
 
 export const ICON_RENAME: Record<string, string> = {

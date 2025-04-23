@@ -48,7 +48,8 @@ const config: Config = {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/dfv4tpJAyVakGFK9/6-Mythic+Smolderon+-+Kill+(3:53)/Nikosux/standard',
+  exampleReport:
+    '/report/34V2WhNLp9jzd1fX/60-Mythic+One-Armed+Bandit+-+Kill+(6:48)/Ninjaristic/standard',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

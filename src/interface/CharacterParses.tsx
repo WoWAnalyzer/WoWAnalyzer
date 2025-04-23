@@ -1,5 +1,6 @@
 import { i18n, MessageDescriptor } from '@lingui/core';
-import { defineMessage, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
+import { defineMessage } from '@lingui/core/macro';
 import { captureException } from 'common/errorLogger';
 import fetchWcl, { CharacterNotFoundError, UnknownApiError, WclApiError } from 'common/fetchWclApi';
 import { makeCharacterApiUrl } from 'common/makeApiUrl';
@@ -685,8 +686,9 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
             <div className="container">
               <ul>
                 <li>
-                  Raid
+                  <label htmlFor="raid-select">Raid</label>
                   <select
+                    id="raid-select"
                     className="form-control"
                     value={this.state.activeZoneID}
                     onChange={(e) =>
@@ -707,8 +709,9 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
                   </select>
                 </li>
                 <li>
-                  Boss
+                  <label htmlFor="boss-select">Boss</label>
                   <select
+                    id="boss-select"
                     className="form-control"
                     value={this.state.activeEncounter}
                     onChange={(e) => this.setState({ activeEncounter: Number(e.target.value) })}
@@ -723,8 +726,9 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
                   </select>
                 </li>
                 <li>
-                  Metric
+                  <label htmlFor="metric-select">Metric</label>
                   <select
+                    id="metric-select"
                     className="form-control"
                     value={this.state.metric}
                     onChange={(e) =>
@@ -741,8 +745,9 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
                   </select>
                 </li>
                 <li>
-                  Sort by
+                  <label htmlFor="sort-select">Sort by</label>
                   <select
+                    id="sort-select"
                     className="form-control"
                     value={this.state.sortBy}
                     onChange={(e) => this.setState({ sortBy: Number(e.target.value) })}

@@ -26,6 +26,7 @@ import Config from '../Config';
 import AugmentRuneChecker from '../retail/modules/items/AugmentRuneChecker';
 import CombatPotion from '../retail/modules/items/CombatPotion';
 import EnchantChecker from '../retail/modules/items/EnchantChecker';
+import GemChecker from '../retail/modules/items/GemChecker';
 import FlaskChecker from '../retail/modules/items/FlaskChecker';
 import FoodChecker from '../retail/modules/items/FoodChecker';
 import HealthPotion from '../retail/modules/items/HealthPotion';
@@ -203,6 +204,7 @@ class CombatLogParser {
 
     potionChecker: PotionChecker,
     enchantChecker: EnchantChecker,
+    gemChecker: GemChecker,
     flaskChecker: FlaskChecker,
     foodChecker: FoodChecker,
     augmentRuneChecker: AugmentRuneChecker,

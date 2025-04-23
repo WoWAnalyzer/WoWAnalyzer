@@ -1,21 +1,20 @@
-import { Trans } from '@lingui/react/macro';
+import GEAR_SLOTS, { GEAR_SLOT_NAMES } from 'game/GEAR_SLOTS';
 import BaseEnchantChecker from 'parser/shared/modules/items/EnchantChecker';
 
-const ENCHANTABLE_SLOTS = {
-  0: <Trans id="common.slots.head">Head</Trans>,
-  2: <Trans id="common.slots.shoulder">Shoulder</Trans>,
-  4: <Trans id="common.slots.chest">Chest</Trans>,
-  // 5: <Trans id={"common.slots.belt"}>Belt</Trans>,        // Eng only
-  6: <Trans id="common.slots.legs">Legs</Trans>,
-  7: <Trans id="common.slots.boots">Boots</Trans>,
-  8: <Trans id="common.slots.bracers">Bracers</Trans>,
-  9: <Trans id="common.slots.gloves">Gloves</Trans>,
-  // 10: <Trans id="common.slots.ring">Ring</Trans>,        // Enchanter Only
-  // 11: <Trans id="common.slots.ring">Ring</Trans>,        // Enchanter Only
-  14: <Trans id="common.slots.cloak">Cloak</Trans>,
-  15: <Trans id="common.slots.weapon">Weapon</Trans>,
-  16: <Trans id="common.slots.offhand">OffHand</Trans>,
-};
+const ENCHANTABLE_SLOTS = Object.fromEntries(
+  [
+    GEAR_SLOTS.HEAD,
+    GEAR_SLOTS.SHOULDER,
+    GEAR_SLOTS.CHEST,
+    GEAR_SLOTS.LEGS,
+    GEAR_SLOTS.FEET,
+    GEAR_SLOTS.WRISTS,
+    GEAR_SLOTS.HANDS,
+    GEAR_SLOTS.BACK,
+    GEAR_SLOTS.MAINHAND,
+    GEAR_SLOTS.OFFHAND,
+  ].map((slot) => [slot, GEAR_SLOT_NAMES[slot as keyof typeof GEAR_SLOT_NAMES]]),
+);
 
 const MIN_ENCHANT_IDS = [
   // Head
