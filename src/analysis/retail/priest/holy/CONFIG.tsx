@@ -32,7 +32,7 @@ const config: Config = {
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport:
-    '/report/myZRBCM19TtWjQxD/6-Heroic+Council+of+Dreams+-+Kill+(6:29)/Ahaux/standard/overview',
+    '/report/fYWBL3AtVXTPmkMJ/24-Mythic+One-Armed+Bandit+-+Kill+(6:46)/Thiccspriest/standard',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

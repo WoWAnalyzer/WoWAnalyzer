@@ -1,0 +1,66 @@
+@use 'interface/guide/Guide';
+
+$shadow: 0 0 0px 1px hsla(45, 100%, 60%, 0.7);
+
+$potential-perf-color: hsl(329, 10%, 23%);
+
+.gem-block-row {
+  display: flex;
+  flex-direction: row;
+
+  .gem-block-column {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1;
+    margin: 0 0 0 2px;
+
+    .gem-block {
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      flex: 1 1 auto;
+      height: 100%;
+
+      &:hover {
+        box-shadow: $shadow;
+      }
+
+      :global(.icon) {
+        font-size: 20px;
+        margin: 0;
+      }
+    }
+  }
+
+  .perfect-block {
+    background-color: Guide.$perfect-perf-color;
+  }
+
+  .good-block {
+    background-color: Guide.$good-perf-color;
+  }
+
+  .ok-block {
+    background-color: Guide.$ok-perf-color;
+  }
+
+  .bad-block {
+    background-color: Guide.$bad-perf-color;
+  }
+
+  .potential-block {
+    background-color: $potential-perf-color;
+  }
+
+  .gem-icon {
+    padding: 4px;
+  }
+}
+
+.gem-icons {
+  display: flex; /* Use flexbox */
+  flex-direction: row; /* Align items horizontally */
+}

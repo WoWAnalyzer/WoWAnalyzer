@@ -110,7 +110,7 @@ class ZenPulse extends Analyzer {
   private onRefreshBuff(event: RefreshBuffEvent) {
     const isExpired = this.currentBuffs === MAX_STACKS;
     if (isExpired) {
-      this.wastedBuffs = +1;
+      this.wastedBuffs += 1;
       this.entries.push({
         value: QualitativePerformance.Fail,
         tooltip: <>Buff refreshed at {this.owner.formatTimestamp(event.timestamp)}</>,

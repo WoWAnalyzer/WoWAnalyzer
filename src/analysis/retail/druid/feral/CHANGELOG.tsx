@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
-import { Sref } from 'CONTRIBUTORS';
+import { Sref, Vollmer } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 import { TALENTS_DRUID } from 'common/TALENTS/druid';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  change(date(2025, 4, 21), <>Update example log.</>, Vollmer),
   change(date(2025, 3, 16), <>Added statistic for <SpellLink spell={TALENTS_DRUID.MERCILESS_CLAWS_TALENT} /></>, Sref),
   change(date(2025, 3, 4), <>Marked as updated for 11.1.0.</>, Sref),
   change(date(2025, 2, 16), <>Added support for the Liberation of Undermine tier set.</>, Sref),

@@ -1,15 +1,15 @@
 import getItemQualityLabel from 'common/getItemQualityLabel';
 import ITEMS from 'common/ITEMS';
-import { ComponentPropsWithoutRef, ReactNode } from 'react';
-import { isPresent } from 'common/typeGuards';
+import * as React from 'react';
+import { AnchorHTMLAttributes } from 'react';
 
 import ItemIcon from './ItemIcon';
 import QualityIcon from './QualityIcon';
 import useTooltip from './useTooltip';
 
-interface Props extends Omit<ComponentPropsWithoutRef<'a'>, 'id'> {
+interface Props extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'id'> {
   id: number;
-  children?: ReactNode;
+  children?: React.ReactNode;
   details?: {
     itemLevel: number;
     quality: number;
@@ -18,15 +18,14 @@ interface Props extends Omit<ComponentPropsWithoutRef<'a'>, 'id'> {
   icon?: boolean;
   craftQuality?: 1 | 2 | 3 | 4 | 5;
 }
-export const EPIC_ITEMS_ILVL = 184;
 
 const ItemLink = ({
   id,
   children,
   details,
-  craftQuality,
-  quality,
   icon = true,
+  craftQuality,
+  quality: rawQuality,
   ...others
 }: Props) => {
   const { item: itemTooltip } = useTooltip();
@@ -35,11 +34,11 @@ const ItemLink = ({
     throw new Error(`Unknown item: ${id}`);
   }
 
-  let qual;
-  if (isPresent(quality)) {
-    qual = quality;
-  } else if (details) {
-    qual = Math.max(details.itemLevel >= EPIC_ITEMS_ILVL ? 4 : 3, details.quality);
+  let quality;
+  if (rawQuality !== undefined && rawQuality !== null) {
+    quality = rawQuality;
+  } else if (details?.quality) {
+    quality = details.quality;
   }
 
   return (
@@ -47,7 +46,7 @@ const ItemLink = ({
       href={itemTooltip(id, details)}
       target="_blank"
       rel="noopener noreferrer"
-      className={getItemQualityLabel(qual) + 'item-link-text'}
+      className={getItemQualityLabel(quality) + 'item-link-text'}
       {...others}
     >
       {icon && (
@@ -55,7 +54,7 @@ const ItemLink = ({
           <ItemIcon id={id} noLink />{' '}
         </>
       )}
-      {children || ITEMS[id].name}
+      {children || ITEMS[id]?.name}
       {craftQuality ? <QualityIcon quality={craftQuality} /> : null}
     </a>
   );

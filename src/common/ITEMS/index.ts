@@ -7,7 +7,7 @@ import THEWARWITHIN from './thewarwithin';
 import DRUID from './druid';
 import EVOKER from './evoker';
 import HUNTER from './hunter';
-import Item, { Enchant } from './Item';
+import Item, { CraftedItem, Enchant } from './Item';
 import MAGE from './mage';
 import MONK from './monk';
 import OTHERS from './others';
@@ -41,4 +41,4 @@ const ITEMS = {
   ...safeMerge(OTHERS, DRAGONFLIGHT, THEWARWITHIN),
 };
 
-export default indexById<Item | Enchant, typeof ITEMS>(ITEMS);
+export default indexById<Item | Enchant | CraftedItem, typeof ITEMS>(ITEMS);

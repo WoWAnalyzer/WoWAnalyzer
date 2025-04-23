@@ -1,7 +1,8 @@
 import { change, date } from 'common/changelog';
-import { Hana, fel1ne, Saeldur } from 'CONTRIBUTORS';
+import { Hana, fel1ne, Saeldur, Vollmer } from 'CONTRIBUTORS';
 
 export default [
+  change(date(2025, 4, 21), <>Update example log.</>, Vollmer),
   change(date(2025, 3, 29), <>More Updates for 11.1</>, Saeldur),
   change(date(2025, 3, 16), <>Updates for 11.1</>, Hana),
   change(date(2024, 12, 3), <>Add Void Blast to Words of the Pious, Void Summoner and Train of Thought.</>, Saeldur),

@@ -1060,7 +1060,7 @@ export interface Item {
   setItemIDs?: number[];
 }
 
-interface Gem {
+export interface Gem {
   id: number;
   itemLevel: number;
   icon: string;

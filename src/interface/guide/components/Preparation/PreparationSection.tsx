@@ -1,11 +1,12 @@
 import { Section } from 'interface/guide';
 import Spell from 'common/SPELLS/Spell';
-import { Enchant } from 'common/ITEMS/Item';
+import { Enchant, CraftedItem } from 'common/ITEMS/Item';
 
 import EnchantmentSubSection from './EnchantmentSubSection';
 import ConsumablesSubSection from './ConsumablesSubSection';
 import EnhancementSubSection from 'interface/guide/components/Preparation/EnhancementSubSection';
 import Expansion, { isRetailExpansion, RETAIL_EXPANSION } from 'game/Expansion';
+import GemSubSection from './GemSubSection';
 
 interface Props {
   recommendedEnchantments?: Record<number, Enchant[]>;
@@ -13,6 +14,7 @@ interface Props {
   recommendedFoods?: Spell[];
   recommendedWeaponEnhancements?: Record<number, Enchant[]>;
   expansion?: Expansion;
+  recommendedGems?: Record<number, CraftedItem[]>;
 }
 const PreparationSection = ({
   recommendedEnchantments,
@@ -20,12 +22,14 @@ const PreparationSection = ({
   recommendedFoods,
   recommendedWeaponEnhancements,
   expansion = RETAIL_EXPANSION,
+  recommendedGems,
 }: Props) => (
   <Section title="Preparation">
     <EnchantmentSubSection recommendedEnchantments={recommendedEnchantments} />
     {isRetailExpansion(expansion) && (
       <EnhancementSubSection recommendedWeaponEnhancements={recommendedWeaponEnhancements} />
     )}
+    {isRetailExpansion(expansion) && <GemSubSection recommendedGems={recommendedGems} />}
     <ConsumablesSubSection
       recommendedFlasks={recommendedFlasks}
       recommendedFoods={recommendedFoods}
