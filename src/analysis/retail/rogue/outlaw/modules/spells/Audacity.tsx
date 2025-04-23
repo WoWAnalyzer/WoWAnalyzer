@@ -15,8 +15,8 @@ import { consumedAudacity } from '../../normalizers/CastLinkNormalizer';
 //        maybe separate ss overwrite than ps since ps is much more problematic than ss
 
 class Audacity extends Analyzer {
-  procs: number = 0;
-  consumedProcs: number = 0;
+  procs = 0;
+  consumedProcs = 0;
 
   get thresholds(): NumberThreshold {
     const totalSinister = this.damageTracker.getAbility(SPELLS.SINISTER_STRIKE.id);

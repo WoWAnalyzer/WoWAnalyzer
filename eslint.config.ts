@@ -105,6 +105,8 @@ const javascript = tseslint.config({
     'no-unused-expressions': ['error', { allowTernary: true, allowShortCircuit: true }],
     // don't warn about legacy proptypes use. we'll get to the last few js files eventually
     '@eslint-react/no-prop-types': 'off',
+    // too noisy. we have to have keys and often are working with things with no other real option
+    '@eslint-react/no-array-index-key': 'off',
   },
 });
 
@@ -138,6 +140,8 @@ const typescript = tseslint.config({
         args: 'none',
       },
     ],
+    // too noisy. we have to have keys and often are working with things with no other real option
+    '@eslint-react/no-array-index-key': 'off',
   },
 });
 

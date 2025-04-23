@@ -139,7 +139,7 @@
       "prettier --write"
     ],
     "*.{ts,tsx,js,jsx}": [
-      "pnpm run lint-uncached --fix"
+      "pnpm run lint-baseline fix"
     ]
   },
   "packageManager": "pnpm@9.5.0",

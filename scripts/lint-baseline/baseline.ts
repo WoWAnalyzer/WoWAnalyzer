@@ -6,11 +6,15 @@ import { ESLint, Linter } from 'eslint';
  * Run eslint, excluding rules that are present in the baseline.
  * @returns true if any new errors were found
  */
-async function lint(): Promise<boolean> {
+async function lint(fix: boolean = false): Promise<boolean> {
   const baseline = await loadBaseline();
-  const linter = new ESLint();
+  const linter = new ESLint({ fix });
   const results = await linter.lintFiles('src/');
   const formatter = await linter.loadFormatter('stylish');
+
+  if (fix) {
+    await ESLint.outputFixes(results);
+  }
 
   const newResults: ESLint.LintResult[] = [];
 
@@ -111,12 +115,13 @@ async function loadBaseline(): Promise<Set<string>> {
 }
 
 const update = process.argv.at(-1) === 'update';
+const fix = process.argv.at(-1) === 'fix';
 
 if (update) {
   console.log('updating baseline...');
   await updateBaseline();
 } else {
-  const hasLints = await lint();
+  const hasLints = await lint(fix);
 
   process.exit(hasLints ? 1 : 0);
 }
