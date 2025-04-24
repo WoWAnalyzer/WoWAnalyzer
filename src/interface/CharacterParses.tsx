@@ -99,7 +99,7 @@ interface Player {
 }
 
 interface CharacterParsesState {
-  specs: Array<{ en: string; translated: string }>;
+  specs: { en: string; translated: string }[];
   class: string;
   activeSpec: string[];
   activeDifficultyIds: number[];

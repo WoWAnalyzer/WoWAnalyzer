@@ -18,7 +18,7 @@ class BeaconHealingDone extends Analyzer {
   protected healingDone!: HealingDone;
 
   _totalBeaconHealing = HealingValue.empty();
-  _beaconHealingBySource: { [spellID: number]: BeaconTracking } = {};
+  _beaconHealingBySource: Record<number, BeaconTracking> = {};
 
   constructor(options: Options) {
     super(options);
@@ -79,7 +79,7 @@ class BeaconHealingDone extends Analyzer {
 
 export default BeaconHealingDone;
 
-type BeaconTracking = {
+interface BeaconTracking {
   ability: Ability;
   healing: HealingValue;
-};
+}

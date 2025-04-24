@@ -5,12 +5,12 @@ import AutoSizer from 'react-virtualized-auto-sizer';
 import BuffStackTracker from 'parser/shared/modules/BuffStackTracker';
 
 /** The type used to compile the data for graphing. */
-type GraphData = {
+interface GraphData {
   /** Timestamp of the data point */
   timestamp: number;
   /** Amount of stacks at the given time */
   amount: number;
-};
+}
 
 export default abstract class BuffStackGraph extends Analyzer {
   abstract tracker(): BuffStackTracker;

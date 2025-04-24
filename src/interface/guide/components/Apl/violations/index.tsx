@@ -43,10 +43,10 @@ const ShowMeButton = styled.button`
   }
 `;
 
-export type SelectedExplanation<T> = {
+export interface SelectedExplanation<T> {
   describer: ViolationExplainer<T>['describe'];
   claimData: AplProblemData<T>;
-};
+}
 
 export const ExplanationSelectionContext = React.createContext<
   (selection: SelectedExplanation<any>) => void

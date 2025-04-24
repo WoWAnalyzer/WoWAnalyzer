@@ -2,9 +2,8 @@ import styled from '@emotion/styled';
 import { formatDuration, formatNumber } from 'common/format';
 import { SpellLink, Tooltip } from 'interface';
 import { GoodColor, useAnalyzer, useEvents, useInfo } from 'interface/guide';
-import { HasAbility, AbilityEvent, EventType } from 'parser/core/Events';
-import { useMemo } from 'react';
-import { useCallback, useState } from 'react';
+import { AbilityEvent, EventType, HasAbility } from 'parser/core/Events';
+import { JSX, useCallback, useMemo, useState } from 'react';
 import { SignalListener } from 'react-vega';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import EmbeddedTimelineContainer, {
@@ -24,9 +23,9 @@ import MajorDefensive, {
 } from 'interface/guide/components/MajorDefensives/MajorDefensiveAnalyzer';
 import Spell from 'common/SPELLS/Spell';
 
-type HoverKey = {
+interface HoverKey {
   startTime: number;
-};
+}
 
 const BuffBar = styled.div<{ start: number; end: number; fightDuration: number }>`
   position: absolute;
@@ -95,7 +94,9 @@ const BuffTooltip = ({
   );
 };
 
-export const useMaxMitigationValue = (analyzers: readonly MajorDefensive<any, any>[]) => {
+export const useMaxMitigationValue = <Apply extends EventType, Remove extends EventType>(
+  analyzers: readonly MajorDefensive<Apply, Remove>[],
+) => {
   return useMemo(
     () =>
       Math.max.apply(
@@ -111,12 +112,12 @@ export const useMaxMitigationValue = (analyzers: readonly MajorDefensive<any, an
   );
 };
 
-const BuffDisplay = ({
+const BuffDisplay = <Apply extends EventType, Remove extends EventType>({
   analyzers,
   hoverKey,
 }: {
   hoverKey: HoverKey | null;
-  analyzers: readonly MajorDefensive<any, any>[];
+  analyzers: readonly MajorDefensive<Apply, Remove>[];
 }) => {
   const info = useInfo();
 
@@ -234,12 +235,15 @@ const BuffTimelineContainer = styled.div`
   margin-left: 48px;
 `;
 
-type Props = {
-  analyzers: readonly MajorDefensive<any, any>[];
+interface Props<Apply extends EventType, Remove extends EventType> {
+  analyzers: readonly MajorDefensive<Apply, Remove>[];
   yScale?: number;
-};
+}
 
-export default function Timeline({ analyzers, yScale }: Props): JSX.Element | null {
+export default function Timeline<Apply extends EventType, Remove extends EventType>({
+  analyzers,
+  yScale,
+}: Props<Apply, Remove>): JSX.Element | null {
   const info = useInfo();
   const [chartHover, setChartHover] = useState<HoverKey | null>(null);
 

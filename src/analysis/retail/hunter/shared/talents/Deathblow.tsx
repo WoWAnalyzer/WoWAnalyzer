@@ -21,8 +21,8 @@ class Deathblow extends Analyzer {
 
   protected spellUsable!: SpellUsable;
 
-  private deathblowProcs: number = 0;
-  private wastedProcs: number = 0;
+  private deathblowProcs = 0;
+  private wastedProcs = 0;
 
   constructor(options: Options) {
     super(options);

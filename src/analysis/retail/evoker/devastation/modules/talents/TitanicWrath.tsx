@@ -30,14 +30,14 @@ const { DISINTEGRATE, PYRE, ESSENCE_BURST_DEV_BUFF } = SPELLS;
 /** Essence Burst increases the damage of affected spells by 15.0%. */
 
 class TitanicWrath extends Analyzer {
-  ticksToCount: number = 0;
+  ticksToCount = 0;
 
-  titanicWrathDisintegrateDamage: number = 0;
-  titanicWrathPyreDamage: number = 0;
+  titanicWrathDisintegrateDamage = 0;
+  titanicWrathPyreDamage = 0;
 
-  lastDamEvent: number = 0;
+  lastDamEvent = 0;
 
-  trackDamage: boolean = false;
+  trackDamage = false;
   trackedSpells = [DISINTEGRATE, PYRE];
 
   ticksPerDisintegrate = 0;

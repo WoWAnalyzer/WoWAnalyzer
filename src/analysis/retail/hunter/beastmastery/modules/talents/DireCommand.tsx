@@ -35,16 +35,16 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
  * https://www.warcraftlogs.com/reports/NBMbz2Dcq43k17tJ#fight=90&type=damage-done&source=11
  */
 class DireCommand extends Analyzer {
-  damage: number = 0;
+  damage = 0;
   activeDireBeasts: string[] = [];
-  direCommandProcs: number = 0;
-  killCommandCasts: number = 0;
-  lastKillCommandCast: number = 0;
-  resetChance: number = 0;
-  isDireCommandSummon: boolean = false;
-  buffApplicationTimestamp: number = 0;
+  direCommandProcs = 0;
+  killCommandCasts = 0;
+  lastKillCommandCast = 0;
+  resetChance = 0;
+  isDireCommandSummon = false;
+  buffApplicationTimestamp = 0;
   direbeastDuration = DIRE_BEAST_BASE_DURATION;
-  direBeastUptime: number = 0;
+  direBeastUptime = 0;
 
   constructor(options: Options) {
     super(options);

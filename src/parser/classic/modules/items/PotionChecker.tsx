@@ -10,7 +10,7 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 const debug = false;
 
-type WeakPotions = { [key: number]: { useId: number; useIcon: string } };
+type WeakPotions = Record<number, { useId: number; useIcon: string }>;
 
 const weakPotion = {
   useId: ITEMS.POTION_OF_THE_COBRA.id,
@@ -49,6 +49,9 @@ class ClassicPotionChecker extends Analyzer {
   neededManaSecondPotion = false;
   addedSuggestionText = false;
   isHealer = false;
+
+  readonly maxPotions = 2;
+  readonly suggestionMessage = 'You can use 1 potion pre-combat and 1 potion during combat.';
 
   constructor(args: Options) {
     super(args);
@@ -119,10 +122,6 @@ class ClassicPotionChecker extends Analyzer {
     }
   }
 
-  get maxPotions() {
-    return 2;
-  }
-
   get potionsUsedThresholds() {
     return {
       actual: this.potionsUsed,
@@ -141,10 +140,6 @@ class ClassicPotionChecker extends Analyzer {
       },
       style: ThresholdStyle.NUMBER,
     };
-  }
-
-  get suggestionMessage() {
-    return 'You can use 1 potion pre-combat and 1 potion during combat.';
   }
 
   setStrongPotion(spellId: number) {

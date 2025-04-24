@@ -18,7 +18,6 @@ import Root from './Root';
 // we are intentionally polyfilling `at` here when missing because we use
 // it frequently and its addition to browsers is quite recent
 if (Array.prototype.at === undefined) {
-  // eslint-disable-next-line no-extend-native
   Array.prototype.at = at;
 }
 

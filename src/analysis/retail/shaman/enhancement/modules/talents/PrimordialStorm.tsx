@@ -40,9 +40,9 @@ class PrimordialStorm extends MajorCooldown<PrimordialWaveCast> {
   resourceTracker!: MaelstromWeaponTracker;
   splinteredElements!: SplinteredElements;
   primordialWaveCast: PrimordialWaveCast | null = null;
-  doomWindsAlternater: boolean = false;
-  hasWitchDoctorsAncestry: boolean = false;
-  hasElementalSpirits: boolean = false;
+  doomWindsAlternater = false;
+  hasWitchDoctorsAncestry = false;
+  hasElementalSpirits = false;
 
   constructor(options: Options) {
     super({ spell: TALENTS.PRIMORDIAL_WAVE_TALENT }, options);

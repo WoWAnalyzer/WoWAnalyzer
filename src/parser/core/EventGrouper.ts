@@ -11,7 +11,7 @@ import { AnyEvent } from 'parser/core/Events';
 
 export default class EventGrouper {
   threshold: number;
-  cache: { [stem: number]: AnyEvent[] };
+  cache: Record<number, AnyEvent[]>;
 
   constructor(threshold: number) {
     this.threshold = threshold;
@@ -19,9 +19,10 @@ export default class EventGrouper {
   }
 
   [Symbol.iterator]() {
+    // ignore this because eslint gets mad when prettier formats it
+    // prettier-ignore
     return Object.entries(this.cache)
-      .map((item) => item[1])
-      [Symbol.iterator]();
+      .map((item) => item[1])[Symbol.iterator]();
   }
 
   processEvent(event: AnyEvent) {

@@ -7,7 +7,7 @@ import { Transform } from 'vega-lite/build/src/transform';
 
 const POINT_SIZE = 75;
 
-export const normalizeTimestampTransform = (info: Info, key: string = 'timestamp'): Transform => ({
+export const normalizeTimestampTransform = (info: Info, key = 'timestamp'): Transform => ({
   calculate: `datum.${key} - ${info.fightStart}`,
   as: 'timestamp',
 });

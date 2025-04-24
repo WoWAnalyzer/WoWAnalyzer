@@ -17,10 +17,10 @@ class VeilOfPride extends Analyzer {
     sheilunsGift: SheilunsGift,
   };
   protected sheilunsGift!: SheilunsGift;
-  totalExtraClouds: number = 0;
-  totalCasts: number = 0;
-  totalHealing: number = 0;
-  totalOverhealing: number = 0;
+  totalExtraClouds = 0;
+  totalCasts = 0;
+  totalHealing = 0;
+  totalOverhealing = 0;
 
   constructor(options: Options) {
     super(options);

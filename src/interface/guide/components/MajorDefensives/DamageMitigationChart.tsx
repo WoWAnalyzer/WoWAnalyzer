@@ -14,13 +14,13 @@ const rekey = (key: string) =>
 
 // we have to memo this for reasons unbeknownst to me, but it fixes the onHover not getting called with the null value.
 export const DamageMitigationChart = React.memo(
-  ({
+  <Apply extends EventType, Remove extends EventType>({
     onHover,
     analyzers,
     yScale,
   }: {
     onHover: SignalListener;
-    analyzers: readonly MajorDefensive<any, any>[];
+    analyzers: readonly MajorDefensive<Apply, Remove>[];
     yScale?: number;
   }) => {
     const events = useEvents();
@@ -75,7 +75,7 @@ export const DamageMitigationChart = React.memo(
 
     const data = {
       buffs: buffData,
-      events: (physicalData as Array<Pick<DamageEvent, 'amount' | 'timestamp'> & { key: string }>)
+      events: (physicalData as (Pick<DamageEvent, 'amount' | 'timestamp'> & { key: string })[])
         .concat(magicData)
         .concat(mitigationData),
     };

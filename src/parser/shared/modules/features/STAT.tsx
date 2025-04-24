@@ -13,6 +13,8 @@ import SpeedIcon from 'interface/icons/Speed';
 import StaminaIcon from 'interface/icons/Stamina';
 import StrengthIcon from 'interface/icons/Strength';
 import VersatilityIcon from 'interface/icons/Versatility';
+import { ComponentType } from 'react';
+import { IconProps, SvgIconProps } from 'interface/Icon';
 
 export enum PRIMARY_STAT {
   STRENGTH = 'strength',
@@ -43,7 +45,6 @@ enum OTHER_STAT {
 
 type STAT = PRIMARY_STAT | SECONDARY_STAT | OTHER_STAT;
 
-// eslint-disable-next-line @typescript-eslint/no-redeclare
 const STAT = {
   ...PRIMARY_STAT,
   ...SECONDARY_STAT,
@@ -176,7 +177,7 @@ export function getClassNameColor(stat: STAT) {
   }
 }
 
-export function getIcon(stat: STAT): (props: any) => JSX.Element {
+export function getIcon(stat: STAT): ComponentType<IconProps> | ComponentType<SvgIconProps> {
   switch (stat) {
     case STAT.HEALTH:
       return HealthIcon;
@@ -213,6 +214,6 @@ export function getIcon(stat: STAT): (props: any) => JSX.Element {
     case STAT.ARMOR:
       return ArmorIcon;
     default:
-      return (parms) => <></>;
+      return () => <></>;
   }
 }

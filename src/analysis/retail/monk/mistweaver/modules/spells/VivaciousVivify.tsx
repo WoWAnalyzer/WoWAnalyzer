@@ -35,10 +35,10 @@ class VivaciousVivification extends Analyzer {
   protected baseCelestial!: BaseCelestialAnalyzer;
   protected renewingMist!: RenewingMist;
   protected vivify!: Vivify;
-  currentRenewingMists: number = 0;
-  totalCasts: number = 0;
-  totalHealed: number = 0;
-  wastedApplications: number = 0;
+  currentRenewingMists = 0;
+  totalCasts = 0;
+  totalHealed = 0;
+  wastedApplications = 0;
   unusableUptimes: Uptime[] = []; // a wasted window is when we have buff and good rem count and we aren't in celestial window
 
   constructor(options: Options) {

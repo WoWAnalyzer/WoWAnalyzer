@@ -11,13 +11,13 @@ const BUFFER = 100;
 const BASE_ROF_DURATION = 8000;
 const debug = false;
 
-type RoFCast = {
+interface RoFCast {
   timestamp: number;
   expectedEnd: number;
   targetsHit: string[];
   periods: number[];
   lastTickTimestamp: number | null;
-};
+}
 
 // Tries to estimate "effectiveness" of Rain of Fires - counting average targets hit by each RoF (unique targets hit)
 class RainOfFire extends Analyzer {

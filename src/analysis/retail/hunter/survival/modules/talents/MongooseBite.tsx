@@ -34,15 +34,15 @@ import { addEnhancedCastReason } from 'parser/core/EventMetaLib';
  */
 
 class MongooseBite extends Analyzer {
-  private damage: number = 0;
+  private damage = 0;
   private mongooseBiteStacks: number[] = [];
-  private lastMongooseBiteStack: number = 0;
-  private totalWindowsStarted: number = 0;
-  private fiveBiteWindows: number = 0;
-  private aspectOfTheEagleFixed: boolean = false;
-  private buffApplicationTimestamp: number = 0;
-  private accumulatedFocusAtMomentOfCast: number = 0;
-  private windowCheckedForFocus: boolean = false;
+  private lastMongooseBiteStack = 0;
+  private totalWindowsStarted = 0;
+  private fiveBiteWindows = 0;
+  private aspectOfTheEagleFixed = false;
+  private buffApplicationTimestamp = 0;
+  private accumulatedFocusAtMomentOfCast = 0;
+  private windowCheckedForFocus = false;
 
   constructor(options: Options) {
     super(options);

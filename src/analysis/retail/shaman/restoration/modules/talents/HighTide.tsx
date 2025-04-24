@@ -44,10 +44,10 @@ class HighTide extends Analyzer {
   protected statTracker!: StatTracker;
   protected critEffectBonus!: CritEffectBonus;
 
-  totalHealing: number = 0;
-  activeBuffs: number = 0;
-  buffsApplied: number = 0;
-  buffsConsumed: number = 0;
+  totalHealing = 0;
+  activeBuffs = 0;
+  buffsApplied = 0;
+  buffsConsumed = 0;
 
   constructor(options: Options) {
     super(options);

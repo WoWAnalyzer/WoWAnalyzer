@@ -16,18 +16,18 @@ const BUFF_TIME: number = 15000 * 0.95; //add buffer since log events lmao
 const TRACK_BUFFER = 500;
 
 class EmpyreanPower extends Analyzer {
-  averageTimeTillBuffConsumed: number = 0;
+  averageTimeTillBuffConsumed = 0;
 
-  hasProc: boolean = false;
-  procsWasted: number = 0;
-  procsGained: number = 0;
+  hasProc = false;
+  procsWasted = 0;
+  procsGained = 0;
 
-  damageDone: number = 0;
+  damageDone = 0;
 
-  buffAppliedTimestamp: number = 0;
-  buffRemovedTimestamp: number = 0;
+  buffAppliedTimestamp = 0;
+  buffRemovedTimestamp = 0;
 
-  totalChances: number = 0;
+  totalChances = 0;
   procProbabilities: number[] = [];
 
   constructor(options: Options) {

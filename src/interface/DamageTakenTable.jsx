@@ -17,13 +17,6 @@ class DamageTakenTable extends Component {
     total: PropTypes.number.isRequired,
   };
 
-  mitigationNames = {
-    [MITIGATED_NONE]: 'None',
-    [MITIGATED_MAGICAL]: 'Magical',
-    [MITIGATED_PHYSICAL]: 'Physical',
-    [MITIGATED_UNKNOWN]: 'Unknown',
-  };
-
   render() {
     const specClassName = this.props.spec.className.replace(' ', '');
     const row = (abilityData) => {

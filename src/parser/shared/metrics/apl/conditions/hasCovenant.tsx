@@ -5,7 +5,7 @@ import { Condition, tenseAlt } from '../index';
 /**
  * @deprecated
  */
-export function hasCovenant(covenant: Covenant, inverse: boolean = false): Condition<boolean> {
+export function hasCovenant(covenant: Covenant, inverse = false): Condition<boolean> {
   return {
     key: `hasCovenant-${covenant.id}`,
     init: () => false,

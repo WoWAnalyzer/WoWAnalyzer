@@ -127,18 +127,18 @@ class HotHand extends MajorCooldown<HotHandProc> {
   protected reactivity!: Reactivity;
 
   activeWindow: HotHandProc | null = null;
-  globalCooldownEnds: number = 0;
+  globalCooldownEnds = 0;
 
   protected hotHand!: HotHandRank;
-  protected buffedLavaLashDamage: number = 0;
+  protected buffedLavaLashDamage = 0;
   protected hotHandActive: Intervals = new Intervals();
-  protected buffedCasts: number = 0;
+  protected buffedCasts = 0;
 
-  private lavaLashOnCooldown: boolean = true;
-  private lastCooldownWasteCheck: number = 0;
+  private lavaLashOnCooldown = true;
+  private lastCooldownWasteCheck = 0;
 
-  protected hasReactivity: boolean = false;
-  protected surgingTotemActive: boolean = false;
+  protected hasReactivity = false;
+  protected surgingTotemActive = false;
 
   constructor(options: Options) {
     super({ spell: TALENTS.HOT_HAND_TALENT }, options);

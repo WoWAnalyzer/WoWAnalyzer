@@ -29,7 +29,7 @@ class ExtendedBattle extends Analyzer {
   latestApplyTimestamp = 0;
   previousApplyTimestamp = 0;
 
-  debuffTracker: Map<string, number> = new Map();
+  debuffTracker = new Map<string, number>();
 
   constructor(options: Options) {
     super(options);

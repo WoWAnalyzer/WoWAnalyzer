@@ -33,7 +33,7 @@ export default class ScaldingBrew extends Analyzer {
   lastCast?: CastEvent;
 
   rank?: number;
-  mult: number = 0;
+  mult = 0;
 
   constructor(options: Options) {
     super(options);

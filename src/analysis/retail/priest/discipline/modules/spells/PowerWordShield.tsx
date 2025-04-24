@@ -16,12 +16,12 @@ const ETERNAL_BARRIER_INCREASE = 0.2;
 const PREVENTATIVE_MEASURES_INCREASE = 0.4;
 const INNER_QUIETUS_INCREASE = 0.2;
 
-type ShieldInfo = {
+interface ShieldInfo {
   event: ApplyBuffEvent | RefreshBuffEvent;
   healing: number;
   wealStacks: number | 0;
   eternalBarrierExtensionHealing: number; // Track healing that happens during the extended duration (15-20s)
-};
+}
 
 // when removebuff happens, clear out the entry in the map
 // if you have an applybuff (or refreshbuff) and there is already an entry in the map for the target, you know that the previous buff has been overwritten by a new apply, so you can immediately expire the old one
@@ -35,7 +35,7 @@ class PowerWordShield extends Analyzer {
   protected statTracker!: StatTracker;
 
   decayedShields = 0;
-  private shieldApplications: Map<number, ShieldInfo | null> = new Map();
+  private shieldApplications = new Map<number, ShieldInfo | null>();
   critCount = 0;
   pwsValue = 0;
   wealValue = 0;

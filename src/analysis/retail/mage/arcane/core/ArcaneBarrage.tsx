@@ -33,7 +33,7 @@ export default class ArcaneBarrage extends Analyzer {
   hasArcaneSoul: boolean = this.selectedCombatant.hasTalent(TALENTS.MEMORY_OF_ALAR_TALENT);
 
   barrageCasts: ArcaneBarrageCast[] = [];
-  lastTempoApply: number = 0;
+  lastTempoApply = 0;
 
   constructor(options: Options) {
     super(options);

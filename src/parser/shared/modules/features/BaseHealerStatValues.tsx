@@ -58,7 +58,7 @@ abstract class BaseHealerStatValues extends Analyzer {
     vers: true,
   };
   // This will contain shared settings for things like trinkets and Leech
-  sharedSpellInfo: { [key: string]: HealerSpellInfo } = CORE_SPELL_INFO;
+  sharedSpellInfo: Record<string, HealerSpellInfo> = CORE_SPELL_INFO;
   // This is for spec specific implementations to override. It gets priority over defaultSpellInfo.
   spellInfo: ListOfHealerSpellInfo = {};
 
@@ -516,7 +516,7 @@ abstract class BaseHealerStatValues extends Analyzer {
     }
   }
 
-  abstract _prepareResults(): Array<STAT | StatMessage>;
+  abstract _prepareResults(): (STAT | StatMessage)[];
 
   static position = STATISTIC_ORDER.CORE(9);
   statistic() {
@@ -687,9 +687,7 @@ interface HealerSpellInfo {
   masteryStack?: boolean;
 }
 
-interface ListOfHealerSpellInfo {
-  [key: number]: HealerSpellInfo;
-}
+type ListOfHealerSpellInfo = Record<number, HealerSpellInfo>;
 
 interface StatMessage {
   stat: STAT;

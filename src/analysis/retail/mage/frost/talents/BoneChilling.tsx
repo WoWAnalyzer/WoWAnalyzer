@@ -41,7 +41,7 @@ class BoneChilling extends Analyzer {
   }
 
   onAffectedDamage(event: DamageEvent) {
-    const buffInfo: any = this.selectedCombatant.getBuff(SPELLS.BONE_CHILLING_BUFF.id);
+    const buffInfo = this.selectedCombatant.getBuff(SPELLS.BONE_CHILLING_BUFF.id);
     if (!buffInfo) {
       return;
     }

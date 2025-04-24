@@ -20,17 +20,17 @@ class NozTeachings extends Analyzer {
     spellUsable: SpellUsable,
   };
   protected spellUsable!: SpellUsable;
-  hasFont: boolean = false;
-  sbCdr: number = 0;
-  dbCdr: number = 0;
-  fbCdr: number = 0;
-  sbWastedCdr: number = 0;
-  dbWastedCdr: number = 0;
-  fbWastedCdr: number = 0;
-  sbCasts: number = 0;
-  dbCasts: number = 0;
-  fbCasts: number = 0;
-  hasSpiritualClarity: number = 0;
+  hasFont = false;
+  sbCdr = 0;
+  dbCdr = 0;
+  fbCdr = 0;
+  sbWastedCdr = 0;
+  dbWastedCdr = 0;
+  fbWastedCdr = 0;
+  sbCasts = 0;
+  dbCasts = 0;
+  fbCasts = 0;
+  hasSpiritualClarity = 0;
 
   constructor(options: Options) {
     super(options);

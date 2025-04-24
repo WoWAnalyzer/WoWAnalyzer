@@ -10,8 +10,8 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import * as React from 'react';
 
 class InstantPoison extends Analyzer {
-  numPoisonHits: number = 0;
-  numMeleeHits: number = 0;
+  numPoisonHits = 0;
+  numMeleeHits = 0;
 
   constructor(options: Options) {
     super(options);

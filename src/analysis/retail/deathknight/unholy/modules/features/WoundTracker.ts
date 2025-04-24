@@ -10,9 +10,9 @@ import { encodeTargetString } from 'parser/shared/modules/Enemies';
 import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
 
 class WoundTracker extends Analyzer {
-  private _targets: { [key: string]: number } = {};
+  private _targets: Record<string, number> = {};
 
-  public get targets(): { [key: string]: number } {
+  public get targets(): Record<string, number> {
     return this._targets;
   }
 

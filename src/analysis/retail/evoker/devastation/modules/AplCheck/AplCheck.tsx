@@ -8,7 +8,7 @@ import Spell from 'common/SPELLS/Spell';
 import { getRules, Rules } from './rules';
 import { TIERS } from 'game/TIERS';
 
-export type TalentInfo = {
+export interface TalentInfo {
   maxEssenceBurst: number;
   maxEssence: number;
   eternitySurgeSpell: Spell[];
@@ -17,7 +17,7 @@ export type TalentInfo = {
   hasIridescence: boolean;
   hasProtractedTalons: boolean;
   has4pcDF4: boolean;
-};
+}
 
 const default_rotation = (rules: Rules): Rule[] => {
   return [

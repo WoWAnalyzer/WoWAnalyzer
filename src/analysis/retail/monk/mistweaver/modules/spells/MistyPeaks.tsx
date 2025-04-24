@@ -28,14 +28,14 @@ class MistyPeaks extends Analyzer {
   };
   hotTracker!: HotTrackerMW;
   combatants!: Combatants;
-  numHots: number = 0;
-  extraHealing: number = 0;
-  extraAbsorb: number = 0;
-  overHealing: number = 0;
-  extraHits: number = 0;
-  envmHealingIncrease: number = 0;
-  extraEnvBonusHealing: number = 0;
-  extraEnvBonusOverhealing: number = 0;
+  numHots = 0;
+  extraHealing = 0;
+  extraAbsorb = 0;
+  overHealing = 0;
+  extraHits = 0;
+  envmHealingIncrease = 0;
+  extraEnvBonusHealing = 0;
+  extraEnvBonusOverhealing = 0;
 
   get totalHealing() {
     return this.extraHealing + this.extraAbsorb + this.extraEnvBonusHealing;

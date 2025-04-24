@@ -15,9 +15,9 @@ class YulonsWhisper extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
-  healCount: number = 0;
+  healCount = 0;
   combatants!: Combatants;
-  MTCount: number = 0;
+  MTCount = 0;
 
   constructor(options: Options) {
     super(options);

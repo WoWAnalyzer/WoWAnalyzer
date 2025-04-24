@@ -128,33 +128,33 @@ class RisingMist extends Analyzer {
 
   currentRskTalent: Talent;
   hotsBySpell = new Map<number, Tracker[]>();
-  risingMistCount: number = 0;
+  risingMistCount = 0;
   risingMists: Attribution[] = [];
-  remCount: number = 0;
-  evmCount: number = 0;
-  targetCount: number = 0;
+  remCount = 0;
+  evmCount = 0;
+  targetCount = 0;
   trackUplift = false;
   //zen pulse
-  zpHits: number = 0;
-  zpHealing: number = 0;
-  zpHealingFromHardcastRems: number = 0;
-  zpHealingFromRapidDiffusionRems: number = 0;
-  zphealingFromDancingMistRems: number = 0;
-  zpOverhealing: number = 0;
+  zpHits = 0;
+  zpHealing = 0;
+  zpHealingFromHardcastRems = 0;
+  zpHealingFromRapidDiffusionRems = 0;
+  zphealingFromDancingMistRems = 0;
+  zpOverhealing = 0;
   //vivify
-  vivCleaves: number = 0;
-  vivHealing: number = 0;
-  vivHealingFromHardcastRems: number = 0;
-  vivHealingFromRapidDiffusionRems: number = 0;
-  vivhealingFromDancingMistRems: number = 0;
-  vivOverhealing: number = 0;
-  vivAbsorbed: number = 0;
+  vivCleaves = 0;
+  vivHealing = 0;
+  vivHealingFromHardcastRems = 0;
+  vivHealingFromRapidDiffusionRems = 0;
+  vivhealingFromDancingMistRems = 0;
+  vivOverhealing = 0;
+  vivAbsorbed = 0;
   //enveloping mist
-  envHits: number = 0;
-  envBonusHealing: number = 0;
-  envBonusMistyPeaks: number = 0;
-  envBonusHardcast: number = 0;
-  envmHealingIncrease: number = 0;
+  envHits = 0;
+  envBonusHealing = 0;
+  envBonusMistyPeaks = 0;
+  envBonusHardcast = 0;
+  envmHealingIncrease = 0;
 
   constructor(options: Options) {
     super(options);

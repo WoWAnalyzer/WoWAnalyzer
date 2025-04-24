@@ -12,7 +12,7 @@ import './PlayerSelection.scss';
 import { usePageView } from 'interface/useGoogleAnalytics';
 import { i18n } from '@lingui/core';
 
-const ROLE_SORT_KEY: { [key: string]: number } = {
+const ROLE_SORT_KEY: Record<string, number> = {
   [ROLES.TANK]: 0,
   [ROLES.HEALER]: 1,
   //Different sort for range/melee was tested and felt intuitive.

@@ -20,9 +20,9 @@ class UnfurlingDarkness extends Analyzer {
   protected eventHistory!: EventHistory;
   protected abilityTracker!: AbilityTracker;
 
-  procsGained: number = 0;
-  procsWasted: number = 0;
-  lastProcTime: number = 0;
+  procsGained = 0;
+  procsWasted = 0;
+  lastProcTime = 0;
 
   constructor(options: Options) {
     super(options);

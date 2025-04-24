@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from 'react';
+import { useEffect, useReducer, useRef, useState } from 'react';
 import * as React from 'react';
 
 const SECOND = 1000;
@@ -25,9 +25,9 @@ const convertTime = (time: number) => ({
 });
 
 const TimeInput = (props: Props) => {
-  const mRef = React.createRef<HTMLInputElement>();
-  const sRef = React.createRef<HTMLInputElement>();
-  const msRef = React.createRef<HTMLInputElement>();
+  const mRef = useRef<HTMLInputElement>(null);
+  const sRef = useRef<HTMLInputElement>(null);
+  const msRef = useRef<HTMLInputElement>(null);
 
   const [minutes, setMinutes] = useState<number>(0);
   const [seconds, setSeconds] = useState<number>(0);

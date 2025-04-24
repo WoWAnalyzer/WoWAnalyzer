@@ -5,9 +5,9 @@ import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, {
+  AnyEvent,
   ApplyBuffEvent,
   CastEvent,
-  Event,
   HealEvent,
   RefreshBuffEvent,
 } from 'parser/core/Events';
@@ -131,7 +131,7 @@ class TreeOfLife extends Analyzer {
   /**
    * Gets the tracking accumulator for the current ToL, if there is one
    */
-  _getAccumulator(event: Event<any>) {
+  _getAccumulator(event: AnyEvent) {
     if (!this.selectedCombatant.hasBuff(TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT.id)) {
       return null; // ToL isn't active, no accumulator
     } else if (!this.selectedCombatant.hasTalent(TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT)) {

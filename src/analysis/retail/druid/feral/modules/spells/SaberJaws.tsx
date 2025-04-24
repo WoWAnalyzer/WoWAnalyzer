@@ -26,7 +26,7 @@ export default class SaberJaws extends Analyzer {
   /** The amount Saber Jaws multiplies the bonus damage */
   bonusMultiplier;
   /** Total damage added by Saber Jaws */
-  totalDamage: number = 0;
+  totalDamage = 0;
 
   constructor(options: Options) {
     super(options);

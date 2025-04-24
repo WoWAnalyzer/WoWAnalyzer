@@ -60,19 +60,6 @@ class CharacterParsesList extends PureComponent<CharacterParsesListProps> {
     return TRINKET_SLOTS.includes(index);
   }
 
-  renderLegendaryEffect({ id, icon }: { name: string; id: number; icon: string }) {
-    return (
-      <SpellLink key={id} spell={id} icon={false}>
-        <Icon
-          icon={icon}
-          style={{
-            ...styles.icon,
-            border: '1px solid',
-          }}
-        ></Icon>
-      </SpellLink>
-    );
-  }
   renderItem(item: Item) {
     return (
       <ItemLink key={item.id} id={item.id} className={item.quality.toString()} icon={false}>

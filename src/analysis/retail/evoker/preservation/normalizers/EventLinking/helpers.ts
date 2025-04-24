@@ -242,7 +242,7 @@ export function getDreamBreathHealing(event: ApplyBuffEvent | RefreshBuffEvent |
 
 export function getDreamBreathCast(
   event: ApplyBuffEvent | RefreshBuffEvent | HealEvent,
-  searchStasis: boolean = true,
+  searchStasis = true,
 ) {
   let castEvent;
   if (event.type === EventType.Heal) {

@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import getBossName from 'common/getBossName';
 import { getLabel as getDifficultyLabel } from 'game/DIFFICULTIES';
 import { Boss, Phase, findZoneByBossId } from 'game/raids';
@@ -27,7 +26,7 @@ interface Props {
   handleDungeonPullSelection: (dungeonPull: string) => void;
   handlePhaseSelection: (phase: string, instance: number) => void;
   applyFilter: (start: number, end: number) => void;
-  phases: { [key: string]: Phase } | null;
+  phases: Record<string, Phase> | null;
   selectedPhase: string;
   selectedInstance: number;
   selectedDungeonPull: string;

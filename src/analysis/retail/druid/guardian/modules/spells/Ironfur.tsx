@@ -20,8 +20,8 @@ export default class Ironfur extends Analyzer {
   hits: IronfurTrackedHit[] = [];
   uptime: Uptime[] = [];
 
-  totalHits: number = 0;
-  coveredHits: number = 0;
+  totalHits = 0;
+  coveredHits = 0;
 
   constructor(options: Options) {
     super(options);

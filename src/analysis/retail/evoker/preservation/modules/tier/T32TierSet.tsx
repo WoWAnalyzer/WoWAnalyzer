@@ -34,10 +34,10 @@ const REV_INC = 0.1;
 const BONUS_4P = 0.1;
 
 class T32Prevoker extends Analyzer {
-  has4Piece: boolean = false;
-  addedTcStacks: number = 0;
-  addedReversionHealing: number = 0;
-  addedEmpowerHealing: number = 0;
+  has4Piece = false;
+  addedTcStacks = 0;
+  addedReversionHealing = 0;
+  addedEmpowerHealing = 0;
 
   constructor(options: Options) {
     super(options);

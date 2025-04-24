@@ -15,18 +15,18 @@ const MIN_STARFIRE_TARGETS_CA = 4;
 
 export default class FillerUsage extends Analyzer {
   /** Total number of wrath hardcasts */
-  totalWraths: number = 0;
+  totalWraths = 0;
   /** Wrath hardcasts during Lunar Eclipse */
-  lunarWraths: number = 0;
+  lunarWraths = 0;
 
   /** Total number of starfire hardcasts */
-  totalStarfires: number = 0;
+  totalStarfires = 0;
   /** Starfire hardcasts that hit too few targets */
-  lowTargetStarfires: number = 0;
+  lowTargetStarfires = 0;
   /** Starfire hardcasts during Solar Eclipse */
-  solarStarfires: number = 0;
+  solarStarfires = 0;
   /** Starefire casts w/ Lunar Calling outside of Eclipse (must wrath to enter Eclipse) */
-  noEclipseLcStarfires: number = 0;
+  noEclipseLcStarfires = 0;
 
   hasLunarCalling: boolean;
 

@@ -11,7 +11,7 @@ import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { DARK_ASCENSION_MULTIPLIER } from '../../constants'; //gives damage to non-periodic Shadow Damage.  It does this by buffing specific spells
 
 class DarkAscension extends Analyzer {
-  totalDamage: number = 0;
+  totalDamage = 0;
 
   constructor(options: Options) {
     super(options);

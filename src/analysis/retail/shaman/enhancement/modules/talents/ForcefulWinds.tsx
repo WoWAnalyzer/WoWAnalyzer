@@ -18,7 +18,7 @@ const FORCEFUL_WINDS = {
  * increase the damage of Windfury by 20%, stacking up to 5 times.
  */
 class ForcefulWinds extends Analyzer {
-  protected damageGained: number = 0;
+  protected damageGained = 0;
 
   constructor(options: Options) {
     super(options);

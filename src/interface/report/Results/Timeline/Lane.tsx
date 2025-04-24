@@ -19,7 +19,7 @@ import { Fragment, PureComponent } from 'react';
 
 const PREPHASE_BUFFER = 1000; //ms a prephase event gets displayed before the phase start
 
-type Props = {
+interface Props {
   spell?: Spell;
   children: AnyEvent[];
   fightStartTimestamp: number;
@@ -27,7 +27,7 @@ type Props = {
   secondWidth: number;
   castableBuff?: number;
   style?: React.CSSProperties;
-};
+}
 
 class Lane extends PureComponent<Props> {
   getOffsetLeft(timestamp: number) {

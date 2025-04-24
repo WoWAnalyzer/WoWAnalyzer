@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-useless-constructor */
 import { Options } from 'parser/core/Module';
 import BuffCountGraph, { GraphedSpellSpec } from 'parser/shared/modules/BuffCountGraph';
 import SPELLS from 'common/SPELLS/evoker';

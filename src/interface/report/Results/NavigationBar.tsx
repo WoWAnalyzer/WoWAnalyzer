@@ -14,12 +14,12 @@ import { InsanityIcon } from 'interface/icons';
 
 interface Props {
   makeTabUrl: (url: string) => string;
-  tabs: Array<{
+  tabs: {
     title: ReactNode;
     icon?: ComponentType;
     url: string;
     order?: number;
-  }>;
+  }[];
   selectedTab: string;
 }
 

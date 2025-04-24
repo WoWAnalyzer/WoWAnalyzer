@@ -19,9 +19,9 @@ export interface CombatantInfo extends CombatantInfoEvent {
   name: string;
 }
 
-type Spell = {
+interface Spell {
   id: number;
-};
+}
 
 class Combatant extends Entity {
   get id() {
@@ -121,7 +121,7 @@ class Combatant extends Entity {
     });
   }
 
-  private treeTalentsByEntryId: Map<number, TalentEntry> = new Map();
+  private treeTalentsByEntryId = new Map<number, TalentEntry>();
   private _importTalentTree(talents: TalentEntry[]) {
     talents?.forEach((talent) => {
       this.treeTalentsByEntryId.set(talent.id, talent);
@@ -191,7 +191,7 @@ class Combatant extends Entity {
   }
 
   // region Gear
-  _gearItemsBySlotId: { [key: number]: Item } = {};
+  _gearItemsBySlotId: Record<number, Item> = {};
 
   _parseGear(gear: Item[]) {
     const equipedSets: number[][] = [];
@@ -373,7 +373,7 @@ class Combatant extends Entity {
     return this._getGearItemBySlotId(GEAR_SLOTS.OFFHAND);
   }
 
-  private itemMap: Map<number, Item> = new Map();
+  private itemMap = new Map<number, Item>();
   private scannedForItems = false;
 
   getItem(itemId: number) {

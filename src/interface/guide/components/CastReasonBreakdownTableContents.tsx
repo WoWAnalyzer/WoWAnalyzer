@@ -1,17 +1,18 @@
 import styled from '@emotion/styled';
 import PassFailBar from './PassFailBar';
+import { ElementType, ReactNode } from 'react';
 
-type CastData<Reason> = {
+interface CastData<Reason> {
   reason: Reason;
-};
+}
 
-type Props<Reason, Data extends CastData<Reason>> = {
+interface Props<Reason, Data extends CastData<Reason>> {
   casts: Data[];
-  label: (reason: Reason) => React.ReactNode;
-  containerType?: React.ElementType<any>;
+  label: (reason: Reason) => ReactNode;
+  containerType?: ElementType;
   possibleReasons: Reason[];
   badReason: Reason;
-};
+}
 
 const Container = styled.tbody``;
 

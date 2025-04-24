@@ -1,8 +1,6 @@
 import SPELLS from 'common/SPELLS';
 
-const BLOODLUST_BUFFS: {
-  [key: number]: number;
-} = {
+const BLOODLUST_BUFFS: Record<number, number> = {
   [SPELLS.BLOODLUST.id]: 0.3,
   [SPELLS.HEROISM.id]: 0.3, // Alliance Bloodlust
   [SPELLS.TIME_WARP.id]: 0.3, // Mage

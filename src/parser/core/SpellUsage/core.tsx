@@ -2,7 +2,7 @@ import {
   getPerformanceExplanation,
   QualitativePerformance,
 } from 'parser/ui/QualitativePerformance';
-import { createContext, ReactNode, useContext } from 'react';
+import { createContext, ReactNode, useContext, useMemo } from 'react';
 import { AnyEvent } from 'parser/core/Events';
 import styled from '@emotion/styled';
 import { formatDuration } from 'common/format';
@@ -119,11 +119,12 @@ const SpellUsageContext = createContext<SpellUsageContextValue>({
 
 export const SpellUsageContextProvider = ({ children }: { children: ReactNode }) => {
   const [hideGoodCasts, setHideGoodCasts] = useSessionFeatureFlag('hide-good-casts');
-  return (
-    <SpellUsageContext.Provider value={{ hideGoodCasts, setHideGoodCasts }}>
-      {children}
-    </SpellUsageContext.Provider>
+  const providerValue = useMemo(
+    () => ({ hideGoodCasts, setHideGoodCasts }),
+    [hideGoodCasts, setHideGoodCasts],
   );
+
+  return <SpellUsageContext.Provider value={providerValue}>{children}</SpellUsageContext.Provider>;
 };
 
 export const useSpellUsageContext = () => useContext(SpellUsageContext);

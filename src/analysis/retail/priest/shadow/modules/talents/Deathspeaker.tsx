@@ -28,9 +28,9 @@ class Deathspeaker extends Analyzer {
   protected abilityTracker!: AbilityTracker;
   protected spellUsable!: SpellUsable;
 
-  procsGained: number = 0;
-  procsWasted: number = 0;
-  lastProcTime: number = 0;
+  procsGained = 0;
+  procsWasted = 0;
+  lastProcTime = 0;
 
   constructor(options: Options) {
     super(options);

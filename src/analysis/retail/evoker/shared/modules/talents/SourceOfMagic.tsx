@@ -10,11 +10,11 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
-type SourceOfMagicWindow = {
+interface SourceOfMagicWindow {
   start: number;
   end: number;
   player: string;
-};
+}
 
 const MANA_POOL_SIZE = 2500000;
 

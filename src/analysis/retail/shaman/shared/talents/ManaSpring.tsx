@@ -53,7 +53,7 @@ class ManaSpring extends Analyzer {
     }
   }
 
-  get regenPerTarget(): { [playerId: number]: { target: Combatant; amount: number } } {
+  get regenPerTarget(): Record<number, { target: Combatant; amount: number }> {
     return Object.assign(
       {},
       ...Object.values(this.combatants.players)

@@ -26,16 +26,16 @@ class PoolOfMists extends Analyzer {
   protected spellUsable!: SpellUsable;
   protected hotTracker!: HotTrackerMW;
 
-  lastTimestamp: number = 0;
-  cdrEatenByICD: number = 0;
+  lastTimestamp = 0;
+  cdrEatenByICD = 0;
 
-  remCDR: number = 0;
-  remWaste: number = 0;
-  remEffective: number = 0;
+  remCDR = 0;
+  remWaste = 0;
+  remEffective = 0;
 
-  rskCDR: number = 0;
-  rskWaste: number = 0;
-  rskEffective: number = 0;
+  rskCDR = 0;
+  rskWaste = 0;
+  rskEffective = 0;
   currentRskTalent: Talent;
 
   get extraRSKCasts() {

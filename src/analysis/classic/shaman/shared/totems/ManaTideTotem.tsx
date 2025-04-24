@@ -59,7 +59,7 @@ class ManaTideTotem extends Analyzer {
   get regenOnHealers() {
     return Object.values(this.regenPerHealer).reduce((mana, player) => mana + player.mana, 0);
   }
-  get regenPerHealer(): { [playerId: number]: { healer: Combatant; mana: number } } {
+  get regenPerHealer(): Record<number, { healer: Combatant; mana: number }> {
     return Object.assign(
       {},
       ...Object.values(this.combatants.players).map((player) => ({

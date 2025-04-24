@@ -14,12 +14,12 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
 class JadeSerpentStatue extends Analyzer {
-  healing: number = 0;
-  overHealing: number = 0;
-  casts: number = 0;
-  soothingMistUptime: number = 0;
-  lastBuffApplyTimestamp: number = -1;
-  jssCasting: boolean = false;
+  healing = 0;
+  overHealing = 0;
+  casts = 0;
+  soothingMistUptime = 0;
+  lastBuffApplyTimestamp = -1;
+  jssCasting = false;
 
   constructor(options: Options) {
     super(options);

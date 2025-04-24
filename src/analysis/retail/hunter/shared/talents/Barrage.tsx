@@ -24,7 +24,7 @@ import { BARRAGE_HITS_PER_CAST } from '../constants';
  */
 class Barrage extends Analyzer {
   damage = 0;
-  casts: Array<{ averageHits: number; hits: number }> = [];
+  casts: { averageHits: number; hits: number }[] = [];
   hits = 0;
   uniqueTargets: string[] = [];
   uniqueTargetsHit = 0;

@@ -24,11 +24,11 @@ interface CastInfo {
 }
 
 class Ouroboros extends Analyzer {
-  ebHealing: number = 0;
-  echoEbHealing: number = 0;
-  totalBuffedHits: number = 0;
-  totalStacks: number = 0;
-  currentStacks: number = 0;
+  ebHealing = 0;
+  echoEbHealing = 0;
+  totalBuffedHits = 0;
+  totalStacks = 0;
+  currentStacks = 0;
   casts: CastInfo[] = [];
 
   constructor(options: Options) {

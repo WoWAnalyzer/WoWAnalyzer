@@ -38,10 +38,10 @@ export default class TWW1TierSet extends Analyzer {
   ];
   protected combatants!: Combatants;
   has4pc: boolean;
-  tidalWaves2pcBonusHealing: number = 0;
-  tidalWaves2pcOverHealing: number = 0;
-  tidalWaves4pcSavedMana: number = 0;
-  tidalWavesBuffedCastNumber: number = 0;
+  tidalWaves2pcBonusHealing = 0;
+  tidalWaves2pcOverHealing = 0;
+  tidalWaves4pcSavedMana = 0;
+  tidalWavesBuffedCastNumber = 0;
 
   constructor(options: Options) {
     super(options);

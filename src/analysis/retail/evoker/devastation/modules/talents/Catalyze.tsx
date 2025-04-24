@@ -14,11 +14,11 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 const { DISINTEGRATE, FIRE_BREATH_DOT } = SPELLS;
 
 class Catalyze extends Analyzer {
-  fireBreathDamageDuringDisintegrate: number = 0;
-  disintegrateDebuffActive: boolean = false;
-  extraDamageFromCatalyze: number = 0;
-  fireBreathTicks: number = 0;
-  extraTicksFromCatalyze: number = 0;
+  fireBreathDamageDuringDisintegrate = 0;
+  disintegrateDebuffActive = false;
+  extraDamageFromCatalyze = 0;
+  fireBreathTicks = 0;
+  extraTicksFromCatalyze = 0;
 
   constructor(options: Options) {
     super(options);

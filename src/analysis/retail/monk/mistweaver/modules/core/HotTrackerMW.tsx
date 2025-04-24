@@ -39,7 +39,7 @@ class HotTrackerMW extends HotTracker {
   getAverageHealingForAttribution(
     spellId: number,
     attribution: string,
-    excludeDancingMist: boolean = false,
+    excludeDancingMist = false,
     filteredHistory?: Tracker[],
   ): number {
     if (!filteredHistory) {

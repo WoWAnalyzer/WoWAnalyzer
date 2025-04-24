@@ -23,7 +23,7 @@ class NaturesVigil extends Analyzer {
   /** Trackers for info about each cast */
   nvTracker: NaturesVigilCast[] = [];
   /** Mapping by number of the contributions to NV's damage */
-  stHealingDuringNv: { [spellId: number]: { id: number; amount: number } } = {};
+  stHealingDuringNv: Record<number, { id: number; amount: number }> = {};
 
   constructor(options: Options) {
     super(options);

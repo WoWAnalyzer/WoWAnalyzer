@@ -290,9 +290,9 @@ export default class FinisherUse extends Analyzer {
       spellUseToBoxRowEntry(it, this.owner.fight.start_time),
     );
 
-    const spellUsesPerSpell = this.spellUses.reduce<{
-      [key: number]: { goodCasts: number; totalCasts: number };
-    }>((acc, cur) => {
+    const spellUsesPerSpell = this.spellUses.reduce<
+      Record<number, { goodCasts: number; totalCasts: number }>
+    >((acc, cur) => {
       // Technically not possible but the type is AnyEvent
       if (!HasAbility(cur.event)) {
         return acc;

@@ -31,7 +31,7 @@ class SandsOfTime extends Analyzer {
   private uses: SpellUse[] = [];
   private extendAttempts: PossibleExtends[] = [];
 
-  ebonMightActive: boolean = false;
+  ebonMightActive = false;
   trackedSpells = [
     TALENTS.ERUPTION_TALENT,
     ...BREATH_OF_EONS_SPELLS,

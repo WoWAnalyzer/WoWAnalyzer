@@ -24,13 +24,13 @@ interface SpellStats extends Omit<InternalPlayerStats, 'combatant'> {
   spellId: number;
 }
 
-export type PlayerStats = {
+export interface PlayerStats {
   combatant: Combatant;
   effectiveHealing: number;
   healingReceived: number;
   healingFromMastery: number;
   maxPotentialHealingFromMastery: number;
-};
+}
 
 type InternalPlayerStats = PlayerStats & { masteryEffectiveness: number };
 

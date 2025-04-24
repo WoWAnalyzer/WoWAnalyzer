@@ -29,9 +29,9 @@ class GoldenOpportunity extends Analyzer {
     stats: StatTracker,
   };
   protected stats!: StatTracker;
-  goldenPrescienceApplyTimestamps: { [key: number]: number } = {};
-  goldenPrescienceTimestampExists: { [key: number]: boolean } = {};
-  masteryAtPrescienceApplication: { [key: number]: number } = {};
+  goldenPrescienceApplyTimestamps: Record<number, number> = {};
+  goldenPrescienceTimestampExists: Record<number, boolean> = {};
+  masteryAtPrescienceApplication: Record<number, number> = {};
   totalPrescienceExtension = 0;
   constructor(options: Options) {
     super(options);

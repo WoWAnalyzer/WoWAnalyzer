@@ -8,11 +8,11 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 const debug = false;
 
-type PositionalData = {
+interface PositionalData {
   x: number;
   y: number;
   timestamp: number;
-};
+}
 
 class DistanceMoved extends Analyzer {
   lastPosition: PositionalData | null = null;
@@ -20,7 +20,7 @@ class DistanceMoved extends Analyzer {
   totalDistanceMoved = 0;
   timeSpentMoving = 0;
   bySecond = new Map<number, number>();
-  instances: Array<{ start: number; end: number; distance: number }> = [];
+  instances: { start: number; end: number; distance: number }[] = [];
 
   constructor(options: Options) {
     super(options);

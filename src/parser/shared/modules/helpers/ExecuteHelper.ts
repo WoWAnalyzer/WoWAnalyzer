@@ -33,19 +33,19 @@ enum ExecuteRangeType {
   EnablerBuff,
 }
 
-type HealthExecuteRange = {
+interface HealthExecuteRange {
   type: ExecuteRangeType.Health;
   startEvent: AnyEvent;
   endEvent: AnyEvent;
   ability?: undefined;
-};
+}
 
-type BuffExecuteRange = {
+interface BuffExecuteRange {
   type: Exclude<ExecuteRangeType, ExecuteRangeType.Health>;
   startEvent: AnyEvent;
   endEvent: AnyEvent;
   ability: Ability;
-};
+}
 
 /**
  * A range of time (indicated by start and end event) during which an execute spell was usable.
@@ -120,55 +120,55 @@ class ExecuteHelper extends Analyzer {
   /**
    * Is true if we're in an execute window either because of a buff giving access to execute spells or because of health windows
    */
-  inExecuteWindow: boolean = false;
+  inExecuteWindow = false;
 
   /**
    * Is true if we're in an execute window due to health on a target, so a buff granting access to execute is pointless at this point
    */
-  inHealthExecuteWindow: boolean = false;
+  inHealthExecuteWindow = false;
 
   /**
    * A variable marking the timestamp of the start of the current execute window
    */
-  executeWindowStart: number = 0;
+  executeWindowStart = 0;
 
   /**
    * A variable marking the timestamp of the last damage event within the execute window
    */
-  lastExecuteHitTimestamp: number = 0;
+  lastExecuteHitTimestamp = 0;
 
   /**
    * The amount of time spent inside executewindows, either caused by health or by buffs giving access to execute
    */
-  totalExecuteWindowDuration: number = 0;
+  totalExecuteWindowDuration = 0;
 
   /**
    * Amount of damage done by the spells defined in executeSpells
    */
-  damage: number = 0;
+  damage = 0;
 
   /**
    * returns the total amount of casts of the executes listed in executeSpells
    */
-  casts: number = 0;
+  casts = 0;
 
   /**
    * returns the amount of casts of the executes listed in executeSpells that were cast whilst being in an execute window
    */
-  castsWithExecute: number = 0;
+  castsWithExecute = 0;
 
   /**
    * returns the amount of times a buff was applied that allows for a single cast of a given execute spell
    */
-  singleExecuteEnablerApplications: number = 0;
+  singleExecuteEnablerApplications = 0;
   //endregion
 
   public readonly executeRanges: ExecuteRange[] = [];
 
   // track in-progress ranges to later be completed and appended to `executeRanges`
   // need one per type because they may overlap (e.g. you could get a Kill Shot proc during the execute HP period.)
-  private currentHealthRanges: Map<string, IncompleteExecuteRange<HealthExecuteRange>> = new Map();
-  private currentBuffRanges: Map<number, IncompleteExecuteRange<BuffExecuteRange>> = new Map();
+  private currentHealthRanges = new Map<string, IncompleteExecuteRange<HealthExecuteRange>>();
+  private currentBuffRanges = new Map<number, IncompleteExecuteRange<BuffExecuteRange>>();
 
   //region Execute helpers
   /**

@@ -17,8 +17,8 @@ class PrayerCircle extends Analyzer {
     abilityTracker: AbilityTracker,
     abilities: Abilities,
   };
-  lastCohCastAt: number = 0;
-  lastCastStartWasBuffed: boolean = false;
+  lastCohCastAt = 0;
+  lastCastStartWasBuffed = false;
   buffedCohCasts = 0;
   protected abilityTracker!: AbilityTracker;
   protected abilities!: Abilities;

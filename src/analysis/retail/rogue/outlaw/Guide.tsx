@@ -1,6 +1,6 @@
 import { GuideProps, Section, SubSection, useAnalyzer } from 'interface/guide';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import EnergyCapWaste from 'analysis/retail/rogue/shared/guide/EnergyCapWaste';
 import TALENTS from 'common/TALENTS/rogue';
 import SPELLS from 'common/SPELLS/rogue';
@@ -16,6 +16,7 @@ import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import { isTalent } from 'common/TALENTS/types';
 import { Cooldown } from '../subtlety/guide/CooldownGraphSubsection';
+import { t } from '@lingui/core/macro';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -166,7 +167,7 @@ const cooldownsToCheck: Cooldown[] = [
   { spell: TALENTS.KEEP_IT_ROLLING_TALENT },
 ];
 
-function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
+function CooldownSection({ info }: GuideProps<typeof CombatLogParser>) {
   const castEfficiency = useAnalyzer(CastEfficiency);
   if (!info || !castEfficiency) {
     return null;

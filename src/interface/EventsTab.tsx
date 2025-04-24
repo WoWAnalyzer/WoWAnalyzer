@@ -150,12 +150,12 @@ const isFilterableEventType = (str: string): str is FilterableEventType =>
 
 const allFiltersOn = Object.entries(FILTERABLE_TYPES).reduce(
   (acc, [k]) => ({ ...acc, [k]: true }),
-  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+
   {} as Record<FilterableEventType, boolean>,
 );
 const allFiltersOff = Object.entries(FILTERABLE_TYPES).reduce(
   (acc, [k]) => ({ ...acc, [k]: false }),
-  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+
   {} as Record<FilterableEventType, boolean>,
 );
 

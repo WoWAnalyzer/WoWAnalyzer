@@ -18,7 +18,7 @@ export default abstract class SplinteredElements extends Analyzer {
   };
 
   protected haste!: Haste;
-  protected hasteGain: number = 0;
+  protected hasteGain = 0;
 
   constructor(options: Options) {
     super(options);

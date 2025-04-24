@@ -5,12 +5,12 @@ import TALENTS from 'common/TALENTS/warlock';
 
 const INNER_DEMON_NETHER_PORTAL_DURATION = 15000;
 
-type PetRecord = {
+interface PetRecord {
   guid: number;
   duration: number;
   summonAbility: Spell | Talent;
   isRandom?: boolean;
-};
+}
 
 const indexByGuid = (obj: Record<string, PetRecord>) => {
   Object.keys(obj).forEach((key) => {

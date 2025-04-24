@@ -30,8 +30,8 @@ class ShadowCovenant extends Analyzer {
   hasPtw = false;
   damage = 0;
   healing = 0;
-  healingMap: Map<number, number> = new Map();
-  abilityMap: Map<number, Ability> = new Map();
+  healingMap = new Map<number, number>();
+  abilityMap = new Map<number, Ability>();
 
   constructor(options: Options) {
     super(options);

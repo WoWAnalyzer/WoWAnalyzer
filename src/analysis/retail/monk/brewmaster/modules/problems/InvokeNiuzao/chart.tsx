@@ -50,7 +50,7 @@ export function InvokeNiuzaoSummaryChart({
         result.push(next);
         return result;
       },
-      [] as Array<{ timestamp: number; amount: number; stomp: number }>,
+      [] as { timestamp: number; amount: number; stomp: number }[],
     ),
     {
       timestamp: event.timestamp,

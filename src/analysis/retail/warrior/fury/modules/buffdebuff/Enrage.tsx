@@ -18,8 +18,8 @@ class Enrage extends Analyzer {
     statTracker: StatTracker,
     haste: Haste,
   };
-  totalDamage: number = 0;
-  damage: number = 0;
+  totalDamage = 0;
+  damage = 0;
   protected statTracker!: StatTracker;
   protected haste!: Haste;
 

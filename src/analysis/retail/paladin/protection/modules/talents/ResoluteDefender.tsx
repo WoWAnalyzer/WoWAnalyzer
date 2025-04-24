@@ -23,11 +23,11 @@ class ResoluteDefender extends Analyzer {
   };
 
   protected spellUsable!: SpellUsable;
-  divineShieldReduced: number = 0;
-  divineShieldWasted: number = 0;
-  ardentDefenderReduced: number = 0;
-  ardentDefenderWasted: number = 0;
-  reductionTime: number = 0;
+  divineShieldReduced = 0;
+  divineShieldWasted = 0;
+  ardentDefenderReduced = 0;
+  ardentDefenderWasted = 0;
+  reductionTime = 0;
 
   constructor(options: Options) {
     super(options);

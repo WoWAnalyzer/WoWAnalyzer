@@ -28,7 +28,7 @@ class DeathAndMadness extends Analyzer {
   insanityGained = 0;
 
   resets = 0;
-  lastResetTime: number = 0;
+  lastResetTime = 0;
   executeThreshold = SHADOW_WORD_DEATH_EXECUTE_RANGE;
 
   constructor(options: Options) {

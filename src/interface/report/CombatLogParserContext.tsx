@@ -1,5 +1,5 @@
 import CombatLogParser from 'parser/core/CombatLogParser';
-import { createContext, ReactNode, useContext } from 'react';
+import { createContext, ReactNode, useContext, useMemo } from 'react';
 
 interface CombatLogParserContext {
   combatLogParser: CombatLogParser;
@@ -13,9 +13,13 @@ interface Props {
   children: ReactNode;
   combatLogParser: CombatLogParser;
 }
-export const CombatLogParserProvider = ({ children, combatLogParser }: Props) => (
-  <CombatLogParserCtx.Provider value={{ combatLogParser }}>{children}</CombatLogParserCtx.Provider>
-);
+export const CombatLogParserProvider = ({ children, combatLogParser }: Props) => {
+  const providerValue = useMemo(() => ({ combatLogParser }), [combatLogParser]);
+
+  return (
+    <CombatLogParserCtx.Provider value={providerValue}>{children}</CombatLogParserCtx.Provider>
+  );
+};
 
 export const useCombatLogParser = () => {
   const context = useContext(CombatLogParserCtx);

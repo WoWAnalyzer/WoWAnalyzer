@@ -33,7 +33,7 @@ const COLORS = [
  * deal 1% increased damage, up to 15%.
  */
 class UnrelentingSiege extends Analyzer {
-  damageMap: Map<number, { spell: Spell; color: string; amount: number }> = new Map();
+  damageMap = new Map<number, { spell: Spell; color: string; amount: number }>();
 
   constructor(options: Options) {
     super(options);

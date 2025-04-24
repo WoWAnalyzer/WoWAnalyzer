@@ -4,17 +4,12 @@
  * This was cleaned up. A lot.
  */
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { ComponentPropsWithoutRef, useCallback, useEffect, useRef, useState } from 'react';
 import * as React from 'react';
 
 import './DragScroll.scss';
 
-interface Props extends React.HTMLAttributes<HTMLDivElement> {
-  children: React.ReactNode;
-  style?: Record<string, unknown>;
-}
-
-const DragScroll = ({ children, style = {}, className, ...otherProps }: Props) => {
+const DragScroll = ({ children, className, ...otherProps }: ComponentPropsWithoutRef<'div'>) => {
   const [dragging, setDragging] = useState(false);
   const container = useRef<HTMLDivElement>(null);
 
@@ -60,7 +55,6 @@ const DragScroll = ({ children, style = {}, className, ...otherProps }: Props) =
     <div
       onMouseDown={handleMouseDown}
       ref={container}
-      style={style}
       {...otherProps}
       className={`drag-scroll-container ${className ? className : ''}`}
     >

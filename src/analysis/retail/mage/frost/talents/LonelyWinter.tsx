@@ -13,7 +13,7 @@ const BUFFED_SPELLS = [SPELLS.FROSTBOLT_DAMAGE, SPELLS.ICE_LANCE_DAMAGE, SPELLS.
 
 // You can no longer summon your Water Elemental, but Frostbolt, Ice Lance, and Flurry deal 25% increased damage.
 class LonelyWinter extends Analyzer {
-  bonusDamage: { [id: number]: number };
+  bonusDamage: Record<number, number>;
 
   constructor(options: Options) {
     super(options);

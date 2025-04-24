@@ -10,8 +10,8 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import SPELLS from 'common/SPELLS';
 
 class Chronoflame extends Analyzer {
-  chronoflameHealing: number = 0;
-  chronoflameDamage: number = 0;
+  chronoflameHealing = 0;
+  chronoflameDamage = 0;
 
   constructor(options: Options) {
     super(options);

@@ -7,20 +7,20 @@ import { Options } from 'parser/core/Analyzer';
 
 const debug = false;
 
-type EnemyBuffHistory = {
+interface EnemyBuffHistory {
   start: number;
   end: number;
-};
+}
 
 /** Stack-based uptime events */
-type StackUptime = {
+interface StackUptime {
   /** Timestamp in milliseconds of the uptime start */
   start: number;
   /** Timestamp in milliseconds of the uptime end */
   end: number;
   /** The number of stacks active during this time */
   stacks: number;
-};
+}
 
 export function encodeEventTargetString(event: TargettedEvent<any>): string;
 export function encodeEventTargetString(event: AnyEvent): string | null;
@@ -45,7 +45,7 @@ export function encodeTargetString(id: number, instance = 0) {
 }
 
 class Enemies extends Entities<Enemy> {
-  enemies: { [enemyId: string]: Enemy } = {};
+  enemies: Record<string, Enemy> = {};
   /**
    * The set of all known enemy ids. Used to speed up negative lookups.
    */
@@ -166,11 +166,11 @@ class Enemies extends Entities<Enemy> {
    * @returns {Array} History of the debuff
    */
   getDebuffHistory(spellId: number): EnemyBuffHistory[] {
-    type TempBuffInfo = {
+    interface TempBuffInfo {
       timestamp: number;
       type: 'apply' | 'remove';
       buff: TrackedBuffEvent;
-    };
+    }
     const events: TempBuffInfo[] = [];
     const enemies = this.getEntities();
     Object.values(enemies).forEach((enemy) => {
@@ -226,11 +226,11 @@ class Enemies extends Entities<Enemy> {
   getDebuffStackHistory(spellId: number): { maxStacks: number; stackUptimeHistory: StackUptime[] } {
     // This first section gathers all the buff gain and loss from all enemies
     // and splits it into gain and loss events.
-    type TempBuffInfo = {
+    interface TempBuffInfo {
       timestamp: number;
       type: 'apply' | 'remove';
       buff: TrackedBuffEvent;
-    };
+    }
     const events: TempBuffInfo[] = [];
     const enemies = this.getEntities();
     Object.values(enemies).forEach((enemy) => {

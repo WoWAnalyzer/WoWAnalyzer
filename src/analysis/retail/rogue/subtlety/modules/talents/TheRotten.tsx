@@ -14,8 +14,8 @@ class TheRotten extends Analyzer {
     abilities: Abilities,
   };
 
-  cpGained: number = 0;
-  cpWasted: number = 0;
+  cpGained = 0;
+  cpWasted = 0;
   protected abilities!: Abilities;
 
   constructor(options: Options) {

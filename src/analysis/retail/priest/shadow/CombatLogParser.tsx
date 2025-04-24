@@ -25,7 +25,6 @@ import InsanityUsage from './modules/resources/InsanityUsage';
 import DevouringPlague from './modules/spells/DevouringPlague';
 import DarkEvangelism from './modules/talents/DarkEvangelism';
 import Dispersion from './modules/talents/Dispersion';
-import Shadowfiend from './modules/spells/Shadowfiend';
 import ShadowWordDeath from './modules/spells/ShadowWordDeath';
 import ShadowWordPain from './modules/spells/ShadowWordPain';
 import VampiricEmbrace from './modules/talents/VampiricEmbrace';
@@ -99,7 +98,6 @@ class CombatLogParser extends MainCombatLogParser {
 
     // spells:
     devouringPlague: DevouringPlague,
-    shadowfiend: Shadowfiend,
     shadowform: Shadowform,
     shadowWordDeath: ShadowWordDeath,
     shadowWordPain: ShadowWordPain,

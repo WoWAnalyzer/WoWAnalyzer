@@ -27,10 +27,10 @@ export enum GapHighlight {
   All,
 }
 
-export type CooldownWindow = {
+export interface CooldownWindow {
   startTime: number;
   endTime: number;
-};
+}
 
 export function fromExecuteRange(range: ExecuteRange): CooldownWindow {
   return {
@@ -39,7 +39,7 @@ export function fromExecuteRange(range: ExecuteRange): CooldownWindow {
   };
 }
 
-type Props = {
+interface Props {
   /** The spellId to show cooldown bars for - this must match the ID of the spell's cast event */
   spellId: number;
   /** Gap highlight mode - see {@link GapHighlight} */
@@ -54,8 +54,8 @@ type Props = {
    *
    * If not specified, defaults to the whole fight.
    */
-  activeWindows?: Array<CooldownWindow>;
-};
+  activeWindows?: CooldownWindow[];
+}
 
 const CooldownBarWindow = ({
   startTime,

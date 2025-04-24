@@ -68,7 +68,7 @@ class WitchDoctorsAncestry extends Analyzer {
     return this.wastedReduction / (this.wastedReduction + this.reduction);
   }
 
-  reduceFeralSpiritCooldown(maelstromGained: number = 1) {
+  reduceFeralSpiritCooldown(maelstromGained = 1) {
     if (this.spellUsable.isOnCooldown(TALENTS.FERAL_SPIRIT_TALENT.id)) {
       const effectiveReduction = this.spellUsable.reduceCooldown(
         TALENTS.FERAL_SPIRIT_TALENT.id,

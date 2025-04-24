@@ -14,23 +14,23 @@ import SpellUsable from '../features/SpellUsable';
  * and make it usable on any target, regardless of their health.
  */
 
-type ExecuteDamageTracker = {
+interface ExecuteDamageTracker {
   damageDone: number;
   isMainTargetAboveThreshold: boolean;
   isSuddenDeath: boolean;
-};
+}
 
 class SuddenDeath extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
   };
-  suddenDeathProcs: number = 0;
-  suddenDeathProcsUsed: number = 0;
+  suddenDeathProcs = 0;
+  suddenDeathProcsUsed = 0;
   executeDamageEvents: ExecuteDamageTracker[] = [];
-  lastExecuteCast: number = 0;
-  lastSuddenDeathExecuteCast: number = 0;
+  lastExecuteCast = 0;
+  lastSuddenDeathExecuteCast = 0;
   lastSuddenDeathTargetID: number | undefined = 0;
-  executeThreshold: number = 0.2;
+  executeThreshold = 0.2;
   protected spellUsable!: SpellUsable;
 
   constructor(options: Options) {

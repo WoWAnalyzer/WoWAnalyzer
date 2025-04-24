@@ -18,7 +18,10 @@ const SOTR_SOFT_CAP = ACTIVE_MITIGATION_CAP - SOTR_BUFF_LENGTH;
 const SECOND = 1000;
 const debug = false;
 
-type OvercapRecord = { cast: CastEvent; overcap: number };
+interface OvercapRecord {
+  cast: CastEvent;
+  overcap: number;
+}
 
 class OvercapShieldOfTheRighteous extends Analyzer {
   static dependencies = {
@@ -27,11 +30,11 @@ class OvercapShieldOfTheRighteous extends Analyzer {
 
   protected spellUsable!: SpellUsable;
 
-  goodSotrCasts: number = 0;
-  badSotrCasts: number = 0;
-  totalSotrOvercapping: number = 0;
-  lastSotrCastTimestamp: number = 0;
-  buffTimeAtLastCast: number = 0;
+  goodSotrCasts = 0;
+  badSotrCasts = 0;
+  totalSotrOvercapping = 0;
+  lastSotrCastTimestamp = 0;
+  buffTimeAtLastCast = 0;
   overcapRecords: OvercapRecord[] = [];
 
   hpGeneratingSpells = [
@@ -93,8 +96,8 @@ class OvercapShieldOfTheRighteous extends Analyzer {
    * @param event
    */
   castIsForgivable(event: CastEvent): boolean {
-    for (let i = 0; i < this.hpGeneratingSpells.length; i += 1) {
-      if (this.spellUsable.isAvailable(this.hpGeneratingSpells[i].id)) {
+    for (const hpGeneratingSpell of this.hpGeneratingSpells) {
+      if (this.spellUsable.isAvailable(hpGeneratingSpell.id)) {
         return false;
       }
     }

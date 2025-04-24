@@ -1,12 +1,12 @@
-export type OpenTimePeriod = {
+export interface OpenTimePeriod {
   start: number;
   end?: number;
-};
+}
 
-export type ClosedTimePeriod = {
+export interface ClosedTimePeriod {
   start: number;
   end: number;
-};
+}
 
 /**
  * Given a collection of possibly overlapping time periods (objects with a start and end), merges these periods
@@ -23,7 +23,10 @@ export function mergeTimePeriods(times: OpenTimePeriod[], maxTime: number): Clos
    * We can then further consolidate time periods by merging adjacent periods,
    * which could happen if there is an edge from 1 to 0 then 0 to 1 on the same timestamp.
    */
-  type PeriodEdge = { time: number; change: number };
+  interface PeriodEdge {
+    time: number;
+    change: number;
+  }
   const merged: ClosedTimePeriod[] = [];
   let active = 0;
   let currStart = 0;

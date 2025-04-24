@@ -34,7 +34,7 @@ export default class BuddingLeaves extends Analyzer {
   stacksByTarget: Map<string, number> = new Map<string, number>();
 
   /** Total healing attributable to this talent */
-  totalHealing: number = 0;
+  totalHealing = 0;
 
   constructor(options: Options) {
     super(options);

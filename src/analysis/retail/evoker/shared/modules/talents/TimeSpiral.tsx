@@ -30,9 +30,9 @@ class TimeSpiral extends Analyzer {
     stats: StatTracker,
   };
   protected stats!: StatTracker;
-  timeSpiralApplyTimestamps: { [key: number]: number } = {};
-  timeSpiralTimestampExists: { [key: number]: boolean } = {};
-  timeSpiralDuration: { [key: number]: number } = {};
+  timeSpiralApplyTimestamps: Record<number, number> = {};
+  timeSpiralTimestampExists: Record<number, boolean> = {};
+  timeSpiralDuration: Record<number, number> = {};
   externalBuffsApplied = 0;
   externalBuffsUsed = 0;
   personalBuffsApplied = 0;
@@ -75,7 +75,9 @@ class TimeSpiral extends Analyzer {
     );
   }
 
-  onHoverCast(event: CastEvent) {}
+  onHoverCast(event: CastEvent) {
+    // do something at some point maybe?
+  }
 
   onApplyRefreshBuff(event: ApplyBuffEvent | RefreshBuffEvent) {
     if (!hasTimeSpiralCastEvent(event) && event.targetID !== this.selectedCombatant.id) {

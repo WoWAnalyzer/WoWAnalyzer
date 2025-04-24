@@ -17,8 +17,8 @@ const ECLIPSE_FILLER = [
 ];
 
 class FillerUsage extends Analyzer {
-  totalFillerCasts: number = 0;
-  badFillerCasts: number = 0;
+  totalFillerCasts = 0;
+  badFillerCasts = 0;
 
   constructor(options: Options) {
     super(options);

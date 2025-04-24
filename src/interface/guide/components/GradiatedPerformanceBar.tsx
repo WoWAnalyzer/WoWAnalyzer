@@ -102,7 +102,7 @@ function getDefaultInfo(val?: number | GradiatedPerformanceBarInfo) {
   }
 }
 
-export type GradiatedPerformanceBarInfo = {
+export interface GradiatedPerformanceBarInfo {
   count: number;
   label: React.ReactNode;
-};
+}

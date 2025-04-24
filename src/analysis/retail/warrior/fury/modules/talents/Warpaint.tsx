@@ -11,8 +11,8 @@ const REDUCTION_BONUS = 0.1;
 
 // Example Log: https://www.warcraftlogs.com/reports/tBFv8P9R3kdDgHKJ#fight=1&type=damage-done
 class Warpaint extends Analyzer {
-  damageMitigated: number = 0;
-  damageTaken: number = 0;
+  damageMitigated = 0;
+  damageTaken = 0;
 
   constructor(options: Options) {
     super(options);

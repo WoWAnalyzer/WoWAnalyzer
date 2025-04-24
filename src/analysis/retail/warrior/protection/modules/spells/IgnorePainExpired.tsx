@@ -21,7 +21,7 @@ class IgnorePainExpired extends Analyzer {
 
   protected ignorePainTracker!: IgnorePainTracker;
 
-  ignorePainWasted: number = 0;
+  ignorePainWasted = 0;
 
   constructor(options: Options) {
     super(options);

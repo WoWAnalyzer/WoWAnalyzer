@@ -14,8 +14,8 @@ import CastsInStealthBase from './CastsInStealthBase';
 import DanceDamageTracker from './DanceDamageTracker';
 
 class CastsInShadowDance extends CastsInStealthBase {
-  BASE_MAX_CASTS: number = 8;
-  BONUS_SUBTERFUGE_CASTS: number = 1;
+  BASE_MAX_CASTS = 8;
+  BONUS_SUBTERFUGE_CASTS = 1;
 
   static dependencies = {
     ...CastsInStealthBase.dependencies,

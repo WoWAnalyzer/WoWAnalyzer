@@ -6,10 +6,10 @@ import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import SPELLS from 'common/SPELLS/demonhunter';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 
-type Cooldown = {
+interface Cooldown {
   talent: Talent;
   extraTalents?: Talent[];
-};
+}
 
 const cooldownsToCheck: Cooldown[] = [
   { talent: TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT },

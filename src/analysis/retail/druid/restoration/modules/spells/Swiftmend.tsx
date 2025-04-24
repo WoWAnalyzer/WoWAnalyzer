@@ -45,7 +45,7 @@ class Swiftmend extends Analyzer {
   combatants!: Combatants;
 
   /** Hardcast healing only so we can get mana effic without Convoke messing with us */
-  hardcastSwiftmendHealing: number = 0;
+  hardcastSwiftmendHealing = 0;
   /** If player has Verdant Infusion, so we know if HoTs are being extended or removed. */
   hasVi: boolean;
   /** If player has Soul of the Forest, so we can track justification of casts */

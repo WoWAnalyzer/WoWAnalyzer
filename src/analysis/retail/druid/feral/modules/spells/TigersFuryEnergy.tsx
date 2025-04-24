@@ -10,13 +10,13 @@ import { isConvoking } from 'analysis/retail/druid/shared/spells/ConvokeSpirits'
 import { TALENTS_DRUID } from 'common/TALENTS';
 
 class TigersFuryEnergy extends Analyzer {
-  energyGenerated: number = 0;
-  energyWasted: number = 0;
-  energyTotal: number = 0;
+  energyGenerated = 0;
+  energyWasted = 0;
+  energyTotal = 0;
 
-  energyGeneratedNoConvoke: number = 0;
-  energyWastedNoConvoke: number = 0;
-  energyTotalNoConvoke: number = 0;
+  energyGeneratedNoConvoke = 0;
+  energyWastedNoConvoke = 0;
+  energyTotalNoConvoke = 0;
 
   constructor(options: Options) {
     super(options);

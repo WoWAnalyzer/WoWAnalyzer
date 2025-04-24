@@ -31,12 +31,12 @@ import { UptimeIcon } from 'interface/icons';
 import { EVENT_LINKS } from '../../../constants';
 import NPCS from 'common/NPCS/shaman';
 
-type Timeline = {
+interface Timeline {
   start: number;
   end: number;
   events: AnyEvent[];
   performance: QualitativePerformance;
-};
+}
 
 interface CallAncestor extends CooldownTrigger<CastEvent | SummonEvent> {
   timeline: Timeline;
@@ -66,7 +66,7 @@ class CallOfTheAncestors extends MajorCooldown<CallAncestor> {
   windows: CallAncestor[] = [];
   activeWindows: CallAncestor[] = [];
   ancestorSpells = new Map<number, DamageEvent[]>();
-  ancestorSourceId: number = 0;
+  ancestorSourceId = 0;
 
   constructor(options: Options) {
     super({ spell: TALENTS.CALL_OF_THE_ANCESTORS_TALENT }, options);

@@ -22,11 +22,11 @@ const GRAPH_ENABLED = false;
 
 type ElementalSpiritType = 'molten-weapon' | 'icy-edge' | 'crackling-surge';
 
-type Point = {
+interface Point {
   value: number;
   timestamp: number;
   type: ElementalSpiritType;
-};
+}
 
 class ElementalSpirits extends Analyzer {
   protected elementalSpiritHistory: Point[] = [];
@@ -130,7 +130,7 @@ class ElementalSpirits extends Analyzer {
   }
 
   get graph() {
-    const colors: { [key: string | ElementalSpiritType]: string } = {
+    const colors: Record<string | ElementalSpiritType, string> = {
       'molten-weapon': '#f37735',
       'icy-edge': '#94d3ec',
       'crackling-surge': '#3b7fb0',

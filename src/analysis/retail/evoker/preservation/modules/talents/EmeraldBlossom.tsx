@@ -21,19 +21,19 @@ const BOUNTIFUL_ADDITIONAL_TARGETS = 2;
 const BASE_TARGETS = 3;
 
 class EmeraldBlossom extends Analyzer {
-  bountifulBloomHealing: number = 0;
-  bountifulBloomOverhealing: number = 0;
-  extraBountifulHits: number = 0;
-  numBlossoms: number = 0;
-  totalHits: number = 0;
-  totalHealing: number = 0;
-  totalOverhealing: number = 0;
+  bountifulBloomHealing = 0;
+  bountifulBloomOverhealing = 0;
+  extraBountifulHits = 0;
+  numBlossoms = 0;
+  totalHits = 0;
+  totalHealing = 0;
+  totalOverhealing = 0;
   countedTimestamps: Set<number> = new Set<number>();
   castEntries: BoxRowEntry[] = [];
-  bountifulRank: number = 0;
-  goodThreshold: number = 0;
-  perfectThreshold: number = 0;
-  totalCastHits: number = 0;
+  bountifulRank = 0;
+  goodThreshold = 0;
+  perfectThreshold = 0;
+  totalCastHits = 0;
 
   constructor(options: Options) {
     super(options);

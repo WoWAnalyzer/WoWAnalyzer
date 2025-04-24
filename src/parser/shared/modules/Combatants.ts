@@ -5,7 +5,7 @@ import { Options } from 'parser/core/Module';
 import Entities from './Entities';
 
 class Combatants extends Entities<Combatant> {
-  players: { [playerId: number]: Combatant } = {};
+  players: Record<number, Combatant> = {};
   get playerCount() {
     return Object.keys(this.players).length;
   }

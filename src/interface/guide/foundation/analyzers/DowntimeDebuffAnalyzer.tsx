@@ -32,8 +32,8 @@ export default class DowntimeDebuffAnalyzer extends Analyzer {
     this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
-  private pendingDebuffs: Map<number, PendingDebuff[]> = new Map();
-  private segments: Array<{ start: number; end: number; abilityId: number }> = [];
+  private pendingDebuffs = new Map<number, PendingDebuff[]>();
+  private segments: { start: number; end: number; abilityId: number }[] = [];
 
   onApply(event: ApplyBuffEvent | ApplyDebuffEvent): void {
     if (!this.pendingDebuffs.has(event.ability.guid)) {

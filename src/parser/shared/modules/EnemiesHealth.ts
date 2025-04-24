@@ -17,7 +17,7 @@ interface EnemyHealth {
  * Module that keep track of the health of enemies.
  */
 class EnemiesHealth extends Analyzer {
-  enemies: { [enemyId: number]: Enemy } = {};
+  enemies: Record<number, Enemy> = {};
 
   readonly enemyHealths: Record<string, Omit<EnemyHealth, 'enemy'>> = {};
 

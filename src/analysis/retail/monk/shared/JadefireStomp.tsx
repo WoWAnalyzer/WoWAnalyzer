@@ -27,17 +27,17 @@ class JadefireStomp extends Analyzer {
   protected spellUsable!: SpellUsable;
   protected combatants!: Combatants;
 
-  resets: number = 0;
-  jfsCasts: number = 0;
-  targetsDamaged: number = 0;
-  targetsHealed: number = 0;
+  resets = 0;
+  jfsCasts = 0;
+  targetsDamaged = 0;
+  targetsHealed = 0;
 
   ///mistweaver specific params
-  specIsMW: boolean = false;
-  healing: number = 0;
-  overhealing: number = 0;
-  gomHealing: number = 0;
-  gomOverhealing: number = 0;
+  specIsMW = false;
+  healing = 0;
+  overhealing = 0;
+  gomHealing = 0;
+  gomOverhealing = 0;
 
   constructor(options: Options) {
     super(options);

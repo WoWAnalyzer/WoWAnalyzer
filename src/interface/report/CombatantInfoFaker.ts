@@ -1,56 +1,16 @@
 import SPECS from 'game/SPECS';
 import { specificGearSets } from 'interface/report/CombatantInfoFakerGearsets';
+import { CombatantInfoEvent } from 'parser/core/Events';
 
 const debugGear = false;
 
-type FakeInfo = {
-  legendaryInfo: { slotId: number; bonusId: number }; //slotId 0 would be head slot, and bonusID is the bonusID that is added to an item with the given legendary effect
-};
-
-const SPEC_CONFIGS: { [specId: number]: FakeInfo } = {
-  [SPECS.MARKSMANSHIP_HUNTER.id]: {
-    legendaryInfo: { slotId: 0, bonusId: 7003 },
-  },
-  [SPECS.BEAST_MASTERY_HUNTER.id]: {
-    legendaryInfo: { slotId: 0, bonusId: 7003 },
-  },
-  [SPECS.FROST_MAGE.id]: {
-    legendaryInfo: { slotId: 14, bonusId: 6828 },
-  },
-};
-
-export function generateFakeCombatantInfo(player: any) {
+export function generateFakeCombatantInfo(player: CombatantInfoEvent) {
   const fakedPlayer = player;
   fakedPlayer.gear = fakeGearGenerator(player.specID);
-  fakedPlayer.gear = fakeLegendaryGeneration(
-    player.gear,
-    SPEC_CONFIGS[player.specID]?.legendaryInfo,
-  );
   fakedPlayer.auras = fakeBuffGenerator();
   fakedPlayer.error = null;
   return fakedPlayer;
 }
-
-//region Legendary Generation
-
-function fakeLegendaryGeneration(
-  playerGear: any,
-  legendaryInfo: { slotId: number; bonusId: number },
-) {
-  const legendaryBonusID: number = legendaryInfo ? legendaryInfo.bonusId : 0; //Example: 7003 would be the legendary bonusID for call of the wild
-  const itemSlotID: number = legendaryInfo ? legendaryInfo.slotId : 0; //Example: 0 would be the head item slot
-  if (!playerGear[itemSlotID].bonusIDs) {
-    playerGear[itemSlotID].bonusIDs = legendaryBonusID;
-  } else if (typeof playerGear[itemSlotID].bonusIDs === 'number') {
-    playerGear[itemSlotID].bonusIDs = [playerGear[itemSlotID].bonusIDs];
-  } else {
-    playerGear[itemSlotID].bonusIDs.push(legendaryBonusID);
-  }
-
-  return playerGear;
-}
-
-//endregion
 
 //region Buff Generatior
 function fakeBuffGenerator() {
@@ -130,10 +90,10 @@ const PLATE_SPECS = [
   SPECS.UNHOLY_DEATH_KNIGHT.id,
 ];
 
-const genericClothSet = specificGearSets[62]; //Setting Arcane Mage as a generic cloth fallback
-const genericLeatherSet = specificGearSets[270]; //Setting Mistweaver Monk as a generic leather fallback
-const genericMailSet = specificGearSets[254]; //Setting Marksmanship Hunter as a generic mail fallback
-const genericPlateSet = specificGearSets[71]; //Setting Arms Warrior as a generic plate fallback
+const genericClothSet = specificGearSets[SPECS.ARCANE_MAGE.id]; //Setting Arcane Mage as a generic cloth fallback
+const genericLeatherSet = specificGearSets[SPECS.MISTWEAVER_MONK.id]; //Setting Mistweaver Monk as a generic leather fallback
+const genericMailSet = specificGearSets[SPECS.MARKSMANSHIP_HUNTER.id]; //Setting Marksmanship Hunter as a generic mail fallback
+const genericPlateSet = specificGearSets[SPECS.ARMS_WARRIOR.id]; //Setting Arms Warrior as a generic plate fallback
 
 function fakeGearGenerator(specID: number) {
   if (specificGearSets[specID]) {
@@ -154,7 +114,7 @@ function fakeGearGenerator(specID: number) {
     return genericPlateSet;
   } else {
     console.warn('Unknown spec id passed to fakeGearGenerator.');
-    return null;
+    return [];
   }
 }
 

@@ -5,14 +5,17 @@ import { CompositeEncoding } from 'vega-lite/build/src/compositemark';
 
 import BaseChart, { formatTime } from './BaseChart';
 
-type Point = { x: number; y: number };
+interface Point {
+  x: number;
+  y: number;
+}
 type XPoint = Pick<Point, 'x'>;
-type BossData = {
+interface BossData {
   title: string;
   borderColor?: string;
   backgroundColor?: string;
   data: Point[];
-};
+}
 
 interface Props {
   mana: Point[];

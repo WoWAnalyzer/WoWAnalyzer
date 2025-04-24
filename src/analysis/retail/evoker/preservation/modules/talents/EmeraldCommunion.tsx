@@ -40,8 +40,8 @@ class EmeraldCommunion extends Analyzer {
   protected combatants!: Combatants;
   protected lifebind!: Lifebind;
   protected spellusable!: SpellUsable;
-  numCasts: number = 0;
-  numTaCasts: number = 0;
+  numCasts = 0;
+  numTaCasts = 0;
   casts: CastInfo[] = [];
   percentCovered: number[] = [];
   potentialEchoTargets: Map<number, number> = new Map<number, number>();

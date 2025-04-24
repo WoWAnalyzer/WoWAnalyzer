@@ -11,7 +11,7 @@ import Suggestion from './Suggestion';
 import './Suggestions.scss';
 
 interface Props {
-  children: Array<Issue | SuggestionData>;
+  children: (Issue | SuggestionData)[];
   style?: CSSProperties;
 }
 

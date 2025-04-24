@@ -21,12 +21,12 @@ const DANCE_OF_DEATH_BUGGED = true;
  * Bug: Dance of Death extends the duration by 2 seconds but doesn't actually proc an extra hit (is checkable so will add boolean flag for when fixed)
  */
 class RavagerHitCheck extends Analyzer {
-  casts: number = 0;
-  ticksHit: number = 0;
+  casts = 0;
+  ticksHit = 0;
 
-  lastHit: number = 0;
+  lastHit = 0;
 
-  expectedHitsPerCast: number = 0;
+  expectedHitsPerCast = 0;
 
   constructor(options: Options) {
     super(options);

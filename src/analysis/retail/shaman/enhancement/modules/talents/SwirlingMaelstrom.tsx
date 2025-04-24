@@ -37,9 +37,7 @@ class SwirlingMaelstrom extends Analyzer {
 
   maelstromWeaponTracker!: MaelstromWeaponTracker;
 
-  protected swirlingMaelstromGenerators: {
-    [spellId: number]: { generated: number; wasted: number };
-  } = {};
+  protected swirlingMaelstromGenerators: Record<number, { generated: number; wasted: number }> = {};
 
   constructor(options: Options) {
     super(options);

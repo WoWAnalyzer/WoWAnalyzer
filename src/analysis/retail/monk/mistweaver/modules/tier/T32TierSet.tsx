@@ -35,11 +35,11 @@ class T32TierSet extends Analyzer {
 
   twoPieceHealingBySpell = new Map<number, number>();
 
-  fourPieceActive: boolean = false;
+  fourPieceActive = false;
   fourPieceExtensionBySpell = new Map<number, number>();
 
-  missedCasts: number = 0;
-  totalCasts: number = 0;
+  missedCasts = 0;
+  totalCasts = 0;
 
   constructor(options: Options) {
     super(options);

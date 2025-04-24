@@ -23,10 +23,10 @@ class EnvelopingBreath extends Analyzer {
     combatants: Combatants,
     hotTracker: HotTrackerMW,
   };
-  envsDuringCelestial: number = 0;
-  envBreathsApplied: number = 0;
-  chijiActive: boolean = false;
-  envBIncrease: number = 0;
+  envsDuringCelestial = 0;
+  envBreathsApplied = 0;
+  chijiActive = false;
+  envBIncrease = 0;
   protected combatants!: Combatants;
   protected hotTracker!: HotTrackerMW;
 

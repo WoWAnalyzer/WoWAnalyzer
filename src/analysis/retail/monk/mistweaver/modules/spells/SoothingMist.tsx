@@ -9,16 +9,16 @@ class SoothingMist extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
   };
-  soomTicks: number = 0;
-  gustsHealing: number = 0;
-  startStamp: number = 0;
-  endStamp: number = 0;
-  soomInProgress: boolean = false;
-  castsInSoom: number = 0;
-  badSooms: number = 0;
+  soomTicks = 0;
+  gustsHealing = 0;
+  startStamp = 0;
+  endStamp = 0;
+  soomInProgress = false;
+  castsInSoom = 0;
+  badSooms = 0;
   totalSoomCasts = 0;
-  assumedGCD: number = 0;
-  startGCD: number = 0;
+  assumedGCD = 0;
+  startGCD = 0;
   protected statTracker!: StatTracker;
 
   constructor(options: Options) {

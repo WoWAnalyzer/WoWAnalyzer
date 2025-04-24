@@ -17,9 +17,7 @@ import { Talent } from 'common/TALENTS/types';
 import Spell from 'common/SPELLS/Spell';
 import DonutChart from 'parser/ui/DonutChart';
 
-type DamageSources = {
-  [key: number]: { amount: number; spell: Spell | Talent };
-};
+type DamageSources = Record<number, { amount: number; spell: Spell | Talent }>;
 
 const COLORS = [
   'rgb(41,134,204)',
@@ -39,7 +37,7 @@ class ScorchingEmbers extends Analyzer {
   };
   protected enemies!: Enemies;
 
-  totalScorchingEmbersDamage: number = 0;
+  totalScorchingEmbersDamage = 0;
   scorchingEmbersDamageSources: DamageSources = {};
 
   constructor(options: Options) {

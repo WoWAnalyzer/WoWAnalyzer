@@ -7,6 +7,7 @@ import { SpellLink } from 'interface';
 import { Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import CoreCancelledCasts from 'parser/shared/modules/CancelledCasts';
+import { ReactNode } from 'react';
 
 class CancelledCasts extends CoreCancelledCasts {
   constructor(options: Options) {
@@ -37,7 +38,7 @@ class CancelledCasts extends CoreCancelledCasts {
   }
 
   suggestions(when: When) {
-    let extraMovementSpell: any = null;
+    let extraMovementSpell: ReactNode = null;
     if (this.selectedCombatant.specId === SPECS.FROST_MAGE.id) {
       extraMovementSpell = (
         <>

@@ -204,7 +204,7 @@ export default function ProblemList<T>({
   info,
   label,
 }: {
-  problems: Array<Problem<T>>;
+  problems: Problem<T>[];
   events: AnyEvent[];
   renderer: ProblemRenderer<T>;
   info: Info;

@@ -1,8 +1,6 @@
 import { REALMS, CLASSIC_REALMS } from './REALMS';
 
-interface RealmList {
-  [region: string]: Realm[];
-}
+type RealmList = Record<string, Realm[]>;
 
 interface Realm {
   name: string;

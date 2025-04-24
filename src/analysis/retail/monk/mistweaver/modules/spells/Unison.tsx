@@ -12,9 +12,9 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
 class Unison extends Analyzer {
-  healing: number = 0;
-  overhealing: number = 0;
-  healingFromJss: number = 0;
+  healing = 0;
+  overhealing = 0;
+  healingFromJss = 0;
 
   constructor(options: Options) {
     super(options);

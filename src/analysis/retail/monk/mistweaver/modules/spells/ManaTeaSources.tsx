@@ -17,7 +17,7 @@ interface StackInfo {
 }
 
 class ManaTeaSources extends Analyzer {
-  healing: number = 0;
+  healing = 0;
   lifecyclesStacks: StackInfo = { usedStacks: 0, wastedStacks: 0 };
   naturalStacks: StackInfo = { usedStacks: 0, wastedStacks: 0 };
 

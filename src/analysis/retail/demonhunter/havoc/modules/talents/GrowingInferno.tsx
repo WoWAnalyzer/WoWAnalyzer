@@ -12,8 +12,8 @@ import { GROWING_INFERNO_SCALING } from 'analysis/retail/demonhunter/havoc/const
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
 export default class GrowingInferno extends Analyzer {
-  addedDamage: number = 0;
-  totalDamage: number = 0;
+  addedDamage = 0;
+  totalDamage = 0;
 
   constructor(options: Options) {
     super(options);

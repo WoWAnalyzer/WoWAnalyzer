@@ -33,8 +33,8 @@ class TwilightEquilibrium extends Analyzer {
   damage = 0;
   testHealing = 0;
   ptwTargets: Set<string> = new Set<string>();
-  healingMap: Map<number, number> = new Map();
-  abilityMap: Map<number, Ability> = new Map();
+  healingMap = new Map<number, number>();
+  abilityMap = new Map<number, Ability>();
 
   constructor(options: Options) {
     super(options);

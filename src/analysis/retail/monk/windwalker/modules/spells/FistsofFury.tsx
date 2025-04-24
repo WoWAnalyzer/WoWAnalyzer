@@ -40,7 +40,7 @@ class FistsofFury extends Analyzer {
   ticksHit = [0, 0, 0, 0, 0];
   colors = ['#666', '#1eff00', '#0070ff', '#a435ee', '#ff8000'];
 
-  clipped: { [guid: number]: number } = {};
+  clipped: Record<number, number> = {};
 
   protected abilityTracker!: AbilityTracker;
 

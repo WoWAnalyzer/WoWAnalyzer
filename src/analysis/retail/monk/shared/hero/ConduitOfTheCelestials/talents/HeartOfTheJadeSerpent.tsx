@@ -15,7 +15,7 @@ class HeartOfTheJadeSerpent extends Analyzer {
 
   protected spellUsable!: SpellUsable;
 
-  isMW: boolean = true;
+  isMW = true;
 
   constructor(options: Options) {
     super(options);

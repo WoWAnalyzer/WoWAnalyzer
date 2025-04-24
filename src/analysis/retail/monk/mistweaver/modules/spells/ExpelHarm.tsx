@@ -4,9 +4,9 @@ import Events, { HealEvent } from 'parser/core/Events';
 import { isFromExpelHarm } from '../../normalizers/CastLinkNormalizer';
 
 class ExpelHarm extends Analyzer {
-  selfHealing: number = 0;
-  selfOverheal: number = 0;
-  gustsHealing: number = 0;
+  selfHealing = 0;
+  selfOverheal = 0;
+  gustsHealing = 0;
 
   constructor(options: Options) {
     super(options);

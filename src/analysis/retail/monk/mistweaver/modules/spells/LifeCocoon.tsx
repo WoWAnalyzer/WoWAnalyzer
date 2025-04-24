@@ -21,7 +21,7 @@ class LifeCocoon extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
-  healing: number = 0;
+  healing = 0;
   protected combatants!: Combatants;
 
   constructor(options: Options) {

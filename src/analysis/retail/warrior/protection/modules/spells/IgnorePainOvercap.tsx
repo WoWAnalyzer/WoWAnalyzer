@@ -18,11 +18,11 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
  * IP wasted due to it being overcapped... roughly
  */
 class IgnorePainOvercap extends Analyzer {
-  overcappedIgnorePain: number = 0;
-  currentIgnorePain: number = 0;
+  overcappedIgnorePain = 0;
+  currentIgnorePain = 0;
 
-  assumedMax: number = -1;
-  assumedGainedPerCast: number = -1;
+  assumedMax = -1;
+  assumedGainedPerCast = -1;
 
   constructor(options: Options) {
     super(options);

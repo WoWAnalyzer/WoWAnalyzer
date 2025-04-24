@@ -9,8 +9,8 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import SPECS from 'game/SPECS';
 
 class TeachingsOfTheMonestary extends Analyzer {
-  numCasts: number = 0;
-  totalStacks: number = 0;
+  numCasts = 0;
+  totalStacks = 0;
 
   constructor(options: Options) {
     super(options);

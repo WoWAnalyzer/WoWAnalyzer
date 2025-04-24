@@ -30,7 +30,7 @@ class MaelstromWeaponSpenders extends Analyzer {
   private abilityTracker!: AbilityTracker;
   private maelstromWeaponTracker!: MaelstromWeaponTracker;
   private spenderValues = new Map<number, number>();
-  private recordNextSpenderAmount: boolean = false;
+  private recordNextSpenderAmount = false;
   private primordialStormBreakdown = {
     [SPELLS.PRIMORDIAL_FIRE.id]: 0,
     [SPELLS.PRIMORDIAL_LIGHTNING.id]: 0,
@@ -38,7 +38,7 @@ class MaelstromWeaponSpenders extends Analyzer {
     [SPELLS.LIGHTNING_BOLT.id]: 0,
     [TALENTS.CHAIN_LIGHTNING_TALENT.id]: 0,
   };
-  private isPrimordialStormRelatedDamage: boolean = false;
+  private isPrimordialStormRelatedDamage = false;
 
   constructor(options: Options) {
     super(options);

@@ -88,8 +88,6 @@ class WaningTwilight extends Analyzer {
   }
 
   get guideSubsection(): JSX.Element {
-    this.enemies.getBuffUptime(SPELLS.WANING_TWILIGHT.id) / this.owner.fightDuration;
-
     const explanation = <></>;
 
     const data = (

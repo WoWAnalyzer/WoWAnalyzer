@@ -19,8 +19,8 @@ class DivineImage extends Analyzer {
   totalDamage = 0;
 
   // For debugging spells that we should count.
-  healingSpells: { [spellId: number]: string } = {};
-  damagingSpells: { [spellId: number]: string } = {};
+  healingSpells: Record<number, string> = {};
+  damagingSpells: Record<number, string> = {};
 
   constructor(options: Options) {
     super(options);

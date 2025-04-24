@@ -37,18 +37,18 @@ class ApexPredatorsCraving extends Analyzer {
   hasSotf: boolean;
   hasRf: boolean;
 
-  buffsGained: number = 0;
-  buffsUsed: number = 0;
-  buffsOverwritten: number = 0;
+  buffsGained = 0;
+  buffsUsed = 0;
+  buffsOverwritten = 0;
 
   /** Damage directly from Apex procced bite */
-  biteDamage: number = 0;
+  biteDamage = 0;
   /** Damage from Rampant Ferocity splash of an Apex bite */
-  rampantFerocityDamage: number = 0;
+  rampantFerocityDamage = 0;
 
-  sotfEnergyGained: number = 0;
-  sotfEnergyEffective: number = 0;
-  sotfEnergyWasted: number = 0;
+  sotfEnergyGained = 0;
+  sotfEnergyEffective = 0;
+  sotfEnergyWasted = 0;
 
   constructor(options: Options) {
     super(options);

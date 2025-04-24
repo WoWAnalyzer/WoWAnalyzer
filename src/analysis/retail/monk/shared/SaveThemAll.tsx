@@ -15,8 +15,8 @@ import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 const BUFF_PER_POINT = 0.1;
 
 class SaveThemAll extends Analyzer {
-  totalHealed: number = 0;
-  healingBuff: number = 0;
+  totalHealed = 0;
+  healingBuff = 0;
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.SAVE_THEM_ALL_TALENT);

@@ -13,13 +13,13 @@ import AutoSizer from 'react-virtualized-auto-sizer';
 
 import IgnorePainTracker from '../spells/IgnorePainTracker';
 
-type SpellTracker = {
+interface SpellTracker {
   timestamp: number;
   hitPoints: number;
   ignorePain: number;
-};
+}
 
-type BigHit = {
+interface BigHit {
   timestamp: number;
   hitPoints: number;
   ignorePain: number;
@@ -28,7 +28,7 @@ type BigHit = {
   hadShieldWall: boolean;
   mobHadDemoShout: boolean;
   spell: string;
-};
+}
 
 type TrackedHit = DamageEvent & {
   lastHP: number;
@@ -46,7 +46,7 @@ class BigHitGraph extends Analyzer {
   areas: SpellTracker[] = [];
   bigHits: BigHit[] = [];
 
-  _lastHp: number = 0;
+  _lastHp = 0;
 
   demoTargets: Set<string> = new Set<string>();
 

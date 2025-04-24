@@ -16,10 +16,10 @@ import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
  */
 
 export default class Tidewaters extends Analyzer {
-  tidewatersHealing: number = 0;
-  tidewatersOverheal: number = 0;
-  healingRainCasts: number = 0;
-  tidewatersHealingEvents: number = 0;
+  tidewatersHealing = 0;
+  tidewatersOverheal = 0;
+  healingRainCasts = 0;
+  tidewatersHealingEvents = 0;
 
   constructor(options: Options) {
     super(options);

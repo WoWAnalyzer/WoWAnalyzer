@@ -158,7 +158,7 @@ export function getResource(classResources: ClassResources[] | undefined, type: 
 }
 
 export function getResourceCost(
-  resourceCosts: { [resourceType: number]: number } | undefined,
+  resourceCosts: Record<number, number> | undefined,
   resourceType: number,
 ): number | undefined {
   return resourceCosts ? resourceCosts[resourceType] : undefined;

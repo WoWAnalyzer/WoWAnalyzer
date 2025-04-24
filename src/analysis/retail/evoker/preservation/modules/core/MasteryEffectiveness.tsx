@@ -30,12 +30,12 @@ const SHIELD_DURATIONS_MAP = new Map([
 
 const SHIELD_DURATIONS = Object.fromEntries(SHIELD_DURATIONS_MAP);
 
-type ShieldInfo = {
+interface ShieldInfo {
   event: ApplyBuffEvent | RefreshBuffEvent;
   baseShieldValue: number;
   hasMasteryBoost: boolean;
   masteryValue: number;
-};
+}
 
 class MasteryEffectiveness extends Analyzer {
   static dependencies = {
@@ -45,19 +45,19 @@ class MasteryEffectiveness extends Analyzer {
 
   protected combatants!: Combatants;
   protected statTracker!: StatTracker;
-  masteryAffectedHealing: number = 0;
-  nonMasteryAffectedHealing: number = 0;
-  totalHealingEffectedByMastery: number = 0;
-  additionalHealingFromMastery: number = 0;
-  private prevokerHealthPercent: number = 0;
-  private prevokerMaxHealth: number = 0;
-  private anomalyShieldApplications: Map<number, ShieldInfo | null> = new Map();
-  private twinGuardianShieldApplications: Map<number, ShieldInfo | null> = new Map();
+  masteryAffectedHealing = 0;
+  nonMasteryAffectedHealing = 0;
+  totalHealingEffectedByMastery = 0;
+  additionalHealingFromMastery = 0;
+  private prevokerHealthPercent = 0;
+  private prevokerMaxHealth = 0;
+  private anomalyShieldApplications = new Map<number, ShieldInfo | null>();
+  private twinGuardianShieldApplications = new Map<number, ShieldInfo | null>();
 
-  totalShieldEvents: number = 0;
-  totalShieldEventsAffectedByMastery: number = 0;
-  totalEventsAffectedByMastery: number = 0;
-  totalEvents: number = 0;
+  totalShieldEvents = 0;
+  totalShieldEventsAffectedByMastery = 0;
+  totalEventsAffectedByMastery = 0;
+  totalEvents = 0;
 
   constructor(options: Options) {
     super(options);

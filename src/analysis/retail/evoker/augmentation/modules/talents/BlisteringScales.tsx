@@ -34,17 +34,17 @@ import { SpellLink } from 'interface';
  * based on their missing health. Lower health targets gain a larger shield.
  */
 class BlisteringScales extends Analyzer {
-  blisteringScalesDamage: number = 0;
+  blisteringScalesDamage = 0;
 
-  hasReactiveHide: boolean = false;
-  reactiveHideStacks: number = 0;
-  reactiveHideDamage: number = 0;
-  totalStacks: number = 0;
-  onHitCount: number = 0;
+  hasReactiveHide = false;
+  reactiveHideStacks = 0;
+  reactiveHideDamage = 0;
+  totalStacks = 0;
+  onHitCount = 0;
 
-  hasRegenerativeChitin: boolean = false;
-  stacksGained: number = 0;
-  stacksWasted: number = 0;
+  hasRegenerativeChitin = false;
+  stacksGained = 0;
+  stacksWasted = 0;
 
   constructor(options: Options) {
     super(options);

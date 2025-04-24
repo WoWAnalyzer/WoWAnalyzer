@@ -16,7 +16,7 @@ const CHANGE_LOG_ENTRIES = mergeAllChangelogs();
 
 const ENTRIES_PER_PAGE = 50;
 const NUM_PAGES = Math.ceil(CHANGE_LOG_ENTRIES.length / ENTRIES_PER_PAGE);
-const ALL_ENTRIES: Array<ChangeLogItem> = [...CHANGE_LOG_ENTRIES].sort(
+const ALL_ENTRIES: ChangeLogItem[] = [...CHANGE_LOG_ENTRIES].sort(
   (a, b) => Number(b.date) - Number(a.date),
 );
 
@@ -82,7 +82,6 @@ const NewsList = ({ topAnchor }: Props) => {
       <div className="row">
         <div className="col-xs-6">
           {hasOlder(page) && (
-            // eslint-disable-next-line jsx-a11y/anchor-is-valid
             <a role="button" onClick={handleOlderClick} style={{ fontSize: '1.3em' }}>
               &lt; Older
             </a>
@@ -90,7 +89,6 @@ const NewsList = ({ topAnchor }: Props) => {
         </div>
         <div className="col-xs-6 text-right">
           {hasNewer(page) && (
-            // eslint-disable-next-line jsx-a11y/anchor-is-valid
             <a role="button" onClick={handleNewerClick} style={{ fontSize: '1.3em' }}>
               Newer &gt;
             </a>

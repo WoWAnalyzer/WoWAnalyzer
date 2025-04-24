@@ -52,13 +52,11 @@ class ElementalAssault extends Analyzer {
   protected maelstromTracker!: MaelstromWeaponTracker;
   protected abilityTracker!: AbilityTracker;
 
-  protected damageIncrease: number = 0;
-  protected damageGained: number = 0;
-  protected talentRanks: number = 0;
+  protected damageIncrease = 0;
+  protected damageGained = 0;
+  protected talentRanks = 0;
 
-  protected elementalAssaultGenerators: {
-    [spellId: number]: { generated: number; wasted: number };
-  } = {};
+  protected elementalAssaultGenerators: Record<number, { generated: number; wasted: number }> = {};
 
   constructor(options: Options) {
     super(options);

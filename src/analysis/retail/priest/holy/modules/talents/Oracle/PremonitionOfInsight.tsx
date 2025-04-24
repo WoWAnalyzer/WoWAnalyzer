@@ -23,11 +23,11 @@ class PremonitionOfInsight extends Analyzer {
   protected spellUsable!: SpellUsable;
   protected combatants!: Combatants;
 
-  private insightCastNumber: number = 1;
-  private insightStackNumber: number = 1;
+  private insightCastNumber = 1;
+  private insightStackNumber = 1;
   private scaledInsightCDR = INSIGHT_CDR;
 
-  private insightReducBySpell: { [spellID: string]: number } = {};
+  private insightReducBySpell: Record<string, number> = {};
 
   private insightCastSpellTracker: insightPerCast[] = [];
 

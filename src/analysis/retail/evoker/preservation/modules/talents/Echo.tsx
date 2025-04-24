@@ -30,8 +30,8 @@ class Echo extends Analyzer {
   // Map<spellId, totalHealing>, only update for echo healing
   echoHealingBySpell: Map<number, number> = new Map<number, number>();
   taEchoHealingBySpell: Map<number, number> = new Map<number, number>();
-  totalApplied: number = 0;
-  totalExpired: number = 0;
+  totalApplied = 0;
+  totalExpired = 0;
 
   constructor(options: Options) {
     super(options);

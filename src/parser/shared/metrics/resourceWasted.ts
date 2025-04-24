@@ -1,13 +1,7 @@
 import { AnyEvent, EventType } from 'parser/core/Events';
 import metric from 'parser/core/metric';
 
-interface ResourcesWasted {
-  [targetId: number]: {
-    [resourceTypeId: number]: {
-      [spellId: number]: number;
-    };
-  };
-}
+type ResourcesWasted = Record<number, Record<number, Record<number, number>>>;
 
 /**
  * Returns an object with the total resource wasted per resource.

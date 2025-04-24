@@ -47,17 +47,17 @@ export default class Lunation extends Analyzer.withDependencies({ spellUsable: S
   /** The spell whose CD will be reduced */
   spell: Spell | undefined = undefined;
   /** The amount to reduce the spell's CD by when an Arcane spell is cast */
-  cdrMsPerCast: number = 0;
+  cdrMsPerCast = 0;
   /** CDR applied so far to the currently cooling down charge */
-  pendingCdrMs: number = 0;
+  pendingCdrMs = 0;
   /** Total CDR applied to charges that have finished cooling down */
-  totalCdrMs: number = 0;
+  totalCdrMs = 0;
   /** Total 'raw' CDR, including reduction that couldn't apply because spell not on CD */
-  totalRawCdr: number = 0;
+  totalRawCdr = 0;
   /** Total charges restored for the tracked spell */
-  finishedCdCount: number = 0;
+  finishedCdCount = 0;
 
-  testArcaneCastCount: number = 0;
+  testArcaneCastCount = 0;
 
   constructor(options: Options) {
     super(options);

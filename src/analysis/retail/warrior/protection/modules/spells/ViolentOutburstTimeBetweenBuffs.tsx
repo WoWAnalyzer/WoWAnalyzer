@@ -9,9 +9,9 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TALENTS from 'common/TALENTS/warrior';
 
 class ViolentOutburstTimeBetweenBuffs extends Analyzer {
-  totalBuffsGained: number = 0;
-  firstBuffGained: number = 0;
-  lastBuffGained: number = 0;
+  totalBuffsGained = 0;
+  firstBuffGained = 0;
+  lastBuffGained = 0;
 
   constructor(options: Options) {
     super(options);

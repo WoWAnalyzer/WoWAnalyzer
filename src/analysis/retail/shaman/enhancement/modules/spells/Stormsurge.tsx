@@ -19,9 +19,9 @@ import SpellUsable from 'analysis/retail/shaman/enhancement/modules/core/SpellUs
 class Stormsurge extends Analyzer.withDependencies({
   spellUsable: SpellUsable,
 }) {
-  protected stormStrikeResets: number = 0;
-  protected windStrikeResets: number = 0;
-  protected wasted: number = 0;
+  protected stormStrikeResets = 0;
+  protected windStrikeResets = 0;
+  protected wasted = 0;
 
   constructor(options: Options) {
     super(options);

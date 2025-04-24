@@ -327,14 +327,14 @@ class Mastery extends Analyzer {
 /**
  * A mapping from spell guid to the MasteryAttribution for that spell
  */
-type MasteryAttributionsBySpell = { [key: number]: MasterySpellAttribution };
+type MasteryAttributionsBySpell = Record<number, MasterySpellAttribution>;
 
 /**
  * A HoT's mastery attribution.
  */
 class MasterySpellAttribution {
   direct: number; // the direct healing from the HoT, should be same as entry in WCL. Includes benefit from own stack of Mastery.
-  mastery: { [key: number]: number }; // a mapping from spell ID to how much this HoT boosted it via Mastery.
+  mastery: Record<number, number>; // a mapping from spell ID to how much this HoT boosted it via Mastery.
 
   constructor() {
     this.direct = 0;
@@ -353,7 +353,7 @@ class MasterySpellAttribution {
 /**
  * A mapping from buff guid to the attribution amount for that buff
  */
-type MasteryAttributionsByBuff = { [key: number]: MasteryBuffAttribution };
+type MasteryAttributionsByBuff = Record<number, MasteryBuffAttribution>;
 
 /**
  * A Buff's mastery attribution.

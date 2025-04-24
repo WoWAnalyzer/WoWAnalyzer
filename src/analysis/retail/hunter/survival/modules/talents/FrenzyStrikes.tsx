@@ -26,9 +26,9 @@ class Butchery extends Analyzer {
 
   protected spellUsable!: SpellUsable;
 
-  private reductionAtCurrentCast: number = 0;
-  private effectiveReductionMs: number = 0;
-  private wastedReductionMs: number = 0;
+  private reductionAtCurrentCast = 0;
+  private effectiveReductionMs = 0;
+  private wastedReductionMs = 0;
 
   constructor(options: Options) {
     super(options);
