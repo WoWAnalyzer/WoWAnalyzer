@@ -41,7 +41,7 @@ class VerdantInfusion extends Analyzer {
 
   attribution: Attribution = HotTracker.getNewAttribution('Verdant Infusion');
   perHotExtensions: Map<number, number> = new Map<number, number>();
-  casts: number = 0;
+  casts = 0;
 
   constructor(options: Options) {
     super(options);

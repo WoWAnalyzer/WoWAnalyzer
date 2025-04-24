@@ -12,7 +12,7 @@ import BoringItemValueText from 'parser/ui/BoringItemValueText';
 export default class CirralConcoctory extends Analyzer.withDependencies({
   abilities: Abilities,
 }) {
-  protected strandApplications: { [key: number]: number } = {};
+  protected strandApplications: Record<number, number> = {};
   constructor(options: Options) {
     super(options);
     const strandBuffs = [

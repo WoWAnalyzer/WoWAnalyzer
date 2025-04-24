@@ -19,10 +19,10 @@ class WavespeakersBlessing extends Analyzer {
 
   protected riptideTracker!: RiptideTracker;
 
-  healingFromPWaveRiptide: number = 0;
-  healingFromPTCRiptide: number = 0;
-  healingFromHardcast: number = 0;
-  healing: number = 0;
+  healingFromPWaveRiptide = 0;
+  healingFromPTCRiptide = 0;
+  healingFromHardcast = 0;
+  healing = 0;
   ptcActive: boolean;
 
   constructor(options: Options) {

@@ -25,7 +25,7 @@ class HymnBuffBenefit extends Analyzer {
   selfDivineHymnIncrease = 0;
 
   divineHymnTotalHealingIncreasePerStack = 0;
-  filter(stackCount: number = 1) {
+  filter(stackCount = 1) {
     // The first stack is an apply buff event, not an apply buff stack event
     if (stackCount === 1) {
       return `IN RANGE
@@ -85,7 +85,7 @@ class HymnBuffBenefit extends Analyzer {
         // we need to do some "approximations" using the total overheal in tandem with the total healing. We do not want to naively
         // assume all healing was fully effective, as this would drastically overweight the power of the buff in situations where a
         // lot of overhealing occurs.
-        (healingFromBuff: any, entry: WCLHealing) =>
+        (healingFromBuff: number, entry: WCLHealing) =>
           healingFromBuff +
           (entry.total -
             entry.total / (1 + this.divineHymnTotalHealingIncreasePerStack * stackCount)) *

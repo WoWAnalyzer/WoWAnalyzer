@@ -9,9 +9,7 @@ const INSTANCE_SEPARATOR = '_INSTANCE_';
 
 interface Props {
   fight: Fight;
-  phases: {
-    [key: string]: Phase;
-  };
+  phases: Record<string, Phase>;
   selectedPhase: string;
   selectedInstance: number;
   handlePhaseSelection: (phase: string, instance: number) => void;
@@ -19,9 +17,7 @@ interface Props {
 }
 
 interface State {
-  phases: {
-    [key: string]: PhaseSelection;
-  };
+  phases: Record<string, PhaseSelection>;
 }
 
 interface PhaseSelection {
@@ -53,7 +49,7 @@ class PhaseSelector extends React.PureComponent<Props, State> {
 
   //builds a dictionary of phases / phase instances to keep track of in order to be able to attribute a unique "key" to each phase for the dropdown
   //without losing the actual key (and without having to for example replace an "instance token" like an underscore)
-  buildPhases(): { [key: string]: PhaseSelection } {
+  buildPhases(): Record<string, PhaseSelection> {
     const phases: PhaseSelection[] = [];
     Object.keys(this.props.phases).forEach((key) => {
       const phase = this.props.phases[key];

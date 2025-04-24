@@ -1,5 +1,5 @@
 /** @type {import('eslint').Rule.RuleModule} */
-module.exports = {
+export const boringSpellValueTextSpellObject = {
   meta: {
     type: 'problem',
     fixable: 'code',

@@ -14,15 +14,16 @@ import LazyLoadStatisticBox from 'parser/ui/LazyLoadStatisticBox';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SPELLS from 'common/SPELLS/classic/druid';
 
-interface ResourcesByPlayer {
-  [playerId: number]: {
+type ResourcesByPlayer = Record<
+  number,
+  {
     count: number;
     mana: number;
     energy: number;
     rage: number;
     runicPower: number;
-  };
-}
+  }
+>;
 
 const TIMESTAMP_TOLERANCE = 40;
 
@@ -58,7 +59,9 @@ class Revitalize extends Analyzer {
 
   protected combatants!: Combatants;
   resourcesByPlayer: ResourcesByPlayer = {};
-  eligibleCasts: { [playerId: number]: HealEvent[] } = {};
+  eligibleCasts: Record<number, HealEvent[]> = {};
+
+  readonly #filter = `ability.name='Revitalize'`;
 
   constructor(options: Options) {
     super(options);
@@ -77,10 +80,6 @@ class Revitalize extends Analyzer {
     this.eligibleCasts[event.targetID].push(event);
   }
 
-  get filter() {
-    return `ability.name='Revitalize'`;
-  }
-
   get totalProcs(): number {
     return Object.values(this.resourcesByPlayer).reduce(
       (total: number, current) => (total += current.count),
@@ -88,13 +87,14 @@ class Revitalize extends Analyzer {
     );
   }
 
-  get resourcesPerPlayer(): {
-    [playerId: number]: {
+  get resourcesPerPlayer(): Record<
+    number,
+    {
       player: Combatant;
       count: number;
       power: { mana: number; energy: number; rage: number; runicPower: number };
-    };
-  } {
+    }
+  > {
     return Object.assign(
       {},
       ...Object.values(this.combatants.players).map((player) => ({
@@ -150,7 +150,7 @@ class Revitalize extends Analyzer {
         start: this.owner.fight.start_time,
         end: this.owner.fight.end_time,
         abilityid: 100,
-        filter: this.filter,
+        filter: this.#filter,
       }).then((json) => {
         this.resourcesByPlayer = json.events.reduce(
           this.resourceEventReduce,
@@ -163,7 +163,7 @@ class Revitalize extends Analyzer {
         start: this.owner.fight.start_time,
         end: this.owner.fight.end_time,
         abilityid: 103,
-        filter: this.filter,
+        filter: this.#filter,
       }).then((json) => {
         this.resourcesByPlayer = json.events.reduce(
           this.resourceEventReduce,
@@ -176,7 +176,7 @@ class Revitalize extends Analyzer {
         start: this.owner.fight.start_time,
         end: this.owner.fight.end_time,
         abilityid: 101,
-        filter: this.filter,
+        filter: this.#filter,
       }).then((json) => {
         this.resourcesByPlayer = json.events.reduce(
           this.resourceEventReduce,
@@ -189,7 +189,7 @@ class Revitalize extends Analyzer {
         start: this.owner.fight.start_time,
         end: this.owner.fight.end_time,
         abilityid: 106,
-        filter: this.filter,
+        filter: this.#filter,
       }).then((json) => {
         this.resourcesByPlayer = json.events.reduce(
           this.resourceEventReduce,

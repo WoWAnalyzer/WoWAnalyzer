@@ -37,17 +37,17 @@ class FlowOfTheTides extends Analyzer {
 
   maxTargets = CHAIN_HEAL_TARGETS + FLOW_OF_THE_TIDES_TARGET;
 
-  currentCastBuffedByUL: boolean = false;
+  currentCastBuffedByUL = false;
   ulActive: boolean;
-  healing: number = 0;
-  bonusHealing: number = 0;
-  extraJumps: number = 0;
-  missedJumps: number = 0;
-  chainHealTarget: number = 0;
-  riptideEnd: number = 0;
-  lostRiptides: number = 0;
-  lostRiptideDuration: number = 0;
-  healIncrease: number = 0;
+  healing = 0;
+  bonusHealing = 0;
+  extraJumps = 0;
+  missedJumps = 0;
+  chainHealTarget = 0;
+  riptideEnd = 0;
+  lostRiptides = 0;
+  lostRiptideDuration = 0;
+  healIncrease = 0;
 
   constructor(options: Options) {
     super(options);

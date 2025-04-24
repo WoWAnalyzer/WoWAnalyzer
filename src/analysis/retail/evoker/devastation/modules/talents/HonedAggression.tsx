@@ -17,9 +17,9 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 const { LIVING_FLAME_DAMAGE, AZURE_STRIKE } = SPELLS;
 
 class HonedAggression extends Analyzer {
-  honedAggressionLivingFlameDamage: number = 0;
-  honedAggressionAzureDamage: number = 0;
-  honedAggressionMultiplier: number = 0;
+  honedAggressionLivingFlameDamage = 0;
+  honedAggressionAzureDamage = 0;
+  honedAggressionMultiplier = 0;
   trackedSpells = [LIVING_FLAME_DAMAGE, AZURE_STRIKE];
 
   constructor(options: Options) {

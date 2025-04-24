@@ -6,11 +6,11 @@ import type { TrackedStaggerData } from './analyzer';
 const MAX_CHARGES = 2;
 const MIN_GAP = 1000; // PB has a 1000 ms cd with itself
 
-export type MissedPurifyData = {
+export interface MissedPurifyData {
   hit: TrackedStaggerData;
   amountPurified: number;
   state: State;
-};
+}
 
 function shouldPurify(
   hit: TrackedStaggerData,
@@ -72,16 +72,16 @@ export default function solver(
   return bestSolution;
 }
 
-type Constants = {
+interface Constants {
   estBrewCooldown: number;
   threshold: number;
-};
+}
 
-type State = {
+interface State {
   charges: number;
   remainingBrewCooldown: number;
   staggerPool: number;
-};
+}
 
 /// identify missing purifies recursively
 function identifyPurifies(
@@ -159,17 +159,18 @@ function identifyPurifies(
  */
 export function potentialStaggerEvents(
   missedPurifies: MissedPurifyData[],
-  stagger: Array<AddStaggerEvent | RemoveStaggerEvent>,
-): Array<Pick<AddStaggerEvent, 'newPooledDamage' | 'timestamp'>> {
+  stagger: (AddStaggerEvent | RemoveStaggerEvent)[],
+): Pick<AddStaggerEvent, 'newPooledDamage' | 'timestamp'>[] {
   const ix = stagger.findIndex(
     ({ timestamp }) => timestamp >= missedPurifies[0].hit.event.timestamp,
   );
   let staggerPool = stagger[ix].newPooledDamage - stagger[ix].amount;
 
   const events = (
-    stagger as Array<
-      Pick<AddStaggerEvent | RemoveStaggerEvent, 'type' | 'amount' | 'timestamp' | 'trigger'>
-    >
+    stagger as Pick<
+      AddStaggerEvent | RemoveStaggerEvent,
+      'type' | 'amount' | 'timestamp' | 'trigger'
+    >[]
   )
     .slice(ix)
     .concat(

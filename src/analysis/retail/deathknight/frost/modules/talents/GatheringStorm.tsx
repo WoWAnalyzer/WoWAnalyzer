@@ -24,11 +24,11 @@ const debug = false;
  *Each Rune spent during Remorseless Winter increases its damage by 10%, and extends its duration by 0.5 sec.
  */
 class GatheringStorm extends Analyzer {
-  totalCasts: number = 0;
-  bonusDamage: number = 0;
-  totalStacks: number = 0;
-  currentStacks: number = 0;
-  extendedDuration: number = 0;
+  totalCasts = 0;
+  bonusDamage = 0;
+  totalStacks = 0;
+  currentStacks = 0;
+  extendedDuration = 0;
 
   constructor(options: Options) {
     super(options);

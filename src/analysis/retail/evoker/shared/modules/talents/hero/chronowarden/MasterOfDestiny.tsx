@@ -19,8 +19,8 @@ import { UptimeIcon, InformationIcon } from 'interface/icons';
  * Using certain abilities with a 45 second or longer base cooldown grants 5% Intellect for 15 sec. Essence abilities extend the duration by 1 sec.
  */
 class MasterOfDestiny extends Analyzer {
-  threadApplyTimestamps: { [key: number]: number } = {};
-  threadTimestampExists: { [key: number]: boolean } = {};
+  threadApplyTimestamps: Record<number, number> = {};
+  threadTimestampExists: Record<number, boolean> = {};
   totalThreadExtension = 0;
   totalThreadDuration = 0;
   totalThreadsApplied = 0;

@@ -20,7 +20,7 @@ class Abilities extends CoreAbilities {
     );
   }
 
-  spellbook(): Array<SpellbookAbility<TrackedRestoShamanAbility>> {
+  spellbook(): SpellbookAbility<TrackedRestoShamanAbility>[] {
     const combatant = this.selectedCombatant;
     const totemCDR = combatant.hasTalent(TALENTS.TOTEMIC_SURGE_TALENT) ? 6 : 0;
     return [

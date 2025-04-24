@@ -22,10 +22,10 @@ export default class WalkWithTheOx extends Analyzer {
 
   protected spellUsable!: SpellUsable;
 
-  rank: number = 0;
+  rank = 0;
   effCdr = 0;
   wastedCdr = 0;
-  additionalDamage: number = 0;
+  additionalDamage = 0;
 
   private sckTarget?: number;
 

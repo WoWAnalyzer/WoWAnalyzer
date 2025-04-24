@@ -19,28 +19,26 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { getDotDurations } from '../../constants';
 
-type TargetDotsInfo = {
+interface TargetDotsInfo {
   targetName: string;
   dots: DotInfo[];
-};
+}
 // All numbers are timestamps
-type DotInfo = {
+interface DotInfo {
   cast: number;
   expectedEnd: number;
   extendStart: number | null;
   extendExpectedEnd: number | null;
-};
+}
 
-type TargetDots = {
+interface TargetDots {
   targetName: string;
   dots: number[];
-};
-type DarkglareCast = {
+}
+interface DarkglareCast {
   timestamp: number;
-  targets: {
-    [target: string]: TargetDots;
-  };
-};
+  targets: Record<string, TargetDots>;
+}
 
 const BONUS_DURATION = 8000;
 const DOT_DEBUFFS = [

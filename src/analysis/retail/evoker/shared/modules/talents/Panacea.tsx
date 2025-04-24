@@ -10,8 +10,8 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import { formatPercentage } from 'common/format';
 
 class Panacea extends Analyzer {
-  totalHealingReceived: number = 0;
-  panaceaHealing: number = 0;
+  totalHealingReceived = 0;
+  panaceaHealing = 0;
 
   constructor(options: Options) {
     super(options);

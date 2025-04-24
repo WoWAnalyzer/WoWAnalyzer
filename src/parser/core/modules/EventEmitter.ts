@@ -11,11 +11,11 @@ const CATCH_ALL_EVENT = EventType.Event;
 
 const PROFILE = false;
 
-type BoundListener<ET extends EventType, E extends AnyEvent<ET>> = {
+interface BoundListener<ET extends EventType, E extends AnyEvent<ET>> {
   eventFilter: ET | EventFilter<ET>;
   module: Module;
   listener: EventListener<ET, E>;
-};
+}
 
 /**
  * This (core) module takes care of:
@@ -47,7 +47,7 @@ class EventEmitter extends Module {
       });
   }
 
-  _eventListenersByEventType: { [eventType: string]: Array<BoundListener<any, any>> } = {};
+  _eventListenersByEventType: Record<string, BoundListener<any, any>[]> = {};
   numEventListeners = 0;
   /**
    * @param {string|EventFilter} eventFilter
@@ -281,7 +281,7 @@ class EventEmitter extends Module {
     };
   }
   reportModuleTimes() {
-    const table: Array<{ module: Module; duration: number; ofTotal: string }> = [];
+    const table: { module: Module; duration: number; ofTotal: string }[] = [];
     const totalDuration = Array.from(this.timePerModule).reduce((sum, [, value]) => sum + value, 0);
     this.timePerModule.forEach((value, key) => {
       table.push({
@@ -295,7 +295,7 @@ class EventEmitter extends Module {
     console.log('Total module time:', totalDuration, 'ms');
     console.groupEnd();
   }
-  _finally: Array<() => void> | null = null;
+  _finally: (() => void)[] | null = null;
   finally(func: () => void) {
     this._finally = this._finally || [];
     this._finally.push(func);

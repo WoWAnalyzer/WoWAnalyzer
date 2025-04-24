@@ -30,7 +30,7 @@ export enum CLASSES {
   WARRIOR,
 }
 
-export const CLASS_NAMES: { [classId: number]: { name: string } } = {
+export const CLASS_NAMES: Record<number, { name: string }> = {
   1: { name: 'Warrior' },
   2: { name: 'Paladin' },
   3: { name: 'Hunter' },

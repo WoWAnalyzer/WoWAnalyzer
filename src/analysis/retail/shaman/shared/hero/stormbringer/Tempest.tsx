@@ -39,7 +39,10 @@ const SPEC_OPTIONS = {
   },
 } satisfies Record<number, SpecOptions>;
 
-type Point = { timestamp: number; value: number };
+interface Point {
+  timestamp: number;
+  value: number;
+}
 type PointWithRange = Point & { min: number; max: number };
 type XPoint = Pick<Point, 'timestamp'>;
 
@@ -55,7 +58,7 @@ class Tempest extends Analyzer {
   private awakeningStorms: Point[] = [];
   private tempestCasts: XPoint[] = [];
 
-  private graphEnabled: boolean = true;
+  private graphEnabled = true;
 
   constructor(options: Options) {
     super(options);

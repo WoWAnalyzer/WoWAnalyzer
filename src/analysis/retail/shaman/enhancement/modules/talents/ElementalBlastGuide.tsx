@@ -42,9 +42,9 @@ class ElementalBlastGuide extends MajorCooldown<ElementalBlastCastDetails> {
   protected elementalSpirits!: ElementalSpirits;
   private readonly maxCharges: number = 0;
   private cast: ElementalBlastCastDetails | null = null;
-  private currentCharges: number = 0;
+  private currentCharges = 0;
 
-  protected guideActive: boolean = false;
+  protected guideActive = false;
 
   constructor(options: Options) {
     super({ spell: TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT }, options);

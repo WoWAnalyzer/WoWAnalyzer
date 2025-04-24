@@ -20,7 +20,7 @@ interface EncounterConfig {
     magical: [];
   };
   resultsWarning?: string;
-  phases?: { [key: string]: PhaseConfig };
+  phases?: Record<string, PhaseConfig>;
   raceTranslation?: (race: Race, spec?: Spec) => Race;
   disableDeathSuggestion?: boolean;
   disableDowntimeSuggestion?: boolean;

@@ -71,9 +71,7 @@ const ReportStatistics = ({
   adjustForDowntime,
   onChangeAdjustForDowntime,
 }: Props) => {
-  const groups = statistics.reduce<{
-    [category: string]: ReactElement[];
-  }>((obj, statistic) => {
+  const groups = statistics.reduce<Record<string, ReactElement[]>>((obj, statistic) => {
     const category = statistic.props.category || STATISTIC_CATEGORY.GENERAL;
     obj[category] = obj[category] || [];
     obj[category].push(statistic);
@@ -93,7 +91,7 @@ const ReportStatistics = ({
 
   return (
     <div className="container">
-      {/* eslint-disable-next-line no-restricted-syntax */}
+      {}
       {(Object.keys(groups) as STATISTIC_CATEGORY[])
         .sort((a, b) => categoryByIndex.indexOf(a) - categoryByIndex.indexOf(b))
         .map((name) => {

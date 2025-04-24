@@ -17,9 +17,9 @@ class TimeLord extends Analyzer {
     echo: Echo,
   };
   protected echo!: Echo;
-  effectiveHealing: number = 0;
-  totalIncrease: number = 0;
-  overhealing: number = 0;
+  effectiveHealing = 0;
+  totalIncrease = 0;
+  overhealing = 0;
 
   constructor(options: Options) {
     super(options);

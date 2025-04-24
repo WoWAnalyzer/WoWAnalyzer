@@ -18,11 +18,11 @@ import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import { getCurrentRSKTalent } from '../../constants';
 
 class CraneStyle extends Analyzer {
-  gomHealing: number = 0;
-  gomOverhealing: number = 0;
-  rskHealing: number = 0;
-  bokHealing: number = 0;
-  sckHealing: number = 0;
+  gomHealing = 0;
+  gomOverhealing = 0;
+  rskHealing = 0;
+  bokHealing = 0;
+  sckHealing = 0;
 
   constructor(options: Options) {
     super(options);

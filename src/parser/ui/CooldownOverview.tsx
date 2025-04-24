@@ -1,11 +1,11 @@
 import CooldownComponent, { Cooldown } from './Cooldown';
 
-type props = {
+interface props {
   fightStart: number;
   fightEnd: number;
   cooldowns: Cooldown[];
   applyTimeFilter: (start: number, end: number) => null;
-};
+}
 
 const CooldownOverview = ({ fightStart, fightEnd, cooldowns, applyTimeFilter }: props) => (
   <ul className="list">

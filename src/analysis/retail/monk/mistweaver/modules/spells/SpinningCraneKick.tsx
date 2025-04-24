@@ -4,13 +4,13 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, FightEndEvent } from 'parser/core/Events';
 
 class SpinningCraneKick extends Analyzer {
-  goodSCKcount: number = 0;
+  goodSCKcount = 0;
   goodSCKTimeList: string[] = [];
-  badSCKcount: number = 0;
+  badSCKcount = 0;
   badSCKTimeList: string[] = [];
-  canceledSCKcount: number = 0; //figure out if this is possible
+  canceledSCKcount = 0; //figure out if this is possible
   enemiesHitSCK: string[] = [];
-  currentTime: number = 0;
+  currentTime = 0;
 
   constructor(options: Options) {
     super(options);

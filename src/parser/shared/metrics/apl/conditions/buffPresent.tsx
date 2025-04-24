@@ -5,7 +5,7 @@ import { EventType } from 'parser/core/Events';
 import { AplTriggerEvent, Condition, tenseAlt } from '../index';
 import { buffDuration, DurationData, PandemicData } from './util';
 
-export function buffPresent(spell: Spell, latencyOffset: number = 0): Condition<number | null> {
+export function buffPresent(spell: Spell, latencyOffset = 0): Condition<number | null> {
   return {
     key: `buffPresent-${spell.id}`,
     init: () => null,

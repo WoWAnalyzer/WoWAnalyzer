@@ -21,7 +21,7 @@ import potions from 'common/SPELLS/classic/potions';
 import { formatDuration, formatNumber } from 'common/format';
 import Icon from 'interface/Icon';
 
-export type DoomguardData = {
+export interface DoomguardData {
   inferno: {
     summonEvent?: CastEvent;
   };
@@ -33,15 +33,15 @@ export type DoomguardData = {
     totalDamage: number;
   };
   summonedDemonSummary: JSX.Element;
-};
+}
 
-export type SnapshotQualityEntry = {
+export interface SnapshotQualityEntry {
   item?: Item;
   relatedBuffs: SpellInfo[];
   issueWithItemOrEnchant: boolean;
   snapshotQuality: QualitativePerformance;
   snapshotSummary: JSX.Element;
-};
+}
 
 const doomguardGameId = 11859;
 export default class Doomguard extends Analyzer {
@@ -57,7 +57,7 @@ export default class Doomguard extends Analyzer {
   };
   snapshotQualityEntries: SnapshotQualityEntry[] = [];
   snapshotAdvice: JSX.Element = (<></>);
-  private doomguardId: number = 0;
+  private doomguardId = 0;
 
   constructor(options: Options) {
     super(options);

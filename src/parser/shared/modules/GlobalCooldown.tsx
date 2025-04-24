@@ -254,11 +254,7 @@ class GlobalCooldown extends Analyzer {
   /**
    * Calculates the GCD based on the current Haste, taking into account the minimum possible GCD.
    */
-  static calculateGlobalCooldown(
-    haste: number,
-    baseGcd: number = 1500,
-    minGcd: number = 750,
-  ): number {
+  static calculateGlobalCooldown(haste: number, baseGcd = 1500, minGcd = 750): number {
     const gcd = baseGcd / (1 + haste);
     // Global cooldowns can't normally drop below a certain threshold
     return Math.max(minGcd, gcd);

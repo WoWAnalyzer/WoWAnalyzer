@@ -25,8 +25,8 @@ class PrayerfulLitany extends Analyzer {
   protected eolAttrib!: EOLAttrib;
   eolContrib = 0;
 
-  effectiveAdditionalHealing: number = 0;
-  overhealing: number = 0;
+  effectiveAdditionalHealing = 0;
+  overhealing = 0;
 
   constructor(options: Options) {
     super(options);

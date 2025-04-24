@@ -43,9 +43,9 @@ export interface Fight extends WCLFight {
   filtered?: boolean;
   phase?: string;
   instance?: number;
-  // eslint-disable-next-line camelcase
+
   offset_time: number;
-  // eslint-disable-next-line camelcase
+
   original_end_time?: number;
 }
 

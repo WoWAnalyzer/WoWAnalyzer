@@ -1,7 +1,5 @@
 //used to get the correct region from the language-code
-const REGION_CODES: {
-  [languageCode: string]: string;
-} = {
+const REGION_CODES: Record<string, string> = {
   'de-de': 'EU',
   'en-gb': 'EU',
   'es-es': 'EU',

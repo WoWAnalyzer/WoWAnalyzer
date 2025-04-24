@@ -11,10 +11,10 @@ import { ReactNode } from 'react';
 import * as React from 'react';
 import { i18n } from '@lingui/core';
 
-type ContributorProps = {
+interface ContributorProps {
   contributorId: string;
   ownPage?: boolean;
-};
+}
 
 class ContributorDetails extends React.PureComponent<ContributorProps> {
   constructor(props: ContributorProps) {
@@ -68,7 +68,7 @@ class ContributorDetails extends React.PureComponent<ContributorProps> {
     );
   }
 
-  links(object: { [name: string]: string } | undefined) {
+  links(object: Record<string, string> | undefined) {
     if (!object) {
       return null;
     }
@@ -228,7 +228,7 @@ class ContributorDetails extends React.PureComponent<ContributorProps> {
       return this.invalidContributor();
     }
 
-    const initial: { [id: number]: ChangelogEntry[] } = { 0: CoreChangelog };
+    const initial: Record<number, ChangelogEntry[]> = { 0: CoreChangelog };
     const contributions = AVAILABLE_CONFIGS.reduce((obj, elem) => {
       obj[elem.spec.id] = elem.changelog ?? [];
       return obj;

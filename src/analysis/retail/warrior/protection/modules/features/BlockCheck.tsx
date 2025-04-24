@@ -206,9 +206,9 @@ class BlockCheck extends Analyzer {
   }
 }
 
-type BlockedEvent = {
+interface BlockedEvent {
   blocked: boolean;
   event: DamageEvent;
-};
+}
 
 export default BlockCheck;

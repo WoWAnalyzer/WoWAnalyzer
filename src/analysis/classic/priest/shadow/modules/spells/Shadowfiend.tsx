@@ -14,7 +14,7 @@ class Shadowfiend extends Analyzer {
 
   protected spellUsable!: SpellUsable;
 
-  reductionTime: number = 10000; // ms (10 seconds)
+  reductionTime = 10000; // ms (10 seconds)
 
   constructor(options: Options) {
     super(options);

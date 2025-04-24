@@ -33,7 +33,7 @@ class IcyVeins extends Analyzer {
   protected alwaysBeCasting!: AlwaysBeCasting;
 
   activeTime: number[] = [];
-  buffApplies: number = 0;
+  buffApplies = 0;
 
   castEntries: BoxRowEntry[] = [];
 

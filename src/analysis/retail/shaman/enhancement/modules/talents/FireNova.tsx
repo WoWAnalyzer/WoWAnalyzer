@@ -17,9 +17,9 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
  * Example Log:
  */
 class FireNova extends Analyzer {
-  protected casts: number = 0;
-  protected hits: number = 0;
-  protected fireNovaDamage: number = 0;
+  protected casts = 0;
+  protected hits = 0;
+  protected fireNovaDamage = 0;
 
   constructor(options: Options) {
     super(options);

@@ -30,7 +30,7 @@ const RAPID_DIFFUSION_SPELLS = [
 const BASE_AVERAGE_REMS = 2.22;
 const RM_AVG_REM_DIFF = 3;
 
-type InvigoratingMistHealPerPlayer = { [key: number]: Set<string> };
+type InvigoratingMistHealPerPlayer = Record<number, Set<string>>;
 
 class Vivify extends Analyzer {
   static dependencies = {
@@ -41,30 +41,30 @@ class Vivify extends Analyzer {
   protected spellUsable!: SpellUsable;
   protected upliftedSpirits!: UpliftedSpirits;
 
-  casts: number = 0;
+  casts = 0;
   healsPerPlayer: InvigoratingMistHealPerPlayer = {};
-  mainTargetHealing: number = 0;
-  mainTargetOverhealing: number = 0;
+  mainTargetHealing = 0;
+  mainTargetOverhealing = 0;
 
-  fullOverhealCleaves: number = 0;
-  cleaveHits: number = 0;
-  cleaveHealing: number = 0;
-  cleaveOverhealing: number = 0;
+  fullOverhealCleaves = 0;
+  cleaveHits = 0;
+  cleaveHealing = 0;
+  cleaveOverhealing = 0;
 
-  gomHealing: number = 0;
-  gomOverhealing: number = 0;
-  lastCastTarget: number = 0;
+  gomHealing = 0;
+  gomOverhealing = 0;
+  lastCastTarget = 0;
 
-  expectedAverageReMs: number = 0;
-  rdCasts: number = 0;
+  expectedAverageReMs = 0;
+  rdCasts = 0;
 
   risingMistActive: boolean;
   dancingMistActive: boolean;
   rapidDiffusionActive: boolean;
 
   castEntries: BoxRowEntry[] = [];
-  vivifyGoodCrits: number = 0;
-  vivifyWastedCrits: number = 0;
+  vivifyGoodCrits = 0;
+  vivifyWastedCrits = 0;
 
   constructor(options: Options) {
     super(options);

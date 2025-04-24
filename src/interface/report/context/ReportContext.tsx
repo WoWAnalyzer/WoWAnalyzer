@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext } from 'react';
+import { createContext, ReactNode, useContext, useMemo } from 'react';
 import Report from 'parser/core/Report';
 
 interface ReportContext {
@@ -21,5 +21,7 @@ interface Props {
   refreshReport: () => void;
 }
 export const ReportProvider = ({ children, report, refreshReport }: Props) => {
-  return <ReportCtx.Provider value={{ report, refreshReport }}>{children}</ReportCtx.Provider>;
+  const providerValue = useMemo(() => ({ report, refreshReport }), [report, refreshReport]);
+
+  return <ReportCtx.Provider value={providerValue}>{children}</ReportCtx.Provider>;
 };

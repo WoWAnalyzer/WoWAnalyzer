@@ -28,7 +28,7 @@ export function formatNumber(number: number): string {
  * Formats a number as a percentage with the given precision (default 2), with 0 = 0 percent and 1 = 100 percent.
  * Ex: 0.79832 => 79.83
  */
-export function formatPercentage(percentage: number, precision: number = 2): string {
+export function formatPercentage(percentage: number, precision = 2): string {
   return ((percentage || 0) * 100).toFixed(precision);
 }
 
@@ -37,7 +37,7 @@ export function formatPercentage(percentage: number, precision: number = 2): str
  * with the given decimal second precision (default 0).
  * Ex: 317.3 => 5:17
  */
-export function formatDuration(duration: number, precision: number = 0): string {
+export function formatDuration(duration: number, precision = 0): string {
   const totalSeconds = duration / 1000;
   const neg = totalSeconds < 0 ? '-' : '';
   const posSeconds = Math.abs(totalSeconds);
@@ -66,7 +66,7 @@ export function formatDurationMinSec(duration: number): string {
 /**
  * Like `formatDurationMinSec` but accepts duration in milliseconds.
  */
-export function formatDurationMillisMinSec(duration: number, precision: number = 0): string {
+export function formatDurationMillisMinSec(duration: number, precision = 0): string {
   const totalSeconds = duration / 1000;
   const neg = totalSeconds < 0 ? '-' : '';
   const posSeconds = Math.abs(totalSeconds);

@@ -11,16 +11,16 @@ import 'rc-slider/assets/index.css';
 
 import Combatants from '../../Combatants';
 
-type LowHealthHealingProps = {
+interface LowHealthHealingProps {
   fightStart: number;
   combatants: Combatants;
   healEvents: HealEvent[];
-};
+}
 
-type LowHealthHealingState = {
+interface LowHealthHealingState {
   maxPlayerHealthPercentage: number;
   minHealOfMaxHealthPercentage: number;
-};
+}
 
 interface ComboHealEvent {
   /** All abilities in Combo, even duplicates */

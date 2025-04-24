@@ -30,10 +30,10 @@ class Deluge extends Analyzer {
   protected healingRainLocation!: HealingRainLocation;
   protected riptideTracker!: RiptideTracker;
 
-  fromRiptideHealing: number = 0;
-  fromHealingRainHealing: number = 0;
+  fromRiptideHealing = 0;
+  fromHealingRainHealing = 0;
   eventsDuringRain: HealEvent[] = [];
-  delugeIncrease: number = 0;
+  delugeIncrease = 0;
 
   constructor(options: Options) {
     super(options);

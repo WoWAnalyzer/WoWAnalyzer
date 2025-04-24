@@ -16,10 +16,7 @@ export type Rules = {
   [K in keyof ReturnType<typeof getRules>]: Rule;
 };
 
-const noOvercapDescription = (
-  tense: Tense | undefined,
-  includeEssence: boolean = true,
-): JSX.Element => {
+const noOvercapDescription = (tense: Tense | undefined, includeEssence = true): JSX.Element => {
   return (
     <>
       you {tenseAlt(tense, <>won't</>, <>wouldn't</>)} overcap{' '}

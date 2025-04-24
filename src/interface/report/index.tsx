@@ -93,7 +93,7 @@ const ResultsLoader = () => {
   });
 
   const applyPhaseFilter = useCallback(
-    (phase: string, instance: any) => {
+    (phase: string, instance: number) => {
       setSelectedPhase(phase);
       setSelectedInstance(instance);
       setTimeFilter(

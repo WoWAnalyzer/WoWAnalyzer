@@ -113,7 +113,7 @@ export default class AtonementAnalyzer extends Analyzer {
     this.castEvent = event;
   }
 
-  private targetBuffSourceMap: Map<number, BuffWithSource> = new Map();
+  private targetBuffSourceMap = new Map<number, BuffWithSource>();
   handleAtonementBuff(event: ApplyBuffEvent | RefreshBuffEvent) {
     if (!this.castEvent) {
       return;

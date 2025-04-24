@@ -7,10 +7,10 @@ import SPELLS from 'common/SPELLS/rogue';
 import TALENTS from 'common/TALENTS/rogue';
 import Spell from 'common/SPELLS/Spell';
 
-export type Cooldown = {
+export interface Cooldown {
   spell: Spell;
   extraTalents?: Talent[];
-};
+}
 
 const cooldownsToCheck: Cooldown[] = [
   { spell: SPELLS.SYMBOLS_OF_DEATH },

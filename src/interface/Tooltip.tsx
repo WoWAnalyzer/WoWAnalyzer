@@ -18,19 +18,12 @@ interface TooltipProps extends ReactTooltipProps {
 const Tooltip = ({
   content,
   children,
-  className = '',
   direction = 'down',
   hoverable = false,
   ...others
 }: TooltipProps) => {
   return (
-    <ReactTooltip
-      {...others}
-      className={className}
-      direction={direction}
-      tipContentHover={hoverable}
-      content={content}
-    >
+    <ReactTooltip {...others} direction={direction} tipContentHover={hoverable} content={content}>
       {children}
     </ReactTooltip>
   );
@@ -44,10 +37,10 @@ interface TooltipElementProps extends TooltipProps {
 export const TooltipElement = ({
   content,
   children,
-  className = '',
+  style,
+  className,
   direction = 'down',
   hoverable = false,
-  style = {},
   tooltipClassName = '',
   ...others
 }: TooltipElementProps) => {

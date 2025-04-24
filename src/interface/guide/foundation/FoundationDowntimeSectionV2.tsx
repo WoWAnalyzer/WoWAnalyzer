@@ -228,10 +228,10 @@ export default function FoundationDowntimeSectionV2(): JSX.Element | null {
 interface Props {
   uptimeHistory: Segment[];
   nonHealingUptimeHistory?: Segment[];
-  meleeGaps?: Array<Segment>;
-  cancelGaps?: Array<CancelGap>;
-  globalMeleeGaps?: Array<Segment>;
-  debuffSegments?: Array<DisplaySegment>;
+  meleeGaps?: Segment[];
+  cancelGaps?: CancelGap[];
+  globalMeleeGaps?: Segment[];
+  debuffSegments?: DisplaySegment[];
 }
 
 interface Segment {

@@ -5,7 +5,7 @@
     - Tailoring
 */
 
-const enchantIdMap: { [key: number]: string } = {
+const enchantIdMap: Record<number, string> = {
   // Classic & The Burning Crusade (Incomplete)
   41: '+5 Health',
   65: '+1 All Resistances',

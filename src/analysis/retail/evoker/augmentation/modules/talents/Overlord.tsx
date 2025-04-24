@@ -15,9 +15,9 @@ import { hasEruptionCastLink } from '../normalizers/CastLinkNormalizer';
  * Triggers an Eruption at the first 3 enemies hit by Breath of Eons / Deep Breath. These Eruptions are guaranteed to spawn a Mote of Possibility.
  */
 class Overlord extends Analyzer {
-  overlordDamage: number = 0;
-  motesSpawned: number = 0;
-  motesSinceLastCast: number = 0;
+  overlordDamage = 0;
+  motesSpawned = 0;
+  motesSinceLastCast = 0;
 
   constructor(options: Options) {
     super(options);

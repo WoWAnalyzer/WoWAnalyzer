@@ -2,7 +2,7 @@ import { CSSProperties } from 'react';
 
 import BackgroundOverlay from './images/background-overlay.png';
 
-const styles: { [key: string]: CSSProperties } = {
+const styles: Record<string, CSSProperties> = {
   container: {
     position: 'fixed',
     top: 0,

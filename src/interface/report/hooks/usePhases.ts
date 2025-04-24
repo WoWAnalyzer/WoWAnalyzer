@@ -18,7 +18,7 @@ const usePhases = ({
   bossPhaseEvents: PhaseEvent[] | null;
   bossPhaseConfigs: Record<string, PhaseConfig> | undefined;
 }) => {
-  const [phases, setPhases] = useState<{ [key: string]: Phase } | null>(null);
+  const [phases, setPhases] = useState<Record<string, Phase> | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {

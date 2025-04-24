@@ -27,7 +27,7 @@ class KillShot extends ExecuteHelper {
     abilities: Abilities,
   };
 
-  maxCasts: number = 1;
+  maxCasts = 1;
 
   activeKillShotSpell = SPELLS.KILL_SHOT;
 

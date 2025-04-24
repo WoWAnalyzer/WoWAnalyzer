@@ -15,7 +15,7 @@ class StrengthOfTheBlackOx extends Analyzer {
   static dependencies = {
     celestial: BaseCelestialAnalyzer,
   };
-  wastedBuffs: number = 0;
+  wastedBuffs = 0;
   entries: BoxRowEntry[] = [];
   protected celestial!: BaseCelestialAnalyzer;
 

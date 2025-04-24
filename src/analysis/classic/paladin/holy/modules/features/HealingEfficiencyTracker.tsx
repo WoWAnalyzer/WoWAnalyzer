@@ -1,7 +1,9 @@
-import BaseHealingEfficiencyTracker from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
+import BaseHealingEfficiencyTracker, {
+  SpellInfoDetails,
+} from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
 
 class HealingEfficiencyTracker extends BaseHealingEfficiencyTracker {
-  getCustomSpellStats(spellInfo: any, spellId: number, healingSpellIds: number[]) {
+  getCustomSpellStats(spellInfo: SpellInfoDetails, spellId: number, healingSpellIds: number[]) {
     return spellInfo;
   }
 }

@@ -17,7 +17,7 @@ export default class MaelstromGraph extends ResourceGraph {
 
   protected maelstromTracker!: MaelstromTracker;
 
-  includeWasted: boolean = true;
+  includeWasted = true;
 
   lineColor(): string | undefined {
     return COLORS.MAELSTROM_BORDER;

@@ -16,9 +16,9 @@ import {
 const FLASH_HEAL_INCREASE = 0.2;
 
 class DivineRevelations extends Analyzer {
-  lastCast: number = 0;
+  lastCast = 0;
 
-  healing: number = 0;
+  healing = 0;
 
   resourceGained: Map<number, number> = new Map<number, number>();
 

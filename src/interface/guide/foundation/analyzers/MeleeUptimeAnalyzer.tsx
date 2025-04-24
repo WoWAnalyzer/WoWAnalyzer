@@ -26,7 +26,7 @@ export class MeleeUptimeAnalyzer extends Analyzer.withDependencies({ haste: Hast
   private recentMelees: MeleeCast[] = [];
   private expectedNextMeleeTimestamp: number | undefined = undefined;
 
-  private gaps: Array<{ start: number; end: number }> = [];
+  private gaps: { start: number; end: number }[] = [];
 
   public static withMeleeAbility(ability: Spell) {
     return class extends MeleeUptimeAnalyzer {

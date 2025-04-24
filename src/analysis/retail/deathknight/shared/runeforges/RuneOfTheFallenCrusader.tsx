@@ -11,8 +11,8 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 const UNHOLY_STRENGTH_STRENGTH = 0.15; // 15% Str buff while active
 
 class RuneOfTheFallenCrusader extends Analyzer {
-  healing: number = 0;
-  overhealing: number = 0;
+  healing = 0;
+  overhealing = 0;
 
   constructor(options: Options) {
     super(options);

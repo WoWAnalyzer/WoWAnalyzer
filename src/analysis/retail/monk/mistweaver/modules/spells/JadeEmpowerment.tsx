@@ -11,9 +11,9 @@ import { getLowestPerf, QualitativePerformance } from 'parser/ui/QualitativePerf
 import { PerformanceMark } from 'interface/guide';
 
 class JadeEmpowerment extends Analyzer {
-  wastedCharges: number = 0;
+  wastedCharges = 0;
   castEntries: BoxRowEntry[] = [];
-  hasJFT: boolean = false;
+  hasJFT = false;
 
   constructor(options: Options) {
     super(options);

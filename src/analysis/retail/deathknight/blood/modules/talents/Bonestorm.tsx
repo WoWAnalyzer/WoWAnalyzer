@@ -16,7 +16,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 const SUGGESTED_MIN_TARGETS_FOR_BONESTORM = 1.5;
 
 class Bonestorm extends Analyzer {
-  bsCasts: Array<{ cost: number; hits: number[] }> = [];
+  bsCasts: { cost: number; hits: number[] }[] = [];
   totalBonestormDamage = 0;
 
   constructor(options: Options) {

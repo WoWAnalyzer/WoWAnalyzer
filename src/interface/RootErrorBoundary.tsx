@@ -1,8 +1,7 @@
-import { Trans, t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import ErrorBoundary from 'interface/ErrorBoundary';
 import FullscreenError from 'interface/FullscreenError';
 import ApiDownBackground from 'interface/images/api-down-background.gif';
-import PropTypes from 'prop-types';
 import React, { ErrorInfo, ReactNode } from 'react';
 
 import { EventsParseError } from './report/hooks/useEventParser';
@@ -62,10 +61,6 @@ interface State {
 }
 
 class RootErrorBoundary extends React.PureComponent<Props, State> {
-  static propTypes = {
-    children: PropTypes.node,
-  };
-
   constructor(props: Props) {
     super(props);
     this.state = {

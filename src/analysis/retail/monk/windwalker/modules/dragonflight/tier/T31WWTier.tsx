@@ -22,8 +22,8 @@ class T31TierSet extends Analyzer {
   protected combatants!: Combatants;
   protected spellUsable!: SpellUsable;
 
-  has2Piece: boolean = true;
-  has4Piece: boolean = true;
+  has2Piece = true;
+  has4Piece = true;
 
   constructor(options: Options) {
     super(options);

@@ -1,9 +1,7 @@
 // All regions for WoW
-const ALL_REGIONS = ['EU', 'US', 'TW', 'KR', 'CN'] as const;
-export type Region = (typeof ALL_REGIONS)[number];
+export type Region = 'EU' | 'US' | 'TW' | 'KR' | 'CN';
 
-const CLASSIC_REGIONS = ['EU', 'US', 'TW', 'KR'] as const;
-export type ClassicRegion = (typeof CLASSIC_REGIONS)[number];
+export type ClassicRegion = 'EU' | 'US' | 'TW' | 'KR';
 
 // WoWAnalyzer/Blizzard API supported regions
 const SUPPORTED_REGIONS = ['EU', 'US', 'TW', 'KR'] as const;

@@ -18,7 +18,7 @@ class ShiftingPower extends Analyzer {
   };
   protected spellUsable!: SpellUsable;
 
-  spellReductions: { [key: number]: number } = {};
+  spellReductions: Record<number, number> = {};
 
   constructor(options: Options) {
     super(options);

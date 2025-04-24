@@ -7,7 +7,7 @@ import { VisualizationSpec } from 'react-vega';
 
 import 'parser/ui/DonutChart.scss';
 
-export type Item = {
+export interface Item {
   label: React.ReactNode;
   tooltip?: React.ReactNode;
   color: string;
@@ -16,13 +16,13 @@ export type Item = {
   spellId?: number;
   itemLevel?: number;
   valueTooltip?: React.ReactNode;
-};
+}
 
-type Props = {
+interface Props {
   items: Item[];
   chartSize: number;
   innerRadiusFactor: number;
-};
+}
 
 class DonutChart extends PureComponent<Props> {
   static defaultProps = {

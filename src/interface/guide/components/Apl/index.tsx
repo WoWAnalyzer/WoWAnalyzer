@@ -113,12 +113,12 @@ const AplLayout = styled.div`
   }
 `;
 
-type AplSectionProps = {
+interface AplSectionProps {
   checker: ReturnType<typeof aplCheck>;
   apl: Apl;
   summary?: typeof AplSummary;
   violationExplainers?: AplViolationExplainers;
-};
+}
 
 export function AplSectionData({
   checker,

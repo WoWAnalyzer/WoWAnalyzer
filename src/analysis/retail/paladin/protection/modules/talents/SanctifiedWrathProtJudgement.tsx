@@ -12,7 +12,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
  * Analyzer to track additional and wasted Holy Power from Sanctified Wrath for Protection Paladins.
  */
 class SanctifiedWrathProtJudgement extends Analyzer {
-  buffedJudgements: number = 0;
+  buffedJudgements = 0;
   holyPowerWastes: number[] = [];
   CRIT_NO_HA_CHANGE = 4;
   CRIT_YES_HA_CHANGE = 6;

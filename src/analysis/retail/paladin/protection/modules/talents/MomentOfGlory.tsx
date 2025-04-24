@@ -14,8 +14,8 @@ const DAMAGE_MODIFIER = 0.2;
 const MOG_CDR = 15000 * 0.75;
 
 class MomentOfGlory extends Analyzer.withDependencies({ spellUsable: SpellUsable }) {
-  damageBoostedHits: number = 0;
-  totalExtraDamage: number = 0;
+  damageBoostedHits = 0;
+  totalExtraDamage = 0;
 
   constructor(options: Options) {
     super(options);

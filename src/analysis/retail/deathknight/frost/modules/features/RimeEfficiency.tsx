@@ -20,10 +20,10 @@ class RimeEfficiency extends Analyzer {
     abilityTracker: AbilityTracker,
   };
 
-  rimeProcs: number = 0;
-  lastProcTime: number = 0;
-  refreshedRimeProcs: number = 0;
-  expiredRimeProcs: number = 0;
+  rimeProcs = 0;
+  lastProcTime = 0;
+  refreshedRimeProcs = 0;
+  expiredRimeProcs = 0;
 
   constructor(options: Options) {
     super(options);

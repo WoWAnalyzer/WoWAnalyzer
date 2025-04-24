@@ -18,8 +18,8 @@ class TimeSkip extends Analyzer {
   };
   protected spellUsable!: SpellUsable;
 
-  timeSkipApplyTimestamp: number = 0;
-  timeSkipRemoveTimestamp: number = 0;
+  timeSkipApplyTimestamp = 0;
+  timeSkipRemoveTimestamp = 0;
 
   spellsToCDR = [
     SPELLS.UPHEAVAL,
@@ -56,7 +56,7 @@ class TimeSkip extends Analyzer {
   ];
 
   // Amount to CDR for each MS.
-  CDR_MS: number = 10;
+  CDR_MS = 10;
 
   MAX_CDR = this.selectedCombatant.hasTalent(TALENTS.TOMORROW_TODAY_TALENT) ? 30000 : 20000;
 

@@ -78,9 +78,9 @@ abstract class HotTracker extends Analyzer {
   /** A history of all HoTs that have been tracked over the course of this encounter */
   hotHistory: Tracker[] = [];
   /** All registered refresh callbacks, indexed by spellId to watch */
-  refreshHooks: { [key: number]: RefreshCallback[] } = {};
+  refreshHooks: Record<number, RefreshCallback[]> = {};
   /** All Attributions seen, indexed by name. */
-  attributions: { [key: string]: Attribution } = {};
+  attributions: Record<string, Attribution> = {};
 
   constructor(options: Options) {
     super(options);
@@ -219,9 +219,9 @@ abstract class HotTracker extends Analyzer {
     amount: number,
     targetId: number,
     spellId: number,
-    timestamp: number = 0, // apparently only used w/ max duration?
-    tickClamps: boolean = true,
-    pandemicClamps: boolean = false,
+    timestamp = 0, // apparently only used w/ max duration?
+    tickClamps = true,
+    pandemicClamps = false,
   ): void {
     if (!this.hots[targetId] || !this.hots[targetId][spellId]) {
       extensionDebug &&
@@ -937,10 +937,10 @@ abstract class HotTracker extends Analyzer {
 }
 
 /** A mapping from player ID and then spell ID to that player/spell's Tracker */
-type TrackersByPlayerAndSpell = { [key: number]: TrackersBySpell };
+type TrackersByPlayerAndSpell = Record<number, TrackersBySpell>;
 
 /** A mapping from spell ID to that spell's Tracker */
-export type TrackersBySpell = { [key: number]: Tracker };
+export type TrackersBySpell = Record<number, Tracker>;
 
 /** a tracking object for a specific instance of the player's HoT on a target */
 export interface Tracker {
@@ -1001,7 +1001,7 @@ interface Boost {
 }
 
 /** A mapping from spell ID to that spell's HotInfo */
-type HotInfoMap = { [key: number]: HotInfo };
+type HotInfoMap = Record<number, HotInfo>;
 
 /** Information about a Heal over Time spell specific to tracking */
 export interface HotInfo {

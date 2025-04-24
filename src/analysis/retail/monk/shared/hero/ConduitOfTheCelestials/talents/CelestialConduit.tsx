@@ -59,13 +59,13 @@ class CelestialConduit extends Analyzer {
 
   protected haste!: Haste;
   protected spellUsable!: SpellUsable;
-  damage: number = 0;
-  damageHits: number = 0;
-  healing: number = 0;
-  healingHits: number = 0;
-  cancelledCasts: number = 0;
-  channelStart: number = 0;
-  currentHaste: number = 0;
+  damage = 0;
+  damageHits = 0;
+  healing = 0;
+  healingHits = 0;
+  cancelledCasts = 0;
+  channelStart = 0;
+  currentHaste = 0;
   healingIncreaseDataPoints: number[] = [];
   damageIncreaseDataPoints: number[] = [];
   castInfoList: CastInfo[] = [];

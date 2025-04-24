@@ -31,9 +31,9 @@ class FuryOfTheEagle extends Analyzer {
 
   protected spellUsable!: SpellUsable;
   useEntries: BoxRowEntry[] = [];
-  private targetsHit: number = 0;
-  private casts: number = 0;
-  private damage: number = 0;
+  private targetsHit = 0;
+  private casts = 0;
+  private damage = 0;
   constructor(options: Options) {
     super(options);
 

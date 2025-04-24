@@ -20,8 +20,8 @@ import {
  * Prescience has a 35% chance to grant Essence Burst.
  */
 class Anachronism extends Analyzer {
-  prescienceCasts: number = 0;
-  essenceBurstGenerated: number = 0;
+  prescienceCasts = 0;
+  essenceBurstGenerated = 0;
 
   constructor(options: Options) {
     super(options);

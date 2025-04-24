@@ -24,7 +24,6 @@ class AimedShotPrepullNormalizer extends EventsNormalizer {
         }
         if (event.type === EventType.Cast) {
           if (lastBeginCastTimestamp === null) {
-            // eslint-disable-next-line @typescript-eslint/no-unused-expressions -- Intentional conditional behavior
             debug &&
               console.log(
                 'Aimed Shot without a Begin Cast registered',
@@ -39,9 +38,7 @@ class AimedShotPrepullNormalizer extends EventsNormalizer {
               __fabricated: true,
             };
             fixedEvents.push(fabricatedEvent);
-            // eslint-disable-next-line @typescript-eslint/no-unused-expressions -- Intentional conditional behavior
             debug && console.log('Real', event);
-            // eslint-disable-next-line @typescript-eslint/no-unused-expressions -- Intentional conditional behavior
             debug && console.log('Fabricated', fabricatedEvent);
           }
         }

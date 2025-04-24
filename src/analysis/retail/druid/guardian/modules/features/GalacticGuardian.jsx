@@ -36,7 +36,6 @@ class GalacticGuardian extends Analyzer {
 
   onApplyBuff(event) {
     this.lastGGProcTime = event.timestamp;
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions -- Intentional conditional behavior
     debug && console.log('Galactic Guardian applied');
     this.GGProcsTotal += 1;
   }
@@ -44,7 +43,6 @@ class GalacticGuardian extends Analyzer {
   onRefreshBuff(event) {
     // Captured Overwritten GG Buffs for use in wasted buff calculations
     this.lastGGProcTime = event.timestamp;
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions -- Intentional conditional behavior
     debug && console.log('Galactic Guardian Overwritten');
     this.GGProcsTotal += 1;
     this.overwrittenGGProc += 1;
@@ -61,7 +59,6 @@ class GalacticGuardian extends Analyzer {
         this.nonGGMoonFire += 1;
       } else {
         this.consumedGGProc += 1;
-        // eslint-disable-next-line @typescript-eslint/no-unused-expressions -- Intentional conditional behavior
         debug && console.log(`Galactic Guardian Proc Consumed / Timestamp: ${event.timestamp}`);
         this.lastGGProcTime = null;
       }

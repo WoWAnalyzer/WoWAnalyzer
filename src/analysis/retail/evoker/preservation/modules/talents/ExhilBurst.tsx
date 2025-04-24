@@ -11,8 +11,8 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
 class ExhilBurst extends Analyzer {
-  totalBoost: number = 0;
-  totalHealing: number = 0;
+  totalBoost = 0;
+  totalHealing = 0;
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.EXHILARATING_BURST_TALENT);

@@ -50,14 +50,14 @@ class BarbedShot extends Analyzer {
   protected globalCooldown!: GlobalCooldown;
 
   barbedShotStacks: number[][] = [];
-  lastBarbedShotStack: number = 0;
+  lastBarbedShotStack = 0;
   lastBarbedShotUpdate: number = this.owner.fight.start_time;
   frenzyBuffDuration: number = this.selectedCombatant.hasTalent(TALENTS.SAVAGERY_TALENT)
     ? SAVAGERY_FRENZY_DURATION
     : ORIGINAL_FRENZY_DURATION;
 
   //Guide specific variables
-  castEntries: Array<BoxRowEntry & { event: CastEvent }> = [];
+  castEntries: (BoxRowEntry & { event: CastEvent })[] = [];
 
   constructor(options: Options) {
     super(options);

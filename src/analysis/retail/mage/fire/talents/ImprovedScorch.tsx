@@ -19,9 +19,9 @@ class ImprovedScorch extends Analyzer {
   protected enemies!: Enemies;
   protected sharedCode!: SharedCode;
 
-  executeActive: boolean = false;
-  executeStart: number = 0;
-  executeTime: number = 0;
+  executeActive = false;
+  executeStart = 0;
+  executeTime = 0;
 
   constructor(options: Options) {
     super(options);

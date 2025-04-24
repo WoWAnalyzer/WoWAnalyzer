@@ -22,10 +22,10 @@ class MindDevourer extends Analyzer {
   protected eventHistory!: EventHistory;
   protected abilityTracker!: AbilityTracker;
 
-  procsGained: number = 0; //Total gained Procs
-  procsExpired: number = 0; //procs lost to time
-  procsOver: number = 0; //procs lost to refresh
-  lastProcTime: number = 0;
+  procsGained = 0; //Total gained Procs
+  procsExpired = 0; //procs lost to time
+  procsOver = 0; //procs lost to refresh
+  lastProcTime = 0;
 
   constructor(options: Options) {
     super(options);

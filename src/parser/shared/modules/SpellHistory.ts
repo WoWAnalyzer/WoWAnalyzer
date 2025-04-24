@@ -37,9 +37,7 @@ class SpellHistory extends Analyzer {
   protected abilities!: Abilities;
   protected abilityTracker!: AbilityTracker;
 
-  public historyBySpellId: {
-    [spellId: number]: SpellHistoryEvent[];
-  } = {
+  public historyBySpellId: Record<number, SpellHistoryEvent[]> = {
     // This contains the raw event to have all information one might ever need and so that we don't construct additional objects that take their own memory.
     // [spellId]: [
     //   {type: EventType.Cast, timestamp, ...},

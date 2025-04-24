@@ -92,8 +92,8 @@ export interface WCLDamageDoneTableResponse {
 type WCLDamageDone = WCLDamageTaken;
 
 export interface WCLDamageTaken {
-  abilities: Array<{ name: string; total: number; totalReduced: number; type: number }>;
-  sources: Array<{ name: string; total: number; totalReduced: number; type: string }>;
+  abilities: { name: string; total: number; totalReduced: number; type: number }[];
+  sources: { name: string; total: number; totalReduced: number; type: string }[];
   activeTime: number;
   activeTimeReduced: number;
   efftmi: number;

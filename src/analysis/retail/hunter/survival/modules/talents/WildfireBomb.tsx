@@ -42,15 +42,15 @@ class WildfireBomb extends Analyzer {
   protected globalCooldown!: GlobalCooldown;
   useEntries: BoxRowEntry[] = [];
   //private acceptedCastDueToCapping: boolean = false;
-  private currentGCD: number = 0;
-  private casts: number = 0;
-  private targetsHit: number = 0;
+  private currentGCD = 0;
+  private casts = 0;
+  private targetsHit = 0;
   // Travel time of Wildfire Bomb can allow you to consume a tip with the following GCD and so tippedCasts should = tippedDamage
-  private tippedCast: number = 0;
-  private tippedDamage: number = 0;
-  private goodCast: number = 0;
-  private effectiveReductionMs: number = 0;
-  private wastedReductionMs: number = 0;
+  private tippedCast = 0;
+  private tippedDamage = 0;
+  private goodCast = 0;
+  private effectiveReductionMs = 0;
+  private wastedReductionMs = 0;
   constructor(options: Options) {
     super(options);
 

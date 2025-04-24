@@ -55,7 +55,7 @@ class SummonDemonicTyrant extends Analyzer {
   private hasReignOfTyranny = false;
   private hasGFG = false;
 
-  private summsWithDemonicPower: { [id: string]: any }[] = [{}];
+  private summsWithDemonicPower: Record<string, any>[] = [{}];
   private tyrantsCast = 0;
   private tyrantCasts: TyrantCast[] = [];
   private castTimeline: AnyEvent[] = [];

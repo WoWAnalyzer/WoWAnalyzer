@@ -1,5 +1,5 @@
 import { defineMessage } from '@lingui/core/macro';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage, formatDurationMillisMinSec } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
 import HIT_TYPES from 'game/HIT_TYPES';
@@ -10,6 +10,7 @@ import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 import { REDUCTION_TIME as RP_REDUCTION_TIME } from '../talents/RighteousProtector';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib.js';
 
 const HEAL_DELAY_THRESHOLD = 2000;
 
@@ -104,14 +105,14 @@ export default class LightOfTheProtector extends Analyzer {
       return; // nothing left to do
     }
 
-    const meta = event.meta || {
-      inefficientCastReason: `This ${this.activeSpell.name} cast was inefficient because:`,
-    };
-    meta.inefficientCastReason += `<br/> - You delayed casting it for <b>${(delay / 1000).toFixed(
-      2,
-    )}s</b> after being hit.`;
-    meta.isInefficientCast = true;
-    event.meta = meta;
+    addInefficientCastReason(
+      event,
+      <>
+        This {this.activeSpell.name} cast was inefficient because:
+        <br />- You delayed casting it for{' '}
+        <strong>{formatDurationMillisMinSec(delay)} after being hit.</strong>
+      </>,
+    );
   }
 
   _countHeal(event) {
@@ -123,14 +124,14 @@ export default class LightOfTheProtector extends Analyzer {
       return; // not gonna penalize overhealing on crits because it heals for SO MUCH
     }
 
-    const meta = event.meta || {
-      inefficientCastReason: `This ${this.activeSpell.name} cast was inefficient because:`,
-    };
-    meta.inefficientCastReason += `<br/> - You cast it while at high health, causing it to overheal for ${formatNumber(
-      overhealing,
-    )}.`;
-    meta.isInefficientCast = true;
-    event.meta = meta;
+    addInefficientCastReason(
+      event,
+      <>
+        This {this.activeSpell.name} cast was inefficient because:
+        <br />- You cast it while at high health, causing it to overheal for{' '}
+        {formatNumber(overhealing)}.
+      </>,
+    );
   }
 
   get avgDelay() {

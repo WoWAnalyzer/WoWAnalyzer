@@ -10,7 +10,7 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
@@ -37,22 +37,5 @@
     },
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["./types", "./src"],
-  "exclude": [
-    "src/analysis/retail/deathknight/unholy",
-    "src/analysis/retail/priest/discipline",
-    "src/analysis/retail/rogue/shared",
-    "src/analysis/retail/warlock/demonology",
-    "src/analysis/retail/warlock/destruction",
-    "src/analysis/retail/warrior/fury"
-  ],
-  "files": [
-    "./src/analysis/retail/deathknight/unholy/CONFIG.tsx",
-    "./src/analysis/retail/mage/frost/CONFIG.tsx",
-    "./src/analysis/retail/priest/discipline/CONFIG.tsx",
-    "./src/analysis/retail/warlock/affliction/CONFIG.tsx",
-    "./src/analysis/retail/warlock/demonology/CONFIG.tsx",
-    "./src/analysis/retail/warlock/destruction/CONFIG.tsx",
-    "./src/analysis/retail/warrior/fury/CONFIG.tsx"
-  ]
+  "include": ["./types", "./src"]
 }

@@ -5,14 +5,14 @@ import { HasAbility, AnyEvent, EventType } from 'parser/core/Events';
 import Module from 'parser/core/Module';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 
-type EventSearchOptions = {
+interface EventSearchOptions {
   searchBackwards?: boolean;
   spell?: SpellInfo | SpellInfo[];
   count?: number;
   startTimestamp?: number;
   duration?: number;
   includePets?: boolean;
-};
+}
 
 class EventHistory extends Module {
   protected buildFilter<ET extends EventType, E extends AnyEvent>(
@@ -179,7 +179,7 @@ class EventHistory extends Module {
       duration,
       includePets,
     }: EventSearchOptions = {},
-  ): Array<AnyEvent<ET>> {
+  ): AnyEvent<ET>[] {
     const source = includePets ? SELECTED_PLAYER | SELECTED_PLAYER_PET : SELECTED_PLAYER;
     const eventFilter = spell
       ? new EventFilter(eventType).by(source).spell(spell)
@@ -204,7 +204,7 @@ class EventHistory extends Module {
     buff: SpellInfo,
     eventType: ET,
     spell?: SpellInfo | SpellInfo[],
-  ): Array<AnyEvent<ET>> {
+  ): AnyEvent<ET>[] {
     const events = this.getEvents(eventType, { searchBackwards: true, spell: spell });
     const filteredEvents = events.filter((e) =>
       this.selectedCombatant.hasBuff(buff.id, e.timestamp - 1),
@@ -222,7 +222,7 @@ class EventHistory extends Module {
     buff: SpellInfo,
     eventType: ET,
     spell?: SpellInfo | SpellInfo[],
-  ): Array<AnyEvent<ET>> {
+  ): AnyEvent<ET>[] {
     const events = this.getEvents(eventType, { searchBackwards: true, spell: spell });
     const filteredEvents = events.filter(
       (e) => !this.selectedCombatant.hasBuff(buff.id, e.timestamp - 1),

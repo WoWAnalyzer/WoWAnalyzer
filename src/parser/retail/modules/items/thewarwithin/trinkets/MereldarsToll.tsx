@@ -25,7 +25,7 @@ export default class MereldarsToll extends Analyzer.withDependencies({
   abilities: Abilities,
   combatants: Combatants,
 }) {
-  protected damage: number = 0;
+  protected damage = 0;
 
   constructor(options: Options) {
     super(options);

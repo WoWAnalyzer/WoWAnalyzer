@@ -19,8 +19,8 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
  */
 class AnimalCompanion extends Analyzer {
   damage = 0;
-  pets: Array<{ petName: string; sourceID: number | undefined; damage: number }> = [];
-  mainPetName: string = '';
+  pets: { petName: string; sourceID: number | undefined; damage: number }[] = [];
+  mainPetName = '';
 
   constructor(options: Options) {
     super(options);

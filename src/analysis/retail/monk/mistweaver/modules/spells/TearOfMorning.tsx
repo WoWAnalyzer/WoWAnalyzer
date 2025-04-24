@@ -22,11 +22,11 @@ class TearOfMorning extends Analyzer {
 
   protected hotTracker!: HotTrackerMW;
 
-  duplicatedRems: number = 0;
-  invigoratingMistHealing: number = 0;
-  envelopingMisthealing: number = 0;
-  envelopCasts: number = 0;
-  tftCleaveHealing: number = 0;
+  duplicatedRems = 0;
+  invigoratingMistHealing = 0;
+  envelopingMisthealing = 0;
+  envelopCasts = 0;
+  tftCleaveHealing = 0;
 
   constructor(options: Options) {
     super(options);

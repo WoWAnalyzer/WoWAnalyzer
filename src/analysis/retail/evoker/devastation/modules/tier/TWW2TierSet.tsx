@@ -11,13 +11,13 @@ import SpellLink from 'interface/SpellLink';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 import { getConsumedJackpotStacks, JACKPOT_CONSUME } from '../normalizers/CastLinkNormalizer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-type JackpotConsume = {
+interface JackpotConsume {
   event: RemoveBuffEvent;
   stacks: number;
   remainingFireBreathCooldown: number;
   engulfChargesAvailable: number;
   empowerEvent?: EmpowerEndEvent;
-};
+}
 
 /**
  * (4) Set Devastation: Casting Shattering Star or hitting a Jackpot!

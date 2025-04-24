@@ -26,39 +26,39 @@ class DancingMists extends Analyzer {
   protected vivify!: Vivify;
   hotTracker!: HotTrackerMW;
   //totals
-  casts: number = 0;
-  overhealTicks: number = 0;
-  bounceTicks: number = 0;
-  remApplyCount: number = 0;
-  dancingMistCount: number = 0;
-  dancingMistReMHealing: number = 0;
-  dancingMistOverhealing: number = 0;
-  extraVivCleaves: number = 0;
-  extraMistyPeaksProcs: number = 0;
-  countedMainVivifyHit: boolean = false;
-  dancingMistVivifyHealing: number = 0;
-  zenPulseHits: number = 0;
-  dancingMistZenPulseHealing: number = 0;
-  extraVivOverhealing: number = 0;
-  mistyPeaksHealingFromDancingMist: number = 0;
+  casts = 0;
+  overhealTicks = 0;
+  bounceTicks = 0;
+  remApplyCount = 0;
+  dancingMistCount = 0;
+  dancingMistReMHealing = 0;
+  dancingMistOverhealing = 0;
+  extraVivCleaves = 0;
+  extraMistyPeaksProcs = 0;
+  countedMainVivifyHit = false;
+  dancingMistVivifyHealing = 0;
+  zenPulseHits = 0;
+  dancingMistZenPulseHealing = 0;
+  extraVivOverhealing = 0;
+  mistyPeaksHealingFromDancingMist = 0;
   //rapid diffusion
-  dancingMistRapidDiffusionCount: number = 0;
-  vivHealingFromRD: number = 0;
-  mpHealingFromRD: number = 0;
-  remHealingFromRD: number = 0;
-  zpHealingFromRD: number = 0;
+  dancingMistRapidDiffusionCount = 0;
+  vivHealingFromRD = 0;
+  mpHealingFromRD = 0;
+  remHealingFromRD = 0;
+  zpHealingFromRD = 0;
   //hard casts
-  dancingMistHardCastCount: number = 0;
-  vivHealingFromHardcast: number = 0;
-  mpHealingFromHardcast: number = 0;
-  remHealingFromHardcast: number = 0;
-  zpHealingFromHardcast: number = 0;
+  dancingMistHardCastCount = 0;
+  vivHealingFromHardcast = 0;
+  mpHealingFromHardcast = 0;
+  remHealingFromHardcast = 0;
+  zpHealingFromHardcast = 0;
   //mists of life
-  dancingMistMistsOfLifeCount: number = 0;
-  vivHealingFromMoL: number = 0;
-  mpHealingFromMoL: number = 0;
-  remHealingFromMol: number = 0;
-  zpHealingFromMol: number = 0;
+  dancingMistMistsOfLifeCount = 0;
+  vivHealingFromMoL = 0;
+  mpHealingFromMoL = 0;
+  remHealingFromMol = 0;
+  zpHealingFromMol = 0;
 
   get dancingMistItems() {
     return [

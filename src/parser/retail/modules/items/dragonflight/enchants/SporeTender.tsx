@@ -45,15 +45,16 @@ const deps = {
 };
 
 class SporeTender extends withDependencies(WeaponEnchantAnalyzer<SporeTenderEnchantRank>, deps) {
-  private targetStatistics: {
-    [targetId: number]: {
+  private targetStatistics: Record<
+    number,
+    {
       count: number;
       periods: {
         start?: number;
         end?: number;
       }[];
-    };
-  } = {};
+    }
+  > = {};
 
   constructor(options: Options) {
     super(SPELLS.SPORE_TENDER_ENCHANT, RANKS, options);

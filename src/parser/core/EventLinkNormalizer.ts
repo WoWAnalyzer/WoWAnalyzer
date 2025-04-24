@@ -16,7 +16,7 @@ import Combatant from 'parser/core/Combatant';
  * By default, the linking event adds the referenced event to its _linkedEvents, but not vice versa.
  * By default, the linked events must have the same timestamp, source, and target.
  */
-export type EventLink = {
+export interface EventLink {
   /** REQUIRED The key string used to describe the relationship between the events */
   linkRelation: string;
   /** REQUIRED The ability id or ids of the event that is adding link(s)
@@ -59,7 +59,7 @@ export type EventLink = {
    *  Useful if using a list of interdependent specs where some are talent dependent.
    *  Defaults to 'true' when omitted. */
   isActive?: (c: Combatant) => boolean;
-};
+}
 
 /**
  * An event normalizer that uses an Event's _linkedEvents field to indicate an association

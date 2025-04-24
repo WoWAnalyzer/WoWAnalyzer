@@ -12,7 +12,7 @@ import './Styling.scss';
  * Represents the configuration options for the individual graphs that
  * should be rendered.
  */
-export type GraphData = {
+export interface GraphData {
   graphData: DataSeries[];
   /** timestamp to start rendering the graph at */
   startTime: number;
@@ -22,7 +22,7 @@ export type GraphData = {
    * Will not render on single graphs*/
   title?: string;
   error?: JSX.Element;
-};
+}
 
 /**
  * Represents a series of data points for the graph, including information
@@ -30,7 +30,7 @@ export type GraphData = {
  * and color.
  * This is the data we hand to Vega for graphing.
  */
-export type DataSeries = {
+export interface DataSeries {
   spellTracker: SpellTracker[];
   /** The type of data this is */
   type: 'area' | 'line' | 'point';
@@ -40,28 +40,28 @@ export type DataSeries = {
   strokeWidth?: number;
   size?: number;
   hideTooltip?: boolean;
-};
+}
 
 /**
  * Represents a data point for tracking spells, including timestamp, count,
  * and an optional tooltip.
  */
-export type SpellTracker = {
+export interface SpellTracker {
   /** Timestamp the event occured */
   timestamp: number;
   /** y-axis value */
   count: number;
   /** Optional tooltip, used for points */
   tooltip?: string;
-};
+}
 
-type Props = {
+interface Props {
   fightStartTime: number;
   fightEndTime: number;
   graphData: GraphData[];
   yAxisName: string;
   explanations?: JSX.Element[];
-};
+}
 
 /**
  * Function to generate GraphData from a list of DataSeries.
@@ -215,7 +215,7 @@ const ExplanationGraph: React.FC<Props> = ({
     }
   }
 
-  function generateAreas(): Array<UnitSpec<Field> | LayerSpec<Field>> {
+  function generateAreas(): (UnitSpec<Field> | LayerSpec<Field>)[] {
     const areas: UnitSpec<Field>[] = [];
     currentGraph.graphData.forEach((dataSeries) => {
       if (dataSeries.type === 'area') {
@@ -228,7 +228,7 @@ const ExplanationGraph: React.FC<Props> = ({
     return areas;
   }
 
-  function generateLines(): Array<UnitSpec<Field> | LayerSpec<Field>> {
+  function generateLines(): (UnitSpec<Field> | LayerSpec<Field>)[] {
     const lines: UnitSpec<Field>[] = [];
     currentGraph.graphData.forEach((dataSeries) => {
       if (dataSeries.type === 'line') {
@@ -241,7 +241,7 @@ const ExplanationGraph: React.FC<Props> = ({
     return lines;
   }
 
-  function generatePoints(): Array<UnitSpec<Field> | LayerSpec<Field>> {
+  function generatePoints(): (UnitSpec<Field> | LayerSpec<Field>)[] {
     const points: UnitSpec<Field>[] = [];
     currentGraph.graphData.forEach((dataSeries) => {
       if (dataSeries.type === 'point') {

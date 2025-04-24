@@ -20,7 +20,7 @@ const {
 
 const { DRAGONRAGE_TALENT, PYRE_TALENT } = TALENTS_EVOKER;
 
-export type RageWindowCounter = {
+export interface RageWindowCounter {
   start: number;
   fireBreaths: number;
   eternitySurges: number;
@@ -29,16 +29,14 @@ export type RageWindowCounter = {
   disintegrateTicks: number;
   end: number;
   fightEndDuringDR: boolean;
-};
+}
 
 class DragonRage extends Analyzer {
-  totalBreaths: number = 0;
-  totalApplications: number = 0;
-  totalCasts: number = 0;
-  inDragonRageWindow: boolean = false;
-  rageWindowCounters: {
-    [window: number]: RageWindowCounter;
-  } = {};
+  totalBreaths = 0;
+  totalApplications = 0;
+  totalCasts = 0;
+  inDragonRageWindow = false;
+  rageWindowCounters: Record<number, RageWindowCounter> = {};
 
   constructor(options: Options) {
     super(options);

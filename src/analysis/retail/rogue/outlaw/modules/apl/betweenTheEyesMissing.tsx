@@ -25,7 +25,7 @@ const BTE_PANDEMICDATA: PandemicData = {
   pandemicCap: 1,
 };
 
-export function betweenTheEyesMissing(): Condition<{ [key: string]: DurationData }> {
+export function betweenTheEyesMissing(): Condition<Record<string, DurationData>> {
   return {
     key: `debuffMissing-${BTE_ID}`,
     init: () => ({}),

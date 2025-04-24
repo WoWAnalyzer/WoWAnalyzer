@@ -14,12 +14,12 @@ import { GapHighlight } from 'parser/ui/CooldownBar';
  *     isActive: (c) => c.hasTalent(TALENTS.WAKE_OF_ASHES_TALENT),
  *   },
  */
-export type Cooldown = {
+export interface Cooldown {
   spell: Spell;
   isActive?: (c: Combatant) => boolean;
-};
+}
 
-type CooldownGraphSubsectionProps = {
+interface CooldownGraphSubsectionProps {
   /**
    * Any cooldowns that we want to render in our graph.
    */
@@ -36,7 +36,7 @@ type CooldownGraphSubsectionProps = {
    * How many casts of a spell will remove its icon from the graph? Defaults to 10.
    */
   tooManyCasts?: number;
-};
+}
 
 /**
  * Renders a subsection for a Guide that contains cast efficiency information about cooldowns that

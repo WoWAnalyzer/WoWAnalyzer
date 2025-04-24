@@ -9,7 +9,7 @@ const debug = false;
 const AVENGING_CRUSADER_SPELLS = [SPELLS.CRUSADER_STRIKE.id, SPELLS.JUDGMENT_CAST_HOLY.id];
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
-  hasAC: boolean = false;
+  hasAC = false;
 
   constructor(options: Options) {
     super(options);

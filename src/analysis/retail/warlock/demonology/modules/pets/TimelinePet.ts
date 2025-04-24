@@ -49,7 +49,7 @@ export class TimelinePet {
   // Wild Imp properties
   x: number | null = null;
   y: number | null = null;
-  shouldImplode: boolean = false;
+  shouldImplode = false;
   currentEnergy: number | null = null; // energy because they can despawn "prematurely" due to their mechanics
 
   constructor(

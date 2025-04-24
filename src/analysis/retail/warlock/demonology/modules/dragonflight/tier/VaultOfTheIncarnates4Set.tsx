@@ -12,13 +12,13 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
  */
 
 class DemonologyWarlockVaultOfTheIncarnates4Set extends Analyzer {
-  applications: number = 0;
-  wastedApplications: number = 0;
+  applications = 0;
+  wastedApplications = 0;
 
-  isBuffActive: boolean = false;
+  isBuffActive = false;
 
-  demonboltCasts: number = 0;
-  demonboltCastsWithBuffActive: number = 0;
+  demonboltCasts = 0;
+  demonboltCastsWithBuffActive = 0;
 
   constructor(options: Options) {
     super(options);

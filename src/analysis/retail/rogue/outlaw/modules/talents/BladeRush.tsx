@@ -33,7 +33,7 @@ class BladeRush extends Analyzer {
   protected spellUsable!: SpellUsable;
 
   unusableUptimes: Uptime[] = [];
-  isInUsablePeriod: boolean = false;
+  isInUsablePeriod = false;
   castEntries: BoxRowEntry[] = [];
 
   constructor(options: Options) {

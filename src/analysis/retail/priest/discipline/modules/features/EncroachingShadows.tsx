@@ -57,7 +57,7 @@ class EncroachingShadows extends Analyzer {
   dotSpell: any;
   ptwCasts = 0;
   ptwApplications = 0;
-  lastCastTarget: number = 0;
+  lastCastTarget = 0;
   ptwCleaveTracker: any = {};
   dotRatios: DotInformation = {};
 

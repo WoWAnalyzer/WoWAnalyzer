@@ -2,7 +2,7 @@ import isLatestPatch from 'game/isLatestPatch';
 import SupportCheckerSpecOutOfDate from 'interface/report/SupportCheckerSpecOutOfDate';
 import SupportCheckerSpecPartialSupport from 'interface/report/SupportCheckerSpecPartialSupport';
 import { getSpecsIgnoredNotSupportedWarning } from 'interface/selectors/skipSpecNotSupported';
-import { ReactElement } from 'react';
+import { ReactNode } from 'react';
 import { useDispatch } from 'react-redux';
 import { usePlayer } from 'interface/report/context/PlayerContext';
 import { useReport } from 'interface/report/context/ReportContext';
@@ -14,7 +14,7 @@ import { ignoreSpecNotSupportedWarning } from 'interface/reducers/specsIgnoredNo
 import { SupportLevel } from 'parser/Config';
 
 interface Props {
-  children: ReactElement<any, any> | null;
+  children: ReactNode;
 }
 
 const SupportChecker = ({ children }: Props) => {

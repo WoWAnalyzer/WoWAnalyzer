@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/rogue';
-import { EventType } from 'parser/core/Events';
+import { AnyEvent, EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 /**
@@ -21,8 +21,8 @@ class ShurikenStormNormalizer extends EventsNormalizer {
    */
   minCPs = 3;
 
-  normalize(events: any) {
-    const fixedEvents: any[] = [];
+  normalize(events: AnyEvent[]) {
+    const fixedEvents: AnyEvent[] = [];
 
     //Player CP Pool
     let cpPool = 5;
@@ -30,7 +30,7 @@ class ShurikenStormNormalizer extends EventsNormalizer {
       cpPool += 1;
     }
 
-    events.forEach((event: any, eventIndex: number) => {
+    events.forEach((event: AnyEvent, eventIndex: number) => {
       fixedEvents.push(event);
 
       // Find Shuriken Storm CP Events

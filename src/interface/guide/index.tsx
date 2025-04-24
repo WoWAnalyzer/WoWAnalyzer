@@ -76,7 +76,7 @@ import type CombatLogParser from 'parser/core/CombatLogParser';
 import { AnyEvent } from 'parser/core/Events';
 import { Info } from 'parser/core/metric';
 import Module from 'parser/core/Module';
-import React, { useContext, useMemo, useState } from 'react';
+import React, { ComponentPropsWithoutRef, JSX, useContext, useMemo, useState } from 'react';
 import './Guide.scss';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
@@ -85,7 +85,9 @@ type ConstructedModules<T> = {
   [Key in keyof T]: Constructed<T[Key]>;
 };
 
-type HasSpecModules<Deps> = { specModules: Deps };
+interface HasSpecModules<Deps> {
+  specModules: Deps;
+}
 
 /**
  * Construct a type representing the *constructed* modules for a given
@@ -115,11 +117,11 @@ export type ModulesOf<T extends typeof CombatLogParser> = ConstructedModules<
  * }
  * ```
  */
-export type GuideProps<T extends typeof CombatLogParser> = {
+export interface GuideProps<T extends typeof CombatLogParser> {
   modules: ModulesOf<T>;
   events: AnyEvent[];
   info: Info;
-};
+}
 
 /**
  * Shortcut type for guide components. Make sure to specify your spec's
@@ -144,12 +146,11 @@ export default Guide;
  * use the same structure. If you're building a section of your guide, you
  * probably want `Section` instead.
  */
-// eslint-disable-next-line react/prop-types
 export const SectionHeader = ({
   children,
   className,
   ...props
-}: React.ComponentProps<'header'>) => (
+}: ComponentPropsWithoutRef<'header'>) => (
   <header className={`flex ${className ?? ''}`} {...props}>
     <div className="flex-main name">{children}</div>
     <div className="flex-sub chevron">
@@ -273,7 +274,7 @@ type ModuleList<T> = {
  * }
  * ```
  */
-export function useAnalyzers<Arr extends { [Key: number]: typeof Module }>(
+export function useAnalyzers<Arr extends Record<number, typeof Module>>(
   values: Arr,
 ): ModuleList<Arr> {
   const ctx = useContext(GuideContext);

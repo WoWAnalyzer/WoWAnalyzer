@@ -33,7 +33,7 @@ const deps = {
  */
 export default class CenariusGuidanceTol extends Analyzer.withDependencies(deps) {
   /** CDR applied to the current ToL cooling down */
-  cdrOnCurrCast: number = 0;
+  cdrOnCurrCast = 0;
   /** CDR applied to prior ToL cooldowns */
   cdrPerCast: number[] = [];
 

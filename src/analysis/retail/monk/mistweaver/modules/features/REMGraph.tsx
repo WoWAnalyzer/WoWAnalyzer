@@ -9,10 +9,10 @@ import { VisualizationSpec } from 'react-vega';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { getCurrentRSKTalent, SPELL_COLORS } from '../../constants';
 
-type SpellTracker = {
+interface SpellTracker {
   timestamp: number;
   remCount: number;
-};
+}
 
 class REMGraph extends Analyzer {
   remChanges: SpellTracker[] = [];
@@ -20,7 +20,7 @@ class REMGraph extends Analyzer {
   instantVivifyCasts: SpellTracker[] = [];
   rskCasts: SpellTracker[] = [];
 
-  currentRems: number = 0;
+  currentRems = 0;
 
   constructor(options: Options) {
     super(options);

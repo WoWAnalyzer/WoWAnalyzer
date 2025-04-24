@@ -5,8 +5,8 @@ import Events, { ApplyBuffEvent, ApplyBuffStackEvent, CastEvent } from 'parser/c
 import { isCastFromEB } from 'analysis/retail/evoker/shared/modules/normalizers/EssenceBurstCastLinkNormalizer';
 
 class EssenceBurst extends Analyzer {
-  procs: number = 0;
-  consumedProcs: number = 0;
+  procs = 0;
+  consumedProcs = 0;
 
   constructor(options: Options) {
     super(options);

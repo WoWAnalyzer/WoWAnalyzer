@@ -13,8 +13,8 @@ import SpellLink from 'interface/SpellLink';
 export function repeatableBuffPresent(
   spell: Spell | Spell[],
   range: Range,
-  latencyOffset: number = 0,
-): Condition<{ [spellId: number]: number }> {
+  latencyOffset = 0,
+): Condition<Record<number, number>> {
   if (!Array.isArray(spell)) {
     spell = [spell];
   }

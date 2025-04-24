@@ -23,14 +23,14 @@ import {
 const debug = false;
 
 class BasicAttacks extends Analyzer {
-  lastCast: number = 0;
-  timeBetweenAttacks: number = 0;
-  totalCasts: number = 0;
-  chainCasts: number = 0;
-  damage: number = 0;
+  lastCast = 0;
+  timeBetweenAttacks = 0;
+  totalCasts = 0;
+  chainCasts = 0;
+  damage = 0;
   //Assume that the usedBasicAttack is Bite, so that there are no issues if no Basic Attack have been cast this fight
   usedBasicAttack: number = SPELLS.BITE_BASIC_ATTACK.id;
-  basicAttackChecked: boolean = false;
+  basicAttackChecked = false;
 
   constructor(options: Options) {
     super(options);
@@ -80,7 +80,7 @@ class BasicAttacks extends Analyzer {
     this.totalCasts += 1;
   }
 
-  potentialExtraCasts(dreamScenario: boolean = false) {
+  potentialExtraCasts(dreamScenario = false) {
     const usedTimeBetween = dreamScenario
       ? NO_DELAY_TIME_BETWEEN_BASIC_ATK
       : MACRO_TIME_BETWEEN_BASIC_ATK;
@@ -90,7 +90,7 @@ class BasicAttacks extends Analyzer {
     );
   }
 
-  potentialExtraDamage(dreamScenario: boolean = false) {
+  potentialExtraDamage(dreamScenario = false) {
     return this.potentialExtraCasts(dreamScenario) * (this.damage / this.totalCasts) || 0;
   }
 

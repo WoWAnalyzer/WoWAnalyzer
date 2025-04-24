@@ -13,8 +13,8 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 // Track how many times Crushing Blow was used when another ability would have been preferred
 class CrushingBlow extends Analyzer {
-  badCrushingBlows: number = 0;
-  unenragedCount: number = 0;
+  badCrushingBlows = 0;
+  unenragedCount = 0;
 
   constructor(options: Options) {
     super(options);

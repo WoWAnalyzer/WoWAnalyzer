@@ -1,5 +1,8 @@
-export const specificGearSets: { [key: number]: unknown } = {
-  62: [
+import SPECS from 'game/SPECS';
+import { Item } from 'parser/core/Events';
+
+export const specificGearSets: Record<number, Item[]> = {
+  [SPECS.ARCANE_MAGE.id]: [
     //Arcane Mage
     {
       id: 163427,
@@ -92,7 +95,7 @@ export const specificGearSets: { [key: number]: unknown } = {
     { id: 0, quality: 1, icon: 'inv_axe_02.jpg', itemLevel: 0 },
     { id: 0, quality: 1, icon: 'inv_axe_02.jpg', itemLevel: 0 },
   ],
-  71: [
+  [SPECS.ARMS_WARRIOR.id]: [
     //Arms Warrior
     { id: 180900, quality: 4, icon: 'inv_helm_plate_revendreth_d_01.jpg', itemLevel: 200 },
     {
@@ -155,7 +158,7 @@ export const specificGearSets: { [key: number]: unknown } = {
     { id: 0, quality: 1, icon: 'inv_axe_02.jpg', itemLevel: 0 },
     { id: 0, quality: 1, icon: 'inv_axe_02.jpg', itemLevel: 0 },
   ],
-  253: [
+  [SPECS.BEAST_MASTERY_HUNTER.id]: [
     //Beast Mastery Hunter
     {
       id: 163447,
@@ -248,7 +251,7 @@ export const specificGearSets: { [key: number]: unknown } = {
     { id: 0, quality: 1, icon: 'inv_axe_02.jpg', itemLevel: 0 },
     { id: 0, quality: 1, icon: 'inv_axe_02.jpg', itemLevel: 0 },
   ],
-  254: [
+  [SPECS.MARKSMANSHIP_HUNTER.id]: [
     //Marksmanship Hunter
     {
       id: 172325,
@@ -347,7 +350,7 @@ export const specificGearSets: { [key: number]: unknown } = {
     { id: 0, quality: 1, icon: 'inv_axe_02.jpg', itemLevel: 0 },
     { id: 0, quality: 1, icon: 'inv_axe_02.jpg', itemLevel: 0 },
   ],
-  270: [
+  [SPECS.MISTWEAVER_MONK.id]: [
     //Mistweaver Monk
     {
       id: 172317,

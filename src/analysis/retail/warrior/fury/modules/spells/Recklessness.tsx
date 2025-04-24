@@ -11,7 +11,7 @@ import Statistic from 'parser/ui/Statistic';
 class Recklessness extends Analyzer.withDependencies({
   RageTracker,
 }) {
-  reckDamage: number = 0;
+  reckDamage = 0;
 
   constructor(options: Options) {
     super(options);

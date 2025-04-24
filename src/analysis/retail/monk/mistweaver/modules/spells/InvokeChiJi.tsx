@@ -46,22 +46,22 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
   protected envb!: EnvelopingBreath;
   castTrackers: ChijiCastTracker[] = [];
   //healing breakdown vars
-  gustHealing: number = 0;
-  envelopHealing: number = 0;
-  chiCocoonHealing: number = 0;
+  gustHealing = 0;
+  envelopHealing = 0;
+  chiCocoonHealing = 0;
   //stack breakdown vars
-  chijiStackCount: number = 0;
-  castsBelowMaxStacks: number = 0;
-  wastedStacks: number = 0;
-  freeCasts: number = 0;
+  chijiStackCount = 0;
+  castsBelowMaxStacks = 0;
+  wastedStacks = 0;
+  freeCasts = 0;
   //missed GCDs vars
-  missedGlobals: number = 0;
-  chijiStart: number = 0;
-  chijiGlobals: number = 0;
-  chijiUses: number = 0;
-  lastGlobal: number = 0;
-  checkForSckDamage: number = -1;
-  castBokInWindow: boolean = false;
+  missedGlobals = 0;
+  chijiStart = 0;
+  chijiGlobals = 0;
+  chijiUses = 0;
+  lastGlobal = 0;
+  checkForSckDamage = -1;
+  castBokInWindow = false;
 
   get totalHealing() {
     return this.gustHealing + this.envelopHealing + this.chiCocoonHealing;

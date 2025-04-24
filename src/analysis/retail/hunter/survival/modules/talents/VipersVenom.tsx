@@ -33,7 +33,7 @@ class VipersVenom extends Analyzer {
   protected spellUsable!: SpellUsable;
   protected globalCooldown!: GlobalCooldown;
 
-  private targetsHit: number = 0;
+  private targetsHit = 0;
   // Travel time of Wildfire Bomb can allow you to consume a tip with the following GCD and so tippedCasts should = tippedDamage
   constructor(options: Options) {
     super(options);

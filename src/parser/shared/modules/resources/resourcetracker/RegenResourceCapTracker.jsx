@@ -314,10 +314,10 @@ class RegenResourceCapTracker extends Analyzer {
   onFightEnd() {
     // updateState one last time to catch any resource capping after the final resource event
     this.updateState(this.predictValue(this.owner.fight.end_time));
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions -- Intentional conditional behavior
+
     debug &&
       console.log(`mean prediction error magnitude: ${this.debugMeanPredictionError.toFixed(2)}`);
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions -- Intentional conditional behavior
+
     debug &&
       console.log(`greatest magnitude prediction error: ${this.debugGreatestError.toFixed(2)}`);
   }
@@ -368,7 +368,6 @@ class RegenResourceCapTracker extends Analyzer {
       return;
     }
     if (cost < 0) {
-      // eslint-disable-next-line @typescript-eslint/no-unused-expressions -- Intentional conditional behavior
       debug &&
         console.warn(
           `${this.owner.formatTimestamp(
@@ -409,7 +408,7 @@ class RegenResourceCapTracker extends Analyzer {
     ) {
       return;
     }
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions -- Intentional conditional behavior
+
     verboseDebug &&
       console.log(
         `${this.owner.formatTimestamp(
@@ -494,7 +493,7 @@ class RegenResourceCapTracker extends Analyzer {
    */
   updateState(amount = null, max = null, regen = null) {
     const timestamp = this.owner.currentTimestamp;
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions -- Intentional conditional behavior
+
     verboseDebug &&
       console.log(
         `${this.owner.formatTimestamp(timestamp, 3)} amount: ${
@@ -604,7 +603,6 @@ class RegenResourceCapTracker extends Analyzer {
       time = this.owner.currentTimestamp;
     }
     if (time < this.regenState.timestamp) {
-      // eslint-disable-next-line @typescript-eslint/no-unused-expressions -- Intentional conditional behavior
       debug &&
         console.warn(
           `Attempting to predict the past. State's time: ${this.owner.formatTimestamp(
@@ -655,7 +653,7 @@ class RegenResourceCapTracker extends Analyzer {
     if (time == null || isNaN(time)) {
       throw new Error(`fabricateBeginCap called without required parameter. time: ${time}`);
     }
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions -- Intentional conditional behavior
+
     verboseDebug && console.log(`${this.owner.formatTimestamp(time, 3)} begin cap`);
     this.eventEmitter.fabricateEvent({
       type: 'beginresourcecap',
@@ -675,7 +673,7 @@ class RegenResourceCapTracker extends Analyzer {
     if (time == null || isNaN(time)) {
       throw new Error(`fabricateEndCap called without required parameter. time: ${time}`);
     }
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions -- Intentional conditional behavior
+
     verboseDebug && console.log(`${this.owner.formatTimestamp(time, 3)} end cap`);
     this.eventEmitter.fabricateEvent({
       type: 'endresourcecap',

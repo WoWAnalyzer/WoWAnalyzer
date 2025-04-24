@@ -32,15 +32,8 @@ class RaidHealthChart extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      players: this.props.players.map((player) => ({ disabled: false, ...player })),
-    };
     this.togglePlayer = this.togglePlayer.bind(this);
   }
-
-  state = {
-    players: [],
-  };
 
   togglePlayer(index) {
     this.setState((prevState) => {

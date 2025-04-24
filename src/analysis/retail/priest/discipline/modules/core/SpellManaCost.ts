@@ -13,7 +13,7 @@ class SpellManaCost extends CoreSpellManaCost {
   //   penance: Penance, // we need this to add `penanceBoltNumber` to the cast event
   // };
 
-  lastPenanceStartTimestamp: number = 0;
+  lastPenanceStartTimestamp = 0;
 
   getHardcodedManaCost(event: CastEvent) {
     const spellId = event.ability.guid;

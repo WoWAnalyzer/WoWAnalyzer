@@ -10,8 +10,8 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import SPELLS from 'common/SPELLS';
 
 class ThreadsOfFate extends Analyzer {
-  threadHealing: number = 0;
-  threadDamage: number = 0;
+  threadHealing = 0;
+  threadDamage = 0;
 
   constructor(options: Options) {
     super(options);

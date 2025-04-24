@@ -86,12 +86,12 @@ export function evaluateQualitativePerformanceByThreshold(
   return new QualitativePerformanceAssertion(threshold)._getPerformance();
 }
 
-export type QualitativePerformanceThresholdRange = {
+export interface QualitativePerformanceThresholdRange {
   fail?: number;
   ok?: number;
   good?: number;
   perfect?: number;
-};
+}
 
 /* If you're looking here to fix an error, it's likely that you either:
   a) declared more than one comparator for the threshold (i.e isEqual and isLess than, etc.)

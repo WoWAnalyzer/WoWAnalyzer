@@ -30,13 +30,13 @@ class MindFlayInsanity extends Analyzer {
   secondCast = false; //This is for finding the overcaped procs, as it is only every other DP cast that causes the buff
   lastCastHalo = false; //Was the most recent cause of a proc Halo
 
-  procsGained: number = 0; //Total gained Procs(including refreshed) (Should be equal to number of cast DP)
-  procsExpired: number = 0; //procs lost to time
-  procsOver: number = 0; //procs lost to overwriting them
+  procsGained = 0; //Total gained Procs(including refreshed) (Should be equal to number of cast DP)
+  procsExpired = 0; //procs lost to time
+  procsOver = 0; //procs lost to overwriting them
 
-  lastProcTime: number = 0;
-  lastCastTime: number = 0;
-  currentStacks: number = 0;
+  lastProcTime = 0;
+  lastCastTime = 0;
+  currentStacks = 0;
 
   constructor(options: Options) {
     super(options);

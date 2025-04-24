@@ -10,7 +10,7 @@ export function makePlainUrl(
   fightName?: string,
   playerId?: string,
   playerName?: string,
-  tab: string = 'standard',
+  tab = 'standard',
 ) {
   const parts = [];
   if (reportCode) {

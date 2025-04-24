@@ -75,11 +75,11 @@ export default abstract class HitCountAoE extends Analyzer {
   }
 }
 
-export type SpellAoeTracker = {
+export interface SpellAoeTracker {
   spell: Spell;
   casts: number;
   hits: number;
   zeroHitCasts: number;
   oneHitCasts: number;
   multiHitCasts: number;
-};
+}

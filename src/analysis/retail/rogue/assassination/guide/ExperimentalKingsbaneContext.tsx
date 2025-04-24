@@ -1,6 +1,6 @@
 import useAssassinationFeatureFlag from 'analysis/retail/rogue/assassination/guide/useAssassinationFeatureFlag';
 import VerticallyAlignedToggle from 'interface/VerticallyAlignedToggle';
-import { createContext, ReactNode, useContext } from 'react';
+import { createContext, ReactNode, useContext, useMemo } from 'react';
 
 interface ExperimentalKingsbaneContext {
   isExplanationEnabled: boolean;
@@ -38,9 +38,13 @@ export const ExperimentalKingsbaneContextProvider = ({ children }: { children: R
   const [isExplanationEnabled, setExplanationEnabled] = useAssassinationFeatureFlag(
     'experimental-kingsbane-explanation-enabled',
   );
+  const providerValue = useMemo(
+    () => ({ isExplanationEnabled, setExplanationEnabled }),
+    [isExplanationEnabled, setExplanationEnabled],
+  );
 
   return (
-    <ExperimentalKingsbaneCtx.Provider value={{ isExplanationEnabled, setExplanationEnabled }}>
+    <ExperimentalKingsbaneCtx.Provider value={providerValue}>
       {children}
     </ExperimentalKingsbaneCtx.Provider>
   );

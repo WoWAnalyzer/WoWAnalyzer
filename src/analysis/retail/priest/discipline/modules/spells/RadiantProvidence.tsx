@@ -19,12 +19,12 @@ const EVANGELISM_BONUS_MS = 6000;
 const RADIANT_PROVIDENCE_MANA_REDUCTION = SPELLS.POWER_WORD_RADIANCE.manaCost * 0.5;
 
 type RadAtonementEvents = AtonementAnalyzerEvent[];
-type RadianceAtonement = {
+interface RadianceAtonement {
   applyBuff: ApplyBuffEvent;
   atonementEvents: RadAtonementEvents;
   wasExtendedByEvangelismPre4pWindow: boolean;
   wasExtendedByEvangelismIn4pWindow: boolean;
-};
+}
 
 class RadiantProvidence extends Analyzer {
   static dependencies = {

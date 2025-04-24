@@ -22,7 +22,7 @@ const AFFECTED_CAST = [SPELLS.STARSURGE_MOONKIN, SPELLS.STARFALL_CAST];
  */
 class TouchTheCosmos extends Analyzer {
   totalDamage = 0;
-  totcBuffedAbilities: { [key: number]: number } = {};
+  totcBuffedAbilities: Record<number, number> = {};
   savedAP = 0;
 
   constructor(options: Options) {

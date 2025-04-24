@@ -57,12 +57,13 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 const debug = false;
 
-interface HealingMap {
-  [spellId: number]: {
+type HealingMap = Record<
+  number,
+  {
     amount: number;
     casts: number;
-  };
-}
+  }
+>;
 
 interface TooltipData {
   spellId: number;
@@ -86,7 +87,7 @@ class UnleashLife extends Analyzer {
   protected riptideTracker!: RiptideTracker;
   protected cooldownThroughputTracker!: CooldownThroughputTracker;
 
-  wastedBuffs: number = 0;
+  wastedBuffs = 0;
   healingMap: HealingMap = {
     [TALENTS.RIPTIDE_TALENT.id]: {
       amount: 0,
@@ -118,34 +119,34 @@ class UnleashLife extends Analyzer {
     },
   };
   //ul direct
-  directHealing: number = 0;
+  directHealing = 0;
 
   //healing wave
-  healingWaveHealing: number = 0;
+  healingWaveHealing = 0;
 
   //chain heal
-  chainHealHealing: number = 0;
-  missedJumps: number = 0;
+  chainHealHealing = 0;
+  missedJumps = 0;
 
   //healing rain
-  healingRainHealing: number = 0;
+  healingRainHealing = 0;
   overflowingShoresActive: boolean;
-  overflowingShoresHealing: number = 0;
+  overflowingShoresHealing = 0;
   countedHealingRainEvents: Set<number> = new Set<number>();
-  extraTicks: number = 0;
-  missedTicks: number = 0;
-  extraOSTicks: number = 0;
-  missedOSTicks: number = 0;
+  extraTicks = 0;
+  missedTicks = 0;
+  extraOSTicks = 0;
+  missedOSTicks = 0;
 
   //downpour
-  missedDownpourHits: number = 0;
-  extraDownpourHits: number = 0;
+  missedDownpourHits = 0;
+  extraDownpourHits = 0;
   downpourActive: boolean;
 
   unleashLifeCount = 0;
-  ulActive: boolean = false;
-  lastUlSpellId: number = -1;
-  lastRemoved: number = -1;
+  ulActive = false;
+  lastUlSpellId = -1;
+  lastRemoved = -1;
 
   //guide vars
   castEntries: BoxRowEntry[] = [];

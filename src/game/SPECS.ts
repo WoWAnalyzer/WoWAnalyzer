@@ -29,7 +29,7 @@ interface BaseSpec {
   masteryCoefficient?: number;
 }
 
-export interface RetailSpec extends BaseSpec {}
+export type RetailSpec = BaseSpec;
 
 interface ClassicSpec extends BaseSpec {
   icon: string;

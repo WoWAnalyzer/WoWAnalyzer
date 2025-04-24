@@ -16,8 +16,8 @@ const COOLDOWN_REDUCTION_PER_CAST = 5000;
 class OfferingFromBeyond extends Analyzer.withDependencies({
   spellUsable: SpellUsable,
 }) {
-  totalCooldownReduction: number = 0;
-  effectiveCooldownReduction: number = 0;
+  totalCooldownReduction = 0;
+  effectiveCooldownReduction = 0;
   elemental!: Talent;
 
   constructor(options: Options) {

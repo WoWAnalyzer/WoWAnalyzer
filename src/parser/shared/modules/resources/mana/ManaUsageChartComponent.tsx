@@ -51,10 +51,10 @@ class HealingDoneGraph extends PureComponent<Props> {
       });
     max /= interval;
 
-    const manaUsagePerFrame: { [frame: number]: number } = {
+    const manaUsagePerFrame: Record<number, number> = {
       0: 0,
     };
-    const manaLevelPerFrame: { [frame: number]: number | null } = {
+    const manaLevelPerFrame: Record<number, number | null> = {
       0: 1,
     };
     manaUpdates.forEach((item) => {

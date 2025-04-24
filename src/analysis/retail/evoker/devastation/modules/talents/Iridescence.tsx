@@ -43,24 +43,24 @@ const FIRESTORM_DURATION = 12000;
 
 class Iridescence extends Analyzer {
   // Blue spell stuff
-  ticksToCount: number = 0;
+  ticksToCount = 0;
 
-  iridescenceDisintegrateDamage: number = 0;
-  iridescenceAzureStrikeDamage: number = 0;
-  iridescenceShatteringStarDamage: number = 0;
-  iridescenceUnravelDamage: number = 0;
+  iridescenceDisintegrateDamage = 0;
+  iridescenceAzureStrikeDamage = 0;
+  iridescenceShatteringStarDamage = 0;
+  iridescenceUnravelDamage = 0;
 
   // Red spell stuff
-  iridescencePyreDamage: number = 0;
-  iridescenceLivingFlameDamage: number = 0;
-  iridescenceFirestormDamage: number = 0;
+  iridescencePyreDamage = 0;
+  iridescenceLivingFlameDamage = 0;
+  iridescenceFirestormDamage = 0;
 
-  lastPyreDamEvent: number = 0;
-  firestormCastEvent: number = 0;
+  lastPyreDamEvent = 0;
+  firestormCastEvent = 0;
 
-  trackBlueDamage: boolean = false;
-  trackRedDamage: boolean = false;
-  trackFirestorm: boolean = false;
+  trackBlueDamage = false;
+  trackRedDamage = false;
+  trackFirestorm = false;
   trackedSpells = [DISINTEGRATE, PYRE, LIVING_FLAME_DAMAGE, SHATTERING_STAR, AZURE_STRIKE, UNRAVEL];
 
   iridescenceSpells = [IRIDESCENCE_BLUE, IRIDESCENCE_RED];

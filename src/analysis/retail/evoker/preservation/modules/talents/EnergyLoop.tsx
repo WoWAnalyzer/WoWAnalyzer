@@ -16,7 +16,7 @@ class EnergyLoop extends Analyzer {
     essenceBurst: EssenceBurst,
   };
   protected essenceBurst!: EssenceBurst;
-  rawManaGained: number = 0;
+  rawManaGained = 0;
 
   constructor(options: Options) {
     super(options);

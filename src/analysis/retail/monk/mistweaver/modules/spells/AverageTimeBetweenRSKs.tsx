@@ -30,9 +30,9 @@ class TimeBetweenRSKs extends Analyzer {
   protected risingSunKick!: RisingSunKick;
   protected rushingWindKick!: RushingWindKick;
 
-  totalRSKCasts: number = 0;
-  firstRSKTimestamp: number = 0;
-  lastRSKTimestamp: number = 0;
+  totalRSKCasts = 0;
+  firstRSKTimestamp = 0;
+  lastRSKTimestamp = 0;
   currentRskTalent: Talent;
   constructor(options: Options) {
     super(options);

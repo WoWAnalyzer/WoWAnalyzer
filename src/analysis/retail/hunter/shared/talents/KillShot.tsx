@@ -26,7 +26,7 @@ class KillShot extends ExecuteHelper {
     abilities: Abilities,
   };
 
-  maxCasts: number = 0;
+  maxCasts = 0;
 
   activeKillShotSpell =
     this.selectedCombatant.spec === SPECS.SURVIVAL_HUNTER

@@ -25,9 +25,7 @@ class ResourceUsage extends Analyzer {
    * Example format
    * [SPELLS.RAPTOR_STRIKE_AOTE.id]: SPELLS.RAPTOR_STRIKE,
    */
-  static spellsThatShouldShowAsOtherSpells: {
-    [spellID: number]: Spell;
-  } = {};
+  static spellsThatShouldShowAsOtherSpells: Record<number, Spell> = {};
   //endregion
 
   //region Optional IMPLEMENTME statics
@@ -46,7 +44,7 @@ class ResourceUsage extends Analyzer {
   ];
   //endregion
 
-  listOfSpellsUsed: { [key: string]: { casts: number; resourceUsed: number } } = {};
+  listOfSpellsUsed: Record<string, { casts: number; resourceUsed: number }> = {};
   ctor = this.constructor as typeof ResourceUsage;
 
   constructor(options: Options) {
@@ -116,13 +114,13 @@ class ResourceUsage extends Analyzer {
   }
 
   get resourceUsageChart() {
-    const items: Array<{
+    const items: {
       color: string;
       label: string;
       spellId: number;
       value: number;
       valueTooltip: string;
-    }> = [];
+    }[] = [];
     let colourIndex = 0;
     this.resourceSpenders.forEach((spell) => {
       if (this.listOfSpellsUsed[spell.id] && this.listOfSpellsUsed[spell.id].resourceUsed > 0) {

@@ -12,7 +12,6 @@ export default class FrenzyBuffStackTracker extends BuffStackTracker {
   static trackedBuff = SPELLS.BARBED_SHOT_PET_BUFF;
   static workaroundWeirdBuffEvents_experimental = true;
 
-  // eslint-disable-next-line @typescript-eslint/no-useless-constructor
   constructor(options: Options) {
     super(options);
     this.buffDuration = this.selectedCombatant.hasTalent(TALENTS_HUNTER.SAVAGERY_TALENT)

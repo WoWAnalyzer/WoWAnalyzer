@@ -85,11 +85,11 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
   protected elementalSpirits!: ElementalSpirits;
 
   protected activeWindow: AscendanceCooldownCast | null = null;
-  protected windstrikeOnCooldown: boolean = true;
-  protected lastCooldownWasteCheck: number = 0;
+  protected windstrikeOnCooldown = true;
+  protected lastCooldownWasteCheck = 0;
 
   protected castsBeforeAscendanceProc: StormstrikeCasts[] = [{ count: 0 }];
-  protected globalCooldownEnds: number = 0;
+  protected globalCooldownEnds = 0;
 
   // building these in constructor as rules need to reference msw tracker and elemental spirits
   readonly ascendanceCastRules: HighPriorityAbilities = [];

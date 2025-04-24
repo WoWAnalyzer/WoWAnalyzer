@@ -41,27 +41,27 @@ const MULTI_UPDATE_BUFFER_MS = 150;
 const REFUND_HIT_TYPES = [HIT_TYPES.MISS, HIT_TYPES.DODGE, HIT_TYPES.PARRY];
 
 /** Data for a builder ability (one that generates resource) */
-type BuilderObj = {
+interface BuilderObj {
   /** The total amount of resource generated */
   generated: number;
   /** The total amount of resource wasted (overcapped) */
   wasted: number;
   /** The total number of registered uses of the ability */
   casts: number;
-};
+}
 
 /** Data for a spender ability (one that uses resource) */
-type SpenderObj = {
+interface SpenderObj {
   /** The total cost of resource spent */
   spent: number;
   /** A list of the amount spent by each use of this ability */
   spentByCast: number[];
   /** The total number of registered uses of the ability */
   casts: number;
-};
+}
 
 /** An update on the resource state */
-type ResourceUpdate = {
+interface ResourceUpdate {
   /** What triggered this update (see {@link ResourceUpdateType} */
   type: ResourceUpdateType;
   /** This update's timestamp */
@@ -88,7 +88,7 @@ type ResourceUpdate = {
   rateWaste?: number;
   /** True iff resources are capped AFTER the change */
   atCap: boolean;
-};
+}
 
 type ResourceUpdateType =
   /** Player spent resource, as shown in a cast's classResources */
@@ -203,12 +203,12 @@ export default class ResourceTracker extends Analyzer {
   }
 
   /** Tracked builders, indexed by spellId */
-  get buildersObj(): { [index: number]: BuilderObj } {
+  get buildersObj(): Record<number, BuilderObj> {
     return this.fightData.builders;
   }
 
   /** Tracked spenders, indexed by spellId */
-  get spendersObj(): { [index: number]: SpenderObj } {
+  get spendersObj(): Record<number, SpenderObj> {
     return this.fightData.spenders;
   }
 
@@ -415,8 +415,8 @@ export default class ResourceTracker extends Analyzer {
     type: ResourceUpdateType,
     reportedBeforeAmount: number | undefined = undefined,
     reportedMax: number | undefined = undefined,
-    change: number = 0,
-    waste: number = 0,
+    change = 0,
+    waste = 0,
     spellId?: number,
   ) {
     const timestamp = this.owner.currentTimestamp;
@@ -796,10 +796,10 @@ export class SegmentData {
   updates: ResourceUpdate[] = [];
   /** Tracked builders, indexed by spellId.
    *  Technically redundant info with updates, but allows easier/faster data lookup. */
-  builders: { [index: number]: BuilderObj } = {};
+  builders: Record<number, BuilderObj> = {};
   /** Tracked spenders, indexed by spellId.
    * Technically redundant info with updates, but allows easier/faster data lookup. */
-  spenders: { [index: number]: SpenderObj } = {};
+  spenders: Record<number, SpenderObj> = {};
 
   /** Constructs an empty segment with the given start and end times */
   constructor(startTimestamp: number, endTimestamp: number) {

@@ -30,13 +30,13 @@ import { DOUBLE_TIME_EXTENSION } from 'analysis/retail/evoker/preservation/const
 
 class DoubleTime extends Analyzer {
   // Dream Breath
-  totalDbs: number = 0;
-  sumDbDurations: number = 0;
+  totalDbs = 0;
+  sumDbDurations = 0;
   dbDurations: number[] = [0, 16, 12, 8, 4];
   // Fire Breath
-  blastFurnace: boolean = false;
-  totalFbs: number = 0;
-  sumFbDurations: number = 0;
+  blastFurnace = false;
+  totalFbs = 0;
+  sumFbDurations = 0;
   fbDurations: number[] = [0, 20, 14, 8, 2];
 
   constructor(options: Options) {

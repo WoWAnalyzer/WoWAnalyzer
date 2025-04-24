@@ -53,12 +53,12 @@ class Flourish extends Analyzer {
   abilityTracker!: AbilityTracker;
   convokeSpirits!: ConvokeSpiritsResto;
 
-  directHealing: number = 0;
+  directHealing = 0;
   extensionAttributions: Attribution[] = [];
   rateAttributions: MutableAmount[] = [];
   rampTrackers: FlourishTracker[] = [];
   lastCastTimestamp?: number;
-  hardcastCount: number = 0;
+  hardcastCount = 0;
   wgsExtended = 0; // tracks how many flourishes extended Wild Growth
 
   currentRateAttribution: MutableAmount = { amount: 0 };
@@ -373,8 +373,8 @@ interface FlourishTracker {
   clipped: boolean;
 }
 
-export type MutableAmount = {
+export interface MutableAmount {
   amount: number;
-};
+}
 
 export default Flourish;

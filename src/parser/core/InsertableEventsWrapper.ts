@@ -9,7 +9,7 @@ import { AnyEvent } from 'parser/core/Events';
  */
 class InsertableEventsWrapper {
   events: AnyEvent[];
-  toAdd: Array<{ event: AnyEvent; index: number }> = [];
+  toAdd: { event: AnyEvent; index: number }[] = [];
 
   constructor(events: AnyEvent[]) {
     this.events = events;
