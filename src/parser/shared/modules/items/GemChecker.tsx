@@ -34,8 +34,6 @@ export interface GemmableSlotConfig {
 }
 
 class GemChecker extends Analyzer {
-  private recommendedGems: number[] | undefined;
-
   get GemableSlots(): Record<number, GemmableSlotConfig> {
     return {};
   }
@@ -100,7 +98,12 @@ class GemChecker extends Analyzer {
 
   //#region UI
   //Add a row for the actual Gem in the future to evaluate each
-  boxRowPerformance(item: EventItem, slotNumber: number, slotName: JSX.Element) {
+  boxRowPerformance(
+    item: EventItem,
+    slotNumber: number,
+    slotName: JSX.Element,
+    recommendedGems?: number[],
+  ) {
     if (this.isSpecialItem(item.id)) {
       const { perf, explanation } = this.specialItemPerformance(item);
       return {
@@ -132,7 +135,7 @@ class GemChecker extends Analyzer {
 
         let tempQP = QualitativePerformance.Fail;
         // TODO: recommended gems bypass quality checks.
-        const gemRec = this.recommendedGems?.includes(iGem.id);
+        const gemRec = recommendedGems?.includes(iGem.id);
 
         if (gemRec) {
           tempQP = QualitativePerformance.Perfect;
@@ -254,7 +257,6 @@ class GemChecker extends Analyzer {
 
   getGemBoxRowEntries(recommendedGems: number[] = []): GemBoxRowEntry[] {
     const gear = this.GemableGear;
-    this.recommendedGems = recommendedGems;
 
     // Filter out items that cannot have gems
     return Object.keys(gear)
@@ -273,7 +275,7 @@ class GemChecker extends Analyzer {
         const slotName = GEAR_SLOT_NAMES[slotNumber];
 
         // Use boxRowPerformance to calculate the value
-        const performance = this.boxRowPerformance(item, slotNumber, slotName);
+        const performance = this.boxRowPerformance(item, slotNumber, slotName, recommendedGems);
 
         return {
           item,
