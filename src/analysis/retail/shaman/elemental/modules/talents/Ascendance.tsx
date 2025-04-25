@@ -39,6 +39,12 @@ import MaelstromTracker from '../resources/MaelstromTracker';
 import ResourceLink from 'interface/ResourceLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Spell from 'common/SPELLS/Spell';
+import { getGlobalCooldown, shouldHaveGlobalCooldown } from 'analysis/retail/shaman/shared/shared';
+
+enum AscendanceSource {
+  Ascendance,
+  DeeplyRootedElements,
+}
 
 interface AscendanceTimeline {
   start: number;
@@ -49,6 +55,7 @@ interface AscendanceTimeline {
 
 interface AscendanceCooldownCast
   extends CooldownTrigger<CastEvent | ApplyBuffEvent | RefreshBuffEvent> {
+  source: AscendanceSource;
   timeline: AscendanceTimeline;
   endingMaelstrom: number;
 }
@@ -112,6 +119,7 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
       return;
     }
 
+    this.addEventListener(Events.GlobalCooldown, this.onGlobalCooldown);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.ASCENDANCE_ELEMENTAL_TALENT),
       this.onApplyAscendance,
@@ -170,6 +178,9 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
     if (!this.currentCooldown) {
       this.currentCooldown = {
         event: event,
+        source: this.ascendanceWasCast
+          ? AscendanceSource.Ascendance
+          : AscendanceSource.DeeplyRootedElements,
         timeline: {
           start: Math.max(event.timestamp, this.globalCooldownEnds),
           events: [],
@@ -202,8 +213,11 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
 
   onCast(event: AnyEvent) {
     if (this.currentCooldown) {
-      if (event.type === EventType.Cast && !event.globalCooldown) {
-        return;
+      if (shouldHaveGlobalCooldown(event)) {
+        const globalCooldown = getGlobalCooldown(event);
+        if (!globalCooldown) {
+          return;
+        }
       }
       if (event.type === EventType.Cast) {
         this.currentCooldown.endingMaelstrom = this.maelstromTracker.current;
@@ -298,10 +312,24 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
     return (
       <>
         <p>
-          <strong>
-            <SpellLink spell={TALENTS.ASCENDANCE_ELEMENTAL_TALENT} />
-          </strong>{' '}
-          analysis is a work in progress. Additional details will be added at a later date.
+          <ol>
+            <li>
+              <strong>Uptime</strong>: You need to maximise the number of casts during your{' '}
+              <SpellLink spell={TALENTS.ASCENDANCE_ELEMENTAL_TALENT} /> window. It is often worth
+              pairing with <SpellLink spell={TALENTS.SPIRITWALKERS_GRACE_TALENT} /> to ensure
+              movement doesn't impact on your overall casts.
+            </li>
+            <li>
+              Try to avoid casting spells that don't interact with{' '}
+              <SpellLink spell={SPELLS.ELEMENTAL_MASTERY} />, such as{' '}
+              <SpellLink spell={TALENTS.FROST_SHOCK_TALENT} /> and{' '}
+              <SpellLink spell={SPELLS.FLAME_SHOCK} />.
+            </li>
+            <li>
+              If possible, try to cast <SpellLink spell={TALENTS.STORMKEEPER_TALENT} /> before{' '}
+              <SpellLink spell={TALENTS.ASCENDANCE_ELEMENTAL_TALENT} /> to not lose casting uptime.
+            </li>
+          </ol>
         </p>
       </>
     );
@@ -337,7 +365,29 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
 
     return {
       event: cast.event,
-      checklistItems: checklistItems,
+      checklistItems: [
+        {
+          check: 'source',
+          timestamp: cast.event.timestamp,
+          performance: QualitativePerformance.Perfect,
+          summary: null,
+          details: (
+            <div>
+              Source:{' '}
+              {cast.source === AscendanceSource.Ascendance ? (
+                <>
+                  <SpellLink spell={TALENTS.ASCENDANCE_ELEMENTAL_TALENT} /> cooldown used
+                </>
+              ) : (
+                <>
+                  <SpellLink spell={TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT} /> triggered.
+                </>
+              )}
+            </div>
+          ),
+        },
+        ...checklistItems,
+      ],
       performance: getAveragePerf(checklistItems.map((i) => i.performance)),
       performanceExplanation: 'Usage',
       extraDetails: timeline,

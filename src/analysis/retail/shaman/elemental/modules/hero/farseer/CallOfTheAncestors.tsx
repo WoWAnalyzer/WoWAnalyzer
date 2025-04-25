@@ -30,6 +30,7 @@ import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import { UptimeIcon } from 'interface/icons';
 import { EVENT_LINKS } from '../../../constants';
 import NPCS from 'common/NPCS/shaman';
+import Abilities from '../../Abilities';
 
 interface Timeline {
   start: number;
@@ -59,14 +60,17 @@ class CallOfTheAncestors extends MajorCooldown<CallAncestor> {
   static dependencies = {
     ...MajorCooldown.dependencies,
     alwaysBeCasting: AlwaysBeCasting,
+    abilities: Abilities,
   };
 
   protected alwaysBeCasting!: AlwaysBeCasting;
+  protected abilities!: Abilities;
 
   windows: CallAncestor[] = [];
   activeWindows: CallAncestor[] = [];
   ancestorSpells = new Map<number, DamageEvent[]>();
   ancestorSourceId = 0;
+  globalCooldownEnds = 0;
 
   constructor(options: Options) {
     super({ spell: TALENTS.CALL_OF_THE_ANCESTORS_TALENT }, options);
@@ -87,6 +91,8 @@ class CallOfTheAncestors extends MajorCooldown<CallAncestor> {
       Events.EndChannel,
     ].forEach((filter) => this.addEventListener(filter.by(SELECTED_PLAYER), this.onCast));
 
+    this.addEventListener(Events.GlobalCooldown.by(SELECTED_PLAYER), this.onGlobalCooldown);
+
     this.addEventListener(
       Events.summon.by(SELECTED_PLAYER).spell(SPELLS.CALL_OF_THE_ANCESTORS_SUMMON),
       this.summonAncestor,
@@ -104,6 +110,10 @@ class CallOfTheAncestors extends MajorCooldown<CallAncestor> {
     /** the events from the ancestors can occur well after (i.e. seconds) the "window"
      * ends, so we can't record it immediately. easiest to just delay until the end of the fight */
     this.addEventListener(Events.fightend, this.onFightEnd);
+  }
+
+  onGlobalCooldown(event: GlobalCooldownEvent) {
+    this.globalCooldownEnds = event.duration + event.timestamp;
   }
 
   onFightEnd(event: FightEndEvent) {
@@ -163,7 +173,7 @@ class CallOfTheAncestors extends MajorCooldown<CallAncestor> {
       activeAncestors: 1,
       activeTime: 0,
       timeline: {
-        start: event.timestamp,
+        start: Math.max(event.timestamp, this.globalCooldownEnds),
         end: -1,
         events: [],
         performance: QualitativePerformance.Perfect,
@@ -176,6 +186,9 @@ class CallOfTheAncestors extends MajorCooldown<CallAncestor> {
   onCast(
     event: BeginCastEvent | CastEvent | GlobalCooldownEvent | BeginChannelEvent | EndChannelEvent,
   ) {
+    if (this.abilities.getAbility(event.ability.guid) === undefined) {
+      return;
+    }
     if (SUMMON_ANCESTOR_SPELLS.includes(event.ability.guid)) {
       if (event.type === EventType.BeginCast && event.castEvent) {
         this.createAncestorWindow(event.castEvent);
@@ -391,7 +404,9 @@ class CallOfTheAncestors extends MajorCooldown<CallAncestor> {
               start={cast.timeline.start}
               movement={undefined}
               secondWidth={60}
-              events={cast.timeline.events}
+              events={cast.timeline.events.filter(
+                (event) => event.timestamp >= cast.timeline.start,
+              )}
             />
           </SpellTimeline>
         </EmbeddedTimelineContainer>

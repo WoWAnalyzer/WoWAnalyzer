@@ -178,8 +178,8 @@ class PrimordialStorm extends MajorCooldown<PrimordialWaveCast> {
           <SpellLink spell={SPELLS.PRIMORDIAL_FROST} /> is buffed twice.
         </p>
         <p>
-          {pstorm} is currently the <strong>strongest</strong> {msw} spender, and should you should
-          always aim to cast it with 10 unless waiting would mean losing the cast. The {msw} spent
+          {pstorm} is currently the <strong>strongest</strong> {msw} spender, and you should always
+          aim to cast it with 10 unless waiting would mean losing the cast. The {msw} spent
           double-dips and also increases the damage of the follow-up{' '}
           <SpellLink spell={SPELLS.LIGHTNING_BOLT} />/
           <SpellLink spell={TALENTS.CHAIN_LIGHTNING_TALENT} /> that is automatically cast.

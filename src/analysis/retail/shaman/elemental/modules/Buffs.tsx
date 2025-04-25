@@ -34,13 +34,11 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: TALENTS.ASCENDANCE_ELEMENTAL_TALENT.id,
+        spellId: SPELLS.ASCENDANCE_ELEMENTAL_BUFF.id,
         enabled:
           combatant.hasTalent(TALENTS.ASCENDANCE_ELEMENTAL_TALENT) ||
           combatant.hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT),
-        triggeredBySpellId: combatant.hasTalent(TALENTS.LAVA_BURST_TALENT)
-          ? TALENTS.LAVA_BURST_TALENT.id
-          : undefined,
+        triggeredBySpellId: TALENTS.ASCENDANCE_ELEMENTAL_TALENT.id,
         timelineHighlight: true,
       },
       {
