@@ -45,7 +45,9 @@ class ShadowyInsight extends Analyzer {
       this.onBuffRefreshed,
     );
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MIND_BLAST), this.onCast);
+    //this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MIND_BLAST), this.onCast);
+    //this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_PRIEST_VOIDWEAVER_VOID_BLAST), this.onCast);
+
   }
 
   onBuffApplied(event: ApplyBuffEvent) {
@@ -71,14 +73,13 @@ class ShadowyInsight extends Analyzer {
   }
 
   onBuffRemoved(event: RemoveBuffEvent) {
-    if (
-      this.eventHistory.last(1, 100, Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MIND_BLAST))
-        .length === 0
-    ) {
-      // If MB is not instant, it's not a proc
-      return;
+    //console.log("EVENT HISTORY", this.eventHistory.last(1,100, Events.cast.by(SELECTED_PLAYER)))
+    //When the buff is removed, we check if our recent cast was VoidBlast or Mind Blast.
+    //If it was Void Blast or Mind Blast, then this buff got used. 
+    const lastCast = this.eventHistory.last(1, 100, Events.cast.by(SELECTED_PLAYER), event.timestamp)[0]?.ability.guid
+    if (lastCast === SPELLS.MIND_BLAST.id  || lastCast === SPELLS.SHADOW_PRIEST_VOIDWEAVER_VOID_BLAST.id) {
+      this.procsUsed += 1;
     }
-    this.procsUsed += 1;
   }
 
   onBuffRefreshed(event: RefreshBuffEvent) {
