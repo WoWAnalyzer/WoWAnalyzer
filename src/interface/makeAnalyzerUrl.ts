@@ -79,17 +79,18 @@ export function makeArmoryUrl(player: Combatant) {
   if (!profile) {
     return '#';
   }
-  let battleNetUrl = `https://worldofwarcraft.com/en-us/character/${profile.region}/${profile.realm
-    .replace(/'/g, '')
+
+  const realm: string = profile.realm
+    .replace(/'/g, '') // remove apostrophes to match armory (Blackhand special case)
+    .replace('-', '') // remove dashes to match armory (Azjol-Nerub special case)
     .replace(/\s/g, '-')
-    .toLowerCase()}/${player.name}`;
+    .toLowerCase();
+
   if (profile.region === 'CN') {
-    battleNetUrl = `https://www.wowchina.com/zh-cn/character/${profile.realm
-      .replace(/'/g, '')
-      .replace(/\s/g, '-')
-      .toLowerCase()}/${player.name}`;
+    return `https://www.wowchina.com/zh-cn/character/${profile.region.toLowerCase()}/${realm}/${player.name.toLowerCase()}`;
   }
-  return battleNetUrl;
+
+  return `https://worldofwarcraft.com/en-us/character/${profile.region.toLowerCase()}/${realm}/${player.name.toLowerCase()}`;
 }
 
 export function makeThumbnailUrl(characterInfo: CharacterProfile, classic: boolean) {
