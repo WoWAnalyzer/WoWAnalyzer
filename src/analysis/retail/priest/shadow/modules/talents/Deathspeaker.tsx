@@ -30,6 +30,7 @@ class Deathspeaker extends Analyzer {
 
   procsGained = 0;
   procsWasted = 0;
+  procsRefreshed = 0;
   lastProcTime = 0;
 
   constructor(options: Options) {
@@ -142,11 +143,12 @@ class Deathspeaker extends Analyzer {
   }
 
   onBuffRefresh() {
-    this.procsWasted += 1;
+    this.procsGained += 1;
+    this.procsRefreshed += 1;
   }
 
   getProcsUsed() {
-    return this.procsGained - this.procsWasted;
+    return this.procsGained - this.procsWasted - this.procsRefreshed;
   }
 
   statistic() {
@@ -167,9 +169,14 @@ class Deathspeaker extends Analyzer {
       label: 'Deathspeaker procs used',
     };
 
+    const okDS = {
+      count: this.procsRefreshed,
+      label: 'Deathspeaker procs overwritten',
+    };
+
     const badDS = {
       count: this.procsWasted,
-      label: 'Deathspeaker procs wasted',
+      label: 'Deathspeaker procs expired',
     };
 
     const explanation = (
@@ -186,7 +193,7 @@ class Deathspeaker extends Analyzer {
     const data = (
       <div>
         <strong>Death Speaker breakdown</strong>
-        <GradiatedPerformanceBar good={goodDS} bad={badDS} />
+        <GradiatedPerformanceBar good={goodDS} ok={okDS} bad={badDS} />
       </div>
     );
     return explanationAndDataSubsection(explanation, data, 50);
