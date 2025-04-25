@@ -45,9 +45,8 @@ class ShadowyInsight extends Analyzer {
       this.onBuffRefreshed,
     );
 
-    //this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MIND_BLAST), this.onCast);
-    //this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_PRIEST_VOIDWEAVER_VOID_BLAST), this.onCast);
-
+    // this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MIND_BLAST), this.onCast);
+    // this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_PRIEST_VOIDWEAVER_VOID_BLAST), this.onCast);
   }
 
   onBuffApplied(event: ApplyBuffEvent) {
@@ -63,7 +62,7 @@ class ShadowyInsight extends Analyzer {
 
   onCast() {
     /*
-    //for debuging. Sometimes chargesAvailable, and chargesOnCooldown don't correctly add up to getMaxCharges.
+    // for debuging. Sometimes chargesAvailable, and chargesOnCooldown don't correctly add up to getMaxCharges.
     if(Math.abs(this.spellUsable.chargesAvailable(SPELLS.MIND_BLAST.id)) + Math.abs(this.spellUsable.chargesOnCooldown(SPELLS.MIND_BLAST.id)) != this.abilities.getMaxCharges(SPELLS.MIND_BLAST.id)){
       console.log("ERROR",this.spellUsable.chargesAvailable(SPELLS.MIND_BLAST.id),"/",this.spellUsable.chargesOnCooldown(SPELLS.MIND_BLAST.id),"max:",this.abilities.getMaxCharges(SPELLS.MIND_BLAST.id));
     }
@@ -73,11 +72,19 @@ class ShadowyInsight extends Analyzer {
   }
 
   onBuffRemoved(event: RemoveBuffEvent) {
-    //console.log("EVENT HISTORY", this.eventHistory.last(1,100, Events.cast.by(SELECTED_PLAYER)))
-    //When the buff is removed, we check if our recent cast was VoidBlast or Mind Blast.
-    //If it was Void Blast or Mind Blast, then this buff got used. 
-    const lastCast = this.eventHistory.last(1, 100, Events.cast.by(SELECTED_PLAYER), event.timestamp)[0]?.ability.guid
-    if (lastCast === SPELLS.MIND_BLAST.id  || lastCast === SPELLS.SHADOW_PRIEST_VOIDWEAVER_VOID_BLAST.id) {
+    // console.log("EVENT HISTORY", this.eventHistory.last(1,100, Events.cast.by(SELECTED_PLAYER)))
+    // When the buff is removed, we check if our recent cast was VoidBlast or Mind Blast.
+    // If it was Void Blast or Mind Blast, then this buff got used.
+    const lastCast = this.eventHistory.last(
+      1,
+      100,
+      Events.cast.by(SELECTED_PLAYER),
+      event.timestamp,
+    )[0]?.ability.guid;
+    if (
+      lastCast === SPELLS.MIND_BLAST.id ||
+      lastCast === SPELLS.SHADOW_PRIEST_VOIDWEAVER_VOID_BLAST.id
+    ) {
       this.procsUsed += 1;
     }
   }
