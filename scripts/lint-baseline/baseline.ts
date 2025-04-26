@@ -99,7 +99,8 @@ async function updateBaseline(): Promise<void> {
 const PROJECT_ROOT = path.join(import.meta.dirname, '../../');
 
 function baselineKey(file: string, message: Linter.LintMessage): string {
-  const relativePath = path.relative(PROJECT_ROOT, file);
+  // replaces windows separator with posix separator
+  const relativePath = path.relative(PROJECT_ROOT, file).replaceAll(path.win32.sep, path.posix.sep);
   return `${relativePath}:${message.line}:${message.column}__${message.ruleId}`;
 }
 

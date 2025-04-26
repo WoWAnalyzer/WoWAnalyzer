@@ -100,9 +100,9 @@ class GemChecker extends Analyzer {
   //Add a row for the actual Gem in the future to evaluate each
   boxRowPerformance(
     item: EventItem,
-    recommendedGems: number[] | undefined,
     slotNumber: number,
     slotName: JSX.Element,
+    recommendedGems?: number[],
   ) {
     if (this.isSpecialItem(item.id)) {
       const { perf, explanation } = this.specialItemPerformance(item);
@@ -255,7 +255,7 @@ class GemChecker extends Analyzer {
     );
   }
 
-  getGemBoxRowEntries(recommendedGems: Record<number, CraftedItem[]> = {}): GemBoxRowEntry[] {
+  getGemBoxRowEntries(recommendedGems: number[] = []): GemBoxRowEntry[] {
     const gear = this.GemableGear;
 
     // Filter out items that cannot have gems
@@ -273,15 +273,9 @@ class GemChecker extends Analyzer {
         const slotNumber = Number(slot);
         const item = gear[slotNumber];
         const slotName = GEAR_SLOT_NAMES[slotNumber];
-        const gemRecommendations = recommendedGems[slotNumber];
 
         // Use boxRowPerformance to calculate the value
-        const performance = this.boxRowPerformance(
-          item,
-          gemRecommendations?.map((it) => it.id),
-          slotNumber,
-          slotName,
-        );
+        const performance = this.boxRowPerformance(item, slotNumber, slotName, recommendedGems);
 
         return {
           item,
