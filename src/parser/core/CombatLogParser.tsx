@@ -119,6 +119,7 @@ import MereldarsToll from 'parser/retail/modules/items/thewarwithin/trinkets/Mer
 import CirralConcoctory from 'parser/retail/modules/items/thewarwithin/trinkets/CirralConcotory';
 import { MeleeUptimeAnalyzer } from 'interface/guide/foundation/analyzers/MeleeUptimeAnalyzer';
 import DowntimeDebuffAnalyzer from 'interface/guide/foundation/analyzers/DowntimeDebuffAnalyzer';
+import { ServerMetrics } from 'common/server-metrics';
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
 const MAX_DI_ITERATIONS = 100;
@@ -366,6 +367,8 @@ class CombatLogParser {
       'Listeners filtered away:',
       emitter.numListenersCalled - emitter.numActualExecutions,
     );
+
+    console.log('server metrics', this.serverMetrics);
   }
 
   _getModuleClass(config: DependencyDefinition): [typeof Module, any] {
@@ -829,6 +832,17 @@ class CombatLogParser {
       fightId: this.fight.id,
       reportCode: this.report.code,
       combatant: this.selectedCombatant,
+    };
+  }
+
+  get serverMetrics(): ServerMetrics {
+    const fightDurationMins = this.fightDuration / 60000;
+    return {
+      cooldownErrorRate: this.getModule(SpellUsable).cooldownErrorCount / fightDurationMins,
+      unknownAbilityErrorRate:
+        this.getModule(SpellUsable).unknownAbilityErrorCount / fightDurationMins,
+      gcdErrorRate: this.getModule(GlobalCooldown).errorsPerMinute,
+      activeTimeRatio: this.getModule(AlwaysBeCasting).activeTimePercentage,
     };
   }
 }

@@ -1,6 +1,7 @@
 import { captureException } from 'common/errorLogger';
+import { uploadServerMetrics, type Selection } from 'common/server-metrics';
 import ExtendableError from 'es6-error';
-import Config from 'parser/Config';
+import Config, { configName, SupportLevel } from 'parser/Config';
 import CharacterProfile from 'parser/core/CharacterProfile';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import { AnyEvent, CombatantInfoEvent, EventType } from 'parser/core/Events';
@@ -8,7 +9,8 @@ import Fight from 'parser/core/Fight';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import { PlayerInfo } from 'parser/core/Player';
 import Report from 'parser/core/Report';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { PatchCtx } from '../context/PatchContext';
 
 const BENCHMARK = false;
 // Picking a correct batch duration is hard. I tried various durations to get the batch sizes to 1 frame, but that results in a lot of wasted time waiting for the next frame. 30ms (33 fps) as well causes a lot of wasted time. 60ms (16fps) seem to have really low wasted time while not blocking the UI anymore than a user might expect.
@@ -185,6 +187,30 @@ const useEventParser = ({
       isCancelled = true;
     };
   }, [processEventBatch]);
+
+  const patchInfo = useContext(PatchCtx);
+
+  useEffect(() => {
+    // don't upload metrics while loading, with a bad fight, or for an unsupported spec
+    if (
+      isLoading ||
+      !fight ||
+      !parser ||
+      !parser.finished ||
+      !patchInfo?.patch?.isCurrent ||
+      config.supportLevel === SupportLevel.Unmaintained
+    ) {
+      return;
+    }
+
+    const selection: Selection = {
+      reportCode: report.code,
+      fightId: fight.id,
+      playerId: player.id,
+      configName: configName(config),
+    };
+    uploadServerMetrics(selection, parser.serverMetrics);
+  }, [isLoading, parser, report, fight, player, config, patchInfo]);
 
   return {
     isLoading,

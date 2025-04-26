@@ -75,6 +75,9 @@ class SpellUsable extends Analyzer {
   /** Per-spell multipliers for the cooldown rate, also knowns as the 'modRate' */
   protected _spellModRates: Record<number, number> = {};
 
+  public cooldownErrorCount = 0;
+  public unknownAbilityErrorCount = 0;
+
   constructor(options: Options) {
     super(options);
 
@@ -785,6 +788,7 @@ class SpellUsable extends Analyzer {
       info.chargesAvailable === 0 &&
       info.expectedEnd - event.timestamp > COOLDOWN_LAG_MARGIN
     ) {
+      this.cooldownErrorCount += 1;
       annotation = {
         color: BadColor,
         summary: `${spellName(spellId)} (ID=${spellId}) was used while SpellUsable's tracker thought it had no available charges (expected end @ ${this.owner.formatTimestamp(info.expectedEnd)})`,
@@ -794,6 +798,7 @@ class SpellUsable extends Analyzer {
         ),
       };
     } else if (!ability && HasAbility(event)) {
+      this.unknownAbilityErrorCount += 1;
       annotation = {
         color: OkColor,
         summary: `Ability ${event.ability.name} (ID: ${event.ability.guid}) was used but is not in spellbook or listed as a cast that isn't a cast`,
