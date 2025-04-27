@@ -43,7 +43,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
-  change(date(2025, 4, 27), 'Recommend Gems now show to the User if setup', Ceric),
+  change(date(2025, 4, 27), 'Recommended Gems now show to the User if setup', Ceric),
   change(date(2025, 4, 25), 'Fix Azjol-Nerub special case for Armory Link', Ceric),
   change(date(2025, 4, 24), 'Streamlined Recommended Gems for Gem Checker', Ceric),
   change(date(2025, 4, 22), 'Added Gems to Preparation Section with general recommendations.', [emallson,Ceric]),
