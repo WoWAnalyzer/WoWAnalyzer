@@ -1,5 +1,9 @@
 import { ItemIcon } from 'interface';
-import { Item } from 'parser/core/Events';
+import { Item, Gem as EventGem } from 'parser/core/Events';
+import GemChecker from 'parser/shared/modules/items/GemChecker'
+import {
+  eventItemGemSocketCount,
+} from 'common/ITEMS/thewarwithin/socketBonusId';
 
 interface Props {
   gear: Item[];
@@ -15,11 +19,19 @@ const PlayerInfoGems = (props: Props) => {
           return null;
         }
         const gearSlot = gear.indexOf(item);
-        const gem = item.gems[0];
+        const options = { owner: 'defaultOwner', priority: 0 }; // Replace with actual values as needed
+        
+
+
+        const gems: { gem: EventGem }[] = buildGemPlaceholders(item, gearSlot);
         return (
-          <div key={`${gearSlot}_${gem?.id}`} style={{ gridArea: `item-slot-${gearSlot}-gem` }}>
-            <ItemIcon id={gem?.id} className="gem" />
-          </div>
+          gems.map((eventGem, index) => {
+            return (
+              <div key={`${gearSlot}_${eventGem.gem.id}_${index}`} style={{ gridArea: `item-slot-${gearSlot}-gem` }}>
+                <ItemIcon id={eventGem.gem.id} className="gem" />
+              </div>
+            );
+          })
         );
       })}
     </>
@@ -27,3 +39,23 @@ const PlayerInfoGems = (props: Props) => {
 };
 
 export default PlayerInfoGems;
+
+function buildGemPlaceholders(item: Item, slotNumber: number): { gem: EventGem }[] {
+
+    const actualSocketCount: number = eventItemGemSocketCount(item);
+    
+    const result: { gem: EventGem }[] = [];
+    let i: number = item.gems?.length ?? 0;
+
+    for (; i < actualSocketCount; i += 1) {
+      result.push({
+        gem: {
+          id: 0,
+          icon: 'equipment_empty_gem_socket',
+          itemLevel: -1,
+        },
+      });
+    }
+
+    return result;
+  }

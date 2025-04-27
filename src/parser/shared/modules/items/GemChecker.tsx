@@ -217,13 +217,14 @@ class GemChecker extends Analyzer {
     return null;
   }
 
-  private buildGemPlaceholders(item: EventItem, slotNumber: number) {
-    const actualSocketCount = eventItemGemSocketCount(item);
-    const maxSockets = this.maxSocketCount(slotNumber, true);
-    const socketAddingItemId = this.GemableSlots[slotNumber]?.socketingItemId;
+  buildGemPlaceholders(item: EventItem, slotNumber: number): { gem: EventGem }[] {
+    const actualSocketCount: number = eventItemGemSocketCount(item);
+    const maxSockets: number = this.maxSocketCount(slotNumber, true);
+    const socketAddingItemId: number | undefined = this.GemableSlots[slotNumber]?.socketingItemId;
 
-    const result = [];
-    let i = item.gems?.length ?? 0;
+    const result: { gem: EventGem }[] = [];
+    let i: number = item.gems?.length ?? 0;
+
     for (; i < actualSocketCount; i += 1) {
       result.push({
         gem: {
