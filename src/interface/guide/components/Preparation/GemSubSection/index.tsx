@@ -2,6 +2,7 @@ import { SubSection, useAnalyzer, useInfo } from 'interface/guide/index';
 import GemChecker from 'parser/shared/modules/items/GemChecker';
 import GemBoxRow from 'interface/guide/components/Preparation/GemSubSection/GemBoxRow';
 import { Trans } from '@lingui/react/macro';
+import ItemLink from 'interface/ItemLink';
 
 interface Props {
   recommendedGems?: number[];
@@ -24,6 +25,19 @@ const GemSubSection = ({ recommendedGems }: Props) => {
         </Trans>
       </p>
       <GemBoxRow values={gemChecker.getGemBoxRowEntries(recommendedGems)} />
+      {/* Show recommended gems if populated */}
+      {recommendedGems && recommendedGems.length > 0 && (
+        <div>
+          <header>Recommended Gems</header>
+          <ul>
+            {recommendedGems.map((gemId) => (
+              <li key={gemId}>
+                <ItemLink id={gemId} />
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </SubSection>
   );
 };
