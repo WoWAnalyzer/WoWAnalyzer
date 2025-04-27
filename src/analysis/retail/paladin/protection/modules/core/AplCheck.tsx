@@ -1,55 +1,121 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { SpellLink } from 'interface';
+import { ResourceLink, SpellLink } from 'interface';
 import { suggestion as buildSuggestion } from 'parser/core/Analyzer';
-import aplCheck, { build } from 'parser/shared/metrics/apl';
+import { EventType } from 'parser/core/Events';
+import aplCheck, { Condition, build, tenseAlt } from 'parser/shared/metrics/apl';
 import annotateTimeline from 'parser/shared/metrics/apl/annotate';
 import * as cnd from 'parser/shared/metrics/apl/conditions';
 
 const howCastable = cnd.always(cnd.or(cnd.inExecute(), cnd.buffPresent(SPELLS.AVENGING_WRATH)));
 
+const eyeOfTyrHoLCastable: Condition<boolean> = {
+  key: 'eyeOfTyr-HoL-Castable',
+  init: () => false,
+  describe: (tense) => (
+    <>
+      <SpellLink spell={SPELLS.HAMMER_OF_LIGHT} /> {tenseAlt(tense, 'is', 'was')} castable due to{' '}
+      <SpellLink spell={TALENTS.EYE_OF_TYR_TALENT} />
+    </>
+  ),
+  update: (state, event) => {
+    if (event.type === EventType.Cast && event.ability.guid === TALENTS.EYE_OF_TYR_TALENT.id) {
+      return true;
+    }
+
+    if (event.type === EventType.Cast && event.ability.guid === SPELLS.HAMMER_OF_LIGHT.id) {
+      return false;
+    }
+
+    return state;
+  },
+  validate: (state) => {
+    return state;
+  },
+};
+
+const holCastable = cnd.always(
+  cnd.or(cnd.buffPresent(SPELLS.LIGHTS_DELIVERANCE_FREE_CAST_BUFF), eyeOfTyrHoLCastable),
+);
+
 export const apl = build([
   {
-    spell: SPELLS.CONSECRATION_CAST,
-    condition: cnd.optionalRule(
-      cnd.buffMissing(SPELLS.CONSECRATION_BUFF),
+    spell: SPELLS.HAMMER_OF_LIGHT,
+    condition: cnd.describe(holCastable, (tense) => (
       <>
-        <SpellLink spell={SPELLS.CONSECRATION_CAST} /> is a potent defensive buff that you should
-        maintain as often as possible. We cannot automatically determine if it is safe for you to
-        drop the buff.
-      </>,
-      '(if actively tanking)',
+        you {tenseAlt(tense, 'have', 'had')} <SpellLink spell={SPELLS.BLESSING_OF_DAWN} />
+      </>
+    )),
+  },
+  {
+    spell: SPELLS.CONSECRATION_CAST,
+    condition: cnd.buffMissing(SPELLS.CONSECRATION_BUFF, {
+      duration: 12000,
+      timeRemaining: 2000,
+      pandemicCap: 1,
+    }),
+  },
+  {
+    spell: SPELLS.SHIELD_OF_THE_RIGHTEOUS,
+    condition: cnd.describe(
+      cnd.always(
+        cnd.or(
+          cnd.hasResource(RESOURCE_TYPES.HOLY_POWER, { atLeast: 5 }, 0),
+          cnd.buffPresent(SPELLS.DIVINE_PURPOSE_BUFF),
+        ),
+      ),
+      (tense) => (
+        <>
+          you {tenseAlt(tense, 'have', 'had')} 5 <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} />{' '}
+          to prevent overcapping
+        </>
+      ),
     ),
   },
   {
     spell: TALENTS.AVENGERS_SHIELD_TALENT,
-    condition: cnd.targetsHit(
-      { atLeast: 3 },
-      {
-        lookahead: 1000,
-      },
-    ),
+    condition: cnd.hasTalent(TALENTS.BULWARK_OF_RIGHTEOUS_FURY_TALENT),
+  },
+  { spell: SPELLS.HAMMER_OF_WRATH, condition: howCastable },
+  SPELLS.JUDGMENT_CAST,
+  {
+    spell: [TALENTS.BLESSED_HAMMER_TALENT, TALENTS.HAMMER_OF_THE_RIGHTEOUS_TALENT],
+    condition: cnd.buffPresent(SPELLS.SHAKE_THE_HEAVENS_BUFF),
   },
   {
     spell: SPELLS.SHIELD_OF_THE_RIGHTEOUS,
-    condition: cnd.optionalRule(
-      cnd.hasResource(RESOURCE_TYPES.HOLY_POWER, { atLeast: 3 }),
-      <>
-        <SpellLink spell={SPELLS.SHIELD_OF_THE_RIGHTEOUS} /> should be maintained while actively
-        tanking and cast while not tanking to avoid capping Holy Power. We cannot automatically
-        determine whether you are pooling resources prior to taking the boss back.
-      </>,
-      false,
+    condition: cnd.describe(
+      cnd.always(
+        cnd.or(
+          cnd.hasResource(RESOURCE_TYPES.HOLY_POWER, { atLeast: 3 }, 0),
+          cnd.buffPresent(SPELLS.DIVINE_PURPOSE_BUFF),
+        ),
+      ),
+      (tense) => (
+        <>
+          it {tenseAlt(tense, 'is', 'was')} free or you {tenseAlt(tense, 'have', 'had')} 3+{' '}
+          <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} />
+        </>
+      ),
     ),
   },
   {
-    spell: TALENTS.HAMMER_OF_WRATH_TALENT,
-    condition: cnd.and(cnd.hasTalent(TALENTS.ZEALOTS_PARAGON_TALENT), howCastable),
+    spell: SPELLS.WORD_OF_GLORY,
+    condition: cnd.optionalRule(
+      cnd.and(
+        cnd.buffPresent(SPELLS.SHAKE_THE_HEAVENS_BUFF),
+        cnd.buffPresent(SPELLS.SHINING_LIGHT),
+      ),
+      <>
+        Spending free <SpellLink spell={SPELLS.WORD_OF_GLORY} /> casts to generate additional{' '}
+        <SpellLink spell={SPELLS.EMPYREAN_HAMMER} /> hits is currently a damage gain, though you
+        need to be careful not to overspend and leave yourself vulnerable.
+      </>,
+    ),
   },
   TALENTS.AVENGERS_SHIELD_TALENT,
-  SPELLS.JUDGMENT_CAST_PROTECTION,
-  TALENTS.HAMMER_OF_THE_RIGHTEOUS_TALENT,
+  [TALENTS.BLESSED_HAMMER_TALENT, TALENTS.HAMMER_OF_THE_RIGHTEOUS_TALENT],
   SPELLS.CONSECRATION_CAST,
 ]);
 

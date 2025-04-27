@@ -202,7 +202,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS_PALADIN.BLESSING_OF_SACRIFICE_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 120,
+        cooldown: 120 - 60 * combatant.getTalentRank(TALENTS.SACRIFICE_OF_THE_JUST_TALENT),
       },
       {
         spell: TALENTS.CLEANSE_TOXINS_TALENT.id,

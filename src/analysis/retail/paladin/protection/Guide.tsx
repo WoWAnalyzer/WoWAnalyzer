@@ -1,5 +1,5 @@
 import { GuideProps, Section, SubSection, useInfo } from 'interface/guide';
-import { ResourceLink } from 'interface';
+import { AlertWarning, ResourceLink, SpellLink } from 'interface';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import CombatLogParser from 'analysis/retail/paladin/protection/CombatLogParser';
 import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/GuideDivs';
@@ -12,6 +12,9 @@ import MajorDefensives from './modules/core/Defensives';
 import ActiveMitgation from './modules/core/Defensives/ActiveMitigation';
 import { FoundationDowntimeSection } from 'interface/guide/foundation/FoundationDowntimeSection';
 import { FoundationCooldownSection } from 'interface/guide/foundation/FoundationCooldownSection';
+import { AplSectionData } from 'interface/guide/components/Apl';
+import { apl, check } from './modules/core/AplCheck';
+import talents from 'common/TALENTS/paladin';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -21,6 +24,16 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         <FoundationCooldownSection />
       </Section>
       <ResourceUsageSection modules={modules} events={events} info={info} />
+      <Section title="Rotation">
+        {!info.combatant.hasTalent(talents.LIGHTS_GUIDANCE_TALENT) && (
+          <AlertWarning>
+            Rotational analysis for{' '}
+            <SpellLink spell={talents.HOLY_ARMAMENTS_TALENT}>Lightsmith</SpellLink> is not
+            implemented at this time.
+          </AlertWarning>
+        )}
+        <AplSectionData checker={check} apl={apl} />
+      </Section>
       <MitigationSection />
       <ActiveMitigationSection />
       <PreparationSection />
