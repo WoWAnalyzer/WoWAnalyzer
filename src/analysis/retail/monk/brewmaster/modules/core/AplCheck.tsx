@@ -108,6 +108,15 @@ const standardApl = build([
     ),
   },
   {
+    spell: talents.CHI_BURST_SHARED_TALENT,
+    condition: cnd.describe(cnd.hasTalent(talents.MANIFESTATION_TALENT), (tense) => (
+      <>
+        you {tenseAlt(tense, 'are', 'were')} playing{' '}
+        <SpellLink spell={talents.ASPECT_OF_HARMONY_TALENT}>Master of Harmony</SpellLink>
+      </>
+    )),
+  },
+  {
     spell: SPELLS.TIGER_PALM,
     condition: withCombo,
   },
