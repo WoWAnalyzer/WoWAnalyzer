@@ -21,14 +21,14 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { ReactNode } from 'react';
 
-type Hit = {
+interface Hit {
   amount: number;
   preAmount: number;
   relativeAmount: number;
   preRelativeAmount: number;
   drPercent: number;
   timestamp: number;
-};
+}
 
 class DampenHarm extends MajorDefensiveBuff {
   currentMaxHP = 0;
@@ -96,7 +96,7 @@ class DampenHarm extends MajorDefensiveBuff {
 
   private get spec() {
     const scale = 0.025;
-    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+
     const spec = {
       layer: [
         {

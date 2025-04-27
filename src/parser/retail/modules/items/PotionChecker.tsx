@@ -55,6 +55,9 @@ class PotionChecker extends Analyzer {
   addedSuggestionText = false;
   isHealer = false;
 
+  suggestionMessage =
+    'Since you are able to use a combat potion every 5 minutes, you should ensure that you are getting the maximum number of potions in each encounter.';
+
   constructor(args: Options) {
     super(args);
     this.addEventListener(Events.applybuff.to(SELECTED_PLAYER), this._applybuff);
@@ -161,10 +164,6 @@ class PotionChecker extends Analyzer {
       },
       style: ThresholdStyle.NUMBER,
     };
-  }
-
-  get suggestionMessage() {
-    return 'Since you are able to use a combat potion every 5 minutes, you should ensure that you are getting the maximum number of potions in each encounter.';
   }
 
   potionAdjuster(spec: Spec) {

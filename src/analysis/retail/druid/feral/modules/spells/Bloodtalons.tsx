@@ -54,39 +54,39 @@ class Bloodtalons extends Analyzer {
   hasApex: boolean;
 
   /** Finishers buffed by BT */
-  goodFinishers: number = 0;
+  goodFinishers = 0;
   /** Finisher unbuffed by BT, but where you might not have been able to */
-  acceptableFinishers: number = 0;
+  acceptableFinishers = 0;
   /** Finisher unbuffed by BT when you should have been able to */
-  badFinishers: number = 0;
+  badFinishers = 0;
 
   /** Bites cast with the Apex Predator's Craving buff */
-  apexBites: number = 0;
+  apexBites = 0;
   /** Bites cast by Convoke */
-  convokeBites: number = 0;
+  convokeBites = 0;
   /** Hardcast bites during Berserk (and not buffed by APC) */
-  berserkBites: number = 0;
+  berserkBites = 0;
   /** Hardcast bites that weren't buffed by APC or during Berserk */
-  regBites: number = 0;
+  regBites = 0;
 
   /** Bites cast with the Apex Predator's Craving buff that were buffed with BT */
-  apexBitesWithBt: number = 0;
+  apexBitesWithBt = 0;
   /** Bites cast by Convoke that were buffed with BT */
-  convokeBitesWithBt: number = 0;
+  convokeBitesWithBt = 0;
   /** Hardcast bites during Berserk (and not buffed by APC) that were buffed with BT */
-  berserkBitesWithBt: number = 0;
+  berserkBitesWithBt = 0;
   /** Hardcast bites that weren't buffed by APC that were buffed with BT */
-  regBitesWithBt: number = 0;
+  regBitesWithBt = 0;
 
   /** Rips cast */
-  rips: number = 0;
+  rips = 0;
   /** Rips cast that were buffed with BT */
-  ripsWithBt: number = 0;
+  ripsWithBt = 0;
 
   /** Primal Wraths cast */
-  primalWraths: number = 0;
+  primalWraths = 0;
   /** Primal Wraths cast that were buffed with BT */
-  primalWrathsWithBt: number = 0;
+  primalWrathsWithBt = 0;
 
   /**
    * Normally, every regular hardcast FB should be buffed by BT, but we allow the following exceptions:
@@ -96,19 +96,19 @@ class Bloodtalons extends Analyzer {
    *
    * If none of these exceptions apply and the FB didn't benefit from BT, we increment this.
    */
-  badBites: number = 0;
+  badBites = 0;
   /** Number of regular hardcast FB that either benefitted from BT or had an exception */
-  correctBites: number = 0;
+  correctBites = 0;
   /** If there has been an 'exception' case since the last finisher that makes it ok for
    * this finisher to be a Ferocious Bite unbuffed by BT */
-  exceptionSinceLastFinisher: boolean = false;
+  exceptionSinceLastFinisher = false;
 
   /** Total damage added by Bloodtalons  */
-  btDamage: number = 0;
+  btDamage = 0;
   /** The damage that could have been boosted by Bloodtalons, before the boost. */
-  totalBoostableDamage: number = 0;
+  totalBoostableDamage = 0;
   /** The damage that was boosted by Bloodtalons, before the boost */
-  baseBoostedDamage: number = 0;
+  baseBoostedDamage = 0;
   /** Set of target IDs whose last rip application had BT */
   targetsWithBtRip: Set<string> = new Set<string>();
 

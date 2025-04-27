@@ -75,7 +75,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: combatant.hasTalent(TALENTS.FIRE_BLAST_TALENT) ? null : { base: 1500 },
         enabled: combatant.hasTalent(TALENTS.FIRE_BLAST_TALENT),
-        cooldown: (haste: any) =>
+        cooldown: (haste) =>
           combatant.hasTalent(TALENTS.FIERY_RUSH_TALENT) &&
           combatant.hasBuff(TALENTS.COMBUSTION_TALENT.id)
             ? 10 / 1.5 / (1 + haste)

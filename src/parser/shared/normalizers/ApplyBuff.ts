@@ -26,16 +26,12 @@ class ApplyBuff extends EventsNormalizer {
     this._combatantInfoEvents = this.owner.combatantInfoEvents;
   }
 
-  _buffsAppliedByPlayerId: {
-    [playerid: number]: number[];
-  } = {};
+  _buffsAppliedByPlayerId: Record<number, number[]> = {};
 
   normalize(events: AnyEvent[]) {
     const firstEventIndex = this.getFightStartIndex(events);
     const firstStartTimestamp = this.owner.fight.start_time;
-    const playersById = this.owner.players.reduce<{
-      [id: number]: PlayerInfo;
-    }>((obj, player) => {
+    const playersById = this.owner.players.reduce<Record<number, PlayerInfo>>((obj, player) => {
       obj[player.id] = player;
       return obj;
     }, {});

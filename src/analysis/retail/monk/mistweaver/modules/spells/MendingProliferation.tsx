@@ -19,8 +19,8 @@ class MendingProliferation extends Analyzer {
     combatants: Combatants,
   };
   protected combatants!: Combatants;
-  mendingProlifHealingIncrease: number = 0;
-  bonusHealingFromMendingProlif: number = 0;
+  mendingProlifHealingIncrease = 0;
+  bonusHealingFromMendingProlif = 0;
 
   constructor(options: Options) {
     super(options);

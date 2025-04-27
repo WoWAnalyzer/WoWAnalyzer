@@ -52,32 +52,30 @@ const ArmsWarriorChecklist = ({
           </div>
         }
       />
-      {!false && (
-        <Rule
+      <Rule
+        name={
+          <>
+            Use <SpellLink spell={SPELLS.MORTAL_STRIKE} /> efficiently
+          </>
+        }
+        description={
+          <>
+            Try to use as many <SpellLink spell={SPELLS.MORTAL_STRIKE} icon /> as possible. It is
+            generally your strongest hitting ability, unless you are in{' '}
+            <SpellLink spell={SPELLS.EXECUTE} /> range and do not have the{' '}
+            <SpellLink spell={TALENTS.EXECUTIONERS_PRECISION_TALENT} /> talent.
+          </>
+        }
+      >
+        <Requirement
           name={
             <>
-              Use <SpellLink spell={SPELLS.MORTAL_STRIKE} /> efficiently
+              <SpellLink spell={SPELLS.MORTAL_STRIKE} icon /> uses
             </>
           }
-          description={
-            <>
-              Try to use as many <SpellLink spell={SPELLS.MORTAL_STRIKE} icon /> as possible. It is
-              generally your strongest hitting ability, unless you are in{' '}
-              <SpellLink spell={SPELLS.EXECUTE} /> range and do not have the{' '}
-              <SpellLink spell={TALENTS.EXECUTIONERS_PRECISION_TALENT} /> talent.
-            </>
-          }
-        >
-          <Requirement
-            name={
-              <>
-                <SpellLink spell={SPELLS.MORTAL_STRIKE} icon /> uses
-              </>
-            }
-            thresholds={thresholds.mortalStrikeUsage}
-          />
-        </Rule>
-      )}
+          thresholds={thresholds.mortalStrikeUsage}
+        />
+      </Rule>
       <Rule
         name="Use your defensive cooldowns"
         description="While you shouldn't cast these defensives on cooldown, be aware of them and use them whenever effective. Not using them at all indicates you might not be aware of them or not using them optimally."

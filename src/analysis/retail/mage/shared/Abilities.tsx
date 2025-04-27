@@ -27,7 +27,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: (haste: any) =>
+        cooldown: (haste) =>
           combatant.spec === SPECS.FROST_MAGE &&
           combatant.hasTalent(TALENTS.ELEMENTAL_AFFINITY_TALENT)
             ? 12 / 1.3 / (1 + haste)

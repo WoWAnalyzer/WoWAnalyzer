@@ -26,8 +26,8 @@ class DreamBreath extends Analyzer {
     combatants: Combatants,
   };
   protected combatants!: Combatants;
-  totalBreaths: number = 0;
-  totalApplications: number = 0;
+  totalBreaths = 0;
+  totalApplications = 0;
   processedEvents: Set<ApplyBuffEvent> = new Set<ApplyBuffEvent>();
   casts: CastInfo[] = [];
 

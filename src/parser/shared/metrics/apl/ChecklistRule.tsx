@@ -72,7 +72,7 @@ const Tooltip = ({
   const mistakes = Object.entries(
     violations
       .filter((v) => isRuleEqual(v.rule, rule))
-      .reduce((counts: { [spellId: number]: number }, v) => {
+      .reduce((counts: Record<number, number>, v) => {
         counts[v.actualCast.ability.guid] = (counts[v.actualCast.ability.guid] || 0) + 1;
         return counts;
       }, {}),

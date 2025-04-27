@@ -24,7 +24,7 @@ class AncestralProtectionTotem extends Analyzer {
   protected combatants!: Combatants;
 
   loaded = false;
-  aptEvents: Array<CastEvent | ApplyDebuffEvent> = [];
+  aptEvents: (CastEvent | ApplyDebuffEvent)[] = [];
   constructor(options: Options) {
     super(options);
     this.active = Boolean(
@@ -36,7 +36,7 @@ class AncestralProtectionTotem extends Analyzer {
   fetchAll(pathname: string, query: WclOptions) {
     const checkAndFetch: any = async (_query: WclOptions) => {
       const json = (await fetchWcl(pathname, _query)) as WCLEventsResponse;
-      const events = json.events as Array<CastEvent | ApplyDebuffEvent>;
+      const events = json.events as (CastEvent | ApplyDebuffEvent)[];
       this.aptEvents.push(...events);
       if (json.nextPageTimestamp) {
         return checkAndFetch(

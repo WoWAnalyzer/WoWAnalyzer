@@ -350,11 +350,7 @@ export function getPyreEvents(event: CastEvent): DamageEvent[] {
   return GetRelatedEvents<DamageEvent>(event, PYRE_DRAGONRAGE);
 }
 
-function pyreHitIsUnique(
-  castEvent: CastEvent,
-  damageEvent: DamageEvent,
-  maxHitsAllowed: number = 1,
-) {
+function pyreHitIsUnique(castEvent: CastEvent, damageEvent: DamageEvent, maxHitsAllowed = 1) {
   /** Since Pyre can only hit a target once per cast
    * we need to check if it's the same target
    * Dragonrage shoots out 3 pyres so we need to count */

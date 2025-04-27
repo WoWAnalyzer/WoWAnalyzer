@@ -6,8 +6,8 @@ import SpellManaCost from 'parser/shared/modules/SpellManaCost';
 import { CastEvent } from 'parser/core/Events';
 
 class MWSpellManaCost extends SpellManaCost {
-  currentBuffs: Set<number> = new Set();
-  hasChiji: boolean = false;
+  currentBuffs = new Set<number>();
+  hasChiji = false;
   constructor(options: Options) {
     super(options);
     this.hasChiji = this.selectedCombatant.hasTalent(

@@ -1,5 +1,6 @@
-import { i18n } from '@lingui/core';
-import { Trans, defineMessage } from '@lingui/macro';
+import { i18n, MessageDescriptor } from '@lingui/core';
+import { defineMessage } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { captureException } from 'common/errorLogger';
 import fetchWcl, { GuildNotFoundError, UnknownApiError, WclApiError } from 'common/fetchWclApi';
 import { makeGuildApiUrl } from 'common/makeApiUrl';
@@ -74,7 +75,7 @@ interface State {
   reports: WCLGuildReport[];
   reportsToShow: number;
   isLoading: boolean;
-  error: any; // TODO MessageDescriptor? convert to enum?
+  error: MessageDescriptor | null;
   errorMessage: any | null;
   realmSlug: string;
   factionImage: string;

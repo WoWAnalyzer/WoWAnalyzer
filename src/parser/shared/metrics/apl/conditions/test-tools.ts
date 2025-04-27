@@ -44,7 +44,7 @@ export function runCondition<T>(cnd: Condition<T>, events: AnyEvent[], initialSt
 export function cast(
   timestamp: number,
   spell: Spell,
-  targetID: number = 1,
+  targetID = 1,
   targetInstance?: number,
 ): CastEvent {
   return {

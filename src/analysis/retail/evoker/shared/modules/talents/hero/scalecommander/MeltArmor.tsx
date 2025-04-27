@@ -28,7 +28,7 @@ class MeltArmor extends Analyzer {
   };
   protected enemies!: Enemies;
 
-  damageMap: Map<number, { spell: Spell; color: string; amount: number }> = new Map();
+  damageMap = new Map<number, { spell: Spell; color: string; amount: number }>();
 
   constructor(options: Options) {
     super(options);

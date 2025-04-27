@@ -50,9 +50,9 @@ class BeaconHealSource extends Analyzer {
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this._onHeal);
   }
 
-  healBacklog: Array<HealEvent & { remainingBeaconTransfers: number }> = [];
+  healBacklog: (HealEvent & { remainingBeaconTransfers: number })[] = [];
   // heals may be unconfigured because they don't transfer, or because they're new...
-  unconfiguredHeals: Array<HealEvent> = [];
+  unconfiguredHeals: HealEvent[] = [];
 
   _onHeal(event: HealEvent) {
     const spellId = event.ability.guid;

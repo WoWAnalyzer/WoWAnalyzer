@@ -2,6 +2,7 @@ import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import AugmentRuneChecker from 'parser/retail/modules/items/AugmentRuneChecker';
 import EnchantChecker from 'parser/retail/modules/items/EnchantChecker';
+import GemChecker from 'parser/retail/modules/items/GemChecker';
 import FlaskChecker from 'parser/retail/modules/items/FlaskChecker';
 import FoodChecker from 'parser/retail/modules/items/FoodChecker';
 import PotionChecker from 'parser/retail/modules/items/PotionChecker';
@@ -11,6 +12,7 @@ class PreparationRuleAnalyzer extends Analyzer {
   static dependencies = {
     potionChecker: PotionChecker,
     enchantChecker: EnchantChecker,
+    gemChecker: GemChecker,
     weaponEnhancementChecker: WeaponEnhancementChecker,
     flaskChecker: FlaskChecker,
     foodChecker: FoodChecker,
@@ -19,6 +21,7 @@ class PreparationRuleAnalyzer extends Analyzer {
 
   protected potionChecker!: PotionChecker;
   protected enchantChecker!: EnchantChecker;
+  protected gemChecker!: GemChecker;
   protected weaponEnhancementChecker!: WeaponEnhancementChecker;
   protected flaskChecker!: FlaskChecker;
   protected foodChecker!: FoodChecker;

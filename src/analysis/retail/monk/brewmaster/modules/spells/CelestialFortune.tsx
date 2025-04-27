@@ -11,12 +11,13 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
 
-type TrackedHealing = {
-  [spellId: number]: {
+type TrackedHealing = Record<
+  number,
+  {
     amount: number;
     absorb: boolean;
-  };
-};
+  }
+>;
 
 const totalTrackedHealing = (value: TrackedHealing) =>
   Object.values(value).reduce((a, b) => a + b.amount, 0);

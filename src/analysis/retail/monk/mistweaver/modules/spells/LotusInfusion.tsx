@@ -31,10 +31,10 @@ class LotusInfusion extends Analyzer {
   protected hotTracker!: HotTrackerMW;
   protected combatants!: Combatants;
 
-  renewingMistHealingBoost: number = 0;
-  renewingMistOverhealingBoost: number = 0;
-  effectiveHealing: number = 0;
-  overhealing: number = 0;
+  renewingMistHealingBoost = 0;
+  renewingMistOverhealingBoost = 0;
+  effectiveHealing = 0;
+  overhealing = 0;
   risingMistActive: boolean;
 
   constructor(options: Options) {

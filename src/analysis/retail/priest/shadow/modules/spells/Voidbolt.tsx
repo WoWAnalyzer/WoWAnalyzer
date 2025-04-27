@@ -29,7 +29,7 @@ class Voidbolt extends ExecuteHelper {
     abilities: Abilities,
   };
 
-  maxCasts: number = 0;
+  maxCasts = 0;
   castVB = 0; //casts of Voidbolt
   miss = 0; //missed potential casts of Void Bolt
   VB = [0]; //timestamps of voidbolt spellusable updates

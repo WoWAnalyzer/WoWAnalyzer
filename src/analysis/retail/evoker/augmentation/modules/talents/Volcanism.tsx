@@ -16,7 +16,7 @@ import Soup from 'interface/icons/Soup';
  * Eruption's Essence cost is reduced by 1.
  */
 class Volcanism extends Analyzer {
-  essenceSaved: number = 0;
+  essenceSaved = 0;
 
   constructor(options: Options) {
     super(options);

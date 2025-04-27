@@ -7,7 +7,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 class BodyAndSoul extends Analyzer {
-  buffCount: number = 0;
+  buffCount = 0;
 
   constructor(options: Options) {
     super(options);

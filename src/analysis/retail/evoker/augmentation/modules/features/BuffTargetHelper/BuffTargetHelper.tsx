@@ -31,7 +31,7 @@ import { ABILITY_BLACKLIST, ABILITY_NO_BOE_SCALING } from '../../util/abilityFil
  * @key ClassName
  * @value mrt color code
  */
-const mrtColorMap: Map<string, string> = new Map([
+const mrtColorMap = new Map<string, string>([
   ['Mage', '|cff3fc7eb'],
   ['Paladin', '|cfff48cba'],
   ['Warrior', '|cffc69b6d'],
@@ -49,10 +49,10 @@ const mrtColorMap: Map<string, string> = new Map([
 
 const NO_EM_SCALING_MODIFIER = 0.5;
 
-type DamageTables = {
+interface DamageTables {
   normalDamage: WCLDamageDoneTableResponse;
   noEbonDamage: WCLDamageDoneTableResponse;
-};
+}
 
 /**
  * So managing your buffs is essentially what Augmentation boils down to.
@@ -87,7 +87,7 @@ class BuffTargetHelper extends Analyzer {
    * @key Player Name
    * @value Array of damage for each interval
    */
-  playerDamageMap: Map<string, number[]> = new Map();
+  playerDamageMap = new Map<string, number[]>();
 
   /**
    * Used to only grab DPS players, excluding Augmentation
@@ -95,24 +95,24 @@ class BuffTargetHelper extends Analyzer {
    * @key Player Name
    * @value ClassName
    */
-  playerWhitelist: Map<string, string> = new Map();
+  playerWhitelist = new Map<string, string>();
 
   // This could be set to fixed 30s intervals, but might as well give some attention to the Interwoven gamers!
   interval: number =
     30 * 1000 * (this.selectedCombatant.hasTalent(TALENTS.INTERWOVEN_THREADS_TALENT) ? 0.9 : 1);
 
   fightStart: number = this.owner.fight.start_time;
-  fightStartDelay: number = 4_000;
+  fightStartDelay = 4_000;
   fightEnd: number = this.owner.fight.end_time;
-  prescienceHelperMrtNote: string = '';
-  mrtFourTargetPrescienceHelperNote: string = '';
+  prescienceHelperMrtNote = '';
+  mrtFourTargetPrescienceHelperNote = '';
   // If we have 4pc we need to account for long prescience
   has4Pc =
     this.selectedCombatant.has4PieceByTier(TIERS.DF3) ||
     this.selectedCombatant.has4PieceByTier(TIERS.DF4);
 
-  filterBossDamage: boolean = false;
-  nameFilter: string = '';
+  filterBossDamage = false;
+  nameFilter = '';
   bossFilter: string = this.owner.report.enemies
     .filter((enemy) => enemy.subType === 'Boss')
     .map((enemy) => `${enemy.guid}`)
@@ -329,7 +329,7 @@ class BuffTargetHelper extends Analyzer {
     return top4PumpersData;
   }
 
-  getDefaultTargets(top4PumpersData: [string, number[]][][], amount: number = 2): string[] {
+  getDefaultTargets(top4PumpersData: [string, number[]][][], amount = 2): string[] {
     const nameSums = new Map();
 
     top4PumpersData.flat().forEach(([name, values]) => {

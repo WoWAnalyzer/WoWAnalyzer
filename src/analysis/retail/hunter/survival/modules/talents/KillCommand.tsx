@@ -30,10 +30,10 @@ class KillCommand extends Analyzer {
   protected abilities!: Abilities;
   protected globalCooldown!: GlobalCooldown;
 
-  private resets: number = 0;
+  private resets = 0;
 
-  private wastedReductionMs: number = 0;
-  private effectiveReductionMs: number = 0;
+  private wastedReductionMs = 0;
+  private effectiveReductionMs = 0;
   constructor(options: Options) {
     super(options);
 

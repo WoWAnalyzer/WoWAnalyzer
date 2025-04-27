@@ -341,7 +341,7 @@ export const EnemyCastsTimeline = ({
             return acc;
           }, []);
 
-          const beginCastMap: { [key: string]: NpcCastEvent | NpcBeginCastEvent } = {};
+          const beginCastMap: Record<string, NpcCastEvent | NpcBeginCastEvent> = {};
           /*
             This loop maps the npc to the event as well as the friendly player, if it was a targeted spell.
             It also combines cast events with their matching begin cast event. This is helpful to find which casts were interrupted. (begincast events without a matching cast)

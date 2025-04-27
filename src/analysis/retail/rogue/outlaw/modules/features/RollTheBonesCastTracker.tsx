@@ -16,9 +16,7 @@ interface CastValue {
   base: number;
 }
 
-interface BuffValueMap {
-  [index: number]: CastValue;
-}
+type BuffValueMap = Record<number, CastValue>;
 
 export interface RTBCast extends CastEvent {
   appliedBuffs: Spell[];
@@ -72,7 +70,7 @@ class RollTheBonesCastTracker extends Analyzer {
 
   rolltheBonesCastEvents: RTBCast[] = [];
   rolltheBonesCastValues = Object.values(ROLL_THE_BONES_CATEGORIES).reduce(
-    (map: any, label: string) => {
+    (map: Record<string, RTBCast[]>, label: string) => {
       map[label] = [];
       return map;
     },

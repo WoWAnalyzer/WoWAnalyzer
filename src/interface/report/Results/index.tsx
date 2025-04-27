@@ -44,7 +44,7 @@ interface PassedProps {
   parser: CombatLogParser;
   characterProfile: CharacterProfile;
   makeTabUrl: (tab: string, build?: string) => string;
-  phases: { [key: string]: Phase } | null;
+  phases: Record<string, Phase> | null;
   selectedPhase: string;
   selectedInstance: number;
   handlePhaseSelection: (phase: string, instance: number) => void;
@@ -118,6 +118,25 @@ const Results = (props: PassedProps) => {
     [dispatch],
   );
 
+  const providerValue = useMemo(
+    () => ({
+      adjustForDowntime,
+      setAdjustForDowntime,
+      generateResults,
+      isLoading,
+      loadingStatus: props.loadingStatus,
+      results,
+    }),
+    [
+      adjustForDowntime,
+      setAdjustForDowntime,
+      generateResults,
+      isLoading,
+      props.loadingStatus,
+      results,
+    ],
+  );
+
   useEffect(() => {
     if (!isLoading) {
       generateResults();
@@ -168,16 +187,7 @@ const Results = (props: PassedProps) => {
   const reportDuration = props.report.end - props.report.start;
 
   return (
-    <ResultsContext.Provider
-      value={{
-        adjustForDowntime,
-        setAdjustForDowntime,
-        generateResults,
-        isLoading,
-        loadingStatus: props.loadingStatus,
-        results,
-      }}
-    >
+    <ResultsContext.Provider value={providerValue}>
       <div className={`results boss-${props.fight.boss}`}>
         <Header
           config={props.config}

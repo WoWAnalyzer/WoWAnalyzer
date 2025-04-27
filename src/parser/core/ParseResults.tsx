@@ -278,14 +278,14 @@ class Suggestion {
   }
 }
 
-export type Issue = {
+export interface Issue {
   issue: React.ReactNode;
   importance: ISSUE_IMPORTANCE;
   icon?: string;
   spell?: number;
   stat?: React.ReactNode;
   details?: (() => React.ReactNode) | null;
-};
+}
 
 export enum ThresholdStyle {
   BOOLEAN = 'boolean',
@@ -301,11 +301,11 @@ export interface Threshold<T extends number | boolean> {
   actual: T;
 }
 
-type ThresholdRange = {
+interface ThresholdRange {
   minor?: number;
   average?: number;
   major?: number;
-};
+}
 
 /* If you're looking here to fix an error, it's likely that you either:
   a) declared more than one comparator for the threshold (i.e isEqual and isLess than, etc.)
@@ -352,7 +352,7 @@ export type When = <T extends ValidThresholds>(threshold: T) => GenericSuggestio
 class ParseResults {
   tabs: ParseResultsTab[] = [];
   statistics: React.ReactElement[] = [];
-  issues: Array<Issue | SuggestionData> = [];
+  issues: (Issue | SuggestionData)[] = [];
 
   constructor() {
     this.addIssue = this.addIssue.bind(this);

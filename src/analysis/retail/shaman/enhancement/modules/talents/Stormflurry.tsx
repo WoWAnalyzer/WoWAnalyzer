@@ -27,8 +27,8 @@ class Stormflurry extends Analyzer {
   };
   protected abilityTracker!: AbilityTracker;
 
-  protected extraHits: number = 0;
-  protected extraDamage: number = 0;
+  protected extraHits = 0;
+  protected extraDamage = 0;
 
   constructor(options: Options) {
     super(options);

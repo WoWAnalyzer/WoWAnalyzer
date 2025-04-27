@@ -17,6 +17,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 const BASE_PROC_CHANCE = 0.15;
+
 const IV_PROC_CHANCE = 0.2;
 
 const BASE_CDR_AMOUNT = 3000;
@@ -26,10 +27,10 @@ class GrandCrusader extends Analyzer.withDependencies({
   abilities: Abilities,
   spellUsable: SpellUsable,
 }) {
-  totalResets: number = 0;
-  exactResets: number = 0;
-  resetChances: number = 0;
-  gcProcs: number = 0;
+  totalResets = 0;
+  exactResets = 0;
+  resetChances = 0;
+  gcProcs = 0;
 
   procChance = BASE_PROC_CHANCE;
   cdrAmount = BASE_CDR_AMOUNT;

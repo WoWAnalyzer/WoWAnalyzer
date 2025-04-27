@@ -1,6 +1,6 @@
 const MAGIC_SCHOOLS: {
-  names: { [id: number]: string };
-  ids: { [name: string]: number };
+  names: Record<number, string>;
+  ids: Record<string, number>;
 } = {
   names: {
     1: 'Physical',

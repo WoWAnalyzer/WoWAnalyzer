@@ -4,13 +4,13 @@ import * as React from 'react';
 
 import AppBackgroundImage from './FullscreenErrorBackgroundImage';
 
-type Props = {
+interface Props {
   error: React.ReactNode;
   details: React.ReactNode;
   children?: React.ReactNode;
   background: string;
   errorDetails?: React.ReactNode;
-};
+}
 
 const FullscreenError = ({ error, details, background, children, errorDetails }: Props) => (
   // I want this to permanently block rendering since we need people to refresh to load the new version. If they don't refresh they might try requests that may not work anymore.

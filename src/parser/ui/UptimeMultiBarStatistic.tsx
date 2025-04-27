@@ -2,14 +2,14 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { ReactNode } from 'react';
 
-type Props = {
+interface Props {
   children: ReactNode;
   title: ReactNode;
   smallTitle?: boolean;
   category?: STATISTIC_CATEGORY;
   position?: number;
   tooltip?: ReactNode;
-};
+}
 
 /**
  * A statistic container for UptimeBarSubStatistics

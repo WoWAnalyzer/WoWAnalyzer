@@ -14,9 +14,9 @@ class EchoingReprimand extends Analyzer {
   static dependencies = {
     abilities: Abilities,
   };
-  damage: number = 0;
-  comboPointsGained: number = 0;
-  comboPointsWasted: number = 0;
+  damage = 0;
+  comboPointsGained = 0;
+  comboPointsWasted = 0;
   protected abilities!: Abilities;
 
   constructor(options: Options) {

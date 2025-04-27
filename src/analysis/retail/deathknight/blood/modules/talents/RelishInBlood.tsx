@@ -12,10 +12,10 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 class RelishInBlood extends Analyzer {
-  runicPowerGained: number = 0;
-  runicPowerWasted: number = 0;
-  healing: number = 0;
-  overhealing: number = 0;
+  runicPowerGained = 0;
+  runicPowerWasted = 0;
+  healing = 0;
+  overhealing = 0;
 
   constructor(options: Options) {
     super(options);

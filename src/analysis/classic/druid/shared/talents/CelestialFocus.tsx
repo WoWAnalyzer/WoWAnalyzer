@@ -12,7 +12,7 @@ class CelestialFocus extends Analyzer {
   };
   protected haste!: Haste;
 
-  cfHaste: number = 0.03;
+  cfHaste = 0.03;
 
   constructor(options: Options) {
     super(options);

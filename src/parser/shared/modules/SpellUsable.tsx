@@ -69,11 +69,11 @@ class SpellUsable extends Analyzer {
 
   /** Trackers for currently active cooldowns.
    *  Spells that aren't on cooldown won't have an entry in this mapping */
-  protected _currentCooldowns: { [spellId: number]: CooldownInfo } = {};
+  protected _currentCooldowns: Record<number, CooldownInfo> = {};
   /** A global multiplier for the cooldown rate, also known as the 'modRate' */
-  protected _globalModRate: number = 1;
+  protected _globalModRate = 1;
   /** Per-spell multipliers for the cooldown rate, also knowns as the 'modRate' */
-  protected _spellModRates: { [spellId: number]: number } = {};
+  protected _spellModRates: Record<number, number> = {};
 
   constructor(options: Options) {
     super(options);
@@ -282,8 +282,8 @@ class SpellUsable extends Analyzer {
   public endCooldown(
     spellId: number,
     timestamp: number = this.owner.currentTimestamp,
-    resetCooldown: boolean = false,
-    restoreAllCharges: boolean = false,
+    resetCooldown = false,
+    restoreAllCharges = false,
   ) {
     // get cooldown info
     const cdSpellId = this._getCanonicalId(spellId);
@@ -577,10 +577,7 @@ class SpellUsable extends Analyzer {
    * @param forceCheckAbilites iff true, cooldown will be pulled from Abilities even if there
    *     is a cached value in cdInfo
    */
-  private _getExpectedCooldown(
-    canonicalSpellId: number,
-    forceCheckAbilites: boolean = false,
-  ): number {
+  private _getExpectedCooldown(canonicalSpellId: number, forceCheckAbilites = false): number {
     const cdInfo = this._currentCooldowns[canonicalSpellId];
     if (cdInfo && !forceCheckAbilites) {
       // cdInfo always kept up to date
@@ -672,7 +669,7 @@ class SpellUsable extends Analyzer {
     canonicalSpellId: number,
     cdInfo: CooldownInfo,
     timestamp: number,
-    carryoverCdr: number = 0,
+    carryoverCdr = 0,
   ) {
     const expectedCooldownDuration = this._getExpectedCooldown(canonicalSpellId);
     if (!expectedCooldownDuration) {

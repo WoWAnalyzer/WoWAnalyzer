@@ -27,17 +27,17 @@ const STACKS_CONSUMED_PER_FROST_SHOCK_CAST = 10;
  * Example Log:
  */
 class Hailstorm extends Analyzer {
-  protected casts: number = 0;
-  protected hits: number = 0;
-  protected damage: number = 0;
-  protected currentStacks: number = 0;
-  protected lostStacks: number = 0;
-  protected totalStacksGained: number = 0;
-  protected overcappedStacks: number = 0;
-  protected currentMaelstromWeaponStacks: number = 0;
-  protected maxStacksConsumedPerCast: number = 5;
+  protected casts = 0;
+  protected hits = 0;
+  protected damage = 0;
+  protected currentStacks = 0;
+  protected lostStacks = 0;
+  protected totalStacksGained = 0;
+  protected overcappedStacks = 0;
+  protected currentMaelstromWeaponStacks = 0;
+  protected maxStacksConsumedPerCast = 5;
 
-  protected timestamp: number = 0;
+  protected timestamp = 0;
 
   constructor(options: Options) {
     super(options);

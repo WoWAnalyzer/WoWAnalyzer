@@ -71,9 +71,9 @@ export default class TWW2TierSet extends Analyzer.withDependencies({
   /** Info about applied Insurance HoT, indexed by targetID */
   insuranceInfoByTargetId: Map<number, InsApplyInfo> = new Map<number, InsApplyInfo>();
 
-  proccedRejuvs: number = 0;
-  proccedRegrowths: number = 0;
-  proccedWgs: number = 0;
+  proccedRejuvs = 0;
+  proccedRegrowths = 0;
+  proccedWgs = 0;
   // procced hot healing tracked through HotAttributor
 
   constructor(options: Options) {

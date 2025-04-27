@@ -14,10 +14,10 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
  *A sweeping attack that strikes all enemies in front of you for (14% of attack power) Frost damage. This attack benefits from Killing Machine. Critical strikes with Frostscythe deal 4 times normal damage.
  */
 class Frostscythe extends Analyzer {
-  casts: number = 0;
-  hits: number = -1; // need to initialize negative to make sure first cast isn't counted as bad
-  goodCasts: number = 0;
-  hitThreshold: number = 0;
+  casts = 0;
+  hits = -1; // need to initialize negative to make sure first cast isn't counted as bad
+  goodCasts = 0;
+  hitThreshold = 0;
 
   constructor(options: Options) {
     super(options);

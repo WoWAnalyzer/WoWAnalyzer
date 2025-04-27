@@ -7,7 +7,7 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import { formatPercentage } from 'common/format';
 import Spell from 'common/SPELLS/Spell';
 
-type Props = {
+interface Props {
   /** The spellId to show cooldown bars for - this must match the ID of the spell's cast event */
   spellId?: number;
   spell?: Spell;
@@ -23,8 +23,8 @@ type Props = {
    *
    * If not specified, defaults to the whole fight.
    */
-  activeWindows?: Array<CooldownWindow>;
-};
+  activeWindows?: CooldownWindow[];
+}
 
 /**
  * Displays a spell's cast efficiency on the left,

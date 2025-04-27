@@ -15,8 +15,8 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
  * Example log:
  */
 class NaturesGuardian extends Analyzer {
-  protected healthGained: number = 0;
-  protected procCount: number = 0;
+  protected healthGained = 0;
+  protected procCount = 0;
 
   constructor(options: Options) {
     super(options);

@@ -24,8 +24,8 @@ class RisingSunKick extends Analyzer {
 
   lastBOK: number = Number.MIN_SAFE_INTEGER;
   lastRSK: number = Number.MIN_SAFE_INTEGER;
-  lastRSKTFT: boolean = false;
-  rskResets: number = 0;
+  lastRSKTFT = false;
+  rskResets = 0;
   currentRskTalent: Talent;
 
   constructor(options: Options) {

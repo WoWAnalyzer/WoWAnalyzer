@@ -41,7 +41,7 @@ class VoidBlast extends ExecuteHelper {
     castEfficiency: CastEfficiency,
   };
 
-  maxCasts: number = 0; //set Max Casts for Void Blast
+  maxCasts = 0; //set Max Casts for Void Blast
   castVB = 0; //casts of Voidblast
   missVB = 0; //missed possible casts of Void Blast
   lostCharges = 0; //previous events charges of Void Blast

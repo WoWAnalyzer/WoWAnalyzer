@@ -11,8 +11,8 @@ import Events, { RemoveBuffEvent, RemoveBuffStackEvent } from 'parser/core/Event
 import { consumedOpportunity } from '../../normalizers/CastLinkNormalizer';
 
 class Opportunity extends Analyzer {
-  procs: number = 0;
-  consumedProcs: number = 0;
+  procs = 0;
+  consumedProcs = 0;
 
   get thresholds(): NumberThreshold {
     const total = this.damageTracker.getAbility(SPELLS.SINISTER_STRIKE.id);

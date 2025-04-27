@@ -5,6 +5,7 @@ import { GUIDE_EXPLANATION_PERCENT_WIDTH } from '../constants';
 import { ExplanationAndDataSubSection } from 'interface/guide/components/ExplanationRow';
 import BoringResourceValue from 'parser/ui/BoringResourceValue';
 import SpellLink from 'interface/SpellLink';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 /** A guide subsection for tracking Maelstrom usage. */
 export const MaelstromSubSection = ({ modules }: GuideProps<typeof CombatLogParser>) => {
@@ -28,7 +29,7 @@ export const MaelstromSubSection = ({ modules }: GuideProps<typeof CombatLogPars
 
   const data = (
     <BoringResourceValue
-      resource={{ id: 11 }}
+      resource={RESOURCE_TYPES.MAELSTROM}
       label="Wasted Maelstrom"
       value={modules.maelstromDetails.wasted}
     />

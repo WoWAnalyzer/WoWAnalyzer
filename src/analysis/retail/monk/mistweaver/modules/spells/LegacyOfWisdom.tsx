@@ -23,9 +23,9 @@ const CAST_TIME_REDUCTION = 0.33;
 class LegacyOfWisdom extends Analyzer {
   static dependencies = {};
 
-  healing: number = 0;
-  extraGcds: number = 0;
-  missedHits: number = 0;
+  healing = 0;
+  extraGcds = 0;
+  missedHits = 0;
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.LEGACY_OF_WISDOM_TALENT);

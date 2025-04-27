@@ -31,11 +31,11 @@ const TF_SNAPSHOT_DEBUFFS = [
  */
 export default class CarnivorousInstinct extends Analyzer {
   /** Number of points in Carnivorous Instinct */
-  rank: number = 0;
+  rank = 0;
   /** The relative damage boost to TF from Carnivorous Instinct */
-  relativeBoost: number = 0;
+  relativeBoost = 0;
   /** Total damage added by Carnivorous Instinct */
-  totalDamage: number = 0;
+  totalDamage = 0;
 
   /** Set of target IDs whose last rip application had TF */
   targetsWithTfRip: Set<string> = new Set<string>();

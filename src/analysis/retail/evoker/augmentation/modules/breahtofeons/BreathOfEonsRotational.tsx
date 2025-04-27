@@ -34,14 +34,14 @@ import { SpellTracker } from 'analysis/retail/evoker/shared/modules/components/E
 import BreathOfEonsHelper from './BreathOfEonsHelper';
 import { BREATH_OF_EONS_SPELLS } from '../../constants';
 
-export type BreathOfEonsWindows = {
+export interface BreathOfEonsWindows {
   flightData: SpellTracker[];
   breathPerformance: BreathWindowPerformance;
   start: number;
   end: number;
-};
+}
 
-type BreathWindowPerformance = {
+interface BreathWindowPerformance {
   temporalWoundsCounter: SpellTracker[];
   ebonMightDroppedDuringBreath: boolean;
   ebonMightDroppedDuration: number;
@@ -65,7 +65,7 @@ type BreathWindowPerformance = {
   damage: number;
   buffedPlayers: Map<string, Combatant>;
   earlyDeadMobs: RemoveDebuffEvent[];
-};
+}
 
 /**
  * Breath of Eons is Augmentations major cooldown, it works as a damage amp for your allies
@@ -100,17 +100,17 @@ class BreathOfEonsRotational extends Analyzer {
 
   windows: BreathOfEonsWindows[] = [];
 
-  activeDebuffs: number = 0;
-  isEbonMightActive: boolean = false;
+  activeDebuffs = 0;
+  isEbonMightActive = false;
 
-  breathWindowActive: boolean = false;
-  totalCasts: number = 0;
+  breathWindowActive = false;
+  totalCasts = 0;
   latestEbonMightDrop!: RemoveBuffEvent;
   latestEbonMightEvent!: RemoveBuffEvent | ApplyBuffEvent;
 
-  ebonMightCounter: number = 0;
+  ebonMightCounter = 0;
   ebonMightCount: SpellTracker[] = [];
-  shiftingsSandsCounter: number = 0;
+  shiftingsSandsCounter = 0;
   shiftingSandsCount: SpellTracker[] = [];
 
   fireBreath = this.selectedCombatant.hasTalent(TALENTS.FONT_OF_MAGIC_AUGMENTATION_TALENT)
@@ -275,7 +275,7 @@ class BreathOfEonsRotational extends Analyzer {
     /** Since Breath cast happens before it applies Ebon Might
      * Check if Ebon Might was applied by Breath of Eons
      * and add our combatants from the bufflinks */
-    const currentBuffedTargets: Map<string, Combatant> = new Map();
+    const currentBuffedTargets = new Map<string, Combatant>();
     if (ebonIsFromBreath(event)) {
       GetRelatedEvents(event, BREATH_EBON_APPLY_LINK).forEach((relatedEvent) => {
         GetRelatedEvents(relatedEvent, EBON_MIGHT_BUFF_LINKS).forEach((ebonMightEvent) => {
@@ -508,7 +508,7 @@ class BreathOfEonsRotational extends Analyzer {
     /** In 10.2 blizzard introduced *sparkles* delayed EM buffs *sparkles*
      * so now we need to double check whether or not we actually found our buffed players */
     if (this.currentPerformanceBreathWindow.buffedPlayers.size === 0) {
-      const currentBuffedTargets: Map<string, Combatant> = new Map();
+      const currentBuffedTargets = new Map<string, Combatant>();
       const players = Object.values(this.combatants.players);
       players.forEach((player) => {
         if (player.hasBuff(SPELLS.EBON_MIGHT_BUFF_EXTERNAL.id)) {

@@ -70,7 +70,7 @@ abstract class Snapshots extends Analyzer {
   /** The snapshots that could apply to this DoT */
   applicableSnapshots: SnapshotSpec[];
   /** Data on the current DoT / snapshot state per target */
-  snapshotsByTarget: { [key: string]: DotUptime[] } = {};
+  snapshotsByTarget: Record<string, DotUptime[]> = {};
 
   protected constructor(
     spell: Spell,
@@ -278,7 +278,7 @@ abstract class Snapshots extends Analyzer {
 }
 
 /** Static specification of a snapshotting buff */
-type StaticSnapshotSpec = {
+interface StaticSnapshotSpec {
   /** The name of this snapshot */
   name: string;
   /** The spell or spells the combatant has that could cause this snapshot */
@@ -291,10 +291,10 @@ type StaticSnapshotSpec = {
   displayColor: string;
   /** The strength of this snapshot's boost */
   boostStrength: (c: Combatant) => number;
-};
+}
 
 /** Specification of a snapshotting buff specific to the combatant, generated from StaticSnapshotSpecs */
-export type SnapshotSpec = {
+export interface SnapshotSpec {
   /** The name of this snapshot */
   name: string;
   /** The spell or spells that cause this snapshot */
@@ -305,10 +305,10 @@ export type SnapshotSpec = {
   displayColor: string;
   /** The strength of this snapshot's boost */
   boostStrength: number;
-};
+}
 
 /** Data object recording a period of time that a DoT was active, and which snapshots it benfitted from */
-type DotUptime = {
+interface DotUptime {
   /** Timestamp when this debuff was applied or refreshed */
   start: number;
   /** Timestamp when we expect the debuff to expire */
@@ -319,6 +319,6 @@ type DotUptime = {
   snapshots: SnapshotSpec[];
   /** Snapshots applicable to the previous DoT application, or null if this was a fresh application */
   previousSnapshots?: SnapshotSpec[] | null;
-};
+}
 
 export default Snapshots;

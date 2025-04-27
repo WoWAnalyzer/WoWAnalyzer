@@ -46,24 +46,24 @@ class ShaohaosLessons extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
   };
-  angerDamage: number = 0;
-  angerHealing: number = 0;
+  angerDamage = 0;
+  angerHealing = 0;
   applyCount: Map<number, number> = new Map<number, number>(
     BUFFS.map((spell) => {
       return [spell.id, 0];
     }),
   );
-  curHpPercent: number = 0;
+  curHpPercent = 0;
   durationCount: Map<number, number> = new Map<number, number>(
     BUFFS.map((spell) => {
       return [spell.id, 0];
     }),
   );
-  despairDamage: number = 0;
-  despairHealing: number = 0;
-  doubtDamage: number = 0;
-  doubtHealing: number = 0;
-  fearMitigated: number = 0;
+  despairDamage = 0;
+  despairHealing = 0;
+  doubtDamage = 0;
+  doubtHealing = 0;
+  fearMitigated = 0;
   lastApplyTime: Map<number, number> = new Map<number, number>(
     BUFFS.map((spell) => {
       return [spell.id, 0];

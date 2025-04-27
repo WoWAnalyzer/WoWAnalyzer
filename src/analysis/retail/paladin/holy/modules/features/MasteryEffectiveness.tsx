@@ -261,7 +261,7 @@ class MasteryEffectiveness extends Analyzer {
 
   get report() {
     const statsByTargetId = this.masteryHealEvents.reduce(
-      (obj: { [targetID: number]: PlayerStats }, masteryEvent: MasteryEvent) => {
+      (obj: Record<number, PlayerStats>, masteryEvent: MasteryEvent) => {
         // Update the player-totals
         const event = masteryEvent.sourceEvent;
 
@@ -394,9 +394,9 @@ class MasteryEffectiveness extends Analyzer {
 
 export default MasteryEffectiveness;
 
-type MasteryEvent = {
+interface MasteryEvent {
   sourceEvent: HealEvent | AbsorbedEvent;
   effectiveHealing: number;
   rawMasteryGain: number;
   maxPotentialRawMasteryHealing: number;
-};
+}

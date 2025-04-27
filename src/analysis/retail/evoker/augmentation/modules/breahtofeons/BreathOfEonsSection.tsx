@@ -15,13 +15,13 @@ import ExplanationGraph, {
   generateGraphData,
 } from 'analysis/retail/evoker/shared/modules/components/ExplanationGraph';
 
-type Props = {
+interface Props {
   windows: BreathOfEonsWindows[];
   fightStartTime: number;
   fightEndTime: number;
   ebonMightCount: SpellTracker[];
   shiftingSandsCount: SpellTracker[];
-};
+}
 
 const BreathOfEonsSection: React.FC<Props> = ({
   windows,

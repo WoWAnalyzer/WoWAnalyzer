@@ -11,10 +11,10 @@ import { formatDuration, formatNumber } from 'common/format';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { calculatePrimaryStat } from 'parser/core/stats';
 
-type SpymastersWebCast = {
+interface SpymastersWebCast {
   timestamp: number;
   stacks: number;
-};
+}
 
 /**
  * Based on the stats provided on wowhead.
@@ -27,8 +27,8 @@ const SPYMASTERS_WEB_BASE_GAIN = 515;
 export default class SpymastersWeb extends Analyzer.withDependencies({
   abilities: Abilities,
 }) {
-  protected currentReportStackCount: number = 0;
-  protected primaryStatBonus: number = 0;
+  protected currentReportStackCount = 0;
+  protected primaryStatBonus = 0;
   protected SpymastersWebCasts: SpymastersWebCast[] = [];
 
   constructor(options: Options) {

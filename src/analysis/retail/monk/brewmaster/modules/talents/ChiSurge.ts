@@ -20,7 +20,7 @@ class ChiSurge extends Analyzer {
   protected spellUsable!: SpellUsable;
 
   // Array of triggering cast and number of debuff applications
-  casts: Array<[CastEvent, number]> = [];
+  casts: [CastEvent, number][] = [];
 
   constructor(options: Options) {
     super(options);

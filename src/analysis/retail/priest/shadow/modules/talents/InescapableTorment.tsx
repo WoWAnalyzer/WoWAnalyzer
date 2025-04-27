@@ -15,14 +15,14 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 
 class InescapableTorment extends Analyzer {
-  damage: number = 0;
-  totalTime: number = 0;
-  extension: number = 0;
-  castTime: number = 0;
+  damage = 0;
+  totalTime = 0;
+  extension = 0;
+  castTime = 0;
   MBExtension: BoxRowEntry[] = [];
-  recentIT: number = 0;
-  has2Piece: boolean = true;
-  tier31Effectiveness: number = 1.0;
+  recentIT = 0;
+  has2Piece = true;
+  tier31Effectiveness = 1.0;
 
   constructor(options: Options) {
     super(options);

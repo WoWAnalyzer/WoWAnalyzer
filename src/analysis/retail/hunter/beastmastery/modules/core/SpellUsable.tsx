@@ -20,9 +20,9 @@ class SpellUsable extends CoreSpellUsable {
   lastPotentialTriggerForBarbedShotReset: AnyEvent | null = null;
   lastPotentialTriggerForKillCommandReset: AnyEvent | null = null;
 
-  private _has2pc: boolean = false;
-  private _tierCanResetBarbedShot: boolean = false;
-  private _barbedShotResetsFromT29: number = 0;
+  private _has2pc = false;
+  private _tierCanResetBarbedShot = false;
+  private _barbedShotResetsFromT29 = 0;
 
   get barbedShotResetsFromT29() {
     return this._barbedShotResetsFromT29;

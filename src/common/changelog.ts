@@ -1,11 +1,11 @@
 import { Contributor } from 'common/contributor';
 import * as React from 'react';
 
-export type ChangelogEntry = {
+export interface ChangelogEntry {
   date: Date;
   changes: React.ReactNode;
   contributors: Contributor[];
-};
+}
 
 export function date(year: number, month: number, day: number) {
   // months are 0 indexed in javascript's Date parameters

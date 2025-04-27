@@ -22,8 +22,8 @@ class ScourgeStrikeEfficiency extends Analyzer {
   protected woundTracker!: WoundTracker;
 
   private readonly activeSpell: Talent;
-  private totalCasts: number = 0;
-  private zeroWoundCasts: number = 0;
+  private totalCasts = 0;
+  private zeroWoundCasts = 0;
 
   constructor(options: Options) {
     super(options);

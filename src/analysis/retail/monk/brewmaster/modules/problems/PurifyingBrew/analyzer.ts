@@ -24,11 +24,11 @@ export enum PurifyReason {
   Unknown = 'unknown',
 }
 
-export type PurifyData = {
+export interface PurifyData {
   purified: PurifiedHit[];
   purify: RemoveStaggerEvent;
   reason: PurifyReason;
-};
+}
 
 export type TrackedStaggerData =
   | {
@@ -57,7 +57,10 @@ export type ProblemData =
 const CAP_CUTOFF = 4000;
 const CHI_REFRESH_CUTOFF = 7500;
 
-type PurifiedHit = { hit: AddStaggerEvent; ratio: number };
+interface PurifiedHit {
+  hit: AddStaggerEvent;
+  ratio: number;
+}
 
 function staggerDuration(bnw: boolean): number {
   return bnw ? 13000 : 10000;
@@ -66,7 +69,7 @@ function staggerDuration(bnw: boolean): number {
 function classifyHitStack(
   hitStack: TrackedStaggerData[],
   timestamp: number,
-  bnw: boolean = false,
+  bnw = false,
 ): { unpurified: TrackedStaggerData[]; purified: PurifiedHit[] } {
   const unpurified = [];
   const purified = [];
@@ -117,7 +120,7 @@ export default class PurifyingBrewProblems extends Analyzer {
     }
   }
 
-  private _amountStaggered: number = 0;
+  private _amountStaggered = 0;
   public get amountStaggered() {
     return this._amountStaggered;
   }
@@ -201,12 +204,12 @@ export default class PurifyingBrewProblems extends Analyzer {
     this.hitStack = [];
   }
 
-  private detectMissedPurifies(): Array<Problem<ProblemData>> {
+  private detectMissedPurifies(): Problem<ProblemData>[] {
     if (this.unpurifiedHits.length === 0) {
       return [];
     }
 
-    const problems: Array<Problem<ProblemData>> = [];
+    const problems: Problem<ProblemData>[] = [];
 
     let previous: PurifyData | undefined = undefined;
     for (const purify of this.purifies.filter((data) => data.reason !== PurifyReason.Unknown)) {
@@ -249,8 +252,8 @@ export default class PurifyingBrewProblems extends Analyzer {
     return problems;
   }
 
-  get problems(): Array<Problem<ProblemData>> {
-    const badPurifies: Array<Problem<ProblemData>> = this.purifies
+  get problems(): Problem<ProblemData>[] {
+    const badPurifies: Problem<ProblemData>[] = this.purifies
       // the length check *should* never be relevant but in rare cases it crops up.
       .filter(({ reason, purified }) => reason === PurifyReason.Unknown && purified.length > 0)
       .map((data) => ({

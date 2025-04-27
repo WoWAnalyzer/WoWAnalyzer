@@ -33,7 +33,7 @@ class NurturingDormancy extends Analyzer {
   attribution: Attribution = HotTracker.getNewAttribution('Nurturing Dormancy');
   /** Mapping from target and spell ID to the number of times Nurturing Dormancy has procced for
    *  that HoT instance */
-  procsFromCastMap: { [targetId: number]: { [spellId: number]: { procs: number } } } = {};
+  procsFromCastMap: Record<number, Record<number, { procs: number }>> = {};
 
   constructor(options: Options) {
     super(options);

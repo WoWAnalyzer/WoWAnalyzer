@@ -9,13 +9,13 @@ import SPELLS from 'common/SPELLS/rogue';
  * Your finishing moves reduce the remaining cooldown on Shadow Dance by 1.5 sec per combo point spent.
  */
 class DeepeningShadows extends Analyzer {
-  BASE_CDR: number = 1000;
-  ENVELOPING_SHADOWS_EXTRA_CDR: number = 500;
+  BASE_CDR = 1000;
+  ENVELOPING_SHADOWS_EXTRA_CDR = 500;
 
   static dependencies = {
     spellUsable: SpellUsable,
   };
-  cdrPerComboPoint: number = 0;
+  cdrPerComboPoint = 0;
   protected spellUsable!: SpellUsable;
 
   constructor(options: Options) {

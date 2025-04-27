@@ -19,7 +19,7 @@ class DegradedExperience extends Component {
   }
 
   toggleDetails() {
-    this.setState({ expanded: !this.state.expanded });
+    this.setState((state) => ({ expanded: !state.expanded }));
   }
 
   get firstError() {
@@ -61,9 +61,6 @@ class DegradedExperience extends Component {
     if (this.disabledModuleCount === 0) {
       return null;
     }
-
-    /* eslint-disable no-script-url */
-    /* eslint-disable jsx-a11y/anchor-is-valid */
 
     return (
       <div className="container">

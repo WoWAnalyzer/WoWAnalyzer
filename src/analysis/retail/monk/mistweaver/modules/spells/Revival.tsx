@@ -38,15 +38,15 @@ class Revival extends Analyzer {
   castTracker: RevivalCastTracker[] = [];
 
   activeTalent!: Talent;
-  revivalDirectHealing: number = 0;
-  revivalDirectOverHealing: number = 0;
-  upliftedSpiritsActive: boolean = false;
-  usHealing: number = 0;
-  usOverhealing: number = 0;
+  revivalDirectHealing = 0;
+  revivalDirectOverHealing = 0;
+  upliftedSpiritsActive = false;
+  usHealing = 0;
+  usOverhealing = 0;
 
-  gustsHealing: number = 0;
-  gustOverHealing: number = 0;
-  minEfHotsBeforeCast: number = 0;
+  gustsHealing = 0;
+  gustOverHealing = 0;
+  minEfHotsBeforeCast = 0;
 
   constructor(options: Options) {
     super(options);

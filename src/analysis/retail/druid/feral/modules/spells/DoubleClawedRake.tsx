@@ -24,9 +24,9 @@ class DoubleClawedRake extends Analyzer {
   targetsWithDcr: Set<string> = new Set<string>();
 
   /** Total tallied damage from DCR rakes */
-  dcrDamage: number = 0;
+  dcrDamage = 0;
   /** Additional Rakes applied by DCR */
-  extraRakes: number = 0;
+  extraRakes = 0;
 
   constructor(options: Options) {
     super(options);

@@ -1,10 +1,10 @@
 import styles from './EnchantmentBoxRow.module.scss';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
-import { CSSProperties, ReactNode } from 'react';
+import { CSSProperties, JSX, ReactNode } from 'react';
 import { Tooltip } from 'interface/index';
-import Item from 'common/ITEMS/Item';
 import Icon from 'interface/Icon';
+import { Item } from 'parser/core/Events';
 
 const getBlockClassName = (value: BoxRowEntry) => {
   switch (value.value) {

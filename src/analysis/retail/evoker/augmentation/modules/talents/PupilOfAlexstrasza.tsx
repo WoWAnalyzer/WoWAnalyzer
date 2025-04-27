@@ -16,7 +16,7 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
  * When cast at an enemy, Living Flame strikes 1 additional enemy for 100% damage.
  */
 class PupilOfAlexstrasza extends Analyzer {
-  PupilOfAlexstraszaDamage: number = 0;
+  PupilOfAlexstraszaDamage = 0;
 
   constructor(options: Options) {
     super(options);

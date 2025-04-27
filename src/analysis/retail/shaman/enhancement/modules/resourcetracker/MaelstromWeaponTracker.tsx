@@ -13,7 +13,7 @@ class MaelstromWeaponTracker extends ResourceTracker {
     ...ResourceTracker.dependencies,
   };
 
-  isDead: boolean = false;
+  isDead = false;
   expiredWaste = 0;
 
   constructor(options: Options) {

@@ -6,7 +6,7 @@ import { isStealth } from './IsStealth';
 
 class StealthDamageTracker extends FilteredDamageTracker {
   // Workaround for stealth getting removed "before" the cast.
-  delayWindow: number = 100;
+  delayWindow = 100;
 
   constructor(options: Options) {
     super(options);
@@ -17,7 +17,7 @@ class StealthDamageTracker extends FilteredDamageTracker {
     }
   }
 
-  shouldProcessEvent(event: any) {
+  shouldProcessEvent(event: never) {
     return isStealth(this.selectedCombatant, this.delayWindow);
   }
 }

@@ -50,7 +50,7 @@ const ChangelogPanel = () => {
         {limit !== null && (
           <button className="btn btn-link" onClick={() => setExpanded(true)} style={{ padding: 0 }}>
             More
-          </button> // eslint-disable-line jsx-a11y/anchor-is-valid
+          </button>
         )}
       </div>
     </div>

@@ -6,7 +6,7 @@ import { HealerStatWeightEvents } from '../features/BaseHealerStatValues';
 class CritEffectBonus extends Analyzer {
   static BASE_CRIT_EFFECT_MOD = 2;
 
-  _hooks: Array<(critEffectModifier: number, event: ValidEvents) => number> = [];
+  _hooks: ((critEffectModifier: number, event: ValidEvents) => number)[] = [];
   hook(func: (critEffectModifier: number, event: ValidEvents) => number) {
     this._hooks.push(func);
   }

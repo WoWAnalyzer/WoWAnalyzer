@@ -37,19 +37,19 @@ class SlayerExecute extends Analyzer {
   };
   protected spellUsable!: SpellUsable;
 
-  overusedExecutes: number = 0;
-  markedForExecutionStacks: number = 0;
-  hasAshenJuggernaut: boolean = false;
-  ashenJuggernautExpirationTimestamp: number = 0;
-  suddenDeathExpirationTimestamp: number = 0;
-  lastSuddenDeathRemoveBuffStackTimestamp: number = 0;
-  ramWasAvailable: boolean = false; //rampage
-  rbWasAvailable: boolean = false; //raging blow
-  ajCount: number = 0;
-  sdCount: number = 0;
-  mfeCount: number = 0;
-  availCount: number = 0;
-  rawCount: number = 0;
+  overusedExecutes = 0;
+  markedForExecutionStacks = 0;
+  hasAshenJuggernaut = false;
+  ashenJuggernautExpirationTimestamp = 0;
+  suddenDeathExpirationTimestamp = 0;
+  lastSuddenDeathRemoveBuffStackTimestamp = 0;
+  ramWasAvailable = false; //rampage
+  rbWasAvailable = false; //raging blow
+  ajCount = 0;
+  sdCount = 0;
+  mfeCount = 0;
+  availCount = 0;
+  rawCount = 0;
 
   constructor(options: Options) {
     super(options);

@@ -23,12 +23,12 @@ import { getEssenceBurstConsumeAbility } from 'analysis/retail/evoker/shared/mod
 import { ESSENCE_COSTS, MANA_COSTS } from './EssenceBurst';
 
 class SparkOfInsight extends Analyzer {
-  currentTcStacks: number = 0;
-  essenceSaved: number = 0;
-  manaSaved: number = 0;
-  totalSparkProcs: number = 0;
-  wastedStacks: number = 0;
-  wastedProcs: number = 0;
+  currentTcStacks = 0;
+  essenceSaved = 0;
+  manaSaved = 0;
+  totalSparkProcs = 0;
+  wastedStacks = 0;
+  wastedProcs = 0;
 
   constructor(options: Options) {
     super(options);

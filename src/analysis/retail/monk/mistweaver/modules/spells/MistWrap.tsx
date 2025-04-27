@@ -24,12 +24,12 @@ import { Tracker } from 'parser/shared/modules/HotTracker';
 const ENVELOPING_BASE_DURATION = 6000;
 
 class MistWrap extends Analyzer {
-  effectiveHealing: number = 0;
-  overHealing: number = 0;
-  envMistHealingBoost: number = 0;
-  envBreathHealingBoost: number = 0;
-  mendingProliferationBoost: number = 0;
-  mendingProliferationActive: boolean = false;
+  effectiveHealing = 0;
+  overHealing = 0;
+  envMistHealingBoost = 0;
+  envBreathHealingBoost = 0;
+  mendingProliferationBoost = 0;
+  mendingProliferationActive = false;
 
   static dependencies = {
     hotTracker: HotTrackerMW,

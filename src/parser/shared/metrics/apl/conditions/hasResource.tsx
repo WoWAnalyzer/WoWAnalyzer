@@ -5,10 +5,10 @@ import { ClassResources, EventType } from 'parser/core/Events';
 import { AplTriggerEvent, Condition, tenseAlt } from '../index';
 import { Range, formatRange } from './index';
 
-export type ResourceInformation = {
+export interface ResourceInformation {
   current: number;
   previous: number;
-};
+}
 
 const castResource = (resource: Resource, event: AplTriggerEvent): ClassResources | undefined =>
   event.classResources?.find(({ type }) => type === resource.id);

@@ -23,12 +23,12 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
  */
 
 class TipOfTheSpear extends Analyzer {
-  private spenderCasts: number = 0;
-  private stacks: number = 0;
-  private usedStacks: number = 0;
-  private wastedStacks: number = 0;
-  private damage: number = 0;
-  private lastApplicationTimestamp: number = 0;
+  private spenderCasts = 0;
+  private stacks = 0;
+  private usedStacks = 0;
+  private wastedStacks = 0;
+  private damage = 0;
+  private lastApplicationTimestamp = 0;
 
   constructor(options: Options) {
     super(options);

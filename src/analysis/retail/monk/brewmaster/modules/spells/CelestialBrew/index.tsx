@@ -35,16 +35,16 @@ const PURIFIED_CHI_WINDOW = 150;
 const PURIFIED_CHI_STACKS_PER_100 = Math.ceil(1 / PURIFIED_CHI_PCT);
 const WASTED_THRESHOLD = 0.75;
 
-type AbsorbExtras = {
+interface AbsorbExtras {
   wastedAmount: number;
   purifiedChiStacks: number;
-};
+}
 
 type Absorb = Mitigation & AbsorbExtras;
 
 class CelestialBrew extends MajorDefensiveBuff {
   private _absorbs: AbsorbExtras[] = [];
-  private _currentChiStacks: number = 0;
+  private _currentChiStacks = 0;
   private _expireTime: number | null = null;
 
   constructor(options: Options) {

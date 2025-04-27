@@ -41,9 +41,9 @@ class Suggestion extends PureComponent<Props, { expanded: boolean }> {
   }
 
   handleClick() {
-    this.setState({
-      expanded: !this.state.expanded,
-    });
+    this.setState((state) => ({
+      expanded: !state.expanded,
+    }));
   }
 
   render() {

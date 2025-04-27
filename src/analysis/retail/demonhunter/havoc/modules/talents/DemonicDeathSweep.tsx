@@ -22,8 +22,8 @@ export default class DemonicDeathSweep extends Analyzer {
     this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FIRST_BLOOD_TALENT);
   eyeBeamCasts = 0;
   goodDeathSweep = 0;
-  eyeBeamTimeStamp: number = 0;
-  deathsweepsInMetaCounter: number = 0;
+  eyeBeamTimeStamp = 0;
+  deathsweepsInMetaCounter = 0;
   badCasts = 0;
 
   constructor(options: Options) {

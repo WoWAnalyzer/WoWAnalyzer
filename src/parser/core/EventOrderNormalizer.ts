@@ -137,7 +137,7 @@ export default EventOrderNormalizer;
  * e.g. "A, B, C" you must pass them in back to front e.g. [A, B] them [B, C] in order
  * for it to work in all cases.
  */
-export type EventOrder = {
+export interface EventOrder {
   /** REQUIRED The ability id or ids of the event that should come before
    * Null will match ANY event ID and should be reserved for special event types */
   beforeEventId: null | number | number[];
@@ -166,4 +166,4 @@ export type EventOrder = {
    * The maximum number of events to re-order. Defaults to 1.
    */
   maxMatches?: number;
-};
+}

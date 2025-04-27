@@ -7,7 +7,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 class BlackPowder extends Analyzer {
-  damage: number = 0;
+  damage = 0;
 
   constructor(options: Options) {
     super(options);

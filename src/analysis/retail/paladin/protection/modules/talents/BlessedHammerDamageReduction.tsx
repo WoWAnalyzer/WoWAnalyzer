@@ -18,9 +18,9 @@ class BlessedHammerDamageReduction extends Analyzer {
 
   protected enemies!: Enemies;
 
-  totalMeleeHits: number = 0;
-  reducedDamageHits: number = 0;
-  totalReducedDamage: number = 0;
+  totalMeleeHits = 0;
+  reducedDamageHits = 0;
+  totalReducedDamage = 0;
   currentAttackPower: number | null = null;
 
   constructor(options: Options) {

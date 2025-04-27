@@ -17,12 +17,12 @@ const ENDURING_LUMINESCENCE_BONUS_MS = 2250;
 const EVANGELISM_BONUS_MS = 6000;
 
 type RadAtonementEvents = AtonementAnalyzerEvent[];
-type RadianceAtonement = {
+interface RadianceAtonement {
   applyBuff: ApplyBuffEvent;
   atonementEvents: RadAtonementEvents;
   wasExtendedByEvangelismPreEnduringWindow: boolean;
   wasExtendedByEvangelismInEnduringWindow: boolean;
-};
+}
 
 class EnduringLuminescense extends Analyzer {
   static dependencies = {

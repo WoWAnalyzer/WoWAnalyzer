@@ -19,15 +19,15 @@ import CastEfficiencyPanel from 'interface/guide/components/CastEfficiencyPanel'
  */
 
 class FlankingStrike extends Analyzer {
-  private damage: number = 0;
+  private damage = 0;
 
-  private flankingStrikes: Array<{
+  private flankingStrikes: {
     name: string;
     sourceID: number;
     damage: number;
     effectiveFocus: number;
     possibleFocus: number;
-  }> = [];
+  }[] = [];
 
   constructor(options: Options) {
     super(options);

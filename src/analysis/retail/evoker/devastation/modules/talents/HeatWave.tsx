@@ -16,8 +16,8 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 const { FIRE_BREATH_DOT } = SPELLS;
 
 class HeatWave extends Analyzer {
-  heatWaveDamage: number = 0;
-  heatWaveDamageMultiplier: number = 0;
+  heatWaveDamage = 0;
+  heatWaveDamageMultiplier = 0;
 
   constructor(options: Options) {
     super(options);

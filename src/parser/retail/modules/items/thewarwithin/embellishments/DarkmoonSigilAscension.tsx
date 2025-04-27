@@ -43,7 +43,7 @@ class DarkmoonSigilAscension extends EmbellishmentAnalyzer.withDependencies({
   statTracker: StatTracker,
 }) {
   private statGainPerStack: number = STAT_GAIN_PER_STACK;
-  private intensity: number = 0;
+  private intensity = 0;
   private history: Ascendance[] = [];
 
   constructor(options: Options) {

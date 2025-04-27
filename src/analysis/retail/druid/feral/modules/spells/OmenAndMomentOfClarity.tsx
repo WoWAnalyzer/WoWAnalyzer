@@ -42,9 +42,9 @@ export default class OmenAndMomentOfClarity extends Analyzer {
   // TODO also track the MoC damage boost (it will be very small)
   hasMoc: boolean;
 
-  totalEnergy: number = 0;
-  procsUsed: number = 0;
-  procsGained: number = 0;
+  totalEnergy = 0;
+  procsUsed = 0;
+  procsGained = 0;
 
   constructor(options: Options) {
     super(options);

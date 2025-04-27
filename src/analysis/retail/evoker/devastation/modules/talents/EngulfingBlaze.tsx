@@ -14,7 +14,7 @@ import { ENGULFING_BLAZE_MULTIPLIER } from 'analysis/retail/evoker/devastation/c
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
 class EngulfingBlaze extends Analyzer {
-  engulfingBlazeDamage: number = 0;
+  engulfingBlazeDamage = 0;
 
   constructor(options: Options) {
     super(options);

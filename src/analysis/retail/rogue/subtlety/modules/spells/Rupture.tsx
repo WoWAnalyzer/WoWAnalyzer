@@ -22,8 +22,8 @@ export default class RuptureUptime extends Analyzer {
   private cooldownUses: SpellUse[] = [];
   private spellUsable!: SpellUsable;
   private enemies!: Enemies;
-  private ruptureEnd: number = 0;
-  private firstRupture: boolean = true;
+  private ruptureEnd = 0;
+  private firstRupture = true;
 
   constructor(options: Options) {
     super(options);

@@ -2,7 +2,7 @@ import { ResourceChangeEvent, EventType } from 'parser/core/Events';
 
 import resourceWasted from './resourceWasted';
 
-const energizeEvent = (id: number, amount: number = 100): ResourceChangeEvent => ({
+const energizeEvent = (id: number, amount = 100): ResourceChangeEvent => ({
   type: EventType.ResourceChange,
   ability: {
     guid: id,

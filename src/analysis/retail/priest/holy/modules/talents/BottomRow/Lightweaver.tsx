@@ -47,8 +47,8 @@ class Lightweaver extends Analyzer {
   wastedBuffFlashHealCasts = 0;
   highOverhealFlashHealCasts = 0;
 
-  trailHealing: number = 0;
-  bindingHealing: number = 0;
+  trailHealing = 0;
+  bindingHealing = 0;
   healHealing = 0;
 
   eolContrib = 0;

@@ -17,8 +17,8 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
  * Upheaval deals 50% increased damage to the primary target, and launches them higher.
  */
 class TectonicLocus extends Analyzer {
-  tectonicLocusDamage: number = 0;
-  currentMainTargetID: number = 0;
+  tectonicLocusDamage = 0;
+  currentMainTargetID = 0;
 
   upheaval = [SPELLS.UPHEAVAL, SPELLS.UPHEAVAL_FONT];
 

@@ -74,8 +74,7 @@ class DeathRecap extends PureComponent {
     };
 
     const events = this.props.events;
-    /* eslint-disable no-script-url */
-    /* eslint-disable jsx-a11y/anchor-is-valid */
+
     return (
       <>
         <div className="pad" style={{ marginBottom: 15 }}>

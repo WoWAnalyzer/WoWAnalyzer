@@ -3,7 +3,7 @@ import { EventType } from 'parser/core/Events';
 
 import { Condition, tenseAlt } from '../index';
 
-type TargetHealth = { [targetId: number]: number };
+type TargetHealth = Record<number, number>;
 
 /**
  * This function expects a health treshold as a decimal ex. 80% = .8

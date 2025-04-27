@@ -18,12 +18,12 @@ import Enemies, { encodeTargetString } from 'parser/shared/modules/Enemies';
 import { qualitativePerformanceToColor, useAnalyzer, useInfo } from '../index';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
-export type TrackedHit = {
+export interface TrackedHit {
   /** How good a job the player did of mitigating the tracked hit */
   mitigated: QualitativePerformance;
   /** Incoming damage event to the player */
   event: DamageEvent;
-};
+}
 
 /**
  * Calculate the damage breakdown by source for the set of data `T`.
@@ -60,10 +60,10 @@ export function damageBreakdown<T>(
   return bySpell;
 }
 
-type DamageTakenPointChartProps = {
+interface DamageTakenPointChartProps {
   hits: TrackedHit[];
   tooltip: React.FC<{ hit: TrackedHit }>;
-};
+}
 
 type Props = DamageTakenPointChartProps;
 

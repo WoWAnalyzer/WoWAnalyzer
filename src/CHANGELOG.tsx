@@ -36,14 +36,19 @@ import {
   Yellot,
   KYZ,
   oneunreadmail,
+  Ceric,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2025, 4, 25), 'Fix Azjol-Nerub special case for Armory Link', Ceric),
+  change(date(2025, 4, 24), 'Streamlined Recommended Gems for Gem Checker', Ceric),
+  change(date(2025, 4, 22), 'Added Gems to Preparation Section with general recommendations.', [emallson,Ceric]),
   change(date(2025, 4, 17), 'Add patch 11.1.5.', Vollmer),
   change(date(2025, 4, 12), 'Changed Momentum talent to Exergy for Havoc', oneunreadmail),
+  change(date(2025, 3, 29), 'Update ESLint to v9.', ToppleTheNun),
   change(date(2025, 3, 29), 'Update internal dependencies', emallson),
   change(date(2025, 3, 28), 'Expanded new Foundation downtime section to caster and healer specs.', emallson),
   change(date(2025, 3, 28), <>Add Empower ability handling for Cast Efficiency & Cancelled Casts modules</>, Vollmer),

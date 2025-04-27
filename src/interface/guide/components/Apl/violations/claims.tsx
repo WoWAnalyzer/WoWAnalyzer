@@ -19,17 +19,17 @@ import useTooltip from 'interface/useTooltip';
 import Combatants from 'parser/shared/modules/Combatants';
 import { useLingui } from '@lingui/react';
 
-export type AplProblemData<T> = {
+export interface AplProblemData<T> {
   claims: Set<Violation>;
   data: T;
-};
+}
 
-export type ViolationExplainer<T> = {
+export interface ViolationExplainer<T> {
   /**
    * Examine the results of the APL check and produce a list of problems, each
    * of which claims some of the detected mistakes.
    */
-  claim: (apl: Apl, result: CheckResult) => Array<AplProblemData<T>>;
+  claim: (apl: Apl, result: CheckResult) => AplProblemData<T>[];
   /**
    * Render an explanation of the overall claims made.
    *
@@ -42,7 +42,7 @@ export type ViolationExplainer<T> = {
    * This is what shows next to the timeline in the guide.
    */
   describe: (props: { apl: Apl; violation: Violation; result: CheckResult }) => JSX.Element | null;
-};
+}
 
 export type AplViolationExplainers = Record<string, ViolationExplainer<any>>;
 
@@ -133,7 +133,7 @@ const overcastFillers: ViolationExplainer<InternalRule> = {
         rule.spell.type === TargetType.Spell &&
         index >= (2 * apl.rules.length) / 3,
     );
-    const claimsByRule: Map<InternalRule, Set<Violation>> = new Map();
+    const claimsByRule = new Map<InternalRule, Set<Violation>>();
 
     result.violations.forEach((violation) => {
       const actualSpellId = violation.actualCast.ability.guid;
@@ -174,7 +174,7 @@ const overcastFillers: ViolationExplainer<InternalRule> = {
 
 const droppedRule: ViolationExplainer<{ rule: InternalRule; spell: Spell }> = {
   claim: (_apl, result) => {
-    const claimsByRule: Map<InternalRule, Set<Violation>> = new Map();
+    const claimsByRule = new Map<InternalRule, Set<Violation>>();
 
     result.violations.forEach((violation) => {
       const claims = claimsByRule.get(violation.rule) ?? new Set();
@@ -199,7 +199,7 @@ const droppedRule: ViolationExplainer<{ rule: InternalRule; spell: Spell }> = {
           if (rule.spell.type === TargetType.Spell) {
             return [{ rule, claims, spell: rule.spell.target }];
           } else {
-            const bySpell: Map<number, Set<Violation>> = new Map();
+            const bySpell = new Map<number, Set<Violation>>();
             for (const claim of claims) {
               for (const spell of claim.expectedCast) {
                 const targetSet = bySpell.get(spell.id) ?? new Set();

@@ -31,7 +31,7 @@ class FilteredDamageTracker extends DamageTracker {
     super.onCast(event);
   }
 
-  shouldProcessEvent(event: AnyEvent) {
+  shouldProcessEvent(event: CastEvent | DamageEvent | HealEvent) {
     return false;
   }
 

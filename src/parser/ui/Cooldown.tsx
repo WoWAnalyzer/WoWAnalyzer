@@ -151,8 +151,6 @@ class CooldownComponent extends Component<Props, State> {
     const cdStart = cooldown.cdStart;
     const end = cooldown.end || fightEnd;
 
-    /* eslint-disable no-script-url */
-    /* eslint-disable jsx-a11y/anchor-is-valid */
     return (
       <>
         <article>
@@ -218,7 +216,6 @@ class CooldownComponent extends Component<Props, State> {
                   </div>
                   <div className="row">
                     <div className="col-xs-12">
-                      {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                       <a href="#" onClick={this.handleExpandClick} style={{ marginTop: '.2em' }}>
                         <Trans id="shared.cooldownThroughputTracker.cooldown.expand">More</Trans>
                       </a>
@@ -263,13 +260,12 @@ class CooldownComponent extends Component<Props, State> {
                         </Trans>
                       </a>
                       {' | '}
-                      {/* eslint-disable-line jsx-a11y/anchor-is-valid */}
+
                       <a href="#" onClick={this.handleExpandClick} style={{ marginTop: '.2em' }}>
                         <Trans id="shared.cooldownThroughputTracker.cooldown.shrink">
                           Show less
                         </Trans>
                       </a>
-                      {/* eslint-disable-line jsx-a11y/anchor-is-valid */}
                     </div>
                   </div>
                 </div>
@@ -333,11 +329,10 @@ class CooldownComponent extends Component<Props, State> {
                     <Trans id="shared.cooldownThroughputTracker.cooldown.shrink">Show less</Trans>
                   </a>
                   {' | '}
-                  {/* eslint-disable-line jsx-a11y/anchor-is-valid */}
+
                   <a href="#" onClick={this.handleExpandClick} style={{ marginTop: '.2em' }}>
                     <Trans id="shared.cooldownThroughputTracker.cooldown.simple">Show simple</Trans>
                   </a>
-                  {/* eslint-disable-line jsx-a11y/anchor-is-valid */}
                 </div>
               )}
             </div>

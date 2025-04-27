@@ -25,10 +25,10 @@ class Demolish extends Analyzer {
 
   protected spellUsable!: SpellUsable;
 
-  badDemolishes: number = 0;
-  executeThreshold: number = 0;
-  inExecuteRange: boolean = false;
-  colossusSmashDebuffActive: boolean = false;
+  badDemolishes = 0;
+  executeThreshold = 0;
+  inExecuteRange = false;
+  colossusSmashDebuffActive = false;
 
   constructor(options: Options) {
     super(options);

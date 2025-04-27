@@ -19,7 +19,7 @@ class EarthShieldBreakdown extends Analyzer {
     earthenHarmony: EarthenHarmony,
     elementalOrbit: ElementalOrbit,
   };
-  wide: boolean = false;
+  wide = false;
   earthShieldItems: TalentAggregateBarSpec[] = [];
   constructor(options: Options) {
     super(options);

@@ -17,12 +17,12 @@ class ManaValues extends Analyzer {
   maxMana = 0;
   endingMana = 0;
 
-  manaUpdates: Array<{
+  manaUpdates: {
     timestamp: number;
     current: number;
     max: number;
     used: number;
-  }> = [];
+  }[] = [];
 
   constructor(options: Options) {
     super(options);

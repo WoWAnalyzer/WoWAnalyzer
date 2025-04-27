@@ -157,7 +157,6 @@ const ReportSelecter = () => {
     e.preventDefault();
 
     if (!reportCode) {
-      // eslint-disable-next-line no-alert
       alert('Enter a report first.');
       return;
     }

@@ -8,7 +8,6 @@ import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 
 class Riptide extends Analyzer {
-  // eslint-disable-next-line @typescript-eslint/no-useless-constructor
   constructor(options: Options) {
     super(options);
   }

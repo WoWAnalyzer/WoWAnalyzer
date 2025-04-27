@@ -12,7 +12,7 @@ abstract class ResourceGraph extends Analyzer {
   /** Implementer may set this to include the wasted line on the graph.
    *  Note that the ResourceTracker must have events with `Event.changeWaste` for this to work.
    */
-  includeWasted: boolean = false;
+  includeWasted = false;
 
   /** Implementer may override this to give the graph line a custom color.
    *
@@ -234,13 +234,13 @@ abstract class ResourceGraph extends Analyzer {
 }
 
 /** The type used to compile the data for graphing. */
-type GraphData = {
+interface GraphData {
   /** Timestamp of the data point */
   timestamp: number;
 
   /** Graph library supports arbitrary keys, which can be referenced in the spec. */
   [key: string]: number;
   // TODO also include max, rate, etc??
-};
+}
 
 export default ResourceGraph;

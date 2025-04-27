@@ -29,12 +29,12 @@ interface HealingRainTickInfo {
   hits: number;
 }
 
-type SurgingTotemCast = {
+interface SurgingTotemCast {
   timestamp: number;
   WhirlingAir: number;
   WhirlingEarth: number;
   WhirlingWater: number;
-};
+}
 
 class SurgingTotem extends Analyzer {
   static dependencies = {

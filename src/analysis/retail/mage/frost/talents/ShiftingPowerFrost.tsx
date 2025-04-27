@@ -19,10 +19,10 @@ class ShiftingPowerFrost extends Analyzer {
   protected spellUsable!: SpellUsable;
 
   castEntries: BoxRowEntry[] = [];
-  rayOfFrostActive: boolean = false;
-  cometStormActive: boolean = false;
-  frozenOrbActive: boolean = false;
-  icyVeinsActive: boolean = false;
+  rayOfFrostActive = false;
+  cometStormActive = false;
+  frozenOrbActive = false;
+  icyVeinsActive = false;
 
   constructor(options: Options) {
     super(options);

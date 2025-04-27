@@ -27,7 +27,7 @@ const LIONS_STRENGTH_BOOSTED_SPELLS = [
  */
 export default class LionsStrength extends Analyzer {
   /** Total damage added by Lion's Strength */
-  lsDamage: number = 0;
+  lsDamage = 0;
 
   constructor(options: Options) {
     super(options);

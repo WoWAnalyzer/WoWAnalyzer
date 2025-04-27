@@ -7,16 +7,14 @@ import { AnyEvent } from 'parser/core/Events';
 import { Info } from 'parser/core/metric';
 import castCount from 'parser/shared/metrics/castCount';
 
-interface LowRankSpells {
-  [primarySpellId: number]: number[];
-}
+type LowRankSpells = Record<number, number[]>;
 
 const lowRankSpellsPet = (spells: LowRankSpells) =>
   suggestion((events: AnyEvent[], { pets }: Pick<Info, 'pets'>) =>
     pets.flatMap((pet) => {
       const casts = castCount(events, pet.id);
 
-      return Object.entries<number[]>(spells as { [key: string]: number[] }).flatMap(
+      return Object.entries<number[]>(spells as Record<string, number[]>).flatMap(
         ([primarySpellId, lowRankSpellIds]) =>
           lowRankSpellIds
             .filter((spellId) => casts[spellId] > 0)

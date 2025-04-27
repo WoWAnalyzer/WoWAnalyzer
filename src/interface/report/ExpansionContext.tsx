@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from 'react';
+import React, { createContext, useContext, useMemo } from 'react';
 import Expansion from 'game/Expansion';
 import { wclGameVersionToBranch, wclGameVersionToExpansion } from 'game/VERSIONS';
 import { useReport } from 'interface/report/context/ReportContext';
@@ -11,7 +11,7 @@ interface ExpansionContext {
 }
 
 const ExpansionCtx = createContext<ExpansionContext>({
-  expansion: Expansion.Dragonflight,
+  expansion: Expansion.TheWarWithin,
   gameVersion: 0,
   branch: GameBranch.Retail,
 });
@@ -23,17 +23,16 @@ const ExpansionContextProvider = ({
   children: React.ReactNode;
   gameVersion: number;
 }) => {
-  return (
-    <ExpansionCtx.Provider
-      value={{
-        expansion: wclGameVersionToExpansion(gameVersion),
-        gameVersion: gameVersion,
-        branch: wclGameVersionToBranch(gameVersion),
-      }}
-    >
-      {children}
-    </ExpansionCtx.Provider>
+  const providerValue = useMemo(
+    () => ({
+      expansion: wclGameVersionToExpansion(gameVersion),
+      gameVersion: gameVersion,
+      branch: wclGameVersionToBranch(gameVersion),
+    }),
+    [gameVersion],
   );
+
+  return <ExpansionCtx.Provider value={providerValue}>{children}</ExpansionCtx.Provider>;
 };
 
 export const useExpansionContext = () => useContext(ExpansionCtx);

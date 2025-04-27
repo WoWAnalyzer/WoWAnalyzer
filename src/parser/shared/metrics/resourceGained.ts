@@ -1,13 +1,7 @@
 import { AnyEvent, EventType } from 'parser/core/Events';
 import metric from 'parser/core/metric';
 
-interface ResourcesGained {
-  [targetId: number]: {
-    [resourceTypeId: number]: {
-      [spellId: number]: number;
-    };
-  };
-}
+type ResourcesGained = Record<number, Record<number, Record<number, number>>>;
 
 /**
  * Returns an object with the total resource gained per resource.

@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext } from 'react';
+import { createContext, ReactNode, useContext, useMemo } from 'react';
 import { PlayerInfo } from 'parser/core/Player';
 import { CombatantInfoEvent } from 'parser/core/Events';
 
@@ -25,7 +25,10 @@ interface Props {
   combatants: CombatantInfoEvent[];
 }
 export const PlayerProvider = ({ children, player, combatant, combatants }: Props) => {
-  return (
-    <PlayerCtx.Provider value={{ player, combatant, combatants }}>{children}</PlayerCtx.Provider>
+  const providerValue = useMemo(
+    () => ({ player, combatant, combatants }),
+    [player, combatant, combatants],
   );
+
+  return <PlayerCtx.Provider value={providerValue}>{children}</PlayerCtx.Provider>;
 };

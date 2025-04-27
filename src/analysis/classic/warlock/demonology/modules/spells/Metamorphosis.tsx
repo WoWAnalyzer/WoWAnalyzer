@@ -15,7 +15,7 @@ class Metamorphosis extends Analyzer {
 
   protected spellUsable!: SpellUsable;
 
-  reductionTime: number = 15000; // ms (15 seconds)
+  reductionTime = 15000; // ms (15 seconds)
 
   constructor(options: Options) {
     super(options);

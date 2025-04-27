@@ -88,9 +88,9 @@ const PurifyProblemDescription = ({ data }: { data: ProblemData }) =>
   );
 
 function PurifyProblem({ problem, events, info }: ProblemRendererProps<ProblemData>): JSX.Element {
-  const stagger: Array<AddStaggerEvent | RemoveStaggerEvent> = events.filter(
+  const stagger: (AddStaggerEvent | RemoveStaggerEvent)[] = events.filter(
     ({ type }) => type === EventType.AddStagger || type === EventType.RemoveStagger,
-  ) as Array<AddStaggerEvent | RemoveStaggerEvent>;
+  ) as (AddStaggerEvent | RemoveStaggerEvent)[];
 
   const purifyEvents =
     problem.data.type === ProblemType.BadPurify
@@ -393,7 +393,7 @@ export function PurifySection({
   events,
   info,
 }: Pick<GuideProps<any>, 'events' | 'info'> & { module: PurifyingBrewProblems }): JSX.Element {
-  const [problems, setProblems] = useState<Array<Problem<ProblemData>>>([]);
+  const [problems, setProblems] = useState<Problem<ProblemData>[]>([]);
 
   useEffect(() => {
     const run = async () => setProblems(module.problems);

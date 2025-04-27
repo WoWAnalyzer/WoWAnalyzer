@@ -18,11 +18,11 @@ interface GraphData {
   activeTimePercentage: number;
 }
 
-type Props = {
+interface Props {
   activeTimeSegments: { start: number; end: number }[];
   fightStart: number;
   fightEnd: number;
-};
+}
 
 const ActiveTimeGraph = ({ activeTimeSegments, fightStart, fightEnd, ...others }: Props) => {
   // Generate active time rolling average from active time segments (memoize for perf)

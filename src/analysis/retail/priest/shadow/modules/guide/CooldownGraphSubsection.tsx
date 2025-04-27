@@ -13,15 +13,15 @@ import VoidBlast from '../talents/Voidweaver/VoidBlast';
 //import ItemSetLink from 'interface/ItemSetLink';
 //import { TIERS } from 'game/TIERS';
 
-type Cooldown = {
+interface Cooldown {
   talent: Talent;
   extraTalents?: Talent[];
-};
+}
 
-type SpellCooldown = {
+interface SpellCooldown {
   spell: Spell;
   activeWindows?: CooldownWindow[];
-};
+}
 
 //you can't push Spells to Cooldowns later on without adding it multiple times when changing tabs, so we just use a different list for each combination
 //I can't find a better way to do this, but need to find one as talent choices make for many different possibilites.

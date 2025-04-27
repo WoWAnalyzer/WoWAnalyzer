@@ -11,12 +11,12 @@ import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 const MIN_STARFALL_TARGETS = 3;
 
 export default class SpenderUsage extends Analyzer {
-  totalStarsurges: number = 0;
-  noEclipseStarsurges: number = 0;
+  totalStarsurges = 0;
+  noEclipseStarsurges = 0;
 
-  totalStarfalls: number = 0;
-  lowTargetStarfalls: number = 0;
-  noEclipseStarfalls: number = 0;
+  totalStarfalls = 0;
+  lowTargetStarfalls = 0;
+  noEclipseStarfalls = 0;
 
   // populate with targetIDs recently hit
   lastStarfallCast: CastEvent | undefined = undefined;

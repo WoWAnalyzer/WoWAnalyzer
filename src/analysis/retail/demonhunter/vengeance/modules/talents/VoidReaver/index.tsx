@@ -10,10 +10,10 @@ import { shouldIgnore } from 'parser/shared/modules/hit-tracking/utilities';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import HitBasedAnalyzer from 'analysis/retail/demonhunter/vengeance/guide/HitBasedAnalyzer';
 
-type TrackedHit = {
+interface TrackedHit {
   mitigated: boolean;
   event: DamageEvent;
-};
+}
 
 export default class VoidReaver extends HitBasedAnalyzer {
   static dependencies = {

@@ -9,7 +9,7 @@ import CHANGELOG from './CHANGELOG';
 const config: Config = {
   contributors: [Seriousnes],
   branch: GameBranch.Retail,
-  patchCompatibility: '11.1',
+  patchCompatibility: '11.1.5',
   supportLevel: SupportLevel.MaintainedFull,
   description: (
     <>

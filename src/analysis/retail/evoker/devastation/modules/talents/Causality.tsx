@@ -24,9 +24,9 @@ class Causality extends Analyzer {
 
   enemyHitCounter: number[][] = [];
 
-  maxPyreCount: number = 5;
-  previousPyreDamageEvent: number = 0;
-  pyreCounter: number = 0;
+  maxPyreCount = 5;
+  previousPyreDamageEvent = 0;
+  pyreCounter = 0;
 
   eternitySurgeSpell = this.combatant.hasTalent(TALENTS.FONT_OF_MAGIC_DEVASTATION_TALENT)
     ? SPELLS.ETERNITY_SURGE_FONT

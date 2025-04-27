@@ -66,19 +66,15 @@ const EMPOWERS: Spell[] = [
 
 const BASE_AMP_DURATION = 4_000;
 
-export type DamageRecord = {
-  [key: number]: { base: number; focusingIris: number };
-};
-export type CastRecord = {
-  [key: number]: (CastEvent | EmpowerEndEvent)[];
-};
+export type DamageRecord = Record<number, { base: number; focusingIris: number }>;
+export type CastRecord = Record<number, (CastEvent | EmpowerEndEvent)[]>;
 
-export type ShatteringStarWindow = {
+export interface ShatteringStarWindow {
   event: CastEvent | EmpowerEndEvent;
   casts: CastRecord;
   ampedDamage: DamageRecord;
   essenceBurst?: 'generated' | 'wasted';
-};
+}
 
 /**
  * Shattering Star

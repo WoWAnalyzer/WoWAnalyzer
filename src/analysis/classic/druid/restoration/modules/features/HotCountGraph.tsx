@@ -13,7 +13,6 @@ class HotCountGraph extends BuffCountGraph {
     ...BuffCountGraph.dependencies,
   };
 
-  //eslint-disable-next-line
   constructor(options: Options) {
     super(options);
   }

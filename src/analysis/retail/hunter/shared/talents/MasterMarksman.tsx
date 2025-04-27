@@ -16,7 +16,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
  */
 
 class MasterMarksman extends Analyzer {
-  damage: number = 0;
+  damage = 0;
 
   constructor(options: Options) {
     super(options);

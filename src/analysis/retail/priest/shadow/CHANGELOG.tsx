@@ -6,6 +6,8 @@ import { Jordan } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2025, 4, 25),  <>Fix <SpellLink spell={TALENTS.DEATHSPEAKER_TALENT}/> missing overwritten procs</>,DoxAshe),
+  change(date(2025, 4, 25),  <>Fix <SpellLink spell={TALENTS.SHADOWY_INSIGHT_TALENT}/> proc usage with <SpellLink spell={SPELLS.SHADOW_PRIEST_VOIDWEAVER_VOID_BLAST}/> </>,DoxAshe),
   change(date(2025, 3, 31),  <>Fix <SpellLink spell={SPELLS.MIND_BLAST}/> and <SpellLink spell={SPELLS.SHADOW_PRIEST_VOIDWEAVER_VOID_BLAST}/> cast efficiency for the Voidweaver Hero Talent Tree </>,DoxAshe),
   change(date(2025, 3, 7),  <>Fix <SpellLink spell={TALENTS.POWER_INFUSION_TALENT}/> without TWW season 2 four piece </>,DoxAshe),
   change(date(2025, 3, 5), <>Fix typo in <SpellLink spell={TALENTS.VOID_TORRENT_TALENT}/> section of Short Cooldowns</>,Jordan),
