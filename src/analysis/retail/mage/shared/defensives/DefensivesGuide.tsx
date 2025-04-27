@@ -7,12 +7,11 @@ import { SpellLink, TooltipElement } from 'interface';
 import { Highlight } from 'interface/Highlight';
 import TALENTS from 'common/TALENTS/mage';
 import GreaterInvisibility from './GreaterInvisibility';
-import IceBlock from './IceBlock';
 import IceCold from './IceCold';
 import MirrorImage from './MirrorImage';
 
 const MajorDefensives = () => {
-  const defensiveAnalyzers = useAnalyzers([MirrorImage, GreaterInvisibility, IceBlock, IceCold]);
+  const defensiveAnalyzers = useAnalyzers([MirrorImage, GreaterInvisibility, IceCold]);
 
   return (
     <Section title="Defensives">
@@ -23,10 +22,9 @@ const MajorDefensives = () => {
           performance, as it will not only increase your own survivability, but also your entire
           raid by allowing healers to focus on keeping others alive.
           <br />
-          As an <span className="Mage">Mage</span> you have access to many short CD defensives such
-          as <SpellLink spell={TALENTS.MIRROR_IMAGE_TALENT} />,{' '}
+          As an <span className="Mage">Mage</span> you have access to many defensives CDs such as{' '}
+          <SpellLink spell={TALENTS.MIRROR_IMAGE_TALENT} />,{' '}
           <SpellLink spell={TALENTS.GREATER_INVISIBILITY_TALENT} /> and{' '}
-          <SpellLink spell={TALENTS.ICE_BLOCK_TALENT} />/
           <SpellLink spell={TALENTS.ICE_COLD_TALENT} />.
         </p>
         <p>There are two things you should look for in your cooldown usage:</p>
