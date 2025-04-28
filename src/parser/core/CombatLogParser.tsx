@@ -142,6 +142,12 @@ export interface Suggestion {
   recommended?: React.ReactNode;
 }
 
+interface ModuleErrorDetails {
+  key: string;
+  module: typeof Module;
+  error?: unknown;
+}
+
 class CombatLogParser {
   static internalModules: DependenciesDefinition = {
     fightEndNormalizer: FightEndNormalizer,
@@ -279,7 +285,7 @@ class CombatLogParser {
   combatantInfoEvents: CombatantInfoEvent[];
 
   //Disabled Modules
-  disabledModules!: Record<ModuleError, unknown[]>;
+  disabledModules!: Record<ModuleError, ModuleErrorDetails[]>;
 
   adjustForDowntime = false;
   get hasDowntime() {
@@ -584,7 +590,7 @@ class CombatLogParser {
     console.error('Disabling', isMinified ? module.key : module.constructor.name);
     this.disabledModules[state].push({
       key: isMinified ? module.key : module.constructor.name,
-      module: module.constructor,
+      module: module.constructor as typeof Module,
       ...(error && { error: error }),
     });
     module.active = false;
