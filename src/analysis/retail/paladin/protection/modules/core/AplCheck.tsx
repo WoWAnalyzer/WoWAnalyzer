@@ -36,7 +36,10 @@ const eyeOfTyrHoLCastable: Condition<boolean> = {
 };
 
 const holCastable = cnd.always(
-  cnd.or(cnd.buffPresent(SPELLS.LIGHTS_DELIVERANCE_FREE_CAST_BUFF), eyeOfTyrHoLCastable),
+  cnd.or(
+    cnd.buffPresent(SPELLS.LIGHTS_DELIVERANCE_FREE_CAST_BUFF),
+    cnd.and(eyeOfTyrHoLCastable, cnd.hasResource(RESOURCE_TYPES.HOLY_POWER, { atLeast: 3 }, 0)),
+  ),
 );
 
 export const apl = build([
@@ -50,11 +53,13 @@ export const apl = build([
   },
   {
     spell: SPELLS.CONSECRATION_CAST,
-    condition: cnd.buffMissing(SPELLS.CONSECRATION_BUFF, {
-      duration: 12000,
-      timeRemaining: 2000,
-      pandemicCap: 1,
-    }),
+    condition: cnd.optionalRule(
+      cnd.buffMissing(SPELLS.CONSECRATION_BUFF, {
+        duration: 12000,
+        timeRemaining: 2000,
+        pandemicCap: 1,
+      }),
+    ),
   },
   {
     spell: SPELLS.SHIELD_OF_THE_RIGHTEOUS,
@@ -86,7 +91,7 @@ export const apl = build([
   {
     spell: SPELLS.SHIELD_OF_THE_RIGHTEOUS,
     condition: cnd.describe(
-      cnd.always(
+      cnd.optionalRule(
         cnd.or(
           cnd.hasResource(RESOURCE_TYPES.HOLY_POWER, { atLeast: 3 }, 0),
           cnd.buffPresent(SPELLS.DIVINE_PURPOSE_BUFF),
@@ -98,20 +103,6 @@ export const apl = build([
           <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} />
         </>
       ),
-    ),
-  },
-  {
-    spell: SPELLS.WORD_OF_GLORY,
-    condition: cnd.optionalRule(
-      cnd.and(
-        cnd.buffPresent(SPELLS.SHAKE_THE_HEAVENS_BUFF),
-        cnd.buffPresent(SPELLS.SHINING_LIGHT),
-      ),
-      <>
-        Spending free <SpellLink spell={SPELLS.WORD_OF_GLORY} /> casts to generate additional{' '}
-        <SpellLink spell={SPELLS.EMPYREAN_HAMMER} /> hits is currently a damage gain, though you
-        need to be careful not to overspend and leave yourself vulnerable.
-      </>,
     ),
   },
   TALENTS.AVENGERS_SHIELD_TALENT,
