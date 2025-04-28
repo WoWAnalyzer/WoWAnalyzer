@@ -46,10 +46,10 @@ export async function uploadServerMetrics(
     });
 
     if (!response.ok) {
-      console.error('failed to upload spec server data', response, await response.text());
+      console.info('failed to upload spec server data', response, await response.text());
     }
   } catch (err) {
     // never trigger errors from this.
-    console.error('failed to upload spec server data', err);
+    console.info('failed to upload spec server data', err);
   }
 }

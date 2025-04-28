@@ -279,7 +279,7 @@ class CombatLogParser {
   combatantInfoEvents: CombatantInfoEvent[];
 
   //Disabled Modules
-  disabledModules!: Record<ModuleError, any[]>;
+  disabledModules!: Record<ModuleError, unknown[]>;
 
   adjustForDowntime = false;
   get hasDowntime() {
@@ -371,7 +371,7 @@ class CombatLogParser {
     console.log('server metrics', this.serverMetrics);
   }
 
-  _getModuleClass(config: DependencyDefinition): [typeof Module, any] {
+  _getModuleClass(config: DependencyDefinition): [typeof Module, Record<string, unknown>] {
     let moduleClass;
     let options;
     if (config instanceof Array) {
@@ -407,7 +407,7 @@ class CombatLogParser {
    */
   loadModule<T extends typeof Module>(
     moduleClass: T,
-    options: { [prop: string]: any; priority: number },
+    options: { [prop: string]: unknown; priority: number },
     desiredModuleName = `module${Object.keys(this._modules).length}`,
   ) {
     const fullOptions = {

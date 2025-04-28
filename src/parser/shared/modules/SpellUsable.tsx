@@ -213,12 +213,12 @@ class SpellUsable extends Analyzer {
    * @param spellId the spell's ID, if it is different from the triggeringEvent's ID.
    */
   public beginCooldown(
-    triggeringEvent: AbilityEvent<any>,
+    triggeringEvent: AbilityEvent<EventType>,
     spellId: number = triggeringEvent.ability.guid,
   ) {
     const cdSpellId = this._getCanonicalId(spellId);
     const cdInfo = this._currentCooldowns[cdSpellId];
-    this.recordCooldownDebugInfo(triggeringEvent, cdSpellId, cdInfo);
+    this.recordCooldownDebugInfo(triggeringEvent as AnyEvent, cdSpellId, cdInfo);
     if (!cdInfo) {
       // spell isn't currently on cooldown - start a new cooldown!
       const ability = this.abilities.getAbility(cdSpellId);

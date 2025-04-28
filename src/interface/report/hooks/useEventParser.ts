@@ -35,7 +35,7 @@ interface Props {
   player: PlayerInfo;
   combatants: CombatantInfoEvent[];
   applyTimeFilter: (start: number, end: number) => null;
-  applyPhaseFilter: (phase: string, instance: any) => null;
+  applyPhaseFilter: (phase: string, instance: number) => null;
   parserClass?: new (...args: ConstructorParameters<typeof CombatLogParser>) => CombatLogParser;
   characterProfile: CharacterProfile | null;
   events?: AnyEvent[];
@@ -166,7 +166,8 @@ const useEventParser = ({
     const runTrigger =
       'requestIdleCallback' in window
         ? (cb: () => void) => requestIdleCallback(cb, { timeout: 50 })
-        : (cb: () => void) => setTimeout(cb, 0);
+        : // eslint-disable-next-line @eslint-react/web-api/no-leaked-timeout
+          (cb: () => void) => setTimeout(cb, 0); // this short timeout will not result in a leak
     let isCancelled = false;
     const next = () =>
       runTrigger(() => {
