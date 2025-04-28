@@ -10,6 +10,7 @@ import {
   MasterOfTime,
   TimeAnomaly,
   SharedCode,
+  IceBlock,
   IceCold,
   GreaterInvisibility,
 } from 'analysis/retail/mage/shared';
@@ -104,6 +105,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Defensives - Shared
     mirrorImage: MirrorImage,
+    iceBlock: IceBlock,
     iceCold: IceCold,
     greterInvisibility: GreaterInvisibility,
 
