@@ -20,7 +20,7 @@ function buildGemPlaceholders(item: Item): { gem: EventGem }[] {
   for (; i < actualSocketCount; i += 1) {
     result.push({
       gem: {
-        id: 0,
+        id: -818,
         icon: 'equipment_empty_gem_socket',
         itemLevel: -1,
       },
