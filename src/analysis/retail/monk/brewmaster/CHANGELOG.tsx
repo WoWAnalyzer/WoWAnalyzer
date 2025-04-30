@@ -6,6 +6,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2025, 4, 30), <>Add guide section for Shado-Pan.</>, emallson),
   change(date(2025, 4, 26), <>Update <SpellLink spell={talents.CHI_BURST_SHARED_TALENT} /> position in the APL as Master of Harmony.</>, emallson),
   change(date(2025, 4, 11), <>Add some rules to the APL to better handle real-world play.</>, emallson),
   change(date(2025, 3, 10), <>Update APL for Undermine, simplify <SpellLink spell={talents.FACE_PALM_TALENT} /> tracking.</>, emallson),

@@ -6,6 +6,7 @@ import {
   ReactNode,
   useCallback,
   useEffect,
+  useMemo,
   useState,
 } from 'react';
 import ExplanationRow from 'interface/guide/components/ExplanationRow';
@@ -13,7 +14,7 @@ import Explanation from 'interface/guide/components/Explanation';
 import { TooltipElement } from 'interface';
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 
-import { SpellUse, useSpellUsageContext } from './core';
+import { SpellUse, spellUseToBoxRowEntry, useSpellUsageContext } from './core';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { formatDuration } from 'common/format';
@@ -194,7 +195,7 @@ type SpellUsageSubSectionProps = Omit<ComponentPropsWithoutRef<typeof SubSection
   wideExplanation?: boolean;
   castBreakdownSmallText?: ReactNode;
   explanation: ReactNode;
-  performances: BoxRowEntry[];
+  performances?: BoxRowEntry[];
   uses: SpellUse[];
   onPerformanceBoxClick?: (use: SpellUse | undefined) => void;
   spellUseToPerformance?: (use: SpellUse) => BoxRowEntry;
@@ -213,7 +214,7 @@ const SpellUsageSubSection = ({
   wideExplanation,
   castBreakdownSmallText,
   explanation,
-  performances,
+  performances: rawPerformances,
   uses,
   onPerformanceBoxClick,
   spellUseToPerformance,
@@ -224,6 +225,10 @@ const SpellUsageSubSection = ({
   const [selectedUse, setSelectedUse] = useState<number | undefined>();
   const { hideGoodCasts } = useSpellUsageContext();
   const info = useInfo();
+
+  const performances = useMemo(() => {
+    return rawPerformances ?? uses.map((v) => spellUseToBoxRowEntry(v, info?.fightStart ?? 0));
+  }, [rawPerformances, uses, info?.fightStart]);
 
   const onClickBox = useCallback(
     (index) => {

@@ -1020,6 +1020,18 @@ const spells = {
     name: "Veteran's Eye",
     icon: 'ability_monk_provoke.jpg',
   },
+  WOTW_SHADOW_BUFF: {
+    ...talents.WISDOM_OF_THE_WALL_TALENT,
+    id: 452688,
+  },
+  FLURRY_STRIKES_DAMAGE_1: {
+    ...talents.FLURRY_STRIKES_TALENT,
+    id: 450620,
+  },
+  FLURRY_STRIKES_DAMAGE_2: {
+    ...talents.FLURRY_STRIKES_TALENT,
+    id: 450617,
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;

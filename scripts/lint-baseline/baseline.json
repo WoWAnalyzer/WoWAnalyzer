@@ -264,7 +264,7 @@
   "src/parser/core/Events.ts:1162:28__@typescript-eslint/no-explicit-any",
   "src/parser/core/Events.ts:1163:11__@typescript-eslint/no-explicit-any",
   "src/parser/core/ParseResults.tsx:385:43__@typescript-eslint/no-explicit-any",
-  "src/parser/core/SpellUsage/SpellUsageSubSection.tsx:245:5__@eslint-react/hooks-extra/no-direct-set-state-in-use-effect",
+  "src/parser/core/SpellUsage/SpellUsageSubSection.tsx:250:5__@eslint-react/hooks-extra/no-direct-set-state-in-use-effect",
   "src/parser/core/healingEfficiency/HealingEfficiencyBreakdown.tsx:177:3__@eslint-react/no-unused-class-component-members",
   "src/parser/core/healingEfficiency/HealingEfficiencyBreakdown.tsx:33:3__@eslint-react/no-unused-class-component-members",
   "src/parser/core/healingEfficiency/HealingEfficiencyBreakdown.tsx:86:3__@eslint-react/no-unused-class-component-members",

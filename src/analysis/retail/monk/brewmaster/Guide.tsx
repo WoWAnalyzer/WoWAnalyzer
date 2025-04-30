@@ -1,9 +1,9 @@
 import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
+import { ResourceLink, SpellLink, TooltipElement } from 'interface';
 import ShuffleSection from './modules/spells/Shuffle/GuideSection';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import CombatLogParser from './CombatLogParser';
-import { GuideProps, Section, SubSection } from 'interface/guide';
+import { GuideProps, Section, SubSection, useAnalyzers } from 'interface/guide';
 import { PurifySection } from './modules/problems/PurifyingBrew';
 import talents from 'common/TALENTS/monk';
 
@@ -16,6 +16,13 @@ import Explanation from 'interface/guide/components/Explanation';
 import { Highlight } from 'interface/Highlight';
 import BlackoutComboSection from './modules/spells/BlackoutCombo/BlackoutComboSection';
 import { FoundationDowntimeSection } from 'interface/guide/foundation/FoundationDowntimeSection';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import PerformanceStrong from 'interface/PerformanceStrong';
+import { formatNumber, formatPercentage } from 'common/format';
+import SpellUsageSubSection from 'parser/core/SpellUsage/SpellUsageSubSection';
+import ShadowFlurryStrikes from './modules/talents/ShadowFlurryStrikes';
+import EnergyTracker from './modules/core/EnergyTracker';
+import EnergyGraph from './modules/core/EnergyGraph';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -39,7 +46,6 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         <ShuffleSection />
         <PurifySection module={modules.purifyProblems} events={events} info={info} />
       </Section>
-      <MajorDefensivesSection />
       <Section title="Core Rotation">
         <AplChoiceDescription />
         <BlackoutComboSection />
@@ -91,6 +97,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           )}
         </SubSection>
       </Section>
+      {info.combatant.hasTalent(talents.FLURRY_STRIKES_TALENT) && <ShadoPanSection />}
+      <MajorDefensivesSection />
       <ImprovedInvokeNiuzaoSection
         events={events}
         info={info}
@@ -100,5 +108,86 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         castEfficiency={modules.CastEfficiency as CastEfficiency}
       />
     </>
+  );
+}
+
+function ShadoPanSection() {
+  const [shadowFlurryStrikes, energyTracker, energyGraph] = useAnalyzers([
+    ShadowFlurryStrikes,
+    EnergyTracker,
+    EnergyGraph,
+  ] as const);
+  return (
+    <Section title="Shado-Pan">
+      <SubSection title="Energy Usage">
+        <Explanation>
+          <p>
+            <SpellLink spell={talents.FLURRY_STRIKES_TALENT} /> makes{' '}
+            <ResourceLink id={RESOURCE_TYPES.ENERGY.id} /> an important resource for Brewmaster.
+            Spending more Energy causes more <SpellLink spell={talents.FLURRY_STRIKES_TALENT} /> and
+            more <SpellLink spell={talents.WISDOM_OF_THE_WALL_TALENT} /> buffs.
+          </p>
+          <p>
+            You were <ResourceLink id={RESOURCE_TYPES.ENERGY.id} /> capped for{' '}
+            <PerformanceStrong performance={energyTracker.performance}>
+              {formatPercentage(energyTracker.percentAtCap)}%
+            </PerformanceStrong>{' '}
+            of the fight, wasting at least{' '}
+            {formatNumber((energyTracker.timeAtCap / 1000) * energyTracker.baseRegenRate)} Energy.
+          </p>
+        </Explanation>
+        {energyGraph.plot}
+      </SubSection>
+      <SpellUsageSubSection
+        explanation={
+          <>
+            <p>
+              While <SpellLink spell={talents.FLURRY_STRIKES_TALENT} /> is a mostly-passive effect,
+              it is important to be aware of the{' '}
+              <SpellLink spell={SPELLS.WOTW_SHADOW_BUFF}>Shadow Buff</SpellLink>. This buff lasts{' '}
+              <strong>40 seconds</strong> to allow getting at least 1 additional{' '}
+              <SpellLink spell={talents.FLURRY_STRIKES_TALENT} /> during the buff.
+            </p>
+            <p>
+              It is possible to get 2 <SpellLink spell={talents.FLURRY_STRIKES_TALENT} /> within the
+              buff with normal rotational play. You can get a 3rd trigger in ideal conditions with
+              either <SpellLink spell={talents.BLACK_OX_BREW_TALENT} /> or{' '}
+              <TooltipElement
+                content={
+                  <>
+                    It is possible to make the{' '}
+                    <SpellLink spell={talents.WISDOM_OF_THE_WALL_TALENT} /> buff be applied by the{' '}
+                    <em>first</em> hit of <SpellLink spell={talents.FLURRY_STRIKES_TALENT} />{' '}
+                    instead of the last one. This tech is easy to set up, but gets messed up by
+                    wipes and so is not often used in practice. See{' '}
+                    <a href="https://www.wowhead.com/guide/classes/monk/brewmaster/rotation-cooldowns-pve-tank#hero-talent-tips-maximizing-wisdom-of-the-wall-shado-pan">
+                      Wowhead
+                    </a>{' '}
+                    for a full guide to this tech.
+                  </>
+                }
+                hoverable
+              >
+                offsetting
+              </TooltipElement>
+              , but going for the 3rd trigger can be a DPS <em>loss</em> if you're not careful.
+            </p>
+          </>
+        }
+        uses={shadowFlurryStrikes.uses}
+        noCastsTexts={{
+          noCastsOverride: (
+            <>
+              You did not trigger{' '}
+              <SpellLink spell={SPELLS.WOTW_SHADOW_BUFF}>Wisdom of the Wall - Shadow</SpellLink>
+            </>
+          ),
+        }}
+        title="Shadow Strikes"
+        castBreakdownSmallText={
+          '- These boxes represent each buff, colored by how good the usage was.'
+        }
+      />
+    </Section>
   );
 }
