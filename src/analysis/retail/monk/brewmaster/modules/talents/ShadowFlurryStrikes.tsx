@@ -78,6 +78,9 @@ export default class ShadowFlurryStrikes extends Analyzer.withDependencies({ Ene
       offset: this.recentFlurryStrikes,
     };
     this.shadowBuffs.push(newBuff);
+    if (this.activeShadowBuff) {
+      this.activeShadowBuff.remove = event;
+    }
     this.activeShadowBuff = newBuff;
   }
 
@@ -123,10 +126,12 @@ export default class ShadowFlurryStrikes extends Analyzer.withDependencies({ Ene
       });
       const energySegment = this.deps.EnergyTracker.generateSegmentData(
         buff.apply.timestamp,
-        buff.remove!.timestamp,
+        buff.remove?.timestamp ?? this.owner.fight.end_time,
       );
+      // check if the player left range for flurry strikes during this. the 75% is arbitrary to deal with triggering flurry strikes around the end of the buff window
       const disconnectWarning =
-        buff.flurryHits < Math.floor(energySegment.spent / SPEND_PER_TRIGGER) * HITS_PER_TRIGGER;
+        buff.flurryHits <
+        Math.floor(energySegment.spent / SPEND_PER_TRIGGER) * HITS_PER_TRIGGER * 0.75;
       return {
         event: buff.apply,
         performance,
@@ -193,7 +198,8 @@ export default class ShadowFlurryStrikes extends Analyzer.withDependencies({ Ene
               performance: buff.bobUsed ? QualitativePerformance.Good : QualitativePerformance.Ok,
               summary: (
                 <div>
-                  <SpellLink spell={talents.BLACK_OX_BREW_TALENT} /> used
+                  <SpellLink spell={talents.BLACK_OX_BREW_TALENT} /> {buff.bobUsed ? '' : 'not'}{' '}
+                  used
                 </div>
               ),
               details: buff.bobUsed ? (
