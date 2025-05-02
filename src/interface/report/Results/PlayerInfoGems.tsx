@@ -1,33 +1,10 @@
 import { ItemIcon } from 'interface';
-import { Item, Gem as EventGem } from 'parser/core/Events';
-import {
-  eventItemGemSocketCount,
-  eventItemHasGemSocket,
-} from 'common/ITEMS/thewarwithin/socketBonusId';
+import { Item as EventItem, Gem as EventGem } from 'parser/core/Events';
+import { eventItemHasGemSocket } from 'common/ITEMS/thewarwithin/socketBonusId';
+import { buildEventItemGems } from 'common/ITEMS/gemsUtils';
 
 interface Props {
-  gear: Item[];
-}
-
-function buildGemPlaceholders(item: Item): { gem: EventGem }[] {
-  const actualSocketCount: number = eventItemGemSocketCount(item);
-
-  //Initialize with the gems we have.
-  const result: { gem: EventGem }[] = (item.gems ?? []).map((gem) => ({ gem }));
-
-  let i: number = item.gems?.length ?? 0;
-
-  for (; i < actualSocketCount; i += 1) {
-    result.push({
-      gem: {
-        id: -818,
-        icon: 'equipment_empty_gem_socket',
-        itemLevel: -1,
-      },
-    });
-  }
-
-  return result;
+  gear: EventItem[];
 }
 
 const PlayerInfoGems = (props: Props) => {
@@ -38,7 +15,7 @@ const PlayerInfoGems = (props: Props) => {
   return (
     <>
       {itemsWithGems.map((item) => {
-        const gems: { gem: EventGem }[] = buildGemPlaceholders(item);
+        const gems: { gem: EventGem }[] = buildEventItemGems(item);
         const gearSlot = gear.indexOf(item);
 
         // Define gear slots that should use `row-reverse`

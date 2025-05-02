@@ -2,8 +2,8 @@ import ITEMS from 'common/ITEMS';
 import Item, { CraftedItem } from 'common/ITEMS/Item';
 import GEAR_SLOTS from 'game/GEAR_SLOTS';
 import ItemLink from 'interface/ItemLink';
-import { Item as EventItem } from 'parser/core/Events';
-import BaseGemChecker, { GemmableSlotConfig } from 'parser/shared/modules/items/GemChecker';
+import { Item as EventItem, GemmableSlotConfig } from 'parser/core/Events';
+import BaseGemChecker from 'parser/shared/modules/items/GemChecker';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 const retailJewelrySlots: GemmableSlotConfig = {
