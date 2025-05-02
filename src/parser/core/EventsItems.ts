@@ -55,22 +55,3 @@ export interface Gem {
   itemLevel: number;
   icon: string;
 }
-
-/**
- * Configuration for a gemmable slot that can be added to an item.
- *
- * @property maxSockets - The maximum number of sockets that can be added to this slot.
- * @property timeGated - Indicates whether the ability to add sockets is restricted by time-gated mechanics.
- * @property socketingItemId - The ID of the item used to add a socket to this slot, if applicable.
- *                             If no such item exists, this will be `undefined`.
- * @remarks Please use the Items collection to get the socketedItemId.  Is reexported from the core Events module.
- *
- */
-export interface GemmableSlotConfig {
-  maxSockets: number;
-  timeGated: boolean;
-  /**
-   * The id of the item used to add a socket to this slot, if it exists.
-   */
-  socketingItemId: number | undefined;
-}

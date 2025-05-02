@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/react/macro';
 import ITEMS from 'common/ITEMS'; //This is the main item index for the Gem Lookup and ItemLinks
 import Item, { CraftedItem } from 'common/ITEMS/Item'; //This is the Crafted Item that has the quality one items doesn't have
-import { Item as EventItem, Gem as EventGem, GemmableSlotConfig } from 'parser/core/Events'; //This is the event item which is different then the inventory items one.
+import { Item as EventItem, Gem as EventGem } from 'parser/core/Events'; //This is the event item which is different then the inventory items one.
 import {
   eventItemGemSocketCount,
   eventItemHasGemSocket,
@@ -27,6 +27,25 @@ src\parser\retail\modules\items\GemChecker.tsx is the sister that implements the
  */
 export const TIME_GATED_UPGRADE = 'time-gated-upgrade' as const;
 export type GemPerformance = QualitativePerformance | typeof TIME_GATED_UPGRADE;
+
+/**
+ * Configuration for a gemmable slot that can be added to an item.
+ *
+ * @property maxSockets - The maximum number of sockets that can be added to this slot.
+ * @property timeGated - Indicates whether the ability to add sockets is restricted by time-gated mechanics.
+ * @property socketingItemId - The ID of the item used to add a socket to this slot, if applicable.
+ *                             If no such item exists, this will be `undefined`.
+ * @remarks Please use the Items collection to get the socketedItemId.
+ *
+ */
+export interface GemmableSlotConfig {
+  maxSockets: number;
+  timeGated: boolean;
+  /**
+   * The id of the item used to add a socket to this slot, if it exists.
+   */
+  socketingItemId: number | undefined;
+}
 
 class GemChecker extends Analyzer {
   get GemableSlots(): Record<number, GemmableSlotConfig> {

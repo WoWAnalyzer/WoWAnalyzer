@@ -1,4 +1,5 @@
-import { Item as EventItem, GemmableSlotConfig, Gem as EventGem } from 'parser/core/EventsItems';
+import { Item as EventItem, Gem as EventGem } from 'parser/core/EventsItems';
+import { GemmableSlotConfig } from 'parser/shared/modules/items/GemChecker';
 import ITEMS from 'common/ITEMS';
 import { eventItemGemSocketCount } from 'common/ITEMS/thewarwithin/socketBonusId';
 
