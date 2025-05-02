@@ -1,11 +1,12 @@
 import Spell from 'common/SPELLS/Spell';
 import * as React from 'react';
 
+import EventFilter from 'parser/core/EventFilter';
+import { EventLink } from 'parser/core/EventLinkNormalizer';
+import { Item } from 'parser/core/EventsItems';
+import { PetInfo } from 'parser/core/Pet';
 import PhaseConfig from 'parser/core/PhaseConfig';
-import EventFilter from 'parser/core//EventFilter';
-import { PetInfo } from 'parser/core//Pet';
 import { PlayerInfo } from 'parser/core//Player';
-import { EventLink } from 'parser/core//EventLinkNormalizer';
 
 export * from 'parser/core/EventsItems'; // Re-export everything from EventsItems.ts
 
