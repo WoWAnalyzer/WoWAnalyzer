@@ -119,6 +119,7 @@ import MereldarsToll from 'parser/retail/modules/items/thewarwithin/trinkets/Mer
 import CirralConcoctory from 'parser/retail/modules/items/thewarwithin/trinkets/CirralConcotory';
 import { MeleeUptimeAnalyzer } from 'interface/guide/foundation/analyzers/MeleeUptimeAnalyzer';
 import DowntimeDebuffAnalyzer from 'interface/guide/foundation/analyzers/DowntimeDebuffAnalyzer';
+import { ServerMetrics } from 'common/server-metrics';
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
 const MAX_DI_ITERATIONS = 100;
@@ -139,6 +140,12 @@ export interface Suggestion {
   spell?: number;
   actual?: React.ReactNode;
   recommended?: React.ReactNode;
+}
+
+interface ModuleErrorDetails {
+  key: string;
+  module: typeof Module;
+  error?: unknown;
 }
 
 class CombatLogParser {
@@ -278,7 +285,7 @@ class CombatLogParser {
   combatantInfoEvents: CombatantInfoEvent[];
 
   //Disabled Modules
-  disabledModules!: Record<ModuleError, any[]>;
+  disabledModules!: Record<ModuleError, ModuleErrorDetails[]>;
 
   adjustForDowntime = false;
   get hasDowntime() {
@@ -366,9 +373,11 @@ class CombatLogParser {
       'Listeners filtered away:',
       emitter.numListenersCalled - emitter.numActualExecutions,
     );
+
+    console.log('server metrics', this.serverMetrics);
   }
 
-  _getModuleClass(config: DependencyDefinition): [typeof Module, any] {
+  _getModuleClass(config: DependencyDefinition): [typeof Module, Record<string, unknown>] {
     let moduleClass;
     let options;
     if (config instanceof Array) {
@@ -404,7 +413,7 @@ class CombatLogParser {
    */
   loadModule<T extends typeof Module>(
     moduleClass: T,
-    options: { [prop: string]: any; priority: number },
+    options: { [prop: string]: unknown; priority: number },
     desiredModuleName = `module${Object.keys(this._modules).length}`,
   ) {
     const fullOptions = {
@@ -581,7 +590,7 @@ class CombatLogParser {
     console.error('Disabling', isMinified ? module.key : module.constructor.name);
     this.disabledModules[state].push({
       key: isMinified ? module.key : module.constructor.name,
-      module: module.constructor,
+      module: module.constructor as typeof Module,
       ...(error && { error: error }),
     });
     module.active = false;
@@ -829,6 +838,17 @@ class CombatLogParser {
       fightId: this.fight.id,
       reportCode: this.report.code,
       combatant: this.selectedCombatant,
+    };
+  }
+
+  get serverMetrics(): ServerMetrics {
+    const fightDurationMins = this.fightDuration / 60000;
+    return {
+      cooldownErrorRate: this.getModule(SpellUsable).cooldownErrorCount / fightDurationMins,
+      unknownAbilityErrorRate:
+        this.getModule(SpellUsable).unknownAbilityErrorCount / fightDurationMins,
+      gcdErrorRate: this.getModule(GlobalCooldown).errorsPerMinute,
+      activeTimeRatio: this.getModule(AlwaysBeCasting).activeTimePercentage,
     };
   }
 }

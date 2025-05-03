@@ -1,11 +1,14 @@
 import Spell from 'common/SPELLS/Spell';
-import PhaseConfig from 'parser/core/PhaseConfig';
 import * as React from 'react';
 
-import EventFilter from './EventFilter';
-import { PetInfo } from './Pet';
-import { PlayerInfo } from './Player';
-import { EventLink } from './EventLinkNormalizer';
+import EventFilter from 'parser/core/EventFilter';
+import { EventLink } from 'parser/core/EventLinkNormalizer';
+import { Item } from 'parser/core/EventsItems';
+import { PetInfo } from 'parser/core/Pet';
+import PhaseConfig from 'parser/core/PhaseConfig';
+import { PlayerInfo } from 'parser/core//Player';
+
+export * from 'parser/core/EventsItems'; // Re-export everything from EventsItems.ts
 
 export enum EventType {
   Destroy = 'destroy', // super rare, apparently happens on dausegne, no idea what it is?
@@ -1033,38 +1036,6 @@ export type PhaseEvent = BasePhaseEvent<EventType.PhaseStart | EventType.PhaseEn
 export type PhaseStartEvent = BasePhaseEvent<EventType.PhaseStart>;
 
 export type PhaseEndEvent = BasePhaseEvent<EventType.PhaseEnd>;
-
-export interface Item {
-  id: number;
-  quality: number;
-  icon: string;
-  itemLevel: number;
-  bonusIDs?: number | number[];
-  effectID?: number;
-  permanentEnchant?: number;
-  temporaryEnchant?: number;
-  /**
-   * An enchant that provides an activatable ability.
-   *
-   * Only seen it used on Cata Engineering "enchants".
-   */
-  onUseEnchant?: number;
-  gems?: Gem[];
-  setID?: number;
-
-  /**
-   * Added while parsing gear of the combatant if item is part of a set.
-   * Contains all equiped items ids that have the same @setID
-   * Used for wowhead tooltip.
-   */
-  setItemIDs?: number[];
-}
-
-export interface Gem {
-  id: number;
-  itemLevel: number;
-  icon: string;
-}
 
 export interface Buff {
   source: number;

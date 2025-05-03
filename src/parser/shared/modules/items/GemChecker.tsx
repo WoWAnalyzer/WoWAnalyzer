@@ -12,6 +12,10 @@ import { GemBoxRowEntry } from 'interface/guide/components/Preparation/GemSubSec
 import { GEAR_SLOT_NAMES } from 'game/GEAR_SLOTS';
 import { getLowestPerf, QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { PerformanceMark } from 'interface/guide';
+import {
+  buildEventItemGemPlaceholders,
+  maxSocketCountForGemmableSlotConfig,
+} from 'common/ITEMS/gemsUtils';
 
 /*
 src\parser\retail\modules\items\GemChecker.tsx is the sister that implements the stub functions
@@ -24,6 +28,16 @@ src\parser\retail\modules\items\GemChecker.tsx is the sister that implements the
 export const TIME_GATED_UPGRADE = 'time-gated-upgrade' as const;
 export type GemPerformance = QualitativePerformance | typeof TIME_GATED_UPGRADE;
 
+/**
+ * Configuration for a gemmable slot that can be added to an item.
+ *
+ * @property maxSockets - The maximum number of sockets that can be added to this slot.
+ * @property timeGated - Indicates whether the ability to add sockets is restricted by time-gated mechanics.
+ * @property socketingItemId - The ID of the item used to add a socket to this slot, if applicable.
+ *                             If no such item exists, this will be `undefined`.
+ * @remarks Please use the Items collection to get the socketedItemId.
+ *
+ */
 export interface GemmableSlotConfig {
   maxSockets: number;
   timeGated: boolean;
@@ -50,13 +64,7 @@ class GemChecker extends Analyzer {
   }
 
   private maxSocketCount(slot: number, ignoreTimeGates = false): number {
-    const cfg = this.GemableSlots[slot];
-
-    if (!cfg) {
-      return 0;
-    }
-
-    return !cfg.timeGated || ignoreTimeGates ? cfg.maxSockets : 0;
+    return maxSocketCountForGemmableSlotConfig(this.GemableSlots[slot], ignoreTimeGates);
   }
 
   hasTimeGatedSockets(slot: number): boolean {
@@ -217,34 +225,8 @@ class GemChecker extends Analyzer {
     return null;
   }
 
-  private buildGemPlaceholders(item: EventItem, slotNumber: number) {
-    const actualSocketCount = eventItemGemSocketCount(item);
-    const maxSockets = this.maxSocketCount(slotNumber, true);
-    const socketAddingItemId = this.GemableSlots[slotNumber]?.socketingItemId;
-
-    const result = [];
-    let i = item.gems?.length ?? 0;
-    for (; i < actualSocketCount; i += 1) {
-      result.push({
-        gem: {
-          id: 0,
-          icon: 'equipment_empty_gem_socket',
-          itemLevel: -1,
-        },
-      });
-    }
-
-    for (; i < maxSockets; i += 1) {
-      result.push({
-        gem: {
-          id: socketAddingItemId ?? 0,
-          icon: socketAddingItemId ? ITEMS[socketAddingItemId].icon : 'inv_misc_questionmark',
-          itemLevel: -1,
-        },
-      });
-    }
-
-    return result;
+  buildGemPlaceholders(item: EventItem, slotNumber: number): { gem: EventGem }[] {
+    return buildEventItemGemPlaceholders(item, this.GemableSlots[slotNumber]);
   }
 
   boxRowItemLink(item: EventItem, slotName: JSX.Element) {

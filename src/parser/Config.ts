@@ -143,3 +143,7 @@ interface MaintainedConfig {
 type Config = CoreConfig & (FoundationConfig | MaintainedConfig);
 
 export default Config;
+
+export function configName(config: Config): string {
+  return `${config.branch}-${config.spec.wclClassName}-${config.spec.wclSpecName}`;
+}

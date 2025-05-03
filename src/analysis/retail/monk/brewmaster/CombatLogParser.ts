@@ -57,6 +57,9 @@ import WarWithinS1TierSet from './modules/items/WarWithinS1TierSet';
 import VeteransEye from '../shared/hero/ShadoPan/VeteransEye';
 import WarWithinS2TierSet from './modules/items/WarWithinS2TierSet';
 import EfficientTraining from '../shared/hero/ShadoPan/EfficientTraining';
+import EnergyTracker from './modules/core/EnergyTracker';
+import EnergyGraph from './modules/core/EnergyGraph';
+import ShadowFlurryStrikes from './modules/talents/ShadowFlurryStrikes';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -70,6 +73,8 @@ class CombatLogParser extends CoreCombatLogParser {
     brews: SharedBrews,
     channeling: Channeling,
     globalCooldown: GlobalCooldown,
+    EnergyTracker,
+    EnergyGraph,
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
     mysticTouch: MysticTouch,
@@ -126,6 +131,7 @@ class CombatLogParser extends CoreCombatLogParser {
     stormstoutsLastKeg: StormtoutsLastKeg,
     veteransEye: VeteransEye,
     efficientTraining: EfficientTraining,
+    ShadowFlurryStrikes,
 
     apl: AplCheck,
 

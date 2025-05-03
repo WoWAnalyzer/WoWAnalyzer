@@ -216,6 +216,16 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
+      {
+        spell: TALENTS.GREATER_INVISIBILITY_TALENT.id,
+        buffSpellId: SPELLS.GREATER_INVISIBILITY_BUFF.id,
+        category: SPELL_CATEGORY.DEFENSIVE,
+        enabled: combatant.hasTalent(TALENTS.GREATER_INVISIBILITY_TALENT),
+        cooldown: 120,
+        gcd: {
+          base: 1500,
+        },
+      },
 
       //Utility
       {
@@ -342,16 +352,6 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         cooldown: 300,
-      },
-      {
-        spell: TALENTS.GREATER_INVISIBILITY_TALENT.id,
-        buffSpellId: SPELLS.GREATER_INVISIBILITY_BUFF.id,
-        category: SPELL_CATEGORY.UTILITY,
-        enabled: combatant.hasTalent(TALENTS.GREATER_INVISIBILITY_TALENT),
-        cooldown: 120,
-        gcd: {
-          base: 1500,
-        },
       },
       {
         spell: TALENTS.MASS_INVISIBILITY_TALENT.id,

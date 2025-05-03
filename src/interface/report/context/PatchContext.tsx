@@ -4,7 +4,7 @@ import { createContext, ReactNode, useMemo } from 'react';
 interface PatchContext {
   patch: Patch | undefined;
 }
-const PatchCtx = createContext<PatchContext | undefined>(undefined);
+export const PatchCtx = createContext<PatchContext | undefined>(undefined);
 
 interface Props {
   children: ReactNode;

@@ -2,11 +2,12 @@ import TALENTS from 'common/TALENTS/mage';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'interface/SpellLink';
 import { change, date } from 'common/changelog';
-import { Sharrq, Vollmer } from 'CONTRIBUTORS';
+import { Sharrq, Earosselot, Vollmer } from 'CONTRIBUTORS';
 
 // prettier-ignore
 export default [
   change(date(2025, 4, 21), <>Update example log.</>, Vollmer),
+  change(date(2025, 4, 20), <>Added Defensives to Guide</>, Earosselot),
   change(date(2024, 11, 22), <>Removed Checklist.</>, Sharrq),
   change(date(2024, 11, 22), <>Updated <SpellLink spell={TALENTS.COMBUSTION_TALENT} />, <SpellLink spell={SPELLS.HOT_STREAK} />, <SpellLink spell={SPELLS.HEATING_UP} />, and <SpellLink spell={TALENTS.FEEL_THE_BURN_TALENT} />.</>, Sharrq),
   change(date(2024, 9, 18), <>Updated the Warning Banner explaining the current state of Fire Mage.</>, Sharrq),
