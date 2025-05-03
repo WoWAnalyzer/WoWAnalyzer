@@ -180,6 +180,7 @@ const CharacterStats = ({ statTracker }: Props) => {
               <SpellIcon
                 spell={getTertiarySpell(stat)!}
                 style={{ height: '2em', borderRadius: 2, marginTop: '0.5em' }}
+                noLink={true}
               />
             </div>
             <div className="col-xs-10">
