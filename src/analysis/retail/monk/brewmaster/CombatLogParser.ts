@@ -60,6 +60,7 @@ import EfficientTraining from '../shared/hero/ShadoPan/EfficientTraining';
 import EnergyTracker from './modules/core/EnergyTracker';
 import EnergyGraph from './modules/core/EnergyGraph';
 import ShadowFlurryStrikes from './modules/talents/ShadowFlurryStrikes';
+import AspectOfHarmony, { AspectOfHarmonyLinkNormalizer } from './modules/talents/AspectOfHarmony';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -116,6 +117,7 @@ class CombatLogParser extends CoreCombatLogParser {
     bofNorm: BreathOfFireDebuffTargetNormalizer,
     sckNorm: SpinningCraneKickLinkNormalizer,
     ptaNorm: PressTheAdvantageNormalizer,
+    aohNorm: AspectOfHarmonyLinkNormalizer,
 
     // Talents
     weaponsOfOrder: WeaponsOfOrder,
@@ -132,6 +134,7 @@ class CombatLogParser extends CoreCombatLogParser {
     veteransEye: VeteransEye,
     efficientTraining: EfficientTraining,
     ShadowFlurryStrikes,
+    AspectOfHarmony,
 
     apl: AplCheck,
 

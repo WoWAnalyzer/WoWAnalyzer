@@ -1002,7 +1002,7 @@ const spells = {
   ASPECT_OF_HARMONY_DOT: {
     id: 450763,
     name: 'Aspect of Harmony',
-    icon: 'inv-enchant-essencenethersmall',
+    icon: 'inv_enchant_essencenethersmall',
   },
   ASPECT_OF_HARMONY_HOT: {
     id: 450769,
@@ -1013,6 +1013,10 @@ const spells = {
     id: 450711,
     name: 'Aspect of Harmony',
     icon: 'ability_evoker_essenceburst3',
+  },
+  PATH_OF_RESURGENCE_BUFF: {
+    ...talents.PATH_OF_RESURGENCE_TALENT,
+    id: 451084,
   },
   // Shado-Pan
   VETERANS_EYE_BUFF: {

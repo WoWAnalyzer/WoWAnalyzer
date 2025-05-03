@@ -3,7 +3,7 @@ import { ResourceLink, SpellLink, TooltipElement } from 'interface';
 import ShuffleSection from './modules/spells/Shuffle/GuideSection';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import CombatLogParser from './CombatLogParser';
-import { GuideProps, Section, SubSection, useAnalyzers } from 'interface/guide';
+import { GuideProps, Section, SubSection, useAnalyzer, useAnalyzers } from 'interface/guide';
 import { PurifySection } from './modules/problems/PurifyingBrew';
 import talents from 'common/TALENTS/monk';
 
@@ -23,6 +23,7 @@ import SpellUsageSubSection from 'parser/core/SpellUsage/SpellUsageSubSection';
 import ShadowFlurryStrikes from './modules/talents/ShadowFlurryStrikes';
 import EnergyTracker from './modules/core/EnergyTracker';
 import EnergyGraph from './modules/core/EnergyGraph';
+import AspectOfHarmony from './modules/talents/AspectOfHarmony';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -98,6 +99,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         </SubSection>
       </Section>
       {info.combatant.hasTalent(talents.FLURRY_STRIKES_TALENT) && <ShadoPanSection />}
+      <MasterOfHarmonySection />
       <MajorDefensivesSection />
       <ImprovedInvokeNiuzaoSection
         events={events}
@@ -186,6 +188,52 @@ function ShadoPanSection() {
         title="Shadow Strikes"
         castBreakdownSmallText={
           '- These boxes represent each buff, colored by how good the usage was.'
+        }
+      />
+    </Section>
+  );
+}
+
+function MasterOfHarmonySection(): JSX.Element | null {
+  const aoh = useAnalyzer(AspectOfHarmony);
+
+  if (!aoh || !aoh.active) {
+    return null;
+  }
+
+  return (
+    <Section title="Master of Harmony">
+      <SpellUsageSubSection
+        explanation={
+          <>
+            <p>
+              <SpellLink spell={talents.ASPECT_OF_HARMONY_TALENT} /> causes you to accumulate{' '}
+              <strong>Vitality</strong> by doing damage. <strong>Vitality</strong> is spent by using{' '}
+              <SpellLink spell={talents.CELESTIAL_BREW_TALENT} /> <em>and then</em> doing damage (or
+              healing).
+            </p>
+            <p>
+              This means it is important to use <SpellLink spell={talents.CELESTIAL_BREW_TALENT} />{' '}
+              periodically <em>even if you aren't taking much damage</em> in order to spend the
+              Vitality before you reach the{' '}
+              <TooltipElement content={'Vitality is capped at 100% of your maximum HP.'}>
+                cap.
+              </TooltipElement>
+            </p>
+          </>
+        }
+        uses={aoh.uses}
+        noCastsTexts={{
+          noCastsOverride: (
+            <>
+              You did not cast <SpellLink spell={talents.CELESTIAL_BREW_TALENT} />. This means you
+              gained almost nothing from your Hero Tree!
+            </>
+          ),
+        }}
+        title="Aspect of Harmony"
+        castBreakdownSmallText={
+          '- These boxes represent each time you spent Vitality, colored by how good the usage was.'
         }
       />
     </Section>

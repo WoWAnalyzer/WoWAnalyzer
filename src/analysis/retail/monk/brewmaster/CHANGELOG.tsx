@@ -6,6 +6,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2025, 5, 3), <>Add guide section for Master of Harmony.</>, emallson),
   change(date(2025, 4, 30), 'Fix crash in new Shado-Pan section.', emallson),
   change(date(2025, 4, 30), <>Add guide section for Shado-Pan.</>, emallson),
   change(date(2025, 4, 26), <>Update <SpellLink spell={talents.CHI_BURST_SHARED_TALENT} /> position in the APL as Master of Harmony.</>, emallson),
