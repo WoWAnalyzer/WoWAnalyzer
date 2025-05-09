@@ -2,10 +2,11 @@ import TALENTS from 'common/TALENTS/mage';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'interface/SpellLink';
 import { change, date } from 'common/changelog';
-import { Sharrq, Earosselot, Vollmer } from 'CONTRIBUTORS';
+import { Sharrq, Earosselot, Vollmer, DarkDiver } from 'CONTRIBUTORS';
 
 // prettier-ignore
 export default [
+  change(date(2025, 5, 9), <>Add HYPERTHERMIA_BUFF in addition to HYPERTHERMIA_TALENT.</>, DarkDiver),
   change(date(2025, 4, 21), <>Update example log.</>, Vollmer),
   change(date(2025, 4, 20), <>Added Defensives to Guide</>, Earosselot),
   change(date(2024, 11, 22), <>Removed Checklist.</>, Sharrq),

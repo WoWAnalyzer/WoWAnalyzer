@@ -2667,3 +2667,9 @@ export const Ceric: Contributor = {
     },
   ],
 };
+
+export const DarkDiver: Contributor = {
+  nickname: 'DarkDiver',
+  github: 'sandreenko',
+  discord: 'darkdiver93',
+};
