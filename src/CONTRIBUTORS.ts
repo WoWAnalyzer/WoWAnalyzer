@@ -2673,3 +2673,45 @@ export const DarkDiver: Contributor = {
   github: 'sandreenko',
   discord: 'darkdiver93',
 };
+
+export const swirl: Contributor = {
+  nickname: 'swirl',
+  discord: 'lolswirl',
+  github: 'lolswirl',
+  avatar: avatar('swirl-avatar.png'),
+  about: 'Healer Enjoyer. Mistweaver Veteran.',
+  mains: [
+    {
+      name: 'Swirl',
+      spec: SPECS.MISTWEAVER_MONK,
+      link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Swirl',
+    },
+    {
+      name: 'Devotion',
+      spec: SPECS.HOLY_PALADIN,
+      link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Devotion',
+    },
+  ],
+  alts: [
+    {
+      name: 'Schizo',
+      spec: SPECS.DISCIPLINE_PRIEST,
+      link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Schizo',
+    },
+    {
+      name: 'Niceorbs',
+      spec: SPECS.PRESERVATION_EVOKER,
+      link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Niceorbs',
+    },
+    {
+      name: 'Efflo',
+      spec: SPECS.RESTORATION_DRUID,
+      link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Efflo',
+    },
+    {
+      name: 'Tend',
+      spec: SPECS.RESTORATION_SHAMAN,
+      link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Tend',
+    },
+  ],
+};
