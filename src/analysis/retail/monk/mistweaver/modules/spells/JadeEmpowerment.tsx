@@ -28,8 +28,6 @@ class JadeEmpowerment extends Analyzer {
   insideCJLChannel = false;
   cjlChannelEndTime = 0;
   currentCJLHeal = 0;
-  totalCJLHeal = 0;
-  totalCJLOverheal = 0;
 
   constructor(options: Options) {
     super(options);
@@ -150,10 +148,7 @@ class JadeEmpowerment extends Analyzer {
 
   handleATHeal(event: HealEvent) {
     if (this.insideCJLChannel || event.timestamp <= this.cjlChannelEndTime + CAST_BUFFER_MS) {
-      const amount = (event.amount || 0) + (event.absorbed || 0);
-      this.totalCJLHeal += amount;
-      this.currentCJLHeal += amount;
-      this.totalCJLOverheal += event.overheal || 0;
+      this.currentCJLHeal += (event.amount || 0) + (event.absorbed || 0);
     }
   }
 
@@ -189,7 +184,6 @@ class JadeEmpowerment extends Analyzer {
 
     const styleObj = { fontSize: 20 };
     const styleObjInner = { fontSize: 15 };
-    const styleObjSmaller = { fontSize: 12 };
 
     const data = (
       <div>
@@ -197,23 +191,9 @@ class JadeEmpowerment extends Analyzer {
           <strong>
             <SpellLink spell={TALENTS_MONK.JADE_EMPOWERMENT_TALENT} /> buff efficiency
           </strong>
-          <div>
-            <PerformanceBoxRow values={this.castEntries} />
-            <div style={styleObj}>
-              <b>{this.wastedCharges}</b> <small style={styleObjInner}>wasted buffs</small>
-            </div>
-          </div>
-        </RoundedPanel>
-        <br />
-        <RoundedPanel>
+          <PerformanceBoxRow values={this.castEntries} />
           <div style={styleObj}>
-            <b>{formatNumber(this.totalCJLHeal)}</b>{' '}
-            <small style={styleObjInner}>
-              total <SpellLink spell={SPELLS.ANCIENT_TEACHINGS} /> healing{' '}
-              <small style={styleObjSmaller}>
-                ({formatNumber(this.totalCJLOverheal)} overheal)
-              </small>
-            </small>
+            <b>{this.wastedCharges}</b> <small style={styleObjInner}>wasted buffs</small>
           </div>
         </RoundedPanel>
       </div>
