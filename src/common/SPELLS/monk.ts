@@ -167,7 +167,7 @@ const spells = {
   },
   UNITY_WITHIN_CAST: {
     id: 443591,
-    name: 'Unity WIthin',
+    name: 'Unity Within',
     icon: 'ability_monk_prideofthetiger',
   },
   // Mistweaver Monk Spells
@@ -178,22 +178,22 @@ const spells = {
   },
   SECRET_INFUSION_CRIT_BUFF: {
     id: 388498,
-    name: 'Secret infusion',
+    name: 'Secret Infusion',
     icon: 'ability_monk_chibrew',
   },
   SECRET_INFUSION_HASTE_BUFF: {
     id: 388497,
-    name: 'Secret infusion',
+    name: 'Secret Infusion',
     icon: 'ability_monk_chibrew',
   },
   SECRET_INFUSION_MASTERY_BUFF: {
     id: 388499,
-    name: 'Secret infusion',
+    name: 'Secret Infusion',
     icon: 'ability_monk_chibrew',
   },
   SECRET_INFUSION_VERS_BUFF: {
     id: 388500,
-    name: 'Secret infusion',
+    name: 'Secret Infusion',
     icon: 'ability_monk_chibrew',
   },
   RENEWING_MIST_HEAL: {
@@ -209,7 +209,7 @@ const spells = {
   },
   VIVIFICATION_BUFF: {
     id: 392883,
-    name: 'Vivifacious Vivification',
+    name: 'Vivacious Vivification',
     icon: 'ability_monk_vivify',
   },
   MENDING_PROLIFERATION_BUFF: {
