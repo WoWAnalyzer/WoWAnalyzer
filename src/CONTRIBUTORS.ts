@@ -2678,7 +2678,7 @@ export const swirl: Contributor = {
   nickname: 'swirl',
   discord: 'lolswirl',
   github: 'lolswirl',
-  avatar: avatar('swirl-avatar.png'),
+  avatar: avatar('swirl-avatar.jpg'),
   about: 'Healer Enjoyer. Mistweaver Veteran.',
   mains: [
     {
