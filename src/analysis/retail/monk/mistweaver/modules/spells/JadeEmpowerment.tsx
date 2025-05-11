@@ -18,12 +18,14 @@ import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/Perfo
 import { getLowestPerf, QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { PerformanceMark } from 'interface/guide';
 import { CAST_BUFFER_MS } from '../../normalizers/EventLinks/EventLinkConstants';
+import Spell from 'common/SPELLS/Spell';
 
 class JadeEmpowerment extends Analyzer {
   castEntries: BoxRowEntry[] = [];
   wastedCharges = 0;
   hasJFT = false;
   hasSI = false;
+  secretInfusionMap: Map<Spell, [QualitativePerformance, string]>;
 
   insideCJLChannel = false;
   cjlChannelEndTime = 0;
@@ -34,6 +36,12 @@ class JadeEmpowerment extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.JADE_EMPOWERMENT_TALENT);
     this.hasJFT = this.selectedCombatant.hasTalent(TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT);
     this.hasSI = this.selectedCombatant.hasTalent(TALENTS_MONK.SECRET_INFUSION_TALENT);
+    this.secretInfusionMap = new Map([
+      [SPELLS.SECRET_INFUSION_CRIT_BUFF, [QualitativePerformance.Perfect, 'Crit']],
+      [SPELLS.SECRET_INFUSION_VERS_BUFF, [QualitativePerformance.Perfect, 'Vers']],
+      [SPELLS.SECRET_INFUSION_HASTE_BUFF, [QualitativePerformance.Good, 'Haste']],
+      [SPELLS.SECRET_INFUSION_MASTERY_BUFF, [QualitativePerformance.Ok, 'Mastery']],
+    ]);
 
     this.addEventListener(
       Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.JADE_EMPOWERMENT_BUFF),
@@ -62,7 +70,7 @@ class JadeEmpowerment extends Analyzer {
           {previousTooltip}
           <br />
           <div>
-            <SpellLink spell={SPELLS.ANCIENT_TEACHINGS} /> healing from this cast:{' '}
+            <SpellLink spell={SPELLS.ANCIENT_TEACHINGS} /> healing:{' '}
             <b>{formatNumber(this.currentCJLHeal)}</b>
           </div>
         </>
@@ -81,37 +89,28 @@ class JadeEmpowerment extends Analyzer {
       ? QualitativePerformance.Good
       : QualitativePerformance.Fail;
 
+    const perfs: QualitativePerformance[] = [jadeEmpowermentPerf];
+
     let jadefirePerf: QualitativePerformance | null = null;
     if (this.hasJFT) {
       jadefirePerf = this.selectedCombatant.hasBuff(SPELLS.JT_BUFF)
         ? QualitativePerformance.Good
         : QualitativePerformance.Fail;
+      perfs.push(jadefirePerf);
     }
 
-    let secretInfusionPerf: QualitativePerformance | null = null;
+    let secretInfusionPerf: QualitativePerformance = QualitativePerformance.Ok;
     let activeSecretInfusionStat: string | null = null;
-
     if (this.hasSI) {
-      if (this.selectedCombatant.hasBuff(SPELLS.SECRET_INFUSION_CRIT_BUFF)) {
-        activeSecretInfusionStat = 'Crit';
-        secretInfusionPerf = QualitativePerformance.Perfect;
-      } else if (this.selectedCombatant.hasBuff(SPELLS.SECRET_INFUSION_VERS_BUFF)) {
-        activeSecretInfusionStat = 'Vers';
-        secretInfusionPerf = QualitativePerformance.Perfect;
-      } else if (this.selectedCombatant.hasBuff(SPELLS.SECRET_INFUSION_HASTE_BUFF)) {
-        activeSecretInfusionStat = 'Haste';
-        secretInfusionPerf = QualitativePerformance.Good;
-      } else if (this.selectedCombatant.hasBuff(SPELLS.SECRET_INFUSION_MASTERY_BUFF)) {
-        activeSecretInfusionStat = 'Mastery';
-        secretInfusionPerf = QualitativePerformance.Ok;
-      } else {
-        secretInfusionPerf = QualitativePerformance.Ok;
+      for (const [buff, [performance, statName]] of this.secretInfusionMap) {
+        if (this.selectedCombatant.hasBuff(buff.id)) {
+          secretInfusionPerf = performance;
+          activeSecretInfusionStat = statName;
+          break;
+        }
       }
+      perfs.push(secretInfusionPerf);
     }
-
-    const perfs: QualitativePerformance[] = [jadeEmpowermentPerf];
-    if (jadefirePerf !== null) perfs.push(jadefirePerf);
-    if (secretInfusionPerf !== null) perfs.push(secretInfusionPerf);
 
     const tooltip = (
       <>
@@ -132,7 +131,7 @@ class JadeEmpowerment extends Analyzer {
         </div>
         {this.hasSI && (
           <div>
-            <SpellLink spell={SPELLS.SECRET_INFUSION_CRIT_BUFF} />{' '}
+            <SpellLink spell={TALENTS_MONK.SECRET_INFUSION_TALENT} />{' '}
             {activeSecretInfusionStat ? `(${activeSecretInfusionStat})` : ''} active:{' '}
             <PerformanceMark perf={secretInfusionPerf!} />
           </div>
