@@ -5,6 +5,7 @@ import { emallson, swirl, Trevor, Vetyst, Vohrr } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2025, 5, 14), <>Fixed method for checking wasted buffs on <SpellLink spell={TALENTS_MONK.JADE_EMPOWERMENT_TALENT}/>.</>, swirl),
   change(date(2025, 5, 10), <>Added <SpellLink spell={TALENTS_MONK.SECRET_INFUSION_TALENT}/> performance and <SpellLink spell={SPELLS.ANCIENT_TEACHINGS}/> healing per use into <SpellLink spell={TALENTS_MONK.JADE_EMPOWERMENT_TALENT}/> module.</>, swirl),
   change(date(2025, 4, 23), <>Fixed bug in Cast Performance of <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT}/>,</>, Vohrr),
   change(date(2025, 4, 15), <>Add buff uptime to <SpellLink spell={TALENTS_MONK.RUSHING_WIND_KICK_TALENT}/> guide module</>, Trevor),
