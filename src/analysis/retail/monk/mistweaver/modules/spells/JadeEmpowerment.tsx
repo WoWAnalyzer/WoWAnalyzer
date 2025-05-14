@@ -6,7 +6,7 @@ import { explanationAndDataSubsection } from 'interface/guide/components/Explana
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
-  RefreshBuffEvent,
+  CastEvent,
   HealEvent,
   BeginChannelEvent,
   EndChannelEvent,
@@ -44,8 +44,8 @@ class JadeEmpowerment extends Analyzer {
     ]);
 
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.JADE_EMPOWERMENT_BUFF),
-      this.onRefresh,
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT),
+      this.checkForRefresh,
     );
     this.addEventListener(
       Events.BeginChannel.by(SELECTED_PLAYER).spell(SPELLS.CRACKLING_JADE_LIGHTNING),
@@ -151,8 +151,10 @@ class JadeEmpowerment extends Analyzer {
     }
   }
 
-  onRefresh(event: RefreshBuffEvent) {
-    this.wastedCharges += 1;
+  checkForRefresh(event: CastEvent) {
+    if (this.selectedCombatant.getBuffStacks(SPELLS.JADE_EMPOWERMENT_BUFF) == 2) {
+      this.wastedCharges += 1;
+    }
   }
 
   onCastEnd(event: RemoveBuffEvent | RemoveBuffStackEvent | EndChannelEvent) {
