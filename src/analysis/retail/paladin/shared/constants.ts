@@ -63,3 +63,10 @@ export function getLayOnHandsSpell(c: Combatant): Spell {
   }
   return SPELLS.LAY_ON_HANDS;
 }
+
+export function getWordofGlorySpell(c: Combatant): Spell {
+  if (c.hasTalent(TALENTS.ETERNAL_FLAME_TALENT)) {
+    return TALENTS.ETERNAL_FLAME_TALENT;
+  }
+  return SPELLS.WORD_OF_GLORY;
+}

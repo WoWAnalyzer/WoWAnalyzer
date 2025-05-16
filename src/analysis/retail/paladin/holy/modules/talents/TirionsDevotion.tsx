@@ -10,7 +10,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatDuration } from 'common/format';
 import Spell from 'common/SPELLS/Spell';
-import { getLayOnHandsSpell } from 'analysis/retail/paladin/shared/constants';
+import { getLayOnHandsSpell, getWordofGlorySpell } from 'analysis/retail/paladin/shared/constants';
 
 class TirionsDevotion extends Analyzer {
   static dependencies = {
@@ -36,9 +36,8 @@ class TirionsDevotion extends Analyzer {
       Events.cast
         .by(SELECTED_PLAYER)
         .spell([
+          getWordofGlorySpell(this.selectedCombatant),
           TALENTS.LIGHT_OF_DAWN_TALENT,
-          SPELLS.WORD_OF_GLORY,
-          TALENTS.ETERNAL_FLAME_TALENT,
           SPELLS.SHIELD_OF_THE_RIGHTEOUS,
         ]),
       this.cast,
