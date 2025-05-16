@@ -41,8 +41,7 @@ import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import AverageLODDistance from './modules/spells/AverageLODDistance';
 import ImbuedInfusion from './modules/talents/ImbuedInfusion';
 import HolyPrism from './modules/talents/HolyPrism';
-import ELConsumedBuffs from './modules/talents/EmpyreanLegacy/ConsumedBuffs';
-import ELPossibleBuffs from './modules/talents/EmpyreanLegacy/PossibleBuffs';
+import EmpyreanLegacy from './modules/talents/EmpyreanLegacy';
 import TirionsDevotion from './modules/talents/TirionsDevotion';
 import Reclamation from './modules/talents/Reclamation';
 import TyrsDeliverance from './modules/talents/TyrsDeliverance/TyrsDeliverance';
@@ -108,8 +107,7 @@ class CombatLogParser extends CoreCombatLogParser {
     averageLODDistance: AverageLODDistance,
     imbuedInfusion: ImbuedInfusion,
     holyPrism: HolyPrism,
-    elConsumedBuffs: ELConsumedBuffs,
-    elPossibleBuffs: ELPossibleBuffs,
+    empyreanLegacy: EmpyreanLegacy,
     tirionsDevotion: TirionsDevotion,
     reclamation: Reclamation,
     tyrsDeliverance: TyrsDeliverance,
