@@ -37,12 +37,14 @@ import {
   KYZ,
   oneunreadmail,
   Ceric,
+  swirl,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2025, 5, 16), <>Fix number of critical hits not being calculated.</>, swirl),
   change(date(2025, 5, 2), 'All Gems now show on Character Doll', Ceric),
   change(date(2025, 4, 27), 'Recommended Gems now show to the User if setup', Ceric),
   change(date(2025, 4, 25), 'Fix Azjol-Nerub special case for Armory Link', Ceric),
