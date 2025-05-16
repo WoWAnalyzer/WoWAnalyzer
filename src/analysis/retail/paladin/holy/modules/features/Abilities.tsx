@@ -373,7 +373,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.BARRIER_OF_FAITH_TALENT),
       },
       {
-        spell: TALENTS.AVENGING_CRUSADER_TALENT.id,
+        spell: SPELLS.AVENGING_CRUSADER.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60,
         castEfficiency: {

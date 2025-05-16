@@ -398,6 +398,11 @@ const spells = {
     name: 'Avenging Wrath',
     icon: 'spell_holy_avenginewrath',
   },
+  AVENGING_CRUSADER: {
+    id: 216331,
+    name: 'Avenging Crusader',
+    icon: 'ability_paladin_veneration',
+  },
   AVENGING_WRATH_GUARANTEED_CRIT_BUFF: {
     id: 294027,
     name: 'Avenging Wrath',
