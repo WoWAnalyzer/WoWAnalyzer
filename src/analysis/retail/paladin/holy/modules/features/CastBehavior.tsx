@@ -111,7 +111,11 @@ class CastBehavior extends Analyzer {
 
       return <DonutChart items={items} />;
     } else {
-      return <div className="value">0 Filler Casts</div>;
+      return (
+        <div className="value">
+          0 <small>filler casts</small>
+        </div>
+      );
     }
   }
 
