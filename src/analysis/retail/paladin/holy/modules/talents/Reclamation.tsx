@@ -5,6 +5,8 @@ import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage, calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { CastEvent, DamageEvent, HealEvent, ResourceChangeEvent } from 'parser/core/Events';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import ItemManaGained from 'parser/ui/ItemManaGained';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -22,10 +24,9 @@ class Reclamation extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+
     this.active = this.selectedCombatant.hasTalent(TALENTS.RECLAMATION_TALENT);
-    if (!this.active) {
-      return;
-    }
+
     this.addEventListener(
       Events.cast.spell([TALENTS.HOLY_SHOCK_TALENT, SPELLS.CRUSADER_STRIKE]).by(SELECTED_PLAYER),
       this.cast,
@@ -96,11 +97,9 @@ class Reclamation extends Analyzer {
         }
       >
         <TalentSpellText talent={TALENTS_PALADIN.RECLAMATION_TALENT}>
-          <div>{this.owner.formatItemHealingDone(this.healing)}</div>
-          <div>{this.owner.formatItemDamageDone(this.damageDone)}</div>
-          <div>
-            <ItemManaGained amount={totalMana} />
-          </div>
+          <ItemHealingDone amount={this.healing} /> <br />
+          <ItemDamageDone amount={this.damageDone} /> <br />
+          <ItemManaGained amount={totalMana} useAbbrev customLabel="mana" />
         </TalentSpellText>
       </Statistic>
     );
