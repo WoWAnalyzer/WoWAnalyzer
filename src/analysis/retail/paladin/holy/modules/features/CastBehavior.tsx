@@ -118,7 +118,7 @@ class CastBehavior extends Analyzer {
   statistic() {
     return (
       <StatisticGroup category={STATISTIC_CATEGORY.GENERAL} large={false} wide={false} style={{}}>
-        <Statistic ultrawide>
+        <Statistic ultrawide size="flexible">
           <div className="pad">
             <label>
               <Trans id="paladin.holy.modules.castBehavior.infusionOfLightUsage">
@@ -129,7 +129,7 @@ class CastBehavior extends Analyzer {
             {this.iolCastRatioChart()}
           </div>
         </Statistic>
-        <Statistic ultrawide>
+        <Statistic ultrawide size="flexible">
           <div className="pad">
             <label>
               <Trans id="paladin.holy.modules.castBehavior.fillers">Fillers</Trans>
