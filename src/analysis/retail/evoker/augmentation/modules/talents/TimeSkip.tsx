@@ -21,7 +21,7 @@ class TimeSkip extends Analyzer {
   timeSkipApplyTimestamp = 0;
   timeSkipRemoveTimestamp = 0;
 
-  spellsToCDR = [
+  spellIdsToCDR = [
     SPELLS.UPHEAVAL,
     SPELLS.UPHEAVAL_FONT,
     SPELLS.FIRE_BREATH,
@@ -53,7 +53,7 @@ class TimeSkip extends Analyzer {
     TALENTS.TIME_SKIP_TALENT,
     SPELLS.BLESSING_OF_THE_BRONZE,
     SPELLS.FURY_OF_THE_ASPECTS,
-  ];
+  ].map((x) => x.id);
 
   // Amount to CDR for each MS.
   CDR_MS = 10;
@@ -88,9 +88,22 @@ class TimeSkip extends Analyzer {
       CDRAmount = this.MAX_CDR;
     }
 
-    this.spellsToCDR.forEach((_number, index) => {
-      this.spellUsable.reduceCooldown(this.spellsToCDR[index].id, CDRAmount);
-      //console.log("Reduced: " + this.spellsToCDR[index].name + " by: " + CDRAmount)
+    this.spellIdsToCDR.forEach((spellId) => {
+      if (!this.spellUsable.isOnCooldown(spellId)) {
+        return;
+      }
+      let amountToCDR = CDRAmount;
+
+      // Spells with charges don't like getting 2 charges reduced at once, so this is a workaround.
+      // example prescience in this log: https://www.warcraftlogs.com/reports/ykxmq2ZDrKTWH7Fj/?fight=4&source=1
+      if (this.spellUsable.chargesOnCooldown(spellId) > 1) {
+        const remainingCooldown = this.spellUsable.cooldownRemaining(spellId);
+        if (remainingCooldown < amountToCDR) {
+          amountToCDR -= this.spellUsable.reduceCooldown(spellId, remainingCooldown);
+        }
+      }
+
+      this.spellUsable.reduceCooldown(spellId, amountToCDR);
     });
   }
 }
