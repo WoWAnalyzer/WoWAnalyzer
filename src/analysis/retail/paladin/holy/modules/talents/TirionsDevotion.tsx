@@ -9,6 +9,8 @@ import { SpellLink } from 'interface';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatDuration } from 'common/format';
+import Spell from 'common/SPELLS/Spell';
+import { getLayOnHandsSpell } from 'analysis/retail/paladin/shared/constants';
 
 class TirionsDevotion extends Analyzer {
   static dependencies = {
@@ -16,6 +18,9 @@ class TirionsDevotion extends Analyzer {
   };
 
   protected spellUsable!: SpellUsable;
+  private readonly layOnHands: Spell;
+
+  cdrPerHolyPower = 1.5;
 
   wastedCDR = 0;
   effectiveCDR = 0;
@@ -24,9 +29,8 @@ class TirionsDevotion extends Analyzer {
     super(options);
 
     this.active = this.selectedCombatant.hasTalent(TALENTS.TIRIONS_DEVOTION_HOLY_TALENT);
-    if (!this.active) {
-      return;
-    }
+
+    this.layOnHands = getLayOnHandsSpell(this.selectedCombatant);
 
     this.addEventListener(
       Events.cast
@@ -34,6 +38,7 @@ class TirionsDevotion extends Analyzer {
         .spell([
           TALENTS.LIGHT_OF_DAWN_TALENT,
           SPELLS.WORD_OF_GLORY,
+          TALENTS.ETERNAL_FLAME_TALENT,
           SPELLS.SHIELD_OF_THE_RIGHTEOUS,
         ]),
       this.cast,
@@ -51,9 +56,9 @@ class TirionsDevotion extends Analyzer {
       return;
     }
 
-    const totalCDR = exists.amount * 1000;
+    const totalCDR = exists.amount * this.cdrPerHolyPower * 1000;
 
-    const effectiveCdr = this.spellUsable.reduceCooldown(SPELLS.LAY_ON_HANDS.id, totalCDR);
+    const effectiveCdr = this.spellUsable.reduceCooldown(this.layOnHands.id, totalCDR);
     this.effectiveCDR += effectiveCdr;
     this.wastedCDR += totalCDR - effectiveCdr;
   }
@@ -74,11 +79,11 @@ class TirionsDevotion extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellLink spell={TALENTS.TIRIONS_DEVOTION_HOLY_TALENT} /> Total CDR
+              <SpellLink spell={TALENTS.TIRIONS_DEVOTION_HOLY_TALENT} />
             </>
           }
         >
-          {formatDuration(this.effectiveCDR)} <small>CDR</small>
+          {formatDuration(this.effectiveCDR)} <small>Total CDR</small>
         </BoringValueText>
       </Statistic>
     );
