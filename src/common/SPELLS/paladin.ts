@@ -438,7 +438,11 @@ const spells = {
     name: 'Lay on Hands',
     icon: 'spell_holy_layonhands',
   },
-  LAY_ON_HANDS_PROTECTION: { id: 471195, name: 'Lay on Hands', icon: 'spell_holy_layonhands.jpg' },
+  LAY_ON_HANDS_EMPYREAL_WARD: {
+    id: 471195,
+    name: 'Lay on Hands',
+    icon: 'spell_holy_layonhands.jpg',
+  },
   ART_OF_WAR: {
     id: 406086,
     name: 'Art of War',

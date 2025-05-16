@@ -152,7 +152,26 @@ class Abilities extends CoreAbilities {
             : 0.1,
           importance: ISSUE_IMPORTANCE.MINOR,
         },
-        enabled: combatant.hasTalent(TALENTS.LAY_ON_HANDS_TALENT),
+        enabled:
+          combatant.hasTalent(TALENTS.LAY_ON_HANDS_TALENT) &&
+          !combatant.hasTalent(TALENTS.EMPYREAL_WARD_TALENT),
+      },
+      {
+        spell: SPELLS.LAY_ON_HANDS_EMPYREAL_WARD.id,
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown: unbreakable(60 * 10),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: this.selectedCombatant.hasTalent(
+            TALENTS.TIRIONS_DEVOTION_HOLY_TALENT,
+          )
+            ? 0.6
+            : 0.1,
+          importance: ISSUE_IMPORTANCE.MINOR,
+        },
+        enabled:
+          combatant.hasTalent(TALENTS.LAY_ON_HANDS_TALENT) &&
+          combatant.hasTalent(TALENTS.EMPYREAL_WARD_TALENT),
       },
       {
         spell: TALENTS.BLESSING_OF_FREEDOM_TALENT.id,
