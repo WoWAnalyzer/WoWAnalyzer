@@ -5,15 +5,11 @@ import TALENTS from 'common/TALENTS/hunter';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 export default [
-  change(date(2024, 11, 15), <>Added reset logic for <SpellLink spell={SPELLS.RAPID_FIRE} /> and <SpellLink spell={TALENTS.AIMED_SHOT_TALENT} />
-  from <SpellLink spell={SPELLS.WAILING_ARROW_DAMAGE} /> and Readiness
-  <br/>
-  Simplified reset logic inside of <SpellLink spell={TALENTS.LOCK_AND_LOAD_TALENT} />
-  <br/>
-  Inclusion of Tactical Reload and <SpellLink spell={SPELLS.STEADY_FOCUS_BUFF} /> for CDR logic in Aimed Shot
-  <br/>
-  Add Tactical Reload constant for CDR Reduction
-  </>, Yellot),
+  change(date(2025, 5, 5), <>Added <SpellLink spell={TALENTS.BLEAK_ARROWS_TALENT} /> as a possible trigger for <SpellLink spell={TALENTS.LOCK_AND_LOAD_TALENT} /> </>, Putro),
+  change(date(2024, 11, 15), <>Added reset logic for <SpellLink spell={SPELLS.RAPID_FIRE} /> and <SpellLink spell={TALENTS.AIMED_SHOT_TALENT} /> from <SpellLink spell={SPELLS.WAILING_ARROW_DAMAGE} /> and Readiness</>, Yellot),
+  change(date(2024, 11, 15), <>Simplified reset logic inside of <SpellLink spell={TALENTS.LOCK_AND_LOAD_TALENT} /></>, Yellot),
+  change(date(2024, 11, 15), <>Inclusion of Tactical Reload and <SpellLink spell={SPELLS.STEADY_FOCUS_BUFF} /> for CDR logic in Aimed Shot</>, Yellot),
+  change(date(2024, 11, 15), 'Add Tactical Reload constant for CDR Reduction', Yellot),
   change(date(2024, 11, 13), 'Updated tier set', Yellot),
   change(date(2024, 11, 10), 'Enable Marksmanship again for usage', Yellot),
   change(date(2024, 11, 10), <>Added <SpellLink spell={TALENTS.BLACK_ARROW_TALENT} />, Wailing Arrow and <SpellLink spell={SPELLS.FORTITUDE_OF_THE_BEAR} /></>, Yellot),

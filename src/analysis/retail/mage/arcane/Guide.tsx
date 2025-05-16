@@ -12,6 +12,7 @@ import PreparationSection from 'interface/guide/components/Preparation/Preparati
 import ManaLevelGraph from './ManaChart/TabComponent/ManaLevelGraph';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
+import MajorDefensives from 'src/analysis/retail/mage/shared/defensives/DefensivesGuide';
 
 export const GUIDE_CORE_EXPLANATION_PERCENT = 50;
 
@@ -194,6 +195,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           gapHighlightMode={GapHighlight.FullCooldown}
         />
       </Section>
+      <MajorDefensives />
       <PreparationSection />
     </>
   );

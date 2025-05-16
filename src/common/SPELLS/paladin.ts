@@ -701,6 +701,10 @@ const spells = {
     ...talents.UNDISPUTED_RULING_TALENT,
     id: 432629,
   },
+  SHAKE_THE_HEAVENS_BUFF: {
+    ...talents.SHAKE_THE_HEAVENS_TALENT,
+    id: 431536,
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;

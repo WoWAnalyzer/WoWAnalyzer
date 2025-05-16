@@ -231,6 +231,11 @@ const spells = {
     name: 'Serpent Sting',
     icon: 'spell_hunter_exoticmunitions_poisoned',
   },
+  BLEAK_ARROW_DAMAGE: {
+    id: 467718,
+    name: 'Bleak Arrows',
+    icon: 'inv_quiver_1h_mawraid_d_01.jpg',
+  },
   //endregion
 
   //region Survival

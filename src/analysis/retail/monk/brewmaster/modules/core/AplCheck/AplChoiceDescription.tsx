@@ -38,16 +38,14 @@ const StandardDescription = () => {
         </p>
         <ol>
           <li>
-            Always fill one <SpellIcon spell={blank} /> with either{' '}
-            <SpellLink spell={SPELLS.TIGER_PALM}>TP</SpellLink> or{' '}
-            <SpellLink spell={talents.BREATH_OF_FIRE_TALENT}>BoF</SpellLink> to spend your{' '}
-            <SpellLink spell={SPELLS.BLACKOUT_COMBO_BUFF} />
+            Always fill one <SpellIcon spell={blank} /> with{' '}
+            <SpellLink spell={SPELLS.TIGER_PALM}>TP</SpellLink> to spend your{' '}
+            <SpellLink spell={SPELLS.BLACKOUT_COMBO_BUFF} />, even in AoE
           </li>
           <li>
             If you fill a <SpellIcon spell={blank} /> with{' '}
             <SpellLink spell={talents.KEG_SMASH_TALENT} />, it should be <em>after</em>{' '}
-            <SpellLink spell={SPELLS.TIGER_PALM}>TP</SpellLink> /{' '}
-            <SpellLink spell={talents.BREATH_OF_FIRE_TALENT}>BoF</SpellLink>
+            <SpellLink spell={SPELLS.TIGER_PALM}>TP</SpellLink>
           </li>
           <li>
             Fill all other <SpellIcon spell={blank} />s with your normal rotation

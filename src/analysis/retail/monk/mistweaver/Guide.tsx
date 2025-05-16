@@ -33,6 +33,9 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {modules.vivify.guideSubsection}
         {info.combatant.hasTalent(TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT) &&
           modules.jadefireTeachings.guideSubsection}
+        {info.combatant.hasTalent(TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT) &&
+          info.combatant.hasTalent(TALENTS_MONK.JADE_EMPOWERMENT_TALENT) &&
+          modules.jadeEmpowerment.guideSubsection}
         {info.combatant.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT) && (
           <SheilunsGraph modules={modules} events={events} info={info} />
         )}
@@ -87,8 +90,6 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           modules.zenPulse.guideSubsection}
         {info.combatant.hasTalent(TALENTS_MONK.STRENGTH_OF_THE_BLACK_OX_TALENT) &&
           modules.strengthOfTheBlackOx.guideSubsection}
-        {info.combatant.hasTalent(TALENTS_MONK.JADE_EMPOWERMENT_TALENT) &&
-          modules.jadeEmpowerment.guideSubsection}
       </Section>
       <PreparationSection />
     </>
