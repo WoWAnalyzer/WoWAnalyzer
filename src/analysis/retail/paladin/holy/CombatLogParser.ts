@@ -53,6 +53,7 @@ import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart'
 import SpellManaCost from 'parser/shared/modules/SpellManaCost';
 import HolyPaladinHealingEfficiencyTracker from './modules/features/HolyPaladinHealingEfficiencyTracker';
 import HolyShock from './modules/talents/HolyShock';
+import Judgment from './modules/talents/Judgment';
 import BeaconOfVirtue from './modules/talents/BeaconOfVirtue';
 import HolyPowerGraph from './modules/core/HolyPowerGraph';
 import OverflowingLight from './modules/talents/OverflowingLight';
@@ -113,6 +114,7 @@ class CombatLogParser extends CoreCombatLogParser {
     tyrsDeliverance: TyrsDeliverance,
     boundlessSalvation: BoundlessSalvation,
     holyShock: HolyShock,
+    judgment: Judgment,
     beaconOfVirtue: BeaconOfVirtue,
     overflowingLight: OverflowingLight,
 
