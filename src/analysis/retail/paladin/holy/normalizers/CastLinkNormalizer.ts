@@ -12,6 +12,7 @@ import { Options } from 'parser/core/Module';
 
 export const HOLY_SHOCK_SOURCE = 'HolyShockSource';
 const RISING_SUNLIGHT = 'RisingSunlight';
+export const EMPYREAN_LEGACY = 'EmpyreanLegacy';
 
 const SHORT_BUFFER_MS = 100;
 const MED_BUFFER_MS = 350;
@@ -98,6 +99,17 @@ const EVENT_LINKS: EventLink[] = [
       const since = (referencedEvent.timestamp - sourceEvent.timestamp) / 1000 + 0.1;
       return since > 5 && since % 5 < 1 && !HasRelatedEvent(referencedEvent, HOLY_SHOCK_SOURCE);
     },
+  },
+  // attribute light of dawn events to empyrean legacy being used
+  {
+    linkRelation: EMPYREAN_LEGACY,
+    linkingEventId: SPELLS.EMPYREAN_LEGACY_BUFF.id,
+    linkingEventType: EventType.RemoveBuff,
+    referencedEventId: SPELLS.LIGHT_OF_DAWN_HEAL.id,
+    referencedEventType: EventType.Heal,
+    maximumLinks: 5,
+    forwardBufferMs: MED_BUFFER_MS,
+    anyTarget: true,
   },
 ];
 
