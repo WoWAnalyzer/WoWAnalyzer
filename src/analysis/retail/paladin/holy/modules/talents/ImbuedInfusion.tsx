@@ -168,6 +168,10 @@ class ImbuedInfusion extends Analyzer {
               waste={this.wastedHolyShockReductionMs}
             />
           </div>
+          {Math.floor(this.holyShocksCastsLost)}{' '}
+          <small>
+            additional <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> casts lost
+          </small>
         </TalentSpellText>
       </Statistic>
     );
