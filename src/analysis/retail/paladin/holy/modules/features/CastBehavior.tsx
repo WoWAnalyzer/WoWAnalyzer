@@ -9,6 +9,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import StatisticGroup from 'parser/ui/StatisticGroup';
 
 import PaladinAbilityTracker from '../core/PaladinAbilityTracker';
+import { SPELL_COLORS } from '../../constants';
 
 class CastBehavior extends Analyzer {
   static dependencies = {
@@ -43,19 +44,19 @@ class CastBehavior extends Analyzer {
 
     const items = [
       {
-        color: '#FFFDE7',
+        color: SPELL_COLORS.FLASH_OF_LIGHT,
         label: SPELLS.FLASH_OF_LIGHT.name,
         spellId: SPELLS.FLASH_OF_LIGHT.id,
         value: iolFlashOfLights,
       },
       {
-        color: '#F57C00',
+        color: SPELL_COLORS.HOLY_LIGHT,
         label: SPELLS.HOLY_LIGHT.name,
         spellId: SPELLS.HOLY_LIGHT.id,
         value: iolHolyLights,
       },
       {
-        color: '#F8b700',
+        color: SPELL_COLORS.JUDGMENT,
         label: SPELLS.JUDGMENT_CAST_HOLY.name,
         spellId: SPELLS.JUDGMENT_CAST_HOLY.id,
         value: iolJudgments,

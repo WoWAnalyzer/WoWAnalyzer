@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import Spell from 'common/SPELLS/Spell';
 import TALENTS from 'common/TALENTS/paladin';
 import Combatant from 'parser/core/Combatant';
 
@@ -91,3 +92,23 @@ export const BEACON_SPELL_IDS: Record<BEACON_TYPE, readonly number[]> = {
 } as const;
 
 export const LIGHTS_PROTECTION_DAMAGE_REDUCTION = 0.05;
+
+export const HOLY_POWER_BUILDERS: Spell[] = [
+  SPELLS.CRUSADER_STRIKE,
+  SPELLS.JUDGMENT_CAST_HOLY,
+  TALENTS.DIVINE_TOLL_TALENT,
+  TALENTS.HAMMER_OF_WRATH_TALENT,
+  TALENTS.HOLY_SHOCK_TALENT,
+];
+
+export const SPELL_COLORS = {
+  HAMMER_OF_WRATH: '#70C1B3',
+  HOLY_SHOCK: '#f4ecb1',
+  JUDGMENT: '#F8b700',
+  DIVINE_TOLL: '#3185fC',
+  BEACON_OF_LIGHT: '#f890bd',
+  CRUSADER_STRIKE: '#F9DC5C',
+  FLASH_OF_LIGHT: '#FFFDE7',
+  HOLY_LIGHT: '#F57C00',
+  SECOND_SUNRISE: '#c5841d',
+};

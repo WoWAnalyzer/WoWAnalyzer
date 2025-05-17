@@ -56,6 +56,7 @@ import HolyShock from './modules/talents/HolyShock';
 import Judgment from './modules/talents/Judgment';
 import BeaconOfVirtue from './modules/talents/BeaconOfVirtue';
 import HolyPowerGraph from './modules/core/HolyPowerGraph';
+import BuilderUse from './modules/core/BuilderUse';
 import OverflowingLight from './modules/talents/OverflowingLight';
 import Guide from './guide/Guide';
 
@@ -84,6 +85,7 @@ class CombatLogParser extends CoreCombatLogParser {
     fillerFlashOfLight: FillerFlashOfLight,
     lightOfDawn: LightOfDawn,
     hammerOfWrath: HammerOfWrath,
+    builderUse: BuilderUse,
 
     // Features
     checklist: Checklist,

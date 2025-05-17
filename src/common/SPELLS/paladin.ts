@@ -686,6 +686,11 @@ const spells = {
   SUNS_AVATAR_HEAL_2: { name: "Sun's Avatar", id: 463074, icon: 'ability_paladin_holyavenger' },
   SUN_SEAR_HEAL: { name: 'Sun Sear', id: 431415, icon: 'spell_priest_burningwill' },
   TRUTH_PREVAILS_HEAL: { name: 'Truth Prevails', id: 461546, icon: 'ability_paladin_artofwar' },
+  SECOND_SUNRISE_HOLY_POWER: {
+    id: 456766,
+    name: 'Second Sunrise',
+    icon: 'ability_priest_halo',
+  },
   HAMMER_OF_LIGHT: {
     id: 427453,
     name: 'Hammer of Light',
