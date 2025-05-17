@@ -15,12 +15,12 @@ enum Expansion {
 enum ExpansionName {
   // The value of `player.combatant.expansion`
   WrathOfTheLichKing = 'wotlk',
-  Cataclysm = 'cataclysm',
+  Cataclysm = 'cataclysm', // TODO mists characters still say "cataclysm"
   Dragonflight = 'dragonflight',
   TheWarWithin = 'the war within',
 }
 
-export const CLASSIC_EXPANSION = Expansion.Cataclysm;
+export const CLASSIC_EXPANSION = Expansion.MistsOfPandaria;
 export const RETAIL_EXPANSION = Expansion.TheWarWithin;
 
 export const CLASSIC_EXPANSION_NAME = ExpansionName.Cataclysm;
@@ -36,7 +36,7 @@ export function isRetailExpansion(expansion: Expansion): boolean {
 
 export function isClassicExpansion(expansion: Expansion): boolean {
   // one day, we're going to have to deal with Classic Legion and things are going to get very messy
-  return expansion >= Expansion.Vanilla && expansion <= Expansion.Cataclysm;
+  return expansion >= Expansion.Vanilla && expansion <= Expansion.MistsOfPandaria;
 }
 
 export default Expansion;

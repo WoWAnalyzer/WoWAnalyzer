@@ -54,6 +54,12 @@ const ZONES: Zone[] = [
       dragonsoul.bosses.DeathwingMadness,
     ],
   },
+  {
+    id: 1038,
+    name: 'MSV / HoF / ToES',
+    frozen: false,
+    encounters: [],
+  },
 ];
 
 export default ZONES;

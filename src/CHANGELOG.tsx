@@ -44,6 +44,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2025, 5, 17), <>Minimal setup for Mists of Pandaria.</>, emallson),
   change(date(2025, 5, 16), <>Fix number of critical hits not being calculated.</>, swirl),
   change(date(2025, 5, 2), 'All Gems now show on Character Doll', Ceric),
   change(date(2025, 4, 27), 'Recommended Gems now show to the User if setup', Ceric),

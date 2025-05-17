@@ -199,11 +199,11 @@ class StatTracker extends Analyzer {
     [STAT.SPEED]: 170,
   };
 
-  // Values taken from https://github.com/wowsims/cata/blob/master/sim/core/base_stats_auto_gen.go
+  // Values taken from wago.tools combat rating per point casc file
   // we multiply by 100 to convert e.g. 5.8% haste to 0.058
   classicStatRatingPerPercent = {
-    [STAT.HASTE]: 128.05716 * 100,
-    [STAT.CRITICAL_STRIKE]: 179.28004 * 100,
+    [STAT.HASTE]: 425 * 100,
+    [STAT.CRITICAL_STRIKE]: 600 * 100,
   };
 
   /** Secondary stat scaling thresholds
