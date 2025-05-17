@@ -4,13 +4,14 @@ import TALENTS from 'common/TALENTS/paladin';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { BeaconHealEvent, HealEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import BeaconHealSource from '../beacons/BeaconHealSource';
+import STAT, { getIcon, getName } from 'parser/shared/modules/features/STAT';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 /**
  * Avenging Crusader
@@ -105,6 +106,9 @@ class AvengingCrusader extends Analyzer {
   }
 
   statistic() {
+    const CritName = getName(STAT.CRITICAL_STRIKE);
+    const CritIcon = getIcon(STAT.CRITICAL_STRIKE);
+
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
@@ -130,10 +134,10 @@ class AvengingCrusader extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={TALENTS.AVENGING_CRUSADER_TALENT}>
+        <TalentSpellText talent={TALENTS.AVENGING_CRUSADER_TALENT}>
           <ItemHealingDone amount={this.totalHealing} /> <br />
-          {formatPercentage(this.critRate)}% Crit Rate
-        </BoringSpellValueText>
+          <CritIcon /> {formatPercentage(this.critRate)}% <small>{CritName} rate</small>
+        </TalentSpellText>
       </Statistic>
     );
   }
