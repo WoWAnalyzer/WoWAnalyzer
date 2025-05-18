@@ -18,7 +18,7 @@ const ItemDamageDone = ({ amount, approximate, displayPercentage = true }: Props
       <DamageIcon /> {approximate && '≈'}
       {formatNumber((amount / parser.fightDuration) * 1000)} DPS{' '}
       {displayPercentage && (
-        <small>{formatPercentage(parser.getPercentageOfTotalDamageDone(amount))} % of total</small>
+        <small>{formatPercentage(parser.getPercentageOfTotalDamageDone(amount))}% of total</small>
       )}
     </>
   );
