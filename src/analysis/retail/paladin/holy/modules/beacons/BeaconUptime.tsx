@@ -255,11 +255,17 @@ class BeaconUptime extends BeaconAnalyzer {
     const getLabel = (beaconId: number): React.ReactNode => {
       switch (beaconId) {
         case SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id:
-          return <Trans id="paladin.holy.modules.beacons.beaconUptime.bolUptime">BoL Uptime</Trans>;
+          return (
+            <Trans id="paladin.holy.modules.beacons.beaconUptime.bolUptime">Beacon of Light</Trans>
+          );
         case TALENTS.BEACON_OF_FAITH_TALENT.id:
-          return <Trans id="paladin.holy.modules.beacons.beaconUptime.bofUptime">BoF Uptime</Trans>;
+          return (
+            <Trans id="paladin.holy.modules.beacons.beaconUptime.bofUptime">Beacon of Faith</Trans>
+          );
         case TALENTS.BEACON_OF_VIRTUE_TALENT.id:
-          return <Trans id="paladin.holy.modules.beacons.beaconUptime.bovUptime">BoV Uptime</Trans>;
+          return (
+            <Trans id="paladin.holy.modules.beacons.beaconUptime.bovUptime">Beacon of Virtue</Trans>
+          );
       }
     };
 
