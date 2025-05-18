@@ -271,6 +271,16 @@ const spells = {
     name: 'Blessing of Summer',
     icon: 'ability_ardenweald_paladin_summer',
   },
+  BLESSING_OF_SUMMER_HEAL: {
+    id: 448227,
+    name: 'Blessing of Summer',
+    icon: 'ability_ardenweald_paladin_summer',
+  },
+  BLESSING_OF_SUMMER_DAMAGE: {
+    id: 388009,
+    name: 'Blessing of Summer',
+    icon: 'ability_ardenweald_paladin_summer',
+  },
   BLESSING_OF_AUTUMN_TALENT: {
     id: 388010,
     name: 'Blessing of Autumn',
