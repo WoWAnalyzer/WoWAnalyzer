@@ -60,6 +60,8 @@ import BuilderUse from './modules/core/BuilderUse';
 import OverflowingLight from './modules/talents/OverflowingLight';
 import Guide from './guide/Guide';
 
+import Aurora from './modules/heroTalents/Aurora';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Normalizers
@@ -119,6 +121,9 @@ class CombatLogParser extends CoreCombatLogParser {
     judgment: Judgment,
     beaconOfVirtue: BeaconOfVirtue,
     overflowingLight: OverflowingLight,
+
+    // Hero Talents
+    aurora: Aurora,
 
     // HolyPower
     holyPowerTracker: HolyPowerTracker,
