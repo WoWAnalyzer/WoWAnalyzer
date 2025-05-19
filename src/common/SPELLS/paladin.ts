@@ -849,6 +849,11 @@ const spells = {
     name: "Blessing of An'she",
     icon: 'inv_ability_holyfire_orb',
   },
+  SOLAR_GRACE_BUFF: {
+    id: 439841,
+    name: 'Solar Grace',
+    icon: 'ability_malkorok_blightofyshaarj_yellow',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;
