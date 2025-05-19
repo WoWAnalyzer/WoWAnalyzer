@@ -1,11 +1,14 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
 import { EventLink } from 'parser/core/EventLinkNormalizer';
-import { EventType } from 'parser/core/Events';
+import { EventType, HasRelatedEvent } from 'parser/core/Events';
 import {
   AURORA_DIVINE_PURPOSE,
   BLESSED_ASSURANCE,
   BLESSING_OF_ANSHE,
+  HOLY_SHOCK_SOURCE,
+  LONG_BUFFER_MS,
+  SECOND_SUNRISE,
   SHORT_BUFFER_MS,
 } from './EventLinkConstants';
 
@@ -38,6 +41,22 @@ const HERALD_OF_THE_SUN_EVENT_LINKS: EventLink[] = [
     anyTarget: true,
     isActive(c) {
       return c.hasTalent(TALENTS.BLESSING_OF_ANSHE_TALENT);
+    },
+  },
+  // Attribute heal from Holy Shock to Second Sunrise
+  {
+    linkRelation: SECOND_SUNRISE,
+    reverseLinkRelation: HOLY_SHOCK_SOURCE,
+    linkingEventId: SPELLS.SECOND_SUNRISE_HOLY_POWER.id,
+    linkingEventType: EventType.ResourceChange,
+    referencedEventId: [SPELLS.HOLY_SHOCK_HEAL.id, SPELLS.HOLY_SHOCK_DAMAGE.id],
+    referencedEventType: [EventType.Heal, EventType.Damage],
+    maximumLinks: 1,
+    backwardBufferMs: LONG_BUFFER_MS,
+    forwardBufferMs: LONG_BUFFER_MS,
+    anyTarget: true,
+    additionalCondition(_, referencedEvent) {
+      return !HasRelatedEvent(referencedEvent, HOLY_SHOCK_SOURCE);
     },
   },
 ];
