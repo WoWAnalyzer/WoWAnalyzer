@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
-import { Texleretour } from 'CONTRIBUTORS';
+import { swirl, Texleretour } from 'CONTRIBUTORS';
 import GameBranch from 'game/GameBranch';
 import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
@@ -9,9 +9,9 @@ import Config, { SupportLevel } from 'parser/Config';
 import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
-  contributors: [Texleretour],
+  contributors: [Texleretour, swirl],
   branch: GameBranch.Retail,
-  patchCompatibility: '11.0.2',
+  patchCompatibility: '11.1.5',
   supportLevel: SupportLevel.MaintainedPartial,
   pages: {
     overview: {
