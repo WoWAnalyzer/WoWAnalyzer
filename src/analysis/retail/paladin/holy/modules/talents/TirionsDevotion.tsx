@@ -11,6 +11,7 @@ import Spell from 'common/SPELLS/Spell';
 import { getLayOnHandsSpell, getWordofGlorySpell } from 'analysis/retail/paladin/shared/constants';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemCooldownReduction from 'parser/ui/ItemCooldownReduction';
+import { formatNumber } from 'common/format';
 
 class TirionsDevotion extends Analyzer {
   static dependencies = {
@@ -70,7 +71,7 @@ class TirionsDevotion extends Analyzer {
         tooltip={
           <>
             Holy Power spent while <SpellLink spell={TALENTS.LAY_ON_HANDS_TALENT} /> was not on CD:{' '}
-            {this.wastedCDR / this.cdrPerHolyPower / 1000}
+            {formatNumber(this.wastedCDR / this.cdrPerHolyPower / 1000)}
           </>
         }
       >
