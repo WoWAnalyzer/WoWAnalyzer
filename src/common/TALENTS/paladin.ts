@@ -679,7 +679,7 @@ const talents = {
     entryIds: [117692],
     definitionIds: [{ id: 122704, specId: 70 }],
     holyPowerCost: 3,
-    manaCost: 250000,
+    manaCost: 15000,
   },
   EXECUTIONERS_WILL_TALENT: {
     id: 406940,
