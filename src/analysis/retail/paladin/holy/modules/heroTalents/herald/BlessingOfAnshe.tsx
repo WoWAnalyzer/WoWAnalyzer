@@ -61,7 +61,6 @@ class BlessingOfAnshe extends Analyzer {
   }
 
   onRemove(event: RemoveBuffEvent) {
-    console.log(event);
     const holyShock = GetRelatedEvent(event, BLESSING_OF_ANSHE);
     if (!holyShock) {
       return;
