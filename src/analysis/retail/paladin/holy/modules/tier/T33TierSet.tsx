@@ -2,24 +2,39 @@ import { PALADIN_TWW2_ID } from 'common/ITEMS/dragonflight';
 import { TIERS } from 'game/TIERS';
 import ItemSetLink from 'interface/ItemSetLink';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { HealEvent } from 'parser/core/Events';
+import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Statistic from 'parser/ui/Statistic';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/paladin';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import { isInsuranceFromDivineToll } from '../../normalizers/CastLinkNormalizer';
 import { SPELL_COLORS } from '../../constants';
 import { formatNumber } from 'common/format';
 import DonutChart, { Item } from 'parser/ui/DonutChart';
+import { ALL_HOLY_POWER_SPENDERS } from 'analysis/retail/paladin/shared/constants';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
+import ItemCooldownReduction from 'parser/ui/ItemCooldownReduction';
+
+const COOLDOWN_REDUCTION_MS = 1.0 * 1000;
 
 class T33TierSet extends Analyzer {
+  static dependencies = {
+    spellUsable: SpellUsable,
+  };
+
+  protected spellUsable!: SpellUsable;
+
   has4Piece = false;
   insurance2pHotHealing = 0;
   insurance2pProcHealing = 0;
   insurance4pHotHealing = 0;
   insurance4pProcHealing = 0;
   ins4pOverheal = 0;
+
+  effectiveCdrMs = 0;
+  wastedCdrMs = 0;
 
   constructor(options: Options) {
     super(options);
@@ -35,6 +50,22 @@ class T33TierSet extends Analyzer {
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.INSURANCE_PROC_PALADIN).by(SELECTED_PLAYER),
       this.onInsuranceHeal,
     );
+
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(ALL_HOLY_POWER_SPENDERS),
+      this.onHolyPowerSpend,
+    );
+  }
+
+  onHolyPowerSpend(event: CastEvent) {
+    const effectiveCdr = this.spellUsable.reduceCooldown(
+      TALENTS.DIVINE_TOLL_TALENT.id,
+      COOLDOWN_REDUCTION_MS,
+    );
+    const wastedCdr = COOLDOWN_REDUCTION_MS - effectiveCdr;
+
+    this.effectiveCdrMs += effectiveCdr;
+    this.wastedCdrMs += wastedCdr;
   }
 
   onInsuranceHeal(event: HealEvent) {
@@ -88,6 +119,8 @@ class T33TierSet extends Analyzer {
           {this.renderDonutChart(this.insurance2pHotHealing, this.insurance2pProcHealing)}
           <h4>4 piece</h4>
           <ItemHealingDone amount={this.insurance4pHotHealing + this.insurance4pProcHealing} />
+          <br />
+          <ItemCooldownReduction effective={this.effectiveCdrMs} waste={this.wastedCdrMs} />
           {this.renderDonutChart(this.insurance4pHotHealing, this.insurance4pProcHealing)}
         </div>
       </Statistic>
