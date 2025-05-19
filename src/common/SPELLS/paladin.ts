@@ -742,6 +742,11 @@ const spells = {
     id: 431382,
     icon: 'inv_ability_heraldofthesunpaladin_dawnlight',
   },
+  DAWNLIGHT_DAMAGE: {
+    name: 'Dawnlight',
+    id: 431380,
+    icon: 'inv_ability_heraldofthesunpaladin_dawnlight',
+  },
   SUNS_AVATAR_HEAL: { name: "Sun's Avatar", id: 431939, icon: 'ability_paladin_holyavenger' },
   SUNS_AVATAR_HEAL_2: { name: "Sun's Avatar", id: 463074, icon: 'ability_paladin_holyavenger' },
   SUN_SEAR_HEAL: { name: 'Sun Sear', id: 431415, icon: 'spell_priest_burningwill' },
