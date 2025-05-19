@@ -24,7 +24,7 @@ import {
   HEALING_HOLY_POWER_SPENDERS,
 } from './constants';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import { AURORA_DIVINE_PURPOSE } from '../holy/normalizers/CastLinkNormalizer';
+import { AURORA_DIVINE_PURPOSE } from '../holy/normalizers/EventLinks/EventLinkConstants';
 
 const BUFF_TIME: number = 12000 * 0.95; //add buffer since log events lmao
 const TRACK_BUFFER = 500;

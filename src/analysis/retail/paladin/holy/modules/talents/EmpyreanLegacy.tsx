@@ -11,7 +11,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 
-import { EMPYREAN_LEGACY } from '../../normalizers/CastLinkNormalizer';
+import { EMPYREAN_LEGACY } from '../../normalizers/EventLinks/EventLinkConstants';
 
 class EmpyreanLegacy extends Analyzer {
   static dependencies = {
