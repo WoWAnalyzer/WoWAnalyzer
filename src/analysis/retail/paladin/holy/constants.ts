@@ -39,6 +39,11 @@ export const ABILITIES_AFFECTED_BY_MASTERY = [
   SPELLS.TYRS_DELIVERANCE_HEALING_INCREASE.id,
 ];
 
+// Talent Constants
+export const BLESSING_OF_ANSHE_INCREASE = 2.0;
+export const LIGHTS_PROTECTION_DAMAGE_REDUCTION = 0.05;
+
+// Beacon Constants & Functions
 export const BEACON_TRANSFERING_ABILITIES = {
   [SPELLS.HOLY_SHOCK_HEAL.id]: 1,
   [SPELLS.LIGHT_OF_DAWN_HEAL.id]: 0.5,
@@ -48,9 +53,6 @@ export const BEACON_TRANSFERING_ABILITIES = {
   [SPELLS.AVENGING_CRUSADER_HEAL_NORMAL.id]: 1,
   [SPELLS.AVENGING_CRUSADER_HEAL_CRIT.id]: 1,
   [SPELLS.WORD_OF_GLORY.id]: 1,
-  // TODO: figure out beacon healing for new LotM
-  // [TALENTS.LIGHT_OF_THE_MARTYR_TALENT.id]: (player: Combatant) =>
-  //   player.hasBuff(SPELLS.MARAADS_DYING_BREATH_BUFF.id) ? 1 : undefined,
   [SPELLS.HOLY_LIGHT.id]: 1,
   [SPELLS.GOLDEN_PATH_HEAL_TALENT.id]: 1,
   [SPELLS.TYRS_DELIVERANCE_HEALING_INCREASE.id]: 1,
@@ -69,6 +71,10 @@ export const BEACON_TRANSFERING_ABILITIES = {
   [SPELLS.SACRED_WORD_HEAL.id]: 1,
   [SPELLS.HOLY_RITUAL_HEAL.id]: 1,
   [SPELLS.LIGHTFORGED_BLESSING.id]: 1,
+
+  // TODO: figure out beacon healing for new LotM
+  // [TALENTS.LIGHT_OF_THE_MARTYR_TALENT.id]: (player: Combatant) =>
+  //   player.hasBuff(SPELLS.MARAADS_DYING_BREATH_BUFF.id) ? 1 : undefined,
 };
 
 export function getBeaconSpellFactor(spellID: number, player: Combatant): number | undefined {
@@ -94,8 +100,7 @@ export const BEACON_SPELL_IDS: Record<BEACON_TYPE, readonly number[]> = {
   [BEACON_TYPE.BEACON_OF_VIRTUE]: [TALENTS.BEACON_OF_VIRTUE_TALENT.id],
 } as const;
 
-export const LIGHTS_PROTECTION_DAMAGE_REDUCTION = 0.05;
-
+// Holy Power Constants
 export const HOLY_POWER_BUILDERS: Spell[] = [
   SPELLS.CRUSADER_STRIKE,
   SPELLS.JUDGMENT_CAST_HOLY,
@@ -104,6 +109,7 @@ export const HOLY_POWER_BUILDERS: Spell[] = [
   TALENTS.HOLY_SHOCK_TALENT,
 ];
 
+// Misc Constants
 export const SPELL_COLORS = {
   HAMMER_OF_WRATH: '#70C1B3',
   HOLY_SHOCK: '#f4ecb1',

@@ -844,6 +844,11 @@ const spells = {
     name: 'Lightforged Blessing',
     icon: 'spell_holy_healingaura',
   },
+  BLESSING_OF_ANSHE_BUFF: {
+    id: 445204,
+    name: "Blessing of An'she",
+    icon: 'inv_ability_holyfire_orb',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;
