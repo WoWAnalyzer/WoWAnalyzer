@@ -60,7 +60,19 @@ import BuilderUse from './modules/core/BuilderUse';
 import OverflowingLight from './modules/talents/OverflowingLight';
 import Guide from './guide/Guide';
 
-import Aurora from './modules/heroTalents/Aurora';
+import Aurora from './modules/heroTalents/herald/Aurora';
+import BlessingOfAnshe from './modules/heroTalents/herald/BlessingOfAnshe';
+import Dawnlight from './modules/heroTalents/herald/Dawnlight';
+import GleamingRays from './modules/heroTalents/herald/GleamingRays';
+import LingeringRadiance from './modules/heroTalents/herald/LingeringRadiance';
+import MorningStar from './modules/heroTalents/herald/MorningStar';
+import SecondSunrise from './modules/heroTalents/herald/SecondSunrise';
+import SolarGrace from './modules/heroTalents/herald/SolarGrace';
+import BlessedAssurance from './modules/heroTalents/lightsmith/BlessedAssurance';
+import DivineGuidance from './modules/heroTalents/lightsmith/DivineGuidance';
+import HolyArmaments from './modules/heroTalents/lightsmith/HolyArmaments';
+import LayingDownArms from './modules/heroTalents/lightsmith/LayingDownArms';
+import Valiance from './modules/heroTalents/lightsmith/Valiance';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -123,7 +135,21 @@ class CombatLogParser extends CoreCombatLogParser {
     overflowingLight: OverflowingLight,
 
     // Hero Talents
+    // Herald
     aurora: Aurora,
+    blessingOfAnshe: BlessingOfAnshe,
+    dawnlight: Dawnlight,
+    gleamingRays: GleamingRays,
+    lingeringRadiance: LingeringRadiance,
+    morningStar: MorningStar,
+    secondSunrise: SecondSunrise,
+    solarGrace: SolarGrace,
+    // Lightsmith
+    blessedAssurance: BlessedAssurance,
+    divineGuidance: DivineGuidance,
+    holyArmaments: HolyArmaments,
+    layingDownArms: LayingDownArms,
+    valiance: Valiance,
 
     // HolyPower
     holyPowerTracker: HolyPowerTracker,

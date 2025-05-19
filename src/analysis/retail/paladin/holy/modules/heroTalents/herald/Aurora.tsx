@@ -16,9 +16,12 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { DAMAGE_HOLY_POWER_SPENDERS, HEALING_HOLY_POWER_SPENDERS } from '../../../shared/constants';
+import {
+  DAMAGE_HOLY_POWER_SPENDERS,
+  HEALING_HOLY_POWER_SPENDERS,
+} from '../../../../shared/constants';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import { AURORA_DIVINE_PURPOSE } from '../../normalizers/CastLinkNormalizer';
+import { AURORA_DIVINE_PURPOSE } from '../../../normalizers/EventLinks/EventLinkConstants';
 
 const BUFF_TIME: number = 12000 * 0.95; //add buffer since log events lmao
 const TRACK_BUFFER = 500;
@@ -42,8 +45,8 @@ class Aurora extends Analyzer {
   constructor(args: Options) {
     super(args);
     this.active =
-      this.selectedCombatant.hasTalent(TALENTS.DIVINE_PURPOSE_SHARED_TALENT) ||
-      this.selectedCombatant.hasTalent(TALENTS.DIVINE_PURPOSE_RETRIBUTION_TALENT);
+      this.selectedCombatant.hasTalent(TALENTS.DIVINE_PURPOSE_SHARED_TALENT) &&
+      this.selectedCombatant.hasTalent(TALENTS.AURORA_TALENT);
 
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(DAMAGE_HOLY_POWER_SPENDERS),
@@ -112,7 +115,7 @@ class Aurora extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.CORE(12)}
+        position={STATISTIC_ORDER.CORE(11)}
         size="flexible"
         category={STATISTIC_CATEGORY.HERO_TALENTS}
         tooltip={
@@ -132,11 +135,7 @@ class Aurora extends Analyzer {
         }
       >
         <TalentSpellText talent={TALENTS.AURORA_TALENT}>
-          {this.healingDone > 0 && (
-            <>
-              <ItemHealingDone amount={this.healingDone} /> <br />
-            </>
-          )}
+          <ItemHealingDone amount={this.healingDone} /> <br />
           {this.damageDone > 0 && (
             <>
               <ItemDamageDone amount={this.damageDone} /> <br />
