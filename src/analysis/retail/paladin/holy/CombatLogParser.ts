@@ -58,6 +58,8 @@ import BeaconOfVirtue from './modules/talents/BeaconOfVirtue';
 import HolyPowerGraph from './modules/core/HolyPowerGraph';
 import BuilderUse from './modules/core/BuilderUse';
 import OverflowingLight from './modules/talents/OverflowingLight';
+import UnendingLight from './modules/talents/UnendingLight';
+import ProtectionOfTyr from './modules/talents/ProtectionOfTyr';
 import Guide from './guide/Guide';
 
 import Aurora from './modules/heroTalents/herald/Aurora';
@@ -73,6 +75,8 @@ import DivineGuidance from './modules/heroTalents/lightsmith/DivineGuidance';
 import HolyArmaments from './modules/heroTalents/lightsmith/HolyArmaments';
 import LayingDownArms from './modules/heroTalents/lightsmith/LayingDownArms';
 import Valiance from './modules/heroTalents/lightsmith/Valiance';
+
+import T33TierSet from './modules/tier/T33TierSet';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -133,6 +137,8 @@ class CombatLogParser extends CoreCombatLogParser {
     judgment: Judgment,
     beaconOfVirtue: BeaconOfVirtue,
     overflowingLight: OverflowingLight,
+    unendingLight: UnendingLight,
+    protectionOfTyr: ProtectionOfTyr,
 
     // Hero Talents
     // Herald
@@ -150,6 +156,9 @@ class CombatLogParser extends CoreCombatLogParser {
     holyArmaments: HolyArmaments,
     layingDownArms: LayingDownArms,
     valiance: Valiance,
+
+    // tier
+    t33TierSet: T33TierSet,
 
     // HolyPower
     holyPowerTracker: HolyPowerTracker,
