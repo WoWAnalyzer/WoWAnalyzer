@@ -11,8 +11,7 @@ import { formatNumber } from 'common/format';
 import SpellLink from 'interface/SpellLink';
 import Combatants from 'parser/shared/modules/Combatants';
 import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
-
-const HEALING_INCREASE = 10;
+import { PROTECTION_OF_TYR_INCREASE } from '../../constants';
 
 class ProtectionOfTyr extends Analyzer {
   static dependencies = {
@@ -67,8 +66,8 @@ class ProtectionOfTyr extends Analyzer {
       this.uniqueCombatants.push(combatant.id);
     }
     const totalHeal = (event.amount || 0) + (event.absorb || 0);
-    const effectiveHealing = calculateEffectiveHealing(event, HEALING_INCREASE);
-    const overhealing = calculateOverhealing(event, HEALING_INCREASE);
+    const effectiveHealing = calculateEffectiveHealing(event, PROTECTION_OF_TYR_INCREASE);
+    const overhealing = calculateOverhealing(event, PROTECTION_OF_TYR_INCREASE);
 
     this.healing += effectiveHealing;
     this.overheal += overhealing;

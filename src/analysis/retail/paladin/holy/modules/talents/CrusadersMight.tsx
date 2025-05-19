@@ -15,8 +15,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemCooldownReduction from 'parser/ui/ItemCooldownReduction';
 import Statistic from 'parser/ui/Statistic';
-
-const COOLDOWN_REDUCTION_MS_PER_POINT = 2000;
+import { CRUSADERS_MIGHT_REDUCTION } from '../../constants';
 
 class CrusadersMight extends Analyzer {
   static dependencies = {
@@ -39,7 +38,7 @@ class CrusadersMight extends Analyzer {
     super(options);
     this.talentedCooldownReductionMs =
       this.selectedCombatant.getTalentRank(TALENTS.CRUSADERS_MIGHT_TALENT) *
-      COOLDOWN_REDUCTION_MS_PER_POINT;
+      CRUSADERS_MIGHT_REDUCTION;
     this.active = this.talentedCooldownReductionMs > 0;
     if (!this.active) {
       return;

@@ -11,8 +11,7 @@ import ItemManaGained from 'parser/ui/ItemManaGained';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-
-const MAX_BOOST = 0.5;
+import { RECLAMATION_MAX_INCREASE } from '../../constants';
 
 class Reclamation extends Analyzer {
   lastCast = 0;
@@ -47,7 +46,8 @@ class Reclamation extends Analyzer {
   }
 
   heal(event: HealEvent) {
-    const ratio = (1 - (event.hitPoints - event.amount) / event.maxHitPoints) * MAX_BOOST;
+    const ratio =
+      (1 - (event.hitPoints - event.amount) / event.maxHitPoints) * RECLAMATION_MAX_INCREASE;
     const effectiveHealingBoost = calculateEffectiveHealing(event, ratio);
     this.healing += effectiveHealingBoost;
   }
@@ -57,7 +57,8 @@ class Reclamation extends Analyzer {
       return;
     }
 
-    const ratio = (1 - (event.hitPoints + event.amount) / event.maxHitPoints) * MAX_BOOST;
+    const ratio =
+      (1 - (event.hitPoints + event.amount) / event.maxHitPoints) * RECLAMATION_MAX_INCREASE;
     this.damageDone += calculateEffectiveDamage(event, ratio);
   }
 

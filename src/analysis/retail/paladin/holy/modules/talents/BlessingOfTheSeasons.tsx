@@ -25,6 +25,12 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import ItemCooldownReduction from 'parser/ui/ItemCooldownReduction';
 import ItemManaGained from 'parser/ui/ItemManaGained';
 import { TooltipElement } from 'interface/Tooltip';
+import {
+  BLESSING_OF_AUTUMN_REDUCTION,
+  BLESSING_OF_SEASONS_DURATION,
+  BLESSING_OF_SPRING_INCREASE,
+} from '../../constants';
+import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
 
 const BUFFS = [
   SPELLS.BLESSING_OF_AUTUMN_TALENT,
@@ -49,8 +55,6 @@ export class BlessingOfTheSeasons extends Analyzer {
   totalHealing = 0;
   totalOverhealing = 0;
 
-  springHealingAmp = 0.15;
-  springHealingTakenAmp = 0.3;
   springHealing = 0;
   springOverhealing = 0;
 
@@ -93,7 +97,7 @@ export class BlessingOfTheSeasons extends Analyzer {
     }
 
     if (buffId == SPELLS.BLESSING_OF_AUTUMN_TALENT.id) {
-      this.spellUsable.applyCooldownRateChange('ALL', 1.3);
+      this.spellUsable.applyCooldownRateChange('ALL', 1 + BLESSING_OF_AUTUMN_REDUCTION);
     }
   }
 
@@ -101,7 +105,7 @@ export class BlessingOfTheSeasons extends Analyzer {
     const buffId = event.ability.guid;
 
     if (buffId == SPELLS.BLESSING_OF_AUTUMN_TALENT.id) {
-      this.spellUsable.removeCooldownRateChange('ALL', 1.3);
+      this.spellUsable.removeCooldownRateChange('ALL', 1 + BLESSING_OF_AUTUMN_REDUCTION);
     }
   }
 
@@ -110,8 +114,8 @@ export class BlessingOfTheSeasons extends Analyzer {
       return;
     }
 
-    this.springHealing += ((event.amount || 0) + (event.absorbed || 0)) * this.springHealingAmp;
-    this.springOverhealing += (event.overheal || 0) * this.springHealingAmp;
+    this.springHealing += calculateEffectiveHealing(event, BLESSING_OF_SPRING_INCREASE);
+    this.springOverhealing += calculateOverhealing(event, BLESSING_OF_SPRING_INCREASE);
   }
 
   handleSummerHealing(event: HealEvent) {
@@ -183,7 +187,9 @@ export class BlessingOfTheSeasons extends Analyzer {
     this.totalHealing = this.springHealing + this.summerHealing;
     this.totalOverhealing = this.springOverhealing + this.summerOverhealing;
 
-    const effectiveCdr = 30 * 1.3 - 30;
+    const effectiveCdr =
+      BLESSING_OF_SEASONS_DURATION * (1 + BLESSING_OF_AUTUMN_REDUCTION) -
+      BLESSING_OF_SEASONS_DURATION;
     this.autumnCdr = this.applyCount.get(SPELLS.BLESSING_OF_AUTUMN_TALENT.id)! * effectiveCdr;
 
     return (

@@ -10,8 +10,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-
-const COOLDOWN_REDUCTION_MS = 15.0 * 1000;
+import { LAYING_DOWN_ARMS_REDUCTION } from '../../../constants';
 
 class LayingDownArms extends Analyzer {
   static dependencies = {
@@ -38,9 +37,9 @@ class LayingDownArms extends Analyzer {
   removeBuff(event: RemoveBuffEvent) {
     const effectiveCdr = this.spellUsable.reduceCooldown(
       getLayOnHandsSpell(this.selectedCombatant).id,
-      COOLDOWN_REDUCTION_MS,
+      LAYING_DOWN_ARMS_REDUCTION,
     );
-    const wastedCdr = COOLDOWN_REDUCTION_MS - effectiveCdr;
+    const wastedCdr = LAYING_DOWN_ARMS_REDUCTION - effectiveCdr;
 
     this.effectiveLayOnHandsReductionMs += effectiveCdr;
     this.wastedLayOnHandsReductionMs += wastedCdr;

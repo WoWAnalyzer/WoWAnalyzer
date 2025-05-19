@@ -41,7 +41,22 @@ export const ABILITIES_AFFECTED_BY_MASTERY = [
 
 // Talent Constants
 export const BLESSING_OF_ANSHE_INCREASE = 2.0;
+export const DIVINE_REVELATIONS_INCREASE = 0.2;
+export const PROTECTION_OF_TYR_INCREASE = 0.1;
+export const RECLAMATION_MAX_INCREASE = 0.5;
+export const UNENDING_LIGHT_INCREASE = 0.05; // per stack
+export const BLESSING_OF_SEASONS_DURATION = 30;
+export const BLESSING_OF_SPRING_INCREASE = 0.15;
+export const BLESSING_OF_SPRING_TAKEN_INCREASE = 0.3;
+export const BLESSING_OF_AUTUMN_REDUCTION = 0.3;
+export const T33_DIVINE_TOLL_REDUCTION = 1000;
+export const LAYING_DOWN_ARMS_REDUCTION = 15000;
+export const VALIANCE_REDUCTION = 3000;
+export const CRUSADERS_MIGHT_REDUCTION = 2000; // per point
+export const IMBUED_INFUSIONS_REDUCTION = 1000;
+export const TIRIONS_DEVOTION_REDUCTION = 1500; // per holy power
 export const LIGHTS_PROTECTION_DAMAGE_REDUCTION = 0.05;
+export const JUDGMENT_OF_LIGHT_HEALS = 5;
 
 // Beacon Constants & Functions
 export const BEACON_TRANSFERING_ABILITIES = {

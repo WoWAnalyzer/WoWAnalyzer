@@ -9,8 +9,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-
-const COOLDOWN_REDUCTION_MS = 3.0 * 1000;
+import { VALIANCE_REDUCTION } from '../../../constants';
 
 class Valiance extends Analyzer {
   static dependencies = {
@@ -41,9 +40,9 @@ class Valiance extends Analyzer {
 
     const effectiveCdr = this.spellUsable.reduceCooldown(
       TALENTS.HOLY_ARMAMENTS_TALENT.id,
-      COOLDOWN_REDUCTION_MS,
+      VALIANCE_REDUCTION,
     );
-    const wastedCdr = COOLDOWN_REDUCTION_MS - effectiveCdr;
+    const wastedCdr = VALIANCE_REDUCTION - effectiveCdr;
 
     this.effectiveHolyArmamentsReductionMs += effectiveCdr;
     this.wastedHolyArmamentsReductionMs += wastedCdr;

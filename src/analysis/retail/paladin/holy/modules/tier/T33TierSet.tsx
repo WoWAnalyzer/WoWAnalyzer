@@ -10,14 +10,12 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import { isInsuranceFromDivineToll } from '../../normalizers/CastLinkNormalizer';
-import { SPELL_COLORS } from '../../constants';
+import { SPELL_COLORS, T33_DIVINE_TOLL_REDUCTION } from '../../constants';
 import { formatNumber } from 'common/format';
 import DonutChart, { Item } from 'parser/ui/DonutChart';
 import { ALL_HOLY_POWER_SPENDERS } from 'analysis/retail/paladin/shared/constants';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import ItemCooldownReduction from 'parser/ui/ItemCooldownReduction';
-
-const COOLDOWN_REDUCTION_MS = 1.0 * 1000;
 
 class T33TierSet extends Analyzer {
   static dependencies = {
@@ -60,9 +58,9 @@ class T33TierSet extends Analyzer {
   onHolyPowerSpend(event: CastEvent) {
     const effectiveCdr = this.spellUsable.reduceCooldown(
       TALENTS.DIVINE_TOLL_TALENT.id,
-      COOLDOWN_REDUCTION_MS,
+      T33_DIVINE_TOLL_REDUCTION,
     );
-    const wastedCdr = COOLDOWN_REDUCTION_MS - effectiveCdr;
+    const wastedCdr = T33_DIVINE_TOLL_REDUCTION - effectiveCdr;
 
     this.effectiveCdrMs += effectiveCdr;
     this.wastedCdrMs += wastedCdr;

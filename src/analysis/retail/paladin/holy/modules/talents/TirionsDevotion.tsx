@@ -12,6 +12,7 @@ import { getLayOnHandsSpell, getWordofGlorySpell } from 'analysis/retail/paladin
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemCooldownReduction from 'parser/ui/ItemCooldownReduction';
 import { formatNumber } from 'common/format';
+import { TIRIONS_DEVOTION_REDUCTION } from '../../constants';
 
 class TirionsDevotion extends Analyzer {
   static dependencies = {
@@ -20,8 +21,6 @@ class TirionsDevotion extends Analyzer {
 
   protected spellUsable!: SpellUsable;
   private readonly layOnHands: Spell;
-
-  cdrPerHolyPower = 1.5;
 
   wastedCDR = 0;
   effectiveCDR = 0;
@@ -56,7 +55,7 @@ class TirionsDevotion extends Analyzer {
       return;
     }
 
-    const totalCDR = exists.amount * this.cdrPerHolyPower * 1000;
+    const totalCDR = exists.amount * TIRIONS_DEVOTION_REDUCTION;
 
     const effectiveCdr = this.spellUsable.reduceCooldown(this.layOnHands.id, totalCDR);
     this.effectiveCDR += effectiveCdr;
@@ -71,7 +70,7 @@ class TirionsDevotion extends Analyzer {
         tooltip={
           <>
             Holy Power spent while <SpellLink spell={TALENTS.LAY_ON_HANDS_TALENT} /> was not on CD:{' '}
-            {formatNumber(this.wastedCDR / this.cdrPerHolyPower / 1000)}
+            {formatNumber(this.wastedCDR / TIRIONS_DEVOTION_REDUCTION)}
           </>
         }
       >

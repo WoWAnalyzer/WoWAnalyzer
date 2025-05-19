@@ -19,8 +19,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import { UNENDING_LIGHT } from '../../normalizers/EventLinks/EventLinkConstants';
 import SpellLink from 'interface/SpellLink';
 import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
-
-const INCREASE_PER_STACK = 5;
+import { UNENDING_LIGHT_INCREASE } from '../../constants';
 
 class UnendingLight extends Analyzer {
   unendingLightLightOfDawns: number[] = [];
@@ -80,8 +79,11 @@ class UnendingLight extends Analyzer {
     const events = GetRelatedEvents<HealEvent>(event, UNENDING_LIGHT);
     for (const heal of events) {
       this.unendingLightLightOfDawns.push(heal.timestamp);
-      this.healingDone += calculateEffectiveHealing(heal, this.currentStacks * INCREASE_PER_STACK);
-      this.overhealing += calculateOverhealing(heal, this.currentStacks * INCREASE_PER_STACK);
+      this.healingDone += calculateEffectiveHealing(
+        heal,
+        this.currentStacks * UNENDING_LIGHT_INCREASE,
+      );
+      this.overhealing += calculateOverhealing(heal, this.currentStacks * UNENDING_LIGHT_INCREASE);
     }
     this.spentAtStacks.push(this.currentStacks);
     this.currentStacks = 0;
@@ -111,7 +113,7 @@ class UnendingLight extends Analyzer {
   }
 
   get averageHealingIncrease() {
-    return (this.averageStacks * INCREASE_PER_STACK) / 100;
+    return this.averageStacks * UNENDING_LIGHT_INCREASE;
   }
 
   statistic() {

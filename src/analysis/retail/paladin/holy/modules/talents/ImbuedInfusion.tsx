@@ -15,9 +15,7 @@ import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 import ItemCooldownReduction from 'parser/ui/ItemCooldownReduction';
-
-// its one point right now but I already had this so w/e
-const COOLDOWN_REDUCTION_MS_PER_POINT = 1000;
+import { IMBUED_INFUSIONS_REDUCTION } from '../../constants';
 
 class ImbuedInfusion extends Analyzer {
   static dependencies = {
@@ -40,7 +38,7 @@ class ImbuedInfusion extends Analyzer {
     super(options);
     this.talentedCooldownReductionMs =
       this.selectedCombatant.getTalentRank(TALENTS.IMBUED_INFUSIONS_TALENT) *
-      COOLDOWN_REDUCTION_MS_PER_POINT;
+      IMBUED_INFUSIONS_REDUCTION;
     this.active = this.talentedCooldownReductionMs > 0;
     if (!this.active) {
       return;
