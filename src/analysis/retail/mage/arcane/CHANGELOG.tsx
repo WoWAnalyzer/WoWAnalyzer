@@ -5,6 +5,7 @@ import { change, date } from 'common/changelog';
 import { Sharrq, Sref, Earosselot } from 'CONTRIBUTORS';
 
 export default [
+  change(date(2025, 5, 21), <>Arcane Sunfury APL</>, Earosselot),
   change(date(2025, 4, 20), <>Added Defensives to Guide</>, Earosselot),
   change(date(2024, 11, 23), <>Updated Spec Support to 11.0.5 and updated Warning.</>, Sharrq),
   change(date(2024, 11, 23), <>Fixed an issue that was preventing the Cast Delay from showing if <SpellLink spell={TALENTS.ARCANE_MISSILES_TALENT} /> ended at the exact same timestamp as the next cast (0 Delay).</>, Sharrq),
