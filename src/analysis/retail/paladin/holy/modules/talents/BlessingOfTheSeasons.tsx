@@ -29,15 +29,11 @@ import {
   BLESSING_OF_AUTUMN_REDUCTION,
   BLESSING_OF_SEASONS_DURATION,
   BLESSING_OF_SPRING_INCREASE,
+  BLESSING_OF_SPRING_TAKEN_INCREASE,
+  BLESSING_OF_WINTER_RESTORE,
+  BLESSING_OF_SEASONS_BUFFS,
 } from '../../constants';
 import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
-
-const BUFFS = [
-  SPELLS.BLESSING_OF_AUTUMN_TALENT,
-  SPELLS.BLESSING_OF_WINTER_TALENT,
-  SPELLS.BLESSING_OF_SPRING_TALENT,
-  SPELLS.BLESSING_OF_SUMMER_TALENT,
-];
 
 export class BlessingOfTheSeasons extends Analyzer {
   static dependencies = {
@@ -47,7 +43,7 @@ export class BlessingOfTheSeasons extends Analyzer {
   protected spellUsable!: SpellUsable;
 
   applyCount: Map<number, number> = new Map<number, number>(
-    BUFFS.map((spell) => {
+    BLESSING_OF_SEASONS_BUFFS.map((spell) => {
       return [spell.id, 0];
     }),
   );
@@ -70,8 +66,14 @@ export class BlessingOfTheSeasons extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.BLESSING_OF_SUMMER_TALENT);
 
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(BUFFS), this.onApply);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(BUFFS), this.onRemove);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(BLESSING_OF_SEASONS_BUFFS),
+      this.onApply,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(BLESSING_OF_SEASONS_BUFFS),
+      this.onRemove,
+    );
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.handleSpring);
 
@@ -136,21 +138,43 @@ export class BlessingOfTheSeasons extends Analyzer {
       <>
         <p>
           <b>
-            <SpellLink spell={TALENTS.BLESSING_OF_SUMMER_TALENT} />
+            <SpellLink spell={TALENTS.BLESSING_OF_THE_SEASONS_TALENT} />
           </b>{' '}
-          is a unique ability that cycles through 4 different buffs.{' '}
-          <SpellLink spell={SPELLS.BLESSING_OF_AUTUMN_TALENT} /> provides pretty minor CDR, you can
-          throw it on whoever you want including you.{' '}
-          <SpellLink spell={SPELLS.BLESSING_OF_WINTER_TALENT} /> is your main mana refund tool, you
-          should use it on yourself more often than not. Finally,{' '}
-          <SpellLink spell={SPELLS.BLESSING_OF_SPRING_TALENT} /> gives a nice healing boost that you
-          probably would want to keep for yourself.
-        </p>
-        <p>
-          <SpellLink spell={TALENTS.BLESSING_OF_SUMMER_TALENT} /> is the most powerful one and
-          converts healing into damage and vice versa. It has two use cases : either you use it on
-          someone's that is actively healing to proc damage. Or you want to do healing and you can
-          throw it on a non-pet DPS spec in cooldowns.
+          is a unique ability that cycles through 4 different buffs that can be applied to yourself
+          or other players.
+          <div>
+            <SpellLink spell={SPELLS.BLESSING_OF_AUTUMN_TALENT} /> is mostly going on yourself. It
+            will provide a total of {BLESSING_OF_SEASONS_DURATION * BLESSING_OF_AUTUMN_REDUCTION}{' '}
+            seconds of cooldown reduction to all spells over its {BLESSING_OF_SEASONS_DURATION}{' '}
+            duration. It is important to note that it does not reduce the cooldown of items like
+            trinkets or racials, so it may misalign the targets cooldown from their trinket if used
+            on a person with on-use trinkets.
+          </div>
+          <div>
+            <SpellLink spell={SPELLS.BLESSING_OF_WINTER_TALENT} /> provides{' '}
+            {(BLESSING_OF_WINTER_RESTORE * 100 * BLESSING_OF_SEASONS_DURATION) / 2}% mana over its{' '}
+            {BLESSING_OF_SEASONS_DURATION} duration. It can only be used on healers, so it will
+            mostly be used on yourself, but you can also use it on another healer if you are feeling
+            friendly.
+          </div>
+          <div>
+            <SpellLink spell={SPELLS.BLESSING_OF_SPRING_TALENT} /> provides a{' '}
+            {BLESSING_OF_SPRING_INCREASE * 100}% buff to healing done and{' '}
+            {BLESSING_OF_SPRING_TAKEN_INCREASE * 100}% buff to healing taken. The buff to healing
+            done is the important part here and means it should ideally be used on the healer that
+            will be doing the most healing over its duration, but most of the time it is fine to
+            just use it on yourself.
+          </div>
+          <div>
+            <SpellLink spell={TALENTS.BLESSING_OF_SUMMER_TALENT} /> causes a portion of all healing
+            to be converted into damage and vice versa. You'll simply cast it on a healer when you
+            want it to deal damage, and on a dps player if you want it to heal. In reality, you will
+            almost always cast this on a healer with their cooldowns. Cast it on yourself when you
+            are about to press <SpellLink spell={TALENTS.AVENGING_WRATH_TALENT} /> and{' '}
+            <SpellLink spell={TALENTS.DIVINE_TOLL_TALENT} /> otherwise using it on another healer
+            with their major ramp window. If you want it to heal, then simply use it on any non-pet
+            class dps that does the most damage in the next 30 seconds.
+          </div>
         </p>
       </>
     );

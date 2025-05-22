@@ -1,8 +1,7 @@
-import { TALENTS_PALADIN } from 'common/TALENTS';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import Analyzer from 'parser/core/Analyzer';
-import talents from 'common/TALENTS/paladin';
+import TALENTS from 'common/TALENTS/paladin';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { ResourceLink, SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
@@ -15,22 +14,21 @@ class HolyShock extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink spell={talents.HOLY_SHOCK_TALENT} />
+          <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} />
         </b>{' '}
-        is the bread and butter of Holy Paladin. Is does tremendous amounts of healing thanks to
-        talents like <SpellLink spell={talents.AWESTRUCK_TALENT} />,{' '}
-        <SpellLink spell={talents.LIGHT_OF_THE_MARTYR_TALENT} />
-        , <SpellLink spell={talents.DIVINE_GLIMPSE_TALENT} />,{' '}
-        <SpellLink spell={talents.RECLAMATION_TALENT} /> and{' '}
-        <SpellLink spell={talents.OVERFLOWING_LIGHT_TALENT} />.<br />
-        What's more, it is made highly available by{' '}
-        <SpellLink spell={talents.LIGHTS_CONVICTION_TALENT} />
-        , <SpellLink spell={talents.GLORIOUS_DAWN_TALENT} />,{' '}
-        <SpellLink spell={talents.CRUSADERS_MIGHT_TALENT} /> and{' '}
-        <SpellLink spell={talents.IMBUED_INFUSIONS_TALENT} />.<br />
-        Lastly, it is your only way of proccing <SpellLink spell={SPELLS.INFUSION_OF_LIGHT} /> and
-        it generates one <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} />.<br />
-        <strong>Use it on cooldown !</strong>
+        is the driving force behind the whole specialization. It is your main{' '}
+        <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} /> generator, procs{' '}
+        <SpellLink spell={SPELLS.INFUSION_OF_LIGHT} />, and does great single-target healing due to
+        talents like <SpellLink spell={TALENTS.AWESTRUCK_TALENT} />,{' '}
+        <SpellLink spell={TALENTS.LIGHT_OF_THE_MARTYR_TALENT} />,{' '}
+        <SpellLink spell={TALENTS.DIVINE_GLIMPSE_TALENT} />,{' '}
+        <SpellLink spell={TALENTS.RECLAMATION_TALENT} /> and{' '}
+        <SpellLink spell={TALENTS.OVERFLOWING_LIGHT_TALENT} />. Your usage of{' '}
+        <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> is further made available via{' '}
+        <SpellLink spell={TALENTS.LIGHTS_CONVICTION_TALENT} />,{' '}
+        <SpellLink spell={TALENTS.GLORIOUS_DAWN_TALENT} />,{' '}
+        <SpellLink spell={TALENTS.CRUSADERS_MIGHT_TALENT} />, and{' '}
+        <SpellLink spell={TALENTS.IMBUED_INFUSIONS_TALENT} />.
       </p>
     );
 
@@ -38,7 +36,7 @@ class HolyShock extends Analyzer {
       <div>
         <RoundedPanel>
           <strong>
-            <SpellLink spell={talents.HOLY_SHOCK_TALENT} /> cast efficiency
+            <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> cast efficiency
           </strong>
           <div className="flex-main chart" style={{ padding: 15 }}>
             {this.subStatistic()}
@@ -53,7 +51,7 @@ class HolyShock extends Analyzer {
   subStatistic() {
     return (
       <CastEfficiencyBar
-        spellId={TALENTS_PALADIN.HOLY_SHOCK_TALENT.id}
+        spellId={TALENTS.HOLY_SHOCK_TALENT.id}
         gapHighlightMode={GapHighlight.FullCooldown}
         minimizeIcons
         slimLines

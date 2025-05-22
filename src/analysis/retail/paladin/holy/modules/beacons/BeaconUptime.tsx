@@ -294,14 +294,27 @@ class BeaconUptime extends BeaconAnalyzer {
   get guideSubsection(): JSX.Element {
     const explanation = (
       <p>
-        When playing{' '}
         <b>
-          <SpellLink spell={TALENTS_PALADIN.BEACON_OF_FAITH_TALENT} />
-        </b>
-        , you have access to two permanent beacons. While it is common to place them on your tanks,
-        you actually want to place them on squishy ranged DPS players if your tanks are able to
-        sustain themselves. This is to get the bonus mastery efficiency from{' '}
-        <SpellLink spell={TALENTS_PALADIN.BEACON_OF_THE_LIGHTBRINGER_TALENT} />.
+          <SpellLink spell={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF} />
+        </b>{' '}
+        allows you to keep a consistent stream of healing on a specific target while healing other
+        allies who might need it.{' '}
+        {this.selectedCombatant.hasTalent(TALENTS_PALADIN.BEACON_OF_FAITH_TALENT) && (
+          <>
+            With
+            <SpellLink spell={TALENTS_PALADIN.BEACON_OF_FAITH_TALENT} />, you have access to two
+            permanent beacons.{' '}
+          </>
+        )}
+        Your beacons should be placed onto squishy ranged DPS players to receive the bonus mastery
+        efficiency from <SpellLink spell={TALENTS_PALADIN.BEACON_OF_THE_LIGHTBRINGER_TALENT} /> as
+        you'll be spending a large amount of time in and around melee.
+        {this.selectedCombatant.hasTalent(TALENTS.LIGHTS_PROTECTION_TALENT) && (
+          <>
+            Additionally, <SpellLink spell={TALENTS.LIGHTS_PROTECTION_TALENT} /> provides a 5%{' '}
+            damage reduction to your Beacon targets.
+          </>
+        )}
       </p>
     );
 

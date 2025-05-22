@@ -1,20 +1,27 @@
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import Analyzer from 'parser/core/Analyzer';
+import TALENTS from 'common/TALENTS/paladin';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
-import { SpellLink } from 'interface';
+import { ResourceLink, SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../guide/Guide';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 class Judgment extends Analyzer {
   get guideSubsection(): JSX.Element {
     const explanation = (
       <p>
-        {/* TODO: Writeup on Judgment. */}
         <b>
           <SpellLink spell={SPELLS.JUDGMENT_CAST_HOLY} />
         </b>{' '}
+        is one of your primary damaging spells but is also your highest priority healing spell
+        (alongside <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} />) due to its synergy with
+        generating <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} />,{' '}
+        <SpellLink spell={TALENTS.GREATER_JUDGMENT_HOLY_TALENT} /> and{' '}
+        <SpellLink spell={SPELLS.INFUSION_OF_LIGHT} />, and{' '}
+        <SpellLink spell={TALENTS.EMPYREAN_LEGACY_TALENT} />.
       </p>
     );
 
