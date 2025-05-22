@@ -75,7 +75,8 @@ export const sunfuryApl = build([
     condition: cnd.describe(
       cnd.or(
         cnd.buffPresent(SPELLS.INTUITION_BUFF, 500),
-        cnd.buffPresent(SPELLS.GLORIOUS_INCANDESCENCE_BUFF, 500),
+        // cnd.buffPresent(SPELLS.GLORIOUS_INCANDESCENCE_BUFF, 500),
+        cnd.buffPresent(SPELLS.GLORIOUS_INCANDESCENCE_BUFF, -200),
         cnd.buffPresent(SPELLS.BURDEN_OF_POWER_BUFF),
       ),
       (tense) => (
