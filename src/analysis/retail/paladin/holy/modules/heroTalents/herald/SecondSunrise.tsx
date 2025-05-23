@@ -47,7 +47,6 @@ class SecondSunrise extends Analyzer {
 
   onResourceChange(event: ResourceChangeEvent) {
     const secondSunrise = GetRelatedEvent(event, SECOND_SUNRISE);
-    console.log(event);
     if (secondSunrise) {
       this.resourceChange += event.resourceChange;
       this.wastedResource += event.waste;
