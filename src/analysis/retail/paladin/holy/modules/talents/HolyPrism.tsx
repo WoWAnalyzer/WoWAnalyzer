@@ -206,7 +206,7 @@ class HolyPrismTargetsHit extends Analyzer {
             As Herald of the Sun, it is very important to line up your{' '}
             <SpellLink spell={TALENTS.HOLY_PRISM_TALENT} /> casts with{' '}
             <SpellLink
-              spell={this.hasAC ? SPELLS.AVENGING_WRATH.id : SPELLS.AVENGING_CRUSADER.id}
+              spell={this.hasAC ? SPELLS.AVENGING_CRUSADER.id : SPELLS.AVENGING_WRATH.id}
             />{' '}
             and <SpellLink spell={TALENTS.AWAKENING_TALENT} /> windows as you apply{' '}
             <SpellLink spell={TALENTS.DAWNLIGHT_TALENT} /> with your next two{' '}
