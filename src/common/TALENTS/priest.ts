@@ -1312,7 +1312,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [103767],
     definitionIds: [{ id: 108772, specId: 257 }],
-    manaCost: 137500,
+    manaCost: 125000,
   },
   PRAYER_OF_MENDING_TALENT: {
     id: 33076,

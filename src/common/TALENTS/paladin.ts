@@ -1975,8 +1975,9 @@ const talents = {
     name: 'Unbound Freedom',
     icon: 'spell_holy_sealofvalor',
     maxRanks: 1,
-    entryIds: [115479, 115454],
+    entryIds: [131438, 115479, 115454],
     definitionIds: [
+      { id: 136239, specId: 65 },
       { id: 120491, specId: 66 },
       { id: 120466, specId: 70 },
     ],
