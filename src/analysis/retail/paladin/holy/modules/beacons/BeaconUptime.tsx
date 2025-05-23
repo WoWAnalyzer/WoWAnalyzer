@@ -241,15 +241,11 @@ class BeaconUptime extends BeaconAnalyzer {
   statistic() {
     //const boringSpellValueContainer = { display: 'flex', flexDirection: 'row' };
     const missingPrepullContainer = (
-      <div style={{ color: 'red', margin: 'auto', textAlign: 'center' }}>
+      <>
         <Trans id="paladin.holy.modules.beacons.beaconUptime.notCastedPrepull">
-          Not
-          <br />
-          casted
-          <br />
-          prepull
+          <small style={{ color: 'red' }}>Not casted prepull</small>
         </Trans>
-      </div>
+      </>
     );
 
     const getLabel = (beaconId: number): React.ReactNode => {
@@ -282,8 +278,10 @@ class BeaconUptime extends BeaconAnalyzer {
                 spell={beaconId}
                 value={`${this.getUptime(beaconId)}%`}
                 label={getLabel(beaconId)}
+                extra={
+                  this.prepullSuggestion && this.missingPrepull[beaconId] && missingPrepullContainer
+                }
               />
-              {this.prepullSuggestion && this.missingPrepull[beaconId] && missingPrepullContainer}
             </div>
           );
         })}

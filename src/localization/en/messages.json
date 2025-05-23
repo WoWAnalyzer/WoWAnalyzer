@@ -604,7 +604,7 @@
   "paladin.holy.modules.beacons.beaconUptime.bofUptime": "Beacon of Faith",
   "paladin.holy.modules.beacons.beaconUptime.bolUptime": "Beacon of Light",
   "paladin.holy.modules.beacons.beaconUptime.bovUptime": "Beacon of Virtue",
-  "paladin.holy.modules.beacons.beaconUptime.notCastedPrepull": "Not<0/>casted<1/>prepull",
+  "paladin.holy.modules.beacons.beaconUptime.notCastedPrepull": "<0>Not casted prepull</0>",
   "paladin.holy.modules.beacons.directBeaconHealing.actual": "{0}% of all your healing spell casts were on a beacon target",
   "paladin.holy.modules.beacons.directBeaconHealing.directBeaconHealing": "Direct beacon healing",
   "paladin.holy.modules.beacons.directBeaconHealing.hlFol": "HL/FoL",
