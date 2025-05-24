@@ -67,7 +67,7 @@ export default class Doomguard extends Analyzer {
       this.onDoomguardSummonEvent,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.SUMMON_INFERNO]),
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.SUMMON_INFERNAL]),
       this.onInfernoCast,
     );
     this.addEventListener(
@@ -287,10 +287,6 @@ export default class Doomguard extends Analyzer {
                 <SpellLink spell={enchanting.HURRICANE_BUFF} /> by:
               </p>
               <ol>
-                <li>
-                  Casting <SpellLink spell={SPELLS.SOUL_HARVEST} /> pre-pull with a weapon enchanted
-                  with Hurricane
-                </li>
                 <li>Swapping to your normal weapon before entering combat.</li>
               </ol>
               <p>This has a ~15% chance to give your Doomguard an additional ~3.5% haste.</p>
@@ -371,7 +367,7 @@ export default class Doomguard extends Analyzer {
     this.doomguardSummonData.summonedDemonSummary = (
       <li>
         <PerformanceMark perf={QualitativePerformance.Fail} /> You used{' '}
-        <SpellLink spell={SPELLS.SUMMON_INFERNO} /> at{' '}
+        <SpellLink spell={SPELLS.SUMMON_INFERNAL} /> at{' '}
         {formatDuration(event.timestamp - this.owner.fight.start_time)} which shares its cooldown
         with <SpellLink spell={SPELLS.SUMMON_DOOMGUARD} />. Unless you face a heavy sustained AoE
         damage situation, where Inferno can cleave for a major part of its duration, or if it is

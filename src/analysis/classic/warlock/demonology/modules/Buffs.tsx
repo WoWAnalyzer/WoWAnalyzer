@@ -7,22 +7,9 @@ class Buffs extends CoreAuras {
   auras() {
     return [
       {
-        spellId: SPELLS.DECIMATION.id,
-        timelineHighlight: true,
-      },
-      {
-        spellId: SPELLS.DEMON_SOUL_FELGUARD_BUFF.id,
-        timelineHighlight: true,
-        triggeredBySpellId: SPELLS.DEMON_SOUL.id,
-      },
-      {
         spellId: SPELLS.METAMORPHOSIS.id,
         timelineHighlight: true,
         triggeredBySpellId: SPELLS.METAMORPHOSIS.id,
-      },
-      {
-        spellId: SPELLS.MOLTEN_CORE_BUFF.id,
-        timelineHighlight: true,
       },
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),

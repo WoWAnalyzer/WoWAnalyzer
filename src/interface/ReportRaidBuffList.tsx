@@ -91,7 +91,6 @@ const CLASSIC_RAID_BUFFS = new Map<Spell, Array<Class | object>>([
   // Lust
   [CLASSIC_SPELLS.BLOODLUST, [Class.Shaman]],
   // Spell Power
-  [CLASSIC_SPELLS.DEMONIC_PACT, [SPECS.CLASSIC_WARLOCK_DEMONOLOGY]],
   // Spell Crit
   [CLASSIC_SPELLS.MOONKIN_AURA, [SPECS.CLASSIC_DRUID_BALANCE]],
   // Spell Haste
