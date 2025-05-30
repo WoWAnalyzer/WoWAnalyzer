@@ -2715,3 +2715,16 @@ export const swirl: Contributor = {
     },
   ],
 };
+
+export const Leftyxiv: Contributor = {
+  nickname: 'Manny',
+  github: 'Leftyxiv',
+  discord: 'onearmmanny',
+  mains: [
+    {
+      name: 'Magicmushies',
+      spec: SPECS.DEMONOLOGY_WARLOCK,
+      link: 'https://www.warcraftlogs.com/character/us/area-52/magicmushies?zone=43',
+    },
+  ],
+};

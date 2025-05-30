@@ -573,6 +573,18 @@ const spells = {
     icon: 'inv-felhound3-shadow-mount',
   },
 
+  // Doom spell (passive debuff applied by Demonbolt when consuming Demonic Core)
+  DOOM_DEBUFF: {
+    id: 460553, // Current Doom spell ID
+    name: 'Doom',
+    icon: 'spell_shadow_auraofdarkness',
+  },
+  DOOM_DAMAGE: {
+    id: 460555, // Doom damage spell ID (separate from debuff)
+    name: 'Doom',
+    icon: 'spell_shadow_auraofdarkness',
+  },
+
   // Hellcaller hero talent
   WITHER_CAST: {
     id: 445468,

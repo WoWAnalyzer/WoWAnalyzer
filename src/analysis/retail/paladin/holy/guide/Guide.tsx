@@ -45,6 +45,30 @@ const CoreSection = ({ modules, info, events }: GuideProps<typeof CombatLogParse
           not be afraid to spend with <SpellLink spell={SPELLS.SHIELD_OF_THE_RIGHTEOUS} />.
         </p>
         <p>
+          {info.combatant.hasTalent(talents.ETERNAL_FLAME_TALENT) ? (
+            <SpellLink spell={talents.ETERNAL_FLAME_TALENT} />
+          ) : (
+            <SpellLink spell={SPELLS.WORD_OF_GLORY} />
+          )}{' '}
+          is often the best bet when it comes to choosing what spender to send in any given
+          situation. As a general rule of thumb, know that if pressing{' '}
+          {info.combatant.hasTalent(talents.ETERNAL_FLAME_TALENT) ? (
+            <SpellLink spell={talents.ETERNAL_FLAME_TALENT} />
+          ) : (
+            <SpellLink spell={SPELLS.WORD_OF_GLORY} />
+          )}{' '}
+          will not overheal much, you should go for it. The reason for this is that{' '}
+          <SpellLink spell={talents.LIGHT_OF_DAWN_TALENT} /> can easily overheal and it heals random
+          targets, making it less impactful. <br />
+          When choosing{' '}
+          {info.combatant.hasTalent(talents.ETERNAL_FLAME_TALENT) ? (
+            <SpellLink spell={talents.ETERNAL_FLAME_TALENT} />
+          ) : (
+            <SpellLink spell={SPELLS.WORD_OF_GLORY} />
+          )}
+          , avoid you beacons targets, unless they're at risk of dying !
+        </p>
+        <p>
           You wasted <strong>{holyPowerWasted}</strong>{' '}
           <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} />.
         </p>

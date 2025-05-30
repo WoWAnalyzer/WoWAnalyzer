@@ -11,7 +11,7 @@ import CHANGELOG from './CHANGELOG';
 const config: Config = {
   contributors: [Texleretour],
   branch: GameBranch.Retail,
-  patchCompatibility: '11.0.2',
+  patchCompatibility: '11.1.5',
   supportLevel: SupportLevel.MaintainedPartial,
   pages: {
     overview: {
@@ -47,8 +47,7 @@ const config: Config = {
       guides.
     </>
   ),
-  exampleReport:
-    '/report/fHk1awXpvV3yMZg7/59-Mythic+Rashok,+the+Elder+-+Kill+(2:50)/Priiyaa/standard/',
+  exampleReport: '/report/tTkV1MWxgDmrvJnh/8/62',
 
   spec: SPECS.HOLY_PALADIN,
   changelog: CHANGELOG,

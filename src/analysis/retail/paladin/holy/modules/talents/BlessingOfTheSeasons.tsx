@@ -51,17 +51,17 @@ export class BlessingOfTheSeasons extends Analyzer {
           </b>{' '}
           is a unique ability that cycles through 4 different buffs.{' '}
           <SpellLink spell={SPELLS.BLESSING_OF_AUTUMN_TALENT} /> provides pretty minor CDR, you can
-          throw it on whoever you want including you.{' '}
-          <SpellLink spell={SPELLS.BLESSING_OF_WINTER_TALENT} /> is your main mana refund tool, you
-          should use it on yourself more often than not. Finally,{' '}
+          throw it on whoever you want, including you.{' '}
+          <SpellLink spell={SPELLS.BLESSING_OF_WINTER_TALENT} /> is a good mana refund tool, you
+          should use it on the healer than needs it the most. Finally,{' '}
           <SpellLink spell={SPELLS.BLESSING_OF_SPRING_TALENT} /> gives a nice healing boost that you
           probably would want to keep for yourself.
         </p>
         <p>
           <SpellLink spell={TALENTS.BLESSING_OF_SUMMER_TALENT} /> is the most powerful one and
           converts healing into damage and vice versa. It has two use cases : either you use it on
-          someone's that is actively healing to proc damage. Or you want to do healing and you can
-          throw it on a non-pet DPS spec in cooldowns.
+          someone that is actively healing to deal damage. Or you want to do healing and you can
+          throw it on a non-pet DPS spec during their cooldowns.
         </p>
       </>
     );
