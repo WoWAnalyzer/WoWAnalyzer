@@ -1,6 +1,6 @@
 import { change, date } from 'common/changelog';
-import { emallson } from 'CONTRIBUTORS';
+import { jazminite } from 'CONTRIBUTORS';
 
 export default [
-  change(date(2024, 6, 21), 'Implemented core support for Destruction Warlock', emallson),
+  change(date(2025, 5, 23), 'Initial updates for MoP spells', jazminite),
 ];

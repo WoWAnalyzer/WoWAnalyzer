@@ -7,12 +7,7 @@ class Abilities extends CoreAbilities {
     return [
       // Rotational
       {
-        spell: SPELLS.BANE_OF_AGONY.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { base: 1500 },
-      },
-      {
-        spell: SPELLS.BANE_OF_DOOM.id,
+        spell: SPELLS.AGONY.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
@@ -38,17 +33,6 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: SPELLS.SHADOWFLAME.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { base: 1500 },
-        cooldown: 12,
-      },
-      {
-        spell: [SPELLS.SHADOW_TRANCE.id],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: null,
-      },
-      {
         spell: SPELLS.SOUL_SWAP.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1000 },
@@ -71,7 +55,7 @@ class Abilities extends CoreAbilities {
       },
       // Cooldowns
       {
-        spell: SPELLS.DEMON_SOUL.id,
+        spell: SPELLS.DARK_SOUL.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: null,
         cooldown: 120,
@@ -89,9 +73,10 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: SPELLS.DEATH_COIL.id,
+        spell: SPELLS.MORTAL_COIL.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         gcd: { base: 1500 },
+        cooldown: 45,
       },
       {
         spell: SPELLS.FEAR.id,
@@ -104,7 +89,7 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: SPELLS.SHADOW_WARD.id,
+        spell: SPELLS.TWILIGHT_WARD.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         gcd: { base: 1500 },
       },
@@ -140,11 +125,6 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: SPELLS.SEARING_PAIN.id,
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: { base: 1500 },
-      },
-      {
         spell: SPELLS.SOUL_FIRE.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: { base: 1500 },
@@ -156,12 +136,7 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: SPELLS.CURSE_OF_TONGUES.id,
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { base: 1500 },
-      },
-      {
-        spell: SPELLS.CURSE_OF_WEAKNESS.id,
+        spell: SPELLS.CURSE_OF_ENFEEBLEMENT.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },

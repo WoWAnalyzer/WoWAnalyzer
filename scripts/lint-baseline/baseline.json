@@ -314,7 +314,7 @@
   "src/parser/shared/modules/GlobalCooldown.tsx:126:45__@typescript-eslint/no-explicit-any",
   "src/parser/shared/modules/GlobalCooldown.tsx:126:65__@typescript-eslint/no-explicit-any",
   "src/parser/shared/modules/GlobalCooldown.tsx:179:34__@typescript-eslint/no-explicit-any",
-  "src/parser/shared/modules/Haste.ts:455:48__@typescript-eslint/no-explicit-any",
+  "src/parser/shared/modules/Haste.ts:450:48__@typescript-eslint/no-explicit-any",
   "src/parser/shared/modules/HotTracker.ts:883:36__@typescript-eslint/no-explicit-any",
   "src/parser/shared/modules/HotTracker.ts:883:58__@typescript-eslint/no-explicit-any",
   "src/parser/shared/modules/features/Checklist/Requirement.tsx:40:48__@typescript-eslint/no-explicit-any",

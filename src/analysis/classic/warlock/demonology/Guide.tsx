@@ -29,9 +29,8 @@ function CooldownsSection({ modules, events, info }: GuideProps<typeof CombatLog
       <Explanation>
         <p>
           Demonology Warlocks rely on 3 major cooldowns : <SpellLink spell={SPELLS.METAMORPHOSIS} />
-          , <SpellLink spell={SPELLS.DEMON_SOUL} /> and{' '}
-          <SpellLink spell={SPELLS.SUMMON_DOOMGUARD} />, which all are{' '}
-          <strong>insanely powerful</strong>.
+          , <SpellLink spell={SPELLS.DARK_SOUL} /> and <SpellLink spell={SPELLS.SUMMON_DOOMGUARD} />
+          , which all are <strong>insanely powerful</strong>.
           <br />
           Perfect cooldown usage is a combination of in-depth fight knowledge and player skill, to
           adapt to certain boss mechanics or certain kill times. However, it will mostly be better
@@ -57,7 +56,7 @@ function CooldownGraphSubsection() {
         useThresholds
       />
       <CastEfficiencyBar
-        spellId={SPELLS.DEMON_SOUL.id}
+        spellId={SPELLS.DARK_SOUL.id}
         gapHighlightMode={GapHighlight.FullCooldown}
         useThresholds
       />

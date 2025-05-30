@@ -7,9 +7,8 @@ class Buffs extends CoreAuras {
   // A list of Buffs (on the current player) to highlight on the Timeline
   auras() {
     return [
-      // Update and Add to the spells below
       {
-        spellId: SPELLS.DEMON_SOUL_IMP_BUFF.id,
+        spellId: SPELLS.DARK_SOUL.id,
         timelineHighlight: true,
       },
       // Do not adjust the lines below
