@@ -16,6 +16,7 @@ export class ApiDownError extends ExtendableError {}
 export class LogNotFoundError extends ExtendableError {}
 export class CharacterNotFoundError extends ExtendableError {}
 export class GuildNotFoundError extends ExtendableError {}
+export class UnauthorizedError extends ExtendableError {}
 export class JsonParseError extends ExtendableError {
   originalError?: ExtendableError;
   raw?: string;
@@ -117,6 +118,9 @@ async function rawFetchWcl(endpoint: string, queryParams: QueryParams, noCache =
     }
     if (message === 'Invalid guild name/server/region specified.') {
       throw new GuildNotFoundError();
+    }
+    if (message === 'Unauthorized') {
+      throw new UnauthorizedError();
     }
     throw new Error(message || json.error);
   }
