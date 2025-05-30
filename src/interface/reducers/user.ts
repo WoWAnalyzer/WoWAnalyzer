@@ -12,6 +12,9 @@ interface User {
   patreon?: {
     premium?: boolean;
   };
+  wcl?: {
+    validAuth?: boolean;
+  };
 }
 
 export const fetchUser = createAsyncThunk<User | null>('user/fetchUser', async () => {
