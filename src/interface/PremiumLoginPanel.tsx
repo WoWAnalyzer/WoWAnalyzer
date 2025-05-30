@@ -65,7 +65,7 @@ const LoggedIn = React.forwardRef<HTMLDivElement, unknown>((props, ref) => {
         <div className="logo">
           {platform === 'github' && <GitHubMarkIcon style={{ marginTop: 0 }} />}
           {platform === 'patreon' && <PatreonIcon style={{ marginTop: 0 }} />}
-          {platform === 'wcl' && <WarcraftLogsIcon style={{ marginBottom: 20 }} />}
+          {platform === 'wcl' && <WarcraftLogsIcon style={{ marginTop: 0, border: '0px' }} />}
         </div>
 
         <div className="text">
@@ -194,7 +194,7 @@ const PremiumLoginPanel = () => {
               href={`${import.meta.env.VITE_SERVER_BASE}login/wcl`}
               className="btn btn-block wcl-login"
             >
-              <WarcraftLogsIcon /> Warcraft Logs
+              <WarcraftLogsIcon style={{ border: '0px' }} /> Warcraft Logs
             </a>
           </div>
         </div>
