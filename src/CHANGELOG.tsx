@@ -44,6 +44,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2025, 5, 30), 'Add WCL user sign-in & private logs support', Vollmer),
   change(date(2025, 5, 23), 'Regenerate talents for 11.1.5', Vollmer),
   change(date(2025, 5, 16), <>Fix number of critical hits not being calculated.</>, swirl),
   change(date(2025, 5, 2), 'All Gems now show on Character Doll', Ceric),
