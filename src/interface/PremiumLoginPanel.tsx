@@ -166,7 +166,7 @@ const PremiumLoginPanel = () => {
             </h1>
             <div className="description">
               <Trans id="interface.premiumLoginPanel.panel.sign-in.description">
-                Sign in with your Patreon or GitHub account using the buttons below.
+                Sign in with your Patreon, GitHub or Warcraft Logs account using the buttons below.
               </Trans>
             </div>
           </div>
