@@ -4,11 +4,15 @@ import {
   CorruptResponseError,
   JsonParseError,
   LogNotFoundError,
+  UnauthorizedError,
 } from 'common/fetchWclApi';
 import thunderSoundEffect from 'interface/audio/Thunder Sound effect.mp3';
 import FullscreenError from 'interface/FullscreenError';
 import ApiDownBackground from 'interface/images/api-down-background.gif';
 import { EventsParseError } from 'interface/report/hooks/useEventParser';
+
+export const isCommonError = (err: unknown): err is LogNotFoundError | UnauthorizedError =>
+  err instanceof LogNotFoundError || err instanceof UnauthorizedError;
 
 export default function handleApiError(error: Error, onBack: () => void) {
   console.error(error);
