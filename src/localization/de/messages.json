@@ -444,7 +444,7 @@
   "interface.report.handleApiError.reportNotFound": "Report nicht gefunden.",
   "interface.report.handleApiError.retry": "Außerdem, dass du der erste sein wirst, der etwas neues erfährt, was wahrscheinlich ziemlich toll sein wird, wirst du auch wahrscheinlich gerne wissen, dass unsere Aktualisierungen normalerweise weniger als 10 Sekunden dauern. Also, <0>versuche es einfach nochmal</0>.",
   "interface.report.handleApiError.wrongOrPrivateReport": "Der eingegebene Report ist entweder falsch oder privat.",
-  "interface.report.handleApiError.wrongOrPrivateReportDetails": "Private Reporte können nicht verwendet werden. Wenn deine Gilde private Reporte hat, wirst du <0>deine eigenen Logs hochladen</0> oder stattdessen die existierenden Reporte auf die <1>unlisted</1> Privatsphäre-Einstellung stellen müssen.",
+  "interface.report.handleApiError.wrongOrPrivateReportDetails": "",
   "interface.report.oldLogWarning.details": "",
   "interface.report.oldLogWarning.title": "",
   "interface.report.patchChecker.continueAnyway": "Trotzdem fortfahren",

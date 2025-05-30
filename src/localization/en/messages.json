@@ -444,7 +444,7 @@
   "interface.report.handleApiError.reportNotFound": "Report not found.",
   "interface.report.handleApiError.retry": "Aside from the great news that you'll be the first to experience something new that is probably going to pretty amazing, you'll probably also enjoy knowing that our updates usually only take less than 10 seconds. So just <0>give it another try</0>.",
   "interface.report.handleApiError.wrongOrPrivateReport": "Either you entered a wrong report, or it is private.",
-  "interface.report.handleApiError.wrongOrPrivateReportDetails": "Private reports can not be used, if your guild has private reports you will have to <0>upload your own logs</0> or change the existing reports to the <1>unlisted</1> privacy option instead.",
+  "interface.report.handleApiError.wrongOrPrivateReportDetails": "In order to view private reports, you will need to grant access via WarcraftLogs. If you would like to authorize access to your private logs, click <0>Continue</0> below.",
   "interface.report.oldLogWarning.details": "The current report contains encounters from an old World of Warcraft expansion. Old expansion logs are not supported.",
   "interface.report.oldLogWarning.title": "Unsupported encounters detected",
   "interface.report.patchChecker.continueAnyway": "Continue anyway",
