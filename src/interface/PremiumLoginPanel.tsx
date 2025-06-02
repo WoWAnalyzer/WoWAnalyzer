@@ -173,7 +173,7 @@ const PremiumLoginPanel = () => {
         </div>
         <div className="row" style={{ position: 'relative' }}>
           <div className="loginBubble">Already unlocked Premium? Login here!</div>
-          <div className="col-lg-12" style={{ padding: 0 }}>
+          <div>
             <a
               href={`${import.meta.env.VITE_SERVER_BASE}login/patreon`}
               className="btn btn-block patreon-login"
@@ -181,7 +181,7 @@ const PremiumLoginPanel = () => {
               <PatreonIcon /> Patreon
             </a>
           </div>
-          <div className="col-lg-12" style={{ padding: 0 }}>
+          <div>
             <a
               href={`${import.meta.env.VITE_SERVER_BASE}login/github`}
               className="btn btn-block github-login"
@@ -189,7 +189,7 @@ const PremiumLoginPanel = () => {
               <GitHubMarkIcon /> GitHub
             </a>
           </div>
-          <div className="col-lg-12" style={{ padding: 0 }}>
+          <div>
             <a
               href={`${import.meta.env.VITE_SERVER_BASE}login/wcl`}
               className="btn btn-block wcl-login"
