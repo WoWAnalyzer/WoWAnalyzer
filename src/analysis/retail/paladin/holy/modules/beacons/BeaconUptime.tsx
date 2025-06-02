@@ -299,14 +299,13 @@ class BeaconUptime extends BeaconAnalyzer {
         allies who might need it.{' '}
         {this.selectedCombatant.hasTalent(TALENTS_PALADIN.BEACON_OF_FAITH_TALENT) && (
           <>
-            With
-            <SpellLink spell={TALENTS_PALADIN.BEACON_OF_FAITH_TALENT} />, you have access to two
-            permanent beacons.{' '}
+            With <SpellLink spell={TALENTS_PALADIN.BEACON_OF_FAITH_TALENT} />, you have access to
+            two permanent beacons.{' '}
           </>
         )}
         Your beacons should be placed onto squishy ranged DPS players to receive the bonus mastery
         efficiency from <SpellLink spell={TALENTS_PALADIN.BEACON_OF_THE_LIGHTBRINGER_TALENT} /> as
-        you'll be spending a large amount of time in and around melee.
+        you'll be spending a large amount of time in and around melee.{' '}
         {this.selectedCombatant.hasTalent(TALENTS.LIGHTS_PROTECTION_TALENT) && (
           <>
             Additionally, <SpellLink spell={TALENTS.LIGHTS_PROTECTION_TALENT} /> provides a 5%{' '}
