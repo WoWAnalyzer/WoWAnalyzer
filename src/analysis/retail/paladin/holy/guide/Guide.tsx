@@ -41,33 +41,35 @@ const CoreSection = ({ modules, info, events }: GuideProps<typeof CombatLogParse
 
       <SubSection title="Holy Power">
         <p>
-          With <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} /> spenders being so powerful, you
-          should make a priority of wasting as little as possible. If there is no healing to do, do
-          not be afraid to spend with <SpellLink spell={SPELLS.SHIELD_OF_THE_RIGHTEOUS} />.
-        </p>
-        <p>
+          Since <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} /> spenders are so impactful,{' '}
+          minimizing waste should be a priority.{' '}
           {info.combatant.hasTalent(talents.ETERNAL_FLAME_TALENT) ? (
             <SpellLink spell={talents.ETERNAL_FLAME_TALENT} />
           ) : (
             <SpellLink spell={SPELLS.WORD_OF_GLORY} />
           )}{' '}
-          is often the best bet when it comes to choosing what spender to send in any given
-          situation. As a general rule of thumb, know that if pressing{' '}
+          is often the most reliable choice when deciding which{' '}
+          <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} /> spender to use. As a general rule of
+          thumb, if casting{' '}
           {info.combatant.hasTalent(talents.ETERNAL_FLAME_TALENT) ? (
             <SpellLink spell={talents.ETERNAL_FLAME_TALENT} />
           ) : (
             <SpellLink spell={SPELLS.WORD_OF_GLORY} />
           )}{' '}
-          will not overheal much, you should go for it. The reason for this is that{' '}
-          <SpellLink spell={talents.LIGHT_OF_DAWN_TALENT} /> can easily overheal and it heals random
-          targets, making it less impactful. <br />
-          When choosing{' '}
+          won't result in significant overhealing, it's usually the best option. This is because{' '}
+          <SpellLink spell={talents.LIGHT_OF_DAWN_TALENT} /> tends to overheal and targets allies
+          randomly, making it less effective.
+          <br />
+          When using{' '}
           {info.combatant.hasTalent(talents.ETERNAL_FLAME_TALENT) ? (
             <SpellLink spell={talents.ETERNAL_FLAME_TALENT} />
           ) : (
             <SpellLink spell={SPELLS.WORD_OF_GLORY} />
           )}
-          , avoid you beacons targets, unless they're at risk of dying !
+          , try to avoid targeting your Beaconed allies unless they are in immediate danger of
+          dying. If there is no healing needed, don't hesitate to use{' '}
+          <SpellLink spell={SPELLS.SHIELD_OF_THE_RIGHTEOUS} /> to avoid capping on{' '}
+          <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} />.
         </p>
         <p>
           You wasted <strong>{holyPowerWasted}</strong>{' '}
