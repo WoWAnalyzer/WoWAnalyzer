@@ -140,6 +140,10 @@ export const SPELL_COLORS = {
   HOLY_LIGHT: '#F57C00',
   SECOND_SUNRISE: '#c5841d',
   BLESSED_ASSURANCE: '#fdfbce',
+  DAWNLIGHT: '#f7ca69',
+  DAWNLIGHT_AOE: '#dfb147',
+  SUNS_AVATAR: '#fbf89e',
+  SUNS_AVATAR_SELF: '#d9c381',
 };
 
 export const BLESSING_OF_SEASONS_BUFFS = [
