@@ -16,6 +16,7 @@ export class ApiDownError extends ExtendableError {}
 export class LogNotFoundError extends ExtendableError {}
 export class CharacterNotFoundError extends ExtendableError {}
 export class GuildNotFoundError extends ExtendableError {}
+export class UnauthorizedError extends ExtendableError {}
 export class JsonParseError extends ExtendableError {
   originalError?: ExtendableError;
   raw?: string;
@@ -95,7 +96,10 @@ async function rawFetchWcl(endpoint: string, queryParams: QueryParams, noCache =
     throw new Error('Unable to query WCL during test');
   }
   const url = makeWclApiUrl(endpoint, queryParams);
-  const response = await fetch(url, { cache: noCache ? 'reload' : 'default' });
+  const response = await fetch(url, {
+    credentials: 'include',
+    cache: noCache ? 'reload' : 'default',
+  });
 
   if (Object.values(HTTP_CODES.CLOUDFLARE).includes(response.status)) {
     throw new ApiDownError(
@@ -114,6 +118,9 @@ async function rawFetchWcl(endpoint: string, queryParams: QueryParams, noCache =
     }
     if (message === 'Invalid guild name/server/region specified.') {
       throw new GuildNotFoundError();
+    }
+    if (message === 'Unauthorized') {
+      throw new UnauthorizedError();
     }
     throw new Error(message || json.error);
   }

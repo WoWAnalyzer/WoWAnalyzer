@@ -69,7 +69,7 @@ const talents = {
   AWAKENED_JADEFIRE_TALENT: {
     id: 388779,
     name: 'Awakened Jadefire',
-    icon: 'spell_animaardenweald_buff',
+    icon: 'inv_leather_raidmonkt2_d_01_helm',
     maxRanks: 1,
     entryIds: [124885],
     definitionIds: [{ id: 129723, specId: 270 }],

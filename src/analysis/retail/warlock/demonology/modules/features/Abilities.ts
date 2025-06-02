@@ -113,15 +113,6 @@ class Abilities extends SharedAbilities {
         },
       },
       {
-        spell: TALENTS.DOOM_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS.DOOM_TALENT),
-        buffSpellId: TALENTS.DOOM_TALENT.id,
-      },
-      {
         spell: SPELLS.SHADOW_BOLT_DEMO.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {

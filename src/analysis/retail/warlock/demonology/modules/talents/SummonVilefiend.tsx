@@ -1,6 +1,11 @@
+import { defineMessage } from '@lingui/core/macro';
 import { formatThousands } from 'common/format';
+import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
-import Analyzer, { Options } from 'parser/core/Analyzer';
+import { SpellLink } from 'interface';
+import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
@@ -15,39 +20,228 @@ class SummonVilefiend extends Analyzer {
   };
 
   demoPets!: DemoPets;
-  damage = 0;
+
+  private vilefiendCasts = 0;
+  private charhoundCasts = 0;
+  private gloomhoundCasts = 0;
+
+  // Shared abilities (used by multiple pet types)
+  private totalBileSpitDamage = 0;
+  private totalHeadbuttDamage = 0;
+
+  private charhoundInfernalPresenceDamage = 0;
+  private gloomhoundGloomSlashDamage = 0;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.SUMMON_VILEFIEND_TALENT);
+
+    if (!this.active) {
+      return;
+    }
+
+    // Track summon casts
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.SUMMON_VILEFIEND_TALENT),
+      this.onVilefiendCast,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CHARHOUND_SUMMON),
+      this.onCharhoundCast,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.GLOOMHOUND_SUMMON),
+      this.onGloomhoundCast,
+    );
+
+    // Track pet ability damage
+    this.addEventListener(
+      Events.damage
+        .by(SELECTED_PLAYER_PET)
+        .spell([
+          SPELLS.VILEFIEND_BILE_SPIT,
+          SPELLS.VILEFIEND_HEADBUTT,
+          SPELLS.CHARHOUND_INFERNAL_PRESENCE,
+          SPELLS.GLOOMHOUND_GLOOM_SLASH,
+        ]),
+      this.onPetAbilityDamage,
+    );
+  }
+
+  private onVilefiendCast(event: CastEvent) {
+    this.vilefiendCasts++;
+  }
+
+  private onCharhoundCast(event: CastEvent) {
+    this.charhoundCasts++;
+  }
+
+  private onGloomhoundCast(event: CastEvent) {
+    this.gloomhoundCasts++;
+  }
+
+  private onPetAbilityDamage(event: DamageEvent) {
+    const damage = (event.amount || 0) + (event.absorbed || 0);
+
+    switch (event.ability.guid) {
+      case SPELLS.VILEFIEND_BILE_SPIT.id:
+        this.totalBileSpitDamage += damage;
+        break;
+      case SPELLS.VILEFIEND_HEADBUTT.id:
+        this.totalHeadbuttDamage += damage;
+        break;
+      case SPELLS.CHARHOUND_INFERNAL_PRESENCE.id:
+        this.charhoundInfernalPresenceDamage += damage;
+        break;
+      case SPELLS.GLOOMHOUND_GLOOM_SLASH.id:
+        this.gloomhoundGloomSlashDamage += damage;
+        break;
+    }
+  }
+
+  private get isCharhound() {
+    return this.selectedCombatant.hasTalent(TALENTS.MARK_OF_FHARG_TALENT);
+  }
+
+  private get isGloomhound() {
+    return this.selectedCombatant.hasTalent(TALENTS.MARK_OF_SHATUG_TALENT);
   }
 
   getCurrentPetGUID() {
-    return this.selectedCombatant.hasTalent(TALENTS.MARK_OF_FHARG_TALENT)
-      ? PETS.CHARHOUND.guid
-      : this.selectedCombatant.hasTalent(TALENTS.MARK_OF_SHATUG_TALENT)
-        ? PETS.GLOOMHOUND.guid
-        : PETS.VILEFIEND.guid;
+    if (this.isCharhound) return PETS.CHARHOUND.guid;
+    if (this.isGloomhound) return PETS.GLOOMHOUND.guid;
+    return PETS.VILEFIEND.guid;
   }
 
   getCurrentTalentUsed() {
-    return this.selectedCombatant.hasTalent(TALENTS.MARK_OF_FHARG_TALENT)
-      ? TALENTS.MARK_OF_FHARG_TALENT
-      : this.selectedCombatant.hasTalent(TALENTS.MARK_OF_SHATUG_TALENT)
-        ? TALENTS.MARK_OF_SHATUG_TALENT
-        : TALENTS.SUMMON_VILEFIEND_TALENT;
+    if (this.isCharhound) return TALENTS.MARK_OF_FHARG_TALENT;
+    if (this.isGloomhound) return TALENTS.MARK_OF_SHATUG_TALENT;
+    return TALENTS.SUMMON_VILEFIEND_TALENT;
+  }
+
+  getCurrentSpellUsed() {
+    if (this.isCharhound) return SPELLS.CHARHOUND_SUMMON;
+    if (this.isGloomhound) return SPELLS.GLOOMHOUND_SUMMON;
+    return TALENTS.SUMMON_VILEFIEND_TALENT;
+  }
+
+  getCurrentCastCount() {
+    if (this.isCharhound) return this.charhoundCasts;
+    if (this.isGloomhound) return this.gloomhoundCasts;
+    return this.vilefiendCasts;
+  }
+
+  getCurrentCooldown() {
+    // Charhound and Gloomhound have 30s cooldown, Vilefiend has 45s
+    return this.isCharhound || this.isGloomhound ? 30000 : 45000;
+  }
+
+  get suggestionThresholds() {
+    const totalCasts = this.getCurrentCastCount();
+    const cooldownMs = this.getCurrentCooldown();
+    const expectedCasts = Math.floor(this.owner.fightDuration / cooldownMs);
+    const efficiency = expectedCasts > 0 ? totalCasts / expectedCasts : 1;
+
+    return {
+      actual: efficiency,
+      isLessThan: {
+        minor: 0.9,
+        average: 0.8,
+        major: 0.7,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
+
+  suggestions(when: When) {
+    const spellUsed = this.getCurrentSpellUsed();
+    const cooldownSec = this.getCurrentCooldown() / 1000;
+
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You can improve your <SpellLink spell={spellUsed} /> cast efficiency. This is a{' '}
+          {cooldownSec}-second cooldown that provides significant damage and should be used
+          consistently throughout the fight.
+        </>,
+      )
+        .icon(spellUsed.icon)
+        .actual(
+          defineMessage({
+            id: 'warlock.demonology.suggestions.summonvilefiend.efficiency',
+            message: `${Math.round(actual * 100)}% cast efficiency`,
+          }),
+        )
+        .recommended(`>${Math.round(recommended * 100)}% is recommended`),
+    );
   }
 
   statistic() {
     const damage = this.demoPets.getPetDamage(this.getCurrentPetGUID());
+    const castCount = this.getCurrentCastCount();
+    const spellUsed = this.getCurrentSpellUsed();
+
+    const abilityBreakdown: JSX.Element[] = [];
+
+    if (this.isCharhound) {
+      // Charhound unique abilities
+      if (this.charhoundInfernalPresenceDamage > 0) {
+        abilityBreakdown.push(
+          <div key="infernalPresence">
+            Infernal Presence: {formatThousands(this.charhoundInfernalPresenceDamage)}
+          </div>,
+        );
+      }
+    } else if (this.isGloomhound) {
+      // Gloomhound unique abilities
+      if (this.gloomhoundGloomSlashDamage > 0) {
+        abilityBreakdown.push(
+          <div key="slash">Gloom Slash: {formatThousands(this.gloomhoundGloomSlashDamage)}</div>,
+        );
+      }
+    }
+
+    // Add shared abilities (Bile Spit and Headbutt) for all pet types
+    if (this.totalBileSpitDamage > 0) {
+      abilityBreakdown.push(
+        <div key="bile">Bile Spit: {formatThousands(this.totalBileSpitDamage)}</div>,
+      );
+    }
+    if (this.totalHeadbuttDamage > 0) {
+      abilityBreakdown.push(
+        <div key="headbutt">Headbutt: {formatThousands(this.totalHeadbuttDamage)}</div>,
+      );
+    }
+
     return (
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
-        tooltip={`${formatThousands(damage)} damage`}
+        tooltip={
+          <>
+            {formatThousands(damage)} total damage
+            <br />
+            {castCount} summons cast
+            {abilityBreakdown.length > 0 && (
+              <>
+                <br />
+                <strong>Pet Abilities:</strong>
+                {abilityBreakdown}
+              </>
+            )}
+          </>
+        }
       >
-        <BoringSpellValueText spell={this.getCurrentTalentUsed()}>
-          <ItemDamageDone amount={damage} />
+        <BoringSpellValueText spell={spellUsed}>
+          {(this.isCharhound || this.isGloomhound) && (
+            <small>
+              <SpellLink spell={this.getCurrentTalentUsed()} />
+            </small>
+          )}
+          <div>
+            <ItemDamageDone amount={damage} />
+          </div>
+          {castCount} <small>summons</small>
         </BoringSpellValueText>
       </Statistic>
     );

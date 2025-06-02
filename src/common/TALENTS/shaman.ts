@@ -54,7 +54,7 @@ const talents = {
   ANCESTRAL_REACH_TALENT: {
     id: 382732,
     name: 'Ancestral Reach',
-    icon: 'spell_nature_healingwavegreater',
+    icon: 'inv_1115_shaman_chainheal',
     maxRanks: 1,
     entryIds: [101911],
     definitionIds: [{ id: 106944, specId: 264 }],
@@ -207,7 +207,7 @@ const talents = {
   CHAIN_HEAL_TALENT: {
     id: 1064,
     name: 'Chain Heal',
-    icon: 'spell_nature_healingwavegreater',
+    icon: 'inv_1115_shaman_chainheal',
     maxRanks: 1,
     entryIds: [127861],
     definitionIds: [{ id: 132670, specId: 264 }],
