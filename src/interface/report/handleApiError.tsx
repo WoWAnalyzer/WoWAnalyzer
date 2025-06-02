@@ -42,7 +42,7 @@ export default function handleApiError(error: Error, onBack: () => void) {
           <a
             className="btn btn-primary"
             style={{ marginLeft: 20 }}
-            href={`${import.meta.env.VITE_SERVER_BASE}login/wcl`}
+            href={`${import.meta.env.VITE_SERVER_BASE}login/wcl?redirect=${encodeURIComponent(window.location.pathname + window.location.search)}`}
           >
             <Trans id="interface.report.handleApiError.continue">Continue</Trans>
           </a>
