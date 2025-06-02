@@ -66,8 +66,6 @@ import Aurora from './modules/heroTalents/herald/Aurora';
 import BlessingOfAnshe from './modules/heroTalents/herald/BlessingOfAnshe';
 import Dawnlight from './modules/heroTalents/herald/Dawnlight';
 import GleamingRays from './modules/heroTalents/herald/GleamingRays';
-import LingeringRadiance from './modules/heroTalents/herald/LingeringRadiance';
-import MorningStar from './modules/heroTalents/herald/MorningStar';
 import SecondSunrise from './modules/heroTalents/herald/SecondSunrise';
 import SolarGrace from './modules/heroTalents/herald/SolarGrace';
 import BlessedAssurance from './modules/heroTalents/lightsmith/BlessedAssurance';
@@ -146,8 +144,6 @@ class CombatLogParser extends CoreCombatLogParser {
     blessingOfAnshe: BlessingOfAnshe,
     dawnlight: Dawnlight,
     gleamingRays: GleamingRays,
-    lingeringRadiance: LingeringRadiance,
-    morningStar: MorningStar,
     secondSunrise: SecondSunrise,
     solarGrace: SolarGrace,
     // Lightsmith
