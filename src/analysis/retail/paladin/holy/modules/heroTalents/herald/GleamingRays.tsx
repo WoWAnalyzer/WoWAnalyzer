@@ -95,11 +95,13 @@ class GleamingRays extends Analyzer {
         }
       >
         <TalentSpellText talent={TALENTS.GLEAMING_RAYS_TALENT}>
-          <ItemHealingDone amount={this.healingDone} /> <br />
+          <div>
+            <ItemHealingDone amount={this.healingDone} />
+          </div>
           {this.damageDone > 0 && (
-            <>
-              <ItemDamageDone amount={this.damageDone} /> <br />
-            </>
+            <div>
+              <ItemDamageDone amount={this.damageDone} />
+            </div>
           )}
         </TalentSpellText>
       </Statistic>

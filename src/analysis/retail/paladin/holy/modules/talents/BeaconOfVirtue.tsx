@@ -8,6 +8,7 @@ import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../guide/Guide';
 import { getWordofGlorySpell } from 'analysis/retail/paladin/shared/constants';
 import SPELLS from 'common/SPELLS';
+import { LIGHTS_PROTECTION_DAMAGE_REDUCTION } from '../../constants';
 
 class BeaconOfVirtue extends Analyzer {
   get guideSubsection(): JSX.Element {
@@ -42,8 +43,8 @@ class BeaconOfVirtue extends Analyzer {
         {this.selectedCombatant.hasTalent(TALENTS.LIGHTS_PROTECTION_TALENT) && (
           <>
             {' '}
-            Additionally, <SpellLink spell={TALENTS.LIGHTS_PROTECTION_TALENT} /> provides a 5%{' '}
-            damage reduction to your Beacon targets.
+            Additionally, <SpellLink spell={TALENTS.LIGHTS_PROTECTION_TALENT} /> provides a{' '}
+            {LIGHTS_PROTECTION_DAMAGE_REDUCTION * 100}% damage reduction to your Beacon targets.
           </>
         )}
       </p>

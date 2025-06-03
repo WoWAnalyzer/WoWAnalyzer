@@ -62,20 +62,13 @@ class BlessingOfAnshe extends Analyzer {
 
   onRemove(event: RemoveBuffEvent) {
     const holyShock = GetRelatedEvent(event, BLESSING_OF_ANSHE);
-    if (!holyShock) {
-      return;
-    }
+    if (!holyShock) return;
 
-    switch (holyShock.type) {
-      case EventType.Heal:
-        this.healingDone += calculateEffectiveHealing(holyShock, BLESSING_OF_ANSHE_INCREASE);
-        this.overhealing += calculateOverhealing(holyShock, BLESSING_OF_ANSHE_INCREASE);
-        break;
-      case EventType.Damage:
-        this.damageDone += calculateEffectiveDamage(holyShock, BLESSING_OF_ANSHE_INCREASE);
-        break;
-      default:
-        break;
+    if (holyShock.type === EventType.Heal) {
+      this.healingDone += calculateEffectiveHealing(holyShock, BLESSING_OF_ANSHE_INCREASE);
+      this.overhealing += calculateOverhealing(holyShock, BLESSING_OF_ANSHE_INCREASE);
+    } else if (holyShock.type === EventType.Damage) {
+      this.damageDone += calculateEffectiveDamage(holyShock, BLESSING_OF_ANSHE_INCREASE);
     }
   }
 
@@ -96,11 +89,13 @@ class BlessingOfAnshe extends Analyzer {
         }
       >
         <TalentSpellText talent={TALENTS.BLESSING_OF_ANSHE_TALENT}>
-          <ItemHealingDone amount={this.healingDone} /> <br />
+          <div>
+            <ItemHealingDone amount={this.healingDone} />
+          </div>
           {this.damageDone > 0 && (
-            <>
-              <ItemDamageDone amount={this.damageDone} /> <br />
-            </>
+            <div>
+              <ItemDamageDone amount={this.damageDone} />
+            </div>
           )}
         </TalentSpellText>
       </Statistic>

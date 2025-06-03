@@ -40,11 +40,11 @@ class DivineGuidance extends Analyzer {
   }
 
   onDamage(event: DamageEvent) {
-    this.damageDone += (event.amount || 0) + (event.absorbed || 0);
+    this.damageDone += event.amount + (event.absorbed || 0);
   }
 
   onHeal(event: HealEvent) {
-    this.healingDone += (event.amount || 0) + (event.absorbed || 0);
+    this.healingDone += event.amount + (event.absorbed || 0);
     this.overhealing += event.overheal || 0;
   }
 
@@ -64,8 +64,12 @@ class DivineGuidance extends Analyzer {
         }
       >
         <TalentSpellText talent={TALENTS.DIVINE_GUIDANCE_TALENT}>
-          <ItemHealingDone amount={this.healingDone} /> <br />
-          <ItemDamageDone amount={this.damageDone} /> <br />
+          <div>
+            <ItemHealingDone amount={this.healingDone} />
+          </div>
+          <div>
+            <ItemDamageDone amount={this.damageDone} />
+          </div>
         </TalentSpellText>
       </Statistic>
     );

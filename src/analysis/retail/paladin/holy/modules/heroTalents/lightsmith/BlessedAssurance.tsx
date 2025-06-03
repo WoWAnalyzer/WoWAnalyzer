@@ -55,7 +55,7 @@ class BlessedAssurance extends Analyzer {
   onRemove(event: RemoveBuffEvent) {
     const events = GetRelatedEvents<DamageEvent>(event, BLESSED_ASSURANCE);
     for (const damage of events) {
-      const amount = (damage.amount || 0) + (damage.absorbed || 0);
+      const amount = damage.amount + (damage.absorbed || 0);
       this.blessedAssuranceCrusaderStrikes.push(damage.timestamp);
       this.damageDone += amount * 0.2;
     }
@@ -73,7 +73,7 @@ class BlessedAssurance extends Analyzer {
       if (this.blessedAssuranceCrusaderStrikes.includes(event.timestamp)) {
         for (const heal of events) {
           this.blessedAssuranceAvengingCrusaderHeals.push(heal.timestamp);
-          this.healingDone += (heal.amount || 0) + (heal.absorbed || 0);
+          this.healingDone += heal.amount + (heal.absorbed || 0);
           this.overhealing += heal.overheal || 0;
         }
       }
@@ -89,7 +89,7 @@ class BlessedAssurance extends Analyzer {
       return;
     }
     if (this.blessedAssuranceAvengingCrusaderHeals.includes(event.originalHeal.timestamp)) {
-      this.healingTransfered += (event.amount || 0) + (event.absorbed || 0);
+      this.healingTransfered += event.amount + (event.absorbed || 0);
       this.beaconOverhealing += event.overheal || 0;
     }
   }
@@ -145,8 +145,12 @@ class BlessedAssurance extends Analyzer {
         }
       >
         <TalentSpellText talent={TALENTS.BLESSED_ASSURANCE_TALENT}>
-          <ItemHealingDone amount={this.totalHealing} /> <br />
-          <ItemDamageDone amount={this.damageDone} /> <br />
+          <div>
+            <ItemHealingDone amount={this.totalHealing} />
+          </div>
+          <div>
+            <ItemDamageDone amount={this.damageDone} />
+          </div>
         </TalentSpellText>
       </Statistic>
     );

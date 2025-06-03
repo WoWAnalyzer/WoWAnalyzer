@@ -16,6 +16,7 @@ import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { SpellLink } from 'interface';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../guide/Guide';
+import { LIGHTS_PROTECTION_DAMAGE_REDUCTION } from '../../constants';
 
 /* ---------------------------- Log URLs for testing --------------------------
 
@@ -308,8 +309,8 @@ class BeaconUptime extends BeaconAnalyzer {
         you'll be spending a large amount of time in and around melee.{' '}
         {this.selectedCombatant.hasTalent(TALENTS.LIGHTS_PROTECTION_TALENT) && (
           <>
-            Additionally, <SpellLink spell={TALENTS.LIGHTS_PROTECTION_TALENT} /> provides a 5%{' '}
-            damage reduction to your Beacon targets.
+            Additionally, <SpellLink spell={TALENTS.LIGHTS_PROTECTION_TALENT} /> provides a{' '}
+            {LIGHTS_PROTECTION_DAMAGE_REDUCTION * 100}% damage reduction to your Beacon targets.
           </>
         )}
       </p>

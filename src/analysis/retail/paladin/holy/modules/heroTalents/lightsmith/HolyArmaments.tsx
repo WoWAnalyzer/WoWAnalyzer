@@ -94,16 +94,16 @@ class HolyArmaments extends Analyzer {
   }
 
   onDamage(event: DamageEvent) {
-    this.damageSource[event.ability.guid] += event.amount || 0;
+    this.damageSource[event.ability.guid] += event.amount;
   }
 
   onHeal(event: HealEvent) {
-    const amount = (event.amount || 0) + (event.absorbed || 0);
+    const amount = event.amount + (event.absorbed || 0);
     this.healingSource[event.ability.guid] += amount;
   }
 
   onAbsorb(event: AbsorbedEvent) {
-    this.healingSource[event.ability.guid] += event.amount || 0;
+    this.healingSource[event.ability.guid] += event.amount;
   }
 
   onWings(event: CastEvent) {
@@ -187,8 +187,12 @@ class HolyArmaments extends Analyzer {
         }
       >
         <TalentSpellText talent={TALENTS.HOLY_ARMAMENTS_TALENT}>
-          <ItemHealingDone amount={this.totalHealing} /> <br />
-          <ItemDamageDone amount={this.totalDamage} /> <br />
+          <div>
+            <ItemHealingDone amount={this.totalHealing} />
+          </div>
+          <div>
+            <ItemDamageDone amount={this.totalDamage} />
+          </div>
         </TalentSpellText>
       </Statistic>
     );

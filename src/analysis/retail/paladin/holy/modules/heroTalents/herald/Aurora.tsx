@@ -5,7 +5,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
   DamageEvent,
-  GetRelatedEvent,
+  HasRelatedEvent,
   HealEvent,
   RefreshBuffEvent,
   RemoveBuffEvent,
@@ -27,7 +27,7 @@ const BUFF_TIME: number = 12000 * 0.95; //add buffer since log events lmao
 const TRACK_BUFFER = 500;
 
 class Aurora extends Analyzer {
-  averageTimeTillBuffConsumed = 0;
+  averageTimeUntilBuffConsumed = 0;
 
   hasProc = false;
   procsWasted = 0;
@@ -72,19 +72,19 @@ class Aurora extends Analyzer {
 
   holyPowerDamage(event: DamageEvent) {
     if (this.hasProc || this.buffRemovedTimestamp + TRACK_BUFFER > event.timestamp) {
-      this.damageDone += (event.amount || 0) + (event.absorbed || 0);
+      this.damageDone += event.amount + (event.absorbed || 0);
     }
   }
 
   holyPowerHeal(event: HealEvent) {
     if (this.hasProc || this.buffRemovedTimestamp + TRACK_BUFFER > event.timestamp) {
-      this.healingDone += (event.amount || 0) + (event.absorbed || 0);
+      this.healingDone += event.amount + (event.absorbed || 0);
       this.overhealingDone += event.overheal || 0;
     }
   }
 
   applyBuff(event: ApplyBuffEvent | RefreshBuffEvent) {
-    if (GetRelatedEvent(event, AURORA_DIVINE_PURPOSE)) {
+    if (HasRelatedEvent(event, AURORA_DIVINE_PURPOSE)) {
       this.hasProc = true;
       this.procsGained += 1;
       this.buffAppliedTimestamp = event.timestamp;
@@ -92,7 +92,7 @@ class Aurora extends Analyzer {
   }
 
   refreshBuff(event: ApplyBuffEvent | RefreshBuffEvent) {
-    if (GetRelatedEvent(event, AURORA_DIVINE_PURPOSE)) {
+    if (HasRelatedEvent(event, AURORA_DIVINE_PURPOSE)) {
       this.hasProc = true;
       this.procsGained += 1;
       this.buffAppliedTimestamp = event.timestamp;
@@ -106,7 +106,7 @@ class Aurora extends Analyzer {
       if (lowerRoughTime < event.timestamp) {
         this.procsWasted += 1;
       }
-      this.averageTimeTillBuffConsumed += event.timestamp - this.buffAppliedTimestamp;
+      this.averageTimeUntilBuffConsumed += event.timestamp - this.buffAppliedTimestamp;
       this.buffRemovedTimestamp = event.timestamp;
       this.hasProc = false;
     }
@@ -122,8 +122,8 @@ class Aurora extends Analyzer {
           <>
             <ul>
               <li>
-                Average Time Till Buff Consumed:{' '}
-                {formatDuration(this.averageTimeTillBuffConsumed / this.procsGained)}
+                Average Time until buff consumed:{' '}
+                {formatDuration(this.averageTimeUntilBuffConsumed / this.procsGained)}
               </li>
               <li>Total Buffs: {this.procsGained}</li>
               <li>Wasted Buffs: {this.procsWasted}</li>
@@ -135,11 +135,13 @@ class Aurora extends Analyzer {
         }
       >
         <TalentSpellText talent={TALENTS.AURORA_TALENT}>
-          <ItemHealingDone amount={this.healingDone} /> <br />
+          <div>
+            <ItemHealingDone amount={this.healingDone} />
+          </div>
           {this.damageDone > 0 && (
-            <>
-              <ItemDamageDone amount={this.damageDone} /> <br />
-            </>
+            <div>
+              <ItemDamageDone amount={this.damageDone} />
+            </div>
           )}
         </TalentSpellText>
       </Statistic>

@@ -5,7 +5,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
   DamageEvent,
-  GetRelatedEvent,
+  HasRelatedEvent,
   HealEvent,
   RefreshBuffEvent,
   RemoveBuffEvent,
@@ -97,7 +97,7 @@ class DivinePurpose extends Analyzer {
   }
 
   applyBuff(event: ApplyBuffEvent | RefreshBuffEvent) {
-    if (!GetRelatedEvent(event, AURORA_DIVINE_PURPOSE)) {
+    if (!HasRelatedEvent(event, AURORA_DIVINE_PURPOSE)) {
       this.hasProc = true;
       this.procsGained += 1;
       this.buffAppliedTimestamp = event.timestamp;
