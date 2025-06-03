@@ -95,7 +95,7 @@ class UnendingLight extends Analyzer {
       return;
     }
     if (this.unendingLightLightOfDawns.includes(event.originalHeal.timestamp)) {
-      this.healingTransfered += (event.amount || 0) + (event.absorbed || 0);
+      this.healingTransfered += event.amount + (event.absorbed || 0);
       this.beaconOverhealing += event.overheal || 0;
     }
   }
@@ -140,7 +140,7 @@ class UnendingLight extends Analyzer {
         }
       >
         <TalentSpellText talent={TALENTS.UNENDING_LIGHT_TALENT}>
-          <ItemHealingDone amount={this.totalHealing} /> <br />
+          <ItemHealingDone amount={this.totalHealing} />
         </TalentSpellText>
       </Statistic>
     );

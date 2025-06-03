@@ -65,7 +65,7 @@ class ProtectionOfTyr extends Analyzer {
     if (!this.uniqueCombatants.includes(combatant.id)) {
       this.uniqueCombatants.push(combatant.id);
     }
-    const totalHeal = (event.amount || 0) + (event.absorb || 0);
+    const totalHeal = event.amount + (event.absorb || 0);
     const effectiveHealing = calculateEffectiveHealing(event, PROTECTION_OF_TYR_INCREASE);
     const overhealing = calculateOverhealing(event, PROTECTION_OF_TYR_INCREASE);
 
@@ -123,7 +123,7 @@ class ProtectionOfTyr extends Analyzer {
         }
       >
         <TalentSpellText talent={TALENTS.PROTECTION_OF_TYR_TALENT}>
-          <ItemHealingDone amount={this.healing} approximate /> <br />
+          <ItemHealingDone amount={this.healing} approximate />
         </TalentSpellText>
       </Statistic>
     );

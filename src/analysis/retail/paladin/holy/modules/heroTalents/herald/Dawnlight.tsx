@@ -13,22 +13,29 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
+interface HealingInfo {
+  totalAmount: number;
+  totalOverheal: number;
+  hits: {
+    timestamp: number;
+    amount: number;
+    overheal: number;
+  }[];
+}
+
+interface DamageInfo {
+  totalAmount: number;
+  count: number;
+}
+
 class Dawnlight extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
   protected combatants!: Combatants;
 
-  healingSource = new Map<
-    number,
-    {
-      totalAmount: number;
-      totalOverheal: number;
-      hits: { timestamp: number; amount: number; overheal: number }[];
-    }
-  >();
-
-  damageSource = new Map<number, { totalAmount: number; count: number }>();
+  healingSource = new Map<number, HealingInfo>();
+  damageSource = new Map<number, DamageInfo>();
 
   refreshed = 0;
 
@@ -84,21 +91,18 @@ class Dawnlight extends Analyzer {
   }
 
   get totalHealing() {
-    let sum = 0;
-    this.healingSource.forEach((entry) => (sum += entry.totalAmount));
-    return sum;
+    const values = Array.from(this.healingSource.values());
+    return values.reduce((sum, entry) => sum + entry.totalAmount, 0);
   }
 
   get totalOverhealing() {
-    let sum = 0;
-    this.healingSource.forEach((entry) => (sum += entry.totalOverheal));
-    return sum;
+    const values = Array.from(this.healingSource.values());
+    return values.reduce((sum, entry) => sum + entry.totalOverheal, 0);
   }
 
   get totalDamage() {
-    let sum = 0;
-    this.damageSource.forEach((entry) => (sum += entry.totalAmount));
-    return sum;
+    const values = Array.from(this.damageSource.values());
+    return values.reduce((sum, entry) => sum + entry.totalAmount, 0);
   }
 
   getAvgTargets(spellId: number): number {
@@ -115,12 +119,12 @@ class Dawnlight extends Analyzer {
   }
 
   onDamage(event: DamageEvent) {
-    const amount = (event.amount || 0) + (event.absorbed || 0);
+    const amount = event.amount + (event.absorbed || 0);
     this.addToDamageSource(event.ability.guid, amount);
   }
 
   onHeal(event: HealEvent) {
-    const amount = (event.amount || 0) + (event.absorbed || 0);
+    const amount = event.amount + (event.absorbed || 0);
     const overheal = event.overheal || 0;
     this.addToHealingSource(event.ability.guid, amount, overheal, event.timestamp);
   }
@@ -189,8 +193,12 @@ class Dawnlight extends Analyzer {
         }
       >
         <TalentSpellText talent={TALENTS.DAWNLIGHT_TALENT}>
-          <ItemHealingDone amount={this.totalHealing} /> <br />
-          <ItemDamageDone amount={this.totalDamage} /> <br />
+          <div>
+            <ItemHealingDone amount={this.totalHealing} />
+          </div>
+          <div>
+            <ItemDamageDone amount={this.totalDamage} />
+          </div>
           <div>
             <SpellIcon spell={TALENTS.DAWNLIGHT_TALENT} />{' '}
             {this.getAvgTargets(SPELLS.DAWNLIGHT_AOE_HEAL.id).toFixed(1)}{' '}

@@ -133,7 +133,7 @@ class TyrsDeliverance extends Analyzer {
         }
       >
         <TalentSpellText talent={TALENTS.TYRS_DELIVERANCE_TALENT}>
-          <ItemHealingDone amount={this.totalHealing()} /> <br />
+          <ItemHealingDone amount={this.totalHealing()} />
         </TalentSpellText>
       </Statistic>
     );

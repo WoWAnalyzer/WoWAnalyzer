@@ -50,16 +50,12 @@ class SecondSunrise extends Analyzer {
     if (secondSunrise) {
       this.resourceChange += event.resourceChange;
       this.wastedResource += event.waste;
-      switch (secondSunrise.type) {
-        case EventType.Heal:
-          this.healingDone += (secondSunrise.amount || 0) + (secondSunrise.absorb || 0);
-          this.overhealing += secondSunrise.overheal || 0;
-          break;
-        case EventType.Damage:
-          this.damageDone += secondSunrise.amount || 0;
-          break;
-        default:
-          break;
+
+      if (secondSunrise.type === EventType.Heal) {
+        this.healingDone += secondSunrise.amount + (secondSunrise.absorb || 0);
+        this.overhealing += secondSunrise.overheal || 0;
+      } else if (secondSunrise.type === EventType.Damage) {
+        this.damageDone += secondSunrise.amount;
       }
     }
   }
@@ -76,14 +72,19 @@ class SecondSunrise extends Analyzer {
         tooltip={<>Holy Power Wasted: {this.wastedResource}</>}
       >
         <TalentSpellText talent={TALENTS.SECOND_SUNRISE_TALENT}>
-          <ItemHealingDone amount={this.healingDone} /> <br />
-          {this.damageDone > 0 && (
+          <div>
+            <ItemHealingDone amount={this.healingDone} />
+          </div>
+          {this.damageDone && (
             <>
-              <ItemDamageDone amount={this.damageDone} /> <br />
+              <div>
+                <ItemDamageDone amount={this.damageDone} />
+              </div>
             </>
           )}
-          {this.resourceChange} <small>extra Holy Power generated</small>
-          <br />
+          <div>
+            {this.resourceChange} <small>extra Holy Power generated</small>
+          </div>
         </TalentSpellText>
         {plotOneVariableBinomChart(
           this.resourceChange + this.wastedResource,

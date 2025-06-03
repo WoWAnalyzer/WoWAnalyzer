@@ -121,12 +121,12 @@ export class BlessingOfTheSeasons extends Analyzer {
   }
 
   handleSummerHealing(event: HealEvent) {
-    this.summerHealing += (event.amount || 0) + (event.absorbed || 0);
+    this.summerHealing += event.amount + (event.absorbed || 0);
     this.summerOverhealing += event.overheal || 0;
   }
 
   handleSummerDamage(event: DamageEvent) {
-    this.summerDamage += (event.amount || 0) + (event.absorbed || 0);
+    this.summerDamage += event.amount + (event.absorbed || 0);
   }
 
   handleWinterManaGain(event: ResourceChangeEvent) {

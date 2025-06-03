@@ -67,14 +67,14 @@ class EmpyreanLegacy extends Analyzer {
 
     const events = GetRelatedEvents<HealEvent>(event, EMPYREAN_LEGACY);
     for (const event of events) {
-      this.totalHealing += (event.amount || 0) + (event.absorbed || 0);
+      this.totalHealing += event.amount + (event.absorbed || 0);
       this.totalOverhealing += event.overheal || 0;
     }
   };
 
   onHeal = (event: HealEvent) => {
     if (event.timestamp <= this.lastEL + 100) {
-      this.totalHealing += (event.amount || 0) + (event.absorbed || 0);
+      this.totalHealing += event.amount + (event.absorbed || 0);
     }
   };
 
@@ -116,10 +116,15 @@ class EmpyreanLegacy extends Analyzer {
         }
       >
         <TalentSpellText talent={TALENTS.EMPYREAN_LEGACY_TALENT}>
-          <ItemHealingDone amount={this.totalHealing} />
-          <br />
-          {formatPercentage(consumed, 1)}% <small>buffs consumed</small> <br />
-          {formatPercentage(possible, 1)}% <small>possible buffs gained</small>
+          <div>
+            <ItemHealingDone amount={this.totalHealing} />
+          </div>
+          <div>
+            {formatPercentage(consumed, 1)}% <small>buffs consumed</small>
+          </div>
+          <div>
+            {formatPercentage(possible, 1)}% <small>possible buffs gained</small>
+          </div>
         </TalentSpellText>
       </Statistic>
     );

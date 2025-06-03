@@ -118,7 +118,7 @@ class AvengingCrusader extends Analyzer {
     const events = GetRelatedEvents<HealEvent>(event, AC_CRUSADER_STRIKE);
 
     for (const healEvent of events) {
-      const amount = (healEvent.amount || 0) + (healEvent.absorbed || 0);
+      const amount = healEvent.amount + (healEvent.absorbed || 0);
 
       const spellId = this.blessedAssuranceCrusaderStrikes.includes(event.timestamp)
         ? TALENTS.BLESSED_ASSURANCE_TALENT.id
@@ -132,7 +132,7 @@ class AvengingCrusader extends Analyzer {
     const events = GetRelatedEvents<HealEvent>(event, AC_JUDGMENT);
 
     for (const healEvent of events) {
-      const amount = (healEvent.amount || 0) + (healEvent.absorbed || 0);
+      const amount = healEvent.amount + (healEvent.absorbed || 0);
       this.addToHealingSource(SPELLS.JUDGMENT_CAST_HOLY.id, amount);
     }
   }
@@ -146,7 +146,7 @@ class AvengingCrusader extends Analyzer {
       return;
     }
 
-    const amount = (event.amount || 0) + (event.absorbed || 0);
+    const amount = event.amount + (event.absorbed || 0);
     this.addToHealingSource(SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id, amount);
     this.overhealSource[SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id] += event.overheal || 0;
   }
@@ -233,9 +233,14 @@ class AvengingCrusader extends Analyzer {
 
     return (
       <>
-        <ItemHealingDone amount={amount} /> <br />
-        {secondarySourceId && <SpellLink spell={secondarySourceId} />} <SpellLink spell={spellId} />{' '}
-        converted to healing {count} times for a total of {formatNumber(amount)} healing
+        <div>
+          <ItemHealingDone amount={amount} />
+        </div>
+        <div>
+          {secondarySourceId && <SpellLink spell={secondarySourceId} />}{' '}
+          <SpellLink spell={spellId} /> converted to healing {count} times for a total of{' '}
+          {formatNumber(amount)} healing
+        </div>
       </>
     );
   }

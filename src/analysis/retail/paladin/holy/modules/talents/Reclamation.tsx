@@ -98,9 +98,15 @@ class Reclamation extends Analyzer {
         }
       >
         <TalentSpellText talent={TALENTS_PALADIN.RECLAMATION_TALENT}>
-          <ItemHealingDone amount={this.healing} /> <br />
-          <ItemDamageDone amount={this.damageDone} /> <br />
-          <ItemManaGained amount={totalMana} useAbbrev customLabel="mana" />
+          <div>
+            <ItemHealingDone amount={this.healing} />
+          </div>
+          <div>
+            <ItemDamageDone amount={this.damageDone} />
+          </div>
+          <div>
+            <ItemManaGained amount={totalMana} useAbbrev customLabel="mana" />
+          </div>
         </TalentSpellText>
       </Statistic>
     );
