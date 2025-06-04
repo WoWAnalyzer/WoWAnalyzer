@@ -44,6 +44,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2025, 6, 4),<>Add Horrific Vision enchants suggestions.</>, Vetyst),
   change(date(2025, 6, 3),<>Mark <ItemLink id={ITEMS.COUNCILS_GUILE_R3.id} />, <ItemLink id={ITEMS.OATHSWORNS_TENACITY_R3.id} />, <ItemLink id={ITEMS.STONEBOUND_ARTISTRY_R3.id} />, and <ItemLink id={ITEMS.STORMRIDERS_FURY_R3.id} /> as max rank enchants</>, Vollmer),
   change(date(2025, 5, 30), 'Add WCL user sign-in & private logs support', Vollmer),
   change(date(2025, 5, 23), 'Regenerate talents for 11.1.5', Vollmer),

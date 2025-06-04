@@ -44,7 +44,6 @@ const PlayerInfo = ({ combatant }: Props) => {
   const gear: Item[] = _parseGear(combatant._combatantInfo.gear);
   const talents = combatant._combatantInfo.talentTree;
   const averageIlvl = getAverageItemLevel(gear);
-  console.log(combatant.characterProfile);
   const classBackground = combatant.characterProfile?.class
     ? classBackgroundImage(
         CLASS_NAMES[combatant.characterProfile?.class].name,
