@@ -8,6 +8,7 @@ import BaseEnchantChecker from 'parser/shared/modules/items/EnchantChecker';
 // https://www.warcraftlogs.com/reports/ydxavfGq1mBrM9Vc/#fight=1&source=14
 
 const AGI_ENCHANTABLE_SLOTS = {
+  0: <Trans id="common.slots.head">Head</Trans>,
   4: <Trans id="common.slots.chest">Chest</Trans>,
   // 5: <Trans id="common.slots.belt">Belt</Trans>,
   6: <Trans id="common.slots.legs">Legs</Trans>,
@@ -21,6 +22,7 @@ const AGI_ENCHANTABLE_SLOTS = {
 };
 
 const STR_ENCHANTABLE_SLOTS = {
+  0: <Trans id="common.slots.head">Head</Trans>,
   4: <Trans id="common.slots.chest">Chest</Trans>,
   // 5: <Trans id="common.slots.belt">Belt</Trans>,
   6: <Trans id="common.slots.legs">Legs</Trans>,
@@ -34,6 +36,7 @@ const STR_ENCHANTABLE_SLOTS = {
 };
 
 const INT_ENCHANTABLE_SLOTS = {
+  0: <Trans id="common.slots.head">Head</Trans>,
   4: <Trans id="common.slots.chest">Chest</Trans>,
   // 5: <Trans id="common.slots.belt">Belt</Trans>,
   6: <Trans id="common.slots.legs">Legs</Trans>,
@@ -47,6 +50,15 @@ const INT_ENCHANTABLE_SLOTS = {
 };
 
 const MIN_ENCHANT_IDS = [
+  // #region Helm
+  ITEMS.LESSER_TWILIGHT_DEVASTATION.effectId,
+  ITEMS.LESSER_ECHOING_VOID.effectId,
+  ITEMS.LESSER_INFINITE_STARS.effectId,
+  ITEMS.LESSER_GUSHING_WOUND.effectId,
+  ITEMS.LESSER_TWISTED_APPENDAGE.effectId,
+  ITEMS.LESSER_VOID_RITUAL.effectId,
+  // #endregion
+
   // #region Chest
   ITEMS.COUNCILS_INTELLECT_R1.effectId,
   ITEMS.COUNCILS_INTELLECT_R2.effectId,
@@ -165,20 +177,25 @@ const MIN_ENCHANT_IDS = [
   ITEMS.AUTHORITY_OF_THE_DEPTHS_R2.effectId,
   ITEMS.OATHSWORNS_TENACITY_R1.effectId,
   ITEMS.OATHSWORNS_TENACITY_R2.effectId,
-  ITEMS.OATHSWORNS_TENACITY_R3.effectId,
   ITEMS.COUNCILS_GUILE_R1.effectId,
   ITEMS.COUNCILS_GUILE_R2.effectId,
-  ITEMS.COUNCILS_GUILE_R3.effectId,
   ITEMS.STONEBOUND_ARTISTRY_R1.effectId,
   ITEMS.STONEBOUND_ARTISTRY_R2.effectId,
-  ITEMS.STONEBOUND_ARTISTRY_R3.effectId,
   ITEMS.STORMRIDERS_FURY_R1.effectId,
   ITEMS.STORMRIDERS_FURY_R2.effectId,
-  ITEMS.STORMRIDERS_FURY_R3.effectId,
   // #endregion
 ] as const satisfies number[];
 
 const MAX_ENCHANT_IDS = [
+  // #region Helm
+  ITEMS.GREATER_TWILIGHT_DEVASTATION.effectId,
+  ITEMS.GREATER_ECHOING_VOID.effectId,
+  ITEMS.GREATER_INFINITE_STARS.effectId,
+  ITEMS.GREATER_GUSHING_WOUND.effectId,
+  ITEMS.GREATER_TWISTED_APPENDAGE.effectId,
+  ITEMS.GREATER_VOID_RITUAL.effectId,
+  // #endregion
+
   // #region Chest
   ITEMS.COUNCILS_INTELLECT_R3.effectId,
   ITEMS.OATHSWORNS_STRENGTH_R3.effectId,
@@ -227,6 +244,10 @@ const MAX_ENCHANT_IDS = [
   ITEMS.AUTHORITY_OF_RADIANT_POWER_R3.effectId,
   ITEMS.AUTHORITY_OF_STORMS_R3.effectId,
   ITEMS.AUTHORITY_OF_THE_DEPTHS_R3.effectId,
+  ITEMS.OATHSWORNS_TENACITY_R3.effectId,
+  ITEMS.COUNCILS_GUILE_R3.effectId,
+  ITEMS.STONEBOUND_ARTISTRY_R3.effectId,
+  ITEMS.STORMRIDERS_FURY_R3.effectId,
 
   // Death Knight only
   SPELLS.RUNE_OF_THE_FALLEN_CRUSADER.effectId,

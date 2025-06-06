@@ -2,6 +2,7 @@ import { Nevdok, nullDozzer } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2025, 5, 6), 'Remove Storm Bolt suggestion, fix Brutal Finish buff event', Nevdok),
   change(date(2025, 3, 22), 'Update Whirlwind suggestions', Nevdok),
   change(date(2025, 3, 1), 'Update config to reflect 11.1 support', Nevdok),
   change(date(2025, 2, 25), 'Update rotation recommendations for 11.1', Nevdok),

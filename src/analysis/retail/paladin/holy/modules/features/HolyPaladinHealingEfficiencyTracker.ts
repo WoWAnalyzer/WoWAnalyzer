@@ -5,7 +5,7 @@ import Events, { AbilityEvent, GetRelatedEvent, HealEvent } from 'parser/core/Ev
 import HealingEfficiencyTracker, {
   SpellInfoDetails,
 } from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
-import { HOLY_SHOCK_SOURCE } from '../../normalizers/CastLinkNormalizer';
+import { HOLY_SHOCK_SOURCE } from '../../normalizers/EventLinks/EventLinkConstants';
 
 // TODO: figure out if this is doing anything useful since glimmer is gone now
 class HolyPaladinHealingEfficiencyTracker extends HealingEfficiencyTracker {

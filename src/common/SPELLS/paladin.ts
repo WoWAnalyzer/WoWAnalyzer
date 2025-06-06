@@ -23,7 +23,7 @@ const spells = {
     id: 275773,
     name: 'Judgment',
     icon: 'spell_holy_righteousfury',
-    manaCost: 6000,
+    manaCost: 60000,
   },
   JUDGMENT_CAST_PROTECTION: {
     id: 275779,
@@ -123,13 +123,13 @@ const spells = {
     id: 498,
     name: 'Divine Protection',
     icon: 'spell_holy_divineprotection',
-    manaCost: 1750,
+    manaCost: 17500,
   },
   HOLY_LIGHT: {
     id: 82326,
     name: 'Holy Light',
     icon: 'spell_holy_surgeoflight',
-    manaCost: 6000,
+    manaCost: 175000,
   },
 
   // Holy Paladin:
@@ -153,7 +153,7 @@ const spells = {
     id: 19750,
     name: 'Flash of Light',
     icon: 'spell_holy_flashheal',
-    manaCost: 2200,
+    manaCost: 15000,
   },
   HOLY_SHOCK_HEAL: {
     id: 25914,
@@ -224,7 +224,7 @@ const spells = {
     id: 4987,
     name: 'Cleanse',
     icon: 'spell_holy_purify',
-    manaCost: 650,
+    manaCost: 32500,
   },
   DEVOTION_AURA_BUFF: {
     id: 210320,
@@ -271,6 +271,16 @@ const spells = {
     name: 'Blessing of Summer',
     icon: 'ability_ardenweald_paladin_summer',
   },
+  BLESSING_OF_SUMMER_HEAL: {
+    id: 448227,
+    name: 'Blessing of Summer',
+    icon: 'ability_ardenweald_paladin_summer',
+  },
+  BLESSING_OF_SUMMER_DAMAGE: {
+    id: 388009,
+    name: 'Blessing of Summer',
+    icon: 'ability_ardenweald_paladin_summer',
+  },
   BLESSING_OF_AUTUMN_TALENT: {
     id: 388010,
     name: 'Blessing of Autumn',
@@ -290,6 +300,56 @@ const spells = {
     id: 432472,
     name: 'Sacred Weapon',
     icon: 'inv_ability_lightsmithpaladin_sacredweapon',
+  },
+  SACRED_WEAPON_BUFF: {
+    id: 432502,
+    name: 'Sacred Weapon',
+    icon: 'inv_ability_lightsmithpaladin_sacredweapon',
+  },
+  SACRED_WEAPON_DAMAGE: {
+    id: 432616,
+    name: 'Sacred Weapon',
+    icon: 'inv_ability_lightsmithpaladin_sacredweapon',
+  },
+  SACRED_WEAPON_HEAL: {
+    id: 441590,
+    name: 'Sacred Weapon',
+    icon: 'inv_ability_lightsmithpaladin_sacredweapon',
+  },
+  HOLY_BULWARK_BUFF: {
+    id: 432496,
+    name: 'Holy Bulwark',
+    icon: 'inv_ability_lightsmithpaladin_holybulwark',
+  },
+  HOLY_BULWARK_ABSORB: {
+    id: 432607,
+    name: 'Holy Bulwark',
+    icon: 'spell_holy_greaterblessingofsanctuary',
+  },
+  BLESSING_OF_THE_FORGE_DAMAGE: {
+    id: 447258,
+    name: 'Blessing of the Forge',
+    icon: 'inv_ability_lightsmithpaladin_sacredweapon',
+  },
+  DIVINE_GUIDANCE_BUFF: {
+    id: 460822,
+    name: 'Divine Guidance',
+    icon: 'spell_holy_lightsgrace',
+  },
+  DIVINE_GUIDANCE_HEAL: {
+    id: 433807,
+    name: 'Divine Guidance',
+    icon: 'spell_holy_lightsgrace',
+  },
+  DIVINE_GUIDANCE_DAMAGE: {
+    id: 433808,
+    name: 'Divine Guidance',
+    icon: 'spell_holy_lightsgrace',
+  },
+  BLESSED_ASSURANCE_BUFF: {
+    id: 433019,
+    name: 'Blessed Assurance',
+    icon: 'spell_holy_blessedlife',
   },
   EMPYREAN_LEGACY_BUFF: {
     id: 387178,
@@ -398,6 +458,11 @@ const spells = {
     name: 'Avenging Wrath',
     icon: 'spell_holy_avenginewrath',
   },
+  AVENGING_CRUSADER: {
+    id: 216331,
+    name: 'Avenging Crusader',
+    icon: 'ability_paladin_veneration',
+  },
   AVENGING_WRATH_GUARANTEED_CRIT_BUFF: {
     id: 294027,
     name: 'Avenging Wrath',
@@ -438,7 +503,11 @@ const spells = {
     name: 'Lay on Hands',
     icon: 'spell_holy_layonhands',
   },
-  LAY_ON_HANDS_PROTECTION: { id: 471195, name: 'Lay on Hands', icon: 'spell_holy_layonhands.jpg' },
+  LAY_ON_HANDS_EMPYREAL_WARD: {
+    id: 471195,
+    name: 'Lay on Hands',
+    icon: 'spell_holy_layonhands.jpg',
+  },
   ART_OF_WAR: {
     id: 406086,
     name: 'Art of War',
@@ -673,10 +742,46 @@ const spells = {
     id: 431382,
     icon: 'inv_ability_heraldofthesunpaladin_dawnlight',
   },
-  SUNS_AVATAR_HEAL: { name: "Sun's Avatar", id: 431939, icon: 'ability_paladin_holyavenger' },
-  SUNS_AVATAR_HEAL_2: { name: "Sun's Avatar", id: 463074, icon: 'ability_paladin_holyavenger' },
-  SUN_SEAR_HEAL: { name: 'Sun Sear', id: 431415, icon: 'spell_priest_burningwill' },
-  TRUTH_PREVAILS_HEAL: { name: 'Truth Prevails', id: 461546, icon: 'ability_paladin_artofwar' },
+  DAWNLIGHT_DAMAGE: {
+    name: 'Dawnlight',
+    id: 431380,
+    icon: 'inv_ability_heraldofthesunpaladin_dawnlight',
+  },
+  SUNS_AVATAR_HEAL: {
+    name: "Sun's Avatar",
+    id: 431939,
+    icon: 'ability_paladin_holyavenger',
+  },
+  SUNS_AVATAR_HEAL_SELF_APPLIED: {
+    name: "Sun's Avatar",
+    id: 463074,
+    icon: 'ability_paladin_holyavenger',
+  },
+  SUNS_AVATAR_DAMAGE: {
+    name: "Sun's Avatar",
+    id: 431911,
+    icon: 'ability_paladin_holyavenger',
+  },
+  SUNS_AVATAR_DAMAGE_SELF_APPLIED: {
+    name: "Sun's Avatar",
+    id: 463075,
+    icon: 'ability_paladin_holyavenger',
+  },
+  SUN_SEAR_HEAL: {
+    name: 'Sun Sear',
+    id: 431415,
+    icon: 'spell_priest_burningwill',
+  },
+  TRUTH_PREVAILS_HEAL: {
+    name: 'Truth Prevails',
+    id: 461546,
+    icon: 'ability_paladin_artofwar',
+  },
+  SECOND_SUNRISE_HOLY_POWER: {
+    id: 456766,
+    name: 'Second Sunrise',
+    icon: 'ability_priest_halo',
+  },
   HAMMER_OF_LIGHT: {
     id: 427453,
     name: 'Hammer of Light',
@@ -704,6 +809,81 @@ const spells = {
   SHAKE_THE_HEAVENS_BUFF: {
     ...talents.SHAKE_THE_HEAVENS_TALENT,
     id: 431536,
+  },
+  HAMMER_AND_ANVIL_HEAL: {
+    id: 433722,
+    name: 'Hammer and Anvil',
+    icon: 'inv_10_blacksmithing_consumable_repairhammer_color1',
+  },
+  VENERATION_HEAL: {
+    id: 414407,
+    name: 'Veneration',
+    icon: 'ability_crown_of_the_heavens_icon',
+  },
+  VENERATION_HEAL_CRIT: {
+    id: 414408,
+    name: 'Veneration',
+    icon: 'ability_crown_of_the_heavens_icon',
+  },
+  INSURANCE_PROC_PALADIN: {
+    id: 1215535,
+    name: 'Insurance!',
+    icon: 'inv_10_inscription2_scroll2_color5',
+  },
+  INSURANCE_HOT_PALADIN: {
+    id: 1215534,
+    name: 'Insurance!',
+    icon: 'inv_10_inscription2_scroll2_color5',
+  },
+  RADIANT_AURA_HEAL: {
+    id: 447250,
+    name: 'Radiant Aura',
+    icon: 'inv_staff_2h_artifacttome_d_06',
+  },
+  LIGHTBEARER_HEAL: {
+    id: 469421,
+    name: 'Lightbearer',
+    icon: 'spell_paladin_clarityofpurpose',
+  },
+  SACRED_WORD_HEAL: {
+    id: 447246,
+    name: 'Sacred Word',
+    icon: 'inv_mace_1h_artifactnorgannon_d_06',
+  },
+  HOLY_RITUAL_HEAL: {
+    id: 199423,
+    name: 'Holy Ritual',
+    icon: 'spell_holy_surgeoflight',
+  },
+  BESTOW_LIGHT_HEAL: {
+    id: 448086,
+    name: 'Bestow Light',
+    icon: 'ability_paladin_sheathoflight',
+  },
+  UNENDING_LIGHT_BUFF: {
+    id: 394709,
+    name: 'Unending Light',
+    icon: 'spell_holy_holybolt',
+  },
+  LIGHTFORGED_BLESSING: {
+    id: 407467,
+    name: 'Lightforged Blessing',
+    icon: 'spell_holy_healingaura',
+  },
+  LIGHTFORGED_BLESSING_2: {
+    id: 403460,
+    name: 'Lightforged Blessing',
+    icon: 'spell_holy_healingaura',
+  },
+  BLESSING_OF_ANSHE_BUFF: {
+    id: 445204,
+    name: "Blessing of An'she",
+    icon: 'inv_ability_holyfire_orb',
+  },
+  SOLAR_GRACE_BUFF: {
+    id: 439841,
+    name: 'Solar Grace',
+    icon: 'ability_malkorok_blightofyshaarj_yellow',
   },
 } satisfies Record<string, Spell>;
 

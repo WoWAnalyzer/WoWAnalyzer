@@ -36,6 +36,7 @@ import SuddenDeath from './modules/talents/SuddenDeath';
 import Warpaint from './modules/talents/Warpaint';
 import Channeling from 'parser/shared/normalizers/Channeling';
 import WhirlwindBuffOrderNormalizer from './modules/normalizers/WhirlwindBuffOrderNormalizer';
+import BrutalFinishBuffNormalizer from './modules/normalizers/BrutalFinishBuffNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -49,6 +50,7 @@ class CombatLogParser extends CoreCombatLogParser {
     rageGenerationEventLinkNormalizer: RageGenerationEventLinkNormalizer,
     unhingedBloodthirstNormalizer: UnhingedBloodthirstNormalizer,
     whirlwindBuffOrderNormalizer: WhirlwindBuffOrderNormalizer,
+    brutalFinishBuffNormalizer: BrutalFinishBuffNormalizer,
 
     enrageRefreshNormalizer: EnrageRefreshNormalizer,
     enrageBeforeBloodthirst: EnrageBeforeBloodthirst,

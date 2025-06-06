@@ -9,10 +9,13 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';
-
-const COOLDOWN_REDUCTION_MS_PER_POINT = 2000;
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import TalentSpellText from 'parser/ui/TalentSpellText';
+import ItemCooldownReduction from 'parser/ui/ItemCooldownReduction';
+import Statistic from 'parser/ui/Statistic';
+import { CRUSADERS_MIGHT_REDUCTION } from '../../constants';
 
 class CrusadersMight extends Analyzer {
   static dependencies = {
@@ -35,7 +38,7 @@ class CrusadersMight extends Analyzer {
     super(options);
     this.talentedCooldownReductionMs =
       this.selectedCombatant.getTalentRank(TALENTS.CRUSADERS_MIGHT_TALENT) *
-      COOLDOWN_REDUCTION_MS_PER_POINT;
+      CRUSADERS_MIGHT_REDUCTION;
     this.active = this.talentedCooldownReductionMs > 0;
     if (!this.active) {
       return;
@@ -129,29 +132,11 @@ class CrusadersMight extends Analyzer {
   }
 
   statistic() {
-    const formatSeconds = (seconds: string) => (
-      <Trans id="paladin.holy.modules.talents.crusadersMight.formatSeconds">{seconds}s</Trans>
-    );
-
     return (
-      <StatisticBox
+      <Statistic
         position={STATISTIC_ORDER.OPTIONAL(75)}
-        icon={<SpellIcon spell={TALENTS.CRUSADERS_MIGHT_TALENT} />}
-        value={
-          <>
-            {formatSeconds((this.effectiveHolyShockReductionMs / 1000).toFixed(1))}{' '}
-            <SpellIcon
-              spell={TALENTS.HOLY_SHOCK_TALENT}
-              style={{
-                height: '1.3em',
-                marginTop: '-.1em',
-              }}
-            />{' '}
-          </>
-        }
-        label={
-          <Trans id="paladin.holy.modules.talents.crusadersMight.cdr">Cooldown reduction</Trans>
-        }
+        size="flexible"
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
             <Trans id="paladin.holy.modules.talents.crusadersMight.tooltip">
@@ -167,7 +152,21 @@ class CrusadersMight extends Analyzer {
             </Trans>
           </>
         }
-      />
+      >
+        <TalentSpellText talent={TALENTS.CRUSADERS_MIGHT_TALENT}>
+          <div>
+            <SpellIcon spell={TALENTS.HOLY_SHOCK_TALENT} />{' '}
+            <ItemCooldownReduction
+              effective={this.effectiveHolyShockReductionMs}
+              waste={this.wastedHolyShockReductionMs}
+            />
+          </div>
+          {Math.floor(this.holyShocksCastsLost)}{' '}
+          <small>
+            additional <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> casts lost
+          </small>
+        </TalentSpellText>
+      </Statistic>
     );
   }
 }

@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro';
 import { captureException } from 'common/errorLogger';
-import { fetchFights, LogNotFoundError } from 'common/fetchWclApi';
+import { fetchFights } from 'common/fetchWclApi';
 import ActivityIndicator from 'interface/ActivityIndicator';
 import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
 import Report from 'parser/core/Report';
@@ -10,7 +10,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ReportProvider } from 'interface/report/context/ReportContext';
 import DocumentTitle from 'interface/DocumentTitle';
 
-import handleApiError from './handleApiError';
+import handleApiError, { isCommonError } from './handleApiError';
 import { setCombatants } from 'interface/reducers/combatants';
 import { clearReport, setReport as setNavigationReport } from 'interface/reducers/navigation';
 
@@ -136,8 +136,7 @@ const ReportLoader = ({ children }: Props) => {
         });
         // We need to set the report in the global state so the NavigationBar, which is not a child of this component, can also use it
       } catch (err) {
-        const isCommonError = err instanceof LogNotFoundError;
-        if (!isCommonError) {
+        if (!isCommonError(err)) {
           captureException(err as Error);
         }
         updateState(err as Error, null);

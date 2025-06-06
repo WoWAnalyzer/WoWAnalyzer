@@ -1,10 +1,12 @@
 import { WCLEventsResponse } from 'common/WCL_TYPES';
+import { captureException } from 'common/errorLogger';
 import fetchWcl from 'common/fetchWclApi';
 import { AnyEvent } from 'parser/core/Events';
 import { WCLFight } from 'parser/core/Fight';
 import { PlayerInfo } from 'parser/core/Player';
 import Report from 'parser/core/Report';
 import { useEffect, useState } from 'react';
+import { isCommonError } from '../handleApiError';
 
 const useEvents = ({
   report,
@@ -17,6 +19,12 @@ const useEvents = ({
 }) => {
   const [events, setEvents] = useState<AnyEvent[] | null>(null);
   const [currentTime, setCurrentTime] = useState<number>(fight.start_time);
+  const [error, setError] = useState<Error | null>(null);
+
+  const updateState = (error: Error | null, events: AnyEvent[] | null) => {
+    setError(error);
+    setEvents(events);
+  };
 
   useEffect(() => {
     let cancelled = false;
@@ -47,8 +55,15 @@ const useEvents = ({
     };
 
     (async () => {
-      const events = await load(fight.start_time);
-      setEvents(events);
+      try {
+        const events = await load(fight.start_time);
+        updateState(null, events);
+      } catch (err) {
+        if (!isCommonError(err)) {
+          captureException(err as Error);
+        }
+        updateState(err as Error, null);
+      }
     })();
 
     return () => {
@@ -56,7 +71,7 @@ const useEvents = ({
     };
   }, [report, fight, player]);
 
-  return { events, currentTime };
+  return { events, currentTime, error };
 };
 
 export default useEvents;

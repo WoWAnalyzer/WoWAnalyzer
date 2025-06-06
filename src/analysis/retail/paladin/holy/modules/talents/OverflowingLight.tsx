@@ -7,6 +7,7 @@ import { ReactNode } from 'react';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { formatNumber } from 'common/format';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
 
 class OverflowingLight extends Analyzer {
   totalDamageAbsorbed = 0;
@@ -27,11 +28,13 @@ class OverflowingLight extends Analyzer {
 
   statistic(): ReactNode {
     return (
-      <Statistic size="flexible" category={STATISTIC_CATEGORY.TALENTS}>
+      <Statistic
+        size="flexible"
+        category={STATISTIC_CATEGORY.TALENTS}
+        tooltip={<>Damage Absorbed: {formatNumber(this.totalDamageAbsorbed)}</>}
+      >
         <TalentSpellText talent={TALENTS_PALADIN.OVERFLOWING_LIGHT_TALENT}>
-          <div>
-            {formatNumber(this.totalDamageAbsorbed)} <small>damage absorbed</small>
-          </div>
+          <ItemHealingDone amount={this.totalDamageAbsorbed} />
         </TalentSpellText>
       </Statistic>
     );

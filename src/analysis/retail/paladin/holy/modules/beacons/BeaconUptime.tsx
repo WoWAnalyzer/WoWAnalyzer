@@ -16,6 +16,7 @@ import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { SpellLink } from 'interface';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../guide/Guide';
+import { LIGHTS_PROTECTION_DAMAGE_REDUCTION } from '../../constants';
 
 /* ---------------------------- Log URLs for testing --------------------------
 
@@ -241,25 +242,27 @@ class BeaconUptime extends BeaconAnalyzer {
   statistic() {
     //const boringSpellValueContainer = { display: 'flex', flexDirection: 'row' };
     const missingPrepullContainer = (
-      <div style={{ color: 'red', margin: 'auto', textAlign: 'center' }}>
+      <>
         <Trans id="paladin.holy.modules.beacons.beaconUptime.notCastedPrepull">
-          Not
-          <br />
-          casted
-          <br />
-          prepull
+          <small style={{ color: 'red' }}>Not casted prepull</small>
         </Trans>
-      </div>
+      </>
     );
 
     const getLabel = (beaconId: number): React.ReactNode => {
       switch (beaconId) {
         case SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id:
-          return <Trans id="paladin.holy.modules.beacons.beaconUptime.bolUptime">BoL Uptime</Trans>;
+          return (
+            <Trans id="paladin.holy.modules.beacons.beaconUptime.bolUptime">Beacon of Light</Trans>
+          );
         case TALENTS.BEACON_OF_FAITH_TALENT.id:
-          return <Trans id="paladin.holy.modules.beacons.beaconUptime.bofUptime">BoF Uptime</Trans>;
+          return (
+            <Trans id="paladin.holy.modules.beacons.beaconUptime.bofUptime">Beacon of Faith</Trans>
+          );
         case TALENTS.BEACON_OF_VIRTUE_TALENT.id:
-          return <Trans id="paladin.holy.modules.beacons.beaconUptime.bovUptime">BoV Uptime</Trans>;
+          return (
+            <Trans id="paladin.holy.modules.beacons.beaconUptime.bovUptime">Beacon of Virtue</Trans>
+          );
       }
     };
 
@@ -276,8 +279,10 @@ class BeaconUptime extends BeaconAnalyzer {
                 spell={beaconId}
                 value={`${this.getUptime(beaconId)}%`}
                 label={getLabel(beaconId)}
+                extra={
+                  this.prepullSuggestion && this.missingPrepull[beaconId] && missingPrepullContainer
+                }
               />
-              {this.prepullSuggestion && this.missingPrepull[beaconId] && missingPrepullContainer}
             </div>
           );
         })}
@@ -288,14 +293,26 @@ class BeaconUptime extends BeaconAnalyzer {
   get guideSubsection(): JSX.Element {
     const explanation = (
       <p>
-        When playing{' '}
         <b>
-          <SpellLink spell={TALENTS_PALADIN.BEACON_OF_FAITH_TALENT} />
-        </b>
-        , you have access to two permanent beacons. While it is common to place them on your tanks,
-        you actually want to place them on squishy ranged DPS players if your tanks are able to
-        sustain themselves. This is to get the bonus mastery efficiency from{' '}
-        <SpellLink spell={TALENTS_PALADIN.BEACON_OF_THE_LIGHTBRINGER_TALENT} />.
+          <SpellLink spell={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF} />
+        </b>{' '}
+        allows you to keep a consistent stream of healing on a specific target while healing other
+        allies who might need it.{' '}
+        {this.selectedCombatant.hasTalent(TALENTS_PALADIN.BEACON_OF_FAITH_TALENT) && (
+          <>
+            With <SpellLink spell={TALENTS_PALADIN.BEACON_OF_FAITH_TALENT} />, you have access to
+            two permanent beacons.{' '}
+          </>
+        )}
+        Your beacons should be placed onto squishy ranged DPS players to receive the bonus mastery
+        efficiency from <SpellLink spell={TALENTS_PALADIN.BEACON_OF_THE_LIGHTBRINGER_TALENT} /> as
+        you'll be spending a large amount of time in and around melee.{' '}
+        {this.selectedCombatant.hasTalent(TALENTS.LIGHTS_PROTECTION_TALENT) && (
+          <>
+            Additionally, <SpellLink spell={TALENTS.LIGHTS_PROTECTION_TALENT} /> provides a{' '}
+            {LIGHTS_PROTECTION_DAMAGE_REDUCTION * 100}% damage reduction to your Beacon targets.
+          </>
+        )}
       </p>
     );
 

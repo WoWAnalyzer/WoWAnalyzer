@@ -3,6 +3,8 @@
     - Enchanting
     - Engineering
     - Tailoring
+
+  Rough source: https://wago.tools/db2/SpellItemEnchantment
 */
 
 const enchantIdMap: Record<number, string> = {
@@ -349,6 +351,21 @@ const enchantIdMap: Record<number, string> = {
   7599: '+650 Agility/Strength & +625 Stamina',
   7600: '+790 Agility/Strength & +760 Stamina',
   7601: '+930 Agility/Strength & +895 Stamina',
+
+  // #region TWW - Revisited Horrific Visions
+  7912: 'Lesser Twilight Devastation',
+  7914: 'Greater Twilight Devastation',
+  7915: 'Lesser Echoing Void',
+  7917: 'Greater Echoing Void',
+  7922: 'Lesser Infinite Stars',
+  7924: 'Greater Infinite Stars',
+  7925: 'Lesser Gushing Wound',
+  7927: 'Greater Gushing Wound',
+  7928: 'Lesser Twisted Appendage',
+  7930: 'Greater Twisted Appendage',
+  7931: 'Lesser Void Ritual',
+  7933: 'Greater Void Ritual',
+  // #endregion
 };
 
 export default enchantIdMap;

@@ -1,10 +1,17 @@
 import { defineMessage } from '@lingui/core/macro';
-import { formatPercentage, formatThousands } from 'common/format';
+import { formatPercentage, formatNumber } from 'common/format';
+import React from 'react';
+import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
 import { SpellLink } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { DamageEvent } from 'parser/core/Events';
+import Events, {
+  ApplyDebuffEvent,
+  DamageEvent,
+  RemoveDebuffEvent,
+  CastEvent,
+} from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -17,22 +24,65 @@ class Doom extends Analyzer {
     enemies: Enemies,
   };
   enemies!: Enemies;
-  damage = 0;
+  doom = {
+    applyDebuffCount: 0,
+    removeDebuffCount: 0,
+    damage: 0,
+    hits: 0,
+  };
+
+  demonboltCasts = 0;
+  demonboltWithCoreCasts = 0;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.DOOM_TALENT);
+
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.DOOM_TALENT),
-      this.handleDoomDamage,
+      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.DOOM_DEBUFF),
+      this.onDoomApply,
+    );
+    this.addEventListener(
+      Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.DOOM_DEBUFF),
+      this.onDoomRemove,
+    );
+    // Listen for Doom damage events (uses different spell ID than debuff)
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.DOOM_DAMAGE),
+      this.onDoomDamage,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DEMONBOLT),
+      this.onDemonboltCast,
     );
   }
 
-  handleDoomDamage(event: DamageEvent) {
-    this.damage += event.amount + (event.absorbed || 0);
+  onDoomApply(event: ApplyDebuffEvent) {
+    this.doom.applyDebuffCount += 1;
   }
+
+  onDoomRemove(event: RemoveDebuffEvent) {
+    this.doom.removeDebuffCount += 1;
+  }
+
+  onDoomDamage(event: DamageEvent) {
+    this.doom.hits += 1;
+    const damage = event.amount + (event.absorbed || 0);
+    this.doom.damage += damage;
+  }
+
+  onDemonboltCast(event: CastEvent) {
+    this.demonboltCasts += 1;
+
+    // Check if player has Demonic Core buff when casting Demonbolt
+    const hasCore = this.selectedCombatant.hasBuff(SPELLS.DEMONIC_CORE_BUFF.id, event.timestamp);
+    if (hasCore) {
+      this.demonboltWithCoreCasts += 1;
+    }
+  }
+
   get uptime() {
-    return this.enemies.getBuffUptime(TALENTS.DOOM_TALENT.id) / this.owner.fightDuration;
+    return this.enemies.getBuffUptime(SPELLS.DOOM_DEBUFF.id) / this.owner.fightDuration;
   }
 
   get suggestionThresholds() {
@@ -51,11 +101,13 @@ class Doom extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink spell={TALENTS.DOOM_TALENT} /> uptime can be improved. Try to pay more
-          attention to your Doom on the boss, as it is one of your Soul Shard generators.
+          Your <SpellLink spell={SPELLS.DOOM_DEBUFF} /> uptime can be improved. Doom is a 20-second
+          debuff automatically applied by <SpellLink spell={SPELLS.DEMONBOLT} /> when it consumes a{' '}
+          <SpellLink spell={SPELLS.DEMONIC_CORE_BUFF} />, so maintaining high uptime requires
+          consistent Demonic Core generation and usage.
         </>,
       )
-        .icon(TALENTS.DOOM_TALENT.icon)
+        .icon(SPELLS.DOOM_DEBUFF.icon)
         .actual(
           defineMessage({
             id: 'warlock.demonology.suggestions.doom.uptime',
@@ -71,12 +123,20 @@ class Doom extends Analyzer {
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
-        tooltip={`${formatThousands(this.damage)} damage`}
+        tooltip={
+          <>
+            {formatNumber(this.doom.damage)} damage
+            <br />
+            Doom tracking - 20s debuff applied by Demonbolt when consuming Demonic Core
+          </>
+        }
       >
-        <BoringSpellValueText spell={TALENTS.DOOM_TALENT}>
-          <ItemDamageDone amount={this.damage} />
+        <BoringSpellValueText spell={SPELLS.DOOM_DEBUFF}>
+          <ItemDamageDone amount={this.doom.damage} />
           <br />
           <UptimeIcon /> {formatPercentage(this.uptime)}% <small>Uptime</small>
+          <br />
+          {this.doom.applyDebuffCount} <small>Applications</small>
         </BoringSpellValueText>
       </Statistic>
     );

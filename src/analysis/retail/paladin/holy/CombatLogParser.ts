@@ -41,8 +41,7 @@ import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import AverageLODDistance from './modules/spells/AverageLODDistance';
 import ImbuedInfusion from './modules/talents/ImbuedInfusion';
 import HolyPrism from './modules/talents/HolyPrism';
-import ELConsumedBuffs from './modules/talents/EmpyreanLegacy/ConsumedBuffs';
-import ELPossibleBuffs from './modules/talents/EmpyreanLegacy/PossibleBuffs';
+import EmpyreanLegacy from './modules/talents/EmpyreanLegacy';
 import TirionsDevotion from './modules/talents/TirionsDevotion';
 import Reclamation from './modules/talents/Reclamation';
 import TyrsDeliverance from './modules/talents/TyrsDeliverance/TyrsDeliverance';
@@ -54,10 +53,28 @@ import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart'
 import SpellManaCost from 'parser/shared/modules/SpellManaCost';
 import HolyPaladinHealingEfficiencyTracker from './modules/features/HolyPaladinHealingEfficiencyTracker';
 import HolyShock from './modules/talents/HolyShock';
+import Judgment from './modules/talents/Judgment';
 import BeaconOfVirtue from './modules/talents/BeaconOfVirtue';
 import HolyPowerGraph from './modules/core/HolyPowerGraph';
+import BuilderUse from './modules/core/BuilderUse';
 import OverflowingLight from './modules/talents/OverflowingLight';
+import UnendingLight from './modules/talents/UnendingLight';
+import ProtectionOfTyr from './modules/talents/ProtectionOfTyr';
 import Guide from './guide/Guide';
+
+import Aurora from './modules/heroTalents/herald/Aurora';
+import BlessingOfAnshe from './modules/heroTalents/herald/BlessingOfAnshe';
+import Dawnlight from './modules/heroTalents/herald/Dawnlight';
+import GleamingRays from './modules/heroTalents/herald/GleamingRays';
+import SecondSunrise from './modules/heroTalents/herald/SecondSunrise';
+import SolarGrace from './modules/heroTalents/herald/SolarGrace';
+import BlessedAssurance from './modules/heroTalents/lightsmith/BlessedAssurance';
+import DivineGuidance from './modules/heroTalents/lightsmith/DivineGuidance';
+import HolyArmaments from './modules/heroTalents/lightsmith/HolyArmaments';
+import LayingDownArms from './modules/heroTalents/lightsmith/LayingDownArms';
+import Valiance from './modules/heroTalents/lightsmith/Valiance';
+
+import T33TierSet from './modules/tier/T33TierSet';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -84,6 +101,7 @@ class CombatLogParser extends CoreCombatLogParser {
     fillerFlashOfLight: FillerFlashOfLight,
     lightOfDawn: LightOfDawn,
     hammerOfWrath: HammerOfWrath,
+    builderUse: BuilderUse,
 
     // Features
     checklist: Checklist,
@@ -108,15 +126,35 @@ class CombatLogParser extends CoreCombatLogParser {
     averageLODDistance: AverageLODDistance,
     imbuedInfusion: ImbuedInfusion,
     holyPrism: HolyPrism,
-    elConsumedBuffs: ELConsumedBuffs,
-    elPossibleBuffs: ELPossibleBuffs,
+    empyreanLegacy: EmpyreanLegacy,
     tirionsDevotion: TirionsDevotion,
     reclamation: Reclamation,
     tyrsDeliverance: TyrsDeliverance,
     boundlessSalvation: BoundlessSalvation,
     holyShock: HolyShock,
+    judgment: Judgment,
     beaconOfVirtue: BeaconOfVirtue,
     overflowingLight: OverflowingLight,
+    unendingLight: UnendingLight,
+    protectionOfTyr: ProtectionOfTyr,
+
+    // Hero Talents
+    // Herald
+    aurora: Aurora,
+    blessingOfAnshe: BlessingOfAnshe,
+    dawnlight: Dawnlight,
+    gleamingRays: GleamingRays,
+    secondSunrise: SecondSunrise,
+    solarGrace: SolarGrace,
+    // Lightsmith
+    blessedAssurance: BlessedAssurance,
+    divineGuidance: DivineGuidance,
+    holyArmaments: HolyArmaments,
+    layingDownArms: LayingDownArms,
+    valiance: Valiance,
+
+    // tier
+    t33TierSet: T33TierSet,
 
     // HolyPower
     holyPowerTracker: HolyPowerTracker,

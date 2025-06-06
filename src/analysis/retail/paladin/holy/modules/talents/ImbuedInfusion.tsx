@@ -14,9 +14,8 @@ import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';
-
-// its one point right now but I already had this so w/e
-const COOLDOWN_REDUCTION_MS_PER_POINT = 1000;
+import ItemCooldownReduction from 'parser/ui/ItemCooldownReduction';
+import { IMBUED_INFUSIONS_REDUCTION } from '../../constants';
 
 class ImbuedInfusion extends Analyzer {
   static dependencies = {
@@ -39,7 +38,7 @@ class ImbuedInfusion extends Analyzer {
     super(options);
     this.talentedCooldownReductionMs =
       this.selectedCombatant.getTalentRank(TALENTS.IMBUED_INFUSIONS_TALENT) *
-      COOLDOWN_REDUCTION_MS_PER_POINT;
+      IMBUED_INFUSIONS_REDUCTION;
     this.active = this.talentedCooldownReductionMs > 0;
     if (!this.active) {
       return;
@@ -138,10 +137,6 @@ class ImbuedInfusion extends Analyzer {
   }
 
   statistic() {
-    const formatSeconds = (seconds: string) => (
-      <Trans id="paladin.holy.modules.talents.imbuedinfusion.formatSeconds">{seconds}s</Trans>
-    );
-
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(75)}
@@ -164,16 +159,17 @@ class ImbuedInfusion extends Analyzer {
         }
       >
         <TalentSpellText talent={TALENTS.IMBUED_INFUSIONS_TALENT}>
-          <>
-            {formatSeconds((this.effectiveHolyShockReductionMs / 1000).toFixed(1))}{' '}
-            <SpellIcon
-              spell={TALENTS.HOLY_SHOCK_TALENT}
-              style={{
-                height: '1.3em',
-                marginTop: '-.1em',
-              }}
+          <div>
+            <SpellIcon spell={TALENTS.HOLY_SHOCK_TALENT} />{' '}
+            <ItemCooldownReduction
+              effective={this.effectiveHolyShockReductionMs}
+              waste={this.wastedHolyShockReductionMs}
             />
-          </>
+          </div>
+          {Math.floor(this.holyShocksCastsLost)}{' '}
+          <small>
+            additional <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> casts lost
+          </small>
         </TalentSpellText>
       </Statistic>
     );

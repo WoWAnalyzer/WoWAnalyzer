@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useCallback, useEffect, useReducer } from 'react';
 import { defineMessage, t, Trans } from '@lingui/macro';
 import { captureException } from 'common/errorLogger';
-import { fetchCombatants, LogNotFoundError } from 'common/fetchWclApi';
+import { fetchCombatants } from 'common/fetchWclApi';
 import getFightName from 'common/getFightName';
 import getAverageItemLevel from 'game/getAverageItemLevel';
 import ROLES from 'game/ROLES';
@@ -27,7 +27,7 @@ import { useReport } from 'interface/report/context/ReportContext';
 import { useFight } from 'interface/report/context/FightContext';
 import DocumentTitle from 'interface/DocumentTitle';
 
-import handleApiError from './handleApiError';
+import handleApiError, { isCommonError } from './handleApiError';
 import PlayerSelection from './PlayerSelection';
 import { getPlayerIdFromParam } from 'interface/selectors/url/report/getPlayerId';
 import { getPlayerNameFromParam } from 'interface/selectors/url/report/getPlayerName';
@@ -238,8 +238,7 @@ const PlayerLoader = ({ children }: Props) => {
         // We need to set the combatants in the global state so the NavigationBar, which is not a child of this component, can also use it
         dispatch(setCombatants(combatants));
       } catch (error) {
-        const isCommonError = error instanceof LogNotFoundError;
-        if (!isCommonError) {
+        if (!isCommonError(error)) {
           captureException(error as Error);
         }
         dispatchFC({ type: 'set_error', error: error as Error });

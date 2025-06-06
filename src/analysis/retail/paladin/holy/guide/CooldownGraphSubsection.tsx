@@ -34,8 +34,13 @@ const CooldownGraphSubsection = () => {
         Holy Paladin is deeply reliant on its cooldown to function.{' '}
         <strong>You should use them as close to on cooldown as possible !</strong>
       </p>
+
       <CastEfficiencyBar
-        spellId={SPELLS.AVENGING_WRATH.id}
+        spellId={
+          info.combatant.hasTalent(TALENTS_PALADIN.AVENGING_WRATH_TALENT)
+            ? SPELLS.AVENGING_WRATH.id
+            : SPELLS.AVENGING_CRUSADER.id
+        }
         gapHighlightMode={GapHighlight.FullCooldown}
       />
       {talentedCooldowns.map((cooldownCheck) => (
