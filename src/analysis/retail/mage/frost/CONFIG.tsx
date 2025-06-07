@@ -42,15 +42,6 @@ const config: Config = {
   pages: {
     overview: {
       frontmatterType: 'guide',
-      notes: (
-        <AlertWarning>
-          This analysis is a Work in Progress. Some minor changes have been added for Frost, but
-          there are still things that have yet to be implemented or added. Once Blizzard stops
-          changing things every week, and once the theorycrafters finish running numbers, then I
-          will update this. Apologies for the delays, I promise I am working on it. Ping me in the
-          Mage Discord if you have questions about this. <code>@Sharrq</code>
-        </AlertWarning>
-      ),
     },
   },
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
