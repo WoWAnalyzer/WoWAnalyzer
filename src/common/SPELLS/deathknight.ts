@@ -264,7 +264,7 @@ const spells = {
     name: 'Festering Scythe',
     icon: 'inv_polearm_2h_mawnecromancerboss_d_01_darkblue',
     runesCost: 2,
-    runicPowerCost: -20,
+    runicPowerCost: 20,
   },
 
   DEATH_CHARGE: {
@@ -338,7 +338,7 @@ const spells = {
     name: 'Outbreak',
     icon: 'spell_deathvortex',
     runesCost: 1,
-    runicPowerCost: -10,
+    runicPowerCost: 10,
   },
 
   RUNIC_CORRUPTION: {
@@ -377,6 +377,7 @@ const spells = {
     id: 207317,
     name: 'Epidemic',
     icon: 'spell_nature_nullifydisease',
+    runicPowerCost: 30,
   },
 
   EPIDEMIC_DAMAGE: {
@@ -403,7 +404,14 @@ const spells = {
     name: 'Chains of Ice',
     icon: 'spell_frost_chainsofice',
     runesCost: 1,
-    runicPowerCost: -10,
+    runicPowerCost: 10,
+  },
+  RUNE_STRIKE: {
+    id: 316239,
+    name: 'Rune Strike',
+    icon: 'spell_deathknight_darkconviction',
+    runesCost: 1,
+    runicPowerCost: 10,
   },
   RUNEFORGING: {
     id: 53428,
@@ -479,7 +487,7 @@ const spells = {
     name: 'Death and Decay',
     icon: 'spell_shadow_deathanddecay',
     runesCost: 1,
-    runicPowerCost: -10,
+    runicPowerCost: 10,
   },
 
   DEATH_AND_DECAY_BUFF: {
@@ -510,6 +518,8 @@ const spells = {
     id: 50977,
     name: 'Death Gate',
     icon: 'spell_arcane_teleportundercity',
+    runesCost: 1,
+    runicPowerCost: 10,
   },
 
   DEATHS_ADVANCE: {
@@ -528,6 +538,7 @@ const spells = {
     id: 61999,
     name: 'Raise Ally',
     icon: 'spell_shadow_deadofnight',
+    runicPowerCost: 30,
   },
 
   DEATH_COIL: {
@@ -588,7 +599,7 @@ const spells = {
     name: 'Vampiric Strike',
     icon: 'inv_ability_sanlayndeathknight_vampiricstrike',
     runesCost: 1,
-    runicPowerCost: -10, // Blood DK has 15 RP due to Heart Strike modifiers. Unholy does not. we don't currently use this except to detect generators, so it being slightly wrong for blood is okay
+    runicPowerCost: 10, // Blood DK has 15 RP due to Heart Strike modifiers. Unholy does not. we don't currently use this except to detect generators, so it being slightly wrong for blood is okay
   },
   VAMPIRIC_STRIKE_TRIGGER_BUFF: {
     id: 433899,
