@@ -5,6 +5,7 @@ import TALENTS from 'common/TALENTS/mage';
 
 // prettier-ignore
 export default [
+  change(date(2025, 6, 7), <>Update Path Compatibility Version</>, Applebiscuit),
   change(date(2025, 4, 21), <>Update example log.</>, Vollmer),
   change(date(2025, 4, 20), <>Added Defensives to Guide</>, Earosselot),
   change(date(2025, 4, 11), <>Fixed <SpellLink spell={TALENTS.GLACIAL_SPIKE_TALENT} /> shattered evaluation</>, Earosselot),
