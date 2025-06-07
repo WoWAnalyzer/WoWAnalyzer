@@ -1,6 +1,6 @@
 import { change, date } from 'common/changelog';
 import { SpellLink } from 'interface';
-import { Sharrq, Earosselot, Soulhealer95, Vollmer } from 'CONTRIBUTORS';
+import { Sharrq, Earosselot, Soulhealer95, Vollmer, Applebiscuit } from 'CONTRIBUTORS';
 import TALENTS from 'common/TALENTS/mage';
 
 // prettier-ignore
