@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import TALENTS, { TALENTS_PRIEST } from 'common/TALENTS/priest';
-import { Arlie, Hana, Litena, Liavre, squided, ToppleTheNun, Trevor, Saeldur, xizbow, fel1ne, Vollmer} from 'CONTRIBUTORS';
+import { Arlie, Hana, Litena, Liavre, squided, ToppleTheNun, Trevor, Saeldur, xizbow, fel1ne, Vollmer, Vetyst } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2025, 6, 8), <>Add statistics for <SpellLink spell={TALENTS_PRIEST.TWINS_OF_THE_SUN_PRIESTESS_TALENT.id} />.</>, Vetyst),
   change(date(2025, 4, 21), <>Update example log.</>, Vollmer),
   change(date(2024, 11, 14), <>Updated Holy to 11.0.7</>, Liavre),
   change(date(2024, 10, 26), <>Added <SpellLink spell={SPELLS.RESONANT_WORDS_TALENT_BUFF} /> guide analysis.</>, xizbow),
