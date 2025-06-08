@@ -119,8 +119,8 @@ export const ab: Contributor = {
   nickname: 'ab',
   github: 'alex-bau',
 };
-export const Applebiscuit: Contributor = {
-  nickname: 'Applebiscuit',
+export const Brigadoon: Contributor = {
+  nickname: 'Brigadoon',
   github: 'Omegabiscuit',
 };
 export const blazyb: Contributor = {
