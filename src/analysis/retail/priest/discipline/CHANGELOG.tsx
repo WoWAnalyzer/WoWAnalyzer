@@ -1,7 +1,8 @@
 import { change, date } from 'common/changelog';
-import { Hana, fel1ne, Saeldur, Vollmer } from 'CONTRIBUTORS';
+import { Hana, fel1ne, Saeldur, Vollmer, Vetyst } from 'CONTRIBUTORS';
 
 export default [
+  change(date(2025, 6, 8), <>Add preperation section to overview.</>, Vetyst),
   change(date(2025, 4, 21), <>Update example log.</>, Vollmer),
   change(date(2025, 3, 29), <>More Updates for 11.1</>, Saeldur),
   change(date(2025, 3, 16), <>Updates for 11.1</>, Hana),

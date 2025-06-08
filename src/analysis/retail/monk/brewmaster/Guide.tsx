@@ -24,6 +24,7 @@ import ShadowFlurryStrikes from './modules/talents/ShadowFlurryStrikes';
 import EnergyTracker from './modules/core/EnergyTracker';
 import EnergyGraph from './modules/core/EnergyGraph';
 import AspectOfHarmony from './modules/talents/AspectOfHarmony';
+import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -109,6 +110,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         // combination of static methods + inheritance issues.
         castEfficiency={modules.CastEfficiency as CastEfficiency}
       />
+      <PreparationSection />
     </>
   );
 }
