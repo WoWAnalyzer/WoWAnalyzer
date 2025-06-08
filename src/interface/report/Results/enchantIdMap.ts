@@ -319,7 +319,7 @@ const enchantIdMap: Record<number, string> = {
   7462: 'Authority of Radiant Power',
   7463: 'Authority of Radiant Power',
 
-  7467: '-80 Haste & +270 Critical Strike',
+  7468: '-80 Haste & +270 Critical Strike',
   7469: '-100 Haste & +335 Critical Strike',
   7470: '-115 Haste & +390 Critical Strike',
   7471: '-80 Versatility & +270 Haste',
@@ -332,15 +332,15 @@ const enchantIdMap: Record<number, string> = {
   7478: '-100 Critical Strike & +335 Mastery',
   7479: '-115 Critical Strike & +390 Mastery',
 
-  7530: '+670 Intellect & +4% Mana',
-  7531: '+747 Intellect & +5% Mana',
-
-  7533: '+670 Intellect & +211 Stamina',
-  7534: '+747 Intellect & +230 Stamina',
-
-  7535: '+479 Intellect',
-  7536: '+536 Intellect',
-  7537: '+593 Intellect',
+  7529: '+650 Intellect & +3% Mana',
+  7530: '+790 Intellect & +4% Mana',
+  7531: '+930 Intellect & +5% Mana',
+  7532: '+650 Intellect & +625 Stamina',
+  7533: '+790 Intellect & +760 Stamina',
+  7534: '+930 Intellect & +895 Stamina',
+  7535: '+430 Intellect',
+  7536: '+525 Intellect',
+  7537: '+620 Intellect',
 
   7593: '+650 Agility/Strength & +690 Armor',
   7594: '+790 Agility/Strength & +835 Armor',
