@@ -319,11 +319,6 @@ class Abilities extends CoreAbilities {
         },
         enabled: combatant.hasTalent(TALENTS.SOURCE_OF_MAGIC_TALENT),
       },
-      {
-        spell: SPELLS.GLIDE_EVOKER.id,
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: null,
-      },
       //endregion
     ];
   }

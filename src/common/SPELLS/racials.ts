@@ -326,6 +326,11 @@ const spells = {
     name: 'Awakened',
     icon: 'ability_racial_awakened',
   },
+  GLIDE_DRACTHYR: {
+    id: 358733,
+    name: 'Glide',
+    icon: 'ability_racial_glide',
+  },
   // Earthen
   AZERITE_SURGE: {
     id: 436344,
