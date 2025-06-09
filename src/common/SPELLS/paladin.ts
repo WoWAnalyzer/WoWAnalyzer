@@ -36,11 +36,6 @@ const spells = {
     icon: 'spell_holy_righteousfury',
     manaCost: 300,
   },
-  DIVINE_STEED: {
-    id: 190784,
-    name: 'Divine Steed',
-    icon: 'ability_paladin_divinesteed',
-  },
   DIVINE_STEED_BUFF: {
     id: 221883,
     name: 'Divine Steed',
@@ -170,11 +165,6 @@ const spells = {
     name: 'Light of Dawn',
     icon: 'spell_paladin_lightofdawn',
   },
-  LIGHT_OF_THE_MARTYR_DAMAGE_TAKEN: {
-    id: 196917,
-    name: 'Light of the Martyr',
-    icon: 'ability_paladin_lightofthemartyr',
-  },
   HOLY_PRISM_HEAL_DIRECT: {
     id: 114871,
     name: 'Holy Prism',
@@ -200,21 +190,6 @@ const spells = {
     name: 'Aura of Mercy',
     icon: 'spell_holy_blessedlife',
   },
-  AURA_OF_SACRIFICE_HEAL: {
-    id: 210383,
-    name: 'Aura of Sacrifice',
-    icon: 'ability_deathwing_bloodcorruption_earth',
-  },
-  AURA_OF_SACRIFICE_TRANSFER: {
-    id: 210380,
-    name: 'Aura of Sacrifice',
-    icon: 'ability_deathwing_bloodcorruption_earth',
-  },
-  AURA_OF_SACRIFICE_BUFF: {
-    id: 210372,
-    name: 'Aura of Sacrifice',
-    icon: 'ability_deathwing_bloodcorruption_earth',
-  },
   INFUSION_OF_LIGHT: {
     id: 54149,
     name: 'Infusion of Light',
@@ -226,11 +201,6 @@ const spells = {
     icon: 'spell_holy_purify',
     manaCost: 32500,
   },
-  DEVOTION_AURA_BUFF: {
-    id: 210320,
-    name: 'Devotion Aura',
-    icon: 'spell_holy_devotionaura',
-  },
   AVENGING_CRUSADER_HEAL_NORMAL: {
     id: 216371,
     name: 'Avenging Crusader',
@@ -240,11 +210,6 @@ const spells = {
     id: 281465,
     name: 'Avenging Crusader',
     icon: 'spell_holy_restoration',
-  },
-  BESTOW_FAITH_HOLY_POWER: {
-    id: 343618,
-    name: 'Bestow Faith',
-    icon: 'ability_paladin_blessedmending',
   },
   BEACON_OF_LIGHT_HOLY_POWER: {
     id: 88852,
@@ -260,11 +225,6 @@ const spells = {
     id: 384906,
     name: 'Seal of Mercy',
     icon: 'spell_holy_greaterblessingofsalvation',
-  },
-  UNTEMPERED_DEDICATION_BUFF: {
-    id: 387815,
-    name: 'Untempered Dedication',
-    icon: 'achievement_admiral_of_the_light',
   },
   BLESSING_OF_SUMMER_TALENT: {
     id: 388007,
@@ -356,11 +316,6 @@ const spells = {
     name: 'Empyrean Legacy',
     icon: 'item_holyspark',
   },
-  EMPYREAN_LEGACY_DEBUFF: {
-    id: 387441,
-    name: 'Empyrean Legacy',
-    icon: 'spell_holy_dizzy',
-  },
   RECLAMATION_CAST: {
     id: 415388,
     name: 'Reclamation',
@@ -403,28 +358,23 @@ const spells = {
   },
 
   // Retribution Paladin:
-  BLADE_OF_JUSTICE: {
-    id: 184575,
-    name: 'Blade of Justice',
-    icon: 'ability_paladin_bladeofjustice',
+  CRUSADE: {
+    id: 454373,
+    name: 'Crusade',
+    icon: 'ability_paladin_sanctifiedwrath',
   },
-  SHIELD_OF_VENGEANCE: {
-    id: 184662,
-    name: 'Shield of Vengeance',
-    icon: 'ability_paladin_shieldofthetemplar',
+  DIVINE_HAMMER_EXTEND: {
+    id: 198137,
+    name: 'Divine Hammer',
+    icon: 'classicon_paladin',
   },
-  HAMMER_OF_WRATH: {
-    id: 24275,
-    name: 'Hammer of Wrath',
-    icon: 'spell_paladin_hammerofwrath',
+  DIVINE_HAMMER_CAST: {
+    id: 1236942,
+    name: 'Divine Hammer',
+    icon: 'classicon_paladin',
   },
   JUDGMENT_DEBUFF: {
     id: 197277,
-    name: 'Judgment',
-    icon: 'spell_holy_righteousfury',
-  },
-  JUDGMENT_DEBUFF_HOLY: {
-    id: 214222,
     name: 'Judgment',
     icon: 'spell_holy_righteousfury',
   },
@@ -453,25 +403,10 @@ const spells = {
     name: 'Divine Purpose',
     icon: 'spell_holy_mindvision',
   },
-  AVENGING_WRATH: {
-    id: 31884,
-    name: 'Avenging Wrath',
-    icon: 'spell_holy_avenginewrath',
-  },
   AVENGING_CRUSADER: {
     id: 216331,
     name: 'Avenging Crusader',
     icon: 'ability_paladin_veneration',
-  },
-  AVENGING_WRATH_GUARANTEED_CRIT_BUFF: {
-    id: 294027,
-    name: 'Avenging Wrath',
-    icon: 'spell_holy_avenginewrath',
-  },
-  BLADE_OF_WRATH_PROC: {
-    id: 231843,
-    name: 'Blade of Wrath',
-    icon: 'ability_paladin_bladeofjusticeblue',
   },
   FIRES_OF_JUSTICE_BUFF: {
     id: 209785,
@@ -483,25 +418,10 @@ const spells = {
     name: 'Righteous Verdict',
     icon: 'spell_paladin_templarsverdict',
   },
-  ZEAL_DAMAGE: {
-    id: 269937,
-    name: 'Zeal',
-    icon: 'spell_holy_sealofblood',
-  },
-  SANCTIFIED_WRATH_DAMAGE: {
-    id: 326731,
-    name: 'Sanctified Wrath',
-    icon: 'ability_paladin_sanctifiedwrath',
-  },
   EMPYREAN_POWER_TALENT_BUFF: {
     id: 326733,
     name: 'Empyrean Power',
     icon: 'ability_paladin_sheathoflight',
-  },
-  LAY_ON_HANDS: {
-    id: 633,
-    name: 'Lay on Hands',
-    icon: 'spell_holy_layonhands',
   },
   LAY_ON_HANDS_EMPYREAL_WARD: {
     id: 471195,
@@ -517,11 +437,6 @@ const spells = {
     id: 383329,
     name: 'Final Verdict',
     icon: 'spell_paladin_hammerofwrath',
-  },
-  FINAL_VERDICT_FINISHER: {
-    id: 383328,
-    name: 'Final Verdict',
-    icon: 'spell_paladin_templarsverdict',
   },
   TEMPLAR_STRIKE: {
     id: 407480,
@@ -586,23 +501,6 @@ const spells = {
     name: 'Sentinel',
     icon: 'spell_holy_holynova',
   },
-
-  //artifact
-  UNFLINCHING_DEFENSE: {
-    id: 209220,
-    name: 'Unflinching Defense',
-    icon: 'spell_holy_ardentdefender',
-  },
-  SACRIFICE_OF_THE_JUST: {
-    id: 209285,
-    name: 'Sacrifice of the Just',
-    icon: 'spell_holy_divineshield',
-  },
-  INSPIRING_VANGUARD_BUFF: {
-    id: 393019,
-    name: 'Inspiring Vanguard',
-    icon: 'inv_helmet_74',
-  },
   GRAND_CRUSADER_BUFF: {
     id: 85416,
     name: 'Grand Crusader',
@@ -620,26 +518,6 @@ const spells = {
     name: 'Consecration',
     icon: 'spell_holy_innerfire',
   },
-  BLESSED_STALWART_BUFF: {
-    id: 242869,
-    name: 'Blessed Stalwart',
-    icon: 'ability_paladin_shieldofvengeance',
-  },
-  FAITHS_ARMOR_BUFF: {
-    id: 211903,
-    name: "Faith's Armor",
-    icon: 'inv_misc_armorkit_23',
-  },
-  BULWARK_OF_ORDER_SHIELD: {
-    id: 209388,
-    name: 'Bulwark of Order',
-    icon: 'spell_holy_pureofheart',
-  },
-  IMMORTAL_OBJECT: {
-    id: 207603,
-    name: 'Immortal Object',
-    icon: 'spell_holy_avengersshield',
-  },
   SHINING_LIGHT: {
     id: 327510,
     name: 'Shining Light',
@@ -655,42 +533,11 @@ const spells = {
     name: 'Overflowing Light',
     icon: 'spell_holy_holyguidance',
   },
-  // Bonus set tiers
-  PROTECTION_PALADIN_T19_2SET_BONUS_BUFF: {
-    id: 211553,
-    name: 'T19 2 Set Bonus',
-    icon: 'trade_engineering',
-  },
-  PROTECTION_PALADIN_T19_4SET_BONUS_BUFF: {
-    id: 211554,
-    name: 'T19 4 Set Bonus',
-    icon: 'trade_engineering',
-  },
-  PROTECTION_PALADIN_T20_2SET_BONUS_BUFF: {
-    id: 242263,
-    name: 'T20 2 Set Bonus',
-    icon: 'ability_paladin_shieldofthetemplar',
-  },
-  PROTECTION_PALADIN_T20_4SET_BONUS_BUFF: {
-    id: 242264,
-    name: 'T20 4 Set Bonus',
-    icon: 'ability_paladin_shieldofthetemplar',
-  },
   //DEBUFFS
-  AVENGERS_PROTECTION_DEBUFF: {
-    id: 242265,
-    name: "Avenger's Protection",
-    icon: 'ability_paladin_shieldofthetemplar',
-  },
   BLESSED_HAMMER_DEBUFF: {
     id: 204301,
     name: 'Blessed Hammer',
     icon: 'paladin_retribution',
-  },
-  JUDGMENT_OF_LIGHT_DEBUFF: {
-    id: 196941,
-    name: 'Judgement of Light',
-    icon: 'spell_holy_divineprovidence',
   },
   // Shared:
   CONSECRATION_CAST: {
@@ -703,32 +550,10 @@ const spells = {
     name: 'Consecration',
     icon: 'spell_holy_innerfire',
   },
-  CONSECRATED_BLADE_BUFF: {
-    id: 407475,
-    name: 'Consecrated Blade',
-    icon: 'ability_mage_firestarter',
-  },
   DIVINE_SHIELD: {
     id: 642,
     name: 'Divine Shield',
     icon: 'spell_holy_divineshield',
-  },
-
-  // T28
-  ASHES_TO_ASHES: {
-    id: 364371,
-    name: 'Ashes To Ashes',
-    icon: 'ability_paladin_artofwar',
-  },
-  DAWN_WILL_COME_4PC: {
-    id: 363674,
-    name: 'Dawn Will Come',
-    icon: 'ability_priest_flashoflight',
-  },
-  GLORIOUS_PURPOSE_4PC: {
-    id: 363675,
-    name: 'Glorious Purpose',
-    icon: 'spell_holy_holyprotection',
   },
 
   // Herald of the Sun (TWW Holy + Ret)
@@ -786,6 +611,7 @@ const spells = {
     id: 427453,
     name: 'Hammer of Light',
     icon: 'inv_mace_1h_gryphonrider_d_02_silver.jpg',
+    holyPowerCost: 3,
   },
   LIGHTS_DELIVERANCE_FREE_CAST_BUFF: {
     ...talents.LIGHTS_DELIVERANCE_TALENT,
@@ -801,7 +627,11 @@ const spells = {
     name: 'Sacrosanct Crusade',
     icon: 'inv_plate_raidpaladinprimalist_d_01_cape.jpg',
   },
-  INTERCESSION: { id: 391054, name: 'Intercession', icon: 'ability_paladin_intercession.jpg' },
+  INTERCESSION: {
+    id: 391054,
+    name: 'Intercession',
+    icon: 'ability_paladin_intercession.jpg',
+  },
   UNDISPUTED_RULING_BUFF: {
     ...talents.UNDISPUTED_RULING_TALENT,
     id: 432629,
@@ -855,11 +685,6 @@ const spells = {
     name: 'Holy Ritual',
     icon: 'spell_holy_surgeoflight',
   },
-  BESTOW_LIGHT_HEAL: {
-    id: 448086,
-    name: 'Bestow Light',
-    icon: 'ability_paladin_sheathoflight',
-  },
   UNENDING_LIGHT_BUFF: {
     id: 394709,
     name: 'Unending Light',
@@ -867,11 +692,6 @@ const spells = {
   },
   LIGHTFORGED_BLESSING: {
     id: 407467,
-    name: 'Lightforged Blessing',
-    icon: 'spell_holy_healingaura',
-  },
-  LIGHTFORGED_BLESSING_2: {
-    id: 403460,
     name: 'Lightforged Blessing',
     icon: 'spell_holy_healingaura',
   },

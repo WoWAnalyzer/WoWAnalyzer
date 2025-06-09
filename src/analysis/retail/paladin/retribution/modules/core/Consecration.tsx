@@ -35,7 +35,7 @@ class Consecration extends Analyzer {
   statistic() {
     return (
       <StatisticBox
-        position={STATISTIC_ORDER.CORE()}
+        position={STATISTIC_ORDER.OPTIONAL()}
         icon={<SpellIcon spell={SPELLS.CONSECRATION_CAST} />}
         value={`${this.averageHitPerCast.toFixed(2)} hits`}
         label="Targets Hit"

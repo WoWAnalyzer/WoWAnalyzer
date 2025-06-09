@@ -58,7 +58,7 @@ class HolyPrismTargetsHit extends Analyzer {
     this.casts += 1;
 
     const isWingsActive = this.selectedCombatant.hasBuff(
-      this.hasAC ? SPELLS.AVENGING_CRUSADER.id : SPELLS.AVENGING_WRATH.id,
+      this.hasAC ? SPELLS.AVENGING_CRUSADER.id : TALENTS.AVENGING_WRATH_TALENT.id,
     );
     let tooltip = null;
     let value = null;
@@ -78,7 +78,9 @@ class HolyPrismTargetsHit extends Analyzer {
             <>
               <div>
                 <SpellLink
-                  spell={this.hasAC ? SPELLS.AVENGING_CRUSADER.id : SPELLS.AVENGING_WRATH.id}
+                  spell={
+                    this.hasAC ? SPELLS.AVENGING_CRUSADER.id : TALENTS.AVENGING_WRATH_TALENT.id
+                  }
                 />{' '}
                 active: <PerformanceMark perf={QualitativePerformance.Good} />
               </div>
@@ -101,7 +103,9 @@ class HolyPrismTargetsHit extends Analyzer {
             <>
               <div>
                 <SpellLink
-                  spell={this.hasAC ? SPELLS.AVENGING_CRUSADER.id : SPELLS.AVENGING_WRATH.id}
+                  spell={
+                    this.hasAC ? SPELLS.AVENGING_CRUSADER.id : TALENTS.AVENGING_WRATH_TALENT.id
+                  }
                 />{' '}
                 active: <PerformanceMark perf={QualitativePerformance.Good} />
               </div>
@@ -206,7 +210,7 @@ class HolyPrismTargetsHit extends Analyzer {
             As Herald of the Sun, it is very important to line up your{' '}
             <SpellLink spell={TALENTS.HOLY_PRISM_TALENT} /> casts with{' '}
             <SpellLink
-              spell={this.hasAC ? SPELLS.AVENGING_CRUSADER.id : SPELLS.AVENGING_WRATH.id}
+              spell={this.hasAC ? SPELLS.AVENGING_CRUSADER.id : TALENTS.AVENGING_WRATH_TALENT.id}
             />{' '}
             and <SpellLink spell={TALENTS.AWAKENING_TALENT} /> windows as you apply{' '}
             <SpellLink spell={TALENTS.DAWNLIGHT_TALENT} /> with your next two{' '}

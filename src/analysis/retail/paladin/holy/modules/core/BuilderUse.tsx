@@ -71,8 +71,8 @@ export default class BuilderUse extends Analyzer {
       },
       {
         color: SPELL_COLORS.HAMMER_OF_WRATH,
-        label: SPELLS.HAMMER_OF_WRATH.name,
-        spellId: SPELLS.HAMMER_OF_WRATH.id,
+        label: TALENTS.HAMMER_OF_WRATH_TALENT.name,
+        spellId: TALENTS.HAMMER_OF_WRATH_TALENT.id,
         value: this.hammerOfWrathBuilderCasts,
       },
       {
