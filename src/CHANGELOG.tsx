@@ -44,6 +44,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2025, 6, 8),<>Add <SpellLink spell={SPELLS.LIGHTS_JUDGMENT.id} /> to Lightforged Draenei's racial spellbook.</>, Vetyst),
   change(date(2025, 6, 8),<>Fix validateDomNesting warning for Gem Preperation checklist.</>, Vetyst),
   change(date(2025, 6, 8),<>Updated visual appearance of gained stats for <ItemLink id={ITEMS.SUNSET_SPELLTHREAD_R3.id} />, <ItemLink id={ITEMS.WEAVERCLOTH_SPELLTHREAD_R3.id} />, and <ItemLink id={ITEMS.DAYBREAK_SPELLTHREAD_R3.id} /> enchants on the character info tab.</>, Vetyst),
   change(date(2025, 6, 8),<>Move <SpellLink spell={SPELLS.GLIDE_DRACTHYR.id} /> from Evoker's spellbook to Dracthyr's racial spellbook.</>, Vetyst),

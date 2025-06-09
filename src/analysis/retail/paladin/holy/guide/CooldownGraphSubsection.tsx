@@ -38,7 +38,7 @@ const CooldownGraphSubsection = () => {
       <CastEfficiencyBar
         spellId={
           info.combatant.hasTalent(TALENTS_PALADIN.AVENGING_WRATH_TALENT)
-            ? SPELLS.AVENGING_WRATH.id
+            ? TALENTS_PALADIN.AVENGING_WRATH_TALENT.id
             : SPELLS.AVENGING_CRUSADER.id
         }
         gapHighlightMode={GapHighlight.FullCooldown}

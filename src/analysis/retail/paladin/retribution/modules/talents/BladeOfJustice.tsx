@@ -1,19 +1,23 @@
-import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, ResourceChangeEvent } from 'parser/core/Events';
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';
+import { TALENTS_PALADIN } from 'common/TALENTS';
 
-class BladeofJustice extends Analyzer {
+class BladeOfJustice extends Analyzer {
   wastedHP = 0;
 
   constructor(options: Options) {
     super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_PALADIN.BLADE_OF_JUSTICE_TALENT);
+    if (!this.active) {
+      return;
+    }
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BLADE_OF_JUSTICE),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_PALADIN.BLADE_OF_JUSTICE_TALENT),
       this.onBladeOfJusticeCast,
     );
     this.addEventListener(
-      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.BLADE_OF_JUSTICE),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(TALENTS_PALADIN.BLADE_OF_JUSTICE_TALENT),
       this.onBladeOfJusticeEnergize,
     );
   }
@@ -39,4 +43,4 @@ class BladeofJustice extends Analyzer {
   }
 }
 
-export default BladeofJustice;
+export default BladeOfJustice;

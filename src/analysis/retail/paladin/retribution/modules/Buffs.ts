@@ -30,7 +30,7 @@ class Buffs extends CoreAuras {
       },
       // Throughput cooldowns
       {
-        spellId: SPELLS.AVENGING_WRATH.id,
+        spellId: TALENTS.AVENGING_WRATH_TALENT.id,
         enabled: !combatant.hasTalent(TALENTS.CRUSADE_TALENT),
         timelineHighlight: true,
       },
@@ -47,13 +47,13 @@ class Buffs extends CoreAuras {
           SPELLS.DIVINE_STEED_BUFF_ALT_2.id,
           SPELLS.DIVINE_STEED_BUFF_ALT_3.id,
         ],
-        triggeredBySpellId: SPELLS.DIVINE_STEED.id,
+        triggeredBySpellId: TALENTS.DIVINE_STEED_TALENT.id,
       },
       {
         spellId: SPELLS.DIVINE_SHIELD.id,
       },
       {
-        spellId: SPELLS.SHIELD_OF_VENGEANCE.id,
+        spellId: TALENTS.SHIELD_OF_VENGEANCE_TALENT.id,
       },
       {
         spellId: TALENTS.BLESSING_OF_FREEDOM_TALENT.id,

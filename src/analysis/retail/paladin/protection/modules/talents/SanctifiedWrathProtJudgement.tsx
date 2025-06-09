@@ -34,7 +34,7 @@ class SanctifiedWrathProtJudgement extends Analyzer {
 
   trackJudgmentCasts() {
     if (
-      this.selectedCombatant.hasBuff(SPELLS.AVENGING_WRATH.id) ||
+      this.selectedCombatant.hasBuff(TALENTS.AVENGING_WRATH_TALENT.id) ||
       this.selectedCombatant.hasBuff(SPELLS.SENTINEL.id)
     ) {
       this.buffedJudgements += 1;
@@ -42,7 +42,7 @@ class SanctifiedWrathProtJudgement extends Analyzer {
   }
 
   trackedWastedJudgmentHP(event: ResourceChangeEvent) {
-    const hasAW: boolean = this.selectedCombatant.hasBuff(SPELLS.AVENGING_WRATH.id);
+    const hasAW: boolean = this.selectedCombatant.hasBuff(TALENTS.AVENGING_WRATH_TALENT.id);
 
     const judgementSource: boolean = event.ability.guid === SPELLS.JUDGMENT_HP_ENERGIZE.id;
     const wastedHolyPower: boolean =

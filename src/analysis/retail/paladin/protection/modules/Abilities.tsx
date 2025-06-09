@@ -125,8 +125,8 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: [TALENTS.AVENGING_WRATH_TALENT.id, SPELLS.AVENGING_WRATH.id],
-        buffSpellId: SPELLS.AVENGING_WRATH.id,
+        spell: [TALENTS.AVENGING_WRATH_TALENT.id, TALENTS.AVENGING_WRATH_TALENT.id],
+        buffSpellId: TALENTS.AVENGING_WRATH_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         castEfficiency: {
           suggestion: true,
@@ -271,7 +271,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.LAY_ON_HANDS.id,
+        spell: TALENTS.LAY_ON_HANDS_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 600,
         gcd: null,

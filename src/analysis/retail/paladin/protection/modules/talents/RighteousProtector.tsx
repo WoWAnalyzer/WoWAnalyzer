@@ -60,8 +60,12 @@ class RighteousProtector extends Analyzer {
 
     if (hasSentinel && this.spellUsable.isOnCooldown(SPELLS.SENTINEL.id)) {
       this.spellUsable.reduceCooldown(SPELLS.SENTINEL.id, REDUCTION_TIME, event.timestamp);
-    } else if (!hasSentinel && this.spellUsable.isOnCooldown(SPELLS.AVENGING_WRATH.id)) {
-      this.spellUsable.reduceCooldown(SPELLS.AVENGING_WRATH.id, REDUCTION_TIME, event.timestamp);
+    } else if (!hasSentinel && this.spellUsable.isOnCooldown(TALENTS.AVENGING_WRATH_TALENT.id)) {
+      this.spellUsable.reduceCooldown(
+        TALENTS.AVENGING_WRATH_TALENT.id,
+        REDUCTION_TIME,
+        event.timestamp,
+      );
     }
 
     if (
@@ -85,7 +89,7 @@ class RighteousProtector extends Analyzer {
     }
     //Handle Avenging Wrath/Sentinel Statistics
     if (
-      this.spellUsable.isOnCooldown(SPELLS.AVENGING_WRATH.id) ||
+      this.spellUsable.isOnCooldown(TALENTS.AVENGING_WRATH_TALENT.id) ||
       this.spellUsable.isOnCooldown(SPELLS.SENTINEL.id)
     ) {
       this.avengingWrathReduced += REDUCTION_TIME;
@@ -107,7 +111,7 @@ class RighteousProtector extends Analyzer {
     if (combatant.hasTalent(TALENTS.SENTINEL_TALENT)) {
       return this.spellUsable.reduceCooldown(SPELLS.SENTINEL.id, REDUCTION_TIME);
     } else {
-      return this.spellUsable.reduceCooldown(SPELLS.AVENGING_WRATH.id, REDUCTION_TIME);
+      return this.spellUsable.reduceCooldown(TALENTS.AVENGING_WRATH_TALENT.id, REDUCTION_TIME);
     }
   }
   statistic(): React.ReactNode {
@@ -118,7 +122,7 @@ class RighteousProtector extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringSpellValueText spell={TALENTS.RIGHTEOUS_PROTECTOR_TALENT}>
-          <SpellIcon spell={SPELLS.AVENGING_WRATH} />{' '}
+          <SpellIcon spell={TALENTS.AVENGING_WRATH_TALENT} />{' '}
           {formatNumber(this.avengingWrathReduced / SECOND)}s{' '}
           <small>
             CD Reduction ({formatNumber(this.avengingWrathReductionWasted / SECOND)}s wasted)
