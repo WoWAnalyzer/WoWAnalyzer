@@ -7,8 +7,8 @@ import CHANGELOG from './CHANGELOG';
 const config: Config = {
   contributors: [],
   branch: GameBranch.Retail,
-  patchCompatibility: '11.0.0',
-  supportLevel: SupportLevel.Unmaintained,
+  patchCompatibility: '11.1.5',
+  supportLevel: SupportLevel.Foundation,
   description: (
     <>
       We hope you get some use out this analyzer we have been working on.
