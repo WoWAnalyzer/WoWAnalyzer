@@ -2724,7 +2724,7 @@ export const Leftyxiv: Contributor = {
     {
       name: 'Magicmushies',
       spec: SPECS.DEMONOLOGY_WARLOCK,
-      link: 'https://worldofwarcraft.blizzard.com/en-us/character/us/area-52/magicmushies',
+      link: 'https://www.warcraftlogs.com/character/us/area-52/magicmushies?zone=43',
     },
   ],
 };

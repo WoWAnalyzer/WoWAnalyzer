@@ -94,10 +94,12 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.SOUL_REAPER_TALENT.id,
-        enabled: !combatant.hasTalent(TALENTS.SOUL_REAPER_TALENT),
+        enabled: combatant.hasTalent(TALENTS.SOUL_REAPER_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 6,
-        gcd: null,
+        gcd: {
+          base: 1500,
+        },
         range: AbilityRange.Melee,
       },
       //endregion
@@ -149,6 +151,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.SUMMON_GARGOYLE_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 180,
+        gcd: null,
         range: 30,
       },
       {
@@ -161,7 +164,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        range: AbilityRange.Self,
       },
       {
         spell: TALENTS.RAISE_ABOMINATION_TALENT.id,
@@ -201,7 +203,6 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 120,
         gcd: null,
-        range: AbilityRange.Self,
       },
       {
         spell: SPELLS.ANTI_MAGIC_SHELL.id,
@@ -210,7 +211,7 @@ class Abilities extends CoreAbilities {
           60 -
           Number(combatant.hasTalent(TALENTS.ANTI_MAGIC_BARRIER_TALENT)) * 20 +
           Number(combatant.hasTalent(TALENTS.UNYIELDING_WILL_TALENT)) * 20,
-        range: AbilityRange.Self,
+        gcd: null,
       },
       {
         spell: TALENTS.ANTI_MAGIC_ZONE_TALENT.id,
@@ -228,13 +229,12 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        range: AbilityRange.Self,
       },
       {
         spell: SPELLS.LICHBORNE.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 120,
-        range: AbilityRange.Self,
+        gcd: null,
       },
       {
         spell: TALENTS.DEATH_STRIKE_TALENT.id,
@@ -250,7 +250,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.DEATH_PACT_TALENT),
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 120,
-        range: AbilityRange.Self,
+        gcd: null,
       },
       //endregion
 
@@ -261,12 +261,13 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         charges: 1,
         cooldown: 45,
-        range: AbilityRange.Self,
+        gcd: null,
       },
       {
         spell: TALENTS.MIND_FREEZE_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 15,
+        gcd: null,
         range: 15,
       },
       {
@@ -274,7 +275,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         charges: combatant.hasTalent(TALENTS.DEATHS_ECHO_TALENT) ? 2 : 1,
         cooldown: 45,
-        range: AbilityRange.Self,
+        gcd: null,
       },
       {
         spell: TALENTS.WRAITH_WALK_TALENT.id,
@@ -284,7 +285,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        range: AbilityRange.Self,
       },
       {
         spell: TALENTS.ASPHYXIATE_TALENT.id,
@@ -300,6 +300,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.RAISE_DEAD_UNHOLY_TALENT),
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 120,
+        gcd: null,
         range: 30,
       },
       {
@@ -342,6 +343,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DARK_COMMAND.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 8,
+        gcd: null,
         range: 30,
       },
       {
@@ -352,7 +354,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        range: AbilityRange.Self,
       },
       {
         spell: SPELLS.RUNE_1.id,

@@ -12,7 +12,6 @@ import Ability, { SpellbookAbility } from './Ability';
 export const AbilityRange = {
   Melee: 5,
   FullRanged: 40,
-  Self: 0,
 };
 
 class Abilities extends Module {

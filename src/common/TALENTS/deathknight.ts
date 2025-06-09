@@ -74,7 +74,7 @@ const talents = {
     entryIds: [96333],
     definitionIds: [{ id: 101335, specId: 252 }],
     runesCost: 1,
-    runicPowerCost: 10,
+    runicPowerCost: -10,
   },
   ASPHYXIATE_TALENT: {
     id: 221562,
@@ -140,7 +140,7 @@ const talents = {
     entryIds: [126300],
     definitionIds: [{ id: 131126, specId: 250 }],
     runesCost: 1,
-    runicPowerCost: 10,
+    runicPowerCost: -10,
   },
   BLOODIED_BLADE_TALENT: {
     id: 458753,
@@ -287,7 +287,7 @@ const talents = {
     entryIds: [96228],
     definitionIds: [{ id: 101230, specId: 251 }],
     runesCost: 1,
-    runicPowerCost: 10,
+    runicPowerCost: -10,
   },
   CLAWING_SHADOWS_TALENT: {
     id: 207311,
@@ -297,7 +297,7 @@ const talents = {
     entryIds: [96320],
     definitionIds: [{ id: 101322, specId: 252 }],
     runesCost: 1,
-    runicPowerCost: 10,
+    runicPowerCost: -10,
   },
   CLEAVING_STRIKES_TALENT: {
     id: 316916,
@@ -363,7 +363,7 @@ const talents = {
     entryIds: [96188],
     definitionIds: [{ id: 101190, specId: 252 }],
     runesCost: 1,
-    runicPowerCost: 10,
+    runicPowerCost: -10,
   },
   CRYOGENIC_CHAMBER_TALENT: {
     id: 456237,
@@ -470,7 +470,7 @@ const talents = {
     entryIds: [96295],
     definitionIds: [{ id: 101297, specId: 252 }],
     runesCost: 1,
-    runicPowerCost: 10,
+    runicPowerCost: -10,
   },
   DOOMED_BIDDING_TALENT: {
     id: 455386,
@@ -576,7 +576,7 @@ const talents = {
     entryIds: [96326],
     definitionIds: [{ id: 101328, specId: 252 }],
     runesCost: 2,
-    runicPowerCost: 20,
+    runicPowerCost: -20,
   },
   FESTERMIGHT_TALENT: {
     id: 377590,
@@ -757,7 +757,7 @@ const talents = {
     entryIds: [96304],
     definitionIds: [{ id: 101306, specId: 250 }],
     runesCost: 1,
-    runicPowerCost: 15,
+    runicPowerCost: -15,
   },
   HEMOSTASIS_TALENT: {
     id: 273946,
@@ -791,7 +791,7 @@ const talents = {
     entryIds: [96244],
     definitionIds: [{ id: 101246, specId: 251 }],
     runesCost: 1,
-    runicPowerCost: 10,
+    runicPowerCost: -10,
   },
   HUNGERING_THIRST_TALENT: {
     id: 444037,
@@ -1033,7 +1033,7 @@ const talents = {
     entryIds: [96303],
     definitionIds: [{ id: 101305, specId: 250 }],
     runesCost: 2,
-    runicPowerCost: 20,
+    runicPowerCost: -20,
   },
   MAWSWORN_MENACE_TALENT: {
     id: 444099,
@@ -1260,7 +1260,7 @@ const talents = {
     entryIds: [96287],
     definitionIds: [{ id: 101289, specId: 252 }],
     runesCost: 1,
-    runicPowerCost: 10,
+    runicPowerCost: -10,
   },
   RAISE_DEAD_SHARED_TALENT: {
     id: 46585,
@@ -1383,7 +1383,7 @@ const talents = {
     entryIds: [96301],
     definitionIds: [{ id: 101303, specId: 250 }],
     runesCost: 1,
-    runicPowerCost: 10,
+    runicPowerCost: -10,
   },
   RUNIC_ATTENUATION_TALENT: {
     id: 207104,
@@ -1458,7 +1458,7 @@ const talents = {
     entryIds: [96327],
     definitionIds: [{ id: 101329, specId: 252 }],
     runesCost: 1,
-    runicPowerCost: 10,
+    runicPowerCost: -10,
   },
   SHATTERED_FROST_TALENT: {
     id: 455993,
@@ -1500,7 +1500,7 @@ const talents = {
     entryIds: [96192],
     definitionIds: [{ id: 101194, specId: 252 }],
     runesCost: 1,
-    runicPowerCost: 10,
+    runicPowerCost: -10,
   },
   SOUL_RUPTURE_TALENT: {
     id: 437161,
