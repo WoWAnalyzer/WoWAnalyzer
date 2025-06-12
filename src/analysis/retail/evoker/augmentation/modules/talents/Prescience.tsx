@@ -303,8 +303,8 @@ class Prescience extends MajorCooldown<PrescienceCooldownCast> {
     let buffTarget;
     const relatedBuffEvents = getPrescienceBuffEvents(event);
 
-    for (let i = 0; i < relatedBuffEvents.length; i = i + 1) {
-      const targetID = relatedBuffEvents[i].targetID;
+    for (const buffEvent of relatedBuffEvents) {
+      const targetID = buffEvent.targetID;
       if (this.combatants.players[targetID]) {
         buffTarget = targetID;
         break;
