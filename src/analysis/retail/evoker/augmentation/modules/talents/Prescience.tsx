@@ -149,8 +149,8 @@ class Prescience extends MajorCooldown<PrescienceCooldownCast> {
         details = (
           <div>
             Buffed Augmentation: <span className={className}>{this.currentBuffedPlayer?.name}</span>{' '}
-            with <SpellLink spell={TALENTS.PRESCIENCE_TALENT} />. This should never happen! Make
-            sure you position yourself better to avoid this.
+            with <SpellLink spell={TALENTS.PRESCIENCE_TALENT} />. You should always try and buff DPS
+            players.
           </div>
         );
       } else {
@@ -163,14 +163,25 @@ class Prescience extends MajorCooldown<PrescienceCooldownCast> {
         );
       }
     } else if (cast.onTank) {
-      performance = QualitativePerformance.Ok;
-      details = (
-        <div>
-          Buffed Tank: <span className={className}>{this.currentBuffedPlayer?.name}</span> with{' '}
-          <SpellLink spell={TALENTS.PRESCIENCE_TALENT} />. This is situationally okay, but should be
-          avoided.
-        </div>
-      );
+      if (isMythicPlus(this.owner.fight)) {
+        performance = QualitativePerformance.Ok;
+        details = (
+          <div>
+            Buffed Tank: <span className={className}>{this.currentBuffedPlayer?.name}</span> with{' '}
+            <SpellLink spell={TALENTS.PRESCIENCE_TALENT} />. This is situationally okay, but should
+            be avoided. If you have an extra use of Prescience, such as due to Time Skip or Golden
+            Opportunity, you should usually prioritise buffing yourself before the tank.
+          </div>
+        );
+      } else {
+        details = (
+          <div>
+            Buffed Tank: <span className={className}>{this.currentBuffedPlayer?.name}</span> with{' '}
+            <SpellLink spell={TALENTS.PRESCIENCE_TALENT} />. You should always try and buff DPS
+            players.
+          </div>
+        );
+      }
     } else if (cast.onHealer) {
       details = (
         <div>
@@ -180,12 +191,23 @@ class Prescience extends MajorCooldown<PrescienceCooldownCast> {
         </div>
       );
     } else if (cast.onYourself) {
-      details = (
-        <div>
-          Buffed: yourself with <SpellLink spell={TALENTS.PRESCIENCE_TALENT} />. You should always
-          try and buff DPS players. Make sure to position yourself so you buff the intended players.
-        </div>
-      );
+      if (isMythicPlus(this.owner.fight)) {
+        performance = QualitativePerformance.Ok;
+        details = (
+          <div>
+            Buffed: yourself with <SpellLink spell={TALENTS.PRESCIENCE_TALENT} />. This is
+            acceptable in Mythic+ if you have an extra use, such as due to Time Skip or Golden
+            Opportunity, and both DPS already have Prescience active.
+          </div>
+        );
+      } else {
+        details = (
+          <div>
+            Buffed: yourself with <SpellLink spell={TALENTS.PRESCIENCE_TALENT} />. You should always
+            try and buff DPS players.
+          </div>
+        );
+      }
     } else {
       details = (
         <div>
