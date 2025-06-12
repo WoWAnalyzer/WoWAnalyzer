@@ -169,8 +169,10 @@ class Prescience extends MajorCooldown<PrescienceCooldownCast> {
           <div>
             Buffed Tank: <span className={className}>{this.currentBuffedPlayer?.name}</span> with{' '}
             <SpellLink spell={TALENTS.PRESCIENCE_TALENT} />. This is situationally okay, but should
-            be avoided. If you have an extra use of Prescience, such as due to Time Skip or Golden
-            Opportunity, you should usually prioritise buffing yourself before the tank.
+            be avoided. If you have an extra use of Prescience, such as due to{' '}
+            <SpellLink spell={TALENTS.TIME_SKIP_TALENT} /> or{' '}
+            <SpellLink spell={TALENTS.GOLDEN_OPPORTUNITY_TALENT} />, you should usually prioritise
+            buffing yourself before the tank.
           </div>
         );
       } else {
@@ -196,8 +198,10 @@ class Prescience extends MajorCooldown<PrescienceCooldownCast> {
         details = (
           <div>
             Buffed: yourself with <SpellLink spell={TALENTS.PRESCIENCE_TALENT} />. This is
-            acceptable in Mythic+ if you have an extra use, such as due to Time Skip or Golden
-            Opportunity, and both DPS already have Prescience active.
+            acceptable in Mythic+ if you have an extra use, such as due to{' '}
+            <SpellLink spell={TALENTS.TIME_SKIP_TALENT} /> or{' '}
+            <SpellLink spell={TALENTS.GOLDEN_OPPORTUNITY_TALENT} />, and both DPS already have
+            Prescience active.
           </div>
         );
       } else {
