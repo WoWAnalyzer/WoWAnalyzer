@@ -1,5 +1,5 @@
 import AbilityTracker from 'analysis/retail/priest/holy/modules/core/AbilityTracker';
-import { TranslucentImage } from 'analysis/retail/priest/shared';
+import { TranslucentImage, TwinsOfTheSunPriestess } from 'analysis/retail/priest/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
@@ -74,6 +74,7 @@ class CombatLogParser extends CoreCombatLogParser {
     echoOfLightDisplay: EchoOfLightDisplay,
 
     // Spells
+    twinsOfTheSunPriestess: TwinsOfTheSunPriestess,
     divineHymn: DivineHymn,
     guardianSpirit: GuardianSpirit,
     holyNova: HolyNova,

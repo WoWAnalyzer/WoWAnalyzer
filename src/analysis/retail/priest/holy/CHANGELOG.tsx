@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 export default [
   change(date(2025, 6, 8), <>Add preparation section to overview.</>, Vetyst),
+  change(date(2025, 6, 8), <>Add statistics for <SpellLink spell={TALENTS_PRIEST.TWINS_OF_THE_SUN_PRIESTESS_TALENT.id} />.</>, Vetyst),
   change(date(2025, 4, 21), <>Update example log.</>, Vollmer),
   change(date(2024, 11, 14), <>Updated Holy to 11.0.7</>, Liavre),
   change(date(2024, 10, 26), <>Added <SpellLink spell={SPELLS.RESONANT_WORDS_TALENT_BUFF} /> guide analysis.</>, xizbow),
