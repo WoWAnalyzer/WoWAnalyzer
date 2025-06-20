@@ -56,6 +56,7 @@ import {
   CracklingJadeLightningNormalizer,
 } from './normalizers/CracklingJadeLightningNormalizer';
 import CelestialConduit from './modules/talents/CelestialConduit';
+import SlicingWinds from './modules/spells/SlicingWinds';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -110,6 +111,7 @@ class CombatLogParser extends CoreCombatLogParser {
     jadefireStomp: JadefireStomp,
     risingSunKick: RisingSunKick,
     invokeXuen: InvokeXuen,
+    slicingWinds: SlicingWinds,
 
     // Items:
     lastEmperorsCapacitor: LastEmperorsCapacitor,
