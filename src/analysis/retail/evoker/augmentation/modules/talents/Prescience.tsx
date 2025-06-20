@@ -15,6 +15,8 @@ import Combatant from 'parser/core/Combatant';
 import SPECS from 'game/SPECS';
 import { isMythicPlus } from 'common/isMythicPlus';
 
+const ACCEPTABLE_INITIAL_POST_PULL_USES_DELTA_MS = 4_000;
+
 /**
  * Prescience is a core talent that buffs the target with 3% crit, as well
  * as making them a prio target for your Ebon Might buff.
@@ -47,6 +49,29 @@ class Prescience extends MajorCooldown<PrescienceCooldownCast> {
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.PRESCIENCE_TALENT),
       this.onCast,
     );
+    this.addEventListener(Events.fightend, this.onFightEnd);
+  }
+
+  /** Remove Pre-Pull uses if they didn't prevent 2 Post-Pull uses.
+   * Since Pre-Pull uses are cleared on combat start, they considered as bad usage,
+   * but if they didn't prevent 2 Post-Pull uses, they aren't relevant enough to show. */
+  onFightEnd() {
+    const lastPrePullUseIdx = this.uses.findLastIndex((use) =>
+      use.checklistItems.some((item) => item.timestamp < this.owner.fight.start_time),
+    );
+    if (lastPrePullUseIdx === -1) {
+      return;
+    }
+
+    const secondPostPullUse = this.uses[lastPrePullUseIdx + 2];
+    if (!secondPostPullUse) {
+      return;
+    }
+
+    const delta = secondPostPullUse.event.timestamp - this.owner.fight.start_time;
+    if (delta < ACCEPTABLE_INITIAL_POST_PULL_USES_DELTA_MS) {
+      this.uses.splice(0, lastPrePullUseIdx + 1);
+    }
   }
 
   description(): ReactNode {
