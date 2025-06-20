@@ -5,6 +5,7 @@ import TALENTS from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  change(date(2025, 6, 20), "Update example report", Vollmer),
   change(date(2025, 6, 12), <>Update <SpellLink spell={TALENTS.PRESCIENCE_TALENT}/> module</>, KYZ),
   change(date(2025, 5, 16), <>Fix <SpellLink spell={TALENTS.TIME_SKIP_TALENT}/> CDR handling for Abilities with charges</>, Vollmer),
   change(date(2025, 3, 13), <>Implement <SpellLink spell={TALENTS.MOTES_OF_POSSIBILITY_TALENT}/> module</>, KYZ),

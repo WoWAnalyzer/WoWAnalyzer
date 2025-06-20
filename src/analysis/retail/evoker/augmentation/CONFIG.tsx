@@ -27,7 +27,8 @@ const config: Config = {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/zRrwPYTqGmk92d1M/35-Mythic+Volcoross+-+Kill+(2:47)/Tazera/standard',
+  exampleReport:
+    "/report/GNyjgnAz6rDLxJ4b/13-Mythic+Mug'Zee,+Heads+of+Security+-+Kill+(5:30)/Pandragons/standard",
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
