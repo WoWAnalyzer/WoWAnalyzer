@@ -1,4 +1,3 @@
-import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
 import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
@@ -32,17 +31,22 @@ class SoulStrike extends Analyzer {
   }
 
   statistic() {
-    const shardsGained = this.soulShardTracker.getGeneratedBySpell(SPELLS.SOUL_STRIKE_SHARD_GEN.id);
+    const wasted = this.soulShardTracker.getWastedBySpell(SPELLS.SOUL_STRIKE_SHARD_GEN.id);
     return (
-      <Statistic
-        category={STATISTIC_CATEGORY.TALENTS}
-        size="flexible"
-        tooltip={`${formatThousands(this.damage)} damage`}
-      >
+      <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
         <BoringSpellValueText spell={TALENTS.SOUL_STRIKE_TALENT}>
           <ItemDamageDone amount={this.damage} />
-          <br />
-          {shardsGained} <small>Shards generated</small>
+          <ul>
+            <li>
+              {this.soulShardTracker.getGeneratedBySpell(SPELLS.SOUL_STRIKE_SHARD_GEN.id)}{' '}
+              <small>shards generated</small>
+            </li>
+            {wasted > 0 && (
+              <li>
+                {wasted} <small>shards wasted</small>
+              </li>
+            )}
+          </ul>
         </BoringSpellValueText>
       </Statistic>
     );
