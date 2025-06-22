@@ -2750,3 +2750,8 @@ export const Brandrewsss: Contributor = {
     },
   ],
 };
+
+export const Berlin: Contributor = {
+  nickname: 'Berlin',
+  github: 'NBerlinmuren',
+};

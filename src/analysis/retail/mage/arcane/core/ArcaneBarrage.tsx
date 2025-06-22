@@ -16,6 +16,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { TrackedBuffEvent } from 'parser/core/Entity';
 import { encodeTargetString } from 'parser/shared/modules/Enemies';
+import talents from 'analysis/retail/priest/holy/modules/talents';
 
 const TEMPO_DURATION = 12000;
 
@@ -33,6 +34,7 @@ export default class ArcaneBarrage extends Analyzer {
   hasArcaneSoul: boolean = this.selectedCombatant.hasTalent(TALENTS.MEMORY_OF_ALAR_TALENT);
 
   barrageCasts: ArcaneBarrageCast[] = [];
+  allCasts: CastEvent[] = [];
   lastTempoApply = 0;
 
   constructor(options: Options) {
@@ -53,10 +55,16 @@ export default class ArcaneBarrage extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ARCANE_BARRAGE),
       this.onBarrage,
     );
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onAnyCast);
+
   }
 
   onTempo(event: ApplyBuffEvent | ApplyBuffStackEvent | RefreshBuffEvent) {
     this.lastTempoApply = event.timestamp;
+  }
+
+  onAnyCast(event: CastEvent) {
+  this.allCasts.push(event);
   }
 
   onBarrage(event: CastEvent) {
@@ -100,7 +108,7 @@ export default class ArcaneBarrage extends Analyzer {
       arcaneSoul: this.selectedCombatant.hasBuff(SPELLS.ARCANE_SOUL_BUFF.id),
       burdenOfPower: this.selectedCombatant.hasBuff(SPELLS.BURDEN_OF_POWER_BUFF.id),
       gloriousIncandescence: this.selectedCombatant.hasBuff(
-        TALENTS.GLORIOUS_INCANDESCENCE_TALENT.id,
+        SPELLS.GLORIOUS_INCANDESCENCE_BUFF.id,
       ),
       intuition: this.selectedCombatant.hasBuff(SPELLS.INTUITION_BUFF.id),
       aethervision: this.selectedCombatant.getBuff(SPELLS.AETHERVISION_BUFF.id),
@@ -112,6 +120,23 @@ export default class ArcaneBarrage extends Analyzer {
 
     this.arcaneChargeTracker.clearCharges(event);
   }
+
+suggestions() {
+  this.allCasts.sort((a, b) => a.timestamp - b.timestamp);
+  for (let i = 0; i < this.barrageCasts.length; i++) {
+    const barrage = this.barrageCasts[i];
+    const barrageIndex = this.allCasts.findIndex(
+      c => c.timestamp === barrage.cast.timestamp,
+    );
+
+    if (barrageIndex >= 0 && barrageIndex < this.allCasts.length - 1) {
+      const nextCast = this.allCasts[barrageIndex + 1];
+      if (nextCast.ability.guid === TALENTS.TOUCH_OF_THE_MAGI_TALENT.id) {
+        barrage.nextCastIsTouch = true;
+      }
+    }
+  }
+}
 }
 
 export interface ArcaneBarrageCast {
@@ -119,6 +144,7 @@ export interface ArcaneBarrageCast {
   netherPrecisionStacks?: number;
   blastPrecast?: CastEvent;
   touchCD: number;
+  nextCastIsTouch?: boolean;
   tempoRemaining?: number;
   clearcasting: boolean;
   arcaneOrb: boolean;

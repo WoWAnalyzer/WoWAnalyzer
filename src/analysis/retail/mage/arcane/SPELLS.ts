@@ -128,7 +128,7 @@ const spells = {
     icon: 'inv_soulbarrier',
   },
   INTUITION_BUFF: {
-    id: 455681,
+    id: 1223797,
     name: 'Intuition',
     icon: 'spell_shadow_brainwash',
   },

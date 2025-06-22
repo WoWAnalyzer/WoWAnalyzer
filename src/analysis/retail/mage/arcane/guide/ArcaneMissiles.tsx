@@ -100,11 +100,11 @@ class ArcaneMissilesGuide extends Analyzer {
         });
       }
 
-      const noClip = !am.aetherAttunement && !am.clipped;
+      const noClip = am.aetherAttunement && !am.clipped;
       if (noClip) {
         tooltipItems.push({
-          perf: QualitativePerformance.Ok,
-          detail: `Full Channeled without Aether Attunement`,
+          perf: QualitativePerformance.Perfect,
+          detail: `Full Channeled with Aether Attunement`,
         });
       }
 
@@ -112,7 +112,7 @@ class ArcaneMissilesGuide extends Analyzer {
       if (goodClip) {
         tooltipItems.push({
           perf: QualitativePerformance.Perfect,
-          detail: `Clipped at GCD With Aether Attunement`,
+          detail: `Clipped at GCD without Aether Attunement`,
         });
       }
 
@@ -128,10 +128,16 @@ class ArcaneMissilesGuide extends Analyzer {
       let overallPerf = QualitativePerformance.Fail;
       if (hadBuffNP && !am.clearcastingCapped) {
         overallPerf = QualitativePerformance.Fail;
-      } else if (noClip) {
-        overallPerf = QualitativePerformance.Ok;
-      } else if (goodClip && (!hadBuffNP || am.clearcastingCapped)) {
-        overallPerf = QualitativePerformance.Perfect;
+      } else if (goodClip && (!hadBuffNP || am.clearcastingCapped) || (noClip && !hadBuffNP)) {
+        if (am.channelEndDelay !== undefined && am.nextCast) {
+          overallPerf = this.channelDelayUtil(am.channelEndDelay)
+        }
+        else
+        {
+          overallPerf = QualitativePerformance.Perfect;
+        }
+  
+
       } else if (!hadBuffNP || (hadBuffNP && am.clearcastingCapped)) {
         overallPerf = QualitativePerformance.Good;
       }
