@@ -85,7 +85,7 @@ class ArcaneBarrageGuide extends Analyzer {
             if(ab.netherPrecisionStacks ){
         tooltipItems.push({
           perf: QualitativePerformance.Good,
-          detail: `Netherprecision`,
+          detail: `Had Netherprecision`,
         });
       }
 
@@ -149,21 +149,7 @@ class ArcaneBarrageGuide extends Analyzer {
             detail: `Had Arcane Orb without Nether Precision or Clearcasting`,
           });
         }
-      } else if (this.isSunfury && ab.netherPrecisionStacks) {
-        if (ab.gloriousIncandescence) {
-          tooltipItems.push({ perf: QualitativePerformance.Good, detail: `Had Nether Precision` });
-        } else if ((ab.intuition ) && lowHealth) {
-          tooltipItems.push({
-            perf: QualitativePerformance.Good,
-            detail: `Target had ${ab.health && formatPercentage(ab.health, 2)}% Health`,
-          });
-        } else if ((ab.intuition ) && lowMana) {
-          tooltipItems.push({
-            perf: QualitativePerformance.Good,
-            detail: `Had ${ab.mana && formatPercentage(ab.mana, 2)}% Mana`,
-          });
-        }
-      }
+      } 
 
       let overallPerf = QualitativePerformance.Fail;
       if (
