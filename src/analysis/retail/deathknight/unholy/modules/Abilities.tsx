@@ -28,6 +28,15 @@ class Abilities extends CoreAbilities {
         range: AbilityRange.Melee,
       },
       {
+        spell: SPELLS.VAMPIRIC_STRIKE.id,
+        enabled: combatant.hasTalent(TALENTS.VAMPIRIC_STRIKE_TALENT),
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+        range: AbilityRange.Melee,
+      },
+      {
         spell: TALENTS.CLAWING_SHADOWS_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.CLAWING_SHADOWS_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
