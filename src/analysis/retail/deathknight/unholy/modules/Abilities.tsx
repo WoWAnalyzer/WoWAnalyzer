@@ -368,8 +368,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.RUNE_1.id,
         category: SPELL_CATEGORY.HIDDEN,
         cooldown: (haste) => {
-          const multiplier = combatant.hasBuff(SPELLS.RUNIC_CORRUPTION.id) ? 1 : 0;
-          return 10 / (1 + haste) / (1 + multiplier);
+          return 10 / (1 + haste);
         },
         charges: 2,
       },
@@ -377,8 +376,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.RUNE_2.id,
         category: SPELL_CATEGORY.HIDDEN,
         cooldown: (haste) => {
-          const multiplier = combatant.hasBuff(SPELLS.RUNIC_CORRUPTION.id) ? 1 : 0;
-          return 10 / (1 + haste) / (1 + multiplier);
+          return 10 / (1 + haste);
         },
         charges: 2,
       },
@@ -386,8 +384,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.RUNE_3.id,
         category: SPELL_CATEGORY.HIDDEN,
         cooldown: (haste) => {
-          const multiplier = combatant.hasBuff(SPELLS.RUNIC_CORRUPTION.id) ? 1 : 0;
-          return 10 / (1 + haste) / (1 + multiplier);
+          return 10 / (1 + haste);
         },
         charges: 2,
       },
