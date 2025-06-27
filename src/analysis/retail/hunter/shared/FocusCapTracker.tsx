@@ -118,7 +118,7 @@ class FocusCapTracker extends RegenResourceCapTracker {
             <div className="flex-main chart">
               {this.missedRegen > 0 && (
                 <AutoSizer disableWidth>
-                  {({ height }) => (
+                  {({ height }: { height: number }) => (
                     <FlushLineChart
                       data={data}
                       duration={this.owner.fightDuration / 1000}
