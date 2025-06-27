@@ -13,6 +13,7 @@ import {
   SpellFocusCost,
   Trailblazer,
   TranquilizingShot,
+  FocusCapTracker,
 } from '../shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
@@ -74,6 +75,7 @@ class CombatLogParser extends CoreCombatLogParser {
     spellFocusCost: SpellFocusCost,
     focus: Focus,
     marksmanshipFocusUsage: MarksmanshipFocusUsage,
+    focusCapTracker: FocusCapTracker,
 
     //Normalizers
     aimedShotPrepullNormalizer: AimedShotPrepullNormalizer,
