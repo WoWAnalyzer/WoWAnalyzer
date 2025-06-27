@@ -236,6 +236,11 @@ const spells = {
     name: 'Bleak Arrows',
     icon: 'inv_quiver_1h_mawraid_d_01.jpg',
   },
+  SPOTTERS_MARK: {
+    id: 466909,
+    name: "Spotter's Mark",
+    icon: 'inv_111_hunter_ability_eaglemark',
+  },
   //endregion
 
   //region Survival

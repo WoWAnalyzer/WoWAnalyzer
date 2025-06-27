@@ -751,6 +751,14 @@ const talents = {
     entryIds: [128710],
     definitionIds: [{ id: 133512, specId: 254 }],
   },
+  SPOTTERS_MARK_TALENT: {
+    id: 466908,
+    name: "Spotter's Mark",
+    icon: 'inv_111_hunter_ability_eaglemark',
+    maxRanks: 1,
+    entryIds: [128709],
+    definitionIds: [{ id: 133511, specId: 254 }],
+  },
   IMPROVED_STREAMLINE_TALENT: {
     id: 471427,
     name: 'Improved Streamline',
@@ -1809,7 +1817,7 @@ const talents = {
     name: 'Wilderness Medicine',
     icon: 'ability_hunter_mendpet',
     maxRanks: 1,
-    entryIds: [126446],
+       entryIds: [126446],
     definitionIds: [{ id: 131272, specId: 255 }],
   },
   WILDFIRE_ARSENAL_TALENT: {

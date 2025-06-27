@@ -65,8 +65,8 @@ export const STREAMLINE_AIMED_SHOT_CAST_SPEED_UP = 0.3;
 //Steady Focus increases haste by 8%
 export const STEADY_FOCUS_HASTE_PERCENT = [0, 0.08];
 /** Calling the Shots */
-//2.5 seconds per 50 focus spent
-export const CTS_CDR_PER_FOCUS = 2500 / 50;
+//2.0 seconds per Spotter's Mark consumption
+export const CTS_CDR_PER_SPOTTERS_MARK = 2000;
 /** Careful Aim */
 //Careful Aim is a execution-like talent that triggers off above 70%
 export const CAREFUL_AIM_THRESHOLD = 0.7;

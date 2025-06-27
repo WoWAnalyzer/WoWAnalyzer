@@ -1,11 +1,11 @@
 import { defineMessage } from '@lingui/core/macro';
-import { CTS_CDR_PER_FOCUS } from 'analysis/retail/hunter/marksmanship/constants';
+import { CTS_CDR_PER_SPOTTERS_MARK } from 'analysis/retail/hunter/marksmanship/constants';
 import { formatNumber, formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
 import { TALENTS_HUNTER } from 'common/TALENTS';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent } from 'parser/core/Events';
+import Events, { RemoveDebuffEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -14,7 +14,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 /**
- * Every 50 Focus spent reduces the cooldown of Trueshot by 2.5 sec.
+ * Consuming Spotter's Mark reduces the cooldown of Trueshot by 2.0 sec.
  *
  * Example log:
  *
@@ -27,14 +27,14 @@ class CallingTheShots extends Analyzer {
 
   effectiveTrueshotReductionMs = 0;
   wastedTrueshotReductionMs = 0;
-  lastFocusCost = 0;
+  spottedMarkConsumptions = 0;
 
   protected spellUsable!: SpellUsable;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_HUNTER.CALLING_THE_SHOTS_TALENT);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.SPOTTERS_MARK), this.onSpottersMarkConsumed);
   }
 
   get callingTheShotsEfficacy() {
@@ -56,20 +56,15 @@ class CallingTheShots extends Analyzer {
     };
   }
 
-  onCast(event: CastEvent) {
-    const resource = event.classResources?.find(
-      (resource) => resource.type === RESOURCE_TYPES.FOCUS.id,
-    );
-    if (!resource) {
-      return;
-    }
-
-    this.lastFocusCost = resource.cost || 0;
-    const cooldownReductionMS = CTS_CDR_PER_FOCUS * this.lastFocusCost;
+  onSpottersMarkConsumed(event: RemoveDebuffEvent) {
+    this.spottedMarkConsumptions += 1;
+    const cooldownReductionMS = CTS_CDR_PER_SPOTTERS_MARK;
+    
     if (!this.spellUsable.isOnCooldown(TALENTS_HUNTER.TRUESHOT_TALENT.id)) {
       this.wastedTrueshotReductionMs += cooldownReductionMS;
       return;
     }
+    
     if (
       this.spellUsable.cooldownRemaining(TALENTS_HUNTER.TRUESHOT_TALENT.id) < cooldownReductionMS
     ) {
@@ -81,6 +76,7 @@ class CallingTheShots extends Analyzer {
       this.wastedTrueshotReductionMs += cooldownReductionMS - effectiveReductionMs;
       return;
     }
+    
     this.effectiveTrueshotReductionMs += this.spellUsable.reduceCooldown(
       TALENTS_HUNTER.TRUESHOT_TALENT.id,
       cooldownReductionMS,
@@ -92,8 +88,9 @@ class CallingTheShots extends Analyzer {
       suggest(
         <>
           When talented into <SpellLink spell={TALENTS_HUNTER.CALLING_THE_SHOTS_TALENT} />, it is
-          important to maximize its potential by not spending focus while{' '}
-          <SpellLink spell={TALENTS_HUNTER.TRUESHOT_TALENT} /> isn't on cooldown.
+          important to maximize its potential by consuming{' '}
+          <SpellLink spell={SPELLS.SPOTTERS_MARK} /> when{' '}
+          <SpellLink spell={TALENTS_HUNTER.TRUESHOT_TALENT} /> is on cooldown.
         </>,
       )
         .icon(TALENTS_HUNTER.CALLING_THE_SHOTS_TALENT.icon)
@@ -123,6 +120,8 @@ class CallingTheShots extends Analyzer {
               (this.effectiveTrueshotReductionMs + this.wastedTrueshotReductionMs) / 1000,
             )}
             s <small>CDR</small>
+            <br />
+            {this.spottedMarkConsumptions} <small>Spotter's Mark consumed</small>
           </>
         </BoringSpellValueText>
       </Statistic>
