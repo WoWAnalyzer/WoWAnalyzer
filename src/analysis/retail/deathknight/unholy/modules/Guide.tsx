@@ -11,19 +11,9 @@ export default function UnholyGuide(props: GuideProps<typeof CombatLogParser>) {
         <Cooldowns {...props} />
       </Section>
 
-      <Section title="Efficiency Tracking">
-        <p>
-          Track how efficiently you're using your core abilities and procs. Aim for green ratings
-          across all categories.
-        </p>
-
+      <Section title="Proc Efficiency">
         <SubSection title="Sudden Doom">{props.modules.suddenDoom.guideSubsection}</SubSection>
-        <SubSection title="Virulent Plague Efficiency">
-          {props.modules.virulentPlagueEfficiency.guideSubsection}
-        </SubSection>
-        <SubSection title="Festering Wound Efficiency">
-          {props.modules.woundTracker.guideSubsection}
-        </SubSection>
+        <SubSection title="Soul Reaper">{props.modules.soulReaper.guideSubsection}</SubSection>
       </Section>
     </>
   );

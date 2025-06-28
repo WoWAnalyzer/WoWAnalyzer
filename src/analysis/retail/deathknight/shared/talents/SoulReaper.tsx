@@ -10,6 +10,11 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { SpellIcon, SpellLink, TooltipElement } from 'interface';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { PerformanceMark } from 'interface/guide';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 const SOUL_REAPER_EXECUTE_RANGE = 0.35;
 
@@ -24,6 +29,7 @@ class SoulReaper extends ExecuteHelper {
   };
 
   maxCasts = 0;
+  totalCastsInExecute = 0;
 
   protected abilities!: Abilities;
 
@@ -36,6 +42,11 @@ class SoulReaper extends ExecuteHelper {
     }
 
     this.addEventListener(Events.fightend, this.adjustMaxCasts);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.SOUL_REAPER_TALENT),
+      () => this.totalCastsInExecute++,
+    );
+
     const ctor = this.constructor as typeof ExecuteHelper;
     ctor.executeSpells.push(TALENTS.SOUL_REAPER_TALENT);
     ctor.executeSpells.push(SPELLS.SOUL_REAPER_TALENT_SECOND_HIT);
@@ -76,6 +87,137 @@ class SoulReaper extends ExecuteHelper {
         </BoringSpellValueText>
       </Statistic>
     );
+  }
+
+  get guideSubsection() {
+    const actual = this.totalCastsInExecute;
+    const possible = this.maxCasts;
+    const efficiency = possible === 0 ? 100 : (actual / possible) * 100;
+    const barColor =
+      efficiency >= 95
+        ? '#00ff88'
+        : efficiency >= 90
+          ? '#00ff00'
+          : efficiency >= 80
+            ? '#ffbb00'
+            : '#ff0000';
+
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink spell={TALENTS.SOUL_REAPER_TALENT} />
+        </b>{' '}
+        should ideally explode (proc) during execute. Procs only happen if the target is under 35%
+        HP and survives the debuff.
+      </p>
+    );
+
+    const usageBar = (
+      <RoundedPanel>
+        <div style={{ display: 'flex', alignItems: 'center', padding: '10px' }}>
+          <div style={{ marginRight: '20px' }}>
+            <SpellIcon spell={TALENTS.SOUL_REAPER_TALENT} />
+          </div>
+          <div style={{ flex: 1 }}>
+            <div style={{ marginBottom: '8px', fontSize: '16px', fontWeight: 'bold' }}>
+              Soul Reaper Efficiency
+            </div>
+            <div
+              style={{
+                position: 'relative',
+                height: '24px',
+                backgroundColor: '#1a1a1a',
+                borderRadius: '12px',
+                overflow: 'hidden',
+              }}
+            >
+              <div style={{ position: 'absolute', width: '100%', height: '100%', display: 'flex' }}>
+                <div
+                  style={{
+                    width: '70%',
+                    backgroundColor: '#2a2a2a',
+                    borderRight: '1px solid #444',
+                  }}
+                />
+                <div
+                  style={{ width: '15%', backgroundColor: '#333', borderRight: '1px solid #444' }}
+                />
+                <div
+                  style={{
+                    width: '10%',
+                    backgroundColor: '#3a3a3a',
+                    borderRight: '1px solid #444',
+                  }}
+                />
+                <div style={{ width: '5%', backgroundColor: '#444' }} />
+              </div>
+              <div
+                style={{
+                  position: 'absolute',
+                  width: `${efficiency}%`,
+                  height: '100%',
+                  background: `linear-gradient(90deg, ${barColor} 0%, ${barColor}dd 100%)`,
+                  boxShadow: `0 0 10px ${barColor}66`,
+                  transition: 'width 0.3s ease',
+                }}
+              />
+              {[70, 85, 95].map((pct) => (
+                <div
+                  key={pct}
+                  style={{
+                    position: 'absolute',
+                    left: `${pct}%`,
+                    top: 0,
+                    width: '2px',
+                    height: '100%',
+                    backgroundColor: 'rgba(255,255,255,0.3)',
+                  }}
+                />
+              ))}
+            </div>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                marginTop: '8px',
+                fontSize: '14px',
+              }}
+            >
+              <div>
+                <TooltipElement
+                  content={`${actual} Soul Reaper casts in execute phase out of ${possible} total`}
+                >
+                  <span style={{ color: '#aaa' }}>
+                    {actual} / {possible} procced ({efficiency.toFixed(1)}%)
+                  </span>
+                </TooltipElement>
+              </div>
+              <div>
+                <PerformanceMark
+                  perf={
+                    efficiency >= 95
+                      ? QualitativePerformance.Perfect
+                      : efficiency >= 85
+                        ? QualitativePerformance.Good
+                        : efficiency >= 70
+                          ? QualitativePerformance.Ok
+                          : QualitativePerformance.Fail
+                  }
+                />
+              </div>
+            </div>
+            {actual < possible && (
+              <div style={{ marginTop: '4px', fontSize: '12px', color: '#ff6b6b' }}>
+                ⚠️ {possible - actual} Soul Reaper casts were missed during execute phase.
+              </div>
+            )}
+          </div>
+        </div>
+      </RoundedPanel>
+    );
+
+    return explanationAndDataSubsection(explanation, usageBar, 50);
   }
 }
 
