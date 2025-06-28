@@ -1,11 +1,15 @@
 import CombatLogParser from '../CombatLogParser';
 import { GuideProps, Section, SubSection } from 'interface/guide';
 import { IntroSection } from './guide/IntroSection';
+import Cooldowns from './guide/Cooldowns';
 
-export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
+export default function UnholyGuide(props: GuideProps<typeof CombatLogParser>) {
   return (
     <>
       <IntroSection />
+      <Section title="Cooldown Tracking">
+        <Cooldowns {...props} />
+      </Section>
 
       <Section title="Efficiency Tracking">
         <p>
@@ -13,12 +17,12 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           across all categories.
         </p>
 
-        <SubSection title="Sudden Doom">{modules.suddenDoom.guideSubsection}</SubSection>
+        <SubSection title="Sudden Doom">{props.modules.suddenDoom.guideSubsection}</SubSection>
         <SubSection title="Virulent Plague Efficiency">
-          {modules.virulentPlagueEfficiency.guideSubsection}
+          {props.modules.virulentPlagueEfficiency.guideSubsection}
         </SubSection>
         <SubSection title="Festering Wound Efficiency">
-          {modules.woundTracker.guideSubsection}
+          {props.modules.woundTracker.guideSubsection}
         </SubSection>
       </Section>
     </>
