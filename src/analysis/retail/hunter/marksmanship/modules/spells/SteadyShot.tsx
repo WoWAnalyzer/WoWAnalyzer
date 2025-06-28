@@ -1,7 +1,3 @@
-import {
-  STEADY_SHOT_FOCUS_REGEN,
-  TRUESHOT_FOCUS_INCREASE,
-} from 'analysis/retail/hunter/marksmanship/constants';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ResourceChangeEvent } from 'parser/core/Events';
@@ -12,8 +8,6 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 class SteadyShot extends Analyzer {
   effectiveFocusGain = 0;
   focusWasted = 0;
-  additionalFocusFromTrueshot = 0;
-  possibleAdditionalFocusFromTrueshot = 0;
 
   constructor(options: Options) {
     super(options);
@@ -26,13 +20,6 @@ class SteadyShot extends Analyzer {
   onEnergize(event: ResourceChangeEvent) {
     this.effectiveFocusGain += event.resourceChange - event.waste;
     this.focusWasted += event.waste;
-    const hasTrueshot = this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id);
-    if (hasTrueshot) {
-      this.additionalFocusFromTrueshot +=
-        event.resourceChange * (1 - 1 / (1 + TRUESHOT_FOCUS_INCREASE)) -
-        Math.max(event.waste - STEADY_SHOT_FOCUS_REGEN, 0);
-      this.possibleAdditionalFocusFromTrueshot += STEADY_SHOT_FOCUS_REGEN * TRUESHOT_FOCUS_INCREASE;
-    }
   }
 
   statistic() {

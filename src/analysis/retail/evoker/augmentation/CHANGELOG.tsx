@@ -5,6 +5,7 @@ import TALENTS from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  change(date(2025, 6, 20), <>Update <SpellLink spell={TALENTS.PRESCIENCE_TALENT}/> module to only show relevant Pre-Pull uses</>, Vollmer),
   change(date(2025, 6, 20), "Update example report for 11.1.7", Vollmer),
   change(date(2025, 6, 12), <>Update <SpellLink spell={TALENTS.PRESCIENCE_TALENT}/> module</>, KYZ),
   change(date(2025, 5, 16), <>Fix <SpellLink spell={TALENTS.TIME_SKIP_TALENT}/> CDR handling for Abilities with charges</>, Vollmer),

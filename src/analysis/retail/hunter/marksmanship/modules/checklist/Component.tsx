@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_HUNTER } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import {
   AbilityRequirementProps,
@@ -12,14 +13,20 @@ import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import TalentCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/TalentCastEfficiencyRequirement';
 
+const AbilityRequirement = ({
+  spell,
+  castEfficiency,
+  name,
+}: AbilityRequirementProps & { castEfficiency: CastEfficiency }) => (
+  <GenericCastEfficiencyRequirement
+    castEfficiency={castEfficiency.getCastEfficiencyForSpellId(spell)}
+    spell={spell}
+    name={name}
+  />
+);
+
 const MarksmanshipChecklist = (props: ChecklistProps) => {
   const { combatant, castEfficiency, thresholds } = props;
-  const AbilityRequirement = (props: AbilityRequirementProps) => (
-    <GenericCastEfficiencyRequirement
-      castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
-      {...props}
-    />
-  );
 
   return (
     <Checklist>
@@ -43,8 +50,8 @@ const MarksmanshipChecklist = (props: ChecklistProps) => {
         }
       >
         <TalentCastEfficiencyRequirement talent={TALENTS_HUNTER.AIMED_SHOT_TALENT} />
-        <AbilityRequirement spell={SPELLS.RAPID_FIRE.id} />
-        <AbilityRequirement spell={SPELLS.TRUESHOT.id} />
+        <AbilityRequirement spell={SPELLS.RAPID_FIRE.id} castEfficiency={castEfficiency} />
+        <AbilityRequirement spell={SPELLS.TRUESHOT.id} castEfficiency={castEfficiency} />
         <TalentCastEfficiencyRequirement talent={TALENTS_HUNTER.KILL_SHOT_SHARED_TALENT} />
 
         <TalentCastEfficiencyRequirement talent={TALENTS_HUNTER.EXPLOSIVE_SHOT_TALENT} />
