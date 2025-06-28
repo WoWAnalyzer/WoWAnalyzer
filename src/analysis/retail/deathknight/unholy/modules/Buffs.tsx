@@ -44,7 +44,7 @@ class Buffs extends CoreAuras {
         spellId: TALENTS.CLEAVING_STRIKES_TALENT.id, // Note: Consider using a duration tracker in another module if cleave lingers after DnD ends.
         triggeredBySpellId: [SPELLS.DEATH_AND_DECAY.id, TALENTS.DEFILE_TALENT.id],
         enabled: combatant.hasTalent(TALENTS.CLEAVING_STRIKES_TALENT),
-        timelineHighlight: true,
+        timelineHighlight: false,
       },
       {
         spellId: SPELLS.COMMANDER_OF_THE_DEAD_BUFF.id,
