@@ -34,7 +34,10 @@ class CallingTheShots extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_HUNTER.CALLING_THE_SHOTS_TALENT);
-    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.SPOTTERS_MARK), this.onSpottersMarkConsumed);
+    this.addEventListener(
+      Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.SPOTTERS_MARK),
+      this.onSpottersMarkConsumed,
+    );
   }
 
   get callingTheShotsEfficacy() {
@@ -59,12 +62,12 @@ class CallingTheShots extends Analyzer {
   onSpottersMarkConsumed(event: RemoveDebuffEvent) {
     this.spottedMarkConsumptions += 1;
     const cooldownReductionMS = CTS_CDR_PER_SPOTTERS_MARK;
-    
+
     if (!this.spellUsable.isOnCooldown(TALENTS_HUNTER.TRUESHOT_TALENT.id)) {
       this.wastedTrueshotReductionMs += cooldownReductionMS;
       return;
     }
-    
+
     if (
       this.spellUsable.cooldownRemaining(TALENTS_HUNTER.TRUESHOT_TALENT.id) < cooldownReductionMS
     ) {
@@ -76,7 +79,7 @@ class CallingTheShots extends Analyzer {
       this.wastedTrueshotReductionMs += cooldownReductionMS - effectiveReductionMs;
       return;
     }
-    
+
     this.effectiveTrueshotReductionMs += this.spellUsable.reduceCooldown(
       TALENTS_HUNTER.TRUESHOT_TALENT.id,
       cooldownReductionMS,

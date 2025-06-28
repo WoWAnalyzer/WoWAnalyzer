@@ -1817,7 +1817,7 @@ const talents = {
     name: 'Wilderness Medicine',
     icon: 'ability_hunter_mendpet',
     maxRanks: 1,
-       entryIds: [126446],
+    entryIds: [126446],
     definitionIds: [{ id: 131272, specId: 255 }],
   },
   WILDFIRE_ARSENAL_TALENT: {
