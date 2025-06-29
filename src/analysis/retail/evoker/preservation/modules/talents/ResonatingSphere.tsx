@@ -20,7 +20,7 @@ class ResonatingSphere extends Analyzer {
     echo: Echo,
   };
   protected echo!: Echo;
-  taEchoEnabled: boolean = false;
+  taEchoEnabled = false;
 
   constructor(options: Options) {
     super(options);

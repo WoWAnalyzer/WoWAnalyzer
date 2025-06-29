@@ -1,4 +1,4 @@
-import { defineMessage } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 import PropTypes from 'prop-types';
 import { Component } from 'react';
@@ -32,15 +32,8 @@ class RaidHealthChart extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      players: this.props.players.map((player) => ({ disabled: false, ...player })),
-    };
     this.togglePlayer = this.togglePlayer.bind(this);
   }
-
-  state = {
-    players: [],
-  };
 
   togglePlayer(index) {
     this.setState((prevState) => {

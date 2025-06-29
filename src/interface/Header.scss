@@ -1,4 +1,4 @@
-@import './Theme.scss';
+@use 'Theme.scss';
 
 header.report-selection {
   text-align: center;
@@ -98,7 +98,7 @@ header.report-selection .about {
   }
   .realm-input:focus {
     box-shadow: none;
-    border: 1px solid $primaryColor;
+    border: 1px solid Theme.$primaryColor;
   }
   .realm-options {
     max-height: 200px;
@@ -120,14 +120,14 @@ header.report-selection .about {
     cursor: pointer;
   }
   .realm-option--selected {
-    color: $primaryColor;
+    color: Theme.$primaryColor;
   }
   .animated-button {
-    box-shadow: inset 0 0 0 0 $muted;
+    box-shadow: inset 0 0 0 0 Theme.$muted;
     transition: box-shadow 1.2s linear;
   }
   .animated-button.fill-button {
-    box-shadow: inset 200px 0 0 0 $muted;
+    box-shadow: inset 200px 0 0 0 Theme.$muted;
   }
 }
 header.report-selection .form-control,

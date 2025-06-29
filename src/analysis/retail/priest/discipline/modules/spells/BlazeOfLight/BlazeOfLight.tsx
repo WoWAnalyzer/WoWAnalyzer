@@ -17,7 +17,9 @@ const BLAZE_OF_LIGHT_SPELLS = [
   SPELLS.SMITE,
   SPELLS.VOID_BLAST_DAMAGE_DISC,
   SPELLS.PENANCE,
+  SPELLS.PENANCE_TWINSIGHT_DAMAGE,
   SPELLS.DARK_REPRIMAND_DAMAGE,
+  SPELLS.DARK_REPRIMAND_TWINSIGHT_DAMAGE,
 ];
 
 const BLAZE_OF_LIGHT_SPELL_IDS = BLAZE_OF_LIGHT_SPELLS.map((spell) => spell.id);
@@ -26,8 +28,8 @@ class BlazeOfLight extends Analyzer {
   damage = 0;
   blazeOfLightIncrease = 0;
   healing = 0;
-  healingMap: Map<number, number> = new Map();
-  abilityMap: Map<number, Ability> = new Map();
+  healingMap = new Map<number, number>();
+  abilityMap = new Map<number, Ability>();
 
   constructor(options: Options) {
     super(options);

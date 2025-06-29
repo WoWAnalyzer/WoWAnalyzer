@@ -1,4 +1,4 @@
-import { defineMessage } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -34,7 +34,7 @@ class FlameShock extends EarlyDotRefreshesAnalyzer {
   }
 
   get refreshThreshold() {
-    const casts: any = this.casts;
+    const casts = this.casts;
     return {
       spell: SPELLS.FLAME_SHOCK,
       count: casts[SPELLS.FLAME_SHOCK.id].badCasts,

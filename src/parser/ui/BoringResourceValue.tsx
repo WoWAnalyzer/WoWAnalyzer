@@ -3,21 +3,17 @@
  */
 import { ResourceIcon } from 'interface';
 import * as React from 'react';
+import { Resource } from 'game/RESOURCE_TYPES';
 
 import './BoringValue.scss';
 
-interface Resource {
-  id: number;
-  [others: string]: any;
-}
-
-type Props = {
+interface Props {
   resource: Resource;
   value: React.ReactNode;
   label: React.ReactNode;
   extra?: React.ReactNode;
   className?: string;
-};
+}
 
 const BoringResourceValue = ({ resource, value, label, extra, className }: Props) => (
   <div className={`flex boring-value ${className || ''}`}>

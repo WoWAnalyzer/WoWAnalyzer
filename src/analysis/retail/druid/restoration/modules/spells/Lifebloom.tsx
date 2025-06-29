@@ -30,14 +30,14 @@ class Lifebloom extends Analyzer {
   /** true iff player has the Undergrowth talent */
   hasUndergrowth = false;
   /** the number of lifeblooms the player currently has active */
-  activeLifeblooms: number = 0;
+  activeLifeblooms = 0;
   /** list of time periods when at least one lifebloom was active */
   lifebloomUptimes: OpenTimePeriod[] = [];
   /** list of time periods when at least two lifeblooms were active */
   undergrowthUptimes: OpenTimePeriod[] = [];
 
-  possibleNaturalBlooms: number = 0;
-  actualNaturalBlooms: number = 0;
+  possibleNaturalBlooms = 0;
+  actualNaturalBlooms = 0;
 
   constructor(options: Options) {
     super(options);

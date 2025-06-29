@@ -11,11 +11,11 @@ const CATCH_ALL_EVENT = EventType.Event;
 
 const PROFILE = false;
 
-type BoundListener<ET extends EventType, E extends AnyEvent<ET>> = {
+interface BoundListener<ET extends EventType, E extends AnyEvent<ET>> {
   eventFilter: ET | EventFilter<ET>;
   module: Module;
   listener: EventListener<ET, E>;
-};
+}
 
 /**
  * This (core) module takes care of:
@@ -39,9 +39,15 @@ class EventEmitter extends Module {
     if (!import.meta.env.PROD) {
       this.eventTypes = new Set<string>(Object.values(EventType));
     }
+
+    Object.values(EventType)
+      .filter((eventType) => eventType !== CATCH_ALL_EVENT)
+      .forEach((eventType) => {
+        this._eventListenersByEventType[eventType] = [];
+      });
   }
 
-  _eventListenersByEventType: { [eventType: string]: Array<BoundListener<any, any>> } = {};
+  _eventListenersByEventType: Record<string, BoundListener<any, any>[]> = {};
   numEventListeners = 0;
   /**
    * @param {string|EventFilter} eventFilter
@@ -54,12 +60,20 @@ class EventEmitter extends Module {
     module: Module,
   ) {
     const eventType = eventFilter instanceof EventFilter ? eventFilter.eventType : eventFilter;
-    this._eventListenersByEventType[eventType] = this._eventListenersByEventType[eventType] || [];
-    this._eventListenersByEventType[eventType].push({
-      eventFilter,
-      module, // used when the listener throws an exception to disable the related module
-      listener: this._compileListener(eventFilter, listener, module),
-    });
+    if (eventType === CATCH_ALL_EVENT) {
+      Object.keys(this._eventListenersByEventType).forEach((e) => {
+        this.addEventListener(e as EventType, listener as any, module);
+      });
+    } else {
+      this._eventListenersByEventType[eventType].push({
+        eventFilter,
+        module, // used when the listener throws an exception to disable the related module
+        listener: this._compileListener(eventFilter, listener, module),
+      });
+      this._eventListenersByEventType[eventType].sort(
+        (a, b) => a.module.priority - b.module.priority,
+      );
+    }
     this.numEventListeners += 1;
   }
   _compileListener<ET extends EventType, E extends AnyEvent<ET>>(
@@ -267,7 +281,7 @@ class EventEmitter extends Module {
     };
   }
   reportModuleTimes() {
-    const table: Array<{ module: Module; duration: number; ofTotal: string }> = [];
+    const table: { module: Module; duration: number; ofTotal: string }[] = [];
     const totalDuration = Array.from(this.timePerModule).reduce((sum, [, value]) => sum + value, 0);
     this.timePerModule.forEach((value, key) => {
       table.push({
@@ -281,7 +295,7 @@ class EventEmitter extends Module {
     console.log('Total module time:', totalDuration, 'ms');
     console.groupEnd();
   }
-  _finally: Array<() => void> | null = null;
+  _finally: (() => void)[] | null = null;
   finally(func: () => void) {
     this._finally = this._finally || [];
     this._finally.push(func);

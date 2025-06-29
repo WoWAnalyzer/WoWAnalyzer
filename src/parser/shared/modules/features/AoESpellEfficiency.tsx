@@ -1,4 +1,4 @@
-import { defineMessage } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import Spell from 'common/SPELLS/Spell';
 import { SpellIcon } from 'interface';
@@ -22,7 +22,7 @@ class AoESpellEfficiency extends Analyzer {
 
   ability!: Spell;
   bonusDmg = 0;
-  casts: Array<{ timestamp: number; hits: number }> = [];
+  casts: { timestamp: number; hits: number }[] = [];
 
   constructor(options: Options) {
     super(options);

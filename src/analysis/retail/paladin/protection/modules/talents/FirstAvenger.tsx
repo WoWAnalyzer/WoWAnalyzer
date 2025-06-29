@@ -14,9 +14,9 @@ const AVENGERS_SHIELD_BOUNCE_BUFFER = 1000;
 const TALENTLESS_NUM_OF_BOUNCES = 3;
 
 class FirstAvenger extends Analyzer {
-  lastAvengersShieldCastTimestamp: number = 0;
-  totalNumHits: number = 0;
-  totalNumCasts: number = 0;
+  lastAvengersShieldCastTimestamp = 0;
+  totalNumHits = 0;
+  totalNumCasts = 0;
   castToHitsMap: Map<number, DamageEvent[]> = new Map<number, DamageEvent[]>();
 
   constructor(options: Options) {

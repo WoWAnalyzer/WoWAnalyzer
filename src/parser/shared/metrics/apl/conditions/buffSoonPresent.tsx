@@ -5,11 +5,11 @@ import { Condition, tenseAlt } from '../index';
 import { formatTimestampRange, Range } from './util';
 import { TrackedBuffEvent } from 'parser/core/Entity';
 
-type BuffInformation = {
+interface BuffInformation {
   buffs: TrackedBuffEvent[];
   nextBuff: number | undefined;
   currentIndex: number;
-};
+}
 
 type SourceOptions = 'player' | 'external' | 'any';
 

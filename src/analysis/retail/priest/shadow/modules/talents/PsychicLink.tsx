@@ -11,7 +11,7 @@ import { formatPercentage } from 'common/format';
 import { SpellLink } from 'interface';
 
 class PsychicLink extends Analyzer {
-  recentSpell: string = '';
+  recentSpell = '';
 
   damageTotal = 0; //damage from Psychic Link
 

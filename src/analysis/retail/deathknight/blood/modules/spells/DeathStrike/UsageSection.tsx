@@ -41,7 +41,7 @@ import {
   color as brewColors,
   timeAxis,
 } from 'analysis/retail/monk/brewmaster/modules/charts';
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { ActualCastDescription } from 'interface/guide/components/Apl/violations/claims';
 import { StringFieldDefWithCondition } from 'vega-lite/build/src/channeldef';
 import { MitigationSegments } from 'interface/guide/components/MajorDefensives/MitigationSegments';

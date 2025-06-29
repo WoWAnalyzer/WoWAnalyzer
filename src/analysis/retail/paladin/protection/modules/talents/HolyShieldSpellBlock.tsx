@@ -17,8 +17,8 @@ const PHYSICAL_DAMAGE = MAGIC_SCHOOLS.ids.PHYSICAL;
  * Holy Shield talent.
  */
 class HolyShieldSpellBlock extends Analyzer {
-  spellsHitPlayerCount: number = 0;
-  holyShieldProcsCount: number = 0;
+  spellsHitPlayerCount = 0;
+  holyShieldProcsCount = 0;
 
   constructor(options: Options) {
     super(options);

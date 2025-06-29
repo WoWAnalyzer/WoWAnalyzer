@@ -31,7 +31,7 @@ interface FoodInfo {
   recommendedFood?: number[];
 }
 
-const FOOD_MAPPINGS: { [spellId: number]: FoodInfo } = {
+const FOOD_MAPPINGS: Record<number, FoodInfo> = {
   // 90 Stamina + 90 of another useful stat
   87644: { itemId: SEAFOOD_MAGNIFIQUE_FEAST }, // Cast
   87806: { itemId: SEAFOOD_MAGNIFIQUE_FEAST }, // Eating Buff

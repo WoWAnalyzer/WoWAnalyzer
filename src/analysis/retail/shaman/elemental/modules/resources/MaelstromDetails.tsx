@@ -1,4 +1,4 @@
-import { defineMessage } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage } from 'common/format';
 import { Expandable, Icon, ResourceLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';

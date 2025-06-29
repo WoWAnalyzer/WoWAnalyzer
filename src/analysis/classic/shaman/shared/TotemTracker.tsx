@@ -105,7 +105,7 @@ class TotemTracker extends Analyzer {
     const totemEvent: TotemEvent =
       this.totemElementEvents[element][this.totemElementEvents[element].length - 1];
     const possibleDuration: number = timestamp - totemEvent.summonedAt;
-    const maxDuration: number = (TotemDurations as any)[totemEvent.totemSpellId] as number;
+    const maxDuration = TotemDurations[totemEvent.totemSpellId];
     const duration = Math.min(possibleDuration, maxDuration);
     totemEvent.dismissedAt = timestamp;
     totemEvent.dismissReason = reason;

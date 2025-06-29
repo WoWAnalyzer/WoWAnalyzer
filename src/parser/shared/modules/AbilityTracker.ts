@@ -121,6 +121,7 @@ class HealingTracker extends AbilityTracker {
     cast.healingHits = cast.healingHits + 1;
     cast.healingVal = cast.healingVal.addEvent(event);
     if (event.type === EventType.Heal && event.hitType === HIT_TYPES.CRIT) {
+      cast.healingCriticalHits += 1;
       cast.healingCriticalVal = cast.healingCriticalVal.addEvent(event);
     }
   }
@@ -139,6 +140,7 @@ class DamageTracker extends HealingTracker {
     cast.damageHits = cast.damageHits + 1;
     cast.damageVal = cast.damageVal.addEvent(event);
     if (event.hitType === HIT_TYPES.CRIT) {
+      cast.damageCriticalHits += 1;
       cast.damageCriticalVal = cast.damageCriticalVal.addEvent(event);
     }
   }

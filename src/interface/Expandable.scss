@@ -1,11 +1,11 @@
-@import 'interface/Theme.scss';
+@use 'interface/Theme.scss';
 
 .expandable > .meta {
   position: relative;
   cursor: pointer;
 
   .chevron {
-    color: $primaryColor;
+    color: Theme.$primaryColor;
     font-size: 0.5em;
     display: flex;
     align-items: center;

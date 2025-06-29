@@ -26,6 +26,7 @@ import Config from '../Config';
 import AugmentRuneChecker from '../retail/modules/items/AugmentRuneChecker';
 import CombatPotion from '../retail/modules/items/CombatPotion';
 import EnchantChecker from '../retail/modules/items/EnchantChecker';
+import GemChecker from '../retail/modules/items/GemChecker';
 import FlaskChecker from '../retail/modules/items/FlaskChecker';
 import FoodChecker from '../retail/modules/items/FoodChecker';
 import HealthPotion from '../retail/modules/items/HealthPotion';
@@ -118,13 +119,14 @@ import MereldarsToll from 'parser/retail/modules/items/thewarwithin/trinkets/Mer
 import CirralConcoctory from 'parser/retail/modules/items/thewarwithin/trinkets/CirralConcotory';
 import { MeleeUptimeAnalyzer } from 'interface/guide/foundation/analyzers/MeleeUptimeAnalyzer';
 import DowntimeDebuffAnalyzer from 'interface/guide/foundation/analyzers/DowntimeDebuffAnalyzer';
+import { ServerMetrics } from 'common/server-metrics';
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
 const MAX_DI_ITERATIONS = 100;
 const isMinified = import.meta.env.PROD;
 
-type DependencyDefinition = typeof Module | readonly [typeof Module, { [option: string]: any }];
-export type DependenciesDefinition = { [desiredName: string]: DependencyDefinition };
+type DependencyDefinition = typeof Module | readonly [typeof Module, Record<string, any>];
+export type DependenciesDefinition = Record<string, DependencyDefinition>;
 
 export enum SuggestionImportance {
   Major = 'major',
@@ -138,6 +140,12 @@ export interface Suggestion {
   spell?: number;
   actual?: React.ReactNode;
   recommended?: React.ReactNode;
+}
+
+interface ModuleErrorDetails {
+  key: string;
+  module: typeof Module;
+  error?: unknown;
 }
 
 class CombatLogParser {
@@ -203,6 +211,7 @@ class CombatLogParser {
 
     potionChecker: PotionChecker,
     enchantChecker: EnchantChecker,
+    gemChecker: GemChecker,
     flaskChecker: FlaskChecker,
     foodChecker: FoodChecker,
     augmentRuneChecker: AugmentRuneChecker,
@@ -262,7 +271,7 @@ class CombatLogParser {
   static specModules: DependenciesDefinition = {};
 
   applyTimeFilter = (start: number, end: number) => null; //dummy function gets filled in by event parser
-  applyPhaseFilter = (phase: string, instance: any) => null; //dummy function gets filled in by event parser
+  applyPhaseFilter = (phase: string, instance: number) => null; //dummy function gets filled in by event parser
 
   config: Config;
   report: Report;
@@ -276,14 +285,14 @@ class CombatLogParser {
   combatantInfoEvents: CombatantInfoEvent[];
 
   //Disabled Modules
-  disabledModules!: { [state in ModuleError]: any[] };
+  disabledModules!: Record<ModuleError, ModuleErrorDetails[]>;
 
   adjustForDowntime = false;
   get hasDowntime() {
     return this.getModule(TotalDowntime).totalBaseDowntime > 0;
   }
 
-  _modules: { [name: string]: Module } = {};
+  _modules: Record<string, Module> = {};
   get activeModules() {
     return Object.values(this._modules).filter((module) => module.active);
   }
@@ -364,9 +373,11 @@ class CombatLogParser {
       'Listeners filtered away:',
       emitter.numListenersCalled - emitter.numActualExecutions,
     );
+
+    console.log('server metrics', this.serverMetrics);
   }
 
-  _getModuleClass(config: DependencyDefinition): [typeof Module, any] {
+  _getModuleClass(config: DependencyDefinition): [typeof Module, Record<string, unknown>] {
     let moduleClass;
     let options;
     if (config instanceof Array) {
@@ -378,9 +389,9 @@ class CombatLogParser {
     }
     return [moduleClass, options];
   }
-  _resolveDependencies(dependencies: { [desiredName: string]: typeof Module }) {
-    const availableDependencies: { [name: string]: Module } = {};
-    const missingDependencies: Array<typeof Module> = [];
+  _resolveDependencies(dependencies: Record<string, typeof Module>) {
+    const availableDependencies: Record<string, Module> = {};
+    const missingDependencies: (typeof Module)[] = [];
     if (dependencies) {
       Object.keys(dependencies).forEach((desiredDependencyName) => {
         const dependencyClass = dependencies[desiredDependencyName];
@@ -402,14 +413,14 @@ class CombatLogParser {
    */
   loadModule<T extends typeof Module>(
     moduleClass: T,
-    options: { [prop: string]: any; priority: number },
+    options: { [prop: string]: unknown; priority: number },
     desiredModuleName = `module${Object.keys(this._modules).length}`,
   ) {
     const fullOptions = {
       ...options,
       owner: this,
     };
-    // eslint-disable-next-line new-cap
+
     const module = new moduleClass(fullOptions);
     Module.applyDependencies(fullOptions, module);
     module.key = desiredModuleName;
@@ -528,9 +539,9 @@ class CombatLogParser {
     // Executed when module initialization is complete
   }
   _moduleCache = new Map();
-  getOptionalModule<T extends Module, O extends Options>(type: {
-    new (options: O): T;
-  }): T | undefined {
+  getOptionalModule<T extends Module, O extends Options>(
+    type: new (options: O) => T,
+  ): T | undefined {
     // We need to use a cache and can't just set this on initialization because we sometimes search by the inheritance chain.
     const cacheEntry = this._moduleCache.get(type);
     if (cacheEntry !== undefined) {
@@ -541,7 +552,7 @@ class CombatLogParser {
     this._moduleCache.set(type, module);
     return module as T;
   }
-  getModule<T extends Module, O extends Options>(type: { new (options: O): T }): T {
+  getModule<T extends Module, O extends Options>(type: new (options: O) => T): T {
     const module = this.getOptionalModule(type);
     if (module === undefined) {
       throw new Error(`Module not found: ${type.name}`);
@@ -579,7 +590,7 @@ class CombatLogParser {
     console.error('Disabling', isMinified ? module.key : module.constructor.name);
     this.disabledModules[state].push({
       key: isMinified ? module.key : module.constructor.name,
-      module: module.constructor,
+      module: module.constructor as typeof Module,
       ...(error && { error: error }),
     });
     module.active = false;
@@ -827,6 +838,17 @@ class CombatLogParser {
       fightId: this.fight.id,
       reportCode: this.report.code,
       combatant: this.selectedCombatant,
+    };
+  }
+
+  get serverMetrics(): ServerMetrics {
+    const fightDurationMins = this.fightDuration / 60000;
+    return {
+      cooldownErrorRate: this.getModule(SpellUsable).cooldownErrorCount / fightDurationMins,
+      unknownAbilityErrorRate:
+        this.getModule(SpellUsable).unknownAbilityErrorCount / fightDurationMins,
+      gcdErrorRate: this.getModule(GlobalCooldown).errorsPerMinute,
+      activeTimeRatio: this.getModule(AlwaysBeCasting).activeTimePercentage,
     };
   }
 }

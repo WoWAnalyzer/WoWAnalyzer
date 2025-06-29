@@ -20,7 +20,7 @@ class Pet extends Analyzer {
     }
   }
 
-  _damageDone: number = 0;
+  _damageDone = 0;
 
   get damageDone() {
     return this._damageDone;

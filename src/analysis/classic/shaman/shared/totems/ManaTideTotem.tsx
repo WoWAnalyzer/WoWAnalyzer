@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { formatNumber } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
@@ -59,7 +59,7 @@ class ManaTideTotem extends Analyzer {
   get regenOnHealers() {
     return Object.values(this.regenPerHealer).reduce((mana, player) => mana + player.mana, 0);
   }
-  get regenPerHealer(): { [playerId: number]: { healer: Combatant; mana: number } } {
+  get regenPerHealer(): Record<number, { healer: Combatant; mana: number }> {
     return Object.assign(
       {},
       ...Object.values(this.combatants.players).map((player) => ({

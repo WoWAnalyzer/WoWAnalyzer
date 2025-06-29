@@ -15,7 +15,7 @@ export default function buffRemaining(
   buffDuration: number,
   range: Range,
   //If true, then if the buff is missing it will be considered valid if only atMost is specified
-  missingCanBeValid: boolean = false,
+  missingCanBeValid = false,
 ): Condition<ApplyBuffEvent | RefreshBuffEvent | RemoveBuffEvent | ApplyBuffStackEvent | null> {
   return {
     key: `buffRemaining-${spell.id}`,

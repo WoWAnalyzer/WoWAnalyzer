@@ -24,7 +24,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       branch: GameBranch.Retail,
     },
     {
-      spell: TALENTS_SHAMAN.DOOM_WINDS_TALENT.id,
+      spell: SPELLS.DOOM_WINDS_BUFF.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
       branch: GameBranch.Retail,
     },

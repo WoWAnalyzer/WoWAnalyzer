@@ -9,7 +9,7 @@ class FightEnd extends EventsNormalizer {
     const phaseEvents = events.filter(
       (event) => event.type === EventType.PhaseStart || event.type === EventType.PhaseEnd,
     );
-    const nonPhaseEvents = events.filter(
+    const nonPhaseEvents: AnyEvent[] = events.filter(
       (event) => event.type !== EventType.PhaseStart && event.type !== EventType.PhaseEnd,
     );
 

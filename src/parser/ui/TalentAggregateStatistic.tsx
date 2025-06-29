@@ -12,7 +12,7 @@ import './TalentAggregateStatistic.scss';
  * @param tooltip content that will be displayed when mousing over the bar
  * @param subSpecs parent-child relation. any secondary contribution owed to the parent spell that you want to be rendered separately but to the same bar
  */
-export type TalentAggregateBarSpec = {
+export interface TalentAggregateBarSpec {
   /** spell */
   spell: Spell;
   /** amount contributed by spell**/
@@ -23,12 +23,12 @@ export type TalentAggregateBarSpec = {
   tooltip?: ReactNode | string;
   /* Secondary contribution from the same source - rendered to the same bar*/
   subSpecs?: TalentAggregateBarSpec[];
-};
+}
 
-type Props = {
+interface Props {
   bars: TalentAggregateBarSpec[];
   wide?: boolean;
-};
+}
 
 /**
  * A JSX element that creates and graphs a collection of data points based on the given input data

@@ -124,7 +124,6 @@ interface AdErrorBoundaryState {
   hasError: boolean;
 }
 // Error Boundaries must be written as class components
-// eslint-disable-next-line react/prefer-stateless-function
 export class AdErrorBoundary extends Component<AdErrorBoundaryProps, AdErrorBoundaryState> {
   public state: AdErrorBoundaryState = {
     hasError: false,

@@ -1,4 +1,5 @@
-@import 'interface/Theme.scss';
+@use 'sass:color';
+@use 'interface/Theme.scss';
 
 .dragonrage-window-container {
   header {
@@ -11,11 +12,11 @@
     button {
       appearance: none;
       background: none;
-      color: $primaryColor;
+      color: Theme.$primaryColor;
       border: none;
 
       &:hover {
-        color: lighten($primaryColor, 30%);
+        color: color.adjust(Theme.$primaryColor, $lightness: 30%);
       }
 
       &:disabled {

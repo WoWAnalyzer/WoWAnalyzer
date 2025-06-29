@@ -4,19 +4,20 @@ import { Talent } from 'common/TALENTS/types';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import { Buff, CombatantInfoEvent, Item } from 'parser/core/Events';
 
-// eslint-disable-next-line @typescript-eslint/consistent-type-assertions
 const defaultCombatantInfoEvent = {
   gear: [] as Item[],
   auras: [] as Buff[],
 } as CombatantInfoEvent;
 
 class TestCombatant extends Combatant {
+  readonly #id = 1;
+
   constructor(parser: CombatLogParser) {
     super(parser, defaultCombatantInfoEvent);
   }
 
   get id(): number {
-    return 1;
+    return this.#id;
   }
 
   has4PieceByTier(tier: TIERS): boolean {

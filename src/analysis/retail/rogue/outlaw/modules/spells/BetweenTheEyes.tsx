@@ -16,7 +16,7 @@ class BetweenTheEyes extends Analyzer {
   };
   protected spellUsable!: SpellUsable;
 
-  debuffInstances: { [targetString: string]: DebuffInstance } = {};
+  debuffInstances: Record<string, DebuffInstance> = {};
 
   protected hasImprovedBteTalent = this.selectedCombatant.hasTalent(
     TALENTS_ROGUE.IMPROVED_BETWEEN_THE_EYES_TALENT,

@@ -1,4 +1,4 @@
-import { defineMessage } from '@lingui/macro';
+import { i18n } from '@lingui/core';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS/classic';
 import { SpellLink } from 'interface';
@@ -28,10 +28,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       )
         .icon('spell_mage_altertime')
         .actual(
-          defineMessage({
-            id: 'shared.suggestions.alwaysBeCasting.downtime',
-            message: `${formatPercentage(actual)}% downtime`,
-          }),
+          i18n._('shared.suggestions.alwaysBeCasting.downtime', { 0: formatPercentage(actual) }),
         )
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );

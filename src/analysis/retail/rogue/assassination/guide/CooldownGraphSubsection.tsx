@@ -7,17 +7,17 @@ import SPELLS from 'common/SPELLS/rogue';
 import TALENTS from 'common/TALENTS/rogue';
 import Spell from 'common/SPELLS/Spell';
 
-type Cooldown = {
+interface Cooldown {
   spell: Spell;
   extraTalents?: Talent[];
-};
+}
 
 const cooldownsToCheck: Cooldown[] = [
   { spell: SPELLS.VANISH },
   { spell: SPELLS.SHIV },
   { spell: TALENTS.KINGSBANE_TALENT },
   { spell: TALENTS.DEATHMARK_TALENT },
-  { spell: TALENTS.ECHOING_REPRIMAND_TALENT },
+  { spell: SPELLS.ECHOING_REPRIMAND },
   { spell: TALENTS.INDISCRIMINATE_CARNAGE_TALENT },
 ];
 

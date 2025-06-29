@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { formatNumber, formatPercentage, formatDuration } from 'common/format';
 import { SpellLink } from 'interface';
 import { SpecIcon } from 'interface';
@@ -11,16 +11,16 @@ import 'rc-slider/assets/index.css';
 
 import Combatants from '../../Combatants';
 
-type LowHealthHealingProps = {
+interface LowHealthHealingProps {
   fightStart: number;
   combatants: Combatants;
   healEvents: HealEvent[];
-};
+}
 
-type LowHealthHealingState = {
+interface LowHealthHealingState {
   maxPlayerHealthPercentage: number;
   minHealOfMaxHealthPercentage: number;
-};
+}
 
 interface ComboHealEvent {
   /** All abilities in Combo, even duplicates */

@@ -19,9 +19,9 @@ class PrimalTideCore extends Analyzer {
   };
   protected riptideTracker!: RiptideTracker;
   protected combatants!: Combatants;
-  ptcProcs: number = 0;
-  ptcHealing: number = 0;
-  ptcOverhealing: number = 0;
+  ptcProcs = 0;
+  ptcHealing = 0;
+  ptcOverhealing = 0;
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(talents.PRIMAL_TIDE_CORE_TALENT);

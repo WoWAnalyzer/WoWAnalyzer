@@ -1,4 +1,4 @@
-import { defineMessage } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS/classic/druid';
 import { SpellLink } from 'interface';
@@ -17,8 +17,8 @@ const ECLIPSE_FILLER = [
 ];
 
 class FillerUsage extends Analyzer {
-  totalFillerCasts: number = 0;
-  badFillerCasts: number = 0;
+  totalFillerCasts = 0;
+  badFillerCasts = 0;
 
   constructor(options: Options) {
     super(options);

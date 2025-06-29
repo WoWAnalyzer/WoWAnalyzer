@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import ITEMS from 'common/ITEMS';
 import { Enchant as EnchantItem } from 'common/ITEMS/Item';
 import { ItemLink } from 'interface';
@@ -8,13 +8,14 @@ import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { EnchantmentBoxRowEntry } from 'interface/guide/components/Preparation/EnchantmentSubSection/EnchantmentBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { GEAR_SLOT_NAMES } from 'game/GEAR_SLOTS';
 
 class EnchantChecker extends Analyzer {
   get EnchantableSlots(): Record<number, JSX.Element> {
     return {};
   }
 
-  get EnchantableGear(): any {
+  get EnchantableGear(): Record<number, Item> {
     const enchantSlots = this.EnchantableSlots;
     return Object.keys(enchantSlots).reduce<Record<number, Item>>((obj, slot) => {
       const item = this.selectedCombatant._getGearItemBySlotId(Number(slot));
@@ -205,7 +206,7 @@ class EnchantChecker extends Analyzer {
     recommendedEnchants: Record<number, EnchantItem[]> = {},
   ): EnchantmentBoxRowEntry[] {
     const gear = this.EnchantableGear;
-    const enchantSlots: { [key: number]: JSX.Element } = this.EnchantableSlots;
+    const enchantSlots: Record<number, JSX.Element> = this.EnchantableSlots;
 
     return Object.keys(gear).map<EnchantmentBoxRowEntry>((slot) => {
       const slotNumber = Number(slot);
@@ -214,7 +215,7 @@ class EnchantChecker extends Analyzer {
       const recommendedEnchantments = recommendedEnchants[slotNumber];
       return {
         item,
-        slotName: this.boxRowItemLink(item, slotName),
+        slotName: this.boxRowItemLink(item, slotName ?? GEAR_SLOT_NAMES[slotNumber]),
         value: this.boxRowPerformance(
           item,
           recommendedEnchantments?.map((it) => it.effectId),
@@ -226,7 +227,7 @@ class EnchantChecker extends Analyzer {
 
   suggestions(when: When) {
     const gear = this.EnchantableGear;
-    const enchantSlots: { [key: number]: JSX.Element } = this.EnchantableSlots;
+    const enchantSlots: Record<number, JSX.Element> = this.EnchantableSlots;
 
     Object.keys(gear).forEach((slot) => {
       const item = gear[Number(slot)];

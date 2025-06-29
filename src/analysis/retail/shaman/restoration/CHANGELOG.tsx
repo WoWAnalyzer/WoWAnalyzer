@@ -4,10 +4,11 @@ import SPELLS from 'common/SPELLS';
 import { change, date } from 'common/changelog';
 import { SHAMAN_TWW1_ID } from 'common/ITEMS/dragonflight';
 import ItemSetLink from 'interface/ItemSetLink';
-import { Seriousnes, Ypp, Texleretour, Vetyst, PandaGoesBaa, emallson, squided } from 'CONTRIBUTORS';
+import { Seriousnes, Ypp, Texleretour, Vetyst, PandaGoesBaa, emallson, squided, Vollmer } from 'CONTRIBUTORS';
 
 // prettier-ignore
 export default [
+  change(date(2025, 4, 21), <>Update example log.</>, Vollmer),
   change(date(2025, 2, 12), <>Fix accuracy of <SpellLink spell={TALENTS_SHAMAN.TORRENT_TALENT}/> statistic.</>, squided),
   change(date(2025, 2, 8), <>Update incorrect modules and guide sections. Add missing modules for 11.0.7 talents. More totemic modules.</>, squided),
   change(date(2025, 1, 6), <>Fix crash in <SpellLink spell={TALENTS_SHAMAN.SURGING_TOTEM_TALENT} /> analysis when cast pre-pull.</>, emallson),

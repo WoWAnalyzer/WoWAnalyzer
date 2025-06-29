@@ -25,11 +25,11 @@ class RighteousProtector extends Analyzer {
 
   protected spellUsable!: SpellUsable;
   // Guardian Of Ancient Kings is 1, Guardian of Ancient Queens is 2
-  guardianOfAncientKingsVariant: number = 0;
-  guardianOfAncientKingsReduced: number = 0;
-  guardianOfAncientKingsWasted: number = 0;
-  avengingWrathReduced: number = 0;
-  avengingWrathReductionWasted: number = 0;
+  guardianOfAncientKingsVariant = 0;
+  guardianOfAncientKingsReduced = 0;
+  guardianOfAncientKingsWasted = 0;
+  avengingWrathReduced = 0;
+  avengingWrathReductionWasted = 0;
 
   constructor(options: Options) {
     super(options);

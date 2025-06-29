@@ -1,4 +1,4 @@
-import { defineMessage } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage, formatThousands } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Tooltip } from 'interface';
@@ -25,7 +25,7 @@ class FocusCapTracker extends RegenResourceCapTracker {
   static resourceType = RESOURCE_TYPES.FOCUS;
   static baseRegenRate = HUNTER_BASE_FOCUS_REGEN;
   static isRegenHasted = true;
-  bySecond: { [key: number]: number } = {};
+  bySecond: Record<number, number> = {};
 
   constructor(options: Options) {
     super(options);

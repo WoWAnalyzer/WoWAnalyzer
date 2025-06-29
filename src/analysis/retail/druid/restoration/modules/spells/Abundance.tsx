@@ -35,13 +35,13 @@ class Abundance extends Analyzer.withDependencies({
   /** Total crit percent cumulatively (divide by casts for avg) - respects 100% cap */
   totalEffCritGain = 0;
   /** Total cumulative stacks */
-  totalStacks: number = 0;
+  totalStacks = 0;
   /** Total cumulative stacks for mana casts */
-  totalManaStacks: number = 0;
+  totalManaStacks = 0;
   /** Number of non-free Regrowth casts */
-  manaCasts: number = 0;
+  manaCasts = 0;
   /** Number of Regrowths (including free from Clearcast/NS or procced from Convoke) */
-  allHits: number = 0;
+  allHits = 0;
 
   constructor(options: Options) {
     super(options);

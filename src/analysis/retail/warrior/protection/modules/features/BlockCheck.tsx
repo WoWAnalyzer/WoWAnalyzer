@@ -1,4 +1,4 @@
-import { defineMessage } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon, SpellLink } from 'interface';
@@ -206,9 +206,9 @@ class BlockCheck extends Analyzer {
   }
 }
 
-type BlockedEvent = {
+interface BlockedEvent {
   blocked: boolean;
   event: DamageEvent;
-};
+}
 
 export default BlockCheck;

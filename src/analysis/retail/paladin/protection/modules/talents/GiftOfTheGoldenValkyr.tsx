@@ -24,10 +24,10 @@ class GiftOfTheGoldenValkyr extends Analyzer {
 
   protected spellUsable!: SpellUsable;
   // Guardian Of Ancient Kings is 1, Guardian of Ancient Queens is 2
-  guardianOfAncientKingsVariant: number = 0;
-  guardianOfAncientKingsReduced: number = 0;
-  guardianOfAncientKingsWasted: number = 0;
-  reductionTime: number = 0;
+  guardianOfAncientKingsVariant = 0;
+  guardianOfAncientKingsReduced = 0;
+  guardianOfAncientKingsWasted = 0;
+  reductionTime = 0;
 
   constructor(options: Options) {
     super(options);
@@ -92,7 +92,7 @@ class GiftOfTheGoldenValkyr extends Analyzer {
   guardianReduction(spellId: number): number {
     try {
       return this.spellUsable.reduceCooldown(spellId, this.reductionTime);
-    } catch (e) {
+    } catch {
       return 0;
     }
   }

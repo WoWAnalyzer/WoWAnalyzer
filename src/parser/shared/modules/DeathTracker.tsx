@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import { makeAnalyzerUrl } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -21,13 +21,13 @@ const debug = false;
 // Log where someone died: https://wowanalyzer.com/report/RjH6AnYdP8GWzX4h/2-Heroic+Aggramar+-+Kill+(6:23)/Kantasai
 class DeathTracker extends Analyzer {
   deaths: DeathEvent[] = [];
-  resurrections: Array<CastEvent | BeginCastEvent | HealEvent | DamageEvent | ResurrectEvent> = [];
+  resurrections: (CastEvent | BeginCastEvent | HealEvent | DamageEvent | ResurrectEvent)[] = [];
 
-  lastDeathTimestamp: number = 0;
-  lastResurrectionTimestamp: number = 0;
-  _timeDead: number = 0;
-  _didCast: boolean = false;
-  isAlive: boolean = true;
+  lastDeathTimestamp = 0;
+  lastResurrectionTimestamp = 0;
+  _timeDead = 0;
+  _didCast = false;
+  isAlive = true;
 
   die(event: DeathEvent) {
     this.lastDeathTimestamp = this.owner.currentTimestamp;

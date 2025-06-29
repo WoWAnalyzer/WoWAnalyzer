@@ -1,4 +1,4 @@
-@import 'interface/Theme.scss';
+@use 'interface/Theme.scss';
 
 .grid {
   grid-template-columns: 35% auto;

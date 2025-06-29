@@ -35,12 +35,36 @@ import {
   Gazh,
   Yellot,
   KYZ,
+  oneunreadmail,
+  Ceric,
+  swirl,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2025, 6, 8),<>Fix validateDomNesting warning for Gem Preperation checklist.</>, Vetyst),
+  change(date(2025, 6, 8),<>Updated visual appearance of gained stats for <ItemLink id={ITEMS.SUNSET_SPELLTHREAD_R3.id} />, <ItemLink id={ITEMS.WEAVERCLOTH_SPELLTHREAD_R3.id} />, and <ItemLink id={ITEMS.DAYBREAK_SPELLTHREAD_R3.id} /> enchants on the character info tab.</>, Vetyst),
+  change(date(2025, 6, 8),<>Move <SpellLink spell={SPELLS.GLIDE_DRACTHYR.id} /> from Evoker's spellbook to Dracthyr's racial spellbook.</>, Vetyst),
+  change(date(2025, 6, 5),<>Replaced deprecated package `react-minimalist-portal` used to create tooltips.</>, Vetyst),
+  change(date(2025, 6, 4),<>Add Horrific Vision enchants suggestions.</>, Vetyst),
+  change(date(2025, 6, 3),<>Mark <ItemLink id={ITEMS.COUNCILS_GUILE_R3.id} />, <ItemLink id={ITEMS.OATHSWORNS_TENACITY_R3.id} />, <ItemLink id={ITEMS.STONEBOUND_ARTISTRY_R3.id} />, and <ItemLink id={ITEMS.STORMRIDERS_FURY_R3.id} /> as max rank enchants</>, Vollmer),
+  change(date(2025, 5, 30), 'Add WCL user sign-in & private logs support', Vollmer),
+  change(date(2025, 5, 23), 'Regenerate talents for 11.1.5', Vollmer),
+  change(date(2025, 5, 16), <>Fix number of critical hits not being calculated.</>, swirl),
+  change(date(2025, 5, 2), 'All Gems now show on Character Doll', Ceric),
+  change(date(2025, 4, 27), 'Recommended Gems now show to the User if setup', Ceric),
+  change(date(2025, 4, 25), 'Fix Azjol-Nerub special case for Armory Link', Ceric),
+  change(date(2025, 4, 24), 'Streamlined Recommended Gems for Gem Checker', Ceric),
+  change(date(2025, 4, 22), 'Added Gems to Preparation Section with general recommendations.', [emallson,Ceric]),
+  change(date(2025, 4, 17), 'Add patch 11.1.5.', Vollmer),
+  change(date(2025, 4, 12), 'Changed Momentum talent to Exergy for Havoc', oneunreadmail),
+  change(date(2025, 3, 29), 'Update ESLint to v9.', ToppleTheNun),
+  change(date(2025, 3, 29), 'Update internal dependencies', emallson),
+  change(date(2025, 3, 28), 'Expanded new Foundation downtime section to caster and healer specs.', emallson),
+  change(date(2025, 3, 28), <>Add Empower ability handling for Cast Efficiency & Cancelled Casts modules</>, Vollmer),
+  change(date(2025, 3, 28), <>Fixed internal ordering of event listener handling</>, Seriousnes),
   change(date(2025, 3, 10), 'Added ability data for Mug\'Zee and Gallywix to the Foundation downtime section', emallson),
   change(date(2025, 3, 8), 'Add missing patch 11.1.0 details.', ToppleTheNun),
   change(date(2025, 2, 26), <>Revised Foundation downtime section for melee specs.</>, emallson),

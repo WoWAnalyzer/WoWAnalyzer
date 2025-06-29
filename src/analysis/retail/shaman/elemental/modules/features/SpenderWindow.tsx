@@ -201,13 +201,13 @@ class SpenderWindow extends Analyzer {
       TALENTS.MASTER_OF_THE_ELEMENTS_ELEMENTAL_TALENT,
     );
 
-    type WindowBreakdown = {
+    interface WindowBreakdown {
       perfect: FinishedSpenderWindow[];
       wrongSop: FinishedSpenderWindow[];
       missingElshocks: FinishedSpenderWindow[];
       missingMote: FinishedSpenderWindow[];
       missingFlameshock: FinishedSpenderWindow[];
-    };
+    }
 
     const windowBreakdown: WindowBreakdown = {
       perfect: [],

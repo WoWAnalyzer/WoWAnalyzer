@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
@@ -32,7 +32,7 @@ class Bloodworms extends Analyzer {
   poppedEarly = 0;
   wormID = 0;
 
-  bloodworm: Array<{ uniqueID: number; summonedTime: number; killedTime?: number }> = [];
+  bloodworm: { uniqueID: number; summonedTime: number; killedTime?: number }[] = [];
 
   constructor(options: Options) {
     super(options);

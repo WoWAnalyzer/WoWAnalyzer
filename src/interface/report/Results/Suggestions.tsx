@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import Icon from 'interface/Icon';
 import Panel from 'interface/Panel';
 import { Suggestion as SuggestionData } from 'parser/core/CombatLogParser';
@@ -11,7 +11,7 @@ import Suggestion from './Suggestion';
 import './Suggestions.scss';
 
 interface Props {
-  children: Array<Issue | SuggestionData>;
+  children: (Issue | SuggestionData)[];
   style?: CSSProperties;
 }
 

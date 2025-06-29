@@ -14,13 +14,13 @@ import DemoPets from '../pets/DemoPets';
 const BONUS_DAMAGE_PER_PET = 0.04;
 const MAX_TRAVEL_TIME = 3000; // Shadow Bolt is the slowest, takes around 2 seconds to land from max distance, add a little more to account for target movement
 const debug = false;
-type QueueItem = {
+interface QueueItem {
   timestamp: number;
   spellId: number;
   targetID: number | undefined;
   targetInstance: number | undefined;
   bonus: number;
-};
+}
 
 class SacrificedSouls extends Analyzer {
   get totalBonusDamage() {

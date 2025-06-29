@@ -95,7 +95,7 @@ class ManaLevelChartComponent extends PureComponent<Props, State> {
       };
     });
 
-    let deaths: Array<{ x: number; name: string; ability: string }> = [];
+    let deaths: { x: number; name: string; ability: string }[] = [];
     if (this.state.bossHealth.deaths) {
       deaths = this.state.bossHealth.deaths
         .filter((death: DeathEvent) => Boolean(death.targetIsFriendly))

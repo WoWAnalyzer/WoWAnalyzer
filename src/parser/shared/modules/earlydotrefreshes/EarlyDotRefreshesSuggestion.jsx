@@ -1,4 +1,4 @@
-import { defineMessage } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage, formatDuration } from 'common/format';
 import { SpellLink } from 'interface';
 

@@ -1,9 +1,10 @@
-@import 'interface/Theme.scss';
+@use 'sass:color';
+@use 'interface/Theme.scss';
 
 .cooldown-bar {
   position: relative;
   width: 100%;
-  background: transparentize($color: $muted, $amount: 0.75);
+  background: color.adjust($color: Theme.$muted, $alpha: -0.75);
   height: 24px;
 }
 
@@ -12,20 +13,20 @@
   position: absolute;
   width: 100%;
   height: 24px;
-  background: $muted;
+  background: Theme.$muted;
   overflow: clip;
 
   .cooldown-unavailable {
-    background: transparentize($primaryColor, 0.3);
+    background: color.adjust(Theme.$primaryColor, $alpha: -0.3);
   }
 
   // completely transparent, but we still draw div for the tooltip
   .cooldown-available {
-    background: transparentize($primaryColor, 1);
+    background: color.adjust(Theme.$primaryColor, $alpha: -1);
   }
 
   .cooldown-available-bad {
-    background: transparentize(#aa2222, 0.6);
+    background: color.adjust(#aa2222, $alpha: -0.6);
   }
 
   .cast-chip {

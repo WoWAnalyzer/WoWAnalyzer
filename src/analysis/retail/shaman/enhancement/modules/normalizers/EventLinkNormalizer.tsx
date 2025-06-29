@@ -2,7 +2,7 @@ import { Options } from 'parser/core/Analyzer';
 import BaseEventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
-import { EventType } from 'parser/core/Events';
+import { ApplyBuffEvent, EventType, GetRelatedEvent } from 'parser/core/Events';
 import { NormalizerOrder } from './constants';
 import {
   EnhancementEventLinks,
@@ -118,6 +118,36 @@ const sunderingDamageLink: EventLink = {
   anyTarget: true,
   isActive: (c) => c.hasTalent(TALENTS.REACTIVITY_TALENT) || c.hasTalent(TALENTS.SUNDERING_TALENT),
 };
+const whirlingFireHotHandLink: EventLink = {
+  linkRelation: EnhancementEventLinks.WHIRLING_FIRE_LINK,
+  linkingEventId: SPELLS.HOT_HAND_BUFF.id,
+  linkingEventType: EventType.ApplyBuff,
+  referencedEventId: SPELLS.WHIRLING_FIRE.id,
+  referencedEventType: EventType.RemoveBuff,
+  reverseLinkRelation: EnhancementEventLinks.WHIRLING_FIRE_LINK,
+  forwardBufferMs: 5,
+};
+const whirlingFireLavaLashLink: EventLink = {
+  linkRelation: EnhancementEventLinks.WHIRLING_FIRE_LINK,
+  linkingEventId: SPELLS.WHIRLING_FIRE.id,
+  linkingEventType: EventType.RemoveBuff,
+  referencedEventId: TALENTS.LAVA_LASH_TALENT.id,
+  referencedEventType: EventType.Cast,
+  backwardBufferMs: EventLinkBuffers.CAST_DAMAGE_BUFFER,
+  anyTarget: true,
+  additionalCondition: (le, _) => {
+    if (le.type === EventType.RemoveBuff && le.ability.guid === SPELLS.WHIRLING_FIRE.id) {
+      return (
+        GetRelatedEvent<ApplyBuffEvent>(
+          le,
+          EnhancementEventLinks.WHIRLING_FIRE_LINK,
+          (e) => e.type === EventType.ApplyBuff && e.ability.guid === SPELLS.HOT_HAND_BUFF.id,
+        ) !== undefined
+      );
+    }
+    return false;
+  },
+};
 
 class EventLinkNormalizer extends BaseEventLinkNormalizer {
   constructor(options: Options) {
@@ -132,6 +162,8 @@ class EventLinkNormalizer extends BaseEventLinkNormalizer {
       splinteredElementsDamageLink,
       reactivityLink,
       sunderingDamageLink,
+      whirlingFireHotHandLink,
+      whirlingFireLavaLashLink,
     ]);
 
     this.priority = NormalizerOrder.EventLinkNormalizer;

@@ -1,4 +1,4 @@
-import { defineMessage } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
@@ -20,7 +20,7 @@ class VirulentPlagueEfficiency extends Analyzer {
 
   protected enemies!: Enemies;
 
-  private targets: { [key: string]: number } = {};
+  private targets: Record<string, number> = {};
 
   constructor(options: Options) {
     super(options);

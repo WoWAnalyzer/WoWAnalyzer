@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import groupByToMap from 'common/groupByToMap';
 import DocumentTitle from 'interface/DocumentTitle';
 import AVAILABLE_CONFIGS from 'parser';

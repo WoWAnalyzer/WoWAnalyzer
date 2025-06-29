@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { maybeGetSpell } from 'common/SPELLS';
 import SpellLink from 'interface/SpellLink';
 import { suggestion } from 'parser/core/Analyzer';
@@ -7,15 +7,13 @@ import { AnyEvent } from 'parser/core/Events';
 import { Info } from 'parser/core/metric';
 import castCount from 'parser/shared/metrics/castCount';
 
-interface LowRankSpells {
-  [primarySpellId: number]: number[];
-}
+type LowRankSpells = Record<number, number[]>;
 
 const lowRankSpells = (spells: LowRankSpells, whitelist: LowRankSpells = []) =>
   suggestion((events: AnyEvent[], { playerId }: Pick<Info, 'playerId'>) => {
     const casts = castCount(events, playerId);
 
-    return Object.entries<number[]>(spells as { [key: string]: number[] }).flatMap(
+    return Object.entries<number[]>(spells as Record<string, number[]>).flatMap(
       ([primarySpellId, lowRankSpellIds]) =>
         lowRankSpellIds
           .filter(

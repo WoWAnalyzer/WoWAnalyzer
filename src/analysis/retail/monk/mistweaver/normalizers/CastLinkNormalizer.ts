@@ -61,7 +61,7 @@ import { ENVELOPING_MIST_EVENT_LINKS } from './EventLinks/EnvelopingMistEventLin
 import { HERO_TALENT_EVENT_LINKS } from './EventLinks/HeroTalentEventLinks';
 import { TIER_EVENT_LINKS } from './EventLinks/TierEventLinks';
 
-const FOUND_REMS: Map<string, number | null> = new Map();
+const FOUND_REMS = new Map<string, number | null>();
 
 /*
   This file is for attributing Renewing Mist and Enveloping Mist applications to hard casts.

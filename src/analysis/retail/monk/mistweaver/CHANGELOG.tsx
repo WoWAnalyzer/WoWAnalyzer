@@ -1,10 +1,18 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
-import { emallson, Trevor, Vetyst, Vohrr } from 'CONTRIBUTORS';
+import { emallson, swirl, Trevor, Vetyst, Vohrr } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2025, 5, 14), <>Fixed method for checking wasted buffs on <SpellLink spell={TALENTS_MONK.JADE_EMPOWERMENT_TALENT}/>.</>, swirl),
+  change(date(2025, 5, 10), <>Added <SpellLink spell={TALENTS_MONK.SECRET_INFUSION_TALENT}/> performance and <SpellLink spell={SPELLS.ANCIENT_TEACHINGS}/> healing per use into <SpellLink spell={TALENTS_MONK.JADE_EMPOWERMENT_TALENT}/> module.</>, swirl),
+  change(date(2025, 4, 23), <>Fixed bug in Cast Performance of <SpellLink spell={TALENTS_MONK.ZEN_PULSE_TALENT}/>,</>, Vohrr),
+  change(date(2025, 4, 15), <>Add buff uptime to <SpellLink spell={TALENTS_MONK.RUSHING_WIND_KICK_TALENT}/> guide module</>, Trevor),
+  change(date(2025, 4, 15), <>Update <SpellLink spell={TALENTS_MONK.RUSHING_WIND_KICK_TALENT}/> value per hotfixes.</>, Vohrr),
+  change(date(2025, 4, 12), <>Simplify <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT}/> module</>, Trevor),
+  change(date(2025, 3, 28), <>Added <SpellLink spell={TALENTS_MONK.MENDING_PROLIFERATION_TALENT}/> to the other hots graph, renamed other hots graph to healing amps graph.</>, Vohrr),
+  change(date(2025, 3, 23), <>Add <SpellLink spell={TALENTS_MONK.JADE_EMPOWERMENT_TALENT}/> module</>, Trevor),
   change(date(2025, 3, 18), <>Updated APLs for <SpellLink spell={TALENTS_MONK.JADEFIRE_TEACHINGS_TALENT}/> and <SpellLink spell={TALENTS_MONK.RUSHING_WIND_KICK_TALENT}/> talent builds.</>, Vohrr),
   change(date(2025, 3, 14), <>Bump sample report</>, Vohrr),
   change(date(2025, 3, 12), <>Delete <SpellLink spell={TALENTS_MONK.RESPLENDENT_MIST_TALENT}/> module</>, Trevor),

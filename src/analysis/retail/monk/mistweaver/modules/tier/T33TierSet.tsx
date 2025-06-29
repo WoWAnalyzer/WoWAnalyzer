@@ -14,12 +14,12 @@ import { formatNumber } from 'common/format';
 import DonutChart, { Item } from 'parser/ui/DonutChart';
 
 class T33TierSet extends Analyzer {
-  has4Piece: boolean = false;
-  insurance2pHotHealing: number = 0;
-  insurance2pProcHealing: number = 0;
-  insurance4pHotHealing: number = 0;
-  insurance4pProcHealing: number = 0;
-  ins4pOverheal: number = 0;
+  has4Piece = false;
+  insurance2pHotHealing = 0;
+  insurance2pProcHealing = 0;
+  insurance4pHotHealing = 0;
+  insurance4pProcHealing = 0;
+  ins4pOverheal = 0;
 
   constructor(options: Options) {
     super(options);

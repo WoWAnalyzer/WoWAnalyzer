@@ -21,9 +21,9 @@ import { getCurrentRSKTalent } from '../../constants';
 import { Talent } from 'common/TALENTS/types';
 
 class InvokeYulon extends BaseCelestialAnalyzer {
-  soothHealing: number = 0;
-  envelopHealing: number = 0;
-  chiCocoonHealing: number = 0;
+  soothHealing = 0;
+  envelopHealing = 0;
+  chiCocoonHealing = 0;
   currentRskTalent: Talent;
   protected envb!: EnvelopingBreath;
 

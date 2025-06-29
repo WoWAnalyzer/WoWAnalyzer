@@ -10,7 +10,7 @@ const config: Config = {
   contributors: [Sref],
   branch: GameBranch.Retail,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '11.1.0',
+  patchCompatibility: '11.1.5',
   supportLevel: SupportLevel.MaintainedPartial,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
@@ -50,7 +50,7 @@ const config: Config = {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/R6CJMyPkfdmWacgQ/15-Mythic+Smolderon+-+Kill+(4:43)/Stormstríke/standard',
+  exampleReport: '/report/34V2WhNLp9jzd1fX/60-Mythic+One-Armed+Bandit+-+Kill+(6:48)/Pumps/standard',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

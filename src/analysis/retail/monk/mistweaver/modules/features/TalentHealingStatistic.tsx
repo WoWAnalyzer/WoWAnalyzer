@@ -1,5 +1,5 @@
 import { cloneElement } from 'react';
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import Analyzer from 'parser/core/Analyzer';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import StatisticsListBox, { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';

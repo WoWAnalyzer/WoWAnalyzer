@@ -28,10 +28,10 @@ const STAGGER_THRESHOLDS = {
 
 const MANTRA_OF_PURITY_BONUS = 0.1; // "Purifying Brew removes 10% additional Stagger [...]"
 
-type PurifyBreakdown = {
+interface PurifyBreakdown {
   base: number;
   [key: number]: number;
-};
+}
 
 type MaxHPEvent = AnyEvent & { maxHitPoints?: number };
 
@@ -114,7 +114,7 @@ class StaggerFabricator extends Analyzer {
     return amount + overage;
   }
 
-  _fab(type: StaggerEventType, reason: MaxHPEvent, amount: number, overage: number = 0) {
+  _fab(type: StaggerEventType, reason: MaxHPEvent, amount: number, overage = 0) {
     return {
       timestamp: reason.timestamp,
       type: type,

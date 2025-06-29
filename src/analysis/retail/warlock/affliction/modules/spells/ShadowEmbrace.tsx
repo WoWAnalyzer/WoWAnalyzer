@@ -1,4 +1,4 @@
-import { defineMessage } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
@@ -20,11 +20,11 @@ import {
 const BUFFER = 50; // for some reason, changedebuffstack triggers twice on the same timestamp for each event, ignore an event if it happened < BUFFER ms after another
 const debug = false;
 
-type ShadowEmbraceUptime = {
+interface ShadowEmbraceUptime {
   start: number | null;
   count: number;
   uptime: number;
-};
+}
 
 class ShadowEmbrace extends Analyzer {
   static dependencies = {

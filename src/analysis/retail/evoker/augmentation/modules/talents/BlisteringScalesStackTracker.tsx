@@ -10,7 +10,7 @@ import Events, {
   RemoveBuffStackEvent,
 } from 'parser/core/Events';
 
-type BuffStackUpdate = {
+interface BuffStackUpdate {
   /** What triggered this update */
   type: string;
   /** This update's timestamp */
@@ -20,7 +20,7 @@ type BuffStackUpdate = {
   change: number;
   /** Amount of resource the player has AFTER the change */
   current: number;
-};
+}
 
 const DEBUG = false;
 
@@ -29,11 +29,11 @@ export default class BlisteringScalesStackTracker extends Analyzer {
 
   static trackPets = false;
 
-  currentBuffTargetId: number = 0;
+  currentBuffTargetId = 0;
 
   buffStackUpdates: BuffStackUpdate[] = [];
 
-  startStacksGathered: boolean = false;
+  startStacksGathered = false;
 
   maxBlisteringStacks: number = this.selectedCombatant.hasTalent(TALENTS.REGENERATIVE_CHITIN_TALENT)
     ? 20

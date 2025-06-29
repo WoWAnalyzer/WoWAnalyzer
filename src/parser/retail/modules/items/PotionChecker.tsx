@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import ITEMS from 'common/ITEMS/thewarwithin/potions';
 import SPELLS from 'common/SPELLS/thewarwithin/potions';
 import ALCHEMY from 'common/SPELLS/dragonflight/crafted/alchemy';
@@ -54,6 +54,9 @@ class PotionChecker extends Analyzer {
   neededManaSecondPotion = false;
   addedSuggestionText = false;
   isHealer = false;
+
+  suggestionMessage =
+    'Since you are able to use a combat potion every 5 minutes, you should ensure that you are getting the maximum number of potions in each encounter.';
 
   constructor(args: Options) {
     super(args);
@@ -161,10 +164,6 @@ class PotionChecker extends Analyzer {
       },
       style: ThresholdStyle.NUMBER,
     };
-  }
-
-  get suggestionMessage() {
-    return 'Since you are able to use a combat potion every 5 minutes, you should ensure that you are getting the maximum number of potions in each encounter.';
   }
 
   potionAdjuster(spec: Spec) {

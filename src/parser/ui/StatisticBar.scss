@@ -1,4 +1,5 @@
-@import 'interface/Theme.scss';
+@use 'sass:color';
+@use 'interface/Theme.scss';
 
 .statistic.bar {
   height: auto;
@@ -8,7 +9,7 @@
   padding: 10px 15px;
   font-size: 22px;
   line-height: 1;
-  border-right: 1px solid transparentize($primaryColor, 0.925);
+  border-right: 1px solid color.adjust(Theme.$primaryColor, $alpha: -0.925);
 
   &:last-of-type {
     border-right: none;

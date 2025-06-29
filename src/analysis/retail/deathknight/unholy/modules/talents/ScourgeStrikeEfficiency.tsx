@@ -1,4 +1,4 @@
-import { defineMessage } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/deathknight';
 import { SpellLink } from 'interface';
@@ -22,8 +22,8 @@ class ScourgeStrikeEfficiency extends Analyzer {
   protected woundTracker!: WoundTracker;
 
   private readonly activeSpell: Talent;
-  private totalCasts: number = 0;
-  private zeroWoundCasts: number = 0;
+  private totalCasts = 0;
+  private zeroWoundCasts = 0;
 
   constructor(options: Options) {
     super(options);

@@ -1,4 +1,4 @@
-import { defineMessage } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warrior';
@@ -29,8 +29,8 @@ class Bladestorm extends Analyzer {
   protected spellUsable!: SpellUsable;
   protected executeRange!: ExecuteRangeTracker;
 
-  badCasts: number = 0;
-  totalCasts: number = 0;
+  badCasts = 0;
+  totalCasts = 0;
 
   currentCast: CurrentCast = {
     event: null,

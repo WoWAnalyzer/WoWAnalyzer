@@ -17,12 +17,12 @@ class RenewingMist extends Analyzer {
     remGraph: REMGraph,
     vivify: Vivify,
   };
-  currentRenewingMists: number = 0;
-  totalHealing: number = 0;
-  totalOverhealing: number = 0;
-  totalAbsorbs: number = 0;
-  gustsHealing: number = 0;
-  healingHits: number = 0;
+  currentRenewingMists = 0;
+  totalHealing = 0;
+  totalOverhealing = 0;
+  totalAbsorbs = 0;
+  gustsHealing = 0;
+  healingHits = 0;
   protected vivify!: Vivify;
   protected remGraph!: REMGraph;
 

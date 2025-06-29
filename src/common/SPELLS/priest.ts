@@ -46,6 +46,12 @@ const spells = {
     icon: 'spell_holy_renew',
     manaCost: 45000,
   },
+  THROES_OF_PAIN_TALENT_RESOURCE_GAIN: {
+    id: 377427,
+    name: 'Throes of Pain',
+    icon: 'spell_shadow_haunting',
+    manaCost: 0,
+  },
   // Discipline Priest:
   GRACE: {
     id: 271534,
@@ -66,6 +72,18 @@ const spells = {
     icon: 'spell_holy_penance',
     manaCost: 4000,
   },
+  PENANCE_TWINSIGHT_DAMAGE: {
+    id: 1232571,
+    name: 'Penance (Twinsight)',
+    icon: 'spell_holy_penance',
+    manaCost: 0,
+  },
+  PENANCE_TWINSIGHT_HEALING: {
+    id: 1232567,
+    name: 'Penance (Twinsight)',
+    icon: 'spell_holy_penance',
+    manaCost: 0,
+  },
   DARK_REPRIMAND_HEAL: {
     id: 400187,
     name: 'Dark Reprimand',
@@ -77,6 +95,18 @@ const spells = {
     name: 'Dark Reprimand',
     icon: 'inv_artifact_powerofthedarkside',
     manaCost: 4000,
+  },
+  DARK_REPRIMAND_TWINSIGHT_DAMAGE: {
+    id: 1232592,
+    name: 'Dark Reprimand (Twinsight)',
+    icon: 'inv_artifact_powerofthedarkside',
+    manaCost: 0,
+  },
+  DARK_REPRIMAND_TWINSIGHT_HEALING: {
+    id: 1232615,
+    name: 'Dark Reprimand (Twinsight)',
+    icon: 'inv_artifact_powerofthedarkside',
+    manaCost: 0,
   },
   DARK_REPRIMAND_CAST: {
     id: 400169,

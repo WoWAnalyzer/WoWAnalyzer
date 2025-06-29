@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import SPELLS, { maybeGetSpell } from 'common/SPELLS';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import { formatThousands } from 'common/format';
 import { Ability } from 'parser/core/Events';
@@ -46,7 +46,7 @@ function generateHealingItems(
     return {
       color: `${COLORS[ability.guid] || randomColor()}`,
       spellId: ability.guid,
-      label: ability.name,
+      label: maybeGetSpell(ability.guid)?.name || ability.name,
       value: healingDone,
       valueTooltip: formatThousands(healingDone),
     };

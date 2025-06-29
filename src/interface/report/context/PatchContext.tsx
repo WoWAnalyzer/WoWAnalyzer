@@ -1,15 +1,17 @@
 import { Patch } from 'interface/report/PATCHES';
-import { createContext, ReactNode } from 'react';
+import { createContext, ReactNode, useMemo } from 'react';
 
 interface PatchContext {
   patch: Patch | undefined;
 }
-const PatchCtx = createContext<PatchContext | undefined>(undefined);
+export const PatchCtx = createContext<PatchContext | undefined>(undefined);
 
 interface Props {
   children: ReactNode;
   patch: Patch | undefined;
 }
 export const PatchProvider = ({ children, patch }: Props) => {
-  return <PatchCtx.Provider value={{ patch }}>{children}</PatchCtx.Provider>;
+  const providerValue = useMemo(() => ({ patch }), [patch]);
+
+  return <PatchCtx.Provider value={providerValue}>{children}</PatchCtx.Provider>;
 };

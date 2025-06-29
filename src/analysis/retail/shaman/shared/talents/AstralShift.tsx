@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { formatThousands, formatNumber } from 'common/format';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';

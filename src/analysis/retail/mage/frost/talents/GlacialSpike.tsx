@@ -16,6 +16,7 @@ import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { SpellIcon, SpellLink, TooltipElement } from 'interface';
 import WintersChill from 'analysis/retail/mage/frost/core/WintersChill';
 import SPELLS from 'common/SPELLS';
+import Enemy from 'parser/core/Enemy';
 
 class GlacialSpike extends Analyzer {
   static dependencies = {
@@ -31,6 +32,7 @@ class GlacialSpike extends Analyzer {
     shattered: boolean;
     damage: DamageEvent | undefined;
     cleave: DamageEvent | undefined;
+    target: Enemy | null | undefined;
   }[] = [];
 
   constructor(options: Options) {
@@ -46,29 +48,28 @@ class GlacialSpike extends Analyzer {
 
   onGlacialSpikeCast(event: CastEvent) {
     const damage: DamageEvent | undefined = GetRelatedEvent(event, 'SpellDamage');
-    const enemy = damage && this.enemies.getEntity(damage);
+    const enemy: Enemy | null | undefined = damage && this.enemies.getEntity(damage);
     const cleave: DamageEvent | undefined = GetRelatedEvent(event, 'CleaveDamage');
     const glacialSpikeDetails = {
       timestamp: event.timestamp,
-      shattered:
-        (enemy && SHATTER_DEBUFFS.some((effect) => enemy.hasBuff(effect.id, damage.timestamp))) ||
-        false,
+      shattered: false,
       damage: damage,
       cleave: cleave,
+      target: enemy,
     };
     this.glacialSpike.push(glacialSpikeDetails);
   }
 
   onFightEnd(event: FightEndEvent) {
-    this.amendShatters();
+    this.evaluateShatters();
     this.analyzeGlacialSpikes();
   }
 
-  amendShatters() {
+  evaluateShatters() {
     this.glacialSpike.forEach((glacialSpike) => {
-      if (glacialSpike.shattered !== this.wintersChill.wasShattered(glacialSpike.damage)) {
-        glacialSpike.shattered = this.wintersChill.wasShattered(glacialSpike.damage);
-      }
+      glacialSpike.shattered = SHATTER_DEBUFFS.some((effect) =>
+        glacialSpike.target?.hasBuff(effect.id, glacialSpike.damage?.timestamp || 0),
+      );
     });
   }
 

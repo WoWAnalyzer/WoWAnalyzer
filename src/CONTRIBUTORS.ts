@@ -119,6 +119,10 @@ export const ab: Contributor = {
   nickname: 'ab',
   github: 'alex-bau',
 };
+export const Brigadoon: Contributor = {
+  nickname: 'Brigadoon',
+  github: 'Omegabiscuit',
+};
 export const blazyb: Contributor = {
   nickname: 'blazyb',
   github: 'buimichael',
@@ -2619,6 +2623,130 @@ export const SamuelMaverick: Contributor = {
       name: 'Mäveríck',
       spec: SPECS.SUBTLETY_ROGUE,
       link: 'https://worldofwarcraft.blizzard.com/en-gb/character/eu/ragnaros/m%C3%A4ver%C3%ADck/',
+    },
+  ],
+};
+
+export const Spruudel: Contributor = {
+  nickname: 'spruudel',
+  github: 'Spruudel',
+  discord: 'spruuudel',
+};
+
+export const oneunreadmail: Contributor = {
+  nickname: 'oneunreadmail',
+  github: 'oneunreadmail',
+  discord: 'oneunreadmail',
+};
+
+export const Ceric: Contributor = {
+  nickname: 'Ceric',
+  github: 'CericME',
+  discord: 'cericme',
+  avatar: avatar('ceric-avatar.jpg'),
+  about:
+    'Found out I could have more Gems and nothing told me about it.  Been a Developer for 20 years and have not gotten to code at work much lately so I thought "Hey Why not?" and here I am.',
+  mains: [
+    {
+      name: 'Locsul',
+      spec: SPECS.MISTWEAVER_MONK,
+      link: 'https://worldofwarcraft.blizzard.com/en-us/character/us/azjolnerub/locsul/',
+    },
+  ],
+  alts: [
+    {
+      name: 'Ceric',
+      spec: SPECS.PROTECTION_PALADIN,
+      link: 'https://worldofwarcraft.blizzard.com/en-us/character/us/azjolnerub/ceric/',
+    },
+    {
+      name: 'Eengan',
+      spec: SPECS.ELEMENTAL_SHAMAN,
+      link: 'https://worldofwarcraft.blizzard.com/en-us/character/us/azjolnerub/eengan/',
+    },
+    {
+      name: 'Sole',
+      spec: SPECS.AFFLICTION_WARLOCK,
+      link: 'https://worldofwarcraft.blizzard.com/en-us/character/us/azjolnerub/sole/',
+    },
+  ],
+};
+
+export const DarkDiver: Contributor = {
+  nickname: 'DarkDiver',
+  github: 'sandreenko',
+  discord: 'darkdiver93',
+};
+
+export const swirl: Contributor = {
+  nickname: 'swirl',
+  discord: 'lolswirl',
+  github: 'lolswirl',
+  avatar: avatar('swirl-avatar.jpg'),
+  about: 'Healer Enjoyer. Mistweaver Veteran.',
+  mains: [
+    {
+      name: 'Swirl',
+      spec: SPECS.MISTWEAVER_MONK,
+      link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Swirl',
+    },
+    {
+      name: 'Devotion',
+      spec: SPECS.HOLY_PALADIN,
+      link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Devotion',
+    },
+  ],
+  alts: [
+    {
+      name: 'Schizo',
+      spec: SPECS.DISCIPLINE_PRIEST,
+      link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Schizo',
+    },
+    {
+      name: 'Niceorbs',
+      spec: SPECS.PRESERVATION_EVOKER,
+      link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Niceorbs',
+    },
+    {
+      name: 'Efflo',
+      spec: SPECS.RESTORATION_DRUID,
+      link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Efflo',
+    },
+    {
+      name: 'Tend',
+      spec: SPECS.RESTORATION_SHAMAN,
+      link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Tend',
+    },
+  ],
+};
+
+export const Leftyxiv: Contributor = {
+  nickname: 'Manny',
+  github: 'Leftyxiv',
+  discord: 'onearmmanny',
+  mains: [
+    {
+      name: 'Magicmushies',
+      spec: SPECS.DEMONOLOGY_WARLOCK,
+      link: 'https://www.warcraftlogs.com/character/us/area-52/magicmushies?zone=43',
+    },
+  ],
+};
+
+export const Brandrewsss: Contributor = {
+  nickname: 'Brandrews',
+  github: 'brandrewssss',
+  avatar: avatar('brandrews.jpeg'),
+  mains: [
+    {
+      name: 'Brandrews',
+      spec: SPECS.MARKSMANSHIP_HUNTER,
+      link: 'https://worldofwarcraft.blizzard.com/en-us/character/us/thrall/brandrews',
+    },
+    {
+      name: 'Brandrewsdk',
+      spec: SPECS.UNHOLY_DEATH_KNIGHT,
+      link: 'https://worldofwarcraft.blizzard.com/en-us/character/us/thrall/brandrewsdk',
     },
   ],
 };

@@ -1,4 +1,4 @@
-import { defineMessage } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
 import WarriorRageDetails from 'analysis/retail/warrior/shared/modules/core/RageDetails';
 import { formatPercentage } from 'common/format';
 import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';

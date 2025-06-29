@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { SpellLink, TooltipElement } from 'interface';
 import SPELL_CATEGORY, { getSpellCategoryName } from 'parser/core/SPELL_CATEGORY';
 import { AbilityCastEfficiency } from 'parser/shared/modules/CastEfficiency';

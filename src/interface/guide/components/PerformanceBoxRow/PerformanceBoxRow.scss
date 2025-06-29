@@ -1,7 +1,7 @@
 @use 'sass:color';
 
-@import 'interface/guide/Guide';
-@import 'interface/Theme.scss';
+@use 'interface/guide/Guide';
+@use 'interface/Theme.scss';
 
 @mixin highlight-block($class-name, $base-color, $deselectedArgs...) {
   $desaturated: color.scale($base-color, $lightness: -50%, $saturation: -30%, $deselectedArgs...);
@@ -40,11 +40,11 @@
     display: inline-block;
   }
 
-  @include highlight-block('.perfect-block', $perfect-perf-color);
+  @include highlight-block('.perfect-block', Guide.$perfect-perf-color);
 
-  @include highlight-block('.good-block', $good-perf-color);
+  @include highlight-block('.good-block', Guide.$good-perf-color);
 
-  @include highlight-block('.ok-block', $ok-perf-color);
+  @include highlight-block('.ok-block', Guide.$ok-perf-color);
 
-  @include highlight-block('.bad-block', $bad-perf-color);
+  @include highlight-block('.bad-block', Guide.$bad-perf-color);
 }

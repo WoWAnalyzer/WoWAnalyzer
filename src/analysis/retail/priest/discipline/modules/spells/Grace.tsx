@@ -24,11 +24,11 @@ class Grace extends Analyzer {
     combatants: Combatants,
     statTracker: StatTracker,
   };
-  applyAbsorbEvents: Array<{
+  applyAbsorbEvents: {
     applyBuffEvent: ApplyBuffEvent;
     masteryBuffed: boolean;
     eventsAssociated: ApplyBuffEvent[];
-  }> = [];
+  }[] = [];
   graceHealing = 0;
   graceHealingToAtonement = 0;
   healingUnaffectedByMastery = 0;

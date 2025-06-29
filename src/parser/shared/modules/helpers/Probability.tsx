@@ -86,7 +86,7 @@ function resetProbabilityArray(
   procAttempts: number,
   procChance: number | number[],
 ) {
-  const procProbabilities: Array<{ x: number; y: number }> = Array.from(
+  const procProbabilities: { x: number; y: number }[] = Array.from(
     { length: procAttempts },
     (_x, i: number) => {
       if (typeof procChance === 'number') {
@@ -104,7 +104,7 @@ function setMinMaxProbabilities(
   actualProcs: number,
   procAttempts: number,
   procChance: number | number[],
-  threshold: number = 0.001,
+  threshold = 0.001,
 ) {
   const procProbabilities = resetProbabilityArray(actualProcs, procAttempts, procChance);
   const rangeMin = procProbabilities.findIndex(({ y }) => y >= threshold);
@@ -174,7 +174,7 @@ export function plotOneVariableBinomChart(
   actualProcs: number,
   procAttempts: number,
   procChance: number | number[],
-  trackedName: string = 'Procs',
+  trackedName = 'Procs',
   tooltipText: string = trackedName,
   yDomain: [number, number] = [0, 0.4],
   xAxis: any = {

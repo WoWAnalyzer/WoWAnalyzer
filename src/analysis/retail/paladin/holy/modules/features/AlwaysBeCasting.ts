@@ -9,7 +9,7 @@ const debug = false;
 const AVENGING_CRUSADER_SPELLS = [SPELLS.CRUSADER_STRIKE.id, SPELLS.JUDGMENT_CAST_HOLY.id];
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
-  hasAC: boolean = false;
+  hasAC = false;
 
   constructor(options: Options) {
     super(options);
@@ -17,6 +17,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     this.HEALING_ABILITIES_ON_GCD.push(SPELLS.FLASH_OF_LIGHT.id);
     this.HEALING_ABILITIES_ON_GCD.push(TALENTS.LIGHT_OF_THE_MARTYR_TALENT.id);
     this.HEALING_ABILITIES_ON_GCD.push(SPELLS.WORD_OF_GLORY.id);
+    this.HEALING_ABILITIES_ON_GCD.push(TALENTS.ETERNAL_FLAME_TALENT.id);
     this.HEALING_ABILITIES_ON_GCD.push(SPELLS.HOLY_LIGHT.id);
     this.HEALING_ABILITIES_ON_GCD.push(TALENTS.HOLY_SHOCK_TALENT.id);
     this.HEALING_ABILITIES_ON_GCD.push(TALENTS.LIGHT_OF_DAWN_TALENT.id);

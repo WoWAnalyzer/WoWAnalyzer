@@ -11,6 +11,7 @@ import { HideExplanationsToggle } from 'interface/guide/components/HideExplanati
 import { AplSectionData } from 'interface/guide/components/Apl';
 import * as ssApl from 'src/analysis/retail/mage/frost/apl/SpellslingerAplCheck';
 import * as ffApl from 'src/analysis/retail/mage/frost/apl/FrostfireAplCheck';
+import MajorDefensives from 'src/analysis/retail/mage/shared/defensives/DefensivesGuide';
 
 export const GUIDE_CORE_EXPLANATION_PERCENT = 50;
 
@@ -97,6 +98,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {info.combatant.hasTalent(TALENTS.SHIFTING_POWER_TALENT) &&
           modules.shiftingPowerFrost.guideSubsection}
       </Section>
+      <MajorDefensives />
       <PreparationSection />
     </>
   );

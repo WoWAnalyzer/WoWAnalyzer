@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { formatNumber } from 'common/format';
 import indexByProperty from 'common/indexByProperty';
 import { TooltipElement } from 'interface';
@@ -24,13 +24,13 @@ interface SpellStats extends Omit<InternalPlayerStats, 'combatant'> {
   spellId: number;
 }
 
-export type PlayerStats = {
+export interface PlayerStats {
   combatant: Combatant;
   effectiveHealing: number;
   healingReceived: number;
   healingFromMastery: number;
   maxPotentialHealingFromMastery: number;
-};
+}
 
 type InternalPlayerStats = PlayerStats & { masteryEffectiveness: number };
 

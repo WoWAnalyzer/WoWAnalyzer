@@ -25,14 +25,14 @@ import { Talent } from 'common/TALENTS/types';
 import Spell from 'common/SPELLS/Spell';
 
 class JadefireTeachings extends Analyzer {
-  atSourceSpell: number = 0;
-  damageSpellToHealing: Map<number, number> = new Map();
-  damageSpellsCount: Map<number, number> = new Map();
-  missedDamageSpells: Map<number, number> = new Map();
-  damageSpellsToHealingCount: Map<number, number> = new Map();
-  lastDamageSpellID: number = 0;
+  atSourceSpell = 0;
+  damageSpellToHealing = new Map<number, number>();
+  damageSpellsCount = new Map<number, number>();
+  missedDamageSpells = new Map<number, number>();
+  damageSpellsToHealingCount = new Map<number, number>();
+  lastDamageSpellID = 0;
   uptimeWindows: OpenTimePeriod[] = [];
-  overhealing: number = 0;
+  overhealing = 0;
   currentRskTalent: Talent;
   currentDamage: Spell;
 

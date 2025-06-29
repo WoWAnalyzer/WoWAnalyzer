@@ -24,7 +24,6 @@ const LanguageSwitcher = () => {
     return (
       <ReadableListing groupType="or">
         {Object.keys(languages).map((code) => (
-          // eslint-disable-next-line jsx-a11y/anchor-is-valid
           <a key={code} onClick={() => selectLanguage(code)}>
             {languages[code].localName}
           </a>
@@ -34,7 +33,6 @@ const LanguageSwitcher = () => {
   }
 
   return (
-    // eslint-disable-next-line jsx-a11y/anchor-is-valid
     <a onClick={() => setExpanded(true)}>
       <TooltipElement
         content={t({

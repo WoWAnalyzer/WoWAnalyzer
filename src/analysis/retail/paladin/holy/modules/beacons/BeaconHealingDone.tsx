@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { Ability, BeaconHealEvent } from 'parser/core/Events';
 import HealingValue from 'parser/shared/modules/HealingValue';
@@ -18,7 +18,7 @@ class BeaconHealingDone extends Analyzer {
   protected healingDone!: HealingDone;
 
   _totalBeaconHealing = HealingValue.empty();
-  _beaconHealingBySource: { [spellID: number]: BeaconTracking } = {};
+  _beaconHealingBySource: Record<number, BeaconTracking> = {};
 
   constructor(options: Options) {
     super(options);
@@ -79,7 +79,7 @@ class BeaconHealingDone extends Analyzer {
 
 export default BeaconHealingDone;
 
-type BeaconTracking = {
+interface BeaconTracking {
   ability: Ability;
   healing: HealingValue;
-};
+}

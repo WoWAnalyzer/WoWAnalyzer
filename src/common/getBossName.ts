@@ -1,9 +1,9 @@
-import { defineMessage } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
 import { getLabel } from 'game/DIFFICULTIES';
 import { WCLFight } from 'parser/core/Fight';
 import { i18n } from '@lingui/core';
 
-export default function getBossName(fight: WCLFight, withDifficulty: boolean = true): string {
+export default function getBossName(fight: WCLFight, withDifficulty = true): string {
   return withDifficulty
     ? i18n._(
         defineMessage({

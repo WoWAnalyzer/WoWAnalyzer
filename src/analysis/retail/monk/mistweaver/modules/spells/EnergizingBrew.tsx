@@ -19,9 +19,9 @@ class EnergizingBrew extends Analyzer {
     globalCooldown: GlobalCooldown,
   };
   protected globalCooldown!: GlobalCooldown;
-  totalRestored: number = 0;
-  timeSaved: number = 0;
-  totalTeas: number = 0;
+  totalRestored = 0;
+  timeSaved = 0;
+  totalTeas = 0;
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.ENERGIZING_BREW_TALENT);

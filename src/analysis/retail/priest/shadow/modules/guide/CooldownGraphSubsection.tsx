@@ -13,15 +13,15 @@ import VoidBlast from '../talents/Voidweaver/VoidBlast';
 //import ItemSetLink from 'interface/ItemSetLink';
 //import { TIERS } from 'game/TIERS';
 
-type Cooldown = {
+interface Cooldown {
   talent: Talent;
   extraTalents?: Talent[];
-};
+}
 
-type SpellCooldown = {
+interface SpellCooldown {
   spell: Spell;
   activeWindows?: CooldownWindow[];
-};
+}
 
 //you can't push Spells to Cooldowns later on without adding it multiple times when changing tabs, so we just use a different list for each combination
 //I can't find a better way to do this, but need to find one as talent choices make for many different possibilites.
@@ -137,7 +137,7 @@ const CoreCooldownsGraph = () => {
             {' '}
             <SpellLink spell={SPELLS.SHADOW_PRIEST_VOIDWEAVER_VOID_BLAST} />{' '}
           </strong>{' '}
-          is a powerful spell that should be cast on cooldown while you have access to it while{' '}
+          is an improved version of Mind Blast which is only available while{' '}
           <SpellLink spell={SPELLS.SHADOW_PRIEST_VOIDWEAVER_ENTROPIC_RIFT_BUFF} /> is active.
           <br />
         </>
@@ -221,7 +221,7 @@ const ShortCooldownsGraph = () => {
           <strong>
             <SpellLink spell={TALENTS.VOID_TORRENT_TALENT} />
           </strong>{' '}
-          is a powerful spell that should be used as often as possible with{' '}
+          is a channeled spell that should be used as often as possible with{' '}
           <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} /> on its target. It should be
           channeled for its full duration.
           <br />

@@ -1,4 +1,5 @@
-@import 'interface/Theme.scss';
+@use 'sass:color';
+@use 'interface/Theme.scss';
 
 .modal {
   position: fixed;
@@ -16,7 +17,7 @@
       float: right;
       background: none;
       border: 0;
-      color: $primaryColor;
+      color: Theme.$primaryColor;
       font-size: 55px;
       line-height: 1;
       padding: 5px;
@@ -25,10 +26,10 @@
       .icon {
         margin-top: 0;
         vertical-align: top;
-        filter: drop-shadow(0 0 2px $primaryColor);
+        filter: drop-shadow(0 0 2px Theme.$primaryColor);
 
         &:hover {
-          color: lighten($primaryColor, 30%);
+          color: color.adjust(Theme.$primaryColor, $lightness: 30%);
         }
       }
     }

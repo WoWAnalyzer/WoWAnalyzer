@@ -4,14 +4,14 @@ import { Tooltip } from 'interface';
 import * as React from 'react';
 import { TrackedBuffEvent } from 'parser/core/Entity';
 
-export type Uptime = {
+export interface Uptime {
   /** Timestamp in milliseconds of the uptime start */
   start: number;
   /** Timestamp in milliseconds of the uptime end */
   end: number;
   /** Custom color to paint specifically this uptime. Will override barColor. */
   customColor?: string;
-};
+}
 
 /** Helper function to convert a selection of entity buff history into Uptimes consumed by this component */
 export function getUptimesFromBuffHistory(
@@ -26,13 +26,13 @@ export function getUptimesFromBuffHistory(
   }));
 }
 
-type Props = {
+interface Props {
   uptimeHistory: Uptime[];
   start: number;
   end: number;
   barColor?: string;
   timeTooltip?: boolean;
-};
+}
 
 const UptimeBar = ({
   uptimeHistory,

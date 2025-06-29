@@ -19,11 +19,11 @@ const deps = {
   brews: SharedBrews,
 };
 
-type PtaConsumerData = {
+interface PtaConsumerData {
   spellId: number;
   count: number;
   totalDamage: number;
-};
+}
 
 const BreakdownTable = styled.table`
   td {
@@ -45,7 +45,7 @@ export default class PressTheAdvantage extends Analyzer.withDependencies(deps) {
    * The number of times that PTA expired without being consumed.
    */
   private ptaExpirations = 0;
-  private readonly ptaConsumers: Map<number, PtaConsumerData> = new Map();
+  private readonly ptaConsumers = new Map<number, PtaConsumerData>();
 
   constructor(options: Options) {
     super(options);

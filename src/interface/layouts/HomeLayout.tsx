@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import Ad, { AdErrorBoundary, Location } from 'interface/Ad';
 import ErrorBoundary from 'interface/ErrorBoundary';
 import FingerprintFilledIcon from 'interface/icons/FingerprintFilled';

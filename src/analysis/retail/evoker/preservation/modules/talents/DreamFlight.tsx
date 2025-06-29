@@ -29,8 +29,8 @@ class DreamFlight extends Analyzer {
     combatants: Combatants,
   };
   protected combatants!: Combatants;
-  numCasts: number = 0;
-  numApply: number = 0;
+  numCasts = 0;
+  numApply = 0;
   castInfo: CastInfo[] = [];
 
   constructor(options: Options) {

@@ -15,10 +15,10 @@ class ColdBlood extends Analyzer {
   static dependencies = {
     abilities: Abilities,
   };
-  casts: number = 0;
-  cooldown: number = 90;
-  damage: number = 0;
-  lashDamage: number = 0;
+  casts = 0;
+  cooldown = 90;
+  damage = 0;
+  lashDamage = 0;
   maxCasts = 0;
   protected abilities!: Abilities;
 

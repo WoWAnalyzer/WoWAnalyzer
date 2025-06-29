@@ -1,3 +1,4 @@
+import TooltipWrapper from 'interface/Tooltip';
 import Spell from 'common/SPELLS/Spell';
 import { SpellLink } from 'interface';
 import { ThresholdStyle } from 'parser/core/ParseResults';
@@ -19,6 +20,7 @@ import {
   Violation,
   isRuleEqual,
 } from './index';
+import { InformationIcon } from 'interface/icons';
 
 interface Props {
   apl: Apl;
@@ -72,7 +74,7 @@ const Tooltip = ({
   const mistakes = Object.entries(
     violations
       .filter((v) => isRuleEqual(v.rule, rule))
-      .reduce((counts: { [spellId: number]: number }, v) => {
+      .reduce((counts: Record<number, number>, v) => {
         counts[v.actualCast.ability.guid] = (counts[v.actualCast.ability.guid] || 0) + 1;
         return counts;
       }, {}),
@@ -161,6 +163,14 @@ export function RuleDescription({ rule }: { rule: AplRule }): JSX.Element {
       Cast <RuleSpellsDescription rule={rule} />
       {rule.condition ? ' ' : ''}
       <ConditionDescription prefix="when" rule={rule} tense={Tense.Present} />
+      {rule.condition?.tooltip?.() && (
+        <TooltipWrapper content={rule.condition.tooltip()}>
+          <span>
+            {' '}
+            <InformationIcon style={{ fontSize: '1em' }} />
+          </span>
+        </TooltipWrapper>
+      )}
     </>
   );
 }

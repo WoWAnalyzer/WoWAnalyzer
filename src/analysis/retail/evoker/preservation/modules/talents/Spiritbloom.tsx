@@ -24,7 +24,7 @@ class Spiritbloom extends Analyzer {
   };
   protected abilityTracker!: AbilityTracker;
   casts: CastInfo[] = [];
-  maxEmpowerLevel: number = 0;
+  maxEmpowerLevel = 0;
 
   constructor(options: Options) {
     super(options);

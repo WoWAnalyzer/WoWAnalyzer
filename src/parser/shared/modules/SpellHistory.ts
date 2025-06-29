@@ -7,6 +7,8 @@ import Events, {
   EndChannelEvent,
   RemoveBuffEvent,
   UpdateSpellUsableEvent,
+  EmpowerEndEvent,
+  EmpowerStartEvent,
 } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
@@ -20,7 +22,9 @@ type SpellHistoryEvent =
   | EndChannelEvent
   | ApplyBuffEvent
   | RemoveBuffEvent
-  | UpdateSpellUsableEvent;
+  | UpdateSpellUsableEvent
+  | EmpowerEndEvent
+  | EmpowerStartEvent;
 
 class SpellHistory extends Analyzer {
   static dependencies = {
@@ -33,9 +37,7 @@ class SpellHistory extends Analyzer {
   protected abilities!: Abilities;
   protected abilityTracker!: AbilityTracker;
 
-  public historyBySpellId: {
-    [spellId: number]: SpellHistoryEvent[];
-  } = {
+  public historyBySpellId: Record<number, SpellHistoryEvent[]> = {
     // This contains the raw event to have all information one might ever need and so that we don't construct additional objects that take their own memory.
     // [spellId]: [
     //   {type: EventType.Cast, timestamp, ...},
@@ -56,6 +58,8 @@ class SpellHistory extends Analyzer {
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER), this.append);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER), this.append);
     this.addEventListener(Events.UpdateSpellUsable.by(SELECTED_PLAYER), this.append);
+    this.addEventListener(Events.empowerEnd.by(SELECTED_PLAYER), this.append);
+    this.addEventListener(Events.empowerStart.by(SELECTED_PLAYER), this.append);
   }
 
   private getAbility(spellId: number) {

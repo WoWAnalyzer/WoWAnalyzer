@@ -1,4 +1,4 @@
-import { defineMessage } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
 import indexById from 'common/indexById';
 
 import { PRIMARY_STAT } from 'parser/shared/modules/features/STAT';
@@ -29,7 +29,7 @@ interface BaseSpec {
   masteryCoefficient?: number;
 }
 
-export interface RetailSpec extends BaseSpec {}
+export type RetailSpec = BaseSpec;
 
 interface ClassicSpec extends BaseSpec {
   icon: string;

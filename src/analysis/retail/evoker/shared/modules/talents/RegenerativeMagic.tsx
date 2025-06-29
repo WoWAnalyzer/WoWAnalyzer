@@ -16,7 +16,7 @@ class RegenerativeMagic extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
   };
-  totalHealing: number = 0;
+  totalHealing = 0;
   protected statTracker!: StatTracker;
 
   constructor(options: Options) {

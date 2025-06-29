@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { Ability } from 'parser/core/Events';

@@ -28,9 +28,10 @@ class Deathspeaker extends Analyzer {
   protected abilityTracker!: AbilityTracker;
   protected spellUsable!: SpellUsable;
 
-  procsGained: number = 0;
-  procsWasted: number = 0;
-  lastProcTime: number = 0;
+  procsGained = 0;
+  procsWasted = 0;
+  procsRefreshed = 0;
+  lastProcTime = 0;
 
   constructor(options: Options) {
     super(options);
@@ -142,11 +143,12 @@ class Deathspeaker extends Analyzer {
   }
 
   onBuffRefresh() {
-    this.procsWasted += 1;
+    this.procsGained += 1;
+    this.procsRefreshed += 1;
   }
 
   getProcsUsed() {
-    return this.procsGained - this.procsWasted;
+    return this.procsGained - this.procsWasted - this.procsRefreshed;
   }
 
   statistic() {
@@ -168,7 +170,7 @@ class Deathspeaker extends Analyzer {
     };
 
     const badDS = {
-      count: this.procsWasted,
+      count: this.procsWasted + this.procsRefreshed,
       label: 'Deathspeaker procs wasted',
     };
 

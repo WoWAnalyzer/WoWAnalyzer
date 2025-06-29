@@ -1,4 +1,4 @@
-import { defineMessage } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -24,8 +24,8 @@ class FesteringStrikeEfficiency extends Analyzer {
 
   protected woundTracker!: WoundTracker;
 
-  private totalFesteringStrikeCasts: number = 0;
-  private festeringStrikeCastsOverSafeCount: number = 0;
+  private totalFesteringStrikeCasts = 0;
+  private festeringStrikeCastsOverSafeCount = 0;
 
   constructor(options: Options) {
     super(options);

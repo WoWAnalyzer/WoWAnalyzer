@@ -227,8 +227,8 @@ const RowContent = styled.div`
   gap: 2px;
 `;
 
-function intoRows<T extends { event: AnyEvent }>(data: Array<T>, startTime: number): Array<T[]> {
-  const rows: Array<T[]> = [[]];
+function intoRows<T extends { event: AnyEvent }>(data: T[], startTime: number): T[][] {
+  const rows: T[][] = [[]];
   let currentIndex = 0;
   for (const datum of data) {
     const index = Math.floor((datum.event.timestamp - startTime) / 60000);

@@ -77,12 +77,12 @@ class AdaptiveSwarm extends Analyzer {
   // A tally of the healing attributable to Adaptive Swarm's boost on periodic effects,
   // including any additional boost from Evolved Swarm. While it does buff itself,
   // we don't count that because it's already covered by the 'direct healing' category
-  _periodicBoostHealingAttribution: number = 0;
+  _periodicBoostHealingAttribution = 0;
 
   // A tally of the damage attributable to Adaptive Swarm's boost on periodic effects,
   // including any additional boost from Evolved Swarm. While it does buff itself,
   // we don't count that because it's already covered by the 'direct damage' category
-  _periodicBoostDamageAttribution: number = 0;
+  _periodicBoostDamageAttribution = 0;
 
   constructor(options: Options) {
     super(options);

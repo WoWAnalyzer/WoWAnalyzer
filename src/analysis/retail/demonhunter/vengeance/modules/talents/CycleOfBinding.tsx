@@ -122,7 +122,7 @@ export default class CycleOfBinding extends Analyzer.withDependencies(deps) {
 
   private onCast(
     event: CastEvent,
-    getAffectedByFn: (event: CastEvent) => Array<ApplyDebuffEvent | DamageEvent>,
+    getAffectedByFn: (event: CastEvent) => (ApplyDebuffEvent | DamageEvent)[],
   ) {
     const affectedBy = getAffectedByFn(event);
     if (affectedBy.length === 0) {

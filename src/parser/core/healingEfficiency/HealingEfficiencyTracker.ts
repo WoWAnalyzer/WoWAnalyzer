@@ -97,13 +97,14 @@ class HealingEfficiencyTracker extends Analyzer {
     spellInfo.damageHits = ability.damageHits || 0;
     spellInfo.damageDone = ability.damageVal.effective;
 
-    const spenders = this.manaTracker.spendersObj as {
-      [spellId: number]: {
+    const spenders = this.manaTracker.spendersObj as Record<
+      number,
+      {
         spent: number;
         spentByCast: number[];
         casts: number;
-      };
-    };
+      }
+    >;
 
     spellInfo.manaSpent = spenders[spellId] ? spenders[spellId].spent : 0;
     const timeSpentCasting = this.castEfficiency.getTimeSpentCasting(spellId);
@@ -140,7 +141,7 @@ class HealingEfficiencyTracker extends Analyzer {
   }
 
   getAllSpellStats(includeCooldowns = false) {
-    const spells: { [spellId: number]: SpellInfoDetails } = {};
+    const spells: Record<number, SpellInfoDetails> = {};
     let topHpm = 0;
     let topDpm = 0;
     let topHpet = 0;

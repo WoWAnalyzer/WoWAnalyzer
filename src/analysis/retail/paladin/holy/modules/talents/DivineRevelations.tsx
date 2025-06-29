@@ -12,13 +12,12 @@ import {
   INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER,
   INFUSION_OF_LIGHT_BUFF_MINIMAL_ACTIVE_TIME,
 } from '../core/PaladinAbilityTracker';
-
-const FLASH_HEAL_INCREASE = 0.2;
+import { DIVINE_REVELATIONS_INCREASE } from '../../constants';
 
 class DivineRevelations extends Analyzer {
-  lastCast: number = 0;
+  lastCast = 0;
 
-  healing: number = 0;
+  healing = 0;
 
   resourceGained: Map<number, number> = new Map<number, number>();
 
@@ -55,7 +54,7 @@ class DivineRevelations extends Analyzer {
       return;
     }
 
-    const effectiveHealingBoost = calculateEffectiveHealing(event, FLASH_HEAL_INCREASE);
+    const effectiveHealingBoost = calculateEffectiveHealing(event, DIVINE_REVELATIONS_INCREASE);
     this.healing += effectiveHealingBoost;
   }
 

@@ -4,15 +4,19 @@ import {
   CorruptResponseError,
   JsonParseError,
   LogNotFoundError,
+  UnauthorizedError,
 } from 'common/fetchWclApi';
 import thunderSoundEffect from 'interface/audio/Thunder Sound effect.mp3';
 import FullscreenError from 'interface/FullscreenError';
 import ApiDownBackground from 'interface/images/api-down-background.gif';
 import { EventsParseError } from 'interface/report/hooks/useEventParser';
 
+export const isCommonError = (err: unknown): err is LogNotFoundError | UnauthorizedError =>
+  err instanceof LogNotFoundError || err instanceof UnauthorizedError;
+
 export default function handleApiError(error: Error, onBack: () => void) {
   console.error(error);
-  if (error instanceof LogNotFoundError) {
+  if (error instanceof LogNotFoundError || error instanceof UnauthorizedError) {
     return (
       <FullscreenError
         error={t({
@@ -27,15 +31,21 @@ export default function handleApiError(error: Error, onBack: () => void) {
       >
         <div className="text-muted">
           <Trans id="interface.report.handleApiError.wrongOrPrivateReportDetails">
-            Private reports can not be used, if your guild has private reports you will have to{' '}
-            <a href="https://www.warcraftlogs.com/help/start/">upload your own logs</a> or change
-            the existing reports to the <i>unlisted</i> privacy option instead.
+            In order to view private reports, you will need to grant access via WarcraftLogs. If you
+            would like to authorize access to your private logs, click <em>Continue</em> below.
           </Trans>
         </div>
         <div>
           <button type="button" className="btn btn-primary" onClick={onBack}>
             &lt; <Trans id="interface.report.handleApiError.back">Back</Trans>
           </button>
+          <a
+            className="btn btn-primary"
+            style={{ marginLeft: 20 }}
+            href={`${import.meta.env.VITE_SERVER_BASE}login/wcl?redirect=${encodeURIComponent(window.location.pathname + window.location.search)}`}
+          >
+            <Trans id="interface.report.handleApiError.continue">Continue</Trans>
+          </a>
         </div>
       </FullscreenError>
     );

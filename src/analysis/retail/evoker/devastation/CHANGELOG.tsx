@@ -5,6 +5,14 @@ import { TALENTS_EVOKER } from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS/evoker';
 
 export default [
+  change(date(2025, 6, 20), "Update example report for 11.1.7", Vollmer),
+  change(date(2025, 4, 17), <>Update Empower performance evaluation for <SpellLink spell={SPELLS.JACKPOT_BUFF}/> module</>, Vollmer),
+  change(date(2025, 4, 11), <>Fix consumption tracking for <SpellLink spell={SPELLS.JACKPOT_BUFF} /> module</>, Vollmer),
+  change(date(2025, 4, 11), <>Update Guide section for <SpellLink spell={SPELLS.DISINTEGRATE}/></>, Vollmer),
+  change(date(2025, 3, 27), <>Fix some issues for <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT}/> & <SpellLink spell={SPELLS.DISINTEGRATE}/> module</>, Vollmer),
+  change(date(2025, 3, 25), <>Update Empower performance evaluation for <SpellLink spell={SPELLS.JACKPOT_BUFF}/> module</>, Vollmer),
+  change(date(2025, 3, 25), <>Implement <SpellLink spell={TALENTS_EVOKER.FLAME_SIPHON_TALENT}/> module</>, Vollmer), 
+  change(date(2025, 3, 24), <>Add a Guide Section for <SpellLink spell={TALENTS_EVOKER.ENGULF_TALENT}/></>, Vollmer),
   change(date(2025, 3, 3), <>Implement TWW S2 4pc module</>, Vollmer),
   change(date(2025, 2, 25), <>Update various modules & abilities for 11.1</>, Vollmer),
   change(date(2025, 2, 25), <>Update handling of <SpellLink spell={TALENTS_EVOKER.MASS_DISINTEGRATE_TALENT}/> ticks</>, Vollmer),

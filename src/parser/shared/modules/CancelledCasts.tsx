@@ -3,13 +3,19 @@ import CrossIcon from 'interface/icons/Cross';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import CASTABLE_WHILE_CASTING_SPELLS from 'parser/core/CASTABLE_WHILE_CASTING_SPELLS';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
-import { ThresholdStyle } from 'parser/core/ParseResults';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-
-import Events, { CastEvent, BeginCastEvent } from '../../core/Events';
+import Events, {
+  CastEvent,
+  BeginCastEvent,
+  EmpowerStartEvent,
+  EmpowerEndEvent,
+  EventType,
+} from '../../core/Events';
+import { Suggestion } from 'parser/core/CombatLogParser';
 
 const debug = false;
 const MS_BUFFER = 100;
@@ -17,24 +23,29 @@ const MS_BUFFER = 100;
 class CancelledCasts extends Analyzer {
   castsCancelled = 0;
   castsFinished = 0;
-  beginCastSpell: BeginCastEvent | undefined = undefined;
-  wasCastStarted: boolean = false;
-  cancelledSpellList: {
-    [key: number]: {
+  beginCastSpell: BeginCastEvent | EmpowerStartEvent | undefined = undefined;
+  wasCastStarted = false;
+  cancelledSpellList: Record<
+    number,
+    {
       spellName: string;
       amount: number;
-    };
-  } = {};
+    }
+  > = {};
+
+  cancelGaps: CancelGap[] = [];
   IGNORED_ABILITIES: number[] = [];
 
   constructor(options: Options) {
     super(options);
     this.addEventListener(Events.begincast.by(SELECTED_PLAYER), this.onBeginCast);
+    this.addEventListener(Events.empowerStart.by(SELECTED_PLAYER), this.onBeginCast);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+    this.addEventListener(Events.empowerEnd.by(SELECTED_PLAYER), this.onCast);
     this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
-  onBeginCast(event: BeginCastEvent) {
+  onBeginCast(event: BeginCastEvent | EmpowerStartEvent) {
     const spellId = event.ability.guid;
     if (
       this.IGNORED_ABILITIES.includes(spellId) ||
@@ -49,13 +60,13 @@ class CancelledCasts extends Analyzer {
       event.timestamp - this.beginCastSpell.timestamp > MS_BUFFER
     ) {
       this.castsCancelled += 1;
-      this.addToCancelledList();
+      this.addToCancelledList(event.timestamp);
     }
     this.beginCastSpell = event;
     this.wasCastStarted = true;
   }
 
-  onCast(event: CastEvent) {
+  onCast(event: CastEvent | EmpowerEndEvent) {
     const spellId = event.ability.guid;
     const beginCastAbility = this.beginCastSpell && this.beginCastSpell.ability;
     if (
@@ -66,9 +77,15 @@ class CancelledCasts extends Analyzer {
     ) {
       return;
     }
+    if (
+      this.beginCastSpell?.type === EventType.EmpowerStart &&
+      event.type !== EventType.EmpowerEnd
+    ) {
+      return;
+    }
     if (beginCastAbility.guid !== spellId && this.wasCastStarted) {
       this.castsCancelled += 1;
-      this.addToCancelledList();
+      this.addToCancelledList(event.timestamp);
     }
     if (beginCastAbility.guid === spellId && this.wasCastStarted) {
       this.castsFinished += 1;
@@ -76,7 +93,7 @@ class CancelledCasts extends Analyzer {
     this.wasCastStarted = false;
   }
 
-  addToCancelledList() {
+  addToCancelledList(timestamp: number) {
     if (!this.beginCastSpell) {
       return;
     }
@@ -90,6 +107,15 @@ class CancelledCasts extends Analyzer {
       this.cancelledSpellList[beginCastAbility.guid].amount += 1;
     }
     debug && this.log(beginCastAbility.name + ' cast cancelled');
+
+    const endTimestamp = Math.min(timestamp, this.beginCastSpell.timestamp + MAX_CAST_TIME_GUESS);
+
+    this.cancelGaps.push({
+      start: this.beginCastSpell.timestamp,
+      end: endTimestamp,
+      abilityId: beginCastAbility.guid,
+      capped: endTimestamp - this.beginCastSpell.timestamp >= MAX_CAST_TIME_GUESS,
+    });
   }
   get totalCasts() {
     return this.castsCancelled + this.castsFinished;
@@ -163,6 +189,32 @@ class CancelledCasts extends Analyzer {
       </Statistic>
     );
   }
+
+  suggestions(when: When): void | Suggestion[] {
+    when(this.cancelledCastSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You are cancelling a large percentage of your casts. While casting the wrong spell is
+          worse than casting the right one, it is often better than casting nothing!
+        </>,
+      )
+        .icon('ability_kick')
+        .actual(<>{formatPercentage(actual)}% of casts cancelled</>)
+        .recommended(<>&lt; {formatPercentage(recommended)}% is recommended</>),
+    );
+  }
 }
 
 export default CancelledCasts;
+
+export interface CancelGap {
+  start: number;
+  end: number;
+  abilityId: number;
+  /**
+   * Whether the max cast time for guesses was used to cap the gap time.
+   */
+  capped: boolean;
+}
+
+const MAX_CAST_TIME_GUESS = 2000;

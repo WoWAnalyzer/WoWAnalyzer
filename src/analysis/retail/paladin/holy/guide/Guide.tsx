@@ -33,6 +33,7 @@ const CoreSection = ({ modules, info, events }: GuideProps<typeof CombatLogParse
   return (
     <Section title="Core">
       {modules.holyShock.guideSubsection}
+      {modules.judgment.guideSubsection}
       {info.combatant.hasTalent(talents.HOLY_PRISM_TALENT) && modules.holyPrism.guideSubsection}
       {info.combatant.hasTalent(talents.BEACON_OF_VIRTUE_TALENT)
         ? modules.beaconOfVirtue.guideSubsection
@@ -40,9 +41,35 @@ const CoreSection = ({ modules, info, events }: GuideProps<typeof CombatLogParse
 
       <SubSection title="Holy Power">
         <p>
-          With <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} /> spenders being so powerful, you
-          should make a priority of wasting as little as possible. If there is no healing to do, do
-          not be afraid to spend with <SpellLink spell={SPELLS.SHIELD_OF_THE_RIGHTEOUS} />.
+          Since <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} /> spenders are so impactful,{' '}
+          minimizing waste should be a priority.{' '}
+          {info.combatant.hasTalent(talents.ETERNAL_FLAME_TALENT) ? (
+            <SpellLink spell={talents.ETERNAL_FLAME_TALENT} />
+          ) : (
+            <SpellLink spell={SPELLS.WORD_OF_GLORY} />
+          )}{' '}
+          is often the most reliable choice when deciding which{' '}
+          <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} /> spender to use. As a general rule of
+          thumb, if casting{' '}
+          {info.combatant.hasTalent(talents.ETERNAL_FLAME_TALENT) ? (
+            <SpellLink spell={talents.ETERNAL_FLAME_TALENT} />
+          ) : (
+            <SpellLink spell={SPELLS.WORD_OF_GLORY} />
+          )}{' '}
+          won't result in significant overhealing, it's usually the best option. This is because{' '}
+          <SpellLink spell={talents.LIGHT_OF_DAWN_TALENT} /> tends to overheal and targets allies
+          randomly, making it less effective.
+          <br />
+          When using{' '}
+          {info.combatant.hasTalent(talents.ETERNAL_FLAME_TALENT) ? (
+            <SpellLink spell={talents.ETERNAL_FLAME_TALENT} />
+          ) : (
+            <SpellLink spell={SPELLS.WORD_OF_GLORY} />
+          )}
+          , try to avoid targeting your Beaconed allies unless they are in immediate danger of
+          dying. If there is no healing needed, don't hesitate to use{' '}
+          <SpellLink spell={SPELLS.SHIELD_OF_THE_RIGHTEOUS} /> to avoid capping on{' '}
+          <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} />.
         </p>
         <p>
           You wasted <strong>{holyPowerWasted}</strong>{' '}

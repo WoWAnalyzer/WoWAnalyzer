@@ -77,7 +77,7 @@ export class ReportPage {
 
   async gotoUrl({
     reportUrl,
-    handleExpansionChecker = true,
+    handleExpansionChecker = false,
     handlePatchChecker = true,
     handlePartial = true,
     waitForLoadingToFinish = true,
@@ -86,6 +86,21 @@ export class ReportPage {
   }) {
     await this.page.goto(reportUrl);
 
+    await this.handleReportChecker(
+      handleExpansionChecker,
+      handlePatchChecker,
+      handlePartial,
+      waitForLoadingToFinish,
+    );
+  }
+
+  /** Handles the "Continue anyway" dialogs */
+  async handleReportChecker(
+    handleExpansionChecker = false,
+    handlePatchChecker = true,
+    handlePartial = true,
+    waitForLoadingToFinish = true,
+  ) {
     // Wait for any of the elements we know of to be visible.
     await this.earlierExpansionHeading
       .or(this.earlierPatchHeading)
@@ -106,7 +121,7 @@ export class ReportPage {
       await this.continueAnywayLink.click();
     }
 
-    if (waitForLoadingToFinish) {
+    if ((await this.loadingLink.isVisible()) && waitForLoadingToFinish) {
       await this.expectBossDifficultyAndNameHeaderToBeVisible();
       await this.loadingLink.waitFor({ state: 'detached' });
 

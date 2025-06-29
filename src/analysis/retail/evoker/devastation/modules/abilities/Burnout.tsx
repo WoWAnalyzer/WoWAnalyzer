@@ -4,8 +4,8 @@ import SPELLS from 'common/SPELLS';
 import { isFromBurnout } from '../normalizers/CastLinkNormalizer';
 
 class Burnout extends Analyzer {
-  procs: number = 0;
-  consumedProcs: number = 0;
+  procs = 0;
+  consumedProcs = 0;
 
   constructor(options: Options) {
     super(options);

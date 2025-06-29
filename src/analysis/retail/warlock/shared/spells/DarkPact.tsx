@@ -13,17 +13,17 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import MajorDefensive, {
+import {
+  buff,
+  CooldownDetailsBuffProps,
   MajorDefensiveBuff,
   Mitigation,
-  buff,
 } from 'interface/guide/components/MajorDefensives/MajorDefensiveAnalyzer';
 import { ReactNode } from 'react';
 import { MitigationTooltipSegment } from 'interface/guide/components/MajorDefensives/MitigationSegments';
 import {
   BreakdownByDamageSource,
   CooldownDetailsContainer,
-  CooldownDetailsProps,
   NoData,
   NumericColumn,
   TableSegmentContainer,
@@ -199,7 +199,7 @@ class DarkPact extends MajorDefensiveBuff {
   }
 
   get cooldownDetailsComponent() {
-    return ({ analyzer, mit }: CooldownDetailsProps) => {
+    return ({ analyzer, mit }: CooldownDetailsBuffProps) => {
       return (
         <CooldownDetails
           analyzer={analyzer}
@@ -220,7 +220,7 @@ const CooldownDetails = ({
   mit,
   dpCast,
 }: {
-  analyzer: MajorDefensive<any, any>;
+  analyzer: MajorDefensiveBuff;
   mit?: Mitigation;
   dpCast?: DarkPactCast;
 }) => {

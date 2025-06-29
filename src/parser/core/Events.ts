@@ -1,11 +1,14 @@
 import Spell from 'common/SPELLS/Spell';
-import PhaseConfig from 'parser/core/PhaseConfig';
 import * as React from 'react';
 
-import EventFilter from './EventFilter';
-import { PetInfo } from './Pet';
-import { PlayerInfo } from './Player';
-import { EventLink } from './EventLinkNormalizer';
+import EventFilter from 'parser/core/EventFilter';
+import { EventLink } from 'parser/core/EventLinkNormalizer';
+import { Item } from 'parser/core/EventsItems';
+import { PetInfo } from 'parser/core/Pet';
+import PhaseConfig from 'parser/core/PhaseConfig';
+import { PlayerInfo } from 'parser/core//Player';
+
+export * from 'parser/core/EventsItems'; // Re-export everything from EventsItems.ts
 
 export enum EventType {
   Destroy = 'destroy', // super rare, apparently happens on dausegne, no idea what it is?
@@ -131,7 +134,7 @@ export interface RemoveStaggerEvent extends Event<EventType.RemoveStagger> {
   sourceBreakdown?: { base: number } & Record<number, number>;
 }
 
-type MappedEventTypes = {
+interface MappedEventTypes {
   [EventType.Event]: Event<EventType.Event>;
   [EventType.FreeCast]: FreeCastEvent;
   [EventType.Heal]: HealEvent;
@@ -189,7 +192,7 @@ type MappedEventTypes = {
   // Time Filtering:
   [EventType.FilterCooldownInfo]: FilterCooldownInfoEvent;
   [EventType.FilterBuffInfo]: FilterBuffInfoEvent;
-};
+}
 
 export interface Ability {
   /** The ability's name */
@@ -433,7 +436,7 @@ export interface BeginChannelEvent extends Event<EventType.BeginChannel> {
   targetInstance?: number;
   sourceIsFriendly: boolean;
   targetIsFriendly: boolean;
-  classResources?: Array<ClassResources & { cost: number }>;
+  classResources?: (ClassResources & { cost: number })[];
   // Added by any module, used in the timeline
   meta?: EventMeta;
   trigger?: AnyEvent;
@@ -455,7 +458,7 @@ export interface BaseCastEvent<T extends string> extends Event<T> {
   armor?: number;
   attackPower?: number;
   channel?: EndChannelEvent;
-  classResources?: Array<ClassResources & { cost: number }>;
+  classResources?: (ClassResources & { cost: number })[];
   facing?: number;
   hitPoints?: number;
   itemLevel?: number;
@@ -474,12 +477,8 @@ export interface BaseCastEvent<T extends string> extends Event<T> {
   y?: number;
 
   // Added by the SpellResourceCost module if active
-  rawResourceCost?: {
-    [resourceType: number]: number;
-  };
-  resourceCost?: {
-    [resourceType: number]: number;
-  };
+  rawResourceCost?: Record<number, number>;
+  resourceCost?: Record<number, number>;
   // Added by the GlobalCooldown module
   globalCooldown?: GlobalCooldownEvent;
   // Added by any module, used in the timeline
@@ -1037,38 +1036,6 @@ export type PhaseEvent = BasePhaseEvent<EventType.PhaseStart | EventType.PhaseEn
 export type PhaseStartEvent = BasePhaseEvent<EventType.PhaseStart>;
 
 export type PhaseEndEvent = BasePhaseEvent<EventType.PhaseEnd>;
-
-export interface Item {
-  id: number;
-  quality: number;
-  icon: string;
-  itemLevel: number;
-  bonusIDs?: number | number[];
-  effectID?: number;
-  permanentEnchant?: number;
-  temporaryEnchant?: number;
-  /**
-   * An enchant that provides an activatable ability.
-   *
-   * Only seen it used on Cata Engineering "enchants".
-   */
-  onUseEnchant?: number;
-  gems?: Gem[];
-  setID?: number;
-
-  /**
-   * Added while parsing gear of the combatant if item is part of a set.
-   * Contains all equiped items ids that have the same @setID
-   * Used for wowhead tooltip.
-   */
-  setItemIDs?: number[];
-}
-
-interface Gem {
-  id: number;
-  itemLevel: number;
-  icon: string;
-}
 
 export interface Buff {
   source: number;

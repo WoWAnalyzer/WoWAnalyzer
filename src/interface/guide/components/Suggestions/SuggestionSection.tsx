@@ -11,6 +11,24 @@ interface SuggestionSectionProps<T extends typeof Analyzer> {
   analyzers?: T[];
 }
 
+export function useSuggestions(
+  analyzerInstances: (Analyzer | undefined)[],
+): ParseResults['issues'] {
+  return useMemo(() => {
+    const results = new ParseResults();
+    analyzerInstances
+      .filter((analyzer): analyzer is Analyzer => analyzer !== undefined)
+      .filter((analyzer) => analyzer.active)
+      .forEach((analyzer) => {
+        const maybeResult = analyzer.suggestions(results.suggestions.when);
+        if (maybeResult) {
+          maybeResult.forEach((issue) => results.addIssue(issue));
+        }
+      });
+    return results.issues;
+  }, [analyzerInstances]);
+}
+
 /**
  * Section that can be included in Guides in order to make transitioning away from
  * Suggestions easier.
@@ -24,16 +42,7 @@ interface SuggestionSectionProps<T extends typeof Analyzer> {
 const SuggestionSection = <T extends typeof Analyzer>({ analyzers }: SuggestionSectionProps<T>) => {
   const [showMinorIssues, setShowMinorIssues] = useState(false);
   const analyzerInstances = useAnalyzers(analyzers ?? []);
-  const parseResults = useMemo(() => {
-    const results = new ParseResults();
-    analyzerInstances.forEach((analyzer) => {
-      const maybeResult = analyzer.suggestions(results.suggestions.when);
-      if (maybeResult) {
-        maybeResult.forEach((issue) => results.addIssue(issue));
-      }
-    });
-    return results;
-  }, [analyzerInstances]);
+  const suggestions = useSuggestions(analyzerInstances);
 
   return (
     <Section
@@ -68,7 +77,7 @@ const SuggestionSection = <T extends typeof Analyzer>({ analyzers }: SuggestionS
         </div>
       </div>
       <div className="flex" style={{ paddingTop: 10, paddingBottom: 10 }}>
-        <Suggestions parseResults={parseResults} showMinorIssues={showMinorIssues} />
+        <Suggestions parseResults={{ issues: suggestions }} showMinorIssues={showMinorIssues} />
       </div>
       <div className="flex">
         <small>

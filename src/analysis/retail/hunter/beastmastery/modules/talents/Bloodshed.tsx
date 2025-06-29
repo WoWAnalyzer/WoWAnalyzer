@@ -26,7 +26,7 @@ class Bloodshed extends Analyzer {
 
   bleedDamage = 0;
   increasedDamage = 0;
-  pets: Array<{ petName: string; sourceID: number | undefined; damage: number }> = [];
+  pets: { petName: string; sourceID: number | undefined; damage: number }[] = [];
 
   protected enemies!: Enemies;
 

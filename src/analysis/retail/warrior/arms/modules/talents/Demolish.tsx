@@ -12,7 +12,7 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 import { DEMOLISH_DAMAGE_CAST } from '../../normalizers/DemolishNormalizer';
 import SpellLink from 'interface/SpellLink';
-import { defineMessage } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
 import { DEFAULT_EXECUTE_THRESHOLD, MASSACRE_EXECUTE_THRESHOLD } from '../core/AplCheck';
 
 const COLOSSAL_MIGHT_MAX_STACKS = 10;
@@ -25,10 +25,10 @@ class Demolish extends Analyzer {
 
   protected spellUsable!: SpellUsable;
 
-  badDemolishes: number = 0;
-  executeThreshold: number = 0;
-  inExecuteRange: boolean = false;
-  colossusSmashDebuffActive: boolean = false;
+  badDemolishes = 0;
+  executeThreshold = 0;
+  inExecuteRange = false;
+  colossusSmashDebuffActive = false;
 
   constructor(options: Options) {
     super(options);

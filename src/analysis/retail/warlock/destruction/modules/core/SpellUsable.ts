@@ -19,12 +19,13 @@ const BUFFER = 50;
 const debug = false;
 const REDUCTION_MS_PER_SHARD = 2000;
 
-type ShadowburnedEnemies = {
-  [target: string]: {
+type ShadowburnedEnemies = Record<
+  string,
+  {
     start: number;
     expectedEnd: number;
-  };
-};
+  }
+>;
 
 class SpellUsable extends CoreSpellUsable {
   hasSB = false;

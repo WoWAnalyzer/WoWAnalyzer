@@ -1,4 +1,4 @@
-import { defineMessage } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
 import TALENTS from 'common/TALENTS/hunter';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -28,10 +28,10 @@ class Butchery extends Analyzer {
 
   protected spellUsable!: SpellUsable;
 
-  private targetsHit: number = 0;
-  private casts: number = 0;
-  private damage: number = 0;
-  private mercilessDamage: number = 0;
+  private targetsHit = 0;
+  private casts = 0;
+  private damage = 0;
+  private mercilessDamage = 0;
 
   constructor(options: Options) {
     super(options);

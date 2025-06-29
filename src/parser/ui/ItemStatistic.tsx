@@ -6,8 +6,9 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import Statistic from './Statistic';
+import { ComponentProps } from 'react';
 
-const ItemStatistic = (props: React.ComponentProps<typeof Statistic>) => (
+const ItemStatistic = (props: ComponentProps<typeof Statistic>) => (
   <Statistic
     category={STATISTIC_CATEGORY.ITEMS}
     position={STATISTIC_ORDER.OPTIONAL(0)}

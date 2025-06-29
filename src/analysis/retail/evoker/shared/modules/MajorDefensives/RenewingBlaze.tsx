@@ -4,12 +4,14 @@ import MajorDefensive, {
   MitigationRow,
   MitigationRowContainer,
   buff,
+  CooldownDetailsBuffProps,
 } from 'interface/guide/components/MajorDefensives/MajorDefensiveAnalyzer';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import TALENTS from 'common/TALENTS/evoker';
 import Events, {
   ApplyBuffEvent,
   DamageEvent,
+  EventType,
   GetRelatedEvents,
   HealEvent,
 } from 'parser/core/Events';
@@ -36,12 +38,12 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { ReactNode } from 'react';
 import { RENEWING_BLAZE_HEAL } from '../normalizers/DefensiveCastLinkNormalizer';
 
-type RenewingBlazeHealBuff = {
+interface RenewingBlazeHealBuff {
   start: ApplyBuffEvent;
   amount: number;
   overheal: number;
   partnerAmount: number;
-};
+}
 
 class RenewingBlaze extends MajorDefensiveBuff {
   renewingBlazeHealBuffs: RenewingBlazeHealBuff[] = [];
@@ -330,7 +332,7 @@ class RenewingBlaze extends MajorDefensiveBuff {
   }
 
   get cooldownDetailsComponent() {
-    return ({ analyzer, mit }: CooldownDetailsProps) => {
+    return ({ analyzer, mit }: CooldownDetailsBuffProps) => {
       const heal = this.healBuff(mit);
       return <CooldownDetails analyzer={analyzer} mit={mit} heal={heal} />;
     };

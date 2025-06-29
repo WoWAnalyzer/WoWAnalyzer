@@ -1,11 +1,11 @@
-type Language = {
+interface Language {
   englishName: string;
   localName: string;
   region: string | null;
   locale: string;
-};
+}
 
-const LANGUAGES: { [code: string]: Language } = {
+const LANGUAGES: Record<string, Language> = {
   en: {
     englishName: 'English',
     localName: 'English',

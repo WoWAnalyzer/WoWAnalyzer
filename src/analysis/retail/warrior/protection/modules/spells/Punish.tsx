@@ -18,7 +18,7 @@ class Punish extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
-  bonusDmg: number = 0;
+  bonusDmg = 0;
 
   protected enemies!: Enemies;
 

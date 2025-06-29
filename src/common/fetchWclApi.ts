@@ -16,6 +16,7 @@ export class ApiDownError extends ExtendableError {}
 export class LogNotFoundError extends ExtendableError {}
 export class CharacterNotFoundError extends ExtendableError {}
 export class GuildNotFoundError extends ExtendableError {}
+export class UnauthorizedError extends ExtendableError {}
 export class JsonParseError extends ExtendableError {
   originalError?: ExtendableError;
   raw?: string;
@@ -53,7 +54,7 @@ function fixSpellNameEscaping(text: string) {
   // WCL fails to escape spell names when using translate=true, leading to invalid JSON.
   // this fixes these logs by removing those
   const regex = /"name": ?"(.+?)",/g;
-  // eslint-disable-next-line
+
   while (true) {
     const match = regex.exec(text);
     if (match === null) {
@@ -77,7 +78,7 @@ export async function toJson(response: string | Response) {
         text = fixControlCharacters(text);
         text = fixSpellNameEscaping(text);
         return JSON.parse(text);
-      } catch (asciiFixError) {
+      } catch {
         // Ignore the error since we're more interested in the original error.
       }
     }
@@ -90,12 +91,15 @@ export async function toJson(response: string | Response) {
   }
 }
 
-async function rawFetchWcl(endpoint: string, queryParams: QueryParams, noCache: boolean = false) {
+async function rawFetchWcl(endpoint: string, queryParams: QueryParams, noCache = false) {
   if (import.meta.env.MODE === 'test') {
     throw new Error('Unable to query WCL during test');
   }
   const url = makeWclApiUrl(endpoint, queryParams);
-  const response = await fetch(url, { cache: noCache ? 'reload' : 'default' });
+  const response = await fetch(url, {
+    credentials: 'include',
+    cache: noCache ? 'reload' : 'default',
+  });
 
   if (Object.values(HTTP_CODES.CLOUDFLARE).includes(response.status)) {
     throw new ApiDownError(
@@ -114,6 +118,9 @@ async function rawFetchWcl(endpoint: string, queryParams: QueryParams, noCache: 
     }
     if (message === 'Invalid guild name/server/region specified.') {
       throw new GuildNotFoundError();
+    }
+    if (message === 'Unauthorized') {
+      throw new UnauthorizedError();
     }
     throw new Error(message || json.error);
   }
@@ -140,7 +147,7 @@ export default function fetchWcl<T extends WCLResponseJSON>(
   endpoint: string,
   queryParams: QueryParams,
   options?: WclOptions,
-  noCache: boolean = false,
+  noCache = false,
 ): Promise<T> {
   options = !options ? defaultOptions : { ...defaultOptions, ...options };
 
@@ -223,9 +230,8 @@ export async function fetchEvents(
 
   let events: AnyEvent[] = [];
   let page = 0;
-  // eslint-disable-next-line no-constant-condition
+
   while (true) {
-    // eslint-disable-next-line no-await-in-loop
     const json = await rawFetchEventsPage(
       reportCode,
       pageStartTimestamp,

@@ -50,24 +50,24 @@ class BaseCelestialAnalyzer extends Analyzer {
   protected pets!: Pets;
 
   //secret infusion vars
-  siApplyTime: number = -1;
-  secretInfusionActive: boolean = false;
-  goodSiDuration: number = 0; // how long SI should last during celestial
+  siApplyTime = -1;
+  secretInfusionActive = false;
+  goodSiDuration = 0; // how long SI should last during celestial
 
   //shaohaos lessons vars
-  lessonsApplyTime: number = -1;
-  lessonsActive: boolean = false;
-  goodLessonDuration: number = 0; // how long lesson should last during celestial
+  lessonsApplyTime = -1;
+  lessonsActive = false;
+  goodLessonDuration = 0; // how long lesson should last during celestial
 
   //celestial vars
-  celestialActive: boolean = false;
-  currentCelestialStart: number = -1;
-  lastCelestialEnd: number = -1;
+  celestialActive = false;
+  currentCelestialStart = -1;
+  lastCelestialEnd = -1;
   celestialWindows: Map<number, number> = new Map<number, number>();
   castTrackers: BaseCelestialTracker[] = [];
   hasteDataPoints: number[] = []; // use this to estimate average haste during celestial
-  idealEnvmCastsUnhasted: number = 0;
-  minEfHotsBeforeCast: number = 0;
+  idealEnvmCastsUnhasted = 0;
+  minEfHotsBeforeCast = 0;
   currentRskTalent: Talent;
 
   constructor(options: Options) {

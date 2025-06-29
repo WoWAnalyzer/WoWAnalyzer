@@ -7,7 +7,7 @@ import { AplTriggerEvent, Condition, tenseAlt } from '../index';
 import { validateBuffMissing } from './buffPresent';
 import { buffDuration, DurationData, PandemicData } from './util';
 
-export type TargetOptions = {
+export interface TargetOptions {
   /**
    * Link relation (see `EventLinkNormalizer`) to use for determining
    * targets on untargeted debuff-applying spells.
@@ -15,7 +15,7 @@ export type TargetOptions = {
    * When present, overrides any targets the event has.
    */
   targetLinkRelation?: string;
-};
+}
 
 export function getTargets(event: AplTriggerEvent, targetLink?: string): string[] {
   if (targetLink) {
@@ -40,8 +40,8 @@ export function debuffMissing(
   spell: Spell,
   optPandemic?: PandemicData,
   targetOptions?: TargetOptions,
-  fallback: boolean = false,
-): Condition<{ [key: string]: DurationData }> {
+  fallback = false,
+): Condition<Record<string, DurationData>> {
   return {
     key: `debuffMissing-${spell.id}`,
     init: () => ({}),

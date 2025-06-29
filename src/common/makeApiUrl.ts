@@ -3,9 +3,7 @@ import { REALMS } from 'game/REALMS';
 import makeUrl from './makeUrl';
 import { isSupportedRegion } from 'common/regions';
 
-export interface QueryParams {
-  [key: string]: string | number | boolean | undefined;
-}
+export type QueryParams = Record<string, string | number | boolean | undefined>;
 
 export default function makeApiUrl(endpoint: string, queryParams: QueryParams = {}) {
   return makeUrl(

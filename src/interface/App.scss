@@ -1,4 +1,6 @@
-@import './Theme.scss';
+@use 'sass:color';
+@use 'sass:meta';
+@use 'Theme.scss';
 
 html {
   min-height: 100%;
@@ -9,7 +11,7 @@ body {
   font-family: 'Open Sans', 'Century Gothic', sans-serif;
   font-weight: normal;
   text-rendering: optimizeLegibility;
-  background-color: $backgroundColor;
+  background-color: Theme.$backgroundColor;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='-100 -100 400 400'%3E%3Cpath fill='%23000000' fill-opacity='0.2' d='M11.4842 102.243L1.02185 84.2455L49.9996 -7.62939e-06L98.9777 84.2461L88.5199 102.236L87.2159 99.9931H62.5V81.9943H76.7519L50.0041 35.986L23.2562 81.9943H37.5V99.9931H12.7923L11.4842 102.243ZM106.771 99.9931H106.809V99.9271L106.771 99.9931Z'%3E%3C/path%3E%3C/svg%3E");
   color: #f3eded;
 }
@@ -66,10 +68,10 @@ body {
 }
 
 a {
-  color: $primaryColor;
+  color: Theme.$primaryColor;
 
   &:hover {
-    color: lighten(hsl(44, 100%, 49%), 30%);
+    color: color.adjust(hsl(44, 100%, 49%), $lightness: 30%);
   }
 
   &.hidden-link {
@@ -88,7 +90,7 @@ a {
 }
 
 .btn-primary {
-  background: $primaryColor;
+  background: Theme.$primaryColor;
   border: 1px solid rgba(255, 255, 255, 0.2);
   padding: 10px 28px;
   border-radius: 0;
@@ -100,8 +102,8 @@ a {
   &:active,
   &:active:hover,
   &:active:focus {
-    background: darken($primaryColor, 10%);
-    border: 1px solid $primaryColor;
+    background: color.adjust(Theme.$primaryColor, $lightness: -10%);
+    border: 1px solid Theme.$primaryColor;
     outline: 0;
     color: #ccc;
   }
@@ -120,7 +122,7 @@ h1 {
   font-size: 32px;
   line-height: 44px;
   text-transform: uppercase;
-  color: $primaryColor;
+  color: Theme.$primaryColor;
 }
 
 h2 {
@@ -226,7 +228,7 @@ ul {
 
 .form-control:focus {
   box-shadow: none;
-  border: 1px solid $primaryColor;
+  border: 1px solid Theme.$primaryColor;
 }
 
 .list {
@@ -476,7 +478,7 @@ code {
 .spinner {
   width: 5em;
   height: 5em;
-  background-color: $primaryColor;
+  background-color: Theme.$primaryColor;
 
   margin: 2.5em auto;
   animation: sk-rotateplane 1.2s infinite ease-in-out;
@@ -556,7 +558,7 @@ table.data-table {
   opacity: 0.9;
   height: 1.4em;
   min-width: 1px;
-  background-color: $primaryColor;
+  background-color: Theme.$primaryColor;
 }
 
 .performance-bar.small {
@@ -584,11 +586,11 @@ table.data-table {
 }
 
 .react-toggle--checked .react-toggle-track {
-  background-color: $primaryColor;
+  background-color: Theme.$primaryColor;
 }
 
 .react-toggle--checked .react-toggle-thumb {
-  border-color: darken($primaryColor, 30%);
+  border-color: color.adjust(Theme.$primaryColor, $lightness: -30%);
 }
 
 .react-toggle:hover:not(.react-toggle--disabled) .react-toggle-track {
@@ -596,24 +598,24 @@ table.data-table {
 }
 
 .react-toggle--checked:hover:not(.react-toggle--disabled) .react-toggle-track {
-  background-color: darken($primaryColor, 32%);
+  background-color: color.adjust(Theme.$primaryColor, $lightness: -32%);
 }
 
 .react-toggle--focus .react-toggle-thumb {
-  box-shadow: 0 0 2px 3px $primaryColor;
+  box-shadow: 0 0 2px 3px Theme.$primaryColor;
 }
 
 .react-toggle:active:not(.react-toggle--disabled) .react-toggle-thumb {
-  box-shadow: 0 0 5px 5px $primaryColor;
+  box-shadow: 0 0 5px 5px Theme.$primaryColor;
 }
 
 .text-primary {
-  color: $primaryColor;
+  color: Theme.$primaryColor;
 }
 
 .text-muted,
 small {
-  color: $muted;
+  color: Theme.$muted;
 }
 
 small,
@@ -776,13 +778,13 @@ code.inactive {
   overflow: hidden;
 }
 
-@import './Game.scss';
-@import './Panel.scss';
+@include meta.load-css('Game.scss');
+@include meta.load-css('Panel.scss');
 
 .rv-xy-plot__series--line.primary {
-  stroke: $primaryColor !important;
+  stroke: Theme.$primaryColor !important;
   stroke-width: 1px;
-  fill: transparentize($primaryColor, 0.85) !important;
+  fill: color.adjust(Theme.$primaryColor, $alpha: -0.85) !important;
   transform: translateY(1px); // remove the 0 line
 }
 

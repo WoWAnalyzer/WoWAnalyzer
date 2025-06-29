@@ -16,7 +16,7 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 const { DEEP_BREATH_DAM } = SPELLS;
 
 class LayWaste extends Analyzer {
-  layWasteDamage: number = 0;
+  layWasteDamage = 0;
 
   constructor(options: Options) {
     super(options);

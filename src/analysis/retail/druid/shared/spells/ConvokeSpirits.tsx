@@ -119,7 +119,7 @@ class ConvokeSpirits extends Analyzer {
   protected activeDruidForm!: ActiveDruidForm;
 
   /** The number of times Convoke has been cast */
-  cast: number = 0;
+  cast = 0;
   /** The number of spells cast by a full Convoke channel */
   spellsPerCast: number;
   /** Timestamp of the most recent AoE spell hit registered during Convoke - used to avoid double counts */
@@ -132,12 +132,12 @@ class ConvokeSpirits extends Analyzer {
    * had same target, we assume the hit was due to a hardcast (and not convoke).
    * Cast entries will be cleared when we find a matching 'hit'.
    */
-  lastTravelingSpellCast: Array<CastEvent | undefined> = [];
+  lastTravelingSpellCast: (CastEvent | undefined)[] = [];
 
   /** True iff the current Feral Frenzy damage is from Convoke */
-  feralFrenzyIsConvoke: boolean = false;
+  feralFrenzyIsConvoke = false;
   /** True iff the current Starfall damage is from Convoke */
-  starfallIsConvoke: boolean = false;
+  starfallIsConvoke = false;
 
   constructor(options: Options) {
     super(options);

@@ -69,6 +69,7 @@ import {
   ExpandedLungs,
   RedHot,
   TimeSpiral,
+  FlameSiphon,
 } from 'analysis/retail/evoker/shared';
 import TWW2TierSet from './modules/tier/TWW2TierSet';
 
@@ -145,6 +146,7 @@ class CombatLogParser extends MainCombatLogParser {
     unrelentingSiege: UnrelentingSiege,
     wingLeader: Wingleader,
     slipstream: Slipstream,
+    flameSiphon: FlameSiphon,
 
     // core abilities
     disintegrate: Disintegrate,

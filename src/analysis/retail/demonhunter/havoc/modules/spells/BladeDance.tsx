@@ -11,8 +11,8 @@ import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 class BladeDance extends Analyzer {
   badCast = 0;
   hitCount = 0;
-  firstHitTimeStamp: number = 0;
-  strikeTime: number = 1000;
+  firstHitTimeStamp = 0;
+  strikeTime = 1000;
   lastCastEvent?: CastEvent;
 
   constructor(options: Options) {

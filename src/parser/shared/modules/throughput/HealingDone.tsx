@@ -37,9 +37,9 @@ class HealingDone extends Analyzer {
     return this._healingByAbsorbs;
   }
 
-  bySecond: { [secondsIntoFight: number]: HealingValue } = {};
+  bySecond: Record<number, HealingValue> = {};
 
-  _byAbility: { [spellId: number]: HealingValue } = {};
+  _byAbility: Record<number, HealingValue> = {};
   byAbility(spellId: number) {
     if (!this._byAbility[spellId]) {
       return HealingValue.empty();

@@ -82,7 +82,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BLIZZARD.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        cooldown: (haste: any) => 8 / (1 + haste),
+        cooldown: (haste) => 8 / (1 + haste),
         gcd: {
           base: 1500,
         },

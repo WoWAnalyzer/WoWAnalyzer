@@ -21,17 +21,17 @@ export function PerformanceBoxRow({ values, onClickBox }: PerformanceBoxRowProps
   );
 }
 
-type PerformanceBoxRowProps = {
+interface PerformanceBoxRowProps {
   values: BoxRowEntry[];
   onClickBox?: (index: number) => void;
-};
+}
 
 /** An entry for a PerformanceBoxRow */
-export type BoxRowEntry = {
+export interface BoxRowEntry {
   value: QualitativePerformance;
   tooltip?: ReactNode | string;
   className?: string;
-};
+}
 
 function getBlockClassName(value: BoxRowEntry) {
   switch (value.value) {

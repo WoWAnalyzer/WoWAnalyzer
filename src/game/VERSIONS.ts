@@ -2,9 +2,9 @@ import Expansion from './Expansion';
 import GameBranch from './GameBranch';
 
 // The current version of the game. Used to check spec patch compatibility and as a caching key.
-const VERSIONS: { [branch in GameBranch]: string } = {
+const VERSIONS: Record<GameBranch, string> = {
   [GameBranch.Classic]: '4.4.0',
-  [GameBranch.Retail]: '11.1.0',
+  [GameBranch.Retail]: '11.1.5',
 };
 
 export default VERSIONS;

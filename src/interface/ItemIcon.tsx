@@ -4,12 +4,12 @@ import { Item } from 'parser/core/Events';
 import Icon from './Icon';
 import ItemLink from './ItemLink';
 
-type Props = {
+interface Props {
   id: number;
   noLink?: boolean;
   details?: Item;
   className?: string;
-};
+}
 
 const ItemIcon = ({ id, noLink, details, className }: Props) => {
   const icon = (
@@ -20,7 +20,9 @@ const ItemIcon = ({ id, noLink, details, className }: Props) => {
     />
   );
 
-  if (noLink) {
+  // Negative item IDs are used for items that don't exist in the game as items but fit the item usage pattern
+  // , example being the empty gem socket, so they don't have a Wowhead link
+  if (noLink || id < 0) {
     return icon;
   }
 

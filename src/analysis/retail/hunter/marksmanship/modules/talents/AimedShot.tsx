@@ -28,12 +28,12 @@ class AimedShot extends Analyzer {
     abilities: Abilities,
   };
 
-  lastReductionTimestamp: number = 0;
-  effectiveCDRFromTrueshotDeadEye: number = 0;
-  wastedCDRFromTrueshotDeadEye: number = 0;
-  casts: number = 0;
-  totalCooldown: number = 0;
-  averageCooldown: number = 0;
+  lastReductionTimestamp = 0;
+  effectiveCDRFromTrueshotDeadEye = 0;
+  wastedCDRFromTrueshotDeadEye = 0;
+  casts = 0;
+  totalCooldown = 0;
+  averageCooldown = 0;
 
   protected spellUsable!: SpellUsable;
   protected abilities!: Abilities;

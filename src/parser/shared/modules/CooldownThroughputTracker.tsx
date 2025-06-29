@@ -1,4 +1,5 @@
-import { defineMessage, Trans } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import SPELLS from 'common/SPELLS';
 import CLASSIC_SPELLS from 'common/SPELLS/classic';
 import { TALENTS_PRIEST } from 'common/TALENTS';
@@ -38,15 +39,15 @@ export enum BUILT_IN_SUMMARY_TYPES {
 
 export type TrackedEvent = CastEvent | HealEvent | AbsorbedEvent | DamageEvent | ApplyBuffEvent;
 
-export type SummaryDef = {
+export interface SummaryDef {
   label: string;
   tooltip: string;
   value: number | string;
-};
+}
 
-export type CooldownSpell = {
+export interface CooldownSpell {
   spell: number;
-  summary: Array<BUILT_IN_SUMMARY_TYPES | SummaryDef>;
+  summary: (BUILT_IN_SUMMARY_TYPES | SummaryDef)[];
   startBufferFilter?: EventFilter<any>;
   startBufferMS?: number;
   startBufferEvents?: number;
@@ -54,7 +55,7 @@ export type CooldownSpell = {
   duration?: number;
   branch?: GameBranch;
   durationTooltip?: ReactNode;
-};
+}
 
 type BuffCooldownSpell = CooldownSpell & {
   branch: GameBranch;
@@ -146,10 +147,7 @@ class CooldownThroughputTracker extends Analyzer {
     this.addEventListener(Events.death.to(SELECTED_PLAYER_PET), this.onPetDeath);
   }
 
-  startCooldown(
-    event: CastEvent | ApplyBuffEvent | ApplyDebuffEvent,
-    isCastCooldown: boolean = false,
-  ) {
+  startCooldown(event: CastEvent | ApplyBuffEvent | ApplyDebuffEvent, isCastCooldown = false) {
     const branch = this.owner.config.branch;
     const spellId = event.ability.guid;
     const ctor = this.constructor as typeof CooldownThroughputTracker;

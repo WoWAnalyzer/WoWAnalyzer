@@ -1,4 +1,4 @@
-import { defineMessage } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
 import { CTS_CDR_PER_FOCUS } from 'analysis/retail/hunter/marksmanship/constants';
 import { formatNumber, formatPercentage } from 'common/format';
 import { TALENTS_HUNTER } from 'common/TALENTS';

@@ -1,9 +1,9 @@
-@import './Theme.scss';
+@use 'Theme.scss';
 
 .panel {
   width: 100%;
   margin-bottom: 30px;
-  background: $panelColor;
+  background: Theme.$panelColor;
   border-radius: 3px;
   border: 0;
   position: relative;

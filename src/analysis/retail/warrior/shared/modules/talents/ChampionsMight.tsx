@@ -19,9 +19,9 @@ const CRIT_DAMAGE_INCREASE = 0.25;
 class ChampionsMight extends Analyzer.withDependencies({
   enemeies: Enemies,
 }) {
-  private _numberOfCasts: number = 0;
-  private _numberOfCrits: number = 0;
-  private _increasedCritDamage: number = 0;
+  private _numberOfCasts = 0;
+  private _numberOfCrits = 0;
+  private _increasedCritDamage = 0;
 
   constructor(options: Options) {
     super(options);

@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { formatNumber } from 'common/format';
 import { color } from 'game/MAGIC_SCHOOLS';
 import { TooltipElement } from 'interface';
-import { PerformanceMark, BadColor, OkColor, SubSection, useAnalyzer } from 'interface/guide';
+import { BadColor, OkColor, PerformanceMark, SubSection, useAnalyzer } from 'interface/guide';
 import {
   damageBreakdown,
   DamageSourceLink,
@@ -17,12 +17,12 @@ import { MitigationTooltipSegment } from 'interface/guide/components/MajorDefens
 import PassFailBar from 'interface/guide/components/PassFailBar';
 import { PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { Highlight } from 'interface/Highlight';
-import { AbilityEvent, HasAbility, HasSource } from 'parser/core/Events';
+import { AbilityEvent, EventType, HasAbility, HasSource } from 'parser/core/Events';
 import { PerformanceUsageRow } from 'parser/core/SpellUsage/core';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import { encodeTargetString } from 'parser/shared/modules/Enemies';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { useCallback, useState } from 'react';
+import { ComponentType, useCallback, useState } from 'react';
 import { useMaxMitigationValue } from './Timeline';
 
 const MissingCastBoxEntry = {
@@ -104,12 +104,15 @@ export const CooldownDetailsContainer = styled.div`
   }
 `;
 
-export type CooldownDetailsProps = {
-  analyzer: MajorDefensive<any, any>;
+export interface CooldownDetailsProps<Apply extends EventType, Remove extends EventType> {
+  analyzer: MajorDefensive<Apply, Remove>;
   mit?: Mitigation;
-};
+}
 
-const CooldownDetails = ({ analyzer, mit }: CooldownDetailsProps) => {
+const CooldownDetails = <Apply extends EventType, Remove extends EventType>({
+  analyzer,
+  mit,
+}: CooldownDetailsProps<Apply, Remove>) => {
   if (!mit) {
     return (
       <CooldownDetailsContainer>
@@ -126,7 +129,10 @@ const CooldownDetails = ({ analyzer, mit }: CooldownDetailsProps) => {
   );
 };
 
-const BreakdownByTalent = ({ analyzer, mit }: Required<CooldownDetailsProps>) => {
+const BreakdownByTalent = <Apply extends EventType, Remove extends EventType>({
+  analyzer,
+  mit,
+}: Required<CooldownDetailsProps<Apply, Remove>>) => {
   const segments = analyzer.mitigationSegments(mit);
 
   const maxValue = Math.max(analyzer.firstSeenMaxHp, mit.amount, mit.maxAmount ?? 0);
@@ -195,7 +201,9 @@ const BreakdownByTalent = ({ analyzer, mit }: Required<CooldownDetailsProps>) =>
   );
 };
 
-export const BreakdownByDamageSource = ({ mit }: Pick<Required<CooldownDetailsProps>, 'mit'>) => {
+export const BreakdownByDamageSource = <Apply extends EventType, Remove extends EventType>({
+  mit,
+}: Pick<Required<CooldownDetailsProps<Apply, Remove>>, 'mit'>) => {
   const damageTakenBreakdown = damageBreakdown(
     mit.mitigated,
     (event) => (HasAbility(event.event) ? event.event.ability.guid : 0),
@@ -268,15 +276,15 @@ export const BreakdownByDamageSource = ({ mit }: Pick<Required<CooldownDetailsPr
   );
 };
 
-const CooldownUsage = ({
+const CooldownUsage = <Apply extends EventType, Remove extends EventType>({
   analyzer,
   maxValue,
   cooldownDetails: Details,
   showTitles = false,
 }: {
-  analyzer: MajorDefensive<any, any>;
+  analyzer: MajorDefensive<Apply, Remove>;
   maxValue: number;
-  cooldownDetails: (props: CooldownDetailsProps) => JSX.Element | null;
+  cooldownDetails: ComponentType<CooldownDetailsProps<Apply, Remove>>;
   showTitles?: boolean;
 }) => {
   const [selectedMit, setSelectedMit] = useState<number | undefined>();
@@ -357,12 +365,15 @@ const CooldownUsage = ({
   );
 };
 
-type Props = {
-  analyzers: readonly MajorDefensive<any, any>[];
+interface Props<Apply extends EventType, Remove extends EventType> {
+  analyzers: readonly MajorDefensive<Apply, Remove>[];
   showTitles?: boolean;
-};
+}
 
-const AllCooldownUsageList = ({ analyzers, showTitles }: Props) => {
+const AllCooldownUsageList = <Apply extends EventType, Remove extends EventType>({
+  analyzers,
+  showTitles,
+}: Props<Apply, Remove>) => {
   const maxValue = useMaxMitigationValue(analyzers);
   return (
     <div>

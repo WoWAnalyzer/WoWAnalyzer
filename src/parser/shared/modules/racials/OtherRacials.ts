@@ -166,6 +166,15 @@ class OtherRacials extends Analyzer.withDependencies({
           },
         });
         break;
+      case RACES.DracthyrAlliance:
+      case RACES.DracthyrHorde:
+        this.deps.abilities.add({
+          spell: SPELLS.GLIDE_DRACTHYR.id,
+          category: SPELL_CATEGORY.OTHERS,
+          cooldown: 1,
+          gcd: null,
+        });
+        break;
     }
   }
 }

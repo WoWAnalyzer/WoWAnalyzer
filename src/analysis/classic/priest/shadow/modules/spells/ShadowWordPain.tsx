@@ -1,4 +1,4 @@
-import { defineMessage } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage } from 'common/format';
 import { SpellIcon, SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -24,7 +24,7 @@ class ShadowWordPain extends Analyzer {
   };
   protected enemies!: Enemies;
 
-  private shadowWordPainTracker: { [targetId: number]: ShadowWordPainTracker } = {};
+  private shadowWordPainTracker: Record<number, ShadowWordPainTracker> = {};
 
   private overwrittenShadowWordPains = 0;
   private shadowWeavingDurationByStack = [0, 0, 0, 0, 0, 0];

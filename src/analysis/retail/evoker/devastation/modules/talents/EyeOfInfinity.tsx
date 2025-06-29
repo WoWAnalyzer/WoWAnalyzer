@@ -14,11 +14,11 @@ import { EYE_OF_INFINITY_MULTIPLIER } from 'analysis/retail/evoker/devastation/c
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
 class EyeOfInfinity extends Analyzer {
-  eyeOfInfinityDamage: number = 0;
-  eternitySurgeMainTarget: number = 0;
-  disintegrateMainTarget: number = 0;
-  lastEternitySurgeHit: number = 0;
-  hitCounter: number = 0;
+  eyeOfInfinityDamage = 0;
+  eternitySurgeMainTarget = 0;
+  disintegrateMainTarget = 0;
+  lastEternitySurgeHit = 0;
+  hitCounter = 0;
 
   eternitySurge = [SPELLS.ETERNITY_SURGE, SPELLS.ETERNITY_SURGE_FONT];
 

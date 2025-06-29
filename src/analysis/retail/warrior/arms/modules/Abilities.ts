@@ -331,7 +331,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         castEfficiency: {
-          suggestion: true,
+          suggestion: false,
           recommendedEfficiency: 0.4,
           extraSuggestion:
             "If you're picking a utility talent over something that increases your mobility or survivability, you better use it.",

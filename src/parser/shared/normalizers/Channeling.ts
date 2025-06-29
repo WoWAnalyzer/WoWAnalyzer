@@ -1,6 +1,13 @@
 import SPELLS from 'common/SPELLS';
 import CLASSIC_SPELLS from 'common/SPELLS/classic';
-import { TALENTS_EVOKER, TALENTS_MAGE, TALENTS_MONK } from 'common/TALENTS';
+import {
+  TALENTS_EVOKER,
+  TALENTS_MAGE,
+  TALENTS_MONK,
+  TALENTS_ROGUE,
+  TALENTS_PRIEST,
+  TALENTS_DEMON_HUNTER,
+} from 'common/TALENTS';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import {
   AnyEvent,
@@ -15,8 +22,6 @@ import {
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import InsertableEventsWrapper from 'parser/core/InsertableEventsWrapper';
 import { Options } from 'parser/core/Module';
-import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
-import { TALENTS_PRIEST } from 'common/TALENTS';
 import {
   getEmpowerEndEvent,
   isFromTipTheScales,
@@ -88,6 +93,7 @@ class Channeling extends EventsNormalizer {
     buffChannelSpec(SPELLS.DEEP_BREATH.id),
     buffChannelSpec(SPELLS.DEEP_BREATH_SCALECOMMANDER.id),
     // Rogue
+    buffChannelSpec(TALENTS_ROGUE.KILLING_SPREE_TALENT.id),
     // Druid
     buffChannelSpec(SPELLS.CONVOKE_SPIRITS.id),
     // Monk
@@ -118,7 +124,7 @@ class Channeling extends EventsNormalizer {
   ];
 
   // registered special case handlers, mapped by guid
-  channelSpecMap: { [key: number]: ChannelHandler } = {};
+  channelSpecMap: Record<number, ChannelHandler> = {};
 
   /**
    * Constructs a Channeling normalizer that deals with normal hardcasts and instants by default,
@@ -491,12 +497,12 @@ function nextCastChannelSpec(spellId: number): ChannelSpec {
 }
 
 /** Specification of special handling for a spell */
-type ChannelSpec = {
+interface ChannelSpec {
   /** The handling function for this spell */
   handler: ChannelHandler;
   /** The guid or guids of the spells to handle */
   guids: number[];
-};
+}
 
 /**
  * A handling function for a channel. Given an applicable event, this function should appropriately
@@ -514,11 +520,11 @@ type ChannelHandler = (
 ) => void;
 
 /** A state holder during channel handling, to be updated */
-type ChannelState = {
+interface ChannelState {
   /** The current 'unresolved' channel. This represents a spell that has been started but isn't yet finished
    * and we're not sure when or if it will be finished. Depending on follow on events, it could be finished or cancelled.
    */
   unresolvedChannel: BeginChannelEvent | null;
   /** Inserter for new events */
   eventsInserter: InsertableEventsWrapper;
-};
+}

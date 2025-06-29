@@ -10,7 +10,7 @@ export default {
   contributors: [Seriousnes],
   branch: GameBranch.Retail,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '11.1',
+  patchCompatibility: '11.1.5',
   supportLevel: SupportLevel.MaintainedFull,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
@@ -53,7 +53,7 @@ export default {
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport:
-    '/report/L1R2zVKY8ZDxCTNb/15-Mythic+Scalecommander+Sarkareth+-+Kill+(7:21)/Nerdshockz/standard',
+    '/report/69CV1RFzhry3jWGH/30-Mythic+One-Armed+Bandit+-+Kill+(6:51)/Sheffy/standard',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

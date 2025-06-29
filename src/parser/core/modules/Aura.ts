@@ -27,7 +27,7 @@ export interface SpellbookAura {
 }
 
 class Aura {
-  static propTypes: { [key: string]: any } = {
+  static propTypes: Record<string, any> = {
     /**
      * REQUIRED The spell id. If an array of spell ids is provided, the first element in the array will be what shows in suggestions / cast timeline. Multiple spell definitions in the same ability can be used to tie multiple cast / buff IDs together as the same ability (with a shared cooldown)
      */
@@ -72,18 +72,9 @@ class Aura {
        * console, and next we verify if all the props of the abilities exist in
        * the possible proptypes. If not they're likely mislocated.
        */
-      PropTypes.checkPropTypes(
-        // eslint-disable-next-line react/forbid-foreign-prop-types
-        (this.constructor as typeof Aura).propTypes,
-        props,
-        'prop',
-        'Buff',
-      );
+      PropTypes.checkPropTypes((this.constructor as typeof Aura).propTypes, props, 'prop', 'Buff');
       Object.keys(props).forEach((prop) => {
-        if (
-          // eslint-disable-next-line react/forbid-foreign-prop-types
-          (this.constructor as typeof Aura).propTypes[prop] === undefined
-        ) {
+        if ((this.constructor as typeof Aura).propTypes[prop] === undefined) {
           console.log(prop);
           throw new Error(
             `Property not recognized in Buffs: ${prop} seems misplaced in ${JSON.stringify(
@@ -94,15 +85,11 @@ class Aura {
       });
     }
     Object.keys(props).forEach((prop) => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      this._setProp(prop, props[prop]);
+      this._setProp(prop, props[prop as keyof SpellbookAura]);
     });
   }
   _setProp(prop: string, value: any) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    this[prop] = value;
+    this[prop as keyof SpellbookAura] = value;
   }
 }
 

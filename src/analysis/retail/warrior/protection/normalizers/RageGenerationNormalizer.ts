@@ -191,8 +191,8 @@ class RageGenerationNormalizer extends EventsNormalizer {
     return wasDodgedOrParried;
   }
 
-  lastRageCount: number = 0;
-  maxRage: number = 0;
+  lastRageCount = 0;
+  maxRage = 0;
 
   hasUF = false;
 

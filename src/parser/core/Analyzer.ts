@@ -30,7 +30,7 @@ class Analyzer extends EventSubscriber {
    * initialized. Use this method to toggle the module on/off based on having
    * items equipped, talents selected, etc.
    */
-  // eslint-disable-next-line @typescript-eslint/no-useless-constructor
+
   constructor(options: Options) {
     super(options);
   }
@@ -159,7 +159,7 @@ enum FunctionType {
   Suggestion,
 }
 
-type FunctionalEventFilter = EventFilter<any> | Array<EventFilter<any>>;
+type FunctionalEventFilter = EventFilter<any> | EventFilter<any>[];
 
 function buildFunctionalAnalyzer<Deps extends Dependencies, Result = any>(
   functionType: FunctionType,
@@ -167,9 +167,7 @@ function buildFunctionalAnalyzer<Deps extends Dependencies, Result = any>(
   eventFilter: FunctionalEventFilter = Events.any,
   dependencies?: Deps,
 ) {
-  const eventFilters: Array<EventFilter<any>> = Array.isArray(eventFilter)
-    ? eventFilter
-    : [eventFilter];
+  const eventFilters: EventFilter<any>[] = Array.isArray(eventFilter) ? eventFilter : [eventFilter];
 
   const deps = dependencies ?? {};
 

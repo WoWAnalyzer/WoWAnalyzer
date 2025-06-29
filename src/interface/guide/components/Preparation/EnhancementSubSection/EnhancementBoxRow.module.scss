@@ -1,4 +1,4 @@
-@import 'interface/guide/Guide';
+@use 'interface/guide/Guide';
 
 $shadow: 0 0 0px 1px hsla(45, 100%, 60%, 0.7);
 
@@ -34,18 +34,18 @@ $shadow: 0 0 0px 1px hsla(45, 100%, 60%, 0.7);
   }
 
   .perfect-block {
-    background-color: $perfect-perf-color;
+    background-color: Guide.$perfect-perf-color;
   }
 
   .good-block {
-    background-color: $good-perf-color;
+    background-color: Guide.$good-perf-color;
   }
 
   .ok-block {
-    background-color: $ok-perf-color;
+    background-color: Guide.$ok-perf-color;
   }
 
   .bad-block {
-    background-color: $bad-perf-color;
+    background-color: Guide.$bad-perf-color;
   }
 }

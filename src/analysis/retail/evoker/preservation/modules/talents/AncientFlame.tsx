@@ -12,7 +12,6 @@ import Events, {
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
-import { reduce } from 'vega-lite/build/src/encoding';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { getAncientFlameSource } from '../../normalizers/EventLinking/helpers';
@@ -99,7 +98,7 @@ class AncientFlame extends Analyzer {
 
   get averageTimeToConsume() {
     return formatDuration(
-      reduce(this.consumeTimes, (prev, cur) => prev + cur, 0) / this.consumeTimes.length,
+      this.consumeTimes.reduce((prev, cur) => prev + cur, 0) / this.consumeTimes.length,
     );
   }
 

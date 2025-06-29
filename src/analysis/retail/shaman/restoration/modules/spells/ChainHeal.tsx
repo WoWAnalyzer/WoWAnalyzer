@@ -1,5 +1,5 @@
-import { defineMessage } from '@lingui/macro';
-import { Trans } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { formatNth, formatDuration } from 'common/format';
 import TALENTS from 'common/TALENTS/shaman';
 import { SpellIcon, SpellLink, SpecIcon } from 'interface';
@@ -36,7 +36,7 @@ class ChainHeal extends Analyzer {
   protected abilityTracker!: RestorationAbilityTracker;
   protected combatants!: Combatants;
 
-  buffer: Array<HealEvent | CastEvent> = [];
+  buffer: (HealEvent | CastEvent)[] = [];
   chainHealHistory: ChainHealInfo[] = [];
   castIndex = 0;
   chainHealTimestamp = 0;

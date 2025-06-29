@@ -82,6 +82,7 @@ export enum EnhancementEventLinks {
   CRASH_LIGHTNING_LINK = 'crash-lightning',
   SUNDERING_LINK = 'sundering',
   REACTIVITY_LINK = 'reactivity',
+  WHIRLING_FIRE_LINK = 'whirling-fire',
 }
 
 export const GCD_TOLERANCE = 25;

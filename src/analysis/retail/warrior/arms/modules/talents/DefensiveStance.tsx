@@ -1,4 +1,4 @@
-import { defineMessage } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
 import { formatNumber, formatThousands } from 'common/format';
 import TALENTS from 'common/TALENTS/warrior';
 import { SpellIcon } from 'interface';

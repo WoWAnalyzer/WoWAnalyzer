@@ -22,7 +22,7 @@ const NIUZAO_PET_BUFF_IDS = new Set([
   talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id, // real niuzao
 ]);
 
-export type NiuzaoCastData = {
+export interface NiuzaoCastData {
   prePurified: RemoveStaggerEvent[];
   purifyingAtCast: {
     charges: number;
@@ -36,13 +36,13 @@ export type NiuzaoCastData = {
   endEvent: DeathEvent | FightEndEvent;
   relevantHits: DamageEvent[];
   sitDetected: boolean;
-};
+}
 
-type StompData = {
+interface StompData {
   event: CastEvent;
   damage: DamageEvent[];
   purifies: RemoveStaggerEvent[];
-};
+}
 
 export class InvokeNiuzao extends Analyzer {
   static dependencies = {

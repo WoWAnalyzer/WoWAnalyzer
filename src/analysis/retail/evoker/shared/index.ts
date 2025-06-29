@@ -41,4 +41,5 @@ export { default as MasterOfDestiny } from './modules/talents/hero/chronowarden/
 export { default as GoldenOpportunity } from './modules/talents/hero/chronowarden/GoldenOpportunity';
 export { default as DoubleTime } from './modules/talents/hero/chronowarden/DoubleTime';
 export { default as MotesOfAcceleration } from './modules/talents/hero/chronowarden/MotesOfAcceleration';
+export { default as FlameSiphon } from './modules/talents/hero/flameshaper/FlameSiphon';
 export * from './constants';

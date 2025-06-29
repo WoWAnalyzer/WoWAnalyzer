@@ -9,6 +9,9 @@ import {
 } from 'parser/ui/QualitativePerformance';
 import ROLES from 'game/ROLES';
 import SPECS, { Spec } from 'game/SPECS';
+import { Suggestion } from 'parser/core/CombatLogParser';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { formatPercentage } from 'common/format';
 
 interface MeleeCast {
   event: CastEvent;
@@ -23,7 +26,7 @@ export class MeleeUptimeAnalyzer extends Analyzer.withDependencies({ haste: Hast
   private recentMelees: MeleeCast[] = [];
   private expectedNextMeleeTimestamp: number | undefined = undefined;
 
-  private gaps: Array<{ start: number; end: number }> = [];
+  private gaps: { start: number; end: number }[] = [];
 
   public static withMeleeAbility(ability: Spell) {
     return class extends MeleeUptimeAnalyzer {
@@ -70,16 +73,29 @@ export class MeleeUptimeAnalyzer extends Analyzer.withDependencies({ haste: Hast
     return (this.owner.fightDuration - downtime) / this.owner.fightDuration;
   }
 
-  public get meleeUptimePerformance(): QualitativePerformance {
+  get meleeUptimeSuggestionThreshold() {
     const uptime = this.meleeUptimePercentage;
-    return evaluateQualitativePerformanceByThreshold({
+    return {
       actual: uptime,
-      isGreaterThanOrEqual: {
-        perfect: 1,
-        good: 0.9,
-        ok: 0.8,
+      isLessThanOrEqual: {
+        minor: 0.98,
+        average: 0.9,
+        major: 0.8,
       },
       max: 1,
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
+
+  public get meleeUptimePerformance(): QualitativePerformance {
+    const threshold = this.meleeUptimeSuggestionThreshold;
+    return evaluateQualitativePerformanceByThreshold({
+      actual: threshold.actual,
+      isGreaterThanOrEqual: {
+        perfect: threshold.isLessThanOrEqual.minor,
+        good: threshold.isLessThanOrEqual.average,
+        ok: threshold.isLessThanOrEqual.minor,
+      },
     });
   }
 
@@ -155,6 +171,20 @@ export class MeleeUptimeAnalyzer extends Analyzer.withDependencies({ haste: Hast
       normalizedSwingTimers.reduce((a, b) => a + b, 0) /
         normalizedSwingTimers.length /
         (1 + mostRecentMelee.haste)
+    );
+  }
+
+  suggestions(when: When): void | Suggestion[] {
+    when(this.meleeUptimeSuggestionThreshold).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You are spending a lot of time out of melee range, which prevents using most of your
+          abilities.
+        </>,
+      )
+        .icon('inv_axe_02')
+        .actual(<>{formatPercentage(actual)}% melee uptime</>)
+        .recommended(<>&gt; {formatPercentage(recommended)}% is recommended</>),
     );
   }
 }

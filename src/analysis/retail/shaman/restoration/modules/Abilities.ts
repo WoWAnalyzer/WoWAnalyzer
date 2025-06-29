@@ -1,4 +1,4 @@
-import { defineMessage } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
 // import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
@@ -20,7 +20,7 @@ class Abilities extends CoreAbilities {
     );
   }
 
-  spellbook(): Array<SpellbookAbility<TrackedRestoShamanAbility>> {
+  spellbook(): SpellbookAbility<TrackedRestoShamanAbility>[] {
     const combatant = this.selectedCombatant;
     const totemCDR = combatant.hasTalent(TALENTS.TOTEMIC_SURGE_TALENT) ? 6 : 0;
     return [

@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { ResourceLink } from 'interface';

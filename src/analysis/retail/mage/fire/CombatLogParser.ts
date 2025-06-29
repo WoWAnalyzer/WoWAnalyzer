@@ -10,6 +10,9 @@ import {
   MasterOfTime,
   TimeAnomaly,
   SharedCode,
+  IceBlock,
+  IceCold,
+  GreaterInvisibility,
 } from 'analysis/retail/mage/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
@@ -111,7 +114,6 @@ class CombatLogParser extends CoreCombatLogParser {
     //Items - Fire
 
     //Talents - Shared
-    mirrorImage: MirrorImage,
     elementalBarrier: ElementalBarrier,
     shiftingPower: ShiftingPower,
     divertedEnergy: DivertedEnergy,
@@ -119,6 +121,12 @@ class CombatLogParser extends CoreCombatLogParser {
     tempestBarrier: TempestBarrier,
     masterOfTime: MasterOfTime,
     timeAnomaly: TimeAnomaly,
+
+    // Defensives - Shared
+    mirrorImage: MirrorImage,
+    IceBlock: IceBlock,
+    iceCold: IceCold,
+    greterInvisibility: GreaterInvisibility,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

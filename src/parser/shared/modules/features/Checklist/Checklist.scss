@@ -1,4 +1,5 @@
-@import 'interface/Theme';
+@use 'sass:color';
+@use 'interface/Theme';
 
 .checklist {
   li {
@@ -12,11 +13,11 @@
         top: 50%;
         transform: translateY(-50%);
         background: transparent;
-        border: 2px solid $primaryColor;
+        border: 2px solid Theme.$primaryColor;
         border-radius: 50%;
         width: 20px;
         height: 20px;
-        box-shadow: 0 0 2px $primaryColor;
+        box-shadow: 0 0 2px Theme.$primaryColor;
       }
       .name {
         margin-left: 30px;
@@ -35,7 +36,7 @@
           overflow: hidden;
 
           .perf-bar {
-            background: $primaryColor !important;
+            background: Theme.$primaryColor !important;
             height: 100%;
           }
         }
@@ -57,7 +58,7 @@
       position: relative;
     }
     .details .description {
-      color: lighten($muted, 5%);
+      color: color.adjust(Theme.$muted, $lightness: 5%);
       position: relative;
       margin-bottom: 10px;
 
@@ -75,6 +76,6 @@
     color: #211510;
     line-height: 1;
     text-align: center;
-    background-color: $primaryColor;
+    background-color: Theme.$primaryColor;
   }
 }

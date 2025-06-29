@@ -34,17 +34,16 @@ class EchoOfLightMastery extends Analyzer {
   // All healing done by spells that can proc mastery
   masteryHealingBySpell: any = {};
   // The eol pools currently on a target
-  targetMasteryPool: {
-    [targetId: number]: {
+  targetMasteryPool: Record<
+    number,
+    {
       pendingHealingTotal: number;
-      pendingHealingBySpell: {
-        [spellId: number]: number;
-      };
+      pendingHealingBySpell: Record<number, number>;
       remainingTicks: number;
       applicationTime: number;
       pendingCritTotal: number;
-    };
-  } = {};
+    }
+  > = {};
   // The test value so we can see how accurate our EoL values are
   testValues = {
     effectiveHealing: 0,
@@ -93,20 +92,18 @@ class EchoOfLightMastery extends Analyzer {
 
     const rows = [];
 
-    for (let i = 0; i < spellDetails.length; i += 1) {
-      if (DEBUG || this.getPercentOfTotalHealingBySpell(spellDetails[i].spellId) > CUTOFF_PERCENT) {
+    for (const spellDetail of spellDetails) {
+      if (DEBUG || this.getPercentOfTotalHealingBySpell(spellDetail.spellId) > CUTOFF_PERCENT) {
         rows.push(
-          <tr key={'mastery_' + spellDetails[i].spellId}>
+          <tr key={'mastery_' + spellDetail.spellId}>
             <td>
-              <SpellIcon spell={Number(spellDetails[i].spellId)} style={{ height: '2.4em' }} />
+              <SpellIcon spell={Number(spellDetail.spellId)} style={{ height: '2.4em' }} />
             </td>
-            <td>{formatNumber(spellDetails[i].effectiveHealing)}</td>
+            <td>{formatNumber(spellDetail.effectiveHealing)}</td>
+            <td>{formatPercentage(this.getPercentOfTotalHealingBySpell(spellDetail.spellId))}%</td>
             <td>
-              {formatPercentage(this.getPercentOfTotalHealingBySpell(spellDetails[i].spellId))}%
-            </td>
-            <td>
-              <TooltipElement content={`${formatNumber(spellDetails[i].overHealing)} Overhealing`}>
-                {formatPercentage(this.getMasteryOverhealPercentBySpell(spellDetails[i].spellId))}%
+              <TooltipElement content={`${formatNumber(spellDetail.overHealing)} Overhealing`}>
+                {formatPercentage(this.getMasteryOverhealPercentBySpell(spellDetail.spellId))}%
               </TooltipElement>
             </td>
           </tr>,
@@ -162,7 +159,7 @@ class EchoOfLightMastery extends Analyzer {
     }
   }
 
-  handleEolApplication(event: any) {
+  handleEolApplication(event: EoLHealEvent) {
     const spellId = event.ability.guid;
     const targetId = event.targetID;
 

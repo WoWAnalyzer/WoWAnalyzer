@@ -9,6 +9,9 @@ import {
   TempestBarrier,
   MasterOfTime,
   TimeAnomaly,
+  IceBlock,
+  IceCold,
+  GreaterInvisibility,
 } from 'analysis/retail/mage/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import Channeling from 'parser/shared/normalizers/Channeling';
@@ -105,7 +108,6 @@ class CombatLogParser extends CoreCombatLogParser {
     divertedEnergy: DivertedEnergy,
     quickWitted: QuickWitted,
     tempestBarrier: TempestBarrier,
-    mirrorImage: MirrorImage,
     presenceOfMind: PresenceOfMind,
     supernova: Supernova,
     shiftingPower: ShiftingPower,
@@ -113,6 +115,12 @@ class CombatLogParser extends CoreCombatLogParser {
     timeAnomaly: TimeAnomaly,
     masterOfTime: MasterOfTime,
     arcaneIntellect: ArcaneIntellect,
+
+    // Defensives - Shared
+    mirrorImage: MirrorImage,
+    iceBlock: IceBlock,
+    iceCold: IceCold,
+    greterInvisibility: GreaterInvisibility,
 
     // Talents - Arcane
     arcaneEcho: ArcaneEcho,

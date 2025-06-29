@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { ComponentPropsWithoutRef, createContext, ReactNode, useContext } from 'react';
+import { ComponentPropsWithoutRef, createContext, ReactNode, useContext, useMemo } from 'react';
 import useSessionFeatureFlag from 'interface/useSessionFeatureFlag';
 
 interface ExplanationContextValue {
@@ -18,10 +18,13 @@ interface ExplanationContextProviderProps {
 }
 export const ExplanationContextProvider = ({ children }: ExplanationContextProviderProps) => {
   const [hideExplanations, setHideExplanations] = useSessionFeatureFlag('hide-explanations');
+  const providerValue = useMemo(
+    () => ({ hideExplanations, setHideExplanations }),
+    [hideExplanations, setHideExplanations],
+  );
+
   return (
-    <ExplanationContext.Provider value={{ hideExplanations, setHideExplanations }}>
-      {children}
-    </ExplanationContext.Provider>
+    <ExplanationContext.Provider value={providerValue}>{children}</ExplanationContext.Provider>
   );
 };
 

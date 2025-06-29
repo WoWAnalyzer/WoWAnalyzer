@@ -1104,6 +1104,81 @@ const enchants = {
   },
   // #endregion
 
+  // #region TWW - Revisited Horrific Visions
+  LESSER_TWILIGHT_DEVASTATION: {
+    id: 1225074,
+    name: 'Lesser Rune of Twilight Devastation',
+    icon: 'inv_inscription_minorglyph12',
+    effectId: 7912,
+  },
+  GREATER_TWILIGHT_DEVASTATION: {
+    id: 1233223,
+    name: 'Greater Rune of Twilight Devastation',
+    icon: 'inv_inscription_majorglyph12',
+    effectId: 7914,
+  },
+  LESSER_ECHOING_VOID: {
+    id: 1233355,
+    name: 'Lesser Rune of the Echoing Void',
+    icon: 'inv_inscription_minorglyph02',
+    effectId: 7915,
+  },
+  GREATER_ECHOING_VOID: {
+    id: 1225873,
+    name: 'Greater Rune of the Echoing Void',
+    icon: 'inv_inscription_majorglyph02',
+    effectId: 7917,
+  },
+  LESSER_INFINITE_STARS: {
+    id: 1233375,
+    name: 'Lesser Rune of Infinite Stars',
+    icon: 'inv_inscription_minorglyph03',
+    effectId: 7922,
+  },
+  GREATER_INFINITE_STARS: {
+    id: 1227206,
+    name: 'Greater Rune of Infinite Stars',
+    icon: 'inv_inscription_majorglyph03',
+    effectId: 7924,
+  },
+  LESSER_GUSHING_WOUND: {
+    id: 1233385,
+    name: 'Lesser Rune of Gushing Wound',
+    icon: 'inv_inscription_majorglyph01',
+    effectId: 7925,
+  },
+  GREATER_GUSHING_WOUND: {
+    id: 239086,
+    name: 'Greater Rune of Gushing Wound',
+    icon: 'inv_inscription_majorglyph01',
+    effectId: 7927,
+  },
+  LESSER_TWISTED_APPENDAGE: {
+    id: 1233392,
+    name: 'Lesser Rune of the Twisted Appendage',
+    icon: 'inv_inscription_minorglyph14',
+    effectId: 7928,
+  },
+  GREATER_TWISTED_APPENDAGE: {
+    id: 239090,
+    name: 'Greater Rune of the Twisted Appendage',
+    icon: 'inv_inscription_majorglyph14',
+    effectId: 7930,
+  },
+  LESSER_VOID_RITUAL: {
+    id: 1233394,
+    name: 'Lesser Rune of Echoing Void',
+    icon: 'inv_inscription_minorglyph20',
+    effectId: 7931,
+  },
+  GREATER_VOID_RITUAL: {
+    id: 1227311,
+    name: 'Greater Rune of Echoing Void',
+    icon: 'inv_inscription_majorglyph20',
+    effectId: 7933,
+  },
+  // #endregion
+
   /* Template */
   // X_R1: {
   //   id: 0,

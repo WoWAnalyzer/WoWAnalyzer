@@ -1,4 +1,4 @@
-import { defineMessage } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
 import { Panel } from 'interface';
 import Analyzer, { ParseResultsTab } from 'parser/core/Analyzer';
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';

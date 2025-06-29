@@ -37,7 +37,11 @@ const TARGET_PURIFIES = {
   [SPELLS.CTA_INVOKE_NIUZAO_BUFF.id]: 4,
 };
 
-export type CommonProps = { cast: NiuzaoCastData; info: Info; events: AnyEvent[] };
+export interface CommonProps {
+  cast: NiuzaoCastData;
+  info: Info;
+  events: AnyEvent[];
+}
 
 function NiuzaoChecklistHeader({ cast, info }: Pick<CommonProps, 'cast' | 'info'>): JSX.Element {
   return (

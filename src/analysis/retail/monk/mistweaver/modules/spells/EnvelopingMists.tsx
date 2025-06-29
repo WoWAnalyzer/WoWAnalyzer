@@ -24,9 +24,9 @@ class EnvelopingMists extends Analyzer {
     combatants: Combatants,
     hotTracker: HotTrackerMW,
   };
-  healingIncrease: number = 0;
-  evmHealingIncrease: number = 0;
-  gustsHealing: number = 0;
+  healingIncrease = 0;
+  evmHealingIncrease = 0;
+  gustsHealing = 0;
   protected combatants!: Combatants;
   protected hotTracker!: HotTrackerMW;
 

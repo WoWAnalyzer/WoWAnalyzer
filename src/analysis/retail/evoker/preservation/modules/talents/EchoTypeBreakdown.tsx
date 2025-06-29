@@ -10,8 +10,8 @@ import { isFromTAEcho } from '../../normalizers/EventLinking/helpers';
 import Events, { ApplyBuffEvent } from 'parser/core/Events';
 
 class EchoTypeBreakdown extends Analyzer {
-  hardcastCount: number = 0;
-  rsCount: number = 0;
+  hardcastCount = 0;
+  rsCount = 0;
 
   constructor(options: Options) {
     super(options);

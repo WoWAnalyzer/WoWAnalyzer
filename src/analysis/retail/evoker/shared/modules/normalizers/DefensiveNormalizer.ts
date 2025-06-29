@@ -78,6 +78,7 @@ class DefensiveNormalizer extends EventsNormalizer {
     // Make sure we push in the latests removal if it hasn't already been
     // think fightend, death, etc...
     latestBuffRemoveEvents.forEach((event) => fixedEvents.push(event));
+    fixedEvents.sort((a, b) => a.timestamp - b.timestamp);
 
     return fixedEvents;
   }

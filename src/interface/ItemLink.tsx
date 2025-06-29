@@ -18,24 +18,27 @@ interface Props extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'id'> {
   icon?: boolean;
   craftQuality?: 1 | 2 | 3 | 4 | 5;
 }
-export const EPIC_ITEMS_ILVL = 184;
 
-const ItemLink = (props: Props) => {
+const ItemLink = ({
+  id,
+  children,
+  details,
+  icon = true,
+  craftQuality,
+  quality: rawQuality,
+  ...others
+}: Props) => {
   const { item: itemTooltip } = useTooltip();
-
-  const { id, children, details, ...others } = props;
-  delete others.icon;
-  delete others.quality;
 
   if (import.meta.env.DEV && !children && !ITEMS[id]) {
     throw new Error(`Unknown item: ${id}`);
   }
 
   let quality;
-  if (props.quality !== undefined && props.quality !== null) {
-    quality = props.quality;
-  } else if (props.details) {
-    quality = Math.max(props.details.itemLevel >= EPIC_ITEMS_ILVL ? 4 : 3, props.details.quality);
+  if (rawQuality !== undefined && rawQuality !== null) {
+    quality = rawQuality;
+  } else if (details?.quality) {
+    quality = details.quality;
   }
 
   return (
@@ -46,17 +49,15 @@ const ItemLink = (props: Props) => {
       className={getItemQualityLabel(quality) + 'item-link-text'}
       {...others}
     >
-      {props.icon && (
+      {icon && (
         <>
           <ItemIcon id={id} noLink />{' '}
         </>
       )}
-      {children || ITEMS[id].name}
-      {props.craftQuality ? <QualityIcon quality={props.craftQuality} /> : null}
+      {children || ITEMS[id]?.name}
+      {craftQuality ? <QualityIcon quality={craftQuality} /> : null}
     </a>
   );
 };
-
-ItemLink.defaultProps = { icon: true };
 
 export default ItemLink;

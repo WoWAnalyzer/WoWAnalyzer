@@ -37,11 +37,11 @@ export interface AnnotatedEvent {
 
 export interface ModuleAnnotations {
   module: Module;
-  annotations: Array<AnnotatedEvent>;
+  annotations: AnnotatedEvent[];
 }
 
 export default class DebugAnnotations extends Module {
-  private annotations: Map<Module, AnnotationSet> = new Map();
+  private annotations = new Map<Module, AnnotationSet>();
 
   addAnnotation(module: Module, event: AnyEvent, annotation: Annotation) {
     const ann = this.moduleAnnotations(module);

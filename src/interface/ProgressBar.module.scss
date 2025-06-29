@@ -1,4 +1,4 @@
-@import './Theme.scss';
+@use 'Theme.scss';
 
 .progress-bar-container {
   position: fixed;
@@ -22,7 +22,7 @@
 
 .progress-bar {
   height: 100%;
-  background: $primaryColor;
+  background: Theme.$primaryColor;
   transition-duration: 500ms;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   width: 0;
@@ -59,7 +59,7 @@
   align-self: center;
   width: 1.25rem;
   height: 1.25rem;
-  background-color: $primaryColor;
+  background-color: Theme.$primaryColor;
 
   margin: 1em;
   animation: sk-rotateplane 1.2s infinite ease-in-out;

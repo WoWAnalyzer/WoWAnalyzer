@@ -12,9 +12,10 @@ import Events, {
   RemoveBuffEvent,
 } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
-import BoringValueText from 'parser/ui/BoringValueText';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 const HEALING_INC = 0.25;
 const BUFFED_SPELLS = [
@@ -31,12 +32,12 @@ class TyrsDeliverance extends Analyzer {
 
   protected combatants!: Combatants;
 
-  casts: number = 0;
-  duration: number = 0;
-  lastApply: number = 0;
+  casts = 0;
+  duration = 0;
+  lastApply = 0;
 
-  healing: number = 0;
-  overhealing: number = 0;
+  healing = 0;
+  overhealing = 0;
 
   incHealing: Record<number, number> = {};
   incOverhealing: Record<number, number> = {};
@@ -131,15 +132,9 @@ class TyrsDeliverance extends Analyzer {
           </>
         }
       >
-        <BoringValueText
-          label={
-            <>
-              <SpellLink spell={TALENTS.TYRS_DELIVERANCE_TALENT} />
-            </>
-          }
-        >
-          {this.owner.formatItemHealingDone(this.totalHealing())} <br />
-        </BoringValueText>
+        <TalentSpellText talent={TALENTS.TYRS_DELIVERANCE_TALENT}>
+          <ItemHealingDone amount={this.totalHealing()} />
+        </TalentSpellText>
       </Statistic>
     );
   }

@@ -1,12 +1,12 @@
 import * as contributors from 'CONTRIBUTORS';
 import { Spec } from 'game/SPECS';
 
-export type Character = {
+export interface Character {
   name: string;
   spec: Spec;
   link: string;
-};
-export type Contributor = {
+}
+export interface Contributor {
   nickname: string;
   github: string;
   discord?: string;
@@ -15,9 +15,9 @@ export type Contributor = {
   about?: string;
   mains?: Character[];
   alts?: Character[];
-  others?: { [name: string]: string | string[] };
-  links?: { [name: string]: string };
-};
+  others?: Record<string, string | string[]>;
+  links?: Record<string, string>;
+}
 
 const indexContributorsByNickname = (
   accumulator: Record<string, Contributor>,

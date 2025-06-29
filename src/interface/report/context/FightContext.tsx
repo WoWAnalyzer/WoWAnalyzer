@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext } from 'react';
+import { createContext, ReactNode, useContext, useMemo } from 'react';
 import { WCLFight } from 'parser/core/Fight';
 
 interface FightContext {
@@ -21,5 +21,7 @@ interface Props {
   fight: WCLFight;
 }
 export const FightProvider = ({ children, fight }: Props) => {
-  return <FightCtx.Provider value={{ fight }}>{children}</FightCtx.Provider>;
+  const providerValue = useMemo(() => ({ fight }), [fight]);
+
+  return <FightCtx.Provider value={providerValue}>{children}</FightCtx.Provider>;
 };

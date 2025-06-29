@@ -29,13 +29,13 @@ import { isCastFromEB } from 'analysis/retail/evoker/shared/modules/normalizers/
 
 class TitansGift extends Analyzer {
   //Blossom
-  healingAddedToBlossoms: number = 0;
-  totalBlossomsCasted: number = 0;
-  buffedBlossoms: number = 0;
+  healingAddedToBlossoms = 0;
+  totalBlossomsCasted = 0;
+  buffedBlossoms = 0;
   //Echo
-  healingAddedToEcho: number = 0;
-  totalEchoesCasted: number = 0;
-  buffedEchoes: number = 0;
+  healingAddedToEcho = 0;
+  totalEchoesCasted = 0;
+  buffedEchoes = 0;
 
   constructor(options: Options) {
     super(options);

@@ -11,11 +11,11 @@ import Events, {
 const TARGETSPERCAST = 78;
 
 class RefreshingJadeWind extends Analyzer {
-  healsRJW: number = 0;
-  healingRJW: number = 0;
-  overhealingRJW: number = 0;
-  castRJW: number = 0;
-  precast: boolean = true;
+  healsRJW = 0;
+  healingRJW = 0;
+  overhealingRJW = 0;
+  castRJW = 0;
+  precast = true;
 
   constructor(options: Options) {
     super(options);

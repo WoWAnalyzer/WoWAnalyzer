@@ -32,9 +32,7 @@ export function Role({ children, ...props }: RoleProps): JSX.Element | null {
   return <>{children}</>;
 }
 
-interface RoleShorthand {
-  (props: Pick<RoleProps, 'children'>): JSX.Element | null;
-}
+type RoleShorthand = (props: Pick<RoleProps, 'children'>) => JSX.Element | null;
 
 const Melee: RoleShorthand = ({ children }) => <Role roles={MELEE}>{children}</Role>;
 const Caster: RoleShorthand = ({ children }) => <Role roles={CASTER}>{children}</Role>;

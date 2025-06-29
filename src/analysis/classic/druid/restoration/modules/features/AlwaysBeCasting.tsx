@@ -1,11 +1,11 @@
-import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import { When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHealing';
 import SPELLS from 'common/SPELLS/classic/druid';
+import { i18n } from '@lingui/core';
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
-  static HEALING_ABILITIES_ON_GCD: number[] = [
+  HEALING_ABILITIES_ON_GCD: number[] = [
     // List of healing spells on GCD
     SPELLS.HEALING_TOUCH.id,
     SPELLS.LIFEBLOOM.id,
@@ -26,10 +26,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
         suggest('Your downtime can be improved. Try to Always Be Casting (ABC).')
           .icon('spell_mage_altertime')
           .actual(
-            defineMessage({
-              id: 'shared.suggestions.alwaysBeCasting.downtime',
-              message: `${formatPercentage(actual)}% downtime`,
-            }),
+            i18n._('shared.suggestions.alwaysBeCasting.downtime', { 0: formatPercentage(actual) }),
           )
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
           .regular(recommended + 0.05)

@@ -1,4 +1,4 @@
-import { defineMessage } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -18,8 +18,8 @@ class Apocalypse extends Analyzer {
 
   protected enemies!: Enemies;
 
-  private totalApocalypseCasts: number = 0;
-  private apocalypseWoundsPopped: number = 0;
+  private totalApocalypseCasts = 0;
+  private apocalypseWoundsPopped = 0;
 
   constructor(options: Options) {
     super(options);

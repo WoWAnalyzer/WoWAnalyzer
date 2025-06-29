@@ -27,7 +27,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: (haste: any) =>
+        cooldown: (haste) =>
           combatant.spec === SPECS.FROST_MAGE &&
           combatant.hasTalent(TALENTS.ELEMENTAL_AFFINITY_TALENT)
             ? 12 / 1.3 / (1 + haste)
@@ -216,6 +216,16 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
+      {
+        spell: TALENTS.GREATER_INVISIBILITY_TALENT.id,
+        buffSpellId: SPELLS.GREATER_INVISIBILITY_BUFF.id,
+        category: SPELL_CATEGORY.DEFENSIVE,
+        enabled: combatant.hasTalent(TALENTS.GREATER_INVISIBILITY_TALENT),
+        cooldown: 120,
+        gcd: {
+          base: 1500,
+        },
+      },
 
       //Utility
       {
@@ -342,16 +352,6 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         cooldown: 300,
-      },
-      {
-        spell: TALENTS.GREATER_INVISIBILITY_TALENT.id,
-        buffSpellId: SPELLS.GREATER_INVISIBILITY_BUFF.id,
-        category: SPELL_CATEGORY.UTILITY,
-        enabled: combatant.hasTalent(TALENTS.GREATER_INVISIBILITY_TALENT),
-        cooldown: 120,
-        gcd: {
-          base: 1500,
-        },
       },
       {
         spell: TALENTS.MASS_INVISIBILITY_TALENT.id,

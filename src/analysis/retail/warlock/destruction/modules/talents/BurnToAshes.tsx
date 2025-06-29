@@ -11,8 +11,8 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 class BurnToAshes extends Analyzer {
   static buffId = SPELLS.BURN_TO_ASHES_BUFF;
 
-  buffedCasts: number = 0;
-  totalCasts: number = 0;
+  buffedCasts = 0;
+  totalCasts = 0;
 
   constructor(options: Options) {
     super(options);

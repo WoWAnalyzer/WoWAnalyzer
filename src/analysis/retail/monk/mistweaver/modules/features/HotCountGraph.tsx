@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-useless-constructor */
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
@@ -35,6 +34,12 @@ class HotCountGraph extends BuffCountGraph {
       },
     );
 
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.MENDING_PROLIFERATION_TALENT)) {
+      buffSpecs.push({
+        spells: [SPELLS.MENDING_PROLIFERATION_BUFF],
+        color: SPELL_COLORS.ESSENCE_FONT,
+      });
+    }
     return buffSpecs;
   }
 
@@ -51,13 +56,13 @@ class HotCountGraph extends BuffCountGraph {
   statistic() {
     return (
       <Panel
-        title="Other Hots Graph"
+        title="Healing Amps Graph"
         position={100}
         explanation={
           <>
-            This graph shows the number of non-Renewing Mist HoTs you had active over the course of
-            the encounter. It can help you evaluate how effective you were at prepping and executing
-            your cooldowns. For example, the number of{' '}
+            This graph shows the number of non-renewing mist healing buffs you had active over the
+            course of the encounter. It can help you evaluate how effective you were at prepping and
+            executing your cooldowns. For example, the number of{' '}
             <SpellLink spell={SPELLS.ENVELOPING_BREATH_HEAL} /> that go out during{' '}
             <SpellLink spell={this.celestial.getCelestialTalent()} /> directly correlates to your
             hps during.

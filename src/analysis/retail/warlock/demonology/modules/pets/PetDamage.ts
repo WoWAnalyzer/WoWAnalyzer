@@ -1,11 +1,11 @@
 import { PetInfo } from 'parser/core/Pet';
 import { isPermanentPet } from 'parser/shared/modules/pets/helpers';
 
-type PetDamageInfo = {
+interface PetDamageInfo {
   name: string;
   instances: Record<number, number>;
   total: number;
-};
+}
 
 class PetDamage {
   get permanentPetDamage() {

@@ -10,11 +10,11 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Atonement from './Atonement';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 
-type RadianceInfo = {
+interface RadianceInfo {
   cast: CastEvent;
   goodCast: boolean;
   onAtoned: boolean;
-};
+}
 
 class PowerWordRadiance extends Analyzer {
   radianceCasts: RadianceInfo[] = [];

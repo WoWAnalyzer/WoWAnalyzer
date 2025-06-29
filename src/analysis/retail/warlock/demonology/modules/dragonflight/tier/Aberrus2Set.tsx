@@ -18,7 +18,7 @@ class DemonologyWarlockAberrus2Set extends Analyzer {
 
   protected spellUsable!: SpellUsable;
 
-  hasDemonicCore: boolean = false;
+  hasDemonicCore = false;
 
   constructor(options: Options) {
     super(options);

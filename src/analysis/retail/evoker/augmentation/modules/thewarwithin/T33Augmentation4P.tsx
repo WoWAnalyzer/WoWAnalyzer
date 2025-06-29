@@ -10,10 +10,10 @@ import ContextualSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCasts
 import SpellLink from 'interface/SpellLink';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 
-type UpheavalCast = {
+interface UpheavalCast {
   event: EmpowerEndEvent;
   essenceBurstStacks: number;
-};
+}
 /**
  * (4) Set Augmentation: Upheavals have a 50% chance to grant Essence Burst. Essence Burst Eruptions deal 25% increased damage.
  */

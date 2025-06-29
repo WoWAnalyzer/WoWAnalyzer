@@ -5,7 +5,7 @@ import { ReactNode } from 'react';
 import './TalentAggregateBar.scss';
 import { TalentAggregateBarSpec } from './TalentAggregateStatistic';
 
-type Props = {
+interface Props {
   amount: number;
   percentTotal: number;
   barColor?: string;
@@ -14,7 +14,7 @@ type Props = {
   subSpecs?: TalentAggregateBarSpec[];
   subSpecPercents?: number[];
   wide: boolean;
-};
+}
 
 const TalentAggregateBar = ({
   amount,

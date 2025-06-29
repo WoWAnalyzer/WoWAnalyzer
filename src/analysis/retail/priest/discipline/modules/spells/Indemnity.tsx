@@ -16,13 +16,13 @@ import AtonementAnalyzer, { AtonementAnalyzerEvent } from '../core/AtonementAnal
 const INDEMNITY_EXTENSION_DURATION = 3000;
 const EVANG_EXTENSION_DURATION = 6000;
 
-type ShieldInfo = {
+interface ShieldInfo {
   cast: CastEvent;
   extendedByEvang?: boolean;
-};
+}
 
 class Indemnity extends Analyzer {
-  private atonementHealing: number = 0;
+  private atonementHealing = 0;
   shields: ShieldInfo[] = [];
 
   constructor(options: Options) {

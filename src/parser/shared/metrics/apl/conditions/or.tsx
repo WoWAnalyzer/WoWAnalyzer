@@ -1,9 +1,9 @@
 import type { Condition } from '../index';
 
-type ConditionMap = { [k: string]: Condition<any> };
+type ConditionMap = Record<string, Condition<any>>;
 
 // TODO: this has some copypasta
-export default function or(...conditions: Array<Condition<any>>): Condition<any> {
+export default function or(...conditions: Condition<any>[]): Condition<any> {
   const cndMap: ConditionMap = conditions.reduce((map: ConditionMap, cnd) => {
     map[cnd.key] = cnd;
     return map;

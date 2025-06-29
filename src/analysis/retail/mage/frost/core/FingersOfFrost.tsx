@@ -103,7 +103,6 @@ class FingersOfFrost extends Analyzer {
   }
 
   get totalProcs() {
-    this.log(this.fingers);
     return this.fingers.length;
   }
 

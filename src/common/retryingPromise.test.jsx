@@ -30,7 +30,7 @@ describe('retryingPromise', () => {
         call += 1;
         return Promise.reject();
       });
-    } catch (e) {
+    } catch {
       // not relevant to test
     }
     expect(call).toBe(MAX_ATTEMPTS);
@@ -61,7 +61,7 @@ describe('retryingPromise', () => {
     expect.assertions(2);
     try {
       await retryingPromise(() => Promise.reject());
-    } catch (e) {
+    } catch {
       // not relevant to test
     }
 

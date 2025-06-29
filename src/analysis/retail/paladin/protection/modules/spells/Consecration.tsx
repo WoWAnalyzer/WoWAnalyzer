@@ -1,4 +1,4 @@
-import { defineMessage } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -17,8 +17,8 @@ class Consecration extends Analyzer {
 
   protected enemies!: Enemies;
 
-  _hitsTaken: number = 0;
-  _hitsMitigated: number = 0;
+  _hitsTaken = 0;
+  _hitsMitigated = 0;
 
   constructor(options: Options) {
     super(options);

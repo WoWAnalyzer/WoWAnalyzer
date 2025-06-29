@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
 import Spell from 'common/SPELLS/Spell';
+import Combatant from 'parser/core/Combatant';
 
 export const DIVINE_PURPOSE_CHANCE = 0.15;
 
@@ -55,3 +56,17 @@ export const RET_SPEC_HOLY_POWER_GENERATORS = [
   TALENTS.WAKE_OF_ASHES_TALENT,
   SPELLS.JUDGMENT_CAST,
 ] as const;
+
+export function getLayOnHandsSpell(c: Combatant): Spell {
+  if (c.hasTalent(TALENTS.EMPYREAL_WARD_TALENT)) {
+    return SPELLS.LAY_ON_HANDS_EMPYREAL_WARD;
+  }
+  return SPELLS.LAY_ON_HANDS;
+}
+
+export function getWordofGlorySpell(c: Combatant): Spell {
+  if (c.hasTalent(TALENTS.ETERNAL_FLAME_TALENT)) {
+    return TALENTS.ETERNAL_FLAME_TALENT;
+  }
+  return SPELLS.WORD_OF_GLORY;
+}

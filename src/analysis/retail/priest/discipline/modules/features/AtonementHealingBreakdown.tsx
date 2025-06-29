@@ -1,13 +1,11 @@
 import AtonementHealingDone from 'analysis/retail/priest/discipline/modules/features/AtonementHealingDone';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { Icon } from 'interface';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import Toggle from 'react-toggle';
-import { abilityToSpell } from 'common/abilityToSpell';
 
 interface Props {
   analyzer: AtonementHealingDone;
@@ -52,9 +50,7 @@ const AtonementHealingBreakdown = ({
               return (
                 <tr key={ability.guid}>
                   <td style={{ width: '30%' }}>
-                    <SpellLink spell={abilityToSpell(ability)} icon={false}>
-                      <Icon icon={ability.abilityIcon} /> {ability.name}
-                    </SpellLink>
+                    <SpellLink spell={ability.guid}></SpellLink>
                     {reason && <> ({reason})</>}
                   </td>
                   <td style={{ paddingRight: 5, textAlign: 'right', whiteSpace: 'nowrap' }}>

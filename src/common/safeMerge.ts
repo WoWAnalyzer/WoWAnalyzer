@@ -5,13 +5,13 @@ type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (
   ? I
   : never;
 
-const merge = <T extends Array<Record<string, unknown>>>(
+const merge = <T extends Record<string, unknown>[]>(
   ...objects: T
 ): UnionToIntersection<T[number]> => {
   if (import.meta.env.DEV) {
     const obj: Record<string, unknown> = {};
     objects.forEach((arg) => {
-      (Object.keys(arg) as Array<keyof typeof arg>).forEach((key) => {
+      (Object.keys(arg) as (keyof typeof arg)[]).forEach((key) => {
         if (obj[key]) {
           throw new Error('This key already exists:' + key);
         }

@@ -35,10 +35,10 @@ import {
 class DireBeast extends Analyzer {
   damage = 0;
   activeDireBeasts: string[] = [];
-  lastKillCommandCast: number = 0;
-  isDireBeastSummon: boolean = false;
-  buffApplicationTimestamp: number = 0; // Timestamp of the last Dire Beast buff application
-  direBeastUptime: number = 0;
+  lastKillCommandCast = 0;
+  isDireBeastSummon = false;
+  buffApplicationTimestamp = 0; // Timestamp of the last Dire Beast buff application
+  direBeastUptime = 0;
   direbeastDuration = DIRE_BEAST_BASE_DURATION;
 
   constructor(options: Options) {

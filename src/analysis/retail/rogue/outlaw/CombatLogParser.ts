@@ -21,7 +21,6 @@ import OutlawComboPointTracker from './modules/core/OutlawComboPointTracker';
 import OutlawEnergyCapTracker from './modules/core/OutlawEnergyCapTracker';
 import RestlessBlades from './modules/core/RestlessBlades';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import Checklist from './modules/features/Checklist/Module';
 import Finishers from './modules/features/Finishers';
 import RollTheBonesCastTracker from './modules/features/RollTheBonesCastTracker';
 import BetweenTheEyes from './modules/spells/BetweenTheEyes';
@@ -42,6 +41,10 @@ import BuilderUse from './modules/core/BuilderUse';
 import FinisherUse from './modules/core/FinisherUse';
 import AplCheck from './modules/apl/AplCheck';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
+import OpportunityRefreshNormalizer from './normalizers/OpportunityRefreshNormalizer';
+
+import SpellUsable from './modules/features/SpellUsable';
+import AdrenalineRush from './modules/talents/AdrenalineRush';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -49,12 +52,13 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
     buffs: Buffs,
-    checklist: Checklist,
+    spellUsable: SpellUsable,
 
     //Normalizers
     castLinkNormalizer: CastLinkNormalizer,
     thistleTeaCastLinkNormalizer: ThistleTeaCastLinkNormalizer,
     fanTheHammerNormalizer: FanTheHammerNormalizer,
+    opportunityRefreshNormalizer: OpportunityRefreshNormalizer,
 
     //Resource
     comboPointTracker: OutlawComboPointTracker,
@@ -94,6 +98,7 @@ class CombatLogParser extends CoreCombatLogParser {
     bladeRush: BladeRush,
     echoingReprimand: EchoingReprimand,
     flagellation: Flagellation,
+    adrenalineRush: AdrenalineRush,
 
     // Outlaw's throughput benefit isn't as big as for other classes since we don't have a lot of free gcds to use
     arcaneTorrent: [

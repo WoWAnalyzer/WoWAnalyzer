@@ -3,7 +3,7 @@ import { useState } from 'react';
 const joinArrayToString = (arr: string[], separator: string) =>
   arr.filter((it) => it).join(separator);
 
-const useSessionFeatureFlag = (featureFlag: string, featureFlagDefault: boolean = false) => {
+const useSessionFeatureFlag = (featureFlag: string, featureFlagDefault = false) => {
   const [sessionFeatureFlag, setSessionFeatureFlagState] = useState(() => {
     const sessionFeatureFlagSetting = window.sessionStorage?.getItem(
       // This will filter out if featureFlag is an empty string
@@ -20,7 +20,7 @@ const useSessionFeatureFlag = (featureFlag: string, featureFlagDefault: boolean 
         joinArrayToString(['wowa-ff', featureFlag], '-'),
         String(value),
       );
-    } catch (e) {
+    } catch {
       // ignore it
     }
     setSessionFeatureFlagState(value);

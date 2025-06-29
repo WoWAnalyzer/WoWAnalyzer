@@ -14,7 +14,7 @@ class SpellUsable extends CoreSpellUsable {
     ...CoreSpellUsable.dependencies,
   };
 
-  lastCritTime: number = -2000;
+  lastCritTime = -2000;
   hasFrostscythe: boolean;
 
   constructor(options: Options) {

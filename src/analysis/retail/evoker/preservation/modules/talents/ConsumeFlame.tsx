@@ -36,9 +36,9 @@ class ConsumeFlame extends Analyzer {
 
   protected combatants!: Combatants;
 
-  numberOfConsumes: number = 0;
-  totalHits: number = 0;
-  healed: number = 0;
+  numberOfConsumes = 0;
+  totalHits = 0;
+  healed = 0;
   casts: CastInfo[] = [];
 
   constructor(options: Options) {

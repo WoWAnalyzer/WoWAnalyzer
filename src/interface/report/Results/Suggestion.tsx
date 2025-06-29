@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import Icon from 'interface/Icon';
 import UpArrow from 'interface/icons/UpArrow';
 import SpellIcon from 'interface/SpellIcon';
@@ -41,9 +41,9 @@ class Suggestion extends PureComponent<Props, { expanded: boolean }> {
   }
 
   handleClick() {
-    this.setState({
-      expanded: !this.state.expanded,
-    });
+    this.setState((state) => ({
+      expanded: !state.expanded,
+    }));
   }
 
   render() {

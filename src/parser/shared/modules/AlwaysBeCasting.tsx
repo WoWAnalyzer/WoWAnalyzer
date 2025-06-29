@@ -1,6 +1,6 @@
-import { Trans } from '@lingui/macro';
-import { formatPercentage } from 'common/format';
-import { Icon } from 'interface';
+import { Trans } from '@lingui/react/macro';
+import { formatNumber, formatPercentage } from 'common/format';
+import { Icon, TooltipElement } from 'interface';
 import { Tooltip } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events, { EndChannelEvent, GlobalCooldownEvent } from 'parser/core/Events';
@@ -55,6 +55,9 @@ class AlwaysBeCasting extends Analyzer {
   /** Segments when the player was casting heals, in chronological order and non-overlapping.
    *  Access with {@link activeHealingTimeSegments} to ensure they're fully generated */
   private workingActiveHealingTimeSegments: ActivitySegment[] | undefined = undefined;
+  /** Segments when the player was casting non-healing spells, in chronological order and non-overlapping.
+   *  Access with {@link activeNonHealingTimeSegments} to ensure they're fully generated */
+  private workingActiveNonHealingTimeSegments: ActivitySegment[] | undefined = undefined;
   /** Memoized total active time (ms) */
   private activeTimeMemo: number | undefined = 0;
   /** Start time of memoized active segment */
@@ -143,10 +146,12 @@ class AlwaysBeCasting extends Analyzer {
    * counter an activity start edge and decrementing the counter on an activity end edge, we can
    * detect inactivity time (when counter is 0) and activity time (when counter is greater than 0).
    * Use this to generate the segment's union, which will be non-overlapping and in order.
+   *
+   * @param {boolean|undefined} isHealingAbility The required value of `isHealingAbility` in the activity edges. If undefined, any value is allowed.
    */
   private checkAndGenerateActiveTimeSegments(
     workingSegments: ActivitySegment[] | undefined,
-    healingOnly?: boolean,
+    isHealingAbility?: boolean,
   ): ActivitySegment[] {
     if (workingSegments !== undefined) {
       return workingSegments;
@@ -158,7 +163,7 @@ class AlwaysBeCasting extends Analyzer {
     let activityStartTimestamp = 0;
     workingSegments = [];
     for (const e of this.activeTimeEdges) {
-      if (healingOnly && !e.isHealingAbility) {
+      if (isHealingAbility !== undefined && Boolean(e.isHealingAbility) !== isHealingAbility) {
         continue;
       } else if (activityCount === 0 && e.value === 1) {
         // upwards edge - activity started
@@ -194,6 +199,14 @@ class AlwaysBeCasting extends Analyzer {
     return this.workingActiveHealingTimeSegments;
   }
 
+  get activeNonHealingTimeSegments() {
+    this.workingActiveNonHealingTimeSegments = this.checkAndGenerateActiveTimeSegments(
+      this.workingActiveNonHealingTimeSegments,
+      false,
+    );
+    return this.workingActiveNonHealingTimeSegments;
+  }
+
   /** The active time (in ms) recorded */
   get activeTime() {
     if (
@@ -214,6 +227,18 @@ class AlwaysBeCasting extends Analyzer {
   /** Percentage of fight time spent active */
   get activeTimePercentage() {
     return this.activeTime / this.owner.fightDuration;
+  }
+
+  /** Percentage of fight time spent actively healing. Unlike `activeTime`, this is NOT memoized! */
+  get activeHealingTimePercentage() {
+    return (
+      this.getActiveTimeMillisecondsInWindow(
+        this.owner.fight.start_time,
+        this.owner.fight.end_time,
+        true,
+      ) /
+      (this.owner.fight.end_time - this.owner.fight.start_time)
+    );
   }
 
   /** The amount of milliseconds not spent casting anything or waiting for the GCD. */
@@ -339,13 +364,13 @@ class AlwaysBeCasting extends Analyzer {
   /**
    * Suggestion threshold for gaps between GCDs. The scale is gaps per minute.
    */
-  get smallGapsSuggestionThreshold(): IsGreaterThanThreshold {
+  get smallGapsSuggestionThreshold() {
     return {
       actual: this.smallGapsPerMinute,
       isGreaterThan: {
-        minor: 8,
-        average: 10,
-        major: 12,
+        minor: 6,
+        average: 8,
+        major: 10,
       },
       style: ThresholdStyle.NUMBER,
     };
@@ -432,9 +457,36 @@ class AlwaysBeCasting extends Analyzer {
           </Trans>,
         ),
     );
+
+    when(this.smallGapsSuggestionThreshold).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You have a large number of small gaps between your abilities. Make sure to{' '}
+          <TooltipElement
+            content={
+              <>
+                <p>
+                  WoW has a <em>spell queue</em> system built-in. If you push an ability during the{' '}
+                  <em>queue window</em>, it will immediately begin casting when your current ability
+                  finishes&mdash;faster than you could cast it yourself because of network latency.
+                </p>
+                <p>
+                  The default queue window begins <strong>400ms</strong> before your next ability
+                  could be used and should generally not be changed.
+                </p>
+              </>
+            }
+          >
+            queue
+          </TooltipElement>{' '}
+          up your next ability while your current one finishes.
+        </>,
+      )
+        .recommended(<>&lt; {recommended} is recommended</>)
+        .actual(<>{formatNumber(actual)} small gaps per minute</>)
+        .icon('inv_misc_key_12'),
+    );
   }
 }
 
 export default AlwaysBeCasting;
-
-type IsGreaterThanThreshold = Pick<NumberThreshold, 'actual' | 'isGreaterThan' | 'style'>;

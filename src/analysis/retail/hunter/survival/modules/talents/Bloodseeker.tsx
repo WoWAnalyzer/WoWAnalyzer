@@ -20,9 +20,9 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
  */
 
 class Bloodseeker extends Analyzer {
-  private averageStacks: number = 0;
-  private kcCastTimestamp: number = 0;
-  private damage: number = 0;
+  private averageStacks = 0;
+  private kcCastTimestamp = 0;
+  private damage = 0;
 
   constructor(options: Options) {
     super(options);

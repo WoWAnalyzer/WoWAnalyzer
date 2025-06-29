@@ -19,7 +19,7 @@ class TranquilizingShot extends DispelTracker {
     abilities: Abilities,
   };
 
-  totalDispels: number = 0;
+  totalDispels = 0;
 
   protected abilities!: Abilities;
 

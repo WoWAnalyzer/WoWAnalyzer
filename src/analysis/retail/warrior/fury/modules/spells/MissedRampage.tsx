@@ -1,4 +1,4 @@
-import { defineMessage } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
 import SPELLS from 'common/SPELLS';
 import talents, { TALENTS_WARRIOR } from 'common/TALENTS/warrior';
 import { SpellLink } from 'interface';
@@ -27,10 +27,10 @@ const RAGE_GENERATOR_NAMES = RAGE_GENERATORS.map((spell) => spell.name);
 
 // Rework this module for TWW
 class MissedRampage extends Analyzer {
-  missedRampages: number = 0;
-  hasFB: boolean = false;
-  hasAngerManagement: boolean = false;
-  hasRecklessAbandon: boolean = false;
+  missedRampages = 0;
+  hasFB = false;
+  hasAngerManagement = false;
+  hasRecklessAbandon = false;
 
   constructor(options: Options) {
     super(options);

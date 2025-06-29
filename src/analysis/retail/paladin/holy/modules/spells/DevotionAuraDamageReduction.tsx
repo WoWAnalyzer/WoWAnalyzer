@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import fetchWcl from 'common/fetchWclApi';
 import { formatThousands, formatNumber } from 'common/format';
 import makeWclUrl from 'common/makeWclUrl';
@@ -18,7 +18,7 @@ import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'parser/ui/LazyLoadStatist
 
 // Source: https://github.com/MartijnHols/HolyPaladin/blob/master/Spells/Talents/60/DevotionAura.md#about-the-passive-effect
 const DEVOTION_AURA_PASSIVE_DAMAGE_REDUCTION = 0.03;
-const DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION = 0.15;
+const DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION = 0.12;
 const debugg = false;
 
 /**

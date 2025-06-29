@@ -1,4 +1,4 @@
-import { defineMessage } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
 import { isItAprilFoolDay } from 'common/aprilFools';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';

@@ -35,11 +35,11 @@ abstract class BuffCountGraph extends Analyzer {
   /** Trackers for the buffs to graph */
   buffTrackers: GraphedSpellInternalTracker[];
   /** Buff trackers indexed by spellId */
-  buffTrackerLookup: { [key: number]: GraphedSpellInternalTracker[] };
+  buffTrackerLookup: Record<number, GraphedSpellInternalTracker[]>;
   /** Trackers for the rule lines to graph */
   ruleLineTrackers: GraphedSpellInternalTracker[];
   /** Rule line trackers indexed by spellId */
-  ruleLineTrackerLookup: { [key: number]: GraphedSpellInternalTracker[] };
+  ruleLineTrackerLookup: Record<number, GraphedSpellInternalTracker[]>;
   /** Data handed to vega for graphing */
   graphData: GraphData[];
   /** Timestamp of the last data points added - used to avoid adding duplicate data on same timestamp */
@@ -389,7 +389,7 @@ abstract class BuffCountGraph extends Analyzer {
 
   /** Indexes the trackers into a lookup by spellId */
   _generateLookup(trackers: GraphedSpellInternalTracker[]) {
-    const lookup: { [key: number]: GraphedSpellInternalTracker[] } = {};
+    const lookup: Record<number, GraphedSpellInternalTracker[]> = {};
     trackers.forEach((tracker) => {
       tracker.spells.forEach((spell) => {
         const entry = lookup[spell.id];
@@ -418,7 +418,7 @@ export default BuffCountGraph;
 /**
  * Specification of a buff or cast to be graphed
  */
-export type GraphedSpellSpec = {
+export interface GraphedSpellSpec {
   /** OPTIONAL The name to use on tooltips and the legend for this buff.
    * If omitted, the name of the first spell in spells will be used.
    * Names MUST be unique within the set of specs provided */
@@ -428,10 +428,10 @@ export type GraphedSpellSpec = {
   spells: Spell | Spell[];
   /** REQUIRED Color to render the graph line, in format '#rrggbb'. */
   color: string;
-};
+}
 
 /** Internal tracking obj for building up the graph info */
-type GraphedSpellInternalTracker = {
+interface GraphedSpellInternalTracker {
   /** Name used as ID within vega and for displaying tooltips */
   name: string;
   /** The spells to be graphed together */
@@ -440,10 +440,10 @@ type GraphedSpellInternalTracker = {
   color: string;
   /** The current number of buffs out (for buffs, ignored for casts) */
   currCount: number;
-};
+}
 
 /** The type used to compile the data for graphing. Documents a change in buff count or a spell cast */
-type GraphData = {
+interface GraphData {
   /** Name of the spell spec this data pertains to */
   name: string;
   /** What type of data this is (for buffs or rules) */
@@ -452,4 +452,4 @@ type GraphData = {
   timestamp: number;
   /** The new count of buffs out (omitted for rule data) */
   Count?: number;
-};
+}

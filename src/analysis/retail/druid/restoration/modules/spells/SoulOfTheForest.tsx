@@ -84,7 +84,7 @@ class SoulOfTheForest extends Analyzer {
   };
 
   lastTalliedSotF?: RemoveBuffEvent;
-  lastBuffFromHardcast: boolean = false;
+  lastBuffFromHardcast = false;
 
   /** Box row entry for SotF use */
   useEntries: BoxRowEntry[] = [];

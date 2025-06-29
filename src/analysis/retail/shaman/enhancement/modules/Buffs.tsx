@@ -28,7 +28,7 @@ class Buffs extends ClassBuffs {
         timelineHighlight: true,
       },
       {
-        spellId: TALENTS.DOOM_WINDS_TALENT.id,
+        spellId: SPELLS.DOOM_WINDS_BUFF.id,
         triggeredBySpellId: TALENTS.DOOM_WINDS_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.DOOM_WINDS_TALENT),
         timelineHighlight: true,

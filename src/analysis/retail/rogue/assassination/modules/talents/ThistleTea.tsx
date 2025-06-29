@@ -1,5 +1,6 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import TALENTS from 'common/TALENTS/rogue';
+import SPELLS from 'common/SPELLS/rogue';
 import EnergyTracker from 'analysis/retail/rogue/shared/EnergyTracker';
 import { SpellUse } from 'parser/core/SpellUsage/core';
 import Events, { CastEvent } from 'parser/core/Events';
@@ -24,20 +25,21 @@ export default class ThistleTea extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.THISTLE_TEA_TALENT);
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.THISTLE_TEA_TALENT),
-      this.onCast,
-    );
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), (event: CastEvent) => {
+      if (event.ability.guid === SPELLS.THISTLE_TEA.id) {
+        this.onCast(event);
+      }
+    });
   }
 
   get guideSubsection(): JSX.Element {
-    const wasted = this.energyTracker.getWastedBySpell(TALENTS.THISTLE_TEA_TALENT.id);
-    const generated = this.energyTracker.getGeneratedBySpell(TALENTS.THISTLE_TEA_TALENT.id);
+    const wasted = this.energyTracker.getWastedBySpell(SPELLS.THISTLE_TEA.id);
+    const generated = this.energyTracker.getGeneratedBySpell(SPELLS.THISTLE_TEA.id);
 
     const explanation = (
       <p>
         <strong>
-          <SpellLink spell={TALENTS.THISTLE_TEA_TALENT} />
+          <SpellLink spell={SPELLS.THISTLE_TEA} />
         </strong>{' '}
         is used to generate 100 <ResourceLink id={RESOURCE_TYPES.ENERGY.id} />. It should be used
         during your opener to get it on cooldown and then whenever you need energy.

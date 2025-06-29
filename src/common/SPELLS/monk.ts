@@ -167,7 +167,7 @@ const spells = {
   },
   UNITY_WITHIN_CAST: {
     id: 443591,
-    name: 'Unity WIthin',
+    name: 'Unity Within',
     icon: 'ability_monk_prideofthetiger',
   },
   // Mistweaver Monk Spells
@@ -178,22 +178,22 @@ const spells = {
   },
   SECRET_INFUSION_CRIT_BUFF: {
     id: 388498,
-    name: 'Secret infusion',
+    name: 'Secret Infusion',
     icon: 'ability_monk_chibrew',
   },
   SECRET_INFUSION_HASTE_BUFF: {
     id: 388497,
-    name: 'Secret infusion',
+    name: 'Secret Infusion',
     icon: 'ability_monk_chibrew',
   },
   SECRET_INFUSION_MASTERY_BUFF: {
     id: 388499,
-    name: 'Secret infusion',
+    name: 'Secret Infusion',
     icon: 'ability_monk_chibrew',
   },
   SECRET_INFUSION_VERS_BUFF: {
     id: 388500,
-    name: 'Secret infusion',
+    name: 'Secret Infusion',
     icon: 'ability_monk_chibrew',
   },
   RENEWING_MIST_HEAL: {
@@ -209,7 +209,7 @@ const spells = {
   },
   VIVIFICATION_BUFF: {
     id: 392883,
-    name: 'Vivifacious Vivification',
+    name: 'Vivacious Vivification',
     icon: 'ability_monk_vivify',
   },
   MENDING_PROLIFERATION_BUFF: {
@@ -535,6 +535,11 @@ const spells = {
     name: 'Invigorating Mists',
     icon: 'ability_monk_vivify',
   },
+  ANCIENT_TEACHINGS: {
+    id: 388023,
+    name: 'Ancient Teachings',
+    icon: 'inv_misc_book_07',
+  },
   // Tier
   INSURANCE_HOT_MONK: {
     id: 1215544,
@@ -782,6 +787,10 @@ const spells = {
     ...talents.PRESS_THE_ADVANTAGE_TALENT,
     id: 418360,
   },
+  WEAPONS_OF_ORDER_DEBUFF: {
+    ...talents.WEAPONS_OF_ORDER_TALENT,
+    id: 387179,
+  },
 
   // Windwalker Spells
   COMBO_STRIKES: {
@@ -993,7 +1002,7 @@ const spells = {
   ASPECT_OF_HARMONY_DOT: {
     id: 450763,
     name: 'Aspect of Harmony',
-    icon: 'inv-enchant-essencenethersmall',
+    icon: 'inv_enchant_essencenethersmall',
   },
   ASPECT_OF_HARMONY_HOT: {
     id: 450769,
@@ -1005,11 +1014,27 @@ const spells = {
     name: 'Aspect of Harmony',
     icon: 'ability_evoker_essenceburst3',
   },
+  PATH_OF_RESURGENCE_BUFF: {
+    ...talents.PATH_OF_RESURGENCE_TALENT,
+    id: 451084,
+  },
   // Shado-Pan
   VETERANS_EYE_BUFF: {
     id: 451085,
     name: "Veteran's Eye",
     icon: 'ability_monk_provoke.jpg',
+  },
+  WOTW_SHADOW_BUFF: {
+    ...talents.WISDOM_OF_THE_WALL_TALENT,
+    id: 452688,
+  },
+  FLURRY_STRIKES_DAMAGE_1: {
+    ...talents.FLURRY_STRIKES_TALENT,
+    id: 450620,
+  },
+  FLURRY_STRIKES_DAMAGE_2: {
+    ...talents.FLURRY_STRIKES_TALENT,
+    id: 450617,
   },
 } satisfies Record<string, Spell>;
 

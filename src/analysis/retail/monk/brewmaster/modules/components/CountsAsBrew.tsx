@@ -9,7 +9,7 @@ const ESTIMATED_BREW_CDR = 0.45;
 /**
  * Brew cooldown for display, rounded up the nearest `basis` seconds.
  */
-export const brewCooldownDisplay = (baseCooldown: number, basis: number = 5) =>
+export const brewCooldownDisplay = (baseCooldown: number, basis = 5) =>
   Math.ceil((baseCooldown * ESTIMATED_BREW_CDR) / basis) * basis;
 
 const lbCooldown = (baseCooldown: number) => brewCooldownDisplay(baseCooldown * 0.8);

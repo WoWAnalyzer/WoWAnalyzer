@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
@@ -21,7 +21,7 @@ class Abilities extends CoreAbilities {
     this.abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
   }
 
-  spellbook(): Array<SpellbookAbility<TrackedPaladinAbility>> {
+  spellbook(): SpellbookAbility<TrackedPaladinAbility>[] {
     const combatant = this.selectedCombatant;
     const hasSanctifiedWrath = combatant.hasTalent(TALENTS.SANCTIFIED_WRATH_TALENT);
     const hasUnbreakable = combatant.hasTalent(TALENTS.UNBREAKABLE_SPIRIT_TALENT);
@@ -152,7 +152,26 @@ class Abilities extends CoreAbilities {
             : 0.1,
           importance: ISSUE_IMPORTANCE.MINOR,
         },
-        enabled: combatant.hasTalent(TALENTS.LAY_ON_HANDS_TALENT),
+        enabled:
+          combatant.hasTalent(TALENTS.LAY_ON_HANDS_TALENT) &&
+          !combatant.hasTalent(TALENTS.EMPYREAL_WARD_TALENT),
+      },
+      {
+        spell: SPELLS.LAY_ON_HANDS_EMPYREAL_WARD.id,
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown: unbreakable(60 * 10),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: this.selectedCombatant.hasTalent(
+            TALENTS.TIRIONS_DEVOTION_HOLY_TALENT,
+          )
+            ? 0.6
+            : 0.1,
+          importance: ISSUE_IMPORTANCE.MINOR,
+        },
+        enabled:
+          combatant.hasTalent(TALENTS.LAY_ON_HANDS_TALENT) &&
+          combatant.hasTalent(TALENTS.EMPYREAL_WARD_TALENT),
       },
       {
         spell: TALENTS.BLESSING_OF_FREEDOM_TALENT.id,
@@ -354,7 +373,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.BARRIER_OF_FAITH_TALENT),
       },
       {
-        spell: TALENTS.AVENGING_CRUSADER_TALENT.id,
+        spell: SPELLS.AVENGING_CRUSADER.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60,
         castEfficiency: {

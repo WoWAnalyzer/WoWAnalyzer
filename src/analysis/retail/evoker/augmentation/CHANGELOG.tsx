@@ -5,6 +5,10 @@ import TALENTS from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  change(date(2025, 6, 20), <>Update <SpellLink spell={TALENTS.PRESCIENCE_TALENT}/> module to only show relevant Pre-Pull uses</>, Vollmer),
+  change(date(2025, 6, 20), "Update example report for 11.1.7", Vollmer),
+  change(date(2025, 6, 12), <>Update <SpellLink spell={TALENTS.PRESCIENCE_TALENT}/> module</>, KYZ),
+  change(date(2025, 5, 16), <>Fix <SpellLink spell={TALENTS.TIME_SKIP_TALENT}/> CDR handling for Abilities with charges</>, Vollmer),
   change(date(2025, 3, 13), <>Implement <SpellLink spell={TALENTS.MOTES_OF_POSSIBILITY_TALENT}/> module</>, KYZ),
   change(date(2025, 3, 2), "Update config to 11.1", KYZ),
   change(date(2025, 2, 26), <>Updated for 11.1. Updated <SpellLink spell={TALENTS.EBON_MIGHT_TALENT}/> module. Added a module for <SpellLink spell={TALENTS.UPHEAVAL_TALENT}/> <SpellLink spell={SPELLS.ESSENCE_BURST_AUGMENTATION_BUFF}/> procs. Multiple adjustments when <SpellLink spell={TALENTS.MOTES_OF_POSSIBILITY_TALENT}/> talent is taken.</>, KYZ),

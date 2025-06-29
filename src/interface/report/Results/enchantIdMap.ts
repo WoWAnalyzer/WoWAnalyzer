@@ -3,9 +3,11 @@
     - Enchanting
     - Engineering
     - Tailoring
+
+  Rough source: https://wago.tools/db2/SpellItemEnchantment
 */
 
-const enchantIdMap: { [key: number]: string } = {
+const enchantIdMap: Record<number, string> = {
   // Classic & The Burning Crusade (Incomplete)
   41: '+5 Health',
   65: '+1 All Resistances',
@@ -317,7 +319,7 @@ const enchantIdMap: { [key: number]: string } = {
   7462: 'Authority of Radiant Power',
   7463: 'Authority of Radiant Power',
 
-  7467: '-80 Haste & +270 Critical Strike',
+  7468: '-80 Haste & +270 Critical Strike',
   7469: '-100 Haste & +335 Critical Strike',
   7470: '-115 Haste & +390 Critical Strike',
   7471: '-80 Versatility & +270 Haste',
@@ -330,15 +332,15 @@ const enchantIdMap: { [key: number]: string } = {
   7478: '-100 Critical Strike & +335 Mastery',
   7479: '-115 Critical Strike & +390 Mastery',
 
-  7530: '+670 Intellect & +4% Mana',
-  7531: '+747 Intellect & +5% Mana',
-
-  7533: '+670 Intellect & +211 Stamina',
-  7534: '+747 Intellect & +230 Stamina',
-
-  7535: '+479 Intellect',
-  7536: '+536 Intellect',
-  7537: '+593 Intellect',
+  7529: '+650 Intellect & +3% Mana',
+  7530: '+790 Intellect & +4% Mana',
+  7531: '+930 Intellect & +5% Mana',
+  7532: '+650 Intellect & +625 Stamina',
+  7533: '+790 Intellect & +760 Stamina',
+  7534: '+930 Intellect & +895 Stamina',
+  7535: '+430 Intellect',
+  7536: '+525 Intellect',
+  7537: '+620 Intellect',
 
   7593: '+650 Agility/Strength & +690 Armor',
   7594: '+790 Agility/Strength & +835 Armor',
@@ -349,6 +351,21 @@ const enchantIdMap: { [key: number]: string } = {
   7599: '+650 Agility/Strength & +625 Stamina',
   7600: '+790 Agility/Strength & +760 Stamina',
   7601: '+930 Agility/Strength & +895 Stamina',
+
+  // #region TWW - Revisited Horrific Visions
+  7912: 'Lesser Twilight Devastation',
+  7914: 'Greater Twilight Devastation',
+  7915: 'Lesser Echoing Void',
+  7917: 'Greater Echoing Void',
+  7922: 'Lesser Infinite Stars',
+  7924: 'Greater Infinite Stars',
+  7925: 'Lesser Gushing Wound',
+  7927: 'Greater Gushing Wound',
+  7928: 'Lesser Twisted Appendage',
+  7930: 'Greater Twisted Appendage',
+  7931: 'Lesser Void Ritual',
+  7933: 'Greater Void Ritual',
+  // #endregion
 };
 
 export default enchantIdMap;

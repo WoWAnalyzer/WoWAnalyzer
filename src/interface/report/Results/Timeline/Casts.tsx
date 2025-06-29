@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { formatDuration } from 'common/format';
 import Icon from 'interface/Icon';
 import SpellLink from 'interface/SpellLink';
@@ -76,7 +76,11 @@ export const highlightInefficientCast = (
   }
 };
 
-type MovementInstance = { start: number; end: number; distance: number };
+interface MovementInstance {
+  start: number;
+  end: number;
+  distance: number;
+}
 interface Props extends HTMLAttributes<HTMLDivElement> {
   start: number;
   windowStart?: number;

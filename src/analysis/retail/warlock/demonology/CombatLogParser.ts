@@ -39,6 +39,8 @@ import SoulStrike from './modules/talents/SoulStrike';
 import SummonVilefiend from './modules/talents/SummonVilefiend';
 import DiabolicRitual from './modules/talents/DiabolicRitual';
 import DiabolicRitualEmpowers from './modules/talents/DiabolicRitualEmpowers';
+import TheHoundmastersGambit from './modules/talents/TheHoundmastersGambit';
+import WickedMaw from './modules/talents/WickedMaw';
 import Guide from './Guide';
 import T31AmirdrassilDemonology from './modules/dragonflight/tier/T31AmirdrassilDemonology';
 import { UnendingResolve, DarkPact, DemonicCircle } from '../shared';
@@ -90,6 +92,8 @@ class CombatLogParser extends CoreCombatLogParser {
     dreadCalling: DreadCalling,
     DiabolicRitual: DiabolicRitual,
     DiabolicRitualEmpowers: DiabolicRitualEmpowers,
+    theHoundmastersGambit: TheHoundmastersGambit,
+    wickedMaw: WickedMaw,
 
     // Shared Spells
     unendingResolve: UnendingResolve,

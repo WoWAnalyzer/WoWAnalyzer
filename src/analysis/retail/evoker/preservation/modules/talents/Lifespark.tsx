@@ -22,12 +22,12 @@ import { LIFESPARK_INCREASE } from '../../constants';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
 class Lifespark extends Analyzer {
-  totalLifesparkGenerated: number = 0;
-  lifesparksToHeal: number = 0;
-  totalLifesparkHealing: number = 0;
-  lifesparksToDamage: number = 0;
-  totalLifesparkDamage: number = 0;
-  lifesparksLostRefresh: number = 0;
+  totalLifesparkGenerated = 0;
+  lifesparksToHeal = 0;
+  totalLifesparkHealing = 0;
+  lifesparksToDamage = 0;
+  totalLifesparkDamage = 0;
+  lifesparksLostRefresh = 0;
 
   constructor(options: Options) {
     super(options);

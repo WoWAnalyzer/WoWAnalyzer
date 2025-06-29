@@ -30,7 +30,7 @@ class PrescienceNormalizer extends EventsNormalizer {
   protected stats!: StatTracker;
   normalize(events: any[]): any[] {
     const fixedEvents: any[] = [];
-    const targetStatus: { [key: number]: boolean } = {};
+    const targetStatus: Record<number, boolean> = {};
     events.forEach((event: AnyEvent, idx: number) => {
       const linkedEvents = HasRelatedEvent(event, PRESCIENCE_APPLY_REMOVE_LINK);
       if (linkedEvents) {

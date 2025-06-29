@@ -1,5 +1,5 @@
-import { defineMessage } from '@lingui/macro';
-import { Trans } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
+import { Trans } from '@lingui/react/macro';
 import { formatPercentage, formatNumber } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import ROLES from 'game/ROLES';
@@ -17,12 +17,12 @@ class ManaValues extends Analyzer {
   maxMana = 0;
   endingMana = 0;
 
-  manaUpdates: Array<{
+  manaUpdates: {
     timestamp: number;
     current: number;
     max: number;
     used: number;
-  }> = [];
+  }[] = [];
 
   constructor(options: Options) {
     super(options);

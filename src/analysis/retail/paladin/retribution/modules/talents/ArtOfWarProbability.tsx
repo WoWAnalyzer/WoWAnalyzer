@@ -13,9 +13,9 @@ class ArtOfWarProbability extends Analyzer {
   hasTier = false;
   flipFlop = false;
 
-  procsGained: number = 0;
-  chance: number = 0.12;
-  totalChances: number = 0;
+  procsGained = 0;
+  chance = 0.12;
+  totalChances = 0;
   procProbabilities: number[] = [];
 
   constructor(args: Options) {

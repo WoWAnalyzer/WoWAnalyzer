@@ -6,3 +6,4 @@ node_modules
 CHANGELOG.tsx
 CHANGELOG.js
 pnpm-lock.yaml
+/scripts/lint-baseline/baseline.json

@@ -1,4 +1,4 @@
-@import 'interface/Theme.scss';
+@use 'interface/Theme.scss';
 
 .results > header {
   position: relative;
@@ -158,7 +158,7 @@
 
           &:hover img,
           &.active img {
-            border: 2px solid $primaryColor;
+            border: 2px solid Theme.$primaryColor;
           }
         }
       }
@@ -178,7 +178,7 @@
 
         img {
           border-radius: 50%;
-          border: 3px solid $primaryColor;
+          border: 3px solid Theme.$primaryColor;
           width: 90px;
           height: 90px;
         }
@@ -259,7 +259,7 @@
           background-image: radial-gradient(closest-side, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0));
         }
         a:hover {
-          border: 2px solid $primaryColor;
+          border: 2px solid Theme.$primaryColor;
           background: rgba(0, 0, 0, 0.1);
           text-decoration: none;
         }
@@ -267,7 +267,7 @@
           text-decoration: none;
         }
         &.active a {
-          background-color: $primaryColor;
+          background-color: Theme.$primaryColor;
           color: #211510;
           text-shadow: none;
 
@@ -284,7 +284,7 @@
       display: block;
       margin: 0 auto;
       height: 24px;
-      color: $primaryColor;
+      color: Theme.$primaryColor;
     }
   }
 }

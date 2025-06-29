@@ -10,7 +10,7 @@ interface Buff {
   spellId?: number;
 }
 
-type Buffs = Array<Buff>;
+type Buffs = Buff[];
 
 export interface Trinket extends Item {
   buffs: Buffs;
@@ -25,6 +25,4 @@ export interface Enchant extends Item {
   craftQuality?: 1 | 2 | 3 | 4 | 5;
 }
 
-export interface ItemList<T extends Item = Item> {
-  [key: string]: T;
-}
+export type ItemList<T extends Item = Item> = Record<string, T>;

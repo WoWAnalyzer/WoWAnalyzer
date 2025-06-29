@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import { MS_BUFFER_100 } from 'analysis/retail/hunter/shared/constants';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';

@@ -4,6 +4,7 @@ import { GapHighlight } from 'parser/ui/CooldownBar';
 import CombatLogParser from './CombatLogParser';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
+import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 
 export const GUIDE_CORE_EXPLANATION_PERCENT = 40;
 
@@ -29,6 +30,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       <Section title="Healing Cooldowns">
         <CooldownGraphSubsection modules={modules} events={events} info={info} />
       </Section>
+      <PreparationSection />
     </>
   );
 }

@@ -27,8 +27,12 @@ const ctx = React.createContext<TimelineContext>({
   width() {
     return 0;
   },
-  zoom(start, end) {},
-  resetZoom() {},
+  zoom(start, end) {
+    // do nothing
+  },
+  resetZoom() {
+    // do nothing
+  },
 });
 
 export const useTimelinePosition = () => useContext(ctx);
@@ -248,6 +252,8 @@ export default function TimelineDiagram({ info, children, overlays }: Props): JS
             overflowY: 'clip',
             width: '100%',
             height: 'max-content',
+            scrollbarWidth: 'thin',
+            scrollbarColor: '#1a1a1a transparent',
           }}
         >
           <svg

@@ -67,6 +67,8 @@ export default class HeatingUp extends Analyzer {
       buff = { active: true, buffId: TALENTS.COMBUSTION_TALENT.id };
     } else if (this.selectedCombatant.hasBuff(TALENTS.HYPERTHERMIA_TALENT.id)) {
       buff = { active: true, buffId: TALENTS.HYPERTHERMIA_TALENT.id };
+    } else if (this.selectedCombatant.hasBuff(SPELLS.HYPERTHERMIA_BUFF.id)) {
+      buff = { active: true, buffId: SPELLS.HYPERTHERMIA_BUFF.id };
     } else {
       buff = { active: false };
     }

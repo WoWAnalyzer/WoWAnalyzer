@@ -1,4 +1,4 @@
-import { defineMessage } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/hunter';
 import { SpellLink } from 'interface';
@@ -24,7 +24,7 @@ import { BARRAGE_HITS_PER_CAST } from '../constants';
  */
 class Barrage extends Analyzer {
   damage = 0;
-  casts: Array<{ averageHits: number; hits: number }> = [];
+  casts: { averageHits: number; hits: number }[] = [];
   hits = 0;
   uniqueTargets: string[] = [];
   uniqueTargetsHit = 0;

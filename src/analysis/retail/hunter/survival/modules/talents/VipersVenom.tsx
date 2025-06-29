@@ -1,4 +1,4 @@
-import { defineMessage } from '@lingui/macro';
+import { defineMessage } from '@lingui/core/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/hunter';
@@ -33,7 +33,7 @@ class VipersVenom extends Analyzer {
   protected spellUsable!: SpellUsable;
   protected globalCooldown!: GlobalCooldown;
 
-  private targetsHit: number = 0;
+  private targetsHit = 0;
   // Travel time of Wildfire Bomb can allow you to consume a tip with the following GCD and so tippedCasts should = tippedDamage
   constructor(options: Options) {
     super(options);

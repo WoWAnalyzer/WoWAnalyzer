@@ -5,11 +5,12 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
   DamageEvent,
+  HasRelatedEvent,
   HealEvent,
+  RefreshBuffEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
 import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
@@ -22,25 +23,27 @@ import {
   DIVINE_PURPOSE_CHANCE,
   HEALING_HOLY_POWER_SPENDERS,
 } from './constants';
+import TalentSpellText from 'parser/ui/TalentSpellText';
+import { AURORA_DIVINE_PURPOSE } from '../holy/normalizers/EventLinks/EventLinkConstants';
 
 const BUFF_TIME: number = 12000 * 0.95; //add buffer since log events lmao
 const TRACK_BUFFER = 500;
 
 class DivinePurpose extends Analyzer {
-  averageTimeTillBuffConsumed: number = 0;
+  averageTimeTillBuffConsumed = 0;
 
-  hasProc: boolean = false;
-  procsWasted: number = 0;
-  procsGained: number = 0;
+  hasProc = false;
+  procsWasted = 0;
+  procsGained = 0;
 
-  healingDone: number = 0;
-  overhealingDone: number = 0;
-  damageDone: number = 0;
+  healingDone = 0;
+  overhealingDone = 0;
+  damageDone = 0;
 
-  buffAppliedTimestamp: number = 0;
-  buffRemovedTimestamp: number = 0;
+  buffAppliedTimestamp = 0;
+  buffRemovedTimestamp = 0;
 
-  totalChances: number = 0;
+  totalChances = 0;
   procProbabilities: number[] = [];
 
   constructor(args: Options) {
@@ -48,10 +51,6 @@ class DivinePurpose extends Analyzer {
     this.active =
       this.selectedCombatant.hasTalent(TALENTS.DIVINE_PURPOSE_SHARED_TALENT) ||
       this.selectedCombatant.hasTalent(TALENTS.DIVINE_PURPOSE_RETRIBUTION_TALENT);
-
-    if (!this.active) {
-      return;
-    }
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(ALL_HOLY_POWER_SPENDERS),
@@ -67,6 +66,10 @@ class DivinePurpose extends Analyzer {
     );
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_PURPOSE_BUFF),
+      this.applyBuff,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_PURPOSE_BUFF),
       this.applyBuff,
     );
     this.addEventListener(
@@ -93,10 +96,12 @@ class DivinePurpose extends Analyzer {
     }
   }
 
-  applyBuff(event: ApplyBuffEvent) {
-    this.hasProc = true;
-    this.procsGained += 1;
-    this.buffAppliedTimestamp = event.timestamp;
+  applyBuff(event: ApplyBuffEvent | RefreshBuffEvent) {
+    if (!HasRelatedEvent(event, AURORA_DIVINE_PURPOSE)) {
+      this.hasProc = true;
+      this.procsGained += 1;
+      this.buffAppliedTimestamp = event.timestamp;
+    }
   }
 
   removeBuff(event: RemoveBuffEvent) {
@@ -123,6 +128,7 @@ class DivinePurpose extends Analyzer {
                 {formatDuration(this.averageTimeTillBuffConsumed / this.procsGained)}
               </li>
               <li>Total Buffs: {this.procsGained}</li>
+              <li>Wasted Buffs: {this.procsWasted}</li>
               <li>Damage: {formatNumber(this.damageDone)}</li>
               <li>Healing: {formatNumber(this.healingDone)}</li>
               <li>Overhealing: {formatNumber(this.overhealingDone)}</li>
@@ -130,10 +136,18 @@ class DivinePurpose extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={TALENTS.DIVINE_PURPOSE_SHARED_TALENT}>
-          <ItemDamageDone amount={this.damageDone} /> <br />
-          <ItemHealingDone amount={this.healingDone} />
-        </BoringSpellValueText>
+        <TalentSpellText talent={TALENTS.DIVINE_PURPOSE_SHARED_TALENT}>
+          {this.healingDone > 0 && (
+            <>
+              <ItemHealingDone amount={this.healingDone} /> <br />
+            </>
+          )}
+          {this.damageDone > 0 && (
+            <>
+              <ItemDamageDone amount={this.damageDone} /> <br />
+            </>
+          )}
+        </TalentSpellText>
         {plotOneVariableBinomChart(this.procsGained, this.totalChances, this.procProbabilities)}
       </Statistic>
     );

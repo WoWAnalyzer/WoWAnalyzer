@@ -92,9 +92,9 @@ class EbonMight extends Analyzer {
     ? EBON_MIGHT_PERSONAL_DAMAGE_AMP * CLOSE_AS_CLUTCHMATES_MOD
     : EBON_MIGHT_PERSONAL_DAMAGE_AMP;
 
-  ebonMightActive: boolean = false;
-  currentEbonMightDuration: number = 0;
-  currentEbonMightCastTime: number = 0;
+  ebonMightActive = false;
+  currentEbonMightDuration = 0;
+  currentEbonMightCastTime = 0;
 
   personalEbonMightDamage = 0;
   externalEbonMightDamage = 0;
