@@ -22,6 +22,7 @@ import CooldownExpandable, {
 } from 'interface/guide/components/CooldownExpandable';
 import ItemPercentDamageDone from 'parser/ui/ItemPercentDamageDone';
 import TalentSpellText from 'parser/ui/TalentSpellText';
+import AlwaysBeCasting from 'analysis/retail/druid/feral/modules/features/AlwaysBeCasting';
 
 const BERSERK_HARDCAST_DURATION = 15_000;
 const INCARN_HARDCAST_DURATION = 20_000;
@@ -53,11 +54,13 @@ class Berserk extends Analyzer {
     spellUsable: SpellUsable,
     abilityTracker: AbilityTracker,
     energyTracker: EnergyTracker,
+    alwaysBeCasting: AlwaysBeCasting,
   };
 
   protected spellUsable!: SpellUsable;
   protected abilityTracker!: AbilityTracker;
   protected energyTracker!: EnergyTracker;
+  protected alwaysBeCasting!: AlwaysBeCasting;
 
   /** Tracker for each Berserk cast */
   berserkTrackers: BerserkCast[] = [];
@@ -123,13 +126,14 @@ class Berserk extends Analyzer {
     return this.abilityTracker.getAbilityDamage(SPELLS.FRENZIED_ASSAULT.id);
   }
 
-  private getPercentAtCapPerf(percentAtCap: number): QualitativePerformance {
-    if (percentAtCap < 0.1) {
+  private getActivityPerf(percentAtCap: number, percentActive: number): QualitativePerformance {
+    if (percentActive > 0.9 || percentAtCap < 0.1) {
       return QualitativePerformance.Good;
-    } else if (percentAtCap < 0.3) {
-      return QualitativePerformance.Ok;
-    } else {
+    }
+    if (percentActive < 0.7 && percentAtCap > 0.3) {
       return QualitativePerformance.Fail;
+    } else {
+      return QualitativePerformance.Ok;
     }
   }
 
@@ -155,7 +159,13 @@ class Berserk extends Analyzer {
           const cdEnd = Math.min(this.owner.fight.end_time, cast.timestamp + this.hardcastDuration);
           const segmentEnergy = this.energyTracker.generateSegmentData(cast.timestamp, cdEnd);
           const percentAtCap = segmentEnergy.percentAtCap;
-          const percentAtCapPerf = this.getPercentAtCapPerf(percentAtCap);
+          const segmentActive = this.alwaysBeCasting.getActiveTimeMillisecondsInWindow(
+            cast.timestamp,
+            cdEnd,
+          );
+          const segmentPercentActive = segmentActive / (cdEnd - cast.timestamp);
+          const activityPerf = this.getActivityPerf(percentAtCap, segmentPercentActive);
+          let overallPerf = activityPerf;
 
           const header = (
             <>
@@ -166,12 +176,17 @@ class Berserk extends Analyzer {
 
           const checklistItems: CooldownExpandableItem[] = [];
           checklistItems.push({
-            label: <>Don't cap on energy</>,
-            result: <PerformanceMark perf={percentAtCapPerf} />,
-            details: <>({formatPercentage(percentAtCap, 0)}% capped)</>,
+            label: <>Cast as much as possible</>,
+            result: <PerformanceMark perf={activityPerf} />,
+            details: (
+              <>
+                ({formatPercentage(segmentPercentActive, 0)}% active time /{' '}
+                {formatPercentage(percentAtCap, 0)}% energy capped)
+              </>
+            ),
           });
-          this.hasConvoke &&
-            this.hasHeartOfTheLion &&
+
+          if (this.hasConvoke && this.hasHeartOfTheLion) {
             checklistItems.push({
               label: (
                 <>
@@ -193,12 +208,16 @@ class Berserk extends Analyzer {
               ),
               result: <PassFailCheckmark pass={cast.usedConvoke} />,
             });
+            if (!cast.usedConvoke) {
+              overallPerf = QualitativePerformance.Fail;
+            }
+          }
 
           return (
             <CooldownExpandable
               header={header}
               checklistItems={checklistItems}
-              perf={percentAtCapPerf}
+              perf={overallPerf}
               key={ix}
             />
           );

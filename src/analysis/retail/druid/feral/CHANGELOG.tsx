@@ -5,6 +5,8 @@ import { TALENTS_DRUID } from 'common/TALENTS/druid';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  change(date(2025, 6, 30), <>Updated several guide elements to be more consistent with current playstyles: <SpellLink spell={TALENTS_DRUID.BERSERK_TALENT}/> 'don't cap' check now also considers active time. <SpellLink spell={TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT}/> CPs on cast now checks energy instead, and is more lenient. 3-4 CP <SpellLink spell={TALENTS_DRUID.RIP_TALENT}/> that upgrade Snapshot are now 'OK' instead of 'Fail'. <SpellLink spell={TALENTS_DRUID.FERAL_FRENZY_TALENT}/> no longer requires <SpellLink spell={TALENTS_DRUID.TIGERS_FURY_TALENT}/> active (due to mismatched cooldowns).</>, Sref),
+  change(date(2025, 6, 30), <>Fixed a bug where the <SpellLink spell={TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT}/> tracker was counting each <SpellLink spell={TALENTS_DRUID.RAVAGE_TALENT}/> hit instead of each cast.</>, Sref),
   change(date(2025, 4, 21), <>Update example log.</>, Vollmer),
   change(date(2025, 3, 16), <>Added statistic for <SpellLink spell={TALENTS_DRUID.MERCILESS_CLAWS_TALENT} /></>, Sref),
   change(date(2025, 3, 4), <>Marked as updated for 11.1.0.</>, Sref),
