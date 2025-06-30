@@ -340,6 +340,13 @@ export const Gao: Contributor = {
 export const Oratio: Contributor = {
   nickname: 'Oratio',
   github: 'karlpralow',
+  mains: [
+    {
+      name: 'Oratio',
+      spec: SPECS.RESTORATION_DRUID,
+      link: 'https://worldofwarcraft.blizzard.com/en-us/character/us/zuljin/Oratio',
+    },
+  ],
 };
 export const Ogofo: Contributor = {
   nickname: 'Ogofo',
