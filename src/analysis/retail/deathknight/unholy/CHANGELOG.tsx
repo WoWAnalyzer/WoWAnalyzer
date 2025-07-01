@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
 
 export default [
+  change(date(2025, 7, 1), 'Update Unholy Death Knight Guide, Statistics, and About for Patch 11.1.5', Brandrewsss),
   change(date(2025, 6, 23), 'Update Unholy Death Knight Buffs for Patch 11.1.5', Brandrewsss),
   change(date(2025, 6, 8), 'Update Unholy Death Knight Abilities and Talents for Patch 11.1.5', Brandrewsss),
   change(date(2024, 12, 9), 'Update spec config to reflect lack of long term maintainers', Khazak),
