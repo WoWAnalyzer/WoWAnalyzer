@@ -5,6 +5,7 @@ import Cooldowns from './guide/Cooldowns';
 import { SpellLink } from 'interface';
 import TALENTS from 'common/TALENTS/deathknight';
 import SPELLS from 'common/SPELLS/deathknight';
+import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 
 export default function UnholyGuide(props: GuideProps<typeof CombatLogParser>) {
   return (
@@ -71,6 +72,7 @@ export default function UnholyGuide(props: GuideProps<typeof CombatLogParser>) {
           <div style={{ marginTop: '16px' }}>{props.modules.runicPowerGraph.plot}</div>
         </SubSection>
       </Section>
+      <PreparationSection />
     </>
   );
 }
