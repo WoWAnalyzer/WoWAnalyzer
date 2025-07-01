@@ -8,7 +8,7 @@ import Buffs from './modules/Buffs';
 import AlwaysBeCasting from './modules/core/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/core/CooldownThroughputTracker';
 import UnholyRuneForgeChecker from './modules/features/RuneForgeChecker';
-import RuneTracker from './modules/features/RuneTracker';
+import RuneTracker from './modules/core/RuneTracker';
 import SuddenDoom from './modules/features/SuddenDoom';
 import WoundTracker from './modules/features/WoundTracker';
 import RunicPowerDetails from './modules/core/RunicPowerDetails';
@@ -22,6 +22,8 @@ import CommanderOfTheDead from './modules/talents/CommanderOfTheDead';
 import SummonGargoyleBuffs from './modules/talents/SummonGargoyleBuffs';
 import PlagueBringer from './modules/talents/PlagueBringer';
 import Guide from './modules/Guide';
+import RunicPowerGraph from './modules/core/RunicPowerGraph';
+import RuneGraph from './modules/core/RuneGraph';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -50,10 +52,12 @@ class CombatLogParser extends CoreCombatLogParser {
     // RunicPower
     runicPowerTracker: RunicPowerTracker,
     runicPowerDetails: RunicPowerDetails,
+    runicPowerGraph: RunicPowerGraph,
 
     //RuneTracker
     runeTracker: RuneTracker,
     runeDetails: RuneDetails,
+    runeGraph: RuneGraph,
 
     // Runes
     runeOfTheFallenCrusader: RuneOfTheFallenCrusader,

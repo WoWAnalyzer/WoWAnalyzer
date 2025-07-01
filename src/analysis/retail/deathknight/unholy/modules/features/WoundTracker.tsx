@@ -152,13 +152,24 @@ class WoundTracker extends Analyzer {
   get guideSubsection() {
     const barColor = this.getBarColor();
     const explanation = (
-      <p>
+      <div style={{ lineHeight: '1.6' }}>
         <b>
           <SpellLink spell={SPELLS.FESTERING_WOUND} />
         </b>{' '}
-        management is crucial for Unholy DK. Avoid overcapping at {MAX_WOUNDS} stacks and ensure you
-        have 4-6 wounds before casting <SpellLink spell={TALENTS.APOCALYPSE_TALENT} />.
-      </p>
+        is a key mechanic for Unholy DKs. You apply wounds using{' '}
+        <SpellLink spell={TALENTS.FESTERING_STRIKE_TALENT} /> and burst them with abilities like{' '}
+        <SpellLink spell={TALENTS.SCOURGE_STRIKE_TALENT} /> and{' '}
+        <SpellLink spell={TALENTS.APOCALYPSE_TALENT} />.
+        <br />
+        <br />
+        You can only stack up to {MAX_WOUNDS} wounds on a target. Applying more than that wastes
+        them, so try to stay below the cap. Aim to have 4–6 wounds before casting{' '}
+        <SpellLink spell={TALENTS.APOCALYPSE_TALENT} /> to get full value from the cooldown.
+        <br />
+        <br />
+        This module shows how many wounds you applied and how many were wasted by overcapping or
+        misusing cooldowns. Keeping your wounds under control is key to smooth, effective damage.
+      </div>
     );
 
     const data = (
