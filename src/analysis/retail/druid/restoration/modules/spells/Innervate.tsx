@@ -4,7 +4,7 @@ import { SpellIcon, SpellLink } from 'interface';
 import { PassFailCheckmark } from 'interface/guide';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
-import Events, { CastEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, CastEvent } from 'parser/core/Events';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -19,7 +19,7 @@ import { explanationAndDataSubsection } from 'interface/guide/components/Explana
 import { abilityToSpell } from 'common/abilityToSpell';
 
 // TODO double check this is a reasonable number
-const INNERVATE_MANA_REQUIRED = 7000;
+const INNERVATE_MANA_REQUIRED = 400000;
 
 class Innervate extends Analyzer {
   casts = 0;
@@ -32,7 +32,7 @@ class Innervate extends Analyzer {
     super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.INNERVATE),
+      Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.INNERVATE),
       this.onInnervate,
     );
   }
@@ -67,7 +67,7 @@ class Innervate extends Analyzer {
     }
   }
 
-  onInnervate(event: CastEvent) {
+  onInnervate(event: ApplyBuffEvent) {
     this.casts += 1;
 
     const castTracker: InnervateCast = {
