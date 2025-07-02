@@ -4,6 +4,7 @@ import { change, date } from 'common/changelog';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2025, 7, 2), 'Remove RefreshBuff event that gets logged when going from 2->1 stack of Sudden Death', Nevdok),
   change(date(2025, 5, 6), 'Remove Storm Bolt suggestion', Nevdok),
   change(date(2025, 3, 22), 'Update APL with support for Ravager Slayer', Nevdok),
   change(date(2025, 3, 1), 'Update config to reflect 11.1 support', Nevdok),
