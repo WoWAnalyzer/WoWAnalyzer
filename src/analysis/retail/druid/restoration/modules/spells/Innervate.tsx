@@ -1,7 +1,7 @@
-import { formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon, SpellLink } from 'interface';
-import { PassFailCheckmark } from 'interface/guide';
+import { PerformanceMark } from 'interface/guide';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import Events, { ApplyBuffEvent, CastEvent } from 'parser/core/Events';
@@ -14,14 +14,31 @@ import CooldownExpandable, {
   CooldownExpandableItem,
 } from 'interface/guide/components/CooldownExpandable';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/druid/restoration/Guide';
-import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { evaluateQualitativePerformanceByThreshold } from 'parser/ui/QualitativePerformance';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { abilityToSpell } from 'common/abilityToSpell';
+import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
+import { TALENTS_DRUID } from 'common/TALENTS';
 
-// TODO double check this is a reasonable number
-const INNERVATE_MANA_REQUIRED = 400000;
+const GOOD_RAMP_ACTIVE_THRESHOLD = 0.85;
+const OK_RAMP_ACTIVE_THRESHOLD = 0.6;
+
+const RAMP_SPELL_IDS: number[] = [
+  SPELLS.REJUVENATION.id,
+  SPELLS.REJUVENATION_GERMINATION.id,
+  SPELLS.WILD_GROWTH.id,
+  TALENTS_DRUID.LIFEBLOOM_TALENT.id,
+  SPELLS.EFFLORESCENCE_CAST.id,
+  SPELLS.SWIFTMEND.id,
+  SPELLS.TRANQUILITY_CAST.id,
+];
 
 class Innervate extends Analyzer {
+  static dependencies = {
+    alwaysBeCasting: AlwaysBeCasting,
+  };
+  protected alwaysBeCasting!: AlwaysBeCasting;
+
   casts = 0;
   castsOnYourself = 0;
   manaSaved = 0;
@@ -80,7 +97,7 @@ class Innervate extends Analyzer {
     if (event.targetID === event.sourceID) {
       this.castsOnYourself += 1;
     } else {
-      castTracker.targetId = event.targetID;
+      castTracker.sourceId = event.sourceID;
     }
   }
 
@@ -98,8 +115,8 @@ class Innervate extends Analyzer {
           <SpellLink spell={SPELLS.INNERVATE} />
         </strong>{' '}
         is best used during your ramp, or any time when you expect to spam cast. Typically it should
-        be used as soon as it's available. Remember to fit a Wild Growth inside the Innervate, as
-        it's one of your most expensive spells.
+        be used as soon as it's available. Remember to spam cast expensive spells to make the most
+        of it.
       </p>
     );
 
@@ -108,14 +125,24 @@ class Innervate extends Analyzer {
         <strong>Per-Cast Breakdown</strong>
         <small> - click to expand</small>
         {this.castTrackers.map((cast, ix) => {
-          const targetName = cast.targetId === undefined ? 'SELF' : 'ALLY';
-          const metThresholdMana = cast.manaSaved >= INNERVATE_MANA_REQUIRED;
-          const castWildGrowth =
-            cast.casts.filter((c) => c.ability.guid === SPELLS.WILD_GROWTH.id).length > 0;
-          const overallPerf =
-            metThresholdMana && castWildGrowth
-              ? QualitativePerformance.Good
-              : QualitativePerformance.Fail;
+          const sourceName = cast.sourceId === undefined ? 'SELF' : 'EXTERNAL';
+          const endTime = Math.min(this.owner.fight.end_time, cast.timestamp + 8_000);
+          const activeRampSpellTime = this.alwaysBeCasting.getActiveTimeMillisecondsFiltered(
+            cast.timestamp,
+            endTime,
+            RAMP_SPELL_IDS,
+          );
+          const activeRampSpellPercent = activeRampSpellTime / (endTime - cast.timestamp);
+
+          const activePerf = evaluateQualitativePerformanceByThreshold({
+            actual: activeRampSpellPercent,
+            isGreaterThanOrEqual: {
+              good: GOOD_RAMP_ACTIVE_THRESHOLD,
+              ok: OK_RAMP_ACTIVE_THRESHOLD,
+            },
+          });
+
+          const overallPerf = activePerf;
 
           const header = (
             <>
@@ -126,24 +153,21 @@ class Innervate extends Analyzer {
 
           const checklistItems: CooldownExpandableItem[] = [];
           checklistItems.push({
-            label: 'Chain-cast expensive spells',
-            result: <PassFailCheckmark pass={metThresholdMana} />,
-            details: <>(save at least {INNERVATE_MANA_REQUIRED} mana)</>,
-          });
-          checklistItems.push({
-            label: (
-              <>
-                Cast <SpellLink spell={SPELLS.WILD_GROWTH} />
-              </>
-            ),
-            result: <PassFailCheckmark pass={castWildGrowth} />,
+            label: "High active time casting 'ramp' spells",
+            result: <PerformanceMark perf={activePerf} />,
+            details: <>({formatPercentage(activeRampSpellPercent, 0)}% active ramp time)</>,
           });
 
           const detailItems: CooldownExpandableItem[] = [];
           detailItems.push({
-            label: 'Used on',
+            label: 'Gained from',
             result: '',
-            details: <>{targetName}</>,
+            details: <>{sourceName}</>,
+          });
+          detailItems.push({
+            label: 'Mana saved',
+            result: '',
+            details: <>{cast.manaSaved}</>,
           });
           detailItems.push({
             label: 'Casts during Innervate',
@@ -199,8 +223,8 @@ interface InnervateCast {
   casts: CastEvent[];
   /** The mana saved by the player */
   manaSaved: number;
-  /** ID of the player this Innervate was cast on, or undefined for a self cast */
-  targetId?: number;
+  /** ID of the player that cast Innervate on the selected player, or undefined for self casts */
+  sourceId?: number;
 }
 
 export default Innervate;

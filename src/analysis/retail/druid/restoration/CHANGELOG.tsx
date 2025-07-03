@@ -5,7 +5,8 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
 export default [
-  change(date(2025, 4, 21), <>Innervate bug fix. Also updated the recommended mana saved value.</>, Oratio),
+  change(date(2025, 7, 3), <>Updates <SpellLink spell={SPELLS.INNERVATE}/> guide section to evaluate based on ramp active time instead of flat mana saved. Fixed CDR from <SpellLink spell={TALENTS_DRUID.DREAMSTATE_TALENT} />. Added active time evaluation to guide.</>, Sref),
+  change(date(2025, 7, 1), <>Innervate bug fix. Also updated the recommended mana saved value.</>, Oratio),
   change(date(2025, 4, 21), <>Update example log.</>, Vollmer),
   change(date(2025, 3, 24), <>Fixed an issue where HoTs procced by the Liberation of Undermine 4 set might not be properly attributed when Insurance! is refreshed.</>, Sref),
   change(date(2025, 3, 4), <>Updated <SpellLink spell={TALENTS_DRUID.NATURES_SWIFTNESS_TALENT} /> and added <SpellLink spell={TALENTS_DRUID.FLOURISH_TALENT} /> direct healing to account for 11.1.0 changes. Fixed an issue where <SpellLink spell={TALENTS_DRUID.FLOURISH_TALENT} /> was incorrectly assuming 8 seconds of HoT extension instead of 6.</>, Sref),
