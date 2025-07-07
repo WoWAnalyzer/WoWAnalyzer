@@ -11,6 +11,7 @@ import Combatant from 'parser/core/Combatant';
 import Spell from 'common/SPELLS/Spell';
 import { addAdditionalCastInformation } from 'parser/core/EventMetaLib';
 import styled from '@emotion/styled';
+import { isMythicPlus } from 'common/isMythicPlus';
 
 interface MasterOfTheElementsSpellConfig {
   castSpell: Spell | Spell[];
@@ -65,7 +66,9 @@ class MasterOfTheElements extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.MASTER_OF_THE_ELEMENTS_ELEMENTAL_TALENT);
+    this.active =
+      !isMythicPlus(this.owner.fight) &&
+      this.selectedCombatant.hasTalent(TALENTS.MASTER_OF_THE_ELEMENTS_ELEMENTAL_TALENT);
     if (!this.active) {
       return;
     }
