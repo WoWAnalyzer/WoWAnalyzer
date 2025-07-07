@@ -24,6 +24,7 @@ class Auras extends PureComponent {
     }).isRequired,
     auras: PropTypes.instanceOf(AurasModule).isRequired,
     style: PropTypes.object,
+    visibleAuras: PropTypes.instanceOf(Set),
   };
 
   constructor() {
@@ -50,6 +51,11 @@ class Auras extends PureComponent {
       return false;
     }
 
+    // Check if the aura is visible in the configuration
+    if (this.props.visibleAuras && !this.props.visibleAuras.has(spellId)) {
+      return false;
+    }
+
     return true;
   }
 
@@ -63,6 +69,10 @@ class Auras extends PureComponent {
     const spellId = event.ability.guid;
     const buff = this.props.auras.getAura(spellId);
     if (!buff || !buff.timelineHighlight) {
+      return false;
+    }
+
+    if (this.props.visibleAuras && !this.props.visibleAuras.has(spellId)) {
       return false;
     }
 

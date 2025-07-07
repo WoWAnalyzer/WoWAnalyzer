@@ -1,0 +1,128 @@
+.aura-configuration {
+  position: relative;
+  display: inline-block;
+}
+
+.aura-config-button {
+  background: none;
+  border: 1px solid #666;
+  border-radius: 3px;
+  padding: 4px 6px;
+  cursor: pointer;
+  color: #bbb;
+  transition: all 0.2s ease;
+}
+
+.aura-config-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: #888;
+  color: #fff;
+}
+
+.aura-config-button .icon {
+  width: 16px;
+  height: 16px;
+}
+
+.aura-config-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 1000;
+  background: #2a2a2a;
+  border: 1px solid #555;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  min-width: 280px;
+  max-width: 400px;
+  max-height: 400px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.aura-config-header {
+  padding: 12px;
+  border-bottom: 1px solid #444;
+  background: #333;
+}
+
+.aura-config-header h4 {
+  margin: 0 0 8px 0;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.aura-config-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.aura-config-controls .btn {
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 3px;
+}
+
+.aura-config-list {
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 8px 0;
+}
+
+.aura-config-item {
+  display: flex;
+  align-items: center;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin: 0;
+  font-weight: normal;
+}
+
+.aura-config-item:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.aura-config-item input[type='checkbox'] {
+  margin: 0 8px 0 0;
+  cursor: pointer;
+}
+
+.aura-config-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.aura-config-name {
+  color: #ddd;
+  font-size: 13px;
+  line-height: 1.2;
+}
+
+.aura-config-empty {
+  padding: 20px 12px;
+  text-align: center;
+  color: #888;
+  font-style: italic;
+}
+
+.aura-config-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.aura-config-list::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+.aura-config-list::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 3px;
+}
+
+.aura-config-list::-webkit-scrollbar-thumb:hover {
+  background: #666;
+}
