@@ -5,6 +5,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import EventFilter from 'parser/core/EventFilter';
 import Events, {
   AddStaggerEvent,
+  AnyEvent,
   DamageEvent,
   EventType,
   HealEvent,
@@ -211,14 +212,16 @@ export default class PurifyingBrewProblems extends Analyzer {
 
     const problems: Problem<ProblemData>[] = [];
 
-    let previous: PurifyData | undefined = undefined;
-    for (const purify of this.purifies.filter((data) => data.reason !== PurifyReason.Unknown)) {
+    let previous: AnyEvent | undefined = undefined;
+    for (const event of this.purifies
+      .filter((data) => data.reason !== PurifyReason.Unknown)
+      .map((data) => data.purify as AnyEvent)
+      .concat([this.owner.eventHistory.at(-1)!])) {
       // HACK: workaround closure capturing the initial value of `previous`
       const prev = previous;
       const hits = this.unpurifiedHits.filter(
         (hit) =>
-          hit.event.timestamp > (prev?.purify.timestamp ?? 0) &&
-          hit.event.timestamp < purify.purify.timestamp,
+          hit.event.timestamp > (prev?.timestamp ?? 0) && hit.event.timestamp < event.timestamp,
       );
       const missed = purifySolver(
         hits,
@@ -239,14 +242,14 @@ export default class PurifyingBrewProblems extends Analyzer {
           },
           context: 5000,
           range: {
-            start: previous?.purify.timestamp ?? this.owner.fight.start_time,
-            end: purify.purify.timestamp,
+            start: previous?.timestamp ?? this.owner.fight.start_time,
+            end: event.timestamp,
           },
           severity: missed.map((datum) => datum.amountPurified).reduce((a, b) => a + b),
         });
       }
 
-      previous = purify;
+      previous = event;
     }
 
     return problems;
