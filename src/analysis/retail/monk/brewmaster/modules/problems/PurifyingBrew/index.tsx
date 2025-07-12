@@ -29,6 +29,7 @@ import './PurifyingBrew.scss';
 import talents from 'common/TALENTS/monk';
 import PassFailBar from 'interface/guide/components/PassFailBar';
 import CastReasonBreakdownTableContents from 'interface/guide/components/CastReasonBreakdownTableContents';
+import type CombatLogParser from '../../../CombatLogParser';
 
 export { default } from './analyzer';
 
@@ -393,7 +394,9 @@ export function PurifySection({
   module,
   events,
   info,
-}: Pick<GuideProps<any>, 'events' | 'info'> & { module: PurifyingBrewProblems }): JSX.Element {
+}: Pick<GuideProps<typeof CombatLogParser>, 'events' | 'info'> & {
+  module: PurifyingBrewProblems;
+}): JSX.Element {
   const [problems, setProblems] = useState<Problem<ProblemData>[]>([]);
 
   useEffect(() => {
