@@ -5,6 +5,7 @@ import { Durpn, emallson } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2025, 7, 18), <>Correctly mark 11.1.7 as supported</>, Durpn),
   change(date(2025, 6, 20), <>Add <SpellLink spell={TALENTS_MONK.SLICING_WINDS_TALENT} /> as tracked spell</>, Durpn),
   change(date(2025, 4, 9), <>Add <SpellLink spell={TALENTS_MONK.CELESTIAL_CONDUIT_TALENT} /> to mastery tracking</>, Durpn),
   change(date(2025, 3, 21), <>Fix incorrect counting of hit <SpellLink spell={SPELLS.CRACKLING_JADE_LIGHTNING} /> ticks in cleave situations</>, Durpn),
