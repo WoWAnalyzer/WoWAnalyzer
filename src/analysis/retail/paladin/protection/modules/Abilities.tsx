@@ -149,7 +149,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.SENTINEL_TALENT),
       },
       {
-        spell: SPELLS.LAY_ON_HANDS_PROTECTION.id,
+        spell: SPELLS.LAY_ON_HANDS_EMPYREAL_WARD.id,
         isDefensive: true,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 600,
@@ -157,6 +157,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.1,
         },
+        enabled: combatant.hasTalent(TALENTS.EMPYREAL_WARD_TALENT),
       },
       {
         spell: SPELLS.FLASH_OF_LIGHT.id,

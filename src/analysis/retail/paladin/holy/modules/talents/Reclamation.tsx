@@ -5,12 +5,13 @@ import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage, calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { CastEvent, DamageEvent, HealEvent, ResourceChangeEvent } from 'parser/core/Events';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import ItemManaGained from 'parser/ui/ItemManaGained';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-
-const MAX_BOOST = 0.5;
+import { RECLAMATION_MAX_INCREASE } from '../../constants';
 
 class Reclamation extends Analyzer {
   lastCast = 0;
@@ -22,10 +23,9 @@ class Reclamation extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+
     this.active = this.selectedCombatant.hasTalent(TALENTS.RECLAMATION_TALENT);
-    if (!this.active) {
-      return;
-    }
+
     this.addEventListener(
       Events.cast.spell([TALENTS.HOLY_SHOCK_TALENT, SPELLS.CRUSADER_STRIKE]).by(SELECTED_PLAYER),
       this.cast,
@@ -46,7 +46,8 @@ class Reclamation extends Analyzer {
   }
 
   heal(event: HealEvent) {
-    const ratio = (1 - (event.hitPoints - event.amount) / event.maxHitPoints) * MAX_BOOST;
+    const ratio =
+      (1 - (event.hitPoints - event.amount) / event.maxHitPoints) * RECLAMATION_MAX_INCREASE;
     const effectiveHealingBoost = calculateEffectiveHealing(event, ratio);
     this.healing += effectiveHealingBoost;
   }
@@ -56,7 +57,8 @@ class Reclamation extends Analyzer {
       return;
     }
 
-    const ratio = (1 - (event.hitPoints + event.amount) / event.maxHitPoints) * MAX_BOOST;
+    const ratio =
+      (1 - (event.hitPoints + event.amount) / event.maxHitPoints) * RECLAMATION_MAX_INCREASE;
     this.damageDone += calculateEffectiveDamage(event, ratio);
   }
 
@@ -96,10 +98,14 @@ class Reclamation extends Analyzer {
         }
       >
         <TalentSpellText talent={TALENTS_PALADIN.RECLAMATION_TALENT}>
-          <div>{this.owner.formatItemHealingDone(this.healing)}</div>
-          <div>{this.owner.formatItemDamageDone(this.damageDone)}</div>
           <div>
-            <ItemManaGained amount={totalMana} />
+            <ItemHealingDone amount={this.healing} />
+          </div>
+          <div>
+            <ItemDamageDone amount={this.damageDone} />
+          </div>
+          <div>
+            <ItemManaGained amount={totalMana} useAbbrev customLabel="mana" />
           </div>
         </TalentSpellText>
       </Statistic>

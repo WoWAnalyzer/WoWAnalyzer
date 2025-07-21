@@ -27,8 +27,9 @@ import { LoadingStatus } from 'interface/report/Results/ResultsContext';
 import Panel from 'interface/Panel';
 import { Trans } from '@lingui/react/macro';
 import Report from 'parser/core/Report';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { WCLFight } from 'parser/core/Fight';
+import handleApiError from './handleApiError';
 
 const UnsupportedSpecBouncer = ({ report, fight }: { report: Report; fight: WCLFight }) => (
   <div className="container offset">
@@ -56,6 +57,7 @@ const UnsupportedSpecBouncer = ({ report, fight }: { report: Report; fight: WCLF
 
 const ResultsLoader = () => {
   const config = useConfig();
+  const navigate = useNavigate();
   const { report } = useReport();
   const { player, combatants } = usePlayer();
   const { fight } = useFight();
@@ -67,7 +69,7 @@ const ResultsLoader = () => {
   const parserClass = useParser(config);
   const isLoadingParser = !parserClass;
 
-  const { events, currentTime } = useEvents({ report, fight, player });
+  const { events, currentTime, error } = useEvents({ report, fight, player });
   const isLoadingEvents = events == null;
 
   const {
@@ -208,6 +210,11 @@ const ResultsLoader = () => {
   if (!config.parser) {
     // display error instead. this is not normally accessible via the UI but would be via direct link / URL modification
     return <UnsupportedSpecBouncer report={report} fight={fight} />;
+  }
+  if (error) {
+    return handleApiError(error, () => {
+      navigate(makeAnalyzerUrl());
+    });
   }
 
   return (

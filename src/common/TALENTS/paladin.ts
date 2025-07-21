@@ -288,6 +288,14 @@ const talents = {
     definitionIds: [{ id: 116891, specId: 66 }],
     manaCost: 75000,
   },
+  BLESSING_OF_THE_SEASONS_TALENT: {
+    id: 395355,
+    name: 'Blessing of the Seasons',
+    icon: 'ability_ardenweald_paladin_summer',
+    maxRanks: 1,
+    entryIds: [116183],
+    definitionIds: [{ id: 121195, specId: 65 }],
+  },
   BLESSING_OF_SUMMER_TALENT: {
     id: 388007,
     name: 'Blessing of Summer',
@@ -671,7 +679,7 @@ const talents = {
     entryIds: [117692],
     definitionIds: [{ id: 122704, specId: 70 }],
     holyPowerCost: 3,
-    manaCost: 250000,
+    manaCost: 15000,
   },
   EXECUTIONERS_WILL_TALENT: {
     id: 406940,
@@ -1975,8 +1983,9 @@ const talents = {
     name: 'Unbound Freedom',
     icon: 'spell_holy_sealofvalor',
     maxRanks: 1,
-    entryIds: [115479, 115454],
+    entryIds: [131438, 115479, 115454],
     definitionIds: [
+      { id: 136239, specId: 65 },
       { id: 120491, specId: 66 },
       { id: 120466, specId: 70 },
     ],

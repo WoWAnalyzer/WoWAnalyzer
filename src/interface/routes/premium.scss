@@ -28,6 +28,7 @@
 }
 
 .patreon-login,
+.wcl-login,
 .github-login {
   font-size: 2em;
   border-radius: 0;
@@ -35,7 +36,6 @@
 .patreon-login {
   background: #f96854;
   color: #fff !important;
-  border-bottom-left-radius: 3px;
 }
 .patreon-login:hover {
   background: #e6461a;
@@ -43,10 +43,18 @@
 .github-login {
   background: #fff;
   color: #000 !important;
-  border-bottom-right-radius: 3px;
 }
 .github-login:hover {
   background: #cdcdcd;
+}
+.wcl-login {
+  background: #484642;
+  color: #fff !important;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+.wcl-login:hover {
+  background: #3a3835;
 }
 
 .logged-in-enter,
@@ -116,4 +124,12 @@
 }
 .logged-in.patreon .logout a {
   color: #000;
+}
+
+.logged-in.wcl {
+  background: #484642;
+  color: #fff;
+}
+.logged-in.wcl .description {
+  color: #fcffd6;
 }

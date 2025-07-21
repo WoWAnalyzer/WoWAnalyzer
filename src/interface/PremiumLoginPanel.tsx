@@ -3,6 +3,7 @@ import CyclingVideo from 'interface/CyclingVideo';
 import GitHubMarkIcon from 'interface/icons/GitHubMarkLarge';
 import LogoutIcon from 'interface/icons/Logout';
 import PatreonIcon from 'interface/icons/PatreonTiny';
+import { WarcraftLogsIcon } from './icons';
 import { Textfit } from 'react-textfit';
 import { useWaDispatch } from 'interface/utils/useWaDispatch';
 import { useWaSelector } from 'interface/utils/useWaSelector';
@@ -47,7 +48,11 @@ const LoggedIn = React.forwardRef<HTMLDivElement, unknown>((props, ref) => {
   }
 
   const hasPremium = user.premium;
-  const platform = user.github && user.github.premium ? 'github' : 'patreon';
+  const hasValidAuth = Boolean(user.wcl && user.wcl.validAuth);
+  let platform = user.github ? 'github' : user.patreon ? 'patreon' : 'wcl';
+  if (hasPremium) {
+    platform = user.github?.premium ? 'github' : 'patreon';
+  }
 
   const handleClick = (event: MouseEvent) => {
     event.preventDefault();
@@ -60,6 +65,7 @@ const LoggedIn = React.forwardRef<HTMLDivElement, unknown>((props, ref) => {
         <div className="logo">
           {platform === 'github' && <GitHubMarkIcon style={{ marginTop: 0 }} />}
           {platform === 'patreon' && <PatreonIcon style={{ marginTop: 0 }} />}
+          {platform === 'wcl' && <WarcraftLogsIcon style={{ marginTop: 0, border: '0px' }} />}
         </div>
 
         <div className="text">
@@ -70,6 +76,30 @@ const LoggedIn = React.forwardRef<HTMLDivElement, unknown>((props, ref) => {
               </Trans>
             </Textfit>
           </h1>
+          {platform === 'wcl' &&
+            (hasValidAuth ? (
+              <div className="description">
+                <Trans id="interface.premiumLoginPanel.logged-in.hasValidAuth">
+                  You are now able to analyze private logs that you have access to!
+                </Trans>
+              </div>
+            ) : (
+              <div className="description">
+                <Trans id="interface.premiumLoginPanel.logged-in.hasNoValidAuth">
+                  Your authentication has expired, If you would like to re-authorize access to your
+                  private logs, click <em>Continue</em> below.
+                </Trans>
+                <div>
+                  <a
+                    className="btn btn-primary"
+                    style={{ display: 'block' }}
+                    href={`${import.meta.env.VITE_SERVER_BASE}login/wcl`}
+                  >
+                    <Trans id="interface.premiumLoginPanel.logged-in.continue">Continue</Trans>
+                  </a>
+                </div>
+              </div>
+            ))}
           {hasPremium ? (
             <div className="description">
               <Trans id="interface.premiumLoginPanel.logged-in.hasPremium">
@@ -136,14 +166,14 @@ const PremiumLoginPanel = () => {
             </h1>
             <div className="description">
               <Trans id="interface.premiumLoginPanel.panel.sign-in.description">
-                Sign in with your Patreon or GitHub account using the buttons below.
+                Sign in with your Patreon, GitHub or Warcraft Logs account using the buttons below.
               </Trans>
             </div>
           </div>
         </div>
         <div className="row" style={{ position: 'relative' }}>
           <div className="loginBubble">Already unlocked Premium? Login here!</div>
-          <div className="col-lg-6" style={{ padding: 0 }}>
+          <div>
             <a
               href={`${import.meta.env.VITE_SERVER_BASE}login/patreon`}
               className="btn btn-block patreon-login"
@@ -151,12 +181,20 @@ const PremiumLoginPanel = () => {
               <PatreonIcon /> Patreon
             </a>
           </div>
-          <div className="col-lg-6" style={{ padding: 0 }}>
+          <div>
             <a
               href={`${import.meta.env.VITE_SERVER_BASE}login/github`}
               className="btn btn-block github-login"
             >
               <GitHubMarkIcon /> GitHub
+            </a>
+          </div>
+          <div>
+            <a
+              href={`${import.meta.env.VITE_SERVER_BASE}login/wcl`}
+              className="btn btn-block wcl-login"
+            >
+              <WarcraftLogsIcon style={{ border: '0px' }} /> Warcraft Logs
             </a>
           </div>
         </div>

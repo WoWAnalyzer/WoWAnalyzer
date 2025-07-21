@@ -8,6 +8,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { SpellLink } from 'interface';
+import { getWordofGlorySpell } from 'analysis/retail/paladin/shared/constants';
 
 class HealingPerHolyPower extends Analyzer {
   totalEffectiveHealing = 0;
@@ -17,12 +18,14 @@ class HealingPerHolyPower extends Analyzer {
   constructor(options: Options) {
     super(options);
 
+    const wordOfGlorySpell = getWordofGlorySpell(this.selectedCombatant);
+
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.WORD_OF_GLORY, TALENTS.LIGHT_OF_DAWN_TALENT]),
+      Events.cast.by(SELECTED_PLAYER).spell([wordOfGlorySpell, TALENTS.LIGHT_OF_DAWN_TALENT]),
       this.castSpender,
     );
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell([SPELLS.WORD_OF_GLORY, SPELLS.LIGHT_OF_DAWN_HEAL]),
+      Events.heal.by(SELECTED_PLAYER).spell([wordOfGlorySpell, SPELLS.LIGHT_OF_DAWN_HEAL]),
       this.healEvent,
     );
   }
