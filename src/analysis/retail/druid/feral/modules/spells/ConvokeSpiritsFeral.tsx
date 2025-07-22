@@ -12,16 +12,18 @@ import CooldownExpandable, {
 } from 'interface/guide/components/CooldownExpandable';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { ApplyBuffEvent } from 'parser/core/Events';
-import ComboPointTracker from 'analysis/retail/druid/feral/modules/core/combopoints/ComboPointTracker';
 import { PassFailCheckmark, PerformanceMark } from 'interface/guide';
+import { TALENTS_DRUID } from 'common/TALENTS';
+import { cdSpell } from 'analysis/retail/druid/feral/constants';
+import EnergyTracker from 'analysis/retail/druid/feral/modules/core/energy/EnergyTracker';
 
 class ConvokeSpiritsFeral extends ConvokeSpirits {
   static dependencies = {
     ...ConvokeSpirits.dependencies,
-    comboPointTracker: ComboPointTracker,
+    energyTracker: EnergyTracker,
   };
 
-  protected comboPointTracker!: ComboPointTracker;
+  protected energyTracker!: EnergyTracker;
 
   /** Mapping from convoke cast number to a tracker for that cast - note that index zero will always be empty */
   feralConvokeTracker: FeralConvokeCast[] = [];
@@ -30,11 +32,13 @@ class ConvokeSpiritsFeral extends ConvokeSpirits {
     super.onConvoke(event);
 
     const tfOnCast = this.selectedCombatant.hasBuff(SPELLS.TIGERS_FURY.id);
-    const cpsOnCast = this.comboPointTracker.current;
+    const berserkOnCast = this.selectedCombatant.hasBuff(cdSpell(this.selectedCombatant));
+    const energyOnCast = this.energyTracker.current;
 
     this.feralConvokeTracker[this.cast] = {
       tfOnCast,
-      cpsOnCast,
+      berserkOnCast,
+      energyOnCast,
     };
   }
 
@@ -72,6 +76,9 @@ class ConvokeSpiritsFeral extends ConvokeSpirits {
 
   /** Guide fragment showing a breakdown of each Convoke cast */
   get guideCastBreakdown() {
+    const hasHotL = this.selectedCombatant.hasTalent(
+      TALENTS_DRUID.BERSERK_HEART_OF_THE_LION_TALENT,
+    );
     const explanation = (
       <>
         <p>
@@ -79,9 +86,15 @@ class ConvokeSpiritsFeral extends ConvokeSpirits {
             <SpellLink spell={SPELLS.CONVOKE_SPIRITS} />
           </strong>{' '}
           is a powerful but somewhat random burst of damage. It's best used immediately on cooldown.
-          Always use with <SpellLink spell={SPELLS.TIGERS_FURY} /> active to benefit from the damage
-          boost, and ideally use it at low combo points to benefit from the combo points it will
-          generate.
+          Always pair it with <SpellLink spell={SPELLS.TIGERS_FURY} />
+          {hasHotL && (
+            <>
+              {' '}
+              and <SpellLink spell={cdSpell(this.selectedCombatant)} />
+            </>
+          )}{' '}
+          to benefit from the damage boost. If possible, spend down your energy before starting the
+          channel (this may not be possible with abundant procs and/or high haste)
         </p>
       </>
     );
@@ -100,17 +113,14 @@ class ConvokeSpiritsFeral extends ConvokeSpirits {
             </>
           );
 
-          let cpsPerf = QualitativePerformance.Good;
-          if (feralCast.cpsOnCast > 2) {
-            cpsPerf = QualitativePerformance.Fail;
-          } else if (feralCast.cpsOnCast > 0) {
-            cpsPerf = QualitativePerformance.Ok;
+          let energyPerf = QualitativePerformance.Good;
+          if (feralCast.energyOnCast >= 100) {
+            energyPerf = QualitativePerformance.Fail;
+          } else if (feralCast.energyOnCast >= 50) {
+            energyPerf = QualitativePerformance.Ok;
           }
 
-          const overallPerf =
-            feralCast.cpsOnCast <= 2 && feralCast.tfOnCast
-              ? QualitativePerformance.Good
-              : QualitativePerformance.Fail;
+          let overallPerf = QualitativePerformance.Good;
 
           const checklistItems: CooldownExpandableItem[] = [];
           checklistItems.push({
@@ -121,11 +131,34 @@ class ConvokeSpiritsFeral extends ConvokeSpirits {
             ),
             result: <PassFailCheckmark pass={feralCast.tfOnCast} />,
           });
+          if (!feralCast.tfOnCast) {
+            overallPerf = QualitativePerformance.Fail;
+          }
+
+          if (hasHotL) {
+            checklistItems.push({
+              label: (
+                <>
+                  <SpellLink spell={cdSpell(this.selectedCombatant)} /> active
+                </>
+              ),
+              result: <PassFailCheckmark pass={feralCast.berserkOnCast} />,
+            });
+            if (!feralCast.berserkOnCast) {
+              overallPerf = QualitativePerformance.Fail;
+            }
+          }
+
           checklistItems.push({
-            label: 'Combo Points on cast',
-            result: <PerformanceMark perf={cpsPerf} />,
-            details: <>({feralCast.cpsOnCast} CPs)</>,
+            label: 'Energy on cast',
+            result: <PerformanceMark perf={energyPerf} />,
+            details: <>({feralCast.energyOnCast} Energy)</>,
           });
+          overallPerf =
+            overallPerf === QualitativePerformance.Good &&
+            energyPerf !== QualitativePerformance.Good
+              ? QualitativePerformance.Ok
+              : overallPerf;
 
           return (
             <CooldownExpandable
@@ -146,7 +179,8 @@ class ConvokeSpiritsFeral extends ConvokeSpirits {
 /** A tracker for feral specific things that happen in a single Convoke cast */
 interface FeralConvokeCast {
   tfOnCast: boolean;
-  cpsOnCast: number;
+  berserkOnCast: boolean;
+  energyOnCast: number;
 }
 
 export default ConvokeSpiritsFeral;

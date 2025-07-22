@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
 import { SpellLink } from 'interface';
-import { Sharrq, Earosselot, Soulhealer95, Vollmer } from 'CONTRIBUTORS';
+import { Sharrq, Earosselot, Soulhealer95, Vollmer, Brigadoon } from 'CONTRIBUTORS';
 import TALENTS from 'common/TALENTS/mage';
 
 // prettier-ignore
 export default [
+  change(date(2025, 6, 7), <>Update Patch Compatibility Version</>, Brigadoon),
   change(date(2025, 4, 21), <>Update example log.</>, Vollmer),
   change(date(2025, 4, 20), <>Added Defensives to Guide</>, Earosselot),
   change(date(2025, 4, 11), <>Fixed <SpellLink spell={TALENTS.GLACIAL_SPIKE_TALENT} /> shattered evaluation</>, Earosselot),

@@ -119,6 +119,10 @@ export const ab: Contributor = {
   nickname: 'ab',
   github: 'alex-bau',
 };
+export const Brigadoon: Contributor = {
+  nickname: 'Brigadoon',
+  github: 'Omegabiscuit',
+};
 export const blazyb: Contributor = {
   nickname: 'blazyb',
   github: 'buimichael',
@@ -336,6 +340,13 @@ export const Gao: Contributor = {
 export const Oratio: Contributor = {
   nickname: 'Oratio',
   github: 'karlpralow',
+  mains: [
+    {
+      name: 'Oratio',
+      spec: SPECS.RESTORATION_DRUID,
+      link: 'https://worldofwarcraft.blizzard.com/en-us/character/us/zuljin/Oratio',
+    },
+  ],
 };
 export const Ogofo: Contributor = {
   nickname: 'Ogofo',
@@ -2725,6 +2736,24 @@ export const Leftyxiv: Contributor = {
       name: 'Magicmushies',
       spec: SPECS.DEMONOLOGY_WARLOCK,
       link: 'https://www.warcraftlogs.com/character/us/area-52/magicmushies?zone=43',
+    },
+  ],
+};
+
+export const Brandrewsss: Contributor = {
+  nickname: 'Brandrews',
+  github: 'brandrewssss',
+  avatar: avatar('brandrews.jpeg'),
+  mains: [
+    {
+      name: 'Brandrews',
+      spec: SPECS.MARKSMANSHIP_HUNTER,
+      link: 'https://worldofwarcraft.blizzard.com/en-us/character/us/thrall/brandrews',
+    },
+    {
+      name: 'Brandrewsdk',
+      spec: SPECS.UNHOLY_DEATH_KNIGHT,
+      link: 'https://worldofwarcraft.blizzard.com/en-us/character/us/thrall/brandrewsdk',
     },
   ],
 };

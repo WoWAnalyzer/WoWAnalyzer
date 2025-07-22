@@ -52,6 +52,7 @@ import BlademastersTormentNormalizer from './modules/talents/BlademastersTorment
 import UnhingedMortalStrikeNormalizer from './normalizers/UnhingedMortalStrikeNormalizer';
 import Demolish from './modules/talents/Demolish';
 import DemolishNormalizer from './normalizers/DemolishNormalizer';
+import SuddenDeathBuffNormalizer from '../shared/modules/normalizers/SuddenDeathBuffNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -71,6 +72,7 @@ class CombatLogParser extends CoreCombatLogParser {
     blademaastersTormetNormalizer: BlademastersTormentNormalizer,
     unhingedMortalStrikeNormalizer: UnhingedMortalStrikeNormalizer,
     demolishNormalizer: DemolishNormalizer,
+    suddenDeathBuffNormalizer: SuddenDeathBuffNormalizer,
 
     // WarriorCore
     abilities: Abilities,

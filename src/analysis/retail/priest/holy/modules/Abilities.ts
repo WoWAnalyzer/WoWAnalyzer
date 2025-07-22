@@ -297,6 +297,10 @@ class Abilities extends CoreAbilities {
           averageIssueEfficiency: 0.6,
           majorIssueEfficiency: 0.4,
         },
+        //With Twins of the Sun Priestess, PI is added through the TwinsOftheSunPriestess module
+        enabled:
+          combatant.hasTalent(TALENTS.POWER_INFUSION_TALENT) &&
+          !combatant.hasTalent(TALENTS.TWINS_OF_THE_SUN_PRIESTESS_TALENT),
       },
       {
         spell: SPELLS.SHADOW_WORD_PAIN.id,

@@ -46,6 +46,10 @@ import SpellLink from 'interface/SpellLink';
 export default [
   change(date(2025, 7, 21), 'Add Classic MoP T14 raid zones, headshots, and placeholder image', jazminite),
   change(date(2025, 7, 21), 'Update Death Knight spells for MoP Classic', jazminite),
+  change(date(2025, 7, 8), 'Add timeline buff filter', Seriousnes),
+  change(date(2025, 6, 8),<>Fix validateDomNesting warning for Gem Preperation checklist.</>, Vetyst),
+  change(date(2025, 6, 8),<>Updated visual appearance of gained stats for <ItemLink id={ITEMS.SUNSET_SPELLTHREAD_R3.id} />, <ItemLink id={ITEMS.WEAVERCLOTH_SPELLTHREAD_R3.id} />, and <ItemLink id={ITEMS.DAYBREAK_SPELLTHREAD_R3.id} /> enchants on the character info tab.</>, Vetyst),
+  change(date(2025, 6, 8),<>Move <SpellLink spell={SPELLS.GLIDE_DRACTHYR.id} /> from Evoker's spellbook to Dracthyr's racial spellbook.</>, Vetyst),
   change(date(2025, 6, 5),<>Replaced deprecated package `react-minimalist-portal` used to create tooltips.</>, Vetyst),
   change(date(2025, 6, 4),<>Add Horrific Vision enchants suggestions.</>, Vetyst),
   change(date(2025, 6, 3),<>Mark <ItemLink id={ITEMS.COUNCILS_GUILE_R3.id} />, <ItemLink id={ITEMS.OATHSWORNS_TENACITY_R3.id} />, <ItemLink id={ITEMS.STONEBOUND_ARTISTRY_R3.id} />, and <ItemLink id={ITEMS.STORMRIDERS_FURY_R3.id} /> as max rank enchants</>, Vollmer),

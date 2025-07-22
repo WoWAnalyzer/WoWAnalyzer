@@ -333,7 +333,7 @@
   "interface.common.errorBoundary.theError": "The error",
   "interface.guide.foundation.foundational-support": "Foundational Support",
   "interface.guide.foundation.foundational-support-desc": "Foundational support covers analysis of uptime, cancelled casts, cooldowns, and other core aspects of gameplay common across all specs.",
-  "interface.guide.preparation.gems.description": "<0>Gems can increase a variety of stats. This indicates gear where you are missing Gem Sockets, don't have the highest crafted gems, or have empty sockets.</0>",
+  "interface.guide.preparation.gems.description": "Gems can increase a variety of stats. This indicates gear where you are missing Gem Sockets, don't have the highest crafted gems, or have empty sockets.",
   "interface.guildReports.errors.details": "{0}<0/>Please message us on {DISCORD} or create an issue on {GITHUB} if this issue persists and we will fix it, eventually.",
   "interface.guildReports.errors.guildNotFound": "We couldn't find your guild on Warcraft Logs",
   "interface.guildReports.errors.guildNotFoundDetails": "Please check your input and make sure that you've selected the correct region and realm.<0/>If your input was correct, then make sure that someone in your raid logged the fight for you or check out the {WCL_GUIDE} to get started with logging on your own.<1/><2/>When you know for sure that you have logs on Warcraft Logs and you still get this error, please message us on {DISCORD} or create an issue on {GITHUB}.",

@@ -48,7 +48,7 @@ export const apl = (info: PlayerInfo): Apl => {
 
 export const buildSlayerApl = (
   executeThreshold: number,
-  executeUsable: Condition<any>,
+  executeUsable: Condition<boolean>,
   executeSpell: Spell,
 ): Apl => {
   return build([
@@ -60,8 +60,7 @@ export const buildSlayerApl = (
         cnd.or(
           cnd.buffRemaining(SPELLS.SUDDEN_DEATH_ARMS_TALENT_BUFF, SUDDEN_DEATH_DURATION, {
             atMost: 3000,
-          }), // TODO sudden death does wacky things with its duration and apply/refresh events,
-          // would prodbably be best to handle with a normalizer in a later update
+          }),
           cnd.buffRemaining(SPELLS.JUGGERNAUT, JUGGERNAUT_DURATION, { atMost: 3000 }),
           cnd.buffStacks(SPELLS.SUDDEN_DEATH_ARMS_TALENT_BUFF, { atLeast: 2, atMost: 2 }),
           cnd.debuffStacks(SPELLS.MARKED_FOR_EXECUTION, { atLeast: 3, atMost: 3 }),
@@ -283,7 +282,7 @@ export const buildSlayerApl = (
 
 export const buildColossusApl = (
   executeThreshold: number,
-  executeUsable: Condition<any>,
+  executeUsable: Condition<boolean>,
   executeSpell: Spell,
 ): Apl => {
   return build([

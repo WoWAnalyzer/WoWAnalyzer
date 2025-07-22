@@ -95,7 +95,9 @@ class RipUptimeAndSnapshots extends Snapshots {
       const wasUpgrade = prevPower < power;
 
       /** Perf logic:
-       *  < 4 or 5 CPs (and not initial cast) -> Red
+       *  3 or 4 CPs, but is initial Rip -> Green
+       *  3 or 4 CPs, but  upgrades Snapshot -> Yellow
+       *  < 5 CPs without an excuse -> Red
        *  Missing BT -> Red
        *  Missing TF -> Yellow
        *  Clip Duration (but upgrade Snapshot) -> Yellow
@@ -105,7 +107,15 @@ class RipUptimeAndSnapshots extends Snapshots {
       let value: QualitativePerformance = QualitativePerformance.Good;
       let perfExplanation: React.ReactNode = undefined;
       const currAcceptableCps = getAcceptableCps(this.selectedCombatant);
-      if (cpsUsed < currAcceptableCps && this.castEntries.length > 0) {
+      if (cpsUsed < 3) {
+        value = QualitativePerformance.Fail;
+        perfExplanation = (
+          <h5 style={{ color: BadColor }}>
+            Bad because you used only {cpsUsed} CPs
+            <br />
+          </h5>
+        );
+      } else if (cpsUsed < currAcceptableCps && this.castEntries.length > 0 && !wasUpgrade) {
         value = QualitativePerformance.Fail;
         perfExplanation = (
           <h5 style={{ color: BadColor }}>
@@ -150,13 +160,20 @@ class RipUptimeAndSnapshots extends Snapshots {
       } else if (!hasSpec(snapshots, TIGERS_FURY_SPEC)) {
         value = QualitativePerformance.Ok;
         perfExplanation = (
-          <h5 style={{ color: BadColor }}>
-            Bad because no Tiger's Fury snapshot
+          <h5 style={{ color: OkColor }}>
+            Supoptimal because no Tiger's Fury snapshot
+            <br />
+          </h5>
+        );
+      } else if (cpsUsed < currAcceptableCps && this.castEntries.length !== 0 && wasUpgrade) {
+        value = QualitativePerformance.Ok;
+        perfExplanation = (
+          <h5 style={{ color: OkColor }}>
+            Only {cpsUsed} CPs, but upgraded snapshot
             <br />
           </h5>
         );
       }
-      // TODO require TF / BT
 
       const tooltip = (
         <>

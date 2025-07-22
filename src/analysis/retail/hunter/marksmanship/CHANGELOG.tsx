@@ -5,6 +5,7 @@ import TALENTS from 'common/TALENTS/hunter';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 export default [
+  change(date(2025, 6, 26), <>Remove the focus increase aspect of <SpellLink spell={TALENTS.TRUESHOT_TALENT} /></>, Putro),
   change(date(2025, 5, 5), <>Added <SpellLink spell={TALENTS.BLEAK_ARROWS_TALENT} /> as a possible trigger for <SpellLink spell={TALENTS.LOCK_AND_LOAD_TALENT} /> </>, Putro),
   change(date(2024, 11, 15), <>Added reset logic for <SpellLink spell={SPELLS.RAPID_FIRE} /> and <SpellLink spell={TALENTS.AIMED_SHOT_TALENT} /> from <SpellLink spell={SPELLS.WAILING_ARROW_DAMAGE} /> and Readiness</>, Yellot),
   change(date(2024, 11, 15), <>Simplified reset logic inside of <SpellLink spell={TALENTS.LOCK_AND_LOAD_TALENT} /></>, Yellot),

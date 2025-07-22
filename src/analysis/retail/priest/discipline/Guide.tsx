@@ -3,6 +3,7 @@ import { TALENTS_PRIEST } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import { Section, GuideProps, SubSection } from 'interface/guide';
 import type CombatLogParser from './CombatLogParser';
+import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 
 export const GUIDE_CORE_EXPLANATION_PERCENT = 30;
 
@@ -35,6 +36,7 @@ export default function Guide({
           {modules.evangelismAnalysis.guideCastBreakdown}
         </SubSection>
       </Section>
+      <PreparationSection />
     </>
   );
 }

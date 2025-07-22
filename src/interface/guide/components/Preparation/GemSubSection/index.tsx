@@ -18,10 +18,8 @@ const GemSubSection = ({ recommendedGems }: Props) => {
     <SubSection title="Gems">
       <p>
         <Trans id="interface.guide.preparation.gems.description">
-          <div>
-            Gems can increase a variety of stats. This indicates gear where you are missing Gem
-            Sockets, don't have the highest crafted gems, or have empty sockets.
-          </div>
+          Gems can increase a variety of stats. This indicates gear where you are missing Gem
+          Sockets, don't have the highest crafted gems, or have empty sockets.
         </Trans>
       </p>
       <GemBoxRow values={gemChecker.getGemBoxRowEntries(recommendedGems)} />

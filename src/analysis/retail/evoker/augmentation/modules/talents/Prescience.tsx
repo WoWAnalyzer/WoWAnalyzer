@@ -15,6 +15,8 @@ import Combatant from 'parser/core/Combatant';
 import SPECS from 'game/SPECS';
 import { isMythicPlus } from 'common/isMythicPlus';
 
+const ACCEPTABLE_INITIAL_POST_PULL_USES_DELTA_MS = 4_000;
+
 /**
  * Prescience is a core talent that buffs the target with 3% crit, as well
  * as making them a prio target for your Ebon Might buff.
@@ -47,6 +49,29 @@ class Prescience extends MajorCooldown<PrescienceCooldownCast> {
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.PRESCIENCE_TALENT),
       this.onCast,
     );
+    this.addEventListener(Events.fightend, this.onFightEnd);
+  }
+
+  /** Remove Pre-Pull uses if they didn't prevent 2 Post-Pull uses.
+   * Since Pre-Pull uses are cleared on combat start, they considered as bad usage,
+   * but if they didn't prevent 2 Post-Pull uses, they aren't relevant enough to show. */
+  onFightEnd() {
+    const lastPrePullUseIdx = this.uses.findLastIndex((use) =>
+      use.checklistItems.some((item) => item.timestamp < this.owner.fight.start_time),
+    );
+    if (lastPrePullUseIdx === -1) {
+      return;
+    }
+
+    const secondPostPullUse = this.uses[lastPrePullUseIdx + 2];
+    if (!secondPostPullUse) {
+      return;
+    }
+
+    const delta = secondPostPullUse.event.timestamp - this.owner.fight.start_time;
+    if (delta < ACCEPTABLE_INITIAL_POST_PULL_USES_DELTA_MS) {
+      this.uses.splice(0, lastPrePullUseIdx + 1);
+    }
   }
 
   description(): ReactNode {
@@ -149,8 +174,8 @@ class Prescience extends MajorCooldown<PrescienceCooldownCast> {
         details = (
           <div>
             Buffed Augmentation: <span className={className}>{this.currentBuffedPlayer?.name}</span>{' '}
-            with <SpellLink spell={TALENTS.PRESCIENCE_TALENT} />. This should never happen! Make
-            sure you position yourself better to avoid this.
+            with <SpellLink spell={TALENTS.PRESCIENCE_TALENT} />. You should always try and buff DPS
+            players.
           </div>
         );
       } else {
@@ -163,14 +188,27 @@ class Prescience extends MajorCooldown<PrescienceCooldownCast> {
         );
       }
     } else if (cast.onTank) {
-      performance = QualitativePerformance.Ok;
-      details = (
-        <div>
-          Buffed Tank: <span className={className}>{this.currentBuffedPlayer?.name}</span> with{' '}
-          <SpellLink spell={TALENTS.PRESCIENCE_TALENT} />. This is situationally okay, but should be
-          avoided.
-        </div>
-      );
+      if (isMythicPlus(this.owner.fight)) {
+        performance = QualitativePerformance.Ok;
+        details = (
+          <div>
+            Buffed Tank: <span className={className}>{this.currentBuffedPlayer?.name}</span> with{' '}
+            <SpellLink spell={TALENTS.PRESCIENCE_TALENT} />. This is situationally okay, but should
+            be avoided. If you have an extra use of Prescience, such as due to{' '}
+            <SpellLink spell={TALENTS.TIME_SKIP_TALENT} /> or{' '}
+            <SpellLink spell={TALENTS.GOLDEN_OPPORTUNITY_TALENT} />, you should usually prioritise
+            buffing yourself before the tank.
+          </div>
+        );
+      } else {
+        details = (
+          <div>
+            Buffed Tank: <span className={className}>{this.currentBuffedPlayer?.name}</span> with{' '}
+            <SpellLink spell={TALENTS.PRESCIENCE_TALENT} />. You should always try and buff DPS
+            players.
+          </div>
+        );
+      }
     } else if (cast.onHealer) {
       details = (
         <div>
@@ -180,12 +218,25 @@ class Prescience extends MajorCooldown<PrescienceCooldownCast> {
         </div>
       );
     } else if (cast.onYourself) {
-      details = (
-        <div>
-          Buffed: yourself with <SpellLink spell={TALENTS.PRESCIENCE_TALENT} />. You should always
-          try and buff DPS players. Make sure to position yourself so you buff the intended players.
-        </div>
-      );
+      if (isMythicPlus(this.owner.fight)) {
+        performance = QualitativePerformance.Ok;
+        details = (
+          <div>
+            Buffed: yourself with <SpellLink spell={TALENTS.PRESCIENCE_TALENT} />. This is
+            acceptable in Mythic+ if you have an extra use, such as due to{' '}
+            <SpellLink spell={TALENTS.TIME_SKIP_TALENT} /> or{' '}
+            <SpellLink spell={TALENTS.GOLDEN_OPPORTUNITY_TALENT} />, and both DPS already have
+            Prescience active.
+          </div>
+        );
+      } else {
+        details = (
+          <div>
+            Buffed: yourself with <SpellLink spell={TALENTS.PRESCIENCE_TALENT} />. You should always
+            try and buff DPS players.
+          </div>
+        );
+      }
     } else {
       details = (
         <div>
@@ -281,8 +332,8 @@ class Prescience extends MajorCooldown<PrescienceCooldownCast> {
     let buffTarget;
     const relatedBuffEvents = getPrescienceBuffEvents(event);
 
-    for (let i = 0; i < relatedBuffEvents.length; i = i + 1) {
-      const targetID = relatedBuffEvents[i].targetID;
+    for (const buffEvent of relatedBuffEvents) {
+      const targetID = buffEvent.targetID;
       if (this.combatants.players[targetID]) {
         buffTarget = targetID;
         break;

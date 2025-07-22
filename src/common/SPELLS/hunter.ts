@@ -647,6 +647,11 @@ const spells = {
     name: 'Primal Rage',
     icon: 'spell_shadow_unholyfrenzy',
   },
+  HARRIERS_CRY: {
+    id: 466904,
+    name: "Harrier's Cry",
+    icon: 'inv_111_hunter_ability_harrierscall',
+  },
   MASTERS_CALL: {
     id: 272682,
     name: "Master's Call",

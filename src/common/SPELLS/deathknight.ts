@@ -377,6 +377,7 @@ const spells = {
     id: 207317,
     name: 'Epidemic',
     icon: 'spell_nature_nullifydisease',
+    runicPowerCost: 30,
   },
 
   EPIDEMIC_DAMAGE: {
@@ -402,6 +403,13 @@ const spells = {
     id: 45524,
     name: 'Chains of Ice',
     icon: 'spell_frost_chainsofice',
+    runesCost: 1,
+    runicPowerCost: -10,
+  },
+  RUNE_STRIKE: {
+    id: 316239,
+    name: 'Rune Strike',
+    icon: 'spell_deathknight_darkconviction',
     runesCost: 1,
     runicPowerCost: -10,
   },
@@ -510,6 +518,8 @@ const spells = {
     id: 50977,
     name: 'Death Gate',
     icon: 'spell_arcane_teleportundercity',
+    runesCost: 1,
+    runicPowerCost: -10,
   },
 
   DEATHS_ADVANCE: {
@@ -528,6 +538,7 @@ const spells = {
     id: 61999,
     name: 'Raise Ally',
     icon: 'spell_shadow_deadofnight',
+    runicPowerCost: 30,
   },
 
   DEATH_COIL: {

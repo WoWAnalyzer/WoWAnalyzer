@@ -377,11 +377,6 @@ const spells = {
     name: 'Iridescence: Red',
     icon: 'inv_enchant_shardradientsmall',
   },
-  GLIDE_EVOKER: {
-    id: 358733,
-    name: 'Glide',
-    icon: 'ability_racial_glide',
-  },
   LEAPING_FLAMES_BUFF: {
     id: 370901,
     name: 'Leaping Flames',

@@ -29,6 +29,7 @@ import './PurifyingBrew.scss';
 import talents from 'common/TALENTS/monk';
 import PassFailBar from 'interface/guide/components/PassFailBar';
 import CastReasonBreakdownTableContents from 'interface/guide/components/CastReasonBreakdownTableContents';
+import type CombatLogParser from '../../../CombatLogParser';
 
 export { default } from './analyzer';
 
@@ -355,25 +356,26 @@ function ThreatSummary({
     );
   }
 
-  const tankingTime = threat.threat[0].targets
-    .flatMap((entry) => entry.bands)
-    .sort((a, b) => a.startTime - b.startTime)
-    .reduce((bands, band) => {
-      if (bands.length === 0) {
-        return [band];
-      }
+  const tankingTime =
+    threat.threat[0]?.targets
+      .flatMap((entry) => entry.bands)
+      .sort((a, b) => a.startTime - b.startTime)
+      .reduce((bands, band) => {
+        if (bands.length === 0) {
+          return [band];
+        }
 
-      const prev = bands[bands.length - 1];
+        const prev = bands[bands.length - 1];
 
-      if (prev.endTime > band.startTime) {
-        prev.endTime = Math.max(prev.endTime, band.endTime);
-      } else {
-        bands.push(band);
-      }
+        if (prev.endTime > band.startTime) {
+          prev.endTime = Math.max(prev.endTime, band.endTime);
+        } else {
+          bands.push(band);
+        }
 
-      return bands;
-    }, [] as WCLThreatBand[])
-    .reduce((total, band) => total + band.endTime - band.startTime, 0);
+        return bands;
+      }, [] as WCLThreatBand[])
+      .reduce((total, band) => total + band.endTime - band.startTime, 0) ?? 0;
 
   return (
     <tr>
@@ -392,7 +394,9 @@ export function PurifySection({
   module,
   events,
   info,
-}: Pick<GuideProps<any>, 'events' | 'info'> & { module: PurifyingBrewProblems }): JSX.Element {
+}: Pick<GuideProps<typeof CombatLogParser>, 'events' | 'info'> & {
+  module: PurifyingBrewProblems;
+}): JSX.Element {
   const [problems, setProblems] = useState<Problem<ProblemData>[]>([]);
 
   useEffect(() => {

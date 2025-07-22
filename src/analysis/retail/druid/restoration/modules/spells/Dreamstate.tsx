@@ -7,7 +7,7 @@ import Events, { CastEvent } from 'parser/core/Events';
 import Statistic from 'parser/ui/Statistic';
 import { formatNumber } from 'common/format';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import { DRUID_COOLDOWNS } from 'analysis/retail/druid/restoration/constants';
+import { DRUID_COOLDOWN_IDS } from 'analysis/retail/druid/restoration/constants';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 const CDR_PER_TICK = 4000;
@@ -31,7 +31,7 @@ class Dreamstate extends Analyzer {
 
   onCast(event: CastEvent) {
     this.tickCount += 1;
-    DRUID_COOLDOWNS.forEach((id) => this.spellUsable.reduceCooldown(id, CDR_PER_TICK));
+    DRUID_COOLDOWN_IDS.forEach((id) => this.spellUsable.reduceCooldown(id, CDR_PER_TICK));
   }
 
   get totalCDR() {

@@ -6,7 +6,7 @@ import SPELLS from 'common/SPELLS';
 import Enemies from 'parser/shared/modules/Enemies';
 import { SpellLink } from 'interface';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
-import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { getLowestPerf, QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import CooldownExpandable, {
   CooldownExpandableItem,
 } from 'interface/guide/components/CooldownExpandable';
@@ -77,17 +77,15 @@ export default class FeralFrenzy extends Analyzer {
           <strong>
             <SpellLink spell={TALENTS_DRUID.FERAL_FRENZY_TALENT} />
           </strong>{' '}
-          is a brief but extremely powerful bleed. It's best used soon after becoming available, but
-          can be held a few seconds to line up with damage boosts. Always use with{' '}
-          <SpellLink spell={SPELLS.TIGERS_FURY} /> active
+          is a brief but extremely powerful bleed. Use it on cooldown.
           {this.hasSwarm && (
             <>
               {' '}
-              and if possible with <SpellLink spell={SPELLS.ADAPTIVE_SWARM_DAMAGE} /> on the target
+              If possible use with <SpellLink spell={SPELLS.ADAPTIVE_SWARM_DAMAGE} /> on the target
             </>
           )}
-          . As it also gives 5 combo points, it's best used at low combo points in order not to
-          waste them.
+          . As it gives 5 combo points, it's best used at low combo points in order not to waste
+          them.
         </p>
       </>
     );
@@ -105,9 +103,9 @@ export default class FeralFrenzy extends Analyzer {
           );
 
           let cpsPerf = QualitativePerformance.Good;
-          if (cast.cpsOnCast > 2) {
+          if (cast.cpsOnCast > 4) {
             cpsPerf = QualitativePerformance.Fail;
-          } else if (cast.cpsOnCast > 0) {
+          } else if (cast.cpsOnCast > 1) {
             cpsPerf = QualitativePerformance.Ok;
           }
 
@@ -115,19 +113,19 @@ export default class FeralFrenzy extends Analyzer {
           if (this.hasSwarm && !cast.swarmOnTarget) {
             overallPerf = QualitativePerformance.Ok;
           }
-          if (cast.cpsOnCast > 2 || !cast.tfOnCast) {
-            overallPerf = QualitativePerformance.Fail;
-          }
+          overallPerf = getLowestPerf([overallPerf, cpsPerf]);
 
           const checklistItems: CooldownExpandableItem[] = [];
-          checklistItems.push({
-            label: (
-              <>
-                <SpellLink spell={SPELLS.TIGERS_FURY} /> active
-              </>
-            ),
-            result: <PassFailCheckmark pass={cast.tfOnCast} />,
-          });
+          // FF is desynced with TF cooldown, and sims say send both on CD, so in proper use
+          // only half of FF uses will have TF active. Leaving code in in case that changes.
+          // checklistItems.push({
+          //   label: (
+          //     <>
+          //       <SpellLink spell={SPELLS.TIGERS_FURY} /> active
+          //     </>
+          //   ),
+          //   result: <PassFailCheckmark pass={cast.tfOnCast} />,
+          // });
           checklistItems.push({
             label: 'Combo Points on cast',
             result: <PerformanceMark perf={cpsPerf} />,
