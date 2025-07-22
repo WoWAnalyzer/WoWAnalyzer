@@ -8,7 +8,7 @@ import Spell from '../Spell';
 
 const spells = {
   // --------
-  // SHARED
+  // ABILITIES
   // --------
   ANTI_MAGIC_SHELL: {
     id: 48707,
@@ -25,6 +25,11 @@ const spells = {
     name: 'Blood Boil',
     icon: 'spell_deathknight_bloodboil.jpg',
   },
+  BLOOD_PLAGUE: {
+    id: 55078,
+    name: 'Blood Plague',
+    icon: 'spell_deathknight_bloodplague.jpg',
+  },
   BLOOD_PRESENCE: {
     id: 48263,
     name: 'Blood Presence',
@@ -35,20 +40,15 @@ const spells = {
     name: 'Blood Strike',
     icon: 'spell_deathknight_deathstrike.jpg',
   },
-  BLOOD_TAP: {
-    id: 45529,
-    name: 'Blood Tap',
-    icon: 'spell_deathknight_bloodtap.jpg',
-  },
   CHAINS_OF_ICE: {
     id: 45524,
     name: 'Chains of Ice',
     icon: 'spell_frost_chainsofice.jpg',
   },
-  DARK_COMMAND: {
-    id: 56222,
-    name: 'Dark Command',
-    icon: 'spell_nature_shamanrage.jpg',
+  CONTROL_UNDEAD: {
+    id: 111673,
+    name: 'Control Undead',
+    icon: 'inv_misc_bone_skull_01.jpg',
   },
   DARK_SIMULACRUM: {
     id: 77606,
@@ -70,11 +70,6 @@ const spells = {
     name: 'Death Grip',
     icon: 'spell_deathknight_strangulate.jpg',
   },
-  DEATH_PACT: {
-    id: 48743,
-    name: 'Death Pact',
-    icon: 'spell_shadow_deathpact.jpg',
-  },
   DEATH_STRIKE: {
     id: 49998,
     name: 'Death Strike',
@@ -85,15 +80,10 @@ const spells = {
     name: 'Empower Rune Weapon',
     icon: 'inv_sword_62.jpg',
   },
-  FESTERING_STRIKE: {
-    id: 85948,
-    name: 'Festering Strike',
-    icon: 'inv_sword_61.jpg',
-  },
-  FESTERING_STRIKE_OFFHAND: {
-    id: 86061,
-    name: 'Festering Strike Off-Hand',
-    icon: 'inv_sword_61.jpg',
+  FROST_FEVER: {
+    id: 55095,
+    name: 'Frost Fever',
+    icon: 'spell_deathknight_frostfever.jpg',
   },
   FROST_PRESENCE: {
     id: 48266,
@@ -124,16 +114,6 @@ const spells = {
     id: 73975,
     name: 'Necrotic Strike',
     icon: 'inv_axe_96.jpg',
-  },
-  OBLITERATE: {
-    id: 49020,
-    name: 'Obliterate',
-    icon: 'spell_deathknight_classicon.jpg',
-  },
-  OBLITERATE_OFFHAND: {
-    id: 66198,
-    name: 'Obliterate Off-Hand',
-    icon: 'spell_deathknight_classicon.jpg',
   },
   OUTBREAK: {
     id: 77575,
@@ -215,11 +195,6 @@ const spells = {
     name: 'Rune of the Stoneskin Gargoyle',
     icon: 'inv_sword_130.jpg',
   },
-  RUNE_STRIKE: {
-    id: 56815,
-    name: 'Rune Strike',
-    icon: 'spell_deathknight_darkconviction.jpg',
-  },
   STRANGULATE: {
     id: 47476,
     name: 'Strangulate',
@@ -231,9 +206,8 @@ const spells = {
     icon: 'spell_deathknight_unholypresence.jpg',
   },
   // ---------
-  // TALENTS
+  // SPECIALIZATION
   // ---------
-  // Blood
   BLOOD_RITES: {
     id: 50034,
     name: 'Blood Rites',
@@ -249,67 +223,80 @@ const spells = {
     name: 'Dancing Rune Weapon',
     icon: 'inv_sword_07.jpg',
   },
-  HEART_STRIKE: {
-    id: 55050,
-    name: 'Heart Strike',
-    icon: 'inv_weapon_shortblade_40.jpg',
-  },
-  RUNE_TAP: {
-    id: 48982,
-    name: 'Rune Tap',
-    icon: 'spell_deathknight_runetap.jpg',
-  },
-  VAMPIRIC_BLOOD: {
-    id: 55233,
-    name: 'Vampiric Blood',
-    icon: 'spell_shadow_lifedrain.jpg',
-  },
-  // Frost
-  HOWLING_BLAST: {
-    id: 49184,
-    name: 'Howling Blast',
-    icon: 'spell_frost_arcticwinds.jpg',
-  },
-  HUNGERING_COLD: {
-    id: 49203,
-    name: 'Hungering Cold',
-    icon: 'inv_staff_15.jpg',
-  },
-  LICHBORNE: {
-    id: 49039,
-    name: 'Lichborne',
-    icon: 'spell_shadow_raisedead.jpg',
-  },
-  PILLAR_OF_FROST: {
-    id: 51271,
-    name: 'Pillar of Frost',
-    icon: 'ability_deathknight_pillaroffrost.jpg',
-  },
-  // Unholy
-  ANTI_MAGIC_ZONE: {
-    id: 51052,
-    name: 'Anti-Magic Zone',
-    icon: 'spell_deathknight_antimagiczone.jpg',
-  },
-  DESECRATION: {
-    id: 55667,
-    name: 'Desecration',
-    icon: 'spell_shadow_shadowfiend.jpg',
-  },
-  EBON_PLAGUE: {
-    id: 65142,
-    name: 'Ebon Plague', // debuff on enemy
-    icon: 'ability_creature_cursed_03.jpg',
+  DARK_COMMAND: {
+    id: 56222,
+    name: 'Dark Command',
+    icon: 'spell_nature_shamanrage.jpg',
   },
   DARK_TRANSFORMATION: {
     id: 63560,
     name: 'Dark Transformation',
     icon: 'achievement_boss_festergutrotface.jpg',
   },
+  FESTERING_STRIKE: {
+    id: 85948,
+    name: 'Festering Strike',
+    icon: 'inv_sword_61.jpg',
+  },
+  FROST_STRIKE: {
+    id: 49143,
+    name: 'Frost Strike',
+    icon: 'spell_deathknight_empowerruneblade2.jpg',
+  },
+  HEART_STRIKE: {
+    id: 55050,
+    name: 'Heart Strike',
+    icon: 'inv_weapon_shortblade_40.jpg',
+  },
+  HOWLING_BLAST: {
+    id: 49184,
+    name: 'Howling Blast',
+    icon: 'spell_frost_arcticwinds.jpg',
+  },
+  OBLITERATE: {
+    id: 49020,
+    name: 'Obliterate',
+    icon: 'spell_deathknight_classicon.jpg',
+  },
+  OBLITERATE_OFFHAND: {
+    id: 66198,
+    name: 'Obliterate Off-Hand',
+    icon: 'spell_deathknight_classicon.jpg',
+  },
+  PILLAR_OF_FROST: {
+    id: 51271,
+    name: 'Pillar of Frost',
+    icon: 'ability_deathknight_pillaroffrost.jpg',
+  },
+  RUNE_STRIKE: {
+    id: 56815,
+    name: 'Rune Strike',
+    icon: 'spell_deathknight_darkconviction.jpg',
+  },
+  RUNE_TAP: {
+    id: 48982,
+    name: 'Rune Tap',
+    icon: 'spell_deathknight_runetap.jpg',
+  },
   SCOURGE_STRIKE: {
     id: 55090,
     name: 'Scourge Strike',
     icon: 'spell_deathknight_scourgestrike.jpg',
+  },
+  SOUL_REAPER_UNHOLY: {
+    id: 130736,
+    name: 'Soul Reaper Unholy',
+    icon: 'ability_deathknight_soulreaper.jpg',
+  },
+  SOUL_REAPER_BLOOD: {
+    id: 114866,
+    name: 'Soul Reaper Blood',
+    icon: 'ability_deathknight_soulreaper.jpg',
+  },
+  SOUL_REAPER_FROST: {
+    id: 130735,
+    name: 'Soul Reaper Frost',
+    icon: 'ability_deathknight_soulreaper.jpg',
   },
   SUMMON_GARGOYLE: {
     id: 49206,
@@ -320,6 +307,102 @@ const spells = {
     id: 49016,
     name: 'Unholy Frenzy',
     icon: 'spell_shadow_unholyfrenzy.jpg',
+  },
+  // ---------
+  // TALENTS
+  // ---------
+  ANTI_MAGIC_ZONE: {
+    id: 51052,
+    name: 'Anti-Magic Zone',
+    icon: 'spell_deathknight_antimagiczone.jpg',
+  },
+  ASPHYXIATE: {
+    id: 108194,
+    name: 'Asphyxiate',
+    icon: 'ability_deathknight_asphixiate.jpg',
+  },
+  BLOOD_TAP: {
+    id: 45529,
+    name: 'Blood Tap',
+    icon: 'spell_deathknight_bloodtap.jpg',
+  },
+  CONVERSION: {
+    id: 119975,
+    name: 'Conversion',
+    icon: 'ability_deathknight_deathsiphon2.jpg',
+  },
+  DEATH_PACT: {
+    id: 48743,
+    name: 'Death Pact',
+    icon: 'spell_shadow_deathpact.jpg',
+  },
+  DEATH_SIPHON: {
+    id: 108196,
+    name: 'Death Siphon',
+    icon: 'ability_deathknight_deathsiphon.jpg',
+  },
+  DEATHS_ADVANCE: {
+    id: 96268,
+    name: 'Deaths Advance',
+    icon: 'spell_shadow_demonicempathy.jpg',
+  },
+  DESECRATED_GROUND: {
+    id: 108201,
+    name: 'Desecrated Ground',
+    icon: 'ability_deathknight_desecratedground.jpg',
+  },
+  GOREFIENDS_GRASP: {
+    id: 108199,
+    name: 'Gorefiends Grasp',
+    icon: 'ability_deathknight_aoedeathgrip.jpg',
+  },
+  LICHBORNE: {
+    id: 49039,
+    name: 'Lichborne',
+    icon: 'spell_shadow_raisedead.jpg',
+  },
+  PLAGUE_LEECH: {
+    id: 123693,
+    name: 'Plague Leech',
+    icon: 'ability_creature_disease_02.jpg',
+  },
+  REMORSELESS_WINTER: {
+    id: 108200,
+    name: 'Remorseless Winter',
+    icon: 'ability_deathknight_remorselesswinters2.jpg',
+  },
+  UNHOLY_BLIGHT: {
+    id: 115989,
+    name: 'Unholy Blight',
+    icon: 'spell_shadow_contagion.jpg',
+  },
+  VAMPIRIC_BLOOD: {
+    id: 55233,
+    name: 'Vampiric Blood',
+    icon: 'spell_shadow_lifedrain.jpg',
+  },
+  // ---------
+  // OLD
+  // ---------
+  EBON_PLAGUE: {
+    id: 65142,
+    name: 'Ebon Plague', // debuff on enemy
+    icon: 'ability_creature_cursed_03.jpg',
+  },
+  DESECRATION: {
+    id: 55667,
+    name: 'Desecration',
+    icon: 'spell_shadow_shadowfiend.jpg',
+  },
+  FESTERING_STRIKE_OFFHAND: {
+    id: 86061,
+    name: 'Festering Strike Off-Hand',
+    icon: 'inv_sword_61.jpg',
+  },
+  HUNGERING_COLD: {
+    id: 49203,
+    name: 'Hungering Cold',
+    icon: 'inv_staff_15.jpg',
   },
 } satisfies Record<string, Spell>;
 
