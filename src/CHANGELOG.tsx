@@ -44,6 +44,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2025, 7, 21), 'Add Classic MoP T14 raid zones, headshots, and placeholder image', jazminite),
   change(date(2025, 7, 21), 'Update Death Knight spells for MoP Classic', jazminite),
   change(date(2025, 6, 5),<>Replaced deprecated package `react-minimalist-portal` used to create tooltips.</>, Vetyst),
   change(date(2025, 6, 4),<>Add Horrific Vision enchants suggestions.</>, Vetyst),
