@@ -4,8 +4,7 @@ import { msv, hof, toes } from 'game/raids/mop_msv_hof_toes';
 const ZONES: Zone[] = [
   {
     id: 1038,
-    // WCL is using a combined zone for these raids
-    name: 'MSV / HoF / ToES',
+    name: 'MSV',
     frozen: false,
     encounters: [
       msv.bosses.TheStoneGuard,
@@ -14,6 +13,14 @@ const ZONES: Zone[] = [
       msv.bosses.TheSpiritKings,
       msv.bosses.Elegon,
       msv.bosses.WillOfTheEmperor,
+    ],
+  },
+  {
+    id: 1040,
+    // WCL is using a combined zone for these raids
+    name: 'HoF / ToES',
+    frozen: false,
+    encounters: [
       hof.bosses.ImperialVizierZorlok,
       hof.bosses.BladeLordTayak,
       hof.bosses.Garalon,
