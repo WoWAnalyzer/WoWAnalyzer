@@ -52,7 +52,6 @@ class SummonDemonicTyrant extends Analyzer {
 
   private demoPets!: DemoPets;
   private spellUsable!: SpellUsable;
-  private hasReignOfTyranny = false;
   private hasGFG = false;
 
   private summsWithDemonicPower: Record<string, any>[] = [{}];
@@ -66,7 +65,6 @@ class SummonDemonicTyrant extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.hasReignOfTyranny = this.selectedCombatant.hasTalent(TALENTS.REIGN_OF_TYRANNY_TALENT);
     this.hasGFG = this.selectedCombatant.hasTalent(TALENTS.GRIMOIRE_FELGUARD_TALENT);
 
     this.addEventListener(
@@ -156,12 +154,6 @@ class SummonDemonicTyrant extends Analyzer {
       }
     }
 
-    if (this.hasReignOfTyranny) {
-      populatedSumms.forEach((_, index) => {
-        populatedSumms[index]['RoT Buff'] = populatedSumms[index]['Total'] * 10 + '%';
-      });
-    }
-
     return populatedSumms;
   }
 
@@ -206,7 +198,7 @@ class SummonDemonicTyrant extends Analyzer {
     gfg: boolean,
     imps: number,
   ): JSX.Element {
-    const impsExtended = `${imps}/${this.hasReignOfTyranny ? '15' : '10'} imps`;
+    const impsExtended = `${imps}/5 imps`;
     switch (actualPerformance) {
       case QualitativePerformance.Perfect:
         return <>Perfect usage, you extended the most demons possible</>;
@@ -260,11 +252,11 @@ class SummonDemonicTyrant extends Analyzer {
   }
 
   private getImpsPerformance(imps: number): QualitativePerformance {
-    if ((this.hasReignOfTyranny && imps === 15) || imps === 10) {
+    if (imps === 5) {
       return QualitativePerformance.Perfect;
     }
 
-    if (imps >= 7) {
+    if (imps >= 4) {
       return QualitativePerformance.Good;
     }
 
@@ -279,17 +271,17 @@ class SummonDemonicTyrant extends Analyzer {
     const castEvent = this.tyrantCasts[tyrantCastNum];
     const impsSummary = (
       <>
-        {this.summsWithDemonicPower[tyrantCastNum]['Wild Imp'] || 0}/
-        {this.hasReignOfTyranny ? '15' : '10'} <SpellLink spell={SPELLS.WILD_IMP_HOG_SUMMON} />
+        {this.summsWithDemonicPower[tyrantCastNum]['Wild Imp'] || 0}/ 5{' '}
+        <SpellLink spell={SPELLS.WILD_IMP_HOG_SUMMON} />
       </>
     );
 
     const impsDetails = (
       <div>
-        {this.summsWithDemonicPower[tyrantCastNum]['Wild Imp'] || 0}/
-        {this.hasReignOfTyranny ? '15' : '10'} <SpellLink spell={SPELLS.WILD_IMP_HOG_SUMMON} /> -
-        you should extend as many <SpellLink spell={SPELLS.WILD_IMP_HOG_SUMMON} />s as possible,
-        always save <SpellLink spell={SPELLS.DEMONIC_CORE_BUFF} />s to spend during this set up
+        {this.summsWithDemonicPower[tyrantCastNum]['Wild Imp'] || 0}/ 5{' '}
+        <SpellLink spell={SPELLS.WILD_IMP_HOG_SUMMON} /> - you should extend as many{' '}
+        <SpellLink spell={SPELLS.WILD_IMP_HOG_SUMMON} />s as possible, always save{' '}
+        <SpellLink spell={SPELLS.DEMONIC_CORE_BUFF} />s to spend during this set up
       </div>
     );
 
@@ -416,16 +408,9 @@ class SummonDemonicTyrant extends Analyzer {
       <>
         <SpellLink spell={SPELLS.SUMMON_DEMONIC_TYRANT} /> is our main offensive cooldown together
         with <SpellLink spell={TALENTS.GRIMOIRE_FELGUARD_TALENT} />. It's value comes from extending
-        most of our active demons for 15 seconds, including up to 10{' '}
-        <SpellLink spell={SPELLS.WILD_IMP_HOG_SUMMON} />s{' '}
-        {this.hasReignOfTyranny ? (
-          <>
-            {' ('}15 with <SpellLink spell={TALENTS.REIGN_OF_TYRANNY_TALENT} />)
-          </>
-        ) : (
-          ''
-        )}
-        . Most of the time you will be prioritising{' '}
+        most of our active demons for 15 seconds, including up to 5{' '}
+        <SpellLink spell={SPELLS.WILD_IMP_HOG_SUMMON} />
+        s. Most of the time you will be prioritising{' '}
         <SpellLink spell={TALENTS.GRIMOIRE_FELGUARD_TALENT} /> usage and delaying the Tyrant to
         extend it.
       </>
@@ -452,7 +437,6 @@ class SummonDemonicTyrant extends Analyzer {
 
     const avgDemonsEmpowered = Number(empoweredDemons[0]['Total']);
     const avgWildImpsEmpowered = Number(empoweredDemons[0]['Wild Imp']);
-    const avgRoTBuff = empoweredDemons[0]['RoT Buff'];
 
     return (
       <Statistic
@@ -465,14 +449,8 @@ class SummonDemonicTyrant extends Analyzer {
           <p>
             {avgDemonsEmpowered.toFixed(1)} <small>Avg. demons buffed</small>
           </p>
-          {this.hasReignOfTyranny && (
-            <p>
-              {avgRoTBuff} <small>Avg. RoT bonus dmg</small>
-            </p>
-          )}
           <p>
-            {avgWildImpsEmpowered.toFixed(1)}/{this.hasReignOfTyranny ? 15 : 10}{' '}
-            <small>Avg. imps buffed</small>
+            {avgWildImpsEmpowered.toFixed(1)}/5 <small>Avg. imps buffed</small>
           </p>
         </BoringSpellValueText>
       </Statistic>

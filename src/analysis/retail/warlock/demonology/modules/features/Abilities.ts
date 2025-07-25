@@ -201,21 +201,6 @@ class Abilities extends SharedAbilities {
           recommendedEfficiency: 0.9,
         },
       },
-      {
-        spell: TALENTS.GUILLOTINE_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 45,
-        enabled: combatant.hasTalent(TALENTS.GUILLOTINE_TALENT),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-          averageIssueEfficiency: 0.8,
-          majorIssueEfficiency: 0.7,
-        },
-      },
 
       // Utility
       {

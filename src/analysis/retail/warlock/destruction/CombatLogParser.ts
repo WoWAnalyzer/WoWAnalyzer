@@ -18,7 +18,6 @@ import ChannelDemonfire from './modules/talents/ChannelDemonfire';
 import Eradication from './modules/talents/Eradication';
 import FireAndBrimstone from './modules/talents/FireAndBrimstone';
 import Flashover from './modules/talents/Flashover';
-import Inferno from './modules/talents/Inferno';
 import InternalCombustion from './modules/talents/InternalCombustion';
 import ReverseEntropy from './modules/talents/ReverseEntropy';
 import RoaringBlaze from './modules/talents/RoaringBlaze';
@@ -58,7 +57,6 @@ class CombatLogParser extends CoreCombatLogParser {
     reverseEntropy: ReverseEntropy,
     internalCombustion: InternalCombustion,
     shadowburn: Shadowburn,
-    inferno: Inferno,
     fireAndBrimstone: FireAndBrimstone,
     cataclysm: Cataclysm,
     roaringBlaze: RoaringBlaze,
