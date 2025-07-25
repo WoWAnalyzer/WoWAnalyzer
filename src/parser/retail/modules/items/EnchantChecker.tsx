@@ -7,6 +7,8 @@ import BaseEnchantChecker from 'parser/shared/modules/items/EnchantChecker';
 // Example logs with missing enchants:
 // https://www.warcraftlogs.com/reports/ydxavfGq1mBrM9Vc/#fight=1&source=14
 
+// TODO: remove head slot in 11.2.0
+
 const AGI_ENCHANTABLE_SLOTS = {
   0: <Trans id="common.slots.head">Head</Trans>,
   4: <Trans id="common.slots.chest">Chest</Trans>,

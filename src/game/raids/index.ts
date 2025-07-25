@@ -3,6 +3,7 @@ import { Race } from 'game/RACES';
 import PhaseConfig from 'parser/core/PhaseConfig';
 import MythicPlusSeasonOne from 'game/raids/mythicplusseasonone';
 import MythicPlusSeasonTwo from 'game/raids/mythicplusseasontwo';
+import MythicPlusSeasonThree from 'game/raids/mythicplusseasonthree';
 import NerubarPalace from 'game/raids/nerubarpalace';
 import {
   bot as BastionOfTwilight,
@@ -12,6 +13,7 @@ import {
 import Firelands from 'game/raids/cata_firelands';
 import DragonSoul from 'game/raids/cata_dragon_soul';
 import Undermine from 'game/raids/undermine';
+import ManaforgeOmega from 'game/raids/manaforge-omega';
 
 interface EncounterConfig {
   vantusRuneBuffId?: number;
@@ -72,11 +74,13 @@ const dungeons = {
   // The War Within
   MythicPlusSeasonOne,
   MythicPlusSeasonTwo,
+  MythicPlusSeasonThree,
 };
 
 const raids = {
   NerubarPalace, // TWW S1
   Undermine, // TWW S2
+  ManaforgeOmega, // TWW S3
   // Cataclysm (Classic)
   BlackwingDescent,
   BastionOfTwilight,
