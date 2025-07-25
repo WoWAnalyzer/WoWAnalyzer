@@ -3,6 +3,7 @@ import { Race } from 'game/RACES';
 import PhaseConfig from 'parser/core/PhaseConfig';
 import MythicPlusSeasonOne from 'game/raids/mythicplusseasonone';
 import MythicPlusSeasonTwo from 'game/raids/mythicplusseasontwo';
+import MythicPlusSeasonThree from 'game/raids/mythicplusseasonthree';
 import NerubarPalace from 'game/raids/nerubarpalace';
 import Undermine from 'game/raids/undermine';
 import {
@@ -10,6 +11,7 @@ import {
   hof as HeartOfFear,
   toes as TerraceOfEndlessSpring,
 } from './mop_msv_hof_toes';
+import ManaforgeOmega from 'game/raids/manaforge-omega';
 
 interface EncounterConfig {
   vantusRuneBuffId?: number;
@@ -70,11 +72,13 @@ const dungeons = {
   // The War Within
   MythicPlusSeasonOne,
   MythicPlusSeasonTwo,
+  MythicPlusSeasonThree,
 };
 
 const raids = {
   NerubarPalace, // TWW S1
   Undermine, // TWW S2
+  ManaforgeOmega, // TWW S3
   // Mists of Pandaria (Classic)
   MogushanVaults,
   HeartOfFear,

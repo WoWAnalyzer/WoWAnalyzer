@@ -10,9 +10,10 @@ import type { StringWithAutocompleteOptions } from 'common/stringWithAutocomplet
 import type { Stats } from './shared/modules/StatTracker';
 
 type NerubarPatchCycle = `11.0.${0 | 2 | 5}`;
-type UnderminePatchCycle = `11.1.${0 | 5}`;
+type UnderminePatchCycle = `11.1.${0 | 5 | 7}`;
+type ManaforgeOmegaPatchCycle = `11.2.${0 | 5 | 7}`;
 export type TwwPatchVersion = StringWithAutocompleteOptions<
-  NerubarPatchCycle | UnderminePatchCycle
+  NerubarPatchCycle | UnderminePatchCycle | ManaforgeOmegaPatchCycle
 >;
 
 export type CataPatchVersion = StringWithAutocompleteOptions<`4.4.0`>;
