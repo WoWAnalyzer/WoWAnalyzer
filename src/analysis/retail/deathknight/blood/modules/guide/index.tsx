@@ -24,10 +24,6 @@ export default function BloodGuide(props: GuideProps<typeof CombatLogParser>): J
       spell: DRAGONFLIGHT_OTHERS_SPELLS.RAGE_OF_FYRALATH_1,
       isActive: (c) => c.hasMainHand(DRAGONFLIGHT_OTHERS_ITEMS.FYRALATH.id),
     },
-    {
-      spell: TALENTS_DEATH_KNIGHT.ABOMINATION_LIMB_TALENT,
-      isActive: (c) => c.hasTalent(TALENTS_DEATH_KNIGHT.ABOMINATION_LIMB_TALENT),
-    },
   ];
 
   return (

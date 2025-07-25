@@ -16,12 +16,6 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.UNHOLY_GROUND_HASTE_BUFF.id,
-        triggeredBySpellId: [SPELLS.DEATH_AND_DECAY.id, TALENTS.DEFILE_TALENT.id],
-        enabled: combatant.hasTalent(TALENTS.UNHOLY_GROUND_TALENT),
-        timelineHighlight: false,
-      },
-      {
         spellId: SPELLS.MOGRAINES_MIGHT.id,
         triggeredBySpellId: [SPELLS.DEATH_AND_DECAY.id, TALENTS.DEFILE_TALENT.id],
         enabled: combatant.hasTalent(TALENTS.MOGRAINES_MIGHT_TALENT),
@@ -63,11 +57,6 @@ class Buffs extends CoreAuras {
       {
         spellId: TALENTS.EMPOWER_RUNE_WEAPON_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.EMPOWER_RUNE_WEAPON_TALENT),
-        timelineHighlight: true,
-      },
-      {
-        spellId: TALENTS.ABOMINATION_LIMB_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.ABOMINATION_LIMB_TALENT),
         timelineHighlight: true,
       },
       {

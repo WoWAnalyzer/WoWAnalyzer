@@ -37,14 +37,8 @@ const UnholyDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: C
           </>
         }
       >
-        {combatant.hasTalent(TALENTS.ABOMINATION_LIMB_TALENT) && (
-          <AbilityRequirement spell={TALENTS.ABOMINATION_LIMB_TALENT.id} />
-        )}
         {combatant.hasTalent(TALENTS.UNHOLY_ASSAULT_TALENT) && (
           <AbilityRequirement spell={TALENTS.UNHOLY_ASSAULT_TALENT.id} />
-        )}
-        {combatant.hasTalent(TALENTS.VILE_CONTAGION_TALENT) && (
-          <AbilityRequirement spell={TALENTS.VILE_CONTAGION_TALENT.id} />
         )}
         {combatant.hasTalent(TALENTS.ARMY_OF_THE_DEAD_TALENT) &&
           !combatant.hasTalent(TALENTS.RAISE_ABOMINATION_TALENT) && (
