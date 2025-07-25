@@ -15,7 +15,8 @@ enum Expansion {
 enum ExpansionName {
   // The value of `player.combatant.expansion`
   WrathOfTheLichKing = 'wotlk',
-  Cataclysm = 'cataclysm', // TODO mists characters still say "cataclysm"
+  Cataclysm = 'cataclysm',
+  MistsOfPandaria = 'classic-mists', // PTR/beta logs say "unknown" unless they're re-exported
   Dragonflight = 'dragonflight',
   TheWarWithin = 'the war within',
 }
@@ -23,7 +24,7 @@ enum ExpansionName {
 export const CLASSIC_EXPANSION = Expansion.MistsOfPandaria;
 export const RETAIL_EXPANSION = Expansion.TheWarWithin;
 
-export const CLASSIC_EXPANSION_NAME = ExpansionName.Cataclysm;
+export const CLASSIC_EXPANSION_NAME = 'Mists of Pandaria';
 export const RETAIL_EXPANSION_NAME = ExpansionName.TheWarWithin;
 
 export function isCurrentExpansion(expansion: Expansion): boolean {
