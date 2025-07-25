@@ -138,7 +138,7 @@ export class BlessingOfTheSeasons extends Analyzer {
       <>
         <p>
           <b>
-            <SpellLink spell={TALENTS.BLESSING_OF_THE_SEASONS_TALENT} />
+            <SpellLink spell={TALENTS.BLESSING_OF_SUMMER_TALENT} />
           </b>{' '}
           is a unique ability that cycles through 4 different buffs that can be applied to yourself
           or other players.
@@ -273,7 +273,7 @@ export class BlessingOfTheSeasons extends Analyzer {
           </>
         }
       >
-        <TalentSpellText talent={TALENTS.BLESSING_OF_THE_SEASONS_TALENT}>
+        <TalentSpellText talent={TALENTS.BLESSING_OF_SUMMER_TALENT}>
           <TooltipElement
             content={
               <>
