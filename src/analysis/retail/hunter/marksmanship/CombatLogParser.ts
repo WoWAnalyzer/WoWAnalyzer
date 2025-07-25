@@ -1,5 +1,4 @@
 import {
-  Barrage,
   BindingShot,
   BornToBeWild,
   CancelledCasts,
@@ -110,7 +109,6 @@ class CombatLogParser extends CoreCombatLogParser {
     bornToBeWild: BornToBeWild,
     explosiveShot: ExplosiveShot,
     masterMarksman: MasterMarksman,
-    barrage: Barrage,
     blackArrow: BlackArrow,
 
     // items

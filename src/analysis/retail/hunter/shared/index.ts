@@ -1,4 +1,3 @@
-export { default as Barrage } from './talents/Barrage';
 export { default as BindingShot } from './talents/BindingShot';
 export { default as BornToBeWild } from './talents/BornToBeWild';
 export { default as CancelledCasts } from './CancelledCasts';

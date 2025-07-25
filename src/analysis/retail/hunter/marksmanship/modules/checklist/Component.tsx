@@ -56,8 +56,6 @@ const MarksmanshipChecklist = (props: ChecklistProps) => {
 
         <TalentCastEfficiencyRequirement talent={TALENTS_HUNTER.EXPLOSIVE_SHOT_TALENT} />
 
-        <TalentCastEfficiencyRequirement talent={TALENTS_HUNTER.BARRAGE_TALENT} />
-
         <TalentCastEfficiencyRequirement talent={TALENTS_HUNTER.VOLLEY_TALENT} />
       </Rule>
 
