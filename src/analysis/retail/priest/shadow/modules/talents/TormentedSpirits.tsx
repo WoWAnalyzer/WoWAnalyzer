@@ -29,10 +29,6 @@ class TormentedSpirits extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE),
       this.onCastSurgeOfInsanity,
     );
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MIND_SPIKE_INSANITY_TALENT_DAMAGE),
-      this.onCastSurgeOfInsanity,
-    );
   }
 
   onCastMB() {

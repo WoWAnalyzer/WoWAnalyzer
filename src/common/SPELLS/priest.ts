@@ -913,18 +913,6 @@ const spells = {
     icon: 'spell_fire_twilightflamebreath',
   },
 
-  MIND_SPIKE_INSANITY_TALENT_DAMAGE: {
-    id: 407466,
-    name: 'Mind Spike: Insanity',
-    icon: 'ability_socererking_arcanereplication_nightborne',
-  },
-
-  MIND_SPIKE_INSANITY_TALENT_BUFF: {
-    id: 407468,
-    name: 'Mind Spike: Insanity',
-    icon: 'ability_socererking_arcanereplication_nightborne',
-  },
-
   IDOL_OF_CTHUN_MIND_FLAY_DAMAGE: {
     id: 193473,
     name: 'Mind Flay',

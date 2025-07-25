@@ -28,11 +28,6 @@ class EnergyCycle extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE),
       this.onSurgeOfInsanity,
     );
-
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MIND_SPIKE_INSANITY_TALENT_DAMAGE),
-      this.onSurgeOfInsanity,
-    );
   }
 
   //Spirits from Energy Cycles

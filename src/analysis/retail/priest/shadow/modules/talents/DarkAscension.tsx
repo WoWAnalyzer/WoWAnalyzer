@@ -36,14 +36,7 @@ class DarkAscension extends Analyzer {
       Events.damage.by(SELECTED_PLAYER).spell(TALENTS.SHADOW_WORD_DEATH_TALENT),
       this.onDamage,
     );
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.MIND_SPIKE_TALENT),
-      this.onDamage,
-    );
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MIND_SPIKE_INSANITY_TALENT_DAMAGE),
-      this.onDamage,
-    );
+
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_CRASH_TALENT_DAMAGE),
       this.onDamage,

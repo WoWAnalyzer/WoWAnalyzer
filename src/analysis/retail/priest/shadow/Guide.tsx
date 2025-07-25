@@ -60,14 +60,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           modules.mindDevourer.guideSubsection}
 
         {info.combatant.hasTalent(TALENTS.SURGE_OF_INSANITY_TALENT) &&
-          !info.combatant.hasTalent(TALENTS.MIND_SPIKE_TALENT) &&
           modules.mindFlayInsanity.guideSubsection}
-        {info.combatant.hasTalent(TALENTS.SURGE_OF_INSANITY_TALENT) &&
-          info.combatant.hasTalent(TALENTS.MIND_SPIKE_TALENT) &&
-          modules.mindSpikeInsanity.guideSubsection}
 
-        {info.combatant.hasTalent(TALENTS.UNFURLING_DARKNESS_TALENT) &&
-          modules.unfurlingDarkness.guideSubsection}
         {info.combatant.hasTalent(TALENTS.DEATHSPEAKER_TALENT) &&
           modules.deathspeaker.guideSubsection}
       </Section>
