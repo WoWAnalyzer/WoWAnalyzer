@@ -38,7 +38,6 @@ import ExpelHarmNorm from './normalizers/ExpelHarm';
 import GiftOfTheOx from './normalizers/GiftOfTheOx';
 import StaggerLinkNormalizer from './modules/core/StaggerLinkNormalizer';
 import CelestialBrewNormalizer from './modules/spells/CelestialBrew/normalizer';
-import { ZenMeditation } from './modules/core/MajorDefensives/ZenMeditation';
 import { FortifyingBrew } from './modules/core/MajorDefensives/FortifyingBrew';
 import { DiffuseMagic } from './modules/core/MajorDefensives/DiffuseMagic';
 import DefensiveBuffs from './modules/core/MajorDefensives/DefensiveBuffs';
@@ -99,7 +98,6 @@ class CombatLogParser extends CoreCombatLogParser {
     gotox: GiftOfTheOxStat,
     shuffle: Shuffle,
     touchOfDeath: TouchOfDeath,
-    zenMed: ZenMeditation,
     fortBrew: FortifyingBrew,
     diffuseMagic: DiffuseMagic,
     defensiveBuffs: DefensiveBuffs,
