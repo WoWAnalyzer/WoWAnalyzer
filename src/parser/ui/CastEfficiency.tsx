@@ -60,6 +60,7 @@ const CastEfficiency = ({ abilities }: Props) => (
             </tr>
             {abilities
               .filter((item) => item.ability.category === category)
+              .filter(({ casts }) => category !== SPELL_CATEGORY.OTHERS || casts > 0)
               .map(({ ability, cpm, casts, maxCasts, efficiency, canBeImproved }) => {
                 const name = ability.castEfficiency.name || ability.name;
                 return (

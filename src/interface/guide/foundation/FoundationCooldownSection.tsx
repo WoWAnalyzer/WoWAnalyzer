@@ -26,7 +26,7 @@ export function FoundationCooldownSection({
           (ability) =>
             ability.enabled &&
             ability.category === SPELL_CATEGORY.COOLDOWNS &&
-            maybeGetTalentOrSpell(ability.primarySpell),
+            maybeGetTalentOrSpell(ability.primarySpell, expansion),
         )
         .sort((a, b) => b.cooldown - a.cooldown)
         .map((ability) => ({

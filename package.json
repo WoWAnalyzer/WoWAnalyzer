@@ -111,7 +111,8 @@
     "vite": "^6.2.3",
     "vite-plugin-svgr": "^4.3.0",
     "vite-tsconfig-paths": "^4.3.2",
-    "vitest": "^3.0.9"
+    "vitest": "^3.0.9",
+    "wow-dbc": "git://git.emallson.net/wow-dbc.git#main"
   },
   "resolutions": {},
   "scripts": {

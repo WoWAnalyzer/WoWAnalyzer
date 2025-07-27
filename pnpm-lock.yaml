@@ -326,6 +326,9 @@ importers:
       vitest:
         specifier: ^3.0.9
         version: 3.0.9(@types/node@20.12.7)(@vitest/ui@3.0.9)(jiti@2.4.2)(jsdom@22.1.0)(sass@1.74.1)(tsx@4.19.3)
+      wow-dbc:
+        specifier: git://git.emallson.net/wow-dbc.git#main
+        version: git+git://git.emallson.net/wow-dbc.git#8fbd29a95daf5327322003ed06f22acc64000778
 
   packages/eslint-plugin-wowanalyzer:
     dependencies:
@@ -4662,6 +4665,9 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
+  udsv@0.6.0:
+    resolution: {integrity: sha512-na+0EoqqpDeNKZ0HVTtgYtFP9aQgsMwPM77UEK7g4OX2C42w+Qw7QZs9t1ocDGLidtcKJnsPy+o5XrBYaZfzCA==}
+
   unbzip2-stream@1.4.3:
     resolution: {integrity: sha512-mlExGW4w71ebDJviH16lQLtZS32VKqsSfk80GCfUlwT/4/hNRFsoscrF/c++9xinkMzECL1uL9DDwXqFWkruPg==}
 
@@ -4994,6 +5000,10 @@ packages:
     resolution: {integrity: sha512-hUrmaWBdVDcxvYqnyh09zunKzROWjbZTiNy8dBEjkS7ehEDQibXJ7XvlmtbwuTclUiIyN+CyXQD4Vmko8fNm8w==}
     engines: {node: '>=8'}
     hasBin: true
+
+  wow-dbc@git+git://git.emallson.net/wow-dbc.git#8fbd29a95daf5327322003ed06f22acc64000778:
+    resolution: {commit: 8fbd29a95daf5327322003ed06f22acc64000778, repo: git://git.emallson.net/wow-dbc.git, type: git}
+    version: 0.1.0
 
   wrap-ansi@7.0.0:
     resolution: {integrity: sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==}
@@ -9695,6 +9705,8 @@ snapshots:
 
   typescript@5.4.5: {}
 
+  udsv@0.6.0: {}
+
   unbzip2-stream@1.4.3:
     dependencies:
       buffer: 5.7.1
@@ -10230,6 +10242,10 @@ snapshots:
     dependencies:
       siginfo: 2.0.0
       stackback: 0.0.2
+
+  wow-dbc@git+git://git.emallson.net/wow-dbc.git#8fbd29a95daf5327322003ed06f22acc64000778:
+    dependencies:
+      udsv: 0.6.0
 
   wrap-ansi@7.0.0:
     dependencies:
