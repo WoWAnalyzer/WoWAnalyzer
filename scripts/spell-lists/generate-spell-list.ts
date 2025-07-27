@@ -2,6 +2,7 @@ import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
 import * as gamedata from 'wow-dbc';
 import type { Dbc } from 'wow-dbc/dist/src/dbc';
+import * as prettier from 'prettier';
 
 const GAME_VERSIONS = {
   classic: '5.5.0.62232',
@@ -59,7 +60,7 @@ for (const fileName of process.argv.slice(2)) {
       export default SPELLS;
     `;
 
-    await fs.writeFile(targetPath, output);
+    await fs.writeFile(targetPath, await prettier.format(output, { parser: 'typescript' }));
 
     console.log(`wrote spell data to ${targetPath}`);
   }

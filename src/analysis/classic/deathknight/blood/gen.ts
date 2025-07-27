@@ -21,5 +21,5 @@ export const Abilities = genAbilities({
     spells.RUNE_TAP,
     spells.DEATH_PACT,
   ],
-  cooldowns: [spells.DANCING_RUNE_WEAPON, spells.EMPOWER_RUNE_WEAPON],
+  cooldowns: [spells.DANCING_RUNE_WEAPON, spells.EMPOWER_RUNE_WEAPON, spells.ARMY_OF_THE_DEAD],
 });

@@ -1,2431 +1,1693 @@
-
-      const SPELLS = {
-  "FOCUS": {
-    "id": 77442,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      0,
-      0
-    ],
-    "effects": [],
-    "passive": false,
-    "hidden": "always",
-    "name": "Focus"
+const SPELLS = {
+  FOCUS: {
+    id: 77442,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [0, 0, 0, 0],
+    effects: [],
+    passive: false,
+    hidden: "always",
+    name: "Focus",
   },
-  "MAIL_SPECIALIZATION": {
-    "id": 86538,
-    "type": "baseline",
-    "effects": [],
-    "passive": true,
-    "name": "Mail Specialization"
+  MAIL_SPECIALIZATION: {
+    id: 86538,
+    type: "baseline",
+    effects: [],
+    passive: true,
+    name: "Mail Specialization",
   },
-  "FOCUSED_AIM": {
-    "id": 87324,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      0,
-      0
-    ],
-    "effects": [],
-    "passive": true,
-    "name": "Focused Aim"
+  FOCUSED_AIM: {
+    id: 87324,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [0, 0, 0, 0],
+    effects: [],
+    passive: true,
+    name: "Focused Aim",
   },
-  "SYMBIOSIS": {
-    "id": 110497,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      2,
-      0,
-      0,
-      0
-    ],
-    "effects": [],
-    "passive": false,
-    "name": "Symbiosis"
+  SYMBIOSIS: {
+    id: 110497,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [2, 0, 0, 0],
+    effects: [],
+    passive: false,
+    name: "Symbiosis",
   },
-  "ASPECT_OF_THE_CHEETAH": {
-    "id": 5118,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      2097152,
-      0,
-      0,
-      0
-    ],
-    "effects": [],
-    "passive": false,
-    "name": "Aspect of the Cheetah",
-    "cooldown": {
-      "duration": 1000,
-      "hasted": false
-    }
+  ASPECT_OF_THE_CHEETAH: {
+    id: 5118,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [2097152, 0, 0, 0],
+    effects: [],
+    passive: false,
+    name: "Aspect of the Cheetah",
+    cooldown: {
+      duration: 1000,
+      hasted: false,
+    },
   },
-  "ASPECT_OF_THE_HAWK": {
-    "id": 13165,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      1048576,
-      0,
-      0,
-      0
-    ],
-    "effects": [
+  ASPECT_OF_THE_HAWK: {
+    id: 13165,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [1048576, 0, 0, 0],
+    effects: [
       {
-        "sourceSpellId": 137014,
-        "aura": 107,
-        "basePoints": 10,
-        "misc0": 3,
-        "misc1": 0,
-        "pointModifiers": {}
-      }
+        sourceSpellId: 137014,
+        aura: 107,
+        basePoints: 10,
+        misc0: 3,
+        misc1: 0,
+        pointModifiers: {},
+      },
     ],
-    "passive": false,
-    "name": "Aspect of the Hawk",
-    "cooldown": {
-      "duration": 1000,
-      "hasted": false
-    }
+    passive: false,
+    name: "Aspect of the Hawk",
+    cooldown: {
+      duration: 1000,
+      hasted: false,
+    },
   },
-  "ASPECT_OF_THE_PACK": {
-    "id": 13159,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      2097152,
-      0,
-      0,
-      0
-    ],
-    "effects": [],
-    "passive": false,
-    "name": "Aspect of the Pack",
-    "cooldown": {
-      "duration": 1000,
-      "hasted": false
-    }
+  ASPECT_OF_THE_PACK: {
+    id: 13159,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [2097152, 0, 0, 0],
+    effects: [],
+    passive: false,
+    name: "Aspect of the Pack",
+    cooldown: {
+      duration: 1000,
+      hasted: false,
+    },
   },
-  "AUTO_SHOT": {
-    "id": 75,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      1,
-      0,
-      0,
-      0
-    ],
-    "effects": [
+  AUTO_SHOT: {
+    id: 75,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [1, 0, 0, 0],
+    effects: [
       {
-        "sourceSpellId": 77442,
-        "aura": 330,
-        "basePoints": 0,
-        "misc0": 0,
-        "misc1": 0,
-        "pointModifiers": {}
-      }
+        sourceSpellId: 77442,
+        aura: 330,
+        basePoints: 0,
+        misc0: 0,
+        misc1: 0,
+        pointModifiers: {},
+      },
     ],
-    "passive": false,
-    "name": "Auto Shot"
+    passive: false,
+    name: "Auto Shot",
   },
-  "BEAST_LORE": {
-    "id": 1462,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      0,
-      0
-    ],
-    "effects": [],
-    "passive": false,
-    "name": "Beast Lore",
-    "gcd": {
-      "duration": 1000,
-      "hasted": true
-    }
-  },
-  "EAGLE_EYE": {
-    "id": 6197,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      0,
-      0
-    ],
-    "effects": [],
-    "passive": false,
-    "name": "Eagle Eye",
-    "gcd": {
-      "duration": 1500,
-      "hasted": true
+  BEAST_LORE: {
+    id: 1462,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [0, 0, 0, 0],
+    effects: [],
+    passive: false,
+    name: "Beast Lore",
+    gcd: {
+      duration: 1000,
+      hasted: true,
     },
-    "channel": {
-      "duration": 60000,
-      "hasted": false,
-      "buffIsLogged": true,
-      "triggeredSpells": []
-    }
   },
-  "FEED_PET": {
-    "id": 6991,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "effects": [],
-    "passive": false,
-    "name": "Feed Pet",
-    "cooldown": {
-      "duration": 10000,
-      "hasted": false
-    }
+  EAGLE_EYE: {
+    id: 6197,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [0, 0, 0, 0],
+    effects: [],
+    passive: false,
+    name: "Eagle Eye",
+    gcd: {
+      duration: 1500,
+      hasted: true,
+    },
+    channel: {
+      duration: 60000,
+      hasted: false,
+      buffIsLogged: true,
+      triggeredSpells: [],
+    },
   },
-  "MASTERS_CALL": {
-    "id": 53271,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      4,
-      0
-    ],
-    "effects": [],
-    "passive": false,
-    "name": "Master's Call",
-    "cooldown": {
-      "duration": 45000,
-      "hasted": false
-    }
+  FEED_PET: {
+    id: 6991,
+    type: "baseline",
+    label: [23, 16],
+    effects: [],
+    passive: false,
+    name: "Feed Pet",
+    cooldown: {
+      duration: 10000,
+      hasted: false,
+    },
   },
-  "MEND_PET": {
-    "id": 136,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      8388608,
-      0,
-      0,
-      0
-    ],
-    "effects": [],
-    "passive": false,
-    "name": "Mend Pet",
-    "gcd": {
-      "duration": 1000,
-      "hasted": true
-    }
+  MASTERS_CALL: {
+    id: 53271,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [0, 0, 4, 0],
+    effects: [],
+    passive: false,
+    name: "Master's Call",
+    cooldown: {
+      duration: 45000,
+      hasted: false,
+    },
   },
-  "REVIVE_PET": {
-    "id": 982,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      16777216,
-      0,
-      0,
-      0
-    ],
-    "effects": [
+  MEND_PET: {
+    id: 136,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [8388608, 0, 0, 0],
+    effects: [],
+    passive: false,
+    name: "Mend Pet",
+    gcd: {
+      duration: 1000,
+      hasted: true,
+    },
+  },
+  REVIVE_PET: {
+    id: 982,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [16777216, 0, 0, 0],
+    effects: [
       {
-        "sourceSpellId": 137014,
-        "aura": 107,
-        "basePoints": -2000,
-        "misc0": 10,
-        "misc1": 0,
-        "pointModifiers": {}
-      }
+        sourceSpellId: 137014,
+        aura: 107,
+        basePoints: -2000,
+        misc0: 10,
+        misc1: 0,
+        pointModifiers: {},
+      },
     ],
-    "passive": false,
-    "name": "Revive Pet",
-    "gcd": {
-      "duration": 1500,
-      "hasted": true
+    passive: false,
+    name: "Revive Pet",
+    gcd: {
+      duration: 1500,
+      hasted: true,
     },
-    "castTime": {
-      "duration": 4000
-    }
+    castTime: {
+      duration: 4000,
+    },
   },
-  "SCARE_BEAST": {
-    "id": 1513,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      65536,
-      0,
-      0
-    ],
-    "effects": [],
-    "passive": false,
-    "name": "Scare Beast",
-    "gcd": {
-      "duration": 1500,
-      "hasted": true
+  SCARE_BEAST: {
+    id: 1513,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [0, 65536, 0, 0],
+    effects: [],
+    passive: false,
+    name: "Scare Beast",
+    gcd: {
+      duration: 1500,
+      hasted: true,
     },
-    "castTime": {
-      "duration": 1500
-    }
+    castTime: {
+      duration: 1500,
+    },
   },
-  "TAME_BEAST": {
-    "id": 1515,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      0,
-      2
-    ],
-    "effects": [],
-    "passive": false,
-    "name": "Tame Beast",
-    "gcd": {
-      "duration": 1500,
-      "hasted": true
+  TAME_BEAST: {
+    id: 1515,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [0, 0, 0, 2],
+    effects: [],
+    passive: false,
+    name: "Tame Beast",
+    gcd: {
+      duration: 1500,
+      hasted: true,
     },
-    "channel": {
-      "duration": 10000,
-      "hasted": true,
-      "buffIsLogged": true,
-      "triggeredSpells": [
+    channel: {
+      duration: 10000,
+      hasted: true,
+      buffIsLogged: true,
+      triggeredSpells: [
         {
-          "spell": 13481,
-          "period": 10000,
-          "hasted": true
-        }
-      ]
-    }
-  },
-  "CAMOUFLAGE": {
-    "id": 51753,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      32,
-      0
-    ],
-    "effects": [],
-    "passive": false,
-    "name": "Camouflage",
-    "gcd": {
-      "duration": 1500,
-      "hasted": true
+          spell: 13481,
+          period: 10000,
+          hasted: true,
+        },
+      ],
     },
-    "cooldown": {
-      "duration": 60000,
-      "hasted": false
-    }
   },
-  "ARCANE_SHOT": {
-    "id": 3044,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      2048,
-      0,
-      0,
-      0
-    ],
-    "effects": [],
-    "passive": false,
-    "name": "Arcane Shot",
-    "gcd": {
-      "duration": 1000,
-      "hasted": false
-    }
-  },
-  "DISTRACTING_SHOT": {
-    "id": 20736,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      131072,
-      0,
-      0
-    ],
-    "effects": [],
-    "passive": false,
-    "name": "Distracting Shot",
-    "gcd": {
-      "duration": 1000,
-      "hasted": false
+  CAMOUFLAGE: {
+    id: 51753,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [0, 0, 32, 0],
+    effects: [],
+    passive: false,
+    name: "Camouflage",
+    gcd: {
+      duration: 1500,
+      hasted: true,
     },
-    "cooldown": {
-      "duration": 8000,
-      "hasted": false
-    }
-  },
-  "FLARE": {
-    "id": 1543,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      32768,
-      0,
-      0
-    ],
-    "effects": [],
-    "passive": false,
-    "name": "Flare",
-    "gcd": {
-      "duration": 1000,
-      "hasted": true
+    cooldown: {
+      duration: 60000,
+      hasted: false,
     },
-    "cooldown": {
-      "duration": 20000,
-      "hasted": false
-    }
   },
-  "HUNTERS_MARK": {
-    "id": 1130,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      1024,
-      0,
-      0,
-      0
-    ],
-    "effects": [],
-    "passive": false,
-    "name": "Hunter's Mark",
-    "gcd": {
-      "duration": 1000,
-      "hasted": true
-    }
-  },
-  "MULTI_SHOT": {
-    "id": 2643,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      4096,
-      0,
-      0,
-      0
-    ],
-    "effects": [],
-    "passive": false,
-    "name": "Multi-Shot",
-    "gcd": {
-      "duration": 1000,
-      "hasted": false
-    }
-  },
-  "RAPID_FIRE": {
-    "id": 3045,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      32,
-      0,
-      0,
-      0
-    ],
-    "effects": [],
-    "passive": false,
-    "name": "Rapid Fire",
-    "cooldown": {
-      "duration": 180000,
-      "hasted": false
-    }
-  },
-  "SCATTER_SHOT": {
-    "id": 19503,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      262144,
-      0,
-      32768,
-      0
-    ],
-    "effects": [],
-    "passive": false,
-    "name": "Scatter Shot",
-    "gcd": {
-      "duration": 1000,
-      "hasted": false
+  ARCANE_SHOT: {
+    id: 3044,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [2048, 0, 0, 0],
+    effects: [],
+    passive: false,
+    name: "Arcane Shot",
+    gcd: {
+      duration: 1000,
+      hasted: false,
     },
-    "cooldown": {
-      "duration": 30000,
-      "hasted": false
-    }
   },
-  "STEADY_SHOT": {
-    "id": 56641,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      1,
-      0,
-      0
-    ],
-    "effects": [
+  DISTRACTING_SHOT: {
+    id: 20736,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [0, 131072, 0, 0],
+    effects: [],
+    passive: false,
+    name: "Distracting Shot",
+    gcd: {
+      duration: 1000,
+      hasted: false,
+    },
+    cooldown: {
+      duration: 8000,
+      hasted: false,
+    },
+  },
+  FLARE: {
+    id: 1543,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [0, 32768, 0, 0],
+    effects: [],
+    passive: false,
+    name: "Flare",
+    gcd: {
+      duration: 1000,
+      hasted: true,
+    },
+    cooldown: {
+      duration: 20000,
+      hasted: false,
+    },
+  },
+  HUNTERS_MARK: {
+    id: 1130,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [1024, 0, 0, 0],
+    effects: [],
+    passive: false,
+    name: "Hunter's Mark",
+    gcd: {
+      duration: 1000,
+      hasted: true,
+    },
+  },
+  MULTI_SHOT: {
+    id: 2643,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [4096, 0, 0, 0],
+    effects: [],
+    passive: false,
+    name: "Multi-Shot",
+    gcd: {
+      duration: 1000,
+      hasted: false,
+    },
+  },
+  RAPID_FIRE: {
+    id: 3045,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [32, 0, 0, 0],
+    effects: [],
+    passive: false,
+    name: "Rapid Fire",
+    cooldown: {
+      duration: 180000,
+      hasted: false,
+    },
+  },
+  SCATTER_SHOT: {
+    id: 19503,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [262144, 0, 32768, 0],
+    effects: [],
+    passive: false,
+    name: "Scatter Shot",
+    gcd: {
+      duration: 1000,
+      hasted: false,
+    },
+    cooldown: {
+      duration: 30000,
+      hasted: false,
+    },
+  },
+  STEADY_SHOT: {
+    id: 56641,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [0, 1, 0, 0],
+    effects: [
       {
-        "sourceSpellId": 87324,
-        "aura": 108,
-        "basePoints": 70,
-        "misc0": 9,
-        "misc1": 0,
-        "pointModifiers": {}
-      }
+        sourceSpellId: 87324,
+        aura: 108,
+        basePoints: 70,
+        misc0: 9,
+        misc1: 0,
+        pointModifiers: {},
+      },
     ],
-    "passive": false,
-    "name": "Steady Shot",
-    "gcd": {
-      "duration": 1000,
-      "hasted": false
+    passive: false,
+    name: "Steady Shot",
+    gcd: {
+      duration: 1000,
+      hasted: false,
     },
-    "castTime": {
-      "duration": 2000
-    }
-  },
-  "KILL_SHOT": {
-    "id": 53351,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      8388608,
-      0,
-      0
-    ],
-    "effects": [],
-    "passive": false,
-    "name": "Kill Shot",
-    "gcd": {
-      "duration": 1000,
-      "hasted": false
+    castTime: {
+      duration: 2000,
     },
-    "cooldown": {
-      "duration": 10000,
-      "hasted": false
-    }
   },
-  "MISDIRECTION": {
-    "id": 34477,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      1048576,
-      0,
-      0
-    ],
-    "effects": [],
-    "passive": false,
-    "name": "Misdirection",
-    "cooldown": {
-      "duration": 30000,
-      "hasted": false
-    }
+  KILL_SHOT: {
+    id: 53351,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [0, 8388608, 0, 0],
+    effects: [],
+    passive: false,
+    name: "Kill Shot",
+    gcd: {
+      duration: 1000,
+      hasted: false,
+    },
+    cooldown: {
+      duration: 10000,
+      hasted: false,
+    },
   },
-  "DETERRENCE_CROUCHING_TIGER_HIDDEN_CHIMERA": {
-    "id": 148467,
-    "grantedBy": 118675,
-    "type": "temporary",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      0,
-      1048576
-    ],
-    "effects": [
+  MISDIRECTION: {
+    id: 34477,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [0, 1048576, 0, 0],
+    effects: [],
+    passive: false,
+    name: "Misdirection",
+    cooldown: {
+      duration: 30000,
+      hasted: false,
+    },
+  },
+  DETERRENCE_CROUCHING_TIGER_HIDDEN_CHIMERA: {
+    id: 148467,
+    grantedBy: 118675,
+    type: "temporary",
+    label: [23, 16],
+    classMask: [0, 0, 0, 1048576],
+    effects: [
       {
-        "sourceSpellId": 137014,
-        "aura": 107,
-        "basePoints": 4200,
-        "misc0": 11,
-        "misc1": 0,
-        "pointModifiers": {}
-      }
+        sourceSpellId: 137014,
+        aura: 107,
+        basePoints: 4200,
+        misc0: 11,
+        misc1: 0,
+        pointModifiers: {},
+      },
     ],
-    "passive": false,
-    "name": "Deterrence",
-    "charges": {
-      "max": 2
+    passive: false,
+    name: "Deterrence",
+    charges: {
+      max: 2,
     },
-    "cooldown": {
-      "duration": 120000,
-      "hasted": false
-    }
-  },
-  "DETERRENCE": {
-    "id": 19263,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      2,
-      0,
-      0
-    ],
-    "effects": [
-      {
-        "sourceSpellId": 118675,
-        "aura": 332,
-        "basePoints": 148467,
-        "misc0": 0,
-        "misc1": 0,
-        "pointModifiers": {}
-      }
-    ],
-    "passive": false,
-    "name": "Deterrence",
-    "charges": {
-      "max": 2
+    cooldown: {
+      duration: 120000,
+      hasted: false,
     },
-    "cooldown": {
-      "duration": 180000,
-      "hasted": false
-    }
   },
-  "EXPLOSIVE_TRAP_TRAP_LAUNCHER": {
-    "id": 82939,
-    "grantedBy": 77769,
-    "type": "temporary",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      8320,
-      0,
-      0,
-      0
-    ],
-    "effects": [
+  DETERRENCE: {
+    id: 19263,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [0, 2, 0, 0],
+    effects: [
       {
-        "sourceSpellId": 63458,
-        "aura": 107,
-        "basePoints": -6000,
-        "misc0": 11,
-        "misc1": 0,
-        "pointModifiers": {}
+        sourceSpellId: 118675,
+        aura: 332,
+        basePoints: 148467,
+        misc0: 0,
+        misc1: 0,
+        pointModifiers: {},
+      },
+    ],
+    passive: false,
+    name: "Deterrence",
+    charges: {
+      max: 2,
+    },
+    cooldown: {
+      duration: 180000,
+      hasted: false,
+    },
+  },
+  EXPLOSIVE_TRAP_TRAP_LAUNCHER: {
+    id: 82939,
+    grantedBy: 77769,
+    type: "temporary",
+    label: [23, 16],
+    classMask: [8320, 0, 0, 0],
+    effects: [
+      {
+        sourceSpellId: 63458,
+        aura: 107,
+        basePoints: -6000,
+        misc0: 11,
+        misc1: 0,
+        pointModifiers: {},
       },
       {
-        "sourceSpellId": 118976,
-        "aura": 42,
-        "basePoints": 0,
-        "misc0": 0,
-        "misc1": 0,
-        "pointModifiers": {},
-        "triggeredSpell": 118974
+        sourceSpellId: 118976,
+        aura: 42,
+        basePoints: 0,
+        misc0: 0,
+        misc1: 0,
+        pointModifiers: {},
+        triggeredSpell: 118974,
       },
       {
-        "sourceSpellId": 87935,
-        "aura": 0,
-        "basePoints": 0,
-        "misc0": 0,
-        "misc1": 0,
-        "pointModifiers": {}
-      }
+        sourceSpellId: 87935,
+        aura: 0,
+        basePoints: 0,
+        misc0: 0,
+        misc1: 0,
+        pointModifiers: {},
+      },
     ],
-    "passive": false,
-    "hidden": "always",
-    "name": "Explosive Trap",
-    "gcd": {
-      "duration": 1000,
-      "hasted": true
+    passive: false,
+    hidden: "always",
+    name: "Explosive Trap",
+    gcd: {
+      duration: 1000,
+      hasted: true,
     },
-    "cooldown": {
-      "duration": 24000,
-      "hasted": false
-    }
-  },
-  "EXPLOSIVE_TRAP": {
-    "id": 13813,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      128,
-      0,
-      2097152,
-      0
-    ],
-    "effects": [
-      {
-        "sourceSpellId": 77769,
-        "aura": 333,
-        "basePoints": 82939,
-        "misc0": 0,
-        "misc1": 0,
-        "pointModifiers": {}
-      },
-      {
-        "sourceSpellId": 63458,
-        "aura": 107,
-        "basePoints": -6000,
-        "misc0": 11,
-        "misc1": 0,
-        "pointModifiers": {}
-      }
-    ],
-    "passive": false,
-    "name": "Explosive Trap",
-    "gcd": {
-      "duration": 1000,
-      "hasted": true
+    cooldown: {
+      duration: 24000,
+      hasted: false,
     },
-    "cooldown": {
-      "duration": 24000,
-      "hasted": false
-    }
   },
-  "FEIGN_DEATH": {
-    "id": 5384,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      256,
-      0,
-      0,
-      0
-    ],
-    "effects": [],
-    "passive": false,
-    "name": "Feign Death",
-    "cooldown": {
-      "duration": 30000,
-      "hasted": false
-    }
-  },
-  "FREEZING_TRAP_TRAP_LAUNCHER": {
-    "id": 60192,
-    "grantedBy": 77769,
-    "type": "temporary",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      8320,
-      0,
-      0,
-      0
-    ],
-    "effects": [
+  EXPLOSIVE_TRAP: {
+    id: 13813,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [128, 0, 2097152, 0],
+    effects: [
       {
-        "sourceSpellId": 63458,
-        "aura": 107,
-        "basePoints": -6000,
-        "misc0": 11,
-        "misc1": 0,
-        "pointModifiers": {}
+        sourceSpellId: 77769,
+        aura: 333,
+        basePoints: 82939,
+        misc0: 0,
+        misc1: 0,
+        pointModifiers: {},
       },
       {
-        "sourceSpellId": 118976,
-        "aura": 42,
-        "basePoints": 0,
-        "misc0": 0,
-        "misc1": 0,
-        "pointModifiers": {},
-        "triggeredSpell": 118974
+        sourceSpellId: 63458,
+        aura: 107,
+        basePoints: -6000,
+        misc0: 11,
+        misc1: 0,
+        pointModifiers: {},
       },
-      {
-        "sourceSpellId": 87935,
-        "aura": 0,
-        "basePoints": 0,
-        "misc0": 0,
-        "misc1": 0,
-        "pointModifiers": {}
-      }
     ],
-    "passive": false,
-    "hidden": "always",
-    "name": "Freezing Trap",
-    "gcd": {
-      "duration": 1000,
-      "hasted": true
+    passive: false,
+    name: "Explosive Trap",
+    gcd: {
+      duration: 1000,
+      hasted: true,
     },
-    "cooldown": {
-      "duration": 24000,
-      "hasted": false
-    }
+    cooldown: {
+      duration: 24000,
+      hasted: false,
+    },
   },
-  "FREEZING_TRAP": {
-    "id": 1499,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      128,
-      0,
-      67108864,
-      0
-    ],
-    "effects": [
+  FEIGN_DEATH: {
+    id: 5384,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [256, 0, 0, 0],
+    effects: [],
+    passive: false,
+    name: "Feign Death",
+    cooldown: {
+      duration: 30000,
+      hasted: false,
+    },
+  },
+  FREEZING_TRAP_TRAP_LAUNCHER: {
+    id: 60192,
+    grantedBy: 77769,
+    type: "temporary",
+    label: [23, 16],
+    classMask: [8320, 0, 0, 0],
+    effects: [
       {
-        "sourceSpellId": 77769,
-        "aura": 333,
-        "basePoints": 60192,
-        "misc0": 0,
-        "misc1": 0,
-        "pointModifiers": {}
+        sourceSpellId: 63458,
+        aura: 107,
+        basePoints: -6000,
+        misc0: 11,
+        misc1: 0,
+        pointModifiers: {},
       },
       {
-        "sourceSpellId": 63458,
-        "aura": 107,
-        "basePoints": -6000,
-        "misc0": 11,
-        "misc1": 0,
-        "pointModifiers": {}
-      }
-    ],
-    "passive": false,
-    "name": "Freezing Trap",
-    "gcd": {
-      "duration": 1000,
-      "hasted": true
-    },
-    "cooldown": {
-      "duration": 24000,
-      "hasted": false
-    }
-  },
-  "ICE_TRAP_TRAP_LAUNCHER": {
-    "id": 82941,
-    "grantedBy": 77769,
-    "type": "temporary",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      8320,
-      0,
-      0,
-      0
-    ],
-    "effects": [
-      {
-        "sourceSpellId": 63458,
-        "aura": 107,
-        "basePoints": -6000,
-        "misc0": 11,
-        "misc1": 0,
-        "pointModifiers": {}
+        sourceSpellId: 118976,
+        aura: 42,
+        basePoints: 0,
+        misc0: 0,
+        misc1: 0,
+        pointModifiers: {},
+        triggeredSpell: 118974,
       },
       {
-        "sourceSpellId": 118976,
-        "aura": 42,
-        "basePoints": 0,
-        "misc0": 0,
-        "misc1": 0,
-        "pointModifiers": {},
-        "triggeredSpell": 118974
+        sourceSpellId: 87935,
+        aura: 0,
+        basePoints: 0,
+        misc0: 0,
+        misc1: 0,
+        pointModifiers: {},
+      },
+    ],
+    passive: false,
+    hidden: "always",
+    name: "Freezing Trap",
+    gcd: {
+      duration: 1000,
+      hasted: true,
+    },
+    cooldown: {
+      duration: 24000,
+      hasted: false,
+    },
+  },
+  FREEZING_TRAP: {
+    id: 1499,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [128, 0, 67108864, 0],
+    effects: [
+      {
+        sourceSpellId: 77769,
+        aura: 333,
+        basePoints: 60192,
+        misc0: 0,
+        misc1: 0,
+        pointModifiers: {},
       },
       {
-        "sourceSpellId": 87935,
-        "aura": 0,
-        "basePoints": 0,
-        "misc0": 0,
-        "misc1": 0,
-        "pointModifiers": {}
-      }
+        sourceSpellId: 63458,
+        aura: 107,
+        basePoints: -6000,
+        misc0: 11,
+        misc1: 0,
+        pointModifiers: {},
+      },
     ],
-    "passive": false,
-    "hidden": "always",
-    "name": "Ice Trap",
-    "gcd": {
-      "duration": 1000,
-      "hasted": true
+    passive: false,
+    name: "Freezing Trap",
+    gcd: {
+      duration: 1000,
+      hasted: true,
     },
-    "cooldown": {
-      "duration": 24000,
-      "hasted": false
-    }
+    cooldown: {
+      duration: 24000,
+      hasted: false,
+    },
   },
-  "ICE_TRAP": {
-    "id": 13809,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      128,
-      0,
-      268435456,
-      0
-    ],
-    "effects": [
+  ICE_TRAP_TRAP_LAUNCHER: {
+    id: 82941,
+    grantedBy: 77769,
+    type: "temporary",
+    label: [23, 16],
+    classMask: [8320, 0, 0, 0],
+    effects: [
       {
-        "sourceSpellId": 77769,
-        "aura": 333,
-        "basePoints": 82941,
-        "misc0": 0,
-        "misc1": 0,
-        "pointModifiers": {}
+        sourceSpellId: 63458,
+        aura: 107,
+        basePoints: -6000,
+        misc0: 11,
+        misc1: 0,
+        pointModifiers: {},
       },
       {
-        "sourceSpellId": 63458,
-        "aura": 107,
-        "basePoints": -6000,
-        "misc0": 11,
-        "misc1": 0,
-        "pointModifiers": {}
-      }
-    ],
-    "passive": false,
-    "name": "Ice Trap",
-    "gcd": {
-      "duration": 1000,
-      "hasted": true
-    },
-    "cooldown": {
-      "duration": 24000,
-      "hasted": false
-    }
-  },
-  "SERPENT_STING": {
-    "id": 1978,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      16384,
-      0,
-      0,
-      8192
-    ],
-    "effects": [
+        sourceSpellId: 118976,
+        aura: 42,
+        basePoints: 0,
+        misc0: 0,
+        misc1: 0,
+        pointModifiers: {},
+        triggeredSpell: 118974,
+      },
       {
-        "sourceSpellId": 82834,
-        "aura": 108,
-        "basePoints": 50,
-        "misc0": 22,
-        "misc1": 0,
-        "pointModifiers": {}
-      }
+        sourceSpellId: 87935,
+        aura: 0,
+        basePoints: 0,
+        misc0: 0,
+        misc1: 0,
+        pointModifiers: {},
+      },
     ],
-    "passive": false,
-    "name": "Serpent Sting",
-    "gcd": {
-      "duration": 1000,
-      "hasted": false
-    }
-  },
-  "TRACK_BEASTS": {
-    "id": 1494,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      2,
-      0
-    ],
-    "effects": [],
-    "passive": false,
-    "hidden": "always",
-    "name": "Track Beasts",
-    "gcd": {
-      "duration": 1500,
-      "hasted": false
-    }
-  },
-  "TRACK_DEMONS": {
-    "id": 19878,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      2,
-      0
-    ],
-    "effects": [],
-    "passive": false,
-    "hidden": "always",
-    "name": "Track Demons",
-    "gcd": {
-      "duration": 1500,
-      "hasted": false
-    }
-  },
-  "TRACK_DRAGONKIN": {
-    "id": 19879,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      2,
-      0
-    ],
-    "effects": [],
-    "passive": false,
-    "hidden": "always",
-    "name": "Track Dragonkin",
-    "gcd": {
-      "duration": 1500,
-      "hasted": false
-    }
-  },
-  "TRACK_ELEMENTALS": {
-    "id": 19880,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      2,
-      0
-    ],
-    "effects": [],
-    "passive": false,
-    "hidden": "always",
-    "name": "Track Elementals",
-    "gcd": {
-      "duration": 1500,
-      "hasted": false
-    }
-  },
-  "TRACK_GIANTS": {
-    "id": 19882,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      2,
-      0
-    ],
-    "effects": [],
-    "passive": false,
-    "hidden": "always",
-    "name": "Track Giants",
-    "gcd": {
-      "duration": 1500,
-      "hasted": false
-    }
-  },
-  "TRACK_HIDDEN": {
-    "id": 19885,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "effects": [],
-    "passive": false,
-    "hidden": "always",
-    "name": "Track Hidden",
-    "gcd": {
-      "duration": 1500,
-      "hasted": false
-    }
-  },
-  "TRACK_HUMANOIDS": {
-    "id": 19883,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      2,
-      0
-    ],
-    "effects": [],
-    "passive": false,
-    "hidden": "always",
-    "name": "Track Humanoids",
-    "gcd": {
-      "duration": 1500,
-      "hasted": false
-    }
-  },
-  "TRACK_UNDEAD": {
-    "id": 19884,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      2,
-      0
-    ],
-    "effects": [],
-    "passive": false,
-    "hidden": "always",
-    "name": "Track Undead",
-    "gcd": {
-      "duration": 1500,
-      "hasted": false
-    }
-  },
-  "TRAP_LAUNCHER": {
-    "id": 77769,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      16777216,
-      0,
-      0
-    ],
-    "effects": [],
-    "passive": false,
-    "name": "Trap Launcher",
-    "cooldown": {
-      "duration": 1500,
-      "hasted": false
-    }
-  },
-  "TRANQUILIZING_SHOT": {
-    "id": 19801,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      256,
-      0
-    ],
-    "effects": [],
-    "passive": false,
-    "name": "Tranquilizing Shot",
-    "gcd": {
-      "duration": 1000,
-      "hasted": false
-    }
-  },
-  "CALL_PET_1": {
-    "id": 883,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      0,
-      0
-    ],
-    "effects": [],
-    "passive": false,
-    "name": "Call Pet 1",
-    "gcd": {
-      "duration": 1500,
-      "hasted": false
-    }
-  },
-  "CALL_PET_2": {
-    "id": 83242,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      0,
-      0
-    ],
-    "effects": [],
-    "passive": false,
-    "name": "Call Pet 2",
-    "gcd": {
-      "duration": 1500,
-      "hasted": false
-    }
-  },
-  "CALL_PET_3": {
-    "id": 83243,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      0,
-      0
-    ],
-    "effects": [],
-    "passive": false,
-    "name": "Call Pet 3",
-    "gcd": {
-      "duration": 1500,
-      "hasted": false
-    }
-  },
-  "CALL_PET_4": {
-    "id": 83244,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      0,
-      0
-    ],
-    "effects": [],
-    "passive": false,
-    "name": "Call Pet 4",
-    "gcd": {
-      "duration": 1500,
-      "hasted": false
-    }
-  },
-  "CALL_PET_5": {
-    "id": 83245,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      0,
-      0
-    ],
-    "effects": [],
-    "passive": false,
-    "name": "Call Pet 5",
-    "gcd": {
-      "duration": 1500,
-      "hasted": false
-    }
-  },
-  "DISMISS_PET": {
-    "id": 2641,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "effects": [],
-    "passive": false,
-    "name": "Dismiss Pet",
-    "gcd": {
-      "duration": 1500,
-      "hasted": false
+    passive: false,
+    hidden: "always",
+    name: "Ice Trap",
+    gcd: {
+      duration: 1000,
+      hasted: true,
     },
-    "castTime": {
-      "duration": 3000
-    }
+    cooldown: {
+      duration: 24000,
+      hasted: false,
+    },
   },
-  "WIDOW_VENOM": {
-    "id": 82654,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      16777216,
-      0
-    ],
-    "effects": [],
-    "passive": false,
-    "name": "Widow Venom",
-    "gcd": {
-      "duration": 1000,
-      "hasted": false
-    }
-  },
-  "DISENGAGE": {
-    "id": 781,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      16384,
-      0,
-      0
-    ],
-    "effects": [
+  ICE_TRAP: {
+    id: 13809,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [128, 0, 268435456, 0],
+    effects: [
       {
-        "sourceSpellId": 118675,
-        "aura": 107,
-        "basePoints": -10000,
-        "misc0": 11,
-        "misc1": 0,
-        "pointModifiers": {}
-      }
+        sourceSpellId: 77769,
+        aura: 333,
+        basePoints: 82941,
+        misc0: 0,
+        misc1: 0,
+        pointModifiers: {},
+      },
+      {
+        sourceSpellId: 63458,
+        aura: 107,
+        basePoints: -6000,
+        misc0: 11,
+        misc1: 0,
+        pointModifiers: {},
+      },
     ],
-    "passive": false,
-    "name": "Disengage",
-    "cooldown": {
-      "duration": 20000,
-      "hasted": false,
-      "modifiers": [
+    passive: false,
+    name: "Ice Trap",
+    gcd: {
+      duration: 1000,
+      hasted: true,
+    },
+    cooldown: {
+      duration: 24000,
+      hasted: false,
+    },
+  },
+  SERPENT_STING: {
+    id: 1978,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [16384, 0, 0, 8192],
+    effects: [
+      {
+        sourceSpellId: 82834,
+        aura: 108,
+        basePoints: 50,
+        misc0: 22,
+        misc1: 0,
+        pointModifiers: {},
+      },
+    ],
+    passive: false,
+    name: "Serpent Sting",
+    gcd: {
+      duration: 1000,
+      hasted: false,
+    },
+  },
+  TRACK_BEASTS: {
+    id: 1494,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [0, 0, 2, 0],
+    effects: [],
+    passive: false,
+    hidden: "always",
+    name: "Track Beasts",
+    gcd: {
+      duration: 1500,
+      hasted: false,
+    },
+  },
+  TRACK_DEMONS: {
+    id: 19878,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [0, 0, 2, 0],
+    effects: [],
+    passive: false,
+    hidden: "always",
+    name: "Track Demons",
+    gcd: {
+      duration: 1500,
+      hasted: false,
+    },
+  },
+  TRACK_DRAGONKIN: {
+    id: 19879,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [0, 0, 2, 0],
+    effects: [],
+    passive: false,
+    hidden: "always",
+    name: "Track Dragonkin",
+    gcd: {
+      duration: 1500,
+      hasted: false,
+    },
+  },
+  TRACK_ELEMENTALS: {
+    id: 19880,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [0, 0, 2, 0],
+    effects: [],
+    passive: false,
+    hidden: "always",
+    name: "Track Elementals",
+    gcd: {
+      duration: 1500,
+      hasted: false,
+    },
+  },
+  TRACK_GIANTS: {
+    id: 19882,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [0, 0, 2, 0],
+    effects: [],
+    passive: false,
+    hidden: "always",
+    name: "Track Giants",
+    gcd: {
+      duration: 1500,
+      hasted: false,
+    },
+  },
+  TRACK_HIDDEN: {
+    id: 19885,
+    type: "baseline",
+    label: [23, 16],
+    effects: [],
+    passive: false,
+    hidden: "always",
+    name: "Track Hidden",
+    gcd: {
+      duration: 1500,
+      hasted: false,
+    },
+  },
+  TRACK_HUMANOIDS: {
+    id: 19883,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [0, 0, 2, 0],
+    effects: [],
+    passive: false,
+    hidden: "always",
+    name: "Track Humanoids",
+    gcd: {
+      duration: 1500,
+      hasted: false,
+    },
+  },
+  TRACK_UNDEAD: {
+    id: 19884,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [0, 0, 2, 0],
+    effects: [],
+    passive: false,
+    hidden: "always",
+    name: "Track Undead",
+    gcd: {
+      duration: 1500,
+      hasted: false,
+    },
+  },
+  TRAP_LAUNCHER: {
+    id: 77769,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [0, 16777216, 0, 0],
+    effects: [],
+    passive: false,
+    name: "Trap Launcher",
+    cooldown: {
+      duration: 1500,
+      hasted: false,
+    },
+  },
+  TRANQUILIZING_SHOT: {
+    id: 19801,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [0, 0, 256, 0],
+    effects: [],
+    passive: false,
+    name: "Tranquilizing Shot",
+    gcd: {
+      duration: 1000,
+      hasted: false,
+    },
+  },
+  CALL_PET_1: {
+    id: 883,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [0, 0, 0, 0],
+    effects: [],
+    passive: false,
+    name: "Call Pet 1",
+    gcd: {
+      duration: 1500,
+      hasted: false,
+    },
+  },
+  CALL_PET_2: {
+    id: 83242,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [0, 0, 0, 0],
+    effects: [],
+    passive: false,
+    name: "Call Pet 2",
+    gcd: {
+      duration: 1500,
+      hasted: false,
+    },
+  },
+  CALL_PET_3: {
+    id: 83243,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [0, 0, 0, 0],
+    effects: [],
+    passive: false,
+    name: "Call Pet 3",
+    gcd: {
+      duration: 1500,
+      hasted: false,
+    },
+  },
+  CALL_PET_4: {
+    id: 83244,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [0, 0, 0, 0],
+    effects: [],
+    passive: false,
+    name: "Call Pet 4",
+    gcd: {
+      duration: 1500,
+      hasted: false,
+    },
+  },
+  CALL_PET_5: {
+    id: 83245,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [0, 0, 0, 0],
+    effects: [],
+    passive: false,
+    name: "Call Pet 5",
+    gcd: {
+      duration: 1500,
+      hasted: false,
+    },
+  },
+  DISMISS_PET: {
+    id: 2641,
+    type: "baseline",
+    label: [23, 16],
+    effects: [],
+    passive: false,
+    name: "Dismiss Pet",
+    gcd: {
+      duration: 1500,
+      hasted: false,
+    },
+    castTime: {
+      duration: 3000,
+    },
+  },
+  WIDOW_VENOM: {
+    id: 82654,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [0, 0, 16777216, 0],
+    effects: [],
+    passive: false,
+    name: "Widow Venom",
+    gcd: {
+      duration: 1000,
+      hasted: false,
+    },
+  },
+  DISENGAGE: {
+    id: 781,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [0, 16384, 0, 0],
+    effects: [
+      {
+        sourceSpellId: 118675,
+        aura: 107,
+        basePoints: -10000,
+        misc0: 11,
+        misc1: 0,
+        pointModifiers: {},
+      },
+    ],
+    passive: false,
+    name: "Disengage",
+    cooldown: {
+      duration: 20000,
+      hasted: false,
+      modifiers: [
         {
-          "duration": -10000,
-          "hasted": false,
-          "requiredSpells": [
-            118675
-          ]
-        }
-      ]
-    }
-  },
-  "TRACKING": {
-    "id": 118424,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      0,
-      0
-    ],
-    "effects": [],
-    "passive": true,
-    "name": "Tracking"
-  },
-  "TRUESHOT_AURA": {
-    "id": 19506,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      2097152,
-      0,
-      0
-    ],
-    "effects": [],
-    "passive": true,
-    "name": "Trueshot Aura"
-  },
-  "CONTROL_PET_1": {
-    "id": 93321,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "effects": [],
-    "passive": true,
-    "name": "Control Pet"
-  },
-  "CONTROL_PET_2": {
-    "id": 93322,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "effects": [],
-    "passive": false,
-    "hidden": "always",
-    "name": "Control Pet"
-  },
-  "MAIL": {
-    "id": 8737,
-    "type": "baseline",
-    "effects": [],
-    "passive": true,
-    "hidden": "always",
-    "name": "Mail"
-  },
-  "STAMPEDE": {
-    "id": 121818,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      0,
-      131072
-    ],
-    "effects": [],
-    "passive": false,
-    "name": "Stampede",
-    "gcd": {
-      "duration": 1000,
-      "hasted": true
+          duration: -10000,
+          hasted: false,
+          requiredSpells: [118675],
+        },
+      ],
     },
-    "cooldown": {
-      "duration": 300000,
-      "hasted": false
-    }
   },
-  "CONCUSSIVE_SHOT": {
-    "id": 5116,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      512,
-      0,
-      0,
-      0
-    ],
-    "effects": [],
-    "passive": false,
-    "name": "Concussive Shot",
-    "gcd": {
-      "duration": 1000,
-      "hasted": false
+  TRACKING: {
+    id: 118424,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [0, 0, 0, 0],
+    effects: [],
+    passive: true,
+    name: "Tracking",
+  },
+  TRUESHOT_AURA: {
+    id: 19506,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [0, 2097152, 0, 0],
+    effects: [],
+    passive: true,
+    name: "Trueshot Aura",
+  },
+  CONTROL_PET_1: {
+    id: 93321,
+    type: "baseline",
+    label: [23, 16],
+    effects: [],
+    passive: true,
+    name: "Control Pet",
+  },
+  CONTROL_PET_2: {
+    id: 93322,
+    type: "baseline",
+    label: [23, 16],
+    effects: [],
+    passive: false,
+    hidden: "always",
+    name: "Control Pet",
+  },
+  MAIL: {
+    id: 8737,
+    type: "baseline",
+    effects: [],
+    passive: true,
+    hidden: "always",
+    name: "Mail",
+  },
+  STAMPEDE: {
+    id: 121818,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [0, 0, 0, 131072],
+    effects: [],
+    passive: false,
+    name: "Stampede",
+    gcd: {
+      duration: 1000,
+      hasted: true,
     },
-    "cooldown": {
-      "duration": 5000,
-      "hasted": false
-    }
-  },
-  "GLAIVE_TOSS_1": {
-    "id": 121414,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      0,
-      4194304
-    ],
-    "effects": [],
-    "passive": false,
-    "hidden": "always",
-    "name": "Glaive Toss"
-  },
-  "GLAIVE_TOSS_2": {
-    "id": 120761,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      0,
-      4194304
-    ],
-    "effects": [],
-    "passive": false,
-    "hidden": "always",
-    "name": "Glaive Toss"
-  },
-  "GLAIVE_TOSS_3": {
-    "id": 117050,
-    "type": "mists-talent",
-    "row": 5,
-    "column": 1,
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      0,
-      128
-    ],
-    "effects": [],
-    "passive": false,
-    "name": "Glaive Toss",
-    "gcd": {
-      "duration": 1000,
-      "hasted": false
+    cooldown: {
+      duration: 300000,
+      hasted: false,
     },
-    "cooldown": {
-      "duration": 15000,
-      "hasted": false
-    }
   },
-  "HOTFIX_PASSIVE_1": {
-    "id": 137014,
-    "type": "baseline",
-    "label": [
-      36
-    ],
-    "classMask": [
-      0,
-      0,
-      0,
-      0
-    ],
-    "effects": [],
-    "passive": true,
-    "hidden": "always",
-    "name": "Hotfix Passive"
+  CONCUSSIVE_SHOT: {
+    id: 5116,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [512, 0, 0, 0],
+    effects: [],
+    passive: false,
+    name: "Concussive Shot",
+    gcd: {
+      duration: 1000,
+      hasted: false,
+    },
+    cooldown: {
+      duration: 5000,
+      hasted: false,
+    },
   },
-  "HOTFIX_PASSIVE_2": {
-    "id": 137017,
-    "type": "baseline",
-    "classMask": [
-      0,
-      0,
-      0,
-      0
-    ],
-    "effects": [],
-    "passive": true,
-    "hidden": "always",
-    "name": "Hotfix Passive"
+  GLAIVE_TOSS_1: {
+    id: 121414,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [0, 0, 0, 4194304],
+    effects: [],
+    passive: false,
+    hidden: "always",
+    name: "Glaive Toss",
   },
-  "ANCIENT_ZANDALARI_KNOWLEDGE": {
-    "id": 138430,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      -2147483648,
-      0,
-      0,
-      0
-    ],
-    "effects": [],
-    "castableWhileCasting": true,
-    "passive": false,
-    "hidden": "always",
-    "name": "Ancient Zandalari Knowledge"
+  GLAIVE_TOSS_2: {
+    id: 120761,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [0, 0, 0, 4194304],
+    effects: [],
+    passive: false,
+    hidden: "always",
+    name: "Glaive Toss",
   },
-  "COUNTER_SHOT": {
-    "id": 147362,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      0,
-      524288
-    ],
-    "effects": [],
-    "passive": false,
-    "name": "Counter Shot",
-    "cooldown": {
-      "duration": 24000,
-      "hasted": false
-    }
+  GLAIVE_TOSS_3: {
+    id: 117050,
+    type: "mists-talent",
+    row: 5,
+    column: 1,
+    label: [23, 16],
+    classMask: [0, 0, 0, 128],
+    effects: [],
+    passive: false,
+    name: "Glaive Toss",
+    gcd: {
+      duration: 1000,
+      hasted: false,
+    },
+    cooldown: {
+      duration: 15000,
+      hasted: false,
+    },
   },
-  "SNAKE_TRAP_TRAP_LAUNCHER": {
-    "id": 82948,
-    "grantedBy": 77769,
-    "type": "temporary",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      8320,
-      0,
-      0,
-      0
-    ],
-    "effects": [
+  HOTFIX_PASSIVE_1: {
+    id: 137014,
+    type: "baseline",
+    label: [36],
+    classMask: [0, 0, 0, 0],
+    effects: [],
+    passive: true,
+    hidden: "always",
+    name: "Hotfix Passive",
+  },
+  HOTFIX_PASSIVE_2: {
+    id: 137017,
+    type: "baseline",
+    classMask: [0, 0, 0, 0],
+    effects: [],
+    passive: true,
+    hidden: "always",
+    name: "Hotfix Passive",
+  },
+  ANCIENT_ZANDALARI_KNOWLEDGE: {
+    id: 138430,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [-2147483648, 0, 0, 0],
+    effects: [],
+    castableWhileCasting: true,
+    passive: false,
+    hidden: "always",
+    name: "Ancient Zandalari Knowledge",
+  },
+  COUNTER_SHOT: {
+    id: 147362,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [0, 0, 0, 524288],
+    effects: [],
+    passive: false,
+    name: "Counter Shot",
+    cooldown: {
+      duration: 24000,
+      hasted: false,
+    },
+  },
+  SNAKE_TRAP_TRAP_LAUNCHER: {
+    id: 82948,
+    grantedBy: 77769,
+    type: "temporary",
+    label: [23, 16],
+    classMask: [8320, 0, 0, 0],
+    effects: [
       {
-        "sourceSpellId": 63458,
-        "aura": 107,
-        "basePoints": -6000,
-        "misc0": 11,
-        "misc1": 0,
-        "pointModifiers": {}
+        sourceSpellId: 63458,
+        aura: 107,
+        basePoints: -6000,
+        misc0: 11,
+        misc1: 0,
+        pointModifiers: {},
       },
       {
-        "sourceSpellId": 118976,
-        "aura": 42,
-        "basePoints": 0,
-        "misc0": 0,
-        "misc1": 0,
-        "pointModifiers": {},
-        "triggeredSpell": 118974
+        sourceSpellId: 118976,
+        aura: 42,
+        basePoints: 0,
+        misc0: 0,
+        misc1: 0,
+        pointModifiers: {},
+        triggeredSpell: 118974,
       },
       {
-        "sourceSpellId": 87935,
-        "aura": 0,
-        "basePoints": 0,
-        "misc0": 0,
-        "misc1": 0,
-        "pointModifiers": {}
-      }
+        sourceSpellId: 87935,
+        aura: 0,
+        basePoints: 0,
+        misc0: 0,
+        misc1: 0,
+        pointModifiers: {},
+      },
     ],
-    "passive": false,
-    "hidden": "always",
-    "name": "Snake Trap",
-    "gcd": {
-      "duration": 1000,
-      "hasted": true
+    passive: false,
+    hidden: "always",
+    name: "Snake Trap",
+    gcd: {
+      duration: 1000,
+      hasted: true,
     },
-    "cooldown": {
-      "duration": 24000,
-      "hasted": false
-    }
+    cooldown: {
+      duration: 24000,
+      hasted: false,
+    },
   },
-  "SNAKE_TRAP": {
-    "id": 34600,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      128,
-      0,
-      134217728,
-      0
-    ],
-    "effects": [
+  SNAKE_TRAP: {
+    id: 34600,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [128, 0, 134217728, 0],
+    effects: [
       {
-        "sourceSpellId": 77769,
-        "aura": 333,
-        "basePoints": 82948,
-        "misc0": 0,
-        "misc1": 0,
-        "pointModifiers": {}
+        sourceSpellId: 77769,
+        aura: 333,
+        basePoints: 82948,
+        misc0: 0,
+        misc1: 0,
+        pointModifiers: {},
       },
       {
-        "sourceSpellId": 63458,
-        "aura": 107,
-        "basePoints": -6000,
-        "misc0": 11,
-        "misc1": 0,
-        "pointModifiers": {}
-      }
+        sourceSpellId: 63458,
+        aura: 107,
+        basePoints: -6000,
+        misc0: 11,
+        misc1: 0,
+        pointModifiers: {},
+      },
     ],
-    "passive": false,
-    "name": "Snake Trap",
-    "gcd": {
-      "duration": 1000,
-      "hasted": true
+    passive: false,
+    name: "Snake Trap",
+    gcd: {
+      duration: 1000,
+      hasted: true,
     },
-    "cooldown": {
-      "duration": 24000,
-      "hasted": false
-    }
+    cooldown: {
+      duration: 24000,
+      hasted: false,
+    },
   },
-  "BLACK_ARROW": {
-    "id": 3674,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      128,
-      134217728,
-      0,
-      0
-    ],
-    "effects": [
+  BLACK_ARROW: {
+    id: 3674,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [128, 134217728, 0, 0],
+    effects: [
       {
-        "sourceSpellId": 63458,
-        "aura": 107,
-        "basePoints": -6000,
-        "misc0": 11,
-        "misc1": 0,
-        "pointModifiers": {}
+        sourceSpellId: 63458,
+        aura: 107,
+        basePoints: -6000,
+        misc0: 11,
+        misc1: 0,
+        pointModifiers: {},
       },
       {
-        "sourceSpellId": 63458,
-        "aura": 108,
-        "basePoints": 30,
-        "misc0": 22,
-        "misc1": 0,
-        "pointModifiers": {}
-      }
+        sourceSpellId: 63458,
+        aura: 108,
+        basePoints: 30,
+        misc0: 22,
+        misc1: 0,
+        pointModifiers: {},
+      },
     ],
-    "passive": false,
-    "name": "Black Arrow",
-    "gcd": {
-      "duration": 1000,
-      "hasted": false
+    passive: false,
+    name: "Black Arrow",
+    gcd: {
+      duration: 1000,
+      hasted: false,
     },
-    "cooldown": {
-      "duration": 24000,
-      "hasted": false
-    }
+    cooldown: {
+      duration: 24000,
+      hasted: false,
+    },
   },
-  "ENTRAPMENT": {
-    "id": 19387,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      0,
-      0
-    ],
-    "effects": [],
-    "passive": true,
-    "name": "Entrapment"
+  ENTRAPMENT: {
+    id: 19387,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [0, 0, 0, 0],
+    effects: [],
+    passive: true,
+    name: "Entrapment",
   },
-  "EXPLOSIVE_SHOT": {
-    "id": 53301,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      -2147483648,
-      0,
-      0
-    ],
-    "effects": [
+  EXPLOSIVE_SHOT: {
+    id: 53301,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [0, -2147483648, 0, 0],
+    effects: [
       {
-        "sourceSpellId": 137014,
-        "aura": 108,
-        "basePoints": 10,
-        "misc0": 0,
-        "misc1": 0,
-        "pointModifiers": {}
+        sourceSpellId: 137014,
+        aura: 108,
+        basePoints: 10,
+        misc0: 0,
+        misc1: 0,
+        pointModifiers: {},
       },
       {
-        "sourceSpellId": 137014,
-        "aura": 108,
-        "basePoints": 10,
-        "misc0": 22,
-        "misc1": 0,
-        "pointModifiers": {}
+        sourceSpellId: 137014,
+        aura: 108,
+        basePoints: 10,
+        misc0: 22,
+        misc1: 0,
+        pointModifiers: {},
       },
       {
-        "sourceSpellId": 137017,
-        "aura": 108,
-        "basePoints": -5,
-        "misc0": 22,
-        "misc1": 0,
-        "pointModifiers": []
+        sourceSpellId: 137017,
+        aura: 108,
+        basePoints: -5,
+        misc0: 22,
+        misc1: 0,
+        pointModifiers: [],
       },
       {
-        "sourceSpellId": 137017,
-        "aura": 108,
-        "basePoints": -5,
-        "misc0": 0,
-        "misc1": 0,
-        "pointModifiers": []
-      }
+        sourceSpellId: 137017,
+        aura: 108,
+        basePoints: -5,
+        misc0: 0,
+        misc1: 0,
+        pointModifiers: [],
+      },
     ],
-    "passive": false,
-    "name": "Explosive Shot",
-    "gcd": {
-      "duration": 1000,
-      "hasted": false
+    passive: false,
+    name: "Explosive Shot",
+    gcd: {
+      duration: 1000,
+      hasted: false,
     },
-    "cooldown": {
-      "duration": 6000,
-      "hasted": false
-    }
+    cooldown: {
+      duration: 6000,
+      hasted: false,
+    },
   },
-  "LOCK_AND_LOAD": {
-    "id": 56343,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      0,
-      256
-    ],
-    "effects": [],
-    "passive": true,
-    "name": "Lock and Load"
+  LOCK_AND_LOAD: {
+    id: 56343,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [0, 0, 0, 256],
+    effects: [],
+    passive: true,
+    name: "Lock and Load",
   },
-  "TRAP_MASTERY": {
-    "id": 63458,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      0,
-      0
-    ],
-    "effects": [],
-    "passive": true,
-    "name": "Trap Mastery"
+  TRAP_MASTERY: {
+    id: 63458,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [0, 0, 0, 0],
+    effects: [],
+    passive: true,
+    name: "Trap Mastery",
   },
-  "COBRA_SHOT": {
-    "id": 77767,
-    "type": "baseline",
-    "overrides": 56641,
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      4194304,
-      0
-    ],
-    "effects": [
+  COBRA_SHOT: {
+    id: 77767,
+    type: "baseline",
+    overrides: 56641,
+    label: [23, 16],
+    classMask: [0, 0, 4194304, 0],
+    effects: [
       {
-        "sourceSpellId": 87324,
-        "aura": 108,
-        "basePoints": 70,
-        "misc0": 9,
-        "misc1": 0,
-        "pointModifiers": {}
-      }
+        sourceSpellId: 87324,
+        aura: 108,
+        basePoints: 70,
+        misc0: 9,
+        misc1: 0,
+        pointModifiers: {},
+      },
     ],
-    "passive": false,
-    "name": "Cobra Shot",
-    "gcd": {
-      "duration": 1000,
-      "hasted": false
+    passive: false,
+    name: "Cobra Shot",
+    gcd: {
+      duration: 1000,
+      hasted: false,
     },
-    "castTime": {
-      "duration": 2000
-    }
-  },
-  "VIPER_VENOM": {
-    "id": 118976,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      0,
-      0
-    ],
-    "effects": [],
-    "passive": true,
-    "name": "Viper Venom"
-  },
-  "MASTERY_ESSENCE_OF_THE_VIPER": {
-    "id": 76658,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      0,
-      0
-    ],
-    "effects": [],
-    "passive": true,
-    "name": "Mastery: Essence of the Viper"
-  },
-  "SERPENT_SPREAD": {
-    "id": 87935,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      0,
-      0
-    ],
-    "effects": [],
-    "passive": true,
-    "name": "Serpent Spread"
-  },
-  "IMPROVED_SERPENT_STING": {
-    "id": 82834,
-    "type": "baseline",
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      0,
-      0
-    ],
-    "effects": [],
-    "passive": true,
-    "name": "Improved Serpent Sting"
-  },
-  "BINDING_SHOT": {
-    "id": 109248,
-    "type": "mists-talent",
-    "row": 1,
-    "column": 1,
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      0,
-      64
-    ],
-    "effects": [],
-    "passive": false,
-    "name": "Binding Shot",
-    "cooldown": {
-      "duration": 45000,
-      "hasted": false
-    }
-  },
-  "WYVERN_STING": {
-    "id": 19386,
-    "type": "mists-talent",
-    "row": 1,
-    "column": 2,
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      4096,
-      0,
-      0
-    ],
-    "effects": [],
-    "passive": false,
-    "hidden": "unless-learned",
-    "name": "Wyvern Sting",
-    "gcd": {
-      "duration": 1000,
-      "hasted": false
+    castTime: {
+      duration: 2000,
     },
-    "cooldown": {
-      "duration": 45000,
-      "hasted": false
-    }
   },
-  "BARRAGE": {
-    "id": 120360,
-    "type": "mists-talent",
-    "row": 5,
-    "column": 3,
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      0,
-      4
-    ],
-    "effects": [],
-    "passive": false,
-    "name": "Barrage",
-    "gcd": {
-      "duration": 1000,
-      "hasted": true
+  VIPER_VENOM: {
+    id: 118976,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [0, 0, 0, 0],
+    effects: [],
+    passive: true,
+    name: "Viper Venom",
+  },
+  MASTERY_ESSENCE_OF_THE_VIPER: {
+    id: 76658,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [0, 0, 0, 0],
+    effects: [],
+    passive: true,
+    name: "Mastery: Essence of the Viper",
+  },
+  SERPENT_SPREAD: {
+    id: 87935,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [0, 0, 0, 0],
+    effects: [],
+    passive: true,
+    name: "Serpent Spread",
+  },
+  IMPROVED_SERPENT_STING: {
+    id: 82834,
+    type: "baseline",
+    label: [23, 16],
+    classMask: [0, 0, 0, 0],
+    effects: [],
+    passive: true,
+    name: "Improved Serpent Sting",
+  },
+  BINDING_SHOT: {
+    id: 109248,
+    type: "mists-talent",
+    row: 1,
+    column: 1,
+    label: [23, 16],
+    classMask: [0, 0, 0, 64],
+    effects: [],
+    passive: false,
+    name: "Binding Shot",
+    cooldown: {
+      duration: 45000,
+      hasted: false,
     },
-    "cooldown": {
-      "duration": 30000,
-      "hasted": false
+  },
+  WYVERN_STING: {
+    id: 19386,
+    type: "mists-talent",
+    row: 1,
+    column: 2,
+    label: [23, 16],
+    classMask: [0, 4096, 0, 0],
+    effects: [],
+    passive: false,
+    hidden: "unless-learned",
+    name: "Wyvern Sting",
+    gcd: {
+      duration: 1000,
+      hasted: false,
     },
-    "channel": {
-      "duration": 3000,
-      "hasted": true,
-      "buffIsLogged": true,
-      "triggeredSpells": [
+    cooldown: {
+      duration: 45000,
+      hasted: false,
+    },
+  },
+  BARRAGE: {
+    id: 120360,
+    type: "mists-talent",
+    row: 5,
+    column: 3,
+    label: [23, 16],
+    classMask: [0, 0, 0, 4],
+    effects: [],
+    passive: false,
+    name: "Barrage",
+    gcd: {
+      duration: 1000,
+      hasted: true,
+    },
+    cooldown: {
+      duration: 30000,
+      hasted: false,
+    },
+    channel: {
+      duration: 3000,
+      hasted: true,
+      buffIsLogged: true,
+      triggeredSpells: [
         {
-          "spell": 120361,
-          "period": 200,
-          "hasted": false
-        }
-      ]
-    }
-  },
-  "EXHILARATION": {
-    "id": 109304,
-    "type": "mists-talent",
-    "row": 2,
-    "column": 1,
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      0,
-      2048
-    ],
-    "effects": [],
-    "passive": false,
-    "name": "Exhilaration",
-    "cooldown": {
-      "duration": 120000,
-      "hasted": false
-    }
-  },
-  "SPIRIT_BOND": {
-    "id": 109212,
-    "type": "mists-talent",
-    "row": 2,
-    "column": 3,
-    "label": [
-      23,
-      16
-    ],
-    "effects": [],
-    "passive": true,
-    "name": "Spirit Bond"
-  },
-  "FERVOR": {
-    "id": 82726,
-    "type": "mists-talent",
-    "row": 3,
-    "column": 1,
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      0,
-      4096
-    ],
-    "effects": [],
-    "passive": false,
-    "name": "Fervor",
-    "cooldown": {
-      "duration": 30000,
-      "hasted": false
-    }
-  },
-  "DIRE_BEAST": {
-    "id": 120679,
-    "type": "mists-talent",
-    "row": 3,
-    "column": 2,
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      0,
-      16
-    ],
-    "effects": [],
-    "passive": false,
-    "name": "Dire Beast",
-    "gcd": {
-      "duration": 1000,
-      "hasted": true
+          spell: 120361,
+          period: 200,
+          hasted: false,
+        },
+      ],
     },
-    "cooldown": {
-      "duration": 30000,
-      "hasted": false
-    }
   },
-  "POSTHASTE": {
-    "id": 109215,
-    "type": "mists-talent",
-    "row": 0,
-    "column": 1,
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      0,
-      0
-    ],
-    "effects": [],
-    "passive": true,
-    "name": "Posthaste"
+  EXHILARATION: {
+    id: 109304,
+    type: "mists-talent",
+    row: 2,
+    column: 1,
+    label: [23, 16],
+    classMask: [0, 0, 0, 2048],
+    effects: [],
+    passive: false,
+    name: "Exhilaration",
+    cooldown: {
+      duration: 120000,
+      hasted: false,
+    },
   },
-  "ASPECT_OF_THE_IRON_HAWK": {
-    "id": 109260,
-    "overrides": 13165,
-    "type": "mists-talent",
-    "row": 2,
-    "column": 2,
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      1048576,
-      0,
-      0,
-      0
-    ],
-    "effects": [
+  SPIRIT_BOND: {
+    id: 109212,
+    type: "mists-talent",
+    row: 2,
+    column: 3,
+    label: [23, 16],
+    effects: [],
+    passive: true,
+    name: "Spirit Bond",
+  },
+  FERVOR: {
+    id: 82726,
+    type: "mists-talent",
+    row: 3,
+    column: 1,
+    label: [23, 16],
+    classMask: [0, 0, 0, 4096],
+    effects: [],
+    passive: false,
+    name: "Fervor",
+    cooldown: {
+      duration: 30000,
+      hasted: false,
+    },
+  },
+  DIRE_BEAST: {
+    id: 120679,
+    type: "mists-talent",
+    row: 3,
+    column: 2,
+    label: [23, 16],
+    classMask: [0, 0, 0, 16],
+    effects: [],
+    passive: false,
+    name: "Dire Beast",
+    gcd: {
+      duration: 1000,
+      hasted: true,
+    },
+    cooldown: {
+      duration: 30000,
+      hasted: false,
+    },
+  },
+  POSTHASTE: {
+    id: 109215,
+    type: "mists-talent",
+    row: 0,
+    column: 1,
+    label: [23, 16],
+    classMask: [0, 0, 0, 0],
+    effects: [],
+    passive: true,
+    name: "Posthaste",
+  },
+  ASPECT_OF_THE_IRON_HAWK: {
+    id: 109260,
+    overrides: 13165,
+    type: "mists-talent",
+    row: 2,
+    column: 2,
+    label: [23, 16],
+    classMask: [1048576, 0, 0, 0],
+    effects: [
       {
-        "sourceSpellId": 137014,
-        "aura": 107,
-        "basePoints": 10,
-        "misc0": 3,
-        "misc1": 0,
-        "pointModifiers": {}
-      }
+        sourceSpellId: 137014,
+        aura: 107,
+        basePoints: 10,
+        misc0: 3,
+        misc1: 0,
+        pointModifiers: {},
+      },
     ],
-    "passive": false,
-    "name": "Aspect of the Iron Hawk",
-    "cooldown": {
-      "duration": 1000,
-      "hasted": false
-    }
-  },
-  "POWERSHOT": {
-    "id": 109259,
-    "type": "mists-talent",
-    "row": 5,
-    "column": 2,
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      0,
-      1
-    ],
-    "effects": [],
-    "passive": false,
-    "name": "Powershot",
-    "gcd": {
-      "duration": 1000,
-      "hasted": false
+    passive: false,
+    name: "Aspect of the Iron Hawk",
+    cooldown: {
+      duration: 1000,
+      hasted: false,
     },
-    "cooldown": {
-      "duration": 45000,
-      "hasted": false
+  },
+  POWERSHOT: {
+    id: 109259,
+    type: "mists-talent",
+    row: 5,
+    column: 2,
+    label: [23, 16],
+    classMask: [0, 0, 0, 1],
+    effects: [],
+    passive: false,
+    name: "Powershot",
+    gcd: {
+      duration: 1000,
+      hasted: false,
     },
-    "castTime": {
-      "duration": 2250
-    }
-  },
-  "INTIMIDATION": {
-    "id": 19577,
-    "type": "mists-talent",
-    "row": 1,
-    "column": 3,
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      8,
-      0
-    ],
-    "effects": [],
-    "passive": false,
-    "hidden": "unless-learned",
-    "name": "Intimidation",
-    "gcd": {
-      "duration": 1500,
-      "hasted": false
+    cooldown: {
+      duration: 45000,
+      hasted: false,
     },
-    "cooldown": {
-      "duration": 60000,
-      "hasted": false
-    }
-  },
-  "A_MURDER_OF_CROWS": {
-    "id": 131894,
-    "type": "mists-talent",
-    "row": 4,
-    "column": 1,
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      0,
-      8
-    ],
-    "effects": [],
-    "passive": false,
-    "name": "A Murder of Crows",
-    "gcd": {
-      "duration": 1000,
-      "hasted": true
+    castTime: {
+      duration: 2250,
     },
-    "cooldown": {
-      "duration": 120000,
-      "hasted": false
-    }
   },
-  "BLINK_STRIKES": {
-    "id": 130392,
-    "type": "mists-talent",
-    "row": 4,
-    "column": 2,
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      0,
-      16384
-    ],
-    "effects": [],
-    "passive": true,
-    "name": "Blink Strikes"
-  },
-  "LYNX_RUSH": {
-    "id": 120697,
-    "type": "mists-talent",
-    "row": 4,
-    "column": 3,
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      0,
-      32
-    ],
-    "effects": [],
-    "passive": false,
-    "name": "Lynx Rush",
-    "gcd": {
-      "duration": 1000,
-      "hasted": false
+  INTIMIDATION: {
+    id: 19577,
+    type: "mists-talent",
+    row: 1,
+    column: 3,
+    label: [23, 16],
+    classMask: [0, 0, 8, 0],
+    effects: [],
+    passive: false,
+    hidden: "unless-learned",
+    name: "Intimidation",
+    gcd: {
+      duration: 1500,
+      hasted: false,
     },
-    "cooldown": {
-      "duration": 90000,
-      "hasted": false
-    }
+    cooldown: {
+      duration: 60000,
+      hasted: false,
+    },
   },
-  "NARROW_ESCAPE": {
-    "id": 109298,
-    "type": "mists-talent",
-    "row": 0,
-    "column": 2,
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      0,
-      0
-    ],
-    "effects": [],
-    "passive": true,
-    "name": "Narrow Escape"
+  A_MURDER_OF_CROWS: {
+    id: 131894,
+    type: "mists-talent",
+    row: 4,
+    column: 1,
+    label: [23, 16],
+    classMask: [0, 0, 0, 8],
+    effects: [],
+    passive: false,
+    name: "A Murder of Crows",
+    gcd: {
+      duration: 1000,
+      hasted: true,
+    },
+    cooldown: {
+      duration: 120000,
+      hasted: false,
+    },
   },
-  "CROUCHING_TIGER_HIDDEN_CHIMERA": {
-    "id": 118675,
-    "type": "mists-talent",
-    "row": 0,
-    "column": 3,
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      0,
-      0
-    ],
-    "effects": [],
-    "passive": true,
-    "name": "Crouching Tiger, Hidden Chimera"
+  BLINK_STRIKES: {
+    id: 130392,
+    type: "mists-talent",
+    row: 4,
+    column: 2,
+    label: [23, 16],
+    classMask: [0, 0, 0, 16384],
+    effects: [],
+    passive: true,
+    name: "Blink Strikes",
   },
-  "THRILL_OF_THE_HUNT": {
-    "id": 109306,
-    "type": "mists-talent",
-    "row": 3,
-    "column": 3,
-    "label": [
-      23,
-      16
-    ],
-    "classMask": [
-      0,
-      0,
-      0,
-      0
-    ],
-    "effects": [],
-    "passive": true,
-    "name": "Thrill of the Hunt"
-  }
+  LYNX_RUSH: {
+    id: 120697,
+    type: "mists-talent",
+    row: 4,
+    column: 3,
+    label: [23, 16],
+    classMask: [0, 0, 0, 32],
+    effects: [],
+    passive: false,
+    name: "Lynx Rush",
+    gcd: {
+      duration: 1000,
+      hasted: false,
+    },
+    cooldown: {
+      duration: 90000,
+      hasted: false,
+    },
+  },
+  NARROW_ESCAPE: {
+    id: 109298,
+    type: "mists-talent",
+    row: 0,
+    column: 2,
+    label: [23, 16],
+    classMask: [0, 0, 0, 0],
+    effects: [],
+    passive: true,
+    name: "Narrow Escape",
+  },
+  CROUCHING_TIGER_HIDDEN_CHIMERA: {
+    id: 118675,
+    type: "mists-talent",
+    row: 0,
+    column: 3,
+    label: [23, 16],
+    classMask: [0, 0, 0, 0],
+    effects: [],
+    passive: true,
+    name: "Crouching Tiger, Hidden Chimera",
+  },
+  THRILL_OF_THE_HUNT: {
+    id: 109306,
+    type: "mists-talent",
+    row: 3,
+    column: 3,
+    label: [23, 16],
+    classMask: [0, 0, 0, 0],
+    effects: [],
+    passive: true,
+    name: "Thrill of the Hunt",
+  },
 } as const;
-      export default SPELLS;
-    
+export default SPELLS;
