@@ -1,7 +1,5 @@
 import { change, date } from 'common/changelog';
-import SPELLS from 'common/SPELLS/classic';
 import { emallson } from 'CONTRIBUTORS';
-import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [

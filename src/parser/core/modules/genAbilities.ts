@@ -9,7 +9,7 @@ export interface GenAbilityConfig {
   rotational: RetailSpell[];
   cooldowns: RetailSpell[];
   defensives: RetailSpell[];
-  overrides?: { [id: number]: (combatant: Combatant) => SpellbookAbility };
+  overrides?: Record<number, (combatant: Combatant) => SpellbookAbility>;
 }
 
 export default function genAbilities(config: GenAbilityConfig): typeof Abilities {

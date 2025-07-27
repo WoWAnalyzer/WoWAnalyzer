@@ -4,9 +4,7 @@ import Events from 'parser/core/Events';
 import spells from '../../spell-list_DeathKnight_Blood.classic';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import SpellLink from 'interface/SpellLink';
-import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import BoringValue from 'parser/ui/BoringValueText';
 
 const WOTN_BUFF_ID = 96171;

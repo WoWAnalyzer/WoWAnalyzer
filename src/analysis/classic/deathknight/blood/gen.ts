@@ -21,5 +21,10 @@ export const Abilities = genAbilities({
     spells.RUNE_TAP,
     spells.DEATH_PACT,
   ],
-  cooldowns: [spells.DANCING_RUNE_WEAPON, spells.EMPOWER_RUNE_WEAPON, spells.ARMY_OF_THE_DEAD],
+  // the as unknown as RetailSpell is a hack around `readonly`-ness. TODO find a better solution
+  cooldowns: [
+    spells.DANCING_RUNE_WEAPON,
+    spells.EMPOWER_RUNE_WEAPON,
+    spells.ARMY_OF_THE_DEAD as unknown as RetailSpell,
+  ],
 });
