@@ -3,6 +3,7 @@ import * as path from 'node:path';
 import * as gamedata from 'wow-dbc';
 import type { Dbc } from 'wow-dbc/dist/src/dbc';
 import * as prettier from 'prettier';
+import prettierConfig from '../../.prettierrc.json' with { type: 'json' };
 
 const GAME_VERSIONS = {
   classic: '5.5.0.62232',
@@ -60,7 +61,13 @@ for (const fileName of process.argv.slice(2)) {
       export default SPELLS;
     `;
 
-    await fs.writeFile(targetPath, await prettier.format(output, { parser: 'typescript' }));
+    await fs.writeFile(
+      targetPath,
+      await prettier.format(output, {
+        ...prettierConfig,
+        parser: 'typescript',
+      } as prettier.Options),
+    );
 
     console.log(`wrote spell data to ${targetPath}`);
   }
