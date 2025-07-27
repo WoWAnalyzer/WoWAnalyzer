@@ -8,7 +8,7 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Buffs from './modules/features/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import DotUptimes from './modules/features/DotUptimes';
-import { GenAbilities } from './gen';
+import { Abilities } from './gen';
 
 // Spells
 import SerpentSting from './modules/spells/SerpentSting';
@@ -24,7 +24,7 @@ class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
     haste: Haste,
     // Features
-    abilities: GenAbilities,
+    abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
     buffs: Buffs,
     cancelledCasts: CancelledCasts,
