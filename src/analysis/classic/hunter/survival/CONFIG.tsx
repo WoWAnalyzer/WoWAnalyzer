@@ -10,10 +10,11 @@ const config: Config = {
   contributors: [emallson],
   branch: GameBranch.Classic,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '4.4.0',
-  supportLevel: SupportLevel.Unmaintained,
+  patchCompatibility: '5.5.0',
+  supportLevel: SupportLevel.Foundation,
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/ADPqJfVCdQ7wxXH2/27-Heroic+Chimaeron+-+Kill+(3:25)/Marsey/standard',
+  exampleReport:
+    '/report/kZhQ1RLMXWYDvJAa/12-Normal+Elegon+-+Kill+(6:43)/Chìmalé/standard/overview',
 
   timeline: { separateCastBars: [[]] },
 

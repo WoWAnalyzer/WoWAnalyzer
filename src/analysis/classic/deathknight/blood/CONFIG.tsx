@@ -10,11 +10,12 @@ const config: Config = {
   contributors: [emallson],
   branch: GameBranch.Classic,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '4.4.0',
+  patchCompatibility: '5.5.0',
   // Update to false when the spec is mostly complete (and safe to use)
-  supportLevel: SupportLevel.Unmaintained,
+  supportLevel: SupportLevel.Foundation,
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/whg9yZrGNjzDWLX7/30-Heroic+Magmaw+-+Kill+(3:59)/Nezter/standard/overview',
+  exampleReport:
+    '/report/L1rtQ7YHmZKcMy9a/4-Heroic+The+Stone+Guard+-+Kill+(4:19)/Bdk/standard/overview',
   // Add spells to display separately on the timeline
   timeline: {
     separateCastBars: [[]],
